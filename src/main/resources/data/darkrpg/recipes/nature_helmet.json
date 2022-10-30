@@ -1,0 +1,17 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "///",
+        "/ /",
+        "   "
+    ],
+    "key": {
+        "/": {
+            "item": "darkrpg:nature_ingot"
+        }
+    },
+    "result": {
+        "item": "darkrpg:nature_helmet",
+        "count": 1
+    }
+}
