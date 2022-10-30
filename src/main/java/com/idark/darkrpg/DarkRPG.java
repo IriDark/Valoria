@@ -39,34 +39,34 @@ public class DarkRPG {
     public static final String MOD_ID = "darkrpg";
     
     public DarkRPG() {
-		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
+	FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
 		
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
         ModItems.register(eventBus);
-		ModBlocks.register(eventBus);
+	ModBlocks.register(eventBus);
         ModEntityTypes.register(eventBus);
 		
-		MinecraftForge.EVENT_BUS.register(this);
-	}
-	 private void doClientStuff(final FMLClientSetupEvent event) {
+	MinecraftForge.EVENT_BUS.register(this);
+    }
+    private void doClientStuff(final FMLClientSetupEvent event) {
         event.enqueueWork(() -> {
 	    RenderTypeLookup.setRenderLayer(ModBlocks.CATTAIL.get(), RenderType.getCutout());		
-		RenderTypeLookup.setRenderLayer(ModBlocks.ELEMENTAL_MANIPULATOR.get(), RenderType.getCutout());
-  });
-     RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.SWAMP_WANDERER.get(), SwampWandererRenderer::new);
-	 RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.MANNEQUIN.get(), MannequinRenderer::new);
+	    RenderTypeLookup.setRenderLayer(ModBlocks.ELEMENTAL_MANIPULATOR.get(), RenderType.getCutout());
+        });
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.SWAMP_WANDERER.get(), SwampWandererRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.MANNEQUIN.get(), MannequinRenderer::new);
 	 
-     ModItemModelProperties.makeBow(ModItems.NATURE_BOW.get());
-}
-private void setup(final FMLCommonSetupEvent event) {
-	    DeferredWorkQueue.runLater(() -> {
+        ModItemModelProperties.makeBow(ModItems.NATURE_BOW.get());
+    }
+    private void setup(final FMLCommonSetupEvent event) {
+	DeferredWorkQueue.runLater(() -> {
             GlobalEntityTypeAttributes.put(ModEntityTypes.SWAMP_WANDERER.get(), SwampWandererEntity.setCustomAttributes().create());
-			GlobalEntityTypeAttributes.put(ModEntityTypes.MANNEQUIN.get(), MannequinEntity.setCustomAttributes().create());
-  });
-}
+	    GlobalEntityTypeAttributes.put(ModEntityTypes.MANNEQUIN.get(), MannequinEntity.setCustomAttributes().create());
+        });
+    }
     private void onInterModEnqueue(final InterModEnqueueEvent event) { 
-	    InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE,
+	InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE,
                 () -> SlotTypePreset.RING.getMessageBuilder().size(2).build());
         InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE,
                 () -> SlotTypePreset.BELT.getMessageBuilder().build());
@@ -76,8 +76,8 @@ private void setup(final FMLCommonSetupEvent event) {
                 () -> SlotTypePreset.NECKLACE.getMessageBuilder().build());
         InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE,
                 () -> SlotTypePreset.HEAD.getMessageBuilder().build());
-	}
-				private void processIMC(final InterModProcessEvent event) {
-					// some example code to receive and process InterModComms from other mods
-                }
+    }
+    private void processIMC(final InterModProcessEvent event) {
+	// some example code to receive and process InterModComms from other mods
+    }
 }
