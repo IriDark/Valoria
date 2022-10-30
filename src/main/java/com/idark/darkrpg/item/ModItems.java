@@ -33,7 +33,7 @@ public class ModItems {
 	public static final RegistryObject<Item> CHARGED_VOID_PILLAR = ITEMS.register("charged_void_pillar", () -> new BlockItem(ModBlocks.CHARGED_VOID_PILLAR.get(), new Item.Properties().group(ModItemGroup.DARKRPG_BLOCKS_GROUP)));
     //other
     public static final RegistryObject<Item> ELEMENTAL_MANIPULATOR = ITEMS.register("elemental_manipulator", () -> new BlockItem(ModBlocks.ELEMENTAL_MANIPULATOR.get(), new Item.Properties().group(ModItemGroup.DARKRPG_BLOCKS_GROUP)));
-	//plants
+    //plants
 	public static final RegistryObject<Item> CATTAIL = ITEMS.register("cattail", () -> new BlockItem(ModBlocks.CATTAIL.get(), new Item.Properties().group(ModItemGroup.DARKRPG_BLOCKS_GROUP)));
     //ARMOR
     //awakened void
@@ -46,21 +46,21 @@ public class ModItems {
 	public static final RegistryObject<Item> NATURE_CHESTPLATE = ITEMS.register("nature_chestplate", () -> new ArmorItem(ModArmorMaterial.NATURE, EquipmentSlotType.CHEST, (new Item.Properties().group(ModItemGroup.DARKRPG_ARMOR_GROUP))));
 	public static final RegistryObject<Item> NATURE_LEGGINGS = ITEMS.register("nature_leggings", () -> new ArmorItem(ModArmorMaterial.NATURE, EquipmentSlotType.LEGS, (new Item.Properties().group(ModItemGroup.DARKRPG_ARMOR_GROUP))));
 	public static final RegistryObject<Item> NATURE_BOOTS = ITEMS.register("nature_boots", () -> new ArmorItem(ModArmorMaterial.NATURE, EquipmentSlotType.FEET, (new Item.Properties().group(ModItemGroup.DARKRPG_ARMOR_GROUP))));		
-	//infernal
+    //infernal
     public static final RegistryObject<Item> INFERNAL_HELMET = ITEMS.register("infernal_helmet", () -> new ArmorItem(ModArmorMaterial.INFERNAL, EquipmentSlotType.HEAD, (new Item.Properties().group(ModItemGroup.DARKRPG_ARMOR_GROUP))));
 	public static final RegistryObject<Item> INFERNAL_CHESTPLATE = ITEMS.register("infernal_chestplate", () -> new ArmorItem(ModArmorMaterial.INFERNAL, EquipmentSlotType.CHEST, (new Item.Properties().group(ModItemGroup.DARKRPG_ARMOR_GROUP))));
 	public static final RegistryObject<Item> INFERNAL_LEGGINGS = ITEMS.register("infernal_leggings", () -> new ArmorItem(ModArmorMaterial.INFERNAL, EquipmentSlotType.LEGS, (new Item.Properties().group(ModItemGroup.DARKRPG_ARMOR_GROUP))));
 	public static final RegistryObject<Item> INFERNAL_BOOTS = ITEMS.register("infernal_boots", () -> new ArmorItem(ModArmorMaterial.INFERNAL, EquipmentSlotType.FEET, (new Item.Properties().group(ModItemGroup.DARKRPG_ARMOR_GROUP))));	
-	//ITEMS
-	//ingots
+    //ITEMS
+    //ingots
     public static final RegistryObject<Item> VOID_INGOT = ITEMS.register("void_ingot",
 	() -> new Item(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
 	public static final RegistryObject<Item> NATURE_INGOT = ITEMS.register("nature_ingot",
 	() -> new Item(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
 	public static final RegistryObject<Item> INFERNAL_INGOT = ITEMS.register("infernal_ingot",
 	() -> new Item(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
-	//TOOLS
-	//nature
+     //TOOLS
+     //nature
 	public static final RegistryObject<Item> ENT = ITEMS.register("ent",
             () -> new SwordItem(ModItemTier.NATURE, 3, -2f,
                     new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
@@ -79,7 +79,7 @@ public class ModItems {
 	public static final RegistryObject<Item> NATURE_HOE = ITEMS.register("nature_hoe",
 	() -> new HoeItem(ModItemTier.NATURE, -2, 0f,
 	new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
-	//infernal
+    //infernal
     public static final RegistryObject<Item> INFERNAL_SWORD = ITEMS.register("infernal_sword",
             () -> new SwordItem(ModItemTier.INFERNAL, 2, -2f,
                     new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));	
