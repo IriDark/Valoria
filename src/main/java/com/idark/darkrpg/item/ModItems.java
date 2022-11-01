@@ -31,8 +31,13 @@ public class ModItems {
 	public static final RegistryObject<Item> VOID_SMOOTH_BLOCK = ITEMS.register("void_smooth_block", () -> new BlockItem(ModBlocks.VOID_SMOOTH_BLOCK.get(), new Item.Properties().group(ModItemGroup.DARKRPG_BLOCKS_GROUP)));
 	public static final RegistryObject<Item> VOID_PILLAR = ITEMS.register("void_pillar", () -> new BlockItem(ModBlocks.VOID_PILLAR.get(), new Item.Properties().group(ModItemGroup.DARKRPG_BLOCKS_GROUP)));
 	public static final RegistryObject<Item> CHARGED_VOID_PILLAR = ITEMS.register("charged_void_pillar", () -> new BlockItem(ModBlocks.CHARGED_VOID_PILLAR.get(), new Item.Properties().group(ModItemGroup.DARKRPG_BLOCKS_GROUP)));
-       //other
+        //other
         public static final RegistryObject<Item> ELEMENTAL_MANIPULATOR = ITEMS.register("elemental_manipulator", () -> new BlockItem(ModBlocks.ELEMENTAL_MANIPULATOR.get(), new Item.Properties().group(ModItemGroup.DARKRPG_BLOCKS_GROUP)));
+        public static final RegistryObject<Item> PEDESTAL = ITEMS.register("pedestal", () -> new BlockItem(ModBlocks.PEDESTAL.get(), new Item.Properties().group(ModItemGroup.DARKRPG_BLOCKS_GROUP)));
+	public static final RegistryObject<Item> VASE_SMALL = ITEMS.register("vase_small", () -> new BlockItem(ModBlocks.VASE_SMALL.get(), new Item.Properties().group(ModItemGroup.DARKRPG_BLOCKS_GROUP)));
+  	public static final RegistryObject<Item> VASE_SMALL_1 = ITEMS.register("vase_small_1", () -> new BlockItem(ModBlocks.VASE_SMALL_1.get(), new Item.Properties().group(ModItemGroup.DARKRPG_BLOCKS_GROUP)));
+  	public static final RegistryObject<Item> VASE_BIG = ITEMS.register("vase_big", () -> new BlockItem(ModBlocks.VASE_BIG.get(), new Item.Properties().group(ModItemGroup.DARKRPG_BLOCKS_GROUP)));
+ 	public static final RegistryObject<Item> VASE_BIG_1 = ITEMS.register("vase_big_1", () -> new BlockItem(ModBlocks.VASE_BIG_1.get(), new Item.Properties().group(ModItemGroup.DARKRPG_BLOCKS_GROUP)));
 	//plants
 	public static final RegistryObject<Item> CATTAIL = ITEMS.register("cattail", () -> new BlockItem(ModBlocks.CATTAIL.get(), new Item.Properties().group(ModItemGroup.DARKRPG_BLOCKS_GROUP)));
         //ARMOR
