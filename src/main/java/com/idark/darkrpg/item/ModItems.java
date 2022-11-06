@@ -4,14 +4,14 @@ import com.idark.darkrpg.item.curio.ring.Iron_ring;
 import com.idark.darkrpg.DarkRPG;
 import com.idark.darkrpg.block.ModBlocks;
 import com.idark.darkrpg.entity.ModEntityTypes;
+import net.minecraft.item.*;
+import net.minecraft.item.Rarity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.block.AbstractBlock.Properties;
-import net.minecraft.item.*;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraft.item.Rarity;
 
 public class ModItems {
 	public static final DeferredRegister<Item> ITEMS =
