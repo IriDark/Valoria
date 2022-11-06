@@ -1,19 +1,18 @@
 package com.idark.darkrpg.block;
 
 import com.idark.darkrpg.DarkRPG;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
 import com.idark.darkrpg.item.ModItemGroup;
-import net.minecraft.item.BlockItem;
-import net.minecraft.block.AbstractBlock.Properties;
 import com.idark.darkrpg.item.ModItems;
+import net.minecraft.block.AbstractBlock.Properties;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
+import net.minecraftforge.common.ToolType;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.common.ToolType;
-import net.minecraftforge.eventbus.api.IEventBus;
 
 import java.util.function.Supplier;
 
@@ -23,19 +22,19 @@ public class ModBlocks {
 	//bronze
 	public static final RegistryObject<Block> BRONZE_PLATES = BLOCK.register("bronze_plates",
 	() -> new Block(Properties.create(Material.IRON).harvestLevel(2)
-	.harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f)));
+	.harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f).sound(SoundType.METAL)));
 	public static final RegistryObject<Block> BRONZE_PLATE_1 = BLOCK.register("bronze_plate_1",
 	() -> new Block(Properties.create(Material.IRON).harvestLevel(2)
-	.harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f)));
+	.harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f).sound(SoundType.METAL)));
 	public static final RegistryObject<Block> BRONZE_PLATE_2 = BLOCK.register("bronze_plate_2",
 	() -> new Block(Properties.create(Material.IRON).harvestLevel(2)
-	.harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f)));
+	.harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f).sound(SoundType.METAL)));
 	public static final RegistryObject<Block> BRONZE_VENT = BLOCK.register("bronze_vent",
 	() -> new Block(Properties.create(Material.IRON).harvestLevel(2)
-	.harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f)));
+	.harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f).sound(SoundType.METAL)));
 	public static final RegistryObject<Block> BRONZE_GLASS = BLOCK.register("bronze_glass",
 	() -> new GlassBlock(Properties.create(Material.GLASS).harvestLevel(2)
-	.harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(1f).notSolid()));
+	.harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(1f).notSolid().sound(SoundType.GLASS)));
 	//void stone
 	public static final RegistryObject<Block> VOID_STONE = BLOCK.register("void_stone",
 	() -> new Block(Properties.create(Material.ROCK).harvestLevel(2)
@@ -47,7 +46,7 @@ public class ModBlocks {
 	//crystals
 	public static final RegistryObject<Block> VOID_CRYSTAL = BLOCK.register("void_crystal",
 	() -> new Block(Properties.create(Material.ROCK).harvestLevel(3)
-	.harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(4f)));
+	.harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(4f).sound(SoundType.GLASS)));
 	//pillar
 	public static final RegistryObject<Block> CHARGED_VOID_PILLAR = BLOCK.register("charged_void_pillar",
 	() -> new RotatedPillarBlock(Properties.create(Material.ROCK).harvestLevel(2)
@@ -88,10 +87,10 @@ public class ModBlocks {
 	.harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f).notSolid()));
 	public static final RegistryObject<Block> BRONZE_LAMP_3 = BLOCK.register("bronze_lamp_3", 
 	() -> new Block(Properties.create(Material.IRON).harvestLevel(0)
-	.hardnessAndResistance(3f).notSolid()));
+	.hardnessAndResistance(3f).notSolid().sound(SoundType.GLASS)));
 	public static final RegistryObject<Block> SPIDER_EGG = BLOCK.register("spider_egg", 
 	() -> new Block(Properties.create(Material.ROCK).harvestLevel(0)
-	.zeroHardnessAndResistance().notSolid()));
+	.zeroHardnessAndResistance().notSolid().sound(SoundType.CLOTH)));
 	//ore
 	public static final RegistryObject<Block> COBALT_ORE = BLOCK.register("cobalt_ore",
 	() -> new Block(Properties.create(Material.ROCK).harvestLevel(3)
@@ -102,16 +101,16 @@ public class ModBlocks {
 	//vases
 	public static final RegistryObject<Block> VASE_SMALL = BLOCK.register("vase_small", 
 	() -> new Block(Properties.create(Material.GLASS).harvestLevel(0)
-	.zeroHardnessAndResistance().notSolid()));
+	.zeroHardnessAndResistance().notSolid().sound(SoundType.GLASS)));
 	public static final RegistryObject<Block> VASE_SMALL_1 = BLOCK.register("vase_small_1", 
 	() -> new Block(Properties.create(Material.GLASS).harvestLevel(0)
-	.zeroHardnessAndResistance().notSolid()));
+	.zeroHardnessAndResistance().notSolid().sound(SoundType.GLASS)));
 	public static final RegistryObject<Block> VASE_BIG = BLOCK.register("vase_big", 
 	() -> new Block(Properties.create(Material.GLASS).harvestLevel(0)
-	.zeroHardnessAndResistance().notSolid()));
+	.zeroHardnessAndResistance().notSolid().sound(SoundType.GLASS)));
 	public static final RegistryObject<Block> VASE_BIG_1 = BLOCK.register("vase_big_1", 
 	() -> new Block(Properties.create(Material.GLASS).harvestLevel(0)
-	.zeroHardnessAndResistance().notSolid()));
+	.zeroHardnessAndResistance().notSolid().sound(SoundType.GLASS)));
 	//plants
     public static final RegistryObject<Block> CATTAIL = BLOCK.register("cattail",
     () -> new TallFlowerBlock(Properties.from(Blocks.SUNFLOWER)));
