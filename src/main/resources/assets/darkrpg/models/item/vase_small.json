@@ -1,0 +1,6 @@
+{
+    "parent" : "item/handheld",
+    "textures" : {
+        "layer0" : "darkrpg:item/vase_small_0"
+    }
+}

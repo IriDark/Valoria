@@ -1,0 +1,6 @@
+{
+    "parent": "darkrpg:item/nature_bow",
+    "textures": {
+        "layer0": "darkrpg:item/nature_bow_pulling_1"
+    }
+}
