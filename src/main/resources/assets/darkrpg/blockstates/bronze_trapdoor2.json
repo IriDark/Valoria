@@ -1,4 +1,5 @@
-  "variants": {
+{
+    "variants": {
     "facing=east,half=bottom,open=false": {
       "model": "darkrpg:block/bronze_trapdoor2_bottom",
       "y": 90
