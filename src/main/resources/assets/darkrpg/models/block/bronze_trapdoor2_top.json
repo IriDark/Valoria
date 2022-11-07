@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_trapdoor_top",
+  "textures": {
+    "all": "darkrpg:block/bronze_trapdoor2"
+  }
+}
