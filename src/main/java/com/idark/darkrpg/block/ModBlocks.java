@@ -3,8 +3,8 @@ package com.idark.darkrpg.block;
 import com.idark.darkrpg.DarkRPG;
 import com.idark.darkrpg.item.ModItemGroup;
 import com.idark.darkrpg.item.ModItems;
-import net.minecraft.block.AbstractBlock.Properties;
 import net.minecraft.block.*;
+import net.minecraft.block.AbstractBlock.Properties;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -17,8 +17,19 @@ import net.minecraftforge.registries.ForgeRegistries;
 import java.util.function.Supplier;
 
 public class ModBlocks {
-    private final static String MODID = DarkRPG.MOD_ID;
-    public static final DeferredRegister<Block> BLOCK = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
+	private final static String MODID = DarkRPG.MOD_ID;
+	public static final DeferredRegister<Block> BLOCK = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
+	
+	//door & trapdoors
+	public static final RegistryObject<Block> BRONZE_DOOR = registerBlock("bronze_door",
+	() -> new DoorBlock(AbstractBlock.Properties.create(Material.IRON).harvestLevel(2).setRequiresTool()
+	.harvestTool(ToolType.PICKAXE).hardnessAndResistance(4f).notSolid()));
+	public static final RegistryObject<Block> BRONZE_TRAPDOOR = registerBlock("bronze_trapdoor",
+	() -> new TrapDoorBlock(AbstractBlock.Properties.create(Material.IRON).harvestLevel(2).setRequiresTool()
+	.harvestTool(ToolType.PICKAXE).hardnessAndResistance(2f).notSolid()));
+	public static final RegistryObject<Block> BRONZE_TRAPDOOR2 = registerBlock("bronze_trapdoor2",
+	() -> new TrapDoorBlock(AbstractBlock.Properties.create(Material.IRON).harvestLevel(2).setRequiresTool()
+	.harvestTool(ToolType.PICKAXE).hardnessAndResistance(3f).notSolid()));
 	//bronze
 	public static final RegistryObject<Block> BRONZE_PLATES = BLOCK.register("bronze_plates",
 	() -> new Block(Properties.create(Material.IRON).harvestLevel(2)
@@ -40,7 +51,7 @@ public class ModBlocks {
 	() -> new Block(Properties.create(Material.ROCK).harvestLevel(2)
 	.harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f)));
 	//void cobblestone
-    public static final RegistryObject<Block> VOID_COBBLESTONE = BLOCK.register("void_cobblestone",
+	public static final RegistryObject<Block> VOID_COBBLESTONE = BLOCK.register("void_cobblestone",
 	() -> new Block(Properties.create(Material.ROCK).harvestLevel(2)
 	.harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f)));
 	//crystals
@@ -82,7 +93,7 @@ public class ModBlocks {
 	public static final RegistryObject<Block> ELEMENTAL_MANIPULATOR = BLOCK.register("elemental_manipulator", 
 	() -> new Block(Properties.create(Material.IRON).harvestLevel(2)
 	.harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f).setLightLevel(s -> 4).notSolid()));
-    public static final RegistryObject<Block> PEDESTAL = BLOCK.register("pedestal", 
+	public static final RegistryObject<Block> PEDESTAL = BLOCK.register("pedestal", 
 	() -> new Block(Properties.create(Material.ROCK).harvestLevel(1)
 	.harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f).notSolid()));
 	public static final RegistryObject<Block> BRONZE_LAMP_3 = BLOCK.register("bronze_lamp_3", 
@@ -112,21 +123,19 @@ public class ModBlocks {
 	() -> new Block(Properties.create(Material.GLASS).harvestLevel(0)
 	.zeroHardnessAndResistance().notSolid().sound(SoundType.GLASS)));
 	//plants
-    public static final RegistryObject<Block> CATTAIL = BLOCK.register("cattail",
-    () -> new TallFlowerBlock(Properties.from(Blocks.SUNFLOWER)));
+	public static final RegistryObject<Block> CATTAIL = BLOCK.register("cattail",
+	() -> new TallFlowerBlock(Properties.from(Blocks.SUNFLOWER)));
     
 	    private static <T extends Block>RegistryObject<T> registerBlock(String name, Supplier<T> block) {
-        RegistryObject<T> toReturn = BLOCK.register(name, block);
-        registerBlockItem(name, toReturn);
-        return toReturn;
-    }
-
-    private static <T extends Block> void registerBlockItem(String name, RegistryObject<T> block) {
-        ModItems.ITEMS.register(name, () -> new BlockItem(block.get(),
-                new Item.Properties().group(ModItemGroup.DARKRPG_BLOCKS_GROUP)));
-    }
-
-    public static void register(IEventBus eventBus) {
-        BLOCK.register(eventBus);
-    }
+	    RegistryObject<T> toReturn = BLOCK.register(name, block);
+	    registerBlockItem(name, toReturn);
+	    return toReturn;
+	    }
+	    private static <T extends Block> void registerBlockItem(String name, RegistryObject<T> block) {
+	    ModItems.ITEMS.register(name, () -> new BlockItem(block.get(),
+	    new Item.Properties().group(ModItemGroup.DARKRPG_BLOCKS_GROUP)));
+	    }
+	    public static void register(IEventBus eventBus) {
+	    BLOCK.register(eventBus);
+	    }
 }
