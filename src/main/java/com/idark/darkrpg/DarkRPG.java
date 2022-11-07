@@ -37,59 +37,61 @@ import net.minecraftforge.fml.DeferredWorkQueue;
 
 @Mod(DarkRPG.MOD_ID)
 public class DarkRPG {
-    public static final String MOD_ID = "darkrpg";
+	    public static final String MOD_ID = "darkrpg";
     
-    public DarkRPG() {
-		InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE,
+	    public DarkRPG() {
+	    InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE,
                 () -> SlotTypePreset.RING.getMessageBuilder().size(2).build());
-        InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE,
+	    InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE,
                 () -> SlotTypePreset.BELT.getMessageBuilder().build());
-        InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE,
+	    InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE,
                 () -> SlotTypePreset.HANDS.getMessageBuilder().size(2).build());
-        InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE,
+	    InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE,
                 () -> SlotTypePreset.NECKLACE.getMessageBuilder().build());
-        InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE,
+	    InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE,
                 () -> SlotTypePreset.HEAD.getMessageBuilder().build());
 	    InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE,
                 () -> SlotTypePreset.CHARM.getMessageBuilder().size(3).build());
 		
-		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
+	    FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
+	    FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
 		
-        IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
-        ModItems.register(eventBus);
-		ModBlocks.register(eventBus);
-        ModEntityTypes.register(eventBus);
-		ModPaintings.register(eventBus);
+	    IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
+	    ModItems.register(eventBus);
+	    ModBlocks.register(eventBus);
+	    ModEntityTypes.register(eventBus);
+	    ModPaintings.register(eventBus);
 		
-		MinecraftForge.EVENT_BUS.register(this);
-	}
-	 private void doClientStuff(final FMLClientSetupEvent event) {
-        event.enqueueWork(() -> {
+	    MinecraftForge.EVENT_BUS.register(this);
+	    }
+     private void doClientStuff(final FMLClientSetupEvent event) {
+     event.enqueueWork(() -> {
 	    RenderTypeLookup.setRenderLayer(ModBlocks.CATTAIL.get(), RenderType.getCutout());		
-		RenderTypeLookup.setRenderLayer(ModBlocks.ELEMENTAL_MANIPULATOR.get(), RenderType.getCutout());
-	   	RenderTypeLookup.setRenderLayer(ModBlocks.SPIDER_EGG.get(), RenderType.getCutout());
+	    RenderTypeLookup.setRenderLayer(ModBlocks.ELEMENTAL_MANIPULATOR.get(), RenderType.getCutout());
+	    RenderTypeLookup.setRenderLayer(ModBlocks.SPIDER_EGG.get(), RenderType.getCutout());
 	    RenderTypeLookup.setRenderLayer(ModBlocks.PEDESTAL.get(), RenderType.getCutout());
 	    RenderTypeLookup.setRenderLayer(ModBlocks.VASE_SMALL.get(), RenderType.getCutout());
-		RenderTypeLookup.setRenderLayer(ModBlocks.VASE_SMALL_1.get(), RenderType.getCutout());
-		RenderTypeLookup.setRenderLayer(ModBlocks.VASE_BIG.get(), RenderType.getCutout());
-		RenderTypeLookup.setRenderLayer(ModBlocks.VASE_BIG_1.get(), RenderType.getCutout());
+	    RenderTypeLookup.setRenderLayer(ModBlocks.VASE_SMALL_1.get(), RenderType.getCutout());
+	    RenderTypeLookup.setRenderLayer(ModBlocks.VASE_BIG.get(), RenderType.getCutout());
+	    RenderTypeLookup.setRenderLayer(ModBlocks.VASE_BIG_1.get(), RenderType.getCutout());
 	    RenderTypeLookup.setRenderLayer(ModBlocks.BRONZE_GLASS.get(), RenderType.getCutout());
-		RenderTypeLookup.setRenderLayer(ModBlocks.BRONZE_LAMP_3.get(), RenderType.getCutout());
-
-  });
-     RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.SWAMP_WANDERER.get(), SwampWandererRenderer::new);
-	 RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.MANNEQUIN.get(), MannequinRenderer::new);
+	    RenderTypeLookup.setRenderLayer(ModBlocks.BRONZE_LAMP_3.get(), RenderType.getCutout());
+	    RenderTypeLookup.setRenderLayer(ModBlocks.BRONZE_DOOR.get(), RenderType.getCutout());
+	    RenderTypeLookup.setRenderLayer(ModBlocks.BRONZE_TRAPDOOR.get(), RenderType.getCutout());
+	    RenderTypeLookup.setRenderLayer(ModBlocks.BRONZE_TRAPDOOR2.get(), RenderType.getCutout());
+	    });
+	    RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.SWAMP_WANDERER.get(), SwampWandererRenderer::new);
+	    RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.MANNEQUIN.get(), MannequinRenderer::new);
 	 
-     ModItemModelProperties.makeBow(ModItems.NATURE_BOW.get());
+	    ModItemModelProperties.makeBow(ModItems.NATURE_BOW.get());
 }
-private void setup(final FMLCommonSetupEvent event) {
-	    DeferredWorkQueue.runLater(() -> {
-            GlobalEntityTypeAttributes.put(ModEntityTypes.SWAMP_WANDERER.get(), SwampWandererEntity.setCustomAttributes().create());
+	    private void setup(final FMLCommonSetupEvent event) {
+			DeferredWorkQueue.runLater(() -> {
+			GlobalEntityTypeAttributes.put(ModEntityTypes.SWAMP_WANDERER.get(), SwampWandererEntity.setCustomAttributes().create());
 			GlobalEntityTypeAttributes.put(ModEntityTypes.MANNEQUIN.get(), MannequinEntity.setCustomAttributes().create());
-  });
+	    });
 }
-				private void processIMC(final InterModProcessEvent event) {
-					// some example code to receive and process InterModComms from other mods
-                }
+	    private void processIMC(final InterModProcessEvent event) {
+			// some example code to receive and process InterModComms from other mods
+	    }
 }
