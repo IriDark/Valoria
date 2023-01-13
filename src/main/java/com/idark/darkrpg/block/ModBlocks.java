@@ -22,37 +22,37 @@ import java.util.function.Supplier;
 public class ModBlocks {
     private final static String MODID = DarkRPG.MOD_ID;
     public static final DeferredRegister<Block> BLOCK = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
-	//door & trapdoors
-	public static final RegistryObject<Block> BRONZE_DOOR = registerBlock("bronze_door",
+    //door & trapdoors
+    public static final RegistryObject<Block> BRONZE_DOOR = registerBlock("bronze_door",
     () -> new DoorBlock(AbstractBlock.Properties.create(Material.IRON).harvestLevel(2).setRequiresTool()
     .harvestTool(ToolType.PICKAXE).hardnessAndResistance(4f).notSolid()));
     public static final RegistryObject<Block> BRONZE_TRAPDOOR = registerBlock("bronze_trapdoor",
     () -> new TrapDoorBlock(AbstractBlock.Properties.create(Material.IRON).harvestLevel(2).setRequiresTool()
     .harvestTool(ToolType.PICKAXE).hardnessAndResistance(2f).notSolid()));
-	public static final RegistryObject<Block> BRONZE_TRAPDOOR2 = registerBlock("bronze_trapdoor_glass",
+    public static final RegistryObject<Block> BRONZE_TRAPDOOR2 = registerBlock("bronze_trapdoor_glass",
     () -> new TrapDoorBlock(AbstractBlock.Properties.create(Material.IRON).harvestLevel(2).setRequiresTool()
     .harvestTool(ToolType.PICKAXE).hardnessAndResistance(3f).notSolid()));
-	//ingot_blocks
-	public static final RegistryObject<Block> COBALT_BLOCK = BLOCK.register("cobalt_block",
-	() -> new Block(Properties.create(Material.IRON).harvestLevel(2)
-	.harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f).sound(SoundType.NETHERITE)));
-	public static final RegistryObject<Block> NATURE_BLOCK = BLOCK.register("nature_block",
-	() -> new Block(Properties.create(Material.IRON).harvestLevel(2)
-	.harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f).sound(SoundType.NETHERITE)));
-	public static final RegistryObject<Block> AWAKENED_VOID_BLOCK = BLOCK.register("awakened_void_block",
-	() -> new Block(Properties.create(Material.IRON).harvestLevel(2)
-	.harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f).sound(SoundType.NETHERITE)));
-	//bronze
-	public static final RegistryObject<Block> BRONZE_BLOCK = BLOCK.register("bronze_block",
-	() -> new Block(Properties.create(Material.IRON).harvestLevel(2)
-	.harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f).sound(SoundType.NETHERITE)));
-	public static final RegistryObject<Block> BRONZE_BLOCK_STAIRS = registerBlock("bronze_block_stairs",
+    //ingot_blocks
+    public static final RegistryObject<Block> COBALT_BLOCK = BLOCK.register("cobalt_block",
+    () -> new Block(Properties.create(Material.IRON).harvestLevel(2)
+    .harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f).sound(SoundType.NETHERITE)));
+    public static final RegistryObject<Block> NATURE_BLOCK = BLOCK.register("nature_block",
+    () -> new Block(Properties.create(Material.IRON).harvestLevel(2)
+    .harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f).sound(SoundType.NETHERITE)));
+    public static final RegistryObject<Block> AWAKENED_VOID_BLOCK = BLOCK.register("awakened_void_block",
+    () -> new Block(Properties.create(Material.IRON).harvestLevel(2)
+    .harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f).sound(SoundType.NETHERITE)));
+    //bronze
+    public static final RegistryObject<Block> BRONZE_BLOCK = BLOCK.register("bronze_block",
+    () -> new Block(Properties.create(Material.IRON).harvestLevel(2)
+    .harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f).sound(SoundType.NETHERITE)));
+    public static final RegistryObject<Block> BRONZE_BLOCK_STAIRS = registerBlock("bronze_block_stairs",
     () -> new StairsBlock(() -> BRONZE_BLOCK.get().getDefaultState(),
     AbstractBlock.Properties.create(Material.IRON).harvestLevel(2).hardnessAndResistance(2f).harvestTool(ToolType.PICKAXE).setRequiresTool().sound(SoundType.NETHERITE)));
-	public static final RegistryObject<Block> BRONZE_BLOCK_SLAB = registerBlock("bronze_block_slab",
+    public static final RegistryObject<Block> BRONZE_BLOCK_SLAB = registerBlock("bronze_block_slab",
     () -> new SlabBlock(AbstractBlock.Properties.create(Material.IRON)
     .harvestLevel(2).setRequiresTool().harvestTool(ToolType.PICKAXE).sound(SoundType.NETHERITE).hardnessAndResistance(6f)));
-	public static final RegistryObject<Block> BRONZE_PLATE = BLOCK.register("bronze_plate",
+    public static final RegistryObject<Block> BRONZE_PLATE = BLOCK.register("bronze_plate",
 	() -> new Block(Properties.create(Material.IRON).harvestLevel(2)
 	.harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f).sound(SoundType.NETHERITE)));
 	public static final RegistryObject<Block> BRONZE_PLATE_STAIRS = registerBlock("bronze_plate_stairs",
