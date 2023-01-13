@@ -28,13 +28,12 @@ import top.theillusivec4.curios.api.type.capability.ICurioItem;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraftforge.common.ForgeMod;
+
 import javax.annotation.Nonnull;
 import java.util.UUID;
 
-
 public class Iron_ring extends Item implements ICurioItem {
-	public static final String MOD_ID = "darkrpg";
-
+	
     public Iron_ring() {
         super(
         new Properties()
@@ -42,25 +41,14 @@ public class Iron_ring extends Item implements ICurioItem {
         .group(ModItemGroup.DARKRPG_GROUP)); 
     }
 
-    @Override
+   @Override
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(SlotContext slotContext,
-        UUID uuid, ItemStack stack) {
+                                                                        UUID uuid, ItemStack stack) {
         Multimap<Attribute, AttributeModifier> atts = LinkedHashMultimap.create();
-        atts.put(Attributes.ARMOR, new AttributeModifier(uuid, DarkRPG.MOD_ID + ":armor_bonus", 1, AttributeModifier.Operation.ADDITION));
+        atts.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(uuid, "bonus", 1, AttributeModifier.Operation.ADDITION));
         return atts;
-	}
-	
-    @Override
-    public boolean canEquipFromUse(SlotContext slot, ItemStack stack) {
-        return true;
-    }
-	
-    @Nonnull
-    @Override
-    public ICurio.SoundInfo getEquipSound(SlotContext slotContext, ItemStack stack) {
-        return new ICurio.SoundInfo(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 1.0f, 1.0f);
-    }
-	
+		}
+		
     @Override
     public void curioTick(String identifier, int index, LivingEntity livingEntity, ItemStack stack) {
         PlayerEntity player = (PlayerEntity) livingEntity;
