@@ -19,7 +19,7 @@ import net.minecraft.state.properties.BlockStateProperties;
 import java.util.function.ToIntFunction;
 import java.util.function.Supplier;
 
-public class ModBlocks {
+    public class ModBlocks {
     private final static String MODID = DarkRPG.MOD_ID;
     public static final DeferredRegister<Block> BLOCK = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
     //door & trapdoors
@@ -32,6 +32,7 @@ public class ModBlocks {
     public static final RegistryObject<Block> BRONZE_TRAPDOOR2 = registerBlock("bronze_trapdoor_glass",
     () -> new TrapDoorBlock(AbstractBlock.Properties.create(Material.IRON).harvestLevel(2).setRequiresTool()
     .harvestTool(ToolType.PICKAXE).hardnessAndResistance(3f).notSolid()));
+    //TODO. ADD OTHER INGOT BLOCKS (OCEAN, INFERNAL)
     //ingot_blocks
     public static final RegistryObject<Block> COBALT_BLOCK = BLOCK.register("cobalt_block",
     () -> new Block(Properties.create(Material.IRON).harvestLevel(2)
@@ -269,13 +270,13 @@ public class ModBlocks {
 	public static final RegistryObject<Block> VOID_CHISELED_BRICK_SLAB = registerBlock("void_chiseled_brick_slab",
     () -> new SlabBlock(AbstractBlock.Properties.create(Material.ROCK)
     .harvestLevel(2).setRequiresTool().harvestTool(ToolType.PICKAXE).hardnessAndResistance(6f)));
-	public static final RegistryObject<Block> VOID_CHISELED_BRICKS = BLOCK.register("void_chiseled_bricks",
+    public static final RegistryObject<Block> VOID_CHISELED_BRICKS = BLOCK.register("void_chiseled_bricks",
 	() -> new Block(Properties.create(Material.ROCK).harvestLevel(2)
-	.harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(2f)));
+    .harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(2f)));
     public static final RegistryObject<Block> VOID_CHISELED_BRICKS_STAIRS = registerBlock("void_chiseled_bricks_stairs",
     () -> new StairsBlock(() -> VOID_CHISELED_BRICKS.get().getDefaultState(),
     AbstractBlock.Properties.create(Material.IRON).harvestLevel(2).hardnessAndResistance(2f).harvestTool(ToolType.PICKAXE).setRequiresTool()));
-	public static final RegistryObject<Block> VOID_CHISELED_BRICKS_SLAB = registerBlock("void_chiseled_bricks_slab",
+    public static final RegistryObject<Block> VOID_CHISELED_BRICKS_SLAB = registerBlock("void_chiseled_bricks_slab",
     () -> new SlabBlock(AbstractBlock.Properties.create(Material.ROCK)
     .harvestLevel(2).setRequiresTool().harvestTool(ToolType.PICKAXE).hardnessAndResistance(6f)));
 	public static final RegistryObject<Block> VOID_CHISELED_BRICKS1 = BLOCK.register("void_chiseled_bricks1",
