@@ -6,10 +6,12 @@
 # DarkRPG — Development
 A global RPG mod.
 
-#### Devs:
+№№№№ Devs:
 - iDark
+- MrCat
 
-#### Special Thanks:
+№№№№ Special Thanks:
+- C4 (CuriosAPI Dev)
 - MrCat
 - Wosaj
 - Vuzz
@@ -19,5 +21,6 @@ A global RPG mod.
 - Arky Fursblack
 - FoxPlane
 - MaxBogomol
+- RayRindou (Agma, Kazuhira)
 
 ## You are not allowed to use the textures of the project, even slightly changing them, this is considered theft.
