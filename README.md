@@ -6,11 +6,11 @@
 # DarkRPG — Development
 A global RPG mod.
 
-№№№№ Devs:
+#### Devs:
 - iDark
 - MrCat
 
-№№№№ Special Thanks:
+#### Special Thanks:
 - C4 (CuriosAPI Dev)
 - MrCat
 - Wosaj
