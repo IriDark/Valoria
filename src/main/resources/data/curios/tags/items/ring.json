@@ -1,6 +1,9 @@
 {
   "replace": false,
   "values": [
-    "darkrpg:iron_ring"
+    "darkrpg:iron_ring",
+	"darkrpg:golden_ring",
+    "darkrpg:netherite_ring"
+
   ]
 }

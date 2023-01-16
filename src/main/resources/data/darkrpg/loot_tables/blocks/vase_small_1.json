@@ -47,7 +47,7 @@
         {
           "type": "minecraft:item",
           "weight": 3,
-          "name": "minecraft:stick",
+          "name": "minecraft:bone",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -75,7 +75,7 @@
         {
           "type": "minecraft:item",
           "weight": 7,
-          "name": "minecraft:kelp",
+          "name": "minecraft:gunpowder",
           "conditions": [
             {
               "condition": "minecraft:random_chance",
