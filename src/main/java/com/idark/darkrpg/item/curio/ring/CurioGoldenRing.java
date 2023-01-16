@@ -6,6 +6,11 @@ import com.idark.darkrpg.item.ModItemGroup;
 import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
+import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.Attributes;
@@ -28,13 +33,15 @@ import top.theillusivec4.curios.api.type.capability.ICurioItem;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraftforge.common.ForgeMod;
+import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
 import java.util.UUID;
+import java.util.List;
 
-public class CurioIronRing extends Item implements ICurioItem {
+public class CurioGoldenRing extends Item implements ICurioItem {
 	
-   public CurioIronRing(Properties properties) {
+   public CurioGoldenRing(Properties properties) {
         super(properties);
 	}
 	
@@ -43,7 +50,7 @@ public class CurioIronRing extends Item implements ICurioItem {
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(SlotContext slotContext,
                                                                         UUID uuid, ItemStack stack) {
         Multimap<Attribute, AttributeModifier> atts = LinkedHashMultimap.create();
-        atts.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(uuid, "bonus", 1, AttributeModifier.Operation.ADDITION));
+        atts.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(uuid, "bonus", 2, AttributeModifier.Operation.ADDITION));
         return atts;
 		}
 		
@@ -52,8 +59,14 @@ public class CurioIronRing extends Item implements ICurioItem {
         PlayerEntity player = (PlayerEntity) livingEntity;
 
         if(random.nextFloat() > 1.0f) {
-        stack.damageItem(1, player, p -> CuriosApi.getCuriosHelper().onBrokenCurio(
+        stack.damageItem(3, player, p -> CuriosApi.getCuriosHelper().onBrokenCurio(
         SlotTypePreset.RING.getIdentifier(), index, p));
 	    }
+	}
+	
+	@Override
+	public void addInformation(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flags) {
+		super.addInformation(stack, world, tooltip, flags);
+		tooltip.add(new TranslationTextComponent("tooltip.darkrpg.golden").mergeStyle(TextFormatting.GRAY));
 	}
 }

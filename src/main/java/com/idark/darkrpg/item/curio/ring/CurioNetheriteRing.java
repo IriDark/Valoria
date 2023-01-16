@@ -32,9 +32,9 @@ import net.minecraftforge.common.ForgeMod;
 import javax.annotation.Nonnull;
 import java.util.UUID;
 
-public class CurioIronRing extends Item implements ICurioItem {
+public class CurioNetheriteRing extends Item implements ICurioItem {
 	
-   public CurioIronRing(Properties properties) {
+   public CurioNetheriteRing(Properties properties) {
         super(properties);
 	}
 	
@@ -43,7 +43,7 @@ public class CurioIronRing extends Item implements ICurioItem {
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(SlotContext slotContext,
                                                                         UUID uuid, ItemStack stack) {
         Multimap<Attribute, AttributeModifier> atts = LinkedHashMultimap.create();
-        atts.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(uuid, "bonus", 1, AttributeModifier.Operation.ADDITION));
+        atts.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(uuid, "bonus", 4, AttributeModifier.Operation.ADDITION));
         return atts;
 		}
 		
