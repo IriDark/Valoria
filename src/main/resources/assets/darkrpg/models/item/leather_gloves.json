@@ -1,6 +1,6 @@
 {
     "parent" : "item/generated",
     "textures" : {
-        "layer0" : "darkrpg:item/swamp_wanderer_egg"
+        "layer0" : "darkrpg:item/leather_gloves"
     }
 }
