@@ -1,0 +1,6 @@
+{
+    "parent": "block/cube_all",
+    "textures": {
+        "lit=true": "darkrpg:block/bronze_lamp_block_lit"
+    }
+}

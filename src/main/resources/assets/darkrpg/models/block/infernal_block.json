@@ -1,0 +1,7 @@
+{
+    "parent": "block/cube_all",
+    "textures": {
+        "all": "darkrpg:block/infernal_block",
+		"charged": "darkrpg:block/awakened_infernal_block"
+    }
+}
