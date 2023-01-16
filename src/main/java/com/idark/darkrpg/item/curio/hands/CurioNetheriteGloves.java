@@ -37,21 +37,21 @@ public class CurioNetheriteGloves extends Item implements ICurioItem {
    public CurioNetheriteGloves(Properties properties) {
         super(properties);
 	}
-	
 
-   @Override
+    @Override
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(SlotContext slotContext,
                                                                         UUID uuid, ItemStack stack) {
         Multimap<Attribute, AttributeModifier> atts = LinkedHashMultimap.create();
-        atts.put(Attributes.ARMOR, new AttributeModifier(uuid, "bonus", 7, AttributeModifier.Operation.ADDITION));
-        return atts;
+        atts.put(Attributes.ARMOR, new AttributeModifier(uuid, "bonus", 4.5, AttributeModifier.Operation.ADDITION));
+        atts.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(uuid, "bonus", 2, AttributeModifier.Operation.ADDITION));
+		return atts;
 		}
 		
     @Override
     public void curioTick(String identifier, int index, LivingEntity livingEntity, ItemStack stack) {
         PlayerEntity player = (PlayerEntity) livingEntity;
 
-        if(random.nextFloat() > 0.6f) {
+        if(random.nextFloat() >  1.0f) {
         stack.damageItem(1, player, p -> CuriosApi.getCuriosHelper().onBrokenCurio(
         SlotTypePreset.HANDS.getIdentifier(), index, p));
 	    }

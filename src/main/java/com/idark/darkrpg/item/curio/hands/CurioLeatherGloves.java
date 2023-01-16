@@ -32,9 +32,9 @@ import net.minecraftforge.common.ForgeMod;
 import javax.annotation.Nonnull;
 import java.util.UUID;
 
-public class CurioIronGloves extends Item implements ICurioItem {
+public class CurioLeatherGloves extends Item implements ICurioItem {
 	
-   public CurioIronGloves(Properties properties) {
+   public CurioLeatherGloves(Properties properties) {
         super(properties);
 	}
 	
@@ -42,7 +42,7 @@ public class CurioIronGloves extends Item implements ICurioItem {
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(SlotContext slotContext,
                                                                         UUID uuid, ItemStack stack) {
         Multimap<Attribute, AttributeModifier> atts = LinkedHashMultimap.create();
-        atts.put(Attributes.ARMOR, new AttributeModifier(uuid, "bonus", 1.5, AttributeModifier.Operation.ADDITION));
+        atts.put(Attributes.ARMOR, new AttributeModifier(uuid, "bonus", 0.5, AttributeModifier.Operation.ADDITION));
         return atts;
 		}
 		

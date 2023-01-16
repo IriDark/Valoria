@@ -6,6 +6,11 @@ import com.idark.darkrpg.item.ModItemGroup;
 import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
+import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.Attributes;
@@ -28,13 +33,15 @@ import top.theillusivec4.curios.api.type.capability.ICurioItem;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraftforge.common.ForgeMod;
+import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
 import java.util.UUID;
+import java.util.List;
 
-public class CurioIronGloves extends Item implements ICurioItem {
+public class CurioDiamondGloves extends Item implements ICurioItem {
 	
-   public CurioIronGloves(Properties properties) {
+   public CurioDiamondGloves(Properties properties) {
         super(properties);
 	}
 	
@@ -42,8 +49,9 @@ public class CurioIronGloves extends Item implements ICurioItem {
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(SlotContext slotContext,
                                                                         UUID uuid, ItemStack stack) {
         Multimap<Attribute, AttributeModifier> atts = LinkedHashMultimap.create();
-        atts.put(Attributes.ARMOR, new AttributeModifier(uuid, "bonus", 1.5, AttributeModifier.Operation.ADDITION));
-        return atts;
+        atts.put(Attributes.ARMOR, new AttributeModifier(uuid, "bonus", 3.5, AttributeModifier.Operation.ADDITION));
+        atts.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(uuid, "bonus", 1, AttributeModifier.Operation.ADDITION));
+		return atts;
 		}
 		
     @Override
