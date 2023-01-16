@@ -7,16 +7,19 @@ issueTrackerURL = ""
   version = "${file.jarVersion}" 
   displayName = "DarkRPG" 
   updateJSONURL="" 
-  displayURL = " https://discord.gg/42zVAGCjxV" 
+  displayURL = "https://discord.gg/wWdXpwuPmK" 
   logoFile = "DarkRPG_Logo.png"
   credits = "" 
   authors = "iDark" 
   description = '''
 A global RPG mod.
+
 Devs:
 - iDark
+- MrCat
 
 Special Thanks:
+- C4 (CuriosAPI Dev)
 - MrCat
 - Wosaj
 - Vuzz
@@ -26,6 +29,7 @@ Special Thanks:
 - Arky Fursblack
 - FoxPlane
 - MaxBogomol
+- RayRindou
 '''
     [[dependencies.darkrpg]]
   modId = "forge"
@@ -42,4 +46,4 @@ Special Thanks:
     [[dependencies.darkrpg]]
     modId="curios"
     mandatory=true
-    versionRange="[1.16.5-4.0.5.1,)"
+    versionRange="[1.16.5-4.0.8.2,)"
