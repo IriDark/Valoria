@@ -41,18 +41,18 @@ public class DarkRPG {
     
 	    public DarkRPG() {
 	    InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE,
-                () -> SlotTypePreset.RING.getMessageBuilder().size(2).build());
+                () -> SlotTypePreset.RING.getMessageBuilder().build());
 	    InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE,
                 () -> SlotTypePreset.BELT.getMessageBuilder().build());
 	    InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE,
-                () -> SlotTypePreset.HANDS.getMessageBuilder().size(2).build());
+                () -> SlotTypePreset.HANDS.getMessageBuilder().build());
 	    InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE,
                 () -> SlotTypePreset.NECKLACE.getMessageBuilder().build());
 	    InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE,
                 () -> SlotTypePreset.HEAD.getMessageBuilder().build());
 	    InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE,
-                () -> SlotTypePreset.CHARM.getMessageBuilder().size(3).build());
-		
+                () -> SlotTypePreset.CHARM.getMessageBuilder().build());
+		    
 	    FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
 	    FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
 		
