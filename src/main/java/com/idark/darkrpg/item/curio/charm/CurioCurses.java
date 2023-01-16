@@ -30,36 +30,16 @@ import java.util.Random;
 import java.util.List;
 
 
-public class CurioPyro extends Item implements ICurioItem {
+public class CurioCurses extends Item implements ICurioItem {
 
-    public CurioPyro(Properties properties) {
+    public CurioCurses(Properties properties) {
         super(properties);
 	}
 	
-    @Override
-    public void curioTick(String identifier, int index, LivingEntity livingEntity, ItemStack stack) {
-        PlayerEntity player = (PlayerEntity) livingEntity;
-
-        if(!player.world.isRemote()) {
-            boolean hasPlayerFireResistance =
-                    !Objects.equals(player.getActivePotionEffect(Effects.FIRE_RESISTANCE), null);
-
-            if(!hasPlayerFireResistance) {
-                player.addPotionEffect(new EffectInstance(Effects.FIRE_RESISTANCE, 200));
-
-                if(random.nextFloat() > 0.6f) {
-                    stack.damageItem(1, player, p -> CuriosApi.getCuriosHelper().onBrokenCurio(
-                            SlotTypePreset.CHARM.getIdentifier(), index, p));
-                }
-            }
-        }
-
-        ICurioItem.super.curioTick(identifier, index, livingEntity, stack);
-    }
-	
 	@Override
 	public void addInformation(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flags) {
-		super.addInformation(stack, world, tooltip, flags);
-		tooltip.add(new TranslationTextComponent("tooltip.darkrpg.pyro").mergeStyle(TextFormatting.GRAY));
+	super.addInformation(stack, world, tooltip, flags);
+	tooltip.add(new TranslationTextComponent("tooltip.darkrpg.curses").mergeStyle(TextFormatting.GRAY));
+	tooltip.add(new TranslationTextComponent("tooltip.darkrpg.wip").mergeStyle(TextFormatting.RED));
 	}
 }

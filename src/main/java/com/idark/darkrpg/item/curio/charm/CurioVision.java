@@ -5,7 +5,6 @@ import com.idark.darkrpg.item.ModItems;
 import com.idark.darkrpg.item.ModItemGroup;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Rarity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.EffectInstance;
@@ -26,8 +25,6 @@ import top.theillusivec4.curios.api.SlotTypePreset;
 import top.theillusivec4.curios.api.type.capability.ICurio;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Objects;
 import java.util.Random;
 import java.util.List;
@@ -48,7 +45,7 @@ public class CurioVision extends Item implements ICurioItem {
                     !Objects.equals(player.getActivePotionEffect(Effects.NIGHT_VISION), null);
 
             if(!hasPlayerFireResistance) {
-                player.addPotionEffect(new EffectInstance(Effects.NIGHT_VISION, 200));
+                player.addPotionEffect(new EffectInstance(Effects.NIGHT_VISION, 400));
 
                 if(random.nextFloat() > 0.6f) {
                     stack.damageItem(1, player, p -> CuriosApi.getCuriosHelper().onBrokenCurio(
@@ -62,7 +59,7 @@ public class CurioVision extends Item implements ICurioItem {
 	
 	@Override
 	public void addInformation(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flags) {
-		super.addInformation(stack, world, tooltip, flags);
-		tooltip.add(new TranslationTextComponent("tooltip.darkrpg.vision").mergeStyle(TextFormatting.GRAY));
+	super.addInformation(stack, world, tooltip, flags);
+	tooltip.add(new TranslationTextComponent("tooltip.darkrpg.vision").mergeStyle(TextFormatting.GRAY));
 	}
 }
