@@ -1,7 +1,8 @@
 {
 	"texture_size": [64, 64],
 	"textures": {
-		"6": "darkrpg:block/pedestal"
+		"6": "darkrpg:block/pedestal",
+		"particle": "darkrpg:block/pedestal"
 	},
 	"elements": [
 		{

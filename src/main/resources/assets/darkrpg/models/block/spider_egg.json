@@ -1,7 +1,8 @@
 {
 	"texture_size": [64, 64],
 	"textures": {
-		"0": "darkrpg:block/spider_egg1"
+		"0": "darkrpg:block/spider_egg1",
+		"particle": "darkrpg:block/spider_egg1"
 	},
 	"elements": [
 		{

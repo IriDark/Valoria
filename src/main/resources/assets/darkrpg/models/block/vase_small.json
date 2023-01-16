@@ -1,8 +1,8 @@
 {
 	"texture_size": [64, 64],
 	"textures": {
-		"0": "darkrpg:block/vase",
-		"particle": "darkrpg:block/vase"
+		"0": "darkrpg:block/vase_0",
+		"particle": "darkrpg:block/vase_0"
 	},
 	"elements": [
 		{
@@ -89,7 +89,7 @@
 		},
 		"ground": {
 			"translation": [0, 3, 0],
-			"scale": [0.75, 0.75, 0.75]
+			"scale": [0.25, 0.25, 0.25]
 		},
 		"gui": {
 			"rotation": [30, 225, 0],

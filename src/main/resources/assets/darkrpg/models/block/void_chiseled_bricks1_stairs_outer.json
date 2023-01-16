@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "darkrpg:block/void_chiseled_bricks1",
+    "top": "darkrpg:block/void_chiseled_bricks1",
+    "side": "darkrpg:block/void_chiseled_bricks1"
+  }
+}
