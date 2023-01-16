@@ -12,6 +12,8 @@ import com.idark.darkrpg.entity.custom.SwampWandererEntity;
 import com.idark.darkrpg.entity.model.SwampWandererModel;
 import com.idark.darkrpg.entity.custom.MannequinEntity;
 import com.idark.darkrpg.entity.model.MannequinModel;
+import com.idark.darkrpg.entity.custom.GoblinEntity;
+import com.idark.darkrpg.entity.model.GoblinModel;
 
 
 public class ModEntityTypes {
@@ -20,13 +22,18 @@ public class ModEntityTypes {
 
     public static final RegistryObject<EntityType<SwampWandererEntity>> SWAMP_WANDERER = ENTITY_TYPES.register("swamp_wanderer",
             () -> EntityType.Builder.create(SwampWandererEntity::new, EntityClassification.MONSTER)
-			        .size(1f, 2f) // Hitbox Size
+			        .size(1f, 2.3f) // Hitbox Size
                     .build(new ResourceLocation(DarkRPG.MOD_ID, "swamp_wanderer").toString()));
 	
 	public static final RegistryObject<EntityType<MannequinEntity>> MANNEQUIN = ENTITY_TYPES.register("mannequin",
             () -> EntityType.Builder.create(MannequinEntity::new, EntityClassification.CREATURE)
 					.size(1f, 2f) // Hitbox Size
                     .build(new ResourceLocation(DarkRPG.MOD_ID, "mannequin").toString()));
+
+	public static final RegistryObject<EntityType<GoblinEntity>> GOBLIN = ENTITY_TYPES.register("goblin",
+            () -> EntityType.Builder.create(GoblinEntity::new, EntityClassification.MONSTER)
+					.size(0.8f, 1.4f) // Hitbox Size
+                    .build(new ResourceLocation(DarkRPG.MOD_ID, "goblin").toString()));
 
     public static void register(IEventBus eventBus) {
         ENTITY_TYPES.register(eventBus);

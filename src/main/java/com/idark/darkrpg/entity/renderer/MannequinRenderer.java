@@ -14,7 +14,7 @@ public class MannequinRenderer extends MobRenderer<MannequinEntity, MannequinMod
     	new ResourceLocation(DarkRPG.MOD_ID, "textures/entity/mannequin.png");
 
     public MannequinRenderer(EntityRendererManager renderManagerIn) {
-        super(renderManagerIn,new MannequinModel<>(),0.6F);
+        super(renderManagerIn,new MannequinModel<>(),0.7F);
     }
 
     @Override

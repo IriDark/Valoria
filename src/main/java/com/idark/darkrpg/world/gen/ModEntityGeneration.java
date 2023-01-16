@@ -16,8 +16,8 @@ public class ModEntityGeneration {
     public static void onEntitySpawn(final BiomeLoadingEvent event) {
         addEntityToSpecificBiomes(event, ModEntityTypes.SWAMP_WANDERER.get(),
                 40, 1, 4, Biomes.SWAMP);
-	    addEntityToAllBiomes(event, ModEntityTypes.MANNEQUIN.get(),
-		        0, 0, 0);
+	    addEntityToSpecificBiomes(event, ModEntityTypes.GOBLIN.get(),
+                40, 2, 3, Biomes.PLAINS);
     }
 
     private static void addEntityToAllBiomesExceptThese(BiomeLoadingEvent event, EntityType<?> type,

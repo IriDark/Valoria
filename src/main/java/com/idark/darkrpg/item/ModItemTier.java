@@ -9,12 +9,12 @@ import java.util.function.Supplier;
 public enum ModItemTier implements IItemTier {
 
     //OTHER
-    COBALT(3, 250, 6f, 1f, 17,
+    COBALT(4, 600, 6f, 1f, 17,
 	        () -> Ingredient.fromItems(ModItems.COBALT_INGOT.get())),
     //ELEMENTAL
-    NATURE(4, 325, 8.5f, 2.2f, 14,
+    NATURE(5, 1200, 10.5f, 6.2f, 17,
 	        () -> Ingredient.fromItems(ModItems.NATURE_INGOT.get())),
-    INFERNAL(5, 600, 8f, 5f, 9,
+    INFERNAL(6, 1600, 12f, 8.4f, 14,
 	        () -> Ingredient.fromItems(ModItems.INFERNAL_INGOT.get()));
 
     private final int harvestLevel;

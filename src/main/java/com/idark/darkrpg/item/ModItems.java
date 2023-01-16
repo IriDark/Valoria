@@ -41,6 +41,8 @@ import net.minecraftforge.eventbus.api.IEventBus;
 	//ingot_block
 	public static final RegistryObject<Item> COBALT_BLOCK = ITEMS.register("cobalt_block", () -> new BlockItem(ModBlocks.COBALT_BLOCK.get(), new Item.Properties().group(ModItemGroup.DARKRPG_BLOCKS_GROUP)));
 	public static final RegistryObject<Item> NATURE_BLOCK = ITEMS.register("nature_block", () -> new BlockItem(ModBlocks.NATURE_BLOCK.get(), new Item.Properties().group(ModItemGroup.DARKRPG_BLOCKS_GROUP)));
+	public static final RegistryObject<Item> WATER_BLOCK = ITEMS.register("water_block", () -> new BlockItem(ModBlocks.WATER_BLOCK.get(), new Item.Properties().group(ModItemGroup.DARKRPG_BLOCKS_GROUP)));
+	public static final RegistryObject<Item> IFERNAL_BLOCK = ITEMS.register("infernal_block", () -> new BlockItem(ModBlocks.INFERNAL_BLOCK.get(), new Item.Properties().group(ModItemGroup.DARKRPG_BLOCKS_GROUP)));
 	public static final RegistryObject<Item> AWAKENED_VOID_BLOCK = ITEMS.register("awakened_void_block", () -> new BlockItem(ModBlocks.AWAKENED_VOID_BLOCK.get(), new Item.Properties().isImmuneToFire().group(ModItemGroup.DARKRPG_BLOCKS_GROUP)));
 	//crystals
 	public static final RegistryObject<Item> AMBER_ORE = ITEMS.register("amber_ore", () -> new BlockItem(ModBlocks.AMBER_ORE.get(), new Item.Properties().group(ModItemGroup.DARKRPG_BLOCKS_GROUP)));
@@ -76,6 +78,10 @@ import net.minecraftforge.eventbus.api.IEventBus;
 	public static final RegistryObject<Item> VOID_POLISHED_BLOCK = ITEMS.register("void_polished_block", () -> new BlockItem(ModBlocks.VOID_POLISHED_BLOCK.get(), new Item.Properties().group(ModItemGroup.DARKRPG_BLOCKS_GROUP)));
 	public static final RegistryObject<Item> VOID_PILLAR = ITEMS.register("void_pillar", () -> new BlockItem(ModBlocks.VOID_PILLAR.get(), new Item.Properties().group(ModItemGroup.DARKRPG_BLOCKS_GROUP)));
 	public static final RegistryObject<Item> CHARGED_VOID_PILLAR = ITEMS.register("charged_void_pillar", () -> new BlockItem(ModBlocks.CHARGED_VOID_PILLAR.get(), new Item.Properties().group(ModItemGroup.DARKRPG_BLOCKS_GROUP)));
+	//keyblock
+	public static final RegistryObject<Item> KEYBLOCK = ITEMS.register("keyblock", () -> new BlockItem(ModBlocks.KEYBLOCK.get(), new Item.Properties().group(ModItemGroup.DARKRPG_BLOCKS_GROUP)));
+	public static final RegistryObject<Item> KEYBLOCK_BRICKS = ITEMS.register("keyblock_bricks", () -> new BlockItem(ModBlocks.KEYBLOCK_BRICKS.get(), new Item.Properties().group(ModItemGroup.DARKRPG_BLOCKS_GROUP)));
+	public static final RegistryObject<Item> KEYBLOCK_RUNE = ITEMS.register("keyblock_rune", () -> new BlockItem(ModBlocks.KEYBLOCK_RUNE.get(), new Item.Properties().group(ModItemGroup.DARKRPG_BLOCKS_GROUP)));
 	//other
 	public static final RegistryObject<Item> ALOE_PIECE = ITEMS.register("aloe_piece", () -> new Item(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
 	public static final RegistryObject<Item> QUICKSAND = ITEMS.register("quicksand", () -> new BlockItem(ModBlocks.QUICKSAND.get(), new Item.Properties().group(ModItemGroup.DARKRPG_BLOCKS_GROUP)));
@@ -233,31 +239,45 @@ import net.minecraftforge.eventbus.api.IEventBus;
 		() -> new HoeItem(ModItemTier.INFERNAL, -3, 0f,
 		new Item.Properties().isImmuneToFire().group(ModItemGroup.DARKRPG_GROUP)));
 	//accessories
+	//amulets
+    public static final RegistryObject<Item> IRON_CHAIN = ITEMS.register("iron_chain",
+		() -> new Item(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP).maxStackSize(8).rarity(Rarity.UNCOMMON)));
+	public static final RegistryObject<Item> GOLDEN_CHAIN = ITEMS.register("golden_chain",
+		() -> new Item(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP).maxStackSize(8).rarity(Rarity.UNCOMMON)));	
+	public static final RegistryObject<Item> NETHERITE_CHAIN = ITEMS.register("netherite_chain",
+		() -> new Item(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP).maxStackSize(8).rarity(Rarity.UNCOMMON)));
+	//belts
+	public static final RegistryObject<Item> LEATHER_BELT = ITEMS.register("leather_belt",
+		() -> new CurioBelt(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP).maxStackSize(1).rarity(Rarity.EPIC)));
 	//rings
 	public static final RegistryObject<Item> IRON_RING = ITEMS.register("iron_ring",
-		() -> new CurioIronRing(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP).maxStackSize(1).rarity(Rarity.UNCOMMON)));
+		() -> new CurioIronRing(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP).maxStackSize(1).maxDamage(80).rarity(Rarity.UNCOMMON)));
 	public static final RegistryObject<Item> GOLDEN_RING = ITEMS.register("golden_ring",
-		() -> new CurioGoldenRing(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP).maxStackSize(1).rarity(Rarity.UNCOMMON)));
+		() -> new CurioGoldenRing(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP).maxStackSize(1).maxDamage(40).rarity(Rarity.UNCOMMON)));
 	public static final RegistryObject<Item> NETHERITE_RING = ITEMS.register("netherite_ring",
-		() -> new CurioNetheriteRing(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP).maxStackSize(1).rarity(Rarity.UNCOMMON)));	
+		() -> new CurioNetheriteRing(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP).maxStackSize(1).maxDamage(140).rarity(Rarity.UNCOMMON)));	
 	//hands
+	public static final RegistryObject<Item> LEATHER_GLOVES = ITEMS.register("leather_gloves",
+		() -> new CurioLeatherGloves(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP).maxStackSize(1).maxDamage(100).rarity(Rarity.UNCOMMON)));
 	public static final RegistryObject<Item> IRON_GLOVES = ITEMS.register("iron_gloves",
-		() -> new CurioIronGloves(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP).maxStackSize(1).rarity(Rarity.UNCOMMON)));
+		() -> new CurioIronGloves(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP).maxStackSize(1).maxDamage(190).rarity(Rarity.UNCOMMON)));
 	public static final RegistryObject<Item> GOLDEN_GLOVES = ITEMS.register("golden_gloves",
-		() -> new CurioGoldenGloves(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP).maxStackSize(1).rarity(Rarity.UNCOMMON)));
+		() -> new CurioGoldenGloves(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP).maxStackSize(1).maxDamage(140).rarity(Rarity.UNCOMMON)));
+	public static final RegistryObject<Item> DIAMOND_GLOVES = ITEMS.register("diamond_gloves",
+		() -> new CurioDiamondGloves(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP).maxStackSize(1).maxDamage(240).rarity(Rarity.UNCOMMON)));	
 	public static final RegistryObject<Item> NETHERITE_GLOVES = ITEMS.register("netherite_gloves",
-		() -> new CurioNetheriteGloves(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP).maxStackSize(1).rarity(Rarity.UNCOMMON)));	
+		() -> new CurioNetheriteGloves(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP).maxStackSize(1).maxDamage(300).rarity(Rarity.UNCOMMON)));	
 	//charms
 	public static final RegistryObject<Item> RUNE = ITEMS.register("rune",
-		() -> new Item(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP).maxStackSize(16).rarity(Rarity.UNCOMMON)));
+		() -> new CurioRune(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP).maxStackSize(16).rarity(Rarity.UNCOMMON)));
 	public static final RegistryObject<Item> RUNE_OF_VISION = ITEMS.register("rune_of_vision",
 		() -> new CurioVision(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP).maxStackSize(16).maxDamage(8).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> RUNE_OF_WEALTH = ITEMS.register("rune_of_wealth",
-		() -> new Item(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP).maxStackSize(16).maxDamage(8).rarity(Rarity.EPIC)));
+		() -> new CurioWealth(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP).maxStackSize(16).maxDamage(8).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> RUNE_OF_CURSES = ITEMS.register("rune_of_curses",
-		() -> new Item(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP).maxStackSize(16).maxDamage(8).rarity(Rarity.EPIC)));
+		() -> new CurioCurses(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP).maxStackSize(16).maxDamage(8).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> RUNE_OF_STRENGTH = ITEMS.register("rune_of_strength",
-		() -> new Item(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP).maxStackSize(16).maxDamage(8).rarity(Rarity.EPIC)));
+		() -> new CurioStrength(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP).maxStackSize(16).maxDamage(8).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> RUNE_OF_ACCURACY = ITEMS.register("rune_of_accuracy",
 		() -> new Item(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP).maxStackSize(16).maxDamage(8).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> RUNE_OF_DEEP = ITEMS.register("rune_of_deep",

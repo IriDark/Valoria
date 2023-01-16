@@ -30,7 +30,6 @@ public class ModWorldEvents {
     public static void biomeLoadingEvent(final BiomeLoadingEvent event) {
 		
         ModFlowerGeneration.generateFlowers(event);
-
         ModEntityGeneration.onEntitySpawn(event);
     }
 }

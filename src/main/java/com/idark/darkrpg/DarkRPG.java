@@ -35,10 +35,10 @@ import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.DeferredWorkQueue;
 
-@Mod(DarkRPG.MOD_ID)
-public class DarkRPG {
+	    @Mod(DarkRPG.MOD_ID)
+	    public class DarkRPG {
 	    public static final String MOD_ID = "darkrpg";
-    
+	    
 	    public DarkRPG() {
 	    InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE,
                 () -> SlotTypePreset.RING.getMessageBuilder().build());
@@ -50,37 +50,37 @@ public class DarkRPG {
                 () -> SlotTypePreset.NECKLACE.getMessageBuilder().build());
 	    InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE,
                 () -> SlotTypePreset.HEAD.getMessageBuilder().build());
-	    InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE,
+		InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE,
                 () -> SlotTypePreset.CHARM.getMessageBuilder().build());
-		    
+	    
 	    FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
 	    FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
-		
+	    
 	    IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
 	    ModItems.register(eventBus);
 	    ModBlocks.register(eventBus);
 	    ModEntityTypes.register(eventBus);
 	    ModPaintings.register(eventBus);
-		
+	    
 	    MinecraftForge.EVENT_BUS.register(this);
-	}
+	    }
 	    private void doClientStuff(final FMLClientSetupEvent event) {
 	    event.enqueueWork(() -> {
 	    RenderTypeLookup.setRenderLayer(ModBlocks.DRIED_PLANT.get(), RenderType.getCutout());
 	    RenderTypeLookup.setRenderLayer(ModBlocks.ALOE_SMALL.get(), RenderType.getCutout());
 	    RenderTypeLookup.setRenderLayer(ModBlocks.ALOE.get(), RenderType.getCutout());
 	    RenderTypeLookup.setRenderLayer(ModBlocks.CATTAIL.get(), RenderType.getCutout());
-	    RenderTypeLookup.setRenderLayer(ModBlocks.SOULROOT.get(), RenderType.getCutout());		
-	    RenderTypeLookup.setRenderLayer(ModBlocks.CRIMSON_SOULROOT.get(), RenderType.getCutout());		
-	    RenderTypeLookup.setRenderLayer(ModBlocks.DOUBLE_SOULROOT.get(), RenderType.getCutout());		
-	    RenderTypeLookup.setRenderLayer(ModBlocks.MAGMAROOT.get(), RenderType.getCutout());		
-	    RenderTypeLookup.setRenderLayer(ModBlocks.DOUBLE_MAGMAROOT.get(), RenderType.getCutout());		
-	    RenderTypeLookup.setRenderLayer(ModBlocks.GOLDY.get(), RenderType.getCutout());		
-	    RenderTypeLookup.setRenderLayer(ModBlocks.DOUBLE_GOLDY.get(), RenderType.getCutout());		
-	    RenderTypeLookup.setRenderLayer(ModBlocks.BLOODROOT.get(), RenderType.getCutout());		
-	    RenderTypeLookup.setRenderLayer(ModBlocks.RAJUSH.get(), RenderType.getCutout());		
-
-		
+	    RenderTypeLookup.setRenderLayer(ModBlocks.SOULROOT.get(), RenderType.getCutout());	    
+	    RenderTypeLookup.setRenderLayer(ModBlocks.CRIMSON_SOULROOT.get(), RenderType.getCutout());	    
+	    RenderTypeLookup.setRenderLayer(ModBlocks.DOUBLE_SOULROOT.get(), RenderType.getCutout());	    
+	    RenderTypeLookup.setRenderLayer(ModBlocks.MAGMAROOT.get(), RenderType.getCutout());	    
+	    RenderTypeLookup.setRenderLayer(ModBlocks.DOUBLE_MAGMAROOT.get(), RenderType.getCutout());	    
+	    RenderTypeLookup.setRenderLayer(ModBlocks.GOLDY.get(), RenderType.getCutout());	    
+	    RenderTypeLookup.setRenderLayer(ModBlocks.DOUBLE_GOLDY.get(), RenderType.getCutout());	    
+	    RenderTypeLookup.setRenderLayer(ModBlocks.BLOODROOT.get(), RenderType.getCutout());	    
+	    RenderTypeLookup.setRenderLayer(ModBlocks.RAJUSH.get(), RenderType.getCutout());	    
+	    
+	    
 	    RenderTypeLookup.setRenderLayer(ModBlocks.ELEMENTAL_MANIPULATOR.get(), RenderType.getCutout());
 	    RenderTypeLookup.setRenderLayer(ModBlocks.SPIDER_EGG.get(), RenderType.getCutout());
 	    RenderTypeLookup.setRenderLayer(ModBlocks.PEDESTAL.get(), RenderType.getCutout());
@@ -98,31 +98,31 @@ public class DarkRPG {
 	    RenderTypeLookup.setRenderLayer(ModBlocks.AMBER_CRYSTAL_0.get(), RenderType.getCutout());
 	    RenderTypeLookup.setRenderLayer(ModBlocks.AMBER_CRYSTAL_1.get(), RenderType.getCutout());
 	    RenderTypeLookup.setRenderLayer(ModBlocks.AMBER_CRYSTAL_2.get(), RenderType.getCutout());
-		});
-		
+	    });
+	    
 	    EntitySpawnPlacementRegistry.register(ModEntityTypes.SWAMP_WANDERER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND,
 	    Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MonsterEntity::canMonsterSpawn);
 	    EntitySpawnPlacementRegistry.register(ModEntityTypes.GOBLIN.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND,
 	    Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MonsterEntity::canMonsterSpawn);
-		
+	    
 	    RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.GOBLIN.get(), GoblinRenderer::new);
 	    RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.SWAMP_WANDERER.get(), SwampWandererRenderer::new);
 	    RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.MANNEQUIN.get(), MannequinRenderer::new);
-	 
+	    
 	    ModItemModelProperties.makeBow(ModItems.NATURE_BOW.get());
 	    ModItemModelProperties.makeBow(ModItems.OCEAN_BOW.get());
 	    ModItemModelProperties.makeBow(ModItems.BOW_OF_DARKNESS.get());
 	    ModItemModelProperties.makeBow(ModItems.PHANTASM_BOW.get());
-
-}
+	    
+	    }
 	    private void setup(final FMLCommonSetupEvent event) {
 	    DeferredWorkQueue.runLater(() -> {
 	    GlobalEntityTypeAttributes.put(ModEntityTypes.SWAMP_WANDERER.get(), SwampWandererEntity.setCustomAttributes().create());
 	    GlobalEntityTypeAttributes.put(ModEntityTypes.MANNEQUIN.get(), MannequinEntity.setCustomAttributes().create());
 	    GlobalEntityTypeAttributes.put(ModEntityTypes.GOBLIN.get(), GoblinEntity.setCustomAttributes().create());
-		});
-}
+	    });
+	    }
 	    private void processIMC(final InterModProcessEvent event) {
-			// some example code to receive and process InterModComms from other mods
-		}
+	    // some example code to receive and process InterModComms from other mods
+	    }
 }
