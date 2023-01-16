@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "darkrpg:block/cut_bronze_slab"
+    },
+    "type=double": {
+      "model": "darkrpg:block/cut_bronze"
+    },
+    "type=top": {
+      "model": "darkrpg:block/cut_bronze_slab_top"
+    }
+  }
+}

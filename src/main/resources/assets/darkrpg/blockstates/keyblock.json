@@ -1,0 +1,6 @@
+{
+  "variants" : {
+    "" : { "model": "darkrpg:block/keyblock" },
+	"key" : { "model": "darkrpg:block/keyblock_key" }
+  }
+}
