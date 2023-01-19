@@ -159,6 +159,10 @@ import net.minecraftforge.eventbus.api.IEventBus;
 		new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
 	//TOOLS
 	//vanilla
+	public static final RegistryObject<Item> IRON_SPEAR = ITEMS.register("iron_spear",
+		() -> new SpearItem(ItemTier.IRON, 7, -3.5f,
+		new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
+		
 	public static final RegistryObject<Item> IRON_SCYTHE = ITEMS.register("iron_scythe",
 		() -> new SwordItem(ItemTier.IRON, 7, -3.5f,
 		new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
