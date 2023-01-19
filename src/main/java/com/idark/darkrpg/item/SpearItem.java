@@ -1,37 +1,41 @@
 package com.idark.darkrpg.item;
 
+import com.google.common.base.Suppliers;
 import com.idark.darkrpg.DarkRPG;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.ImmutableMultimap.Builder;
+import net.minecraft.item.*;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.material.Material;
 import net.minecraft.enchantment.IVanishable;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.attributes.Attribute;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.ai.attributes.*;
+import net.minecraft.entity.player.*;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.*;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeMod;
+import java.util.UUID;
+import java.util.function.Supplier;
 
 public class SpearItem extends TieredItem implements IVanishable {
    private final float attackDamage;
    /** Modifiers applied when the item is in the mainhand of a user. */
-   private final Multimap<Attribute, AttributeModifier> attributeModifiers;
+   private Supplier<Multimap<Attribute, AttributeModifier>> attributeModifiers = Suppliers.memoize(this::createAttributes);
 
    public SpearItem(IItemTier tier, int attackDamageIn, float attackSpeedIn, Item.Properties builderIn) {
       super(tier, builderIn);
       this.attackDamage = (float)attackDamageIn + tier.getAttackDamage();
+   }
+   private Multimap<Attribute, AttributeModifier> createAttributes(){
       Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
       builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", (double)this.attackDamage, AttributeModifier.Operation.ADDITION));
       builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", (double)attackSpeedIn, AttributeModifier.Operation.ADDITION));
-      builder.put(ForgeMod.REACH_DISTANCE, new AttributeModifier(ATTACK_RANGE_MODIFIER, "Weapon modifier", (double)attackRangeIn, AttributeModifier.Operation.ADDITION));
-	  this.attributeModifiers = builder.build();
+      builder.put(ForgeMod.REACH_DISTANCE.get(), new AttributeModifier("B2392114-1C63-2123-AB29-6456FD734102",10, AttributeModifier.Operation.ADDITION));
+      return builder.build();
    }
 
    public float getAttackDamage() {
@@ -76,16 +80,9 @@ public class SpearItem extends TieredItem implements IVanishable {
    }
 
    /**
-    * Check whether this Item can harvest the given Block
-    */
-   public boolean canHarvestBlock(BlockState blockIn) {
-      return blockIn.matchesBlock(Blocks.COBWEB);
-   }
-
-   /**
     * Gets a map of item attribute modifiers, used by ItemSword to increase hit damage.
     */
    public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlotType equipmentSlot) {
-      return equipmentSlot == EquipmentSlotType.MAINHAND ? this.attributeModifiers : super.getAttributeModifiers(equipmentSlot);
+      return equipmentSlot == EquipmentSlotType.MAINHAND ? this.attributeModifiers.get() : super.getAttributeModifiers(equipmentSlot);
    }
 }
