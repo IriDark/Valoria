@@ -12,6 +12,7 @@ A global RPG mod.
 
 #### Special Thanks:
 - C4 (CuriosAPI Dev)
+- AstemirDev 
 - MrCat
 - Wosaj
 - Vuzz
