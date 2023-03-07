@@ -9,19 +9,17 @@ A global RPG mod.
 #### Devs:
 - iDark
 - MrCat
+- GraFik
 
 #### Special Thanks:
-- C4 (CuriosAPI Dev)
-- AstemirDev 
-- MrCat
+- AstemirDev
 - Wosaj
 - Vuzz
-- GraFik
 - BaronFonShish
 - Auriny
 - Arky Fursblack
 - FoxPlane
 - MaxBogomol
-- RayRindou (Agma, Kazuhira)
+- RayRindou
 
-## You are not allowed to use the textures of the project, even slightly changing them, this is considered theft.
+## You`re not allowed to use the textures of the project, even slightly changing them, this is considered theft.
