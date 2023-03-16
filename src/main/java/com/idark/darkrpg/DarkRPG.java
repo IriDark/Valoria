@@ -1,5 +1,6 @@
 package com.idark.darkrpg;
 
+import com.idark.darkrpg.client.render.model.item.Item2DRenderer;
 import com.idark.darkrpg.item.ModItems;
 import com.idark.darkrpg.block.ModBlocks;
 import com.idark.darkrpg.paintings.ModPaintings;
@@ -9,6 +10,12 @@ import com.idark.darkrpg.util.*;
 import com.idark.darkrpg.entity.custom.*;
 import com.idark.darkrpg.entity.renderer.*;
 import com.idark.darkrpg.entity.model.*;
+import net.minecraft.block.Block;
+import net.minecraft.client.renderer.model.ModelResourceLocation;
+import net.minecraftforge.client.event.ModelBakeEvent;
+import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.event.RegistryEvent;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotTypeMessage;
 import top.theillusivec4.curios.api.SlotTypePreset;
@@ -66,7 +73,7 @@ import net.minecraftforge.fml.DeferredWorkQueue;
 		ModPaintings.register(eventBus);
 	    ModItems.register(eventBus);
 		ModBlocks.register(eventBus);
-		ModEntityTypes.register(eventBus); 
+		ModEntityTypes.register(eventBus);
 
 	    MinecraftForge.EVENT_BUS.register(this);
 	    }
@@ -136,4 +143,21 @@ import net.minecraftforge.fml.DeferredWorkQueue;
 	    private void processIMC(final InterModProcessEvent event) {
 	    // some example code to receive and process InterModComms from other mods
 	    }
+
+			@Mod.EventBusSubscriber(bus=Mod.EventBusSubscriber.Bus.MOD)
+			public static class RegistryEvents {
+
+				@SubscribeEvent
+				public static void onModelRegistryEvent(ModelRegistryEvent event) {
+					for (String item : Item2DRenderer.HAND_MODEL_ITEMS) {
+						ModelLoader.addSpecialModel(new ModelResourceLocation(MOD_ID+":" + item + "_in_hand", "inventory"));
+					}
+				}
+
+				@SubscribeEvent
+				public static void onModelBakeEvent(ModelBakeEvent event)
+				{
+					Item2DRenderer.onModelBakeEvent(event);
+				}
+			}
 }
