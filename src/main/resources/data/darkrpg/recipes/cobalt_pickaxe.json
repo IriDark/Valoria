@@ -1,0 +1,20 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "XXX",
+        " / ",
+        " / "
+    ],
+    "key": {
+        "/": {
+            "item": "darkrpg:cobalt_ingot"
+        },
+        "/": {
+            "item": "minecraft:stick"
+        }
+    },
+    "result": {
+        "item": "darkrpg:cobalt_pickaxe",
+        "count": 1
+    }
+}

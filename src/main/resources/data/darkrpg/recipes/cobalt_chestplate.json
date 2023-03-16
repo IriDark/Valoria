@@ -1,20 +1,17 @@
 {
     "type": "minecraft:crafting_shaped",
     "pattern": [
+        "/ /",
         "///",
-        "/X/",
         "///"
     ],
     "key": {
         "/": {
-            "item": "darkrpg:bronze_ingot"
-        },
-		 "X": {
-            "item": "minecraft:glass"
+            "item": "darkrpg:cobalt_ingot"
         }
     },
     "result": {
-        "item": "darkrpg:bronze_glass",
+        "item": "darkrpg:cobalt_chestplate",
         "count": 1
     }
 }

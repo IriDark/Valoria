@@ -1,0 +1,23 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        " X ",
+        " A ",
+        " / "
+    ],
+    "key": {
+        "/": {
+		"item": "darkrpg:cup"
+    },
+	"X": {
+		"item": "minecraft:cocoa_beans"
+    },
+	"A": {
+		"item": "minecraft:milk"
+		}
+	},
+    "result": {
+        "item": "darkrpg:cacao_cup",
+        "count": 1
+	}
+}

@@ -2,19 +2,16 @@
     "type": "minecraft:crafting_shaped",
     "pattern": [
         "///",
-        "/X/",
+        "///",
         "///"
     ],
     "key": {
         "/": {
-            "item": "darkrpg:bronze_ingot"
-        },
-		 "X": {
-            "item": "minecraft:glass"
+            "item": "darkrpg:ocean_ingot"
         }
     },
     "result": {
-        "item": "darkrpg:bronze_glass",
+        "item": "darkrpg:ocean_block",
         "count": 1
     }
 }

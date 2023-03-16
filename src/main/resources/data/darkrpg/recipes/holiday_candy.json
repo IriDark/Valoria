@@ -1,0 +1,20 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "  /",
+        "X//",
+        "/X "
+    ],
+    "key": {
+        "/": {
+		"item": "minecraft:sugar"
+    },
+	"X": {
+		"item": "minecraft:milk"
+		}
+	},
+    "result": {
+        "item": "darkrpg:holiday_candy",
+        "count": 1
+    }
+}

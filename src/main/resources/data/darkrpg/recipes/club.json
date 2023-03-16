@@ -1,0 +1,20 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        " X ",
+        " X ",
+        " / "
+    ],
+    "key": {
+        "X": {
+      "tag": "minecraft:logs"
+        },
+        "/": {
+            "item": "minecraft:stick"
+        }
+    },
+    "result": {
+        "item": "darkrpg:club",
+        "count": 1
+    }
+}

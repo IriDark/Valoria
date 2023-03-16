@@ -1,17 +1,17 @@
 {
     "type": "minecraft:crafting_shaped",
     "pattern": [
-        "///",
-        "///",
+        "/  ",
+        "// ",
         "///"
     ],
     "key": {
         "/": {
-            "item": "darkrpg:awakened_void_ingot"
+            "item": "darkrpg:tombstone"
         }
     },
     "result": {
-        "item": "darkrpg:awakened_void_block",
+        "item": "darkrpg:tombstone_stairs",
         "count": 1
     }
 }

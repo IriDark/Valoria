@@ -2,7 +2,7 @@
     "type": "minecraft:crafting_shaped",
     "pattern": [
         "///",
-        "/X/",
+        "X/X",
         "///"
     ],
     "key": {
@@ -10,11 +10,11 @@
             "item": "darkrpg:bronze_ingot"
         },
 		 "X": {
-            "item": "minecraft:glass"
+            "item": "minecraft:redstone"
         }
     },
     "result": {
-        "item": "darkrpg:bronze_glass",
+        "item": "darkrpg:bronze_lamp",
         "count": 1
     }
 }

@@ -1,0 +1,20 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        " XX",
+        " /X",
+        " / "
+    ],
+    "key": {
+        "/": {
+            "item": "minecraft:golden_ingot"
+        },
+        "/": {
+            "item": "minecraft:stick"
+        }
+    },
+    "result": {
+        "item": "darkrpg:golden_spear",
+        "count": 1
+    }
+}

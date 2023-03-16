@@ -1,0 +1,20 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "  X",
+        " X ",
+        "/  "
+    ],
+    "key": {
+        "/": {
+            "item": "minecraft:golden_ingot"
+        },
+        "/": {
+            "item": "minecraft:stick"
+        }
+    },
+    "result": {
+        "item": "darkrpg:golden_katana",
+        "count": 1
+    }
+}
