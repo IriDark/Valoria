@@ -1,5 +1,20 @@
 {
-  "variants" : {
-    "" : { "model": "darkrpg:block/limestone" }
+  "variants": {
+    "": [
+      {
+        "model": "darkrpg:block/limestone"
+      },
+      {
+        "model": "darkrpg:block/limestone_mirrored"
+      },
+      {
+        "model": "darkrpg:block/limestone",
+        "y": 180
+      },
+      {
+        "model": "darkrpg:block/limestone_mirrored",
+        "y": 180
+      }
+    ]
   }
 }

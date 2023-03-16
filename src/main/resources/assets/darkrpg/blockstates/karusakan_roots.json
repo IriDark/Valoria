@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=upper": {
+      "model": "darkrpg:block/karusakan_roots_top"
+    },
+    "half=lower": {
+      "model": "darkrpg:block/karusakan_roots"
+    }
+  }
+}
