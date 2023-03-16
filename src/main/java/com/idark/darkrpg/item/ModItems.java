@@ -7,10 +7,11 @@ import com.idark.darkrpg.item.curio.hands.*;
 import com.idark.darkrpg.item.curio.ring.*;
 import com.idark.darkrpg.item.curio.charm.*;
 import com.idark.darkrpg.item.staffs.*;
-import com.idark.darkrpg.block.ModBlocks;
-import com.idark.darkrpg.entity.ModEntityTypes;
+import com.idark.darkrpg.effect.*;
+import com.idark.darkrpg.block.*;
+import com.idark.darkrpg.entity.*;
 import net.minecraft.item.*;
-import net.minecraft.item.Rarity;
+import net.minecraft.potion.*;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.block.AbstractBlock.Properties;
 import net.minecraftforge.fml.RegistryObject;
@@ -18,13 +19,19 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.eventbus.api.IEventBus;
 	
-	public class ModItems {
+public class ModItems {
 	public static final DeferredRegister<Item> ITEMS =
 	DeferredRegister.create(ForgeRegistries.ITEMS, DarkRPG.MOD_ID);
 	
 	private final static String MODID = DarkRPG.MOD_ID;
 	//BLOCKITEMS (category)
 	//plants
+	public static final RegistryObject<Item> FALSEFLOWER = ITEMS.register("falseflower", () -> new BlockItem(ModBlocks.FALSEFLOWER.get(), new Item.Properties().group(ModItemGroup.DARKRPG_BLOCKS_GROUP)));
+	public static final RegistryObject<Item> FALSEFLOWER_SMALL = ITEMS.register("falseflower_small", () -> new BlockItem(ModBlocks.FALSEFLOWER_SMALL.get(), new Item.Properties().group(ModItemGroup.DARKRPG_BLOCKS_GROUP)));
+	public static final RegistryObject<Item> SOULFLOWER = ITEMS.register("soulflower", () -> new BlockItem(ModBlocks.SOULFLOWER.get(), new Item.Properties().group(ModItemGroup.DARKRPG_BLOCKS_GROUP)));
+	public static final RegistryObject<Item> VOID_ROOTS = ITEMS.register("void_roots", () -> new BlockItem(ModBlocks.VOID_ROOTS.get(), new Item.Properties().group(ModItemGroup.DARKRPG_BLOCKS_GROUP)));
+	public static final RegistryObject<Item> GAIB_ROOTS = ITEMS.register("gaib_roots", () -> new BlockItem(ModBlocks.GAIB_ROOTS.get(), new Item.Properties().group(ModItemGroup.DARKRPG_BLOCKS_GROUP)));
+	public static final RegistryObject<Item> KARUSAKAN_ROOTS = ITEMS.register("karusakan_roots", () -> new BlockItem(ModBlocks.KARUSAKAN_ROOTS.get(), new Item.Properties().group(ModItemGroup.DARKRPG_BLOCKS_GROUP)));
 	public static final RegistryObject<Item> ALOE_SMALL = ITEMS.register("aloe_small", () -> new BlockItem(ModBlocks.ALOE_SMALL.get(), new Item.Properties().group(ModItemGroup.DARKRPG_BLOCKS_GROUP)));
 	public static final RegistryObject<Item> ALOE = ITEMS.register("aloe", () -> new BlockItem(ModBlocks.ALOE.get(), new Item.Properties().group(ModItemGroup.DARKRPG_BLOCKS_GROUP)));
 	public static final RegistryObject<Item> CATTAIL = ITEMS.register("cattail", () -> new BlockItem(ModBlocks.CATTAIL.get(), new Item.Properties().group(ModItemGroup.DARKRPG_BLOCKS_GROUP)));
@@ -93,6 +100,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 	public static final RegistryObject<Item> VOID_CHISELED_BRICKS = ITEMS.register("void_chiseled_bricks", () -> new BlockItem(ModBlocks.VOID_CHISELED_BRICKS.get(), new Item.Properties().group(ModItemGroup.DARKRPG_BLOCKS_GROUP)));
 	public static final RegistryObject<Item> VOID_PILLAR = ITEMS.register("void_pillar", () -> new BlockItem(ModBlocks.VOID_PILLAR.get(), new Item.Properties().group(ModItemGroup.DARKRPG_BLOCKS_GROUP)));
 	public static final RegistryObject<Item> VOID_PILLAR_AMETHYST = ITEMS.register("void_pillar_amethyst", () -> new BlockItem(ModBlocks.VOID_PILLAR_AMETHYST.get(), new Item.Properties().group(ModItemGroup.DARKRPG_BLOCKS_GROUP)));
+	public static final RegistryObject<Item> VOID_GRASS = ITEMS.register("void_grass", () -> new BlockItem(ModBlocks.VOID_GRASS.get(), new Item.Properties().group(ModItemGroup.DARKRPG_BLOCKS_GROUP)));
 	public static final RegistryObject<Item> TOMBSTONE = ITEMS.register("tombstone", () -> new BlockItem(ModBlocks.TOMBSTONE.get(), new Item.Properties().group(ModItemGroup.DARKRPG_BLOCKS_GROUP)));
 	public static final RegistryObject<Item> TOMBSTONE_BRICKS = ITEMS.register("tombstone_bricks", () -> new BlockItem(ModBlocks.TOMBSTONE_BRICKS.get(), new Item.Properties().group(ModItemGroup.DARKRPG_BLOCKS_GROUP)));
 	public static final RegistryObject<Item> TOMBSTONE_WALL = ITEMS.register("tombstone_wall", () -> new BlockItem(ModBlocks.TOMBSTONE_WALL.get(), new Item.Properties().group(ModItemGroup.DARKRPG_BLOCKS_GROUP)));
@@ -140,6 +148,10 @@ import net.minecraftforge.eventbus.api.IEventBus;
 	public static final RegistryObject<Item> INFERNAL_BOOTS = ITEMS.register("infernal_boots", () -> new ModArmorItem(ModArmorMaterial.INFERNAL, EquipmentSlotType.FEET, (new Item.Properties().isImmuneToFire().group(ModItemGroup.DARKRPG_GROUP))));
 	//ITEMS (global category)
 	//misc
+	public static final RegistryObject<Item> GAIB_ROOT = ITEMS.register("gaib_root", () -> new Item(new Item.Properties().maxStackSize(16).group(ModItemGroup.DARKRPG_GROUP)));
+	public static final RegistryObject<Item> KARUSAKAN_ROOT = ITEMS.register("karusakan_root", () -> new Item(new Item.Properties().maxStackSize(16).group(ModItemGroup.DARKRPG_GROUP)));
+	public static final RegistryObject<Item> CUP = ITEMS.register("cup", () -> new Item(new Item.Properties().maxStackSize(16).group(ModItemGroup.DARKRPG_GROUP)));
+	public static final RegistryObject<Item> BOTTLE = ITEMS.register("bottle", () -> new Item(new Item.Properties().maxStackSize(16).group(ModItemGroup.DARKRPG_GROUP)));
 	public static final RegistryObject<Item> SOUL_COLLECTOR = ITEMS.register("soul_collector", () -> new Item(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
 	public static final RegistryObject<Item> ALOE_PIECE = ITEMS.register("aloe_piece", () -> new Item(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
 	public static final RegistryObject<Item> VOID_KEY = ITEMS.register("void_key", () -> new Item(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP).maxStackSize(1).rarity(Rarity.EPIC)));
@@ -161,16 +173,33 @@ import net.minecraftforge.eventbus.api.IEventBus;
 	public static final RegistryObject<Item> VOID_INGOT = ITEMS.register("void_ingot",
 		() -> new Item(new Item.Properties().isImmuneToFire().group(ModItemGroup.DARKRPG_GROUP)));
 	//food
+	public static final RegistryObject<Item> CACAO_CUP = ITEMS.register("cacao_cup",
+		() -> new CupDrinkItem(Effects.SPEED, 10, 1));
+	public static final RegistryObject<Item> COFFE_CUP = ITEMS.register("coffe_cup",
+		() -> new CupDrinkItem(Effects.SPEED, 50, 1));
+	public static final RegistryObject<Item> TEA_CUP = ITEMS.register("tea_cup",
+		() -> new CupDrinkItem(Effects.SPEED, 30, 1));
+	public static final RegistryObject<Item> GREEN_TEA_CUP = ITEMS.register("green_tea_cup",
+		() -> new CupDrinkItem(ModEffects.ALOEREGEN, 50, 1));
+	public static final RegistryObject<Item> VINE_BOTTLE = ITEMS.register("vine_bottle",
+		() -> new BottleDrinkItem(Effects.NAUSEA, 50, 1));
+	public static final RegistryObject<Item> COKE_BOTTLE = ITEMS.register("coke_bottle",
+		() -> new BottleDrinkItem(Effects.SPEED, 25, 1));
+	public static final RegistryObject<Item> APPLE_PIE = ITEMS.register("apple_pie",
+		() -> new Item(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP).food(new Food.Builder().hunger(7).saturation(6).build())));
 	public static final RegistryObject<Item> HOLIDAY_CANDY = ITEMS.register("holiday_candy",
 		() -> new Item(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP).maxStackSize(16).food(new Food.Builder().hunger(4).saturation(6).build())));
 	//TOOLS (category)
+	//other
+	public static final RegistryObject<Item> CLUB = ITEMS.register("club",
+		() -> new ClubItem(ItemTier.IRON, 5, -2.3f, new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
 	//holiday
-	public static final RegistryObject<Item> XMAS_SWORD = ITEMS.register("xmas_sword",
-		() -> new SwordItem(ItemTier.IRON, 5, -2.3f, new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
 	public static final RegistryObject<Item> HOLIDAY_PICKAXE = ITEMS.register("holiday_pickaxe",
 		() -> new PickaxeItem(ItemTier.IRON, 1, -3f, new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
 	public static final RegistryObject<Item> HOLIDAY_AXE = ITEMS.register("holiday_axe",
 		() -> new AxeItem(ItemTier.IRON, 5, -3f, new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
+	public static final RegistryObject<Item> XMAS_SWORD = ITEMS.register("xmas_sword",
+		() -> new SwordItem(ItemTier.IRON, 5, -2.3f, new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
 	//spear
 	public static final RegistryObject<Item> IRON_SPEAR = ITEMS.register("iron_spear",
 		() -> new SpearItem(ItemTier.IRON, 3, -3.5f, new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
@@ -191,15 +220,15 @@ import net.minecraftforge.eventbus.api.IEventBus;
 		() -> new SwordItem(ItemTier.NETHERITE, 8, -3.4f, new Item.Properties().isImmuneToFire().group(ModItemGroup.DARKRPG_GROUP)));
 	//katana
 	public static final RegistryObject<Item> HOLIDAY_KATANA = ITEMS.register("holiday_katana",
-		() -> new KatanaItem(ItemTier.IRON, 3, -1.8f, new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
+		() -> new KatanaItem(ItemTier.IRON, 3, -2f, new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
 	public static final RegistryObject<Item> IRON_KATANA = ITEMS.register("iron_katana",
-		() -> new SwordItem(ItemTier.IRON, 2, -2.2f, new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
+		() -> new KatanaItem(ItemTier.IRON, 2, -2.2f, new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
 	public static final RegistryObject<Item> GOLDEN_KATANA = ITEMS.register("golden_katana",
-		() -> new SwordItem(ItemTier.GOLD, 2, -2.1f, new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
+		() -> new KatanaItem(ItemTier.GOLD, 2, -2.1f, new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
 	public static final RegistryObject<Item> DIAMOND_KATANA = ITEMS.register("diamond_katana",
-		() -> new SwordItem(ItemTier.DIAMOND, 1, -1.9f, new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
+		() -> new KatanaItem(ItemTier.DIAMOND, 1, -1.9f, new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
 	public static final RegistryObject<Item> NETHERITE_KATANA = ITEMS.register("netherite_katana",
-		() -> new SwordItem(ItemTier.NETHERITE, 1, -1.8f, new Item.Properties().isImmuneToFire().group(ModItemGroup.DARKRPG_GROUP)));
+		() -> new KatanaItem(ItemTier.NETHERITE, 1, -1.8f, new Item.Properties().isImmuneToFire().group(ModItemGroup.DARKRPG_GROUP)));
 	//cobalt
 	public static final RegistryObject<Item> COBALT_SWORD = ITEMS.register("cobalt_sword",
 		() -> new SwordItem(ModItemTier.COBALT, 4, -2.2f, new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
