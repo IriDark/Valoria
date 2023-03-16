@@ -1,5 +1,20 @@
 {
   "variants": {
-    "": { "model" : "darkrpg:block/void_stone" }
+    "": [
+      {
+        "model": "darkrpg:block/void_stone"
+      },
+      {
+        "model": "darkrpg:block/void_stone_mirrored"
+      },
+      {
+        "model": "darkrpg:block/void_stone",
+        "y": 180
+      },
+      {
+        "model": "darkrpg:block/void_stone_mirrored",
+        "y": 180
+      }
+    ]
   }
 }
