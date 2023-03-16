@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=upper": {
+      "model": "darkrpg:block/double_crimson_soulroot_top"
+    },
+    "half=lower": {
+      "model": "darkrpg:block/double_crimson_soulroot"
+    }
+  }
+}

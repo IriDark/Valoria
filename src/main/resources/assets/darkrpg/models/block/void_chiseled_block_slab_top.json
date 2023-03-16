@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "darkrpg:block/void_chiseled_block",
+    "top": "darkrpg:block/void_chiseled_block",
+    "side": "darkrpg:block/void_chiseled_block"
+  }
+}

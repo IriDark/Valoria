@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "awakened=0": {
+		"model" : "darkrpg:block/infernal_block"
+	},
+	"awakened=1": {
+		"model" : "darkrpg:block/awakened_infernal_block"
+	}
+  }
+}

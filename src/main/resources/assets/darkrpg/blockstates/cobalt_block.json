@@ -1,0 +1,5 @@
+{
+  "variants" : {
+    "" : { "model": "darkrpg:block/cobalt_block" }
+  }
+}

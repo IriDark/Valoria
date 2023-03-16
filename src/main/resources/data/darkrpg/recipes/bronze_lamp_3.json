@@ -1,0 +1,19 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "///",
+        "###",
+        "///"
+    ],
+    "key": {
+        "/": {
+            "item": "darkrpg:bronze_ingot"
+        },
+	"#": {
+            "item": "minecraft:redstone"
+    }
+    "result": {
+        "item": "darkrpg:bronze_lamp_3",
+        "count": 1
+    }
+}

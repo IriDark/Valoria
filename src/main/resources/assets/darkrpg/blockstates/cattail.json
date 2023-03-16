@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=upper": {
+      "model": "darkrpg:block/cattail_top"
+    },
+    "half=lower": {
+      "model": "darkrpg:block/cattail"
+    }
+  }
+}

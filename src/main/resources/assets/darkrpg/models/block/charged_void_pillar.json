@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "darkrpg:block/void_pillar_end",
+    "side": "darkrpg:block/charged_void_pillar"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "darkrpg:block/tombstone_slab"
+    },
+    "type=double": {
+      "model": "darkrpg:block/tombstone"
+    },
+    "type=top": {
+      "model": "darkrpg:block/tombstone_slab_top"
+    }
+  }
+}

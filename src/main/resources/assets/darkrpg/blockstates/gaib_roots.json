@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=upper": {
+      "model": "darkrpg:block/gaib_roots_top"
+    },
+    "half=lower": {
+      "model": "darkrpg:block/gaib_roots"
+    }
+  }
+}

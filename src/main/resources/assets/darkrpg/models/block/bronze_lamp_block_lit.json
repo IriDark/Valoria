@@ -1,0 +1,12 @@
+{
+    "parent": "block/cube",
+    "textures": {
+	    "up": "darkrpg:block/bronze_block",
+	    "particle": "darkrpg:block/bronze_block",
+		"north": "darkrpg:block/bronze_lamp_block_lit",
+		"south": "darkrpg:block/bronze_lamp_block_lit",
+		"east": "darkrpg:block/bronze_lamp_block_lit",
+		"west": "darkrpg:block/bronze_lamp_block_lit",
+	    "down": "darkrpg:block/bronze_lamp_block_lit"
+    }
+}

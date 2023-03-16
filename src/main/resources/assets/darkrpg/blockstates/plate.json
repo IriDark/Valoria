@@ -1,0 +1,29 @@
+{
+  "variants": {
+    "variation=0": [
+    {
+    "model" : "darkrpg:block/plate"
+    }
+],
+    "variation=1": [
+    {
+    "model" : "darkrpg:block/plate_0"
+    }
+],
+    "variation=2": [
+    {
+    "model" : "darkrpg:block/plate_1"
+    }
+],
+    "variation=3": [
+    {
+    "model" : "darkrpg:block/plate_2"
+    }
+],
+    "variation=4": [
+    {
+    "model" : "darkrpg:block/plate_3"
+   }
+  ]
+ }
+}

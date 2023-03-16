@@ -1,0 +1,47 @@
+modLoader = "javafml"
+loaderVersion = "[36,)"
+license = "Apache-2.0"
+issueTrackerURL = "" 
+[[mods]] 
+  modId = "darkrpg" 
+  version = "${file.jarVersion}" 
+  displayName = "DarkRPG" 
+  updateJSONURL="" 
+  displayURL = "https://discord.gg/wWdXpwuPmK" 
+  logoFile = "DarkRPG_Logo.png"
+  credits = "" 
+  authors = "iDark" 
+  description = '''
+A global RPG mod.
+
+Devs:
+- iDark
+- GraFik
+Special Thanks:
+- MrCat
+- AstemirDev
+- Wosaj
+- Vuzz
+- BaronFonShish
+- Auriny
+- Arky Fursblack
+- FoxPlane
+- MaxBogomol
+- RayRindou
+'''
+    [[dependencies.darkrpg]]
+  modId = "forge"
+  mandatory = true
+  versionRange = "[36,)"
+  ordering = "NONE"
+  side = "BOTH"
+    [[dependencies.darkrpg]]
+  modId = "minecraft"
+  mandatory = true
+  versionRange = "[1.16.5,1.17)"
+  ordering = "NONE"
+  side = "BOTH"
+    [[dependencies.darkrpg]]
+    modId="curios"
+    mandatory=true
+    versionRange="[1.16.5-4.0.8.2,)"

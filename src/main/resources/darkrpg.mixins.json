@@ -1,0 +1,16 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.idark.darkrpg.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "darkrpg.refmap.json",
+  "mixins": [
+    "MixinCooldownTracker"
+  ],
+  "client": [
+    "client.GLXMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

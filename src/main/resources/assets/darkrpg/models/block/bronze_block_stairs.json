@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "darkrpg:block/bronze_block",
+    "top": "darkrpg:block/bronze_block",
+    "side": "darkrpg:block/bronze_block"
+  }
+}

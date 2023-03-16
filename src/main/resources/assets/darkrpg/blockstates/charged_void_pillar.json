@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "darkrpg:block/charged_void_pillar",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "darkrpg:block/charged_void_pillar"
+    },
+    "axis=z": {
+      "model": "darkrpg:block/charged_void_pillar",
+      "x": 90
+    }
+  }
+}

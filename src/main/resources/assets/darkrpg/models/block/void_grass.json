@@ -1,0 +1,12 @@
+{
+    "parent": "block/cube",
+    "textures": {
+	    "up": "darkrpg:block/void_grass_top",
+	    "particle": "darkrpg:block/void_stone",
+		"north": "darkrpg:block/void_grass",
+		"south": "darkrpg:block/void_grass",
+		"east": "darkrpg:block/void_grass",
+		"west": "darkrpg:block/void_grass",
+	    "down": "darkrpg:block/void_stone"
+    }
+}

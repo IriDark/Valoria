@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "lit=false": { "model" : "darkrpg:block/bronze_lamp_3" },
+	"lit=true": { "model" : "darkrpg:block/bronze_lamp_3_lit" }
+  }
+}

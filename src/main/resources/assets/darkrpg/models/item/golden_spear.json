@@ -1,0 +1,6 @@
+{
+  "parent": "darkrpg:item/spear",
+  "textures": {
+    "layer0": "darkrpg:item/golden_spear"
+  }
+}

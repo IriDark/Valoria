@@ -1,0 +1,30 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "darkrpg:block/ruby_crystal",
+      "x": 180
+    },
+    "facing=east": {
+      "model": "darkrpg:block/ruby_crystal",
+      "x": 90,
+      "y": 90
+    },
+    "facing=north": {
+      "model": "darkrpg:block/ruby_crystal",
+      "x": 90
+    },
+    "facing=south": {
+      "model": "darkrpg:block/ruby_crystal",
+      "x": 90,
+      "y": 180
+    },
+    "facing=up": {
+      "model": "darkrpg:block/ruby_crystal"
+    },
+    "facing=west": {
+      "model": "darkrpg:block/ruby_crystal",
+      "x": 90,
+      "y": 270
+    }
+  }
+}
