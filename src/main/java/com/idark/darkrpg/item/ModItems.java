@@ -184,7 +184,7 @@ public class ModItems {
 	public static final RegistryObject<Item> TEA_CUP = ITEMS.register("tea_cup",
 		() -> new CupDrinkItem(Effects.SPEED, 30, 1));
 	public static final RegistryObject<Item> GREEN_TEA_CUP = ITEMS.register("green_tea_cup",
-		() -> new CupDrinkItem(ModEffects.ALOEREGEN, 50, 1));
+		() -> new GreenTeaCupItem(50, 1));
 	public static final RegistryObject<Item> VINE_BOTTLE = ITEMS.register("vine_bottle",
 		() -> new BottleDrinkItem(Effects.NAUSEA, 50, 1));
 	public static final RegistryObject<Item> COKE_BOTTLE = ITEMS.register("coke_bottle",
