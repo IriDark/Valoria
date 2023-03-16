@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:block/stairs_inner",
+  "parent": "minecraft:block/inner_stairs",
   "textures": {
     "bottom": "darkrpg:block/polished_ambane_stone",
     "top": "darkrpg:block/polished_ambane_stone",

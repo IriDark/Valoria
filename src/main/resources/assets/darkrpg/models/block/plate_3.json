@@ -1,6 +1,6 @@
 {
     "parent": "block/cube_all",
     "textures": {
-        "all": "darkrpg:block/infernal_block"
+        "all": "darkrpg:block/quartz_blackstone_plate4"
     }
 }
