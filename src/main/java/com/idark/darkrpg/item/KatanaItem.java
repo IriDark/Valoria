@@ -3,10 +3,8 @@ package com.idark.darkrpg.item;
 import com.idark.darkrpg.math.*;
 import com.idark.darkrpg.util.ModSoundRegistry;
 import net.minecraft.block.SoundType;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.entity.Entity;
+import net.minecraft.util.*;
 import com.google.common.base.Suppliers;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
@@ -32,11 +30,10 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.vector.*;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeMod;
 
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.UUID;
 import java.util.List;
@@ -119,10 +116,64 @@ public class KatanaItem extends TieredItem implements IVanishable {
 	public void onPlayerStoppedUsing(ItemStack stack, World worldIn, LivingEntity entityLiving, int timeLeft) {
         PlayerEntity player = (PlayerEntity)entityLiving;
         Vector3d dir = MathUtils.direction(player);
-	    player.addVelocity(dir.x,dir.y * 0.25f,dir.z);
-        player.move(MoverType.SELF,new Vector3d(dir.x,dir.y,dir.z));
+	    player.addVelocity(dir.x,dir.y*0.75,dir.z);
 		player.getCooldownTracker().setCooldown(this, 45);
 		player.addStat(Stats.ITEM_USED.get(this));
+
+        Vector3d pos = new Vector3d(player.getPosX(), player.getPosY() + player.getEyeHeight(), player.getPosZ());
+        List<LivingEntity> hitEntities = new ArrayList<LivingEntity>();
+
+        for (int i = 0; i < 8; i += 1) {
+            double pitch = ((player.getPitchYaw().x + 90) * Math.PI) / 180;
+            double yaw = ((player.getPitchYaw().y + 90) * Math.PI) / 180;
+
+            double locYaw = 0;
+            double locPitch = 0;
+            double locDistance = i * 0.5D;
+
+            double X = Math.sin(locPitch + pitch) * Math.cos(locYaw + yaw) * locDistance;
+            double Y = Math.cos(locPitch + pitch) * locDistance;
+            double Z = Math.sin(locPitch + pitch) * Math.sin(locYaw + yaw) * locDistance;
+
+            List<Entity> entities = worldIn.getEntitiesWithinAABB(Entity.class,  new AxisAlignedBB(pos.x + X - 0.5D,pos.y + Y - 0.5D,pos.z + Z - 0.5D,pos.x + X + 0.5D,pos.y + Y + 0.5D,pos.z + Z + 0.5D));
+            for (Entity entity : entities) {
+                if (entity instanceof  LivingEntity) {
+                    LivingEntity enemy = (LivingEntity)entity;
+                    if (!hitEntities.contains(enemy) && (!enemy.equals(player))) {
+                        hitEntities.add(enemy);
+                    }
+                }
+            }
+        }
+
+        int hits = hitEntities.size();
+
+        for (int i = 0; i < 8; i += 1) {
+            double pitch = ((player.getPitchYaw().x + 90) * Math.PI) / 180;
+            double yaw = ((player.getPitchYaw().y + 90) * Math.PI) / 180;
+
+            double locYaw = 0;
+            double locPitch = 0;
+            double locDistance = i * 0.5D;
+
+            double X = Math.sin(locPitch + pitch) * Math.cos(locYaw + yaw) * locDistance;
+            double Y = Math.cos(locPitch + pitch) * locDistance;
+            double Z = Math.sin(locPitch + pitch) * Math.sin(locYaw + yaw) * locDistance;
+
+            List<Entity> entities = worldIn.getEntitiesWithinAABB(Entity.class,  new AxisAlignedBB(pos.x + X - 0.5D,pos.y + Y - 0.5D,pos.z + Z - 0.5D,pos.x + X + 0.5D,pos.y + Y + 0.5D,pos.z + Z + 0.5D));
+            for (Entity entity : entities) {
+                if (entity instanceof  LivingEntity) {
+                    LivingEntity enemy = (LivingEntity)entity;
+                    if (hitEntities.contains(enemy)) {
+                        enemy.attackEntityFrom(DamageSource.GENERIC, (float) (player.getAttribute(Attributes.ATTACK_DAMAGE).getValue() / hits));
+                        enemy.applyKnockback(0.4F, player.getPosX() - enemy.getPosX(), player.getPosZ() - enemy.getPosZ());
+                    }
+                }
+            }
+        }
+
+
+
 		if (worldIn.isRemote) {
 		for (int i = 0;i<10;i++) {
 		  worldIn.addParticle(ParticleTypes.POOF, player.getPosX() + rand.nextDouble(), player.getPosY(), player.getPosZ() + rand.nextDouble(), 0d, 0.05d, 0d);
