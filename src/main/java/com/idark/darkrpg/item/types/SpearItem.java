@@ -1,4 +1,4 @@
-package com.idark.darkrpg.item;
+package com.idark.darkrpg.item.types;
 
 import com.google.common.base.Suppliers;
 import com.google.common.collect.ImmutableMultimap;

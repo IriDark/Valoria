@@ -1,4 +1,4 @@
-package com.idark.darkrpg.item;
+package com.idark.darkrpg.item.types;
 
 import com.idark.darkrpg.util.ModSoundRegistry;
 import com.idark.darkrpg.effect.*;
@@ -24,12 +24,12 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import java.util.Random;
 
-public class ClubItem extends TieredItem implements IVanishable {
+public class BeastScytheItem extends TieredItem implements IVanishable {
    private final float attackDamage;
    private final Multimap<Attribute, AttributeModifier> attributeModifiers;
    Random rand = new Random();
 
-   public ClubItem(IItemTier tier, int attackDamageIn, float attackSpeedIn, Item.Properties builderIn) {
+   public BeastScytheItem(IItemTier tier, int attackDamageIn, float attackSpeedIn, Item.Properties builderIn) {
       super(tier, builderIn);
       this.attackDamage = (float)attackDamageIn + tier.getAttackDamage();
       Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
@@ -50,15 +50,7 @@ public class ClubItem extends TieredItem implements IVanishable {
       stack.damageItem(1, attacker, (entity) -> {
          entity.sendBreakAnimation(EquipmentSlotType.MAINHAND);
 	});	
-	   if (RandUtils.doWithChance(2)) {
-		 target.addPotionEffect(new EffectInstance(ModEffects.STUN.get(), 20, 1));
-		 if (target.world.isRemote) {
-		 for (int i = 0;i<10;i++) {
-		 target.world.addParticle(ParticleTypes.POOF, target.getPosX() + rand.nextDouble(), target.getPosY(), target.getPosZ() + rand.nextDouble(), 0d, 0.05d, 0d);
-		 }
-		}
-	return true;
-	}
+		target.world.addParticle(ParticleTypes.CRIT, target.getPosX() + rand.nextDouble(), target.getPosY(), target.getPosZ() + rand.nextDouble(), 0d, 0.05d, 0d);
 	return true;
    }
 

@@ -1,4 +1,4 @@
-package com.idark.darkrpg.item;
+package com.idark.darkrpg.item.food;
 
 import com.idark.darkrpg.DarkRPG;
 import net.minecraft.entity.LivingEntity;

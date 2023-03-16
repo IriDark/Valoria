@@ -5,8 +5,10 @@ import com.idark.darkrpg.item.curio.levels.*;
 import com.idark.darkrpg.item.curio.belt.*;
 import com.idark.darkrpg.item.curio.hands.*;
 import com.idark.darkrpg.item.curio.ring.*;
-import com.idark.darkrpg.item.curio.charm.*;
-import com.idark.darkrpg.item.staffs.*;
+import com.idark.darkrpg.item.curio.charm.*
+import com.idark.darkrpg.item.staffs.*;;
+import com.idark.darkrpg.item.types.*;
+import com.idark.darkrpg.item.food.*;
 import com.idark.darkrpg.effect.*;
 import com.idark.darkrpg.block.*;
 import com.idark.darkrpg.entity.*;
@@ -19,7 +21,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.eventbus.api.IEventBus;
 	
-public class ModItems {
+	public class ModItems {
 	public static final DeferredRegister<Item> ITEMS =
 	DeferredRegister.create(ForgeRegistries.ITEMS, DarkRPG.MOD_ID);
 	
@@ -222,6 +224,8 @@ public class ModItems {
 		() -> new SwordItem(ItemTier.DIAMOND, 7, -3.4f, new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
 	public static final RegistryObject<Item> NETHERITE_SCYTHE = ITEMS.register("netherite_scythe",
 		() -> new SwordItem(ItemTier.NETHERITE, 8, -3.4f, new Item.Properties().isImmuneToFire().group(ModItemGroup.DARKRPG_GROUP)));
+	public static final RegistryObject<Item> BEAST = ITEMS.register("beast",
+		() -> new SwordItem(ItemTier.DIAMOND, 6, -3.6f, new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
 	//katana
 	public static final RegistryObject<Item> HOLIDAY_KATANA = ITEMS.register("holiday_katana",
 		() -> new KatanaItem(ItemTier.IRON, 3, -2f, new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
@@ -232,7 +236,7 @@ public class ModItems {
 	public static final RegistryObject<Item> DIAMOND_KATANA = ITEMS.register("diamond_katana",
 		() -> new KatanaItem(ItemTier.DIAMOND, 1, -1.9f, new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
 	public static final RegistryObject<Item> NETHERITE_KATANA = ITEMS.register("netherite_katana",
-		() -> new KatanaItem(ItemTier.NETHERITE, 1, -1.8f, new Item.Properties().isImmuneToFire().group(ModItemGroup.DARKRPG_GROUP)));
+		() -> new BeastScytheItem(ItemTier.NETHERITE, 1, -1.8f, new Item.Properties().isImmuneToFire().group(ModItemGroup.DARKRPG_GROUP)));
 	//cobalt
 	public static final RegistryObject<Item> COBALT_SWORD = ITEMS.register("cobalt_sword",
 		() -> new SwordItem(ModItemTier.COBALT, 4, -2.2f, new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));

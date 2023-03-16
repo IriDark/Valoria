@@ -1,4 +1,4 @@
-package com.idark.darkrpg.item;
+package com.idark.darkrpg.item.types;
 
 import net.minecraft.block.DispenserBlock;
 import net.minecraft.dispenser.DefaultDispenseItemBehavior;

@@ -1,4 +1,4 @@
-package com.idark.darkrpg.item;
+package com.idark.darkrpg.item.types;
 
 import com.idark.darkrpg.item.ModArmorMaterial;
 import com.google.common.collect.ImmutableMap;
