@@ -1,70 +1,74 @@
 package com.idark.darkrpg.block;
 
 import com.google.common.collect.Maps;
-import net.minecraft.entity.monster.SpiderEntity;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.Block;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.BlockState;
+import net.minecraft.item.ItemStack;
+import net.minecraft.block.*;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
+import net.minecraft.entity.*;
 import net.minecraft.entity.EntityType;
-import net.minecraft.item.ItemStack;
+import net.minecraft.entity.monster.CaveSpiderEntity;
+import net.minecraft.entity.projectile.ProjectileEntity;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.shapes.ISelectionContext;
+import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.GameRules;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
-import java.util.Map;
-
 public class SpiderBlock extends Block {
-   private final Block mimickedBlock;
-   private static final Map<Block, Block> normalToInfectedMap = Maps.newIdentityHashMap();
 
-   public SpiderBlock(Block blockIn, AbstractBlock.Properties properties) {
+   public SpiderBlock(AbstractBlock.Properties properties) {
       super(properties);
-      this.mimickedBlock = blockIn;
-      normalToInfectedMap.put(blockIn, this);
    }
-
-   public Block getMimickedBlock() {
-      return this.mimickedBlock;
-   }
-
-   public static boolean canSpider(BlockState state) {
-      return normalToInfectedMap.containsKey(state.getBlock());
-   }
+   private static final VoxelShape shape = Block.makeCuboidShape(3, 0, 3, 13, 15, 13);
 
    private void spawnSpider(ServerWorld world, BlockPos pos) {
-      SpiderEntity spiderentity = EntityType.SPIDER.create(world);
-      spiderentity.setLocationAndAngles((double)pos.getX() + 0.5D, (double)pos.getY(), (double)pos.getZ() + 0.5D, 0.0F, 0.0F);
-      world.addEntity(spiderentity);
-      spiderentity.spawnExplosionParticle();
+      CaveSpiderEntity cavespiderentity = EntityType.CAVE_SPIDER.create(world);
+      cavespiderentity.setLocationAndAngles((double)pos.getX() + 0.5D, (double)pos.getY(), (double)pos.getZ() + 0.5D, 0.0F, 0.0F);
+      world.addEntity(cavespiderentity);
    }
 
-   /**
-    * Perform side-effects from block dropping, such as creating silverfish
-    */
-   public void spawnAdditionalDrops(BlockState state, ServerWorld worldIn, BlockPos pos, ItemStack stack) {
-      super.spawnAdditionalDrops(state, worldIn, pos, stack);
-      if (worldIn.getGameRules().getBoolean(GameRules.DO_TILE_DROPS) && EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, stack) == 0) {
-         this.spawnSpider(worldIn, pos);
-      }
-
-   }
-
-   /**
-    * Called when this Block is destroyed by an Explosion
-    */
+   @Override
    public void onExplosionDestroy(World worldIn, BlockPos pos, Explosion explosionIn) {
-      if (worldIn instanceof ServerWorld) {
-         this.spawnSpider((ServerWorld)worldIn, pos);
-      }
-
+      if(!worldIn.isRemote())
+	  this.spawnSpider((ServerWorld)worldIn, pos);
    }
-
-   public static BlockState infest(Block blockIn) {
-      return normalToInfectedMap.get(blockIn).getDefaultState();
+   
+   @Override
+    public VoxelShape getShape(BlockState state, IBlockReader reader, BlockPos pos,
+      ISelectionContext ctx) {
+      return shape;
+    }
+   
+   @Override
+   public void onPlayerDestroy(IWorld worldIn, BlockPos pos, BlockState state) {
+      if(!worldIn.isRemote())
+	  this.spawnSpider((ServerWorld)worldIn, pos);
+   }
+   
+   @Override
+   public void onFallenUpon(World worldIn, BlockPos pos, Entity entityIn, float fallDistance) {
+	  entityIn.onLivingFall(fallDistance, 3.0F);
+	  worldIn.destroyBlock(pos, true);
+	  if(!worldIn.isRemote())
+	  this.spawnSpider((ServerWorld)worldIn, pos);
+   }
+   
+   @Override
+   public void onProjectileCollision(World worldIn, BlockState state, BlockRayTraceResult hit, ProjectileEntity projectile) {
+	  worldIn.destroyBlock(hit.getPos(), true);
+	  if(!worldIn.isRemote())
+      this.spawnSpider((ServerWorld)worldIn, hit.getPos());
+   }
+	
+	@Override
+	public int getExpDrop(BlockState state, net.minecraft.world.IWorldReader world, BlockPos pos, int fortune, int silktouch) {
+      return 5 + RANDOM.nextInt(5) + RANDOM.nextInt(5);
    }
 }

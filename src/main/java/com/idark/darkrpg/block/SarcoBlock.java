@@ -27,7 +27,8 @@ public class SarcoBlock extends Block {
    public SarcoBlock(AbstractBlock.Properties properties) {
       super(properties);
    }
-   private static final VoxelShape shape = Block.makeCuboidShape(3, 0, 3, 32, 13, 32);
+   private static final VoxelShape shape = Block.makeCuboidShape(0, 0, 0, 32, 12, 16);
+   //TODO FIX Block Placement Collision
 
    private void spawnSkeleton(ServerWorld world, BlockPos pos) {
       SkeletonEntity skeletonentity = EntityType.SKELETON.create(world);
@@ -57,11 +58,12 @@ public class SarcoBlock extends Block {
 	  for (int i = 0;i<5;i++) {
         worldIn.addParticle(ParticleTypes.SOUL, pos.getX() + rand.nextDouble(), pos.getY() + 0.5D, pos.getZ() + rand.nextDouble(), 0d, 0.05d, 0d);
         }
+	//TODO Completely rework
 	}
 
 	@Override
 	public int getExpDrop(BlockState state, net.minecraft.world.IWorldReader world, BlockPos pos, int fortune, int silktouch) {
       return 5 + RANDOM.nextInt(5) + RANDOM.nextInt(5);
-   }
+    }
    	//TODO Animation
 }

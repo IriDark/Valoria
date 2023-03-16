@@ -203,6 +203,8 @@ import java.util.function.Supplier;
 	() -> new StairsBlock(() -> VOID_CHISELED_BRICKS.get().getDefaultState(), AbstractBlock.Properties.create(Material.IRON).harvestLevel(2).hardnessAndResistance(2f).harvestTool(ToolType.PICKAXE).setRequiresTool()));
 	public static final RegistryObject<Block> VOID_CHISELED_BRICKS_SLAB = registerBlock("void_chiseled_bricks_slab",
 	() -> new SlabBlock(AbstractBlock.Properties.create(Material.ROCK).harvestLevel(2).setRequiresTool().harvestTool(ToolType.PICKAXE).hardnessAndResistance(6f).sound(SoundType.NETHER_BRICK)));
+	public static final RegistryObject<Block> VOID_GRASS = BLOCK.register("void_grass",
+	() -> new VoidGrassBlock(Properties.create(Material.ROCK).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f).sound(SoundType.NETHER_BRICK)));
 	public static final RegistryObject<Block> TOMBSTONE = BLOCK.register("tombstone",
 	() -> new Block(Properties.create(Material.ROCK).harvestLevel(3).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f)));
 	public static final RegistryObject<Block> TOMBSTONE_SLAB = registerBlock("tombstone_slab",
@@ -277,9 +279,9 @@ import java.util.function.Supplier;
 	public static final RegistryObject<Block> DRIED_PLANT = BLOCK.register("dried_plant",
 	() -> new DeadBushBlock(Properties.from(Blocks.SUNFLOWER)));
 	public static final RegistryObject<Block> ALOE = BLOCK.register("aloe",
-	() -> new SandDoubleFlowerBlock(Properties.from(Blocks.SUNFLOWER)));
+	() -> new TallSandFlowerBlock(Properties.from(Blocks.SUNFLOWER)));
 	public static final RegistryObject<Block> CATTAIL = BLOCK.register("cattail",
-	() -> new WaterTallFlowerBlock(Properties.from(Blocks.SUNFLOWER)));
+	() -> new TallWaterFlowerBlock(Properties.from(Blocks.SUNFLOWER)));
 	public static final RegistryObject<Block> SOULROOT = BLOCK.register("soulroot",
 	() -> new NetherRootsBlock(AbstractBlock.Properties.from(Blocks.CRIMSON_ROOTS)));
 	public static final RegistryObject<Block> CRIMSON_SOULROOT = BLOCK.register("crimson_soulroot",
@@ -298,6 +300,18 @@ import java.util.function.Supplier;
 	() -> new NetherRootsBlock(AbstractBlock.Properties.from(Blocks.CRIMSON_ROOTS)));
 	public static final RegistryObject<Block> RAJUSH = BLOCK.register("crimson_rajush",
 	() -> new NetherRootsBlock(AbstractBlock.Properties.from(Blocks.CRIMSON_ROOTS)));
+	public static final RegistryObject<Block> FALSEFLOWER = BLOCK.register("falseflower",
+	() -> new VoidFlowerBlock(Effects.POISON, 5, AbstractBlock.Properties.from(Blocks.CRIMSON_ROOTS)));
+	public static final RegistryObject<Block> FALSEFLOWER_SMALL = BLOCK.register("falseflower_small",
+	() -> new VoidFlowerBlock(Effects.POISON, 2, AbstractBlock.Properties.from(Blocks.CRIMSON_ROOTS)));
+	public static final RegistryObject<Block> SOULFLOWER = BLOCK.register("soulflower",
+	() -> new VoidFlowerBlock(Effects.NIGHT_VISION, 5, AbstractBlock.Properties.from(Blocks.CRIMSON_ROOTS)));
+	public static final RegistryObject<Block> VOID_ROOTS = BLOCK.register("void_roots",
+	() -> new VoidRootsBlock(AbstractBlock.Properties.from(Blocks.CRIMSON_ROOTS)));
+	public static final RegistryObject<Block> GAIB_ROOTS = BLOCK.register("gaib_roots",
+	() -> new TallRootsBlock(Properties.from(Blocks.CRIMSON_ROOTS)));
+	public static final RegistryObject<Block> KARUSAKAN_ROOTS = BLOCK.register("karusakan_roots",
+	() -> new TallRootsBlock(Properties.from(Blocks.CRIMSON_ROOTS)));
 	
 	private static <T extends Block>RegistryObject<T> registerBlock(String name, Supplier<T> block) {
 	RegistryObject<T> toReturn = BLOCK.register(name, block);
