@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_wall_side",
+  "textures": {
+    "wall": "darkrpg:block/cracked_tombstone_bricks"
+  }
+}

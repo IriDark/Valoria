@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "darkrpg:block/amber_crystal"
+  }
+}
