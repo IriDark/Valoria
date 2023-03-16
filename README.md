@@ -8,10 +8,10 @@ A global RPG mod.
 
 #### Devs:
 - iDark
-- MrCat
 - GraFik
 
 #### Special Thanks:
+- MrCat
 - AstemirDev
 - Wosaj
 - Vuzz
