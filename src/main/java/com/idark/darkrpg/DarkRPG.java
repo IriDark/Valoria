@@ -3,17 +3,21 @@ package com.idark.darkrpg;
 import com.idark.darkrpg.item.ModItems;
 import com.idark.darkrpg.block.ModBlocks;
 import com.idark.darkrpg.paintings.ModPaintings;
+import com.idark.darkrpg.effect.*;
 import com.idark.darkrpg.entity.ModEntityTypes;
+import com.idark.darkrpg.util.*;
 import com.idark.darkrpg.entity.custom.*;
-import com.idark.darkrpg.entity.render.*;
+import com.idark.darkrpg.entity.renderer.*;
 import com.idark.darkrpg.entity.model.*;
-import com.idark.darkrpg.util.ModItemModelProperties;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotTypeMessage;
 import top.theillusivec4.curios.api.SlotTypePreset;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
+import net.minecraft.block.SoundType;
+import net.minecraft.util.SoundEvent;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.entity.monster.MonsterEntity;
@@ -57,15 +61,23 @@ import net.minecraftforge.fml.DeferredWorkQueue;
 	    FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
 	    
 	    IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
+		ModSoundRegistry.SOUNDS.register(eventBus);
+		ModEffects.EFFECTS.register(eventBus); 
+		ModPaintings.register(eventBus);
 	    ModItems.register(eventBus);
-	    ModBlocks.register(eventBus);
-	    ModEntityTypes.register(eventBus);
-	    ModPaintings.register(eventBus);
-	    
+		ModBlocks.register(eventBus);
+		ModEntityTypes.register(eventBus); 
+
 	    MinecraftForge.EVENT_BUS.register(this);
 	    }
 	    private void doClientStuff(final FMLClientSetupEvent event) {
 	    event.enqueueWork(() -> {
+		RenderTypeLookup.setRenderLayer(ModBlocks.FALSEFLOWER.get(), RenderType.getCutout());
+		RenderTypeLookup.setRenderLayer(ModBlocks.FALSEFLOWER_SMALL.get(), RenderType.getCutout());
+		RenderTypeLookup.setRenderLayer(ModBlocks.SOULFLOWER.get(), RenderType.getCutout());
+	    RenderTypeLookup.setRenderLayer(ModBlocks.VOID_ROOTS.get(), RenderType.getCutout());
+	    RenderTypeLookup.setRenderLayer(ModBlocks.GAIB_ROOTS.get(), RenderType.getCutout());
+	    RenderTypeLookup.setRenderLayer(ModBlocks.KARUSAKAN_ROOTS.get(), RenderType.getCutout());
 	    RenderTypeLookup.setRenderLayer(ModBlocks.DRIED_PLANT.get(), RenderType.getCutout());
 	    RenderTypeLookup.setRenderLayer(ModBlocks.ALOE_SMALL.get(), RenderType.getCutout());
 	    RenderTypeLookup.setRenderLayer(ModBlocks.ALOE.get(), RenderType.getCutout());
@@ -79,8 +91,6 @@ import net.minecraftforge.fml.DeferredWorkQueue;
 	    RenderTypeLookup.setRenderLayer(ModBlocks.DOUBLE_GOLDY.get(), RenderType.getCutout());	    
 	    RenderTypeLookup.setRenderLayer(ModBlocks.BLOODROOT.get(), RenderType.getCutout());	    
 	    RenderTypeLookup.setRenderLayer(ModBlocks.RAJUSH.get(), RenderType.getCutout());	    
-	    
-	    
 	    RenderTypeLookup.setRenderLayer(ModBlocks.ELEMENTAL_MANIPULATOR.get(), RenderType.getCutout());
 	    RenderTypeLookup.setRenderLayer(ModBlocks.SPIDER_EGG.get(), RenderType.getCutout());
 	    RenderTypeLookup.setRenderLayer(ModBlocks.PEDESTAL.get(), RenderType.getCutout());
@@ -95,9 +105,10 @@ import net.minecraftforge.fml.DeferredWorkQueue;
 	    RenderTypeLookup.setRenderLayer(ModBlocks.BRONZE_DOOR.get(), RenderType.getCutout());
 	    RenderTypeLookup.setRenderLayer(ModBlocks.BRONZE_TRAPDOOR.get(), RenderType.getCutout());
 	    RenderTypeLookup.setRenderLayer(ModBlocks.BRONZE_TRAPDOOR2.get(), RenderType.getCutout());
-	    RenderTypeLookup.setRenderLayer(ModBlocks.AMBER_CRYSTAL_0.get(), RenderType.getCutout());
-	    RenderTypeLookup.setRenderLayer(ModBlocks.AMBER_CRYSTAL_1.get(), RenderType.getCutout());
-	    RenderTypeLookup.setRenderLayer(ModBlocks.AMBER_CRYSTAL_2.get(), RenderType.getCutout());
+	    RenderTypeLookup.setRenderLayer(ModBlocks.AMBER_CRYSTAL.get(), RenderType.getCutout());
+	    RenderTypeLookup.setRenderLayer(ModBlocks.AMETHYST_CRYSTAL.get(), RenderType.getCutout());
+	    RenderTypeLookup.setRenderLayer(ModBlocks.RUBY_CRYSTAL.get(), RenderType.getCutout());
+	    RenderTypeLookup.setRenderLayer(ModBlocks.SAPPHIRE_CRYSTAL.get(), RenderType.getCutout());
 	    });
 	    
 	    EntitySpawnPlacementRegistry.register(ModEntityTypes.SWAMP_WANDERER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND,
@@ -113,15 +124,15 @@ import net.minecraftforge.fml.DeferredWorkQueue;
 	    ModItemModelProperties.makeBow(ModItems.OCEAN_BOW.get());
 	    ModItemModelProperties.makeBow(ModItems.BOW_OF_DARKNESS.get());
 	    ModItemModelProperties.makeBow(ModItems.PHANTASM_BOW.get());
-	    
+		ModItemModelProperties.makeSize(ModItems.SOUL_COLLECTOR.get());
 	    }
-	    private void setup(final FMLCommonSetupEvent event) {
-	    DeferredWorkQueue.runLater(() -> {
-	    GlobalEntityTypeAttributes.put(ModEntityTypes.SWAMP_WANDERER.get(), SwampWandererEntity.setCustomAttributes().create());
-	    GlobalEntityTypeAttributes.put(ModEntityTypes.MANNEQUIN.get(), MannequinEntity.setCustomAttributes().create());
-	    GlobalEntityTypeAttributes.put(ModEntityTypes.GOBLIN.get(), GoblinEntity.setCustomAttributes().create());
-	    });
-	    }
+		private void setup(final FMLCommonSetupEvent event) {
+        DeferredWorkQueue.runLater(() -> {
+        GlobalEntityTypeAttributes.put(ModEntityTypes.SWAMP_WANDERER.get(), SwampWandererEntity.setCustomAttributes().create());
+        GlobalEntityTypeAttributes.put(ModEntityTypes.MANNEQUIN.get(), MannequinEntity.setCustomAttributes().create());
+        GlobalEntityTypeAttributes.put(ModEntityTypes.GOBLIN.get(), GoblinEntity.setCustomAttributes().create());
+        });
+        }
 	    private void processIMC(final InterModProcessEvent event) {
 	    // some example code to receive and process InterModComms from other mods
 	    }
