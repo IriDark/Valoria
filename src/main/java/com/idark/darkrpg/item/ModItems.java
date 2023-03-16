@@ -173,6 +173,10 @@ public class ModItems {
 	public static final RegistryObject<Item> VOID_INGOT = ITEMS.register("void_ingot",
 		() -> new Item(new Item.Properties().isImmuneToFire().group(ModItemGroup.DARKRPG_GROUP)));
 	//food
+	public static final RegistryObject<Item> WOODEN_CUP = ITEMS.register("wooden_cup",
+		() -> new Item(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
+	public static final RegistryObject<Item> BEER_CUP = ITEMS.register("beer_cup",
+		() -> new CupDrinkItem(Effects.NAUSEA, 20, 1));
 	public static final RegistryObject<Item> CACAO_CUP = ITEMS.register("cacao_cup",
 		() -> new CupDrinkItem(Effects.SPEED, 10, 1));
 	public static final RegistryObject<Item> COFFE_CUP = ITEMS.register("coffe_cup",
