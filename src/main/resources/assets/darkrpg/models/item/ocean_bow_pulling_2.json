@@ -1,6 +1,0 @@
-{
-    "parent": "darkrpg:item/ocean_bow",
-    "textures": {
-        "layer0": "darkrpg:item/ocean_bow_pulling_2"
-    }
-}

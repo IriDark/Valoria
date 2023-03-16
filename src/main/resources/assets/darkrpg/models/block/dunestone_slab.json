@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab",
-  "textures": {
-    "bottom": "darkrpg:block/dunestone",
-    "top": "darkrpg:block/dunestone",
-    "side": "darkrpg:block/dunestone"
-  }
-}

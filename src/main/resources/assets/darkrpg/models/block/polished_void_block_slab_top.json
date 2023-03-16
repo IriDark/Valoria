@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab_top",
-  "textures": {
-    "bottom": "darkrpg:block/polished_void_block",
-    "top": "darkrpg:block/polished_void_block",
-    "side": "darkrpg:block/polished_void_block"
-  }
-}

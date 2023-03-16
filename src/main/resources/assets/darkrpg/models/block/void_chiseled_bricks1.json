@@ -1,6 +1,0 @@
-{
-    "parent": "block/cube_all",
-    "textures": {
-        "all": "darkrpg:block/void_chiseled_bricks1"
-    }
-}

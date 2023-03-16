@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/outer_stairs",
-  "textures": {
-    "bottom": "darkrpg:block/polished_ambane_stone",
-    "top": "darkrpg:block/polished_ambane_stone",
-    "side": "darkrpg:block/polished_ambane_stone"
-  }
-}

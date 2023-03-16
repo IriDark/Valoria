@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/outer_stairs",
-  "textures": {
-    "bottom": "darkrpg:block/limestone_bricks",
-    "top": "darkrpg:block/limestone_bricks",
-    "side": "darkrpg:block/limestone_bricks"
-  }
-}
