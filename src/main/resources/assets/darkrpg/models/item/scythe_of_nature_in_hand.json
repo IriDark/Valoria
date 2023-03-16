@@ -1,0 +1,6 @@
+{
+  "parent": "darkrpg:item/handheld_large",
+  "textures": {
+    "layer0": "darkrpg:item/scythe_of_nature_in_hand"
+  }
+}

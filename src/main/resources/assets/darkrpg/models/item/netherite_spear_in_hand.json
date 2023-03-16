@@ -1,0 +1,6 @@
+{
+  "parent": "darkrpg:item/spear_large",
+  "textures": {
+    "layer0": "darkrpg:item/netherite_spear_in_hand"
+  }
+}
