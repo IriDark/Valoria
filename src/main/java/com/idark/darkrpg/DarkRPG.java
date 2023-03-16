@@ -1,50 +1,44 @@
 package com.idark.darkrpg;
 
-import com.idark.darkrpg.client.render.model.item.Item2DRenderer;
-import com.idark.darkrpg.item.ModItems;
 import com.idark.darkrpg.block.ModBlocks;
-import com.idark.darkrpg.paintings.ModPaintings;
-import com.idark.darkrpg.effect.*;
+import com.idark.darkrpg.client.render.DashOverlayRender;
+import com.idark.darkrpg.client.render.model.item.Item2DRenderer;
+import com.idark.darkrpg.effect.ModEffects;
 import com.idark.darkrpg.entity.ModEntityTypes;
-import com.idark.darkrpg.util.*;
-import com.idark.darkrpg.entity.custom.*;
-import com.idark.darkrpg.entity.renderer.*;
-import com.idark.darkrpg.entity.model.*;
-import net.minecraft.block.Block;
+import com.idark.darkrpg.entity.custom.GoblinEntity;
+import com.idark.darkrpg.entity.custom.MannequinEntity;
+import com.idark.darkrpg.entity.custom.SwampWandererEntity;
+import com.idark.darkrpg.entity.renderer.GoblinRenderer;
+import com.idark.darkrpg.entity.renderer.MannequinRenderer;
+import com.idark.darkrpg.entity.renderer.SwampWandererRenderer;
+import com.idark.darkrpg.item.ModItems;
+import com.idark.darkrpg.paintings.ModPaintings;
+import com.idark.darkrpg.util.ModItemModelProperties;
+import com.idark.darkrpg.util.ModSoundRegistry;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.renderer.model.ModelResourceLocation;
+import net.minecraft.entity.EntitySpawnPlacementRegistry;
+import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
+import net.minecraft.entity.monster.MonsterEntity;
+import net.minecraft.world.gen.Heightmap;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.DeferredWorkQueue;
+import net.minecraftforge.fml.InterModComms;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotTypeMessage;
 import top.theillusivec4.curios.api.SlotTypePreset;
-import net.minecraft.client.gui.ScreenManager;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.RenderTypeLookup;
-import net.minecraft.block.SoundType;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
-import net.minecraft.entity.EntitySpawnPlacementRegistry;
-import net.minecraft.entity.monster.MonsterEntity;
-import net.minecraft.world.gen.Heightmap;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.client.registry.RenderingRegistry;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.InterModComms;
-import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
-import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
-import net.minecraftforge.fml.DeferredWorkQueue;
 
 	    @Mod(DarkRPG.MOD_ID)
 	    public class DarkRPG {
@@ -69,11 +63,16 @@ import net.minecraftforge.fml.DeferredWorkQueue;
 	    
 	    IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
 		ModSoundRegistry.SOUNDS.register(eventBus);
-		ModEffects.EFFECTS.register(eventBus); 
+		ModEffects.register(eventBus);
 		ModPaintings.register(eventBus);
 	    ModItems.register(eventBus);
 		ModBlocks.register(eventBus);
 		ModEntityTypes.register(eventBus);
+
+		IEventBus forgeBus = MinecraftForge.EVENT_BUS;
+
+		forgeBus.addListener(DashOverlayRender::tick);
+		forgeBus.addListener(DashOverlayRender::onDrawScreenPost);
 
 	    MinecraftForge.EVENT_BUS.register(this);
 	    }
@@ -160,4 +159,6 @@ import net.minecraftforge.fml.DeferredWorkQueue;
 					Item2DRenderer.onModelBakeEvent(event);
 				}
 			}
+
+
 }
