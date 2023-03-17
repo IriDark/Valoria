@@ -1,0 +1,6 @@
+{
+  "parent": "darkrpg:item/handheld_large",
+  "textures": {
+    "layer0": "darkrpg:item/coral_reef_in_hand"
+  }
+}
