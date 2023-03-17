@@ -234,7 +234,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 	public static final RegistryObject<Item> NETHERITE_SCYTHE = ITEMS.register("netherite_scythe",
 		() -> new SwordItem(ItemTier.NETHERITE, 8, -3.4f, new Item.Properties().isImmuneToFire().group(ModItemGroup.DARKRPG_GROUP)));
 	public static final RegistryObject<Item> BEAST = ITEMS.register("beast",
-		() -> new SwordItem(ItemTier.DIAMOND, 6, -3.6f, new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
+		() -> new BeastScytheItem(ItemTier.DIAMOND, 6, -3.6f, new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
 	//katana
 	public static final RegistryObject<Item> RAYS_KATANA = ITEMS.register("rays_katana",
 		() -> new KatanaItem(ItemTier.DIAMOND, 2, -1.7f, new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
@@ -247,7 +247,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 	public static final RegistryObject<Item> DIAMOND_KATANA = ITEMS.register("diamond_katana",
 		() -> new KatanaItem(ItemTier.DIAMOND, 1, -1.9f, new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
 	public static final RegistryObject<Item> NETHERITE_KATANA = ITEMS.register("netherite_katana",
-		() -> new BeastScytheItem(ItemTier.NETHERITE, 1, -1.8f, new Item.Properties().isImmuneToFire().group(ModItemGroup.DARKRPG_GROUP)));
+		() -> new KatanaItem(ItemTier.NETHERITE, 1, -1.8f, new Item.Properties().isImmuneToFire().group(ModItemGroup.DARKRPG_GROUP)));
 	//cobalt
 	public static final RegistryObject<Item> COBALT_SWORD = ITEMS.register("cobalt_sword",
 		() -> new SwordItem(ModItemTier.COBALT, 4, -2.2f, new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
