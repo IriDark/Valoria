@@ -9,13 +9,11 @@ import com.idark.darkrpg.item.curio.charm.*;
 import com.idark.darkrpg.item.staffs.*;;
 import com.idark.darkrpg.item.types.*;
 import com.idark.darkrpg.item.food.*;
-import com.idark.darkrpg.effect.*;
 import com.idark.darkrpg.block.*;
 import com.idark.darkrpg.entity.*;
 import net.minecraft.item.*;
 import net.minecraft.potion.*;
 import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.block.AbstractBlock.Properties;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -206,6 +204,8 @@ import net.minecraftforge.eventbus.api.IEventBus;
 		() -> new SwordItem(ItemTier.NETHERITE, 9, -1.9f, new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
 	public static final RegistryObject<Item> BLOODHOUND = ITEMS.register("bloodhound",
 		() -> new HoundItem(ItemTier.NETHERITE, 12, -2.2f, new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
+		public static final RegistryObject<Item> BLAZE_REAP = ITEMS.register("blaze_reap",
+				() -> new BlazeReapItem(ItemTier.NETHERITE, 1, -3f, new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
 	//holiday
 	public static final RegistryObject<Item> HOLIDAY_PICKAXE = ITEMS.register("holiday_pickaxe",
 		() -> new PickaxeItem(ItemTier.IRON, 1, -3f, new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
