@@ -17,7 +17,7 @@ public class ModSoundRegistry {
     public static final RegistryObject<SoundEvent> MAGIC_USE = registerSound("item.magic.use");
     public static final RegistryObject<SoundEvent> SWIFTSLICE = registerSound("item.swiftslice.use");
 	public static final RegistryObject<SoundEvent> RECHARGE = registerSound("item.recharge.use");
-	public static final RegistryObject<SoundEvent> BLAZECHARGE = registerSound("item.blezecharge.use");
+	public static final RegistryObject<SoundEvent> BLAZECHARGE = registerSound("item.blazecharge.use");
 	public static final RegistryObject<SoundEvent> EGG_BREAK = registerSound("block.egg_break.ambient");
     public static final RegistryObject<SoundEvent> EGG_STEP = registerSound("block.egg_step.ambient");
 
