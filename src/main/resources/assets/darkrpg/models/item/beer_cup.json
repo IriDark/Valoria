@@ -1,5 +1,5 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "darkrpg:item/wooden_cup_of_beer"
+    "layer0": "darkrpg:item/beer_cup"
   }
