@@ -1,0 +1,144 @@
+package com.idark.darkrpg.item.types;
+
+import com.idark.darkrpg.util.ModSoundRegistry;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.IItemTier;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.item.PickaxeItem;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.particles.ParticleTypes;
+import net.minecraft.util.*;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.world.World;
+
+import java.util.List;
+import java.util.Random;
+
+public class BlazeReapItem extends PickaxeItem {
+
+    Random rand = new Random();
+
+    public BlazeReapItem(IItemTier tier, int attackDamageIn, float attackSpeedIn, Properties builder) {
+        super(tier, attackDamageIn, attackSpeedIn, builder);
+    }
+
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
+        ItemStack itemstack = playerIn.getHeldItem(handIn);
+
+        if (isCharged(itemstack) == 0) {
+            List<ItemStack> items = playerIn.container.getInventory();
+            int gunpowder = 0;
+            boolean canCharge = false;
+
+            for (ItemStack item : items) {
+                if (item.getItem().equals(Items.GUNPOWDER)) {
+                    gunpowder = gunpowder + item.getCount();
+                    if (gunpowder >= 5) {
+                        canCharge = true;
+                        break;
+                    }
+                }
+            }
+
+            if (canCharge) {
+                gunpowder = 5;
+
+                for (ItemStack item : items) {
+                    if (item.getItem().equals(Items.GUNPOWDER)) {
+                        if (gunpowder - item.getCount() >= 0) {
+                            gunpowder = gunpowder - item.getCount();
+                            playerIn.inventory.deleteStack(item);
+                        } else {
+                            item.setCount(item.getCount() - gunpowder);
+                            gunpowder = 0;
+                        }
+
+                        if (gunpowder <= 0) {
+                            break;
+                        }
+                    }
+                }
+
+                setCharge(itemstack, 1);
+                playerIn.getCooldownTracker().setCooldown(this, 20);
+                if (worldIn.isRemote) {
+                    worldIn.playSound(playerIn, playerIn.getPosition(), ModSoundRegistry.BLAZECHARGE.get(), SoundCategory.AMBIENT, 10f, 1f);
+                }
+            }
+            return new ActionResult<ItemStack>(ActionResultType.SUCCESS, itemstack);
+        } else if (isCharged(itemstack) == 1) {
+            setCharge(itemstack, 0);
+            playerIn.getCooldownTracker().setCooldown(this, 50);
+
+            Vector3d pos = new Vector3d(playerIn.getPosX(), playerIn.getPosY() + playerIn.getEyeHeight(), playerIn.getPosZ());
+
+            double pitch = ((playerIn.getPitchYaw().x + 90) * Math.PI) / 180;
+            double yaw = ((playerIn.getPitchYaw().y + 90) * Math.PI) / 180;
+
+            double locYaw = 0;
+            double locPitch = 0;
+            double locDistance = 5D;
+
+            double X = Math.sin(locPitch + pitch) * Math.cos(locYaw + yaw) * locDistance;
+            double Y = Math.cos(locPitch + pitch) * locDistance;
+            double Z = Math.sin(locPitch + pitch) * Math.sin(locYaw + yaw) * locDistance;
+
+            List<Entity> entities = worldIn.getEntitiesWithinAABB(Entity.class,  new AxisAlignedBB(pos.x + X - 3D,pos.y + Y - 3D,pos.z + Z - 3D,pos.x + X + 3D,pos.y + Y + 3D,pos.z + Z + 3D));
+            for (Entity entity : entities) {
+                if (entity instanceof LivingEntity) {
+                    LivingEntity enemy = (LivingEntity)entity;
+                    if (!enemy.equals(playerIn)) {
+                        enemy.attackEntityFrom(DamageSource.GENERIC.setExplosion(), 10F);
+                        enemy.applyKnockback(0.6F, playerIn.getPosX() + X - entity.getPosX(), playerIn.getPosZ() + Z - entity.getPosZ());
+                    }
+                }
+            }
+
+            playerIn.applyKnockback(1.2F, X, Z);
+
+            if (worldIn.isRemote) {
+                for (int i = 0; i < 10; i++) {
+                    worldIn.addParticle(ParticleTypes.LARGE_SMOKE, pos.x + X + ((rand.nextDouble() - 0.5D) * 3), pos.y + Y + ((rand.nextDouble() - 0.5D) * 3), pos.z + Z + ((rand.nextDouble() - 0.5D) * 3), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2));
+                }
+                for (int i = 0; i < 25; i++) {
+                    worldIn.addParticle(ParticleTypes.FLAME, pos.x + X + ((rand.nextDouble() - 0.5D) * 3), pos.y+ Y + ((rand.nextDouble() - 0.5D) * 3), pos.z + Z + ((rand.nextDouble() - 0.5D) * 3), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2));
+                }
+                worldIn.addParticle(ParticleTypes.EXPLOSION_EMITTER, pos.x + X, pos.y + Y, playerIn.getPosZ() + Z, 0d, 0d, 0d);
+                worldIn.playSound(playerIn, playerIn.getPosition().add(X, Y + playerIn.getEyeHeight(), Z), SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.AMBIENT, 10f, 1f);
+            }
+
+            return new ActionResult<ItemStack>(ActionResultType.SUCCESS, itemstack);
+        }
+
+        return new ActionResult<ItemStack>(ActionResultType.PASS, itemstack);
+    }
+
+    public static int isCharged(ItemStack stack) {
+        CompoundNBT nbt = stack.getTag();
+        if (nbt==null) {
+            nbt = new CompoundNBT();
+            stack.setTag(nbt);
+        }
+        if (!nbt.contains("charge")) {
+            nbt.putInt("charge", 0);
+            stack.setTag(nbt);
+            return 0;
+        } else {
+            return nbt.getInt("charge");
+        }
+    }
+
+    public static void setCharge(ItemStack stack, int charge) {
+        CompoundNBT nbt = stack.getTag();
+        if (nbt==null) {
+            nbt = new CompoundNBT();
+            stack.setTag(nbt);
+        }
+        nbt.putInt("charge", charge);
+        stack.setTag(nbt);
+    }
+}
