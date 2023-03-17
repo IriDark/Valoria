@@ -1,6 +1,6 @@
 {
   "parent": "darkrpg:item/handheld_large",
   "textures": {
-    "layer0": "darkrpg:item/А "
+    "layer0": "darkrpg:item/bloodhound_in_hand"
   }
 }
