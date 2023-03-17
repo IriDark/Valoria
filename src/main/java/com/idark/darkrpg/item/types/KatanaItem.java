@@ -159,7 +159,7 @@ public class KatanaItem extends TieredItem implements IVanishable {
 
 		if (worldIn.isRemote) {
 		for (int i = 0;i<4;i++) {
-		  worldIn.addParticle(ParticleTypes.POOF, player.getPosX() + (rand.nextDouble() - 0.5D), player.getPosY(), player.getPosZ() + (rand.nextDouble() - 0.5D), 0d, 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0d);
+		  worldIn.addParticle(ParticleTypes.POOF, player.getPosX() + (rand.nextDouble() - 0.5D), player.getPosY(), player.getPosZ() + (rand.nextDouble() - 0.5D), 0d, 0.05d, 0d);
         }
           worldIn.playSound(player, player.getPosition(), ModSoundRegistry.SWIFTSLICE.get(), SoundCategory.AMBIENT, 10f, 1f);
             DashOverlayRender.isDash = true;
