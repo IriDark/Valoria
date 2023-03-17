@@ -14,12 +14,12 @@
 		"firstperson_righthand": {
 			"rotation": [0, -90, 25],
 			"translation": [2.26, 6.4, 2.26],
-			"scale": [1.36, 1.36, 1]
+			"scale": [1.36, 1.36, 0.68]
 		},
 		"firstperson_lefthand": {
 			"rotation": [0, 90, -25],
 			"translation": [2.26, 6.4, 2.26],
-			"scale": [1.36, 1.36, 1]
+			"scale": [1.36, 1.36, 0.68]
 		}
 	}
 }
