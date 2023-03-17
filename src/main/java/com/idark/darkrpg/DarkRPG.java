@@ -143,22 +143,20 @@ import top.theillusivec4.curios.api.SlotTypePreset;
 	    // some example code to receive and process InterModComms from other mods
 	    }
 
-			@Mod.EventBusSubscriber(bus=Mod.EventBusSubscriber.Bus.MOD)
-			public static class RegistryEvents {
+		@Mod.EventBusSubscriber(bus=Mod.EventBusSubscriber.Bus.MOD)
+		public static class RegistryEvents {
 
-				@SubscribeEvent
-				public static void onModelRegistryEvent(ModelRegistryEvent event) {
-					for (String item : Item2DRenderer.HAND_MODEL_ITEMS) {
-						ModelLoader.addSpecialModel(new ModelResourceLocation(MOD_ID+":" + item + "_in_hand", "inventory"));
-					}
-				}
-
-				@SubscribeEvent
-				public static void onModelBakeEvent(ModelBakeEvent event)
-				{
-					Item2DRenderer.onModelBakeEvent(event);
-				}
+		@SubscribeEvent
+		public static void onModelRegistryEvent(ModelRegistryEvent event) {
+		for (String item : Item2DRenderer.HAND_MODEL_ITEMS) {
+			ModelLoader.addSpecialModel(new ModelResourceLocation(MOD_ID+":" + item + "_in_hand", "inventory"));
 			}
+		}
 
-
+		@SubscribeEvent
+		public static void onModelBakeEvent(ModelBakeEvent event)
+		{
+		Item2DRenderer.onModelBakeEvent(event);
+		}
+	}
 }

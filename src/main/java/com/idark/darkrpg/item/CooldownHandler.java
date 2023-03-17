@@ -1,6 +1,7 @@
 package com.idark.darkrpg.item;
 
 import com.idark.darkrpg.util.ModSoundRegistry;
+import com.idark.darkrpg.item.types.*;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.util.SoundCategory;

@@ -13,9 +13,11 @@ public enum ModItemTier implements IItemTier {
 	        () -> Ingredient.fromItems(ModItems.COBALT_INGOT.get())),
     //ELEMENTAL
     NATURE(5, 1200, 10.5f, 6.2f, 17,
-	        () -> Ingredient.fromItems(ModItems.NATURE_INGOT.get())),
-    INFERNAL(6, 1600, 12f, 8.4f, 14,
-	        () -> Ingredient.fromItems(ModItems.INFERNAL_INGOT.get()));
+	    () -> Ingredient.fromItems(ModItems.NATURE_INGOT.get())),
+	AQUARIUS(6, 1450, 11.5f, 7f, 15,
+	    () -> Ingredient.fromItems(ModItems.AQUARIUS_INGOT.get())),
+    INFERNAL(7, 1650, 12.5f, 8.4f, 14,
+	    () -> Ingredient.fromItems(ModItems.INFERNAL_INGOT.get()));
 
     private final int harvestLevel;
     private final int maxUses;

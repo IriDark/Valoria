@@ -15,7 +15,8 @@ public class ModEffects {
 	
 	public static final RegistryObject<Effect> ALOEREGEN = EFFECTS.register("aloeregen", () -> new AloeRegenEffect());
 	public static final RegistryObject<Effect> STUN = EFFECTS.register("stun", () -> new StunEffect());
-	
+	public static final RegistryObject<Effect> TIPSY = EFFECTS.register("tipsy", () -> new TipsyEffect());
+
 	public static void register(IEventBus eventBus) {
 		EFFECTS.register(eventBus);
 	}

@@ -42,7 +42,7 @@ import java.util.function.Supplier;
 	() -> new Block(Properties.create(Material.IRON).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f).sound(SoundType.NETHERITE)));
 	public static final RegistryObject<Block> NATURE_BLOCK = BLOCK.register("nature_block",
 	() -> new Block(Properties.create(Material.IRON).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f).sound(SoundType.NETHERITE)));
-	public static final RegistryObject<Block> WATER_BLOCK = BLOCK.register("water_block",
+	public static final RegistryObject<Block> AQUARIUS_BLOCK = BLOCK.register("aquarius_block",
 	() -> new Block(Properties.create(Material.IRON).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f).sound(SoundType.NETHERITE)));
 	public static final RegistryObject<Block> INFERNAL_BLOCK = BLOCK.register("infernal_block",
 	() -> new AwakeningBlock(Properties.create(Material.IRON).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f).sound(SoundType.NETHERITE)));

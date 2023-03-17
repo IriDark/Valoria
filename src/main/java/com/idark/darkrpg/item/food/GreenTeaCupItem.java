@@ -1,6 +1,7 @@
 package com.idark.darkrpg.item.food;
 
 import com.idark.darkrpg.effect.ModEffects;
+import com.idark.darkrpg.item.*;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Food;
 import net.minecraft.item.Item;

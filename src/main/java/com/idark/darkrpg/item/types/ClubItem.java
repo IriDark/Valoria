@@ -2,6 +2,7 @@ package com.idark.darkrpg.item.types;
 
 import com.idark.darkrpg.util.ModSoundRegistry;
 import com.idark.darkrpg.effect.*;
+import com.idark.darkrpg.item.*;
 import com.idark.darkrpg.math.*;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;

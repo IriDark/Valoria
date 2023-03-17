@@ -1,0 +1,6 @@
+{
+  "parent": "darkrpg:item/handheld_large",
+  "textures": {
+    "layer0": "darkrpg:item/bronze_sword_in_hand"
+  }
+}
