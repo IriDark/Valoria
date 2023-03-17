@@ -152,6 +152,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 	//misc
 	public static final RegistryObject<Item> GAIB_ROOT = ITEMS.register("gaib_root", () -> new Item(new Item.Properties().maxStackSize(16).group(ModItemGroup.DARKRPG_GROUP)));
 	public static final RegistryObject<Item> KARUSAKAN_ROOT = ITEMS.register("karusakan_root", () -> new Item(new Item.Properties().maxStackSize(16).group(ModItemGroup.DARKRPG_GROUP)));
+	public static final RegistryObject<Item> WOODEN_CUP = ITEMS.register("wooden_cup",() -> new Item(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
 	public static final RegistryObject<Item> CUP = ITEMS.register("cup", () -> new Item(new Item.Properties().maxStackSize(16).group(ModItemGroup.DARKRPG_GROUP)));
 	public static final RegistryObject<Item> BOTTLE = ITEMS.register("bottle", () -> new Item(new Item.Properties().maxStackSize(16).group(ModItemGroup.DARKRPG_GROUP)));
 	public static final RegistryObject<Item> SOUL_COLLECTOR = ITEMS.register("soul_collector", () -> new Item(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
@@ -177,8 +178,6 @@ import net.minecraftforge.eventbus.api.IEventBus;
 	public static final RegistryObject<Item> VOID_INGOT = ITEMS.register("void_ingot",
 		() -> new Item(new Item.Properties().isImmuneToFire().group(ModItemGroup.DARKRPG_GROUP)));
 	//food
-	public static final RegistryObject<Item> WOODEN_CUP = ITEMS.register("wooden_cup",
-		() -> new Item(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
 	public static final RegistryObject<Item> BEER_CUP = ITEMS.register("beer_cup",
 		() -> new BeerCupItem(20, 1));
 	public static final RegistryObject<Item> CACAO_CUP = ITEMS.register("cacao_cup",
@@ -423,7 +422,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 	//BOWS (category)
 	public static final RegistryObject<Item> NATURE_BOW = ITEMS.register("nature_bow",
 		() -> new BowItem(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP).maxStackSize(1)));
-	public static final RegistryObject<Item> OCEAN_BOW = ITEMS.register("ocean_bow",
+	public static final RegistryObject<Item> AQUARIUS_BOW = ITEMS.register("aquarius_bow",
 		() -> new BowItem(new Item.Properties().isImmuneToFire().group(ModItemGroup.DARKRPG_GROUP).maxStackSize(1)));
 	public static final RegistryObject<Item> BOW_OF_DARKNESS = ITEMS.register("bow_of_darkness",
 		() -> new BowItem(new Item.Properties().isImmuneToFire().group(ModItemGroup.DARKRPG_GROUP).maxStackSize(1)));
