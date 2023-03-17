@@ -20,6 +20,13 @@
 		"darkrpg:recharge"
     ]
   },
+   "item.blazecharge.use": {
+    "subtitle": "blaze_reap_charge",
+    "replace": "true",
+    "sounds": [
+		"darkrpg:blazecharge"
+    ]
+  },
     "block.egg_break.ambient": {
     "subtitle": "egg_break",
     "replace": "true",
