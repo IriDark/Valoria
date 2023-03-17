@@ -127,7 +127,7 @@ import top.theillusivec4.curios.api.SlotTypePreset;
 	    RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.MANNEQUIN.get(), MannequinRenderer::new);
 	    
 	    ModItemModelProperties.makeBow(ModItems.NATURE_BOW.get());
-	    ModItemModelProperties.makeBow(ModItems.OCEAN_BOW.get());
+	    ModItemModelProperties.makeBow(ModItems.AQUARIUS_BOW.get());
 	    ModItemModelProperties.makeBow(ModItems.BOW_OF_DARKNESS.get());
 	    ModItemModelProperties.makeBow(ModItems.PHANTASM_BOW.get());
 		ModItemModelProperties.makeSize(ModItems.SOUL_COLLECTOR.get());
