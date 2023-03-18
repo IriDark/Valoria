@@ -237,9 +237,9 @@ import java.util.function.Supplier;
 	public static final RegistryObject<Block> SHADEWOOD_PLANKS = BLOCK.register("shadewood_planks",
 	() -> new Block(AbstractBlock.Properties.from(Blocks.OAK_PLANKS)));
 	//signs
-	public static final RegistryObject<Block> SHADEWOOD_SIGN = BLOCKS.register("shadewood_sign",
-    () -> new ModStandingSignBlock(AbstractBlock.Properties.create(Material.IRON), ModWoodTypes.REDWOOD));
-    public static final RegistryObject<Block> SHADEWOOD_WALL_SIGN = BLOCKS.register("shadewood_wall_sign",
+	public static final RegistryObject<Block> SHADEWOOD_SIGN = BLOCK.register("shadewood_sign",
+    () -> new ModStandingSignBlock(AbstractBlock.Properties.create(Material.IRON), ModWoodTypes.SHADEWOOD));
+    public static final RegistryObject<Block> SHADEWOOD_WALL_SIGN = BLOCK.register("shadewood_wall_sign",
     () -> new ModWallSignBlock(AbstractBlock.Properties.create(Material.IRON), ModWoodTypes.SHADEWOOD));
 	//other
 	public static final RegistryObject<Block> SARCOPHAGUS = BLOCK.register("sarcophagus", 
