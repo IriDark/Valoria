@@ -1,10 +1,12 @@
 package com.idark.darkrpg;
 
-import com.idark.darkrpg.block.ModBlocks;
+import com.google.common.collect.ImmutableMap;
+import com.idark.darkrpg.block.*;
 import com.idark.darkrpg.client.render.DashOverlayRender;
 import com.idark.darkrpg.client.render.model.item.Item2DRenderer;
 import com.idark.darkrpg.effect.ModEffects;
 import com.idark.darkrpg.entity.ModEntityTypes;
+import com.idark.darkrpg.tileentity.*;
 import com.idark.darkrpg.entity.custom.GoblinEntity;
 import com.idark.darkrpg.entity.custom.MannequinEntity;
 import com.idark.darkrpg.entity.custom.SwampWandererEntity;
@@ -16,6 +18,8 @@ import com.idark.darkrpg.paintings.ModPaintings;
 import com.idark.darkrpg.util.ModItemModelProperties;
 import com.idark.darkrpg.util.ModSoundRegistry;
 import net.minecraft.item.*;
+import net.minecraft.block.*;
+import net.minecraft.client.renderer.Atlases;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.renderer.model.ModelResourceLocation;
@@ -23,6 +27,7 @@ import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.world.gen.Heightmap;
+import net.minecraft.client.renderer.tileentity.SignTileEntityRenderer;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
@@ -32,6 +37,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -142,7 +148,7 @@ import top.theillusivec4.curios.api.SlotTypePreset;
 		private void setup(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
 		AxeItem.BLOCK_STRIPPING_MAP = new ImmutableMap.Builder<Block, Block>().putAll(AxeItem.BLOCK_STRIPPING_MAP)
-		.put(ModBlocks.SHADEWOOD_LOG.get(), ModBlocks.STRIPPED_SHADEWOOD_LOG.get())
+		.put(ModBlocks.SHADELOG.get(), ModBlocks.STRIPPED_SHADELOG.get())
 		.put(ModBlocks.SHADEWOOD.get(), ModBlocks.STRIPPED_SHADEWOOD.get()).build();
         });
         DeferredWorkQueue.runLater(() -> {
