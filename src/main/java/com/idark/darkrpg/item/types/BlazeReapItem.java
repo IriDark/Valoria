@@ -3,10 +3,13 @@ package com.idark.darkrpg.item.types;
 import com.idark.darkrpg.util.ModSoundRegistry;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.EnchantmentType;
+import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.IItemTier;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -16,6 +19,8 @@ import net.minecraft.particles.ParticleTypes;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -24,8 +29,6 @@ import net.minecraft.world.World;
 
 import java.util.List;
 import java.util.Random;
-
-import static net.minecraft.util.text.TextFormatting.ITALIC;
 
 public class BlazeReapItem extends PickaxeItem {
 
@@ -48,31 +51,37 @@ public class BlazeReapItem extends PickaxeItem {
             int gunpowder = 0;
             boolean canCharge = false;
 
-            for (ItemStack item : items) {
-                if (item.getItem().equals(Items.GUNPOWDER)) {
-                    gunpowder = gunpowder + item.getCount();
-                    if (gunpowder >= 5) {
-                        canCharge = true;
-                        break;
+            if (!playerIn.isCreative()) {
+                for (ItemStack item : items) {
+                    if (item.getItem().equals(Items.GUNPOWDER)) {
+                        gunpowder = gunpowder + item.getCount();
+                        if (gunpowder >= 5) {
+                            canCharge = true;
+                            break;
+                        }
                     }
                 }
+            } else {
+                canCharge = true;
             }
 
             if (canCharge) {
                 gunpowder = 5;
 
-                for (ItemStack item : items) {
-                    if (item.getItem().equals(Items.GUNPOWDER)) {
-                        if (gunpowder - item.getCount() >= 0) {
-                            gunpowder = gunpowder - item.getCount();
-                            playerIn.inventory.deleteStack(item);
-                        } else {
-                            item.setCount(item.getCount() - gunpowder);
-                            gunpowder = 0;
-                        }
+                if (!playerIn.isCreative()) {
+                    for (ItemStack item : items) {
+                        if (item.getItem().equals(Items.GUNPOWDER)) {
+                            if (gunpowder - item.getCount() >= 0) {
+                                gunpowder = gunpowder - item.getCount();
+                                playerIn.inventory.deleteStack(item);
+                            } else {
+                                item.setCount(item.getCount() - gunpowder);
+                                gunpowder = 0;
+                            }
 
-                        if (gunpowder <= 0) {
-                            break;
+                            if (gunpowder <= 0) {
+                                break;
+                            }
                         }
                     }
                 }
@@ -80,6 +89,7 @@ public class BlazeReapItem extends PickaxeItem {
                 setCharge(itemstack, 1);
                 playerIn.getCooldownTracker().setCooldown(this, 20);
                 worldIn.playSound(playerIn, playerIn.getPosition(), ModSoundRegistry.BLAZECHARGE.get(), SoundCategory.AMBIENT, 10f, 1f);
+                playerIn.addStat(Stats.ITEM_USED.get(this));
             }
             return new ActionResult<ItemStack>(ActionResultType.SUCCESS, itemstack);
         } else if (isCharged(itemstack) == 1) {
@@ -100,6 +110,11 @@ public class BlazeReapItem extends PickaxeItem {
             double Y = Math.cos(locPitch + pitch) * locDistance;
             double Z = Math.sin(locPitch + pitch) * Math.sin(locYaw + yaw) * locDistance;
 
+            BlockRayTraceResult ray = worldIn.rayTraceBlocks(new RayTraceContext(pos, new Vector3d(pos.x + X, pos.y + Y, pos.z + Z), RayTraceContext.BlockMode.OUTLINE, RayTraceContext.FluidMode.NONE, playerIn));
+            X = ray.getHitVec().getX() - pos.x;
+            Y = ray.getHitVec().getY() - pos.y;
+            Z = ray.getHitVec().getZ() - pos.z;
+
             List<Entity> entities = worldIn.getEntitiesWithinAABB(Entity.class,  new AxisAlignedBB(pos.x + X - 3D,pos.y + Y - 3D,pos.z + Z - 3D,pos.x + X + 3D,pos.y + Y + 3D,pos.z + Z + 3D));
             for (Entity entity : entities) {
                 if (entity instanceof LivingEntity) {
@@ -107,11 +122,18 @@ public class BlazeReapItem extends PickaxeItem {
                     if (!enemy.equals(playerIn)) {
                         enemy.attackEntityFrom(DamageSource.GENERIC.setExplosion(), 10F);
                         enemy.applyKnockback(0.6F, playerIn.getPosX() + X - entity.getPosX(), playerIn.getPosZ() + Z - entity.getPosZ());
+                        if (EnchantmentHelper.getEnchantmentLevel(Enchantments.FIRE_ASPECT, itemstack) > 0) {
+                            int i = EnchantmentHelper.getFireAspectModifier(playerIn);
+                            enemy.setFire(i * 4);
+                        }
                     }
                 }
             }
 
             playerIn.applyKnockback(1.2F, X, Z);
+            if (!playerIn.isCreative()) {
+                itemstack.damageItem(1, playerIn, (p_220045_0_) -> {p_220045_0_.sendBreakAnimation(EquipmentSlotType.MAINHAND);});
+            }
 
             for (int i = 0; i < 10; i++) {
                 worldIn.addParticle(ParticleTypes.LARGE_SMOKE, pos.x + X + ((rand.nextDouble() - 0.5D) * 3), pos.y + Y + ((rand.nextDouble() - 0.5D) * 3), pos.z + Z + ((rand.nextDouble() - 0.5D) * 3), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2));
