@@ -1,6 +1,9 @@
 package com.idark.darkrpg.item.types;
 
 import com.idark.darkrpg.util.ModSoundRegistry;
+import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -10,16 +13,19 @@ import net.minecraft.item.Items;
 import net.minecraft.item.PickaxeItem;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.particles.ParticleTypes;
+import net.minecraft.stats.Stats;
 import net.minecraft.util.*;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 
 import java.util.List;
 import java.util.Random;
+
+import static net.minecraft.util.text.TextFormatting.ITALIC;
 
 public class BlazeReapItem extends PickaxeItem {
 
@@ -29,6 +35,11 @@ public class BlazeReapItem extends PickaxeItem {
         super(tier, attackDamageIn, attackSpeedIn, builder);
     }
 
+    public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchant){
+        return enchant.type != EnchantmentType.BREAKABLE && enchant.type == EnchantmentType.WEAPON || enchant.type == EnchantmentType.DIGGER;
+    }
+
+    //Sounds taken from the CalamityMod (Terraria) in a https://calamitymod.fandom.com/wiki/Category:Sound_effects
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
         ItemStack itemstack = playerIn.getHeldItem(handIn);
 
@@ -68,14 +79,13 @@ public class BlazeReapItem extends PickaxeItem {
 
                 setCharge(itemstack, 1);
                 playerIn.getCooldownTracker().setCooldown(this, 20);
-                if (worldIn.isRemote) {
-                    worldIn.playSound(playerIn, playerIn.getPosition(), ModSoundRegistry.BLAZECHARGE.get(), SoundCategory.AMBIENT, 10f, 1f);
-                }
+                worldIn.playSound(playerIn, playerIn.getPosition(), ModSoundRegistry.BLAZECHARGE.get(), SoundCategory.AMBIENT, 10f, 1f);
             }
             return new ActionResult<ItemStack>(ActionResultType.SUCCESS, itemstack);
         } else if (isCharged(itemstack) == 1) {
             setCharge(itemstack, 0);
             playerIn.getCooldownTracker().setCooldown(this, 50);
+            playerIn.addStat(Stats.ITEM_USED.get(this));
 
             Vector3d pos = new Vector3d(playerIn.getPosX(), playerIn.getPosY() + playerIn.getEyeHeight(), playerIn.getPosZ());
 
@@ -103,16 +113,15 @@ public class BlazeReapItem extends PickaxeItem {
 
             playerIn.applyKnockback(1.2F, X, Z);
 
-            if (worldIn.isRemote) {
-                for (int i = 0; i < 10; i++) {
-                    worldIn.addParticle(ParticleTypes.LARGE_SMOKE, pos.x + X + ((rand.nextDouble() - 0.5D) * 3), pos.y + Y + ((rand.nextDouble() - 0.5D) * 3), pos.z + Z + ((rand.nextDouble() - 0.5D) * 3), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2));
-                }
-                for (int i = 0; i < 25; i++) {
-                    worldIn.addParticle(ParticleTypes.FLAME, pos.x + X + ((rand.nextDouble() - 0.5D) * 3), pos.y+ Y + ((rand.nextDouble() - 0.5D) * 3), pos.z + Z + ((rand.nextDouble() - 0.5D) * 3), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2));
-                }
-                worldIn.addParticle(ParticleTypes.EXPLOSION_EMITTER, pos.x + X, pos.y + Y, playerIn.getPosZ() + Z, 0d, 0d, 0d);
-                worldIn.playSound(playerIn, playerIn.getPosition().add(X, Y + playerIn.getEyeHeight(), Z), SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.AMBIENT, 10f, 1f);
+            for (int i = 0; i < 10; i++) {
+                worldIn.addParticle(ParticleTypes.LARGE_SMOKE, pos.x + X + ((rand.nextDouble() - 0.5D) * 3), pos.y + Y + ((rand.nextDouble() - 0.5D) * 3), pos.z + Z + ((rand.nextDouble() - 0.5D) * 3), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2));
             }
+            for (int i = 0; i < 25; i++) {
+                worldIn.addParticle(ParticleTypes.FLAME, pos.x + X + ((rand.nextDouble() - 0.5D) * 3), pos.y+ Y + ((rand.nextDouble() - 0.5D) * 3), pos.z + Z + ((rand.nextDouble() - 0.5D) * 3), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2));
+            }
+            worldIn.addParticle(ParticleTypes.EXPLOSION_EMITTER, pos.x + X, pos.y + Y, playerIn.getPosZ() + Z, 0d, 0d, 0d);
+            worldIn.playSound(playerIn, playerIn.getPosition().add(X, Y + playerIn.getEyeHeight(), Z), SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.AMBIENT, 10f, 1f);
+
 
             return new ActionResult<ItemStack>(ActionResultType.SUCCESS, itemstack);
         }
@@ -144,12 +153,12 @@ public class BlazeReapItem extends PickaxeItem {
         nbt.putInt("charge", charge);
         stack.setTag(nbt);
     }
-	
-	@Override
-	public void addInformation(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flags) {
-	super.addInformation(stack, world, tooltip, flags);
-	tooltip.add(new TranslationTextComponent("tooltip.darkrpg.blazereap").mergeStyle(TextFormatting.GRAY));
-	tooltip.add(new TranslationTextComponent("tooltip.darkrpg.familiar").mergeStyle(TextFormatting.GRAY, ITALIC));
-	tooltip.add(new TranslationTextComponent("tooltip.darkrpg.rmb").mergeStyle(TextFormatting.GREEN));
-	}
+
+    @Override
+    public void addInformation(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flags) {
+        super.addInformation(stack, world, tooltip, flags);
+        tooltip.add(new TranslationTextComponent("tooltip.darkrpg.blazereap").mergeStyle(TextFormatting.GRAY));
+        tooltip.add(new TranslationTextComponent("tooltip.darkrpg.familiar").mergeStyle(TextFormatting.GRAY, TextFormatting.ITALIC));
+        tooltip.add(new TranslationTextComponent("tooltip.darkrpg.rmb").mergeStyle(TextFormatting.GREEN));
+    }
 }
