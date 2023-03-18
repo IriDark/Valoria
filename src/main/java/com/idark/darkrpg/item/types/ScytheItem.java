@@ -1,14 +1,14 @@
 package com.idark.darkrpg.item.types;
 
 import com.idark.darkrpg.util.ModSoundRegistry;
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.IItemTier;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.SwordItem;
-import net.minecraft.item.UseAction;
+import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.item.*;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.ActionResult;
@@ -16,6 +16,8 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 
@@ -52,7 +54,7 @@ public class ScytheItem extends SwordItem {
     //Sounds taken from the CalamityMod (Terraria) in a https://calamitymod.fandom.com/wiki/Category:Sound_effects
     public void onPlayerStoppedUsing(ItemStack stack, World worldIn, LivingEntity entityLiving, int timeLeft) {
         PlayerEntity player = (PlayerEntity)entityLiving;
-        player.getCooldownTracker().setCooldown(this, 80);
+        player.getCooldownTracker().setCooldown(this, 300);
         player.addStat(Stats.ITEM_USED.get(this));
 
         Vector3d pos = new Vector3d(player.getPosX(), player.getPosY() + player.getEyeHeight(), player.getPosZ());
@@ -66,18 +68,28 @@ public class ScytheItem extends SwordItem {
                 yawDouble = 1F - ((((float) i) - 180F) / 180F);
             }
             System.out.println(yawDouble);
-            hitDirection(stack, worldIn, player, hitEntities, pos, 0, player.getPitchYaw().y + i, 4);
+            hitDirection(worldIn, player, hitEntities, pos, 0, player.getPitchYaw().y + i, 4);
         }
 
+        float damage = (float) (player.getAttribute(Attributes.ATTACK_DAMAGE).getValue()) + EnchantmentHelper.getSweepingDamageRatio(player);
+
         for (LivingEntity entity : hitEntities) {
-            entity.attackEntityFrom(DamageSource.GENERIC, (float) (player.getAttribute(Attributes.ATTACK_DAMAGE).getValue()));
+            entity.attackEntityFrom(DamageSource.GENERIC, damage);
             entity.applyKnockback(0.4F, player.getPosX() - entity.getPosX(), player.getPosZ() - entity.getPosZ());
+            if (EnchantmentHelper.getFireAspectModifier(player) > 0) {
+                int i = EnchantmentHelper.getFireAspectModifier(player);
+                entity.setFire(i * 4);
+            }
+        }
+
+        if (!player.isCreative()) {
+            stack.damageItem(hitEntities.size(), player, (p_220045_0_) -> {p_220045_0_.sendBreakAnimation(EquipmentSlotType.MAINHAND);});
         }
 
         worldIn.playSound(player, player.getPosition(), ModSoundRegistry.SWIFTSLICE.get(), SoundCategory.AMBIENT, 10f, 1f);
     }
 
-    public void hitDirection(ItemStack stack, World worldIn, PlayerEntity player, List<LivingEntity> hitEntities, Vector3d pos, float pitchRaw, float yawRaw, float distance) {
+    public void hitDirection(World worldIn, PlayerEntity player, List<LivingEntity> hitEntities, Vector3d pos, float pitchRaw, float yawRaw, float distance) {
         double pitch = ((pitchRaw + 90) * Math.PI) / 180;
         double yaw = ((yawRaw + 90) * Math.PI) / 180;
 
@@ -88,9 +100,13 @@ public class ScytheItem extends SwordItem {
         double X = Math.sin(locPitch + pitch) * Math.cos(locYaw + yaw) * locDistance;
         double Y = Math.cos(locPitch + pitch) * locDistance;
         double Z = Math.sin(locPitch + pitch) * Math.sin(locYaw + yaw) * locDistance;
+        BlockRayTraceResult ray = worldIn.rayTraceBlocks(new RayTraceContext(pos, new Vector3d(pos.x + X, pos.y + Y, pos.z + Z), RayTraceContext.BlockMode.OUTLINE, RayTraceContext.FluidMode.NONE, player));
+        X = ray.getHitVec().getX();
+        Y = ray.getHitVec().getY();
+        Z = ray.getHitVec().getZ();
 
-        worldIn.addParticle(ParticleTypes.POOF, pos.x + X + ((rand.nextDouble() - 0.5D) * 2), pos.y + Y + Z + ((rand.nextDouble() - 0.5D) * 2), pos.z + Z + ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2));
-        List<Entity> entities = worldIn.getEntitiesWithinAABB(Entity.class,  new AxisAlignedBB(pos.x + X - 2D,pos.y + Y - 2D,pos.z + Z - 2D,pos.x + X + 2D,pos.y + Y + 2D,pos.z + Z + 2D));
+        worldIn.addParticle(ParticleTypes.POOF, X + ((rand.nextDouble() - 0.5D) * 2), Y + ((rand.nextDouble() - 0.5D) * 2), Z + ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2));
+        List<Entity> entities = worldIn.getEntitiesWithinAABB(Entity.class,  new AxisAlignedBB(X - 2D,Y - 2D,Z - 2D,X + 2D,Y + 2D,Z + 2D));
         for (Entity entity : entities) {
             if (entity instanceof  LivingEntity) {
                 LivingEntity enemy = (LivingEntity)entity;
@@ -100,9 +116,15 @@ public class ScytheItem extends SwordItem {
             }
         }
 
+        locDistance = distance(pos, new Vector3d(X, Y, Z));
+
         X = Math.sin(locPitch + pitch) * Math.cos(locYaw + yaw) * locDistance * 0.75F;
         Y = Math.cos(locPitch + pitch) * locDistance * 0.75F;
         Z = Math.sin(locPitch + pitch) * Math.sin(locYaw + yaw) * locDistance * 0.75F;
         worldIn.addParticle(ParticleTypes.SWEEP_ATTACK, pos.x + X + ((rand.nextDouble() - 0.5D) * 0.2F), pos.y + Y + ((rand.nextDouble() - 0.5D) * 0.2F), pos.z + Z + ((rand.nextDouble() - 0.5D) * 0.2F), 0d, 0d, 0d);
+    }
+
+    public static double distance(Vector3d pos1, Vector3d pos2){
+        return Math.sqrt((pos2.x - pos1.x) * (pos2.x - pos1.x) + (pos2.y - pos1.y)*(pos2.y - pos1.y) + (pos2.z - pos1.z)*(pos2.z - pos1.z));
     }
 }
