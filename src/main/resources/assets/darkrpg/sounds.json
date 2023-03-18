@@ -27,6 +27,16 @@
 		"darkrpg:blazecharge"
     ]
   },
+    "item.pierce.ambient": {
+    "subtitle": "armor_pierce",
+    "replace": "true",
+    "sounds": [
+		"darkrpg:pierce1",
+		"darkrpg:pierce2",
+		"darkrpg:pierce3"
+
+    ]
+  },
     "block.egg_break.ambient": {
     "subtitle": "egg_break",
     "replace": "true",
