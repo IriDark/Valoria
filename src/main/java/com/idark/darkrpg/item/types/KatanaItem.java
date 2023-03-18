@@ -10,6 +10,8 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentType;
 import net.minecraft.enchantment.IVanishable;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -51,6 +53,10 @@ public class KatanaItem extends TieredItem implements IVanishable {
       builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", (double)attackSpeedIn, AttributeModifier.Operation.ADDITION));
       this.attributeModifiers = builder.build();
    }
+
+    public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchant){
+        return enchant.type != EnchantmentType.BREAKABLE && enchant.type == EnchantmentType.WEAPON || enchant.type == EnchantmentType.DIGGER;
+    }
    	
    public float getAttackDamage() {
       return this.attackDamage;
@@ -110,13 +116,13 @@ public class KatanaItem extends TieredItem implements IVanishable {
       return 78000;
 	}
 	
-	//Sounds taken from the CalamityMod (Terraria) in a https://calamitymod.fandom.com/wiki/Category:Sound_effects
-	public void onPlayerStoppedUsing(ItemStack stack, World worldIn, LivingEntity entityLiving, int timeLeft) {
+    //Sounds taken from the CalamityMod (Terraria) in a https://calamitymod.fandom.com/wiki/Category:Sound_effects
+    public void onPlayerStoppedUsing(ItemStack stack, World worldIn, LivingEntity entityLiving, int timeLeft) {
         PlayerEntity player = (PlayerEntity)entityLiving;
         Vector3d dir = MathUtils.direction(player);
-	    player.addVelocity(dir.x,dir.y*0.75,dir.z);
-		player.getCooldownTracker().setCooldown(this, 45);
-		player.addStat(Stats.ITEM_USED.get(this));
+        player.addVelocity(dir.x,dir.y*0.75,dir.z);
+        player.getCooldownTracker().setCooldown(this, 45);
+        player.addStat(Stats.ITEM_USED.get(this));
 
         Vector3d pos = new Vector3d(player.getPosX(), player.getPosY() + player.getEyeHeight(), player.getPosZ());
         List<LivingEntity> hitEntities = new ArrayList<LivingEntity>();
@@ -133,9 +139,7 @@ public class KatanaItem extends TieredItem implements IVanishable {
             double Y = Math.cos(locPitch + pitch) * locDistance;
             double Z = Math.sin(locPitch + pitch) * Math.sin(locYaw + yaw) * locDistance;
 
-            if (worldIn.isRemote) {
-                worldIn.addParticle(ParticleTypes.POOF, pos.x + X + (rand.nextDouble() - 0.5D), pos.y + Y, pos.z + Z + (rand.nextDouble() - 0.5D), 0d, 0.05d, 0d);
-            }
+            worldIn.addParticle(ParticleTypes.POOF, pos.x + X + (rand.nextDouble() - 0.5D), pos.y + Y, pos.z + Z + (rand.nextDouble() - 0.5D), 0d, 0.05d, 0d);
             List<Entity> entities = worldIn.getEntitiesWithinAABB(Entity.class,  new AxisAlignedBB(pos.x + X - 0.5D,pos.y + Y - 0.5D,pos.z + Z - 0.5D,pos.x + X + 0.5D,pos.y + Y + 0.5D,pos.z + Z + 0.5D));
             for (Entity entity : entities) {
                 if (entity instanceof  LivingEntity) {
@@ -156,19 +160,17 @@ public class KatanaItem extends TieredItem implements IVanishable {
             ii = ii - (1F / (hits * 2));
         }
 
-		if (worldIn.isRemote) {
-		for (int i = 0;i<4;i++) {
-		  worldIn.addParticle(ParticleTypes.POOF, player.getPosX() + (rand.nextDouble() - 0.5D), player.getPosY(), player.getPosZ() + (rand.nextDouble() - 0.5D), 0d, 0.05d, 0d);
+        for (int i = 0;i<4;i++) {
+          worldIn.addParticle(ParticleTypes.POOF, player.getPosX() + (rand.nextDouble() - 0.5D), player.getPosY(), player.getPosZ() + (rand.nextDouble() - 0.5D), 0d, 0.05d, 0d);
         }
           worldIn.playSound(player, player.getPosition(), ModSoundRegistry.SWIFTSLICE.get(), SoundCategory.AMBIENT, 10f, 1f);
             DashOverlayRender.isDash = true;
-		}
-	}
-	
-	@Override
-	public void addInformation(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flags) {
-	super.addInformation(stack, world, tooltip, flags);
-	tooltip.add(new TranslationTextComponent("tooltip.darkrpg.katana").mergeStyle(TextFormatting.GRAY));
-	tooltip.add(new TranslationTextComponent("tooltip.darkrpg.rmb").mergeStyle(TextFormatting.GREEN));
-	}
+    }
+
+    @Override
+    public void addInformation(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flags) {
+    super.addInformation(stack, world, tooltip, flags);
+    tooltip.add(new TranslationTextComponent("tooltip.darkrpg.katana").mergeStyle(TextFormatting.GRAY));
+    tooltip.add(new TranslationTextComponent("tooltip.darkrpg.rmb").mergeStyle(TextFormatting.GREEN));
+   }
 }
