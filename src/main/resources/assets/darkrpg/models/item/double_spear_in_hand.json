@@ -1,5 +1,5 @@
 {
-  "parent": "darkrpg:item/double_spear_large",
+  "parent": "darkrpg:item/handheld_large",
   "textures": {
     "layer0": "darkrpg:item/double_spear_in_hand"
   }

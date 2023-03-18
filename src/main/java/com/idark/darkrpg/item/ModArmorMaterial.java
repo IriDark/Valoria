@@ -24,13 +24,21 @@ import java.util.function.Supplier;
 	SoundEvents.ITEM_ARMOR_EQUIP_IRON, 1.0f, 0.0f, () -> {
 	return Ingredient.fromItems(ModItems.NATURE_INGOT.get());
 	}),
-	INFERNAL("infernal", 28, new int[] { 3, 8, 6, 2 }, 12,
+	DEPTH("depth", 30, new int[] { 5, 8, 12, 8 }, 18,
+	SoundEvents.ITEM_ARMOR_EQUIP_IRON, 1.0f, 0.0f, () -> {
+	return Ingredient.fromItems(ModItems.AQUARIUS_INGOT.get());
+	}),
+	INFERNAL("infernal", 28, new int[] { 6, 9, 8, 10 }, 14,
 	SoundEvents.ITEM_ARMOR_EQUIP_NETHERITE, 1.0f, 0.0f, () -> {
 	return Ingredient.fromItems(ModItems.INFERNAL_INGOT.get());
 	}),
 	AWAKENED_VOID("awakened_void", 40, new int[] { 9, 20, 16, 9 }, 10,
 	SoundEvents.ITEM_ARMOR_EQUIP_NETHERITE, 1.0f, 0.0f, () -> {
 	return Ingredient.fromItems(ModItems.VOID_INGOT.get());
+	}),
+	PHANTASM("phantasm", 50, new int[] { 15, 30, 20, 10 }, 30,
+	SoundEvents.ITEM_ARMOR_EQUIP_NETHERITE, 1.0f, 0.0f, () -> {
+	return Ingredient.fromItems(ModItems.ILLUSION_STONE.get());
 	});
 	
 	private static final int[] MAX_DAMAGE_ARRAY = new int[]{13, 15, 16, 11};

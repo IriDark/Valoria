@@ -22,6 +22,7 @@ import java.util.Objects;
 	private static final Map<IArmorMaterial, Effect> MATERIAL_TO_EFFECT_MAP =
 	new ImmutableMap.Builder<IArmorMaterial, Effect>()
 		.put(ModArmorMaterial.NATURE, Effects.REGENERATION)
+		.put(ModArmorMaterial.DEPTH, Effects.WATER_BREATHING)
 		.put(ModArmorMaterial.INFERNAL, Effects.STRENGTH)
 		.build();
 	

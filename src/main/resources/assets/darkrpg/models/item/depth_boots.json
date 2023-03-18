@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "darkrpg:item/beer_cup"
+    "layer0": "darkrpg:block/boots_of_depths"
   }
 }
