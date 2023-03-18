@@ -111,7 +111,6 @@ public class KatanaItem extends TieredItem implements IVanishable {
 	}
 	
 	//Sounds taken from the CalamityMod (Terraria) in a https://calamitymod.fandom.com/wiki/Category:Sound_effects
-	//TODO Overlay
 	public void onPlayerStoppedUsing(ItemStack stack, World worldIn, LivingEntity entityLiving, int timeLeft) {
         PlayerEntity player = (PlayerEntity)entityLiving;
         Vector3d dir = MathUtils.direction(player);
