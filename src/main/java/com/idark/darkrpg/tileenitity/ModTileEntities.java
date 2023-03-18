@@ -1,7 +1,7 @@
 package com.idark.darkrpg.tileentity;
 
 import com.idark.darkrpg.DarkRPG;
-import com.idark.darkrpg.blocks.ModBlocks;
+import com.idark.darkrpg.block.ModBlocks;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;
