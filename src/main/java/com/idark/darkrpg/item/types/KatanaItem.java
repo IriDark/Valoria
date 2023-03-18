@@ -10,9 +10,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentType;
-import net.minecraft.enchantment.IVanishable;
+import net.minecraft.enchantment.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.Attribute;
@@ -30,6 +28,8 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -126,6 +126,7 @@ public class KatanaItem extends TieredItem implements IVanishable {
 
         Vector3d pos = new Vector3d(player.getPosX(), player.getPosY() + player.getEyeHeight(), player.getPosZ());
         List<LivingEntity> hitEntities = new ArrayList<LivingEntity>();
+        double maxDistance = distance(pos, worldIn, player);
 
         for (int i = 0; i < 10; i += 1) {
             double pitch = ((player.getPitchYaw().x + 90) * Math.PI) / 180;
@@ -149,15 +150,27 @@ public class KatanaItem extends TieredItem implements IVanishable {
                     }
                 }
             }
+
+            if (locDistance >= maxDistance) {
+                break;
+            }
         }
 
         int hits = hitEntities.size();
         float ii = 1F;
 
         for (LivingEntity entity : hitEntities) {
-            entity.attackEntityFrom(DamageSource.GENERIC, (float) (player.getAttribute(Attributes.ATTACK_DAMAGE).getValue() * ii));
+            entity.attackEntityFrom(DamageSource.GENERIC, (float) (player.getAttribute(Attributes.ATTACK_DAMAGE).getValue() * ii) + EnchantmentHelper.getSweepingDamageRatio(player));
             entity.applyKnockback(0.4F, player.getPosX() - entity.getPosX(), player.getPosZ() - entity.getPosZ());
+            if (EnchantmentHelper.getEnchantmentLevel(Enchantments.FIRE_ASPECT, stack) > 0) {
+                int i = EnchantmentHelper.getFireAspectModifier(player);
+                entity.setFire(i * 4);
+            }
             ii = ii - (1F / (hits * 2));
+        }
+
+        if (!player.isCreative()) {
+            stack.damageItem(hits, player, (p_220045_0_) -> {p_220045_0_.sendBreakAnimation(EquipmentSlotType.MAINHAND);});
         }
 
         for (int i = 0;i<4;i++) {
@@ -165,6 +178,26 @@ public class KatanaItem extends TieredItem implements IVanishable {
         }
           worldIn.playSound(player, player.getPosition(), ModSoundRegistry.SWIFTSLICE.get(), SoundCategory.AMBIENT, 10f, 1f);
             DashOverlayRender.isDash = true;
+    }
+
+    public static double distance(Vector3d pos1, World worldIn, PlayerEntity player) {
+        double pitch = ((player.getPitchYaw().x + 90) * Math.PI) / 180;
+        double yaw = ((player.getPitchYaw().y + 90) * Math.PI) / 180;
+
+        double locYaw = 0;
+        double locPitch = 0;
+        double locDistance = 5D;
+
+        double X = Math.sin(locPitch + pitch) * Math.cos(locYaw + yaw) * locDistance;
+        double Y = Math.cos(locPitch + pitch) * locDistance;
+        double Z = Math.sin(locPitch + pitch) * Math.sin(locYaw + yaw) * locDistance;
+
+        BlockRayTraceResult ray = worldIn.rayTraceBlocks(new RayTraceContext(pos1, new Vector3d(pos1.x + X, pos1.y + Y, pos1.z + Z), RayTraceContext.BlockMode.OUTLINE, RayTraceContext.FluidMode.NONE, player));
+        X = ray.getHitVec().getX();
+        Y = ray.getHitVec().getY();
+        Z = ray.getHitVec().getZ();
+
+        return Math.sqrt((X - pos1.x) * (X - pos1.x) + (Y - pos1.y)*(Y - pos1.y) + (Z - pos1.z)*(Z - pos1.z));
     }
 
     @Override
