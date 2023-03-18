@@ -11,6 +11,9 @@ import net.minecraft.item.PickaxeItem;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.*;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
@@ -141,4 +144,12 @@ public class BlazeReapItem extends PickaxeItem {
         nbt.putInt("charge", charge);
         stack.setTag(nbt);
     }
+	
+	@Override
+	public void addInformation(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flags) {
+	super.addInformation(stack, world, tooltip, flags);
+	tooltip.add(new TranslationTextComponent("tooltip.darkrpg.blazereap").mergeStyle(TextFormatting.GRAY));
+	tooltip.add(new TranslationTextComponent("tooltip.darkrpg.familiar").mergeStyle(TextFormatting.GRAY, ITALIC));
+	tooltip.add(new TranslationTextComponent("tooltip.darkrpg.rmb").mergeStyle(TextFormatting.GREEN));
+	}
 }
