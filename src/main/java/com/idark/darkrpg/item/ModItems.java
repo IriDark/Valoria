@@ -121,6 +121,8 @@ import net.minecraftforge.eventbus.api.IEventBus;
 	public static final RegistryObject<Item> VASE_BIG_1 = ITEMS.register("vase_big_1", () -> new BlockItem(ModBlocks.VASE_BIG_1.get(), new Item.Properties().group(ModItemGroup.DARKRPG_BLOCKS_GROUP)));
 	public static final RegistryObject<Item> VASE_BIG_2 = ITEMS.register("vase_big_2", () -> new BlockItem(ModBlocks.VASE_BIG_2.get(), new Item.Properties().group(ModItemGroup.DARKRPG_BLOCKS_GROUP)));
 	public static final RegistryObject<Item> VASE_BIG_3 = ITEMS.register("vase_big_3", () -> new BlockItem(ModBlocks.VASE_BIG_3.get(), new Item.Properties().group(ModItemGroup.DARKRPG_BLOCKS_GROUP)));
+	//signs
+	public static final RegistryObject<Item> SHADEWOOD_SIGN = ITEMS.register("hadewood_sign",() -> new SignItem(new Item.Properties().maxStackSize(16).group(ModItemGroup.DARKRPG_BLOCKS_GROUP), ModBlocks.SHADEWOOD_SIGN.get(), ModBlocks.SHADEWOOD_WALL_SIGN.get()));
 	//bronze
 	public static final RegistryObject<Item> BRONZE_BLOCK = ITEMS.register("bronze_block", () -> new BlockItem(ModBlocks.BRONZE_BLOCK.get(), new Item.Properties().group(ModItemGroup.DARKRPG_BLOCKS_GROUP)));
    	public static final RegistryObject<Item> BRONZE_PLATE = ITEMS.register("bronze_plate", () -> new BlockItem(ModBlocks.BRONZE_PLATE.get(), new Item.Properties().group(ModItemGroup.DARKRPG_BLOCKS_GROUP)));
@@ -286,7 +288,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 		() -> new AxeItem(ModItemTier.NATURE, 5, -3f, new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
 	public static final RegistryObject<Item> NATURE_HOE = ITEMS.register("nature_hoe",
 		() -> new HoeItem(ModItemTier.NATURE, -3, 0f, new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
-	//AQUARIUS
+	//aquarisus
 	public static final RegistryObject<Item> CORAL_REEF = ITEMS.register("coral_reef",
 		() -> new SwordItem(ModItemTier.AQUARIUS, 3, -2f, new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
 	public static final RegistryObject<Item> AQUARIUS_SCYTHE = ITEMS.register("aquarius_scythe",

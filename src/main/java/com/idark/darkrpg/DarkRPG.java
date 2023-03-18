@@ -15,6 +15,7 @@ import com.idark.darkrpg.item.ModItems;
 import com.idark.darkrpg.paintings.ModPaintings;
 import com.idark.darkrpg.util.ModItemModelProperties;
 import com.idark.darkrpg.util.ModSoundRegistry;
+import net.minecraft.item.*;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.renderer.model.ModelResourceLocation;
@@ -108,6 +109,8 @@ import top.theillusivec4.curios.api.SlotTypePreset;
 	    RenderTypeLookup.setRenderLayer(ModBlocks.VASE_BIG_3.get(), RenderType.getCutout());
 	    RenderTypeLookup.setRenderLayer(ModBlocks.BRONZE_GLASS.get(), RenderType.getCutout());
 	    RenderTypeLookup.setRenderLayer(ModBlocks.BRONZE_LAMP.get(), RenderType.getCutout());
+		RenderTypeLookup.setRenderLayer(ModBlocks.SHADEWOOD_DOOR.get(), RenderType.getCutout());
+		RenderTypeLookup.setRenderLayer(ModBlocks.SHADEWOOD_TRAPDOOR.get(), RenderType.getCutout());
 	    RenderTypeLookup.setRenderLayer(ModBlocks.BRONZE_DOOR.get(), RenderType.getCutout());
 	    RenderTypeLookup.setRenderLayer(ModBlocks.BRONZE_TRAPDOOR.get(), RenderType.getCutout());
 	    RenderTypeLookup.setRenderLayer(ModBlocks.BRONZE_TRAPDOOR2.get(), RenderType.getCutout());
@@ -115,7 +118,11 @@ import top.theillusivec4.curios.api.SlotTypePreset;
 	    RenderTypeLookup.setRenderLayer(ModBlocks.AMETHYST_CRYSTAL.get(), RenderType.getCutout());
 	    RenderTypeLookup.setRenderLayer(ModBlocks.RUBY_CRYSTAL.get(), RenderType.getCutout());
 	    RenderTypeLookup.setRenderLayer(ModBlocks.SAPPHIRE_CRYSTAL.get(), RenderType.getCutout());
-	    });
+	    
+		ClientRegistry.bindTileEntityRenderer(ModTileEntities.SIGN_TILE_ENTITIES.get(),
+	    SignTileEntityRenderer::new);
+	    Atlases.addWoodType(ModWoodTypes.SHADEWOOD);
+		});
 	    
 	    EntitySpawnPlacementRegistry.register(ModEntityTypes.SWAMP_WANDERER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND,
 	    Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MonsterEntity::canMonsterSpawn);
@@ -133,8 +140,13 @@ import top.theillusivec4.curios.api.SlotTypePreset;
 		ModItemModelProperties.makeSize(ModItems.SOUL_COLLECTOR.get());
 	    }
 		private void setup(final FMLCommonSetupEvent event) {
+        event.enqueueWork(() -> {
+		AxeItem.BLOCK_STRIPPING_MAP = new ImmutableMap.Builder<Block, Block>().putAll(AxeItem.BLOCK_STRIPPING_MAP)
+		.put(ModBlocks.SHADEWOOD_LOG.get(), ModBlocks.STRIPPED_SHADEWOOD_LOG.get())
+		.put(ModBlocks.SHADEWOOD.get(), ModBlocks.STRIPPED_SHADEWOOD.get()).build();
+        });
         DeferredWorkQueue.runLater(() -> {
-        GlobalEntityTypeAttributes.put(ModEntityTypes.SWAMP_WANDERER.get(), SwampWandererEntity.setCustomAttributes().create());
+		GlobalEntityTypeAttributes.put(ModEntityTypes.SWAMP_WANDERER.get(), SwampWandererEntity.setCustomAttributes().create());
         GlobalEntityTypeAttributes.put(ModEntityTypes.MANNEQUIN.get(), MannequinEntity.setCustomAttributes().create());
         GlobalEntityTypeAttributes.put(ModEntityTypes.GOBLIN.get(), GoblinEntity.setCustomAttributes().create());
         });

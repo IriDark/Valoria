@@ -24,6 +24,10 @@ import java.util.function.Supplier;
 	private final static String MODID = DarkRPG.MOD_ID;
 	public static final DeferredRegister<Block> BLOCK = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
 	//door & trapdoors
+	public static final RegistryObject<Block> SHADEWOOD_DOOR = registerBlock("shadewood_door",
+	() -> new DoorBlock(AbstractBlock.Properties.create(Material.ROCK).harvestLevel(1).setRequiresTool().harvestTool(ToolType.AXE).hardnessAndResistance(2f).notSolid()));
+	public static final RegistryObject<Block> SHADEWOOD_TRAPDOOR = registerBlock("shadewood_trapdoor",
+	() -> new TrapDoorBlock(AbstractBlock.Properties.create(Material.IRON).harvestLevel(1).setRequiresTool().harvestTool(ToolType.AXE).hardnessAndResistance(1f).notSolid()));
 	public static final RegistryObject<Block> BRONZE_DOOR = registerBlock("bronze_door",
 	() -> new DoorBlock(AbstractBlock.Properties.create(Material.ROCK).harvestLevel(2).setRequiresTool().harvestTool(ToolType.PICKAXE).hardnessAndResistance(4f).notSolid()));
 	public static final RegistryObject<Block> BRONZE_TRAPDOOR2 = registerBlock("bronze_trapdoor2",
@@ -221,6 +225,22 @@ import java.util.function.Supplier;
 	() -> new StairsBlock(() -> TOMBSTONE_BRICKS.get().getDefaultState(), AbstractBlock.Properties.create(Material.IRON).harvestLevel(2).hardnessAndResistance(2f).harvestTool(ToolType.PICKAXE).setRequiresTool()));
 	public static final RegistryObject<Block> TOMBSTONE_BRICKS_WALL = BLOCK.register("tombstone_bricks_wall",
 	() -> new WallBlock(Properties.create(Material.ROCK).harvestLevel(3).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f)));
+	//wood
+	public static final RegistryObject<Block> SHADELOG = BLOCK.register("shadelog",
+	() -> new RotatedPillarBlock(AbstractBlock.Properties.from(Blocks.OAK_WOOD)));
+	public static final RegistryObject<Block> STRIPPED_SHADELOG = BLOCK.register("stripped_shadelog",
+	() -> new RotatedPillarBlock(AbstractBlock.Properties.from(Blocks.STRIPPED_OAK_LOG)));
+	public static final RegistryObject<Block> SHADEWOOD = BLOCK.register("shadewood",
+	() -> new RotatedPillarBlock(AbstractBlock.Properties.from(Blocks.OAK_WOOD)));
+	public static final RegistryObject<Block> STRIPPED_SHADEWOOD = BLOCK.register("stripped_shadewood",
+	() -> new RotatedPillarBlock(AbstractBlock.Properties.from(Blocks.OAK_WOOD)));
+	public static final RegistryObject<Block> SHADEWOOD_PLANKS = BLOCK.register("shadewood_planks",
+	() -> new Block(AbstractBlock.Properties.from(Blocks.OAK_PLANKS)));
+	//signs
+	public static final RegistryObject<Block> SHADEWOOD_SIGN = BLOCKS.register("shadewood_sign",
+    () -> new ModStandingSignBlock(AbstractBlock.Properties.create(Material.IRON), ModWoodTypes.REDWOOD));
+    public static final RegistryObject<Block> SHADEWOOD_WALL_SIGN = BLOCKS.register("shadewood_wall_sign",
+    () -> new ModWallSignBlock(AbstractBlock.Properties.create(Material.IRON), ModWoodTypes.SHADEWOOD));
 	//other
 	public static final RegistryObject<Block> SARCOPHAGUS = BLOCK.register("sarcophagus", 
 	() -> new SarcoBlock(AbstractBlock.Properties.create(Material.IRON).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f)));

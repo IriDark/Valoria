@@ -51,8 +51,8 @@ public class ClubItem extends TieredItem implements IVanishable {
       stack.damageItem(1, attacker, (entity) -> {
          entity.sendBreakAnimation(EquipmentSlotType.MAINHAND);
 	});	
-	   if (RandUtils.doWithChance(2)) {
-		 target.addPotionEffect(new EffectInstance(ModEffects.STUN.get(), 20, 1));
+	   if (RandUtils.doWithChance(5)) {
+		 target.addPotionEffect(new EffectInstance(ModEffects.STUN.get(), 200, 1));
 		 if (target.world.isRemote) {
 		 for (int i = 0;i<10;i++) {
 		 target.world.addParticle(ParticleTypes.POOF, target.getPosX() + rand.nextDouble(), target.getPosY(), target.getPosZ() + rand.nextDouble(), 0d, 0.05d, 0d);
