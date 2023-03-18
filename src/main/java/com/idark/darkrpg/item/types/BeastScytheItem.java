@@ -25,7 +25,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import java.util.Random;
 
-public class BeastScytheItem extends ScytheItem implements IVanishable {
+public class BeastScytheItem extends TieredItem implements IVanishable {
    private final float attackDamage;
    private final Multimap<Attribute, AttributeModifier> attributeModifiers;
    Random rand = new Random();
