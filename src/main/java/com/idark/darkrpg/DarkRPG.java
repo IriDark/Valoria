@@ -124,7 +124,7 @@ import top.theillusivec4.curios.api.SlotTypePreset;
 	    RenderTypeLookup.setRenderLayer(ModBlocks.AMETHYST_CRYSTAL.get(), RenderType.getCutout());
 	    RenderTypeLookup.setRenderLayer(ModBlocks.RUBY_CRYSTAL.get(), RenderType.getCutout());
 	    RenderTypeLookup.setRenderLayer(ModBlocks.SAPPHIRE_CRYSTAL.get(), RenderType.getCutout());
-	    
+
 		ClientRegistry.bindTileEntityRenderer(ModTileEntities.SIGN_TILE_ENTITIES.get(),
 	    SignTileEntityRenderer::new);
 	    Atlases.addWoodType(ModWoodTypes.SHADEWOOD);
@@ -150,7 +150,9 @@ import top.theillusivec4.curios.api.SlotTypePreset;
 		AxeItem.BLOCK_STRIPPING_MAP = new ImmutableMap.Builder<Block, Block>().putAll(AxeItem.BLOCK_STRIPPING_MAP)
 		.put(ModBlocks.SHADELOG.get(), ModBlocks.STRIPPED_SHADELOG.get())
 		.put(ModBlocks.SHADEWOOD.get(), ModBlocks.STRIPPED_SHADEWOOD.get()).build();
-        });
+       
+		WoodType.register(ModWoodTypes.SHADEWOOD);
+	    });
         DeferredWorkQueue.runLater(() -> {
 		GlobalEntityTypeAttributes.put(ModEntityTypes.SWAMP_WANDERER.get(), SwampWandererEntity.setCustomAttributes().create());
         GlobalEntityTypeAttributes.put(ModEntityTypes.MANNEQUIN.get(), MannequinEntity.setCustomAttributes().create());

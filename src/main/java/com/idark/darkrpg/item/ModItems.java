@@ -121,8 +121,14 @@ import net.minecraftforge.eventbus.api.IEventBus;
 	public static final RegistryObject<Item> VASE_BIG_1 = ITEMS.register("vase_big_1", () -> new BlockItem(ModBlocks.VASE_BIG_1.get(), new Item.Properties().group(ModItemGroup.DARKRPG_BLOCKS_GROUP)));
 	public static final RegistryObject<Item> VASE_BIG_2 = ITEMS.register("vase_big_2", () -> new BlockItem(ModBlocks.VASE_BIG_2.get(), new Item.Properties().group(ModItemGroup.DARKRPG_BLOCKS_GROUP)));
 	public static final RegistryObject<Item> VASE_BIG_3 = ITEMS.register("vase_big_3", () -> new BlockItem(ModBlocks.VASE_BIG_3.get(), new Item.Properties().group(ModItemGroup.DARKRPG_BLOCKS_GROUP)));
+	//wood
+	public static final RegistryObject<Item> SHADELOG = ITEMS.register("shadelog", () -> new BlockItem(ModBlocks.SHADELOG.get(), new Item.Properties().group(ModItemGroup.DARKRPG_BLOCKS_GROUP)));
+	public static final RegistryObject<Item> SHADEWOOD = ITEMS.register("shadewood", () -> new BlockItem(ModBlocks.SHADEWOOD.get(), new Item.Properties().group(ModItemGroup.DARKRPG_BLOCKS_GROUP)));
+	public static final RegistryObject<Item> STRIPPED_SHADELOG = ITEMS.register("stripped_shadelog", () -> new BlockItem(ModBlocks.STRIPPED_SHADELOG.get(), new Item.Properties().group(ModItemGroup.DARKRPG_BLOCKS_GROUP)));
+	public static final RegistryObject<Item> STRIPPED_SHADEWOOD = ITEMS.register("stripped_shadewood", () -> new BlockItem(ModBlocks.STRIPPED_SHADEWOOD.get(), new Item.Properties().group(ModItemGroup.DARKRPG_BLOCKS_GROUP)));
+	public static final RegistryObject<Item> SHADEWOOD_PLANKS = ITEMS.register("shadewood_planks", () -> new BlockItem(ModBlocks.SHADEWOOD_PLANKS.get(), new Item.Properties().group(ModItemGroup.DARKRPG_BLOCKS_GROUP)));
 	//signs
-	public static final RegistryObject<Item> SHADEWOOD_SIGN = ITEMS.register("hadewood_sign",() -> new SignItem(new Item.Properties().maxStackSize(16).group(ModItemGroup.DARKRPG_BLOCKS_GROUP), ModBlocks.SHADEWOOD_SIGN.get(), ModBlocks.SHADEWOOD_WALL_SIGN.get()));
+	public static final RegistryObject<Item> SHADEWOOD_SIGN = ITEMS.register("shadewood_sign",() -> new SignItem(new Item.Properties().maxStackSize(16).group(ModItemGroup.DARKRPG_BLOCKS_GROUP), ModBlocks.SHADEWOOD_SIGN.get(), ModBlocks.SHADEWOOD_WALL_SIGN.get()));
 	//bronze
 	public static final RegistryObject<Item> BRONZE_BLOCK = ITEMS.register("bronze_block", () -> new BlockItem(ModBlocks.BRONZE_BLOCK.get(), new Item.Properties().group(ModItemGroup.DARKRPG_BLOCKS_GROUP)));
    	public static final RegistryObject<Item> BRONZE_PLATE = ITEMS.register("bronze_plate", () -> new BlockItem(ModBlocks.BRONZE_PLATE.get(), new Item.Properties().group(ModItemGroup.DARKRPG_BLOCKS_GROUP)));

@@ -1,5 +1,5 @@
 {
-  "parent": "item/spear",
+  "parent": "darkrpg:item/spear",
   "textures": {
     "layer0": "darkrpg:item/bloodhound"
   }
