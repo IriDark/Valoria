@@ -1,6 +1,7 @@
 {
-    "parent": "block/cube_all",
+    "parent": "block/cube_column",
     "textures": {
-        "all": "darkrpg:block/stripped_shadewood"
+        "end": "darkrpg:block/stripped_shadewood"
+	    "side": "darkrpg:block/stripped_shadewood"
     }
 }
