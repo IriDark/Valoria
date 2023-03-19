@@ -10,7 +10,7 @@ public class CooldownHandler {
     
     //Sounds taken from the CalamityMod (Terraria) in a https://calamitymod.fandom.com/wiki/Category:Sound_effects
     public static void onCooldownEnd(ServerPlayerEntity playerEntity,Item item){
-        if (item instanceof KatanaItem || item instanceof ScytheItem || item instanceof SpearItem){
+        if (item instanceof KatanaItem || item instanceof ScytheItem || item instanceof SpearItem || item instanceof PhantomItem){
             playerEntity.playSound(ModSoundRegistry.RECHARGE.get(), SoundCategory.PLAYERS,1,1);
         }
     }
