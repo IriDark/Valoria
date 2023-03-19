@@ -6,7 +6,7 @@ import com.idark.darkrpg.client.render.DashOverlayRender;
 import com.idark.darkrpg.client.render.model.item.Item2DRenderer;
 import com.idark.darkrpg.effect.ModEffects;
 import com.idark.darkrpg.entity.ModEntityTypes;
-import com.idark.darkrpg.tileenitity.ModTileEntities;
+import com.idark.darkrpg.tileentity.ModTileEntities;
 import com.idark.darkrpg.entity.custom.GoblinEntity;
 import com.idark.darkrpg.entity.custom.MannequinEntity;
 import com.idark.darkrpg.entity.custom.SwampWandererEntity;
