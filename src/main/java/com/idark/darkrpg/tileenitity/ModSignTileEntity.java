@@ -1,4 +1,4 @@
-package com.idark.darkrpg.tileenitity;
+package com.idark.darkrpg.tileentity;
 
 import net.minecraft.tileentity.SignTileEntity;
 import net.minecraft.tileentity.TileEntityType;
