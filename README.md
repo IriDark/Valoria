@@ -8,6 +8,7 @@ A global RPG mod.
 
 #### Devs:
 - iDark
+- MaxBogomol
 - GraFik
 
 #### Special Thanks:
@@ -19,7 +20,8 @@ A global RPG mod.
 - Auriny
 - Arky Fursblack
 - FoxPlane
-- MaxBogomol
 - RayRindou
 
 ## You`re not allowed to use the textures of the project, even slightly changing them, this is considered theft.
+
+## You`re allowed to use the source code of the project.
