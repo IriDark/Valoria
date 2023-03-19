@@ -16,7 +16,7 @@ public class AloeRegenEffect extends Effect {
 	public void performEffect(LivingEntity entityLivingBaseIn, int amplifier) {
     super.performEffect(entityLivingBaseIn, amplifier);
         if (entityLivingBaseIn.getHealth() < entityLivingBaseIn.getMaxHealth()) {
-            entityLivingBaseIn.heal(0.5F);
+            entityLivingBaseIn.heal(0.1F);
         }
 	}
 	
