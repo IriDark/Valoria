@@ -1,5 +1,16 @@
 {
   "variants": {
-    "": { "model" : "darkrpg:block/shadelog" }
+    "axis=x": {
+      "model": "darkrpg:block/shadelog",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "darkrpg:block/shadelog"
+    },
+    "axis=z": {
+      "model": "darkrpg:block/shadelog",
+      "x": 90
+    }
   }
 }

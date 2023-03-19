@@ -1,5 +1,16 @@
 {
   "variants": {
-    "": { "model" : "darkrpg:block/shadewood" }
+    "axis=x": {
+      "model": "darkrpg:block/shadewood",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "darkrpg:block/shadewood"
+    },
+    "axis=z": {
+      "model": "darkrpg:block/shadewood",
+      "x": 90
+    }
   }
 }

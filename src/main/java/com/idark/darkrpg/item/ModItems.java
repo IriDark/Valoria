@@ -228,6 +228,8 @@ import net.minecraftforge.eventbus.api.IEventBus;
 		() -> new HoundItem(ItemTier.NETHERITE, 12, -2.2f, new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
 	public static final RegistryObject<Item> BLAZE_REAP = ITEMS.register("blaze_reap",
 		() -> new BlazeReapItem(ItemTier.NETHERITE, 1, -3f, new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));	
+	public static final RegistryObject<Item> PHANTOM = ITEMS.register("phantom",
+		() -> new SwordItem(ItemTier.NETHERITE, 12, -2f, new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));	
 	//holiday
 	public static final RegistryObject<Item> HOLIDAY_PICKAXE = ITEMS.register("holiday_pickaxe",
 		() -> new PickaxeItem(ItemTier.IRON, 1, -3f, new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
