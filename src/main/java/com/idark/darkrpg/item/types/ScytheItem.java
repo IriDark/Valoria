@@ -67,7 +67,6 @@ public class ScytheItem extends SwordItem {
             } else {
                 yawDouble = 1F - ((((float) i) - 180F) / 180F);
             }
-            System.out.println(yawDouble);
             hitDirection(worldIn, player, hitEntities, pos, 0, player.getPitchYaw().y + i, 4);
         }
 
@@ -80,10 +79,9 @@ public class ScytheItem extends SwordItem {
                 int i = EnchantmentHelper.getFireAspectModifier(player);
                 entity.setFire(i * 4);
             }
-        }
-
-        if (!player.isCreative()) {
-            stack.damageItem(hitEntities.size(), player, (p_220045_0_) -> {p_220045_0_.sendBreakAnimation(EquipmentSlotType.MAINHAND);});
+            if (!player.isCreative()) {
+                stack.damageItem(hitEntities.size(), player, (p_220045_0_) -> {p_220045_0_.sendBreakAnimation(EquipmentSlotType.MAINHAND);});
+            }
         }
 
         worldIn.playSound(player, player.getPosition(), ModSoundRegistry.SWIFTSLICE.get(), SoundCategory.AMBIENT, 10f, 1f);
