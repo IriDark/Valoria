@@ -6,7 +6,7 @@ import com.idark.darkrpg.client.render.DashOverlayRender;
 import com.idark.darkrpg.client.render.model.item.Item2DRenderer;
 import com.idark.darkrpg.effect.ModEffects;
 import com.idark.darkrpg.entity.ModEntityTypes;
-import com.idark.darkrpg.tileentity.*;
+import com.idark.darkrpg.tileenitity.ModTileEntities;
 import com.idark.darkrpg.entity.custom.GoblinEntity;
 import com.idark.darkrpg.entity.custom.MannequinEntity;
 import com.idark.darkrpg.entity.custom.SwampWandererEntity;
@@ -125,8 +125,7 @@ import top.theillusivec4.curios.api.SlotTypePreset;
 	    RenderTypeLookup.setRenderLayer(ModBlocks.RUBY_CRYSTAL.get(), RenderType.getCutout());
 	    RenderTypeLookup.setRenderLayer(ModBlocks.SAPPHIRE_CRYSTAL.get(), RenderType.getCutout());
 
-		ClientRegistry.bindTileEntityRenderer(ModTileEntities.SIGN_TILE_ENTITIES.get(),
-	    SignTileEntityRenderer::new);
+		ClientRegistry.bindTileEntityRenderer(ModTileEntities.SIGN_TILE_ENTITIES.get(), SignTileEntityRenderer::new);
 	    Atlases.addWoodType(ModWoodTypes.SHADEWOOD);
 		});
 	    
