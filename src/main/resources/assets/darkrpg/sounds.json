@@ -27,6 +27,13 @@
 		"darkrpg:blazecharge"
     ]
   },
+     "item.eruption.use": {
+    "subtitle": "eruption",
+    "replace": "true",
+    "sounds": [
+		"darkrpg:eruption"
+    ]
+  },
     "item.pierce.ambient": {
     "subtitle": "armor_pierce",
     "replace": "true",
