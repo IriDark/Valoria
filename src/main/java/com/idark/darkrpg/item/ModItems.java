@@ -199,15 +199,15 @@ import net.minecraftforge.eventbus.api.IEventBus;
 		() -> new Item(new Item.Properties().isImmuneToFire().group(ModItemGroup.DARKRPG_GROUP)));
 	//food
 	public static final RegistryObject<Item> BEER_CUP = ITEMS.register("beer_cup",
-		() -> new BeerCupItem(20, 1));
+		() -> new BeerCupItem(80, 1));
 	public static final RegistryObject<Item> CACAO_CUP = ITEMS.register("cacao_cup",
-		() -> new CupDrinkItem(Effects.SPEED, 10, 1));
-	public static final RegistryObject<Item> COFFE_CUP = ITEMS.register("coffe_cup",
 		() -> new CupDrinkItem(Effects.SPEED, 50, 1));
+	public static final RegistryObject<Item> COFFE_CUP = ITEMS.register("coffe_cup",
+		() -> new CupDrinkItem(Effects.SPEED, 100, 1));
 	public static final RegistryObject<Item> TEA_CUP = ITEMS.register("tea_cup",
-		() -> new CupDrinkItem(Effects.SPEED, 30, 1));
+		() -> new CupDrinkItem(Effects.SPEED, 50, 1));
 	public static final RegistryObject<Item> GREEN_TEA_CUP = ITEMS.register("green_tea_cup",
-		() -> new GreenTeaCupItem(50, 1));
+		() -> new GreenTeaCupItem(150, 1));
 	public static final RegistryObject<Item> VINE_BOTTLE = ITEMS.register("vine_bottle",
 		() -> new BottleDrinkItem(Effects.NAUSEA, 50, 1));
 	public static final RegistryObject<Item> COKE_BOTTLE = ITEMS.register("coke_bottle",
@@ -216,7 +216,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 		() -> new Item(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP).food(new Food.Builder().hunger(7).saturation(6).build())));
 	public static final RegistryObject<Item> HOLIDAY_CANDY = ITEMS.register("holiday_candy",
 		() -> new Item(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP).maxStackSize(16).food(new Food.Builder().hunger(4).saturation(6).build())));
-	//TOOLS (category)
+//TOOLS (category)
 	//other
 	public static final RegistryObject<Item> CLUB = ITEMS.register("club",
 		() -> new ClubItem(ItemTier.IRON, 5, -2.3f, new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
