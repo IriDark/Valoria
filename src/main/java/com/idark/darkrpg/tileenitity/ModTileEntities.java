@@ -1,4 +1,4 @@
-package com.idark.darkrpg.tileenitity;
+package com.idark.darkrpg.tileentity;
 
 import com.idark.darkrpg.DarkRPG;
 import com.idark.darkrpg.block.ModBlocks;
