@@ -1,4 +1,4 @@
-package com.idark.darkrpg.block;
+package com.idark.darkrpg.block.types;
 
 import net.minecraft.item.*;
 import net.minecraft.block.*;

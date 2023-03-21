@@ -1,4 +1,4 @@
-package com.idark.darkrpg.block;
+package com.idark.darkrpg.block.types;
 
 import java.util.Random;
 import net.minecraft.block.AbstractBlock;

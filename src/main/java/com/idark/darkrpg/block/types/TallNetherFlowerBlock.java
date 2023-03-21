@@ -1,10 +1,10 @@
-package com.idark.darkrpg.block;
+package com.idark.darkrpg.block.types;
 
-import com.idark.darkrpg.DarkRPG;
-import com.idark.darkrpg.block.ModBlocks;
 import java.util.Random;
-import net.minecraft.block.*;
-import net.minecraft.particles.ParticleTypes;
+import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.DoublePlantBlock;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.BlockState;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
@@ -13,14 +13,13 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
-public class VoidRootsBlock extends BushBlock {
-   public VoidRootsBlock(AbstractBlock.Properties properties) {
+public class TallNetherFlowerBlock extends DoublePlantBlock {
+   public TallNetherFlowerBlock(AbstractBlock.Properties properties) {
       super(properties);
    }
 	
    protected boolean isValidGround(BlockState state, IBlockReader worldIn, BlockPos pos) {
-      Block block = state.getBlock();
-      return block == ModBlocks.VOID_STONE.get() || block == ModBlocks.VOID_GRASS.get();
+      return state.isIn(BlockTags.NYLIUM) || state.matchesBlock(Blocks.SOUL_SOIL) || super.isValidGround(state, worldIn, pos);
    }
 	
    public boolean isReplaceable(BlockState state, BlockItemUseContext useContext) {

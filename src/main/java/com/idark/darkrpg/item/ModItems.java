@@ -216,7 +216,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 		() -> new Item(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP).food(new Food.Builder().hunger(7).saturation(6).build())));
 	public static final RegistryObject<Item> HOLIDAY_CANDY = ITEMS.register("holiday_candy",
 		() -> new Item(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP).maxStackSize(16).food(new Food.Builder().hunger(4).saturation(6).build())));
-//TOOLS (category)
+	//TOOLS (category)
 	//other
 	public static final RegistryObject<Item> CLUB = ITEMS.register("club",
 		() -> new ClubItem(ItemTier.IRON, 5, -2.3f, new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
@@ -229,7 +229,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 	public static final RegistryObject<Item> BLAZE_REAP = ITEMS.register("blaze_reap",
 		() -> new BlazeReapItem(ItemTier.NETHERITE, 1, -3f, new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));	
 	public static final RegistryObject<Item> PHANTOM = ITEMS.register("phantom",
-		() -> new PhantomItem(ItemTier.NETHERITE, 12, -2f, new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
+		() -> new PhantomItem(ItemTier.NETHERITE, 12, -2f, new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));	
 	public static final RegistryObject<Item> MURASAMA = ITEMS.register("murasama",
 		() -> new MurasamaItem(ItemTier.NETHERITE, 7, -2.3f, new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
 	//holiday
@@ -300,7 +300,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 		() -> new HoeItem(ModItemTier.NATURE, -3, 0f, new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
 	//aquarisus
 	public static final RegistryObject<Item> CORAL_REEF = ITEMS.register("coral_reef",
-		() -> new SwordItem(ModItemTier.AQUARIUS, 3, -2f, new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
+		() -> new CoralReefItem(ModItemTier.AQUARIUS, 3, -2f, new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
 	public static final RegistryObject<Item> AQUARIUS_SCYTHE = ITEMS.register("aquarius_scythe",
 		() -> new SwordItem(ModItemTier.AQUARIUS, 5, -3.4f, new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
 	public static final RegistryObject<Item> AQUARIUS_PICKAXE = ITEMS.register("aquarius_pickaxe",

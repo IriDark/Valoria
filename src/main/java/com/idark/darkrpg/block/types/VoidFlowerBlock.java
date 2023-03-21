@@ -1,4 +1,4 @@
-package com.idark.darkrpg.block;
+package com.idark.darkrpg.block.types;
 
 import com.idark.darkrpg.DarkRPG;
 import com.idark.darkrpg.block.ModBlocks;

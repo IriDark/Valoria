@@ -24,7 +24,7 @@ public class Item2DRenderer {
             "netherite_spear", "diamond_spear", "golden_spear", "iron_spear",
             "ent", "nature_scythe", "infernal_sword", "infernal_scythe", "magmatic_scythe",
             "bloodhound", "void_edge", "bronze_sword", "double_spear", "infernal_sword", "coral_reef", "beast", "rays_katana", "aquarius_scythe",
-            "blaze_reap", "yamato", "murasama", "phantom"};
+            "blaze_reap", "murasama", "phantom"};
 
     @SubscribeEvent
     public static void onModelBakeEvent(ModelBakeEvent event) {

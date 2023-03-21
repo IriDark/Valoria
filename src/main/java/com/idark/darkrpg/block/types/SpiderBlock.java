@@ -1,4 +1,4 @@
-package com.idark.darkrpg.block;
+package com.idark.darkrpg.block.types;
 
 import com.google.common.collect.Maps;
 import net.minecraft.item.ItemStack;

@@ -3,6 +3,7 @@ package com.idark.darkrpg.block;
 import com.idark.darkrpg.DarkRPG;
 import com.idark.darkrpg.item.ModItemGroup;
 import com.idark.darkrpg.item.ModItems;
+import com.idark.darkrpg.block.types.*;
 import com.idark.darkrpg.util.*;
 import net.minecraft.block.*;
 import net.minecraft.block.AbstractBlock.Properties;
@@ -249,7 +250,7 @@ import java.util.function.Supplier;
 	public static final RegistryObject<Block> QUICKSAND = BLOCK.register("quicksand", 
 	() -> new QuickSandBlock(Properties.create(Material.IRON).harvestLevel(2).harvestTool(ToolType.SHOVEL).setRequiresTool().hardnessAndResistance(3f).sound(SoundType.SAND)));
 	public static final RegistryObject<Block> ELEMENTAL_MANIPULATOR = BLOCK.register("elemental_manipulator", 
-	() -> new Manipulator(Properties.create(Material.IRON).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f).setLightLevel(s -> 4).notSolid()));
+	() -> new ManipulatorBlock(Properties.create(Material.IRON).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f).setLightLevel(s -> 4).notSolid()));
 	public static final RegistryObject<Block> PEDESTAL = BLOCK.register("pedestal", 
 	() -> new Block(Properties.create(Material.ROCK).harvestLevel(1).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f).notSolid()));
 	public static final RegistryObject<Block> BRONZE_LAMP = BLOCK.register("bronze_lamp", 
@@ -272,6 +273,8 @@ import java.util.function.Supplier;
 	public static final RegistryObject<Block> WICKED_AMETHYST_ORE = BLOCK.register("wicked_amethyst_ore",
 	() -> new WickedOreBlock(Properties.create(Material.ROCK).harvestLevel(3).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(4f).sound(SoundType.NETHER_BRICK)));
 	//crystals
+	public static final RegistryObject<Block> VOID_CRYSTAL = BLOCK.register("void_crystal", 
+	() -> new CrystalBlock(Properties.create(Material.IRON).harvestLevel(2).hardnessAndResistance(1f).sound(SoundType.GLASS).notSolid()));
 	public static final RegistryObject<Block> AMBER_CRYSTAL = BLOCK.register("amber_crystal", 
 	() -> new CrystalBlock(Properties.create(Material.IRON).harvestLevel(2).hardnessAndResistance(1f).sound(SoundType.GLASS).notSolid()));
 	public static final RegistryObject<Block> AMETHYST_CRYSTAL = BLOCK.register("amethyst_crystal", 

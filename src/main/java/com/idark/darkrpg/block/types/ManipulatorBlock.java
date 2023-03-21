@@ -1,4 +1,4 @@
-package com.idark.darkrpg.block;
+package com.idark.darkrpg.block.types;
 
 import net.minecraft.block.*;
 import net.minecraft.block.BlockState;
@@ -13,11 +13,11 @@ import net.minecraft.world.IBlockReader;
 
 import java.util.Random;
 
-public class Manipulator extends Block {
+public class ManipulatorBlock extends Block {
 	
 	private static final VoxelShape shape = Block.makeCuboidShape(0, 0, 0, 16, 17, 16);
 
-	public Manipulator(AbstractBlock.Properties properties) {
+	public ManipulatorBlock(AbstractBlock.Properties properties) {
 		super(properties);
 }
 

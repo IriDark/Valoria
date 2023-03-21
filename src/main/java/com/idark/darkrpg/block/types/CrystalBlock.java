@@ -1,4 +1,4 @@
-package com.idark.darkrpg.block;
+package com.idark.darkrpg.block.types;
 
 import net.minecraft.block.*;
 import net.minecraft.block.BlockState;
@@ -25,19 +25,13 @@ import java.util.Random;
 
 import static net.minecraft.state.properties.BlockStateProperties.WATERLOGGED;
 
-public class CrystalBlock extends HorizontalFaceBlock implements IWaterLoggable {
-    public static final EnumProperty<AttachFace> FACE = BlockStateProperties.FACE;
+public class CrystalBlock extends DirectionalBlock implements IWaterLoggable {
 
-    private static final VoxelShape shape = Block.makeCuboidShape(3, 0, 3, 15, 15, 15);
+    private static final VoxelShape shape = Block.makeCuboidShape(0, 0, 0, 15, 16, 15);
 
     public CrystalBlock(AbstractBlock.Properties properties) {
         super(properties);
-        setDefaultState(getDefaultState().with(WATERLOGGED, false));
-    }
-
-    public static boolean isSideSolidForDirection(IWorldReader reader, BlockPos pos, Direction direction) {
-        BlockPos blockpos = pos.offset(direction);
-        return reader.getBlockState(blockpos).isSolidSide(reader, blockpos, direction.getOpposite());
+        setDefaultState(getDefaultState().with(WATERLOGGED, false).with(FACING, Direction.UP));
     }
 
     @Override
@@ -47,8 +41,7 @@ public class CrystalBlock extends HorizontalFaceBlock implements IWaterLoggable 
 
     @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-        builder.add(HORIZONTAL_FACING);
-        builder.add(FACE);
+        builder.add(FACING);
         builder.add(WATERLOGGED);
     }
 
@@ -56,19 +49,9 @@ public class CrystalBlock extends HorizontalFaceBlock implements IWaterLoggable 
     @Override
     public BlockState getStateForPlacement(BlockItemUseContext context) {
         FluidState fluidState = context.getWorld().getFluidState(context.getPos());
-        for (Direction direction : context.getNearestLookingDirections()) {
-            BlockState blockstate;
-            if (direction.getAxis() == Direction.Axis.Y) {
-                blockstate = this.getDefaultState().with(FACE, direction == Direction.UP ? AttachFace.CEILING : AttachFace.FLOOR).with(HORIZONTAL_FACING, context.getPlacementHorizontalFacing()).with(WATERLOGGED, fluidState.getFluid() == Fluids.WATER);
-            } else {
-                blockstate = this.getDefaultState().with(FACE, AttachFace.WALL).with(HORIZONTAL_FACING, direction.getOpposite()).with(WATERLOGGED, fluidState.getFluid() == Fluids.WATER);
-            }
-
-            if (blockstate.isValidPosition(context.getWorld(), context.getPos())) {
-                return blockstate;
-            }
-        }
-        return this.getDefaultState();
+        Direction direction = context.getFace();
+        BlockState blockstate = context.getWorld().getBlockState(context.getPos().offset(direction.getOpposite()));
+        return blockstate.matchesBlock(this) && blockstate.get(FACING) == direction ? this.getDefaultState().with(FACING, direction.getOpposite()) : this.getDefaultState().with(FACING, direction);
     }
 
     @Override
@@ -80,19 +63,15 @@ public class CrystalBlock extends HorizontalFaceBlock implements IWaterLoggable 
     public BlockState updatePostPlacement(BlockState stateIn, Direction side, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
         if (stateIn.get(WATERLOGGED)) {
             worldIn.getPendingFluidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickRate(worldIn));
-        }
-
+		}
         return stateIn;
     }
+	
+    public BlockState rotate(BlockState state, Rotation rot) {
+       return state.with(FACING, rot.rotate(state.get(FACING)));
+    }
 
-    protected static Direction getFacing(BlockState state) {
-        switch ((AttachFace) state.get(FACE)) {
-            case CEILING:
-                return Direction.DOWN;
-            case FLOOR:
-                return Direction.UP;
-            default:
-                return state.get(HORIZONTAL_FACING);
-        }
+    public BlockState mirror(BlockState state, Mirror mirrorIn) {
+       return state.with(FACING, mirrorIn.mirror(state.get(FACING)));
     }
 }
