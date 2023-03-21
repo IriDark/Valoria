@@ -7,9 +7,9 @@
 A global RPG mod.
 
 #### Devs:
-- iDark
-- MaxBogomol
-- GraFik
+- iDark | Code | Textures |
+- MaxBogomol | Code |
+- GraFik | GFX (Logos, Renders). |
 
 #### Special Thanks:
 - MrCat
@@ -23,5 +23,4 @@ A global RPG mod.
 - RayRindou
 
 ## You`re not allowed to use the textures of the project, even slightly changing them, this is considered theft.
-
-## You`re allowed to use the source code of the project.
+## You`re allowed to use the source code of the project. 
