@@ -9,7 +9,7 @@ A global RPG mod.
 #### Devs:
 - iDark | Code | Textures |
 - MaxBogomol | Code |
-- GraFik | GFX (Logos, Renders). |
+- GraFik | GFX |
 
 #### Special Thanks:
 - MrCat
