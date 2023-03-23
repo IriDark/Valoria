@@ -75,6 +75,7 @@ import top.theillusivec4.curios.api.SlotTypePreset;
 		ModPaintings.register(eventBus);
 	    ModItems.register(eventBus);
 		ModBlocks.register(eventBus);
+		ModTileEntities.register(eventBus);
 		ModEntityTypes.register(eventBus);
 
 		IEventBus forgeBus = MinecraftForge.EVENT_BUS;

@@ -37,11 +37,11 @@ import java.util.function.Supplier;
 	() -> new TrapDoorBlock(AbstractBlock.Properties.create(Material.IRON).harvestLevel(2).setRequiresTool().harvestTool(ToolType.PICKAXE).hardnessAndResistance(3f).notSolid()));
 	//key_blocks
 	public static final RegistryObject<Block> KEYBLOCK = BLOCK.register("keyblock",
-	() -> new Block(Properties.create(Material.IRON).hardnessAndResistance(-1f, 3600000.8F).sound(SoundType.NETHER_BRICK)));
+	() -> new KeyBlock(Properties.create(Material.IRON).hardnessAndResistance(-1f, 3600000.8F).sound(SoundType.NETHER_BRICK)));
 	public static final RegistryObject<Block> KEYBLOCK_BRICKS = BLOCK.register("keyblock_bricks",
 	() -> new Block(Properties.create(Material.IRON).hardnessAndResistance(-1f, 3600000.8F).sound(SoundType.NETHER_BRICK)));
 	public static final RegistryObject<Block> KEYBLOCK_RUNE = BLOCK.register("keyblock_rune",
-	() -> new Block(Properties.create(Material.IRON).hardnessAndResistance(-1f, 3600000.8F).sound(SoundType.NETHER_BRICK)));
+	() -> new KeyBlock(Properties.create(Material.IRON).hardnessAndResistance(-1f, 3600000.8F).sound(SoundType.NETHER_BRICK)));
 	//metal
 	public static final RegistryObject<Block> COBALT_BLOCK = BLOCK.register("cobalt_block",
 	() -> new Block(Properties.create(Material.IRON).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f).sound(SoundType.NETHERITE)));
