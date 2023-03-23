@@ -28,7 +28,7 @@ public class VoidGrassBlock extends SpreadableSnowyDirtBlock implements IGrowabl
  
    public void grow(ServerWorld worldIn, Random rand, BlockPos pos, BlockState state) {
       BlockPos blockpos = pos.up();
-      BlockState blockstate = ModBlocks.VOID_GRASS.getDefaultState();
+      BlockState blockstate = ModBlocks.VOID_GRASS.get().getDefaultState();
       label48:
       for(int i = 0; i < 128; ++i) {
         BlockPos blockpos1 = blockpos;
