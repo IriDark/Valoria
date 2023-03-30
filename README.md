@@ -1,5 +1,5 @@
 ![DarkRPG_Logo](https://cdn.discordapp.com/attachments/1014345920315412502/1055843203670085642/dark-rpg-reborn.png)
-https://img.shields.io/discord/859843420603416618?color=Green&label=Discord&logo=Discord&style=flat-square)
+![Discord](https://img.shields.io/discord/859843420603416618?color=Green&label=Discord&logo=Discord&style=flat-square)
 
 ## [Curseforge link](https://www.curseforge.com/minecraft/mc-mods/darkrpg-forge)
 
