@@ -1,6 +1,6 @@
 ![DarkRPG_Logo](https://cdn.discordapp.com/attachments/1014345920315412502/1055843203670085642/dark-rpg-reborn.png)
 
-   ![](https://cf.way2muchnoise.eu/title/698244.svg)![](http://cf.way2muchnoise.eu/versions/698244.svg)![]( https://cf.way2muchnoise.eu/full_698244_downloads.svg)![](https://img.shields.io/badge/License-GPL--2.0-blue)[![](https://img.shields.io/discord/859843420603416618?color=Green&label=Discord&logo=Discord&style=flat-square)](https://discord.gg/wWdXpwuPmK)
+   [![](https://cf.way2muchnoise.eu/title/698244.svg)![](http://cf.way2muchnoise.eu/versions/698244.svg)![](https://cf.way2muchnoise.eu/full_698244_downloads.svg)](https://www.curseforge.com/minecraft/mc-mods/darkrpg-reborn)![](https://img.shields.io/badge/License-GPL--2.0-blue)[![](https://img.shields.io/discord/859843420603416618?color=Green&label=Discord&logo=Discord&style=flat-square)](https://discord.gg/wWdXpwuPmK)
 
 # DarkRPG — Development
 A global RPG mod.
