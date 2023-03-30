@@ -5,14 +5,14 @@
 # DarkRPG — Development
 A global RPG mod.
 
-![](https://cdn.discordapp.com/attachments/838693800683372564/1039482418408726608/Untitled_11-07-2022_11-21-33.png)
+   ![](https://cdn.discordapp.com/attachments/838693800683372564/1039482418408726608/Untitled_11-07-2022_11-21-33.png)
          
                            Devs:
                            - iDark | Code | Textures |
                            - MaxBogomol | Code |
                            - GraFik | GFX |
 
-![](https://cdn.discordapp.com/attachments/838693800683372564/1039482418408726608/Untitled_11-07-2022_11-21-33.png)
+   ![](https://cdn.discordapp.com/attachments/838693800683372564/1039482418408726608/Untitled_11-07-2022_11-21-33.png)
                                                             
                            Special Thanks:
                            - MrCat
@@ -25,7 +25,7 @@ A global RPG mod.
                            - FoxPlane
                            - RayRindou
 
-![](https://cdn.discordapp.com/attachments/838693800683372564/1039482418408726608/Untitled_11-07-2022_11-21-33.png)
+   ![](https://cdn.discordapp.com/attachments/838693800683372564/1039482418408726608/Untitled_11-07-2022_11-21-33.png)
 
 ## You`re not allowed to use the textures of the project, even slightly changing them, this is considered theft.
 ## You`re allowed to use the source code of the project. 
