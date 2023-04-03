@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "darkrpg:block/crystal_stone_slab"
+    },
+    "type=double": {
+      "model": "darkrpg:block/crystal_stone"
+    },
+    "type=top": {
+      "model": "darkrpg:block/crystal_stone_slab_top"
+    }
+  }
+}

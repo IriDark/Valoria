@@ -13,7 +13,12 @@ import com.idark.darkrpg.DarkRPG;
 import java.util.function.Supplier;
 
 	public enum ModArmorMaterial implements IArmorMaterial {
-	
+	/*MAGE
+	BEGINNER_MAGE("beginner_mage", 10, new int[] { 2, 0, 2, 25 }, 10,
+	SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 1.0f, 0.0f, () -> {
+	return Ingredient.fromItems(ModItems.COBALT_INGOT.get());
+	}),
+	*/
 	//OTHER
 	COBALT("cobalt", 17, new int[] { 2, 4, 6, 4 }, 18,
 	SoundEvents.ITEM_ARMOR_EQUIP_IRON, 1.0f, 0.0f, () -> {

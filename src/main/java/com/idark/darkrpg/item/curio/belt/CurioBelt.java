@@ -51,12 +51,11 @@ public class CurioBelt extends RPGCurioItem {
 	}
 	
 	@Override
-	public Multimap<Attribute, AttributeModifier> getAttributeModifiers(SlotContext slotContext,
-																			UUID uuid, ItemStack stack) {
-		Multimap<Attribute, AttributeModifier> atts = LinkedHashMultimap.create();
-		atts.put(Attributes.ARMOR, new AttributeModifier(uuid, "bonus", 0.5, AttributeModifier.Operation.ADDITION));
-		CuriosApi.getCuriosHelper().addSlotModifier(atts, "charm", uuid, 2.0, AttributeModifier.Operation.ADDITION);
-		return atts;
+	public Multimap<Attribute, AttributeModifier> getAttributeModifiers(SlotContext slotContext, UUID uuid, ItemStack stack) {
+    Multimap<Attribute, AttributeModifier> atts = LinkedHashMultimap.create();
+    atts.put(Attributes.ARMOR, new AttributeModifier(uuid, "bonus", 0.5, AttributeModifier.Operation.ADDITION));
+    CuriosApi.getCuriosHelper().addSlotModifier(atts, "charm", uuid, 2.0, AttributeModifier.Operation.ADDITION);
+    return atts;
 	}
 	
 	@Override
@@ -76,6 +75,6 @@ public class CurioBelt extends RPGCurioItem {
 
     @Override
     public boolean canRender(String identifier, int index, LivingEntity livingEntity, ItemStack stack) {
-        return true;
+    return true;
     }
 }

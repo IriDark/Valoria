@@ -19,11 +19,11 @@ public class KeyBlock extends Block {
     super(properties);
     }
 	
-	private static boolean canConnect(BlockState state) {
+	/*private static boolean canConnect(BlockState state) {
     return state.isAir() || state.matchesBlock(ModBlocks.KEYBLOCK || state.matchesBlock(ModBlocks.KEYBLOCK_RUNE));
     }
 	
-  /*@Override
+    @Override
     public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
     ItemStack stack = getItem(ModItems.VOID_KEY.get()).copy();
 	

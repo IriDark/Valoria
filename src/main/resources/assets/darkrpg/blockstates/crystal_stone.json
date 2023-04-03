@@ -1,0 +1,20 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "darkrpg:block/crystal_stone"
+      },
+      {
+        "model": "darkrpg:block/crystal_stone_mirrored"
+      },
+      {
+        "model": "darkrpg:block/crystal_stone",
+        "y": 180
+      },
+      {
+        "model": "darkrpg:block/crystal_stone_mirrored",
+        "y": 180
+      }
+    ]
+  }
+}

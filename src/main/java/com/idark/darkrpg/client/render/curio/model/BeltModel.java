@@ -19,8 +19,7 @@ public class BeltModel<T extends LivingEntity> extends EntityModel<T> {
    }
 
   @Override
-  public void setRotationAngles(@Nonnull T entity, float limbSwing, float limbSwingAmount,
-                                float ageInTicks, float netHeadYaw, float netHeadPitch) {
+  public void setRotationAngles(@Nonnull T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float netHeadPitch) {
   }
 
   @Override
