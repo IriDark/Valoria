@@ -8,9 +8,12 @@ DarkRPG — A big RPG themed project that adds some mobs, bosses, blocks, weapon
 The world was pierced by darkness, 4 elements were divided and warring, can you stop evil and reunite the elements by restoring balance to the world? Darkness left its mark on the world for many centuries many monsters were born seemingly in the very peaceful places. Fighting them and completing tasks, you go further and further, when you come to the Bosses, you can fight them and get valuable rewards that you will go further.
 
 Some weapons have a unique power:
-Blaze reap — a Pickaxe and, a strong weapon ~KABOOM~
+Blaze reap — a Pickaxe and, a strong weapon *KABOOM*
+
 Spears — Long ranged weapons
+
 Scythes — Strong weapons has a circle attack abillity
+
 And more!
 
    ![](https://cdn.discordapp.com/attachments/838693800683372564/1039482418408726608/Untitled_11-07-2022_11-21-33.png)
