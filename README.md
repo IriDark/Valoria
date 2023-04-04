@@ -21,8 +21,8 @@ And more!
                            Devs:
                            - iDark | Code | Textures |
                            - MaxBogomol | Code |
-                           - GraFik | GFX |                                                            
                            Special Thanks:
+                           - GraFik
                            - MrCat
                            - AstemirDev
                            - Wosaj
