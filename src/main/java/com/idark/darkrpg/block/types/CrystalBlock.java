@@ -27,7 +27,7 @@ import static net.minecraft.state.properties.BlockStateProperties.WATERLOGGED;
 
 public class CrystalBlock extends DirectionalBlock implements IWaterLoggable {
 
-    private static final VoxelShape shape = Block.makeCuboidShape(0, 0, 0, 15, 16, 15);
+    private static final VoxelShape shape = Block.makeCuboidShape(3, 0, 3, 12, 5, 12);
 
     public CrystalBlock(AbstractBlock.Properties properties) {
         super(properties);
@@ -61,10 +61,10 @@ public class CrystalBlock extends DirectionalBlock implements IWaterLoggable {
 
     @Override
     public BlockState updatePostPlacement(BlockState stateIn, Direction side, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
-        if (stateIn.get(WATERLOGGED)) {
+		if (stateIn.get(WATERLOGGED)) {
             worldIn.getPendingFluidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickRate(worldIn));
 		}
-        return stateIn;
+		return stateIn;
     }
 	
     public BlockState rotate(BlockState state, Rotation rot) {

@@ -8,15 +8,16 @@ import java.util.function.Supplier;
 
 public enum ModItemTier implements IItemTier {
 
+	//1 Harvest 2 Uses 3 Efficiency 4 Damage 5 Enchant
     //OTHER
-    COBALT(4, 600, 6f, 1f, 17,
-	        () -> Ingredient.fromItems(ModItems.COBALT_INGOT.get())),
+    COBALT(1, 160, 5f, 0f, 18,
+	    () -> Ingredient.fromItems(ModItems.COBALT_INGOT.get())),
     //ELEMENTAL
-    NATURE(5, 1200, 10.5f, 6.2f, 17,
+    NATURE(3, 2400, 10f, 0f, 17,
 	    () -> Ingredient.fromItems(ModItems.NATURE_INGOT.get())),
-	AQUARIUS(6, 1450, 11.5f, 7f, 15,
+	AQUARIUS(4, 2600, 11f, 0f, 15,
 	    () -> Ingredient.fromItems(ModItems.AQUARIUS_INGOT.get())),
-    INFERNAL(7, 1650, 12.5f, 8.4f, 14,
+    INFERNAL(5, 2800, 12f, 0f, 16,
 	    () -> Ingredient.fromItems(ModItems.INFERNAL_INGOT.get()));
 
     private final int harvestLevel;

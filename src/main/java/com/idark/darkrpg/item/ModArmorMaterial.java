@@ -13,31 +13,25 @@ import com.idark.darkrpg.DarkRPG;
 import java.util.function.Supplier;
 
 	public enum ModArmorMaterial implements IArmorMaterial {
-	/*MAGE
-	BEGINNER_MAGE("beginner_mage", 10, new int[] { 2, 0, 2, 25 }, 10,
-	SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 1.0f, 0.0f, () -> {
-	return Ingredient.fromItems(ModItems.COBALT_INGOT.get());
-	}),
-	*/
 	//OTHER
-	COBALT("cobalt", 17, new int[] { 2, 4, 6, 4 }, 18,
+	COBALT("cobalt", 17, new int[] { 2, 3, 4, 2 }, 18,
 	SoundEvents.ITEM_ARMOR_EQUIP_IRON, 1.0f, 0.0f, () -> {
 	return Ingredient.fromItems(ModItems.COBALT_INGOT.get());
 	}),
 	//ELEMENTAL
-	NATURE("nature", 36, new int[] { 4, 7, 10, 6 }, 20,
+	NATURE("nature", 30, new int[] { 4, 5, 6, 4 }, 17,
 	SoundEvents.ITEM_ARMOR_EQUIP_IRON, 1.0f, 0.0f, () -> {
 	return Ingredient.fromItems(ModItems.NATURE_INGOT.get());
 	}),
-	DEPTH("depth", 30, new int[] { 5, 8, 12, 8 }, 18,
+	DEPTH("depth", 32, new int[] { 4, 8, 8, 4 }, 15,
 	SoundEvents.ITEM_ARMOR_EQUIP_IRON, 1.0f, 0.0f, () -> {
 	return Ingredient.fromItems(ModItems.AQUARIUS_INGOT.get());
 	}),
-	INFERNAL("infernal", 28, new int[] { 6, 9, 8, 10 }, 14,
+	INFERNAL("infernal", 35, new int[] { 4, 8, 8, 6 }, 14,
 	SoundEvents.ITEM_ARMOR_EQUIP_NETHERITE, 1.0f, 0.0f, () -> {
 	return Ingredient.fromItems(ModItems.INFERNAL_INGOT.get());
 	}),
-	AWAKENED_VOID("awakened_void", 40, new int[] { 9, 20, 16, 9 }, 10,
+	AWAKENED_VOID("awakened_void", 37, new int[] { 6, 8, 8, 6 }, 10,
 	SoundEvents.ITEM_ARMOR_EQUIP_NETHERITE, 1.0f, 0.0f, () -> {
 	return Ingredient.fromItems(ModItems.VOID_INGOT.get());
 	}),

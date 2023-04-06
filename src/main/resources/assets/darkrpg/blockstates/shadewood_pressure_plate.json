@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "powered=false": { "model": "darkrpg:block/shadewood_pressure_plate" },
+    "powered=true": { "model": "darkrpg:block/shadewood_pressure_plate_down" }
+  }

@@ -13,12 +13,12 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.world.World;
 
-public class BeerCupItem extends Item {
+public class AlcoholBottleItem extends Item {
 
     private int power = 0;
     private int time = 0;
 
-    public BeerCupItem(int time, int power)  {
+    public AlcoholBottleItem(int time, int power)  {
 		super(
         new Properties().food(new Food.Builder().setAlwaysEdible().hunger(0).saturation(3).build()).maxStackSize(1).group(ModItemGroup.DARKRPG_GROUP)
     );
@@ -38,7 +38,7 @@ public class BeerCupItem extends Item {
     public ItemStack onItemUseFinish(ItemStack stack, World world, LivingEntity entity) {
         entity.addPotionEffect(new EffectInstance(ModEffects.TIPSY.get(),time,power));
         stack.shrink(1);
-        return stack.isEmpty() ? new ItemStack(ModItems.WOODEN_CUP.get()): stack;
+        return stack.isEmpty() ? new ItemStack(ModItems.BOTTLE.get()): stack;
     }
 
     @Override

@@ -180,7 +180,7 @@ import java.util.function.Supplier;
 	() -> new StairsBlock(() -> POLISHED_LIMESTONE.get().getDefaultState(), AbstractBlock.Properties.create(Material.IRON).harvestLevel(2).hardnessAndResistance(2f).harvestTool(ToolType.PICKAXE).setRequiresTool()));
 	public static final RegistryObject<Block> POLISHED_LIMESTONE_SLAB = registerBlock("polished_limestone_slab",
 	() -> new SlabBlock(AbstractBlock.Properties.create(Material.ROCK).harvestLevel(2).setRequiresTool().harvestTool(ToolType.PICKAXE).hardnessAndResistance(6f)));
-	public static final RegistryObject<Block> PEARLIUM_STONE = BLOCK.register("pearlium_stone",
+	public static final RegistryObject<Block> PEARLIUM = BLOCK.register("pearlium",
 	() -> new Block(Properties.create(Material.ROCK).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f).sound(SoundType.NETHER_BRICK)));
 	public static final RegistryObject<Block> VOID_STONE = BLOCK.register("void_stone",
 	() -> new Block(Properties.create(Material.ROCK).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f).sound(SoundType.NETHER_BRICK)));
@@ -245,6 +245,10 @@ import java.util.function.Supplier;
 	public static final RegistryObject<Block> TOMBSTONE_BRICKS_WALL = BLOCK.register("tombstone_bricks_wall",
 	() -> new WallBlock(Properties.create(Material.ROCK).harvestLevel(3).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f)));
 	//wood
+	public static final RegistryObject<Block> SHADELOG_PLESSURE_PLATE = BLOCK.register("shadelog_plessure_plate",
+	() -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, AbstractBlock.Properties.from(Blocks.OAK_PLANKS).notSolid().doesNotBlockMovement()));
+	public static final RegistryObject<Block> SHADELOG_BUTTON = BLOCK.register("shadelog_button",
+	() -> new WoodButtonBlock(AbstractBlock.Properties.from(Blocks.OAK_WOOD).doesNotBlockMovement()));
 	public static final RegistryObject<Block> SHADELOG = BLOCK.register("shadelog",
 	() -> new RotatedPillarBlock(AbstractBlock.Properties.from(Blocks.OAK_WOOD)));
 	public static final RegistryObject<Block> STRIPPED_SHADELOG = BLOCK.register("stripped_shadelog",
@@ -257,9 +261,9 @@ import java.util.function.Supplier;
 	() -> new Block(AbstractBlock.Properties.from(Blocks.OAK_PLANKS)));
 	//signs
 	public static final RegistryObject<Block> SHADEWOOD_SIGN = BLOCK.register("shadewood_sign",
-    () -> new ModStandingSignBlock(AbstractBlock.Properties.create(Material.IRON), ModWoodTypes.SHADEWOOD));
+    () -> new ModStandingSignBlock(AbstractBlock.Properties.create(Material.IRON).notSolid().doesNotBlockMovement(), ModWoodTypes.SHADEWOOD));
     public static final RegistryObject<Block> SHADEWOOD_WALL_SIGN = BLOCK.register("shadewood_wall_sign",
-    () -> new ModWallSignBlock(AbstractBlock.Properties.create(Material.IRON), ModWoodTypes.SHADEWOOD));
+    () -> new ModWallSignBlock(AbstractBlock.Properties.create(Material.IRON).notSolid().doesNotBlockMovement(), ModWoodTypes.SHADEWOOD));
 	//other
 	public static final RegistryObject<Block> SARCOPHAGUS = BLOCK.register("sarcophagus", 
 	() -> new SarcoBlock(AbstractBlock.Properties.create(Material.IRON).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f)));
