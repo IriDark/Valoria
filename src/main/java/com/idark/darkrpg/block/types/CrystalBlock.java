@@ -26,8 +26,12 @@ import java.util.Random;
 import static net.minecraft.state.properties.BlockStateProperties.WATERLOGGED;
 
 public class CrystalBlock extends DirectionalBlock implements IWaterLoggable {
-
-    private static final VoxelShape shape = Block.makeCuboidShape(3, 0, 3, 12, 5, 12);
+	private static final VoxelShape upAabb = Block.makeCuboidShape(3, 0, 3, 13, 5, 13);
+	private static final VoxelShape downAabb = Block.makeCuboidShape(3, 16, 3, 13, 13, 5);
+    private static final VoxelShape northAabb = Block.makeCuboidShape(0, 3, 3, 13, 13, 5);
+    private static final VoxelShape southAabb = Block.makeCuboidShape(0, 3, 3, 13, 13, 5);
+    private static final VoxelShape eastAabb = Block.makeCuboidShape(0, 0, 0, 13, 13, 5);
+    private static final VoxelShape westAabb = Block.makeCuboidShape(3, 3, 0, 13, 13, 5);
 
     public CrystalBlock(AbstractBlock.Properties properties) {
         super(properties);
@@ -35,8 +39,28 @@ public class CrystalBlock extends DirectionalBlock implements IWaterLoggable {
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, IBlockReader reader, BlockPos pos, ISelectionContext ctx) {
-        return shape;
+    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+    Direction direction = (state.get(FACING));
+	switch(direction) {
+        case NORTH:
+            return northAabb;
+		case SOUTH:
+			return southAabb;
+		case EAST:
+            return eastAabb;
+		case WEST:
+            return westAabb;
+        case DOWN:
+            return this.downAabb;
+        case UP:
+         default:
+            return this.upAabb;
+        }
+    }
+	
+	public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
+		BlockPos blockpos = pos.down();
+			return this.isValidGround(worldIn.getBlockState(blockpos), worldIn, blockpos);
     }
 
     @Override

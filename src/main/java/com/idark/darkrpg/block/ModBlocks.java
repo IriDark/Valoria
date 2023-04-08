@@ -277,6 +277,8 @@ import java.util.function.Supplier;
 	() -> new Block(Properties.create(Material.ROCK).harvestLevel(1).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f).notSolid()));
 	public static final RegistryObject<Block> BRONZE_LAMP = BLOCK.register("bronze_lamp", 
 	() -> new RedstoneLampBlock(Properties.create(Material.IRON).harvestLevel(0).hardnessAndResistance(3f).notSolid().sound(SoundType.GLASS).setLightLevel(getLightValueLit(13))));
+	public static final RegistryObject<Block> DECORATED_BRONZE_LAMP = BLOCK.register("decorated_bronze_lamp", 
+	() -> new RedstoneLampBlock(Properties.create(Material.IRON).harvestLevel(0).hardnessAndResistance(3f).notSolid().sound(SoundType.GLASS).setLightLevel(getLightValueLit(13))));
 	public static final RegistryObject<Block> BRONZE_LAMP_BLOCK = BLOCK.register("bronze_lamp_block", 
 	() -> new RedstoneLampBlock(Properties.create(Material.IRON).harvestLevel(0).hardnessAndResistance(3f).notSolid().sound(SoundType.GLASS).setLightLevel(getLightValueLit(13))));
 	public static final RegistryObject<Block> SPIDER_EGG = BLOCK.register("spider_egg", 

@@ -1,15 +1,15 @@
 {
  	"_comment": "Tooltips",
  	"tooltip.darkrpg.wip": "(Thats a WIP - item that curently don`t do anything, or can be broken)",
- 	"tooltip.darkrpg.rmb": "[RMB] - to use the abillity",
+ 	"tooltip.darkrpg.rmb": "[RMB] - to use the ability",
 	"tooltip.darkrpg.familiar": "This weapon... it's familiar to me...",
- 	"tooltip.darkrpg.katana": "A fast, but a weak weapon, has a dash abillity",
+ 	"tooltip.darkrpg.katana": "A fast, but a weak weapon, has a dash ability",
  	"tooltip.darkrpg.blazereap": "A strong weapon, has a ~KABOOM~ abillity (Needs 5 gunpowder)",
  	"tooltip.darkrpg.belt": "Adds a bonus slots",
  	"tooltip.darkrpg.rune": "An empty rune, you can aplly any posiive effect to it",
- 	"tooltip.darkrpg.curses": "Gives a random effects until broken +5 MaxHP",
+ 	"tooltip.darkrpg.curses": "Gives a random effects until broken. +5 MaxHP",
  	"tooltip.darkrpg.vision": "Gives night-vision for a while",
- 	"tooltip.darkrpg.pyro": "Gives immunity to fire for a while",
+ 	"tooltip.darkrpg.pyro": "Gives fire immunity for a while",
  	"tooltip.darkrpg.golden": "Stronger material than iron, but breaks faster",
  	"tooltip.darkrpg.amber": "Gives a haste effect for a while",
  	 
@@ -43,7 +43,7 @@
  	"item.darkrpg.infernal_ingot": "Infernal Ingot",
  	"item.darkrpg.void_ingot": "Void Ingot",
  	"item.darkrpg.bronze_ingot": "Bronze Ingot",
-	 	 
+	
  	"_comment": "Weapons & Instruments",
 	"item.darkrpg.pearlium_sword": "Pearlium Sword",
 	"item.darkrpg.pearlium_pickaxe": "Pearlium Pickaxe",
@@ -173,8 +173,6 @@
  	"item.darkrpg.cognac_bottle": "Bottle Of Cognac",
  	"item.darkrpg.large_vine_bottle": "Large Bottle Of Vine",
  	"item.darkrpg.large_rum_bottle": "Large Bottle Of Rum",
-
-
  	"item.darkrpg.apple_pie": "Apple Pie",
  	
  	"_comment": "Misc",
@@ -266,7 +264,6 @@
  	"block.darkrpg.void_cracked_brick": "Cracked Void Brick",
  	"block.darkrpg.void_chiseled_brick": "Chiseled Void Brick",
  	"block.darkrpg.void_chiseled_bricks": "Chiseled Void Bricks",
- 	"block.darkrpg.void_chiseled_bricks1": "Chiseled Void Bricks",
  	"block.darkrpg.void_polished_block": "Polished Void Block",
  	"block.darkrpg.void_pillar": "Void Pillar",
  	"block.darkrpg.charged_void_pillar": "Charged Void Pillar",

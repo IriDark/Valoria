@@ -143,6 +143,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
    	public static final RegistryObject<Item> BRONZE_VENT = ITEMS.register("bronze_vent", () -> new BlockItem(ModBlocks.BRONZE_VENT.get(), new Item.Properties().group(ModItemGroup.DARKRPG_BLOCKS_GROUP)));
    	public static final RegistryObject<Item> BRONZE_GLASS = ITEMS.register("bronze_glass", () -> new BlockItem(ModBlocks.BRONZE_GLASS.get(), new Item.Properties().group(ModItemGroup.DARKRPG_BLOCKS_GROUP)));
    	public static final RegistryObject<Item> BRONZE_LAMP = ITEMS.register("bronze_lamp", () -> new BlockItem(ModBlocks.BRONZE_LAMP.get(), new Item.Properties().group(ModItemGroup.DARKRPG_BLOCKS_GROUP)));
+   	public static final RegistryObject<Item> DECORATED_BRONZE_LAMP = ITEMS.register("decorated_bronze_lamp", () -> new BlockItem(ModBlocks.DECORATED_BRONZE_LAMP.get(), new Item.Properties().group(ModItemGroup.DARKRPG_BLOCKS_GROUP)));
 	public static final RegistryObject<Item> BRONZE_LAMP_BLOCK = ITEMS.register("bronze_lamp_block", () -> new BlockItem(ModBlocks.BRONZE_LAMP_BLOCK.get(), new Item.Properties().group(ModItemGroup.DARKRPG_BLOCKS_GROUP)));
 	public static final RegistryObject<Item> CUT_BRONZE = ITEMS.register("cut_bronze", () -> new BlockItem(ModBlocks.CUT_BRONZE.get(), new Item.Properties().group(ModItemGroup.DARKRPG_BLOCKS_GROUP)));
 	//ARMOR (category)
@@ -172,6 +173,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 	public static final RegistryObject<Item> PHANTASM_BOOTS = ITEMS.register("phantasm_boots", () -> new ModArmorItem(ModArmorMaterial.PHANTASM, EquipmentSlotType.FEET, (new Item.Properties().isImmuneToFire().group(ModItemGroup.DARKRPG_GROUP))));
 	//ITEMS (global category)
 	//misc
+	public static final RegistryObject<Item> AMETHYST = ITEMS.register("amethyst", () -> new Item(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
 	public static final RegistryObject<Item> NATURE_GIFT = ITEMS.register("nature_gift", () -> new Item(new Item.Properties().maxStackSize(16).group(ModItemGroup.DARKRPG_GROUP)));
 	public static final RegistryObject<Item> OCEANIC_SHELL = ITEMS.register("oceanic_shell", () -> new Item(new Item.Properties().maxStackSize(16).group(ModItemGroup.DARKRPG_GROUP)));
 	public static final RegistryObject<Item> INFERNAL_STONE = ITEMS.register("infernal_stone", () -> new Item(new Item.Properties().maxStackSize(16).group(ModItemGroup.DARKRPG_GROUP)));
@@ -216,7 +218,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 	public static final RegistryObject<Item> TEA_CUP = ITEMS.register("tea_cup",
 		() -> new CupDrinkItem(Effects.SPEED, 30, 0));
 	public static final RegistryObject<Item> GREEN_TEA_CUP = ITEMS.register("green_tea_cup",
-		() -> new GreenTeaCupItem(1800, 1));
+		() -> new GreenTeaCupItem(1800, 0));
 	public static final RegistryObject<Item> BEER_CUP = ITEMS.register("beer_cup",
 		() -> new AlcoholCupItem(100, 0));
 	public static final RegistryObject<Item> RUM_CUP = ITEMS.register("rum_cup",

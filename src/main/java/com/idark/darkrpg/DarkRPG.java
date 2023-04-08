@@ -117,6 +117,7 @@ import top.theillusivec4.curios.api.SlotTypePreset;
 	    RenderTypeLookup.setRenderLayer(ModBlocks.VASE_BIG_3.get(), RenderType.getCutout());
 	    RenderTypeLookup.setRenderLayer(ModBlocks.BRONZE_GLASS.get(), RenderType.getCutout());
 	    RenderTypeLookup.setRenderLayer(ModBlocks.BRONZE_LAMP.get(), RenderType.getCutout());
+	    RenderTypeLookup.setRenderLayer(ModBlocks.DECORATED_BRONZE_LAMP.get(), RenderType.getCutout());
 		RenderTypeLookup.setRenderLayer(ModBlocks.SHADEWOOD_DOOR.get(), RenderType.getCutout());
 		RenderTypeLookup.setRenderLayer(ModBlocks.SHADEWOOD_TRAPDOOR.get(), RenderType.getCutout());
 	    RenderTypeLookup.setRenderLayer(ModBlocks.BRONZE_DOOR.get(), RenderType.getCutout());

@@ -1,8 +1,8 @@
 {
 	"texture_size": [128, 128],
 	"textures": {
-		"1": "darkrpg:block/bronze_lamp_3_lit",
-		"particle": "darkrpg:block/bronze_lamp_3_lit"
+		"1": "darkrpg:block/bronze_lamp",
+		"particle": "darkrpg:block/bronze_lamp"
 	},
 	"elements": [
 		{

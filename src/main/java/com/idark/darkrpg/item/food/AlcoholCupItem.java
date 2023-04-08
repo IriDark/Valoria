@@ -2,6 +2,8 @@ package com.idark.darkrpg.item.food;
 
 import com.idark.darkrpg.effect.ModEffects;
 import com.idark.darkrpg.item.*;
+import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.entity.player.*;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Food;
 import net.minecraft.item.Item;
@@ -36,10 +38,22 @@ public class AlcoholCupItem extends Item {
 
     @Override
     public ItemStack onItemUseFinish(ItemStack stack, World world, LivingEntity entity) {
-        entity.addPotionEffect(new EffectInstance(ModEffects.TIPSY.get(),time,power));
-        stack.shrink(1);
-        return stack.isEmpty() ? new ItemStack(ModItems.WOODEN_CUP.get()): stack;
-    }
+        PlayerEntity playerentity = entity instanceof PlayerEntity ? (PlayerEntity)entity : null;
+		if (playerentity instanceof ServerPlayerEntity) {
+			CriteriaTriggers.CONSUME_ITEM.trigger((ServerPlayerEntity)playerentity, stack);
+		}
+		
+		if (!world.isRemote) {
+			entity.addPotionEffect(new EffectInstance(ModEffects.TIPSY.get(),time,power));
+			if (playerentity == null || !playerentity.abilities.isCreativeMode) {
+				stack.shrink(1);
+				if (stack.isEmpty()) {
+					return new ItemStack(ModItems.WOODEN_CUP.get());
+				}
+			}
+		}
+		return stack;
+	}
 
     @Override
     public int getUseDuration(ItemStack pStack) {
