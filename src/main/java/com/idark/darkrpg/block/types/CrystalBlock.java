@@ -1,5 +1,6 @@
 package com.idark.darkrpg.block.types;
 
+import com.idark.darkrpg.block.ModBlocks;
 import net.minecraft.block.*;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
@@ -36,6 +37,10 @@ public class CrystalBlock extends DirectionalBlock implements IWaterLoggable {
     public CrystalBlock(AbstractBlock.Properties properties) {
         super(properties);
         setDefaultState(getDefaultState().with(WATERLOGGED, false).with(FACING, Direction.UP));
+    }
+	
+	protected boolean isValidGround(BlockState state, IBlockReader worldIn, BlockPos pos) {
+		return state.matchesBlock(Blocks.STONE) || state.matchesBlock(Blocks.GRANITE) || state.matchesBlock(Blocks.DIORITE) || state.matchesBlock(Blocks.ANDESITE) || state.matchesBlock(Blocks.INFESTED_STONE) || state.matchesBlock(Blocks.INFESTED_COBBLESTONE) || state.matchesBlock(Blocks.COBBLESTONE) || state.matchesBlock(Blocks.IRON_ORE)  || state.matchesBlock(Blocks.COAL_ORE)  || state.matchesBlock(ModBlocks.AMETHYST_ORE.get())  || state.matchesBlock(ModBlocks.AMBER_ORE.get()) || state.matchesBlock(ModBlocks.RUBY_ORE.get()) || state.matchesBlock(ModBlocks.SAPPHIRE_ORE.get()) || state.matchesBlock(ModBlocks.VOID_STONE.get())|| state.matchesBlock(ModBlocks.WICKED_AMETHYST_ORE.get());
     }
 
     @Override
