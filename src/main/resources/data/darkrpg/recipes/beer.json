@@ -1,0 +1,9 @@
+{
+  "type": "darkrpg:keg_cooking",
+	"ingredient": {
+    "item": "minecraft:wheat"
+  },
+	"result": "darkrpg:beer",
+	"experience": 0.35,
+	"cookingtime": 600
+}

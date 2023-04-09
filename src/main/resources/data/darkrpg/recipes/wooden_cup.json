@@ -1,13 +1,16 @@
 {
     "type": "minecraft:crafting_shaped",
     "pattern": [
-        "// ",
-        "///",
-        "// "
+        "XX ",
+        "X/X",
+        "XX "
     ],
     "key": {
         "/": {
-		"tag": "minecraft:logs"
+		"tag": "minecraft:planks"
+		},
+		"X": {
+		"item": "minecraft:stick"
 		}
 	},
     "result": {

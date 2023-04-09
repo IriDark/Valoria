@@ -27,12 +27,12 @@ import java.util.Random;
 import static net.minecraft.state.properties.BlockStateProperties.WATERLOGGED;
 
 public class CrystalBlock extends DirectionalBlock implements IWaterLoggable {
-	private static final VoxelShape upAabb = Block.makeCuboidShape(3, 0, 3, 13, 5, 13);
+	private static final VoxelShape upAabb = Block.makeCuboidShape(16, 3, 3, 5, 13, 13);
 	private static final VoxelShape downAabb = Block.makeCuboidShape(3, 16, 3, 13, 13, 5);
-    private static final VoxelShape northAabb = Block.makeCuboidShape(0, 3, 3, 13, 13, 5);
+    private static final VoxelShape northAabb = Block.makeCuboidShape(3, 3, 16, 13, 13, 5);
     private static final VoxelShape southAabb = Block.makeCuboidShape(0, 3, 3, 13, 13, 5);
-    private static final VoxelShape eastAabb = Block.makeCuboidShape(0, 0, 0, 13, 13, 5);
-    private static final VoxelShape westAabb = Block.makeCuboidShape(3, 3, 0, 13, 13, 5);
+    private static final VoxelShape eastAabb = Block.makeCuboidShape(3, 3, 0, 13, 13, 5);
+    private static final VoxelShape westAabb = Block.makeCuboidShape(0, 3, 3, 5, 13, 13);
 
     public CrystalBlock(AbstractBlock.Properties properties) {
         super(properties);
@@ -61,11 +61,6 @@ public class CrystalBlock extends DirectionalBlock implements IWaterLoggable {
          default:
             return this.upAabb;
         }
-    }
-	
-	public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
-		BlockPos blockpos = pos.down();
-			return this.isValidGround(worldIn.getBlockState(blockpos), worldIn, blockpos);
     }
 
     @Override

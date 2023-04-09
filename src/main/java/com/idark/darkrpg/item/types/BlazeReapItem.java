@@ -132,7 +132,7 @@ public class BlazeReapItem extends PickaxeItem {
 
             playerIn.applyKnockback(1.2F, X, Z);
             if (!playerIn.isCreative()) {
-                itemstack.damageItem(1, playerIn, (p_220045_0_) -> {p_220045_0_.sendBreakAnimation(EquipmentSlotType.MAINHAND);});
+                itemstack.damageItem(10, playerIn, (p_220045_0_) -> {p_220045_0_.sendBreakAnimation(EquipmentSlotType.MAINHAND);});
             }
 
             for (int i = 0; i < 10; i++) {

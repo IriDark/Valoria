@@ -2,18 +2,16 @@
     "type": "minecraft:crafting_shaped",
     "pattern": [
         "///",
-        "###",
+        "///",
         "///"
     ],
     "key": {
         "/": {
-            "item": "darkrpg:bronze_ingot"
-        },
-	"#": {
-            "item": "minecraft:redstone"
-    }
+            "item": "darkrpg:aquarius_ingot"
+        }
+    },
     "result": {
-        "item": "darkrpg:bronze_lamp_3",
+        "item": "darkrpg:aquarius_block",
         "count": 1
     }
 }

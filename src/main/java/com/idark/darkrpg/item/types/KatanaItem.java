@@ -103,8 +103,12 @@ public class KatanaItem extends TieredItem implements IVanishable {
       if (itemstack.getDamage() >= itemstack.getMaxDamage() - 1) {
          return ActionResult.resultFail(itemstack);
 		} else {
-         playerIn.setActiveHand(handIn);
-         return ActionResult.resultConsume(itemstack);
+			playerIn.setActiveHand(handIn);
+			itemstack.damageItem(10, playerIn, (entity) -> {
+			playerIn.sendBreakAnimation(EquipmentSlotType.MAINHAND);
+			});
+		
+        return ActionResult.resultConsume(itemstack);
       }
 	}
 
