@@ -181,6 +181,7 @@ public class BlazeReapItem extends PickaxeItem {
         super.addInformation(stack, world, tooltip, flags);
         tooltip.add(new TranslationTextComponent("tooltip.darkrpg.blazereap").mergeStyle(TextFormatting.GRAY));
         tooltip.add(new TranslationTextComponent("tooltip.darkrpg.familiar").mergeStyle(TextFormatting.GRAY, TextFormatting.ITALIC));
-        tooltip.add(new TranslationTextComponent("tooltip.darkrpg.rmb").mergeStyle(TextFormatting.GREEN));
+        
+		tooltip.add(new TranslationTextComponent("tooltip.darkrpg.rmb").mergeStyle(TextFormatting.GREEN));
     }
 }

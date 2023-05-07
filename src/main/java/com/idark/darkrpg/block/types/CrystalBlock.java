@@ -27,22 +27,18 @@ import java.util.Random;
 import static net.minecraft.state.properties.BlockStateProperties.WATERLOGGED;
 
 public class CrystalBlock extends DirectionalBlock implements IWaterLoggable {
-	private static final VoxelShape upAabb = Block.makeCuboidShape(16, 3, 3, 5, 13, 13);
-	private static final VoxelShape downAabb = Block.makeCuboidShape(3, 16, 3, 13, 13, 5);
-    private static final VoxelShape northAabb = Block.makeCuboidShape(3, 3, 16, 13, 13, 5);
-    private static final VoxelShape southAabb = Block.makeCuboidShape(0, 3, 3, 13, 13, 5);
-    private static final VoxelShape eastAabb = Block.makeCuboidShape(3, 3, 0, 13, 13, 5);
-    private static final VoxelShape westAabb = Block.makeCuboidShape(0, 3, 3, 5, 13, 13);
-
+	private static final VoxelShape upAabb = Block.makeCuboidShape((double)3, 0.0D, (double)3, (double)(16 - 3), (double)5, (double)(16 - 3));
+	private static final VoxelShape downAabb = Block.makeCuboidShape((double)3, (double)(16 - 5), (double)3, (double)(16 - 3), 16.0D, (double)(16 - 3));
+    private static final VoxelShape northAabb = Block.makeCuboidShape((double)3, (double)3, (double)(16 - 5), (double)(16 - 3), (double)(16 - 3), 16.0D);
+    private static final VoxelShape southAabb = Block.makeCuboidShape((double)3, (double)3, 0.0D, (double)(16 - 3), (double)(16 - 3), (double)5);
+    private static final VoxelShape eastAabb = Block.makeCuboidShape(0.0D, (double)3, (double)3, (double)5, (double)(16 - 3), (double)(16 - 3));
+    private static final VoxelShape westAabb = Block.makeCuboidShape((double)(16 - 5), (double)3, (double)3, 16.0D, (double)(16 - 3), (double)(16 - 3));
+	
     public CrystalBlock(AbstractBlock.Properties properties) {
         super(properties);
         setDefaultState(getDefaultState().with(WATERLOGGED, false).with(FACING, Direction.UP));
-    }
+	}
 	
-	protected boolean isValidGround(BlockState state, IBlockReader worldIn, BlockPos pos) {
-		return state.matchesBlock(Blocks.STONE) || state.matchesBlock(Blocks.GRANITE) || state.matchesBlock(Blocks.DIORITE) || state.matchesBlock(Blocks.ANDESITE) || state.matchesBlock(Blocks.INFESTED_STONE) || state.matchesBlock(Blocks.INFESTED_COBBLESTONE) || state.matchesBlock(Blocks.COBBLESTONE) || state.matchesBlock(Blocks.IRON_ORE)  || state.matchesBlock(Blocks.COAL_ORE)  || state.matchesBlock(ModBlocks.AMETHYST_ORE.get())  || state.matchesBlock(ModBlocks.AMBER_ORE.get()) || state.matchesBlock(ModBlocks.RUBY_ORE.get()) || state.matchesBlock(ModBlocks.SAPPHIRE_ORE.get()) || state.matchesBlock(ModBlocks.VOID_STONE.get())|| state.matchesBlock(ModBlocks.WICKED_AMETHYST_ORE.get());
-    }
-
     @Override
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
     Direction direction = (state.get(FACING));
@@ -73,16 +69,14 @@ public class CrystalBlock extends DirectionalBlock implements IWaterLoggable {
     @Override
     public BlockState getStateForPlacement(BlockItemUseContext context) {
         FluidState fluidState = context.getWorld().getFluidState(context.getPos());
-        Direction direction = context.getFace();
-        BlockState blockstate = context.getWorld().getBlockState(context.getPos().offset(direction.getOpposite()));
-        return blockstate.matchesBlock(this) && blockstate.get(FACING) == direction ? this.getDefaultState().with(FACING, direction.getOpposite()) : this.getDefaultState().with(FACING, direction);
+        return this.getDefaultState().with(FACING, context.getNearestLookingDirection().getOpposite()).with(WATERLOGGED, Boolean.valueOf(fluidState.getFluid() == Fluids.WATER));
     }
 
     @Override
     public FluidState getFluidState(BlockState state) {
         return state.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : Fluids.EMPTY.getDefaultState();
     }
-
+	
     @Override
     public BlockState updatePostPlacement(BlockState stateIn, Direction side, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
 		if (stateIn.get(WATERLOGGED)) {

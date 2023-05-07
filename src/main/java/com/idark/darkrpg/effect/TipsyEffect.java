@@ -1,6 +1,7 @@
 package com.idark.darkrpg.effect;
 
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.potion.Effect;
@@ -20,4 +21,11 @@ public class TipsyEffect extends Effect {
     public boolean isReady(int duration, int amplifier) {
     return true;
     }
+	
+	/*@Override
+    public void performEffect(LivingEntity entityLivingBaseIn, int amplifier) {
+        if (entityLivingBaseIn.world.isRemote && entityLivingBaseIn instanceof PlayerEntity) {
+            PlayerEntity player = (PlayerEntity)entityLivingBaseIn;
+		}
+    }*/
 }

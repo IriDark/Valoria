@@ -1,8 +1,14 @@
 {
   "variants" : {
-	"key" : {
-    "true": { "model": "darkrpg:block/keyblock_key" },
-	"false" : { "model": "darkrpg:block/keyblock" }
+    "key=1": [
+	{
+	"model": "darkrpg:block/keyblock_key"
 	}
-  }
+],
+	"key=0" : [
+	{
+	"model": "darkrpg:block/keyblock"
+	}
+]
+	}
 }

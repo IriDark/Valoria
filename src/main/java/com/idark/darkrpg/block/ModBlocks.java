@@ -37,7 +37,7 @@ import java.util.function.Supplier;
 	() -> new TrapDoorBlock(AbstractBlock.Properties.create(Material.IRON).harvestLevel(2).setRequiresTool().harvestTool(ToolType.PICKAXE).hardnessAndResistance(3f).notSolid()));
 	//key_blocks
 	public static final RegistryObject<Block> KEYBLOCK = BLOCK.register("keyblock",
-	() -> new KeyBlock(Properties.create(Material.IRON).hardnessAndResistance(-1f, 3600000.8F).sound(SoundType.NETHER_BRICK)));
+	() -> new KeyPadBlock(Properties.create(Material.IRON).hardnessAndResistance(-1f, 3600000.8F).sound(SoundType.NETHER_BRICK)));
 	public static final RegistryObject<Block> KEYBLOCK_BRICKS = BLOCK.register("keyblock_bricks",
 	() -> new Block(Properties.create(Material.IRON).hardnessAndResistance(-1f, 3600000.8F).sound(SoundType.NETHER_BRICK)));
 	public static final RegistryObject<Block> KEYBLOCK_RUNE = BLOCK.register("keyblock_rune",
@@ -50,7 +50,7 @@ import java.util.function.Supplier;
 	public static final RegistryObject<Block> AQUARIUS_BLOCK = BLOCK.register("aquarius_block",
 	() -> new Block(Properties.create(Material.IRON).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f).sound(SoundType.NETHERITE)));
 	public static final RegistryObject<Block> INFERNAL_BLOCK = BLOCK.register("infernal_block",
-	() -> new AwakeningBlock(Properties.create(Material.IRON).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f).sound(SoundType.NETHERITE)));
+	() -> new InfernalBlock(Properties.create(Material.IRON).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f).sound(SoundType.NETHERITE)));
 	public static final RegistryObject<Block> AWAKENED_VOID_BLOCK = BLOCK.register("awakened_void_block",
 	() -> new Block(Properties.create(Material.IRON).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f).sound(SoundType.NETHERITE)));
 	public static final RegistryObject<Block> BRONZE_BLOCK = BLOCK.register("bronze_block",
@@ -170,8 +170,16 @@ import java.util.function.Supplier;
 	() -> new Block(Properties.create(Material.ROCK).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f)));
 	public static final RegistryObject<Block> CUT_CRYSTAL_STONE = BLOCK.register("cut_crystal_stone",
 	() -> new Block(Properties.create(Material.ROCK).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f)));
+	public static final RegistryObject<Block> CRYSTAL_STONE_BRICKS = BLOCK.register("crystal_stone_bricks",
+	() -> new Block(Properties.create(Material.ROCK).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f)));
+	public static final RegistryObject<Block> CRYSTAL_STONE_BRICKS_SLAB = registerBlock("crystal_stone_bricks_slab",
+	() -> new SlabBlock(AbstractBlock.Properties.create(Material.ROCK).harvestLevel(2).setRequiresTool().harvestTool(ToolType.PICKAXE).hardnessAndResistance(6f).sound(SoundType.NETHER_BRICK)));
+	public static final RegistryObject<Block> CRYSTAL_STONE_BRICKS_STAIRS = registerBlock("crystal_stone_bricks_stairs",
+	() -> new StairsBlock(() -> CRYSTAL_STONE.get().getDefaultState(), AbstractBlock.Properties.create(Material.IRON).harvestLevel(2).hardnessAndResistance(2f).harvestTool(ToolType.PICKAXE).setRequiresTool()));
+	public static final RegistryObject<Block> CRYSTAL_STONE_BRICKS_WALL = BLOCK.register("crystal_stone_bricks_wall",
+	() -> new WallBlock(Properties.create(Material.ROCK).harvestLevel(3).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f)));
 	public static final RegistryObject<Block> CHARGED_VOID_PILLAR = BLOCK.register("charged_void_pillar",
-	() -> new RotatedPillarBlock(Properties.create(Material.ROCK).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(2f).sound(SoundType.NETHER_BRICK)));
+	() -> new CVoidPillarBlock(Properties.create(Material.ROCK).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(2f).sound(SoundType.NETHER_BRICK)));
 	public static final RegistryObject<Block> POLISHED_CRYSTAL_STONE = BLOCK.register("polished_crystal_stone",
 	() -> new Block(Properties.create(Material.ROCK).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f)));
 	public static final RegistryObject<Block> POLISHED_LIMESTONE = BLOCK.register("polished_limestone",
@@ -191,9 +199,9 @@ import java.util.function.Supplier;
 	public static final RegistryObject<Block> VOID_STONE_WALL = BLOCK.register("void_stone_wall",
 	() -> new WallBlock(Properties.create(Material.ROCK).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f).sound(SoundType.NETHER_BRICK)));
 	public static final RegistryObject<Block> VOID_PILLAR_AMETHYST = BLOCK.register("void_pillar_amethyst",
-	() -> new RotatedPillarBlock(Properties.create(Material.ROCK).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(2f).sound(SoundType.NETHER_BRICK)));
+	() -> new CVoidPillarBlock(Properties.create(Material.ROCK).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(2f).sound(SoundType.NETHER_BRICK)));
 	public static final RegistryObject<Block> VOID_PILLAR = BLOCK.register("void_pillar",
-	() -> new RotatedPillarBlock(Properties.create(Material.ROCK).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(2f).sound(SoundType.NETHER_BRICK)));
+	() -> new VoidPillarBlock(Properties.create(Material.ROCK).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(2f).sound(SoundType.NETHER_BRICK)));
 	public static final RegistryObject<Block> VOID_BRICK = BLOCK.register("void_brick",
 	() -> new Block(Properties.create(Material.ROCK).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(2f).sound(SoundType.NETHER_BRICK)));
 	public static final RegistryObject<Block> VOID_BRICK_STAIRS = registerBlock("void_brick_stairs",
@@ -230,6 +238,20 @@ import java.util.function.Supplier;
 	() -> new VoidGrassBlock(Properties.create(Material.ROCK).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f).sound(SoundType.NETHER_BRICK)));
 	public static final RegistryObject<Block> TOMBSTONE = BLOCK.register("tombstone",
 	() -> new Block(Properties.create(Material.ROCK).harvestLevel(3).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f)));
+	public static final RegistryObject<Block> TOMBSTONE_SPIKES_TRAP = BLOCK.register("tombstone_spikes_trap",
+	() -> new SpikeTrapBlock(Properties.create(Material.ROCK).harvestLevel(3).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f)));
+	public static final RegistryObject<Block> SPIKES = BLOCK.register("spikes",
+	() -> new SpikeBlock(Properties.create(Material.ROCK).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(-1f, 3600000.8F)));
+	public static final RegistryObject<Block> TOMBSTONE_PLATE = BLOCK.register("tombstone_plate",
+	() -> new Block(Properties.create(Material.ROCK).harvestLevel(3).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f)));
+	public static final RegistryObject<Block> TOMBSTONE_FIRECHARGE_TRAP = BLOCK.register("tombstone_firecharge_trap",
+	() -> new FireTrapBlock(Properties.create(Material.ROCK).harvestLevel(3).harvestTool(ToolType.PICKAXE).setRequiresTool()));
+	public static final RegistryObject<Block> CUT_TOMBSTONE_PILLAR = BLOCK.register("cut_tombstone_pillar",
+	() -> new RotatedPillarBlock(Properties.create(Material.ROCK).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f)));
+	public static final RegistryObject<Block> WICKED_TOMBSTONE_PILLAR = BLOCK.register("wicked_tombstone_pillar",
+	() -> new RotatedPillarBlock(Properties.create(Material.ROCK).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f)));
+	public static final RegistryObject<Block> TOMBSTONE_PILLAR = BLOCK.register("tombstone_pillar",
+	() -> new RotatedPillarBlock(Properties.create(Material.ROCK).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f)));
 	public static final RegistryObject<Block> TOMBSTONE_SLAB = registerBlock("tombstone_slab",
 	() -> new SlabBlock(AbstractBlock.Properties.create(Material.ROCK).harvestLevel(2).setRequiresTool().harvestTool(ToolType.PICKAXE).hardnessAndResistance(6f).sound(SoundType.NETHER_BRICK)));
 	public static final RegistryObject<Block> TOMBSTONE_STAIRS = registerBlock("tombstone_stairs",
@@ -245,9 +267,9 @@ import java.util.function.Supplier;
 	public static final RegistryObject<Block> TOMBSTONE_BRICKS_WALL = BLOCK.register("tombstone_bricks_wall",
 	() -> new WallBlock(Properties.create(Material.ROCK).harvestLevel(3).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f)));
 	//wood
-	public static final RegistryObject<Block> SHADELOG_PLESSURE_PLATE = BLOCK.register("shadelog_plessure_plate",
+	public static final RegistryObject<Block> SHADEWOOD_PRESSURE_PLATE = BLOCK.register("shadewood_pressure_plate",
 	() -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, AbstractBlock.Properties.from(Blocks.OAK_PLANKS).notSolid().doesNotBlockMovement()));
-	public static final RegistryObject<Block> SHADELOG_BUTTON = BLOCK.register("shadelog_button",
+	public static final RegistryObject<Block> SHADEWOOD_BUTTON = BLOCK.register("shadewood_button",
 	() -> new WoodButtonBlock(AbstractBlock.Properties.from(Blocks.OAK_WOOD).doesNotBlockMovement()));
 	public static final RegistryObject<Block> SHADELOG = BLOCK.register("shadelog",
 	() -> new RotatedPillarBlock(AbstractBlock.Properties.from(Blocks.OAK_WOOD)));
@@ -265,8 +287,10 @@ import java.util.function.Supplier;
     public static final RegistryObject<Block> SHADEWOOD_WALL_SIGN = BLOCK.register("shadewood_wall_sign",
     () -> new ModWallSignBlock(AbstractBlock.Properties.create(Material.IRON).notSolid().doesNotBlockMovement(), ModWoodTypes.SHADEWOOD));
 	//other
+	public static final RegistryObject<Block> TOMB = BLOCK.register("tombs",
+	() -> new Block(Properties.create(Material.ROCK).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(1f)));
 	public static final RegistryObject<Block> KEG = BLOCK.register("keg", 
-	() -> new Block(AbstractBlock.Properties.create(Material.WOOD).harvestLevel(2).harvestTool(ToolType.AXE).setRequiresTool().hardnessAndResistance(1f)));
+	() -> new KegBlock(AbstractBlock.Properties.create(Material.WOOD).harvestLevel(1).harvestTool(ToolType.AXE).setRequiresTool().hardnessAndResistance(1f)));
 	public static final RegistryObject<Block> SARCOPHAGUS = BLOCK.register("sarcophagus", 
 	() -> new SarcoBlock(AbstractBlock.Properties.create(Material.IRON).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f)));
 	public static final RegistryObject<Block> PLATE = BLOCK.register("plate", 
@@ -329,6 +353,8 @@ import java.util.function.Supplier;
 	() -> new DeadBushBlock(Properties.from(Blocks.SUNFLOWER)));
 	public static final RegistryObject<Block> DRIED_PLANT = BLOCK.register("dried_plant",
 	() -> new DeadBushBlock(Properties.from(Blocks.SUNFLOWER)));
+	public static final RegistryObject<Block> DRIED_ROOTS = BLOCK.register("dried_roots",
+	() -> new DeadBushBlock(Properties.from(Blocks.SUNFLOWER)));	
 	public static final RegistryObject<Block> ALOE = BLOCK.register("aloe",
 	() -> new TallSandFlowerBlock(Properties.from(Blocks.SUNFLOWER)));
 	public static final RegistryObject<Block> CATTAIL = BLOCK.register("cattail",

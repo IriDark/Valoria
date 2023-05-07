@@ -3,7 +3,7 @@
 	"ingredient": {
     "item": "minecraft:wheat"
   },
-	"result": "darkrpg:beer",
+	"result": "darkrpg:beer_cup",
 	"experience": 0.35,
 	"cookingtime": 600
 }

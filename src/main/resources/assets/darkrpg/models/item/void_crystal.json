@@ -1,3 +1,6 @@
 {
-  "parent": "darkrpg:block/void_crystal"
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "darkrpg:block/void_crystal"
+  }
 }

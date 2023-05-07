@@ -4,10 +4,6 @@ import com.idark.darkrpg.entity.model.GoblinModel;
 import com.idark.darkrpg.entity.ModEntityTypes;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.ai.goal.HurtByTargetGoal;
 import net.minecraft.entity.ai.goal.Goal;
@@ -43,13 +39,26 @@ public class GoblinEntity extends ZombieEntity {
         super.registerGoals();
         this.goalSelector.addGoal(10, new LookAtWithoutMovingGoal(this, PlayerEntity.class, 4.0F, 1.0F));
         this.goalSelector.addGoal(11, new LookAtGoal(this, MobEntity.class, 8.0F));
-      	this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
-	    this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, false));
-		this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, AbstractVillagerEntity.class, true));
+      	this.targetSelector.addGoal(1, new HurtByTargetGoal(this).setCallsForHelp());
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, AbstractVillagerEntity.class, true));
     }
 	
-    protected int getExperiencePoints(PlayerEntity player)
-    {
+    protected int getExperiencePoints(PlayerEntity player) {
         return 3 + this.world.rand.nextInt(5);
+    }
+    
+    @Override
+    public boolean attackEntityFrom(DamageSource source, float amount) {
+        Entity entity = source.getTrueSource();
+        if (entity instanceof PlayerEntity) {
+            this.setAttackTarget((PlayerEntity) entity);
+        }
+        return super.attackEntityFrom(source, amount);
+    }
+    
+    @Override
+    public boolean isBurning() {
+        return false;
     }
 }

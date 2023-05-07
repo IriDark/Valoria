@@ -1,0 +1,15 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+	{
+		"item": "darkrpg:soulstone"
+    },
+	{
+		"item": "darkrpg:uncharged_stone"
+	}
+	],
+    "result": {
+        "item": "darkrpg:soulstone",
+        "count": 2
+    }
+}

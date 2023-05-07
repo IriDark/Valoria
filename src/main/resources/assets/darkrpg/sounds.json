@@ -1,41 +1,41 @@
 {
   "item.magic.use": {
-    "subtitle": "magic",
+    "subtitle": "Magic",
     "replace": "true",
     "sounds": [
 		"darkrpg:magic"
     ]
   },
     "item.swiftslice.use": {
-    "subtitle": "dash",
+    "subtitle": "Dash",
     "replace": "true",
     "sounds": [
 		"darkrpg:swiftslice"
     ]
   },
     "item.recharge.use": {
-    "subtitle": "dash_recharge",
+    "subtitle": "Recharge",
     "replace": "true",
     "sounds": [
 		"darkrpg:recharge"
     ]
   },
    "item.blazecharge.use": {
-    "subtitle": "blaze_reap_charge",
+    "subtitle": "Charge",
     "replace": "true",
     "sounds": [
 		"darkrpg:blazecharge"
     ]
   },
     "item.eruption.use": {
-    "subtitle": "eruption",
+    "subtitle": "Eruption",
     "replace": "true",
     "sounds": [
 		"darkrpg:eruption"
     ]
   },
     "item.pierce.ambient": {
-    "subtitle": "armor_pierce",
+    "subtitle": "Pierce",
     "replace": "true",
     "sounds": [
 		"darkrpg:pierce1",
@@ -44,7 +44,7 @@
     ]
   },
     "block.egg_break.ambient": {
-    "subtitle": "egg_break",
+    "subtitle": "Egg Break",
     "replace": "true",
     "sounds": [
 		"darkrpg:egg_break1",
@@ -53,7 +53,7 @@
     ]
   },
    "block.egg_step.ambient": {
-    "subtitle": "egg_step",
+    "subtitle": "Egg Step",
     "replace": "true",
     "sounds": [
 		"darkrpg:egg_step1",
