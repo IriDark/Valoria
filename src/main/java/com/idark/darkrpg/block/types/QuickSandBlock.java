@@ -16,34 +16,30 @@ import net.minecraft.world.server.ServerWorld;
 import java.util.Random;
 
 public class QuickSandBlock extends Block {
-   protected static final VoxelShape SHAPE = Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 2.0D, 16.0D);
+	protected static final VoxelShape SHAPE = Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 0.0D, 0.0D, 0.0D);
 
 	public QuickSandBlock(AbstractBlock.Properties properties) {
 		super(properties);
-}
-
+	}
+	
 	public VoxelShape getCollisionShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-      return SHAPE;
-   }
+		return SHAPE;
+	}
 
-   public VoxelShape getCollisionShape(BlockState state, IBlockReader reader, BlockPos pos) {
-      return VoxelShapes.fullCube();
-   }
+	public VoxelShape getRayTraceShape(BlockState state, IBlockReader reader, BlockPos pos, ISelectionContext context) {
+		return VoxelShapes.fullCube();
+	}
 
-   public VoxelShape getRayTraceShape(BlockState state, IBlockReader reader, BlockPos pos, ISelectionContext context) {
-      return VoxelShapes.fullCube();
-   }
+	public void onBlockAdded(BlockState state, World worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {
+		worldIn.getPendingBlockTicks().scheduleTick(pos, this, 20);
+	}
 
-   public void onBlockAdded(BlockState state, World worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {
-      worldIn.getPendingBlockTicks().scheduleTick(pos, this, 20);
-   }
-
-   public boolean allowsMovement(BlockState state, IBlockReader worldIn, BlockPos pos, PathType type) {
-      return false;
-   }
+	public boolean allowsMovement(BlockState state, IBlockReader worldIn, BlockPos pos, PathType type) {
+		return false;
+	}
    
-   public void onEntityCollision(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
-      entityIn.setMotionMultiplier(state, new Vector3d(0.25D, (double)0.05F, 0.25D));
-   }
-   //TODO Completely edit this shit lol
+	public void onEntityCollision(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
+		entityIn.setMotionMultiplier(state, new Vector3d(0.25D, (double)0.05F, 0.25D));
+	}
+	//TODO Completely edit this shit lol
 }

@@ -24,6 +24,7 @@ import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 
@@ -179,9 +180,9 @@ public class BlazeReapItem extends PickaxeItem {
     @Override
     public void addInformation(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flags) {
         super.addInformation(stack, world, tooltip, flags);
-        tooltip.add(new TranslationTextComponent("tooltip.darkrpg.blazereap").mergeStyle(TextFormatting.GRAY));
-        tooltip.add(new TranslationTextComponent("tooltip.darkrpg.familiar").mergeStyle(TextFormatting.GRAY, TextFormatting.ITALIC));
-        
-		tooltip.add(new TranslationTextComponent("tooltip.darkrpg.rmb").mergeStyle(TextFormatting.GREEN));
-    }
+        tooltip.add(1, new TranslationTextComponent("tooltip.darkrpg.familiar").mergeStyle(TextFormatting.GRAY, TextFormatting.ITALIC));
+        tooltip.add(2, new StringTextComponent("                "));
+        tooltip.add(3, new TranslationTextComponent("tooltip.darkrpg.blazereap").mergeStyle(TextFormatting.GRAY));
+		tooltip.add(4, new TranslationTextComponent("tooltip.darkrpg.rmb").mergeStyle(TextFormatting.GREEN));
+	}
 }

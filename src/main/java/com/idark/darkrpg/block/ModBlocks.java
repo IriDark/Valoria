@@ -24,7 +24,7 @@ import java.util.function.Supplier;
 	public class ModBlocks {
 	private final static String MODID = DarkRPG.MOD_ID;
 	public static final DeferredRegister<Block> BLOCK = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
-	//door & trapdoors
+	// Door & Trapdoors
 	public static final RegistryObject<Block> SHADEWOOD_DOOR = registerBlock("shadewood_door",
 	() -> new DoorBlock(AbstractBlock.Properties.create(Material.WOOD).harvestLevel(1).setRequiresTool().harvestTool(ToolType.AXE).hardnessAndResistance(2f).notSolid()));
 	public static final RegistryObject<Block> SHADEWOOD_TRAPDOOR = registerBlock("shadewood_trapdoor",
@@ -35,14 +35,14 @@ import java.util.function.Supplier;
 	() -> new TrapDoorBlock(AbstractBlock.Properties.create(Material.IRON).harvestLevel(2).setRequiresTool().harvestTool(ToolType.PICKAXE).hardnessAndResistance(2f).notSolid()));
 	public static final RegistryObject<Block> BRONZE_TRAPDOOR = registerBlock("bronze_trapdoor",
 	() -> new TrapDoorBlock(AbstractBlock.Properties.create(Material.IRON).harvestLevel(2).setRequiresTool().harvestTool(ToolType.PICKAXE).hardnessAndResistance(3f).notSolid()));
-	//key_blocks
+	// Key
 	public static final RegistryObject<Block> KEYBLOCK = BLOCK.register("keyblock",
 	() -> new KeyPadBlock(Properties.create(Material.IRON).hardnessAndResistance(-1f, 3600000.8F).sound(SoundType.NETHER_BRICK)));
 	public static final RegistryObject<Block> KEYBLOCK_BRICKS = BLOCK.register("keyblock_bricks",
 	() -> new Block(Properties.create(Material.IRON).hardnessAndResistance(-1f, 3600000.8F).sound(SoundType.NETHER_BRICK)));
 	public static final RegistryObject<Block> KEYBLOCK_RUNE = BLOCK.register("keyblock_rune",
 	() -> new KeyBlock(Properties.create(Material.IRON).hardnessAndResistance(-1f, 3600000.8F).sound(SoundType.NETHER_BRICK)));
-	//metal
+	// Metal
 	public static final RegistryObject<Block> COBALT_BLOCK = BLOCK.register("cobalt_block",
 	() -> new Block(Properties.create(Material.IRON).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f).sound(SoundType.NETHERITE)));
 	public static final RegistryObject<Block> NATURE_BLOCK = BLOCK.register("nature_block",
@@ -75,7 +75,7 @@ import java.util.function.Supplier;
 	() -> new Block(Properties.create(Material.IRON).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f).sound(SoundType.NETHERITE)));
 	public static final RegistryObject<Block> BRONZE_GLASS = BLOCK.register("bronze_glass",
 	() -> new GlassBlock(Properties.create(Material.GLASS).harvestLevel(1).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(1f).notSolid().sound(SoundType.GLASS)));
-	//stone types
+	// Stone Types
 	public static final RegistryObject<Block> AMBANE_STONE = BLOCK.register("ambane_stone",
 	() -> new Block(Properties.create(Material.ROCK).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f)));
 	public static final RegistryObject<Block> AMBANE_STONE_STAIRS = registerBlock("ambane_stone_stairs",
@@ -266,7 +266,7 @@ import java.util.function.Supplier;
 	() -> new StairsBlock(() -> TOMBSTONE_BRICKS.get().getDefaultState(), AbstractBlock.Properties.create(Material.IRON).harvestLevel(2).hardnessAndResistance(2f).harvestTool(ToolType.PICKAXE).setRequiresTool()));
 	public static final RegistryObject<Block> TOMBSTONE_BRICKS_WALL = BLOCK.register("tombstone_bricks_wall",
 	() -> new WallBlock(Properties.create(Material.ROCK).harvestLevel(3).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f)));
-	//wood
+	// Wood
 	public static final RegistryObject<Block> SHADEWOOD_PRESSURE_PLATE = BLOCK.register("shadewood_pressure_plate",
 	() -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, AbstractBlock.Properties.from(Blocks.OAK_PLANKS).notSolid().doesNotBlockMovement()));
 	public static final RegistryObject<Block> SHADEWOOD_BUTTON = BLOCK.register("shadewood_button",
@@ -281,12 +281,12 @@ import java.util.function.Supplier;
 	() -> new RotatedPillarBlock(AbstractBlock.Properties.from(Blocks.OAK_WOOD)));
 	public static final RegistryObject<Block> SHADEWOOD_PLANKS = BLOCK.register("shadewood_planks",
 	() -> new Block(AbstractBlock.Properties.from(Blocks.OAK_PLANKS)));
-	//signs
+	// Signs
 	public static final RegistryObject<Block> SHADEWOOD_SIGN = BLOCK.register("shadewood_sign",
     () -> new ModStandingSignBlock(AbstractBlock.Properties.create(Material.IRON).notSolid().doesNotBlockMovement(), ModWoodTypes.SHADEWOOD));
     public static final RegistryObject<Block> SHADEWOOD_WALL_SIGN = BLOCK.register("shadewood_wall_sign",
     () -> new ModWallSignBlock(AbstractBlock.Properties.create(Material.IRON).notSolid().doesNotBlockMovement(), ModWoodTypes.SHADEWOOD));
-	//other
+	// Other
 	public static final RegistryObject<Block> TOMB = BLOCK.register("tombs",
 	() -> new Block(Properties.create(Material.ROCK).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(1f)));
 	public static final RegistryObject<Block> KEG = BLOCK.register("keg", 
@@ -309,7 +309,7 @@ import java.util.function.Supplier;
 	() -> new RedstoneLampBlock(Properties.create(Material.IRON).harvestLevel(0).hardnessAndResistance(3f).notSolid().sound(SoundType.GLASS).setLightLevel(getLightValueLit(13))));
 	public static final RegistryObject<Block> SPIDER_EGG = BLOCK.register("spider_egg", 
 	() -> new SpiderBlock(Properties.create(Material.ROCK).harvestLevel(0).zeroHardnessAndResistance().notSolid().sound(ModSoundRegistry.SPIDER_EGG)));
-	//ore
+	// Ore
 	public static final RegistryObject<Block> AMBER_ORE = BLOCK.register("amber_ore",
 	() -> new Block(Properties.create(Material.ROCK).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(2f)));
 	public static final RegistryObject<Block> AMETHYST_ORE = BLOCK.register("amethyst_ore",
@@ -324,7 +324,7 @@ import java.util.function.Supplier;
 	() -> new WickedOreBlock(Properties.create(Material.ROCK).harvestLevel(3).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(4f).sound(SoundType.NETHER_BRICK)));
 	public static final RegistryObject<Block> PEARLIUM_ORE = BLOCK.register("pearlium_ore",
 	() -> new Block(Properties.create(Material.ROCK).harvestLevel(3).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f)));
-	//crystals
+	// Crystals
 	public static final RegistryObject<Block> VOID_CRYSTAL = BLOCK.register("void_crystal", 
 	() -> new CrystalBlock(Properties.create(Material.IRON).harvestLevel(2).hardnessAndResistance(1f).sound(SoundType.GLASS).notSolid()));
 	public static final RegistryObject<Block> AMBER_CRYSTAL = BLOCK.register("amber_crystal", 
@@ -335,7 +335,7 @@ import java.util.function.Supplier;
 	() -> new CrystalBlock(Properties.create(Material.IRON).harvestLevel(2).hardnessAndResistance(1f).sound(SoundType.GLASS).notSolid()));
 	public static final RegistryObject<Block> SAPPHIRE_CRYSTAL = BLOCK.register("sapphire_crystal", 
 	() -> new CrystalBlock(Properties.create(Material.IRON).harvestLevel(2).hardnessAndResistance(1f).sound(SoundType.GLASS).notSolid()));
-	//vases
+	// Vases
 	public static final RegistryObject<Block> VASE_SMALL = BLOCK.register("vase_small", 
 	() -> new VaseBlock(Properties.create(Material.GLASS).harvestLevel(0).zeroHardnessAndResistance().notSolid().sound(SoundType.GLASS)));
 	public static final RegistryObject<Block> VASE_SMALL_1 = BLOCK.register("vase_small_1", 
@@ -348,13 +348,13 @@ import java.util.function.Supplier;
 	() -> new VaseBlock(Properties.create(Material.GLASS).harvestLevel(0).zeroHardnessAndResistance().notSolid().sound(SoundType.GLASS)));
 	public static final RegistryObject<Block> VASE_BIG_3 = BLOCK.register("vase_big_3", 
 	() -> new VaseBlock(Properties.create(Material.GLASS).harvestLevel(0).zeroHardnessAndResistance().notSolid().sound(SoundType.GLASS)));
-	//plants
+	// Plants
 	public static final RegistryObject<Block> ALOE_SMALL = BLOCK.register("aloe_small",
 	() -> new DeadBushBlock(Properties.from(Blocks.SUNFLOWER)));
 	public static final RegistryObject<Block> DRIED_PLANT = BLOCK.register("dried_plant",
-	() -> new DeadBushBlock(Properties.from(Blocks.SUNFLOWER)));
+	() -> new DriedBlock(Properties.from(Blocks.SUNFLOWER)));
 	public static final RegistryObject<Block> DRIED_ROOTS = BLOCK.register("dried_roots",
-	() -> new DeadBushBlock(Properties.from(Blocks.SUNFLOWER)));	
+	() -> new DriedBlock(Properties.from(Blocks.SUNFLOWER)));	
 	public static final RegistryObject<Block> ALOE = BLOCK.register("aloe",
 	() -> new TallSandFlowerBlock(Properties.from(Blocks.SUNFLOWER)));
 	public static final RegistryObject<Block> CATTAIL = BLOCK.register("cattail",

@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "darkrpg:block/cut_tombstone_pillar",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "darkrpg:block/cut_tombstone_pillar"
+    },
+    "axis=z": {
+      "model": "darkrpg:block/cut_tombstone_pillar",
+      "x": 90
+    }
+  }
+}

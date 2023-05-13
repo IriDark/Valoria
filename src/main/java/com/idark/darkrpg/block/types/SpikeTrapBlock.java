@@ -51,10 +51,9 @@ public class SpikeTrapBlock extends DirectionalBlock {
 		BlockPos newPos = pos.add(direction.getDirectionVec());
 		BlockState spikeBlock = ModBlocks.SPIKES.get().getDefaultState().with(DirectionalBlock.FACING,direction);
 		
-		worldIn.setBlockState(newPos,spikeBlock, 100);
-		worldIn.getPendingBlockTicks().scheduleTick(pos, state.with(STATE, Integer.valueOf(0)).getBlock(), 120);
+		worldIn.setBlockState(newPos,spikeBlock);
+		worldIn.setBlockState(pos, state.with(STATE, Integer.valueOf(1)).with(DirectionalBlock.FACING,state.get(DirectionalBlock.FACING)));
 		worldIn.playSound((PlayerEntity)null, pos, SoundEvents.BLOCK_PISTON_EXTEND, SoundCategory.BLOCKS, 0.3F, worldIn.rand.nextFloat() * 0.25F + 0.6F);
-		worldIn.setBlockState(pos, ModBlocks.TOMBSTONE_SPIKES_TRAP.get().getDefaultState().with(STATE, Integer.valueOf(1)).with(DirectionalBlock.FACING,state.get(DirectionalBlock.FACING)));
 	    if(!worldIn.isRemote())
 		for (int i = 0;i<10;i++) {
 			worldIn.addParticle(ParticleTypes.POOF, pos.getX() + rand.nextDouble(), pos.getY() + 0.5D, pos.getZ() + rand.nextDouble(), 0d, 0.05d, 0d);

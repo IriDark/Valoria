@@ -5,6 +5,7 @@ import com.idark.darkrpg.block.*;
 import com.idark.darkrpg.block.types.*;
 import com.idark.darkrpg.client.render.DashOverlayRender;
 import com.idark.darkrpg.client.render.model.item.Item2DRenderer;
+import com.idark.darkrpg.client.render.gui.TooltipEventHandler;
 import com.idark.darkrpg.effect.ModEffects;
 import com.idark.darkrpg.entity.ModEntityTypes;
 import com.idark.darkrpg.tileentity.*;
@@ -82,7 +83,9 @@ import top.theillusivec4.curios.api.SlotTypePreset;
 
 		forgeBus.addListener(DashOverlayRender::tick);
 		forgeBus.addListener(DashOverlayRender::onDrawScreenPost);
-
+		forgeBus.addListener(TooltipEventHandler::onPostTooltipEvent);
+		forgeBus.addListener(TooltipEventHandler::onTooltip);
+		
 	    MinecraftForge.EVENT_BUS.register(this);
 	    }
 	    private void doClientStuff(final FMLClientSetupEvent event) {
