@@ -45,7 +45,7 @@ public class TooltipEventHandler {
             
 		if (stack.getItem() instanceof BlazeReapItem) {
             mc.textureManager.bindTexture(new ResourceLocation(DarkRPG.MOD_ID + ":textures/gui/eternal.png"));
-            AbstractGui.blit(ms, x, y - 50, 0, 0, 80, 16, 80, 16);
+            AbstractGui.blit(ms, x, y + 10, 0, 0, 80, 16, 80, 16);
 		}
 	}
 	
@@ -55,8 +55,8 @@ public class TooltipEventHandler {
         if (!stack.isEmpty()) {
             List<ITextComponent> tooltip = event.getToolTip();
 			if (stack.getItem() instanceof BlazeReapItem) {
-            tooltip.add(new StringTextComponent("                "));
-            tooltip.add(new StringTextComponent("                "));
+                tooltip.add(1, new StringTextComponent("                "));
+                tooltip.add(1, new StringTextComponent("                "));
 			}
 		}
 	}
