@@ -63,5 +63,38 @@
 		"darkrpg:egg_step5",
 		"darkrpg:egg_step6"
       ]
-	}
+	},
+    "block.pot_break.ambient": {
+    "subtitle": "Pot Break",
+    "replace": "true",
+    "sounds": [
+		"darkrpg:pot/shatter1",
+		"darkrpg:pot/shatter2",
+		"darkrpg:pot/shatter3",
+		"darkrpg:pot/shatter4",
+		"darkrpg:pot/shatter5",
+		"darkrpg:pot/shatter6"
+    ]
+  },
+   "block.pot_step.ambient": {
+    "subtitle": "Pot Step",
+    "replace": "true",
+    "sounds": [
+		"darkrpg:pot/step1",
+		"darkrpg:pot/step2",
+		"darkrpg:pot/step3",
+		"darkrpg:pot/step4",
+		"darkrpg:pot/step5"
+      ]
+	},
+   "block.pot_place.ambient": {
+    "subtitle": "Pot Place",
+    "replace": "true",
+    "sounds": [
+		"darkrpg:pot/place1",
+		"darkrpg:pot/place2",
+		"darkrpg:pot/place3",
+		"darkrpg:pot/place4"
+      ]
+	}	
 }

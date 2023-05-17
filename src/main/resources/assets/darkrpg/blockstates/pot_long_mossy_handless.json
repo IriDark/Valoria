@@ -1,0 +1,20 @@
+{
+  "variants" : {
+    "facing=east" : {
+	"model": "darkrpg:block/pot_long_mossy_handless",
+	"y": 90
+	},
+	"facing=north" : {
+	"model": "darkrpg:block/pot_long_mossy_handless",
+	"y": 180
+	},
+	"facing=south" : {
+	"model": "darkrpg:block/pot_long_mossy_handless",
+	"y": 180
+	},
+	"facing=west" : {
+	"model": "darkrpg:block/pot_long_mossy_handless",
+	"y": 90
+	}
+  }
+}

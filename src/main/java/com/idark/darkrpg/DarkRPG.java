@@ -4,8 +4,10 @@ import com.google.common.collect.ImmutableMap;
 import com.idark.darkrpg.block.*;
 import com.idark.darkrpg.block.types.*;
 import com.idark.darkrpg.client.render.DashOverlayRender;
-import com.idark.darkrpg.client.render.model.item.Item2DRenderer;
 import com.idark.darkrpg.client.render.gui.TooltipEventHandler;
+import com.idark.darkrpg.client.render.model.item.Item2DRenderer;
+import com.idark.darkrpg.client.render.model.tileentity.*;
+import com.idark.darkrpg.client.event.*;
 import com.idark.darkrpg.effect.ModEffects;
 import com.idark.darkrpg.entity.ModEntityTypes;
 import com.idark.darkrpg.tileentity.*;
@@ -81,6 +83,7 @@ import top.theillusivec4.curios.api.SlotTypePreset;
 
 		IEventBus forgeBus = MinecraftForge.EVENT_BUS;
 
+        forgeBus.addListener(ClientTickHandler::clientTickEnd);
 		forgeBus.addListener(DashOverlayRender::tick);
 		forgeBus.addListener(DashOverlayRender::onDrawScreenPost);
 		forgeBus.addListener(TooltipEventHandler::onPostTooltipEvent);
@@ -113,12 +116,12 @@ import top.theillusivec4.curios.api.SlotTypePreset;
 	    RenderTypeLookup.setRenderLayer(ModBlocks.ELEMENTAL_MANIPULATOR.get(), RenderType.getCutout());
 	    RenderTypeLookup.setRenderLayer(ModBlocks.SPIDER_EGG.get(), RenderType.getCutout());
 	    RenderTypeLookup.setRenderLayer(ModBlocks.PEDESTAL.get(), RenderType.getCutout());
-	    RenderTypeLookup.setRenderLayer(ModBlocks.VASE_SMALL.get(), RenderType.getCutout());
-	    RenderTypeLookup.setRenderLayer(ModBlocks.VASE_SMALL_1.get(), RenderType.getCutout());
-	    RenderTypeLookup.setRenderLayer(ModBlocks.VASE_BIG.get(), RenderType.getCutout());
-	    RenderTypeLookup.setRenderLayer(ModBlocks.VASE_BIG_1.get(), RenderType.getCutout());
-	    RenderTypeLookup.setRenderLayer(ModBlocks.VASE_BIG_2.get(), RenderType.getCutout());
-	    RenderTypeLookup.setRenderLayer(ModBlocks.VASE_BIG_3.get(), RenderType.getCutout());
+	    RenderTypeLookup.setRenderLayer(ModBlocks.POT_SMALL.get(), RenderType.getCutout());
+	    RenderTypeLookup.setRenderLayer(ModBlocks.POT_SMALL_HANDLESS.get(), RenderType.getCutout());
+	    RenderTypeLookup.setRenderLayer(ModBlocks.POT_LONG.get(), RenderType.getCutout());
+	    RenderTypeLookup.setRenderLayer(ModBlocks.POT_LONG_HANDLESS.get(), RenderType.getCutout());
+	    RenderTypeLookup.setRenderLayer(ModBlocks.POT_LONG_MOSSY.get(), RenderType.getCutout());
+	    RenderTypeLookup.setRenderLayer(ModBlocks.POT_LONG_MOSSY_HANDLESS.get(), RenderType.getCutout());
 	    RenderTypeLookup.setRenderLayer(ModBlocks.BRONZE_GLASS.get(), RenderType.getCutout());
 	    RenderTypeLookup.setRenderLayer(ModBlocks.BRONZE_LAMP.get(), RenderType.getCutout());
 	    RenderTypeLookup.setRenderLayer(ModBlocks.DECORATED_BRONZE_LAMP.get(), RenderType.getCutout());
@@ -136,9 +139,9 @@ import top.theillusivec4.curios.api.SlotTypePreset;
 	    RenderTypeLookup.setRenderLayer(ModBlocks.VOID_CRYSTAL.get(), RenderType.getCutout());
 	    RenderTypeLookup.setRenderLayer(ModBlocks.SPIKES.get(), RenderType.getCutout());
 
-		ClientRegistry.bindTileEntityRenderer(ModTileEntities.SIGN_TILE_ENTITIES.get(),
-	    SignTileEntityRenderer::new);
+		ClientRegistry.bindTileEntityRenderer(ModTileEntities.SIGN_TILE_ENTITIES.get(), SignTileEntityRenderer::new);
 	    Atlases.addWoodType(ModWoodTypes.SHADEWOOD);
+        ClientRegistry.bindTileEntityRenderer(ModTileEntities.PEDESTAL_TILE_ENTITY.get(), PedestalTileEntityRenderer::new);
 		});
 	    
 	    EntitySpawnPlacementRegistry.register(ModEntityTypes.SWAMP_WANDERER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND,

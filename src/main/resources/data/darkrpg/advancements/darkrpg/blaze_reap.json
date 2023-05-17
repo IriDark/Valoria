@@ -1,0 +1,40 @@
+{
+  "display": {
+    "icon": {
+      "item": "darkrpg:blaze_reap"
+    },
+    "title": {
+      "translate": "advancement.darkrpg:blaze_reap",
+    },
+    "description": {
+      "translate": "advancement.darkrpg:blaze_reap.desc",
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+		"blaze_reap": {
+			"trigger": "minecraft:enchanted_item",
+			"conditions": {
+				"items": [
+				{
+				"item":	"darkrpg:blaze_reap"
+				}
+				],
+				"enchantments": [
+				{
+				"enchantment": "minecraft:fire_aspect"
+				}
+			]
+		}
+	}
+  },
+  "requirements": {
+	"blazereap"
+  },
+  "rewards": {
+		"experience": 100
+	}
+}

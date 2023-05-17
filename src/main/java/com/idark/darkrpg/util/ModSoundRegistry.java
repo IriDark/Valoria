@@ -22,9 +22,13 @@ public class ModSoundRegistry {
 	public static final RegistryObject<SoundEvent> PIERCE = registerSound("item.pierce.ambient");
 	public static final RegistryObject<SoundEvent> EGG_BREAK = registerSound("block.egg_break.ambient");
     public static final RegistryObject<SoundEvent> EGG_STEP = registerSound("block.egg_step.ambient");
+	public static final RegistryObject<SoundEvent> POT_BREAK = registerSound("block.pot_break.ambient");
+	public static final RegistryObject<SoundEvent> POT_STEP = registerSound("block.pot_step.ambient");
+	public static final RegistryObject<SoundEvent> POT_PLACE = registerSound("block.pot_place.ambient");
 
     //SoundType
 	public static final ModSoundType SPIDER_EGG = new ModSoundType(1, 1, ()->EGG_BREAK.get(), ()->EGG_STEP.get(), ()->SoundEvents.BLOCK_STONE_PLACE, ()->SoundEvents.BLOCK_STONE_HIT, ()->SoundEvents.BLOCK_STONE_FALL);
+	public static final ModSoundType POT = new ModSoundType(1, 1, ()->POT_BREAK.get(), ()->POT_STEP.get(), ()->POT_PLACE.get(), ()->SoundEvents.BLOCK_STONE_HIT, ()->SoundEvents.BLOCK_STONE_FALL);
 
 	public static RegistryObject<SoundEvent> registerSound(String name){
         return SOUNDS.register(name,()->new SoundEvent(new ResourceLocation(DarkRPG.MOD_ID,name)));

@@ -1,0 +1,6 @@
+{
+    "parent" : "item/handheld",
+    "textures" : {
+        "layer0" : "darkrpg:item/pot_long_mossy"
+    }
+}

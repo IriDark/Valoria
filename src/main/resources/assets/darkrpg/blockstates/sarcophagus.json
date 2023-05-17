@@ -1,5 +1,36 @@
 {
   "variants" : {
-    "" : { "model": "darkrpg:block/sarcophagus" }
+    "facing=east,open=0" : {
+	"model": "darkrpg:block/sarcophagus",
+	"y": 90
+	},
+	"facing=north,open=0" : {
+	"model": "darkrpg:block/sarcophagus",
+	"y": 180
+	},
+	"facing=south,open=0" : {
+	"model": "darkrpg:block/sarcophagus",
+	"y": 180
+	},
+	"facing=west,open=0" : {
+	"model": "darkrpg:block/sarcophagus",
+	"y": 90
+	}
+	"facing=east,open=1" : {
+	"model": "darkrpg:block/sarcophagus_open",
+	"y": 90
+	},
+	"facing=north,open=1" : {
+	"model": "darkrpg:block/sarcophagus_open",
+	"y": 180
+	},
+	"facing=south,open=1" : {
+	"model": "darkrpg:block/sarcophagus_open",
+	"y": 180
+	},
+	"facing=west,open=1" : {
+	"model": "darkrpg:block/sarcophagus_open",
+	"y": 90
+	}	
   }
 }

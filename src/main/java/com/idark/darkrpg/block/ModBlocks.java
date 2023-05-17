@@ -293,6 +293,8 @@ import java.util.function.Supplier;
 	() -> new KegBlock(AbstractBlock.Properties.create(Material.WOOD).harvestLevel(1).harvestTool(ToolType.AXE).setRequiresTool().hardnessAndResistance(1f)));
 	public static final RegistryObject<Block> SARCOPHAGUS = BLOCK.register("sarcophagus", 
 	() -> new SarcoBlock(AbstractBlock.Properties.create(Material.IRON).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f)));
+	public static final RegistryObject<Block> SARCO_HALF = BLOCK.register("sarcophagus_half", 
+	() -> new SarcoBlock(AbstractBlock.Properties.create(Material.IRON).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f)));
 	public static final RegistryObject<Block> PLATE = BLOCK.register("plate", 
 	() -> new VariatedBlock(AbstractBlock.Properties.create(Material.IRON).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f)));
 	public static final RegistryObject<Block> QUICKSAND = BLOCK.register("quicksand", 
@@ -300,7 +302,7 @@ import java.util.function.Supplier;
 	public static final RegistryObject<Block> ELEMENTAL_MANIPULATOR = BLOCK.register("elemental_manipulator", 
 	() -> new ManipulatorBlock(Properties.create(Material.IRON).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f).setLightLevel(s -> 4).notSolid()));
 	public static final RegistryObject<Block> PEDESTAL = BLOCK.register("pedestal", 
-	() -> new Block(Properties.create(Material.ROCK).harvestLevel(1).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f).notSolid()));
+	() -> new PedestalBlock(Properties.create(Material.ROCK).harvestLevel(1).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f).notSolid()));
 	public static final RegistryObject<Block> BRONZE_LAMP = BLOCK.register("bronze_lamp", 
 	() -> new RedstoneLampBlock(Properties.create(Material.IRON).harvestLevel(0).hardnessAndResistance(3f).notSolid().sound(SoundType.GLASS).setLightLevel(getLightValueLit(13))));
 	public static final RegistryObject<Block> DECORATED_BRONZE_LAMP = BLOCK.register("decorated_bronze_lamp", 
@@ -336,18 +338,18 @@ import java.util.function.Supplier;
 	public static final RegistryObject<Block> SAPPHIRE_CRYSTAL = BLOCK.register("sapphire_crystal", 
 	() -> new CrystalBlock(Properties.create(Material.IRON).harvestLevel(2).hardnessAndResistance(1f).sound(SoundType.GLASS).notSolid()));
 	// Vases
-	public static final RegistryObject<Block> VASE_SMALL = BLOCK.register("vase_small", 
-	() -> new VaseBlock(Properties.create(Material.GLASS).harvestLevel(0).zeroHardnessAndResistance().notSolid().sound(SoundType.GLASS)));
-	public static final RegistryObject<Block> VASE_SMALL_1 = BLOCK.register("vase_small_1", 
-	() -> new VaseBlock(Properties.create(Material.GLASS).harvestLevel(0).zeroHardnessAndResistance().notSolid().sound(SoundType.GLASS)));
-	public static final RegistryObject<Block> VASE_BIG = BLOCK.register("vase_big", 
-	() -> new VaseBlock(Properties.create(Material.GLASS).harvestLevel(0).zeroHardnessAndResistance().notSolid().sound(SoundType.GLASS)));
-	public static final RegistryObject<Block> VASE_BIG_1 = BLOCK.register("vase_big_1", 
-	() -> new VaseBlock(Properties.create(Material.GLASS).harvestLevel(0).zeroHardnessAndResistance().notSolid().sound(SoundType.GLASS)));
-	public static final RegistryObject<Block> VASE_BIG_2 = BLOCK.register("vase_big_2", 
-	() -> new VaseBlock(Properties.create(Material.GLASS).harvestLevel(0).zeroHardnessAndResistance().notSolid().sound(SoundType.GLASS)));
-	public static final RegistryObject<Block> VASE_BIG_3 = BLOCK.register("vase_big_3", 
-	() -> new VaseBlock(Properties.create(Material.GLASS).harvestLevel(0).zeroHardnessAndResistance().notSolid().sound(SoundType.GLASS)));
+	public static final RegistryObject<Block> POT_SMALL = BLOCK.register("pot_small", 
+	() -> new PotBlock(Properties.create(Material.GLASS).harvestLevel(0).zeroHardnessAndResistance().notSolid().sound(ModSoundRegistry.POT)));
+	public static final RegistryObject<Block> POT_SMALL_HANDLESS = BLOCK.register("pot_small_handless", 
+	() -> new PotBlock(Properties.create(Material.GLASS).harvestLevel(0).zeroHardnessAndResistance().notSolid().sound(ModSoundRegistry.POT)));
+	public static final RegistryObject<Block> POT_LONG = BLOCK.register("pot_long", 
+	() -> new PotBlock(Properties.create(Material.GLASS).harvestLevel(0).zeroHardnessAndResistance().notSolid().sound(ModSoundRegistry.POT)));
+	public static final RegistryObject<Block> POT_LONG_HANDLESS = BLOCK.register("pot_long_handless", 
+	() -> new PotBlock(Properties.create(Material.GLASS).harvestLevel(0).zeroHardnessAndResistance().notSolid().sound(ModSoundRegistry.POT)));
+	public static final RegistryObject<Block> POT_LONG_MOSSY = BLOCK.register("pot_long_mossy", 
+	() -> new PotBlock(Properties.create(Material.GLASS).harvestLevel(0).zeroHardnessAndResistance().notSolid().sound(ModSoundRegistry.POT)));
+	public static final RegistryObject<Block> POT_LONG_MOSSY_HANDLESS = BLOCK.register("pot_long_mossy_handless", 
+	() -> new PotBlock(Properties.create(Material.GLASS).harvestLevel(0).zeroHardnessAndResistance().notSolid().sound(ModSoundRegistry.POT)));
 	// Plants
 	public static final RegistryObject<Block> ALOE_SMALL = BLOCK.register("aloe_small",
 	() -> new DeadBushBlock(Properties.from(Blocks.SUNFLOWER)));

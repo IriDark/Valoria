@@ -3,9 +3,8 @@ package com.idark.darkrpg.client.render.gui;
 import com.idark.darkrpg.DarkRPG;
 import com.idark.darkrpg.item.types.*;
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.AbstractGui;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
@@ -24,10 +23,11 @@ import top.theillusivec4.curios.api.type.capability.ICurioItem;
 import java.util.ArrayList;
 import java.util.List;
 
+// Currently not work with Legendary Tooltips and other tooltip changing mods. Buggy at this moment and dont work correctly on all devices (Opacity errors)
 public class TooltipEventHandler {
+	public static final ResourceLocation STARS = new ResourceLocation(DarkRPG.MOD_ID, "textures/gui/eternal.png");
 
-    private TooltipEventHandler() {}
-    
+	@SubscribeEvent
 	public static void onPostTooltipEvent(RenderTooltipEvent.PostText event) {
         ItemStack stack = event.getStack();
 
@@ -35,18 +35,16 @@ public class TooltipEventHandler {
         int y = event.getY();
         int width = event.getWidth();
         int height = event.getHeight();
-        MatrixStack ms = event.getMatrixStack();
-
-        Minecraft mc = Minecraft.getInstance();
-
-        RenderSystem.enableBlend();
-        RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-        ms.translate(0, 0, 410.0);
-            
+		Minecraft mc = Minecraft.getInstance();
+		MatrixStack matrix = event.getMatrixStack();
+		matrix.push();		
+		matrix.translate(0, 0, 600);  
+		
 		if (stack.getItem() instanceof BlazeReapItem) {
-            mc.textureManager.bindTexture(new ResourceLocation(DarkRPG.MOD_ID + ":textures/gui/eternal.png"));
-            AbstractGui.blit(ms, x, y + 10, 0, 0, 80, 16, 80, 16);
+            mc.textureManager.bindTexture(STARS);
+            Screen.blit(matrix, x, y + 11, 0, 0, 80, 16, 80, 16);
 		}
+		matrix.pop();
 	}
 	
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
@@ -55,8 +53,8 @@ public class TooltipEventHandler {
         if (!stack.isEmpty()) {
             List<ITextComponent> tooltip = event.getToolTip();
 			if (stack.getItem() instanceof BlazeReapItem) {
-                tooltip.add(1, new StringTextComponent("                "));
-                tooltip.add(1, new StringTextComponent("                "));
+				tooltip.add(1, new StringTextComponent("                "));
+				tooltip.add(1, new StringTextComponent("                "));
 			}
 		}
 	}

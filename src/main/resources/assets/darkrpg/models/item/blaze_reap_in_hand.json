@@ -1,6 +1,6 @@
 {
   "parent": "darkrpg:item/handheld_large",
   "textures": {
-    "layer0": "darkrpg:item/blaze_reap_in_hand"
+    "layer0": "darkrpg:item/blaze_reap_in_hand",
   }
 }
