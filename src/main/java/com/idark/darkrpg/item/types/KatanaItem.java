@@ -117,10 +117,10 @@ public class KatanaItem extends TieredItem implements IVanishable {
     }
 	
 	public int getUseDuration(ItemStack stack) {
-      return 78000;
+      return 30;
 	}
 	
-    //Sounds taken from the CalamityMod (Terraria) in a https://calamitymod.fandom.com/wiki/Category:Sound_effects
+    // Some sounds taken from the CalamityMod (Terraria) in a https://calamitymod.fandom.com/wiki/Category:Sound_effects
     public void onPlayerStoppedUsing(ItemStack stack, World worldIn, LivingEntity entityLiving, int timeLeft) {
         PlayerEntity player = (PlayerEntity)entityLiving;
         Vector3d dir = MathUtils.direction(player);

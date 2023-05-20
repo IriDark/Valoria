@@ -39,11 +39,15 @@ public class BlazeReapItem extends PickaxeItem {
         super(tier, attackDamageIn, attackSpeedIn, builder);
     }
 
+	public int getUseDuration(ItemStack stack) {
+      return 30;
+	}
+
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchant){
         return enchant.type != EnchantmentType.BREAKABLE && enchant.type == EnchantmentType.WEAPON || enchant.type == EnchantmentType.DIGGER;
     }
 
-    //Sounds taken from the CalamityMod (Terraria) in a https://calamitymod.fandom.com/wiki/Category:Sound_effects
+    // Some sounds taken from the CalamityMod (Terraria) in a https://calamitymod.fandom.com/wiki/Category:Sound_effects
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
         ItemStack itemstack = playerIn.getHeldItem(handIn);
 

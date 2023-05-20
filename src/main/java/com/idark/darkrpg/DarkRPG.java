@@ -1,6 +1,7 @@
 package com.idark.darkrpg;
 
 import com.google.common.collect.ImmutableMap;
+import com.idark.darkrpg.item.ModItems;
 import com.idark.darkrpg.block.*;
 import com.idark.darkrpg.block.types.*;
 import com.idark.darkrpg.client.render.DashOverlayRender;
@@ -10,34 +11,37 @@ import com.idark.darkrpg.client.render.model.tileentity.*;
 import com.idark.darkrpg.client.event.*;
 import com.idark.darkrpg.effect.ModEffects;
 import com.idark.darkrpg.entity.ModEntityTypes;
+import com.idark.darkrpg.entity.custom.*;
+import com.idark.darkrpg.entity.renderer.*;
 import com.idark.darkrpg.tileentity.*;
-import com.idark.darkrpg.entity.custom.GoblinEntity;
-import com.idark.darkrpg.entity.custom.MannequinEntity;
-import com.idark.darkrpg.entity.custom.SwampWandererEntity;
-import com.idark.darkrpg.entity.renderer.GoblinRenderer;
-import com.idark.darkrpg.entity.renderer.MannequinRenderer;
-import com.idark.darkrpg.entity.renderer.SwampWandererRenderer;
-import com.idark.darkrpg.item.ModItems;
 import com.idark.darkrpg.paintings.ModPaintings;
-import com.idark.darkrpg.util.ModItemModelProperties;
-import com.idark.darkrpg.util.ModSoundRegistry;
+import com.idark.darkrpg.util.*;
+import com.idark.darkrpg.util.particle.*;
+import top.theillusivec4.curios.api.CuriosApi;
+import top.theillusivec4.curios.api.SlotTypeMessage;
+import top.theillusivec4.curios.api.SlotTypePreset;
+
 import net.minecraft.item.*;
 import net.minecraft.block.*;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Atlases;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.renderer.model.ModelResourceLocation;
+import net.minecraft.client.renderer.tileentity.SignTileEntityRenderer;
 import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.world.gen.Heightmap;
-import net.minecraft.client.renderer.tileentity.SignTileEntityRenderer;
-import net.minecraftforge.client.event.ModelBakeEvent;
-import net.minecraftforge.client.event.ModelRegistryEvent;
-import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.client.event.ModelBakeEvent;
+import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
+import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
@@ -47,9 +51,6 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import top.theillusivec4.curios.api.CuriosApi;
-import top.theillusivec4.curios.api.SlotTypeMessage;
-import top.theillusivec4.curios.api.SlotTypePreset;
 
 	    @Mod(DarkRPG.MOD_ID)
 	    public class DarkRPG {
@@ -80,17 +81,20 @@ import top.theillusivec4.curios.api.SlotTypePreset;
 		ModBlocks.register(eventBus);
 		ModTileEntities.register(eventBus);
 		ModEntityTypes.register(eventBus);
+        ModParticles.register(eventBus);
 
 		IEventBus forgeBus = MinecraftForge.EVENT_BUS;
 
         forgeBus.addListener(ClientTickHandler::clientTickEnd);
+        forgeBus.addListener(WorldRenderHandler::onRenderWorldLast);	
 		forgeBus.addListener(DashOverlayRender::tick);
 		forgeBus.addListener(DashOverlayRender::onDrawScreenPost);
 		forgeBus.addListener(TooltipEventHandler::onPostTooltipEvent);
 		forgeBus.addListener(TooltipEventHandler::onTooltip);
 		
 	    MinecraftForge.EVENT_BUS.register(this);
-	    }
+	}
+	
 	    private void doClientStuff(final FMLClientSetupEvent event) {
 	    event.enqueueWork(() -> {
 		RenderTypeLookup.setRenderLayer(ModBlocks.FALSEFLOWER.get(), RenderType.getCutout());
@@ -115,7 +119,8 @@ import top.theillusivec4.curios.api.SlotTypePreset;
 	    RenderTypeLookup.setRenderLayer(ModBlocks.RAJUSH.get(), RenderType.getCutout());	    
 	    RenderTypeLookup.setRenderLayer(ModBlocks.ELEMENTAL_MANIPULATOR.get(), RenderType.getCutout());
 	    RenderTypeLookup.setRenderLayer(ModBlocks.SPIDER_EGG.get(), RenderType.getCutout());
-	    RenderTypeLookup.setRenderLayer(ModBlocks.PEDESTAL.get(), RenderType.getCutout());
+	    RenderTypeLookup.setRenderLayer(ModBlocks.SKULLY_PEDESTAL.get(), RenderType.getCutout());
+	    RenderTypeLookup.setRenderLayer(ModBlocks.ELEGANT_PEDESTAL.get(), RenderType.getCutout());
 	    RenderTypeLookup.setRenderLayer(ModBlocks.POT_SMALL.get(), RenderType.getCutout());
 	    RenderTypeLookup.setRenderLayer(ModBlocks.POT_SMALL_HANDLESS.get(), RenderType.getCutout());
 	    RenderTypeLookup.setRenderLayer(ModBlocks.POT_LONG.get(), RenderType.getCutout());
@@ -139,9 +144,9 @@ import top.theillusivec4.curios.api.SlotTypePreset;
 	    RenderTypeLookup.setRenderLayer(ModBlocks.VOID_CRYSTAL.get(), RenderType.getCutout());
 	    RenderTypeLookup.setRenderLayer(ModBlocks.SPIKES.get(), RenderType.getCutout());
 
+        ClientRegistry.bindTileEntityRenderer(ModTileEntities.PEDESTAL_TILE_ENTITY.get(), PedestalTileEntityRenderer::new);
 		ClientRegistry.bindTileEntityRenderer(ModTileEntities.SIGN_TILE_ENTITIES.get(), SignTileEntityRenderer::new);
 	    Atlases.addWoodType(ModWoodTypes.SHADEWOOD);
-        ClientRegistry.bindTileEntityRenderer(ModTileEntities.PEDESTAL_TILE_ENTITY.get(), PedestalTileEntityRenderer::new);
 		});
 	    
 	    EntitySpawnPlacementRegistry.register(ModEntityTypes.SWAMP_WANDERER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND,
@@ -188,9 +193,14 @@ import top.theillusivec4.curios.api.SlotTypePreset;
 		}
 
 		@SubscribeEvent
-		public static void onModelBakeEvent(ModelBakeEvent event)
-		{
-		Item2DRenderer.onModelBakeEvent(event);
+		public static void onModelBakeEvent(ModelBakeEvent event) {
+			Item2DRenderer.onModelBakeEvent(event);
 		}
+		
+		@OnlyIn(Dist.CLIENT)
+		@SubscribeEvent
+		public static void registerFactories(ParticleFactoryRegisterEvent event) {
+			Minecraft.getInstance().particles.registerFactory(ModParticles.SPARKLE_PARTICLE.get(), SparkleParticleType.Factory::new);
+		}	
 	}
 }

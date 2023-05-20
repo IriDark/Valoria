@@ -47,11 +47,11 @@ public class CoralReefItem extends SwordItem {
         return UseAction.NONE;
     }
 
-    public int getUseDuration(ItemStack stack) {
-        return 78000;
-    }
+	public int getUseDuration(ItemStack stack) {
+      return 30;
+	}
 
-    //Sounds taken from the CalamityMod (Terraria) in a https://calamitymod.fandom.com/wiki/Category:Sound_effects
+    // Some sounds taken from the CalamityMod (Terraria) in a https://calamitymod.fandom.com/wiki/Category:Sound_effects
     public void onPlayerStoppedUsing(ItemStack stack, World worldIn, LivingEntity entityLiving, int timeLeft) {
         PlayerEntity player = (PlayerEntity)entityLiving;
         player.getCooldownTracker().setCooldown(this, 300);

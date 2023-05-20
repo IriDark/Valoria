@@ -30,7 +30,7 @@ public class PedestalTileEntityRenderer extends TileEntityRenderer<PedestalTileE
         ms.rotate(Vector3f.YP.rotationDegrees((float) ticks));
         ms.scale(0.5F, 0.5F, 0.5F);
         ItemStack stack = pedestal.getItemHandler().getStackInSlot(0);
-        Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.FIXED, light, overlay, ms, buffers);
+		Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.FIXED, light, overlay, ms, buffers);
         ms.pop();
     }
 }

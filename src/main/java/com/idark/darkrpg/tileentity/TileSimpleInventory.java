@@ -10,6 +10,8 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.NonNullList;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 
 public abstract class TileSimpleInventory extends TileEntity {
 
@@ -53,6 +55,25 @@ public abstract class TileSimpleInventory extends TileEntity {
     public final int inventorySize() {
         return getItemHandler().getSizeInventory();
     }
+	
+	@Override
+    public final SUpdateTileEntityPacket getUpdatePacket() {
+        CompoundNBT tag = new CompoundNBT();
+        write(tag);
+        return new SUpdateTileEntityPacket(pos, -999, tag);
+    }
+
+    @Override
+    public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket packet) {
+        super.onDataPacket(net, packet);
+        read(this.getBlockState(),packet.getNbtCompound());
+    }
+
+    @Override
+    public CompoundNBT getUpdateTag()
+    {
+        return this.write(new CompoundNBT());
+    }	
 
     protected abstract Inventory createItemHandler();
 

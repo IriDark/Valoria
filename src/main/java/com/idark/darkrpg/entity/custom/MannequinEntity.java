@@ -42,8 +42,8 @@ public class MannequinEntity extends MobEntity implements IForgeEntity {
         if (hurtTime == 0){
             dataManager.set(LAST_DAMAGE,amount);
         }
-        return super.attackEntityFrom(source, amount);
-    }
+	return super.attackEntityFrom(source, amount);
+	}
 
     public float getLastDamage(){
         return dataManager.get(LAST_DAMAGE);

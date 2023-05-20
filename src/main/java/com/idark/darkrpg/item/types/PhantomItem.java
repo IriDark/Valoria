@@ -33,15 +33,6 @@ public class PhantomItem extends SwordItem {
         super(tier, attackDamageIn, attackSpeedIn, builderIn);
     }
 
-	private static ItemStack getEternityItem(PlayerEntity player, Hand handIn) {
-		ItemStack stack = player.getHeldItem(handIn);
-		if (stack.getItem() == ModItems.ETERNITY.get()) {
-			return stack;
-		}
-
-		return new ItemStack(ModItems.ETERNITY.get());
-	}
-
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
         ItemStack itemstack = playerIn.getHeldItem(handIn);
         if (itemstack.getDamage() >= itemstack.getMaxDamage() - 1) {
@@ -57,18 +48,17 @@ public class PhantomItem extends SwordItem {
     }
 
     public int getUseDuration(ItemStack stack) {
-        return 10;
+        return 30;
     }
 
-    //Sounds taken from the CalamityMod (Terraria) in a https://calamitymod.fandom.com/wiki/Category:Sound_effects
-    public void onPlayerStoppedUsing(ItemStack stack, World worldIn, LivingEntity entityLiving, int timeLeft, Hand handIn) {
+    // Some sounds taken from the CalamityMod (Terraria) in a https://calamitymod.fandom.com/wiki/Category:Sound_effects
+    public void onPlayerStoppedUsing(ItemStack stack, World worldIn, LivingEntity entityLiving, int timeLeft) {
         PlayerEntity player = (PlayerEntity)entityLiving;
-        player.getCooldownTracker().setCooldown(this, 625);
+        player.getCooldownTracker().setCooldown(this, 10);
         player.addStat(Stats.ITEM_USED.get(this));
 
         Vector3d pos = new Vector3d(player.getPosX(), player.getPosY() + player.getEyeHeight(), player.getPosZ());
         List<LivingEntity> hitEntities = new ArrayList<LivingEntity>();
-
         for (int i = 0; i < 360; i += 10) {
             float yawDouble = 0;
             if (i <= 180) {
@@ -79,24 +69,16 @@ public class PhantomItem extends SwordItem {
             hitDirection(worldIn, player, hitEntities, pos, 0, player.getPitchYaw().y + i, 4);
         }
 
-        float damage = (float) (player.getAttribute(Attributes.ATTACK_DAMAGE).getValue()) + EnchantmentHelper.getSweepingDamageRatio(player);
-
+        worldIn.addParticle(ParticleTypes.SOUL_FIRE_FLAME, player.getPosX() + ((rand.nextDouble() - 0.7D) * 1), player.getPosY() + ((rand.nextDouble() - 1D) * 1), player.getPosZ() + ((rand.nextDouble() - 0.5D) * 1), 0.05d * ((rand.nextDouble() - 0.5D) * 1), 0.05d * ((rand.nextDouble() - 0.5D) * 1), 0.05d * ((rand.nextDouble() - 0.5D) * 1));
         worldIn.addParticle(ParticleTypes.SOUL_FIRE_FLAME, player.getPosX() + ((rand.nextDouble() - 0.5D) * 2), player.getPosY() + ((rand.nextDouble() - 0.5D) * 2), player.getPosZ() + ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2));
-        Minecraft.getInstance().gameRenderer.displayItemActivation(getEternityItem(player, handIn));
-        for (LivingEntity entity : hitEntities) {
-            entity.attackEntityFrom(DamageSource.GENERIC, damage);
-            entity.applyKnockback(0.4F, player.getPosX() - entity.getPosX(), player.getPosZ() - entity.getPosZ());
-            if (EnchantmentHelper.getFireAspectModifier(player) > 0) {
-                int i = EnchantmentHelper.getFireAspectModifier(player);
-                entity.setFire(i * 4);
-            }
-            if (!player.isCreative()) {
-                stack.damageItem(hitEntities.size(), player, (p_220045_0_) -> {p_220045_0_.sendBreakAnimation(EquipmentSlotType.MAINHAND);});
-            }
-        }
+        worldIn.playSound(player, player.getPosition(), SoundEvents.ITEM_TOTEM_USE, SoundCategory.AMBIENT, 1.0F, 1.0F);
+        Minecraft.getInstance().gameRenderer.displayItemActivation(new ItemStack(ModItems.ETERNITY.get()));
+        if (!player.isCreative()) {
+            stack.damageItem(35, player, (p_220045_0_) -> {p_220045_0_.sendBreakAnimation(EquipmentSlotType.MAINHAND);});
 
         worldIn.playSound(player, player.getPosition(), ModSoundRegistry.BLAZECHARGE.get(), SoundCategory.AMBIENT, 10f, 1f);
-    }
+		}
+	}
 
     public void hitDirection(World worldIn, PlayerEntity player, List<LivingEntity> hitEntities, Vector3d pos, float pitchRaw, float yawRaw, float distance) {
         double pitch = ((pitchRaw + 90) * Math.PI) / 180;

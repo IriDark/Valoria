@@ -25,44 +25,44 @@ import net.minecraft.world.World;
 import java.util.Random;
 
 public class HoundItem extends TieredItem implements IVanishable {
-   private final float attackDamage;
-   private final Multimap<Attribute, AttributeModifier> attributeModifiers;
-   Random rand = new Random();
+	private final float attackDamage;
+	private final Multimap<Attribute, AttributeModifier> attributeModifiers;
+	Random rand = new Random();
 
-   public HoundItem(IItemTier tier, int attackDamageIn, float attackSpeedIn, Item.Properties builderIn) {
-      super(tier, builderIn);
-      this.attackDamage = (float)attackDamageIn + tier.getAttackDamage();
-      Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
-      builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", (double)this.attackDamage, AttributeModifier.Operation.ADDITION));
-      builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", (double)attackSpeedIn, AttributeModifier.Operation.ADDITION));
-      this.attributeModifiers = builder.build();
-   }
+	public HoundItem(IItemTier tier, int attackDamageIn, float attackSpeedIn, Item.Properties builderIn) {
+		super(tier, builderIn);
+		this.attackDamage = (float)attackDamageIn + tier.getAttackDamage();
+		Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
+		builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", (double)this.attackDamage, AttributeModifier.Operation.ADDITION));
+		builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", (double)attackSpeedIn, AttributeModifier.Operation.ADDITION));
+		this.attributeModifiers = builder.build();
+	}
 
-   public float getAttackDamage() {
+	public float getAttackDamage() {
       return this.attackDamage;
-   }
+	}
 
-   public boolean canPlayerBreakBlockWhileHolding(BlockState state, World worldIn, BlockPos pos, PlayerEntity player) {
+	public boolean canPlayerBreakBlockWhileHolding(BlockState state, World worldIn, BlockPos pos, PlayerEntity player) {
       return !player.isCreative();
-   }
+	}
    
-   public boolean hitEntity(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-      stack.damageItem(1, attacker, (entity) -> {
-         entity.sendBreakAnimation(EquipmentSlotType.MAINHAND);
-	});	
+	public boolean hitEntity(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+		stack.damageItem(1, attacker, (entity) -> {
+		entity.sendBreakAnimation(EquipmentSlotType.MAINHAND);
+		});	
 	return true;
-   }
+	}
 
-   public boolean onBlockDestroyed(ItemStack stack, World worldIn, BlockState state, BlockPos pos, LivingEntity entityLiving) {
-      if (state.getBlockHardness(worldIn, pos) != 0.0F) {
-      stack.damageItem(4, entityLiving, (entity) -> {
-      entity.sendBreakAnimation(EquipmentSlotType.MAINHAND);
-        });
-      }
-      return true;
-    }
+	public boolean onBlockDestroyed(ItemStack stack, World worldIn, BlockState state, BlockPos pos, LivingEntity entityLiving) {
+		if (state.getBlockHardness(worldIn, pos) != 0.0F) {
+		stack.damageItem(4, entityLiving, (entity) -> {
+		entity.sendBreakAnimation(EquipmentSlotType.MAINHAND);
+			});
+		}
+		return true;
+	}
 
-   public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlotType equipmentSlot) {
-      return equipmentSlot == EquipmentSlotType.MAINHAND ? this.attributeModifiers : super.getAttributeModifiers(equipmentSlot);
+	public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlotType equipmentSlot) {
+		return equipmentSlot == EquipmentSlotType.MAINHAND ? this.attributeModifiers : super.getAttributeModifiers(equipmentSlot);
     }
 }
