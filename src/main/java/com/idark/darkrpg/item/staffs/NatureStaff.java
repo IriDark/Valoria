@@ -31,8 +31,7 @@ public class NatureStaff extends Item {
 
             rightClickOnCertainBlockState(clickedBlock, context, playerEntity);
             stack.damageItem(1, playerEntity, player -> player.sendBreakAnimation(context.getHand()));
-			if (world.isRemote()) {
-				for (int i = 0; i < 15; i++) {
+			for (int i = 0; i < 15; i++) {
 				Particles.create(ModParticles.SPARKLE_PARTICLE)
 				.addVelocity(((rand.nextDouble() - 0.5D) / 30), ((rand.nextDouble() - 0.5D) / 30), ((rand.nextDouble() - 0.5D) / 30))
 				.setAlpha(0.25f, 0).setScale(0.3f, 0)
