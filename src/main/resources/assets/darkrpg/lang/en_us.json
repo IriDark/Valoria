@@ -1,7 +1,7 @@
 {
 	"_comment": "Tooltips",
 	"tooltip.darkrpg.wip": "(This is a WIP - an item that currently doesn't do anything or can be broken)",
-	"tooltip.darkrpg.rmb": "[RMB] - to use the ability",
+	"tooltip.darkrpg.rmb": "[RMB] - to use",
 	"tooltip.darkrpg.familiar": "This weapon... it's so familiar to me...",
 	"tooltip.darkrpg.katana": "A fast but weak weapon, has a dash ability",
 	"tooltip.darkrpg.blazereap": "A strong weapon, has a KABOOM ability (Needs 5 gunpowder)",

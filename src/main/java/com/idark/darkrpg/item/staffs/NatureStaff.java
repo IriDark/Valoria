@@ -39,7 +39,6 @@ public class NatureStaff extends Item {
 				.setLifetime(30)
 				.setSpin((0.5f * (float) ((rand.nextDouble() - 0.5D) * 2)))
 				.spawn(world, pos.getX() + 0.5F + ((rand.nextDouble() - 0.5D) * 1.25), pos.getY() + 0.5F + ((rand.nextDouble() - 0.5D) * 1.25), pos.getZ() + 0.5F + ((rand.nextDouble() - 0.5D) * 1.25));
-				}
 			}
 		}
 

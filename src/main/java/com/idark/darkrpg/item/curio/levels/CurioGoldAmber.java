@@ -7,6 +7,8 @@ import com.idark.darkrpg.item.curio.*;
 import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
+import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.ITextComponent;
@@ -30,6 +32,7 @@ import top.theillusivec4.curios.api.type.capability.ICurioItem;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraftforge.common.ForgeMod;
+import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nonnull;
 import java.util.UUID;
@@ -54,8 +57,7 @@ public class CurioGoldAmber extends Item implements ICurioItem {
     }
 
     @Override
-    public Multimap<Attribute, AttributeModifier> getAttributeModifiers(SlotContext slotContext,
-                                                                        UUID uuid, ItemStack stack) {
+    public Multimap<Attribute, AttributeModifier> getAttributeModifiers(SlotContext slotContext, UUID uuid, ItemStack stack) {
         Multimap<Attribute, AttributeModifier> atts = LinkedHashMultimap.create();
         atts.put(Attributes.ARMOR, new AttributeModifier(uuid, "bonus", 1.5, AttributeModifier.Operation.ADDITION));
 		return atts;

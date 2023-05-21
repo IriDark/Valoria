@@ -1,6 +1,7 @@
 package com.idark.darkrpg.item;
 	
 import com.idark.darkrpg.DarkRPG;
+import com.idark.darkrpg.item.curio.*;
 import com.idark.darkrpg.item.curio.levels.*;
 import com.idark.darkrpg.item.curio.belt.*;
 import com.idark.darkrpg.item.curio.hands.*;
@@ -383,7 +384,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
     public static final RegistryObject<Item> IRON_CHAIN = ITEMS.register("iron_chain",
 		() -> new Item(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP).maxStackSize(8).rarity(Rarity.UNCOMMON)));
 	public static final RegistryObject<Item> IRON_NECKLACE_AMBER = ITEMS.register("iron_necklace_amber",
-		() -> new CurioIronAmber(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP).maxStackSize(1).maxDamage(320).rarity(Rarity.EPIC)));
+		() -> new CurioItemProperty(CurioItemProperty.type.NECKLACE, CurioItemProperty.gem.AMBER, CurioItemProperty.material.IRON, new Item.Properties().group(ModItemGroup.DARKRPG_GROUP).maxStackSize(1).maxDamage(320).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> IRON_NECKLACE_DIAMOND = ITEMS.register("iron_necklace_diamond",
 		() -> new CurioIronDiamond(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP).maxStackSize(1).maxDamage(320).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> IRON_NECKLACE_EMERALD = ITEMS.register("iron_necklace_emerald",
@@ -421,7 +422,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 	public static final RegistryObject<Item> IRON_RING = ITEMS.register("iron_ring",
 		() -> new CurioIronRing(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP).maxStackSize(1).maxDamage(80).rarity(Rarity.UNCOMMON)));
 	public static final RegistryObject<Item> IRON_RING_AMBER = ITEMS.register("iron_ring_amber",
-		() -> new CurioIronAmber(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP).maxStackSize(1).maxDamage(320).rarity(Rarity.EPIC)));
+		() -> new CurioIronAmber(true, new Item.Properties().group(ModItemGroup.DARKRPG_GROUP).maxStackSize(1).maxDamage(320).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> IRON_RING_DIAMOND = ITEMS.register("iron_ring_diamond",
 		() -> new CurioIronDiamond(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP).maxStackSize(1).maxDamage(320).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> IRON_RING_EMERALD = ITEMS.register("iron_ring_emerald",
