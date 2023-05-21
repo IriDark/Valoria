@@ -384,7 +384,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
     public static final RegistryObject<Item> IRON_CHAIN = ITEMS.register("iron_chain",
 		() -> new Item(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP).maxStackSize(8).rarity(Rarity.UNCOMMON)));
 	public static final RegistryObject<Item> IRON_NECKLACE_AMBER = ITEMS.register("iron_necklace_amber",
-		() -> new CurioItemProperty(CurioItemProperty.type.NECKLACE, CurioItemProperty.gem.AMBER, CurioItemProperty.material.IRON, new Item.Properties().group(ModItemGroup.DARKRPG_GROUP).maxStackSize(1).maxDamage(320).rarity(Rarity.EPIC)));
+		() -> new CurioItemProperty(AccessoryType.NECKLACE, AccessoryGem.AMBER, AccessoryMaterial.IRON, new Item.Properties().group(ModItemGroup.DARKRPG_GROUP).maxStackSize(1).maxDamage(320).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> IRON_NECKLACE_DIAMOND = ITEMS.register("iron_necklace_diamond",
 		() -> new CurioIronDiamond(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP).maxStackSize(1).maxDamage(320).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> IRON_NECKLACE_EMERALD = ITEMS.register("iron_necklace_emerald",
