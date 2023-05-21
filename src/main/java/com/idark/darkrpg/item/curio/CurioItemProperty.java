@@ -54,9 +54,9 @@ public class CurioItemProperty extends RPGCurioItem implements ICurioItem {
 	private static final ResourceLocation NETHERITE = new ResourceLocation(DarkRPG.MOD_ID, "textures/entity/necklace/netherite_necklace.png");
 	private static final ResourceLocation YADAYN = new ResourceLocation(DarkRPG.MOD_ID, "textures/entity/necklace/empty.png");
 
-	public static AccessoryType type;
-	public static AccessoryGem gem;
-	public static AccessoryMaterial material;
+	public AccessoryType type;
+	public AccessoryGem gem;
+	public AccessoryMaterial material;
 
 	public CurioItemProperty(AccessoryType type, AccessoryGem gem, AccessoryMaterial material, Item.Properties properties) {
         super(properties);
@@ -136,7 +136,10 @@ public class CurioItemProperty extends RPGCurioItem implements ICurioItem {
 	@Override
     public void render(String identifier, int index, MatrixStack matrixStack, IRenderTypeBuffer renderTypeBuffer, int light, LivingEntity livingEntity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, ItemStack stack) {
 		NecklaceModel model = new NecklaceModel();
-		IVertexBuilder vertexBuilder= ItemRenderer.getBuffer(renderTypeBuffer, model.getRenderType(YADAYN), false, stack.hasEffect());;
+		IVertexBuilder vertexBuilder= ItemRenderer.getBuffer(renderTypeBuffer, model.getRenderType(YADAYN), false, stack.hasEffect());
+
+		ICurio.RenderHelper.translateIfSneaking(matrixStack, livingEntity);
+		ICurio.RenderHelper.rotateIfSneaking(matrixStack, livingEntity);
 
 		switch(material) {
 			case IRON:
@@ -156,8 +159,6 @@ public class CurioItemProperty extends RPGCurioItem implements ICurioItem {
 			case CHARM:
 				break;
 			case NECKLACE:
-				ICurio.RenderHelper.translateIfSneaking(matrixStack, livingEntity);
-				ICurio.RenderHelper.rotateIfSneaking(matrixStack, livingEntity);
 				model.render(matrixStack, vertexBuilder, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
 				break;
 		}
@@ -196,9 +197,6 @@ public class CurioItemProperty extends RPGCurioItem implements ICurioItem {
 			case CHARM:
 				break;
 			case NECKLACE:
-				ICurio.RenderHelper.translateIfSneaking(matrixStack, livingEntity);
-				ICurio.RenderHelper.rotateIfSneaking(matrixStack, livingEntity);
-				model.render(matrixStack, vertexBuilder, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
 				model.render(matrixStack, vertexBuilder, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
 				break;
 		}
