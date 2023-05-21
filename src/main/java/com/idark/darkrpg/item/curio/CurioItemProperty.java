@@ -125,29 +125,18 @@ public class CurioItemProperty extends RPGCurioItem implements ICurioItem {
             }
         }
 
-        ICurioItem.super.curioTick(identifier, index, livingEntity, stack);
+        super.curioTick(identifier, index, livingEntity, stack);
     }
 	
 	@Override
     public boolean canRender(String identifier, int index, LivingEntity livingEntity, ItemStack stack) {
         return true;
     }
-	
-	// ХУИТА ДА
+
 	@Override
     public void render(String identifier, int index, MatrixStack matrixStack, IRenderTypeBuffer renderTypeBuffer, int light, LivingEntity livingEntity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, ItemStack stack) {
 		NecklaceModel model = new NecklaceModel();
-		IVertexBuilder vertexBuilder;	
-		switch(type) {
-			case RING:
-				return;
-			case CHARM:
-				return;
-			case NECKLACE:
-			ICurio.RenderHelper.translateIfSneaking(matrixStack, livingEntity);
-			ICurio.RenderHelper.rotateIfSneaking(matrixStack, livingEntity);
-			vertexBuilder = ItemRenderer.getBuffer(renderTypeBuffer, model.getRenderType(YADAYN), false, stack.hasEffect());
-			model.render(matrixStack, vertexBuilder, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+		IVertexBuilder vertexBuilder= ItemRenderer.getBuffer(renderTypeBuffer, model.getRenderType(YADAYN), false, stack.hasEffect());;
 
 		switch(material) {
 			case IRON:
@@ -160,7 +149,19 @@ public class CurioItemProperty extends RPGCurioItem implements ICurioItem {
 				vertexBuilder = ItemRenderer.getBuffer(renderTypeBuffer, model.getRenderType(NETHERITE), false, stack.hasEffect());
 				break;
 		}
-	
+
+		switch(type) {
+			case RING:
+				break;
+			case CHARM:
+				break;
+			case NECKLACE:
+				ICurio.RenderHelper.translateIfSneaking(matrixStack, livingEntity);
+				ICurio.RenderHelper.rotateIfSneaking(matrixStack, livingEntity);
+				model.render(matrixStack, vertexBuilder, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+				break;
+		}
+
 		switch(gem) {
 			case AMBER:
 				vertexBuilder = ItemRenderer.getBuffer(renderTypeBuffer, model.getRenderType(AMBER), false, stack.hasEffect());
@@ -177,7 +178,7 @@ public class CurioItemProperty extends RPGCurioItem implements ICurioItem {
 			case SAPPHIRE:
 				vertexBuilder = ItemRenderer.getBuffer(renderTypeBuffer, model.getRenderType(SAPPHIRE), false, stack.hasEffect());
 				break;
-			
+
 			case ARMOR:
 				vertexBuilder = ItemRenderer.getBuffer(renderTypeBuffer, model.getRenderType(ARMOR), false, stack.hasEffect());
 				break;
@@ -187,7 +188,19 @@ public class CurioItemProperty extends RPGCurioItem implements ICurioItem {
 			case WEALTH:
 				vertexBuilder = ItemRenderer.getBuffer(renderTypeBuffer, model.getRenderType(WEALTH), false, stack.hasEffect());
 				break;
-			}
+		}
+
+		switch(type) {
+			case RING:
+				break;
+			case CHARM:
+				break;
+			case NECKLACE:
+				ICurio.RenderHelper.translateIfSneaking(matrixStack, livingEntity);
+				ICurio.RenderHelper.rotateIfSneaking(matrixStack, livingEntity);
+				model.render(matrixStack, vertexBuilder, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+				model.render(matrixStack, vertexBuilder, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+				break;
 		}
 	}
 	
