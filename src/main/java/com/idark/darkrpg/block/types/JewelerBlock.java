@@ -18,13 +18,13 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 
 public class JewelerBlock extends Block {
-   private static final ITextComponent CONTAINER_NAME = new TranslationTextComponent("container.jewelers_table");
+   // private static final ITextComponent CONTAINER_NAME = new TranslationTextComponent("container.jewelers_table");
 	
 	public JewelerBlock(AbstractBlock.Properties properties) {
 		super(properties);
 	}
 	
-	public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
+/*/	public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
 		if (worldIn.isRemote) {
 			return ActionResultType.SUCCESS;
 		} else {
@@ -39,4 +39,5 @@ public class JewelerBlock extends Block {
 			return new CartographyContainer(id, inventory, IWorldPosCallable.of(worldIn, pos));
 		}, CONTAINER_NAME);
 	}
+	/*/
 }
