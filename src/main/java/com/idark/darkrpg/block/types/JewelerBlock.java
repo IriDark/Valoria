@@ -1,3 +1,5 @@
+// ITS A TODO BLOCK, THAT NOT FINISHED YET
+
 package com.idark.darkrpg.block.types;
 
 import net.minecraft.block.*;
