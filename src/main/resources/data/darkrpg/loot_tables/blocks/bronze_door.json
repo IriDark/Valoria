@@ -6,7 +6,6 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "darkrpg:bronze_door",
           "conditions": [
             {
               "condition": "minecraft:block_state_property",
@@ -15,7 +14,8 @@
                 "half": "lower"
               }
             }
-          ]
+          ],
+          "name": "darkrpg:bronze_door"
         }
       ],
       "conditions": [

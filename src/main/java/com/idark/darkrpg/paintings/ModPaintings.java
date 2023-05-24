@@ -43,6 +43,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 	PAINTING_TYPES.register("sauron2", () -> new PaintingType(16, 16));
 	public static final RegistryObject<PaintingType> HOUSE =
 	PAINTING_TYPES.register("house", () -> new PaintingType(16, 16));
+	public static final RegistryObject<PaintingType> EMERALD =
+	PAINTING_TYPES.register("emerald", () -> new PaintingType(16, 16));
 	
 	public static void register(IEventBus eventBus) {
 	PAINTING_TYPES.register(eventBus);

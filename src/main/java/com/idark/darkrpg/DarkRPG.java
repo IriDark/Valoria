@@ -17,6 +17,8 @@ import com.idark.darkrpg.tileentity.*;
 import com.idark.darkrpg.paintings.ModPaintings;
 import com.idark.darkrpg.util.*;
 import com.idark.darkrpg.util.particle.*;
+import com.idark.darkrpg.config.Config;
+import com.idark.darkrpg.world.*;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotTypeMessage;
 import top.theillusivec4.curios.api.SlotTypePreset;
@@ -44,9 +46,11 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.InterModComms;
+import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
@@ -83,8 +87,12 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 		ModEntityTypes.register(eventBus);
         ModParticles.register(eventBus);
 
+
 		IEventBus forgeBus = MinecraftForge.EVENT_BUS;
 
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+
+        forgeBus.register(new WorldGen());
         forgeBus.addListener(ClientTickHandler::clientTickEnd);
         forgeBus.addListener(WorldRenderHandler::onRenderWorldLast);	
 		forgeBus.addListener(DashOverlayRender::tick);
@@ -165,6 +173,8 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 		ModItemModelProperties.makeSize(ModItems.SOUL_COLLECTOR.get());
 	    }
 		private void setup(final FMLCommonSetupEvent event) {
+        WorldGen.init();
+
         event.enqueueWork(() -> {
 		AxeItem.BLOCK_STRIPPING_MAP = new ImmutableMap.Builder<Block, Block>().putAll(AxeItem.BLOCK_STRIPPING_MAP)
 		.put(ModBlocks.SHADELOG.get(), ModBlocks.STRIPPED_SHADELOG.get())
@@ -201,6 +211,8 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 		@SubscribeEvent
 		public static void registerFactories(ParticleFactoryRegisterEvent event) {
 			Minecraft.getInstance().particles.registerFactory(ModParticles.SPARKLE_PARTICLE.get(), SparkleParticleType.Factory::new);
+			Minecraft.getInstance().particles.registerFactory(ModParticles.PHANTOM_SLASH.get(), SlashParticleType.Factory::new);
+			Minecraft.getInstance().particles.registerFactory(ModParticles.TRANSFORM_PARTICLE.get(), SparkleParticleType.Factory::new);
 		}	
 	}
 }

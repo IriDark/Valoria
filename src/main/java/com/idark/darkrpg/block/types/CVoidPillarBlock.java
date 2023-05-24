@@ -53,9 +53,9 @@ public class CVoidPillarBlock extends RotatedPillarBlock {
             double d3 = rand.nextGaussian() * 0.02D;
             double d4 = rand.nextGaussian() * 0.02D;
             double d5 = 0.5D - 2.0D;
-            double d6 = (double)pos.getX() + d5 + rand.nextDouble() * 3.0D;
+            double d6 = (double)pos.getX() + d5 + rand.nextDouble() * 1.1D;
             double d7 = (double)pos.getY() + rand.nextDouble() + 0.5D;
-            double d8 = (double)pos.getZ() + d5 + rand.nextDouble() * 3.0D;		
+            double d8 = (double)pos.getZ() + d5 + rand.nextDouble() * 1.1D;		
 			worldIn.addParticle(ParticleTypes.POOF, d6, d7, d8, d2, d3, d4);
         }
 		worldIn.setBlockState(pos, ModBlocks.VOID_PILLAR.get().getDefaultState().with(RotatedPillarBlock.AXIS, state.get(RotatedPillarBlock.AXIS)));		

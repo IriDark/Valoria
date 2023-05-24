@@ -6,15 +6,24 @@
     "darkrpg:iron_necklace_emerald",
 	"darkrpg:iron_necklace_ruby",
 	"darkrpg:iron_necklace_sapphire",
+	"darkrpg:iron_necklace_health",	
+	"darkrpg:iron_necklace_armor",	
+	"darkrpg:iron_necklace_wealth",	
 	"darkrpg:golden_necklace_amber",
 	"darkrpg:golden_necklace_diamond",
     "darkrpg:golden_necklace_emerald",
 	"darkrpg:golden_necklace_ruby",
 	"darkrpg:golden_necklace_sapphire",
+	"darkrpg:golden_necklace_health",
+	"darkrpg:golden_necklace_armor",	
+	"darkrpg:golden_necklace_wealth",	
 	"darkrpg:netherite_necklace_amber",
 	"darkrpg:netherite_necklace_diamond",
     "darkrpg:netherite_necklace_emerald",
 	"darkrpg:netherite_necklace_ruby",
-	"darkrpg:netherite_necklace_sapphire"
+	"darkrpg:netherite_necklace_sapphire",
+	"darkrpg:netherite_necklace_health",
+	"darkrpg:netherite_necklace_armor",	
+	"darkrpg:netherite_necklace_wealth"	
   ]
 }

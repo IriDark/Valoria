@@ -49,8 +49,6 @@ public class TooltipEventHandler {
 		Minecraft mc = Minecraft.getInstance();
 		MatrixStack matrix = event.getMatrixStack();
 		matrix.push();		
-		RenderSystem.enableBlend();
-		RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		matrix.translate(0, 0, 410);		
 
 		if (stack.getItem() instanceof BlazeReapItem) {

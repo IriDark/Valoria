@@ -287,7 +287,9 @@ import java.util.function.Supplier;
     public static final RegistryObject<Block> SHADEWOOD_WALL_SIGN = BLOCK.register("shadewood_wall_sign",
     () -> new ModWallSignBlock(AbstractBlock.Properties.create(Material.IRON).notSolid().doesNotBlockMovement(), ModWoodTypes.SHADEWOOD));
 	// Other
-	public static final RegistryObject<Block> TOMB = BLOCK.register("tombs",
+	public static final RegistryObject<Block> JEWEREL_TABLE = BLOCK.register("jewerel_table",
+	() -> new JewelerBlock(Properties.create(Material.ROCK).harvestLevel(1).harvestTool(ToolType.AXE).setRequiresTool().hardnessAndResistance(1f)));	
+	public static final RegistryObject<Block> TOMB = BLOCK.register("tomb",
 	() -> new Block(Properties.create(Material.ROCK).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(1f)));
 	public static final RegistryObject<Block> KEG = BLOCK.register("keg", 
 	() -> new KegBlock(AbstractBlock.Properties.create(Material.WOOD).harvestLevel(1).harvestTool(ToolType.AXE).setRequiresTool().hardnessAndResistance(1f)));

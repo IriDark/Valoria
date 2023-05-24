@@ -2,6 +2,7 @@ package com.idark.darkrpg.block.types;
 
 import com.idark.darkrpg.block.*;
 import com.idark.darkrpg.item.*;
+import com.idark.darkrpg.util.particle.*;
 import net.minecraft.block.*;
 import net.minecraft.item.*;
 import net.minecraft.particles.ParticleTypes;
@@ -57,16 +58,17 @@ public class VoidPillarBlock extends RotatedPillarBlock {
 	private static boolean Amethyst(PlayerEntity player, Random rand, World worldIn, BlockPos pos, BlockState state) {
         worldIn.playSound(player, player.getPosition(), SoundEvents.BLOCK_RESPAWN_ANCHOR_AMBIENT, SoundCategory.BLOCKS, 10f, 1f);
 		worldIn.playSound(player, player.getPosition(), SoundEvents.BLOCK_RESPAWN_ANCHOR_CHARGE, SoundCategory.BLOCKS, 1.0F, 1.0F);
-		for (int i = 0;i<25;i++) {
-			double d2 = rand.nextGaussian() * 0.02D;
-            double d3 = rand.nextGaussian() * 0.02D;
-            double d4 = rand.nextGaussian() * 0.02D;
-            double d5 = 0.5D - 3.0D;
-            double d6 = (double)pos.getX() + d5 + rand.nextDouble() * 3.0D * 2.0D;
-            double d7 = (double)pos.getY() + rand.nextDouble() + 0.5D;
-            double d8 = (double)pos.getZ() + d5 + rand.nextDouble() * 3.0D * 2.0D;		
-			worldIn.addParticle(ParticleTypes.REVERSE_PORTAL, d6, d7, d8, d2, d3, d4);
-        }
+		for (int i = 0; i < 15; i++) {
+			Particles.create(ModParticles.TRANSFORM_PARTICLE)
+			.addVelocity(((rand.nextDouble() - 0.5D) / 30), ((rand.nextDouble() - 0.5D) / 30), ((rand.nextDouble() - 0.5D) / 30))
+			.setAlpha(1.0f, 0)
+			.setScale(0.2f, 0)
+			.setColor(0.466f, 0.643f, 0.815f, 0.466f, 0.643f, 0.815f)
+			.setLifetime(30)
+			.setSpin((0.5f * (float) ((rand.nextDouble() - 0.5D) * 2)))
+			.spawn(worldIn, pos.getX() + 0.5F + ((rand.nextDouble() - 0.5D) * 1.25), pos.getY() + 0.5F + ((rand.nextDouble() - 0.5D) * 1.25), pos.getZ() + 0.5F + ((rand.nextDouble() - 0.5D) * 1.25));
+		}
+			
 		worldIn.setBlockState(pos, ModBlocks.VOID_PILLAR_AMETHYST.get().getDefaultState().with(RotatedPillarBlock.AXIS, state.get(RotatedPillarBlock.AXIS)));		
 		return true;
 	}
@@ -74,15 +76,8 @@ public class VoidPillarBlock extends RotatedPillarBlock {
 	private static boolean Soulstone(PlayerEntity player, Random rand, World worldIn, BlockPos pos, BlockState state) {
         worldIn.playSound(player, player.getPosition(), SoundEvents.BLOCK_RESPAWN_ANCHOR_AMBIENT, SoundCategory.BLOCKS, 10f, 1f);
 		worldIn.playSound(player, player.getPosition(), SoundEvents.BLOCK_RESPAWN_ANCHOR_CHARGE, SoundCategory.BLOCKS, 1.0F, 1.0F);
-		for (int i = 0;i<25;i++) {
-			double d2 = rand.nextGaussian() * 0.02D;
-            double d3 = rand.nextGaussian() * 0.02D;
-            double d4 = rand.nextGaussian() * 0.02D;
-            double d5 = 0.5D - 3.0D;
-            double d6 = (double)pos.getX() + d5 + rand.nextDouble() * 3.0D * 2.0D;
-            double d7 = (double)pos.getY() + rand.nextDouble() + 0.5D;
-            double d8 = (double)pos.getZ() + d5 + rand.nextDouble() * 3.0D * 2.0D;
-			worldIn.addParticle(ParticleTypes.SOUL, d6, d7, d8, d2, d3, d4);
+		for (int i = 0;i<15;i++) {
+			worldIn.addParticle(ParticleTypes.SOUL, pos.getX() + rand.nextDouble() * 1.1, pos.getY() + 0.5F + rand.nextDouble() * 1.1, pos.getZ() + 0.5F + rand.nextDouble(), 0d, 0.05d, 0d);
         }
 		worldIn.setBlockState(pos, ModBlocks.CHARGED_VOID_PILLAR.get().getDefaultState().with(RotatedPillarBlock.AXIS, state.get(RotatedPillarBlock.AXIS)));
 		return true;

@@ -3,8 +3,12 @@
     "icon": {
       "item": "darkrpg:blaze_reap"
     },
-    "title": "advancement.darkrpg:blaze_reap",
-    "description": "advancement.darkrpg:blaze_reap.desc",
+    "title": {
+	"translate": "advancement.darkrpg:blaze_reap"
+	},
+    "description": {
+	"translate": "advancement.darkrpg:blaze_reap.desc"
+	},
     "frame": "challenge",
     "show_toast": true,
     "announce_to_chat": true,
