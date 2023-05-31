@@ -5,24 +5,18 @@ import com.idark.darkrpg.item.types.*;
 import com.idark.darkrpg.util.*;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
+import org.lwjgl.opengl.GL11;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.client.event.RenderTooltipEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import org.lwjgl.opengl.GL11;
-import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
-import java.util.ArrayList;
 import java.util.List;
 
 // Currently not work with Legendary Tooltips and other tooltip changing mods. Buggy at this moment and dont work correctly on all devices (Opacity errors)
@@ -48,8 +42,9 @@ public class TooltipEventHandler {
         int height = event.getHeight();
 		Minecraft mc = Minecraft.getInstance();
 		MatrixStack matrix = event.getMatrixStack();
+        RenderSystem.disableBlend();
+		RenderSystem.translatef(0, 0, 900);		
 		matrix.push();		
-		matrix.translate(0, 0, 410);		
 
 		if (stack.getItem() instanceof BlazeReapItem) {
             mc.textureManager.bindTexture(ETERNAL);

@@ -1,18 +1,13 @@
 package com.idark.darkrpg.item.staffs;
 
-import com.idark.darkrpg.DarkRPG;
-import com.idark.darkrpg.item.ModItems;
-import com.idark.darkrpg.item.ModItemGroup;
-import com.idark.darkrpg.block.ModBlocks;
 import com.idark.darkrpg.util.*;
 import com.idark.darkrpg.util.particle.*;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.*;
 import net.minecraft.block.*;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.item.*;
 import net.minecraft.util.*;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import java.util.Objects;
+
 import java.util.Random;
 
 public class NatureStaff extends Item {

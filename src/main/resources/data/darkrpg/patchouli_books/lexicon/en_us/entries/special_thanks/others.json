@@ -1,0 +1,49 @@
+{
+	"name": "patchouli.darkrpg.others.name",
+	"icon": "darkrpg:textures/gui/patchouli/other.png",
+	"category": "darkrpg:special_thanks",
+	"read_by_default": "true",
+	"sortnum": 10,
+	"pages": [
+		{
+			"type": "patchouli:text",
+			"text": "patchouli.darkrpg.others.desc"
+		},
+		{
+			"type": "patchouli:text",
+			"text": "patchouli.darkrpg.time"
+		},
+		{
+		"type": "patchouli:image",
+			"title": "Alan Vacuoss",
+			"border": true,
+			"images": [
+			"darkrpg:textures/gui/patchouli/alan_large.png"
+			]
+		},		
+		{
+		"type": "patchouli:image",
+			"title": "RayRindou",
+			"border": true,
+			"images": [
+			"darkrpg:textures/gui/patchouli/ray_large.png"
+			]
+		},
+		{
+		"type": "patchouli:image",
+			"title": "BaronFonShish",
+			"border": true,
+			"images": [
+			"darkrpg:textures/gui/patchouli/baron_large.png"
+			]
+		},
+		{
+		"type": "patchouli:image",
+			"title": "ArkyFursblack",
+			"border": true,
+			"images": [
+			"darkrpg:textures/gui/patchouli/arky_large.png"
+			]
+		}
+	]
+}

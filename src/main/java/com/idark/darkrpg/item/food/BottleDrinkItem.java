@@ -1,10 +1,9 @@
 package com.idark.darkrpg.item.food;
 
-import com.idark.darkrpg.effect.ModEffects;
 import com.idark.darkrpg.item.*;
 import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.entity.player.*;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.*;
 import net.minecraft.item.Food;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -14,8 +13,6 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.world.World;
-
-import javax.jws.soap.SOAPBinding.Use;
 
 public class BottleDrinkItem extends Item {
     

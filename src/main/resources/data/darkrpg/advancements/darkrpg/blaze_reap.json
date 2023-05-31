@@ -1,4 +1,5 @@
 {
+  "parent": "darkrpg:darkrpg/blaze_reap_obtain",	
   "display": {
     "icon": {
       "item": "darkrpg:blaze_reap"
@@ -9,7 +10,7 @@
     "description": {
 	"translate": "advancement.darkrpg:blaze_reap.desc"
 	},
-    "frame": "challenge",
+    "frame": "goal",
     "show_toast": true,
     "announce_to_chat": true,
     "hidden": false

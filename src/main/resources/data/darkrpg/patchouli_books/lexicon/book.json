@@ -1,0 +1,15 @@
+{
+    "name": "patchouli.darkrpg.name",
+    "landing_text": "patchouli.darkrpg.desc",
+	"book_texture": "darkrpg:textures/gui/patchouli/darkrpg_book.png",
+	"crafting_texture": "darkrpg:textures/gui/patchouli/darkrpg_book_crafting_texture.png",		
+	"model": "darkrpg:lexicon",
+	"custom_book_item": "darkrpg:lexicon",
+	"use_blocky_font": true,
+	"creative_tab": "darkrpg_group",
+	"advancements_tab": "darkrpg:darkrpg/darkrpg",
+	"advancement_namespaces": [ "darkrpg" ],
+	"show_progress": "false",
+	"i18n": true,
+    "version": DarkRPG
+}

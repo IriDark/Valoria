@@ -1,17 +1,13 @@
 package com.idark.darkrpg.block.types;
 
-import com.idark.darkrpg.DarkRPG;
-import com.idark.darkrpg.block.ModBlocks;
-import java.util.List;
-import java.util.Random;
 import net.minecraft.block.*;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
-import net.minecraft.world.gen.feature.FlowersFeature;
 import net.minecraft.world.server.ServerWorld;
+
+import java.util.Random;
 
 public class VoidGrassBlock extends SpreadableSnowyDirtBlock implements IGrowable {
    public VoidGrassBlock(AbstractBlock.Properties properties) {

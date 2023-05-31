@@ -2,11 +2,11 @@ package com.idark.darkrpg.client.render.curio.model;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-import javax.annotation.Nonnull;
-import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.LivingEntity;
+
+import javax.annotation.Nonnull;
 
 public class NecklaceModel extends BipedModel<LivingEntity> {
 

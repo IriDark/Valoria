@@ -1,17 +1,16 @@
 {
-    "type": "minecraft:crafting_shaped",
-    "pattern": [
-        "///",
-        "///",
-        "///"
-    ],
-    "key": {
-        "/": {
-            "item": "darkrpg:cobalt_ingot"
-        }
-    },
-    "result": {
-        "item": "darkrpg:cobalt_block",
-        "count": 1
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "darkrpg:cobalt_ingot"
     }
+  },
+  "result": {
+    "item": "darkrpg:cobalt_block"
+  }
 }

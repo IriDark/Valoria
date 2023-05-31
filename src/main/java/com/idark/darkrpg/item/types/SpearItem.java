@@ -2,9 +2,8 @@ package com.idark.darkrpg.item.types;
 
 import com.google.common.base.Suppliers;
 import com.google.common.collect.ImmutableMultimap;
-import com.google.common.collect.Multimap;
 import com.google.common.collect.ImmutableMultimap.Builder;
-import net.minecraft.item.*;
+import com.google.common.collect.Multimap;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.material.Material;
@@ -13,6 +12,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.*;
 import net.minecraft.entity.player.*;
 import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.item.*;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.math.*;
 import net.minecraft.world.World;

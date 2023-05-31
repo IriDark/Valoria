@@ -2,14 +2,11 @@ package com.idark.darkrpg.item.types;
 
 import com.idark.darkrpg.item.ModItems;
 import com.idark.darkrpg.util.ModSoundRegistry;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.Enchantments;
+import net.minecraft.client.*;
+import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.client.*;
-import net.minecraft.client.world.ClientWorld;;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraft.particles.ParticleTypes;
@@ -24,6 +21,8 @@ import net.minecraft.world.World;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+;
 
 public class PhantomItem extends SwordItem {
     Random rand = new Random();

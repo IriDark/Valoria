@@ -1,5 +1,5 @@
 {
-  "parent": "item/handheld",
+  "parent": "darkrpg:item/spear",
   "textures": {
     "layer0": "darkrpg:item/blaze_reap"
   }

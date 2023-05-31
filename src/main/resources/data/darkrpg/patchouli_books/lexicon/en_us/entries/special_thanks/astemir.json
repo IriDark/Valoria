@@ -1,0 +1,25 @@
+{
+	"name": "Astemir",
+	"icon": "darkrpg:textures/gui/patchouli/astemir.png",
+	"category": "darkrpg:special_thanks",
+	"read_by_default": "true",
+	"sortnum": 4,
+	"pages": [
+		{
+			"type": "patchouli:text",
+			"text": "patchouli.darkrpg.friend_coder"
+		},
+		{
+			"type": "patchouli:text",
+			"text": "patchouli.darkrpg.time"
+		},
+		{
+		"type": "patchouli:image",
+			"title": "Astemir",
+			"border": true,
+			"images": [
+			"darkrpg:textures/gui/patchouli/astemir_large.png"
+			]
+		}		
+	]
+}

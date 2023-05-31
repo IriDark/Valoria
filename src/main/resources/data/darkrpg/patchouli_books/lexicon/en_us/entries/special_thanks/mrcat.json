@@ -1,0 +1,24 @@
+{
+	"name": "MrCat",
+	"icon": "darkrpg:textures/gui/patchouli/mrcat.png",
+	"category": "darkrpg:special_thanks",
+	"read_by_default": "true",
+	"sortnum": 3,
+	"pages": [
+		{
+			"type": "patchouli:text",
+			"text": "patchouli.darkrpg.friend"
+		},
+		{
+			"type": "patchouli:text",
+			"text": "patchouli.darkrpg.time"
+		},
+		{
+		"type": "patchouli:image",
+			"border": true,
+			"images": [
+			"darkrpg:textures/gui/patchouli/mrcat_large.png"
+			]
+		}
+	]
+}

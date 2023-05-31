@@ -1,5 +1,20 @@
 {
   "variants": {
-    "": { "model" : "darkrpg:block/cobalt_ore" }
+    "": [
+      {
+        "model": "darkrpg:block/cobalt_ore"
+      },
+      {
+        "model": "darkrpg:block/cobalt_ore_mirrored"
+      },
+      {
+        "model": "darkrpg:block/cobalt_ore",
+        "y": 180
+      },
+      {
+        "model": "darkrpg:block/cobalt_ore_mirrored",
+        "y": 180
+      }
+    ]
   }
 }

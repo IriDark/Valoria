@@ -2,7 +2,6 @@ package com.idark.darkrpg.item.types;
 
 import com.idark.darkrpg.util.ModSoundRegistry;
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.Attributes;

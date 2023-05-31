@@ -1,13 +1,11 @@
 package com.idark.darkrpg.entity.model;
 
+import com.idark.darkrpg.entity.custom.GoblinEntity;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-import net.minecraft.util.math.MathHelper;
-import com.idark.darkrpg.entity.custom.GoblinEntity;
-
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
-import net.minecraft.entity.Entity;
+import net.minecraft.util.math.MathHelper;
 
 public class GoblinModel <T extends GoblinEntity> extends EntityModel<T> {
 	private final ModelRenderer Head;

@@ -1,35 +1,30 @@
 package com.idark.darkrpg.block.types;
 
 import com.idark.darkrpg.block.ModBlocks;
-import com.google.common.collect.Maps;
-import net.minecraft.item.*;
 import net.minecraft.block.*;
-import net.minecraft.state.IntegerProperty;
-import net.minecraft.state.StateContainer;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.Enchantments;
-import net.minecraft.particles.*;
 import net.minecraft.entity.*;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.monster.SkeletonEntity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.monster.SkeletonEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.Hand;
+import net.minecraft.item.*;
+import net.minecraft.particles.*;
+import net.minecraft.state.IntegerProperty;
+import net.minecraft.state.StateContainer;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.*;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockReader;
 import net.minecraft.world.Explosion;
-import net.minecraft.world.GameRules;
-import net.minecraft.world.IWorld;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
-import java.util.Random;
+
 import javax.annotation.Nullable;
+import java.util.Random;
 
 public class SarcoBlock extends HorizontalBlock {
 	Random rand = new Random();

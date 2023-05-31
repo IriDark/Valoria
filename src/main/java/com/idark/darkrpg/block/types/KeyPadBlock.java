@@ -1,19 +1,18 @@
 package com.idark.darkrpg.block.types;
 
-import com.idark.darkrpg.item.*;
 import com.idark.darkrpg.block.ModBlocks;
 import com.idark.darkrpg.block.types.*;
-import net.minecraft.item.*;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.stats.Stats;
+import com.idark.darkrpg.item.*;
 import net.minecraft.block.*;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.*;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.math.*;
 import net.minecraft.util.*;
+import net.minecraft.util.math.*;
 import net.minecraft.world.World;
+
 import java.util.Random;
 
 public class KeyPadBlock extends Block {

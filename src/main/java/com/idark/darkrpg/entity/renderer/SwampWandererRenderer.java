@@ -3,7 +3,6 @@ package com.idark.darkrpg.entity.renderer;
 import com.idark.darkrpg.DarkRPG;
 import com.idark.darkrpg.entity.custom.SwampWandererEntity;
 import com.idark.darkrpg.entity.model.SwampWandererModel;
-
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.util.ResourceLocation;

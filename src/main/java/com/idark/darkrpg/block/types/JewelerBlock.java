@@ -1,21 +1,6 @@
-// ITS A TODO BLOCK, THAT NOT FINISHED YET
-
 package com.idark.darkrpg.block.types;
 
 import net.minecraft.block.*;
-import javax.annotation.Nullable;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.container.CartographyContainer;
-import net.minecraft.inventory.container.INamedContainerProvider;
-import net.minecraft.inventory.container.SimpleNamedContainerProvider;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.IWorldPosCallable;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
 
 public class JewelerBlock extends Block {
    // private static final ITextComponent CONTAINER_NAME = new TranslationTextComponent("container.jewelers_table");

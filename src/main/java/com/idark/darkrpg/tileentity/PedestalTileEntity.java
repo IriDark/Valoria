@@ -1,6 +1,5 @@
 package com.idark.darkrpg.tileentity;
 
-import com.idark.darkrpg.DarkRPG;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.tileentity.TileEntityType;
 

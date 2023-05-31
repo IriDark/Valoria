@@ -3,18 +3,21 @@ package com.idark.darkrpg.block.types;
 import com.idark.darkrpg.block.*;
 import com.idark.darkrpg.item.*;
 import net.minecraft.block.*;
-import net.minecraft.state.IntegerProperty;
-import net.minecraft.state.StateContainer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.particles.ParticleTypes;
+import net.minecraft.state.IntegerProperty;
+import net.minecraft.state.StateContainer;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
-import net.minecraft.util.ActionResultType;
 import net.minecraft.util.math.*;
-import net.minecraft.entity.player.PlayerEntity;;
 import net.minecraft.world.World;
+
 import java.util.Random;
+
+;
 	
 public class InfernalBlock extends Block {
     private static IntegerProperty STATE = IntegerProperty.create("awakened", 0, 1);

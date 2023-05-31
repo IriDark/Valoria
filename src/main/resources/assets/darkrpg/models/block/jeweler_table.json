@@ -3,9 +3,9 @@
     "textures": {
 	    "up": "darkrpg:block/jeweler_table_top",
 	    "particle": "darkrpg:block/jeweler_table_side",
-		"north": "darkrpg:block/jeweler_table_side_2",
-		"south": "darkrpg:block/jeweler_table_side",
-		"east": "darkrpg:block/jeweler_table_side_2",
+		"north": "darkrpg:block/jeweler_table_side_1",
+		"south": "darkrpg:block/jeweler_table_side_1",
+		"east": "darkrpg:block/jeweler_table_side",
 		"west": "darkrpg:block/jeweler_table_side",
 	    "down": "darkrpg:block/jeweler_table_bottom"
     }

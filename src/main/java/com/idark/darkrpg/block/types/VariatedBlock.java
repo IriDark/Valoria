@@ -1,14 +1,15 @@
 package com.idark.darkrpg.block.types;
 
-import net.minecraft.item.*;
 import net.minecraft.block.*;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.entity.*;
+import net.minecraft.item.*;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.entity.*;
-import java.util.Random;
+
 import javax.annotation.Nullable;
+import java.util.Random;
 	
 public class VariatedBlock extends Block {
     private static IntegerProperty STATE = IntegerProperty.create("variation", 0, 4);

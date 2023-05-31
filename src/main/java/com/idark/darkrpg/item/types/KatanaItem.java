@@ -6,6 +6,7 @@ import com.google.common.collect.Multimap;
 import com.idark.darkrpg.client.render.DashOverlayRender;
 import com.idark.darkrpg.math.MathUtils;
 import com.idark.darkrpg.util.ModSoundRegistry;
+import com.idark.darkrpg.config.ClientConfig;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.material.Material;
@@ -178,10 +179,13 @@ public class KatanaItem extends TieredItem implements IVanishable {
         }
 
         for (int i = 0;i<4;i++) {
-          worldIn.addParticle(ParticleTypes.POOF, player.getPosX() + (rand.nextDouble() - 0.5D), player.getPosY(), player.getPosZ() + (rand.nextDouble() - 0.5D), 0d, 0.05d, 0d);
+			worldIn.addParticle(ParticleTypes.POOF, player.getPosX() + (rand.nextDouble() - 0.5D), player.getPosY(), player.getPosZ() + (rand.nextDouble() - 0.5D), 0d, 0.05d, 0d);
         }
-          worldIn.playSound(player, player.getPosition(), ModSoundRegistry.SWIFTSLICE.get(), SoundCategory.AMBIENT, 10f, 1f);
-            DashOverlayRender.isDash = true;
+		
+		worldIn.playSound(player, player.getPosition(), ModSoundRegistry.SWIFTSLICE.get(), SoundCategory.AMBIENT, 10f, 1f);
+		if (ClientConfig.DASH_OVERLAY.get()) {
+			DashOverlayRender.isDash = true;
+		}
     }
 
     public static double distance(Vector3d pos1, World worldIn, PlayerEntity player) {

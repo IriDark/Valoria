@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/wall_inventory",
+  "textures": {
+    "wall": "darkrpg:block/crystal_stone_bricks"
+  }
+}

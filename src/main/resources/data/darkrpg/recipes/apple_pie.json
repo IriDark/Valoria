@@ -9,13 +9,13 @@
         "/": {
 		"item": "minecraft:apple"
     },
-	"X": {
+		"X": {
 		"item": "minecraft:milk"
     },
-	"A": {
+		"A": {
 		"item": "minecraft:cocoa_beans"
 		}
-	}
+	},
     "result": {
         "item": "darkrpg:apple_pie",
         "count": 1

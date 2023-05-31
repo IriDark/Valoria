@@ -1,29 +1,25 @@
 package com.idark.darkrpg;
 
 import com.google.common.collect.ImmutableMap;
-import com.idark.darkrpg.item.ModItems;
 import com.idark.darkrpg.block.*;
 import com.idark.darkrpg.block.types.*;
+import com.idark.darkrpg.client.event.*;
 import com.idark.darkrpg.client.render.DashOverlayRender;
 import com.idark.darkrpg.client.render.gui.TooltipEventHandler;
 import com.idark.darkrpg.client.render.model.item.Item2DRenderer;
 import com.idark.darkrpg.client.render.model.tileentity.*;
-import com.idark.darkrpg.client.event.*;
+import com.idark.darkrpg.config.*;
 import com.idark.darkrpg.effect.ModEffects;
 import com.idark.darkrpg.entity.ModEntityTypes;
 import com.idark.darkrpg.entity.custom.*;
 import com.idark.darkrpg.entity.renderer.*;
-import com.idark.darkrpg.tileentity.*;
+import com.idark.darkrpg.item.ModItems;
 import com.idark.darkrpg.paintings.ModPaintings;
+import com.idark.darkrpg.tileentity.*;
 import com.idark.darkrpg.util.*;
 import com.idark.darkrpg.util.particle.*;
-import com.idark.darkrpg.config.Config;
+import com.idark.darkrpg.enchant.*;
 import com.idark.darkrpg.world.*;
-import top.theillusivec4.curios.api.CuriosApi;
-import top.theillusivec4.curios.api.SlotTypeMessage;
-import top.theillusivec4.curios.api.SlotTypePreset;
-
-import net.minecraft.item.*;
 import net.minecraft.block.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Atlases;
@@ -34,27 +30,36 @@ import net.minecraft.client.renderer.tileentity.SignTileEntityRenderer;
 import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.entity.monster.MonsterEntity;
+import net.minecraft.item.*;
+import net.minecraft.util.*;
 import net.minecraft.world.gen.Heightmap;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.client.registry.RenderingRegistry;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import top.theillusivec4.curios.api.CuriosApi;
+import top.theillusivec4.curios.api.SlotTypeMessage;
+import top.theillusivec4.curios.api.SlotTypePreset;
+
+import javax.annotation.Nonnull;
 
 	    @Mod(DarkRPG.MOD_ID)
 	    public class DarkRPG {
@@ -80,6 +85,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 	    IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
 		ModSoundRegistry.SOUNDS.register(eventBus);
 		ModEffects.register(eventBus);
+	    ModEnchantments.register(eventBus);		
 		ModPaintings.register(eventBus);
 	    ModItems.register(eventBus);
 		ModBlocks.register(eventBus);
@@ -91,6 +97,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 		IEventBus forgeBus = MinecraftForge.EVENT_BUS;
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ClientConfig.SPEC);
 
         forgeBus.register(new WorldGen());
         forgeBus.addListener(ClientTickHandler::clientTickEnd);
@@ -151,7 +158,10 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 	    RenderTypeLookup.setRenderLayer(ModBlocks.SAPPHIRE_CRYSTAL.get(), RenderType.getCutout());
 	    RenderTypeLookup.setRenderLayer(ModBlocks.VOID_CRYSTAL.get(), RenderType.getCutout());
 	    RenderTypeLookup.setRenderLayer(ModBlocks.SPIKES.get(), RenderType.getCutout());
-
+	    RenderTypeLookup.setRenderLayer(ModBlocks.SHADEWOOD_LEAVES.get(), RenderType.getCutout());
+		RenderTypeLookup.setRenderLayer(ModBlocks.SHADEWOOD_SAPLING.get(), RenderType.getCutout());
+		
+        ClientRegistry.bindTileEntityRenderer(ModTileEntities.CRUSHER_TILE_ENTITY.get(), CrusherTileEntityRenderer::new);
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.PEDESTAL_TILE_ENTITY.get(), PedestalTileEntityRenderer::new);
 		ClientRegistry.bindTileEntityRenderer(ModTileEntities.SIGN_TILE_ENTITIES.get(), SignTileEntityRenderer::new);
 	    Atlases.addWoodType(ModWoodTypes.SHADEWOOD);
@@ -197,14 +207,18 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 		@SubscribeEvent
 		public static void onModelRegistryEvent(ModelRegistryEvent event) {
-		for (String item : Item2DRenderer.HAND_MODEL_ITEMS) {
-			ModelLoader.addSpecialModel(new ModelResourceLocation(MOD_ID+":" + item + "_in_hand", "inventory"));
+			if (ClientConfig.IN_HAND_MODELS_32X.get()) {
+				for (String item : Item2DRenderer.HAND_MODEL_ITEMS) {
+					ModelLoader.addSpecialModel(new ModelResourceLocation(MOD_ID+":" + item + "_in_hand", "inventory"));
+				}
 			}
 		}
 
 		@SubscribeEvent
 		public static void onModelBakeEvent(ModelBakeEvent event) {
+		if (ClientConfig.IN_HAND_MODELS_32X.get()) {
 			Item2DRenderer.onModelBakeEvent(event);
+			}
 		}
 		
 		@OnlyIn(Dist.CLIENT)
@@ -213,6 +227,17 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 			Minecraft.getInstance().particles.registerFactory(ModParticles.SPARKLE_PARTICLE.get(), SparkleParticleType.Factory::new);
 			Minecraft.getInstance().particles.registerFactory(ModParticles.PHANTOM_SLASH.get(), SlashParticleType.Factory::new);
 			Minecraft.getInstance().particles.registerFactory(ModParticles.TRANSFORM_PARTICLE.get(), SparkleParticleType.Factory::new);
+			Minecraft.getInstance().particles.registerFactory(ModParticles.GEODE_PARTICLE.get(), SparkleParticleType.Factory::new);
 		}	
+		
+		@SubscribeEvent
+		public static void registerModifierSerializers(@Nonnull final RegistryEvent.Register<GlobalLootModifierSerializer<?>>event) {
+			event.getRegistry().registerAll(
+			new LootStructureAdditionModifier.Serializer().setRegistryName
+			(new ResourceLocation(DarkRPG.MOD_ID,"miners_bag")),
+			new LootStructureAdditionModifier.Serializer().setRegistryName
+			(new ResourceLocation(DarkRPG.MOD_ID,"gems_bag"))
+			);
+		}
 	}
 }

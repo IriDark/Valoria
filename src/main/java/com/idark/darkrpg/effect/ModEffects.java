@@ -3,11 +3,10 @@ package com.idark.darkrpg.effect;
 import com.idark.darkrpg.DarkRPG;
 import com.idark.darkrpg.effect.*;
 import net.minecraft.potion.Effect;
-import net.minecraft.potion.EffectType;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.eventbus.api.IEventBus;
 
 public class ModEffects {
 	private final static String MODID = DarkRPG.MOD_ID;

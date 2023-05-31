@@ -1,5 +1,8 @@
 package com.idark.darkrpg.entity;
 
+import com.idark.darkrpg.DarkRPG;
+import com.idark.darkrpg.entity.custom.*;
+import com.idark.darkrpg.entity.model.*;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.ResourceLocation;
@@ -7,9 +10,6 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
-import com.idark.darkrpg.DarkRPG;
-import com.idark.darkrpg.entity.custom.*;
-import com.idark.darkrpg.entity.model.*;
 
 public class ModEntityTypes {
     public static DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITIES, DarkRPG.MOD_ID);

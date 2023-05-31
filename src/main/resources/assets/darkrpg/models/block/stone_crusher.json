@@ -1,0 +1,12 @@
+{
+    "parent": "block/cube",
+    "textures": {
+	    "up": "darkrpg:block/stonecrusher_top_geode",
+	    "particle": "darkrpg:block/stonecrusher_top_geode",
+		"north": "darkrpg:block/stonecrusher_side_1",
+		"south": "darkrpg:block/stonecrusher_side_1",
+		"east": "darkrpg:block/stonecrusher_side_0",
+		"west": "darkrpg:block/stonecrusher_side_1",
+	    "down": "darkrpg:block/stonecrusher_bottom"
+    }
+}

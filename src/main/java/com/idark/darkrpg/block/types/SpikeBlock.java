@@ -1,24 +1,23 @@
 package com.idark.darkrpg.block.types;
 
-import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.block.*;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
+import net.minecraft.fluid.FluidState;
+import net.minecraft.fluid.Fluids;
+import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.pathfinding.PathType;
 import net.minecraft.state.*;
 import net.minecraft.state.properties.*;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.fluid.Fluids;
+import net.minecraft.util.*;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.*;
 import net.minecraft.world.*;
-import net.minecraft.world.server.ServerWorld;
+
 import javax.annotation.Nullable;
+
 import static net.minecraft.state.properties.BlockStateProperties.WATERLOGGED;
-import java.util.Random;
 
 public class SpikeBlock extends DirectionalBlock implements IWaterLoggable {
 	private static final VoxelShape upAabb = Block.makeCuboidShape((double)3, 0.0D, (double)3, (double)(16 - 3), (double)5, (double)(16 - 3));

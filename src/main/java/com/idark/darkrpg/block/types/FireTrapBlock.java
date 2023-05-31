@@ -1,30 +1,24 @@
 package com.idark.darkrpg.block.types;
 
-import java.util.Random;
-import javax.annotation.Nullable;
 import com.idark.darkrpg.block.ModBlocks;
-import com.idark.darkrpg.entity.ModEntityTypes;
 import net.minecraft.block.*;
-import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.pathfinding.PathType;
-import net.minecraft.particles.IParticleData;
+import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.particles.ParticleTypes;
+import net.minecraft.pathfinding.PathType;
 import net.minecraft.state.*;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+
+import javax.annotation.Nullable;
+import java.util.Random;
 
 import static net.minecraft.state.properties.BlockStateProperties.WATERLOGGED;
 

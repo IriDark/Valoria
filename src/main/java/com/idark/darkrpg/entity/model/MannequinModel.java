@@ -1,13 +1,11 @@
 package com.idark.darkrpg.entity.model;
 
+import com.idark.darkrpg.entity.custom.MannequinEntity;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-import net.minecraft.util.math.MathHelper;
-import com.idark.darkrpg.entity.custom.MannequinEntity;
-
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
-import net.minecraft.entity.Entity;
+import net.minecraft.util.math.MathHelper;
 
 public class MannequinModel <T extends MannequinEntity> extends EntityModel<T> {
 	private final ModelRenderer Head;

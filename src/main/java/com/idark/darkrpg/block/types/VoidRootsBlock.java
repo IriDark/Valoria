@@ -1,29 +1,32 @@
 package com.idark.darkrpg.block.types;
 
-import com.idark.darkrpg.DarkRPG;
 import com.idark.darkrpg.block.ModBlocks;
-import java.util.Random;
 import net.minecraft.block.*;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.shapes.ISelectionContext;
+import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
 
 public class VoidRootsBlock extends BushBlock {
-   public VoidRootsBlock(AbstractBlock.Properties properties) {
-      super(properties);
-   }
+	private static final VoxelShape shape = Block.makeCuboidShape(3, 0, 3, 13, 8, 13);
+
+	public VoidRootsBlock(AbstractBlock.Properties properties) {
+		super(properties);
+	}
+
+	@Override
+    public VoxelShape getShape(BlockState state, IBlockReader reader, BlockPos pos,
+        ISelectionContext ctx) {
+        return shape;
+    }
 	
-   protected boolean isValidGround(BlockState state, IBlockReader worldIn, BlockPos pos) {
-      Block block = state.getBlock();
-      return block == ModBlocks.VOID_STONE.get() || block == ModBlocks.VOID_GRASS.get();
-   }
+	protected boolean isValidGround(BlockState state, IBlockReader worldIn, BlockPos pos) {
+		Block block = state.getBlock();
+		return block == ModBlocks.VOID_STONE.get() || block == ModBlocks.VOID_GRASS.get();
+	}
 	
-   public boolean isReplaceable(BlockState state, BlockItemUseContext useContext) {
-      return false;
-   }
+	public boolean isReplaceable(BlockState state, BlockItemUseContext useContext) {
+		return true;
+	}
 }

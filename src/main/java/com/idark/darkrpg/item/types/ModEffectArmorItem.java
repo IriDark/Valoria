@@ -1,23 +1,19 @@
 package com.idark.darkrpg.item.types;
 
-import com.idark.darkrpg.item.ModArmorMaterial;
 import com.idark.darkrpg.effect.*;
-import com.google.common.collect.ImmutableMap;
-import net.minecraft.util.DamageSource;
+import com.idark.darkrpg.item.ModArmorMaterial;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ArmorItem;
-import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.IArmorMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
+import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
-import java.util.Random;
-import java.util.Map;
 import java.util.Objects;
+import java.util.Random;
 	
 	public class ModEffectArmorItem extends ArmorItem {
 	

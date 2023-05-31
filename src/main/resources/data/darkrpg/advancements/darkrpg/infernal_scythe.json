@@ -1,0 +1,38 @@
+{
+  "parent": "darkrpg:darkrpg/darkrpg",
+  "display": {
+    "icon": {
+      "item": "darkrpg:infernal_scythe"
+    },
+    "title": {
+		"translate": "advancement.darkrpg:infernal_scythe"
+	},
+    "description": {
+		"translate": "advancement.darkrpg:infernal_scythe.desc"
+	},
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "scythe": {
+    "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "darkrpg:infernal_scythe"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "scythe"
+    ]
+  ],
+  "rewards": {
+    "experience": 80
+  }
+}

@@ -1,22 +1,16 @@
 package com.idark.darkrpg.block.types;
 
-import com.google.common.collect.Maps;
-import net.minecraft.item.ItemStack;
 import net.minecraft.block.*;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.*;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.monster.CaveSpiderEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockReader;
 import net.minecraft.world.Explosion;
-import net.minecraft.world.GameRules;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;

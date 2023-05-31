@@ -1,0 +1,38 @@
+{
+  "parent": "darkrpg:darkrpg/first_help",
+  "display": {
+    "icon": {
+      "item": "darkrpg:aloe_bandage"
+    },
+    "title": {
+		"translate": "advancement.darkrpg:basic_medicine"
+	},
+    "description": {
+		"translate": "advancement.darkrpg:basic_medicine.desc"
+	},
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "bandage": {
+    "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "darkrpg:aloe_bandage_upgraded"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "bandage"
+    ]
+  ],
+  "rewards": {
+    "experience": 80
+  }
+}

@@ -2,14 +2,12 @@ package com.idark.darkrpg.util;
 
 import com.idark.darkrpg.DarkRPG;
 import com.idark.darkrpg.util.ModSoundType;
-import net.minecraft.block.SoundType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.eventbus.api.IEventBus;
 
 public class ModSoundRegistry {
     public static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, DarkRPG.MOD_ID);

@@ -1,0 +1,36 @@
+{
+  "parent": "darkrpg:darkrpg/darkrpg",	
+  "display": {
+    "icon": {
+      "item": "darkrpg:aloe_bandage"
+    },
+    "title": {
+		"translate": "advancement.darkrpg:first_help"
+    },
+    "description": {
+		"translate": "advancement.darkrpg:first_help.desc"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "use": {
+	"trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "item": "darkrpg:aloe_bandage"
+        }
+      }
+    }
+  },
+  "requirements": [
+    [
+      "use"
+    ]
+  ],  
+  "rewards": {
+    "experience": 80
+  }
+}

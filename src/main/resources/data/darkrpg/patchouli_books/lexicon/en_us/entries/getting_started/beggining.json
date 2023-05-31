@@ -1,0 +1,41 @@
+{
+	"name": "patchouli.darkrpg.getting_started.name",
+	"category": "darkrpg:getting_started",
+	"icon": "minecraft:writable_book",
+	"sortnum": 1,
+	"pages": [
+	{
+		"type": "patchouli:crafting",
+			"title": "patchouli.darkrpg.knowledge",
+			"text": "patchouli.darkrpg.knowledge.access",
+			"recipe": "darkrpg:lexicon"
+	},
+	{
+		"type": "patchouli:text",
+			"text": "patchouli.darkrpg.aloe"
+    },			
+	{
+		"type": "patchouli:crafting",
+			"title": "patchouli.darkrpg.aloe.name",
+			"recipe": "darkrpg:aloe_bandage",
+			"recipe2": "darkrpg:aloe_bandage_upgraded"
+    },
+	{
+		"type": "patchouli:spotlight",
+			"title": "patchouli.darkrpg.treasures.name",
+			"item": "darkrpg:gem_bag",
+			"text": "patchouli.darkrpg.treasures"			
+	},	
+	{
+		"type": "patchouli:text",
+			"text": "patchouli.darkrpg.treasure.gems"
+    },		
+	{
+		"type": "patchouli:image",
+			"border": true,
+			"images": [
+			"darkrpg:textures/gui/patchouli/gems.png"
+		]
+    }
+  ]
+}

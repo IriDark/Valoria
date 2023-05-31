@@ -1,0 +1,17 @@
+{
+	"name": "Auriny",
+	"icon": "darkrpg:textures/gui/patchouli/mrcat.png",
+	"category": "darkrpg:special_thanks",
+	"read_by_default": "true",
+	"sortnum": 9,
+	"pages": [
+		{
+			"type": "patchouli:text",
+			"text": "patchouli.darkrpg.friend_coder"
+		},
+		{
+			"type": "patchouli:text",
+			"text": "patchouli.darkrpg.time"
+		}
+	]
+}

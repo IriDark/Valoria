@@ -4,18 +4,19 @@ import com.idark.darkrpg.block.*;
 import com.idark.darkrpg.item.*;
 import com.idark.darkrpg.item.types.SpearItem;
 import net.minecraft.block.*;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.stats.Stats;
 import net.minecraft.particles.ParticleTypes;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
-import net.minecraft.util.ActionResultType;
 import net.minecraft.util.math.*;
-import net.minecraft.entity.player.PlayerEntity;;
 import net.minecraft.world.World;
+
 import java.util.Random;
+
+;
 
 public class CVoidPillarBlock extends RotatedPillarBlock {
     Random rand = new Random();
@@ -48,15 +49,8 @@ public class CVoidPillarBlock extends RotatedPillarBlock {
 	
 	private static boolean collector(ItemStack stack, PlayerEntity player, Random rand, World worldIn, BlockPos pos, BlockState state) {
 		worldIn.playSound(player, player.getPosition(), SoundEvents.BLOCK_RESPAWN_ANCHOR_AMBIENT, SoundCategory.BLOCKS, 10f, 1f);
-		for (int i = 0;i<25;i++) {
-			double d2 = rand.nextGaussian() * 0.02D;
-            double d3 = rand.nextGaussian() * 0.02D;
-            double d4 = rand.nextGaussian() * 0.02D;
-            double d5 = 0.5D - 2.0D;
-            double d6 = (double)pos.getX() + d5 + rand.nextDouble() * 1.1D;
-            double d7 = (double)pos.getY() + rand.nextDouble() + 0.5D;
-            double d8 = (double)pos.getZ() + d5 + rand.nextDouble() * 1.1D;		
-			worldIn.addParticle(ParticleTypes.POOF, d6, d7, d8, d2, d3, d4);
+		for (int i = 0;i<16;i++) {
+			worldIn.addParticle(ParticleTypes.POOF, pos.getX() + rand.nextDouble(), pos.getY() + 0.5F + rand.nextDouble() * 1.1, pos.getZ() + 0.5F + rand.nextDouble(), 0d, 0.05d, 0d);
         }
 		worldIn.setBlockState(pos, ModBlocks.VOID_PILLAR.get().getDefaultState().with(RotatedPillarBlock.AXIS, state.get(RotatedPillarBlock.AXIS)));		
 		if (!worldIn.isRemote) {

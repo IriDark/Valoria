@@ -4,9 +4,9 @@ import net.minecraft.block.*;
 import net.minecraft.particles.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Explosion;
-import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
+
 import java.util.Random;
 
 public class WickedOreBlock extends Block {

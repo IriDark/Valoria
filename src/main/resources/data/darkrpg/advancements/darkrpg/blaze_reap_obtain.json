@@ -1,0 +1,38 @@
+{
+  "parent": "darkrpg:darkrpg/infernal_scythe",
+  "display": {
+    "icon": {
+      "item": "darkrpg:blaze_reap"
+    },
+    "title": {
+		"translate": "advancement.darkrpg:blaze_reap_obtain"
+	},
+    "description": {
+		"translate": "advancement.darkrpg:blaze_reap_obtain.desc"
+	},
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "blaze_reap": {
+    "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "darkrpg:blaze_reap"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "blaze_reap"
+    ]
+  ],
+  "rewards": {
+    "experience": 80
+  }
+}

@@ -11,10 +11,10 @@
     },
 		"X": {
 		"item": "minecraft:wheat"
+		}
     },
     "result": {
         "item": "darkrpg:beer_cup",
         "count": 1
-		}
 	}
 }

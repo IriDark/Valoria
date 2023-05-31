@@ -1,25 +1,26 @@
 package com.idark.darkrpg.block;
 
 import com.idark.darkrpg.DarkRPG;
+import com.idark.darkrpg.block.types.*;
 import com.idark.darkrpg.item.ModItemGroup;
 import com.idark.darkrpg.item.ModItems;
-import com.idark.darkrpg.block.types.*;
 import com.idark.darkrpg.util.*;
+import com.idark.darkrpg.world.tree.*;
 import net.minecraft.block.*;
 import net.minecraft.block.AbstractBlock.Properties;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.potion.Effects;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraft.potion.Effects;
-import net.minecraft.state.properties.BlockStateProperties;
 
-import java.util.function.ToIntFunction;
 import java.util.function.Supplier;
+import java.util.function.ToIntFunction;
 
 	public class ModBlocks {
 	private final static String MODID = DarkRPG.MOD_ID;
@@ -201,7 +202,7 @@ import java.util.function.Supplier;
 	public static final RegistryObject<Block> VOID_PILLAR_AMETHYST = BLOCK.register("void_pillar_amethyst",
 	() -> new CVoidPillarBlock(Properties.create(Material.ROCK).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(2f).sound(SoundType.NETHER_BRICK)));
 	public static final RegistryObject<Block> VOID_PILLAR = BLOCK.register("void_pillar",
-	() -> new VoidPillarBlock(Properties.create(Material.ROCK).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(2f).sound(SoundType.NETHER_BRICK)));
+	() -> new RotatedPillarBlock(Properties.create(Material.ROCK).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(2f).sound(SoundType.NETHER_BRICK)));
 	public static final RegistryObject<Block> VOID_BRICK = BLOCK.register("void_brick",
 	() -> new Block(Properties.create(Material.ROCK).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(2f).sound(SoundType.NETHER_BRICK)));
 	public static final RegistryObject<Block> VOID_BRICK_STAIRS = registerBlock("void_brick_stairs",
@@ -281,16 +282,26 @@ import java.util.function.Supplier;
 	() -> new RotatedPillarBlock(AbstractBlock.Properties.from(Blocks.OAK_WOOD)));
 	public static final RegistryObject<Block> SHADEWOOD_PLANKS = BLOCK.register("shadewood_planks",
 	() -> new Block(AbstractBlock.Properties.from(Blocks.OAK_PLANKS)));
+	public static final RegistryObject<Block> SHADEWOOD_LEAVES = BLOCK.register("shadewood_leaves",
+	() -> new LeavesBlock(Properties.from(Blocks.OAK_LEAVES)));
+    public static final RegistryObject<Block> SHADEWOOD_SAPLING = BLOCK.register("shadewood_sapling",
+	() -> new ShadeSaplingBlock(new ShadeWoodTree(), AbstractBlock.Properties.from(Blocks.OAK_SAPLING)));
 	// Signs
 	public static final RegistryObject<Block> SHADEWOOD_SIGN = BLOCK.register("shadewood_sign",
     () -> new ModStandingSignBlock(AbstractBlock.Properties.create(Material.IRON).notSolid().doesNotBlockMovement(), ModWoodTypes.SHADEWOOD));
     public static final RegistryObject<Block> SHADEWOOD_WALL_SIGN = BLOCK.register("shadewood_wall_sign",
     () -> new ModWallSignBlock(AbstractBlock.Properties.create(Material.IRON).notSolid().doesNotBlockMovement(), ModWoodTypes.SHADEWOOD));
 	// Other
+	public static final RegistryObject<Block> GEODITE_DIRT = BLOCK.register("geodite_dirt",
+	() -> new Block(Properties.create(Material.ORGANIC).harvestLevel(2).hardnessAndResistance(1f).sound(SoundType.PLANT)));	
+	public static final RegistryObject<Block> GEODITE_STONE = BLOCK.register("geodite_stone",
+	() -> new Block(Properties.create(Material.ROCK).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(2f)));		
+	public static final RegistryObject<Block> STONE_CRUSHER = BLOCK.register("stone_crusher",
+	() -> new CrusherBlock(Properties.create(Material.ROCK).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(1f)));	
 	public static final RegistryObject<Block> JEWELER_TABLE = BLOCK.register("jeweler_table",
 	() -> new JewelerBlock(Properties.create(Material.ROCK).harvestLevel(1).harvestTool(ToolType.AXE).setRequiresTool().hardnessAndResistance(1f)));	
 	public static final RegistryObject<Block> TOMB = BLOCK.register("tomb",
-	() -> new Block(Properties.create(Material.ROCK).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(1f)));
+	() -> new TombBlock(Properties.create(Material.ROCK).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(1f)));
 	public static final RegistryObject<Block> KEG = BLOCK.register("keg", 
 	() -> new KegBlock(AbstractBlock.Properties.create(Material.WOOD).harvestLevel(1).harvestTool(ToolType.AXE).setRequiresTool().hardnessAndResistance(1f)));
 	public static final RegistryObject<Block> SARCOPHAGUS = BLOCK.register("sarcophagus", 
@@ -354,7 +365,7 @@ import java.util.function.Supplier;
 	() -> new PotBlock(Properties.create(Material.GLASS).lootFrom(ModBlocks.POT_LONG.get()).harvestLevel(0).zeroHardnessAndResistance().notSolid().sound(ModSoundRegistry.POT)));
 	public static final RegistryObject<Block> POT_LONG_MOSSY_HANDLESS = BLOCK.register("pot_long_mossy_handless", 
 	() -> new PotBlock(Properties.create(Material.GLASS).lootFrom(ModBlocks.POT_LONG.get()).harvestLevel(0).zeroHardnessAndResistance().notSolid().sound(ModSoundRegistry.POT)));
-	// Plants
+	// Plants	
 	public static final RegistryObject<Block> ALOE_SMALL = BLOCK.register("aloe_small",
 	() -> new DeadBushBlock(Properties.from(Blocks.SUNFLOWER)));
 	public static final RegistryObject<Block> DRIED_PLANT = BLOCK.register("dried_plant",
@@ -384,7 +395,7 @@ import java.util.function.Supplier;
 	public static final RegistryObject<Block> RAJUSH = BLOCK.register("crimson_rajush",
 	() -> new NetherRootsBlock(AbstractBlock.Properties.from(Blocks.CRIMSON_ROOTS)));
 	public static final RegistryObject<Block> FALSEFLOWER = BLOCK.register("falseflower",
-	() -> new VoidFlowerBlock(Effects.POISON, 5, AbstractBlock.Properties.from(Blocks.CRIMSON_ROOTS)));
+	() -> new VoidFlowerBlock(Effects.POISON, 2, AbstractBlock.Properties.from(Blocks.CRIMSON_ROOTS)));
 	public static final RegistryObject<Block> FALSEFLOWER_SMALL = BLOCK.register("falseflower_small",
 	() -> new VoidFlowerBlock(Effects.POISON, 2, AbstractBlock.Properties.from(Blocks.CRIMSON_ROOTS)));
 	public static final RegistryObject<Block> SOULFLOWER = BLOCK.register("soulflower",

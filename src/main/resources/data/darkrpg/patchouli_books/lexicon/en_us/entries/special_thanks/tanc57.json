@@ -1,0 +1,29 @@
+{
+	"name": "TANC57",
+	"icon": "darkrpg:textures/gui/patchouli/tanc57.png",
+	"category": "darkrpg:special_thanks",
+	"read_by_default": "true",
+	"sortnum": 2,
+	"pages": [
+		{
+			"type": "patchouli:text",
+			"text": "patchouli.darkrpg.friend"
+		},
+		{
+			"type": "patchouli:text",
+			"text": "patchouli.darkrpg.time"
+		},
+		{
+			"type": "patchouli:text",
+			"title": "Projects",
+			"text": "patchouli.darkrpg.tanc57"
+		},
+		{
+		"type": "patchouli:image",
+			"border": true,
+			"images": [
+			"darkrpg:textures/gui/patchouli/tanc57_large.png"
+			]
+		}
+	]
+}

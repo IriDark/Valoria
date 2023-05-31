@@ -1,17 +1,11 @@
 package com.idark.darkrpg.item.types;
 
-import com.idark.darkrpg.util.ModSoundRegistry;
+import com.google.common.collect.ImmutableMultimap;
+import com.google.common.collect.ImmutableMultimap.Builder;
+import com.google.common.collect.Multimap;
 import com.idark.darkrpg.effect.*;
 import com.idark.darkrpg.math.*;
-import com.google.common.collect.ImmutableMultimap;
-import com.google.common.collect.Multimap;
-import com.google.common.collect.ImmutableMultimap.Builder;
-import net.minecraft.item.*;
-import net.minecraft.particles.*;
-import net.minecraft.potion.*;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.material.Material;
 import net.minecraft.enchantment.IVanishable;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.Attribute;
@@ -19,9 +13,12 @@ import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.tags.BlockTags;
+import net.minecraft.item.*;
+import net.minecraft.particles.*;
+import net.minecraft.potion.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
 import java.util.Random;
 
 public class HoundItem extends TieredItem implements IVanishable {

@@ -1,12 +1,11 @@
 package com.idark.darkrpg.block.types;
 
+import com.idark.darkrpg.tileentity.ModSignTileEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.StandingSignBlock;
-import net.minecraft.block.WallSignBlock;
 import net.minecraft.block.WoodType;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockReader;
-import com.idark.darkrpg.tileentity.ModSignTileEntity;
 
 import javax.annotation.Nullable;
 

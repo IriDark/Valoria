@@ -1,6 +1,7 @@
 package com.idark.darkrpg.item.types;
 
 import com.idark.darkrpg.util.ModSoundRegistry;
+import com.idark.darkrpg.enchant.*;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -23,10 +24,10 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
+import net.minecraft.world.*;
 
 import java.util.List;
 import java.util.Random;
@@ -44,7 +45,7 @@ public class BlazeReapItem extends PickaxeItem {
 	}
 
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchant){
-        return enchant.type != EnchantmentType.BREAKABLE && enchant.type == EnchantmentType.WEAPON || enchant.type == EnchantmentType.DIGGER;
+        return enchant.type != EnchantmentType.BREAKABLE && enchant.type == EnchantmentType.WEAPON || enchant.type == EnchantmentType.DIGGER  || enchant.type == ModEnchantments.BLAZE.get();
     }
 
     // Some sounds taken from the CalamityMod (Terraria) in a https://calamitymod.fandom.com/wiki/Category:Sound_effects
@@ -130,7 +131,11 @@ public class BlazeReapItem extends PickaxeItem {
                         if (EnchantmentHelper.getEnchantmentLevel(Enchantments.FIRE_ASPECT, itemstack) > 0) {
                             int i = EnchantmentHelper.getFireAspectModifier(playerIn);
                             enemy.setFire(i * 4);
-                        }
+						}
+						
+				        if (EnchantmentHelper.getEnchantmentLevel(ModEnchantments.EXPLOSIVE_FLAME.get(), itemstack) > 0) {
+							worldIn.createExplosion(entity, null, null, X, Y, Z, 0.0F, true, Explosion.Mode.NONE);
+						}
                     }
                 }
             }

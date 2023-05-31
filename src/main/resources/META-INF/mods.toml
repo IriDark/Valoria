@@ -28,6 +28,7 @@ Special Thanks:
 - Arky Fursblack
 - FoxPlane
 - RayRindou
+- Feimos
 
 Some sounds taken from the CalamityMod (Terraria) in a https://calamitymod.fandom.com/wiki/Category:Sound_effects
 '''
@@ -38,12 +39,16 @@ Some sounds taken from the CalamityMod (Terraria) in a https://calamitymod.fando
   ordering = "NONE"
   side = "BOTH"
     [[dependencies.darkrpg]]
-  modId = "minecraft"
-  mandatory = true
-  versionRange = "[1.16.5,1.17)"
-  ordering = "NONE"
-  side = "BOTH"
+		modId = "minecraft"
+		mandatory = true
+		versionRange = "[1.16.5,1.17)"
+		ordering = "NONE"
+		side = "BOTH"
     [[dependencies.darkrpg]]
-    modId="curios"
-    mandatory=true
-    versionRange="[1.16.5-4.0.8.2,)"
+		modId="curios"
+		mandatory=true
+		versionRange="[1.16.5-4.0.8.2,)"
+	[[dependencies.darkrpg]]
+		modId="patchouli"
+		mandatory=true
+		versionRange="[1.16.4-48,)"

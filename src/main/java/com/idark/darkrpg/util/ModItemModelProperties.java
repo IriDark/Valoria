@@ -1,6 +1,5 @@
 package com.idark.darkrpg.util;
 
-import com.idark.darkrpg.DarkRPG;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemModelsProperties;
 import net.minecraft.util.ResourceLocation;
