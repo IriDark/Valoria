@@ -45,7 +45,7 @@ public class BlazeReapItem extends PickaxeItem {
 	}
 
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchant){
-        return enchant.type != EnchantmentType.BREAKABLE && enchant.type == EnchantmentType.WEAPON || enchant.type == EnchantmentType.DIGGER  || enchant.type == ModEnchantments.BLAZE.get();
+        return enchant.type != EnchantmentType.BREAKABLE && enchant.type == EnchantmentType.WEAPON || enchant.type == EnchantmentType.DIGGER  || enchant.type == ModEnchantments.BLAZE;
     }
 
     // Some sounds taken from the CalamityMod (Terraria) in a https://calamitymod.fandom.com/wiki/Category:Sound_effects
@@ -121,6 +121,13 @@ public class BlazeReapItem extends PickaxeItem {
             Y = ray.getHitVec().getY() - pos.y;
             Z = ray.getHitVec().getZ() - pos.z;
 
+			// NOTE: NOT WORKING WHEN USED
+			if (EnchantmentHelper.getEnchantmentLevel(ModEnchantments.EXPLOSIVE_FLAME.get(), itemstack) > 0) {
+				if(!worldIn.isRemote) {
+					worldIn.createExplosion(playerIn, null, null, X, Y, Z, 5.0F, true, Explosion.Mode.BREAK);
+				}
+			}
+
             List<Entity> entities = worldIn.getEntitiesWithinAABB(Entity.class,  new AxisAlignedBB(pos.x + X - 3D,pos.y + Y - 3D,pos.z + Z - 3D,pos.x + X + 3D,pos.y + Y + 3D,pos.z + Z + 3D));
             for (Entity entity : entities) {
                 if (entity instanceof LivingEntity) {
@@ -132,15 +139,11 @@ public class BlazeReapItem extends PickaxeItem {
                             int i = EnchantmentHelper.getFireAspectModifier(playerIn);
                             enemy.setFire(i * 4);
 						}
-						
-				        if (EnchantmentHelper.getEnchantmentLevel(ModEnchantments.EXPLOSIVE_FLAME.get(), itemstack) > 0) {
-							worldIn.createExplosion(entity, null, null, X, Y, Z, 0.0F, true, Explosion.Mode.NONE);
-						}
                     }
                 }
             }
 
-            playerIn.applyKnockback(1.2F, X, Z);
+            playerIn.applyKnockback(1.2F, X, Z);			
             if (!playerIn.isCreative()) {
                 itemstack.damageItem(10, playerIn, (p_220045_0_) -> {p_220045_0_.sendBreakAnimation(EquipmentSlotType.MAINHAND);});
             }
