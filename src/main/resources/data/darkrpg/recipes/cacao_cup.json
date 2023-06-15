@@ -1,9 +1,9 @@
 {
     "type": "minecraft:crafting_shaped",
     "pattern": [
-        " X ",
-        " A ",
-        " / "
+        "X",
+        "A",
+        "/"
     ],
     "key": {
         "/": {
@@ -13,7 +13,7 @@
 		"item": "minecraft:cocoa_beans"
     },
 	"A": {
-		"item": "minecraft:milk"
+		"item": "minecraft:milk_bucket"
 		}
 	},
     "result": {

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "darkrpg:shadewood_planks"
+    },
+    {
+      "item": "darkrpg:shadewood_button"
+    }
+  ],
+  "result": {
+    "item": "darkrpg:shadewood_button",
+    "count": 1
+  }
+}

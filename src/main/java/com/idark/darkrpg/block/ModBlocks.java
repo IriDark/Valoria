@@ -180,7 +180,7 @@ import java.util.function.ToIntFunction;
 	public static final RegistryObject<Block> CRYSTAL_STONE_BRICKS_WALL = BLOCK.register("crystal_stone_bricks_wall",
 	() -> new WallBlock(Properties.create(Material.ROCK).harvestLevel(3).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f)));
 	public static final RegistryObject<Block> CHARGED_VOID_PILLAR = BLOCK.register("charged_void_pillar",
-	() -> new CVoidPillarBlock(Properties.create(Material.ROCK).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(2f).sound(SoundType.NETHER_BRICK)));
+	() -> new RotatedPillarBlock(Properties.create(Material.ROCK).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(2f).sound(SoundType.NETHER_BRICK)));
 	public static final RegistryObject<Block> POLISHED_CRYSTAL_STONE = BLOCK.register("polished_crystal_stone",
 	() -> new Block(Properties.create(Material.ROCK).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f)));
 	public static final RegistryObject<Block> POLISHED_LIMESTONE = BLOCK.register("polished_limestone",
@@ -200,7 +200,7 @@ import java.util.function.ToIntFunction;
 	public static final RegistryObject<Block> VOID_STONE_WALL = BLOCK.register("void_stone_wall",
 	() -> new WallBlock(Properties.create(Material.ROCK).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f).sound(SoundType.NETHER_BRICK)));
 	public static final RegistryObject<Block> VOID_PILLAR_AMETHYST = BLOCK.register("void_pillar_amethyst",
-	() -> new CVoidPillarBlock(Properties.create(Material.ROCK).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(2f).sound(SoundType.NETHER_BRICK)));
+	() -> new RotatedPillarBlock(Properties.create(Material.ROCK).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(2f).sound(SoundType.NETHER_BRICK)));
 	public static final RegistryObject<Block> VOID_PILLAR = BLOCK.register("void_pillar",
 	() -> new RotatedPillarBlock(Properties.create(Material.ROCK).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(2f).sound(SoundType.NETHER_BRICK)));
 	public static final RegistryObject<Block> VOID_BRICK = BLOCK.register("void_brick",
@@ -282,10 +282,16 @@ import java.util.function.ToIntFunction;
 	() -> new RotatedPillarBlock(AbstractBlock.Properties.from(Blocks.OAK_WOOD)));
 	public static final RegistryObject<Block> SHADEWOOD_PLANKS = BLOCK.register("shadewood_planks",
 	() -> new Block(AbstractBlock.Properties.from(Blocks.OAK_PLANKS)));
+	public static final RegistryObject<Block> SHADEWOOD_PLANKS_SLAB = registerBlock("shadewood_planks_slab",
+	() -> new SlabBlock(AbstractBlock.Properties.from(Blocks.OAK_SLAB)));
+	public static final RegistryObject<Block> SHADEWOOD_PLANKS_STAIRS = registerBlock("shadewood_planks_stairs",
+	() -> new StairsBlock(() -> SHADEWOOD_PLANKS.get().getDefaultState(), AbstractBlock.Properties.from(Blocks.OAK_STAIRS)));
 	public static final RegistryObject<Block> SHADEWOOD_LEAVES = BLOCK.register("shadewood_leaves",
 	() -> new LeavesBlock(Properties.from(Blocks.OAK_LEAVES)));
     public static final RegistryObject<Block> SHADEWOOD_SAPLING = BLOCK.register("shadewood_sapling",
 	() -> new ShadeSaplingBlock(new ShadeWoodTree(), AbstractBlock.Properties.from(Blocks.OAK_SAPLING)));
+    public static final RegistryObject<Block> POTTED_SHADEWOOD_SAPLING = BLOCK.register("potted_shadewood_sapling",
+	() -> new FlowerPotBlock(SHADEWOOD_SAPLING.get(), AbstractBlock.Properties.create(Material.MISCELLANEOUS).zeroHardnessAndResistance().notSolid()));
 	// Signs
 	public static final RegistryObject<Block> SHADEWOOD_SIGN = BLOCK.register("shadewood_sign",
     () -> new ModStandingSignBlock(AbstractBlock.Properties.create(Material.IRON).notSolid().doesNotBlockMovement(), ModWoodTypes.SHADEWOOD));
@@ -309,7 +315,7 @@ import java.util.function.ToIntFunction;
 	public static final RegistryObject<Block> SARCO_HALF = BLOCK.register("sarcophagus_half", 
 	() -> new SarcoHalfBlock(AbstractBlock.Properties.create(Material.IRON).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f)));
 	public static final RegistryObject<Block> PLATE = BLOCK.register("plate", 
-	() -> new VariatedBlock(AbstractBlock.Properties.create(Material.IRON).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f)));
+	() -> new Block(AbstractBlock.Properties.create(Material.IRON).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(3f)));
 	public static final RegistryObject<Block> QUICKSAND = BLOCK.register("quicksand", 
 	() -> new QuickSandBlock(Properties.create(Material.IRON).harvestLevel(2).harvestTool(ToolType.SHOVEL).setRequiresTool().hardnessAndResistance(3f).sound(SoundType.SAND)));
 	public static final RegistryObject<Block> ELEMENTAL_MANIPULATOR = BLOCK.register("elemental_manipulator", 
@@ -352,7 +358,7 @@ import java.util.function.ToIntFunction;
 	() -> new CrystalBlock(Properties.create(Material.IRON).harvestLevel(2).hardnessAndResistance(1f).sound(SoundType.GLASS).notSolid()));
 	public static final RegistryObject<Block> SAPPHIRE_CRYSTAL = BLOCK.register("sapphire_crystal", 
 	() -> new CrystalBlock(Properties.create(Material.IRON).harvestLevel(2).hardnessAndResistance(1f).sound(SoundType.GLASS).notSolid()));
-	// Vases
+	// Pots
 	public static final RegistryObject<Block> POT_SMALL = BLOCK.register("pot_small", 
 	() -> new PotBlock(Properties.create(Material.GLASS).harvestLevel(0).zeroHardnessAndResistance().notSolid().sound(ModSoundRegistry.POT)));
 	public static final RegistryObject<Block> POT_SMALL_HANDLESS = BLOCK.register("pot_small_handless", 
@@ -368,60 +374,89 @@ import java.util.function.ToIntFunction;
 	// Plants	
 	public static final RegistryObject<Block> ALOE_SMALL = BLOCK.register("aloe_small",
 	() -> new DeadBushBlock(Properties.from(Blocks.SUNFLOWER)));
+    public static final RegistryObject<Block> POTTED_ALOE_SMALL = BLOCK.register("potted_aloe_small",
+	() -> new FlowerPotBlock(ALOE_SMALL.get(), AbstractBlock.Properties.create(Material.MISCELLANEOUS).zeroHardnessAndResistance().notSolid()));
 	public static final RegistryObject<Block> DRIED_PLANT = BLOCK.register("dried_plant",
 	() -> new DriedBlock(Properties.from(Blocks.SUNFLOWER)));
+    public static final RegistryObject<Block> POTTED_DRIED_PLANT = BLOCK.register("potted_dried_plant",
+	() -> new FlowerPotBlock(DRIED_PLANT.get(), AbstractBlock.Properties.create(Material.MISCELLANEOUS).zeroHardnessAndResistance().notSolid()));
 	public static final RegistryObject<Block> DRIED_ROOTS = BLOCK.register("dried_roots",
 	() -> new DriedBlock(Properties.from(Blocks.SUNFLOWER)));	
+    public static final RegistryObject<Block> POTTED_DRIED_ROOTS = BLOCK.register("potted_dried_roots",
+	() -> new FlowerPotBlock(DRIED_ROOTS.get(), AbstractBlock.Properties.create(Material.MISCELLANEOUS).zeroHardnessAndResistance().notSolid()));
 	public static final RegistryObject<Block> ALOE = BLOCK.register("aloe",
-	() -> new TallSandFlowerBlock(Properties.from(Blocks.SUNFLOWER)));
+	() -> new TallSandFlowerBlock(Properties.from(Blocks.SUNFLOWER)));	
 	public static final RegistryObject<Block> CATTAIL = BLOCK.register("cattail",
-	() -> new TallWaterFlowerBlock(Properties.from(Blocks.SUNFLOWER)));
+	() -> new TallWaterFlowerBlock(Properties.from(Blocks.SUNFLOWER)));	
 	public static final RegistryObject<Block> SOULROOT = BLOCK.register("soulroot",
 	() -> new NetherRootsBlock(AbstractBlock.Properties.from(Blocks.CRIMSON_ROOTS)));
+    public static final RegistryObject<Block> POTTED_SOULROOT = BLOCK.register("potted_soulroot",
+	() -> new FlowerPotBlock(SOULROOT.get(), AbstractBlock.Properties.create(Material.MISCELLANEOUS).zeroHardnessAndResistance().notSolid()));
 	public static final RegistryObject<Block> CRIMSON_SOULROOT = BLOCK.register("crimson_soulroot",
 	() -> new NetherRootsBlock(AbstractBlock.Properties.from(Blocks.CRIMSON_ROOTS)));
+    public static final RegistryObject<Block> POTTED_CRIMSON_SOULROOT = BLOCK.register("potted_crimson_soulroot",
+	() -> new FlowerPotBlock(CRIMSON_SOULROOT.get(), AbstractBlock.Properties.create(Material.MISCELLANEOUS).zeroHardnessAndResistance().notSolid()));	
 	public static final RegistryObject<Block> DOUBLE_SOULROOT = BLOCK.register("double_crimson_soulroot",
 	() -> new TallNetherFlowerBlock(AbstractBlock.Properties.from(Blocks.CRIMSON_ROOTS)));
 	public static final RegistryObject<Block> MAGMAROOT = BLOCK.register("crimson_magmaroot",
 	() -> new NetherRootsBlock(AbstractBlock.Properties.from(Blocks.CRIMSON_ROOTS)));
+    public static final RegistryObject<Block> POTTED_MAGMAROOT = BLOCK.register("potted_crimson_magmaroot",
+	() -> new FlowerPotBlock(MAGMAROOT.get(), AbstractBlock.Properties.create(Material.MISCELLANEOUS).zeroHardnessAndResistance().notSolid()));
 	public static final RegistryObject<Block> DOUBLE_MAGMAROOT = BLOCK.register("double_crimson_magmaroot",
 	() -> new TallNetherFlowerBlock(Properties.from(Blocks.SUNFLOWER)));
 	public static final RegistryObject<Block> GOLDY = BLOCK.register("crimson_goldy",
 	() -> new NetherRootsBlock(AbstractBlock.Properties.from(Blocks.CRIMSON_ROOTS)));
+    public static final RegistryObject<Block> POTTED_GOLDY = BLOCK.register("potted_crimson_goldy",
+	() -> new FlowerPotBlock(GOLDY.get(), AbstractBlock.Properties.create(Material.MISCELLANEOUS).zeroHardnessAndResistance().notSolid()));
 	public static final RegistryObject<Block> DOUBLE_GOLDY = BLOCK.register("double_crimson_goldy",
 	() -> new TallNetherFlowerBlock(Properties.from(Blocks.SUNFLOWER)));
 	public static final RegistryObject<Block> BLOODROOT = BLOCK.register("bloodroot",
 	() -> new NetherRootsBlock(AbstractBlock.Properties.from(Blocks.CRIMSON_ROOTS)));
+    public static final RegistryObject<Block> POTTED_BLOODROOT = BLOCK.register("potted_bloodroot",
+	() -> new FlowerPotBlock(BLOODROOT.get(), AbstractBlock.Properties.create(Material.MISCELLANEOUS).zeroHardnessAndResistance().notSolid()));	
 	public static final RegistryObject<Block> RAJUSH = BLOCK.register("crimson_rajush",
 	() -> new NetherRootsBlock(AbstractBlock.Properties.from(Blocks.CRIMSON_ROOTS)));
+    public static final RegistryObject<Block> POTTED_RAJUSH = BLOCK.register("potted_crimson_rajush",
+	() -> new FlowerPotBlock(RAJUSH.get(), AbstractBlock.Properties.create(Material.MISCELLANEOUS).zeroHardnessAndResistance().notSolid()));
 	public static final RegistryObject<Block> FALSEFLOWER = BLOCK.register("falseflower",
 	() -> new VoidFlowerBlock(Effects.POISON, 2, AbstractBlock.Properties.from(Blocks.CRIMSON_ROOTS)));
+    public static final RegistryObject<Block> POTTED_FALSEFLOWER = BLOCK.register("potted_falseflower",
+	() -> new FlowerPotBlock(FALSEFLOWER.get(), AbstractBlock.Properties.create(Material.MISCELLANEOUS).zeroHardnessAndResistance().notSolid()));
 	public static final RegistryObject<Block> FALSEFLOWER_SMALL = BLOCK.register("falseflower_small",
 	() -> new VoidFlowerBlock(Effects.POISON, 2, AbstractBlock.Properties.from(Blocks.CRIMSON_ROOTS)));
+    public static final RegistryObject<Block> POTTED_FALSEFLOWER_SMALL = BLOCK.register("potted_falseflower_small",
+	() -> new FlowerPotBlock(FALSEFLOWER_SMALL.get(), AbstractBlock.Properties.create(Material.MISCELLANEOUS).zeroHardnessAndResistance().notSolid()));
 	public static final RegistryObject<Block> SOULFLOWER = BLOCK.register("soulflower",
 	() -> new VoidFlowerBlock(Effects.NIGHT_VISION, 5, AbstractBlock.Properties.from(Blocks.CRIMSON_ROOTS)));
+    public static final RegistryObject<Block> POTTED_SOULFLOWER = BLOCK.register("potted_soulflower",
+	() -> new FlowerPotBlock(SOULFLOWER.get(), AbstractBlock.Properties.create(Material.MISCELLANEOUS).zeroHardnessAndResistance().notSolid()));
 	public static final RegistryObject<Block> VOID_ROOTS = BLOCK.register("void_roots",
 	() -> new VoidRootsBlock(AbstractBlock.Properties.from(Blocks.CRIMSON_ROOTS)));
+    public static final RegistryObject<Block> POTTED_VOID_ROOTS = BLOCK.register("potted_void_roots",
+	() -> new FlowerPotBlock(VOID_ROOTS.get(), AbstractBlock.Properties.create(Material.MISCELLANEOUS).zeroHardnessAndResistance().notSolid()));
 	public static final RegistryObject<Block> GAIB_ROOTS = BLOCK.register("gaib_roots",
 	() -> new TallRootsBlock(Properties.from(Blocks.CRIMSON_ROOTS)));
 	public static final RegistryObject<Block> KARUSAKAN_ROOTS = BLOCK.register("karusakan_roots",
 	() -> new TallRootsBlock(Properties.from(Blocks.CRIMSON_ROOTS)));
 	
 	private static <T extends Block>RegistryObject<T> registerBlock(String name, Supplier<T> block) {
-	RegistryObject<T> toReturn = BLOCK.register(name, block);
-	registerBlockItem(name, toReturn);
-	return toReturn;
+		RegistryObject<T> toReturn = BLOCK.register(name, block);
+		registerBlockItem(name, toReturn);
+		return toReturn;
 	}
+	
 	private static <T extends Block> void registerBlockItem(String name, RegistryObject<T> block) {
-	ModItems.ITEMS.register(name, () -> new BlockItem(block.get(),
-	new Item.Properties().group(ModItemGroup.DARKRPG_BLOCKS_GROUP)));
+		ModItems.ITEMS.register(name, () -> new BlockItem(block.get(),
+		new Item.Properties().group(ModItemGroup.DARKRPG_BLOCKS_GROUP)));
 	}
+	
 	public static void register(IEventBus eventBus) {
-	BLOCK.register(eventBus);
+		BLOCK.register(eventBus);
 	}
+	
 	private static ToIntFunction<BlockState> getLightValueLit(int lightValue) {
-	return (state) -> {
-	return state.get(BlockStateProperties.LIT) ? lightValue : 0;
-	  };
-   }
+		return (state) -> {
+		return state.get(BlockStateProperties.LIT) ? lightValue : 0;
+		};
+	}
 }

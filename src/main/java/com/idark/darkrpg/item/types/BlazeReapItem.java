@@ -51,11 +51,11 @@ public class BlazeReapItem extends PickaxeItem {
     // Some sounds taken from the CalamityMod (Terraria) in a https://calamitymod.fandom.com/wiki/Category:Sound_effects
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
         ItemStack itemstack = playerIn.getHeldItem(handIn);
-
-        if (isCharged(itemstack) == 0) {
-            List<ItemStack> items = playerIn.container.getInventory();
-            int gunpowder = 0;
-            boolean canCharge = false;
+        if (playerIn.isSneaking()) {
+			if (isCharged(itemstack) == 0) {
+				List<ItemStack> items = playerIn.container.getInventory();
+				int gunpowder = 0;
+				boolean canCharge = false;
 
             if (!playerIn.isCreative()) {
                 for (ItemStack item : items) {
@@ -96,8 +96,9 @@ public class BlazeReapItem extends PickaxeItem {
                 playerIn.getCooldownTracker().setCooldown(this, 20);
                 worldIn.playSound(playerIn, playerIn.getPosition(), ModSoundRegistry.BLAZECHARGE.get(), SoundCategory.AMBIENT, 10f, 1f);
                 playerIn.addStat(Stats.ITEM_USED.get(this));
-            }
-            return new ActionResult<ItemStack>(ActionResultType.SUCCESS, itemstack);
+				}
+			}
+	        return new ActionResult<ItemStack>(ActionResultType.SUCCESS, itemstack);
         } else if (isCharged(itemstack) == 1) {
             setCharge(itemstack, 0);
             playerIn.getCooldownTracker().setCooldown(this, 50);
@@ -122,7 +123,8 @@ public class BlazeReapItem extends PickaxeItem {
             Z = ray.getHitVec().getZ() - pos.z;
 
 			if (EnchantmentHelper.getEnchantmentLevel(ModEnchantments.EXPLOSIVE_FLAME.get(), itemstack) > 0) {
-					worldIn.createExplosion(playerIn, pos.x + X, pos.y + Y, pos.z + Z, 5.0F, true, Explosion.Mode.BREAK);
+				if(!worldIn.isRemote) {
+					worldIn.createExplosion(playerIn, pos.x + X, pos.y + Y, pos.z + Z, 4.0F, true, Explosion.Mode.BREAK);				}
 			}
 
             List<Entity> entities = worldIn.getEntitiesWithinAABB(Entity.class,  new AxisAlignedBB(pos.x + X - 3D,pos.y + Y - 3D,pos.z + Z - 3D,pos.x + X + 3D,pos.y + Y + 3D,pos.z + Z + 3D));
@@ -155,11 +157,11 @@ public class BlazeReapItem extends PickaxeItem {
             worldIn.playSound(playerIn, playerIn.getPosition().add(X, Y + playerIn.getEyeHeight(), Z), SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.AMBIENT, 10f, 1f);
 
 
-            return new ActionResult<ItemStack>(ActionResultType.SUCCESS, itemstack);
-        }
-
-        return new ActionResult<ItemStack>(ActionResultType.PASS, itemstack);
-    }
+		return new ActionResult<ItemStack>(ActionResultType.SUCCESS, itemstack);
+		}
+		
+	return new ActionResult<ItemStack>(ActionResultType.PASS, itemstack);
+	}
 
     public static int isCharged(ItemStack stack) {
         CompoundNBT nbt = stack.getTag();
@@ -186,12 +188,21 @@ public class BlazeReapItem extends PickaxeItem {
         stack.setTag(nbt);
     }
 
+    public static String getModeString(ItemStack stack) {
+        CompoundNBT nbt = stack.getTag();
+        if (isCharged(stack) == 1) {
+            return "tooltip.darkrpg.rmb";
+        } else {
+			return "tooltip.darkrpg.rmb_shift";
+		}
+    }
+
     @Override
     public void addInformation(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flags) {
         super.addInformation(stack, world, tooltip, flags);
         tooltip.add(1, new TranslationTextComponent("tooltip.darkrpg.familiar").mergeStyle(TextFormatting.GRAY, TextFormatting.ITALIC));
         tooltip.add(2, new StringTextComponent("                "));
         tooltip.add(3, new TranslationTextComponent("tooltip.darkrpg.blazereap").mergeStyle(TextFormatting.GRAY));
-		tooltip.add(4, new TranslationTextComponent("tooltip.darkrpg.rmb").mergeStyle(TextFormatting.GREEN));
+        tooltip.add(4, new TranslationTextComponent(getModeString(stack)).mergeStyle(TextFormatting.GREEN));
 	}
 }

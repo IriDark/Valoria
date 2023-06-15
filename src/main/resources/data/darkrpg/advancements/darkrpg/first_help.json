@@ -1,5 +1,5 @@
 {
-  "parent": "darkrpg:darkrpg/darkrpg",	
+  "parent": "darkrpg:darkrpg/aloe_piece",	
   "display": {
     "icon": {
       "item": "darkrpg:aloe_bandage"

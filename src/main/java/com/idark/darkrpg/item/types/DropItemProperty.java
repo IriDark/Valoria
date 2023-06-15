@@ -7,6 +7,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.stats.Stats;
 import net.minecraft.util.*;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
@@ -45,16 +46,17 @@ public class DropItemProperty extends Item {
 			case GEM:
 				LootUtil.givePlayerMultipleItems(serverPlayer, LootUtil.generateLoot((ServerWorld) worldIn, new ResourceLocation(DarkRPG.MOD_ID, "items/gem_bag"), LootUtil.getGiftContext((ServerWorld) worldIn, playerPos, serverPlayer)));
 				break;
-		}
+			}
 			
+			serverPlayer.addStat(Stats.ITEM_USED.get(this));
 			if (!serverPlayer.isCreative()) {
 				heldStack.shrink(1);
 			}
 
-		return new ActionResult<>(ActionResultType.SUCCESS, heldStack);
+		return new ActionResult<>(ActionResultType.CONSUME, heldStack);
 		}
 
-	return new ActionResult<>(ActionResultType.PASS, heldStack);
+	return new ActionResult<>(ActionResultType.CONSUME, heldStack);
 	}
  
 	@Override

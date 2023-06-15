@@ -1,15 +1,32 @@
 package com.idark.darkrpg.util;
 
 import com.idark.darkrpg.DarkRPG;
+import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.Tags;
 
 public class ModTags {
 
+    public static class Blocks {
+		
+        public static final Tags.IOptionalNamedTag<Block> SHADEWOOD_LOGS = createTag("shadewood_logs");
+
+        private static Tags.IOptionalNamedTag<Block> createTag(String name) {
+            return BlockTags.createOptional(new ResourceLocation(DarkRPG.MOD_ID, name));
+        }
+
+        private static Tags.IOptionalNamedTag<Block> createForgeTag(String name) {
+            return BlockTags.createOptional(new ResourceLocation("forge", name));
+        }
+    }
     public static class Items {
 
+        public static final Tags.IOptionalNamedTag<Item> ALCOHOL = createForgeTag("alcohol");
+        public static final Tags.IOptionalNamedTag<Item> RUM = createForgeTag("rum");		
+        public static final Tags.IOptionalNamedTag<Item> GEODES = createForgeTag("geodes");
         public static final Tags.IOptionalNamedTag<Item> TRASH = createForgeTag("rarity/trash");
         public static final Tags.IOptionalNamedTag<Item> DEFAULT = createForgeTag("rarity/default");
         public static final Tags.IOptionalNamedTag<Item> COMMON = createForgeTag("rarity/common");

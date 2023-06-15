@@ -1,0 +1,33 @@
+{
+  "display": {
+    "icon": {
+      "item": "darkrpg:stone_geode"
+    },
+    "title": {
+      "translate": "advancement.darkrpg:geodes"
+    },
+    "description": {
+      "translate": "advancement.darkrpg:geodes.desc"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "darkrpg:darkrpg/miners_bag",
+  "criteria": {
+    "geodes": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "forge:geodes"
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "experience": 50
+  }
+}

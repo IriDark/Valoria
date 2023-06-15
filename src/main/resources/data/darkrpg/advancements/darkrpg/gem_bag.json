@@ -1,0 +1,27 @@
+{
+  "display": {
+    "icon": {
+      "item": "darkrpg:amethyst_gem"
+    },
+    "title": {
+      "translate": "advancement.darkrpg:treasures"
+    },
+    "description": {
+      "translate": "advancement.darkrpg:treasures.desc"
+    }
+  },
+  "parent": "darkrpg:darkrpg/darkrpg",
+  "criteria": {
+    "gems": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "item": "darkrpg:gem_bag"
+        }
+      }
+    }
+  },
+  "rewards": {
+    "experience": 300
+  }
+}

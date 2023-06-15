@@ -42,7 +42,8 @@ public class TooltipEventHandler {
         int height = event.getHeight();
 		Minecraft mc = Minecraft.getInstance();
 		MatrixStack matrix = event.getMatrixStack();
-        RenderSystem.disableBlend();
+        RenderSystem.enableBlend();
+        RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		RenderSystem.translatef(0, 0, 900);		
 		matrix.push();		
 
@@ -63,5 +64,7 @@ public class TooltipEventHandler {
 				tooltip.add(1, new StringTextComponent("                "));
 			}
 		}
+		
+    RenderSystem.disableBlend();		
 	}
 }

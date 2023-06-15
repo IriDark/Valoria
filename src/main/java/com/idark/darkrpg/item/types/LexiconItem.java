@@ -13,7 +13,6 @@ import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.text.*;
 import net.minecraft.world.World;
-import vazkii.patchouli.api.PatchouliAPI;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -24,6 +23,7 @@ public class LexiconItem extends Item {
 		super(props);
 	}
 	
+	/*/ 
 	@Nonnull
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
@@ -47,4 +47,5 @@ public class LexiconItem extends Item {
     super.addInformation(stack, world, tooltip, flags);
     tooltip.add(new TranslationTextComponent("tooltip.darkrpg.lexicon").mergeStyle(TextFormatting.GRAY));
 	}
+	/*/
 }

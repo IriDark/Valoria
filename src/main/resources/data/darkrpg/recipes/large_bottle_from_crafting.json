@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "B",
+    "O"
+  ],
+  "key": {
+    "O": {
+      "item": "minecraft:glass"
+    },
+    "B": {
+      "item": "darkrpg:bottle"
+    }
+  },
+  "result": {
+    "item": "darkrpg:large_bottle",
+    "count": 1
+  }
+}

@@ -33,7 +33,6 @@ public class TransformShardItem extends Item {
     @Override
     public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand) {
         ItemStack stack = player.getHeldItem(hand);
-
         return new ActionResult<ItemStack>(ActionResultType.SUCCESS, stack);
     }
 
@@ -44,18 +43,18 @@ public class TransformShardItem extends Item {
         BlockPos pos = context.getPos();
         PlayerEntity player = context.getPlayer();
 
-        rightClickOnCertainBlockState(player, worldIn, state, pos);
-        if (!player.isCreative()) {
-            stack.shrink(1);
-		}
-		
+        rightClickOnCertainBlockState(stack, player, worldIn, state, pos);		
         return super.onItemUseFirst(stack, context);		
 	}
 
-    private void rightClickOnCertainBlockState(PlayerEntity player, World worldIn, BlockState state, BlockPos pos) {
+    private void rightClickOnCertainBlockState(ItemStack stack, PlayerEntity player, World worldIn, BlockState state, BlockPos pos) {
         if (state.matchesBlock(ModBlocks.VOID_PILLAR.get())) {
 			worldIn.playSound(player, player.getPosition(), SoundEvents.BLOCK_RESPAWN_ANCHOR_AMBIENT, SoundCategory.BLOCKS, 10f, 1f);
 			worldIn.playSound(player, player.getPosition(), SoundEvents.BLOCK_RESPAWN_ANCHOR_CHARGE, SoundCategory.BLOCKS, 1.0F, 1.0F);
+			if (!player.isCreative()) {
+				stack.shrink(1);
+			}
+
 		switch(type) {
 		case WICKED:
 			for (int i = 0; i < 26; i++) {

@@ -1,0 +1,33 @@
+{
+  "parent": "darkrpg:darkrpg/darkrpg",
+  "display": {
+    "icon": {
+      "item": "darkrpg:aloe_piece"
+    },
+    "title": {
+		"translate": "advancement.darkrpg:aloe"
+	},
+    "description": {
+		"translate": "advancement.darkrpg:aloe.desc"
+	},
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "tea": {
+    "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "darkrpg:aloe_piece"
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "experience": 80
+  }
+}

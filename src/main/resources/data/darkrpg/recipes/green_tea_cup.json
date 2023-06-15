@@ -10,11 +10,11 @@
 		"item": "darkrpg:cup"
     },
 		"X": {
-		"item": "darkrpg:aloe"
+		"item": "darkrpg:aloe_piece"
 		}
 	},
     "result": {
-        "item": "darkrpg:coffe_cup",
+        "item": "darkrpg:green_tea_cup",
         "count": 1
 	}
 }

@@ -1,0 +1,27 @@
+{
+  "display": {
+    "icon": {
+      "item": "minecraft:iron_pickaxe"
+    },
+    "title": {
+      "translate": "advancement.darkrpg:miners_adventure"
+    },
+    "description": {
+      "translate": "advancement.darkrpg:miners_adventure.desc"
+    }
+  },
+  "parent": "darkrpg:darkrpg/gem_bag",
+  "criteria": {
+    "miners": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "item": "darkrpg:miners_bag"
+        }
+      }
+    }
+  },
+  "rewards": {
+    "experience": 400
+  }
+}

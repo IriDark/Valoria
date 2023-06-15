@@ -1,0 +1,33 @@
+{
+  "parent": "darkrpg:darkrpg/first_help",
+  "display": {
+    "icon": {
+      "item": "darkrpg:green_tea_cup"
+    },
+    "title": {
+		"translate": "advancement.darkrpg:aloe_tea"
+	},
+    "description": {
+		"translate": "advancement.darkrpg:aloe_tea.desc"
+	},
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "tea": {
+    "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "darkrpg:green_tea_cup"
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "experience": 80
+  }
+}

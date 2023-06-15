@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "forge:shadelogs"
+    },
+    {
+      "item": "darkrpg:shadewood_planks"
+    }
+  ],
+  "result": {
+    "item": "darkrpg:shadewood_planks",
+    "count": 4
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "GGG",
+    "GGG",
+    " O "
+  ],
+  "key": {
+    "G": {
+      "item": "darkrpg:shadewood_planks"
+    },
+    "O": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "darkrpg:shadewood_sign",
+    "count": 3
+  }
+}

@@ -15,8 +15,6 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
-
-;
 	
 	public class ModItems {
 	public static final DeferredRegister<Item> ITEMS =
@@ -359,7 +357,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 		() -> new HoeItem(ModItemTier.AQUARIUS, -1, 0f, new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
 	// Infernal
 	public static final RegistryObject<Item> INFERNAL_SWORD = ITEMS.register("infernal_sword",
-		() -> new SwordItem(ModItemTier.INFERNAL, 9, -2f, new Item.Properties().isImmuneToFire().group(ModItemGroup.DARKRPG_GROUP)));
+		() -> new MagmaSwordItem(ModItemTier.INFERNAL, 9, -2f, new Item.Properties().isImmuneToFire().group(ModItemGroup.DARKRPG_GROUP)));
 	public static final RegistryObject<Item> INFERNAL_SCYTHE = ITEMS.register("infernal_scythe",
 		() -> new SwordItem(ModItemTier.INFERNAL, 11, -3.4f, new Item.Properties().isImmuneToFire().group(ModItemGroup.DARKRPG_GROUP)));
 	public static final RegistryObject<Item> INFERNAL_PICKAXE = ITEMS.register("infernal_pickaxe",

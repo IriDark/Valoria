@@ -19,6 +19,7 @@ public class DashOverlayRender {
 
     public static int dashTime = 0;
     public static boolean isDash = false;
+	private static final ResourceLocation DASH = new ResourceLocation(DarkRPG.MOD_ID + ":textures/gui/speedlines.png");
 
     public static void tick(TickEvent.ClientTickEvent event) {
         if (isDash) {
@@ -61,7 +62,7 @@ public class DashOverlayRender {
             RenderSystem.enableBlend();
             RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ONE, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ONE);
             RenderSystem.color4f(f, f1, f2, alpha);
-            mc.getTextureManager().bindTexture(new ResourceLocation(DarkRPG.MOD_ID + ":textures/gui/speedlines.png"));
+            mc.getTextureManager().bindTexture(DASH);
             Tessellator tessellator = Tessellator.getInstance();
             BufferBuilder bufferbuilder = tessellator.getBuffer();
             bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);

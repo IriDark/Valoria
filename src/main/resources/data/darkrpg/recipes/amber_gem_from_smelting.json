@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "darkrpg:amber_ore"
+  },
+  "experience": 0.3,
+  "cookingtime": 120,
+  "result": "darkrpg:amber_gem"
+}

@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "item": "darkrpg:elegant_pedestal"
+    },
+    "title": {
+      "translate": "advancement.darkrpg:elegant_life"
+    },
+    "description": {
+      "translate": "advancement.darkrpg:elegant_life.desc"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "darkrpg:darkrpg/darkrpg",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:placed_block",
+      "conditions": {
+        "block": "darkrpg:elegant_pedestal"
+      }
+    }
+  }
+}

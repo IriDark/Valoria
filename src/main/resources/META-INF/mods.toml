@@ -48,7 +48,3 @@ Some sounds taken from the CalamityMod (Terraria) in a https://calamitymod.fando
 		modId="curios"
 		mandatory=true
 		versionRange="[1.16.5-4.0.8.2,)"
-	[[dependencies.darkrpg]]
-		modId="patchouli"
-		mandatory=true
-		versionRange="[1.16.4-48,)"

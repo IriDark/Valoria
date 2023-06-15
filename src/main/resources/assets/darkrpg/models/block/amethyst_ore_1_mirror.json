@@ -1,0 +1,6 @@
+{
+  "parent": "block/cube_mirrored_all",
+  "textures": {
+    "all": "darkrpg:block/amethyst_ore_1"
+  }
+}

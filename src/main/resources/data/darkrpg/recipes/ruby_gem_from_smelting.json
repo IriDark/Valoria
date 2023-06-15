@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "darkrpg:ruby_ore"
+  },
+  "experience": 0.3,
+  "cookingtime": 120,
+  "result": "darkrpg:ruby_gem"
+}

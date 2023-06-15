@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "GG",
+    "GG"
+  ],
+  "key": {
+    "G": {
+      "item": "darkrpg:stripped_shadelog"
+    }
+  },
+  "result": {
+    "item": "darkrpg:stripped_shadewood",
+    "count": 3
+  }
+}
