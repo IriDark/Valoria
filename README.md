@@ -11,7 +11,9 @@ Some weapons have a unique power:
 Blaze reap — a Pickaxe and, a strong weapon *KABOOM*
 
 Spears — Long ranged weapons
+
 Scythes — Strong weapons has a circle attack abillity
+
 Infernal Sword — When damaging mobs have a small chance of charging the Infernal Eruption ability
 
 And more!
