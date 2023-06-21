@@ -11,9 +11,7 @@ import net.minecraftforge.common.Tags;
 public class ModTags {
 
     public static class Blocks {
-		
-        public static final Tags.IOptionalNamedTag<Block> SHADEWOOD_LOGS = createTag("shadewood_logs");
-
+	
         private static Tags.IOptionalNamedTag<Block> createTag(String name) {
             return BlockTags.createOptional(new ResourceLocation(DarkRPG.MOD_ID, name));
         }

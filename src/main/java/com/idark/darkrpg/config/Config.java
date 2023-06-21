@@ -60,11 +60,11 @@ public class Config {
 		GEODITE_ENABLED = builder.comment("Whether geodites is enabled. Set to false to disable spawning.")
 		.define("geoditesEnabled", true);
         GEODITE_MAX_Y = builder.comment("Maximum Y value for geodites veins")
-		.defineInRange("geoditesMaxY", 74, 6, 255);
+		.defineInRange("geoditesMaxY", 65, 6, 255);
         GEODITE_VEIN_SIZE = builder.comment("Maximum number of blocks per geodites vein")
 		.defineInRange("geoditesVeinSize", 3, 1, 255);
         GEODITE_VEIN_COUNT = builder.comment("Number of geodites veins per chunk")
-		.defineInRange("geoditesVeinCount", 12, 4, 255);
+		.defineInRange("geoditesVeinCount", 3, 1, 255);
     }
 
     public static final Config INSTANCE;

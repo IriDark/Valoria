@@ -3,9 +3,6 @@
   "ingredients": [
     {
       "tag": "forge:shadelogs"
-    },
-    {
-      "item": "darkrpg:shadewood_planks"
     }
   ],
   "result": {

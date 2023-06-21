@@ -104,7 +104,7 @@ import javax.annotation.Nonnull;
         forgeBus.addListener(WorldRenderHandler::onRenderWorldLast);	
 		forgeBus.addListener(DashOverlayRender::tick);
 		forgeBus.addListener(DashOverlayRender::onDrawScreenPost);
-		forgeBus.addListener(MagmaOverlayRender::onDrawScreenPost);		
+		forgeBus.addListener(MagmaBarRender::onDrawScreenPost);		
 		forgeBus.addListener(TooltipEventHandler::onPostTooltipEvent);
 		forgeBus.addListener(TooltipEventHandler::onTooltip);
 		

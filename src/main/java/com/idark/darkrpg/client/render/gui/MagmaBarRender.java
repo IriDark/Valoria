@@ -1,6 +1,7 @@
 package com.idark.darkrpg.client.render.gui;
 
 import com.idark.darkrpg.DarkRPG;
+import com.idark.darkrpg.config.ClientConfig;
 import com.idark.darkrpg.item.types.MagmaSwordItem;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
@@ -13,16 +14,15 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.item.ItemStack;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.*;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.event.TickEvent;
 
-public class MagmaOverlayRender {
+public class MagmaBarRender {
 
-    private MagmaOverlayRender() {}
-
-    public static int chargeLevel = 0;
+    private MagmaBarRender() {}
 	private static final ResourceLocation BAR = new ResourceLocation(DarkRPG.MOD_ID + ":textures/gui/magma_charge.png");
 
     public static void onDrawScreenPost(RenderGameOverlayEvent.Post event) {
@@ -46,17 +46,34 @@ public class MagmaOverlayRender {
                 }
             }
 			
+			CompoundNBT compoundnbt = stack.getTag();	
             if (renderBar == true) {
                 if (!player.isSpectator()) {
-                    MagmaSwordItem magma = (MagmaSwordItem) stack.getItem();
+					Integer barType = ClientConfig.MAGMA_CHARGE_BAR_TYPE.get();						
+					Integer xCord = ClientConfig.MAGMA_CHARGE_BAR_X.get();	
+					Integer yCord = ClientConfig.MAGMA_CHARGE_BAR_Y.get();	
+					Integer xDebug = ClientConfig.DEBUG_X.get();	
+					Integer yDebug = ClientConfig.DEBUG_Y.get();						
                     mc.textureManager.bindTexture(BAR);
-                    AbstractGui.blit(ms, 3, 2, 0, 0, 8, 17, 64, 136);
-					if (chargeLevel == 1) {
-						AbstractGui.blit(ms, 12, 2, 0, 0, 2, 5, 16, 40);
-					} else if (chargeLevel == 2) {
-						AbstractGui.blit(ms, 12, 2, 0, 0, 2, 5, 16, 40);
-						AbstractGui.blit(ms, 15, 0, 0, 0, 10, 19, 80, 152);
-					}						
+					if (barType == 1) {
+						AbstractGui.blit(ms, xCord, yCord, 0, 0, 16, 34, 64, 64);
+						if (compoundnbt.getInt("charge") == 1) {
+							AbstractGui.blit(ms, xCord + 8, yCord + 18, 0, 34, 4, 25, 64, 64);
+						} else if (compoundnbt.getInt("charge") == 2) {
+							AbstractGui.blit(ms, xCord + 8, yCord + 18, 0, 34, 4, 25, 64, 64);
+							AbstractGui.blit(ms, xCord + 8, yCord + 6, 0, 34, 4, 25, 64, 64);
+							AbstractGui.blit(ms, xCord - 2, yCord - 2, 16, 0, 20, 38, 64, 64);
+						}
+					//TODO BarType 2
+					}
+					/*/ else if (barType == 2) {
+						AbstractGui.blit(ms, xCord + xDebug, yCord + yDebug, 10, 21, 22, 22, 64, 64);
+						if (compoundnbt.getInt("charge") == 1) {
+							AbstractGui.blit(ms, xCord + xDebug, yCord + yDebug, 21, 10, 22, 22, 64, 64);
+						} else if (compoundnbt.getInt("charge") == 2) {
+							AbstractGui.blit(ms, xCord + xDebug, yCord + yDebug, 21, 21, 22, 22, 64, 64);
+						}
+					} /*/
 				}
 				
 			RenderSystem.disableBlend();		

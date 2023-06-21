@@ -41,7 +41,7 @@ public class BlazeReapItem extends PickaxeItem {
     }
 
 	public int getUseDuration(ItemStack stack) {
-      return 30;
+		return 30;
 	}
 
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchant){
@@ -124,7 +124,8 @@ public class BlazeReapItem extends PickaxeItem {
 
 			if (EnchantmentHelper.getEnchantmentLevel(ModEnchantments.EXPLOSIVE_FLAME.get(), itemstack) > 0) {
 				if(!worldIn.isRemote) {
-					worldIn.createExplosion(playerIn, pos.x + X, pos.y + Y, pos.z + Z, 4.0F, true, Explosion.Mode.BREAK);				}
+					worldIn.createExplosion(playerIn, pos.x + X, pos.y + Y, pos.z + Z, 4.0F, true, Explosion.Mode.BREAK);
+				}
 			}
 
             List<Entity> entities = worldIn.getEntitiesWithinAABB(Entity.class,  new AxisAlignedBB(pos.x + X - 3D,pos.y + Y - 3D,pos.z + Z - 3D,pos.x + X + 3D,pos.y + Y + 3D,pos.z + Z + 3D));
@@ -184,6 +185,7 @@ public class BlazeReapItem extends PickaxeItem {
             nbt = new CompoundNBT();
             stack.setTag(nbt);
         }
+		
         nbt.putInt("charge", charge);
         stack.setTag(nbt);
     }
