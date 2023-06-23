@@ -169,6 +169,10 @@ import net.minecraftforge.registries.ForgeRegistries;
 	public static final RegistryObject<Item> COBALT_CHESTPLATE = ITEMS.register("cobalt_chestplate", () -> new ArmorItem(ModArmorMaterial.COBALT, EquipmentSlotType.CHEST, (new Item.Properties().group(ModItemGroup.DARKRPG_GROUP))));
 	public static final RegistryObject<Item> COBALT_LEGGINGS = ITEMS.register("cobalt_leggings", () -> new ArmorItem(ModArmorMaterial.COBALT, EquipmentSlotType.LEGS, (new Item.Properties().group(ModItemGroup.DARKRPG_GROUP))));
 	public static final RegistryObject<Item> COBALT_BOOTS = ITEMS.register("cobalt_boots", () -> new ArmorItem(ModArmorMaterial.COBALT, EquipmentSlotType.FEET, (new Item.Properties().group(ModItemGroup.DARKRPG_GROUP))));
+	public static final RegistryObject<Item> SAMURAI_KABUTO = ITEMS.register("samurai_kabuto", () -> new ArmorItem(ModArmorMaterial.SAMURAI, EquipmentSlotType.HEAD, (new Item.Properties().group(ModItemGroup.DARKRPG_GROUP))));
+	public static final RegistryObject<Item> SAMURAI_CHESTPLATE = ITEMS.register("samurai_chestplate", () -> new ArmorItem(ModArmorMaterial.SAMURAI, EquipmentSlotType.CHEST, (new Item.Properties().group(ModItemGroup.DARKRPG_GROUP))));
+	public static final RegistryObject<Item> SAMURAI_LEGGINGS = ITEMS.register("samurai_leggings", () -> new ArmorItem(ModArmorMaterial.SAMURAI, EquipmentSlotType.LEGS, (new Item.Properties().group(ModItemGroup.DARKRPG_GROUP))));
+	public static final RegistryObject<Item> SAMURAI_BOOTS = ITEMS.register("samurai_boots", () -> new ArmorItem(ModArmorMaterial.SAMURAI, EquipmentSlotType.FEET, (new Item.Properties().group(ModItemGroup.DARKRPG_GROUP))));
 	public static final RegistryObject<Item> AWAKENED_VOID_HELMET = ITEMS.register("awakened_void_helmet", () -> new ArmorItem(ModArmorMaterial.AWAKENED_VOID, EquipmentSlotType.HEAD, (new Item.Properties().isImmuneToFire().group(ModItemGroup.DARKRPG_GROUP))));
 	public static final RegistryObject<Item> AWAKENED_VOID_CHESTPLATE = ITEMS.register("awakened_void_chestplate", () -> new ArmorItem(ModArmorMaterial.AWAKENED_VOID, EquipmentSlotType.CHEST, (new Item.Properties().isImmuneToFire().group(ModItemGroup.DARKRPG_GROUP))));
 	public static final RegistryObject<Item> AWAKENED_VOID_LEGGINGS = ITEMS.register("awakened_void_leggings", () -> new ArmorItem(ModArmorMaterial.AWAKENED_VOID, EquipmentSlotType.LEGS, (new Item.Properties().isImmuneToFire().group(ModItemGroup.DARKRPG_GROUP))));
@@ -269,6 +273,10 @@ import net.minecraftforge.registries.ForgeRegistries;
 		() -> new PhantomItem(ItemTier.NETHERITE, 6, -2.4f, new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));	
 	public static final RegistryObject<Item> MURASAMA = ITEMS.register("murasama",
 		() -> new MurasamaItem(ItemTier.NETHERITE, 4, -2.4f, new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
+	public static final RegistryObject<Item> SAMURAI_KUNAI = ITEMS.register("samurai_kunai",
+		() -> new KunaiItem(new Item.Properties().maxDamage(150).group(ModItemGroup.DARKRPG_GROUP)));
+	public static final RegistryObject<Item> SAMURAI_POISONED_KUNAI = ITEMS.register("samurai_poisoned_kunai",
+		() -> new SwordItem(ItemTier.IRON, 0, -1.9f, new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
 	// Spear
 	public static final RegistryObject<Item> IRON_SPEAR = ITEMS.register("iron_spear",
 		() -> new SpearItem(ItemTier.IRON, 3, -3.5f, new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
@@ -302,7 +310,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 		() -> new KatanaItem(ItemTier.DIAMOND, 1, -2f, new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
 	public static final RegistryObject<Item> NETHERITE_KATANA = ITEMS.register("netherite_katana",
 		() -> new KatanaItem(ItemTier.NETHERITE, 1, -1.8f, new Item.Properties().isImmuneToFire().group(ModItemGroup.DARKRPG_GROUP)));
-	public static final RegistryObject<Item> RAYS_KATANA = ITEMS.register("rays_katana",
+	public static final RegistryObject<Item> SAMURAI_KATANA = ITEMS.register("samurai_katana",
 		() -> new KatanaItem(ItemTier.DIAMOND, 2, -2f, new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
 	// Pearlium
 	public static final RegistryObject<Item> PEARLIUM_SWORD = ITEMS.register("pearlium_sword",
@@ -508,6 +516,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 	public static final RegistryObject<Item> RUNE_OF_COLD = ITEMS.register("rune_of_cold",
 		() -> new Item(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP).maxStackSize(16).maxDamage(8).rarity(Rarity.EPIC)));
 	// BOWS (category)
+	public static final RegistryObject<Item> SAMURAI_LONG_BOW = ITEMS.register("samurai_long_bow",
+		() -> new BowItem(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP).maxStackSize(1)));	
 	public static final RegistryObject<Item> NATURE_BOW = ITEMS.register("nature_bow",
 		() -> new BowItem(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP).maxStackSize(1)));
 	public static final RegistryObject<Item> AQUARIUS_BOW = ITEMS.register("aquarius_bow",

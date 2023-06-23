@@ -22,8 +22,8 @@ import java.util.Random;
 public class Item2DRenderer {
     public static final String[] HAND_MODEL_ITEMS = new String[]{"cobalt_sword", "netherite_scythe", "diamond_scythe", "golden_scythe", "iron_scythe",
             "netherite_spear", "diamond_spear", "golden_spear", "iron_spear",
-            "ent", "nature_scythe", "infernal_sword", "infernal_scythe", "magmatic_scythe",
-            "bloodhound", "void_edge", "bronze_sword", "double_spear", "infernal_sword", "coral_reef", "beast", "rays_katana", "aquarius_scythe",
+            "ent", "nature_scythe", "infernal_sword", "infernal_scythe",
+            "bloodhound", "void_edge", "bronze_sword", "double_spear", "infernal_sword", "coral_reef", "beast", "aquarius_scythe",
             "blaze_reap", "murasama", "phantom"};
 
     @SubscribeEvent

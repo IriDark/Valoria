@@ -19,10 +19,9 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 
-public class MannequinRenderer extends MobRenderer<MannequinEntity, MannequinModel<MannequinEntity>>
-{
+public class MannequinRenderer extends MobRenderer<MannequinEntity, MannequinModel<MannequinEntity>> {
+	
     protected static final ResourceLocation TEXTURE = new ResourceLocation(DarkRPG.MOD_ID, "textures/entity/mannequin.png");
-
     private static final DecimalFormat FORMAT = new DecimalFormat("###.##",new DecimalFormatSymbols(Locale.ENGLISH));
 
     public MannequinRenderer(EntityRendererManager renderManagerIn) {

@@ -3,6 +3,8 @@ package com.idark.darkrpg.item.types;
 import com.idark.darkrpg.util.ModSoundRegistry;
 import com.idark.darkrpg.math.*;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.Enchantments;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -37,7 +39,7 @@ public class MagmaSwordItem extends SwordItem {
     }
 
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchant){
-        return enchant.type != Enchantment.FIRE_ASPECT;
+        return enchant != Enchantments.FIRE_ASPECT;
     }
 
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
