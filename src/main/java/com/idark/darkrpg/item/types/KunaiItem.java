@@ -6,8 +6,7 @@ import com.google.common.collect.ImmutableMultimap.Builder;
 import com.idark.darkrpg.entity.projectile.KunaiEntity;
 import net.minecraft.item.*;
 import net.minecraft.block.BlockState;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.IVanishable;
+import net.minecraft.enchantment.*;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MoverType;
 import net.minecraft.entity.ai.attributes.Attribute;
@@ -27,13 +26,16 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 
+import java.util.UUID;
+
 public class KunaiItem extends Item implements IVanishable {
 	private final Multimap<Attribute, AttributeModifier> tridentAttributes;
+	protected static final UUID RANGE_DAMAGE_MODIFIER = UUID.fromString("D2BA78DE-1408-11EE-BE56-0242AC120002");
 
 	public KunaiItem(Item.Properties builderIn) {
 		super(builderIn);
 		Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
-		builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Tool modifier", 4.0D, AttributeModifier.Operation.ADDITION));
+		builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Tool modifier", 3.0D, AttributeModifier.Operation.ADDITION));
 		builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(ATTACK_SPEED_MODIFIER, "Tool modifier", (double)-1.9F, AttributeModifier.Operation.ADDITION));
 		this.tridentAttributes = builder.build();
 	}
@@ -41,6 +43,10 @@ public class KunaiItem extends Item implements IVanishable {
 	public boolean canPlayerBreakBlockWhileHolding(BlockState state, World worldIn, BlockPos pos, PlayerEntity player) {
 		return !player.isCreative();
 	}
+	
+    public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchant){
+        return enchant == Enchantments.PIERCING || enchant == Enchantments.LOYALTY || enchant == Enchantments.MENDING || enchant == Enchantments.SWEEPING || enchant == Enchantments.LOOTING || enchant == Enchantments.SHARPNESS || enchant == Enchantments.BANE_OF_ARTHROPODS || enchant == Enchantments.SMITE;
+    }
 
 	public UseAction getUseAction(ItemStack stack) {
 		return UseAction.SPEAR;
@@ -54,13 +60,12 @@ public class KunaiItem extends Item implements IVanishable {
 		if (entityLiving instanceof PlayerEntity) {
 			PlayerEntity playerentity = (PlayerEntity)entityLiving;
 			int i = this.getUseDuration(stack) - timeLeft;
-			if (i >= 10) {
+			if (i >= 6) {
 				if (!worldIn.isRemote) {
 					stack.damageItem(1, playerentity, (player) -> {
 						player.sendBreakAnimation(entityLiving.getActiveHand());
 					});
-				}
-				
+					
                 KunaiEntity kunai = new KunaiEntity(worldIn, playerentity, stack);
                 kunai.setDirectionAndMovement(playerentity, playerentity.rotationPitch, playerentity.rotationYaw, 0.0F, 2.5F + (float) 0 * 0.5F, 1.0F);
                 if (playerentity.abilities.isCreativeMode) {
@@ -68,10 +73,11 @@ public class KunaiItem extends Item implements IVanishable {
                 }
 
                 worldIn.addEntity(kunai);
-                worldIn.playMovingSound((PlayerEntity)null, kunai, SoundEvents.ITEM_TRIDENT_THROW, SoundCategory.PLAYERS, 1.0F, 1.0F);
+                worldIn.playMovingSound((PlayerEntity)null, kunai, SoundEvents.ITEM_TRIDENT_THROW, SoundCategory.PLAYERS, 1.0F, 1.0F);				
                 if (!playerentity.abilities.isCreativeMode) {
                     playerentity.inventory.deleteStack(stack);
 				}
+			}
 				
 			playerentity.addStat(Stats.ITEM_USED.get(this));
 			}

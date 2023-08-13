@@ -20,11 +20,11 @@ public class GoblinEntity extends ZombieEntity {
 
     public static AttributeModifierMap.MutableAttribute setCustomAttributes() {
         return MobEntity.func_233666_p_()
-                .createMutableAttribute(Attributes.MAX_HEALTH, 20.0D)
-                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.18D)
-                .createMutableAttribute(Attributes.ATTACK_DAMAGE, 5.0D)
-                .createMutableAttribute(Attributes.FOLLOW_RANGE, 20.0D)
-                .createMutableAttribute(Attributes.ZOMBIE_SPAWN_REINFORCEMENTS);
+        .createMutableAttribute(Attributes.MAX_HEALTH, 20.0D)
+        .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.18D)
+        .createMutableAttribute(Attributes.ATTACK_DAMAGE, 5.0D)
+        .createMutableAttribute(Attributes.FOLLOW_RANGE, 20.0D)
+        .createMutableAttribute(Attributes.ZOMBIE_SPAWN_REINFORCEMENTS);
     }
 
     @Override

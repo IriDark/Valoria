@@ -29,6 +29,7 @@ public class ModEntityTypes {
         () -> EntityType.Builder.create(GoblinEntity::new, EntityClassification.MONSTER)
         .size(0.8f, 1.4f) // Hitbox Size
         .build(new ResourceLocation(DarkRPG.MOD_ID, "goblin").toString()));
+
 	public static final RegistryObject<EntityType<KunaiEntity>> KUNAI = ENTITY_TYPES.register("kunai",
         () -> EntityType.Builder.<KunaiEntity>create(KunaiEntity::new, EntityClassification.MISC)
         .size(0.35f, 0.35f) // Hitbox Size

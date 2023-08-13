@@ -203,6 +203,7 @@ import net.minecraftforge.registries.ForgeRegistries;
     public static final RegistryObject<Item> SOULSTONE = ITEMS.register("soulstone", () -> new TransformShardItem(TransformType.SOUL, new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
 	public static final RegistryObject<Item> UNCHARGED_STONE = ITEMS.register("uncharged_stone", () -> new Item(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
 	// Misc
+    public static final RegistryObject<Item> THOXINS_BOTTLE = ITEMS.register("toxins_bottle", () -> new Item(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP).rarity(Rarity.EPIC)));		
     public static final RegistryObject<Item> DIRT_GEODE = ITEMS.register("dirt_geode", () -> new Item(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP).rarity(Rarity.EPIC)));	
     public static final RegistryObject<Item> STONE_GEODE = ITEMS.register("stone_geode", () -> new Item(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP).rarity(Rarity.EPIC)));	
     public static final RegistryObject<Item> MINERS_BAG = ITEMS.register("miners_bag", () -> new DropItemProperty(DropType.MINERS, new Item.Properties().group(ModItemGroup.DARKRPG_GROUP).rarity(Rarity.EPIC)));	
@@ -252,6 +253,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 	public static final RegistryObject<Item> AMBANE_STONE_BRICK = ITEMS.register("ambane_stone_brick", () -> new Item(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
 	public static final RegistryObject<Item> LIMESTONE_BRICK = ITEMS.register("limestone_brick", () -> new Item(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
 	public static final RegistryObject<Item> BRONZE_INGOT = ITEMS.register("bronze_ingot", () -> new Item(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
+	public static final RegistryObject<Item> ANCIENT_INGOT = ITEMS.register("ancient_ingot", () -> new Item(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
 	public static final RegistryObject<Item> PEARLIUM_INGOT = ITEMS.register("pearlium_ingot", () -> new Item(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
 	public static final RegistryObject<Item> COBALT_INGOT = ITEMS.register("cobalt_ingot", () -> new Item(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
 	public static final RegistryObject<Item> NATURE_INGOT = ITEMS.register("nature_ingot", () -> new Item(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));

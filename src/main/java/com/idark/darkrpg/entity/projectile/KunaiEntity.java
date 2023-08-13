@@ -2,8 +2,7 @@ package com.idark.darkrpg.entity.projectile;
 
 import com.idark.darkrpg.entity.ModEntityTypes;
 import com.idark.darkrpg.item.ModItems;
-import javax.annotation.Nullable;
-import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.enchantment.*;
 import net.minecraft.entity.*;
 import net.minecraft.entity.projectile.*;
 import net.minecraft.entity.player.PlayerEntity;
@@ -14,6 +13,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
@@ -22,14 +22,26 @@ import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraft.network.IPacket;
+import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+import com.google.common.collect.Lists;
+import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
+import java.util.Arrays;
+import java.util.List;
+import javax.annotation.Nullable;
+
 public class KunaiEntity extends AbstractArrowEntity {
-	private static final DataParameter<Byte> LOYALTY_LEVEL = EntityDataManager.createKey(KunaiEntity.class, DataSerializers.BYTE);
-	private static final DataParameter<Boolean> field_226571_aq_ = EntityDataManager.createKey(KunaiEntity.class, DataSerializers.BOOLEAN);
-	private ItemStack thrownStack = new ItemStack(ModItems.SAMURAI_KUNAI.get());
-	private boolean dealtDamage;
+	public static final DataParameter<Byte> LOYALTY_LEVEL = EntityDataManager.createKey(KunaiEntity.class, DataSerializers.BYTE);
+	public static final DataParameter<Boolean> field_226571_aq_ = EntityDataManager.createKey(KunaiEntity.class, DataSerializers.BOOLEAN);
+	public ItemStack thrownStack = new ItemStack(ModItems.SAMURAI_KUNAI.get());
+	public boolean dealtDamage;
+	public boolean notRenderable;	
+	public IntOpenHashSet piercedEntities;
+	public List<Entity> hitEntities;
+
 	public int returningTicks;
 
 	public KunaiEntity(EntityType<? extends KunaiEntity> type, World worldIn) {
@@ -48,17 +60,29 @@ public class KunaiEntity extends AbstractArrowEntity {
 		super(ModEntityTypes.KUNAI.get(), x, y, z, worldIn);
 	}
 
-	protected void registerData() {
+	public void registerData() {
 		super.registerData();
 		this.dataManager.register(LOYALTY_LEVEL, (byte)0);
 		this.dataManager.register(field_226571_aq_, false);
+	}
+
+	@OnlyIn(Dist.CLIENT)
+	public boolean isInRangeToRenderDist(double distance) {
+		double d0 = this.getBoundingBox().getAverageEdgeLength() * 10.0D;
+		if (Double.isNaN(d0)) {
+			d0 = 1.0D;
+		}
+	
+		d0 = d0 * 64.0D * getRenderDistanceWeight();
+		this.notRenderable = distance < d0 * d0;	
+		return this.notRenderable;
 	}
 
 	public void tick() {
 		if (this.timeInGround > 4) {
 			this.dealtDamage = true;
 		}
-
+		
 		Entity entity = this.getShooter();
 		if ((this.dealtDamage || this.getNoClip()) && entity != null) {
 			int i = this.dataManager.get(LOYALTY_LEVEL);
@@ -66,7 +90,7 @@ public class KunaiEntity extends AbstractArrowEntity {
 				if (!this.world.isRemote && this.pickupStatus == AbstractArrowEntity.PickupStatus.ALLOWED) {
 				this.entityDropItem(this.getArrowStack(), 0.1F);
 				}
-
+				
 			this.remove();
 		} else if (i > 0) {
             this.setNoClip(true);
@@ -86,6 +110,16 @@ public class KunaiEntity extends AbstractArrowEntity {
 			}
 		}
 
+		if (this.notRenderable == false && !this.inGround) {
+			Vector3d vector3d = this.getMotion();
+			double a3 = vector3d.x;
+			double a4 = vector3d.y;
+			double a0 = vector3d.z;		
+			for(int a = 0; a < 3; ++a) {
+				this.world.addParticle(ParticleTypes.WHITE_ASH, this.getPosX() + a3 * (double)a / 4.0D, this.getPosY() + a4 * (double)a / 4.0D, this.getPosZ() + a0 * (double)a / 4.0D, -a3, -a4 + 0.2D, -a0);		
+			}
+		}
+	
 		super.tick();
 	}
 
@@ -98,7 +132,7 @@ public class KunaiEntity extends AbstractArrowEntity {
 		}
 	}
 
-	protected ItemStack getArrowStack() {
+	public ItemStack getArrowStack() {
 		return this.thrownStack.copy();
 	}
 
@@ -108,18 +142,47 @@ public class KunaiEntity extends AbstractArrowEntity {
 	}
 
 	@Nullable
-	protected EntityRayTraceResult rayTraceEntities(Vector3d startVec, Vector3d endVec) {
+	public EntityRayTraceResult rayTraceEntities(Vector3d startVec, Vector3d endVec) {
 		return this.dealtDamage ? null : super.rayTraceEntities(startVec, endVec);
 	}
 
-	protected void onEntityHit(EntityRayTraceResult result) {
+	public void onEntityHit(EntityRayTraceResult result) {
 		Entity entity = result.getEntity();
-		float f = 8.0F;
+        int e = EnchantmentHelper.getEnchantmentLevel(Enchantments.SHARPNESS, this.thrownStack);		
+		float f = 5.5f + (((float)e)-1.5f);
 		if (entity instanceof LivingEntity) {
 			LivingEntity livingentity = (LivingEntity)entity;
 			f += EnchantmentHelper.getModifierForCreature(this.thrownStack, livingentity.getCreatureAttribute());
 		}
 
+		if (this.getPierceLevel() > 0) {
+			if (this.piercedEntities == null) {
+				this.piercedEntities = new IntOpenHashSet(5);
+			}
+
+		if (this.hitEntities == null) {
+			this.hitEntities = Lists.newArrayListWithCapacity(5);
+		}
+
+        if (this.piercedEntities.size() >= this.getPierceLevel() + 1) {
+           this.remove();
+           return;
+        }
+
+        this.piercedEntities.add(entity.getEntityId());
+		}
+		
+        if (entity instanceof LivingEntity) {
+            LivingEntity livingentity = (LivingEntity)entity;
+            if (!this.world.isRemote && this.getPierceLevel() <= 0) {
+               livingentity.setArrowCountInEntity(livingentity.getArrowCountInEntity() + 1);
+            }
+			
+            if (!entity.isAlive() && this.hitEntities != null) {
+               this.hitEntities.add(livingentity);
+            }			
+		}
+		
 		Entity entity1 = this.getShooter();
 		DamageSource damagesource = DamageSource.causeTridentDamage(this, (Entity)(entity1 == null ? this : entity1));
 		this.dealtDamage = true;
@@ -141,15 +204,25 @@ public class KunaiEntity extends AbstractArrowEntity {
 		}
 	}
 
-	protected SoundEvent getHitEntitySound() {
+	public SoundEvent getHitEntitySound() {
 		return SoundEvents.ITEM_TRIDENT_HIT_GROUND;
 	}
 
+	@Override
+	public SoundEvent getHitGroundSound() {
+		return SoundEvents.ITEM_TRIDENT_HIT_GROUND;
+	}
+	
 	public void onCollideWithPlayer(PlayerEntity entityIn) {
 		Entity entity = this.getShooter();
 		if (entity == null || entity.getUniqueID() == entityIn.getUniqueID()) {
 			super.onCollideWithPlayer(entityIn);
 		}
+	}
+
+	@Override
+	public IPacket<?> createSpawnPacket() {
+		return NetworkHooks.getEntitySpawningPacket(this);
 	}
 
 	public void readAdditional(CompoundNBT compound) {
@@ -175,8 +248,8 @@ public class KunaiEntity extends AbstractArrowEntity {
 		}
 	}
 
-	protected float getWaterDrag() {
-		return 0.99F;
+	public float getWaterDrag() {
+		return 0.6F;
 	}
 
 	@OnlyIn(Dist.CLIENT)

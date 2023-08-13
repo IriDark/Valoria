@@ -1,0 +1,17 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "///",
+        "/ /",
+        "/ /"
+    ],
+    "key": {
+        "/": {
+            "item": "darkrpg:ancient_ingot"
+        }
+    },
+    "result": {
+        "item": "darkrpg:samurai_leggings",
+        "count": 1
+    }
+}

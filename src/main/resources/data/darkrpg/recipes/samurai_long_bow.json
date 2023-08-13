@@ -1,0 +1,20 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        " X/",
+        "X /",
+        " X/"
+    ],
+    "key": {
+        "X": {
+            "item": "darkrpg:ancient_ingot"
+        },
+        "/": {
+            "item": "minecraft:string"
+        }
+    },
+    "result": {
+        "item": "darkrpg:samurai_long_bow",
+        "count": 1
+    }
+}

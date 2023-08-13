@@ -25,9 +25,10 @@ import java.util.List;
 public class WorldGen {
 
     static List<ConfiguredFeature<?, ?>> ORES = new ArrayList<>();
-    static ConfiguredFeature<?, ?> COBALT_ORE_GEN, AMBER_ORE_GEN, AMETHYST_ORE_GEN, RUBY_ORE_GEN, SAPPHIRE_ORE_GEN, GEODITE_DIRT_GEN, GEODITE_STONE_GEN;
+    static ConfiguredFeature<?, ?> COBALT_ORE_GEN, AMBER_ORE_GEN, AMETHYST_ORE_GEN, RUBY_ORE_GEN, SAPPHIRE_ORE_GEN, GEODITE_DIRT_GEN, GEODITE_STONE_GEN, LIMESTONE_GEN, QUICKSAND_GEN;
     static RuleTest IN_STONE = new TagMatchRuleTest(Tags.Blocks.STONE);
     static RuleTest IN_DIRT = new TagMatchRuleTest(Tags.Blocks.DIRT);
+    static RuleTest IN_SAND = new TagMatchRuleTest(Tags.Blocks.SAND);
 
     public static ConfiguredFeature<BaseTreeFeatureConfig, ?> SHADEWOOD_TREE;
 	
@@ -81,17 +82,29 @@ public class WorldGen {
         .range(Config.SAPPHIRE_MAX_Y.get()), "sapphire_ore");
         if (Config.SAPPHIRE_ENABLED.get()) ORES.add(SAPPHIRE_ORE_GEN);
 		
-        GEODITE_DIRT_GEN = register(Feature.ORE.withConfiguration(new OreFeatureConfig(IN_DIRT, ModBlocks.GEODITE_DIRT.get().getDefaultState(), Config.GEODITE_VEIN_COUNT.get()))
+        GEODITE_DIRT_GEN = register(Feature.ORE.withConfiguration(new OreFeatureConfig(IN_DIRT, ModBlocks.GEODITE_DIRT.get().getDefaultState(), Config.GEODITE_DIRT_VEIN_COUNT.get()))
 		.square()
-        .count(Config.GEODITE_VEIN_COUNT.get())
-        .range(Config.GEODITE_MAX_Y.get()), "geodite_dirt");
-        if (Config.GEODITE_ENABLED.get()) ORES.add(GEODITE_DIRT_GEN);
+        .count(Config.GEODITE_DIRT_VEIN_COUNT.get())
+        .range(Config.GEODITE_DIRT_MAX_Y.get()), "geodite_dirt");
+        if (Config.GEODITE_DIRT_ENABLED.get()) ORES.add(GEODITE_DIRT_GEN);
  
 		GEODITE_STONE_GEN = register(Feature.ORE.withConfiguration(new OreFeatureConfig(IN_STONE, ModBlocks.GEODITE_STONE.get().getDefaultState(), Config.GEODITE_VEIN_COUNT.get()))
 		.square()
         .count(Config.GEODITE_VEIN_COUNT.get())
-        .range(Config.GEODITE_MAX_Y.get()), "geodite_dirt");
+        .range(Config.GEODITE_MAX_Y.get()), "geodite_stone");
         if (Config.GEODITE_ENABLED.get()) ORES.add(GEODITE_STONE_GEN);
+
+		LIMESTONE_GEN = register(Feature.ORE.withConfiguration(new OreFeatureConfig(IN_STONE, ModBlocks.LIMESTONE.get().getDefaultState(), Config.LIMESTONE_VEIN_COUNT.get()))
+		.square()
+        .count(Config.LIMESTONE_VEIN_COUNT.get())
+        .range(Config.LIMESTONE_MAX_Y.get()), "limestone");
+        if (Config.LIMESTONE_ENABLED.get()) ORES.add(LIMESTONE_GEN);
+
+		QUICKSAND_GEN = register(Feature.ORE.withConfiguration(new OreFeatureConfig(IN_SAND, ModBlocks.QUICKSAND.get().getDefaultState(), Config.QUICKSAND_VEIN_COUNT.get()))
+		.square()
+        .count(Config.QUICKSAND_VEIN_COUNT.get())
+        .range(Config.QUICKSAND_MAX_Y.get()), "quicksand");
+        if (Config.QUICKSAND_ENABLED.get()) ORES.add(QUICKSAND_GEN);
 	
         SHADEWOOD_TREE = register("shadewood", Feature.TREE.withConfiguration((new BaseTreeFeatureConfig.Builder(
 			new SimpleBlockStateProvider(ModBlocks.SHADELOG.get().getDefaultState()),

@@ -9,8 +9,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public class ModParticles {
 	
-	public static final DeferredRegister<ParticleType<?>> PARTICLES =
-		DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, DarkRPG.MOD_ID);
+	public static final DeferredRegister<ParticleType<?>> PARTICLES = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, DarkRPG.MOD_ID);
 
     public static RegistryObject<SparkleParticleType> SPARKLE_PARTICLE = PARTICLES.register("sparkle", SparkleParticleType::new);
     public static RegistryObject<SparkleParticleType> TRANSFORM_PARTICLE = PARTICLES.register("transform", SparkleParticleType::new);

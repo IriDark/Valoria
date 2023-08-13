@@ -20,7 +20,7 @@ import java.util.function.Supplier;
 	}),
 	SAMURAI("samurai", 17, new int[] { 3, 6, 4, 2 }, 14,
 	SoundEvents.ITEM_ARMOR_EQUIP_IRON, 1.0f, 0.0f, () -> {
-	return Ingredient.fromItems(ModItems.COBALT_INGOT.get());
+	return Ingredient.fromItems(ModItems.ANCIENT_INGOT.get());
 	}),
 	//ELEMENTAL
 	NATURE("nature", 30, new int[] { 3, 5, 4, 3 }, 17,

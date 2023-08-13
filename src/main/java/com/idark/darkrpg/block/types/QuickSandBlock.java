@@ -8,6 +8,7 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.DamageSource;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 
@@ -36,6 +37,7 @@ public class QuickSandBlock extends Block {
    
 	public void onEntityCollision(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
 		entityIn.setMotionMultiplier(state, new Vector3d(0.25D, (double)0.05F, 0.25D));
+        entityIn.attackEntityFrom(DamageSource.GENERIC, 1.0F);
 	}
 	//TODO Completely edit this shit lol
 }

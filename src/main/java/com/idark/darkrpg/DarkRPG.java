@@ -176,6 +176,7 @@ import javax.annotation.Nonnull;
 		RenderTypeLookup.setRenderLayer(ModBlocks.POTTED_GOLDY.get(), RenderType.getCutout());
 		RenderTypeLookup.setRenderLayer(ModBlocks.POTTED_BLOODROOT.get(), RenderType.getCutout());
 		RenderTypeLookup.setRenderLayer(ModBlocks.POTTED_ALOE_SMALL.get(), RenderType.getCutout());
+		RenderTypeLookup.setRenderLayer(ModBlocks.QUICKSAND.get(), RenderType.getCutout());
 		
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.CRUSHER_TILE_ENTITY.get(), CrusherTileEntityRenderer::new);
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.PEDESTAL_TILE_ENTITY.get(), PedestalTileEntityRenderer::new);

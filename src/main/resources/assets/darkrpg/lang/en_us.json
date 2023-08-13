@@ -22,6 +22,7 @@
 	"tooltip.darkrpg.pyro": "Gives fire immunity for a while",
 	"tooltip.darkrpg.golden": "Breaks faster but better in some stats",
 	"tooltip.darkrpg.amber": "Gives a haste effect",
+	"tooltip.darkrpg.toxins": "Great way to die!",
 
 	"_comment": "Lexicon",
 	"item.darkrpg.lexicon": "Lexicon",	
@@ -117,6 +118,7 @@
 
  	"_comment": "Ingots",
 	"item.darkrpg.pearlium_ingot": "Pearlium Ingot",
+	"item.darkrpg.ancient_ingot": "Ancient Ingot",	
  	"item.darkrpg.cobalt_ingot": "Cobalt Ingot",
  	"item.darkrpg.nature_ingot": "Nature Ingot",
  	"item.darkrpg.aquarius_ingot": "Aquarius Ingot",
@@ -286,6 +288,7 @@
  	"item.darkrpg.apple_pie": "Apple Pie",
  	
  	"_comment": "Misc",
+ 	"item.darkrpg.toxins_bottle": "Toxins Bottle",	
  	"item.darkrpg.aloe_bandage": "Aloe Bandage",
  	"item.darkrpg.aloe_bandage_upgraded": "Aloe Bandage",	
  	"item.darkrpg.stone_geode": "Stone Geode",	
