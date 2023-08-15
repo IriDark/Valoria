@@ -9,9 +9,7 @@ import net.minecraft.util.math.vector.*;
 
 public class MathUtils {
 
-    PlayerEntity player = Minecraft.getInstance().player;
-
-    public static float interpolate(float a,float b,float t){
+   public static float interpolate(float a,float b,float t){
         return (1 - t) * a + t * b;
     }
 
