@@ -9,7 +9,7 @@ import net.minecraft.util.math.vector.*;
 
 public class MathUtils {
 
-   public static float interpolate(float a,float b,float t){
+    public static float interpolate(float a,float b,float t){
         return (1 - t) * a + t * b;
     }
 

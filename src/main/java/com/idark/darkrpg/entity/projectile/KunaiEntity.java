@@ -42,6 +42,7 @@ public class KunaiEntity extends AbstractArrowEntity {
 	public IntOpenHashSet piercedEntities;
 	public List<Entity> hitEntities;
 
+	public float rotationVelocity = 0;
 	public int returningTicks;
 
 	public KunaiEntity(EntityType<? extends KunaiEntity> type, World worldIn) {
