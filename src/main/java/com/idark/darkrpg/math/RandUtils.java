@@ -3,13 +3,10 @@ import java.util.Random;
 
 public class RandUtils {
 
-    private static Random random = new Random();
-    public static boolean doWithChance(float chance){
-        double num = random.nextDouble() * 100;
-        if (num <= chance){
-            return true;
-        }
-        return false;
+	static  Random random = new Random();
+	public static boolean doWithChance(double chance) {
+        double randomNumber = random.nextDouble() * 100;
+        return randomNumber <= chance;
     }
 
     public static double random(){

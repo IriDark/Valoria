@@ -193,6 +193,7 @@ import javax.annotation.Nonnull;
 	    RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.SWAMP_WANDERER.get(), SwampWandererRenderer::new);
 	    RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.MANNEQUIN.get(), MannequinRenderer::new);
 	    RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.KUNAI.get(), KunaiRenderer::new);
+	    RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.POISONED_KUNAI.get(), PoisonedKunaiRenderer::new);
 	    
 	    ModItemModelProperties.makeBow(ModItems.SAMURAI_LONG_BOW.get());
 	    ModItemModelProperties.makeBow(ModItems.NATURE_BOW.get());		

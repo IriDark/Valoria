@@ -276,9 +276,9 @@ import net.minecraftforge.registries.ForgeRegistries;
 	public static final RegistryObject<Item> MURASAMA = ITEMS.register("murasama",
 		() -> new MurasamaItem(ItemTier.NETHERITE, 4, -2.4f, new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
 	public static final RegistryObject<Item> SAMURAI_KUNAI = ITEMS.register("samurai_kunai",
-		() -> new KunaiItem(new Item.Properties().maxDamage(150).group(ModItemGroup.DARKRPG_GROUP)));
+		() -> new KunaiItem(new Item.Properties().maxDamage(300).group(ModItemGroup.DARKRPG_GROUP)));
 	public static final RegistryObject<Item> SAMURAI_POISONED_KUNAI = ITEMS.register("samurai_poisoned_kunai",
-		() -> new SwordItem(ItemTier.IRON, 0, -1.9f, new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
+		() -> new PoisonedKunaiItem(new Item.Properties().maxDamage(300).group(ModItemGroup.DARKRPG_GROUP)));
 	// Spear
 	public static final RegistryObject<Item> IRON_SPEAR = ITEMS.register("iron_spear",
 		() -> new SpearItem(ItemTier.IRON, 3, -3.5f, new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));

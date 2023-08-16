@@ -34,6 +34,11 @@ public class ModEntityTypes {
         () -> EntityType.Builder.<KunaiEntity>create(KunaiEntity::new, EntityClassification.MISC)
         .size(0.35f, 0.35f) // Hitbox Size
         .build(new ResourceLocation(DarkRPG.MOD_ID, "kunai").toString()));
+
+	public static final RegistryObject<EntityType<PoisonedKunaiEntity>> POISONED_KUNAI = ENTITY_TYPES.register("poisoned_kunai",
+        () -> EntityType.Builder.<PoisonedKunaiEntity>create(PoisonedKunaiEntity::new, EntityClassification.MISC)
+        .size(0.35f, 0.35f) // Hitbox Size
+        .build(new ResourceLocation(DarkRPG.MOD_ID, "poisoned_kunai").toString()));
 	
 	public static void register(IEventBus eventBus) {
         ENTITY_TYPES.register(eventBus);

@@ -23,6 +23,9 @@
 	"tooltip.darkrpg.golden": "Breaks faster but better in some stats",
 	"tooltip.darkrpg.amber": "Gives a haste effect",
 	"tooltip.darkrpg.toxins": "Great way to die!",
+	"tooltip.darkrpg.ranged_damage": "Ranged Damage",
+	"tooltip.darkrpg.poison_chance": "Chance to poison the enemy",
+	"tooltip.darkrpg.poison_chance_ranged": "chance to poison the enemy when thrown",
 
 	"_comment": "Lexicon",
 	"item.darkrpg.lexicon": "Lexicon",	

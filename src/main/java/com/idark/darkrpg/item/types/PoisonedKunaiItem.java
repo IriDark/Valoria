@@ -3,11 +3,13 @@ package com.idark.darkrpg.item.types;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.ImmutableMultimap.Builder;
-import com.idark.darkrpg.entity.projectile.KunaiEntity;
+import com.idark.darkrpg.entity.projectile.PoisonedKunaiEntity;
+import com.idark.darkrpg.math.*;
 import net.minecraft.item.*;
 import net.minecraft.block.BlockState;
-import net.minecraft.enchantment.*;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.enchantment.*;
+import net.minecraft.potion.*;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MoverType;
 import net.minecraft.entity.ai.attributes.Attribute;
@@ -17,6 +19,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.AbstractArrowEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.stats.Stats;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
@@ -32,12 +35,14 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 
 import java.util.UUID;
+import java.util.Random;
 import java.util.List;
 
-public class KunaiItem extends Item implements IVanishable {
+public class PoisonedKunaiItem extends Item implements IVanishable {
 	private final Multimap<Attribute, AttributeModifier> tridentAttributes;
+	Random rand = new Random();
 
-	public KunaiItem(Item.Properties builderIn) {
+	public PoisonedKunaiItem(Item.Properties builderIn) {
 		super(builderIn);
 		Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
 		builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Tool modifier", 3.0D, AttributeModifier.Operation.ADDITION));
@@ -71,7 +76,7 @@ public class KunaiItem extends Item implements IVanishable {
 						player.sendBreakAnimation(entityLiving.getActiveHand());
 					});
 					
-                KunaiEntity kunai = new KunaiEntity(worldIn, playerentity, stack);
+                PoisonedKunaiEntity kunai = new PoisonedKunaiEntity(worldIn, playerentity, stack);
                 kunai.setDirectionAndMovement(playerentity, playerentity.rotationPitch, playerentity.rotationYaw, 0.0F, 2.5F + (float) 0 * 0.5F, 1.0F);
                 if (playerentity.abilities.isCreativeMode) {
                     kunai.pickupStatus = AbstractArrowEntity.PickupStatus.CREATIVE_ONLY;
@@ -102,9 +107,20 @@ public class KunaiItem extends Item implements IVanishable {
 	public boolean hitEntity(ItemStack stack, LivingEntity target, LivingEntity attacker) {
 		stack.damageItem(1, attacker, (entity) -> {
 			entity.sendBreakAnimation(EquipmentSlotType.MAINHAND);
-		});
+		});	
+		
+		if (RandUtils.doWithChance(25)) {
+			target.addPotionEffect(new EffectInstance(Effects.POISON, 425, 0));
+			if (target.world.isRemote) {
+				for (int i = 0;i<10;i++) {
+				target.world.addParticle(ParticleTypes.POOF, target.getPosX() + rand.nextDouble(), target.getPosY(), target.getPosZ() + rand.nextDouble(), 0d, 0.05d, 0d);
+				}
+			}
 		
 		return true;
+		}
+	
+	return true;
 	}
 
 	public boolean onBlockDestroyed(ItemStack stack, World worldIn, BlockState state, BlockPos pos, LivingEntity entityLiving) {
@@ -129,5 +145,7 @@ public class KunaiItem extends Item implements IVanishable {
 	public void addInformation(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flags) {
 		super.addInformation(stack, world, tooltip, flags);	
 		tooltip.add((new StringTextComponent("5 ")).mergeStyle(TextFormatting.DARK_GREEN).appendSibling(new TranslationTextComponent("tooltip.darkrpg.ranged_damage").mergeStyle(TextFormatting.DARK_GREEN)));
-	}
+		tooltip.add((new StringTextComponent("25% ")).mergeStyle(TextFormatting.DARK_GREEN).appendSibling(new TranslationTextComponent("tooltip.darkrpg.poison_chance").mergeStyle(TextFormatting.DARK_GREEN)));
+		tooltip.add((new StringTextComponent("100% ")).mergeStyle(TextFormatting.DARK_GREEN).appendSibling(new TranslationTextComponent("tooltip.darkrpg.poison_chance_ranged").mergeStyle(TextFormatting.DARK_GREEN)));
+	}	
 }

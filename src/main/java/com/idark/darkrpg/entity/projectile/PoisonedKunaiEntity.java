@@ -2,6 +2,8 @@ package com.idark.darkrpg.entity.projectile;
 
 import com.idark.darkrpg.entity.ModEntityTypes;
 import com.idark.darkrpg.item.ModItems;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
 import net.minecraft.enchantment.*;
 import net.minecraft.entity.*;
 import net.minecraft.entity.projectile.*;
@@ -22,6 +24,8 @@ import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.Difficulty;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.network.IPacket;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.api.distmarker.Dist;
@@ -33,9 +37,9 @@ import java.util.Arrays;
 import java.util.List;
 import javax.annotation.Nullable;
 
-public class KunaiEntity extends AbstractArrowEntity {
-	public static final DataParameter<Byte> LOYALTY_LEVEL = EntityDataManager.createKey(KunaiEntity.class, DataSerializers.BYTE);
-	public static final DataParameter<Boolean> field_226571_aq_ = EntityDataManager.createKey(KunaiEntity.class, DataSerializers.BOOLEAN);
+public class PoisonedKunaiEntity extends AbstractArrowEntity {
+	public static final DataParameter<Byte> LOYALTY_LEVEL = EntityDataManager.createKey(PoisonedKunaiEntity.class, DataSerializers.BYTE);
+	public static final DataParameter<Boolean> field_226571_aq_ = EntityDataManager.createKey(PoisonedKunaiEntity.class, DataSerializers.BOOLEAN);
 	public ItemStack thrownStack = new ItemStack(ModItems.SAMURAI_KUNAI.get());
 	public boolean dealtDamage;
 	public boolean notRenderable;	
@@ -45,20 +49,20 @@ public class KunaiEntity extends AbstractArrowEntity {
 	public float rotationVelocity = 0;
 	public int returningTicks;
 
-	public KunaiEntity(EntityType<? extends KunaiEntity> type, World worldIn) {
+	public PoisonedKunaiEntity(EntityType<? extends PoisonedKunaiEntity> type, World worldIn) {
 		super(type, worldIn);
 	}
 
-	public KunaiEntity(World worldIn, LivingEntity thrower, ItemStack thrownStackIn) {
-		super(ModEntityTypes.KUNAI.get(), thrower, worldIn);
+	public PoisonedKunaiEntity(World worldIn, LivingEntity thrower, ItemStack thrownStackIn) {
+		super(ModEntityTypes.POISONED_KUNAI.get(), thrower, worldIn);
 		this.thrownStack = thrownStackIn.copy();
 		this.dataManager.set(LOYALTY_LEVEL, (byte)EnchantmentHelper.getLoyaltyModifier(thrownStackIn));
 		this.dataManager.set(field_226571_aq_, thrownStackIn.hasEffect());
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public KunaiEntity(World worldIn, double x, double y, double z) {
-		super(ModEntityTypes.KUNAI.get(), x, y, z, worldIn);
+	public PoisonedKunaiEntity(World worldIn, double x, double y, double z) {
+		super(ModEntityTypes.POISONED_KUNAI.get(), x, y, z, worldIn);
 	}
 
 	public void registerData() {
@@ -117,7 +121,7 @@ public class KunaiEntity extends AbstractArrowEntity {
 			double a4 = vector3d.y;
 			double a0 = vector3d.z;		
 			for(int a = 0; a < 3; ++a) {
-				this.world.addParticle(ParticleTypes.WHITE_ASH, this.getPosX() + a3 * (double)a / 4.0D, this.getPosY() + a4 * (double)a / 4.0D, this.getPosZ() + a0 * (double)a / 4.0D, -a3, -a4 + 0.2D, -a0);		
+				this.world.addParticle(ParticleTypes.ENCHANTED_HIT, this.getPosX() + a3 * (double)a / 4.0D, this.getPosY() + a4 * (double)a / 4.0D, this.getPosZ() + a0 * (double)a / 4.0D, -a3, -a4 + 0.2D, -a0);		
 			}
 		}
 	
@@ -195,6 +199,7 @@ public class KunaiEntity extends AbstractArrowEntity {
 
 			if (entity instanceof LivingEntity) {
 				LivingEntity livingentity1 = (LivingEntity)entity;
+				((LivingEntity)entity).addPotionEffect(new EffectInstance(Effects.POISON, 170, 0));
 				if (entity1 instanceof LivingEntity) {
 					EnchantmentHelper.applyThornEnchantments(livingentity1, entity1);
 					EnchantmentHelper.applyArthropodEnchantments((LivingEntity)entity1, livingentity1);
