@@ -50,7 +50,7 @@ public class KunaiItem extends Item implements IVanishable {
 	}
 	
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchant){
-        return enchant == Enchantments.PIERCING || enchant == Enchantments.LOYALTY || enchant == Enchantments.MENDING || enchant == Enchantments.SWEEPING || enchant == Enchantments.LOOTING || enchant == Enchantments.SHARPNESS || enchant == Enchantments.BANE_OF_ARTHROPODS || enchant == Enchantments.SMITE;
+        return enchant == Enchantments.PIERCING ||  enchant == Enchantments.FIRE_ASPECT || enchant == Enchantments.LOYALTY || enchant == Enchantments.MENDING || enchant == Enchantments.SWEEPING || enchant == Enchantments.LOOTING || enchant == Enchantments.SHARPNESS || enchant == Enchantments.BANE_OF_ARTHROPODS || enchant == Enchantments.SMITE;
     }
 
 	public UseAction getUseAction(ItemStack stack) {
@@ -128,6 +128,9 @@ public class KunaiItem extends Item implements IVanishable {
 	@Override
 	public void addInformation(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flags) {
 		super.addInformation(stack, world, tooltip, flags);	
-		tooltip.add((new StringTextComponent("5 ")).mergeStyle(TextFormatting.DARK_GREEN).appendSibling(new TranslationTextComponent("tooltip.darkrpg.ranged_damage").mergeStyle(TextFormatting.DARK_GREEN)));
+		tooltip.add(new TranslationTextComponent("tooltip.darkrpg.kunai").mergeStyle(TextFormatting.GRAY));
+        tooltip.add(new StringTextComponent("                "));
+		tooltip.add(new TranslationTextComponent("tooltip.darkrpg.attr").mergeStyle(TextFormatting.GRAY));
+		tooltip.add((new StringTextComponent(" 5 ")).mergeStyle(TextFormatting.DARK_GREEN).appendSibling(new TranslationTextComponent("tooltip.darkrpg.ranged_damage").mergeStyle(TextFormatting.DARK_GREEN)));
 	}
 }

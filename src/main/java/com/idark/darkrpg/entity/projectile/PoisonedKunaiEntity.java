@@ -43,6 +43,7 @@ public class PoisonedKunaiEntity extends AbstractArrowEntity {
 	public ItemStack thrownStack = new ItemStack(ModItems.SAMURAI_KUNAI.get());
 	public boolean dealtDamage;
 	public boolean notRenderable;	
+	public boolean piercing;
 	public IntOpenHashSet piercedEntities;
 	public List<Entity> hitEntities;
 
@@ -86,6 +87,7 @@ public class PoisonedKunaiEntity extends AbstractArrowEntity {
 	public void tick() {
 		if (this.timeInGround > 4) {
 			this.dealtDamage = true;
+			this.piercing = true;
 		}
 		
 		Entity entity = this.getShooter();
@@ -121,6 +123,7 @@ public class PoisonedKunaiEntity extends AbstractArrowEntity {
 			double a4 = vector3d.y;
 			double a0 = vector3d.z;		
 			for(int a = 0; a < 3; ++a) {
+				this.world.addParticle(ParticleTypes.WHITE_ASH, this.getPosX() + a3 * (double)a / 4.0D, this.getPosY() + a4 * (double)a / 4.0D, this.getPosZ() + a0 * (double)a / 4.0D, -a3, -a4 + 0.2D, -a0);		
 				this.world.addParticle(ParticleTypes.ENCHANTED_HIT, this.getPosX() + a3 * (double)a / 4.0D, this.getPosY() + a4 * (double)a / 4.0D, this.getPosZ() + a0 * (double)a / 4.0D, -a3, -a4 + 0.2D, -a0);		
 			}
 		}
@@ -138,7 +141,7 @@ public class PoisonedKunaiEntity extends AbstractArrowEntity {
 	}
 
 	public ItemStack getArrowStack() {
-		return this.thrownStack.copy();
+		return this.thrownStack;
 	}
 
 	@OnlyIn(Dist.CLIENT)
@@ -151,6 +154,7 @@ public class PoisonedKunaiEntity extends AbstractArrowEntity {
 		return this.dealtDamage ? null : super.rayTraceEntities(startVec, endVec);
 	}
 
+	@Override
 	public void onEntityHit(EntityRayTraceResult result) {
 		Entity entity = result.getEntity();
         int e = EnchantmentHelper.getEnchantmentLevel(Enchantments.SHARPNESS, this.thrownStack);		
@@ -177,12 +181,8 @@ public class PoisonedKunaiEntity extends AbstractArrowEntity {
         this.piercedEntities.add(entity.getEntityId());
 		}
 		
-        if (entity instanceof LivingEntity) {
+		if (entity instanceof LivingEntity) {
             LivingEntity livingentity = (LivingEntity)entity;
-            if (!this.world.isRemote && this.getPierceLevel() <= 0) {
-               livingentity.setArrowCountInEntity(livingentity.getArrowCountInEntity() + 1);
-            }
-			
             if (!entity.isAlive() && this.hitEntities != null) {
                this.hitEntities.add(livingentity);
             }			

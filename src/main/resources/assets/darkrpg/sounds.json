@@ -96,5 +96,12 @@
 		"darkrpg:pot/place3",
 		"darkrpg:pot/place4"
       ]
-	}	
+	},
+	"ambient.flow_activate.use": {
+    "subtitle": "Flow Enchant",
+    "replace": "true",
+    "sounds": [
+		"darkrpg:flow_activate"
+    ]
+  }
 }

@@ -6,6 +6,7 @@ import com.idark.darkrpg.entity.model.KunaiModel;
 import com.idark.darkrpg.math.MathUtils;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.*;
 import net.minecraft.client.renderer.entity.model.TridentModel;
@@ -27,9 +28,10 @@ public class PoisonedKunaiRenderer extends EntityRenderer<PoisonedKunaiEntity> {
 	}
 
 	public void render(PoisonedKunaiEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
-        if (!(entityIn.inGround || entityIn.isOnGround())){
+		if (!Minecraft.getInstance().isGamePaused() && !(entityIn.inGround || entityIn.isOnGround())){
             entityIn.rotationVelocity = MathUtils.interpolate(entityIn.rotationVelocity,entityIn.rotationVelocity+10,partialTicks);
         }
+		
         matrixStackIn.push();
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(MathHelper.lerp(partialTicks, entityIn.prevRotationYaw, entityIn.rotationYaw) - 90.0F));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(MathHelper.lerp(partialTicks, entityIn.prevRotationPitch, entityIn.rotationPitch) + 90.0F-entityIn.rotationVelocity));

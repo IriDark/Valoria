@@ -28,7 +28,7 @@ public abstract class ModItemGroup extends ItemGroup {
 	public ResourceLocation getTabsImage() {
 		return new ResourceLocation(DarkRPG.MOD_ID, "textures/gui/tabs_darkrpg.png");
 	}
-
+	
     public static final ItemGroup DARKRPG_GROUP = new ModItemGroup("DarkRPGModTab") {
 		@Override
 		public ItemStack createIcon() {

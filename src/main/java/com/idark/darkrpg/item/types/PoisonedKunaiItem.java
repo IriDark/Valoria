@@ -144,8 +144,11 @@ public class PoisonedKunaiItem extends Item implements IVanishable {
 	@Override
 	public void addInformation(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flags) {
 		super.addInformation(stack, world, tooltip, flags);	
-		tooltip.add((new StringTextComponent("5 ")).mergeStyle(TextFormatting.DARK_GREEN).appendSibling(new TranslationTextComponent("tooltip.darkrpg.ranged_damage").mergeStyle(TextFormatting.DARK_GREEN)));
-		tooltip.add((new StringTextComponent("25% ")).mergeStyle(TextFormatting.DARK_GREEN).appendSibling(new TranslationTextComponent("tooltip.darkrpg.poison_chance").mergeStyle(TextFormatting.DARK_GREEN)));
-		tooltip.add((new StringTextComponent("100% ")).mergeStyle(TextFormatting.DARK_GREEN).appendSibling(new TranslationTextComponent("tooltip.darkrpg.poison_chance_ranged").mergeStyle(TextFormatting.DARK_GREEN)));
+		tooltip.add(new TranslationTextComponent("tooltip.darkrpg.kunai").mergeStyle(TextFormatting.GRAY));
+        tooltip.add(new StringTextComponent("                "));
+		tooltip.add(new TranslationTextComponent("tooltip.darkrpg.attr").mergeStyle(TextFormatting.GRAY));
+		tooltip.add((new StringTextComponent(" 5 ")).mergeStyle(TextFormatting.DARK_GREEN).appendSibling(new TranslationTextComponent("tooltip.darkrpg.ranged_damage").mergeStyle(TextFormatting.DARK_GREEN)));
+		tooltip.add((new StringTextComponent(" 25% ")).mergeStyle(TextFormatting.DARK_GREEN).appendSibling(new TranslationTextComponent("tooltip.darkrpg.poison_chance").mergeStyle(TextFormatting.DARK_GREEN)));
+		tooltip.add((new StringTextComponent(" 100% ")).mergeStyle(TextFormatting.DARK_GREEN).appendSibling(new TranslationTextComponent("tooltip.darkrpg.poison_chance_ranged").mergeStyle(TextFormatting.DARK_GREEN)));
 	}	
 }
