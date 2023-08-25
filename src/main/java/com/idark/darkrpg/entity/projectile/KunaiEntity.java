@@ -40,7 +40,6 @@ public class KunaiEntity extends AbstractArrowEntity {
 	public static final DataParameter<Byte> LOYALTY_LEVEL = EntityDataManager.createKey(KunaiEntity.class, DataSerializers.BYTE);
 	public static final DataParameter<Byte> PIERCE_LEVEL = EntityDataManager.createKey(KunaiEntity.class, DataSerializers.BYTE);
 	public static final DataParameter<Boolean> field_226571_aq_ = EntityDataManager.createKey(KunaiEntity.class, DataSerializers.BOOLEAN);
-	private static final DataParameter<Optional<UUID>> casterId = EntityDataManager.createKey(KunaiEntity.class, DataSerializers.OPTIONAL_UNIQUE_ID);
 	public ItemStack thrownStack = new ItemStack(ModItems.SAMURAI_KUNAI.get());
 	public boolean dealtDamage;
 	public boolean notRenderable;
@@ -58,7 +57,6 @@ public class KunaiEntity extends AbstractArrowEntity {
 	public KunaiEntity(World worldIn, LivingEntity thrower, ItemStack thrownStackIn) {
 		super(ModEntityTypes.KUNAI.get(), thrower, worldIn);
 		this.thrownStack = thrownStackIn.copy();
-		this.dataManager.set(casterId, Optional.of(thrower.getUniqueID()));
 		this.dataManager.set(LOYALTY_LEVEL, (byte)EnchantmentHelper.getLoyaltyModifier(thrownStackIn));
 		this.dataManager.set(PIERCE_LEVEL, (byte)EnchantmentHelper.getEnchantmentLevel(Enchantments.PIERCING, thrownStackIn));
 		this.dataManager.set(field_226571_aq_, thrownStackIn.hasEffect());
@@ -184,9 +182,8 @@ public class KunaiEntity extends AbstractArrowEntity {
 				target.applyKnockback(10.0F + flow, 0f, 0f);	
 				target.attackEntityFrom(DamageSource.GENERIC, 2.0F * flow);
 				// TODO: cast PlayerEntity without "PlayerEntity player = Minecraft.getInstance().player;" - fix multiplayer
-				PlayerEntity player = world.getPlayerByUuid(this.dataManager.get(casterId).get());
-				player.playSound(ModSoundRegistry.FLOW.get(), SoundCategory.AMBIENT, 0.2f, 1f);
-				this.world.addParticle(ParticleTypes.ENCHANT, player.getPosX() + ((rand.nextDouble() - 0.7D) * 1), player.getPosY() + ((rand.nextDouble() - 1D) * 1), player.getPosZ() + ((rand.nextDouble() - 0.5D) * 1), 0.05d * ((rand.nextDouble() - 0.5D) * 1), 0.05d * ((rand.nextDouble() - 0.5D) * 1), 0.05d * ((rand.nextDouble() - 0.5D) * 1));
+				this.getShooter().playSound(ModSoundRegistry.FLOW.get(), 0.2f, 1f);
+				this.world.addParticle(ParticleTypes.ENCHANT, this.getShooter().getPosX() + ((rand.nextDouble() - 0.7D) * 1), this.getShooter().getPosY() + ((rand.nextDouble() - 1D) * 1), this.getShooter().getPosZ() + ((rand.nextDouble() - 0.5D) * 1), 0.05d * ((rand.nextDouble() - 0.5D) * 1), 0.05d * ((rand.nextDouble() - 0.5D) * 1), 0.05d * ((rand.nextDouble() - 0.5D) * 1));
 			}
 		}
 		
