@@ -169,21 +169,39 @@ public class KunaiEntity extends AbstractArrowEntity {
 			f += EnchantmentHelper.getModifierForCreature(this.thrownStack, livingentity.getCreatureAttribute());
 		}
 
-		if (EnchantmentHelper.getEnchantmentLevel(ModEnchantments.FLOW_ENCHANT.get(), this.thrownStack) > 0) {
+		Entity shooter = this.getShooter();
+		DamageSource damagesource = DamageSource.causeTridentDamage(this, (Entity)(shooter == null ? this : shooter));
+		this.dealtDamage = true;
+		SoundEvent soundevent = SoundEvents.ITEM_TRIDENT_HIT;
+		if (entity.attackEntityFrom(damagesource, f)) {
+			if (entity.getType() == EntityType.ENDERMAN) {
+				return;
+			}
+
+			if (entity instanceof LivingEntity) {
+				LivingEntity livingentity1 = (LivingEntity)entity;
+				if (shooter instanceof LivingEntity) {
+					EnchantmentHelper.applyThornEnchantments(livingentity1, shooter);
+					EnchantmentHelper.applyArthropodEnchantments((LivingEntity)shooter, livingentity1);
+				}
+
+				this.arrowHit(livingentity1);
+			}
+		}
+
+		// Sounds taken from Calamity Mod (Terraria)
+		int d = EnchantmentHelper.getEnchantmentLevel(ModEnchantments.FLOW_ENCHANT.get(), this.thrownStack);
+		if (d > 0 || this.isWet()) {
 			if (entity instanceof LivingEntity) {
 				LivingEntity target = (LivingEntity)entity;
-				int flow = EnchantmentHelper.getEnchantmentLevel(ModEnchantments.FLOW_ENCHANT.get(), this.thrownStack);
-				if (flow > 0) {
-					for (int a = 0; a < 30 * flow; a++) {			
-					this.world.addParticle(ParticleTypes.ENCHANT, target.getPosX(), target.getPosY(), target.getPosZ(), 0d, 0d, 0d);					
-					}
+				for (int a = 0; a < 12; a++) {
+					this.world.addParticle(ParticleTypes.ENCHANT, target.getPosX(), target.getPosY() + ((rand.nextDouble() - 0.7D) * 1), target.getPosZ(), 0d, 0d, 0d);					
+					this.world.addParticle(ParticleTypes.ENCHANT, shooter.getPosX() + ((rand.nextDouble() - 0.7D) * 1), shooter.getPosY() + ((rand.nextDouble() - 1D) * 1), shooter.getPosZ() + ((rand.nextDouble() - 0.5D) * 1), 0.05d * ((rand.nextDouble() - 0.5D) * 1), 0.05d * ((rand.nextDouble() - 0.5D) * 1), 0.05d * ((rand.nextDouble() - 0.5D) * 1));
 				}
-					
-				target.applyKnockback(10.0F + flow, 0f, 0f);	
-				target.attackEntityFrom(DamageSource.GENERIC, 2.0F * flow);
-				// TODO: cast PlayerEntity without "PlayerEntity player = Minecraft.getInstance().player;" - fix multiplayer
-				this.getShooter().playSound(ModSoundRegistry.FLOW.get(), 0.2f, 1f);
-				this.world.addParticle(ParticleTypes.ENCHANT, this.getShooter().getPosX() + ((rand.nextDouble() - 0.7D) * 1), this.getShooter().getPosY() + ((rand.nextDouble() - 1D) * 1), this.getShooter().getPosZ() + ((rand.nextDouble() - 0.5D) * 1), 0.05d * ((rand.nextDouble() - 0.5D) * 1), 0.05d * ((rand.nextDouble() - 0.5D) * 1), 0.05d * ((rand.nextDouble() - 0.5D) * 1));
+
+				target.applyKnockback(10.0F * d, 0f, 0f);	
+				target.attackEntityFrom(DamageSource.GENERIC, 2.0F);
+				shooter.playSound(ModSoundRegistry.FLOW.get(), 1f, 1f);
 			}
 		}
 		
@@ -208,26 +226,6 @@ public class KunaiEntity extends AbstractArrowEntity {
             LivingEntity livingentity = (LivingEntity)entity;
             if (!entity.isAlive() && this.hitEntities != null) {
 				this.hitEntities.add(livingentity);		
-			}
-		}
-		
-		Entity entity1 = this.getShooter();
-		DamageSource damagesource = DamageSource.causeTridentDamage(this, (Entity)(entity1 == null ? this : entity1));
-		this.dealtDamage = true;
-		SoundEvent soundevent = SoundEvents.ITEM_TRIDENT_HIT;
-		if (entity.attackEntityFrom(damagesource, f)) {
-			if (entity.getType() == EntityType.ENDERMAN) {
-				return;
-			}
-
-			if (entity instanceof LivingEntity) {
-				LivingEntity livingentity1 = (LivingEntity)entity;
-				if (entity1 instanceof LivingEntity) {
-					EnchantmentHelper.applyThornEnchantments(livingentity1, entity1);
-					EnchantmentHelper.applyArthropodEnchantments((LivingEntity)entity1, livingentity1);
-				}
-
-				this.arrowHit(livingentity1);
 			}
 		}
 	}

@@ -11,7 +11,7 @@ import net.minecraft.inventory.EquipmentSlotType;
 public class FlowEnchantment extends Enchantment {
 	
     public FlowEnchantment() {
-        super(Rarity.RARE, ModEnchantments.FLOW, new EquipmentSlotType[] {EquipmentSlotType.MAINHAND});
+        super(Rarity.RARE, ModEnchantments.KUNAI, new EquipmentSlotType[] {EquipmentSlotType.MAINHAND});
     }
 	
 	public boolean canEnchant(ItemStack stack) {
