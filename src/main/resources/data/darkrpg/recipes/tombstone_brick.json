@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "darkrpg:tombstone"
+  },
+  "result": "darkrpg:tombstone_brick",
+  "experience": 0.3,
+  "cookingtime": 240
+}

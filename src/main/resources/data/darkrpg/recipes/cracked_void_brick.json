@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "darkrpg:void_brick"
+  },
+  "result": "darkrpg:cracked_void_brick",
+  "experience": 0.3,
+  "cookingtime": 140
+}

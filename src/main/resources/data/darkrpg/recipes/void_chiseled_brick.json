@@ -1,0 +1,19 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "/",
+        "X"
+    ],
+    "key": {
+        "/": {
+            "item": "darkrpg:void_stone_brick"
+        },
+        "X": {
+            "item": "darkrpg:void_brick"
+        }
+    },
+    "result": {
+        "item": "darkrpg:void_chiseled_brick",
+        "count": 2
+    }
+}

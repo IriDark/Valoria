@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "darkrpg:crystal_stone"
+  },
+  "result": "darkrpg:crystal_stone_brick",
+  "experience": 0.3,
+  "cookingtime": 160
+}

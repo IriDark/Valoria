@@ -1,0 +1,19 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "/X",
+        "X/"
+    ],
+    "key": {
+        "/": {
+            "item": "darkrpg:ambane_stone_brick"
+        },
+        "X": {
+            "item": "darkrpg:ambane_stone_bricks"
+        }
+    },
+    "result": {
+        "item": "darkrpg:cut_ambane_stone",
+        "count": 4
+    }
+}

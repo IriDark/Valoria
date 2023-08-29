@@ -1,0 +1,16 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "//",
+        "//"
+    ],
+    "key": {
+        "/": {
+            "item": "darkrpg:tombstone_brick"
+        }
+    },
+    "result": {
+        "item": "darkrpg:tombstone_bricks",
+        "count": 1
+    }
+}

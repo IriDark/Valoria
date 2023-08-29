@@ -1,6 +1,6 @@
 {
     "parent": "block/cube_all",
     "textures": {
-        "all": "darkrpg:block/tombstone_plate"
+        "all": "darkrpg:block/cut_tombstone"
     }
 }

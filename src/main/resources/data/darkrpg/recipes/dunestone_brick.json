@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "darkrpg:dunestone"
+  },
+  "result": "darkrpg:dunestone_brick",
+  "experience": 0.3,
+  "cookingtime": 200
+}
