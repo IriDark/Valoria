@@ -1,15 +1,7 @@
 package com.idark.darkrpg.util;
 
-import com.idark.darkrpg.DarkRPG;
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
-import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.Tags;
-
 public class ModTags {
-
+    /*
     public static class Blocks {
 	
         private static Tags.IOptionalNamedTag<Block> createTag(String name) {
@@ -44,5 +36,5 @@ public class ModTags {
         private static Tags.IOptionalNamedTag<Item> createForgeTag(String name) {
             return ItemTags.createOptional(new ResourceLocation("forge", name));
         }
-    }
+    }*/
 }

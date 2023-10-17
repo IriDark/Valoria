@@ -1,12 +1,8 @@
 package com.idark.darkrpg.util;
 
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemModelsProperties;
-import net.minecraft.util.ResourceLocation;
-
 public class ModItemModelProperties {
-
-    public static void makeBow(Item item) {
+/*
+    public static void makeBow(RegisterColorHandlersEvent.Item item) {
         ItemModelsProperties.register(item, new ResourceLocation("pull"), (p_239429_0_, p_239429_1_, p_239429_2_) -> {
             if (p_239429_2_ == null) {
                 return 0.0F;
@@ -23,5 +19,5 @@ public class ModItemModelProperties {
 	
     public static void makeSize(Item item) {
         ItemModelsProperties.register(item, new ResourceLocation("size"), (itemStack, clientWorld, livingEntity) -> itemStack.getCount());
-        }
+        }*/
 }

@@ -9,6 +9,7 @@ import net.minecraft.world.World;
 import java.util.Random;
 
 import net.minecraft.item.Item.Properties;
+import net.minecraft.world.item.Item;
 
 public class NatureStaff extends Item {
     Random rand = new Random();

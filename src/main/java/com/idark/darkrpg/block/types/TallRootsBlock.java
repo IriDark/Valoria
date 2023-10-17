@@ -4,6 +4,8 @@ import net.minecraft.block.*;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
+import net.minecraft.world.level.block.DoublePlantBlock;
+import net.minecraft.world.level.block.state.BlockState;
 
 public class TallRootsBlock extends DoublePlantBlock {
    public TallRootsBlock(AbstractBlock.Properties properties) {

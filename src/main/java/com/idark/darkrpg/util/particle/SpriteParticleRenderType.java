@@ -1,32 +1,32 @@
 package com.idark.darkrpg.util.particle;
 
+import com.idark.darkrpg.util.WorldRenderHandler;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.BufferBuilder;
+import com.mojang.blaze3d.vertex.DefaultVertexFormat;
+import com.mojang.blaze3d.vertex.Tesselator;
+import com.mojang.blaze3d.vertex.VertexFormat;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.particle.IParticleRenderType;
-import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.texture.AtlasTexture;
+import net.minecraft.client.particle.ParticleRenderType;
+import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureManager;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import org.lwjgl.opengl.GL11;
 
-public class SpriteParticleRenderType implements IParticleRenderType {
+public class SpriteParticleRenderType implements ParticleRenderType {
     public static final SpriteParticleRenderType INSTANCE = new SpriteParticleRenderType();
 
     private static void beginRenderCommon(BufferBuilder bufferBuilder, TextureManager textureManager) {
         RenderSystem.depthMask(false);
         RenderSystem.enableBlend();
         RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-        RenderSystem.alphaFunc(GL11.GL_GEQUAL, 0.00390625f);
-
-        textureManager.bind(AtlasTexture.LOCATION_PARTICLES);
-        bufferBuilder.begin(GL11.GL_QUADS, DefaultVertexFormats.PARTICLE);
+        RenderSystem.setShader(WizardsRebornClient::getSpriteParticleShader);
+        RenderSystem.setShaderTexture(0, TextureAtlas.LOCATION_PARTICLES);
+        WorldRenderHandler.particleMVMatrix = RenderSystem.getModelViewMatrix();
+        bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.PARTICLE);
     }
 
     private static void endRenderCommon() {
-        Minecraft.getInstance().textureManager.getTexture(AtlasTexture.LOCATION_PARTICLES).restoreLastBlurMipmap();
-        RenderSystem.enableAlphaTest();
-        RenderSystem.defaultAlphaFunc();
+        Minecraft.getInstance().textureManager.getTexture(TextureAtlas.LOCATION_PARTICLES).restoreLastBlurMipmap();
         RenderSystem.depthMask(true);
     }
 
@@ -36,7 +36,7 @@ public class SpriteParticleRenderType implements IParticleRenderType {
     }
 
     @Override
-    public void end(Tessellator t) {
+    public void end(Tesselator t) {
         t.end();
         RenderSystem.enableDepthTest();
         endRenderCommon();

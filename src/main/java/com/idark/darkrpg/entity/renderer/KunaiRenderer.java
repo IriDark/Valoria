@@ -3,7 +3,6 @@ package com.idark.darkrpg.entity.renderer;
 import com.idark.darkrpg.DarkRPG;
 import com.idark.darkrpg.entity.projectile.KunaiEntity;
 import com.idark.darkrpg.entity.model.KunaiModel;
-import com.idark.darkrpg.math.MathUtils;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.Minecraft;

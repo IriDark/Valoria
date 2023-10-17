@@ -1,28 +1,29 @@
 package com.idark.darkrpg.item.food;
 
-import com.idark.darkrpg.item.*;
+import com.idark.darkrpg.item.ModItems;
 import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.*;
-import net.minecraft.item.Food;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.UseAction;
-import net.minecraft.potion.Effect;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.world.World;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.UseAnim;
+import net.minecraft.world.level.Level;
 
 public class BottleDrinkItem extends Item {
     
     private int power = 0;
     private int time = 0;
-	public Effect effect;
+	public MobEffect effect;
 
-    public BottleDrinkItem(Effect effect,int time,int power)  {
+    public BottleDrinkItem(MobEffect effect, int time,int power)  {
 		super(
-        new Item.Properties().food(new Food.Builder().alwaysEat().nutrition(0).saturationMod(3).build()).stacksTo(1).tab(ModItemGroup.DARKRPG_GROUP)    
+        new Item.Properties().food(new FoodProperties.Builder().alwaysEat().nutrition(0).saturationMod(3).build()).stacksTo(1)
     );
 	    this.effect = effect;
         this.power = power;
@@ -38,15 +39,15 @@ public class BottleDrinkItem extends Item {
     }
 
     @Override
-    public ItemStack finishUsingItem(ItemStack stack, World world, LivingEntity entity) {
-		PlayerEntity playerentity = entity instanceof PlayerEntity ? (PlayerEntity)entity : null;
-		if (playerentity instanceof ServerPlayerEntity) {
-			CriteriaTriggers.CONSUME_ITEM.trigger((ServerPlayerEntity)playerentity, stack);
+    public ItemStack finishUsingItem(ItemStack stack, Level world, LivingEntity entity) {
+		Player playerentity = entity instanceof Player ? (Player)entity : null;
+		if (playerentity instanceof ServerPlayer) {
+			CriteriaTriggers.CONSUME_ITEM.trigger((ServerPlayer)playerentity, stack);
 		}
 
 		if (!world.isClientSide) {
-			entity.addEffect(new EffectInstance(effect,time,power));
-			if (playerentity == null || !playerentity.abilities.instabuild) {
+			entity.addEffect(new MobEffectInstance(effect,time,power));
+			if (playerentity == null || !playerentity.getAbilities().instabuild) {
 				stack.shrink(1);
 				if (stack.isEmpty()) {
 					return new ItemStack(ModItems.WOODEN_CUP.get());
@@ -62,7 +63,7 @@ public class BottleDrinkItem extends Item {
     }
     
     @Override
-    public UseAction getUseAnimation(ItemStack p_77661_1_) {
-        return UseAction.DRINK;
+    public UseAnim getUseAnimation(ItemStack p_77661_1_) {
+        return UseAnim.DRINK;
     }
 }

@@ -1,7 +1,7 @@
 package com.idark.darkrpg.util;
 
-import net.minecraft.block.SoundType;
-import net.minecraft.util.SoundEvent;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.level.block.SoundType;
 
 import java.util.function.Supplier;
 

@@ -8,45 +8,55 @@ import com.idark.darkrpg.util.LootUtil;
 import com.idark.darkrpg.util.particle.ModParticles;
 import com.idark.darkrpg.util.particle.Particles;
 import net.minecraft.block.*;
+import net.minecraft.core.BlockPos;
 import net.minecraft.item.*;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.*;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.math.*;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.Containers;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.PickaxeItem;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nonnull;
 import java.util.Random;
 
-public class CrusherBlock extends Block implements ITileEntityProvider {
+public class CrusherBlock extends Block implements EntityBlock {
     Random rand = new Random();
-    public CrusherBlock(AbstractBlock.Properties properties) {
+    public CrusherBlock(BlockBehaviour.Properties properties) {
 		super(properties);
     }
 	
     @Nonnull
     @Override
-    public TileEntity newBlockEntity(@Nonnull IBlockReader world) {
-        return new CrusherTileEntity();
-    }	
+    public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
+        return new CrusherTileEntity(pPos, pState);
+    }
 
     @Override
-    public void onRemove(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
+    public void onRemove(@Nonnull BlockState state, @Nonnull Level world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
         if (state.getBlock() != newState.getBlock()) {
-            TileEntity tile = world.getBlockEntity(pos);
+            BlockEntity tile = world.getBlockEntity(pos);
             if (tile instanceof TileSimpleInventory) {
-                net.minecraft.inventory.InventoryHelper.dropContents(world, pos, ((TileSimpleInventory) tile).getItemHandler());
+                Containers.dropContents(world, pos, ((TileSimpleInventory) tile).getItemHandler());
             }
             super.onRemove(state, world, pos, newState, isMoving);
         }
 	}
 	
 	// TODO: FIX RENDER (Item render in, weird tbh)
-	public ActionResultType use(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
+	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
         CrusherTileEntity tile = (CrusherTileEntity) world.getBlockEntity(pos);
         ItemStack stack = player.getItemInHand(handIn).copy();
 
@@ -59,15 +69,15 @@ public class CrusherBlock extends Block implements ITileEntityProvider {
             } else {
                 tile.getItemHandler().setItem(0, stack);
                 player.inventory.removeItem(player.getItemInHand(handIn));
-                return ActionResultType.SUCCESS;
+                return InteractionResult.SUCCESS;
             }
         }
 
 		if ((stack.getItem() instanceof PickaxeItem) && (!tile.getItemHandler().getItem(0).isEmpty())) {
-			if (player instanceof ServerPlayerEntity) {
-				ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
-				Vector3d playerPos = serverPlayer.position();	
-				LootUtil.givePlayerMultipleItems(serverPlayer, LootUtil.generateLoot((ServerWorld) world, new ResourceLocation(DarkRPG.MOD_ID, "items/miners_bag"), LootUtil.getGiftContext((ServerWorld) world, playerPos, serverPlayer)));
+			if (player instanceof ServerPlayer) {
+				ServerPlayer serverPlayer = (ServerPlayer) player;
+                Vec3 playerPos = serverPlayer.position();
+				//LootUtil.givePlayerMultipleItems(serverPlayer, LootUtil.generateLoot((ServerLevel) world, new ResourceLocation(DarkRPG.MOD_ID, "items/miners_bag"), LootUtil.getGiftContext((ServerLevel) world, playerPos, serverPlayer)));
 			}
             tile.getItemHandler().removeItemNoUpdate(0);
 			for (int i = 0; i < 26; i++) {
@@ -79,12 +89,12 @@ public class CrusherBlock extends Block implements ITileEntityProvider {
 				.spawn(world, pos.getX() + (rand.nextDouble() * 1.25), pos.getY() + 0.5F + ((rand.nextDouble() - 0.5D) * 1.25), pos.getZ() + 0.5F + ((rand.nextDouble() - 0.5D) * 1.25));
 			}
 		} else if (stack.isEmpty() && !tile.getItemHandler().getItem(0).isEmpty()) {
-			player.inventory.add(tile.getItemHandler().getItem(0).copy());
+			player.getInventory().add(tile.getItemHandler().getItem(0).copy());
 			tile.getItemHandler().removeItemNoUpdate(0);
-			return ActionResultType.SUCCESS;
+			return InteractionResult.SUCCESS;
 		}
 		
-		return ActionResultType.PASS;	
+		return InteractionResult.PASS;
 	}
 	
 	private static boolean isValid(ItemStack stack) {
@@ -92,14 +102,9 @@ public class CrusherBlock extends Block implements ITileEntityProvider {
 	}
 	
     @Override
-    public boolean triggerEvent(BlockState state, World world, BlockPos pos, int id, int param) {
+    public boolean triggerEvent(BlockState state, Level world, BlockPos pos, int id, int param) {
         super.triggerEvent(state, world, pos, id, param);
-        TileEntity tileentity = world.getBlockEntity(pos);
+        BlockEntity tileentity = world.getBlockEntity(pos);
         return tileentity != null && tileentity.triggerEvent(id, param);
     }
-
-    @Override
-    public boolean hasTileEntity(BlockState state) {
-        return true;
-    }	
 }

@@ -1,21 +1,34 @@
 package com.idark.darkrpg.util;
 
-import com.google.gson.JsonObject;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.loot.LootContext;
-import net.minecraft.loot.conditions.ILootCondition;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
+import com.mojang.serialization.Codec;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import net.minecraftforge.common.loot.IGlobalLootModifier;
 import net.minecraftforge.common.loot.LootModifier;
-import net.minecraftforge.registries.ForgeRegistries;
-
-import javax.annotation.Nonnull;
-import java.util.List;
+import org.jetbrains.annotations.NotNull;
 
 public class LootAdditionModifier extends LootModifier {
-    private final Item addition;
+    /**
+     * Constructs a LootModifier.
+     *
+     * @param conditionsIn the ILootConditions that need to be matched before the loot is modified.
+     */
+    protected LootAdditionModifier(LootItemCondition[] conditionsIn) {
+        super(conditionsIn);
+    }
+
+    @Override
+    protected @NotNull ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext context) {
+        return null;
+    }
+
+    @Override
+    public Codec<? extends IGlobalLootModifier> codec() {
+        return null;
+    }
+    /*private final Item addition;
 
     protected LootAdditionModifier(ILootCondition[] conditionsIn, Item addition) {
         super(conditionsIn);
@@ -47,5 +60,5 @@ public class LootAdditionModifier extends LootModifier {
             json.addProperty("addition", ForgeRegistries.ITEMS.getKey(instance.addition).toString());
             return json;
         }
-    }
+    }*/
 }

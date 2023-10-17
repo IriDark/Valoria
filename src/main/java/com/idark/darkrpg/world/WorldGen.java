@@ -1,30 +1,19 @@
 package com.idark.darkrpg.world;
 
 import com.idark.darkrpg.DarkRPG;
-import com.idark.darkrpg.block.ModBlocks;
-import com.idark.darkrpg.config.Config;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.registry.WorldGenRegistries;
-import net.minecraft.world.gen.GenerationStage;
-import net.minecraft.world.gen.Heightmap;
-import net.minecraft.world.gen.blockstateprovider.SimpleBlockStateProvider;
-import net.minecraft.world.gen.feature.*;
-import net.minecraft.world.gen.feature.structure.IStructurePieceType;
-import net.minecraft.world.gen.feature.structure.Structure;
-import net.minecraft.world.gen.feature.template.RuleTest;
-import net.minecraft.world.gen.feature.template.TagMatchRuleTest;
-import net.minecraft.world.gen.foliageplacer.FancyFoliagePlacer;
-import net.minecraft.world.gen.trunkplacer.FancyTrunkPlacer;
-import net.minecraftforge.common.Tags;
-import net.minecraftforge.event.world.BiomeLoadingEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-
-import java.util.ArrayList;
-import java.util.List;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 
 public class WorldGen {
+    public static ResourceKey<ConfiguredFeature<?, ?>> SHADEWOOD_TREE = WorldGen.registerKey("shadewood_tree");
 
-    static List<ConfiguredFeature<?, ?>> ORES = new ArrayList<>();
+    public static ResourceKey<ConfiguredFeature<?, ?>> registerKey(String name) {
+        return ResourceKey.create(Registries.CONFIGURED_FEATURE, new ResourceLocation(DarkRPG.MOD_ID, name));
+    }
+
+    /*static List<ConfiguredFeature<?, ?>> ORES = new ArrayList<>();
     static ConfiguredFeature<?, ?> COBALT_ORE_GEN, AMBER_ORE_GEN, AMETHYST_ORE_GEN, RUBY_ORE_GEN, SAPPHIRE_ORE_GEN, GEODITE_DIRT_GEN, GEODITE_STONE_GEN, LIMESTONE_GEN, QUICKSAND_GEN;
     static RuleTest IN_STONE = new TagMatchRuleTest(Tags.Blocks.STONE);
     static RuleTest IN_DIRT = new TagMatchRuleTest(Tags.Blocks.DIRT);
@@ -119,5 +108,5 @@ public class WorldGen {
         for (ConfiguredFeature<?, ?> feature : ORES) {
             event.getGeneration().addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, feature);
         }
-    }
+    }*/
 }

@@ -4,7 +4,6 @@ import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.ImmutableMultimap.Builder;
 import com.google.common.collect.Multimap;
 import com.idark.darkrpg.client.render.DashOverlayRender;
-import com.idark.darkrpg.math.MathUtils;
 import com.idark.darkrpg.util.ModSoundRegistry;
 import com.idark.darkrpg.config.ClientConfig;
 import net.minecraft.block.BlockState;

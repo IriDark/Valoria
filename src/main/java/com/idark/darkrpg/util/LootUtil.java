@@ -1,30 +1,18 @@
 package com.idark.darkrpg.util;
 
-import com.google.common.collect.Lists;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.loot.*;
-import net.minecraft.util.*;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.server.ServerWorld;
-
-import javax.annotation.Nonnull;
-import java.util.*;
-
 public final class LootUtil {
-	public static LootTable getTable(ServerWorld world, ResourceLocation table) {
-		return world.getServer().getLootTables().get(table);
+	/*public static LootTable getTable(ServerLevel world, ResourceLocation table) {
+		return world.getServer().getLootData().getLootTable(table);
 	}
 
-	public static void givePlayerMultipleItems(PlayerEntity pl, Collection<ItemStack> stacks) {
+	public static void givePlayerMultipleItems(Player pl, Collection<ItemStack> stacks) {
 		for (ItemStack stack : stacks) {
 			pl.drop(stack, false);
 		}
 	}
 
 	@Nonnull
-	public static List<ItemStack> generateLoot(ServerWorld world, ResourceLocation table, LootContext context) {
+	public static List<ItemStack> generateLoot(ServerLevel world, ResourceLocation table, LootContext context) {
 		LootTable lootTable = getTable(world, table);
 
 		if (lootTable == LootTable.EMPTY)
@@ -33,11 +21,11 @@ public final class LootUtil {
 		return lootTable.getRandomItems(context);
 	}
 
-	public static LootContext getGiftContext(ServerWorld world, Vector3d position, Entity targetEntity) {
+	public static LootContext getGiftContext(ServerLevel world, Vec3 position, Entity targetEntity) {
 		return getGiftContext(world, position, 0, targetEntity);
 	}
 
-	public static LootContext getGiftContext(ServerWorld world, Vector3d position, float luck, Entity targetEntity) {
+	public static LootContext getGiftContext(ServerLevel world, Vec3 position, float luck, Entity targetEntity) {
 		return new LootContext.Builder(world).withRandom(world.getRandom()).withParameter(LootParameters.THIS_ENTITY, targetEntity).withParameter(LootParameters.ORIGIN, position).withLuck(luck).create(LootParameterSets.GIFT);
-	}
+	}*/
 }

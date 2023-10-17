@@ -1,19 +1,19 @@
 package com.idark.darkrpg.util.particle;
 
-import net.minecraft.client.particle.IParticleRenderType;
-import net.minecraft.client.particle.SpriteTexturedParticle;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.util.ColorHelper;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.client.particle.ParticleRenderType;
+import net.minecraft.client.particle.TextureSheetParticle;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.util.FastColor;
+import net.minecraft.util.Mth;
 
 import java.awt.*;
 
-public class GenericParticle extends SpriteTexturedParticle {
+public class GenericParticle extends TextureSheetParticle {
 
     GenericParticleData data;
     float[] hsv1 = new float[3], hsv2 = new float[3];
 
-    public GenericParticle(ClientWorld world, GenericParticleData data, double x, double y, double z, double vx, double vy, double vz) {
+    public GenericParticle(ClientLevel world, GenericParticleData data, double x, double y, double z, double vx, double vy, double vz) {
         super(world, x, y, z, vx, vy, vz);
         this.setPos(x, y, z);
         this.data = data;
@@ -33,16 +33,16 @@ public class GenericParticle extends SpriteTexturedParticle {
 
     protected void updateTraits() {
         float coeff = getCoeff();
-        quadSize = MathHelper.lerp(coeff, data.scale1, data.scale2);
-        float h = MathHelper.rotLerp(coeff, 360 * hsv1[0], 360 * hsv2[0]) / 360;
-        float s = MathHelper.lerp(coeff, hsv1[1], hsv2[1]);
-        float v = MathHelper.lerp(coeff, hsv1[2], hsv2[2]);
+        quadSize = Mth.lerp(coeff, data.scale1, data.scale2);
+        float h = Mth.rotLerp(coeff, 360 * hsv1[0], 360 * hsv2[0]) / 360;
+        float s = Mth.lerp(coeff, hsv1[1], hsv2[1]);
+        float v = Mth.lerp(coeff, hsv1[2], hsv2[2]);
         int packed = Color.HSBtoRGB(h, s, v);
-        float r = ColorHelper.PackedColor.red(packed) / 255.0f;
-        float g = ColorHelper.PackedColor.green(packed) / 255.0f;
-        float b = ColorHelper.PackedColor.blue(packed) / 255.0f;
+        float r = FastColor.ARGB32.red(packed) / 255.0f;
+        float g = FastColor.ARGB32.green(packed) / 255.0f;
+        float b = FastColor.ARGB32.blue(packed) / 255.0f;
         setColor(r, g, b);
-        setAlpha(MathHelper.lerp(coeff, data.a1, data.a2));
+        setAlpha(Mth.lerp(coeff, data.a1, data.a2));
         oRoll = roll;
         roll += data.spin;
     }
@@ -54,7 +54,7 @@ public class GenericParticle extends SpriteTexturedParticle {
     }
 
     @Override
-    public IParticleRenderType getRenderType() {
+    public ParticleRenderType getRenderType() {
         return SpriteParticleRenderType.INSTANCE;
     }
 }

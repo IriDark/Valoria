@@ -1,35 +1,34 @@
 package com.idark.darkrpg.tileentity;
 
 import com.google.common.base.Preconditions;
-import net.minecraft.block.BlockState;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.ItemStackHelper;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SUpdateTileEntityPacket;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.NonNullList;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.Container;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.ContainerHelper;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.core.NonNullList;
 
-public abstract class TileSimpleInventory extends TileEntity {
+public abstract class TileSimpleInventory extends BlockEntity {
 
-    private final Inventory itemHandler = createItemHandler();
+    private final SimpleContainer itemHandler = createItemHandler();
 
-    public TileSimpleInventory(TileEntityType<?> type) {
-        super(type);
+    public TileSimpleInventory(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+        super(type, pos, state);
         itemHandler.addListener(i -> setChanged());
     }
 
-    private static void copyToInv(NonNullList<ItemStack> src, IInventory dest) {
+    private static void copyToInv(NonNullList<ItemStack> src, Container dest) {
         Preconditions.checkArgument(src.size() == dest.getContainerSize());
         for (int i = 0; i < src.size(); i++) {
             dest.setItem(i, src.get(i));
         }
     }
 
-    private static NonNullList<ItemStack> copyFromInv(IInventory inv) {
+    private static NonNullList<ItemStack> copyFromInv(Container inv) {
         NonNullList<ItemStack> ret = NonNullList.withSize(inv.getContainerSize(), ItemStack.EMPTY);
         for (int i = 0; i < inv.getContainerSize(); i++) {
             ret.set(i, inv.getItem(i));
@@ -38,46 +37,25 @@ public abstract class TileSimpleInventory extends TileEntity {
     }
 
     @Override
-    public void load(BlockState state, CompoundNBT tag) {
+    public void load(CompoundTag tag) {
         NonNullList<ItemStack> tmp = NonNullList.withSize(inventorySize(), ItemStack.EMPTY);
-        ItemStackHelper.loadAllItems(tag, tmp);
+        ContainerHelper.loadAllItems(tag, tmp);
         copyToInv(tmp, itemHandler);
-        super.load(state, tag);
+        super.load(tag);
     }
 
     @Override
-    public CompoundNBT save(CompoundNBT tag) {
-        ItemStackHelper.saveAllItems(tag, copyFromInv(itemHandler));
-        CompoundNBT ret = super.save(tag);
-        return ret;
+    public void saveAdditional(CompoundTag tag) {
+        ContainerHelper.saveAllItems(tag, copyFromInv(itemHandler));
     }
 
     public final int inventorySize() {
         return getItemHandler().getContainerSize();
     }
-	
-	@Override
-    public final SUpdateTileEntityPacket getUpdatePacket() {
-        CompoundNBT tag = new CompoundNBT();
-        save(tag);
-        return new SUpdateTileEntityPacket(worldPosition, -999, tag);
-    }
 
-    @Override
-    public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket packet) {
-        super.onDataPacket(net, packet);
-        load(this.getBlockState(),packet.getTag());
-    }
+    protected abstract SimpleContainer createItemHandler();
 
-    @Override
-    public CompoundNBT getUpdateTag()
-    {
-        return this.save(new CompoundNBT());
-    }	
-
-    protected abstract Inventory createItemHandler();
-
-    public final IInventory getItemHandler() {
+    public final Container getItemHandler() {
         return itemHandler;
     }
 }

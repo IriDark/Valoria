@@ -1,20 +1,22 @@
 package com.idark.darkrpg.tileentity;
 
-import net.minecraft.inventory.Inventory;
-import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
 
 public class PedestalTileEntity extends TileSimpleInventory {
-    public PedestalTileEntity(TileEntityType<?> tileEntityTypeIn) {
-        super(tileEntityTypeIn);
+    public PedestalTileEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+        super(type, pos, state);
     }
 
-    public PedestalTileEntity() {
-        this(ModTileEntities.PEDESTAL_TILE_ENTITY.get());
+    public PedestalTileEntity(BlockPos pos, BlockState state) {
+        this(ModTileEntities.PEDESTAL_TILE_ENTITY.get(), pos, state);
     }
 
     @Override
-    protected Inventory createItemHandler() {
-        return new Inventory(1) {
+    protected SimpleContainer createItemHandler() {
+        return new SimpleContainer(1) {
             @Override
             public int getMaxStackSize() {
                 return 1;

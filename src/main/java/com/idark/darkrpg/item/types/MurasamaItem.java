@@ -1,7 +1,6 @@
 package com.idark.darkrpg.item.types;
 
 import com.idark.darkrpg.client.render.DashOverlayRender;
-import com.idark.darkrpg.math.MathUtils;
 import com.idark.darkrpg.util.ModSoundRegistry;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
