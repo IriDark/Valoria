@@ -1,6 +1,5 @@
 package com.idark.darkrpg.client.render.model.tileentity;
 
-import com.idark.darkrpg.client.event.ClientTickHandler;
 import com.idark.darkrpg.tileentity.CrusherTileEntity;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.Minecraft;
@@ -19,17 +18,15 @@ public class CrusherTileEntityRenderer extends TileEntityRenderer<CrusherTileEnt
 
     @Override
     public void render(CrusherTileEntity pedestal, float partialTicks, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
-
-        double ticksUp = (ClientTickHandler.ticksInGame + partialTicks) * 4;
-        ticksUp = (ticksUp) % 360;
-
-        ms.push();
-        ms.translate(0.5F, 1.1875F, 0.5F);
-        ms.translate(0F, (float) (Math.sin(Math.toRadians(ticksUp)) * 0.03125F), 0F);
-        ms.rotate(Vector3f.XP.rotationDegrees((float) 180));
-        ms.scale(0.5F, 0.5F, 0.5F);
-        ItemStack stack = pedestal.getItemHandler().getStackInSlot(0);
-		Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.FIXED, light, overlay, ms, buffers);
-        ms.pop();
+        ItemStack itemstack = pedestal.getItemHandler().getStackInSlot(0);
+        if (!itemstack.isEmpty()) {
+            ms.push();
+            ms.translate(0.5D, 1.05D, 0.5D);
+            ms.rotate(Vector3f.XP.rotationDegrees(90.0F));
+            ms.translate(0.0D, -0.0D, 0.0D);
+            ms.scale(0.7F, 0.7F, 0.7F);
+            Minecraft.getInstance().getItemRenderer().renderItem(itemstack, ItemCameraTransforms.TransformType.FIXED, light, overlay, ms, buffers);
+            ms.pop();
+        }
     }
 }

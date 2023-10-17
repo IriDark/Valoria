@@ -45,24 +45,23 @@ public class CrusherBlock extends Block implements ITileEntityProvider {
         }
 	}
 	
-	// TODO: FIX STACK (When, stack size is 64, it`s dissapears
 	// TODO: FIX RENDER (Item render in, weird tbh)
 	public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
         CrusherTileEntity tile = (CrusherTileEntity) world.getTileEntity(pos);
-		ItemStack stack = player.getHeldItem(handIn);
+        ItemStack stack = player.getHeldItem(handIn).copy();
 
-		if ((!stack.isEmpty()) && isValid(stack) && (tile.getItemHandler().getStackInSlot(0).isEmpty())) {
+        if ((!stack.isEmpty()) && isValid(stack) && (tile.getItemHandler().getStackInSlot(0).isEmpty())) {
             if (stack.getCount() > 1) {
                 player.getHeldItemMainhand().setCount(stack.getCount() - 1);
                 stack.setCount(1);
-				tile.getItemHandler().setInventorySlotContents(0, stack);
-                return ActionResultType.CONSUME;
+                tile.getItemHandler().setInventorySlotContents(0, stack);
+                return ActionResultType.SUCCESS;
             } else {
                 tile.getItemHandler().setInventorySlotContents(0, stack);
                 player.inventory.deleteStack(player.getHeldItem(handIn));
-                return ActionResultType.CONSUME;
+                return ActionResultType.SUCCESS;
             }
-		}
+        }
 
 		if ((stack.getItem() instanceof PickaxeItem) && (!tile.getItemHandler().getStackInSlot(0).isEmpty())) {
 			if (player instanceof ServerPlayerEntity) {
@@ -70,8 +69,7 @@ public class CrusherBlock extends Block implements ITileEntityProvider {
 				Vector3d playerPos = serverPlayer.getPositionVec();	
 				LootUtil.givePlayerMultipleItems(serverPlayer, LootUtil.generateLoot((ServerWorld) world, new ResourceLocation(DarkRPG.MOD_ID, "items/miners_bag"), LootUtil.getGiftContext((ServerWorld) world, playerPos, serverPlayer)));
 			}
-			
-			tile.getItemHandler().removeStackFromSlot(0);
+            tile.getItemHandler().removeStackFromSlot(0);
 			for (int i = 0; i < 26; i++) {
 				Particles.create(ModParticles.GEODE_PARTICLE)
 				.setAlpha(1.0f, 0)
