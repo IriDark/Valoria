@@ -16,7 +16,7 @@ public abstract class ModItemGroup extends ItemGroup {
 	
 	@Override
     public boolean hasSearchBar() {
-        return true;
+        return false;
     }
 
     @Override
