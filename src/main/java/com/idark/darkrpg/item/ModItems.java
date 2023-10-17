@@ -222,7 +222,6 @@ import net.minecraftforge.registries.ForgeRegistries;
 	public static final RegistryObject<Item> WOODEN_CUP = ITEMS.register("wooden_cup",() -> new Item(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
 	public static final RegistryObject<Item> CUP = ITEMS.register("cup", () -> new Item(new Item.Properties().maxStackSize(16).group(ModItemGroup.DARKRPG_GROUP)));
 	public static final RegistryObject<Item> BOTTLE = ITEMS.register("bottle", () -> new Item(new Item.Properties().maxStackSize(16).group(ModItemGroup.DARKRPG_GROUP)));
-	public static final RegistryObject<Item> LARGE_BOTTLE = ITEMS.register("large_bottle", () -> new Item(new Item.Properties().maxStackSize(16).group(ModItemGroup.DARKRPG_GROUP)));
 	public static final RegistryObject<Item> ALOE_PIECE = ITEMS.register("aloe_piece", () -> new Item(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
 	// Food
 	public static final RegistryObject<Item> ALOE_BANDAGE = ITEMS.register("aloe_bandage", () -> new AloeBandageItem(600, 0));
@@ -233,21 +232,20 @@ import net.minecraftforge.registries.ForgeRegistries;
 	public static final RegistryObject<Item> GREEN_TEA_CUP = ITEMS.register("green_tea_cup", () -> new GreenTeaCupItem(1800, 0));
 	public static final RegistryObject<Item> BEER_CUP = ITEMS.register("beer_cup", () -> new AlcoholCupItem(100, 0));
 	public static final RegistryObject<Item> RUM_CUP = ITEMS.register("rum_cup", () -> new AlcoholCupItem(150, 1));
-	public static final RegistryObject<Item> KVASS_BOTTLE = ITEMS.register("kvass_bottle", () -> new AlcoholLargeBottleItem(125, 0));
-	public static final RegistryObject<Item> VINE_BOTTLE = ITEMS.register("vine_bottle", () -> new AlcoholBottleItem(325, 0));
-	public static final RegistryObject<Item> AKVAVIT_BOTTLE = ITEMS.register("akvavit_bottle", () -> new AlcoholBottleItem(485, 0));
-	public static final RegistryObject<Item> LIQUOR_BOTTLE = ITEMS.register("liquor_bottle", () -> new AlcoholBottleItem(560, 0));
-	public static final RegistryObject<Item> RUM_BOTTLE = ITEMS.register("rum_bottle", () -> new AlcoholBottleItem(600, 0));
-	public static final RegistryObject<Item> COGNAC_BOTTLE = ITEMS.register("cognac_bottle", () -> new AlcoholLargeBottleItem(650, 0));
-	public static final RegistryObject<Item> WHISKEY_BOTTLE = ITEMS.register("whiskey_bottle", () -> new AlcoholLargeBottleItem(760, 0));
-	public static final RegistryObject<Item> LARGE_RUM_BOTTLE = ITEMS.register("large_rum_bottle", () -> new AlcoholLargeBottleItem(1200, 1));
-	public static final RegistryObject<Item> LARGE_VINE_BOTTLE = ITEMS.register("large_vine_bottle", () -> new AlcoholLargeBottleItem(1425, 1));
+	public static final RegistryObject<Item> KVASS_BOTTLE = ITEMS.register("kvass_bottle", () -> new AlcoholItem(125, 0));
+	public static final RegistryObject<Item> VINE_BOTTLE = ITEMS.register("vine_bottle", () -> new AlcoholItem(325, 0));
+	public static final RegistryObject<Item> AKVAVIT_BOTTLE = ITEMS.register("akvavit_bottle", () -> new AlcoholItem(485, 0));
+	public static final RegistryObject<Item> LIQUOR_BOTTLE = ITEMS.register("liquor_bottle", () -> new AlcoholItem(560, 0));
+	public static final RegistryObject<Item> RUM_BOTTLE = ITEMS.register("rum_bottle", () -> new AlcoholItem(600, 0));
+	public static final RegistryObject<Item> COGNAC_BOTTLE = ITEMS.register("cognac_bottle", () -> new AlcoholItem(650, 0));
+	public static final RegistryObject<Item> WHISKEY_BOTTLE = ITEMS.register("whiskey_bottle", () -> new AlcoholItem(760, 0));
 	public static final RegistryObject<Item> COKE_BOTTLE = ITEMS.register("coke_bottle", () -> new BottleDrinkItem(Effects.SPEED, 325, 0));
 	public static final RegistryObject<Item> APPLE_PIE = ITEMS.register("apple_pie", () -> new Item(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP).food(new Food.Builder().hunger(7).saturation(6).build())));
 	public static final RegistryObject<Item> HOLIDAY_CANDY = ITEMS.register("holiday_candy", () -> new Item(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP).maxStackSize(16).food(new Food.Builder().hunger(4).saturation(6).build())));
 	// Staffs
 	public static final RegistryObject<Item> WAND_OF_NATURE = ITEMS.register("wand_of_nature", () -> new NatureStaff(new Item.Properties().maxStackSize(1).group(ModItemGroup.DARKRPG_GROUP)));
 	// Ingots
+	public static final RegistryObject<Item> DUNESTONE_BRICK = ITEMS.register("dunestone_brick", () -> new Item(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
 	public static final RegistryObject<Item> TOMBSTONE_BRICK = ITEMS.register("tombstone_brick", () -> new Item(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
 	public static final RegistryObject<Item> AMBANE_STONE_BRICK = ITEMS.register("ambane_stone_brick", () -> new Item(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));
 	public static final RegistryObject<Item> LIMESTONE_BRICK = ITEMS.register("limestone_brick", () -> new Item(new Item.Properties().group(ModItemGroup.DARKRPG_GROUP)));

@@ -189,22 +189,6 @@ public class KunaiEntity extends AbstractArrowEntity {
 			}
 		}
 
-		// Sounds taken from Calamity Mod (Terraria)
-		int d = EnchantmentHelper.getEnchantmentLevel(ModEnchantments.FLOW_ENCHANT.get(), this.thrownStack);
-		if (d > 0 || this.isWet()) {
-			shooter.playSound(ModSoundRegistry.FLOW.get(), 1f, 1f);
-			this.world.addParticle(ParticleTypes.ENCHANT, shooter.getPosX() + ((rand.nextDouble() - 0.7D) * 1), shooter.getPosY() + ((rand.nextDouble() - 1D) * 1), shooter.getPosZ() + ((rand.nextDouble() - 0.5D) * 1), 0.05d * ((rand.nextDouble() - 0.5D) * 1), 0.05d * ((rand.nextDouble() - 0.5D) * 1), 0.05d * ((rand.nextDouble() - 0.5D) * 1));
-			if (entity instanceof LivingEntity) {
-				LivingEntity target = (LivingEntity)entity;
-				for (int a = 0; a < 12; a++) {
-					this.world.addParticle(ParticleTypes.ENCHANT, target.getPosX(), target.getPosY() + ((rand.nextDouble() - 0.7D) * 1), target.getPosZ(), 0d, 0d, 0d);					
-				}
-
-				target.applyKnockback(10.0F * d, 0f, 0f);	
-				target.attackEntityFrom(DamageSource.GENERIC, 2.0F);
-			}
-		}
-		
 		if (this.getPierceLevel() > 0) {
 			if (this.piercedEntities == null) {
 				this.piercedEntities = new IntOpenHashSet(5);

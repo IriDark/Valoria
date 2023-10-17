@@ -34,6 +34,8 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class CurioItemProperty extends Item implements ICurioItem {
+
+	// Textures
 	private static final ResourceLocation AMBER = new ResourceLocation(DarkRPG.MOD_ID, "textures/entity/necklace/amber.png");
 	private static final ResourceLocation DIAMOND = new ResourceLocation(DarkRPG.MOD_ID, "textures/entity/necklace/diamond.png");
 	private static final ResourceLocation EMERALD = new ResourceLocation(DarkRPG.MOD_ID, "textures/entity/necklace/emerald.png");
@@ -55,6 +57,7 @@ public class CurioItemProperty extends Item implements ICurioItem {
 	
 	private static final ResourceLocation BELT_TEXTURE = new ResourceLocation(DarkRPG.MOD_ID, "textures/entity/leather_belt.png");
 
+	// Enums
 	public AccessoryType type;
 	public AccessoryGem gem;
 	public AccessoryMaterial material;
@@ -92,6 +95,7 @@ public class CurioItemProperty extends Item implements ICurioItem {
     @Override
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(SlotContext slotContext, UUID uuid, ItemStack stack) {
 		Multimap<Attribute, AttributeModifier> atts = LinkedHashMultimap.create();
+		// Reciving Gem Type & gives atts
 		switch(gem) {
 			case NONE:
 				atts.put(Attributes.ARMOR, new AttributeModifier(uuid, "bonus", 0.5, AttributeModifier.Operation.ADDITION));
@@ -159,6 +163,7 @@ public class CurioItemProperty extends Item implements ICurioItem {
     @Override
     public void curioTick(String identifier, int index, LivingEntity livingEntity, ItemStack stack) {
         PlayerEntity player = (PlayerEntity) livingEntity;
+		// Reciving gem type and then giving player effect`s
 		if(gem == AccessoryGem.AMBER) {
 			if(!player.world.isRemote()) {
 				boolean hasPlayerEffect = !Objects.equals(player.getActivePotionEffect(Effects.HASTE), null);
@@ -183,6 +188,7 @@ public class CurioItemProperty extends Item implements ICurioItem {
         BeltModel belt = new BeltModel();
 		IVertexBuilder vertexBuilder = ItemRenderer.getBuffer(renderTypeBuffer, model.getRenderType(EMPTY), false, stack.hasEffect());;
 
+		// Reciving model properties
 		switch(material) {
 			case LEATHER:
 			if (type == AccessoryType.GLOVES) {
