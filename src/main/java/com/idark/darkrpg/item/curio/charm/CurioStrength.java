@@ -1,6 +1,5 @@
 package com.idark.darkrpg.item.curio.charm;
 
-import com.idark.darkrpg.item.curio.*;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;

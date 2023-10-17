@@ -97,11 +97,11 @@
 		"darkrpg:pot/place4"
       ]
 	},
-	"ambient.flow_activate.use": {
-    "subtitle": "Flow Enchant",
+	"item.bag_open.use": {
+    "subtitle": "Opened bag",
     "replace": "true",
     "sounds": [
-		"darkrpg:flow_activate"
+		"darkrpg:bag_open"
     ]
   }
 }

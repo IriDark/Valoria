@@ -5,7 +5,6 @@ import com.google.common.collect.Multimap;
 import com.idark.darkrpg.DarkRPG;
 import com.idark.darkrpg.client.render.curio.model.*;
 import com.idark.darkrpg.item.curio.*;
-import com.idark.darkrpg.util.*;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
@@ -35,7 +34,9 @@ import java.util.UUID;
 
 public class CurioItemProperty extends Item implements ICurioItem {
 
-	// Textures
+	/**
+	 * 	Textures
+ 	 */
 	private static final ResourceLocation AMBER = new ResourceLocation(DarkRPG.MOD_ID, "textures/entity/necklace/amber.png");
 	private static final ResourceLocation DIAMOND = new ResourceLocation(DarkRPG.MOD_ID, "textures/entity/necklace/diamond.png");
 	private static final ResourceLocation EMERALD = new ResourceLocation(DarkRPG.MOD_ID, "textures/entity/necklace/emerald.png");
@@ -57,7 +58,9 @@ public class CurioItemProperty extends Item implements ICurioItem {
 	
 	private static final ResourceLocation BELT_TEXTURE = new ResourceLocation(DarkRPG.MOD_ID, "textures/entity/leather_belt.png");
 
-	// Enums
+	/**
+	* Enums
+	*/
 	public AccessoryType type;
 	public AccessoryGem gem;
 	public AccessoryMaterial material;
@@ -163,7 +166,9 @@ public class CurioItemProperty extends Item implements ICurioItem {
     @Override
     public void curioTick(String identifier, int index, LivingEntity livingEntity, ItemStack stack) {
         PlayerEntity player = (PlayerEntity) livingEntity;
-		// Reciving gem type and then giving player effect`s
+		/*
+ 		 Receiving gem type and then giving player effect`s
+ 		*/
 		if(gem == AccessoryGem.AMBER) {
 			if(!player.world.isRemote()) {
 				boolean hasPlayerEffect = !Objects.equals(player.getActivePotionEffect(Effects.HASTE), null);
@@ -188,7 +193,9 @@ public class CurioItemProperty extends Item implements ICurioItem {
         BeltModel belt = new BeltModel();
 		IVertexBuilder vertexBuilder = ItemRenderer.getBuffer(renderTypeBuffer, model.getRenderType(EMPTY), false, stack.hasEffect());;
 
-		// Reciving model properties
+		/*
+		  	Receiving model properties
+ 		 */
 		switch(material) {
 			case LEATHER:
 			if (type == AccessoryType.GLOVES) {

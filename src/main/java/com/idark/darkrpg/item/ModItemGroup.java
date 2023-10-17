@@ -13,17 +13,7 @@ public abstract class ModItemGroup extends ItemGroup {
         this.setBackgroundImageName("darkrpg_item_search.png");
         this.setNoTitle();
     }
-	
-	@Override
-    public boolean hasSearchBar() {
-        return false;
-    }
 
-    @Override
-    public int getSearchbarWidth() {
-        return 89;
-    }
-	
 	@Override
 	public ResourceLocation getTabsImage() {
 		return new ResourceLocation(DarkRPG.MOD_ID, "textures/gui/tabs_darkrpg.png");

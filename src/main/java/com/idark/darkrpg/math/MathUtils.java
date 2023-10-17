@@ -1,9 +1,7 @@
 package com.idark.darkrpg.math;
 
 import com.idark.darkrpg.math.AColor;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.*;
-import net.minecraft.entity.player.*;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.vector.*;
 

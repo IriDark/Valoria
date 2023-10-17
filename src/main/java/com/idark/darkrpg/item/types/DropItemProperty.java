@@ -2,6 +2,7 @@ package com.idark.darkrpg.item.types;
 
 import com.idark.darkrpg.DarkRPG;
 import com.idark.darkrpg.util.LootUtil;
+import com.idark.darkrpg.util.ModSoundRegistry;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -34,6 +35,7 @@ public class DropItemProperty extends Item {
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity player, Hand hand) {
 		ItemStack heldStack = player.getHeldItem(hand);
+		worldIn.playSound(player, player.getPosition(), ModSoundRegistry.BAG_OPEN.get(), SoundCategory.AMBIENT, 10f, 1f);
 
 		if (player instanceof ServerPlayerEntity) {
 			ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;

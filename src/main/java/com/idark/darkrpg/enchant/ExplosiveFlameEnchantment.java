@@ -1,11 +1,8 @@
 package com.idark.darkrpg.enchant;
 
-import com.idark.darkrpg.DarkRPG;
 import com.idark.darkrpg.item.types.*;
 import net.minecraft.item.*;
 import net.minecraft.enchantment.*;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentType;
 import net.minecraft.inventory.EquipmentSlotType;
 
 public class ExplosiveFlameEnchantment extends Enchantment {

@@ -4,7 +4,6 @@ import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.ImmutableMultimap.Builder;
 import com.google.common.collect.Multimap;
 import com.idark.darkrpg.effect.*;
-import com.idark.darkrpg.item.*;
 import com.idark.darkrpg.math.*;
 import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.IVanishable;

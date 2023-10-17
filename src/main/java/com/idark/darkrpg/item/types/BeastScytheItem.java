@@ -3,9 +3,6 @@ package com.idark.darkrpg.item.types;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.ImmutableMultimap.Builder;
 import com.google.common.collect.Multimap;
-import com.idark.darkrpg.effect.*;
-import com.idark.darkrpg.item.*;
-import com.idark.darkrpg.math.*;
 import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.IVanishable;
 import net.minecraft.entity.LivingEntity;
@@ -16,7 +13,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraft.particles.*;
-import net.minecraft.potion.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 

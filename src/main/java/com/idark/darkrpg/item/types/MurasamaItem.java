@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+@SuppressWarnings("ALL")
 public class MurasamaItem extends SwordItem {
 
     static Random rand = new Random();
@@ -41,7 +42,9 @@ public class MurasamaItem extends SwordItem {
         super(tier, attackDamageIn, attackSpeedIn, builderIn);
     }
 
-    // Some sounds taken from the CalamityMod (Terraria) in a https://calamitymod.fandom.com/wiki/Category:Sound_effects
+    /**
+    * Some sounds taken from the CalamityMod (Terraria) in a https://calamitymod.fandom.com/wiki/Category:Sound_effects
+    */
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
         ItemStack itemstack = playerIn.getHeldItem(handIn);
         if (itemstack.getDamage() >= itemstack.getMaxDamage() - 1) {
@@ -79,7 +82,9 @@ public class MurasamaItem extends SwordItem {
         return super.shouldCauseReequipAnimation(oldStack, newStack, slotChanged);
     }
 
-    //Sounds taken from the CalamityMod (Terraria) in a https://calamitymod.fandom.com/wiki/Category:Sound_effects
+    /**
+     *     Sounds taken from the CalamityMod (Terraria) in a https://calamitymod.fandom.com/wiki/Category:Sound_effects
+     */
     public void onPlayerStoppedUsing(ItemStack stack, World worldIn, LivingEntity entityLiving, int timeLeft) {
         PlayerEntity player = (PlayerEntity)entityLiving;
 

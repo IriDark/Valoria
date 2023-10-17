@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+@SuppressWarnings("ALL")
 public class ScytheItem extends SwordItem {
 
     Random rand = new Random();
@@ -50,7 +51,9 @@ public class ScytheItem extends SwordItem {
       return 30;
 	}
 
-    // Some sounds taken from the CalamityMod (Terraria) in a https://calamitymod.fandom.com/wiki/Category:Sound_effects
+    /**
+     * Some sounds taken from the CalamityMod (Terraria) in a https://calamitymod.fandom.com/wiki/Category:Sound_effects
+     */
     public void onPlayerStoppedUsing(ItemStack stack, World worldIn, LivingEntity entityLiving, int timeLeft) {
         PlayerEntity player = (PlayerEntity)entityLiving;
         player.getCooldownTracker().setCooldown(this, 300);

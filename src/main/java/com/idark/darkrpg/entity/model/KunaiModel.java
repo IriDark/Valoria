@@ -1,14 +1,12 @@
 package com.idark.darkrpg.entity.model;
 
 import com.idark.darkrpg.DarkRPG;
-import com.idark.darkrpg.entity.projectile.KunaiEntity;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.model.Model;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
 
 public class KunaiModel extends Model {
 	public static final ResourceLocation TEXTURE_LOCATION = new ResourceLocation(DarkRPG.MOD_ID, "textures/entity/kunai.png");	

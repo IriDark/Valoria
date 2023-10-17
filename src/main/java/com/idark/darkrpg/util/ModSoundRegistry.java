@@ -23,7 +23,7 @@ public class ModSoundRegistry {
 	public static final RegistryObject<SoundEvent> POT_BREAK = registerSound("block.pot_break.ambient");
 	public static final RegistryObject<SoundEvent> POT_STEP = registerSound("block.pot_step.ambient");
 	public static final RegistryObject<SoundEvent> POT_PLACE = registerSound("block.pot_place.ambient");
-	public static final RegistryObject<SoundEvent> FLOW = registerSound("ambient.flow_activate.use");
+	public static final RegistryObject<SoundEvent> BAG_OPEN = registerSound("item.bag_open.use");
 
     //SoundType
 	public static final ModSoundType SPIDER_EGG = new ModSoundType(1, 1, ()->EGG_BREAK.get(), ()->EGG_STEP.get(), ()->SoundEvents.BLOCK_STONE_PLACE, ()->SoundEvents.BLOCK_STONE_HIT, ()->SoundEvents.BLOCK_STONE_FALL);

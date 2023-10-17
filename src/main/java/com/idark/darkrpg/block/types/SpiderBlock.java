@@ -2,7 +2,6 @@ package com.idark.darkrpg.block.types;
 
 import net.minecraft.block.*;
 import net.minecraft.entity.*;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.monster.CaveSpiderEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.util.math.BlockPos;

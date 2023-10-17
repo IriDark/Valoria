@@ -2,7 +2,6 @@ package com.idark.darkrpg.client.render.gui;
 
 import com.idark.darkrpg.DarkRPG;
 import com.idark.darkrpg.item.types.*;
-import com.idark.darkrpg.util.*;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import org.lwjgl.opengl.GL11;
@@ -19,7 +18,6 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 import java.util.List;
 
-// Currently not work with Legendary Tooltips and other tooltip changing mods. Buggy at this moment and dont work correctly on all devices (Opacity errors)
 public class TooltipEventHandler {
 	public static final ResourceLocation TRASH = new ResourceLocation(DarkRPG.MOD_ID, "textures/gui/trash.png");
 	public static final ResourceLocation DEFAULT = new ResourceLocation(DarkRPG.MOD_ID, "textures/gui/default.png");

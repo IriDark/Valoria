@@ -13,7 +13,9 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import java.util.function.Supplier;
 
 	public enum ModArmorMaterial implements IArmorMaterial {
-	//OTHER
+		/**
+		 * OTHER
+		 */
 	COBALT("cobalt", 16, new int[] { 2, 3, 4, 2 }, 18,
 	SoundEvents.ITEM_ARMOR_EQUIP_IRON, 1.0f, 0.0f, () -> {
 	return Ingredient.fromItems(ModItems.COBALT_INGOT.get());
@@ -22,7 +24,10 @@ import java.util.function.Supplier;
 	SoundEvents.ITEM_ARMOR_EQUIP_IRON, 1.0f, 0.0f, () -> {
 	return Ingredient.fromItems(ModItems.ANCIENT_INGOT.get());
 	}),
-	//ELEMENTAL
+
+	/**
+	* ELEMENTAL
+	*/
 	NATURE("nature", 30, new int[] { 3, 5, 4, 3 }, 17,
 	SoundEvents.ITEM_ARMOR_EQUIP_IRON, 1.0f, 0.0f, () -> {
 	return Ingredient.fromItems(ModItems.NATURE_INGOT.get());

@@ -3,7 +3,6 @@ package com.idark.darkrpg.entity;
 import com.idark.darkrpg.DarkRPG;
 import com.idark.darkrpg.entity.custom.*;
 import com.idark.darkrpg.entity.projectile.*;
-import com.idark.darkrpg.entity.model.*;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.ResourceLocation;

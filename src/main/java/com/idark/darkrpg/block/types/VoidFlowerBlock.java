@@ -2,7 +2,6 @@ package com.idark.darkrpg.block.types;
 
 import com.idark.darkrpg.block.ModBlocks;
 import net.minecraft.block.*;
-import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.potion.Effect;
 import net.minecraft.util.math.*;

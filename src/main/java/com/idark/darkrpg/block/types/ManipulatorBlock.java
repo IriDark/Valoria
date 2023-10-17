@@ -1,7 +1,6 @@
 package com.idark.darkrpg.block.types;
 
 import net.minecraft.block.*;
-import net.minecraft.block.BlockState;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;

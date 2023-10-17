@@ -1,4 +1,4 @@
-package idark.darkrpg.item.types;
+package com.idark.darkrpg.item.types;
 
 import net.minecraft.item.MusicDiscItem;
 import net.minecraft.util.SoundEvent;

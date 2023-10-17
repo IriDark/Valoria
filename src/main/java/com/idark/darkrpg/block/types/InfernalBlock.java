@@ -1,6 +1,5 @@
 package com.idark.darkrpg.block.types;
 
-import com.idark.darkrpg.block.*;
 import com.idark.darkrpg.item.*;
 import net.minecraft.block.*;
 import net.minecraft.entity.player.PlayerEntity;

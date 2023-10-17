@@ -1,9 +1,7 @@
 package com.idark.darkrpg.item.curio.charm;
 
-import com.idark.darkrpg.item.curio.*;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.*;
-import net.minecraft.potion.*;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;

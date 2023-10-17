@@ -1,14 +1,12 @@
 package com.idark.darkrpg.block.types;
 
 import com.idark.darkrpg.DarkRPG;
-import com.idark.darkrpg.block.ModBlocks;
 import com.idark.darkrpg.item.ModItems;
 import com.idark.darkrpg.tileentity.CrusherTileEntity;
 import com.idark.darkrpg.tileentity.TileSimpleInventory;
 import com.idark.darkrpg.util.LootUtil;
 import com.idark.darkrpg.util.particle.ModParticles;
 import com.idark.darkrpg.util.particle.Particles;
-import net.minecraft.particles.ParticleTypes;
 import net.minecraft.block.*;
 import net.minecraft.item.*;
 import net.minecraft.entity.player.PlayerEntity;

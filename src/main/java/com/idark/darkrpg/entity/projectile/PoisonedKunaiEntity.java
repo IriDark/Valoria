@@ -2,10 +2,6 @@ package com.idark.darkrpg.entity.projectile;
 
 import com.idark.darkrpg.entity.ModEntityTypes;
 import com.idark.darkrpg.item.ModItems;
-import com.idark.darkrpg.math.*;
-import com.idark.darkrpg.enchant.*;
-import com.idark.darkrpg.util.ModSoundRegistry;
-import net.minecraft.client.Minecraft;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.enchantment.*;
@@ -14,7 +10,6 @@ import net.minecraft.entity.projectile.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
@@ -24,7 +19,6 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
 import net.minecraft.network.IPacket;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.api.distmarker.Dist;
@@ -32,15 +26,13 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 import com.google.common.collect.Lists;
 import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
-import java.util.Arrays;
+
 import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
 import javax.annotation.Nullable;
 
 public class PoisonedKunaiEntity extends AbstractArrowEntity {
 	public static final DataParameter<Byte> LOYALTY_LEVEL = EntityDataManager.createKey(PoisonedKunaiEntity.class, DataSerializers.BYTE);
-	public static final DataParameter<Byte> PIERCE_LEVEL = EntityDataManager.createKey(KunaiEntity.class, DataSerializers.BYTE);
+	public static final DataParameter<Byte> PIERCE_LEVEL = EntityDataManager.createKey(PoisonedKunaiEntity.class, DataSerializers.BYTE);
 	public static final DataParameter<Boolean> field_226571_aq_ = EntityDataManager.createKey(PoisonedKunaiEntity.class, DataSerializers.BOOLEAN);
 	public ItemStack thrownStack = new ItemStack(ModItems.SAMURAI_KUNAI.get());
 	public boolean dealtDamage;
