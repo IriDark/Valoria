@@ -26,21 +26,21 @@ public class KunaiRenderer extends EntityRenderer<KunaiEntity> {
 	}
 
 	public void render(KunaiEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
-		if (!Minecraft.getInstance().isGamePaused() && !(entityIn.inGround || entityIn.isOnGround())){
+		if (!Minecraft.getInstance().isPaused() && !(entityIn.inGround || entityIn.isOnGround())){
             entityIn.rotationVelocity = MathUtils.interpolate(entityIn.rotationVelocity,entityIn.rotationVelocity+10,partialTicks);
         }
 		
-		matrixStackIn.push();
-		matrixStackIn.rotate(Vector3f.YP.rotationDegrees(MathHelper.lerp(partialTicks, entityIn.prevRotationYaw, entityIn.rotationYaw) - 90.0F));
-		matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(MathHelper.lerp(partialTicks, entityIn.prevRotationPitch, entityIn.rotationPitch) + 90.0F-entityIn.rotationVelocity));
-		IVertexBuilder ivertexbuilder = net.minecraft.client.renderer.ItemRenderer.getEntityGlintVertexBuilder(bufferIn, this.kunai.getRenderType(this.getEntityTexture(entityIn)), false, entityIn.func_226572_w_());
-		this.kunai.render(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
-		matrixStackIn.pop();
+		matrixStackIn.pushPose();
+		matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(MathHelper.lerp(partialTicks, entityIn.yRotO, entityIn.yRot) - 90.0F));
+		matrixStackIn.mulPose(Vector3f.ZP.rotationDegrees(MathHelper.lerp(partialTicks, entityIn.xRotO, entityIn.xRot) + 90.0F-entityIn.rotationVelocity));
+		IVertexBuilder ivertexbuilder = net.minecraft.client.renderer.ItemRenderer.getFoilBufferDirect(bufferIn, this.kunai.renderType(this.getTextureLocation(entityIn)), false, entityIn.isFoil());
+		this.kunai.renderToBuffer(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+		matrixStackIn.popPose();
 		super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
 	}
     
 	
-	public ResourceLocation getEntityTexture(KunaiEntity entity) {
+	public ResourceLocation getTextureLocation(KunaiEntity entity) {
 		return KUNAI;
 	}
 }

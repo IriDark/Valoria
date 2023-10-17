@@ -14,11 +14,11 @@ public class TallNetherFlowerBlock extends DoublePlantBlock {
       super(properties);
    }
 	
-   protected boolean isValidGround(BlockState state, IBlockReader worldIn, BlockPos pos) {
-      return state.isIn(BlockTags.NYLIUM) || state.matchesBlock(Blocks.SOUL_SOIL) || super.isValidGround(state, worldIn, pos);
+   protected boolean mayPlaceOn(BlockState state, IBlockReader worldIn, BlockPos pos) {
+      return state.is(BlockTags.NYLIUM) || state.is(Blocks.SOUL_SOIL) || super.mayPlaceOn(state, worldIn, pos);
    }
 	
-   public boolean isReplaceable(BlockState state, BlockItemUseContext useContext) {
+   public boolean canBeReplaced(BlockState state, BlockItemUseContext useContext) {
       return false;
    }
 }

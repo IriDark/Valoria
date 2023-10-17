@@ -8,6 +8,8 @@ import net.minecraft.world.World;
 
 import java.util.Random;
 
+import net.minecraft.item.Item.Properties;
+
 public class NatureStaff extends Item {
     Random rand = new Random();
     public NatureStaff(Properties properties) {
@@ -16,9 +18,9 @@ public class NatureStaff extends Item {
 	
     @Override
     public ActionResultType onItemUseFirst(ItemStack stack, ItemUseContext context) {
-        World world = context.getWorld();
-		BlockPos pos = context.getPos();
-        if(world.isRemote) {
+        World world = context.getLevel();
+		BlockPos pos = context.getClickedPos();
+        if(world.isClientSide) {
 			for (int i = 0; i < 15; i++) {
 				Particles.create(ModParticles.SPARKLE_PARTICLE)
 				.addVelocity(((rand.nextDouble() - 0.5D) / 30), ((rand.nextDouble() - 0.5D) / 30), ((rand.nextDouble() - 0.5D) / 30))

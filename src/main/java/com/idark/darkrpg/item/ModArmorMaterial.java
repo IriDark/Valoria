@@ -17,36 +17,36 @@ import java.util.function.Supplier;
 		 * OTHER
 		 */
 	COBALT("cobalt", 16, new int[] { 2, 3, 4, 2 }, 18,
-	SoundEvents.ITEM_ARMOR_EQUIP_IRON, 1.0f, 0.0f, () -> {
-	return Ingredient.fromItems(ModItems.COBALT_INGOT.get());
+	SoundEvents.ARMOR_EQUIP_IRON, 1.0f, 0.0f, () -> {
+	return Ingredient.of(ModItems.COBALT_INGOT.get());
 	}),
 	SAMURAI("samurai", 17, new int[] { 3, 6, 4, 2 }, 14,
-	SoundEvents.ITEM_ARMOR_EQUIP_IRON, 1.0f, 0.0f, () -> {
-	return Ingredient.fromItems(ModItems.ANCIENT_INGOT.get());
+	SoundEvents.ARMOR_EQUIP_IRON, 1.0f, 0.0f, () -> {
+	return Ingredient.of(ModItems.ANCIENT_INGOT.get());
 	}),
 
 	/**
 	* ELEMENTAL
 	*/
 	NATURE("nature", 30, new int[] { 3, 5, 4, 3 }, 17,
-	SoundEvents.ITEM_ARMOR_EQUIP_IRON, 1.0f, 0.0f, () -> {
-	return Ingredient.fromItems(ModItems.NATURE_INGOT.get());
+	SoundEvents.ARMOR_EQUIP_IRON, 1.0f, 0.0f, () -> {
+	return Ingredient.of(ModItems.NATURE_INGOT.get());
 	}),
 	DEPTH("depth", 32, new int[] { 4, 8, 6, 4 }, 15,
-	SoundEvents.ITEM_ARMOR_EQUIP_IRON, 1.0f, 0.0f, () -> {
-	return Ingredient.fromItems(ModItems.AQUARIUS_INGOT.get());
+	SoundEvents.ARMOR_EQUIP_IRON, 1.0f, 0.0f, () -> {
+	return Ingredient.of(ModItems.AQUARIUS_INGOT.get());
 	}),
 	INFERNAL("infernal", 35, new int[] { 4, 8, 6, 4 }, 14,
-	SoundEvents.ITEM_ARMOR_EQUIP_NETHERITE, 1.0f, 0.0f, () -> {
-	return Ingredient.fromItems(ModItems.INFERNAL_INGOT.get());
+	SoundEvents.ARMOR_EQUIP_NETHERITE, 1.0f, 0.0f, () -> {
+	return Ingredient.of(ModItems.INFERNAL_INGOT.get());
 	}),
 	AWAKENED_VOID("awakened_void", 37, new int[] { 6, 8, 7, 5 }, 10,
-	SoundEvents.ITEM_ARMOR_EQUIP_NETHERITE, 1.0f, 0.0f, () -> {
-	return Ingredient.fromItems(ModItems.VOID_INGOT.get());
+	SoundEvents.ARMOR_EQUIP_NETHERITE, 1.0f, 0.0f, () -> {
+	return Ingredient.of(ModItems.VOID_INGOT.get());
 	}),
 	PHANTASM("phantasm", 50, new int[] { 15, 30, 20, 10 }, 30,
-	SoundEvents.ITEM_ARMOR_EQUIP_NETHERITE, 1.0f, 0.0f, () -> {
-	return Ingredient.fromItems(ModItems.ILLUSION_STONE.get());
+	SoundEvents.ARMOR_EQUIP_NETHERITE, 1.0f, 0.0f, () -> {
+	return Ingredient.of(ModItems.ILLUSION_STONE.get());
 	});
 	
 	private static final int[] MAX_DAMAGE_ARRAY = new int[]{13, 15, 16, 11};
@@ -73,24 +73,24 @@ import java.util.function.Supplier;
 	}
 		
 		
-	public int getDurability(EquipmentSlotType slotIn) {
+	public int getDurabilityForSlot(EquipmentSlotType slotIn) {
 	return MAX_DAMAGE_ARRAY[slotIn.getIndex()] * this.maxDamageFactor;
 	}
 		
-	public int getDamageReductionAmount(EquipmentSlotType slotIn) {
+	public int getDefenseForSlot(EquipmentSlotType slotIn) {
 	return this.damageReductionAmountArray[slotIn.getIndex()];
 	}
 		
-	public int getEnchantability() {
+	public int getEnchantmentValue() {
 	return this.enchantability;
 	}
 		
-	public SoundEvent getSoundEvent() {
+	public SoundEvent getEquipSound() {
 	return this.soundEvent;
 	}
 		
-	public Ingredient getRepairMaterial() {
-	return this.repairMaterial.getValue();
+	public Ingredient getRepairIngredient() {
+	return this.repairMaterial.get();
 	}
 	
 	@OnlyIn(Dist.CLIENT)

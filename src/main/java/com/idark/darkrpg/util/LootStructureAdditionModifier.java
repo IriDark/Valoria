@@ -37,7 +37,7 @@ public class LootStructureAdditionModifier extends LootModifier {
         @Override
         public LootStructureAdditionModifier read(ResourceLocation name, JsonObject object, ILootCondition[] conditionsIn) {
             Item addition = ForgeRegistries.ITEMS.getValue(
-            new ResourceLocation(JSONUtils.getString(object, "addition")));
+            new ResourceLocation(JSONUtils.getAsString(object, "addition")));
             return new LootStructureAdditionModifier(conditionsIn, addition);
         }
 

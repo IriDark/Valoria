@@ -30,6 +30,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import net.minecraft.item.Item.Properties;
+
 @SuppressWarnings("ALL")
 public class MagmaSwordItem extends SwordItem {
 
@@ -43,17 +45,17 @@ public class MagmaSwordItem extends SwordItem {
         return enchant != Enchantments.FIRE_ASPECT;
     }
 
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
-        ItemStack itemstack = playerIn.getHeldItem(handIn);
-        if (itemstack.getDamage() >= itemstack.getMaxDamage() - 1) {
-            return ActionResult.resultFail(itemstack);
+    public ActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn) {
+        ItemStack itemstack = playerIn.getItemInHand(handIn);
+        if (itemstack.getDamageValue() >= itemstack.getMaxDamage() - 1) {
+            return ActionResult.fail(itemstack);
         } else {
-            playerIn.setActiveHand(handIn);
-            return ActionResult.resultConsume(itemstack);
+            playerIn.startUsingItem(handIn);
+            return ActionResult.consume(itemstack);
         }
     }
 
-    public UseAction getUseAction(ItemStack stack) {
+    public UseAction getUseAnimation(ItemStack stack) {
         return UseAction.NONE;
     }
 
@@ -64,28 +66,28 @@ public class MagmaSwordItem extends SwordItem {
     /**
      *     Some sounds taken from the CalamityMod (Terraria) in a https://calamitymod.fandom.com/wiki/Category:Sound_effects
       */
-    public void onPlayerStoppedUsing(ItemStack stack, World worldIn, LivingEntity entityLiving, int timeLeft) {
+    public void releaseUsing(ItemStack stack, World worldIn, LivingEntity entityLiving, int timeLeft) {
         PlayerEntity player = (PlayerEntity)entityLiving;
         Entity entity = (Entity)entityLiving;			
 		if (isCharged(stack) == 2) {
-			if (entity.isWet() == true) {
-			player.getCooldownTracker().setCooldown(this, 150);
-			player.addStat(Stats.ITEM_USED.get(this));
+			if (entity.isInWaterOrRain() == true) {
+			player.getCooldowns().addCooldown(this, 150);
+			player.awardStat(Stats.ITEM_USED.get(this));
             setCharge(stack, 1);
-			worldIn.playSound(player, player.getPosition(), SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 10f, 1f);			
+			worldIn.playSound(player, player.blockPosition(), SoundEvents.FIRE_EXTINGUISH, SoundCategory.BLOCKS, 10f, 1f);			
 			if (!player.isCreative()) {
-				stack.damageItem(5, player, (p_220045_0_) -> {p_220045_0_.sendBreakAnimation(EquipmentSlotType.MAINHAND);});
+				stack.hurtAndBreak(5, player, (p_220045_0_) -> {p_220045_0_.broadcastBreakEvent(EquipmentSlotType.MAINHAND);});
 			}
 			
             for (int i = 0; i < 20; i++) {
-                worldIn.addParticle(ParticleTypes.POOF, player.getPosX() + ((rand.nextDouble() - 0.5D) * 3), player.getPosY() + ((rand.nextDouble() - 0.5D) * 3), player.getPosZ() + ((rand.nextDouble() - 0.5D) * 3), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2));
-                worldIn.addParticle(ParticleTypes.LARGE_SMOKE, player.getPosX() + ((rand.nextDouble() - 0.5D) * 3), player.getPosY() + ((rand.nextDouble() - 0.5D) * 3), player.getPosZ() + ((rand.nextDouble() - 0.5D) * 3), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2));
+                worldIn.addParticle(ParticleTypes.POOF, player.getX() + ((rand.nextDouble() - 0.5D) * 3), player.getY() + ((rand.nextDouble() - 0.5D) * 3), player.getZ() + ((rand.nextDouble() - 0.5D) * 3), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2));
+                worldIn.addParticle(ParticleTypes.LARGE_SMOKE, player.getX() + ((rand.nextDouble() - 0.5D) * 3), player.getY() + ((rand.nextDouble() - 0.5D) * 3), player.getZ() + ((rand.nextDouble() - 0.5D) * 3), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2));
 			}
-		} else if (entity.isWet() == false) {
-			player.getCooldownTracker().setCooldown(this, 300);
-			player.addStat(Stats.ITEM_USED.get(this));
+		} else if (entity.isInWaterOrRain() == false) {
+			player.getCooldowns().addCooldown(this, 300);
+			player.awardStat(Stats.ITEM_USED.get(this));
             setCharge(stack, 0);						
-			Vector3d pos = new Vector3d(player.getPosX(), player.getPosY() + player.getEyeHeight(), player.getPosZ());
+			Vector3d pos = new Vector3d(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());
 			List<LivingEntity> hitEntities = new ArrayList<LivingEntity>();
 
 			for (int i = 0; i < 360; i += 10) {
@@ -95,22 +97,22 @@ public class MagmaSwordItem extends SwordItem {
 				} else {
 					yawDouble = 1F - ((((float) i) - 180F) / 180F);
 				}
-				hitDirection(worldIn, player, hitEntities, pos, 0, player.getPitchYaw().y + i, 4);
+				hitDirection(worldIn, player, hitEntities, pos, 0, player.getRotationVector().y + i, 4);
 			}
 
 			float damage = (float) (player.getAttribute(Attributes.ATTACK_DAMAGE).getValue()) + EnchantmentHelper.getSweepingDamageRatio(player);
 
 			for (LivingEntity entityHitted : hitEntities) {
-				entityHitted.attackEntityFrom(DamageSource.GENERIC, damage);
-				entityHitted.applyKnockback(0.4F, player.getPosX() - entity.getPosX(), player.getPosZ() - entity.getPosZ());
-				entityHitted.setFire(5);
+				entityHitted.hurt(DamageSource.GENERIC, damage);
+				entityHitted.knockback(0.4F, player.getX() - entity.getX(), player.getZ() - entity.getZ());
+				entityHitted.setSecondsOnFire(5);
 			}
 			
 			if (!player.isCreative()) {
-				stack.damageItem(hitEntities.size(), player, (p_220045_0_) -> {p_220045_0_.sendBreakAnimation(EquipmentSlotType.MAINHAND);});
+				stack.hurtAndBreak(hitEntities.size(), player, (p_220045_0_) -> {p_220045_0_.broadcastBreakEvent(EquipmentSlotType.MAINHAND);});
 				}
 				
-			worldIn.playSound(player, player.getPosition(), ModSoundRegistry.ERUPTION.get(), SoundCategory.AMBIENT, 10f, 1f);	
+			worldIn.playSound(player, player.blockPosition(), ModSoundRegistry.ERUPTION.get(), SoundCategory.AMBIENT, 10f, 1f);	
 			}
 		}
 	}
@@ -152,17 +154,17 @@ public class MagmaSwordItem extends SwordItem {
 	}
 	
     @Override
-    public void addInformation(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flags) {
-        super.addInformation(stack, world, tooltip, flags);
-        tooltip.add(1, new TranslationTextComponent("tooltip.darkrpg.infernal_sword").mergeStyle(TextFormatting.GRAY));
-        tooltip.add(2, new TranslationTextComponent(getModeString(stack)).mergeStyle(TextFormatting.YELLOW));
+    public void appendHoverText(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flags) {
+        super.appendHoverText(stack, world, tooltip, flags);
+        tooltip.add(1, new TranslationTextComponent("tooltip.darkrpg.infernal_sword").withStyle(TextFormatting.GRAY));
+        tooltip.add(2, new TranslationTextComponent(getModeString(stack)).withStyle(TextFormatting.YELLOW));
         tooltip.add(3, new StringTextComponent("                "));
-        tooltip.add(4, new TranslationTextComponent("tooltip.darkrpg.rmb").mergeStyle(TextFormatting.GREEN));
+        tooltip.add(4, new TranslationTextComponent("tooltip.darkrpg.rmb").withStyle(TextFormatting.GREEN));
 	}	
 
-	public boolean hitEntity(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-		stack.damageItem(1, attacker, (entity) -> {
-			entity.sendBreakAnimation(EquipmentSlotType.MAINHAND);
+	public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+		stack.hurtAndBreak(1, attacker, (entity) -> {
+			entity.broadcastBreakEvent(EquipmentSlotType.MAINHAND);
 		});	
 
 		if (isCharged(stack) < 2) {
@@ -173,9 +175,9 @@ public class MagmaSwordItem extends SwordItem {
 					setCharge(stack, 2);
 				}
 				
-			if (target.world.isRemote) {
+			if (target.level.isClientSide) {
 				for (int i = 0;i<25;i++) {
-					target.world.addParticle(ParticleTypes.FLAME, target.getPosX() + rand.nextDouble(), target.getPosY(), target.getPosZ() + rand.nextDouble(), 0d, 0.05d, 0d);
+					target.level.addParticle(ParticleTypes.FLAME, target.getX() + rand.nextDouble(), target.getY(), target.getZ() + rand.nextDouble(), 0d, 0.05d, 0d);
 				}
 			}
 		
@@ -197,13 +199,13 @@ public class MagmaSwordItem extends SwordItem {
         double X = Math.sin(locPitch + pitch) * Math.cos(locYaw + yaw) * locDistance;
         double Y = Math.cos(locPitch + pitch) * locDistance;
         double Z = Math.sin(locPitch + pitch) * Math.sin(locYaw + yaw) * locDistance;
-        BlockRayTraceResult ray = worldIn.rayTraceBlocks(new RayTraceContext(pos, new Vector3d(pos.x + X, pos.y + Y, pos.z + Z), RayTraceContext.BlockMode.OUTLINE, RayTraceContext.FluidMode.NONE, player));
-        X = ray.getHitVec().getX();
-        Y = ray.getHitVec().getY();
-        Z = ray.getHitVec().getZ();
+        BlockRayTraceResult ray = worldIn.clip(new RayTraceContext(pos, new Vector3d(pos.x + X, pos.y + Y, pos.z + Z), RayTraceContext.BlockMode.OUTLINE, RayTraceContext.FluidMode.NONE, player));
+        X = ray.getLocation().x();
+        Y = ray.getLocation().y();
+        Z = ray.getLocation().z();
 
         worldIn.addParticle(ParticleTypes.POOF, X + ((rand.nextDouble() - 0.5D) * 2), Y + ((rand.nextDouble() - 0.5D) * 2), Z + ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2));
-        List<Entity> entities = worldIn.getEntitiesWithinAABB(Entity.class,  new AxisAlignedBB(X - 2D,Y - 2D,Z - 2D,X + 2D,Y + 2D,Z + 2D));
+        List<Entity> entities = worldIn.getEntitiesOfClass(Entity.class,  new AxisAlignedBB(X - 2D,Y - 2D,Z - 2D,X + 2D,Y + 2D,Z + 2D));
         for (Entity entity : entities) {
             if (entity instanceof  LivingEntity) {
                 LivingEntity enemy = (LivingEntity)entity;

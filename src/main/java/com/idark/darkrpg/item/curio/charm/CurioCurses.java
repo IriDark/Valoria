@@ -11,6 +11,8 @@ import top.theillusivec4.curios.api.type.capability.ICurioItem;
 import java.util.List;
 
 
+import net.minecraft.item.Item.Properties;
+
 public class CurioCurses extends Item implements ICurioItem {
 
     public CurioCurses(Properties properties) {
@@ -18,9 +20,9 @@ public class CurioCurses extends Item implements ICurioItem {
 	}
 	
 	@Override
-	public void addInformation(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flags) {
-	super.addInformation(stack, world, tooltip, flags);
-	tooltip.add(new TranslationTextComponent("tooltip.darkrpg.curses").mergeStyle(TextFormatting.GRAY));
-	tooltip.add(new TranslationTextComponent("tooltip.darkrpg.wip").mergeStyle(TextFormatting.RED));
+	public void appendHoverText(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flags) {
+	super.appendHoverText(stack, world, tooltip, flags);
+	tooltip.add(new TranslationTextComponent("tooltip.darkrpg.curses").withStyle(TextFormatting.GRAY));
+	tooltip.add(new TranslationTextComponent("tooltip.darkrpg.wip").withStyle(TextFormatting.RED));
 	}
 }

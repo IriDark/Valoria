@@ -5,6 +5,8 @@ import net.minecraft.item.*;
 import net.minecraft.enchantment.*;
 import net.minecraft.inventory.EquipmentSlotType;
 
+import net.minecraft.enchantment.Enchantment.Rarity;
+
 public class ExplosiveFlameEnchantment extends Enchantment {
 	
     public ExplosiveFlameEnchantment() {
@@ -21,7 +23,7 @@ public class ExplosiveFlameEnchantment extends Enchantment {
         return 1;
     }	
 	
-	public boolean canApplyTogether(Enchantment ench) {
-		return super.canApplyTogether(ench) && ench != Enchantments.FIRE_ASPECT;
+	public boolean checkCompatibility(Enchantment ench) {
+		return super.checkCompatibility(ench) && ench != Enchantments.FIRE_ASPECT;
     }	
 }

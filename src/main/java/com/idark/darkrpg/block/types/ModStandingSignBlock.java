@@ -9,6 +9,8 @@ import net.minecraft.world.IBlockReader;
 
 import javax.annotation.Nullable;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 public class ModStandingSignBlock extends StandingSignBlock {
     public ModStandingSignBlock(Properties properties, WoodType type) {
         super(properties, type);

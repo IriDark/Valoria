@@ -47,8 +47,8 @@ public class DashOverlayRender {
                 alpha = 1F - ((ticks - 20) / 15);
             }
 
-            int i = mc.getMainWindow().getScaledWidth();
-            int j = mc.getMainWindow().getScaledHeight();
+            int i = mc.getWindow().getGuiScaledWidth();
+            int j = mc.getWindow().getGuiScaledHeight();
             double d0 = MathHelper.lerp((double)1D, 2.0D, 1.0D);
             float f = 0.05F * 1F;
             float f1 = 0.05F * 1F;
@@ -62,15 +62,15 @@ public class DashOverlayRender {
             RenderSystem.enableBlend();
             RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ONE, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ONE);
             RenderSystem.color4f(f, f1, f2, alpha);
-            mc.getTextureManager().bindTexture(DASH);
+            mc.getTextureManager().bind(DASH);
             Tessellator tessellator = Tessellator.getInstance();
-            BufferBuilder bufferbuilder = tessellator.getBuffer();
+            BufferBuilder bufferbuilder = tessellator.getBuilder();
             bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
-            bufferbuilder.pos(d3, d4 + d2, -90.0D).tex(0.0F, 1.0F).endVertex();
-            bufferbuilder.pos(d3 + d1, d4 + d2, -90.0D).tex(1.0F, 1.0F).endVertex();
-            bufferbuilder.pos(d3 + d1, d4, -90.0D).tex(1.0F, 0.0F).endVertex();
-            bufferbuilder.pos(d3, d4, -90.0D).tex(0.0F, 0.0F).endVertex();
-            tessellator.draw();
+            bufferbuilder.vertex(d3, d4 + d2, -90.0D).uv(0.0F, 1.0F).endVertex();
+            bufferbuilder.vertex(d3 + d1, d4 + d2, -90.0D).uv(1.0F, 1.0F).endVertex();
+            bufferbuilder.vertex(d3 + d1, d4, -90.0D).uv(1.0F, 0.0F).endVertex();
+            bufferbuilder.vertex(d3, d4, -90.0D).uv(0.0F, 0.0F).endVertex();
+            tessellator.end();
             RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
             RenderSystem.defaultBlendFunc();
             RenderSystem.disableBlend();

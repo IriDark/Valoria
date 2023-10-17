@@ -13,7 +13,7 @@ public class CooldownHandler {
      */
     public static void onCooldownEnd(ServerPlayerEntity playerEntity,Item item){
         if (item instanceof KatanaItem || item instanceof ScytheItem || item instanceof SpearItem){
-            playerEntity.playSound(ModSoundRegistry.RECHARGE.get(), SoundCategory.PLAYERS,1,1);
+            playerEntity.playNotifySound(ModSoundRegistry.RECHARGE.get(), SoundCategory.PLAYERS,1,1);
         }
     }
 }

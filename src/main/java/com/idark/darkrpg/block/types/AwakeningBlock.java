@@ -9,12 +9,12 @@ public class AwakeningBlock extends Block {
 
     public AwakeningBlock(AbstractBlock.Properties properties) {
 		super(properties);
-        this.setDefaultState(this.stateContainer.getBaseState().with(STATE, 0));
+        this.registerDefaultState(this.stateDefinition.any().setValue(STATE, 0));
     }
 
     @Override
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(STATE);
-        super.fillStateContainer(builder);
+        super.createBlockStateDefinition(builder);
     }
 }

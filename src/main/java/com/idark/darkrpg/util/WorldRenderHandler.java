@@ -13,8 +13,8 @@ public class WorldRenderHandler {
 
     public static void onRenderWorldLast(RenderWorldLastEvent event) {
         RenderSystem.pushMatrix();
-        RenderSystem.multMatrix(event.getMatrixStack().getLast().getMatrix());
-        getDelayedRender().finish(RenderUtils.GLOWING_PARTICLE);
+        RenderSystem.multMatrix(event.getMatrixStack().last().pose());
+        getDelayedRender().endBatch(RenderUtils.GLOWING_PARTICLE);
         RenderSystem.popMatrix();
     }
 
@@ -25,9 +25,9 @@ public class WorldRenderHandler {
             Map<RenderType, BufferBuilder> buffers = new HashMap<>();
             for (RenderType type : new RenderType[]{
                     RenderUtils.GLOWING_PARTICLE}) {
-                buffers.put(type, new BufferBuilder(type.getBufferSize()));
+                buffers.put(type, new BufferBuilder(type.bufferSize()));
             }
-            DELAYED_RENDER = IRenderTypeBuffer.getImpl(buffers, new BufferBuilder(256));
+            DELAYED_RENDER = IRenderTypeBuffer.immediateWithBuffers(buffers, new BufferBuilder(256));
         }
         return DELAYED_RENDER;
     }

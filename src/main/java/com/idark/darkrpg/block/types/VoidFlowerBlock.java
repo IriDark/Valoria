@@ -17,11 +17,11 @@ import java.util.Random;
 public class VoidFlowerBlock extends BushBlock {
 	private final Effect stewEffect;
 	private final int stewEffectDuration;
-	private static final VoxelShape shape = Block.makeCuboidShape(3, 0, 3, 13, 8, 13);
+	private static final VoxelShape shape = Block.box(3, 0, 3, 13, 8, 13);
 	public VoidFlowerBlock(Effect effect, int effectDuration, AbstractBlock.Properties properties) {
 		super(properties);
 		this.stewEffect = effect;
-		if (effect.isInstant()) {
+		if (effect.isInstantenous()) {
 			this.stewEffectDuration = effectDuration;
 		} else {
 			this.stewEffectDuration = effectDuration * 20;
@@ -34,15 +34,15 @@ public class VoidFlowerBlock extends BushBlock {
         return shape;
     }	
 	
-	protected boolean isValidGround(BlockState state, IBlockReader worldIn, BlockPos pos) {
+	protected boolean mayPlaceOn(BlockState state, IBlockReader worldIn, BlockPos pos) {
 		Block block = state.getBlock();
 		return block == ModBlocks.VOID_STONE.get() || block == ModBlocks.VOID_GRASS.get();
 	}
    
 	@OnlyIn(Dist.CLIENT)
 	public void animateTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) {
-		VoxelShape voxelshape = this.getShape(stateIn, worldIn, pos, ISelectionContext.dummy());
-		Vector3d vector3d = voxelshape.getBoundingBox().getCenter();
+		VoxelShape voxelshape = this.getShape(stateIn, worldIn, pos, ISelectionContext.empty());
+		Vector3d vector3d = voxelshape.bounds().getCenter();
 		double d0 = (double)pos.getX() + vector3d.x;
 		double d1 = (double)pos.getZ() + vector3d.z;
 		for(int i = 0; i < 3; ++i) {

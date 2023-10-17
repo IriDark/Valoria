@@ -28,11 +28,11 @@ import static net.minecraft.state.properties.BlockStateProperties.WATERLOGGED;
 
 public class PedestalBlock extends Block implements ITileEntityProvider, IWaterLoggable {
 	
-	private static final VoxelShape SHAPE = Block.makeCuboidShape(0, 0, 0, 16, 15, 16);
+	private static final VoxelShape SHAPE = Block.box(0, 0, 0, 16, 15, 16);
 
 	public PedestalBlock(AbstractBlock.Properties properties) {
 		super(properties);
-		setDefaultState(getDefaultState().with(WATERLOGGED, false));
+		registerDefaultState(defaultBlockState().setValue(WATERLOGGED, false));
 	}
 
 	@Nonnull
@@ -42,55 +42,55 @@ public class PedestalBlock extends Block implements ITileEntityProvider, IWaterL
     }
 
     @Override
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(WATERLOGGED);
     }
 
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockItemUseContext context) {
-        FluidState fluidState = context.getWorld().getFluidState(context.getPos());
-        return this.getDefaultState().with(WATERLOGGED, fluidState.getFluid() == Fluids.WATER);
+        FluidState fluidState = context.getLevel().getFluidState(context.getClickedPos());
+        return this.defaultBlockState().setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
     }
 
     @Nonnull
     @Override
-    public TileEntity createNewTileEntity(@Nonnull IBlockReader world) {
+    public TileEntity newBlockEntity(@Nonnull IBlockReader world) {
         return new PedestalTileEntity();
     }
 
     @Override
-    public void onReplaced(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
+    public void onRemove(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
         if (state.getBlock() != newState.getBlock()) {
-            TileEntity tile = world.getTileEntity(pos);
+            TileEntity tile = world.getBlockEntity(pos);
             if (tile instanceof TileSimpleInventory) {
-                net.minecraft.inventory.InventoryHelper.dropInventoryItems(world, pos, ((TileSimpleInventory) tile).getItemHandler());
+                net.minecraft.inventory.InventoryHelper.dropContents(world, pos, ((TileSimpleInventory) tile).getItemHandler());
             }
-            super.onReplaced(state, world, pos, newState, isMoving);
+            super.onRemove(state, world, pos, newState, isMoving);
         }
     }
 
     @Override
-    public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
-        PedestalTileEntity tile = (PedestalTileEntity) world.getTileEntity(pos);
-        ItemStack stack = player.getHeldItem(hand).copy();
+    public ActionResultType use(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
+        PedestalTileEntity tile = (PedestalTileEntity) world.getBlockEntity(pos);
+        ItemStack stack = player.getItemInHand(hand).copy();
 
-        if ((!stack.isEmpty()) && (tile.getItemHandler().getStackInSlot(0).isEmpty())) {
+        if ((!stack.isEmpty()) && (tile.getItemHandler().getItem(0).isEmpty())) {
             if (stack.getCount() > 1) {
-                player.getHeldItemMainhand().setCount(stack.getCount() - 1);
+                player.getMainHandItem().setCount(stack.getCount() - 1);
                 stack.setCount(1);
-                tile.getItemHandler().setInventorySlotContents(0, stack);
+                tile.getItemHandler().setItem(0, stack);
                 return ActionResultType.SUCCESS;
             } else {
-                tile.getItemHandler().setInventorySlotContents(0, stack);
-                player.inventory.deleteStack(player.getHeldItem(hand));
+                tile.getItemHandler().setItem(0, stack);
+                player.inventory.removeItem(player.getItemInHand(hand));
                 return ActionResultType.SUCCESS;
             }
         }
 
-        if (!tile.getItemHandler().getStackInSlot(0).isEmpty()) {
-            player.inventory.addItemStackToInventory(tile.getItemHandler().getStackInSlot(0).copy());
-            tile.getItemHandler().removeStackFromSlot(0);
+        if (!tile.getItemHandler().getItem(0).isEmpty()) {
+            player.inventory.add(tile.getItemHandler().getItem(0).copy());
+            tile.getItemHandler().removeItemNoUpdate(0);
             return ActionResultType.SUCCESS;
         }
 
@@ -99,23 +99,23 @@ public class PedestalBlock extends Block implements ITileEntityProvider, IWaterL
 
     @Override
     public FluidState getFluidState(BlockState state) {
-        return state.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : Fluids.EMPTY.getDefaultState();
+        return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : Fluids.EMPTY.defaultFluidState();
     }
 
     @Override
-    public BlockState updatePostPlacement(BlockState stateIn, Direction side, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
-        if (stateIn.get(WATERLOGGED)) {
-            worldIn.getPendingFluidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickRate(worldIn));
+    public BlockState updateShape(BlockState stateIn, Direction side, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
+        if (stateIn.getValue(WATERLOGGED)) {
+            worldIn.getLiquidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(worldIn));
         }
 
         return stateIn;
     }
 
     @Override
-    public boolean eventReceived(BlockState state, World world, BlockPos pos, int id, int param) {
-        super.eventReceived(state, world, pos, id, param);
-        TileEntity tileentity = world.getTileEntity(pos);
-        return tileentity != null && tileentity.receiveClientEvent(id, param);
+    public boolean triggerEvent(BlockState state, World world, BlockPos pos, int id, int param) {
+        super.triggerEvent(state, world, pos, id, param);
+        TileEntity tileentity = world.getBlockEntity(pos);
+        return tileentity != null && tileentity.triggerEvent(id, param);
     }
 
     @Override

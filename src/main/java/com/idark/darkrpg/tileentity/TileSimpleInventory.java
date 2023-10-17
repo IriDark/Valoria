@@ -19,60 +19,60 @@ public abstract class TileSimpleInventory extends TileEntity {
 
     public TileSimpleInventory(TileEntityType<?> type) {
         super(type);
-        itemHandler.addListener(i -> markDirty());
+        itemHandler.addListener(i -> setChanged());
     }
 
     private static void copyToInv(NonNullList<ItemStack> src, IInventory dest) {
-        Preconditions.checkArgument(src.size() == dest.getSizeInventory());
+        Preconditions.checkArgument(src.size() == dest.getContainerSize());
         for (int i = 0; i < src.size(); i++) {
-            dest.setInventorySlotContents(i, src.get(i));
+            dest.setItem(i, src.get(i));
         }
     }
 
     private static NonNullList<ItemStack> copyFromInv(IInventory inv) {
-        NonNullList<ItemStack> ret = NonNullList.withSize(inv.getSizeInventory(), ItemStack.EMPTY);
-        for (int i = 0; i < inv.getSizeInventory(); i++) {
-            ret.set(i, inv.getStackInSlot(i));
+        NonNullList<ItemStack> ret = NonNullList.withSize(inv.getContainerSize(), ItemStack.EMPTY);
+        for (int i = 0; i < inv.getContainerSize(); i++) {
+            ret.set(i, inv.getItem(i));
         }
         return ret;
     }
 
     @Override
-    public void read(BlockState state, CompoundNBT tag) {
+    public void load(BlockState state, CompoundNBT tag) {
         NonNullList<ItemStack> tmp = NonNullList.withSize(inventorySize(), ItemStack.EMPTY);
         ItemStackHelper.loadAllItems(tag, tmp);
         copyToInv(tmp, itemHandler);
-        super.read(state, tag);
+        super.load(state, tag);
     }
 
     @Override
-    public CompoundNBT write(CompoundNBT tag) {
+    public CompoundNBT save(CompoundNBT tag) {
         ItemStackHelper.saveAllItems(tag, copyFromInv(itemHandler));
-        CompoundNBT ret = super.write(tag);
+        CompoundNBT ret = super.save(tag);
         return ret;
     }
 
     public final int inventorySize() {
-        return getItemHandler().getSizeInventory();
+        return getItemHandler().getContainerSize();
     }
 	
 	@Override
     public final SUpdateTileEntityPacket getUpdatePacket() {
         CompoundNBT tag = new CompoundNBT();
-        write(tag);
-        return new SUpdateTileEntityPacket(pos, -999, tag);
+        save(tag);
+        return new SUpdateTileEntityPacket(worldPosition, -999, tag);
     }
 
     @Override
     public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket packet) {
         super.onDataPacket(net, packet);
-        read(this.getBlockState(),packet.getNbtCompound());
+        load(this.getBlockState(),packet.getTag());
     }
 
     @Override
     public CompoundNBT getUpdateTag()
     {
-        return this.write(new CompoundNBT());
+        return this.save(new CompoundNBT());
     }	
 
     protected abstract Inventory createItemHandler();

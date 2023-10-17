@@ -19,7 +19,7 @@ public class MixinCooldownTracker {
     private ServerPlayerEntity player;
 
 
-    @Inject(method = "notifyOnRemove",at = @At("HEAD"))
+    @Inject(method = "onCooldownEnded",at = @At("HEAD"))
     public void onRemove(Item itemIn, CallbackInfo ci) {
         CooldownHandler.onCooldownEnd(player,itemIn);
     }

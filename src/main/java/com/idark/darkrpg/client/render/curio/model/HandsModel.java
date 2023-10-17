@@ -13,21 +13,21 @@ public class HandsModel extends BipedModel<LivingEntity> {
   public ModelRenderer hands;
   public HandsModel() {
     super(1.0F);
-    this.textureWidth = 32;
-    this.textureHeight = 32;
-    this.bipedRightArm  = new ModelRenderer(this, 0, 0);
-    this.bipedRightArm .setRotationPoint(-5.0F, 2.0F, 0.0F);
-	this.bipedRightArm .addBox(-3.0F, 4.0F, -2.0F, 4.0F, 6.0F, 4.0F, 0.3F);
-    this.bipedLeftArm  = new ModelRenderer(this, 0, 0);
-    this.bipedLeftArm .mirror = true;
-    this.bipedLeftArm .setRotationPoint(5.0F, 2.0F, 0.0F);
-	this.bipedLeftArm .addBox(-1.0F, 4.0F, -2.0F, 4.0F, 6.0F, 4.0F, 0.3F);
+    this.texWidth = 32;
+    this.texHeight = 32;
+    this.rightArm  = new ModelRenderer(this, 0, 0);
+    this.rightArm .setPos(-5.0F, 2.0F, 0.0F);
+	this.rightArm .addBox(-3.0F, 4.0F, -2.0F, 4.0F, 6.0F, 4.0F, 0.3F);
+    this.leftArm  = new ModelRenderer(this, 0, 0);
+    this.leftArm .mirror = true;
+    this.leftArm .setPos(5.0F, 2.0F, 0.0F);
+	this.leftArm .addBox(-1.0F, 4.0F, -2.0F, 4.0F, 6.0F, 4.0F, 0.3F);
    }
 
   @Override
-  public void render(@Nonnull MatrixStack matrixStack, @Nonnull IVertexBuilder vertexBuilder,
+  public void renderToBuffer(@Nonnull MatrixStack matrixStack, @Nonnull IVertexBuilder vertexBuilder,
     int light, int overlay, float red, float green, float blue, float alpha) {
-    this.bipedRightArm.render(matrixStack, vertexBuilder, light, overlay);
-	this.bipedLeftArm.render(matrixStack, vertexBuilder, light, overlay);
+    this.rightArm.render(matrixStack, vertexBuilder, light, overlay);
+	this.leftArm.render(matrixStack, vertexBuilder, light, overlay);
   }
 }

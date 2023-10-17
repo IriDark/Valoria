@@ -22,6 +22,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import net.minecraft.item.Item.Properties;
+
 @SuppressWarnings("ALL")
 public class PhantomItem extends SwordItem {
     Random rand = new Random();
@@ -31,17 +33,17 @@ public class PhantomItem extends SwordItem {
         super(tier, attackDamageIn, attackSpeedIn, builderIn);
     }
 
-	public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
-        ItemStack itemstack = playerIn.getHeldItem(handIn);
-        if (itemstack.getDamage() >= itemstack.getMaxDamage() - 1) {
-            return ActionResult.resultFail(itemstack);
+	public ActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn) {
+        ItemStack itemstack = playerIn.getItemInHand(handIn);
+        if (itemstack.getDamageValue() >= itemstack.getMaxDamage() - 1) {
+            return ActionResult.fail(itemstack);
         } else {
-            playerIn.setActiveHand(handIn);
-            return ActionResult.resultConsume(itemstack);
+            playerIn.startUsingItem(handIn);
+            return ActionResult.consume(itemstack);
         }
     }
 
-    public UseAction getUseAction(ItemStack stack) {
+    public UseAction getUseAnimation(ItemStack stack) {
         return UseAction.NONE;
     }
 
@@ -52,12 +54,12 @@ public class PhantomItem extends SwordItem {
     /**
      * Some sounds taken from the CalamityMod (Terraria) in a https://calamitymod.fandom.com/wiki/Category:Sound_effects
      */
-    public void onPlayerStoppedUsing(ItemStack stack, World worldIn, LivingEntity entityLiving, int timeLeft) {
+    public void releaseUsing(ItemStack stack, World worldIn, LivingEntity entityLiving, int timeLeft) {
         PlayerEntity player = (PlayerEntity)entityLiving;
-        player.getCooldownTracker().setCooldown(this, 10);
-        player.addStat(Stats.ITEM_USED.get(this));
+        player.getCooldowns().addCooldown(this, 10);
+        player.awardStat(Stats.ITEM_USED.get(this));
 
-        Vector3d pos = new Vector3d(player.getPosX(), player.getPosY() + player.getEyeHeight(), player.getPosZ());
+        Vector3d pos = new Vector3d(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());
         List<LivingEntity> hitEntities = new ArrayList<LivingEntity>();
         for (int i = 0; i < 360; i += 10) {
             float yawDouble = 0;
@@ -66,17 +68,17 @@ public class PhantomItem extends SwordItem {
             } else {
                 yawDouble = 1F - ((((float) i) - 180F) / 180F);
             }
-            hitDirection(worldIn, player, hitEntities, pos, 0, player.getPitchYaw().y + i, 4);
+            hitDirection(worldIn, player, hitEntities, pos, 0, player.getRotationVector().y + i, 4);
         }
 
-        worldIn.addParticle(ParticleTypes.SOUL_FIRE_FLAME, player.getPosX() + ((rand.nextDouble() - 0.7D) * 1), player.getPosY() + ((rand.nextDouble() - 1D) * 1), player.getPosZ() + ((rand.nextDouble() - 0.5D) * 1), 0.05d * ((rand.nextDouble() - 0.5D) * 1), 0.05d * ((rand.nextDouble() - 0.5D) * 1), 0.05d * ((rand.nextDouble() - 0.5D) * 1));
-        worldIn.addParticle(ParticleTypes.SOUL_FIRE_FLAME, player.getPosX() + ((rand.nextDouble() - 0.5D) * 2), player.getPosY() + ((rand.nextDouble() - 0.5D) * 2), player.getPosZ() + ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2));
-        worldIn.playSound(player, player.getPosition(), SoundEvents.ITEM_TOTEM_USE, SoundCategory.AMBIENT, 1.0F, 1.0F);
+        worldIn.addParticle(ParticleTypes.SOUL_FIRE_FLAME, player.getX() + ((rand.nextDouble() - 0.7D) * 1), player.getY() + ((rand.nextDouble() - 1D) * 1), player.getZ() + ((rand.nextDouble() - 0.5D) * 1), 0.05d * ((rand.nextDouble() - 0.5D) * 1), 0.05d * ((rand.nextDouble() - 0.5D) * 1), 0.05d * ((rand.nextDouble() - 0.5D) * 1));
+        worldIn.addParticle(ParticleTypes.SOUL_FIRE_FLAME, player.getX() + ((rand.nextDouble() - 0.5D) * 2), player.getY() + ((rand.nextDouble() - 0.5D) * 2), player.getZ() + ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2));
+        worldIn.playSound(player, player.blockPosition(), SoundEvents.TOTEM_USE, SoundCategory.AMBIENT, 1.0F, 1.0F);
         Minecraft.getInstance().gameRenderer.displayItemActivation(new ItemStack(ModItems.ETERNITY.get()));
         if (!player.isCreative()) {
-            stack.damageItem(35, player, (p_220045_0_) -> {p_220045_0_.sendBreakAnimation(EquipmentSlotType.MAINHAND);});
+            stack.hurtAndBreak(35, player, (p_220045_0_) -> {p_220045_0_.broadcastBreakEvent(EquipmentSlotType.MAINHAND);});
 
-        worldIn.playSound(player, player.getPosition(), ModSoundRegistry.BLAZECHARGE.get(), SoundCategory.AMBIENT, 10f, 1f);
+        worldIn.playSound(player, player.blockPosition(), ModSoundRegistry.BLAZECHARGE.get(), SoundCategory.AMBIENT, 10f, 1f);
 		}
 	}
 
@@ -91,12 +93,12 @@ public class PhantomItem extends SwordItem {
         double X = Math.sin(locPitch + pitch) * Math.cos(locYaw + yaw) * locDistance;
         double Y = Math.cos(locPitch + pitch) * locDistance;
         double Z = Math.sin(locPitch + pitch) * Math.sin(locYaw + yaw) * locDistance;
-        BlockRayTraceResult ray = worldIn.rayTraceBlocks(new RayTraceContext(pos, new Vector3d(pos.x + X, pos.y + Y, pos.z + Z), RayTraceContext.BlockMode.OUTLINE, RayTraceContext.FluidMode.NONE, player));
-        X = ray.getHitVec().getX();
-        Y = ray.getHitVec().getY();
-        Z = ray.getHitVec().getZ();
+        BlockRayTraceResult ray = worldIn.clip(new RayTraceContext(pos, new Vector3d(pos.x + X, pos.y + Y, pos.z + Z), RayTraceContext.BlockMode.OUTLINE, RayTraceContext.FluidMode.NONE, player));
+        X = ray.getLocation().x();
+        Y = ray.getLocation().y();
+        Z = ray.getLocation().z();
 		
-		List<Entity> entities = worldIn.getEntitiesWithinAABB(Entity.class,  new AxisAlignedBB(X - 2D,Y - 2D,Z - 2D,X + 2D,Y + 2D,Z + 2D));
+		List<Entity> entities = worldIn.getEntitiesOfClass(Entity.class,  new AxisAlignedBB(X - 2D,Y - 2D,Z - 2D,X + 2D,Y + 2D,Z + 2D));
         for (Entity entity : entities) {
             if (entity instanceof  LivingEntity) {
                 LivingEntity enemy = (LivingEntity)entity;

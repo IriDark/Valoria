@@ -9,7 +9,7 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 
 public class VoidRootsBlock extends BushBlock {
-	private static final VoxelShape shape = Block.makeCuboidShape(3, 0, 3, 13, 8, 13);
+	private static final VoxelShape shape = Block.box(3, 0, 3, 13, 8, 13);
 
 	public VoidRootsBlock(AbstractBlock.Properties properties) {
 		super(properties);
@@ -21,12 +21,12 @@ public class VoidRootsBlock extends BushBlock {
         return shape;
     }
 	
-	protected boolean isValidGround(BlockState state, IBlockReader worldIn, BlockPos pos) {
+	protected boolean mayPlaceOn(BlockState state, IBlockReader worldIn, BlockPos pos) {
 		Block block = state.getBlock();
 		return block == ModBlocks.VOID_STONE.get() || block == ModBlocks.VOID_GRASS.get();
 	}
 	
-	public boolean isReplaceable(BlockState state, BlockItemUseContext useContext) {
+	public boolean canBeReplaced(BlockState state, BlockItemUseContext useContext) {
 		return true;
 	}
 }

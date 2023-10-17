@@ -17,58 +17,58 @@ public class MannequinModel <T extends MannequinEntity> extends EntityModel<T> {
 	private T entit;
 
 	public MannequinModel() {
-		textureWidth = 64;
-		textureHeight = 64;
+		texWidth = 64;
+		texHeight = 64;
 
 		Head = new ModelRenderer(this);
-		Head.setRotationPoint(0.0F, 24.0F, 0.0F);
-		Head.setTextureOffset(0, 0).addBox(-4.0F, -32.0F, -4.0F, 8.0F, 8.0F, 8.0F, 0.0F, false);
+		Head.setPos(0.0F, 24.0F, 0.0F);
+		Head.texOffs(0, 0).addBox(-4.0F, -32.0F, -4.0F, 8.0F, 8.0F, 8.0F, 0.0F, false);
 
 		Body = new ModelRenderer(this);
-		Body.setRotationPoint(0.0F, 24.0F, 0.0F);
-		Body.setTextureOffset(0, 16).addBox(-4.0F, -24.0F, -2.0F, 8.0F, 12.0F, 4.0F, 0.0F, false);
-		Body.setTextureOffset(14, 41).addBox(-1.0F, -7.0F, -1.0F, 2.0F, 7.0F, 2.0F, 0.0F, false);
-		Body.setTextureOffset(24, 0).addBox(-4.0F, -1.0F, -3.0F, 8.0F, 1.0F, 6.0F, 0.0F, false);
+		Body.setPos(0.0F, 24.0F, 0.0F);
+		Body.texOffs(0, 16).addBox(-4.0F, -24.0F, -2.0F, 8.0F, 12.0F, 4.0F, 0.0F, false);
+		Body.texOffs(14, 41).addBox(-1.0F, -7.0F, -1.0F, 2.0F, 7.0F, 2.0F, 0.0F, false);
+		Body.texOffs(24, 0).addBox(-4.0F, -1.0F, -3.0F, 8.0F, 1.0F, 6.0F, 0.0F, false);
 
 		RightArm = new ModelRenderer(this);
-		RightArm.setRotationPoint(0.0F, 24.0F, 0.0F);
-		RightArm.setTextureOffset(0, 32).addBox(-7.0F, -24.0F, -2.0F, 3.0F, 12.0F, 4.0F, 0.0F, false);
-		RightArm.setTextureOffset(38, 15).addBox(-8.0F, -24.0F, -2.0F, 4.0F, 4.0F, 4.0F, 0.1F, false);
+		RightArm.setPos(0.0F, 24.0F, 0.0F);
+		RightArm.texOffs(0, 32).addBox(-7.0F, -24.0F, -2.0F, 3.0F, 12.0F, 4.0F, 0.0F, false);
+		RightArm.texOffs(38, 15).addBox(-8.0F, -24.0F, -2.0F, 4.0F, 4.0F, 4.0F, 0.1F, false);
 
 		LeftArm = new ModelRenderer(this);
-		LeftArm.setRotationPoint(0.0F, 24.0F, 0.0F);
-		LeftArm.setTextureOffset(24, 16).addBox(4.0F, -24.0F, -2.0F, 3.0F, 12.0F, 4.0F, 0.0F, false);
-		LeftArm.setTextureOffset(32, 7).addBox(4.0F, -24.0F, -2.0F, 4.0F, 4.0F, 4.0F, 0.1F, false);
+		LeftArm.setPos(0.0F, 24.0F, 0.0F);
+		LeftArm.texOffs(24, 16).addBox(4.0F, -24.0F, -2.0F, 3.0F, 12.0F, 4.0F, 0.0F, false);
+		LeftArm.texOffs(32, 7).addBox(4.0F, -24.0F, -2.0F, 4.0F, 4.0F, 4.0F, 0.1F, false);
 
 		RightLeg = new ModelRenderer(this);
-		RightLeg.setRotationPoint(0.0F, 24.0F, 0.0F);
-		RightLeg.setTextureOffset(30, 32).addBox(-3.9F, -12.0F, -2.0F, 4.0F, 5.0F, 4.0F, 0.0F, false);
+		RightLeg.setPos(0.0F, 24.0F, 0.0F);
+		RightLeg.texOffs(30, 32).addBox(-3.9F, -12.0F, -2.0F, 4.0F, 5.0F, 4.0F, 0.0F, false);
 
 		LeftLeg = new ModelRenderer(this);
-		LeftLeg.setRotationPoint(0.0F, 24.0F, 0.0F);
-		LeftLeg.setTextureOffset(14, 32).addBox(-0.1F, -12.0F, -2.0F, 4.0F, 5.0F, 4.0F, 0.0F, false);
+		LeftLeg.setPos(0.0F, 24.0F, 0.0F);
+		LeftLeg.texOffs(14, 32).addBox(-0.1F, -12.0F, -2.0F, 4.0F, 5.0F, 4.0F, 0.0F, false);
 	}
 	
 	@Override
-    public void setRotationAngles(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float HeadPitch) {
+    public void setupAnim(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float HeadPitch) {
         float factor = (float)Math.sin(ageInTicks*2f);
         float speed = 0.1f;
-        this.Body.rotateAngleX = MathHelper.cos(limbSwing * 0.5662F*speed + (float)Math.PI) * 0.4F*factor * limbSwingAmount;
-        this.Body.rotateAngleZ = MathHelper.sin(limbSwing * 0.2262F*speed + (float)Math.PI) * 0.1F*factor * limbSwingAmount;
-        this.Head.rotateAngleX = MathHelper.cos(limbSwing * 0.5662F*speed + (float)Math.PI) * 0.4F*factor * limbSwingAmount;
-        this.Head.rotateAngleZ = MathHelper.sin(limbSwing * 0.2262F*speed + (float)Math.PI) * 0.1F*factor * limbSwingAmount;
-        this.LeftArm.rotateAngleX = MathHelper.cos(limbSwing * 0.5662F*speed + (float)Math.PI) * 0.4F*factor * limbSwingAmount;
-        this.LeftArm.rotateAngleZ = MathHelper.sin(limbSwing * 0.2262F*speed + (float)Math.PI) * 0.1F*factor * limbSwingAmount;
-        this.RightArm.rotateAngleX = MathHelper.cos(limbSwing * 0.5662F*speed + (float)Math.PI) * 0.4F*factor * limbSwingAmount;
-        this.RightArm.rotateAngleZ = MathHelper.sin(limbSwing * 0.2262F*speed + (float)Math.PI) * 0.1F*factor * limbSwingAmount;
-        this.LeftLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.5662F*speed + (float)Math.PI) * 0.4F*factor * limbSwingAmount;
-        this.LeftLeg.rotateAngleZ = MathHelper.sin(limbSwing * 0.2262F*speed + (float)Math.PI) * 0.1F*factor * limbSwingAmount;
-        this.RightLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.5662F*speed + (float)Math.PI) * 0.4F*factor * limbSwingAmount;
-        this.RightLeg.rotateAngleZ = MathHelper.sin(limbSwing * 0.2262F*speed + (float)Math.PI) * 0.1F*factor * limbSwingAmount;
+        this.Body.xRot = MathHelper.cos(limbSwing * 0.5662F*speed + (float)Math.PI) * 0.4F*factor * limbSwingAmount;
+        this.Body.zRot = MathHelper.sin(limbSwing * 0.2262F*speed + (float)Math.PI) * 0.1F*factor * limbSwingAmount;
+        this.Head.xRot = MathHelper.cos(limbSwing * 0.5662F*speed + (float)Math.PI) * 0.4F*factor * limbSwingAmount;
+        this.Head.zRot = MathHelper.sin(limbSwing * 0.2262F*speed + (float)Math.PI) * 0.1F*factor * limbSwingAmount;
+        this.LeftArm.xRot = MathHelper.cos(limbSwing * 0.5662F*speed + (float)Math.PI) * 0.4F*factor * limbSwingAmount;
+        this.LeftArm.zRot = MathHelper.sin(limbSwing * 0.2262F*speed + (float)Math.PI) * 0.1F*factor * limbSwingAmount;
+        this.RightArm.xRot = MathHelper.cos(limbSwing * 0.5662F*speed + (float)Math.PI) * 0.4F*factor * limbSwingAmount;
+        this.RightArm.zRot = MathHelper.sin(limbSwing * 0.2262F*speed + (float)Math.PI) * 0.1F*factor * limbSwingAmount;
+        this.LeftLeg.xRot = MathHelper.cos(limbSwing * 0.5662F*speed + (float)Math.PI) * 0.4F*factor * limbSwingAmount;
+        this.LeftLeg.zRot = MathHelper.sin(limbSwing * 0.2262F*speed + (float)Math.PI) * 0.1F*factor * limbSwingAmount;
+        this.RightLeg.xRot = MathHelper.cos(limbSwing * 0.5662F*speed + (float)Math.PI) * 0.4F*factor * limbSwingAmount;
+        this.RightLeg.zRot = MathHelper.sin(limbSwing * 0.2262F*speed + (float)Math.PI) * 0.1F*factor * limbSwingAmount;
     }
 
 	@Override
-	public void render(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha){
+	public void renderToBuffer(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha){
 		Head.render(matrixStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
 		Body.render(matrixStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
 		RightArm.render(matrixStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
@@ -77,8 +77,8 @@ public class MannequinModel <T extends MannequinEntity> extends EntityModel<T> {
 		LeftLeg.render(matrixStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
 	}
 		public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z) {
-		modelRenderer.rotateAngleX = x;
-		modelRenderer.rotateAngleY = y;
-		modelRenderer.rotateAngleZ = z;
+		modelRenderer.xRot = x;
+		modelRenderer.yRot = y;
+		modelRenderer.zRot = z;
 	}
 }

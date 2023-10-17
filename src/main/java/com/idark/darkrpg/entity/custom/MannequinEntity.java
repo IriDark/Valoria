@@ -13,7 +13,7 @@ import net.minecraftforge.common.extensions.IForgeEntity;
   
 public class MannequinEntity extends MobEntity implements IForgeEntity {
 
-    private static final DataParameter<Float> LAST_DAMAGE = EntityDataManager.createKey(MannequinEntity.class, DataSerializers.FLOAT);
+    private static final DataParameter<Float> LAST_DAMAGE = EntityDataManager.defineId(MannequinEntity.class, DataSerializers.FLOAT);
 
     public float lastDamageOffset = 0;
     public float lastDamageOffsetPrev = 0;
@@ -23,29 +23,29 @@ public class MannequinEntity extends MobEntity implements IForgeEntity {
     }
 
     @Override
-    protected void registerData() {
-        super.registerData();
-        dataManager.register(LAST_DAMAGE,0f);
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        entityData.define(LAST_DAMAGE,0f);
     }
 
     public static AttributeModifierMap.MutableAttribute setCustomAttributes() {
-        return MobEntity.func_233666_p_()
-                .createMutableAttribute(Attributes.MAX_HEALTH, 100)
-                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.0D)
-                .createMutableAttribute(Attributes.KNOCKBACK_RESISTANCE, 1.0D)
-                .createMutableAttribute(Attributes.FOLLOW_RANGE, 0.0D)
-                .createMutableAttribute(Attributes.ZOMBIE_SPAWN_REINFORCEMENTS);
+        return MobEntity.createMobAttributes()
+                .add(Attributes.MAX_HEALTH, 100)
+                .add(Attributes.MOVEMENT_SPEED, 0.0D)
+                .add(Attributes.KNOCKBACK_RESISTANCE, 1.0D)
+                .add(Attributes.FOLLOW_RANGE, 0.0D)
+                .add(Attributes.SPAWN_REINFORCEMENTS_CHANCE);
     }
 
     @Override
-    public boolean attackEntityFrom(DamageSource source, float amount) {
+    public boolean hurt(DamageSource source, float amount) {
         if (hurtTime == 0){
-            dataManager.set(LAST_DAMAGE,amount);
+            entityData.set(LAST_DAMAGE,amount);
         }
-	return super.attackEntityFrom(source, amount);
+	return super.hurt(source, amount);
 	}
 
     public float getLastDamage(){
-        return dataManager.get(LAST_DAMAGE);
+        return entityData.get(LAST_DAMAGE);
     }
 }

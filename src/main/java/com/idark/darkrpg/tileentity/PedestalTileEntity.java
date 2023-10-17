@@ -16,7 +16,7 @@ public class PedestalTileEntity extends TileSimpleInventory {
     protected Inventory createItemHandler() {
         return new Inventory(1) {
             @Override
-            public int getInventoryStackLimit() {
+            public int getMaxStackSize() {
                 return 1;
             }
         };

@@ -19,19 +19,19 @@ public class TallVoidFlowerBlock extends DoublePlantBlock {
 		super(properties);
     }
 	
-	protected boolean isValidGround(BlockState state, IBlockReader worldIn, BlockPos pos) {
+	protected boolean mayPlaceOn(BlockState state, IBlockReader worldIn, BlockPos pos) {
 		Block block = state.getBlock();
 		return block == ModBlocks.VOID_STONE.get() || block == ModBlocks.VOID_GRASS.get();
 	}
 	
-	public boolean isReplaceable(BlockState state, BlockItemUseContext useContext) {
+	public boolean canBeReplaced(BlockState state, BlockItemUseContext useContext) {
 		return false;
 	}
    
 	@OnlyIn(Dist.CLIENT)
 	public void animateTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) {
-		VoxelShape voxelshape = this.getShape(stateIn, worldIn, pos, ISelectionContext.dummy());
-		Vector3d vector3d = voxelshape.getBoundingBox().getCenter();
+		VoxelShape voxelshape = this.getShape(stateIn, worldIn, pos, ISelectionContext.empty());
+		Vector3d vector3d = voxelshape.bounds().getCenter();
 		double d0 = (double)pos.getX() + vector3d.x;
 		double d1 = (double)pos.getZ() + vector3d.z;
 		for(int i = 0; i < 3; ++i) {

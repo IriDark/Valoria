@@ -113,70 +113,70 @@ import javax.annotation.Nonnull;
 	
 	    private void doClientStuff(final FMLClientSetupEvent event) {
 	    event.enqueueWork(() -> {
-		RenderTypeLookup.setRenderLayer(ModBlocks.FALSEFLOWER.get(), RenderType.getCutout());
-		RenderTypeLookup.setRenderLayer(ModBlocks.FALSEFLOWER_SMALL.get(), RenderType.getCutout());
-		RenderTypeLookup.setRenderLayer(ModBlocks.SOULFLOWER.get(), RenderType.getCutout());
-	    RenderTypeLookup.setRenderLayer(ModBlocks.VOID_ROOTS.get(), RenderType.getCutout());
-	    RenderTypeLookup.setRenderLayer(ModBlocks.GAIB_ROOTS.get(), RenderType.getCutout());
-	    RenderTypeLookup.setRenderLayer(ModBlocks.KARUSAKAN_ROOTS.get(), RenderType.getCutout());
-	    RenderTypeLookup.setRenderLayer(ModBlocks.DRIED_PLANT.get(), RenderType.getCutout());
-	    RenderTypeLookup.setRenderLayer(ModBlocks.DRIED_ROOTS.get(), RenderType.getCutout());
-	    RenderTypeLookup.setRenderLayer(ModBlocks.ALOE_SMALL.get(), RenderType.getCutout());
-	    RenderTypeLookup.setRenderLayer(ModBlocks.ALOE.get(), RenderType.getCutout());
-	    RenderTypeLookup.setRenderLayer(ModBlocks.CATTAIL.get(), RenderType.getCutout());
-	    RenderTypeLookup.setRenderLayer(ModBlocks.SOULROOT.get(), RenderType.getCutout());	    
-	    RenderTypeLookup.setRenderLayer(ModBlocks.CRIMSON_SOULROOT.get(), RenderType.getCutout());	    
-	    RenderTypeLookup.setRenderLayer(ModBlocks.DOUBLE_SOULROOT.get(), RenderType.getCutout());	    
-	    RenderTypeLookup.setRenderLayer(ModBlocks.MAGMAROOT.get(), RenderType.getCutout());	    
-	    RenderTypeLookup.setRenderLayer(ModBlocks.DOUBLE_MAGMAROOT.get(), RenderType.getCutout());	    
-	    RenderTypeLookup.setRenderLayer(ModBlocks.GOLDY.get(), RenderType.getCutout());	    
-	    RenderTypeLookup.setRenderLayer(ModBlocks.DOUBLE_GOLDY.get(), RenderType.getCutout());	    
-	    RenderTypeLookup.setRenderLayer(ModBlocks.BLOODROOT.get(), RenderType.getCutout());	    
-	    RenderTypeLookup.setRenderLayer(ModBlocks.RAJUSH.get(), RenderType.getCutout());	    
-	    RenderTypeLookup.setRenderLayer(ModBlocks.ELEMENTAL_MANIPULATOR.get(), RenderType.getCutout());
-	    RenderTypeLookup.setRenderLayer(ModBlocks.SPIDER_EGG.get(), RenderType.getCutout());
-	    RenderTypeLookup.setRenderLayer(ModBlocks.SKULLY_PEDESTAL.get(), RenderType.getCutout());
-	    RenderTypeLookup.setRenderLayer(ModBlocks.ELEGANT_PEDESTAL.get(), RenderType.getCutout());
-	    RenderTypeLookup.setRenderLayer(ModBlocks.POT_SMALL.get(), RenderType.getCutout());
-	    RenderTypeLookup.setRenderLayer(ModBlocks.POT_SMALL_HANDLESS.get(), RenderType.getCutout());
-	    RenderTypeLookup.setRenderLayer(ModBlocks.POT_LONG.get(), RenderType.getCutout());
-	    RenderTypeLookup.setRenderLayer(ModBlocks.POT_LONG_HANDLESS.get(), RenderType.getCutout());
-	    RenderTypeLookup.setRenderLayer(ModBlocks.POT_LONG_MOSSY.get(), RenderType.getCutout());
-	    RenderTypeLookup.setRenderLayer(ModBlocks.POT_LONG_MOSSY_HANDLESS.get(), RenderType.getCutout());
-	    RenderTypeLookup.setRenderLayer(ModBlocks.BRONZE_GLASS.get(), RenderType.getCutout());
-	    RenderTypeLookup.setRenderLayer(ModBlocks.BRONZE_LAMP.get(), RenderType.getCutout());
-	    RenderTypeLookup.setRenderLayer(ModBlocks.DECORATED_BRONZE_LAMP.get(), RenderType.getCutout());
-		RenderTypeLookup.setRenderLayer(ModBlocks.SHADEWOOD_PRESSURE_PLATE.get(), RenderType.getCutout());
-		RenderTypeLookup.setRenderLayer(ModBlocks.SHADEWOOD_BUTTON.get(), RenderType.getCutout());
-		RenderTypeLookup.setRenderLayer(ModBlocks.SHADEWOOD_DOOR.get(), RenderType.getCutout());
-		RenderTypeLookup.setRenderLayer(ModBlocks.SHADEWOOD_TRAPDOOR.get(), RenderType.getCutout());
-	    RenderTypeLookup.setRenderLayer(ModBlocks.BRONZE_DOOR.get(), RenderType.getCutout());
-	    RenderTypeLookup.setRenderLayer(ModBlocks.BRONZE_TRAPDOOR.get(), RenderType.getCutout());
-	    RenderTypeLookup.setRenderLayer(ModBlocks.BRONZE_TRAPDOOR2.get(), RenderType.getCutout());
-	    RenderTypeLookup.setRenderLayer(ModBlocks.AMBER_CRYSTAL.get(), RenderType.getCutout());
-	    RenderTypeLookup.setRenderLayer(ModBlocks.AMETHYST_CRYSTAL.get(), RenderType.getCutout());
-	    RenderTypeLookup.setRenderLayer(ModBlocks.RUBY_CRYSTAL.get(), RenderType.getCutout());
-	    RenderTypeLookup.setRenderLayer(ModBlocks.SAPPHIRE_CRYSTAL.get(), RenderType.getCutout());
-	    RenderTypeLookup.setRenderLayer(ModBlocks.VOID_CRYSTAL.get(), RenderType.getCutout());
-	    RenderTypeLookup.setRenderLayer(ModBlocks.SPIKES.get(), RenderType.getCutout());
-	    RenderTypeLookup.setRenderLayer(ModBlocks.SHADEWOOD_LEAVES.get(), RenderType.getCutout());
-		RenderTypeLookup.setRenderLayer(ModBlocks.SHADEWOOD_SAPLING.get(), RenderType.getCutout());
-		RenderTypeLookup.setRenderLayer(ModBlocks.POTTED_SHADEWOOD_SAPLING.get(), RenderType.getCutout());
-		RenderTypeLookup.setRenderLayer(ModBlocks.POTTED_FALSEFLOWER_SMALL.get(), RenderType.getCutout());
-		RenderTypeLookup.setRenderLayer(ModBlocks.POTTED_FALSEFLOWER.get(), RenderType.getCutout());
-		RenderTypeLookup.setRenderLayer(ModBlocks.POTTED_DRIED_ROOTS.get(), RenderType.getCutout());
-		RenderTypeLookup.setRenderLayer(ModBlocks.POTTED_DRIED_PLANT.get(), RenderType.getCutout());
-		RenderTypeLookup.setRenderLayer(ModBlocks.POTTED_SOULFLOWER.get(), RenderType.getCutout());
-		RenderTypeLookup.setRenderLayer(ModBlocks.POTTED_SOULROOT.get(), RenderType.getCutout());
-		RenderTypeLookup.setRenderLayer(ModBlocks.POTTED_VOID_ROOTS.get(), RenderType.getCutout());
-		RenderTypeLookup.setRenderLayer(ModBlocks.POTTED_SOULROOT.get(), RenderType.getCutout());
-		RenderTypeLookup.setRenderLayer(ModBlocks.POTTED_CRIMSON_SOULROOT.get(), RenderType.getCutout());
-		RenderTypeLookup.setRenderLayer(ModBlocks.POTTED_RAJUSH.get(), RenderType.getCutout());
-		RenderTypeLookup.setRenderLayer(ModBlocks.POTTED_MAGMAROOT.get(), RenderType.getCutout());
-		RenderTypeLookup.setRenderLayer(ModBlocks.POTTED_GOLDY.get(), RenderType.getCutout());
-		RenderTypeLookup.setRenderLayer(ModBlocks.POTTED_BLOODROOT.get(), RenderType.getCutout());
-		RenderTypeLookup.setRenderLayer(ModBlocks.POTTED_ALOE_SMALL.get(), RenderType.getCutout());
-		RenderTypeLookup.setRenderLayer(ModBlocks.QUICKSAND.get(), RenderType.getCutout());
+		RenderTypeLookup.setRenderLayer(ModBlocks.FALSEFLOWER.get(), RenderType.cutout());
+		RenderTypeLookup.setRenderLayer(ModBlocks.FALSEFLOWER_SMALL.get(), RenderType.cutout());
+		RenderTypeLookup.setRenderLayer(ModBlocks.SOULFLOWER.get(), RenderType.cutout());
+	    RenderTypeLookup.setRenderLayer(ModBlocks.VOID_ROOTS.get(), RenderType.cutout());
+	    RenderTypeLookup.setRenderLayer(ModBlocks.GAIB_ROOTS.get(), RenderType.cutout());
+	    RenderTypeLookup.setRenderLayer(ModBlocks.KARUSAKAN_ROOTS.get(), RenderType.cutout());
+	    RenderTypeLookup.setRenderLayer(ModBlocks.DRIED_PLANT.get(), RenderType.cutout());
+	    RenderTypeLookup.setRenderLayer(ModBlocks.DRIED_ROOTS.get(), RenderType.cutout());
+	    RenderTypeLookup.setRenderLayer(ModBlocks.ALOE_SMALL.get(), RenderType.cutout());
+	    RenderTypeLookup.setRenderLayer(ModBlocks.ALOE.get(), RenderType.cutout());
+	    RenderTypeLookup.setRenderLayer(ModBlocks.CATTAIL.get(), RenderType.cutout());
+	    RenderTypeLookup.setRenderLayer(ModBlocks.SOULROOT.get(), RenderType.cutout());	    
+	    RenderTypeLookup.setRenderLayer(ModBlocks.CRIMSON_SOULROOT.get(), RenderType.cutout());	    
+	    RenderTypeLookup.setRenderLayer(ModBlocks.DOUBLE_SOULROOT.get(), RenderType.cutout());	    
+	    RenderTypeLookup.setRenderLayer(ModBlocks.MAGMAROOT.get(), RenderType.cutout());	    
+	    RenderTypeLookup.setRenderLayer(ModBlocks.DOUBLE_MAGMAROOT.get(), RenderType.cutout());	    
+	    RenderTypeLookup.setRenderLayer(ModBlocks.GOLDY.get(), RenderType.cutout());	    
+	    RenderTypeLookup.setRenderLayer(ModBlocks.DOUBLE_GOLDY.get(), RenderType.cutout());	    
+	    RenderTypeLookup.setRenderLayer(ModBlocks.BLOODROOT.get(), RenderType.cutout());	    
+	    RenderTypeLookup.setRenderLayer(ModBlocks.RAJUSH.get(), RenderType.cutout());	    
+	    RenderTypeLookup.setRenderLayer(ModBlocks.ELEMENTAL_MANIPULATOR.get(), RenderType.cutout());
+	    RenderTypeLookup.setRenderLayer(ModBlocks.SPIDER_EGG.get(), RenderType.cutout());
+	    RenderTypeLookup.setRenderLayer(ModBlocks.SKULLY_PEDESTAL.get(), RenderType.cutout());
+	    RenderTypeLookup.setRenderLayer(ModBlocks.ELEGANT_PEDESTAL.get(), RenderType.cutout());
+	    RenderTypeLookup.setRenderLayer(ModBlocks.POT_SMALL.get(), RenderType.cutout());
+	    RenderTypeLookup.setRenderLayer(ModBlocks.POT_SMALL_HANDLESS.get(), RenderType.cutout());
+	    RenderTypeLookup.setRenderLayer(ModBlocks.POT_LONG.get(), RenderType.cutout());
+	    RenderTypeLookup.setRenderLayer(ModBlocks.POT_LONG_HANDLESS.get(), RenderType.cutout());
+	    RenderTypeLookup.setRenderLayer(ModBlocks.POT_LONG_MOSSY.get(), RenderType.cutout());
+	    RenderTypeLookup.setRenderLayer(ModBlocks.POT_LONG_MOSSY_HANDLESS.get(), RenderType.cutout());
+	    RenderTypeLookup.setRenderLayer(ModBlocks.BRONZE_GLASS.get(), RenderType.cutout());
+	    RenderTypeLookup.setRenderLayer(ModBlocks.BRONZE_LAMP.get(), RenderType.cutout());
+	    RenderTypeLookup.setRenderLayer(ModBlocks.DECORATED_BRONZE_LAMP.get(), RenderType.cutout());
+		RenderTypeLookup.setRenderLayer(ModBlocks.SHADEWOOD_PRESSURE_PLATE.get(), RenderType.cutout());
+		RenderTypeLookup.setRenderLayer(ModBlocks.SHADEWOOD_BUTTON.get(), RenderType.cutout());
+		RenderTypeLookup.setRenderLayer(ModBlocks.SHADEWOOD_DOOR.get(), RenderType.cutout());
+		RenderTypeLookup.setRenderLayer(ModBlocks.SHADEWOOD_TRAPDOOR.get(), RenderType.cutout());
+	    RenderTypeLookup.setRenderLayer(ModBlocks.BRONZE_DOOR.get(), RenderType.cutout());
+	    RenderTypeLookup.setRenderLayer(ModBlocks.BRONZE_TRAPDOOR.get(), RenderType.cutout());
+	    RenderTypeLookup.setRenderLayer(ModBlocks.BRONZE_TRAPDOOR2.get(), RenderType.cutout());
+	    RenderTypeLookup.setRenderLayer(ModBlocks.AMBER_CRYSTAL.get(), RenderType.cutout());
+	    RenderTypeLookup.setRenderLayer(ModBlocks.AMETHYST_CRYSTAL.get(), RenderType.cutout());
+	    RenderTypeLookup.setRenderLayer(ModBlocks.RUBY_CRYSTAL.get(), RenderType.cutout());
+	    RenderTypeLookup.setRenderLayer(ModBlocks.SAPPHIRE_CRYSTAL.get(), RenderType.cutout());
+	    RenderTypeLookup.setRenderLayer(ModBlocks.VOID_CRYSTAL.get(), RenderType.cutout());
+	    RenderTypeLookup.setRenderLayer(ModBlocks.SPIKES.get(), RenderType.cutout());
+	    RenderTypeLookup.setRenderLayer(ModBlocks.SHADEWOOD_LEAVES.get(), RenderType.cutout());
+		RenderTypeLookup.setRenderLayer(ModBlocks.SHADEWOOD_SAPLING.get(), RenderType.cutout());
+		RenderTypeLookup.setRenderLayer(ModBlocks.POTTED_SHADEWOOD_SAPLING.get(), RenderType.cutout());
+		RenderTypeLookup.setRenderLayer(ModBlocks.POTTED_FALSEFLOWER_SMALL.get(), RenderType.cutout());
+		RenderTypeLookup.setRenderLayer(ModBlocks.POTTED_FALSEFLOWER.get(), RenderType.cutout());
+		RenderTypeLookup.setRenderLayer(ModBlocks.POTTED_DRIED_ROOTS.get(), RenderType.cutout());
+		RenderTypeLookup.setRenderLayer(ModBlocks.POTTED_DRIED_PLANT.get(), RenderType.cutout());
+		RenderTypeLookup.setRenderLayer(ModBlocks.POTTED_SOULFLOWER.get(), RenderType.cutout());
+		RenderTypeLookup.setRenderLayer(ModBlocks.POTTED_SOULROOT.get(), RenderType.cutout());
+		RenderTypeLookup.setRenderLayer(ModBlocks.POTTED_VOID_ROOTS.get(), RenderType.cutout());
+		RenderTypeLookup.setRenderLayer(ModBlocks.POTTED_SOULROOT.get(), RenderType.cutout());
+		RenderTypeLookup.setRenderLayer(ModBlocks.POTTED_CRIMSON_SOULROOT.get(), RenderType.cutout());
+		RenderTypeLookup.setRenderLayer(ModBlocks.POTTED_RAJUSH.get(), RenderType.cutout());
+		RenderTypeLookup.setRenderLayer(ModBlocks.POTTED_MAGMAROOT.get(), RenderType.cutout());
+		RenderTypeLookup.setRenderLayer(ModBlocks.POTTED_GOLDY.get(), RenderType.cutout());
+		RenderTypeLookup.setRenderLayer(ModBlocks.POTTED_BLOODROOT.get(), RenderType.cutout());
+		RenderTypeLookup.setRenderLayer(ModBlocks.POTTED_ALOE_SMALL.get(), RenderType.cutout());
+		RenderTypeLookup.setRenderLayer(ModBlocks.QUICKSAND.get(), RenderType.cutout());
 		
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.CRUSHER_TILE_ENTITY.get(), CrusherTileEntityRenderer::new);
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.PEDESTAL_TILE_ENTITY.get(), PedestalTileEntityRenderer::new);
@@ -185,9 +185,9 @@ import javax.annotation.Nonnull;
 		});
 	    
 	    EntitySpawnPlacementRegistry.register(ModEntityTypes.SWAMP_WANDERER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND,
-	    Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MonsterEntity::canMonsterSpawn);
+	    Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MonsterEntity::checkAnyLightMonsterSpawnRules);
 	    EntitySpawnPlacementRegistry.register(ModEntityTypes.GOBLIN.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND,
-	    Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MonsterEntity::canMonsterSpawn);
+	    Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MonsterEntity::checkAnyLightMonsterSpawnRules);
 	    
 	    RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.GOBLIN.get(), GoblinRenderer::new);
 	    RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.SWAMP_WANDERER.get(), SwampWandererRenderer::new);
@@ -206,16 +206,16 @@ import javax.annotation.Nonnull;
         WorldGen.init();
 
         event.enqueueWork(() -> {
-		AxeItem.BLOCK_STRIPPING_MAP = new ImmutableMap.Builder<Block, Block>().putAll(AxeItem.BLOCK_STRIPPING_MAP)
+		AxeItem.STRIPABLES = new ImmutableMap.Builder<Block, Block>().putAll(AxeItem.STRIPABLES)
 		.put(ModBlocks.SHADELOG.get(), ModBlocks.STRIPPED_SHADELOG.get())
 		.put(ModBlocks.SHADEWOOD.get(), ModBlocks.STRIPPED_SHADEWOOD.get()).build();
        
 		WoodType.register(ModWoodTypes.SHADEWOOD);
 	    });
         DeferredWorkQueue.runLater(() -> {
-		GlobalEntityTypeAttributes.put(ModEntityTypes.SWAMP_WANDERER.get(), SwampWandererEntity.setCustomAttributes().create());
-        GlobalEntityTypeAttributes.put(ModEntityTypes.MANNEQUIN.get(), MannequinEntity.setCustomAttributes().create());
-        GlobalEntityTypeAttributes.put(ModEntityTypes.GOBLIN.get(), GoblinEntity.setCustomAttributes().create());
+		GlobalEntityTypeAttributes.put(ModEntityTypes.SWAMP_WANDERER.get(), SwampWandererEntity.setCustomAttributes().build());
+        GlobalEntityTypeAttributes.put(ModEntityTypes.MANNEQUIN.get(), MannequinEntity.setCustomAttributes().build());
+        GlobalEntityTypeAttributes.put(ModEntityTypes.GOBLIN.get(), GoblinEntity.setCustomAttributes().build());
         });
         }
 	    private void processIMC(final InterModProcessEvent event) {
@@ -244,10 +244,10 @@ import javax.annotation.Nonnull;
 		@OnlyIn(Dist.CLIENT)
 		@SubscribeEvent
 		public static void registerFactories(ParticleFactoryRegisterEvent event) {
-			Minecraft.getInstance().particles.registerFactory(ModParticles.SPARKLE_PARTICLE.get(), SparkleParticleType.Factory::new);
-			Minecraft.getInstance().particles.registerFactory(ModParticles.PHANTOM_SLASH.get(), SlashParticleType.Factory::new);
-			Minecraft.getInstance().particles.registerFactory(ModParticles.TRANSFORM_PARTICLE.get(), SparkleParticleType.Factory::new);
-			Minecraft.getInstance().particles.registerFactory(ModParticles.GEODE_PARTICLE.get(), SparkleParticleType.Factory::new);
+			Minecraft.getInstance().particleEngine.register(ModParticles.SPARKLE_PARTICLE.get(), SparkleParticleType.Factory::new);
+			Minecraft.getInstance().particleEngine.register(ModParticles.PHANTOM_SLASH.get(), SlashParticleType.Factory::new);
+			Minecraft.getInstance().particleEngine.register(ModParticles.TRANSFORM_PARTICLE.get(), SparkleParticleType.Factory::new);
+			Minecraft.getInstance().particleEngine.register(ModParticles.GEODE_PARTICLE.get(), SparkleParticleType.Factory::new);
 		}	
 		
 		@SubscribeEvent

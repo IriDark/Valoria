@@ -10,12 +10,12 @@ public class TallRootsBlock extends DoublePlantBlock {
       super(properties);
    }
 
-   protected boolean isValidGround(BlockState state, IBlockReader worldIn, BlockPos pos) {
+   protected boolean mayPlaceOn(BlockState state, IBlockReader worldIn, BlockPos pos) {
       Block block = state.getBlock();
       return block == Blocks.GRASS || block == Blocks.PODZOL || block == Blocks.DIRT || block == Blocks.OAK_LOG || block == Blocks.SPRUCE_LOG || block == Blocks.BIRCH_LOG || block == Blocks.JUNGLE_LOG || block == Blocks.ACACIA_LOG || block == Blocks.DARK_OAK_LOG;
    }
 
-   public boolean isReplaceable(BlockState state, BlockItemUseContext useContext) {
+   public boolean canBeReplaced(BlockState state, BlockItemUseContext useContext) {
       return false;
    }
 }

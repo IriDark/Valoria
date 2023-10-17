@@ -26,8 +26,8 @@ public class ModSoundRegistry {
 	public static final RegistryObject<SoundEvent> BAG_OPEN = registerSound("item.bag_open.use");
 
     //SoundType
-	public static final ModSoundType SPIDER_EGG = new ModSoundType(1, 1, ()->EGG_BREAK.get(), ()->EGG_STEP.get(), ()->SoundEvents.BLOCK_STONE_PLACE, ()->SoundEvents.BLOCK_STONE_HIT, ()->SoundEvents.BLOCK_STONE_FALL);
-	public static final ModSoundType POT = new ModSoundType(1, 1, ()->POT_BREAK.get(), ()->POT_STEP.get(), ()->POT_PLACE.get(), ()->SoundEvents.BLOCK_STONE_HIT, ()->SoundEvents.BLOCK_STONE_FALL);
+	public static final ModSoundType SPIDER_EGG = new ModSoundType(1, 1, ()->EGG_BREAK.get(), ()->EGG_STEP.get(), ()->SoundEvents.STONE_PLACE, ()->SoundEvents.STONE_HIT, ()->SoundEvents.STONE_FALL);
+	public static final ModSoundType POT = new ModSoundType(1, 1, ()->POT_BREAK.get(), ()->POT_STEP.get(), ()->POT_PLACE.get(), ()->SoundEvents.STONE_HIT, ()->SoundEvents.STONE_FALL);
 
 	public static RegistryObject<SoundEvent> registerSound(String name){
         return SOUNDS.register(name,()->new SoundEvent(new ResourceLocation(DarkRPG.MOD_ID,name)));

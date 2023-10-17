@@ -11,7 +11,7 @@ import java.util.Random;
 public class ShadeWoodTree extends Tree {
     @Nullable
     @Override
-    protected ConfiguredFeature<BaseTreeFeatureConfig, ?> getTreeFeature(Random randomIn, boolean largeHive) {
+    protected ConfiguredFeature<BaseTreeFeatureConfig, ?> getConfiguredFeature(Random randomIn, boolean largeHive) {
         return WorldGen.SHADEWOOD_TREE;
     }
 }

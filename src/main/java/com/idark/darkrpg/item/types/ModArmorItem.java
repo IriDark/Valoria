@@ -17,11 +17,13 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
 	
+import net.minecraft.item.Item.Properties;
+
 	public class ModArmorItem extends ArmorItem {
 	private static final Map<IArmorMaterial, Effect> MATERIAL_TO_EFFECT_MAP =
 	new ImmutableMap.Builder<IArmorMaterial, Effect>()
 		.put(ModArmorMaterial.DEPTH, Effects.WATER_BREATHING)
-		.put(ModArmorMaterial.INFERNAL, Effects.STRENGTH)
+		.put(ModArmorMaterial.INFERNAL, Effects.DAMAGE_BOOST)
 		.build();
 	
 	public ModArmorItem(IArmorMaterial material, EquipmentSlotType slot, Properties settings) {
@@ -30,7 +32,7 @@ import java.util.Random;
 	
 	@Override
 	public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
-		if(!world.isRemote()) {
+		if(!world.isClientSide()) {
 		if(hasFullSuitOfArmorOn(player)) {
 		evaluateArmorEffects(player);
 	}
@@ -51,34 +53,34 @@ import java.util.Random;
 	}
 	
 	private void addStatusEffectForMaterial(PlayerEntity player, IArmorMaterial mapArmorMaterial, Effect mapStatusEffect) {
-		boolean hasPlayerEffect = !Objects.equals(player.getActivePotionEffect(mapStatusEffect), null);
+		boolean hasPlayerEffect = !Objects.equals(player.getEffect(mapStatusEffect), null);
 	
 	if(hasCorrectArmorOn(mapArmorMaterial, player) && !hasPlayerEffect) {
-		player.addPotionEffect(new EffectInstance(mapStatusEffect, 400));
+		player.addEffect(new EffectInstance(mapStatusEffect, 400));
 	
 	if(new Random().nextFloat() > 0.4f) { // 40% of damaging the armor! Possibly!
-		player.inventory.func_234563_a_(DamageSource.MAGIC, 6f);
+		player.inventory.hurtArmor(DamageSource.MAGIC, 6f);
 	}
 	}
 	}
 	
 	private boolean hasFullSuitOfArmorOn(PlayerEntity player) {
-		ItemStack boots = player.inventory.armorItemInSlot(0);
-		ItemStack leggings = player.inventory.armorItemInSlot(1);
-		ItemStack breastplate = player.inventory.armorItemInSlot(2);
-		ItemStack helmet = player.inventory.armorItemInSlot(3);
+		ItemStack boots = player.inventory.getArmor(0);
+		ItemStack leggings = player.inventory.getArmor(1);
+		ItemStack breastplate = player.inventory.getArmor(2);
+		ItemStack helmet = player.inventory.getArmor(3);
 	
 		return !helmet.isEmpty() && !breastplate.isEmpty()
 		&& !leggings.isEmpty() && !boots.isEmpty();
 	}
 	
 	private boolean hasCorrectArmorOn(IArmorMaterial material, PlayerEntity player) {
-		ArmorItem boots = ((ArmorItem)player.inventory.armorItemInSlot(0).getItem());
-		ArmorItem leggings = ((ArmorItem)player.inventory.armorItemInSlot(1).getItem());
-		ArmorItem breastplate = ((ArmorItem)player.inventory.armorItemInSlot(2).getItem());
-		ArmorItem helmet = ((ArmorItem)player.inventory.armorItemInSlot(3).getItem());
+		ArmorItem boots = ((ArmorItem)player.inventory.getArmor(0).getItem());
+		ArmorItem leggings = ((ArmorItem)player.inventory.getArmor(1).getItem());
+		ArmorItem breastplate = ((ArmorItem)player.inventory.getArmor(2).getItem());
+		ArmorItem helmet = ((ArmorItem)player.inventory.getArmor(3).getItem());
 	
-		return helmet.getArmorMaterial() == material && breastplate.getArmorMaterial() == material &&
-		leggings.getArmorMaterial() == material && boots.getArmorMaterial() == material;
+		return helmet.getMaterial() == material && breastplate.getMaterial() == material &&
+		leggings.getMaterial() == material && boots.getMaterial() == material;
 	}
 }

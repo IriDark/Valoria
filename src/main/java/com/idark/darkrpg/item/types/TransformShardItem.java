@@ -16,6 +16,8 @@ import net.minecraft.world.World;
 
 import java.util.Random;
 
+import net.minecraft.item.Item.Properties;
+
 public class TransformShardItem extends Item {
     Random rand = new Random();
 	public TransformType type;
@@ -30,16 +32,16 @@ public class TransformShardItem extends Item {
 	}
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand) {
-        ItemStack stack = player.getHeldItem(hand);
+    public ActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
+        ItemStack stack = player.getItemInHand(hand);
         return new ActionResult<ItemStack>(ActionResultType.SUCCESS, stack);
     }
 
 	@Override
     public ActionResultType onItemUseFirst(ItemStack stack, ItemUseContext context) {
-        World worldIn = context.getWorld();		
-        BlockState state = worldIn.getBlockState(context.getPos());
-        BlockPos pos = context.getPos();
+        World worldIn = context.getLevel();		
+        BlockState state = worldIn.getBlockState(context.getClickedPos());
+        BlockPos pos = context.getClickedPos();
         PlayerEntity player = context.getPlayer();
 
         rightClickOnCertainBlockState(stack, player, worldIn, state, pos);		
@@ -47,9 +49,9 @@ public class TransformShardItem extends Item {
 	}
 
     private void rightClickOnCertainBlockState(ItemStack stack, PlayerEntity player, World worldIn, BlockState state, BlockPos pos) {
-        if (state.matchesBlock(ModBlocks.VOID_PILLAR.get())) {
-			worldIn.playSound(player, player.getPosition(), SoundEvents.BLOCK_RESPAWN_ANCHOR_AMBIENT, SoundCategory.BLOCKS, 10f, 1f);
-			worldIn.playSound(player, player.getPosition(), SoundEvents.BLOCK_RESPAWN_ANCHOR_CHARGE, SoundCategory.BLOCKS, 1.0F, 1.0F);
+        if (state.is(ModBlocks.VOID_PILLAR.get())) {
+			worldIn.playSound(player, player.blockPosition(), SoundEvents.RESPAWN_ANCHOR_AMBIENT, SoundCategory.BLOCKS, 10f, 1f);
+			worldIn.playSound(player, player.blockPosition(), SoundEvents.RESPAWN_ANCHOR_CHARGE, SoundCategory.BLOCKS, 1.0F, 1.0F);
 			if (!player.isCreative()) {
 				stack.shrink(1);
 			}
@@ -67,14 +69,14 @@ public class TransformShardItem extends Item {
 				.spawn(worldIn, pos.getX() + (rand.nextDouble() * 1.25), pos.getY() + 0.5F + ((rand.nextDouble() - 0.5D) * 1.25), pos.getZ() + 0.5F + ((rand.nextDouble() - 0.5D) * 1.25));
 			}
 
-			worldIn.setBlockState(pos, ModBlocks.VOID_PILLAR_AMETHYST.get().getDefaultState().with(RotatedPillarBlock.AXIS, state.get(RotatedPillarBlock.AXIS)));		
+			worldIn.setBlockAndUpdate(pos, ModBlocks.VOID_PILLAR_AMETHYST.get().defaultBlockState().setValue(RotatedPillarBlock.AXIS, state.getValue(RotatedPillarBlock.AXIS)));		
 			break;
 		case SOUL:	
 			for (int i = 0;i<10;i++) {
 				worldIn.addParticle(ParticleTypes.SOUL, pos.getX(), pos.getY() + 0.5F + rand.nextDouble() * 0.75, pos.getZ() + rand.nextDouble(), 0d, 0.05d, 0d);
 			}
 			
-			worldIn.setBlockState(pos, ModBlocks.CHARGED_VOID_PILLAR.get().getDefaultState().with(RotatedPillarBlock.AXIS, state.get(RotatedPillarBlock.AXIS)));
+			worldIn.setBlockAndUpdate(pos, ModBlocks.CHARGED_VOID_PILLAR.get().defaultBlockState().setValue(RotatedPillarBlock.AXIS, state.getValue(RotatedPillarBlock.AXIS)));
 			break;
 			}
 		}

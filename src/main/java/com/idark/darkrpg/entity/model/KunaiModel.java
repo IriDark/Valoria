@@ -13,7 +13,7 @@ public class KunaiModel extends Model {
 	private final ModelRenderer modelRenderer = new ModelRenderer(32, 32, 10, 11);
 
 	public KunaiModel() {
-		super(RenderType::getEntitySolid);
+		super(RenderType::entitySolid);
 		this.modelRenderer.addBox(4.0F, -7.5F, 0.0F, 3.0F, 3.0F, 1.0F, -0.0003F, false);
 		ModelRenderer bone = new ModelRenderer(32, 32, 0, 6);
 		bone.addBox(-4.0F, 0.5F, 0.0F, 3.0F, 3.0F, 1.0F, 0.0F, false);
@@ -32,7 +32,7 @@ public class KunaiModel extends Model {
 		this.modelRenderer.addChild(bone4);			
 	}
 
-	public void render(MatrixStack matrixStackIn, IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
+	public void renderToBuffer(MatrixStack matrixStackIn, IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
 		modelRenderer.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
 	}
 }

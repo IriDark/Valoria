@@ -22,7 +22,7 @@ public class BottleDrinkItem extends Item {
 
     public BottleDrinkItem(Effect effect,int time,int power)  {
 		super(
-        new Item.Properties().food(new Food.Builder().setAlwaysEdible().hunger(0).saturation(3).build()).maxStackSize(1).group(ModItemGroup.DARKRPG_GROUP)    
+        new Item.Properties().food(new Food.Builder().alwaysEat().nutrition(0).saturationMod(3).build()).stacksTo(1).tab(ModItemGroup.DARKRPG_GROUP)    
     );
 	    this.effect = effect;
         this.power = power;
@@ -30,23 +30,23 @@ public class BottleDrinkItem extends Item {
 	}
 	
 	public SoundEvent getDrinkingSound() {
-        return SoundEvents.ENTITY_GENERIC_DRINK;
+        return SoundEvents.GENERIC_DRINK;
     }
 
     public SoundEvent getEatingSound() {
-        return SoundEvents.ENTITY_GENERIC_DRINK;
+        return SoundEvents.GENERIC_DRINK;
     }
 
     @Override
-    public ItemStack onItemUseFinish(ItemStack stack, World world, LivingEntity entity) {
+    public ItemStack finishUsingItem(ItemStack stack, World world, LivingEntity entity) {
 		PlayerEntity playerentity = entity instanceof PlayerEntity ? (PlayerEntity)entity : null;
 		if (playerentity instanceof ServerPlayerEntity) {
 			CriteriaTriggers.CONSUME_ITEM.trigger((ServerPlayerEntity)playerentity, stack);
 		}
 
-		if (!world.isRemote) {
-			entity.addPotionEffect(new EffectInstance(effect,time,power));
-			if (playerentity == null || !playerentity.abilities.isCreativeMode) {
+		if (!world.isClientSide) {
+			entity.addEffect(new EffectInstance(effect,time,power));
+			if (playerentity == null || !playerentity.abilities.instabuild) {
 				stack.shrink(1);
 				if (stack.isEmpty()) {
 					return new ItemStack(ModItems.WOODEN_CUP.get());
@@ -62,7 +62,7 @@ public class BottleDrinkItem extends Item {
     }
     
     @Override
-    public UseAction getUseAction(ItemStack p_77661_1_) {
+    public UseAction getUseAnimation(ItemStack p_77661_1_) {
         return UseAction.DRINK;
     }
 }

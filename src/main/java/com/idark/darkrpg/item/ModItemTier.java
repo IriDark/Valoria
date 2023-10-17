@@ -11,14 +11,14 @@ public enum ModItemTier implements IItemTier {
 	//1 Harvest 2 Uses 3 Efficiency 4 Damage 5 Enchant
     //OTHER
     COBALT(1, 160, 5f, 0f, 18,
-	    () -> Ingredient.fromItems(ModItems.COBALT_INGOT.get())),
+	    () -> Ingredient.of(ModItems.COBALT_INGOT.get())),
     //ELEMENTAL
     NATURE(3, 2400, 10f, 0f, 17,
-	    () -> Ingredient.fromItems(ModItems.NATURE_INGOT.get())),
+	    () -> Ingredient.of(ModItems.NATURE_INGOT.get())),
 	AQUARIUS(4, 2600, 11f, 0f, 15,
-	    () -> Ingredient.fromItems(ModItems.AQUARIUS_INGOT.get())),
+	    () -> Ingredient.of(ModItems.AQUARIUS_INGOT.get())),
     INFERNAL(5, 2800, 12f, 0f, 16,
-	    () -> Ingredient.fromItems(ModItems.INFERNAL_INGOT.get()));
+	    () -> Ingredient.of(ModItems.INFERNAL_INGOT.get()));
 
     private final int harvestLevel;
     private final int maxUses;
@@ -38,32 +38,32 @@ public enum ModItemTier implements IItemTier {
     }
 
     @Override
-    public int getMaxUses() {
+    public int getUses() {
 		return maxUses;
     }
 
     @Override
-    public float getEfficiency() {
+    public float getSpeed() {
 		return efficiency;
     }
 
     @Override
-    public float getAttackDamage() {
+    public float getAttackDamageBonus() {
 		return attackDamage;
     }
 
     @Override
-    public int getHarvestLevel() {
+    public int getLevel() {
 		return harvestLevel;
     }
 
     @Override
-    public int getEnchantability() {
+    public int getEnchantmentValue() {
 		return enchantability;
     }
 
     @Override
-    public Ingredient getRepairMaterial() {
-		return repairMaterial.getValue();
+    public Ingredient getRepairIngredient() {
+		return repairMaterial.get();
     }
 }

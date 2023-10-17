@@ -47,7 +47,7 @@ public class Vector3 {
     }
 
     public static Vector3 from(Vector3f vector) {
-        return Vector3.from(vector.getX(),vector.getY(),vector.getZ());
+        return Vector3.from(vector.x(),vector.y(),vector.z());
     }
 
     public static Vector3 rad(float x, float y, float z){

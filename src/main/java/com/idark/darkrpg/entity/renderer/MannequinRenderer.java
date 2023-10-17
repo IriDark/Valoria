@@ -39,25 +39,25 @@ public class MannequinRenderer extends MobRenderer<MannequinEntity, MannequinMod
 
     protected void renderText(MannequinEntity entityIn, String text, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn,Color textColor) {
         if (entityIn.hurtTime > 0) {
-            float partialTicks = Minecraft.getInstance().getRenderPartialTicks();
+            float partialTicks = Minecraft.getInstance().getFrameTime();
             StringTextComponent stringTextComponent = new StringTextComponent(text);
             entityIn.lastDamageOffset = MathHelper.lerp(partialTicks,entityIn.lastDamageOffsetPrev,(float) Math.abs(Math.sin(((float)entityIn.hurtTime)/4f)));
             entityIn.lastDamageOffsetPrev = entityIn.lastDamageOffset;
             float alpha = entityIn.lastDamageOffset;
-            matrixStackIn.push();
-            matrixStackIn.translate(0, entityIn.getHeight()+entityIn.lastDamageOffset, 0.0D);
-            matrixStackIn.rotate(this.renderManager.getCameraOrientation());
+            matrixStackIn.pushPose();
+            matrixStackIn.translate(0, entityIn.getBbHeight()+entityIn.lastDamageOffset, 0.0D);
+            matrixStackIn.mulPose(this.entityRenderDispatcher.cameraOrientation());
             matrixStackIn.scale(-entityIn.lastDamageOffset/20f, -entityIn.lastDamageOffset/20f, entityIn.lastDamageOffset/20f);
-            Matrix4f matrix4f = matrixStackIn.getLast().getMatrix();
-            FontRenderer fontrenderer = this.getFontRendererFromRenderManager();
+            Matrix4f matrix4f = matrixStackIn.last().pose();
+            FontRenderer fontrenderer = this.getFont();
             Color color = new Color(textColor.getRed()/255f,textColor.getGreen()/255f,textColor.getBlue()/255f,alpha);
-            fontrenderer.func_243247_a(stringTextComponent, (float)(-fontrenderer.getStringPropertyWidth(stringTextComponent) / 2), entityIn.lastDamageOffset, color.getRGB(), false, matrix4f, bufferIn, false, 0, packedLightIn);
-            matrixStackIn.pop();
+            fontrenderer.drawInBatch(stringTextComponent, (float)(-fontrenderer.width(stringTextComponent) / 2), entityIn.lastDamageOffset, color.getRGB(), false, matrix4f, bufferIn, false, 0, packedLightIn);
+            matrixStackIn.popPose();
         }
     }
 
     @Override
-    public ResourceLocation getEntityTexture(MannequinEntity entity) {
+    public ResourceLocation getTextureLocation(MannequinEntity entity) {
         return TEXTURE;
 	}
 }

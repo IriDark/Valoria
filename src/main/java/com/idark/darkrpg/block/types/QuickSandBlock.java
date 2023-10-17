@@ -13,7 +13,7 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 
 public class QuickSandBlock extends Block {
-	protected static final VoxelShape SHAPE = Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 0.0D, 0.0D, 0.0D);
+	protected static final VoxelShape SHAPE = Block.box(0.0D, 0.0D, 0.0D, 0.0D, 0.0D, 0.0D);
 
 	public QuickSandBlock(AbstractBlock.Properties properties) {
 		super(properties);
@@ -23,21 +23,21 @@ public class QuickSandBlock extends Block {
 		return SHAPE;
 	}
 
-	public VoxelShape getRayTraceShape(BlockState state, IBlockReader reader, BlockPos pos, ISelectionContext context) {
-		return VoxelShapes.fullCube();
+	public VoxelShape getVisualShape(BlockState state, IBlockReader reader, BlockPos pos, ISelectionContext context) {
+		return VoxelShapes.block();
 	}
 
-	public void onBlockAdded(BlockState state, World worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {
-		worldIn.getPendingBlockTicks().scheduleTick(pos, this, 20);
+	public void onPlace(BlockState state, World worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {
+		worldIn.getBlockTicks().scheduleTick(pos, this, 20);
 	}
 
-	public boolean allowsMovement(BlockState state, IBlockReader worldIn, BlockPos pos, PathType type) {
+	public boolean isPathfindable(BlockState state, IBlockReader worldIn, BlockPos pos, PathType type) {
 		return false;
 	}
    
-	public void onEntityCollision(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
-		entityIn.setMotionMultiplier(state, new Vector3d(0.25D, (double)0.05F, 0.25D));
-        entityIn.attackEntityFrom(DamageSource.GENERIC, 1.0F);
+	public void entityInside(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
+		entityIn.makeStuckInBlock(state, new Vector3d(0.25D, (double)0.05F, 0.25D));
+        entityIn.hurt(DamageSource.GENERIC, 1.0F);
 	}
 	//TODO Completely edit this shit lol
 }

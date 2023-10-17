@@ -18,24 +18,24 @@ import javax.annotation.Nullable;
 import static net.minecraft.state.properties.BlockStateProperties.WATERLOGGED;
 
 public class SpikeBlock extends DirectionalBlock implements IWaterLoggable {
-	private static final VoxelShape upAabb = Block.makeCuboidShape((double)3, 0.0D, (double)3, (double)(16 - 3), (double)5, (double)(16 - 3));
-	private static final VoxelShape downAabb = Block.makeCuboidShape((double)3, (double)(16 - 1), (double)3, (double)(16 - 3), 16.0D, (double)(16 - 3));
-    private static final VoxelShape northAabb = Block.makeCuboidShape((double)3, (double)3, (double)(16 - 1), (double)(16 - 3), (double)(16 - 3), 16.0D);
-    private static final VoxelShape southAabb = Block.makeCuboidShape((double)3, (double)3, 0.0D, (double)(16 - 3), (double)(16 - 3), (double)5);
-    private static final VoxelShape eastAabb = Block.makeCuboidShape(0.0D, (double)3, (double)3, (double)5, (double)(16 - 3), (double)(16 - 3));
-    private static final VoxelShape westAabb = Block.makeCuboidShape((double)(16 - 1), (double)3, (double)3, 16.0D, (double)(16 - 3), (double)(16 - 3));
+	private static final VoxelShape upAabb = Block.box((double)3, 0.0D, (double)3, (double)(16 - 3), (double)5, (double)(16 - 3));
+	private static final VoxelShape downAabb = Block.box((double)3, (double)(16 - 1), (double)3, (double)(16 - 3), 16.0D, (double)(16 - 3));
+    private static final VoxelShape northAabb = Block.box((double)3, (double)3, (double)(16 - 1), (double)(16 - 3), (double)(16 - 3), 16.0D);
+    private static final VoxelShape southAabb = Block.box((double)3, (double)3, 0.0D, (double)(16 - 3), (double)(16 - 3), (double)5);
+    private static final VoxelShape eastAabb = Block.box(0.0D, (double)3, (double)3, (double)5, (double)(16 - 3), (double)(16 - 3));
+    private static final VoxelShape westAabb = Block.box((double)(16 - 1), (double)3, (double)3, 16.0D, (double)(16 - 3), (double)(16 - 3));
 	public SpikeBlock(AbstractBlock.Properties properties) {
 		super(properties);
-		setDefaultState(getDefaultState().with(WATERLOGGED, false).with(FACING, Direction.UP));
+		registerDefaultState(defaultBlockState().setValue(WATERLOGGED, false).setValue(FACING, Direction.UP));
 	}
 
-	public void onEntityCollision(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
-		entityIn.attackEntityFrom(DamageSource.GENERIC, 1.5F);
+	public void entityInside(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
+		entityIn.hurt(DamageSource.GENERIC, 1.5F);
 	}
 	
     @Override
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-    Direction direction = (state.get(FACING));
+    Direction direction = (state.getValue(FACING));
 	switch(direction) {
         case NORTH:
             return northAabb;
@@ -53,12 +53,12 @@ public class SpikeBlock extends DirectionalBlock implements IWaterLoggable {
         }
     }
 
-	public boolean allowsMovement(BlockState state, IBlockReader worldIn, BlockPos pos, PathType type) {
-      return type == PathType.AIR && !this.canCollide ? true : super.allowsMovement(state, worldIn, pos, type);
+	public boolean isPathfindable(BlockState state, IBlockReader worldIn, BlockPos pos, PathType type) {
+      return type == PathType.AIR && !this.hasCollision ? true : super.isPathfindable(state, worldIn, pos, type);
     }
 		
 	@Override
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(WATERLOGGED);
 	    builder.add(FACING);
     }
@@ -66,19 +66,19 @@ public class SpikeBlock extends DirectionalBlock implements IWaterLoggable {
 	@Nullable
     @Override
     public BlockState getStateForPlacement(BlockItemUseContext context) {
-        FluidState fluidState = context.getWorld().getFluidState(context.getPos());
-        return this.getDefaultState().with(FACING, context.getNearestLookingDirection().getOpposite()).with(WATERLOGGED, Boolean.valueOf(fluidState.getFluid() == Fluids.WATER));
+        FluidState fluidState = context.getLevel().getFluidState(context.getClickedPos());
+        return this.defaultBlockState().setValue(FACING, context.getNearestLookingDirection().getOpposite()).setValue(WATERLOGGED, Boolean.valueOf(fluidState.getType() == Fluids.WATER));
     }
 		
 	@Override
     public FluidState getFluidState(BlockState state) {
-        return state.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : Fluids.EMPTY.getDefaultState();
+        return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : Fluids.EMPTY.defaultFluidState();
     }
 
     @Override
-    public BlockState updatePostPlacement(BlockState stateIn, Direction side, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
-        if (stateIn.get(WATERLOGGED)) {
-            worldIn.getPendingFluidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickRate(worldIn));
+    public BlockState updateShape(BlockState stateIn, Direction side, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
+        if (stateIn.getValue(WATERLOGGED)) {
+            worldIn.getLiquidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(worldIn));
         }
 
         return stateIn;

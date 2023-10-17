@@ -24,13 +24,13 @@ public class PedestalTileEntityRenderer extends TileEntityRenderer<PedestalTileE
         double ticksUp = (ClientTickHandler.ticksInGame + partialTicks) * 4;
         ticksUp = (ticksUp) % 360;
 
-        ms.push();
+        ms.pushPose();
         ms.translate(0.5F, 1.1875F, 0.5F);
         ms.translate(0F, (float) (Math.sin(Math.toRadians(ticksUp)) * 0.03125F), 0F);
-        ms.rotate(Vector3f.YP.rotationDegrees((float) ticks));
+        ms.mulPose(Vector3f.YP.rotationDegrees((float) ticks));
         ms.scale(0.5F, 0.5F, 0.5F);
-        ItemStack stack = pedestal.getItemHandler().getStackInSlot(0);
-		Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.FIXED, light, overlay, ms, buffers);
-        ms.pop();
+        ItemStack stack = pedestal.getItemHandler().getItem(0);
+		Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemCameraTransforms.TransformType.FIXED, light, overlay, ms, buffers);
+        ms.popPose();
     }
 }

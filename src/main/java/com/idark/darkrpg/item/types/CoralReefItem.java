@@ -24,6 +24,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import net.minecraft.item.Item.Properties;
+
 public class CoralReefItem extends SwordItem {
 
     Random rand = new Random();
@@ -32,17 +34,17 @@ public class CoralReefItem extends SwordItem {
         super(tier, attackDamageIn, attackSpeedIn, builderIn);
     }
 
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
-        ItemStack itemstack = playerIn.getHeldItem(handIn);
-        if (itemstack.getDamage() >= itemstack.getMaxDamage() - 1) {
-            return ActionResult.resultFail(itemstack);
+    public ActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn) {
+        ItemStack itemstack = playerIn.getItemInHand(handIn);
+        if (itemstack.getDamageValue() >= itemstack.getMaxDamage() - 1) {
+            return ActionResult.fail(itemstack);
         } else {
-            playerIn.setActiveHand(handIn);
-            return ActionResult.resultConsume(itemstack);
+            playerIn.startUsingItem(handIn);
+            return ActionResult.consume(itemstack);
         }
     }
 
-    public UseAction getUseAction(ItemStack stack) {
+    public UseAction getUseAnimation(ItemStack stack) {
         return UseAction.NONE;
     }
 
@@ -51,12 +53,12 @@ public class CoralReefItem extends SwordItem {
 	}
 
     // Some sounds taken from the CalamityMod (Terraria) in a https://calamitymod.fandom.com/wiki/Category:Sound_effects
-    public void onPlayerStoppedUsing(ItemStack stack, World worldIn, LivingEntity entityLiving, int timeLeft) {
+    public void releaseUsing(ItemStack stack, World worldIn, LivingEntity entityLiving, int timeLeft) {
         PlayerEntity player = (PlayerEntity)entityLiving;
-        player.getCooldownTracker().setCooldown(this, 300);
-        player.addStat(Stats.ITEM_USED.get(this));
+        player.getCooldowns().addCooldown(this, 300);
+        player.awardStat(Stats.ITEM_USED.get(this));
 
-        Vector3d pos = new Vector3d(player.getPosX(), player.getPosY() + player.getEyeHeight(), player.getPosZ());
+        Vector3d pos = new Vector3d(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());
         List<LivingEntity> hitEntities = new ArrayList<LivingEntity>();
 
         for (int i = 0; i < 360; i += 10) {
@@ -66,24 +68,24 @@ public class CoralReefItem extends SwordItem {
             } else {
                 yawDouble = 1F - ((((float) i) - 180F) / 180F);
             }
-            hitDirection(worldIn, player, hitEntities, pos, 0, player.getPitchYaw().y + i, 4);
+            hitDirection(worldIn, player, hitEntities, pos, 0, player.getRotationVector().y + i, 4);
         }
 
         float damage = (float) (player.getAttribute(Attributes.ATTACK_DAMAGE).getValue()) + EnchantmentHelper.getSweepingDamageRatio(player);
 
         for (LivingEntity entity : hitEntities) {
-            entity.attackEntityFrom(DamageSource.GENERIC, damage);
-            entity.applyKnockback(0.4F, player.getPosX() - entity.getPosX(), player.getPosZ() - entity.getPosZ());
-            if (EnchantmentHelper.getFireAspectModifier(player) > 0) {
-                int i = EnchantmentHelper.getFireAspectModifier(player);
-                entity.setFire(i * 4);
+            entity.hurt(DamageSource.GENERIC, damage);
+            entity.knockback(0.4F, player.getX() - entity.getX(), player.getZ() - entity.getZ());
+            if (EnchantmentHelper.getFireAspect(player) > 0) {
+                int i = EnchantmentHelper.getFireAspect(player);
+                entity.setSecondsOnFire(i * 4);
             }
             if (!player.isCreative()) {
-                stack.damageItem(hitEntities.size(), player, (p_220045_0_) -> {p_220045_0_.sendBreakAnimation(EquipmentSlotType.MAINHAND);});
+                stack.hurtAndBreak(hitEntities.size(), player, (p_220045_0_) -> {p_220045_0_.broadcastBreakEvent(EquipmentSlotType.MAINHAND);});
             }
         }
 
-        worldIn.playSound(player, player.getPosition(), ModSoundRegistry.BLAZECHARGE.get(), SoundCategory.AMBIENT, 10f, 1f);
+        worldIn.playSound(player, player.blockPosition(), ModSoundRegistry.BLAZECHARGE.get(), SoundCategory.AMBIENT, 10f, 1f);
     }
 
     public void hitDirection(World worldIn, PlayerEntity player, List<LivingEntity> hitEntities, Vector3d pos, float pitchRaw, float yawRaw, float distance) {
@@ -97,13 +99,13 @@ public class CoralReefItem extends SwordItem {
         double X = Math.sin(locPitch + pitch) * Math.cos(locYaw + yaw) * locDistance;
         double Y = Math.cos(locPitch + pitch) * locDistance;
         double Z = Math.sin(locPitch + pitch) * Math.sin(locYaw + yaw) * locDistance;
-        BlockRayTraceResult ray = worldIn.rayTraceBlocks(new RayTraceContext(pos, new Vector3d(pos.x + X, pos.y + Y, pos.z + Z), RayTraceContext.BlockMode.OUTLINE, RayTraceContext.FluidMode.NONE, player));
-        X = ray.getHitVec().getX();
-        Y = ray.getHitVec().getY();
-        Z = ray.getHitVec().getZ();
+        BlockRayTraceResult ray = worldIn.clip(new RayTraceContext(pos, new Vector3d(pos.x + X, pos.y + Y, pos.z + Z), RayTraceContext.BlockMode.OUTLINE, RayTraceContext.FluidMode.NONE, player));
+        X = ray.getLocation().x();
+        Y = ray.getLocation().y();
+        Z = ray.getLocation().z();
 
         worldIn.addParticle(ParticleTypes.FLASH, X + ((rand.nextDouble() - 0.5D) * 2), Y + ((rand.nextDouble() - 0.5D) * 2), Z + ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2));
-        List<Entity> entities = worldIn.getEntitiesWithinAABB(Entity.class,  new AxisAlignedBB(X - 2D,Y - 2D,Z - 2D,X + 2D,Y + 2D,Z + 2D));
+        List<Entity> entities = worldIn.getEntitiesOfClass(Entity.class,  new AxisAlignedBB(X - 2D,Y - 2D,Z - 2D,X + 2D,Y + 2D,Z + 2D));
         for (Entity entity : entities) {
             if (entity instanceof  LivingEntity) {
                 LivingEntity enemy = (LivingEntity)entity;

@@ -15,6 +15,8 @@ import net.minecraft.world.World;
 import java.util.Objects;
 import java.util.Random;
 	
+import net.minecraft.item.Item.Properties;
+
 	public class ModEffectArmorItem extends ArmorItem {
 	
 	public ModEffectArmorItem(IArmorMaterial material, EquipmentSlotType slot, Properties settings) {
@@ -23,7 +25,7 @@ import java.util.Random;
 	
 	@Override
 	public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
-		if(!world.isRemote()) {
+		if(!world.isClientSide()) {
 		if(hasFullSuitOfArmorOn(player)) {
 		evaluateArmorEffects(player);
 	}
@@ -42,31 +44,31 @@ import java.util.Random;
 	}
 	
 	private void addStatusEffectForMaterial(PlayerEntity player, IArmorMaterial ArmorMaterial, Effect modEffect) {
-		boolean hasPlayerEffect = !Objects.equals(player.getActivePotionEffect(ModEffects.ALOEREGEN.get()), null);
+		boolean hasPlayerEffect = !Objects.equals(player.getEffect(ModEffects.ALOEREGEN.get()), null);
 	
 	if(hasCorrectArmorOn(ArmorMaterial, player) && !hasPlayerEffect) {
-		player.addPotionEffect(new EffectInstance(ModEffects.ALOEREGEN.get(), 400));
+		player.addEffect(new EffectInstance(ModEffects.ALOEREGEN.get(), 400));
 		if(new Random().nextFloat() > 0.4f) {
-			player.inventory.func_234563_a_(DamageSource.MAGIC, 6f);
+			player.inventory.hurtArmor(DamageSource.MAGIC, 6f);
 			}
 		}
 	}
 	
 	private boolean hasFullSuitOfArmorOn(PlayerEntity player) {
-		ItemStack boots = player.inventory.armorItemInSlot(0);
-		ItemStack leggings = player.inventory.armorItemInSlot(1);
-		ItemStack breastplate = player.inventory.armorItemInSlot(2);
-		ItemStack helmet = player.inventory.armorItemInSlot(3);
+		ItemStack boots = player.inventory.getArmor(0);
+		ItemStack leggings = player.inventory.getArmor(1);
+		ItemStack breastplate = player.inventory.getArmor(2);
+		ItemStack helmet = player.inventory.getArmor(3);
 	
 		return !helmet.isEmpty() && !breastplate.isEmpty() && !leggings.isEmpty() && !boots.isEmpty();
 	}
 	
 	private boolean hasCorrectArmorOn(IArmorMaterial material, PlayerEntity player) {
-		ArmorItem boots = ((ArmorItem)player.inventory.armorItemInSlot(0).getItem());
-		ArmorItem leggings = ((ArmorItem)player.inventory.armorItemInSlot(1).getItem());
-		ArmorItem breastplate = ((ArmorItem)player.inventory.armorItemInSlot(2).getItem());
-		ArmorItem helmet = ((ArmorItem)player.inventory.armorItemInSlot(3).getItem());
+		ArmorItem boots = ((ArmorItem)player.inventory.getArmor(0).getItem());
+		ArmorItem leggings = ((ArmorItem)player.inventory.getArmor(1).getItem());
+		ArmorItem breastplate = ((ArmorItem)player.inventory.getArmor(2).getItem());
+		ArmorItem helmet = ((ArmorItem)player.inventory.getArmor(3).getItem());
 	
-		return helmet.getArmorMaterial() == material && breastplate.getArmorMaterial() == material && leggings.getArmorMaterial() == material && boots.getArmorMaterial() == material;
+		return helmet.getMaterial() == material && breastplate.getMaterial() == material && leggings.getMaterial() == material && boots.getMaterial() == material;
 	}
 }

@@ -30,46 +30,46 @@ public class CrusherBlock extends Block implements ITileEntityProvider {
 	
     @Nonnull
     @Override
-    public TileEntity createNewTileEntity(@Nonnull IBlockReader world) {
+    public TileEntity newBlockEntity(@Nonnull IBlockReader world) {
         return new CrusherTileEntity();
     }	
 
     @Override
-    public void onReplaced(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
+    public void onRemove(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
         if (state.getBlock() != newState.getBlock()) {
-            TileEntity tile = world.getTileEntity(pos);
+            TileEntity tile = world.getBlockEntity(pos);
             if (tile instanceof TileSimpleInventory) {
-                net.minecraft.inventory.InventoryHelper.dropInventoryItems(world, pos, ((TileSimpleInventory) tile).getItemHandler());
+                net.minecraft.inventory.InventoryHelper.dropContents(world, pos, ((TileSimpleInventory) tile).getItemHandler());
             }
-            super.onReplaced(state, world, pos, newState, isMoving);
+            super.onRemove(state, world, pos, newState, isMoving);
         }
 	}
 	
 	// TODO: FIX RENDER (Item render in, weird tbh)
-	public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
-        CrusherTileEntity tile = (CrusherTileEntity) world.getTileEntity(pos);
-        ItemStack stack = player.getHeldItem(handIn).copy();
+	public ActionResultType use(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
+        CrusherTileEntity tile = (CrusherTileEntity) world.getBlockEntity(pos);
+        ItemStack stack = player.getItemInHand(handIn).copy();
 
-        if ((!stack.isEmpty()) && isValid(stack) && (tile.getItemHandler().getStackInSlot(0).isEmpty())) {
+        if ((!stack.isEmpty()) && isValid(stack) && (tile.getItemHandler().getItem(0).isEmpty())) {
             if (stack.getCount() > 1) {
-                player.getHeldItemMainhand().setCount(stack.getCount() - 1);
+                player.getMainHandItem().setCount(stack.getCount() - 1);
                 stack.setCount(1);
-                tile.getItemHandler().setInventorySlotContents(0, stack);
+                tile.getItemHandler().setItem(0, stack);
                 return ActionResultType.SUCCESS;
             } else {
-                tile.getItemHandler().setInventorySlotContents(0, stack);
-                player.inventory.deleteStack(player.getHeldItem(handIn));
+                tile.getItemHandler().setItem(0, stack);
+                player.inventory.removeItem(player.getItemInHand(handIn));
                 return ActionResultType.SUCCESS;
             }
         }
 
-		if ((stack.getItem() instanceof PickaxeItem) && (!tile.getItemHandler().getStackInSlot(0).isEmpty())) {
+		if ((stack.getItem() instanceof PickaxeItem) && (!tile.getItemHandler().getItem(0).isEmpty())) {
 			if (player instanceof ServerPlayerEntity) {
 				ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
-				Vector3d playerPos = serverPlayer.getPositionVec();	
+				Vector3d playerPos = serverPlayer.position();	
 				LootUtil.givePlayerMultipleItems(serverPlayer, LootUtil.generateLoot((ServerWorld) world, new ResourceLocation(DarkRPG.MOD_ID, "items/miners_bag"), LootUtil.getGiftContext((ServerWorld) world, playerPos, serverPlayer)));
 			}
-            tile.getItemHandler().removeStackFromSlot(0);
+            tile.getItemHandler().removeItemNoUpdate(0);
 			for (int i = 0; i < 26; i++) {
 				Particles.create(ModParticles.GEODE_PARTICLE)
 				.setAlpha(1.0f, 0)
@@ -78,9 +78,9 @@ public class CrusherBlock extends Block implements ITileEntityProvider {
 				.setSpin((0.5f * (float) ((rand.nextDouble() - 0.5D) * 2)))
 				.spawn(world, pos.getX() + (rand.nextDouble() * 1.25), pos.getY() + 0.5F + ((rand.nextDouble() - 0.5D) * 1.25), pos.getZ() + 0.5F + ((rand.nextDouble() - 0.5D) * 1.25));
 			}
-		} else if (stack.isEmpty() && !tile.getItemHandler().getStackInSlot(0).isEmpty()) {
-			player.inventory.addItemStackToInventory(tile.getItemHandler().getStackInSlot(0).copy());
-			tile.getItemHandler().removeStackFromSlot(0);
+		} else if (stack.isEmpty() && !tile.getItemHandler().getItem(0).isEmpty()) {
+			player.inventory.add(tile.getItemHandler().getItem(0).copy());
+			tile.getItemHandler().removeItemNoUpdate(0);
 			return ActionResultType.SUCCESS;
 		}
 		
@@ -92,10 +92,10 @@ public class CrusherBlock extends Block implements ITileEntityProvider {
 	}
 	
     @Override
-    public boolean eventReceived(BlockState state, World world, BlockPos pos, int id, int param) {
-        super.eventReceived(state, world, pos, id, param);
-        TileEntity tileentity = world.getTileEntity(pos);
-        return tileentity != null && tileentity.receiveClientEvent(id, param);
+    public boolean triggerEvent(BlockState state, World world, BlockPos pos, int id, int param) {
+        super.triggerEvent(state, world, pos, id, param);
+        TileEntity tileentity = world.getBlockEntity(pos);
+        return tileentity != null && tileentity.triggerEvent(id, param);
     }
 
     @Override

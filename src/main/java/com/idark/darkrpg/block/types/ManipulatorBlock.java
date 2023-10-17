@@ -12,7 +12,7 @@ import java.util.Random;
 
 public class ManipulatorBlock extends Block {
 	
-	private static final VoxelShape shape = Block.makeCuboidShape(0, 0, 0, 16, 17, 16);
+	private static final VoxelShape shape = Block.box(0, 0, 0, 16, 17, 16);
 
 	public ManipulatorBlock(AbstractBlock.Properties properties) {
 		super(properties);

@@ -2,6 +2,8 @@ package com.idark.darkrpg.item.types;
 
 import net.minecraft.item.Item;
 
+import net.minecraft.item.Item.Properties;
+
 public class LexiconItem extends Item {
 
 	public LexiconItem(Properties props) {

@@ -18,15 +18,15 @@ public class CrusherTileEntityRenderer extends TileEntityRenderer<CrusherTileEnt
 
     @Override
     public void render(CrusherTileEntity pedestal, float partialTicks, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
-        ItemStack itemstack = pedestal.getItemHandler().getStackInSlot(0);
+        ItemStack itemstack = pedestal.getItemHandler().getItem(0);
         if (!itemstack.isEmpty()) {
-            ms.push();
+            ms.pushPose();
             ms.translate(0.5D, 1.05D, 0.5D);
-            ms.rotate(Vector3f.XP.rotationDegrees(90.0F));
+            ms.mulPose(Vector3f.XP.rotationDegrees(90.0F));
             ms.translate(0.0D, -0.0D, 0.0D);
             ms.scale(0.7F, 0.7F, 0.7F);
-            Minecraft.getInstance().getItemRenderer().renderItem(itemstack, ItemCameraTransforms.TransformType.FIXED, light, overlay, ms, buffers);
-            ms.pop();
+            Minecraft.getInstance().getItemRenderer().renderStatic(itemstack, ItemCameraTransforms.TransformType.FIXED, light, overlay, ms, buffers);
+            ms.popPose();
         }
     }
 }

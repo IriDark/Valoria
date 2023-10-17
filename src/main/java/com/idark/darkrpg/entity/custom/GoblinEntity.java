@@ -19,12 +19,12 @@ public class GoblinEntity extends ZombieEntity {
     }
 
     public static AttributeModifierMap.MutableAttribute setCustomAttributes() {
-        return MobEntity.func_233666_p_()
-        .createMutableAttribute(Attributes.MAX_HEALTH, 20.0D)
-        .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.18D)
-        .createMutableAttribute(Attributes.ATTACK_DAMAGE, 5.0D)
-        .createMutableAttribute(Attributes.FOLLOW_RANGE, 20.0D)
-        .createMutableAttribute(Attributes.ZOMBIE_SPAWN_REINFORCEMENTS);
+        return MobEntity.createMobAttributes()
+        .add(Attributes.MAX_HEALTH, 20.0D)
+        .add(Attributes.MOVEMENT_SPEED, 0.18D)
+        .add(Attributes.ATTACK_DAMAGE, 5.0D)
+        .add(Attributes.FOLLOW_RANGE, 20.0D)
+        .add(Attributes.SPAWN_REINFORCEMENTS_CHANCE);
     }
 
     @Override
@@ -32,26 +32,26 @@ public class GoblinEntity extends ZombieEntity {
         super.registerGoals();
         this.goalSelector.addGoal(10, new LookAtWithoutMovingGoal(this, PlayerEntity.class, 4.0F, 1.0F));
         this.goalSelector.addGoal(11, new LookAtGoal(this, MobEntity.class, 8.0F));
-      	this.targetSelector.addGoal(1, new HurtByTargetGoal(this).setCallsForHelp());
+      	this.targetSelector.addGoal(1, new HurtByTargetGoal(this).setAlertOthers());
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, AbstractVillagerEntity.class, true));
     }
 	
-    protected int getExperiencePoints(PlayerEntity player) {
-        return 3 + this.world.rand.nextInt(5);
+    protected int getExperienceReward(PlayerEntity player) {
+        return 3 + this.level.random.nextInt(5);
     }
     
     @Override
-    public boolean attackEntityFrom(DamageSource source, float amount) {
-        Entity entity = source.getTrueSource();
+    public boolean hurt(DamageSource source, float amount) {
+        Entity entity = source.getEntity();
         if (entity instanceof PlayerEntity) {
-            this.setAttackTarget((PlayerEntity) entity);
+            this.setTarget((PlayerEntity) entity);
         }
-        return super.attackEntityFrom(source, amount);
+        return super.hurt(source, amount);
     }
     
     @Override
-    public boolean isBurning() {
+    public boolean isOnFire() {
         return false;
     }
 }

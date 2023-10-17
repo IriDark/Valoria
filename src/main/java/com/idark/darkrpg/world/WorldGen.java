@@ -52,72 +52,72 @@ public class WorldGen {
     }
 
     public static void init() {
-        COBALT_ORE_GEN = register(Feature.ORE.withConfiguration(new OreFeatureConfig(IN_STONE, ModBlocks.COBALT_ORE.get().getDefaultState(), Config.COBALT_VEIN_SIZE.get()))
-		.square()
+        COBALT_ORE_GEN = register(Feature.ORE.configured(new OreFeatureConfig(IN_STONE, ModBlocks.COBALT_ORE.get().defaultBlockState(), Config.COBALT_VEIN_SIZE.get()))
+		.squared()
         .count(Config.COBALT_VEIN_COUNT.get())
         .range(Config.COBALT_MAX_Y.get()), "cobalt_ore");
         if (Config.COBALT_ENABLED.get()) ORES.add(COBALT_ORE_GEN);
 	
-        AMBER_ORE_GEN = register(Feature.ORE.withConfiguration(new OreFeatureConfig(IN_STONE, ModBlocks.AMBER_ORE.get().getDefaultState(), Config.AMBER_VEIN_SIZE.get()))
-		.square()
+        AMBER_ORE_GEN = register(Feature.ORE.configured(new OreFeatureConfig(IN_STONE, ModBlocks.AMBER_ORE.get().defaultBlockState(), Config.AMBER_VEIN_SIZE.get()))
+		.squared()
         .count(Config.AMBER_VEIN_COUNT.get())
         .range(Config.AMBER_MAX_Y.get()), "amber_ore");
         if (Config.AMBER_ENABLED.get()) ORES.add(AMBER_ORE_GEN);
 	
-        AMETHYST_ORE_GEN = register(Feature.ORE.withConfiguration(new OreFeatureConfig(IN_STONE, ModBlocks.AMETHYST_ORE.get().getDefaultState(), Config.AMETHYST_VEIN_SIZE.get()))
-		.square()
+        AMETHYST_ORE_GEN = register(Feature.ORE.configured(new OreFeatureConfig(IN_STONE, ModBlocks.AMETHYST_ORE.get().defaultBlockState(), Config.AMETHYST_VEIN_SIZE.get()))
+		.squared()
         .count(Config.AMETHYST_VEIN_COUNT.get())
         .range(Config.AMETHYST_MAX_Y.get()), "amethyst_ore");
         if (Config.AMETHYST_ENABLED.get()) ORES.add(AMETHYST_ORE_GEN);
 	
-        RUBY_ORE_GEN = register(Feature.ORE.withConfiguration(new OreFeatureConfig(IN_STONE, ModBlocks.RUBY_ORE.get().getDefaultState(), Config.RUBY_VEIN_SIZE.get()))
-		.square()
+        RUBY_ORE_GEN = register(Feature.ORE.configured(new OreFeatureConfig(IN_STONE, ModBlocks.RUBY_ORE.get().defaultBlockState(), Config.RUBY_VEIN_SIZE.get()))
+		.squared()
         .count(Config.RUBY_VEIN_COUNT.get())
         .range(Config.RUBY_MAX_Y.get()), "ruby_ore");
         if (Config.RUBY_ENABLED.get()) ORES.add(RUBY_ORE_GEN);
 	
-        SAPPHIRE_ORE_GEN = register(Feature.ORE.withConfiguration(new OreFeatureConfig(IN_STONE, ModBlocks.SAPPHIRE_ORE.get().getDefaultState(), Config.SAPPHIRE_VEIN_SIZE.get()))
-		.square()
+        SAPPHIRE_ORE_GEN = register(Feature.ORE.configured(new OreFeatureConfig(IN_STONE, ModBlocks.SAPPHIRE_ORE.get().defaultBlockState(), Config.SAPPHIRE_VEIN_SIZE.get()))
+		.squared()
         .count(Config.SAPPHIRE_VEIN_COUNT.get())
         .range(Config.SAPPHIRE_MAX_Y.get()), "sapphire_ore");
         if (Config.SAPPHIRE_ENABLED.get()) ORES.add(SAPPHIRE_ORE_GEN);
 		
-        GEODITE_DIRT_GEN = register(Feature.ORE.withConfiguration(new OreFeatureConfig(IN_DIRT, ModBlocks.GEODITE_DIRT.get().getDefaultState(), Config.GEODITE_DIRT_VEIN_COUNT.get()))
-		.square()
+        GEODITE_DIRT_GEN = register(Feature.ORE.configured(new OreFeatureConfig(IN_DIRT, ModBlocks.GEODITE_DIRT.get().defaultBlockState(), Config.GEODITE_DIRT_VEIN_COUNT.get()))
+		.squared()
         .count(Config.GEODITE_DIRT_VEIN_COUNT.get())
         .range(Config.GEODITE_DIRT_MAX_Y.get()), "geodite_dirt");
         if (Config.GEODITE_DIRT_ENABLED.get()) ORES.add(GEODITE_DIRT_GEN);
  
-		GEODITE_STONE_GEN = register(Feature.ORE.withConfiguration(new OreFeatureConfig(IN_STONE, ModBlocks.GEODITE_STONE.get().getDefaultState(), Config.GEODITE_VEIN_COUNT.get()))
-		.square()
+		GEODITE_STONE_GEN = register(Feature.ORE.configured(new OreFeatureConfig(IN_STONE, ModBlocks.GEODITE_STONE.get().defaultBlockState(), Config.GEODITE_VEIN_COUNT.get()))
+		.squared()
         .count(Config.GEODITE_VEIN_COUNT.get())
         .range(Config.GEODITE_MAX_Y.get()), "geodite_stone");
         if (Config.GEODITE_ENABLED.get()) ORES.add(GEODITE_STONE_GEN);
 
-		LIMESTONE_GEN = register(Feature.ORE.withConfiguration(new OreFeatureConfig(IN_STONE, ModBlocks.LIMESTONE.get().getDefaultState(), Config.LIMESTONE_VEIN_COUNT.get()))
-		.square()
+		LIMESTONE_GEN = register(Feature.ORE.configured(new OreFeatureConfig(IN_STONE, ModBlocks.LIMESTONE.get().defaultBlockState(), Config.LIMESTONE_VEIN_COUNT.get()))
+		.squared()
         .count(Config.LIMESTONE_VEIN_COUNT.get())
         .range(Config.LIMESTONE_MAX_Y.get()), "limestone");
         if (Config.LIMESTONE_ENABLED.get()) ORES.add(LIMESTONE_GEN);
 
-		QUICKSAND_GEN = register(Feature.ORE.withConfiguration(new OreFeatureConfig(IN_SAND, ModBlocks.QUICKSAND.get().getDefaultState(), Config.QUICKSAND_VEIN_COUNT.get()))
-		.square()
+		QUICKSAND_GEN = register(Feature.ORE.configured(new OreFeatureConfig(IN_SAND, ModBlocks.QUICKSAND.get().defaultBlockState(), Config.QUICKSAND_VEIN_COUNT.get()))
+		.squared()
         .count(Config.QUICKSAND_VEIN_COUNT.get())
         .range(Config.QUICKSAND_MAX_Y.get()), "quicksand");
         if (Config.QUICKSAND_ENABLED.get()) ORES.add(QUICKSAND_GEN);
 	
-        SHADEWOOD_TREE = register("shadewood", Feature.TREE.withConfiguration((new BaseTreeFeatureConfig.Builder(
-			new SimpleBlockStateProvider(ModBlocks.SHADELOG.get().getDefaultState()),
-			new SimpleBlockStateProvider(ModBlocks.SHADEWOOD_LEAVES.get().getDefaultState()),
-			new FancyFoliagePlacer(FeatureSpread.create(2), FeatureSpread.create(4), 4),
+        SHADEWOOD_TREE = register("shadewood", Feature.TREE.configured((new BaseTreeFeatureConfig.Builder(
+			new SimpleBlockStateProvider(ModBlocks.SHADELOG.get().defaultBlockState()),
+			new SimpleBlockStateProvider(ModBlocks.SHADEWOOD_LEAVES.get().defaultBlockState()),
+			new FancyFoliagePlacer(FeatureSpread.fixed(2), FeatureSpread.fixed(4), 4),
 			new FancyTrunkPlacer(6, 9, 1),
-			new TwoLayerFeature(2, 0, 2))).setMaxWaterDepth(Integer.MAX_VALUE).setHeightmap(Heightmap.Type.MOTION_BLOCKING).setIgnoreVines().build()));;	
+			new TwoLayerFeature(2, 0, 2))).maxWaterDepth(Integer.MAX_VALUE).heightmap(Heightmap.Type.MOTION_BLOCKING).ignoreVines().build()));;	
     }
 	
     @SubscribeEvent
     public void onBiomeLoad(BiomeLoadingEvent event) {
         for (ConfiguredFeature<?, ?> feature : ORES) {
-            event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, feature);
+            event.getGeneration().addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, feature);
         }
     }
 }

@@ -24,28 +24,28 @@ public class SpikeTrapBlock extends DirectionalBlock {
     Random rand = new Random();
     public SpikeTrapBlock(AbstractBlock.Properties properties) {
         super(properties);
-        setDefaultState(this.stateContainer.getBaseState().with(STATE, 0).with(LIT, Boolean.valueOf(false)).with(FACING, Direction.UP));
+        registerDefaultState(this.stateDefinition.any().setValue(STATE, 0).setValue(LIT, Boolean.valueOf(false)).setValue(FACING, Direction.UP));
     }
 
 	// Called when entity stepped on trap
     @Override
-	public void onEntityWalk(World worldIn, BlockPos pos, Entity entityIn) {
+	public void stepOn(World worldIn, BlockPos pos, Entity entityIn) {
 		BlockState state = worldIn.getBlockState(pos);
 		// When stepping on block with state 1 do nothing
-		if (state.get(STATE) == 1) {
+		if (state.getValue(STATE) == 1) {
 			return;
 		}
 		
-		if (state.get(STATE) == 0) {
+		if (state.getValue(STATE) == 0) {
  		// Receive the Spike pos
-		Direction direction = state.get(DirectionalBlock.FACING);
-		BlockPos newPos = pos.add(direction.getDirectionVec());
-		BlockState spikeBlock = ModBlocks.SPIKES.get().getDefaultState().with(DirectionalBlock.FACING,direction);
+		Direction direction = state.getValue(DirectionalBlock.FACING);
+		BlockPos newPos = pos.offset(direction.getNormal());
+		BlockState spikeBlock = ModBlocks.SPIKES.get().defaultBlockState().setValue(DirectionalBlock.FACING,direction);
 		
-		worldIn.setBlockState(newPos,spikeBlock);
-		worldIn.setBlockState(pos, state.with(STATE, Integer.valueOf(1)).with(DirectionalBlock.FACING,state.get(DirectionalBlock.FACING)));
-		worldIn.playSound((PlayerEntity)null, pos, SoundEvents.BLOCK_PISTON_EXTEND, SoundCategory.BLOCKS, 0.3F, worldIn.rand.nextFloat() * 0.25F + 0.6F);
-	    if(!worldIn.isRemote())
+		worldIn.setBlockAndUpdate(newPos,spikeBlock);
+		worldIn.setBlockAndUpdate(pos, state.setValue(STATE, Integer.valueOf(1)).setValue(DirectionalBlock.FACING,state.getValue(DirectionalBlock.FACING)));
+		worldIn.playSound((PlayerEntity)null, pos, SoundEvents.PISTON_EXTEND, SoundCategory.BLOCKS, 0.3F, worldIn.random.nextFloat() * 0.25F + 0.6F);
+	    if(!worldIn.isClientSide())
 		for (int i = 0;i<10;i++) {
 			worldIn.addParticle(ParticleTypes.POOF, pos.getX() + rand.nextDouble(), pos.getY() + 0.5D, pos.getZ() + rand.nextDouble(), 0d, 0.05d, 0d);
 			}
@@ -56,32 +56,32 @@ public class SpikeTrapBlock extends DirectionalBlock {
     @Override
     public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {	
 		// Receive the Spike pos
-		Direction direction = state.get(DirectionalBlock.FACING);
-		BlockPos newPos = pos.add(direction.getDirectionVec());
-		BlockState spikeBlock = ModBlocks.SPIKES.get().getDefaultState().with(DirectionalBlock.FACING,direction);
- 		if (worldIn.isBlockPowered(pos)) {
-			worldIn.setBlockState(newPos,spikeBlock);
-			worldIn.playSound((PlayerEntity)null, pos, SoundEvents.BLOCK_PISTON_EXTEND, SoundCategory.BLOCKS, 0.3F, worldIn.rand.nextFloat() * 0.25F + 0.6F);
+		Direction direction = state.getValue(DirectionalBlock.FACING);
+		BlockPos newPos = pos.offset(direction.getNormal());
+		BlockState spikeBlock = ModBlocks.SPIKES.get().defaultBlockState().setValue(DirectionalBlock.FACING,direction);
+ 		if (worldIn.hasNeighborSignal(pos)) {
+			worldIn.setBlockAndUpdate(newPos,spikeBlock);
+			worldIn.playSound((PlayerEntity)null, pos, SoundEvents.PISTON_EXTEND, SoundCategory.BLOCKS, 0.3F, worldIn.random.nextFloat() * 0.25F + 0.6F);
 			for (int i = 0;i<10;i++) {
 				worldIn.addParticle(ParticleTypes.POOF, pos.getX() + rand.nextDouble(), pos.getY() + 0.5D, pos.getZ() + rand.nextDouble(), 0d, 0.05d, 0d);
 			}
 		}
 		// Destroy Spike when block Powered and Triggered is 0
 		BlockState stateTrigger = worldIn.getBlockState(pos);
-		if (!worldIn.isBlockPowered(pos) && stateTrigger.get(STATE) == 0) {
-			worldIn.setBlockState(newPos, Blocks.AIR.getDefaultState());
+		if (!worldIn.hasNeighborSignal(pos) && stateTrigger.getValue(STATE) == 0) {
+			worldIn.setBlockAndUpdate(newPos, Blocks.AIR.defaultBlockState());
 			for (int i = 0;i<10;i++) {
 				worldIn.addParticle(ParticleTypes.POOF, pos.getX() + rand.nextDouble(), pos.getY() + 0.5D, pos.getZ() + rand.nextDouble(), 0d, 0.05d, 0d);
 			}
 		}
 	}
 
-    public boolean allowsMovement(BlockState state, IBlockReader worldIn, BlockPos pos, PathType type) {
-        return type == PathType.AIR && !this.canCollide ? true : super.allowsMovement(state, worldIn, pos, type);
+    public boolean isPathfindable(BlockState state, IBlockReader worldIn, BlockPos pos, PathType type) {
+        return type == PathType.AIR && !this.hasCollision ? true : super.isPathfindable(state, worldIn, pos, type);
     }
 
     @Override
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(STATE);
         builder.add(FACING);
         builder.add(LIT);
@@ -90,6 +90,6 @@ public class SpikeTrapBlock extends DirectionalBlock {
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockItemUseContext context) {
-		return this.getDefaultState().with(FACING, context.getNearestLookingDirection().getOpposite()).with(LIT, Boolean.valueOf(context.getWorld().isBlockPowered(context.getPos())));
+		return this.defaultBlockState().setValue(FACING, context.getNearestLookingDirection().getOpposite()).setValue(LIT, Boolean.valueOf(context.getLevel().hasNeighborSignal(context.getClickedPos())));
 	}
 }

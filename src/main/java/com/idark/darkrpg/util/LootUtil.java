@@ -14,12 +14,12 @@ import java.util.*;
 
 public final class LootUtil {
 	public static LootTable getTable(ServerWorld world, ResourceLocation table) {
-		return world.getServer().getLootTableManager().getLootTableFromLocation(table);
+		return world.getServer().getLootTables().get(table);
 	}
 
 	public static void givePlayerMultipleItems(PlayerEntity pl, Collection<ItemStack> stacks) {
 		for (ItemStack stack : stacks) {
-			pl.dropItem(stack, false);
+			pl.drop(stack, false);
 		}
 	}
 
@@ -27,10 +27,10 @@ public final class LootUtil {
 	public static List<ItemStack> generateLoot(ServerWorld world, ResourceLocation table, LootContext context) {
 		LootTable lootTable = getTable(world, table);
 
-		if (lootTable == LootTable.EMPTY_LOOT_TABLE)
+		if (lootTable == LootTable.EMPTY)
 			return Lists.<ItemStack>newArrayList();
 
-		return lootTable.generate(context);
+		return lootTable.getRandomItems(context);
 	}
 
 	public static LootContext getGiftContext(ServerWorld world, Vector3d position, Entity targetEntity) {
@@ -38,6 +38,6 @@ public final class LootUtil {
 	}
 
 	public static LootContext getGiftContext(ServerWorld world, Vector3d position, float luck, Entity targetEntity) {
-		return new LootContext.Builder(world).withRandom(world.getRandom()).withParameter(LootParameters.THIS_ENTITY, targetEntity).withParameter(LootParameters.ORIGIN, position).withLuck(luck).build(LootParameterSets.GIFT);
+		return new LootContext.Builder(world).withRandom(world.getRandom()).withParameter(LootParameters.THIS_ENTITY, targetEntity).withParameter(LootParameters.ORIGIN, position).withLuck(luck).create(LootParameterSets.GIFT);
 	}
 }

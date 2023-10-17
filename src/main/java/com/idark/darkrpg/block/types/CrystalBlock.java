@@ -21,22 +21,22 @@ import javax.annotation.Nullable;
 import static net.minecraft.state.properties.BlockStateProperties.WATERLOGGED;
 
 public class CrystalBlock extends DirectionalBlock implements IWaterLoggable {
-	public static final EnumProperty<AttachFace> FACE = BlockStateProperties.FACE;
-	private static final VoxelShape upAabb = Block.makeCuboidShape((double)3, 0.0D, (double)3, (double)(16 - 3), (double)5, (double)(16 - 3));
-	private static final VoxelShape downAabb = Block.makeCuboidShape((double)3, (double)(16 - 5), (double)3, (double)(16 - 3), 16.0D, (double)(16 - 3));
-    private static final VoxelShape northAabb = Block.makeCuboidShape((double)3, (double)3, (double)(16 - 5), (double)(16 - 3), (double)(16 - 3), 16.0D);
-    private static final VoxelShape southAabb = Block.makeCuboidShape((double)3, (double)3, 0.0D, (double)(16 - 3), (double)(16 - 3), (double)5);
-    private static final VoxelShape eastAabb = Block.makeCuboidShape(0.0D, (double)3, (double)3, (double)5, (double)(16 - 3), (double)(16 - 3));
-    private static final VoxelShape westAabb = Block.makeCuboidShape((double)(16 - 5), (double)3, (double)3, 16.0D, (double)(16 - 3), (double)(16 - 3));
+	public static final EnumProperty<AttachFace> FACE = BlockStateProperties.ATTACH_FACE;
+	private static final VoxelShape upAabb = Block.box((double)3, 0.0D, (double)3, (double)(16 - 3), (double)5, (double)(16 - 3));
+	private static final VoxelShape downAabb = Block.box((double)3, (double)(16 - 5), (double)3, (double)(16 - 3), 16.0D, (double)(16 - 3));
+    private static final VoxelShape northAabb = Block.box((double)3, (double)3, (double)(16 - 5), (double)(16 - 3), (double)(16 - 3), 16.0D);
+    private static final VoxelShape southAabb = Block.box((double)3, (double)3, 0.0D, (double)(16 - 3), (double)(16 - 3), (double)5);
+    private static final VoxelShape eastAabb = Block.box(0.0D, (double)3, (double)3, (double)5, (double)(16 - 3), (double)(16 - 3));
+    private static final VoxelShape westAabb = Block.box((double)(16 - 5), (double)3, (double)3, 16.0D, (double)(16 - 3), (double)(16 - 3));
 	
     public CrystalBlock(AbstractBlock.Properties properties) {
         super(properties);
-        setDefaultState(getDefaultState().with(WATERLOGGED, false).with(FACING, Direction.UP).with(FACE, AttachFace.FLOOR));
+        registerDefaultState(defaultBlockState().setValue(WATERLOGGED, false).setValue(FACING, Direction.UP).setValue(FACE, AttachFace.FLOOR));
 	}
 	
     @Override
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-    Direction direction = (state.get(FACING));
+    Direction direction = (state.getValue(FACING));
 	switch(direction) {
         case NORTH:
             return northAabb;
@@ -55,19 +55,19 @@ public class CrystalBlock extends DirectionalBlock implements IWaterLoggable {
     }
 
     @Override
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(FACING);
         builder.add(FACE);
         builder.add(WATERLOGGED);
     }
 
-	public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
+	public boolean canSurvive(BlockState state, IWorldReader worldIn, BlockPos pos) {
 		return isSideSolidForDirection(worldIn, pos, getFacing(state).getOpposite());
 	}
 
 	protected static Direction getFacing(BlockState state) {
-		Direction direction = (state.get(FACING));
-		switch((AttachFace)state.get(FACE)) {
+		Direction direction = (state.getValue(FACING));
+		switch((AttachFace)state.getValue(FACE)) {
 		case CEILING:
 			return Direction.DOWN;
 		case FLOOR:
@@ -90,8 +90,8 @@ public class CrystalBlock extends DirectionalBlock implements IWaterLoggable {
 
 
 	public static boolean isSideSolidForDirection(IWorldReader reader, BlockPos pos, Direction direction) {
-		BlockPos blockpos = pos.offset(direction);
-		return reader.getBlockState(blockpos).isSolidSide(reader, blockpos, direction.getOpposite());
+		BlockPos blockpos = pos.relative(direction);
+		return reader.getBlockState(blockpos).isFaceSturdy(reader, blockpos, direction.getOpposite());
 	}
 
     @Nullable
@@ -100,38 +100,38 @@ public class CrystalBlock extends DirectionalBlock implements IWaterLoggable {
 		for(Direction direction : context.getNearestLookingDirections()) {
 			BlockState blockstate;
 		    if (direction.getAxis() == Direction.Axis.Y) {
-				blockstate = this.getDefaultState().with(FACE, direction == Direction.UP ? AttachFace.CEILING : AttachFace.FLOOR).with(FACING, direction.getOpposite());
+				blockstate = this.defaultBlockState().setValue(FACE, direction == Direction.UP ? AttachFace.CEILING : AttachFace.FLOOR).setValue(FACING, direction.getOpposite());
 			} else {
-				blockstate = this.getDefaultState().with(FACE, AttachFace.WALL).with(FACING, direction.getOpposite());
+				blockstate = this.defaultBlockState().setValue(FACE, AttachFace.WALL).setValue(FACING, direction.getOpposite());
 			}
 	
-			if (blockstate.isValidPosition(context.getWorld(), context.getPos())) {
+			if (blockstate.canSurvive(context.getLevel(), context.getClickedPos())) {
 				return blockstate;
 			}
 		}
 
-		FluidState fluidState = context.getWorld().getFluidState(context.getPos());
-        return this.getDefaultState().with(FACING, context.getNearestLookingDirection().getOpposite()).with(WATERLOGGED, Boolean.valueOf(fluidState.getFluid() == Fluids.WATER));
+		FluidState fluidState = context.getLevel().getFluidState(context.getClickedPos());
+        return this.defaultBlockState().setValue(FACING, context.getNearestLookingDirection().getOpposite()).setValue(WATERLOGGED, Boolean.valueOf(fluidState.getType() == Fluids.WATER));
     }
 
     @Override
     public FluidState getFluidState(BlockState state) {
-        return state.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : Fluids.EMPTY.getDefaultState();
+        return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : Fluids.EMPTY.defaultFluidState();
     }
 	
     @Override
-    public BlockState updatePostPlacement(BlockState stateIn, Direction side, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
-		if (stateIn.get(WATERLOGGED)) {
-            worldIn.getPendingFluidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickRate(worldIn));
+    public BlockState updateShape(BlockState stateIn, Direction side, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
+		if (stateIn.getValue(WATERLOGGED)) {
+            worldIn.getLiquidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(worldIn));
 		}
-		return getFacing(stateIn).getOpposite() == side && !stateIn.isValidPosition(worldIn, currentPos) ? Blocks.AIR.getDefaultState() : super.updatePostPlacement(stateIn, side, facingState, worldIn, currentPos, facingPos);
+		return getFacing(stateIn).getOpposite() == side && !stateIn.canSurvive(worldIn, currentPos) ? Blocks.AIR.defaultBlockState() : super.updateShape(stateIn, side, facingState, worldIn, currentPos, facingPos);
     }
 			
     public BlockState rotate(BlockState state, Rotation rot) {
-		return state.with(FACING, rot.rotate(state.get(FACING)));
+		return state.setValue(FACING, rot.rotate(state.getValue(FACING)));
     }
 
     public BlockState mirror(BlockState state, Mirror mirrorIn) {
-		return state.with(FACING, mirrorIn.mirror(state.get(FACING)));
+		return state.setValue(FACING, mirrorIn.mirror(state.getValue(FACING)));
     }
 }

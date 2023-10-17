@@ -42,8 +42,8 @@ public class Item2DRenderer {
                 }
 
                 @Override
-                public boolean isAmbientOcclusion() {
-                    return bakedModelDefault.isAmbientOcclusion();
+                public boolean useAmbientOcclusion() {
+                    return bakedModelDefault.useAmbientOcclusion();
                 }
 
                 @Override
@@ -52,18 +52,18 @@ public class Item2DRenderer {
                 }
 
                 @Override
-                public boolean isSideLit() {
-                    return bakedModelDefault.isSideLit();
+                public boolean usesBlockLight() {
+                    return bakedModelDefault.usesBlockLight();
                 }
 
                 @Override
-                public boolean isBuiltInRenderer() {
-                    return bakedModelDefault.isBuiltInRenderer();
+                public boolean isCustomRenderer() {
+                    return bakedModelDefault.isCustomRenderer();
                 }
 
                 @Override
-                public TextureAtlasSprite getParticleTexture() {
-                    return bakedModelDefault.getParticleTexture();
+                public TextureAtlasSprite getParticleIcon() {
+                    return bakedModelDefault.getParticleIcon();
                 }
 
                 @Override

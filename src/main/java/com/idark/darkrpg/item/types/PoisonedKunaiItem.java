@@ -40,20 +40,20 @@ public class PoisonedKunaiItem extends Item implements IVanishable {
 	public PoisonedKunaiItem(Item.Properties builderIn) {
 		super(builderIn);
 		Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
-		builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Tool modifier", 3.0D, AttributeModifier.Operation.ADDITION));
-		builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(ATTACK_SPEED_MODIFIER, "Tool modifier", (double)-1.9F, AttributeModifier.Operation.ADDITION));
+		builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", 3.0D, AttributeModifier.Operation.ADDITION));
+		builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Tool modifier", (double)-1.9F, AttributeModifier.Operation.ADDITION));
 		this.tridentAttributes = builder.build();
 	}
 
-	public boolean canPlayerBreakBlockWhileHolding(BlockState state, World worldIn, BlockPos pos, PlayerEntity player) {
+	public boolean canAttackBlock(BlockState state, World worldIn, BlockPos pos, PlayerEntity player) {
 		return !player.isCreative();
 	}
 	
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchant){
-        return enchant == Enchantments.PIERCING || enchant == Enchantments.LOYALTY || enchant == Enchantments.MENDING || enchant == Enchantments.SWEEPING || enchant == Enchantments.LOOTING || enchant == Enchantments.SHARPNESS || enchant == Enchantments.BANE_OF_ARTHROPODS || enchant == Enchantments.SMITE;
+        return enchant == Enchantments.PIERCING || enchant == Enchantments.LOYALTY || enchant == Enchantments.MENDING || enchant == Enchantments.SWEEPING_EDGE || enchant == Enchantments.MOB_LOOTING || enchant == Enchantments.SHARPNESS || enchant == Enchantments.BANE_OF_ARTHROPODS || enchant == Enchantments.SMITE;
     }
 
-	public UseAction getUseAction(ItemStack stack) {
+	public UseAction getUseAnimation(ItemStack stack) {
 		return UseAction.SPEAR;
 	}
 
@@ -61,54 +61,54 @@ public class PoisonedKunaiItem extends Item implements IVanishable {
 		return 72000;
 	}
 
-	public void onPlayerStoppedUsing(ItemStack stack, World worldIn, LivingEntity entityLiving, int timeLeft) {
+	public void releaseUsing(ItemStack stack, World worldIn, LivingEntity entityLiving, int timeLeft) {
 		if (entityLiving instanceof PlayerEntity) {
 			PlayerEntity playerentity = (PlayerEntity)entityLiving;
 			int i = this.getUseDuration(stack) - timeLeft;
 			if (i >= 6) {
-				if (!worldIn.isRemote) {
-					stack.damageItem(1, playerentity, (player) -> {
-						player.sendBreakAnimation(entityLiving.getActiveHand());
+				if (!worldIn.isClientSide) {
+					stack.hurtAndBreak(1, playerentity, (player) -> {
+						player.broadcastBreakEvent(entityLiving.getUsedItemHand());
 					});
 					
                 PoisonedKunaiEntity kunai = new PoisonedKunaiEntity(worldIn, playerentity, stack);
-                kunai.setDirectionAndMovement(playerentity, playerentity.rotationPitch, playerentity.rotationYaw, 0.0F, 2.5F + (float) 0 * 0.5F, 1.0F);
-                if (playerentity.abilities.isCreativeMode) {
-                    kunai.pickupStatus = AbstractArrowEntity.PickupStatus.CREATIVE_ONLY;
+                kunai.shootFromRotation(playerentity, playerentity.xRot, playerentity.yRot, 0.0F, 2.5F + (float) 0 * 0.5F, 1.0F);
+                if (playerentity.abilities.instabuild) {
+                    kunai.pickup = AbstractArrowEntity.PickupStatus.CREATIVE_ONLY;
                 }
 
-                worldIn.addEntity(kunai);
-                worldIn.playMovingSound((PlayerEntity)null, kunai, SoundEvents.ITEM_TRIDENT_THROW, SoundCategory.PLAYERS, 1.0F, 1.0F);				
-                if (!playerentity.abilities.isCreativeMode) {
-                    playerentity.inventory.deleteStack(stack);
+                worldIn.addFreshEntity(kunai);
+                worldIn.playSound((PlayerEntity)null, kunai, SoundEvents.TRIDENT_THROW, SoundCategory.PLAYERS, 1.0F, 1.0F);				
+                if (!playerentity.abilities.instabuild) {
+                    playerentity.inventory.removeItem(stack);
 				}
 			}
 				
-			playerentity.addStat(Stats.ITEM_USED.get(this));
+			playerentity.awardStat(Stats.ITEM_USED.get(this));
 			}
 		}
 	}
 
-	public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
-		ItemStack itemstack = playerIn.getHeldItem(handIn);
-		if (itemstack.getDamage() >= itemstack.getMaxDamage() - 1) {
-			return ActionResult.resultFail(itemstack);
+	public ActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn) {
+		ItemStack itemstack = playerIn.getItemInHand(handIn);
+		if (itemstack.getDamageValue() >= itemstack.getMaxDamage() - 1) {
+			return ActionResult.fail(itemstack);
 		} else {
-			playerIn.setActiveHand(handIn);
-			return ActionResult.resultConsume(itemstack);
+			playerIn.startUsingItem(handIn);
+			return ActionResult.consume(itemstack);
 		}
 	}
 
-	public boolean hitEntity(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-		stack.damageItem(1, attacker, (entity) -> {
-			entity.sendBreakAnimation(EquipmentSlotType.MAINHAND);
+	public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+		stack.hurtAndBreak(1, attacker, (entity) -> {
+			entity.broadcastBreakEvent(EquipmentSlotType.MAINHAND);
 		});	
 		
 		if (RandUtils.doWithChance(25)) {
-			target.addPotionEffect(new EffectInstance(Effects.POISON, 425, 0));
-			if (target.world.isRemote) {
+			target.addEffect(new EffectInstance(Effects.POISON, 425, 0));
+			if (target.level.isClientSide) {
 				for (int i = 0;i<10;i++) {
-				target.world.addParticle(ParticleTypes.POOF, target.getPosX() + rand.nextDouble(), target.getPosY(), target.getPosZ() + rand.nextDouble(), 0d, 0.05d, 0d);
+				target.level.addParticle(ParticleTypes.POOF, target.getX() + rand.nextDouble(), target.getY(), target.getZ() + rand.nextDouble(), 0d, 0.05d, 0d);
 				}
 			}
 		
@@ -118,32 +118,32 @@ public class PoisonedKunaiItem extends Item implements IVanishable {
 	return true;
 	}
 
-	public boolean onBlockDestroyed(ItemStack stack, World worldIn, BlockState state, BlockPos pos, LivingEntity entityLiving) {
-		if ((double)state.getBlockHardness(worldIn, pos) != 0.0D) {
-			stack.damageItem(2, entityLiving, (entity) -> {
-				entity.sendBreakAnimation(EquipmentSlotType.MAINHAND);
+	public boolean mineBlock(ItemStack stack, World worldIn, BlockState state, BlockPos pos, LivingEntity entityLiving) {
+		if ((double)state.getDestroySpeed(worldIn, pos) != 0.0D) {
+			stack.hurtAndBreak(2, entityLiving, (entity) -> {
+				entity.broadcastBreakEvent(EquipmentSlotType.MAINHAND);
 			});
 		}
 
 	return true;
 	}
 
-	public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlotType equipmentSlot) {
-		return equipmentSlot == EquipmentSlotType.MAINHAND ? this.tridentAttributes : super.getAttributeModifiers(equipmentSlot);
+	public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlotType equipmentSlot) {
+		return equipmentSlot == EquipmentSlotType.MAINHAND ? this.tridentAttributes : super.getDefaultAttributeModifiers(equipmentSlot);
 	}
 
-	public int getItemEnchantability() {
+	public int getEnchantmentValue() {
 		return 1;
 	}
 	
 	@Override
-	public void addInformation(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flags) {
-		super.addInformation(stack, world, tooltip, flags);	
-		tooltip.add(new TranslationTextComponent("tooltip.darkrpg.kunai").mergeStyle(TextFormatting.GRAY));
+	public void appendHoverText(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flags) {
+		super.appendHoverText(stack, world, tooltip, flags);	
+		tooltip.add(new TranslationTextComponent("tooltip.darkrpg.kunai").withStyle(TextFormatting.GRAY));
         tooltip.add(new StringTextComponent("                "));
-		tooltip.add(new TranslationTextComponent("tooltip.darkrpg.attr").mergeStyle(TextFormatting.GRAY));
-		tooltip.add((new StringTextComponent(" 5 ")).mergeStyle(TextFormatting.DARK_GREEN).appendSibling(new TranslationTextComponent("tooltip.darkrpg.ranged_damage").mergeStyle(TextFormatting.DARK_GREEN)));
-		tooltip.add((new StringTextComponent(" 25% ")).mergeStyle(TextFormatting.DARK_GREEN).appendSibling(new TranslationTextComponent("tooltip.darkrpg.poison_chance").mergeStyle(TextFormatting.DARK_GREEN)));
-		tooltip.add((new StringTextComponent(" 100% ")).mergeStyle(TextFormatting.DARK_GREEN).appendSibling(new TranslationTextComponent("tooltip.darkrpg.poison_chance_ranged").mergeStyle(TextFormatting.DARK_GREEN)));
+		tooltip.add(new TranslationTextComponent("tooltip.darkrpg.attr").withStyle(TextFormatting.GRAY));
+		tooltip.add((new StringTextComponent(" 5 ")).withStyle(TextFormatting.DARK_GREEN).append(new TranslationTextComponent("tooltip.darkrpg.ranged_damage").withStyle(TextFormatting.DARK_GREEN)));
+		tooltip.add((new StringTextComponent(" 25% ")).withStyle(TextFormatting.DARK_GREEN).append(new TranslationTextComponent("tooltip.darkrpg.poison_chance").withStyle(TextFormatting.DARK_GREEN)));
+		tooltip.add((new StringTextComponent(" 100% ")).withStyle(TextFormatting.DARK_GREEN).append(new TranslationTextComponent("tooltip.darkrpg.poison_chance_ranged").withStyle(TextFormatting.DARK_GREEN)));
 	}	
 }

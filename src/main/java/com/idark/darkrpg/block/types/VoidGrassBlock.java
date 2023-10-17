@@ -13,14 +13,14 @@ public class VoidGrassBlock extends SpreadableSnowyDirtBlock implements IGrowabl
       super(properties);
     }
 	
-	public boolean canGrow(IBlockReader worldIn, BlockPos pos, BlockState state, boolean isClient) {
-      return worldIn.getBlockState(pos.up()).isAir();
+	public boolean isValidBonemealTarget(IBlockReader worldIn, BlockPos pos, BlockState state, boolean isClient) {
+      return worldIn.getBlockState(pos.above()).isAir();
     }
 
-   public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, BlockState state) {
+   public boolean isBonemealSuccess(World worldIn, Random rand, BlockPos pos, BlockState state) {
       return true;
     }
  
-   public void grow(ServerWorld worldIn, Random rand, BlockPos pos, BlockState state) {
+   public void performBonemeal(ServerWorld worldIn, Random rand, BlockPos pos, BlockState state) {
     }
 }	

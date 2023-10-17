@@ -11,15 +11,15 @@ public class AloeRegenEffect extends Effect {
     }
 	
 	@Override
-	public void performEffect(LivingEntity entityLivingBaseIn, int amplifier) {
-    super.performEffect(entityLivingBaseIn, amplifier);
+	public void applyEffectTick(LivingEntity entityLivingBaseIn, int amplifier) {
+    super.applyEffectTick(entityLivingBaseIn, amplifier);
         if (entityLivingBaseIn.getHealth() < entityLivingBaseIn.getMaxHealth()) {
             entityLivingBaseIn.heal(0.005F);
         }
 	}
 	
 	@Override
-    public boolean isReady(int duration, int amplifier) {
+    public boolean isDurationEffectTick(int duration, int amplifier) {
     return true;
     }
 }

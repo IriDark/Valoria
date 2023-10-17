@@ -20,6 +20,8 @@ import net.minecraft.world.server.ServerWorld;
 
 import java.util.List;
 
+import net.minecraft.item.Item.Properties;
+
 public class DropItemProperty extends Item {
 	public DropType type;
 
@@ -33,13 +35,13 @@ public class DropItemProperty extends Item {
 	}
 
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity player, Hand hand) {
-		ItemStack heldStack = player.getHeldItem(hand);
-		worldIn.playSound(player, player.getPosition(), ModSoundRegistry.BAG_OPEN.get(), SoundCategory.AMBIENT, 10f, 1f);
+	public ActionResult<ItemStack> use(World worldIn, PlayerEntity player, Hand hand) {
+		ItemStack heldStack = player.getItemInHand(hand);
+		worldIn.playSound(player, player.blockPosition(), ModSoundRegistry.BAG_OPEN.get(), SoundCategory.AMBIENT, 10f, 1f);
 
 		if (player instanceof ServerPlayerEntity) {
 			ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
-			Vector3d playerPos = serverPlayer.getPositionVec();
+			Vector3d playerPos = serverPlayer.position();
 		
 		switch(type) {
 			case MINERS:
@@ -50,7 +52,7 @@ public class DropItemProperty extends Item {
 				break;
 			}
 			
-			serverPlayer.addStat(Stats.ITEM_USED.get(this));
+			serverPlayer.awardStat(Stats.ITEM_USED.get(this));
 			if (!serverPlayer.isCreative()) {
 				heldStack.shrink(1);
 			}
@@ -62,10 +64,10 @@ public class DropItemProperty extends Item {
 	}
  
 	@Override
-    public void addInformation(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flags) {
-        super.addInformation(stack, world, tooltip, flags);
-        tooltip.add(1, new TranslationTextComponent("tooltip.darkrpg.treasure").mergeStyle(TextFormatting.GRAY));
+    public void appendHoverText(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flags) {
+        super.appendHoverText(stack, world, tooltip, flags);
+        tooltip.add(1, new TranslationTextComponent("tooltip.darkrpg.treasure").withStyle(TextFormatting.GRAY));
         tooltip.add(2, new StringTextComponent("                "));
-		tooltip.add(3, new TranslationTextComponent("tooltip.darkrpg.rmb").mergeStyle(TextFormatting.GREEN));
+		tooltip.add(3, new TranslationTextComponent("tooltip.darkrpg.rmb").withStyle(TextFormatting.GREEN));
 	}
 }

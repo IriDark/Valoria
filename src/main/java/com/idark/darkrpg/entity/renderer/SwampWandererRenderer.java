@@ -17,7 +17,7 @@ public class SwampWandererRenderer extends MobRenderer<SwampWandererEntity, Swam
     }
 
     @Override
-    public ResourceLocation getEntityTexture(SwampWandererEntity entity) {
+    public ResourceLocation getTextureLocation(SwampWandererEntity entity) {
         return TEXTURE;
  }
 }

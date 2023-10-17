@@ -70,7 +70,7 @@ public class MathUtils {
     }
 	
 	public static Vector3d direction(Entity entity){
-        float rotationYaw = entity.rotationYaw, rotationPitch = entity.rotationPitch;
+        float rotationYaw = entity.yRot, rotationPitch = entity.xRot;
         float vx = -MathHelper.sin(rad(rotationYaw)) * MathHelper.cos(rad(rotationPitch));
         float vz = MathHelper.cos(rad(rotationYaw)) * MathHelper.cos(rad(rotationPitch));
         float vy = -MathHelper.sin(rad(rotationPitch));

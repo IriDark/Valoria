@@ -14,6 +14,8 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.world.World;
 
+import net.minecraft.item.Item.Properties;
+
 public class AloeBandageItem extends Item {
 
     private int power = 0;
@@ -21,30 +23,30 @@ public class AloeBandageItem extends Item {
 	
     public AloeBandageItem(int time, int power)  {
 		super(
-        new Properties().food(new Food.Builder().setAlwaysEdible().hunger(0).saturation(0).build()).group(ModItemGroup.DARKRPG_GROUP)
+        new Properties().food(new Food.Builder().alwaysEat().nutrition(0).saturationMod(0).build()).tab(ModItemGroup.DARKRPG_GROUP)
     );
         this.power = power;
         this.time = time;
 	}
 
     public SoundEvent getDrinkingSound() {
-        return SoundEvents.ENTITY_GENERIC_DRINK;
+        return SoundEvents.GENERIC_DRINK;
     }
 
     public SoundEvent getEatingSound() {
-        return SoundEvents.ENTITY_GENERIC_DRINK;
+        return SoundEvents.GENERIC_DRINK;
     }
 
     @Override
-    public ItemStack onItemUseFinish(ItemStack stack, World world, LivingEntity entity) {
+    public ItemStack finishUsingItem(ItemStack stack, World world, LivingEntity entity) {
         PlayerEntity playerentity = entity instanceof PlayerEntity ? (PlayerEntity)entity : null;
 		if (playerentity instanceof ServerPlayerEntity) {
 			CriteriaTriggers.CONSUME_ITEM.trigger((ServerPlayerEntity)playerentity, stack);
 		}
 		
-		if (!world.isRemote) {
-			entity.addPotionEffect(new EffectInstance(ModEffects.ALOEREGEN.get(),time,power));
-			if (playerentity == null || !playerentity.abilities.isCreativeMode) {
+		if (!world.isClientSide) {
+			entity.addEffect(new EffectInstance(ModEffects.ALOEREGEN.get(),time,power));
+			if (playerentity == null || !playerentity.abilities.instabuild) {
 				stack.shrink(1);
 			}
 		}
@@ -57,7 +59,7 @@ public class AloeBandageItem extends Item {
     }
     
     @Override
-    public UseAction getUseAction(ItemStack p_77661_1_) {
+    public UseAction getUseAnimation(ItemStack p_77661_1_) {
         return UseAction.CROSSBOW;
     }
 }

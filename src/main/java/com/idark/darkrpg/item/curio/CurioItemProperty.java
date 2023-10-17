@@ -87,7 +87,7 @@ public class CurioItemProperty extends Item implements ICurioItem {
 	@Nonnull
 	@Override
 	public ICurio.SoundInfo getEquipSound(SlotContext slotContext, ItemStack stack) {
-    return new ICurio.SoundInfo(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 1.0f, 1.0f);
+    return new ICurio.SoundInfo(SoundEvents.ARMOR_EQUIP_GOLD, 1.0f, 1.0f);
 	}
 
     @Override
@@ -170,10 +170,10 @@ public class CurioItemProperty extends Item implements ICurioItem {
  		 Receiving gem type and then giving player effect`s
  		*/
 		if(gem == AccessoryGem.AMBER) {
-			if(!player.world.isRemote()) {
-				boolean hasPlayerEffect = !Objects.equals(player.getActivePotionEffect(Effects.HASTE), null);
+			if(!player.level.isClientSide()) {
+				boolean hasPlayerEffect = !Objects.equals(player.getEffect(Effects.DIG_SPEED), null);
             if(!hasPlayerEffect) {
-                player.addPotionEffect(new EffectInstance(Effects.HASTE, 200));
+                player.addEffect(new EffectInstance(Effects.DIG_SPEED, 200));
 				}
             }
 		}
@@ -191,7 +191,7 @@ public class CurioItemProperty extends Item implements ICurioItem {
 		NecklaceModel model = new NecklaceModel();
 	    HandsModel hands = new HandsModel();
         BeltModel belt = new BeltModel();
-		IVertexBuilder vertexBuilder = ItemRenderer.getBuffer(renderTypeBuffer, model.getRenderType(EMPTY), false, stack.hasEffect());;
+		IVertexBuilder vertexBuilder = ItemRenderer.getFoilBuffer(renderTypeBuffer, model.renderType(EMPTY), false, stack.hasFoil());;
 
 		/*
 		  	Receiving model properties
@@ -199,66 +199,66 @@ public class CurioItemProperty extends Item implements ICurioItem {
 		switch(material) {
 			case LEATHER:
 			if (type == AccessoryType.GLOVES) {
-				vertexBuilder = ItemRenderer.getBuffer(renderTypeBuffer, hands.getRenderType(GLOVES_LEATHER), false, stack.hasEffect());
+				vertexBuilder = ItemRenderer.getFoilBuffer(renderTypeBuffer, hands.renderType(GLOVES_LEATHER), false, stack.hasFoil());
 				break;
 			} else if (type == AccessoryType.BELT) {
-				vertexBuilder = ItemRenderer.getBuffer(renderTypeBuffer, belt.getRenderType(BELT_TEXTURE), false, stack.hasEffect());
+				vertexBuilder = ItemRenderer.getFoilBuffer(renderTypeBuffer, belt.renderType(BELT_TEXTURE), false, stack.hasFoil());
 				break;
 			}
 			
 			case IRON:
 			if (type == AccessoryType.NECKLACE) {
-				vertexBuilder = ItemRenderer.getBuffer(renderTypeBuffer, model.getRenderType(IRON), false, stack.hasEffect());
+				vertexBuilder = ItemRenderer.getFoilBuffer(renderTypeBuffer, model.renderType(IRON), false, stack.hasFoil());
 				break;
 			} else if (type == AccessoryType.GLOVES) {
-				vertexBuilder = ItemRenderer.getBuffer(renderTypeBuffer, hands.getRenderType(GLOVES_IRON), false, stack.hasEffect());
+				vertexBuilder = ItemRenderer.getFoilBuffer(renderTypeBuffer, hands.renderType(GLOVES_IRON), false, stack.hasFoil());
 				break;
 			}
 			
 			case GOLD:
 			if (type == AccessoryType.NECKLACE) {
-				vertexBuilder = ItemRenderer.getBuffer(renderTypeBuffer, model.getRenderType(GOLD), false, stack.hasEffect());
+				vertexBuilder = ItemRenderer.getFoilBuffer(renderTypeBuffer, model.renderType(GOLD), false, stack.hasFoil());
 				break;
 			} else if (type == AccessoryType.GLOVES) {
-				vertexBuilder = ItemRenderer.getBuffer(renderTypeBuffer, hands.getRenderType(GLOVES_GOLD), false, stack.hasEffect());
+				vertexBuilder = ItemRenderer.getFoilBuffer(renderTypeBuffer, hands.renderType(GLOVES_GOLD), false, stack.hasFoil());
 				break;
 			}
 			
 			case DIAMOND:
-				vertexBuilder = ItemRenderer.getBuffer(renderTypeBuffer, hands.getRenderType(GLOVES_DIAMOND), false, stack.hasEffect());			
+				vertexBuilder = ItemRenderer.getFoilBuffer(renderTypeBuffer, hands.renderType(GLOVES_DIAMOND), false, stack.hasFoil());			
 				break;			
 			case NETHERITE:
 			if (type == AccessoryType.NECKLACE) {
-				vertexBuilder = ItemRenderer.getBuffer(renderTypeBuffer, model.getRenderType(NETHERITE), false, stack.hasEffect());
+				vertexBuilder = ItemRenderer.getFoilBuffer(renderTypeBuffer, model.renderType(NETHERITE), false, stack.hasFoil());
 				break;
 			} else if (type == AccessoryType.GLOVES) {
-				vertexBuilder = ItemRenderer.getBuffer(renderTypeBuffer, hands.getRenderType(GLOVES_NETHERITE), false, stack.hasEffect());			
+				vertexBuilder = ItemRenderer.getFoilBuffer(renderTypeBuffer, hands.renderType(GLOVES_NETHERITE), false, stack.hasFoil());			
 				break;
 			}
 		}
 
 		switch(type) {
 			case BELT:
-			    belt.setLivingAnimations(livingEntity, limbSwing, limbSwingAmount, partialTicks);
+			    belt.prepareMobModel(livingEntity, limbSwing, limbSwingAmount, partialTicks);
 				ICurio.RenderHelper.followBodyRotations(livingEntity, belt);
-				belt.setRotationAngles(livingEntity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
-				belt.render(matrixStack, vertexBuilder, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+				belt.setupAnim(livingEntity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+				belt.renderToBuffer(matrixStack, vertexBuilder, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
 				break;
 			case GLOVES:
-			    hands.setLivingAnimations(livingEntity, limbSwing, limbSwingAmount, partialTicks);
+			    hands.prepareMobModel(livingEntity, limbSwing, limbSwingAmount, partialTicks);
 				ICurio.RenderHelper.followBodyRotations(livingEntity, hands);
-				hands.setRotationAngles(livingEntity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
-				hands.render(matrixStack, vertexBuilder, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);			
+				hands.setupAnim(livingEntity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+				hands.renderToBuffer(matrixStack, vertexBuilder, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);			
 				break;
 			case RING:
 				break;
 			case CHARM:
 				break;
 			case NECKLACE:
-			    model.setLivingAnimations(livingEntity, limbSwing, limbSwingAmount, partialTicks);
+			    model.prepareMobModel(livingEntity, limbSwing, limbSwingAmount, partialTicks);
 				ICurio.RenderHelper.followBodyRotations(livingEntity, model);
-				model.setRotationAngles(livingEntity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
-				model.render(matrixStack, vertexBuilder, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+				model.setupAnim(livingEntity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+				model.renderToBuffer(matrixStack, vertexBuilder, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
 				break;
 		}
 	
@@ -267,70 +267,70 @@ public class CurioItemProperty extends Item implements ICurioItem {
 			case NONE:
 				return;
 			case AMBER:
-				vertexBuilder = ItemRenderer.getBuffer(renderTypeBuffer, model.getRenderType(AMBER), false, stack.hasEffect());
+				vertexBuilder = ItemRenderer.getFoilBuffer(renderTypeBuffer, model.renderType(AMBER), false, stack.hasFoil());
 				break;
 			case DIAMOND:
-				vertexBuilder = ItemRenderer.getBuffer(renderTypeBuffer, model.getRenderType(DIAMOND), false, stack.hasEffect());
+				vertexBuilder = ItemRenderer.getFoilBuffer(renderTypeBuffer, model.renderType(DIAMOND), false, stack.hasFoil());
 				break;
 			case EMERALD:
-				vertexBuilder = ItemRenderer.getBuffer(renderTypeBuffer, model.getRenderType(EMERALD), false, stack.hasEffect());
+				vertexBuilder = ItemRenderer.getFoilBuffer(renderTypeBuffer, model.renderType(EMERALD), false, stack.hasFoil());
 				break;
 			case RUBY:
-				vertexBuilder = ItemRenderer.getBuffer(renderTypeBuffer, model.getRenderType(RUBY), false, stack.hasEffect());
+				vertexBuilder = ItemRenderer.getFoilBuffer(renderTypeBuffer, model.renderType(RUBY), false, stack.hasFoil());
 				break;
 			case SAPPHIRE:
-				vertexBuilder = ItemRenderer.getBuffer(renderTypeBuffer, model.getRenderType(SAPPHIRE), false, stack.hasEffect());
+				vertexBuilder = ItemRenderer.getFoilBuffer(renderTypeBuffer, model.renderType(SAPPHIRE), false, stack.hasFoil());
 				break;
 
 			case ARMOR:
-				vertexBuilder = ItemRenderer.getBuffer(renderTypeBuffer, model.getRenderType(ARMOR), false, stack.hasEffect());
+				vertexBuilder = ItemRenderer.getFoilBuffer(renderTypeBuffer, model.renderType(ARMOR), false, stack.hasFoil());
 				break;
 			case HEALTH:
-				vertexBuilder = ItemRenderer.getBuffer(renderTypeBuffer, model.getRenderType(HEALTH), false, stack.hasEffect());
+				vertexBuilder = ItemRenderer.getFoilBuffer(renderTypeBuffer, model.renderType(HEALTH), false, stack.hasFoil());
 				break;
 			case WEALTH:
-				vertexBuilder = ItemRenderer.getBuffer(renderTypeBuffer, model.getRenderType(WEALTH), false, stack.hasEffect());
+				vertexBuilder = ItemRenderer.getFoilBuffer(renderTypeBuffer, model.renderType(WEALTH), false, stack.hasFoil());
 				break;
 			}
 		}
 
 		switch(type) {
 			case BELT:
-			    belt.setLivingAnimations(livingEntity, limbSwing, limbSwingAmount, partialTicks);
+			    belt.prepareMobModel(livingEntity, limbSwing, limbSwingAmount, partialTicks);
 				ICurio.RenderHelper.followBodyRotations(livingEntity, hands);
-				belt.setRotationAngles(livingEntity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
-				belt.render(matrixStack, vertexBuilder, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+				belt.setupAnim(livingEntity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+				belt.renderToBuffer(matrixStack, vertexBuilder, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
 				break;
 			case GLOVES:
-			    hands.setLivingAnimations(livingEntity, limbSwing, limbSwingAmount, partialTicks);
+			    hands.prepareMobModel(livingEntity, limbSwing, limbSwingAmount, partialTicks);
 				ICurio.RenderHelper.followBodyRotations(livingEntity, hands);
-				hands.setRotationAngles(livingEntity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
-				hands.render(matrixStack, vertexBuilder, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);			
+				hands.setupAnim(livingEntity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+				hands.renderToBuffer(matrixStack, vertexBuilder, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);			
 				break;
 			case RING:
 				break;
 			case CHARM:
 				break;
 			case NECKLACE:
-			    model.setLivingAnimations(livingEntity, limbSwing, limbSwingAmount, partialTicks);
+			    model.prepareMobModel(livingEntity, limbSwing, limbSwingAmount, partialTicks);
 				ICurio.RenderHelper.followBodyRotations(livingEntity, hands);
-				model.setRotationAngles(livingEntity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
-				model.render(matrixStack, vertexBuilder, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+				model.setupAnim(livingEntity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+				model.renderToBuffer(matrixStack, vertexBuilder, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
 				break;
 		}
 	}
 	
 	@Override
-	public void addInformation(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flags) {
-		super.addInformation(stack, world, tooltip, flags);	
+	public void appendHoverText(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flags) {
+		super.appendHoverText(stack, world, tooltip, flags);	
 		if (gem == AccessoryGem.AMBER) {	
-			tooltip.add(new TranslationTextComponent("tooltip.darkrpg.amber").mergeStyle(TextFormatting.GRAY));
+			tooltip.add(new TranslationTextComponent("tooltip.darkrpg.amber").withStyle(TextFormatting.GRAY));
 		} else if (material == AccessoryMaterial.GOLD) {
-			tooltip.add(new TranslationTextComponent("tooltip.darkrpg.golden").mergeStyle(TextFormatting.GRAY));
+			tooltip.add(new TranslationTextComponent("tooltip.darkrpg.golden").withStyle(TextFormatting.GRAY));
 		} else if (type == AccessoryType.BELT) {
-			tooltip.add(new TranslationTextComponent("tooltip.darkrpg.belt").mergeStyle(TextFormatting.GRAY));
+			tooltip.add(new TranslationTextComponent("tooltip.darkrpg.belt").withStyle(TextFormatting.GRAY));
 		}
 		
-		tooltip.add(new TranslationTextComponent("tooltip.darkrpg.rmb_equip").mergeStyle(TextFormatting.GREEN));
+		tooltip.add(new TranslationTextComponent("tooltip.darkrpg.rmb_equip").withStyle(TextFormatting.GREEN));
 	}
 }

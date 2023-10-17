@@ -23,21 +23,21 @@ public class InfernalBlock extends Block {
     Random rand = new Random();
     public InfernalBlock(AbstractBlock.Properties properties) {
 		super(properties);
-        this.setDefaultState(this.stateContainer.getBaseState().with(STATE, 0));
+        this.registerDefaultState(this.stateDefinition.any().setValue(STATE, 0));
     }
 
     @Override
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(STATE);
-        super.fillStateContainer(builder);
+        super.createBlockStateDefinition(builder);
     }
 	
-	public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
-		ItemStack itemstack = player.getHeldItem(handIn);
-		if (handIn == Hand.MAIN_HAND && !isValidFuel(itemstack) && isValidFuel(player.getHeldItem(Hand.OFF_HAND))) {
+	public ActionResultType use(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
+		ItemStack itemstack = player.getItemInHand(handIn);
+		if (handIn == Hand.MAIN_HAND && !isValidFuel(itemstack) && isValidFuel(player.getItemInHand(Hand.OFF_HAND))) {
 			return ActionResultType.PASS;
 		} else if (isValidFuel(itemstack) && Infernal(player, rand, worldIn, pos, state)) {
-			if (!player.abilities.isCreativeMode) {
+			if (!player.abilities.instabuild) {
 				itemstack.shrink(1);
 			}
 			return ActionResultType.CONSUME;
@@ -50,8 +50,8 @@ public class InfernalBlock extends Block {
 	}
 	
 	private static boolean Infernal(PlayerEntity player, Random rand, World worldIn, BlockPos pos, BlockState state) {
-        if (state.get(STATE) == 0) {
-			worldIn.playSound(player, player.getPosition(), SoundEvents.BLOCK_RESPAWN_ANCHOR_AMBIENT, SoundCategory.BLOCKS, 10f, 1f);
+        if (state.getValue(STATE) == 0) {
+			worldIn.playSound(player, player.blockPosition(), SoundEvents.RESPAWN_ANCHOR_AMBIENT, SoundCategory.BLOCKS, 10f, 1f);
 		
 		for (int i = 0;i<25;i++) {
 			double d2 = rand.nextGaussian() * 0.02D;
@@ -63,7 +63,7 @@ public class InfernalBlock extends Block {
             double d8 = (double)pos.getZ() + d5 + rand.nextDouble() * 3.0D * 2.0D;		
 			worldIn.addParticle(ParticleTypes.LAVA, d6, d7, d8, d2, d3, d4);
         }
-		worldIn.setBlockState(pos, state.with(STATE, 1));		
+		worldIn.setBlockAndUpdate(pos, state.setValue(STATE, 1));		
 		return false;
 		}
 		

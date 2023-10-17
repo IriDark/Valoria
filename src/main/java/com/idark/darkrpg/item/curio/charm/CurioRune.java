@@ -11,6 +11,8 @@ import net.minecraft.world.World;
 import java.util.List;
 
 
+import net.minecraft.item.Item.Properties;
+
 public class CurioRune extends Item {
 
     public CurioRune(Properties properties) {
@@ -18,8 +20,8 @@ public class CurioRune extends Item {
 	}
 	
 	@Override
-	public void addInformation(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flags) {
-	super.addInformation(stack, world, tooltip, flags);
-	tooltip.add(new TranslationTextComponent("tooltip.darkrpg.rune").mergeStyle(TextFormatting.GRAY));
+	public void appendHoverText(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flags) {
+	super.appendHoverText(stack, world, tooltip, flags);
+	tooltip.add(new TranslationTextComponent("tooltip.darkrpg.rune").withStyle(TextFormatting.GRAY));
 	}
 }

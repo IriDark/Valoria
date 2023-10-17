@@ -43,13 +43,13 @@ public class TooltipEventHandler {
         RenderSystem.enableBlend();
         RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		RenderSystem.translatef(0, 0, 900);		
-		matrix.push();		
+		matrix.pushPose();		
 
 		if (stack.getItem() instanceof BlazeReapItem) {
-            mc.textureManager.bindTexture(ETERNAL);
+            mc.textureManager.bind(ETERNAL);
             Screen.blit(matrix, x, y + 11, 0, 0, 80, 16, 80, 16);
 		}
-		matrix.pop();
+		matrix.popPose();
 	}
 
 	@SubscribeEvent(priority = EventPriority.HIGHEST)

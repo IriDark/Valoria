@@ -12,12 +12,12 @@ public class SparkleParticle extends GenericParticle {
     }
 
     @Override
-    protected int getBrightnessForRender(float partialTicks) {
+    protected int getLightColor(float partialTicks) {
         return 0xF000F0;
     }
 
     @Override
-    public void renderParticle(IVertexBuilder b, ActiveRenderInfo info, float pticks) {
-        super.renderParticle(true ? WorldRenderHandler.getDelayedRender().getBuffer(RenderUtils.GLOWING_PARTICLE) : b, info, pticks);
+    public void render(IVertexBuilder b, ActiveRenderInfo info, float pticks) {
+        super.render(true ? WorldRenderHandler.getDelayedRender().getBuffer(RenderUtils.GLOWING_PARTICLE) : b, info, pticks);
     }
 }

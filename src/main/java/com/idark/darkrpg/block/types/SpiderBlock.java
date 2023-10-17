@@ -19,17 +19,17 @@ public class SpiderBlock extends Block {
    public SpiderBlock(AbstractBlock.Properties properties) {
       super(properties);
    }
-   private static final VoxelShape shape = Block.makeCuboidShape(3, 0, 3, 13, 15, 13);
+   private static final VoxelShape shape = Block.box(3, 0, 3, 13, 15, 13);
 
    private void spawnSpider(ServerWorld world, BlockPos pos) {
       CaveSpiderEntity cavespiderentity = EntityType.CAVE_SPIDER.create(world);
-      cavespiderentity.setLocationAndAngles((double)pos.getX() + 0.5D, (double)pos.getY(), (double)pos.getZ() + 0.5D, 0.0F, 0.0F);
-      world.addEntity(cavespiderentity);
+      cavespiderentity.moveTo((double)pos.getX() + 0.5D, (double)pos.getY(), (double)pos.getZ() + 0.5D, 0.0F, 0.0F);
+      world.addFreshEntity(cavespiderentity);
    }
 
    @Override
-   public void onExplosionDestroy(World worldIn, BlockPos pos, Explosion explosionIn) {
-      if(!worldIn.isRemote())
+   public void wasExploded(World worldIn, BlockPos pos, Explosion explosionIn) {
+      if(!worldIn.isClientSide())
 	  this.spawnSpider((ServerWorld)worldIn, pos);
    }
    
@@ -40,24 +40,24 @@ public class SpiderBlock extends Block {
     }
    
    @Override
-   public void onPlayerDestroy(IWorld worldIn, BlockPos pos, BlockState state) {
-      if(!worldIn.isRemote())
+   public void destroy(IWorld worldIn, BlockPos pos, BlockState state) {
+      if(!worldIn.isClientSide())
 	  this.spawnSpider((ServerWorld)worldIn, pos);
    }
    
    @Override
-   public void onFallenUpon(World worldIn, BlockPos pos, Entity entityIn, float fallDistance) {
-	  entityIn.onLivingFall(fallDistance, 3.0F);
+   public void fallOn(World worldIn, BlockPos pos, Entity entityIn, float fallDistance) {
+	  entityIn.causeFallDamage(fallDistance, 3.0F);
 	  worldIn.destroyBlock(pos, true);
-	  if(!worldIn.isRemote())
+	  if(!worldIn.isClientSide())
 	  this.spawnSpider((ServerWorld)worldIn, pos);
    }
    
    @Override
-   public void onProjectileCollision(World worldIn, BlockState state, BlockRayTraceResult hit, ProjectileEntity projectile) {
-	  worldIn.destroyBlock(hit.getPos(), true);
-	  if(!worldIn.isRemote())
-      this.spawnSpider((ServerWorld)worldIn, hit.getPos());
+   public void onProjectileHit(World worldIn, BlockState state, BlockRayTraceResult hit, ProjectileEntity projectile) {
+	  worldIn.destroyBlock(hit.getBlockPos(), true);
+	  if(!worldIn.isClientSide())
+      this.spawnSpider((ServerWorld)worldIn, hit.getBlockPos());
    }
 	
 	@Override

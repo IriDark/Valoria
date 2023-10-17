@@ -21,29 +21,29 @@ public class KeyPadBlock extends Block {
 
     public KeyPadBlock(AbstractBlock.Properties properties) {
         super(properties);
-        this.setDefaultState(this.stateContainer.getBaseState().with(STATE, 0));
+        this.registerDefaultState(this.stateDefinition.any().setValue(STATE, 0));
     }
 
     @Override
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(STATE);
-        super.fillStateContainer(builder);
+        super.createBlockStateDefinition(builder);
     }
 
     @Override
-    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
-        int i = state.get(STATE);
+    public ActionResultType use(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
+        int i = state.getValue(STATE);
         if (i == 1) {
             if (keyOpen(player, rand, worldIn, pos, state))
                 return ActionResultType.SUCCESS;
         }
 
         if (i == 0) {
-            ItemStack itemstack = player.getHeldItem(handIn);
-            if (handIn == Hand.MAIN_HAND && !isValidFuel(itemstack) && isValidFuel(player.getHeldItem(Hand.OFF_HAND))) {
+            ItemStack itemstack = player.getItemInHand(handIn);
+            if (handIn == Hand.MAIN_HAND && !isValidFuel(itemstack) && isValidFuel(player.getItemInHand(Hand.OFF_HAND))) {
                 return ActionResultType.PASS;
             } else if (isValidFuel(itemstack) && itemKey(player, rand, worldIn, pos, state)) {
-                if (!player.abilities.isCreativeMode) {
+                if (!player.abilities.instabuild) {
                     itemstack.shrink(1);
                     return ActionResultType.SUCCESS;
                 }
@@ -60,8 +60,8 @@ public class KeyPadBlock extends Block {
 			for (int i = -4; i <= 4; i++) {
 			for (int j = -4; j <= 4; j++) {
             for (int k = -4; k <= 4; k++) {
-                BlockPos currentPos = pos.add(i, j, k);
-                if (currentPos.distanceSq(pos) <= 4 * 4 && canConnect(worldIn.getBlockState(currentPos), state)) {
+                BlockPos currentPos = pos.offset(i, j, k);
+                if (currentPos.distSqr(pos) <= 4 * 4 && canConnect(worldIn.getBlockState(currentPos), state)) {
                     continue;
 					} else {
                     return;
@@ -69,11 +69,11 @@ public class KeyPadBlock extends Block {
 				}
 			}
 		}
-		worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
+		worldIn.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
 	}
 
     private static boolean canConnect(BlockState neighborState, BlockState state) {
-        return neighborState.matchesBlock(ModBlocks.KEYBLOCK.get()) && neighborState.get(STATE) == 1;
+        return neighborState.is(ModBlocks.KEYBLOCK.get()) && neighborState.getValue(STATE) == 1;
     }
 
     private static boolean isValidFuel(ItemStack stack) {
@@ -81,7 +81,7 @@ public class KeyPadBlock extends Block {
     }
 
 	private static boolean keyOpen (PlayerEntity player, Random rand, World worldIn, BlockPos pos, BlockState state) {
-		worldIn.playSound(player, player.getPosition(), SoundEvents.BLOCK_RESPAWN_ANCHOR_CHARGE, SoundCategory.BLOCKS, 1.0F, 1.0F);
+		worldIn.playSound(player, player.blockPosition(), SoundEvents.RESPAWN_ANCHOR_CHARGE, SoundCategory.BLOCKS, 1.0F, 1.0F);
 		for (int i = 0;i<25;i++) {
 			double d2 = rand.nextGaussian() * 0.02D;
             double d3 = rand.nextGaussian() * 0.02D;
@@ -94,18 +94,18 @@ public class KeyPadBlock extends Block {
 		}
 		
 		for(Direction dir : Direction.values()) {
-		BlockPos neighborPos = pos.offset(dir);
+		BlockPos neighborPos = pos.relative(dir);
 		BlockState neighborState = worldIn.getBlockState(neighborPos);
 			if (neighborState.getBlock() instanceof KeyBlock) {
-				worldIn.setBlockState(neighborPos, Blocks.AIR.getDefaultState());
+				worldIn.setBlockAndUpdate(neighborPos, Blocks.AIR.defaultBlockState());
 			}
-		worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
+		worldIn.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
 		}
 	return false;
 	}
 	
 	private static boolean itemKey(PlayerEntity player, Random rand, World worldIn, BlockPos pos, BlockState state) {
-		worldIn.playSound(player, player.getPosition(), SoundEvents.BLOCK_RESPAWN_ANCHOR_CHARGE, SoundCategory.BLOCKS, 1.0F, 1.0F);
+		worldIn.playSound(player, player.blockPosition(), SoundEvents.RESPAWN_ANCHOR_CHARGE, SoundCategory.BLOCKS, 1.0F, 1.0F);
 		for (int i = 0;i<25;i++) {
 			double d2 = rand.nextGaussian() * 0.02D;
             double d3 = rand.nextGaussian() * 0.02D;
@@ -117,7 +117,7 @@ public class KeyPadBlock extends Block {
 			worldIn.addParticle(ParticleTypes.POOF, d6, d7, d8, d2, d3, d4);
 		}
 		
-		worldIn.setBlockState(pos, state.with(STATE, Integer.valueOf(1)));
+		worldIn.setBlockAndUpdate(pos, state.setValue(STATE, Integer.valueOf(1)));
 		return true;
 	}
 }

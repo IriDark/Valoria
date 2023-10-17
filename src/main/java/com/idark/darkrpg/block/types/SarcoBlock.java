@@ -28,53 +28,53 @@ public class SarcoBlock extends HorizontalBlock {
     private static IntegerProperty OPEN = IntegerProperty.create("open", 0, 2);	
 	public SarcoBlock(AbstractBlock.Properties properties) {
 		super(properties);
-		this.setDefaultState(this.stateContainer.getBaseState().with(OPEN, 0));
+		this.registerDefaultState(this.stateDefinition.any().setValue(OPEN, 0));
 	}
 	
-	private static final VoxelShape shape = Block.makeCuboidShape(0, 0, 0, 16, 12, 16);
+	private static final VoxelShape shape = Block.box(0, 0, 0, 16, 12, 16);
 
 	private void spawnSkeleton(ServerWorld world, BlockPos pos) {
 		SkeletonEntity skeletonentity = EntityType.SKELETON.create(world);
-		skeletonentity.setLocationAndAngles((double)pos.getX() + 0.5D, (double)pos.getY(), (double)pos.getZ() + 0.5D, 0.0F, 0.0F);
-		world.addEntity(skeletonentity);
-		world.addEntity(skeletonentity);
-		world.addEntity(skeletonentity);
+		skeletonentity.moveTo((double)pos.getX() + 0.5D, (double)pos.getY(), (double)pos.getZ() + 0.5D, 0.0F, 0.0F);
+		world.addFreshEntity(skeletonentity);
+		world.addFreshEntity(skeletonentity);
+		world.addFreshEntity(skeletonentity);
 	}
 
    	public void sarcoDestroy(World worldIn, BlockPos pos, BlockState state) {
-		Direction direction = state.get(HorizontalBlock.HORIZONTAL_FACING);
-		BlockPos newPos = pos.add(direction.getDirectionVec());
-		BlockState sarco = ModBlocks.SARCO_HALF.get().getDefaultState().with(HorizontalBlock.HORIZONTAL_FACING,direction).with(OPEN, 0);
-		worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
-		worldIn.setBlockState(newPos, Blocks.AIR.getDefaultState());
-		if(!worldIn.isRemote())
+		Direction direction = state.getValue(HorizontalBlock.FACING);
+		BlockPos newPos = pos.offset(direction.getNormal());
+		BlockState sarco = ModBlocks.SARCO_HALF.get().defaultBlockState().setValue(HorizontalBlock.FACING,direction).setValue(OPEN, 0);
+		worldIn.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
+		worldIn.setBlockAndUpdate(newPos, Blocks.AIR.defaultBlockState());
+		if(!worldIn.isClientSide())
 			this.spawnSkeleton((ServerWorld)worldIn, pos);
 		for (int i = 0;i<5;i++) {
 			worldIn.addParticle(ParticleTypes.SOUL, pos.getX() + rand.nextDouble(), pos.getY() + 0.5D, pos.getZ() + rand.nextDouble(), 0d, 0.05d, 0d);
         }
 	}
 
-	public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
-		Direction direction = state.get(HorizontalBlock.HORIZONTAL_FACING);
-		BlockPos newPos = pos.add(direction.getDirectionVec());
-		BlockState sarco = ModBlocks.SARCO_HALF.get().getDefaultState().with(HorizontalBlock.HORIZONTAL_FACING,direction).with(OPEN, 0);
-		super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
-		if (!worldIn.isRemote) {
-			worldIn.setBlockState(newPos,sarco, 3);
-			worldIn.updateBlock(pos, Blocks.AIR);
-			worldIn.updateBlock(newPos, Blocks.AIR);
-			state.updateNeighbours(worldIn, pos, 3);
+	public void setPlacedBy(World worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
+		Direction direction = state.getValue(HorizontalBlock.FACING);
+		BlockPos newPos = pos.offset(direction.getNormal());
+		BlockState sarco = ModBlocks.SARCO_HALF.get().defaultBlockState().setValue(HorizontalBlock.FACING,direction).setValue(OPEN, 0);
+		super.setPlacedBy(worldIn, pos, state, placer, stack);
+		if (!worldIn.isClientSide) {
+			worldIn.setBlock(newPos,sarco, 3);
+			worldIn.blockUpdated(pos, Blocks.AIR);
+			worldIn.blockUpdated(newPos, Blocks.AIR);
+			state.updateNeighbourShapes(worldIn, pos, 3);
 		}
 	}
 
 	@Override
-	public void onExplosionDestroy(World worldIn, BlockPos pos, Explosion explosionIn) {
+	public void wasExploded(World worldIn, BlockPos pos, Explosion explosionIn) {
 		BlockState state = worldIn.getBlockState(pos);
-		Direction direction = state.get(HorizontalBlock.HORIZONTAL_FACING);
-		BlockPos newPos = pos.add(direction.getDirectionVec());
-		BlockState sarco = ModBlocks.SARCO_HALF.get().getDefaultState().with(HorizontalBlock.HORIZONTAL_FACING,direction).with(OPEN, 0);
-		worldIn.setBlockState(newPos, Blocks.AIR.getDefaultState());
-		worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());		
+		Direction direction = state.getValue(HorizontalBlock.FACING);
+		BlockPos newPos = pos.offset(direction.getNormal());
+		BlockState sarco = ModBlocks.SARCO_HALF.get().defaultBlockState().setValue(HorizontalBlock.FACING,direction).setValue(OPEN, 0);
+		worldIn.setBlockAndUpdate(newPos, Blocks.AIR.defaultBlockState());
+		worldIn.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());		
 		sarcoDestroy(worldIn,pos,state);
 	}
    
@@ -85,45 +85,45 @@ public class SarcoBlock extends HorizontalBlock {
     }
    
     @Override
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(OPEN);
-	    builder.add(HORIZONTAL_FACING);
+	    builder.add(FACING);
     }   
 	
 	@Nullable
     @Override
     public BlockState getStateForPlacement(BlockItemUseContext context) {
-        return this.getDefaultState().with(HORIZONTAL_FACING, context.getPlacementHorizontalFacing().getOpposite());
+        return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
     }
    
-	public void onBlockHarvested(World worldIn, BlockPos pos, BlockState state, PlayerEntity player) {
-		Direction direction = state.get(HorizontalBlock.HORIZONTAL_FACING);
-		BlockPos newPos = pos.add(direction.getDirectionVec());
-		BlockState sarco = ModBlocks.SARCO_HALF.get().getDefaultState().with(HorizontalBlock.HORIZONTAL_FACING,direction).with(OPEN, 0);
-		worldIn.setBlockState(newPos, Blocks.AIR.getDefaultState());
-		worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
+	public void playerWillDestroy(World worldIn, BlockPos pos, BlockState state, PlayerEntity player) {
+		Direction direction = state.getValue(HorizontalBlock.FACING);
+		BlockPos newPos = pos.offset(direction.getNormal());
+		BlockState sarco = ModBlocks.SARCO_HALF.get().defaultBlockState().setValue(HorizontalBlock.FACING,direction).setValue(OPEN, 0);
+		worldIn.setBlockAndUpdate(newPos, Blocks.AIR.defaultBlockState());
+		worldIn.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
 		sarcoDestroy(worldIn,pos,state);
 	}
 
-	public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
-		Direction direction = state.get(HorizontalBlock.HORIZONTAL_FACING);
-		BlockPos newPos = pos.add(direction.getDirectionVec());
-		BlockState sarco = ModBlocks.SARCO_HALF.get().getDefaultState().with(HorizontalBlock.HORIZONTAL_FACING,direction).with(OPEN, 0);
-		int o = state.get(OPEN);
+	public ActionResultType use(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
+		Direction direction = state.getValue(HorizontalBlock.FACING);
+		BlockPos newPos = pos.offset(direction.getNormal());
+		BlockState sarco = ModBlocks.SARCO_HALF.get().defaultBlockState().setValue(HorizontalBlock.FACING,direction).setValue(OPEN, 0);
+		int o = state.getValue(OPEN);
 		if	(o == 0) {
-			if(!worldIn.isRemote())
+			if(!worldIn.isClientSide())
 				this.spawnSkeleton((ServerWorld)worldIn, pos);
 		for (int i = 0;i<5;i++) {
 			worldIn.addParticle(ParticleTypes.SOUL, pos.getX() + rand.nextDouble(), pos.getY() + 0.5D, pos.getZ() + rand.nextDouble(), 0d, 0.05d, 0d);
-			worldIn.setBlockState(pos, state.with(OPEN, Integer.valueOf(1)));
-			worldIn.setBlockState(newPos, state.with(OPEN, Integer.valueOf(1)));
+			worldIn.setBlockAndUpdate(pos, state.setValue(OPEN, Integer.valueOf(1)));
+			worldIn.setBlockAndUpdate(newPos, state.setValue(OPEN, Integer.valueOf(1)));
 			}
 		}
 		if (o == 1) {
-			if(!worldIn.isRemote())
+			if(!worldIn.isClientSide())
 				this.spawnSkeleton((ServerWorld)worldIn, pos);
-				worldIn.setBlockState(pos, state.with(OPEN, Integer.valueOf(2)));
-				worldIn.setBlockState(newPos, state.with(OPEN, Integer.valueOf(2)));
+				worldIn.setBlockAndUpdate(pos, state.setValue(OPEN, Integer.valueOf(2)));
+				worldIn.setBlockAndUpdate(newPos, state.setValue(OPEN, Integer.valueOf(2)));
 			}	
 		
 		if (o == 2) {

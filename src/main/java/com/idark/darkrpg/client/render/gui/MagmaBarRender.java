@@ -21,8 +21,8 @@ public class MagmaBarRender {
 
     public static void onDrawScreenPost(RenderGameOverlayEvent.Post event) {
         Minecraft mc = Minecraft.getInstance();
-        ItemStack main = mc.player.getHeldItemMainhand();
-        ItemStack offhand = mc.player.getHeldItemOffhand();
+        ItemStack main = mc.player.getMainHandItem();
+        ItemStack offhand = mc.player.getOffhandItem();
         MatrixStack ms = event.getMatrixStack();
         if (event.getType() == RenderGameOverlayEvent.ElementType.ALL) {
             PlayerEntity player = mc.player;
@@ -48,7 +48,7 @@ public class MagmaBarRender {
 					Integer yCord = ClientConfig.MAGMA_CHARGE_BAR_Y.get();	
 					Integer xDebug = ClientConfig.DEBUG_X.get();	
 					Integer yDebug = ClientConfig.DEBUG_Y.get();						
-                    mc.textureManager.bindTexture(BAR);
+                    mc.textureManager.bind(BAR);
 					if (barType == 1) {
 						AbstractGui.blit(ms, xCord, yCord, 0, 0, 16, 34, 64, 64);
 						if (compoundnbt.getInt("charge") == 1) {

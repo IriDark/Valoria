@@ -20,6 +20,8 @@ import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Objects;
 
+import net.minecraft.item.Item.Properties;
+
 public class CurioPyro extends Item implements ICurioItem {
 
     public CurioPyro(Properties properties) {
@@ -29,7 +31,7 @@ public class CurioPyro extends Item implements ICurioItem {
 	@Nonnull
 	@Override
 	public ICurio.SoundInfo getEquipSound(SlotContext slotContext, ItemStack stack) {
-    return new ICurio.SoundInfo(SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 1.0f, 1.0f);
+    return new ICurio.SoundInfo(SoundEvents.ARMOR_EQUIP_GOLD, 1.0f, 1.0f);
 	}
 
     @Override
@@ -41,15 +43,15 @@ public class CurioPyro extends Item implements ICurioItem {
     public void curioTick(String identifier, int index, LivingEntity livingEntity, ItemStack stack) {
         PlayerEntity player = (PlayerEntity) livingEntity;
 
-        if(!player.world.isRemote()) {
+        if(!player.level.isClientSide()) {
             boolean hasPlayerFireResistance =
-                    !Objects.equals(player.getActivePotionEffect(Effects.FIRE_RESISTANCE), null);
+                    !Objects.equals(player.getEffect(Effects.FIRE_RESISTANCE), null);
 
             if(!hasPlayerFireResistance) {
-                player.addPotionEffect(new EffectInstance(Effects.FIRE_RESISTANCE, 200));
+                player.addEffect(new EffectInstance(Effects.FIRE_RESISTANCE, 200));
 
                 if(random.nextFloat() > 0.6f) {
-                    stack.damageItem(1, player, p -> CuriosApi.getCuriosHelper().onBrokenCurio(
+                    stack.hurtAndBreak(1, player, p -> CuriosApi.getCuriosHelper().onBrokenCurio(
                             SlotTypePreset.CHARM.getIdentifier(), index, p));
                 }
             }
@@ -59,8 +61,8 @@ public class CurioPyro extends Item implements ICurioItem {
     }
 	
 	@Override
-	public void addInformation(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flags) {
-		super.addInformation(stack, world, tooltip, flags);
-		tooltip.add(new TranslationTextComponent("tooltip.darkrpg.pyro").mergeStyle(TextFormatting.GRAY));
+	public void appendHoverText(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flags) {
+		super.appendHoverText(stack, world, tooltip, flags);
+		tooltip.add(new TranslationTextComponent("tooltip.darkrpg.pyro").withStyle(TextFormatting.GRAY));
 	}
 }
