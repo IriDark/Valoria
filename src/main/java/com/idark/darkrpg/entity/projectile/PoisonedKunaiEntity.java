@@ -169,26 +169,10 @@ public class PoisonedKunaiEntity extends AbstractArrowEntity {
         int e = EnchantmentHelper.getEnchantmentLevel(Enchantments.SHARPNESS, this.thrownStack);		
 		float f = 5.5f + (((float)e)-1.5f);
 		if (entity instanceof LivingEntity) {
-			LivingEntity livingentity = (LivingEntity)entity;
+			LivingEntity livingentity = (LivingEntity) entity;
 			f += EnchantmentHelper.getModifierForCreature(this.thrownStack, livingentity.getCreatureAttribute());
 		}
 
-		// Sounds taken from Calamity Mod (Terraria)
-		int flow = EnchantmentHelper.getEnchantmentLevel(ModEnchantments.FLOW_ENCHANT.get(), this.thrownStack);
-		if (flow > 0) {
-			if (entity instanceof LivingEntity) {
-				LivingEntity target = (LivingEntity)entity;
-				for (int a = 0; a < 30 * flow; a++) {			
-					this.world.addParticle(ParticleTypes.ENCHANT, target.getPosX(), target.getPosY() + ((rand.nextDouble() - 0.7D) * 1), target.getPosZ(), 0d, 0d, 0d);					
-				}
-					
-				target.applyKnockback(10.0F + flow, 0f, 0f);	
-				target.attackEntityFrom(DamageSource.GENERIC, 2.0F * flow);
-				this.getShooter().playSound(ModSoundRegistry.FLOW.get(), 1f, 1f);
-				this.world.addParticle(ParticleTypes.ENCHANT, this.getShooter().getPosX() + ((rand.nextDouble() - 0.7D) * 1), this.getShooter().getPosY() + ((rand.nextDouble() - 1D) * 1), this.getShooter().getPosZ() + ((rand.nextDouble() - 0.5D) * 1), 0.05d * ((rand.nextDouble() - 0.5D) * 1), 0.05d * ((rand.nextDouble() - 0.5D) * 1), 0.05d * ((rand.nextDouble() - 0.5D) * 1));
-			}
-		}
-		
 		if (this.getPierceLevel() > 0) {
 			if (this.piercedEntities == null) {
 				this.piercedEntities = new IntOpenHashSet(5);
