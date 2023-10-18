@@ -1,19 +1,12 @@
 package com.idark.darkrpg.block.types;
 
-import com.idark.darkrpg.DarkRPG;
 import com.idark.darkrpg.item.ModItems;
 import com.idark.darkrpg.tileentity.CrusherTileEntity;
 import com.idark.darkrpg.tileentity.TileSimpleInventory;
-import com.idark.darkrpg.util.LootUtil;
 import com.idark.darkrpg.util.particle.ModParticles;
 import com.idark.darkrpg.util.particle.Particles;
-import net.minecraft.block.*;
 import net.minecraft.core.BlockPos;
-import net.minecraft.item.*;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.util.math.*;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -65,10 +58,10 @@ public class CrusherBlock extends Block implements EntityBlock {
                 player.getMainHandItem().setCount(stack.getCount() - 1);
                 stack.setCount(1);
                 tile.getItemHandler().setItem(0, stack);
-                return ActionResultType.SUCCESS;
+                return InteractionResult.SUCCESS;
             } else {
                 tile.getItemHandler().setItem(0, stack);
-                player.inventory.removeItem(player.getItemInHand(handIn));
+                player.getInventory().removeItem(player.getItemInHand(handIn));
                 return InteractionResult.SUCCESS;
             }
         }

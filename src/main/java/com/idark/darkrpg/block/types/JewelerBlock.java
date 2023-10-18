@@ -1,11 +1,12 @@
 package com.idark.darkrpg.block.types;
 
-import net.minecraft.block.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 
 public class JewelerBlock extends Block {
    // private static final ITextComponent CONTAINER_NAME = new TranslationTextComponent("container.jewelers_table");
 	
-	public JewelerBlock(AbstractBlock.Properties properties) {
+	public JewelerBlock(BlockBehaviour.Properties properties) {
 		super(properties);
 	}
 	

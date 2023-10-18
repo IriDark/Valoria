@@ -1,26 +1,31 @@
 package com.idark.darkrpg.block.types;
 
-import net.minecraft.block.*;
-import net.minecraft.util.math.*;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.BonemealableBlock;
+import net.minecraft.world.level.block.SpreadingSnowyDirtBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
 
-import java.util.Random;
-
-public class VoidGrassBlock extends SpreadableSnowyDirtBlock implements IGrowable {
-   public VoidGrassBlock(AbstractBlock.Properties properties) {
+public class VoidGrassBlock extends SpreadingSnowyDirtBlock implements BonemealableBlock {
+   public VoidGrassBlock(BlockBehaviour.Properties properties) {
       super(properties);
     }
 	
-	public boolean isValidBonemealTarget(IBlockReader worldIn, BlockPos pos, BlockState state, boolean isClient) {
+    public boolean isValidBonemealTarget(LevelReader worldIn, BlockPos pos, BlockState state, boolean isClient) {
       return worldIn.getBlockState(pos.above()).isAir();
     }
 
-   public boolean isBonemealSuccess(World worldIn, Random rand, BlockPos pos, BlockState state) {
-      return true;
+    @Override
+    public boolean isBonemealSuccess(Level pLevel, RandomSource pRandom, BlockPos pPos, BlockState pState) {
+        return false;
     }
- 
-   public void performBonemeal(ServerWorld worldIn, Random rand, BlockPos pos, BlockState state) {
+
+    @Override
+    public void performBonemeal(ServerLevel pLevel, RandomSource pRandom, BlockPos pPos, BlockState pState) {
+
     }
 }	

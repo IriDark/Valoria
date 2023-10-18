@@ -1,57 +1,59 @@
 package com.idark.darkrpg.block.types;
 
-import com.idark.darkrpg.item.*;
-import net.minecraft.block.*;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.*;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.state.IntegerProperty;
-import net.minecraft.state.StateContainer;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.*;
-import net.minecraft.world.World;
+import com.idark.darkrpg.item.ModItems;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.phys.BlockHitResult;
 
 import java.util.Random;
-
-;
 	
 public class InfernalBlock extends Block {
     private static IntegerProperty STATE = IntegerProperty.create("awakened", 0, 1);
     Random rand = new Random();
-    public InfernalBlock(AbstractBlock.Properties properties) {
+    public InfernalBlock(BlockBehaviour.Properties properties) {
 		super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(STATE, 0));
     }
 
     @Override
-    protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(STATE);
         super.createBlockStateDefinition(builder);
     }
-	
-	public ActionResultType use(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
+
+	@Override
+	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
 		ItemStack itemstack = player.getItemInHand(handIn);
-		if (handIn == Hand.MAIN_HAND && !isValidFuel(itemstack) && isValidFuel(player.getItemInHand(Hand.OFF_HAND))) {
-			return ActionResultType.PASS;
-		} else if (isValidFuel(itemstack) && Infernal(player, rand, worldIn, pos, state)) {
-			if (!player.abilities.instabuild) {
+		if (handIn == InteractionHand.MAIN_HAND && !isValidFuel(itemstack) && isValidFuel(player.getItemInHand(InteractionHand.OFF_HAND))) {
+			return InteractionResult.PASS;
+		} else if (isValidFuel(itemstack) && Infernal(player, rand, world, pos, state)) {
+			if (!player.getAbilities().instabuild) {
 				itemstack.shrink(1);
 			}
-			return ActionResultType.CONSUME;
+			return InteractionResult.CONSUME;
 		}
-		return ActionResultType.PASS;
+		return InteractionResult.PASS;
 	}
 	
 	private static boolean isValidFuel(ItemStack stack) {
 		return stack.getItem() == ModItems.INFERNAL_STONE.get();
 	}
 	
-	private static boolean Infernal(PlayerEntity player, Random rand, World worldIn, BlockPos pos, BlockState state) {
+	private static boolean Infernal(Player player, Random rand, Level worldIn, BlockPos pos, BlockState state) {
         if (state.getValue(STATE) == 0) {
-			worldIn.playSound(player, player.blockPosition(), SoundEvents.RESPAWN_ANCHOR_AMBIENT, SoundCategory.BLOCKS, 10f, 1f);
+			worldIn.playSound(player, player.blockPosition(), SoundEvents.RESPAWN_ANCHOR_AMBIENT, SoundSource.BLOCKS, 10f, 1f);
 		
 		for (int i = 0;i<25;i++) {
 			double d2 = rand.nextGaussian() * 0.02D;

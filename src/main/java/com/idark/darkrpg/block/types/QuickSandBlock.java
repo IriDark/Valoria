@@ -1,43 +1,42 @@
 package com.idark.darkrpg.block.types;
 
-import net.minecraft.block.*;
-import net.minecraft.entity.Entity;
-import net.minecraft.pathfinding.PathType;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.util.DamageSource;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class QuickSandBlock extends Block {
 	protected static final VoxelShape SHAPE = Block.box(0.0D, 0.0D, 0.0D, 0.0D, 0.0D, 0.0D);
 
-	public QuickSandBlock(AbstractBlock.Properties properties) {
+	public QuickSandBlock(BlockBehaviour.Properties properties) {
 		super(properties);
 	}
-	
-	public VoxelShape getCollisionShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+
+	public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
 		return SHAPE;
 	}
 
-	public VoxelShape getVisualShape(BlockState state, IBlockReader reader, BlockPos pos, ISelectionContext context) {
-		return VoxelShapes.block();
+	//public VoxelShape getVisualShape(BlockState state, IBlockReader reader, BlockPos pos, ISelectionContext context) {
+	//	return VoxelShapes.block();
+	//}
+
+	public void onPlace(BlockState state, Level worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {
+		//worldIn.getBlockTicks().scheduleTick(pos, this, 20);
 	}
 
-	public void onPlace(BlockState state, World worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {
-		worldIn.getBlockTicks().scheduleTick(pos, this, 20);
-	}
-
-	public boolean isPathfindable(BlockState state, IBlockReader worldIn, BlockPos pos, PathType type) {
-		return false;
-	}
+	//public boolean isPathfindable(BlockState state, IBlockReader worldIn, BlockPos pos, PathType type) {
+	//	return false;
+	//}
    
-	public void entityInside(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
-		entityIn.makeStuckInBlock(state, new Vector3d(0.25D, (double)0.05F, 0.25D));
-        entityIn.hurt(DamageSource.GENERIC, 1.0F);
+	public void entityInside(BlockState state, Level worldIn, BlockPos pos, Entity entityIn) {
+		entityIn.makeStuckInBlock(state, new Vec3(0.25D, (double)0.05F, 0.25D));
+        entityIn.hurt(entityIn.damageSources().generic(), 1.0F);
 	}
 	//TODO Completely edit this shit lol
 }

@@ -1,10 +1,11 @@
 package com.idark.darkrpg.block.types;
 
-import net.minecraft.block.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 
 public class KeyBlock extends Block {
 
-    public KeyBlock(AbstractBlock.Properties properties) {
+    public KeyBlock(BlockBehaviour.Properties properties) {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any());
     }

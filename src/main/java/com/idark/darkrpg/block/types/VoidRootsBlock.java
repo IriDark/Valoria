@@ -1,32 +1,34 @@
 package com.idark.darkrpg.block.types;
 
 import com.idark.darkrpg.block.ModBlocks;
-import net.minecraft.block.*;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.BushBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class VoidRootsBlock extends BushBlock {
 	private static final VoxelShape shape = Block.box(3, 0, 3, 13, 8, 13);
 
-	public VoidRootsBlock(AbstractBlock.Properties properties) {
+	public VoidRootsBlock(BlockBehaviour.Properties properties) {
 		super(properties);
 	}
 
 	@Override
-    public VoxelShape getShape(BlockState state, IBlockReader reader, BlockPos pos,
-        ISelectionContext ctx) {
+	public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
         return shape;
     }
 	
-	protected boolean mayPlaceOn(BlockState state, IBlockReader worldIn, BlockPos pos) {
+	protected boolean mayPlaceOn(BlockState state, BlockGetter worldIn, BlockPos pos) {
 		Block block = state.getBlock();
 		return block == ModBlocks.VOID_STONE.get() || block == ModBlocks.VOID_GRASS.get();
 	}
 	
-	public boolean canBeReplaced(BlockState state, BlockItemUseContext useContext) {
+	public boolean canBeReplaced(BlockState state, BlockPlaceContext useContext) {
 		return true;
 	}
 }

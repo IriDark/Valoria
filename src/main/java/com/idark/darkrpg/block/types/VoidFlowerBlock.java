@@ -1,24 +1,27 @@
 package com.idark.darkrpg.block.types;
 
 import com.idark.darkrpg.block.ModBlocks;
-import net.minecraft.block.*;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.potion.Effect;
-import net.minecraft.util.math.*;
-import net.minecraft.util.math.shapes.*;
-import net.minecraft.util.math.vector.*;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.BushBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-import java.util.Random;
-
 public class VoidFlowerBlock extends BushBlock {
-	private final Effect stewEffect;
+	private final MobEffect stewEffect;
 	private final int stewEffectDuration;
 	private static final VoxelShape shape = Block.box(3, 0, 3, 13, 8, 13);
-	public VoidFlowerBlock(Effect effect, int effectDuration, AbstractBlock.Properties properties) {
+	public VoidFlowerBlock(MobEffect effect, int effectDuration, BlockBehaviour.Properties properties) {
 		super(properties);
 		this.stewEffect = effect;
 		if (effect.isInstantenous()) {
@@ -29,20 +32,19 @@ public class VoidFlowerBlock extends BushBlock {
 	}
 	
 	@Override
-    public VoxelShape getShape(BlockState state, IBlockReader reader, BlockPos pos,
-        ISelectionContext ctx) {
+	public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
         return shape;
     }	
 	
-	protected boolean mayPlaceOn(BlockState state, IBlockReader worldIn, BlockPos pos) {
+	protected boolean mayPlaceOn(BlockState state, BlockGetter worldIn, BlockPos pos) {
 		Block block = state.getBlock();
 		return block == ModBlocks.VOID_STONE.get() || block == ModBlocks.VOID_GRASS.get();
 	}
    
 	@OnlyIn(Dist.CLIENT)
-	public void animateTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) {
-		VoxelShape voxelshape = this.getShape(stateIn, worldIn, pos, ISelectionContext.empty());
-		Vector3d vector3d = voxelshape.bounds().getCenter();
+	public void animateTick(BlockState stateIn, Level worldIn, BlockPos pos, RandomSource rand) {
+		VoxelShape voxelshape = this.getShape(stateIn, worldIn, pos, CollisionContext.empty());
+		Vec3 vector3d = voxelshape.bounds().getCenter();
 		double d0 = (double)pos.getX() + vector3d.x;
 		double d1 = (double)pos.getZ() + vector3d.z;
 		for(int i = 0; i < 3; ++i) {
@@ -52,7 +54,7 @@ public class VoidFlowerBlock extends BushBlock {
 		}
 	}
    
-	public Effect getStewEffect() {
+	public MobEffect getStewEffect() {
 		return this.stewEffect;
 	}
    
