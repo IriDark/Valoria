@@ -15,16 +15,11 @@ import com.idark.darkrpg.config.Config;
 import com.idark.darkrpg.effect.ModEffects;
 import com.idark.darkrpg.enchant.ModEnchantments;
 import com.idark.darkrpg.entity.ModEntityTypes;
-import com.idark.darkrpg.entity.custom.GoblinEntity;
-import com.idark.darkrpg.entity.custom.MannequinEntity;
-import com.idark.darkrpg.entity.custom.SwampWandererEntity;
 import com.idark.darkrpg.entity.renderer.*;
 import com.idark.darkrpg.item.ModItemGroup;
 import com.idark.darkrpg.item.ModItems;
 import com.idark.darkrpg.paintings.ModPaintings;
 import com.idark.darkrpg.tileentity.ModTileEntities;
-import com.idark.darkrpg.util.LootStructureAdditionModifier;
-import com.idark.darkrpg.util.ModItemModelProperties;
 import com.idark.darkrpg.util.ModSoundRegistry;
 import com.idark.darkrpg.util.WorldRenderHandler;
 import com.idark.darkrpg.util.particle.ModParticles;
@@ -40,7 +35,6 @@ import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.blockentity.SignRenderer;
 import net.minecraft.client.renderer.entity.EntityRenderers;
-import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.AxeItem;
@@ -54,7 +48,6 @@ import net.minecraftforge.client.event.RegisterShadersEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -67,9 +60,7 @@ import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotTypeMessage;
 import top.theillusivec4.curios.api.SlotTypePreset;
 
-import javax.annotation.Nonnull;
 import java.io.IOException;
-import java.util.Map;
 
 @Mod(DarkRPG.MOD_ID)
 	    public class DarkRPG {
@@ -117,8 +108,8 @@ import java.util.Map;
 		forgeBus.addListener(TooltipEventHandler::onPostTooltipEvent);
 		//forgeBus.addListener(TooltipEventHandler::onTooltip);
 
-			ModItemGroup.register(eventBus);
-			eventBus.addListener(ModItemGroup::addCreative);
+		ModItemGroup.register(eventBus);
+		eventBus.addListener(ModItemGroup::addCreative);
 		
 	    MinecraftForge.EVENT_BUS.register(this);
 	}
@@ -206,8 +197,8 @@ import java.util.Map;
 			EntityRenderers.register(ModEntityTypes.MANNEQUIN.get(), MannequinRenderer::new);
 			EntityRenderers.register(ModEntityTypes.KUNAI.get(), KunaiRenderer::new);
 			EntityRenderers.register(ModEntityTypes.POISONED_KUNAI.get(), PoisonedKunaiRenderer::new);
-	    
-			/*ModItemModelProperties.makeBow(ModItems.SAMURAI_LONG_BOW.get());
+
+		/*ModItemModelProperties.makeBow(ModItems.SAMURAI_LONG_BOW.get());
 	    ModItemModelProperties.makeBow(ModItems.NATURE_BOW.get());		
 	    ModItemModelProperties.makeBow(ModItems.AQUARIUS_BOW.get());
 	    ModItemModelProperties.makeBow(ModItems.BOW_OF_DARKNESS.get());

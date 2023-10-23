@@ -1,18 +1,18 @@
-Java Launcher: C:\Users\User\.gradle\jdks\jdk-17.0.8+7\bin\java.exe
-Arguments: '--clean, C:\Users\User\.gradle\caches\forge_gradle\mcp_repo\net\minecraft\joined\1.20.1-20230612.114412\joined-1.20.1-20230612.114412-srg.jar, --output, C:\Users\User\Documents\DarkRPG\build\fg_cache\net\minecraftforge\forge\1.20.1-47.1.1\forge-1.20.1-47.1.1-binpatched.jar, --apply, C:\Users\User\Documents\DarkRPG\build\fg_cache\net\minecraftforge\forge\1.20.1-47.1.1\forge-1.20.1-47.1.1-binpatches.lzma'
+Java Launcher: C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2023.2.3\jbr\bin\java.exe
+Arguments: '--clean, C:\Users\User\.gradle\caches\forge_gradle\mcp_repo\net\minecraft\joined\1.20.1-20230612.114412\joined-1.20.1-20230612.114412-srg.jar, --output, C:\Users\User\Documents\GitHub\DarkRPG\build\fg_cache\net\minecraftforge\forge\1.20.1-47.1.1\forge-1.20.1-47.1.1-binpatched.jar, --apply, C:\Users\User\Documents\GitHub\DarkRPG\build\fg_cache\net\minecraftforge\forge\1.20.1-47.1.1\forge-1.20.1-47.1.1-binpatches.lzma'
 Classpath:
  - C:\Users\User\.gradle\caches\forge_gradle\maven_downloader\net\minecraftforge\binarypatcher\1.1.1\binarypatcher-1.1.1-fatjar.jar
-Working directory: C:\Users\User\Documents\DarkRPG\build\_applyBinpatches_2
+Working directory: C:\Users\User\Documents\GitHub\DarkRPG\build\_applyBinpatches_2
 Main class: net.minecraftforge.binarypatcher.ConsoleTool
 ====================================
 Applying: 
   Clean:     C:\Users\User\.gradle\caches\forge_gradle\mcp_repo\net\minecraft\joined\1.20.1-20230612.114412\joined-1.20.1-20230612.114412-srg.jar
-  Output:    C:\Users\User\Documents\DarkRPG\build\fg_cache\net\minecraftforge\forge\1.20.1-47.1.1\forge-1.20.1-47.1.1-binpatched.jar
+  Output:    C:\Users\User\Documents\GitHub\DarkRPG\build\fg_cache\net\minecraftforge\forge\1.20.1-47.1.1\forge-1.20.1-47.1.1-binpatched.jar
   KeepData:  false
   Unpatched: false
   Pack200:   false
   Legacy:    false
-Loading patches file: C:\Users\User\Documents\DarkRPG\build\fg_cache\net\minecraftforge\forge\1.20.1-47.1.1\forge-1.20.1-47.1.1-binpatches.lzma
+Loading patches file: C:\Users\User\Documents\GitHub\DarkRPG\build\fg_cache\net\minecraftforge\forge\1.20.1-47.1.1\forge-1.20.1-47.1.1-binpatches.lzma
   Reading patch com.mojang.blaze3d.pipeline.RenderTarget.binpatch
     Checksum: 151eb55a Exists: true
   Reading patch com.mojang.blaze3d.platform.GlStateManager$BlendState.binpatch
