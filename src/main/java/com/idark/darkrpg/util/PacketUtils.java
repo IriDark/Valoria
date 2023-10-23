@@ -9,7 +9,7 @@ public class PacketUtils {
         if (tile.getLevel() instanceof ServerLevel) {
             tile.setChanged();
             tile.saveWithoutMetadata();
-            PacketHandler.HANDLER.send(PacketDistributor.TRACKING_CHUNK.with(() -> tile.getLevel().getChunkAt(tile.getBlockPos())), new TESyncPacket(tile.getBlockPos(), tile.getUpdateTag()));
+            //PacketHandler.HANDLER.send(PacketDistributor.TRACKING_CHUNK.with(() -> tile.getLevel().getChunkAt(tile.getBlockPos())), new TESyncPacket(tile.getBlockPos(), tile.getUpdateTag()));
         }
     }
 }

@@ -2,38 +2,31 @@ package com.idark.darkrpg.entity.projectile;
 
 import com.idark.darkrpg.entity.ModEntityTypes;
 import com.idark.darkrpg.item.ModItems;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
-import net.minecraft.enchantment.*;
-import net.minecraft.entity.*;
-import net.minecraft.entity.projectile.*;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.util.*;
-import net.minecraft.util.math.*;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.World;
-import net.minecraft.network.IPacket;
-import net.minecraftforge.fml.network.NetworkHooks;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 import com.google.common.collect.Lists;
 import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
 
-import java.util.List;
 import javax.annotation.Nullable;
+import java.util.List;
 
-public class PoisonedKunaiEntity extends AbstractArrowEntity {
-	public static final DataParameter<Byte> LOYALTY_LEVEL = EntityDataManager.defineId(PoisonedKunaiEntity.class, DataSerializers.BYTE);
-	public static final DataParameter<Byte> PIERCE_LEVEL = EntityDataManager.defineId(PoisonedKunaiEntity.class, DataSerializers.BYTE);
-	public static final DataParameter<Boolean> ID_FOIL = EntityDataManager.defineId(PoisonedKunaiEntity.class, DataSerializers.BOOLEAN);
+public class PoisonedKunaiEntity extends AbstractArrow {
+	public static final EntityDataAccessor<Byte> LOYALTY_LEVEL = SynchedEntityData.defineId(PoisonedKunaiEntity.class, EntityDataSerializers.BYTE);
+	public static final EntityDataAccessor<Byte> PIERCE_LEVEL = SynchedEntityData.defineId(PoisonedKunaiEntity.class, EntityDataSerializers.BYTE);
+	public static final EntityDataAccessor<Boolean> ID_FOIL = SynchedEntityData.defineId(PoisonedKunaiEntity.class, EntityDataSerializers.BOOLEAN);
 	public ItemStack thrownStack = new ItemStack(ModItems.SAMURAI_KUNAI.get());
 	public boolean dealtDamage;
 	public boolean notRenderable;	
@@ -44,20 +37,20 @@ public class PoisonedKunaiEntity extends AbstractArrowEntity {
 	public float rotationVelocity = 0;
 	public int returningTicks;
 
-	public PoisonedKunaiEntity(EntityType<? extends PoisonedKunaiEntity> type, World worldIn) {
+	public PoisonedKunaiEntity(EntityType<? extends PoisonedKunaiEntity> type, Level worldIn) {
 		super(type, worldIn);
 	}
 
-	public PoisonedKunaiEntity(World worldIn, LivingEntity thrower, ItemStack thrownStackIn) {
+	public PoisonedKunaiEntity(Level worldIn, LivingEntity thrower, ItemStack thrownStackIn) {
 		super(ModEntityTypes.POISONED_KUNAI.get(), thrower, worldIn);
 		this.thrownStack = this.thrownStack;
-		this.entityData.set(LOYALTY_LEVEL, (byte)EnchantmentHelper.getLoyalty(thrownStackIn));
+		this.entityData.set(LOYALTY_LEVEL, (byte) EnchantmentHelper.getLoyalty(thrownStackIn));
 		this.entityData.set(PIERCE_LEVEL, (byte)EnchantmentHelper.getItemEnchantmentLevel(Enchantments.PIERCING, thrownStackIn));
 		this.entityData.set(ID_FOIL, thrownStackIn.hasFoil());
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public PoisonedKunaiEntity(World worldIn, double x, double y, double z) {
+	public PoisonedKunaiEntity(Level worldIn, double x, double y, double z) {
 		super(ModEntityTypes.POISONED_KUNAI.get(), x, y, z, worldIn);
 	}
 
@@ -86,7 +79,7 @@ public class PoisonedKunaiEntity extends AbstractArrowEntity {
 			this.piercing = true;
 		}
 		
-		Entity entity = this.getOwner();
+		/*Entity entity = this.getOwner();
 		if ((this.dealtDamage || this.isNoPhysics()) && entity != null) {
 			int i = this.entityData.get(LOYALTY_LEVEL);
 			int p = this.entityData.get(PIERCE_LEVEL);
@@ -127,7 +120,7 @@ public class PoisonedKunaiEntity extends AbstractArrowEntity {
 				this.level.addParticle(ParticleTypes.WHITE_ASH, this.getX() + a3 * (double)a / 4.0D, this.getY() + a4 * (double)a / 4.0D, this.getZ() + a0 * (double)a / 4.0D, -a3, -a4 + 0.2D, -a0);		
 				this.level.addParticle(ParticleTypes.ENCHANTED_HIT, this.getX() + a3 * (double)a / 4.0D, this.getY() + a4 * (double)a / 4.0D, this.getZ() + a0 * (double)a / 4.0D, -a3, -a4 + 0.2D, -a0);		
 			}
-		}
+		}*/
 	
 		super.tick();
 	}
@@ -135,7 +128,7 @@ public class PoisonedKunaiEntity extends AbstractArrowEntity {
 	private boolean shouldReturnToThrower() {
 		Entity entity = this.getOwner();
 		if (entity != null && entity.isAlive()) {
-			return !(entity instanceof ServerPlayerEntity) || !entity.isSpectator();
+			return !(entity instanceof ServerPlayer) || !entity.isSpectator();
 		} else {
 			return false;
 		}
@@ -145,7 +138,7 @@ public class PoisonedKunaiEntity extends AbstractArrowEntity {
 		return this.thrownStack;
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	/*@OnlyIn(Dist.CLIENT)
 	public boolean isFoil() {
 		return this.entityData.get(ID_FOIL);
 	}
@@ -286,5 +279,5 @@ public class PoisonedKunaiEntity extends AbstractArrowEntity {
 	@OnlyIn(Dist.CLIENT)
 	public boolean shouldRender(double x, double y, double z) {
 		return true;
-	}
+	}*/
 }

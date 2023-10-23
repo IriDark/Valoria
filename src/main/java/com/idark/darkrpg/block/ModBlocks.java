@@ -26,15 +26,15 @@ public class ModBlocks {
 	public static final DeferredRegister<Block> BLOCK = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
 	// Door & Trapdoors
 	public static final RegistryObject<Block> SHADEWOOD_DOOR = registerBlock("shadewood_door",
-	() -> new DoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LOG).requiresCorrectToolForDrops().strength(2f).noOcclusion(), BlockSetType.OAK));
+	() -> new DoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_DOOR).requiresCorrectToolForDrops().strength(2f).noOcclusion(), BlockSetType.OAK));
 	public static final RegistryObject<Block> SHADEWOOD_TRAPDOOR = registerBlock("shadewood_trapdoor",
-	() -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LOG).requiresCorrectToolForDrops().strength(1f).noOcclusion(), BlockSetType.OAK));
+	() -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_TRAPDOOR).requiresCorrectToolForDrops().strength(1f).noOcclusion(), BlockSetType.OAK));
 	public static final RegistryObject<Block> BRONZE_DOOR = registerBlock("bronze_door",
-	() -> new DoorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops().strength(4f).noOcclusion(), BlockSetType.OAK));
+	() -> new DoorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_DOOR).requiresCorrectToolForDrops().strength(4f).noOcclusion(), BlockSetType.OAK));
 	public static final RegistryObject<Block> BRONZE_TRAPDOOR2 = registerBlock("bronze_trapdoor2",
-	() -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops().strength(2f).noOcclusion(), BlockSetType.OAK));
+	() -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_TRAPDOOR).requiresCorrectToolForDrops().strength(2f).noOcclusion(), BlockSetType.OAK));
 	public static final RegistryObject<Block> BRONZE_TRAPDOOR = registerBlock("bronze_trapdoor",
-	() -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops().strength(3f).noOcclusion(), BlockSetType.OAK));
+	() -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_TRAPDOOR).requiresCorrectToolForDrops().strength(3f).noOcclusion(), BlockSetType.OAK));
 	// Key
 	public static final RegistryObject<Block> KEYBLOCK = BLOCK.register("keyblock",
 	() -> new KeyPadBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(-1f, 3600000.8F).sound(SoundType.NETHER_BRICKS)));
@@ -304,7 +304,7 @@ public class ModBlocks {
 	public static final RegistryObject<Block> TOMB = BLOCK.register("tomb",
 	() -> new TombBlock(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(1f)));
 	public static final RegistryObject<Block> KEG = BLOCK.register("keg",
-	() -> new KegBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LOG).requiresCorrectToolForDrops().strength(1f)));
+	() -> new KegBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).requiresCorrectToolForDrops().strength(1f)));
 	//public static final RegistryObject<Block> SARCOPHAGUS = BLOCK.register("sarcophagus",
 	//() -> new SarcoBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops().strength(3f)));
 	//public static final RegistryObject<Block> SARCO_HALF = BLOCK.register("sarcophagus_half",

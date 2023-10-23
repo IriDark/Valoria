@@ -1,16 +1,11 @@
 package com.idark.darkrpg.client.render;
 
 import com.idark.darkrpg.DarkRPG;
-import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.client.event.RenderGuiOverlayEvent;
 import net.minecraftforge.event.TickEvent;
 
 public class DashOverlayRender {
@@ -32,8 +27,8 @@ public class DashOverlayRender {
         }
     }
 
-    public static void onDrawScreenPost(RenderGameOverlayEvent.Post event) {
-        if (dashTime > 0) {
+    public static void onDrawScreenPost(RenderGuiOverlayEvent.Post event) {
+        /*if (dashTime > 0) {
             Minecraft mc = Minecraft.getInstance();
             MatrixStack ms = event.getMatrixStack();
 
@@ -76,6 +71,6 @@ public class DashOverlayRender {
             RenderSystem.disableBlend();
             RenderSystem.depthMask(true);
             RenderSystem.enableDepthTest();
-        }
+        }*/
     }
 }

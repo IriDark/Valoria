@@ -1,17 +1,13 @@
 package com.idark.darkrpg.entity.renderer;
 
 import com.idark.darkrpg.DarkRPG;
-import com.idark.darkrpg.entity.projectile.PoisonedKunaiEntity;
+import com.idark.darkrpg.entity.projectile.KunaiEntity;
 import com.idark.darkrpg.entity.model.KunaiModel;
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
+import com.idark.darkrpg.entity.projectile.PoisonedKunaiEntity;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.*;
-import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.vector.Vector3f;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -20,12 +16,12 @@ public class PoisonedKunaiRenderer extends EntityRenderer<PoisonedKunaiEntity> {
 	public static final ResourceLocation KUNAI = new ResourceLocation(DarkRPG.MOD_ID, "textures/entity/poisoned_kunai.png");
 	private final KunaiModel kunai = new KunaiModel();
 
-	public PoisonedKunaiRenderer(EntityRendererManager renderManagerIn) {
-		super(renderManagerIn);
+	public PoisonedKunaiRenderer(EntityRendererProvider.Context context) {
+		super(context);
 	}
 
-	public void render(PoisonedKunaiEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
-		if (!Minecraft.getInstance().isPaused() && !(entityIn.inGround || entityIn.isOnGround())){
+    public void render(KunaiEntity entityIn, float entityYaw, float partialTicks, PoseStack stack, MultiBufferSource bufferIn, int packedLightIn) {
+		/*if (!Minecraft.getInstance().isPaused() && !(entityIn.inGround || entityIn.isOnGround())){
             entityIn.rotationVelocity = MathUtils.interpolate(entityIn.rotationVelocity,entityIn.rotationVelocity+10,partialTicks);
         }
 		
@@ -35,7 +31,7 @@ public class PoisonedKunaiRenderer extends EntityRenderer<PoisonedKunaiEntity> {
         IVertexBuilder ivertexbuilder = net.minecraft.client.renderer.ItemRenderer.getFoilBufferDirect(bufferIn, this.kunai.renderType(this.getTextureLocation(entityIn)), false, entityIn.isFoil());
         this.kunai.renderToBuffer(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
         matrixStackIn.popPose();
-        super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
+        super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);*/
     }
     
 	

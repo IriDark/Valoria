@@ -1,23 +1,23 @@
 package com.idark.darkrpg.entity.model;
 
+import com.idark.darkrpg.entity.custom.SwampWandererEntity;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.model.geom.ModelPart;
 import com.idark.darkrpg.entity.custom.MannequinEntity;
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
-import net.minecraft.client.renderer.entity.model.EntityModel;
-import net.minecraft.client.renderer.model.ModelRenderer;
-import net.minecraft.util.math.MathHelper;
 
 public class MannequinModel <T extends MannequinEntity> extends EntityModel<T> {
-	private final ModelRenderer Head;
+	/*private final ModelRenderer Head;
 	private final ModelRenderer Body;
 	private final ModelRenderer RightArm;
 	private final ModelRenderer LeftArm;
 	private final ModelRenderer RightLeg;
 	private final ModelRenderer LeftLeg;
-	private T entit;
+	private T entit;*/
 
 	public MannequinModel() {
-		texWidth = 64;
+		/*texWidth = 64;
 		texHeight = 64;
 
 		Head = new ModelRenderer(this);
@@ -46,12 +46,12 @@ public class MannequinModel <T extends MannequinEntity> extends EntityModel<T> {
 
 		LeftLeg = new ModelRenderer(this);
 		LeftLeg.setPos(0.0F, 24.0F, 0.0F);
-		LeftLeg.texOffs(14, 32).addBox(-0.1F, -12.0F, -2.0F, 4.0F, 5.0F, 4.0F, 0.0F, false);
+		LeftLeg.texOffs(14, 32).addBox(-0.1F, -12.0F, -2.0F, 4.0F, 5.0F, 4.0F, 0.0F, false);*/
 	}
 	
 	@Override
     public void setupAnim(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float HeadPitch) {
-        float factor = (float)Math.sin(ageInTicks*2f);
+        /*float factor = (float)Math.sin(ageInTicks*2f);
         float speed = 0.1f;
         this.Body.xRot = MathHelper.cos(limbSwing * 0.5662F*speed + (float)Math.PI) * 0.4F*factor * limbSwingAmount;
         this.Body.zRot = MathHelper.sin(limbSwing * 0.2262F*speed + (float)Math.PI) * 0.1F*factor * limbSwingAmount;
@@ -64,19 +64,19 @@ public class MannequinModel <T extends MannequinEntity> extends EntityModel<T> {
         this.LeftLeg.xRot = MathHelper.cos(limbSwing * 0.5662F*speed + (float)Math.PI) * 0.4F*factor * limbSwingAmount;
         this.LeftLeg.zRot = MathHelper.sin(limbSwing * 0.2262F*speed + (float)Math.PI) * 0.1F*factor * limbSwingAmount;
         this.RightLeg.xRot = MathHelper.cos(limbSwing * 0.5662F*speed + (float)Math.PI) * 0.4F*factor * limbSwingAmount;
-        this.RightLeg.zRot = MathHelper.sin(limbSwing * 0.2262F*speed + (float)Math.PI) * 0.1F*factor * limbSwingAmount;
+        this.RightLeg.zRot = MathHelper.sin(limbSwing * 0.2262F*speed + (float)Math.PI) * 0.1F*factor * limbSwingAmount;*/
     }
 
 	@Override
-	public void renderToBuffer(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha){
-		Head.render(matrixStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+	public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+		/*Head.render(matrixStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
 		Body.render(matrixStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
 		RightArm.render(matrixStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
 		LeftArm.render(matrixStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
 		RightLeg.render(matrixStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
-		LeftLeg.render(matrixStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+		LeftLeg.render(matrixStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);*/
 	}
-		public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z) {
+		public void setRotationAngle(ModelPart modelRenderer, float x, float y, float z) {
 		modelRenderer.xRot = x;
 		modelRenderer.yRot = y;
 		modelRenderer.zRot = z;

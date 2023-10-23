@@ -46,9 +46,8 @@ public class RenderUtils {
                     .setLightmapState(new RenderStateShard.LightmapStateShard(false))
                     .setTransparencyState(ADDITIVE_TRANSPARENCY)
                     .setTextureState(new RenderStateShard.TextureStateShard(TextureAtlas.LOCATION_PARTICLES, false, false))
-                    .setShaderState(new RenderStateShard.ShaderStateShard(WizardsRebornClient::getGlowingParticleShader))
+                    .setShaderState(new RenderStateShard.ShaderStateShard(DarkRPG.RegistryEvents::getGlowingParticleShader))
                     .createCompositeState(false));
-    );
 
     public static RenderType DELAYED_PARTICLE = RenderType.create(
             DarkRPG.MOD_ID + ":delayed_particle",
@@ -58,7 +57,7 @@ public class RenderUtils {
                     .setWriteMaskState(new RenderStateShard.WriteMaskStateShard(true, false))
                     .setTransparencyState(NORMAL_TRANSPARENCY)
                     .setTextureState(new RenderStateShard.TextureStateShard(TextureAtlas.LOCATION_PARTICLES, false, false))
-                    .setShaderState(new RenderStateShard.ShaderStateShard(WizardsRebornClient::getSpriteParticleShader))
+                    .setShaderState(new RenderStateShard.ShaderStateShard(DarkRPG.RegistryEvents::getSpriteParticleShader))
                     .createCompositeState(false));
 
 

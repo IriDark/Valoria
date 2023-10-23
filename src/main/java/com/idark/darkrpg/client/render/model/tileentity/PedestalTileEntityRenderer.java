@@ -1,24 +1,22 @@
 package com.idark.darkrpg.client.render.model.tileentity;
 
 import com.idark.darkrpg.client.event.ClientTickHandler;
+import com.idark.darkrpg.tileentity.CrusherTileEntity;
 import com.idark.darkrpg.tileentity.PedestalTileEntity;
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.model.ItemCameraTransforms;
-import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
-import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.vector.Vector3f;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.world.item.ItemStack;
 
-public class PedestalTileEntityRenderer extends TileEntityRenderer<PedestalTileEntity> {
+public class PedestalTileEntityRenderer implements BlockEntityRenderer<PedestalTileEntity> {
 
-    public PedestalTileEntityRenderer(TileEntityRendererDispatcher manager) {
-        super(manager);
-    }
+    public PedestalTileEntityRenderer() {}
 
     @Override
-    public void render(PedestalTileEntity pedestal, float partialTicks, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
+    public void render(PedestalTileEntity pedestal, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 
         double ticks = (ClientTickHandler.ticksInGame + partialTicks) * 2;
         double ticksUp = (ClientTickHandler.ticksInGame + partialTicks) * 4;
@@ -27,10 +25,10 @@ public class PedestalTileEntityRenderer extends TileEntityRenderer<PedestalTileE
         ms.pushPose();
         ms.translate(0.5F, 1.1875F, 0.5F);
         ms.translate(0F, (float) (Math.sin(Math.toRadians(ticksUp)) * 0.03125F), 0F);
-        ms.mulPose(Vector3f.YP.rotationDegrees((float) ticks));
+        ms.mulPose(Axis.YP.rotationDegrees((float) ticks));
         ms.scale(0.5F, 0.5F, 0.5F);
         ItemStack stack = pedestal.getItemHandler().getItem(0);
-		Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemCameraTransforms.TransformType.FIXED, light, overlay, ms, buffers);
+		Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.FIXED, light, overlay, ms, buffers, pedestal.getLevel(), 0);
         ms.popPose();
     }
 }

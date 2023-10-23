@@ -1,20 +1,19 @@
 package com.idark.darkrpg.entity.model;
 
 import com.idark.darkrpg.DarkRPG;
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.minecraft.client.model.Model;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.model.Model;
-import net.minecraft.client.renderer.model.ModelRenderer;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 
 public class KunaiModel extends Model {
-	public static final ResourceLocation TEXTURE_LOCATION = new ResourceLocation(DarkRPG.MOD_ID, "textures/entity/kunai.png");	
-	private final ModelRenderer modelRenderer = new ModelRenderer(32, 32, 10, 11);
+	public static final ResourceLocation TEXTURE_LOCATION = new ResourceLocation(DarkRPG.MOD_ID, "textures/entity/kunai.png");
+	//private final ModelRenderer modelRenderer = new ModelRenderer(32, 32, 10, 11);
 
 	public KunaiModel() {
 		super(RenderType::entitySolid);
-		this.modelRenderer.addBox(4.0F, -7.5F, 0.0F, 3.0F, 3.0F, 1.0F, -0.0003F, false);
+		/*this.modelRenderer.addBox(4.0F, -7.5F, 0.0F, 3.0F, 3.0F, 1.0F, -0.0003F, false);
 		ModelRenderer bone = new ModelRenderer(32, 32, 0, 6);
 		bone.addBox(-4.0F, 0.5F, 0.0F, 3.0F, 3.0F, 1.0F, 0.0F, false);
 		this.modelRenderer.addChild(bone);
@@ -29,10 +28,10 @@ public class KunaiModel extends Model {
 		this.modelRenderer.addChild(bone3);			
 		ModelRenderer bone4 = new ModelRenderer(32, 32, 0, 0);			
 		bone4.addBox(1.0F, -6.5F, 0.0F, 5.0F, 5.0F, 1.0F, -0.0005F, false);
-		this.modelRenderer.addChild(bone4);			
+		this.modelRenderer.addChild(bone4);		*/
 	}
 
-	public void renderToBuffer(MatrixStack matrixStackIn, IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
-		modelRenderer.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+	public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+		//modelRenderer.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
 	}
 }

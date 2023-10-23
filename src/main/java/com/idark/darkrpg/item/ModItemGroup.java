@@ -17,12 +17,12 @@ public abstract class ModItemGroup {
 	public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
 			DeferredRegister.create(Registries.CREATIVE_MODE_TAB, DarkRPG.MOD_ID);
 
-	public static final RegistryObject<CreativeModeTab> DARKRPG_GROUP = CREATIVE_MODE_TABS.register("DarkRPGModTab",
+	public static final RegistryObject<CreativeModeTab> DARKRPG_GROUP = CREATIVE_MODE_TABS.register("darkrpgmodtab",
 			() -> CreativeModeTab.builder().icon(() -> new ItemStack(ModItems.NATURE_PICKAXE.get()))
 					.title(Component.translatable("itemGroup.DarkRPGModTab"))
 					.backgroundSuffix("darkrpg_item_search.png").withBackgroundLocation(getTabsImage()).build());
 
-	public static final RegistryObject<CreativeModeTab> DARKRPG_BLOCKS_GROUP = CREATIVE_MODE_TABS.register("DarkRPGBlocksModTab",
+	public static final RegistryObject<CreativeModeTab> DARKRPG_BLOCKS_GROUP = CREATIVE_MODE_TABS.register("darkrpgblocksmodtab",
 			() -> CreativeModeTab.builder().icon(() -> new ItemStack(ModItems.VOID_STONE.get()))
 					.title(Component.translatable("itemGroup.DarkRPGBlocksModTab"))
 					.backgroundSuffix("darkrpg_item_search.png").withBackgroundLocation(getTabsImage()).build());

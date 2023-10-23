@@ -1,23 +1,22 @@
 package com.idark.darkrpg.entity.model;
 
 import com.idark.darkrpg.entity.custom.SwampWandererEntity;
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
-import net.minecraft.client.renderer.entity.model.EntityModel;
-import net.minecraft.client.renderer.model.ModelRenderer;
-import net.minecraft.util.math.MathHelper;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.model.geom.ModelPart;
 
 public class SwampWandererModel <T extends SwampWandererEntity> extends EntityModel<T> {
-	private final ModelRenderer Head;
+	/*private final ModelRenderer Head;
 	private final ModelRenderer Body;
 	private final ModelRenderer RightArm;
 	private final ModelRenderer LeftArm;
 	private final ModelRenderer RightLeg;
 	private final ModelRenderer LeftLeg;
-	private T entit;
+	private T entit;*/
 
 	public SwampWandererModel() {
-		texWidth = 64;
+		/*texWidth = 64;
 		texHeight = 64;
 
 		Head = new ModelRenderer(this);
@@ -50,29 +49,28 @@ public class SwampWandererModel <T extends SwampWandererEntity> extends EntityMo
 		LeftLeg = new ModelRenderer(this);
 		LeftLeg.setPos(1.9F, 12.0F, 0.0F);
 		LeftLeg.texOffs(16, 48).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, 0.0F, false);
-		LeftLeg.texOffs(0, 48).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, 0.25F, false);
+		LeftLeg.texOffs(0, 48).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, 0.25F, false);*/
 	}
 	
 	@Override
-    public void setupAnim(T entityIn, float limbSwing, float limbSwingAmount,
-                                  float ageInTicks, float netHeadYaw, float HeadPitch) {
-        this.Head.xRot = HeadPitch * ((float)Math.PI / 180F);
+	public void setupAnim(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float HeadPitch) {
+        /*this.Head.xRot = HeadPitch * ((float)Math.PI / 180F);
         this.Head.yRot = netHeadYaw * ((float)Math.PI / 180F);
         this.RightLeg.xRot = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
-        this.LeftLeg.xRot = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+        this.LeftLeg.xRot = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;*/
     }
 								  
 	@Override
-	public void renderToBuffer(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha){
-		Head.render(matrixStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+	public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha){
+		/*Head.render(matrixStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
 		Body.render(matrixStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
 		RightArm.render(matrixStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
 		LeftArm.render(matrixStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
 		RightLeg.render(matrixStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
-		LeftLeg.render(matrixStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+		LeftLeg.render(matrixStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);*/
 	}
 
-	public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z) {
+	public void setRotationAngle(ModelPart modelRenderer, float x, float y, float z) {
 		modelRenderer.xRot = x;
 		modelRenderer.yRot = y;
 		modelRenderer.zRot = z;

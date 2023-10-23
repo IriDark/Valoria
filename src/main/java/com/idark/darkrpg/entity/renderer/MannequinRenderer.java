@@ -3,16 +3,15 @@ package com.idark.darkrpg.entity.renderer;
 import com.idark.darkrpg.DarkRPG;
 import com.idark.darkrpg.entity.custom.MannequinEntity;
 import com.idark.darkrpg.entity.model.MannequinModel;
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.vector.Matrix4f;
-import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
+import org.joml.Matrix4f;
 
 import java.awt.*;
 import java.text.DecimalFormat;
@@ -24,24 +23,24 @@ public class MannequinRenderer extends MobRenderer<MannequinEntity, MannequinMod
     protected static final ResourceLocation TEXTURE = new ResourceLocation(DarkRPG.MOD_ID, "textures/entity/mannequin.png");
     private static final DecimalFormat FORMAT = new DecimalFormat("###.##",new DecimalFormatSymbols(Locale.ENGLISH));
 
-    public MannequinRenderer(EntityRendererManager renderManagerIn) {
-        super(renderManagerIn,new MannequinModel<>(),0.7F);
+    public MannequinRenderer(EntityRendererProvider.Context context) {
+        super(context, new MannequinModel<>(),0.7F);
     }
 
     @Override
-    public void render(MannequinEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
-        super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
+    public void render(MannequinEntity entityIn, float entityYaw, float partialTicks, PoseStack stack, MultiBufferSource bufferIn, int packedLightIn) {
+        super.render(entityIn, entityYaw, partialTicks, stack, bufferIn, packedLightIn);
         float lastDamage =entityIn.getLastDamage();
         if (lastDamage > 0f) {
-            renderText(entityIn, FORMAT.format(lastDamage), matrixStackIn, bufferIn, packedLightIn, Color.RED);
+            renderText(entityIn, FORMAT.format(lastDamage), stack, bufferIn, packedLightIn, Color.RED);
         }
     }
 
-    protected void renderText(MannequinEntity entityIn, String text, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn,Color textColor) {
+    protected void renderText(MannequinEntity entityIn, String text, PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn,Color textColor) {
         if (entityIn.hurtTime > 0) {
             float partialTicks = Minecraft.getInstance().getFrameTime();
-            StringTextComponent stringTextComponent = new StringTextComponent(text);
-            entityIn.lastDamageOffset = MathHelper.lerp(partialTicks,entityIn.lastDamageOffsetPrev,(float) Math.abs(Math.sin(((float)entityIn.hurtTime)/4f)));
+            Component stringTextComponent = Component.literal(text);
+            entityIn.lastDamageOffset = Mth.lerp(partialTicks,entityIn.lastDamageOffsetPrev,(float) Math.abs(Math.sin(((float)entityIn.hurtTime)/4f)));
             entityIn.lastDamageOffsetPrev = entityIn.lastDamageOffset;
             float alpha = entityIn.lastDamageOffset;
             matrixStackIn.pushPose();
@@ -49,10 +48,10 @@ public class MannequinRenderer extends MobRenderer<MannequinEntity, MannequinMod
             matrixStackIn.mulPose(this.entityRenderDispatcher.cameraOrientation());
             matrixStackIn.scale(-entityIn.lastDamageOffset/20f, -entityIn.lastDamageOffset/20f, entityIn.lastDamageOffset/20f);
             Matrix4f matrix4f = matrixStackIn.last().pose();
-            FontRenderer fontrenderer = this.getFont();
+            /*FontR fontrenderer = this.getFont();
             Color color = new Color(textColor.getRed()/255f,textColor.getGreen()/255f,textColor.getBlue()/255f,alpha);
             fontrenderer.drawInBatch(stringTextComponent, (float)(-fontrenderer.width(stringTextComponent) / 2), entityIn.lastDamageOffset, color.getRGB(), false, matrix4f, bufferIn, false, 0, packedLightIn);
-            matrixStackIn.popPose();
+            matrixStackIn.popPose();*/
         }
     }
 

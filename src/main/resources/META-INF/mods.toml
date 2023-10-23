@@ -40,10 +40,10 @@ Some sounds taken from the CalamityMod (Terraria) in a https://calamitymod.fando
     [[dependencies.darkrpg]]
 		modId = "minecraft"
 		mandatory = true
-		versionRange = "[1.16.5,1.17)"
+		versionRange = "[1.20.1,1.21)"
 		ordering = "NONE"
 		side = "BOTH"
     [[dependencies.darkrpg]]
 		modId="curios"
 		mandatory=true
-		versionRange="[1.16.5-4.0.8.2,)"
+		versionRange="[5.2.0-beta.3+1.20.1,)"

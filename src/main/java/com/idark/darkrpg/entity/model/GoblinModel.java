@@ -1,25 +1,38 @@
 package com.idark.darkrpg.entity.model;
 
 import com.idark.darkrpg.entity.custom.GoblinEntity;
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
-import net.minecraft.client.renderer.entity.model.EntityModel;
-import net.minecraft.client.renderer.model.ModelRenderer;
-import net.minecraft.util.math.MathHelper;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.PartPose;
+import net.minecraft.client.model.geom.builders.CubeDeformation;
+import net.minecraft.client.model.geom.builders.CubeListBuilder;
+import net.minecraft.client.model.geom.builders.MeshDefinition;
+import net.minecraft.client.model.geom.builders.PartDefinition;
 
 public class GoblinModel <T extends GoblinEntity> extends EntityModel<T> {
-	private final ModelRenderer Head;
-	private final ModelRenderer LeftEar;
-	private final ModelRenderer RightEar;
-	private final ModelRenderer Body;
-	private final ModelRenderer LeftArm;
-	private final ModelRenderer RightArm;
-	private final ModelRenderer LeftLeg;
-	private final ModelRenderer RightLeg;
-	private T entit;
+	/*private final ModelPart Head;
+	private final ModelPart LeftEar;
+	private final ModelPart RightEar;
+	private final ModelPart Body;
+	private final ModelPart LeftArm;
+	private final ModelPart RightArm;
+	private final ModelPart LeftLeg;
+	private final ModelPart RightLeg;*/
 
 	public GoblinModel() {
-		texWidth = 64;
+		//MeshDefinition mesh = HumanoidModel.createMesh(new CubeDeformation(0), 1);
+		//PartDefinition root = mesh.getRoot();
+		//this.Head = root.addOrReplaceChild("body", new CubeListBuilder(), PartPose.ZERO);
+		//PartDefinition Head = root.addOrReplaceChild("body", new CubeListBuilder(), PartPose.ZERO);
+		//PartDefinition Head = root.addOrReplaceChild("body", new CubeListBuilder(), PartPose.ZERO);
+		//PartDefinition Head = root.addOrReplaceChild("body", new CubeListBuilder(), PartPose.ZERO);
+		//PartDefinition Head = root.addOrReplaceChild("body", new CubeListBuilder(), PartPose.ZERO);
+		//PartDefinition Head = root.addOrReplaceChild("body", new CubeListBuilder(), PartPose.ZERO);
+
+		/*texWidth = 64;
 		texHeight = 64;
 
 		Head = new ModelRenderer(this);
@@ -58,29 +71,28 @@ public class GoblinModel <T extends GoblinEntity> extends EntityModel<T> {
 
 		RightLeg = new ModelRenderer(this);
 		RightLeg.setPos(-2.0F, 18.0F, 0.0F);
-		RightLeg.texOffs(24, 25).addBox(-1.5F, 0.0F, -1.5F, 3.0F, 6.0F, 3.0F, 0.0F, false);
+		RightLeg.texOffs(24, 25).addBox(-1.5F, 0.0F, -1.5F, 3.0F, 6.0F, 3.0F, 0.0F, false);*/
 	}
 	
 	@Override
-    public void setupAnim(T entityIn, float limbSwing, float limbSwingAmount,
-                                  float ageInTicks, float netHeadYaw, float HeadPitch) {
-        this.Head.xRot = HeadPitch * ((float)Math.PI / 180F);
+    public void setupAnim(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float HeadPitch) {
+        /*this.Head.xRot = HeadPitch * ((float)Math.PI / 180F);
         this.Head.yRot = netHeadYaw * ((float)Math.PI / 180F);
-        this.LeftLeg.xRot = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
-        this.RightLeg.xRot = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+        this.LeftLeg.xRot = (float) (Math.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount);
+        this.RightLeg.xRot = (float) (Math.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount);*/
     }
 	
 	@Override
-	public void renderToBuffer(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha){
-		Head.render(matrixStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
-		Body.render(matrixStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
-		LeftArm.render(matrixStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
-		RightArm.render(matrixStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
-		LeftLeg.render(matrixStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
-		RightLeg.render(matrixStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+	public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+		/*Head.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+		Body.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+		LeftArm.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+		RightArm.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+		LeftLeg.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+		RightLeg.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);*/
 	}
 
-	public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z) {
+	public void setRotationAngle(ModelPart modelRenderer, float x, float y, float z) {
 		modelRenderer.xRot = x;
 		modelRenderer.yRot = y;
 		modelRenderer.zRot = z;

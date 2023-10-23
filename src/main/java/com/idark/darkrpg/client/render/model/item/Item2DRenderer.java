@@ -1,22 +1,26 @@
 package com.idark.darkrpg.client.render.model.item;
 
 import com.idark.darkrpg.DarkRPG;
-import com.mojang.blaze3d.matrix.MatrixStack;
-import net.minecraft.block.BlockState;
-import net.minecraft.client.renderer.model.*;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.renderer.block.model.BakedQuad;
+import net.minecraft.client.renderer.block.model.ItemOverrides;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.ForgeHooksClient;
-import net.minecraftforge.client.event.ModelBakeEvent;
+import net.minecraftforge.client.event.ModelEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 @OnlyIn(Dist.CLIENT)
 public class Item2DRenderer {
@@ -27,18 +31,18 @@ public class Item2DRenderer {
             "blaze_reap", "murasama", "phantom"};
 
     @SubscribeEvent
-    public static void onModelBakeEvent(ModelBakeEvent event) {
-        Map<ResourceLocation, IBakedModel> map = event.getModelRegistry();
+    public static void onModelBakeEvent(ModelEvent.ModifyBakingResult event) {
+        Map<ResourceLocation, BakedModel> map = event.getModels();
         for (String item : HAND_MODEL_ITEMS) {
-            ResourceLocation modelInventory = new ModelResourceLocation(DarkRPG.MOD_ID+":" + item, "inventory");
-            ResourceLocation modelHand = new ModelResourceLocation(DarkRPG.MOD_ID+":" + item + "_in_hand", "inventory");
+            ResourceLocation modelInventory = new ModelResourceLocation(new ResourceLocation(DarkRPG.MOD_ID, item), "inventory");
+            ResourceLocation modelHand = new ModelResourceLocation(new ResourceLocation(DarkRPG.MOD_ID, item + "_in_hand"), "inventory");
 
-            IBakedModel bakedModelDefault = map.get(modelInventory);
-            IBakedModel bakedModelHand = map.get(modelHand);
-            IBakedModel modelWrapper = new IBakedModel() {
+            BakedModel bakedModelDefault = map.get(modelInventory);
+            BakedModel bakedModelHand = map.get(modelHand);
+            BakedModel modelWrapper = new BakedModel() {
                 @Override
-                public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, Random rand) {
-                    return bakedModelDefault.getQuads(state, side, rand);
+                public List<BakedQuad> getQuads(@Nullable BlockState pState, @Nullable Direction pDirection, RandomSource pRandom) {
+                    return bakedModelDefault.getQuads(pState, pDirection, pRandom);
                 }
 
                 @Override
@@ -67,18 +71,17 @@ public class Item2DRenderer {
                 }
 
                 @Override
-                public ItemOverrideList getOverrides() {
+                public ItemOverrides getOverrides() {
                     return bakedModelDefault.getOverrides();
                 }
 
                 @Override
-                public IBakedModel handlePerspective(ItemCameraTransforms.TransformType cameraTransformType, MatrixStack mat) {
-                    IBakedModel modelToUse = bakedModelDefault;
-                    if (cameraTransformType == ItemCameraTransforms.TransformType.FIRST_PERSON_LEFT_HAND || cameraTransformType == ItemCameraTransforms.TransformType.FIRST_PERSON_RIGHT_HAND
-                            || cameraTransformType == ItemCameraTransforms.TransformType.THIRD_PERSON_LEFT_HAND || cameraTransformType == ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND) {
+                public BakedModel applyTransform(ItemDisplayContext transformType, PoseStack poseStack, boolean applyLeftHandTransform) {
+                    BakedModel modelToUse = bakedModelDefault;
+                    if (transformType != ItemDisplayContext.GUI && transformType != ItemDisplayContext.GROUND  && transformType != ItemDisplayContext.FIXED){
                         modelToUse = bakedModelHand;
                     }
-                    return ForgeHooksClient.handlePerspective(modelToUse, cameraTransformType, mat);
+                    return ForgeHooksClient.handleCameraTransforms(poseStack, modelToUse, transformType, applyLeftHandTransform);
                 }
             };
             map.put(modelInventory, modelWrapper);

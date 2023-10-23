@@ -2,21 +2,14 @@ package com.idark.darkrpg.client.render.gui;
 
 import com.idark.darkrpg.DarkRPG;
 import com.idark.darkrpg.item.types.*;
-import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
+import net.minecraft.resources.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.client.event.RenderTooltipEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-
-import java.util.List;
 
 public class TooltipEventHandler {
 	public static final ResourceLocation TRASH = new ResourceLocation(DarkRPG.MOD_ID, "textures/gui/trash.png");
@@ -31,8 +24,8 @@ public class TooltipEventHandler {
 	public static final ResourceLocation ETERNAL = new ResourceLocation(DarkRPG.MOD_ID, "textures/gui/eternal.png");
 	
 	@SubscribeEvent
-	public static void onPostTooltipEvent(RenderTooltipEvent.PostText event) {
-        ItemStack stack = event.getStack();
+	public static void onPostTooltipEvent(RenderTooltipEvent.Color event) {
+        /*ItemStack stack = event.getStack();
 
         int x = event.getX();
         int y = event.getY();
@@ -63,6 +56,6 @@ public class TooltipEventHandler {
 			}
 		}
 		
-    RenderSystem.disableBlend();		
+    RenderSystem.disableBlend();		*/
 	}
 }
