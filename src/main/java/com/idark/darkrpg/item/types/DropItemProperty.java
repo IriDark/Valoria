@@ -1,26 +1,13 @@
 package com.idark.darkrpg.item.types;
 
-import com.idark.darkrpg.DarkRPG;
-import com.idark.darkrpg.util.LootUtil;
-import com.idark.darkrpg.util.ModSoundRegistry;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.stats.Stats;
-import net.minecraft.util.*;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
 
 import java.util.List;
-
-import net.minecraft.item.Item.Properties;
 
 public class DropItemProperty extends Item {
 	public DropType type;
@@ -34,7 +21,7 @@ public class DropItemProperty extends Item {
 		return this.type;
 	}
 
-	@Override
+	/*@Override
 	public ActionResult<ItemStack> use(World worldIn, PlayerEntity player, Hand hand) {
 		ItemStack heldStack = player.getItemInHand(hand);
 		worldIn.playSound(player, player.blockPosition(), ModSoundRegistry.BAG_OPEN.get(), SoundCategory.AMBIENT, 10f, 1f);
@@ -61,13 +48,13 @@ public class DropItemProperty extends Item {
 		}
 
 	return new ActionResult<>(ActionResultType.CONSUME, heldStack);
-	}
+	}*/
  
 	@Override
-    public void appendHoverText(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flags) {
-        super.appendHoverText(stack, world, tooltip, flags);
-        tooltip.add(1, new TranslationTextComponent("tooltip.darkrpg.treasure").withStyle(TextFormatting.GRAY));
-        tooltip.add(2, new StringTextComponent("                "));
-		tooltip.add(3, new TranslationTextComponent("tooltip.darkrpg.rmb").withStyle(TextFormatting.GREEN));
+	public void appendHoverText(ItemStack stack, Level world, List<Component> list, TooltipFlag flags) {
+        super.appendHoverText(stack, world, list, flags);
+		list.add(1, Component.translatable("tooltip.darkrpg.treasure").withStyle(ChatFormatting.GRAY));
+		list.add(2, Component.empty());
+		list.add(3,  Component.translatable("tooltip.darkrpg.rmb").withStyle(ChatFormatting.GREEN));
 	}
 }

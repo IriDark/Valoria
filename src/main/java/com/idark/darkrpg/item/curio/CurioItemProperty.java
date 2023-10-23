@@ -3,27 +3,24 @@ package com.idark.darkrpg.item.curio;
 import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.Multimap;
 import com.idark.darkrpg.DarkRPG;
-import com.idark.darkrpg.client.render.curio.model.*;
-import com.idark.darkrpg.item.curio.*;
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.ItemRenderer;
-import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.attributes.*;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.*;
-import net.minecraft.potion.*;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.common.ForgeMod;
-import top.theillusivec4.curios.api.*;
+import top.theillusivec4.curios.api.CuriosApi;
+import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.type.capability.ICurio;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
@@ -165,15 +162,15 @@ public class CurioItemProperty extends Item implements ICurioItem {
 		
     @Override
     public void curioTick(String identifier, int index, LivingEntity livingEntity, ItemStack stack) {
-        PlayerEntity player = (PlayerEntity) livingEntity;
+        Player player = (Player) livingEntity;
 		/*
  		 Receiving gem type and then giving player effect`s
  		*/
 		if(gem == AccessoryGem.AMBER) {
-			if(!player.level.isClientSide()) {
-				boolean hasPlayerEffect = !Objects.equals(player.getEffect(Effects.DIG_SPEED), null);
+			if(!player.level().isClientSide()) {
+				boolean hasPlayerEffect = !Objects.equals(player.getEffect(MobEffects.DIG_SPEED), null);
             if(!hasPlayerEffect) {
-                player.addEffect(new EffectInstance(Effects.DIG_SPEED, 200));
+                player.addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, 200));
 				}
             }
 		}
@@ -181,7 +178,7 @@ public class CurioItemProperty extends Item implements ICurioItem {
         ICurioItem.super.curioTick(identifier, index, livingEntity, stack);
     }
 	
-	@Override
+	/*@Override
     public boolean canRender(String identifier, int index, LivingEntity livingEntity, ItemStack stack) {
         return true;
     }
@@ -195,7 +192,7 @@ public class CurioItemProperty extends Item implements ICurioItem {
 
 		/*
 		  	Receiving model properties
- 		 */
+ 		 */ /*
 		switch(material) {
 			case LEATHER:
 			if (type == AccessoryType.GLOVES) {
@@ -318,19 +315,19 @@ public class CurioItemProperty extends Item implements ICurioItem {
 				model.renderToBuffer(matrixStack, vertexBuilder, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
 				break;
 		}
-	}
+	}*/
 	
 	@Override
-	public void appendHoverText(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flags) {
+	public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags) {
 		super.appendHoverText(stack, world, tooltip, flags);	
 		if (gem == AccessoryGem.AMBER) {	
-			tooltip.add(new TranslationTextComponent("tooltip.darkrpg.amber").withStyle(TextFormatting.GRAY));
+			tooltip.add(Component.translatable("tooltip.darkrpg.amber").withStyle(ChatFormatting.GRAY));
 		} else if (material == AccessoryMaterial.GOLD) {
-			tooltip.add(new TranslationTextComponent("tooltip.darkrpg.golden").withStyle(TextFormatting.GRAY));
+			tooltip.add(Component.translatable("tooltip.darkrpg.golden").withStyle(ChatFormatting.GRAY));
 		} else if (type == AccessoryType.BELT) {
-			tooltip.add(new TranslationTextComponent("tooltip.darkrpg.belt").withStyle(TextFormatting.GRAY));
+			tooltip.add(Component.translatable("tooltip.darkrpg.belt").withStyle(ChatFormatting.GRAY));
 		}
 		
-		tooltip.add(new TranslationTextComponent("tooltip.darkrpg.rmb_equip").withStyle(TextFormatting.GREEN));
+		tooltip.add(Component.translatable("tooltip.darkrpg.rmb_equip").withStyle(ChatFormatting.GREEN));
 	}
 }

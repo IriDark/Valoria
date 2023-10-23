@@ -2,21 +2,22 @@ package com.idark.darkrpg.item.types;
 
 import com.idark.darkrpg.block.*;
 import com.idark.darkrpg.util.particle.*;
-import net.minecraft.block.*;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.*;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.*;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.RotatedPillarBlock;
+import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.Random;
-
-import net.minecraft.item.Item.Properties;
 
 public class TransformShardItem extends Item {
     Random rand = new Random();
@@ -32,26 +33,26 @@ public class TransformShardItem extends Item {
 	}
 
     @Override
-    public ActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
-        return new ActionResult<ItemStack>(ActionResultType.SUCCESS, stack);
+        return InteractionResultHolder.success(stack);
     }
 
 	@Override
-    public ActionResultType onItemUseFirst(ItemStack stack, ItemUseContext context) {
-        World worldIn = context.getLevel();		
+	public InteractionResult onItemUseFirst(ItemStack stack, UseOnContext context) {
+        Level worldIn = context.getLevel();
         BlockState state = worldIn.getBlockState(context.getClickedPos());
         BlockPos pos = context.getClickedPos();
-        PlayerEntity player = context.getPlayer();
+        Player player = context.getPlayer();
 
         rightClickOnCertainBlockState(stack, player, worldIn, state, pos);		
         return super.onItemUseFirst(stack, context);		
 	}
 
-    private void rightClickOnCertainBlockState(ItemStack stack, PlayerEntity player, World worldIn, BlockState state, BlockPos pos) {
+    private void rightClickOnCertainBlockState(ItemStack stack, Player player, Level worldIn, BlockState state, BlockPos pos) {
         if (state.is(ModBlocks.VOID_PILLAR.get())) {
-			worldIn.playSound(player, player.blockPosition(), SoundEvents.RESPAWN_ANCHOR_AMBIENT, SoundCategory.BLOCKS, 10f, 1f);
-			worldIn.playSound(player, player.blockPosition(), SoundEvents.RESPAWN_ANCHOR_CHARGE, SoundCategory.BLOCKS, 1.0F, 1.0F);
+			worldIn.playSound(player, player.blockPosition(), SoundEvents.RESPAWN_ANCHOR_AMBIENT, SoundSource.BLOCKS, 10f, 1f);
+			worldIn.playSound(player, player.blockPosition(), SoundEvents.RESPAWN_ANCHOR_CHARGE, SoundSource.BLOCKS, 1.0F, 1.0F);
 			if (!player.isCreative()) {
 				stack.shrink(1);
 			}
@@ -69,7 +70,7 @@ public class TransformShardItem extends Item {
 				.spawn(worldIn, pos.getX() + (rand.nextDouble() * 1.25), pos.getY() + 0.5F + ((rand.nextDouble() - 0.5D) * 1.25), pos.getZ() + 0.5F + ((rand.nextDouble() - 0.5D) * 1.25));
 			}
 
-			worldIn.setBlockAndUpdate(pos, ModBlocks.VOID_PILLAR_AMETHYST.get().defaultBlockState().setValue(RotatedPillarBlock.AXIS, state.getValue(RotatedPillarBlock.AXIS)));		
+			worldIn.setBlockAndUpdate(pos, ModBlocks.VOID_PILLAR_AMETHYST.get().defaultBlockState().setValue(RotatedPillarBlock.AXIS, state.getValue(RotatedPillarBlock.AXIS)));
 			break;
 		case SOUL:	
 			for (int i = 0;i<10;i++) {

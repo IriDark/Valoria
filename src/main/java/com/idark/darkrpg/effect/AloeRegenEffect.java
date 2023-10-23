@@ -1,13 +1,13 @@
 package com.idark.darkrpg.effect;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.potion.Effect;
-import net.minecraft.potion.EffectType;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.entity.LivingEntity;
 
-public class AloeRegenEffect extends Effect {
+public class AloeRegenEffect extends MobEffect {
 	
     public AloeRegenEffect() {
-        super(EffectType.BENEFICIAL, 0x6CCE31);
+        super(MobEffectCategory.BENEFICIAL, 0x6CCE31);
     }
 	
 	@Override

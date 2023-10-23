@@ -1,17 +1,13 @@
 package com.idark.darkrpg.item.curio.charm;
 
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
 
 import java.util.List;
-
-
-import net.minecraft.item.Item.Properties;
 
 public class CurioRune extends Item {
 
@@ -20,8 +16,8 @@ public class CurioRune extends Item {
 	}
 	
 	@Override
-	public void appendHoverText(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flags) {
-	super.appendHoverText(stack, world, tooltip, flags);
-	tooltip.add(new TranslationTextComponent("tooltip.darkrpg.rune").withStyle(TextFormatting.GRAY));
+	public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags) {
+		super.appendHoverText(stack, world, tooltip, flags);
+		tooltip.add(Component.translatable("tooltip.darkrpg.rune").withStyle(ChatFormatting.GRAY));
 	}
 }

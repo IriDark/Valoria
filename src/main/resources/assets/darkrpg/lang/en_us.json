@@ -539,5 +539,6 @@
  	"block.darkrpg.void_chiseled_brick_stairs": "Chiseled Void Brick Stairs",
  	"block.darkrpg.void_chiseled_brick_slab": "Chiseled Void Brick Slab",
  	"block.darkrpg.void_chiseled_bricks_stairs": "Chiseled Void Bricks Stairs",
- 	"block.darkrpg.void_chiseled_bricks_slab": "Chiseled Void Bricks Slab"
+ 	"block.darkrpg.void_chiseled_bricks_slab": "Chiseled Void Bricks Slab",
+	"tooltip.darkrpg.strength": ""
 }

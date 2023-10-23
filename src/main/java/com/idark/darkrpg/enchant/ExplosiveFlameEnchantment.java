@@ -1,16 +1,16 @@
 package com.idark.darkrpg.enchant;
 
 import com.idark.darkrpg.item.types.*;
-import net.minecraft.item.*;
-import net.minecraft.enchantment.*;
-import net.minecraft.inventory.EquipmentSlotType;
-
-import net.minecraft.enchantment.Enchantment.Rarity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.Enchantments;
 
 public class ExplosiveFlameEnchantment extends Enchantment {
 	
     public ExplosiveFlameEnchantment() {
-        super(Rarity.RARE, ModEnchantments.BLAZE, new EquipmentSlotType[] {EquipmentSlotType.MAINHAND});
+        super(Rarity.RARE, ModEnchantments.BLAZE, new EquipmentSlot[] {EquipmentSlot.MAINHAND});
     }
 	
 	public boolean canEnchant(ItemStack stack) {

@@ -1,15 +1,16 @@
 package com.idark.darkrpg.item.curio.charm;
 
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.*;
-import net.minecraft.potion.*;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.SlotTypePreset;
@@ -19,10 +20,10 @@ import top.theillusivec4.curios.api.type.capability.ICurioItem;
 import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Objects;
-
-import net.minecraft.item.Item.Properties;
+import java.util.Random;
 
 public class CurioPyro extends Item implements ICurioItem {
+    private static Random random = new Random();
 
     public CurioPyro(Properties properties) {
         super(properties);
@@ -41,14 +42,14 @@ public class CurioPyro extends Item implements ICurioItem {
 	
     @Override
     public void curioTick(String identifier, int index, LivingEntity livingEntity, ItemStack stack) {
-        PlayerEntity player = (PlayerEntity) livingEntity;
+        Player player = (Player) livingEntity;
 
-        if(!player.level.isClientSide()) {
+        if(!player.level().isClientSide()) {
             boolean hasPlayerFireResistance =
-                    !Objects.equals(player.getEffect(Effects.FIRE_RESISTANCE), null);
+                    !Objects.equals(player.getEffect(MobEffects.FIRE_RESISTANCE), null);
 
             if(!hasPlayerFireResistance) {
-                player.addEffect(new EffectInstance(Effects.FIRE_RESISTANCE, 200));
+                player.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 200));
 
                 if(random.nextFloat() > 0.6f) {
                     stack.hurtAndBreak(1, player, p -> CuriosApi.getCuriosHelper().onBrokenCurio(
@@ -61,8 +62,8 @@ public class CurioPyro extends Item implements ICurioItem {
     }
 	
 	@Override
-	public void appendHoverText(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flags) {
+    public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags) {
 		super.appendHoverText(stack, world, tooltip, flags);
-		tooltip.add(new TranslationTextComponent("tooltip.darkrpg.pyro").withStyle(TextFormatting.GRAY));
+		tooltip.add(Component.translatable("tooltip.darkrpg.pyro").withStyle(ChatFormatting.GRAY));
 	}
 }

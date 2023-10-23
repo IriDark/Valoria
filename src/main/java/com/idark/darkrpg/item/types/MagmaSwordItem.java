@@ -1,43 +1,30 @@
 package com.idark.darkrpg.item.types;
 
-import com.idark.darkrpg.util.ModSoundRegistry;
-import com.idark.darkrpg.math.*;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.Enchantments;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.*;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.stats.Stats;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.*;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.RayTraceContext;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
+import com.idark.darkrpg.math.RandUtils;
+import net.minecraft.ChatFormatting;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.*;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
-import net.minecraft.item.Item.Properties;
 
 @SuppressWarnings("ALL")
 public class MagmaSwordItem extends SwordItem {
 
     Random rand = new Random();
 
-    public MagmaSwordItem(IItemTier tier, int attackDamageIn, float attackSpeedIn, Properties builderIn) {
+    public MagmaSwordItem(Tier tier, int attackDamageIn, float attackSpeedIn, Properties builderIn) {
         super(tier, attackDamageIn, attackSpeedIn, builderIn);
     }
 
@@ -45,18 +32,18 @@ public class MagmaSwordItem extends SwordItem {
         return enchant != Enchantments.FIRE_ASPECT;
     }
 
-    public ActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn) {
+    public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
         ItemStack itemstack = playerIn.getItemInHand(handIn);
         if (itemstack.getDamageValue() >= itemstack.getMaxDamage() - 1) {
-            return ActionResult.fail(itemstack);
+            return InteractionResultHolder.fail(itemstack);
         } else {
             playerIn.startUsingItem(handIn);
-            return ActionResult.consume(itemstack);
+            return InteractionResultHolder.consume(itemstack);
         }
     }
 
-    public UseAction getUseAnimation(ItemStack stack) {
-        return UseAction.NONE;
+    public UseAnim getUseAnimation(ItemStack stack) {
+        return UseAnim.NONE;
     }
 
 	public int getUseDuration(ItemStack stack) {
@@ -66,7 +53,7 @@ public class MagmaSwordItem extends SwordItem {
     /**
      *     Some sounds taken from the CalamityMod (Terraria) in a https://calamitymod.fandom.com/wiki/Category:Sound_effects
       */
-    public void releaseUsing(ItemStack stack, World worldIn, LivingEntity entityLiving, int timeLeft) {
+    /*public void releaseUsing(ItemStack stack, World worldIn, LivingEntity entityLiving, int timeLeft) {
         PlayerEntity player = (PlayerEntity)entityLiving;
         Entity entity = (Entity)entityLiving;			
 		if (isCharged(stack) == 2) {
@@ -115,12 +102,12 @@ public class MagmaSwordItem extends SwordItem {
 			worldIn.playSound(player, player.blockPosition(), ModSoundRegistry.ERUPTION.get(), SoundCategory.AMBIENT, 10f, 1f);	
 			}
 		}
-	}
+	}*/
 
     public static int isCharged(ItemStack stack) {
-        CompoundNBT nbt = stack.getTag();
+        CompoundTag nbt = stack.getTag();
         if (nbt==null) {
-            nbt = new CompoundNBT();
+            nbt = new CompoundTag();
             stack.setTag(nbt);
         }
         if (!nbt.contains("charge")) {
@@ -133,9 +120,9 @@ public class MagmaSwordItem extends SwordItem {
     }
 	
     public static void setCharge(ItemStack stack, int charge) {
-        CompoundNBT nbt = stack.getTag();
+        CompoundTag nbt = stack.getTag();
         if (nbt==null) {
-            nbt = new CompoundNBT();
+            nbt = new CompoundTag();
             stack.setTag(nbt);
         }
         nbt.putInt("charge", charge);
@@ -143,7 +130,7 @@ public class MagmaSwordItem extends SwordItem {
     }
 	
     public static String getModeString(ItemStack stack) {
-        CompoundNBT nbt = stack.getTag();
+        CompoundTag nbt = stack.getTag();
         if (isCharged(stack) == 2) {
             return "tooltip.darkrpg.magma_charge_full";
         } else if (isCharged(stack) == 1) {
@@ -154,17 +141,17 @@ public class MagmaSwordItem extends SwordItem {
 	}
 	
     @Override
-    public void appendHoverText(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flags) {
+    public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags) {
         super.appendHoverText(stack, world, tooltip, flags);
-        tooltip.add(1, new TranslationTextComponent("tooltip.darkrpg.infernal_sword").withStyle(TextFormatting.GRAY));
-        tooltip.add(2, new TranslationTextComponent(getModeString(stack)).withStyle(TextFormatting.YELLOW));
-        tooltip.add(3, new StringTextComponent("                "));
-        tooltip.add(4, new TranslationTextComponent("tooltip.darkrpg.rmb").withStyle(TextFormatting.GREEN));
+        tooltip.add(1, Component.translatable("tooltip.darkrpg.infernal_sword").withStyle(ChatFormatting.GRAY));
+        tooltip.add(2, Component.translatable(getModeString(stack)).withStyle(ChatFormatting.YELLOW));
+        tooltip.add(3, Component.empty());
+        tooltip.add(4, Component.translatable("tooltip.darkrpg.rmb").withStyle(ChatFormatting.GREEN));
 	}	
 
 	public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
 		stack.hurtAndBreak(1, attacker, (entity) -> {
-			entity.broadcastBreakEvent(EquipmentSlotType.MAINHAND);
+			entity.broadcastBreakEvent(EquipmentSlot.MAINHAND);
 		});	
 
 		if (isCharged(stack) < 2) {
@@ -175,9 +162,9 @@ public class MagmaSwordItem extends SwordItem {
 					setCharge(stack, 2);
 				}
 				
-			if (target.level.isClientSide) {
+			if (target.level().isClientSide) {
 				for (int i = 0;i<25;i++) {
-					target.level.addParticle(ParticleTypes.FLAME, target.getX() + rand.nextDouble(), target.getY(), target.getZ() + rand.nextDouble(), 0d, 0.05d, 0d);
+					target.level().addParticle(ParticleTypes.FLAME, target.getX() + rand.nextDouble(), target.getY(), target.getZ() + rand.nextDouble(), 0d, 0.05d, 0d);
 				}
 			}
 		
@@ -188,7 +175,7 @@ public class MagmaSwordItem extends SwordItem {
 	return true;
 	}
 
-    public void hitDirection(World worldIn, PlayerEntity player, List<LivingEntity> hitEntities, Vector3d pos, float pitchRaw, float yawRaw, float distance) {
+    /*public void hitDirection(World worldIn, PlayerEntity player, List<LivingEntity> hitEntities, Vector3d pos, float pitchRaw, float yawRaw, float distance) {
         double pitch = ((pitchRaw + 90) * Math.PI) / 180;
         double yaw = ((yawRaw + 90) * Math.PI) / 180;
 
@@ -221,9 +208,9 @@ public class MagmaSwordItem extends SwordItem {
         Y = Math.cos(locPitch + pitch) * locDistance * 0.75F;
         Z = Math.sin(locPitch + pitch) * Math.sin(locYaw + yaw) * locDistance * 0.75F;
         worldIn.addParticle(ParticleTypes.LAVA, pos.x + X + ((rand.nextDouble() - 0.5D) * 0.2F), pos.y + Y + ((rand.nextDouble() - 0.5D) * 0.2F), pos.z + Z + ((rand.nextDouble() - 0.5D) * 0.2F), 0d, 0d, 0d);
-    }
+    }*/
 
-    public static double distance(Vector3d pos1, Vector3d pos2){
+    public static double distance(Vec3 pos1, Vec3 pos2){
         return Math.sqrt((pos2.x - pos1.x) * (pos2.x - pos1.x) + (pos2.y - pos1.y)*(pos2.y - pos1.y) + (pos2.z - pos1.z)*(pos2.z - pos1.z));
     }
 }

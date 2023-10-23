@@ -1,15 +1,15 @@
 package com.idark.darkrpg.item.staffs;
 
-import com.idark.darkrpg.util.particle.*;
-import net.minecraft.item.*;
-import net.minecraft.util.*;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import com.idark.darkrpg.util.particle.ModParticles;
+import com.idark.darkrpg.util.particle.Particles;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.Level;
 
 import java.util.Random;
-
-import net.minecraft.item.Item.Properties;
-import net.minecraft.world.item.Item;
 
 public class NatureStaff extends Item {
     Random rand = new Random();
@@ -18,8 +18,8 @@ public class NatureStaff extends Item {
 	}
 	
     @Override
-    public ActionResultType onItemUseFirst(ItemStack stack, ItemUseContext context) {
-        World world = context.getLevel();
+    public InteractionResult onItemUseFirst(ItemStack stack, UseOnContext context) {
+        Level world = context.getLevel();
 		BlockPos pos = context.getClickedPos();
         if(world.isClientSide) {
 			for (int i = 0; i < 15; i++) {

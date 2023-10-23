@@ -1,18 +1,19 @@
 package com.idark.darkrpg.item;
 
 import com.idark.darkrpg.DarkRPG;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.IArmorMaterial;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.LazyValue;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.LazyLoadedValue;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.function.Supplier;
 
-	public enum ModArmorMaterial implements IArmorMaterial {
+public enum ModArmorMaterial implements ArmorMaterial {
 		/**
 		 * OTHER
 		 */
@@ -48,61 +49,67 @@ import java.util.function.Supplier;
 	SoundEvents.ARMOR_EQUIP_NETHERITE, 1.0f, 0.0f, () -> {
 	return Ingredient.of(ModItems.ILLUSION_STONE.get());
 	});
-	
-	private static final int[] MAX_DAMAGE_ARRAY = new int[]{13, 15, 16, 11};
+
 	private final String name;
-	private final int maxDamageFactor;
-	private final int[] damageReductionAmountArray;
-	private final int enchantability;
-	private final SoundEvent soundEvent;
+	private final int durabilityMultiplier;
+	private final int[] protectionAmounts;
+	private final int enchantmentValue;
+	private final SoundEvent equipSound;
 	private final float toughness;
 	private final float knockbackResistance;
-	private final LazyValue<Ingredient> repairMaterial;
-	
-	private ModArmorMaterial(String name, int maxDamageFactor, int[] damageReductionAmountArray, int enchantability,
-		SoundEvent soundEvent, float toughness, float knockbackResistance,
-		Supplier<Ingredient> repairMaterial) {
+	private final Supplier<Ingredient> repairIngredient;
+
+	private static final int[] BASE_DURABILITY = { 11, 16, 16, 13 };
+
+	ModArmorMaterial(String name, int durabilityMultiplier, int[] protectionAmounts, int enchantmentValue, SoundEvent equipSound,
+					  float toughness, float knockbackResistance, Supplier<Ingredient> repairIngredient) {
 		this.name = name;
-		this.maxDamageFactor = maxDamageFactor;
-		this.damageReductionAmountArray = damageReductionAmountArray;
-		this.enchantability = enchantability;
-		this.soundEvent = soundEvent;
+		this.durabilityMultiplier = durabilityMultiplier;
+		this.protectionAmounts = protectionAmounts;
+		this.enchantmentValue = enchantmentValue;
+		this.equipSound = equipSound;
 		this.toughness = toughness;
 		this.knockbackResistance = knockbackResistance;
-		this.repairMaterial = new LazyValue<>(repairMaterial);
+		this.repairIngredient = repairIngredient;
 	}
-		
-		
-	public int getDurabilityForSlot(EquipmentSlotType slotIn) {
-	return MAX_DAMAGE_ARRAY[slotIn.getIndex()] * this.maxDamageFactor;
+
+	@Override
+	public int getDurabilityForType(ArmorItem.Type pType) {
+		return BASE_DURABILITY[pType.ordinal()] * this.durabilityMultiplier;
 	}
-		
-	public int getDefenseForSlot(EquipmentSlotType slotIn) {
-	return this.damageReductionAmountArray[slotIn.getIndex()];
+
+	@Override
+	public int getDefenseForType(ArmorItem.Type pType) {
+		return this.protectionAmounts[pType.ordinal()];
 	}
-		
+
+	@Override
 	public int getEnchantmentValue() {
-	return this.enchantability;
+		return enchantmentValue;
 	}
-		
+
+	@Override
 	public SoundEvent getEquipSound() {
-	return this.soundEvent;
+		return this.equipSound;
 	}
-		
+
+	@Override
 	public Ingredient getRepairIngredient() {
-	return this.repairMaterial.get();
+		return this.repairIngredient.get();
 	}
-	
-	@OnlyIn(Dist.CLIENT)
+
+	@Override
 	public String getName() {
-	return DarkRPG.MOD_ID + ":" + this.name;
+		return DarkRPG.MOD_ID + ":" + this.name;
 	}
 
+	@Override
 	public float getToughness() {
-	return this.toughness;
+		return this.toughness;
 	}
 
+	@Override
 	public float getKnockbackResistance() {
-	return this.knockbackResistance;
+		return this.knockbackResistance;
 	}
 }
