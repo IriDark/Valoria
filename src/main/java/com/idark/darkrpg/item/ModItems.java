@@ -204,7 +204,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 	public static final RegistryObject<Item> AMETHYST = ITEMS.register("amethyst", () -> new TransformShardItem(TransformType.WICKED, new Item.Properties()));
     public static final RegistryObject<Item> SOULSTONE = ITEMS.register("soulstone", () -> new TransformShardItem(TransformType.SOUL, new Item.Properties()));
 	public static final RegistryObject<Item> UNCHARGED_STONE = ITEMS.register("uncharged_stone", () -> new Item(new Item.Properties()));
-    public static final RegistryObject<Item> THOXINS_BOTTLE = ITEMS.register("toxins_bottle", () -> new Item(new Item.Properties().rarity(Rarity.EPIC)));
+    public static final RegistryObject<Item> TOXINS_BOTTLE = ITEMS.register("toxins_bottle", () -> new Item(new Item.Properties().rarity(Rarity.EPIC)));
     public static final RegistryObject<Item> DIRT_GEODE = ITEMS.register("dirt_geode", () -> new Item(new Item.Properties().rarity(Rarity.EPIC)));
     public static final RegistryObject<Item> STONE_GEODE = ITEMS.register("stone_geode", () -> new Item(new Item.Properties().rarity(Rarity.EPIC)));
     public static final RegistryObject<Item> MINERS_BAG = ITEMS.register("miners_bag", () -> new DropItemProperty(DropType.MINERS, new Item.Properties().rarity(Rarity.EPIC)));

@@ -16,27 +16,20 @@ import net.minecraftforge.registries.RegistryObject;
 public abstract class ModItemGroup {
 	public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
 			DeferredRegister.create(Registries.CREATIVE_MODE_TAB, DarkRPG.MOD_ID);
-
 	public static final RegistryObject<CreativeModeTab> DARKRPG_GROUP = CREATIVE_MODE_TABS.register("darkrpgmodtab",
 			() -> CreativeModeTab.builder().icon(() -> new ItemStack(ModItems.NATURE_PICKAXE.get()))
 					.hideTitle()
 					.title(Component.translatable("itemGroup.DarkRPGModTab"))
-					.withTabsImage(getTabsImage())
-					.backgroundSuffix("darkrpg_item_search.png").withBackgroundLocation(getBackgroundImage()).build());
+					.backgroundSuffix("darkrpg_item.png").withBackgroundLocation(getBackgroundImage()).build());
 
 	public static final RegistryObject<CreativeModeTab> DARKRPG_BLOCKS_GROUP = CREATIVE_MODE_TABS.register("darkrpgblocksmodtab",
 			() -> CreativeModeTab.builder().icon(() -> new ItemStack(ModItems.VOID_STONE.get()))
 					.hideTitle()
 					.title(Component.translatable("itemGroup.DarkRPGBlocksModTab"))
-					.withTabsImage(getTabsImage())
-					.backgroundSuffix("darkrpg_item_search.png").withBackgroundLocation(getBackgroundImage()).build());
-
-	public static ResourceLocation getTabsImage() {
-		return new ResourceLocation(DarkRPG.MOD_ID, "textures/gui/tabs_darkrpg.png");
-	}
+					.backgroundSuffix("darkrpg_item.png").withBackgroundLocation(getBackgroundImage()).build());
 
 	public static ResourceLocation getBackgroundImage() {
-		return new ResourceLocation(DarkRPG.MOD_ID, "textures/gui/tab_darkrpg_item_search.png");
+		return new ResourceLocation(DarkRPG.MOD_ID, "textures/gui/tab_darkrpg_item.png");
 	}
 
 	public static void register(IEventBus eventBus) {
@@ -45,7 +38,213 @@ public abstract class ModItemGroup {
 
 	public static void addCreative(BuildCreativeModeTabContentsEvent event) {
 		if (event.getTabKey() == ModItemGroup.DARKRPG_GROUP.getKey()) {
-			event.accept(ModItems.ALOE);
+			event.accept(ModItems.COBALT_HELMET);
+			event.accept(ModItems.COBALT_CHESTPLATE);
+			event.accept(ModItems.COBALT_LEGGINGS);
+			event.accept(ModItems.COBALT_BOOTS);
+			event.accept(ModItems.SAMURAI_KABUTO);
+			event.accept(ModItems.SAMURAI_CHESTPLATE);
+			event.accept(ModItems.SAMURAI_LEGGINGS);
+			event.accept(ModItems.SAMURAI_BOOTS);
+			event.accept(ModItems.NATURE_HELMET);
+			event.accept(ModItems.NATURE_CHESTPLATE);
+			event.accept(ModItems.NATURE_LEGGINGS);
+			event.accept(ModItems.NATURE_BOOTS);
+			event.accept(ModItems.DEPTH_HELMET);
+			event.accept(ModItems.DEPTH_CHESTPLATE);
+			event.accept(ModItems.DEPTH_LEGGINGS);
+			event.accept(ModItems.DEPTH_BOOTS);
+			event.accept(ModItems.INFERNAL_HELMET);
+			event.accept(ModItems.INFERNAL_CHESTPLATE);
+			event.accept(ModItems.INFERNAL_LEGGINGS);
+			event.accept(ModItems.INFERNAL_BOOTS);
+			event.accept(ModItems.AWAKENED_VOID_HELMET);
+			event.accept(ModItems.AWAKENED_VOID_CHESTPLATE);
+			event.accept(ModItems.AWAKENED_VOID_LEGGINGS);
+			event.accept(ModItems.AWAKENED_VOID_BOOTS);
+			event.accept(ModItems.PHANTASM_HELMET);
+			event.accept(ModItems.PHANTASM_CHESTPLATE);
+			event.accept(ModItems.PHANTASM_LEGGINGS);
+			event.accept(ModItems.PHANTASM_BOOTS);
+			event.accept(ModItems.DIRT_GEODE);
+			event.accept(ModItems.STONE_GEODE);
+			event.accept(ModItems.MINERS_BAG);
+			event.accept(ModItems.GEM_BAG);
+			event.accept(ModItems.AMBER_GEM);
+			event.accept(ModItems.AMETHYST_GEM);
+			event.accept(ModItems.RUBY_GEM);
+			event.accept(ModItems.SAPPHIRE_GEM);
+			event.accept(ModItems.AMETHYST);
+			event.accept(ModItems.SOULSTONE);
+			event.accept(ModItems.UNCHARGED_STONE);
+			event.accept(ModItems.TOXINS_BOTTLE);
+			event.accept(ModItems.NATURE_GIFT);
+			event.accept(ModItems.OCEANIC_SHELL);
+			event.accept(ModItems.INFERNAL_STONE);
+			event.accept(ModItems.BONE_FRAGMENT);
+			event.accept(ModItems.PAIN_CRYSTAL);
+			event.accept(ModItems.ILLUSION_STONE);
+			event.accept(ModItems.SOUL_COLLECTOR_EMPTY);
+			event.accept(ModItems.SOUL_COLLECTOR);
+			event.accept(ModItems.LEXICON);
+			event.accept(ModItems.VOID_KEY);
+			event.accept(ModItems.GAIB_ROOT);
+			event.accept(ModItems.KARUSAKAN_ROOT);
+			event.accept(ModItems.WOODEN_CUP);
+			event.accept(ModItems.CUP);
+			event.accept(ModItems.BOTTLE);
+			event.accept(ModItems.ALOE_PIECE);
+			event.accept(ModItems.ALOE_BANDAGE);
+			event.accept(ModItems.ALOE_BANDAGE_UPGRADED);
+			event.accept(ModItems.CACAO_CUP);
+			event.accept(ModItems.COFFE_CUP);
+			event.accept(ModItems.TEA_CUP);
+			event.accept(ModItems.GREEN_TEA_CUP);
+			event.accept(ModItems.BEER_CUP);
+			event.accept(ModItems.RUM_CUP);
+			event.accept(ModItems.KVASS_BOTTLE);
+			event.accept(ModItems.VINE_BOTTLE);
+			event.accept(ModItems.AKVAVIT_BOTTLE);
+			event.accept(ModItems.LIQUOR_BOTTLE);
+			event.accept(ModItems.RUM_BOTTLE);
+			event.accept(ModItems.COGNAC_BOTTLE);
+			event.accept(ModItems.WHISKEY_BOTTLE);
+			event.accept(ModItems.COKE_BOTTLE);
+			event.accept(ModItems.APPLE_PIE);
+			event.accept(ModItems.HOLIDAY_CANDY);
+			event.accept(ModItems.DUNESTONE_BRICK);
+			event.accept(ModItems.TOMBSTONE_BRICK);
+			event.accept(ModItems.AMBANE_STONE_BRICK);
+			event.accept(ModItems.LIMESTONE_BRICK);
+			event.accept(ModItems.CRYSTAL_STONE_BRICK);
+			event.accept(ModItems.VOID_STONE_BRICK);
+			event.accept(ModItems.BRONZE_INGOT);
+			event.accept(ModItems.ANCIENT_INGOT);
+			event.accept(ModItems.PEARLIUM_INGOT);
+			event.accept(ModItems.COBALT_INGOT);
+			event.accept(ModItems.NATURE_INGOT);
+			event.accept(ModItems.AQUARIUS_INGOT);
+			event.accept(ModItems.INFERNAL_INGOT);
+			event.accept(ModItems.VOID_INGOT);
+			event.accept(ModItems.CLUB);
+			event.accept(ModItems.BRONZE_SWORD);
+			event.accept(ModItems.VOID_EDGE);
+			event.accept(ModItems.BLOODHOUND);
+			event.accept(ModItems.BLAZE_REAP);
+			event.accept(ModItems.PHANTOM);
+			event.accept(ModItems.MURASAMA);
+			event.accept(ModItems.SAMURAI_KUNAI);
+			event.accept(ModItems.SAMURAI_POISONED_KUNAI);
+			event.accept(ModItems.IRON_SPEAR);
+			event.accept(ModItems.GOLDEN_SPEAR);
+			event.accept(ModItems.DIAMOND_SPEAR);
+			event.accept(ModItems.NETHERITE_SPEAR);
+			event.accept(ModItems.DOUBLE_SPEAR);
+			event.accept(ModItems.IRON_SCYTHE);
+			event.accept(ModItems.GOLDEN_SCYTHE);
+			event.accept(ModItems.DIAMOND_SCYTHE);
+			event.accept(ModItems.NETHERITE_SCYTHE);
+			event.accept(ModItems.BEAST);
+			event.accept(ModItems.HOLIDAY_KATANA);
+			event.accept(ModItems.IRON_KATANA);
+			event.accept(ModItems.GOLDEN_KATANA);
+			event.accept(ModItems.DIAMOND_KATANA);
+			event.accept(ModItems.NETHERITE_KATANA);
+			event.accept(ModItems.SAMURAI_KATANA);
+			event.accept(ModItems.PEARLIUM_SWORD);
+			event.accept(ModItems.PEARLIUM_PICKAXE);
+			event.accept(ModItems.PEARLIUM_AXE);
+			event.accept(ModItems.HOLIDAY_PICKAXE);
+			event.accept(ModItems.HOLIDAY_AXE);
+			event.accept(ModItems.XMAS_SWORD);
+			event.accept(ModItems.COBALT_SWORD);
+			event.accept(ModItems.COBALT_PICKAXE);
+			event.accept(ModItems.COBALT_SHOVEL);
+			event.accept(ModItems.COBALT_AXE);
+			event.accept(ModItems.COBALT_HOE);
+			event.accept(ModItems.ENT);
+			event.accept(ModItems.NATURE_SCYTHE);
+			event.accept(ModItems.NATURE_PICKAXE);
+			event.accept(ModItems.NATURE_SHOVEL);
+			event.accept(ModItems.NATURE_AXE);
+			event.accept(ModItems.NATURE_HOE);
+			event.accept(ModItems.CORAL_REEF);
+			event.accept(ModItems.AQUARIUS_SCYTHE);
+			event.accept(ModItems.AQUARIUS_PICKAXE);
+			event.accept(ModItems.AQUARIUS_SHOVEL);
+			event.accept(ModItems.AQUARIUS_AXE);
+			event.accept(ModItems.AQUARIUS_HOE);
+			event.accept(ModItems.INFERNAL_SWORD);
+			event.accept(ModItems.INFERNAL_SCYTHE);
+			event.accept(ModItems.INFERNAL_PICKAXE);
+			event.accept(ModItems.INFERNAL_SHOVEL);
+			event.accept(ModItems.INFERNAL_AXE);
+			event.accept(ModItems.INFERNAL_HOE);
+			event.accept(ModItems.SAMURAI_LONG_BOW);
+			event.accept(ModItems.NATURE_BOW);
+			event.accept(ModItems.AQUARIUS_BOW);
+			event.accept(ModItems.BOW_OF_DARKNESS);
+			event.accept(ModItems.PHANTASM_BOW);
+			event.accept(ModItems.IRON_CHAIN);
+			event.accept(ModItems.IRON_NECKLACE_AMBER);
+			event.accept(ModItems.IRON_NECKLACE_DIAMOND);
+			event.accept(ModItems.IRON_NECKLACE_EMERALD);
+			event.accept(ModItems.IRON_NECKLACE_RUBY);
+			event.accept(ModItems.IRON_NECKLACE_SAPPHIRE);
+			event.accept(ModItems.IRON_NECKLACE_HEALTH);
+			event.accept(ModItems.IRON_NECKLACE_ARMOR);
+			event.accept(ModItems.IRON_NECKLACE_WEALTH);
+			event.accept(ModItems.GOLDEN_CHAIN);
+			event.accept(ModItems.GOLDEN_NECKLACE_AMBER);
+			event.accept(ModItems.GOLDEN_NECKLACE_DIAMOND);
+			event.accept(ModItems.GOLDEN_NECKLACE_EMERALD);
+			event.accept(ModItems.GOLDEN_NECKLACE_RUBY);
+			event.accept(ModItems.GOLDEN_NECKLACE_SAPPHIRE);
+			event.accept(ModItems.GOLDEN_NECKLACE_HEALTH);
+			event.accept(ModItems.GOLDEN_NECKLACE_ARMOR);
+			event.accept(ModItems.GOLDEN_NECKLACE_WEALTH);
+			event.accept(ModItems.NETHERITE_CHAIN);
+			event.accept(ModItems.NETHERITE_NECKLACE_AMBER);
+			event.accept(ModItems.NETHERITE_NECKLACE_DIAMOND);
+			event.accept(ModItems.NETHERITE_NECKLACE_EMERALD);
+			event.accept(ModItems.NETHERITE_NECKLACE_RUBY);
+			event.accept(ModItems.NETHERITE_NECKLACE_SAPPHIRE);
+			event.accept(ModItems.NETHERITE_NECKLACE_HEALTH);
+			event.accept(ModItems.NETHERITE_NECKLACE_ARMOR);
+			event.accept(ModItems.NETHERITE_NECKLACE_WEALTH);
+			event.accept(ModItems.LEATHER_BELT);
+			event.accept(ModItems.IRON_RING);
+			event.accept(ModItems.IRON_RING_AMBER);
+			event.accept(ModItems.IRON_RING_DIAMOND);
+			event.accept(ModItems.IRON_RING_EMERALD);
+			event.accept(ModItems.IRON_RING_RUBY);
+			event.accept(ModItems.IRON_RING_SAPPHIRE);
+			event.accept(ModItems.GOLDEN_RING);
+			event.accept(ModItems.GOLDEN_RING_AMBER);
+			event.accept(ModItems.GOLDEN_RING_DIAMOND);
+			event.accept(ModItems.GOLDEN_RING_EMERALD);
+			event.accept(ModItems.GOLDEN_RING_RUBY);
+			event.accept(ModItems.GOLDEN_RING_SAPPHIRE);
+			event.accept(ModItems.NETHERITE_RING);
+			event.accept(ModItems.NETHERITE_RING_AMBER);
+			event.accept(ModItems.NETHERITE_RING_DIAMOND);
+			event.accept(ModItems.NETHERITE_RING_EMERALD);
+			event.accept(ModItems.NETHERITE_RING_RUBY);
+			event.accept(ModItems.NETHERITE_RING_SAPPHIRE);
+			event.accept(ModItems.LEATHER_GLOVES);
+			event.accept(ModItems.IRON_GLOVES);
+			event.accept(ModItems.GOLDEN_GLOVES);
+			event.accept(ModItems.DIAMOND_GLOVES);
+			event.accept(ModItems.NETHERITE_GLOVES);
+			event.accept(ModItems.RUNE);
+			event.accept(ModItems.RUNE_OF_VISION);
+			event.accept(ModItems.RUNE_OF_WEALTH);
+			event.accept(ModItems.RUNE_OF_CURSES);
+			event.accept(ModItems.RUNE_OF_STRENGTH);
+			event.accept(ModItems.RUNE_OF_ACCURACY);
+			event.accept(ModItems.RUNE_OF_DEEP);
+			event.accept(ModItems.RUNE_OF_PYRO);
+			event.accept(ModItems.RUNE_OF_COLD);
 		}
 
 		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
@@ -73,6 +272,8 @@ public abstract class ModItemGroup {
 			event.accept(ModItems.GEODITE_DIRT);
 			event.accept(ModItems.GEODITE_STONE);
 			event.accept(ModItems.AMBER_ORE);
+			event.accept(ModItems.AMETHYST_ORE);
+			event.accept(ModItems.RUBY_ORE);
 			event.accept(ModItems.SAPPHIRE_ORE);
 			event.accept(ModItems.COBALT_ORE);
 			event.accept(ModItems.PEARLIUM_ORE);
@@ -143,6 +344,43 @@ public abstract class ModItemGroup {
 			event.accept(ModItems.VOID_PILLAR);
 			event.accept(ModItems.VOID_PILLAR_AMETHYST);
 			event.accept(ModItems.CHARGED_VOID_PILLAR);
+			event.accept(ModItems.SHADELOG);
+			event.accept(ModItems.SHADEWOOD);
+			event.accept(ModItems.STRIPPED_SHADELOG);
+			event.accept(ModItems.STRIPPED_SHADEWOOD);
+			event.accept(ModItems.SHADEWOOD_PLANKS);
+			event.accept(ModItems.SHADEWOOD_PLANKS_BUTTON);
+			event.accept(ModItems.SHADEWOOD_PLANKS_PRESSURE_PLATE);
+			event.accept(ModItems.SHADEWOOD_SIGN);
+			event.accept(ModItems.SHADEWOOD_LEAVES);
+			event.accept(ModItems.SHADEWOOD_SAPLING);
+			event.accept(ModItems.STONE_CRUSHER);
+			event.accept(ModItems.JEWELER_TABLE);
+			event.accept(ModItems.KEG);
+			event.accept(ModItems.KEYBLOCK);
+			event.accept(ModItems.KEYBLOCK_BRICKS);
+			event.accept(ModItems.KEYBLOCK_RUNE);
+			event.accept(ModItems.PLATE);
+			event.accept(ModItems.QUICKSAND);
+			event.accept(ModItems.ELEMENTAL_MANIPULATOR);
+			event.accept(ModItems.SKULLY_PEDESTAL);
+			event.accept(ModItems.ELEGANT_PEDESTAL);
+			event.accept(ModItems.TOMB);
+			event.accept(ModItems.POT_SMALL);
+			event.accept(ModItems.POT_SMALL_HANDLESS);
+			event.accept(ModItems.POT_LONG);
+			event.accept(ModItems.POT_LONG_HANDLESS);
+			event.accept(ModItems.POT_LONG_MOSSY);
+			event.accept(ModItems.POT_LONG_MOSSY_HANDLESS);
+			event.accept(ModItems.SPIDER_EGG);
+			event.accept(ModItems.BRONZE_BLOCK);
+			event.accept(ModItems.BRONZE_PLATE);
+			event.accept(ModItems.BRONZE_VENT);
+			event.accept(ModItems.BRONZE_GLASS);
+			event.accept(ModItems.CUT_BRONZE);
+			event.accept(ModItems.BRONZE_LAMP);
+			event.accept(ModItems.DECORATED_BRONZE_LAMP);
+			event.accept(ModItems.BRONZE_LAMP_BLOCK);
 		}
 	}
 }

@@ -6,19 +6,25 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.Style;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.damagesource.*;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.ClipContext;
+import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.*;
 
 import java.util.List;
 import java.util.Random;
@@ -108,23 +114,30 @@ public class BlazeReapItem extends PickaxeItem {
             double Y = Math.cos(locPitch + pitch) * locDistance;
             double Z = Math.sin(locPitch + pitch) * Math.sin(locYaw + yaw) * locDistance;
 
-            /*BlockRayTraceResult ray = worldIn.clip(new RayTraceContext(pos, new Vector3d(pos.x + X, pos.y + Y, pos.z + Z), RayTraceContext.BlockMode.OUTLINE, RayTraceContext.FluidMode.NONE, playerIn));
-            X = ray.getLocation().x() - pos.x;
-            Y = ray.getLocation().y() - pos.y;
-            Z = ray.getLocation().z() - pos.z;
+            Vec3 playerPos = playerIn.getEyePosition();
+            Vec3 EndPos = (playerIn.getViewVector(0.0f).scale(15.0d));
+            Vec3 vec3 = playerPos.add(EndPos);
+            HitResult hitresult = worldIn.clip(new ClipContext(playerPos, vec3, ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, null));
+            if (hitresult.getType() != HitResult.Type.MISS) {
+                vec3 = hitresult.getLocation();
+            }
+
+            X = hitresult.getLocation().x() - pos.x;
+            Y = hitresult.getLocation().y() - pos.y;
+            Z = hitresult.getLocation().z() - pos.z;
 
 			if (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.EXPLOSIVE_FLAME.get(), itemstack) > 0) {
 				if(!worldIn.isClientSide) {
-					worldIn.explode(playerIn, pos.x + X, pos.y + Y, pos.z + Z, 4.0F, true, Explosion.Mode.BREAK);
+                    worldIn.explode(playerIn, pos.x + X, pos.y + Y, pos.z + Z, 4.0F, Level.ExplosionInteraction.TNT);
 				}
 			}
 
-            List<Entity> entities = worldIn.getEntitiesOfClass(Entity.class,  new AxisAlignedBB(pos.x + X - 3D,pos.y + Y - 3D,pos.z + Z - 3D,pos.x + X + 3D,pos.y + Y + 3D,pos.z + Z + 3D));
+            List<Entity> entities = worldIn.getEntitiesOfClass(Entity.class,  new AABB(pos.x + X - 3D,pos.y + Y - 3D,pos.z + Z - 3D,pos.x + X + 3D,pos.y + Y + 3D,pos.z + Z + 3D));
             for (Entity entity : entities) {
                 if (entity instanceof LivingEntity) {
                     LivingEntity enemy = (LivingEntity)entity;
                     if (!enemy.equals(playerIn)) {
-                        enemy.hurt(DamageSource.GENERIC.setExplosion(), 10F);
+                        enemy.hurt(worldIn.damageSources().generic(), 10F);
                         enemy.knockback(0.6F, playerIn.getX() + X - entity.getX(), playerIn.getZ() + Z - entity.getZ());
                         if (EnchantmentHelper.getItemEnchantmentLevel(Enchantments.FIRE_ASPECT, itemstack) > 0) {
                             int i = EnchantmentHelper.getFireAspect(playerIn);
@@ -132,7 +145,7 @@ public class BlazeReapItem extends PickaxeItem {
 						}
                     }
                 }
-            }*/
+            }
 
             playerIn.knockback(1.2F, X, Z);			
             if (!playerIn.isCreative()) {
@@ -193,7 +206,7 @@ public class BlazeReapItem extends PickaxeItem {
     @Override
     public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags) {
         super.appendHoverText(stack, world, tooltip, flags);
-        tooltip.add(1, Component.translatable("tooltip.darkrpg.familiar").withStyle(ChatFormatting.YELLOW, ChatFormatting.ITALIC));
+        tooltip.add(1, Component.translatable("tooltip.darkrpg.familiar").withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
         tooltip.add(2, Component.empty());
         tooltip.add(3, Component.translatable("tooltip.darkrpg.blazereap").withStyle(ChatFormatting.GRAY));
         tooltip.add(4, Component.translatable(getModeString(stack)).withStyle(ChatFormatting.GREEN));
