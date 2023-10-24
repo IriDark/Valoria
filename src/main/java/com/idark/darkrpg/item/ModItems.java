@@ -2,11 +2,9 @@ package com.idark.darkrpg.item;
 
 import com.idark.darkrpg.DarkRPG;
 import com.idark.darkrpg.block.*;
-import com.idark.darkrpg.entity.*;
 import com.idark.darkrpg.item.curio.*;
 import com.idark.darkrpg.item.curio.charm.*;
 import com.idark.darkrpg.item.food.*;
-import com.idark.darkrpg.item.staffs.*;
 import com.idark.darkrpg.item.types.*;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
@@ -20,7 +18,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 	public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, DarkRPG.MOD_ID);
 	
 	private final static String MODID = DarkRPG.MOD_ID;
-	// BLOCKITEMS (category)
+	// BLOCK ITEMS (category)
 	// Plants
 	public static final RegistryObject<Item> ALOE = ITEMS.register("aloe", () -> new BlockItem(ModBlocks.ALOE.get(), new Item.Properties()));
 	public static final RegistryObject<Item> ALOE_SMALL = ITEMS.register("aloe_small", () -> new BlockItem(ModBlocks.ALOE_SMALL.get(), new Item.Properties()));
@@ -52,6 +50,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 	public static final RegistryObject<Item> COBALT_ORE = ITEMS.register("cobalt_ore", () -> new BlockItem(ModBlocks.COBALT_ORE.get(), new Item.Properties()));
 	public static final RegistryObject<Item> PEARLIUM_ORE = ITEMS.register("pearlium_ore", () -> new BlockItem(ModBlocks.PEARLIUM_ORE.get(), new Item.Properties()));
 	public static final RegistryObject<Item> WICKED_AMETHYST_ORE = ITEMS.register("wicked_amethyst_ore", () -> new BlockItem(ModBlocks.WICKED_AMETHYST_ORE.get(), new Item.Properties()));
+	// Raw
+	public static final RegistryObject<Item> RAW_COBALT_ORE_BLOCK = ITEMS.register("raw_cobalt_ore", () -> new BlockItem(ModBlocks.RAW_COBALT_ORE_BLOCK.get(), new Item.Properties()));
 	// Crystals
 	public static final RegistryObject<Item> VOID_CRYSTAL = ITEMS.register("void_crystal", () -> new BlockItem(ModBlocks.VOID_CRYSTAL.get(), new Item.Properties()));
 	public static final RegistryObject<Item> AMBER_CRYSTAL = ITEMS.register("amber_crystal", () -> new BlockItem(ModBlocks.AMBER_CRYSTAL.get(), new Item.Properties()));
@@ -197,6 +197,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 	/**
 	 * ITEMS (global category)
 	 */
+	public static final RegistryObject<Item> RAW_COBALT = ITEMS.register("raw_cobalt", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> AMBER_GEM = ITEMS.register("amber_gem", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> AMETHYST_GEM = ITEMS.register("amethyst_gem", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> RUBY_GEM = ITEMS.register("ruby_gem", () -> new Item(new Item.Properties()));
@@ -247,7 +248,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 	public static final RegistryObject<Item> APPLE_PIE = ITEMS.register("apple_pie", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(7).saturationMod(6).build())));
 	public static final RegistryObject<Item> HOLIDAY_CANDY = ITEMS.register("holiday_candy", () -> new Item(new Item.Properties().stacksTo(16).food(new FoodProperties.Builder().nutrition(4).saturationMod(6).build())));
 
-	public static final RegistryObject<Item> WAND_OF_NATURE = ITEMS.register("wand_of_nature", () -> new NatureStaff(new Item.Properties().stacksTo(1)));
+	//public static final RegistryObject<Item> WAND_OF_NATURE = ITEMS.register("wand_of_nature", () -> new NatureStaff(new Item.Properties().stacksTo(1)));
 
 	public static final RegistryObject<Item> DUNESTONE_BRICK = ITEMS.register("dunestone_brick", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> TOMBSTONE_BRICK = ITEMS.register("tombstone_brick", () -> new Item(new Item.Properties()));
@@ -488,6 +489,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 		() -> new CurioItemProperty(AccessoryType.GLOVES, AccessoryGem.DIAMOND, AccessoryMaterial.DIAMOND, new Item.Properties().stacksTo(1).durability(240).rarity(Rarity.UNCOMMON)));
 	public static final RegistryObject<Item> NETHERITE_GLOVES = ITEMS.register("netherite_gloves",
 		() -> new CurioItemProperty(AccessoryType.GLOVES, AccessoryGem.TANK, AccessoryMaterial.NETHERITE, new Item.Properties().stacksTo(1).durability(300).rarity(Rarity.UNCOMMON)));
+	/*
 	public static final RegistryObject<Item> GOLDEN_CHARM1_AMBER = ITEMS.register("golden_charm_amber_1",
 		() -> new Item(new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> GOLDEN_CHARM2_AMBER = ITEMS.register("golden_charm_amber_2",
@@ -506,6 +508,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 		() -> new Item(new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> GOLDEN_CHARM3_MYSTICAL = ITEMS.register("golden_charm_mystical_3",
 		() -> new Item(new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.EPIC)));
+	*/
 	public static final RegistryObject<Item> RUNE = ITEMS.register("rune",
 		() -> new CurioRune(new Item.Properties().stacksTo(16).rarity(Rarity.UNCOMMON)));
 	public static final RegistryObject<Item> RUNE_OF_VISION = ITEMS.register("rune_of_vision",
@@ -536,15 +539,18 @@ import net.minecraftforge.registries.ForgeRegistries;
 	public static final RegistryObject<Item> PHANTASM_BOW = ITEMS.register("phantasm_bow",
 		() -> new BowItem(new Item.Properties().fireResistant().stacksTo(1)));
 
-	/*public static final RegistryObject<ModSpawnEggItem> SWAMP_WANDERER_SPAWN_EGG = ITEMS.register("swamp_wanderer_spawn_egg",
+	/*
+	public static final RegistryObject<ModSpawnEggItem> SWAMP_WANDERER_SPAWN_EGG = ITEMS.register("swamp_wanderer_spawn_egg",
 		() -> new ModSpawnEggItem(ModEntityTypes.SWAMP_WANDERER, 0x00FFFFFF, 0x00FFFFFF, new Item.Properties()));
 	public static final RegistryObject<ModSpawnEggItem> GOBLIN_SPAWN_EGG = ITEMS.register("goblin_spawn_egg",
 		() -> new ModSpawnEggItem(ModEntityTypes.GOBLIN, 0x00FFFFFF, 0x00FFFFFF, new Item.Properties()));
 	public static final RegistryObject<ModSpawnEggItem> MANNEQUIN_SPAWN_EGG = ITEMS.register("mannequin_spawn_egg",
-		() -> new ModSpawnEggItem(ModEntityTypes.MANNEQUIN, 0x00FFFFFF, 0x00FFFFFF, new Item.Properties()));*/
+		() -> new ModSpawnEggItem(ModEntityTypes.MANNEQUIN, 0x00FFFFFF, 0x00FFFFFF, new Item.Properties()));
+
 
 	public static final RegistryObject<Item> ETERNITY = ITEMS.register("eternity", () -> new Item(new Item.Properties().rarity(Rarity.EPIC)));
-	
+	*/
+
 	public static void register(IEventBus eventBus) {
 		ITEMS.register(eventBus);
 	}

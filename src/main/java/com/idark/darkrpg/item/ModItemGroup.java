@@ -12,6 +12,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
 
+//TODO: Register every slab & stair here, and in the ModItems
 @Mod.EventBusSubscriber(modid = DarkRPG.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public abstract class ModItemGroup {
 	public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
@@ -70,6 +71,7 @@ public abstract class ModItemGroup {
 			event.accept(ModItems.STONE_GEODE);
 			event.accept(ModItems.MINERS_BAG);
 			event.accept(ModItems.GEM_BAG);
+			event.accept(ModItems.RAW_COBALT);
 			event.accept(ModItems.AMBER_GEM);
 			event.accept(ModItems.AMETHYST_GEM);
 			event.accept(ModItems.RUBY_GEM);
@@ -276,6 +278,7 @@ public abstract class ModItemGroup {
 			event.accept(ModItems.RUBY_ORE);
 			event.accept(ModItems.SAPPHIRE_ORE);
 			event.accept(ModItems.COBALT_ORE);
+			event.accept(ModItems.RAW_COBALT_ORE_BLOCK);
 			event.accept(ModItems.PEARLIUM_ORE);
 			event.accept(ModItems.WICKED_AMETHYST_ORE);
 			event.accept(ModItems.AMBER_CRYSTAL);

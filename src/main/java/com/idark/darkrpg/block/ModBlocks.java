@@ -75,6 +75,9 @@ public class ModBlocks {
 	() -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops().strength(3f).sound(SoundType.NETHERITE_BLOCK)));
 	public static final RegistryObject<Block> BRONZE_GLASS = BLOCK.register("bronze_glass",
 	() -> new GlassBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).requiresCorrectToolForDrops().strength(1f).noOcclusion().sound(SoundType.GLASS)));
+	// Raw
+	public static final RegistryObject<Block> RAW_COBALT_ORE_BLOCK = BLOCK.register("raw_cobalt_ore",
+			() -> new Block(BlockBehaviour.Properties.copy(Blocks.RAW_COPPER_BLOCK).requiresCorrectToolForDrops().strength(3f)));
 	// Stone Types
 	public static final RegistryObject<Block> AMBANE_STONE = BLOCK.register("ambane_stone",
 	() -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(3f)));

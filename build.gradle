@@ -18,7 +18,7 @@ apply plugin: 'maven-publish'
 apply plugin: 'org.spongepowered.mixin'
 apply plugin: 'org.parchmentmc.librarian.forgegradle'
 
-version = '1.16.5-build-0.4.7_a'
+version = '1.16.5-build-0.4.8.1_a'
 group = 'com.idark.darkrpg'
 archivesBaseName = 'DarkRPG'
 

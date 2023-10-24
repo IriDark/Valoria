@@ -1,0 +1,6 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "darkrpg:block/raw_cobalt_ore_block"
+  }
+}
