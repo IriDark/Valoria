@@ -50,377 +50,98 @@ public abstract class ModItemGroup {
 
 		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.ALOE);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.ALOE_SMALL);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.CATTAIL);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.KARUSAKAN_ROOTS);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.GAIB_ROOTS);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.DRIED_PLANT);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.DRIED_ROOTS);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.CRIMSON_SOULROOT);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.DOUBLE_SOULROOT);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.MAGMAROOT);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.DOUBLE_MAGMAROOT);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.GOLDY);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.DOUBLE_GOLDY);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.RAJUSH);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.SOULROOT);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.BLOODROOT);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.FALSEFLOWER_SMALL);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.FALSEFLOWER);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.SOULFLOWER);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.VOID_ROOTS);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.VOID_STONE);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.GEODITE_DIRT);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.GEODITE_STONE);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.AMBER_ORE);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.SAPPHIRE_ORE);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.COBALT_ORE);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.PEARLIUM_ORE);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.WICKED_AMETHYST_ORE);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.AMBER_CRYSTAL);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.AMETHYST_CRYSTAL);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.RUBY_CRYSTAL);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.SAPPHIRE_CRYSTAL);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.VOID_CRYSTAL);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.NATURE_BLOCK);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.AQUARIUS_BLOCK);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.INFERNAL_BLOCK);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.AWAKENED_VOID_BLOCK);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.COBALT_BLOCK);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.PEARLIUM);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.AMBANE_STONE);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.AMBANE_STONE_BRICKS);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.AMBANE_STONE_WALL);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.AMBANE_STONE_BRICKS_WALL);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.CHISELED_AMBANE_STONE_BRICKS);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.CUT_AMBANE_STONE);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.POLISHED_AMBANE_STONE);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.DUNESTONE);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.DUNESTONE_BRICKS);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.DUNESTONE_WALL);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.DUNESTONE_BRICKS_WALL);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.CUT_DUNESTONE);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.POLISHED_DUNESTONE);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.LIMESTONE);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.LIMESTONE_BRICKS);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.CRACKED_LIMESTONE_BRICKS);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.LIMESTONE_WALL);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.LIMESTONE_BRICKS_WALL);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.CUT_LIMESTONE);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.CRACKED_LIMESTONE_BRICKS_WALL);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.POLISHED_LIMESTONE);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.CRYSTAL_STONE);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.CRYSTAL_STONE_WALL);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.CRYSTAL_STONE_PILLAR);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.CRYSTAL_STONE_BRICKS);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.CRYSTAL_STONE_BRICKS_WALL);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.CUT_CRYSTAL_STONE);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.CUT_POLISHED_CRYSTAL_STONE);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.TOMBSTONE);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.CUT_TOMBSTONE);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.TOMBSTONE_FIRECHARGE_TRAP);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.TOMBSTONE_SPIKES_TRAP);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.TOMBSTONE_BRICKS);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.TOMBSTONE_WALL);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.TOMBSTONE_BRICKS_WALL);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.CRACKED_TOMBSTONE_BRICKS);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.CRACKED_TOMBSTONE_BRICKS_WALL);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.POLISHED_TOMBSTONE);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.TOMBSTONE_PILLAR);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.WICKED_TOMBSTONE_PILLAR);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.CUT_TOMBSTONE_PILLAR);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.SPIKES);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.VOID_GRASS);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.VOID_STONE);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.VOID_STONE_WALL);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.VOID_BRICK);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.VOID_CRACKED_BRICK);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.VOID_BRICK_WALL);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.VOID_CRACKED_BRICK_WALL);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.VOID_CHISELED_BRICK);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.VOID_CHISELED_BRICKS);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.POLISHED_VOID_STONE);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.VOID_PILLAR);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.VOID_PILLAR_AMETHYST);
-		}
-
-		if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {
 			event.accept(ModItems.CHARGED_VOID_PILLAR);
 		}
 	}
