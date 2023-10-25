@@ -2,7 +2,6 @@ package com.idark.darkrpg.util;
 
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.network.PacketDistributor;
 
 public class PacketUtils {
     public static void SUpdateTileEntityPacket(BlockEntity tile) {

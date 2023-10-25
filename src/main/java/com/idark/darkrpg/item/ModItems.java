@@ -14,9 +14,9 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
 import net.minecraftforge.registries.ForgeRegistries;
 
-	public class ModItems {
+public class ModItems {
 	public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, DarkRPG.MOD_ID);
-	
+
 	private final static String MODID = DarkRPG.MOD_ID;
 	// BLOCK ITEMS (category)
 	// Plants
@@ -94,6 +94,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 	public static final RegistryObject<Item> CRYSTAL_STONE_BRICKS_WALL = ITEMS.register("crystal_stone_bricks_wall", () -> new BlockItem(ModBlocks.CRYSTAL_STONE_BRICKS_WALL.get(), new Item.Properties()));
 	public static final RegistryObject<Item> CUT_CRYSTAL_STONE = ITEMS.register("cut_crystal_stone", () -> new BlockItem(ModBlocks.CUT_CRYSTAL_STONE.get(), new Item.Properties()));
 	public static final RegistryObject<Item> CUT_POLISHED_CRYSTAL_STONE = ITEMS.register("cut_polished_crystal_stone", () -> new BlockItem(ModBlocks.CUT_POLISHED_CRYSTAL_STONE.get(), new Item.Properties()));
+	public static final RegistryObject<Item> POLISHED_CRYSTAL_STONE = ITEMS.register("polished_crystal_stone", () -> new BlockItem(ModBlocks.POLISHED_CRYSTAL_STONE.get(), new Item.Properties()));
 	public static final RegistryObject<Item> TOMBSTONE = ITEMS.register("tombstone", () -> new BlockItem(ModBlocks.TOMBSTONE.get(), new Item.Properties()));
 	public static final RegistryObject<Item> CUT_TOMBSTONE = ITEMS.register("cut_tombstone", () -> new BlockItem(ModBlocks.CUT_TOMBSTONE.get(), new Item.Properties()));
 	public static final RegistryObject<Item> TOMBSTONE_FIRECHARGE_TRAP = ITEMS.register("tombstone_firecharge_trap", () -> new BlockItem(ModBlocks.TOMBSTONE_FIRECHARGE_TRAP.get(), new Item.Properties()));
@@ -123,21 +124,21 @@ import net.minecraftforge.registries.ForgeRegistries;
 	public static final RegistryObject<Item> VOID_PILLAR_AMETHYST = ITEMS.register("void_pillar_amethyst", () -> new BlockItem(ModBlocks.VOID_PILLAR_AMETHYST.get(), new Item.Properties()));
 	public static final RegistryObject<Item> CHARGED_VOID_PILLAR = ITEMS.register("charged_void_pillar", () -> new BlockItem(ModBlocks.CHARGED_VOID_PILLAR.get(), new Item.Properties()));
 	/**
- 	* Wood
- 	*/
+	 * Wood
+	 */
 	public static final RegistryObject<Item> SHADELOG = ITEMS.register("shadelog", () -> new BlockItem(ModBlocks.SHADELOG.get(), new Item.Properties()));
 	public static final RegistryObject<Item> SHADEWOOD = ITEMS.register("shadewood", () -> new BlockItem(ModBlocks.SHADEWOOD.get(), new Item.Properties()));
 	public static final RegistryObject<Item> STRIPPED_SHADELOG = ITEMS.register("stripped_shadelog", () -> new BlockItem(ModBlocks.STRIPPED_SHADELOG.get(), new Item.Properties()));
 	public static final RegistryObject<Item> STRIPPED_SHADEWOOD = ITEMS.register("stripped_shadewood", () -> new BlockItem(ModBlocks.STRIPPED_SHADEWOOD.get(), new Item.Properties()));
 	public static final RegistryObject<Item> SHADEWOOD_PLANKS = ITEMS.register("shadewood_planks", () -> new BlockItem(ModBlocks.SHADEWOOD_PLANKS.get(), new Item.Properties()));
-    public static final RegistryObject<Item> SHADEWOOD_PLANKS_BUTTON = ITEMS.register("shadewood_button", () -> new BlockItem(ModBlocks.SHADEWOOD_BUTTON.get(), new Item.Properties()));
+	public static final RegistryObject<Item> SHADEWOOD_PLANKS_BUTTON = ITEMS.register("shadewood_button", () -> new BlockItem(ModBlocks.SHADEWOOD_BUTTON.get(), new Item.Properties()));
 	public static final RegistryObject<Item> SHADEWOOD_PLANKS_PRESSURE_PLATE = ITEMS.register("shadewood_pressure_plate", () -> new BlockItem(ModBlocks.SHADEWOOD_PRESSURE_PLATE.get(), new Item.Properties()));
 	public static final RegistryObject<Item> SHADEWOOD_SIGN = ITEMS.register("shadewood_sign",() -> new SignItem(new Item.Properties().stacksTo(16), ModBlocks.SHADEWOOD_SIGN.get(), ModBlocks.SHADEWOOD_WALL_SIGN.get()));
 	public static final RegistryObject<Item> SHADEWOOD_LEAVES = ITEMS.register("shadewood_leaves", () -> new BlockItem(ModBlocks.SHADEWOOD_LEAVES.get(), new Item.Properties()));
-    public static final RegistryObject<Item> SHADEWOOD_SAPLING = ITEMS.register("shadewood_sapling", () -> new BlockItem(ModBlocks.SHADEWOOD_SAPLING.get(), new Item.Properties()));
+	public static final RegistryObject<Item> SHADEWOOD_SAPLING = ITEMS.register("shadewood_sapling", () -> new BlockItem(ModBlocks.SHADEWOOD_SAPLING.get(), new Item.Properties()));
 	// BlockItem Misc
-	public static final RegistryObject<Item> STONE_CRUSHER = ITEMS.register("stone_crusher", () -> new BlockItem(ModBlocks.STONE_CRUSHER.get(), new Item.Properties()));		
-	public static final RegistryObject<Item> JEWELER_TABLE = ITEMS.register("jeweler_table", () -> new BlockItem(ModBlocks.JEWELER_TABLE.get(), new Item.Properties()));	
+	public static final RegistryObject<Item> STONE_CRUSHER = ITEMS.register("stone_crusher", () -> new BlockItem(ModBlocks.STONE_CRUSHER.get(), new Item.Properties()));
+	public static final RegistryObject<Item> JEWELER_TABLE = ITEMS.register("jeweler_table", () -> new BlockItem(ModBlocks.JEWELER_TABLE.get(), new Item.Properties()));
 	public static final RegistryObject<Item> KEG = ITEMS.register("keg", () -> new BlockItem(ModBlocks.KEG.get(), new Item.Properties()));
 	public static final RegistryObject<Item> KEYBLOCK = ITEMS.register("keyblock", () -> new BlockItem(ModBlocks.KEYBLOCK.get(), new Item.Properties()));
 	public static final RegistryObject<Item> KEYBLOCK_BRICKS = ITEMS.register("keyblock_bricks", () -> new BlockItem(ModBlocks.KEYBLOCK_BRICKS.get(), new Item.Properties()));
@@ -149,7 +150,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 	public static final RegistryObject<Item> ELEGANT_PEDESTAL = ITEMS.register("elegant_pedestal", () -> new BlockItem(ModBlocks.ELEGANT_PEDESTAL.get(), new Item.Properties()));
 	public static final RegistryObject<Item> TOMB = ITEMS.register("tomb", () -> new BlockItem(ModBlocks.TOMB.get(), new Item.Properties()));
 	public static final RegistryObject<Item> POT_SMALL = ITEMS.register("pot_small", () -> new BlockItem(ModBlocks.POT_SMALL.get(), new Item.Properties()));
-  	public static final RegistryObject<Item> POT_SMALL_HANDLESS = ITEMS.register("pot_small_handless", () -> new BlockItem(ModBlocks.POT_SMALL_HANDLESS.get(), new Item.Properties()));
+	public static final RegistryObject<Item> POT_SMALL_HANDLESS = ITEMS.register("pot_small_handless", () -> new BlockItem(ModBlocks.POT_SMALL_HANDLESS.get(), new Item.Properties()));
 	public static final RegistryObject<Item> POT_LONG = ITEMS.register("pot_long", () -> new BlockItem(ModBlocks.POT_LONG.get(), new Item.Properties()));
 	public static final RegistryObject<Item> POT_LONG_HANDLESS = ITEMS.register("pot_long_handless", () -> new BlockItem(ModBlocks.POT_LONG_HANDLESS.get(), new Item.Properties()));
 	public static final RegistryObject<Item> POT_LONG_MOSSY = ITEMS.register("pot_long_mossy", () -> new BlockItem(ModBlocks.POT_LONG_MOSSY.get(), new Item.Properties()));
@@ -157,12 +158,12 @@ import net.minecraftforge.registries.ForgeRegistries;
 	public static final RegistryObject<Item> SPIDER_EGG = ITEMS.register("spider_egg", () -> new BlockItem(ModBlocks.SPIDER_EGG.get(), new Item.Properties()));
 	// Bronze
 	public static final RegistryObject<Item> BRONZE_BLOCK = ITEMS.register("bronze_block", () -> new BlockItem(ModBlocks.BRONZE_BLOCK.get(), new Item.Properties()));
-   	public static final RegistryObject<Item> BRONZE_PLATE = ITEMS.register("bronze_plate", () -> new BlockItem(ModBlocks.BRONZE_PLATE.get(), new Item.Properties()));
-   	public static final RegistryObject<Item> BRONZE_VENT = ITEMS.register("bronze_vent", () -> new BlockItem(ModBlocks.BRONZE_VENT.get(), new Item.Properties()));
-   	public static final RegistryObject<Item> BRONZE_GLASS = ITEMS.register("bronze_glass", () -> new BlockItem(ModBlocks.BRONZE_GLASS.get(), new Item.Properties()));
+	public static final RegistryObject<Item> BRONZE_PLATE = ITEMS.register("bronze_plate", () -> new BlockItem(ModBlocks.BRONZE_PLATE.get(), new Item.Properties()));
+	public static final RegistryObject<Item> BRONZE_VENT = ITEMS.register("bronze_vent", () -> new BlockItem(ModBlocks.BRONZE_VENT.get(), new Item.Properties()));
+	public static final RegistryObject<Item> BRONZE_GLASS = ITEMS.register("bronze_glass", () -> new BlockItem(ModBlocks.BRONZE_GLASS.get(), new Item.Properties()));
 	public static final RegistryObject<Item> CUT_BRONZE = ITEMS.register("cut_bronze", () -> new BlockItem(ModBlocks.CUT_BRONZE.get(), new Item.Properties()));
-   	public static final RegistryObject<Item> BRONZE_LAMP = ITEMS.register("bronze_lamp", () -> new BlockItem(ModBlocks.BRONZE_LAMP.get(), new Item.Properties()));
-   	public static final RegistryObject<Item> DECORATED_BRONZE_LAMP = ITEMS.register("decorated_bronze_lamp", () -> new BlockItem(ModBlocks.DECORATED_BRONZE_LAMP.get(), new Item.Properties()));
+	public static final RegistryObject<Item> BRONZE_LAMP = ITEMS.register("bronze_lamp", () -> new BlockItem(ModBlocks.BRONZE_LAMP.get(), new Item.Properties()));
+	public static final RegistryObject<Item> DECORATED_BRONZE_LAMP = ITEMS.register("decorated_bronze_lamp", () -> new BlockItem(ModBlocks.DECORATED_BRONZE_LAMP.get(), new Item.Properties()));
 	public static final RegistryObject<Item> BRONZE_LAMP_BLOCK = ITEMS.register("bronze_lamp_block", () -> new BlockItem(ModBlocks.BRONZE_LAMP_BLOCK.get(), new Item.Properties()));
 	// ARMOR (category)
 	public static final RegistryObject<Item> COBALT_HELMET = ITEMS.register("cobalt_helmet", () -> new ArmorItem(ModArmorMaterial.COBALT, ArmorItem.Type.HELMET, (new Item.Properties())));
@@ -203,13 +204,13 @@ import net.minecraftforge.registries.ForgeRegistries;
 	public static final RegistryObject<Item> RUBY_GEM = ITEMS.register("ruby_gem", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> SAPPHIRE_GEM = ITEMS.register("sapphire_gem", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> AMETHYST = ITEMS.register("amethyst", () -> new TransformShardItem(TransformType.WICKED, new Item.Properties()));
-    public static final RegistryObject<Item> SOULSTONE = ITEMS.register("soulstone", () -> new TransformShardItem(TransformType.SOUL, new Item.Properties()));
+	public static final RegistryObject<Item> SOULSTONE = ITEMS.register("soulstone", () -> new TransformShardItem(TransformType.SOUL, new Item.Properties()));
 	public static final RegistryObject<Item> UNCHARGED_STONE = ITEMS.register("uncharged_stone", () -> new Item(new Item.Properties()));
-    public static final RegistryObject<Item> TOXINS_BOTTLE = ITEMS.register("toxins_bottle", () -> new Item(new Item.Properties().rarity(Rarity.EPIC)));
-    public static final RegistryObject<Item> DIRT_GEODE = ITEMS.register("dirt_geode", () -> new Item(new Item.Properties().rarity(Rarity.EPIC)));
-    public static final RegistryObject<Item> STONE_GEODE = ITEMS.register("stone_geode", () -> new Item(new Item.Properties().rarity(Rarity.EPIC)));
-    public static final RegistryObject<Item> MINERS_BAG = ITEMS.register("miners_bag", () -> new DropItemProperty(DropType.MINERS, new Item.Properties().rarity(Rarity.EPIC)));
-    public static final RegistryObject<Item> GEM_BAG = ITEMS.register("gem_bag", () -> new DropItemProperty(DropType.GEM, new Item.Properties().rarity(Rarity.EPIC)));
+	public static final RegistryObject<Item> TOXINS_BOTTLE = ITEMS.register("toxins_bottle", () -> new Item(new Item.Properties().rarity(Rarity.EPIC)));
+	public static final RegistryObject<Item> DIRT_GEODE = ITEMS.register("dirt_geode", () -> new Item(new Item.Properties().rarity(Rarity.EPIC)));
+	public static final RegistryObject<Item> STONE_GEODE = ITEMS.register("stone_geode", () -> new Item(new Item.Properties().rarity(Rarity.EPIC)));
+	public static final RegistryObject<Item> MINERS_BAG = ITEMS.register("miners_bag", () -> new DropItemProperty(DropType.MINERS, new Item.Properties().rarity(Rarity.EPIC)));
+	public static final RegistryObject<Item> GEM_BAG = ITEMS.register("gem_bag", () -> new DropItemProperty(DropType.GEM, new Item.Properties().rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> NATURE_GIFT = ITEMS.register("nature_gift", () -> new Item(new Item.Properties().stacksTo(16)));
 	public static final RegistryObject<Item> OCEANIC_SHELL = ITEMS.register("oceanic_shell", () -> new Item(new Item.Properties().stacksTo(16)));
 	public static final RegistryObject<Item> INFERNAL_STONE = ITEMS.register("infernal_stone", () -> new Item(new Item.Properties().stacksTo(16)));
@@ -268,227 +269,227 @@ import net.minecraftforge.registries.ForgeRegistries;
 	 * 		TOOLS (category)
 	 */
 	public static final RegistryObject<Item> CLUB = ITEMS.register("club",
-		() -> new ClubItem(Tiers.WOOD, 4, -3.2f, new Item.Properties()));
+			() -> new ClubItem(Tiers.WOOD, 4, -3.2f, new Item.Properties()));
 	public static final RegistryObject<Item> BRONZE_SWORD = ITEMS.register("bronze_sword",
-		() -> new SwordItem(Tiers.IRON, 4, -2.4f, new Item.Properties()));
+			() -> new SwordItem(Tiers.IRON, 4, -2.4f, new Item.Properties()));
 	public static final RegistryObject<Item> VOID_EDGE = ITEMS.register("void_edge",
-		() -> new SwordItem(Tiers.NETHERITE, 6, -3f, new Item.Properties()));
+			() -> new SwordItem(Tiers.NETHERITE, 6, -3f, new Item.Properties()));
 	public static final RegistryObject<Item> BLOODHOUND = ITEMS.register("bloodhound",
-		() -> new HoundItem(Tiers.NETHERITE, 4, -2.2f, new Item.Properties()));
+			() -> new HoundItem(Tiers.NETHERITE, 4, -2.2f, new Item.Properties()));
 	public static final RegistryObject<Item> BLAZE_REAP = ITEMS.register("blaze_reap",
-		() -> new BlazeReapItem(Tiers.NETHERITE, 1, -3.4f, new Item.Properties()));
+			() -> new BlazeReapItem(Tiers.NETHERITE, 1, -3.4f, new Item.Properties()));
 	public static final RegistryObject<Item> PHANTOM = ITEMS.register("phantom",
-		() -> new PhantomItem(Tiers.NETHERITE, 6, -2.4f, new Item.Properties()));
+			() -> new PhantomItem(Tiers.NETHERITE, 6, -2.4f, new Item.Properties()));
 	public static final RegistryObject<Item> MURASAMA = ITEMS.register("murasama",
-		() -> new MurasamaItem(Tiers.NETHERITE, 4, -2.4f, new Item.Properties()));
+			() -> new MurasamaItem(Tiers.NETHERITE, 4, -2.4f, new Item.Properties()));
 	public static final RegistryObject<Item> SAMURAI_KUNAI = ITEMS.register("samurai_kunai",
-		() -> new KunaiItem(new Item.Properties().durability(300)));
+			() -> new KunaiItem(new Item.Properties().durability(300)));
 	public static final RegistryObject<Item> SAMURAI_POISONED_KUNAI = ITEMS.register("samurai_poisoned_kunai",
-		() -> new PoisonedKunaiItem(new Item.Properties().durability(300)));
+			() -> new PoisonedKunaiItem(new Item.Properties().durability(300)));
 
 	public static final RegistryObject<Item> IRON_SPEAR = ITEMS.register("iron_spear",
-		() -> new SpearItem(Tiers.IRON, 3, -3.5f, new Item.Properties()));
+			() -> new SpearItem(Tiers.IRON, 3, -3.5f, new Item.Properties()));
 	public static final RegistryObject<Item> GOLDEN_SPEAR = ITEMS.register("golden_spear",
-		() -> new SpearItem(Tiers.GOLD, 2, -3f, new Item.Properties()));
+			() -> new SpearItem(Tiers.GOLD, 2, -3f, new Item.Properties()));
 	public static final RegistryObject<Item> DIAMOND_SPEAR = ITEMS.register("diamond_spear",
-		() -> new SpearItem(Tiers.DIAMOND, 1, -3.5f, new Item.Properties()));
+			() -> new SpearItem(Tiers.DIAMOND, 1, -3.5f, new Item.Properties()));
 	public static final RegistryObject<Item> NETHERITE_SPEAR = ITEMS.register("netherite_spear",
-		() -> new SpearItem(Tiers.NETHERITE, 1, -3.5f, new Item.Properties()));
+			() -> new SpearItem(Tiers.NETHERITE, 1, -3.5f, new Item.Properties()));
 	public static final RegistryObject<Item> DOUBLE_SPEAR = ITEMS.register("double_spear",
-		() -> new SpearItem(Tiers.NETHERITE, 5, -3.5f, new Item.Properties()));
+			() -> new SpearItem(Tiers.NETHERITE, 5, -3.5f, new Item.Properties()));
 
 	public static final RegistryObject<Item> IRON_SCYTHE = ITEMS.register("iron_scythe",
-		() -> new ScytheItem(Tiers.IRON, 3, -3.5f, new Item.Properties()));
+			() -> new ScytheItem(Tiers.IRON, 3, -3.5f, new Item.Properties()));
 	public static final RegistryObject<Item> GOLDEN_SCYTHE = ITEMS.register("golden_scythe",
-		() -> new ScytheItem(Tiers.GOLD, 3, -3.5f, new Item.Properties()));
+			() -> new ScytheItem(Tiers.GOLD, 3, -3.5f, new Item.Properties()));
 	public static final RegistryObject<Item> DIAMOND_SCYTHE = ITEMS.register("diamond_scythe",
-		() -> new ScytheItem(Tiers.DIAMOND, 3, -3.4f, new Item.Properties()));
+			() -> new ScytheItem(Tiers.DIAMOND, 3, -3.4f, new Item.Properties()));
 	public static final RegistryObject<Item> NETHERITE_SCYTHE = ITEMS.register("netherite_scythe",
-		() -> new ScytheItem(Tiers.NETHERITE, 3, -3.4f, new Item.Properties().fireResistant()));
+			() -> new ScytheItem(Tiers.NETHERITE, 3, -3.4f, new Item.Properties().fireResistant()));
 	public static final RegistryObject<Item> BEAST = ITEMS.register("beast",
-		() -> new BeastScytheItem(Tiers.DIAMOND, 6, -3.6f, new Item.Properties()));
+			() -> new BeastScytheItem(Tiers.DIAMOND, 6, -3.6f, new Item.Properties()));
 
 	public static final RegistryObject<Item> HOLIDAY_KATANA = ITEMS.register("holiday_katana",
-		() -> new KatanaItem(Tiers.IRON, 0, -2.2f, new Item.Properties()));
+			() -> new KatanaItem(Tiers.IRON, 0, -2.2f, new Item.Properties()));
 	public static final RegistryObject<Item> IRON_KATANA = ITEMS.register("iron_katana",
-		() -> new KatanaItem(Tiers.IRON, 0, -2.2f, new Item.Properties()));
+			() -> new KatanaItem(Tiers.IRON, 0, -2.2f, new Item.Properties()));
 	public static final RegistryObject<Item> GOLDEN_KATANA = ITEMS.register("golden_katana",
-		() -> new KatanaItem(Tiers.GOLD, 2, -1.8f, new Item.Properties()));
+			() -> new KatanaItem(Tiers.GOLD, 2, -1.8f, new Item.Properties()));
 	public static final RegistryObject<Item> DIAMOND_KATANA = ITEMS.register("diamond_katana",
-		() -> new KatanaItem(Tiers.DIAMOND, 1, -2f, new Item.Properties()));
+			() -> new KatanaItem(Tiers.DIAMOND, 1, -2f, new Item.Properties()));
 	public static final RegistryObject<Item> NETHERITE_KATANA = ITEMS.register("netherite_katana",
-		() -> new KatanaItem(Tiers.NETHERITE, 1, -1.8f, new Item.Properties().fireResistant()));
+			() -> new KatanaItem(Tiers.NETHERITE, 1, -1.8f, new Item.Properties().fireResistant()));
 	public static final RegistryObject<Item> SAMURAI_KATANA = ITEMS.register("samurai_katana",
-		() -> new KatanaItem(Tiers.DIAMOND, 2, -2f, new Item.Properties()));
+			() -> new KatanaItem(Tiers.DIAMOND, 2, -2f, new Item.Properties()));
 
 	public static final RegistryObject<Item> PEARLIUM_SWORD = ITEMS.register("pearlium_sword",
-		() -> new SwordItem(Tiers.IRON, 3, -2.4f, new Item.Properties()));
+			() -> new SwordItem(Tiers.IRON, 3, -2.4f, new Item.Properties()));
 	public static final RegistryObject<Item> PEARLIUM_PICKAXE = ITEMS.register("pearlium_pickaxe",
-		() -> new PickaxeItem(Tiers.IRON, -1, -3f, new Item.Properties()));
+			() -> new PickaxeItem(Tiers.IRON, -1, -3f, new Item.Properties()));
 	public static final RegistryObject<Item> PEARLIUM_AXE = ITEMS.register("pearlium_axe",
-		() -> new AxeItem(Tiers.IRON, 6, -3f, new Item.Properties()));
+			() -> new AxeItem(Tiers.IRON, 6, -3f, new Item.Properties()));
 
 	public static final RegistryObject<Item> HOLIDAY_PICKAXE = ITEMS.register("holiday_pickaxe",
-		() -> new PickaxeItem(Tiers.IRON, 1, -3f, new Item.Properties()));
+			() -> new PickaxeItem(Tiers.IRON, 1, -3f, new Item.Properties()));
 	public static final RegistryObject<Item> HOLIDAY_AXE = ITEMS.register("holiday_axe",
-		() -> new AxeItem(Tiers.IRON, 5, -3f, new Item.Properties()));
+			() -> new AxeItem(Tiers.IRON, 5, -3f, new Item.Properties()));
 	public static final RegistryObject<Item> XMAS_SWORD = ITEMS.register("xmas_sword",
-		() -> new SwordItem(Tiers.IRON, 5, -2.3f, new Item.Properties()));
+			() -> new SwordItem(Tiers.IRON, 5, -2.3f, new Item.Properties()));
 
 	public static final RegistryObject<Item> COBALT_SWORD = ITEMS.register("cobalt_sword",
-		() -> new SwordItem(ModItemTier.COBALT, 5, -2.4f, new Item.Properties()));
+			() -> new SwordItem(ModItemTier.COBALT, 5, -2.4f, new Item.Properties()));
 	public static final RegistryObject<Item> COBALT_PICKAXE = ITEMS.register("cobalt_pickaxe",
-		() -> new PickaxeItem(ModItemTier.COBALT, 0, -3f, new Item.Properties()));
+			() -> new PickaxeItem(ModItemTier.COBALT, 0, -3f, new Item.Properties()));
 	public static final RegistryObject<Item> COBALT_SHOVEL = ITEMS.register("cobalt_shovel",
-		() -> new ShovelItem(ModItemTier.COBALT, 0, -3f, new Item.Properties()));
+			() -> new ShovelItem(ModItemTier.COBALT, 0, -3f, new Item.Properties()));
 	public static final RegistryObject<Item> COBALT_AXE = ITEMS.register("cobalt_axe",
-		() -> new AxeItem(ModItemTier.COBALT, 6, -3.4f, new Item.Properties()));
+			() -> new AxeItem(ModItemTier.COBALT, 6, -3.4f, new Item.Properties()));
 	public static final RegistryObject<Item> COBALT_HOE = ITEMS.register("cobalt_hoe",
-		() -> new HoeItem(ModItemTier.COBALT, -1, 0f, new Item.Properties()));
+			() -> new HoeItem(ModItemTier.COBALT, -1, 0f, new Item.Properties()));
 
 	public static final RegistryObject<Item> ENT = ITEMS.register("ent",
-		() -> new SwordItem(ModItemTier.NATURE, 7, -2.4f, new Item.Properties()));
+			() -> new SwordItem(ModItemTier.NATURE, 7, -2.4f, new Item.Properties()));
 	public static final RegistryObject<Item> NATURE_SCYTHE = ITEMS.register("nature_scythe",
-		() -> new SwordItem(ModItemTier.NATURE, 9, -3.4f, new Item.Properties()));
+			() -> new SwordItem(ModItemTier.NATURE, 9, -3.4f, new Item.Properties()));
 	public static final RegistryObject<Item> NATURE_PICKAXE = ITEMS.register("nature_pickaxe",
-		() -> new PickaxeItem(ModItemTier.NATURE, 0, -3f, new Item.Properties()));
+			() -> new PickaxeItem(ModItemTier.NATURE, 0, -3f, new Item.Properties()));
 	public static final RegistryObject<Item> NATURE_SHOVEL = ITEMS.register("nature_shovel",
-		() -> new ShovelItem(ModItemTier.NATURE, 0, -3f, new Item.Properties()));
+			() -> new ShovelItem(ModItemTier.NATURE, 0, -3f, new Item.Properties()));
 	public static final RegistryObject<Item> NATURE_AXE = ITEMS.register("nature_axe",
-		() -> new AxeItem(ModItemTier.NATURE, 5, -3f, new Item.Properties()));
+			() -> new AxeItem(ModItemTier.NATURE, 5, -3f, new Item.Properties()));
 	public static final RegistryObject<Item> NATURE_HOE = ITEMS.register("nature_hoe",
-		() -> new HoeItem(ModItemTier.NATURE, -1, 0f, new Item.Properties()));
+			() -> new HoeItem(ModItemTier.NATURE, -1, 0f, new Item.Properties()));
 
 	public static final RegistryObject<Item> CORAL_REEF = ITEMS.register("coral_reef",
-		() -> new CoralReefItem(ModItemTier.AQUARIUS, 8, -2.4f, new Item.Properties()));
+			() -> new CoralReefItem(ModItemTier.AQUARIUS, 8, -2.4f, new Item.Properties()));
 	public static final RegistryObject<Item> AQUARIUS_SCYTHE = ITEMS.register("aquarius_scythe",
-		() -> new SwordItem(ModItemTier.AQUARIUS, 10, -3.4f, new Item.Properties()));
+			() -> new SwordItem(ModItemTier.AQUARIUS, 10, -3.4f, new Item.Properties()));
 	public static final RegistryObject<Item> AQUARIUS_PICKAXE = ITEMS.register("aquarius_pickaxe",
-		() -> new PickaxeItem(ModItemTier.AQUARIUS, 0, -3f, new Item.Properties()));
+			() -> new PickaxeItem(ModItemTier.AQUARIUS, 0, -3f, new Item.Properties()));
 	public static final RegistryObject<Item> AQUARIUS_SHOVEL = ITEMS.register("aquarius_shovel",
-		() -> new ShovelItem(ModItemTier.AQUARIUS, 0, -3f, new Item.Properties()));
+			() -> new ShovelItem(ModItemTier.AQUARIUS, 0, -3f, new Item.Properties()));
 	public static final RegistryObject<Item> AQUARIUS_AXE = ITEMS.register("aquarius_axe",
-		() -> new AxeItem(ModItemTier.AQUARIUS, 10, -3f, new Item.Properties()));
+			() -> new AxeItem(ModItemTier.AQUARIUS, 10, -3f, new Item.Properties()));
 	public static final RegistryObject<Item> AQUARIUS_HOE = ITEMS.register("aquarius_hoe",
-		() -> new HoeItem(ModItemTier.AQUARIUS, -1, 0f, new Item.Properties()));
+			() -> new HoeItem(ModItemTier.AQUARIUS, -1, 0f, new Item.Properties()));
 
 	public static final RegistryObject<Item> INFERNAL_SWORD = ITEMS.register("infernal_sword",
-		() -> new MagmaSwordItem(ModItemTier.INFERNAL, 9, -2f, new Item.Properties().fireResistant()));
+			() -> new MagmaSwordItem(ModItemTier.INFERNAL, 9, -2f, new Item.Properties().fireResistant()));
 	public static final RegistryObject<Item> INFERNAL_SCYTHE = ITEMS.register("infernal_scythe",
-		() -> new SwordItem(ModItemTier.INFERNAL, 11, -3.4f, new Item.Properties().fireResistant()));
+			() -> new SwordItem(ModItemTier.INFERNAL, 11, -3.4f, new Item.Properties().fireResistant()));
 	public static final RegistryObject<Item> INFERNAL_PICKAXE = ITEMS.register("infernal_pickaxe",
-		() -> new PickaxeItem(ModItemTier.INFERNAL, 0, -2.8f, new Item.Properties().fireResistant()));
+			() -> new PickaxeItem(ModItemTier.INFERNAL, 0, -2.8f, new Item.Properties().fireResistant()));
 	public static final RegistryObject<Item> INFERNAL_SHOVEL = ITEMS.register("infernal_shovel",
-		() -> new ShovelItem(ModItemTier.INFERNAL, 0, -2.9f, new Item.Properties().fireResistant()));
+			() -> new ShovelItem(ModItemTier.INFERNAL, 0, -2.9f, new Item.Properties().fireResistant()));
 	public static final RegistryObject<Item> INFERNAL_AXE = ITEMS.register("infernal_axe",
-		() -> new AxeItem(ModItemTier.INFERNAL, 10, -2.9f, new Item.Properties().fireResistant()));
+			() -> new AxeItem(ModItemTier.INFERNAL, 10, -2.9f, new Item.Properties().fireResistant()));
 	public static final RegistryObject<Item> INFERNAL_HOE = ITEMS.register("infernal_hoe",
-		() -> new HoeItem(ModItemTier.INFERNAL, -1, 0f, new Item.Properties().fireResistant()));
-		/**
-		 * ACCESORIES (category)
- 		 */
-    public static final RegistryObject<Item> IRON_CHAIN = ITEMS.register("iron_chain",
-		() -> new Item(new Item.Properties().stacksTo(8).rarity(Rarity.UNCOMMON)));
+			() -> new HoeItem(ModItemTier.INFERNAL, -1, 0f, new Item.Properties().fireResistant()));
+	/**
+	 * ACCESORIES (category)
+	 */
+	public static final RegistryObject<Item> IRON_CHAIN = ITEMS.register("iron_chain",
+			() -> new Item(new Item.Properties().stacksTo(8).rarity(Rarity.UNCOMMON)));
 	public static final RegistryObject<Item> IRON_NECKLACE_AMBER = ITEMS.register("iron_necklace_amber",
-		() -> new CurioItemProperty(AccessoryType.NECKLACE, AccessoryGem.AMBER, AccessoryMaterial.IRON, new Item.Properties().stacksTo(1).durability(320).rarity(Rarity.EPIC)));
+			() -> new CurioItemProperty(AccessoryType.NECKLACE, AccessoryGem.AMBER, AccessoryMaterial.IRON, new Item.Properties().stacksTo(1).durability(320).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> IRON_NECKLACE_DIAMOND = ITEMS.register("iron_necklace_diamond",
-		() -> new CurioItemProperty(AccessoryType.NECKLACE, AccessoryGem.DIAMOND, AccessoryMaterial.IRON, new Item.Properties().stacksTo(1).durability(320).rarity(Rarity.EPIC)));
+			() -> new CurioItemProperty(AccessoryType.NECKLACE, AccessoryGem.DIAMOND, AccessoryMaterial.IRON, new Item.Properties().stacksTo(1).durability(320).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> IRON_NECKLACE_EMERALD = ITEMS.register("iron_necklace_emerald",
-		() -> new CurioItemProperty(AccessoryType.NECKLACE, AccessoryGem.EMERALD, AccessoryMaterial.IRON, new Item.Properties().stacksTo(1).durability(320).rarity(Rarity.EPIC)));
+			() -> new CurioItemProperty(AccessoryType.NECKLACE, AccessoryGem.EMERALD, AccessoryMaterial.IRON, new Item.Properties().stacksTo(1).durability(320).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> IRON_NECKLACE_RUBY = ITEMS.register("iron_necklace_ruby",
-		() -> new CurioItemProperty(AccessoryType.NECKLACE, AccessoryGem.RUBY, AccessoryMaterial.IRON, new Item.Properties().stacksTo(1).durability(320).rarity(Rarity.EPIC)));
+			() -> new CurioItemProperty(AccessoryType.NECKLACE, AccessoryGem.RUBY, AccessoryMaterial.IRON, new Item.Properties().stacksTo(1).durability(320).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> IRON_NECKLACE_SAPPHIRE = ITEMS.register("iron_necklace_sapphire",
-		() -> new CurioItemProperty(AccessoryType.NECKLACE, AccessoryGem.SAPPHIRE, AccessoryMaterial.IRON, new Item.Properties().stacksTo(1).durability(320).rarity(Rarity.EPIC)));
+			() -> new CurioItemProperty(AccessoryType.NECKLACE, AccessoryGem.SAPPHIRE, AccessoryMaterial.IRON, new Item.Properties().stacksTo(1).durability(320).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> IRON_NECKLACE_HEALTH = ITEMS.register("iron_necklace_health",
-		() -> new CurioItemProperty(AccessoryType.NECKLACE, AccessoryGem.HEALTH, AccessoryMaterial.IRON, new Item.Properties().stacksTo(1).durability(320).rarity(Rarity.EPIC)));
+			() -> new CurioItemProperty(AccessoryType.NECKLACE, AccessoryGem.HEALTH, AccessoryMaterial.IRON, new Item.Properties().stacksTo(1).durability(320).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> IRON_NECKLACE_ARMOR = ITEMS.register("iron_necklace_armor",
-		() -> new CurioItemProperty(AccessoryType.NECKLACE, AccessoryGem.ARMOR, AccessoryMaterial.IRON, new Item.Properties().stacksTo(1).durability(320).rarity(Rarity.EPIC)));
+			() -> new CurioItemProperty(AccessoryType.NECKLACE, AccessoryGem.ARMOR, AccessoryMaterial.IRON, new Item.Properties().stacksTo(1).durability(320).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> IRON_NECKLACE_WEALTH = ITEMS.register("iron_necklace_wealth",
-		() -> new CurioItemProperty(AccessoryType.NECKLACE, AccessoryGem.WEALTH, AccessoryMaterial.IRON, new Item.Properties().stacksTo(1).durability(320).rarity(Rarity.EPIC)));
+			() -> new CurioItemProperty(AccessoryType.NECKLACE, AccessoryGem.WEALTH, AccessoryMaterial.IRON, new Item.Properties().stacksTo(1).durability(320).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> GOLDEN_CHAIN = ITEMS.register("golden_chain",
-		() -> new Item(new Item.Properties().stacksTo(8).rarity(Rarity.UNCOMMON)));
+			() -> new Item(new Item.Properties().stacksTo(8).rarity(Rarity.UNCOMMON)));
 	public static final RegistryObject<Item> GOLDEN_NECKLACE_AMBER = ITEMS.register("golden_necklace_amber",
-		() -> new CurioItemProperty(AccessoryType.NECKLACE, AccessoryGem.AMBER, AccessoryMaterial.GOLD, new Item.Properties().stacksTo(1).durability(200).rarity(Rarity.EPIC)));
+			() -> new CurioItemProperty(AccessoryType.NECKLACE, AccessoryGem.AMBER, AccessoryMaterial.GOLD, new Item.Properties().stacksTo(1).durability(200).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> GOLDEN_NECKLACE_DIAMOND = ITEMS.register("golden_necklace_diamond",
-		() -> new CurioItemProperty(AccessoryType.NECKLACE, AccessoryGem.DIAMOND, AccessoryMaterial.GOLD, new Item.Properties().stacksTo(1).durability(200).rarity(Rarity.EPIC)));
+			() -> new CurioItemProperty(AccessoryType.NECKLACE, AccessoryGem.DIAMOND, AccessoryMaterial.GOLD, new Item.Properties().stacksTo(1).durability(200).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> GOLDEN_NECKLACE_EMERALD = ITEMS.register("golden_necklace_emerald",
-		() -> new CurioItemProperty(AccessoryType.NECKLACE, AccessoryGem.EMERALD, AccessoryMaterial.GOLD, new Item.Properties().stacksTo(1).durability(200).rarity(Rarity.EPIC)));
+			() -> new CurioItemProperty(AccessoryType.NECKLACE, AccessoryGem.EMERALD, AccessoryMaterial.GOLD, new Item.Properties().stacksTo(1).durability(200).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> GOLDEN_NECKLACE_RUBY = ITEMS.register("golden_necklace_ruby",
-		() -> new CurioItemProperty(AccessoryType.NECKLACE, AccessoryGem.RUBY, AccessoryMaterial.GOLD, new Item.Properties().stacksTo(1).durability(200).rarity(Rarity.EPIC)));
+			() -> new CurioItemProperty(AccessoryType.NECKLACE, AccessoryGem.RUBY, AccessoryMaterial.GOLD, new Item.Properties().stacksTo(1).durability(200).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> GOLDEN_NECKLACE_SAPPHIRE = ITEMS.register("golden_necklace_sapphire",
-		() -> new CurioItemProperty(AccessoryType.NECKLACE, AccessoryGem.SAPPHIRE, AccessoryMaterial.GOLD, new Item.Properties().stacksTo(1).durability(200).rarity(Rarity.EPIC)));
+			() -> new CurioItemProperty(AccessoryType.NECKLACE, AccessoryGem.SAPPHIRE, AccessoryMaterial.GOLD, new Item.Properties().stacksTo(1).durability(200).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> GOLDEN_NECKLACE_HEALTH = ITEMS.register("golden_necklace_health",
-		() -> new CurioItemProperty(AccessoryType.NECKLACE, AccessoryGem.HEALTH, AccessoryMaterial.GOLD, new Item.Properties().stacksTo(1).durability(320).rarity(Rarity.EPIC)));
+			() -> new CurioItemProperty(AccessoryType.NECKLACE, AccessoryGem.HEALTH, AccessoryMaterial.GOLD, new Item.Properties().stacksTo(1).durability(320).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> GOLDEN_NECKLACE_ARMOR = ITEMS.register("golden_necklace_armor",
-		() -> new CurioItemProperty(AccessoryType.NECKLACE, AccessoryGem.ARMOR, AccessoryMaterial.GOLD, new Item.Properties().stacksTo(1).durability(320).rarity(Rarity.EPIC)));
+			() -> new CurioItemProperty(AccessoryType.NECKLACE, AccessoryGem.ARMOR, AccessoryMaterial.GOLD, new Item.Properties().stacksTo(1).durability(320).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> GOLDEN_NECKLACE_WEALTH = ITEMS.register("golden_necklace_wealth",
-		() -> new CurioItemProperty(AccessoryType.NECKLACE, AccessoryGem.WEALTH, AccessoryMaterial.GOLD, new Item.Properties().stacksTo(1).durability(320).rarity(Rarity.EPIC)));
+			() -> new CurioItemProperty(AccessoryType.NECKLACE, AccessoryGem.WEALTH, AccessoryMaterial.GOLD, new Item.Properties().stacksTo(1).durability(320).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> NETHERITE_CHAIN = ITEMS.register("netherite_chain",
-		() -> new Item(new Item.Properties().stacksTo(8).rarity(Rarity.UNCOMMON)));
+			() -> new Item(new Item.Properties().stacksTo(8).rarity(Rarity.UNCOMMON)));
 	public static final RegistryObject<Item> NETHERITE_NECKLACE_AMBER = ITEMS.register("netherite_necklace_amber",
-		() -> new CurioItemProperty(AccessoryType.NECKLACE, AccessoryGem.AMBER, AccessoryMaterial.NETHERITE, new Item.Properties().stacksTo(1).durability(500).rarity(Rarity.EPIC)));
+			() -> new CurioItemProperty(AccessoryType.NECKLACE, AccessoryGem.AMBER, AccessoryMaterial.NETHERITE, new Item.Properties().stacksTo(1).durability(500).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> NETHERITE_NECKLACE_DIAMOND = ITEMS.register("netherite_necklace_diamond",
-		() -> new CurioItemProperty(AccessoryType.NECKLACE, AccessoryGem.DIAMOND, AccessoryMaterial.NETHERITE, new Item.Properties().stacksTo(1).durability(500).rarity(Rarity.EPIC)));
+			() -> new CurioItemProperty(AccessoryType.NECKLACE, AccessoryGem.DIAMOND, AccessoryMaterial.NETHERITE, new Item.Properties().stacksTo(1).durability(500).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> NETHERITE_NECKLACE_EMERALD = ITEMS.register("netherite_necklace_emerald",
-		() -> new CurioItemProperty(AccessoryType.NECKLACE, AccessoryGem.EMERALD, AccessoryMaterial.NETHERITE, new Item.Properties().stacksTo(1).durability(500).rarity(Rarity.EPIC)));
+			() -> new CurioItemProperty(AccessoryType.NECKLACE, AccessoryGem.EMERALD, AccessoryMaterial.NETHERITE, new Item.Properties().stacksTo(1).durability(500).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> NETHERITE_NECKLACE_RUBY = ITEMS.register("netherite_necklace_ruby",
-		() -> new CurioItemProperty(AccessoryType.NECKLACE, AccessoryGem.RUBY, AccessoryMaterial.NETHERITE, new Item.Properties().stacksTo(1).durability(500).rarity(Rarity.EPIC)));
+			() -> new CurioItemProperty(AccessoryType.NECKLACE, AccessoryGem.RUBY, AccessoryMaterial.NETHERITE, new Item.Properties().stacksTo(1).durability(500).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> NETHERITE_NECKLACE_SAPPHIRE = ITEMS.register("netherite_necklace_sapphire",
-		() -> new CurioItemProperty(AccessoryType.NECKLACE, AccessoryGem.SAPPHIRE, AccessoryMaterial.NETHERITE, new Item.Properties().stacksTo(1).durability(500).rarity(Rarity.EPIC)));
+			() -> new CurioItemProperty(AccessoryType.NECKLACE, AccessoryGem.SAPPHIRE, AccessoryMaterial.NETHERITE, new Item.Properties().stacksTo(1).durability(500).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> NETHERITE_NECKLACE_HEALTH = ITEMS.register("netherite_necklace_health",
-		() -> new CurioItemProperty(AccessoryType.NECKLACE, AccessoryGem.HEALTH, AccessoryMaterial.NETHERITE, new Item.Properties().stacksTo(1).durability(500).rarity(Rarity.EPIC)));
+			() -> new CurioItemProperty(AccessoryType.NECKLACE, AccessoryGem.HEALTH, AccessoryMaterial.NETHERITE, new Item.Properties().stacksTo(1).durability(500).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> NETHERITE_NECKLACE_ARMOR = ITEMS.register("netherite_necklace_armor",
-		() -> new CurioItemProperty(AccessoryType.NECKLACE, AccessoryGem.ARMOR, AccessoryMaterial.NETHERITE, new Item.Properties().stacksTo(1).durability(500).rarity(Rarity.EPIC)));
+			() -> new CurioItemProperty(AccessoryType.NECKLACE, AccessoryGem.ARMOR, AccessoryMaterial.NETHERITE, new Item.Properties().stacksTo(1).durability(500).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> NETHERITE_NECKLACE_WEALTH = ITEMS.register("netherite_necklace_wealth",
-		() -> new CurioItemProperty(AccessoryType.NECKLACE, AccessoryGem.WEALTH, AccessoryMaterial.NETHERITE, new Item.Properties().stacksTo(1).durability(500).rarity(Rarity.EPIC)));
+			() -> new CurioItemProperty(AccessoryType.NECKLACE, AccessoryGem.WEALTH, AccessoryMaterial.NETHERITE, new Item.Properties().stacksTo(1).durability(500).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> LEATHER_BELT = ITEMS.register("leather_belt",
-		() -> new CurioItemProperty(AccessoryType.BELT, AccessoryGem.BELT, AccessoryMaterial.LEATHER, new Item.Properties().stacksTo(1).rarity(Rarity.EPIC)));
+			() -> new CurioItemProperty(AccessoryType.BELT, AccessoryGem.BELT, AccessoryMaterial.LEATHER, new Item.Properties().stacksTo(1).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> IRON_RING = ITEMS.register("iron_ring",
-		() -> new CurioItemProperty(AccessoryType.RING, AccessoryGem.NONE, AccessoryMaterial.IRON, new Item.Properties().stacksTo(1).durability(80).rarity(Rarity.UNCOMMON)));
+			() -> new CurioItemProperty(AccessoryType.RING, AccessoryGem.NONE, AccessoryMaterial.IRON, new Item.Properties().stacksTo(1).durability(80).rarity(Rarity.UNCOMMON)));
 	public static final RegistryObject<Item> IRON_RING_AMBER = ITEMS.register("iron_ring_amber",
-		() -> new CurioItemProperty(AccessoryType.RING, AccessoryGem.AMBER, AccessoryMaterial.IRON, new Item.Properties().stacksTo(1).durability(320).rarity(Rarity.EPIC)));
+			() -> new CurioItemProperty(AccessoryType.RING, AccessoryGem.AMBER, AccessoryMaterial.IRON, new Item.Properties().stacksTo(1).durability(320).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> IRON_RING_DIAMOND = ITEMS.register("iron_ring_diamond",
-		() -> new CurioItemProperty(AccessoryType.RING, AccessoryGem.DIAMOND, AccessoryMaterial.IRON, new Item.Properties().stacksTo(1).durability(320).rarity(Rarity.EPIC)));
+			() -> new CurioItemProperty(AccessoryType.RING, AccessoryGem.DIAMOND, AccessoryMaterial.IRON, new Item.Properties().stacksTo(1).durability(320).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> IRON_RING_EMERALD = ITEMS.register("iron_ring_emerald",
-		() -> new CurioItemProperty(AccessoryType.RING, AccessoryGem.EMERALD, AccessoryMaterial.IRON, new Item.Properties().stacksTo(1).durability(320).rarity(Rarity.EPIC)));
+			() -> new CurioItemProperty(AccessoryType.RING, AccessoryGem.EMERALD, AccessoryMaterial.IRON, new Item.Properties().stacksTo(1).durability(320).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> IRON_RING_RUBY = ITEMS.register("iron_ring_ruby",
-		() -> new CurioItemProperty(AccessoryType.RING, AccessoryGem.RUBY, AccessoryMaterial.IRON, new Item.Properties().stacksTo(1).durability(320).rarity(Rarity.EPIC)));
+			() -> new CurioItemProperty(AccessoryType.RING, AccessoryGem.RUBY, AccessoryMaterial.IRON, new Item.Properties().stacksTo(1).durability(320).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> IRON_RING_SAPPHIRE = ITEMS.register("iron_ring_sapphire",
-		() -> new CurioItemProperty(AccessoryType.RING, AccessoryGem.SAPPHIRE, AccessoryMaterial.IRON, new Item.Properties().stacksTo(1).durability(320).rarity(Rarity.EPIC)));
+			() -> new CurioItemProperty(AccessoryType.RING, AccessoryGem.SAPPHIRE, AccessoryMaterial.IRON, new Item.Properties().stacksTo(1).durability(320).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> GOLDEN_RING = ITEMS.register("golden_ring",
-		() -> new CurioItemProperty(AccessoryType.RING, AccessoryGem.NONE, AccessoryMaterial.GOLD, new Item.Properties().stacksTo(1).durability(40).rarity(Rarity.UNCOMMON)));
+			() -> new CurioItemProperty(AccessoryType.RING, AccessoryGem.NONE, AccessoryMaterial.GOLD, new Item.Properties().stacksTo(1).durability(40).rarity(Rarity.UNCOMMON)));
 	public static final RegistryObject<Item> GOLDEN_RING_AMBER = ITEMS.register("golden_ring_amber",
-		() -> new CurioItemProperty(AccessoryType.RING, AccessoryGem.AMBER, AccessoryMaterial.GOLD, new Item.Properties().stacksTo(1).durability(200).rarity(Rarity.EPIC)));
+			() -> new CurioItemProperty(AccessoryType.RING, AccessoryGem.AMBER, AccessoryMaterial.GOLD, new Item.Properties().stacksTo(1).durability(200).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> GOLDEN_RING_DIAMOND = ITEMS.register("golden_ring_diamond",
-		() -> new CurioItemProperty(AccessoryType.RING, AccessoryGem.DIAMOND, AccessoryMaterial.GOLD, new Item.Properties().stacksTo(1).durability(200).rarity(Rarity.EPIC)));
+			() -> new CurioItemProperty(AccessoryType.RING, AccessoryGem.DIAMOND, AccessoryMaterial.GOLD, new Item.Properties().stacksTo(1).durability(200).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> GOLDEN_RING_EMERALD = ITEMS.register("golden_ring_emerald",
-		() -> new CurioItemProperty(AccessoryType.RING, AccessoryGem.EMERALD, AccessoryMaterial.GOLD, new Item.Properties().stacksTo(1).durability(200).rarity(Rarity.EPIC)));
+			() -> new CurioItemProperty(AccessoryType.RING, AccessoryGem.EMERALD, AccessoryMaterial.GOLD, new Item.Properties().stacksTo(1).durability(200).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> GOLDEN_RING_RUBY = ITEMS.register("golden_ring_ruby",
-		() -> new CurioItemProperty(AccessoryType.RING, AccessoryGem.RUBY, AccessoryMaterial.GOLD, new Item.Properties().stacksTo(1).durability(200).rarity(Rarity.EPIC)));
+			() -> new CurioItemProperty(AccessoryType.RING, AccessoryGem.RUBY, AccessoryMaterial.GOLD, new Item.Properties().stacksTo(1).durability(200).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> GOLDEN_RING_SAPPHIRE = ITEMS.register("golden_ring_sapphire",
-		() -> new CurioItemProperty(AccessoryType.RING, AccessoryGem.SAPPHIRE, AccessoryMaterial.GOLD, new Item.Properties().stacksTo(1).durability(200).rarity(Rarity.EPIC)));
+			() -> new CurioItemProperty(AccessoryType.RING, AccessoryGem.SAPPHIRE, AccessoryMaterial.GOLD, new Item.Properties().stacksTo(1).durability(200).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> NETHERITE_RING = ITEMS.register("netherite_ring",
-		() -> new CurioItemProperty(AccessoryType.RING, AccessoryGem.NONE, AccessoryMaterial.NETHERITE, new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.UNCOMMON)));
+			() -> new CurioItemProperty(AccessoryType.RING, AccessoryGem.NONE, AccessoryMaterial.NETHERITE, new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.UNCOMMON)));
 	public static final RegistryObject<Item> NETHERITE_RING_AMBER = ITEMS.register("netherite_ring_amber",
-		() -> new CurioItemProperty(AccessoryType.RING, AccessoryGem.AMBER, AccessoryMaterial.NETHERITE, new Item.Properties().stacksTo(1).durability(420).rarity(Rarity.EPIC)));
+			() -> new CurioItemProperty(AccessoryType.RING, AccessoryGem.AMBER, AccessoryMaterial.NETHERITE, new Item.Properties().stacksTo(1).durability(420).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> NETHERITE_RING_DIAMOND = ITEMS.register("netherite_ring_diamond",
-		() -> new CurioItemProperty(AccessoryType.RING, AccessoryGem.DIAMOND, AccessoryMaterial.NETHERITE, new Item.Properties().stacksTo(1).durability(420).rarity(Rarity.EPIC)));
+			() -> new CurioItemProperty(AccessoryType.RING, AccessoryGem.DIAMOND, AccessoryMaterial.NETHERITE, new Item.Properties().stacksTo(1).durability(420).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> NETHERITE_RING_EMERALD = ITEMS.register("netherite_ring_emerald",
-		() -> new CurioItemProperty(AccessoryType.RING, AccessoryGem.EMERALD, AccessoryMaterial.NETHERITE, new Item.Properties().stacksTo(1).durability(420).rarity(Rarity.EPIC)));
+			() -> new CurioItemProperty(AccessoryType.RING, AccessoryGem.EMERALD, AccessoryMaterial.NETHERITE, new Item.Properties().stacksTo(1).durability(420).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> NETHERITE_RING_RUBY = ITEMS.register("netherite_ring_ruby",
-		() -> new CurioItemProperty(AccessoryType.RING, AccessoryGem.RUBY, AccessoryMaterial.NETHERITE, new Item.Properties().stacksTo(1).durability(420).rarity(Rarity.EPIC)));
+			() -> new CurioItemProperty(AccessoryType.RING, AccessoryGem.RUBY, AccessoryMaterial.NETHERITE, new Item.Properties().stacksTo(1).durability(420).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> NETHERITE_RING_SAPPHIRE = ITEMS.register("netherite_ring_sapphire",
-		() -> new CurioItemProperty(AccessoryType.RING, AccessoryGem.SAPPHIRE, AccessoryMaterial.NETHERITE, new Item.Properties().stacksTo(1).durability(420).rarity(Rarity.EPIC)));
+			() -> new CurioItemProperty(AccessoryType.RING, AccessoryGem.SAPPHIRE, AccessoryMaterial.NETHERITE, new Item.Properties().stacksTo(1).durability(420).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> LEATHER_GLOVES = ITEMS.register("leather_gloves",
-		() -> new CurioItemProperty(AccessoryType.GLOVES, AccessoryGem.NONE, AccessoryMaterial.LEATHER, new Item.Properties().stacksTo(1).durability(100).rarity(Rarity.UNCOMMON)));
+			() -> new CurioItemProperty(AccessoryType.GLOVES, AccessoryGem.NONE, AccessoryMaterial.LEATHER, new Item.Properties().stacksTo(1).durability(100).rarity(Rarity.UNCOMMON)));
 	public static final RegistryObject<Item> IRON_GLOVES = ITEMS.register("iron_gloves",
-		() -> new CurioItemProperty(AccessoryType.GLOVES, AccessoryGem.ARMOR, AccessoryMaterial.IRON, new Item.Properties().stacksTo(1).durability(190).rarity(Rarity.UNCOMMON)));
+			() -> new CurioItemProperty(AccessoryType.GLOVES, AccessoryGem.ARMOR, AccessoryMaterial.IRON, new Item.Properties().stacksTo(1).durability(190).rarity(Rarity.UNCOMMON)));
 	public static final RegistryObject<Item> GOLDEN_GLOVES = ITEMS.register("golden_gloves",
-		() -> new CurioItemProperty(AccessoryType.GLOVES, AccessoryGem.TOUGH, AccessoryMaterial.GOLD, new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.UNCOMMON)));
+			() -> new CurioItemProperty(AccessoryType.GLOVES, AccessoryGem.TOUGH, AccessoryMaterial.GOLD, new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.UNCOMMON)));
 	public static final RegistryObject<Item> DIAMOND_GLOVES = ITEMS.register("diamond_gloves",
-		() -> new CurioItemProperty(AccessoryType.GLOVES, AccessoryGem.DIAMOND, AccessoryMaterial.DIAMOND, new Item.Properties().stacksTo(1).durability(240).rarity(Rarity.UNCOMMON)));
+			() -> new CurioItemProperty(AccessoryType.GLOVES, AccessoryGem.DIAMOND, AccessoryMaterial.DIAMOND, new Item.Properties().stacksTo(1).durability(240).rarity(Rarity.UNCOMMON)));
 	public static final RegistryObject<Item> NETHERITE_GLOVES = ITEMS.register("netherite_gloves",
-		() -> new CurioItemProperty(AccessoryType.GLOVES, AccessoryGem.TANK, AccessoryMaterial.NETHERITE, new Item.Properties().stacksTo(1).durability(300).rarity(Rarity.UNCOMMON)));
+			() -> new CurioItemProperty(AccessoryType.GLOVES, AccessoryGem.TANK, AccessoryMaterial.NETHERITE, new Item.Properties().stacksTo(1).durability(300).rarity(Rarity.UNCOMMON)));
 	/*
 	public static final RegistryObject<Item> GOLDEN_CHARM1_AMBER = ITEMS.register("golden_charm_amber_1",
 		() -> new Item(new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.EPIC)));
@@ -510,34 +511,34 @@ import net.minecraftforge.registries.ForgeRegistries;
 		() -> new Item(new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.EPIC)));
 	*/
 	public static final RegistryObject<Item> RUNE = ITEMS.register("rune",
-		() -> new CurioRune(new Item.Properties().stacksTo(16).rarity(Rarity.UNCOMMON)));
+			() -> new CurioRune(new Item.Properties().stacksTo(16).rarity(Rarity.UNCOMMON)));
 	public static final RegistryObject<Item> RUNE_OF_VISION = ITEMS.register("rune_of_vision",
-		() -> new CurioVision(new Item.Properties().stacksTo(16).durability(8).rarity(Rarity.EPIC)));
+			() -> new CurioVision(new Item.Properties().stacksTo(16).durability(8).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> RUNE_OF_WEALTH = ITEMS.register("rune_of_wealth",
-		() -> new CurioWealth(new Item.Properties().stacksTo(16).durability(8).rarity(Rarity.EPIC)));
+			() -> new CurioWealth(new Item.Properties().stacksTo(16).durability(8).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> RUNE_OF_CURSES = ITEMS.register("rune_of_curses",
-		() -> new CurioCurses(new Item.Properties().stacksTo(16).durability(8).rarity(Rarity.EPIC)));
+			() -> new CurioCurses(new Item.Properties().stacksTo(16).durability(8).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> RUNE_OF_STRENGTH = ITEMS.register("rune_of_strength",
-		() -> new CurioStrength(new Item.Properties().stacksTo(16).durability(8).rarity(Rarity.EPIC)));
+			() -> new CurioStrength(new Item.Properties().stacksTo(16).durability(8).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> RUNE_OF_ACCURACY = ITEMS.register("rune_of_accuracy",
-		() -> new Item(new Item.Properties().stacksTo(16).durability(8).rarity(Rarity.EPIC)));
+			() -> new Item(new Item.Properties().stacksTo(16).durability(8).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> RUNE_OF_DEEP = ITEMS.register("rune_of_deep",
-		() -> new Item(new Item.Properties().stacksTo(16).durability(8).rarity(Rarity.EPIC)));
+			() -> new Item(new Item.Properties().stacksTo(16).durability(8).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> RUNE_OF_PYRO = ITEMS.register("rune_of_pyro",
-		() -> new CurioPyro(new Item.Properties().stacksTo(16).durability(8).rarity(Rarity.EPIC)));
+			() -> new CurioPyro(new Item.Properties().stacksTo(16).durability(8).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> RUNE_OF_COLD = ITEMS.register("rune_of_cold",
-		() -> new Item(new Item.Properties().stacksTo(16).durability(8).rarity(Rarity.EPIC)));
+			() -> new Item(new Item.Properties().stacksTo(16).durability(8).rarity(Rarity.EPIC)));
 
 	public static final RegistryObject<Item> SAMURAI_LONG_BOW = ITEMS.register("samurai_long_bow",
-		() -> new BowItem(new Item.Properties().stacksTo(1)));
+			() -> new BowItem(new Item.Properties().stacksTo(1)));
 	public static final RegistryObject<Item> NATURE_BOW = ITEMS.register("nature_bow",
-		() -> new BowItem(new Item.Properties().stacksTo(1)));
+			() -> new BowItem(new Item.Properties().stacksTo(1)));
 	public static final RegistryObject<Item> AQUARIUS_BOW = ITEMS.register("aquarius_bow",
-		() -> new BowItem(new Item.Properties().fireResistant().stacksTo(1)));
+			() -> new BowItem(new Item.Properties().fireResistant().stacksTo(1)));
 	public static final RegistryObject<Item> BOW_OF_DARKNESS = ITEMS.register("bow_of_darkness",
-		() -> new BowItem(new Item.Properties().fireResistant().stacksTo(1)));
+			() -> new BowItem(new Item.Properties().fireResistant().stacksTo(1)));
 	public static final RegistryObject<Item> PHANTASM_BOW = ITEMS.register("phantasm_bow",
-		() -> new BowItem(new Item.Properties().fireResistant().stacksTo(1)));
+			() -> new BowItem(new Item.Properties().fireResistant().stacksTo(1)));
 
 	/*
 	public static final RegistryObject<ModSpawnEggItem> SWAMP_WANDERER_SPAWN_EGG = ITEMS.register("swamp_wanderer_spawn_egg",

@@ -30,7 +30,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class CurioItemProperty extends Item implements ICurioItem {
-
+	//TODO: DO MODEL RENDER
 	/**
 	 * 	Textures
  	 */

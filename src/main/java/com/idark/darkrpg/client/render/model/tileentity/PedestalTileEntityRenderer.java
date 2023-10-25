@@ -1,7 +1,6 @@
 package com.idark.darkrpg.client.render.model.tileentity;
 
 import com.idark.darkrpg.client.event.ClientTickHandler;
-import com.idark.darkrpg.tileentity.CrusherTileEntity;
 import com.idark.darkrpg.tileentity.PedestalTileEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;

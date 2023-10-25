@@ -11,5 +11,5 @@
 	"advancement_namespaces": [ "darkrpg" ],
 	"show_progress": "false",
 	"i18n": true,
-    "version": DarkRPG
+    "version": "DarkRPG"
 }

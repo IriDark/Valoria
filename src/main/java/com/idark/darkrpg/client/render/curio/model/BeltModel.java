@@ -5,8 +5,6 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelPart;
 
-import javax.annotation.Nonnull;
-
 public class BeltModel extends HumanoidModel {
   public ModelPart root, model;
 

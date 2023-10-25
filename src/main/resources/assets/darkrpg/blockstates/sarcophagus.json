@@ -15,7 +15,7 @@
 	"facing=west,open=0" : {
 	"model": "darkrpg:block/sarcophagus",
 	"y": 90
-	}
+	},
 	"facing=east,open=1" : {
 	"model": "darkrpg:block/sarcophagus_open",
 	"y": 90

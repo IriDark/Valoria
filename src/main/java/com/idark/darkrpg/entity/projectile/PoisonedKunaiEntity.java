@@ -17,12 +17,11 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-import com.google.common.collect.Lists;
 import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
 
-import javax.annotation.Nullable;
 import java.util.List;
 
+@SuppressWarnings("SillyAssignment")
 public class PoisonedKunaiEntity extends AbstractArrow {
 	public static final EntityDataAccessor<Byte> LOYALTY_LEVEL = SynchedEntityData.defineId(PoisonedKunaiEntity.class, EntityDataSerializers.BYTE);
 	public static final EntityDataAccessor<Byte> PIERCE_LEVEL = SynchedEntityData.defineId(PoisonedKunaiEntity.class, EntityDataSerializers.BYTE);

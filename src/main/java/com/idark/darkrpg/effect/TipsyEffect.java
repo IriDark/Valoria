@@ -2,8 +2,11 @@ package com.idark.darkrpg.effect;
 
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Player;
+import net.minecraftforge.client.event.ClientChatReceivedEvent;
 
 public class TipsyEffect extends MobEffect {
 	
@@ -20,10 +23,9 @@ public class TipsyEffect extends MobEffect {
     return true;
     }
 	
-	/*@Override
-    public void performEffect(LivingEntity entityLivingBaseIn, int amplifier) {
-        if (entityLivingBaseIn.world.isRemote && entityLivingBaseIn instanceof PlayerEntity) {
-            PlayerEntity player = (PlayerEntity)entityLivingBaseIn;
+    public void performEffect(LivingEntity living, int amplifier) {
+        if (living.level().isClientSide && living instanceof Player) {
+           Player player = (Player)living;
 		}
-    }*/
+    }
 }

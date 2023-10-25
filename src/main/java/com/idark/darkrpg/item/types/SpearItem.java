@@ -9,6 +9,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -62,11 +63,9 @@ public class SpearItem extends TieredItem implements Vanishable {
 
 	public float getDestroySpeed(ItemStack stack, BlockState state) {
 		if (state.is(Blocks.COBWEB)) {
-			return 2.0F;
+			return 5.0F;
 		} else {
-			//Material material = state.getMaterial();
-			//return material != Material.PLANT && material != Material.REPLACEABLE_PLANT && material != Material.CORAL && !state.is(BlockTags.LEAVES) && material != Material.VEGETABLE ? 1.0F : 1.5F;
-			return 1f;
+			return state.is(BlockTags.SWORD_EFFICIENT) ? 1.5F : 1.0F;
 		}
 	}
 

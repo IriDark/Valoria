@@ -1,24 +1,36 @@
 package com.idark.darkrpg.entity.projectile;
 
+import com.google.common.collect.Lists;
 import com.idark.darkrpg.entity.ModEntityTypes;
 import com.idark.darkrpg.item.ModItems;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-import com.google.common.collect.Lists;
 import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
+import net.minecraftforge.network.NetworkHooks;
+import org.joml.Vector3d;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -78,7 +90,7 @@ public class KunaiEntity extends AbstractArrow {
 			this.dealtDamage = true;
 		}
 		
-		/*Entity entity = this.getOwner();
+		Entity entity = this.getOwner();
 		if ((this.dealtDamage || this.isNoPhysics()) && entity != null) {
 			int i = this.entityData.get(LOYALTY_LEVEL);
 			int p = this.entityData.get(PIERCE_LEVEL);
@@ -87,16 +99,16 @@ public class KunaiEntity extends AbstractArrow {
 			}
 			
 			if (i > 0 && !this.shouldReturnToThrower()) {
-				if (!this.level().isClientSide && this.pickup == AbstractArrow.PickupStatus.ALLOWED) {
+				if (!this.level().isClientSide && this.pickup == AbstractArrow.Pickup.ALLOWED) {
 				this.spawnAtLocation(this.getPickupItem(), 0.1F);
 				}
-				
-			this.remove();
+
+			this.discard();
 		} else if (i > 0) {
             this.setNoPhysics(true);
-            Vector3d vector3d = new Vector3d(entity.getX() - this.getX(), entity.getEyeY() - this.getY(), entity.getZ() - this.getZ());
+            Vec3 vector3d = new Vec3(entity.getX() - this.getX(), entity.getEyeY() - this.getY(), entity.getZ() - this.getZ());
             this.setPosRaw(this.getX(), this.getY() + vector3d.y * 0.015D * (double)i, this.getZ());
-            if (this.level.isClientSide) {
+            if (this.level().isClientSide) {
                this.yOld = this.getY();
             }
 
@@ -111,14 +123,14 @@ public class KunaiEntity extends AbstractArrow {
 		}
 
 		if (this.notRenderable == false && !this.inGround) {
-			Vector3d vector3d = this.getDeltaMovement();
+			Vec3 vector3d = this.getDeltaMovement();
 			double a3 = vector3d.x;
 			double a4 = vector3d.y;
 			double a0 = vector3d.z;		
 			for(int a = 0; a < 3; ++a) {
-				this.level.addParticle(ParticleTypes.WHITE_ASH, this.getX() + a3 * (double)a / 4.0D, this.getY() + a4 * (double)a / 4.0D, this.getZ() + a0 * (double)a / 4.0D, -a3, -a4 + 0.2D, -a0);		
+				this.level().addParticle(ParticleTypes.WHITE_ASH, this.getX() + a3 * (double)a / 4.0D, this.getY() + a4 * (double)a / 4.0D, this.getZ() + a0 * (double)a / 4.0D, -a3, -a4 + 0.2D, -a0);
 			}
-		}*/
+		}
 	
 		super.tick();
 	}
@@ -135,7 +147,7 @@ public class KunaiEntity extends AbstractArrow {
 
 	public ItemStack getPickupItem() {
 		return this.thrownStack.copy();
-	}/*
+	}
 
 	@OnlyIn(Dist.CLIENT)
 	public boolean isFoil() {
@@ -143,12 +155,12 @@ public class KunaiEntity extends AbstractArrow {
 	}
 
 	@Nullable
-	public EntityRayTraceResult findHitEntity(Vector3d startVec, Vector3d endVec) {
+	public EntityHitResult findHitEntity(Vec3 startVec, Vec3 endVec) {
 		return this.dealtDamage ? null : super.findHitEntity(startVec, endVec);
 	}
 
 	@Override
-	public void onHitEntity(EntityRayTraceResult result) {
+	public void onHitEntity(EntityHitResult result) {
 		Entity entity = result.getEntity();
         int e = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.SHARPNESS, this.thrownStack);		
 		float f = 5.5f + (((float)e)-1.5f);
@@ -158,7 +170,7 @@ public class KunaiEntity extends AbstractArrow {
 		}
 
 		Entity shooter = this.getOwner();
-		DamageSource damagesource = DamageSource.trident(this, (Entity)(shooter == null ? this : shooter));
+		DamageSource damagesource = level().damageSources().trident(this, (Entity)(shooter == null ? this : shooter));
 		this.dealtDamage = true;
 		SoundEvent soundevent = SoundEvents.TRIDENT_HIT;
 		if (entity.hurt(damagesource, f)) {
@@ -187,7 +199,7 @@ public class KunaiEntity extends AbstractArrow {
 			}
 
 			if (this.piercedEntities.size() >= this.getPierceLevel() + 1) {
-				this.remove();
+				this.discard();
 				return;
 			}
 
@@ -206,12 +218,13 @@ public class KunaiEntity extends AbstractArrow {
 		return SoundEvents.TRIDENT_HIT_GROUND;
 	}
 
-	@Override
-	public SoundEvent getHitGroundSoundEvent() {
-		return SoundEvents.TRIDENT_HIT_GROUND;
-	}
+	//TODO: FIX THIS
+	//@Override
+	//public SoundEvent getHitGroundSoundEvent() {
+	//	return SoundEvents.TRIDENT_HIT_GROUND;
+	//}
 	
-	public void playerTouch(PlayerEntity entityIn) {
+	public void playerTouch(Player entityIn) {
 		Entity entity = this.getOwner();
 		if (entity == null || entity.getUUID() == entityIn.getUUID()) {
 			super.playerTouch(entityIn);
@@ -219,11 +232,11 @@ public class KunaiEntity extends AbstractArrow {
 	}
 
 	@Override
-	public IPacket<?> getAddEntityPacket() {
+	public Packet<ClientGamePacketListener> getAddEntityPacket() {
 		return NetworkHooks.getEntitySpawningPacket(this);
 	}
 
-	public void readAdditionalSaveData(CompoundNBT compound) {
+	public void readAdditionalSaveData(CompoundTag compound) {
 		super.readAdditionalSaveData(compound);
 		if (compound.contains("Kunai", 10)) {
 			this.thrownStack = ItemStack.of(compound.getCompound("Kunai"));
@@ -235,9 +248,9 @@ public class KunaiEntity extends AbstractArrow {
 		this.entityData.set(PIERCE_LEVEL, (byte)EnchantmentHelper.getItemEnchantmentLevel(Enchantments.PIERCING, this.thrownStack));
 	}
 
-	public void addAdditionalSaveData(CompoundNBT compound) {
+	public void addAdditionalSaveData(CompoundTag compound) {
 		super.addAdditionalSaveData(compound);
-		compound.put("Kunai", this.thrownStack.save(new CompoundNBT()));
+		compound.put("Kunai", this.thrownStack.save(new CompoundTag()));
 		compound.putBoolean("DealtDamage", this.dealtDamage);
 		compound.putByte("PierceLevel", this.getPierceLevel());
 	}
@@ -248,7 +261,7 @@ public class KunaiEntity extends AbstractArrow {
 
 	public void tickDespawn() {
 		int i = this.entityData.get(LOYALTY_LEVEL);
-		if (this.pickup != AbstractArrowEntity.PickupStatus.ALLOWED || i <= 0) {
+		if (this.pickup != AbstractArrow.Pickup.ALLOWED || i <= 0) {
 			super.tickDespawn();
 		}
 	}
@@ -270,5 +283,5 @@ public class KunaiEntity extends AbstractArrow {
 	@OnlyIn(Dist.CLIENT)
 	public boolean shouldRender(double x, double y, double z) {
 		return true;
-	}*/
+	}
 }

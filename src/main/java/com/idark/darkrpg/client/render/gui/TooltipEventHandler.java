@@ -1,14 +1,8 @@
 package com.idark.darkrpg.client.render.gui;
 
 import com.idark.darkrpg.DarkRPG;
-import com.idark.darkrpg.item.types.*;
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.resources.ResourceLocation;
-import org.lwjgl.opengl.GL11;
-import net.minecraft.client.Minecraft;
 import net.minecraftforge.client.event.RenderTooltipEvent;
-import net.minecraftforge.event.entity.player.ItemTooltipEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class TooltipEventHandler {

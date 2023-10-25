@@ -1,6 +1,5 @@
 package com.idark.darkrpg.entity.model;
 
-import com.idark.darkrpg.entity.custom.SwampWandererEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.EntityModel;

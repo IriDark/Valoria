@@ -20,6 +20,7 @@ import com.idark.darkrpg.item.ModItemGroup;
 import com.idark.darkrpg.item.ModItems;
 import com.idark.darkrpg.paintings.ModPaintings;
 import com.idark.darkrpg.tileentity.ModTileEntities;
+import com.idark.darkrpg.util.ModItemModelProperties;
 import com.idark.darkrpg.util.ModSoundRegistry;
 import com.idark.darkrpg.util.WorldRenderHandler;
 import com.idark.darkrpg.util.particle.ModParticles;
@@ -37,6 +38,7 @@ import net.minecraft.client.renderer.blockentity.SignRenderer;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.WoodType;
@@ -192,18 +194,18 @@ import java.io.IOException;
 	    //EntitySpawnPlacementRegistry.register(ModEntityTypes.GOBLIN.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND,
 	    //Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MonsterEntity::checkAnyLightMonsterSpawnRules);
 
-			EntityRenderers.register(ModEntityTypes.GOBLIN.get(), GoblinRenderer::new);
-			EntityRenderers.register(ModEntityTypes.SWAMP_WANDERER.get(), SwampWandererRenderer::new);
-			EntityRenderers.register(ModEntityTypes.MANNEQUIN.get(), MannequinRenderer::new);
-			EntityRenderers.register(ModEntityTypes.KUNAI.get(), KunaiRenderer::new);
-			EntityRenderers.register(ModEntityTypes.POISONED_KUNAI.get(), PoisonedKunaiRenderer::new);
+		EntityRenderers.register(ModEntityTypes.GOBLIN.get(), GoblinRenderer::new);
+		EntityRenderers.register(ModEntityTypes.SWAMP_WANDERER.get(), SwampWandererRenderer::new);
+		EntityRenderers.register(ModEntityTypes.MANNEQUIN.get(), MannequinRenderer::new);
+		EntityRenderers.register(ModEntityTypes.KUNAI.get(), KunaiRenderer::new);
+		EntityRenderers.register(ModEntityTypes.POISONED_KUNAI.get(), PoisonedKunaiRenderer::new);
 
-		/*ModItemModelProperties.makeBow(ModItems.SAMURAI_LONG_BOW.get());
-	    ModItemModelProperties.makeBow(ModItems.NATURE_BOW.get());		
+		ModItemModelProperties.makeBow(ModItems.SAMURAI_LONG_BOW.get());
+	    ModItemModelProperties.makeBow(ModItems.NATURE_BOW.get());
 	    ModItemModelProperties.makeBow(ModItems.AQUARIUS_BOW.get());
 	    ModItemModelProperties.makeBow(ModItems.BOW_OF_DARKNESS.get());
 	    ModItemModelProperties.makeBow(ModItems.PHANTASM_BOW.get());
-		ModItemModelProperties.makeSize(ModItems.SOUL_COLLECTOR.get());*/
+		ModItemModelProperties.makeSize(ModItems.SOUL_COLLECTOR.get());
 	    }
 		private void setup(final FMLCommonSetupEvent event) {
         //WorldGen.init();
@@ -215,11 +217,11 @@ import java.io.IOException;
        
 		WoodType.register(ModWoodTypes.SHADEWOOD);
 	    });
-        /*DeferredWorkQueue.runLater(() -> {
-		GlobalEntityTypeAttributes.put(ModEntityTypes.SWAMP_WANDERER.get(), SwampWandererEntity.setCustomAttributes().build());
-        GlobalEntityTypeAttributes.put(ModEntityTypes.MANNEQUIN.get(), MannequinEntity.setCustomAttributes().build());
-        GlobalEntityTypeAttributes.put(ModEntityTypes.GOBLIN.get(), GoblinEntity.setCustomAttributes().build());
-        });*/
+        //DeferredWorkQueue.runLater(() -> {
+		//GlobalEntityTypeAttributes.put(ModEntityTypes.SWAMP_WANDERER.get(), SwampWandererEntity.setCustomAttributes().build());
+        //GlobalEntityTypeAttributes.put(ModEntityTypes.MANNEQUIN.get(), MannequinEntity.setCustomAttributes().build());
+        //GlobalEntityTypeAttributes.put(ModEntityTypes.GOBLIN.get(), GoblinEntity.setCustomAttributes().build());
+        //});
         }
 	    private void processIMC(final InterModProcessEvent event) {
 	    // some example code to receive and process InterModComms from other mods

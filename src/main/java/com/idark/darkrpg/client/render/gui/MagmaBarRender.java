@@ -1,13 +1,8 @@
 package com.idark.darkrpg.client.render.gui;
 
 import com.idark.darkrpg.DarkRPG;
-import com.idark.darkrpg.config.ClientConfig;
-import com.idark.darkrpg.item.types.MagmaSwordItem;
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.event.RenderGuiOverlayEvent;
-import org.lwjgl.opengl.GL11;
-import net.minecraft.client.Minecraft;
 
 public class MagmaBarRender {
 

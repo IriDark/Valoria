@@ -9,7 +9,7 @@ issueTrackerURL = ""
   updateJSONURL="" 
   displayURL = "https://discord.gg/wWdXpwuPmK" 
   logoFile = "DarkRPG_Logo.png"
-  credits = "" 
+  credits = "Calamity Mod (sounds)"
   authors = "iDark" 
   description = '''
 A global RPG mod.
@@ -28,8 +28,6 @@ Special Thanks:
 - FoxPlane
 - RayRindou
 - Feimos
-
-Some sounds taken from the CalamityMod (Terraria) in a https://calamitymod.fandom.com/wiki/Category:Sound_effects
 '''
     [[dependencies.darkrpg]]
   modId = "forge"

@@ -4,16 +4,16 @@ import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import com.idark.darkrpg.client.render.DashOverlayRender;
 import com.idark.darkrpg.config.ClientConfig;
+import com.idark.darkrpg.item.ModItems;
 import com.idark.darkrpg.util.ModSoundRegistry;
+import com.idark.darkrpg.util.ModTags;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.resources.model.Material;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
@@ -119,7 +119,7 @@ public class KatanaItem extends TieredItem implements Vanishable {
 	public int getUseDuration(ItemStack stack) {
       return 30;
 	}
-	
+
     // Some sounds taken from the CalamityMod (Terraria) in a https://calamitymod.fandom.com/wiki/Category:Sound_effects
     public void releaseUsing(ItemStack stack, Level level, LivingEntity entityLiving, int timeLeft) {
 		Player player = (Player)entityLiving;
@@ -188,9 +188,10 @@ public class KatanaItem extends TieredItem implements Vanishable {
 			}
 		
 			level.playSound(player, player.blockPosition(), ModSoundRegistry.SWIFTSLICE.get(), SoundSource.AMBIENT, 10f, 1f);
-			if (ClientConfig.DASH_OVERLAY.get()) {
-				DashOverlayRender.isDash = true;
-			}
+			//TODO: DO DASH RENDER
+			//if (ClientConfig.DASH_OVERLAY.get()) {
+			//	DashOverlayRender.isDash = true;
+			//}
 		}
 	}
 
