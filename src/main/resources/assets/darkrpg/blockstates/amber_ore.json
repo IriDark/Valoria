@@ -3,11 +3,8 @@
     "" : [
 		{ "model": "darkrpg:block/amber_ore" },
 		{ "model": "darkrpg:block/amber_ore_1" },
-		{ "model": "darkrpg:block/amber_ore_2" },
 		{ "model": "darkrpg:block/amber_ore_mirror", "y": 180 },
-		{ "model": "darkrpg:block/amber_ore_1_mirror", "y": 180 },
-		{ "model": "darkrpg:block/amber_ore_2_mirror", "y": 180 }
-
+		{ "model": "darkrpg:block/amber_ore_1_mirror", "y": 180 }
 	]
   }
 }

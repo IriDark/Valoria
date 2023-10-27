@@ -1,0 +1,20 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "darkrpg:block/deepslate_cobalt_ore"
+      },
+      {
+        "model": "darkrpg:block/deepslate_cobalt_ore_mirrored"
+      },
+      {
+        "model": "darkrpg:block/deepslate_cobalt_ore",
+        "y": 180
+      },
+      {
+        "model": "darkrpg:block/deepslate_cobalt_ore_mirrored",
+        "y": 180
+      }
+    ]
+  }
+}

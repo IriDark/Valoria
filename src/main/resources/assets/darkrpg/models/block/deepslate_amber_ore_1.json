@@ -1,6 +1,6 @@
 {
     "parent": "block/cube_all",
     "textures": {
-        "all": "darkrpg:block/amber_ore_2"
+        "all": "darkrpg:block/deepslate_amber_ore_1"
     }
 }

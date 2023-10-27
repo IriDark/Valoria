@@ -38,6 +38,8 @@ public class ModBlocks {
 	// Key
 	public static final RegistryObject<Block> KEYBLOCK = BLOCK.register("keyblock",
 			() -> new KeyPadBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(-1f, 3600000.8F).sound(SoundType.NETHER_BRICKS)));
+	public static final RegistryObject<Block> CUT_KEYBLOCK = BLOCK.register("cut_keyblock",
+			() -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(-1f, 3600000.8F).sound(SoundType.NETHER_BRICKS)));
 	public static final RegistryObject<Block> KEYBLOCK_BRICKS = BLOCK.register("keyblock_bricks",
 			() -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(-1f, 3600000.8F).sound(SoundType.NETHER_BRICKS)));
 	public static final RegistryObject<Block> KEYBLOCK_RUNE = BLOCK.register("keyblock_rune",
@@ -341,6 +343,16 @@ public class ModBlocks {
 			() -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(2f)));
 	public static final RegistryObject<Block> COBALT_ORE = BLOCK.register("cobalt_ore",
 			() -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(4f)));
+	public static final RegistryObject<Block> DEEPSLATE_AMBER_ORE = BLOCK.register("deepslate_amber_ore",
+			() -> new Block(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE).requiresCorrectToolForDrops().strength(3f)));
+	public static final RegistryObject<Block> DEEPSLATE_AMETHYST_ORE = BLOCK.register("deepslate_amethyst_ore",
+			() -> new Block(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE).requiresCorrectToolForDrops().strength(3f)));
+	public static final RegistryObject<Block> DEEPSLATE_RUBY_ORE = BLOCK.register("deepslate_ruby_ore",
+			() -> new Block(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE).requiresCorrectToolForDrops().strength(3f)));
+	public static final RegistryObject<Block> DEEPSLATE_SAPPHIRE_ORE = BLOCK.register("deepslate_sapphire_ore",
+			() -> new Block(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE).requiresCorrectToolForDrops().strength(3f)));
+	public static final RegistryObject<Block> DEEPSLATE_COBALT_ORE = BLOCK.register("deepslate_cobalt_ore",
+			() -> new Block(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE).requiresCorrectToolForDrops().strength(4f)));
 	public static final RegistryObject<Block> WICKED_AMETHYST_ORE = BLOCK.register("wicked_amethyst_ore",
 			() -> new WickedOreBlock(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(4f).sound(SoundType.NETHER_BRICKS)));
 	public static final RegistryObject<Block> PEARLIUM_ORE = BLOCK.register("pearlium_ore",
