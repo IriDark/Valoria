@@ -54,29 +54,28 @@ public class KunaiItem extends Item implements Vanishable {
 	}
 
 	public void releaseUsing(ItemStack stack, Level worldIn, LivingEntity entityLiving, int timeLeft) {
-		if (entityLiving instanceof Player) {
-			Player playerentity = (Player)entityLiving;
+		if (entityLiving instanceof Player playerEntity) {
 			int i = this.getUseDuration(stack) - timeLeft;
 			if (i >= 6) {
 				if (!worldIn.isClientSide) {
-					stack.hurtAndBreak(1, playerentity, (player) -> {
+					stack.hurtAndBreak(1, playerEntity, (player) -> {
 						player.broadcastBreakEvent(entityLiving.getUsedItemHand());
 					});
 					
-                KunaiEntity kunai = new KunaiEntity(worldIn, playerentity, stack);
-                kunai.shootFromRotation(playerentity, playerentity.getXRot(), playerentity.getYRot(), 0.0F, 2.5F + (float) 0 * 0.5F, 1.0F);
-                if (playerentity.getAbilities().instabuild) {
-                    kunai.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
+                KunaiEntity kunaiEntity = new KunaiEntity(worldIn, playerEntity, stack);
+				kunaiEntity.shootFromRotation(playerEntity, playerEntity.getXRot(), playerEntity.getYRot(), 0.0F, 2.5F + (float) 0 * 0.5F, 1.0F);
+                if (playerEntity.getAbilities().instabuild) {
+					kunaiEntity.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
                 }
 
-                worldIn.addFreshEntity(kunai);
-                worldIn.playSound((Player)null, kunai, SoundEvents.TRIDENT_THROW, SoundSource.PLAYERS, 1.0F, 1.0F);
-                if (playerentity.getAbilities().instabuild) {
-                    playerentity.getInventory().removeItem(stack);
+                worldIn.addFreshEntity(kunaiEntity);
+                worldIn.playSound(playerEntity, kunaiEntity, SoundEvents.TRIDENT_THROW, SoundSource.PLAYERS, 1.0F, 1.0F);
+                if (playerEntity.getAbilities().instabuild) {
+					playerEntity.getInventory().removeItem(stack);
 				}
 			}
-				
-			playerentity.awardStat(Stats.ITEM_USED.get(this));
+
+				playerEntity.awardStat(Stats.ITEM_USED.get(this));
 			}
 		}
 	}
@@ -92,18 +91,14 @@ public class KunaiItem extends Item implements Vanishable {
 	}
 
 	public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-		stack.hurtAndBreak(1, attacker, (entity) -> {
-			entity.broadcastBreakEvent(EquipmentSlot.MAINHAND);
-		});
+		stack.hurtAndBreak(1, attacker, (entity) -> entity.broadcastBreakEvent(EquipmentSlot.MAINHAND));
 		
 		return true;
 	}
 
 	public boolean mineBlock(ItemStack stack, Level worldIn, BlockState state, BlockPos pos, LivingEntity entityLiving) {
 		if ((double)state.getDestroySpeed(worldIn, pos) != 0.0D) {
-			stack.hurtAndBreak(2, entityLiving, (entity) -> {
-				entity.broadcastBreakEvent(EquipmentSlot.MAINHAND);
-			});
+			stack.hurtAndBreak(2, entityLiving, (entity) -> entity.broadcastBreakEvent(EquipmentSlot.MAINHAND));
 		}
 
 	return true;

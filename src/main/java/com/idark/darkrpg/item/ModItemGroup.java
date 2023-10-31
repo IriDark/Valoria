@@ -299,6 +299,8 @@ import net.minecraftforge.registries.RegistryObject;
 				event.accept(ModBlocks.BRONZE_BLOCK_STAIRS);
 				event.accept(ModBlocks.BRONZE_BLOCK_SLAB);
 				event.accept(ModItems.BRONZE_PLATE);
+				event.accept(ModBlocks.BRONZE_PLATE_STAIRS);
+				event.accept(ModBlocks.BRONZE_PLATE_SLAB);
 				event.accept(ModItems.BRONZE_VENT);
 				event.accept(ModItems.BRONZE_GLASS);
 				event.accept(ModItems.CUT_BRONZE);

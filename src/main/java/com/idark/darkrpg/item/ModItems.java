@@ -204,7 +204,7 @@ public class ModItems {
 	/**
 	 * ITEMS (global category)
 	 */
-	public static final RegistryObject<Item> RAW_COBALT = ITEMS.register("raw_cobalt", () -> new Item(new Item.Properties()));
+	public static final RegistryObject<Item> RAW_COBALT = ITEMS.register("raw_cobalt.json", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> AMBER_GEM = ITEMS.register("amber_gem", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> AMETHYST_GEM = ITEMS.register("amethyst_gem", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> RUBY_GEM = ITEMS.register("ruby_gem", () -> new Item(new Item.Properties()));

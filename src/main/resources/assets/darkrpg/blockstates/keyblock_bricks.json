@@ -1,5 +1,8 @@
 {
   "variants" : {
-    "" : { "model": "darkrpg:block/keyblock_bricks" }
+    "" : [
+          {"model": "darkrpg:block/keyblock_bricks" },
+          { "model": "darkrpg:block/keyblock_bricks_1" }
+    ]
   }
 }

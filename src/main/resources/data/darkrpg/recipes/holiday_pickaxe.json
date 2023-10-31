@@ -1,13 +1,16 @@
 {
     "type": "minecraft:crafting_shaped",
     "pattern": [
-        "XXX",
+        "XOX",
         " / ",
         " / "
     ],
     "key": {
         "X": {
             "item": "darkrpg:holiday_candy"
+        },
+        "O": {
+            "item": "minecraft:sweet_berries"
         },
         "/": {
             "item": "minecraft:stick"
