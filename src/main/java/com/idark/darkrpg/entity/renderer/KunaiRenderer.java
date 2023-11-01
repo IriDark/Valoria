@@ -21,13 +21,14 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class KunaiRenderer extends EntityRenderer<KunaiEntity> {
+public class KunaiRenderer<T extends KunaiEntity> extends EntityRenderer<T> {
 	public static final ResourceLocation KUNAI = new ResourceLocation(DarkRPG.MOD_ID, "textures/entity/kunai.png");
 	public KunaiRenderer(EntityRendererProvider.Context context) {
 		super(context);
 	}
 
-	public void render(KunaiEntity entityIn, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+	//public void render(KunaiEntity entityIn, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+	public void render(KunaiEntity entityIn, float entityYaw, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light) {
 		if (!Minecraft.getInstance().isPaused() && !(entityIn.inGround || entityIn.onGround())){
 			entityIn.rotationVelocity = Mth.lerp(entityIn.rotationVelocity,entityIn.rotationVelocity+10,partialTicks);
 		}
@@ -36,7 +37,7 @@ public class KunaiRenderer extends EntityRenderer<KunaiEntity> {
 		ms.translate(0.5F, 1.1875F, 0.5F);
 		ms.scale(0.5F, 0.5F, 0.5F);
 		ItemStack stack = ModItems.SAMURAI_KUNAI.get().getDefaultInstance();
-		Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.FIXED, light, overlay, ms, buffers, entityIn.level(), 0);
+		Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.FIXED, light, OverlayTexture.NO_OVERLAY, ms, buffers, entityIn.level(), 0);
 		ms.popPose();
 	}
 

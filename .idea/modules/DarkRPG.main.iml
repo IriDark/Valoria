@@ -17,7 +17,7 @@
     </facet>
   </component>
   <component name="McpModuleSettings">
-    <option name="mappingFile" value="C:\Users\User\Documents\GitHub\DarkRPG\build\createMcpToSrg\output.tsrg" />
+    <option name="mappingFile" value="C:\Users\User\Documents\DarkRPG\build\createMcpToSrg\output.tsrg" />
     <option name="mcpVersion" value="parchment_2023.06.26-1.20.1" />
     <option name="minecraftVersion" value="1.20.1" />
     <option name="platformVersion" value="47.1.1" />
