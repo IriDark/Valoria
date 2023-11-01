@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "darkrpg:item/golden_charm3_amber"
+    "layer0": "darkrpg:item/amethyst_totem"
   }
 }

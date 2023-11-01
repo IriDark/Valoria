@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "darkrpg:item/golden_charm2_mystical"
+    "layer0": "darkrpg:item/amber_totem"
   }
 }

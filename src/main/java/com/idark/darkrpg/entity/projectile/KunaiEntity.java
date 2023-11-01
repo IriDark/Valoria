@@ -218,11 +218,10 @@ public class KunaiEntity extends AbstractArrow {
 		return SoundEvents.TRIDENT_HIT_GROUND;
 	}
 
-	//TODO: FIX THIS
-	//@Override
-	//public SoundEvent getHitGroundSoundEvent() {
-	//	return SoundEvents.TRIDENT_HIT_GROUND;
-	//}
+	@Override
+	public SoundEvent getHitGroundSoundEvent() {
+		return SoundEvents.TRIDENT_HIT_GROUND;
+	}
 	
 	public void playerTouch(Player entityIn) {
 		Entity entity = this.getOwner();

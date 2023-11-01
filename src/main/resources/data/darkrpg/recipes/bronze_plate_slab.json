@@ -1,17 +1,17 @@
 {
     "type": "minecraft:crafting_shaped",
     "pattern": [
-        "/  ",
-        "// ",
+        "   ",
+        "   ",
         "///"
     ],
     "key": {
         "/": {
-            "item": "darkrpg:ambane_stone"
+            "item": "darkrpg:bronze_plate"
         }
     },
     "result": {
-        "item": "darkrpg:ambane_stone_stairs",
-        "count": 4
+        "item": "darkrpg:bronze_plate_slab",
+        "count": 6
     }
 }

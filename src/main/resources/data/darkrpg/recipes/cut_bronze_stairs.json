@@ -7,11 +7,11 @@
     ],
     "key": {
         "/": {
-            "item": "darkrpg:ambane_stone"
+            "item": "darkrpg:cut_bronze"
         }
     },
     "result": {
-        "item": "darkrpg:ambane_stone_stairs",
+        "item": "darkrpg:cut_bronze_stairs",
         "count": 4
     }
 }

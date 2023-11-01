@@ -2,7 +2,6 @@ package com.idark.darkrpg.entity.renderer;
 
 import com.idark.darkrpg.DarkRPG;
 import com.idark.darkrpg.entity.projectile.KunaiEntity;
-import com.idark.darkrpg.entity.model.KunaiModel;
 import com.idark.darkrpg.entity.projectile.PoisonedKunaiEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -14,7 +13,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public class PoisonedKunaiRenderer extends EntityRenderer<PoisonedKunaiEntity> {
 	public static final ResourceLocation KUNAI = new ResourceLocation(DarkRPG.MOD_ID, "textures/entity/poisoned_kunai.png");
-	private final KunaiModel kunai = new KunaiModel();
+	//private final KunaiModel kunai = new KunaiModel();
 
 	public PoisonedKunaiRenderer(EntityRendererProvider.Context context) {
 		super(context);

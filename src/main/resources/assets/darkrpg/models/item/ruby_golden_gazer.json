@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "darkrpg:item/golden_charm1_emerald"
+    "layer0": "darkrpg:item/ruby_gazer"
   }
 }
