@@ -30,7 +30,6 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
 import net.minecraftforge.network.NetworkHooks;
-import org.joml.Vector3d;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -38,14 +37,12 @@ import java.util.List;
 public class KunaiEntity extends AbstractArrow {
 	public static final EntityDataAccessor<Byte> LOYALTY_LEVEL = SynchedEntityData.defineId(KunaiEntity.class, EntityDataSerializers.BYTE);
 	public static final EntityDataAccessor<Byte> PIERCE_LEVEL = SynchedEntityData.defineId(KunaiEntity.class, EntityDataSerializers.BYTE);
-	public static final EntityDataAccessor<Boolean> ID_FOIL = SynchedEntityData.defineId(KunaiEntity.class, EntityDataSerializers.BOOLEAN);
 	public ItemStack thrownStack = new ItemStack(ModItems.SAMURAI_KUNAI.get());
 	public boolean dealtDamage;
 	public boolean notRenderable;
-	public boolean piercing;	
+	public boolean piercing;
 	public IntOpenHashSet piercedEntities;
 	public List<Entity> hitEntities;
-
 	public float rotationVelocity = 0;
 	public int returningTicks;
 
@@ -58,7 +55,6 @@ public class KunaiEntity extends AbstractArrow {
 		this.thrownStack = thrownStackIn.copy();
 		this.entityData.set(LOYALTY_LEVEL, (byte) EnchantmentHelper.getLoyalty(thrownStackIn));
 		this.entityData.set(PIERCE_LEVEL, (byte)EnchantmentHelper.getItemEnchantmentLevel(Enchantments.PIERCING, thrownStackIn));
-		this.entityData.set(ID_FOIL, thrownStackIn.hasFoil());
 	}
 
 	@OnlyIn(Dist.CLIENT)
@@ -70,7 +66,6 @@ public class KunaiEntity extends AbstractArrow {
 		super.defineSynchedData();
 		this.entityData.define(LOYALTY_LEVEL, (byte)0);
 		this.entityData.define(PIERCE_LEVEL, (byte)0);		
-		this.entityData.define(ID_FOIL, false);
 	}
 
 	@OnlyIn(Dist.CLIENT)
@@ -149,11 +144,6 @@ public class KunaiEntity extends AbstractArrow {
 		return this.thrownStack.copy();
 	}
 
-	@OnlyIn(Dist.CLIENT)
-	public boolean isFoil() {
-		return this.entityData.get(ID_FOIL);
-	}
-
 	@Nullable
 	public EntityHitResult findHitEntity(Vec3 startVec, Vec3 endVec) {
 		return this.dealtDamage ? null : super.findHitEntity(startVec, endVec);
@@ -178,14 +168,13 @@ public class KunaiEntity extends AbstractArrow {
 				return;
 			}
 
-			if (entity instanceof LivingEntity) {
-				LivingEntity livingentity1 = (LivingEntity)entity;
+			if (entity instanceof LivingEntity living) {
 				if (shooter instanceof LivingEntity) {
-					EnchantmentHelper.doPostHurtEffects(livingentity1, shooter);
-					EnchantmentHelper.doPostDamageEffects((LivingEntity)shooter, livingentity1);
+					EnchantmentHelper.doPostHurtEffects(living, shooter);
+					EnchantmentHelper.doPostDamageEffects((LivingEntity)shooter, living);
 				}
 
-				this.doPostHurtEffects(livingentity1);
+				this.doPostHurtEffects(living);
 			}
 		}
 
@@ -222,11 +211,10 @@ public class KunaiEntity extends AbstractArrow {
 	public SoundEvent getHitGroundSoundEvent() {
 		return SoundEvents.TRIDENT_HIT_GROUND;
 	}
-	
-	public void playerTouch(Player entityIn) {
-		Entity entity = this.getOwner();
-		if (entity == null || entity.getUUID() == entityIn.getUUID()) {
-			super.playerTouch(entityIn);
+
+	public void playerTouch(Player pEntity) {
+		if (this.ownedBy(pEntity) || this.getOwner() == null) {
+			super.playerTouch(pEntity);
 		}
 	}
 

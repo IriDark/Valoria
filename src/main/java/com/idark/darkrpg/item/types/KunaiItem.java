@@ -70,7 +70,7 @@ public class KunaiItem extends Item implements Vanishable {
 
                 worldIn.addFreshEntity(kunaiEntity);
                 worldIn.playSound(playerEntity, kunaiEntity, SoundEvents.TRIDENT_THROW, SoundSource.PLAYERS, 1.0F, 1.0F);
-                if (playerEntity.getAbilities().instabuild) {
+                if (!playerEntity.getAbilities().instabuild) {
 					playerEntity.getInventory().removeItem(stack);
 				}
 			}

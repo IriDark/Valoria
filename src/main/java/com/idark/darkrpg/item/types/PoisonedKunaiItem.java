@@ -2,11 +2,15 @@ package com.idark.darkrpg.item.types;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
+import com.idark.darkrpg.entity.projectile.PoisonedKunaiEntity;
 import com.idark.darkrpg.math.RandUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -17,6 +21,7 @@ import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
@@ -54,33 +59,32 @@ public class PoisonedKunaiItem extends Item implements Vanishable {
 		return 72000;
 	}
 
-	/*public void releaseUsing(ItemStack stack, World worldIn, LivingEntity entityLiving, int timeLeft) {
-		if (entityLiving instanceof PlayerEntity) {
-			PlayerEntity playerentity = (PlayerEntity)entityLiving;
+	public void releaseUsing(ItemStack stack, Level worldIn, LivingEntity entityLiving, int timeLeft) {
+		if (entityLiving instanceof Player playerEntity) {
 			int i = this.getUseDuration(stack) - timeLeft;
 			if (i >= 6) {
 				if (!worldIn.isClientSide) {
-					stack.hurtAndBreak(1, playerentity, (player) -> {
+					stack.hurtAndBreak(1, playerEntity, (player) -> {
 						player.broadcastBreakEvent(entityLiving.getUsedItemHand());
 					});
-					
-                PoisonedKunaiEntity kunai = new PoisonedKunaiEntity(worldIn, playerentity, stack);
-                kunai.shootFromRotation(playerentity, playerentity.xRot, playerentity.yRot, 0.0F, 2.5F + (float) 0 * 0.5F, 1.0F);
-                if (playerentity.abilities.instabuild) {
-                    kunai.pickup = AbstractArrowEntity.PickupStatus.CREATIVE_ONLY;
-                }
 
-                worldIn.addFreshEntity(kunai);
-                worldIn.playSound((PlayerEntity)null, kunai, SoundEvents.TRIDENT_THROW, SoundCategory.PLAYERS, 1.0F, 1.0F);				
-                if (!playerentity.abilities.instabuild) {
-                    playerentity.inventory.removeItem(stack);
+					PoisonedKunaiEntity kunaiEntity = new PoisonedKunaiEntity(worldIn, playerEntity, stack);
+					kunaiEntity.shootFromRotation(playerEntity, playerEntity.getXRot(), playerEntity.getYRot(), 0.0F, 2.5F + (float) 0 * 0.5F, 1.0F);
+					if (playerEntity.getAbilities().instabuild) {
+						kunaiEntity.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
+					}
+
+					worldIn.addFreshEntity(kunaiEntity);
+					worldIn.playSound(playerEntity, kunaiEntity, SoundEvents.TRIDENT_THROW, SoundSource.PLAYERS, 1.0F, 1.0F);
+					if (!playerEntity.getAbilities().instabuild) {
+						playerEntity.getInventory().removeItem(stack);
+					}
 				}
-			}
-				
-			playerentity.awardStat(Stats.ITEM_USED.get(this));
+
+				playerEntity.awardStat(Stats.ITEM_USED.get(this));
 			}
 		}
-	}*/
+	}
 
 	public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
 		ItemStack itemstack = playerIn.getItemInHand(handIn);
