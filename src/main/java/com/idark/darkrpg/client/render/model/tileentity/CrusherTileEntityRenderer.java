@@ -21,9 +21,8 @@ public class CrusherTileEntityRenderer implements BlockEntityRenderer<CrusherTil
             ms.pushPose();
             ms.translate(0.5D, 1.05D, 0.5D);
             ms.mulPose(Axis.XP.rotationDegrees(90.0F));
-            ms.translate(0.0D, -0.0D, 0.0D);
             ms.scale(0.7F, 0.7F, 0.7F);
-            Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.FIXED, light, overlay, ms, buffers, pedestal.getLevel(), 0);
+            Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.FIXED, 14680064, overlay, ms, buffers, pedestal.getLevel(), 0);
             ms.popPose();
         }
     }
