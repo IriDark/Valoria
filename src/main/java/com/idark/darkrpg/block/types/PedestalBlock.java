@@ -76,21 +76,30 @@ public class PedestalBlock extends Block implements EntityBlock, SimpleWaterlogg
 
         if ((!stack.isEmpty()) && (tile.getItemHandler().getItem(0).isEmpty())) {
             if (stack.getCount() > 1) {
-                player.getMainHandItem().setCount(stack.getCount() - 1);
+                if (!player.isCreative()) {
+                    player.getMainHandItem().setCount(stack.getCount() - 1);
+                }
+
                 stack.setCount(1);
                 tile.getItemHandler().setItem(0, stack);
                 PacketUtils.SUpdateTileEntityPacket(tile);
                 return InteractionResult.SUCCESS;
             } else {
                 tile.getItemHandler().setItem(0, stack);
-                player.getInventory().removeItem(player.getItemInHand(hand));
+                if (!player.isCreative()) {
+                    player.getInventory().removeItem(player.getItemInHand(hand));
+                }
+
                 PacketUtils.SUpdateTileEntityPacket(tile);
                 return InteractionResult.SUCCESS;
             }
         }
 
         if (!tile.getItemHandler().getItem(0).isEmpty()) {
-            player.getInventory().add(tile.getItemHandler().getItem(0).copy());
+            if (!player.isCreative()) {
+                player.getInventory().add(tile.getItemHandler().getItem(0).copy());
+            }
+
             tile.getItemHandler().removeItemNoUpdate(0);
             PacketUtils.SUpdateTileEntityPacket(tile);
             return InteractionResult.SUCCESS;

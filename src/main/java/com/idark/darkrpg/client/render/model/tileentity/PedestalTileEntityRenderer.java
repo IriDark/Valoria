@@ -16,7 +16,6 @@ public class PedestalTileEntityRenderer implements BlockEntityRenderer<PedestalT
 
     @Override
     public void render(PedestalTileEntity pedestal, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
-
         double ticks = (ClientTickHandler.ticksInGame + partialTicks) * 2;
         double ticksUp = (ClientTickHandler.ticksInGame + partialTicks) * 4;
         ticksUp = (ticksUp) % 360;

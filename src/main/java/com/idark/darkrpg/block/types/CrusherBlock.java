@@ -3,6 +3,7 @@ package com.idark.darkrpg.block.types;
 import com.idark.darkrpg.item.ModItems;
 import com.idark.darkrpg.tileentity.CrusherTileEntity;
 import com.idark.darkrpg.tileentity.TileSimpleInventory;
+import com.idark.darkrpg.util.PacketUtils;
 import com.idark.darkrpg.util.particle.ModParticles;
 import com.idark.darkrpg.util.particle.Particles;
 import net.minecraft.core.BlockPos;
@@ -10,6 +11,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Abilities;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.PickaxeItem;
@@ -55,13 +57,20 @@ public class CrusherBlock extends Block implements EntityBlock {
 
         if ((!stack.isEmpty()) && isValid(stack) && (tile.getItemHandler().getItem(0).isEmpty())) {
             if (stack.getCount() > 1) {
-                player.getMainHandItem().setCount(stack.getCount() - 1);
+                if (!player.isCreative()) {
+                    player.getMainHandItem().setCount(stack.getCount() - 1);
+                }
+
                 stack.setCount(1);
                 tile.getItemHandler().setItem(0, stack);
                 return InteractionResult.SUCCESS;
             } else {
                 tile.getItemHandler().setItem(0, stack);
-                player.getInventory().removeItem(player.getItemInHand(handIn));
+                if (!player.isCreative()) {
+                    player.getInventory().removeItem(player.getItemInHand(handIn));
+                }
+
+                PacketUtils.SUpdateTileEntityPacket(tile);
                 return InteractionResult.SUCCESS;
             }
         }
@@ -82,7 +91,10 @@ public class CrusherBlock extends Block implements EntityBlock {
 				.spawn(world, pos.getX() + (rand.nextDouble() * 1.25), pos.getY() + 0.5F + ((rand.nextDouble() - 0.5D) * 1.25), pos.getZ() + 0.5F + ((rand.nextDouble() - 0.5D) * 1.25));
 			}
 		} else if (stack.isEmpty() && !tile.getItemHandler().getItem(0).isEmpty()) {
-			player.getInventory().add(tile.getItemHandler().getItem(0).copy());
+            if (!player.isCreative()) {
+                player.getInventory().add(tile.getItemHandler().getItem(0).copy());
+            }
+
 			tile.getItemHandler().removeItemNoUpdate(0);
 			return InteractionResult.SUCCESS;
 		}
