@@ -38,16 +38,15 @@ public class DropItemProperty extends Item {
 		ItemStack heldStack = player.getItemInHand(hand);
 		worldIn.playSound(player, player.blockPosition(), ModSoundRegistry.BAG_OPEN.get(), SoundSource.AMBIENT, 10f, 1f);
 
-		if (player instanceof ServerPlayer) {
-			ServerPlayer serverPlayer = (ServerPlayer) player;
+		if (player instanceof ServerPlayer serverPlayer) {
 			Vec3 playerPos = serverPlayer.position();
 		
 		switch(type) {
 			case MINERS:
-				LootUtil.DropLoot(serverPlayer, LootUtil.generateLoot(new ResourceLocation(DarkRPG.MOD_ID, "items/miners_bag"), LootUtil.getGiftParameters((ServerLevel) worldIn, playerPos, serverPlayer)));
+				LootUtil.DropLoot(serverPlayer, LootUtil.createLoot(new ResourceLocation(DarkRPG.MOD_ID, "items/miners_bag"), LootUtil.getGiftParameters((ServerLevel) worldIn, playerPos, serverPlayer)));
 				break;
 			case GEM:
-				LootUtil.DropLoot(serverPlayer, LootUtil.generateLoot(new ResourceLocation(DarkRPG.MOD_ID, "items/gem_bag"), LootUtil.getGiftParameters((ServerLevel) worldIn, playerPos, serverPlayer)));
+				LootUtil.DropLoot(serverPlayer, LootUtil.createLoot(new ResourceLocation(DarkRPG.MOD_ID, "items/gem_bag"), LootUtil.getGiftParameters((ServerLevel) worldIn, playerPos, serverPlayer)));
 				break;
 			}
 			

@@ -80,7 +80,7 @@ public class CrusherBlock extends Block implements EntityBlock {
 		if ((stack.getItem() instanceof PickaxeItem) && (!tile.getItemHandler().getItem(0).isEmpty())) {
 			if (player instanceof ServerPlayer serverPlayer) {
                 Vec3 block = new Vec3(pos.getX() + 0.5f, pos.getY() + 1.5f, pos.getZ() + 0.5f);
-                LootUtil.SpawnLoot(world, pos.above(), LootUtil.generateLoot(new ResourceLocation(DarkRPG.MOD_ID, "items/crusher"), LootUtil.getGiftParameters((ServerLevel) world, block, serverPlayer)));
+                LootUtil.SpawnLoot(world, pos.above(), LootUtil.createLoot(new ResourceLocation(DarkRPG.MOD_ID, "items/crusher"), LootUtil.getGiftParameters((ServerLevel) world, block, serverPlayer)));
 			}
 
             tile.getItemHandler().removeItemNoUpdate(0);
