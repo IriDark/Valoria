@@ -267,7 +267,7 @@ public class ModItems {
 	public static final RegistryObject<Item> INFERNAL_INGOT = ITEMS.register("infernal_ingot", () -> new Item(new Item.Properties().fireResistant()));
 	public static final RegistryObject<Item> VOID_INGOT = ITEMS.register("void_ingot", () -> new Item(new Item.Properties().fireResistant()));
 	/**
-	 * 		TOOLS (category)
+	 * TOOLS (category)
 	 */
 	public static final RegistryObject<Item> CLUB = ITEMS.register("club",
 			() -> new ClubItem(Tiers.WOOD, 4, -3.2f, new Item.Properties()));
@@ -550,10 +550,9 @@ public class ModItems {
 		() -> new ModSpawnEggItem(ModEntityTypes.GOBLIN, 0x00FFFFFF, 0x00FFFFFF, new Item.Properties()));
 	public static final RegistryObject<ModSpawnEggItem> MANNEQUIN_SPAWN_EGG = ITEMS.register("mannequin_spawn_egg",
 		() -> new ModSpawnEggItem(ModEntityTypes.MANNEQUIN, 0x00FFFFFF, 0x00FFFFFF, new Item.Properties()));
-
+	*/
 
 	public static final RegistryObject<Item> ETERNITY = ITEMS.register("eternity", () -> new Item(new Item.Properties().rarity(Rarity.EPIC)));
-	*/
 
 	public static void register(IEventBus eventBus) {
 		ITEMS.register(eventBus);
