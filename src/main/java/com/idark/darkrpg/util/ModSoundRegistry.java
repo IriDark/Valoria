@@ -11,12 +11,12 @@ import net.minecraftforge.registries.RegistryObject;
 public class ModSoundRegistry {
     public static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, DarkRPG.MOD_ID);
 
-    public static final RegistryObject<SoundEvent> MAGIC_USE = registerSound("item.magic.use");
+    //public static final RegistryObject<SoundEvent> MAGIC_USE = registerSound("item.magic.use");
     public static final RegistryObject<SoundEvent> SWIFTSLICE = registerSound("item.swiftslice.use");
 	public static final RegistryObject<SoundEvent> RECHARGE = registerSound("item.recharge.use");
 	public static final RegistryObject<SoundEvent> BLAZECHARGE = registerSound("item.blazecharge.use");
 	public static final RegistryObject<SoundEvent> ERUPTION = registerSound("item.eruption.use");
-	public static final RegistryObject<SoundEvent> PIERCE = registerSound("item.pierce.ambient");
+	//public static final RegistryObject<SoundEvent> PIERCE = registerSound("item.pierce.ambient");
 	public static final RegistryObject<SoundEvent> POT_BREAK = registerSound("block.pot_break.ambient");
 	public static final RegistryObject<SoundEvent> POT_STEP = registerSound("block.pot_step.ambient");
 	public static final RegistryObject<SoundEvent> POT_PLACE = registerSound("block.pot_place.ambient");
