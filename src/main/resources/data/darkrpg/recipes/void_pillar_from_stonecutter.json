@@ -2,7 +2,7 @@
     "type": "minecraft:stonecutting",
     "count": 1,
     "ingredient": {
-        "item": "darkrpg:void_brick"
+        "item": "darkrpg:void_stone"
     },
-    "result": "darkrpg:void_chiseled_bricks"
+    "result": "darkrpg:void_pillar"
 }

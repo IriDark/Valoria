@@ -38,30 +38,27 @@ public class FireTrapBlock extends DirectionalBlock {
 	
 	public void entityInside(BlockState state, Level worldIn, BlockPos pos, Entity entityIn) {
 		if (state.getValue(STATE) == 1) {	
-			if (state.getValue(BlockStateProperties.WATERLOGGED) == false) {
+			if (!state.getValue(BlockStateProperties.WATERLOGGED)) {
 				entityIn.hurt(entityIn.damageSources().generic(), 2.0F);
 			}
 		}
 	}
 	
-	// Called when entity stepped on trap
     @Override
 	public void stepOn(Level worldIn, BlockPos pos, BlockState state, Entity entityIn) {
 		Direction direction = state.getValue(DirectionalBlock.FACING);
-		// When block in water do nothing and spawn POOF particles
-		if (state.getValue(BlockStateProperties.WATERLOGGED) == true) {
+		if (state.getValue(BlockStateProperties.WATERLOGGED)) {
 			worldIn.playSound((Player)null, pos, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 0.05F, worldIn.random.nextFloat() * 0.5F + 0.5F);
 			worldIn.addParticle(ParticleTypes.POOF, pos.getX() + rand.nextDouble(), pos.getY() + 0.7D, pos.getZ() + rand.nextDouble(), 0d, 0.05d, 0d);
 			entityIn.hurt(entityIn.damageSources().generic(), 1.0F);
 			return;
 		}
 		
-		// When stepping on block with state 1 do nothing
 		if (state.getValue(STATE) == 1) {
 			return;
 		}
 		
-		if (state.getValue(BlockStateProperties.WATERLOGGED) == false) {
+		if (!state.getValue(BlockStateProperties.WATERLOGGED)) {
 			worldIn.playSound((Player)null, pos, SoundEvents.FIREWORK_ROCKET_BLAST, SoundSource.BLOCKS, 0.3F, worldIn.random.nextFloat() * 0.25F + 0.6F);
 			worldIn.setBlockAndUpdate(pos, ModBlocks.TOMBSTONE_FIRECHARGE_TRAP.get().defaultBlockState().setValue(STATE, Integer.valueOf(1)).setValue(DirectionalBlock.FACING,state.getValue(DirectionalBlock.FACING)));
 			for (int i = 0;i<25;i++) {
@@ -76,22 +73,18 @@ public class FireTrapBlock extends DirectionalBlock {
 				worldIn.addParticle(ParticleTypes.FLAME, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, 0.0D, 0.0D, 0.0D);
 				worldIn.addParticle(ParticleTypes.LAVA, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, 0.0D, 0.0D, 0.0D);
 			}
-			return;
-		}
+        }
 	}
 
-	// Redstone signal
     @Override
     public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
 		Direction direction = state.getValue(DirectionalBlock.FACING);
-		// When block in water do nothing and spawn POOF particles
-		if (state.getValue(BlockStateProperties.WATERLOGGED) == true) {
+		if (state.getValue(BlockStateProperties.WATERLOGGED)) {
 			worldIn.playSound((Player)null, pos, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 0.1F, worldIn.random.nextFloat() * 0.5F + 0.6F);
 			worldIn.addParticle(ParticleTypes.POOF, pos.getX() + rand.nextDouble(), pos.getY() + 0.7D, pos.getZ() + rand.nextDouble(), 0d, 0.05d, 0d);
-			return;
-		}
+        }
 		
-		else if (state.getValue(BlockStateProperties.WATERLOGGED) == false) {
+		else if (!state.getValue(BlockStateProperties.WATERLOGGED)) {
 			if (worldIn.hasNeighborSignal(pos)) {
 				worldIn.playSound((Player)null, pos, SoundEvents.FIREWORK_ROCKET_BLAST, SoundSource.BLOCKS, 0.3F, worldIn.random.nextFloat() * 0.25F + 0.6F);
 				for (int i = 0;i<25;i++) {
@@ -109,10 +102,6 @@ public class FireTrapBlock extends DirectionalBlock {
 			}
 		}
 	}
-
-    //public boolean isPathfindable(BlockState state, IBlockReader worldIn, BlockPos pos, PathType type) {
-    //    return type == PathType.AIR && !this.hasCollision ? true : super.isPathfindable(state, worldIn, pos, type);
-    //}
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
@@ -133,12 +122,4 @@ public class FireTrapBlock extends DirectionalBlock {
     public FluidState getFluidState(BlockState state) {
         return state.getValue(BlockStateProperties.WATERLOGGED) ? Fluids.WATER.getSource(false) : Fluids.EMPTY.defaultFluidState();
     }
-	
-    /*@Override
-    public BlockState updateShape(BlockState stateIn, Direction side, BlockState facingState, Level worldIn, BlockPos currentPos, BlockPos facingPos) {
-		if (stateIn.getValue(BlockStateProperties.WATERLOGGED)) {
-            worldIn.getLiquidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(worldIn));
-		}
-		return stateIn;
-    }*/
 }

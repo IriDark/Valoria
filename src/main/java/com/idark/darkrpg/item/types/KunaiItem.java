@@ -122,8 +122,6 @@ public class KunaiItem extends Item implements Vanishable {
 		if(stack.isEnchanted()) {
 			tooltip.add(Component.empty());
 			tooltip.add(Component.translatable("tooltip.darkrpg.encht").withStyle(ChatFormatting.GRAY));
-		} else {
-			return;
 		}
 	}
 }

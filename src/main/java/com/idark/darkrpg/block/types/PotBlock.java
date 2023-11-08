@@ -1,6 +1,7 @@
 package com.idark.darkrpg.block.types;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
@@ -29,11 +30,7 @@ public class PotBlock extends HorizontalDirectionalBlock implements SimpleWaterl
     public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
         return shape;
     }
-	
-    //public boolean isPathfindable(BlockState state, IBlockReader worldIn, BlockPos pos, PathType type) {
-    //  return type == PathType.AIR && !this.hasCollision ? true : super.isPathfindable(state, worldIn, pos, type);
-    //}
-	
+
 	@Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(BlockStateProperties.WATERLOGGED);
@@ -51,13 +48,4 @@ public class PotBlock extends HorizontalDirectionalBlock implements SimpleWaterl
     public FluidState getFluidState(BlockState state) {
         return state.getValue(BlockStateProperties.WATERLOGGED) ? Fluids.WATER.getSource(false) : Fluids.EMPTY.defaultFluidState();
     }
-
-    /*@Override
-    public BlockState updateShape(BlockState stateIn, Direction side, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
-        if (stateIn.getValue(BlockStateProperties.WATERLOGGED)) {
-            worldIn.getLiquidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(worldIn));
-        }
-
-        return stateIn;
-    }*/
 }

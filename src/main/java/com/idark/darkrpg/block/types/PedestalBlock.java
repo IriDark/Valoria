@@ -77,7 +77,7 @@ public class PedestalBlock extends Block implements EntityBlock, SimpleWaterlogg
         if ((!stack.isEmpty()) && (tile.getItemHandler().getItem(0).isEmpty())) {
             if (stack.getCount() > 1) {
                 if (!player.isCreative()) {
-                    player.getMainHandItem().setCount(stack.getCount() - 1);
+                    player.getItemInHand(hand).setCount(stack.getCount() - 1);
                 }
 
                 stack.setCount(1);

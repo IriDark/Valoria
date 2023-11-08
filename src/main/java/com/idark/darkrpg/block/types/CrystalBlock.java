@@ -4,10 +4,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.DirectionalBlock;
-import net.minecraft.world.level.block.Mirror;
-import net.minecraft.world.level.block.SimpleWaterloggedBlock;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -119,18 +118,10 @@ public class CrystalBlock extends DirectionalBlock implements SimpleWaterloggedB
     public FluidState getFluidState(BlockState state) {
         return state.getValue(BlockStateProperties.WATERLOGGED) ? Fluids.WATER.getSource(false) : Fluids.EMPTY.defaultFluidState();
     }
-	
-    /*@Override
-    public BlockState updateShape(BlockState stateIn, Direction side, BlockState facingState, BlockGetter worldIn, BlockPos currentPos, BlockPos facingPos) {
-		if (stateIn.getValue(BlockStateProperties.WATERLOGGED)) {
-            worldIn.getLiquidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(worldIn));
-		}
-		return getFacing(stateIn).getOpposite() == side && !stateIn.canSurvive(worldIn, currentPos) ? Blocks.AIR.defaultBlockState() : super.updateShape(stateIn, side, facingState, worldIn, currentPos, facingPos);
-    }
-			
+
     public BlockState rotate(BlockState state, Rotation rot) {
 		return state.setValue(FACING, rot.rotate(state.getValue(FACING)));
-    }*/
+    }
 
     public BlockState mirror(BlockState state, Mirror mirrorIn) {
 		return state.setValue(FACING, mirrorIn.mirror(state.getValue(FACING)));

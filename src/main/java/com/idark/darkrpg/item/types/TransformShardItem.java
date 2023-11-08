@@ -1,6 +1,7 @@
 package com.idark.darkrpg.item.types;
 
 import com.idark.darkrpg.block.*;
+import com.idark.darkrpg.item.ModItems;
 import com.idark.darkrpg.util.particle.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -9,6 +10,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -22,12 +24,12 @@ import java.util.Random;
 public class TransformShardItem extends Item {
     Random rand = new Random();
 	public TransformType type;
-	
-    public TransformShardItem(TransformType type, Properties properties) {
+
+	public TransformShardItem(TransformType type, Properties properties) {
         super(properties);
 		this.type = type;		
     }
-	
+
 	public TransformType getTransformType() {
 		return this.type;
 	}

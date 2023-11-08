@@ -147,7 +147,7 @@ public class ModItems {
 	public static final RegistryObject<Item> CUT_KEYBLOCK = ITEMS.register("cut_keyblock", () -> new BlockItem(ModBlocks.CUT_KEYBLOCK.get(), new Item.Properties()));
 	public static final RegistryObject<Item> KEYBLOCK_BRICKS = ITEMS.register("keyblock_bricks", () -> new BlockItem(ModBlocks.KEYBLOCK_BRICKS.get(), new Item.Properties()));
 	public static final RegistryObject<Item> KEYBLOCK_RUNE = ITEMS.register("keyblock_rune", () -> new BlockItem(ModBlocks.KEYBLOCK_RUNE.get(), new Item.Properties()));
-	public static final RegistryObject<Item> PLATE = ITEMS.register("plate", () -> new BlockItem(ModBlocks.PLATE.get(), new Item.Properties()));
+	public static final RegistryObject<Item> TILE = ITEMS.register("quartz_blackstone_tile", () -> new BlockItem(ModBlocks.TILE.get(), new Item.Properties()));
 	public static final RegistryObject<Item> QUICKSAND = ITEMS.register("quicksand", () -> new BlockItem(ModBlocks.QUICKSAND.get(), new Item.Properties()));
 	public static final RegistryObject<Item> ELEMENTAL_MANIPULATOR = ITEMS.register("elemental_manipulator", () -> new BlockItem(ModBlocks.ELEMENTAL_MANIPULATOR.get(), new Item.Properties()));
 	public static final RegistryObject<Item> SKULLY_PEDESTAL = ITEMS.register("skully_pedestal", () -> new BlockItem(ModBlocks.SKULLY_PEDESTAL.get(), new Item.Properties()));

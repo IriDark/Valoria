@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "///",
+    "XOX",
+    "XTX"
+  ],
+  "key": {
+    "/": {
+      "item": "minecraft:stone"
+    },
+    "T": {
+      "item": "minecraft:iron_ingot"
+    },
+    "O": {
+      "tag": "darkrpg:geodes"
+    },
+    "X": {
+      "tag": "minecraft:logs"
+    }
+  },
+  "result": {
+    "item": "darkrpg:stone_crusher",
+    "count": 1
+  }
+}

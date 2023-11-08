@@ -2,23 +2,13 @@
   "type": "minecraft:gift",
   "pools": [
     {
-      "name": "ores",
+      "name": "crusher",
       "rolls": {
         "min": 1.0,
         "max": 4.0,
         "type": "minecraft:uniform"
       },
       "entries": [
-        {
-          "type": "minecraft:item",
-          "weight": 4,
-          "name": "minecraft:diamond"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 15,
-          "name": "minecraft:emerald"
-        },
         {
           "type": "minecraft:item",
           "weight": 70,
@@ -49,30 +39,20 @@
           "weight": 60,
           "name": "minecraft:stick"
         },
-		{
+        {
           "type": "minecraft:item",
-          "weight": 35,
-          "name": "minecraft:torch"
-        },
-		{
-          "type": "minecraft:item",
-          "weight": 50,
+          "weight": 70,
           "name": "minecraft:cobblestone"
-        },			
-		{
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 70,
+          "name": "minecraft:dirt"
+        },
+        {
           "type": "minecraft:item",
           "weight": 40,
           "name": "darkrpg:amber_gem"
-        },		
-        {
-          "type": "minecraft:item",
-          "weight": 6,
-          "name": "darkrpg:amethyst_gem"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 4,
-          "name": "darkrpg:ruby_gem"
         },
         {
           "type": "minecraft:item",

@@ -43,27 +43,6 @@
 		"darkrpg:pierce3"
     ]
   },
-    "block.egg_break.ambient": {
-    "subtitle": "Egg Break",
-    "replace": "true",
-    "sounds": [
-		"darkrpg:egg_break1",
-		"darkrpg:egg_break2",
-		"darkrpg:egg_break3"
-    ]
-  },
-   "block.egg_step.ambient": {
-    "subtitle": "Egg Step",
-    "replace": "true",
-    "sounds": [
-		"darkrpg:egg_step1",
-		"darkrpg:egg_step2",
-		"darkrpg:egg_step3",
-		"darkrpg:egg_step4",
-		"darkrpg:egg_step5",
-		"darkrpg:egg_step6"
-      ]
-	},
     "block.pot_break.ambient": {
     "subtitle": "Pot Break",
     "replace": "true",

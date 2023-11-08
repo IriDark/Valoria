@@ -433,7 +433,7 @@ import net.minecraftforge.registries.RegistryObject;
 				event.accept(ModItems.CUT_KEYBLOCK);
 				event.accept(ModItems.KEYBLOCK_BRICKS);
 				event.accept(ModItems.KEYBLOCK_RUNE);
-				event.accept(ModItems.PLATE);
+				event.accept(ModItems.TILE);
 				event.accept(ModItems.QUICKSAND);
 				event.accept(ModItems.ELEMENTAL_MANIPULATOR);
 				event.accept(ModItems.SKULLY_PEDESTAL);

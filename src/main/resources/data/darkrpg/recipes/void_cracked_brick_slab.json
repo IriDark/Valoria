@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "///"
+  ],
+  "key": {
+    "/": {
+      "item": "darkrpg:void_cracked_brick"
+    }
+  },
+  "result": {
+    "item": "darkrpg:void_cracked_brick_slab",
+    "count": 6
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "variants": {
+		"": [
+			{ "model" : "darkrpg:block/quartz_blackstone_tile" },
+			{  "model" : "darkrpg:block/quartz_blackstone_tile1" },
+			{	"model" : "darkrpg:block/quartz_blackstone_tile2" },
+			{	"model" : "darkrpg:block/quartz_blackstone_tile3" },
+			{	"model" : "darkrpg:block/quartz_blackstone_tile3" }
+		]
+	}
+}
