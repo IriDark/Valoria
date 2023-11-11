@@ -1,6 +1,7 @@
 package com.idark.darkrpg.util;
 
 import com.idark.darkrpg.DarkRPG;
+import com.idark.darkrpg.DarkRPGClient;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -46,7 +47,7 @@ public class RenderUtils {
                     .setLightmapState(new RenderStateShard.LightmapStateShard(false))
                     .setTransparencyState(ADDITIVE_TRANSPARENCY)
                     .setTextureState(new RenderStateShard.TextureStateShard(TextureAtlas.LOCATION_PARTICLES, false, false))
-                    .setShaderState(new RenderStateShard.ShaderStateShard(DarkRPG.RegistryEvents::getGlowingParticleShader))
+                    .setShaderState(new RenderStateShard.ShaderStateShard(DarkRPGClient.RegistryEvents::getGlowingParticleShader))
                     .createCompositeState(false));
 
     public static RenderType DELAYED_PARTICLE = RenderType.create(
@@ -57,7 +58,7 @@ public class RenderUtils {
                     .setWriteMaskState(new RenderStateShard.WriteMaskStateShard(true, false))
                     .setTransparencyState(NORMAL_TRANSPARENCY)
                     .setTextureState(new RenderStateShard.TextureStateShard(TextureAtlas.LOCATION_PARTICLES, false, false))
-                    .setShaderState(new RenderStateShard.ShaderStateShard(DarkRPG.RegistryEvents::getSpriteParticleShader))
+                    .setShaderState(new RenderStateShard.ShaderStateShard(DarkRPGClient.RegistryEvents::getSpriteParticleShader))
                     .createCompositeState(false));
 
 
