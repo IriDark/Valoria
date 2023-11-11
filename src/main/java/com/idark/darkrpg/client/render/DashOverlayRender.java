@@ -7,6 +7,8 @@ import com.mojang.blaze3d.vertex.*;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.client.event.RenderGuiOverlayEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraft.client.Minecraft;
@@ -31,28 +33,35 @@ public class DashOverlayRender {
             }
         }
     }
-    //TODO: FIX THIS
+
+    //TODO: FIX ALPHA CHANNEL
     public static void onDrawScreenPost(RenderGuiOverlayEvent.Post event) {
         if (dashTime > 0) {
             Minecraft mc = Minecraft.getInstance();
-            PoseStack ms = event.getGuiGraphics().pose();
+            GuiGraphics gui = event.getGuiGraphics();
             float ticks = dashTime + event.getPartialTick();
-            float alpha = 1F;
+            float alpha = 0.5F;
 
             if (ticks < 10) {
-                alpha = 10 /ticks;
-            }
-            if (ticks >= 20) {
-                alpha = 1F - ((ticks - 20) / 15);
+                alpha = 5 /ticks;
             }
 
-            int i = mc.getWindow().getWidth();
-            int j = mc.getWindow().getHeight();
+            if (ticks >= 20) {
+                alpha = 0.5F - ((ticks - 20) / 15);
+            }
+
+            int width = mc.getWindow().getGuiScaledWidth();
+            int height = mc.getWindow().getGuiScaledHeight();
+            float f = 0.05F;
             RenderSystem.enableBlend();
-            RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-            mc.getTextureManager().bindForSetup(DASH);
-            event.getGuiGraphics().blit(DASH, i, j, 0, 0, i, j);
+            RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ONE, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ONE);
+            RenderSystem.depthMask(false);
+            RenderSystem.clearColor(f, f, f, alpha);
+            mc.textureManager.bindForSetup(DASH);
+            gui.blit(DASH, 0, 0, 0, 0, 1920, 1080, width, height);
             RenderSystem.disableBlend();
+            RenderSystem.depthMask(true);
+            RenderSystem.enableDepthTest();
         }
     }
 }

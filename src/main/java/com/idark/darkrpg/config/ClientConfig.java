@@ -18,14 +18,13 @@ public class ClientConfig  {
 		.define("DashOverlay", true);
         MAGMA_CHARGE_BAR_Y = builder.comment("(Y) Coordinate for Magma Bar")
         .comment("Can be edited in-game without reloading packs (If nothing changed reload packs with [F3+T] keybind)")		
-		.define("MagmaBarY", 12);
+		.define("MagmaBarY", 5);
         MAGMA_CHARGE_BAR_X = builder.comment("(X) Coordinate for Magma Bar")
         .comment("Can be edited in-game without reloading packs (If nothing changed reload packs with [F3+T] keybind)")				
 		.define("MagmaBarX", 4);
         MAGMA_CHARGE_BAR_TYPE = builder.comment("Type of Magma Bar")
         .comment("Can be edited in-game without reloading packs (If nothing changed reload packs with [F3+T] keybind)")		
-        .comment("(WIP)")				
-		.defineInRange("MagmaBarType", 1, 1, 2);		
+		.defineInRange("MagmaBarType", 1, 1, 3);
         DEBUG_Y = builder.comment("(Y) Coordinate for Debuging UI`s")
         .comment("Can be edited in-game without reloading packs (If nothing changed reload packs with [F3+T] keybind)")		
 		.define("DebugY", 0);

@@ -104,9 +104,7 @@ public class KatanaItem extends TieredItem implements Vanishable {
 			return InteractionResultHolder.fail(itemstack);
 		} else {
 			playerIn.startUsingItem(handIn);
-			itemstack.hurtAndBreak(10, playerIn, (entity) -> {
-			playerIn.broadcastBreakEvent(EquipmentSlot.MAINHAND);
-		});
+			itemstack.hurtAndBreak(10, playerIn, (entity) -> playerIn.broadcastBreakEvent(EquipmentSlot.MAINHAND));
 		
 		return InteractionResultHolder.consume(itemstack);
 		}
@@ -180,7 +178,7 @@ public class KatanaItem extends TieredItem implements Vanishable {
 			}
 
 			if (!player.isCreative()) {
-				stack.hurtAndBreak(hits, player, (p_220045_0_) -> {p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND);});
+				stack.hurtAndBreak(hits, player, (p_220045_0_) -> p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
 			}
 
 			for (int i = 0;i<4;i++) {
@@ -188,10 +186,9 @@ public class KatanaItem extends TieredItem implements Vanishable {
 			}
 		
 			level.playSound(player, player.blockPosition(), ModSoundRegistry.SWIFTSLICE.get(), SoundSource.AMBIENT, 10f, 1f);
-			//TODO: DO DASH RENDER
-			//if (ClientConfig.DASH_OVERLAY.get()) {
-			//	DashOverlayRender.isDash = true;
-			//}
+			if (ClientConfig.DASH_OVERLAY.get()) {
+				DashOverlayRender.isDash = true;
+			}
 		}
 	}
 

@@ -100,7 +100,6 @@ public class MagmaSwordItem extends SwordItem {
 			}
 
 			float damage = (float) (player.getAttribute(Attributes.ATTACK_DAMAGE).getValue()) + EnchantmentHelper.getSweepingDamageRatio(player);
-
 			for (LivingEntity entityHitted : hitEntities) {
 				entityHitted.hurt(worldIn.damageSources().generic(), damage);
 				entityHitted.knockback(0.4F, player.getX() - entity.getX(), player.getZ() - entity.getZ());
@@ -109,7 +108,7 @@ public class MagmaSwordItem extends SwordItem {
 			
 			if (!player.isCreative()) {
 				stack.hurtAndBreak(hitEntities.size(), player, (p_220045_0_) -> {p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND);});
-				}
+            }
 				
 			worldIn.playSound(player, player.blockPosition(), ModSoundRegistry.ERUPTION.get(), SoundSource.AMBIENT, 10f, 1f);
 			}

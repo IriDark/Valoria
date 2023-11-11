@@ -1,8 +1,18 @@
 package com.idark.darkrpg.client.render.gui;
 
 import com.idark.darkrpg.DarkRPG;
+import com.idark.darkrpg.config.ClientConfig;
+import com.idark.darkrpg.item.types.MagmaSwordItem;
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.client.event.RenderGuiOverlayEvent;
+import org.lwjgl.opengl.GL11;
 
 public class MagmaBarRender {
 
@@ -10,58 +20,53 @@ public class MagmaBarRender {
 	private static final ResourceLocation BAR = new ResourceLocation(DarkRPG.MOD_ID + ":textures/gui/magma_charge.png");
 
     public static void onDrawScreenPost(RenderGuiOverlayEvent.Post event) {
-        /*Minecraft mc = Minecraft.getInstance();
+        Minecraft mc = Minecraft.getInstance();
         ItemStack main = mc.player.getMainHandItem();
         ItemStack offhand = mc.player.getOffhandItem();
-        MatrixStack ms = event.getMatrixStack();
-        if (event.getType() == RenderGameOverlayEvent.ElementType.ALL) {
-            PlayerEntity player = mc.player;
-            ItemStack stack = main;	
-            RenderSystem.enableBlend();
-            RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-            boolean renderBar = false;
-			
-            if (!main.isEmpty() && main.getItem() instanceof MagmaSwordItem) {
+        GuiGraphics gui = event.getGuiGraphics();
+        Player player = mc.player;
+        ItemStack stack = main;
+        RenderSystem.enableBlend();
+        RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+        Integer barType = ClientConfig.MAGMA_CHARGE_BAR_TYPE.get();
+        boolean renderBar = false;
+        if (barType < 3 && !main.isEmpty() && main.getItem() instanceof MagmaSwordItem) {
+            renderBar = true;
+        } else {
+            if (barType < 3 && !offhand.isEmpty() && offhand.getItem() instanceof MagmaSwordItem) {
                 renderBar = true;
-            } else {
-                if (!offhand.isEmpty() && offhand.getItem() instanceof MagmaSwordItem) {
-                    renderBar = true;
-                    stack = offhand;
+                stack = offhand;
+            }
+        }
+
+        CompoundTag tag = stack.getTag();
+        if (renderBar) {
+            if (!player.isSpectator()) {
+                Integer xCord = ClientConfig.MAGMA_CHARGE_BAR_X.get();
+                Integer yCord = ClientConfig.MAGMA_CHARGE_BAR_Y.get();
+                Integer xDebug = ClientConfig.DEBUG_X.get();
+                Integer yDebug = ClientConfig.DEBUG_Y.get();
+                mc.textureManager.bindForSetup(BAR);
+                if (barType == 1) {
+                    gui.blit(BAR, xCord, yCord, 0, 0, 16, 34, 64, 64);
+                    if (tag.getInt("charge") == 1) {
+                        gui.blit(BAR, xCord + 8, yCord + 18, 0, 34, 4, 25, 64, 64);
+                    } else if (tag.getInt("charge") == 2) {
+                        gui.blit(BAR, xCord + 8, yCord + 18, 0, 34, 4, 25, 64, 64);
+                        gui.blit(BAR, xCord + 8, yCord + 6, 0, 34, 4, 25, 64, 64);
+                        gui.blit(BAR, xCord - 2, yCord - 2, 16, 0, 20, 38, 64, 64);
+                    }
+                } else if (barType == 2) {
+                    gui.blit(BAR, xCord + xDebug, yCord + yDebug, 20, 42, 22, 22, 64, 64);
+                    if (tag.getInt("charge") == 1) {
+                        gui.blit(BAR, xCord + xDebug, yCord + yDebug, 42, 20, 22, 22, 64, 64);
+                    } else if (tag.getInt("charge") == 2) {
+                        gui.blit(BAR, xCord + xDebug, yCord + yDebug, 42, 42, 22, 22, 64, 64);
+                        }
+                    }
                 }
             }
-			
-			CompoundNBT compoundnbt = stack.getTag();	
-            if (renderBar == true) {
-                if (!player.isSpectator()) {
-					Integer barType = ClientConfig.MAGMA_CHARGE_BAR_TYPE.get();						
-					Integer xCord = ClientConfig.MAGMA_CHARGE_BAR_X.get();	
-					Integer yCord = ClientConfig.MAGMA_CHARGE_BAR_Y.get();	
-					Integer xDebug = ClientConfig.DEBUG_X.get();	
-					Integer yDebug = ClientConfig.DEBUG_Y.get();						
-                    mc.textureManager.bind(BAR);
-					if (barType == 1) {
-						AbstractGui.blit(ms, xCord, yCord, 0, 0, 16, 34, 64, 64);
-						if (compoundnbt.getInt("charge") == 1) {
-							AbstractGui.blit(ms, xCord + 8, yCord + 18, 0, 34, 4, 25, 64, 64);
-						} else if (compoundnbt.getInt("charge") == 2) {
-							AbstractGui.blit(ms, xCord + 8, yCord + 18, 0, 34, 4, 25, 64, 64);
-							AbstractGui.blit(ms, xCord + 8, yCord + 6, 0, 34, 4, 25, 64, 64);
-							AbstractGui.blit(ms, xCord - 2, yCord - 2, 16, 0, 20, 38, 64, 64);
-						}
-					//TODO BarType 2
-					}
-					/*/// else if (barType == 2) {
-						//AbstractGui.blit(ms, xCord + xDebug, yCord + yDebug, 10, 21, 22, 22, 64, 64);
-						//if (compoundnbt.getInt("charge") == 1) {
-						//	AbstractGui.blit(ms, xCord + xDebug, yCord + yDebug, 21, 10, 22, 22, 64, 64);
-						//} else if (compoundnbt.getInt("charge") == 2) {
-						//	AbstractGui.blit(ms, xCord + xDebug, yCord + yDebug, 21, 21, 22, 22, 64, 64);
-						//}
-					//} /*/
-				//}
-				
-			//RenderSystem.disableBlend();
-			//}
-		//}
+
+        RenderSystem.disableBlend();
 	}
 }
