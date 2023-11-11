@@ -2,6 +2,7 @@ package com.idark.darkrpg.client.render;
 
 import com.idark.darkrpg.DarkRPG;
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import net.minecraft.client.gui.GuiGraphics;
@@ -52,16 +53,24 @@ public class DashOverlayRender {
 
             int width = mc.getWindow().getGuiScaledWidth();
             int height = mc.getWindow().getGuiScaledHeight();
-            float f = 0.05F;
+            float f = 0.1F;
+
+            RenderSystem.applyModelViewMatrix();
+            Lighting.setupFor3DItems();
+
+            RenderSystem.disableDepthTest();
+            RenderSystem.depthMask(false);
             RenderSystem.enableBlend();
             RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ONE, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ONE);
-            RenderSystem.depthMask(false);
-            RenderSystem.clearColor(f, f, f, alpha);
-            mc.textureManager.bindForSetup(DASH);
+            gui.setColor(f * alpha, f * alpha, f * alpha, 1.0F);
             gui.blit(DASH, 0, 0, 0, 0, 1920, 1080, width, height);
+            gui.setColor(1.0F, 1.0F, 1.0F, 1.0F);
+            RenderSystem.defaultBlendFunc();
             RenderSystem.disableBlend();
             RenderSystem.depthMask(true);
             RenderSystem.enableDepthTest();
+
+            RenderSystem.applyModelViewMatrix();
         }
     }
 }
