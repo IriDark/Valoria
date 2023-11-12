@@ -52,9 +52,7 @@ public class PhantomItem extends SwordItem {
         return 30;
     }
 
-    /**
-    * Some sounds taken from the CalamityMod (Terraria) in a https://calamitymod.fandom.com/wiki/Category:Sound_effects
-    */
+    // Some sounds taken from the CalamityMod (Terraria) in a https://calamitymod.fandom.com/wiki/Category:Sound_effects
     public void releaseUsing(ItemStack stack, Level level, LivingEntity entityLiving, int timeLeft) {
         Player player = (Player)entityLiving;
         player.getCooldowns().addCooldown(this, 10);
@@ -115,8 +113,9 @@ public class PhantomItem extends SwordItem {
         double Z = Math.sin(locPitch + pitch) * Math.sin(locYaw + yaw) * locDistance;
 
         Vec3 playerPos = player.getEyePosition();
-        Vec3 EndPos = (player.getViewVector(0.0f).scale(15.0d));
-        Vec3 vec3 = playerPos.add(EndPos);
+        Vec3 NearPos = (new Vec3(pos.x + X, pos.y + Y, pos.z + Z));
+        Vec3 vec3 = playerPos.add(NearPos);
+
         HitResult hitresult = level.clip(new ClipContext(playerPos, vec3, ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, null));
         if (hitresult.getType() != HitResult.Type.MISS) {
             vec3 = hitresult.getLocation();

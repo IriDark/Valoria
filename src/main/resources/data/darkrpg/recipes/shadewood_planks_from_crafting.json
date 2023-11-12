@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "tag": "forge:shadelogs"
+      "tag": "darkrpg:shade_logs"
     }
   ],
   "result": {

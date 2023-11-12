@@ -18,7 +18,7 @@
       "trigger": "minecraft:consume_item",
       "conditions": {
         "item": {
-          "tag": "forge:alcohol",
+          "tag": "darkrpg:alcohol",
           "count": 30
         }
       }

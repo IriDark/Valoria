@@ -9,7 +9,7 @@
     "description": {
 		"translate": "advancement.darkrpg:darkrpg.desc"
 	},
-    "background": "darkrpg:textures/block/polished_tombstone.png",
+    "background": "darkrpg:textures/block/limestone.png",
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": true,

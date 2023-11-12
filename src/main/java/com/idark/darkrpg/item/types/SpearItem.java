@@ -36,7 +36,6 @@ public class SpearItem extends TieredItem implements Vanishable {
 	private final float attackSpeed;
 	protected static final UUID ATTACK_RANGE_MODIFIER = UUID.fromString("B2392114-1C63-2123-AB29-6456FD734102");
 
-
 	private Supplier<Multimap<Attribute, AttributeModifier>> attributeModifiers = Suppliers.memoize(this::createAttributes);
 
 	public SpearItem(Tier tier, int attackDamageIn, float attackSpeedIn, Item.Properties builderIn) {
