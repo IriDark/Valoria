@@ -163,7 +163,7 @@ public class MagmaSwordItem extends SwordItem {
 	public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
 		stack.hurtAndBreak(1, attacker, (entity) -> {
 			entity.broadcastBreakEvent(EquipmentSlot.MAINHAND);
-		});	
+		});
 
 		if (isCharged(stack) < 2) {
 			if (RandUtils.doWithChance(5)) {

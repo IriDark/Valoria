@@ -20,16 +20,22 @@ import net.minecraftforge.registries.RegistryObject;
 				() -> CreativeModeTab.builder().icon(() -> new ItemStack(ModItems.NATURE_PICKAXE.get()))
 						.hideTitle()
 						.title(Component.translatable("itemGroup.DarkRPGModTab"))
+						.withTabsImage(getTabsImage())
 						.backgroundSuffix("darkrpg_item.png").withBackgroundLocation(getBackgroundImage()).build());
 
 		public static final RegistryObject<CreativeModeTab> DARKRPG_BLOCKS_GROUP = CREATIVE_MODE_TABS.register("darkrpgblocksmodtab",
 				() -> CreativeModeTab.builder().icon(() -> new ItemStack(ModItems.VOID_STONE.get()))
 						.hideTitle()
 						.title(Component.translatable("itemGroup.DarkRPGBlocksModTab"))
+						.withTabsImage(getTabsImage())
 						.backgroundSuffix("darkrpg_item.png").withBackgroundLocation(getBackgroundImage()).build());
 
 		public static ResourceLocation getBackgroundImage() {
 			return new ResourceLocation(DarkRPG.MOD_ID, "textures/gui/tab_darkrpg_item.png");
+		}
+
+		public static ResourceLocation getTabsImage() {
+			return new ResourceLocation(DarkRPG.MOD_ID, "textures/gui/tabs_darkrpg.png");
 		}
 
 		public static void register(IEventBus eventBus) {

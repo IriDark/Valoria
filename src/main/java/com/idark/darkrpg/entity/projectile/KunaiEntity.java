@@ -17,6 +17,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
@@ -117,7 +118,7 @@ public class KunaiEntity extends AbstractArrow {
 			}
 		}
 
-		if (this.notRenderable == false && !this.inGround) {
+		if (!this.notRenderable && !this.inGround) {
 			Vec3 vector3d = this.getDeltaMovement();
 			double a3 = vector3d.x;
 			double a4 = vector3d.y;

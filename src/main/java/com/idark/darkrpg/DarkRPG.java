@@ -130,17 +130,5 @@ import java.io.IOException;
         }
 	    private void processIMC(final InterModProcessEvent event) {
 	    // some example code to receive and process InterModComms from other mods
-	    }
-
-		
-		/*@SubscribeEvent
-		public static void registerModifierSerializers(@Nonnull final RegistryEvent.Register<GlobalLootModifierSerializer<?>>event) {
-			event.getRegistry().registerAll(
-			new LootStructureAdditionModifier.Serializer().setRegistryName
-			(new ResourceLocation(DarkRPG.MOD_ID,"miners_bag")),
-			new LootStructureAdditionModifier.Serializer().setRegistryName
-			(new ResourceLocation(DarkRPG.MOD_ID,"gems_bag"))
-			);
-		}*/
-
+	}
 }
