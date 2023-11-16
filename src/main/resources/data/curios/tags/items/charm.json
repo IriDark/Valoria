@@ -3,7 +3,8 @@
   "values": [
     "darkrpg:rune_of_pyro",
 	"darkrpg:rune_of_vision",
-    "darkrpg:rune_of_curses"
-
+    "darkrpg:rune_of_curses",
+    "darkrpg:bloodsight_monocle",
+    "darkrpg:broken_bloodsight_monocle"
   ]
 }

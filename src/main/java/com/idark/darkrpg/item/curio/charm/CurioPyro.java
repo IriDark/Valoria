@@ -36,14 +36,13 @@ public class CurioPyro extends Item implements ICurioItem {
 	}
 
     @Override
-    public boolean canRightClickEquip(ItemStack stack) {
+    public boolean canEquipFromUse(SlotContext slot, ItemStack stack) {
         return true;
-	}
-	
+    }
+
     @Override
     public void curioTick(String identifier, int index, LivingEntity livingEntity, ItemStack stack) {
         Player player = (Player) livingEntity;
-
         if(!player.level().isClientSide()) {
             boolean hasPlayerFireResistance =
                     !Objects.equals(player.getEffect(MobEffects.FIRE_RESISTANCE), null);
@@ -53,7 +52,7 @@ public class CurioPyro extends Item implements ICurioItem {
 
                 if(random.nextFloat() > 0.6f) {
                     stack.hurtAndBreak(1, player, p -> CuriosApi.getCuriosHelper().onBrokenCurio(
-                            SlotTypePreset.CHARM.getIdentifier(), index, p));
+                    SlotTypePreset.CHARM.getIdentifier(), index, p));
                 }
             }
         }

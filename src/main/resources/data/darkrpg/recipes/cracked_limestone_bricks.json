@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "darkrpg:limestone_bricks"
+  },
+  "result": "darkrpg:cracked_limestone_bricks",
+  "experience": 0.3,
+  "cookingtime": 200
+}

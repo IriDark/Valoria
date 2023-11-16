@@ -1,1 +1,0 @@
-Note to Translators: If youre going to translate Patchouli-book go to lang files it will be much easier to you, with love - iDark :>

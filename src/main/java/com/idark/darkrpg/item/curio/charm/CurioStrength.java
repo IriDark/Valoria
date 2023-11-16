@@ -36,9 +36,9 @@ public class CurioStrength extends Item implements ICurioItem {
 	}
 
     @Override
-    public boolean canRightClickEquip(ItemStack stack) {
+    public boolean canEquipFromUse(SlotContext slot, ItemStack stack) {
         return true;
-	}
+    }
 	
     @Override
     public void curioTick(String identifier, int index, LivingEntity livingEntity, ItemStack stack) {

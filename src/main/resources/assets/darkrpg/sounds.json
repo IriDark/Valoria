@@ -1,12 +1,26 @@
 {
+  "item.curse.ambient": {
+    "subtitle": "Cursed Bloodsight",
+    "replace": "true",
+    "sounds": [
+		"darkrpg:bloodsight/equip_curse"
+    ]
+  },
+  "item.repair.ambient": {
+    "subtitle": "Curse lost it's strenght...",
+    "replace": "true",
+    "sounds": [
+      "darkrpg:bloodsight/repair"
+    ]
+  },
   "item.magic.use": {
     "subtitle": "Magic",
     "replace": "true",
     "sounds": [
-		"darkrpg:magic"
+      "darkrpg:magic"
     ]
   },
-    "item.swiftslice.use": {
+  "item.swiftslice.use": {
     "subtitle": "Dash",
     "replace": "true",
     "sounds": [

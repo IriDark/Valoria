@@ -19,7 +19,7 @@ import javax.annotation.Nullable;
 
 public class KegBlock extends HorizontalDirectionalBlock implements SimpleWaterloggedBlock {
 	
-	private static final VoxelShape shape = Block.box(3, 0, 3, 16, 14, 16);
+	private static final VoxelShape shape = Block.box(0, 0, 0, 16, 14, 16);
 
 	public KegBlock(BlockBehaviour.Properties properties) {
 		super(properties);
@@ -30,11 +30,7 @@ public class KegBlock extends HorizontalDirectionalBlock implements SimpleWaterl
     public VoxelShape getShape(BlockState state, BlockGetter reader, BlockPos pos, CollisionContext ctx) {
         return shape;
     }
-	
-    //public boolean isPathfindable(BlockState state, IBlockReader worldIn, BlockPos pos, PathType type) {
-    //  return type == PathType.AIR && !this.hasCollision ? true : super.isPathfindable(state, worldIn, pos, type);
-    //}
-	
+
 	@Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(BlockStateProperties.WATERLOGGED);
@@ -52,12 +48,4 @@ public class KegBlock extends HorizontalDirectionalBlock implements SimpleWaterl
     public FluidState getFluidState(BlockState state) {
         return state.getValue(BlockStateProperties.WATERLOGGED) ? Fluids.WATER.getSource(false) : Fluids.EMPTY.defaultFluidState();
     }
-
-    /*@Override
-    public BlockState updateShape(BlockState stateIn, Direction side, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
-        if (stateIn.getValue(BlockStateProperties.WATERLOGGED)) {
-            worldIn.getLiquidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(worldIn));
-        }
-        return stateIn;
-    }*/
 }

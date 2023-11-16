@@ -36,14 +36,13 @@ public class CurioVision extends Item implements ICurioItem {
 	}
 
     @Override
-    public boolean canRightClickEquip(ItemStack stack) {
+    public boolean canEquipFromUse(SlotContext slot, ItemStack stack) {
         return true;
-	}
+    }
 	
     @Override
     public void curioTick(String identifier, int index, LivingEntity livingEntity, ItemStack stack) {
         Player player = (Player) livingEntity;
-
         if(!player.level().isClientSide()) {
             boolean hasPlayerFireResistance =
                     !Objects.equals(player.getEffect(MobEffects.NIGHT_VISION), null);

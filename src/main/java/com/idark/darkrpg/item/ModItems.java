@@ -266,9 +266,9 @@ public class ModItems {
 	public static final RegistryObject<Item> AQUARIUS_INGOT = ITEMS.register("aquarius_ingot", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> INFERNAL_INGOT = ITEMS.register("infernal_ingot", () -> new Item(new Item.Properties().fireResistant()));
 	public static final RegistryObject<Item> VOID_INGOT = ITEMS.register("void_ingot", () -> new Item(new Item.Properties().fireResistant()));
-	/**
-	 * TOOLS (category)
-	 */
+
+	// TOOLS (category)
+
 	public static final RegistryObject<Item> CLUB = ITEMS.register("club",
 			() -> new ClubItem(Tiers.WOOD, 4, -3.2f, new Item.Properties()));
 	public static final RegistryObject<Item> BRONZE_SWORD = ITEMS.register("bronze_sword",
@@ -516,22 +516,25 @@ public class ModItems {
 	public static final RegistryObject<Item> RUNE = ITEMS.register("rune",
 			() -> new CurioRune(new Item.Properties().stacksTo(16).rarity(Rarity.UNCOMMON)));
 	public static final RegistryObject<Item> RUNE_OF_VISION = ITEMS.register("rune_of_vision",
-			() -> new CurioVision(new Item.Properties().stacksTo(16).durability(8).rarity(Rarity.EPIC)));
+			() -> new CurioVision(new Item.Properties().stacksTo(1).durability(8).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> RUNE_OF_WEALTH = ITEMS.register("rune_of_wealth",
-			() -> new CurioWealth(new Item.Properties().stacksTo(16).durability(8).rarity(Rarity.EPIC)));
+			() -> new CurioWealth(new Item.Properties().stacksTo(1).durability(8).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> RUNE_OF_CURSES = ITEMS.register("rune_of_curses",
-			() -> new CurioCurses(new Item.Properties().stacksTo(16).durability(8).rarity(Rarity.EPIC)));
+			() -> new CurioCurses(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> RUNE_OF_STRENGTH = ITEMS.register("rune_of_strength",
-			() -> new CurioStrength(new Item.Properties().stacksTo(16).durability(8).rarity(Rarity.EPIC)));
+			() -> new CurioStrength(new Item.Properties().stacksTo(1).durability(8).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> RUNE_OF_ACCURACY = ITEMS.register("rune_of_accuracy",
-			() -> new Item(new Item.Properties().stacksTo(16).durability(8).rarity(Rarity.EPIC)));
+			() -> new Item(new Item.Properties().stacksTo(1).durability(8).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> RUNE_OF_DEEP = ITEMS.register("rune_of_deep",
-			() -> new Item(new Item.Properties().stacksTo(16).durability(8).rarity(Rarity.EPIC)));
+			() -> new Item(new Item.Properties().stacksTo(1).durability(8).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> RUNE_OF_PYRO = ITEMS.register("rune_of_pyro",
-			() -> new CurioPyro(new Item.Properties().stacksTo(16).durability(8).rarity(Rarity.EPIC)));
+			() -> new CurioPyro(new Item.Properties().stacksTo(1).durability(8).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> RUNE_OF_COLD = ITEMS.register("rune_of_cold",
-			() -> new Item(new Item.Properties().stacksTo(16).durability(8).rarity(Rarity.EPIC)));
-
+			() -> new Item(new Item.Properties().stacksTo(1).durability(8).rarity(Rarity.EPIC)));
+	public static final RegistryObject<Item> BROKEN_BLOODSIGHT_MONOCLE = ITEMS.register("broken_bloodsight_monocle",
+			() -> new BloodSight(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC)));
+	public static final RegistryObject<Item> BLOODSIGHT_MONOCLE = ITEMS.register("bloodsight_monocle",
+			() -> new BloodSight(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> SAMURAI_LONG_BOW = ITEMS.register("samurai_long_bow",
 			() -> new BowItem(new Item.Properties().stacksTo(1)));
 	public static final RegistryObject<Item> NATURE_BOW = ITEMS.register("nature_bow",

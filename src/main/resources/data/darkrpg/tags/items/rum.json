@@ -2,7 +2,6 @@
   "replace": false,
   "values": [
     "darkrpg:rum_cup",
-    "darkrpg:rum_bottle",
-    "darkrpg:large_rum_bottle"
+    "darkrpg:rum_bottle"
   ]
 }
