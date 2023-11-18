@@ -275,6 +275,8 @@ public class ModItems {
 			() -> new SwordItem(Tiers.IRON, 4, -2.4f, new Item.Properties()));
 	public static final RegistryObject<Item> VOID_EDGE = ITEMS.register("void_edge",
 			() -> new SwordItem(Tiers.NETHERITE, 6, -3f, new Item.Properties()));
+	public static final RegistryObject<Item> QUANTUM_REAPER = ITEMS.register("quantum_reaper",
+			() -> new SwordItem(Tiers.NETHERITE, 6, -3f, new Item.Properties()));
 	public static final RegistryObject<Item> BLOODHOUND = ITEMS.register("bloodhound",
 			() -> new HoundItem(Tiers.NETHERITE, 4, -2.2f, new Item.Properties()));
 	public static final RegistryObject<Item> BLAZE_REAP = ITEMS.register("blaze_reap",
@@ -288,6 +290,11 @@ public class ModItems {
 	public static final RegistryObject<Item> SAMURAI_POISONED_KUNAI = ITEMS.register("samurai_poisoned_kunai",
 			() -> new PoisonedKunaiItem(new Item.Properties().durability(300)));
 
+
+	public static final RegistryObject<Item> WOODEN_SPEAR = ITEMS.register("wooden_spear",
+			() -> new SpearItem(Tiers.WOOD, 1, -3.2f, new Item.Properties()));
+	public static final RegistryObject<Item> STONE_SPEAR = ITEMS.register("stone_spear",
+			() -> new SpearItem(Tiers.STONE, 2, -3.4f, new Item.Properties()));
 	public static final RegistryObject<Item> IRON_SPEAR = ITEMS.register("iron_spear",
 			() -> new SpearItem(Tiers.IRON, 3, -3.5f, new Item.Properties()));
 	public static final RegistryObject<Item> GOLDEN_SPEAR = ITEMS.register("golden_spear",

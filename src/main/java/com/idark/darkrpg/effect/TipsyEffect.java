@@ -2,11 +2,8 @@ package com.idark.darkrpg.effect;
 
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.client.event.ClientChatReceivedEvent;
 
 public class TipsyEffect extends MobEffect {
 	
@@ -17,15 +14,9 @@ public class TipsyEffect extends MobEffect {
 		addAttributeModifier(Attributes.ATTACK_DAMAGE, "22653B89-116E-49DC-9B6B-9971489B5BE5", (double)0.5F, AttributeModifier.Operation.MULTIPLY_TOTAL);
        	addAttributeModifier(Attributes.ATTACK_SPEED, "55FCED67-E92A-486E-9800-B47F202C4386", (double)0.2F, AttributeModifier.Operation.MULTIPLY_TOTAL);
 	}
-	
+
 	@Override
     public boolean isDurationEffectTick(int duration, int amplifier) {
-    return true;
-    }
-	
-    public void performEffect(LivingEntity living, int amplifier) {
-        if (living.level().isClientSide && living instanceof Player) {
-           Player player = (Player)living;
-		}
+    	return true;
     }
 }

@@ -1,6 +1,7 @@
 package com.idark.darkrpg.block.types;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
@@ -19,7 +20,8 @@ import javax.annotation.Nullable;
 
 public class KegBlock extends HorizontalDirectionalBlock implements SimpleWaterloggedBlock {
 	
-	private static final VoxelShape shape = Block.box(0, 0, 0, 16, 14, 16);
+	private static final VoxelShape shape_west_east = Block.box(0, 0, 2, 16, 14, 14);
+    private static final VoxelShape shape_north_south = Block.box(2, 0, 0, 14, 14, 16);
 
 	public KegBlock(BlockBehaviour.Properties properties) {
 		super(properties);
@@ -28,7 +30,16 @@ public class KegBlock extends HorizontalDirectionalBlock implements SimpleWaterl
 
 	@Override
     public VoxelShape getShape(BlockState state, BlockGetter reader, BlockPos pos, CollisionContext ctx) {
-        return shape;
+        Direction direction = state.getValue(FACING);
+        switch (direction) {
+            case SOUTH, NORTH -> {
+                return shape_north_south;
+            }
+            case WEST, EAST -> {
+                return shape_west_east;
+            }
+        }
+        return null;
     }
 
 	@Override

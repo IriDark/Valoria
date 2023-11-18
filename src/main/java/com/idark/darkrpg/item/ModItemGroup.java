@@ -2,19 +2,38 @@ package com.idark.darkrpg.item;
 
 import com.idark.darkrpg.DarkRPG;
 import com.idark.darkrpg.block.ModBlocks;
+import com.idark.darkrpg.paintings.ModPaintings;
+import com.idark.darkrpg.util.ModTags;
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.PaintingVariantTags;
+import net.minecraft.world.entity.decoration.Painting;
+import net.minecraft.world.entity.decoration.PaintingVariant;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
-	@Mod.EventBusSubscriber(modid = DarkRPG.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
+
+import java.util.Comparator;
+import java.util.function.Predicate;
+
+@Mod.EventBusSubscriber(modid = DarkRPG.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 	public abstract class ModItemGroup {
-		public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
+
+	private static final Comparator<Holder<PaintingVariant>> PAINTING_COMPARATOR = Comparator.comparing(Holder::value, Comparator.<PaintingVariant>comparingInt((p_270004_) -> {
+		return p_270004_.getHeight() * p_270004_.getWidth();
+	}).thenComparing(PaintingVariant::getWidth));
+
+	public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
 				DeferredRegister.create(Registries.CREATIVE_MODE_TAB, DarkRPG.MOD_ID);
 		public static final RegistryObject<CreativeModeTab> DARKRPG_GROUP = CREATIVE_MODE_TABS.register("darkrpgmodtab",
 				() -> CreativeModeTab.builder().icon(() -> new ItemStack(ModItems.NATURE_PICKAXE.get()))
@@ -135,6 +154,7 @@ import net.minecraftforge.registries.RegistryObject;
 				event.accept(ModItems.VOID_INGOT);
 				event.accept(ModItems.CLUB);
 				event.accept(ModItems.BRONZE_SWORD);
+				event.accept(ModItems.QUANTUM_REAPER);
 				event.accept(ModItems.VOID_EDGE);
 				event.accept(ModItems.BLOODHOUND);
 				event.accept(ModItems.BLAZE_REAP);
@@ -142,6 +162,8 @@ import net.minecraftforge.registries.RegistryObject;
 				event.accept(ModItems.MURASAMA);
 				event.accept(ModItems.SAMURAI_KUNAI);
 				event.accept(ModItems.SAMURAI_POISONED_KUNAI);
+				event.accept(ModItems.WOODEN_SPEAR);
+				event.accept(ModItems.STONE_SPEAR);
 				event.accept(ModItems.IRON_SPEAR);
 				event.accept(ModItems.GOLDEN_SPEAR);
 				event.accept(ModItems.DIAMOND_SPEAR);
@@ -452,6 +474,18 @@ import net.minecraftforge.registries.RegistryObject;
 				event.accept(ModItems.POT_LONG_MOSSY);
 				event.accept(ModItems.POT_LONG_MOSSY_HANDLESS);
 				event.accept(ModItems.SPIDER_EGG);
+				event.getParameters().holders().lookup(ModPaintings.PAINTING_TYPES.getRegistryKey()).ifPresent((p_270026_) -> {
+					generatePresetPaintings(event, p_270026_, (p_270037_) -> p_270037_.is(ModTags.MODDED),	 CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+			});
 		}
+	}
+
+	private static void generatePresetPaintings(CreativeModeTab.Output pOutput, HolderLookup.RegistryLookup<PaintingVariant> pPaintingVariants, Predicate<Holder<PaintingVariant>> pPredicate, CreativeModeTab.TabVisibility pTabVisibility) {
+		pPaintingVariants.listElements().filter(pPredicate).sorted(PAINTING_COMPARATOR).forEach((p_269979_) -> {
+			ItemStack itemstack = new ItemStack(Items.PAINTING);
+			CompoundTag compoundtag = itemstack.getOrCreateTagElement("EntityTag");
+			Painting.storeVariant(compoundtag, p_269979_);
+			pOutput.accept(itemstack, pTabVisibility);
+		});
 	}
 }
