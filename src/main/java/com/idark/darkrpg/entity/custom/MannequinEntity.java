@@ -1,5 +1,6 @@
 package com.idark.darkrpg.entity.custom;
 
+import com.idark.darkrpg.item.ModItems;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -17,6 +18,7 @@ import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.animal.Turtle;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Drowned;
 import net.minecraft.world.entity.npc.AbstractVillager;
 import net.minecraft.world.entity.player.Player;
@@ -48,16 +50,17 @@ public class MannequinEntity extends Mob implements IForgeEntity {
     @Override
     public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
         Level level = pPlayer.level();
-        if(!level.isClientSide()) {
-            if (pPlayer.isShiftKeyDown()) {
-                this.dropAllDeathLoot(level().damageSources().genericKill());
-                for (int i = 0;i<25;i++) {
+        if (pPlayer.isShiftKeyDown()) {
+            if(!level.isClientSide()) {
+                level.addFreshEntity(new ItemEntity(level, this.getX() + rand.nextDouble(), this.getY() + 0.7D, this.getZ() + rand.nextDouble(), ModItems.MANNEQUIN_SPAWN_EGG.get().getDefaultInstance()));
+                this.removeAfterChangingDimensions();
+            } else {
+                for (int i = 0; i < 25; i++) {
                     level.addParticle(ParticleTypes.POOF, this.getX() + rand.nextDouble(), this.getY() + 0.7D, this.getZ() + rand.nextDouble(), 0d, 0.05d, 0d);
                 }
-
-                this.discard();
-                return InteractionResult.SUCCESS;
             }
+
+            return InteractionResult.SUCCESS;
         }
 
         return InteractionResult.PASS;
