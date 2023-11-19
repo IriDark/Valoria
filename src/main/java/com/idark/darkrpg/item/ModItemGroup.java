@@ -10,11 +10,9 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.PaintingVariantTags;
 import net.minecraft.world.entity.decoration.Painting;
 import net.minecraft.world.entity.decoration.PaintingVariant;
 import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
@@ -286,6 +284,7 @@ import java.util.function.Predicate;
 				event.accept(ModItems.RUNE_OF_DEEP);
 				event.accept(ModItems.RUNE_OF_PYRO);
 				event.accept(ModItems.RUNE_OF_COLD);
+				event.accept(ModItems.MANNEQUIN_SPAWN_EGG);
 			}
 
 			if (event.getTabKey() == ModItemGroup.DARKRPG_BLOCKS_GROUP.getKey()) {

@@ -5,6 +5,7 @@ import com.idark.darkrpg.entity.custom.MannequinEntity;
 import com.idark.darkrpg.entity.model.MannequinModel;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
@@ -24,13 +25,13 @@ public class MannequinRenderer extends MobRenderer<MannequinEntity, MannequinMod
     private static final DecimalFormat FORMAT = new DecimalFormat("###.##",new DecimalFormatSymbols(Locale.ENGLISH));
 
     public MannequinRenderer(EntityRendererProvider.Context context) {
-        super(context, new MannequinModel<>(),0.7F);
+        super(context, new MannequinModel<>(MannequinModel.createBodyLayer().bakeRoot()),0.7F);
     }
 
     @Override
     public void render(MannequinEntity entityIn, float entityYaw, float partialTicks, PoseStack stack, MultiBufferSource bufferIn, int packedLightIn) {
         super.render(entityIn, entityYaw, partialTicks, stack, bufferIn, packedLightIn);
-        float lastDamage =entityIn.getLastDamage();
+        float lastDamage = entityIn.getLastDamage();
         if (lastDamage > 0f) {
             renderText(entityIn, FORMAT.format(lastDamage), stack, bufferIn, packedLightIn, Color.RED);
         }
@@ -39,7 +40,7 @@ public class MannequinRenderer extends MobRenderer<MannequinEntity, MannequinMod
     protected void renderText(MannequinEntity entityIn, String text, PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn,Color textColor) {
         if (entityIn.hurtTime > 0) {
             float partialTicks = Minecraft.getInstance().getFrameTime();
-            Component stringTextComponent = Component.literal(text);
+            Component component = Component.literal(text);
             entityIn.lastDamageOffset = Mth.lerp(partialTicks,entityIn.lastDamageOffsetPrev,(float) Math.abs(Math.sin(((float)entityIn.hurtTime)/4f)));
             entityIn.lastDamageOffsetPrev = entityIn.lastDamageOffset;
             float alpha = entityIn.lastDamageOffset;
@@ -48,10 +49,10 @@ public class MannequinRenderer extends MobRenderer<MannequinEntity, MannequinMod
             matrixStackIn.mulPose(this.entityRenderDispatcher.cameraOrientation());
             matrixStackIn.scale(-entityIn.lastDamageOffset/20f, -entityIn.lastDamageOffset/20f, entityIn.lastDamageOffset/20f);
             Matrix4f matrix4f = matrixStackIn.last().pose();
-            /*FontR fontrenderer = this.getFont();
+            Font font = this.getFont();
             Color color = new Color(textColor.getRed()/255f,textColor.getGreen()/255f,textColor.getBlue()/255f,alpha);
-            fontrenderer.drawInBatch(stringTextComponent, (float)(-fontrenderer.width(stringTextComponent) / 2), entityIn.lastDamageOffset, color.getRGB(), false, matrix4f, bufferIn, false, 0, packedLightIn);
-            matrixStackIn.popPose();*/
+            font.drawInBatch(component, (float)(-font.width(component) / 2), entityIn.lastDamageOffset,  color.getRGB(), false, matrix4f, bufferIn, Font.DisplayMode.NORMAL, 0, packedLightIn);
+            matrixStackIn.popPose();
         }
     }
 

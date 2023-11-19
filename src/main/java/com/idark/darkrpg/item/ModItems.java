@@ -2,6 +2,7 @@ package com.idark.darkrpg.item;
 
 import com.idark.darkrpg.DarkRPG;
 import com.idark.darkrpg.block.*;
+import com.idark.darkrpg.entity.ModEntityTypes;
 import com.idark.darkrpg.item.curio.*;
 import com.idark.darkrpg.item.curio.charm.*;
 import com.idark.darkrpg.item.food.*;
@@ -9,6 +10,7 @@ import com.idark.darkrpg.item.types.*;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
+import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
@@ -558,9 +560,9 @@ public class ModItems {
 		() -> new ModSpawnEggItem(ModEntityTypes.SWAMP_WANDERER, 0x00FFFFFF, 0x00FFFFFF, new Item.Properties()));
 	public static final RegistryObject<ModSpawnEggItem> GOBLIN_SPAWN_EGG = ITEMS.register("goblin_spawn_egg",
 		() -> new ModSpawnEggItem(ModEntityTypes.GOBLIN, 0x00FFFFFF, 0x00FFFFFF, new Item.Properties()));
-	public static final RegistryObject<ModSpawnEggItem> MANNEQUIN_SPAWN_EGG = ITEMS.register("mannequin_spawn_egg",
-		() -> new ModSpawnEggItem(ModEntityTypes.MANNEQUIN, 0x00FFFFFF, 0x00FFFFFF, new Item.Properties()));
-	*/
+	 */
+	public static final RegistryObject<ForgeSpawnEggItem> MANNEQUIN_SPAWN_EGG = ITEMS.register("mannequin_spawn_egg",
+		() -> new ForgeSpawnEggItem(ModEntityTypes.MANNEQUIN, 0x00FFFFFF, 0x00FFFFFF, new Item.Properties()));
 
 	public static final RegistryObject<Item> ETERNITY = ITEMS.register("eternity", () -> new Item(new Item.Properties().rarity(Rarity.EPIC)));
 

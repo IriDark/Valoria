@@ -15,6 +15,7 @@ import com.idark.darkrpg.config.Config;
 import com.idark.darkrpg.effect.ModEffects;
 import com.idark.darkrpg.enchant.ModEnchantments;
 import com.idark.darkrpg.entity.ModEntityTypes;
+import com.idark.darkrpg.entity.custom.MannequinEntity;
 import com.idark.darkrpg.entity.renderer.*;
 import com.idark.darkrpg.item.ModItemGroup;
 import com.idark.darkrpg.item.ModItems;
@@ -47,6 +48,7 @@ import net.minecraftforge.client.event.ModelEvent;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.client.event.RegisterShadersEvent;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
@@ -188,8 +190,8 @@ public class DarkRPG {
 		//EntitySpawnPlacementRegistry.register(ModEntityTypes.GOBLIN.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND,
 		//Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MonsterEntity::checkAnyLightMonsterSpawnRules);
 
-		EntityRenderers.register(ModEntityTypes.GOBLIN.get(), GoblinRenderer::new);
-		EntityRenderers.register(ModEntityTypes.SWAMP_WANDERER.get(), SwampWandererRenderer::new);
+		//EntityRenderers.register(ModEntityTypes.GOBLIN.get(), GoblinRenderer::new);
+		//EntityRenderers.register(ModEntityTypes.SWAMP_WANDERER.get(), SwampWandererRenderer::new);
 		EntityRenderers.register(ModEntityTypes.MANNEQUIN.get(), MannequinRenderer::new);
 		EntityRenderers.register(ModEntityTypes.KUNAI.get(), KunaiRenderer::new);
 		EntityRenderers.register(ModEntityTypes.POISONED_KUNAI.get(), PoisonedKunaiRenderer::new);
@@ -211,11 +213,6 @@ public class DarkRPG {
 
 			WoodType.register(ModWoodTypes.SHADEWOOD);
 		});
-		//DeferredWorkQueue.runLater(() -> {
-		//GlobalEntityTypeAttributes.put(ModEntityTypes.SWAMP_WANDERER.get(), SwampWandererEntity.setCustomAttributes().build());
-		//GlobalEntityTypeAttributes.put(ModEntityTypes.MANNEQUIN.get(), MannequinEntity.setCustomAttributes().build());
-		//GlobalEntityTypeAttributes.put(ModEntityTypes.GOBLIN.get(), GoblinEntity.setCustomAttributes().build());
-		//});
 	}
 	private void processIMC(final InterModProcessEvent event) {
 		// some example code to receive and process InterModComms from other mods
@@ -223,6 +220,11 @@ public class DarkRPG {
 
 	@Mod.EventBusSubscriber(bus=Mod.EventBusSubscriber.Bus.MOD)
 	public static class RegistryEvents {
+
+		@SubscribeEvent
+		public static void registerAttributes(EntityAttributeCreationEvent event) {
+			event.put(ModEntityTypes.MANNEQUIN.get(), MannequinEntity.createAttributes().build());
+		}
 
 		@SubscribeEvent
 		public static void onModelRegistryEvent(ModelEvent.RegisterAdditional event) {

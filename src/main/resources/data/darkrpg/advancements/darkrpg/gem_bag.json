@@ -12,11 +12,13 @@
   },
   "parent": "darkrpg:darkrpg/darkrpg",
   "criteria": {
-    "gems": {
+    "requirement": {
       "trigger": "minecraft:consume_item",
       "conditions": {
         "item": {
-          "item": "darkrpg:gem_bag"
+          "items": [
+            "darkrpg:gem_bag"
+          ]
         }
       }
     }

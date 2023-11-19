@@ -14,20 +14,22 @@ import net.minecraftforge.registries.RegistryObject;
 public class ModEntityTypes {
     public static DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, DarkRPG.MOD_ID);
 
+	/*
     public static final RegistryObject<EntityType<SwampWandererEntity>> SWAMP_WANDERER = ENTITY_TYPES.register("swamp_wanderer",
         () -> EntityType.Builder.of(SwampWandererEntity::new, MobCategory.MONSTER)
         .sized(1f, 2.3f) // Hitbox Size
         .build(new ResourceLocation(DarkRPG.MOD_ID, "swamp_wanderer").toString()));
-	
-	public static final RegistryObject<EntityType<MannequinEntity>> MANNEQUIN = ENTITY_TYPES.register("mannequin",
-        () -> EntityType.Builder.of(MannequinEntity::new, MobCategory.CREATURE)
-        .sized(1f, 2f) // Hitbox Size
-        .build(new ResourceLocation(DarkRPG.MOD_ID, "mannequin").toString()));
 
 	public static final RegistryObject<EntityType<GoblinEntity>> GOBLIN = ENTITY_TYPES.register("goblin",
         () -> EntityType.Builder.of(GoblinEntity::new, MobCategory.MONSTER)
         .sized(0.8f, 1.4f) // Hitbox Size
         .build(new ResourceLocation(DarkRPG.MOD_ID, "goblin").toString()));
+	 */
+
+	public static final RegistryObject<EntityType<MannequinEntity>> MANNEQUIN = ENTITY_TYPES.register("mannequin",
+		() -> EntityType.Builder.of(MannequinEntity::new, MobCategory.CREATURE)
+		.sized(1f, 2f) // Hitbox Size
+		.build(new ResourceLocation(DarkRPG.MOD_ID, "mannequin").toString()));
 
 	public static final RegistryObject<EntityType<KunaiEntity>> KUNAI = ENTITY_TYPES.register("kunai",
         () -> EntityType.Builder.<KunaiEntity>of(KunaiEntity::new, MobCategory.MISC)

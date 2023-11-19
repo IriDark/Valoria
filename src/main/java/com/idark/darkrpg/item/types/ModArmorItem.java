@@ -30,10 +30,10 @@ public class ModArmorItem extends ArmorItem {
 	@Override
 	public void onArmorTick(ItemStack stack, Level world, Player player) {
 		if(!world.isClientSide()) {
-		if(hasFullSuitOfArmorOn(player)) {
-		evaluateArmorEffects(player);
-	}
-	}
+			if(hasFullSuitOfArmorOn(player)) {
+				evaluateArmorEffects(player);
+			}
+		}
 	
 	super.onArmorTick(stack, world, player);
 	}
@@ -43,22 +43,22 @@ public class ModArmorItem extends ArmorItem {
 			ArmorMaterial mapArmorMaterial = entry.getKey();
 			MobEffect mapStatusEffect = entry.getValue();
 	
-	if(hasCorrectArmorOn(mapArmorMaterial, player)) {
-		addStatusEffectForMaterial(player, mapArmorMaterial, mapStatusEffect);
-	}
-	}
+			if(hasCorrectArmorOn(mapArmorMaterial, player)) {
+				addStatusEffectForMaterial(player, mapArmorMaterial, mapStatusEffect);
+			}
+		}
 	}
 	
 	private void addStatusEffectForMaterial(Player player, ArmorMaterial mapArmorMaterial, MobEffect mapStatusEffect) {
 		boolean hasPlayerEffect = !Objects.equals(player.getEffect(mapStatusEffect), null);
 	
-	if(hasCorrectArmorOn(mapArmorMaterial, player) && !hasPlayerEffect) {
-		player.addEffect(new MobEffectInstance(mapStatusEffect, 400));
+		if(hasCorrectArmorOn(mapArmorMaterial, player) && !hasPlayerEffect) {
+			player.addEffect(new MobEffectInstance(mapStatusEffect, 400));
 	
-	if(new Random().nextFloat() > 0.4f) { // 40% of damaging the armor! Possibly!
-		player.getInventory().hurtArmor(player.damageSources().magic(), 6f, Inventory.ALL_ARMOR_SLOTS);
-	}
-	}
+			if(new Random().nextFloat() > 0.4f) { // 40% of damaging the armor! Possibly!
+				player.getInventory().hurtArmor(player.damageSources().magic(), 6f, Inventory.ALL_ARMOR_SLOTS);
+			}
+		}
 	}
 	
 	private boolean hasFullSuitOfArmorOn(Player player) {

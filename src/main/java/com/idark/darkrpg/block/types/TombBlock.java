@@ -19,7 +19,7 @@ import javax.annotation.Nullable;
 
 public class TombBlock extends HorizontalDirectionalBlock implements SimpleWaterloggedBlock {
 	
-	private static final VoxelShape shape = Block.box(3, 0, 3, 13, 16, 13);
+	private static final VoxelShape shape = Block.box(3, 0, 3, 14, 16, 14);
 	public TombBlock(BlockBehaviour.Properties properties) {
 		super(properties);
 		registerDefaultState(defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, false));

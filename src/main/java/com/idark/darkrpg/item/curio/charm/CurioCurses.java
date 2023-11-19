@@ -51,7 +51,7 @@ public class CurioCurses extends Item implements ICurioItem {
 		if (player.getActiveEffects().isEmpty() && !player.getCooldowns().isOnCooldown(this)) {
 			player.playSound(ModSoundRegistry.EQUIP_CURSE.get(), 0.5f, 1f);
 			player.addEffect(new MobEffectInstance(effects[Mth.nextInt(rand, 0, 5)], 60, 0, false, true));
-			player.getCooldowns().addCooldown(this, 165);
+			player.getCooldowns().addCooldown(this, 300);
 		}
 
 		ICurioItem.super.curioTick(identifier, index, livingEntity, stack);

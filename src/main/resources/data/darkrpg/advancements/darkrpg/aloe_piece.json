@@ -1,32 +1,34 @@
 {
-  "parent": "darkrpg:darkrpg/darkrpg",
   "display": {
     "icon": {
       "item": "darkrpg:aloe_piece"
     },
     "title": {
-		"translate": "advancement.darkrpg:aloe"
-	},
+      "translate": "advancement.darkrpg:aloe"
+    },
     "description": {
-		"translate": "advancement.darkrpg:aloe.desc"
+	  "translate": "advancement.darkrpg:aloe.desc"
 	},
+
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": true,
     "hidden": false
   },
+  "parent": "darkrpg:darkrpg/darkrpg",
   "criteria": {
-    "tea": {
-    "trigger": "minecraft:inventory_changed",
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
       "conditions": {
-        "items": [
-          {
-            "item": "darkrpg:aloe_piece"
-          }
-        ]
+        "item": {
+          "items": [
+            "darkrpg:aloe_piece"
+          ]
+        }
       }
     }
   },
+  
   "rewards": {
     "experience": 80
   }
