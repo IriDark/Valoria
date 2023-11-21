@@ -156,11 +156,11 @@ public class ModItems {
 	public static final RegistryObject<Item> ELEGANT_PEDESTAL = ITEMS.register("elegant_pedestal", () -> new BlockItem(ModBlocks.ELEGANT_PEDESTAL.get(), new Item.Properties()));
 	public static final RegistryObject<Item> TOMB = ITEMS.register("tomb", () -> new BlockItem(ModBlocks.TOMB.get(), new Item.Properties()));
 	public static final RegistryObject<Item> POT_SMALL = ITEMS.register("pot_small", () -> new BlockItem(ModBlocks.POT_SMALL.get(), new Item.Properties()));
-	public static final RegistryObject<Item> POT_SMALL_HANDLESS = ITEMS.register("pot_small_handless", () -> new BlockItem(ModBlocks.POT_SMALL_HANDLESS.get(), new Item.Properties()));
+	public static final RegistryObject<Item> POT_SMALL_HANDLESS = ITEMS.register("pot_small_handles", () -> new BlockItem(ModBlocks.POT_SMALL_HANDLES.get(), new Item.Properties()));
 	public static final RegistryObject<Item> POT_LONG = ITEMS.register("pot_long", () -> new BlockItem(ModBlocks.POT_LONG.get(), new Item.Properties()));
-	public static final RegistryObject<Item> POT_LONG_HANDLESS = ITEMS.register("pot_long_handless", () -> new BlockItem(ModBlocks.POT_LONG_HANDLESS.get(), new Item.Properties()));
+	public static final RegistryObject<Item> POT_LONG_HANDLES = ITEMS.register("pot_long_handles", () -> new BlockItem(ModBlocks.POT_LONG_HANDLES.get(), new Item.Properties()));
 	public static final RegistryObject<Item> POT_LONG_MOSSY = ITEMS.register("pot_long_mossy", () -> new BlockItem(ModBlocks.POT_LONG_MOSSY.get(), new Item.Properties()));
-	public static final RegistryObject<Item> POT_LONG_MOSSY_HANDLESS = ITEMS.register("pot_long_mossy_handless", () -> new BlockItem(ModBlocks.POT_LONG_MOSSY_HANDLESS.get(), new Item.Properties()));
+	public static final RegistryObject<Item> POT_LONG_MOSSY_HANDLES = ITEMS.register("pot_long_mossy_handles", () -> new BlockItem(ModBlocks.POT_LONG_MOSSY_HANDLES.get(), new Item.Properties()));
 	public static final RegistryObject<Item> SPIDER_EGG = ITEMS.register("spider_egg", () -> new BlockItem(ModBlocks.SPIDER_EGG.get(), new Item.Properties()));
 	// Bronze
 	public static final RegistryObject<Item> BRONZE_BLOCK = ITEMS.register("bronze_block", () -> new BlockItem(ModBlocks.BRONZE_BLOCK.get(), new Item.Properties()));
@@ -291,8 +291,6 @@ public class ModItems {
 			() -> new KunaiItem(new Item.Properties().durability(300)));
 	public static final RegistryObject<Item> SAMURAI_POISONED_KUNAI = ITEMS.register("samurai_poisoned_kunai",
 			() -> new PoisonedKunaiItem(new Item.Properties().durability(300)));
-
-
 	public static final RegistryObject<Item> WOODEN_SPEAR = ITEMS.register("wooden_spear",
 			() -> new SpearItem(Tiers.WOOD, 1, -3.2f, new Item.Properties()));
 	public static final RegistryObject<Item> STONE_SPEAR = ITEMS.register("stone_spear",
@@ -305,9 +303,20 @@ public class ModItems {
 			() -> new SpearItem(Tiers.DIAMOND, 1, -3.5f, new Item.Properties()));
 	public static final RegistryObject<Item> NETHERITE_SPEAR = ITEMS.register("netherite_spear",
 			() -> new SpearItem(Tiers.NETHERITE, 1, -3.5f, new Item.Properties()));
-	public static final RegistryObject<Item> DOUBLE_SPEAR = ITEMS.register("double_spear",
+	public static final RegistryObject<Item> GLAIVE = ITEMS.register("glaive",
 			() -> new SpearItem(Tiers.NETHERITE, 5, -3.5f, new Item.Properties()));
-
+	public static final RegistryObject<Item> WOODEN_RAPIER = ITEMS.register("wooden_rapier",
+			() -> new ScytheItem(Tiers.WOOD, 0, -2.8f, new Item.Properties()));
+	public static final RegistryObject<Item> STONE_RAPIER = ITEMS.register("stone_rapier",
+			() -> new ScytheItem(Tiers.STONE, 0, -2.8f, new Item.Properties()));
+	public static final RegistryObject<Item> IRON_RAPIER = ITEMS.register("iron_rapier",
+			() -> new ScytheItem(Tiers.IRON, 0, -2.8f, new Item.Properties()));
+	public static final RegistryObject<Item> GOLDEN_RAPIER = ITEMS.register("golden_rapier",
+			() -> new ScytheItem(Tiers.GOLD, 1, -2.4f, new Item.Properties()));
+	public static final RegistryObject<Item> DIAMOND_RAPIER = ITEMS.register("diamond_rapier",
+			() -> new ScytheItem(Tiers.DIAMOND, 1, -3.1f, new Item.Properties()));
+	public static final RegistryObject<Item> NETHERITE_RAPIER = ITEMS.register("netherite_rapier",
+			() -> new ScytheItem(Tiers.NETHERITE, 1, -3.1f, new Item.Properties()));
 	public static final RegistryObject<Item> IRON_SCYTHE = ITEMS.register("iron_scythe",
 			() -> new ScytheItem(Tiers.IRON, 3, -3.5f, new Item.Properties()));
 	public static final RegistryObject<Item> GOLDEN_SCYTHE = ITEMS.register("golden_scythe",
@@ -318,7 +327,6 @@ public class ModItems {
 			() -> new ScytheItem(Tiers.NETHERITE, 3, -3.4f, new Item.Properties().fireResistant()));
 	public static final RegistryObject<Item> BEAST = ITEMS.register("beast",
 			() -> new BeastScytheItem(Tiers.DIAMOND, 6, -3.6f, new Item.Properties()));
-
 	public static final RegistryObject<Item> HOLIDAY_KATANA = ITEMS.register("holiday_katana",
 			() -> new KatanaItem(Tiers.IRON, -1, -2.2f, new Item.Properties()));
 	public static final RegistryObject<Item> IRON_KATANA = ITEMS.register("iron_katana",
@@ -331,21 +339,18 @@ public class ModItems {
 			() -> new KatanaItem(Tiers.NETHERITE, 1, -1.8f, new Item.Properties().fireResistant()));
 	public static final RegistryObject<Item> SAMURAI_KATANA = ITEMS.register("samurai_katana",
 			() -> new KatanaItem(Tiers.DIAMOND, 2, -2f, new Item.Properties()));
-
 	public static final RegistryObject<Item> PEARLIUM_SWORD = ITEMS.register("pearlium_sword",
 			() -> new SwordItem(Tiers.IRON, 3, -2.4f, new Item.Properties()));
 	public static final RegistryObject<Item> PEARLIUM_PICKAXE = ITEMS.register("pearlium_pickaxe",
 			() -> new PickaxeItem(Tiers.IRON, -1, -3f, new Item.Properties()));
 	public static final RegistryObject<Item> PEARLIUM_AXE = ITEMS.register("pearlium_axe",
 			() -> new AxeItem(Tiers.IRON, 6, -3f, new Item.Properties()));
-
 	public static final RegistryObject<Item> HOLIDAY_PICKAXE = ITEMS.register("holiday_pickaxe",
 			() -> new PickaxeItem(Tiers.IRON, -1, -3f, new Item.Properties()));
 	public static final RegistryObject<Item> HOLIDAY_AXE = ITEMS.register("holiday_axe",
 			() -> new AxeItem(Tiers.IRON, 1, -3f, new Item.Properties()));
 	public static final RegistryObject<Item> XMAS_SWORD = ITEMS.register("xmas_sword",
 			() -> new SwordItem(Tiers.IRON, 3, -2.3f, new Item.Properties()));
-
 	public static final RegistryObject<Item> COBALT_SWORD = ITEMS.register("cobalt_sword",
 			() -> new SwordItem(ModItemTier.COBALT, 5, -2.4f, new Item.Properties()));
 	public static final RegistryObject<Item> COBALT_PICKAXE = ITEMS.register("cobalt_pickaxe",
@@ -356,7 +361,6 @@ public class ModItems {
 			() -> new AxeItem(ModItemTier.COBALT, 6, -3.4f, new Item.Properties()));
 	public static final RegistryObject<Item> COBALT_HOE = ITEMS.register("cobalt_hoe",
 			() -> new HoeItem(ModItemTier.COBALT, -1, 0f, new Item.Properties()));
-
 	public static final RegistryObject<Item> ENT = ITEMS.register("ent",
 			() -> new SwordItem(ModItemTier.NATURE, 7, -2.4f, new Item.Properties()));
 	public static final RegistryObject<Item> NATURE_SCYTHE = ITEMS.register("nature_scythe",
@@ -369,7 +373,6 @@ public class ModItems {
 			() -> new AxeItem(ModItemTier.NATURE, 5, -3f, new Item.Properties()));
 	public static final RegistryObject<Item> NATURE_HOE = ITEMS.register("nature_hoe",
 			() -> new HoeItem(ModItemTier.NATURE, -1, 0f, new Item.Properties()));
-
 	public static final RegistryObject<Item> CORAL_REEF = ITEMS.register("coral_reef",
 			() -> new CoralReefItem(ModItemTier.AQUARIUS, 8, -2.4f, new Item.Properties()));
 	public static final RegistryObject<Item> AQUARIUS_SCYTHE = ITEMS.register("aquarius_scythe",
@@ -382,7 +385,6 @@ public class ModItems {
 			() -> new AxeItem(ModItemTier.AQUARIUS, 10, -3f, new Item.Properties()));
 	public static final RegistryObject<Item> AQUARIUS_HOE = ITEMS.register("aquarius_hoe",
 			() -> new HoeItem(ModItemTier.AQUARIUS, -1, 0f, new Item.Properties()));
-
 	public static final RegistryObject<Item> INFERNAL_SWORD = ITEMS.register("infernal_sword",
 			() -> new MagmaSwordItem(ModItemTier.INFERNAL, 9, -2f, new Item.Properties().fireResistant()));
 	public static final RegistryObject<Item> INFERNAL_SCYTHE = ITEMS.register("infernal_scythe",

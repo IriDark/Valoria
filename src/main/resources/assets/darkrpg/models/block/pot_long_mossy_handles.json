@@ -1,8 +1,8 @@
 {
 	"texture_size": [64, 64],
 	"textures": {
-		"0": "darkrpg:block/pot_long_handless",
-		"particle": "darkrpg:block/pot_long_handless"
+		"0": "darkrpg:block/pot_long_mossy_handles",
+		"particle": "darkrpg:block/pot_long_mossy_handles"
 	},
 	"elements": [
 		{

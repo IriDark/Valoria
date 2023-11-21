@@ -139,11 +139,11 @@ public class DarkRPG {
 			ItemBlockRenderTypes.setRenderLayer(ModBlocks.SKULLY_PEDESTAL.get(), RenderType.cutout());
 			ItemBlockRenderTypes.setRenderLayer(ModBlocks.ELEGANT_PEDESTAL.get(), RenderType.cutout());
 			ItemBlockRenderTypes.setRenderLayer(ModBlocks.POT_SMALL.get(), RenderType.cutout());
-			ItemBlockRenderTypes.setRenderLayer(ModBlocks.POT_SMALL_HANDLESS.get(), RenderType.cutout());
+			ItemBlockRenderTypes.setRenderLayer(ModBlocks.POT_SMALL_HANDLES.get(), RenderType.cutout());
 			ItemBlockRenderTypes.setRenderLayer(ModBlocks.POT_LONG.get(), RenderType.cutout());
-			ItemBlockRenderTypes.setRenderLayer(ModBlocks.POT_LONG_HANDLESS.get(), RenderType.cutout());
+			ItemBlockRenderTypes.setRenderLayer(ModBlocks.POT_LONG_HANDLES.get(), RenderType.cutout());
 			ItemBlockRenderTypes.setRenderLayer(ModBlocks.POT_LONG_MOSSY.get(), RenderType.cutout());
-			ItemBlockRenderTypes.setRenderLayer(ModBlocks.POT_LONG_MOSSY_HANDLESS.get(), RenderType.cutout());
+			ItemBlockRenderTypes.setRenderLayer(ModBlocks.POT_LONG_MOSSY_HANDLES.get(), RenderType.cutout());
 			ItemBlockRenderTypes.setRenderLayer(ModBlocks.BRONZE_GLASS.get(), RenderType.cutout());
 			ItemBlockRenderTypes.setRenderLayer(ModBlocks.BRONZE_LAMP.get(), RenderType.cutout());
 			ItemBlockRenderTypes.setRenderLayer(ModBlocks.DECORATED_BRONZE_LAMP.get(), RenderType.cutout());

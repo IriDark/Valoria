@@ -372,15 +372,15 @@ public class ModBlocks {
 	// Pots
 	public static final RegistryObject<Block> POT_SMALL = BLOCK.register("pot_small",
 			() -> new PotBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).instabreak().noOcclusion().sound(ModSoundRegistry.POT)));
-	public static final RegistryObject<Block> POT_SMALL_HANDLESS = BLOCK.register("pot_small_handless",
+	public static final RegistryObject<Block> POT_SMALL_HANDLES = BLOCK.register("pot_small_handles",
 			() -> new PotBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).dropsLike(ModBlocks.POT_SMALL.get()).instabreak().noOcclusion().sound(ModSoundRegistry.POT)));
 	public static final RegistryObject<Block> POT_LONG = BLOCK.register("pot_long",
 			() -> new PotBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).instabreak().noOcclusion().sound(ModSoundRegistry.POT)));
-	public static final RegistryObject<Block> POT_LONG_HANDLESS = BLOCK.register("pot_long_handless",
+	public static final RegistryObject<Block> POT_LONG_HANDLES = BLOCK.register("pot_long_handles",
 			() -> new PotBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).dropsLike(ModBlocks.POT_LONG.get()).instabreak().noOcclusion().sound(ModSoundRegistry.POT)));
 	public static final RegistryObject<Block> POT_LONG_MOSSY = BLOCK.register("pot_long_mossy",
 			() -> new PotBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).dropsLike(ModBlocks.POT_LONG.get()).instabreak().noOcclusion().sound(ModSoundRegistry.POT)));
-	public static final RegistryObject<Block> POT_LONG_MOSSY_HANDLESS = BLOCK.register("pot_long_mossy_handless",
+	public static final RegistryObject<Block> POT_LONG_MOSSY_HANDLES = BLOCK.register("pot_long_mossy_handles",
 			() -> new PotBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).dropsLike(ModBlocks.POT_LONG.get()).instabreak().noOcclusion().sound(ModSoundRegistry.POT)));
 	// Plants
 	public static final RegistryObject<Block> ALOE_SMALL = BLOCK.register("aloe_small",

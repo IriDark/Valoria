@@ -1,6 +1,6 @@
 {
     "parent" : "item/handheld",
     "textures" : {
-        "layer0" : "darkrpg:item/pot_small_handless"
+        "layer0" : "darkrpg:item/pot_small_handles"
     }
 }

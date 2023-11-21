@@ -1,6 +1,6 @@
 {
   "parent": "item/handheld",
   "textures": {
-    "layer0": "darkrpg:item/double_spear"
+    "layer0": "darkrpg:item/glaive"
   }
 }
