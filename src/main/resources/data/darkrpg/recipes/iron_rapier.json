@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": {
+    "item": "minecraft:iron_ingot"
+  },
+  "base": {
+    "item": "darkrpg:stone_rapier"
+  },
+  "result": {
+    "item": "darkrpg:iron_rapier"
+  },
+  "template": {
+    "item": "minecraft:iron_ingot"
+  }
+}

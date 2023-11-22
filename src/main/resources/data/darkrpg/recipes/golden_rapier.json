@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": {
+    "item": "minecraft:golden_ingot"
+  },
+  "base": {
+    "item": "darkrpg:iron_rapier"
+  },
+  "result": {
+    "item": "darkrpg:golden_rapier"
+  },
+  "template": {
+    "item": "minecraft:golden_ingot"
+  }
+}

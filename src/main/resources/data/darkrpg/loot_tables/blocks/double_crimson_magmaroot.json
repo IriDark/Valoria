@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "block": "darkrpg:double_crimson_magmaroot",
+              "condition": "minecraft:block_state_property",
+              "properties": {
+                "half": "lower"
+              }
+            }
+          ],
+          "name": "darkrpg:double_crimson_magmaroot"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "darkrpg:blocks/double_crimson_magmaroot"
+}

@@ -38,13 +38,13 @@ public class ModBlocks {
 			() -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_TRAPDOOR).requiresCorrectToolForDrops().strength(3f, 4f).noOcclusion(), BlockSetType.OAK));
 	// Key
 	public static final RegistryObject<Block> KEYBLOCK = BLOCK.register("keyblock",
-			() -> new KeyPadBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(-1f, 3600000.8F).sound(SoundType.NETHER_BRICKS)));
+			() -> new KeyPadBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(-1f, 3600000.8F).sound(SoundType.NETHER_BRICKS).noLootTable()));
 	public static final RegistryObject<Block> CUT_KEYBLOCK = BLOCK.register("cut_keyblock",
-			() -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(-1f, 3600000.8F).sound(SoundType.NETHER_BRICKS)));
+			() -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(-1f, 3600000.8F).sound(SoundType.NETHER_BRICKS).noLootTable()));
 	public static final RegistryObject<Block> KEYBLOCK_BRICKS = BLOCK.register("keyblock_bricks",
-			() -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(-1f, 3600000.8F).sound(SoundType.NETHER_BRICKS)));
+			() -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(-1f, 3600000.8F).sound(SoundType.NETHER_BRICKS).noLootTable()));
 	public static final RegistryObject<Block> KEYBLOCK_RUNE = BLOCK.register("keyblock_rune",
-			() -> new KeyBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(-1f, 3600000.8F).sound(SoundType.NETHER_BRICKS)));
+			() -> new KeyBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(-1f, 3600000.8F).sound(SoundType.NETHER_BRICKS).noLootTable()));
 	// Metal
 	public static final RegistryObject<Block> COBALT_BLOCK = BLOCK.register("cobalt_block",
 			() -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops().strength(3f, 4f).sound(SoundType.NETHERITE_BLOCK)));
@@ -243,7 +243,7 @@ public class ModBlocks {
 	public static final RegistryObject<Block> TOMBSTONE_SPIKES_TRAP = BLOCK.register("tombstone_spikes_trap",
 			() -> new SpikeTrapBlock(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(3f, 4f)));
 	public static final RegistryObject<Block> SPIKES = BLOCK.register("spikes",
-			() -> new SpikeBlock(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(-1f, 3600000.8F)));
+			() -> new SpikeBlock(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(-1f, 3600000.8F).noLootTable()));
 	public static final RegistryObject<Block> CUT_TOMBSTONE = BLOCK.register("cut_tombstone",
 			() -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(3f, 4f)));
 	public static final RegistryObject<Block> TOMBSTONE_FIRECHARGE_TRAP = BLOCK.register("tombstone_firecharge_trap",

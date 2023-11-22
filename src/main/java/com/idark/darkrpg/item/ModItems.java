@@ -306,17 +306,17 @@ public class ModItems {
 	public static final RegistryObject<Item> GLAIVE = ITEMS.register("glaive",
 			() -> new SpearItem(Tiers.NETHERITE, 5, -3.5f, new Item.Properties()));
 	public static final RegistryObject<Item> WOODEN_RAPIER = ITEMS.register("wooden_rapier",
-			() -> new ScytheItem(Tiers.WOOD, 0, -2.8f, new Item.Properties()));
+			() -> new SwordItem(Tiers.WOOD, 0, -2.8f, new Item.Properties()));
 	public static final RegistryObject<Item> STONE_RAPIER = ITEMS.register("stone_rapier",
-			() -> new ScytheItem(Tiers.STONE, 0, -2.8f, new Item.Properties()));
+			() -> new SwordItem(Tiers.STONE, 0, -2.8f, new Item.Properties()));
 	public static final RegistryObject<Item> IRON_RAPIER = ITEMS.register("iron_rapier",
-			() -> new ScytheItem(Tiers.IRON, 0, -2.8f, new Item.Properties()));
+			() -> new SwordItem(Tiers.IRON, 0, -2.8f, new Item.Properties()));
 	public static final RegistryObject<Item> GOLDEN_RAPIER = ITEMS.register("golden_rapier",
-			() -> new ScytheItem(Tiers.GOLD, 1, -2.4f, new Item.Properties()));
+			() -> new SwordItem(Tiers.GOLD, 1, -2.4f, new Item.Properties()));
 	public static final RegistryObject<Item> DIAMOND_RAPIER = ITEMS.register("diamond_rapier",
-			() -> new ScytheItem(Tiers.DIAMOND, 1, -3.1f, new Item.Properties()));
+			() -> new SwordItem(Tiers.DIAMOND, 1, -3.1f, new Item.Properties()));
 	public static final RegistryObject<Item> NETHERITE_RAPIER = ITEMS.register("netherite_rapier",
-			() -> new ScytheItem(Tiers.NETHERITE, 1, -3.1f, new Item.Properties()));
+			() -> new SwordItem(Tiers.NETHERITE, 1, -3.1f, new Item.Properties()));
 	public static final RegistryObject<Item> IRON_SCYTHE = ITEMS.register("iron_scythe",
 			() -> new ScytheItem(Tiers.IRON, 3, -3.5f, new Item.Properties()));
 	public static final RegistryObject<Item> GOLDEN_SCYTHE = ITEMS.register("golden_scythe",
