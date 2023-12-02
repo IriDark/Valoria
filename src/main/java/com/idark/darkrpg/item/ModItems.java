@@ -139,7 +139,7 @@ public class ModItems {
 	public static final RegistryObject<Item> SHADEWOOD_PLANKS_BUTTON = ITEMS.register("shadewood_button", () -> new BlockItem(ModBlocks.SHADEWOOD_BUTTON.get(), new Item.Properties()));
 	public static final RegistryObject<Item> SHADEWOOD_PLANKS_PRESSURE_PLATE = ITEMS.register("shadewood_pressure_plate", () -> new BlockItem(ModBlocks.SHADEWOOD_PRESSURE_PLATE.get(), new Item.Properties()));
 	public static final RegistryObject<Item> SHADEWOOD_SIGN = ITEMS.register("shadewood_sign",() -> new SignItem(new Item.Properties().stacksTo(16), ModBlocks.SHADEWOOD_SIGN.get(), ModBlocks.SHADEWOOD_WALL_SIGN.get()));
-	public static final RegistryObject<Item> SHADEWOOD_HANGING_SIGN = ITEMS.register("shadewood_hanging_sign", () -> new HangingSignItem(ModBlocks.SHADEWOOD_WALL_HANGING_SIGN.get(), ModBlocks.SHADEWOOD_WALL_HANGING_SIGN.get(), new Item.Properties().stacksTo(16)));
+	public static final RegistryObject<Item> SHADEWOOD_HANGING_SIGN = ITEMS.register("shadewood_hanging_sign", () -> new HangingSignItem(ModBlocks.SHADEWOOD_HANGING_SIGN.get(), ModBlocks.SHADEWOOD_WALL_HANGING_SIGN.get(), new Item.Properties().stacksTo(16)));
 	public static final RegistryObject<Item> SHADEWOOD_LEAVES = ITEMS.register("shadewood_leaves", () -> new BlockItem(ModBlocks.SHADEWOOD_LEAVES.get(), new Item.Properties()));
 	public static final RegistryObject<Item> SHADEWOOD_SAPLING = ITEMS.register("shadewood_sapling", () -> new BlockItem(ModBlocks.SHADEWOOD_SAPLING.get(), new Item.Properties()));
 	// BlockItem Misc
@@ -301,19 +301,19 @@ public class ModItems {
 	public static final RegistryObject<Item> SPECTRAL_BLADE_THROWN = ITEMS.register("spectral_blade_thrown",
 			() -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> WOODEN_SPEAR = ITEMS.register("wooden_spear",
-			() -> new SpearItem(Tiers.WOOD, 1, -3.2f, new Item.Properties()));
+			() -> new SpearItem(Tiers.WOOD, 2, -3.2f, new Item.Properties()));
 	public static final RegistryObject<Item> STONE_SPEAR = ITEMS.register("stone_spear",
-			() -> new SpearItem(Tiers.STONE, 2, -3.4f, new Item.Properties()));
+			() -> new SpearItem(Tiers.STONE, 3, -3.4f, new Item.Properties()));
 	public static final RegistryObject<Item> IRON_SPEAR = ITEMS.register("iron_spear",
-			() -> new SpearItem(Tiers.IRON, 3, -3.5f, new Item.Properties()));
+			() -> new SpearItem(Tiers.IRON, 4, -3.5f, new Item.Properties()));
 	public static final RegistryObject<Item> GOLDEN_SPEAR = ITEMS.register("golden_spear",
-			() -> new SpearItem(Tiers.GOLD, 2, -3f, new Item.Properties()));
+			() -> new SpearItem(Tiers.GOLD, 3, -3f, new Item.Properties()));
 	public static final RegistryObject<Item> DIAMOND_SPEAR = ITEMS.register("diamond_spear",
-			() -> new SpearItem(Tiers.DIAMOND, 1, -3.5f, new Item.Properties()));
+			() -> new SpearItem(Tiers.DIAMOND, 2, -3.5f, new Item.Properties()));
 	public static final RegistryObject<Item> NETHERITE_SPEAR = ITEMS.register("netherite_spear",
-			() -> new SpearItem(Tiers.NETHERITE, 1, -3.5f, new Item.Properties()));
+			() -> new SpearItem(Tiers.NETHERITE, 2, -3.5f, new Item.Properties()));
 	public static final RegistryObject<Item> GLAIVE = ITEMS.register("glaive",
-			() -> new SpearItem(Tiers.NETHERITE, 5, -3.5f, new Item.Properties()));
+			() -> new SpearItem(Tiers.NETHERITE, 6, -3.5f, new Item.Properties()));
 	public static final RegistryObject<Item> WOODEN_RAPIER = ITEMS.register("wooden_rapier",
 			() -> new SwordItem(Tiers.WOOD, 0, -2.8f, new Item.Properties()));
 	public static final RegistryObject<Item> STONE_RAPIER = ITEMS.register("stone_rapier",
