@@ -1,0 +1,158 @@
+package com.idark.darkrpg.entity.projectile;
+
+import com.idark.darkrpg.entity.ModEntityTypes;
+import com.idark.darkrpg.item.ModItems;
+import com.idark.darkrpg.util.ModSoundRegistry;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.network.NetworkHooks;
+
+import javax.annotation.Nullable;
+
+public class SpectralBladeEntity extends AbstractArrow {
+    public boolean dealtDamage;
+    public ItemStack thrownStack = new ItemStack(ModItems.SPECTRAL_BLADE.get());
+    RandomSource rand = RandomSource.create();
+
+    public SpectralBladeEntity(EntityType<? extends com.idark.darkrpg.entity.projectile.SpectralBladeEntity> type, Level worldIn) {
+        super(type, worldIn);
+    }
+
+    public SpectralBladeEntity(Level worldIn, LivingEntity thrower, ItemStack thrownStackIn) {
+        super(ModEntityTypes.SPECTRAL_BLADE.get(), thrower, worldIn);
+        this.thrownStack = thrownStackIn.copy();
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public SpectralBladeEntity(Level worldIn, double x, double y, double z) {
+        super(ModEntityTypes.SPECTRAL_BLADE.get(), x, y, z, worldIn);
+    }
+
+    public void tick() {
+        if (this.inGroundTime > 4) {
+            this.dealtDamage = true;
+        }
+
+        super.tick();
+    }
+
+    public ItemStack getPickupItem() {
+        return this.thrownStack.copy();
+    }
+
+    @Nullable
+    public EntityHitResult findHitEntity(Vec3 startVec, Vec3 endVec) {
+        return this.dealtDamage ? null : super.findHitEntity(startVec, endVec);
+    }
+
+    public void onHitBlock(BlockHitResult pResult) {
+        for (int a = 0; a < 2; ++a) {
+            this.level().addParticle(ParticleTypes.SOUL, this.getX() + Mth.nextFloat(rand, 0.0F, 0.2F), this.getY() + 0.7D, this.getZ() + Mth.nextFloat(rand, 0.0F, 0.2F), 0d, 0.02d, 0d);
+        }
+
+        this.level().playSound(this, this.getOnPos(), ModSoundRegistry.DISAPPEAR.get(), SoundSource.AMBIENT, 0.4f, 1f);
+        this.removeAfterChangingDimensions();
+    }
+
+    @Override
+    public void onHitEntity(EntityHitResult result) {
+        Entity entity = result.getEntity();
+        int e = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.SHARPNESS, this.thrownStack);
+        float f = 7.5f + (((float) e) - 1.5f);
+        if (entity instanceof LivingEntity livingentity) {
+            f += EnchantmentHelper.getDamageBonus(this.thrownStack, livingentity.getMobType());
+        }
+
+        Entity shooter = this.getOwner();
+        DamageSource damagesource = level().damageSources().trident(this, (Entity) (shooter == null ? this : shooter));
+        this.dealtDamage = true;
+        this.level().playSound(this, this.getOnPos(), ModSoundRegistry.DISAPPEAR.get(), SoundSource.AMBIENT, 0.4f, 1f);
+        if (entity.hurt(damagesource, f)) {
+            if (entity.getType() == EntityType.ENDERMAN) {
+                return;
+            }
+
+            if (entity instanceof LivingEntity living) {
+                if (shooter instanceof LivingEntity) {
+                    EnchantmentHelper.doPostHurtEffects(living, shooter);
+                    EnchantmentHelper.doPostDamageEffects((LivingEntity) shooter, living);
+                }
+
+                this.doPostHurtEffects(living);
+            }
+        }
+
+        this.discard();
+    }
+
+    public SoundEvent getDefaultHitGroundSoundEvent() {
+        return ModSoundRegistry.DISAPPEAR.get();
+    }
+
+    @Override
+    public SoundEvent getHitGroundSoundEvent() {
+        return ModSoundRegistry.DISAPPEAR.get();
+    }
+
+    public void playerTouch(Player pEntity) {
+        if (this.ownedBy(pEntity) || this.getOwner() == null) {
+            super.playerTouch(pEntity);
+        }
+    }
+
+    @Override
+    public Packet<ClientGamePacketListener> getAddEntityPacket() {
+        return NetworkHooks.getEntitySpawningPacket(this);
+    }
+
+    public void readAdditionalSaveData(CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+        if (compound.contains("spectral_blade", 10)) {
+            this.thrownStack = ItemStack.of(compound.getCompound("spectral_blade"));
+        }
+
+        this.dealtDamage = compound.getBoolean("DealtDamage");
+    }
+
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        compound.put("spectral_blade", this.thrownStack.save(new CompoundTag()));
+    }
+
+    public void tickDespawn() {
+        if (this.pickup != Pickup.DISALLOWED) {
+            super.tickDespawn();
+        }
+    }
+
+    public float getWaterInertia() {
+        return 0.5F;
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public boolean shouldRender(double x, double y, double z) {
+        return true;
+    }
+}

@@ -120,7 +120,7 @@ public class PoisonedKunaiEntity extends AbstractArrow {
 			}
 		}
 
-		if (this.notRenderable == false && !this.inGround) {
+		if (!this.notRenderable && !this.inGround) {
 			Vec3 vector3d = this.getDeltaMovement();
 			double a3 = vector3d.x;
 			double a4 = vector3d.y;

@@ -14,6 +14,7 @@ public class ModTileEntities {
         DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, DarkRPG.MOD_ID);
 
     public static final RegistryObject<BlockEntityType<ModSignTileEntity>> SIGN_TILE_ENTITIES = TILE_ENTITIES.register("shadewood_sign", () -> BlockEntityType.Builder.of(ModSignTileEntity::new, ModBlocks.SHADEWOOD_SIGN.get(), ModBlocks.SHADEWOOD_WALL_SIGN.get()).build(null));
+    public static final RegistryObject<BlockEntityType<ModHangingSignTileEntity>> HANGING_SIGN_TILE_ENTITIES = TILE_ENTITIES.register("shadewood_hanging_sign", () -> BlockEntityType.Builder.of(ModHangingSignTileEntity::new, ModBlocks.SHADEWOOD_HANGING_SIGN.get(), ModBlocks.SHADEWOOD_WALL_HANGING_SIGN.get()).build(null));
     public static final RegistryObject<BlockEntityType<PedestalTileEntity>> PEDESTAL_TILE_ENTITY = TILE_ENTITIES.register("pedestal_entity", () -> BlockEntityType.Builder.of(PedestalTileEntity::new, ModBlocks.SKULLY_PEDESTAL.get(), ModBlocks.ELEGANT_PEDESTAL.get()).build(null));
     public static final RegistryObject<BlockEntityType<CrusherTileEntity>> CRUSHER_TILE_ENTITY = TILE_ENTITIES.register("crusher_entity", () -> BlockEntityType.Builder.of(CrusherTileEntity::new, ModBlocks.STONE_CRUSHER.get()).build(null));
 

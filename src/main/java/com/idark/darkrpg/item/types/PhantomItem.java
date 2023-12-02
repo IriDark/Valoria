@@ -127,8 +127,7 @@ public class PhantomItem extends SwordItem {
 
         List<Entity> entities = level.getEntitiesOfClass(Entity.class,  new AABB(X - 2D,Y - 2D,Z - 2D,X + 2D,Y + 2D,Z + 2D));
         for (Entity entity : entities) {
-            if (entity instanceof  LivingEntity) {
-                LivingEntity enemy = (LivingEntity)entity;
+            if (entity instanceof LivingEntity enemy) {
                 if (!hitEntities.contains(enemy) && (!enemy.equals(player))) {
                     hitEntities.add(enemy);
                 }

@@ -1,0 +1,14 @@
+{
+    "parent" : "item/handheld",
+    "textures" : {
+        "layer0" : "darkrpg:item/spectral_blade"
+    },
+    "overrides": [
+        {
+        "predicate": {
+            "itemcooldown": 1
+        },
+        "model": "darkrpg:item/spectral_blade_cooldown"
+        }
+    ]
+}

@@ -15,6 +15,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
@@ -23,6 +24,7 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.*;
+import org.apache.commons.compress.archivers.sevenz.CLI;
 
 import java.util.List;
 import java.util.Random;
@@ -44,15 +46,15 @@ public class BlazeReapItem extends PickaxeItem {
     }
 
     // Some sounds taken from the CalamityMod (Terraria) in a https://calamitymod.fandom.com/wiki/Category:Sound_effects
-    public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
-        ItemStack itemstack = playerIn.getItemInHand(handIn);
-        if (playerIn.isShiftKeyDown()) {
+    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+        ItemStack itemstack = player.getItemInHand(hand);
+        if (player.isShiftKeyDown()) {
 			if (isCharged(itemstack) == 0) {
-				List<ItemStack> items = playerIn.inventoryMenu.getItems();
+				List<ItemStack> items = player.inventoryMenu.getItems();
 				int gunpowder = 0;
 				boolean canCharge = false;
 
-            if (!playerIn.isCreative()) {
+            if (!player.isCreative()) {
                 for (ItemStack item : items) {
                     if (item.getItem().equals(Items.GUNPOWDER)) {
                         gunpowder = gunpowder + item.getCount();
@@ -69,12 +71,12 @@ public class BlazeReapItem extends PickaxeItem {
             if (canCharge) {
                 gunpowder = 5;
 
-                if (!playerIn.isCreative()) {
+                if (!player.isCreative()) {
                     for (ItemStack item : items) {
                         if (item.getItem().equals(Items.GUNPOWDER)) {
                             if (gunpowder - item.getCount() >= 0) {
                                 gunpowder = gunpowder - item.getCount();
-                                playerIn.getInventory().removeItem(item);
+                                player.getInventory().removeItem(item);
                             } else {
                                 item.setCount(item.getCount() - gunpowder);
                                 gunpowder = 0;
@@ -88,21 +90,21 @@ public class BlazeReapItem extends PickaxeItem {
                 }
 
                 setCharge(itemstack, 1);
-                playerIn.getCooldowns().addCooldown(this, 20);
-                worldIn.playSound(playerIn, playerIn.blockPosition(), ModSoundRegistry.BLAZECHARGE.get(), SoundSource.AMBIENT, 10f, 1f);
-                playerIn.awardStat(Stats.ITEM_USED.get(this));
+                player.getCooldowns().addCooldown(this, 20);
+                level.playSound(player, player.blockPosition(), ModSoundRegistry.BLAZECHARGE.get(), SoundSource.AMBIENT, 10f, 1f);
+                player.awardStat(Stats.ITEM_USED.get(this));
 				}
 			}
 	        return InteractionResultHolder.success(itemstack);
         } else if (isCharged(itemstack) == 1) {
             setCharge(itemstack, 0);
-            playerIn.getCooldowns().addCooldown(this, 50);
-            playerIn.awardStat(Stats.ITEM_USED.get(this));
+            player.getCooldowns().addCooldown(this, 50);
+            player.awardStat(Stats.ITEM_USED.get(this));
 
-            Vec3 pos = new Vec3(playerIn.getX(), playerIn.getY() + playerIn.getEyeHeight(), playerIn.getZ());
+            Vec3 pos = new Vec3(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());
 
-            double pitch = ((playerIn.getRotationVector().x + 90) * Math.PI) / 180;
-            double yaw = ((playerIn.getRotationVector().y + 90) * Math.PI) / 180;
+            double pitch = ((player.getRotationVector().x + 90) * Math.PI) / 180;
+            double yaw = ((player.getRotationVector().y + 90) * Math.PI) / 180;
 
             double locYaw = 0;
             double locPitch = 0;
@@ -112,52 +114,59 @@ public class BlazeReapItem extends PickaxeItem {
             double Y = Math.cos(locPitch + pitch) * locDistance;
             double Z = Math.sin(locPitch + pitch) * Math.sin(locYaw + yaw) * locDistance;
 
-            Vec3 playerPos = playerIn.getEyePosition();
-            Vec3 EndPos = (playerIn.getViewVector(0.0f).scale(15.0d));
+            Vec3 playerPos = player.getEyePosition();
+            Vec3 EndPos = (player.getViewVector(0.0f).scale(60.0d));
             Vec3 vec3 = playerPos.add(EndPos);
-            HitResult hitresult = worldIn.clip(new ClipContext(playerPos, vec3, ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, null));
-            if (hitresult.getType() != HitResult.Type.MISS) {
+
+            HitResult hitresult = level.clip(new ClipContext(playerPos, vec3, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, null));
+            if (hitresult != null && hitresult.getType() == HitResult.Type.ENTITY) {
+                Entity entity = ((EntityHitResult)hitresult).getEntity();
+                EntityHitResult entityhitresult = new EntityHitResult(entity, vec3);
+                vec3 = entityhitresult.getLocation();
+                X = entity.getX() - pos.x;
+                Y = entity.getY() - pos.y;
+                Z = entity.getZ() - pos.z;
+            } else if (hitresult != null && hitresult.getType() == HitResult.Type.BLOCK) {
                 vec3 = hitresult.getLocation();
+                X = hitresult.getLocation().x() - pos.x;
+                Y = hitresult.getLocation().y() - pos.y;
+                Z = hitresult.getLocation().z() - pos.z;
             }
 
-            X = hitresult.getLocation().x() - pos.x;
-            Y = hitresult.getLocation().y() - pos.y;
-            Z = hitresult.getLocation().z() - pos.z;
-
 			if (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.EXPLOSIVE_FLAME.get(), itemstack) > 0) {
-				if(!worldIn.isClientSide) {
-                    worldIn.explode(playerIn, pos.x + X, pos.y + Y, pos.z + Z, 4.0F, Level.ExplosionInteraction.TNT);
+				if(!level.isClientSide) {
+                    level.explode(player, pos.x + X, pos.y + Y, pos.z + Z, 4.0F, Level.ExplosionInteraction.TNT);
 				}
 			}
 
-            List<Entity> entities = worldIn.getEntitiesOfClass(Entity.class,  new AABB(pos.x + X - 3D,pos.y + Y - 3D,pos.z + Z - 3D,pos.x + X + 3D,pos.y + Y + 3D,pos.z + Z + 3D));
+            List<Entity> entities = level.getEntitiesOfClass(Entity.class,  new AABB(pos.x + X - 3D,pos.y + Y - 3D,pos.z + Z - 3D,pos.x + X + 3D,pos.y + Y + 3D,pos.z + Z + 3D));
             for (Entity entity : entities) {
                 if (entity instanceof LivingEntity) {
                     LivingEntity enemy = (LivingEntity)entity;
-                    if (!enemy.equals(playerIn)) {
-                        enemy.hurt(worldIn.damageSources().generic(), 10F);
-                        enemy.knockback(0.6F, playerIn.getX() + X - entity.getX(), playerIn.getZ() + Z - entity.getZ());
+                    if (!enemy.equals(player)) {
+                        enemy.hurt(level.damageSources().generic(), 10F);
+                        enemy.knockback(0.6F, player.getX() + X - entity.getX(), player.getZ() + Z - entity.getZ());
                         if (EnchantmentHelper.getItemEnchantmentLevel(Enchantments.FIRE_ASPECT, itemstack) > 0) {
-                            int i = EnchantmentHelper.getFireAspect(playerIn);
+                            int i = EnchantmentHelper.getFireAspect(player);
                             enemy.setSecondsOnFire(i * 4);
 						}
                     }
                 }
             }
 
-            playerIn.knockback(1.2F, X, Z);			
-            if (!playerIn.isCreative()) {
-                itemstack.hurtAndBreak(10, playerIn, (p_220045_0_) -> {p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND);});
+            player.knockback(1.2F, X, Z);
+            if (!player.isCreative()) {
+                itemstack.hurtAndBreak(10, player, (p_220045_0_) -> {p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND);});
             }
 
             for (int i = 0; i < 10; i++) {
-                worldIn.addParticle(ParticleTypes.LARGE_SMOKE, pos.x + X + ((rand.nextDouble() - 0.5D) * 3), pos.y + Y + ((rand.nextDouble() - 0.5D) * 3), pos.z + Z + ((rand.nextDouble() - 0.5D) * 3), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2));
+                level.addParticle(ParticleTypes.LARGE_SMOKE, pos.x + X + ((rand.nextDouble() - 0.5D) * 3), pos.y + Y + ((rand.nextDouble() - 0.5D) * 3), pos.z + Z + ((rand.nextDouble() - 0.5D) * 3), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2));
             }
             for (int i = 0; i < 25; i++) {
-                worldIn.addParticle(ParticleTypes.FLAME, pos.x + X + ((rand.nextDouble() - 0.5D) * 3), pos.y+ Y + ((rand.nextDouble() - 0.5D) * 3), pos.z + Z + ((rand.nextDouble() - 0.5D) * 3), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2));
+                level.addParticle(ParticleTypes.FLAME, pos.x + X + ((rand.nextDouble() - 0.5D) * 3), pos.y+ Y + ((rand.nextDouble() - 0.5D) * 3), pos.z + Z + ((rand.nextDouble() - 0.5D) * 3), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2));
             }
-            worldIn.addParticle(ParticleTypes.EXPLOSION_EMITTER, pos.x + X, pos.y + Y, playerIn.getZ() + Z, 0d, 0d, 0d);
-            worldIn.playSound(playerIn, playerIn.blockPosition().offset((int) X, (int) (Y + playerIn.getEyeHeight()), (int) Z), SoundEvents.GENERIC_EXPLODE, SoundSource.AMBIENT, 10f, 1f);
+            level.addParticle(ParticleTypes.EXPLOSION_EMITTER, pos.x + X, pos.y + Y, player.getZ() + Z, 0d, 0d, 0d);
+            level.playSound(player, player.blockPosition().offset((int) X, (int) (Y + player.getEyeHeight()), (int) Z), SoundEvents.GENERIC_EXPLODE, SoundSource.AMBIENT, 10f, 1f);
 
 
 		return InteractionResultHolder.success(itemstack);

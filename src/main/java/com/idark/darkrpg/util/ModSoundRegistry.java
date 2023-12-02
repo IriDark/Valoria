@@ -17,6 +17,7 @@ public class ModSoundRegistry {
 	public static final RegistryObject<SoundEvent> BLAZECHARGE = registerSound("item.blazecharge.use");
 	public static final RegistryObject<SoundEvent> ERUPTION = registerSound("item.eruption.use");
 	//public static final RegistryObject<SoundEvent> PIERCE = registerSound("item.pierce.ambient");
+	public static final RegistryObject<SoundEvent> DISAPPEAR = registerSound("item.disappear.ambient");
 	public static final RegistryObject<SoundEvent> EQUIP_CURSE = registerSound("item.curse.ambient");
 	public static final RegistryObject<SoundEvent> REPAIR = registerSound("item.repair.ambient");
 	public static final RegistryObject<SoundEvent> POT_BREAK = registerSound("block.pot_break.ambient");

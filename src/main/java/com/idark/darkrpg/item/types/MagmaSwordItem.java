@@ -186,7 +186,7 @@ public class MagmaSwordItem extends SwordItem {
 	return true;
 	}
 
-    public void hitDirection(Level worldIn, Player player, List<LivingEntity> hitEntities, Vector3d pos, float pitchRaw, float yawRaw, float distance) {
+    public void hitDirection(Level level, Player player, List<LivingEntity> hitEntities, Vector3d pos, float pitchRaw, float yawRaw, float distance) {
         double pitch = ((pitchRaw + 90) * Math.PI) / 180;
         double yaw = ((yawRaw + 90) * Math.PI) / 180;
 
@@ -199,9 +199,10 @@ public class MagmaSwordItem extends SwordItem {
         double Z = Math.sin(locPitch + pitch) * Math.sin(locYaw + yaw) * locDistance;
 
         Vec3 playerPos = player.getEyePosition();
-        Vec3 EndPos = (player.getViewVector(0.0f).scale(15.0d));
-        Vec3 vec3 = playerPos.add(EndPos);
-        HitResult hitresult = worldIn.clip(new ClipContext(playerPos, vec3, ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, null));
+        Vec3 NearPos = (new Vec3(pos.x + X, pos.y + Y, pos.z + Z));
+        Vec3 vec3 = playerPos.add(NearPos);
+
+        HitResult hitresult = level.clip(new ClipContext(playerPos, vec3, ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, null));
         if (hitresult.getType() != HitResult.Type.MISS) {
             vec3 = hitresult.getLocation();
         }
@@ -210,8 +211,7 @@ public class MagmaSwordItem extends SwordItem {
         Y = hitresult.getLocation().y() - pos.y;
         Z = hitresult.getLocation().z() - pos.z;
 
-        worldIn.addParticle(ParticleTypes.POOF, X + ((rand.nextDouble() - 0.5D) * 2), Y + ((rand.nextDouble() - 0.5D) * 2), Z + ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2));
-        List<Entity> entities = worldIn.getEntitiesOfClass(Entity.class,  new AABB(X - 2D,Y - 2D,Z - 2D,X + 2D,Y + 2D,Z + 2D));
+        List<Entity> entities = level.getEntitiesOfClass(Entity.class,  new AABB(X,Y,Z,X + pos.x + ((rand.nextDouble() - 0.5D) * 0.2F) - 3.2,Y + pos.y + ((rand.nextDouble() - 0.5D) * 0.2F) - 3.2,Z + pos.z + ((rand.nextDouble() - 0.5D) * 0.2F) - 3.2));
         for (Entity entity : entities) {
             if (entity instanceof  LivingEntity) {
                 LivingEntity enemy = (LivingEntity)entity;
@@ -224,6 +224,6 @@ public class MagmaSwordItem extends SwordItem {
         X = Math.sin(locPitch + pitch) * Math.cos(locYaw + yaw) * locDistance * 0.75F;
         Y = Math.cos(locPitch + pitch) * locDistance * 0.75F;
         Z = Math.sin(locPitch + pitch) * Math.sin(locYaw + yaw) * locDistance * 0.75F;
-        worldIn.addParticle(ParticleTypes.LAVA, pos.x + X + ((rand.nextDouble() - 0.5D) * 0.2F), pos.y + Y + ((rand.nextDouble() - 0.5D) * 0.2F), pos.z + Z + ((rand.nextDouble() - 0.5D) * 0.2F), 0d, 0d, 0d);
+        level.addParticle(ParticleTypes.LAVA, pos.x + X + ((rand.nextDouble() - 0.5D) * 0.2F), pos.y + Y + ((rand.nextDouble() - 0.5D) * 0.2F), pos.z + Z + ((rand.nextDouble() - 0.5D) * 0.2F), 0d, 0d, 0d);
     }
 }

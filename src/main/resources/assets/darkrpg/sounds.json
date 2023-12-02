@@ -1,9 +1,16 @@
 {
+  "item.disappear.ambient": {
+    "subtitle": "Spectral Blade Disappear",
+    "replace": "true",
+    "sounds": [
+      "darkrpg:spectral/disappear"
+    ]
+  },
   "item.curse.ambient": {
     "subtitle": "Cursed Bloodsight",
     "replace": "true",
     "sounds": [
-		"darkrpg:bloodsight/equip_curse"
+      "darkrpg:bloodsight/equip_curse"
     ]
   },
   "item.repair.ambient": {
@@ -24,77 +31,77 @@
     "subtitle": "Dash",
     "replace": "true",
     "sounds": [
-		"darkrpg:swiftslice"
+      "darkrpg:swiftslice"
     ]
   },
-    "item.recharge.use": {
+  "item.recharge.use": {
     "subtitle": "Recharge",
     "replace": "true",
     "sounds": [
-		"darkrpg:recharge"
+      "darkrpg:recharge"
     ]
   },
-   "item.blazecharge.use": {
+  "item.blazecharge.use": {
     "subtitle": "Charge",
     "replace": "true",
     "sounds": [
-		"darkrpg:blazecharge"
+      "darkrpg:blazecharge"
     ]
   },
-    "item.eruption.use": {
+  "item.eruption.use": {
     "subtitle": "Eruption",
     "replace": "true",
     "sounds": [
-		"darkrpg:eruption"
+      "darkrpg:eruption"
     ]
   },
-    "item.pierce.ambient": {
+  "item.pierce.ambient": {
     "subtitle": "Pierce",
     "replace": "true",
     "sounds": [
-		"darkrpg:pierce1",
-		"darkrpg:pierce2",
-		"darkrpg:pierce3"
+      "darkrpg:pierce1",
+      "darkrpg:pierce2",
+      "darkrpg:pierce3"
     ]
   },
-    "block.pot_break.ambient": {
+  "block.pot_break.ambient": {
     "subtitle": "Pot Break",
     "replace": "true",
     "sounds": [
-		"darkrpg:pot/shatter1",
-		"darkrpg:pot/shatter2",
-		"darkrpg:pot/shatter3",
-		"darkrpg:pot/shatter4",
-		"darkrpg:pot/shatter5",
-		"darkrpg:pot/shatter6"
+      "darkrpg:pot/shatter1",
+      "darkrpg:pot/shatter2",
+      "darkrpg:pot/shatter3",
+      "darkrpg:pot/shatter4",
+      "darkrpg:pot/shatter5",
+      "darkrpg:pot/shatter6"
     ]
   },
-   "block.pot_step.ambient": {
+  "block.pot_step.ambient": {
     "subtitle": "Pot Step",
     "replace": "true",
     "sounds": [
-		"darkrpg:pot/step1",
-		"darkrpg:pot/step2",
-		"darkrpg:pot/step3",
-		"darkrpg:pot/step4",
-		"darkrpg:pot/step5"
-      ]
-	},
-   "block.pot_place.ambient": {
+      "darkrpg:pot/step1",
+      "darkrpg:pot/step2",
+      "darkrpg:pot/step3",
+      "darkrpg:pot/step4",
+      "darkrpg:pot/step5"
+    ]
+  },
+  "block.pot_place.ambient": {
     "subtitle": "Pot Place",
     "replace": "true",
     "sounds": [
-		"darkrpg:pot/place1",
-		"darkrpg:pot/place2",
-		"darkrpg:pot/place3",
-		"darkrpg:pot/place4"
-      ]
-	},
-	"item.bag_open.use": {
+      "darkrpg:pot/place1",
+      "darkrpg:pot/place2",
+      "darkrpg:pot/place3",
+      "darkrpg:pot/place4"
+    ]
+  },
+  "item.bag_open.use": {
     "subtitle": "Opened bag",
     "replace": "true",
     "sounds": [
-		"darkrpg:bag_open"
+      "darkrpg:bag_open"
     ]
   }
 }

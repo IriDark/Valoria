@@ -114,7 +114,7 @@ public class ScytheItem extends SwordItem {
         Y = hitresult.getLocation().y() - pos.y;
         Z = hitresult.getLocation().z() - pos.z;
 
-        List<Entity> entities = level.getEntitiesOfClass(Entity.class,  new AABB(X - 2D,Y - 2D,Z - 2D,X + 2D,Y + 2D,Z + 2D));
+        List<Entity> entities = level.getEntitiesOfClass(Entity.class,  new AABB(X,Y,Z,X + pos.x + ((rand.nextDouble() - 0.5D) * 0.2F) - 3.2,Y + pos.y + ((rand.nextDouble() - 0.5D) * 0.2F) - 3.2,Z + pos.z + ((rand.nextDouble() - 0.5D) * 0.2F) - 3.2));
         for (Entity entity : entities) {
             if (entity instanceof  LivingEntity) {
                 LivingEntity enemy = (LivingEntity)entity;

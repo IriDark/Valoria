@@ -1,7 +1,7 @@
 {
   "parent": "item/handheld",
   "textures": {
-    "layer0": "darkrpg:item/quantum_reaper"
+    "layer0": "darkrpg:item/corpsecleaver"
   },
 
   "display": {

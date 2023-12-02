@@ -295,9 +295,14 @@ public class ModBlocks {
 			() -> new FlowerPotBlock(SHADEWOOD_SAPLING.get(), BlockBehaviour.Properties.copy(Blocks.GRASS).instabreak().noOcclusion()));
 	// Signs
 	public static final RegistryObject<Block> SHADEWOOD_SIGN = BLOCK.register("shadewood_sign",
-			() -> new ModStandingSignBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).noOcclusion().noCollission(), ModWoodTypes.SHADEWOOD));
+			() -> new ModStandingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).noOcclusion().noCollission(), ModWoodTypes.SHADEWOOD));
 	public static final RegistryObject<Block> SHADEWOOD_WALL_SIGN = BLOCK.register("shadewood_wall_sign",
-			() -> new ModWallSignBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).noOcclusion().noCollission(), ModWoodTypes.SHADEWOOD));
+			() -> new ModWallSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).noOcclusion().noCollission(), ModWoodTypes.SHADEWOOD));
+	public static final RegistryObject<Block>SHADEWOOD_HANGING_SIGN = BLOCK.register("shadewood_hanging_sign",
+			() -> new ModCeilingHangingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).noOcclusion().noCollission(), ModWoodTypes.SHADEWOOD));
+	public static final RegistryObject<Block>SHADEWOOD_WALL_HANGING_SIGN = BLOCK.register("shadewood_wall_hanging_sign",
+			() -> new ModWallHangingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).noOcclusion().noCollission(), ModWoodTypes.SHADEWOOD));
+
 	// Other
 	public static final RegistryObject<Block> GEODITE_DIRT = BLOCK.register("geodite_dirt",
 			() -> new Block(BlockBehaviour.Properties.copy(Blocks.DIRT).strength(0.5f, 2f).sound(SoundType.ROOTED_DIRT)));

@@ -15,6 +15,7 @@ import com.idark.darkrpg.config.Config;
 import com.idark.darkrpg.effect.ModEffects;
 import com.idark.darkrpg.enchant.ModEnchantments;
 import com.idark.darkrpg.entity.ModEntityTypes;
+import com.idark.darkrpg.entity.custom.GoblinEntity;
 import com.idark.darkrpg.entity.custom.MannequinEntity;
 import com.idark.darkrpg.entity.renderer.*;
 import com.idark.darkrpg.item.ModItemGroup;
@@ -35,6 +36,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
+import net.minecraft.client.renderer.blockentity.HangingSignRenderer;
 import net.minecraft.client.renderer.blockentity.SignRenderer;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.resources.model.ModelResourceLocation;
@@ -181,6 +183,7 @@ public class DarkRPG {
 			BlockEntityRenderers.register(ModTileEntities.CRUSHER_TILE_ENTITY.get(), (trd) -> new CrusherTileEntityRenderer());
 			BlockEntityRenderers.register(ModTileEntities.PEDESTAL_TILE_ENTITY.get(), (trd) -> new PedestalTileEntityRenderer());
 			BlockEntityRenderers.register(ModTileEntities.SIGN_TILE_ENTITIES.get(), SignRenderer::new);
+			BlockEntityRenderers.register(ModTileEntities.HANGING_SIGN_TILE_ENTITIES.get(), HangingSignRenderer::new);
 			Sheets.addWoodType(ModWoodTypes.SHADEWOOD);
 		});
 
@@ -189,10 +192,11 @@ public class DarkRPG {
 		//EntitySpawnPlacementRegistry.register(ModEntityTypes.GOBLIN.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND,
 		//Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MonsterEntity::checkAnyLightMonsterSpawnRules);
 
-		//EntityRenderers.register(ModEntityTypes.GOBLIN.get(), GoblinRenderer::new);
+		EntityRenderers.register(ModEntityTypes.GOBLIN.get(), GoblinRenderer::new);
 		//EntityRenderers.register(ModEntityTypes.SWAMP_WANDERER.get(), SwampWandererRenderer::new);
 		EntityRenderers.register(ModEntityTypes.MANNEQUIN.get(), MannequinRenderer::new);
 		EntityRenderers.register(ModEntityTypes.KUNAI.get(), KunaiRenderer::new);
+		EntityRenderers.register(ModEntityTypes.SPECTRAL_BLADE.get(), SpectralBladeRenderer::new);
 		EntityRenderers.register(ModEntityTypes.POISONED_KUNAI.get(), PoisonedKunaiRenderer::new);
 
 		ModItemModelProperties.makeBow(ModItems.SAMURAI_LONG_BOW.get());
@@ -201,14 +205,14 @@ public class DarkRPG {
 		ModItemModelProperties.makeBow(ModItems.BOW_OF_DARKNESS.get());
 		ModItemModelProperties.makeBow(ModItems.PHANTASM_BOW.get());
 		ModItemModelProperties.makeSize(ModItems.SOUL_COLLECTOR.get());
+		ModItemModelProperties.makeCooldown(ModItems.SPECTRAL_BLADE.get());
 	}
 	private void setup(final FMLCommonSetupEvent event) {
 		//WorldGen.init();
-
 		event.enqueueWork(() -> {
 			AxeItem.STRIPPABLES = new ImmutableMap.Builder<Block, Block>().putAll(AxeItem.STRIPPABLES)
-					.put(ModBlocks.SHADELOG.get(), ModBlocks.STRIPPED_SHADELOG.get())
-					.put(ModBlocks.SHADEWOOD.get(), ModBlocks.STRIPPED_SHADEWOOD.get()).build();
+			.put(ModBlocks.SHADELOG.get(), ModBlocks.STRIPPED_SHADELOG.get())
+			.put(ModBlocks.SHADEWOOD.get(), ModBlocks.STRIPPED_SHADEWOOD.get()).build();
 
 			WoodType.register(ModWoodTypes.SHADEWOOD);
 		});
@@ -223,6 +227,7 @@ public class DarkRPG {
 		@SubscribeEvent
 		public static void registerAttributes(EntityAttributeCreationEvent event) {
 			event.put(ModEntityTypes.MANNEQUIN.get(), MannequinEntity.createAttributes().build());
+			event.put(ModEntityTypes.GOBLIN.get(), GoblinEntity.createAttributes().build());
 		}
 
 		@SubscribeEvent

@@ -19,26 +19,31 @@ public class ModEntityTypes {
         () -> EntityType.Builder.of(SwampWandererEntity::new, MobCategory.MONSTER)
         .sized(1f, 2.3f) // Hitbox Size
         .build(new ResourceLocation(DarkRPG.MOD_ID, "swamp_wanderer").toString()));
+ 	*/
 
 	public static final RegistryObject<EntityType<GoblinEntity>> GOBLIN = ENTITY_TYPES.register("goblin",
-        () -> EntityType.Builder.of(GoblinEntity::new, MobCategory.MONSTER)
-        .sized(0.8f, 1.4f) // Hitbox Size
+        () -> EntityType.Builder.of(GoblinEntity::new, MobCategory.CREATURE)
+        .sized(0.5f, 1.3f)
         .build(new ResourceLocation(DarkRPG.MOD_ID, "goblin").toString()));
-	 */
 
 	public static final RegistryObject<EntityType<MannequinEntity>> MANNEQUIN = ENTITY_TYPES.register("mannequin",
 		() -> EntityType.Builder.of(MannequinEntity::new, MobCategory.CREATURE)
-		.sized(1f, 2f) // Hitbox Size
+		.sized(1f, 2f)
 		.build(new ResourceLocation(DarkRPG.MOD_ID, "mannequin").toString()));
 
 	public static final RegistryObject<EntityType<KunaiEntity>> KUNAI = ENTITY_TYPES.register("kunai",
         () -> EntityType.Builder.<KunaiEntity>of(KunaiEntity::new, MobCategory.MISC)
-        .sized(0.35f, 0.35f) // Hitbox Size
+        .sized(0.35f, 0.35f)
         .build(new ResourceLocation(DarkRPG.MOD_ID, "kunai").toString()));
+
+	public static final RegistryObject<EntityType<SpectralBladeEntity>> SPECTRAL_BLADE = ENTITY_TYPES.register("spectral_blade",
+		() -> EntityType.Builder.<SpectralBladeEntity>of(SpectralBladeEntity::new, MobCategory.MISC)
+		.sized(0.35f, 0.35f)
+		.build(new ResourceLocation(DarkRPG.MOD_ID, "spectral_blade").toString()));
 
 	public static final RegistryObject<EntityType<PoisonedKunaiEntity>> POISONED_KUNAI = ENTITY_TYPES.register("poisoned_kunai",
         () -> EntityType.Builder.<PoisonedKunaiEntity>of(PoisonedKunaiEntity::new, MobCategory.MISC)
-        .sized(0.35f, 0.35f) // Hitbox Size
+        .sized(0.35f, 0.35f)
         .build(new ResourceLocation(DarkRPG.MOD_ID, "poisoned_kunai").toString()));
 	
 	public static void register(IEventBus eventBus) {

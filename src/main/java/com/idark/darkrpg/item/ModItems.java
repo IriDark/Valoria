@@ -139,6 +139,7 @@ public class ModItems {
 	public static final RegistryObject<Item> SHADEWOOD_PLANKS_BUTTON = ITEMS.register("shadewood_button", () -> new BlockItem(ModBlocks.SHADEWOOD_BUTTON.get(), new Item.Properties()));
 	public static final RegistryObject<Item> SHADEWOOD_PLANKS_PRESSURE_PLATE = ITEMS.register("shadewood_pressure_plate", () -> new BlockItem(ModBlocks.SHADEWOOD_PRESSURE_PLATE.get(), new Item.Properties()));
 	public static final RegistryObject<Item> SHADEWOOD_SIGN = ITEMS.register("shadewood_sign",() -> new SignItem(new Item.Properties().stacksTo(16), ModBlocks.SHADEWOOD_SIGN.get(), ModBlocks.SHADEWOOD_WALL_SIGN.get()));
+	public static final RegistryObject<Item> SHADEWOOD_HANGING_SIGN = ITEMS.register("shadewood_hanging_sign", () -> new HangingSignItem(ModBlocks.SHADEWOOD_WALL_HANGING_SIGN.get(), ModBlocks.SHADEWOOD_WALL_HANGING_SIGN.get(), new Item.Properties().stacksTo(16)));
 	public static final RegistryObject<Item> SHADEWOOD_LEAVES = ITEMS.register("shadewood_leaves", () -> new BlockItem(ModBlocks.SHADEWOOD_LEAVES.get(), new Item.Properties()));
 	public static final RegistryObject<Item> SHADEWOOD_SAPLING = ITEMS.register("shadewood_sapling", () -> new BlockItem(ModBlocks.SHADEWOOD_SAPLING.get(), new Item.Properties()));
 	// BlockItem Misc
@@ -291,6 +292,14 @@ public class ModItems {
 			() -> new KunaiItem(new Item.Properties().durability(300)));
 	public static final RegistryObject<Item> SAMURAI_POISONED_KUNAI = ITEMS.register("samurai_poisoned_kunai",
 			() -> new PoisonedKunaiItem(new Item.Properties().durability(300)));
+	public static final RegistryObject<Item> SPECTRAL_BLADE = ITEMS.register("spectral_blade",
+			() -> new SpectralBladeItem(new Item.Properties().durability(300)));
+	public static final RegistryObject<Item> CORPSECLEAVER = ITEMS.register("corpsecleaver",
+			() -> new SwordItem(Tiers.IRON, 3, -2.4f, new Item.Properties().durability(300)));
+
+	// Placeholder for Entity Render
+	public static final RegistryObject<Item> SPECTRAL_BLADE_THROWN = ITEMS.register("spectral_blade_thrown",
+			() -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> WOODEN_SPEAR = ITEMS.register("wooden_spear",
 			() -> new SpearItem(Tiers.WOOD, 1, -3.2f, new Item.Properties()));
 	public static final RegistryObject<Item> STONE_SPEAR = ITEMS.register("stone_spear",
@@ -386,7 +395,7 @@ public class ModItems {
 	public static final RegistryObject<Item> AQUARIUS_HOE = ITEMS.register("aquarius_hoe",
 			() -> new HoeItem(ModItemTier.AQUARIUS, -1, 0f, new Item.Properties()));
 	public static final RegistryObject<Item> INFERNAL_SWORD = ITEMS.register("infernal_sword",
-			() -> new MagmaSwordItem(ModItemTier.INFERNAL, 9, -2f, new Item.Properties().fireResistant()));
+			() -> new MagmaSwordItem(ModItemTier.INFERNAL, 9, -2.6f, new Item.Properties().fireResistant()));
 	public static final RegistryObject<Item> INFERNAL_SCYTHE = ITEMS.register("infernal_scythe",
 			() -> new SwordItem(ModItemTier.INFERNAL, 11, -3.4f, new Item.Properties().fireResistant()));
 	public static final RegistryObject<Item> INFERNAL_PICKAXE = ITEMS.register("infernal_pickaxe",
@@ -560,9 +569,10 @@ public class ModItems {
 	/*
 	public static final RegistryObject<ModSpawnEggItem> SWAMP_WANDERER_SPAWN_EGG = ITEMS.register("swamp_wanderer_spawn_egg",
 		() -> new ModSpawnEggItem(ModEntityTypes.SWAMP_WANDERER, 0x00FFFFFF, 0x00FFFFFF, new Item.Properties()));
-	public static final RegistryObject<ModSpawnEggItem> GOBLIN_SPAWN_EGG = ITEMS.register("goblin_spawn_egg",
-		() -> new ModSpawnEggItem(ModEntityTypes.GOBLIN, 0x00FFFFFF, 0x00FFFFFF, new Item.Properties()));
-	 */
+	*/
+	public static final RegistryObject<ForgeSpawnEggItem> GOBLIN_SPAWN_EGG = ITEMS.register("goblin_spawn_egg",
+		() -> new ForgeSpawnEggItem(ModEntityTypes.GOBLIN, 8043368, 8687939, new Item.Properties()));
+
 	public static final RegistryObject<MannequinSpawnItem> MANNEQUIN_SPAWN_EGG = ITEMS.register("mannequin_spawn_egg",
 		() -> new MannequinSpawnItem(new Item.Properties()));
 

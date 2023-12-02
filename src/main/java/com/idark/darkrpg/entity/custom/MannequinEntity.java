@@ -1,6 +1,7 @@
 package com.idark.darkrpg.entity.custom;
 
 import com.idark.darkrpg.item.ModItems;
+import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -15,6 +16,8 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.extensions.IForgeEntity;
 
 public class MannequinEntity extends Mob implements IForgeEntity {
@@ -58,7 +61,7 @@ public class MannequinEntity extends Mob implements IForgeEntity {
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-        .add(Attributes.MAX_HEALTH, 1000000)
+        .add(Attributes.MAX_HEALTH, 1000)
         .add(Attributes.MOVEMENT_SPEED, 0.0D)
         .add(Attributes.KNOCKBACK_RESISTANCE, 1.0D)
         .add(Attributes.FOLLOW_RANGE, 0.0D)
@@ -67,9 +70,15 @@ public class MannequinEntity extends Mob implements IForgeEntity {
 
     @Override
     public boolean hurt(DamageSource source, float amount) {
+        BlockState state = Blocks.HAY_BLOCK.defaultBlockState();
+        for (int i = 0; i < 15; i++) {
+            this.level().addParticle(new BlockParticleOption(ParticleTypes.BLOCK, state), this.getX(), this.getY() + 0.7D, this.getZ(), 0d, 0.02d, 0d);
+        }
+
         if (hurtTime == 0) {
             entityData.set(LAST_DAMAGE, 0f);
             entityData.set(LAST_DAMAGE, amount);
+            this.heal(getMaxHealth());
         }
 
 	    return super.hurt(source, amount);
