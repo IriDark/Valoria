@@ -13,6 +13,6 @@ public class ModHangingSignTileEntity extends HangingSignBlockEntity {
 
     @Override
     public BlockEntityType<?> getType() {
-        return ModTileEntities.SIGN_TILE_ENTITIES.get();
+        return ModTileEntities.HANGING_SIGN_TILE_ENTITIES.get();
     }
 }
