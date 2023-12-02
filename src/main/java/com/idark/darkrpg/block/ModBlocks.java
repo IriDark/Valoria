@@ -298,9 +298,9 @@ public class ModBlocks {
 			() -> new ModStandingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).noOcclusion().noCollission(), ModWoodTypes.SHADEWOOD));
 	public static final RegistryObject<Block> SHADEWOOD_WALL_SIGN = BLOCK.register("shadewood_wall_sign",
 			() -> new ModWallSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).noOcclusion().noCollission(), ModWoodTypes.SHADEWOOD));
-	public static final RegistryObject<Block>SHADEWOOD_HANGING_SIGN = BLOCK.register("shadewood_hanging_sign",
+	public static final RegistryObject<Block> SHADEWOOD_HANGING_SIGN = BLOCK.register("shadewood_hanging_sign",
 			() -> new ModCeilingHangingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).noOcclusion().noCollission(), ModWoodTypes.SHADEWOOD));
-	public static final RegistryObject<Block>SHADEWOOD_WALL_HANGING_SIGN = BLOCK.register("shadewood_wall_hanging_sign",
+	public static final RegistryObject<Block> SHADEWOOD_WALL_HANGING_SIGN = BLOCK.register("shadewood_wall_hanging_sign",
 			() -> new ModWallHangingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).noOcclusion().noCollission(), ModWoodTypes.SHADEWOOD));
 
 	// Other
