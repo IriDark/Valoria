@@ -1,6 +1,7 @@
 package com.idark.darkrpg.entity.projectile;
 
 import com.idark.darkrpg.block.ModBlocks;
+import com.idark.darkrpg.damage.ModDamageSources;
 import com.idark.darkrpg.entity.ModEntityTypes;
 import com.idark.darkrpg.util.ModSoundRegistry;
 import net.minecraft.core.particles.BlockParticleOption;
@@ -104,7 +105,7 @@ public class MeatBlockEntity extends AbstractArrow {
         }
 
         Entity shooter = this.getOwner();
-        DamageSource damagesource = level().damageSources().trident(this, (Entity) (shooter == null ? this : shooter));
+        DamageSource damagesource = new DamageSource(ModDamageSources.source(level(), ModDamageSources.BLEEDING).typeHolder(),this, (Entity) (shooter == null ? this : shooter));
         this.dealtDamage = true;
         this.level().playSound(this, this.getOnPos(), SoundEvents.FROGSPAWN_BREAK, SoundSource.AMBIENT, 0.4f, 1f);
         if (entity.hurt(damagesource, f)) {

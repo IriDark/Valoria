@@ -104,7 +104,6 @@ public class DarkRPG {
 		ModTileEntities.register(eventBus);
 		ModEntityTypes.register(eventBus);
 		ModParticles.register(eventBus);
-		ModDamageSources.register(eventBus);
 
 		IEventBus forgeBus = MinecraftForge.EVENT_BUS;
 

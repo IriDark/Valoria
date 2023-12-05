@@ -10,12 +10,16 @@ import com.idark.darkrpg.entity.projectile.KunaiEntity;
 import com.idark.darkrpg.entity.projectile.MeatBlockEntity;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -79,8 +83,7 @@ public class CorpsecleaverItem extends Item implements Vanishable {
                         stack.hurtAndBreak(1, playerEntity, (player) -> {
                             player.broadcastBreakEvent(entityLiving.getUsedItemHand());
                         });
-
-                        playerEntity.hurt(level.damageSources().generic(), 2.0F);
+                        playerEntity.hurt(new DamageSource(ModDamageSources.source(level, ModDamageSources.BLEEDING).typeHolder()), 2.0F);
                         playerEntity.getCooldowns().addCooldown(this, 40);
                     } else {
                         playerEntity.getCooldowns().addCooldown(this, 15);
