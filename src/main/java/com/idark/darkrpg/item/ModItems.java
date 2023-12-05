@@ -73,6 +73,7 @@ public class ModItems {
 	public static final RegistryObject<Item> AWAKENED_VOID_BLOCK = ITEMS.register("awakened_void_block", () -> new BlockItem(ModBlocks.AWAKENED_VOID_BLOCK.get(), new Item.Properties().fireResistant()));
 	public static final RegistryObject<Item> PEARLIUM = ITEMS.register("pearlium", () -> new BlockItem(ModBlocks.PEARLIUM.get(), new Item.Properties()));
 	// Stones
+	public static final RegistryObject<Item> MEAT_BLOCK = ITEMS.register("meat_block", () -> new BlockItem(ModBlocks.MEAT_BLOCK.get(), new Item.Properties()));
 	public static final RegistryObject<Item> AMBANE_STONE = ITEMS.register("ambane_stone", () -> new BlockItem(ModBlocks.AMBANE_STONE.get(), new Item.Properties()));
 	public static final RegistryObject<Item> AMBANE_STONE_BRICKS = ITEMS.register("ambane_stone_bricks", () -> new BlockItem(ModBlocks.AMBANE_STONE_BRICKS.get(), new Item.Properties()));
 	public static final RegistryObject<Item> AMBANE_STONE_WALL = ITEMS.register("ambane_stone_wall", () -> new BlockItem(ModBlocks.AMBANE_STONE_WALL.get(), new Item.Properties()));
@@ -115,7 +116,7 @@ public class ModItems {
 	public static final RegistryObject<Item> TOMBSTONE_PILLAR = ITEMS.register("tombstone_pillar", () -> new BlockItem(ModBlocks.TOMBSTONE_PILLAR.get(), new Item.Properties()));
 	public static final RegistryObject<Item> WICKED_TOMBSTONE_PILLAR = ITEMS.register("wicked_tombstone_pillar", () -> new BlockItem(ModBlocks.WICKED_TOMBSTONE_PILLAR.get(), new Item.Properties()));
 	public static final RegistryObject<Item> CUT_TOMBSTONE_PILLAR = ITEMS.register("cut_tombstone_pillar", () -> new BlockItem(ModBlocks.CUT_TOMBSTONE_PILLAR.get(), new Item.Properties()));
-	//public static final RegistryObject<Item> SARCOPHAGUS = ITEMS.register("sarcophagus", () -> new BlockItem(ModBlocks.SARCOPHAGUS.get(), new Item.Properties()));
+	public static final RegistryObject<Item> SARCOPHAGUS = ITEMS.register("sarcophagus", () -> new BlockItem(ModBlocks.SARCOPHAGUS.get(), new Item.Properties()));
 	public static final RegistryObject<Item> SPIKES = ITEMS.register("spikes", () -> new BlockItem(ModBlocks.SPIKES.get(), new Item.Properties()));
 	public static final RegistryObject<Item> VOID_GRASS = ITEMS.register("void_grass", () -> new BlockItem(ModBlocks.VOID_GRASS.get(), new Item.Properties()));
 	public static final RegistryObject<Item> VOID_STONE = ITEMS.register("void_stone", () -> new BlockItem(ModBlocks.VOID_STONE.get(), new Item.Properties()));
@@ -234,8 +235,8 @@ public class ModItems {
 	/**
 	 * 	Food
 	 */
-	public static final RegistryObject<Item> ALOE_BANDAGE = ITEMS.register("aloe_bandage", () -> new AloeBandageItem(600, 0));
-	public static final RegistryObject<Item> ALOE_BANDAGE_UPGRADED = ITEMS.register("aloe_bandage_upgraded", () -> new AloeBandageItem(700, 1));
+	public static final RegistryObject<Item> ALOE_BANDAGE = ITEMS.register("aloe_bandage", () -> new AloeBandageItem(1130, 0));
+	public static final RegistryObject<Item> ALOE_BANDAGE_UPGRADED = ITEMS.register("aloe_bandage_upgraded", () -> new AloeBandageItem(800, 1));
 	public static final RegistryObject<Item> CACAO_CUP = ITEMS.register("cacao_cup", () -> new CupDrinkItem(MobEffects.MOVEMENT_SPEED, 30, 0));
 	public static final RegistryObject<Item> COFFE_CUP = ITEMS.register("coffe_cup", () -> new CupDrinkItem(MobEffects.MOVEMENT_SPEED, 125, 0));
 	public static final RegistryObject<Item> TEA_CUP = ITEMS.register("tea_cup", () -> new CupDrinkItem(MobEffects.MOVEMENT_SPEED, 30, 0));
@@ -295,7 +296,7 @@ public class ModItems {
 	public static final RegistryObject<Item> SPECTRAL_BLADE = ITEMS.register("spectral_blade",
 			() -> new SpectralBladeItem(new Item.Properties().durability(300)));
 	public static final RegistryObject<Item> CORPSECLEAVER = ITEMS.register("corpsecleaver",
-			() -> new SwordItem(Tiers.IRON, 3, -2.4f, new Item.Properties().durability(300)));
+			() -> new CorpsecleaverItem(new Item.Properties().durability(600)));
 
 	// Placeholder for Entity Render
 	public static final RegistryObject<Item> SPECTRAL_BLADE_THROWN = ITEMS.register("spectral_blade_thrown",

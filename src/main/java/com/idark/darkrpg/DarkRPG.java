@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import com.idark.darkrpg.block.ModBlocks;
 import com.idark.darkrpg.block.types.ModWoodTypes;
 import com.idark.darkrpg.client.event.ClientTickHandler;
+import com.idark.darkrpg.client.render.CorpsecleaverRender;
 import com.idark.darkrpg.client.render.DashOverlayRender;
 import com.idark.darkrpg.client.render.gui.MagmaBarRender;
 import com.idark.darkrpg.client.render.gui.TooltipEventHandler;
@@ -11,7 +12,8 @@ import com.idark.darkrpg.client.render.model.item.Item2DRenderer;
 import com.idark.darkrpg.client.render.model.tileentity.CrusherTileEntityRenderer;
 import com.idark.darkrpg.client.render.model.tileentity.PedestalTileEntityRenderer;
 import com.idark.darkrpg.config.ClientConfig;
-import com.idark.darkrpg.config.Config;
+import com.idark.darkrpg.damage.ModDamageSources;
+import com.idark.darkrpg.datagen.ModWorldGenProvider;
 import com.idark.darkrpg.effect.ModEffects;
 import com.idark.darkrpg.enchant.ModEnchantments;
 import com.idark.darkrpg.entity.ModEntityTypes;
@@ -40,7 +42,13 @@ import net.minecraft.client.renderer.blockentity.HangingSignRenderer;
 import net.minecraft.client.renderer.blockentity.SignRenderer;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.WoodType;
@@ -50,6 +58,8 @@ import net.minecraftforge.client.event.ModelEvent;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.client.event.RegisterShadersEvent;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -61,11 +71,13 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.registries.DeferredRegister;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotTypeMessage;
 import top.theillusivec4.curios.api.SlotTypePreset;
 
 import java.io.IOException;
+import java.util.concurrent.CompletableFuture;
 
 @Mod(DarkRPG.MOD_ID)
 public class DarkRPG {
@@ -92,10 +104,10 @@ public class DarkRPG {
 		ModTileEntities.register(eventBus);
 		ModEntityTypes.register(eventBus);
 		ModParticles.register(eventBus);
+		ModDamageSources.register(eventBus);
 
 		IEventBus forgeBus = MinecraftForge.EVENT_BUS;
 
-		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
 		ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ClientConfig.SPEC);
 
 		forgeBus.register(new WorldGen());
@@ -103,6 +115,8 @@ public class DarkRPG {
 		forgeBus.addListener(WorldRenderHandler::onRenderWorldLast);
 		forgeBus.addListener(DashOverlayRender::tick);
 		forgeBus.addListener(DashOverlayRender::onDrawScreenPost);
+		forgeBus.addListener(CorpsecleaverRender::tick);
+		forgeBus.addListener(CorpsecleaverRender::onDrawScreenPost);
 		forgeBus.addListener(MagmaBarRender::onDrawScreenPost);
 		forgeBus.addListener(TooltipEventHandler::onPostTooltipEvent);
 		//forgeBus.addListener(TooltipEventHandler::onTooltip);
@@ -198,6 +212,7 @@ public class DarkRPG {
 		EntityRenderers.register(ModEntityTypes.KUNAI.get(), KunaiRenderer::new);
 		EntityRenderers.register(ModEntityTypes.SPECTRAL_BLADE.get(), SpectralBladeRenderer::new);
 		EntityRenderers.register(ModEntityTypes.POISONED_KUNAI.get(), PoisonedKunaiRenderer::new);
+		EntityRenderers.register(ModEntityTypes.MEAT.get(), MeatBlockRenderer::new);
 
 		ModItemModelProperties.makeBow(ModItems.SAMURAI_LONG_BOW.get());
 		ModItemModelProperties.makeBow(ModItems.NATURE_BOW.get());
@@ -237,6 +252,16 @@ public class DarkRPG {
 					event.register(new ModelResourceLocation(new ResourceLocation(MOD_ID, item + "_in_hand"), "inventory"));
 				}
 			}
+		}
+
+		@SubscribeEvent
+		public static void gatherData(GatherDataEvent event) {
+			DataGenerator generator = event.getGenerator();
+			PackOutput packOutput = generator.getPackOutput();
+			ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
+			CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
+
+			generator.addProvider(event.includeServer(), new ModWorldGenProvider(packOutput, lookupProvider));
 		}
 
 		@SubscribeEvent

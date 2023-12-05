@@ -4,31 +4,16 @@ license = "Apache-2.0"
 issueTrackerURL = "" 
 [[mods]] 
   modId = "darkrpg" 
-  version = "${file.jarVersion}" 
+  version = "1.20.1-build-0.4.9.0_a"
   displayName = "DarkRPG" 
   updateJSONURL="" 
   displayURL = "https://discord.gg/wWdXpwuPmK" 
   logoFile = "DarkRPG_Logo.png"
   credits = "Calamity Mod (sounds)"
-  authors = "iDark" 
+  authors = "iDark, MaxBogomol"
   description = '''
-A global RPG mod.
-
-Devs:
-- iDark
-- MaxBogomol
-Special Thanks:
-- .sweetberries
-- GraFik
-- MrCat
-- Astemir
-- Wosaj
-- Vuzz
-- Auriny
-- Arky Fursblack
-- FoxPlane
-- RayRindou
-- Feimos
+DarkRPG — A big RPG themed project that adds some mobs, bosses, blocks, weapons, and some bunch of content in "vanilla" texture style
+Special Thanks: .sweetberries, GraFik, MrCat, Astemir, WOSAJ, Vuzz, Auriny, Arky Fursblack, FoxPlane, RayRindou, Feimos.
 '''
     [[dependencies.darkrpg]]
   modId = "forge"

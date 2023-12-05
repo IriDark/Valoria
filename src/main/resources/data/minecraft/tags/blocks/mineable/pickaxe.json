@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "darkrpg:meat_block",
     "darkrpg:cut_keyblock",
     "darkrpg:keyblock_bricks",
     "darkrpg:cobalt_block",
@@ -46,6 +47,7 @@
     "darkrpg:dunestone_bricks_wall",
     "darkrpg:cut_dunestone",
     "darkrpg:polished_dunestone",
+    "darkrpg:sarcophagus",
     "darkrpg:limestone",
     "darkrpg:limestone_stairs",
     "darkrpg:limestone_slab",

@@ -33,6 +33,9 @@
 	"tooltip.darkrpg.bloodsight": "A monster who attacked you, will get what he deserves... Every drop of blood spilled will be consumed by the thirst for revenge",
 	"tooltip.darkrpg.bloodsight_curse": "Seems this monocle is cursed and even broken, that's not good!",
 
+	"death.attack.bleeding": "%1$s lost all his blood",
+	"death.attack.bleeding.player": "%1$s was a vampire that murdered %2$s",
+
 	"_comment": "Lexicon",
 	"item.darkrpg.lexicon": "Lexicon",	
 	"patchouli.darkrpg.name": "DarkRPG",
@@ -48,7 +51,6 @@
 	"patchouli.darkrpg.treasures": "In dungeons you can find treasure bags, in these bags you can find a rare stuff, like gems, these gems can be used to smitch a jewerly! You can read about gems on next pages.",
 	"patchouli.darkrpg.treasures.name": "Treasures...",
 	"patchouli.darkrpg.treasure.gems": "Gems that can drop from bags. And even mined in caves these gems are rare, but jewerly with these gems giving player some bonuses! Amber - Haste, Amethyst - Magic damage, Ruby - Max. Hp, Sapphire - Swim speed, Emerald - Luck, Diamond - Armor. Some jewerly can be finded in dungeons these are rare and giving unique bonuses!",
-	"patchouli.darkrpg.special_thanks": "Special category to say thank you to contributors, devs and helpers of mod! And say a big thanks to you $(playername)! thanks for installing this mod",
 	"patchouli.darkrpg.exists": "Just exists.",
 
 	"_comment": "Advancements",
@@ -136,6 +138,7 @@
  	"entity.darkrpg.mannequin": "Mannequin",
 	"entity.darkrpg.kunai": "Kunai",
 	"entity.darkrpg.spectral_blade": "Spectral Bade",
+	"entity.darkrpg.meat": "Meat Block",
 
 	"_comment": "Mob Effects",
 	"effect.darkrpg.tipsy": "Tipsy",
@@ -599,5 +602,6 @@
  	"block.darkrpg.void_chiseled_brick_slab": "Chiseled Void Brick Slab",
  	"block.darkrpg.void_chiseled_bricks_stairs": "Chiseled Void Bricks Stairs",
  	"block.darkrpg.void_chiseled_bricks_slab": "Chiseled Void Bricks Slab",
+	"block.darkrpg.meat_block": "Meat Block",
 	"tooltip.darkrpg.strength": ""
 }

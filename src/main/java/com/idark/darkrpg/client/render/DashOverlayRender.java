@@ -29,7 +29,6 @@ public class DashOverlayRender {
         }
     }
 
-    //TODO: FIX ALPHA CHANNEL
     public static void onDrawScreenPost(RenderGuiOverlayEvent.Post event) {
         if (dashTime > 0) {
             Minecraft mc = Minecraft.getInstance();

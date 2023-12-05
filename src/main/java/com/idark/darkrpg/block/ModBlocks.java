@@ -8,12 +8,17 @@ import com.idark.darkrpg.world.tree.*;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BedPart;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
@@ -82,6 +87,8 @@ public class ModBlocks {
 	public static final RegistryObject<Block> RAW_COBALT_ORE_BLOCK = BLOCK.register("raw_cobalt_ore",
 			() -> new Block(BlockBehaviour.Properties.copy(Blocks.RAW_COPPER_BLOCK).requiresCorrectToolForDrops().strength(3f, 4f)));
 	// Stone Types
+	public static final RegistryObject<Block> MEAT_BLOCK = BLOCK.register("meat_block",
+			() -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(3f, 4f)));
 	public static final RegistryObject<Block> AMBANE_STONE = BLOCK.register("ambane_stone",
 			() -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(3f, 4f)));
 	public static final RegistryObject<Block> AMBANE_STONE_STAIRS = registerBlock("ambane_stone_stairs",
@@ -316,10 +323,8 @@ public class ModBlocks {
 			() -> new TombBlock(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(1f, 1f)));
 	public static final RegistryObject<Block> KEG = BLOCK.register("keg",
 			() -> new KegBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).requiresCorrectToolForDrops().strength(1f, 1f)));
-	//public static final RegistryObject<Block> SARCOPHAGUS = BLOCK.register("sarcophagus",
-	//() -> new SarcoBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops().strength(3f)));
-	//public static final RegistryObject<Block> SARCO_HALF = BLOCK.register("sarcophagus_half",
-	//() -> new SarcoHalfBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops().strength(3f)));
+	public static final RegistryObject<Block> SARCOPHAGUS = BLOCK.register("sarcophagus",
+		() -> new SarcoBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops().strength(3f)));
 	public static final RegistryObject<Block> TILE = BLOCK.register("quartz_blackstone_tile",
 			() -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops().strength(3f, 1f)));
 	public static final RegistryObject<Block> QUICKSAND = BLOCK.register("quicksand",

@@ -36,6 +36,11 @@ public class ModEntityTypes {
         .sized(0.35f, 0.35f)
         .build(new ResourceLocation(DarkRPG.MOD_ID, "kunai").toString()));
 
+	public static final RegistryObject<EntityType<MeatBlockEntity>> MEAT = ENTITY_TYPES.register("meat",
+			() -> EntityType.Builder.<MeatBlockEntity>of(MeatBlockEntity::new, MobCategory.MISC)
+					.sized(1, 1f)
+					.build(new ResourceLocation(DarkRPG.MOD_ID, "meat").toString()));
+
 	public static final RegistryObject<EntityType<SpectralBladeEntity>> SPECTRAL_BLADE = ENTITY_TYPES.register("spectral_blade",
 		() -> EntityType.Builder.<SpectralBladeEntity>of(SpectralBladeEntity::new, MobCategory.MISC)
 		.sized(0.35f, 0.35f)

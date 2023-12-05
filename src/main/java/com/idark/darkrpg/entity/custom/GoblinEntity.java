@@ -1,6 +1,8 @@
 package com.idark.darkrpg.entity.custom;
 
+import com.idark.darkrpg.entity.ModEntityTypes;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.core.SectionPos;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
@@ -10,11 +12,14 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.util.VisibleForDebug;
 import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.world.Difficulty;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
@@ -29,12 +34,15 @@ import net.minecraft.world.entity.ai.goal.target.ResetUniversalAngerTargetGoal;
 import net.minecraft.world.entity.animal.*;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Creeper;
+import net.minecraft.world.entity.monster.Skeleton;
+import net.minecraft.world.entity.monster.Slime;
 import net.minecraft.world.entity.npc.AbstractVillager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.*;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CaveVines;
@@ -42,6 +50,7 @@ import net.minecraft.world.level.block.SweetBerryBushBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkAccess;
 import net.minecraft.world.level.chunk.ChunkStatus;
+import net.minecraft.world.level.levelgen.WorldgenRandom;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.ForgeEventFactory;
@@ -135,6 +144,37 @@ public class GoblinEntity extends PathfinderMob implements NeutralMob {
         }
 
         super.aiStep();
+    }
+
+    public static boolean checkGoblinSpawnRules(EntityType<GoblinEntity> pGoblin, LevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, RandomSource pRandom) {
+        if (pLevel.getDifficulty() != Difficulty.PEACEFUL) {
+            if (pLevel.getBlockState(pPos).is(BlockTags.ANIMALS_SPAWNABLE_ON) && pPos.getY() > 50 && pPos.getY() < 70 && pRandom.nextFloat() < 0.5F && pRandom.nextFloat() < pLevel.getMoonBrightness() && pLevel.getMaxLocalRawBrightness(pPos) <= pRandom.nextInt(8)) {
+                return checkMobSpawnRules(pGoblin, pLevel, pSpawnType, pPos, pRandom);
+            }
+
+            if (!(pLevel instanceof WorldGenLevel)) {
+                return false;
+            }
+
+            ChunkPos chunkpos = new ChunkPos(pPos);
+            boolean flag = WorldgenRandom.seedSlimeChunk(chunkpos.x, chunkpos.z, ((WorldGenLevel)pLevel).getSeed(), 987234911L).nextInt(10) == 0;
+            if (pRandom.nextInt(10) == 0 && flag && pPos.getY() < 40) {
+                return checkMobSpawnRules(pGoblin, pLevel, pSpawnType, pPos, pRandom);
+            }
+        }
+
+        return false;
+    }
+
+    @Nullable
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
+        RandomSource randomsource = pLevel.getRandom();
+        int i = randomsource.nextInt(3);
+        if (i < 2 && randomsource.nextFloat() < 0.5F * pDifficulty.getSpecialMultiplier()) {
+            ++i;
+        }
+
+        return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
     }
 
     public void handleEntityEvent(byte pId) {
