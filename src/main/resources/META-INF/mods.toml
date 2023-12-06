@@ -12,7 +12,7 @@ issueTrackerURL = ""
   credits = "Calamity Mod (sounds)"
   authors = "iDark, MaxBogomol"
   description = '''
-DarkRPG — A big RPG themed project that adds some mobs, bosses, blocks, weapons, and some bunch of content in "vanilla" texture style
+DarkRPG — A big RPG themed project that adds some mobs, blocks, weapons, and some bunch of content in "vanilla" texture style
 Special Thanks: .sweetberries, GraFik, MrCat, Astemir, WOSAJ, Vuzz, Auriny, Arky Fursblack, FoxPlane, RayRindou, Feimos.
 '''
     [[dependencies.darkrpg]]

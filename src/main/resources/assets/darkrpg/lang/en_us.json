@@ -34,12 +34,10 @@
 	"tooltip.darkrpg.bloodsight_curse": "Seems this monocle is cursed and even broken, that's not good!",
 
 	"death.attack.bleeding": "%1$s lost all his blood",
-	"death.attack.bleeding.player": "%1$s was a vampire that murdered %2$s",
 
 	"_comment": "Lexicon",
 	"item.darkrpg.lexicon": "Lexicon",	
 	"patchouli.darkrpg.name": "DarkRPG",
-	"patchouli.darkrpg.desc": "",
 	"patchouli.darkrpg.others.name": "Others",
 	"patchouli.darkrpg.others.desc": "Alan Vacuoss, BaronFonShish, Arky Fursblack, FoxPlane, RayRindou and many others!",
 	"patchouli.darkrpg.getting_started.name": "Getting Started",

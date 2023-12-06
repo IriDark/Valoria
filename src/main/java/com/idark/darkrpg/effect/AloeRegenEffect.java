@@ -14,7 +14,7 @@ public class AloeRegenEffect extends MobEffect {
 	public void applyEffectTick(LivingEntity entityLivingBaseIn, int amplifier) {
     super.applyEffectTick(entityLivingBaseIn, amplifier);
         if (entityLivingBaseIn.getHealth() < entityLivingBaseIn.getMaxHealth()) {
-            entityLivingBaseIn.heal(0.005F);
+            entityLivingBaseIn.heal(0.010F);
         }
 	}
 	

@@ -15,7 +15,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
@@ -24,7 +23,6 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.*;
-import org.apache.commons.compress.archivers.sevenz.CLI;
 
 import java.util.List;
 import java.util.Random;
@@ -42,7 +40,7 @@ public class BlazeReapItem extends PickaxeItem {
 	}
 
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchant){
-        return enchant.category != EnchantmentCategory.BREAKABLE && enchant.category == EnchantmentCategory.WEAPON || enchant.category == EnchantmentCategory.DIGGER  || enchant.category == ModEnchantments.BLAZE;
+        return enchant.category == EnchantmentCategory.WEAPON || enchant.category == EnchantmentCategory.DIGGER  || enchant.category == ModEnchantments.BLAZE;
     }
 
     // Some sounds taken from the CalamityMod (Terraria) in a https://calamitymod.fandom.com/wiki/Category:Sound_effects
@@ -93,8 +91,11 @@ public class BlazeReapItem extends PickaxeItem {
                 player.getCooldowns().addCooldown(this, 20);
                 level.playSound(player, player.blockPosition(), ModSoundRegistry.BLAZECHARGE.get(), SoundSource.AMBIENT, 10f, 1f);
                 player.awardStat(Stats.ITEM_USED.get(this));
-				}
+				} else {
+                    player.displayClientMessage(Component.translatable("tooltip.darkrpg.recharge").withStyle(ChatFormatting.GRAY), true);
+                }
 			}
+
 	        return InteractionResultHolder.success(itemstack);
         } else if (isCharged(itemstack) == 1) {
             setCharge(itemstack, 0);
@@ -141,8 +142,7 @@ public class BlazeReapItem extends PickaxeItem {
 
             List<Entity> entities = level.getEntitiesOfClass(Entity.class,  new AABB(pos.x + X - 3D,pos.y + Y - 3D,pos.z + Z - 3D,pos.x + X + 3D,pos.y + Y + 3D,pos.z + Z + 3D));
             for (Entity entity : entities) {
-                if (entity instanceof LivingEntity) {
-                    LivingEntity enemy = (LivingEntity)entity;
+                if (entity instanceof LivingEntity enemy) {
                     if (!enemy.equals(player)) {
                         enemy.hurt(level.damageSources().generic(), 10F);
                         enemy.knockback(0.6F, player.getX() + X - entity.getX(), player.getZ() + Z - entity.getZ());
@@ -165,6 +165,7 @@ public class BlazeReapItem extends PickaxeItem {
             for (int i = 0; i < 25; i++) {
                 level.addParticle(ParticleTypes.FLAME, pos.x + X + ((rand.nextDouble() - 0.5D) * 3), pos.y+ Y + ((rand.nextDouble() - 0.5D) * 3), pos.z + Z + ((rand.nextDouble() - 0.5D) * 3), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2));
             }
+
             level.addParticle(ParticleTypes.EXPLOSION_EMITTER, pos.x + X, pos.y + Y, player.getZ() + Z, 0d, 0d, 0d);
             level.playSound(player, player.blockPosition().offset((int) X, (int) (Y + player.getEyeHeight()), (int) Z), SoundEvents.GENERIC_EXPLODE, SoundSource.AMBIENT, 10f, 1f);
 
@@ -202,7 +203,6 @@ public class BlazeReapItem extends PickaxeItem {
     }
 
     public static String getModeString(ItemStack stack) {
-        CompoundTag nbt = stack.getTag();
         if (isCharged(stack) == 1) {
             return "tooltip.darkrpg.rmb";
         } else {

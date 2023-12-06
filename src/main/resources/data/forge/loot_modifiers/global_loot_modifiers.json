@@ -1,7 +1,13 @@
 {
-  "replace": false,
   "entries": [
-    "darkrpg:gems_bag",
-	"darkrpg:miners_bag"
-	]
+    "darkrpg:gems_bag_from_abandoned_mineshaft",
+    "darkrpg:miners_bag_from_abandoned_mineshaft",
+    "darkrpg:miners_bag_from_underwater_ruin_small",
+    "darkrpg:gems_bag_from_buried_treasure",
+    "darkrpg:gems_bag_from_shipwreck_supply",
+    "darkrpg:miners_bag_from_buried_treasure",
+    "darkrpg:gems_bag_from_shipwreck_treasure",
+    "darkrpg:miners_bag_from_underwater_ruin_big"
+  ],
+  "replace": false
 }

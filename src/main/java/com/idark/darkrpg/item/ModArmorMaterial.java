@@ -10,9 +10,6 @@ import net.minecraft.world.item.crafting.Ingredient;
 import java.util.function.Supplier;
 
 public enum ModArmorMaterial implements ArmorMaterial {
-		/**
-		 * OTHER
-		 */
 	COBALT("cobalt", 16, new int[] { 2, 3, 4, 2 }, 18,
 	SoundEvents.ARMOR_EQUIP_IRON, 1.0f, 0.0f, () -> {
 	return Ingredient.of(ModItems.COBALT_INGOT.get());
@@ -22,9 +19,6 @@ public enum ModArmorMaterial implements ArmorMaterial {
 	return Ingredient.of(ModItems.ANCIENT_INGOT.get());
 	}),
 
-	/**
-	* ELEMENTAL
-	*/
 	NATURE("nature", 30, new int[] { 3, 5, 4, 3 }, 17,
 	SoundEvents.ARMOR_EQUIP_IRON, 1.0f, 0.0f, () -> {
 	return Ingredient.of(ModItems.NATURE_INGOT.get());

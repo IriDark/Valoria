@@ -1,0 +1,11 @@
+{
+  "type": "darkrpg:add_item",
+  "chance": 0.5,
+  "conditions": [
+    {
+      "condition": "forge:loot_table_id",
+      "loot_table_id": "minecraft:chests/shipwreck_treasure"
+    }
+  ],
+  "item": "darkrpg:gem_bag"
+}

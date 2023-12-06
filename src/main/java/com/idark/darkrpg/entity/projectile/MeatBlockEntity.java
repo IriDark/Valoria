@@ -3,7 +3,6 @@ package com.idark.darkrpg.entity.projectile;
 import com.idark.darkrpg.block.ModBlocks;
 import com.idark.darkrpg.damage.ModDamageSources;
 import com.idark.darkrpg.entity.ModEntityTypes;
-import com.idark.darkrpg.util.ModSoundRegistry;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -59,10 +58,6 @@ public class MeatBlockEntity extends AbstractArrow {
             this.dealtDamage = true;
         }
 
-        Vec3 vector3d = this.getDeltaMovement();
-        double a3 = vector3d.x;
-        double a4 = vector3d.y;
-        double a0 = vector3d.z;
         BlockState state = ModBlocks.MEAT_BLOCK.get().defaultBlockState();
         for (int a = 0; a < 2; ++a) {
             this.level().addParticle(new BlockParticleOption(ParticleTypes.BLOCK, state), this.getX() + Mth.nextFloat(rand, 0.0F, 0.2F), this.getY() + 0.7D, this.getZ() + Mth.nextFloat(rand, 0.0F, 0.2F), 0d, 0.02d, 0d);
@@ -115,6 +110,7 @@ public class MeatBlockEntity extends AbstractArrow {
 
             if (entity instanceof LivingEntity living) {
                 if (shooter instanceof LivingEntity) {
+                    ((LivingEntity) shooter).heal(0.5f);
                     EnchantmentHelper.doPostHurtEffects(living, shooter);
                     EnchantmentHelper.doPostDamageEffects((LivingEntity) shooter, living);
                 }

@@ -1,0 +1,11 @@
+{
+  "type": "darkrpg:add_item",
+  "chance": 0.3,
+  "conditions": [
+    {
+      "condition": "forge:loot_table_id",
+      "loot_table_id": "minecraft:chests/underwater_ruin_big"
+    }
+  ],
+  "item": "darkrpg:miners_bag"
+}

@@ -235,8 +235,8 @@ public class ModItems {
 	/**
 	 * 	Food
 	 */
-	public static final RegistryObject<Item> ALOE_BANDAGE = ITEMS.register("aloe_bandage", () -> new AloeBandageItem(1130, 0));
-	public static final RegistryObject<Item> ALOE_BANDAGE_UPGRADED = ITEMS.register("aloe_bandage_upgraded", () -> new AloeBandageItem(800, 1));
+	public static final RegistryObject<Item> ALOE_BANDAGE = ITEMS.register("aloe_bandage", () -> new AloeBandageItem(1600, 0));
+	public static final RegistryObject<Item> ALOE_BANDAGE_UPGRADED = ITEMS.register("aloe_bandage_upgraded", () -> new AloeBandageItem(1450, 1));
 	public static final RegistryObject<Item> CACAO_CUP = ITEMS.register("cacao_cup", () -> new CupDrinkItem(MobEffects.MOVEMENT_SPEED, 30, 0));
 	public static final RegistryObject<Item> COFFE_CUP = ITEMS.register("coffe_cup", () -> new CupDrinkItem(MobEffects.MOVEMENT_SPEED, 125, 0));
 	public static final RegistryObject<Item> TEA_CUP = ITEMS.register("tea_cup", () -> new CupDrinkItem(MobEffects.MOVEMENT_SPEED, 30, 0));

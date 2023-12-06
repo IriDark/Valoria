@@ -1,6 +1,8 @@
 package com.idark.darkrpg.util;
 
 import com.google.common.collect.Lists;
+import com.idark.darkrpg.DarkRPG;
+import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -14,6 +16,11 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.loot.IGlobalLootModifier;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
 import javax.annotation.Nonnull;
 import java.util.Collection;
@@ -58,5 +65,13 @@ public final class LootUtil {
 
 	public static LootParams getGiftParameters(ServerLevel level, Vec3 pos, float luck, Entity entity) {
 		return new LootParams.Builder(level).withParameter(LootContextParams.THIS_ENTITY, entity).withParameter(LootContextParams.ORIGIN, pos).withLuck(luck).create(LootContextParamSets.GIFT);
+	}
+
+	public static final DeferredRegister<Codec<? extends IGlobalLootModifier>> LOOT_MODIFIER_SERIALIZERS = DeferredRegister.create(ForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, DarkRPG.MOD_ID);
+
+	public static final RegistryObject<Codec<? extends IGlobalLootModifier>> ADD_ITEM = LOOT_MODIFIER_SERIALIZERS.register("add_item", AddItemModifier.CODEC);
+
+	public static void register(IEventBus eventBus) {
+		LOOT_MODIFIER_SERIALIZERS.register(eventBus);
 	}
 }
