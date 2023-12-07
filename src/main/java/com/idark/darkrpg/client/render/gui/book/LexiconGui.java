@@ -13,6 +13,8 @@ public class LexiconGui extends Screen {
     public LexiconGui() {
         super(Component.translatable("gui.darkrpg.name"));
     }
+    public static int xSize = 272;
+    public static int ySize = 180;
 
     @Override
     public void render(GuiGraphics gui, int mouseX, int mouseY, float partialTicks) {
@@ -22,7 +24,8 @@ public class LexiconGui extends Screen {
 
         this.width = mc.getWindow().getGuiScaledWidth();
         this.height = mc.getWindow().getGuiScaledHeight();
-        gui.blit(BACKGROUND, 240, 125, 0, 0, 487, 180 * 2, 600, 512);
+        int guiLeft = (width - xSize) / 2, guiTop = (height - ySize) / 2;
+        gui.blit(BACKGROUND, guiLeft, guiTop, 0, 0, xSize, ySize, 512, 512);
     }
 
     @Override
