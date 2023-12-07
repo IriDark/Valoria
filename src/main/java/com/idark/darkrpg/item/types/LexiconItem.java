@@ -1,6 +1,19 @@
 package com.idark.darkrpg.item.types;
 
+import com.idark.darkrpg.client.render.gui.book.LexiconGui;
+import net.minecraft.client.Minecraft;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class LexiconItem extends Item {
 
@@ -8,30 +21,21 @@ public class LexiconItem extends Item {
 		super(props);
 	}
 
-	//TODO: Will be done later
-	/*/ 
-	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
-		ItemStack stack = playerIn.getHeldItem(handIn);
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
+		ItemStack stack = player.getItemInHand(hand);
+		player.awardStat(Stats.ITEM_USED.get(this));
 
-		if (playerIn instanceof ServerPlayerEntity) {
-			ServerPlayerEntity player = (ServerPlayerEntity) playerIn;
-			PatchouliAPI.get().openBookGUI((ServerPlayerEntity) playerIn, Registry.ITEM.getKey(this));
+		if (world.isClientSide) {
+			openGui();
 		}
 
-		return new ActionResult<>(ActionResultType.SUCCESS, stack);
+		return new InteractionResultHolder<ItemStack>(InteractionResult.SUCCESS, stack);
 	}
 
-	// Random item to expose this as public
-	public static BlockRayTraceResult doRayTrace(World world, PlayerEntity player, RayTraceContext.FluidMode fluidMode) {
-		return Item.rayTrace(world, player, fluidMode);
+	@OnlyIn(Dist.CLIENT)
+	public void openGui() {
+		Minecraft.getInstance().player.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundSource.NEUTRAL, 1.0f, 1.0f);
+		Minecraft.getInstance().setScreen(new LexiconGui());
 	}
-	
-    @Override
-    public void addInformation(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flags) {
-    super.addInformation(stack, world, tooltip, flags);
-    tooltip.add(new TranslationTextComponent("tooltip.darkrpg.lexicon").mergeStyle(TextFormatting.GRAY));
-	}
-	/*/
 }
