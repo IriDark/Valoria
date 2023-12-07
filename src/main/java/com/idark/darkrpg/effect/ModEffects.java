@@ -11,9 +11,10 @@ public class ModEffects {
 	private final static String MODID = DarkRPG.MOD_ID;
 	public static final DeferredRegister<MobEffect> EFFECTS = DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, MODID);
 	
-	public static final RegistryObject<MobEffect> ALOEREGEN = EFFECTS.register("aloeregen", () -> new AloeRegenEffect());
-	public static final RegistryObject<MobEffect> STUN = EFFECTS.register("stun", () -> new StunEffect());
-	public static final RegistryObject<MobEffect> TIPSY = EFFECTS.register("tipsy", () -> new TipsyEffect());
+	public static final RegistryObject<MobEffect> ALOEREGEN = EFFECTS.register("aloeregen", AloeRegenEffect::new);
+	public static final RegistryObject<MobEffect> STUN = EFFECTS.register("stun", StunEffect::new);
+	public static final RegistryObject<MobEffect> TIPSY = EFFECTS.register("tipsy", TipsyEffect::new);
+	public static final RegistryObject<MobEffect> BLEEDING = EFFECTS.register("bleeding", BleedingEffect::new);
 
 	public static void register(IEventBus eventBus) {
 		EFFECTS.register(eventBus);

@@ -1,10 +1,8 @@
 package com.idark.darkrpg.util;
 
-import com.idark.darkrpg.item.ModItems;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
-import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraft.client.renderer.item.ItemProperties;
 
 public class ModItemModelProperties {

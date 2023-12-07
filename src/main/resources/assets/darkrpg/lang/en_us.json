@@ -85,9 +85,9 @@
 
 	"_comment": "Enchants",
 	"enchantment.darkrpg.explosive_flame": "Explosive Flame",
-	"enchantment.darkrpg.flow": "Flow",
-	
- 	"_comment": "Item Groups",
+	"enchantment.darkrpg.bleeding": "Bleeding",
+
+	"_comment": "Item Groups",
  	"itemGroup.DarkRPGModTab": "DarkRPG - Main",
  	"itemGroup.DarkRPGBlocksModTab": "DarkRPG - Blocks",
 	 
@@ -142,8 +142,9 @@
 	"effect.darkrpg.tipsy": "Tipsy",
 	"effect.darkrpg.stun": "Stun",
 	"effect.darkrpg.aloeregen": "Aloe Regeneration",
-	
- 	"_comment": "Weapons & Instruments",
+	"effect.darkrpg.bleeding": "Bleeding",
+
+	"_comment": "Weapons & Instruments",
 	"item.darkrpg.club": "Club",
 	"item.darkrpg.pearlium_sword": "Pearlium Sword",
 	"item.darkrpg.pearlium_pickaxe": "Pearlium Pickaxe",
@@ -380,7 +381,8 @@
  	"item.darkrpg.limestone_brick": "Limestone Brick",
  	"item.darkrpg.dunestone_brick": "Dunestone Brick",	
  	"item.darkrpg.crystal_stone_brick": "Crystal Stone Brick",	
- 	"item.darkrpg.void_stone_brick": "Void Stone Brick",	
+ 	"item.darkrpg.void_stone_brick": "Void Stone Brick",
+
  	"item.darkrpg.goblin_spawn_egg": "Goblin Spawn Egg",
  	"item.darkrpg.mannequin_spawn_egg": "Mannequin",
  	"item.darkrpg.swamp_wanderer_spawn_egg": "Swamp Wanderer Spawn Egg",
