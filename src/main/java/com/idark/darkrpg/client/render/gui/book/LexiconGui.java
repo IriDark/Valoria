@@ -3,13 +3,11 @@ package com.idark.darkrpg.client.render.gui.book;
 import com.idark.darkrpg.DarkRPG;
 import com.idark.darkrpg.item.ModItems;
 import com.idark.darkrpg.util.ColorUtils;
-import com.idark.darkrpg.util.RenderUtils;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -20,7 +18,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.Tags;
 import org.lwjgl.glfw.GLFW;
 
 import java.util.ArrayList;
@@ -28,7 +25,6 @@ import java.util.List;
 
 public class LexiconGui extends Screen {
     public static final ResourceLocation BACKGROUND = new ResourceLocation(DarkRPG.MOD_ID, "textures/gui/book/lexicon.png");
-    public static final ResourceLocation TREASURES = new ResourceLocation(DarkRPG.MOD_ID, "textures/gui/book/book_image.png");
     public ItemStack item;
     public LexiconPages pages;
 
@@ -46,79 +42,134 @@ public class LexiconGui extends Screen {
 
         this.width = mc.getWindow().getGuiScaledWidth();
         this.height = mc.getWindow().getGuiScaledHeight();
-        int guiLeft = (width - 544) / 2, guiTop = (height - 360) / 2;
+        int guiLeft = (width - 272) / 2, guiTop = (height - 180) / 2;
 
+        int BookmarkHeight = 25;
+        int BookmarkWidth = 35;
         // Book
-        gui.blit(BACKGROUND, guiLeft, guiTop, 0, 0, 544, 360, 1024, 1024);
+        gui.blit(BACKGROUND, guiLeft, guiTop, 0, 0, 272, 180, 512, 512);
 
-        if (mouseX >= guiLeft + 534 && mouseX < guiLeft + 534 + 334 && mouseY >= guiTop + 18 && mouseY < guiTop + 18 + 50) {
-            gui.blit(BACKGROUND, guiLeft + 534, guiTop + 18, 0, 436, 334, 100, 1024, 1024);
-            drawItem(new ItemStack(ModItems.LEXICON.get()), guiLeft + 545, guiTop + 28);
-            renderTooltip(gui, Component.translatable("gui.darkrpg.knowledge"), guiLeft + 575, guiTop + 50);
+        gui.blit(BACKGROUND, guiLeft - 19, guiTop + 132, 272, 132, 17, 48, 512, 512);
+
+
+        if (mouseX >= guiLeft - 14 && mouseX < guiLeft - 14 + BookmarkWidth && mouseY >= guiTop + 138 && mouseY < guiTop + 138 + 7) {
+            gui.blit(BACKGROUND, guiLeft - 15, guiTop + 137, 279, 112, 9, 9, 512, 512);
+            renderTooltip(gui, Component.translatable("gui.darkrpg.thanks"), guiLeft - 14, guiTop + 138);
         } else {
-            gui.blit(BACKGROUND, guiLeft + 534, guiTop + 18, 0, 386, 334, 50, 1024, 1024);
-            drawItem(new ItemStack(ModItems.LEXICON.get()), guiLeft + 538, guiTop + 28);
+            gui.blit(BACKGROUND, guiLeft - 14, guiTop + 138, 272, 113, 7, 7, 512, 512);
         }
 
-        if (mouseX >= guiLeft + 534 && mouseX < guiLeft + 534 + 334 && mouseY >= guiTop + 72 && mouseY < guiTop + 72 + 50) {
-            gui.blit(BACKGROUND, guiLeft + 534, guiTop + 72, 0, 436, 334, 100, 1024, 1024);
-            renderTooltip(gui, Component.translatable("gui.darkrpg.test"), guiLeft + 575, guiTop + 132);
-            drawItem(new ItemStack(ModItems.AMETHYST_GEM.get()), guiLeft + 545, guiTop + 82);
+        if (mouseX >= guiLeft - 12 && mouseX < guiLeft - 12 + BookmarkWidth && mouseY >= guiTop + 148 && mouseY < guiTop + 148 + 6) {
+            gui.blit(BACKGROUND, guiLeft - 12, guiTop + 148, 272, 121, 3, 6, 512, 512);
         } else {
-            gui.blit(BACKGROUND, guiLeft + 534, guiTop + 72, 0, 386, 334, 50, 1024, 1024);
-            drawItem(new ItemStack(ModItems.AMETHYST_GEM.get()), guiLeft + 538, guiTop + 82);
+            gui.blit(BACKGROUND, guiLeft - 12, guiTop + 148, 275, 121, 3, 6, 512, 512);
         }
 
-        if (mouseX >= guiLeft + 534 && mouseX < guiLeft + 534 + 334 && mouseY >= guiTop + 126 && mouseY < guiTop + 126 + 50) {
-            gui.blit(BACKGROUND, guiLeft + 534, guiTop + 126, 0, 436, 334, 100, 1024, 1024);
-            renderTooltip(gui, Component.translatable("gui.darkrpg.test"), guiLeft + 575, guiTop + 186);
-            drawItem(new ItemStack(ModItems.GEM_BAG.get()), guiLeft + 545, guiTop + 136);
+        if (mouseX >= guiLeft - 12 && mouseX < guiLeft - 12 + BookmarkWidth && mouseY >= guiTop + 158 && mouseY < guiTop + 158 + 6) {
+            gui.blit(BACKGROUND, guiLeft - 12, guiTop + 158, 272, 121, 3, 6, 512, 512);
         } else {
-            gui.blit(BACKGROUND, guiLeft + 534, guiTop + 126, 0, 386, 334, 50, 1024, 1024);
-            drawItem(new ItemStack(ModItems.GEM_BAG.get()), guiLeft + 538, guiTop + 136);
+            gui.blit(BACKGROUND, guiLeft - 12, guiTop + 158, 275, 121, 3, 6, 512, 512);
         }
 
-        if (mouseX >= guiLeft + 534 && mouseX < guiLeft + 534 + 334 && mouseY >= guiTop + 180 && mouseY < guiTop + 180 + 50) {
-            gui.blit(BACKGROUND, guiLeft + 534, guiTop + 180, 0, 436, 334, 100, 1024, 1024);
-            renderTooltip(gui, Component.translatable("gui.darkrpg.test"), guiLeft + 575, guiTop + 240);
-            drawItem(new ItemStack(ModItems.GEM_BAG.get()), guiLeft + 545, guiTop + 190);
+        if (mouseX >= guiLeft - 12 && mouseX < guiLeft - 12 + BookmarkWidth && mouseY >= guiTop + 168 && mouseY < guiTop + 168 + 6) {
+            gui.blit(BACKGROUND, guiLeft - 12, guiTop + 168, 272, 121, 3, 6, 512, 512);
         } else {
-            gui.blit(BACKGROUND, guiLeft + 534, guiTop + 180, 0, 386, 334, 50, 1024, 1024);
-            drawItem(new ItemStack(ModItems.GEM_BAG.get()), guiLeft + 538, guiTop + 190);
+            gui.blit(BACKGROUND, guiLeft - 12, guiTop + 168, 275, 121, 3, 6, 512, 512);
+        }
+
+        if (mouseX >= guiLeft + 267 && mouseX < guiLeft + 267 + BookmarkWidth && mouseY >= guiTop + 10 && mouseY < guiTop + 10 + BookmarkHeight) {
+            gui.blit(BACKGROUND, guiLeft + 267, guiTop + 10, 0, 218, BookmarkWidth, BookmarkHeight, 512, 512);
+            gui.renderItem(new ItemStack(ModItems.LEXICON.get()), guiLeft + 272, guiTop + 14);
+            renderTooltip(gui, Component.translatable("gui.darkrpg.knowledge"), guiLeft + 282, guiTop + 31);
+        } else {
+            gui.blit(BACKGROUND, guiLeft + 267, guiTop + 10, 0, 193, BookmarkWidth, BookmarkHeight, 512, 512);
+            gui.renderItem(new ItemStack(ModItems.LEXICON.get()), guiLeft + 269, guiTop + 14);
+        }
+
+        if (mouseX >= guiLeft + 267 && mouseX < guiLeft + 267 + BookmarkWidth && mouseY >= guiTop + 38 && mouseY < guiTop + 38 + 25) {
+            gui.blit(BACKGROUND, guiLeft + 267, guiTop + 38, 0, 218, BookmarkWidth, BookmarkHeight, 512, 512);
+            renderTooltip(gui, Component.translatable("gui.darkrpg.test"), guiLeft + 282, guiTop + 59);
+            gui.renderItem(new ItemStack(ModItems.AMETHYST_GEM.get()), guiLeft + 272, guiTop + 42);
+        } else {
+            gui.blit(BACKGROUND, guiLeft + 267, guiTop + 38, 0, 193, BookmarkWidth, BookmarkHeight, 512, 512);
+            gui.renderItem(new ItemStack(ModItems.AMETHYST_GEM.get()), guiLeft + 269, guiTop + 42);
+        }
+
+        if (mouseX >= guiLeft + 267 && mouseX < guiLeft + 267 + BookmarkWidth && mouseY >= guiTop + 66 && mouseY < guiTop + 66 + BookmarkHeight) {
+            gui.blit(BACKGROUND, guiLeft + 267, guiTop + 66, 0, 218, BookmarkWidth, BookmarkHeight, 512, 512);
+            gui.blit(BACKGROUND, guiLeft + 278, guiTop + 74, 277, 70, 5, 10, 512, 512);
+            renderTooltip(gui, Component.translatable("gui.darkrpg.test"), guiLeft + 282, guiTop + 87);
+            //drawItem(new ItemStack(ModItems.GEM_BAG.get()), guiLeft + 272, guiTop + 70);
+        } else {
+            gui.blit(BACKGROUND, guiLeft + 267, guiTop + 66, 0, 193, BookmarkWidth, BookmarkHeight, 512, 512);
+            gui.blit(BACKGROUND, guiLeft + 275, guiTop + 74, 272, 70, 5, 10, 512, 512);
+            //drawItem(new ItemStack(ModItems.GEM_BAG.get()), guiLeft + 269, guiTop + 70);
+        }
+
+        if (mouseX >= guiLeft + 267 && mouseX < guiLeft + 267 + BookmarkWidth && mouseY >= guiTop + 94 && mouseY < guiTop + 94 + BookmarkHeight) {
+            gui.blit(BACKGROUND, guiLeft + 267, guiTop + 94, 0, 218, BookmarkWidth, BookmarkHeight, 512, 512);
+            gui.blit(BACKGROUND, guiLeft + 278, guiTop + 102, 277, 70, 5, 10, 512, 512);
+            renderTooltip(gui, Component.translatable("gui.darkrpg.test"), guiLeft + 282, guiTop + 115);
+            //drawItem(new ItemStack(ModItems.GEM_BAG.get()), guiLeft + 272, guiTop + 98);
+        } else {
+            gui.blit(BACKGROUND, guiLeft + 267, guiTop + 94, 0, 193, BookmarkWidth, BookmarkHeight, 512, 512);
+            gui.blit(BACKGROUND, guiLeft + 275, guiTop + 102, 272, 70, 5, 10, 512, 512);
+            //drawItem(new ItemStack(ModItems.GEM_BAG.get()), guiLeft + 269, guiTop + 98);
         }
 
         // Category footer
-        gui.blit(BACKGROUND, guiLeft + 370, guiTop + 45, 192, 360, 264, 26, 1024, 1024);
-        gui.blit(BACKGROUND, guiLeft + 94, guiTop + 45, 192, 360, 264, 26, 1024, 1024);
+        gui.blit(BACKGROUND, guiLeft + 48, guiTop + 31, 97, 180, 38, 13, 512, 512);
+        gui.blit(BACKGROUND, guiLeft + 186, guiTop + 31, 97, 180, 38, 13, 512, 512);
         switch (pages) {
             case MAIN:
                 // Search bar
-                gui.blit(BACKGROUND, guiLeft + 40, guiTop + 37, 0, 360, 192, 26, 1024, 1024);
+                gui.blit(BACKGROUND, guiLeft + 20, guiTop + 18, 0, 180, 96, 13, 512, 512);
+                drawWrappingText(gui, "gui.darkrpg.search", guiLeft + 15, guiTop + 42, 115);
 
                 // Search bar footer
-                gui.blit(BACKGROUND, guiLeft + 94, guiTop + 62, 192, 360, 264, 26, 1024, 1024);
-                drawWrappingText(gui, "gui.darkrpg.knowledge", guiLeft + 355, guiTop + 37, 240);
-                drawWrappingText(gui, "gui.darkrpg.knowledge.access", guiLeft + 282, guiTop + 68, 240);
+                gui.blit(BACKGROUND, guiLeft + 48, guiTop + 31, 97, 180, 38, 13, 512, 512);
+                drawWrappingText(gui, "gui.darkrpg.knowledge", guiLeft + 148, guiTop + 21, 240);
+                drawWrappingText(gui, "gui.darkrpg.knowledge.access", guiLeft + 148, guiTop + 45, 136);
 
                 // Craft
-                CraftEntry slot1 = new CraftEntry(Items.PAPER, 345, 100);
-                CraftEntry slot2 = new CraftEntry(Items.BOOK, 381, 100);
-                CraftEntry slot3 = new CraftEntry(Items.AIR, 345, 136);
-                CraftEntry slot4 = new CraftEntry(Items.AIR, 381, 136);
-                CraftEntry result = new CraftEntry(ModItems.LEXICON.get(), 452, 119);
+                CraftEntry slot1 = new CraftEntry(new ItemStack(Items.PAPER), 175, 88);
+                CraftEntry slot2 = new CraftEntry(new ItemStack(Items.AIR), 175, 88 + 18);
+                CraftEntry slot3 = new CraftEntry(new ItemStack(Items.BOOK), 175 + 18, 88);
+                CraftEntry slot4 = new CraftEntry(new ItemStack(Items.AIR), 175 + 18, 88 + 18);
+                CraftEntry result = new CraftEntry(new ItemStack(ModItems.LEXICON.get()), 175 + 48, 88 + 8);
 
                 slot1.render(gui, guiLeft, guiTop, mouseX, mouseY, true);
-                slot2.render(gui, guiLeft, guiTop, mouseX, mouseY, true);
-                slot3.render(gui, guiLeft, guiTop, mouseX, mouseY, false);
+                slot2.render(gui, guiLeft, guiTop, mouseX, mouseY, false);
+                slot3.render(gui, guiLeft, guiTop, mouseX, mouseY, true);
                 slot4.render(gui, guiLeft, guiTop, mouseX, mouseY, false);
                 result.render(gui, guiLeft, guiTop, mouseX, mouseY, true);
-                result.resultArrow(gui, guiLeft, guiTop, 425, 127, mouseX, mouseY, false);
+                result.resultArrow(gui, guiLeft, guiTop, 175 + 37, 88 + 14, mouseX, mouseY, false);
                 break;
-            case TEST:
-                drawWrappingText(gui, "gui.darkrpg.treasures.name", guiLeft + 105, guiTop + 37, 240);
-                drawWrappingText(gui, "gui.darkrpg.treasures", guiLeft + 26, guiTop + 68, 240);
-                gui.blit(TREASURES, guiLeft + 35, guiTop + 110, 0, 0, 1697 / 8, 786 / 7, 1697 / 8, 786 / 7);
-                drawWrappingText(gui, "gui.darkrpg.treasure.gems", guiLeft + 26, guiTop + 225, 238);
+            case GEMS:
+                drawWrappingText(gui, "gui.darkrpg.treasures.name", guiLeft + 37, guiTop + 21, 120);
+                drawWrappingText(gui, "gui.darkrpg.treasures", guiLeft + 15, guiTop + 42, 120);
+                drawWrappingText(gui, "gui.darkrpg.treasures.gems.name", guiLeft + 190, guiTop + 21, 120);
+                if (mouseX >= guiLeft + 250 && mouseX < guiLeft + 250 + 9 && mouseY >= guiTop + 150 && mouseY < guiTop + 150 + 8) {
+                    gui.blit(BACKGROUND, guiLeft + 250, guiTop + 150, 272, 104, 9, 8, 512, 512);
+                    renderTooltip(gui, Component.translatable("gui.darkrpg.next"), guiLeft + 250, guiTop + 150);
+                } else {
+                    gui.blit(BACKGROUND, guiLeft + 250, guiTop + 150, 272, 88, 9, 8, 512, 512);
+                }
+
+                drawWrappingText(gui, "gui.darkrpg.treasure.gems", guiLeft + 148, guiTop + 42, 120);
+                break;
+            case GEMS_ABOUT:
+                if (mouseX >= guiLeft + 13 && mouseX < guiLeft + 13 + 9 && mouseY >= guiTop + 150 && mouseY < guiTop + 150 + 8) {
+                    gui.blit(BACKGROUND, guiLeft + 13, guiTop + 150, 272, 96, 9, 8, 512, 512);
+                    renderTooltip(gui, Component.translatable("gui.darkrpg.back"), guiLeft + 13, guiTop + 150);
+                } else {
+                    gui.blit(BACKGROUND, guiLeft + 13, guiTop + 150, 272, 80, 9, 8, 512, 512);
+                }
+
+                drawWrappingText(gui, "gui.darkrpg.about.name", guiLeft + 53, guiTop + 21, 120);
+                drawWrappingText(gui, "gui.darkrpg.treasure.gems.about", guiLeft + 15, guiTop + 42, 117);
+                break;
+            case THANKS:
                 break;
         }
     }
@@ -129,24 +180,48 @@ public class LexiconGui extends Screen {
             Minecraft mc = Minecraft.getInstance();
             this.width = mc.getWindow().getGuiScaledWidth();
             this.height = mc.getWindow().getGuiScaledHeight();
-            int guiLeft = (width - 544) / 2, guiTop = (height - 360) / 2;
+            int guiLeft = (width - 272) / 2, guiTop = (height - 180) / 2;
 
-            if (mouseX >= guiLeft + 534 && mouseX < guiLeft + 534 + 334 && mouseY >= guiTop + 18 && mouseY < guiTop + 18 + 50) {
+            if (mouseX >= guiLeft - 14 && mouseX < guiLeft - 14 + 35 && mouseY >= guiTop + 138 && mouseY < guiTop + 138 + 7) {
+                mc.player.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundSource.NEUTRAL, 1.0f, 1.0f);
+                mc.setScreen(new LexiconGui(LexiconPages.THANKS));
+            }
+
+            if (mouseX >= guiLeft + 267 && mouseX < guiLeft + 267 + 35 && mouseY >= guiTop + 10 && mouseY < guiTop + 10 + 25) {
                 mc.player.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundSource.NEUTRAL, 1.0f, 1.0f);
                 mc.setScreen(new LexiconGui(LexiconPages.MAIN));
             }
 
-            if (mouseX >= guiLeft + 534 && mouseX < guiLeft + 534 + 334 && mouseY >= guiTop + 72 && mouseY < guiTop + 72 + 50) {
+            if (mouseX >= guiLeft + 267 && mouseX < guiLeft + 267 + 35 && mouseY >= guiTop + 38 && mouseY < guiTop + 38 + 25) {
                 mc.player.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundSource.NEUTRAL, 1.0f, 1.0f);
-                mc.setScreen(new LexiconGui(LexiconPages.TEST));
+                mc.setScreen(new LexiconGui(LexiconPages.GEMS));
             }
 
-            if (mouseX >= guiLeft + 534 && mouseX < guiLeft + 534 + 334 && mouseY >= guiTop + 126 && mouseY < guiTop + 126 + 50) {
-                mc.player.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundSource.NEUTRAL, 1.0f, 1.0f);
+            if (mouseX >= guiLeft + 267 && mouseX < guiLeft + 267 + 35 && mouseY >= guiTop + 66 && mouseY < guiTop + 66 + 25) {
+                mc.player.playNotifySound(SoundEvents.UI_LOOM_TAKE_RESULT, SoundSource.NEUTRAL, 1.0f, 1.0f);
             }
 
-            if (mouseX >= guiLeft + 534 && mouseX < guiLeft + 534 + 334 && mouseY >= guiTop + 180 && mouseY < guiTop + 180 + 50) {
-                mc.player.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundSource.NEUTRAL, 1.0f, 1.0f);
+            if (mouseX >= guiLeft + 267 && mouseX < guiLeft + 267 + 35 && mouseY >= guiTop + 94 && mouseY < guiTop + 94 + 25) {
+                mc.player.playNotifySound(SoundEvents.UI_LOOM_TAKE_RESULT, SoundSource.NEUTRAL, 1.0f, 1.0f);
+            }
+
+            switch (pages) {
+                case MAIN, THANKS:
+                    break;
+                case GEMS:
+                    if (mouseX >= guiLeft + 250 && mouseX < guiLeft + 250 + 9 && mouseY >= guiTop + 150 && mouseY < guiTop + 150 + 8) {
+                        mc.player.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundSource.NEUTRAL, 1.0f, 1.0f);
+                        mc.setScreen(new LexiconGui(LexiconPages.GEMS_ABOUT));
+                    }
+
+                    break;
+                case GEMS_ABOUT:
+                    if (mouseX >= guiLeft + 13 && mouseX < guiLeft + 13 + 9 && mouseY >= guiTop + 150 && mouseY < guiTop + 150 + 8) {
+                        mc.player.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundSource.NEUTRAL, 1.0f, 1.0f);
+                        mc.setScreen(new LexiconGui(LexiconPages.GEMS));
+                    }
+
+                    break;
             }
         }
 
@@ -186,16 +261,10 @@ public class LexiconGui extends Screen {
     }
 
     @OnlyIn(Dist.CLIENT)
-    public static void drawItem(ItemStack stack, int x, int y) {
-        RenderUtils.renderItemModelInGui(stack, x, y, 32, 32, 32);
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    public static void drawItemWithTooltip(ItemStack stack, int size, int x, int y, GuiGraphics gui, int mouseX, int mouseY, boolean ShowTooltip) {
-        RenderUtils.renderItemModelInGui(stack, x, y, size, size, size);
-        if (ShowTooltip) {
-            gui.renderItemDecorations(Minecraft.getInstance().font, stack, x, y, null);
-            if (mouseX >= x && mouseY >= y && mouseX <= x + size && mouseY <= y + size) {
+    public static void drawItemWithTooltip(ItemStack stack, int x, int y, GuiGraphics gui, int mouseX, int mouseY, boolean ShowTooltip) {
+        gui.renderItem(stack, x, y);
+        if (ShowTooltip && !stack.isEmpty()) {
+            if (mouseX >= x && mouseY >= y && mouseX <= x + 16 && mouseY <= y + 16) {
                 gui.renderTooltip(Minecraft.getInstance().font, stack, mouseX, mouseY);
             }
         }

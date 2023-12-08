@@ -66,7 +66,7 @@ public class RenderUtils {
                     .createCompositeState(false));
 
     /**
-     *  Dimensions xSize, ySize, zSize are specified in pixels.
+     *  Dimensions xSize, ySize, zSize are specified in pixels, small addition to this description: this method conflicts with renderTooltip
      */
     public static void renderItemModelInGui(ItemStack stack, int x, int y, float xSize, float ySize, float zSize) {
         BakedModel bakedmodel = Minecraft.getInstance().getItemRenderer().getModel(stack, (Level)null, (LivingEntity)null, 0);
