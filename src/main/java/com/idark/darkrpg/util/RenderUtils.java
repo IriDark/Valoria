@@ -65,7 +65,9 @@ public class RenderUtils {
                     .setShaderState(new RenderStateShard.ShaderStateShard(DarkRPG.RegistryEvents::getSpriteParticleShader))
                     .createCompositeState(false));
 
-
+    /**
+     *  Dimensions xSize, ySize, zSize are specified in pixels.
+     */
     public static void renderItemModelInGui(ItemStack stack, int x, int y, float xSize, float ySize, float zSize) {
         BakedModel bakedmodel = Minecraft.getInstance().getItemRenderer().getModel(stack, (Level)null, (LivingEntity)null, 0);
 

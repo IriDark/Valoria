@@ -1,6 +1,7 @@
 package com.idark.darkrpg.item.types;
 
 import com.idark.darkrpg.client.render.gui.book.LexiconGui;
+import com.idark.darkrpg.client.render.gui.book.LexiconPages;
 import net.minecraft.client.Minecraft;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -36,6 +37,6 @@ public class LexiconItem extends Item {
 	@OnlyIn(Dist.CLIENT)
 	public void openGui() {
 		Minecraft.getInstance().player.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundSource.NEUTRAL, 1.0f, 1.0f);
-		Minecraft.getInstance().setScreen(new LexiconGui());
+		Minecraft.getInstance().setScreen(new LexiconGui(LexiconPages.MAIN));
 	}
 }
