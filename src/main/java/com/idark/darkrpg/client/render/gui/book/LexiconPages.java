@@ -4,5 +4,6 @@ public enum LexiconPages {
     MAIN,
     GEMS,
     GEMS_ABOUT,
+    MEDICINE,
     THANKS
 }
