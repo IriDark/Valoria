@@ -2,10 +2,14 @@ package com.idark.darkrpg.block.types;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DirectionalBlock;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
@@ -13,6 +17,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -27,9 +32,11 @@ public class SpikeBlock extends DirectionalBlock implements SimpleWaterloggedBlo
     private static final VoxelShape southAabb = Block.box((double)3, (double)3, 0.0D, (double)(16 - 3), (double)(16 - 3), (double)5);
     private static final VoxelShape eastAabb = Block.box(0.0D, (double)3, (double)3, (double)5, (double)(16 - 3), (double)(16 - 3));
     private static final VoxelShape westAabb = Block.box((double)(16 - 1), (double)3, (double)3, 16.0D, (double)(16 - 3), (double)(16 - 3));
+    public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
+
 	public SpikeBlock(BlockBehaviour.Properties properties) {
 		super(properties);
-		registerDefaultState(defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, false).setValue(FACING, Direction.UP));
+		registerDefaultState(defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, false).setValue(FACING, Direction.UP).setValue(AGE, Integer.valueOf(0)));
 	}
 
 	public void entityInside(BlockState state, Level worldIn, BlockPos pos, Entity entityIn) {
@@ -64,13 +71,14 @@ public class SpikeBlock extends DirectionalBlock implements SimpleWaterloggedBlo
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(BlockStateProperties.WATERLOGGED);
 	    builder.add(FACING);
+        builder.add(AGE);
     }
 	
 	@Nullable
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         FluidState fluidState = context.getLevel().getFluidState(context.getClickedPos());
-        return this.defaultBlockState().setValue(FACING, context.getNearestLookingDirection().getOpposite()).setValue(BlockStateProperties.WATERLOGGED, Boolean.valueOf(fluidState.getType() == Fluids.WATER));
+        return this.defaultBlockState().setValue(FACING, context.getNearestLookingDirection().getOpposite()).setValue(BlockStateProperties.WATERLOGGED, Boolean.valueOf(fluidState.getType() == Fluids.WATER)).setValue(AGE, 0);
     }
 		
 	@Override
@@ -78,12 +86,23 @@ public class SpikeBlock extends DirectionalBlock implements SimpleWaterloggedBlo
         return state.getValue(BlockStateProperties.WATERLOGGED) ? Fluids.WATER.getSource(false) : Fluids.EMPTY.defaultFluidState();
     }
 
-    /*@Override
-    public BlockState updateShape(BlockState stateIn, Direction side, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
-        if (stateIn.getValue(BlockStateProperties.WATERLOGGED)) {
-            worldIn.getLiquidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(worldIn));
+    @Override
+    public BlockState updateShape(BlockState pState, Direction pDirection, BlockState pNeighborState, LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pNeighborPos) {
+        if (pState.getValue(BlockStateProperties.WATERLOGGED)) {
+            pLevel.scheduleTick(pCurrentPos, Fluids.WATER, Fluids.WATER.getTickDelay(pLevel));
         }
 
-        return stateIn;
-    }*/
+        return super.updateShape(pState, pDirection, pNeighborState, pLevel, pCurrentPos, pNeighborPos);
+    }
+
+    @Override
+    public void tick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
+        int i = pState.getValue(AGE);
+        if (i < 3) {
+            pLevel.setBlock(pPos, pState.setValue(AGE, Integer.valueOf(i + 1)), 2);
+            pLevel.scheduleTick(pPos, this, Mth.nextInt(pRandom, 10, 20));
+        } else {
+            pLevel.removeBlock(pPos, false);
+        }
+    }
 }
