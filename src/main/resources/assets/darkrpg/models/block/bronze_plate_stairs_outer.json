@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/outer_stairs",
-  "textures": {
-    "bottom": "darkrpg:block/bronze_plate",
-    "top": "darkrpg:block/bronze_plate",
-    "side": "darkrpg:block/bronze_plate"
-  }
-}

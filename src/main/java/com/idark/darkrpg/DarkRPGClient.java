@@ -50,7 +50,9 @@ public class DarkRPGClient {
 
 	@Mod.EventBusSubscriber(bus=Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 	public static class RegistryEvents {
-		private void doClientStuff(final FMLClientSetupEvent event) {
+
+		@SubscribeEvent
+		private static void doClientStuff(FMLClientSetupEvent event) {
 			event.enqueueWork(() -> {
 				ItemBlockRenderTypes.setRenderLayer(ModBlocks.FALSEFLOWER.get(), RenderType.cutout());
 				ItemBlockRenderTypes.setRenderLayer(ModBlocks.FALSEFLOWER_SMALL.get(), RenderType.cutout());
@@ -84,14 +86,12 @@ public class DarkRPGClient {
 				ItemBlockRenderTypes.setRenderLayer(ModBlocks.POT_LONG_MOSSY_HANDLES.get(), RenderType.cutout());
 				ItemBlockRenderTypes.setRenderLayer(ModBlocks.BRONZE_GLASS.get(), RenderType.cutout());
 				ItemBlockRenderTypes.setRenderLayer(ModBlocks.BRONZE_LAMP.get(), RenderType.cutout());
-				ItemBlockRenderTypes.setRenderLayer(ModBlocks.DECORATED_BRONZE_LAMP.get(), RenderType.cutout());
+				ItemBlockRenderTypes.setRenderLayer(ModBlocks.BRONZE_TRAPDOOR_GLASS.get(), RenderType.cutout());
 				ItemBlockRenderTypes.setRenderLayer(ModBlocks.SHADEWOOD_PRESSURE_PLATE.get(), RenderType.cutout());
 				ItemBlockRenderTypes.setRenderLayer(ModBlocks.SHADEWOOD_BUTTON.get(), RenderType.cutout());
 				ItemBlockRenderTypes.setRenderLayer(ModBlocks.SHADEWOOD_DOOR.get(), RenderType.cutout());
 				ItemBlockRenderTypes.setRenderLayer(ModBlocks.SHADEWOOD_TRAPDOOR.get(), RenderType.cutout());
-				ItemBlockRenderTypes.setRenderLayer(ModBlocks.BRONZE_DOOR.get(), RenderType.cutout());
 				ItemBlockRenderTypes.setRenderLayer(ModBlocks.BRONZE_TRAPDOOR.get(), RenderType.cutout());
-				ItemBlockRenderTypes.setRenderLayer(ModBlocks.BRONZE_TRAPDOOR2.get(), RenderType.cutout());
 				ItemBlockRenderTypes.setRenderLayer(ModBlocks.AMBER_CRYSTAL.get(), RenderType.cutout());
 				ItemBlockRenderTypes.setRenderLayer(ModBlocks.AMETHYST_CRYSTAL.get(), RenderType.cutout());
 				ItemBlockRenderTypes.setRenderLayer(ModBlocks.RUBY_CRYSTAL.get(), RenderType.cutout());

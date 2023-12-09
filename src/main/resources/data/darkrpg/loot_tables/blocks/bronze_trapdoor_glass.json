@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "darkrpg:bronze_plate_stairs"
+          "name": "darkrpg:bronze_trapdoor_glass"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "darkrpg:blocks/bronze_plate_stairs"
+  "random_sequence": "darkrpg:blocks/bronze_trapdoor_glass"
 }

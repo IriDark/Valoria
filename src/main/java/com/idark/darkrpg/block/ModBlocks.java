@@ -37,9 +37,9 @@ public class ModBlocks {
 			() -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_TRAPDOOR).requiresCorrectToolForDrops().strength(1f, 4f).noOcclusion(), BlockSetType.OAK));
 	public static final RegistryObject<Block> BRONZE_DOOR = registerBlock("bronze_door",
 			() -> new DoorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_DOOR).requiresCorrectToolForDrops().strength(4f, 4f).noOcclusion(), BlockSetType.OAK));
-	public static final RegistryObject<Block> BRONZE_TRAPDOOR2 = registerBlock("bronze_trapdoor2",
-			() -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_TRAPDOOR).requiresCorrectToolForDrops().strength(2f, 4f).noOcclusion(), BlockSetType.OAK));
 	public static final RegistryObject<Block> BRONZE_TRAPDOOR = registerBlock("bronze_trapdoor",
+			() -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_TRAPDOOR).requiresCorrectToolForDrops().strength(2f, 4f).noOcclusion(), BlockSetType.OAK));
+	public static final RegistryObject<Block> BRONZE_TRAPDOOR_GLASS = registerBlock("bronze_trapdoor_glass",
 			() -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_TRAPDOOR).requiresCorrectToolForDrops().strength(3f, 4f).noOcclusion(), BlockSetType.OAK));
 	// Key
 	public static final RegistryObject<Block> KEYBLOCK = BLOCK.register("keyblock",
@@ -67,12 +67,6 @@ public class ModBlocks {
 			() -> new StairBlock(() -> BRONZE_BLOCK.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(2f, 4f).requiresCorrectToolForDrops().sound(SoundType.NETHERITE_BLOCK)));
 	public static final RegistryObject<Block> BRONZE_BLOCK_SLAB = registerBlock("bronze_block_slab",
 			() -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops().sound(SoundType.NETHERITE_BLOCK).strength(6f, 4f)));
-	public static final RegistryObject<Block> BRONZE_PLATE = BLOCK.register("bronze_plate",
-			() -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops().strength(3f, 4f).sound(SoundType.NETHERITE_BLOCK)));
-	public static final RegistryObject<Block> BRONZE_PLATE_STAIRS = registerBlock("bronze_plate_stairs",
-			() -> new StairBlock(() -> BRONZE_PLATE.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(2f, 4f).requiresCorrectToolForDrops().sound(SoundType.NETHERITE_BLOCK)));
-	public static final RegistryObject<Block> BRONZE_PLATE_SLAB = registerBlock("bronze_plate_slab",
-			() -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops().strength(6f, 4f).sound(SoundType.NETHERITE_BLOCK)));
 	public static final RegistryObject<Block> CUT_BRONZE = BLOCK.register("cut_bronze",
 			() -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops().strength(3f, 4f).sound(SoundType.NETHERITE_BLOCK)));
 	public static final RegistryObject<Block> CUT_BRONZE_STAIRS = registerBlock("cut_bronze_stairs",

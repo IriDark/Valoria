@@ -1,5 +1,6 @@
 {
 	"texture_size": [128, 128],
+	"render_type": "minecraft:cutout",
 	"textures": {
 		"2": "darkrpg:block/decorated_bronze_lamp_lit",
 		"particle": "darkrpg:block/bronze_block"

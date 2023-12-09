@@ -136,21 +136,21 @@ public class LexiconGui extends Screen {
                 // Search bar footer
                 gui.blit(BACKGROUND, guiLeft + 48, guiTop + 31, 97, 180, 38, 13, 512, 512);
                 drawWrappingText(gui, "gui.darkrpg.knowledge", guiLeft + 203, guiTop + 21, 240, true);
-                drawWrappingText(gui, "gui.darkrpg.knowledge.desc", guiLeft + 148, guiTop + 45, 136, false);
+                drawWrappingText(gui, "gui.darkrpg.knowledge.desc", guiLeft + 148, guiTop + 45, 120, false);
 
                 // Craft
-                CraftEntry slot1 = new CraftEntry(new ItemStack(Items.PAPER), 175, 88);
-                CraftEntry slot2 = new CraftEntry(new ItemStack(Items.AIR), 175, 88 + 18);
-                CraftEntry slot3 = new CraftEntry(new ItemStack(Items.BOOK), 175 + 18, 88);
-                CraftEntry slot4 = new CraftEntry(new ItemStack(Items.AIR), 175 + 18, 88 + 18);
-                CraftEntry result = new CraftEntry(new ItemStack(ModItems.LEXICON.get()), 175 + 48, 88 + 8);
+                CraftEntry slot1 = new CraftEntry(new ItemStack(Items.PAPER), 175, 110);
+                CraftEntry slot2 = new CraftEntry(new ItemStack(Items.AIR), 175, 110 + 18);
+                CraftEntry slot3 = new CraftEntry(new ItemStack(Items.BOOK), 175 + 18, 110);
+                CraftEntry slot4 = new CraftEntry(new ItemStack(Items.AIR), 175 + 18, 110 + 18);
+                CraftEntry result = new CraftEntry(new ItemStack(ModItems.LEXICON.get()), 175 + 48, 110 + 8);
 
                 slot1.render(gui, guiLeft, guiTop, mouseX, mouseY, true);
                 slot2.render(gui, guiLeft, guiTop, mouseX, mouseY, false);
                 slot3.render(gui, guiLeft, guiTop, mouseX, mouseY, true);
                 slot4.render(gui, guiLeft, guiTop, mouseX, mouseY, false);
                 result.render(gui, guiLeft, guiTop, mouseX, mouseY, true);
-                result.resultArrow(gui, guiLeft, guiTop, 175 + 37, 88 + 14, mouseX, mouseY, false);
+                result.resultArrow(gui, guiLeft, guiTop, 175 + 37, 110 + 14, mouseX, mouseY, false);
                 break;
             case GEMS:
                 if (b1) {
@@ -170,7 +170,7 @@ public class LexiconGui extends Screen {
                     gui.blit(BACKGROUND, guiLeft + 250, guiTop + 150, 272, 88, 9, 8, 512, 512);
                 }
 
-                drawWrappingText(gui, "gui.darkrpg.treasure.gems", guiLeft + 148, guiTop + 42, 120, false);
+                drawWrappingText(gui, "gui.darkrpg.treasure.gems", guiLeft + 148, guiTop + 42, 110, false);
                 break;
             case GEMS_ABOUT:
                 if (b1) {
@@ -196,9 +196,9 @@ public class LexiconGui extends Screen {
                 drawWrappingText(gui, "gui.darkrpg.thanks.desc_2", guiLeft + 15, guiTop + 42, 117, false);
                 drawWrappingText(gui, "gui.darkrpg.thanks", guiLeft + 208, guiTop + 21, 120, true);
                 drawWrappingText(gui, "gui.darkrpg.thanks.desc", guiLeft + 148, guiTop + 42, 117, false);
-                gui.blit(BACKGROUND, guiLeft + 185, guiTop  + 91, 279, 112, 9, 9, 512, 512);
-                if (mouseX >= guiLeft + 185 && mouseX < guiLeft + 185 + 9 && mouseY >= guiTop + 91 && mouseY < guiTop + 91 + 9) {
-                    renderTooltip(gui, Component.literal("It's Cat, Feimos, WOSAJ, AstemirDev, Auriny, Skoow, GraFik"), guiLeft + 50, guiTop + 120);
+                gui.blit(BACKGROUND, guiLeft + 250, guiTop  + 152, 279, 112, 9, 9, 512, 512);
+                if (mouseX >= guiLeft + 250 && mouseX < guiLeft + 250 + 9 && mouseY >= guiTop + 152 && mouseY < guiTop + 152 + 9) {
+                    renderTooltip(gui, Component.literal("It's Cat, Feimos, WOSAJ, AstemirDev, Auriny, Skoow, GraFik"), guiLeft + 100, guiTop + 150);
                 }
 
                 break;
