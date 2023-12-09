@@ -52,7 +52,7 @@ public class DarkRPGClient {
 	public static class RegistryEvents {
 
 		@SubscribeEvent
-		private static void doClientStuff(FMLClientSetupEvent event) {
+		public static void doClientStuff(FMLClientSetupEvent event) {
 			event.enqueueWork(() -> {
 				ItemBlockRenderTypes.setRenderLayer(ModBlocks.FALSEFLOWER.get(), RenderType.cutout());
 				ItemBlockRenderTypes.setRenderLayer(ModBlocks.FALSEFLOWER_SMALL.get(), RenderType.cutout());
