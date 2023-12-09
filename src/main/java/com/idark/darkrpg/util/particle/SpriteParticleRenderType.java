@@ -1,6 +1,6 @@
 package com.idark.darkrpg.util.particle;
 
-import com.idark.darkrpg.DarkRPG;
+import com.idark.darkrpg.DarkRPGClient;
 import com.idark.darkrpg.util.WorldRenderHandler;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
@@ -20,7 +20,7 @@ public class SpriteParticleRenderType implements ParticleRenderType {
         RenderSystem.depthMask(false);
         RenderSystem.enableBlend();
         RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-        RenderSystem.setShader(DarkRPG.RegistryEvents::getSpriteParticleShader);
+        RenderSystem.setShader(DarkRPGClient::getSpriteParticleShader);
         RenderSystem.setShaderTexture(0, TextureAtlas.LOCATION_PARTICLES);
         WorldRenderHandler.particleMVMatrix = RenderSystem.getModelViewMatrix();
         bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.PARTICLE);
