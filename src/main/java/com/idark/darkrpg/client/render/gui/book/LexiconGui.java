@@ -4,6 +4,7 @@ import com.idark.darkrpg.DarkRPG;
 import com.idark.darkrpg.item.ModItems;
 import com.idark.darkrpg.util.ColorUtils;
 import com.mojang.blaze3d.systems.RenderSystem;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -75,7 +76,9 @@ public class LexiconGui extends Screen {
             gui.blit(BACKGROUND, guiLeft - 12, guiTop + 168, 275, 121, 3, 6, 512, 512);
         }
 
-        if (mouseX >= guiLeft + 267 && mouseX < guiLeft + 267 + BookmarkWidth && mouseY >= guiTop + 10 && mouseY < guiTop + 10 + BookmarkHeight) {
+        // Bookmarks
+        boolean b = mouseX >= guiLeft + 267 && mouseX < guiLeft + 267 + BookmarkWidth && mouseY >= guiTop + 10 && mouseY < guiTop + 10 + BookmarkHeight;
+        if (b) {
             gui.blit(BACKGROUND, guiLeft + 267, guiTop + 10, 0, 218, BookmarkWidth, BookmarkHeight, 512, 512);
             gui.renderItem(new ItemStack(ModItems.LEXICON.get()), guiLeft + 272, guiTop + 14);
             renderTooltip(gui, Component.translatable("gui.darkrpg.main"), guiLeft + 282, guiTop + 31);
@@ -84,7 +87,8 @@ public class LexiconGui extends Screen {
             gui.renderItem(new ItemStack(ModItems.LEXICON.get()), guiLeft + 269, guiTop + 14);
         }
 
-        if (mouseX >= guiLeft + 267 && mouseX < guiLeft + 267 + BookmarkWidth && mouseY >= guiTop + 38 && mouseY < guiTop + 38 + 25) {
+        boolean b1 = mouseX >= guiLeft + 267 && mouseX < guiLeft + 267 + BookmarkWidth && mouseY >= guiTop + 38 && mouseY < guiTop + 38 + 25;
+        if (b1) {
             gui.blit(BACKGROUND, guiLeft + 267, guiTop + 38, 0, 218, BookmarkWidth, BookmarkHeight, 512, 512);
             renderTooltip(gui, Component.translatable("gui.darkrpg.jewelry"), guiLeft + 282, guiTop + 59);
             gui.renderItem(new ItemStack(ModItems.AMETHYST_GEM.get()), guiLeft + 272, guiTop + 42);
@@ -93,7 +97,8 @@ public class LexiconGui extends Screen {
             gui.renderItem(new ItemStack(ModItems.AMETHYST_GEM.get()), guiLeft + 269, guiTop + 42);
         }
 
-        if (mouseX >= guiLeft + 267 && mouseX < guiLeft + 267 + BookmarkWidth && mouseY >= guiTop + 66 && mouseY < guiTop + 66 + BookmarkHeight) {
+        boolean b2 = mouseX >= guiLeft + 267 && mouseX < guiLeft + 267 + BookmarkWidth && mouseY >= guiTop + 66 && mouseY < guiTop + 66 + BookmarkHeight;
+        if (b2) {
             gui.blit(BACKGROUND, guiLeft + 267, guiTop + 66, 0, 218, BookmarkWidth, BookmarkHeight, 512, 512);
             renderTooltip(gui, Component.translatable("gui.darkrpg.medicine"), guiLeft + 282, guiTop + 87);
             gui.renderItem(new ItemStack(ModItems.ALOE_BANDAGE.get()), guiLeft + 272, guiTop + 70);
@@ -118,6 +123,12 @@ public class LexiconGui extends Screen {
         gui.blit(BACKGROUND, guiLeft + 186, guiTop + 31, 97, 180, 38, 13, 512, 512);
         switch (pages) {
             case MAIN:
+                if (b) {
+                    gui.blit(BACKGROUND, guiLeft + 267, guiTop + 10, 0, 218, BookmarkWidth, BookmarkHeight, 512, 512);
+                } else {
+                    gui.blit(BACKGROUND, guiLeft + 267, guiTop + 10, 0, 218 + BookmarkHeight, BookmarkWidth, BookmarkHeight, 512, 512);
+                }
+
                 // Search bar
                 gui.blit(BACKGROUND, guiLeft + 20, guiTop + 18, 0, 180, 96, 13, 512, 512);
                 drawWrappingText(gui, "gui.darkrpg.search", guiLeft + 15, guiTop + 42, 115, false);
@@ -142,6 +153,13 @@ public class LexiconGui extends Screen {
                 result.resultArrow(gui, guiLeft, guiTop, 175 + 37, 88 + 14, mouseX, mouseY, false);
                 break;
             case GEMS:
+                if (b1) {
+                    gui.blit(BACKGROUND, guiLeft + 267, guiTop + 38, 0, 218, BookmarkWidth, BookmarkHeight, 512, 512);
+                } else {
+                    gui.blit(BACKGROUND, guiLeft + 267, guiTop + 38, 0, 218 + BookmarkHeight, BookmarkWidth, BookmarkHeight, 512, 512);
+                }
+
+
                 drawWrappingText(gui, "gui.darkrpg.treasures.name", guiLeft + 70, guiTop + 21, 120, true);
                 drawWrappingText(gui, "gui.darkrpg.treasures", guiLeft + 15, guiTop + 42, 120, false);
                 drawWrappingText(gui, "gui.darkrpg.treasures.gems.name", guiLeft + 208, guiTop + 21, 120, true);
@@ -155,6 +173,12 @@ public class LexiconGui extends Screen {
                 drawWrappingText(gui, "gui.darkrpg.treasure.gems", guiLeft + 148, guiTop + 42, 120, false);
                 break;
             case GEMS_ABOUT:
+                if (b1) {
+                    gui.blit(BACKGROUND, guiLeft + 267, guiTop + 38, 0, 218, BookmarkWidth, BookmarkHeight, 512, 512);
+                } else {
+                    gui.blit(BACKGROUND, guiLeft + 267, guiTop + 38, 0, 218 + BookmarkHeight, BookmarkWidth, BookmarkHeight, 512, 512);
+                }
+
                 if (mouseX >= guiLeft + 13 && mouseX < guiLeft + 13 + 9 && mouseY >= guiTop + 150 && mouseY < guiTop + 150 + 8) {
                     gui.blit(BACKGROUND, guiLeft + 13, guiTop + 150, 272, 96, 9, 8, 512, 512);
                     renderTooltip(gui, Component.translatable("gui.darkrpg.back"), guiLeft + 13, guiTop + 150);
@@ -172,9 +196,19 @@ public class LexiconGui extends Screen {
                 drawWrappingText(gui, "gui.darkrpg.thanks.desc_2", guiLeft + 15, guiTop + 42, 117, false);
                 drawWrappingText(gui, "gui.darkrpg.thanks", guiLeft + 208, guiTop + 21, 120, true);
                 drawWrappingText(gui, "gui.darkrpg.thanks.desc", guiLeft + 148, guiTop + 42, 117, false);
-                gui.blit(BACKGROUND, guiLeft + 185, guiTop  + 102, 279, 112, 9, 9, 512, 512);
+                gui.blit(BACKGROUND, guiLeft + 185, guiTop  + 91, 279, 112, 9, 9, 512, 512);
+                if (mouseX >= guiLeft + 185 && mouseX < guiLeft + 185 + 9 && mouseY >= guiTop + 91 && mouseY < guiTop + 91 + 9) {
+                    renderTooltip(gui, Component.literal("It's Cat, Feimos, WOSAJ, AstemirDev, Auriny, Skoow, GraFik"), guiLeft + 50, guiTop + 120);
+                }
+
                 break;
             case MEDICINE:
+                if (b2) {
+                    gui.blit(BACKGROUND, guiLeft + 267, guiTop + 66, 0, 218, BookmarkWidth, BookmarkHeight, 512, 512);
+                } else {
+                    gui.blit(BACKGROUND, guiLeft + 267, guiTop + 66, 0, 218 + BookmarkHeight, BookmarkWidth, BookmarkHeight, 512, 512);
+                }
+
                 drawWrappingText(gui, "gui.darkrpg.medicine", guiLeft + 70, guiTop + 21, 120, true);
                 drawWrappingText(gui, "gui.darkrpg.aloe", guiLeft + 15, guiTop + 42, 117, false);
                 drawWrappingText(gui, "gui.darkrpg.recipes", guiLeft + 208, guiTop + 21, 120, true);

@@ -20,15 +20,14 @@ And that's just the beginning – DarkRPG unfolds a tapestry of engaging feature
                            - MaxBogomol | Code |
                            Special Thanks:
                            - GraFik
-                           - MrCat
+                           - It's Cat
                            - AstemirDev
                            - Wosaj
-                           - Vuzz
-                           - BaronFonShish
+                           - Skoow
                            - Auriny
                            - Arky Fursblack
                            - FoxPlane
-                           - RayRindou
+                           - Rainach
 
    ![](https://cdn.discordapp.com/attachments/838693800683372564/1039482418408726608/Untitled_11-07-2022_11-21-33.png)
 
