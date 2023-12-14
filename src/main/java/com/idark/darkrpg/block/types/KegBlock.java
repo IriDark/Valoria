@@ -19,7 +19,9 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import javax.annotation.Nullable;
 
 public class KegBlock extends HorizontalDirectionalBlock implements SimpleWaterloggedBlock {
-	
+
+
+    //TODO: CRAFTS
 	private static final VoxelShape shape_west_east = Block.box(0, 0, 2, 16, 14, 14);
     private static final VoxelShape shape_north_south = Block.box(2, 0, 0, 14, 14, 16);
 

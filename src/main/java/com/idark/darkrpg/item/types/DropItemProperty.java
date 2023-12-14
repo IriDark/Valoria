@@ -4,6 +4,7 @@ import com.idark.darkrpg.DarkRPG;
 import com.idark.darkrpg.util.ModSoundRegistry;
 import com.idark.darkrpg.util.LootUtil;
 import net.minecraft.ChatFormatting;
+import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -55,7 +56,11 @@ public class DropItemProperty extends Item {
 				heldStack.shrink(1);
 			}
 
-			return InteractionResultHolder.consume(heldStack);
+			if (player instanceof ServerPlayer) {
+				CriteriaTriggers.CONSUME_ITEM.trigger((ServerPlayer)player, heldStack);
+			}
+
+            return InteractionResultHolder.consume(heldStack);
 		}
 
 		return InteractionResultHolder.consume(heldStack);

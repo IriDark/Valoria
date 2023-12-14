@@ -458,6 +458,8 @@ import java.util.function.Predicate;
 				event.accept(ModBlocks.SHADEWOOD_PLANKS_STAIRS);
 				event.accept(ModBlocks.SHADEWOOD_PLANKS_SLAB);
 				event.accept(ModItems.SHADEWOOD_PLANKS_BUTTON);
+				event.accept(ModBlocks.SHADEWOOD_TRAPDOOR);
+				event.accept(ModBlocks.SHADEWOOD_DOOR);
 				event.accept(ModItems.SHADEWOOD_PLANKS_PRESSURE_PLATE);
 				event.accept(ModItems.SHADEWOOD_SIGN);
 				event.accept(ModItems.SHADEWOOD_HANGING_SIGN);

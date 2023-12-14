@@ -16,6 +16,7 @@ import com.idark.darkrpg.enchant.ModEnchantments;
 import com.idark.darkrpg.entity.ModEntityTypes;
 import com.idark.darkrpg.entity.custom.GoblinEntity;
 import com.idark.darkrpg.entity.custom.MannequinEntity;
+import com.idark.darkrpg.item.ModAttributes;
 import com.idark.darkrpg.item.ModItemGroup;
 import com.idark.darkrpg.item.ModItems;
 import com.idark.darkrpg.paintings.ModPaintings;
@@ -28,9 +29,11 @@ import com.idark.darkrpg.world.WorldGen;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
+import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.WoodType;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.data.event.GatherDataEvent;
@@ -70,6 +73,7 @@ public class DarkRPG {
 		ModEffects.register(eventBus);
 		ModEnchantments.register(eventBus);
 		ModPaintings.register(eventBus);
+		ModAttributes.register(eventBus);
 		ModItems.register(eventBus);
 		ModBlocks.register(eventBus);
 		ModTileEntities.register(eventBus);
@@ -80,10 +84,7 @@ public class DarkRPG {
 		IEventBus forgeBus = MinecraftForge.EVENT_BUS;
 
 		ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ClientConfig.SPEC);
-
 		forgeBus.register(new WorldGen());
-		//forgeBus.addListener(TooltipEventHandler::onTooltip);
-
 		DistExecutor.unsafeCallWhenOn(Dist.CLIENT, () -> () -> {
 			forgeBus.addListener(ClientTickHandler::clientTickEnd);
 			forgeBus.addListener(WorldRenderHandler::onRenderWorldLast);
@@ -118,6 +119,16 @@ public class DarkRPG {
 
 	@Mod.EventBusSubscriber(bus=Mod.EventBusSubscriber.Bus.MOD)
 	public static class RegistryEvents {
+
+		@SubscribeEvent
+		public static void commonSetup(FMLCommonSetupEvent event) {
+			event.enqueueWork(() -> {
+				SpawnPlacements.register(ModEntityTypes.GOBLIN.get(),
+				SpawnPlacements.Type.ON_GROUND,
+				Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+				GoblinEntity::checkGoblinSpawnRules);
+			});
+		}
 
 		@SubscribeEvent
 		public static void registerAttributes(EntityAttributeCreationEvent event) {

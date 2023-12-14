@@ -3,6 +3,7 @@ package com.idark.darkrpg.item.types;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import com.idark.darkrpg.entity.projectile.KunaiEntity;
+import com.idark.darkrpg.item.ModAttributes;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -28,12 +29,12 @@ import java.util.List;
 
 public class KunaiItem extends Item implements Vanishable {
 	private final Multimap<Attribute, AttributeModifier> tridentAttributes;
-
 	public KunaiItem(Item.Properties builderIn) {
 		super(builderIn);
 		ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
 		builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", 3.0D, AttributeModifier.Operation.ADDITION));
-		builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Tool modifier", (double)-1.9F, AttributeModifier.Operation.ADDITION));
+		builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Tool modifier", -1.9F, AttributeModifier.Operation.ADDITION));
+		builder.put(ModAttributes.PROJECTILE_DAMAGE.get(), new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", 6.0F, AttributeModifier.Operation.ADDITION));
 		this.tridentAttributes = builder.build();
 	}
 
@@ -116,12 +117,5 @@ public class KunaiItem extends Item implements Vanishable {
 	public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags) {
 		super.appendHoverText(stack, world, tooltip, flags);	
 		tooltip.add(Component.translatable("tooltip.darkrpg.kunai").withStyle(ChatFormatting.GRAY));
-        tooltip.add(Component.empty());
-		tooltip.add(Component.translatable("tooltip.darkrpg.attr").withStyle(ChatFormatting.GRAY));
-		tooltip.add(Component.literal(" 5 ").withStyle(ChatFormatting.DARK_GREEN).append(Component.translatable("tooltip.darkrpg.ranged_damage").withStyle(ChatFormatting.DARK_GREEN)));
-		if(stack.isEnchanted()) {
-			tooltip.add(Component.empty());
-			tooltip.add(Component.translatable("tooltip.darkrpg.encht").withStyle(ChatFormatting.GRAY));
-		}
 	}
 }

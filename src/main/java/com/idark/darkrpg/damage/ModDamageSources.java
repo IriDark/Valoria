@@ -13,6 +13,7 @@ import net.minecraftforge.registries.DeferredRegister;
 
 public class ModDamageSources {
     public static final ResourceKey<DamageType> BLEEDING = register("bleeding");
+    public static final ResourceKey<DamageType> QUICKSAND_SUFFOCATING = register("quicksand_suffocating");
 
     private static ResourceKey<DamageType> register(String name) {
         return ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation(DarkRPG.MOD_ID, name));

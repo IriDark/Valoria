@@ -1,11 +1,16 @@
 package com.idark.darkrpg.block.types;
 
+import com.idark.darkrpg.block.ModBlocks;
+import com.idark.darkrpg.client.render.FogRenderer;
+import com.idark.darkrpg.damage.ModDamageSources;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -13,8 +18,10 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.FogType;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -32,7 +39,6 @@ public class QuickSandBlock extends Block {
 	private static final VoxelShape FALLING_COLLISION_SHAPE = Shapes.box(0.0D, 0.0D, 0.0D, 1.0D, (double)0.9F, 1.0D);
 	private static final double MINIMUM_FALL_DISTANCE_FOR_SOUND = 4.0D;
 	private static final double MINIMUM_FALL_DISTANCE_FOR_BIG_SOUND = 7.0D;
-	Random rand = new Random();
 
 	public QuickSandBlock(BlockBehaviour.Properties properties) {
 		super(properties);
@@ -47,29 +53,31 @@ public class QuickSandBlock extends Block {
 	}
 
 	public void entityInside(BlockState pState, Level pLevel, BlockPos pPos, Entity pEntity) {
+		RandomSource randomsource = pLevel.getRandom();
 		if (!(pEntity instanceof LivingEntity) || pEntity.getFeetBlockState().is(this)) {
 			pEntity.makeStuckInBlock(pState, new Vec3((double)0.9F, 1.5D, (double)0.9F));
 			if (pLevel.isClientSide) {
-				RandomSource randomsource = pLevel.getRandom();
 				boolean flag = pEntity.xOld != pEntity.getX() || pEntity.zOld != pEntity.getZ();
 				if (flag && randomsource.nextBoolean()) {
-					pLevel.addParticle(ParticleTypes.SMOKE, pEntity.getX(), (double)(pPos.getY() + 1), pEntity.getZ(), (double)(Mth.randomBetween(randomsource, -1.0F, 1.0F) * 0.083333336F), (double)0.05F, (double)(Mth.randomBetween(randomsource, -1.0F, 1.0F) * 0.083333336F));
+					BlockState state = Blocks.SAND.defaultBlockState();
+					pLevel.addParticle(new BlockParticleOption(ParticleTypes.FALLING_DUST, state), pEntity.getX(), (double)(pPos.getY() + 1), pEntity.getZ(), (double)(Mth.randomBetween(randomsource, -1.0F, 1.0F) * 0.083333336F), (double)0.05F, (double)(Mth.randomBetween(randomsource, -1.0F, 1.0F) * 0.083333336F));
 				}
 
-				if (rand.nextFloat() < 0.05) {
-					pEntity.hurt(pEntity.damageSources().generic(), 1.0F);
+				if (pEntity.isOnFire() && (pLevel.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) || pEntity instanceof Player) && pEntity.mayInteract(pLevel, pPos)) {
+					pLevel.destroyBlock(pPos, false);
+					BlockState state = ModBlocks.QUICKSAND.get().defaultBlockState();
+					pLevel.addParticle(new BlockParticleOption(ParticleTypes.BLOCK, state), pEntity.getX(), (double)(pPos.getY() + 1), pEntity.getZ(), (double)(Mth.randomBetween(randomsource, -1.0F, 1.0F) * 0.083333336F), (double)0.05F, (double)(Mth.randomBetween(randomsource, -1.0F, 1.0F) * 0.083333336F));
 				}
-			}
-		}
 
-		if (!pLevel.isClientSide) {
-			if (pEntity.isOnFire() && (pLevel.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) || pEntity instanceof Player) && pEntity.mayInteract(pLevel, pPos)) {
-				pLevel.destroyBlock(pPos, false);
+				pEntity.setDeltaMovement(pEntity.getDeltaMovement().multiply(0.4, 0.05, 0.4));
 			}
 
 			pEntity.setSharedFlagOnFire(false);
 		}
 
+		if (randomsource.nextFloat() < 0.06f) {
+			pEntity.hurt(new DamageSource(ModDamageSources.source(pEntity.level(), ModDamageSources.QUICKSAND_SUFFOCATING).typeHolder()), 1.0F);
+		}
 	}
 
 	public void fallOn(Level pLevel, BlockState pState, BlockPos pPos, Entity pEntity, float pFallDistance) {

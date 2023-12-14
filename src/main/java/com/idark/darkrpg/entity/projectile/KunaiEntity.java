@@ -14,9 +14,8 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
@@ -153,8 +152,8 @@ public class KunaiEntity extends AbstractArrow {
 	@Override
 	public void onHitEntity(EntityHitResult result) {
 		Entity entity = result.getEntity();
-        int e = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.SHARPNESS, this.thrownStack);		
-		float f = 5.5f + (((float)e)-1.5f);
+		int e = (int)EnchantmentHelper.getDamageBonus(this.thrownStack, MobType.UNDEFINED);
+		float f = 7f + (float)Math.max(0, e - 2);
 		if (entity instanceof LivingEntity) {
 			LivingEntity livingentity = (LivingEntity)entity;
 			f += EnchantmentHelper.getDamageBonus(this.thrownStack, livingentity.getMobType());

@@ -1,7 +1,7 @@
 {
   "variants": {
     "facing=east,half=lower,hinge=left,open=false": {
-      "model": "darkrpg:block/abronze_door_bottom_left"
+      "model": "darkrpg:block/bronze_door_bottom_left"
     },
     "facing=east,half=lower,hinge=left,open=true": {
       "model": "darkrpg:block/bronze_door_bottom_left_open",

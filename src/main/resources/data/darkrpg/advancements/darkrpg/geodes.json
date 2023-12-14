@@ -14,7 +14,7 @@
     "announce_to_chat": true,
     "hidden": false
   },
-  "parent": "darkrpg:darkrpg/miners_bag",
+  "parent": "darkrpg:darkrpg/darkrpg",
   "criteria": {
     "geodes": {
       "trigger": "minecraft:inventory_changed",

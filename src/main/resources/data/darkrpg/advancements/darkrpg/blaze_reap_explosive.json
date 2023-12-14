@@ -1,33 +1,32 @@
 {
-  "parent": "darkrpg:darkrpg/blaze_reap_obtain",	
   "display": {
     "icon": {
       "item": "darkrpg:blaze_reap"
     },
     "title": {
-	"translate": "advancement.darkrpg:blaze_reap_explosive"
-	},
+      "translate": "advancement.darkrpg:blaze_reap_explosive"
+    },
     "description": {
-	"translate": "advancement.darkrpg:blaze_reap_explosive.desc"
-	},
+      "translate": "advancement.darkrpg:blaze_reap_explosive.desc"
+    },
     "frame": "goal",
     "show_toast": true,
     "announce_to_chat": true,
     "hidden": true
   },
+  "parent": "darkrpg:darkrpg/blaze_reap",
   "criteria": {
     "requirement": {
       "trigger": "minecraft:enchanted_item",
       "conditions": {
         "item": {
-          "item": "darkrpg:blaze_reap",
+          "items": [
+            "darkrpg:blaze_reap"
+          ],
           "enchantments": [
             {
               "enchantment": "darkrpg:explosive_flame",
-              "levels": {
-                "min": 1,
-                "max": 1
-              }
+              "levels": 1
             }
           ]
         }

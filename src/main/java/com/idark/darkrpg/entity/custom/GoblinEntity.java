@@ -146,34 +146,16 @@ public class GoblinEntity extends PathfinderMob implements NeutralMob {
         super.aiStep();
     }
 
+    public static boolean isBrightEnoughToSpawn(BlockAndTintGetter pLevel, BlockPos pPos) {
+        return pLevel.getRawBrightness(pPos, 0) > 8;
+    }
+
     public static boolean checkGoblinSpawnRules(EntityType<GoblinEntity> pGoblin, LevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, RandomSource pRandom) {
-        if (pLevel.getDifficulty() != Difficulty.PEACEFUL) {
-            if (pLevel.getBlockState(pPos).is(BlockTags.ANIMALS_SPAWNABLE_ON) && pPos.getY() > 50 && pPos.getY() < 70 && pRandom.nextFloat() < 0.5F && pRandom.nextFloat() < pLevel.getMoonBrightness() && pLevel.getMaxLocalRawBrightness(pPos) <= pRandom.nextInt(8)) {
-                return checkMobSpawnRules(pGoblin, pLevel, pSpawnType, pPos, pRandom);
-            }
-
-            if (!(pLevel instanceof WorldGenLevel)) {
-                return false;
-            }
-
-            ChunkPos chunkpos = new ChunkPos(pPos);
-            boolean flag = WorldgenRandom.seedSlimeChunk(chunkpos.x, chunkpos.z, ((WorldGenLevel)pLevel).getSeed(), 987234911L).nextInt(10) == 0;
-            if (pRandom.nextInt(10) == 0 && flag && pPos.getY() < 40) {
-                return checkMobSpawnRules(pGoblin, pLevel, pSpawnType, pPos, pRandom);
-            }
-        }
-
-        return false;
+        return pLevel.getBlockState(pPos.below()).is(BlockTags.ANIMALS_SPAWNABLE_ON) && isBrightEnoughToSpawn(pLevel, pPos);
     }
 
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
-        RandomSource randomsource = pLevel.getRandom();
-        int i = randomsource.nextInt(3);
-        if (i < 2 && randomsource.nextFloat() < 0.5F * pDifficulty.getSpecialMultiplier()) {
-            ++i;
-        }
-
         return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
     }
 

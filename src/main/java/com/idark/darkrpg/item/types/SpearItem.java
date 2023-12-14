@@ -34,8 +34,6 @@ public class SpearItem extends TieredItem implements Vanishable {
     Random rand = new Random();
 	private final float attackDamage;
 	private final float attackSpeed;
-	protected static final UUID ATTACK_RANGE_MODIFIER = UUID.fromString("B2392114-1C63-2123-AB29-6456FD734102");
-
 	private Supplier<Multimap<Attribute, AttributeModifier>> attributeModifiers = Suppliers.memoize(this::createAttributes);
 
 	public SpearItem(Tier tier, int attackDamageIn, float attackSpeedIn, Item.Properties builderIn) {
@@ -48,7 +46,7 @@ public class SpearItem extends TieredItem implements Vanishable {
 		ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
 		builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Weapon modifier", (double)this.attackDamage, AttributeModifier.Operation.ADDITION));
 		builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Weapon modifier", (double)attackSpeed, AttributeModifier.Operation.ADDITION));
-		builder.put(ForgeMod.ENTITY_REACH.get(), new AttributeModifier(ATTACK_RANGE_MODIFIER,"Spear modifier",10, AttributeModifier.Operation.ADDITION));
+		builder.put(ForgeMod.ENTITY_REACH.get(), new AttributeModifier(BASE_ATTACK_SPEED_UUID,"Spear modifier", 1, AttributeModifier.Operation.ADDITION));
 		return builder.build();
 	}
 

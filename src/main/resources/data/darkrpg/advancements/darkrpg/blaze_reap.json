@@ -4,31 +4,31 @@
       "item": "darkrpg:blaze_reap"
     },
     "title": {
-	  "translate": "advancement.darkrpg:blaze_reap"
-	},
+      "translate": "advancement.darkrpg:blaze_reap"
+    },
     "description": {
-	  "translate": "advancement.darkrpg:blaze_reap.desc"
-	},
-
+      "translate": "advancement.darkrpg:blaze_reap.desc"
+    },
     "frame": "goal",
     "show_toast": true,
     "announce_to_chat": true,
     "hidden": true
   },
-
   "parent": "darkrpg:darkrpg/blaze_reap_obtain",
   "criteria": {
     "requirement": {
       "trigger": "minecraft:enchanted_item",
       "conditions": {
         "item": {
-          "item": "darkrpg:blaze_reap",
+          "items": [
+            "darkrpg:blaze_reap"
+          ],
           "enchantments": [
             {
               "enchantment": "minecraft:fire_aspect",
               "levels": {
                 "min": 1,
-                "max": 3
+                "max": 2
               }
             }
           ]

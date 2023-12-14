@@ -10,14 +10,12 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.DirectionalBlock;
-import net.minecraft.world.level.block.SimpleWaterloggedBlock;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.block.state.properties.*;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -26,17 +24,19 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import javax.annotation.Nullable;
 
 public class SpikeBlock extends DirectionalBlock implements SimpleWaterloggedBlock {
-	private static final VoxelShape upAabb = Block.box((double)3, 0.0D, (double)3, (double)(16 - 3), (double)5, (double)(16 - 3));
-	private static final VoxelShape downAabb = Block.box((double)3, (double)(16 - 1), (double)3, (double)(16 - 3), 16.0D, (double)(16 - 3));
-    private static final VoxelShape northAabb = Block.box((double)3, (double)3, (double)(16 - 1), (double)(16 - 3), (double)(16 - 3), 16.0D);
-    private static final VoxelShape southAabb = Block.box((double)3, (double)3, 0.0D, (double)(16 - 3), (double)(16 - 3), (double)5);
-    private static final VoxelShape eastAabb = Block.box(0.0D, (double)3, (double)3, (double)5, (double)(16 - 3), (double)(16 - 3));
-    private static final VoxelShape westAabb = Block.box((double)(16 - 1), (double)3, (double)3, 16.0D, (double)(16 - 3), (double)(16 - 3));
+    public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+    public static final DirectionProperty FACING = BlockStateProperties.FACING;
+    private static final VoxelShape upAabb = Block.box(0, 0, 0, 16, 3, 16);
+    private static final VoxelShape downAabb = Block.box(0, 13, 0, 16, 16, 16);
+    private static final VoxelShape northAabb = Block.box(0, 0, 13, 16, 16, 16);
+    private static final VoxelShape southAabb = Block.box(0, 0, 0, 16, 16, 3);
+    private static final VoxelShape eastAabb = Block.box(0, 0, 0, 3, 16, 16);
+    private static final VoxelShape westAabb = Block.box(13, 0, 0, 16, 16, 16);
     public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
 
 	public SpikeBlock(BlockBehaviour.Properties properties) {
 		super(properties);
-		registerDefaultState(defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, false).setValue(FACING, Direction.UP).setValue(AGE, Integer.valueOf(0)));
+        this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, Boolean.valueOf(false)).setValue(FACING, Direction.UP).setValue(AGE, 0));
 	}
 
 	public void entityInside(BlockState state, Level worldIn, BlockPos pos, Entity entityIn) {
@@ -46,53 +46,51 @@ public class SpikeBlock extends DirectionalBlock implements SimpleWaterloggedBlo
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
     Direction direction = (state.getValue(FACING));
-	switch(direction) {
-        case NORTH:
-            return northAabb;
-		case SOUTH:
-			return southAabb;
-		case EAST:
-            return eastAabb;
-		case WEST:
-            return westAabb;
-        case DOWN:
-            return this.downAabb;
-        case UP:
-         default:
-            return this.upAabb;
-        }
+        return switch (direction) {
+            case NORTH -> northAabb;
+            case SOUTH -> southAabb;
+            case EAST -> eastAabb;
+            case WEST -> westAabb;
+            case DOWN -> downAabb;
+            default -> upAabb;
+        };
     }
 
-	//public boolean isPathfindable(BlockState state, IBlockReader worldIn, BlockPos pos, PathType type) {
-    //  return type == PathType.AIR && !this.hasCollision ? true : super.isPathfindable(state, worldIn, pos, type);
-    //}
-		
-	@Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(BlockStateProperties.WATERLOGGED);
-	    builder.add(FACING);
-        builder.add(AGE);
-    }
-	
-	@Nullable
-    @Override
-    public BlockState getStateForPlacement(BlockPlaceContext context) {
-        FluidState fluidState = context.getLevel().getFluidState(context.getClickedPos());
-        return this.defaultBlockState().setValue(FACING, context.getNearestLookingDirection().getOpposite()).setValue(BlockStateProperties.WATERLOGGED, Boolean.valueOf(fluidState.getType() == Fluids.WATER)).setValue(AGE, 0);
-    }
-		
-	@Override
-    public FluidState getFluidState(BlockState state) {
-        return state.getValue(BlockStateProperties.WATERLOGGED) ? Fluids.WATER.getSource(false) : Fluids.EMPTY.defaultFluidState();
+    public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
+        Direction direction = pState.getValue(FACING);
+        BlockPos blockpos = pPos.relative(direction.getOpposite());
+        return pLevel.getBlockState(blockpos).isFaceSturdy(pLevel, blockpos, direction);
     }
 
-    @Override
     public BlockState updateShape(BlockState pState, Direction pDirection, BlockState pNeighborState, LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pNeighborPos) {
-        if (pState.getValue(BlockStateProperties.WATERLOGGED)) {
+        if (pState.getValue(WATERLOGGED)) {
             pLevel.scheduleTick(pCurrentPos, Fluids.WATER, Fluids.WATER.getTickDelay(pLevel));
         }
 
-        return super.updateShape(pState, pDirection, pNeighborState, pLevel, pCurrentPos, pNeighborPos);
+        return pDirection == pState.getValue(FACING).getOpposite() && !pState.canSurvive(pLevel, pCurrentPos) ? Blocks.AIR.defaultBlockState() : super.updateShape(pState, pDirection, pNeighborState, pLevel, pCurrentPos, pNeighborPos);
+    }
+
+    @Nullable
+    public BlockState getStateForPlacement(BlockPlaceContext pContext) {
+        LevelAccessor levelaccessor = pContext.getLevel();
+        BlockPos blockpos = pContext.getClickedPos();
+        return this.defaultBlockState().setValue(WATERLOGGED, Boolean.valueOf(levelaccessor.getFluidState(blockpos).getType() == Fluids.WATER)).setValue(FACING, pContext.getClickedFace()).setValue(AGE, 0);
+    }
+
+    public BlockState rotate(BlockState pState, Rotation pRotation) {
+        return pState.setValue(FACING, pRotation.rotate(pState.getValue(FACING)));
+    }
+
+    public BlockState mirror(BlockState pState, Mirror pMirror) {
+        return pState.rotate(pMirror.getRotation(pState.getValue(FACING)));
+    }
+
+    public FluidState getFluidState(BlockState pState) {
+        return pState.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(pState);
+    }
+
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
+        pBuilder.add(WATERLOGGED, FACING, AGE);
     }
 
     @Override

@@ -7,9 +7,8 @@
       "translate": "advancement.darkrpg:aloe"
     },
     "description": {
-	  "translate": "advancement.darkrpg:aloe.desc"
-	},
-
+      "translate": "advancement.darkrpg:aloe.desc"
+    },
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": true,
@@ -20,15 +19,16 @@
     "requirement": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
-        "item": {
-          "items": [
-            "darkrpg:aloe_piece"
-          ]
-        }
+        "items": [
+          {
+            "items": [
+              "darkrpg:aloe_piece"
+            ]
+          }
+        ]
       }
     }
   },
-  
   "rewards": {
     "experience": 80
   }

@@ -2,28 +2,51 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "bonus_rolls": 0.0,
+      "rolls": 1,
+      "bonus_rolls": 0,
+      "entries": [
+        {
+          "type": "minecraft:alternatives",
+          "children": [
+            {
+              "type": "minecraft:item",
+              "name": "darkrpg:double_crimson_soulroot",
+              "conditions": [
+                {
+                  "condition": "minecraft:block_state_property",
+                  "block": "darkrpg:double_crimson_soulroot",
+                  "properties": {
+                    "half": "lower"
+                  }
+                },
+                {
+                  "condition": "minecraft:match_tool",
+                  "predicate": {
+                    "enchantments": [
+                      {
+                        "enchantment": "minecraft:silk_touch"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "condition": "minecraft:match_tool",
+                  "predicate": {
+                    "items": [
+                      "minecraft:shears"
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ],
       "conditions": [
         {
           "condition": "minecraft:survives_explosion"
         }
-      ],
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "conditions": [
-            {
-              "block": "darkrpg:double_crimson_soulroot",
-              "condition": "minecraft:block_state_property",
-              "properties": {
-                "half": "lower"
-              }
-            }
-          ],
-          "name": "darkrpg:double_crimson_soulroot"
-        }
-      ],
-      "rolls": 1.0
+      ]
     }
   ],
   "random_sequence": "darkrpg:blocks/double_crimson_soulroot"

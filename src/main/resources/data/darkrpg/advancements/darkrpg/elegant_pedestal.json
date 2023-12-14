@@ -19,7 +19,18 @@
     "requirement": {
       "trigger": "minecraft:placed_block",
       "conditions": {
-        "block": "darkrpg:elegant_pedestal"
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {}
+          },
+          {
+            "condition": "minecraft:block_state_property",
+            "block": "darkrpg:elegant_pedestal",
+            "properties": {}
+          }
+        ]
       }
     }
   }

@@ -8,11 +8,15 @@
     },
     "description": {
       "translate": "advancement.darkrpg:treasures.desc"
-    }
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
   },
   "parent": "darkrpg:darkrpg/darkrpg",
   "criteria": {
-    "requirement": {
+    "miners": {
       "trigger": "minecraft:consume_item",
       "conditions": {
         "item": {
@@ -24,6 +28,6 @@
     }
   },
   "rewards": {
-    "experience": 300
+    "experience": 400
   }
 }

@@ -132,6 +132,9 @@ public class LexiconGui extends Screen {
                 // Search bar
                 gui.blit(BACKGROUND, guiLeft + 20, guiTop + 18, 0, 180, 96, 13, 512, 512);
                 drawWrappingText(gui, "gui.darkrpg.search", guiLeft + 15, guiTop + 42, 115, false);
+                if (mouseX >= guiLeft + 20 && mouseX < guiLeft + 20 + 96 && mouseY >= guiTop + 13 && mouseY < guiTop + 18 + 13) {
+                renderTooltip(gui, Component.translatable("gui.darkrpg.soon"), guiLeft + 22, guiTop + 30);
+                }
 
                 // Search bar footer
                 gui.blit(BACKGROUND, guiLeft + 48, guiTop + 31, 97, 180, 38, 13, 512, 512);

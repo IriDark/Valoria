@@ -244,7 +244,7 @@ public class ModBlocks {
 	public static final RegistryObject<Block> TOMBSTONE_SPIKES_TRAP = BLOCK.register("tombstone_spikes_trap",
 			() -> new SpikeTrapBlock(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(3f, 4f)));
 	public static final RegistryObject<Block> SPIKES = BLOCK.register("spikes",
-			() -> new SpikeBlock(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(-1f, 3600000.8F).noLootTable()));
+			() -> new SpikeBlock(BlockBehaviour.Properties.copy(Blocks.STONE).strength(-1f, 3600000.8F).noLootTable().dynamicShape().noOcclusion()));
 	public static final RegistryObject<Block> CUT_TOMBSTONE = BLOCK.register("cut_tombstone",
 			() -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(3f, 4f)));
 	public static final RegistryObject<Block> TOMBSTONE_FIRECHARGE_TRAP = BLOCK.register("tombstone_firecharge_trap",
@@ -322,7 +322,7 @@ public class ModBlocks {
 	public static final RegistryObject<Block> TILE = BLOCK.register("quartz_blackstone_tile",
 			() -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops().strength(3f, 1f)));
 	public static final RegistryObject<Block> QUICKSAND = BLOCK.register("quicksand",
-			() -> new QuickSandBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops().strength(3f, 0.5f).sound(SoundType.SAND)));
+			() -> new QuickSandBlock(BlockBehaviour.Properties.copy(Blocks.SAND).dynamicShape().requiresCorrectToolForDrops().strength(0.5f, 0.5f).sound(SoundType.SAND)));
 	public static final RegistryObject<Block> ELEMENTAL_MANIPULATOR = BLOCK.register("elemental_manipulator",
 			() -> new ManipulatorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops().strength(3f, 1f).lightLevel(s -> 4).noOcclusion()));
 	public static final RegistryObject<Block> SKULLY_PEDESTAL = BLOCK.register("skully_pedestal",
@@ -364,15 +364,15 @@ public class ModBlocks {
 			() -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(3f, 4f)));
 	// Crystals
 	public static final RegistryObject<Block> VOID_CRYSTAL = BLOCK.register("void_crystal",
-			() -> new CrystalBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(1f, 0f).sound(SoundType.GLASS).noOcclusion()));
+			() -> new AmethystClusterBlock(7, 3, BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(1f, 0f).sound(SoundType.GLASS).noOcclusion()));
 	public static final RegistryObject<Block> AMBER_CRYSTAL = BLOCK.register("amber_crystal",
-			() -> new CrystalBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(1f, 0f).sound(SoundType.GLASS).noOcclusion()));
+			() -> new AmethystClusterBlock(7, 3, BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(1f, 0f).sound(SoundType.GLASS).noOcclusion()));
 	public static final RegistryObject<Block> AMETHYST_CRYSTAL = BLOCK.register("amethyst_crystal",
-			() -> new CrystalBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(1f, 0f).sound(SoundType.GLASS).noOcclusion()));
+			() -> new AmethystClusterBlock(7, 3, BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(1f, 0f).sound(SoundType.GLASS).noOcclusion()));
 	public static final RegistryObject<Block> RUBY_CRYSTAL = BLOCK.register("ruby_crystal",
-			() -> new CrystalBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(1f, 0f).sound(SoundType.GLASS).noOcclusion()));
+			() -> new AmethystClusterBlock(7, 3, BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(1f, 0f).sound(SoundType.GLASS).noOcclusion()));
 	public static final RegistryObject<Block> SAPPHIRE_CRYSTAL = BLOCK.register("sapphire_crystal",
-			() -> new CrystalBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(1f, 0f).sound(SoundType.GLASS).noOcclusion()));
+			() -> new AmethystClusterBlock(7, 3, BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(1f, 0f).sound(SoundType.GLASS).noOcclusion()));
 	// Pots
 	public static final RegistryObject<Block> POT_SMALL = BLOCK.register("pot_small",
 			() -> new PotBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).instabreak().noOcclusion().sound(ModSoundRegistry.POT)));

@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#forge:is_desert",
+  "features": "darkrpg:dried_roots",
+  "step": "vegetal_decoration"
+}

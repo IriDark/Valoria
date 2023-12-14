@@ -18,11 +18,9 @@
       "trigger": "minecraft:consume_item",
       "conditions": {
         "item": {
-          "tag": [
-            "darkrpg:alcohol"
-          ]
+          "tag": "darkrpg:alcohol"
         }
       }
     }
   }
- }
+}

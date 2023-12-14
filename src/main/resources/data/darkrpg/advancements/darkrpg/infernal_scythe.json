@@ -9,7 +9,6 @@
     "description": {
       "translate": "advancement.darkrpg:infernal_scythe.desc"
     },
-
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": true,
@@ -20,15 +19,16 @@
     "requirement": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
-        "item": {
-          "items": [
-             "darkrpg:infernal_scythe"
-          ]
-        }
+        "items": [
+          {
+            "items": [
+              "darkrpg:infernal_scythe"
+            ]
+          }
+        ]
       }
     }
   },
-
   "rewards": {
     "experience": 80
   }
