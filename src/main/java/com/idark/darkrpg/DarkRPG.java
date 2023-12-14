@@ -20,6 +20,7 @@ import com.idark.darkrpg.item.ModAttributes;
 import com.idark.darkrpg.item.ModItemGroup;
 import com.idark.darkrpg.item.ModItems;
 import com.idark.darkrpg.paintings.ModPaintings;
+import com.idark.darkrpg.potion.ModPotions;
 import com.idark.darkrpg.tileentity.ModTileEntities;
 import com.idark.darkrpg.util.LootUtil;
 import com.idark.darkrpg.util.ModSoundRegistry;
@@ -74,6 +75,7 @@ public class DarkRPG {
 		ModEnchantments.register(eventBus);
 		ModPaintings.register(eventBus);
 		ModAttributes.register(eventBus);
+		ModPotions.register(eventBus);
 		ModItems.register(eventBus);
 		ModBlocks.register(eventBus);
 		ModTileEntities.register(eventBus);
@@ -104,7 +106,7 @@ public class DarkRPG {
 	}
 
 	private void setup(final FMLCommonSetupEvent event) {
-		//WorldGen.init();
+		ModPotions.bootStrap();
 		event.enqueueWork(() -> {
 			AxeItem.STRIPPABLES = new ImmutableMap.Builder<Block, Block>().putAll(AxeItem.STRIPPABLES)
 			.put(ModBlocks.SHADELOG.get(), ModBlocks.STRIPPED_SHADELOG.get())

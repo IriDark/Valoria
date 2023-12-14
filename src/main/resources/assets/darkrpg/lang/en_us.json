@@ -154,6 +154,12 @@
 	"effect.darkrpg.aloeregen": "Aloe Regeneration",
 	"effect.darkrpg.bleeding": "Bleeding",
 
+	"_comment": "Potions",
+	"item.minecraft.potion.effect.aloe_potion": "Aloe Potion",
+	"item.minecraft.splash_potion.effect.aloe_potion": "Splash Aloe Potion",
+	"item.minecraft.lingering_potion.effect.aloe_potion": "Lingering Aloe Potion",
+	"item.minecraft.tipped_arrow.effect.aloe_potion": "Arrow of Aloe Regeneration",
+
 	"_comment": "Weapons & Instruments",
 	"item.darkrpg.club": "Club",
 	"item.darkrpg.pearlium_sword": "Pearlium Sword",

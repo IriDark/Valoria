@@ -145,6 +145,11 @@
   "effect.darkrpg.aloeregen": "Регенерация алоэ",
   "effect.darkrpg.bleeding": "Кровотечение",
 
+  "item.minecraft.potion.effect.aloe_potion": "Зелье алоэ",
+  "item.minecraft.splash_potion.effect.aloe_potion": "Взрывное зелье алоэ",
+  "item.minecraft.lingering_potion.effect.aloe_potion": "Туманное зелье алоэ",
+  "item.minecraft.tipped_arrow.effect.aloe_potion": "Стрела регенерации алоэ",
+
   "item.darkrpg.club": "Дубина",
   "item.darkrpg.pearlium_sword": "Меч перлия",
   "item.darkrpg.pearlium_pickaxe": "Кирка перлия",
