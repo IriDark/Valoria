@@ -1,35 +1,67 @@
 {
   "variants": {
-	  "facing=east,part=head": {
+	  "facing=east,part=head,open=0": {
 		  "model": "darkrpg:block/sarcophagus",
 		  "y": 0
 	  },
-	  "facing=north,part=head": {
+	  "facing=north,part=head,open=0": {
 		  "model": "darkrpg:block/sarcophagus",
 		  "y": -90
 	  },
-	  "facing=south,part=head": {
+	  "facing=south,part=head,open=0": {
 		  "model": "darkrpg:block/sarcophagus",
 		  "y": 90
 	  },
-	  "facing=west,part=head": {
+	  "facing=west,part=head,open=0": {
 		  "model": "darkrpg:block/sarcophagus",
 		  "y": 180
 	  },
-	  "facing=east,part=foot": {
+	  "facing=east,part=foot,open=0": {
 		  "model": "darkrpg:block/sarcophagus_half",
 		  "y": 180
 	  },
-	  "facing=north,part=foot": {
+	  "facing=north,part=foot,open=0": {
 		  "model": "darkrpg:block/sarcophagus_half",
 		  "y": 90
 	  },
-	  "facing=south,part=foot": {
+	  "facing=south,part=foot,open=0": {
 		  "model": "darkrpg:block/sarcophagus_half",
 		  "y": -90
 	  },
-	  "facing=west,part=foot": {
+	  "facing=west,part=foot,open=0": {
 		  "model": "darkrpg:block/sarcophagus_half",
+		  "y": 0
+	  },
+	  "facing=east,part=head,open=1": {
+		  "model": "darkrpg:block/sarcophagus_open",
+		  "y": 180
+	  },
+	  "facing=north,part=head,open=1": {
+		  "model": "darkrpg:block/sarcophagus_open",
+		  "y": 90
+	  },
+	  "facing=south,part=head,open=1": {
+		  "model": "darkrpg:block/sarcophagus_open",
+		  "y": -90
+	  },
+	  "facing=west,part=head,open=1": {
+		  "model": "darkrpg:block/sarcophagus_open",
+		  "y": 0
+	  },
+	  "facing=east,part=foot,open=1": {
+		  "model": "darkrpg:block/sarcophagus_half_open",
+		  "y": 180
+	  },
+	  "facing=north,part=foot,open=1": {
+		  "model": "darkrpg:block/sarcophagus_half_open",
+		  "y": 90
+	  },
+	  "facing=south,part=foot,open=1": {
+		  "model": "darkrpg:block/sarcophagus_half_open",
+		  "y": -90
+	  },
+	  "facing=west,part=foot,open=1": {
+		  "model": "darkrpg:block/sarcophagus_half_open",
 		  "y": 0
 	  }
   	}

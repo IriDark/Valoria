@@ -1,17 +1,24 @@
 package com.idark.darkrpg.block.types;
 
+import com.idark.darkrpg.block.ModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.Skeleton;
+import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.ExplosionDamageCalculator;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.*;
@@ -22,27 +29,49 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BedPart;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.pathfinder.PathComputationType;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
+import java.util.List;
 import java.util.Random;
 
 public class SarcoBlock extends HorizontalDirectionalBlock {
 
     public static final EnumProperty<BedPart> PART = BlockStateProperties.BED_PART;
+    private static IntegerProperty STATE = IntegerProperty.create("open", 0, 1);
+
     private static final VoxelShape shape = Block.box(0, 0, 0, 16, 12, 16);
     Random rand = new Random();
 
     public SarcoBlock(BlockBehaviour.Properties pProperties) {
         super(pProperties);
-        this.registerDefaultState((BlockState)((BlockState)((BlockState)this.stateDefinition.any()).setValue(PART, BedPart.FOOT)));
+        this.registerDefaultState((BlockState)((BlockState)((BlockState)this.stateDefinition.any()).setValue(PART, BedPart.FOOT).setValue(STATE, 0)));
     }
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
         return shape;
+    }
+
+    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+        BedPart part = pState.getValue(PART);
+        BedPart footPart = (part == BedPart.FOOT) ? BedPart.HEAD : BedPart.FOOT;
+        BedPart headPart = (part == BedPart.HEAD) ? BedPart.HEAD : BedPart.FOOT;
+        pLevel.setBlockAndUpdate(pPos, pState.setValue(STATE, 1));
+
+        BlockPos oppositePos = pPos.relative(pState.getValue(FACING));
+        BlockState oppositeState = pLevel.getBlockState(oppositePos);
+        if (oppositeState.getBlock() == this && oppositeState.getValue(PART) == footPart) {
+            pLevel.setBlockAndUpdate(oppositePos, oppositeState.setValue(STATE, 1));
+        }
+
+        return InteractionResult.SUCCESS;
     }
 
     @Nullable
@@ -117,6 +146,7 @@ public class SarcoBlock extends HorizontalDirectionalBlock {
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACING);
         builder.add(PART);
+        builder.add(STATE);
         super.createBlockStateDefinition(builder);
     }
 
