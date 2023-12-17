@@ -4,7 +4,7 @@ license = "Apache-2.0"
 issueTrackerURL = "" 
 [[mods]] 
   modId = "darkrpg" 
-  version = "1.20.1-build-0.5.0.0_b"
+  version = "1.20.1-build-0.5.0.1_b"
   displayName = "DarkRPG" 
   updateJSONURL="" 
   displayURL = "https://discord.gg/wWdXpwuPmK" 

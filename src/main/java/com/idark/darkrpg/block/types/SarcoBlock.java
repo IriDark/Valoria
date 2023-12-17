@@ -1,13 +1,31 @@
 package com.idark.darkrpg.block.types;
 
+import com.idark.darkrpg.DarkRPG;
+import com.idark.darkrpg.item.ModItems;
+import com.idark.darkrpg.util.LootUtil;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.monster.CaveSpider;
+import net.minecraft.world.entity.monster.Skeleton;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -25,6 +43,7 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
@@ -38,7 +57,6 @@ public class SarcoBlock extends HorizontalDirectionalBlock {
 
     private static final VoxelShape shape = Block.box(0, 0, 0, 16, 12, 16);
     Random rand = new Random();
-
     public SarcoBlock(BlockBehaviour.Properties pProperties) {
         super(pProperties);
         this.registerDefaultState((BlockState)((BlockState)((BlockState)this.stateDefinition.any()).setValue(PART, BedPart.FOOT).setValue(STATE, 0)));
@@ -49,19 +67,56 @@ public class SarcoBlock extends HorizontalDirectionalBlock {
         return shape;
     }
 
-    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-        BedPart part = pState.getValue(PART);
-        BedPart footPart = (part == BedPart.FOOT) ? BedPart.HEAD : BedPart.FOOT;
-        BedPart headPart = (part == BedPart.HEAD) ? BedPart.HEAD : BedPart.FOOT;
-        pLevel.setBlockAndUpdate(pPos, pState.setValue(STATE, 1));
+    ItemStack[] stacks = {
+            new ItemStack(Items.BOW), new ItemStack(Items.WOODEN_AXE), new ItemStack(Items.STONE_SWORD), new ItemStack(Items.IRON_SWORD), new ItemStack(Items.GOLDEN_AXE), new ItemStack(Items.IRON_PICKAXE)
+    };
 
+    private boolean Looted;
+    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         BlockPos oppositePos = pPos.relative(pState.getValue(FACING));
         if (pState.getValue(PART) == BedPart.HEAD) {
             oppositePos = pPos.relative(pState.getValue(FACING).getOpposite());
         }
-        BlockState oppositeState = pLevel.getBlockState(oppositePos);
-        if (oppositeState.getBlock() == this) {
-            pLevel.setBlockAndUpdate(oppositePos, oppositeState.setValue(STATE, 1));
+
+        if (pState.getValue(STATE) == 0) {
+            Looted = false;
+            pLevel.setBlockAndUpdate(pPos, pState.setValue(STATE, 1));
+
+            BlockState oppositeState = pLevel.getBlockState(oppositePos);
+            if (oppositeState.getBlock() == this) {
+                pLevel.setBlockAndUpdate(oppositePos, oppositeState.setValue(STATE, 1));
+            }
+
+            for (int i = 0; i < 10; i++) {
+                pLevel.addParticle(ParticleTypes.POOF, pPos.getX() + rand.nextDouble(), pPos.getY() + 1.0f, pPos.getZ() + rand.nextDouble(), 0, 0, 0);
+                pLevel.addParticle(ParticleTypes.POOF, oppositePos.getX() + rand.nextDouble(), oppositePos.getY() + 1.0f, oppositePos.getZ() + rand.nextDouble(), 0, 0, 0);
+            }
+
+            pPlayer.displayClientMessage(Component.translatable("tooltip.darkrpg.sarcophagus").withStyle(ChatFormatting.GRAY), true);
+            for (int i = 0; i < 4; i++) {
+                boolean randomHand = Mth.nextFloat(RandomSource.create(), 0, 1) < 0.5;
+                InteractionHand hand = randomHand ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND;
+                Skeleton skeleton = EntityType.SKELETON.create(pLevel);
+                skeleton.moveTo((double) pPos.getX() + rand.nextDouble(), pPos.getY() + 0.4f, (double) pPos.getZ() + rand.nextDouble(), 0.0F, 0.0F);
+                skeleton.setItemInHand(hand, stacks[rand.nextInt(stacks.length)]);
+                pLevel.addFreshEntity(skeleton);
+            }
+        }
+
+        if (pState.getValue(STATE) == 1 && !Looted) {
+
+            if (pPlayer instanceof ServerPlayer serverPlayer) {
+                Vec3 block = new Vec3(pPos.getX() - 0.5f, pPos.getY(), pPos.getZ() - 0.5f);
+                LootUtil.SpawnLoot(pLevel, pPos.above(), LootUtil.createLoot(new ResourceLocation(DarkRPG.MOD_ID, "items/sarcophagus"), LootUtil.getGiftParameters((ServerLevel) pLevel, block, serverPlayer)));
+                Looted = true;
+            }
+
+            for (int i = 0; i < 3; i++) {
+                pLevel.addParticle(ParticleTypes.SOUL, pPos.getX() + rand.nextDouble(), pPos.getY() + 1.0f, pPos.getZ() + rand.nextDouble(), 0, 0, 0);
+                pLevel.addParticle(ParticleTypes.SOUL, oppositePos.getX() + rand.nextDouble(), oppositePos.getY() + 1.0f, oppositePos.getZ() + rand.nextDouble(), 0, 0, 0);
+            }
+
+            return InteractionResult.CONSUME;
         }
 
         return InteractionResult.SUCCESS;

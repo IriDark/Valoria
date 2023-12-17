@@ -30,6 +30,7 @@
 	"tooltip.darkrpg.toxins": "Great way to die!",
 	"tooltip.darkrpg.bloodsight": "A monster who attacked you, will get what he deserves... Every drop of blood spilled will be consumed by the thirst for revenge",
 	"tooltip.darkrpg.bloodsight_curse": "Seems this monocle is cursed and even broken, that's not good!",
+	"tooltip.darkrpg.sarcophagus": "Beware! This sarcophagus was a trap. Defend yourself and remember to open it again!",
 
 	"_comment": "Damage Types",
 	"death.attack.bleeding": "%1$s lost all his blood",
