@@ -2,6 +2,7 @@ package com.idark.darkrpg.item;
 
 import com.idark.darkrpg.DarkRPG;
 import com.idark.darkrpg.block.*;
+import com.idark.darkrpg.client.render.gui.book.LexiconPages;
 import com.idark.darkrpg.entity.ModEntityTypes;
 import com.idark.darkrpg.item.curio.*;
 import com.idark.darkrpg.item.curio.charm.*;
@@ -223,7 +224,6 @@ public class ModItems {
 	public static final RegistryObject<Item> ILLUSION_STONE = ITEMS.register("illusion_stone", () -> new Item(new Item.Properties().stacksTo(16)));
 	public static final RegistryObject<Item> SOUL_COLLECTOR_EMPTY = ITEMS.register("soul_collector_empty", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> SOUL_COLLECTOR = ITEMS.register("soul_collector", () -> new Item(new Item.Properties()));
-	public static final RegistryObject<Item> LEXICON = ITEMS.register("lexicon", () -> new LexiconItem(new Item.Properties().stacksTo(1)));
 	public static final RegistryObject<Item> VOID_KEY = ITEMS.register("void_key", () -> new Item(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> GAIB_ROOT = ITEMS.register("gaib_root", () -> new Item(new Item.Properties().stacksTo(16)));
 	public static final RegistryObject<Item> KARUSAKAN_ROOT = ITEMS.register("karusakan_root", () -> new Item(new Item.Properties().stacksTo(16)));
@@ -231,6 +231,10 @@ public class ModItems {
 	public static final RegistryObject<Item> CUP = ITEMS.register("cup", () -> new Item(new Item.Properties().stacksTo(16)));
 	public static final RegistryObject<Item> BOTTLE = ITEMS.register("bottle", () -> new Item(new Item.Properties().stacksTo(16)));
 	public static final RegistryObject<Item> ALOE_PIECE = ITEMS.register("aloe_piece", () -> new Item(new Item.Properties()));
+
+	public static final RegistryObject<Item> LEXICON = ITEMS.register("lexicon", () -> new LexiconItem(new Item.Properties().stacksTo(1)));
+	public static final RegistryObject<Item> CRYPT = ITEMS.register("page", () -> new LexiconPageItem(LexiconPages.CRYPT,  new Item.Properties().stacksTo(1)));
+
 
 	public static final RegistryObject<Item> ALOE_BANDAGE = ITEMS.register("aloe_bandage", () -> new AloeBandageItem(1600, 0));
 	public static final RegistryObject<Item> ALOE_BANDAGE_UPGRADED = ITEMS.register("aloe_bandage_upgraded", () -> new AloeBandageItem(1450, 1));
@@ -570,6 +574,8 @@ public class ModItems {
 	*/
 	public static final RegistryObject<ForgeSpawnEggItem> GOBLIN_SPAWN_EGG = ITEMS.register("goblin_spawn_egg",
 		() -> new ForgeSpawnEggItem(ModEntityTypes.GOBLIN, 8043368, 8687939, new Item.Properties()));
+	public static final RegistryObject<ForgeSpawnEggItem> DRAUGR_SPAWN_EGG = ITEMS.register("draugr_spawn_egg",
+		() -> new ForgeSpawnEggItem(ModEntityTypes.DRAUGR, 8043368, 8687939, new Item.Properties()));
 
 	public static final RegistryObject<MannequinSpawnItem> MANNEQUIN_SPAWN_EGG = ITEMS.register("mannequin_spawn_egg",
 		() -> new MannequinSpawnItem(new Item.Properties()));

@@ -1,10 +1,10 @@
 package com.idark.darkrpg.client.render.gui.book;
 
 import com.idark.darkrpg.DarkRPG;
+import com.idark.darkrpg.capability.IPage;
 import com.idark.darkrpg.item.ModItems;
 import com.idark.darkrpg.util.ColorUtils;
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -15,6 +15,8 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraftforge.api.distmarker.Dist;
@@ -23,11 +25,31 @@ import org.lwjgl.glfw.GLFW;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class LexiconGui extends Screen {
     public static final ResourceLocation BACKGROUND = new ResourceLocation(DarkRPG.MOD_ID, "textures/gui/book/lexicon.png");
     public ItemStack item;
     public LexiconPages pages;
+
+    public static boolean isCryptOpen(Entity entity) {
+        if (!(entity instanceof Player)) return false;
+        AtomicBoolean isKnow = new AtomicBoolean(false);
+        entity.getCapability(IPage.INSTANCE, null).ifPresent((k) -> {
+            isKnow.set(k.isCryptOpen());
+        });
+
+        return isKnow.get();
+    }
+
+    public static void setOpen(Entity entity, LexiconPages pages, boolean open) {
+        if (pages == LexiconPages.CRYPT) {
+            if (!(entity instanceof Player)) return;
+            entity.getCapability(IPage.INSTANCE, null).ifPresent((k) -> {
+                k.setOpen(open);
+            });
+        }
+    }
 
     public LexiconGui(LexiconPages pages) {
         super(Component.translatable("gui.darkrpg.main"));
@@ -107,15 +129,15 @@ public class LexiconGui extends Screen {
             gui.renderItem(new ItemStack(ModItems.ALOE_BANDAGE.get()), guiLeft + 269, guiTop + 70);
         }
 
-        if (mouseX >= guiLeft + 267 && mouseX < guiLeft + 267 + BookmarkWidth && mouseY >= guiTop + 94 && mouseY < guiTop + 94 + BookmarkHeight) {
-            gui.blit(BACKGROUND, guiLeft + 267, guiTop + 94, 0, 218, BookmarkWidth, BookmarkHeight, 512, 512);
-            gui.blit(BACKGROUND, guiLeft + 278, guiTop + 102, 277, 70, 5, 10, 512, 512);
-            renderTooltip(gui, Component.translatable("gui.darkrpg.soon"), guiLeft + 282, guiTop + 115);
-            //gui.renderItem(new ItemStack(ModItems.GEM_BAG.get()), guiLeft + 272, guiTop + 98);
-        } else {
-            gui.blit(BACKGROUND, guiLeft + 267, guiTop + 94, 0, 193, BookmarkWidth, BookmarkHeight, 512, 512);
-            gui.blit(BACKGROUND, guiLeft + 275, guiTop + 102, 272, 70, 5, 10, 512, 512);
-            //gui.renderItem(new ItemStack(ModItems.GEM_BAG.get()), guiLeft + 269, guiTop + 98);
+        if (isCryptOpen(getMinecraft().player)) {
+            if (mouseX >= guiLeft + 267 && mouseX < guiLeft + 267 + BookmarkWidth && mouseY >= guiTop + 94 && mouseY < guiTop + 94 + BookmarkHeight) {
+                gui.blit(BACKGROUND, guiLeft + 267, guiTop + 94, 0, 218, BookmarkWidth, BookmarkHeight, 512, 512);
+                renderTooltip(gui, Component.translatable("gui.darkrpg.crypt"), guiLeft + 282, guiTop + 115);
+                gui.renderItem(new ItemStack(Items.SKELETON_SKULL), guiLeft + 272, guiTop + 98);
+            } else {
+                gui.blit(BACKGROUND, guiLeft + 267, guiTop + 94, 0, 193, BookmarkWidth, BookmarkHeight, 512, 512);
+                gui.renderItem(new ItemStack(Items.SKELETON_SKULL), guiLeft + 269, guiTop + 98);
+            }
         }
 
         // Category footer
@@ -243,6 +265,10 @@ public class LexiconGui extends Screen {
                 medicine_upgraded_result.render(gui, guiLeft, guiTop, mouseX, mouseY, true);
                 medicine_upgraded_result.resultArrow(gui, guiLeft, guiTop, 175 + 37, 98 + 14, mouseX, mouseY, false);
                 break;
+            case CRYPT:
+                drawWrappingText(gui, "gui.darkrpg.crypt", guiLeft + 70, guiTop + 21, 120, true);
+                drawWrappingText(gui, "gui.darkrpg.crypt.desc", guiLeft + 15, guiTop + 42, 117, false);
+                break;
         }
     }
 
@@ -274,12 +300,15 @@ public class LexiconGui extends Screen {
                 mc.setScreen(new LexiconGui(LexiconPages.MEDICINE));
             }
 
-            if (mouseX >= guiLeft + 267 && mouseX < guiLeft + 267 + 35 && mouseY >= guiTop + 94 && mouseY < guiTop + 94 + 25) {
-                mc.player.playNotifySound(SoundEvents.UI_LOOM_TAKE_RESULT, SoundSource.NEUTRAL, 1.0f, 1.0f);
+            if (isCryptOpen(mc.player)) {
+                if (mouseX >= guiLeft + 267 && mouseX < guiLeft + 267 + 35 && mouseY >= guiTop + 94 && mouseY < guiTop + 94 + 25) {
+                    mc.player.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundSource.NEUTRAL, 1.0f, 1.0f);
+                    mc.setScreen(new LexiconGui(LexiconPages.CRYPT));
+                }
             }
 
             switch (pages) {
-                case MAIN, THANKS, MEDICINE:
+                case MAIN, THANKS, MEDICINE, CRYPT:
                     break;
                 case GEMS:
                     if (mouseX >= guiLeft + 250 && mouseX < guiLeft + 250 + 9 && mouseY >= guiTop + 150 && mouseY < guiTop + 150 + 8) {

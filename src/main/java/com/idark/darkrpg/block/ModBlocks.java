@@ -314,11 +314,11 @@ public class ModBlocks {
 	public static final RegistryObject<Block> JEWELER_TABLE = BLOCK.register("jeweler_table",
 			() -> new JewelerBlock(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(1f, 1f)));
 	public static final RegistryObject<Block> TOMB = BLOCK.register("tomb",
-			() -> new TombBlock(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(1f, 1f)));
+			() -> new TombBlock(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(1f, 1f).noOcclusion()));
 	public static final RegistryObject<Block> KEG = BLOCK.register("keg",
-			() -> new KegBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).requiresCorrectToolForDrops().strength(1f, 1f)));
+			() -> new KegBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).requiresCorrectToolForDrops().strength(1f, 1f).noOcclusion()));
 	public static final RegistryObject<Block> SARCOPHAGUS = BLOCK.register("sarcophagus",
-		() -> new SarcoBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops().strength(3f)));
+		() -> new SarcoBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops().strength(3f).noOcclusion()));
 	public static final RegistryObject<Block> TILE = BLOCK.register("quartz_blackstone_tile",
 			() -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops().strength(3f, 1f)));
 	public static final RegistryObject<Block> QUICKSAND = BLOCK.register("quicksand",

@@ -3,6 +3,7 @@ package com.idark.darkrpg;
 import com.google.common.collect.ImmutableMap;
 import com.idark.darkrpg.block.ModBlocks;
 import com.idark.darkrpg.block.types.ModWoodTypes;
+import com.idark.darkrpg.capability.IPage;
 import com.idark.darkrpg.client.event.ClientTickHandler;
 import com.idark.darkrpg.client.render.CorpsecleaverRender;
 import com.idark.darkrpg.client.render.DashOverlayRender;
@@ -14,6 +15,7 @@ import com.idark.darkrpg.datagen.ModWorldGenProvider;
 import com.idark.darkrpg.effect.ModEffects;
 import com.idark.darkrpg.enchant.ModEnchantments;
 import com.idark.darkrpg.entity.ModEntityTypes;
+import com.idark.darkrpg.entity.custom.DraugrEntity;
 import com.idark.darkrpg.entity.custom.GoblinEntity;
 import com.idark.darkrpg.entity.custom.MannequinEntity;
 import com.idark.darkrpg.item.ModAttributes;
@@ -37,6 +39,7 @@ import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -103,6 +106,7 @@ public class DarkRPG {
 		eventBus.addListener(ModItemGroup::addCreative);
 
 		MinecraftForge.EVENT_BUS.register(this);
+		MinecraftForge.EVENT_BUS.register(new Events());
 	}
 
 	private void setup(final FMLCommonSetupEvent event) {
@@ -123,12 +127,22 @@ public class DarkRPG {
 	public static class RegistryEvents {
 
 		@SubscribeEvent
+		public static void registerCaps(RegisterCapabilitiesEvent event) {
+			event.register(IPage.class);
+		}
+
+		@SubscribeEvent
 		public static void commonSetup(FMLCommonSetupEvent event) {
 			event.enqueueWork(() -> {
 				SpawnPlacements.register(ModEntityTypes.GOBLIN.get(),
-				SpawnPlacements.Type.ON_GROUND,
-				Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-				GoblinEntity::checkGoblinSpawnRules);
+						SpawnPlacements.Type.ON_GROUND,
+						Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+						GoblinEntity::checkGoblinSpawnRules);
+
+				SpawnPlacements.register(ModEntityTypes.DRAUGR.get(),
+						SpawnPlacements.Type.ON_GROUND,
+						Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+						DraugrEntity::checkMonsterSpawnRules);
 			});
 		}
 
@@ -136,6 +150,7 @@ public class DarkRPG {
 		public static void registerAttributes(EntityAttributeCreationEvent event) {
 			event.put(ModEntityTypes.MANNEQUIN.get(), MannequinEntity.createAttributes().build());
 			event.put(ModEntityTypes.GOBLIN.get(), GoblinEntity.createAttributes().build());
+			event.put(ModEntityTypes.DRAUGR.get(), GoblinEntity.createAttributes().build());
 		}
 
 		@SubscribeEvent

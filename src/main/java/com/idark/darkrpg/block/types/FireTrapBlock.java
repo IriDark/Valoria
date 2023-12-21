@@ -61,7 +61,7 @@ public class FireTrapBlock extends Block {
 	@Override
 	public void stepOn(Level level, BlockPos pos, BlockState state, Entity entityIn) {
 		BlockState tombstone = ModBlocks.POLISHED_TOMBSTONE.get().defaultBlockState();
-		int radius = 3;
+		int radius = 1;
 		boolean isWaterNearby = isWaterNearby(level, pos, radius);
 		if (isWaterNearby) {
 			level.playSound(null, pos, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 0.05F, level.random.nextFloat() * 0.5F + 0.5F);

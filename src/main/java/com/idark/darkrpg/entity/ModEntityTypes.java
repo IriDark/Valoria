@@ -2,6 +2,7 @@ package com.idark.darkrpg.entity;
 
 import com.idark.darkrpg.DarkRPG;
 import com.idark.darkrpg.entity.custom.*;
+import com.idark.darkrpg.entity.model.DraugrModel;
 import com.idark.darkrpg.entity.projectile.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
@@ -26,6 +27,11 @@ public class ModEntityTypes {
         .sized(0.5f, 1.3f)
         .build(new ResourceLocation(DarkRPG.MOD_ID, "goblin").toString()));
 
+	public static final RegistryObject<EntityType<DraugrEntity>> DRAUGR = ENTITY_TYPES.register("draugr",
+			() -> EntityType.Builder.of(DraugrEntity::new, MobCategory.CREATURE)
+			.sized(1f, 2f)
+			.build(new ResourceLocation(DarkRPG.MOD_ID, "draugr").toString()));
+
 	public static final RegistryObject<EntityType<MannequinEntity>> MANNEQUIN = ENTITY_TYPES.register("mannequin",
 		() -> EntityType.Builder.of(MannequinEntity::new, MobCategory.CREATURE)
 		.sized(1f, 2f)
@@ -38,8 +44,8 @@ public class ModEntityTypes {
 
 	public static final RegistryObject<EntityType<MeatBlockEntity>> MEAT = ENTITY_TYPES.register("meat",
 			() -> EntityType.Builder.<MeatBlockEntity>of(MeatBlockEntity::new, MobCategory.MISC)
-					.sized(1, 1f)
-					.build(new ResourceLocation(DarkRPG.MOD_ID, "meat").toString()));
+			.sized(1, 1f)
+			.build(new ResourceLocation(DarkRPG.MOD_ID, "meat").toString()));
 
 	public static final RegistryObject<EntityType<SpectralBladeEntity>> SPECTRAL_BLADE = ENTITY_TYPES.register("spectral_blade",
 		() -> EntityType.Builder.<SpectralBladeEntity>of(SpectralBladeEntity::new, MobCategory.MISC)

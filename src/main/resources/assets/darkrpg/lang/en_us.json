@@ -36,8 +36,17 @@
 	"death.attack.bleeding": "%1$s lost all his blood",
 	"death.attack.quicksand_suffocating": "%1$s sank like a sandcastle, breathless",
 
+	"_comment": "Commands",
+	"commands.darkrpg.page.unknown": "Unknown page",
+	"commands.darkrpg.page.give.single": "Gave page to player %s",
+	"commands.darkrpg.page.give.multiple": "Gave page to %s players",
+	"commands.darkrpg.page.remove.single": "Removed page from player %s",
+	"commands.darkrpg.page.remove.multiple": "Removed page from %s players",
+
 	"_comment": "Lexicon",
 	"item.darkrpg.lexicon": "Lexicon",
+	"item.darkrpg.page": "Page",
+	"tooltip.darkrpg.page": "Unlock-able Page: ",
 	"gui.darkrpg.main": "Main",
 	"gui.darkrpg.knowledge": "The Key to Knowledge",
 	"gui.darkrpg.jewelry": "Jewelry",
@@ -46,8 +55,13 @@
 	"gui.darkrpg.medicine": "Medicine",
 	"gui.darkrpg.recipes": "Recipes",
 	"gui.darkrpg.soon": "Coming soon...",
+	"gui.darkrpg.new_page": "New page has been unlocked!",
+	"gui.darkrpg.delete_page": "Page has been removed",
+	"gui.darkrpg.obtained": "You've already obtained this page.",
 	"gui.darkrpg.next": "Next Page",
 	"gui.darkrpg.back": "Back",
+	"gui.darkrpg.crypt": "Crypt",
+	"gui.darkrpg.crypt.desc": "Rare structures appearing in the world, full of danger, so be careful before entering and exploring.",
 	"gui.darkrpg.geodes": "Geodes",
 	"gui.darkrpg.geodes.desc": "Geodes are underground formations, generated in geodites. These intriguing structures hold the potential for rare resources. To unlock their treasures, break geodes using a stone crusher.",
 	"gui.darkrpg.aloe": "Craft bandages using aloe pieces and strings. These provide extended regeneration, though less effective than regular one. Upgrade them on the next page for improved effects and slightly longer duration!",
@@ -145,9 +159,15 @@
 	"entity.darkrpg.swamp_wanderer": "Swamp Wanderer",
  	"entity.darkrpg.mannequin": "Mannequin",
 	"entity.darkrpg.goblin": "Goblin",
+	"entity.darkrpg.draugr": "Draugr",
 	"entity.darkrpg.kunai": "Kunai",
 	"entity.darkrpg.spectral_blade": "Spectral Bade",
 	"entity.darkrpg.meat": "Meat Block",
+
+	"item.darkrpg.goblin_spawn_egg": "Goblin Spawn Egg",
+	"item.darkrpg.draugr_spawn_egg": "Draugr Spawn Egg",
+	"item.darkrpg.mannequin_spawn_egg": "Mannequin",
+	"item.darkrpg.swamp_wanderer_spawn_egg": "Swamp Wanderer Spawn Egg",
 
 	"_comment": "Mob Effects",
 	"effect.darkrpg.tipsy": "Tipsy",
@@ -400,10 +420,6 @@
  	"item.darkrpg.crystal_stone_brick": "Crystal Stone Brick",	
  	"item.darkrpg.void_stone_brick": "Void Stone Brick",
 
- 	"item.darkrpg.goblin_spawn_egg": "Goblin Spawn Egg",
- 	"item.darkrpg.mannequin_spawn_egg": "Mannequin",
- 	"item.darkrpg.swamp_wanderer_spawn_egg": "Swamp Wanderer Spawn Egg",
- 
 	"_comment": "Plants",
 	"block.darkrpg.potted_aloe_small": "Potted Aloe",
 	"block.darkrpg.potted_bloodroot": "Potted Bloodroot",
@@ -611,6 +627,5 @@
  	"block.darkrpg.void_chiseled_brick_slab": "Chiseled Void Brick Slab",
  	"block.darkrpg.void_chiseled_bricks_stairs": "Chiseled Void Bricks Stairs",
  	"block.darkrpg.void_chiseled_bricks_slab": "Chiseled Void Bricks Slab",
-	"block.darkrpg.meat_block": "Meat Block",
-	"tooltip.darkrpg.strength": ""
+	"block.darkrpg.meat_block": "Meat Block"
 }

@@ -111,6 +111,7 @@ import java.util.function.Predicate;
 				event.accept(ModItems.SOUL_COLLECTOR_EMPTY);
 				event.accept(ModItems.SOUL_COLLECTOR);
 				event.accept(ModItems.LEXICON);
+				event.accept(ModItems.CRYPT);
 				event.accept(ModItems.VOID_KEY);
 				event.accept(ModItems.GAIB_ROOT);
 				event.accept(ModItems.KARUSAKAN_ROOT);
@@ -292,6 +293,7 @@ import java.util.function.Predicate;
 				event.accept(ModItems.RUNE_OF_DEEP);
 				event.accept(ModItems.RUNE_OF_PYRO);
 				event.accept(ModItems.RUNE_OF_COLD);
+				event.accept(ModItems.DRAUGR_SPAWN_EGG);
 				event.accept(ModItems.GOBLIN_SPAWN_EGG);
 				event.accept(ModItems.MANNEQUIN_SPAWN_EGG);
 			}

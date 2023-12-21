@@ -124,6 +124,7 @@ public class DarkRPGClient {
 				Sheets.addWoodType(ModWoodTypes.SHADEWOOD);
 			});
 
+			EntityRenderers.register(ModEntityTypes.DRAUGR.get(), DraugrRenderer::new);
 			EntityRenderers.register(ModEntityTypes.GOBLIN.get(), GoblinRenderer::new);
 			//EntityRenderers.register(ModEntityTypes.SWAMP_WANDERER.get(), SwampWandererRenderer::new);
 			EntityRenderers.register(ModEntityTypes.MANNEQUIN.get(), MannequinRenderer::new);

@@ -30,6 +30,8 @@
   "tooltip.darkrpg.toxins": "Хороший способ умереть!",
   "tooltip.darkrpg.bloodsight": "Атакующий получит по заслугам... Каждая пролитая капля крови жаждет мести...",
   "tooltip.darkrpg.bloodsight_curse": "Невезуха, этот монокль не только проклят, а и сломан",
+  "tooltip.darkrpg.sarcophagus": "Осторожнее! Этот саркофаг оказался ловушкой. Защитись и не забудь заглянуть в него снова!",
+  "tooltip.darkrpg.page": "Current Page: ",
 
   "death.attack.bleeding": "%1$s потерял много крови",
   "death.attack.quicksand_suffocating": "%1$s провалился, как замок из песка, лишившись дыхания",
@@ -42,9 +44,12 @@
   "gui.darkrpg.about": "О странице",
   "gui.darkrpg.medicine": "Медицина",
   "gui.darkrpg.recipes": "Рецепты",
+  "gui.darkrpg.unavailable": "Unavailable",
   "gui.darkrpg.soon": "Скоро будет...",
   "gui.darkrpg.next": "Следующая страница",
   "gui.darkrpg.back": "Назад",
+  "gui.darkrpg.crypt": "Крипта",
+  "gui.darkrpg.crypt.desc": "Редкие структуры, появляющиеся в мире, полные опасностей, так что будьте осторожны, прежде чем входить и исследовать.",
   "gui.darkrpg.geodes": "Жеоды",
   "gui.darkrpg.geodes.desc": "Жеоды - это формации под землей, генерируемые в геодитах. Эти структуры содержат потенциал редких ресурсов. Чтобы открыть их сокровища, ломайте жеоды с помощью каменоломни.",
   "gui.darkrpg.aloe": "Создавайте бинты, используя кусочки алоэ и нити. Они предоставляют регенерацию, хотя и менее эффективную, чем обычная. Их улучшения на следующей странице.",
@@ -136,9 +141,15 @@
   "entity.darkrpg.swamp_wanderer": "Странник глубин",
   "entity.darkrpg.mannequin": "Манекен",
   "entity.darkrpg.goblin": "Гоблин",
+  "entity.darkrpg.draugr": "Драург",
   "entity.darkrpg.kunai": "Кунай",
   "entity.darkrpg.spectral_blade": "Спектральное лезвие",
   "entity.darkrpg.meat": "Кусок мяса",
+
+  "item.darkrpg.goblin_spawn_egg": "Яйцо призыва гоблина",
+  "item.darkrpg.draugr_spawn_egg": "Яйцо призыва драург",
+  "item.darkrpg.mannequin_spawn_egg": "Манекен",
+  "item.darkrpg.swamp_wanderer_spawn_egg": "Яйцо призыва странника болот",
 
   "effect.darkrpg.tipsy": "Опьянение",
   "effect.darkrpg.stun": "Оглушение",
@@ -384,10 +395,6 @@
   "item.darkrpg.crystal_stone_brick": "Кристальный кирпич",
   "item.darkrpg.void_stone_brick": "Пустотный кирпич",
 
-  "item.darkrpg.goblin_spawn_egg": "Яйцо призыва гоблина",
-  "item.darkrpg.mannequin_spawn_egg": "Манекен",
-  "item.darkrpg.swamp_wanderer_spawn_egg": "Яйцо призыва странника болот",
-
   "block.darkrpg.potted_aloe_small": "Алоэ в горшке",
   "block.darkrpg.potted_bloodroot": "Алые корни в горшке",
   "block.darkrpg.potted_crimson_goldy": "Златоцвет в горшке",
@@ -593,6 +600,5 @@
   "block.darkrpg.void_chiseled_brick_slab": "Резная плита из кирпича камня небытия",
   "block.darkrpg.void_chiseled_bricks_stairs": "Резные ступеньки из кирпичей небытия",
   "block.darkrpg.void_chiseled_bricks_slab": "Резная плита из кирпичей камня небытия",
-  "block.darkrpg.meat_block": "Мясной блок",
-  "tooltip.darkrpg.strength": ""
+  "block.darkrpg.meat_block": "Мясной блок"
 }
