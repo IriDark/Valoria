@@ -33,11 +33,11 @@ public class LexiconPageItem extends Item {
         ItemStack stack = player.getItemInHand(hand);
         player.awardStat(Stats.ITEM_USED.get(this));
         if (world.isClientSide) {
-            if (!LexiconGui.isCryptOpen(player)) {
+            if (!LexiconGui.isOpen(player, pages)) {
                 player.playSound(SoundEvents.PLAYER_LEVELUP, 1, 0);
                 player.getInventory().removeItem(stack);
                 Minecraft.getInstance().getToasts().addToast(new ModToast(true));
-                LexiconGui.setOpen(player, LexiconPages.CRYPT,true);
+                LexiconGui.makeOpen(player, pages,true);
                 return new InteractionResultHolder<>(InteractionResult.SUCCESS, stack);
             } else {
                 player.playSound(SoundEvents.PLAYER_BURP, 1, 0);

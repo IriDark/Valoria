@@ -6,6 +6,8 @@ import com.idark.darkrpg.command.build.CommandArgument;
 import com.idark.darkrpg.command.build.CommandBuilder;
 import com.idark.darkrpg.command.build.CommandPart;
 import com.idark.darkrpg.command.build.CommandVariant;
+import com.idark.darkrpg.network.PacketHandler;
+import com.idark.darkrpg.network.PageUpdatePacket;
 import com.idark.darkrpg.toast.ModToast;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
@@ -39,7 +41,7 @@ public class ModCommand {
 
     private static int givePage(CommandSourceStack command, Collection<? extends ServerPlayer> targetPlayers, LexiconPages pages) throws CommandSyntaxException {
         for(ServerPlayer player : targetPlayers) {
-            LexiconGui.setOpen(player, pages,true);
+            LexiconGui.makeOpen(player, pages,true);
             Minecraft.getInstance().getToasts().addToast(new ModToast(true));
 
             if (targetPlayers.size() == 1) {
@@ -47,6 +49,8 @@ public class ModCommand {
             } else {
                 command.sendSuccess(() -> Component.translatable("commands.darkrpg.page.give.multiple", targetPlayers.size()), true);
             }
+
+            PacketHandler.sendTo(player, new PageUpdatePacket(pages, true));
         }
 
         return Command.SINGLE_SUCCESS;
@@ -54,7 +58,7 @@ public class ModCommand {
 
     private static int removePage(CommandSourceStack command, Collection<? extends ServerPlayer> targetPlayers, LexiconPages pages) throws CommandSyntaxException {
         for(ServerPlayer player : targetPlayers) {
-            LexiconGui.setOpen(player, pages,false);
+            LexiconGui.makeOpen(player, pages,false);
             Minecraft.getInstance().getToasts().addToast(new ModToast(false));
 
             if (targetPlayers.size() == 1) {
@@ -62,6 +66,8 @@ public class ModCommand {
             } else {
                 command.sendSuccess(() -> Component.translatable("commands.darkrpg.page.remove.multiple", targetPlayers.size()), true);
             }
+
+            PacketHandler.sendTo(player, new PageUpdatePacket(pages, false));
         }
 
         return Command.SINGLE_SUCCESS;

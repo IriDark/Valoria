@@ -8,6 +8,7 @@ import com.idark.darkrpg.config.ClientConfig;
 import com.idark.darkrpg.damage.ModDamageSources;
 import com.idark.darkrpg.entity.projectile.KunaiEntity;
 import com.idark.darkrpg.entity.projectile.MeatBlockEntity;
+import com.idark.darkrpg.item.ModAttributes;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -43,6 +44,7 @@ public class CorpsecleaverItem extends Item implements Vanishable {
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
         builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", 6.0D, AttributeModifier.Operation.ADDITION));
         builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Tool modifier", (double) -2.4F, AttributeModifier.Operation.ADDITION));
+        builder.put(ModAttributes.PROJECTILE_DAMAGE.get(), new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", 4.0F, AttributeModifier.Operation.ADDITION));
         this.tridentAttributes = builder.build();
     }
 
@@ -128,17 +130,5 @@ public class CorpsecleaverItem extends Item implements Vanishable {
 
     public int getEnchantmentValue() {
         return 1;
-    }
-
-    @Override
-    public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags) {
-        super.appendHoverText(stack, world, tooltip, flags);
-        tooltip.add(Component.empty());
-        tooltip.add(Component.translatable("tooltip.darkrpg.attr").withStyle(ChatFormatting.GRAY));
-        tooltip.add(Component.literal(" 5 ").withStyle(ChatFormatting.DARK_GREEN).append(Component.translatable("tooltip.darkrpg.ranged_damage").withStyle(ChatFormatting.DARK_GREEN)));
-        if (stack.isEnchanted()) {
-            tooltip.add(Component.empty());
-            tooltip.add(Component.translatable("tooltip.darkrpg.encht").withStyle(ChatFormatting.GRAY));
-        }
     }
 }

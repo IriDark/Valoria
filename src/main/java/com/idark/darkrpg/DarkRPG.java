@@ -21,6 +21,7 @@ import com.idark.darkrpg.entity.custom.MannequinEntity;
 import com.idark.darkrpg.item.ModAttributes;
 import com.idark.darkrpg.item.ModItemGroup;
 import com.idark.darkrpg.item.ModItems;
+import com.idark.darkrpg.network.PacketHandler;
 import com.idark.darkrpg.paintings.ModPaintings;
 import com.idark.darkrpg.potion.ModPotions;
 import com.idark.darkrpg.tileentity.ModTileEntities;
@@ -110,6 +111,7 @@ public class DarkRPG {
 	}
 
 	private void setup(final FMLCommonSetupEvent event) {
+		PacketHandler.init();
 		ModPotions.bootStrap();
 		event.enqueueWork(() -> {
 			AxeItem.STRIPPABLES = new ImmutableMap.Builder<Block, Block>().putAll(AxeItem.STRIPPABLES)
