@@ -7,6 +7,9 @@ import com.idark.darkrpg.capability.IPage;
 import com.idark.darkrpg.client.event.ClientTickHandler;
 import com.idark.darkrpg.client.render.CorpsecleaverRender;
 import com.idark.darkrpg.client.render.DashOverlayRender;
+import com.idark.darkrpg.client.render.curio.BeltRenderer;
+import com.idark.darkrpg.client.render.curio.HandsRenderer;
+import com.idark.darkrpg.client.render.curio.NecklaceRenderer;
 import com.idark.darkrpg.client.render.gui.MagmaBarRender;
 import com.idark.darkrpg.client.render.gui.TooltipEventHandler;
 import com.idark.darkrpg.config.ClientConfig;
@@ -39,6 +42,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.data.event.GatherDataEvent;
@@ -50,12 +54,14 @@ import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotTypeMessage;
 import top.theillusivec4.curios.api.SlotTypePreset;
+import top.theillusivec4.curios.api.client.CuriosRendererRegistry;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -72,6 +78,7 @@ public class DarkRPG {
 		InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE, () -> SlotTypePreset.CHARM.getMessageBuilder().build());
 
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
+		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
 
 		IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
 		ModSoundRegistry.SOUNDS.register(eventBus);
@@ -108,6 +115,45 @@ public class DarkRPG {
 
 		MinecraftForge.EVENT_BUS.register(this);
 		MinecraftForge.EVENT_BUS.register(new Events());
+	}
+
+	private void clientSetup(final FMLClientSetupEvent event) {
+		event.enqueueWork(() -> {
+			CuriosRendererRegistry.register(ModItems.IRON_NECKLACE_AMBER.get(), NecklaceRenderer::new);
+			CuriosRendererRegistry.register(ModItems.IRON_NECKLACE_DIAMOND.get(), NecklaceRenderer::new);
+			CuriosRendererRegistry.register(ModItems.IRON_NECKLACE_EMERALD.get(), NecklaceRenderer::new);
+			CuriosRendererRegistry.register(ModItems.IRON_NECKLACE_RUBY.get(), NecklaceRenderer::new);
+			CuriosRendererRegistry.register(ModItems.IRON_NECKLACE_SAPPHIRE.get(), NecklaceRenderer::new);
+			CuriosRendererRegistry.register(ModItems.IRON_NECKLACE_ARMOR.get(), NecklaceRenderer::new);
+			CuriosRendererRegistry.register(ModItems.IRON_NECKLACE_HEALTH.get(), NecklaceRenderer::new);
+			CuriosRendererRegistry.register(ModItems.IRON_NECKLACE_WEALTH.get(), NecklaceRenderer::new);
+
+			CuriosRendererRegistry.register(ModItems.GOLDEN_NECKLACE_AMBER.get(), NecklaceRenderer::new);
+			CuriosRendererRegistry.register(ModItems.GOLDEN_NECKLACE_DIAMOND.get(), NecklaceRenderer::new);
+			CuriosRendererRegistry.register(ModItems.GOLDEN_NECKLACE_EMERALD.get(), NecklaceRenderer::new);
+			CuriosRendererRegistry.register(ModItems.GOLDEN_NECKLACE_RUBY.get(), NecklaceRenderer::new);
+			CuriosRendererRegistry.register(ModItems.GOLDEN_NECKLACE_SAPPHIRE.get(), NecklaceRenderer::new);
+			CuriosRendererRegistry.register(ModItems.GOLDEN_NECKLACE_ARMOR.get(), NecklaceRenderer::new);
+			CuriosRendererRegistry.register(ModItems.GOLDEN_NECKLACE_HEALTH.get(), NecklaceRenderer::new);
+			CuriosRendererRegistry.register(ModItems.GOLDEN_NECKLACE_WEALTH.get(), NecklaceRenderer::new);
+
+			CuriosRendererRegistry.register(ModItems.NETHERITE_NECKLACE_AMBER.get(), NecklaceRenderer::new);
+			CuriosRendererRegistry.register(ModItems.NETHERITE_NECKLACE_DIAMOND.get(), NecklaceRenderer::new);
+			CuriosRendererRegistry.register(ModItems.NETHERITE_NECKLACE_EMERALD.get(), NecklaceRenderer::new);
+			CuriosRendererRegistry.register(ModItems.NETHERITE_NECKLACE_RUBY.get(), NecklaceRenderer::new);
+			CuriosRendererRegistry.register(ModItems.NETHERITE_NECKLACE_SAPPHIRE.get(), NecklaceRenderer::new);
+			CuriosRendererRegistry.register(ModItems.NETHERITE_NECKLACE_ARMOR.get(), NecklaceRenderer::new);
+			CuriosRendererRegistry.register(ModItems.NETHERITE_NECKLACE_HEALTH.get(), NecklaceRenderer::new);
+			CuriosRendererRegistry.register(ModItems.NETHERITE_NECKLACE_WEALTH.get(), NecklaceRenderer::new);
+
+			CuriosRendererRegistry.register(ModItems.LEATHER_GLOVES.get(), HandsRenderer::new);
+			CuriosRendererRegistry.register(ModItems.IRON_GLOVES.get(), HandsRenderer::new);
+			CuriosRendererRegistry.register(ModItems.GOLDEN_GLOVES.get(), HandsRenderer::new);
+			CuriosRendererRegistry.register(ModItems.DIAMOND_GLOVES.get(), HandsRenderer::new);
+			CuriosRendererRegistry.register(ModItems.NETHERITE_GLOVES.get(), HandsRenderer::new);
+
+			CuriosRendererRegistry.register(ModItems.LEATHER_BELT.get(), BeltRenderer::new);
+		});
 	}
 
 	private void setup(final FMLCommonSetupEvent event) {

@@ -64,14 +64,14 @@ public class KeyPadBlock extends Block {
 	@Override
 	public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
 		super.neighborChanged(state, worldIn, pos, blockIn, fromPos, isMoving);
-			for (int i = -4; i <= 4; i++) {
-			for (int j = -4; j <= 4; j++) {
-            for (int k = -4; k <= 4; k++) {
-                BlockPos currentPos = pos.offset(i, j, k);
-                if (currentPos.distSqr(pos) <= 4 * 4 && canConnect(worldIn.getBlockState(currentPos), state)) {
-                    continue;
+        for (int xOffset = -3; xOffset <= 3; xOffset++) {
+            for (int yOffset = -3; yOffset <= 3; yOffset++) {
+                for (int zOffset = -3; zOffset <= 3; zOffset++) {
+                    BlockPos currentPos = pos.offset(xOffset, yOffset, zOffset);
+                    if (canConnect(worldIn.getBlockState(currentPos), state)) {
+                        continue;
 					} else {
-                    return;
+                        return;
 					}
 				}
 			}

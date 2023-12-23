@@ -2,6 +2,10 @@ package com.idark.darkrpg;
 
 import com.idark.darkrpg.block.ModBlocks;
 import com.idark.darkrpg.block.types.ModWoodTypes;
+import com.idark.darkrpg.client.render.curio.model.BeltModel;
+import com.idark.darkrpg.client.render.curio.model.HandsModel;
+import com.idark.darkrpg.client.render.curio.model.HandsModelDefault;
+import com.idark.darkrpg.client.render.curio.model.NecklaceModel;
 import com.idark.darkrpg.client.render.model.item.Item2DRenderer;
 import com.idark.darkrpg.client.render.model.tileentity.CrusherTileEntityRenderer;
 import com.idark.darkrpg.client.render.model.tileentity.PedestalTileEntityRenderer;
@@ -16,6 +20,7 @@ import com.idark.darkrpg.util.particle.SlashParticleType;
 import com.idark.darkrpg.util.particle.SparkleParticleType;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.ShaderInstance;
@@ -28,6 +33,7 @@ import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.ModelEvent;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.client.event.RegisterShadersEvent;
@@ -39,6 +45,10 @@ import java.io.IOException;
 
 public class DarkRPGClient {
 	public static ShaderInstance GLOWING_PARTICLE_SHADER, SPRITE_PARTICLE_SHADER;
+	public static ModelLayerLocation NECKLACE_LAYER = new ModelLayerLocation(new ResourceLocation(DarkRPG.MOD_ID, "necklace"), "main");
+	public static ModelLayerLocation HANDS_LAYER = new ModelLayerLocation(new ResourceLocation(DarkRPG.MOD_ID, "hands"), "main");
+	public static ModelLayerLocation HANDS_LAYER_SLIM = new ModelLayerLocation(new ResourceLocation(DarkRPG.MOD_ID, "hands_slim"), "main");
+	public static ModelLayerLocation BELT_LAYER = new ModelLayerLocation(new ResourceLocation(DarkRPG.MOD_ID, "belt"), "main");
 
 	public static ShaderInstance getGlowingParticleShader() {
 		return GLOWING_PARTICLE_SHADER;
@@ -156,6 +166,14 @@ public class DarkRPGClient {
 			if (ClientConfig.IN_HAND_MODELS_32X.get()) {
 				Item2DRenderer.onModelBakeEvent(event);
 			}
+		}
+
+		@SubscribeEvent
+		public static void onRegisterLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
+			event.registerLayerDefinition(DarkRPGClient.NECKLACE_LAYER, NecklaceModel::createBodyLayer);
+			event.registerLayerDefinition(DarkRPGClient.BELT_LAYER, BeltModel::createBodyLayer);
+			event.registerLayerDefinition(DarkRPGClient.HANDS_LAYER, HandsModelDefault::createBodyLayer);
+			event.registerLayerDefinition(DarkRPGClient.HANDS_LAYER_SLIM, HandsModel::createBodyLayer);
 		}
 
 		@OnlyIn(Dist.CLIENT)

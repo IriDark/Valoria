@@ -146,10 +146,6 @@ public class SarcoBlock extends HorizontalDirectionalBlock {
                     draugr.setItemInHand(hand, stacks[rand.nextInt(stacks.length)]);
                     if (isHalloween()) {
                         draugr.setItemSlot(EquipmentSlot.HEAD, halloween[rand.nextInt(halloween.length)]);
-                    } else {
-                        if (rand.nextFloat() <= 0.4) {
-                            draugr.setItemSlot(EquipmentSlot.HEAD, armor_head[rand.nextInt(armor_head.length)]);
-                        }
                     }
 
                     pLevel.addFreshEntity(draugr);

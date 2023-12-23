@@ -25,7 +25,7 @@ public class FogRenderer {
                 e.setFarPlaneDistance(1.5F);
             }
 
-            if (Minecraft.getInstance().options.getCameraType().isFirstPerson() && state.is(ModBlocks.QUICKSAND.get())){
+            if (Minecraft.getInstance().options.getCameraType().isFirstPerson() && state.is(ModBlocks.QUICKSAND.get())) {
                 e.setCanceled(true);
                 e.setNearPlaneDistance(0.0F);
                 e.setFarPlaneDistance(1.5F);
