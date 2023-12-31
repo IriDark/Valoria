@@ -1,0 +1,35 @@
+{
+  "display": {
+    "icon": {
+      "item": "valoria:green_tea_cup"
+    },
+    "title": {
+      "translate": "advancement.valoria:aloe_tea"
+    },
+    "description": {
+      "translate": "advancement.valoria:aloe_tea.desc"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "valoria:valoria/first_help",
+  "criteria": {
+    "tea": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "valoria:green_tea_cup"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "experience": 80
+  }
+}

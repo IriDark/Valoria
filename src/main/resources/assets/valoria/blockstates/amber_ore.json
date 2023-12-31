@@ -1,0 +1,10 @@
+{
+  "variants" : {
+    "" : [
+		{ "model": "valoria:block/amber_ore" },
+		{ "model": "valoria:block/amber_ore_1" },
+		{ "model": "valoria:block/amber_ore_mirror", "y": 180 },
+		{ "model": "valoria:block/amber_ore_1_mirror", "y": 180 }
+	]
+  }
+}

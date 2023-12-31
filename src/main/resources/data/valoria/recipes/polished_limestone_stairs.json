@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "/  ",
+    "// ",
+    "///"
+  ],
+  "key": {
+    "/": {
+      "item": "valoria:polished_limestone"
+    }
+  },
+  "result": {
+    "item": "valoria:polished_limestone_stairs",
+    "count": 6
+  }
+}

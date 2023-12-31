@@ -1,0 +1,6 @@
+{
+  "parent": "block/button_pressed",
+  "textures": {
+    "texture": "valoria:block/shadewood_planks"
+  }
+}

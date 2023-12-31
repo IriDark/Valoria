@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/stairs",
-  "textures": {
-    "bottom": "darkrpg:block/shadewood_planks",
-    "top": "darkrpg:block/shadewood_planks",
-    "side": "darkrpg:block/shadewood_planks"
-  }
-}

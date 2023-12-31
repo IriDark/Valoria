@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "///"
+  ],
+  "key": {
+    "/": {
+      "item": "valoria:polished_limestone"
+    }
+  },
+  "result": {
+    "item": "valoria:polished_limestone_slab",
+    "count": 6
+  }
+}

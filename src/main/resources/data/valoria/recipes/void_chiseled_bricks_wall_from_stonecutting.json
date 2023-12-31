@@ -1,0 +1,8 @@
+{
+    "type": "minecraft:stonecutting",
+    "count": 1,
+    "ingredient": {
+        "item": "valoria:void_chiseled_bricks"
+    },
+    "result": "valoria:void_chiseled_bricks_wall"
+}

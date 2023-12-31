@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=upper": {
+      "model": "valoria:block/aloe_top"
+    },
+    "half=lower": {
+      "model": "valoria:block/aloe"
+    }
+  }
+}

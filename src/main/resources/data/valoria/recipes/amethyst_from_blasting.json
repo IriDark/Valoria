@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "valoria:wicked_amethyst_ore"
+  },
+  "experience": 0.3,
+  "cookingtime": 120,
+  "result": "valoria:amethyst"
+}

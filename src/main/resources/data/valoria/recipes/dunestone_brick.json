@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "valoria:dunestone"
+  },
+  "result": "valoria:dunestone_brick",
+  "experience": 0.3,
+  "cookingtime": 200
+}

@@ -1,0 +1,20 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "valoria:block/void_stone"
+      },
+      {
+        "model": "valoria:block/void_stone_mirrored"
+      },
+      {
+        "model": "valoria:block/void_stone",
+        "y": 180
+      },
+      {
+        "model": "valoria:block/void_stone_mirrored",
+        "y": 180
+      }
+    ]
+  }
+}

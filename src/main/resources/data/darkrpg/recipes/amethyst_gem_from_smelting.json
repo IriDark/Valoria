@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:smelting",
-  "ingredient": {
-    "item": "darkrpg:amethyst_ore"
-  },
-  "experience": 0.3,
-  "cookingtime": 120,
-  "result": "darkrpg:amethyst_gem"
-}

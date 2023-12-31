@@ -1,0 +1,6 @@
+{
+    "parent": "valoria:item/aquarius_bow",
+    "textures": {
+        "layer0": "valoria:item/aquarius_bow_pulling_0"
+    }
+}

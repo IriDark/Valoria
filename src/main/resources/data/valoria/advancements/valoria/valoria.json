@@ -1,0 +1,28 @@
+{
+  "display": {
+    "icon": {
+      "item": "valoria:lexicon"
+    },
+    "title": {
+		"translate": "advancement.valoria:valoria"
+	},
+    "description": {
+		"translate": "advancement.valoria:valoria.desc"
+	},
+    "background": "valoria:textures/block/limestone.png",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "valoria_enter_world": {
+      "trigger": "minecraft:tick"
+    }
+  },
+  "rewards": {
+    "loot": [
+      "valoria:items/lexicon"
+    ]
+  }
+}

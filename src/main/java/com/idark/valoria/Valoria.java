@@ -1,0 +1,215 @@
+package com.idark.valoria;
+
+import com.google.common.collect.ImmutableMap;
+import com.idark.valoria.block.ModBlocks;
+import com.idark.valoria.block.types.ModWoodTypes;
+import com.idark.valoria.capability.IPage;
+import com.idark.valoria.client.event.ClientTickHandler;
+import com.idark.valoria.client.render.CorpsecleaverRender;
+import com.idark.valoria.client.render.DashOverlayRender;
+import com.idark.valoria.client.render.curio.BeltRenderer;
+import com.idark.valoria.client.render.curio.HandsRenderer;
+import com.idark.valoria.client.render.curio.NecklaceRenderer;
+import com.idark.valoria.client.render.gui.MagmaBarRender;
+import com.idark.valoria.client.render.gui.TooltipEventHandler;
+import com.idark.valoria.config.ClientConfig;
+import com.idark.valoria.datagen.ModGlobalLootModifiersProvider;
+import com.idark.valoria.datagen.ModWorldGenProvider;
+import com.idark.valoria.effect.ModEffects;
+import com.idark.valoria.enchant.ModEnchantments;
+import com.idark.valoria.entity.ModEntityTypes;
+import com.idark.valoria.entity.custom.DraugrEntity;
+import com.idark.valoria.entity.custom.GoblinEntity;
+import com.idark.valoria.entity.custom.MannequinEntity;
+import com.idark.valoria.item.ModAttributes;
+import com.idark.valoria.item.ModItemGroup;
+import com.idark.valoria.item.ModItems;
+import com.idark.valoria.item.staffs.StaffItem;
+import com.idark.valoria.network.PacketHandler;
+import com.idark.valoria.paintings.ModPaintings;
+import com.idark.valoria.potion.ModPotions;
+import com.idark.valoria.tileentity.ModTileEntities;
+import com.idark.valoria.util.LootUtil;
+import com.idark.valoria.util.ModSoundRegistry;
+import com.idark.valoria.util.WorldRenderHandler;
+import com.idark.valoria.util.particle.ModParticles;
+import com.idark.valoria.world.WorldGen;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
+import net.minecraft.world.entity.SpawnPlacements;
+import net.minecraft.world.item.AxeItem;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.properties.WoodType;
+import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
+import net.minecraftforge.data.event.GatherDataEvent;
+import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.fml.InterModComms;
+import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import top.theillusivec4.curios.api.CuriosApi;
+import top.theillusivec4.curios.api.SlotTypeMessage;
+import top.theillusivec4.curios.api.SlotTypePreset;
+import top.theillusivec4.curios.api.client.CuriosRendererRegistry;
+
+import java.util.concurrent.CompletableFuture;
+
+@Mod(Valoria.MOD_ID)
+public class Valoria {
+	public static final String MOD_ID = "valoria";
+
+	public Valoria() {
+		InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE, () -> SlotTypePreset.RING.getMessageBuilder().build());
+		InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE, () -> SlotTypePreset.BELT.getMessageBuilder().build());
+		InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE, () -> SlotTypePreset.HANDS.getMessageBuilder().build());
+		InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE, () -> SlotTypePreset.NECKLACE.getMessageBuilder().build());
+		InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE, () -> SlotTypePreset.HEAD.getMessageBuilder().build());
+		InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE, () -> SlotTypePreset.CHARM.getMessageBuilder().build());
+
+		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
+		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
+
+		IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
+		ModSoundRegistry.SOUNDS.register(eventBus);
+		ModEffects.register(eventBus);
+		ModEnchantments.register(eventBus);
+		ModPaintings.register(eventBus);
+		ModAttributes.register(eventBus);
+		ModPotions.register(eventBus);
+		ModItems.register(eventBus);
+		ModBlocks.register(eventBus);
+		ModTileEntities.register(eventBus);
+		ModEntityTypes.register(eventBus);
+		ModParticles.register(eventBus);
+		LootUtil.register(eventBus);
+
+		IEventBus forgeBus = MinecraftForge.EVENT_BUS;
+
+		ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ClientConfig.SPEC);
+		forgeBus.register(new WorldGen());
+		DistExecutor.unsafeCallWhenOn(Dist.CLIENT, () -> () -> {
+			forgeBus.addListener(ClientTickHandler::clientTickEnd);
+			forgeBus.addListener(WorldRenderHandler::onRenderWorldLast);
+			forgeBus.addListener(DashOverlayRender::tick);
+			forgeBus.addListener(DashOverlayRender::onDrawScreenPost);
+			forgeBus.addListener(CorpsecleaverRender::tick);
+			forgeBus.addListener(CorpsecleaverRender::onDrawScreenPost);
+			forgeBus.addListener(MagmaBarRender::onDrawScreenPost);
+			forgeBus.addListener(StaffItem::onDrawScreenPost);
+			forgeBus.addListener(TooltipEventHandler::onPostTooltipEvent);
+			return new Object();
+		});
+
+		ModItemGroup.register(eventBus);
+		eventBus.addListener(ModItemGroup::addCreative);
+
+		MinecraftForge.EVENT_BUS.register(this);
+		MinecraftForge.EVENT_BUS.register(new Events());
+	}
+
+	private void clientSetup(final FMLClientSetupEvent event) {
+		event.enqueueWork(() -> {
+			CuriosRendererRegistry.register(ModItems.IRON_NECKLACE_AMBER.get(), NecklaceRenderer::new);
+			CuriosRendererRegistry.register(ModItems.IRON_NECKLACE_DIAMOND.get(), NecklaceRenderer::new);
+			CuriosRendererRegistry.register(ModItems.IRON_NECKLACE_EMERALD.get(), NecklaceRenderer::new);
+			CuriosRendererRegistry.register(ModItems.IRON_NECKLACE_RUBY.get(), NecklaceRenderer::new);
+			CuriosRendererRegistry.register(ModItems.IRON_NECKLACE_SAPPHIRE.get(), NecklaceRenderer::new);
+			CuriosRendererRegistry.register(ModItems.IRON_NECKLACE_ARMOR.get(), NecklaceRenderer::new);
+			CuriosRendererRegistry.register(ModItems.IRON_NECKLACE_HEALTH.get(), NecklaceRenderer::new);
+			CuriosRendererRegistry.register(ModItems.IRON_NECKLACE_WEALTH.get(), NecklaceRenderer::new);
+
+			CuriosRendererRegistry.register(ModItems.GOLDEN_NECKLACE_AMBER.get(), NecklaceRenderer::new);
+			CuriosRendererRegistry.register(ModItems.GOLDEN_NECKLACE_DIAMOND.get(), NecklaceRenderer::new);
+			CuriosRendererRegistry.register(ModItems.GOLDEN_NECKLACE_EMERALD.get(), NecklaceRenderer::new);
+			CuriosRendererRegistry.register(ModItems.GOLDEN_NECKLACE_RUBY.get(), NecklaceRenderer::new);
+			CuriosRendererRegistry.register(ModItems.GOLDEN_NECKLACE_SAPPHIRE.get(), NecklaceRenderer::new);
+			CuriosRendererRegistry.register(ModItems.GOLDEN_NECKLACE_ARMOR.get(), NecklaceRenderer::new);
+			CuriosRendererRegistry.register(ModItems.GOLDEN_NECKLACE_HEALTH.get(), NecklaceRenderer::new);
+			CuriosRendererRegistry.register(ModItems.GOLDEN_NECKLACE_WEALTH.get(), NecklaceRenderer::new);
+
+			CuriosRendererRegistry.register(ModItems.NETHERITE_NECKLACE_AMBER.get(), NecklaceRenderer::new);
+			CuriosRendererRegistry.register(ModItems.NETHERITE_NECKLACE_DIAMOND.get(), NecklaceRenderer::new);
+			CuriosRendererRegistry.register(ModItems.NETHERITE_NECKLACE_EMERALD.get(), NecklaceRenderer::new);
+			CuriosRendererRegistry.register(ModItems.NETHERITE_NECKLACE_RUBY.get(), NecklaceRenderer::new);
+			CuriosRendererRegistry.register(ModItems.NETHERITE_NECKLACE_SAPPHIRE.get(), NecklaceRenderer::new);
+			CuriosRendererRegistry.register(ModItems.NETHERITE_NECKLACE_ARMOR.get(), NecklaceRenderer::new);
+			CuriosRendererRegistry.register(ModItems.NETHERITE_NECKLACE_HEALTH.get(), NecklaceRenderer::new);
+			CuriosRendererRegistry.register(ModItems.NETHERITE_NECKLACE_WEALTH.get(), NecklaceRenderer::new);
+
+			CuriosRendererRegistry.register(ModItems.LEATHER_GLOVES.get(), HandsRenderer::new);
+			CuriosRendererRegistry.register(ModItems.IRON_GLOVES.get(), HandsRenderer::new);
+			CuriosRendererRegistry.register(ModItems.GOLDEN_GLOVES.get(), HandsRenderer::new);
+			CuriosRendererRegistry.register(ModItems.DIAMOND_GLOVES.get(), HandsRenderer::new);
+			CuriosRendererRegistry.register(ModItems.NETHERITE_GLOVES.get(), HandsRenderer::new);
+
+			CuriosRendererRegistry.register(ModItems.LEATHER_BELT.get(), BeltRenderer::new);
+		});
+	}
+
+	private void setup(final FMLCommonSetupEvent event) {
+		PacketHandler.init();
+		ModPotions.bootStrap();
+		event.enqueueWork(() -> {
+			AxeItem.STRIPPABLES = new ImmutableMap.Builder<Block, Block>().putAll(AxeItem.STRIPPABLES)
+			.put(ModBlocks.SHADELOG.get(), ModBlocks.STRIPPED_SHADELOG.get())
+			.put(ModBlocks.SHADEWOOD.get(), ModBlocks.STRIPPED_SHADEWOOD.get()).build();
+
+			WoodType.register(ModWoodTypes.SHADEWOOD);
+		});
+	}
+	private void processIMC(final InterModProcessEvent event) {
+		// some example code to receive and process InterModComms from other mods
+	}
+
+	@Mod.EventBusSubscriber(bus=Mod.EventBusSubscriber.Bus.MOD)
+	public static class RegistryEvents {
+
+		@SubscribeEvent
+		public static void registerCaps(RegisterCapabilitiesEvent event) {
+			event.register(IPage.class);
+		}
+
+		@SubscribeEvent
+		public static void commonSetup(FMLCommonSetupEvent event) {
+			event.enqueueWork(() -> {
+				SpawnPlacements.register(ModEntityTypes.GOBLIN.get(),
+						SpawnPlacements.Type.ON_GROUND,
+						Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+						GoblinEntity::checkGoblinSpawnRules);
+
+				SpawnPlacements.register(ModEntityTypes.DRAUGR.get(),
+						SpawnPlacements.Type.ON_GROUND,
+						Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+						DraugrEntity::checkMonsterSpawnRules);
+			});
+		}
+
+		@SubscribeEvent
+		public static void registerAttributes(EntityAttributeCreationEvent event) {
+			event.put(ModEntityTypes.MANNEQUIN.get(), MannequinEntity.createAttributes().build());
+			event.put(ModEntityTypes.GOBLIN.get(), GoblinEntity.createAttributes().build());
+			event.put(ModEntityTypes.DRAUGR.get(), GoblinEntity.createAttributes().build());
+		}
+
+		@SubscribeEvent
+		public static void gatherData(GatherDataEvent event) {
+			DataGenerator generator = event.getGenerator();
+			PackOutput packOutput = generator.getPackOutput();
+			CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
+
+			generator.addProvider(event.includeServer(), new ModWorldGenProvider(packOutput, lookupProvider));
+			generator.addProvider(event.includeServer(), new ModGlobalLootModifiersProvider(packOutput));
+		}
+	}
+}

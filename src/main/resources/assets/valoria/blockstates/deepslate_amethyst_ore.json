@@ -1,0 +1,13 @@
+{
+  "variants" : {
+    "" : [
+		{ "model": "valoria:block/deepslate_amethyst_ore" },
+		{ "model": "valoria:block/deepslate_amethyst_ore_1" },
+		{ "model": "valoria:block/deepslate_amethyst_ore_2" },
+		{ "model": "valoria:block/deepslate_amethyst_ore_mirror", "y": 180 },
+		{ "model": "valoria:block/deepslate_amethyst_ore_1_mirror", "y": 180 },
+		{ "model": "valoria:block/deepslate_amethyst_ore_2_mirror", "y": 180 }
+
+	]
+  }
+}

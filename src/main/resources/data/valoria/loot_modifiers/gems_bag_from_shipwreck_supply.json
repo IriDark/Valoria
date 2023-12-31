@@ -1,0 +1,11 @@
+{
+  "type": "valoria:add_item",
+  "chance": 0.2,
+  "conditions": [
+    {
+      "condition": "forge:loot_table_id",
+      "loot_table_id": "minecraft:chests/shipwreck_supply"
+    }
+  ],
+  "item": "valoria:gem_bag"
+}

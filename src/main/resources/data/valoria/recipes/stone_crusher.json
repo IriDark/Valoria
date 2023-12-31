@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "///",
+    "XOX",
+    "XTX"
+  ],
+  "key": {
+    "/": {
+      "item": "minecraft:stone"
+    },
+    "T": {
+      "item": "minecraft:iron_ingot"
+    },
+    "O": {
+      "tag": "valoria:geodes"
+    },
+    "X": {
+      "tag": "minecraft:logs"
+    }
+  },
+  "result": {
+    "item": "valoria:stone_crusher",
+    "count": 1
+  }
+}

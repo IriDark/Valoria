@@ -1,0 +1,17 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "   ",
+        "///",
+        "// "
+    ],
+    "key": {
+        "/": {
+		"item": "minecraft:clay"
+		}
+	},
+    "result": {
+        "item": "valoria:cup",
+        "count": 1
+	}
+}

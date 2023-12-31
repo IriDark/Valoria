@@ -1,0 +1,6 @@
+{
+    "parent": "block/cube_mirrored_all",
+    "textures": {
+        "all": "valoria:block/deepslate_amber_ore"
+    }
+}

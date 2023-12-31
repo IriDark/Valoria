@@ -1,0 +1,14 @@
+{
+    "parent" : "item/handheld",
+    "textures" : {
+        "layer0" : "valoria:item/spectral_blade"
+    },
+    "overrides": [
+        {
+        "predicate": {
+            "itemcooldown": 1
+        },
+        "model": "valoria:item/spectral_blade_cooldown"
+        }
+    ]
+}

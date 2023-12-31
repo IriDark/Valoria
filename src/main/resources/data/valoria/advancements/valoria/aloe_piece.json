@@ -1,0 +1,35 @@
+{
+  "display": {
+    "icon": {
+      "item": "valoria:aloe_piece"
+    },
+    "title": {
+      "translate": "advancement.valoria:aloe"
+    },
+    "description": {
+      "translate": "advancement.valoria:aloe.desc"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "valoria:valoria/valoria",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "valoria:aloe_piece"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "experience": 80
+  }
+}

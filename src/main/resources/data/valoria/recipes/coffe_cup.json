@@ -1,0 +1,20 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        " X ",
+        " X ",
+        " / "
+    ],
+    "key": {
+        "/": {
+		"item": "valoria:cup"
+    },
+		"X": {
+		"item": "minecraft:cocoa_beans"
+		}
+	},
+    "result": {
+        "item": "valoria:coffe_cup",
+        "count": 1
+	}
+}

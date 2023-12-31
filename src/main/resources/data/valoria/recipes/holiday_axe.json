@@ -1,0 +1,20 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "XX ",
+        "X/ ",
+        " / "
+    ],
+    "key": {
+        "X": {
+            "item": "valoria:holiday_candy"
+        },
+        "/": {
+            "item": "minecraft:stick"
+        }
+    },
+    "result": {
+        "item": "valoria:holiday_axe",
+        "count": 1
+    }
+}

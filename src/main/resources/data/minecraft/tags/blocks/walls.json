@@ -1,20 +1,20 @@
 {
   "replace": false,
   "values": [
-  	"darkrpg:ambane_stone_wall",
-	"darkrpg:ambane_stone_bricks_wall",
-	"darkrpg:dunestone_wall",
-	"darkrpg:dunestone_bricks_wall",
-	"darkrpg:limestone_wall",
-	"darkrpg:limestone_bricks_wall",
-	"darkrpg:void_stone_wall",
-	"darkrpg:void_brick_wall",
-	"darkrpg:void_cracked_brick_wall",
-	"darkrpg:tombstone_wall",
-	"darkrpg:tombstone_bricks_wall",
-	"darkrpg:crystal_stone_wall",
-	"darkrpg:crystal_stone_bricks_wall",	
-	"darkrpg:cracked_tombstone_bricks_wall",
-	"darkrpg:cracked_limestone_bricks_wall"
+  	"valoria:ambane_stone_wall",
+	"valoria:ambane_stone_bricks_wall",
+	"valoria:dunestone_wall",
+	"valoria:dunestone_bricks_wall",
+	"valoria:limestone_wall",
+	"valoria:limestone_bricks_wall",
+	"valoria:void_stone_wall",
+	"valoria:void_brick_wall",
+	"valoria:void_cracked_brick_wall",
+	"valoria:tombstone_wall",
+	"valoria:tombstone_bricks_wall",
+	"valoria:crystal_stone_wall",
+	"valoria:crystal_stone_bricks_wall",
+	"valoria:cracked_tombstone_bricks_wall",
+	"valoria:cracked_limestone_bricks_wall"
   ]
 }

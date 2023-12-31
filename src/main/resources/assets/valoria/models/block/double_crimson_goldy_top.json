@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "valoria:block/double_crimson_goldy_top"
+  }
+}

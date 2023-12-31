@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "/X/"
+  ],
+  "key": {
+    "/": {
+      "item": "valoria:bronze_ingot"
+    },
+    "X": {
+      "item": "minecraft:glass"
+    }
+  },
+  "result": {
+    "item": "valoria:bronze_trapdoor_glass",
+    "count": 1
+  }
+}

@@ -1,0 +1,17 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "   ",
+        "   ",
+        "///"
+    ],
+    "key": {
+        "/": {
+            "item": "valoria:cut_bronze"
+        }
+    },
+    "result": {
+        "item": "valoria:cut_bronze_slab",
+        "count": 6
+    }
+}

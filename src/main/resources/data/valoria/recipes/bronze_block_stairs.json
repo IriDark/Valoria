@@ -1,0 +1,17 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "/  ",
+        "// ",
+        "///"
+    ],
+    "key": {
+        "/": {
+            "item": "valoria:bronze_block"
+        }
+    },
+    "result": {
+        "item": "valoria:bronze_block_stairs",
+        "count": 4
+    }
+}

@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "darkrpg:geodite_dirt",
-    "darkrpg:quicksand"
+    "valoria:geodite_dirt",
+    "valoria:quicksand"
   ]
 }

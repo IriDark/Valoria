@@ -1,0 +1,30 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "valoria:block/ruby_crystal",
+      "x": 180
+    },
+    "facing=east": {
+      "model": "valoria:block/ruby_crystal",
+      "x": 90,
+      "y": 90
+    },
+    "facing=north": {
+      "model": "valoria:block/ruby_crystal",
+      "x": 90
+    },
+    "facing=south": {
+      "model": "valoria:block/ruby_crystal",
+      "x": 90,
+      "y": 180
+    },
+    "facing=up": {
+      "model": "valoria:block/ruby_crystal"
+    },
+    "facing=west": {
+      "model": "valoria:block/ruby_crystal",
+      "x": 90,
+      "y": 270
+    }
+  }
+}

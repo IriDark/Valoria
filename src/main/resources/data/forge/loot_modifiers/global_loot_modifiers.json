@@ -1,13 +1,13 @@
 {
   "entries": [
-    "darkrpg:gems_bag_from_abandoned_mineshaft",
-    "darkrpg:miners_bag_from_abandoned_mineshaft",
-    "darkrpg:miners_bag_from_underwater_ruin_small",
-    "darkrpg:gems_bag_from_buried_treasure",
-    "darkrpg:gems_bag_from_shipwreck_supply",
-    "darkrpg:miners_bag_from_buried_treasure",
-    "darkrpg:gems_bag_from_shipwreck_treasure",
-    "darkrpg:miners_bag_from_underwater_ruin_big"
+    "valoria:gems_bag_from_abandoned_mineshaft",
+    "valoria:miners_bag_from_abandoned_mineshaft",
+    "valoria:miners_bag_from_underwater_ruin_small",
+    "valoria:gems_bag_from_buried_treasure",
+    "valoria:gems_bag_from_shipwreck_supply",
+    "valoria:miners_bag_from_buried_treasure",
+    "valoria:gems_bag_from_shipwreck_treasure",
+    "valoria:miners_bag_from_underwater_ruin_big"
   ],
   "replace": false
 }

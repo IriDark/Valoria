@@ -1,0 +1,19 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "/#",
+        "#/"
+    ],
+    "key": {
+        "#": {
+		"item": "valoria:aloe_bandage"
+		},
+		"/": {
+		"item": "minecraft:redstone"
+		}
+    },
+    "result": {
+        "item": "valoria:aloe_bandage_upgraded",
+        "count": 2
+	}
+}

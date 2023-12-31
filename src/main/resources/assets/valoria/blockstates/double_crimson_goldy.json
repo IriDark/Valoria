@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=upper": {
+      "model": "valoria:block/double_crimson_goldy_top"
+    },
+    "half=lower": {
+      "model": "valoria:block/double_crimson_goldy"
+    }
+  }
+}

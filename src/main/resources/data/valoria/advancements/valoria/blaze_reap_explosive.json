@@ -1,0 +1,36 @@
+{
+  "display": {
+    "icon": {
+      "item": "valoria:blaze_reap"
+    },
+    "title": {
+      "translate": "advancement.valoria:blaze_reap_explosive"
+    },
+    "description": {
+      "translate": "advancement.valoria:blaze_reap_explosive.desc"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": true
+  },
+  "parent": "valoria:valoria/blaze_reap",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:enchanted_item",
+      "conditions": {
+        "item": {
+          "items": [
+            "valoria:valoria"
+          ],
+          "enchantments": [
+            {
+              "enchantment": "valoria:explosive_flame",
+              "levels": 1
+            }
+          ]
+        }
+      }
+    }
+  }
+}

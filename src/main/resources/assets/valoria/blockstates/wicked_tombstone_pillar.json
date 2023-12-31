@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "valoria:block/wicked_tombstone_pillar",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "valoria:block/wicked_tombstone_pillar"
+    },
+    "axis=z": {
+      "model": "valoria:block/wicked_tombstone_pillar",
+      "x": 90
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "valoria:ambane_stone"
+  },
+  "result": "valoria:ambane_stone_brick",
+  "experience": 0.3,
+  "cookingtime": 200
+}

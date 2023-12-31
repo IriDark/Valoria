@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/outer_stairs",
-  "textures": {
-    "bottom": "darkrpg:block/void_stone",
-    "top": "darkrpg:block/void_stone",
-    "side": "darkrpg:block/void_stone"
-  }
-}

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "valoria:block/polished_ambane_stone",
+    "top": "valoria:block/polished_ambane_stone",
+    "side": "valoria:block/polished_ambane_stone"
+  }
+}

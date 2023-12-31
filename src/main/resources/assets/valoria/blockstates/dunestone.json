@@ -1,0 +1,20 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "valoria:block/dunestone"
+      },
+      {
+        "model": "valoria:block/dunestone_mirrored"
+      },
+      {
+        "model": "valoria:block/dunestone",
+        "y": 180
+      },
+      {
+        "model": "valoria:block/dunestone_mirrored",
+        "y": 180
+      }
+    ]
+  }
+}

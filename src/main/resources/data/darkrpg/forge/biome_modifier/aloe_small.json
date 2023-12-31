@@ -1,6 +1,0 @@
-{
-  "type": "forge:add_features",
-  "biomes": "#forge:is_desert",
-  "features": "darkrpg:aloe_small",
-  "step": "vegetal_decoration"
-}

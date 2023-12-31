@@ -1,6 +1,0 @@
-{
-    "parent": "block/cube_all",
-    "textures": {
-        "all": "darkrpg:block/cut_polished_crystal_stone"
-    }
-}

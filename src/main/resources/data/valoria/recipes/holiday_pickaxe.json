@@ -1,0 +1,23 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "XOX",
+        " / ",
+        " / "
+    ],
+    "key": {
+        "X": {
+            "item": "valoria:holiday_candy"
+        },
+        "O": {
+            "item": "minecraft:sweet_berries"
+        },
+        "/": {
+            "item": "minecraft:stick"
+        }
+    },
+    "result": {
+        "item": "valoria:holiday_pickaxe",
+        "count": 1
+    }
+}

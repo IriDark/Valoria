@@ -1,6 +1,0 @@
-{
-  "parent": "darkrpg:item/glaive_large",
-  "textures": {
-    "layer0": "darkrpg:item/glaive_in_hand"
-  }
-}

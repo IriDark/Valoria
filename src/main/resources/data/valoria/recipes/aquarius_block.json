@@ -1,0 +1,17 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "///",
+        "///",
+        "///"
+    ],
+    "key": {
+        "/": {
+            "item": "valoria:aquarius_ingot"
+        }
+    },
+    "result": {
+        "item": "valoria:aquarius_block",
+        "count": 1
+    }
+}

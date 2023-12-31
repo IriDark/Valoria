@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "valoria:block/tombstone_pillar_end",
+    "side": "valoria:block/cut_tombstone_pillar"
+  }
+}

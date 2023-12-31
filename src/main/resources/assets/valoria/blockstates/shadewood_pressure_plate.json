@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "powered=false": { "model": "valoria:block/shadewood_pressure_plate" },
+    "powered=true": { "model": "valoria:block/shadewood_pressure_plate_down" }
+  }
+}

@@ -1,6 +1,0 @@
-{
-    "parent": "darkrpg:item/samurai_long_bow",
-    "textures": {
-        "layer0": "darkrpg:item/samurai_long_bow_pulling_0"
-    }
-}

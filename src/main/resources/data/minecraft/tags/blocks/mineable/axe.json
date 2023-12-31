@@ -1,18 +1,18 @@
 {
   "replace": false,
   "values": [
-    "darkrpg:shadewood_door",
-    "darkrpg:shadewood_trapdoor",
-    "darkrpg:shadewood_pressure_plate",
-    "darkrpg:shadewood_button",
-    "darkrpg:shadelog",
-    "darkrpg:stripped_shadelog",
-    "darkrpg:shadewood",
-    "darkrpg:stripped_shadewood",
-    "darkrpg:shadewood_planks",
-    "darkrpg:shadewood_planks_slab",
-    "darkrpg:shadewood_planks_stairs",
-    "darkrpg:shadewood_sign",
-    "darkrpg:shadewood_wall_sign"
+    "valoria:shadewood_door",
+    "valoria:shadewood_trapdoor",
+    "valoria:shadewood_pressure_plate",
+    "valoria:shadewood_button",
+    "valoria:shadelog",
+    "valoria:stripped_shadelog",
+    "valoria:shadewood",
+    "valoria:stripped_shadewood",
+    "valoria:shadewood_planks",
+    "valoria:shadewood_planks_slab",
+    "valoria:shadewood_planks_stairs",
+    "valoria:shadewood_sign",
+    "valoria:shadewood_wall_sign"
   ]
 }

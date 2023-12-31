@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "awakened=0": {
+		"model" : "valoria:block/infernal_block"
+	},
+	"awakened=1": {
+		"model" : "valoria:block/awakened_infernal_block"
+	}
+  }
+}

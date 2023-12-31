@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "valoria:block/ambane_stone",
+    "top": "valoria:block/ambane_stone",
+    "side": "valoria:block/ambane_stone"
+  }
+}

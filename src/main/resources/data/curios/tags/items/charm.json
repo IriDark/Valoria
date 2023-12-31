@@ -1,10 +1,10 @@
 {
   "replace": false,
   "values": [
-    "darkrpg:rune_of_pyro",
-	"darkrpg:rune_of_vision",
-    "darkrpg:rune_of_curses",
-    "darkrpg:bloodsight_monocle",
-    "darkrpg:broken_bloodsight_monocle"
+    "valoria:rune_of_pyro",
+	"valoria:rune_of_vision",
+    "valoria:rune_of_curses",
+    "valoria:bloodsight_monocle",
+    "valoria:broken_bloodsight_monocle"
   ]
 }

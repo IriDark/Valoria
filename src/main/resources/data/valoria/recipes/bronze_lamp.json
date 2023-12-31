@@ -1,0 +1,20 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "///",
+        "X/X",
+        "///"
+    ],
+    "key": {
+        "/": {
+            "item": "valoria:bronze_ingot"
+        },
+		 "X": {
+            "item": "minecraft:redstone"
+        }
+    },
+    "result": {
+        "item": "valoria:bronze_lamp",
+        "count": 1
+    }
+}

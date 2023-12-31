@@ -1,0 +1,16 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "///",
+        "///"
+    ],
+    "key": {
+        "/": {
+            "item": "valoria:dunestone_bricks"
+        }
+    },
+    "result": {
+        "item": "valoria:dunestone_bricks_wall",
+        "count": 6
+    }
+}

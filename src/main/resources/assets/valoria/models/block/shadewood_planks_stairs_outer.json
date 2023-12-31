@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "valoria:block/shadewood_planks",
+    "top": "valoria:block/shadewood_planks",
+    "side": "valoria:block/shadewood_planks"
+  }
+}

@@ -3,31 +3,31 @@ loaderVersion = "[36,)"
 license = "Apache-2.0"
 issueTrackerURL = "" 
 [[mods]] 
-  modId = "darkrpg" 
+  modId = "valoria"
   version = "1.20.1-build-0.5.0.1_b"
-  displayName = "DarkRPG" 
+  displayName = "Valoria"
   updateJSONURL="" 
   displayURL = "https://discord.gg/wWdXpwuPmK" 
-  logoFile = "DarkRPG_Logo.png"
+  logoFile = "Valoria_Logo.png"
   credits = "Calamity Mod (sounds)"
   authors = "iDark, MaxBogomol"
   description = '''
-DarkRPG — A big RPG themed project that adds some mobs, blocks, weapons, and some bunch of content in "vanilla" texture style
+Valoria — A big RPG themed project that adds some mobs, blocks, weapons, and some bunch of content in "vanilla" texture style
 Special Thanks: .sweetberries, GraFik, It's Cat, Astemir, WOSAJ, Vuzz, Auriny, Arky Fursblack, FoxPlane, Rainach, Feimos.
 '''
-    [[dependencies.darkrpg]]
+    [[dependencies.valoria]]
   modId = "forge"
   mandatory = true
   versionRange = "[36,)"
   ordering = "NONE"
   side = "BOTH"
-    [[dependencies.darkrpg]]
+    [[dependencies.valoria]]
 		modId = "minecraft"
 		mandatory = true
 		versionRange = "[1.20.1,1.21)"
 		ordering = "NONE"
 		side = "BOTH"
-    [[dependencies.darkrpg]]
+    [[dependencies.valoria]]
 		modId="curios"
 		mandatory=true
 		versionRange="[5.2.0-beta.3+1.20.1,)"

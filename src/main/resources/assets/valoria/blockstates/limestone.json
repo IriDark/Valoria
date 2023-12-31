@@ -1,0 +1,20 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "valoria:block/limestone"
+      },
+      {
+        "model": "valoria:block/limestone_mirrored"
+      },
+      {
+        "model": "valoria:block/limestone",
+        "y": 180
+      },
+      {
+        "model": "valoria:block/limestone_mirrored",
+        "y": 180
+      }
+    ]
+  }
+}

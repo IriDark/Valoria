@@ -1,0 +1,17 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "///",
+        "///",
+        "///"
+    ],
+    "key": {
+        "/": {
+            "item": "valoria:nature_ingot"
+        }
+    },
+    "result": {
+        "item": "valoria:nature_block",
+        "count": 1
+    }
+}

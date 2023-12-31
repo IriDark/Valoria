@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": {
+    "item": "minecraft:diamond"
+  },
+  "base": {
+    "tag": "valoria:rapier_craft"
+  },
+  "result": {
+    "item": "valoria:diamond_rapier"
+  },
+  "template": {
+    "item": "minecraft:diamond"
+  }
+}

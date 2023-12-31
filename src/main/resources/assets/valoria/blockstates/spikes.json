@@ -1,0 +1,30 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "valoria:block/spikes",
+      "x": 180
+    },
+    "facing=east": {
+      "model": "valoria:block/spikes",
+      "x": 90,
+      "y": 90
+    },
+    "facing=north": {
+      "model": "valoria:block/spikes",
+      "x": 90
+    },
+    "facing=south": {
+      "model": "valoria:block/spikes",
+      "x": 90,
+      "y": 180
+    },
+    "facing=up": {
+      "model": "valoria:block/spikes"
+    },
+    "facing=west": {
+      "model": "valoria:block/spikes",
+      "x": 90,
+      "y": 270
+    }
+  }
+}

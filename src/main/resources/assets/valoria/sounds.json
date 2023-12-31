@@ -1,0 +1,107 @@
+{
+  "item.disappear.ambient": {
+    "subtitle": "Spectral Blade Disappear",
+    "replace": "true",
+    "sounds": [
+      "valoria:spectral/disappear"
+    ]
+  },
+  "item.curse.ambient": {
+    "subtitle": "Cursed Bloodsight",
+    "replace": "true",
+    "sounds": [
+      "valoria:bloodsight/equip_curse"
+    ]
+  },
+  "item.repair.ambient": {
+    "subtitle": "Curse lost it's strenght...",
+    "replace": "true",
+    "sounds": [
+      "valoria:bloodsight/repair"
+    ]
+  },
+  "item.magic.use": {
+    "subtitle": "Magic",
+    "replace": "true",
+    "sounds": [
+      "valoria:magic"
+    ]
+  },
+  "item.swiftslice.use": {
+    "subtitle": "Dash",
+    "replace": "true",
+    "sounds": [
+      "valoria:swiftslice"
+    ]
+  },
+  "item.recharge.use": {
+    "subtitle": "Recharge",
+    "replace": "true",
+    "sounds": [
+      "valoria:recharge"
+    ]
+  },
+  "item.blazecharge.use": {
+    "subtitle": "Charge",
+    "replace": "true",
+    "sounds": [
+      "valoria:blazecharge"
+    ]
+  },
+  "item.eruption.use": {
+    "subtitle": "Eruption",
+    "replace": "true",
+    "sounds": [
+      "valoria:eruption"
+    ]
+  },
+  "item.pierce.ambient": {
+    "subtitle": "Pierce",
+    "replace": "true",
+    "sounds": [
+      "valoria:pierce1",
+      "valoria:pierce2",
+      "valoria:pierce3"
+    ]
+  },
+  "block.pot_break.ambient": {
+    "subtitle": "Pot Break",
+    "replace": "true",
+    "sounds": [
+      "valoria:pot/shatter1",
+      "valoria:pot/shatter2",
+      "valoria:pot/shatter3",
+      "valoria:pot/shatter4",
+      "valoria:pot/shatter5",
+      "valoria:pot/shatter6"
+    ]
+  },
+  "block.pot_step.ambient": {
+    "subtitle": "Pot Step",
+    "replace": "true",
+    "sounds": [
+      "valoria:pot/step1",
+      "valoria:pot/step2",
+      "valoria:pot/step3",
+      "valoria:pot/step4",
+      "valoria:pot/step5"
+    ]
+  },
+  "block.pot_place.ambient": {
+    "subtitle": "Pot Place",
+    "replace": "true",
+    "sounds": [
+      "valoria:pot/place1",
+      "valoria:pot/place2",
+      "valoria:pot/place3",
+      "valoria:pot/place4"
+    ]
+  },
+  "item.bag_open.use": {
+    "subtitle": "Opened bag",
+    "replace": "true",
+    "sounds": [
+      "valoria:bag_open"
+    ]
+  }
+}

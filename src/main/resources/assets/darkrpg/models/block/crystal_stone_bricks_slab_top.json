@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab_top",
-  "textures": {
-    "bottom": "darkrpg:block/crystal_stone_bricks",
-    "top": "darkrpg:block/crystal_stone_bricks",
-    "side": "darkrpg:block/crystal_stone_bricks"
-  }
-}

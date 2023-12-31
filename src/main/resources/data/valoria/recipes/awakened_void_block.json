@@ -1,0 +1,17 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "///",
+        "///",
+        "///"
+    ],
+    "key": {
+        "/": {
+            "item": "valoria:void_ingot"
+        }
+    },
+    "result": {
+        "item": "valoria:awakened_void_block",
+        "count": 1
+    }
+}

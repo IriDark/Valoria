@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "valoria:block/void_cobblestone_slab"
+    },
+    "type=double": {
+      "model": "valoria:block/void_cobblestone"
+    },
+    "type=top": {
+      "model": "valoria:block/void_cobblestone_slab_top"
+    }
+  }
+}

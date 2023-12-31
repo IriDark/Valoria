@@ -1,0 +1,37 @@
+{
+  "display": {
+    "icon": {
+      "item": "valoria:elegant_pedestal"
+    },
+    "title": {
+      "translate": "advancement.valoria:elegant_life"
+    },
+    "description": {
+      "translate": "advancement.valoria:elegant_life.desc"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "valoria:valoria/valoria",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:placed_block",
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {}
+          },
+          {
+            "condition": "minecraft:block_state_property",
+            "block": "valoria:elegant_pedestal",
+            "properties": {}
+          }
+        ]
+      }
+    }
+  }
+}

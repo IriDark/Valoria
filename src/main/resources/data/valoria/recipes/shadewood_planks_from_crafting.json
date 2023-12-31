@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "valoria:shade_logs"
+    }
+  ],
+  "result": {
+    "item": "valoria:shadewood_planks",
+    "count": 4
+  }
+}

@@ -1,7 +1,0 @@
-{
-    "parent": "block/cube_column",
-    "textures": {
-		"end": "darkrpg:block/stripped_shadelog_top",
-		"side": "darkrpg:block/stripped_shadelog"
-    }
-}

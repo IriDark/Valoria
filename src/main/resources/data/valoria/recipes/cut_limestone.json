@@ -1,0 +1,19 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "/X",
+        "X/"
+    ],
+    "key": {
+        "/": {
+            "item": "valoria:limestone_brick"
+        },
+        "X": {
+            "item": "valoria:limestone_bricks"
+        }
+    },
+    "result": {
+        "item": "valoria:cut_limestone",
+        "count": 4
+    }
+}

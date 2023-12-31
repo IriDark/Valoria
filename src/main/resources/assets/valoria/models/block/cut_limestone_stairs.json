@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "valoria:block/cut_limestone",
+    "top": "valoria:block/cut_limestone",
+    "side": "valoria:block/cut_limestone"
+  }
+}

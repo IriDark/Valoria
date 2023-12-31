@@ -1,0 +1,22 @@
+{
+  "replace": false,
+  "values": [
+    "valoria:double_spear",
+    "valoria:diamond_katana",
+    "valoria:netherite_katana",
+    "valoria:ent",
+    "valoria:nature_scythe",
+    "valoria:aquarius_scythe",
+    "valoria:xmas_sword",
+    "valoria:void_edge",
+    "valoria:uncharged_stone",
+    "valoria:soulstone",
+    "valoria:amethyst",
+    "valoria:nature_gift",
+    "valoria:oceanic_shell",
+    "valoria:infernal_stone",
+    "valoria:bone_fragment",
+    "valoria:pain_crystal",
+    "valoria:void_key"
+  ]
+}

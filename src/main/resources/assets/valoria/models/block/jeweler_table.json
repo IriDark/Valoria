@@ -1,0 +1,12 @@
+{
+    "parent": "block/cube",
+    "textures": {
+	    "up": "valoria:block/jeweler_table_top",
+	    "particle": "valoria:block/jeweler_table_side",
+		"north": "valoria:block/jeweler_table_side_1",
+		"south": "valoria:block/jeweler_table_side_1",
+		"east": "valoria:block/jeweler_table_side",
+		"west": "valoria:block/jeweler_table_side",
+	    "down": "valoria:block/jeweler_table_bottom"
+    }
+}

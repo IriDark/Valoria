@@ -1,0 +1,20 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "valoria:block/deepslate_cobalt_ore"
+      },
+      {
+        "model": "valoria:block/deepslate_cobalt_ore_mirrored"
+      },
+      {
+        "model": "valoria:block/deepslate_cobalt_ore",
+        "y": 180
+      },
+      {
+        "model": "valoria:block/deepslate_cobalt_ore_mirrored",
+        "y": 180
+      }
+    ]
+  }
+}

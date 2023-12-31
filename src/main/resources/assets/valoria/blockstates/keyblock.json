@@ -1,0 +1,14 @@
+{
+  "variants" : {
+    "key=1": [
+	{
+	"model": "valoria:block/keyblock_key"
+	}
+],
+	"key=0" : [
+	{
+	"model": "valoria:block/keyblock"
+	}
+]
+	}
+}

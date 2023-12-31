@@ -1,0 +1,15 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+	{
+		"item": "valoria:amethyst"
+    },
+	{
+		"item": "valoria:uncharged_stone"
+	}
+	],
+    "result": {
+        "item": "valoria:amethyst",
+        "count": 2
+    }
+}

@@ -1,0 +1,6 @@
+{
+    "parent": "valoria:item/bow_of_darkness",
+    "textures": {
+        "layer0": "valoria:item/bow_of_darkness_pulling_2"
+    }
+}

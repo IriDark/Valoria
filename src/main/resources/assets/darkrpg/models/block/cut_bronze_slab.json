@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab",
-  "textures": {
-    "bottom": "darkrpg:block/cut_bronze",
-    "top": "darkrpg:block/cut_bronze",
-    "side": "darkrpg:block/cut_bronze"
-  }
-}

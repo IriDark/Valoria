@@ -1,0 +1,36 @@
+package com.idark.valoria.entity.renderer;
+
+import com.idark.valoria.entity.projectile.PoisonedKunaiEntity;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.entity.*;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
+import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.world.item.ItemStack;
+
+public class PoisonedKunaiRenderer<T extends PoisonedKunaiEntity> extends EntityRenderer<T> {
+	public PoisonedKunaiRenderer(EntityRendererProvider.Context context) {
+		super(context);
+	}
+
+	public void render(PoisonedKunaiEntity entityIn, float entityYaw, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light) {
+		if (!Minecraft.getInstance().isPaused() && !(entityIn.inGround || entityIn.onGround())) {
+			entityIn.rotationVelocity = Mth.lerp(partialTicks, entityIn.rotationVelocity, entityIn.rotationVelocity + 10);
+		}
+
+		ms.pushPose();
+		ms.mulPose(Axis.YP.rotationDegrees(Mth.lerp(partialTicks, entityIn.yRotO, entityIn.getYRot()) + 90.0F));
+		ms.mulPose(Axis.ZP.rotationDegrees(Mth.lerp(partialTicks, entityIn.xRotO - 90 + entityIn.rotationVelocity, entityIn.getXRot() - 90 + entityIn.rotationVelocity)));
+		ItemStack stack = entityIn.thrownStack;
+		Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.FIXED, light, OverlayTexture.NO_OVERLAY, ms, buffers, entityIn.level(), 0);
+		ms.popPose();
+	}
+
+	public ResourceLocation getTextureLocation(PoisonedKunaiEntity entity) {
+		return null;
+	}
+}

@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/cube_column",
-  "textures": {
-    "end": "darkrpg:block/polished_crystal_stone",
-    "side": "darkrpg:block/crystal_stone_pillar"
-  }
-}

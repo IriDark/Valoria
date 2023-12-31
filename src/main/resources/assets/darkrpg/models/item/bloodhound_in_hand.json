@@ -1,6 +1,0 @@
-{
-  "parent": "darkrpg:item/handheld_large_rotate",
-  "textures": {
-    "layer0": "darkrpg:item/bloodhound_in_hand"
-  }
-}

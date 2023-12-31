@@ -1,6 +1,0 @@
-{
-  "type": "forge:add_features",
-  "biomes": "#forge:is_dry/nether",
-  "features": "darkrpg:mod_nether_vegetation",
-  "step": "vegetal_decoration"
-}

@@ -19,8 +19,8 @@ apply plugin: 'org.spongepowered.mixin'
 apply plugin: 'org.parchmentmc.librarian.forgegradle'
 
 version = '1.20.1-build-0.5.0.1_b'
-group = 'com.idark.darkrpg'
-archivesBaseName = 'DarkRPG'
+group = 'com.idark.valoria'
+archivesBaseName = 'Valoria'
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
@@ -39,7 +39,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             mods {
-                darkrpg {
+                valoria {
                     source sourceSets.main
                 }
             }
@@ -53,7 +53,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             mods {
-                darkrpg {
+                valoria {
                     source sourceSets.main
                 }
             }
@@ -65,10 +65,10 @@ minecraft {
 
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
-            args '--mod', 'darkrpg', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+            args '--mod', 'valoria', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
 
             mods {
-                darkrpg {
+                valoria {
                     source sourceSets.main
                 }
             }
@@ -77,8 +77,8 @@ minecraft {
 }
 
 mixin {
-    add sourceSets.main, "darkrpg.refmap.json"
-    config "darkrpg.mixins.json"
+    add sourceSets.main, "valoria.refmap.json"
+    config "valoria.mixins.json"
 }
 
 sourceSets.main.resources { srcDir 'src/generated/resources' }
@@ -118,12 +118,12 @@ dependencies {
 jar {
     manifest {
         attributes([
-                "Specification-Title": "darkrpg",
-                "Specification-Vendor": "darkrpg",
+                "Specification-Title": "valoria",
+                "Specification-Vendor": "valoria",
                 "Specification-Version": "1", // We are version 1 of ourselves
                 "Implementation-Title": project.name,
                 "Implementation-Version": "${version}",
-                "Implementation-Vendor" :"dakrpg",
+                "Implementation-Vendor" :"valoria",
                 "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }

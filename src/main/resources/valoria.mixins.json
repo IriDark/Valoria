@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.idark.valoria.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "valoria.refmap.json",
+  "mixins": [
+    "MixinCooldownTracker"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

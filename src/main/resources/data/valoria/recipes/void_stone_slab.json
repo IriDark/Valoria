@@ -1,0 +1,15 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "///"
+    ],
+    "key": {
+        "/": {
+            "item": "valoria:void_stone"
+        }
+    },
+    "result": {
+        "item": "valoria:void_stone_slab",
+        "count": 6
+    }
+}

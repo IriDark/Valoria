@@ -1,0 +1,17 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "///",
+        "/ /",
+        "/ /"
+    ],
+    "key": {
+        "/": {
+            "item": "valoria:ancient_ingot"
+        }
+    },
+    "result": {
+        "item": "valoria:samurai_leggings",
+        "count": 1
+    }
+}

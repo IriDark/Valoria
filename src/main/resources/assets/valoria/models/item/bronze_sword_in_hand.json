@@ -1,0 +1,6 @@
+{
+  "parent": "valoria:item/handheld_large",
+  "textures": {
+    "layer0": "valoria:item/bronze_sword_in_hand"
+  }
+}

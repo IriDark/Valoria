@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "valoria:block/polished_tombstone_slab"
+    },
+    "type=double": {
+      "model": "valoria:block/polished_tombstone"
+    },
+    "type=top": {
+      "model": "valoria:block/polished_tombstone_slab_top"
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "/  ",
+    "// ",
+    "///"
+  ],
+  "key": {
+    "/": {
+      "item": "valoria:cracked_limestone_bricks"
+    }
+  },
+  "result": {
+    "item": "valoria:cracked_limestone_bricks_stairs",
+    "count": 6
+  }
+}

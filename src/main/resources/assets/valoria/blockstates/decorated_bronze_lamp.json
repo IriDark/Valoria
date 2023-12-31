@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "lit=false": { "model" : "valoria:block/decorated_bronze_lamp" },
+	"lit=true": { "model" : "valoria:block/decorated_bronze_lamp_lit" }
+  }
+}

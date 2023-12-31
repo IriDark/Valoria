@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#forge:is_dry/nether",
+  "features": "valoria:mod_nether_double_vegetation",
+  "step": "vegetal_decoration"
+}

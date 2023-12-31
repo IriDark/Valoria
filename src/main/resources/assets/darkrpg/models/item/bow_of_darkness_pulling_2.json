@@ -1,6 +1,0 @@
-{
-    "parent": "darkrpg:item/bow_of_darkness",
-    "textures": {
-        "layer0": "darkrpg:item/bow_of_darkness_pulling_2"
-    }
-}

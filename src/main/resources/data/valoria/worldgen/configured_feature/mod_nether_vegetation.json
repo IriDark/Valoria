@@ -1,0 +1,48 @@
+{
+  "type": "minecraft:nether_forest_vegetation",
+  "config": {
+    "state_provider": {
+      "type": "minecraft:weighted_state_provider",
+      "entries": [
+        {
+          "weight": 5,
+          "data": {
+            "Name": "valoria:crimson_soulroot"
+          }
+        },
+        {
+          "weight": 5,
+          "data": {
+            "Name": "valoria:crimson_rajush"
+          }
+        },
+        {
+          "weight": 2,
+          "data": {
+            "Name": "valoria:crimson_magmaroot"
+          }
+        },
+        {
+          "weight": 2,
+          "data": {
+            "Name": "valoria:crimson_goldy"
+          }
+        },
+        {
+          "weight": 3,
+          "data": {
+            "Name": "valoria:soul_root"
+          }
+        },
+        {
+          "weight": 1,
+          "data": {
+            "Name": "valoria:bloodroot"
+          }
+        }
+      ]
+    },
+    "spread_width": 8,
+    "spread_height": 4
+  }
+}

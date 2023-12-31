@@ -1,0 +1,8 @@
+{
+  "variants" : {
+    "" : [
+          {"model": "valoria:block/keyblock_bricks" },
+          { "model": "valoria:block/keyblock_bricks_1" }
+    ]
+  }
+}

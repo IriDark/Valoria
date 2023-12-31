@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/stairs",
-  "textures": {
-    "bottom": "darkrpg:block/tombstone_bricks",
-    "top": "darkrpg:block/tombstone_bricks",
-    "side": "darkrpg:block/tombstone_bricks"
-  }
-}

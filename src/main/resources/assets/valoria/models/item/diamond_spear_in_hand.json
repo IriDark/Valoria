@@ -1,0 +1,6 @@
+{
+  "parent": "valoria:item/spear_large",
+  "textures": {
+    "layer0": "valoria:item/diamond_spear_in_hand"
+  }
+}

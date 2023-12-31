@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/cube_column",
-  "textures": {
-    "end": "darkrpg:block/tombstone_pillar_end",
-    "side": "darkrpg:block/wicked_tombstone_pillar"
-  }
-}

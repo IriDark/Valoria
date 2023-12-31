@@ -1,0 +1,6 @@
+{
+    "parent": "valoria:item/phantasm_bow",
+    "textures": {
+        "layer0": "valoria:item/phantasm_bow_pulling_1"
+    }
+}

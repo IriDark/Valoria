@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab_top",
-  "textures": {
-    "bottom": "darkrpg:block/tombstone",
-    "top": "darkrpg:block/tombstone",
-    "side": "darkrpg:block/tombstone"
-  }
-}
