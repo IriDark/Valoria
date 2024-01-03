@@ -8,6 +8,9 @@
     "MixinCooldownTracker"
   ],
   "client": [
+    "HumanoidModelMixin",
+    "ItemInHandLayerMixin",
+    "ItemInHandRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

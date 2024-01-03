@@ -7,6 +7,7 @@ import com.idark.valoria.client.render.curio.model.HandsModel;
 import com.idark.valoria.client.render.curio.model.HandsModelDefault;
 import com.idark.valoria.client.render.curio.model.NecklaceModel;
 import com.idark.valoria.client.render.model.item.Item2DRenderer;
+import com.idark.valoria.client.render.model.tileentity.CrushableBlockRenderer;
 import com.idark.valoria.client.render.model.tileentity.CrusherTileEntityRenderer;
 import com.idark.valoria.client.render.model.tileentity.PedestalTileEntityRenderer;
 import com.idark.valoria.config.ClientConfig;
@@ -127,6 +128,7 @@ public class ValoriaClient {
 				ItemBlockRenderTypes.setRenderLayer(ModBlocks.POTTED_ALOE_SMALL.get(), RenderType.cutout());
 				ItemBlockRenderTypes.setRenderLayer(ModBlocks.QUICKSAND.get(), RenderType.cutout());
 
+				BlockEntityRenderers.register(ModTileEntities.CRUSHABLE_TILE_ENTITY.get(), (trd) -> new CrushableBlockRenderer());
 				BlockEntityRenderers.register(ModTileEntities.CRUSHER_TILE_ENTITY.get(), (trd) -> new CrusherTileEntityRenderer());
 				BlockEntityRenderers.register(ModTileEntities.PEDESTAL_TILE_ENTITY.get(), (trd) -> new PedestalTileEntityRenderer());
 				BlockEntityRenderers.register(ModTileEntities.SIGN_TILE_ENTITIES.get(), SignRenderer::new);

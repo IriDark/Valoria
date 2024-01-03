@@ -107,6 +107,7 @@ public class ModItems {
 	public static final RegistryObject<Item> CUT_POLISHED_CRYSTAL_STONE = ITEMS.register("cut_polished_crystal_stone", () -> new BlockItem(ModBlocks.CUT_POLISHED_CRYSTAL_STONE.get(), new Item.Properties()));
 	public static final RegistryObject<Item> POLISHED_CRYSTAL_STONE = ITEMS.register("polished_crystal_stone", () -> new BlockItem(ModBlocks.POLISHED_CRYSTAL_STONE.get(), new Item.Properties()));
 	public static final RegistryObject<Item> TOMBSTONE = ITEMS.register("tombstone", () -> new BlockItem(ModBlocks.TOMBSTONE.get(), new Item.Properties()));
+	public static final RegistryObject<Item> SUSPICIOUS_TOMBSTONE = ITEMS.register("suspicious_tombstone", () -> new BlockItem(ModBlocks.SUSPICIOUS_TOMBSTONE.get(), new Item.Properties()));
 	public static final RegistryObject<Item> CUT_TOMBSTONE = ITEMS.register("cut_tombstone", () -> new BlockItem(ModBlocks.CUT_TOMBSTONE.get(), new Item.Properties()));
 	public static final RegistryObject<Item> TOMBSTONE_FIRECHARGE_TRAP = ITEMS.register("tombstone_firecharge_trap", () -> new BlockItem(ModBlocks.TOMBSTONE_FIRECHARGE_TRAP.get(), new Item.Properties()));
 	public static final RegistryObject<Item> TOMBSTONE_SPIKES_TRAP = ITEMS.register("tombstone_spikes_trap", () -> new BlockItem(ModBlocks.TOMBSTONE_SPIKES_TRAP.get(), new Item.Properties()));
@@ -571,6 +572,8 @@ public class ModItems {
 			() -> new BowItem(new Item.Properties().fireResistant().stacksTo(1)));
 	public static final RegistryObject<Item> PHANTASM_BOW = ITEMS.register("phantasm_bow",
 			() -> new BowItem(new Item.Properties().fireResistant().stacksTo(1)));
+	public static final RegistryObject<Item> PICK = ITEMS.register("pick",
+			() -> new PickItem(new Item.Properties().fireResistant().stacksTo(1)));
 
 	/*
 	public static final RegistryObject<ModSpawnEggItem> SWAMP_WANDERER_SPAWN_EGG = ITEMS.register("swamp_wanderer_spawn_egg",

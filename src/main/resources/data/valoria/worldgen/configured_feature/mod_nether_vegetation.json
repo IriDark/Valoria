@@ -5,31 +5,31 @@
       "type": "minecraft:weighted_state_provider",
       "entries": [
         {
-          "weight": 5,
+          "weight": 3,
           "data": {
             "Name": "valoria:crimson_soulroot"
           }
         },
         {
-          "weight": 5,
+          "weight": 3,
           "data": {
             "Name": "valoria:crimson_rajush"
           }
         },
         {
-          "weight": 2,
+          "weight": 1,
           "data": {
             "Name": "valoria:crimson_magmaroot"
           }
         },
         {
-          "weight": 2,
+          "weight": 1,
           "data": {
             "Name": "valoria:crimson_goldy"
           }
         },
         {
-          "weight": 3,
+          "weight": 2,
           "data": {
             "Name": "valoria:soul_root"
           }

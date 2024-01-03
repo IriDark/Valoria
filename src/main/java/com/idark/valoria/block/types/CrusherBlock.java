@@ -74,6 +74,7 @@ public class CrusherBlock extends Block implements EntityBlock {
 
                 PacketUtils.SUpdateTileEntityPacket(tile);
             }
+
             return InteractionResult.SUCCESS;
         }
 
@@ -103,7 +104,7 @@ public class CrusherBlock extends Block implements EntityBlock {
 			return InteractionResult.SUCCESS;
 		}
 		
-		return InteractionResult.PASS;
+		return InteractionResult.SUCCESS;
 	}
 	
 	private static boolean isValid(ItemStack stack) {

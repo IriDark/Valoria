@@ -38,7 +38,7 @@ public class StaffItem extends Item implements IManaItem {
         super(props);
     }
 
-    public static int spell = 0;
+    public static int spell;
     public static int bar;
     public static int cd = 57;
     public static int max;
