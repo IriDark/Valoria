@@ -50,7 +50,7 @@ public class CrushableBlockRenderer implements BlockEntityRenderer<CrushableBloc
 
     private float[] translations(Direction pDirection, int pDustedLevel) {
         float[] afloat = new float[]{0.5F, 0.0F, 0.5F};
-        float f = (float)pDustedLevel / 10.0F * 0.75F;
+        float f = (float)pDustedLevel / 10.0F * 0.85F;
         switch (pDirection) {
             case EAST:
                 afloat[0] = 0.73F + f;
