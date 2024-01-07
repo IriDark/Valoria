@@ -9,6 +9,7 @@ import com.idark.valoria.client.render.curio.model.NecklaceModel;
 import com.idark.valoria.client.render.model.item.Item2DRenderer;
 import com.idark.valoria.client.render.model.tileentity.CrushableBlockRenderer;
 import com.idark.valoria.client.render.model.tileentity.CrusherTileEntityRenderer;
+import com.idark.valoria.client.render.model.tileentity.KegBlockRenderer;
 import com.idark.valoria.client.render.model.tileentity.PedestalTileEntityRenderer;
 import com.idark.valoria.config.ClientConfig;
 import com.idark.valoria.entity.ModEntityTypes;
@@ -50,6 +51,7 @@ public class ValoriaClient {
 	public static ModelLayerLocation HANDS_LAYER = new ModelLayerLocation(new ResourceLocation(Valoria.MOD_ID, "hands"), "main");
 	public static ModelLayerLocation HANDS_LAYER_SLIM = new ModelLayerLocation(new ResourceLocation(Valoria.MOD_ID, "hands_slim"), "main");
 	public static ModelLayerLocation BELT_LAYER = new ModelLayerLocation(new ResourceLocation(Valoria.MOD_ID, "belt"), "main");
+	public static ModelResourceLocation KEG_MODEL = new ModelResourceLocation(Valoria.MOD_ID, "keg", "");
 
 	public static ShaderInstance getGlowingParticleShader() {
 		return GLOWING_PARTICLE_SHADER;
@@ -127,7 +129,9 @@ public class ValoriaClient {
 				ItemBlockRenderTypes.setRenderLayer(ModBlocks.POTTED_BLOODROOT.get(), RenderType.cutout());
 				ItemBlockRenderTypes.setRenderLayer(ModBlocks.POTTED_ALOE_SMALL.get(), RenderType.cutout());
 				ItemBlockRenderTypes.setRenderLayer(ModBlocks.QUICKSAND.get(), RenderType.cutout());
+				ItemBlockRenderTypes.setRenderLayer(ModBlocks.SUSPICIOUS_ICE.get(), RenderType.translucent());
 
+				BlockEntityRenderers.register(ModTileEntities.KEG_TILE_ENTITY.get(), (trd) -> new KegBlockRenderer());
 				BlockEntityRenderers.register(ModTileEntities.CRUSHABLE_TILE_ENTITY.get(), (trd) -> new CrushableBlockRenderer());
 				BlockEntityRenderers.register(ModTileEntities.CRUSHER_TILE_ENTITY.get(), (trd) -> new CrusherTileEntityRenderer());
 				BlockEntityRenderers.register(ModTileEntities.PEDESTAL_TILE_ENTITY.get(), (trd) -> new PedestalTileEntityRenderer());
@@ -161,6 +165,8 @@ public class ValoriaClient {
 					event.register(new ModelResourceLocation(new ResourceLocation(Valoria.MOD_ID, item + "_in_hand"), "inventory"));
 				}
 			}
+
+			event.register(KEG_MODEL);
 		}
 
 		@SubscribeEvent

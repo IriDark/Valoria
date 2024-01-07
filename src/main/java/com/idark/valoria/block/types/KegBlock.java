@@ -1,25 +1,28 @@
 package com.idark.valoria.block.types;
 
+import com.idark.valoria.tileentity.CrushableBlockEntity;
+import com.idark.valoria.tileentity.CrusherTileEntity;
+import com.idark.valoria.tileentity.KegBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.HorizontalDirectionalBlock;
-import net.minecraft.world.level.block.SimpleWaterloggedBlock;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class KegBlock extends HorizontalDirectionalBlock implements SimpleWaterloggedBlock {
-
+public class KegBlock extends HorizontalDirectionalBlock implements EntityBlock, SimpleWaterloggedBlock {
 
     //TODO: CRAFTS
 	private static final VoxelShape shape_west_east = Block.box(0, 0, 2, 16, 14, 14);
@@ -30,9 +33,9 @@ public class KegBlock extends HorizontalDirectionalBlock implements SimpleWaterl
 		registerDefaultState(defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, false));
 	}
 
-	@Override
+    @Override
     public VoxelShape getShape(BlockState state, BlockGetter reader, BlockPos pos, CollisionContext ctx) {
-        Direction direction = state.getValue(FACING);
+        Direction direction = state.getValue(BlockStateProperties.HORIZONTAL_FACING);
         switch (direction) {
             case SOUTH, NORTH -> {
                 return shape_north_south;
@@ -41,6 +44,7 @@ public class KegBlock extends HorizontalDirectionalBlock implements SimpleWaterl
                 return shape_west_east;
             }
         }
+
         return null;
     }
 
@@ -49,12 +53,19 @@ public class KegBlock extends HorizontalDirectionalBlock implements SimpleWaterl
         builder.add(BlockStateProperties.WATERLOGGED);
 	    builder.add(FACING);
     }
-	
-	@Nullable
+
+    @Nonnull
+    @Override
+    public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
+        return new KegBlockEntity(pPos, pState);
+    }
+
+    @Nullable
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         FluidState fluidState = context.getLevel().getFluidState(context.getClickedPos());
-        return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite()).setValue(BlockStateProperties.WATERLOGGED, fluidState.getType() == Fluids.WATER);
+        Direction facing = context.getHorizontalDirection().getOpposite(); // Set facing direction
+        return this.defaultBlockState().setValue(FACING, facing).setValue(BlockStateProperties.WATERLOGGED, fluidState.getType() == Fluids.WATER);
     }
 	
 	@Override

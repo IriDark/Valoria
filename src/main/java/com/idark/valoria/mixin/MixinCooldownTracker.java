@@ -22,5 +22,4 @@ public abstract class MixinCooldownTracker {
     public void onRemove(Item itemIn, CallbackInfo ci) {
         CooldownHandler.onCooldownEnd(player, itemIn);
     }
-
 }

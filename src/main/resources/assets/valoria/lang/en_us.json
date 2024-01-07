@@ -9,6 +9,7 @@
 	"tooltip.valoria.magma_charge_half": "Half charged",
 	"tooltip.valoria.magma_charge_empty": "Not charged",
 	"tooltip.valoria.projectile_damage": "Projectile Damage",
+	"tooltip.valoria.excavation_speed": "Excavation Speed",
 	"tooltip.valoria.poison_chance": "Chance to poison the enemy",
 	"tooltip.valoria.poison_chance_ranged": "chance to poison the enemy when thrown",
 
@@ -21,6 +22,7 @@
 	"tooltip.valoria.blazereap": "A strong weapon, has a KABOOM ability (Needs 5 gunpowder)",
 	"tooltip.valoria.infernal_sword": "A strong weapon, has a Eruption ability (Needs 2 magma charges)",	
 	"tooltip.valoria.kunai": "Not so strong weapon but can be thrown at your enemy",
+	"tooltip.valoria.pick_necklace": "Speeds up the excavation process slightly",
 
 	"tooltip.valoria.belt": "Grants some additional space for your charms!",
 	"tooltip.valoria.rune": "An empty rune, you can apply any positive effect to it",
@@ -293,7 +295,8 @@
 	"painting.valoria.village.author": "IriDark (iDark)",
 
 	"_comment": "Accessories",
- 	"item.valoria.leather_belt": "Leather Belt",
+	"item.valoria.pick_necklace": "Pick Necklace",
+	"item.valoria.leather_belt": "Leather Belt",
  	"item.valoria.leather_gloves": "Leather Gloves",
  	"item.valoria.iron_gloves": "Iron Gloves",
  	"item.valoria.golden_gloves": "Golden Gloves",
@@ -385,6 +388,7 @@
  	"item.valoria.apple_pie": "Apple Pie",
  	
  	"_comment": "Misc",
+	"item.valoria.pick": "Prospector's Pick",
 	"item.valoria.raw_cobalt": "Raw Cobalt",
  	"item.valoria.toxins_bottle": "Toxins Bottle",	
  	"item.valoria.aloe_bandage": "Aloe Bandage",
@@ -531,7 +535,8 @@
 	"block.valoria.keyblock_rune": "Keyblock Rune",
 	"block.valoria.cut_keyblock": "Cut Keyblock",
 	"block.valoria.sarcophagus": "Sarcophagus",
-	"block.valoria.tomb": "Tomb",	
+	"block.valoria.tomb": "Tomb",
+	"block.valoria.suspicious_tombstone": "Suspicious Tombstone",
 	"block.valoria.tombstone": "Tombstone",
 	"block.valoria.tombstone_stairs": "Tombstone Stairs",
 	"block.valoria.tombstone_slab": "Tombstone Slab",

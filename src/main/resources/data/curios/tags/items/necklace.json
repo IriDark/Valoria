@@ -1,7 +1,8 @@
 {
   "replace": false,
   "values": [
-    "valoria:iron_necklace_amber",
+	"valoria:pick_necklace",
+	"valoria:iron_necklace_amber",
 	"valoria:iron_necklace_diamond",
     "valoria:iron_necklace_emerald",
 	"valoria:iron_necklace_ruby",

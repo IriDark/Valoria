@@ -3,8 +3,6 @@ package com.idark.valoria.block.types;
 import com.idark.valoria.tileentity.CrushableBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.particles.BlockParticleOption;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
@@ -25,9 +23,11 @@ public class CrushableBlock extends BaseEntityBlock {
     private final Block turnsInto;
     private final SoundEvent crushSound;
     private final SoundEvent crushCompletedSound;
+    private final boolean isIce;
 
-    public CrushableBlock(Block pTurnsInto, BlockBehaviour.Properties pProperties, SoundEvent pCrushSound, SoundEvent pCrushCompletedSound) {
+    public CrushableBlock(boolean isIce, Block pTurnsInto, BlockBehaviour.Properties pProperties, SoundEvent pCrushSound, SoundEvent pCrushCompletedSound) {
         super(pProperties);
+        this.isIce = isIce;
         this.turnsInto = pTurnsInto;
         this.crushSound = pCrushSound;
         this.crushCompletedSound = pCrushCompletedSound;
@@ -51,6 +51,10 @@ public class CrushableBlock extends BaseEntityBlock {
 
     public void onPlace(BlockState pState, Level pLevel, BlockPos pPos, BlockState pOldState, boolean pIsMoving) {
         pLevel.scheduleTick(pPos, this, 2);
+    }
+
+    public boolean skipRendering(BlockState pState, BlockState pAdjacentBlockState, Direction pSide) {
+        return this.isIce ? pAdjacentBlockState.is(this) || pAdjacentBlockState.is(Blocks.ICE) : false;
     }
 
     /**

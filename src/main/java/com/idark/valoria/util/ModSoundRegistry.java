@@ -4,6 +4,7 @@ import com.idark.valoria.Valoria;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -27,6 +28,7 @@ public class ModSoundRegistry {
 
     //SoundType
 	public static final ModSoundType POT = new ModSoundType(1, 1, POT_BREAK, POT_STEP, POT_PLACE, ()-> SoundEvents.STONE_HIT, ()-> SoundEvents.STONE_FALL);
+	public static final ModSoundType SUSPICIOUS_TOMBSTONE = new ModSoundType(1.0F, 1.0F, ()-> SoundEvents.SUSPICIOUS_SAND_BREAK, ()-> SoundEvents.MUD_BRICKS_STEP, ()-> SoundEvents.STONE_PLACE, ()-> SoundEvents.SUSPICIOUS_GRAVEL_HIT, ()-> SoundEvents.STONE_FALL);
 
 	public static RegistryObject<SoundEvent> registerSound(String name){
         return SOUNDS.register(name,()-> SoundEvent.createVariableRangeEvent(new ResourceLocation(Valoria.MOD_ID,name)));

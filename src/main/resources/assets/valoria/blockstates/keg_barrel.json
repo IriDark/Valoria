@@ -1,0 +1,20 @@
+{
+  "variants" : {
+    "facing=east" : {
+      "model": "valoria:block/keg_barrel",
+      "y": 90
+    },
+    "facing=north" : {
+      "model": "valoria:block/keg_barrel",
+      "y": 180
+    },
+    "facing=south" : {
+      "model": "valoria:block/keg_barrel",
+      "y": 180
+    },
+    "facing=west" : {
+      "model": "valoria:block/keg_barrel",
+      "y": 90
+    }
+  }
+}

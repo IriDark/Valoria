@@ -1,9 +1,15 @@
 package com.idark.valoria.item.types;
 
+import com.google.common.base.Suppliers;
+import com.google.common.collect.ImmutableMultimap;
+import com.google.common.collect.Multimap;
 import com.idark.valoria.block.types.CrushableBlock;
 import com.idark.valoria.client.render.model.item.ItemAnims;
 import com.idark.valoria.client.render.model.item.PickAnim;
+import com.idark.valoria.item.ModAttributes;
+import com.idark.valoria.item.curio.PickNecklace;
 import com.idark.valoria.tileentity.CrushableBlockEntity;
+import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.BlockParticleOption;
@@ -14,9 +20,13 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.Item;
@@ -32,20 +42,49 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import top.theillusivec4.curios.api.CuriosApi;
+import top.theillusivec4.curios.api.SlotResult;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Supplier;
 
 public class PickItem extends Item implements ICustomAnimationItem {
     public static PickAnim animation = new PickAnim();
     public static final int ANIMATION_DURATION = 10;
-    private static final int USE_DURATION = 200;
-    private static final double MAX_BRUSH_DISTANCE = Math.sqrt(ServerGamePacketListenerImpl.MAX_INTERACTION_DISTANCE) - 1.0D;
+    public static final int USE_DURATION = 200;
+    public static final double MAX_BRUSH_DISTANCE = Math.sqrt(ServerGamePacketListenerImpl.MAX_INTERACTION_DISTANCE) - 1.0D;
+    public float excavationSpeed;
 
-    public PickItem(Item.Properties pProperties) {
+    private Supplier<Multimap<Attribute, AttributeModifier>> attributeModifiers = Suppliers.memoize(this::createAttributes);
+
+    public PickItem(Item.Properties pProperties, int speed) {
         super(pProperties);
+        this.excavationSpeed = (float) speed;
     }
 
-    /**
-     * Called when this item is used when targeting a Block
-     */
+    public static List<ItemStack> getExcavationAccessories(Player player) {
+        List<ItemStack> items = new ArrayList<>();
+        List<SlotResult> curioSlots = CuriosApi.getCuriosHelper().findCurios(player, (i) -> true);
+        for (SlotResult slot : curioSlots) {
+            if (slot.stack().getItem() instanceof PickNecklace) {
+                items.add(slot.stack());
+            }
+        }
+
+        return items;
+    }
+
+    private Multimap<Attribute, AttributeModifier> createAttributes() {
+        ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
+        builder.put(ModAttributes.EXCAVATION_SPEED.get(), new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Pick modifier", excavationSpeed, AttributeModifier.Operation.ADDITION));
+        return builder.build();
+    }
+
+    public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot equipmentSlot) {
+        return equipmentSlot == EquipmentSlot.MAINHAND ? this.attributeModifiers.get() : super.getDefaultAttributeModifiers(equipmentSlot);
+    }
+
     public InteractionResult useOn(UseOnContext pContext) {
         Player player = pContext.getPlayer();
         if (player != null && this.calculateHitResult(player).getType() == HitResult.Type.BLOCK) {
@@ -55,9 +94,6 @@ public class PickItem extends Item implements ICustomAnimationItem {
         return InteractionResult.CONSUME;
     }
 
-    /**
-     * Returns the action that specifies what animation to play when the item is being used.
-     */
     public UseAnim getUseAnimation(ItemStack pStack) {
         return UseAnim.CUSTOM;
     }
@@ -68,23 +104,19 @@ public class PickItem extends Item implements ICustomAnimationItem {
         return animation;
     }
 
-    /**
-     * How long it takes to use or consume an item
-     */
     public int getUseDuration(ItemStack pStack) {
         return 200;
     }
 
-    /**
-     * Called as the item is being used by an entity.
-     */
     public void onUseTick(Level pLevel, LivingEntity pLivingEntity, ItemStack pStack, int pRemainingUseDuration) {
         if (pRemainingUseDuration >= 0 && pLivingEntity instanceof Player player) {
             HitResult hitresult = this.calculateHitResult(pLivingEntity);
             if (hitresult instanceof BlockHitResult blockhitresult) {
                 if (hitresult.getType() == HitResult.Type.BLOCK) {
                     int i = this.getUseDuration(pStack) - pRemainingUseDuration + 1;
-                    boolean flag = i % 10 == 5;
+                    int speed = getExcavationAccessories(player).isEmpty() ? (int)excavationSpeed + 15: (int)excavationSpeed + 10;
+                    boolean flag = i % speed == 5;
+
                     if (flag) {
                         BlockPos blockpos = blockhitresult.getBlockPos();
                         BlockState blockstate = pLevel.getBlockState(blockpos);
@@ -92,8 +124,7 @@ public class PickItem extends Item implements ICustomAnimationItem {
                         this.spawnDustParticles(pLevel, blockhitresult, blockstate, pLivingEntity.getViewVector(0.0F), humanoidarm);
                         Block $$18 = blockstate.getBlock();
                         SoundEvent soundevent;
-                        if ($$18 instanceof CrushableBlock) {
-                            CrushableBlock brushableblock = (CrushableBlock) $$18;
+                        if ($$18 instanceof CrushableBlock brushableblock) {
                             soundevent = brushableblock.getBrushSound();
                         } else {
                             soundevent = SoundEvents.BRUSH_GENERIC;
@@ -102,8 +133,7 @@ public class PickItem extends Item implements ICustomAnimationItem {
                         pLevel.playSound(player, blockpos, soundevent, SoundSource.BLOCKS);
                         if (!pLevel.isClientSide()) {
                             BlockEntity blockentity = pLevel.getBlockEntity(blockpos);
-                            if (blockentity instanceof CrushableBlockEntity) {
-                                CrushableBlockEntity brushableblockentity = (CrushableBlockEntity) blockentity;
+                            if (blockentity instanceof CrushableBlockEntity brushableblockentity) {
                                 boolean flag1 = brushableblockentity.brush(pLevel.getGameTime(), player, blockhitresult.getDirection());
                                 if (flag1) {
                                     EquipmentSlot equipmentslot = pStack.equals(player.getItemBySlot(EquipmentSlot.OFFHAND)) ? EquipmentSlot.OFFHAND : EquipmentSlot.MAINHAND;
@@ -126,9 +156,7 @@ public class PickItem extends Item implements ICustomAnimationItem {
     }
 
     private HitResult calculateHitResult(LivingEntity pEntity) {
-        return ProjectileUtil.getHitResultOnViewVector(pEntity, (p_281111_) -> {
-            return !p_281111_.isSpectator() && p_281111_.isPickable();
-        }, MAX_BRUSH_DISTANCE);
+        return ProjectileUtil.getHitResultOnViewVector(pEntity, (p_281111_) -> !p_281111_.isSpectator() && p_281111_.isPickable(), MAX_BRUSH_DISTANCE);
     }
 
     public void spawnDustParticles(Level pLevel, BlockHitResult pHitResult, BlockState pState, Vec3 pPos, HumanoidArm pArm) {
@@ -146,35 +174,19 @@ public class PickItem extends Item implements ICustomAnimationItem {
 
     }
 
-    static record DustParticlesDelta(double xd, double yd, double zd) {
+    record DustParticlesDelta(double xd, double yd, double zd) {
         private static final double ALONG_SIDE_DELTA = 1.0D;
         private static final double OUT_FROM_SIDE_DELTA = 0.1D;
 
         public static PickItem.DustParticlesDelta fromDirection(Vec3 pPos, Direction pDirection) {
-            double d0 = 0.0D;
-            PickItem.DustParticlesDelta brushitem$dustparticlesdelta;
-            switch (pDirection) {
-                case DOWN:
-                case UP:
-                    brushitem$dustparticlesdelta = new PickItem.DustParticlesDelta(pPos.z(), 0.0D, -pPos.x());
-                    break;
-                case NORTH:
-                    brushitem$dustparticlesdelta = new PickItem.DustParticlesDelta(1.0D, 0.0D, -0.1D);
-                    break;
-                case SOUTH:
-                    brushitem$dustparticlesdelta = new PickItem.DustParticlesDelta(-1.0D, 0.0D, 0.1D);
-                    break;
-                case WEST:
-                    brushitem$dustparticlesdelta = new PickItem.DustParticlesDelta(-0.1D, 0.0D, -1.0D);
-                    break;
-                case EAST:
-                    brushitem$dustparticlesdelta = new PickItem.DustParticlesDelta(0.1D, 0.0D, 1.0D);
-                    break;
-                default:
-                    throw new IncompatibleClassChangeError();
-            }
 
-            return brushitem$dustparticlesdelta;
+            return switch (pDirection) {
+                case DOWN, UP -> new DustParticlesDelta(pPos.z(), 0.0D, -pPos.x());
+                case NORTH -> new DustParticlesDelta(1.0D, 0.0D, -0.1D);
+                case SOUTH -> new DustParticlesDelta(-1.0D, 0.0D, 0.1D);
+                case WEST -> new DustParticlesDelta(-0.1D, 0.0D, -1.0D);
+                case EAST -> new DustParticlesDelta(0.1D, 0.0D, 1.0D);
+            };
         }
     }
 }

@@ -107,6 +107,7 @@ public class ModItems {
 	public static final RegistryObject<Item> CUT_POLISHED_CRYSTAL_STONE = ITEMS.register("cut_polished_crystal_stone", () -> new BlockItem(ModBlocks.CUT_POLISHED_CRYSTAL_STONE.get(), new Item.Properties()));
 	public static final RegistryObject<Item> POLISHED_CRYSTAL_STONE = ITEMS.register("polished_crystal_stone", () -> new BlockItem(ModBlocks.POLISHED_CRYSTAL_STONE.get(), new Item.Properties()));
 	public static final RegistryObject<Item> TOMBSTONE = ITEMS.register("tombstone", () -> new BlockItem(ModBlocks.TOMBSTONE.get(), new Item.Properties()));
+	public static final RegistryObject<Item> SUSPICIOUS_ICE = ITEMS.register("suspicious_ice", () -> new BlockItem(ModBlocks.SUSPICIOUS_ICE.get(), new Item.Properties()));
 	public static final RegistryObject<Item> SUSPICIOUS_TOMBSTONE = ITEMS.register("suspicious_tombstone", () -> new BlockItem(ModBlocks.SUSPICIOUS_TOMBSTONE.get(), new Item.Properties()));
 	public static final RegistryObject<Item> CUT_TOMBSTONE = ITEMS.register("cut_tombstone", () -> new BlockItem(ModBlocks.CUT_TOMBSTONE.get(), new Item.Properties()));
 	public static final RegistryObject<Item> TOMBSTONE_FIRECHARGE_TRAP = ITEMS.register("tombstone_firecharge_trap", () -> new BlockItem(ModBlocks.TOMBSTONE_FIRECHARGE_TRAP.get(), new Item.Properties()));
@@ -414,8 +415,10 @@ public class ModItems {
 	public static final RegistryObject<Item> INFERNAL_HOE = ITEMS.register("infernal_hoe",
 			() -> new HoeItem(ModItemTier.INFERNAL, -1, 0f, new Item.Properties().fireResistant()));
 	// ACCESORIES (category)
+	public static final RegistryObject<Item> PICK_NECKLACE = ITEMS.register("pick_necklace",
+			() -> new PickNecklace(new Item.Properties().stacksTo(1).durability(320).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> IRON_CHAIN = ITEMS.register("iron_chain",
-			() -> new Item(new Item.Properties().stacksTo(8).rarity(Rarity.UNCOMMON)));
+			() -> new Item(new Item.Properties().stacksTo(8).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> IRON_NECKLACE_AMBER = ITEMS.register("iron_necklace_amber",
 			() -> new CurioItemProperty(AccessoryType.NECKLACE, AccessoryGem.AMBER, AccessoryMaterial.IRON, new Item.Properties().stacksTo(1).durability(320).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> IRON_NECKLACE_DIAMOND = ITEMS.register("iron_necklace_diamond",
@@ -573,7 +576,7 @@ public class ModItems {
 	public static final RegistryObject<Item> PHANTASM_BOW = ITEMS.register("phantasm_bow",
 			() -> new BowItem(new Item.Properties().fireResistant().stacksTo(1)));
 	public static final RegistryObject<Item> PICK = ITEMS.register("pick",
-			() -> new PickItem(new Item.Properties().fireResistant().stacksTo(1)));
+			() -> new PickItem(new Item.Properties().fireResistant().stacksTo(1).durability(64), 5));
 
 	/*
 	public static final RegistryObject<ModSpawnEggItem> SWAMP_WANDERER_SPAWN_EGG = ITEMS.register("swamp_wanderer_spawn_egg",

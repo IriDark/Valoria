@@ -59,16 +59,16 @@ public class CrushableBlockEntity extends BlockEntity {
             this.hitDirection = pHitDirection;
         }
 
-        this.brushCountResetsAtTick = pStartTick + 40L;
+        this.brushCountResetsAtTick = pStartTick + 60L;
         if (pStartTick >= this.coolDownEndsAtTick && this.level instanceof ServerLevel) {
             this.coolDownEndsAtTick = pStartTick + 10L;
             this.unpackLootTable(pPlayer);
             int i = this.getCompletionState();
-            if (++this.brushCount >= 10) {
+            if (++this.brushCount >= 11) {
                 this.brushingCompleted(pPlayer);
                 return true;
             } else {
-                this.level.scheduleTick(this.getBlockPos(), this.getBlockState().getBlock(), 40);
+                this.level.scheduleTick(this.getBlockPos(), this.getBlockState().getBlock(), 60);
                 int j = this.getCompletionState();
                 if (i != j) {
                     BlockState blockstate = this.getBlockState();

@@ -18,7 +18,8 @@ public class ModTileEntities {
     public static final RegistryObject<BlockEntityType<ModHangingSignTileEntity>> HANGING_SIGN_TILE_ENTITIES = TILE_ENTITIES.register("hanging_sign", () -> BlockEntityType.Builder.of(ModHangingSignTileEntity::new, ModBlocks.SHADEWOOD_HANGING_SIGN.get(), ModBlocks.SHADEWOOD_WALL_HANGING_SIGN.get()).build(null));
     public static final RegistryObject<BlockEntityType<PedestalTileEntity>> PEDESTAL_TILE_ENTITY = TILE_ENTITIES.register("pedestal_entity", () -> BlockEntityType.Builder.of(PedestalTileEntity::new, ModBlocks.SKULLY_PEDESTAL.get(), ModBlocks.ELEGANT_PEDESTAL.get()).build(null));
     public static final RegistryObject<BlockEntityType<CrusherTileEntity>> CRUSHER_TILE_ENTITY = TILE_ENTITIES.register("crusher_entity", () -> BlockEntityType.Builder.of(CrusherTileEntity::new, ModBlocks.STONE_CRUSHER.get()).build(null));
-    public static final RegistryObject<BlockEntityType<CrushableBlockEntity>> CRUSHABLE_TILE_ENTITY = TILE_ENTITIES.register("crushable_entity", () -> BlockEntityType.Builder.of(CrushableBlockEntity::new, ModBlocks.SUSPICIOUS_TOMBSTONE.get()).build(null));
+    public static final RegistryObject<BlockEntityType<CrushableBlockEntity>> CRUSHABLE_TILE_ENTITY = TILE_ENTITIES.register("crushable_entity", () -> BlockEntityType.Builder.of(CrushableBlockEntity::new, ModBlocks.SUSPICIOUS_TOMBSTONE.get(), ModBlocks.SUSPICIOUS_ICE.get()).build(null));
+    public static final RegistryObject<BlockEntityType<KegBlockEntity>> KEG_TILE_ENTITY = TILE_ENTITIES.register("keg_entity", () -> BlockEntityType.Builder.of(KegBlockEntity::new, ModBlocks.KEG.get()).build(null));
 
     public static void register(IEventBus eventBus) {
         TILE_ENTITIES.register(eventBus);

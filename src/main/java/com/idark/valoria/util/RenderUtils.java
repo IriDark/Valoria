@@ -67,10 +67,10 @@ public class RenderUtils {
                     .createCompositeState(false));
 
     /**
-     *  Dimensions xSize, ySize, zSize are specified in pixels, small addition to this description: this method conflicts with renderTooltip
+     * Dimensions xSize, ySize, zSize are specified in pixels, small addition to this description: this method conflicts with renderTooltip
      */
     public static void renderItemModelInGui(ItemStack stack, int x, int y, float xSize, float ySize, float zSize) {
-        BakedModel bakedmodel = Minecraft.getInstance().getItemRenderer().getModel(stack, (Level)null, (LivingEntity)null, 0);
+        BakedModel bakedmodel = Minecraft.getInstance().getItemRenderer().getModel(stack, (Level) null, (LivingEntity) null, 0);
 
         PoseStack posestack = RenderSystem.getModelViewStack();
         posestack.pushPose();
@@ -103,12 +103,12 @@ public class RenderUtils {
     public static Vec3 followBodyRotation(LivingEntity living) {
         Vec3 rotate = new Vec3(0, 0, 0);
         EntityRenderer<? super LivingEntity> render = Minecraft.getInstance().getEntityRenderDispatcher().getRenderer(living);
-        if(render instanceof LivingEntityRenderer) {
+        if (render instanceof LivingEntityRenderer) {
             LivingEntityRenderer<LivingEntity, EntityModel<LivingEntity>> livingRenderer = (LivingEntityRenderer<LivingEntity, EntityModel<LivingEntity>>) render;
             EntityModel<LivingEntity> entityModel = livingRenderer.getModel();
             if (entityModel instanceof HumanoidModel) {
                 HumanoidModel<LivingEntity> bipedModel = (HumanoidModel<LivingEntity>) entityModel;
-                rotate = new Vec3(bipedModel.body.xRot, bipedModel.body.yRot, bipedModel.body.zRot);;
+                rotate = new Vec3(bipedModel.body.xRot, bipedModel.body.yRot, bipedModel.body.zRot);
             }
         }
         return rotate;

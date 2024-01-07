@@ -24,6 +24,7 @@ import com.idark.valoria.entity.custom.MannequinEntity;
 import com.idark.valoria.item.ModAttributes;
 import com.idark.valoria.item.ModItemGroup;
 import com.idark.valoria.item.ModItems;
+import com.idark.valoria.item.curio.PickNecklace;
 import com.idark.valoria.item.staffs.StaffItem;
 import com.idark.valoria.network.PacketHandler;
 import com.idark.valoria.paintings.ModPaintings;
@@ -146,6 +147,7 @@ public class Valoria {
 			CuriosRendererRegistry.register(ModItems.NETHERITE_NECKLACE_ARMOR.get(), NecklaceRenderer::new);
 			CuriosRendererRegistry.register(ModItems.NETHERITE_NECKLACE_HEALTH.get(), NecklaceRenderer::new);
 			CuriosRendererRegistry.register(ModItems.NETHERITE_NECKLACE_WEALTH.get(), NecklaceRenderer::new);
+			CuriosRendererRegistry.register(ModItems.PICK_NECKLACE.get(), NecklaceRenderer::new);
 
 			CuriosRendererRegistry.register(ModItems.LEATHER_GLOVES.get(), HandsRenderer::new);
 			CuriosRendererRegistry.register(ModItems.IRON_GLOVES.get(), HandsRenderer::new);
