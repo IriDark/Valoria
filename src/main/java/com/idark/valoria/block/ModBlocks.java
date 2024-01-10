@@ -319,8 +319,6 @@ public class ModBlocks {
 			() -> new TombBlock(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(1f, 1f).noOcclusion()));
 	public static final RegistryObject<Block> KEG = BLOCK.register("keg",
 			() -> new KegBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).requiresCorrectToolForDrops().strength(1f, 1f).noOcclusion()));
-	//public static final RegistryObject<Block> KEG_BARREL = BLOCK.register("keg_barrel",
-	//		() -> new KegBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).requiresCorrectToolForDrops().strength(1f, 1f).noOcclusion()));
 	public static final RegistryObject<Block> SARCOPHAGUS = BLOCK.register("sarcophagus",
 		() -> new SarcoBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops().strength(3f).noOcclusion()));
 	public static final RegistryObject<Block> TILE = BLOCK.register("quartz_blackstone_tile",

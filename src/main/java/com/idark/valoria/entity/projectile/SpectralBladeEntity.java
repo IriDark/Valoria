@@ -21,6 +21,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
@@ -29,13 +30,16 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.network.NetworkHooks;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SpectralBladeEntity extends AbstractArrow {
     public boolean dealtDamage;
     public ItemStack thrownStack = new ItemStack(ModItems.SPECTRAL_BLADE.get());
+    public List<Entity> entityNear;
     RandomSource rand = RandomSource.create();
 
-    public SpectralBladeEntity(EntityType<? extends com.idark.valoria.entity.projectile.SpectralBladeEntity> type, Level worldIn) {
+    public SpectralBladeEntity(EntityType<? extends SpectralBladeEntity> type, Level worldIn) {
         super(type, worldIn);
     }
 
@@ -54,6 +58,56 @@ public class SpectralBladeEntity extends AbstractArrow {
             this.dealtDamage = true;
         }
 
+        Vec3 vector3d = this.getDeltaMovement();
+        double a3 = vector3d.x;
+        double a4 = vector3d.y;
+        double a0 = vector3d.z;
+
+        AABB boundingBox = new AABB(this.getX() - 3.5, this.getY() - 0.5, this.getZ() - 3.5, this.getX() + 3.5, this.getY() + 0.5, this.getZ() + 3.5);
+        List<LivingEntity> livingEntities = this.level().getEntitiesOfClass(LivingEntity.class, boundingBox);
+
+        if (entityNear == null) {
+            entityNear = new ArrayList<>();
+        }
+
+        if (!livingEntities.isEmpty() && !livingEntities.contains(this.getOwner())) {
+            LivingEntity nearestEntity = null;
+            double nearestDistance = Double.MAX_VALUE;
+
+            for (LivingEntity livingEntity : livingEntities) {
+                double distance = this.distanceTo(livingEntity);
+
+                if (distance < nearestDistance) {
+                    nearestEntity = livingEntity;
+                    nearestDistance = distance;
+                }
+            }
+
+            if (nearestEntity != null) {
+                Vec3 targetPos = nearestEntity.position();
+                Vec3 currentPos = this.position();
+                Vec3 direction = targetPos.subtract(currentPos).normalize();
+                this.setDeltaMovement(direction.x, direction.y, direction.z);
+            } else {
+                this.setDeltaMovement(a3, 0, a0);
+            }
+        }
+
+        this.level().addParticle(ParticleTypes.REVERSE_PORTAL, this.getX() + a3 / 4.0D, this.getY() + a4 / 4.0D, this.getZ() + a0 / 2.0D, -a3, -a4 + 0.2D, -a0);
+        if (isInWater()) {
+            if (!this.level().isClientSide()) {
+                this.removeAfterChangingDimensions();
+            } else {
+                this.level().playSound(this, this.getOnPos(), ModSoundRegistry.DISAPPEAR.get(), SoundSource.AMBIENT, 0.4f, 1f);
+                for (int a = 0; a < 6; ++a) {
+                    double d0 = rand.nextGaussian() * 0.02D;
+                    double d1 = rand.nextGaussian() * 0.02D;
+                    double d2 = rand.nextGaussian() * 0.02D;
+                    this.level().addParticle(ParticleTypes.POOF, this.getRandomX(1.0D), this.getRandomY() + 1.5D, this.getRandomZ(1.0D), d0, d1, d2);
+                }
+            }
+        }
+
         super.tick();
     }
 
@@ -67,12 +121,17 @@ public class SpectralBladeEntity extends AbstractArrow {
     }
 
     public void onHitBlock(BlockHitResult pResult) {
-        for (int a = 0; a < 2; ++a) {
-            this.level().addParticle(ParticleTypes.SOUL, this.getX() + Mth.nextFloat(rand, 0.0F, 0.2F), this.getY() + 0.7D, this.getZ() + Mth.nextFloat(rand, 0.0F, 0.2F), 0d, 0.02d, 0d);
+        if (!this.level().isClientSide()) {
+            this.removeAfterChangingDimensions();
+        } else {
+            this.level().playSound(this, this.getOnPos(), ModSoundRegistry.DISAPPEAR.get(), SoundSource.AMBIENT, 0.4f, 1f);
+            for (int i = 0; i < 6; ++i) {
+                double d0 = rand.nextGaussian() * 0.02D;
+                double d1 = rand.nextGaussian() * 0.02D;
+                double d2 = rand.nextGaussian() * 0.02D;
+                this.level().addParticle(ParticleTypes.POOF, this.getRandomX(1.0D), this.getRandomY() + 1.5D, this.getRandomZ(1.0D), d0, d1, d2);
+            }
         }
-
-        this.level().playSound(this, this.getOnPos(), ModSoundRegistry.DISAPPEAR.get(), SoundSource.AMBIENT, 0.4f, 1f);
-        this.removeAfterChangingDimensions();
     }
 
     @Override
@@ -147,7 +206,7 @@ public class SpectralBladeEntity extends AbstractArrow {
     }
 
     public float getWaterInertia() {
-        return 0.5F;
+        return 0.0F;
     }
 
     @OnlyIn(Dist.CLIENT)

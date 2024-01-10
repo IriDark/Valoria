@@ -1,5 +1,6 @@
 package com.idark.valoria.item.types;
 
+import com.idark.valoria.util.ModItemUtils;
 import com.idark.valoria.util.ModSoundRegistry;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundSource;
@@ -70,7 +71,8 @@ public class ScytheItem extends SwordItem {
             } else {
                 yawDouble = 1F - ((((float) i) - 180F) / 180F);
             }
-            hitDirection(level, player, hitEntities, pos, 0, player.getRotationVector().y + i, 4);
+
+            ModItemUtils.radiusHit(level, player, ParticleTypes.POOF, hitEntities, pos, 0, player.getRotationVector().y + i, 3);
         }
 
         float damage = (float) (player.getAttribute(Attributes.ATTACK_DAMAGE).getValue()) + EnchantmentHelper.getSweepingDamageRatio(player);
@@ -87,46 +89,5 @@ public class ScytheItem extends SwordItem {
         }
 
         level.playSound(player, player.blockPosition(), ModSoundRegistry.SWIFTSLICE.get(), SoundSource.AMBIENT, 10f, 1f);
-    }
-
-    public void hitDirection(Level level, Player player, List<LivingEntity> hitEntities, Vector3d pos, float pitchRaw, float yawRaw, float distance) {
-        double pitch = ((pitchRaw + 90) * Math.PI) / 180;
-        double yaw = ((yawRaw + 90) * Math.PI) / 180;
-
-        double locYaw = 0;
-        double locPitch = 0;
-        double locDistance = 5D;
-
-        double X = Math.sin(locPitch + pitch) * Math.cos(locYaw + yaw) * locDistance;
-        double Y = Math.cos(locPitch + pitch) * locDistance;
-        double Z = Math.sin(locPitch + pitch) * Math.sin(locYaw + yaw) * locDistance;
-
-        Vec3 playerPos = player.getEyePosition();
-        Vec3 NearPos = (new Vec3(pos.x + X, pos.y + Y, pos.z + Z));
-        Vec3 vec3 = playerPos.add(NearPos);
-
-        HitResult hitresult = level.clip(new ClipContext(playerPos, vec3, ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, null));
-        if (hitresult.getType() != HitResult.Type.MISS) {
-            vec3 = hitresult.getLocation();
-        }
-
-        X = hitresult.getLocation().x() - pos.x;
-        Y = hitresult.getLocation().y() - pos.y;
-        Z = hitresult.getLocation().z() - pos.z;
-
-        List<Entity> entities = level.getEntitiesOfClass(Entity.class,  new AABB(X,Y,Z,X + pos.x + ((rand.nextDouble() - 0.5D) * 0.2F) - 3.2,Y + pos.y + ((rand.nextDouble() - 0.5D) * 0.2F) - 3.2,Z + pos.z + ((rand.nextDouble() - 0.5D) * 0.2F) - 3.2));
-        for (Entity entity : entities) {
-            if (entity instanceof  LivingEntity) {
-                LivingEntity enemy = (LivingEntity)entity;
-                if (!hitEntities.contains(enemy) && (!enemy.equals(player))) {
-                    hitEntities.add(enemy);
-                }
-            }
-        }
-
-        X = Math.sin(locPitch + pitch) * Math.cos(locYaw + yaw) * locDistance * 0.75F;
-        Y = Math.cos(locPitch + pitch) * locDistance * 0.75F;
-        Z = Math.sin(locPitch + pitch) * Math.sin(locYaw + yaw) * locDistance * 0.75F;
-        level.addParticle(ParticleTypes.SWEEP_ATTACK, pos.x + X + ((rand.nextDouble() - 0.5D) * 0.2F), pos.y + Y + ((rand.nextDouble() - 0.5D) * 0.2F), pos.z + Z + ((rand.nextDouble() - 0.5D) * 0.2F), 0d, 0d, 0d);
     }
 }

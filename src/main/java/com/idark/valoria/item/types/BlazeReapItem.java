@@ -1,6 +1,7 @@
 package com.idark.valoria.item.types;
 
 import com.idark.valoria.enchant.ModEnchantments;
+import com.idark.valoria.item.ModItems;
 import com.idark.valoria.util.ModSoundRegistry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
@@ -9,6 +10,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
+import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
@@ -97,9 +99,16 @@ public class BlazeReapItem extends PickaxeItem {
                 } else {
                     player.displayClientMessage(Component.translatable("tooltip.valoria.recharge").withStyle(ChatFormatting.GRAY), true);
                 }
+
+                for(int i = 0; i < 6; ++i) {
+                    double d0 = rand.nextGaussian() * 0.02D;
+                    double d1 = rand.nextGaussian() * 0.02D;
+                    double d2 = rand.nextGaussian() * 0.02D;
+                    level.addParticle(ParticleTypes.FLAME, player.getRandomX(1.0D), player.getRandomY() - 0.5D, player.getRandomZ(1.0D), d0, d1, d2);
+                }
             }
 
-            return InteractionResultHolder.success(itemstack);
+            return InteractionResultHolder.pass(itemstack);
         } else if (isCharged(itemstack) == 1) {
             setCharge(itemstack, 0);
             player.getCooldowns().addCooldown(this, 50);

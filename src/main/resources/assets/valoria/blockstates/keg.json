@@ -2,7 +2,7 @@
   "variants" : {
     "facing=east" : {
 	"model": "valoria:block/keg",
-	"y": 90
+	"y": 270
 	},
 	"facing=north" : {
 	"model": "valoria:block/keg",
@@ -10,7 +10,7 @@
 	},
 	"facing=south" : {
 	"model": "valoria:block/keg",
-	"y": 180
+	"y": 360
 	},
 	"facing=west" : {
 	"model": "valoria:block/keg",

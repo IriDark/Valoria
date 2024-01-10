@@ -56,20 +56,20 @@ public class SpectralBladeItem extends Item implements Vanishable {
     public void releaseUsing(ItemStack stack, Level level, LivingEntity entityLiving, int timeLeft) {
         if (entityLiving instanceof Player playerEntity) {
             int i = this.getUseDuration(stack) - timeLeft;
-            if (i >= 6) {
+            if (i >= 6 && playerEntity.getXRot() > -55 && playerEntity.getXRot() < 65) {
                 if (!level.isClientSide) {
                     stack.hurtAndBreak(10, playerEntity, (player) -> {
                         player.broadcastBreakEvent(entityLiving.getUsedItemHand());
                     });
 
-                    SpectralBladeEntity spectr = new SpectralBladeEntity(level, playerEntity, stack);
-                    spectr.shootFromRotation(playerEntity, playerEntity.getXRot() + 0.25f, playerEntity.getYRot() - 1.25f, 0.0F, 2.5F + (float) 0 * 0.5F, 1.05F);
+                    SpectralBladeEntity spectral = new SpectralBladeEntity(level, playerEntity, stack);
+                    spectral.shootFromRotation(playerEntity, playerEntity.getXRot() + 0.25f, playerEntity.getYRot() - 1.25f, 0.0F, 2.5F + (float) 0 * 0.5F, 1.05F);
                     if (playerEntity.getAbilities().instabuild) {
-                        spectr.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
+                        spectral.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
                     }
 
-                    level.addFreshEntity(spectr);
-                    level.playSound(playerEntity, spectr, SoundEvents.SOUL_ESCAPE, SoundSource.PLAYERS, 1.0F, 1.0F);
+                    level.addFreshEntity(spectral);
+                    level.playSound(playerEntity, spectral, SoundEvents.SOUL_ESCAPE, SoundSource.PLAYERS, 1.0F, 1.0F);
                     playerEntity.getCooldowns().addCooldown(this, 5);
                 }
 
@@ -114,12 +114,5 @@ public class SpectralBladeItem extends Item implements Vanishable {
     public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags) {
         super.appendHoverText(stack, world, tooltip, flags);
         tooltip.add(Component.translatable("tooltip.valoria.kunai").withStyle(ChatFormatting.GRAY));
-        tooltip.add(Component.empty());
-        tooltip.add(Component.translatable("tooltip.valoria.attr").withStyle(ChatFormatting.GRAY));
-        tooltip.add(Component.literal(" 5 ").withStyle(ChatFormatting.DARK_GREEN).append(Component.translatable("tooltip.valoria.ranged_damage").withStyle(ChatFormatting.DARK_GREEN)));
-        if (stack.isEnchanted()) {
-            tooltip.add(Component.empty());
-            tooltip.add(Component.translatable("tooltip.valoria.encht").withStyle(ChatFormatting.GRAY));
-        }
     }
 }

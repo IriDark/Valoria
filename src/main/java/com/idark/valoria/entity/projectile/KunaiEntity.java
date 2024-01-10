@@ -21,6 +21,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
@@ -82,7 +83,7 @@ public class KunaiEntity extends AbstractArrow {
 		if (this.inGroundTime > 4) {
 			this.dealtDamage = true;
 		}
-		
+
 		Entity entity = this.getOwner();
 		if ((this.dealtDamage || this.isNoPhysics()) && entity != null) {
 			int i = this.entityData.get(LOYALTY_LEVEL);

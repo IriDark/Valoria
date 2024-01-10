@@ -64,8 +64,7 @@ public class KegBlock extends HorizontalDirectionalBlock implements EntityBlock,
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         FluidState fluidState = context.getLevel().getFluidState(context.getClickedPos());
-        Direction facing = context.getHorizontalDirection().getOpposite(); // Set facing direction
-        return this.defaultBlockState().setValue(FACING, facing).setValue(BlockStateProperties.WATERLOGGED, fluidState.getType() == Fluids.WATER);
+        return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite()).setValue(BlockStateProperties.WATERLOGGED, fluidState.getType() == Fluids.WATER);
     }
 	
 	@Override

@@ -45,9 +45,9 @@ public class KegBlockEntity extends TileSimpleInventory {
 
             return switch (direction) {
                 case EAST -> 90F;
-                case SOUTH -> 180F;
+                case SOUTH -> 360F;
                 case WEST -> -90F;
-                default -> 0F;
+                default -> 180F;
             };
         }
 
