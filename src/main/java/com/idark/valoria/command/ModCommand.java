@@ -1,5 +1,6 @@
 package com.idark.valoria.command;
 
+import com.idark.valoria.capability.IPage;
 import com.idark.valoria.client.render.gui.book.LexiconGui;
 import com.idark.valoria.client.render.gui.book.LexiconPages;
 import com.idark.valoria.command.build.CommandArgument;
@@ -16,6 +17,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
 
 import java.util.Collection;
 
@@ -50,7 +52,11 @@ public class ModCommand {
                 command.sendSuccess(() -> Component.translatable("commands.valoria.page.give.multiple", targetPlayers.size()), true);
             }
 
-            PacketHandler.sendTo(player, new PageUpdatePacket(pages, true));
+            player.getCapability(IPage.INSTANCE, null).ifPresent((k) -> {
+                k.makeOpen(pages, true);
+            });
+
+            PacketHandler.sendTo(player, new PageUpdatePacket(player));
         }
 
         return Command.SINGLE_SUCCESS;
@@ -67,7 +73,11 @@ public class ModCommand {
                 command.sendSuccess(() -> Component.translatable("commands.valoria.page.remove.multiple", targetPlayers.size()), true);
             }
 
-            PacketHandler.sendTo(player, new PageUpdatePacket(pages, false));
+            player.getCapability(IPage.INSTANCE, null).ifPresent((k) -> {
+                k.makeOpen(pages, false);
+            });
+
+            PacketHandler.sendTo(player, new PageUpdatePacket(player));
         }
 
         return Command.SINGLE_SUCCESS;
