@@ -43,7 +43,6 @@ public class ModCommand {
 
     private static int givePage(CommandSourceStack command, Collection<? extends ServerPlayer> targetPlayers, LexiconPages pages) throws CommandSyntaxException {
         for(ServerPlayer player : targetPlayers) {
-            LexiconGui.makeOpen(player, pages,true);
             Minecraft.getInstance().getToasts().addToast(new ModToast(true));
 
             if (targetPlayers.size() == 1) {
@@ -64,7 +63,6 @@ public class ModCommand {
 
     private static int removePage(CommandSourceStack command, Collection<? extends ServerPlayer> targetPlayers, LexiconPages pages) throws CommandSyntaxException {
         for(ServerPlayer player : targetPlayers) {
-            LexiconGui.makeOpen(player, pages,false);
             Minecraft.getInstance().getToasts().addToast(new ModToast(false));
 
             if (targetPlayers.size() == 1) {
