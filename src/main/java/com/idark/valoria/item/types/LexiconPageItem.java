@@ -1,7 +1,11 @@
 package com.idark.valoria.item.types;
 
+import com.idark.valoria.capability.IPage;
+import com.idark.valoria.capability.PageCapability;
 import com.idark.valoria.client.render.gui.book.LexiconGui;
 import com.idark.valoria.client.render.gui.book.LexiconPages;
+import com.idark.valoria.network.PacketHandler;
+import com.idark.valoria.network.PageUpdatePacket;
 import com.idark.valoria.toast.ModToast;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -33,11 +37,15 @@ public class LexiconPageItem extends Item {
         ItemStack stack = player.getItemInHand(hand);
         player.awardStat(Stats.ITEM_USED.get(this));
         if (!world.isClientSide) {
-            if (!LexiconGui.isOpen(player, pages)) {
+            if (!LexiconGui.pageIsOpen(player, pages)) {
                 player.playSound(SoundEvents.PLAYER_LEVELUP, 1, 0);
                 player.getInventory().removeItem(stack);
                 Minecraft.getInstance().getToasts().addToast(new ModToast(true));
-                LexiconGui.makeOpen(player, pages,true);
+                player.getCapability(IPage.INSTANCE, null).ifPresent((k) -> {
+                    k.makeOpen(pages, true);
+                });
+
+                PacketHandler.sendTo(player, new PageUpdatePacket(player));
                 return new InteractionResultHolder<>(InteractionResult.SUCCESS, stack);
             } else {
                 player.playSound(SoundEvents.PLAYER_BURP, 1, 0);

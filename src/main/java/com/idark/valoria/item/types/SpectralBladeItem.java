@@ -58,19 +58,17 @@ public class SpectralBladeItem extends Item implements Vanishable {
             int i = this.getUseDuration(stack) - timeLeft;
             if (i >= 6 && playerEntity.getXRot() > -55 && playerEntity.getXRot() < 65) {
                 if (!level.isClientSide) {
-                    stack.hurtAndBreak(10, playerEntity, (player) -> {
-                        player.broadcastBreakEvent(entityLiving.getUsedItemHand());
-                    });
+                    stack.hurtAndBreak(10, playerEntity, (player) -> player.broadcastBreakEvent(entityLiving.getUsedItemHand()));
 
                     SpectralBladeEntity spectral = new SpectralBladeEntity(level, playerEntity, stack);
-                    spectral.shootFromRotation(playerEntity, playerEntity.getXRot() + 0.25f, playerEntity.getYRot() - 1.25f, 0.0F, 2.5F + (float) 0 * 0.5F, 1.05F);
+                    spectral.shootFromRotation(playerEntity, playerEntity.getXRot(), playerEntity.getYRot(), (float)playerEntity.getZ() *5, 2.5F + (float) 0 * 0.5F, 3.2F);
                     if (playerEntity.getAbilities().instabuild) {
                         spectral.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
                     }
 
                     level.addFreshEntity(spectral);
                     level.playSound(playerEntity, spectral, SoundEvents.SOUL_ESCAPE, SoundSource.PLAYERS, 1.0F, 1.0F);
-                    playerEntity.getCooldowns().addCooldown(this, 5);
+                    playerEntity.getCooldowns().addCooldown(this, 75);
                 }
 
                 playerEntity.awardStat(Stats.ITEM_USED.get(this));

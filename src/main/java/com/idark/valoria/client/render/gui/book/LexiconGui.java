@@ -2,7 +2,10 @@ package com.idark.valoria.client.render.gui.book;
 
 import com.idark.valoria.Valoria;
 import com.idark.valoria.capability.IPage;
+import com.idark.valoria.capability.PageCapability;
 import com.idark.valoria.item.ModItems;
+import com.idark.valoria.network.PacketHandler;
+import com.idark.valoria.network.PageUpdatePacket;
 import com.idark.valoria.util.ColorUtils;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
@@ -13,6 +16,7 @@ import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
@@ -32,83 +36,41 @@ public class LexiconGui extends Screen {
     public ItemStack item;
     public LexiconPages pages;
 
-    public static boolean isOpen(Entity entity, LexiconPages pages) {
-        if (pages == LexiconPages.CRYPT) {
-            if (!(entity instanceof Player)) return false;
-            AtomicBoolean Crypt = new AtomicBoolean(false);
-            entity.getCapability(IPage.INSTANCE, null).ifPresent((k) -> {
-                Crypt.set(k.isOpen(LexiconPages.CRYPT));
-            });
-
-            return Crypt.get();
-        }
-
-        if (pages == LexiconPages.GEMS) {
-            if (!(entity instanceof Player)) return false;
-            AtomicBoolean Gems = new AtomicBoolean(true);
-            entity.getCapability(IPage.INSTANCE, null).ifPresent((k) -> {
-                Gems.set(k.isOpen(LexiconPages.GEMS));
-            });
-
-            return Gems.get();
-        }
-
-        if (pages == LexiconPages.MAIN) {
-            if (!(entity instanceof Player)) return false;
-            AtomicBoolean Main = new AtomicBoolean(true);
-            entity.getCapability(IPage.INSTANCE, null).ifPresent((k) -> {
-                Main.set(k.isOpen(LexiconPages.MAIN));
-            });
-
-            return Main.get();
-        }
-
-        if (pages == LexiconPages.MEDICINE) {
-            if (!(entity instanceof Player)) return false;
-            AtomicBoolean Medicine = new AtomicBoolean(true);
-            entity.getCapability(IPage.INSTANCE, null).ifPresent((k) -> {
-                Medicine.set(k.isOpen(LexiconPages.MEDICINE));
-            });
-
-            return Medicine.get();
-        }
-
-        return false;
-    }
-
-    public static void makeOpen(Entity entity, LexiconPages pages, boolean open) {
-        if (pages == LexiconPages.CRYPT) {
-            if (!(entity instanceof Player)) return;
-            entity.getCapability(IPage.INSTANCE, null).ifPresent((k) -> {
-                k.makeOpen(LexiconPages.CRYPT, open);
-            });
-        }
-
-        if (pages == LexiconPages.GEMS) {
-            if (!(entity instanceof Player)) return;
-            entity.getCapability(IPage.INSTANCE, null).ifPresent((k) -> {
-                k.makeOpen(LexiconPages.GEMS, open);
-            });
-        }
-
-        if (pages == LexiconPages.MAIN) {
-            if (!(entity instanceof Player)) return;
-            entity.getCapability(IPage.INSTANCE, null).ifPresent((k) -> {
-                k.makeOpen(LexiconPages.MAIN, open);
-            });
-        }
-
-        if (pages == LexiconPages.MEDICINE) {
-            if (!(entity instanceof Player)) return;
-            entity.getCapability(IPage.INSTANCE, null).ifPresent((k) -> {
-                k.makeOpen(LexiconPages.MEDICINE, open);
-            });
-        }
-    }
-
     public LexiconGui(LexiconPages pages) {
         super(Component.translatable("gui.valoria.main"));
         this.pages = pages;
+    }
+
+    // TODO: FIX THIS SHIT :(
+    public static boolean pageIsOpen(Entity entity, LexiconPages pages) {
+        if (!(entity instanceof Player)) return false;
+        switch (pages) {
+            case MAIN -> {
+                AtomicBoolean Main = new AtomicBoolean(true);
+                entity.getCapability(IPage.INSTANCE, null).ifPresent((k) -> Main.set(k.isOpen(LexiconPages.MAIN)));
+                return Main.get();
+            }
+
+            case GEMS -> {
+                AtomicBoolean Gems = new AtomicBoolean(true);
+                entity.getCapability(IPage.INSTANCE, null).ifPresent((k) -> Gems.set(k.isOpen(LexiconPages.GEMS)));
+                return Gems.get();
+            }
+
+            case MEDICINE -> {
+                AtomicBoolean Medicine = new AtomicBoolean(true);
+                entity.getCapability(IPage.INSTANCE, null).ifPresent((k) -> Medicine.set(k.isOpen(LexiconPages.MEDICINE)));
+                return Medicine.get();
+            }
+
+            case CRYPT -> {
+                AtomicBoolean Crypt = new AtomicBoolean(true);
+                entity.getCapability(IPage.INSTANCE, null).ifPresent((k) -> Crypt.set(k.isOpen(LexiconPages.CRYPT)));
+                return Crypt.get();
+            }
+        }
+
+        return false;
     }
 
     @Override
@@ -155,7 +117,7 @@ public class LexiconGui extends Screen {
 
         // Bookmarks
         boolean b = mouseX >= guiLeft + 267 && mouseX < guiLeft + 267 + BookmarkWidth && mouseY >= guiTop + 10 && mouseY < guiTop + 10 + BookmarkHeight;
-        if (isOpen(mc.player, LexiconPages.MAIN)) {
+        if (pageIsOpen(mc.player, LexiconPages.MAIN)) {
             if (b) {
                 gui.blit(BACKGROUND, guiLeft + 267, guiTop + 10, 0, 218, BookmarkWidth, BookmarkHeight, 512, 512);
                 gui.renderItem(new ItemStack(ModItems.LEXICON.get()), guiLeft + 272, guiTop + 14);
@@ -167,7 +129,7 @@ public class LexiconGui extends Screen {
         }
 
         boolean b1 = mouseX >= guiLeft + 267 && mouseX < guiLeft + 267 + BookmarkWidth && mouseY >= guiTop + 38 && mouseY < guiTop + 38 + 25;
-        if (isOpen(mc.player, LexiconPages.GEMS)) {
+        if (pageIsOpen(mc.player, LexiconPages.GEMS)) {
             if (b1) {
                 gui.blit(BACKGROUND, guiLeft + 267, guiTop + 38, 0, 218, BookmarkWidth, BookmarkHeight, 512, 512);
                 renderTooltip(gui, Component.translatable("gui.valoria.jewelry"), guiLeft + 282, guiTop + 59);
@@ -179,7 +141,7 @@ public class LexiconGui extends Screen {
         }
 
         boolean b2 = mouseX >= guiLeft + 267 && mouseX < guiLeft + 267 + BookmarkWidth && mouseY >= guiTop + 66 && mouseY < guiTop + 66 + BookmarkHeight;
-        if (isOpen(mc.player, LexiconPages.MEDICINE)) {
+        if (pageIsOpen(mc.player, LexiconPages.MEDICINE)) {
             if (b2) {
                 gui.blit(BACKGROUND, guiLeft + 267, guiTop + 66, 0, 218, BookmarkWidth, BookmarkHeight, 512, 512);
                 renderTooltip(gui, Component.translatable("gui.valoria.medicine"), guiLeft + 282, guiTop + 87);
@@ -190,7 +152,7 @@ public class LexiconGui extends Screen {
             }
         }
 
-        if (isOpen(getMinecraft().player, LexiconPages.CRYPT)) {
+        if (pageIsOpen(getMinecraft().player, LexiconPages.CRYPT)) {
             if (mouseX >= guiLeft + 267 && mouseX < guiLeft + 267 + BookmarkWidth && mouseY >= guiTop + 94 && mouseY < guiTop + 94 + BookmarkHeight) {
                 gui.blit(BACKGROUND, guiLeft + 267, guiTop + 94, 0, 218, BookmarkWidth, BookmarkHeight, 512, 512);
                 renderTooltip(gui, Component.translatable("gui.valoria.crypt"), guiLeft + 282, guiTop + 115);
@@ -206,7 +168,7 @@ public class LexiconGui extends Screen {
         gui.blit(BACKGROUND, guiLeft + 186, guiTop + 31, 97, 180, 38, 13, 512, 512);
         switch (pages) {
             case MAIN:
-                if (isOpen(mc.player, LexiconPages.MAIN)) {
+                if (pageIsOpen(mc.player, LexiconPages.MAIN)) {
                     if (b) {
                         gui.blit(BACKGROUND, guiLeft + 267, guiTop + 10, 0, 218, BookmarkWidth, BookmarkHeight, 512, 512);
                     } else {
@@ -241,7 +203,7 @@ public class LexiconGui extends Screen {
                 result.resultArrow(gui, guiLeft, guiTop, 175 + 37, 110 + 14, mouseX, mouseY, false);
                 break;
             case GEMS:
-                if (isOpen(mc.player, LexiconPages.GEMS)) {
+                if (pageIsOpen(mc.player, LexiconPages.GEMS)) {
                     if (b1) {
                         gui.blit(BACKGROUND, guiLeft + 267, guiTop + 38, 0, 218, BookmarkWidth, BookmarkHeight, 512, 512);
                     } else {
@@ -293,7 +255,7 @@ public class LexiconGui extends Screen {
 
                 break;
             case MEDICINE:
-                if (isOpen(mc.player, LexiconPages.MEDICINE)) {
+                if (pageIsOpen(mc.player, LexiconPages.MEDICINE)) {
                     if (b2) {
                         gui.blit(BACKGROUND, guiLeft + 267, guiTop + 66, 0, 218, BookmarkWidth, BookmarkHeight, 512, 512);
                     } else {
@@ -352,28 +314,28 @@ public class LexiconGui extends Screen {
                 mc.setScreen(new LexiconGui(LexiconPages.THANKS));
             }
 
-            if (isOpen(mc.player, LexiconPages.MAIN)) {
+            if (pageIsOpen(mc.player, LexiconPages.MAIN)) {
                 if (mouseX >= guiLeft + 267 && mouseX < guiLeft + 267 + 35 && mouseY >= guiTop + 10 && mouseY < guiTop + 10 + 25) {
                     mc.player.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundSource.NEUTRAL, 1.0f, 1.0f);
                     mc.setScreen(new LexiconGui(LexiconPages.MAIN));
                 }
             }
 
-            if (isOpen(mc.player, LexiconPages.GEMS)) {
+            if (pageIsOpen(mc.player, LexiconPages.GEMS)) {
                 if (mouseX >= guiLeft + 267 && mouseX < guiLeft + 267 + 35 && mouseY >= guiTop + 38 && mouseY < guiTop + 38 + 25) {
                     mc.player.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundSource.NEUTRAL, 1.0f, 1.0f);
                     mc.setScreen(new LexiconGui(LexiconPages.GEMS));
                 }
             }
 
-            if (isOpen(mc.player, LexiconPages.MEDICINE)) {
+            if (pageIsOpen(mc.player, LexiconPages.MEDICINE)) {
                 if (mouseX >= guiLeft + 267 && mouseX < guiLeft + 267 + 35 && mouseY >= guiTop + 66 && mouseY < guiTop + 66 + 25) {
                     mc.player.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundSource.NEUTRAL, 1.0f, 1.0f);
                     mc.setScreen(new LexiconGui(LexiconPages.MEDICINE));
                 }
             }
 
-            if (isOpen(getMinecraft().player, LexiconPages.CRYPT)) {
+            if (pageIsOpen(getMinecraft().player, LexiconPages.CRYPT)) {
                 if (mouseX >= guiLeft + 267 && mouseX < guiLeft + 267 + 35 && mouseY >= guiTop + 94 && mouseY < guiTop + 94 + 25) {
                     mc.player.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundSource.NEUTRAL, 1.0f, 1.0f);
                     mc.setScreen(new LexiconGui(LexiconPages.CRYPT));
@@ -384,7 +346,7 @@ public class LexiconGui extends Screen {
                 case MAIN, THANKS, MEDICINE, CRYPT:
                     break;
                 case GEMS:
-                    if (isOpen(mc.player, LexiconPages.GEMS)) {
+                    if (pageIsOpen(mc.player, LexiconPages.GEMS)) {
                         if (mouseX >= guiLeft + 250 && mouseX < guiLeft + 250 + 9 && mouseY >= guiTop + 150 && mouseY < guiTop + 150 + 8) {
                             mc.player.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundSource.NEUTRAL, 1.0f, 1.0f);
                             mc.setScreen(new LexiconGui(LexiconPages.GEMS_ABOUT));

@@ -2,15 +2,26 @@ package com.idark.valoria.capability;
 
 import com.idark.valoria.client.render.gui.book.LexiconGui;
 import com.idark.valoria.client.render.gui.book.LexiconPages;
+import com.idark.valoria.network.PacketHandler;
+import com.idark.valoria.network.PageUpdatePacket;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.Entity;
 import net.minecraftforge.common.util.INBTSerializable;
 
 public class PageCapability implements IPage, INBTSerializable<CompoundTag> {
-    private static boolean isMainOpen = LexiconGui.isOpen(Minecraft.getInstance().player, LexiconPages.MAIN);
-    private static boolean isGemsOpen = LexiconGui.isOpen(Minecraft.getInstance().player, LexiconPages.GEMS);
-    private static boolean isMedicineOpen = LexiconGui.isOpen(Minecraft.getInstance().player, LexiconPages.MEDICINE);
-    private static boolean isCryptOpen = LexiconGui.isOpen(Minecraft.getInstance().player, LexiconPages.MEDICINE);
+    boolean isCryptOpen = LexiconGui.pageIsOpen(Minecraft.getInstance().player, LexiconPages.CRYPT);
+    boolean isGemsOpen = LexiconGui.pageIsOpen(Minecraft.getInstance().player, LexiconPages.GEMS);
+    boolean isMainOpen = LexiconGui.pageIsOpen(Minecraft.getInstance().player, LexiconPages.MAIN);
+    boolean isMedicineOpen = LexiconGui.pageIsOpen(Minecraft.getInstance().player, LexiconPages.MEDICINE);
+
+    // TODO: FIX THIS SHIT :(
+    public static void makeOpen(Entity entity, LexiconPages pages, boolean open) {
+        if (!(entity instanceof ServerPlayer player)) return;
+        player.getCapability(IPage.INSTANCE, null).ifPresent((k) -> k.makeOpen(pages, open));
+        PacketHandler.sendTo(player, new PageUpdatePacket(player));
+    }
 
     @Override
     public boolean isOpen(LexiconPages pages) {
@@ -26,11 +37,24 @@ public class PageCapability implements IPage, INBTSerializable<CompoundTag> {
     @Override
     public void makeOpen(LexiconPages pages, boolean open) {
         switch (pages) {
-            case MAIN -> isMainOpen = open;
-            case GEMS, GEMS_ABOUT -> isGemsOpen = open;
-            case MEDICINE -> isMedicineOpen = open;
+            case MAIN -> {
+                makeOpen(Minecraft.getInstance().player, LexiconPages.MAIN, open);
+                isMainOpen = open;
+            }
+            case GEMS, GEMS_ABOUT -> {
+                makeOpen(Minecraft.getInstance().player, LexiconPages.GEMS, open);
+                isGemsOpen = open;
+            }
+
+            case MEDICINE -> {
+                makeOpen(Minecraft.getInstance().player, LexiconPages.MEDICINE, open);
+                isMedicineOpen = open;
+            }
             //case THANKS -> open;
-            case CRYPT -> isCryptOpen = open;
+            case CRYPT -> {
+                makeOpen(Minecraft.getInstance().player, LexiconPages.CRYPT, open);
+                isCryptOpen = open;
+            }
         }
     }
 
@@ -41,8 +65,6 @@ public class PageCapability implements IPage, INBTSerializable<CompoundTag> {
         wrapper.putBoolean("gems", isOpen(LexiconPages.GEMS));
         wrapper.putBoolean("medicine", isOpen(LexiconPages.MEDICINE));
         wrapper.putBoolean("crypt", isOpen(LexiconPages.CRYPT));
-
-
         return wrapper;
     }
 

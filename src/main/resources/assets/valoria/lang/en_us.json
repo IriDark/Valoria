@@ -114,6 +114,7 @@
 	"_comment": "Enchants",
 	"enchantment.valoria.explosive_flame": "Explosive Flame",
 	"enchantment.valoria.bleeding": "Bleeding",
+	"enchantment.valoria.radius": "Radius",
 
 	"_comment": "Item Groups",
  	"itemGroup.valoriaModTab": "Valoria - Main",

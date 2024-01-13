@@ -1,6 +1,7 @@
 package com.idark.valoria.item.types;
 
 import com.idark.valoria.math.RandUtils;
+import com.idark.valoria.util.ModUtils;
 import com.idark.valoria.util.ModSoundRegistry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
@@ -11,7 +12,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -20,18 +20,13 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.HitResult;
-import net.minecraft.world.phys.Vec3;
 import org.joml.Vector3d;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-@SuppressWarnings("ALL")
 public class MagmaSwordItem extends SwordItem {
 
     Random rand = new Random();
@@ -44,7 +39,7 @@ public class MagmaSwordItem extends SwordItem {
         return enchant != Enchantments.FIRE_ASPECT;
     }
 
-    public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
+    public InteractionResultHolder<ItemStack> use(Level level, Player playerIn, InteractionHand handIn) {
         ItemStack itemstack = playerIn.getItemInHand(handIn);
         if (itemstack.getDamageValue() >= itemstack.getMaxDamage() - 1) {
             return InteractionResultHolder.fail(itemstack);
@@ -63,13 +58,12 @@ public class MagmaSwordItem extends SwordItem {
 	}
 
     /**
-     *Some sounds taken from the CalamityMod (Terraria) in a https://calamitymod.fandom.com/wiki/Category:Sound_effects
-    */
+     *Some sounds taken from the CalamityMod (Terraria) in a <a href="https://calamitymod.fandom.com/wiki/Category:Sound_effects">Calamity Mod Fandom</a>
+     */
     public void releaseUsing(ItemStack stack, Level worldIn, LivingEntity entityLiving, int timeLeft) {
         Player player = (Player)entityLiving;
-        Entity entity = (Entity)entityLiving;
 		if (isCharged(stack) == 2) {
-			if (entity.isInWaterOrRain() == true) {
+			if (entityLiving.isInWaterOrRain()) {
 			player.getCooldowns().addCooldown(this, 150);
 			player.awardStat(Stats.ITEM_USED.get(this));
             setCharge(stack, 1);
@@ -82,7 +76,7 @@ public class MagmaSwordItem extends SwordItem {
                 worldIn.addParticle(ParticleTypes.POOF, player.getX() + ((rand.nextDouble() - 0.5D) * 3), player.getY() + ((rand.nextDouble() - 0.5D) * 3), player.getZ() + ((rand.nextDouble() - 0.5D) * 3), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2));
                 worldIn.addParticle(ParticleTypes.LARGE_SMOKE, player.getX() + ((rand.nextDouble() - 0.5D) * 3), player.getY() + ((rand.nextDouble() - 0.5D) * 3), player.getZ() + ((rand.nextDouble() - 0.5D) * 3), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2));
 			}
-		} else if (entity.isInWaterOrRain() == false) {
+		} else if (!entityLiving.isInWaterOrRain()) {
 			player.getCooldowns().addCooldown(this, 300);
 			player.awardStat(Stats.ITEM_USED.get(this));
             setCharge(stack, 0);						
@@ -96,14 +90,15 @@ public class MagmaSwordItem extends SwordItem {
 				} else {
 					yawDouble = 1F - ((((float) i) - 180F) / 180F);
 				}
-				hitDirection(worldIn, player, hitEntities, pos, 0, player.getRotationVector().y + i, 4);
+
+                ModUtils.radiusHit(worldIn, stack, player, ParticleTypes.FLAME, hitEntities, pos, 0, player.getRotationVector().y + i, 4);
 			}
 
 			float damage = (float) (player.getAttribute(Attributes.ATTACK_DAMAGE).getValue()) + EnchantmentHelper.getSweepingDamageRatio(player);
-			for (LivingEntity entityHitted : hitEntities) {
-				entityHitted.hurt(worldIn.damageSources().generic(), damage);
-				entityHitted.knockback(0.4F, player.getX() - entity.getX(), player.getZ() - entity.getZ());
-				entityHitted.setSecondsOnFire(5);
+			for (LivingEntity damagedEntity : hitEntities) {
+				damagedEntity.hurt(worldIn.damageSources().generic(), damage);
+				damagedEntity.knockback(0.4F, player.getX() - entityLiving.getX(), player.getZ() - entityLiving.getZ());
+				damagedEntity.setSecondsOnFire(5);
 			}
 			
 			if (!player.isCreative()) {
@@ -141,7 +136,6 @@ public class MagmaSwordItem extends SwordItem {
     }
 	
     public static String getModeString(ItemStack stack) {
-        CompoundTag nbt = stack.getTag();
         if (isCharged(stack) == 2) {
             return "tooltip.valoria.magma_charge_full";
         } else if (isCharged(stack) == 1) {
@@ -173,9 +167,9 @@ public class MagmaSwordItem extends SwordItem {
 					setCharge(stack, 2);
 				}
 				
-			if (target.level().isClientSide) {
-				for (int i = 0;i<25;i++) {
-					target.level().addParticle(ParticleTypes.FLAME, target.getX() + rand.nextDouble(), target.getY(), target.getZ() + rand.nextDouble(), 0d, 0.05d, 0d);
+			    if (attacker.level().isClientSide) {
+				    for (int i = 0;i<5;i++) {
+                        attacker.level().addParticle(ParticleTypes.FLAME, target.getX() + rand.nextDouble(), target.getY(), target.getZ() + rand.nextDouble(), 0d, 0.05d, 0d);
 				}
 			}
 		
@@ -185,45 +179,4 @@ public class MagmaSwordItem extends SwordItem {
 		
 	return true;
 	}
-
-    public void hitDirection(Level level, Player player, List<LivingEntity> hitEntities, Vector3d pos, float pitchRaw, float yawRaw, float distance) {
-        double pitch = ((pitchRaw + 90) * Math.PI) / 180;
-        double yaw = ((yawRaw + 90) * Math.PI) / 180;
-
-        double locYaw = 0;
-        double locPitch = 0;
-        double locDistance = 5D;
-
-        double X = Math.sin(locPitch + pitch) * Math.cos(locYaw + yaw) * locDistance;
-        double Y = Math.cos(locPitch + pitch) * locDistance;
-        double Z = Math.sin(locPitch + pitch) * Math.sin(locYaw + yaw) * locDistance;
-
-        Vec3 playerPos = player.getEyePosition();
-        Vec3 NearPos = (new Vec3(pos.x + X, pos.y + Y, pos.z + Z));
-        Vec3 vec3 = playerPos.add(NearPos);
-
-        HitResult hitresult = level.clip(new ClipContext(playerPos, vec3, ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, null));
-        if (hitresult.getType() != HitResult.Type.MISS) {
-            vec3 = hitresult.getLocation();
-        }
-
-        X = hitresult.getLocation().x() - pos.x;
-        Y = hitresult.getLocation().y() - pos.y;
-        Z = hitresult.getLocation().z() - pos.z;
-
-        List<Entity> entities = level.getEntitiesOfClass(Entity.class,  new AABB(X,Y,Z,X + pos.x + ((rand.nextDouble() - 0.5D) * 0.2F) - 3.2,Y + pos.y + ((rand.nextDouble() - 0.5D) * 0.2F) - 3.2,Z + pos.z + ((rand.nextDouble() - 0.5D) * 0.2F) - 3.2));
-        for (Entity entity : entities) {
-            if (entity instanceof  LivingEntity) {
-                LivingEntity enemy = (LivingEntity)entity;
-                if (!hitEntities.contains(enemy) && (!enemy.equals(player))) {
-                    hitEntities.add(enemy);
-                }
-            }
-        }
-
-        X = Math.sin(locPitch + pitch) * Math.cos(locYaw + yaw) * locDistance * 0.75F;
-        Y = Math.cos(locPitch + pitch) * locDistance * 0.75F;
-        Z = Math.sin(locPitch + pitch) * Math.sin(locYaw + yaw) * locDistance * 0.75F;
-        level.addParticle(ParticleTypes.LAVA, pos.x + X + ((rand.nextDouble() - 0.5D) * 0.2F), pos.y + Y + ((rand.nextDouble() - 0.5D) * 0.2F), pos.z + Z + ((rand.nextDouble() - 0.5D) * 0.2F), 0d, 0d, 0d);
-    }
 }

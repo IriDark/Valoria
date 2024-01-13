@@ -116,9 +116,15 @@ public class KatanaItem extends TieredItem implements Vanishable {
       return 30;
 	}
 
-    // Some sounds taken from the CalamityMod (Terraria) in a https://calamitymod.fandom.com/wiki/Category:Sound_effects
+	/**
+	 *Some sounds taken from the CalamityMod (Terraria) in a <a href="https://calamitymod.fandom.com/wiki/Category:Sound_effects">Calamity Mod Fandom</a>
+	 */
     public void releaseUsing(ItemStack stack, Level level, LivingEntity entityLiving, int timeLeft) {
 		Player player = (Player)entityLiving;
+		double pitch = ((player.getRotationVector().x + 90) * Math.PI) / 180;
+		double yaw = ((player.getRotationVector().y + 90) * Math.PI) / 180;
+		double locYaw = 0;
+		double locPitch = 0;
 		if (!player.isFallFlying()) {
 			Vec3 dir = (player.getViewVector(0.0f).scale(2.0d));
 			if (dir.x < 5f) {
@@ -135,11 +141,6 @@ public class KatanaItem extends TieredItem implements Vanishable {
 			double maxDistance = distance(pos, level, player);
 
 			for (int i = 0; i < 10; i += 1) {
-				double pitch = ((player.getRotationVector().x + 90) * Math.PI) / 180;
-				double yaw = ((player.getRotationVector().y + 90) * Math.PI) / 180;
-
-				double locYaw = 0;
-				double locPitch = 0;
 				double locDistance = i * 0.5D;
 
 				double X = Math.sin(locPitch + pitch) * Math.cos(locYaw + yaw) * locDistance;

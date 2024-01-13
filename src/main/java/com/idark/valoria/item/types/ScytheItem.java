@@ -1,13 +1,12 @@
 package com.idark.valoria.item.types;
 
-import com.idark.valoria.util.ModItemUtils;
+import com.idark.valoria.util.ModUtils;
 import com.idark.valoria.util.ModSoundRegistry;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -17,21 +16,13 @@ import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.HitResult;
-import net.minecraft.world.phys.Vec3;
 import org.joml.Vector3d;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
-@SuppressWarnings("ALL")
 public class ScytheItem extends SwordItem {
-
-    Random rand = new Random();
 
     public ScytheItem(Tier tier, int attackDamageIn, float attackSpeedIn, Properties builderIn) {
         super(tier, attackDamageIn, attackSpeedIn, builderIn);
@@ -55,7 +46,9 @@ public class ScytheItem extends SwordItem {
       return 30;
 	}
 
-    // Some sounds taken from the CalamityMod (Terraria) in a https://calamitymod.fandom.com/wiki/Category:Sound_effects
+    /**
+     *Some sounds taken from the CalamityMod (Terraria) in a <a href="https://calamitymod.fandom.com/wiki/Category:Sound_effects">Calamity Mod Fandom</a>
+     */
     public void releaseUsing(ItemStack stack, Level level, LivingEntity entityLiving, int timeLeft) {
         Player player = (Player)entityLiving;
         player.getCooldowns().addCooldown(this, 300);
@@ -72,7 +65,7 @@ public class ScytheItem extends SwordItem {
                 yawDouble = 1F - ((((float) i) - 180F) / 180F);
             }
 
-            ModItemUtils.radiusHit(level, player, ParticleTypes.POOF, hitEntities, pos, 0, player.getRotationVector().y + i, 3);
+            ModUtils.radiusHit(level, stack, player, ParticleTypes.POOF, hitEntities, pos, 0, player.getRotationVector().y + i, 3);
         }
 
         float damage = (float) (player.getAttribute(Attributes.ATTACK_DAMAGE).getValue()) + EnchantmentHelper.getSweepingDamageRatio(player);

@@ -9,7 +9,6 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
@@ -21,7 +20,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
@@ -30,13 +28,10 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.network.NetworkHooks;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
 
 public class SpectralBladeEntity extends AbstractArrow {
     public boolean dealtDamage;
     public ItemStack thrownStack = new ItemStack(ModItems.SPECTRAL_BLADE.get());
-    public List<Entity> entityNear;
     RandomSource rand = RandomSource.create();
 
     public SpectralBladeEntity(EntityType<? extends SpectralBladeEntity> type, Level worldIn) {
@@ -62,36 +57,7 @@ public class SpectralBladeEntity extends AbstractArrow {
         double a3 = vector3d.x;
         double a4 = vector3d.y;
         double a0 = vector3d.z;
-
-        AABB boundingBox = new AABB(this.getX() - 3.5, this.getY() - 0.5, this.getZ() - 3.5, this.getX() + 3.5, this.getY() + 0.5, this.getZ() + 3.5);
-        List<LivingEntity> livingEntities = this.level().getEntitiesOfClass(LivingEntity.class, boundingBox);
-
-        if (entityNear == null) {
-            entityNear = new ArrayList<>();
-        }
-
-        if (!livingEntities.isEmpty() && !livingEntities.contains(this.getOwner())) {
-            LivingEntity nearestEntity = null;
-            double nearestDistance = Double.MAX_VALUE;
-
-            for (LivingEntity livingEntity : livingEntities) {
-                double distance = this.distanceTo(livingEntity);
-
-                if (distance < nearestDistance) {
-                    nearestEntity = livingEntity;
-                    nearestDistance = distance;
-                }
-            }
-
-            if (nearestEntity != null) {
-                Vec3 targetPos = nearestEntity.position();
-                Vec3 currentPos = this.position();
-                Vec3 direction = targetPos.subtract(currentPos).normalize();
-                this.setDeltaMovement(direction.x, direction.y, direction.z);
-            } else {
-                this.setDeltaMovement(a3, 0, a0);
-            }
-        }
+        this.setDeltaMovement(a3, 0, a0);
 
         this.level().addParticle(ParticleTypes.REVERSE_PORTAL, this.getX() + a3 / 4.0D, this.getY() + a4 / 4.0D, this.getZ() + a0 / 2.0D, -a3, -a4 + 0.2D, -a0);
         if (isInWater()) {
@@ -112,7 +78,7 @@ public class SpectralBladeEntity extends AbstractArrow {
     }
 
     public ItemStack getPickupItem() {
-        return this.thrownStack.copy();
+        return null;
     }
 
     @Nullable
@@ -121,17 +87,8 @@ public class SpectralBladeEntity extends AbstractArrow {
     }
 
     public void onHitBlock(BlockHitResult pResult) {
-        if (!this.level().isClientSide()) {
-            this.removeAfterChangingDimensions();
-        } else {
-            this.level().playSound(this, this.getOnPos(), ModSoundRegistry.DISAPPEAR.get(), SoundSource.AMBIENT, 0.4f, 1f);
-            for (int i = 0; i < 6; ++i) {
-                double d0 = rand.nextGaussian() * 0.02D;
-                double d1 = rand.nextGaussian() * 0.02D;
-                double d2 = rand.nextGaussian() * 0.02D;
-                this.level().addParticle(ParticleTypes.POOF, this.getRandomX(1.0D), this.getRandomY() + 1.5D, this.getRandomZ(1.0D), d0, d1, d2);
-            }
-        }
+        this.level().playSound(this, this.getOnPos(), ModSoundRegistry.DISAPPEAR.get(), SoundSource.AMBIENT, 0.4f, 1f);
+        this.removeAfterChangingDimensions();
     }
 
     @Override
