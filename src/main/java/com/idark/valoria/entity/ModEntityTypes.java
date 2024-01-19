@@ -1,8 +1,14 @@
 package com.idark.valoria.entity;
 
 import com.idark.valoria.Valoria;
-import com.idark.valoria.entity.custom.*;
-import com.idark.valoria.entity.projectile.*;
+import com.idark.valoria.entity.custom.DraugrEntity;
+import com.idark.valoria.entity.custom.GoblinEntity;
+import com.idark.valoria.entity.custom.MannequinEntity;
+import com.idark.valoria.entity.custom.NecromancerEntity;
+import com.idark.valoria.entity.projectile.KunaiEntity;
+import com.idark.valoria.entity.projectile.MeatBlockEntity;
+import com.idark.valoria.entity.projectile.PoisonedKunaiEntity;
+import com.idark.valoria.entity.projectile.SpectralBladeEntity;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -30,6 +36,11 @@ public class ModEntityTypes {
 			() -> EntityType.Builder.of(DraugrEntity::new, MobCategory.CREATURE)
 			.sized(1f, 2f)
 			.build(new ResourceLocation(Valoria.MOD_ID, "draugr").toString()));
+
+	public static final RegistryObject<EntityType<NecromancerEntity>> NECROMANCER = ENTITY_TYPES.register("necromancer",
+			() -> EntityType.Builder.of(NecromancerEntity::new, MobCategory.CREATURE)
+					.sized(1f, 2f)
+					.build(new ResourceLocation(Valoria.MOD_ID, "necromancer").toString()));
 
 	public static final RegistryObject<EntityType<MannequinEntity>> MANNEQUIN = ENTITY_TYPES.register("mannequin",
 		() -> EntityType.Builder.of(MannequinEntity::new, MobCategory.CREATURE)

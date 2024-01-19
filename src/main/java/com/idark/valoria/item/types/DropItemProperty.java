@@ -1,8 +1,8 @@
 package com.idark.valoria.item.types;
 
 import com.idark.valoria.Valoria;
-import com.idark.valoria.util.ModSoundRegistry;
 import com.idark.valoria.util.LootUtil;
+import com.idark.valoria.util.ModSoundRegistry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.network.chat.Component;

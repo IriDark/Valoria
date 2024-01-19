@@ -3,6 +3,7 @@ package com.idark.valoria.entity.projectile;
 import com.idark.valoria.block.ModBlocks;
 import com.idark.valoria.damage.ModDamageSources;
 import com.idark.valoria.entity.ModEntityTypes;
+import com.idark.valoria.util.ModSoundRegistry;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -26,6 +27,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -63,7 +65,37 @@ public class MeatBlockEntity extends AbstractArrow {
             this.level().addParticle(new BlockParticleOption(ParticleTypes.BLOCK, state), this.getX() + Mth.nextFloat(rand, 0.0F, 0.2F), this.getY() + 0.7D, this.getZ() + Mth.nextFloat(rand, 0.0F, 0.2F), 0d, 0.02d, 0d);
         }
 
+        if (isInWater()) {
+            if (!this.level().isClientSide()) {
+                this.removeAfterChangingDimensions();
+            } else {
+                this.level().playSound(this, this.getOnPos(), ModSoundRegistry.DISAPPEAR.get(), SoundSource.AMBIENT, 0.4f, 1f);
+                for (int a = 0; a < 6; ++a) {
+                    double d0 = rand.nextGaussian() * 0.02D;
+                    double d1 = rand.nextGaussian() * 0.02D;
+                    double d2 = rand.nextGaussian() * 0.02D;
+                    this.level().addParticle(ParticleTypes.POOF, xo, yo, zo, d0, d1, d2);
+                }
+            }
+        }
+
         super.tick();
+    }
+
+    public void onHit(HitResult pResult) {
+        super.onHit(pResult);
+        if (pResult.getType() != HitResult.Type.ENTITY || !this.ownedBy(((EntityHitResult)pResult).getEntity())) {
+            if (!this.level().isClientSide) {
+                BlockState state = ModBlocks.CATTAIL.get().defaultBlockState();
+                for (int a = 0; a < 10; ++a) {
+                    this.level().addParticle(new BlockParticleOption(ParticleTypes.BLOCK, state),  xo, yo + 4, zo, 0.2d, 0.04d, 0.2d);
+                }
+
+                this.level().playSound(this, this.getOnPos(),  SoundEvents.FROGSPAWN_BREAK, SoundSource.AMBIENT, 0.4f, 1f);
+                this.removeAfterChangingDimensions();
+            }
+        }
+
     }
 
     @Override
@@ -81,17 +113,12 @@ public class MeatBlockEntity extends AbstractArrow {
     }
 
     public void onHitBlock(BlockHitResult pResult) {
-        BlockState state = ModBlocks.MEAT_BLOCK.get().defaultBlockState();
-        for (int a = 0; a < 10; ++a) {
-            this.level().addParticle(new BlockParticleOption(ParticleTypes.BLOCK, state), this.getX() + Mth.nextFloat(rand, 0.1F, 0.4F), this.getY() + 0.7D, this.getZ() + Mth.nextFloat(rand, 0.1F, 0.4F), 0.2d, 0.04d, 0.2d);
-        }
-
-        this.level().playSound(this, this.getOnPos(),  SoundEvents.FROGSPAWN_BREAK, SoundSource.AMBIENT, 0.4f, 1f);
-        this.removeAfterChangingDimensions();
+        super.onHitBlock(pResult);
     }
 
     @Override
     public void onHitEntity(EntityHitResult result) {
+        super.onHitEntity(result);
         Entity entity = result.getEntity();
         int e = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.SHARPNESS, this.thrownStack);
         float f = 7.5f + (((float) e) - 1.5f);
@@ -102,7 +129,6 @@ public class MeatBlockEntity extends AbstractArrow {
         Entity shooter = this.getOwner();
         DamageSource damagesource = new DamageSource(ModDamageSources.source(level(), ModDamageSources.BLEEDING).typeHolder(),this, (Entity) (shooter == null ? this : shooter));
         this.dealtDamage = true;
-        this.level().playSound(this, this.getOnPos(), SoundEvents.FROGSPAWN_BREAK, SoundSource.AMBIENT, 0.4f, 1f);
         if (entity.hurt(damagesource, f)) {
             if (entity.getType() == EntityType.ENDERMAN) {
                 return;
@@ -118,8 +144,6 @@ public class MeatBlockEntity extends AbstractArrow {
                 this.doPostHurtEffects(living);
             }
         }
-
-        this.discard();
     }
 
     public SoundEvent getDefaultHitGroundSoundEvent() {

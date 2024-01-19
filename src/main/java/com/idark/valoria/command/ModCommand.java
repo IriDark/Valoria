@@ -1,23 +1,23 @@
 package com.idark.valoria.command;
 
 import com.idark.valoria.capability.IPage;
-import com.idark.valoria.client.render.gui.book.LexiconGui;
 import com.idark.valoria.client.render.gui.book.LexiconPages;
 import com.idark.valoria.command.build.CommandArgument;
 import com.idark.valoria.command.build.CommandBuilder;
 import com.idark.valoria.command.build.CommandPart;
 import com.idark.valoria.command.build.CommandVariant;
+import com.idark.valoria.item.types.MagmaSwordItem;
 import com.idark.valoria.network.PacketHandler;
 import com.idark.valoria.network.PageUpdatePacket;
 import com.idark.valoria.toast.ModToast;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.client.Minecraft;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.player.Player;
 
 import java.util.Collection;
 
@@ -25,6 +25,7 @@ public class ModCommand {
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         CommandArgument targets = CommandArgument.entities("targets");
         CommandArgument pages = CommandArgument.pages("pages");
+        CommandArgument charges = CommandArgument.integer("charges", 0, 2);
         CommandBuilder builder = new CommandBuilder("valoria")
                 .variants(
                         new CommandVariant(CommandPart.create("addPage"), targets, pages).execute((p) -> {
@@ -35,8 +36,13 @@ public class ModCommand {
                         new CommandVariant(CommandPart.create("removePage"), targets, pages).execute((p) -> {
                             removePage(p.getSource(), targets.getPlayers(p), pages.getPages(p, "pages"));
                             return 1;
+                        }),
+
+                        new CommandVariant(CommandPart.create("setCharge"), targets, charges).execute((p) -> {
+                            setCharge(p.getSource(), targets.getPlayers(p), charges.getInt(p), p);
+                            return 1;
                         })
-                );
+                        );
 
         dispatcher.register(builder.permission((p)->p.hasPermission(2)).build());
     }
@@ -56,6 +62,17 @@ public class ModCommand {
             });
 
             PacketHandler.sendTo(player, new PageUpdatePacket(player));
+        }
+
+        return Command.SINGLE_SUCCESS;
+    }
+
+    private static int setCharge(CommandSourceStack command, Collection<? extends ServerPlayer> targetPlayers, int pCharge, CommandContext p) throws CommandSyntaxException {
+        for(ServerPlayer player : targetPlayers) {
+            MagmaSwordItem.setCharge(player.getOffhandItem(), pCharge);
+            MagmaSwordItem.setCharge(player.getMainHandItem(), pCharge);
+
+            command.sendSuccess(() -> Component.translatable("commands.valoria.charges.set.add", pCharge).append(" to " + player.getName().getString()), true);
         }
 
         return Command.SINGLE_SUCCESS;

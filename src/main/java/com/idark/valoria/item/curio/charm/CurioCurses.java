@@ -25,7 +25,8 @@ import top.theillusivec4.curios.api.type.capability.ICurio;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
 import javax.annotation.Nonnull;
-import java.util.*;
+import java.util.List;
+import java.util.UUID;
 
 public class CurioCurses extends Item implements ICurioItem {
 	public CurioCurses(Properties properties) {

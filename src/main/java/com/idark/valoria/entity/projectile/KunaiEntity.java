@@ -3,6 +3,7 @@ package com.idark.valoria.entity.projectile;
 import com.google.common.collect.Lists;
 import com.idark.valoria.entity.ModEntityTypes;
 import com.idark.valoria.item.ModItems;
+import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
@@ -14,20 +15,20 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-
-import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
 import net.minecraftforge.network.NetworkHooks;
 
 import javax.annotation.Nullable;
@@ -153,9 +154,8 @@ public class KunaiEntity extends AbstractArrow {
 		Entity entity = result.getEntity();
 		int e = (int)EnchantmentHelper.getDamageBonus(this.thrownStack, MobType.UNDEFINED);
 		float f = 7f + (float)Math.max(0, e - 2);
-		if (entity instanceof LivingEntity) {
-			LivingEntity livingentity = (LivingEntity)entity;
-			f += EnchantmentHelper.getDamageBonus(this.thrownStack, livingentity.getMobType());
+		if (entity instanceof LivingEntity livingentity) {
+            f += EnchantmentHelper.getDamageBonus(this.thrownStack, livingentity.getMobType());
 		}
 
 		Entity shooter = this.getOwner();

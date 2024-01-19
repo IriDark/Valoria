@@ -1,7 +1,8 @@
 package com.idark.valoria.item.types;
 
-import com.idark.valoria.block.*;
-import com.idark.valoria.util.particle.*;
+import com.idark.valoria.block.ModBlocks;
+import com.idark.valoria.util.particle.ModParticles;
+import com.idark.valoria.util.particle.Particles;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;

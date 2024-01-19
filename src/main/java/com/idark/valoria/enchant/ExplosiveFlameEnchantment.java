@@ -1,6 +1,6 @@
 package com.idark.valoria.enchant;
 
-import com.idark.valoria.item.types.*;
+import com.idark.valoria.item.types.BlazeReapItem;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;

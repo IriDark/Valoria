@@ -2,7 +2,6 @@ package com.idark.valoria.tileentity;
 
 import com.idark.valoria.Valoria;
 import com.idark.valoria.block.ModBlocks;
-import com.idark.valoria.block.types.CrushableBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;

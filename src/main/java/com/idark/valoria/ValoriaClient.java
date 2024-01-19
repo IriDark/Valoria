@@ -140,6 +140,7 @@ public class ValoriaClient {
 				Sheets.addWoodType(ModWoodTypes.SHADEWOOD);
 			});
 
+			EntityRenderers.register(ModEntityTypes.NECROMANCER.get(), NecromancerRenderer::new);
 			EntityRenderers.register(ModEntityTypes.DRAUGR.get(), DraugrRenderer::new);
 			EntityRenderers.register(ModEntityTypes.GOBLIN.get(), GoblinRenderer::new);
 			//EntityRenderers.register(ModEntityTypes.SWAMP_WANDERER.get(), SwampWandererRenderer::new);

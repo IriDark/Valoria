@@ -8,7 +8,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.client.event.RenderGuiOverlayEvent;
 import org.lwjgl.opengl.GL11;
@@ -23,12 +22,13 @@ public class MagmaBarRender {
         ItemStack main = mc.player.getMainHandItem();
         ItemStack offhand = mc.player.getOffhandItem();
         GuiGraphics gui = event.getGuiGraphics();
-        Player player = mc.player;
         ItemStack stack = main;
+
         RenderSystem.enableBlend();
         RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-        Integer barType = ClientConfig.MAGMA_CHARGE_BAR_TYPE.get();
+        int barType = ClientConfig.MAGMA_CHARGE_BAR_TYPE.get();
         boolean renderBar = false;
+
         if (barType < 3 && !main.isEmpty() && main.getItem() instanceof MagmaSwordItem) {
             renderBar = true;
         } else {
@@ -40,9 +40,10 @@ public class MagmaBarRender {
 
         CompoundTag tag = stack.getTag();
         if (renderBar) {
-            if (!player.isSpectator()) {
-                Integer xCord = ClientConfig.MAGMA_CHARGE_BAR_X.get();
-                Integer yCord = ClientConfig.MAGMA_CHARGE_BAR_Y.get();
+            if (!mc.player.isSpectator()) {
+                int xCord = ClientConfig.MAGMA_CHARGE_BAR_X.get();
+                int yCord = ClientConfig.MAGMA_CHARGE_BAR_Y.get();
+
                 mc.textureManager.bindForSetup(BAR);
                 if (barType == 1) {
                     gui.blit(BAR, xCord, yCord, 0, 0, 16, 34, 64, 64);
@@ -55,14 +56,12 @@ public class MagmaBarRender {
                     }
                 } else if (barType == 2) {
                     gui.blit(BAR, xCord, yCord, 20, 42, 22, 22, 64, 64);
-                    if (tag.getInt("charge") == 1) {
-                        gui.blit(BAR, xCord, yCord, 42, 20, 22, 22, 64, 64);
-                    } else if (tag.getInt("charge") == 2) {
-                        gui.blit(BAR, xCord , yCord, 42, 42, 22, 22, 64, 64);
-                        }
+                    if (tag.getInt("charge") > 0) {
+                        gui.blit(BAR, xCord, yCord, 42, tag.getInt("charge") == 1 ? 20 : 42, 22, 22, 64, 64);
                     }
                 }
             }
+        }
 
         RenderSystem.disableBlend();
 	}

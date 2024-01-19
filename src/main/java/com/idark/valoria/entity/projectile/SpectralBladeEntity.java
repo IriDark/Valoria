@@ -22,6 +22,7 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -77,6 +78,14 @@ public class SpectralBladeEntity extends AbstractArrow {
         super.tick();
     }
 
+    public void onHit(HitResult pResult) {
+        super.onHit(pResult);
+        if (!this.level().isClientSide) {
+            this.discard();
+        }
+
+    }
+
     public ItemStack getPickupItem() {
         return null;
     }
@@ -88,7 +97,6 @@ public class SpectralBladeEntity extends AbstractArrow {
 
     public void onHitBlock(BlockHitResult pResult) {
         this.level().playSound(this, this.getOnPos(), ModSoundRegistry.DISAPPEAR.get(), SoundSource.AMBIENT, 0.4f, 1f);
-        this.removeAfterChangingDimensions();
     }
 
     @Override
@@ -119,7 +127,6 @@ public class SpectralBladeEntity extends AbstractArrow {
             }
         }
 
-        this.discard();
     }
 
     public SoundEvent getDefaultHitGroundSoundEvent() {

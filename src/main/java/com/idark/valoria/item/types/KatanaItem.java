@@ -30,7 +30,9 @@ import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.*;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
 import org.joml.Vector3d;
 
 import java.util.ArrayList;
@@ -117,7 +119,7 @@ public class KatanaItem extends TieredItem implements Vanishable {
 	}
 
 	/**
-	 *Some sounds taken from the CalamityMod (Terraria) in a <a href="https://calamitymod.fandom.com/wiki/Category:Sound_effects">Calamity Mod Fandom</a>
+	 *Some sounds taken from the CalamityMod (Terraria) in a <a href="https://calamitymod.wiki.gg/wiki/Category:Sound_effects">Calamity Mod Wiki.gg</a>
 	 */
     public void releaseUsing(ItemStack stack, Level level, LivingEntity entityLiving, int timeLeft) {
 		Player player = (Player)entityLiving;
@@ -150,9 +152,8 @@ public class KatanaItem extends TieredItem implements Vanishable {
 				level.addParticle(ParticleTypes.POOF, pos.x + X + (rand.nextDouble() - 0.5D), pos.y + Y, pos.z + Z + (rand.nextDouble() - 0.5D), 0d, 0.05d, 0d);
 				List<Entity> entities = level.getEntitiesOfClass(Entity.class,  new AABB(pos.x + X - 0.5D,pos.y + Y - 0.5D,pos.z + Z - 0.5D,pos.x + X + 0.5D,pos.y + Y + 0.5D,pos.z + Z + 0.5D));
 				for (Entity entity : entities) {
-					if (entity instanceof  LivingEntity) {
-						LivingEntity enemy = (LivingEntity)entity;
-						if (!hitEntities.contains(enemy) && (!enemy.equals(player))) {
+					if (entity instanceof LivingEntity enemy) {
+                        if (!hitEntities.contains(enemy) && (!enemy.equals(player))) {
 							hitEntities.add(enemy);
 						}
 					}

@@ -1,7 +1,9 @@
 package com.idark.valoria.item.types;
 
-import com.idark.valoria.util.ModUtils;
+import com.idark.valoria.client.render.model.item.ItemAnims;
+import com.idark.valoria.client.render.model.item.RadiusAttackAnim;
 import com.idark.valoria.util.ModSoundRegistry;
+import com.idark.valoria.util.ModUtils;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
@@ -17,12 +19,15 @@ import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.joml.Vector3d;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ScytheItem extends SwordItem {
+public class ScytheItem extends SwordItem implements ICustomAnimationItem{
+    public static RadiusAttackAnim animation = new RadiusAttackAnim();
 
     public ScytheItem(Tier tier, int attackDamageIn, float attackSpeedIn, Properties builderIn) {
         super(tier, attackDamageIn, attackSpeedIn, builderIn);
@@ -38,25 +43,30 @@ public class ScytheItem extends SwordItem {
         }
     }
 
-    public UseAnim getUseAnimation(ItemStack stack) {
-        return UseAnim.NONE;
+    public UseAnim getUseAnimation(ItemStack pStack) {
+        return UseAnim.CUSTOM;
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    @Override
+    public ItemAnims getAnimation(ItemStack stack) {
+        return animation;
     }
 
 	public int getUseDuration(ItemStack stack) {
-      return 30;
+      return 5;
 	}
 
     /**
-     *Some sounds taken from the CalamityMod (Terraria) in a <a href="https://calamitymod.fandom.com/wiki/Category:Sound_effects">Calamity Mod Fandom</a>
+     *Some sounds taken from the CalamityMod (Terraria) in a <a href="https://calamitymod.wiki.gg/wiki/Category:Sound_effects">Calamity Mod Wiki.gg</a>
      */
-    public void releaseUsing(ItemStack stack, Level level, LivingEntity entityLiving, int timeLeft) {
+    public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entityLiving) {
         Player player = (Player)entityLiving;
-        player.getCooldowns().addCooldown(this, 300);
+        player.getCooldowns().addCooldown(this, 100);
         player.awardStat(Stats.ITEM_USED.get(this));
 
         Vector3d pos = new Vector3d(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());
         List<LivingEntity> hitEntities = new ArrayList<LivingEntity>();
-
         for (int i = 0; i < 360; i += 10) {
             float yawDouble = 0;
             if (i <= 180) {
@@ -82,5 +92,6 @@ public class ScytheItem extends SwordItem {
         }
 
         level.playSound(player, player.blockPosition(), ModSoundRegistry.SWIFTSLICE.get(), SoundSource.AMBIENT, 10f, 1f);
+        return stack;
     }
 }

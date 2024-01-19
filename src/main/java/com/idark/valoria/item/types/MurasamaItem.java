@@ -1,8 +1,8 @@
 package com.idark.valoria.item.types;
 
 import com.idark.valoria.client.render.DashOverlayRender;
-import com.idark.valoria.util.ModUtils;
 import com.idark.valoria.util.ModSoundRegistry;
+import com.idark.valoria.util.ModUtils;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -17,7 +17,10 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.SwordItem;
+import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ClipContext;
@@ -40,7 +43,7 @@ public class MurasamaItem extends SwordItem {
     }
 
     /**
-     *Some sounds taken from the CalamityMod (Terraria) in a <a href="https://calamitymod.fandom.com/wiki/Category:Sound_effects">Calamity Mod Fandom</a>
+     *Some sounds taken from the CalamityMod (Terraria) in a <a href="https://calamitymod.wiki.gg/wiki/Category:Sound_effects">Calamity Mod Wiki.gg</a>
      */
     public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
         ItemStack itemstack = playerIn.getItemInHand(handIn);
@@ -56,7 +59,7 @@ public class MurasamaItem extends SwordItem {
         Player player = (Player)livingEntityIn;
         addCharge(stack, 1);
         for (int ii = 0; ii < 1 + Mth.nextInt(RandomSource.create(), 0,2); ii += 1) {
-            ModUtils.spawnParticlesAroundPosition(new Vec3(player.getX(), player.getY() + (player.getEyeHeight() / 2), player.getZ()), 2f, (float) (rand.nextDouble() * 0.1F), worldIn, DustParticleOptions.REDSTONE);
+            ModUtils.spawnParticlesAroundPosition(new Vector3d(player.getX(), player.getY() + (player.getEyeHeight() / 2), player.getZ()), 2f, (float) (rand.nextDouble() * 0.1F), worldIn, DustParticleOptions.REDSTONE);
         }
 
         if (getCharge(stack) == 20) {
@@ -81,7 +84,7 @@ public class MurasamaItem extends SwordItem {
     }
 
     /**
-     *Some sounds taken from the CalamityMod (Terraria) in a <a href="https://calamitymod.fandom.com/wiki/Category:Sound_effects">Calamity Mod Fandom</a>
+     *Some sounds taken from the CalamityMod (Terraria) in a <a href="https://calamitymod.wiki.gg/wiki/Category:Sound_effects">Calamity Mod Wiki.gg</a>
      */
     public void releaseUsing(ItemStack stack, Level level, LivingEntity entityLiving, int timeLeft) {
         Player player = (Player) entityLiving;
@@ -114,7 +117,7 @@ public class MurasamaItem extends SwordItem {
 
                 level.addParticle(ParticleTypes.POOF, pos.x + X + (rand.nextDouble() - 0.5D), pos.y + Y, pos.z + Z + (rand.nextDouble() - 0.5D), 0d, 0.05d, 0d);
                 for (int ii = 0; ii < 1 + Mth.nextInt(RandomSource.create(), 0,2); ii += 1) {
-                    ModUtils.spawnParticlesAroundPosition(new Vec3(pos.x + X, pos.y + Y, pos.z + Z), 3F, (float) (rand.nextDouble() * 0.05F), level, DustParticleOptions.REDSTONE);
+                    ModUtils.spawnParticlesAroundPosition(new Vector3d(pos.x + X, pos.y + Y, pos.z + Z), 3F, (float) (rand.nextDouble() * 0.05F), level, DustParticleOptions.REDSTONE);
                 }
 
                 List<Entity> entities = level.getEntitiesOfClass(Entity.class,  new AABB(pos.x + X - 0.5D,pos.y + Y - 0.5D,pos.z + Z - 0.5D,pos.x + X + 0.5D,pos.y + Y + 0.5D,pos.z + Z + 0.5D));
@@ -164,7 +167,7 @@ public class MurasamaItem extends SwordItem {
             double Z = Math.sin(locPitch + pitch) * Math.sin(locYaw + yaw) * maxDistance;
 
             for (int iii = 0; iii < 25; iii += 1) {
-                ModUtils.spawnParticlesAroundPosition(new Vec3(pos.x + X, pos.y + Y, pos.z + Z), 5F, (float) (rand.nextDouble() * 0.05F), level, DustParticleOptions.REDSTONE);
+                ModUtils.spawnParticlesAroundPosition(new Vector3d(pos.x + X, pos.y + Y, pos.z + Z), 5F, (float) (rand.nextDouble() * 0.05F), level, DustParticleOptions.REDSTONE);
                 level.addParticle(ParticleTypes.POOF, pos.x + X + ((rand.nextDouble() - 0.5D) * 3), pos.y + Y + ((rand.nextDouble() - 0.5D) * 3), pos.z + Z + ((rand.nextDouble() - 0.5D) * 3), 0d, 0.05d, 0d);
             }
 

@@ -1,7 +1,6 @@
 package com.idark.valoria.item.types;
 
 import com.idark.valoria.capability.IPage;
-import com.idark.valoria.capability.PageCapability;
 import com.idark.valoria.client.render.gui.book.LexiconGui;
 import com.idark.valoria.client.render.gui.book.LexiconPages;
 import com.idark.valoria.network.PacketHandler;

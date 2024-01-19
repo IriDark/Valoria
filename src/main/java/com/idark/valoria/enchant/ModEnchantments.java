@@ -1,7 +1,10 @@
 package com.idark.valoria.enchant;
 
 import com.idark.valoria.Valoria;
-import com.idark.valoria.item.types.*;
+import com.idark.valoria.item.types.BlazeReapItem;
+import com.idark.valoria.item.types.MagmaSwordItem;
+import com.idark.valoria.item.types.PhantomItem;
+import com.idark.valoria.item.types.ScytheItem;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.minecraftforge.eventbus.api.IEventBus;

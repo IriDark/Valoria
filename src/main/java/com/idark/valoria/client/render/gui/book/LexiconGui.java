@@ -2,10 +2,7 @@ package com.idark.valoria.client.render.gui.book;
 
 import com.idark.valoria.Valoria;
 import com.idark.valoria.capability.IPage;
-import com.idark.valoria.capability.PageCapability;
 import com.idark.valoria.item.ModItems;
-import com.idark.valoria.network.PacketHandler;
-import com.idark.valoria.network.PageUpdatePacket;
 import com.idark.valoria.util.ColorUtils;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
@@ -16,7 +13,6 @@ import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
@@ -83,9 +79,9 @@ public class LexiconGui extends Screen {
         this.width = mc.getWindow().getGuiScaledWidth();
         this.height = mc.getWindow().getGuiScaledHeight();
         int guiLeft = (width - 272) / 2, guiTop = (height - 180) / 2;
-
         int BookmarkHeight = 25;
         int BookmarkWidth = 35;
+
         // Book
         gui.blit(BACKGROUND, guiLeft, guiTop, 0, 0, 272, 180, 512, 512);
         gui.blit(BACKGROUND, guiLeft - 19, guiTop + 132, 272, 132, 17, 48, 512, 512);

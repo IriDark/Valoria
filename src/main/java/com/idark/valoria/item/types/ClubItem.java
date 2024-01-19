@@ -2,8 +2,8 @@ package com.idark.valoria.item.types;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
-import com.idark.valoria.effect.*;
-import com.idark.valoria.math.*;
+import com.idark.valoria.effect.ModEffects;
+import com.idark.valoria.math.RandUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.effect.MobEffectInstance;

@@ -1,8 +1,8 @@
 package com.idark.valoria.item.types;
 
 import com.idark.valoria.math.RandUtils;
-import com.idark.valoria.util.ModUtils;
 import com.idark.valoria.util.ModSoundRegistry;
+import com.idark.valoria.util.ModUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -58,7 +58,7 @@ public class MagmaSwordItem extends SwordItem {
 	}
 
     /**
-     *Some sounds taken from the CalamityMod (Terraria) in a <a href="https://calamitymod.fandom.com/wiki/Category:Sound_effects">Calamity Mod Fandom</a>
+     *Some sounds taken from the CalamityMod (Terraria) in a <a href="https://calamitymod.wiki.gg/wiki/Category:Sound_effects">Calamity Mod Wiki.gg</a>
      */
     public void releaseUsing(ItemStack stack, Level worldIn, LivingEntity entityLiving, int timeLeft) {
         Player player = (Player)entityLiving;
@@ -66,6 +66,7 @@ public class MagmaSwordItem extends SwordItem {
 			if (entityLiving.isInWaterOrRain()) {
 			player.getCooldowns().addCooldown(this, 150);
 			player.awardStat(Stats.ITEM_USED.get(this));
+            player.displayClientMessage(Component.translatable("tooltip.valoria.wet").withStyle(ChatFormatting.GRAY), true);
             setCharge(stack, 1);
 			worldIn.playSound(player, player.blockPosition(), SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 10f, 1f);
 			if (!player.isCreative()) {
@@ -79,8 +80,8 @@ public class MagmaSwordItem extends SwordItem {
 		} else if (!entityLiving.isInWaterOrRain()) {
 			player.getCooldowns().addCooldown(this, 300);
 			player.awardStat(Stats.ITEM_USED.get(this));
-            setCharge(stack, 0);						
-			Vector3d pos = new Vector3d(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());
+            setCharge(stack, 0);
+                Vector3d pos = new Vector3d(player.getX(), player.getY() + 0.3f, player.getZ());
 			List<LivingEntity> hitEntities = new ArrayList<LivingEntity>();
 
 			for (int i = 0; i < 360; i += 10) {
@@ -91,6 +92,8 @@ public class MagmaSwordItem extends SwordItem {
 					yawDouble = 1F - ((((float) i) - 180F) / 180F);
 				}
 
+                ModUtils.spawnParticlesInRadius(worldIn, stack, ParticleTypes.LARGE_SMOKE, pos, 0, player.getRotationVector().y + i, 1);
+                ModUtils.spawnParticlesInRadius(worldIn, stack, ParticleTypes.LARGE_SMOKE, pos, 0, player.getRotationVector().y + i, 4);
                 ModUtils.radiusHit(worldIn, stack, player, ParticleTypes.FLAME, hitEntities, pos, 0, player.getRotationVector().y + i, 4);
 			}
 
@@ -107,7 +110,9 @@ public class MagmaSwordItem extends SwordItem {
 				
 			worldIn.playSound(player, player.blockPosition(), ModSoundRegistry.ERUPTION.get(), SoundSource.AMBIENT, 10f, 1f);
 			}
-		}
+		} else {
+            player.displayClientMessage(Component.translatable("tooltip.valoria.charges").withStyle(ChatFormatting.GRAY), true);
+        }
 	}
 
     public static int isCharged(ItemStack stack) {

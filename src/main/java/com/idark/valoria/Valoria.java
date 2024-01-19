@@ -24,7 +24,6 @@ import com.idark.valoria.entity.custom.MannequinEntity;
 import com.idark.valoria.item.ModAttributes;
 import com.idark.valoria.item.ModItemGroup;
 import com.idark.valoria.item.ModItems;
-import com.idark.valoria.item.curio.PickNecklace;
 import com.idark.valoria.item.staffs.StaffItem;
 import com.idark.valoria.network.PacketHandler;
 import com.idark.valoria.paintings.ModPaintings;
@@ -202,6 +201,7 @@ public class Valoria {
 			event.put(ModEntityTypes.MANNEQUIN.get(), MannequinEntity.createAttributes().build());
 			event.put(ModEntityTypes.GOBLIN.get(), GoblinEntity.createAttributes().build());
 			event.put(ModEntityTypes.DRAUGR.get(), GoblinEntity.createAttributes().build());
+			event.put(ModEntityTypes.NECROMANCER.get(), GoblinEntity.createAttributes().build());
 		}
 
 		@SubscribeEvent

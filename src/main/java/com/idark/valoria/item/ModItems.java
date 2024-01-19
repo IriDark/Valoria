@@ -1,7 +1,7 @@
 package com.idark.valoria.item;
 
 import com.idark.valoria.Valoria;
-import com.idark.valoria.block.*;
+import com.idark.valoria.block.ModBlocks;
 import com.idark.valoria.client.render.gui.book.LexiconPages;
 import com.idark.valoria.entity.ModEntityTypes;
 import com.idark.valoria.item.curio.*;
@@ -16,8 +16,8 @@ import net.minecraft.world.item.*;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.RegistryObject;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
 public class ModItems {
 	public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Valoria.MOD_ID);

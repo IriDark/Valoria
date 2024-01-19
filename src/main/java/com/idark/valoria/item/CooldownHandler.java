@@ -9,7 +9,9 @@ import net.minecraft.world.item.Item;
 
 public class CooldownHandler {
 
-    // Some sounds taken from the CalamityMod (Terraria) in a https://calamitymod.fandom.com/wiki/Category:Sound_effects
+    /**
+     *Some sounds taken from the CalamityMod (Terraria) in a <a href="https://calamitymod.wiki.gg/wiki/Category:Sound_effects">Calamity Mod Wiki.gg</a>
+     */
     public static void onCooldownEnd(ServerPlayer player, Item item){
         if (item instanceof KatanaItem || item instanceof ScytheItem){
             player.playNotifySound(ModSoundRegistry.RECHARGE.get(), SoundSource.PLAYERS,1,1);

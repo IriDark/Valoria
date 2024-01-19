@@ -5,6 +5,8 @@
 	"tooltip.valoria.rmb_shift": "[RMB + SHIFT] - to charge",
 	"tooltip.valoria.rmb_equip": "[RMB] - to equip",
 	"tooltip.valoria.recharge": "Not enough resources to recharge.",
+	"tooltip.valoria.charges": "Not enough charges to use.",
+	"tooltip.valoria.wet": "You can't use the ability when you're wet!.",
 	"tooltip.valoria.magma_charge_full": "Fully charged",
 	"tooltip.valoria.magma_charge_half": "Half charged",
 	"tooltip.valoria.magma_charge_empty": "Not charged",
@@ -46,6 +48,7 @@
 	"commands.valoria.page.give.multiple": "Gave page to %s players",
 	"commands.valoria.page.remove.single": "Removed page from player %s",
 	"commands.valoria.page.remove.multiple": "Removed page from %s players",
+	"commands.valoria.charges.set.add": "Set charges %s",
 
 	"_comment": "Lexicon",
 	"item.valoria.lexicon": "Lexicon",

@@ -8,7 +8,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -50,7 +49,7 @@ public class ModUtils {
         double Y = Math.cos(locPitch + pitch) * pRadius;
         double Z = Math.sin(locPitch + pitch) * Math.sin(locYaw + yaw) * pRadius;
 
-        AABB boundingBox = new AABB(pos.x, pos.y - pRadius + ((Math.random() - 0.5D) * 0.2F), pos.z, pos.x + X, pos.y + Y + ((Math.random() - 0.5D) * 0.2F), pos.z + Z);
+        AABB boundingBox = new AABB(pos.x, pos.y - 1 + ((Math.random() - 0.5D) * 0.2F), pos.z, pos.x + X, pos.y + Y + ((Math.random() - 0.5D) * 0.2F), pos.z + Z);
         List<Entity> entities = level.getEntitiesOfClass(Entity.class, boundingBox);
         for (Entity entity : entities) {
             if (entity instanceof LivingEntity livingEntity && !hitEntities.contains(livingEntity) && !livingEntity.equals(player)) {
@@ -63,6 +62,7 @@ public class ModUtils {
         Z = Math.sin(locPitch + pitch) * Math.sin(locYaw + yaw) * pRadius * 0.75F;
         level.addParticle(type, pos.x + X, pos.y + Y + ((Math.random() - 0.5D) * 0.2F), pos.z + Z, 0d, 0d, 0d);
     }
+
 
     /**
     * Can be used in projectile tick() method.
@@ -105,6 +105,30 @@ public class ModUtils {
     }
 
     /**
+     Spawns particles in radius like in radiusHit
+     @param radius Distance in blocks
+     @param type Particle that will spawn at radius
+     @param pos Position
+     @see com.idark.valoria.item.types.CoralReefItem#releaseUsing(ItemStack, Level, LivingEntity, int) Example
+     */
+    public static void spawnParticlesInRadius(Level level, ItemStack stack, ParticleOptions type, Vector3d pos, float pitchRaw, float yawRaw, float radius) {
+        double pitch = ((pitchRaw + 90) * Math.PI) / 180;
+        double yaw = ((yawRaw + 90) * Math.PI) / 180;
+
+        float pRadius = radius + getRadius(stack);
+        double locYaw = 0;
+        double locPitch = 0;
+        double X = Math.sin(locPitch + pitch) * Math.cos(locYaw + yaw) * pRadius;
+        double Y = Math.cos(locPitch + pitch) * pRadius;
+        double Z = Math.sin(locPitch + pitch) * Math.sin(locYaw + yaw) * pRadius;
+
+        X = Math.sin(locPitch + pitch) * Math.cos(locYaw + yaw) * pRadius * 0.75F;
+        Y = Math.cos(locPitch + pitch) * pRadius * 0.75F;
+        Z = Math.sin(locPitch + pitch) * Math.sin(locYaw + yaw) * pRadius * 0.75F;
+        level.addParticle(type, pos.x + X, pos.y + Y + ((Math.random() - 0.5D) * 0.2F), pos.z + Z, 0d, 0d, 0d);
+    }
+
+    /**
         Spawns particles around position
         @param distance Distance in blocks
         @param options Particle that will spawn at radius
@@ -112,7 +136,7 @@ public class ModUtils {
         @param pos Position
         @see com.idark.valoria.item.types.MurasamaItem#onUseTick(Level, LivingEntity, ItemStack, int) Example
      */
-    public static void spawnParticlesAroundPosition(Vec3 pos, float distance, float speed, Level level, ParticleOptions options) {
+    public static void spawnParticlesAroundPosition(Vector3d pos, float distance, float speed, Level level, ParticleOptions options) {
         Random rand = new Random();
         RandomSource source = RandomSource.create();
 
@@ -139,6 +163,6 @@ public class ModUtils {
     }
 
     // TODO: Do this thing
-    public static void spawnParticlesAtNearMobs(Level level, Player player, ParticleOptions type, List<LivingEntity> hitEntities, Vector3d pos, float pitchRaw, float yawRaw, float radius) {
+    public static void spawnParticlesNearMobs(Level level, Player player, ParticleOptions type, List<LivingEntity> hitEntities, Vector3d pos, float pitchRaw, float yawRaw, float radius) {
     }
 }

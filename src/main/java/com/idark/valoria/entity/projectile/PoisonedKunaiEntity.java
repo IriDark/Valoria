@@ -3,6 +3,7 @@ package com.idark.valoria.entity.projectile;
 import com.google.common.collect.Lists;
 import com.idark.valoria.entity.ModEntityTypes;
 import com.idark.valoria.item.ModItems;
+import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
@@ -29,8 +30,6 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-
-import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
 import net.minecraftforge.network.NetworkHooks;
 
 import javax.annotation.Nullable;
