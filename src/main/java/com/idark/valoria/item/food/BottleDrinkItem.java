@@ -40,17 +40,17 @@ public class BottleDrinkItem extends Item {
 
     @Override
     public ItemStack finishUsingItem(ItemStack stack, Level world, LivingEntity entity) {
-		Player playerentity = entity instanceof Player ? (Player)entity : null;
-		if (playerentity instanceof ServerPlayer) {
-			CriteriaTriggers.CONSUME_ITEM.trigger((ServerPlayer)playerentity, stack);
+		Player playerEntity = entity instanceof Player ? (Player)entity : null;
+		if (playerEntity instanceof ServerPlayer) {
+			CriteriaTriggers.CONSUME_ITEM.trigger((ServerPlayer)playerEntity, stack);
 		}
 
 		if (!world.isClientSide) {
 			entity.addEffect(new MobEffectInstance(effect,time,power));
-			if (playerentity == null || !playerentity.getAbilities().instabuild) {
+			if (playerEntity == null || !playerEntity.getAbilities().instabuild) {
 				stack.shrink(1);
 				if (stack.isEmpty()) {
-					return new ItemStack(ModItems.WOODEN_CUP.get());
+					return new ItemStack(ModItems.BOTTLE.get());
 				}
 			}
 		}

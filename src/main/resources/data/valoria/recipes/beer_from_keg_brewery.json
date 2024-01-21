@@ -1,0 +1,13 @@
+{
+  "type": "valoria:keg_brewery",
+  "time": 400,
+  "ingredients": [
+    {
+      "item": "minecraft:wheat"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "item": "valoria:beer_cup"
+  }
+}

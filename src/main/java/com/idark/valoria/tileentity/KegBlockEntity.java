@@ -1,5 +1,9 @@
 package com.idark.valoria.tileentity;
 
+import com.idark.valoria.block.types.KegBlock;
+import com.idark.valoria.client.render.model.tileentity.KegBlockRenderer;
+import com.idark.valoria.client.render.model.tileentity.TickableTileEntity;
+import com.idark.valoria.recipe.KegRecipe;
 import com.idark.valoria.util.PacketUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -7,12 +11,17 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import org.jetbrains.annotations.NotNull;
 
-public class KegBlockEntity extends TileSimpleInventory {
+import java.util.Optional;
+
+public class KegBlockEntity extends TileSimpleInventory implements TickableTileEntity {
+
+    private int progress = 0;
 
     public KegBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
@@ -30,6 +39,60 @@ public class KegBlockEntity extends TileSimpleInventory {
                 return 1;
             }
         };
+    }
+
+    @Override
+    public void tick() {
+        if (!level.isClientSide) {
+            Optional<KegRecipe> recipe = getCurrentRecipe();
+            if (!recipe.isEmpty()) {
+                increaseCraftingProgress();
+                KegBlockRenderer.setBrewingForBlock(getBlockPos(), true);
+                setChanged(level, getBlockPos(), getBlockState());
+                if (hasProgressFinished()) {
+                    craftItem();
+                    resetProgress();
+                }
+            } else {
+                resetProgress();
+            }
+        }
+    }
+
+    private void resetProgress() {
+        progress = 0;
+        KegBlockRenderer.setBrewingForBlock(getBlockPos(), false);
+        KegBlock.setBrewing(this.getLevel(), this.getBlockPos(), this.getBlockState(), false);
+    }
+
+    private void craftItem() {
+        Optional<KegRecipe> recipe = getCurrentRecipe();
+        ItemStack result = recipe.get().getResultItem(null);
+
+        this.getItemHandler().removeItem(0, 1);
+        this.getItemHandler().setItem(0, new ItemStack(result.getItem(),
+                this.getItemHandler().getItem(0).getCount() + result.getCount()));
+    }
+
+    private Optional<KegRecipe> getCurrentRecipe() {
+        SimpleContainer inventory = new SimpleContainer(this.getItemHandler().getContainerSize());
+        for(int i = 0; i < this.getItemHandler().getContainerSize(); i++) {
+            inventory.setItem(i, this.getItemHandler().getItem(i));
+        }
+
+        return this.level.getRecipeManager().getRecipeFor(KegRecipe.Type.INSTANCE, inventory, level);
+    }
+
+    private boolean hasProgressFinished() {
+        Optional<KegRecipe> recipe = getCurrentRecipe();
+        return progress >= recipe.get().getTime();
+    }
+
+    private void increaseCraftingProgress() {
+        Optional<KegRecipe> recipe = getCurrentRecipe();
+        if (progress < recipe.get().getTime()) {
+            progress++;
+        }
     }
 
     @Override

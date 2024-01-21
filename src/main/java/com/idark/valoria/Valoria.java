@@ -28,6 +28,7 @@ import com.idark.valoria.item.staffs.StaffItem;
 import com.idark.valoria.network.PacketHandler;
 import com.idark.valoria.paintings.ModPaintings;
 import com.idark.valoria.potion.ModPotions;
+import com.idark.valoria.recipe.ModRecipes;
 import com.idark.valoria.tileentity.ModTileEntities;
 import com.idark.valoria.util.LootUtil;
 import com.idark.valoria.util.ModSoundRegistry;
@@ -69,6 +70,8 @@ import java.util.concurrent.CompletableFuture;
 public class Valoria {
 	public static final String MOD_ID = "valoria";
 
+	// Plans
+	//TODO: Create Brewery
 	public Valoria() {
 		InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE, () -> SlotTypePreset.RING.getMessageBuilder().build());
 		InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE, () -> SlotTypePreset.BELT.getMessageBuilder().build());
@@ -90,6 +93,7 @@ public class Valoria {
 		ModItems.register(eventBus);
 		ModBlocks.register(eventBus);
 		ModTileEntities.register(eventBus);
+		ModRecipes.register(eventBus);
 		ModEntityTypes.register(eventBus);
 		ModParticles.register(eventBus);
 		LootUtil.register(eventBus);
