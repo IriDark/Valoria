@@ -1,10 +1,8 @@
 package com.idark.valoria.block.types;
 
-import com.idark.valoria.block.ModBlocks;
 import com.idark.valoria.client.render.model.tileentity.TickableTileEntity;
 import com.idark.valoria.item.ModItems;
 import com.idark.valoria.tileentity.KegBlockEntity;
-import com.idark.valoria.tileentity.PedestalTileEntity;
 import com.idark.valoria.tileentity.TileSimpleInventory;
 import com.idark.valoria.util.ModTags;
 import com.idark.valoria.util.PacketUtils;
@@ -47,10 +45,10 @@ public class KegBlock extends HorizontalDirectionalBlock implements EntityBlock,
     private static final VoxelShape shape_west_east = Block.box(0, 0, 2, 16, 14, 14);
     private static final VoxelShape shape_north_south = Block.box(2, 0, 0, 14, 14, 16);
 
-	public KegBlock(BlockBehaviour.Properties properties) {
-		super(properties);
-		registerDefaultState(defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, false).setValue(BREWING, false));
-	}
+    public KegBlock(BlockBehaviour.Properties properties) {
+        super(properties);
+        registerDefaultState(defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, false).setValue(BREWING, false));
+    }
 
     public static boolean isBrewing(BlockState pState) {
         return pState.getValue(BREWING);
@@ -107,17 +105,16 @@ public class KegBlock extends HorizontalDirectionalBlock implements EntityBlock,
                 stack.setCount(1);
                 tile.getItemHandler().setItem(0, stack);
                 world.setBlockAndUpdate(pos, state.setValue(BREWING, true));
-                PacketUtils.SUpdateTileEntityPacket(tile);
-                return InteractionResult.SUCCESS;
             } else {
                 tile.getItemHandler().setItem(0, stack);
+                world.setBlockAndUpdate(pos, state.setValue(BREWING, true));
                 if (!player.isCreative()) {
                     player.getInventory().removeItem(player.getItemInHand(hand));
                 }
-
-                PacketUtils.SUpdateTileEntityPacket(tile);
-                return InteractionResult.SUCCESS;
             }
+
+            PacketUtils.SUpdateTileEntityPacket(tile);
+            return InteractionResult.SUCCESS;
         }
 
         if (!tile.getItemHandler().getItem(0).isEmpty() && isCupOrBottle(tile, player, hand)) {
@@ -128,7 +125,7 @@ public class KegBlock extends HorizontalDirectionalBlock implements EntityBlock,
             tile.getItemHandler().removeItemNoUpdate(0);
             PacketUtils.SUpdateTileEntityPacket(tile);
             return InteractionResult.SUCCESS;
-        } else if (!tile.getItemHandler().getItem(0).isEmpty() && !tile.getItemHandler().getItem(0).is(ModTags.CUP_DRINKS)  && !tile.getItemHandler().getItem(0).is(ModTags.BOTTLE_DRINKS)) {
+        } else if (!tile.getItemHandler().getItem(0).isEmpty() && !tile.getItemHandler().getItem(0).is(ModTags.CUP_DRINKS) && !tile.getItemHandler().getItem(0).is(ModTags.BOTTLE_DRINKS)) {
             if (!player.isCreative()) {
                 player.getInventory().add(tile.getItemHandler().getItem(0).copy());
             }
@@ -163,7 +160,7 @@ public class KegBlock extends HorizontalDirectionalBlock implements EntityBlock,
         return null;
     }
 
-	@Override
+    @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(BlockStateProperties.WATERLOGGED);
         builder.add(BREWING);
@@ -182,8 +179,8 @@ public class KegBlock extends HorizontalDirectionalBlock implements EntityBlock,
         FluidState fluidState = context.getLevel().getFluidState(context.getClickedPos());
         return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite()).setValue(BlockStateProperties.WATERLOGGED, fluidState.getType() == Fluids.WATER).setValue(BREWING, false);
     }
-	
-	@Override
+
+    @Override
     public FluidState getFluidState(BlockState state) {
         return state.getValue(BlockStateProperties.WATERLOGGED) ? Fluids.WATER.getSource(false) : Fluids.EMPTY.defaultFluidState();
     }
