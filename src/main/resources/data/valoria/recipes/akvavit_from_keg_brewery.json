@@ -1,0 +1,13 @@
+{
+  "type": "valoria:keg_brewery",
+  "time": 1600,
+  "ingredients": [
+    {
+      "item": "minecraft:potato"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "item": "valoria:akvavit_bottle"
+  }
+}

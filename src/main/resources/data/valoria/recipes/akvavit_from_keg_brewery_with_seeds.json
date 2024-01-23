@@ -1,0 +1,13 @@
+{
+  "type": "valoria:keg_brewery",
+  "time": 2000,
+  "ingredients": [
+    {
+      "item": "minecraft:wheat_seeds"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "item": "valoria:akvavit_bottle"
+  }
+}

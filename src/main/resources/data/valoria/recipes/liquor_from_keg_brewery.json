@@ -1,0 +1,13 @@
+{
+  "type": "valoria:keg_brewery",
+  "time": 2400,
+  "ingredients": [
+    {
+      "item": "minecraft:sweet_berries"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "item": "valoria:liquor_bottle"
+  }
+}

@@ -38,6 +38,9 @@
 	"tooltip.valoria.bloodsight_curse": "Seems this monocle is cursed and even broken, that's not good!",
 	"tooltip.valoria.sarcophagus": "Beware! This sarcophagus was a trap. Defend yourself and remember to open it again!",
 
+	"_comment": "JEI",
+	"jei.valoria.brewery": "Brewery",
+
 	"_comment": "Damage Types",
 	"death.attack.bleeding": "%1$s lost all his blood",
 	"death.attack.quicksand_suffocating": "%1$s sank like a sandcastle, breathless",

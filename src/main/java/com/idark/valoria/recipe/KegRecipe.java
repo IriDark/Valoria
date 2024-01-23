@@ -85,13 +85,26 @@ public class KegRecipe implements Recipe<SimpleContainer> {
 
             int time = GsonHelper.getAsInt(pSerializedRecipe, "time");
             JsonArray ingredients = GsonHelper.getAsJsonArray(pSerializedRecipe, "ingredients");
-            NonNullList<Ingredient> inputs = NonNullList.withSize(1, Ingredient.EMPTY);
+            final NonNullList<Ingredient> inputs = readIngredients(GsonHelper.getAsJsonArray(pSerializedRecipe, "ingredients"));
 
             for(int i = 0; i < inputs.size(); i++) {
                 inputs.set(i, Ingredient.fromJson(ingredients.get(i)));
             }
 
             return new KegRecipe(inputs, output, pRecipeId, time);
+        }
+
+        private static NonNullList<Ingredient> readIngredients(JsonArray ingredientArray) {
+            NonNullList<Ingredient> nonnulllist = NonNullList.create();
+
+            for (int i = 0; i < ingredientArray.size(); ++i) {
+                Ingredient ingredient = Ingredient.fromJson(ingredientArray.get(i));
+                if (!ingredient.isEmpty()) {
+                    nonnulllist.add(ingredient);
+                }
+            }
+
+            return nonnulllist;
         }
 
         @Override
@@ -108,12 +121,12 @@ public class KegRecipe implements Recipe<SimpleContainer> {
 
         @Override
         public void toNetwork(FriendlyByteBuf pBuffer, KegRecipe pRecipe) {
-            pBuffer.writeInt(pRecipe.inputItems.size());
-
+            pBuffer.writeVarInt(pRecipe.inputItems.size());
             for (Ingredient ingredient : pRecipe.getIngredients()) {
                 ingredient.toNetwork(pBuffer);
             }
 
+            pBuffer.writeItem(pRecipe.output);
             pBuffer.writeItemStack(pRecipe.getResultItem(null), false);
         }
     }
