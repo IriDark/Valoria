@@ -255,6 +255,7 @@ public class ModItems {
 	public static final RegistryObject<Item> AKVAVIT_BOTTLE = ITEMS.register("akvavit_bottle", () -> new AlcoholCupItem(485, 0, true));
 	public static final RegistryObject<Item> LIQUOR_BOTTLE = ITEMS.register("liquor_bottle", () -> new AlcoholCupItem(560, 0, true));
 	public static final RegistryObject<Item> RUM_BOTTLE = ITEMS.register("rum_bottle", () -> new AlcoholCupItem(600, 0, true));
+	public static final RegistryObject<Item> MEAD_BOTTLE = ITEMS.register("mead_bottle", () -> new AlcoholCupItem(850, 0, true));
 	public static final RegistryObject<Item> COGNAC_BOTTLE = ITEMS.register("cognac_bottle", () -> new AlcoholCupItem(650, 0, true));
 	public static final RegistryObject<Item> WHISKEY_BOTTLE = ITEMS.register("whiskey_bottle", () -> new AlcoholCupItem(760, 0, true));
 	public static final RegistryObject<Item> COKE_BOTTLE = ITEMS.register("coke_bottle", () -> new BottleDrinkItem(MobEffects.MOVEMENT_SPEED, 325, 0));

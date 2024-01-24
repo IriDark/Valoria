@@ -131,6 +131,7 @@ import java.util.function.Predicate;
 				event.accept(ModItems.VINE_BOTTLE);
 				event.accept(ModItems.AKVAVIT_BOTTLE);
 				event.accept(ModItems.LIQUOR_BOTTLE);
+				event.accept(ModItems.MEAD_BOTTLE);
 				event.accept(ModItems.RUM_BOTTLE);
 				event.accept(ModItems.COGNAC_BOTTLE);
 				event.accept(ModItems.WHISKEY_BOTTLE);

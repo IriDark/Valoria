@@ -5,12 +5,17 @@
   "tooltip.valoria.rmb_shift": "[ПКМ + ШИФТ] - для зарядки",
   "tooltip.valoria.rmb_equip": "[ПКМ] - чтобы екипировать",
   "tooltip.valoria.recharge": "Недостаточно ресурсов для зарядки",
+  "tooltip.valoria.charges": "Not enough charges to use.",
+  "tooltip.valoria.wet": "You can't use the ability when you're wet!.",
   "tooltip.valoria.magma_charge_full": "Полностью заряжен",
   "tooltip.valoria.magma_charge_half": "Наполовину заряжен",
   "tooltip.valoria.magma_charge_empty": "Не заряжен",
   "tooltip.valoria.projectile_damage": "Урон снаряда",
+  "tooltip.valoria.excavation_speed": "Excavation Speed",
   "tooltip.valoria.poison_chance": "Шанс на отравление, противника",
   "tooltip.valoria.poison_chance_ranged": "Шанс на отравление, противника при броске",
+
+  "tooltip.valoria.current_mana": "Current Mana:",
 
   "tooltip.valoria.lexicon": "Полезная книга в этом тяжелом мире...",
   "tooltip.valoria.treasure": "Что же, здесь может хранится?...",
@@ -19,6 +24,7 @@
   "tooltip.valoria.blazereap": "Довольно сильное оуржие, обладает способностью ~ВЗРЫВА~ (Требуется 5 пороха)",
   "tooltip.valoria.infernal_sword": "Довольно сильное оуржие, обладает способностью Вывержения (Требуется 2 магматических заряда)",
   "tooltip.valoria.kunai": "Не очень сильное оружие, можно бросить в противника",
+  "tooltip.valoria.pick_necklace": "Speeds up the excavation process slightly",
 
   "tooltip.valoria.belt": "Даёт больше слотов, для ваших чармов!",
   "tooltip.valoria.rune": "Пустая руна, можно наложить позитивные эффекты на неё",
@@ -32,6 +38,8 @@
   "tooltip.valoria.bloodsight_curse": "Невезуха, этот монокль не только проклят, а и сломан",
   "tooltip.valoria.sarcophagus": "Осторожнее! Этот саркофаг оказался ловушкой. Защитись и не забудь заглянуть в него снова!",
 
+  "jei.valoria.brewery": "Варка",
+
   "death.attack.bleeding": "%1$s потерял много крови",
   "death.attack.quicksand_suffocating": "%1$s провалился, как замок из песка, лишившись дыхания",
 
@@ -40,10 +48,11 @@
   "commands.valoria.page.give.multiple": "Gave page to %s players",
   "commands.valoria.page.remove.single": "Removed page from player %s",
   "commands.valoria.page.remove.multiple": "Removed page from %s players",
+  "commands.valoria.charges.set.add": "Set charges %s",
 
   "item.valoria.lexicon": "Лексикон",
-  "item.valoria.page": "Page",
-  "tooltip.valoria.page": "Current Page: ",
+  "item.valoria.page": "Страница",
+  "tooltip.valoria.page": "Выбранная страница: ",
   "gui.valoria.main": "Главная",
   "gui.valoria.knowledge": "Ключ к знаниям",
   "gui.valoria.jewelry": "Драгоценности",
@@ -52,9 +61,9 @@
   "gui.valoria.medicine": "Медицина",
   "gui.valoria.recipes": "Рецепты",
   "gui.valoria.soon": "Скоро будет...",
-  "gui.valoria.new_page": "New page has been unlocked!",
-  "gui.valoria.delete_page": "Page has been removed",
-  "gui.valoria.obtained": "You've already obtained this page.",
+  "gui.valoria.new_page": "Открыта новая страница!",
+  "gui.valoria.delete_page": "Страница была удалена",
+  "gui.valoria.obtained": "Страница уже открыта.",
   "gui.valoria.next": "Следующая страница",
   "gui.valoria.back": "Назад",
   "gui.valoria.crypt": "Крипта",
@@ -105,6 +114,7 @@
 
   "enchantment.valoria.explosive_flame": "Взрывное пламя",
   "enchantment.valoria.bleeding": "Кровотечение",
+  "enchantment.valoria.radius": "Радиус",
 
   "itemGroup.valoriaModTab": "Valoria - Главная",
   "itemGroup.valoriaBlocksModTab": "Valoria - Строительные блоки",
@@ -277,6 +287,7 @@
   "painting.valoria.emerald.author": "IriDark (iDark)",
   "painting.valoria.village.author": "IriDark (iDark)",
 
+  "item.valoria.pick_necklace": "Pick Necklace",
   "item.valoria.leather_belt": "Кожаный ремень",
   "item.valoria.leather_gloves": "Кожаные перчатки ",
   "item.valoria.iron_gloves": "Железные перчатки",
@@ -365,8 +376,10 @@
   "item.valoria.akvavit_bottle": "Бутылка аквавита",
   "item.valoria.rum_bottle": "Бутылка рома",
   "item.valoria.cognac_bottle": "Бутылка коньяка",
+  "item.valoria.mead_bottle": "Бутылка медовухи",
   "item.valoria.apple_pie": "Яблочный пирог",
 
+  "item.valoria.pick": "Prospector's Pick",
   "item.valoria.raw_cobalt": "Кобальтовое сырьё",
   "item.valoria.toxins_bottle": "Токсины",
   "item.valoria.aloe_bandage": "Бинт алоэ",
@@ -512,6 +525,7 @@
   "block.valoria.cut_keyblock": "Cut Keyblock",
   "block.valoria.sarcophagus": "Саркофаг",
   "block.valoria.tomb": "Могила",
+  "block.valoria.suspicious_tombstone": "Suspicious Tombstone",
   "block.valoria.tombstone": "Камень мёртвых",
   "block.valoria.tombstone_stairs": "Ступеньки камня мёртвых",
   "block.valoria.tombstone_slab": "Плита камня мёртвых",
@@ -609,6 +623,5 @@
   "block.valoria.void_chiseled_brick_slab": "Резная плита из кирпича камня небытия",
   "block.valoria.void_chiseled_bricks_stairs": "Резные ступеньки из кирпичей небытия",
   "block.valoria.void_chiseled_bricks_slab": "Резная плита из кирпичей камня небытия",
-  "block.valoria.meat_block": "Мясной блок",
-  "tooltip.valoria.current_mana": "Current Mana:"
+  "block.valoria.meat_block": "Мясной блок"
 }

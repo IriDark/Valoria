@@ -1,13 +1,13 @@
 {
   "type": "valoria:keg_brewery",
-  "time": 800,
+  "time": 1800,
   "ingredients": [
     {
-      "item": "minecraft:wheat"
+      "item": "minecraft:glow_berries"
     }
   ],
   "output": {
     "count": 1,
-    "item": "valoria:beer_cup"
+    "item": "valoria:liquor_bottle"
   }
 }

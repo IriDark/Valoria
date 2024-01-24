@@ -14,6 +14,8 @@ import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.Nonnull;
+
 public class KegRecipe implements Recipe<SimpleContainer> {
     private final NonNullList<Ingredient> inputItems;
     private final ItemStack output;
@@ -49,6 +51,12 @@ public class KegRecipe implements Recipe<SimpleContainer> {
     @Override
     public ItemStack getResultItem(RegistryAccess pRegistryAccess) {
         return output.copy();
+    }
+
+    @Nonnull
+    @Override
+    public NonNullList<Ingredient> getIngredients() {
+        return inputItems;
     }
 
     @Override

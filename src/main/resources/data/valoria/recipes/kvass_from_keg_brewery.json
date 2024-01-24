@@ -1,6 +1,6 @@
 {
   "type": "valoria:keg_brewery",
-  "time": 600,
+  "time": 1000,
   "ingredients": [
     {
       "item": "minecraft:bread"

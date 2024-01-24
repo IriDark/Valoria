@@ -2,6 +2,7 @@ package com.idark.valoria.block.types;
 
 import com.idark.valoria.client.render.model.tileentity.TickableTileEntity;
 import com.idark.valoria.item.ModItems;
+import com.idark.valoria.recipe.KegRecipe;
 import com.idark.valoria.tileentity.KegBlockEntity;
 import com.idark.valoria.tileentity.TileSimpleInventory;
 import com.idark.valoria.util.ModTags;
@@ -14,6 +15,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -28,7 +30,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
@@ -71,6 +72,7 @@ public class KegBlock extends HorizontalDirectionalBlock implements EntityBlock,
             if (tile instanceof TileSimpleInventory) {
                 Containers.dropContents(world, pos, ((TileSimpleInventory) tile).getItemHandler());
             }
+
             super.onRemove(state, world, pos, newState, isMoving);
         }
     }
@@ -96,7 +98,7 @@ public class KegBlock extends HorizontalDirectionalBlock implements EntityBlock,
     public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         KegBlockEntity tile = (KegBlockEntity) world.getBlockEntity(pos);
         ItemStack stack = player.getItemInHand(hand).copy();
-
+        
         // Checking if not alcohol to prevent miss clicks and collecting with isCupOrBottle
         if ((!stack.isEmpty()) && !stack.is(ModTags.ALCOHOL) && (tile.getItemHandler().getItem(0).isEmpty())) {
             if (stack.getCount() > 1) {
