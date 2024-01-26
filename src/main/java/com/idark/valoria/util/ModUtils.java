@@ -1,15 +1,19 @@
 package com.idark.valoria.util;
 
 import com.idark.valoria.enchant.ModEnchantments;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Vector3d;
 
@@ -21,20 +25,21 @@ public class ModUtils {
 
     /**
      * @param stack being checked
-     * @see #radiusHit
      * @return 0.5 per level if true
+     * @see #radiusHit
      */
     public static float getRadius(ItemStack stack) {
         int i = stack.getEnchantmentLevel(ModEnchantments.RADIUS.get());
-        return i > 0 ? (float) i /2 : 0.0F;
+        return i > 0 ? (float) i / 2 : 0.0F;
     }
 
     /**
      * Doing a circled attack near player with:
-     * @param radius Attack radius
-     * @param type Particle type used to show radius
+     *
+     * @param radius      Attack radius
+     * @param type        Particle type used to show radius
      * @param hitEntities List for damaged entities
-     * @param pos Position
+     * @param pos         Position
      * @see com.idark.valoria.item.types.ScytheItem#releaseUsing
      * Scythe Item as Example (line 68)
      */
@@ -65,11 +70,12 @@ public class ModUtils {
 
 
     /**
-    * Can be used in projectile tick() method.
-    * Projectile will have a homing movement to nearby entity
-    * @param entityNear List for nearby entities
-    * @param pOwner Owner of Projectile
-    */
+     * Can be used in projectile tick() method.
+     * Projectile will have a homing movement to nearby entity
+     *
+     * @param entityNear List for nearby entities
+     * @param pOwner     Owner of Projectile
+     */
     public static void homingMovement(Entity projectile, Level level, List<Entity> entityNear, Entity pOwner) {
         AABB boundingBox = new AABB(projectile.getX() - 3.5, projectile.getY() - 0.5, projectile.getZ() - 3.5, projectile.getX() + 3.5, projectile.getY() + 0.5, projectile.getZ() + 3.5);
         List<LivingEntity> livingEntities = level.getEntitiesOfClass(LivingEntity.class, boundingBox);
@@ -105,11 +111,12 @@ public class ModUtils {
     }
 
     /**
-     Spawns particles in radius like in radiusHit
-     @param radius Distance in blocks
-     @param type Particle that will spawn at radius
-     @param pos Position
-     @see com.idark.valoria.item.types.CoralReefItem#releaseUsing(ItemStack, Level, LivingEntity, int) Example
+     * Spawns particles in radius like in radiusHit
+     *
+     * @param radius Distance in blocks
+     * @param type   Particle that will spawn at radius
+     * @param pos    Position
+     * @see com.idark.valoria.item.types.CoralReefItem#releaseUsing(ItemStack, Level, LivingEntity, int) Example
      */
     public static void spawnParticlesInRadius(Level level, ItemStack stack, ParticleOptions type, Vector3d pos, float pitchRaw, float yawRaw, float radius) {
         double pitch = ((pitchRaw + 90) * Math.PI) / 180;
@@ -129,12 +136,13 @@ public class ModUtils {
     }
 
     /**
-        Spawns particles around position
-        @param distance Distance in blocks
-        @param options Particle that will spawn at radius
-        @param speed Speed of particles
-        @param pos Position
-        @see com.idark.valoria.item.types.MurasamaItem#onUseTick(Level, LivingEntity, ItemStack, int) Example
+     * Spawns particles around position
+     *
+     * @param distance Distance in blocks
+     * @param options  Particle that will spawn at radius
+     * @param speed    Speed of particles
+     * @param pos      Position
+     * @see com.idark.valoria.item.types.MurasamaItem#onUseTick(Level, LivingEntity, ItemStack, int) Example
      */
     public static void spawnParticlesAroundPosition(Vector3d pos, float distance, float speed, Level level, ParticleOptions options) {
         Random rand = new Random();
@@ -148,7 +156,7 @@ public class ModUtils {
         double dY = -Y;
         double dZ = -Z;
 
-        int count = 1 + Mth.nextInt(source, 0,2);
+        int count = 1 + Mth.nextInt(source, 0, 2);
 
         for (int ii = 0; ii < count; ii += 1) {
             double yaw = Math.atan2(dZ, dX);
@@ -163,6 +171,28 @@ public class ModUtils {
     }
 
     // TODO: Do this thing
-    public static void spawnParticlesNearMobs(Level level, Player player, ParticleOptions type, List<LivingEntity> hitEntities, Vector3d pos, float pitchRaw, float yawRaw, float radius) {
+    public static void spawnParticlesLineToAttackedMob(Level pLevel, Player pPlayer, ParticleOptions pType) {
+        LivingEntity lastHurtMob = pPlayer.getLastHurtByMob();
+        if (lastHurtMob == null) {
+            return;
+        }
+
+        double dX = lastHurtMob.getX() - pPlayer.getX();
+        double dY = lastHurtMob.getY() - pPlayer.getY();
+        double dZ = lastHurtMob.getZ() - pPlayer.getZ();
+
+        double yaw = Math.atan2(dZ, dX);
+        double pitch = Math.atan2(Math.sqrt(dZ * dZ + dX * dX), dY) + Math.PI;
+
+        if (!pLevel.isClientSide()) {
+            for (double i = 0; i < pPlayer.getHurtDir(); i += 0.5) {
+                double X = Math.sin(pitch) * Math.cos(yaw) * pPlayer.getHurtDir();
+                double Y = Math.cos(pitch) * pPlayer.getHurtDir();
+                double Z = Math.sin(pitch) * Math.sin(yaw) * pPlayer.getHurtDir();
+
+                pLevel.addParticle(pType, X, Y, Z, 0, 0.05, 0);
+                System.out.print(lastHurtMob.getName().getString() + " " + "Position X: " + X + " " + "Position Y: " + Y + " " + "Position Z: " + Z + " " + "Range: " + i + " ");
+            }
+        }
     }
 }

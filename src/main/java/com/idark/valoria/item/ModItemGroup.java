@@ -286,6 +286,8 @@ import java.util.function.Predicate;
 				event.accept(ModItems.RUBY_TOTEM);
 				event.accept(ModItems.RUBY_WINGLET);
 				event.accept(ModItems.RUBY_GAZER);
+				event.accept(ModItems.BROKEN_BLOODSIGHT_MONOCLE);
+				event.accept(ModItems.BLOODSIGHT_MONOCLE);
 				event.accept(ModItems.PICK);
 				event.accept(ModItems.RUNE);
 				event.accept(ModItems.RUNE_OF_VISION);

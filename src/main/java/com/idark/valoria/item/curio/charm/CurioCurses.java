@@ -38,6 +38,16 @@ public class CurioCurses extends Item implements ICurioItem {
 		MobEffects.DARKNESS, MobEffects.WEAKNESS, MobEffects.WITHER, MobEffects.POISON, MobEffects.MOVEMENT_SLOWDOWN, MobEffects.DIG_SLOWDOWN
 	};
 
+	@Override
+	public boolean canEquipFromUse(SlotContext slot, ItemStack stack) {
+		return true;
+	}
+
+	@Override
+	public boolean isEnchantable(ItemStack pStack) {
+		return false;
+	}
+
 	@Nonnull
 	@Override
 	public ICurio.SoundInfo getEquipSound(SlotContext slotContext, ItemStack stack) {
@@ -64,16 +74,6 @@ public class CurioCurses extends Item implements ICurioItem {
 		atts.put(Attributes.MAX_HEALTH, new AttributeModifier(uuid, "bonus", 5, AttributeModifier.Operation.ADDITION));
         return atts;
     }
-
-	@Override
-	public boolean canEquipFromUse(SlotContext slot, ItemStack stack) {
-		return true;
-	}
-
-	@Override
-	public boolean isEnchantable(ItemStack pStack) {
-		return false;
-	}
 
 	@Override
 	public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags) {

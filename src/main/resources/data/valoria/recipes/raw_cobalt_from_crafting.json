@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "valoria:raw_cobalt_ore"
+    }
+  ],
+  "result": {
+    "item": "valoria:raw_cobalt",
+    "count": 9
+  }
+}

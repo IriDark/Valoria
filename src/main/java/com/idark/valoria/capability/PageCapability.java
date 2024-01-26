@@ -11,7 +11,29 @@ import net.minecraft.world.entity.Entity;
 import net.minecraftforge.common.util.INBTSerializable;
 
 public class PageCapability implements IPage, INBTSerializable<CompoundTag> {
+    @Override
+    public boolean isOpen(LexiconPages pages) {
+        return false;
+    }
+
+    @Override
+    public void makeOpen(LexiconPages pages, boolean open) {
+
+    }
+
+    @Override
+    public CompoundTag serializeNBT() {
+        return null;
+    }
+
+    @Override
+    public void deserializeNBT(CompoundTag nbt) {
+
+    }
+
+    /*
     boolean isCryptOpen = LexiconGui.pageIsOpen(Minecraft.getInstance().player, LexiconPages.CRYPT);
+
     boolean isGemsOpen = LexiconGui.pageIsOpen(Minecraft.getInstance().player, LexiconPages.GEMS);
     boolean isMainOpen = LexiconGui.pageIsOpen(Minecraft.getInstance().player, LexiconPages.MAIN);
     boolean isMedicineOpen = LexiconGui.pageIsOpen(Minecraft.getInstance().player, LexiconPages.MEDICINE);
@@ -86,4 +108,5 @@ public class PageCapability implements IPage, INBTSerializable<CompoundTag> {
             isCryptOpen = nbt.getBoolean("crypt");
         }
     }
+     */
 }

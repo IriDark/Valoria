@@ -3,7 +3,7 @@
   "ingredient": {
     "item": "valoria:cobalt_ore"
   },
-  "result": "valoria:cobalt_ingot",
-  "experience": 0.8,
-  "cookingtime": 130
+  "experience": 1.0,
+  "cookingtime": 100,
+  "result": "valoria:cobalt_ingot"
 }

@@ -6,15 +6,27 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import top.theillusivec4.curios.api.SlotContext;
+import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
 import java.util.List;
 
-public class CurioRune extends Item {
+public class CurioRune extends Item implements ICurioItem {
 
-    public CurioRune(Properties properties) {
+	public CurioRune(Properties properties) {
         super(properties);
 	}
-	
+
+	@Override
+	public boolean canEquipFromUse(SlotContext slot, ItemStack stack) {
+		return true;
+	}
+
+	@Override
+	public boolean isEnchantable(ItemStack pStack) {
+		return false;
+	}
+
 	@Override
 	public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags) {
 		super.appendHoverText(stack, world, tooltip, flags);

@@ -23,23 +23,28 @@ import java.util.Objects;
 import java.util.Random;
 
 public class CurioStrength extends Item implements ICurioItem {
-    private static Random random = new Random();
-
     public CurioStrength(Properties properties) {
         super(properties);
 	}
-	
-	@Nonnull
-	@Override
-	public ICurio.SoundInfo getEquipSound(SlotContext slotContext, ItemStack stack) {
-    return new ICurio.SoundInfo(SoundEvents.ARMOR_EQUIP_GOLD, 1.0f, 1.0f);
-	}
+
+    private static Random random = new Random();
 
     @Override
     public boolean canEquipFromUse(SlotContext slot, ItemStack stack) {
         return true;
     }
-	
+
+    @Override
+    public boolean isEnchantable(ItemStack pStack) {
+        return false;
+    }
+
+    @Nonnull
+	@Override
+	public ICurio.SoundInfo getEquipSound(SlotContext slotContext, ItemStack stack) {
+        return new ICurio.SoundInfo(SoundEvents.ARMOR_EQUIP_GOLD, 1.0f, 1.0f);
+	}
+
     @Override
     public void curioTick(String identifier, int index, LivingEntity livingEntity, ItemStack stack) {
         Player player = (Player) livingEntity;
@@ -52,8 +57,7 @@ public class CurioStrength extends Item implements ICurioItem {
                 player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 230));
 
                 if(random.nextFloat() > 0.6f) {
-                    stack.hurtAndBreak(1, player, p -> CuriosApi.getCuriosHelper().onBrokenCurio(
-                            SlotTypePreset.CHARM.getIdentifier(), index, p));
+                    stack.hurtAndBreak(1, player, p -> CuriosApi.getCuriosHelper().onBrokenCurio(SlotTypePreset.CHARM.getIdentifier(), index, p));
                 }
             }
         }

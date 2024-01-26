@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "///",
+    "///",
+    "///"
+  ],
+  "key": {
+    "/": {
+      "item": "valoria:raw_cobalt"
+    }
+  },
+  "result": {
+    "item": "valoria:raw_cobalt_ore",
+    "count": 1
+  }
+}

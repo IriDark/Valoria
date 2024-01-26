@@ -28,18 +28,23 @@ public class CurioVision extends Item implements ICurioItem {
     public CurioVision(Properties properties) {
         super(properties);
 	}
-	
-	@Nonnull
-	@Override
-	public ICurio.SoundInfo getEquipSound(SlotContext slotContext, ItemStack stack) {
-    return new ICurio.SoundInfo(SoundEvents.ARMOR_EQUIP_GOLD, 1.0f, 1.0f);
-	}
 
     @Override
     public boolean canEquipFromUse(SlotContext slot, ItemStack stack) {
         return true;
     }
-	
+
+    @Override
+    public boolean isEnchantable(ItemStack pStack) {
+        return false;
+    }
+
+    @Nonnull
+	@Override
+	public ICurio.SoundInfo getEquipSound(SlotContext slotContext, ItemStack stack) {
+        return new ICurio.SoundInfo(SoundEvents.ARMOR_EQUIP_GOLD, 1.0f, 1.0f);
+	}
+
     @Override
     public void curioTick(String identifier, int index, LivingEntity livingEntity, ItemStack stack) {
         Player player = (Player) livingEntity;
