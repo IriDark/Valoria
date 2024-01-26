@@ -119,23 +119,15 @@ public class KegRecipe implements Recipe<SimpleContainer> {
         public @Nullable KegRecipe fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
             NonNullList<Ingredient> inputs = NonNullList.withSize(pBuffer.readInt(), Ingredient.EMPTY);
             int time = pBuffer.readInt();
-            for(int i = 0; i < inputs.size(); i++) {
-                inputs.set(i, Ingredient.fromNetwork(pBuffer));
-            }
-
             ItemStack output = pBuffer.readItem();
             return new KegRecipe(inputs, output, pRecipeId, time);
         }
 
         @Override
         public void toNetwork(FriendlyByteBuf pBuffer, KegRecipe pRecipe) {
-            pBuffer.writeVarInt(pRecipe.inputItems.size());
-            for (Ingredient ingredient : pRecipe.getIngredients()) {
-                ingredient.toNetwork(pBuffer);
-            }
-
-            pBuffer.writeItem(pRecipe.output);
-            pBuffer.writeItemStack(pRecipe.getResultItem(null), false);
+            pBuffer.writeInt(pRecipe.inputItems.size());
+            pBuffer.writeInt(pRecipe.getTime());
+            pBuffer.writeItemStack(pRecipe.getResultItem(RegistryAccess.EMPTY), false);
         }
     }
 }
