@@ -163,7 +163,8 @@ public class Valoria {
 	}
 
 	private void setup(final FMLCommonSetupEvent event) {
-		PacketHandler.init();
+		//TODO: FIX PACKET HANDLER
+		//PacketHandler.init();
 		ModPotions.bootStrap();
 		event.enqueueWork(() -> {
 			AxeItem.STRIPPABLES = new ImmutableMap.Builder<Block, Block>().putAll(AxeItem.STRIPPABLES)
@@ -182,7 +183,7 @@ public class Valoria {
 
 		@SubscribeEvent
 		public static void registerCaps(RegisterCapabilitiesEvent event) {
-			event.register(IPage.class);
+			//event.register(IPage.class);
 		}
 
 		@SubscribeEvent

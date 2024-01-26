@@ -61,7 +61,7 @@ public class ModCommand {
                 k.makeOpen(pages, true);
             });
 
-            PacketHandler.sendTo(player, new PageUpdatePacket(player));
+            //PacketHandler.sendTo(player, new PageUpdatePacket(player));
         }
 
         return Command.SINGLE_SUCCESS;
@@ -92,7 +92,7 @@ public class ModCommand {
                 k.makeOpen(pages, false);
             });
 
-            PacketHandler.sendTo(player, new PageUpdatePacket(player));
+            //PacketHandler.sendTo(player, new PageUpdatePacket(player));
         }
 
         return Command.SINGLE_SUCCESS;

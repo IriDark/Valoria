@@ -31,7 +31,8 @@ public class LexiconPageItem extends Item {
         this.pages = pages;
     }
 
-    @Override
+    //TODO: FIX SERVER CRASHING
+    /*@Override
     public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
         player.awardStat(Stats.ITEM_USED.get(this));
@@ -54,7 +55,7 @@ public class LexiconPageItem extends Item {
         }
 
         return new InteractionResultHolder<>(InteractionResult.SUCCESS, stack);
-    }
+    }*/
 
     public String getModeString() {
         switch (pages) {
