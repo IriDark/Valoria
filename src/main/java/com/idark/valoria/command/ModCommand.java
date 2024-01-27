@@ -18,6 +18,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.Collection;
 
@@ -49,17 +51,16 @@ public class ModCommand {
 
     private static int givePage(CommandSourceStack command, Collection<? extends ServerPlayer> targetPlayers, LexiconPages pages) throws CommandSyntaxException {
         for(ServerPlayer player : targetPlayers) {
-            Minecraft.getInstance().getToasts().addToast(new ModToast(true));
-
+            useModToast(true);
             if (targetPlayers.size() == 1) {
                 command.sendSuccess(() -> Component.translatable("commands.valoria.page.give.single", targetPlayers.iterator().next().getDisplayName()), true);
             } else {
                 command.sendSuccess(() -> Component.translatable("commands.valoria.page.give.multiple", targetPlayers.size()), true);
             }
 
-            player.getCapability(IPage.INSTANCE, null).ifPresent((k) -> {
-                k.makeOpen(pages, true);
-            });
+            //player.getCapability(IPage.INSTANCE, null).ifPresent((k) -> {
+            //    k.makeOpen(pages, true);
+            //});
 
             //PacketHandler.sendTo(player, new PageUpdatePacket(player));
         }
@@ -80,21 +81,25 @@ public class ModCommand {
 
     private static int removePage(CommandSourceStack command, Collection<? extends ServerPlayer> targetPlayers, LexiconPages pages) throws CommandSyntaxException {
         for(ServerPlayer player : targetPlayers) {
-            Minecraft.getInstance().getToasts().addToast(new ModToast(false));
-
+            useModToast(false);
             if (targetPlayers.size() == 1) {
                 command.sendSuccess(() -> Component.translatable("commands.valoria.page.remove.single", targetPlayers.iterator().next().getDisplayName()), true);
             } else {
                 command.sendSuccess(() -> Component.translatable("commands.valoria.page.remove.multiple", targetPlayers.size()), true);
             }
 
-            player.getCapability(IPage.INSTANCE, null).ifPresent((k) -> {
-                k.makeOpen(pages, false);
-            });
+            //player.getCapability(IPage.INSTANCE, null).ifPresent((k) -> {
+            //    k.makeOpen(pages, false);
+            //});
 
             //PacketHandler.sendTo(player, new PageUpdatePacket(player));
         }
 
         return Command.SINGLE_SUCCESS;
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public static void useModToast(boolean pUnlock) {
+        Minecraft.getInstance().getToasts().addToast(new ModToast(pUnlock));
     }
 }

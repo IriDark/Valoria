@@ -18,6 +18,7 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class Events {
+
     @SubscribeEvent
     public void attachEntityCaps(AttachCapabilitiesEvent<Entity> event) {
         //if (event.getObject() instanceof Player) event.addCapability(new ResourceLocation(Valoria.MOD_ID, "pages"), new PageProvider());

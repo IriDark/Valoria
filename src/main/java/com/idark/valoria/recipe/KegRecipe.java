@@ -118,6 +118,10 @@ public class KegRecipe implements Recipe<SimpleContainer> {
         @Override
         public @Nullable KegRecipe fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
             NonNullList<Ingredient> inputs = NonNullList.withSize(pBuffer.readInt(), Ingredient.EMPTY);
+            for (int i = 0; i < inputs.toArray().length; i++) {
+                inputs.set(i, Ingredient.fromNetwork(pBuffer));
+            }
+
             int time = pBuffer.readInt();
             ItemStack output = pBuffer.readItem();
             return new KegRecipe(inputs, output, pRecipeId, time);
@@ -126,6 +130,10 @@ public class KegRecipe implements Recipe<SimpleContainer> {
         @Override
         public void toNetwork(FriendlyByteBuf pBuffer, KegRecipe pRecipe) {
             pBuffer.writeInt(pRecipe.inputItems.size());
+            for (Ingredient input : pRecipe.getIngredients()) {
+                input.toNetwork(pBuffer);
+            }
+
             pBuffer.writeInt(pRecipe.getTime());
             pBuffer.writeItemStack(pRecipe.getResultItem(RegistryAccess.EMPTY), false);
         }

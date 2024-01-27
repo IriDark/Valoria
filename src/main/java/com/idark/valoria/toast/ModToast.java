@@ -41,8 +41,7 @@ public class ModToast implements Toast {
     public ModToast(boolean pUnlock) {
         this.pUnlock = pUnlock;
     }
-
-
+    
     @Override
     public int width() {
         return 180;

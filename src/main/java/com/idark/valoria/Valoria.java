@@ -12,6 +12,7 @@ import com.idark.valoria.client.render.curio.HandsRenderer;
 import com.idark.valoria.client.render.curio.NecklaceRenderer;
 import com.idark.valoria.client.render.gui.MagmaBarRender;
 import com.idark.valoria.client.render.gui.TooltipEventHandler;
+import com.idark.valoria.command.CommandRegister;
 import com.idark.valoria.config.ClientConfig;
 import com.idark.valoria.datagen.ModGlobalLootModifiersProvider;
 import com.idark.valoria.datagen.ModWorldGenProvider;

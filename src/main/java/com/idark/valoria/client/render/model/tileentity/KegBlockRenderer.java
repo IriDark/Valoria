@@ -24,22 +24,11 @@ public class KegBlockRenderer implements BlockEntityRenderer<KegBlockEntity> {
 
     public static final ModelResourceLocation KEG_BARREL = new ModelResourceLocation(new ResourceLocation(Valoria.MOD_ID, "keg_barrel"), "");
 
-    private static final Set<BlockPos> brewingPositions = new HashSet<>();
-
-    public static void setBrewingForBlock(BlockPos pos, boolean isBrewing) {
-        if (isBrewing) {
-            brewingPositions.add(pos);
-        } else {
-            brewingPositions.remove(pos);
-        }
-    }
-
     public KegBlockRenderer() {}
 
     @Override
     public void render(KegBlockEntity keg, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
-        BlockPos kegPos = keg.getBlockPos();
-        if (brewingPositions.contains(kegPos) && KegBlock.isBrewing(keg.getBlockState())) {
+        if (keg.startCraft && KegBlock.isBrewing(keg.getBlockState())) {
             ms.pushPose();
             double sinValue = Math.sin((ClientTickHandler.ticksInGame + Minecraft.getInstance().getPartialTick()) * 0.1);
             float scale = 1.15f + (float) (sinValue / 32);

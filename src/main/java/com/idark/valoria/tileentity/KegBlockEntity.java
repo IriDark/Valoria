@@ -7,11 +7,13 @@ import com.idark.valoria.recipe.KegRecipe;
 import com.idark.valoria.util.PacketUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -22,6 +24,7 @@ import java.util.Optional;
 public class KegBlockEntity extends TileSimpleInventory implements TickableTileEntity {
 
     private int progress = 0;
+    public boolean startCraft = false;
 
     public KegBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
@@ -45,29 +48,43 @@ public class KegBlockEntity extends TileSimpleInventory implements TickableTileE
     public void tick() {
         if (!level.isClientSide) {
             Optional<KegRecipe> recipe = getCurrentRecipe();
-            if (!recipe.isEmpty()) {
+            if (recipe.isPresent()) {
                 increaseCraftingProgress();
-                KegBlockRenderer.setBrewingForBlock(getBlockPos(), true);
+                startCraft = true;
                 setChanged(level, getBlockPos(), getBlockState());
                 if (hasProgressFinished()) {
                     craftItem();
                     resetProgress();
                 }
+
+                PacketUtils.SUpdateTileEntityPacket(this);
             } else {
                 resetProgress();
             }
         }
     }
 
+    @Override
+    public void saveAdditional(CompoundTag tag) {
+        super.saveAdditional(tag);
+        tag.putBoolean("startCraft", startCraft);
+    }
+
+    @Override
+    public void load(CompoundTag tag) {
+        super.load(tag);
+        startCraft = tag.getBoolean("startCraft");
+    }
+
     private void resetProgress() {
         progress = 0;
-        KegBlockRenderer.setBrewingForBlock(getBlockPos(), false);
+        startCraft = false;
         KegBlock.setBrewing(this.getLevel(), this.getBlockPos(), this.getBlockState(), false);
     }
 
     private void craftItem() {
         Optional<KegRecipe> recipe = getCurrentRecipe();
-        ItemStack result = recipe.get().getResultItem(null);
+        ItemStack result = recipe.get().getResultItem(RegistryAccess.EMPTY);
 
         this.getItemHandler().removeItem(0, 1);
         this.getItemHandler().setItem(0, new ItemStack(result.getItem(),
@@ -97,7 +114,7 @@ public class KegBlockEntity extends TileSimpleInventory implements TickableTileE
 
     @Override
     public ClientboundBlockEntityDataPacket getUpdatePacket() {
-        return ClientboundBlockEntityDataPacket.create(this, (e) -> e.getUpdateTag());
+        return ClientboundBlockEntityDataPacket.create(this, BlockEntity::getUpdateTag);
     }
 
     public float getBlockRotate() {
