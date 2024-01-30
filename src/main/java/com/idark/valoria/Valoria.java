@@ -2,6 +2,7 @@ package com.idark.valoria;
 
 import com.google.common.collect.ImmutableMap;
 import com.idark.valoria.block.ModBlocks;
+import com.idark.valoria.block.blockentity.ModBlockEntities;
 import com.idark.valoria.block.types.ModWoodTypes;
 import com.idark.valoria.client.event.ClientTickHandler;
 import com.idark.valoria.client.render.CorpsecleaverRender;
@@ -13,9 +14,7 @@ import com.idark.valoria.client.render.gui.MagmaBarRender;
 import com.idark.valoria.client.render.gui.TooltipEventHandler;
 import com.idark.valoria.config.ClientConfig;
 import com.idark.valoria.container.ModMenuTypes;
-import com.idark.valoria.datagen.ModGlobalLootModifiersProvider;
 import com.idark.valoria.datagen.ModRecipeProvider;
-import com.idark.valoria.datagen.ModWorldGenProvider;
 import com.idark.valoria.effect.ModEffects;
 import com.idark.valoria.enchant.ModEnchantments;
 import com.idark.valoria.entity.ModEntityTypes;
@@ -29,17 +28,17 @@ import com.idark.valoria.item.staffs.StaffItem;
 import com.idark.valoria.paintings.ModPaintings;
 import com.idark.valoria.potion.ModPotions;
 import com.idark.valoria.recipe.ModRecipes;
-import com.idark.valoria.block.blockentity.ModBlockEntities;
+import com.idark.valoria.screen.JewelryScreen;
 import com.idark.valoria.util.LootUtil;
 import com.idark.valoria.util.ModSoundRegistry;
 import com.idark.valoria.util.WorldRenderHandler;
 import com.idark.valoria.util.particle.ModParticles;
 import com.idark.valoria.world.WorldGen;
+import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.entity.SpawnPlacements;
-import net.minecraft.world.inventory.RecipeBookType;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.WoodType;
@@ -161,6 +160,8 @@ public class Valoria {
 			CuriosRendererRegistry.register(ModItems.NETHERITE_GLOVES.get(), HandsRenderer::new);
 
 			CuriosRendererRegistry.register(ModItems.LEATHER_BELT.get(), BeltRenderer::new);
+
+			MenuScreens.register(ModMenuTypes.JEWELRY_MENU.get(), JewelryScreen::new);
 		});
 	}
 
