@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "valoria:amber_gem",
+    "valoria:amethyst_gem",
+    "valoria:ruby_gem",
+    "valoria:sapphire_gem",
+    "minecraft:emerald",
+    "minecraft:diamond"
+  ]
+}

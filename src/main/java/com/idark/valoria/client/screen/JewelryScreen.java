@@ -1,7 +1,7 @@
-package com.idark.valoria.screen;
+package com.idark.valoria.client.screen;
 
 import com.idark.valoria.Valoria;
-import com.idark.valoria.container.JewelryMenu;
+import com.idark.valoria.client.container.JewelryMenu;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -14,7 +14,7 @@ public class JewelryScreen extends AbstractContainerScreen<JewelryMenu> {
 
     public JewelryScreen(JewelryMenu screenContainer, Inventory inv, Component titleIn) {
         super(screenContainer, inv, titleIn);
-        this.imageHeight = 201;
+        this.imageHeight = 165;
         this.inventoryLabelY = this.inventoryLabelY + 46;
     }
 

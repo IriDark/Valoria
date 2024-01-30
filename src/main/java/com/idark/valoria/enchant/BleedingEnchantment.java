@@ -1,7 +1,7 @@
 package com.idark.valoria.enchant;
 
 import com.idark.valoria.effect.ModEffects;
-import com.idark.valoria.math.RandUtils;
+import com.idark.valoria.util.math.RandUtils;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;

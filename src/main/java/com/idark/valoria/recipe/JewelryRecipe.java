@@ -1,6 +1,7 @@
 package com.idark.valoria.recipe;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.idark.valoria.Valoria;
 import net.minecraft.core.NonNullList;
@@ -8,37 +9,42 @@ import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
-import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.List;
 
-public class JewelryRecipe implements Recipe<SimpleContainer> {
-    private final NonNullList<Ingredient> inputItems;
+public class JewelryRecipe implements Recipe<Container> {
+    private final NonNullList<Ingredient> inputs;
     private final ItemStack output;
     private final ResourceLocation id;
 
-    public JewelryRecipe(NonNullList<Ingredient> inputItems, ItemStack output, ResourceLocation id) {
-        this.inputItems = inputItems;
-        this.output = output;
+    public JewelryRecipe(ResourceLocation id, ItemStack output, Ingredient... inputItems) {
         this.id = id;
+        this.output = output;
+        this.inputs = NonNullList.of(Ingredient.EMPTY, inputItems);
     }
 
     @Override
-    public boolean matches(SimpleContainer pContainer, Level pLevel) {
-        if(pLevel.isClientSide()) {
-            return false;
+    public boolean matches(Container pContainer, Level pLevel) {
+        boolean craft = true;
+        for (int i = 0; i < 2; i += 1) {
+            if (!inputs.get(i).test(pContainer.getItem(i))) {
+                craft = false;
+            }
         }
 
-        return inputItems.get(0).test(pContainer.getItem(0));
+        return craft;
     }
 
     @Override
-    public ItemStack assemble(SimpleContainer pContainer, RegistryAccess pRegistryAccess) {
-        return output.copy();
+    public ItemStack assemble(Container pContainer, RegistryAccess pRegistryAccess) {
+        return output;
     }
 
     @Override
@@ -54,7 +60,7 @@ public class JewelryRecipe implements Recipe<SimpleContainer> {
     @Nonnull
     @Override
     public NonNullList<Ingredient> getIngredients() {
-        return inputItems;
+        return inputs;
     }
 
     @Override
@@ -85,43 +91,29 @@ public class JewelryRecipe implements Recipe<SimpleContainer> {
         public JewelryRecipe fromJson(ResourceLocation pRecipeId, JsonObject pSerializedRecipe) {
             ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(pSerializedRecipe, "output"));
 
-            JsonArray ingredients = GsonHelper.getAsJsonArray(pSerializedRecipe, "ingredients");
-            final NonNullList<Ingredient> inputs = readIngredients(GsonHelper.getAsJsonArray(pSerializedRecipe, "ingredients"));
-
-            for(int i = 0; i < inputs.size(); i++) {
-                inputs.set(i, Ingredient.fromJson(ingredients.get(i)));
+            JsonArray pIngredients = GsonHelper.getAsJsonArray(pSerializedRecipe, "ingredients");
+            List<Ingredient> inputs = new ArrayList<>();
+            for (JsonElement e : pIngredients) {
+                inputs.add(Ingredient.fromJson(e));
             }
 
-            return new JewelryRecipe(inputs, output, pRecipeId);
-        }
-
-        private static NonNullList<Ingredient> readIngredients(JsonArray ingredientArray) {
-            NonNullList<Ingredient> nonnulllist = NonNullList.create();
-
-            for (int i = 0; i < ingredientArray.size(); ++i) {
-                Ingredient ingredient = Ingredient.fromJson(ingredientArray.get(i));
-                if (!ingredient.isEmpty()) {
-                    nonnulllist.add(ingredient);
-                }
-            }
-
-            return nonnulllist;
+            return new JewelryRecipe(pRecipeId, output, inputs.toArray(new Ingredient[0]));
         }
 
         @Override
         public @Nullable JewelryRecipe fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
-            NonNullList<Ingredient> inputs = NonNullList.withSize(pBuffer.readInt(), Ingredient.EMPTY);
-            for (int i = 0; i < inputs.toArray().length; i++) {
-                inputs.set(i, Ingredient.fromNetwork(pBuffer));
+            Ingredient[] inputs = new Ingredient[pBuffer.readInt()];
+            for (int i = 0; i < inputs.length; i++) {
+                inputs[i] = Ingredient.fromNetwork(pBuffer);
             }
 
             ItemStack output = pBuffer.readItem();
-            return new JewelryRecipe(inputs, output, pRecipeId);
+            return new JewelryRecipe(pRecipeId, output, inputs);
         }
 
         @Override
         public void toNetwork(FriendlyByteBuf pBuffer, JewelryRecipe pRecipe) {
-            pBuffer.writeInt(pRecipe.inputItems.size());
+            pBuffer.writeInt(pRecipe.getIngredients().size());
             for (Ingredient input : pRecipe.getIngredients()) {
                 input.toNetwork(pBuffer);
             }

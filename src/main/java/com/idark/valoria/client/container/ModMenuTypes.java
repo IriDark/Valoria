@@ -1,4 +1,4 @@
-package com.idark.valoria.container;
+package com.idark.valoria.client.container;
 
 import com.idark.valoria.Valoria;
 import net.minecraft.core.BlockPos;
@@ -11,10 +11,10 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 public class ModMenuTypes {
-    public static final DeferredRegister<MenuType<?>> CONTAINERS = DeferredRegister.create(ForgeRegistries.MENU_TYPES, Valoria.MOD_ID);
+    public static final DeferredRegister<MenuType<?>> MENUS = DeferredRegister.create(ForgeRegistries.MENU_TYPES, Valoria.MOD_ID);
 
     public static final RegistryObject<MenuType<JewelryMenu>> JEWELRY_MENU
-            = CONTAINERS.register("jewelry_menu",
+            = MENUS.register("jewelry_menu",
             () -> IForgeMenuType.create(((windowId, inv, data) -> {
                 BlockPos pos = data.readBlockPos();
                 Level world = inv.player.getCommandSenderWorld();
@@ -22,6 +22,6 @@ public class ModMenuTypes {
             })));
 
     public static void register(IEventBus eventBus) {
-        CONTAINERS.register(eventBus);
+        MENUS.register(eventBus);
     }
 }

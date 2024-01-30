@@ -1,4 +1,4 @@
-package com.idark.valoria.mana;
+package com.idark.valoria.item.mana;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;

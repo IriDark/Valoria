@@ -648,5 +648,6 @@
  	"block.valoria.void_chiseled_brick_slab": "Chiseled Void Brick Slab",
  	"block.valoria.void_chiseled_bricks_stairs": "Chiseled Void Bricks Stairs",
  	"block.valoria.void_chiseled_bricks_slab": "Chiseled Void Bricks Slab",
-	"block.valoria.meat_block": "Meat Block"
+	"block.valoria.meat_block": "Meat Block",
+	"menu.valoria.jewelry": "Jewerly Table"
 }

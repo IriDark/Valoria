@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "valoria:iron_chain",
+    "valoria:golden_chain",
+    "valoria:netherite_chain",
+    "valoria:iron_ring",
+    "valoria:golden_ring",
+    "valoria:netherite_ring"
+  ]
+}

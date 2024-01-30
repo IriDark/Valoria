@@ -2,9 +2,9 @@ package com.idark.valoria.item.staffs;
 
 import com.idark.valoria.Valoria;
 import com.idark.valoria.config.ClientConfig;
-import com.idark.valoria.mana.IManaItem;
-import com.idark.valoria.mana.ManaItemType;
-import com.idark.valoria.mana.ManaItemUtils;
+import com.idark.valoria.item.mana.IManaItem;
+import com.idark.valoria.item.mana.ManaItemType;
+import com.idark.valoria.item.mana.ManaItemUtils;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;

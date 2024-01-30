@@ -1,4 +1,4 @@
-package com.idark.valoria.math;
+package com.idark.valoria.util.math;
 import java.util.Random;
 
 public class RandUtils {

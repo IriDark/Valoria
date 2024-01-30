@@ -1,4 +1,4 @@
-package com.idark.valoria.potion;
+package com.idark.valoria.effect.potion;
 
 import com.idark.valoria.Valoria;
 import com.idark.valoria.effect.ModEffects;

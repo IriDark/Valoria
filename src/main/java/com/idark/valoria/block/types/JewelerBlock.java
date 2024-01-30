@@ -1,7 +1,7 @@
 package com.idark.valoria.block.types;
 
 import com.idark.valoria.block.blockentity.JewelryBlockEntity;
-import com.idark.valoria.container.JewelryMenu;
+import com.idark.valoria.client.container.JewelryMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -26,7 +26,6 @@ public class JewelerBlock extends Block implements EntityBlock {
     public JewelerBlock(BlockBehaviour.Properties properties) {
         super(properties);
     }
-
 
     @Override
     public void onRemove(@Nonnull BlockState state, @Nonnull Level world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
@@ -71,7 +70,7 @@ public class JewelerBlock extends Block implements EntityBlock {
 
             @Override
             public Component getDisplayName() {
-                return Component.empty();
+                return Component.translatable("menu.valoria.jewelry");
             }
 
             @Nullable

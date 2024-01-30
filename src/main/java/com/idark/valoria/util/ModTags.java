@@ -20,6 +20,8 @@ public class ModTags {
 
     public static final TagKey<Item> CUP_DRINKS = item(new ResourceLocation(MODID, "wooden_cup_drinks"));
     public static final TagKey<Item> BOTTLE_DRINKS = item(new ResourceLocation(MODID, "bottle_drinks"));
+    public static final TagKey<Item> TRINKETS = item(new ResourceLocation(MODID, "trinkets"));
+    public static final TagKey<Item> GEMS = item(new ResourceLocation(MODID, "gems"));
 
     public static final TagKey<Item> POTIONS = item(new ResourceLocation(MODID, "potions"));
     public static final TagKey<Item> ALCOHOL = item(new ResourceLocation(MODID, "alcohol"));

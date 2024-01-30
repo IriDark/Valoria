@@ -1,0 +1,16 @@
+{
+  "type": "valoria:jewelry",
+  "output": {
+    "count": 1,
+    "item": "valoria:iron_necklace_amber"
+  },
+
+  "ingredients": [
+    {
+      "item": "valoria:iron_chain"
+    },
+    {
+      "item": "valoria:amber_gem"
+    }
+  ]
+}

@@ -1,6 +1,9 @@
-package com.idark.valoria.container;
+package com.idark.valoria.client.container;
 
 import com.idark.valoria.block.ModBlocks;
+import com.idark.valoria.client.container.slots.GemSlot;
+import com.idark.valoria.client.container.slots.ResultSlot;
+import com.idark.valoria.client.container.slots.TrinketsSlot;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -29,29 +32,28 @@ public class JewelryMenu extends AbstractContainerMenu {
 
     public JewelryMenu(int windowId, Level world, BlockPos pos, Inventory playerInventory, Player player) {
         super(ModMenuTypes.JEWELRY_MENU.get(), windowId);
-        checkContainerSize(playerInventory, 3);
         this.tileEntity = world.getBlockEntity(pos);
         playerEntity = player;
 
         this.playerInventory = new InvWrapper(playerInventory);
-        this.layoutPlayerInventorySlots(8, 86 + 33);
+        this.layoutPlayerInventorySlots(8, 84);
 
         if (tileEntity != null) {
             tileEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(h -> {
-                this.addSlot(new SlotItemHandler(h, 0, 27, 47));
-                this.addSlot(new SlotItemHandler(h, 1, 76, 47));
+                this.addSlot(new TrinketsSlot(h, 0, 27, 47));
+                this.addSlot(new GemSlot(h, 1, 76, 47));
 
-                this.addSlot(new SlotItemHandler(h, 2, 134, 47));
+                this.addSlot(new ResultSlot(h, 2, 134, 47));
             });
         }
     }
 
     @Override
     public boolean stillValid(Player playerIn) {
-        return stillValid(ContainerLevelAccess.create(tileEntity.getLevel(), tileEntity.getBlockPos()),
-                playerIn, ModBlocks.JEWELER_TABLE.get());
+        return stillValid(ContainerLevelAccess.create(tileEntity.getLevel(), tileEntity.getBlockPos()), playerIn, ModBlocks.JEWELER_TABLE.get());
     }
 
+    // VANILLA INVENTORY
     private int addSlotRange(IItemHandler handler, int index, int x, int y, int amount, int dx) {
         for (int i = 0; i < amount; i++) {
             addSlot(new SlotItemHandler(handler, index, x, y));
