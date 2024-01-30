@@ -2,9 +2,11 @@ package com.idark.valoria.block.blockentity;
 
 import com.idark.valoria.container.JewelryMenu;
 import com.idark.valoria.recipe.JewelryRecipe;
+import com.idark.valoria.util.PacketUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.Connection;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
@@ -26,6 +28,7 @@ import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
+import net.minecraftforge.items.wrapper.CombinedInvWrapper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -71,7 +74,6 @@ public class JewelryBlockEntity extends BlockEntity implements MenuProvider {
     public static final int ADDITIONAL_SLOT = 1;
     public static final int RESULT_SLOT = 2;
 
-    public LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
 
     protected final ContainerData data;
     private int progress = 0;
@@ -104,34 +106,50 @@ public class JewelryBlockEntity extends BlockEntity implements MenuProvider {
         };
     }
 
+    @Nonnull
     @Override
-    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        if(cap == ForgeCapabilities.ITEM_HANDLER) {
-            return lazyItemHandler.cast();
+    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
+        if (cap == ForgeCapabilities.ITEM_HANDLER) {
+            if (side == null) {
+                CombinedInvWrapper item = new CombinedInvWrapper(itemHandler, itemOutputHandler);
+                return LazyOptional.of(() -> item).cast();
+            }
+
+            if (side == Direction.DOWN) {
+                return outputHandler.cast();
+            } else {
+                return handler.cast();
+            }
         }
 
         return super.getCapability(cap, side);
     }
 
     @Override
-    public void onLoad() {
-        super.onLoad();
-        lazyItemHandler = LazyOptional.of(() -> itemHandler);
+    public ClientboundBlockEntityDataPacket getUpdatePacket() {
+        return ClientboundBlockEntityDataPacket.create(this, (e) -> e.getUpdateTag());
     }
 
     @Override
-    public void invalidateCaps() {
-        super.invalidateCaps();
-        lazyItemHandler.invalidate();
+    public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt) {
+        super.onDataPacket(net, pkt);
+        handleUpdateTag(pkt.getTag());
     }
 
-    public void drops() {
-        SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
-        for(int i = 0; i < itemHandler.getSlots(); i++) {
-            inventory.setItem(i, itemHandler.getStackInSlot(i));
-        }
+    @NotNull
+    @Override
+    public final CompoundTag getUpdateTag() {
+        var tag = new CompoundTag();
+        saveAdditional(tag);
+        return tag;
+    }
 
-        Containers.dropContents(this.level, this.worldPosition, inventory);
+    @Override
+    public void setChanged() {
+        super.setChanged();
+        if (level != null && !level.isClientSide) {
+            PacketUtils.SUpdateTileEntityPacket(this);
+        }
     }
 
     @Override
@@ -147,7 +165,8 @@ public class JewelryBlockEntity extends BlockEntity implements MenuProvider {
 
     @Override
     public void saveAdditional(CompoundTag pTag) {
-        pTag.put("inventory", itemHandler.serializeNBT());
+        pTag.put("inv", itemHandler.serializeNBT());
+        pTag.put("output", itemOutputHandler.serializeNBT());
         pTag.putInt("jewelry.progress", progress);
 
         super.saveAdditional(pTag);
@@ -156,7 +175,8 @@ public class JewelryBlockEntity extends BlockEntity implements MenuProvider {
     @Override
     public void load(CompoundTag pTag) {
         super.load(pTag);
-        itemHandler.deserializeNBT(pTag.getCompound("inventory"));
+        itemHandler.deserializeNBT(pTag.getCompound("inv"));
+        itemOutputHandler.deserializeNBT(pTag.getCompound("output"));
         progress = pTag.getInt("jewelry.progress");
     }
 
@@ -203,16 +223,5 @@ public class JewelryBlockEntity extends BlockEntity implements MenuProvider {
 
     private void increaseCraftingProgress() {
         progress++;
-    }
-
-    @Nullable
-    @Override
-    public Packet<ClientGamePacketListener> getUpdatePacket() {
-        return ClientboundBlockEntityDataPacket.create(this);
-    }
-
-    @Override
-    public CompoundTag getUpdateTag() {
-        return saveWithoutMetadata();
     }
 }
