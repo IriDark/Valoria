@@ -1,6 +1,6 @@
 package com.idark.valoria.block.types;
 
-import com.idark.valoria.tileentity.ModSignTileEntity;
+import com.idark.valoria.block.blockentity.ModSignBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.WallSignBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -17,6 +17,6 @@ public class ModWallSignBlock extends WallSignBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
-        return new ModSignTileEntity(pPos, pState);
+        return new ModSignBlockEntity(pPos, pState);
     }
 }

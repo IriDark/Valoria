@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 1,
+  "ingredient": {
+    "item": "valoria:void_brick"
+  },
+  "result": "valoria:void_brick_stairs"
+}

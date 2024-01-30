@@ -1,6 +1,6 @@
 package com.idark.valoria.block.types;
 
-import com.idark.valoria.tileentity.ModHangingSignTileEntity;
+import com.idark.valoria.block.blockentity.ModHangingSignBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.CeilingHangingSignBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -17,6 +17,6 @@ public class ModCeilingHangingSignBlock extends CeilingHangingSignBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
-        return new ModHangingSignTileEntity(pPos, pState);
+        return new ModHangingSignBlockEntity(pPos, pState);
     }
 }

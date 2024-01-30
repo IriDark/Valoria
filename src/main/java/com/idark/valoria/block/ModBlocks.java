@@ -79,6 +79,14 @@ public class ModBlocks {
 	public static final RegistryObject<Block> RAW_COBALT_ORE_BLOCK = BLOCK.register("raw_cobalt_ore",
 			() -> new Block(BlockBehaviour.Properties.copy(Blocks.RAW_COPPER_BLOCK).requiresCorrectToolForDrops().strength(3f, 4f)));
 	// Stone Types
+	public static final RegistryObject<Block> EPHEMARITE_LOW = BLOCK.register("ephemarite_low",
+			() -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(3f, 4f)));
+	public static final RegistryObject<Block> EPHEMARITE = BLOCK.register("ephemarite",
+			() -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(3f, 4f)));
+	public static final RegistryObject<Block> POLISHED_EPHEMARITE_LOW = BLOCK.register("polished_ephemarite_low",
+			() -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(3f, 4f)));
+	public static final RegistryObject<Block> POLISHED_EPHEMARITE = BLOCK.register("polished_ephemarite",
+			() -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(3f, 4f)));
 	public static final RegistryObject<Block> MEAT_BLOCK = BLOCK.register("meat_block",
 			() -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(3f, 4f)));
 	public static final RegistryObject<Block> AMBANE_STONE = BLOCK.register("ambane_stone",
@@ -332,11 +340,11 @@ public class ModBlocks {
 	public static final RegistryObject<Block> ELEGANT_PEDESTAL = BLOCK.register("elegant_pedestal",
 			() -> new PedestalBlock(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(3f, 1f).noOcclusion()));
 	public static final RegistryObject<Block> BRONZE_LAMP = BLOCK.register("bronze_lamp",
-			() -> new RedstoneLampBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(3f, 4f).noOcclusion().sound(SoundType.GLASS).lightLevel(getLightValueLit(13))));
+			() -> new RedstoneLampBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(3f, 4f).noOcclusion().sound(SoundType.GLASS).lightLevel(getLightValueLit())));
 	public static final RegistryObject<Block> DECORATED_BRONZE_LAMP = BLOCK.register("decorated_bronze_lamp",
-			() -> new RedstoneLampBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(3f, 4f).noOcclusion().sound(SoundType.GLASS).lightLevel(getLightValueLit(13))));
+			() -> new RedstoneLampBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(3f, 4f).noOcclusion().sound(SoundType.GLASS).lightLevel(getLightValueLit())));
 	public static final RegistryObject<Block> BRONZE_LAMP_BLOCK = BLOCK.register("bronze_lamp_block",
-			() -> new RedstoneLampBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(3f, 4f).noOcclusion().sound(SoundType.GLASS).lightLevel(getLightValueLit(13))));
+			() -> new RedstoneLampBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(3f, 4f).noOcclusion().sound(SoundType.GLASS).lightLevel(getLightValueLit())));
 	public static final RegistryObject<Block> SPIDER_EGG = BLOCK.register("spider_egg",
 			() -> new SpiderBlock(BlockBehaviour.Properties.copy(Blocks.STONE).instabreak().noOcclusion().sound(SoundType.FROGSPAWN)));
 	// Ore
@@ -471,9 +479,7 @@ public class ModBlocks {
 		BLOCK.register(eventBus);
 	}
 
-	private static ToIntFunction<BlockState> getLightValueLit(int lightValue) {
-		return (state) -> {
-			return state.getValue(BlockStateProperties.LIT) ? lightValue : 0;
-		};
+	private static ToIntFunction<BlockState> getLightValueLit() {
+		return (state) -> state.getValue(BlockStateProperties.LIT) ? 13 : 0;
 	}
 }

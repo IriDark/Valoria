@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 1,
+  "ingredient": {
+    "item": "valoria:tombstone_bricks"
+  },
+  "result": "valoria:cracked_tombstone_bricks"
+}

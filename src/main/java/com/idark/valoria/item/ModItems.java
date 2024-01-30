@@ -22,7 +22,6 @@ import net.minecraftforge.registries.RegistryObject;
 public class ModItems {
 	public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Valoria.MOD_ID);
 
-	private final static String MODID = Valoria.MOD_ID;
 	// BLOCK ITEMS (category)
 	// Plants
 	public static final RegistryObject<Item> ALOE = ITEMS.register("aloe", () -> new BlockItem(ModBlocks.ALOE.get(), new Item.Properties()));
@@ -76,6 +75,10 @@ public class ModItems {
 	public static final RegistryObject<Item> AWAKENED_VOID_BLOCK = ITEMS.register("awakened_void_block", () -> new BlockItem(ModBlocks.AWAKENED_VOID_BLOCK.get(), new Item.Properties().fireResistant()));
 	public static final RegistryObject<Item> PEARLIUM = ITEMS.register("pearlium", () -> new BlockItem(ModBlocks.PEARLIUM.get(), new Item.Properties()));
 	// Stones
+	public static final RegistryObject<Item> EPHEMARITE_LOW = ITEMS.register("ephemarite_low", () -> new BlockItem(ModBlocks.EPHEMARITE_LOW.get(), new Item.Properties()));
+	public static final RegistryObject<Item> EPHEMARITE = ITEMS.register("ephemarite", () -> new BlockItem(ModBlocks.EPHEMARITE.get(), new Item.Properties()));
+	public static final RegistryObject<Item> POLISHED_EPHEMARITE_LOW = ITEMS.register("polished_ephemarite_low", () -> new BlockItem(ModBlocks.POLISHED_EPHEMARITE_LOW.get(), new Item.Properties()));
+	public static final RegistryObject<Item> POLISHED_EPHEMARITE = ITEMS.register("polished_ephemarite", () -> new BlockItem(ModBlocks.POLISHED_EPHEMARITE.get(), new Item.Properties()));
 	public static final RegistryObject<Item> MEAT_BLOCK = ITEMS.register("meat_block", () -> new BlockItem(ModBlocks.MEAT_BLOCK.get(), new Item.Properties()));
 	public static final RegistryObject<Item> AMBANE_STONE = ITEMS.register("ambane_stone", () -> new BlockItem(ModBlocks.AMBANE_STONE.get(), new Item.Properties()));
 	public static final RegistryObject<Item> AMBANE_STONE_BRICKS = ITEMS.register("ambane_stone_bricks", () -> new BlockItem(ModBlocks.AMBANE_STONE_BRICKS.get(), new Item.Properties()));
@@ -241,7 +244,6 @@ public class ModItems {
 	public static final RegistryObject<Item> LEXICON = ITEMS.register("lexicon", () -> new LexiconItem(new Item.Properties().stacksTo(1)));
 	public static final RegistryObject<Item> CRYPT = ITEMS.register("page", () -> new LexiconPageItem(LexiconPages.CRYPT,  new Item.Properties().stacksTo(1)));
 
-
 	public static final RegistryObject<Item> ALOE_BANDAGE = ITEMS.register("aloe_bandage", () -> new AloeBandageItem(1600, 0));
 	public static final RegistryObject<Item> ALOE_BANDAGE_UPGRADED = ITEMS.register("aloe_bandage_upgraded", () -> new AloeBandageItem(1450, 1));
 	public static final RegistryObject<Item> CACAO_CUP = ITEMS.register("cacao_cup", () -> new CupDrinkItem(MobEffects.MOVEMENT_SPEED, 30, 0));
@@ -263,7 +265,6 @@ public class ModItems {
 	public static final RegistryObject<Item> HOLIDAY_CANDY = ITEMS.register("holiday_candy", () -> new Item(new Item.Properties().stacksTo(16).food(new FoodProperties.Builder().nutrition(4).saturationMod(6).build())));
 
 	//public static final RegistryObject<Item> WAND_OF_NATURE = ITEMS.register("wand_of_nature", () -> new NatureStaff(new Item.Properties().stacksTo(1)));
-
 	public static final RegistryObject<Item> DUNESTONE_BRICK = ITEMS.register("dunestone_brick", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> TOMBSTONE_BRICK = ITEMS.register("tombstone_brick", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> AMBANE_STONE_BRICK = ITEMS.register("ambane_stone_brick", () -> new Item(new Item.Properties()));
@@ -280,7 +281,6 @@ public class ModItems {
 	public static final RegistryObject<Item> VOID_INGOT = ITEMS.register("void_ingot", () -> new Item(new Item.Properties().fireResistant()));
 
 	// TOOLS (category)
-
 	public static final RegistryObject<Item> CLUB = ITEMS.register("club",
 			() -> new ClubItem(Tiers.WOOD, 4, -3.2f, new Item.Properties()));
 	public static final RegistryObject<Item> BRONZE_SWORD = ITEMS.register("bronze_sword",
@@ -415,7 +415,7 @@ public class ModItems {
 			() -> new AxeItem(ModItemTier.INFERNAL, 10, -2.9f, new Item.Properties().fireResistant()));
 	public static final RegistryObject<Item> INFERNAL_HOE = ITEMS.register("infernal_hoe",
 			() -> new HoeItem(ModItemTier.INFERNAL, -1, 0f, new Item.Properties().fireResistant()));
-	// ACCESORIES (category)
+	// ACCESSORIES (category)
 	public static final RegistryObject<Item> PICK_NECKLACE = ITEMS.register("pick_necklace",
 			() -> new PickNecklace(new Item.Properties().stacksTo(1).durability(320).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> IRON_CHAIN = ITEMS.register("iron_chain",
@@ -578,11 +578,6 @@ public class ModItems {
 			() -> new BowItem(new Item.Properties().fireResistant().stacksTo(1)));
 	public static final RegistryObject<Item> PICK = ITEMS.register("pick",
 			() -> new PickItem(new Item.Properties().fireResistant().stacksTo(1).durability(64), 5));
-
-	/*
-	public static final RegistryObject<ModSpawnEggItem> SWAMP_WANDERER_SPAWN_EGG = ITEMS.register("swamp_wanderer_spawn_egg",
-		() -> new ModSpawnEggItem(ModEntityTypes.SWAMP_WANDERER, 0x00FFFFFF, 0x00FFFFFF, new Item.Properties()));
-	*/
 
 	public static final RegistryObject<ForgeSpawnEggItem> GOBLIN_SPAWN_EGG = ITEMS.register("goblin_spawn_egg",
 		() -> new ForgeSpawnEggItem(ModEntityTypes.GOBLIN, ColorUtils.hexToDecimal("185b36"), ColorUtils.hexToDecimal("6BB447"), new Item.Properties()));

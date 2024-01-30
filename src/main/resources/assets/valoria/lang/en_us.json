@@ -472,6 +472,10 @@
 	"block.valoria.dried_roots": "Dried Roots",
 
  	"_comment": "Blocks",
+	"block.valoria.ephemarite_low": "Ephemarite Stone",
+	"block.valoria.polished_ephemarite_low": "Polished Ephemarite Stone",
+	"block.valoria.ephemarite": "Ephemarite Stone",
+	"block.valoria.polished_ephemarite": "Polished Ephemarite Stone",
 	"block.valoria.geodite_dirt": "Dirt Geodite",
 	"block.valoria.geodite_stone": "Stone Geodite",
 	"block.valoria.stone_crusher": "Stone Crusher",	

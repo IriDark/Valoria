@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 1,
+  "ingredient": {
+    "item": "valoria:void_stone"
+  },
+  "result": "valoria:polished_void_stone"
+}

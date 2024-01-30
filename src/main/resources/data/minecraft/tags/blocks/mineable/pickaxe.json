@@ -1,6 +1,10 @@
 {
   "replace": false,
   "values": [
+    "valoria:ephemarite_low",
+    "valoria:polished_ephemarite_low",
+    "valoria:ephemarite",
+    "valoria:polished_ephemarite",
     "valoria:meat_block",
     "valoria:cobalt_block",
     "valoria:nature_block",

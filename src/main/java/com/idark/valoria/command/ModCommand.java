@@ -1,15 +1,12 @@
 package com.idark.valoria.command;
 
-import com.idark.valoria.capability.IPage;
 import com.idark.valoria.client.render.gui.book.LexiconPages;
 import com.idark.valoria.command.build.CommandArgument;
 import com.idark.valoria.command.build.CommandBuilder;
 import com.idark.valoria.command.build.CommandPart;
 import com.idark.valoria.command.build.CommandVariant;
 import com.idark.valoria.item.types.MagmaSwordItem;
-import com.idark.valoria.network.PacketHandler;
-import com.idark.valoria.network.PageUpdatePacket;
-import com.idark.valoria.toast.ModToast;
+import com.idark.valoria.client.toast.ModToast;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.context.CommandContext;

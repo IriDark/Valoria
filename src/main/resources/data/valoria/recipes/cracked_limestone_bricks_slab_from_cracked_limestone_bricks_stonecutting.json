@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 2,
+  "ingredient": {
+    "item": "valoria:cracked_limestone_bricks"
+  },
+  "result": "valoria:cracked_limestone_bricks_slab"
+}

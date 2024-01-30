@@ -3,7 +3,6 @@ package com.idark.valoria;
 import com.google.common.collect.ImmutableMap;
 import com.idark.valoria.block.ModBlocks;
 import com.idark.valoria.block.types.ModWoodTypes;
-import com.idark.valoria.capability.IPage;
 import com.idark.valoria.client.event.ClientTickHandler;
 import com.idark.valoria.client.render.CorpsecleaverRender;
 import com.idark.valoria.client.render.DashOverlayRender;
@@ -12,9 +11,10 @@ import com.idark.valoria.client.render.curio.HandsRenderer;
 import com.idark.valoria.client.render.curio.NecklaceRenderer;
 import com.idark.valoria.client.render.gui.MagmaBarRender;
 import com.idark.valoria.client.render.gui.TooltipEventHandler;
-import com.idark.valoria.command.CommandRegister;
 import com.idark.valoria.config.ClientConfig;
+import com.idark.valoria.container.ModMenuTypes;
 import com.idark.valoria.datagen.ModGlobalLootModifiersProvider;
+import com.idark.valoria.datagen.ModRecipeProvider;
 import com.idark.valoria.datagen.ModWorldGenProvider;
 import com.idark.valoria.effect.ModEffects;
 import com.idark.valoria.enchant.ModEnchantments;
@@ -26,11 +26,10 @@ import com.idark.valoria.item.ModAttributes;
 import com.idark.valoria.item.ModItemGroup;
 import com.idark.valoria.item.ModItems;
 import com.idark.valoria.item.staffs.StaffItem;
-import com.idark.valoria.network.PacketHandler;
 import com.idark.valoria.paintings.ModPaintings;
 import com.idark.valoria.potion.ModPotions;
 import com.idark.valoria.recipe.ModRecipes;
-import com.idark.valoria.tileentity.ModTileEntities;
+import com.idark.valoria.block.blockentity.ModBlockEntities;
 import com.idark.valoria.util.LootUtil;
 import com.idark.valoria.util.ModSoundRegistry;
 import com.idark.valoria.util.WorldRenderHandler;
@@ -40,6 +39,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.entity.SpawnPlacements;
+import net.minecraft.world.inventory.RecipeBookType;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.WoodType;
@@ -93,8 +93,9 @@ public class Valoria {
 		ModPotions.register(eventBus);
 		ModItems.register(eventBus);
 		ModBlocks.register(eventBus);
-		ModTileEntities.register(eventBus);
+		ModBlockEntities.register(eventBus);
 		ModRecipes.register(eventBus);
+		ModMenuTypes.register(eventBus);
 		ModEntityTypes.register(eventBus);
 		ModParticles.register(eventBus);
 		LootUtil.register(eventBus);
@@ -216,8 +217,9 @@ public class Valoria {
 			PackOutput packOutput = generator.getPackOutput();
 			CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
 
-			generator.addProvider(event.includeServer(), new ModWorldGenProvider(packOutput, lookupProvider));
-			generator.addProvider(event.includeServer(), new ModGlobalLootModifiersProvider(packOutput));
+			generator.addProvider(event.includeServer(), new ModRecipeProvider(packOutput));
+			//generator.addProvider(event.includeServer(), new ModWorldGenProvider(packOutput, lookupProvider));
+			//generator.addProvider(event.includeServer(), new ModGlobalLootModifiersProvider(packOutput));
 		}
 	}
 }

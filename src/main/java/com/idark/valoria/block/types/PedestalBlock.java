@@ -1,7 +1,7 @@
 package com.idark.valoria.block.types;
 
-import com.idark.valoria.tileentity.PedestalTileEntity;
-import com.idark.valoria.tileentity.TileSimpleInventory;
+import com.idark.valoria.block.blockentity.PedestalBlockEntity;
+import com.idark.valoria.block.blockentity.BlockSimpleInventory;
 import com.idark.valoria.util.PacketUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -62,8 +62,8 @@ public class PedestalBlock extends Block implements EntityBlock, SimpleWaterlogg
     public void onRemove(@Nonnull BlockState state, @Nonnull Level world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
         if (state.getBlock() != newState.getBlock()) {
             BlockEntity tile = world.getBlockEntity(pos);
-            if (tile instanceof TileSimpleInventory) {
-                Containers.dropContents(world, pos, ((TileSimpleInventory) tile).getItemHandler());
+            if (tile instanceof BlockSimpleInventory) {
+                Containers.dropContents(world, pos, ((BlockSimpleInventory) tile).getItemHandler());
             }
             super.onRemove(state, world, pos, newState, isMoving);
         }
@@ -71,7 +71,7 @@ public class PedestalBlock extends Block implements EntityBlock, SimpleWaterlogg
 
     @Override
     public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        PedestalTileEntity tile = (PedestalTileEntity) world.getBlockEntity(pos);
+        PedestalBlockEntity tile = (PedestalBlockEntity) world.getBlockEntity(pos);
         ItemStack stack = player.getItemInHand(hand).copy();
 
         if ((!stack.isEmpty()) && (tile.getItemHandler().getItem(0).isEmpty())) {
@@ -132,6 +132,6 @@ public class PedestalBlock extends Block implements EntityBlock, SimpleWaterlogg
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
-        return new PedestalTileEntity(pPos, pState);
+        return new PedestalBlockEntity(pPos, pState);
     }
 }

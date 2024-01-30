@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "valoria:deepslate_ruby_ore"
+  },
+  "experience": 0.3,
+  "cookingtime": 120,
+  "result": "valoria:ruby_gem"
+}

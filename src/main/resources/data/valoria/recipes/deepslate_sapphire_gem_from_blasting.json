@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "valoria:deepslate_sapphire_ore"
+  },
+  "experience": 0.3,
+  "cookingtime": 60,
+  "result": "valoria:sapphire_gem"
+}

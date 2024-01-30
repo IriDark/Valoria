@@ -31,8 +31,7 @@ import java.util.function.Predicate;
 		return p_270004_.getHeight() * p_270004_.getWidth();
 	}).thenComparing(PaintingVariant::getWidth));
 
-	public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
-				DeferredRegister.create(Registries.CREATIVE_MODE_TAB, Valoria.MOD_ID);
+	public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, Valoria.MOD_ID);
 		public static final RegistryObject<CreativeModeTab> VALORIA_TAB = CREATIVE_MODE_TABS.register("valoriamodtab",
 				() -> CreativeModeTab.builder().icon(() -> new ItemStack(ModItems.NATURE_PICKAXE.get()))
 						.hideTitle()
@@ -48,11 +47,11 @@ import java.util.function.Predicate;
 						.backgroundSuffix("valoria_item.png").withBackgroundLocation(getBackgroundImage()).build());
 
 		public static ResourceLocation getBackgroundImage() {
-			return new ResourceLocation(Valoria.MOD_ID, "textures/gui/tab_valoria_item.png");
+			return new ResourceLocation(Valoria.MOD_ID, "textures/gui/container/tab_valoria_item.png");
 		}
 
 		public static ResourceLocation getTabsImage() {
-			return new ResourceLocation(Valoria.MOD_ID, "textures/gui/tabs_valoria.png");
+			return new ResourceLocation(Valoria.MOD_ID, "textures/gui/container/tabs_valoria.png");
 		}
 
 		public static void register(IEventBus eventBus) {
@@ -365,6 +364,10 @@ import java.util.function.Predicate;
 				event.accept(ModItems.DECORATED_BRONZE_LAMP);
 				event.accept(ModItems.BRONZE_LAMP_BLOCK);
 				event.accept(ModItems.PEARLIUM);
+				event.accept(ModItems.EPHEMARITE);
+				event.accept(ModItems.POLISHED_EPHEMARITE);
+				event.accept(ModItems.EPHEMARITE_LOW);
+				event.accept(ModItems.POLISHED_EPHEMARITE_LOW);
 				event.accept(ModItems.AMBANE_STONE);
 				event.accept(ModBlocks.AMBANE_STONE_STAIRS);
 				event.accept(ModBlocks.AMBANE_STONE_SLAB);

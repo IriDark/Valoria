@@ -8,7 +8,7 @@ import com.idark.valoria.client.render.model.item.ItemAnims;
 import com.idark.valoria.client.render.model.item.PickAnim;
 import com.idark.valoria.item.ModAttributes;
 import com.idark.valoria.item.curio.PickNecklace;
-import com.idark.valoria.tileentity.CrushableBlockEntity;
+import com.idark.valoria.block.blockentity.CrushableBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.BlockParticleOption;

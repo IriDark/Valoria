@@ -15,7 +15,7 @@ import org.lwjgl.opengl.GL11;
 public class MagmaBarRender {
 
     private MagmaBarRender() {}
-	private static final ResourceLocation BAR = new ResourceLocation(Valoria.MOD_ID + ":textures/gui/magma_charge.png");
+	private static final ResourceLocation BAR = new ResourceLocation(Valoria.MOD_ID + ":textures/gui/overlay/magma_charge.png");
 
     public static void onDrawScreenPost(RenderGuiOverlayEvent.Post event) {
         Minecraft mc = Minecraft.getInstance();

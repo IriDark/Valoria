@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "valoria:deepslate_sapphire_ore"
+  },
+  "experience": 0.3,
+  "cookingtime": 120,
+  "result": "valoria:sapphire_gem"
+}

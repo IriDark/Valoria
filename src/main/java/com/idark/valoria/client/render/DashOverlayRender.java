@@ -16,7 +16,7 @@ public class DashOverlayRender {
 
     public static int dashTime = 0;
     public static boolean isDash = false;
-	private static final ResourceLocation DASH = new ResourceLocation(Valoria.MOD_ID + ":textures/gui/speedlines.png");
+	private static final ResourceLocation DASH = new ResourceLocation(Valoria.MOD_ID + ":textures/gui/overlay/speedlines.png");
 
     public static void tick(TickEvent.ClientTickEvent event) {
         if (isDash) {

@@ -1,9 +1,9 @@
 package com.idark.valoria.block.types;
 
 import com.idark.valoria.Valoria;
+import com.idark.valoria.block.blockentity.CrusherBlockEntity;
 import com.idark.valoria.item.ModItems;
-import com.idark.valoria.tileentity.CrusherTileEntity;
-import com.idark.valoria.tileentity.TileSimpleInventory;
+import com.idark.valoria.block.blockentity.BlockSimpleInventory;
 import com.idark.valoria.util.LootUtil;
 import com.idark.valoria.util.PacketUtils;
 import com.idark.valoria.util.particle.ModParticles;
@@ -33,6 +33,7 @@ import javax.annotation.Nonnull;
 import java.util.Random;
 
 public class CrusherBlock extends Block implements EntityBlock {
+
     Random rand = new Random();
     public CrusherBlock(BlockBehaviour.Properties properties) {
 		super(properties);
@@ -41,22 +42,23 @@ public class CrusherBlock extends Block implements EntityBlock {
     @Nonnull
     @Override
     public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
-        return new CrusherTileEntity(pPos, pState);
+        return new CrusherBlockEntity(pPos, pState);
     }
 
     @Override
     public void onRemove(@Nonnull BlockState state, @Nonnull Level world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
         if (state.getBlock() != newState.getBlock()) {
             BlockEntity tile = world.getBlockEntity(pos);
-            if (tile instanceof TileSimpleInventory) {
-                Containers.dropContents(world, pos, ((TileSimpleInventory) tile).getItemHandler());
+            if (tile instanceof BlockSimpleInventory) {
+                Containers.dropContents(world, pos, ((BlockSimpleInventory) tile).getItemHandler());
             }
+
             super.onRemove(state, world, pos, newState, isMoving);
         }
 	}
 	
 	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
-        CrusherTileEntity tile = (CrusherTileEntity) world.getBlockEntity(pos);
+        CrusherBlockEntity tile = (CrusherBlockEntity) world.getBlockEntity(pos);
         ItemStack stack = player.getItemInHand(handIn).copy();
         if ((!stack.isEmpty()) && isValid(stack) && (tile.getItemHandler().getItem(0).isEmpty())) {
             if (stack.getCount() > 1) {
