@@ -1,6 +1,7 @@
 package com.idark.valoria.datagen;
 
 import com.idark.valoria.block.ModBlocks;
+import com.idark.valoria.item.ModItems;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.world.level.ItemLike;
@@ -120,6 +121,18 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
 
         cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.VOID_CHISELED_BRICKS_STAIRS.get(), ModBlocks.VOID_CHISELED_BRICKS.get(), 1);
         cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.VOID_CHISELED_BRICKS_SLAB.get(), ModBlocks.VOID_CHISELED_BRICKS.get(), 2);
+
+        netheriteSmithing(pWriter, ModItems.GOLDEN_NECKLACE_AMBER.get(), RecipeCategory.MISC, ModItems.NETHERITE_NECKLACE_AMBER.get());
+        netheriteSmithing(pWriter, ModItems.GOLDEN_NECKLACE_DIAMOND.get(), RecipeCategory.MISC, ModItems.NETHERITE_NECKLACE_DIAMOND.get());
+        netheriteSmithing(pWriter, ModItems.GOLDEN_NECKLACE_EMERALD.get(), RecipeCategory.MISC, ModItems.NETHERITE_NECKLACE_EMERALD.get());
+        netheriteSmithing(pWriter, ModItems.GOLDEN_NECKLACE_RUBY.get(), RecipeCategory.MISC, ModItems.NETHERITE_NECKLACE_RUBY.get());
+        netheriteSmithing(pWriter, ModItems.GOLDEN_NECKLACE_SAPPHIRE.get(), RecipeCategory.MISC, ModItems.NETHERITE_NECKLACE_SAPPHIRE.get());
+
+        netheriteSmithing(pWriter, ModItems.GOLDEN_RING_AMBER.get(), RecipeCategory.MISC, ModItems.NETHERITE_RING_AMBER.get());
+        netheriteSmithing(pWriter, ModItems.GOLDEN_RING_DIAMOND.get(), RecipeCategory.MISC, ModItems.NETHERITE_RING_DIAMOND.get());
+        netheriteSmithing(pWriter, ModItems.GOLDEN_RING_EMERALD.get(), RecipeCategory.MISC, ModItems.NETHERITE_RING_EMERALD.get());
+        netheriteSmithing(pWriter, ModItems.GOLDEN_RING_RUBY.get(), RecipeCategory.MISC, ModItems.NETHERITE_RING_RUBY.get());
+        netheriteSmithing(pWriter, ModItems.GOLDEN_RING_SAPPHIRE.get(), RecipeCategory.MISC, ModItems.NETHERITE_RING_SAPPHIRE.get());
     }
 
     public static void cutterResultFromBase(Consumer<FinishedRecipe> pFinishedRecipeConsumer, RecipeCategory pCategory, ItemLike pResult, ItemLike pMaterial, int pCount) {

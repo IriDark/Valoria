@@ -1,6 +1,7 @@
 package com.idark.valoria.client.compat.jei;
 
 import com.idark.valoria.Valoria;
+import com.idark.valoria.client.compat.jei.categories.JewelryRecipeCategory;
 import com.idark.valoria.client.compat.jei.categories.KegRecipeCategory;
 import com.idark.valoria.item.ModItems;
 import mezz.jei.api.IModPlugin;
@@ -21,16 +22,19 @@ public class ModJeiPlugin implements IModPlugin {
     @Override
     public void registerCategories(IRecipeCategoryRegistration registry) {
         registry.addRecipeCategories(new KegRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
+        registry.addRecipeCategories(new JewelryRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
     }
 
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
         ModJeiRecipes modRecipes = new ModJeiRecipes();
         registration.addRecipes(ModRecipeTypes.BREWERY, modRecipes.getBreweryRecipes());
+        registration.addRecipes(ModRecipeTypes.JEWELRY, modRecipes.getJewelryRecipes());
     }
 
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
         registration.addRecipeCatalyst(new ItemStack(ModItems.KEG.get()), ModRecipeTypes.BREWERY);
+        registration.addRecipeCatalyst(new ItemStack(ModItems.IRON_NECKLACE_HEALTH.get()), ModRecipeTypes.JEWELRY);
     }
 }

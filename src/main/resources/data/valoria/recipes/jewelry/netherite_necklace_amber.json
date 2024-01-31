@@ -1,0 +1,17 @@
+{
+  "type": "valoria:jewelry",
+  "output": {
+    "count": 1,
+    "item": "valoria:netherite_necklace_amber"
+  },
+
+  "time": 600,
+  "ingredients": [
+    {
+      "item": "valoria:netherite_chain"
+    },
+    {
+      "item": "valoria:amber_gem"
+    }
+  ]
+}

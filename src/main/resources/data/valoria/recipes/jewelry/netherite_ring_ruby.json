@@ -1,0 +1,17 @@
+{
+  "type": "valoria:jewelry",
+  "output": {
+    "count": 1,
+    "item": "valoria:netherite_ring_ruby"
+  },
+
+  "time": 600,
+  "ingredients": [
+    {
+      "item": "valoria:netherite_ring"
+    },
+    {
+      "item": "valoria:ruby_gem"
+    }
+  ]
+}

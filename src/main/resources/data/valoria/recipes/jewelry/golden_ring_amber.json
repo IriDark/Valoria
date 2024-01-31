@@ -1,0 +1,17 @@
+{
+  "type": "valoria:jewelry",
+  "output": {
+    "count": 1,
+    "item": "valoria:golden_ring_amber"
+  },
+
+  "time": 450,
+  "ingredients": [
+    {
+      "item": "valoria:golden_ring"
+    },
+    {
+      "item": "valoria:amber_gem"
+    }
+  ]
+}

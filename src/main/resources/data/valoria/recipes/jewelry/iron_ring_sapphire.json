@@ -1,0 +1,17 @@
+{
+  "type": "valoria:jewelry",
+  "output": {
+    "count": 1,
+    "item": "valoria:iron_ring_sapphire"
+  },
+
+  "time": 450,
+  "ingredients": [
+    {
+      "item": "valoria:iron_ring"
+    },
+    {
+      "item": "valoria:sapphire_gem"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "type": "valoria:jewelry",
+  "output": {
+    "count": 1,
+    "item": "valoria:golden_necklace_diamond"
+  },
+
+  "time": 450,
+  "ingredients": [
+    {
+      "item": "valoria:golden_chain"
+    },
+    {
+      "item": "minecraft:diamond"
+    }
+  ]
+}

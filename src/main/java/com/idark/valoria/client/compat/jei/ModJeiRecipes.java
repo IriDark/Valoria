@@ -1,5 +1,6 @@
 package com.idark.valoria.client.compat.jei;
 
+import com.idark.valoria.recipe.JewelryRecipe;
 import com.idark.valoria.recipe.KegRecipe;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -23,5 +24,9 @@ public class ModJeiRecipes {
 
     public List<KegRecipe> getBreweryRecipes() {
         return recipeManager.getAllRecipesFor(KegRecipe.Type.INSTANCE).stream().toList();
+    }
+
+    public List<JewelryRecipe> getJewelryRecipes() {
+        return recipeManager.getAllRecipesFor(JewelryRecipe.Type.INSTANCE).stream().toList();
     }
 }
