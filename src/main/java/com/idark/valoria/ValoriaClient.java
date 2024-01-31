@@ -6,11 +6,8 @@ import com.idark.valoria.client.render.curio.model.BeltModel;
 import com.idark.valoria.client.render.curio.model.HandsModel;
 import com.idark.valoria.client.render.curio.model.HandsModelDefault;
 import com.idark.valoria.client.render.curio.model.NecklaceModel;
+import com.idark.valoria.client.render.model.blockentity.*;
 import com.idark.valoria.client.render.model.item.Item2DRenderer;
-import com.idark.valoria.client.render.model.blockentity.KegBlockEntityRenderer;
-import com.idark.valoria.client.render.model.blockentity.CrushableBlockRenderer;
-import com.idark.valoria.client.render.model.blockentity.CrusherBlockEntityRenderer;
-import com.idark.valoria.client.render.model.blockentity.PedestalBlockEntityRenderer;
 import com.idark.valoria.config.ClientConfig;
 import com.idark.valoria.entity.ModEntityTypes;
 import com.idark.valoria.entity.renderer.*;
@@ -131,6 +128,7 @@ public class ValoriaClient {
 				ItemBlockRenderTypes.setRenderLayer(ModBlocks.QUICKSAND.get(), RenderType.cutout());
 				ItemBlockRenderTypes.setRenderLayer(ModBlocks.SUSPICIOUS_ICE.get(), RenderType.translucent());
 
+				BlockEntityRenderers.register(ModBlockEntities.JEWELRY_BLOCK_ENTITY.get(), (trd) -> new JewelryBlockEntityRender());
 				BlockEntityRenderers.register(ModBlockEntities.KEG_BLOCK_ENTITY.get(), (trd) -> new KegBlockEntityRenderer());
 				BlockEntityRenderers.register(ModBlockEntities.CRUSHABLE_BLOCK_ENTITY.get(), (trd) -> new CrushableBlockRenderer());
 				BlockEntityRenderers.register(ModBlockEntities.CRUSHER_BLOCK_ENTITY.get(), (trd) -> new CrusherBlockEntityRenderer());
@@ -198,13 +196,9 @@ public class ValoriaClient {
 		@SubscribeEvent
 		public static void shaderRegistry(RegisterShadersEvent event) throws IOException {
 			event.registerShader(new ShaderInstance(event.getResourceProvider(), new ResourceLocation("valoria:glowing_particle"), DefaultVertexFormat.PARTICLE),
-					shader -> {
-						GLOWING_PARTICLE_SHADER = shader;
-					});
+					shader -> GLOWING_PARTICLE_SHADER = shader);
 			event.registerShader(new ShaderInstance(event.getResourceProvider(), new ResourceLocation("valoria:sprite_particle"), DefaultVertexFormat.PARTICLE),
-					shader -> {
-						SPRITE_PARTICLE_SHADER = shader;
-					});
+					shader -> SPRITE_PARTICLE_SHADER = shader);
 		}
 	}
 }
