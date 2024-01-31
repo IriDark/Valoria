@@ -3,7 +3,6 @@ package com.idark.valoria.block.blockentity;
 import com.idark.valoria.client.container.JewelryMenu;
 import com.idark.valoria.client.render.model.blockentity.TickableBlockEntity;
 import com.idark.valoria.recipe.JewelryRecipe;
-import com.idark.valoria.recipe.KegRecipe;
 import com.idark.valoria.util.PacketUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -36,6 +35,8 @@ public class JewelryBlockEntity extends BlockEntity implements MenuProvider, Tic
     public final LazyOptional<IItemHandler> handler = LazyOptional.of(() -> itemHandler);
     public final ItemStackHandler itemOutputHandler = createHandler(1);
     public final LazyOptional<IItemHandler> outputHandler = LazyOptional.of(() -> itemOutputHandler);
+    public int progress = 0;
+    public int progressMax = 0;
 
     private ItemStackHandler createHandler(int size) {
         return new ItemStackHandler(size) {
@@ -91,7 +92,7 @@ public class JewelryBlockEntity extends BlockEntity implements MenuProvider, Tic
 
     @Override
     public ClientboundBlockEntityDataPacket getUpdatePacket() {
-        return ClientboundBlockEntityDataPacket.create(this, (e) -> e.getUpdateTag());
+        return ClientboundBlockEntityDataPacket.create(this, BlockEntity::getUpdateTag);
     }
 
     @Override
@@ -145,26 +146,59 @@ public class JewelryBlockEntity extends BlockEntity implements MenuProvider, Tic
     public void tick() {
         if (!level.isClientSide) {
             Optional<JewelryRecipe> recipe = getCurrentRecipe();
-            System.out.print(recipe);
             if (recipe.isPresent()) {
+                increaseCraftingProgress();
+                setMaxProgress();
                 setChanged(level, getBlockPos(), getBlockState());
-                craftItem();
+                if (hasProgressFinished()) {
+                    craftItem();
+                    resetProgress();
+                }
+
+                PacketUtils.SUpdateTileEntityPacket(this);
+            } else {
+                resetProgress();
             }
+        }
+    }
+
+    private void resetProgress() {
+        progress = 0;
+    }
+
+    private boolean hasProgressFinished() {
+        Optional<JewelryRecipe> recipe = getCurrentRecipe();
+        return progress >= recipe.get().getTime();
+    }
+
+    private void increaseCraftingProgress() {
+        Optional<JewelryRecipe> recipe = getCurrentRecipe();
+        if (this.itemOutputHandler.getStackInSlot(0).isEmpty()) {
+            if (progress < recipe.get().getTime()) {
+                progress++;
+            }
+        }
+    }
+
+    private void setMaxProgress() {
+        Optional<JewelryRecipe> recipe = getCurrentRecipe();
+        if (progressMax <= 0) {
+            progressMax = recipe.map(JewelryRecipe::getTime).orElse(200);
         }
     }
 
     private void craftItem() {
         Optional<JewelryRecipe> recipe = getCurrentRecipe();
         ItemStack result = recipe.get().getResultItem(RegistryAccess.EMPTY);
-
-        this.itemHandler.extractItem(0, 1, false);
-        this.itemHandler.extractItem(1, 1, false);
-
-        this.itemOutputHandler.setStackInSlot(2, result.getItem().getDefaultInstance());
+        if (this.itemOutputHandler.getStackInSlot(0).isEmpty()) {
+            this.itemHandler.extractItem(0, 1, false);
+            this.itemHandler.extractItem(1, 1, false);
+            this.itemOutputHandler.setStackInSlot(0, result);
+        }
     }
 
     private Optional<JewelryRecipe> getCurrentRecipe() {
-        SimpleContainer inv = new SimpleContainer(this.itemHandler.getSlots());
+        SimpleContainer inv = new SimpleContainer(3);
         for (int i = 0; i < itemHandler.getSlots(); i++) {
             inv.setItem(i, itemHandler.getStackInSlot(i));
         }

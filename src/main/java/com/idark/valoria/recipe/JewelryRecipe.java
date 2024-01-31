@@ -23,10 +23,12 @@ public class JewelryRecipe implements Recipe<Container> {
     private final NonNullList<Ingredient> inputs;
     private final ItemStack output;
     private final ResourceLocation id;
+    private final int time;
 
-    public JewelryRecipe(ResourceLocation id, ItemStack output, Ingredient... inputItems) {
+    public JewelryRecipe(ResourceLocation id, ItemStack output, int time, Ingredient... inputItems) {
         this.id = id;
         this.output = output;
+        this.time = time;
         this.inputs = NonNullList.of(Ingredient.EMPTY, inputItems);
     }
 
@@ -63,6 +65,10 @@ public class JewelryRecipe implements Recipe<Container> {
         return inputs;
     }
 
+    public int getTime() {
+        return time;
+    }
+
     @Override
     public ResourceLocation getId() {
         return id;
@@ -90,6 +96,7 @@ public class JewelryRecipe implements Recipe<Container> {
         @Override
         public JewelryRecipe fromJson(ResourceLocation pRecipeId, JsonObject pSerializedRecipe) {
             ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(pSerializedRecipe, "output"));
+            int time = GsonHelper.getAsInt(pSerializedRecipe, "time");
 
             JsonArray pIngredients = GsonHelper.getAsJsonArray(pSerializedRecipe, "ingredients");
             List<Ingredient> inputs = new ArrayList<>();
@@ -97,7 +104,7 @@ public class JewelryRecipe implements Recipe<Container> {
                 inputs.add(Ingredient.fromJson(e));
             }
 
-            return new JewelryRecipe(pRecipeId, output, inputs.toArray(new Ingredient[0]));
+            return new JewelryRecipe(pRecipeId, output, time, inputs.toArray(new Ingredient[0]));
         }
 
         @Override
@@ -108,7 +115,8 @@ public class JewelryRecipe implements Recipe<Container> {
             }
 
             ItemStack output = pBuffer.readItem();
-            return new JewelryRecipe(pRecipeId, output, inputs);
+            int time = pBuffer.readInt();
+            return new JewelryRecipe(pRecipeId, output, time, inputs);
         }
 
         @Override
@@ -119,6 +127,7 @@ public class JewelryRecipe implements Recipe<Container> {
             }
 
             pBuffer.writeItemStack(pRecipe.getResultItem(RegistryAccess.EMPTY), false);
+            pBuffer.writeInt(pRecipe.getTime());
         }
     }
 }

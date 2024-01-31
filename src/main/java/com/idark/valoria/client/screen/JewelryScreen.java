@@ -1,7 +1,9 @@
 package com.idark.valoria.client.screen;
 
 import com.idark.valoria.Valoria;
+import com.idark.valoria.block.blockentity.JewelryBlockEntity;
 import com.idark.valoria.client.container.JewelryMenu;
+import com.idark.valoria.recipe.JewelryRecipe;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -37,5 +39,13 @@ public class JewelryScreen extends AbstractContainerScreen<JewelryMenu> {
         int i = this.leftPos;
         int j = this.topPos;
         gui.blit(GUI, i, j, 0, 0, this.imageWidth, this.imageHeight);
+
+        if (menu.tileEntity instanceof JewelryBlockEntity jewelry) {
+            if (jewelry.progress > 0) {
+                width = 24;
+                width /= ((double) jewelry.progressMax / (double) jewelry.progress);
+                gui.blit(GUI, i + 100, j + 47, 176, 0, width, 17, 256, 256);
+            }
+        }
     }
 }
