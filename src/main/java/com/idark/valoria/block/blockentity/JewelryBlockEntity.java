@@ -131,6 +131,8 @@ public class JewelryBlockEntity extends BlockEntity implements MenuProvider, Tic
     public void saveAdditional(CompoundTag pTag) {
         pTag.put("inv", itemHandler.serializeNBT());
         pTag.put("output", itemOutputHandler.serializeNBT());
+        pTag.putInt("progress", progress);
+        pTag.putInt("progressMax", progressMax);
 
         super.saveAdditional(pTag);
     }
@@ -140,6 +142,8 @@ public class JewelryBlockEntity extends BlockEntity implements MenuProvider, Tic
         super.load(pTag);
         itemHandler.deserializeNBT(pTag.getCompound("inv"));
         itemOutputHandler.deserializeNBT(pTag.getCompound("output"));
+        progress = pTag.getInt("progress");
+        progressMax = pTag.getInt("progressMax");
     }
 
     @Override

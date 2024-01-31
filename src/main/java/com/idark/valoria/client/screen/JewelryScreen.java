@@ -3,7 +3,6 @@ package com.idark.valoria.client.screen;
 import com.idark.valoria.Valoria;
 import com.idark.valoria.block.blockentity.JewelryBlockEntity;
 import com.idark.valoria.client.container.JewelryMenu;
-import com.idark.valoria.recipe.JewelryRecipe;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -29,20 +28,20 @@ public class JewelryScreen extends AbstractContainerScreen<JewelryMenu> {
 
     @Override
     protected void renderLabels(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY) {
-
+        pGuiGraphics.drawString(this.font, this.title, this.titleLabelX + 50, this.titleLabelY - 2, 4210752, false);
+        pGuiGraphics.drawString(this.font, this.playerInventoryTitle, this.inventoryLabelX, this.inventoryLabelY - 46, 4210752, false);
     }
 
     @Override
     protected void renderBg(GuiGraphics gui, float partialTicks, int x, int y) {
         RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
-        this.minecraft.getTextureManager().bindForSetup(GUI);
         int i = this.leftPos;
         int j = this.topPos;
         gui.blit(GUI, i, j, 0, 0, this.imageWidth, this.imageHeight);
 
         if (menu.tileEntity instanceof JewelryBlockEntity jewelry) {
             if (jewelry.progress > 0) {
-                width = 24;
+                int width = 24;
                 width /= ((double) jewelry.progressMax / (double) jewelry.progress);
                 gui.blit(GUI, i + 100, j + 47, 176, 0, width, 17, 256, 256);
             }
