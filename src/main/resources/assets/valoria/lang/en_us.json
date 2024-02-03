@@ -41,6 +41,10 @@
 	"_comment": "JEI",
 	"jei.valoria.brewery": "Brewery",
 	"jei.valoria.jewelry": "Jewelry",
+	"effect.valoria.tipsy.description": "You're drunk? Ye you're drunk, jokes aside slow down's entity but increases entity armor and damage",
+	"effect.valoria.stun.description": "Prevents the entity to move and attack",
+	"effect.valoria.aloeregen.description": "Slowly regenerates HP",
+	"effect.valoria.bleeding.description": "Entity will lose HP for a some time",
 
 	"_comment": "Damage Types",
 	"death.attack.bleeding": "%1$s lost all his blood",
@@ -85,6 +89,7 @@
 	"gui.valoria.treasure.gems": "Gems that can drop from bags. And even mined in caves these gems are rare, but jewelry with these gems giving player some bonuses!",
 	"gui.valoria.treasure.gems.about": "Amber enhances Haste, Amethyst amplifies Magic damage, Ruby boosts Max. Hp, Sapphire increases Swim speed, Emerald bestows Luck, and Diamond fortifies Armor.",
 	"gui.valoria.search": "Here you can search Pages or Categories by writing their names on a Search Bar in Top of this page",
+	"menu.valoria.jewelry": "Jewerly Table",
 
 	"_comment": "Advancements",
 	"advancement.valoria:valoria": "Valoria",
@@ -484,7 +489,6 @@
 	"block.valoria.keg": "Keg",
  	"block.valoria.elemental_manipulator": "Elemental Manipulator",
  	"block.valoria.elegant_pedestal": "Elegant Pedestal",
- 	"block.valoria.skully_pedestal": "Skully Pedestal",	
  	"block.valoria.spider_egg": "Spider Egg",
  	"block.valoria.pot_small": "Pot",
  	"block.valoria.pot_small_handles": "Pot With Handles",
@@ -649,6 +653,5 @@
  	"block.valoria.void_chiseled_brick_slab": "Chiseled Void Brick Slab",
  	"block.valoria.void_chiseled_bricks_stairs": "Chiseled Void Bricks Stairs",
  	"block.valoria.void_chiseled_bricks_slab": "Chiseled Void Bricks Slab",
-	"block.valoria.meat_block": "Meat Block",
-	"menu.valoria.jewelry": "Jewerly Table"
+	"block.valoria.meat_block": "Meat Block"
 }

@@ -335,8 +335,6 @@ public class ModBlocks {
 			() -> new QuickSandBlock(BlockBehaviour.Properties.copy(Blocks.SAND).dynamicShape().requiresCorrectToolForDrops().strength(0.5f, 0.5f).sound(SoundType.SAND)));
 	public static final RegistryObject<Block> ELEMENTAL_MANIPULATOR = BLOCK.register("elemental_manipulator",
 			() -> new ManipulatorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops().strength(3f, 1f).lightLevel(s -> 4).noOcclusion()));
-	public static final RegistryObject<Block> SKULLY_PEDESTAL = BLOCK.register("skully_pedestal",
-			() -> new PedestalBlock(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(3f, 1f).noOcclusion()));
 	public static final RegistryObject<Block> ELEGANT_PEDESTAL = BLOCK.register("elegant_pedestal",
 			() -> new PedestalBlock(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(3f, 1f).noOcclusion()));
 	public static final RegistryObject<Block> BRONZE_LAMP = BLOCK.register("bronze_lamp",

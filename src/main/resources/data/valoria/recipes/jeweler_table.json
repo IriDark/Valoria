@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "///",
+    "OXO",
+    "XXX"
+  ],
+  "key": {
+    "/": {
+      "tag": "minecraft:wool"
+    },
+    "X": {
+      "tag": "minecraft:planks"
+    },
+    "O": {
+      "item": "minecraft:gold_ingot"
+    }
+  },
+  "result": {
+    "item": "valoria:jeweler_table",
+    "count": 1
+  }
+}

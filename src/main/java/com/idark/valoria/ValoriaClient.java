@@ -86,7 +86,6 @@ public class ValoriaClient {
 				ItemBlockRenderTypes.setRenderLayer(ModBlocks.RAJUSH.get(), RenderType.cutout());
 				ItemBlockRenderTypes.setRenderLayer(ModBlocks.ELEMENTAL_MANIPULATOR.get(), RenderType.cutout());
 				ItemBlockRenderTypes.setRenderLayer(ModBlocks.SPIDER_EGG.get(), RenderType.cutout());
-				ItemBlockRenderTypes.setRenderLayer(ModBlocks.SKULLY_PEDESTAL.get(), RenderType.cutout());
 				ItemBlockRenderTypes.setRenderLayer(ModBlocks.ELEGANT_PEDESTAL.get(), RenderType.cutout());
 				ItemBlockRenderTypes.setRenderLayer(ModBlocks.POT_SMALL.get(), RenderType.cutout());
 				ItemBlockRenderTypes.setRenderLayer(ModBlocks.POT_SMALL_HANDLES.get(), RenderType.cutout());

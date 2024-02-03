@@ -3,12 +3,12 @@
   "values": [
     "valoria:beer_cup",
     "valoria:rum_cup",
-    "valoria:kvass_bottle",
     "valoria:vine_bottle",
     "valoria:akvavit_bottle",
     "valoria:liquor_bottle",
     "valoria:rum_bottle",
     "valoria:cognac_bottle",
-    "valoria:whiskey_bottle"
+    "valoria:whiskey_bottle",
+    "valoria:mead_bottle"
   ]
 }

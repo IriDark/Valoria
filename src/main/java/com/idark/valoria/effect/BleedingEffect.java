@@ -1,6 +1,7 @@
 package com.idark.valoria.effect;
 
 import com.idark.valoria.damage.ModDamageSources;
+import com.idark.valoria.util.ColorUtils;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
@@ -11,8 +12,8 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 public class BleedingEffect extends MobEffect {
 
     public BleedingEffect() {
-        super(MobEffectCategory.HARMFUL, 16262179);
-        addAttributeModifier(Attributes.MOVEMENT_SPEED, "1107DE5E-7AE8-2030-840A-21B21F160890", (double) -0.05F, AttributeModifier.Operation.MULTIPLY_TOTAL);
+        super(MobEffectCategory.HARMFUL, ColorUtils.hexToDecimal("e02c2c"));
+        addAttributeModifier(Attributes.MOVEMENT_SPEED, "1107DE5E-7AE8-2030-840A-21B21F160890", -0.05F, AttributeModifier.Operation.MULTIPLY_TOTAL);
     }
 
     @Override

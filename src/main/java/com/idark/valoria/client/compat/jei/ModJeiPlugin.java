@@ -35,6 +35,6 @@ public class ModJeiPlugin implements IModPlugin {
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
         registration.addRecipeCatalyst(new ItemStack(ModItems.KEG.get()), ModRecipeTypes.BREWERY);
-        registration.addRecipeCatalyst(new ItemStack(ModItems.IRON_NECKLACE_HEALTH.get()), ModRecipeTypes.JEWELRY);
+        registration.addRecipeCatalyst(new ItemStack(ModItems.JEWELER_TABLE.get()), ModRecipeTypes.JEWELRY);
     }
 }

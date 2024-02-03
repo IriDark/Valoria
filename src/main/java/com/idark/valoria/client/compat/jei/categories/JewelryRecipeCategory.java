@@ -1,14 +1,17 @@
 package com.idark.valoria.client.compat.jei.categories;
 
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
 import com.idark.valoria.Valoria;
 import com.idark.valoria.block.ModBlocks;
 import com.idark.valoria.client.compat.jei.ModRecipeTypes;
-import com.idark.valoria.item.ModItems;
 import com.idark.valoria.recipe.JewelryRecipe;
-import com.idark.valoria.recipe.KegRecipe;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
+import mezz.jei.api.gui.drawable.IDrawableAnimated;
+import mezz.jei.api.gui.drawable.IDrawableStatic;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;

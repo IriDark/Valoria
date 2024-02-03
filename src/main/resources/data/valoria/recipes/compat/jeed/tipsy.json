@@ -1,0 +1,9 @@
+{
+  "type": "jeed:effect_provider",
+  "effect":  "valoria:tipsy",
+  "providers": [
+    {
+      "tag": "valoria:alcohol"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "///",
+    " O ",
+    "XXX"
+  ],
+  "key": {
+    "/": {
+      "tag": "minecraft:wool"
+    },
+    "X": {
+      "item": "minecraft:stone"
+    },
+    "O": {
+      "tag": "minecraft:logs"
+    }
+  },
+  "result": {
+    "item": "valoria:elegant_pedestal",
+    "count": 1
+  }
+}

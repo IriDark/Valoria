@@ -1,0 +1,11 @@
+{
+  "type": "jeed:potion_provider",
+  "providers": [
+    {
+      "item": "minecraft:splash_potion"
+    },
+    {
+      "item": "minecraft:tipped_arrow"
+    }
+  ]
+}

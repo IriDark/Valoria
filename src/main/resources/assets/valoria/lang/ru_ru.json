@@ -39,16 +39,21 @@
   "tooltip.valoria.sarcophagus": "Осторожнее! Этот саркофаг оказался ловушкой. Защитись и не забудь заглянуть в него снова!",
 
   "jei.valoria.brewery": "Варка",
+  "jei.valoria.jewelry": "Драгоценности",
+  "effect.valoria.tipsy.description": "Ты пьян? Да ты пьян, шутки в сторону, замедляет существо но повышает защиту и урон",
+  "effect.valoria.stun.description": "Не даёт атаковать и двигаться",
+  "effect.valoria.aloeregen.description": "Медленно востанавливает здоровье",
+  "effect.valoria.bleeding.description": "Существо будет терять здоровье пока действует эффект",
 
   "death.attack.bleeding": "%1$s потерял много крови",
   "death.attack.quicksand_suffocating": "%1$s провалился, как замок из песка, лишившись дыхания",
 
-  "commands.valoria.page.unknown": "Unknown page",
-  "commands.valoria.page.give.single": "Gave page to player %s",
-  "commands.valoria.page.give.multiple": "Gave page to %s players",
-  "commands.valoria.page.remove.single": "Removed page from player %s",
-  "commands.valoria.page.remove.multiple": "Removed page from %s players",
-  "commands.valoria.charges.set.add": "Set charges %s",
+  "commands.valoria.page.unknown": "Неизвестная страница",
+  "commands.valoria.page.give.single": "Выдана страница игроку %s",
+  "commands.valoria.page.give.multiple": "Выдана страница %s игрокам",
+  "commands.valoria.page.remove.single": "Убрана страница у игрока %s",
+  "commands.valoria.page.remove.multiple": "Убрана страница у %s игроков",
+  "commands.valoria.charges.set.add": "Задано зарядов %s",
 
   "item.valoria.lexicon": "Лексикон",
   "item.valoria.page": "Страница",
@@ -80,6 +85,7 @@
   "gui.valoria.treasure.gems": "Камни, которые могут выпасть из сумок или быть добытыми в пещерах. Эти драгоценности редки, но ювелирные изделия с ними придают игроку бонусы!",
   "gui.valoria.treasure.gems.about": "Янтарь увеличивает скорость копания, Аметист усиление магии, Рубин увеличивает Макс ОЗ, Сапфир увеличивает скорость плавания, Изумруд приносит удачу, а Алмаз укрепляет броню.",
   "gui.valoria.search": "Здесь вы можете искать страницы или категории, вводя их названия в строке поиска в верхней части этой страницы",
+  "menu.valoria.jewelry": "Стол Ювелира",
 
   "advancement.valoria:valoria": "Valoria",
   "advancement.valoria:valoria.desc": "Начало нашего путешествия!",
@@ -287,6 +293,8 @@
   "painting.valoria.emerald.author": "IriDark (iDark)",
   "painting.valoria.village.author": "IriDark (iDark)",
 
+  "item.valoria.bloodsight_monocle": "Bloodsight Monocle",
+  "item.valoria.broken_bloodsight_monocle": "Broken Bloodsight Monocle",
   "item.valoria.pick_necklace": "Pick Necklace",
   "item.valoria.leather_belt": "Кожаный ремень",
   "item.valoria.leather_gloves": "Кожаные перчатки ",
@@ -623,5 +631,9 @@
   "block.valoria.void_chiseled_brick_slab": "Резная плита из кирпича камня небытия",
   "block.valoria.void_chiseled_bricks_stairs": "Резные ступеньки из кирпичей небытия",
   "block.valoria.void_chiseled_bricks_slab": "Резная плита из кирпичей камня небытия",
-  "block.valoria.meat_block": "Мясной блок"
+  "block.valoria.meat_block": "Мясной блок",
+  "block.valoria.ephemarite_low": "Камень эфемарита",
+  "block.valoria.polished_ephemarite_low": "Полированный камень эфемарита",
+  "block.valoria.ephemarite": "Камень эфемарита",
+  "block.valoria.polished_ephemarite": "Полированный камень эфемарита"
 }
