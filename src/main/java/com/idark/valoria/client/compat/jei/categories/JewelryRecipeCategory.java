@@ -1,17 +1,15 @@
 package com.idark.valoria.client.compat.jei.categories;
 
-import com.google.common.cache.CacheBuilder;
-import com.google.common.cache.CacheLoader;
-import com.google.common.cache.LoadingCache;
 import com.idark.valoria.Valoria;
 import com.idark.valoria.block.ModBlocks;
 import com.idark.valoria.client.compat.jei.ModRecipeTypes;
+import com.idark.valoria.client.event.ClientTickHandler;
+import com.idark.valoria.item.ModItems;
 import com.idark.valoria.recipe.JewelryRecipe;
+import com.idark.valoria.recipe.KegRecipe;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
-import mezz.jei.api.gui.drawable.IDrawableAnimated;
-import mezz.jei.api.gui.drawable.IDrawableStatic;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
@@ -80,7 +78,12 @@ public class JewelryRecipeCategory implements IRecipeCategory<JewelryRecipe> {
         int stringWidth = font_renderer.width(time);
 
         ResourceLocation timeIcon = new ResourceLocation(Valoria.MOD_ID, "textures/gui/jei/time.png");
-        gui.blit(timeIcon, 50 / 2, 29 + font_renderer.lineHeight, 0, 0, 7, 7, 16, 16);
+        int width = 7;
+        System.out.println(ClientTickHandler.ticksInGame);
+        if (ClientTickHandler.ticksInGame % recipe.getTime() > 0) {
+            width /= ((double) recipe.getTime() / (double) (ClientTickHandler.ticksInGame % recipe.getTime()));
+            gui.blit(timeIcon, 50 / 2, 29 + font_renderer.lineHeight, 0, 0, width, 7, 16, 16);
+        }
         gui.drawString(font_renderer, time, (95 - stringWidth) / 2, 28 + font_renderer.lineHeight, 0xffffff);
     }
 }
