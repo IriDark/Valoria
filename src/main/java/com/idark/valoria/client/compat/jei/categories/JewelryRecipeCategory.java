@@ -3,6 +3,7 @@ package com.idark.valoria.client.compat.jei.categories;
 import com.idark.valoria.Valoria;
 import com.idark.valoria.block.ModBlocks;
 import com.idark.valoria.client.compat.jei.ModRecipeTypes;
+import com.idark.valoria.client.event.ClientTickHandler;
 import com.idark.valoria.item.ModItems;
 import com.idark.valoria.recipe.JewelryRecipe;
 import com.idark.valoria.recipe.KegRecipe;
@@ -77,7 +78,12 @@ public class JewelryRecipeCategory implements IRecipeCategory<JewelryRecipe> {
         int stringWidth = font_renderer.width(time);
 
         ResourceLocation timeIcon = new ResourceLocation(Valoria.MOD_ID, "textures/gui/jei/time.png");
-        gui.blit(timeIcon, 50 / 2, 29 + font_renderer.lineHeight, 0, 0, 7, 7, 16, 16);
+        int width = 7;
+        System.out.println(ClientTickHandler.ticksInGame);
+        if (ClientTickHandler.ticksInGame % recipe.getTime() > 0) {
+            width /= ((double) recipe.getTime() / (double) (ClientTickHandler.ticksInGame % recipe.getTime()));
+            gui.blit(timeIcon, 50 / 2, 29 + font_renderer.lineHeight, 0, 0, width, 7, 16, 16);
+        }
         gui.drawString(font_renderer, time, (95 - stringWidth) / 2, 28 + font_renderer.lineHeight, 0xffffff);
     }
 }
