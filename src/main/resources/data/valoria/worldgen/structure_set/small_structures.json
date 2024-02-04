@@ -7,6 +7,10 @@
     {
       "structure": "valoria:medium_crypt",
       "weight": 1
+    },
+    {
+      "structure": "valoria:crystallized_deep_ruins",
+      "weight": 1
     }
   ],
   "placement": {

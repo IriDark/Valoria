@@ -1,6 +1,10 @@
 {
   "replace": false,
   "values": [
+    "valoria:amber_block",
+    "valoria:amethyst_block",
+    "valoria:ruby_block",
+    "valoria:sapphire_block",
     "valoria:ephemarite_low",
     "valoria:polished_ephemarite_low",
     "valoria:ephemarite",

@@ -49,6 +49,14 @@ public class ModBlocks {
 	public static final RegistryObject<Block> KEYBLOCK_RUNE = BLOCK.register("keyblock_rune",
 			() -> new KeyBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(-1f, 3600000.8F).sound(SoundType.NETHER_BRICKS).noLootTable()));
 	// Metal
+	public static final RegistryObject<Block> AMETHYST_BLOCK = BLOCK.register("amethyst_block",
+			() -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops().strength(3f, 4f).sound(SoundType.AMETHYST)));
+	public static final RegistryObject<Block> SAPPHIRE_BLOCK = BLOCK.register("sapphire_block",
+			() -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops().strength(3f, 4f).sound(SoundType.AMETHYST)));
+	public static final RegistryObject<Block> AMBER_BLOCK = BLOCK.register("amber_block",
+			() -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops().strength(3f, 4f).sound(SoundType.AMETHYST)));
+	public static final RegistryObject<Block> RUBY_BLOCK = BLOCK.register("ruby_block",
+			() -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops().strength(3f, 4f).sound(SoundType.AMETHYST)));
 	public static final RegistryObject<Block> COBALT_BLOCK = BLOCK.register("cobalt_block",
 			() -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops().strength(3f, 4f).sound(SoundType.NETHERITE_BLOCK)));
 	public static final RegistryObject<Block> NATURE_BLOCK = BLOCK.register("nature_block",

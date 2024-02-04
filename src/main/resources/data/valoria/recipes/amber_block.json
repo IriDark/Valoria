@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "///",
+    "///",
+    "///"
+  ],
+  "key": {
+    "/": {
+      "item": "valoria:amber_gem"
+    }
+  },
+  "result": {
+    "item": "valoria:amber_block",
+    "count": 1
+  }
+}

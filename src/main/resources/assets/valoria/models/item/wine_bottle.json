@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "valoria:item/vine_bottle"
+    "layer0": "valoria:item/wine_bottle"
   }
 }

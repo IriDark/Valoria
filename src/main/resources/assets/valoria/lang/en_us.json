@@ -478,6 +478,10 @@
 	"block.valoria.dried_roots": "Dried Roots",
 
  	"_comment": "Blocks",
+	"block.valoria.amber_block": "Amber Block",
+	"block.valoria.amethyst_block": "Amethyst Block",
+	"block.valoria.sapphire_block": "Sapphire Block",
+	"block.valoria.ruby_block": "Ruby Block",
 	"block.valoria.ephemarite_low": "Ephemarite Stone",
 	"block.valoria.polished_ephemarite_low": "Polished Ephemarite Stone",
 	"block.valoria.ephemarite": "Ephemarite Stone",
@@ -653,5 +657,7 @@
  	"block.valoria.void_chiseled_brick_slab": "Chiseled Void Brick Slab",
  	"block.valoria.void_chiseled_bricks_stairs": "Chiseled Void Bricks Stairs",
  	"block.valoria.void_chiseled_bricks_slab": "Chiseled Void Bricks Slab",
-	"block.valoria.meat_block": "Meat Block"
+	"block.valoria.meat_block": "Meat Block",
+	"block.valoria.suspicious_ice": "Suspicious Ice"
+
 }

@@ -78,12 +78,15 @@ public class JewelryRecipeCategory implements IRecipeCategory<JewelryRecipe> {
         int stringWidth = font_renderer.width(time);
 
         ResourceLocation timeIcon = new ResourceLocation(Valoria.MOD_ID, "textures/gui/jei/time.png");
-        int width = 7;
-        System.out.println(ClientTickHandler.ticksInGame);
+        gui.blit(timeIcon, 50 / 2, 29 + font_renderer.lineHeight, 0, 0, 7, 7, 16, 16);
+
+        ResourceLocation arrow = new ResourceLocation(Valoria.MOD_ID, "textures/gui/jei/progress_arrow.png");
+        int width = 22;
         if (ClientTickHandler.ticksInGame % recipe.getTime() > 0) {
             width /= ((double) recipe.getTime() / (double) (ClientTickHandler.ticksInGame % recipe.getTime()));
-            gui.blit(timeIcon, 50 / 2, 29 + font_renderer.lineHeight, 0, 0, width, 7, 16, 16);
+            gui.blit(arrow, 90, 16, 0, 0, width, 16, 32, 32);
         }
+        
         gui.drawString(font_renderer, time, (95 - stringWidth) / 2, 28 + font_renderer.lineHeight, 0xffffff);
     }
 }

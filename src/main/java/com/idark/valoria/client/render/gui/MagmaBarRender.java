@@ -10,6 +10,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.client.event.RenderGuiOverlayEvent;
+import net.minecraftforge.client.gui.overlay.ForgeGui;
 import org.lwjgl.opengl.GL11;
 
 public class MagmaBarRender {
@@ -24,6 +25,8 @@ public class MagmaBarRender {
         GuiGraphics gui = event.getGuiGraphics();
         ItemStack stack = main;
 
+        gui.pose().pushPose();
+        gui.pose().translate(0, 0, -200);
         RenderSystem.enableBlend();
         RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         int barType = ClientConfig.MAGMA_CHARGE_BAR_TYPE.get();
@@ -64,5 +67,6 @@ public class MagmaBarRender {
         }
 
         RenderSystem.disableBlend();
-	}
+        gui.pose().popPose();
+    }
 }

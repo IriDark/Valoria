@@ -36,6 +36,8 @@ public class CorpsecleaverRender {
             Minecraft mc = Minecraft.getInstance();
             GuiGraphics gui = event.getGuiGraphics();
 
+            gui.pose().pushPose();
+            gui.pose().translate(0, 0, -200);
             int width = mc.getWindow().getGuiScaledWidth();
             int height = mc.getWindow().getGuiScaledHeight();
             float f = 0.1F;
@@ -67,6 +69,7 @@ public class CorpsecleaverRender {
             RenderSystem.enableDepthTest();
 
             RenderSystem.applyModelViewMatrix();
+            gui.pose().popPose();
         }
     }
 }

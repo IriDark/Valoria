@@ -1,0 +1,15 @@
+{
+  "replace": false,
+  "values": [
+    "valoria:nature_block",
+    "valoria:aquarius_block",
+    "valoria:infernal_block",
+    "valoria:awakened_void_block",
+    "valoria:cobalt_block",
+    "valoria:amber_block",
+    "valoria:amethyst_block",
+    "valoria:sapphire_block",
+    "valoria:ruby_block",
+    "valoria:bronze_block"
+  ]
+}

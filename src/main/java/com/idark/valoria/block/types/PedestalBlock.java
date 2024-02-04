@@ -33,7 +33,7 @@ import javax.annotation.Nullable;
 
 public class PedestalBlock extends Block implements EntityBlock, SimpleWaterloggedBlock {
 	
-	private static final VoxelShape SHAPE = Block.box(0, 0, 0, 16, 15, 16);
+	private static final VoxelShape SHAPE = Block.box(0, 0, 0, 16, 14, 16);
 
 	public PedestalBlock(BlockBehaviour.Properties properties) {
 		super(properties);

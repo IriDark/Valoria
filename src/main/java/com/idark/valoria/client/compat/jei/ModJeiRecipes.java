@@ -6,6 +6,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.world.item.crafting.RecipeManager;
 
+import java.util.Comparator;
 import java.util.List;
 
 public class ModJeiRecipes {
@@ -23,10 +24,10 @@ public class ModJeiRecipes {
     }
 
     public List<KegRecipe> getBreweryRecipes() {
-        return recipeManager.getAllRecipesFor(KegRecipe.Type.INSTANCE).stream().toList();
+        return recipeManager.getAllRecipesFor(KegRecipe.Type.INSTANCE).stream().sorted(Comparator.comparing(KegRecipe::getTime)).toList();
     }
 
     public List<JewelryRecipe> getJewelryRecipes() {
-        return recipeManager.getAllRecipesFor(JewelryRecipe.Type.INSTANCE).stream().toList();
+        return recipeManager.getAllRecipesFor(JewelryRecipe.Type.INSTANCE).stream().sorted(Comparator.comparing(JewelryRecipe::getTime)).toList();
     }
 }

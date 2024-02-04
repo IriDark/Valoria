@@ -33,6 +33,8 @@ public class DashOverlayRender {
         if (dashTime > 0) {
             Minecraft mc = Minecraft.getInstance();
             GuiGraphics gui = event.getGuiGraphics();
+            gui.pose().pushPose();
+            gui.pose().translate(0, 0, -200);
             float ticks = dashTime + event.getPartialTick();
             float alpha = 0.5F;
 
@@ -64,6 +66,7 @@ public class DashOverlayRender {
             RenderSystem.enableDepthTest();
 
             RenderSystem.applyModelViewMatrix();
+            gui.pose().popPose();
         }
     }
 }

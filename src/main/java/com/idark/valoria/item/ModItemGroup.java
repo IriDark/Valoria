@@ -125,7 +125,7 @@ public abstract class ModItemGroup {
             event.accept(ModItems.BEER_CUP);
             event.accept(ModItems.RUM_CUP);
             event.accept(ModItems.KVASS_BOTTLE);
-            event.accept(ModItems.VINE_BOTTLE);
+            event.accept(ModItems.WINE_BOTTLE);
             event.accept(ModItems.AKVAVIT_BOTTLE);
             event.accept(ModItems.LIQUOR_BOTTLE);
             event.accept(ModItems.MEAD_BOTTLE);
@@ -337,6 +337,10 @@ public abstract class ModItemGroup {
             event.accept(ModItems.RAW_COBALT_ORE_BLOCK);
             event.accept(ModItems.PEARLIUM_ORE);
             event.accept(ModItems.WICKED_AMETHYST_ORE);
+            event.accept(ModItems.AMBER_BLOCK);
+            event.accept(ModItems.AMETHYST_BLOCK);
+            event.accept(ModItems.RUBY_BLOCK);
+            event.accept(ModItems.SAPPHIRE_BLOCK);
             event.accept(ModItems.AMBER_CRYSTAL);
             event.accept(ModItems.AMETHYST_CRYSTAL);
             event.accept(ModItems.RUBY_CRYSTAL);
@@ -496,9 +500,7 @@ public abstract class ModItemGroup {
             event.accept(ModItems.SPIDER_EGG);
             event.accept(ModItems.MEAT_BLOCK);
             event.accept(ModItems.SARCOPHAGUS);
-            event.getParameters().holders().lookup(ModPaintings.PAINTING_TYPES.getRegistryKey()).ifPresent((p_270026_) -> {
-                generatePresetPaintings(event, p_270026_, (p_270037_) -> p_270037_.is(ModTags.MODDED), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-            });
+            event.getParameters().holders().lookup(ModPaintings.PAINTING_TYPES.getRegistryKey()).ifPresent((p_270026_) -> generatePresetPaintings(event, p_270026_, (p_270037_) -> p_270037_.is(ModTags.MODDED), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
         }
     }
 

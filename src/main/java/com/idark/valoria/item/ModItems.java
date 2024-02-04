@@ -70,6 +70,11 @@ public class ModItems {
 	public static final RegistryObject<Item> RUBY_CRYSTAL = ITEMS.register("ruby_crystal", () -> new BlockItem(ModBlocks.RUBY_CRYSTAL.get(), new Item.Properties()));
 	public static final RegistryObject<Item> SAPPHIRE_CRYSTAL = ITEMS.register("sapphire_crystal", () -> new BlockItem(ModBlocks.SAPPHIRE_CRYSTAL.get(), new Item.Properties()));
 	// Ingot Blocks
+	public static final RegistryObject<Item> AMETHYST_BLOCK = ITEMS.register("amethyst_block", () -> new BlockItem(ModBlocks.AMETHYST_BLOCK.get(), new Item.Properties()));
+	public static final RegistryObject<Item> SAPPHIRE_BLOCK = ITEMS.register("sapphire_block", () -> new BlockItem(ModBlocks.SAPPHIRE_BLOCK.get(), new Item.Properties()));
+	public static final RegistryObject<Item> AMBER_BLOCK = ITEMS.register("amber_block", () -> new BlockItem(ModBlocks.AMBER_BLOCK.get(), new Item.Properties()));
+	public static final RegistryObject<Item> RUBY_BLOCK = ITEMS.register("ruby_block", () -> new BlockItem(ModBlocks.RUBY_BLOCK.get(), new Item.Properties()));
+
 	public static final RegistryObject<Item> COBALT_BLOCK = ITEMS.register("cobalt_block", () -> new BlockItem(ModBlocks.COBALT_BLOCK.get(), new Item.Properties()));
 	public static final RegistryObject<Item> NATURE_BLOCK = ITEMS.register("nature_block", () -> new BlockItem(ModBlocks.NATURE_BLOCK.get(), new Item.Properties()));
 	public static final RegistryObject<Item> AQUARIUS_BLOCK = ITEMS.register("aquarius_block", () -> new BlockItem(ModBlocks.AQUARIUS_BLOCK.get(), new Item.Properties()));
@@ -254,7 +259,7 @@ public class ModItems {
 	public static final RegistryObject<Item> BEER_CUP = ITEMS.register("beer_cup", () -> new ModDrinkItem(0, 3, 1, ModItems.WOODEN_CUP.get(), new MobEffectInstance(ModEffects.TIPSY.get(), 400, 0)));
 	public static final RegistryObject<Item> RUM_CUP = ITEMS.register("rum_cup", () -> new ModDrinkItem(0, 3, 1, ModItems.WOODEN_CUP.get(), new MobEffectInstance(ModEffects.TIPSY.get(), 400, 0), new MobEffectInstance(MobEffects.CONFUSION, 120, 0)));
 	public static final RegistryObject<Item> KVASS_BOTTLE = ITEMS.register("kvass_bottle", () -> new ModDrinkItem(0, 3, 1, ModItems.BOTTLE.get(), new MobEffectInstance(MobEffects.SATURATION, 300)));
-	public static final RegistryObject<Item> VINE_BOTTLE = ITEMS.register("vine_bottle", () -> new ModDrinkItem(0, 3, 1, ModItems.BOTTLE.get(), new MobEffectInstance(ModEffects.TIPSY.get(), 450, 1), new MobEffectInstance(MobEffects.CONFUSION, 300)));
+	public static final RegistryObject<Item> WINE_BOTTLE = ITEMS.register("wine_bottle", () -> new ModDrinkItem(0, 3, 1, ModItems.BOTTLE.get(), new MobEffectInstance(ModEffects.TIPSY.get(), 450, 1), new MobEffectInstance(MobEffects.CONFUSION, 300)));
 	public static final RegistryObject<Item> AKVAVIT_BOTTLE = ITEMS.register("akvavit_bottle", () -> new ModDrinkItem(0, 3, 1, ModItems.BOTTLE.get(), new MobEffectInstance(ModEffects.TIPSY.get(), 500, 1), new MobEffectInstance(MobEffects.CONFUSION, 320)));
 	public static final RegistryObject<Item> LIQUOR_BOTTLE = ITEMS.register("liquor_bottle", () -> new ModDrinkItem(0, 3, 1, ModItems.BOTTLE.get(), new MobEffectInstance(ModEffects.TIPSY.get(), 350, 1), new MobEffectInstance(MobEffects.CONFUSION, 120)));
 	public static final RegistryObject<Item> RUM_BOTTLE = ITEMS.register("rum_bottle", () -> new ModDrinkItem(0, 3, 1, ModItems.BOTTLE.get(), new MobEffectInstance(ModEffects.TIPSY.get(), 650, 1), new MobEffectInstance(MobEffects.CONFUSION, 250)));
