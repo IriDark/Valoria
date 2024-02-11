@@ -1,4 +1,4 @@
-package com.idark.valoria.particle;
+package com.idark.valoria.client.particle;
 
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;

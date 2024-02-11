@@ -1,4 +1,4 @@
-package com.idark.valoria.particle;
+package com.idark.valoria.client.particle;
 
 import com.mojang.serialization.Codec;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -7,8 +7,8 @@ import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.core.particles.ParticleType;
 
-public class SparkleParticleType extends ParticleType<GenericParticleData> {
-    public SparkleParticleType() {
+public class SlashParticleType extends ParticleType<GenericParticleData> {
+    public SlashParticleType() {
         super(true, GenericParticleData.DESERIALIZER);
     }
 

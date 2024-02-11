@@ -1,11 +1,20 @@
-package com.idark.valoria.particle;
+package com.idark.valoria.client.particle;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleType;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.util.Random;
 
+/**
+ Custom mod particles only client-sided.
+ May not work with Optifine and cant be created with command /particle
+ @see com.idark.valoria.item.types.TransformShardItem#rightClickOnCertainBlockState(ItemStack, Player, Level, BlockState, BlockPos) Example
+ */
 public class Particles {
     public static class ParticleBuilder {
         static Random random = new Random();
@@ -37,6 +46,15 @@ public class Particles {
             return this;
         }
 
+        /**
+         *
+         * @param r1 Red value
+         * @param g1 Green value
+         * @param b1 Blue value
+         * @param r2 End Red value
+         * @param g2 End Green value
+         * @param b2 End Blue value
+         */
         public ParticleBuilder setColor(float r1, float g1, float b1, float r2, float g2, float b2) {
             setColor(r1, g1, b1, data.a1, r2, g2, b2, data.a2);
             return this;
@@ -58,9 +76,13 @@ public class Particles {
             return this;
         }
 
-        public ParticleBuilder setAlpha(float a1, float a2) {
-            data.a1 = a1;
-            data.a2 = a2;
+        /**
+         * @param pAlpha Alpha value
+         * @param pEnd End value
+         */
+        public ParticleBuilder setAlpha(float pAlpha, float pEnd) {
+            data.a1 = pAlpha;
+            data.a2 = pEnd;
             return this;
         }
 
@@ -69,6 +91,10 @@ public class Particles {
             return this;
         }
 
+        /**
+         * @param scale1 Scale value
+         * @param scale2 End Scale value
+         */
         public ParticleBuilder setScale(float scale1, float scale2) {
             data.scale1 = scale1;
             data.scale2 = scale2;
@@ -90,6 +116,10 @@ public class Particles {
             return this;
         }
 
+        /**
+         * Lifetime of particle (Time to disappear)
+         * @param lifetime value
+         */
         public ParticleBuilder setLifetime(int lifetime) {
             data.lifetime = lifetime;
             return this;
@@ -112,6 +142,12 @@ public class Particles {
             return this;
         }
 
+        /**
+         * Velocity of particle
+         * @param vx Velocity x
+         * @param vy Velocity y
+         * @param vz Velocity z
+         */
         public ParticleBuilder addVelocity(double vx, double vy, double vz) {
             this.vx += vx;
             this.vy += vy;
@@ -143,7 +179,14 @@ public class Particles {
             return this;
         }
 
-        public ParticleBuilder spawn(net.minecraft.world.level.Level world, double x, double y, double z) {
+        /**
+         *
+         * @param level entity Level
+         * @param x X pos
+         * @param y Y pos
+         * @param z Z pos
+         */
+        public ParticleBuilder spawn(net.minecraft.world.level.Level level, double x, double y, double z) {
             double yaw = random.nextFloat() * Math.PI * 2, pitch = random.nextFloat() * Math.PI - Math.PI / 2,
                     xSpeed = random.nextFloat() * maxXSpeed, ySpeed = random.nextFloat() * maxYSpeed, zSpeed = random.nextFloat() * maxZSpeed;
             this.vx += Math.sin(yaw) * Math.cos(pitch) * xSpeed;
@@ -155,7 +198,7 @@ public class Particles {
             this.dy = Math.sin(pitch2) * yDist;
             this.dz = Math.cos(yaw2) * Math.cos(pitch2) * zDist;
 
-            world.addParticle(data, x + dx, y + dy, z + dz, vx, vy, vz);
+            level.addParticle(data, x + dx, y + dy, z + dz, vx, vy, vz);
             return this;
         }
 
@@ -169,6 +212,10 @@ public class Particles {
         return new ParticleBuilder(type);
     }
 
+    /**
+     * Creates the particle
+     * @param type ModParticle type to spawn
+     */
     public static ParticleBuilder create(RegistryObject<?> type) {
         return new ParticleBuilder((ParticleType<?>)type.get());
     }

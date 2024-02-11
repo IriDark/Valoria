@@ -1,8 +1,8 @@
 package com.idark.valoria.item.types;
 
 import com.idark.valoria.block.ModBlocks;
-import com.idark.valoria.particle.ModParticles;
-import com.idark.valoria.particle.Particles;
+import com.idark.valoria.client.particle.ModParticles;
+import com.idark.valoria.client.particle.Particles;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
@@ -46,7 +46,7 @@ public class TransformShardItem extends Item {
         return super.onItemUseFirst(stack, context);
     }
 
-    private void rightClickOnCertainBlockState(ItemStack stack, Player player, Level worldIn, BlockState state, BlockPos pos) {
+    public void rightClickOnCertainBlockState(ItemStack stack, Player player, Level worldIn, BlockState state, BlockPos pos) {
         if (state.is(ModBlocks.VOID_PILLAR.get())) {
             worldIn.playSound(player, player.blockPosition(), SoundEvents.RESPAWN_ANCHOR_AMBIENT, SoundSource.BLOCKS, 10f, 1f);
             worldIn.playSound(player, player.blockPosition(), SoundEvents.RESPAWN_ANCHOR_CHARGE, SoundSource.BLOCKS, 1.0F, 1.0F);

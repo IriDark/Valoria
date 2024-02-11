@@ -4,15 +4,9 @@ import com.idark.valoria.block.blockentity.CrusherBlockEntity;
 import com.idark.valoria.block.blockentity.BlockSimpleInventory;
 import com.idark.valoria.recipe.CrusherRecipe;
 import com.idark.valoria.util.PacketUtils;
-import com.idark.valoria.particle.ModParticles;
-import com.idark.valoria.particle.Particles;
-import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -26,13 +20,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 
 import javax.annotation.Nonnull;
 import java.util.Optional;
-import java.util.Random;
 
 public class CrusherBlock extends Block implements EntityBlock {
 

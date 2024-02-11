@@ -33,7 +33,7 @@ import com.idark.valoria.client.screen.JewelryScreen;
 import com.idark.valoria.util.LootUtil;
 import com.idark.valoria.sounds.ModSoundRegistry;
 import com.idark.valoria.util.WorldRenderHandler;
-import com.idark.valoria.particle.ModParticles;
+import com.idark.valoria.client.particle.ModParticles;
 import com.idark.valoria.world.WorldGen;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.core.HolderLookup;

@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
+    "valoria:keg",
+    "valoria:jeweler_table",
     "valoria:shadewood_door",
     "valoria:shadewood_trapdoor",
     "valoria:shadewood_pressure_plate",

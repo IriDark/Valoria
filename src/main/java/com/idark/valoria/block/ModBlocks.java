@@ -330,7 +330,7 @@ public class ModBlocks {
 	public static final RegistryObject<Block> STONE_CRUSHER = BLOCK.register("stone_crusher",
 			() -> new CrusherBlock(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(1f, 2f)));
 	public static final RegistryObject<Block> JEWELER_TABLE = BLOCK.register("jeweler_table",
-			() -> new JewelerBlock(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(1f, 1f)));
+			() -> new JewelerBlock(BlockBehaviour.Properties.copy(Blocks.CRAFTING_TABLE).requiresCorrectToolForDrops().strength(1f, 1f)));
 	public static final RegistryObject<Block> TOMB = BLOCK.register("tomb",
 			() -> new TombBlock(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(1f, 1f).noOcclusion()));
 	public static final RegistryObject<Block> KEG = BLOCK.register("keg",

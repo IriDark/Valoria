@@ -1,7 +1,5 @@
 package com.idark.valoria.block.blockentity;
 
-import com.idark.valoria.particle.ModParticles;
-import com.idark.valoria.particle.Particles;
 import com.idark.valoria.recipe.CrusherRecipe;
 import com.idark.valoria.util.LootUtil;
 import com.idark.valoria.util.PacketUtils;
@@ -20,7 +18,6 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
-import java.util.Random;
 
 public class CrusherBlockEntity extends BlockSimpleInventory {
     public CrusherBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {

@@ -1,4 +1,4 @@
-package com.idark.valoria.particle;
+package com.idark.valoria.client.particle;
 
 import com.idark.valoria.Valoria;
 import net.minecraft.core.particles.ParticleType;

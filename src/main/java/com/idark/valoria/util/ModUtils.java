@@ -24,7 +24,8 @@ public class ModUtils {
 
     /**
      * Applies a cooldown to item list
-     * @param items ItemList to apply the cooldown
+     *
+     * @param items         ItemList to apply the cooldown
      * @param cooldownTicks Time of cooldown
      * @see com.idark.valoria.item.types.ScytheItem#finishUsingItem(ItemStack, Level, LivingEntity) Example
      */
@@ -52,7 +53,7 @@ public class ModUtils {
      * @param hitEntities List for damaged entities
      * @param pos         Position
      * @see com.idark.valoria.item.types.ScytheItem#releaseUsing
-     * Scythe Item as Example (line 68)
+     * Scythe Item as Example
      */
     public static void radiusHit(Level level, ItemStack stack, Player player, ParticleOptions type, List<LivingEntity> hitEntities, Vector3d pos, float pitchRaw, float yawRaw, float radius) {
         double pitch = ((pitchRaw + 90) * Math.PI) / 180;
@@ -185,7 +186,7 @@ public class ModUtils {
      * Spawns particles line to attacked mob position
      *
      * @param pPlayer Player pos for calculating Attacked mob and positions
-     * @param pType Particle that will spawn line
+     * @param pType   Particle that will spawn line
      * @see com.idark.valoria.item.curio.charm.BloodSight#curioTick(String, int, LivingEntity, ItemStack)  Example
      */
     public static void spawnParticlesLineToAttackedMob(Level pLevel, Player pPlayer, ParticleOptions pType) {
@@ -225,11 +226,57 @@ public class ModUtils {
     }
 
     /**
+     * Spawns particle lines to nearby Mobs
+     * @param pPlayer Player for reciving pos from
+     * @param pType Particle type to spawn
+     * @param hitEntities list of Entities
+     * @param pos Position in Vec3
+     * @param radius Radius to spawn
+     * @see com.idark.valoria.item.types.HoundItem#finishUsingItem(ItemStack, Level, LivingEntity) Example
+     */
+    public static void spawnParticlesLineToNearbyMobs(Level pLevel, Player pPlayer, ParticleOptions pType, List<LivingEntity> hitEntities, Vec3 pos, float pitchRaw, float yawRaw, float radius) {
+        double pitch = ((pitchRaw + 90) * Math.PI) / 180;
+        double yaw = ((yawRaw + 90) * Math.PI) / 180;
+
+        double locYaw = 0;
+        double locPitch = 0;
+        double X = Math.sin(locPitch + pitch) * Math.cos(locYaw + yaw) * radius;
+        double Y = Math.cos(locPitch + pitch) * radius;
+        double Z = Math.sin(locPitch + pitch) * Math.sin(locYaw + yaw) * radius;
+
+        AABB boundingBox = new AABB(pos.x, pos.y - 1 + ((Math.random() - 0.5D) * 0.2F), pos.z, pos.x + X, pos.y + Y + ((Math.random() - 0.5D) * 0.2F), pos.z + Z);
+        List<Entity> entities = pLevel.getEntitiesOfClass(Entity.class, boundingBox);
+        for (Entity entity : entities) {
+            if (entity instanceof LivingEntity livingEntity && !hitEntities.contains(livingEntity) && !livingEntity.equals(pPlayer)) {
+                hitEntities.add(livingEntity);
+                if (!livingEntity.isAlive()) {
+                    return;
+                }
+
+                Vec3 pTo = new Vec3(livingEntity.getX(), livingEntity.getY(), livingEntity.getZ());
+                double distance = pos.distanceTo(pTo);
+                double distanceInBlocks = Math.floor(distance);
+                for (int i = 0; i < distanceInBlocks; i++) {
+                    double dX = pos.x - pTo.x;
+                    double dY = pos.y - pTo.y;
+                    double dZ = pos.z - pTo.z;
+
+                    float x = (float) (dX / distanceInBlocks);
+                    float y = (float) (dY / distanceInBlocks);
+                    float z = (float) (dZ / distanceInBlocks);
+
+                    pLevel.addParticle(pType, pos.x - (x * i), pos.y - (y * i), pos.z - (z * i), 0, 0, 0);
+                }
+            }
+        }
+    }
+
+    /**
      * Spawns particles line
      *
      * @param pType Particle that will spawn line
      * @param pFrom Position From
-     * @param pTo Position To
+     * @param pTo   Position To
      */
     public static void spawnParticlesLine(Level pLevel, Vec3 pFrom, Vec3 pTo, ParticleOptions pType) {
         double distance = pFrom.distanceTo(pTo);
