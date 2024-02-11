@@ -20,6 +20,7 @@ public class ModBlockEntities {
     public static final RegistryObject<BlockEntityType<CrushableBlockEntity>> CRUSHABLE_BLOCK_ENTITY = BLOCK_ENTITIES.register("crushable_entity", () -> BlockEntityType.Builder.of(CrushableBlockEntity::new, ModBlocks.SUSPICIOUS_TOMBSTONE.get(), ModBlocks.SUSPICIOUS_ICE.get()).build(null));
     public static final RegistryObject<BlockEntityType<KegBlockEntity>> KEG_BLOCK_ENTITY = BLOCK_ENTITIES.register("keg_entity", () -> BlockEntityType.Builder.of(KegBlockEntity::new, ModBlocks.KEG.get()).build(null));
     public static final RegistryObject<BlockEntityType<JewelryBlockEntity>> JEWELRY_BLOCK_ENTITY = BLOCK_ENTITIES.register("jewelry_entity", () -> BlockEntityType.Builder.of(JewelryBlockEntity::new, ModBlocks.JEWELER_TABLE.get()).build(null));
+    public static final RegistryObject<BlockEntityType<ManipulatorBlockEntity>> MANIPULATOR_BLOCK_ENTITY = BLOCK_ENTITIES.register("manipulator_entity", () -> BlockEntityType.Builder.of(ManipulatorBlockEntity::new, ModBlocks.ELEMENTAL_MANIPULATOR.get()).build(null));
 
     public static void register(IEventBus eventBus) {
         BLOCK_ENTITIES.register(eventBus);

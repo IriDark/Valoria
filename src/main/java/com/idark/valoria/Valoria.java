@@ -12,8 +12,9 @@ import com.idark.valoria.client.render.curio.HandsRenderer;
 import com.idark.valoria.client.render.curio.NecklaceRenderer;
 import com.idark.valoria.client.render.gui.MagmaBarRender;
 import com.idark.valoria.client.render.gui.TooltipEventHandler;
+import com.idark.valoria.client.screen.ManipulatorScreen;
 import com.idark.valoria.config.ClientConfig;
-import com.idark.valoria.client.container.ModMenuTypes;
+import com.idark.valoria.client.menu.ModMenuTypes;
 import com.idark.valoria.datagen.ModRecipeProvider;
 import com.idark.valoria.effect.ModEffects;
 import com.idark.valoria.enchant.ModEnchantments;
@@ -30,9 +31,9 @@ import com.idark.valoria.effect.potion.ModPotions;
 import com.idark.valoria.recipe.ModRecipes;
 import com.idark.valoria.client.screen.JewelryScreen;
 import com.idark.valoria.util.LootUtil;
-import com.idark.valoria.util.ModSoundRegistry;
+import com.idark.valoria.sounds.ModSoundRegistry;
 import com.idark.valoria.util.WorldRenderHandler;
-import com.idark.valoria.util.particle.ModParticles;
+import com.idark.valoria.particle.ModParticles;
 import com.idark.valoria.world.WorldGen;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.core.HolderLookup;
@@ -162,6 +163,7 @@ public class Valoria {
 			CuriosRendererRegistry.register(ModItems.LEATHER_BELT.get(), BeltRenderer::new);
 
 			MenuScreens.register(ModMenuTypes.JEWELRY_MENU.get(), JewelryScreen::new);
+			MenuScreens.register(ModMenuTypes.MANIPULATOR_MENU.get(), ManipulatorScreen::new);
 		});
 	}
 

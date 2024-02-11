@@ -1,15 +1,14 @@
 package com.idark.valoria.block.types;
 
-import com.idark.valoria.Valoria;
 import com.idark.valoria.block.blockentity.CrusherBlockEntity;
-import com.idark.valoria.item.ModItems;
 import com.idark.valoria.block.blockentity.BlockSimpleInventory;
-import com.idark.valoria.util.LootUtil;
+import com.idark.valoria.recipe.CrusherRecipe;
 import com.idark.valoria.util.PacketUtils;
-import com.idark.valoria.util.particle.ModParticles;
-import com.idark.valoria.util.particle.Particles;
+import com.idark.valoria.particle.ModParticles;
+import com.idark.valoria.particle.Particles;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.NonNullList;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -17,9 +16,12 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.PickaxeItem;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
@@ -27,15 +29,14 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nonnull;
+import java.util.Optional;
 import java.util.Random;
 
 public class CrusherBlock extends Block implements EntityBlock {
 
-    Random rand = new Random();
-    public CrusherBlock(BlockBehaviour.Properties properties) {
+    public CrusherBlock(Properties properties) {
 		super(properties);
     }
 	
@@ -60,7 +61,7 @@ public class CrusherBlock extends Block implements EntityBlock {
 	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
         CrusherBlockEntity tile = (CrusherBlockEntity) world.getBlockEntity(pos);
         ItemStack stack = player.getItemInHand(handIn).copy();
-        if ((!stack.isEmpty()) && isValid(stack) && (tile.getItemHandler().getItem(0).isEmpty())) {
+        if (tile.getItemHandler().getItem(0).isEmpty()) {
             if (stack.getCount() > 1) {
                 if (!player.isCreative()) {
                     player.getItemInHand(handIn).setCount(stack.getCount() - 1);
@@ -80,39 +81,40 @@ public class CrusherBlock extends Block implements EntityBlock {
             return InteractionResult.SUCCESS;
         }
 
-		if ((stack.getItem() instanceof PickaxeItem) && (!tile.getItemHandler().getItem(0).isEmpty())) {
+		if ((isValid(tile.getItemHandler().getItem(0), tile) && stack.getItem() instanceof PickaxeItem) && (!tile.getItemHandler().getItem(0).isEmpty())) {
 			if (player instanceof ServerPlayer serverPlayer) {
-                Vec3 block = new Vec3(pos.getX() + 0.5f, pos.getY() + 1.5f, pos.getZ() + 0.5f);
-                LootUtil.SpawnLoot(world, pos.above(), LootUtil.createLoot(new ResourceLocation(Valoria.MOD_ID, "items/crusher"), LootUtil.getGiftParameters((ServerLevel) world, block, serverPlayer)));
-			}
-
-            tile.getItemHandler().removeItemNoUpdate(0);
-			for (int i = 0; i < 26; i++) {
-				Particles.create(ModParticles.GEODE_PARTICLE)
-				.setAlpha(1.0f, 0)
-				.setScale(0.3f, 0)
-				.setLifetime(50)
-				.setSpin((0.5f * (float) ((rand.nextDouble() - 0.5D) * 2)))
-				.spawn(world, pos.getX() + (rand.nextDouble() * 1.25), pos.getY() + 0.5F + ((rand.nextDouble() - 0.5D) * 1.25), pos.getZ() + 0.5F + ((rand.nextDouble() - 0.5D) * 1.25));
-			}
-
-            world.playSound(player, pos, SoundEvents.CALCITE_BREAK , SoundSource.BLOCKS, 1.0f, 1.0f);
-        } else if (stack.isEmpty() && !tile.getItemHandler().getItem(0).isEmpty()) {
-            if (!player.isCreative()) {
-                player.getInventory().add(tile.getItemHandler().getItem(0).copy());
+			    tile.craftItem(serverPlayer);
+                player.getItemInHand(handIn).hurtAndBreak(5, player, (p_220045_0_) -> p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
             }
 
-			tile.getItemHandler().removeItemNoUpdate(0);
+            tile.getItemHandler().removeItemNoUpdate(0);
+        } else if (!(stack.getItem() instanceof PickaxeItem) && !tile.getItemHandler().getItem(0).isEmpty()) {
+            if (!player.isCreative()) {
+                world.addFreshEntity(new ItemEntity(world, player.getX() + 0.5F, player.getY() + 0.5F, player.getZ() + 0.5F, tile.getItemHandler().getItem(0).copy()));
+            }
+
+            tile.getItemHandler().removeItemNoUpdate(0);
 			return InteractionResult.SUCCESS;
 		}
 		
 		return InteractionResult.SUCCESS;
 	}
-	
-	private static boolean isValid(ItemStack stack) {
-		return stack.getItem() == ModItems.DIRT_GEODE.get() || stack.getItem() == ModItems.STONE_GEODE.get();
+
+	private static boolean isValid(ItemStack stack, CrusherBlockEntity tile) {
+        Optional<CrusherRecipe> recipeOptional = tile.getCurrentRecipe();
+        if (recipeOptional.isPresent()) {
+            CrusherRecipe recipe = recipeOptional.get();
+            NonNullList<Ingredient> recipeIngredients = recipe.getIngredients();
+            for (Ingredient ingredient : recipeIngredients) {
+                if (ingredient.test(stack)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
 	}
-	
+
     @Override
     public boolean triggerEvent(BlockState state, Level world, BlockPos pos, int id, int param) {
         super.triggerEvent(state, world, pos, id, param);

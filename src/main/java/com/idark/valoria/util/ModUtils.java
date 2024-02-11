@@ -1,19 +1,18 @@
 package com.idark.valoria.util;
 
+
 import com.idark.valoria.enchant.ModEnchantments;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Vector3d;
 
@@ -22,6 +21,18 @@ import java.util.List;
 import java.util.Random;
 
 public class ModUtils {
+
+    /**
+     * Applies a cooldown to item list
+     * @param items ItemList to apply the cooldown
+     * @param cooldownTicks Time of cooldown
+     * @see com.idark.valoria.item.types.ScytheItem#finishUsingItem(ItemStack, Level, LivingEntity) Example
+     */
+    public static void applyCooldownToItemList(Player player, List<Item> items, int cooldownTicks) {
+        for (Item pItems : items) {
+            player.getCooldowns().addCooldown(pItems, cooldownTicks);
+        }
+    }
 
     /**
      * @param stack being checked
@@ -170,29 +181,69 @@ public class ModUtils {
         }
     }
 
-    // TODO: Do this thing
+    /**
+     * Spawns particles line to attacked mob position
+     *
+     * @param pPlayer Player pos for calculating Attacked mob and positions
+     * @param pType Particle that will spawn line
+     * @see com.idark.valoria.item.curio.charm.BloodSight#curioTick(String, int, LivingEntity, ItemStack)  Example
+     */
     public static void spawnParticlesLineToAttackedMob(Level pLevel, Player pPlayer, ParticleOptions pType) {
-        LivingEntity lastHurtMob = pPlayer.getLastHurtByMob();
-        if (lastHurtMob == null) {
-            return;
-        }
-
-        double dX = lastHurtMob.getX() - pPlayer.getX();
-        double dY = lastHurtMob.getY() - pPlayer.getY();
-        double dZ = lastHurtMob.getZ() - pPlayer.getZ();
-
-        double yaw = Math.atan2(dZ, dX);
-        double pitch = Math.atan2(Math.sqrt(dZ * dZ + dX * dX), dY) + Math.PI;
-
-        if (!pLevel.isClientSide()) {
-            for (double i = 0; i < pPlayer.getHurtDir(); i += 0.5) {
-                double X = Math.sin(pitch) * Math.cos(yaw) * pPlayer.getHurtDir();
-                double Y = Math.cos(pitch) * pPlayer.getHurtDir();
-                double Z = Math.sin(pitch) * Math.sin(yaw) * pPlayer.getHurtDir();
-
-                pLevel.addParticle(pType, X, Y, Z, 0, 0.05, 0);
-                System.out.print(lastHurtMob.getName().getString() + " " + "Position X: " + X + " " + "Position Y: " + Y + " " + "Position Z: " + Z + " " + "Range: " + i + " ");
+        LivingEntity lastHurtMob = pPlayer.getLastAttacker();
+        if (!pLevel.isClientSide() && pLevel instanceof ServerLevel pServer) {
+            if (lastHurtMob == null) {
+                return;
             }
+
+            Vec3 pos = new Vec3(pPlayer.getX(), pPlayer.getY() + 0.5f, pPlayer.getZ());
+            Vec3 EndPos = new Vec3(lastHurtMob.getX(), lastHurtMob.getY() + 0.5f, lastHurtMob.getZ());
+            double distance = pos.distanceTo(EndPos);
+            double distanceInBlocks = Math.floor(distance);
+            for (int i = 0; i < distanceInBlocks; i++) {
+                double dX = pos.x - EndPos.x;
+                double dY = pos.y - EndPos.y;
+                double dZ = pos.z - EndPos.z;
+
+                float x = (float) (dX / distanceInBlocks);
+                float y = (float) (dY / distanceInBlocks);
+                float z = (float) (dZ / distanceInBlocks);
+
+                pServer.sendParticles(pType, pos.x - (x * i), pos.y - (y * i), pos.z - (z * i), 1, 0, 0, 0, 0);
+            }
+        }
+    }
+
+    public static void damageLastAttackedMob(Level pLevel, Player pPlayer, float pAmount) {
+        LivingEntity lastHurtMob = pPlayer.getLastAttacker();
+        if (!pLevel.isClientSide() && pLevel instanceof ServerLevel pServer) {
+            if (lastHurtMob == null) {
+                return;
+            }
+
+            lastHurtMob.hurt(pServer.damageSources().generic(), pAmount);
+        }
+    }
+
+    /**
+     * Spawns particles line
+     *
+     * @param pType Particle that will spawn line
+     * @param pFrom Position From
+     * @param pTo Position To
+     */
+    public static void spawnParticlesLine(Level pLevel, Vec3 pFrom, Vec3 pTo, ParticleOptions pType) {
+        double distance = pFrom.distanceTo(pTo);
+        double distanceInBlocks = Math.floor(distance);
+        for (int i = 0; i < distanceInBlocks; i++) {
+            double dX = pFrom.x - pTo.x;
+            double dY = pFrom.y - pTo.y;
+            double dZ = pFrom.z - pTo.z;
+
+            float x = (float) (dX / distanceInBlocks);
+            float y = (float) (dY / distanceInBlocks);
+            float z = (float) (dZ / distanceInBlocks);
+
+            pLevel.addParticle(pType, pFrom.x - (x * i), pFrom.y - (y * i), pFrom.z - (z * i), 0, 0, 0);
         }
     }
 }

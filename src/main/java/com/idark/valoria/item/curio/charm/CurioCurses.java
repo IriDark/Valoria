@@ -2,7 +2,7 @@ package com.idark.valoria.item.curio.charm;
 
 import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.Multimap;
-import com.idark.valoria.util.ModSoundRegistry;
+import com.idark.valoria.sounds.ModSoundRegistry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;

@@ -14,9 +14,9 @@ import com.idark.valoria.entity.renderer.*;
 import com.idark.valoria.item.ModItems;
 import com.idark.valoria.block.blockentity.ModBlockEntities;
 import com.idark.valoria.util.ModItemModelProperties;
-import com.idark.valoria.util.particle.ModParticles;
-import com.idark.valoria.util.particle.SlashParticleType;
-import com.idark.valoria.util.particle.SparkleParticleType;
+import com.idark.valoria.particle.ModParticles;
+import com.idark.valoria.particle.SlashParticleType;
+import com.idark.valoria.particle.SparkleParticleType;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.ModelLayerLocation;
@@ -49,6 +49,7 @@ public class ValoriaClient {
 	public static ModelLayerLocation HANDS_LAYER_SLIM = new ModelLayerLocation(new ResourceLocation(Valoria.MOD_ID, "hands_slim"), "main");
 	public static ModelLayerLocation BELT_LAYER = new ModelLayerLocation(new ResourceLocation(Valoria.MOD_ID, "belt"), "main");
 	public static ModelResourceLocation KEG_MODEL = new ModelResourceLocation(Valoria.MOD_ID, "keg_barrel", "");
+	public static ModelResourceLocation SPHERE = new ModelResourceLocation(Valoria.MOD_ID, "elemental_sphere", "");
 
 	public static ShaderInstance getGlowingParticleShader() {
 		return GLOWING_PARTICLE_SHADER;
@@ -127,6 +128,7 @@ public class ValoriaClient {
 				ItemBlockRenderTypes.setRenderLayer(ModBlocks.QUICKSAND.get(), RenderType.cutout());
 				ItemBlockRenderTypes.setRenderLayer(ModBlocks.SUSPICIOUS_ICE.get(), RenderType.translucent());
 
+				BlockEntityRenderers.register(ModBlockEntities.MANIPULATOR_BLOCK_ENTITY.get(), (trd) -> new ManipulatorBlockEntityRenderer());
 				BlockEntityRenderers.register(ModBlockEntities.JEWELRY_BLOCK_ENTITY.get(), (trd) -> new JewelryBlockEntityRender());
 				BlockEntityRenderers.register(ModBlockEntities.KEG_BLOCK_ENTITY.get(), (trd) -> new KegBlockEntityRenderer());
 				BlockEntityRenderers.register(ModBlockEntities.CRUSHABLE_BLOCK_ENTITY.get(), (trd) -> new CrushableBlockRenderer());
@@ -165,6 +167,7 @@ public class ValoriaClient {
 			}
 
 			event.register(KEG_MODEL);
+			event.register(SPHERE);
 		}
 
 		@SubscribeEvent

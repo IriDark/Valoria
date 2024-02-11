@@ -14,6 +14,8 @@ public class ModRecipes {
             .register("keg_brewery", () -> KegRecipe.Serializer.INSTANCE);
     public static final RegistryObject<RecipeSerializer<JewelryRecipe>> JEWELRY_SERIALIZER = SERIALIZERS
             .register("jewelry", () -> JewelryRecipe.Serializer.INSTANCE);
+    public static final RegistryObject<RecipeSerializer<CrusherRecipe>> CRUSHER_SERIALIZER = SERIALIZERS
+            .register("crusher", () -> CrusherRecipe.Serializer.INSTANCE);
 
     public static void register(IEventBus eventBus) {
         SERIALIZERS.register(eventBus);

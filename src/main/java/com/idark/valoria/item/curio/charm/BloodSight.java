@@ -1,18 +1,21 @@
 package com.idark.valoria.item.curio.charm;
 
 import com.idark.valoria.item.ModItems;
-import com.idark.valoria.util.ModSoundRegistry;
+import com.idark.valoria.sounds.ModSoundRegistry;
 import com.idark.valoria.util.ModUtils;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
 import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.type.capability.ICurio;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
@@ -36,10 +39,15 @@ public class BloodSight extends Item implements ICurioItem {
         return false;
     }
 
+    public int getDamage(int pLevel, RandomSource pRandom) {
+        return pLevel > 10 ? pLevel - 10 : 1 + pRandom.nextInt(4);
+    }
+
     @Override
     public void curioTick(String identifier, int index, LivingEntity livingEntity, ItemStack stack) {
         Player player = (Player) livingEntity;
-        ModUtils.spawnParticlesLineToAttackedMob(player.level(), player, ParticleTypes.ASH);
+        ModUtils.spawnParticlesLineToAttackedMob(player.level(), player, new BlockParticleOption(ParticleTypes.BLOCK, Blocks.REDSTONE_BLOCK.defaultBlockState()));
+        ModUtils.damageLastAttackedMob(player.level(), player, 0.15f);
 
         ICurioItem.super.curioTick(identifier, index, livingEntity, stack);
     }

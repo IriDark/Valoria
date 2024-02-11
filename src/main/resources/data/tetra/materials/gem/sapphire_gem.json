@@ -1,0 +1,27 @@
+{
+  "key": "sapphire_gem",
+  "category": "gem",
+  "primary": 5,
+  "secondary": 2.7,
+  "tertiary": 0,
+  "durability": 850,
+  "integrityCost": 2,
+  "integrityGain": 2,
+  "magicCapacity": 72,
+  "toolLevel": "minecraft:iron",
+  "toolEfficiency": 7,
+  "tints": {
+    "glyph": "4cb7d8",
+    "texture": "4cb7d8"
+  },
+  "textures": [
+    "shiny",
+    "crude"
+  ],
+  "material": {
+    "items": [ "valoria:sapphire_gem" ]
+  },
+  "requiredTools": {
+    "hammer_dig": "minecraft:stone"
+  }
+}

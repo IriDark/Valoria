@@ -4,7 +4,9 @@ import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import com.idark.valoria.client.render.DashOverlayRender;
 import com.idark.valoria.config.ClientConfig;
-import com.idark.valoria.util.ModSoundRegistry;
+import com.idark.valoria.item.ModItems;
+import com.idark.valoria.sounds.ModSoundRegistry;
+import com.idark.valoria.util.ModUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -36,6 +38,7 @@ import net.minecraft.world.phys.Vec3;
 import org.joml.Vector3d;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -135,7 +138,8 @@ public class KatanaItem extends TieredItem implements Vanishable {
 				player.push(5, 2 * 0.25, 5);
 			}
 
-			player.getCooldowns().addCooldown(this, 75);
+			List<Item> scytheItems = Arrays.asList(ModItems.IRON_KATANA.get(), ModItems.GOLDEN_KATANA.get(), ModItems.DIAMOND_KATANA.get(), ModItems.NETHERITE_KATANA.get(), ModItems.HOLIDAY_KATANA.get(), ModItems.SAMURAI_KATANA.get());
+			ModUtils.applyCooldownToItemList(player, scytheItems, 75);
 			player.awardStat(Stats.ITEM_USED.get(this));
 
 			Vector3d pos = new Vector3d(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());

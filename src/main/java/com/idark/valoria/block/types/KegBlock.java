@@ -11,8 +11,10 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -67,7 +69,7 @@ public class KegBlock extends HorizontalDirectionalBlock implements EntityBlock,
     public void onRemove(@Nonnull BlockState state, @Nonnull Level world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
         if (state.getBlock() != newState.getBlock()) {
             BlockEntity tile = world.getBlockEntity(pos);
-            if (tile instanceof BlockSimpleInventory) {
+            if (tile instanceof BlockSimpleInventory && !((BlockSimpleInventory) tile).getItemHandler().getItem(0).is(ModTags.CUP_DRINKS) && !((BlockSimpleInventory) tile).getItemHandler().getItem(0).is(ModTags.BOTTLE_DRINKS)) {
                 Containers.dropContents(world, pos, ((BlockSimpleInventory) tile).getItemHandler());
             }
 
@@ -87,7 +89,7 @@ public class KegBlock extends HorizontalDirectionalBlock implements EntityBlock,
             } else if (isHoldingBottle && itemStack.is(ModTags.BOTTLE_DRINKS)) {
                 player.getItemInHand(hand).setCount(playerHeldItem.getCount() - 1);
             }
-        }
+    }
 
         return (isHoldingCup && itemStack.is(ModTags.CUP_DRINKS)) || (isHoldingBottle && itemStack.is(ModTags.BOTTLE_DRINKS));
     }
@@ -96,7 +98,12 @@ public class KegBlock extends HorizontalDirectionalBlock implements EntityBlock,
     public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         KegBlockEntity tile = (KegBlockEntity) world.getBlockEntity(pos);
         ItemStack stack = player.getItemInHand(hand).copy();
-        
+        if (stack.is(Items.HONEY_BOTTLE)) {
+            if (!player.isCreative()) {
+                world.addFreshEntity(new ItemEntity(world, player.getX() + 0.5F, player.getY() + 0.5F, player.getZ() + 0.5F, new ItemStack(Items.GLASS_BOTTLE)));
+            }
+        }
+
         // Checking if not alcohol to prevent miss clicks and collecting with isCupOrBottle
         if ((!stack.isEmpty()) && !stack.is(ModTags.ALCOHOL) && (tile.getItemHandler().getItem(0).isEmpty())) {
             if (stack.getCount() > 1) {
@@ -121,15 +128,18 @@ public class KegBlock extends HorizontalDirectionalBlock implements EntityBlock,
 
         if (!tile.getItemHandler().getItem(0).isEmpty() && isCupOrBottle(tile, player, hand)) {
             if (!player.isCreative()) {
-                player.getInventory().add(tile.getItemHandler().getItem(0).copy());
+                world.addFreshEntity(new ItemEntity(world, player.getX() + 0.5F, player.getY() + 0.5F, player.getZ() + 0.5F, tile.getItemHandler().getItem(0).copy()));
             }
 
             tile.getItemHandler().removeItemNoUpdate(0);
             PacketUtils.SUpdateTileEntityPacket(tile);
             return InteractionResult.SUCCESS;
         } else if (!tile.getItemHandler().getItem(0).isEmpty() && !tile.getItemHandler().getItem(0).is(ModTags.CUP_DRINKS) && !tile.getItemHandler().getItem(0).is(ModTags.BOTTLE_DRINKS)) {
-            if (!player.isCreative()) {
-                player.getInventory().add(tile.getItemHandler().getItem(0).copy());
+            if (!player.isCreative()  && !tile.getItemHandler().getItem(0).is(Items.HONEY_BOTTLE)) {
+                world.addFreshEntity(new ItemEntity(world, player.getX() + 0.5F, player.getY() + 0.5F, player.getZ() + 0.5F, tile.getItemHandler().getItem(0).copy()));
+            } else if (!player.isCreative() && tile.getItemHandler().getItem(0).is(Items.HONEY_BOTTLE) && stack.is(Items.GLASS_BOTTLE)) {
+                player.getItemInHand(hand).setCount(stack.getCount() - 1);
+                world.addFreshEntity(new ItemEntity(world, player.getX() + 0.5F, player.getY() + 0.5F, player.getZ() + 0.5F, tile.getItemHandler().getItem(0).copy()));
             }
 
             tile.getItemHandler().removeItemNoUpdate(0);

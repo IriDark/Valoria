@@ -1,0 +1,82 @@
+{
+  "texture_size": [
+    64,
+    64
+  ],
+
+  "textures": {
+    "10": "valoria:block/elemental_manipulator",
+    "particle": "valoria:block/elemental_manipulator"
+  },
+
+  "elements": [
+    {
+      "from": [
+        6,
+        10,
+        6
+      ],
+      "to": [
+        10,
+        14,
+        10
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            9.75,
+            11.75,
+            10.75,
+            12.75
+          ],
+          "texture": "#10"
+        },
+        "east": {
+          "uv": [
+            11.75,
+            10.5,
+            12.75,
+            11.5
+          ],
+          "texture": "#10"
+        },
+        "south": {
+          "uv": [
+            10.75,
+            11.75,
+            11.75,
+            12.75
+          ],
+          "texture": "#10"
+        },
+        "west": {
+          "uv": [
+            11.75,
+            11.5,
+            12.75,
+            12.5
+          ],
+          "texture": "#10"
+        },
+        "up": {
+          "uv": [
+            13,
+            3.25,
+            12,
+            2.25
+          ],
+          "texture": "#10"
+        },
+        "down": {
+          "uv": [
+            13,
+            3.25,
+            12,
+            4.25
+          ],
+          "texture": "#10"
+        }
+      }
+    }
+  ]
+}

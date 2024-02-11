@@ -1,9 +1,22 @@
 {
-  "type": "jeed:effect_provider",
-  "effect":  "valoria:tipsy",
-  "providers": [
+  "type": "forge:conditional",
+  "recipes": [
     {
-      "tag": "valoria:alcohol"
+      "conditions": [
+        {
+          "type": "forge:mod_loaded",
+          "modid": "jeed"
+        }
+      ],
+      "recipe": {
+        "type": "jeed:effect_provider",
+        "effect":  "valoria:tipsy",
+        "providers": [
+          {
+            "tag": "valoria:alcohol"
+          }
+        ]
+      }
     }
   ]
 }

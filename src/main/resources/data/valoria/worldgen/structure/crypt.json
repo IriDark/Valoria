@@ -1,6 +1,6 @@
 {
   "type": "minecraft:jigsaw",
-  "biomes": "#minecraft:is_taiga",
+  "biomes": "#valoria:crypt_gen",
   "step": "top_layer_modification",
   "spawn_overrides": {
     "ambient": {
@@ -24,7 +24,7 @@
   "start_pool": "valoria:crypt_pool",
   "size": 1,
   "start_height": {
-    "absolute": -9
+    "absolute": -11
   },
   "project_start_to_heightmap": "WORLD_SURFACE_WG",
   "max_distance_from_center": 80,

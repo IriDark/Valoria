@@ -1,7 +1,5 @@
 ![Valoria](https://cdn.discordapp.com/attachments/872055698450690048/1189638486219837542/image.png?ex=659ee42d&is=658c6f2d&hm=e161e2bab39dce8105fceb5b6a3ed5deb6c1ee29566b2f99c3c31c578e26d65c&)
 
-[![](https://cf.way2muchnoise.eu/title/698244.svg) ![](http://cf.way2muchnoise.eu/versions/698244.svg) ![](https://cf.way2muchnoise.eu/full_698244_downloads.svg)](https://www.curseforge.com/minecraft/mc-mods/darkrpg-reborn) [![](https://img.shields.io/badge/License-GPL--2.0-blue)](https://github.com/iDarkMage/DarkRPG/blob/main/LICENSE) [![](https://img.shields.io/discord/859843420603416618?color=Green&label=Discord&logo=Discord&style=flat-square)](https://discord.gg/wWdXpwuPmK)
-
 # 🌸 Valoria — Development
 
 Embark on a thrilling adventure with the Valoria mod, a dynamic addition to your Minecraft experience. Valoria introduces a diverse array of new monsters, a plethora of vibrant plants, a wide assortment of weapons, and much more to enhance your gameplay.
@@ -39,7 +37,17 @@ Immerse yourself in the enchanting realm of Valoria, where every corner holds a 
                            - FoxPlane
                            - Rainach
 
-   ![](https://cdn.discordapp.com/attachments/838693800683372564/1039482418408726608/Untitled_11-07-2022_11-21-33.png)
+![](https://cdn.discordapp.com/attachments/838693800683372564/1039482418408726608/Untitled_11-07-2022_11-21-33.png)
+
+‎ ‎ ‎ ‎ ‎ ‎ [![Paypal](https://cdn.discordapp.com/attachments/1088473259223306361/1203418287191363634/pp.png?ex=65d1059e&is=65be909e&hm=9396f8bbc5401ce56a8b41eeb2b8e7a58e7e53059cd6c87c91d41f577b14f086&)](https://www.paypal.com/donate/?hosted_button_id=2VUEXEBSWEXUA)
+‎ ‎ ‎ ‎ ‎ ‎ [![Ko-Fi](https://cdn.discordapp.com/attachments/1088473259223306361/1203418676993466448/bmc.png?ex=65d105fb&is=65be90fb&hm=dff57fa98f06b26a47a290981f22a6098f8d887a75bb05f36db76415458b0396&)](https://ko-fi.com/idark)
+‎ ‎ ‎ ‎ ‎ ‎ [![Github](https://cdn.discordapp.com/attachments/1088473259223306361/1203419022578942012/github.png?ex=65d1064d&is=65be914d&hm=cba9db47b5fa6812f791f10b0f0038bdd436de845c136f6f2f28745a1c841b72&)](https://github.com/IriDark/Valoria)
+
+‎ ‎ ‎ ‎ ‎ ‎ [![Discord](https://cdn.discordapp.com/attachments/1088473259223306361/1203420290747469824/discord.png?ex=65d1077b&is=65be927b&hm=8537385b445429f0838ccdc6b951db208cb2616a529ada99f195efbeaf337265&)](https://discord.gg/wWdXpwuPmK)
+‎ ‎ ‎ ‎ ‎ ‎ [![Curseforge](https://cdn.discordapp.com/attachments/1088473259223306361/1203420835617181756/curseforge.png?ex=65d107fd&is=65be92fd&hm=4b179d668a1b7ddfb631739bf59ec3d818abab647946c64486a86f6d6d5682d0&)](https://www.curseforge.com/minecraft/mc-mods/valoria)
+‎ ‎ ‎ ‎ ‎ ‎ [![Modrinth](https://cdn.discordapp.com/attachments/1088473259223306361/1203420835394621440/modrinth.png?ex=65d107fd&is=65be92fd&hm=d9079207c106f16ba5023cf2147690e19c3d457c34104974cc77b31a6d327d0f&)](https://modrinth.com/mod/valoria)
+
+![](https://cdn.discordapp.com/attachments/838693800683372564/1039482418408726608/Untitled_11-07-2022_11-21-33.png)
 
 ## &#10060; You`re not allowed to use the textures of the project, even slightly changing them, this is considered theft.
 ## &#9989; You`re allowed to use the source code of the project.

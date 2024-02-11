@@ -2,6 +2,7 @@ package com.idark.valoria.block.blockentity;
 
 import com.idark.valoria.block.types.KegBlock;
 import com.idark.valoria.client.render.model.blockentity.TickableBlockEntity;
+import com.idark.valoria.recipe.JewelryRecipe;
 import com.idark.valoria.recipe.KegRecipe;
 import com.idark.valoria.util.PacketUtils;
 import net.minecraft.core.BlockPos;
@@ -22,7 +23,8 @@ import java.util.Optional;
 
 public class KegBlockEntity extends BlockSimpleInventory implements TickableBlockEntity {
 
-    private int progress = 0;
+    public int progress = 0;
+    public int progressMax = 0;
     public boolean startCraft = false;
 
     public KegBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
@@ -50,6 +52,7 @@ public class KegBlockEntity extends BlockSimpleInventory implements TickableBloc
             if (recipe.isPresent()) {
                 increaseCraftingProgress();
                 startCraft = true;
+                setMaxProgress();
                 setChanged(level, getBlockPos(), getBlockState());
                 if (hasProgressFinished()) {
                     craftItem();
@@ -67,12 +70,16 @@ public class KegBlockEntity extends BlockSimpleInventory implements TickableBloc
     public void saveAdditional(CompoundTag tag) {
         super.saveAdditional(tag);
         tag.putBoolean("startCraft", startCraft);
+        tag.putInt("progress", progress);
+        tag.putInt("progressMax", progressMax);
     }
 
     @Override
     public void load(CompoundTag tag) {
         super.load(tag);
         startCraft = tag.getBoolean("startCraft");
+        progress = tag.getInt("progress");
+        progressMax = tag.getInt("progressMax");
     }
 
     private void resetProgress() {
@@ -108,6 +115,13 @@ public class KegBlockEntity extends BlockSimpleInventory implements TickableBloc
         Optional<KegRecipe> recipe = getCurrentRecipe();
         if (progress < recipe.get().getTime()) {
             progress++;
+        }
+    }
+
+    private void setMaxProgress() {
+        Optional<KegRecipe> recipe = getCurrentRecipe();
+        if (progressMax <= 0) {
+            progressMax = recipe.map(KegRecipe::getTime).orElse(200);
         }
     }
 

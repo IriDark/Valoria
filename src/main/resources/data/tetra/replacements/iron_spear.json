@@ -1,0 +1,20 @@
+[
+  {
+    "predicate": {
+      "items": [
+        "valoria:iron_spear"
+      ]
+    },
+    "item": "tetra:modular_single",
+    "modules": {
+      "single/head": [
+        "single/spearhead",
+        "spearhead/iron"
+      ],
+      "single/handle": [
+        "single/light_handle",
+        "light_handle/stick"
+      ]
+    }
+  }
+]

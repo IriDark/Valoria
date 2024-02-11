@@ -69,6 +69,7 @@ public class StaffItem extends Item implements IManaItem {
 
             if (entity instanceof Player plr) {
                 bar = ManaItemUtils.getMana(stack);
+                bar /= ((double) this.getMaxMana() / (double) ManaItemUtils.getMana(stack));
                 if (plr.getCooldowns().isOnCooldown(stack.getItem())) {
                     cd = 0;
                 } else {

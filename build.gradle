@@ -18,7 +18,7 @@ apply plugin: 'maven-publish'
 apply plugin: 'org.spongepowered.mixin'
 apply plugin: 'org.parchmentmc.librarian.forgegradle'
 
-version = '1.20.1-build-0.5.2_b'
+version = '1.20.1-build-0.5.3_b'
 group = 'com.idark.valoria'
 archivesBaseName = 'Valoria'
 
@@ -113,8 +113,12 @@ dependencies {
 
     compileOnly fg.deobf("com.blamejared.crafttweaker:CraftTweaker-forge-1.20.1:14.0.13")
     runtimeOnly fg.deobf("com.blamejared.crafttweaker:CraftTweaker-forge-1.20.1:14.0.13")
+
     implementation fg.deobf("curse.maven:model-gap-fix-676136:4607206")
     implementation fg.deobf("curse.maven:just-enough-effect-descriptions-jeed-532286:4978810")
+    implementation fg.deobf("curse.maven:mutil-351914:4824501")
+    implementation fg.deobf("curse.maven:tetra-289712:4857842")
+    implementation fg.deobf("curse.maven:jade-324717:4986594")
 }
 
 jar {

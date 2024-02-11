@@ -4,7 +4,7 @@ license = "Apache-2.0"
 issueTrackerURL = "" 
 [[mods]] 
   modId = "valoria"
-  version = "1.20.1-build-0.5.2_b"
+  version = "1.20.1-build-0.5.3_b"
   displayName = "Valoria"
   updateJSONURL="" 
   displayURL = "https://discord.gg/wWdXpwuPmK" 

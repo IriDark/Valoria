@@ -1,7 +1,7 @@
 package com.idark.valoria.block.types;
 
 import com.idark.valoria.block.blockentity.JewelryBlockEntity;
-import com.idark.valoria.client.container.JewelryMenu;
+import com.idark.valoria.client.menu.JewelryMenu;
 import com.idark.valoria.client.render.model.blockentity.TickableBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -83,7 +83,6 @@ public class JewelerBlock extends Block implements EntityBlock {
                 return Component.translatable("menu.valoria.jewelry");
             }
 
-            @Nullable
             @Override
             public AbstractContainerMenu createMenu(int i, Inventory playerInventory, Player playerEntity) {
                 return new JewelryMenu(i, worldIn, pos, playerInventory, playerEntity);

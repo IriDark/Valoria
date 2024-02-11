@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#valoria:ephemarite_gen",
+  "features": "valoria:ephemarite_placed",
+  "step": "underground_ores"
+}

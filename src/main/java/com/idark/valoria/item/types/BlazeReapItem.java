@@ -1,7 +1,7 @@
 package com.idark.valoria.item.types;
 
 import com.idark.valoria.enchant.ModEnchantments;
-import com.idark.valoria.util.ModSoundRegistry;
+import com.idark.valoria.sounds.ModSoundRegistry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;

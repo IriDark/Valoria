@@ -3,7 +3,7 @@ package com.idark.valoria.block;
 import com.idark.valoria.Valoria;
 import com.idark.valoria.block.types.*;
 import com.idark.valoria.item.ModItems;
-import com.idark.valoria.util.ModSoundRegistry;
+import com.idark.valoria.sounds.ModSoundRegistry;
 import com.idark.valoria.world.tree.ShadeWoodTree;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffects;

@@ -1,7 +1,7 @@
 package com.idark.valoria.item.types;
 
 import com.idark.valoria.util.math.RandUtils;
-import com.idark.valoria.util.ModSoundRegistry;
+import com.idark.valoria.sounds.ModSoundRegistry;
 import com.idark.valoria.util.ModUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
@@ -136,6 +136,7 @@ public class MagmaSwordItem extends SwordItem {
             nbt = new CompoundTag();
             stack.setTag(nbt);
         }
+
         nbt.putInt("charge", charge);
         stack.setTag(nbt);
     }

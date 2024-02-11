@@ -2,7 +2,8 @@ package com.idark.valoria.item.types;
 
 import com.idark.valoria.client.render.model.item.ItemAnims;
 import com.idark.valoria.client.render.model.item.RadiusAttackAnim;
-import com.idark.valoria.util.ModSoundRegistry;
+import com.idark.valoria.item.ModItems;
+import com.idark.valoria.sounds.ModSoundRegistry;
 import com.idark.valoria.util.ModUtils;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundSource;
@@ -13,10 +14,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.SwordItem;
-import net.minecraft.world.item.Tier;
-import net.minecraft.world.item.UseAnim;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
@@ -24,6 +22,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import org.joml.Vector3d;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ScytheItem extends SwordItem implements ICustomAnimationItem{
@@ -62,8 +61,10 @@ public class ScytheItem extends SwordItem implements ICustomAnimationItem{
      */
     public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entityLiving) {
         Player player = (Player)entityLiving;
-        player.getCooldowns().addCooldown(this, 100);
         player.awardStat(Stats.ITEM_USED.get(this));
+
+        List<Item> scytheItems = Arrays.asList(ModItems.IRON_SCYTHE.get(), ModItems.GOLDEN_SCYTHE.get(), ModItems.DIAMOND_SCYTHE.get(), ModItems.NETHERITE_SCYTHE.get());
+        ModUtils.applyCooldownToItemList(player, scytheItems, 100);
 
         Vector3d pos = new Vector3d(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());
         List<LivingEntity> hitEntities = new ArrayList<LivingEntity>();

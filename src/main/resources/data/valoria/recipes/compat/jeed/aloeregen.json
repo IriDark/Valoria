@@ -1,12 +1,25 @@
 {
-  "type": "jeed:effect_provider",
-  "effect":  "valoria:aloeregen",
-  "providers": [
+  "type": "forge:conditional",
+  "recipes": [
     {
-      "item": "valoria:aloe_bandage"
-    },
-    {
-      "item": "valoria:aloe_bandage_upgraded"
+      "conditions": [
+        {
+          "type": "forge:mod_loaded",
+          "modid": "jeed"
+        }
+      ],
+      "recipe": {
+        "type": "jeed:effect_provider",
+        "effect": "valoria:aloeregen",
+        "providers": [
+          {
+            "item": "valoria:aloe_bandage"
+          },
+          {
+            "item": "valoria:aloe_bandage_upgraded"
+          }
+        ]
+      }
     }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "key": "shadewood",
+  "category": "wood",
+  "primary": 3,
+  "secondary": 1.5,
+  "tertiary": 7.75,
+  "durability": 64,
+  "integrityCost": 2,
+  "integrityGain": 5,
+  "magicCapacity": 100,
+  "toolLevel": "minecraft:stone",
+  "toolEfficiency": 2,
+  "tints": {
+    "glyph": "684f73",
+    "texture": "4e3d5c"
+  },
+  "textures": [
+    "crude",
+    "wooden"
+  ],
+  "material": {
+    "items": [ "valoria:shadewood_planks" ]
+  },
+  "requiredTools": {
+    "axe_dig": "minecraft:stone"
+  }
+}

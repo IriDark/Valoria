@@ -1,0 +1,10 @@
+{
+  "type": "valoria:crusher",
+  "loot_table": "valoria:items/crusher",
+
+  "ingredients": [
+    {
+      "item": "valoria:dirt_geode"
+    }
+  ]
+}

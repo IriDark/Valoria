@@ -8,6 +8,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -97,7 +98,7 @@ public class PedestalBlock extends Block implements EntityBlock, SimpleWaterlogg
 
         if (!tile.getItemHandler().getItem(0).isEmpty()) {
             if (!player.isCreative()) {
-                player.getInventory().add(tile.getItemHandler().getItem(0).copy());
+                world.addFreshEntity(new ItemEntity(world, player.getX() + 0.5F, player.getY() + 0.5F, player.getZ() + 0.5F, tile.getItemHandler().getItem(0).copy()));
             }
 
             tile.getItemHandler().removeItemNoUpdate(0);

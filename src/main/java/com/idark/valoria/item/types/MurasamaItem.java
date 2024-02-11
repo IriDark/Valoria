@@ -1,7 +1,7 @@
 package com.idark.valoria.item.types;
 
 import com.idark.valoria.client.render.DashOverlayRender;
-import com.idark.valoria.util.ModSoundRegistry;
+import com.idark.valoria.sounds.ModSoundRegistry;
 import com.idark.valoria.util.ModUtils;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;

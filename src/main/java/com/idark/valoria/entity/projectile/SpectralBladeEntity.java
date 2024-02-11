@@ -2,7 +2,7 @@ package com.idark.valoria.entity.projectile;
 
 import com.idark.valoria.entity.ModEntityTypes;
 import com.idark.valoria.item.ModItems;
-import com.idark.valoria.util.ModSoundRegistry;
+import com.idark.valoria.sounds.ModSoundRegistry;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;

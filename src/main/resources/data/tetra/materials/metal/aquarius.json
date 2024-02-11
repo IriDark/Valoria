@@ -1,0 +1,24 @@
+{
+  "key":"aquarius",
+  "category":"metal",
+  "primary":5.2,
+  "secondary":5,
+  "tertiary":3,
+  "durability":695,
+  "integrityCost":4,
+  "integrityGain":6,
+  "magicCapacity":185,
+  "toolLevel":"minecraft:iron",
+  "toolEfficiency":6,
+  "tints":{
+    "glyph": "ffffff",
+    "texture": "89fdec"
+  },
+  "textures":["metal","default"],
+  "material":{
+    "items":["valoria:aquarius_ingot"]
+  },
+  "requiredTools": {
+    "hammer_dig":"minecraft:gold"
+  }
+}

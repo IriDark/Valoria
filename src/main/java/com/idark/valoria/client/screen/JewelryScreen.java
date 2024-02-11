@@ -2,13 +2,16 @@ package com.idark.valoria.client.screen;
 
 import com.idark.valoria.Valoria;
 import com.idark.valoria.block.blockentity.JewelryBlockEntity;
-import com.idark.valoria.client.container.JewelryMenu;
+import com.idark.valoria.client.menu.JewelryMenu;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
+import snownee.jade.Jade;
+import snownee.jade.api.ui.IElementHelper;
+import snownee.jade.overlay.ProgressTracker;
 
 public class JewelryScreen extends AbstractContainerScreen<JewelryMenu> {
     private final ResourceLocation GUI = new ResourceLocation(Valoria.MOD_ID, "textures/gui/container/jewelry.png");
@@ -38,9 +41,8 @@ public class JewelryScreen extends AbstractContainerScreen<JewelryMenu> {
         int i = this.leftPos;
         int j = this.topPos;
         gui.blit(GUI, i, j, 0, 0, this.imageWidth, this.imageHeight);
-
         if (menu.tileEntity instanceof JewelryBlockEntity jewelry) {
-            if (jewelry.progress > 0) {
+            if (jewelry.progress > 0 && !jewelry.itemHandler.getStackInSlot(1).isEmpty() && !jewelry.itemHandler.getStackInSlot(0).isEmpty()) {
                 int width = 24;
                 width /= ((double) jewelry.progressMax / (double) jewelry.progress);
                 gui.blit(GUI, i + 100, j + 47, 176, 0, width, 17, 256, 256);

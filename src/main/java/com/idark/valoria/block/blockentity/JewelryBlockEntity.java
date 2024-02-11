@@ -1,6 +1,6 @@
 package com.idark.valoria.block.blockentity;
 
-import com.idark.valoria.client.container.JewelryMenu;
+import com.idark.valoria.client.menu.JewelryMenu;
 import com.idark.valoria.client.render.model.blockentity.TickableBlockEntity;
 import com.idark.valoria.recipe.JewelryRecipe;
 import com.idark.valoria.util.PacketUtils;

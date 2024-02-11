@@ -15,6 +15,13 @@
 	"tooltip.valoria.poison_chance": "Chance to poison the enemy",
 	"tooltip.valoria.poison_chance_ranged": "chance to poison the enemy when thrown",
 
+	"_comment": "Jade",
+	"config.jade.plugin_valoria.jewelry": "Jewelry",
+	"config.jade.plugin_valoria.crusher": "Crusher",
+	"config.jade.plugin_valoria.keg": "Keg",
+
+	"valoria.jade.progress": "Progress:",
+
 	"tooltip.valoria.current_mana": "Current Mana:",
 
 	"tooltip.valoria.lexicon": "A usefull guide book, in this hard world...",
@@ -392,7 +399,7 @@
  	"item.valoria.coffe_cup": "Cup Of Coffe",
  	"item.valoria.tea_cup": "Cup Of Tea",
  	"item.valoria.green_tea_cup": "Cup Of Green Tea",
- 	"item.valoria.vine_bottle": "Bottle Of Vine",
+ 	"item.valoria.wine_bottle": "Bottle Of Wine",
  	"item.valoria.coke_bottle": "Bottle Of Coke",
 	"item.valoria.whiskey_bottle": "Bottle Of Whiskey",
  	"item.valoria.liquor_bottle": "Bottle Of Liquor",
@@ -658,6 +665,7 @@
  	"block.valoria.void_chiseled_bricks_stairs": "Chiseled Void Bricks Stairs",
  	"block.valoria.void_chiseled_bricks_slab": "Chiseled Void Bricks Slab",
 	"block.valoria.meat_block": "Meat Block",
-	"block.valoria.suspicious_ice": "Suspicious Ice"
+	"block.valoria.suspicious_ice": "Suspicious Ice",
+	"menu.valoria.manipulator": "Elemental Manipulator"
 
 }
