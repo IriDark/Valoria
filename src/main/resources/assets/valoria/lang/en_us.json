@@ -19,6 +19,8 @@
 	"config.jade.plugin_valoria.jewelry": "Jewelry",
 	"config.jade.plugin_valoria.crusher": "Crusher",
 	"config.jade.plugin_valoria.keg": "Keg",
+	"config.jade.plugin_valoria.key": "Key",
+	"valoria.jade.openable_with": "Openable with:",
 
 	"valoria.jade.progress": "Progress:",
 
@@ -97,6 +99,7 @@
 	"gui.valoria.treasure.gems.about": "Amber enhances Haste, Amethyst amplifies Magic damage, Ruby boosts Max. Hp, Sapphire increases Swim speed, Emerald bestows Luck, and Diamond fortifies Armor.",
 	"gui.valoria.search": "Here you can search Pages or Categories by writing their names on a Search Bar in Top of this page",
 	"menu.valoria.jewelry": "Jewerly Table",
+	"menu.valoria.manipulator": "Elemental Manipulator",
 
 	"_comment": "Advancements",
 	"advancement.valoria:valoria": "Valoria",
@@ -665,7 +668,5 @@
  	"block.valoria.void_chiseled_bricks_stairs": "Chiseled Void Bricks Stairs",
  	"block.valoria.void_chiseled_bricks_slab": "Chiseled Void Bricks Slab",
 	"block.valoria.meat_block": "Meat Block",
-	"block.valoria.suspicious_ice": "Suspicious Ice",
-	"menu.valoria.manipulator": "Elemental Manipulator"
-
+	"block.valoria.suspicious_ice": "Suspicious Ice"
 }
