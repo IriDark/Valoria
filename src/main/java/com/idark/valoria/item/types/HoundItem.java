@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import com.idark.valoria.util.ModUtils;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
@@ -16,13 +17,12 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import org.joml.Vector3d;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class HoundItem extends TieredItem implements Vanishable {
     private final float attackDamage;
@@ -55,9 +55,10 @@ public class HoundItem extends TieredItem implements Vanishable {
 		Player player = (Player)entityLiving;
 		player.awardStat(Stats.ITEM_USED.get(this));
 
-		Vec3 pos = new Vec3(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());
+		Vec3 pos = new Vec3(player.getX(), player.getY() + 0.2f, player.getZ());
 		List<LivingEntity> hitEntities = new ArrayList<LivingEntity>();
-		for (int i = 0; i < 360; i += 10) {
+        List<LivingEntity> markedEntities = new ArrayList<LivingEntity>();
+        for (int i = 0; i < 360; i += 10) {
 			float yawDouble = 0;
 			if (i <= 180) {
 				yawDouble = ((float) i) / 180F;
@@ -65,8 +66,9 @@ public class HoundItem extends TieredItem implements Vanishable {
 				yawDouble = 1F - ((((float) i) - 180F) / 180F);
 			}
 
-			ModUtils.spawnParticlesLineToNearbyMobs(level, player, ParticleTypes.POOF, hitEntities, pos, 0, player.getRotationVector().y + i, 3);
-		}
+            ModUtils.markNearbyMobs(level, player, markedEntities, pos, 0, player.getRotationVector().y + i, 15);
+            ModUtils.spawnParticlesLineToNearbyMobs(level, player, new BlockParticleOption(ParticleTypes.BLOCK, Blocks.CRIMSON_NYLIUM.defaultBlockState()), hitEntities, pos, 0, player.getRotationVector().y + i, 15);
+        }
 
 		return stack;
 	}

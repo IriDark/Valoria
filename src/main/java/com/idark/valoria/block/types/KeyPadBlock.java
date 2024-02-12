@@ -2,6 +2,7 @@ package com.idark.valoria.block.types;
 
 import com.idark.valoria.block.ModBlocks;
 import com.idark.valoria.item.ModItems;
+import com.idark.valoria.util.ModTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -41,7 +42,7 @@ public class KeyPadBlock extends Block {
     public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
         int i = state.getValue(STATE);
         if (i == 1) {
-            if (keyOpen(player, rand, world, pos, state))
+            if (keyOpen(player, rand, world, pos))
                 return InteractionResult.SUCCESS;
         }
 
@@ -87,7 +88,7 @@ public class KeyPadBlock extends Block {
         return stack.getItem() == ModItems.VOID_KEY.get();
     }
 
-	private static boolean keyOpen (Player player, Random rand, Level worldIn, BlockPos pos, BlockState state) {
+	private static boolean keyOpen (Player player, Random rand, Level worldIn, BlockPos pos) {
 		worldIn.playSound(player, player.blockPosition(), SoundEvents.RESPAWN_ANCHOR_CHARGE, SoundSource.BLOCKS, 1.0F, 1.0F);
 		for (int i = 0;i<25;i++) {
 			double d2 = rand.nextGaussian() * 0.02D;
@@ -103,9 +104,10 @@ public class KeyPadBlock extends Block {
 		for(Direction dir : Direction.values()) {
 		BlockPos neighborPos = pos.relative(dir);
 		BlockState neighborState = worldIn.getBlockState(neighborPos);
-			if (neighborState.getBlock() instanceof KeyBlock) {
-				worldIn.setBlockAndUpdate(neighborPos, Blocks.AIR.defaultBlockState());
-			}
+		if (neighborState.is(ModTags.KEY_BLOCKS)) {
+            worldIn.setBlockAndUpdate(neighborPos, Blocks.AIR.defaultBlockState());
+		}
+
 		worldIn.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
 		}
 	return false;

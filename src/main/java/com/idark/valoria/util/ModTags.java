@@ -6,6 +6,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.decoration.PaintingVariant;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
 
 public class ModTags {
     private final static String MODID = Valoria.MOD_ID;
@@ -14,9 +15,15 @@ public class ModTags {
         return TagKey.create(Registries.ITEM, name);
     }
 
+    public static TagKey<Block> block(final ResourceLocation name) {
+        return TagKey.create(Registries.BLOCK, name);
+    }
+
     public static TagKey<PaintingVariant> painting(final ResourceLocation name) {
         return TagKey.create(Registries.PAINTING_VARIANT, name);
     }
+
+    public static final TagKey<Block> KEY_BLOCKS = block(new ResourceLocation(MODID, "key_blocks"));
 
     public static final TagKey<Item> CUP_DRINKS = item(new ResourceLocation(MODID, "wooden_cup_drinks"));
     public static final TagKey<Item> BOTTLE_DRINKS = item(new ResourceLocation(MODID, "bottle_drinks"));

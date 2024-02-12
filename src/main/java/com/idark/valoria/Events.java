@@ -1,25 +1,9 @@
 package com.idark.valoria;
 
-import com.idark.valoria.capability.IPage;
-import com.idark.valoria.capability.PageProvider;
-import com.idark.valoria.item.types.ScytheItem;
-import com.idark.valoria.network.PacketHandler;
-import com.idark.valoria.network.PageUpdatePacket;
-import com.idark.valoria.util.ModUtils;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class Events {
