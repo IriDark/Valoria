@@ -21,9 +21,9 @@ public class Unlockables {
         return unlockableMap.get(id);
     }
 
-    public static void register(Unlockable spell) {
-        unlockableMap.put(spell.getId(), spell);
-        unlockables.add(spell);
+    public static void register(Unlockable unlockable) {
+        unlockableMap.put(unlockable.getId(), unlockable);
+        unlockables.add(unlockable);
     }
 
     public static int size() {

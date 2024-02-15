@@ -85,6 +85,7 @@ public class LexiconGui extends Screen {
         // Bookmarks
         LexiconChapters.LEXICON.render(gui, guiLeft, guiTop, mouseX, mouseY, true);
         LexiconChapters.K.render(gui, guiLeft, guiTop, mouseX, mouseY, true);
+        LexiconChapters.TEST_U.render(gui, guiLeft, guiTop, mouseX, mouseY, true);
 
         // Category footer
         gui.blit(BACKGROUND, guiLeft + 48, guiTop + 31, 97, 180, 38, 13, 512, 512);

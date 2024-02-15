@@ -25,7 +25,9 @@ public class UnlockableUpdatePacket {
     public UnlockableUpdatePacket(Player entity) {
         this.uuid = entity.getUUID();
         entity.getCapability(IUnlockable.INSTANCE, null).ifPresent((k) -> {
-            this.tag = ((INBTSerializable<CompoundTag>)k).serializeNBT();
+            if (k instanceof INBTSerializable) {
+                this.tag = ((INBTSerializable<CompoundTag>) k).serializeNBT();
+            }
         });
     }
 
@@ -46,7 +48,9 @@ public class UnlockableUpdatePacket {
             Player player = world.getPlayerByUUID(packet.uuid);
             if (player != null) {
                 player.getCapability(IUnlockable.INSTANCE, null).ifPresent((k) -> {
-                    ((INBTSerializable<CompoundTag>)k).deserializeNBT(packet.tag);
+                    if (k instanceof INBTSerializable) {
+                        ((INBTSerializable<CompoundTag>) k).deserializeNBT(packet.tag);
+                    }
                 });
             }
         });

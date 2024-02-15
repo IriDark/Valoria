@@ -13,6 +13,7 @@ import com.idark.valoria.client.render.curio.NecklaceRenderer;
 import com.idark.valoria.client.render.gui.MagmaBarRender;
 import com.idark.valoria.client.render.gui.TooltipEventHandler;
 import com.idark.valoria.client.render.gui.book.newbook.LexiconChapters;
+import com.idark.valoria.client.render.gui.book.newbook.unlockable.RegisterUnlockables;
 import com.idark.valoria.client.screen.ManipulatorScreen;
 import com.idark.valoria.config.ClientConfig;
 import com.idark.valoria.client.menu.ModMenuTypes;
@@ -166,6 +167,7 @@ public class Valoria {
 	private void setup(final FMLCommonSetupEvent event) {
 		PacketHandler.init();
 		ModPotions.bootStrap();
+		RegisterUnlockables.init();
 		event.enqueueWork(() -> {
 			AxeItem.STRIPPABLES = new ImmutableMap.Builder<Block, Block>().putAll(AxeItem.STRIPPABLES)
 			.put(ModBlocks.SHADELOG.get(), ModBlocks.STRIPPED_SHADELOG.get())
