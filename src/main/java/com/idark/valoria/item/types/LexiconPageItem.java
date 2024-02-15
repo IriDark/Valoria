@@ -1,8 +1,19 @@
 package com.idark.valoria.item.types;
 
+import com.idark.valoria.api.unlockable.UnlockUtils;
+import com.idark.valoria.api.unlockable.Unlockable;
 import com.idark.valoria.client.render.gui.book.LexiconPages;
+import com.idark.valoria.client.render.gui.book.newbook.unlockable.UnlockableBookmark;
+import com.idark.valoria.client.toast.ModToast;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.stats.Stats;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -13,27 +24,23 @@ import java.util.List;
 public class LexiconPageItem extends Item {
 
     public LexiconPages pages;
+    public Unlockable unlockable;
 
-    public LexiconPageItem(LexiconPages pages, Properties props) {
+    public LexiconPageItem(LexiconPages pages, Properties props, Unlockable pUnlockable) {
         super(props);
         this.pages = pages;
+        this.unlockable = pUnlockable;
     }
 
-    //TODO: FIX SERVER CRASHING
-    /*@Override
+    @Override
     public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
         player.awardStat(Stats.ITEM_USED.get(this));
         if (!world.isClientSide) {
-            if (!LexiconGui.pageIsOpen(player, pages)) {
+            if (UnlockableBookmark.unlockable != null && !UnlockableBookmark.isUnlocked()) {
                 player.playSound(SoundEvents.PLAYER_LEVELUP, 1, 0);
                 player.getInventory().removeItem(stack);
-                Minecraft.getInstance().getToasts().addToast(new ModToast(true));
-                player.getCapability(IPage.INSTANCE, null).ifPresent((k) -> {
-                    k.makeOpen(pages, true);
-                });
-
-                PacketHandler.sendTo(player, new PageUpdatePacket(player));
+                UnlockUtils.addUnlockable(player, unlockable);
                 return new InteractionResultHolder<>(InteractionResult.SUCCESS, stack);
             } else {
                 player.playSound(SoundEvents.PLAYER_BURP, 1, 0);
@@ -43,7 +50,7 @@ public class LexiconPageItem extends Item {
         }
 
         return new InteractionResultHolder<>(InteractionResult.SUCCESS, stack);
-    }*/
+    }
 
     public String getModeString() {
         switch (pages) {

@@ -7,13 +7,9 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class Unlockable {
     public String id;
-    public int points;
-    public boolean articles;
 
-    public Unlockable(String id, boolean articles, int points) {
+    public Unlockable(String id) {
         this.id = id;
-        this.points = points;
-        this.articles = articles;
     }
 
     public boolean canReceived() {
@@ -22,14 +18,6 @@ public class Unlockable {
 
     public String getId() {
         return id;
-    }
-
-    public int getPoints() {
-        return points;
-    }
-
-    public boolean getArticles() {
-        return articles;
     }
 
     public boolean hasToast() {

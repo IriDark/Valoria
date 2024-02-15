@@ -1,7 +1,7 @@
 package com.idark.valoria.client.render.gui.book.newbook;
 
 import com.idark.valoria.Valoria;
-import com.idark.valoria.client.render.gui.book.LexiconPages;
+import com.idark.valoria.client.render.gui.book.newbook.unlockable.UnlockableBookmark;
 import com.idark.valoria.util.ColorUtils;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
@@ -31,7 +31,7 @@ public class LexiconGui extends Screen {
     public LexiconGui() {
         super(Component.translatable("gui.valoria.main"));
         if (currentChapter == null) {
-            currentChapter = LexiconChapters.MAIN;
+            currentChapter = LexiconChapters.MAIN_PAGE;
         }
     }
 
@@ -57,35 +57,40 @@ public class LexiconGui extends Screen {
         gui.blit(BACKGROUND, guiLeft, guiTop, 0, 0, 272, 180, 512, 512);
         gui.blit(BACKGROUND, guiLeft - 19, guiTop + 132, 272, 132, 17, 48, 512, 512);
 
-        if (mouseX >= guiLeft - 14 && mouseX < guiLeft - 14 + 38 && mouseY >= guiTop + 138 && mouseY < guiTop + 138 + 7) {
+        // START
+        if (mouseX >= guiLeft - 14 && mouseX < guiLeft && mouseY >= guiTop + 138 && mouseY < guiTop + 138 + 7) {
             gui.blit(BACKGROUND, guiLeft - 15, guiTop + 137, 279, 112, 9, 9, 512, 512);
             renderTooltip(gui, Component.translatable("gui.valoria.thanks"), guiLeft - 14, guiTop + 138);
         } else {
             gui.blit(BACKGROUND, guiLeft - 14, guiTop + 138, 272, 113, 7, 7, 512, 512);
         }
 
-        if (mouseX >= guiLeft - 12 && mouseX < guiLeft - 12 + 38 && mouseY >= guiTop + 148 && mouseY < guiTop + 148 + 6) {
+        if (mouseX >= guiLeft - 12 && mouseX < guiLeft && mouseY >= guiTop + 148 && mouseY < guiTop + 148 + 6) {
             gui.blit(BACKGROUND, guiLeft - 12, guiTop + 148, 272, 121, 3, 6, 512, 512);
         } else {
             gui.blit(BACKGROUND, guiLeft - 12, guiTop + 148, 275, 121, 3, 6, 512, 512);
         }
 
-        if (mouseX >= guiLeft - 12 && mouseX < guiLeft - 12 + 38 && mouseY >= guiTop + 158 && mouseY < guiTop + 158 + 6) {
+        if (mouseX >= guiLeft - 12 && mouseX < guiLeft && mouseY >= guiTop + 158 && mouseY < guiTop + 158 + 6) {
             gui.blit(BACKGROUND, guiLeft - 12, guiTop + 158, 272, 121, 3, 6, 512, 512);
         } else {
             gui.blit(BACKGROUND, guiLeft - 12, guiTop + 158, 275, 121, 3, 6, 512, 512);
         }
 
-        if (mouseX >= guiLeft - 12 && mouseX < guiLeft - 12 + 38 && mouseY >= guiTop + 168 && mouseY < guiTop + 168 + 6) {
+        if (mouseX >= guiLeft - 12 && mouseX < guiLeft && mouseY >= guiTop + 168 && mouseY < guiTop + 168 + 6) {
             gui.blit(BACKGROUND, guiLeft - 12, guiTop + 168, 272, 121, 3, 6, 512, 512);
         } else {
             gui.blit(BACKGROUND, guiLeft - 12, guiTop + 168, 275, 121, 3, 6, 512, 512);
         }
+        // END
 
         // Bookmarks
         LexiconChapters.LEXICON.render(gui, guiLeft, guiTop, mouseX, mouseY, true);
-        LexiconChapters.K.render(gui, guiLeft, guiTop, mouseX, mouseY, true);
-        LexiconChapters.TEST_U.render(gui, guiLeft, guiTop, mouseX, mouseY, true);
+        LexiconChapters.TREASURES.render(gui, guiLeft, guiTop, mouseX, mouseY, true);
+        LexiconChapters.MEDICINE.render(gui, guiLeft, guiTop, mouseX, mouseY, true);
+        if (UnlockableBookmark.unlockable != null && UnlockableBookmark.isUnlocked()) {
+            LexiconChapters.CRYPT.render(gui, guiLeft, guiTop, mouseX, mouseY, true);
+        }
 
         // Category footer
         gui.blit(BACKGROUND, guiLeft + 48, guiTop + 31, 97, 180, 38, 13, 512, 512);
@@ -126,13 +131,15 @@ public class LexiconGui extends Screen {
             this.height = mc.getWindow().getGuiScaledHeight();
             int guiLeft = (width - 272) / 2, guiTop = (height - 180) / 2;
 
-            if (mouseX >= guiLeft - 14 && mouseX < guiLeft - 14 + 35 && mouseY >= guiTop + 138 && mouseY < guiTop + 138 + 7) {
+            // START
+            if (mouseX >= guiLeft - 14 && mouseX < guiLeft && mouseY >= guiTop + 138 && mouseY < guiTop + 138 + 7) {
                 mc.player.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundSource.NEUTRAL, 1.0f, 1.0f);
             }
+            // END
 
             if (mouseX >= guiLeft + 267 + 2 && mouseX < guiLeft + 267 + 35 && mouseY >= guiTop + 10 + 4 && mouseY < guiTop + 10 + 25) {
                 mc.player.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundSource.NEUTRAL, 1.0f, 1.0f);
-                changeChapter(LexiconChapters.MAIN);
+                changeChapter(LexiconChapters.MAIN_PAGE);
             }
 
             Page right = currentChapter.getPage(currentPage + 1);
@@ -150,9 +157,21 @@ public class LexiconGui extends Screen {
                 }
             }
 
-            if (mouseX >= guiLeft + 267 + 2 && mouseX < guiLeft + 267 + 35 && mouseY >= guiTop + 42 + 4 && mouseY < guiTop + 42 + 25) {
+            if (mouseX >= guiLeft + 267 + 2 && mouseX < guiLeft + 267 + 35 && mouseY >= guiTop + 38 + 4 && mouseY < guiTop + 38 + 25) {
                 mc.player.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundSource.NEUTRAL, 1.0f, 1.0f);
-                changeChapter(LexiconChapters.GEMS);
+                changeChapter(LexiconChapters.TREASURES_PAGE);
+            }
+
+            if (mouseX >= guiLeft + 267 + 2 && mouseX < guiLeft + 267 + 35 && mouseY >= guiTop + 66 + 4 && mouseY < guiTop + 66 + 25) {
+                mc.player.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundSource.NEUTRAL, 1.0f, 1.0f);
+                changeChapter(LexiconChapters.MEDICINE_PAGE);
+            }
+
+            if (UnlockableBookmark.unlockable != null && UnlockableBookmark.isUnlocked()) {
+                if (mouseX >= guiLeft + 267 + 2 && mouseX < guiLeft + 267 + 35 && mouseY >= guiTop + 94 + 4 && mouseY < guiTop + 94 + 25) {
+                    mc.player.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundSource.NEUTRAL, 1.0f, 1.0f);
+                    changeChapter(LexiconChapters.CRYPT_PAGE);
+                }
             }
         }
 

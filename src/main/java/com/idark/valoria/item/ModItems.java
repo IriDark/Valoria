@@ -1,8 +1,10 @@
 package com.idark.valoria.item;
 
 import com.idark.valoria.Valoria;
+import com.idark.valoria.api.unlockable.Unlockable;
 import com.idark.valoria.block.ModBlocks;
 import com.idark.valoria.client.render.gui.book.LexiconPages;
+import com.idark.valoria.client.render.gui.book.newbook.unlockable.RegisterUnlockables;
 import com.idark.valoria.effect.ModEffects;
 import com.idark.valoria.entity.ModEntityTypes;
 import com.idark.valoria.item.curio.*;
@@ -249,7 +251,7 @@ public class ModItems {
 	public static final RegistryObject<Item> ALOE_PIECE = ITEMS.register("aloe_piece", () -> new Item(new Item.Properties()));
 
 	public static final RegistryObject<Item> LEXICON = ITEMS.register("lexicon", () -> new LexiconItem(new Item.Properties().stacksTo(1)));
-	public static final RegistryObject<Item> CRYPT = ITEMS.register("page", () -> new LexiconPageItem(LexiconPages.CRYPT,  new Item.Properties().stacksTo(1)));
+	public static final RegistryObject<Item> CRYPT = ITEMS.register("page", () -> new LexiconPageItem(LexiconPages.CRYPT,  new Item.Properties().stacksTo(1), RegisterUnlockables.CRYPT));
 
 	public static final RegistryObject<Item> ALOE_BANDAGE = ITEMS.register("aloe_bandage", () -> new AloeBandageItem(1600, 0));
 	public static final RegistryObject<Item> ALOE_BANDAGE_UPGRADED = ITEMS.register("aloe_bandage_upgraded", () -> new AloeBandageItem(1450, 1));

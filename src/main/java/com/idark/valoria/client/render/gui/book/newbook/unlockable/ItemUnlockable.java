@@ -12,8 +12,8 @@ public class ItemUnlockable extends Unlockable {
     @Deprecated
     public final Item item;
 
-    public ItemUnlockable(String id, boolean articles, int points, Item item) {
-        super(id, articles, points);
+    public ItemUnlockable(String id, Item item) {
+        super(id);
         this.item = item;
     }
 

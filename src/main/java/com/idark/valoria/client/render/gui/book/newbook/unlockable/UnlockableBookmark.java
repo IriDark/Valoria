@@ -18,8 +18,8 @@ public class UnlockableBookmark {
     private final Item item;
     private final int x;
     private final int y;
-    public Chapter chapter;
-    public Unlockable unlockable;
+    public  Chapter chapter;
+    public static Unlockable unlockable;
 
     private final String translate;
 
@@ -37,11 +37,11 @@ public class UnlockableBookmark {
         this.y = y;
         this.translate = pTranslate;
         this.chapter = chapter;
-        this.unlockable = unlockable;
+        UnlockableBookmark.unlockable = unlockable;
     }
 
     public void render(GuiGraphics gui, int guiLeft, int guiTop, int mouseX, int mouseY, boolean ShowTooltip) {
-        if (this.isUnlocked()) {
+        if (isUnlocked()) {
             gui.blit(BACKGROUND, guiLeft + x, guiTop + y, 287, 15, 18, 18, 512, 512);
             if (!item.getDefaultInstance().isEmpty()) {
                 gui.blit(BACKGROUND, guiLeft + x, guiTop + y, 0, 193, 35, 25, 512, 512);
@@ -61,9 +61,9 @@ public class UnlockableBookmark {
     }
 
     @OnlyIn(Dist.CLIENT)
-    public boolean isUnlocked() {
+    public static boolean isUnlocked() {
         if (unlockable == null) {
-            return true;
+            return false;
         } else {
             return (UnlockUtils.isUnlockable(Minecraft.getInstance().player, unlockable));
         }

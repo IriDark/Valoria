@@ -4,6 +4,7 @@ import com.idark.valoria.capability.IUnlockable;
 import com.idark.valoria.client.toast.ModToast;
 import com.idark.valoria.network.PacketHandler;
 import com.idark.valoria.network.UnlockableUpdatePacket;
+import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 
@@ -30,7 +31,7 @@ public class UnlockUtils {
 
             PacketHandler.sendTo((Player) entity, new UnlockableUpdatePacket((Player) entity));
             if (unlockable.hasToast()) {
-                PacketHandler.sendTo((Player) entity, new ModToast(true));
+                Minecraft.getInstance().getToasts().addToast(new ModToast(true));
             }
         });
     }
@@ -42,6 +43,8 @@ public class UnlockUtils {
             k.removeUnlockable(unlockable);
 
             PacketHandler.sendTo((Player) entity, new UnlockableUpdatePacket((Player) entity));
+            Minecraft.getInstance().getToasts().addToast(new ModToast(false));
+
         });
     }
 
@@ -57,7 +60,7 @@ public class UnlockUtils {
             }
 
             PacketHandler.sendTo((Player) entity, new UnlockableUpdatePacket((Player) entity));
-            PacketHandler.sendTo((Player) entity, new ModToast(true));
+            Minecraft.getInstance().getToasts().addToast(new ModToast(true));
         });
     }
 
@@ -67,28 +70,7 @@ public class UnlockUtils {
             k.removeAllUnlockable();
 
             PacketHandler.sendTo((Player) entity, new UnlockableUpdatePacket((Player) entity));
+            Minecraft.getInstance().getToasts().addToast(new ModToast(false));
         });
-    }
-
-    public static int getUnlockablePoints(Entity entity) {
-        int points = 0;
-
-        for (Unlockable Unlockable : Unlockables.getUnlockables()) {
-            if (isUnlockable(entity, Unlockable)) {
-                points = points + Unlockable.getPoints();
-            }
-        }
-
-        return points;
-    }
-
-    public static int getAllUnlockablePoints() {
-        int points = 0;
-
-        for (Unlockable Unlockable : Unlockables.getUnlockables()) {
-            points = points + Unlockable.getPoints();
-        }
-
-        return points;
     }
 }

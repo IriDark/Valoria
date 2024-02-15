@@ -1,9 +1,10 @@
 package com.idark.valoria.client.render.gui.book.newbook;
 
-import com.idark.valoria.api.unlockable.Unlockable;
 import com.idark.valoria.client.render.gui.book.newbook.pages.TextPage;
 import com.idark.valoria.client.render.gui.book.newbook.pages.TitledTextPage;
+import com.idark.valoria.client.render.gui.book.newbook.unlockable.RegisterUnlockables;
 import com.idark.valoria.client.render.gui.book.newbook.unlockable.UnlockableBookmark;
+import com.idark.valoria.item.ModItems;
 import net.minecraft.world.item.Items;
 
 import java.util.ArrayList;
@@ -11,34 +12,41 @@ import java.util.List;
 
 public class LexiconChapters {
     public static List<Bookmark> categories = new ArrayList<>();
-    public static Bookmark LEXICON, K;
-    public static UnlockableBookmark TEST_U;
-    public static Chapter MAIN, GEMS, TEST;
+    public static Bookmark LEXICON, TREASURES, MEDICINE;
+    public static UnlockableBookmark CRYPT;
+    public static Chapter MAIN_PAGE, TREASURES_PAGE, MEDICINE_PAGE, CRYPT_PAGE;
 
     public static void init() {
-        MAIN = new Chapter(
-                "test1",
-                new TitledTextPage("gui.valoria.treasures", false)
-                //new UnlockablePage(new UnlockableEntry(TEST, new ItemStack(ModItems.GEM_BAG.get())))
+        MAIN_PAGE = new Chapter(
+                "gui.valoria.main.name",
+                new TitledTextPage("gui.valoria.main", false),
+                new TitledTextPage("gui.valoria.knowledge", false)
         );
 
-        TEST = new Chapter(
-                "gui.valoria.unknown",
-                new TitledTextPage("gui.valoria.treasures", false)
-        );
-
-        GEMS = new Chapter(
-                "test2",
+        TREASURES_PAGE = new Chapter(
+                "gui.valoria.jewelry",
                 new TitledTextPage("gui.valoria.treasures", false),
                 new TitledTextPage("gui.valoria.treasure.gems", true),
-                new TextPage("b"),
-                new TextPage("c")
+                new TextPage("gui.valoria.treasure.gems.about")
         );
 
-        LEXICON = new Bookmark(Items.BOOK, "item.valoria.lexicon", 267, 10, MAIN);
-        K = new Bookmark(Items.VINE, "item.valoria.lexicon", 267, 42, GEMS);
-        TEST_U = new UnlockableBookmark(Items.GLASS_PANE, "item.valoria.lexicon", 267, 42 + 32, TEST);
+        MEDICINE_PAGE = new Chapter(
+                "gui.valoria.medicine",
+                new TitledTextPage("gui.valoria.medicine", false)
+        );
+
+        CRYPT_PAGE = new Chapter(
+                "gui.valoria.crypt.name",
+                new TitledTextPage("gui.valoria.crypt", false)
+        );
+
+        LEXICON = new Bookmark(ModItems.LEXICON.get(), "gui.valoria.main.name", 267, 10, MAIN_PAGE);
+        TREASURES = new Bookmark(ModItems.AMETHYST_GEM.get(), "gui.valoria.jewelry", 267, 38, TREASURES_PAGE);
+        MEDICINE = new Bookmark(ModItems.ALOE_BANDAGE.get(), "gui.valoria.medicine.name", 267, 66, MEDICINE_PAGE);
+        CRYPT = new UnlockableBookmark(ModItems.CRYPT.get(), "gui.valoria.crypt.name", 267, 94, CRYPT_PAGE, RegisterUnlockables.CRYPT);
+
         categories.add(LEXICON);
-        categories.add(K);
+        categories.add(TREASURES);
+        categories.add(MEDICINE);
     }
 }
