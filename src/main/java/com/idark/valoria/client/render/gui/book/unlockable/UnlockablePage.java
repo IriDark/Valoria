@@ -1,6 +1,6 @@
-package com.idark.valoria.client.render.gui.book.newbook.unlockable;
+package com.idark.valoria.client.render.gui.book.unlockable;
 
-import com.idark.valoria.client.render.gui.book.newbook.Page;
+import com.idark.valoria.client.render.gui.book.Page;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.language.I18n;

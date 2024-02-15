@@ -1,7 +1,6 @@
 package com.idark.valoria.item.types;
 
-import com.idark.valoria.client.render.gui.book.LexiconPages;
-import com.idark.valoria.client.render.gui.book.newbook.LexiconGui;
+import com.idark.valoria.client.render.gui.book.LexiconGui;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;

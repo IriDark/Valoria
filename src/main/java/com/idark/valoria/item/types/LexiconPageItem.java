@@ -3,10 +3,8 @@ package com.idark.valoria.item.types;
 import com.idark.valoria.api.unlockable.UnlockUtils;
 import com.idark.valoria.api.unlockable.Unlockable;
 import com.idark.valoria.client.render.gui.book.LexiconPages;
-import com.idark.valoria.client.render.gui.book.newbook.unlockable.UnlockableBookmark;
-import com.idark.valoria.client.toast.ModToast;
+import com.idark.valoria.client.render.gui.book.unlockable.UnlockableBookmark;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.stats.Stats;
@@ -54,7 +52,7 @@ public class LexiconPageItem extends Item {
 
     public String getModeString() {
         switch (pages) {
-            case MAIN, MEDICINE, GEMS, GEMS_ABOUT, THANKS -> {
+            case MAIN, MEDICINE, GEMS, THANKS -> {
                 return null;
             }
 

@@ -1,4 +1,4 @@
-package com.idark.valoria.client.render.gui.book.newbook;
+package com.idark.valoria.client.render.gui.book;
 
 import com.idark.valoria.Valoria;
 import net.minecraft.client.Minecraft;

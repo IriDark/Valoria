@@ -1,11 +1,10 @@
-package com.idark.valoria.client.render.gui.book.newbook;
+package com.idark.valoria.client.render.gui.book;
 
-import com.idark.valoria.client.render.gui.book.newbook.pages.TextPage;
-import com.idark.valoria.client.render.gui.book.newbook.pages.TitledTextPage;
-import com.idark.valoria.client.render.gui.book.newbook.unlockable.RegisterUnlockables;
-import com.idark.valoria.client.render.gui.book.newbook.unlockable.UnlockableBookmark;
+import com.idark.valoria.client.render.gui.book.pages.TextPage;
+import com.idark.valoria.client.render.gui.book.pages.TitledTextPage;
+import com.idark.valoria.client.render.gui.book.unlockable.RegisterUnlockables;
+import com.idark.valoria.client.render.gui.book.unlockable.UnlockableBookmark;
 import com.idark.valoria.item.ModItems;
-import net.minecraft.world.item.Items;
 
 import java.util.ArrayList;
 import java.util.List;

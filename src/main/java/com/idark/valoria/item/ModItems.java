@@ -1,10 +1,9 @@
 package com.idark.valoria.item;
 
 import com.idark.valoria.Valoria;
-import com.idark.valoria.api.unlockable.Unlockable;
 import com.idark.valoria.block.ModBlocks;
 import com.idark.valoria.client.render.gui.book.LexiconPages;
-import com.idark.valoria.client.render.gui.book.newbook.unlockable.RegisterUnlockables;
+import com.idark.valoria.client.render.gui.book.unlockable.RegisterUnlockables;
 import com.idark.valoria.effect.ModEffects;
 import com.idark.valoria.entity.ModEntityTypes;
 import com.idark.valoria.item.curio.*;
@@ -19,7 +18,6 @@ import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.ModList;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;

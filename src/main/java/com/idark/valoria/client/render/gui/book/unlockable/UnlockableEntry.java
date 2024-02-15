@@ -1,8 +1,8 @@
-package com.idark.valoria.client.render.gui.book.newbook.unlockable;
+package com.idark.valoria.client.render.gui.book.unlockable;
 
 import com.idark.valoria.api.unlockable.UnlockUtils;
 import com.idark.valoria.api.unlockable.Unlockable;
-import com.idark.valoria.client.render.gui.book.newbook.Chapter;
+import com.idark.valoria.client.render.gui.book.Chapter;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
