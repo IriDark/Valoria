@@ -15,6 +15,8 @@ import com.idark.valoria.client.render.gui.TooltipEventHandler;
 import com.idark.valoria.client.render.gui.book.newbook.LexiconChapters;
 import com.idark.valoria.client.render.gui.book.newbook.unlockable.RegisterUnlockables;
 import com.idark.valoria.client.screen.ManipulatorScreen;
+import com.idark.valoria.command.arguments.ModArgumentTypes;
+import com.idark.valoria.command.arguments.UnlockableArgumentType;
 import com.idark.valoria.config.ClientConfig;
 import com.idark.valoria.client.menu.ModMenuTypes;
 import com.idark.valoria.datagen.ModRecipeProvider;
@@ -42,6 +44,9 @@ import com.idark.valoria.util.WorldRenderHandler;
 import com.idark.valoria.client.particle.ModParticles;
 import com.idark.valoria.world.WorldGen;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.commands.synchronization.ArgumentTypeInfo;
+import net.minecraft.commands.synchronization.ArgumentTypeInfos;
+import net.minecraft.commands.synchronization.SingletonArgumentInfo;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
@@ -94,6 +99,7 @@ public class Valoria {
 		ModEntityTypes.register(eventBus);
 		ModParticles.register(eventBus);
 		LootUtil.register(eventBus);
+		ModArgumentTypes.register(eventBus);
 
 		IEventBus forgeBus = MinecraftForge.EVENT_BUS;
 

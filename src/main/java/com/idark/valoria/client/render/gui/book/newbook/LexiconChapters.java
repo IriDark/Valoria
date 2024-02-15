@@ -1,5 +1,6 @@
 package com.idark.valoria.client.render.gui.book.newbook;
 
+import com.idark.valoria.api.unlockable.Unlockable;
 import com.idark.valoria.client.render.gui.book.newbook.pages.TextPage;
 import com.idark.valoria.client.render.gui.book.newbook.pages.TitledTextPage;
 import com.idark.valoria.client.render.gui.book.newbook.unlockable.UnlockableBookmark;
