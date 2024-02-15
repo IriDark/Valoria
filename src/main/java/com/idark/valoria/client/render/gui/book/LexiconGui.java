@@ -141,7 +141,7 @@ public class LexiconGui extends Screen {
                 changeChapter(LexiconChapters.MAIN_PAGE);
             }
 
-            if (currentChapter.size() >= 3) {
+            if (currentChapter.size() >= currentPage + 3) {
                 if (mouseX >= guiLeft + 250 && mouseX < guiLeft + 250 + 9 && mouseY >= guiTop + 150 && mouseY < guiTop + 150 + 8) {
                     mc.player.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundSource.NEUTRAL, 1.0f, 1.0f);
                     currentPage += 2;
