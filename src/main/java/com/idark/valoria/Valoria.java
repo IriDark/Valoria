@@ -12,6 +12,7 @@ import com.idark.valoria.client.render.curio.HandsRenderer;
 import com.idark.valoria.client.render.curio.NecklaceRenderer;
 import com.idark.valoria.client.render.gui.MagmaBarRender;
 import com.idark.valoria.client.render.gui.TooltipEventHandler;
+import com.idark.valoria.client.render.gui.book.newbook.LexiconChapters;
 import com.idark.valoria.client.screen.ManipulatorScreen;
 import com.idark.valoria.config.ClientConfig;
 import com.idark.valoria.client.menu.ModMenuTypes;
@@ -26,8 +27,12 @@ import com.idark.valoria.item.ModAttributes;
 import com.idark.valoria.item.ModItemGroup;
 import com.idark.valoria.item.ModItems;
 import com.idark.valoria.item.staffs.StaffItem;
+import com.idark.valoria.network.PacketHandler;
 import com.idark.valoria.paintings.ModPaintings;
 import com.idark.valoria.effect.potion.ModPotions;
+import com.idark.valoria.proxy.ClientProxy;
+import com.idark.valoria.proxy.ISidedProxy;
+import com.idark.valoria.proxy.ServerProxy;
 import com.idark.valoria.recipe.ModRecipes;
 import com.idark.valoria.client.screen.JewelryScreen;
 import com.idark.valoria.util.LootUtil;
@@ -52,7 +57,6 @@ import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -60,9 +64,6 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import top.theillusivec4.curios.api.CuriosApi;
-import top.theillusivec4.curios.api.SlotTypeMessage;
-import top.theillusivec4.curios.api.SlotTypePreset;
 import top.theillusivec4.curios.api.client.CuriosRendererRegistry;
 
 import java.util.concurrent.CompletableFuture;
@@ -70,17 +71,10 @@ import java.util.concurrent.CompletableFuture;
 @Mod(Valoria.MOD_ID)
 public class Valoria {
 	public static final String MOD_ID = "valoria";
+	public static final ISidedProxy proxy = DistExecutor.unsafeRunForDist(() -> ClientProxy::new, () -> ServerProxy::new);
 
-	// Plans
 	//TODO: Create Brewery
 	public Valoria() {
-		InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE, () -> SlotTypePreset.RING.getMessageBuilder().build());
-		InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE, () -> SlotTypePreset.BELT.getMessageBuilder().build());
-		InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE, () -> SlotTypePreset.HANDS.getMessageBuilder().build());
-		InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE, () -> SlotTypePreset.NECKLACE.getMessageBuilder().build());
-		InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE, () -> SlotTypePreset.HEAD.getMessageBuilder().build());
-		InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE, () -> SlotTypePreset.CHARM.getMessageBuilder().build());
-
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
 
@@ -126,6 +120,8 @@ public class Valoria {
 
 	private void clientSetup(final FMLClientSetupEvent event) {
 		event.enqueueWork(() -> {
+			LexiconChapters.init();
+
 			CuriosRendererRegistry.register(ModItems.IRON_NECKLACE_AMBER.get(), NecklaceRenderer::new);
 			CuriosRendererRegistry.register(ModItems.IRON_NECKLACE_DIAMOND.get(), NecklaceRenderer::new);
 			CuriosRendererRegistry.register(ModItems.IRON_NECKLACE_EMERALD.get(), NecklaceRenderer::new);
@@ -168,8 +164,7 @@ public class Valoria {
 	}
 
 	private void setup(final FMLCommonSetupEvent event) {
-		//TODO: FIX PACKET HANDLER
-		//PacketHandler.init();
+		PacketHandler.init();
 		ModPotions.bootStrap();
 		event.enqueueWork(() -> {
 			AxeItem.STRIPPABLES = new ImmutableMap.Builder<Block, Block>().putAll(AxeItem.STRIPPABLES)

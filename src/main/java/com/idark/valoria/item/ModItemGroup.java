@@ -483,10 +483,10 @@ public abstract class ModItemGroup {
             event.accept(ModItems.STONE_CRUSHER);
             event.accept(ModItems.JEWELER_TABLE);
             event.accept(ModItems.KEG);
-            event.accept(ModItems.KEYBLOCK);
-            event.accept(ModItems.CUT_KEYBLOCK);
-            event.accept(ModItems.KEYBLOCK_BRICKS);
-            event.accept(ModItems.KEYBLOCK_RUNE);
+            event.accept(ModItems.UMBRAL_KEYPAD);
+            event.accept(ModItems.CUT_UMBRAL_BLOCK);
+            event.accept(ModItems.UMBRAL_BRICKS);
+            event.accept(ModItems.UMBRAL_BLOCK);
             event.accept(ModItems.TILE);
             event.accept(ModItems.ELEMENTAL_MANIPULATOR);
             event.accept(ModItems.ELEGANT_PEDESTAL);

@@ -1,5 +1,6 @@
 package com.idark.valoria.command.build;
 
+import com.idark.valoria.api.unlockable.Unlockable;
 import com.idark.valoria.client.render.gui.book.LexiconPages;
 import com.mojang.brigadier.arguments.*;
 import com.mojang.brigadier.builder.ArgumentBuilder;
@@ -153,11 +154,19 @@ public class CommandArgument extends CommandPart {
         return res;
     }
 
-    public LexiconPages getPages(final CommandContext<?> context, final String name) {
-        return context.getArgument(name, LexiconPages.class);
+//    public LexiconPages getPages(final CommandContext<?> context, final String name) {
+//        return context.getArgument(name, LexiconPages.class);
+//    }
+//
+//    public static CommandArgument pages(String pName) {
+//        return new CommandArgument(pName, EnumArgument.enumArgument(LexiconPages.class));
+//    }
+
+    public Unlockable getPages(final CommandContext<?> context, final String name) {
+        return context.getArgument(name, Unlockable.class);
     }
 
     public static CommandArgument pages(String pName) {
-        return new CommandArgument(pName, EnumArgument.enumArgument(LexiconPages.class));
+        return new CommandArgument(pName, StringArgumentType.string());
     }
 }

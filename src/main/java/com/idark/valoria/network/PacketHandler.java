@@ -17,7 +17,7 @@ import net.minecraftforge.network.simple.SimpleChannel;
 public final class PacketHandler {
     private static final String PROTOCOL = "10";
     public static final SimpleChannel HANDLER = NetworkRegistry.newSimpleChannel(
-            new ResourceLocation(Valoria.MOD_ID, "network"),
+            new ResourceLocation(Valoria.MOD_ID,"network"),
             () -> PROTOCOL,
             PROTOCOL::equals,
             PROTOCOL::equals
@@ -25,7 +25,7 @@ public final class PacketHandler {
 
     public static void init() {
         int id = 0;
-        HANDLER.registerMessage(id++, PageUpdatePacket.class, PageUpdatePacket::encode, PageUpdatePacket::decode, PageUpdatePacket::handle);
+        HANDLER.registerMessage(id++, UnlockableUpdatePacket.class, UnlockableUpdatePacket::encode, UnlockableUpdatePacket::decode, UnlockableUpdatePacket::handle);
     }
 
     private static final PacketDistributor<Pair<Level, BlockPos>> TRACKING_CHUNK_AND_NEAR = new PacketDistributor<>(

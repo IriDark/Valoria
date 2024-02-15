@@ -39,14 +39,14 @@ public class ModBlocks {
 			() -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_TRAPDOOR).requiresCorrectToolForDrops().strength(2f, 4f).noOcclusion(), BlockSetType.OAK));
 	public static final RegistryObject<Block> BRONZE_TRAPDOOR_GLASS = registerBlock("bronze_trapdoor_glass",
 			() -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_TRAPDOOR).requiresCorrectToolForDrops().strength(3f, 4f).noOcclusion(), BlockSetType.OAK));
-	// Key
-	public static final RegistryObject<Block> KEYBLOCK = BLOCK.register("keyblock",
+	// Umbral
+	public static final RegistryObject<Block> UMBRAL_KEYPAD = BLOCK.register("umbral_keypad",
 			() -> new KeyPadBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(-1f, 3600000.8F).sound(SoundType.NETHER_BRICKS).noLootTable()));
-	public static final RegistryObject<Block> CUT_KEYBLOCK = BLOCK.register("cut_keyblock",
+	public static final RegistryObject<Block> CUT_UMBRAL_BLOCK = BLOCK.register("cut_umbral_block",
 			() -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(-1f, 3600000.8F).sound(SoundType.NETHER_BRICKS).noLootTable()));
-	public static final RegistryObject<Block> KEYBLOCK_BRICKS = BLOCK.register("keyblock_bricks",
+	public static final RegistryObject<Block> UMBRAL_BRICKS = BLOCK.register("umbral_bricks",
 			() -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(-1f, 3600000.8F).sound(SoundType.NETHER_BRICKS).noLootTable()));
-	public static final RegistryObject<Block> KEYBLOCK_RUNE = BLOCK.register("keyblock_rune",
+	public static final RegistryObject<Block> UMBRAL_BLOCK = BLOCK.register("umbral_block",
 			() -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(-1f, 3600000.8F).sound(SoundType.NETHER_BRICKS).noLootTable()));
 	// Metal
 	public static final RegistryObject<Block> AMETHYST_BLOCK = BLOCK.register("amethyst_block",

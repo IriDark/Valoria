@@ -1,7 +1,6 @@
 package com.idark.valoria.client.render.gui.book;
 
 import com.idark.valoria.Valoria;
-import com.idark.valoria.capability.IPage;
 import com.idark.valoria.item.ModItems;
 import com.idark.valoria.util.ColorUtils;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -43,25 +42,25 @@ public class LexiconGui extends Screen {
         switch (pages) {
             case MAIN -> {
                 AtomicBoolean Main = new AtomicBoolean(true);
-                entity.getCapability(IPage.INSTANCE, null).ifPresent((k) -> Main.set(k.isOpen(LexiconPages.MAIN)));
+                //entity.getCapability(IPage.INSTANCE, null).ifPresent((k) -> Main.set(k.isOpen(LexiconPages.MAIN)));
                 return Main.get();
             }
 
             case GEMS -> {
                 AtomicBoolean Gems = new AtomicBoolean(true);
-                entity.getCapability(IPage.INSTANCE, null).ifPresent((k) -> Gems.set(k.isOpen(LexiconPages.GEMS)));
+                //entity.getCapability(IPage.INSTANCE, null).ifPresent((k) -> Gems.set(k.isOpen(LexiconPages.GEMS)));
                 return Gems.get();
             }
 
             case MEDICINE -> {
                 AtomicBoolean Medicine = new AtomicBoolean(true);
-                entity.getCapability(IPage.INSTANCE, null).ifPresent((k) -> Medicine.set(k.isOpen(LexiconPages.MEDICINE)));
+                //entity.getCapability(IPage.INSTANCE, null).ifPresent((k) -> Medicine.set(k.isOpen(LexiconPages.MEDICINE)));
                 return Medicine.get();
             }
 
             case CRYPT -> {
                 AtomicBoolean Crypt = new AtomicBoolean(true);
-                entity.getCapability(IPage.INSTANCE, null).ifPresent((k) -> Crypt.set(k.isOpen(LexiconPages.CRYPT)));
+                //entity.getCapability(IPage.INSTANCE, null).ifPresent((k) -> Crypt.set(k.isOpen(LexiconPages.CRYPT)));
                 return Crypt.get();
             }
         }

@@ -1,7 +1,9 @@
 package com.idark.valoria.item.types;
 
 import com.google.common.collect.ImmutableMap;
+import com.idark.valoria.client.event.ClientTickHandler;
 import com.idark.valoria.item.ModArmorMaterial;
+import net.minecraft.client.Minecraft;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -13,50 +15,49 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
 import java.util.Map;
-import java.util.Objects;
 import java.util.Random;
 
+@SuppressWarnings("removal")
 public class ModArmorItem extends ArmorItem {
-	private static final Map<ArmorMaterial, MobEffect> MATERIAL_TO_EFFECT_MAP =
-	new ImmutableMap.Builder<ArmorMaterial, MobEffect>()
+	private static final Map<ArmorMaterial, MobEffect> MATERIAL_TO_EFFECT_MAP = new ImmutableMap.Builder<ArmorMaterial, MobEffect>()
 		.put(ModArmorMaterial.DEPTH, MobEffects.WATER_BREATHING)
 		.put(ModArmorMaterial.INFERNAL, MobEffects.DAMAGE_BOOST)
 		.build();
-	
+
 	public ModArmorItem(ArmorMaterial material, ArmorItem.Type type, Properties settings) {
-	super(material, type, settings);
+		super(material, type, settings);
 	}
-	
+
 	@Override
-	public void onArmorTick(ItemStack stack, Level world, Player player) {
-		if(!world.isClientSide()) {
-			if(hasFullSuitOfArmorOn(player)) {
+	public void onArmorTick(ItemStack stack, Level level, Player player) {
+		if(!level.isClientSide()) {
+			if (hasFullSuitOfArmorOn(player)) {
 				evaluateArmorEffects(player);
 			}
 		}
-	
-	super.onArmorTick(stack, world, player);
 	}
-	
+
 	private void evaluateArmorEffects(Player player) {
 		for (Map.Entry<ArmorMaterial, MobEffect> entry : MATERIAL_TO_EFFECT_MAP.entrySet()) {
 			ArmorMaterial mapArmorMaterial = entry.getKey();
 			MobEffect mapStatusEffect = entry.getValue();
-	
 			if(hasCorrectArmorOn(mapArmorMaterial, player)) {
-				addStatusEffectForMaterial(player, mapArmorMaterial, mapStatusEffect);
+				if (mapArmorMaterial == ModArmorMaterial.DEPTH) {
+					if (player.isInWater()) {
+						addStatusEffectForMaterial(player, mapArmorMaterial, mapStatusEffect);
+					}
+				} else {
+					addStatusEffectForMaterial(player, mapArmorMaterial, mapStatusEffect);
+				}
 			}
 		}
 	}
 	
 	private void addStatusEffectForMaterial(Player player, ArmorMaterial mapArmorMaterial, MobEffect mapStatusEffect) {
-		boolean hasPlayerEffect = !Objects.equals(player.getEffect(mapStatusEffect), null);
-	
-		if(hasCorrectArmorOn(mapArmorMaterial, player) && !hasPlayerEffect) {
+		if(hasCorrectArmorOn(mapArmorMaterial, player) && !player.hasEffect(mapStatusEffect)) {
 			player.addEffect(new MobEffectInstance(mapStatusEffect, 400));
-	
-			if(new Random().nextFloat() > 0.4f) { // 40% of damaging the armor! Possibly!
-				player.getInventory().hurtArmor(player.damageSources().magic(), 6f, Inventory.ALL_ARMOR_SLOTS);
+			if (new Random().nextFloat() > 0.4f) {
+				player.getInventory().hurtArmor(player.damageSources().magic(), 2f, Inventory.ALL_ARMOR_SLOTS);
 			}
 		}
 	}
@@ -67,8 +68,7 @@ public class ModArmorItem extends ArmorItem {
 		ItemStack breastplate = player.getInventory().getArmor(2);
 		ItemStack helmet = player.getInventory().getArmor(3);
 	
-		return !helmet.isEmpty() && !breastplate.isEmpty()
-		&& !leggings.isEmpty() && !boots.isEmpty();
+		return !helmet.isEmpty() && !breastplate.isEmpty() && !leggings.isEmpty() && !boots.isEmpty();
 	}
 	
 	private boolean hasCorrectArmorOn(ArmorMaterial material, Player player) {
@@ -77,7 +77,6 @@ public class ModArmorItem extends ArmorItem {
 		ArmorItem breastplate = ((ArmorItem)player.getInventory().getArmor(2).getItem());
 		ArmorItem helmet = ((ArmorItem)player.getInventory().getArmor(3).getItem());
 	
-		return helmet.getMaterial() == material && breastplate.getMaterial() == material &&
-		leggings.getMaterial() == material && boots.getMaterial() == material;
+		return helmet.getMaterial() == material && breastplate.getMaterial() == material && leggings.getMaterial() == material && boots.getMaterial() == material;
 	}
 }

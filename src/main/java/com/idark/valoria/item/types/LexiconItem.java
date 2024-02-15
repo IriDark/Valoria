@@ -1,7 +1,7 @@
 package com.idark.valoria.item.types;
 
-import com.idark.valoria.client.render.gui.book.LexiconGui;
 import com.idark.valoria.client.render.gui.book.LexiconPages;
+import com.idark.valoria.client.render.gui.book.newbook.LexiconGui;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
@@ -42,7 +42,8 @@ public class LexiconItem extends Item {
 	@OnlyIn(Dist.CLIENT)
 	public void openGui() {
 		Minecraft.getInstance().player.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundSource.NEUTRAL, 1.0f, 1.0f);
-		Minecraft.getInstance().setScreen(new LexiconGui(LexiconPages.MAIN));
+		//Minecraft.getInstance().setScreen(new LexiconGui(LexiconPages.MAIN));
+		Minecraft.getInstance().setScreen(new LexiconGui());
 	}
 
 	@Override

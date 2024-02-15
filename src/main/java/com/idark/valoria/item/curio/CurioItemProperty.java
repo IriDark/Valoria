@@ -10,6 +10,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -27,12 +28,11 @@ import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
 import javax.annotation.Nonnull;
 import java.util.List;
-import java.util.Objects;
+import java.util.Random;
 import java.util.UUID;
 
 public class CurioItemProperty extends Item implements ICurioItem, ICurioTexture {
 
-    private static final ResourceLocation EMPTY = new ResourceLocation(Valoria.MOD_ID, "textures/entity/necklace/empty.png");
     private static final ResourceLocation IRON_AMBER = new ResourceLocation(Valoria.MOD_ID, "textures/entity/necklace/iron_necklace_amber.png");
     private static final ResourceLocation IRON_DIAMOND = new ResourceLocation(Valoria.MOD_ID, "textures/entity/necklace/iron_necklace_diamond.png");
     private static final ResourceLocation IRON_EMERALD = new ResourceLocation(Valoria.MOD_ID, "textures/entity/necklace/iron_necklace_emerald.png");
@@ -83,18 +83,6 @@ public class CurioItemProperty extends Item implements ICurioItem, ICurioTexture
         this.material = material;
     }
 
-    public AccessoryType getAccessoryType() {
-        return this.type;
-    }
-
-    public AccessoryGem getAccessoryGem() {
-        return this.gem;
-    }
-
-    public AccessoryMaterial getAccessoryMaterial() {
-        return this.material;
-    }
-
     @Nonnull
     @Override
     public ICurio.SoundInfo getEquipSound(SlotContext slotContext, ItemStack stack) {
@@ -133,21 +121,18 @@ public class CurioItemProperty extends Item implements ICurioItem, ICurioTexture
             case HEALTH:
                 if (material == AccessoryMaterial.IRON) {
                     atts.put(Attributes.MAX_HEALTH, new AttributeModifier(uuid, "bonus", 1, AttributeModifier.Operation.ADDITION));
-                    break;
                 } else {
                     atts.put(Attributes.MAX_HEALTH, new AttributeModifier(uuid, "bonus", 2.5, AttributeModifier.Operation.ADDITION));
-                    break;
                 }
+                break;
             case ARMOR:
                 if (material == AccessoryMaterial.IRON) {
                     atts.put(Attributes.ARMOR, new AttributeModifier(uuid, "bonus", 3, AttributeModifier.Operation.ADDITION));
-                    break;
                 } else {
                     atts.put(Attributes.ARMOR, new AttributeModifier(uuid, "bonus", 6, AttributeModifier.Operation.ADDITION));
                     atts.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(uuid, "bonus", 0.5, AttributeModifier.Operation.ADDITION));
-                    break;
                 }
-
+                break;
             case TOUGH:
                 atts.put(Attributes.ARMOR, new AttributeModifier(uuid, "bonus", 1.5, AttributeModifier.Operation.ADDITION));
                 atts.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(uuid, "bonus", 1, AttributeModifier.Operation.ADDITION));
@@ -159,15 +144,13 @@ public class CurioItemProperty extends Item implements ICurioItem, ICurioTexture
             case WEALTH:
                 if (material == AccessoryMaterial.IRON) {
                     atts.put(Attributes.LUCK, new AttributeModifier(uuid, "bonus", 1.5, AttributeModifier.Operation.ADDITION));
-                    break;
                 } else {
                     atts.put(Attributes.LUCK, new AttributeModifier(uuid, "bonus", 3, AttributeModifier.Operation.ADDITION));
-                    break;
                 }
-
+                break;
             case BELT:
                 atts.put(Attributes.ARMOR, new AttributeModifier(uuid, "bonus", 0.5, AttributeModifier.Operation.ADDITION));
-                CuriosApi.getCuriosHelper().addSlotModifier(atts, "charm", uuid, 2.0, AttributeModifier.Operation.ADDITION);
+                CuriosApi.addSlotModifier(atts, "charm", uuid, 2.0, AttributeModifier.Operation.ADDITION);
                 break;
         }
 
@@ -175,18 +158,18 @@ public class CurioItemProperty extends Item implements ICurioItem, ICurioTexture
     }
 
     @Override
-    public void curioTick(String identifier, int index, LivingEntity livingEntity, ItemStack stack) {
-        Player player = (Player) livingEntity;
-        if (gem == AccessoryGem.AMBER) {
-            if (!player.level().isClientSide()) {
-                boolean hasPlayerEffect = !Objects.equals(player.getEffect(MobEffects.DIG_SPEED), null);
-                if (!hasPlayerEffect) {
-                    player.addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, 200));
-                }
+    public void curioTick(SlotContext slotContext, ItemStack stack) {
+        Player player = (Player) slotContext.entity();
+        if (gem == AccessoryGem.AMBER && !player.level().isClientSide() && !player.hasEffect(MobEffects.DIG_SPEED)) {
+            if (!player.getCooldowns().isOnCooldown(stack.getItem())) {
+                player.addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, 200));
+                player.getCooldowns().addCooldown(stack.getItem(), 300);
+
+                int pGoldDamage = new Random().nextInt(0, 8);
+                int pDefaultDamage = new Random().nextInt(0, 3);
+                stack.hurtAndBreak(material == AccessoryMaterial.GOLD ? pGoldDamage : pDefaultDamage, player, (p_220045_0_) -> p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
             }
         }
-
-        ICurioItem.super.curioTick(identifier, index, livingEntity, stack);
     }
 
     @Override

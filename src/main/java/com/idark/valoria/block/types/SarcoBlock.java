@@ -29,7 +29,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.DoubleBlockCombiner;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
@@ -52,14 +51,14 @@ import java.util.Random;
 public class SarcoBlock extends HorizontalDirectionalBlock {
 
     public static final EnumProperty<BedPart> PART = BlockStateProperties.BED_PART;
-    private static BooleanProperty OPEN = BooleanProperty.create("open");
-    private static BooleanProperty LOOTED = BooleanProperty.create("looted");
+    private static final BooleanProperty OPEN = BooleanProperty.create("open");
+    private static final BooleanProperty LOOTED = BooleanProperty.create("looted");
 
     private static final VoxelShape shape = Block.box(0, 0, 0, 16, 12, 16);
     Random rand = new Random();
     public SarcoBlock(BlockBehaviour.Properties pProperties) {
         super(pProperties);
-        this.registerDefaultState((BlockState)((BlockState)((BlockState)this.stateDefinition.any()).setValue(PART, BedPart.FOOT).setValue(OPEN, false).setValue(LOOTED, false)));
+        this.registerDefaultState(this.stateDefinition.any().setValue(PART, BedPart.FOOT).setValue(OPEN, false).setValue(LOOTED, false));
     }
 
     @Override
@@ -143,14 +142,14 @@ public class SarcoBlock extends HorizontalDirectionalBlock {
 
                     pLevel.addFreshEntity(skeleton);
                 } else {
-                    DraugrEntity draugr = ModEntityTypes.DRAUGR.get().create(pLevel);
-                    draugr.moveTo((double) pPos.getX() + rand.nextDouble(), pPos.getY() + 0.4f, (double) pPos.getZ() + rand.nextDouble(), 0.0F, 0.0F);
-                    draugr.setItemInHand(hand, stacks[rand.nextInt(stacks.length)]);
+                    DraugrEntity entity = ModEntityTypes.DRAUGR.get().create(pLevel);
+                    entity.moveTo((double) pPos.getX() + rand.nextDouble(), pPos.getY() + 0.4f, (double) pPos.getZ() + rand.nextDouble(), 0.0F, 0.0F);
+                    entity.setItemInHand(hand, stacks[rand.nextInt(stacks.length)]);
                     if (isHalloween()) {
-                        draugr.setItemSlot(EquipmentSlot.HEAD, halloween[rand.nextInt(halloween.length)]);
+                        entity.setItemSlot(EquipmentSlot.HEAD, halloween[rand.nextInt(halloween.length)]);
                     }
 
-                    pLevel.addFreshEntity(draugr);
+                    pLevel.addFreshEntity(entity);
                 }
             }
         }
@@ -179,14 +178,8 @@ public class SarcoBlock extends HorizontalDirectionalBlock {
         return InteractionResult.SUCCESS;
     }
 
-    @Nullable
-    public static Direction getOrientation(BlockGetter pLevel, BlockPos pPos) {
-        BlockState $$2 = pLevel.getBlockState(pPos);
-        return $$2.getBlock() instanceof SarcoBlock ? (Direction)$$2.getValue(FACING) : null;
-    }
-
     public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pFacingPos) {
-        if (pFacing == getNeighbourDirection((BedPart)pState.getValue(PART), (Direction)pState.getValue(FACING))) {
+        if (pFacing == getNeighbourDirection(pState.getValue(PART), pState.getValue(FACING))) {
             return pFacingState.is(this) && pFacingState.getValue(PART) != pState.getValue(PART) ? pState : Blocks.AIR.defaultBlockState();
         } else {
             return super.updateShape(pState, pFacing, pFacingState, pLevel, pCurrentPos, pFacingPos);
@@ -199,9 +192,9 @@ public class SarcoBlock extends HorizontalDirectionalBlock {
 
     public void playerWillDestroy(Level pLevel, BlockPos pPos, BlockState pState, Player pPlayer) {
         if (!pLevel.isClientSide && pPlayer.isCreative()) {
-            BedPart $$4 = (BedPart)pState.getValue(PART);
+            BedPart $$4 = pState.getValue(PART);
             if ($$4 == BedPart.FOOT) {
-                BlockPos $$5 = pPos.relative(getNeighbourDirection($$4, (Direction)pState.getValue(FACING)));
+                BlockPos $$5 = pPos.relative(getNeighbourDirection($$4, pState.getValue(FACING)));
                 BlockState $$6 = pLevel.getBlockState($$5);
                 if ($$6.is(this) && $$6.getValue(PART) == BedPart.HEAD) {
                     pLevel.setBlock($$5, Blocks.AIR.defaultBlockState(), 35);
@@ -220,31 +213,17 @@ public class SarcoBlock extends HorizontalDirectionalBlock {
         BlockPos $$2 = pContext.getClickedPos();
         BlockPos $$3 = $$2.relative($$1);
         Level $$4 = pContext.getLevel();
-        return $$4.getBlockState($$3).canBeReplaced(pContext) && $$4.getWorldBorder().isWithinBounds($$3) ? (BlockState)this.defaultBlockState().setValue(FACING, $$1) : null;
+        return $$4.getBlockState($$3).canBeReplaced(pContext) && $$4.getWorldBorder().isWithinBounds($$3) ? this.defaultBlockState().setValue(FACING, $$1) : null;
     }
 
     public void setPlacedBy(Level pLevel, BlockPos pPos, BlockState pState, @Nullable LivingEntity pPlacer, ItemStack pStack) {
         super.setPlacedBy(pLevel, pPos, pState, pPlacer, pStack);
         if (!pLevel.isClientSide) {
-            BlockPos $$5 = pPos.relative((Direction)pState.getValue(FACING));
-            pLevel.setBlock($$5, (BlockState)pState.setValue(PART, BedPart.HEAD), 3);
+            BlockPos $$5 = pPos.relative(pState.getValue(FACING));
+            pLevel.setBlock($$5, pState.setValue(PART, BedPart.HEAD), 3);
             pLevel.blockUpdated(pPos, Blocks.AIR);
             pState.updateNeighbourShapes(pLevel, pPos, 3);
         }
-    }
-
-    public static Direction getConnectedDirection(BlockState pState) {
-        Direction $$1 = (Direction)pState.getValue(FACING);
-        return pState.getValue(PART) == BedPart.HEAD ? $$1.getOpposite() : $$1;
-    }
-
-    private static boolean isBunkBed(BlockGetter pLevel, BlockPos pPos) {
-        return pLevel.getBlockState(pPos.below()).getBlock() instanceof SarcoBlock;
-    }
-
-    public static DoubleBlockCombiner.BlockType getBlockType(BlockState pState) {
-        BedPart $$1 = (BedPart)pState.getValue(PART);
-        return $$1 == BedPart.HEAD ? DoubleBlockCombiner.BlockType.FIRST : DoubleBlockCombiner.BlockType.SECOND;
     }
 
     @Override
@@ -257,7 +236,7 @@ public class SarcoBlock extends HorizontalDirectionalBlock {
     }
 
     public long getSeed(BlockState pState, BlockPos pPos) {
-        BlockPos $$2 = pPos.relative((Direction)pState.getValue(FACING), pState.getValue(PART) == BedPart.HEAD ? 0 : 1);
+        BlockPos $$2 = pPos.relative(pState.getValue(FACING), pState.getValue(PART) == BedPart.HEAD ? 0 : 1);
         return Mth.getSeed($$2.getX(), pPos.getY(), $$2.getZ());
     }
 

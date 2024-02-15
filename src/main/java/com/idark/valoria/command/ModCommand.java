@@ -1,5 +1,7 @@
 package com.idark.valoria.command;
 
+import com.idark.valoria.api.unlockable.Unlockable;
+import com.idark.valoria.capability.IUnlockable;
 import com.idark.valoria.client.render.gui.book.LexiconPages;
 import com.idark.valoria.command.build.CommandArgument;
 import com.idark.valoria.command.build.CommandBuilder;
@@ -7,6 +9,8 @@ import com.idark.valoria.command.build.CommandPart;
 import com.idark.valoria.command.build.CommandVariant;
 import com.idark.valoria.item.types.MagmaSwordItem;
 import com.idark.valoria.client.toast.ModToast;
+import com.idark.valoria.network.PacketHandler;
+import com.idark.valoria.network.UnlockableUpdatePacket;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.context.CommandContext;
@@ -46,7 +50,7 @@ public class ModCommand {
         dispatcher.register(builder.permission((p)->p.hasPermission(2)).build());
     }
 
-    private static int givePage(CommandSourceStack command, Collection<? extends ServerPlayer> targetPlayers, LexiconPages pages) throws CommandSyntaxException {
+    private static int givePage(CommandSourceStack command, Collection<? extends ServerPlayer> targetPlayers, Unlockable pages) throws CommandSyntaxException {
         for(ServerPlayer player : targetPlayers) {
             useModToast(true);
             if (targetPlayers.size() == 1) {
@@ -55,11 +59,11 @@ public class ModCommand {
                 command.sendSuccess(() -> Component.translatable("commands.valoria.page.give.multiple", targetPlayers.size()), true);
             }
 
-            //player.getCapability(IPage.INSTANCE, null).ifPresent((k) -> {
-            //    k.makeOpen(pages, true);
-            //});
+            player.getCapability(IUnlockable.INSTANCE, null).ifPresent((k) -> {
+                k.addUnlockable(pages);
+            });
 
-            //PacketHandler.sendTo(player, new PageUpdatePacket(player));
+            PacketHandler.sendTo(player, new UnlockableUpdatePacket(player));
         }
 
         return Command.SINGLE_SUCCESS;
@@ -76,7 +80,7 @@ public class ModCommand {
         return Command.SINGLE_SUCCESS;
     }
 
-    private static int removePage(CommandSourceStack command, Collection<? extends ServerPlayer> targetPlayers, LexiconPages pages) throws CommandSyntaxException {
+    private static int removePage(CommandSourceStack command, Collection<? extends ServerPlayer> targetPlayers, Unlockable pages) throws CommandSyntaxException {
         for(ServerPlayer player : targetPlayers) {
             useModToast(false);
             if (targetPlayers.size() == 1) {
@@ -85,11 +89,11 @@ public class ModCommand {
                 command.sendSuccess(() -> Component.translatable("commands.valoria.page.remove.multiple", targetPlayers.size()), true);
             }
 
-            //player.getCapability(IPage.INSTANCE, null).ifPresent((k) -> {
-            //    k.makeOpen(pages, false);
-            //});
+            player.getCapability(IUnlockable.INSTANCE, null).ifPresent((k) -> {
+                k.removeUnlockable(pages);
+            });
 
-            //PacketHandler.sendTo(player, new PageUpdatePacket(player));
+            PacketHandler.sendTo(player, new UnlockableUpdatePacket(player));
         }
 
         return Command.SINGLE_SUCCESS;

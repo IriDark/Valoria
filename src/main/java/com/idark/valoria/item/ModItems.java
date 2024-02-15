@@ -17,6 +17,7 @@ import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -162,10 +163,10 @@ public class ModItems {
 	public static final RegistryObject<Item> STONE_CRUSHER = ITEMS.register("stone_crusher", () -> new BlockItem(ModBlocks.STONE_CRUSHER.get(), new Item.Properties()));
 	public static final RegistryObject<Item> JEWELER_TABLE = ITEMS.register("jeweler_table", () -> new BlockItem(ModBlocks.JEWELER_TABLE.get(), new Item.Properties()));
 	public static final RegistryObject<Item> KEG = ITEMS.register("keg", () -> new BlockItem(ModBlocks.KEG.get(), new Item.Properties()));
-	public static final RegistryObject<Item> KEYBLOCK = ITEMS.register("keyblock", () -> new BlockItem(ModBlocks.KEYBLOCK.get(), new Item.Properties()));
-	public static final RegistryObject<Item> CUT_KEYBLOCK = ITEMS.register("cut_keyblock", () -> new BlockItem(ModBlocks.CUT_KEYBLOCK.get(), new Item.Properties()));
-	public static final RegistryObject<Item> KEYBLOCK_BRICKS = ITEMS.register("keyblock_bricks", () -> new BlockItem(ModBlocks.KEYBLOCK_BRICKS.get(), new Item.Properties()));
-	public static final RegistryObject<Item> KEYBLOCK_RUNE = ITEMS.register("keyblock_rune", () -> new BlockItem(ModBlocks.KEYBLOCK_RUNE.get(), new Item.Properties()));
+	public static final RegistryObject<Item> UMBRAL_KEYPAD = ITEMS.register("umbral_keypad", () -> new BlockItem(ModBlocks.UMBRAL_KEYPAD.get(), new Item.Properties()));
+	public static final RegistryObject<Item> CUT_UMBRAL_BLOCK = ITEMS.register("cut_umbral_block", () -> new BlockItem(ModBlocks.CUT_UMBRAL_BLOCK.get(), new Item.Properties()));
+	public static final RegistryObject<Item> UMBRAL_BRICKS = ITEMS.register("umbral_bricks", () -> new BlockItem(ModBlocks.UMBRAL_BRICKS.get(), new Item.Properties()));
+	public static final RegistryObject<Item> UMBRAL_BLOCK = ITEMS.register("umbral_block", () -> new BlockItem(ModBlocks.UMBRAL_BLOCK.get(), new Item.Properties()));
 	public static final RegistryObject<Item> TILE = ITEMS.register("quartz_blackstone_tile", () -> new BlockItem(ModBlocks.TILE.get(), new Item.Properties()));
 	public static final RegistryObject<Item> QUICKSAND = ITEMS.register("quicksand", () -> new BlockItem(ModBlocks.QUICKSAND.get(), new Item.Properties()));
 	public static final RegistryObject<Item> ELEMENTAL_MANIPULATOR = ITEMS.register("elemental_manipulator", () -> new BlockItem(ModBlocks.ELEMENTAL_MANIPULATOR.get(), new Item.Properties()));
@@ -583,7 +584,7 @@ public class ModItems {
 	public static final RegistryObject<Item> PHANTASM_BOW = ITEMS.register("phantasm_bow",
 			() -> new BowItem(new Item.Properties().fireResistant().stacksTo(1)));
 	public static final RegistryObject<Item> PICK = ITEMS.register("pick",
-			() -> new PickItem(new Item.Properties().fireResistant().stacksTo(1).durability(64), 5));
+			() -> new PickItem(new Item.Properties().fireResistant().stacksTo(1).durability(64), 1, -2.8f, 5));
 
 	public static final RegistryObject<ForgeSpawnEggItem> GOBLIN_SPAWN_EGG = ITEMS.register("goblin_spawn_egg",
 		() -> new ForgeSpawnEggItem(ModEntityTypes.GOBLIN, ColorUtils.hexToDecimal("185b36"), ColorUtils.hexToDecimal("6BB447"), new Item.Properties()));

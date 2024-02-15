@@ -7,6 +7,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.stats.Stats;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -48,6 +49,14 @@ public class HoundItem extends TieredItem implements Vanishable {
         } else {
             playerIn.startUsingItem(handIn);
             return InteractionResultHolder.consume(itemstack);
+        }
+    }
+
+    public float getDestroySpeed(ItemStack pStack, BlockState pState) {
+        if (pState.is(BlockTags.ICE)) {
+            return 15.0F;
+        } else {
+            return pState.is(BlockTags.MINEABLE_WITH_PICKAXE) ? 1.5F : 1.0F;
         }
     }
 

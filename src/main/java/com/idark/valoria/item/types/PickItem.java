@@ -24,6 +24,7 @@ import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.Item;
@@ -52,11 +53,15 @@ public class PickItem extends Item implements ICustomAnimationItem {
     public static final int USE_DURATION = 200;
     public static final double MAX_BRUSH_DISTANCE = Math.sqrt(ServerGamePacketListenerImpl.MAX_INTERACTION_DISTANCE) - 1.0D;
     public float excavationSpeed;
+    public float attackDamageIn;
+    public float attackSpeedIn;
 
     private Supplier<Multimap<Attribute, AttributeModifier>> attributeModifiers = Suppliers.memoize(this::createAttributes);
 
-    public PickItem(Item.Properties pProperties, int speed) {
+    public PickItem(Item.Properties pProperties, int attackDamageIn, float attackSpeedIn, int speed) {
         super(pProperties);
+        this.attackDamageIn = (float) attackDamageIn;
+        this.attackSpeedIn =  attackSpeedIn;
         this.excavationSpeed = (float) speed;
     }
 
@@ -75,6 +80,8 @@ public class PickItem extends Item implements ICustomAnimationItem {
     private Multimap<Attribute, AttributeModifier> createAttributes() {
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
         builder.put(ModAttributes.EXCAVATION_SPEED.get(), new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Pick modifier", excavationSpeed, AttributeModifier.Operation.ADDITION));
+        builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", attackDamageIn, AttributeModifier.Operation.ADDITION));
+        builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Tool modifier", attackSpeedIn, AttributeModifier.Operation.ADDITION));
         return builder.build();
     }
 

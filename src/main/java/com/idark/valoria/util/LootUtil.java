@@ -25,6 +25,7 @@ import net.minecraftforge.registries.RegistryObject;
 import javax.annotation.Nonnull;
 import java.util.Collection;
 import java.util.List;
+
 public final class LootUtil {
 	public static LootTable getTable(ServerLevel world, ResourceLocation table) {
 		return world.getServer().getLootData().getLootTable(table);
@@ -43,8 +44,8 @@ public final class LootUtil {
 	* Spawns loot on a block position when using item
 	*/
 	public static void SpawnLoot(Level world, BlockPos blockpos, Collection<ItemStack> stacks) {
-		for (ItemStack stack : stacks) {
-			if (!world.isClientSide()) {
+		if (!world.isClientSide()) {
+			for (ItemStack stack : stacks) {
 				world.addFreshEntity(new ItemEntity(world, blockpos.getX() + 0.5F, blockpos.getY() + 0.5F, blockpos.getZ() + 0.5F, stack));
 			}
 		}

@@ -1,0 +1,14 @@
+{
+  "variants": {
+    "key=true": [
+      {
+        "model": "valoria:block/umbral_keypad_key"
+      }
+    ],
+    "key=false": [
+      {
+        "model": "valoria:block/umbral_keypad_empty"
+      }
+    ]
+  }
+}
