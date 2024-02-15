@@ -27,7 +27,7 @@ public class LexiconChapters {
                 new TitledTextPage("gui.valoria.treasures", false),
                 new TitledTextPage("gui.valoria.treasure.gems", true),
                 new TextPage("gui.valoria.treasure.gems.about")
-        );
+                );
 
         MEDICINE_PAGE = new Chapter(
                 "gui.valoria.medicine",

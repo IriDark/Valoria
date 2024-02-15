@@ -99,8 +99,7 @@ public class LexiconGui extends Screen {
         Page left = currentChapter.getPage(currentPage), right = currentChapter.getPage(currentPage + 1);
         if (left != null) left.fullRender(gui, guiLeft + 10, guiTop + 8, mouseX, mouseY);
         if (right != null) right.fullRender(gui, guiLeft + 140, guiTop + 8, mouseX, mouseY);
-
-        if (right != null) {
+        if (currentChapter.size() >= currentPage + 3) {
             if (mouseX >= guiLeft + 250 && mouseX < guiLeft + 250 + 9 && mouseY >= guiTop + 150 && mouseY < guiTop + 150 + 8) {
                 gui.blit(BACKGROUND, guiLeft + 250, guiTop + 150, 272, 104, 9, 8, 512, 512);
                 renderTooltip(gui, Component.translatable("gui.valoria.next"), guiLeft + 250, guiTop + 150);
@@ -142,18 +141,17 @@ public class LexiconGui extends Screen {
                 changeChapter(LexiconChapters.MAIN_PAGE);
             }
 
-            Page right = currentChapter.getPage(currentPage + 1);
-            if (right != null) {
+            if (currentChapter.size() >= 3) {
                 if (mouseX >= guiLeft + 250 && mouseX < guiLeft + 250 + 9 && mouseY >= guiTop + 150 && mouseY < guiTop + 150 + 8) {
                     mc.player.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundSource.NEUTRAL, 1.0f, 1.0f);
-                    currentPage += 1;
+                    currentPage += 2;
                 }
             }
 
             if (currentPage > 0) {
                 if (mouseX >= guiLeft + 13 && mouseX < guiLeft + 13 + 9 && mouseY >= guiTop + 150 && mouseY < guiTop + 150 + 8) {
                     mc.player.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundSource.NEUTRAL, 1.0f, 1.0f);
-                    currentPage -= 1;
+                    currentPage -= 2;
                 }
             }
 
