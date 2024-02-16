@@ -4,6 +4,7 @@ import com.idark.valoria.Valoria;
 import com.idark.valoria.client.screen.book.LexiconGui;
 import com.idark.valoria.client.screen.book.Page;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.resources.ResourceLocation;
@@ -17,12 +18,10 @@ public class TitledCraftEntry extends Page {
     public ItemStack result;
     public ItemStack[] inputs;
     public String text, title;
-    public boolean xBonus;
 
-    public TitledCraftEntry(String textKey, boolean xBonus, ItemStack result, ItemStack... inputs) {
+    public TitledCraftEntry(String textKey, ItemStack result, ItemStack... inputs) {
         this.text = textKey;
         this.title = textKey + ".name";
-        this.xBonus = xBonus;
         this.result = result;
         this.inputs = inputs;
     }
@@ -33,8 +32,11 @@ public class TitledCraftEntry extends Page {
     @Override
     @OnlyIn(Dist.CLIENT)
     public void render(GuiGraphics gui, int x, int y, int mouseX, int mouseY) {
-        int titleWidth = Minecraft.getInstance().font.width(title);
-        drawText(gui, I18n.get(this.title), xBonus ? x + 142 - titleWidth / 2 : x + 123 - titleWidth / 2, y + 22 - Minecraft.getInstance().font.lineHeight, true);
+        Font font = Minecraft.getInstance().font;
+        int titleWidth = font.width(I18n.get(this.title));
+
+        int xOffset = (115 - titleWidth) / 2;
+        drawText(gui, I18n.get(this.title), x + xOffset, y + 22 - Minecraft.getInstance().font.lineHeight, false);
         drawWrappingText(gui, I18n.get(text), x + 4, y + 35, 120, false);
         for (int i = 0; i < 3; i ++) {
             for (int j = 0; j < 3; j ++) {

@@ -20,25 +20,25 @@ public class LexiconChapters {
     public static void init() {
         MAIN_PAGE = new Chapter(
                 "gui.valoria.main.name",
-                new TitledTextPage("gui.valoria.main", 0, false),
-                new TitledCraftEntry("gui.valoria.knowledge", false, ModItems.LEXICON.get().getDefaultInstance(), Items.PAPER.getDefaultInstance(), Items.BOOK.getDefaultInstance())
+                new TitledTextPage("gui.valoria.main"),
+                new TitledCraftEntry("gui.valoria.knowledge", ModItems.LEXICON.get().getDefaultInstance(), Items.PAPER.getDefaultInstance(), Items.BOOK.getDefaultInstance())
         );
 
         TREASURES_PAGE = new Chapter(
                 "gui.valoria.jewelry",
-                new TitledTextPage("gui.valoria.treasures", 0, false),
-                new TitledTextPage("gui.valoria.treasure.gems", 28, false),
+                new TitledTextPage("gui.valoria.treasures"),
+                new TitledTextPage("gui.valoria.treasure.gems"),
                 new TextPage("gui.valoria.treasure.gems.about")
                 );
 
         MEDICINE_PAGE = new Chapter(
                 "gui.valoria.medicine",
-                new TitledTextPage("gui.valoria.medicine", 0, false)
+                new TitledTextPage("gui.valoria.medicine")
         );
 
         CRYPT_PAGE = new Chapter(
                 "gui.valoria.crypt.name",
-                new TitledTextPage("gui.valoria.crypt", 0, false)
+                new TitledTextPage("gui.valoria.crypt")
         );
 
         LEXICON = new Bookmark(ModItems.LEXICON.get(), "gui.valoria.main.name", 267, 10, MAIN_PAGE);
@@ -48,6 +48,7 @@ public class LexiconChapters {
 
         categories.add(LEXICON);
         categories.add(TREASURES);
+
         categories.add(MEDICINE);
     }
 }
