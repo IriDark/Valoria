@@ -2,7 +2,6 @@ package com.idark.valoria.command;
 
 import com.idark.valoria.api.unlockable.Unlockable;
 import com.idark.valoria.capability.IUnlockable;
-import com.idark.valoria.client.render.gui.book.LexiconPages;
 import com.idark.valoria.command.build.CommandArgument;
 import com.idark.valoria.command.build.CommandBuilder;
 import com.idark.valoria.command.build.CommandPart;

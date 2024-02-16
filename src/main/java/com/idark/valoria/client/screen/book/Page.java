@@ -1,4 +1,4 @@
-package com.idark.valoria.client.render.gui.book;
+package com.idark.valoria.client.screen.book;
 
 import com.idark.valoria.util.ColorUtils;
 import net.minecraft.client.Minecraft;

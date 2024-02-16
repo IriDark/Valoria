@@ -1,4 +1,4 @@
-package com.idark.valoria.client.render.gui.book.unlockable;
+package com.idark.valoria.client.screen.book.unlockable;
 
 import com.idark.valoria.api.unlockable.Unlockable;
 import net.minecraft.world.item.Item;

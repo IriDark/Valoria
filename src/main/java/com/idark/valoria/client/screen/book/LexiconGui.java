@@ -1,7 +1,7 @@
-package com.idark.valoria.client.render.gui.book;
+package com.idark.valoria.client.screen.book;
 
 import com.idark.valoria.Valoria;
-import com.idark.valoria.client.render.gui.book.unlockable.UnlockableBookmark;
+import com.idark.valoria.client.screen.book.unlockable.UnlockableBookmark;
 import com.idark.valoria.util.ColorUtils;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;

@@ -1,7 +1,6 @@
 package com.idark.valoria.command.build;
 
 import com.idark.valoria.api.unlockable.Unlockable;
-import com.idark.valoria.client.render.gui.book.LexiconPages;
 import com.idark.valoria.command.arguments.UnlockableArgumentType;
 import com.mojang.brigadier.arguments.*;
 import com.mojang.brigadier.builder.ArgumentBuilder;
@@ -19,7 +18,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.server.command.EnumArgument;
 
 import java.util.Collection;
 import java.util.Collections;

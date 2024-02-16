@@ -1,6 +1,6 @@
-package com.idark.valoria.client.render.gui.book.pages;
+package com.idark.valoria.client.screen.book.pages;
 
-import com.idark.valoria.client.render.gui.book.Page;
+import com.idark.valoria.client.screen.book.Page;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraftforge.api.distmarker.Dist;

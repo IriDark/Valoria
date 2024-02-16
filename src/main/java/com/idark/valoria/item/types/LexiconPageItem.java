@@ -2,8 +2,8 @@ package com.idark.valoria.item.types;
 
 import com.idark.valoria.api.unlockable.UnlockUtils;
 import com.idark.valoria.api.unlockable.Unlockable;
-import com.idark.valoria.client.render.gui.book.LexiconPages;
-import com.idark.valoria.client.render.gui.book.unlockable.UnlockableBookmark;
+import com.idark.valoria.client.screen.book.LexiconPages;
+import com.idark.valoria.client.screen.book.unlockable.UnlockableBookmark;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;

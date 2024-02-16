@@ -5,7 +5,7 @@ import com.idark.valoria.api.unlockable.Unlockable;
 import com.idark.valoria.api.unlockable.Unlockables;
 import com.idark.valoria.capability.IUnlockable;
 import com.idark.valoria.capability.UnloackbleCap;
-import com.idark.valoria.client.render.gui.book.unlockable.ItemUnlockable;
+import com.idark.valoria.client.screen.book.unlockable.ItemUnlockable;
 import com.idark.valoria.network.PacketHandler;
 import com.idark.valoria.network.UnlockableUpdatePacket;
 import net.minecraft.nbt.CompoundTag;

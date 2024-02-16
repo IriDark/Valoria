@@ -2,8 +2,8 @@ package com.idark.valoria.item;
 
 import com.idark.valoria.Valoria;
 import com.idark.valoria.block.ModBlocks;
-import com.idark.valoria.client.render.gui.book.LexiconPages;
-import com.idark.valoria.client.render.gui.book.unlockable.RegisterUnlockables;
+import com.idark.valoria.client.screen.book.LexiconPages;
+import com.idark.valoria.client.screen.book.unlockable.RegisterUnlockables;
 import com.idark.valoria.effect.ModEffects;
 import com.idark.valoria.entity.ModEntityTypes;
 import com.idark.valoria.item.curio.*;

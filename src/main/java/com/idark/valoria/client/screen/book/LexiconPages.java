@@ -1,4 +1,4 @@
-package com.idark.valoria.client.render.gui.book;
+package com.idark.valoria.client.screen.book;
 
 public enum LexiconPages {
     MAIN,

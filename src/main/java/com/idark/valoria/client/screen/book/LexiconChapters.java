@@ -1,10 +1,12 @@
-package com.idark.valoria.client.render.gui.book;
+package com.idark.valoria.client.screen.book;
 
-import com.idark.valoria.client.render.gui.book.pages.TextPage;
-import com.idark.valoria.client.render.gui.book.pages.TitledTextPage;
-import com.idark.valoria.client.render.gui.book.unlockable.RegisterUnlockables;
-import com.idark.valoria.client.render.gui.book.unlockable.UnlockableBookmark;
+import com.idark.valoria.client.screen.book.pages.TextPage;
+import com.idark.valoria.client.screen.book.pages.TitledCraftEntry;
+import com.idark.valoria.client.screen.book.pages.TitledTextPage;
+import com.idark.valoria.client.screen.book.unlockable.RegisterUnlockables;
+import com.idark.valoria.client.screen.book.unlockable.UnlockableBookmark;
 import com.idark.valoria.item.ModItems;
+import net.minecraft.world.item.Items;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,25 +20,25 @@ public class LexiconChapters {
     public static void init() {
         MAIN_PAGE = new Chapter(
                 "gui.valoria.main.name",
-                new TitledTextPage("gui.valoria.main", false),
-                new TitledTextPage("gui.valoria.knowledge", false)
+                new TitledTextPage("gui.valoria.main", 0, false),
+                new TitledCraftEntry("gui.valoria.knowledge", false, ModItems.LEXICON.get().getDefaultInstance(), Items.PAPER.getDefaultInstance(), Items.BOOK.getDefaultInstance())
         );
 
         TREASURES_PAGE = new Chapter(
                 "gui.valoria.jewelry",
-                new TitledTextPage("gui.valoria.treasures", false),
-                new TitledTextPage("gui.valoria.treasure.gems", true),
+                new TitledTextPage("gui.valoria.treasures", 0, false),
+                new TitledTextPage("gui.valoria.treasure.gems", 28, false),
                 new TextPage("gui.valoria.treasure.gems.about")
                 );
 
         MEDICINE_PAGE = new Chapter(
                 "gui.valoria.medicine",
-                new TitledTextPage("gui.valoria.medicine", false)
+                new TitledTextPage("gui.valoria.medicine", 0, false)
         );
 
         CRYPT_PAGE = new Chapter(
                 "gui.valoria.crypt.name",
-                new TitledTextPage("gui.valoria.crypt", false)
+                new TitledTextPage("gui.valoria.crypt", 0, false)
         );
 
         LEXICON = new Bookmark(ModItems.LEXICON.get(), "gui.valoria.main.name", 267, 10, MAIN_PAGE);
