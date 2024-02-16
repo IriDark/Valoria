@@ -55,9 +55,10 @@ public class LexiconGui extends Screen {
 
         // Book
         gui.blit(BACKGROUND, guiLeft, guiTop, 0, 0, 272, 180, 512, 512);
-        gui.blit(BACKGROUND, guiLeft - 19, guiTop + 132, 272, 132, 17, 48, 512, 512);
 
         // START
+        gui.blit(BACKGROUND, guiLeft - 19, guiTop + 132, 272, 132, 17, 48, 512, 512);
+
         if (mouseX >= guiLeft - 14 && mouseX < guiLeft && mouseY >= guiTop + 138 && mouseY < guiTop + 138 + 7) {
             gui.blit(BACKGROUND, guiLeft - 15, guiTop + 137, 279, 112, 9, 9, 512, 512);
             renderTooltip(gui, Component.translatable("gui.valoria.thanks"), guiLeft - 14, guiTop + 138);
@@ -93,8 +94,8 @@ public class LexiconGui extends Screen {
         }
 
         // Category footer
-        gui.blit(BACKGROUND, guiLeft + 48, guiTop + 31, 97, 180, 38, 13, 512, 512);
-        gui.blit(BACKGROUND, guiLeft + 186, guiTop + 31, 97, 180, 38, 13, 512, 512);
+        //gui.blit(BACKGROUND, guiLeft + 48, guiTop + 31, 97, 180, 38, 13, 512, 512);
+        //gui.blit(BACKGROUND, guiLeft + 186, guiTop + 31, 97, 180, 38, 13, 512, 512);
 
         Page left = currentChapter.getPage(currentPage), right = currentChapter.getPage(currentPage + 1);
         if (left != null) left.fullRender(gui, guiLeft + 10, guiTop + 8, mouseX, mouseY);
