@@ -57,7 +57,7 @@ public class LexiconPageItem extends Item {
             }
 
             case CRYPT -> {
-                return "gui.valoria.crypt";
+                return "gui.valoria.crypt.name";
             }
         }
 

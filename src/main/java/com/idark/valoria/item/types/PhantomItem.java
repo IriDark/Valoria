@@ -9,6 +9,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -20,6 +21,7 @@ import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.common.Tags;
 import org.joml.Vector3d;
 
 import java.util.ArrayList;
@@ -28,6 +30,7 @@ import java.util.Random;
 
 public class PhantomItem extends SwordItem {
     Random rand = new Random();
+
     public PhantomItem(Tier tier, int attackDamageIn, float attackSpeedIn, Properties builderIn) {
         super(tier, attackDamageIn, attackSpeedIn, builderIn);
     }
@@ -51,10 +54,10 @@ public class PhantomItem extends SwordItem {
     }
 
     /**
-     *Some sounds taken from the CalamityMod (Terraria) in a <a href="https://calamitymod.wiki.gg/wiki/Category:Sound_effects">Calamity Mod Wiki.gg</a>
+     * Some sounds taken from the CalamityMod (Terraria) in a <a href="https://calamitymod.wiki.gg/wiki/Category:Sound_effects">Calamity Mod Wiki.gg</a>
      */
     public void releaseUsing(ItemStack stack, Level level, LivingEntity entityLiving, int timeLeft) {
-        Player player = (Player)entityLiving;
+        Player player = (Player) entityLiving;
         player.getCooldowns().addCooldown(this, 10);
         player.awardStat(Stats.ITEM_USED.get(this));
 
@@ -85,19 +88,27 @@ public class PhantomItem extends SwordItem {
             stack.hurtAndBreak(35, player, (p_220045_0_) -> p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
         }
 
-        float damage = (float) (player.getAttribute(Attributes.ATTACK_DAMAGE).getValue()) + EnchantmentHelper.getSweepingDamageRatio(player);
-        for (LivingEntity entity : hitEntities) {
-            entity.hurt(level.damageSources().generic(), damage);
-            entity.moveTo(player.getX(), player.getY(), player.getZ(), player.getYRot(), player.getXRot());
-            level.addParticle(ParticleTypes.EXPLOSION_EMITTER, player.getX(), player.getY(), player.getZ(), 1f, 1f, 1f);
-            entity.knockback(3f, entity.getX() + 2f, entity.getZ() + 2f);
-            for (int p = 0; p < 4; p++) {
-                level.addParticle(ParticleTypes.SOUL_FIRE_FLAME, entity.getX(), entity.getY(), entity.getZ(), 1f, 1f, 1f);
-            }
+        if (!player.level().isClientSide) {
+            float damage = (float) (player.getAttribute(Attributes.ATTACK_DAMAGE).getValue()) + EnchantmentHelper.getSweepingDamageRatio(player);
+            for (LivingEntity entity : hitEntities) {
+                if (!entity.level().isClientSide && entity instanceof Player && ((Player) entity).isCreative()) {
+                    continue;
+                }
 
-            if (EnchantmentHelper.getItemEnchantmentLevel(Enchantments.FIRE_ASPECT, stack) > 0) {
-                int e = EnchantmentHelper.getFireAspect(player);
-                entity.setSecondsOnFire(e * 4);
+                entity.hurt(level.damageSources().generic(), damage);
+                entity.moveTo(player.getX(), player.getY(), player.getZ(), player.getYRot(), player.getXRot());
+                level.addParticle(ParticleTypes.EXPLOSION_EMITTER, player.getX(), player.getY(), player.getZ(), 1f, 1f, 1f);
+                entity.knockback(3f, entity.getX() + 2f, entity.getZ() + 2f);
+
+                for (int p = 0; p < 4; p++) {
+                    level.addParticle(ParticleTypes.SOUL_FIRE_FLAME, entity.getX(), entity.getY(), entity.getZ(), 1f, 1f, 1f);
+                }
+
+                if (EnchantmentHelper.getItemEnchantmentLevel(Enchantments.FIRE_ASPECT, stack) > 0) {
+                    int e = EnchantmentHelper.getFireAspect(player);
+                    entity.setSecondsOnFire(e * 4);
+                }
+
             }
         }
     }

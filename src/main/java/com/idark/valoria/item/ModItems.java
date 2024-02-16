@@ -25,7 +25,7 @@ import net.minecraftforge.registries.RegistryObject;
 public class ModItems {
 	public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Valoria.MOD_ID);
 
-	// BLOCK ITEMS (category)
+	// BLOCK-ITEMS (category)
 	// Plants
 	public static final RegistryObject<Item> ALOE = ITEMS.register("aloe", () -> new BlockItem(ModBlocks.ALOE.get(), new Item.Properties()));
 	public static final RegistryObject<Item> ALOE_SMALL = ITEMS.register("aloe_small", () -> new BlockItem(ModBlocks.ALOE_SMALL.get(), new Item.Properties()));
@@ -253,23 +253,23 @@ public class ModItems {
 
 	public static final RegistryObject<Item> ALOE_BANDAGE = ITEMS.register("aloe_bandage", () -> new AloeBandageItem(1600, 0));
 	public static final RegistryObject<Item> ALOE_BANDAGE_UPGRADED = ITEMS.register("aloe_bandage_upgraded", () -> new AloeBandageItem(1450, 1));
-	public static final RegistryObject<Item> CACAO_CUP = ITEMS.register("cacao_cup", () -> new ModDrinkItem(0, 3, 1, ModItems.CUP.get(), new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 250)));
-	public static final RegistryObject<Item> COFFE_CUP = ITEMS.register("coffe_cup", () -> new ModDrinkItem(0, 3, 1, ModItems.CUP.get(), new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 250)));
-	public static final RegistryObject<Item> TEA_CUP = ITEMS.register("tea_cup", () -> new ModDrinkItem(0, 3, 1, ModItems.CUP.get(), new MobEffectInstance(MobEffects.DIG_SPEED, 100)));
-	public static final RegistryObject<Item> GREEN_TEA_CUP = ITEMS.register("green_tea_cup", () -> new ModDrinkItem(0, 3, 1, ModItems.CUP.get(), new MobEffectInstance(ModEffects.ALOEREGEN.get(), 1800)));
-	public static final RegistryObject<Item> BEER_CUP = ITEMS.register("beer_cup", () -> new ModDrinkItem(0, 3, 1, ModItems.WOODEN_CUP.get(), new MobEffectInstance(ModEffects.TIPSY.get(), 400, 0)));
-	public static final RegistryObject<Item> RUM_CUP = ITEMS.register("rum_cup", () -> new ModDrinkItem(0, 3, 1, ModItems.WOODEN_CUP.get(), new MobEffectInstance(ModEffects.TIPSY.get(), 400, 0), new MobEffectInstance(MobEffects.CONFUSION, 120, 0)));
-	public static final RegistryObject<Item> KVASS_BOTTLE = ITEMS.register("kvass_bottle", () -> new ModDrinkItem(0, 3, 1, ModItems.BOTTLE.get(), new MobEffectInstance(MobEffects.SATURATION, 300)));
-	public static final RegistryObject<Item> WINE_BOTTLE = ITEMS.register("wine_bottle", () -> new ModDrinkItem(0, 3, 1, ModItems.BOTTLE.get(), new MobEffectInstance(ModEffects.TIPSY.get(), 450, 1), new MobEffectInstance(MobEffects.CONFUSION, 300)));
-	public static final RegistryObject<Item> AKVAVIT_BOTTLE = ITEMS.register("akvavit_bottle", () -> new ModDrinkItem(0, 3, 1, ModItems.BOTTLE.get(), new MobEffectInstance(ModEffects.TIPSY.get(), 500, 1), new MobEffectInstance(MobEffects.CONFUSION, 320)));
-	public static final RegistryObject<Item> LIQUOR_BOTTLE = ITEMS.register("liquor_bottle", () -> new ModDrinkItem(0, 3, 1, ModItems.BOTTLE.get(), new MobEffectInstance(ModEffects.TIPSY.get(), 350, 1), new MobEffectInstance(MobEffects.CONFUSION, 120)));
-	public static final RegistryObject<Item> RUM_BOTTLE = ITEMS.register("rum_bottle", () -> new ModDrinkItem(0, 3, 1, ModItems.BOTTLE.get(), new MobEffectInstance(ModEffects.TIPSY.get(), 650, 1), new MobEffectInstance(MobEffects.CONFUSION, 250)));
-	public static final RegistryObject<Item> MEAD_BOTTLE = ITEMS.register("mead_bottle", () -> new ModDrinkItem(0, 3, 1, ModItems.BOTTLE.get(), new MobEffectInstance(ModEffects.TIPSY.get(), 700, 0), new MobEffectInstance(MobEffects.CONFUSION, 240)));
-	public static final RegistryObject<Item> COGNAC_BOTTLE = ITEMS.register("cognac_bottle", () -> new ModDrinkItem(0, 3, 1, ModItems.BOTTLE.get(), new MobEffectInstance(ModEffects.TIPSY.get(), 800, 1), new MobEffectInstance(MobEffects.CONFUSION, 350)));
-	public static final RegistryObject<Item> WHISKEY_BOTTLE = ITEMS.register("whiskey_bottle", () -> new ModDrinkItem(0, 3, 1, ModItems.BOTTLE.get(), new MobEffectInstance(ModEffects.TIPSY.get(), 450, 1), new MobEffectInstance(MobEffects.CONFUSION, 150)));
-	public static final RegistryObject<Item> COKE_BOTTLE = ITEMS.register("coke_bottle", () -> new ModDrinkItem(0, 3, 1, ModItems.BOTTLE.get(), new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 250)));
-	public static final RegistryObject<Item> APPLE_PIE = ITEMS.register("apple_pie", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(7).saturationMod(6).build())));
-	public static final RegistryObject<Item> HOLIDAY_CANDY = ITEMS.register("holiday_candy", () -> new Item(new Item.Properties().stacksTo(16).food(new FoodProperties.Builder().nutrition(4).saturationMod(6).build())));
+	public static final RegistryObject<Item> CACAO_CUP = ITEMS.register("cacao_cup", () -> new ModDrinkItem(0, 1, 1, ModItems.CUP.get(), new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 250)));
+	public static final RegistryObject<Item> COFFE_CUP = ITEMS.register("coffe_cup", () -> new ModDrinkItem(0, 1, 1, ModItems.CUP.get(), new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 250)));
+	public static final RegistryObject<Item> TEA_CUP = ITEMS.register("tea_cup", () -> new ModDrinkItem(0, 1, 1, ModItems.CUP.get(), new MobEffectInstance(MobEffects.DIG_SPEED, 100)));
+	public static final RegistryObject<Item> GREEN_TEA_CUP = ITEMS.register("green_tea_cup", () -> new ModDrinkItem(0, 1, 1, ModItems.CUP.get(), new MobEffectInstance(ModEffects.ALOEREGEN.get(), 1800)));
+	public static final RegistryObject<Item> BEER_CUP = ITEMS.register("beer_cup", () -> new ModDrinkItem(0, 1, 1, ModItems.WOODEN_CUP.get(), new MobEffectInstance(ModEffects.TIPSY.get(), 400, 0)));
+	public static final RegistryObject<Item> RUM_CUP = ITEMS.register("rum_cup", () -> new ModDrinkItem(0, 1, 1, ModItems.WOODEN_CUP.get(), new MobEffectInstance(ModEffects.TIPSY.get(), 400, 0), new MobEffectInstance(MobEffects.CONFUSION, 120, 0)));
+	public static final RegistryObject<Item> KVASS_BOTTLE = ITEMS.register("kvass_bottle", () -> new ModDrinkItem(0, 1, 1, ModItems.BOTTLE.get(), new MobEffectInstance(MobEffects.SATURATION, 300)));
+	public static final RegistryObject<Item> WINE_BOTTLE = ITEMS.register("wine_bottle", () -> new ModDrinkItem(0, 1, 1, ModItems.BOTTLE.get(), new MobEffectInstance(ModEffects.TIPSY.get(), 450, 1), new MobEffectInstance(MobEffects.CONFUSION, 300)));
+	public static final RegistryObject<Item> AKVAVIT_BOTTLE = ITEMS.register("akvavit_bottle", () -> new ModDrinkItem(0, 1, 1, ModItems.BOTTLE.get(), new MobEffectInstance(ModEffects.TIPSY.get(), 500, 1), new MobEffectInstance(MobEffects.CONFUSION, 320)));
+	public static final RegistryObject<Item> LIQUOR_BOTTLE = ITEMS.register("liquor_bottle", () -> new ModDrinkItem(0, 1, 1, ModItems.BOTTLE.get(), new MobEffectInstance(ModEffects.TIPSY.get(), 350, 1), new MobEffectInstance(MobEffects.CONFUSION, 120)));
+	public static final RegistryObject<Item> RUM_BOTTLE = ITEMS.register("rum_bottle", () -> new ModDrinkItem(0, 1, 1, ModItems.BOTTLE.get(), new MobEffectInstance(ModEffects.TIPSY.get(), 650, 1), new MobEffectInstance(MobEffects.CONFUSION, 250)));
+	public static final RegistryObject<Item> MEAD_BOTTLE = ITEMS.register("mead_bottle", () -> new ModDrinkItem(0, 1, 1, ModItems.BOTTLE.get(), new MobEffectInstance(ModEffects.TIPSY.get(), 700, 0), new MobEffectInstance(MobEffects.CONFUSION, 240)));
+	public static final RegistryObject<Item> COGNAC_BOTTLE = ITEMS.register("cognac_bottle", () -> new ModDrinkItem(0, 1, 1, ModItems.BOTTLE.get(), new MobEffectInstance(ModEffects.TIPSY.get(), 800, 1), new MobEffectInstance(MobEffects.CONFUSION, 350)));
+	public static final RegistryObject<Item> WHISKEY_BOTTLE = ITEMS.register("whiskey_bottle", () -> new ModDrinkItem(0, 1, 1, ModItems.BOTTLE.get(), new MobEffectInstance(ModEffects.TIPSY.get(), 450, 1), new MobEffectInstance(MobEffects.CONFUSION, 150)));
+	public static final RegistryObject<Item> COKE_BOTTLE = ITEMS.register("coke_bottle", () -> new ModDrinkItem(0, 1, 1, ModItems.BOTTLE.get(), new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 250)));
+	public static final RegistryObject<Item> APPLE_PIE = ITEMS.register("apple_pie", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(3).saturationMod(1.4f).build())));
+	public static final RegistryObject<Item> HOLIDAY_CANDY = ITEMS.register("holiday_candy", () -> new Item(new Item.Properties().stacksTo(16).food(new FoodProperties.Builder().nutrition(1).saturationMod(0.2f).build())));
 
 	//public static final RegistryObject<Item> WAND_OF_NATURE = ITEMS.register("wand_of_nature", () -> new NatureStaff(new Item.Properties().stacksTo(1)));
 	public static final RegistryObject<Item> DUNESTONE_BRICK = ITEMS.register("dunestone_brick", () -> new Item(new Item.Properties()));
@@ -316,6 +316,7 @@ public class ModItems {
 	// Placeholder for Entity Render
 	public static final RegistryObject<Item> SPECTRAL_BLADE_THROWN = ITEMS.register("spectral_blade_thrown",
 			() -> new Item(new Item.Properties()));
+
 	public static final RegistryObject<Item> WOODEN_SPEAR = ITEMS.register("wooden_spear",
 			() -> new SpearItem(Tiers.WOOD, 2, -3.2f, new Item.Properties()));
 	public static final RegistryObject<Item> STONE_SPEAR = ITEMS.register("stone_spear",
@@ -377,15 +378,15 @@ public class ModItems {
 	public static final RegistryObject<Item> XMAS_SWORD = ITEMS.register("xmas_sword",
 			() -> new SwordItem(Tiers.IRON, 3, -2.3f, new Item.Properties()));
 	public static final RegistryObject<Item> COBALT_SWORD = ITEMS.register("cobalt_sword",
-			() -> new SwordItem(ModItemTier.COBALT, 5, -2.4f, new Item.Properties()));
+			() -> new SwordItem(ModItemTier.COBALT, 7, -2.2f, new Item.Properties()));
 	public static final RegistryObject<Item> COBALT_PICKAXE = ITEMS.register("cobalt_pickaxe",
-			() -> new PickaxeItem(ModItemTier.COBALT, 0, -3f, new Item.Properties()));
+			() -> new PickaxeItem(ModItemTier.COBALT, 2, -3f, new Item.Properties()));
 	public static final RegistryObject<Item> COBALT_SHOVEL = ITEMS.register("cobalt_shovel",
-			() -> new ShovelItem(ModItemTier.COBALT, 0, -3f, new Item.Properties()));
+			() -> new ShovelItem(ModItemTier.COBALT, 2, -3f, new Item.Properties()));
 	public static final RegistryObject<Item> COBALT_AXE = ITEMS.register("cobalt_axe",
-			() -> new AxeItem(ModItemTier.COBALT, 6, -3.4f, new Item.Properties()));
+			() -> new AxeItem(ModItemTier.COBALT, 8, -3.4f, new Item.Properties()));
 	public static final RegistryObject<Item> COBALT_HOE = ITEMS.register("cobalt_hoe",
-			() -> new HoeItem(ModItemTier.COBALT, -1, 0f, new Item.Properties()));
+			() -> new HoeItem(ModItemTier.COBALT, 0, 0f, new Item.Properties()));
 	public static final RegistryObject<Item> ENT = ITEMS.register("ent",
 			() -> new SwordItem(ModItemTier.NATURE, 7, -2.4f, new Item.Properties()));
 	public static final RegistryObject<Item> NATURE_SCYTHE = ITEMS.register("nature_scythe",

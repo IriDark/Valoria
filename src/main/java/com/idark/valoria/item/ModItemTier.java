@@ -8,14 +8,11 @@ import java.util.function.Supplier;
 
 public enum ModItemTier implements Tier {
 
-	//1 Harvest 2 Uses 3 Efficiency 4 Damage 5 Enchant
-    //OTHER
-    COBALT(1, 160, 5f, 0f, 18,
+    COBALT(1, 1676, 5f, 0f, 16,
 	    () -> Ingredient.of(ModItems.COBALT_INGOT.get())),
-    //ELEMENTAL
-    NATURE(3, 2400, 10f, 0f, 17,
+    NATURE(3, 2451, 10f, 0f, 18,
 	    () -> Ingredient.of(ModItems.NATURE_INGOT.get())),
-	AQUARIUS(4, 2600, 11f, 0f, 15,
+	AQUARIUS(4, 2756, 11f, 0f, 15,
 	    () -> Ingredient.of(ModItems.AQUARIUS_INGOT.get())),
     INFERNAL(5, 2800, 12f, 0f, 16,
 	    () -> Ingredient.of(ModItems.INFERNAL_INGOT.get()));

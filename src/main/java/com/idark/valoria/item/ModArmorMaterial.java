@@ -5,16 +5,20 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.ItemLike;
 
+import java.util.EnumMap;
 import java.util.function.Supplier;
 
 public enum ModArmorMaterial implements ArmorMaterial {
-	COBALT("cobalt", 16, new int[] { 2, 3, 4, 2 }, 18,
-	SoundEvents.ARMOR_EQUIP_IRON, 1.0f, 0.0f, () -> Ingredient.of(ModItems.COBALT_INGOT.get())),
+
+											// Helmet, Chestplate, Leggings, Boots
+	COBALT("cobalt", 31, new int[] { 3, 8, 6, 2 }, 18,
+	SoundEvents.ARMOR_EQUIP_IRON, 2.2f, 0.05f, () -> Ingredient.of(ModItems.COBALT_INGOT.get())),
 	SAMURAI("samurai", 17, new int[] { 3, 6, 4, 2 }, 14,
 	SoundEvents.ARMOR_EQUIP_IRON, 1.0f, 0.0f, () -> Ingredient.of(ModItems.ANCIENT_INGOT.get())),
-
 	NATURE("nature", 30, new int[] { 3, 5, 4, 3 }, 17,
 	SoundEvents.ARMOR_EQUIP_IRON, 1.0f, 0.0f, () -> Ingredient.of(ModItems.NATURE_INGOT.get())),
 	DEPTH("depth", 32, new int[] { 4, 8, 6, 4 }, 15,

@@ -63,8 +63,8 @@ public class HoundItem extends TieredItem implements Vanishable {
     public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entityLiving) {
 		Player player = (Player)entityLiving;
 		player.awardStat(Stats.ITEM_USED.get(this));
-
-		Vec3 pos = new Vec3(player.getX(), player.getY() + 0.2f, player.getZ());
+        player.getCooldowns().addCooldown(this, 120);
+        Vec3 pos = new Vec3(player.getX(), player.getY() + 0.2f, player.getZ());
 		List<LivingEntity> hitEntities = new ArrayList<LivingEntity>();
         List<LivingEntity> markedEntities = new ArrayList<LivingEntity>();
         for (int i = 0; i < 360; i += 10) {
@@ -78,7 +78,6 @@ public class HoundItem extends TieredItem implements Vanishable {
             ModUtils.markNearbyMobs(level, player, markedEntities, pos, 0, player.getRotationVector().y + i, 15);
             ModUtils.spawnParticlesLineToNearbyMobs(level, player, new BlockParticleOption(ParticleTypes.BLOCK, Blocks.CRIMSON_NYLIUM.defaultBlockState()), hitEntities, pos, 0, player.getRotationVector().y + i, 15);
         }
-
 		return stack;
 	}
 
@@ -91,17 +90,13 @@ public class HoundItem extends TieredItem implements Vanishable {
     }
 
     public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-        stack.hurtAndBreak(1, attacker, (entity) -> {
-            entity.broadcastBreakEvent(EquipmentSlot.MAINHAND);
-        });
+        stack.hurtAndBreak(1, attacker, (entity) -> entity.broadcastBreakEvent(EquipmentSlot.MAINHAND));
         return true;
     }
 
     public boolean mineBlock(ItemStack stack, Level worldIn, BlockState state, BlockPos pos, LivingEntity entityLiving) {
         if (state.getDestroySpeed(worldIn, pos) != 0.0F) {
-            stack.hurtAndBreak(4, entityLiving, (entity) -> {
-                entity.broadcastBreakEvent(EquipmentSlot.MAINHAND);
-            });
+            stack.hurtAndBreak(4, entityLiving, (entity) -> entity.broadcastBreakEvent(EquipmentSlot.MAINHAND));
         }
         return true;
     }

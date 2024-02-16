@@ -26,7 +26,7 @@ public class TitledTextPage extends Page {
         int titleWidth = font.width(I18n.get(this.title));
 
         int xOffset = (115 - titleWidth) / 2;
-        gui.blit(BACKGROUND, x + 39, y + 25, 97, 180, 38, 13, 512, 512);
+        //gui.blit(BACKGROUND, x + 39, y + 25, 97, 180, 38, 13, 512, 512);
         drawText(gui, I18n.get(this.title), x + xOffset, y + 22 - Minecraft.getInstance().font.lineHeight, false);
         drawWrappingText(gui, I18n.get(text), x + 4, y + 35, 120, false);
     }

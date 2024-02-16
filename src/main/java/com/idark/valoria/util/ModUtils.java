@@ -80,7 +80,10 @@ public class ModUtils {
         X = Math.sin(locPitch + pitch) * Math.cos(locYaw + yaw) * pRadius * 0.75F;
         Y = Math.cos(locPitch + pitch) * pRadius * 0.75F;
         Z = Math.sin(locPitch + pitch) * Math.sin(locYaw + yaw) * pRadius * 0.75F;
-        level.addParticle(type, pos.x + X, pos.y + Y + ((Math.random() - 0.5D) * 0.2F), pos.z + Z, 0d, 0d, 0d);
+        if (!level.isClientSide() && level instanceof ServerLevel pServer) {
+            //level.addParticle(type, pos.x + X, pos.y + Y + ((Math.random() - 0.5D) * 0.2F), pos.z + Z, 0d, 0d, 0d);
+            pServer.sendParticles(type, pos.x + X, pos.y + Y + ((Math.random() - 0.5D) * 0.2F), pos.z + Z,1,  0, 0, 0, 0);
+        }
     }
 
 
@@ -147,7 +150,10 @@ public class ModUtils {
         X = Math.sin(locPitch + pitch) * Math.cos(locYaw + yaw) * pRadius * 0.75F;
         Y = Math.cos(locPitch + pitch) * pRadius * 0.75F;
         Z = Math.sin(locPitch + pitch) * Math.sin(locYaw + yaw) * pRadius * 0.75F;
-        level.addParticle(type, pos.x + X, pos.y + Y + ((Math.random() - 0.5D) * 0.2F), pos.z + Z, 0d, 0d, 0d);
+        if (!level.isClientSide() && level instanceof ServerLevel pServer) {
+            //level.addParticle(type, pos.x + X, pos.y + Y + ((Math.random() - 0.5D) * 0.2F), pos.z + Z, 0d, 0d, 0d);
+            pServer.sendParticles(type, pos.x + X, pos.y + Y + ((Math.random() - 0.5D) * 0.2F), pos.z + Z, 1,  0, 0, 0, 0);
+        }
     }
 
     /**
@@ -173,15 +179,18 @@ public class ModUtils {
 
         int count = 1 + Mth.nextInt(source, 0, 2);
 
-        for (int ii = 0; ii < count; ii += 1) {
-            double yaw = Math.atan2(dZ, dX);
-            double pitch = Math.atan2(Math.sqrt(dZ * dZ + dX * dX), dY) + Math.PI;
+        if (!level.isClientSide() && level instanceof ServerLevel pServer) {
+            for (int ii = 0; ii < count; ii += 1) {
+                double yaw = Math.atan2(dZ, dX);
+                double pitch = Math.atan2(Math.sqrt(dZ * dZ + dX * dX), dY) + Math.PI;
 
-            double XX = Math.sin(pitch) * Math.cos(yaw) * speed / (ii + 1);
-            double YY = Math.sin(pitch) * Math.sin(yaw) * speed / (ii + 1);
-            double ZZ = Math.cos(pitch) * speed / (ii + 1);
+                double XX = Math.sin(pitch) * Math.cos(yaw) * speed / (ii + 1);
+                double YY = Math.sin(pitch) * Math.sin(yaw) * speed / (ii + 1);
+                double ZZ = Math.cos(pitch) * speed / (ii + 1);
 
-            level.addParticle(options, pos.x + X, pos.y + Y, pos.z + Z, XX, YY, ZZ);
+                //level.addParticle(options, pos.x + X, pos.y + Y, pos.z + Z, XX, YY, ZZ);
+                pServer.sendParticles(options, pos.x + X, pos.y + Y, pos.z + Z, 1,  XX, YY, ZZ, 0);
+            }
         }
     }
 
@@ -268,7 +277,11 @@ public class ModUtils {
                     float y = (float) (dY / distanceInBlocks);
                     float z = (float) (dZ / distanceInBlocks);
 
-                    pLevel.addParticle(pType, pos.x - (x * i), pos.y - (y * i), pos.z - (z * i), 0, 0, 0);
+                    if (!pLevel.isClientSide() && pLevel instanceof ServerLevel pServer) {
+                        //pLevel.addParticle(pType, pos.x - (x * i), pos.y - (y * i), pos.z - (z * i), 0, 0, 0);
+                        pServer.sendParticles(pType, pos.x - (x * i), pos.y - (y * i), pos.z - (z * i), 1, 0, 0, 0, 0);
+
+                    }
                 }
 
                 for (int i = 0; i < 3; i++) {
@@ -327,7 +340,10 @@ public class ModUtils {
             float y = (float) (dY / distanceInBlocks);
             float z = (float) (dZ / distanceInBlocks);
 
-            pLevel.addParticle(pType, pFrom.x - (x * i), pFrom.y - (y * i), pFrom.z - (z * i), 0, 0, 0);
+            if (!pLevel.isClientSide() && pLevel instanceof ServerLevel pServer) {
+                //pLevel.addParticle(pType, pFrom.x - (x * i), pFrom.y - (y * i), pFrom.z - (z * i), 0, 0, 0);
+                pServer.sendParticles(pType, pFrom.x - (x * i), pFrom.y - (y * i), pFrom.z - (z * i), 1, 0, 0, 0, 0);
+            }
         }
     }
 }

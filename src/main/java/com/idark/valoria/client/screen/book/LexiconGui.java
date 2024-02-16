@@ -94,8 +94,8 @@ public class LexiconGui extends Screen {
         }
 
         // Category footer
-        //gui.blit(BACKGROUND, guiLeft + 48, guiTop + 31, 97, 180, 38, 13, 512, 512);
-        //gui.blit(BACKGROUND, guiLeft + 186, guiTop + 31, 97, 180, 38, 13, 512, 512);
+        gui.blit(BACKGROUND, guiLeft + 48, guiTop + 31, 97, 180, 38, 13, 512, 512);
+        gui.blit(BACKGROUND, guiLeft + 186, guiTop + 31, 97, 180, 38, 13, 512, 512);
 
         Page left = currentChapter.getPage(currentPage), right = currentChapter.getPage(currentPage + 1);
         if (left != null) left.fullRender(gui, guiLeft + 10, guiTop + 8, mouseX, mouseY);

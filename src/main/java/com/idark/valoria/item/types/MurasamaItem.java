@@ -63,7 +63,7 @@ public class MurasamaItem extends SwordItem {
         }
 
         if (getCharge(stack) == 20) {
-            player.playNotifySound(ModSoundRegistry.RECHARGE.get(), SoundSource.PLAYERS,0.3f,1);
+            player.playNotifySound(ModSoundRegistry.RECHARGE.get(), SoundSource.PLAYERS,0.6f,1);
         }
     }
 

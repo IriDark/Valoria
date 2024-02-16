@@ -47,7 +47,7 @@ public class BloodSight extends Item implements ICurioItem {
     public void curioTick(String identifier, int index, LivingEntity livingEntity, ItemStack stack) {
         Player player = (Player) livingEntity;
         ModUtils.spawnParticlesLineToAttackedMob(player.level(), player, new BlockParticleOption(ParticleTypes.BLOCK, Blocks.REDSTONE_BLOCK.defaultBlockState()));
-        ModUtils.damageLastAttackedMob(player.level(), player, 0.15f);
+        ModUtils.damageLastAttackedMob(player.level(), player, this.getDamage(1, RandomSource.create()));
 
         ICurioItem.super.curioTick(identifier, index, livingEntity, stack);
     }

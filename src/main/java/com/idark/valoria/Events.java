@@ -6,11 +6,13 @@ import com.idark.valoria.api.unlockable.Unlockables;
 import com.idark.valoria.capability.IUnlockable;
 import com.idark.valoria.capability.UnloackbleCap;
 import com.idark.valoria.client.screen.book.unlockable.ItemUnlockable;
+import com.idark.valoria.effect.ModEffects;
 import com.idark.valoria.network.PacketHandler;
 import com.idark.valoria.network.UnlockableUpdatePacket;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -54,7 +56,6 @@ public class Events {
         if (!event.player.level().isClientSide) {
             Player player = event.player;
             List<ItemStack> items = player.inventoryMenu.getItems();
-
             for (Unlockable unlockable : Unlockables.getUnlockables()) {
                 if (unlockable instanceof ItemUnlockable itemKnowledge) {
                     if (itemKnowledge.canReceived(items)) {
