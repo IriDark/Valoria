@@ -57,7 +57,6 @@ public class CurioCurses extends Item implements ICurioItem {
 		return new ICurio.SoundInfo(SoundEvents.CALCITE_PLACE, 1.0f, 1.0f);
 	}
 
-	// TODO: Fix (Called two times instead 1 for some reason)
 	// Calamity sounds used
 	@Override
 	public void curioTick(String identifier, int index, LivingEntity livingEntity, ItemStack stack) {

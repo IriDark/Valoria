@@ -52,6 +52,8 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.FireBlock;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.api.distmarker.Dist;
@@ -176,6 +178,16 @@ public class Valoria {
         ModPotions.bootStrap();
         RegisterUnlockables.init();
         event.enqueueWork(() -> {
+            FireBlock fireblock = (FireBlock) Blocks.FIRE;
+            fireblock.setFlammable(ModBlocks.SHADELOG.get(), 5, 20);
+            fireblock.setFlammable(ModBlocks.SHADEWOOD.get(), 5, 20);
+            fireblock.setFlammable(ModBlocks.SHADEWOOD_LEAVES.get(), 30, 60);
+            fireblock.setFlammable(ModBlocks.SHADEWOOD_PLANKS_SLAB.get(), 5, 40);
+            fireblock.setFlammable(ModBlocks.SHADEWOOD_PLANKS_STAIRS.get(), 5, 40);
+            fireblock.setFlammable(ModBlocks.SHADEWOOD_PLANKS.get(), 5, 25);
+            fireblock.setFlammable(ModBlocks.STRIPPED_SHADELOG.get(), 5, 30);
+            fireblock.setFlammable(ModBlocks.STRIPPED_SHADEWOOD.get(), 5, 30);
+
             AxeItem.STRIPPABLES = new ImmutableMap.Builder<Block, Block>().putAll(AxeItem.STRIPPABLES)
                     .put(ModBlocks.SHADELOG.get(), ModBlocks.STRIPPED_SHADELOG.get())
                     .put(ModBlocks.SHADEWOOD.get(), ModBlocks.STRIPPED_SHADEWOOD.get()).build();

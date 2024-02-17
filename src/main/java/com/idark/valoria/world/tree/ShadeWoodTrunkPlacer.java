@@ -44,17 +44,17 @@ public class ShadeWoodTrunkPlacer extends TrunkPlacer {
 
         int numBranches = 0;
         int lastBranch = 0;
-        double branchChance = 0.85;
+        double branchChance = 0.35;
 
         for (int i = 0; i < foliageHeight; ++i) {
             if (i == foliageHeight - 2) {
-                branchChance = 0.25;
+                branchChance = 0.12;
             }
             boolean northB = random.nextFloat() <= branchChance;
             boolean southB = random.nextFloat() <= branchChance;
             boolean eastB = random.nextFloat() <= branchChance;
             boolean westB = random.nextFloat() <= branchChance;
-            branchChance = 0.15;
+            branchChance = 0.08;
 
             int j2 = y + i;
             BlockPos blockpos1 = new BlockPos(x, j2, z);
@@ -134,13 +134,13 @@ public class ShadeWoodTrunkPlacer extends TrunkPlacer {
         addLog(world, pos.relative(d, 3).above(0), random, baseTreeFeatureConfig, consumer);
 
         addLineLeaves(world, pos.relative(d).above(1), d, 3, random, baseTreeFeatureConfig, consumer);
+        addLineLeaves(world, pos.relative(d).above(3), d, 4, random, baseTreeFeatureConfig, consumer);
         addLineLeaves(world, pos.relative(d).above(2), d, 3, random, baseTreeFeatureConfig, consumer);
-        addLineLeaves(world, pos.relative(d).above(3), d, 3, random, baseTreeFeatureConfig, consumer);
 
         for (int j = 1; j < 4; j++) {
-            addLineLeaves(world, pos.relative(d, j).above(3), d, 3, random, baseTreeFeatureConfig, 0.9f, consumer);
             addLineLeaves(world, pos.relative(d, j).above(2), d, 3, random, baseTreeFeatureConfig, 0.9f, consumer);
-            addLineLeaves(world, pos.relative(d, j).above(4), d, 3, random, baseTreeFeatureConfig, .1f, consumer);
+            addLineLeaves(world, pos.relative(d, j).above(5), d, 4, random, baseTreeFeatureConfig, 0.9f, consumer);
+            addLineLeaves(world, pos.relative(d, j).above(3), d, 3, random, baseTreeFeatureConfig, .1f, consumer);
         }
 
         for (int i = 0; i < 2; i++) {
@@ -150,16 +150,16 @@ public class ShadeWoodTrunkPlacer extends TrunkPlacer {
             addHollowLine(world, pos.relative(d, 2 + i).above(2), d, 3, random, baseTreeFeatureConfig, 0.1f, consumer);
         }
 
-        addLineLeaves(world, pos.relative(d, 4).above(1), d, 3, random, baseTreeFeatureConfig, consumer);
-        addLineLeaves(world, pos.relative(d, 4).above(2), d, 3, random, baseTreeFeatureConfig, consumer);
+        addLineLeaves(world, pos.relative(d, 6).above(3), d, 3, random, baseTreeFeatureConfig, consumer);
+        addLineLeaves(world, pos.relative(d, 4).above(2), d, 4, random, baseTreeFeatureConfig, consumer);
 
-        addLineLeaves(world, pos.relative(d, 5).above(1), d, 3, random, baseTreeFeatureConfig, 0.1f, consumer);
-        addLineLeaves(world, pos.relative(d, 5).above(2), d, 3, random, baseTreeFeatureConfig, 0.1f, consumer);
+        addLineLeaves(world, pos.relative(d, 4).above(4), d, 3, random, baseTreeFeatureConfig, 0.1f, consumer);
+        addLineLeaves(world, pos.relative(d, 5).above(2), d, 2, random, baseTreeFeatureConfig, 0.1f, consumer);
     }
 
     public void addLineLeaves(LevelSimulatedReader world, BlockPos pos, Direction d, int length, RandomSource rand, TreeConfiguration baseTreeFeatureConfig, BiConsumer<BlockPos, BlockState> consumer) {
         if (length % 2 == 0)
-            addLineLeavesEven(world, pos, d, length, rand, baseTreeFeatureConfig, 1.0f, consumer);
+            addLineLeavesEven(world, pos, d, length, rand, baseTreeFeatureConfig, 1.2f, consumer);
         else
             addLineLeavesOdd(world, pos, d, length, rand, baseTreeFeatureConfig, 1.0f, consumer);
     }
