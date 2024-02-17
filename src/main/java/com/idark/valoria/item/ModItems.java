@@ -384,7 +384,7 @@ public class ModItems {
 	public static final RegistryObject<Item> COBALT_SHOVEL = ITEMS.register("cobalt_shovel",
 			() -> new ShovelItem(ModItemTier.COBALT, 2, -3f, new Item.Properties()));
 	public static final RegistryObject<Item> COBALT_AXE = ITEMS.register("cobalt_axe",
-			() -> new AxeItem(ModItemTier.COBALT, 8, -3.4f, new Item.Properties()));
+			() -> new AxeItem(ModItemTier.COBALT, 9, -3.4f, new Item.Properties()));
 	public static final RegistryObject<Item> COBALT_HOE = ITEMS.register("cobalt_hoe",
 			() -> new HoeItem(ModItemTier.COBALT, 0, 0f, new Item.Properties()));
 	public static final RegistryObject<Item> ENT = ITEMS.register("ent",

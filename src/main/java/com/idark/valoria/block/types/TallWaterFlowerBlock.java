@@ -1,5 +1,6 @@
 package com.idark.valoria.block.types;
 
+import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -22,15 +23,7 @@ public class TallWaterFlowerBlock extends DoublePlantBlock implements net.minecr
 			worldIn.destroyBlock(pos, true);
 		}
 	}
-   
-	/*public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
-		if (!stateIn.canSurvive(worldIn, currentPos)) {
-			worldIn.getBlockTicks().scheduleTick(currentPos, this, 1);
-		}
 
-		return super.updateShape(stateIn, facing, facingState, worldIn, currentPos, facingPos);
-	}*/
-   
 	protected boolean mayPlaceOn(BlockState state, BlockGetter worldIn, BlockPos pos) {
 		Block block = state.getBlock();
 		return block == Blocks.GRASS || block == Blocks.DIRT || block == Blocks.SAND || block == Blocks.PODZOL;

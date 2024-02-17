@@ -117,6 +117,7 @@ dependencies {
 
     //implementation fg.deobf("curse.maven:wizards-reborn-913994:5040712")
     implementation fg.deobf("curse.maven:appleskin-248787:4770828")
+    implementation fg.deobf("curse.maven:advanced-xray-256256:4840340")
     implementation fg.deobf("curse.maven:farmers-delight-398521:4679319")
     implementation fg.deobf("curse.maven:model-gap-fix-676136:4607206")
     implementation fg.deobf("curse.maven:just-enough-effect-descriptions-jeed-532286:4978810")

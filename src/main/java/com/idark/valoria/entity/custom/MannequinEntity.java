@@ -3,13 +3,16 @@ package com.idark.valoria.entity.custom;
 import com.idark.valoria.item.ModItems;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -48,7 +51,7 @@ public class MannequinEntity extends Mob implements IForgeEntity {
 
                 this.removeAfterChangingDimensions();
             } else {
-                for (int i = 0; i < 15; i++) {
+                for (int i = 0; i < 4; i++) {
                     level.addParticle(ParticleTypes.POOF, this.getX(), this.getY() + 0.7D, this.getZ(), 0d, 0.02d, 0d);
                 }
             }
@@ -71,7 +74,7 @@ public class MannequinEntity extends Mob implements IForgeEntity {
     @Override
     public boolean hurt(DamageSource source, float amount) {
         BlockState state = Blocks.HAY_BLOCK.defaultBlockState();
-        for (int i = 0; i < 15; i++) {
+        for (int i = 0; i < 3; i++) {
             this.level().addParticle(new BlockParticleOption(ParticleTypes.BLOCK, state), this.getX(), this.getY() + 0.7D, this.getZ(), 0d, 0.02d, 0d);
         }
 

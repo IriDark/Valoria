@@ -5,7 +5,10 @@ import com.google.common.collect.Multimap;
 import com.idark.valoria.sounds.ModSoundRegistry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffect;
@@ -59,10 +62,12 @@ public class CurioCurses extends Item implements ICurioItem {
 	@Override
 	public void curioTick(String identifier, int index, LivingEntity livingEntity, ItemStack stack) {
 		Player player = (Player) livingEntity;
-		if (player.getActiveEffects().isEmpty() && !player.getCooldowns().isOnCooldown(this)) {
-			player.playSound(ModSoundRegistry.EQUIP_CURSE.get(), 0.5f, 1f);
-			player.addEffect(new MobEffectInstance(effects[Mth.nextInt(rand, 0, 5)], 60, 0, false, true));
-			player.getCooldowns().addCooldown(this, 300);
+		if (!player.level().isClientSide() && player instanceof ServerPlayer pServer) {
+			if (pServer.getActiveEffects().isEmpty() && !pServer.getCooldowns().isOnCooldown(this)) {
+				pServer.addEffect(new MobEffectInstance(effects[Mth.nextInt(rand, 0, 5)], 60, 0, false, true));
+				pServer.getCooldowns().addCooldown(this, 300);
+				pServer.level().playSound(null, pServer.getOnPos(), ModSoundRegistry.EQUIP_CURSE.get(), SoundSource.AMBIENT, 0.5f, 1f);
+			}
 		}
 
 		ICurioItem.super.curioTick(identifier, index, livingEntity, stack);
@@ -79,6 +84,5 @@ public class CurioCurses extends Item implements ICurioItem {
 	public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags) {
 		super.appendHoverText(stack, world, tooltip, flags);
 		tooltip.add(Component.translatable("tooltip.valoria.curses").withStyle(ChatFormatting.GRAY));
-		tooltip.add(Component.translatable("tooltip.valoria.wip").withStyle(ChatFormatting.RED));
 	}
 }

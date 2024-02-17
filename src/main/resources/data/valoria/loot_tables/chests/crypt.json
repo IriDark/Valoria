@@ -1,0 +1,263 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "rolls": {
+        "type": "minecraft:uniform",
+        "min": 2,
+        "max": 8
+      },
+      "bonus_rolls": 0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "weight": 2,
+          "name": "valoria:rune_of_curses"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "valoria:toxins_bottle",
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance",
+              "chance": 0.2
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 5,
+          "name": "valoria:aloe_bandage"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 2,
+          "name": "valoria:miners_bag"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 4,
+          "name": "valoria:gem_bag"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 3,
+          "name": "valoria:pick"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "valoria:pick_necklace"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "valoria:leather_gloves",
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance",
+              "chance": 0.23
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "valoria:iron_gloves",
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance",
+              "chance": 0.12
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "valoria:iron_ring"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "valoria:broken_bloodsight_monocle",
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance",
+              "chance": 0.06
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 3,
+          "name": "valoria:iron_chain"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 2,
+          "name": "minecraft:golden_apple"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 12,
+          "name": "minecraft:bone"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 5,
+          "name": "minecraft:gunpowder"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:string",
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance",
+              "chance": 0.14
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 6,
+          "name": "minecraft:iron_ingot",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 1,
+              "conditions": [
+                {
+                  "condition": "minecraft:random_chance",
+                  "chance": 0.2
+                }
+              ]
+            },
+            {
+              "function": "minecraft:set_count",
+              "count": 4,
+              "conditions": [
+                {
+                  "condition": "minecraft:random_chance",
+                  "chance": 0.1
+                }
+              ]
+            },
+            {
+              "function": "minecraft:set_count",
+              "count": 2,
+              "conditions": [
+                {
+                  "condition": "minecraft:random_chance",
+                  "chance": 0.3
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 3,
+          "name": "minecraft:iron_helmet"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 2,
+          "name": "minecraft:gold_nugget",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 1,
+              "conditions": [
+                {
+                  "condition": "minecraft:random_chance",
+                  "chance": 0.4
+                }
+              ]
+            },
+            {
+              "function": "minecraft:set_count",
+              "count": 3,
+              "conditions": [
+                {
+                  "condition": "minecraft:random_chance",
+                  "chance": 0.3
+                }
+              ]
+            },
+            {
+              "function": "minecraft:set_count",
+              "count": 2,
+              "conditions": [
+                {
+                  "condition": "minecraft:random_chance",
+                  "chance": 0.2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 5,
+          "name": "minecraft:stick"
+        },
+        {
+          "type": "minecraft:item",
+          "quality": 1,
+          "name": "minecraft:iron_sword"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 2,
+          "name": "minecraft:cobweb"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 4,
+          "name": "valoria:rune"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 3,
+          "name": "valoria:stone_spear",
+          "functions": [
+            {
+              "function": "minecraft:set_damage",
+              "damage": 74,
+              "conditions": [
+                {
+                  "condition": "minecraft:random_chance",
+                  "chance": 0.35
+                }
+              ]
+            },
+            {
+              "function": "minecraft:set_damage",
+              "damage": 35,
+              "conditions": [
+                {
+                  "condition": "minecraft:random_chance",
+                  "chance": 0.45
+                }
+              ]
+            },
+            {
+              "function": "minecraft:set_damage",
+              "damage": 26
+            }
+          ],
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance",
+              "chance": 0.12
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 3,
+          "name": "valoria:bronze_ingot"
+        }
+      ]
+    }
+  ],
+  "random_sequence": "minecraft:chests/igloo_chest"
+}

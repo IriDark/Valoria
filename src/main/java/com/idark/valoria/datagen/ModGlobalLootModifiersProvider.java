@@ -34,6 +34,5 @@ public class ModGlobalLootModifiersProvider extends GlobalLootModifierProvider {
                 new LootTableIdCondition.Builder(new ResourceLocation("chests/shipwreck_supply")).build() }, ModItems.GEM_BAG.get(), 1, 0.2f));
         add("gems_bag_from_shipwreck_treasure", new AddItemModifier(new LootItemCondition[] {
                 new LootTableIdCondition.Builder(new ResourceLocation("chests/shipwreck_treasure")).build() }, ModItems.GEM_BAG.get(), 1, 0.5f));
-
     }
 }

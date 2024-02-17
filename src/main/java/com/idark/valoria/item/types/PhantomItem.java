@@ -9,7 +9,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -21,7 +20,6 @@ import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.Tags;
 import org.joml.Vector3d;
 
 import java.util.ArrayList;
@@ -58,7 +56,7 @@ public class PhantomItem extends SwordItem {
      */
     public void releaseUsing(ItemStack stack, Level level, LivingEntity entityLiving, int timeLeft) {
         Player player = (Player) entityLiving;
-        player.getCooldowns().addCooldown(this, 10);
+        player.getCooldowns().addCooldown(this, 750);
         player.awardStat(Stats.ITEM_USED.get(this));
 
         Vector3d pos = new Vector3d(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());
@@ -91,6 +89,7 @@ public class PhantomItem extends SwordItem {
         if (!player.level().isClientSide) {
             float damage = (float) (player.getAttribute(Attributes.ATTACK_DAMAGE).getValue()) + EnchantmentHelper.getSweepingDamageRatio(player);
             for (LivingEntity entity : hitEntities) {
+                // To prevent knockback for creative player
                 if (!entity.level().isClientSide && entity instanceof Player && ((Player) entity).isCreative()) {
                     continue;
                 }

@@ -6,6 +6,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
@@ -180,8 +181,12 @@ public class BlazeReapItem extends PickaxeItem {
                 level.addParticle(ParticleTypes.FLAME, pos.x + X + ((rand.nextDouble() - 0.5D) * 3), pos.y + Y + ((rand.nextDouble() - 0.5D) * 3), pos.z + Z + ((rand.nextDouble() - 0.5D) * 3), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2));
             }
 
-            level.addParticle(ParticleTypes.EXPLOSION_EMITTER, pos.x + X, pos.y + Y, player.getZ() + Z, 0d, 0d, 0d);
-            level.playSound(player, player.blockPosition().offset((int) X, (int) (Y + player.getEyeHeight()), (int) Z), SoundEvents.GENERIC_EXPLODE, SoundSource.AMBIENT, 10f, 1f);
+            if(level instanceof ServerLevel srv) {
+                //level.addParticle(ParticleTypes.EXPLOSION_EMITTER, pos.x + X, pos.y + Y, player.getZ() + Z, 0d, 0d, 0d);
+                srv.sendParticles(ParticleTypes.EXPLOSION_EMITTER, pos.x + X, pos.y + Y, player.getZ() + Z, 1, 0, 0, 0,0);
+            }
+
+            level.playSound(null, player.blockPosition().offset((int) X, (int) (Y + player.getEyeHeight()), (int) Z), SoundEvents.GENERIC_EXPLODE, SoundSource.AMBIENT, 10f, 1f);
 
 
             return InteractionResultHolder.success(itemstack);

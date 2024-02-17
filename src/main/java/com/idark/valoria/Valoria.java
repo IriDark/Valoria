@@ -1,9 +1,11 @@
 package com.idark.valoria;
 
 import com.google.common.collect.ImmutableMap;
+import com.idark.valoria.block.ModBlockColors;
 import com.idark.valoria.block.ModBlocks;
 import com.idark.valoria.block.blockentity.ModBlockEntities;
 import com.idark.valoria.block.types.ModWoodTypes;
+import com.idark.valoria.capability.IUnlockable;
 import com.idark.valoria.client.event.ClientTickHandler;
 import com.idark.valoria.client.render.CorpsecleaverRender;
 import com.idark.valoria.client.render.DashOverlayRender;
@@ -37,11 +39,13 @@ import com.idark.valoria.proxy.ISidedProxy;
 import com.idark.valoria.proxy.ServerProxy;
 import com.idark.valoria.recipe.ModRecipes;
 import com.idark.valoria.client.screen.JewelryScreen;
+import com.idark.valoria.util.ColorUtils;
 import com.idark.valoria.util.LootUtil;
 import com.idark.valoria.sounds.ModSoundRegistry;
 import com.idark.valoria.util.WorldRenderHandler;
 import com.idark.valoria.client.particle.ModParticles;
 import com.idark.valoria.world.WorldGen;
+import net.minecraft.client.color.block.BlockColor;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
@@ -52,6 +56,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.data.event.GatherDataEvent;
@@ -187,7 +192,12 @@ public class Valoria {
 
 		@SubscribeEvent
 		public static void registerCaps(RegisterCapabilitiesEvent event) {
-			//event.register(IPage.class);
+			event.register(IUnlockable.class);
+		}
+
+		@SubscribeEvent
+		public static void ColorMappingBlocks(RegisterColorHandlersEvent.Block event) {
+			event.register((state, world, pos, tintIndex) -> ModBlockColors.getInstance().getColor(state, world, pos, tintIndex), ModBlockColors.MODDED_PLANTS);
 		}
 
 		@SubscribeEvent
