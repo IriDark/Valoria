@@ -13,12 +13,10 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 
 public class ShadeSaplingBlock extends SaplingBlock {
 	public static final IntegerProperty STAGE = BlockStateProperties.STAGE;
-	private final AbstractTreeGrower tree;
 
-	public ShadeSaplingBlock(AbstractTreeGrower treeIn, BlockBehaviour.Properties properties) {
+    public ShadeSaplingBlock(AbstractTreeGrower treeIn, BlockBehaviour.Properties properties) {
 		super(treeIn, properties);
-		this.tree = treeIn;
-		this.registerDefaultState(this.stateDefinition.any().setValue(STAGE, Integer.valueOf(0)));
+        this.registerDefaultState(this.stateDefinition.any().setValue(STAGE, 0));
 	}
 	
 	protected boolean mayPlaceOn(BlockState state, BlockGetter worldIn, BlockPos pos) {

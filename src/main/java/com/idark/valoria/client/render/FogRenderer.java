@@ -17,16 +17,13 @@ public class FogRenderer {
 
         @SubscribeEvent
         public static void onFogRender(ViewportEvent.RenderFog e) {
-            Player plr = Minecraft.getInstance().player;
-            BlockPos pos = new BlockPos((int)plr.getX(), (int)plr.getEyeY(), (int)plr.getZ());
-            BlockState state = plr.level().getBlockState(pos);
             if (!Minecraft.getInstance().options.getCameraType().isFirstPerson() && e.getCamera().getBlockAtCamera().is(ModBlocks.QUICKSAND.get())) {
                 e.setCanceled(true);
                 e.setNearPlaneDistance(0.0F);
                 e.setFarPlaneDistance(1.5F);
             }
 
-            if (Minecraft.getInstance().options.getCameraType().isFirstPerson() && state.is(ModBlocks.QUICKSAND.get())) {
+            if (Minecraft.getInstance().options.getCameraType().isFirstPerson() && e.getCamera().getBlockAtCamera().is(ModBlocks.QUICKSAND.get())) {
                 e.setCanceled(true);
                 e.setNearPlaneDistance(0.0F);
                 e.setFarPlaneDistance(1.5F);
@@ -35,16 +32,13 @@ public class FogRenderer {
 
         @SubscribeEvent
         public static void onFogColor(ViewportEvent.ComputeFogColor e) {
-            Player plr = Minecraft.getInstance().player;
-            BlockPos pos = new BlockPos((int)plr.getX(), (int)plr.getEyeY(), (int)plr.getZ());
-            BlockState state = plr.level().getBlockState(pos);
             if (!Minecraft.getInstance().options.getCameraType().isFirstPerson() && e.getCamera().getBlockAtCamera().is(ModBlocks.QUICKSAND.get())) {
                 e.setRed(0.57f);
                 e.setGreen(0.48f);
                 e.setBlue(0.34f);
             }
 
-            if (Minecraft.getInstance().options.getCameraType().isFirstPerson() && state.is(ModBlocks.QUICKSAND.get())){
+            if (Minecraft.getInstance().options.getCameraType().isFirstPerson() && e.getCamera().getBlockAtCamera().is(ModBlocks.QUICKSAND.get())){
                 e.setRed(0.57f);
                 e.setGreen(0.48f);
                 e.setBlue(0.34f);

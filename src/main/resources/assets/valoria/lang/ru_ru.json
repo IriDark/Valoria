@@ -381,16 +381,20 @@
   "effect.valoria.bleeding": "Кровотечение",
   "effect.valoria.aloeregen.description": "Медленно востанавливает здоровье",
   "effect.valoria.aloeregen": "Регенерация алоэ",
+
   "death.attack.quicksand_suffocating": "%1$s провалился, как замок из песка, лишившись дыхания",
   "death.attack.bleeding": "%1$s потерял много крови",
+
   "config.jade.plugin_valoria.jewelry": "Jewelry",
   "config.jade.plugin_valoria.crusher": "Crusher",
+
   "commands.valoria.page.unknown": "Неизвестная страница",
   "commands.valoria.page.remove.single": "Убрана страница у игрока %s",
   "commands.valoria.page.remove.multiple": "Убрана страница у %s игроков",
   "commands.valoria.page.give.single": "Выдана страница игроку %s",
   "commands.valoria.page.give.multiple": "Выдана страница %s игрокам",
   "commands.valoria.charges.set.add": "Задано зарядов %s",
+
   "block.valoria.wicked_tombstone_pillar": "Порочная колонна камня мёртвых",
   "block.valoria.wicked_amethyst_ore": "Порочная аметистовая руда",
   "block.valoria.void_stone_wall": "Ограда из камня небытия",
@@ -440,7 +444,7 @@
   "block.valoria.soulflower": "Душерост",
   "block.valoria.shadewood_trapdoor": "Люк тенедрева",
   "block.valoria.shadewood_sign": "Табличка из тенедрева",
-  "block.valoria.shadewood_sapling": "Сажанец тенедрева",
+  "block.valoria.shadewood_sapling": "Саженец тенедрева",
   "block.valoria.shadewood_pressure_plate": "Нажимная плита тенедрева",
   "block.valoria.shadewood_planks_stairs": "Ступеньки из тенедрева",
   "block.valoria.shadewood_planks_slab": "Плита из тенедрева",
