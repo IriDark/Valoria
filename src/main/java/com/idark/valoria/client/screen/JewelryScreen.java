@@ -9,9 +9,6 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
-import snownee.jade.Jade;
-import snownee.jade.api.ui.IElementHelper;
-import snownee.jade.overlay.ProgressTracker;
 
 public class JewelryScreen extends AbstractContainerScreen<JewelryMenu> {
     private final ResourceLocation GUI = new ResourceLocation(Valoria.MOD_ID, "textures/gui/container/jewelry.png");

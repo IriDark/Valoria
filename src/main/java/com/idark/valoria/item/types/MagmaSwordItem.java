@@ -1,8 +1,8 @@
 package com.idark.valoria.item.types;
 
-import com.idark.valoria.util.math.RandUtils;
 import com.idark.valoria.sounds.ModSoundRegistry;
 import com.idark.valoria.util.ModUtils;
+import com.idark.valoria.util.math.RandUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;

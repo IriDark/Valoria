@@ -1,9 +1,7 @@
 package com.idark.valoria.item.types;
 
 import com.google.common.collect.ImmutableMap;
-import com.idark.valoria.client.event.ClientTickHandler;
 import com.idark.valoria.item.ModArmorMaterial;
-import net.minecraft.client.Minecraft;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;

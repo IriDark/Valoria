@@ -1,9 +1,7 @@
 package com.idark.valoria.client.menu;
 
 import com.idark.valoria.block.ModBlocks;
-import com.idark.valoria.client.menu.slots.GemSlot;
 import com.idark.valoria.client.menu.slots.ResultSlot;
-import com.idark.valoria.client.menu.slots.TrinketsSlot;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;

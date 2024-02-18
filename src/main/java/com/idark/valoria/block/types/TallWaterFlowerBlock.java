@@ -1,6 +1,5 @@
 package com.idark.valoria.block.types;
 
-import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;

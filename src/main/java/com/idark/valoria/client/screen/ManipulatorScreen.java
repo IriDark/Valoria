@@ -1,7 +1,6 @@
 package com.idark.valoria.client.screen;
 
 import com.idark.valoria.Valoria;
-import com.idark.valoria.block.blockentity.JewelryBlockEntity;
 import com.idark.valoria.block.blockentity.ManipulatorBlockEntity;
 import com.idark.valoria.client.menu.ManipulatorMenu;
 import com.mojang.blaze3d.systems.RenderSystem;

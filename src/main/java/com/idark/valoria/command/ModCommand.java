@@ -2,12 +2,12 @@ package com.idark.valoria.command;
 
 import com.idark.valoria.api.unlockable.Unlockable;
 import com.idark.valoria.capability.IUnlockable;
+import com.idark.valoria.client.toast.ModToast;
 import com.idark.valoria.command.build.CommandArgument;
 import com.idark.valoria.command.build.CommandBuilder;
 import com.idark.valoria.command.build.CommandPart;
 import com.idark.valoria.command.build.CommandVariant;
 import com.idark.valoria.item.types.MagmaSwordItem;
-import com.idark.valoria.client.toast.ModToast;
 import com.idark.valoria.network.PacketHandler;
 import com.idark.valoria.network.UnlockableUpdatePacket;
 import com.mojang.brigadier.Command;
@@ -17,11 +17,7 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.client.Minecraft;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 

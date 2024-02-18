@@ -1,10 +1,8 @@
 package com.idark.valoria.client.render;
 
-import com.idark.valoria.Valoria;
 import com.idark.valoria.block.ModBlocks;
 import com.mojang.blaze3d.shaders.FogShape;
 import net.minecraft.client.Minecraft;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ViewportEvent;

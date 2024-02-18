@@ -1,9 +1,9 @@
 package com.idark.valoria.block.types;
 
+import com.idark.valoria.block.blockentity.BlockSimpleInventory;
+import com.idark.valoria.block.blockentity.KegBlockEntity;
 import com.idark.valoria.client.render.model.blockentity.TickableBlockEntity;
 import com.idark.valoria.item.ModItems;
-import com.idark.valoria.block.blockentity.KegBlockEntity;
-import com.idark.valoria.block.blockentity.BlockSimpleInventory;
 import com.idark.valoria.util.ModTags;
 import com.idark.valoria.util.PacketUtils;
 import net.minecraft.core.BlockPos;
