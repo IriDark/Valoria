@@ -1,0 +1,39 @@
+{
+  "type": "valoria:the_valoria",
+  "generator": {
+    "type": "minecraft:noise",
+    "settings": "valoria:valoria_noise",
+    "biome_source": {
+      "type": "minecraft:multi_noise",
+      "biomes": [
+        {
+          "biome": "valoria:void_barren",
+          "parameters": {
+            "temperature": 0,
+            "humidity": 0,
+            "continentalness": 0,
+            "erosion": 0,
+            "weirdness": 0,
+            "depth": 0,
+            "offset": 0
+          }
+        },
+        {
+          "biome": "valoria:shade_forest",
+          "parameters": {
+            "temperature": 0,
+            "humidity": 1,
+            "continentalness": 0,
+            "erosion": 0,
+            "weirdness": [
+              0,
+              1
+            ],
+            "depth": 0,
+            "offset": 0
+          }
+        }
+      ]
+    }
+  }
+}

@@ -2,6 +2,7 @@ package com.idark.valoria;
 
 import com.idark.valoria.block.ModBlocks;
 import com.idark.valoria.block.types.ModWoodTypes;
+import com.idark.valoria.client.particle.ShadewoodLeafParticleType;
 import com.idark.valoria.client.render.curio.model.BeltModel;
 import com.idark.valoria.client.render.curio.model.HandsModel;
 import com.idark.valoria.client.render.curio.model.HandsModelDefault;
@@ -109,6 +110,7 @@ public class ValoriaClient {
 				ItemBlockRenderTypes.setRenderLayer(ModBlocks.VOID_CRYSTAL.get(), RenderType.cutout());
 				ItemBlockRenderTypes.setRenderLayer(ModBlocks.SPIKES.get(), RenderType.cutout());
 				ItemBlockRenderTypes.setRenderLayer(ModBlocks.SHADEWOOD_LEAVES.get(), RenderType.cutout());
+				ItemBlockRenderTypes.setRenderLayer(ModBlocks.SHADEWOOD_BRANCH.get(), RenderType.cutout());
 				ItemBlockRenderTypes.setRenderLayer(ModBlocks.SHADEWOOD_SAPLING.get(), RenderType.cutout());
 				ItemBlockRenderTypes.setRenderLayer(ModBlocks.POTTED_SHADEWOOD_SAPLING.get(), RenderType.cutout());
 				ItemBlockRenderTypes.setRenderLayer(ModBlocks.POTTED_FALSEFLOWER_SMALL.get(), RenderType.cutout());
@@ -192,6 +194,7 @@ public class ValoriaClient {
 			Minecraft.getInstance().particleEngine.register(ModParticles.PHANTOM_SLASH.get(), SlashParticleType.Factory::new);
 			Minecraft.getInstance().particleEngine.register(ModParticles.TRANSFORM_PARTICLE.get(), SparkleParticleType.Factory::new);
 			Minecraft.getInstance().particleEngine.register(ModParticles.GEODE_PARTICLE.get(), SparkleParticleType.Factory::new);
+			Minecraft.getInstance().particleEngine.register(ModParticles.SHADEWOOD_LEAF_PARTICLE.get(), ShadewoodLeafParticleType.Factory::new);
 		}
 
 		@OnlyIn(Dist.CLIENT)

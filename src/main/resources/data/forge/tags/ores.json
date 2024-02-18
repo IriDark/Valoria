@@ -1,0 +1,17 @@
+{
+  "replace": false,
+  "values": [
+    "valoria:amber_ore",
+    "valoria:amethyst_ore",
+    "valoria:ruby_ore",
+    "valoria:sapphire_ore",
+    "valoria:cobalt_ore",
+    "valoria:deepslate_amber_ore",
+    "valoria:deepslate_amethyst_ore",
+    "valoria:deepslate_ruby_ore",
+    "valoria:deepslate_sapphire_ore",
+    "valoria:deepslate_cobalt_ore",
+    "valoria:wicked_amethyst_ore",
+    "valoria:pearlium_ore"
+  ]
+}

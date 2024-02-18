@@ -15,8 +15,9 @@ public class ModParticles {
     public static RegistryObject<SparkleParticleType> TRANSFORM_PARTICLE = PARTICLES.register("transform", SparkleParticleType::new);
     public static RegistryObject<SparkleParticleType> GEODE_PARTICLE = PARTICLES.register("geode", SparkleParticleType::new);
 	public static RegistryObject<SlashParticleType> PHANTOM_SLASH = PARTICLES.register("phantom_slash", SlashParticleType::new);
-	
-	public static void register(IEventBus eventBus) {
+    public static RegistryObject<ShadewoodLeafParticleType> SHADEWOOD_LEAF_PARTICLE = PARTICLES.register("shadewood_leaf", ShadewoodLeafParticleType::new);
+
+    public static void register(IEventBus eventBus) {
         PARTICLES.register(eventBus);
     }
 }

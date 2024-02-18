@@ -43,8 +43,6 @@ import com.idark.valoria.util.LootUtil;
 import com.idark.valoria.sounds.ModSoundRegistry;
 import com.idark.valoria.util.WorldRenderHandler;
 import com.idark.valoria.client.particle.ModParticles;
-import com.idark.valoria.world.ModBlockStateProviderType;
-import com.idark.valoria.world.ModTrunkPlacerTypes;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
@@ -102,8 +100,6 @@ public class Valoria {
         ModParticles.register(eventBus);
         LootUtil.register(eventBus);
         ModArgumentTypes.register(eventBus);
-        ModBlockStateProviderType.register(eventBus);
-		ModTrunkPlacerTypes.register(eventBus);
 
         IEventBus forgeBus = MinecraftForge.EVENT_BUS;
 

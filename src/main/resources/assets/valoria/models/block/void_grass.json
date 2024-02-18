@@ -2,11 +2,11 @@
     "parent": "block/cube",
     "textures": {
 	    "up": "valoria:block/void_grass_top",
-	    "particle": "valoria:block/void_stone",
+	    "particle": "valoria:block/void_spores",
 		"north": "valoria:block/void_grass",
 		"south": "valoria:block/void_grass",
 		"east": "valoria:block/void_grass",
 		"west": "valoria:block/void_grass",
-	    "down": "valoria:block/void_stone"
+	    "down": "valoria:block/void_spores"
     }
 }

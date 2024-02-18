@@ -1,0 +1,52 @@
+{
+  "temperature": 1.2,
+  "downfall": 0.5,
+  "has_precipitation": false,
+  "effects": {
+    "sky_color": 3420225,
+    "fog_color": 10518688,
+    "water_color": 7422321,
+    "water_fog_color": 2561575,
+    "grass_color": 4664931,
+    "foliage_color": 4664931,
+    "mood_sound": {
+      "sound": "minecraft:nether_wastet.mood",
+      "tick_delay": 6000,
+      "block_search_extent": 8,
+      "offset": 2
+    },
+    "additions_sound": {
+      "sound": "minecraft:ambient.nether_wastes.additions",
+      "tick_chance": 0.1
+    },
+    "music": {
+      "sound": "minecraft:music.nether.nether_wastes",
+      "min_delay": 0,
+      "max_delay": 0,
+      "replace_current_music": true
+    },
+    "particle": {
+      "options": {
+        "type": "minecraft:mycelium"
+      },
+      "probability": 0.002
+    }
+  },
+  "spawners": {
+    "ambient": [],
+    "axolotls": [],
+    "creature": [],
+    "misc": [],
+    "monster": [],
+    "underground_water_creature": [],
+    "water_ambient": [],
+    "water_creature": []
+  },
+  "spawn_costs": {},
+  "carvers": {},
+  "features": [
+    [
+      "valoria:shadewood_tree", "valoria:fancy_shadewood_tree"
+    ]
+  ]
+}

@@ -50,6 +50,10 @@ public class GenericParticle extends TextureSheetParticle {
     @Override
     public void tick() {
         updateTraits();
+        if (this.onGround) {
+            this.remove();
+        }
+
         super.tick();
     }
 

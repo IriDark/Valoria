@@ -1,0 +1,53 @@
+{
+  "type": "minecraft:tree",
+  "config": {
+    "decorators": [],
+    "dirt_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "valoria:void_stone"
+      }
+    },
+    "foliage_placer": {
+      "type": "minecraft:dark_oak_foliage_placer",
+      "offset": 0,
+      "radius": 0
+    },
+    "foliage_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "valoria:shadewood_leaves",
+        "Properties": {
+          "distance": "8",
+          "persistent": "false",
+          "waterlogged": "false"
+        }
+      }
+    },
+    "force_dirt": false,
+    "ignore_vines": true,
+    "minimum_size": {
+      "type": "minecraft:three_layers_feature_size",
+      "limit": 1,
+      "lower_size": 0,
+      "middle_size": 1,
+      "upper_limit": 1,
+      "upper_size": 2
+    },
+    "trunk_placer": {
+      "type": "minecraft:dark_oak_trunk_placer",
+      "base_height": 6,
+      "height_rand_a": 1,
+      "height_rand_b": 0
+    },
+    "trunk_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "valoria:shadelog",
+        "Properties": {
+          "axis": "y"
+        }
+      }
+    }
+  }
+}

@@ -27,6 +27,7 @@ public class ModItems {
 
 	// BLOCK-ITEMS (category)
 	// Plants
+	public static final RegistryObject<Item> SHADEWOOD_BRANCH = ITEMS.register("shadewood_branch", () -> new BlockItem(ModBlocks.SHADEWOOD_BRANCH.get(), new Item.Properties()));
 	public static final RegistryObject<Item> ALOE = ITEMS.register("aloe", () -> new BlockItem(ModBlocks.ALOE.get(), new Item.Properties()));
 	public static final RegistryObject<Item> ALOE_SMALL = ITEMS.register("aloe_small", () -> new BlockItem(ModBlocks.ALOE_SMALL.get(), new Item.Properties()));
 	public static final RegistryObject<Item> CATTAIL = ITEMS.register("cattail", () -> new BlockItem(ModBlocks.CATTAIL.get(), new Item.Properties()));
@@ -135,6 +136,7 @@ public class ModItems {
 	public static final RegistryObject<Item> SARCOPHAGUS = ITEMS.register("sarcophagus", () -> new BlockItem(ModBlocks.SARCOPHAGUS.get(), new Item.Properties()));
 	public static final RegistryObject<Item> SPIKES = ITEMS.register("spikes", () -> new BlockItem(ModBlocks.SPIKES.get(), new Item.Properties()));
 	public static final RegistryObject<Item> VOID_GRASS = ITEMS.register("void_grass", () -> new BlockItem(ModBlocks.VOID_GRASS.get(), new Item.Properties()));
+	public static final RegistryObject<Item> VOID_TAINT = ITEMS.register("void_taint", () -> new BlockItem(ModBlocks.VOID_TAINT.get(), new Item.Properties()));
 	public static final RegistryObject<Item> VOID_STONE = ITEMS.register("void_stone", () -> new BlockItem(ModBlocks.VOID_STONE.get(), new Item.Properties()));
 	public static final RegistryObject<Item> VOID_STONE_WALL = ITEMS.register("void_stone_wall", () -> new BlockItem(ModBlocks.VOID_STONE_WALL.get(), new Item.Properties()));
 	public static final RegistryObject<Item> VOID_BRICK = ITEMS.register("void_brick", () -> new BlockItem(ModBlocks.VOID_BRICK.get(), new Item.Properties()));

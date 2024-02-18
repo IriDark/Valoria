@@ -21,6 +21,6 @@ public class ShadeSaplingBlock extends SaplingBlock {
 	
 	protected boolean mayPlaceOn(BlockState state, BlockGetter worldIn, BlockPos pos) {
 		Block block = state.getBlock();
-		return block == ModBlocks.VOID_STONE.get() || block == ModBlocks.VOID_GRASS.get();
+		return block == ModBlocks.VOID_TAINT.get() || block == ModBlocks.VOID_GRASS.get();
 	}
 }	

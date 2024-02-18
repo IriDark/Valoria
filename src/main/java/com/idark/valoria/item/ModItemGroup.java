@@ -321,7 +321,6 @@ public abstract class ModItemGroup {
             event.accept(ModItems.FALSEFLOWER);
             event.accept(ModItems.SOULFLOWER);
             event.accept(ModItems.VOID_ROOTS);
-            event.accept(ModItems.VOID_STONE);
             event.accept(ModItems.GEODITE_DIRT);
             event.accept(ModItems.GEODITE_STONE);
             event.accept(ModItems.AMBER_ORE);
@@ -445,6 +444,7 @@ public abstract class ModItemGroup {
             event.accept(ModItems.SUSPICIOUS_ICE);
             event.accept(ModItems.SPIKES);
             event.accept(ModItems.VOID_GRASS);
+            event.accept(ModItems.VOID_TAINT);
             event.accept(ModItems.VOID_STONE);
             event.accept(ModBlocks.VOID_STONE_STAIRS);
             event.accept(ModBlocks.VOID_STONE_SLAB);
@@ -479,6 +479,7 @@ public abstract class ModItemGroup {
             event.accept(ModItems.SHADEWOOD_SIGN);
             event.accept(ModItems.SHADEWOOD_HANGING_SIGN);
             event.accept(ModItems.SHADEWOOD_LEAVES);
+            event.accept(ModItems.SHADEWOOD_BRANCH);
             event.accept(ModItems.SHADEWOOD_SAPLING);
             event.accept(ModItems.STONE_CRUSHER);
             event.accept(ModItems.JEWELER_TABLE);

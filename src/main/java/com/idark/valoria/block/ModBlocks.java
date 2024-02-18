@@ -253,6 +253,8 @@ public class ModBlocks {
 			() -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(6f, 4f).sound(SoundType.NETHER_BRICKS)));
 	public static final RegistryObject<Block> VOID_GRASS = BLOCK.register("void_grass",
 			() -> new VoidGrassBlock(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(3f, 4f).sound(SoundType.NETHER_BRICKS)));
+	public static final RegistryObject<Block> VOID_TAINT = BLOCK.register("void_taint",
+			() -> new VoidTaintBlock(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(3f, 4f).sound(SoundType.NETHER_BRICKS)));
 	public static final RegistryObject<Block> TOMBSTONE = BLOCK.register("tombstone",
 			() -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(3f, 4f)));
 	public static final RegistryObject<CrushableBlock> SUSPICIOUS_ICE = BLOCK.register("suspicious_ice",
@@ -307,7 +309,9 @@ public class ModBlocks {
 	public static final RegistryObject<Block> SHADEWOOD_PLANKS_STAIRS = registerBlock("shadewood_planks_stairs",
 			() -> new StairBlock(() -> SHADEWOOD_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.OAK_STAIRS)));
 	public static final RegistryObject<Block> SHADEWOOD_LEAVES = BLOCK.register("shadewood_leaves",
-			() -> new LeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES)));
+			() -> new ShadeLeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES)));
+	public static final RegistryObject<Block> SHADEWOOD_BRANCH = BLOCK.register("shadewood_branch",
+			() -> new ShadeBranchBlock(BlockBehaviour.Properties.copy(Blocks.GRASS).instabreak().noOcclusion()));
 	public static final RegistryObject<Block> SHADEWOOD_SAPLING = BLOCK.register("shadewood_sapling",
 			() -> new ShadeSaplingBlock(new ShadeWoodTree(), BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)));
 	public static final RegistryObject<Block> POTTED_SHADEWOOD_SAPLING = BLOCK.register("potted_shadewood_sapling",
@@ -355,29 +359,29 @@ public class ModBlocks {
 			() -> new SpiderBlock(BlockBehaviour.Properties.copy(Blocks.STONE).instabreak().noOcclusion().sound(SoundType.FROGSPAWN)));
 	// Ore
 	public static final RegistryObject<Block> AMBER_ORE = BLOCK.register("amber_ore",
-			() -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(12f, 4f)));
+			() -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(4f, 4f)));
 	public static final RegistryObject<Block> AMETHYST_ORE = BLOCK.register("amethyst_ore",
-			() -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(12f, 4f)));
+			() -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(4f, 4f)));
 	public static final RegistryObject<Block> RUBY_ORE = BLOCK.register("ruby_ore",
-			() -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(12f, 4f)));
+			() -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(4f, 4f)));
 	public static final RegistryObject<Block> SAPPHIRE_ORE = BLOCK.register("sapphire_ore",
-			() -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(12f, 4f)));
+			() -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(4f, 4f)));
 	public static final RegistryObject<Block> COBALT_ORE = BLOCK.register("cobalt_ore",
-			() -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(20.0F, 30.0F)));
+			() -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(6.0F, 30.0F)));
 	public static final RegistryObject<Block> DEEPSLATE_AMBER_ORE = BLOCK.register("deepslate_amber_ore",
-			() -> new Block(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE).requiresCorrectToolForDrops().strength(15f, 8f)));
+			() -> new Block(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE).requiresCorrectToolForDrops().strength(8f, 8f)));
 	public static final RegistryObject<Block> DEEPSLATE_AMETHYST_ORE = BLOCK.register("deepslate_amethyst_ore",
-			() -> new Block(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE).requiresCorrectToolForDrops().strength(15f, 8f)));
+			() -> new Block(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE).requiresCorrectToolForDrops().strength(8f, 8f)));
 	public static final RegistryObject<Block> DEEPSLATE_RUBY_ORE = BLOCK.register("deepslate_ruby_ore",
-			() -> new Block(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE).requiresCorrectToolForDrops().strength(15f, 8f)));
+			() -> new Block(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE).requiresCorrectToolForDrops().strength(8f, 8f)));
 	public static final RegistryObject<Block> DEEPSLATE_SAPPHIRE_ORE = BLOCK.register("deepslate_sapphire_ore",
-			() -> new Block(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE).requiresCorrectToolForDrops().strength(15f, 8f)));
+			() -> new Block(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE).requiresCorrectToolForDrops().strength(8f, 8f)));
 	public static final RegistryObject<Block> DEEPSLATE_COBALT_ORE = BLOCK.register("deepslate_cobalt_ore",
-			() -> new Block(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE).requiresCorrectToolForDrops().strength(25f, 30f)));
+			() -> new Block(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE).requiresCorrectToolForDrops().strength(10f, 30f)));
 	public static final RegistryObject<Block> WICKED_AMETHYST_ORE = BLOCK.register("wicked_amethyst_ore",
-			() -> new WickedOreBlock(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(35f, 8f).sound(SoundType.NETHER_BRICKS)));
+			() -> new WickedOreBlock(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(13f, 8f).sound(SoundType.NETHER_BRICKS)));
 	public static final RegistryObject<Block> PEARLIUM_ORE = BLOCK.register("pearlium_ore",
-			() -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(25f, 4f)));
+			() -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(6f, 4f)));
 	// Crystals
 	public static final RegistryObject<Block> VOID_CRYSTAL = BLOCK.register("void_crystal",
 			() -> new AmethystClusterBlock(7, 3, BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(1f, 0f).sound(SoundType.GLASS).noOcclusion()));

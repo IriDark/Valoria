@@ -107,6 +107,7 @@ public class CurioItemProperty extends Item implements ICurioItem, ICurioTexture
                 break;
             case DIAMOND:
                 atts.put(Attributes.ARMOR, new AttributeModifier(uuid, "bonus", 4, AttributeModifier.Operation.ADDITION));
+                atts.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(uuid, "bonus", 2, AttributeModifier.Operation.ADDITION));
                 break;
             case EMERALD:
                 atts.put(Attributes.LUCK, new AttributeModifier(uuid, "bonus", 1, AttributeModifier.Operation.ADDITION));
@@ -130,7 +131,7 @@ public class CurioItemProperty extends Item implements ICurioItem, ICurioTexture
                     atts.put(Attributes.ARMOR, new AttributeModifier(uuid, "bonus", 3, AttributeModifier.Operation.ADDITION));
                 } else {
                     atts.put(Attributes.ARMOR, new AttributeModifier(uuid, "bonus", 6, AttributeModifier.Operation.ADDITION));
-                    atts.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(uuid, "bonus", 0.5, AttributeModifier.Operation.ADDITION));
+                    atts.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(uuid, "bonus", 2, AttributeModifier.Operation.ADDITION));
                 }
                 break;
             case TOUGH:
@@ -139,7 +140,7 @@ public class CurioItemProperty extends Item implements ICurioItem, ICurioTexture
                 break;
             case TANK:
                 atts.put(Attributes.ARMOR, new AttributeModifier(uuid, "bonus", 5, AttributeModifier.Operation.ADDITION));
-                atts.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(uuid, "bonus", 1.5, AttributeModifier.Operation.ADDITION));
+                atts.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(uuid, "bonus", 2, AttributeModifier.Operation.ADDITION));
                 break;
             case WEALTH:
                 if (material == AccessoryMaterial.IRON) {
