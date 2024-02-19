@@ -469,6 +469,10 @@ public class ModBlocks {
 			() -> new VoidRootsBlock(BlockBehaviour.Properties.copy(Blocks.CRIMSON_ROOTS)));
 	public static final RegistryObject<Block> POTTED_VOID_ROOTS = BLOCK.register("potted_void_roots",
 			() -> new FlowerPotBlock(VOID_ROOTS.get(), BlockBehaviour.Properties.copy(Blocks.GRASS).instabreak().noOcclusion()));
+	public static final RegistryObject<Block> VOID_SERPENTS = BLOCK.register("void_serpents",
+			() -> new VoidRootsBlock(BlockBehaviour.Properties.copy(Blocks.CRIMSON_ROOTS)));
+	public static final RegistryObject<Block> POTTED_VOID_SERPENTS = BLOCK.register("potted_void_serpents",
+			() -> new FlowerPotBlock(VOID_SERPENTS.get(), BlockBehaviour.Properties.copy(Blocks.GRASS).instabreak().noOcclusion()));
 	public static final RegistryObject<Block> GAIB_ROOTS = BLOCK.register("gaib_roots",
 			() -> new TallRootsBlock(BlockBehaviour.Properties.copy(Blocks.CRIMSON_ROOTS)));
 	public static final RegistryObject<Block> KARUSAKAN_ROOTS = BLOCK.register("karusakan_roots",

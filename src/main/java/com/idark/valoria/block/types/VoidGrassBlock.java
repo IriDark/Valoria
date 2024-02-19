@@ -17,7 +17,7 @@ public class VoidGrassBlock extends Block {
     private static boolean canBeVein(LevelReader pLevelReader, BlockPos pPos) {
         BlockPos blockpos = pPos.above();
         BlockState blockstate = pLevelReader.getBlockState(blockpos);
-        return !blockstate.isAir() && !pLevelReader.getFluidState(blockpos).is(FluidTags.WATER);
+        return blockstate.isSolid() && !pLevelReader.getFluidState(blockpos).is(FluidTags.WATER);
     }
 
     public boolean isRandomlyTicking(BlockState pState) {

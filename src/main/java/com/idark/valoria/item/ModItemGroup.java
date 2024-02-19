@@ -321,6 +321,7 @@ public abstract class ModItemGroup {
             event.accept(ModItems.FALSEFLOWER);
             event.accept(ModItems.SOULFLOWER);
             event.accept(ModItems.VOID_ROOTS);
+            event.accept(ModItems.VOID_SERPENTS);
             event.accept(ModItems.GEODITE_DIRT);
             event.accept(ModItems.GEODITE_STONE);
             event.accept(ModItems.AMBER_ORE);

@@ -11,18 +11,18 @@
     "foliage_color": 4664931,
     "mood_sound": {
       "sound": "minecraft:nether_wastet.mood",
-      "tick_delay": 6000,
+      "tick_delay": 6700,
       "block_search_extent": 8,
       "offset": 2
     },
     "additions_sound": {
       "sound": "minecraft:ambient.nether_wastes.additions",
-      "tick_chance": 0.2
+      "tick_chance": 0.08
     },
     "music": {
       "sound": "minecraft:music.nether.nether_wastes",
-      "min_delay": 0,
-      "max_delay": 0,
+      "max_delay": 24000,
+      "min_delay": 12000,
       "replace_current_music": true
     },
     "particle": {
@@ -46,6 +46,7 @@
   "carvers": {},
   "features": [
     [
+      "valoria:void_roots", "valoria:soulflower",  "valoria:falseflower", "valoria:falseflower_small"
     ]
   ]
 }

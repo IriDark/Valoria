@@ -20,14 +20,14 @@ public class WickedOreBlock extends Block {
     @Override
     public void wasExploded(Level worldIn, BlockPos pos, Explosion explosionIn) {
         for (int i = 0;i<5;i++) {
-        worldIn.addParticle(ParticleTypes.SOUL, pos.getX() + rand.nextDouble(), pos.getY() + 0.5D, pos.getZ() + rand.nextDouble(), 0d, 0.05d, 0d);
+        worldIn.addParticle(ParticleTypes.REVERSE_PORTAL, pos.getX() + rand.nextDouble(), pos.getY() + 0.5D, pos.getZ() + rand.nextDouble(), 0d, 0.05d, 0d);
         }
     }
 
     @Override
     public void destroy(LevelAccessor worldIn, BlockPos pos, BlockState state) {
         for (int i = 0;i<5;i++) {
-        worldIn.addParticle(ParticleTypes.SOUL, pos.getX() + rand.nextDouble(), pos.getY() + 0.5D, pos.getZ() + rand.nextDouble(), 0d, 0.05d, 0d);
+        worldIn.addParticle(ParticleTypes.REVERSE_PORTAL, pos.getX() + rand.nextDouble(), pos.getY() + 0.5D, pos.getZ() + rand.nextDouble(), 0d, 0.05d, 0d);
         }
     }
 }

@@ -5,7 +5,7 @@
     "dirt_provider": {
       "type": "minecraft:simple_state_provider",
       "state": {
-        "Name": "valoria:void_stone"
+        "Name": "valoria:void_taint"
       }
     },
     "foliage_placer": {

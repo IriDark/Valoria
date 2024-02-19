@@ -10,19 +10,19 @@
     "grass_color": 4664931,
     "foliage_color": 4664931,
     "mood_sound": {
-      "sound": "minecraft:nether_wastet.mood",
-      "tick_delay": 6000,
+      "sound": "minecraft:ambient.crimson_forest.mood",
+      "tick_delay": 6700,
       "block_search_extent": 8,
       "offset": 2
     },
     "additions_sound": {
-      "sound": "minecraft:ambient.nether_wastes.additions",
-      "tick_chance": 0.1
+      "sound": "minecraft:ambient.crimson_forest.additions",
+      "tick_chance": 0.05
     },
     "music": {
-      "sound": "minecraft:music.nether.nether_wastes",
-      "min_delay": 0,
-      "max_delay": 0,
+      "sound": "minecraft:music.nether.warped_forest",
+      "max_delay": 24000,
+      "min_delay": 12000,
       "replace_current_music": true
     },
     "particle": {
@@ -46,7 +46,8 @@
   "carvers": {},
   "features": [
     [
-      "valoria:shadewood_tree", "valoria:fancy_shadewood_tree"
+      "valoria:shadewood_tree", "valoria:fancy_shadewood_tree", "valoria:void_roots", "valoria:soulflower",
+      "valoria:falseflower", "valoria:falseflower_small"
     ]
   ]
 }

@@ -49,6 +49,7 @@ public class ModItems {
 	public static final RegistryObject<Item> FALSEFLOWER_SMALL = ITEMS.register("falseflower_small", () -> new BlockItem(ModBlocks.FALSEFLOWER_SMALL.get(), new Item.Properties()));
 	public static final RegistryObject<Item> SOULFLOWER = ITEMS.register("soulflower", () -> new BlockItem(ModBlocks.SOULFLOWER.get(), new Item.Properties()));
 	public static final RegistryObject<Item> VOID_ROOTS = ITEMS.register("void_roots", () -> new BlockItem(ModBlocks.VOID_ROOTS.get(), new Item.Properties()));
+	public static final RegistryObject<Item> VOID_SERPENTS = ITEMS.register("void_serpents", () -> new BlockItem(ModBlocks.VOID_SERPENTS.get(), new Item.Properties()));
 	// Ore
 	public static final RegistryObject<Item> GEODITE_DIRT = ITEMS.register("geodite_dirt", () -> new BlockItem(ModBlocks.GEODITE_DIRT.get(), new Item.Properties()));
 	public static final RegistryObject<Item> GEODITE_STONE = ITEMS.register("geodite_stone", () -> new BlockItem(ModBlocks.GEODITE_STONE.get(), new Item.Properties()));
