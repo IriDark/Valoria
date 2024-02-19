@@ -13,11 +13,11 @@
       "sound": "minecraft:ambient.crimson_forest.mood",
       "tick_delay": 6700,
       "block_search_extent": 8,
-      "offset": 2
+      "offset": 3
     },
     "additions_sound": {
       "sound": "minecraft:ambient.crimson_forest.additions",
-      "tick_chance": 0.05
+      "tick_chance": 0.0155
     },
     "music": {
       "sound": "minecraft:music.nether.warped_forest",
@@ -47,7 +47,7 @@
   "features": [
     [
       "valoria:shadewood_tree", "valoria:fancy_shadewood_tree", "valoria:void_roots", "valoria:soulflower",
-      "valoria:falseflower", "valoria:falseflower_small"
+      "valoria:falseflower", "valoria:falseflower_small", "valoria:wicked_amethyst_ore", "valoria:void_serpents"
     ]
   ]
 }

@@ -3,6 +3,7 @@ package com.idark.valoria.item.types;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import com.idark.valoria.entity.projectile.PoisonedKunaiEntity;
+import com.idark.valoria.item.ModAttributes;
 import com.idark.valoria.util.math.RandUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -39,7 +40,8 @@ public class PoisonedKunaiItem extends Item implements Vanishable {
 		super(builderIn);
 		ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
 		builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", 3.0D, AttributeModifier.Operation.ADDITION));
-		builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Tool modifier", (double)-1.9F, AttributeModifier.Operation.ADDITION));
+		builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Tool modifier", -1.9F, AttributeModifier.Operation.ADDITION));
+		builder.put(ModAttributes.PROJECTILE_DAMAGE.get(), new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", 6.0F, AttributeModifier.Operation.ADDITION));
 		this.tridentAttributes = builder.build();
 	}
 
@@ -138,8 +140,6 @@ public class PoisonedKunaiItem extends Item implements Vanishable {
 		super.appendHoverText(stack, world, tooltip, flags);	
 		tooltip.add(Component.translatable("tooltip.valoria.kunai").withStyle(ChatFormatting.GRAY));
         tooltip.add(Component.empty());
-		tooltip.add(Component.translatable("tooltip.valoria.attr").withStyle(ChatFormatting.GRAY));
-		tooltip.add(Component.literal(" 5 ").withStyle(ChatFormatting.DARK_GREEN).append(Component.translatable("tooltip.valoria.ranged_damage").withStyle(ChatFormatting.DARK_GREEN)));
 		tooltip.add(Component.literal(" 25% ").withStyle(ChatFormatting.DARK_GREEN).append(Component.translatable("tooltip.valoria.poison_chance").withStyle(ChatFormatting.DARK_GREEN)));
 		tooltip.add(Component.literal(" 100% ").withStyle(ChatFormatting.DARK_GREEN).append(Component.translatable("tooltip.valoria.poison_chance_ranged").withStyle(ChatFormatting.DARK_GREEN)));
 	}	

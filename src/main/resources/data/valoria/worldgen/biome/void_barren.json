@@ -17,7 +17,7 @@
     },
     "additions_sound": {
       "sound": "minecraft:ambient.nether_wastes.additions",
-      "tick_chance": 0.08
+      "tick_chance": 0.0155
     },
     "music": {
       "sound": "minecraft:music.nether.nether_wastes",
@@ -46,7 +46,8 @@
   "carvers": {},
   "features": [
     [
-      "valoria:void_roots", "valoria:soulflower",  "valoria:falseflower", "valoria:falseflower_small"
+      "valoria:void_roots", "valoria:soulflower",  "valoria:falseflower", "valoria:falseflower_small",
+      "valoria:wicked_amethyst_ore", "valoria:void_serpents"
     ]
   ]
 }
