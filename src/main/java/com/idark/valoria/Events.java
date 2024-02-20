@@ -8,12 +8,9 @@ import com.idark.valoria.capability.UnloackbleCap;
 import com.idark.valoria.client.screen.book.unlockable.ItemUnlockable;
 import com.idark.valoria.network.PacketHandler;
 import com.idark.valoria.network.UnlockableUpdatePacket;
-import com.idark.valoria.util.ModTags;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.Options;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -24,7 +21,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
@@ -34,10 +31,7 @@ import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
-import java.util.Collection;
 import java.util.List;
-import java.util.Locale;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Events {
@@ -56,12 +50,15 @@ public class Events {
                 if (!itemStack.getTags().toList().isEmpty()) {
                     e.getToolTip().add(Component.empty());
                     e.getToolTip().add(Component.literal("ItemTags: " + itemTagStream.toList()).withStyle(ChatFormatting.GRAY));
-                    if (itemStack.getItem() instanceof BlockItem blockItem) {
-                        Stream<ResourceLocation> blockTagStream = blockItem.getDefaultInstance().getTags().map(TagKey::location);
-                        e.getToolTip().add(Component.literal("BlockTags: " + blockTagStream.toList()).withStyle(ChatFormatting.GRAY));
-                    }
                 }
-            } else if (!itemStack.getTags().toList().isEmpty()) {
+
+                if (itemStack.getItem() instanceof BlockItem blockItem) {
+                    BlockState blockState = blockItem.getBlock().defaultBlockState();
+                    Stream<ResourceLocation> blockTagStream = blockState.getTags().map(TagKey::location);
+                    e.getToolTip().add(Component.empty());
+                    e.getToolTip().add(Component.literal("BlockTags: " + blockTagStream.toList()).withStyle(ChatFormatting.GRAY));
+                }
+            } else if (!itemStack.getTags().toList().isEmpty() || itemStack.getItem() instanceof BlockItem blockItem && !blockItem.getBlock().defaultBlockState().getTags().toList().isEmpty()) {
                 e.getToolTip().add(Component.empty());
                 e.getToolTip().add(Component.literal("Press [Control] to get tags info").withStyle(ChatFormatting.GRAY));
             }

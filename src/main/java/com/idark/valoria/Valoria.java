@@ -205,11 +205,6 @@ public class Valoria {
         }
 
         @SubscribeEvent
-        public static void ColorMappingBlocks(RegisterColorHandlersEvent.Block event) {
-            event.register((state, world, pos, tintIndex) -> ModBlockColors.getInstance().getColor(state, world, pos, tintIndex), ModBlockColors.MODDED_PLANTS);
-        }
-
-        @SubscribeEvent
         public static void commonSetup(FMLCommonSetupEvent event) {
             event.enqueueWork(() -> {
                 SpawnPlacements.register(ModEntityTypes.GOBLIN.get(),

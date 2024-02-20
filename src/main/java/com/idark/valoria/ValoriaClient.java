@@ -1,5 +1,6 @@
 package com.idark.valoria;
 
+import com.idark.valoria.block.ModBlockColors;
 import com.idark.valoria.block.ModBlocks;
 import com.idark.valoria.block.blockentity.ModBlockEntities;
 import com.idark.valoria.block.types.ModWoodTypes;
@@ -33,10 +34,7 @@ import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.EntityRenderersEvent;
-import net.minecraftforge.client.event.ModelEvent;
-import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
-import net.minecraftforge.client.event.RegisterShadersEvent;
+import net.minecraftforge.client.event.*;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -62,6 +60,11 @@ public class ValoriaClient {
 
     @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     public static class RegistryEvents {
+
+        @SubscribeEvent
+        public static void ColorMappingBlocks(RegisterColorHandlersEvent.Block event) {
+            event.register((state, world, pos, tintIndex) -> ModBlockColors.getInstance().getColor(state, world, pos, tintIndex), ModBlockColors.MODDED_PLANTS);
+        }
 
         @SubscribeEvent
         public static void doClientStuff(FMLClientSetupEvent event) {

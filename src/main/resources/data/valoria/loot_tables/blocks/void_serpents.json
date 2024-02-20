@@ -10,7 +10,7 @@
           "children": [
             {
               "type": "minecraft:item",
-              "name": "valoria:falseflower_small",
+              "name": "valoria:void_serpents",
               "conditions": [
                 {
                   "condition": "minecraft:match_tool",
@@ -42,5 +42,5 @@
       ]
     }
   ],
-  "random_sequence": "valoria:blocks/falseflower_small"
+  "random_sequence": "valoria:blocks/void_serpents"
 }

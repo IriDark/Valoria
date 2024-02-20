@@ -47,7 +47,8 @@
   "features": [
     [
       "valoria:shadewood_tree", "valoria:fancy_shadewood_tree", "valoria:void_roots", "valoria:soulflower",
-      "valoria:falseflower", "valoria:falseflower_small", "valoria:wicked_amethyst_ore", "valoria:void_serpents"
+      "valoria:falseflower", "valoria:falseflower_small", "valoria:wicked_amethyst_ore", "valoria:void_serpents",
+      "valoria:void_taint"
     ]
   ]
 }

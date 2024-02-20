@@ -30,15 +30,15 @@ public class ModBlocks {
 	public static final DeferredRegister<Block> BLOCK = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
 	// Door & Trapdoors
 	public static final RegistryObject<Block> SHADEWOOD_DOOR = registerBlock("shadewood_door",
-			() -> new DoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_DOOR).requiresCorrectToolForDrops().strength(2f, 4f).noOcclusion(), BlockSetType.OAK));
+			() -> new DoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_DOOR).noOcclusion(), BlockSetType.OAK));
 	public static final RegistryObject<Block> SHADEWOOD_TRAPDOOR = registerBlock("shadewood_trapdoor",
-			() -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_TRAPDOOR).requiresCorrectToolForDrops().strength(1f, 4f).noOcclusion(), BlockSetType.OAK));
+			() -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_TRAPDOOR).noOcclusion(), BlockSetType.OAK));
 	public static final RegistryObject<Block> BRONZE_DOOR = registerBlock("bronze_door",
-			() -> new DoorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_DOOR).requiresCorrectToolForDrops().strength(4f, 4f).noOcclusion(), BlockSetType.OAK));
+			() -> new DoorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_DOOR).noOcclusion(), BlockSetType.IRON));
 	public static final RegistryObject<Block> BRONZE_TRAPDOOR = registerBlock("bronze_trapdoor",
-			() -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_TRAPDOOR).requiresCorrectToolForDrops().strength(2f, 4f).noOcclusion(), BlockSetType.OAK));
+			() -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_TRAPDOOR).noOcclusion(), BlockSetType.IRON));
 	public static final RegistryObject<Block> BRONZE_TRAPDOOR_GLASS = registerBlock("bronze_trapdoor_glass",
-			() -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_TRAPDOOR).requiresCorrectToolForDrops().strength(3f, 4f).noOcclusion(), BlockSetType.OAK));
+			() -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_TRAPDOOR).noOcclusion(), BlockSetType.IRON));
 	// Umbral
 	public static final RegistryObject<Block> UMBRAL_KEYPAD = BLOCK.register("umbral_keypad",
 			() -> new KeyPadBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(-1f, 3600000.8F).sound(SoundType.NETHER_BRICKS).noLootTable()));
