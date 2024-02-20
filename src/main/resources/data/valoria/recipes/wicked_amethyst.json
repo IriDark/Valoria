@@ -2,14 +2,14 @@
     "type": "minecraft:crafting_shapeless",
     "ingredients": [
 	{
-		"item": "valoria:amethyst"
+		"item": "valoria:wicked_amethyst"
     },
 	{
-		"item": "valoria:uncharged_stone"
+		"item": "valoria:uncharged_shard"
 	}
 	],
     "result": {
-        "item": "valoria:amethyst",
+        "item": "valoria:wicked_amethyst",
         "count": 2
     }
 }

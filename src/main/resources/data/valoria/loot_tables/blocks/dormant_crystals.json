@@ -24,7 +24,7 @@
                   }
                 }
               ],
-              "name": "valoria:wicked_amethyst_ore"
+              "name": "valoria:dormant_crystals"
             },
             {
               "type": "minecraft:item",
@@ -47,7 +47,7 @@
                   "function": "minecraft:explosion_decay"
                 }
               ],
-              "name": "valoria:wicked_amethyst"
+              "name": "valoria:uncharged_shard"
             }
           ]
         }
@@ -55,5 +55,5 @@
       "rolls": 1.0
     }
   ],
-  "random_sequence": "valoria:blocks/wicked_amethyst_ore"
+  "random_sequence": "valoria:blocks/dormant_crystals"
 }

@@ -380,6 +380,8 @@ public class ModBlocks {
 			() -> new Block(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE).requiresCorrectToolForDrops().strength(10f, 30f)));
 	public static final RegistryObject<Block> WICKED_AMETHYST_ORE = BLOCK.register("wicked_amethyst_ore",
 			() -> new WickedOreBlock(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(13f, 8f).sound(SoundType.NETHER_BRICKS)));
+	public static final RegistryObject<Block> DORMANT_CRYSTALS = BLOCK.register("dormant_crystals",
+			() -> new WickedOreBlock(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(13f, 8f).sound(SoundType.NETHER_BRICKS)));
 	public static final RegistryObject<Block> PEARLIUM_ORE = BLOCK.register("pearlium_ore",
 			() -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(6f, 4f)));
 	// Crystals

@@ -109,7 +109,7 @@ public class SpearItem extends TieredItem implements Vanishable {
 			worldIn.setBlockAndUpdate(pos, ModBlocks.VOID_PILLAR.get().defaultBlockState().setValue(RotatedPillarBlock.AXIS, state.getValue(RotatedPillarBlock.AXIS)));
 			if (!worldIn.isClientSide) {
 				if (player == null || !player.getAbilities().instabuild) {
-					player.drop(new ItemStack(ModItems.UNCHARGED_STONE.get()), true);
+					player.drop(new ItemStack(ModItems.UNCHARGED_SHARD.get()), true);
 					if (stack.getItem() instanceof SpearItem) {
 						worldIn.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.RESPAWN_ANCHOR_CHARGE, SoundSource.BLOCKS, 1.0F, 1.0F);
 						stack.hurtAndBreak(10, player, (playerEntity) -> {

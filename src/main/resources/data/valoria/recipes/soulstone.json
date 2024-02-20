@@ -2,14 +2,14 @@
     "type": "minecraft:crafting_shapeless",
     "ingredients": [
 	{
-		"item": "valoria:soulstone"
+		"item": "valoria:soul_shard"
     },
 	{
-		"item": "valoria:uncharged_stone"
+		"item": "valoria:uncharged_shard"
 	}
 	],
     "result": {
-        "item": "valoria:soulstone",
+        "item": "valoria:soul_shard",
         "count": 2
     }
 }

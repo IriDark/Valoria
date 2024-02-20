@@ -96,8 +96,8 @@ public abstract class ModItemGroup {
             event.accept(ModItems.RUBY_GEM);
             event.accept(ModItems.SAPPHIRE_GEM);
             event.accept(ModItems.AMETHYST);
-            event.accept(ModItems.SOULSTONE);
-            event.accept(ModItems.UNCHARGED_STONE);
+            event.accept(ModItems.SOUL_SHARD);
+            event.accept(ModItems.UNCHARGED_SHARD);
             event.accept(ModItems.TOXINS_BOTTLE);
             event.accept(ModItems.NATURE_GIFT);
             event.accept(ModItems.OCEANIC_SHELL);
