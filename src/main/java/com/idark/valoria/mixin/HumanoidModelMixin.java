@@ -1,6 +1,6 @@
 package com.idark.valoria.mixin;
 
-import com.idark.valoria.item.types.ICustomAnimationItem;
+import com.idark.valoria.registries.world.item.types.ICustomAnimationItem;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;

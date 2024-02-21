@@ -1,8 +1,8 @@
 package com.idark.valoria.client.compat.jade;
 
-import com.idark.valoria.block.blockentity.KegBlockEntity;
-import com.idark.valoria.item.ModItems;
-import com.idark.valoria.util.ModTags;
+import com.idark.valoria.registries.world.block.entity.KegBlockEntity;
+import com.idark.valoria.registries.world.item.ModItems;
+import com.idark.valoria.registries.TagsRegistry;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -55,14 +55,14 @@ public enum KegProvider implements IBlockComponentProvider, IServerDataProvider<
             if (!config.get(Identifiers.MC_HARVEST_TOOL_NEW_LINE)) {
                 offsetY = -3;
             }
-            if (itemStack.is(ModTags.CUP_DRINKS)) {
+            if (itemStack.is(TagsRegistry.CUP_DRINKS)) {
                 IElement cup = elements.item(new ItemStack(ModItems.WOODEN_CUP.get()), 0.75f).size(new Vec2(11, 0)).translate(new Vec2(0, offsetY));
                 cup.message(null);
                 cup.align(IElement.Align.RIGHT);
                 tooltip.add(cup);
             }
 
-            if (itemStack.is(ModTags.BOTTLE_DRINKS)) {
+            if (itemStack.is(TagsRegistry.BOTTLE_DRINKS)) {
                 IElement bottle = elements.item(new ItemStack(ModItems.BOTTLE.get()), 0.75f).size(new Vec2(11, 0)).translate(new Vec2(0, offsetY));
                 bottle.message(null);
                 bottle.align(IElement.Align.RIGHT);

@@ -1,6 +1,6 @@
 package com.idark.valoria.mixin;
 
-import com.idark.valoria.item.types.ICustomAnimationItem;
+import com.idark.valoria.registries.world.item.types.ICustomAnimationItem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.renderer.ItemInHandRenderer;

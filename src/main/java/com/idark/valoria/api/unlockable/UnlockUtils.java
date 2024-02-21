@@ -1,7 +1,7 @@
 package com.idark.valoria.api.unlockable;
 
 import com.idark.valoria.capability.IUnlockable;
-import com.idark.valoria.client.toast.ModToast;
+import com.idark.valoria.client.gui.toast.ModToast;
 import com.idark.valoria.network.PacketHandler;
 import com.idark.valoria.network.UnlockableUpdatePacket;
 import net.minecraft.client.Minecraft;

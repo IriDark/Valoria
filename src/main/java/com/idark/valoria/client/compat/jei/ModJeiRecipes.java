@@ -1,7 +1,7 @@
 package com.idark.valoria.client.compat.jei;
 
-import com.idark.valoria.recipe.JewelryRecipe;
-import com.idark.valoria.recipe.KegRecipe;
+import com.idark.valoria.registries.recipe.JewelryRecipe;
+import com.idark.valoria.registries.recipe.KegRecipe;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.world.item.crafting.RecipeManager;

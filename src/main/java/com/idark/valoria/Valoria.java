@@ -1,49 +1,48 @@
 package com.idark.valoria;
 
 import com.google.common.collect.ImmutableMap;
-import com.idark.valoria.block.ModBlocks;
-import com.idark.valoria.block.blockentity.ModBlockEntities;
-import com.idark.valoria.block.types.ModWoodTypes;
+import com.idark.valoria.registries.world.block.ModBlocks;
+import com.idark.valoria.registries.world.block.entity.ModBlockEntities;
+import com.idark.valoria.registries.world.block.types.ModWoodTypes;
 import com.idark.valoria.capability.IUnlockable;
 import com.idark.valoria.client.event.ClientTickHandler;
-import com.idark.valoria.client.menu.ModMenuTypes;
+import com.idark.valoria.client.gui.menu.ModMenuTypes;
 import com.idark.valoria.client.particle.ModParticles;
-import com.idark.valoria.client.render.CorpsecleaverRender;
-import com.idark.valoria.client.render.DashOverlayRender;
+import com.idark.valoria.client.gui.overlay.CorpsecleaverRender;
+import com.idark.valoria.client.gui.overlay.DashOverlayRender;
 import com.idark.valoria.client.render.curio.BeltRenderer;
 import com.idark.valoria.client.render.curio.HandsRenderer;
 import com.idark.valoria.client.render.curio.NecklaceRenderer;
-import com.idark.valoria.client.render.gui.MagmaBarRender;
-import com.idark.valoria.client.render.gui.TooltipEventHandler;
-import com.idark.valoria.client.screen.JewelryScreen;
-import com.idark.valoria.client.screen.ManipulatorScreen;
-import com.idark.valoria.client.screen.book.LexiconChapters;
-import com.idark.valoria.client.screen.book.unlockable.RegisterUnlockables;
-import com.idark.valoria.command.arguments.ModArgumentTypes;
+import com.idark.valoria.client.gui.overlay.MagmaBarRender;
+import com.idark.valoria.client.event.TooltipEventHandler;
+import com.idark.valoria.client.gui.screen.JewelryScreen;
+import com.idark.valoria.client.gui.screen.ManipulatorScreen;
+import com.idark.valoria.client.gui.screen.book.LexiconChapters;
+import com.idark.valoria.client.gui.screen.book.unlockable.RegisterUnlockables;
+import com.idark.valoria.registries.command.arguments.ModArgumentTypes;
 import com.idark.valoria.config.ClientConfig;
 import com.idark.valoria.datagen.ModRecipeProvider;
-import com.idark.valoria.effect.ModEffects;
-import com.idark.valoria.effect.potion.ModPotions;
-import com.idark.valoria.enchant.ModEnchantments;
-import com.idark.valoria.entity.ModEntityTypes;
-import com.idark.valoria.entity.custom.DraugrEntity;
-import com.idark.valoria.entity.custom.GoblinEntity;
-import com.idark.valoria.entity.custom.MannequinEntity;
-import com.idark.valoria.item.ModAttributes;
-import com.idark.valoria.item.ModItemGroup;
-import com.idark.valoria.item.ModItems;
-import com.idark.valoria.item.staffs.StaffItem;
+import com.idark.valoria.registries.world.effect.ModEffects;
+import com.idark.valoria.registries.world.effect.potion.ModPotions;
+import com.idark.valoria.registries.world.item.enchant.ModEnchantments;
+import com.idark.valoria.registries.world.entity.ModEntityTypes;
+import com.idark.valoria.registries.world.entity.living.DraugrEntity;
+import com.idark.valoria.registries.world.entity.living.GoblinEntity;
+import com.idark.valoria.registries.world.entity.living.MannequinEntity;
+import com.idark.valoria.registries.world.entity.ai.attributes.ModAttributes;
+import com.idark.valoria.registries.world.item.ModItemGroup;
+import com.idark.valoria.registries.world.item.ModItems;
+import com.idark.valoria.registries.world.item.types.mana.staffs.StaffItem;
 import com.idark.valoria.network.PacketHandler;
-import com.idark.valoria.paintings.ModPaintings;
+import com.idark.valoria.registries.world.entity.paintings.ModPaintings;
 import com.idark.valoria.proxy.ClientProxy;
 import com.idark.valoria.proxy.ISidedProxy;
 import com.idark.valoria.proxy.ServerProxy;
-import com.idark.valoria.recipe.ModRecipes;
-import com.idark.valoria.sounds.ModSoundRegistry;
+import com.idark.valoria.registries.recipe.ModRecipes;
+import com.idark.valoria.registries.sounds.ModSoundRegistry;
 import com.idark.valoria.util.LootUtil;
 import com.idark.valoria.util.WorldRenderHandler;
 import net.minecraft.client.gui.screens.MenuScreens;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.entity.SpawnPlacements;
@@ -69,8 +68,6 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import top.theillusivec4.curios.api.client.CuriosRendererRegistry;
-
-import java.util.concurrent.CompletableFuture;
 
 @Mod(Valoria.MOD_ID)
 public class Valoria {
@@ -229,11 +226,7 @@ public class Valoria {
         public static void gatherData(GatherDataEvent event) {
             DataGenerator generator = event.getGenerator();
             PackOutput packOutput = generator.getPackOutput();
-            CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
-
             generator.addProvider(event.includeServer(), new ModRecipeProvider(packOutput));
-            //generator.addProvider(event.includeServer(), new ModWorldGenProvider(packOutput, lookupProvider));
-            //generator.addProvider(event.includeServer(), new ModGlobalLootModifiersProvider(packOutput));
         }
     }
 }

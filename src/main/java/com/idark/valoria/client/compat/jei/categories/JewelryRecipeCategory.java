@@ -1,10 +1,10 @@
 package com.idark.valoria.client.compat.jei.categories;
 
 import com.idark.valoria.Valoria;
-import com.idark.valoria.block.ModBlocks;
+import com.idark.valoria.registries.world.block.ModBlocks;
 import com.idark.valoria.client.compat.jei.ModRecipeTypes;
 import com.idark.valoria.client.event.ClientTickHandler;
-import com.idark.valoria.recipe.JewelryRecipe;
+import com.idark.valoria.registries.recipe.JewelryRecipe;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;

@@ -1,6 +1,6 @@
 package com.idark.valoria.mixin;
 
-import com.idark.valoria.item.CooldownHandler;
+import com.idark.valoria.registries.world.item.CooldownHandler;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ServerItemCooldowns;

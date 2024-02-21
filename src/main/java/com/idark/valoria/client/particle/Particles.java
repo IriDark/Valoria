@@ -1,5 +1,6 @@
 package com.idark.valoria.client.particle;
 
+import com.idark.valoria.registries.world.item.types.TransformShardItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.world.entity.player.Player;
@@ -13,7 +14,7 @@ import java.util.Random;
 /**
  Custom mod particles only client-sided.
  May not work with Optifine and cant be created with command /particle
- @see com.idark.valoria.item.types.TransformShardItem#rightClickOnCertainBlockState(ItemStack, Player, Level, BlockState, BlockPos) Example
+ @see TransformShardItem#rightClickOnCertainBlockState(ItemStack, Player, Level, BlockState, BlockPos) Example
  */
 public class Particles {
     public static class ParticleBuilder {

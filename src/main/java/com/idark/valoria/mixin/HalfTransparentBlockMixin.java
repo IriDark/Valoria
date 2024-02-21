@@ -1,6 +1,6 @@
 package com.idark.valoria.mixin;
 
-import com.idark.valoria.block.ModBlocks;
+import com.idark.valoria.registries.world.block.ModBlocks;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.HalfTransparentBlock;

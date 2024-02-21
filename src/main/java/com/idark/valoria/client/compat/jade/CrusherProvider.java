@@ -1,6 +1,6 @@
 package com.idark.valoria.client.compat.jade;
 
-import com.idark.valoria.block.blockentity.CrusherBlockEntity;
+import com.idark.valoria.registries.world.block.entity.CrusherBlockEntity;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;

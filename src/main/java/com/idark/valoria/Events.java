@@ -5,10 +5,10 @@ import com.idark.valoria.api.unlockable.Unlockable;
 import com.idark.valoria.api.unlockable.Unlockables;
 import com.idark.valoria.capability.IUnlockable;
 import com.idark.valoria.capability.UnloackbleCap;
-import com.idark.valoria.client.screen.book.unlockable.ItemUnlockable;
+import com.idark.valoria.client.gui.screen.book.unlockable.ItemUnlockable;
 import com.idark.valoria.network.PacketHandler;
 import com.idark.valoria.network.UnlockableUpdatePacket;
-import com.idark.valoria.util.ModTags;
+import com.idark.valoria.registries.TagsRegistry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
@@ -17,8 +17,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.damagesource.DamageSources;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -33,10 +31,8 @@ import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -51,7 +47,7 @@ public class Events {
     public void onEntityHurt(LivingHurtEvent event) {
         Entity entity = event.getEntity();
         if (entity != null) {
-            if (!event.getSource().is(ModTags.BYPASS)) {
+            if (!event.getSource().is(TagsRegistry.BYPASS)) {
                 return;
             }
 

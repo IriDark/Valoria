@@ -1,9 +1,10 @@
 package com.idark.valoria;
 
-import com.idark.valoria.block.ModBlockColors;
-import com.idark.valoria.block.ModBlocks;
-import com.idark.valoria.block.blockentity.ModBlockEntities;
-import com.idark.valoria.block.types.ModWoodTypes;
+import com.idark.valoria.client.render.entity.*;
+import com.idark.valoria.client.color.ModBlockColors;
+import com.idark.valoria.registries.world.block.ModBlocks;
+import com.idark.valoria.registries.world.block.entity.ModBlockEntities;
+import com.idark.valoria.registries.world.block.types.ModWoodTypes;
 import com.idark.valoria.client.particle.ModParticles;
 import com.idark.valoria.client.particle.ShadewoodLeafParticleType;
 import com.idark.valoria.client.particle.SlashParticleType;
@@ -15,10 +16,9 @@ import com.idark.valoria.client.render.curio.model.NecklaceModel;
 import com.idark.valoria.client.render.model.blockentity.*;
 import com.idark.valoria.client.render.model.item.Item2DRenderer;
 import com.idark.valoria.config.ClientConfig;
-import com.idark.valoria.entity.ModEntityTypes;
-import com.idark.valoria.entity.renderer.*;
-import com.idark.valoria.item.ModItems;
-import com.idark.valoria.util.ModItemModelProperties;
+import com.idark.valoria.registries.world.entity.ModEntityTypes;
+import com.idark.valoria.registries.world.item.ModItems;
+import com.idark.valoria.client.render.model.item.ModItemModelProperties;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.ModelLayerLocation;

@@ -1,8 +1,8 @@
 package com.idark.valoria.client.render.model.blockentity;
 
 import com.idark.valoria.Valoria;
-import com.idark.valoria.block.blockentity.KegBlockEntity;
-import com.idark.valoria.block.types.KegBlock;
+import com.idark.valoria.registries.world.block.entity.KegBlockEntity;
+import com.idark.valoria.registries.world.block.types.KegBlock;
 import com.idark.valoria.client.event.ClientTickHandler;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;

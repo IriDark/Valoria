@@ -1,7 +1,12 @@
 package com.idark.valoria.util;
 
 
-import com.idark.valoria.enchant.ModEnchantments;
+import com.idark.valoria.registries.world.item.enchant.ModEnchantments;
+import com.idark.valoria.registries.world.item.types.curio.charm.BloodSight;
+import com.idark.valoria.registries.world.item.types.CoralReefItem;
+import com.idark.valoria.registries.world.item.types.HoundItem;
+import com.idark.valoria.registries.world.item.types.MurasamaItem;
+import com.idark.valoria.registries.world.item.types.ScytheItem;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
@@ -30,7 +35,7 @@ public class ModUtils {
      *
      * @param items         ItemList to apply the cooldown
      * @param cooldownTicks Time of cooldown
-     * @see com.idark.valoria.item.types.ScytheItem#finishUsingItem(ItemStack, Level, LivingEntity) Example
+     * @see ScytheItem#finishUsingItem(ItemStack, Level, LivingEntity) Example
      */
     public static void applyCooldownToItemList(Player player, List<Item> items, int cooldownTicks) {
         for (Item pItems : items) {
@@ -55,7 +60,7 @@ public class ModUtils {
      * @param type        Particle type used to show radius
      * @param hitEntities List for damaged entities
      * @param pos         Position
-     * @see com.idark.valoria.item.types.ScytheItem#releaseUsing
+     * @see ScytheItem#releaseUsing
      * Scythe Item as Example
      */
     public static void radiusHit(Level level, ItemStack stack, Player player, ParticleOptions type, List<LivingEntity> hitEntities, Vector3d pos, float pitchRaw, float yawRaw, float radius) {
@@ -134,7 +139,7 @@ public class ModUtils {
      * @param radius Distance in blocks
      * @param type   Particle that will spawn at radius
      * @param pos    Position
-     * @see com.idark.valoria.item.types.CoralReefItem#releaseUsing(ItemStack, Level, LivingEntity, int) Example
+     * @see CoralReefItem#releaseUsing(ItemStack, Level, LivingEntity, int) Example
      */
     public static void spawnParticlesInRadius(Level level, ItemStack stack, ParticleOptions type, Vector3d pos, float pitchRaw, float yawRaw, float radius) {
         double pitch = ((pitchRaw + 90) * Math.PI) / 180;
@@ -163,7 +168,7 @@ public class ModUtils {
      * @param options  Particle that will spawn at radius
      * @param speed    Speed of particles
      * @param pos      Position
-     * @see com.idark.valoria.item.types.MurasamaItem#onUseTick(Level, LivingEntity, ItemStack, int) Example
+     * @see MurasamaItem#onUseTick(Level, LivingEntity, ItemStack, int) Example
      */
     public static void spawnParticlesAroundPosition(Vector3d pos, float distance, float speed, Level level, ParticleOptions options) {
         Random rand = new Random();
@@ -199,7 +204,7 @@ public class ModUtils {
      *
      * @param pPlayer Player pos for calculating Attacked mob and positions
      * @param pType   Particle that will spawn line
-     * @see com.idark.valoria.item.curio.charm.BloodSight#curioTick(String, int, LivingEntity, ItemStack)  Example
+     * @see BloodSight#curioTick(String, int, LivingEntity, ItemStack)  Example
      */
     public static void spawnParticlesLineToAttackedMob(Level pLevel, Player pPlayer, ParticleOptions pType) {
         LivingEntity lastHurtMob = pPlayer.getLastAttacker();
@@ -244,7 +249,7 @@ public class ModUtils {
      * @param hitEntities list of Entities
      * @param pos Position in Vec3
      * @param radius Radius to spawn
-     * @see com.idark.valoria.item.types.HoundItem#finishUsingItem(ItemStack, Level, LivingEntity) Example
+     * @see HoundItem#finishUsingItem(ItemStack, Level, LivingEntity) Example
      */
     public static void spawnParticlesLineToNearbyMobs(Level pLevel, Player pPlayer, ParticleOptions pType, List<LivingEntity> hitEntities, Vec3 pos, float pitchRaw, float yawRaw, float radius) {
         double pitch = ((pitchRaw + 90) * Math.PI) / 180;

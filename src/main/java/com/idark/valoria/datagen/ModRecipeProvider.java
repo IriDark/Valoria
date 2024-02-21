@@ -1,7 +1,7 @@
 package com.idark.valoria.datagen;
 
-import com.idark.valoria.block.ModBlocks;
-import com.idark.valoria.item.ModItems;
+import com.idark.valoria.registries.world.block.ModBlocks;
+import com.idark.valoria.registries.world.item.ModItems;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeCategory;
