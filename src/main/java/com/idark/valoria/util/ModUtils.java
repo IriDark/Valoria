@@ -24,6 +24,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Vector3d;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -63,7 +64,7 @@ public class ModUtils {
      * @see ScytheItem#releaseUsing
      * Scythe Item as Example
      */
-    public static void radiusHit(Level level, ItemStack stack, Player player, ParticleOptions type, List<LivingEntity> hitEntities, Vector3d pos, float pitchRaw, float yawRaw, float radius) {
+    public static void radiusHit(Level level, ItemStack stack, Player player, @Nullable ParticleOptions type, List<LivingEntity> hitEntities, Vector3d pos, float pitchRaw, float yawRaw, float radius) {
         double pitch = ((pitchRaw + 90) * Math.PI) / 180;
         double yaw = ((yawRaw + 90) * Math.PI) / 180;
 
@@ -85,12 +86,11 @@ public class ModUtils {
         X = Math.sin(locPitch + pitch) * Math.cos(locYaw + yaw) * pRadius * 0.75F;
         Y = Math.cos(locPitch + pitch) * pRadius * 0.75F;
         Z = Math.sin(locPitch + pitch) * Math.sin(locYaw + yaw) * pRadius * 0.75F;
-        if (!level.isClientSide() && level instanceof ServerLevel pServer) {
+        if (type != null && !level.isClientSide() && level instanceof ServerLevel pServer) {
             //level.addParticle(type, pos.x + X, pos.y + Y + ((Math.random() - 0.5D) * 0.2F), pos.z + Z, 0d, 0d, 0d);
             pServer.sendParticles(type, pos.x + X, pos.y + Y + ((Math.random() - 0.5D) * 0.2F), pos.z + Z,1,  0, 0, 0, 0);
         }
     }
-
 
     /**
      * Can be used in projectile tick() method.
@@ -158,6 +158,39 @@ public class ModUtils {
         if (!level.isClientSide() && level instanceof ServerLevel pServer) {
             //level.addParticle(type, pos.x + X, pos.y + Y + ((Math.random() - 0.5D) * 0.2F), pos.z + Z, 0d, 0d, 0d);
             pServer.sendParticles(type, pos.x + X, pos.y + Y + ((Math.random() - 0.5D) * 0.2F), pos.z + Z, 1,  0, 0, 0, 0);
+        }
+    }
+
+    /**
+     * @param hitEntities List for damaged entities
+     * @param type   Particle that will appear at marked mobs
+     * @param pos    Position
+     * @param radius Distance in blocks
+     * @see com.idark.valoria.registries.world.item.types.BeastScytheItem#finishUsingItem(ItemStack, Level, LivingEntity) Example
+     */
+    public static void spawnParticlesMark(Level level, Player player, List<LivingEntity> hitEntities, ParticleOptions type, Vector3d pos, float pitchRaw, float yawRaw, float radius) {
+        double pitch = ((pitchRaw + 90) * Math.PI) / 180;
+        double yaw = ((yawRaw + 90) * Math.PI) / 180;
+
+        double locYaw = 0;
+        double locPitch = 0;
+        double X = Math.sin(locPitch + pitch) * Math.cos(locYaw + yaw) * radius;
+        double Y = Math.cos(locPitch + pitch) * radius;
+        double Z = Math.sin(locPitch + pitch) * Math.sin(locYaw + yaw) * radius;
+
+        AABB boundingBox = new AABB(pos.x, pos.y - 8 + ((Math.random() - 0.5D) * 0.2F), pos.z, pos.x + X, pos.y + Y + ((Math.random() - 0.5D) * 0.2F), pos.z + Z);
+        List<Entity> entities = level.getEntitiesOfClass(Entity.class, boundingBox);
+        for (Entity entity : entities) {
+            if (entity instanceof LivingEntity livingEntity && !hitEntities.contains(livingEntity) && !livingEntity.equals(player)) {
+                hitEntities.add(livingEntity);
+                if (!livingEntity.isAlive()) {
+                    return;
+                }
+
+                if (!level.isClientSide() && level instanceof ServerLevel pServer) {
+                    pServer.sendParticles(type, livingEntity.getX(), livingEntity.getY() + 2 + ((Math.random() - 0.5D) * 0.2F), livingEntity.getZ(), 1, 0, 0, 0, 0);
+                }
+            }
         }
     }
 
@@ -285,7 +318,6 @@ public class ModUtils {
                     if (!pLevel.isClientSide() && pLevel instanceof ServerLevel pServer) {
                         //pLevel.addParticle(pType, pos.x - (x * i), pos.y - (y * i), pos.z - (z * i), 0, 0, 0);
                         pServer.sendParticles(pType, pos.x - (x * i), pos.y - (y * i), pos.z - (z * i), 1, 0, 0, 0, 0);
-
                     }
                 }
 

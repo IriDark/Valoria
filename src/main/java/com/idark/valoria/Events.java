@@ -69,8 +69,10 @@ public class Events {
                 if (itemStack.getItem() instanceof BlockItem blockItem) {
                     BlockState blockState = blockItem.getBlock().defaultBlockState();
                     Stream<ResourceLocation> blockTagStream = blockState.getTags().map(TagKey::location);
-                    e.getToolTip().add(Component.empty());
-                    e.getToolTip().add(Component.literal("BlockTags: " + blockTagStream.toList()).withStyle(ChatFormatting.GRAY));
+                    if (!blockState.getTags().map(TagKey::location).toList().isEmpty()) {
+                        e.getToolTip().add(Component.empty());
+                        e.getToolTip().add(Component.literal("BlockTags: " + blockTagStream.toList()).withStyle(ChatFormatting.GRAY));
+                    }
                 }
             } else if (!itemStack.getTags().toList().isEmpty() || itemStack.getItem() instanceof BlockItem blockItem && !blockItem.getBlock().defaultBlockState().getTags().toList().isEmpty()) {
                 e.getToolTip().add(Component.empty());

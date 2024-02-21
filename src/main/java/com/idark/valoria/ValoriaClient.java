@@ -1,14 +1,11 @@
 package com.idark.valoria;
 
+import com.idark.valoria.client.particle.*;
 import com.idark.valoria.client.render.entity.*;
 import com.idark.valoria.client.color.ModBlockColors;
 import com.idark.valoria.registries.world.block.ModBlocks;
 import com.idark.valoria.registries.world.block.entity.ModBlockEntities;
 import com.idark.valoria.registries.world.block.types.ModWoodTypes;
-import com.idark.valoria.client.particle.ModParticles;
-import com.idark.valoria.client.particle.ShadewoodLeafParticleType;
-import com.idark.valoria.client.particle.SlashParticleType;
-import com.idark.valoria.client.particle.SparkleParticleType;
 import com.idark.valoria.client.render.curio.model.BeltModel;
 import com.idark.valoria.client.render.curio.model.HandsModel;
 import com.idark.valoria.client.render.curio.model.HandsModelDefault;
@@ -200,6 +197,8 @@ public class ValoriaClient {
             Minecraft.getInstance().particleEngine.register(ModParticles.TRANSFORM_PARTICLE.get(), SparkleParticleType.Factory::new);
             Minecraft.getInstance().particleEngine.register(ModParticles.GEODE_PARTICLE.get(), SparkleParticleType.Factory::new);
             Minecraft.getInstance().particleEngine.register(ModParticles.SHADEWOOD_LEAF_PARTICLE.get(), ShadewoodLeafParticleType.Factory::new);
+            Minecraft.getInstance().particleEngine.register(ModParticles.CHOMP.get(), ChompParticle.Factory::new);
+
         }
 
         @OnlyIn(Dist.CLIENT)
