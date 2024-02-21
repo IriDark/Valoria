@@ -1,7 +1,6 @@
 package com.idark.valoria;
 
 import com.google.common.collect.ImmutableMap;
-import com.idark.valoria.block.ModBlockColors;
 import com.idark.valoria.block.ModBlocks;
 import com.idark.valoria.block.blockentity.ModBlockEntities;
 import com.idark.valoria.block.types.ModWoodTypes;
@@ -55,7 +54,6 @@ import net.minecraft.world.level.block.FireBlock;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.data.event.GatherDataEvent;

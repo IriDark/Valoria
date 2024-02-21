@@ -1,7 +1,7 @@
 {
   "type": "minecraft:jigsaw",
   "biomes": "#valoria:small_ruin_gen",
-  "step": "top_layer_modification",
+  "step": "surface_structures",
   "spawn_overrides": {
     "ambient": {
       "bounding_box": "full",

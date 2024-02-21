@@ -337,6 +337,7 @@ public abstract class ModItemGroup {
             event.accept(ModItems.RAW_COBALT_ORE_BLOCK);
             event.accept(ModItems.PEARLIUM_ORE);
             event.accept(ModItems.WICKED_AMETHYST_ORE);
+            event.accept(ModItems.DORMANT_CRYSTALS);
             event.accept(ModItems.AMBER_BLOCK);
             event.accept(ModItems.AMETHYST_BLOCK);
             event.accept(ModItems.RUBY_BLOCK);

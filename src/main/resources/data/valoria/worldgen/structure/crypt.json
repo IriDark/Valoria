@@ -1,7 +1,7 @@
 {
   "type": "minecraft:jigsaw",
   "biomes": "#valoria:crypt_gen",
-  "step": "top_layer_modification",
+  "step": "surface_structures",
   "spawn_overrides": {
     "ambient": {
       "bounding_box": "full",
