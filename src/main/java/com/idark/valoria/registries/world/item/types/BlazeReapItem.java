@@ -16,6 +16,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
@@ -30,6 +31,7 @@ import net.minecraft.world.phys.Vec3;
 
 import java.util.List;
 import java.util.Random;
+import java.util.function.Predicate;
 
 public class BlazeReapItem extends PickaxeItem {
 
@@ -122,7 +124,7 @@ public class BlazeReapItem extends PickaxeItem {
 
             double locYaw = 0;
             double locPitch = 0;
-            double locDistance = 5D;
+            double locDistance = 15D;
 
             double X = Math.sin(locPitch + pitch) * Math.cos(locYaw + yaw) * locDistance;
             double Y = Math.cos(locPitch + pitch) * locDistance;
@@ -130,21 +132,18 @@ public class BlazeReapItem extends PickaxeItem {
 
             Vec3 playerPos = player.getEyePosition();
             Vec3 EndPos = (player.getViewVector(0.0f).scale(60.0d));
-            Vec3 vec3 = playerPos.add(EndPos);
-
-            HitResult hitresult = level.clip(new ClipContext(playerPos, vec3, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, null));
-            if (hitresult != null && hitresult.getType() == HitResult.Type.ENTITY) {
-                Entity entity = ((EntityHitResult) hitresult).getEntity();
-                EntityHitResult entityhitresult = new EntityHitResult(entity, vec3);
-                vec3 = entityhitresult.getLocation();
-                X = entity.getX() - pos.x;
-                Y = entity.getY() - pos.y;
-                Z = entity.getZ() - pos.z;
-            } else if (hitresult != null && hitresult.getType() == HitResult.Type.BLOCK) {
-                vec3 = hitresult.getLocation();
-                X = hitresult.getLocation().x() - pos.x;
-                Y = hitresult.getLocation().y() - pos.y;
-                Z = hitresult.getLocation().z() - pos.z;
+            if (ProjectileUtil.getEntityHitResult(player, playerPos, EndPos, new AABB(pos.x + X - 3D, pos.y + Y - 3D, pos.z + Z - 3D, pos.x + X + 3D, pos.y + Y + 3D, pos.z + Z + 3D), (e) -> true, locDistance) == null) {
+                HitResult hitresult = getHitResult(playerPos, player, (e) -> true, EndPos, level);
+                if (hitresult != null && hitresult.getType() == HitResult.Type.BLOCK) {
+                    X = hitresult.getLocation().x() - pos.x;
+                    Y = hitresult.getLocation().y() - pos.y;
+                    Z = hitresult.getLocation().z() - pos.z;
+                } else {
+                    Entity entity = ((EntityHitResult)hitresult).getEntity();
+                    X = entity.getX() - pos.x;
+                    Y = entity.getY() - pos.y;
+                    Z = entity.getZ() - pos.z;
+                }
             }
 
             if (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.EXPLOSIVE_FLAME.get(), itemstack) > 0) {
@@ -169,9 +168,7 @@ public class BlazeReapItem extends PickaxeItem {
 
             player.knockback(1.2F, X, Z);
             if (!player.isCreative()) {
-                itemstack.hurtAndBreak(10, player, (p_220045_0_) -> {
-                    p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND);
-                });
+                itemstack.hurtAndBreak(10, player, (p_220045_0_) -> p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
             }
 
             for (int i = 0; i < 10; i++) {
@@ -181,7 +178,7 @@ public class BlazeReapItem extends PickaxeItem {
                 level.addParticle(ParticleTypes.FLAME, pos.x + X + ((rand.nextDouble() - 0.5D) * 3), pos.y + Y + ((rand.nextDouble() - 0.5D) * 3), pos.z + Z + ((rand.nextDouble() - 0.5D) * 3), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2));
             }
 
-            if(level instanceof ServerLevel srv) {
+            if (level instanceof ServerLevel srv) {
                 //level.addParticle(ParticleTypes.EXPLOSION_EMITTER, pos.x + X, pos.y + Y, player.getZ() + Z, 0d, 0d, 0d);
                 srv.sendParticles(ParticleTypes.EXPLOSION_EMITTER, pos.x + X, pos.y + Y, player.getZ() + Z, 1, 0, 0, 0,0);
             }
@@ -193,6 +190,21 @@ public class BlazeReapItem extends PickaxeItem {
         }
 
         return InteractionResultHolder.pass(itemstack);
+    }
+
+    private static HitResult getHitResult(Vec3 p278237, Entity p278320, Predicate<Entity> p278257, Vec3 p278342, Level p278321) {
+        Vec3 vec3 = p278237.add(p278342);
+        HitResult hitresult = p278321.clip(new ClipContext(p278237, vec3, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, p278320));
+        if (hitresult.getType() != HitResult.Type.MISS) {
+            vec3 = hitresult.getLocation();
+        }
+
+        HitResult hitresult1 = ProjectileUtil.getEntityHitResult(p278321, p278320, p278237, vec3, p278320.getBoundingBox().expandTowards(p278342).inflate(1.0D), p278257);
+        if (hitresult1 != null) {
+            hitresult = hitresult1;
+        }
+
+        return hitresult;
     }
 
     public static int isCharged(ItemStack stack) {
