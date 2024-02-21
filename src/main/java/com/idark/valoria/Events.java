@@ -51,7 +51,7 @@ public class Events {
     public void onEntityHurt(LivingHurtEvent event) {
         Entity entity = event.getEntity();
         if (entity != null) {
-            if (event.getSource().is(ModTags.CANT_BYPASS)) {
+            if (!event.getSource().is(ModTags.BYPASS)) {
                 return;
             }
 
