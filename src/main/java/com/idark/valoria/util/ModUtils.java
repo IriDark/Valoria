@@ -1,6 +1,7 @@
 package com.idark.valoria.util;
 
 
+import com.idark.valoria.client.event.ClientTickHandler;
 import com.idark.valoria.registries.world.item.enchant.ModEnchantments;
 import com.idark.valoria.registries.world.item.types.curio.charm.BloodSight;
 import com.idark.valoria.registries.world.item.types.CoralReefItem;
@@ -17,17 +18,22 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Vector3d;
+import top.theillusivec4.curios.api.SlotContext;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.function.Predicate;
 
 public class ModUtils {
 
@@ -237,7 +243,6 @@ public class ModUtils {
      *
      * @param pPlayer Player pos for calculating Attacked mob and positions
      * @param pType   Particle that will spawn line
-     * @see BloodSight#curioTick(String, int, LivingEntity, ItemStack)  Example
      */
     public static void spawnParticlesLineToAttackedMob(Level pLevel, Player pPlayer, ParticleOptions pType) {
         LivingEntity lastHurtMob = pPlayer.getLastAttacker();
@@ -264,6 +269,39 @@ public class ModUtils {
         }
     }
 
+    /**
+     * Spawns particles line to attacked mob position
+     *
+     * @param pPlayer Player pos for calculating Attacked mob and positions
+     * @param pType   Particle that will spawn line
+     * @param pDuration cooldown
+     * @see BloodSight#curioTick(SlotContext, ItemStack)   Example
+     */
+    public static void spawnParticlesLineToAttackedMobWithCooldown(Level pLevel, Player pPlayer, ParticleOptions pType, int pDuration) {
+        LivingEntity lastHurtMob = pPlayer.getLastAttacker();
+        if (!pLevel.isClientSide() && pLevel instanceof ServerLevel pServer) {
+            if (lastHurtMob == null) {
+                return;
+            }
+
+            Vec3 pos = new Vec3(pPlayer.getX(), pPlayer.getY() + 0.5f, pPlayer.getZ());
+            Vec3 EndPos = new Vec3(lastHurtMob.getX(), lastHurtMob.getY() + 0.5f, lastHurtMob.getZ());
+            double distance = pos.distanceTo(EndPos);
+            double distanceInBlocks = Math.floor(distance);
+            for (pDuration = 0; pDuration < distanceInBlocks; pDuration++) {
+                double dX = pos.x - EndPos.x;
+                double dY = pos.y - EndPos.y;
+                double dZ = pos.z - EndPos.z;
+
+                float x = (float) (dX / distanceInBlocks);
+                float y = (float) (dY / distanceInBlocks);
+                float z = (float) (dZ / distanceInBlocks);
+
+                pServer.sendParticles(pType, pos.x - (x * pDuration), pos.y - (y * pDuration), pos.z - (z * pDuration), 1, 0, 0, 0, 0);
+            }
+        }
+    }
+
     public static void damageLastAttackedMob(Level pLevel, Player pPlayer, float pAmount) {
         LivingEntity lastHurtMob = pPlayer.getLastAttacker();
         if (!pLevel.isClientSide() && pLevel instanceof ServerLevel pServer) {
@@ -271,7 +309,7 @@ public class ModUtils {
                 return;
             }
 
-            lastHurtMob.hurt(pServer.damageSources().generic(), pAmount);
+            lastHurtMob.hurt(pServer.damageSources().playerAttack(pPlayer), pAmount);
         }
     }
 
@@ -382,5 +420,28 @@ public class ModUtils {
                 pServer.sendParticles(pType, pFrom.x - (x * i), pFrom.y - (y * i), pFrom.z - (z * i), 1, 0, 0, 0, 0);
             }
         }
+    }
+
+    /**
+     * @param from pos from
+     * @param entity entity (projectile, player etc.
+     * @param filter (e) -> true as default
+     * @param to pos to
+     * @param level level
+     * @return HitResult
+     */
+    public static HitResult getHitResult(Vec3 from, Entity entity, Predicate<Entity> filter, Vec3 to, Level level) {
+        Vec3 vec3 = from.add(to);
+        HitResult hitresult = level.clip(new ClipContext(from, vec3, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, entity));
+        if (hitresult.getType() != HitResult.Type.MISS) {
+            vec3 = hitresult.getLocation();
+        }
+
+        HitResult hitresult1 = ProjectileUtil.getEntityHitResult(level, entity, from, vec3, entity.getBoundingBox().expandTowards(to).inflate(1.0D), filter);
+        if (hitresult1 != null) {
+            hitresult = hitresult1;
+        }
+
+        return hitresult;
     }
 }

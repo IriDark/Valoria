@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "valoria:block/violet_sprout_plant_red"
+  }
+}

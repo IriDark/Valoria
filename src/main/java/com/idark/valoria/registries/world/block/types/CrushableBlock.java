@@ -48,6 +48,7 @@ public class CrushableBlock extends BaseEntityBlock {
      * @deprecated call via {@link net.minecraft.world.level.block.state.BlockBehaviour.BlockStateBase#getRenderShape}
      * whenever possible. Implementing/overriding is fine.
      */
+    @Deprecated
     public RenderShape getRenderShape(BlockState pState) {
         return RenderShape.MODEL;
     }

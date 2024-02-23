@@ -1,0 +1,8 @@
+{
+  "type": "valoria:abyssal_glowfern",
+  "config": {
+    "max_height": 6,
+    "spread_height": 4,
+    "spread_width": 8
+  }
+}

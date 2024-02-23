@@ -1,6 +1,10 @@
 package com.idark.valoria;
 
 import com.idark.valoria.client.particle.*;
+import com.idark.valoria.client.particle.types.ChompParticle;
+import com.idark.valoria.client.particle.types.ShadewoodLeafParticleType;
+import com.idark.valoria.client.particle.types.SlashParticleType;
+import com.idark.valoria.client.particle.types.SparkleParticleType;
 import com.idark.valoria.client.render.entity.*;
 import com.idark.valoria.client.color.ModBlockColors;
 import com.idark.valoria.registries.world.block.ModBlocks;
@@ -66,6 +70,12 @@ public class ValoriaClient {
         @SubscribeEvent
         public static void doClientStuff(FMLClientSetupEvent event) {
             event.enqueueWork(() -> {
+                ItemBlockRenderTypes.setRenderLayer(ModBlocks.VIOLET_SPROUT_PLANT.get(), RenderType.cutout());
+                ItemBlockRenderTypes.setRenderLayer(ModBlocks.VIOLET_SPROUT.get(), RenderType.cutout());
+                ItemBlockRenderTypes.setRenderLayer(ModBlocks.GLOW_VIOLET_SPROUT_PLANT.get(), RenderType.cutout());
+                ItemBlockRenderTypes.setRenderLayer(ModBlocks.GLOW_VIOLET_SPROUT.get(), RenderType.cutout());
+                ItemBlockRenderTypes.setRenderLayer(ModBlocks.ABYSSAL_GLOWFERN_PLANT.get(), RenderType.cutout());
+                ItemBlockRenderTypes.setRenderLayer(ModBlocks.ABYSSAL_GLOWFERN.get(), RenderType.cutout());
                 ItemBlockRenderTypes.setRenderLayer(ModBlocks.FALSEFLOWER.get(), RenderType.cutout());
                 ItemBlockRenderTypes.setRenderLayer(ModBlocks.FALSEFLOWER_SMALL.get(), RenderType.cutout());
                 ItemBlockRenderTypes.setRenderLayer(ModBlocks.SOULFLOWER.get(), RenderType.cutout());

@@ -2,6 +2,7 @@ package com.idark.valoria.registries.world.item.types;
 
 import com.idark.valoria.registries.world.item.enchant.ModEnchantments;
 import com.idark.valoria.registries.sounds.ModSoundRegistry;
+import com.idark.valoria.util.ModUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -116,24 +117,19 @@ public class BlazeReapItem extends PickaxeItem {
             setCharge(itemstack, 0);
             player.getCooldowns().addCooldown(this, 50);
             player.awardStat(Stats.ITEM_USED.get(this));
-
             Vec3 pos = new Vec3(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());
-
             double pitch = ((player.getRotationVector().x + 90) * Math.PI) / 180;
             double yaw = ((player.getRotationVector().y + 90) * Math.PI) / 180;
-
             double locYaw = 0;
             double locPitch = 0;
             double locDistance = 15D;
-
             double X = Math.sin(locPitch + pitch) * Math.cos(locYaw + yaw) * locDistance;
             double Y = Math.cos(locPitch + pitch) * locDistance;
             double Z = Math.sin(locPitch + pitch) * Math.sin(locYaw + yaw) * locDistance;
-
             Vec3 playerPos = player.getEyePosition();
             Vec3 EndPos = (player.getViewVector(0.0f).scale(60.0d));
             if (ProjectileUtil.getEntityHitResult(player, playerPos, EndPos, new AABB(pos.x + X - 3D, pos.y + Y - 3D, pos.z + Z - 3D, pos.x + X + 3D, pos.y + Y + 3D, pos.z + Z + 3D), (e) -> true, locDistance) == null) {
-                HitResult hitresult = getHitResult(playerPos, player, (e) -> true, EndPos, level);
+                HitResult hitresult = ModUtils.getHitResult(playerPos, player, (e) -> true, EndPos, level);
                 if (hitresult != null && hitresult.getType() == HitResult.Type.BLOCK) {
                     X = hitresult.getLocation().x() - pos.x;
                     Y = hitresult.getLocation().y() - pos.y;
@@ -190,21 +186,6 @@ public class BlazeReapItem extends PickaxeItem {
         }
 
         return InteractionResultHolder.pass(itemstack);
-    }
-
-    private static HitResult getHitResult(Vec3 p278237, Entity p278320, Predicate<Entity> p278257, Vec3 p278342, Level p278321) {
-        Vec3 vec3 = p278237.add(p278342);
-        HitResult hitresult = p278321.clip(new ClipContext(p278237, vec3, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, p278320));
-        if (hitresult.getType() != HitResult.Type.MISS) {
-            vec3 = hitresult.getLocation();
-        }
-
-        HitResult hitresult1 = ProjectileUtil.getEntityHitResult(p278321, p278320, p278237, vec3, p278320.getBoundingBox().expandTowards(p278342).inflate(1.0D), p278257);
-        if (hitresult1 != null) {
-            hitresult = hitresult1;
-        }
-
-        return hitresult;
     }
 
     public static int isCharged(ItemStack stack) {

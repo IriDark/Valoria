@@ -54,7 +54,7 @@ public class KunaiEntity extends AbstractArrow {
 		super(ModEntityTypes.KUNAI.get(), thrower, worldIn);
 		this.thrownStack = thrownStackIn.copy();
 		this.entityData.set(LOYALTY_LEVEL, (byte) EnchantmentHelper.getLoyalty(thrownStackIn));
-		this.entityData.set(PIERCE_LEVEL, (byte)EnchantmentHelper.getItemEnchantmentLevel(Enchantments.PIERCING, thrownStackIn));
+		this.entityData.set(PIERCE_LEVEL, (byte) EnchantmentHelper.getItemEnchantmentLevel(Enchantments.PIERCING, thrownStackIn));
 	}
 
 	@OnlyIn(Dist.CLIENT)
@@ -65,7 +65,7 @@ public class KunaiEntity extends AbstractArrow {
 	public void defineSynchedData() {
 		super.defineSynchedData();
 		this.entityData.define(LOYALTY_LEVEL, (byte)0);
-		this.entityData.define(PIERCE_LEVEL, (byte)0);		
+		this.entityData.define(PIERCE_LEVEL, (byte)0);
 	}
 
 	@OnlyIn(Dist.CLIENT)
@@ -91,6 +91,8 @@ public class KunaiEntity extends AbstractArrow {
 			int p = this.entityData.get(PIERCE_LEVEL);
 			if (p > 0) {
 				this.piercing = true;
+				this.setShotFromCrossbow(true);
+				this.setCritArrow(true);
 			}
 			
 			if (i > 0 && !this.shouldReturnToThrower()) {
@@ -159,9 +161,8 @@ public class KunaiEntity extends AbstractArrow {
 		}
 
 		Entity shooter = this.getOwner();
-		DamageSource damagesource = level().damageSources().trident(this, (Entity)(shooter == null ? this : shooter));
+		DamageSource damagesource = level().damageSources().trident(this, shooter == null ? this : shooter);
 		this.dealtDamage = true;
-		SoundEvent soundevent = SoundEvents.TRIDENT_HIT;
 		if (entity.hurt(damagesource, f)) {
 			if (entity.getType() == EntityType.ENDERMAN) {
 				return;
@@ -194,9 +195,8 @@ public class KunaiEntity extends AbstractArrow {
 			this.piercedEntities.add(entity.getId());
 		}
 		
-        if (entity instanceof LivingEntity) {
-            LivingEntity livingentity = (LivingEntity)entity;
-            if (!entity.isAlive() && this.hitEntities != null) {
+        if (entity instanceof LivingEntity livingentity) {
+            if (entity.isAlive() && this.hitEntities != null) {
 				this.hitEntities.add(livingentity);		
 			}
 		}
@@ -251,17 +251,7 @@ public class KunaiEntity extends AbstractArrow {
 			super.tickDespawn();
 		}
 	}
-	
-	public void resetPiercedEntities() {
-		if (this.hitEntities != null) {
-			this.hitEntities.clear();
-		}
 
-		if (this.piercedEntities != null) {
-			this.piercedEntities.clear();
-		}
-	}
-	
 	public float getWaterInertia() {
 		return 0.5F;
 	}

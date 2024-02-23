@@ -3,6 +3,7 @@ package com.idark.valoria.registries.world.item.types.curio.charm;
 import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.Multimap;
 import com.idark.valoria.registries.sounds.ModSoundRegistry;
+import com.idark.valoria.util.math.RandomUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -13,7 +14,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -58,8 +59,8 @@ public class CurioCurses extends Item implements ICurioItem {
 
 	// Calamity sounds used
 	@Override
-	public void curioTick(String identifier, int index, LivingEntity livingEntity, ItemStack stack) {
-		Player player = (Player) livingEntity;
+	public void curioTick(SlotContext slotContext, ItemStack stack) {
+		Player player = (Player) slotContext.entity();
 		if (!player.level().isClientSide() && player instanceof ServerPlayer pServer) {
 			if (pServer.getActiveEffects().isEmpty() && !pServer.getCooldowns().isOnCooldown(this)) {
 				pServer.addEffect(new MobEffectInstance(effects[Mth.nextInt(rand, 0, 5)], 60, 0, false, true));
@@ -67,8 +68,6 @@ public class CurioCurses extends Item implements ICurioItem {
 				pServer.level().playSound(null, pServer.getOnPos(), ModSoundRegistry.EQUIP_CURSE.get(), SoundSource.AMBIENT, 0.5f, 1f);
 			}
 		}
-
-		ICurioItem.super.curioTick(identifier, index, livingEntity, stack);
 	}
 
 	@Override

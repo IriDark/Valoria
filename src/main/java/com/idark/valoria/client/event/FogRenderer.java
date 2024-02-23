@@ -1,6 +1,7 @@
 package com.idark.valoria.client.event;
 
 import com.idark.valoria.registries.world.block.ModBlocks;
+import com.idark.valoria.registries.world.levelgen.LevelGen;
 import com.mojang.blaze3d.shaders.FogShape;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.level.block.state.BlockState;
@@ -31,7 +32,7 @@ public class FogRenderer {
                 e.setFarPlaneDistance(1.5F);
             }
 
-            if (!blockState.liquid() && Minecraft.getInstance().player.level().dimension().toString().toLowerCase(Locale.ROOT).equals("resourcekey[minecraft:dimension / valoria:the_valoria]")) {
+            if (!blockState.liquid() && Minecraft.getInstance().player.level().dimension() == LevelGen.VALORIA_KEY) {
                 e.setCanceled(true);
                 e.setNearPlaneDistance(0.1F);
                 e.setFarPlaneDistance(42.5F);
@@ -54,9 +55,9 @@ public class FogRenderer {
                 e.setBlue(0.34f);
             }
 
-            if (!blockState.liquid() && Minecraft.getInstance().player.level().dimension().toString().toLowerCase(Locale.ROOT).equals("resourcekey[minecraft:dimension / valoria:the_valoria]")) {
-                e.setRed(0.091f);
-                e.setGreen(0.069f);
+            if (!blockState.liquid() && Minecraft.getInstance().player.level().dimension() == LevelGen.VALORIA_KEY) {
+                e.setRed(0.150f);
+                e.setGreen(0.080f);
                 e.setBlue(0.132f);
             }
         }

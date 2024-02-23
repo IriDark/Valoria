@@ -8,6 +8,7 @@ import top.theillusivec4.curios.api.SlotResult;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("removal")
 public class ManaUtils {
 
     public static int getAddManaRemain(int current, int mana, int max) {

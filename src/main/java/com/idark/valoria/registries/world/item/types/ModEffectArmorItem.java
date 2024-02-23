@@ -14,6 +14,7 @@ import net.minecraft.world.level.Level;
 import java.util.Objects;
 import java.util.Random;
 
+@SuppressWarnings("removal")
 public class ModEffectArmorItem extends ArmorItem {
 	
 	public ModEffectArmorItem(ArmorMaterial material, ArmorItem.Type type, Properties settings) {
@@ -23,9 +24,9 @@ public class ModEffectArmorItem extends ArmorItem {
 	@Override
 	public void onArmorTick(ItemStack stack, Level world, Player player) {
 		if(!world.isClientSide()) {
-		if(hasFullSuitOfArmorOn(player)) {
-		evaluateArmorEffects(player);
-	}
+			if(hasFullSuitOfArmorOn(player)) {
+				evaluateArmorEffects(player);
+		}
 	}
 	
 	super.onArmorTick(stack, world, player);
@@ -40,11 +41,11 @@ public class ModEffectArmorItem extends ArmorItem {
 		}
 	}
 	
-	private void addStatusEffectForMaterial(Player player, ArmorMaterial ArmorMaterial, MobEffect modEffect) {
-		boolean hasPlayerEffect = !Objects.equals(player.getEffect(ModEffects.ALOEREGEN.get()), null);
+	private void addStatusEffectForMaterial(Player player, ArmorMaterial ArmorMaterial, MobEffect mobEffect) {
+		boolean hasPlayerEffect = !Objects.equals(player.getEffect(mobEffect), null);
 	
 	if(hasCorrectArmorOn(ArmorMaterial, player) && !hasPlayerEffect) {
-		player.addEffect(new MobEffectInstance(ModEffects.ALOEREGEN.get(), 400));
+		player.addEffect(new MobEffectInstance(mobEffect, 400));
 		if(new Random().nextFloat() > 0.4f) {
 			player.getInventory().hurtArmor(player.damageSources().magic(), 6f, Inventory.ALL_ARMOR_SLOTS);
 			}

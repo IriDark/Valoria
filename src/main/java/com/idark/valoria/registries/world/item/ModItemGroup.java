@@ -319,6 +319,9 @@ public abstract class ModItemGroup {
             event.accept(ModItems.BLOODROOT);
             event.accept(ModItems.FALSEFLOWER_SMALL);
             event.accept(ModItems.FALSEFLOWER);
+            event.accept(ModItems.VIOLET_SPROUT);
+            event.accept(ModItems.GLOW_VIOLET_SPROUT);
+            event.accept(ModItems.ABYSSAL_GLOWFERN);
             event.accept(ModItems.SOULFLOWER);
             event.accept(ModItems.VOID_ROOTS);
             event.accept(ModItems.VOID_SERPENTS);

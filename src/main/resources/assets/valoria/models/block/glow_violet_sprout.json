@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "valoria:block/glow_violet_sprout"
+  }
+}

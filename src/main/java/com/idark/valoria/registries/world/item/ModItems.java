@@ -34,6 +34,9 @@ public class ModItems {
 
 	// BLOCK-ITEMS (category)
 	// Plants
+	public static final RegistryObject<Item> VIOLET_SPROUT = ITEMS.register("violet_sprout", () -> new BlockItem(ModBlocks.VIOLET_SPROUT.get(), new Item.Properties()));
+	public static final RegistryObject<Item> GLOW_VIOLET_SPROUT = ITEMS.register("glow_violet_sprout", () -> new BlockItem(ModBlocks.GLOW_VIOLET_SPROUT.get(), new Item.Properties()));
+	public static final RegistryObject<Item> ABYSSAL_GLOWFERN = ITEMS.register("abyssal_glowfern", () -> new BlockItem(ModBlocks.ABYSSAL_GLOWFERN.get(), new Item.Properties()));
 	public static final RegistryObject<Item> SHADEWOOD_BRANCH = ITEMS.register("shadewood_branch", () -> new BlockItem(ModBlocks.SHADEWOOD_BRANCH.get(), new Item.Properties()));
 	public static final RegistryObject<Item> ALOE = ITEMS.register("aloe", () -> new BlockItem(ModBlocks.ALOE.get(), new Item.Properties()));
 	public static final RegistryObject<Item> ALOE_SMALL = ITEMS.register("aloe_small", () -> new BlockItem(ModBlocks.ALOE_SMALL.get(), new Item.Properties()));
@@ -85,7 +88,6 @@ public class ModItems {
 	public static final RegistryObject<Item> SAPPHIRE_BLOCK = ITEMS.register("sapphire_block", () -> new BlockItem(ModBlocks.SAPPHIRE_BLOCK.get(), new Item.Properties()));
 	public static final RegistryObject<Item> AMBER_BLOCK = ITEMS.register("amber_block", () -> new BlockItem(ModBlocks.AMBER_BLOCK.get(), new Item.Properties()));
 	public static final RegistryObject<Item> RUBY_BLOCK = ITEMS.register("ruby_block", () -> new BlockItem(ModBlocks.RUBY_BLOCK.get(), new Item.Properties()));
-
 	public static final RegistryObject<Item> COBALT_BLOCK = ITEMS.register("cobalt_block", () -> new BlockItem(ModBlocks.COBALT_BLOCK.get(), new Item.Properties()));
 	public static final RegistryObject<Item> NATURE_BLOCK = ITEMS.register("nature_block", () -> new BlockItem(ModBlocks.NATURE_BLOCK.get(), new Item.Properties()));
 	public static final RegistryObject<Item> AQUARIUS_BLOCK = ITEMS.register("aquarius_block", () -> new BlockItem(ModBlocks.AQUARIUS_BLOCK.get(), new Item.Properties()));
@@ -171,6 +173,7 @@ public class ModItems {
 	public static final RegistryObject<Item> SHADEWOOD_LEAVES = ITEMS.register("shadewood_leaves", () -> new BlockItem(ModBlocks.SHADEWOOD_LEAVES.get(), new Item.Properties()));
 	public static final RegistryObject<Item> SHADEWOOD_SAPLING = ITEMS.register("shadewood_sapling", () -> new BlockItem(ModBlocks.SHADEWOOD_SAPLING.get(), new Item.Properties()));
 	// BlockItem Misc
+	public static final RegistryObject<Item> VALORIA_PORTAL = ITEMS.register("valoria_portal", () -> new BlockItem(ModBlocks.VALORIA_PORTAL.get(), new Item.Properties()));
 	public static final RegistryObject<Item> STONE_CRUSHER = ITEMS.register("stone_crusher", () -> new BlockItem(ModBlocks.STONE_CRUSHER.get(), new Item.Properties()));
 	public static final RegistryObject<Item> JEWELER_TABLE = ITEMS.register("jeweler_table", () -> new BlockItem(ModBlocks.JEWELER_TABLE.get(), new Item.Properties()));
 	public static final RegistryObject<Item> KEG = ITEMS.register("keg", () -> new BlockItem(ModBlocks.KEG.get(), new Item.Properties()));

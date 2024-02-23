@@ -42,11 +42,13 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotResult;
+import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 
+@SuppressWarnings("removal")
 public class PickItem extends Item implements ICustomAnimationItem {
     public static PickAnim animation = new PickAnim();
     public static final int ANIMATION_DURATION = 10;
@@ -55,8 +57,7 @@ public class PickItem extends Item implements ICustomAnimationItem {
     public float excavationSpeed;
     public float attackDamageIn;
     public float attackSpeedIn;
-
-    private Supplier<Multimap<Attribute, AttributeModifier>> attributeModifiers = Suppliers.memoize(this::createAttributes);
+    private final Supplier<Multimap<Attribute, AttributeModifier>> attributeModifiers = Suppliers.memoize(this::createAttributes);
 
     public PickItem(Item.Properties pProperties, int attackDamageIn, float attackSpeedIn, int speed) {
         super(pProperties);

@@ -1,6 +1,9 @@
 package com.idark.valoria.client.particle;
 
 import com.idark.valoria.Valoria;
+import com.idark.valoria.client.particle.types.ShadewoodLeafParticleType;
+import com.idark.valoria.client.particle.types.SlashParticleType;
+import com.idark.valoria.client.particle.types.SparkleParticleType;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraftforge.eventbus.api.IEventBus;

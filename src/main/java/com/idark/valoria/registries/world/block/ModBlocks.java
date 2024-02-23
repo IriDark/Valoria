@@ -4,7 +4,7 @@ import com.idark.valoria.Valoria;
 import com.idark.valoria.registries.world.item.ModItems;
 import com.idark.valoria.registries.world.block.types.*;
 import com.idark.valoria.registries.sounds.ModSoundRegistry;
-import com.idark.valoria.registries.world.tree.ShadeWoodTree;
+import com.idark.valoria.registries.world.levelgen.tree.ShadeWoodTree;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.BlockItem;
@@ -327,6 +327,8 @@ public class ModBlocks {
 			() -> new ModWallHangingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).noOcclusion().noCollission(), ModWoodTypes.SHADEWOOD));
 
 	// Other
+	public static final RegistryObject<Block> VALORIA_PORTAL = BLOCK.register("valoria_portal",
+			() -> new ValoriaPortalBlock(BlockBehaviour.Properties.copy(Blocks.NETHER_PORTAL)));
 	public static final RegistryObject<Block> GEODITE_DIRT = BLOCK.register("geodite_dirt",
 			() -> new Block(BlockBehaviour.Properties.copy(Blocks.DIRT).strength(0.5f, 2f).sound(SoundType.ROOTED_DIRT)));
 	public static final RegistryObject<Block> GEODITE_STONE = BLOCK.register("geodite_stone",
@@ -409,6 +411,18 @@ public class ModBlocks {
 	public static final RegistryObject<Block> POT_LONG_MOSSY_HANDLES = BLOCK.register("pot_long_mossy_handles",
 			() -> new PotBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).lootFrom(ModBlocks.POT_LONG).instabreak().noOcclusion().sound(ModSoundRegistry.POT)));
 	// Plants
+	public static final RegistryObject<Block> VIOLET_SPROUT_PLANT = BLOCK.register("violet_sprout_plant",
+			() -> new VioletSproutPlantBlock(BlockBehaviour.Properties.copy(Blocks.KELP_PLANT), false));
+	public static final RegistryObject<Block> VIOLET_SPROUT = BLOCK.register("violet_sprout",
+			() -> new VioletSproutBlock(BlockBehaviour.Properties.copy(Blocks.KELP), false));
+	public static final RegistryObject<Block> GLOW_VIOLET_SPROUT_PLANT = BLOCK.register("glow_violet_sprout_plant",
+			() -> new VioletSproutPlantBlock(BlockBehaviour.Properties.copy(Blocks.KELP_PLANT).lightLevel(getPlantLightValue()), true));
+	public static final RegistryObject<Block> GLOW_VIOLET_SPROUT = BLOCK.register("glow_violet_sprout",
+			() -> new VioletSproutBlock(BlockBehaviour.Properties.copy(Blocks.KELP).lightLevel(getPlantLightValue()), true));
+	public static final RegistryObject<Block> ABYSSAL_GLOWFERN_PLANT = BLOCK.register("abyssal_glowfern_plant",
+			() -> new AbyssalGlowFernPlantBlock(BlockBehaviour.Properties.copy(Blocks.KELP_PLANT)));
+	public static final RegistryObject<Block> ABYSSAL_GLOWFERN = BLOCK.register("abyssal_glowfern",
+			() -> new AbyssalGlowFernBlock(BlockBehaviour.Properties.copy(Blocks.KELP).lightLevel(getPlantLightValue())));
 	public static final RegistryObject<Block> ALOE_SMALL = BLOCK.register("aloe_small",
 			() -> new DeadBushBlock(BlockBehaviour.Properties.copy(Blocks.SUNFLOWER)));
 	public static final RegistryObject<Block> POTTED_ALOE_SMALL = BLOCK.register("potted_aloe_small",
@@ -487,8 +501,7 @@ public class ModBlocks {
 	}
 
 	private static <T extends Block> void registerBlockItem(String name, RegistryObject<T> block) {
-		ModItems.ITEMS.register(name, () -> new BlockItem(block.get(),
-				new Item.Properties()));
+		ModItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
 	}
 
 	public static void register(IEventBus eventBus) {
@@ -497,5 +510,9 @@ public class ModBlocks {
 
 	private static ToIntFunction<BlockState> getLightValueLit() {
 		return (state) -> state.getValue(BlockStateProperties.LIT) ? 13 : 0;
+	}
+
+	private static ToIntFunction<BlockState> getPlantLightValue() {
+		return (state) -> !state.isAir() ? 9 : 0;
 	}
 }

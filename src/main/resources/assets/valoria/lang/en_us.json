@@ -492,6 +492,9 @@
 	"block.valoria.bloodroot": "Bloodroot",
 	"block.valoria.dried_plant": "Dried Plant",
 	"block.valoria.dried_roots": "Dried Roots",
+	"block.valoria.abyssal_glowfern": "Abyssal Glowfern",
+	"block.valoria.violet_sprout": "Violet Sprout",
+	"block.valoria.glow_violet_sprout": "Glow Violet Sprout",
 
  	"_comment": "Blocks",
 	"block.valoria.amber_block": "Amber Block",
@@ -676,5 +679,6 @@
  	"block.valoria.void_chiseled_bricks_slab": "Chiseled Void Bricks Slab",
 	"block.valoria.void_taint": "Void Taint",
 	"block.valoria.meat_block": "Meat Block",
-	"block.valoria.suspicious_ice": "Suspicious Ice"
+	"block.valoria.suspicious_ice": "Suspicious Ice",
+	"tooltip.valoria.strength": "Grant's player a Damage boost for a while"
 }

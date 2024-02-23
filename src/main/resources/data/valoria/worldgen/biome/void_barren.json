@@ -47,8 +47,8 @@
   "features": [
     [
       "valoria:void_roots", "valoria:soulflower",  "valoria:falseflower", "valoria:falseflower_small",
-      "valoria:wicked_amethyst_ore", "valoria:void_serpents", "valoria:void_taint", "valoria:dormant_crystals"
-
+      "valoria:wicked_amethyst_ore", "valoria:void_serpents", "valoria:void_taint", "valoria:dormant_crystals",
+      "valoria:abyssal_glowfern", "valoria:violet_sprout", "valoria:glow_violet_sprout"
     ]
   ]
 }

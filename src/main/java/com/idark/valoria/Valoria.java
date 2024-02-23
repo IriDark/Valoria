@@ -1,6 +1,7 @@
 package com.idark.valoria;
 
 import com.google.common.collect.ImmutableMap;
+import com.idark.valoria.registries.world.levelgen.LevelGen;
 import com.idark.valoria.registries.world.block.ModBlocks;
 import com.idark.valoria.registries.world.block.entity.ModBlockEntities;
 import com.idark.valoria.registries.world.block.types.ModWoodTypes;
@@ -95,6 +96,9 @@ public class Valoria {
         ModParticles.register(eventBus);
         LootUtil.register(eventBus);
         ModArgumentTypes.register(eventBus);
+        LevelGen.FEATURES.register(eventBus);
+        LevelGen.BIOME_MODIFIER_SERIALIZERS.register(eventBus);
+        LevelGen.PLACEMENT_MODIFIERS.register(eventBus);
 
         IEventBus forgeBus = MinecraftForge.EVENT_BUS;
 

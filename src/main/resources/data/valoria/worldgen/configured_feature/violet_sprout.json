@@ -1,0 +1,8 @@
+{
+  "type": "valoria:violet_sprout",
+  "config": {
+    "max_height": 5,
+    "spread_height": 4,
+    "spread_width": 16
+  }
+}

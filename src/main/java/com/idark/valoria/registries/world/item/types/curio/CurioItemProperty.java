@@ -22,19 +22,21 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.Vanishable;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.ForgeMod;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.type.capability.ICurio;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
+import top.theillusivec4.curios.api.type.inventory.ICurioStacksHandler;
 
 import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
-public class CurioItemProperty extends Item implements ICurioItem, ICurioTexture {
+public class CurioItemProperty extends Item implements ICurioItem, ICurioTexture, Vanishable {
 
     private static final ResourceLocation BELT_TEXTURE = new ResourceLocation(Valoria.MOD_ID, "textures/entity/leather_belt.png");
 
@@ -135,17 +137,26 @@ public class CurioItemProperty extends Item implements ICurioItem, ICurioTexture
     @Override
     public void curioTick(SlotContext slotContext, ItemStack stack) {
         Player player = (Player) slotContext.entity();
+        int pGoldDamage = new Random().nextInt(0, 8);
+        int pDefaultDamage = new Random().nextInt(0, 3);
         if (gem == AccessoryGem.AMBER && !player.level().isClientSide() && !player.hasEffect(MobEffects.DIG_SPEED)) {
             if (!player.getCooldowns().isOnCooldown(stack.getItem())) {
                 player.addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, 200));
                 player.getCooldowns().addCooldown(stack.getItem(), 300);
 
-                int pGoldDamage = new Random().nextInt(0, 8);
-                int pDefaultDamage = new Random().nextInt(0, 3);
                 stack.hurtAndBreak(material == AccessoryMaterial.GOLD ? pGoldDamage : pDefaultDamage, player, (p_220045_0_) -> p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
             }
         }
+
+        if (player.hurtMarked)
+            stack.hurtAndBreak(material == AccessoryMaterial.GOLD ? pGoldDamage : pDefaultDamage, player, (p_220045_0_) -> p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
     }
+
+    @Override
+    public boolean makesPiglinsNeutral(SlotContext slotContext, ItemStack stack) {
+        return material == AccessoryMaterial.GOLD;
+    }
+
 
     @Override
     public ResourceLocation getTexture(ItemStack stack, LivingEntity entity) {
