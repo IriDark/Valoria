@@ -18,7 +18,7 @@ apply plugin: 'maven-publish'
 apply plugin: 'org.spongepowered.mixin'
 apply plugin: 'org.parchmentmc.librarian.forgegradle'
 
-version = '1.20.1-build-0.5.3_b'
+version = '1.20.1-build-0.6b'
 group = 'com.idark.valoria'
 archivesBaseName = 'Valoria'
 
@@ -32,7 +32,6 @@ minecraft {
 
     runs {
         client {
-            args ['--username IriDark']
             workingDirectory project.file('run')
 	        jvmArg "-Dmixin.env.disableRefMap=true"
 		

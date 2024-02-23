@@ -44,44 +44,6 @@ public class Events {
 //    }
 
     @SubscribeEvent
-    public void onEntityHurt(LivingHurtEvent event) {
-        Entity entity = event.getEntity();
-        if (entity != null) {
-            if (!event.getSource().is(TagsRegistry.BYPASS)) {
-                return;
-            }
-
-            entity.invulnerableTime = 0;
-        }
-    }
-
-    @SubscribeEvent
-    public void onTooltip(ItemTooltipEvent e) {
-        ItemStack itemStack = e.getItemStack();
-        Stream<ResourceLocation> itemTagStream = itemStack.getTags().map(TagKey::location);
-        if (Minecraft.getInstance().options.advancedItemTooltips) {
-            if (Screen.hasControlDown()) {
-                if (!itemStack.getTags().toList().isEmpty()) {
-                    e.getToolTip().add(Component.empty());
-                    e.getToolTip().add(Component.literal("ItemTags: " + itemTagStream.toList()).withStyle(ChatFormatting.GRAY));
-                }
-
-                if (itemStack.getItem() instanceof BlockItem blockItem) {
-                    BlockState blockState = blockItem.getBlock().defaultBlockState();
-                    Stream<ResourceLocation> blockTagStream = blockState.getTags().map(TagKey::location);
-                    if (!blockState.getTags().map(TagKey::location).toList().isEmpty()) {
-                        e.getToolTip().add(Component.empty());
-                        e.getToolTip().add(Component.literal("BlockTags: " + blockTagStream.toList()).withStyle(ChatFormatting.GRAY));
-                    }
-                }
-            } else if (!itemStack.getTags().toList().isEmpty() || itemStack.getItem() instanceof BlockItem blockItem && !blockItem.getBlock().defaultBlockState().getTags().toList().isEmpty()) {
-                e.getToolTip().add(Component.empty());
-                e.getToolTip().add(Component.literal("Press [Control] to get tags info").withStyle(ChatFormatting.GRAY));
-            }
-        }
-    }
-
-    @SubscribeEvent
     public void attachEntityCaps(AttachCapabilitiesEvent<Entity> event) {
         if (event.getObject() instanceof Player)
             event.addCapability(new ResourceLocation(Valoria.MOD_ID, "pages"), new UnloackbleCap());

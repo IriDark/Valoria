@@ -17,6 +17,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.Vanishable;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import top.theillusivec4.curios.api.SlotContext;
@@ -27,7 +28,8 @@ import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Random;
 
-public class BloodSight extends Item implements ICurioItem {
+public class BloodSight extends Item implements ICurioItem, Vanishable {
+    private int hits = 0;
 
     public BloodSight(Properties properties) {
         super(properties);
@@ -51,24 +53,27 @@ public class BloodSight extends Item implements ICurioItem {
     public void curioTick(SlotContext slotContext, ItemStack stack) {
         Player player = (Player) slotContext.entity();
         Level pLevel = player.level();
-        if (!player.getCooldowns().isOnCooldown(stack.getItem())) {
-            int duration = 15;
+        LivingEntity lastHurtMob = player.getLastAttacker();
+        int duration = 15;
+        if (lastHurtMob != null && ClientTickHandler.ticksInGame % duration == 1 && !pLevel.isClientSide() && pLevel instanceof ServerLevel
+                && !player.getCooldowns().isOnCooldown(stack.getItem())) {
             for (int i = 0; i < ClientTickHandler.ticksInGame % duration; i++) {
                 ModUtils.damageLastAttackedMob(pLevel, player, this.getDamage(0, RandomSource.create()));
+                if (lastHurtMob.hurtMarked) {
+                    hits++;
+                }
             }
 
             ModUtils.spawnParticlesLineToAttackedMobWithCooldown(pLevel, player, new BlockParticleOption(ParticleTypes.BLOCK, Blocks.REDSTONE_BLOCK.defaultBlockState()), duration);
-            if (!pLevel.isClientSide() && pLevel instanceof ServerLevel) {
-                LivingEntity lastHurtMob = player.getLastAttacker();
-                if (lastHurtMob != null & ClientTickHandler.ticksInGame % duration == 1) {
-                    player.getCooldowns().addCooldown(stack.getItem(), 10);
-                }
+            if (player.hurtMarked) {
+                int damageAmount = (stack.getItem() == ModItems.BLOODSIGHT_MONOCLE.get()) ? new Random().nextInt(0, 4) : new Random().nextInt(1, 5);
+                stack.hurtAndBreak(damageAmount, player, (p0) -> p0.broadcastBreakEvent(EquipmentSlot.MAINHAND));
             }
-        }
 
-        if (player.hurtMarked) {
-            int damageAmount = (stack.getItem() == ModItems.BLOODSIGHT_MONOCLE.get()) ? new Random().nextInt(0, 4) : new Random().nextInt(1, 5);
-            stack.hurtAndBreak(damageAmount, player, (p0) -> p0.broadcastBreakEvent(EquipmentSlot.MAINHAND));
+            if (hits >= duration/2) {
+                player.getCooldowns().addCooldown(stack.getItem(), 600);
+                hits = 0;
+            }
         }
     }
 

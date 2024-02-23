@@ -585,9 +585,9 @@ public class ModItems {
 	public static final RegistryObject<Item> RUNE_OF_COLD = ITEMS.register("rune_of_cold",
 			() -> new Item(new Item.Properties().stacksTo(1).durability(8).rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> BROKEN_BLOODSIGHT_MONOCLE = ITEMS.register("broken_bloodsight_monocle",
-			() -> new BloodSight(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC)));
+			() -> new BloodSight(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC).durability(300)));
 	public static final RegistryObject<Item> BLOODSIGHT_MONOCLE = ITEMS.register("bloodsight_monocle",
-			() -> new BloodSight(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC)));
+			() -> new BloodSight(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC).durability(300)));
 	public static final RegistryObject<Item> SAMURAI_LONG_BOW = ITEMS.register("samurai_long_bow",
 			() -> new BowItem(new Item.Properties().stacksTo(1)));
 	public static final RegistryObject<Item> NATURE_BOW = ITEMS.register("nature_bow",
