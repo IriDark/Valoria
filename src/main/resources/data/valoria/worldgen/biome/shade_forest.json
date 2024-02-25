@@ -49,7 +49,8 @@
       "valoria:shadewood_tree", "valoria:fancy_shadewood_tree", "valoria:void_roots", "valoria:soulflower",
       "valoria:falseflower", "valoria:falseflower_small", "valoria:wicked_amethyst_ore", "valoria:void_serpents",
       "valoria:void_taint", "valoria:dormant_crystals", "valoria:patch_cattail", "valoria:abyssal_glowfern",
-      "valoria:violet_sprout", "valoria:glow_violet_sprout"
+      "valoria:violet_sprout", "valoria:glow_violet_sprout", "valoria:void_taint_lantern", "valoria:patch_voidvine",
+      "valoria:blackstone", "valoria:deep_marble"
     ]
   ]
 }

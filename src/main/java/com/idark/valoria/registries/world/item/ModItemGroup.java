@@ -324,6 +324,7 @@ public abstract class ModItemGroup {
             event.accept(ModItems.ABYSSAL_GLOWFERN);
             event.accept(ModItems.SOULFLOWER);
             event.accept(ModItems.VOID_ROOTS);
+            event.accept(ModItems.VOIDVINE);
             event.accept(ModItems.VOID_SERPENTS);
             event.accept(ModItems.GEODITE_DIRT);
             event.accept(ModItems.GEODITE_STONE);
@@ -448,6 +449,17 @@ public abstract class ModItemGroup {
             event.accept(ModItems.SUSPICIOUS_TOMBSTONE);
             event.accept(ModItems.SUSPICIOUS_ICE);
             event.accept(ModItems.SPIKES);
+            event.accept(ModItems.EYE_STONE);
+            event.accept(ModItems.DEEP_MARBLE);
+            event.accept(ModItems.POLISHED_DEEP_MARBLE);
+            event.accept(ModBlocks.DEEP_MARBLE_STAIRS);
+            event.accept(ModBlocks.DEEP_MARBLE_SLAB);
+            event.accept(ModBlocks.POLISHED_DEEP_MARBLE_STAIRS);
+            event.accept(ModBlocks.POLISHED_DEEP_MARBLE_SLAB);
+            event.accept(ModItems.DEEP_MARBLE_WALL);
+            event.accept(ModItems.POLISHED_DEEP_MARBLE_WALL);
+            event.accept(ModItems.VOID_TAINT_LANTERN);
+            event.accept(ModItems.ABYSSAL_LANTERN);
             event.accept(ModItems.VOID_GRASS);
             event.accept(ModItems.VOID_TAINT);
             event.accept(ModItems.VOID_STONE);

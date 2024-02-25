@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "valoria:block/eye_stone"
+      },
+      {
+        "model": "valoria:block/eye_stone_mirror",
+        "y": 180
+      }
+    ]
+  }
+}

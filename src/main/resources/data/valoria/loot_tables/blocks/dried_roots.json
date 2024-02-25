@@ -25,16 +25,6 @@
                 {
                   "condition": "minecraft:match_tool",
                   "predicate": {
-                    "enchantments": [
-                      {
-                        "enchantment": "minecraft:silk_touch"
-                      }
-                    ]
-                  }
-                },
-                {
-                  "condition": "minecraft:match_tool",
-                  "predicate": {
                     "items": [
                       "minecraft:shears"
                     ]

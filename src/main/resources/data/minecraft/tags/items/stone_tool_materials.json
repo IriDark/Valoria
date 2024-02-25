@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "valoria:void_stone",
+    "valoria:void_taint",
+    "valoria:tombstone",
+    "valoria:crystal_stone",
+    "valoria:limestone",
+    "valoria:dunestone"
+  ]
+}

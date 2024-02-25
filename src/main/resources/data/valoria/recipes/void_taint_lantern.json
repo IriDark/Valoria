@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "/X",
+    "X/"
+  ],
+  "key": {
+    "/": {
+      "tag": "valoria:glow_taint"
+    },
+    "X": {
+      "item": "valoria:void_taint"
+    }
+  },
+  "result": {
+    "item": "valoria:void_taint_lantern",
+    "count": 1
+  }
+}

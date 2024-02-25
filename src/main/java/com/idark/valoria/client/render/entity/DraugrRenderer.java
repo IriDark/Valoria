@@ -30,11 +30,7 @@ public class DraugrRenderer extends HumanoidMobRenderer<DraugrEntity, DraugrMode
         this.addLayer(new HumanoidArmorLayer(this, new DraugrModel(pContext.bakeLayer(pInnerModelLayer)), new DraugrModel(pContext.bakeLayer(pOuterModelLayer)), pContext.getModelManager()));
     }
 
-    public ResourceLocation getTextureLocation(AbstractSkeleton pEntity) {
-        return TEXTURE;
-    }
-
-    protected boolean isShaking(AbstractSkeleton pEntity) {
+    protected boolean isShaking(DraugrEntity pEntity) {
         return pEntity.isShaking();
     }
 }

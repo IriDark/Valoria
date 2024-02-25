@@ -7,11 +7,15 @@
     "valoria:crimson_magmaroot",
     "valoria:crimson_goldy",
     "valoria:crimson_rajush",
+    "valoria:crimson_soulroot",
     "valoria:soulroot",
     "valoria:soulflower",
     "valoria:bloodroot",
     "valoria:falseflower",
     "valoria:falseflower_small",
-    "valoria:void_roots"
+    "valoria:void_roots",
+    "valoria:voidvine",
+    "valoria:void_serpents"
+
   ]
 }

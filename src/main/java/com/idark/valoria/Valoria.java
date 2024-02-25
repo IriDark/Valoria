@@ -1,6 +1,7 @@
 package com.idark.valoria;
 
 import com.google.common.collect.ImmutableMap;
+import com.idark.valoria.datagen.ModBlockStateProvider;
 import com.idark.valoria.registries.world.levelgen.LevelGen;
 import com.idark.valoria.registries.world.block.ModBlocks;
 import com.idark.valoria.registries.world.block.entity.ModBlockEntities;
@@ -56,6 +57,7 @@ import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
+import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -230,7 +232,9 @@ public class Valoria {
         public static void gatherData(GatherDataEvent event) {
             DataGenerator generator = event.getGenerator();
             PackOutput packOutput = generator.getPackOutput();
-            generator.addProvider(event.includeServer(), new ModRecipeProvider(packOutput));
+            ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
+            //generator.addProvider(event.includeServer(), new ModRecipeProvider(packOutput));
+            generator.addProvider(event.includeClient(), new ModBlockStateProvider(packOutput, existingFileHelper));
         }
     }
 }

@@ -121,7 +121,8 @@ public class DraugrEntity extends Monster implements RangedAttackMob {
     }
 
     public void reassessWeaponGoal() {
-        if (this.level() != null && !this.level().isClientSide) {
+        this.level();
+        if (!this.level().isClientSide) {
             this.goalSelector.removeGoal(this.meleeGoal);
             this.goalSelector.removeGoal(this.bowGoal);
             ItemStack itemstack = this.getItemInHand(ProjectileUtil.getWeaponHoldingHand(this, (item) -> {

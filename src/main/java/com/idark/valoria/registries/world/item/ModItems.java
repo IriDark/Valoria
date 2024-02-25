@@ -6,6 +6,7 @@ import com.idark.valoria.client.gui.screen.book.LexiconPages;
 import com.idark.valoria.client.gui.screen.book.unlockable.RegisterUnlockables;
 import com.idark.valoria.registries.world.effect.ModEffects;
 import com.idark.valoria.registries.world.entity.ModEntityTypes;
+import com.idark.valoria.registries.world.item.tiers.ModArmorItem;
 import com.idark.valoria.registries.world.item.tiers.ModArmorMaterial;
 import com.idark.valoria.registries.world.item.tiers.ModItemTier;
 import com.idark.valoria.registries.world.item.types.*;
@@ -34,9 +35,10 @@ public class ModItems {
 
 	// BLOCK-ITEMS (category)
 	// Plants
-	public static final RegistryObject<Item> VIOLET_SPROUT = ITEMS.register("violet_sprout", () -> new BlockItem(ModBlocks.VIOLET_SPROUT.get(), new Item.Properties()));
-	public static final RegistryObject<Item> GLOW_VIOLET_SPROUT = ITEMS.register("glow_violet_sprout", () -> new BlockItem(ModBlocks.GLOW_VIOLET_SPROUT.get(), new Item.Properties()));
-	public static final RegistryObject<Item> ABYSSAL_GLOWFERN = ITEMS.register("abyssal_glowfern", () -> new BlockItem(ModBlocks.ABYSSAL_GLOWFERN.get(), new Item.Properties()));
+	public static final RegistryObject<Item> VOIDVINE = ITEMS.register("voidvine", () -> new TaintTransformBlockItem(ModBlocks.VOIDVINE.get(), new Item.Properties()));
+	public static final RegistryObject<Item> VIOLET_SPROUT = ITEMS.register("violet_sprout", () -> new TaintTransformBlockItem(ModBlocks.VIOLET_SPROUT.get(), new Item.Properties()));
+	public static final RegistryObject<Item> GLOW_VIOLET_SPROUT = ITEMS.register("glow_violet_sprout", () -> new TaintTransformBlockItem(ModBlocks.GLOW_VIOLET_SPROUT.get(), new Item.Properties()));
+	public static final RegistryObject<Item> ABYSSAL_GLOWFERN = ITEMS.register("abyssal_glowfern", () -> new TaintTransformBlockItem(ModBlocks.ABYSSAL_GLOWFERN.get(), new Item.Properties()));
 	public static final RegistryObject<Item> SHADEWOOD_BRANCH = ITEMS.register("shadewood_branch", () -> new BlockItem(ModBlocks.SHADEWOOD_BRANCH.get(), new Item.Properties()));
 	public static final RegistryObject<Item> ALOE = ITEMS.register("aloe", () -> new BlockItem(ModBlocks.ALOE.get(), new Item.Properties()));
 	public static final RegistryObject<Item> ALOE_SMALL = ITEMS.register("aloe_small", () -> new BlockItem(ModBlocks.ALOE_SMALL.get(), new Item.Properties()));
@@ -95,6 +97,11 @@ public class ModItems {
 	public static final RegistryObject<Item> AWAKENED_VOID_BLOCK = ITEMS.register("awakened_void_block", () -> new BlockItem(ModBlocks.AWAKENED_VOID_BLOCK.get(), new Item.Properties().fireResistant()));
 	public static final RegistryObject<Item> PEARLIUM = ITEMS.register("pearlium", () -> new BlockItem(ModBlocks.PEARLIUM.get(), new Item.Properties()));
 	// Stones
+	public static final RegistryObject<Item> EYE_STONE = ITEMS.register("eye_stone", () -> new BlockItem(ModBlocks.EYE_STONE.get(), new Item.Properties()));
+	public static final RegistryObject<Item> DEEP_MARBLE = ITEMS.register("deep_marble", () -> new BlockItem(ModBlocks.DEEP_MARBLE.get(), new Item.Properties()));
+	public static final RegistryObject<Item> POLISHED_DEEP_MARBLE = ITEMS.register("polished_deep_marble", () -> new BlockItem(ModBlocks.POLISHED_DEEP_MARBLE.get(), new Item.Properties()));
+	public static final RegistryObject<Item> DEEP_MARBLE_WALL = ITEMS.register("deep_marble_wall", () -> new BlockItem(ModBlocks.DEEP_MARBLE_WALL.get(), new Item.Properties()));
+	public static final RegistryObject<Item> POLISHED_DEEP_MARBLE_WALL = ITEMS.register("polished_deep_marble_wall", () -> new BlockItem(ModBlocks.POLISHED_DEEP_MARBLE_WALL.get(), new Item.Properties()));
 	public static final RegistryObject<Item> EPHEMARITE_LOW = ITEMS.register("ephemarite_low", () -> new BlockItem(ModBlocks.EPHEMARITE_LOW.get(), new Item.Properties()));
 	public static final RegistryObject<Item> EPHEMARITE = ITEMS.register("ephemarite", () -> new BlockItem(ModBlocks.EPHEMARITE.get(), new Item.Properties()));
 	public static final RegistryObject<Item> POLISHED_EPHEMARITE_LOW = ITEMS.register("polished_ephemarite_low", () -> new BlockItem(ModBlocks.POLISHED_EPHEMARITE_LOW.get(), new Item.Properties()));
@@ -173,6 +180,8 @@ public class ModItems {
 	public static final RegistryObject<Item> SHADEWOOD_LEAVES = ITEMS.register("shadewood_leaves", () -> new BlockItem(ModBlocks.SHADEWOOD_LEAVES.get(), new Item.Properties()));
 	public static final RegistryObject<Item> SHADEWOOD_SAPLING = ITEMS.register("shadewood_sapling", () -> new BlockItem(ModBlocks.SHADEWOOD_SAPLING.get(), new Item.Properties()));
 	// BlockItem Misc
+	public static final RegistryObject<Item> VOID_TAINT_LANTERN = ITEMS.register("void_taint_lantern", () -> new BlockItem(ModBlocks.VOID_TAINT_LANTERN.get(), new Item.Properties()));
+	public static final RegistryObject<Item> ABYSSAL_LANTERN = ITEMS.register("abyssal_lantern", () -> new BlockItem(ModBlocks.ABYSSAL_LANTERN.get(), new Item.Properties()));
 	public static final RegistryObject<Item> VALORIA_PORTAL = ITEMS.register("valoria_portal", () -> new BlockItem(ModBlocks.VALORIA_PORTAL.get(), new Item.Properties()));
 	public static final RegistryObject<Item> STONE_CRUSHER = ITEMS.register("stone_crusher", () -> new BlockItem(ModBlocks.STONE_CRUSHER.get(), new Item.Properties()));
 	public static final RegistryObject<Item> JEWELER_TABLE = ITEMS.register("jeweler_table", () -> new BlockItem(ModBlocks.JEWELER_TABLE.get(), new Item.Properties()));
@@ -346,17 +355,17 @@ public class ModItems {
 	public static final RegistryObject<Item> GLAIVE = ITEMS.register("glaive",
 			() -> new SpearItem(Tiers.NETHERITE, 6, -3.5f, new Item.Properties()));
 	public static final RegistryObject<Item> WOODEN_RAPIER = ITEMS.register("wooden_rapier",
-			() -> new SwordItem(Tiers.WOOD, 1, -2.8f, new Item.Properties()));
+			() -> new SwordItem(Tiers.WOOD, 0, -1.8f, new Item.Properties()));
 	public static final RegistryObject<Item> STONE_RAPIER = ITEMS.register("stone_rapier",
-			() -> new SwordItem(Tiers.STONE, 1, -2.8f, new Item.Properties()));
+			() -> new SwordItem(Tiers.STONE, 0, -1.8f, new Item.Properties()));
 	public static final RegistryObject<Item> IRON_RAPIER = ITEMS.register("iron_rapier",
-			() -> new SwordItem(Tiers.IRON, 1, -2.8f, new Item.Properties()));
+			() -> new SwordItem(Tiers.IRON, 0, -1.7f, new Item.Properties()));
 	public static final RegistryObject<Item> GOLDEN_RAPIER = ITEMS.register("golden_rapier",
-			() -> new SwordItem(Tiers.GOLD, 2, -2.4f, new Item.Properties()));
+			() -> new SwordItem(Tiers.GOLD, 1, -1.5f, new Item.Properties()));
 	public static final RegistryObject<Item> DIAMOND_RAPIER = ITEMS.register("diamond_rapier",
-			() -> new SwordItem(Tiers.DIAMOND, 2, -3.1f, new Item.Properties()));
+			() -> new SwordItem(Tiers.DIAMOND, 0, -1.5f, new Item.Properties()));
 	public static final RegistryObject<Item> NETHERITE_RAPIER = ITEMS.register("netherite_rapier",
-			() -> new SwordItem(Tiers.NETHERITE, 2, -3.1f, new Item.Properties()));
+			() -> new SwordItem(Tiers.NETHERITE, 0, -1.5f, new Item.Properties()));
 	public static final RegistryObject<Item> IRON_SCYTHE = ITEMS.register("iron_scythe",
 			() -> new ScytheItem(Tiers.IRON, 4, -3.5f, new Item.Properties()));
 	public static final RegistryObject<Item> GOLDEN_SCYTHE = ITEMS.register("golden_scythe",

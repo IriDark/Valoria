@@ -65,7 +65,7 @@ public class KegRecipeCategory implements IRecipeCategory<KegRecipe> {
         ItemStack resultStack = recipe.getResultItem(RegistryAccess.EMPTY);
 
         builder.addSlot(RecipeIngredientRole.INPUT, 4, 16).addItemStacks(Arrays.asList(recipeIngredients.get(0).getItems()));
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 125, 17).addItemStack(resultStack);
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 125, 16).addItemStack(resultStack);
     }
 
     @Override

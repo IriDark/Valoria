@@ -1,4 +1,4 @@
-package com.idark.valoria.registries.world.item.types;
+package com.idark.valoria.registries.world.item.tiers;
 
 import com.google.common.collect.ImmutableMap;
 import com.idark.valoria.registries.world.item.tiers.ModArmorMaterial;

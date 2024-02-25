@@ -70,6 +70,7 @@ public class ValoriaClient {
         @SubscribeEvent
         public static void doClientStuff(FMLClientSetupEvent event) {
             event.enqueueWork(() -> {
+                ItemBlockRenderTypes.setRenderLayer(ModBlocks.VOIDVINE.get(), RenderType.cutout());
                 ItemBlockRenderTypes.setRenderLayer(ModBlocks.VIOLET_SPROUT_PLANT.get(), RenderType.cutout());
                 ItemBlockRenderTypes.setRenderLayer(ModBlocks.VIOLET_SPROUT.get(), RenderType.cutout());
                 ItemBlockRenderTypes.setRenderLayer(ModBlocks.GLOW_VIOLET_SPROUT_PLANT.get(), RenderType.cutout());
@@ -123,6 +124,7 @@ public class ValoriaClient {
                 ItemBlockRenderTypes.setRenderLayer(ModBlocks.SHADEWOOD_LEAVES.get(), RenderType.cutout());
                 ItemBlockRenderTypes.setRenderLayer(ModBlocks.SHADEWOOD_BRANCH.get(), RenderType.cutout());
                 ItemBlockRenderTypes.setRenderLayer(ModBlocks.SHADEWOOD_SAPLING.get(), RenderType.cutout());
+                ItemBlockRenderTypes.setRenderLayer(ModBlocks.POTTED_VOIDVINE.get(), RenderType.cutout());
                 ItemBlockRenderTypes.setRenderLayer(ModBlocks.POTTED_SHADEWOOD_SAPLING.get(), RenderType.cutout());
                 ItemBlockRenderTypes.setRenderLayer(ModBlocks.POTTED_FALSEFLOWER_SMALL.get(), RenderType.cutout());
                 ItemBlockRenderTypes.setRenderLayer(ModBlocks.POTTED_FALSEFLOWER.get(), RenderType.cutout());

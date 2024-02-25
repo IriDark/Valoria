@@ -35,7 +35,7 @@ public class FogRenderer {
             if (!blockState.liquid() && Minecraft.getInstance().player.level().dimension() == LevelGen.VALORIA_KEY) {
                 e.setCanceled(true);
                 e.setNearPlaneDistance(0.1F);
-                e.setFarPlaneDistance(42.5F);
+                e.setFarPlaneDistance(35.5F);
                 e.setFogShape(FogShape.CYLINDER);
             }
         }
@@ -56,9 +56,9 @@ public class FogRenderer {
             }
 
             if (!blockState.liquid() && Minecraft.getInstance().player.level().dimension() == LevelGen.VALORIA_KEY) {
-                e.setRed(0.150f);
-                e.setGreen(0.080f);
-                e.setBlue(0.132f);
+                e.setRed(0.140f);
+                e.setGreen(0.060f);
+                e.setBlue(0.156f);
             }
         }
     }

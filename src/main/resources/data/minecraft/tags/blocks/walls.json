@@ -1,20 +1,22 @@
 {
   "replace": false,
   "values": [
-  	"valoria:ambane_stone_wall",
-	"valoria:ambane_stone_bricks_wall",
-	"valoria:dunestone_wall",
-	"valoria:dunestone_bricks_wall",
-	"valoria:limestone_wall",
-	"valoria:limestone_bricks_wall",
-	"valoria:void_stone_wall",
-	"valoria:void_brick_wall",
-	"valoria:void_cracked_brick_wall",
-	"valoria:tombstone_wall",
-	"valoria:tombstone_bricks_wall",
-	"valoria:crystal_stone_wall",
-	"valoria:crystal_stone_bricks_wall",
-	"valoria:cracked_tombstone_bricks_wall",
-	"valoria:cracked_limestone_bricks_wall"
+    "valoria:deep_marble_wall",
+    "valoria:polished_deep_marble_wall",
+    "valoria:ambane_stone_wall",
+    "valoria:ambane_stone_bricks_wall",
+    "valoria:dunestone_wall",
+    "valoria:dunestone_bricks_wall",
+    "valoria:limestone_wall",
+    "valoria:limestone_bricks_wall",
+    "valoria:void_stone_wall",
+    "valoria:void_brick_wall",
+    "valoria:void_cracked_brick_wall",
+    "valoria:tombstone_wall",
+    "valoria:tombstone_bricks_wall",
+    "valoria:crystal_stone_wall",
+    "valoria:crystal_stone_bricks_wall",
+    "valoria:cracked_tombstone_bricks_wall",
+    "valoria:cracked_limestone_bricks_wall"
   ]
 }

@@ -1,5 +1,7 @@
 package com.idark.valoria.registries.world.entity.living;
 
+import com.idark.valoria.registries.world.item.ModItems;
+import com.idark.valoria.util.math.RandomUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.SectionPos;
 import net.minecraft.core.particles.ItemParticleOption;
@@ -19,8 +21,6 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.AttributeInstance;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
@@ -30,11 +30,10 @@ import net.minecraft.world.entity.ai.goal.target.ResetUniversalAngerTargetGoal;
 import net.minecraft.world.entity.animal.*;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Creeper;
+import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.npc.AbstractVillager;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -50,24 +49,32 @@ import net.minecraftforge.event.ForgeEventFactory;
 import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 import java.util.function.Predicate;
 
-public class GoblinEntity extends PathfinderMob implements NeutralMob {
+public class GoblinEntity extends PathfinderMob implements NeutralMob, Enemy {
 
     private final SimpleContainer inventory = new SimpleContainer(8);
     private static final EntityDataAccessor<Integer> DATA_REMAINING_ANGER_TIME = SynchedEntityData.defineId(GoblinEntity.class, EntityDataSerializers.INT);
     private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
     private static final EntityDataAccessor<Boolean> DATA_BABY_ID = SynchedEntityData.defineId(GoblinEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final UUID SPEED_MODIFIER_BABY_UUID = UUID.fromString("B9766B59-9566-4402-BC1F-2EE2A276D836");
-    private static final AttributeModifier SPEED_MODIFIER_BABY = new AttributeModifier(SPEED_MODIFIER_BABY_UUID, "Baby speed boost", 0.01, AttributeModifier.Operation.MULTIPLY_BASE);
+    private final MeleeAttackGoal meleeGoal = new MeleeAttackGoal(this, 1.2, false) {
+        public void stop() {
+            super.stop();
+            GoblinEntity.this.setAggressive(false);
+        }
+
+        public void start() {
+            super.start();
+            GoblinEntity.this.setAggressive(true);
+        }
+    };
 
     @Nullable
     private UUID persistentAngerTarget;
     private int ticksSinceEaten;
-    static final Predicate<ItemEntity> ALLOWED_ITEMS = (p_289438_) -> {
-        return !p_289438_.hasPickUpDelay() && p_289438_.isAlive() || p_289438_.getItem().isEdible() || p_289438_.getItem() == Items.GOLD_INGOT.getDefaultInstance() || p_289438_.getItem() == Items.GOLD_BLOCK.getDefaultInstance() || p_289438_.getItem() == Items.GOLD_NUGGET.getDefaultInstance();
-    };
+    static final Predicate<ItemEntity> ALLOWED_ITEMS = (p_289438_) -> !p_289438_.hasPickUpDelay() && p_289438_.isAlive() || p_289438_.getItem().isEdible() || p_289438_.getItem() == Items.GOLD_INGOT.getDefaultInstance() || p_289438_.getItem() == Items.GOLD_BLOCK.getDefaultInstance() || p_289438_.getItem() == Items.GOLD_NUGGET.getDefaultInstance() || p_289438_.getItem() == ModItems.SAMURAI_KUNAI.get().getDefaultInstance() || p_289438_.getItem() == ModItems.SAMURAI_POISONED_KUNAI.get().getDefaultInstance() || p_289438_.getItem().getItem() instanceof SwordItem;
 
     public GoblinEntity(EntityType<? extends PathfinderMob> type, Level worldIn) {
         super(type, worldIn);
@@ -86,14 +93,6 @@ public class GoblinEntity extends PathfinderMob implements NeutralMob {
         this.inventory.removeAllItems().forEach(this::spawnAtLocation);
     }
 
-    public ItemStack addToInventory(ItemStack pStack) {
-        return this.inventory.addItem(pStack);
-    }
-
-    public boolean canAddToInventory(ItemStack pStack) {
-        return this.inventory.canAddItem(pStack);
-    }
-
     public boolean shouldDespawnInPeaceful() {
         return false;
     }
@@ -104,7 +103,7 @@ public class GoblinEntity extends PathfinderMob implements NeutralMob {
 
     public boolean wantsToPickUp(ItemStack pStack) {
         Item item = pStack.getItem();
-        return item.isEdible() || item == Items.GOLD_INGOT || item == Items.GOLD_BLOCK || item == Items.GOLD_NUGGET && this.getInventory().canAddItem(pStack);
+        return item.isEdible() || item == ModItems.SAMURAI_KUNAI.get() || item == ModItems.SAMURAI_POISONED_KUNAI.get() || item == Items.GOLD_INGOT || item == Items.GOLD_BLOCK || item == Items.GOLD_NUGGET || item instanceof SwordItem && this.getInventory().canAddItem(pStack);
     }
 
     public void aiStep() {
@@ -146,8 +145,21 @@ public class GoblinEntity extends PathfinderMob implements NeutralMob {
         return pLevel.getBlockState(pPos.below()).is(BlockTags.ANIMALS_SPAWNABLE_ON) && isBrightEnoughToSpawn(pLevel, pPos);
     }
 
+    ItemStack[] stacks = {
+            new ItemStack(ModItems.IRON_RAPIER.get()), new ItemStack(ModItems.STONE_RAPIER.get()), new ItemStack(ModItems.WOODEN_RAPIER.get()), new ItemStack(ModItems.CLUB.get())
+    };
+
+    protected void populateDefaultEquipmentSlots(RandomSource pRandom, DifficultyInstance pDifficulty) {
+        super.populateDefaultEquipmentSlots(pRandom, pDifficulty);
+        if (RandomUtil.percentChance(0.3f)) {
+            this.setItemSlot(EquipmentSlot.MAINHAND, stacks[new Random().nextInt(stacks.length)]);
+        }
+    }
+
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
+        RandomSource randomsource = pLevel.getRandom();
+        this.populateDefaultEquipmentSlots(randomsource, pDifficulty);
         return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
     }
 
@@ -180,35 +192,45 @@ public class GoblinEntity extends PathfinderMob implements NeutralMob {
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Animal.class, 10, false, false, (p_28604_) -> {
-            return p_28604_ instanceof Chicken || p_28604_ instanceof Rabbit || p_28604_ instanceof Pig;
-        }));
-
-        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, AbstractFish.class, 20, false, false, (p_28600_) -> {
-            return p_28600_ instanceof AbstractSchoolingFish;
-        }));
-
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Animal.class, 10, true, true, (p_28604_) -> p_28604_ instanceof Chicken || p_28604_ instanceof Rabbit || p_28604_ instanceof Pig));
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, AbstractFish.class, 20, true, true, (p_28600_) -> p_28600_ instanceof AbstractSchoolingFish));
         this.targetSelector.addGoal(3, new HurtByTargetGoal(this).setAlertOthers());
-        this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, AbstractVillager.class, true));
+        this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, AbstractVillager.class, true, true));
+        this.targetSelector.addGoal(5, new ResetUniversalAngerTargetGoal<>(this, true));
+        this.goalSelector.addGoal(3, new GoblinAvoidEntityGoal<>(this, Player.class, 16, 1.6, 1.8));
 
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(2, new WaterAvoidingRandomStrollGoal(this, 1.4));
-        this.goalSelector.addGoal(0, new GoblinPanicGoal(1.8));
+        this.goalSelector.addGoal(2, new WaterAvoidingRandomStrollGoal(this, 1.3));
+        this.goalSelector.addGoal(0, new GoblinPanicGoal(1.85));
         this.goalSelector.addGoal(0, new OpenDoorGoal(this, true));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8));
-        this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 1.0D, true));
+        this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 1.5D, false));
         this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(3, new RandomStrollGoal(this, 1.4));
+        this.goalSelector.addGoal(3, new RandomStrollGoal(this, 1.3));
         this.goalSelector.addGoal(6, new ResetUniversalAngerTargetGoal<>(this, true));
-        this.goalSelector.addGoal(3, new CollectBerriesGoal((double)1.4F, 12, 1));
+        this.goalSelector.addGoal(3, new CollectBerriesGoal(1.3F, 12, 4));
         this.goalSelector.addGoal(0, new AvoidEntityGoal<>(this, Wolf.class, 8, 1.6, 1.4));
         this.goalSelector.addGoal(0, new AvoidEntityGoal<>(this, Creeper.class, 12, 1.8, 1.4));
-        this.goalSelector.addGoal(5, new SearchForItemsGoal());
-
+        this.goalSelector.addGoal(0, new SearchForItemsGoal());
         this.goalSelector.addGoal(6, new RemoveDirtGoal(Blocks.FARMLAND, this, 1.4, 10));
         this.goalSelector.addGoal(6, new RemoveCropsGoal(this, 1.4, 10));
-        this.goalSelector.addGoal(3, new FollowMobGoal(this, 1.4, 10, 10));
+        this.goalSelector.addGoal(3, new FollowMobGoal(this, 1.4, 6, 10));
         this.goalSelector.addGoal(0, new SeekShelterGoal(1.8));
+    }
+
+    public void reassessWeaponGoal() {
+        this.level();
+        if (!this.level().isClientSide) {
+            this.goalSelector.removeGoal(this.meleeGoal);
+        }
+    }
+
+    public void setItemSlot(EquipmentSlot pSlot, ItemStack pStack) {
+        super.setItemSlot(pSlot, pStack);
+        if (!this.level().isClientSide) {
+            this.reassessWeaponGoal();
+        }
+
     }
 
     public int getRemainingPersistentAngerTime() {
@@ -240,18 +262,11 @@ public class GoblinEntity extends PathfinderMob implements NeutralMob {
 
     public void setBaby(boolean Baby) {
         this.getEntityData().set(DATA_BABY_ID, Baby);
-        if (this.level() != null && !this.level().isClientSide) {
-            AttributeInstance attributeinstance = this.getAttribute(Attributes.MOVEMENT_SPEED);
-            attributeinstance.removeModifier(SPEED_MODIFIER_BABY);
-            if (Baby) {
-                attributeinstance.addTransientModifier(SPEED_MODIFIER_BABY);
-            }
-        }
     }
 
     @Override
     public float getScale() {
-        return this.isBaby() ? 0.98F : 1.0F;
+        return this.isBaby() ? 1f : 1.45F;
     }
 
     public void onSyncedDataUpdated(EntityDataAccessor<?> pKey) {
@@ -273,13 +288,12 @@ public class GoblinEntity extends PathfinderMob implements NeutralMob {
     }
 
     public boolean isBaby() {
-        return (Boolean)this.getEntityData().get(DATA_BABY_ID);
+        return this.getEntityData().get(DATA_BABY_ID);
     }
 
     @Override
     public boolean hurt(DamageSource source, float amount) {
         Entity entity = source.getEntity();
-        RandomSource rand = RandomSource.create();
         if (entity instanceof Player player) {
             if (player.getAttribute(Attributes.ATTACK_DAMAGE).getValue() > 10f) {
                 this.goalSelector.addGoal(1, new GoblinPanicGoal(1.5));
@@ -293,6 +307,43 @@ public class GoblinEntity extends PathfinderMob implements NeutralMob {
         }
 
         return super.hurt(source, amount);
+    }
+
+    class GoblinAvoidEntityGoal<T extends LivingEntity> extends AvoidEntityGoal<T> {
+        private final GoblinEntity pGoblin;
+
+        public GoblinAvoidEntityGoal(GoblinEntity pGoblin, Class<T> pEntityClassToAvoid, float pMaxDist, double pWalkSpeedModifier, double pSprintSpeedModifier) {
+            super(pGoblin, pEntityClassToAvoid, pMaxDist, pWalkSpeedModifier, pSprintSpeedModifier);
+            this.pGoblin = pGoblin;
+        }
+
+        public boolean canUse() {
+            if (super.canUse() && this.toAvoid instanceof Player) {
+                return this.avoidStrongPlayer((Player)this.toAvoid);
+            } else {
+                return false;
+            }
+        }
+
+        private boolean avoidStrongPlayer(Player player) {
+            return player.getAttributeValue(Attributes.ATTACK_DAMAGE) >= this.mob.getAttributeValue(Attributes.ATTACK_DAMAGE);
+        }
+
+        /**
+         * Execute a one shot task or start executing a continuous task
+         */
+        public void start() {
+            GoblinEntity.this.setTarget((LivingEntity)null);
+            super.start();
+        }
+
+        /**
+         * Keep ticking a continuous task that has already been started
+         */
+        public void tick() {
+            GoblinEntity.this.setTarget((LivingEntity)null);
+            super.tick();
+        }
     }
 
     class GoblinPanicGoal extends PanicGoal {
@@ -388,13 +439,13 @@ public class GoblinEntity extends PathfinderMob implements NeutralMob {
         }
 
         public boolean canUse() {
+            List<ItemEntity> list = GoblinEntity.this.level().getEntitiesOfClass(ItemEntity.class, GoblinEntity.this.getBoundingBox().inflate(8.0D, 8.0D, 8.0D), GoblinEntity.ALLOWED_ITEMS);
             if (!GoblinEntity.this.getItemBySlot(EquipmentSlot.MAINHAND).isEmpty()) {
                 return false;
             } else if (GoblinEntity.this.getTarget() == null && GoblinEntity.this.getLastHurtByMob() == null) {
-                if (GoblinEntity.this.getRandom().nextInt(reducedTickDelay(10)) != 0) {
+                if (GoblinEntity.this.getRandom().nextInt(reducedTickDelay(2)) != 0) {
                     return false;
                 } else {
-                    List<ItemEntity> list = GoblinEntity.this.level().getEntitiesOfClass(ItemEntity.class, GoblinEntity.this.getBoundingBox().inflate(8.0D, 8.0D, 8.0D), GoblinEntity.ALLOWED_ITEMS);
                     return !list.isEmpty() && GoblinEntity.this.getItemBySlot(EquipmentSlot.MAINHAND).isEmpty();
                 }
             } else {

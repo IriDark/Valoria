@@ -23,6 +23,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 

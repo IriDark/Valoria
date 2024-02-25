@@ -1,4 +1,4 @@
-- Optimized Quicksand fog Rendering
+- Optimized Quicksand Fog Rendering
 - Optimized CurioItemProperty
 
 - Added Jade compat
@@ -15,15 +15,19 @@
 - Added Fancy Shadewood Tree
 - Added Pearlium generation
 - Added Crystal disk generation
+- Added Modded Stone Variants to tag Stone Tool Materials
+- Added Animation to some blocks
 
 - Reworked keg a little
-- Reworked Keyblocks
+- Reworked Keyblocks (Umbral Blocks)
 - Reworked Curio slot registry to newer system (Json based)
 - Reworked Curio items
 - Reworked Lexicon
 - Reworked Mod Balance
 - Reworked Shadewood tree
 - Reworked Void Grass
+- Reworked Goblin AI
+- Reworked Goblin Model From default Model to Humanoid, so they can hold items in hand
 
 - Resprited Void stone
 - Resprited Uncharged Shard
@@ -37,13 +41,21 @@
 - Renamed Amethyst (mod one btw) -> Wicked Amethyst
 - Renamed Keyblocks to Umbral Blocks
 
-- Changed Stonecrusher recipe
 - Prospectors pick now breaks ICE blocks much faster
 - Server sided most of the particles
-- Changed opacity for Eternity appearing after Phantom ability
 - Golden accessories makes Piglin neutral now
 - Accessories will be damaged when player was attacked
-- Changed attributes maximum value (for vanilla armor atts)
+- Goblins can take weapons to hand
+- Goblins can spawn with weapons in hand with chance
+
+- Fixed Misspell in Jewelry JEI
+- Fixed 1 pixel Y offset in jei
+- Fixed Plants LootTable
+- Fixed Baby Goblins
+
+- Changed Stonecrusher recipe
+- Changed opacity for Eternity appearing after Phantom ability
+- Changed attributes maximum value (for vanilla armor atts) [May not work in some servers]
 
 - Decreased Limestone spawn chance
 - Decreased particles count (15 -> 4) when picking up Mannequin

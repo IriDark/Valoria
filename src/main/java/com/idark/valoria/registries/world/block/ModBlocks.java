@@ -87,6 +87,24 @@ public class ModBlocks {
 	public static final RegistryObject<Block> RAW_COBALT_ORE_BLOCK = BLOCK.register("raw_cobalt_ore",
 			() -> new Block(BlockBehaviour.Properties.copy(Blocks.RAW_COPPER_BLOCK).requiresCorrectToolForDrops().strength(3f, 4f)));
 	// Stone Types
+	public static final RegistryObject<Block> EYE_STONE = BLOCK.register("eye_stone",
+			() -> new Block(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE).requiresCorrectToolForDrops().strength(6f, 6f)));
+	public static final RegistryObject<Block> DEEP_MARBLE = BLOCK.register("deep_marble",
+			() -> new Block(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE).requiresCorrectToolForDrops().strength(6f, 6f)));
+	public static final RegistryObject<Block> DEEP_MARBLE_STAIRS = registerBlock("deep_marble_stairs",
+			() -> new StairBlock(() -> DEEP_MARBLE.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.DEEPSLATE).strength(3f, 4f).requiresCorrectToolForDrops()));
+	public static final RegistryObject<Block> DEEP_MARBLE_SLAB = registerBlock("deep_marble_slab",
+			() -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE).requiresCorrectToolForDrops().strength(3f, 4f)));
+	public static final RegistryObject<Block> DEEP_MARBLE_WALL = BLOCK.register("deep_marble_wall",
+			() -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE).requiresCorrectToolForDrops().strength(3f, 4f)));
+	public static final RegistryObject<Block> POLISHED_DEEP_MARBLE = BLOCK.register("polished_deep_marble",
+			() -> new Block(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE).requiresCorrectToolForDrops().strength(6f, 6f)));
+	public static final RegistryObject<Block> POLISHED_DEEP_MARBLE_STAIRS = registerBlock("polished_deep_marble_stairs",
+			() -> new StairBlock(() -> POLISHED_DEEP_MARBLE.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.DEEPSLATE).strength(3f, 4f).requiresCorrectToolForDrops()));
+	public static final RegistryObject<Block> POLISHED_DEEP_MARBLE_SLAB = registerBlock("polished_deep_marble_slab",
+			() -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE).requiresCorrectToolForDrops().strength(3f, 4f)));
+	public static final RegistryObject<Block> POLISHED_DEEP_MARBLE_WALL = BLOCK.register("polished_deep_marble_wall",
+			() -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE).requiresCorrectToolForDrops().strength(3f, 4f)));
 	public static final RegistryObject<Block> EPHEMARITE_LOW = BLOCK.register("ephemarite_low",
 			() -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(3f, 4f)));
 	public static final RegistryObject<Block> EPHEMARITE = BLOCK.register("ephemarite",
@@ -252,9 +270,13 @@ public class ModBlocks {
 	public static final RegistryObject<Block> VOID_CHISELED_BRICKS_SLAB = registerBlock("void_chiseled_bricks_slab",
 			() -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(6f, 4f).sound(SoundType.NETHER_BRICKS)));
 	public static final RegistryObject<Block> VOID_GRASS = BLOCK.register("void_grass",
-			() -> new VoidGrassBlock(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(3f, 4f).sound(SoundType.FROGLIGHT)));
+			() -> new VoidGrassBlock(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(1f, 4f).sound(SoundType.FROGLIGHT)));
 	public static final RegistryObject<Block> VOID_TAINT = BLOCK.register("void_taint",
-			() -> new VoidTaintBlock(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(3f, 4f).sound(SoundType.FROGLIGHT)));
+			() -> new VoidTaintBlock(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(2f, 4f).sound(SoundType.FROGLIGHT)));
+	public static final RegistryObject<Block> VOID_TAINT_LANTERN = BLOCK.register("void_taint_lantern",
+			() -> new Block(BlockBehaviour.Properties.copy(Blocks.SEA_LANTERN).requiresCorrectToolForDrops().strength(1f, 2f).sound(SoundType.FROGLIGHT).lightLevel((p_152688_) -> 9)));
+	public static final RegistryObject<Block> ABYSSAL_LANTERN = BLOCK.register("abyssal_lantern",
+			() -> new Block(BlockBehaviour.Properties.copy(Blocks.SEA_LANTERN).requiresCorrectToolForDrops().strength(1f, 2f).sound(SoundType.FROGLIGHT).lightLevel((p_152688_) -> 15)));
 	public static final RegistryObject<Block> TOMBSTONE = BLOCK.register("tombstone",
 			() -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(3f, 4f)));
 	public static final RegistryObject<CrushableBlock> SUSPICIOUS_ICE = BLOCK.register("suspicious_ice",
@@ -489,6 +511,10 @@ public class ModBlocks {
 			() -> new VoidRootsBlock(BlockBehaviour.Properties.copy(Blocks.CRIMSON_ROOTS)));
 	public static final RegistryObject<Block> POTTED_VOID_SERPENTS = BLOCK.register("potted_void_serpents",
 			() -> new FlowerPotBlock(VOID_SERPENTS.get(), BlockBehaviour.Properties.copy(Blocks.GRASS).instabreak().noOcclusion()));
+	public static final RegistryObject<Block> VOIDVINE = BLOCK.register("voidvine",
+			() -> new VoidvineBlock(BlockBehaviour.Properties.copy(Blocks.CRIMSON_ROOTS)));
+	public static final RegistryObject<Block> POTTED_VOIDVINE = BLOCK.register("potted_voidvine",
+			() -> new FlowerPotBlock(VOIDVINE.get(), BlockBehaviour.Properties.copy(Blocks.GRASS).instabreak().noOcclusion()));
 	public static final RegistryObject<Block> GAIB_ROOTS = BLOCK.register("gaib_roots",
 			() -> new TallRootsBlock(BlockBehaviour.Properties.copy(Blocks.CRIMSON_ROOTS)));
 	public static final RegistryObject<Block> KARUSAKAN_ROOTS = BLOCK.register("karusakan_roots",

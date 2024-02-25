@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:ore",
+  "config": {
+    "size": 7,
+    "discard_chance_on_air_exposure": 0,
+    "targets": [
+      {
+        "target": {
+          "predicate_type": "minecraft:blockstate_match",
+          "block_state": {
+            "Name": "valoria:void_taint",
+            "taint": 0
+          }
+        },
+        "state": {
+          "Name": "valoria:void_taint_lantern"
+        }
+      }
+    ]
+  }
+}

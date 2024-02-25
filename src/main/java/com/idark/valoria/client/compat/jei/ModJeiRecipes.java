@@ -1,5 +1,6 @@
 package com.idark.valoria.client.compat.jei;
 
+import com.idark.valoria.registries.recipe.CrusherRecipe;
 import com.idark.valoria.registries.recipe.JewelryRecipe;
 import com.idark.valoria.registries.recipe.KegRecipe;
 import net.minecraft.client.Minecraft;
@@ -29,5 +30,9 @@ public class ModJeiRecipes {
 
     public List<JewelryRecipe> getJewelryRecipes() {
         return recipeManager.getAllRecipesFor(JewelryRecipe.Type.INSTANCE).stream().sorted(Comparator.comparing(JewelryRecipe::getTime)).toList();
+    }
+
+    public List<CrusherRecipe> getCrusherRecipes() {
+        return recipeManager.getAllRecipesFor(CrusherRecipe.Type.INSTANCE).stream().toList();
     }
 }

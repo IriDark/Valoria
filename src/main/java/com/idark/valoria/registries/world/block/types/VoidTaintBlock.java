@@ -8,7 +8,7 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 
 public class VoidTaintBlock extends Block {
 
-    private static final IntegerProperty TAINT = IntegerProperty.create("taint", 0, 1);
+    public static final IntegerProperty TAINT = IntegerProperty.create("taint", 0, 1);
 
     public VoidTaintBlock(BlockBehaviour.Properties properties) {
         super(properties);
