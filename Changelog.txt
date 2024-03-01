@@ -1,5 +1,6 @@
 - Optimized Quicksand Fog Rendering
 - Optimized CurioItemProperty
+- Optimized Infernal Sword
 
 - Added Jade compat
 - Added 2 attributes to Prospectors pick
@@ -11,12 +12,36 @@
 - Added Ores to forge tags
 - Added Shadewood branch
 - Added Void Taint
-- Added The Valoria Dimension
+- Added The Valoria Dimension:
+    - Added Violet Sprout
+    - Added Glow Violet Sprout
+    - Added Glowfern
+    - Added Voidvine
+    - Added Void Serpents
+    - Added Eyestone
+    - Added Voidtaint Lantern
+    - Added Abyssal Lantern
+    - Added Void Taint
+    - Added Deep Marble
+    - Added Shadewood Branch
+    - Added Dormant Crystals
+    - Added Eye Chunk
+    - Added Tainted Roots
+    - Added Tainted Berries
+
+    - Added Wicked Amethyst Gen
+    - Added Dormant Crystals Gen
+    - Added Gen to All plants from this World
+
+    - Reworked Shadewood tree
+    - 2 New biomes (Shadewood forest, Void Barren)
 - Added Fancy Shadewood Tree
 - Added Pearlium generation
 - Added Crystal disk generation
 - Added Modded Stone Variants to tag Stone Tool Materials
 - Added Animation to some blocks
+- Added Mod Armor to all Tags (Armors are trimmable now)
+- Added Bows zooming - thanks to MaxBogomol for the code <3
 
 - Reworked keg a little
 - Reworked Keyblocks (Umbral Blocks)
@@ -52,10 +77,19 @@
 - Fixed 1 pixel Y offset in jei
 - Fixed Plants LootTable
 - Fixed Baby Goblins
+- Fixed Bug - Goblins tried to attack creative player when was hurt
+- Fixed Bug - When multiple items was in the cooldown sound will be very loud
+- Fixed Misspells in Sounds tooltips
 
 - Changed Stonecrusher recipe
 - Changed opacity for Eternity appearing after Phantom ability
 - Changed attributes maximum value (for vanilla armor atts) [May not work in some servers]
+- Changed Aloe Bandage animations
+- Changed Hitboxes for all modded entities (vanilla parity):
+    - Goblin: 0.5f, 1.3f -> 0.6f, 1.25f
+    - Mannequin: 1f, 2f -> 0.6f, 1.95f
+    - Draugr: 1f, 2f -> 0.6f, 1.95f
+- Changed Chance of receiving a charge when hitting an Enemy with Infernal Sword 5% -> 10%+
 
 - Decreased Limestone spawn chance
 - Decreased particles count (15 -> 4) when picking up Mannequin

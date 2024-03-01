@@ -1,10 +1,8 @@
 package com.idark.valoria.registries.world.levelgen;
 
 import com.idark.valoria.Valoria;
-import com.idark.valoria.registries.world.levelgen.feature.AbyssalGlowfernFeature;
-import com.idark.valoria.registries.world.levelgen.feature.CattailFeature;
-import com.idark.valoria.registries.world.levelgen.feature.GlowVioletSproutFeature;
-import com.idark.valoria.registries.world.levelgen.feature.VioletSproutFeature;
+import com.idark.valoria.registries.world.levelgen.configurations.TaintedRootsConfig;
+import com.idark.valoria.registries.world.levelgen.feature.*;
 import com.idark.valoria.registries.world.levelgen.modifier.AddFeaturesByFilterBiomeModifier;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -40,6 +38,7 @@ public class LevelGen {
     public static final RegistryObject<Feature<TwistingVinesConfig>> ABYSSAL_GLOWFERN = FEATURES.register("abyssal_glowfern", () -> new AbyssalGlowfernFeature(TwistingVinesConfig.CODEC));
     public static final RegistryObject<Feature<TwistingVinesConfig>> VIOLET_SPROUT = FEATURES.register("violet_sprout", () -> new VioletSproutFeature(TwistingVinesConfig.CODEC));
     public static final RegistryObject<Feature<TwistingVinesConfig>> GLOW_VIOLET_SPROUT = FEATURES.register("glow_violet_sprout", () -> new GlowVioletSproutFeature(TwistingVinesConfig.CODEC));
+    public static final RegistryObject<Feature<TaintedRootsConfig>> TAINTED_ROOTS = FEATURES.register("tainted_roots", () -> new TaintedRootsFeature(TaintedRootsConfig.CODEC));
 
     public static final ResourceKey<LevelStem> VALORIA = ResourceKey.create(Registries.LEVEL_STEM, new ResourceLocation(Valoria.MOD_ID, "the_valoria"));
     public static final ResourceKey<Level> VALORIA_KEY = ResourceKey.create(Registries.DIMENSION, new ResourceLocation(Valoria.MOD_ID, "the_valoria"));

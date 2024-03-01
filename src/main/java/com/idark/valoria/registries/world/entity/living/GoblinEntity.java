@@ -302,7 +302,8 @@ public class GoblinEntity extends PathfinderMob implements NeutralMob, Enemy {
                 this.goalSelector.addGoal(1, new GoblinPanicGoal(1.5));
                 this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 15, 1.2, 1.8));
             } else {
-                this.setTarget((Player) entity);
+                if (!player.getAbilities().instabuild)
+                    this.setTarget((Player) entity);
             }
         }
 

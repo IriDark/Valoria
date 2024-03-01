@@ -1,0 +1,7 @@
+{
+  "type": "valoria:tainted_roots",
+  "config": {
+    "spread_height": 16,
+    "spread_width": 16
+  }
+}

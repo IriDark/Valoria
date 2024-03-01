@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "valoria:cobalt_boots",
+    "valoria:samurai_boots",
+    "valoria:awakened_void_boots",
+    "valoria:nature_boots",
+    "valoria:depth_boots",
+    "valoria:infernal_boots",
+    "valoria:phantasm_boots"
+  ]
+}

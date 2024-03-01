@@ -77,7 +77,6 @@ public class Valoria {
     public static final String MOD_ID = "valoria";
     public static final ISidedProxy proxy = DistExecutor.unsafeRunForDist(() -> ClientProxy::new, () -> ServerProxy::new);
 
-    //TODO: Create Brewery
     public Valoria() {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);

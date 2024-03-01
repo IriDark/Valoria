@@ -16,35 +16,42 @@ import net.minecraft.world.level.Level;
 
 public class AloeBandageItem extends Item {
 
-    private int power = 0;
-    private int time = 0;
+    private final int power;
+    private final int time;
 	
     public AloeBandageItem(int time, int power)  {
 		super(
-        new Properties().food(new FoodProperties.Builder().alwaysEat().nutrition(0).saturationMod(0).build())
-    );
+        new Properties().food(
+                new FoodProperties
+                        .Builder()
+                        .alwaysEat()
+                        .nutrition(0)
+                        .saturationMod(0)
+                        .build())
+        );
+
         this.power = power;
         this.time = time;
 	}
 
     public SoundEvent getDrinkingSound() {
-        return SoundEvents.GENERIC_DRINK;
+        return SoundEvents.BAMBOO_HIT;
     }
 
     public SoundEvent getEatingSound() {
-        return SoundEvents.GENERIC_DRINK;
+        return SoundEvents.BAMBOO_HIT;
     }
 
     @Override
     public ItemStack finishUsingItem(ItemStack stack, Level world, LivingEntity entity) {
-        Player playerentity = entity instanceof Player ? (Player)entity : null;
-		if (playerentity instanceof ServerPlayer) {
-			CriteriaTriggers.CONSUME_ITEM.trigger((ServerPlayer)playerentity, stack);
+        Player player = entity instanceof Player ? (Player)entity : null;
+		if (player instanceof ServerPlayer) {
+			CriteriaTriggers.CONSUME_ITEM.trigger((ServerPlayer)player, stack);
 		}
 		
 		if (!world.isClientSide) {
-			entity.addEffect(new MobEffectInstance(ModEffects.ALOEREGEN.get(),time,power));
-			if (playerentity == null || !playerentity.getAbilities().instabuild) {
+			entity.addEffect(new MobEffectInstance(ModEffects.ALOEREGEN.get(), time, power));
+			if (player == null || !player.getAbilities().instabuild) {
 				stack.shrink(1);
 			}
 		}
@@ -58,6 +65,6 @@ public class AloeBandageItem extends Item {
     
     @Override
     public UseAnim getUseAnimation(ItemStack stack) {
-        return UseAnim.CROSSBOW;
+        return UseAnim.BLOCK;
     }
 }

@@ -146,7 +146,8 @@ public class MagmaSwordItem extends SwordItem {
             stack.setTag(nbt);
         }
 
-        nbt.putInt("charge", charge);
+        int charges = nbt.getInt("charge");
+        nbt.putInt("charge", charges + charge);
         stack.setTag(nbt);
     }
 
@@ -170,25 +171,10 @@ public class MagmaSwordItem extends SwordItem {
     }
 
     public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-        stack.hurtAndBreak(1, attacker, (entity) -> {
-            entity.broadcastBreakEvent(EquipmentSlot.MAINHAND);
-        });
-
+        stack.hurtAndBreak(1, attacker, (entity) -> entity.broadcastBreakEvent(EquipmentSlot.MAINHAND));
         if (isCharged(stack) < 2) {
-            if (RandUtils.doWithChance(5)) {
-                if (isCharged(stack) == 0) {
-                    setCharge(stack, 1);
-                } else if (isCharged(stack) == 1) {
-                    setCharge(stack, 2);
-                }
-
-                if (attacker.level().isClientSide) {
-                    for (int i = 0; i < 5; i++) {
-                        attacker.level().addParticle(ParticleTypes.FLAME, target.getX() + rand.nextDouble(), target.getY(), target.getZ() + rand.nextDouble(), 0d, 0.05d, 0d);
-                    }
-                }
-
-                return true;
+            if (RandUtils.doWithChance(10)) {
+                setCharge(stack, 1);
             }
         }
 

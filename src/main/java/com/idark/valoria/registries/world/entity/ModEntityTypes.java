@@ -29,12 +29,12 @@ public class ModEntityTypes {
 
 	public static final RegistryObject<EntityType<GoblinEntity>> GOBLIN = ENTITY_TYPES.register("goblin",
         () -> EntityType.Builder.of(GoblinEntity::new, MobCategory.CREATURE)
-        .sized(0.5f, 1.3f)
+        .sized(0.6f, 1.25f)
         .build(new ResourceLocation(Valoria.MOD_ID, "goblin").toString()));
 
 	public static final RegistryObject<EntityType<DraugrEntity>> DRAUGR = ENTITY_TYPES.register("draugr",
 			() -> EntityType.Builder.of(DraugrEntity::new, MobCategory.CREATURE)
-			.sized(1f, 2f)
+			.sized(0.6f, 1.95f)
 			.build(new ResourceLocation(Valoria.MOD_ID, "draugr").toString()));
 
 	public static final RegistryObject<EntityType<NecromancerEntity>> NECROMANCER = ENTITY_TYPES.register("necromancer",
@@ -44,7 +44,7 @@ public class ModEntityTypes {
 
 	public static final RegistryObject<EntityType<MannequinEntity>> MANNEQUIN = ENTITY_TYPES.register("mannequin",
 		() -> EntityType.Builder.of(MannequinEntity::new, MobCategory.CREATURE)
-		.sized(1f, 2f)
+		.sized(0.6f, 1.95f)
 		.build(new ResourceLocation(Valoria.MOD_ID, "mannequin").toString()));
 
 	public static final RegistryObject<EntityType<KunaiEntity>> KUNAI = ENTITY_TYPES.register("kunai",

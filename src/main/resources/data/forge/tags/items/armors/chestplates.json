@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "valoria:cobalt_chestplate",
+    "valoria:samurai_chestplate",
+    "valoria:awakened_void_chestplate",
+    "valoria:nature_chestplate",
+    "valoria:depth_chestplate",
+    "valoria:infernal_chestplate",
+    "valoria:phantasm_chestplate"
+  ]
+}

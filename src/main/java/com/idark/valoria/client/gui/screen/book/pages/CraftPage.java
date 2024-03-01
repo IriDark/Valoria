@@ -7,7 +7,6 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class CraftPage extends Page {
 
-    // TODO:
     public CraftPage() {
     }
 

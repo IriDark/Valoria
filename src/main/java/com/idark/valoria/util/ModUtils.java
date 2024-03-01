@@ -1,13 +1,14 @@
 package com.idark.valoria.util;
 
 
-import com.idark.valoria.client.event.ClientTickHandler;
 import com.idark.valoria.registries.world.item.enchant.ModEnchantments;
 import com.idark.valoria.registries.world.item.types.curio.charm.BloodSight;
 import com.idark.valoria.registries.world.item.types.CoralReefItem;
 import com.idark.valoria.registries.world.item.types.HoundItem;
 import com.idark.valoria.registries.world.item.types.MurasamaItem;
 import com.idark.valoria.registries.world.item.types.ScytheItem;
+import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;

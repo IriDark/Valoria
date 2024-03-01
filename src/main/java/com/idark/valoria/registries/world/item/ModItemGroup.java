@@ -115,6 +115,8 @@ public abstract class ModItemGroup {
             event.accept(ModItems.WOODEN_CUP);
             event.accept(ModItems.CUP);
             event.accept(ModItems.BOTTLE);
+            event.accept(ModItems.TAINTED_BERRIES);
+            event.accept(ModItems.EYE_CHUNK);
             event.accept(ModItems.ALOE_PIECE);
             event.accept(ModItems.ALOE_BANDAGE);
             event.accept(ModItems.ALOE_BANDAGE_UPGRADED);

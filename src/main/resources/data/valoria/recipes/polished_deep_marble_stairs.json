@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "/  ",
+    "// ",
+    "///"
+  ],
+  "key": {
+    "/": {
+      "item": "valoria:polished_deep_marble"
+    }
+  },
+  "result": {
+    "item": "valoria:polished_deep_marble_stairs",
+    "count": 6
+  }
+}

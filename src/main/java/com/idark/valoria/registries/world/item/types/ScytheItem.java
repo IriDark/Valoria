@@ -63,7 +63,7 @@ public class ScytheItem extends SwordItem implements ICustomAnimationItem{
         Player player = (Player)entityLiving;
         player.awardStat(Stats.ITEM_USED.get(this));
 
-        List<Item> scytheItems = Arrays.asList(ModItems.IRON_SCYTHE.get(), ModItems.GOLDEN_SCYTHE.get(), ModItems.DIAMOND_SCYTHE.get(), ModItems.NETHERITE_SCYTHE.get(), ModItems.BEAST.get());
+        List<Item> scytheItems = Arrays.asList(ModItems.IRON_SCYTHE.get(), ModItems.GOLDEN_SCYTHE.get(), ModItems.DIAMOND_SCYTHE.get(), ModItems.NETHERITE_SCYTHE.get(), ModItems.BEAST.get(), ModItems.NATURE_SCYTHE.get(), ModItems.AQUARIUS_SCYTHE.get(), ModItems.INFERNAL_SCYTHE.get());
         ModUtils.applyCooldownToItemList(player, scytheItems, 100);
 
         Vector3d pos = new Vector3d(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());

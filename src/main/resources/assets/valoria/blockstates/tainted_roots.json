@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "age=0": {
+      "model": "valoria:block/tainted_roots"
+    },
+    "age=1": {
+      "model": "valoria:block/tainted_roots_berries"
+    },
+    "age=2": {
+      "model": "valoria:block/tainted_roots_grown_berries"
+    }
+  }
+}

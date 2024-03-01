@@ -432,7 +432,9 @@ public class ModBlocks {
 			() -> new PotBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).lootFrom(ModBlocks.POT_LONG).instabreak().noOcclusion().sound(ModSoundRegistry.POT)));
 	public static final RegistryObject<Block> POT_LONG_MOSSY_HANDLES = BLOCK.register("pot_long_mossy_handles",
 			() -> new PotBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).lootFrom(ModBlocks.POT_LONG).instabreak().noOcclusion().sound(ModSoundRegistry.POT)));
-	// Plants
+	// Plants`
+	public static final RegistryObject<Block> TAINTED_ROOTS = BLOCK.register("tainted_roots",
+			() -> new TaintedRootsBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).randomTicks().noCollission().instabreak().sound(SoundType.CAVE_VINES).pushReaction(PushReaction.DESTROY)));
 	public static final RegistryObject<Block> VIOLET_SPROUT_PLANT = BLOCK.register("violet_sprout_plant",
 			() -> new VioletSproutPlantBlock(BlockBehaviour.Properties.copy(Blocks.KELP_PLANT), false));
 	public static final RegistryObject<Block> VIOLET_SPROUT = BLOCK.register("violet_sprout",

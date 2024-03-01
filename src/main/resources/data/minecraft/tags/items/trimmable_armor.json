@@ -1,0 +1,33 @@
+{
+  "replace": false,
+  "values": [
+    "valoria:cobalt_helmet",
+    "valoria:cobalt_chestplate",
+    "valoria:cobalt_leggings",
+    "valoria:cobalt_boots",
+    "valoria:samurai_kabuto",
+    "valoria:samurai_chestplate",
+    "valoria:samurai_leggings",
+    "valoria:samurai_boots",
+    "valoria:awakened_void_helmet",
+    "valoria:awakened_void_chestplate",
+    "valoria:awakened_void_leggings",
+    "valoria:awakened_void_boots",
+    "valoria:nature_helmet",
+    "valoria:nature_chestplate",
+    "valoria:nature_leggings",
+    "valoria:nature_boots",
+    "valoria:depth_helmet",
+    "valoria:depth_chestplate",
+    "valoria:depth_leggings",
+    "valoria:depth_boots",
+    "valoria:infernal_helmet",
+    "valoria:infernal_chestplate",
+    "valoria:infernal_leggings",
+    "valoria:infernal_boots",
+    "valoria:phantasm_helmet",
+    "valoria:phantasm_chestplate",
+    "valoria:phantasm_leggings",
+    "valoria:phantasm_boots"
+  ]
+}

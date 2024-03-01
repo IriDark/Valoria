@@ -11,6 +11,7 @@
     "RangedAttributeMixin"
   ],
   "client": [
+    "AbstractClientPlayerMixin",
     "HumanoidModelMixin",
     "ItemInHandLayerMixin",
     "ItemInHandRendererMixin",

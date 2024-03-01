@@ -417,8 +417,10 @@
  	"item.valoria.cognac_bottle": "Bottle Of Cognac",
 	"item.valoria.mead_bottle": "Bottle of Mead",
 	"item.valoria.apple_pie": "Apple Pie",
- 	
- 	"_comment": "Misc",
+	"item.valoria.eye_chunk": "Eye Chunk",
+	"item.valoria.tainted_berries": "Tainted Berries",
+
+	"_comment": "Misc",
 	"item.valoria.pick": "Prospector's Pick",
 	"item.valoria.raw_cobalt": "Raw Cobalt",
  	"item.valoria.toxins_bottle": "Toxins Bottle",	
@@ -458,6 +460,7 @@
  	"item.valoria.void_stone_brick": "Void Stone Brick",
 
 	"_comment": "Plants",
+	"block.valoria.tainted_roots": "Tainted Roots",
 	"block.valoria.voidvine": "Voidvine",
 	"block.valoria.potted_voidvine": "Potted Voidvine",
 	"block.valoria.potted_aloe_small": "Potted Aloe",
