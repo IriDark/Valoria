@@ -70,8 +70,8 @@ public class ModCommand {
 
     private static int setCharge(CommandSourceStack command, Collection<? extends ServerPlayer> targetPlayers, int pCharge, CommandContext p) throws CommandSyntaxException {
         for(ServerPlayer player : targetPlayers) {
-            MagmaSwordItem.setCharge(player.getOffhandItem(), pCharge);
-            MagmaSwordItem.setCharge(player.getMainHandItem(), pCharge);
+            MagmaSwordItem.setCharges(player.getOffhandItem(), pCharge);
+            MagmaSwordItem.setCharges(player.getMainHandItem(), pCharge);
 
             command.sendSuccess(() -> Component.translatable("commands.valoria.charges.set.add", pCharge).append(" to " + player.getName().getString()), true);
         }

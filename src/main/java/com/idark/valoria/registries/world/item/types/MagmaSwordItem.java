@@ -68,7 +68,7 @@ public class MagmaSwordItem extends SwordItem {
                 player.getCooldowns().addCooldown(this, 150);
                 player.awardStat(Stats.ITEM_USED.get(this));
                 player.displayClientMessage(Component.translatable("tooltip.valoria.wet").withStyle(ChatFormatting.GRAY), true);
-                setCharge(stack, 1);
+                setCharges(stack, 1);
                 worldIn.playSound(player, player.blockPosition(), SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 10f, 1f);
                 if (!player.isCreative()) {
                     stack.hurtAndBreak(5, player, (p_220045_0_) -> {
@@ -87,7 +87,7 @@ public class MagmaSwordItem extends SwordItem {
             } else if (!entityLiving.isInWaterOrRain()) {
                 player.getCooldowns().addCooldown(this, 300);
                 player.awardStat(Stats.ITEM_USED.get(this));
-                setCharge(stack, 0);
+                setCharges(stack, 0);
                 Vector3d pos = new Vector3d(player.getX(), player.getY() + 0.3f, player.getZ());
                 List<LivingEntity> hitEntities = new ArrayList<LivingEntity>();
 
@@ -139,7 +139,7 @@ public class MagmaSwordItem extends SwordItem {
         }
     }
 
-    public static void setCharge(ItemStack stack, int charge) {
+    public static void addCharge(ItemStack stack, int charge) {
         CompoundTag nbt = stack.getTag();
         if (nbt == null) {
             nbt = new CompoundTag();
@@ -148,6 +148,17 @@ public class MagmaSwordItem extends SwordItem {
 
         int charges = nbt.getInt("charge");
         nbt.putInt("charge", charges + charge);
+        stack.setTag(nbt);
+    }
+
+    public static void setCharges(ItemStack stack, int charge) {
+        CompoundTag nbt = stack.getTag();
+        if (nbt == null) {
+            nbt = new CompoundTag();
+            stack.setTag(nbt);
+        }
+
+        nbt.putInt("charge", charge);
         stack.setTag(nbt);
     }
 
@@ -174,7 +185,7 @@ public class MagmaSwordItem extends SwordItem {
         stack.hurtAndBreak(1, attacker, (entity) -> entity.broadcastBreakEvent(EquipmentSlot.MAINHAND));
         if (isCharged(stack) < 2) {
             if (RandUtils.doWithChance(10)) {
-                setCharge(stack, 1);
+                addCharge(stack, 1);
             }
         }
 
