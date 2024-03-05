@@ -519,6 +519,7 @@ public abstract class ModItemGroup {
             event.accept(ModItems.POT_LONG_MOSSY_HANDLES);
             event.accept(ModItems.SPIDER_EGG);
             event.accept(ModItems.MEAT_BLOCK);
+            event.accept(ModItems.EYE_MEAT);
             event.accept(ModItems.SARCOPHAGUS);
             event.getParameters().holders().lookup(ModPaintings.PAINTING_TYPES.getRegistryKey()).ifPresent((p_270026_) -> generatePresetPaintings(event, p_270026_, (p_270037_) -> p_270037_.is(TagsRegistry.MODDED), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
         }

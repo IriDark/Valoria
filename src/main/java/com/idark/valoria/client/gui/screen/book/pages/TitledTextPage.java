@@ -1,22 +1,24 @@
 package com.idark.valoria.client.gui.screen.book.pages;
 
-import com.idark.valoria.Valoria;
 import com.idark.valoria.client.gui.screen.book.Page;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.language.I18n;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class TitledTextPage extends Page {
     public String text, title;
-    public static final ResourceLocation BACKGROUND = new ResourceLocation(Valoria.MOD_ID, "textures/gui/book/lexicon.png");
 
     public TitledTextPage(String textKey) {
         this.text = textKey;
         this.title = textKey + ".name";
+    }
+
+    public TitledTextPage(String textKey, String nameKey) {
+        this.text = textKey;
+        this.title = nameKey;
     }
 
     @Override

@@ -61,7 +61,7 @@ public class LexiconGui extends Screen {
 
         if (mouseX >= guiLeft - 14 && mouseX < guiLeft && mouseY >= guiTop + 138 && mouseY < guiTop + 138 + 7) {
             gui.blit(BACKGROUND, guiLeft - 15, guiTop + 137, 279, 112, 9, 9, 512, 512);
-            renderTooltip(gui, Component.translatable("gui.valoria.thanks"), guiLeft - 14, guiTop + 138);
+            renderTooltip(gui, Component.translatable("gui.valoria.thanks.name"), guiLeft - 14, guiTop + 138);
         } else {
             gui.blit(BACKGROUND, guiLeft - 14, guiTop + 138, 272, 113, 7, 7, 512, 512);
         }
@@ -134,7 +134,9 @@ public class LexiconGui extends Screen {
             // START
             if (mouseX >= guiLeft - 14 && mouseX < guiLeft && mouseY >= guiTop + 138 && mouseY < guiTop + 138 + 7) {
                 mc.player.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundSource.NEUTRAL, 1.0f, 1.0f);
+                changeChapter(LexiconChapters.THANKS_PAGE);
             }
+
             // END
 
             if (mouseX >= guiLeft + 267 + 2 && mouseX < guiLeft + 267 + 35 && mouseY >= guiTop + 10 + 4 && mouseY < guiTop + 10 + 25) {

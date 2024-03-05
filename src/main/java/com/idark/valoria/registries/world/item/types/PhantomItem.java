@@ -13,10 +13,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.SwordItem;
-import net.minecraft.world.item.Tier;
-import net.minecraft.world.item.UseAnim;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
@@ -26,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class PhantomItem extends SwordItem {
+public class PhantomItem extends SwordItem implements Vanishable {
     Random rand = new Random();
 
     public PhantomItem(Tier tier, int attackDamageIn, float attackSpeedIn, Properties builderIn) {

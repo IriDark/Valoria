@@ -3,6 +3,7 @@ package com.idark.valoria.registries.world.item.types;
 import com.idark.valoria.registries.sounds.ModSoundRegistry;
 import com.idark.valoria.util.ModUtils;
 import com.idark.valoria.util.math.RandUtils;
+import com.idark.valoria.util.math.RandomUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -28,7 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class MagmaSwordItem extends SwordItem {
+public class MagmaSwordItem extends SwordItem implements Vanishable{
 
     Random rand = new Random();
 
@@ -38,6 +39,24 @@ public class MagmaSwordItem extends SwordItem {
 
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchant) {
         return enchant != Enchantments.FIRE_ASPECT;
+    }
+
+    public boolean hurtEnemy(ItemStack pStack, LivingEntity pTarget, LivingEntity pAttacker) {
+        pStack.hurtAndBreak(1, pAttacker, (p_43296_) -> p_43296_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
+        if (isCharged(pStack) < 2) {
+            if (RandUtils.doWithChance(10)) {
+                addCharge(pStack, 1);
+            }
+        }
+
+        if (EnchantmentHelper.getFireAspect(pAttacker) > 0) {
+            pAttacker.level().playSound(null, pTarget.getOnPos(), SoundEvents.FIRECHARGE_USE, SoundSource.AMBIENT, 1, 1);
+        } else if (RandomUtil.percentChance(0.07f)) {
+            pTarget.setSecondsOnFire(4);
+            pAttacker.level().playSound(null, pTarget.getOnPos(), SoundEvents.FIRECHARGE_USE, SoundSource.AMBIENT, 1, 1);
+        }
+
+        return true;
     }
 
     public InteractionResultHolder<ItemStack> use(Level level, Player playerIn, InteractionHand handIn) {
@@ -179,16 +198,5 @@ public class MagmaSwordItem extends SwordItem {
         tooltip.add(2, Component.translatable(getModeString(stack)).withStyle(ChatFormatting.YELLOW));
         tooltip.add(3, Component.empty());
         tooltip.add(4, Component.translatable("tooltip.valoria.rmb").withStyle(ChatFormatting.GREEN));
-    }
-
-    public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-        stack.hurtAndBreak(1, attacker, (entity) -> entity.broadcastBreakEvent(EquipmentSlot.MAINHAND));
-        if (isCharged(stack) < 2) {
-            if (RandUtils.doWithChance(10)) {
-                addCharge(stack, 1);
-            }
-        }
-
-        return true;
     }
 }

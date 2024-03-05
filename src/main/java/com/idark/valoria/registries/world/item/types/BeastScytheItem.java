@@ -2,7 +2,6 @@ package com.idark.valoria.registries.world.item.types;
 
 import com.idark.valoria.client.particle.ModParticles;
 import com.idark.valoria.registries.sounds.ModSoundRegistry;
-import com.idark.valoria.registries.world.item.ModItems;
 import com.idark.valoria.util.ModUtils;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -17,7 +16,6 @@ import net.minecraft.world.level.Level;
 import org.joml.Vector3d;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class BeastScytheItem extends ScytheItem implements Vanishable {
@@ -36,8 +34,6 @@ public class BeastScytheItem extends ScytheItem implements Vanishable {
    public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entityLiving) {
       Player player = (Player)entityLiving;
       player.awardStat(Stats.ITEM_USED.get(this));
-
-      List<Item> scytheItems = Arrays.asList(ModItems.IRON_SCYTHE.get(), ModItems.GOLDEN_SCYTHE.get(), ModItems.DIAMOND_SCYTHE.get(), ModItems.NETHERITE_SCYTHE.get(), ModItems.BEAST.get(), ModItems.NATURE_SCYTHE.get(), ModItems.AQUARIUS_SCYTHE.get(), ModItems.INFERNAL_SCYTHE.get());
       ModUtils.applyCooldownToItemList(player, scytheItems, 100);
 
       Vector3d pos = new Vector3d(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());

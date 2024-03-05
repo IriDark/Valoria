@@ -87,6 +87,8 @@ public class ModBlocks {
 	public static final RegistryObject<Block> RAW_COBALT_ORE_BLOCK = BLOCK.register("raw_cobalt_ore",
 			() -> new Block(BlockBehaviour.Properties.copy(Blocks.RAW_COPPER_BLOCK).requiresCorrectToolForDrops().strength(3f, 4f)));
 	// Stone Types
+	public static final RegistryObject<Block> EYE_MEAT = BLOCK.register("eye_meat",
+			() -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(3f, 4f)));
 	public static final RegistryObject<Block> EYE_STONE = BLOCK.register("eye_stone",
 			() -> new Block(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE).requiresCorrectToolForDrops().strength(6f, 6f)));
 	public static final RegistryObject<Block> DEEP_MARBLE = BLOCK.register("deep_marble",

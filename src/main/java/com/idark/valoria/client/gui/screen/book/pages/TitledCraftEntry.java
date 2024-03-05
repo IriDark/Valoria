@@ -26,6 +26,13 @@ public class TitledCraftEntry extends Page {
         this.inputs = inputs;
     }
 
+    public TitledCraftEntry(String textKey, String titleKey, ItemStack result, ItemStack... inputs) {
+        this.text = textKey;
+        this.title = titleKey;
+        this.result = result;
+        this.inputs = inputs;
+    }
+
     /**
      *  Rendering an ItemStack with slot
      */

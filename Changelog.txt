@@ -18,7 +18,8 @@
     - Added Glowfern
     - Added Voidvine
     - Added Void Serpents
-    - Added Eyestone
+    - Added Eye Stone
+    - Added Eye Meat
     - Added Voidtaint Lantern
     - Added Abyssal Lantern
     - Added Void Taint
@@ -42,6 +43,8 @@
 - Added Animation to some blocks
 - Added Mod Armor to all Tags (Armors are trimmable now)
 - Added Bows zooming - thanks to MaxBogomol for the code <3
+- Added Vanishable to most of the items
+- Added Ukrainian lang
 
 - Reworked keg a little
 - Reworked Keyblocks (Umbral Blocks)
@@ -72,14 +75,16 @@
 - Accessories will be damaged when player was attacked
 - Goblins can take weapons to hand
 - Goblins can spawn with weapons in hand with chance
+- Necklaces will change their size depending on armor
 
+- Fixed Misspells in Sounds tooltips
 - Fixed Misspell in Jewelry JEI
 - Fixed 1 pixel Y offset in jei
 - Fixed Plants LootTable
 - Fixed Baby Goblins
 - Fixed Bug - Goblins tried to attack creative player when was hurt
 - Fixed Bug - When multiple items was in the cooldown sound will be very loud
-- Fixed Misspells in Sounds tooltips
+- Fixed Bug - Necklaces now bigger than player 2'nd layer
 
 - Changed Stonecrusher recipe
 - Changed opacity for Eternity appearing after Phantom ability
@@ -89,7 +94,10 @@
     - Goblin: 0.5f, 1.3f -> 0.6f, 1.25f
     - Mannequin: 1f, 2f -> 0.6f, 1.95f
     - Draugr: 1f, 2f -> 0.6f, 1.95f
-- Changed Chance of receiving a charge when hitting an Enemy with Infernal Sword 5% -> 10%+
+- Changed Chance of receiving a charge when hitting an Enemy with Infernal Sword 5% -> 10%
+- Changed Chance of stunning the target when hitting with Club 5% -> 7%
+- Changed Corpsecleaver to SwordItem, so it will support sword enchantments
+- Changed HoundItem (Bloodhound sword) to SwordItem, so it will support sword enchantments
 
 - Decreased Limestone spawn chance
 - Decreased particles count (15 -> 4) when picking up Mannequin

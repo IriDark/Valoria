@@ -2,7 +2,6 @@ package com.idark.valoria.client.gui.screen.book;
 
 import com.idark.valoria.client.gui.screen.book.unlockable.RegisterUnlockables;
 import com.idark.valoria.client.gui.screen.book.unlockable.UnlockableBookmark;
-import com.idark.valoria.client.gui.screen.book.pages.TextPage;
 import com.idark.valoria.client.gui.screen.book.pages.TitledCraftEntry;
 import com.idark.valoria.client.gui.screen.book.pages.TitledTextPage;
 import com.idark.valoria.registries.world.item.ModItems;
@@ -15,9 +14,15 @@ public class LexiconChapters {
     public static List<Bookmark> categories = new ArrayList<>();
     public static Bookmark LEXICON, TREASURES, MEDICINE;
     public static UnlockableBookmark CRYPT;
-    public static Chapter MAIN_PAGE, TREASURES_PAGE, MEDICINE_PAGE, CRYPT_PAGE;
+    public static Chapter THANKS_PAGE, MAIN_PAGE, TREASURES_PAGE, MEDICINE_PAGE, CRYPT_PAGE;
 
     public static void init() {
+        THANKS_PAGE = new Chapter(
+                "gui.valoria.thanks.name",
+                new TitledTextPage("gui.valoria.thanks"),
+                new TitledTextPage("gui.valoria.thanks.about", "gui.valoria.thanks.name")
+        );
+
         MAIN_PAGE = new Chapter(
                 "gui.valoria.main.name",
                 new TitledTextPage("gui.valoria.main"),
@@ -28,8 +33,8 @@ public class LexiconChapters {
                 "gui.valoria.jewelry",
                 new TitledTextPage("gui.valoria.treasures"),
                 new TitledTextPage("gui.valoria.treasure.gems"),
-                new TextPage("gui.valoria.treasure.gems.about")
-                );
+                new TitledTextPage("gui.valoria.treasure.gems.about", "gui.valoria.treasures.gems.name")
+        );
 
         MEDICINE_PAGE = new Chapter(
                 "gui.valoria.medicine",
@@ -48,7 +53,6 @@ public class LexiconChapters {
 
         categories.add(LEXICON);
         categories.add(TREASURES);
-
         categories.add(MEDICINE);
     }
 }

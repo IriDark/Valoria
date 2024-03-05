@@ -27,6 +27,9 @@ public final class RandomUtil {
         return rand.percentChance(percentChance);
     }
 
+    /**
+     * @param percentChance from 0.00f to 1
+     */
     public static boolean percentChance(float percentChance) {
         return rand.percentChance(percentChance);
     }

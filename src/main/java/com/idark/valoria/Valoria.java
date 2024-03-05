@@ -2,6 +2,7 @@ package com.idark.valoria;
 
 import com.google.common.collect.ImmutableMap;
 import com.idark.valoria.datagen.ModBlockStateProvider;
+import com.idark.valoria.registries.world.item.types.ScytheItem;
 import com.idark.valoria.registries.world.levelgen.LevelGen;
 import com.idark.valoria.registries.world.block.ModBlocks;
 import com.idark.valoria.registries.world.block.entity.ModBlockEntities;
@@ -49,6 +50,7 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.item.AxeItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FireBlock;
@@ -71,6 +73,9 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import top.theillusivec4.curios.api.client.CuriosRendererRegistry;
+
+import java.util.Arrays;
+import java.util.List;
 
 @Mod(Valoria.MOD_ID)
 public class Valoria {
@@ -183,6 +188,15 @@ public class Valoria {
             fireblock.setFlammable(ModBlocks.SHADEWOOD_PLANKS.get(), 5, 25);
             fireblock.setFlammable(ModBlocks.STRIPPED_SHADELOG.get(), 5, 30);
             fireblock.setFlammable(ModBlocks.STRIPPED_SHADEWOOD.get(), 5, 30);
+
+            ScytheItem.scytheItems.add(ModItems.IRON_SCYTHE.get());
+            ScytheItem.scytheItems.add(ModItems.GOLDEN_SCYTHE.get());
+            ScytheItem.scytheItems.add(ModItems.DIAMOND_SCYTHE.get());
+            ScytheItem.scytheItems.add(ModItems.NETHERITE_SCYTHE.get());
+            ScytheItem.scytheItems.add(ModItems.BEAST.get());
+            ScytheItem.scytheItems.add(ModItems.NATURE_SCYTHE.get());
+            ScytheItem.scytheItems.add(ModItems.AQUARIUS_SCYTHE.get());
+            ScytheItem.scytheItems.add(ModItems.INFERNAL_SCYTHE.get());
 
             AxeItem.STRIPPABLES = new ImmutableMap.Builder<Block, Block>().putAll(AxeItem.STRIPPABLES)
                     .put(ModBlocks.SHADELOG.get(), ModBlocks.STRIPPED_SHADELOG.get())

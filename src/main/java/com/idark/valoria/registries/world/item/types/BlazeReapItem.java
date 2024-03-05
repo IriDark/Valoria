@@ -34,7 +34,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.function.Predicate;
 
-public class BlazeReapItem extends PickaxeItem {
+public class BlazeReapItem extends PickaxeItem implements Vanishable {
 
     Random rand = new Random();
 

@@ -1,63 +1,46 @@
 package com.idark.valoria.registries.world.item.types;
 
-import com.idark.valoria.client.render.model.item.ItemAnims;
-import com.idark.valoria.client.render.model.item.RadiusAttackAnim;
 import com.idark.valoria.registries.sounds.ModSoundRegistry;
 import com.idark.valoria.util.ModUtils;
+import com.idark.valoria.util.math.RandomUtil;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.Vanishable;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import org.joml.Vector3d;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ScytheItem extends SwordItem implements ICustomAnimationItem, Vanishable{
-    public static RadiusAttackAnim animation = new RadiusAttackAnim();
-    public static List<Item> scytheItems = new ArrayList<>();
+public class InfernalScytheItem extends ScytheItem implements Vanishable {
 
-    public ScytheItem(Tier tier, int attackDamageIn, float attackSpeedIn, Properties builderIn) {
+    public InfernalScytheItem(Tier tier, int attackDamageIn, float attackSpeedIn, Item.Properties builderIn) {
         super(tier, attackDamageIn, attackSpeedIn, builderIn);
     }
 
-    public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
-        ItemStack itemstack = playerIn.getItemInHand(handIn);
-        if (itemstack.getDamageValue() >= itemstack.getMaxDamage() - 1) {
-            return InteractionResultHolder.fail(itemstack);
-        } else {
-            playerIn.startUsingItem(handIn);
-            return InteractionResultHolder.consume(itemstack);
+    public boolean hurtEnemy(ItemStack pStack, LivingEntity pTarget, LivingEntity pAttacker) {
+        pStack.hurtAndBreak(1, pAttacker, (p_43296_) -> p_43296_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
+        if (EnchantmentHelper.getFireAspect(pAttacker) > 0) {
+            pAttacker.level().playSound(null, pTarget.getOnPos(), SoundEvents.FIRECHARGE_USE, SoundSource.AMBIENT, 1, 1);
+        } else if (RandomUtil.percentChance(0.07f)) {
+            pTarget.setSecondsOnFire(4);
+            pAttacker.level().playSound(null, pTarget.getOnPos(), SoundEvents.FIRECHARGE_USE, SoundSource.AMBIENT, 1, 1);
         }
+
+        return true;
     }
 
-    public UseAnim getUseAnimation(ItemStack pStack) {
-        return UseAnim.CUSTOM;
-    }
-
-    @OnlyIn(Dist.CLIENT)
     @Override
-    public ItemAnims getAnimation(ItemStack stack) {
-        return animation;
-    }
-
-	public int getUseDuration(ItemStack stack) {
-      return 5;
-	}
-
-    /**
-     *Some sounds taken from the CalamityMod (Terraria) in a <a href="https://calamitymod.wiki.gg/wiki/Category:Sound_effects">Calamity Mod Wiki.gg</a>
-     */
     public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entityLiving) {
         Player player = (Player)entityLiving;
         player.awardStat(Stats.ITEM_USED.get(this));
@@ -73,7 +56,9 @@ public class ScytheItem extends SwordItem implements ICustomAnimationItem, Vanis
                 yawDouble = 1F - ((((float) i) - 180F) / 180F);
             }
 
-            ModUtils.radiusHit(level, stack, player, ParticleTypes.POOF, hitEntities, pos, 0, player.getRotationVector().y + i, 3);
+            ModUtils.radiusHit(level, stack, player, ParticleTypes.FLAME, hitEntities, pos, 0, player.getRotationVector().y + i, 3);
+            ModUtils.spawnParticlesInRadius(level, stack, ParticleTypes.SMOKE, pos, 0, player.getRotationVector().y + i, 3);
+
         }
 
         float damage = (float) (player.getAttribute(Attributes.ATTACK_DAMAGE).getValue()) + EnchantmentHelper.getSweepingDamageRatio(player);
@@ -83,12 +68,18 @@ public class ScytheItem extends SwordItem implements ICustomAnimationItem, Vanis
             if (EnchantmentHelper.getFireAspect(player) > 0) {
                 int i = EnchantmentHelper.getFireAspect(player);
                 entity.setSecondsOnFire(i * 4);
+                entity.level().playSound(null, entity.getOnPos(), SoundEvents.FIRECHARGE_USE, SoundSource.AMBIENT,1, 1);
+            } else if (RandomUtil.percentChance(0.07f)) {
+                entity.setSecondsOnFire(4);
+                entity.level().playSound(null, entity.getOnPos(), SoundEvents.FIRECHARGE_USE, SoundSource.AMBIENT,1, 1);
             }
+
             if (!player.isCreative()) {
-                stack.hurtAndBreak(hitEntities.size(), player, (p_220045_0_) -> {p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND);});
+                stack.hurtAndBreak(hitEntities.size(), player, (p_220045_0_) -> p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
             }
         }
 
+        level.playSound(player, player.blockPosition(), SoundEvents.PLAYER_ATTACK_SWEEP, SoundSource.AMBIENT, 10f, 1f);
         level.playSound(player, player.blockPosition(), ModSoundRegistry.SWIFTSLICE.get(), SoundSource.AMBIENT, 10f, 1f);
         return stack;
     }

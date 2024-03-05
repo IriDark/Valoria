@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "valoria:block/eye_meat"
+      },
+      {
+        "model": "valoria:block/eye_meat_mirror",
+        "y": 180
+      }
+    ]
+  }
+}

@@ -11,7 +11,10 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.ItemStack;
 
 public class NecklaceModel extends HumanoidModel<LivingEntity> {
     public ModelPart root, model;
@@ -34,13 +37,24 @@ public class NecklaceModel extends HumanoidModel<LivingEntity> {
         PartDefinition left_leg = root.addOrReplaceChild("left_leg", new CubeListBuilder(), PartPose.ZERO);
 
         PartDefinition body = root.addOrReplaceChild("body", new CubeListBuilder(), PartPose.ZERO);
-        PartDefinition model = body.addOrReplaceChild("model", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -0.0F, -2.0F, 8.0F, 12.0F, 4.0F, new CubeDeformation(0.2F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+        PartDefinition model = body.addOrReplaceChild("model", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -0.0F, -2.0F, 8.0F, 12.0F, 4.0F, new CubeDeformation(0.32F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
         return LayerDefinition.create(mesh, 32, 32);
     }
 
     @Override
     public void setupAnim(LivingEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+        ItemStack chestplate = entity.getItemBySlot(EquipmentSlot.CHEST);
+        if (!chestplate.isEmpty() && chestplate.getItem() instanceof ArmorItem) {
+            this.body.xScale = 1.1f;
+            this.body.yScale = 1.0f;
+            this.body.zScale = 1.42f;
+        } else {
+            this.body.xScale = 1.0f;
+            this.body.yScale = 1.0f;
+            this.body.zScale = 1.05f;
+        }
+
         this.model.yRot = Mth.sin(ageInTicks * 0.03F) * 0.03F;
         this.model.zRot = Mth.sin(ageInTicks * 0.03F) * 0.03F;
         this.model.xRot = Mth.sin(limbSwing * 0.50F) * 0.03F;

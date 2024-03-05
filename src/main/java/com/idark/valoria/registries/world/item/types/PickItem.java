@@ -30,6 +30,7 @@ import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.UseAnim;
+import net.minecraft.world.item.Vanishable;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -49,7 +50,7 @@ import java.util.List;
 import java.util.function.Supplier;
 
 @SuppressWarnings("removal")
-public class PickItem extends Item implements ICustomAnimationItem {
+public class PickItem extends Item implements ICustomAnimationItem, Vanishable {
     public static PickAnim animation = new PickAnim();
     public static final int ANIMATION_DURATION = 10;
     public static final int USE_DURATION = 200;
