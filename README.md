@@ -1,4 +1,4 @@
-![Valoria](https://cdn.discordapp.com/attachments/872055698450690048/1189638486219837542/image.png?ex=659ee42d&is=658c6f2d&hm=e161e2bab39dce8105fceb5b6a3ed5deb6c1ee29566b2f99c3c31c578e26d65c&)
+![Valoria](https://github.com/IriDark/Valoria/blob/main/icons/valoria_logo.png?raw=true)
 
 # 🌸 Valoria — Development
 
@@ -39,13 +39,12 @@ Immerse yourself in the enchanting realm of Valoria, where every corner holds a 
 
 ![](https://cdn.discordapp.com/attachments/838693800683372564/1039482418408726608/Untitled_11-07-2022_11-21-33.png)
 
-‎ ‎ ‎ ‎ ‎ ‎ [![Paypal](https://cdn.discordapp.com/attachments/1088473259223306361/1203418287191363634/pp.png?ex=65d1059e&is=65be909e&hm=9396f8bbc5401ce56a8b41eeb2b8e7a58e7e53059cd6c87c91d41f577b14f086&)](https://www.paypal.com/donate/?hosted_button_id=2VUEXEBSWEXUA)
-‎ ‎ ‎ ‎ ‎ ‎ [![Ko-Fi](https://cdn.discordapp.com/attachments/1088473259223306361/1203418676993466448/bmc.png?ex=65d105fb&is=65be90fb&hm=dff57fa98f06b26a47a290981f22a6098f8d887a75bb05f36db76415458b0396&)](https://ko-fi.com/idark)
-‎ ‎ ‎ ‎ ‎ ‎ [![Github](https://cdn.discordapp.com/attachments/1088473259223306361/1203419022578942012/github.png?ex=65d1064d&is=65be914d&hm=cba9db47b5fa6812f791f10b0f0038bdd436de845c136f6f2f28745a1c841b72&)](https://github.com/IriDark/Valoria)
-
-‎ ‎ ‎ ‎ ‎ ‎ [![Discord](https://cdn.discordapp.com/attachments/1088473259223306361/1203420290747469824/discord.png?ex=65d1077b&is=65be927b&hm=8537385b445429f0838ccdc6b951db208cb2616a529ada99f195efbeaf337265&)](https://discord.gg/wWdXpwuPmK)
-‎ ‎ ‎ ‎ ‎ ‎ [![Curseforge](https://cdn.discordapp.com/attachments/1088473259223306361/1203420835617181756/curseforge.png?ex=65d107fd&is=65be92fd&hm=4b179d668a1b7ddfb631739bf59ec3d818abab647946c64486a86f6d6d5682d0&)](https://www.curseforge.com/minecraft/mc-mods/valoria)
-‎ ‎ ‎ ‎ ‎ ‎ [![Modrinth](https://cdn.discordapp.com/attachments/1088473259223306361/1203420835394621440/modrinth.png?ex=65d107fd&is=65be92fd&hm=d9079207c106f16ba5023cf2147690e19c3d457c34104974cc77b31a6d327d0f&)](https://modrinth.com/mod/valoria)
+[![Paypal](https://github.com/IriDark/Valoria/blob/main/icons/pp.png?raw=true)](https://www.paypal.com/donate/?hosted_button_id=2VUEXEBSWEXUA)
+[![Ko-Fi](https://github.com/IriDark/Valoria/blob/main/icons/kofi.png?raw=true)](https://ko-fi.com/idark)
+[![Github](https://github.com/IriDark/Valoria/blob/main/icons/github.png?raw=true)](https://github.com/IriDark/Valoria)
+[![Discord](https://github.com/IriDark/Valoria/blob/main/icons/discord.png?raw=true)](https://discord.gg/wWdXpwuPmK)
+[![Curseforge](https://github.com/IriDark/Valoria/blob/main/icons/curseforge.png?raw=true)](https://www.curseforge.com/minecraft/mc-mods/valoria)
+[![Modrinth](https://github.com/IriDark/Valoria/blob/main/icons/modrinth.png?raw=true)](https://modrinth.com/mod/valoria)
 
 ![](https://cdn.discordapp.com/attachments/838693800683372564/1039482418408726608/Untitled_11-07-2022_11-21-33.png)
 
