@@ -1,4 +1,4 @@
-TODO: Create Brewery
+TODO: "Create" Brewery Support
 TODO: Craft Page
 TODO: Finish Cave gen in Valoria
 TODO: Portal to Valoria
@@ -7,4 +7,3 @@ TODO: Magic
 TODO: Bunch of Mobs
 TODO: Bosses
 TODO: Tons of uses to arl added items
-TODO: Runes

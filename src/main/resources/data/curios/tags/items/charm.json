@@ -1,10 +1,14 @@
 {
   "replace": false,
   "values": [
-    "valoria:rune_of_pyro",
 	"valoria:rune_of_vision",
-    "valoria:rune_of_strength",
+    "valoria:rune_of_wealth",
     "valoria:rune_of_curses",
+    "valoria:rune_of_strength",
+    "valoria:rune_of_accuracy",
+    "valoria:rune_of_deep",
+    "valoria:rune_of_pyro",
+    "valoria:rune_of_cold",
     "valoria:bloodsight_monocle",
     "valoria:broken_bloodsight_monocle"
   ]

@@ -639,6 +639,9 @@
   "tooltip.valoria.poison_chance": "шанс отравити ціль",
   "tooltip.valoria.poison_chance_ranged": "шанс отравити ціль при влучані",
   "tooltip.valoria.pyro": "Надає вогнестійкість на деякий час",
+  "tooltip.valoria.deep": "Надає підводне дихання на деякий час",
+  "tooltip.valoria.cold": "Захищає носія від холоду",
+  "tooltip.valoria.crit": "Шанс 10% атакувати ворога критичним ударом",
   "tooltip.valoria.recharge": "Не вистачає ресурсів для заряду.",
   "tooltip.valoria.rmb": "[ПКМ] - щоб використати",
   "tooltip.valoria.rmb_equip": "[ПКМ] - щоб екіпірувати",
@@ -651,6 +654,7 @@
   "tooltip.valoria.vision": "Надає нічне бачення на деякий час",
   "tooltip.valoria.wet": "Неможливо використати поки гравець мокрий!.",
   "tooltip.valoria.wip": "Це WIP предмет він може бути зламаним або й навіть не робочим!",
+  "tooltip.valoria.wealth": "Надає додатковий рівень удачі",
   "valoria.jade.openable_with": "Відкриваєтся із:",
   "valoria.jade.progress": "Прогрес:"
 }
