@@ -1,0 +1,9 @@
+{
+  "asset_name": "pearlium",
+  "description": {
+    "color": "#eeecb5",
+    "translate": "trim_material.valoria.pearlium"
+  },
+  "ingredient": "valoria:pearlium_ingot",
+  "item_model_index": 0.2
+}

@@ -1,0 +1,9 @@
+{
+  "asset_name": "bronze",
+  "description": {
+    "color": "#c7995f",
+    "translate": "trim_material.valoria.bronze"
+  },
+  "ingredient": "valoria:bronze_ingot",
+  "item_model_index": 0.5
+}

@@ -1,0 +1,9 @@
+{
+  "asset_name": "ancient",
+  "description": {
+    "color": "#a91e35",
+    "translate": "trim_material.valoria.ancient"
+  },
+  "ingredient": "valoria:ancient_ingot",
+  "item_model_index": 0.4
+}

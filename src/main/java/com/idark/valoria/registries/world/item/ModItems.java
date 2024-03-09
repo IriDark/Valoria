@@ -2,7 +2,6 @@ package com.idark.valoria.registries.world.item;
 
 import com.idark.valoria.Valoria;
 import com.idark.valoria.registries.world.block.ModBlocks;
-import com.idark.valoria.client.gui.screen.book.LexiconPages;
 import com.idark.valoria.client.gui.screen.book.unlockable.RegisterUnlockables;
 import com.idark.valoria.registries.world.effect.ModEffects;
 import com.idark.valoria.registries.world.entity.ModEntityTypes;
@@ -24,7 +23,6 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -274,7 +272,7 @@ public class ModItems {
 	public static final RegistryObject<Item> ALOE_PIECE = ITEMS.register("aloe_piece", () -> new Item(new Item.Properties()));
 
 	public static final RegistryObject<Item> LEXICON = ITEMS.register("lexicon", () -> new LexiconItem(new Item.Properties().stacksTo(1)));
-	public static final RegistryObject<Item> CRYPT = ITEMS.register("page", () -> new LexiconPageItem(LexiconPages.CRYPT,  new Item.Properties().stacksTo(1), RegisterUnlockables.CRYPT));
+	public static final RegistryObject<Item> CRYPT = ITEMS.register("page", () -> new LexiconPageItem(new Item.Properties().stacksTo(1), RegisterUnlockables.CRYPT, "gui.valoria.crypt.name"));
 
 	public static final RegistryObject<Item> ALOE_BANDAGE = ITEMS.register("aloe_bandage", () -> new AloeBandageItem(1600, 0));
 	public static final RegistryObject<Item> ALOE_BANDAGE_UPGRADED = ITEMS.register("aloe_bandage_upgraded", () -> new AloeBandageItem(1450, 1));
@@ -617,7 +615,8 @@ public class ModItems {
 		() -> new ForgeSpawnEggItem(ModEntityTypes.GOBLIN, ColorUtils.hexToDecimal("185b36"), ColorUtils.hexToDecimal("6BB447"), new Item.Properties()));
 	public static final RegistryObject<ForgeSpawnEggItem> DRAUGR_SPAWN_EGG = ITEMS.register("draugr_spawn_egg",
 		() -> new ForgeSpawnEggItem(ModEntityTypes.DRAUGR, ColorUtils.hexToDecimal("76695C"), ColorUtils.hexToDecimal("d6d0c9"), new Item.Properties()));
-
+	public static final RegistryObject<ForgeSpawnEggItem> SWAMP_WANDERER_SPAWN_EGG = ITEMS.register("swamp_wanderer_spawn_egg",
+			() -> new ForgeSpawnEggItem(ModEntityTypes.SWAMP_WANDERER, ColorUtils.hexToDecimal("606239"), ColorUtils.hexToDecimal("b8b377"), new Item.Properties()));
 	public static final RegistryObject<MannequinSpawnItem> MANNEQUIN_SPAWN_EGG = ITEMS.register("mannequin_spawn_egg",
 		() -> new MannequinSpawnItem(new Item.Properties()));
 

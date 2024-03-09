@@ -27,6 +27,27 @@
       "valoria:magic"
     ]
   },
+  "item.water_ability.use": {
+    "subtitle": "Aquarius Ability Used ★",
+    "replace": "true",
+    "sounds": [
+      "valoria:water_ability"
+    ]
+  },
+  "item.phantasm_ability.use": {
+    "subtitle": "Phantasm Ability Used ★",
+    "replace": "true",
+    "sounds": [
+      "valoria:phantom_totem"
+    ]
+  },
+  "item.bloodhound_ability.use": {
+    "subtitle": "Bloodhound Ability Used ★",
+    "replace": "true",
+    "sounds": [
+      "valoria:bloodhound_ability"
+    ]
+  },
   "item.swiftslice.use": {
     "subtitle": "Ability used ★",
     "replace": "true",

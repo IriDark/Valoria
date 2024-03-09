@@ -8,6 +8,9 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
+/**
+ * Some sounds taken from the CalamityMod (Terraria) in a <a href="https://calamitymod.wiki.gg/wiki/Category:Sound_effects">Calamity Mod Wiki.gg</a>
+ */
 public class ModSoundRegistry {
     public static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, Valoria.MOD_ID);
 
@@ -24,6 +27,9 @@ public class ModSoundRegistry {
 	public static final RegistryObject<SoundEvent> POT_STEP = registerSound("block.pot_step.ambient");
 	public static final RegistryObject<SoundEvent> POT_PLACE = registerSound("block.pot_place.ambient");
 	public static final RegistryObject<SoundEvent> BAG_OPEN = registerSound("item.bag_open.use");
+	public static final RegistryObject<SoundEvent> WATER_ABILITY = registerSound("item.water_ability.use");
+	public static final RegistryObject<SoundEvent> PHANTASM_ABILITY = registerSound("item.phantasm_ability.use");
+	public static final RegistryObject<SoundEvent> BLOODHOUND_ABILITY = registerSound("item.bloodhound_ability.use");
 
     //SoundType
 	public static final ModSoundType POT = new ModSoundType(1, 1, POT_BREAK, POT_STEP, POT_PLACE, ()-> SoundEvents.STONE_HIT, ()-> SoundEvents.STONE_FALL);

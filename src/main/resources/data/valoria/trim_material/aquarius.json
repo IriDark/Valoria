@@ -1,0 +1,9 @@
+{
+  "asset_name": "aquarius",
+  "description": {
+    "color": "#89fdec",
+    "translate": "trim_material.valoria.aquarius"
+  },
+  "ingredient": "valoria:aquarius_ingot",
+  "item_model_index": 0.8
+}

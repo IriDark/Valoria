@@ -1,0 +1,9 @@
+{
+  "asset_name": "infernal",
+  "description": {
+    "color": "#fba000",
+    "translate": "trim_material.valoria.infernal"
+  },
+  "ingredient": "valoria:infernal_ingot",
+  "item_model_index": 0.6
+}

@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class MagmaSwordItem extends SwordItem implements Vanishable{
+public class MagmaSwordItem extends SwordItem implements Vanishable {
 
     Random rand = new Random();
 
@@ -82,34 +82,28 @@ public class MagmaSwordItem extends SwordItem implements Vanishable{
      */
     public void releaseUsing(ItemStack stack, Level worldIn, LivingEntity entityLiving, int timeLeft) {
         Player player = (Player) entityLiving;
+        player.awardStat(Stats.ITEM_USED.get(this));
         if (isCharged(stack) == 2) {
             if (entityLiving.isInWaterOrRain()) {
                 player.getCooldowns().addCooldown(this, 150);
-                player.awardStat(Stats.ITEM_USED.get(this));
                 player.displayClientMessage(Component.translatable("tooltip.valoria.wet").withStyle(ChatFormatting.GRAY), true);
                 setCharges(stack, 1);
                 worldIn.playSound(player, player.blockPosition(), SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 10f, 1f);
                 if (!player.isCreative()) {
-                    stack.hurtAndBreak(5, player, (p_220045_0_) -> {
-                        p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND);
-                    });
+                    stack.hurtAndBreak(5, player, (p_220045_0_) -> p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
                 }
 
                 if (!worldIn.isClientSide() && worldIn instanceof ServerLevel pServer) {
                     for (int i = 0; i < 20; i++) {
-                        //worldIn.addParticle(ParticleTypes.POOF, player.getX() + ((rand.nextDouble() - 0.5D) * 3), player.getY() + ((rand.nextDouble() - 0.5D) * 3), player.getZ() + ((rand.nextDouble() - 0.5D) * 3), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2));
-                        //worldIn.addParticle(ParticleTypes.LARGE_SMOKE, player.getX() + ((rand.nextDouble() - 0.5D) * 3), player.getY() + ((rand.nextDouble() - 0.5D) * 3), player.getZ() + ((rand.nextDouble() - 0.5D) * 3), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2));
                         pServer.sendParticles(ParticleTypes.POOF, player.getX() + ((rand.nextDouble() - 0.5D) * 3), player.getY() + ((rand.nextDouble() - 0.5D) * 3), player.getZ() + ((rand.nextDouble() - 0.5D) * 3), 1, 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0);
                         pServer.sendParticles(ParticleTypes.LARGE_SMOKE, player.getX() + ((rand.nextDouble() - 0.5D) * 3), player.getY() + ((rand.nextDouble() - 0.5D) * 3), player.getZ() + ((rand.nextDouble() - 0.5D) * 3), 1, 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0);
                     }
                 }
-            } else if (!entityLiving.isInWaterOrRain()) {
+            } else {
                 player.getCooldowns().addCooldown(this, 300);
-                player.awardStat(Stats.ITEM_USED.get(this));
                 setCharges(stack, 0);
                 Vector3d pos = new Vector3d(player.getX(), player.getY() + 0.3f, player.getZ());
                 List<LivingEntity> hitEntities = new ArrayList<LivingEntity>();
-
                 for (int i = 0; i < 360; i += 10) {
                     float yawDouble = 0;
                     if (i <= 180) {
@@ -130,13 +124,10 @@ public class MagmaSwordItem extends SwordItem implements Vanishable{
                     damagedEntity.setSecondsOnFire(12);
                 }
 
-                if (!player.isCreative()) {
-                    stack.hurtAndBreak(hitEntities.size(), player, (p_220045_0_) -> {
-                        p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND);
-                    });
-                }
-
                 worldIn.playSound(player, player.blockPosition(), ModSoundRegistry.ERUPTION.get(), SoundSource.AMBIENT, 10f, 1f);
+                if (!player.isCreative()) {
+                    stack.hurtAndBreak(hitEntities.size(), player, (p_220045_0_) -> p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
+                }
             }
         } else {
             player.displayClientMessage(Component.translatable("tooltip.valoria.charges").withStyle(ChatFormatting.GRAY), true);

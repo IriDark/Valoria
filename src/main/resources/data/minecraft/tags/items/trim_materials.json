@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "values": [
+    "valoria:bronze_ingot",
+    "valoria:cobalt_ingot",
+    "valoria:ancient_ingot",
+    "valoria:pearlium_ingot",
+    "valoria:void_ingot",
+    "valoria:nature_ingot",
+    "valoria:aquarius_ingot",
+    "valoria:infernal_ingot",
+    "valoria:illusion_stone"
+  ]
+}

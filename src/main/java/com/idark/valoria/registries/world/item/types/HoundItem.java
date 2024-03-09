@@ -1,8 +1,10 @@
 package com.idark.valoria.registries.world.item.types;
 
+import com.idark.valoria.registries.sounds.ModSoundRegistry;
 import com.idark.valoria.util.ModUtils;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionHand;
@@ -25,7 +27,7 @@ public class HoundItem extends SwordItem implements Vanishable {
     }
 
     public int getUseDuration(ItemStack stack) {
-        return 5;
+        return 25;
     }
 
     public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
@@ -38,18 +40,14 @@ public class HoundItem extends SwordItem implements Vanishable {
         }
     }
 
-    public float getDestroySpeed(ItemStack pStack, BlockState pState) {
-        if (pState.is(BlockTags.ICE)) {
-            return 15.0F;
-        } else {
-            return pState.is(BlockTags.MINEABLE_WITH_PICKAXE) ? 1.5F : 1.0F;
-        }
-    }
-
+    /**
+     * Some sounds taken from the CalamityMod (Terraria) in a <a href="https://calamitymod.wiki.gg/wiki/Category:Sound_effects">Calamity Mod Wiki.gg</a>
+     */
     public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entityLiving) {
 		Player player = (Player)entityLiving;
 		player.awardStat(Stats.ITEM_USED.get(this));
         player.getCooldowns().addCooldown(this, 120);
+        player.level().playSound(null, player.getOnPos(), ModSoundRegistry.BLOODHOUND_ABILITY.get(), SoundSource.AMBIENT,0.4f, 1.2f);
         Vec3 pos = new Vec3(player.getX(), player.getY() + 0.2f, player.getZ());
 		List<LivingEntity> hitEntities = new ArrayList<LivingEntity>();
         List<LivingEntity> markedEntities = new ArrayList<LivingEntity>();

@@ -1,0 +1,9 @@
+{
+  "asset_name": "cobalt",
+  "description": {
+    "color": "#7ebfff",
+    "translate": "trim_material.valoria.cobalt"
+  },
+  "ingredient": "valoria:cobalt_ingot",
+  "item_model_index": 0.8
+}

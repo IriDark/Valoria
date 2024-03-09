@@ -297,9 +297,10 @@ public abstract class ModItemGroup {
             event.accept(ModItems.RUNE_OF_DEEP);
             event.accept(ModItems.RUNE_OF_PYRO);
             event.accept(ModItems.RUNE_OF_COLD);
+            event.accept(ModItems.MANNEQUIN_SPAWN_EGG);
+            event.accept(ModItems.SWAMP_WANDERER_SPAWN_EGG);
             event.accept(ModItems.DRAUGR_SPAWN_EGG);
             event.accept(ModItems.GOBLIN_SPAWN_EGG);
-            event.accept(ModItems.MANNEQUIN_SPAWN_EGG);
         }
 
         if (event.getTabKey() == ModItemGroup.VALORIA_BLOCKS_TAB.getKey()) {

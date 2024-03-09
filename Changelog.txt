@@ -1,7 +1,10 @@
 - Optimized Quicksand Fog Rendering
 - Optimized CurioItemProperty
 - Optimized Infernal Sword
+- Optimized Scythe Items
+- Optimized Lexicon Page Item
 
+- Added functionality for ALL runes (finally did it lmao)
 - Added Jade compat
 - Added 2 attributes to Prospectors pick
 - Added a new painting The Starry night by Vincent Van Gogh
@@ -42,9 +45,11 @@
 - Added Modded Stone Variants to tag Stone Tool Materials
 - Added Animation to some blocks
 - Added Mod Armor to all Tags (Armors are trimmable now)
+- Added Armor Trims Materials
 - Added Bows zooming - thanks to MaxBogomol for the code <3
 - Added Vanishable to most of the items
 - Added Ukrainian lang
+- Added Swamp Wanderer (Redone him and added back to game)
 
 - Reworked keg a little
 - Reworked Keyblocks (Umbral Blocks)
@@ -83,8 +88,9 @@
 - Fixed Plants LootTable
 - Fixed Baby Goblins
 - Fixed Bug - Goblins tried to attack creative player when was hurt
-- Fixed Bug - When multiple items was in the cooldown sound will be very loud
+- Fixed Bug - When multiple items were in cooldown, the sound would be very loud
 - Fixed Bug - Necklaces now bigger than player 2'nd layer
+- Fixed Entities attributes
 
 - Changed Stonecrusher recipe
 - Changed opacity for Eternity appearing after Phantom ability
@@ -98,6 +104,7 @@
 - Changed Chance of stunning the target when hitting with Club 5% -> 7%
 - Changed Corpsecleaver to SwordItem, so it will support sword enchantments
 - Changed HoundItem (Bloodhound sword) to SwordItem, so it will support sword enchantments
+- Changed Sounds of abilities to new ones (Credit to Calamity mod <3)
 
 - Decreased Limestone spawn chance
 - Decreased particles count (15 -> 4) when picking up Mannequin

@@ -40,6 +40,9 @@ public class InfernalScytheItem extends ScytheItem implements Vanishable {
         return true;
     }
 
+    /**
+     * Some sounds taken from the CalamityMod (Terraria) in a <a href="https://calamitymod.wiki.gg/wiki/Category:Sound_effects">Calamity Mod Wiki.gg</a>
+     */
     @Override
     public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entityLiving) {
         Player player = (Player)entityLiving;

@@ -2,6 +2,7 @@ package com.idark.valoria;
 
 import com.google.common.collect.ImmutableMap;
 import com.idark.valoria.datagen.ModBlockStateProvider;
+import com.idark.valoria.registries.world.entity.living.*;
 import com.idark.valoria.registries.world.item.types.ScytheItem;
 import com.idark.valoria.registries.world.levelgen.LevelGen;
 import com.idark.valoria.registries.world.block.ModBlocks;
@@ -24,14 +25,10 @@ import com.idark.valoria.client.gui.screen.book.LexiconChapters;
 import com.idark.valoria.client.gui.screen.book.unlockable.RegisterUnlockables;
 import com.idark.valoria.registries.command.arguments.ModArgumentTypes;
 import com.idark.valoria.config.ClientConfig;
-import com.idark.valoria.datagen.ModRecipeProvider;
 import com.idark.valoria.registries.world.effect.ModEffects;
 import com.idark.valoria.registries.world.effect.potion.ModPotions;
 import com.idark.valoria.registries.world.item.enchant.ModEnchantments;
 import com.idark.valoria.registries.world.entity.ModEntityTypes;
-import com.idark.valoria.registries.world.entity.living.DraugrEntity;
-import com.idark.valoria.registries.world.entity.living.GoblinEntity;
-import com.idark.valoria.registries.world.entity.living.MannequinEntity;
 import com.idark.valoria.registries.world.entity.ai.attributes.ModAttributes;
 import com.idark.valoria.registries.world.item.ModItemGroup;
 import com.idark.valoria.registries.world.item.ModItems;
@@ -50,7 +47,6 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.item.AxeItem;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FireBlock;
@@ -73,9 +69,6 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import top.theillusivec4.curios.api.client.CuriosRendererRegistry;
-
-import java.util.Arrays;
-import java.util.List;
 
 @Mod(Valoria.MOD_ID)
 public class Valoria {
@@ -230,15 +223,21 @@ public class Valoria {
                         SpawnPlacements.Type.ON_GROUND,
                         Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                         DraugrEntity::checkMonsterSpawnRules);
+
+                SpawnPlacements.register(ModEntityTypes.SWAMP_WANDERER.get(),
+                        SpawnPlacements.Type.IN_WATER,
+                        Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                        SwampWandererEntity::checkDrownedSpawnRules);
             });
-        }
+    }
 
         @SubscribeEvent
         public static void registerAttributes(EntityAttributeCreationEvent event) {
             event.put(ModEntityTypes.MANNEQUIN.get(), MannequinEntity.createAttributes().build());
             event.put(ModEntityTypes.GOBLIN.get(), GoblinEntity.createAttributes().build());
-            event.put(ModEntityTypes.DRAUGR.get(), GoblinEntity.createAttributes().build());
-            event.put(ModEntityTypes.NECROMANCER.get(), GoblinEntity.createAttributes().build());
+            event.put(ModEntityTypes.DRAUGR.get(), DraugrEntity.createAttributes().build());
+            event.put(ModEntityTypes.NECROMANCER.get(), NecromancerEntity.createAttributes().build());
+            event.put(ModEntityTypes.SWAMP_WANDERER.get(), SwampWandererEntity.createAttributes().build());
         }
 
         @SubscribeEvent

@@ -2,11 +2,11 @@ package com.idark.valoria.registries.world.item.types;
 
 import com.idark.valoria.api.unlockable.UnlockUtils;
 import com.idark.valoria.api.unlockable.Unlockable;
-import com.idark.valoria.client.gui.screen.book.LexiconPages;
 import com.idark.valoria.client.gui.screen.book.unlockable.UnlockableBookmark;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -21,12 +21,17 @@ import java.util.List;
 
 public class LexiconPageItem extends Item {
 
-    public LexiconPages pages;
     public Unlockable unlockable;
+    public String lang;
 
-    public LexiconPageItem(LexiconPages pages, Properties props, Unlockable pUnlockable) {
+    public LexiconPageItem(Properties props, Unlockable pUnlockable, String pPageName) {
         super(props);
-        this.pages = pages;
+        this.unlockable = pUnlockable;
+        this.lang = pPageName;
+    }
+
+    public LexiconPageItem(Properties props, Unlockable pUnlockable) {
+        super(props);
         this.unlockable = pUnlockable;
     }
 
@@ -41,7 +46,7 @@ public class LexiconPageItem extends Item {
                 UnlockUtils.addUnlockable(player, unlockable);
                 return new InteractionResultHolder<>(InteractionResult.SUCCESS, stack);
             } else {
-                player.playSound(SoundEvents.PLAYER_BURP, 1, 0);
+                world.playSound(null, player.getOnPos(), SoundEvents.PLAYER_BURP, SoundSource.AMBIENT, 0.7f, 0.2f);
                 player.displayClientMessage(Component.translatable("gui.valoria.obtained").withStyle(ChatFormatting.GRAY), true);
                 return new InteractionResultHolder<>(InteractionResult.FAIL, stack);
             }
@@ -50,26 +55,11 @@ public class LexiconPageItem extends Item {
         return new InteractionResultHolder<>(InteractionResult.SUCCESS, stack);
     }
 
-    public String getModeString() {
-        switch (pages) {
-            case MAIN, MEDICINE, GEMS, THANKS -> {
-                return null;
-            }
-
-            case CRYPT -> {
-                return "gui.valoria.crypt.name";
-            }
-        }
-
-        return null;
-    }
-
     @Override
     public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags) {
         super.appendHoverText(stack, world, tooltip, flags);
-        if (pages != null) {
-            tooltip.add(1, Component.translatable("tooltip.valoria.page").withStyle(ChatFormatting.GRAY)
-                    .append(Component.translatable(getModeString()).withStyle(ChatFormatting.BLUE)));
+        if (!lang.isEmpty()) {
+            tooltip.add(Component.translatable("tooltip.valoria.page").withStyle(ChatFormatting.GRAY).append(Component.translatable(lang).withStyle(ChatFormatting.BLUE)));
         }
     }
 }

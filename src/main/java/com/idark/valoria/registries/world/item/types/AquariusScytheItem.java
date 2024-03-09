@@ -28,16 +28,22 @@ public class AquariusScytheItem extends ScytheItem implements Vanishable {
         super(tier, attackDamageIn, attackSpeedIn, builderIn);
     }
 
+    /**
+     * Some sounds taken from the CalamityMod (Terraria) in a <a href="https://calamitymod.wiki.gg/wiki/Category:Sound_effects">Calamity Mod Wiki.gg</a>
+     */
     public boolean hurtEnemy(ItemStack pStack, LivingEntity pTarget, LivingEntity pAttacker) {
         pStack.hurtAndBreak(1, pAttacker, (p_43296_) -> p_43296_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
         if (RandomUtil.percentChance(0.15f)) {
             pTarget.knockback(0.6F, pAttacker.getX() - pTarget.getX(), pAttacker.getZ() - pTarget.getZ());
-            pTarget.level().playSound(null, pTarget.getOnPos(), SoundEvents.ELDER_GUARDIAN_CURSE, SoundSource.AMBIENT, 0.2f, 1.2f);
+            pTarget.level().playSound(null, pTarget.getOnPos(), ModSoundRegistry.WATER_ABILITY.get(), SoundSource.AMBIENT, 0.7f, 1.2f);
         }
 
         return true;
     }
 
+    /**
+     * Some sounds taken from the CalamityMod (Terraria) in a <a href="https://calamitymod.wiki.gg/wiki/Category:Sound_effects">Calamity Mod Wiki.gg</a>
+     */
     @Override
     public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entityLiving) {
         Player player = (Player)entityLiving;
@@ -64,7 +70,7 @@ public class AquariusScytheItem extends ScytheItem implements Vanishable {
             entity.knockback(0.4F, player.getX() - entity.getX(), player.getZ() - entity.getZ());
             if (RandomUtil.percentChance(0.25f)) {
                 entity.knockback(0.6F, player.getX() - entity.getX(), player.getZ() - entity.getZ());
-                entity.level().playSound(null, entity.getOnPos(), SoundEvents.ELDER_GUARDIAN_CURSE, SoundSource.AMBIENT,0.2f, 1.2f);
+                entity.level().playSound(null, entity.getOnPos(), ModSoundRegistry.WATER_ABILITY.get(), SoundSource.AMBIENT,0.2f, 1.2f);
             }
 
             if (!player.isCreative()) {

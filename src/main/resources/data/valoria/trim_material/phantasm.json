@@ -1,0 +1,9 @@
+{
+  "asset_name": "phantasm",
+  "description": {
+    "color": "#90d2f1",
+    "translate": "trim_material.valoria.phantasm"
+  },
+  "ingredient": "valoria:illusion_stone",
+  "item_model_index": 0.8
+}

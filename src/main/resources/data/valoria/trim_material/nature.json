@@ -1,0 +1,9 @@
+{
+  "asset_name": "nature",
+  "description": {
+    "color": "#88ed68",
+    "translate": "trim_material.valoria.nature"
+  },
+  "ingredient": "valoria:nature_ingot",
+  "item_model_index": 0.7
+}

@@ -64,7 +64,7 @@ public class ValoriaClient {
 
         @SubscribeEvent
         public static void ColorMappingBlocks(RegisterColorHandlersEvent.Block event) {
-            event.register((state, world, pos, tintIndex) -> ModBlockColors.getInstance().getColor(state, world, pos, tintIndex), ModBlockColors.MODDED_PLANTS);
+            event.register((state, world, pos, tintIndex) -> ModBlockColors.getInstance().getColor(state, world, pos, tintIndex), ModBlockColors.MODDED);
         }
 
         @SubscribeEvent
@@ -159,7 +159,7 @@ public class ValoriaClient {
             EntityRenderers.register(ModEntityTypes.NECROMANCER.get(), NecromancerRenderer::new);
             EntityRenderers.register(ModEntityTypes.DRAUGR.get(), DraugrRenderer::new);
             EntityRenderers.register(ModEntityTypes.GOBLIN.get(), GoblinRenderer::new);
-            //EntityRenderers.register(ModEntityTypes.SWAMP_WANDERER.get(), SwampWandererRenderer::new);
+            EntityRenderers.register(ModEntityTypes.SWAMP_WANDERER.get(), SwampWandererRenderer::new);
             EntityRenderers.register(ModEntityTypes.MANNEQUIN.get(), MannequinRenderer::new);
             EntityRenderers.register(ModEntityTypes.KUNAI.get(), KunaiRenderer::new);
             EntityRenderers.register(ModEntityTypes.SPECTRAL_BLADE.get(), SpectralBladeRenderer::new);

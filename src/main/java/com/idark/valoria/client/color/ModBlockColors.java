@@ -13,7 +13,7 @@ public class ModBlockColors implements BlockColor {
 
     private static final ModBlockColors INSTANCE = new ModBlockColors();
 
-    public static final Block[] MODDED_PLANTS = {
+    public static final Block[] MODDED = {
             ModBlocks.CATTAIL.get()
     };
 
