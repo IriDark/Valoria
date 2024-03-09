@@ -91,6 +91,7 @@
 - Fixed Bug - When multiple items were in cooldown, the sound would be very loud
 - Fixed Bug - Necklaces now bigger than player 2'nd layer
 - Fixed Entities attributes
+- Fixed Crash - When HitResult.getType() was MISS game decides to crash (Blazereap)
 
 - Changed Stonecrusher recipe
 - Changed opacity for Eternity appearing after Phantom ability

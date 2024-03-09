@@ -30,6 +30,7 @@ import top.theillusivec4.curios.api.CuriosApi;
 
 import java.util.List;
 
+@SuppressWarnings("removal")
 public class Events {
 
     @SubscribeEvent

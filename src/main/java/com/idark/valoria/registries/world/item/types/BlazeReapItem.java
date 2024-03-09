@@ -23,7 +23,6 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.EntityHitResult;
@@ -32,7 +31,6 @@ import net.minecraft.world.phys.Vec3;
 
 import java.util.List;
 import java.util.Random;
-import java.util.function.Predicate;
 
 public class BlazeReapItem extends PickaxeItem implements Vanishable {
 
@@ -127,18 +125,27 @@ public class BlazeReapItem extends PickaxeItem implements Vanishable {
             double Y = Math.cos(locPitch + pitch) * locDistance;
             double Z = Math.sin(locPitch + pitch) * Math.sin(locYaw + yaw) * locDistance;
             Vec3 playerPos = player.getEyePosition();
-            Vec3 EndPos = (player.getViewVector(0.0f).scale(60.0d));
+            Vec3 EndPos = (player.getViewVector(0.0f).scale(20.0d));
+
+            // Notice that: when Miss is unchecked - game will crash
             if (ProjectileUtil.getEntityHitResult(player, playerPos, EndPos, new AABB(pos.x + X - 3D, pos.y + Y - 3D, pos.z + Z - 3D, pos.x + X + 3D, pos.y + Y + 3D, pos.z + Z + 3D), (e) -> true, locDistance) == null) {
                 HitResult hitresult = ModUtils.getHitResult(playerPos, player, (e) -> true, EndPos, level);
-                if (hitresult != null && hitresult.getType() == HitResult.Type.BLOCK) {
-                    X = hitresult.getLocation().x() - pos.x;
-                    Y = hitresult.getLocation().y() - pos.y;
-                    Z = hitresult.getLocation().z() - pos.z;
-                } else {
-                    Entity entity = ((EntityHitResult)hitresult).getEntity();
-                    X = entity.getX() - pos.x;
-                    Y = entity.getY() - pos.y;
-                    Z = entity.getZ() - pos.z;
+                if (hitresult != null) {
+                    switch (hitresult.getType()) {
+                        case BLOCK:
+                            X = hitresult.getLocation().x() - pos.x;
+                            Y = hitresult.getLocation().y() - pos.y;
+                            Z = hitresult.getLocation().z() - pos.z;
+                            break;
+                        case ENTITY:
+                            Entity entity = ((EntityHitResult) hitresult).getEntity();
+                            X = entity.getX() - pos.x;
+                            Y = entity.getY() - pos.y;
+                            Z = entity.getZ() - pos.z;
+                            break;
+                        case MISS:
+                            break;
+                    }
                 }
             }
 
