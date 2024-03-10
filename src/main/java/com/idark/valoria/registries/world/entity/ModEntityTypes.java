@@ -1,6 +1,8 @@
 package com.idark.valoria.registries.world.entity;
 
 import com.idark.valoria.Valoria;
+import com.idark.valoria.registries.world.entity.decoration.CustomBoatEntity;
+import com.idark.valoria.registries.world.entity.decoration.CustomChestBoatEntity;
 import com.idark.valoria.registries.world.entity.living.*;
 import com.idark.valoria.registries.world.entity.projectile.KunaiEntity;
 import com.idark.valoria.registries.world.entity.projectile.MeatBlockEntity;
@@ -61,6 +63,16 @@ public class ModEntityTypes {
             () -> EntityType.Builder.<PoisonedKunaiEntity>of(PoisonedKunaiEntity::new, MobCategory.MISC)
                     .sized(0.35f, 0.35f)
                     .build(new ResourceLocation(Valoria.MOD_ID, "poisoned_kunai").toString()));
+
+    public static final RegistryObject<EntityType<CustomBoatEntity>> BOAT = ENTITY_TYPES.register("boat",
+            () -> EntityType.Builder.<CustomBoatEntity>of(CustomBoatEntity::new, MobCategory.MISC)
+                    .sized(1.375f, 0.5625f)
+                    .build(new ResourceLocation(Valoria.MOD_ID, "shadewood_boat").toString()));
+    public static final RegistryObject<EntityType<CustomChestBoatEntity>> CHEST_BOAT = ENTITY_TYPES.register("chest_boat",
+            () -> EntityType.Builder.<CustomChestBoatEntity>of(CustomChestBoatEntity::new, MobCategory.MISC)
+                    .sized(1.375f, 0.5625f)
+                    .build(new ResourceLocation(Valoria.MOD_ID, "shadewood_chest_boat").toString()));
+
 
     public static void register(IEventBus eventBus) {
         ENTITY_TYPES.register(eventBus);

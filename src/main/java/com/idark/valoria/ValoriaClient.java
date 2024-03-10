@@ -18,10 +18,13 @@ import com.idark.valoria.client.render.model.blockentity.*;
 import com.idark.valoria.client.render.model.item.Item2DRenderer;
 import com.idark.valoria.config.ClientConfig;
 import com.idark.valoria.registries.world.entity.ModEntityTypes;
+import com.idark.valoria.registries.world.entity.decoration.CustomBoatEntity;
 import com.idark.valoria.registries.world.item.ModItems;
 import com.idark.valoria.client.render.model.item.ModItemModelProperties;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.BoatModel;
+import net.minecraft.client.model.ChestBoatModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
@@ -156,6 +159,9 @@ public class ValoriaClient {
                 Sheets.addWoodType(ModWoodTypes.SHADEWOOD);
             });
 
+            EntityRenderers.register(ModEntityTypes.BOAT.get(), m -> new CustomBoatRenderer(m, false));
+            EntityRenderers.register(ModEntityTypes.CHEST_BOAT.get(), m -> new CustomBoatRenderer(m, true));
+
             EntityRenderers.register(ModEntityTypes.NECROMANCER.get(), NecromancerRenderer::new);
             EntityRenderers.register(ModEntityTypes.DRAUGR.get(), DraugrRenderer::new);
             EntityRenderers.register(ModEntityTypes.GOBLIN.get(), GoblinRenderer::new);
@@ -196,6 +202,11 @@ public class ValoriaClient {
 
         @SubscribeEvent
         public static void onRegisterLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
+            for (CustomBoatEntity.Type boatType : CustomBoatEntity.Type.values()) {
+                event.registerLayerDefinition(CustomBoatRenderer.createBoatModelName(boatType), BoatModel::createBodyModel);
+                event.registerLayerDefinition(CustomBoatRenderer.createChestBoatModelName(boatType), ChestBoatModel::createBodyModel);
+            }
+
             event.registerLayerDefinition(ValoriaClient.NECKLACE_LAYER, NecklaceModel::createBodyLayer);
             event.registerLayerDefinition(ValoriaClient.BELT_LAYER, BeltModel::createBodyLayer);
             event.registerLayerDefinition(ValoriaClient.HANDS_LAYER, HandsModelDefault::createBodyLayer);

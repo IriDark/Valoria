@@ -26,7 +26,7 @@ public class ShadeBranchBlock extends BushBlock {
         super(p_153000_);
     }
 
-    private static final VoxelShape shape = Block.box(3, 0, 3, 14, 12, 14);
+    private static final VoxelShape shape = Block.box(3, 4, 3, 15, 16, 15);
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {

@@ -5,6 +5,7 @@ import com.idark.valoria.registries.world.block.ModBlocks;
 import com.idark.valoria.client.gui.screen.book.unlockable.RegisterUnlockables;
 import com.idark.valoria.registries.world.effect.ModEffects;
 import com.idark.valoria.registries.world.entity.ModEntityTypes;
+import com.idark.valoria.registries.world.entity.decoration.CustomBoatEntity;
 import com.idark.valoria.registries.world.item.tiers.ModArmorItem;
 import com.idark.valoria.registries.world.item.tiers.ModArmorMaterial;
 import com.idark.valoria.registries.world.item.tiers.ModItemTier;
@@ -179,6 +180,9 @@ public class ModItems {
 	public static final RegistryObject<Item> SHADEWOOD_HANGING_SIGN = ITEMS.register("shadewood_hanging_sign", () -> new HangingSignItem(ModBlocks.SHADEWOOD_HANGING_SIGN.get(), ModBlocks.SHADEWOOD_WALL_HANGING_SIGN.get(), new Item.Properties().stacksTo(16)));
 	public static final RegistryObject<Item> SHADEWOOD_LEAVES = ITEMS.register("shadewood_leaves", () -> new BlockItem(ModBlocks.SHADEWOOD_LEAVES.get(), new Item.Properties()));
 	public static final RegistryObject<Item> SHADEWOOD_SAPLING = ITEMS.register("shadewood_sapling", () -> new BlockItem(ModBlocks.SHADEWOOD_SAPLING.get(), new Item.Properties()));
+	public static final RegistryObject<Item> SHADEWOOD_BOAT_ITEM = ITEMS.register("shadewood_boat", () -> new CustomBoatItem(false, CustomBoatEntity.Type.SHADEWOOD, new Item.Properties().stacksTo(1)));
+	public static final RegistryObject<Item> SHADEWOOD_CHEST_BOAT_ITEM = ITEMS.register("shadewood_chest_boat", () -> new CustomBoatItem(true, CustomBoatEntity.Type.SHADEWOOD, new Item.Properties().stacksTo(1)));
+
 	// BlockItem Misc
 	public static final RegistryObject<Item> VOID_TAINT_LANTERN = ITEMS.register("void_taint_lantern", () -> new BlockItem(ModBlocks.VOID_TAINT_LANTERN.get(), new Item.Properties()));
 	public static final RegistryObject<Item> ABYSSAL_LANTERN = ITEMS.register("abyssal_lantern", () -> new BlockItem(ModBlocks.ABYSSAL_LANTERN.get(), new Item.Properties()));

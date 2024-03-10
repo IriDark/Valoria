@@ -34,7 +34,7 @@ import com.idark.valoria.registries.world.item.ModItemGroup;
 import com.idark.valoria.registries.world.item.ModItems;
 import com.idark.valoria.registries.world.item.types.mana.staffs.StaffItem;
 import com.idark.valoria.network.PacketHandler;
-import com.idark.valoria.registries.world.entity.paintings.ModPaintings;
+import com.idark.valoria.registries.world.entity.decoration.ModPaintings;
 import com.idark.valoria.proxy.ClientProxy;
 import com.idark.valoria.proxy.ISidedProxy;
 import com.idark.valoria.proxy.ServerProxy;

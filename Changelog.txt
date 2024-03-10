@@ -50,6 +50,8 @@
 - Added Vanishable to most of the items
 - Added Ukrainian lang
 - Added Swamp Wanderer (Redone him and added back to game)
+- Added Shadewood Boat
+- Added Shadewood Chest Boat
 
 - Reworked keg a little
 - Reworked Keyblocks (Umbral Blocks)

@@ -1,4 +1,4 @@
-package com.idark.valoria.registries.world.entity.paintings;
+package com.idark.valoria.registries.world.entity.decoration;
 
 import com.idark.valoria.Valoria;
 import net.minecraft.world.entity.decoration.PaintingVariant;

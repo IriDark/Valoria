@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "planks",
+  "ingredients": [
+    {
+      "item": "minecraft:chest"
+    },
+    {
+      "item": "valoria:shadewood_boat"
+    }
+  ],
+  "result": {
+    "item": "valoria:shadewood_chest_boat"
+  }
+}

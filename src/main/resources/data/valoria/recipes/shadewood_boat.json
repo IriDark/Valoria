@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "boat",
+  "pattern": [
+    "# #",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "valoria:shadewood_planks"
+    }
+  },
+  "result": {
+    "item": "valoria:shadewood_boat"
+  }
+}

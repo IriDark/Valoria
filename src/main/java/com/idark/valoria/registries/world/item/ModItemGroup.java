@@ -2,7 +2,7 @@ package com.idark.valoria.registries.world.item;
 
 import com.idark.valoria.Valoria;
 import com.idark.valoria.registries.world.block.ModBlocks;
-import com.idark.valoria.registries.world.entity.paintings.ModPaintings;
+import com.idark.valoria.registries.world.entity.decoration.ModPaintings;
 import com.idark.valoria.registries.TagsRegistry;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
@@ -498,6 +498,8 @@ public abstract class ModItemGroup {
             event.accept(ModItems.SHADEWOOD_PLANKS_PRESSURE_PLATE);
             event.accept(ModItems.SHADEWOOD_SIGN);
             event.accept(ModItems.SHADEWOOD_HANGING_SIGN);
+            event.accept(ModItems.SHADEWOOD_BOAT_ITEM);
+            event.accept(ModItems.SHADEWOOD_CHEST_BOAT_ITEM);
             event.accept(ModItems.SHADEWOOD_LEAVES);
             event.accept(ModItems.SHADEWOOD_BRANCH);
             event.accept(ModItems.SHADEWOOD_SAPLING);
