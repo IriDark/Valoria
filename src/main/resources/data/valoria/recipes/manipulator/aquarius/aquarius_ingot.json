@@ -1,0 +1,18 @@
+{
+  "type": "valoria:manipulator",
+  "output": {
+    "count": 1,
+    "item": "valoria:aquarius_ingot"
+  },
+
+  "core": "aquarius_core",
+  "time": 275,
+  "ingredients": [
+    {
+      "item": "valoria:oceanic_shell"
+    },
+    {
+      "item": "valoria:nature_ingot"
+    }
+  ]
+}

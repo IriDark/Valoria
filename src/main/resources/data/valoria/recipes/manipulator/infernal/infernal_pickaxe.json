@@ -1,0 +1,18 @@
+{
+  "type": "valoria:manipulator",
+  "output": {
+    "count": 1,
+    "item": "valoria:infernal_pickaxe"
+  },
+
+  "core": "infernal_core",
+  "time": 500,
+  "ingredients": [
+    {
+      "item": "valoria:aquarius_pickaxe"
+    },
+    {
+      "item": "valoria:infernal_ingot"
+    }
+  ]
+}

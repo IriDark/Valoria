@@ -1,0 +1,18 @@
+{
+  "type": "valoria:manipulator",
+  "output": {
+    "count": 1,
+    "item": "valoria:depth_leggings"
+  },
+
+  "core": "aquarius_core",
+  "time": 550,
+  "ingredients": [
+    {
+      "item": "valoria:nature_leggings"
+    },
+    {
+      "item": "valoria:aquarius_ingot"
+    }
+  ]
+}

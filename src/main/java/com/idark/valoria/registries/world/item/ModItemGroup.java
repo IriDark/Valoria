@@ -105,6 +105,10 @@ public abstract class ModItemGroup {
             event.accept(ModItems.BONE_FRAGMENT);
             event.accept(ModItems.PAIN_CRYSTAL);
             event.accept(ModItems.ILLUSION_STONE);
+            event.accept(ModItems.NATURE_CORE);
+            event.accept(ModItems.AQUARIUS_CORE);
+            event.accept(ModItems.INFERNAL_CORE);
+            event.accept(ModItems.VOID_CORE);
             event.accept(ModItems.SOUL_COLLECTOR_EMPTY);
             event.accept(ModItems.SOUL_COLLECTOR);
             event.accept(ModItems.LEXICON);

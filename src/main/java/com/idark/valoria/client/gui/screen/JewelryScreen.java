@@ -42,7 +42,7 @@ public class JewelryScreen extends AbstractContainerScreen<JewelryMenu> {
             if (jewelry.progress > 0 && !jewelry.itemHandler.getStackInSlot(1).isEmpty() && !jewelry.itemHandler.getStackInSlot(0).isEmpty()) {
                 int width = 24;
                 width /= ((double) jewelry.progressMax / (double) jewelry.progress);
-                gui.blit(GUI, i + 100, j + 47, 176, 0, width, 17, 256, 256);
+                gui.blit(GUI, i + 101, j + 47, 176, 0, width, 17, 256, 256);
             }
         }
     }

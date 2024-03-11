@@ -1,0 +1,18 @@
+{
+  "type": "valoria:manipulator",
+  "output": {
+    "count": 1,
+    "item": "valoria:nature_boots"
+  },
+
+  "core": "nature_core",
+  "time": 520,
+  "ingredients": [
+    {
+      "item": "minecraft:netherite_boots"
+    },
+    {
+      "item": "valoria:nature_ingot"
+    }
+  ]
+}

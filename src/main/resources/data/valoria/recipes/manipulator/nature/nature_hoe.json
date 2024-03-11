@@ -1,0 +1,18 @@
+{
+  "type": "valoria:manipulator",
+  "output": {
+    "count": 1,
+    "item": "valoria:nature_hoe"
+  },
+
+  "core": "nature_core",
+  "time": 500,
+  "ingredients": [
+    {
+      "item": "minecraft:netherite_hoe"
+    },
+    {
+      "item": "valoria:nature_ingot"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "type": "valoria:manipulator",
+  "output": {
+    "count": 1,
+    "item": "valoria:depth_chestplate"
+  },
+
+  "core": "aquarius_core",
+  "time": 550,
+  "ingredients": [
+    {
+      "item": "valoria:nature_chestplate"
+    },
+    {
+      "item": "valoria:aquarius_ingot"
+    }
+  ]
+}

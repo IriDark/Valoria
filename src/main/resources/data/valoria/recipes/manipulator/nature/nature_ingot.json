@@ -1,0 +1,18 @@
+{
+  "type": "valoria:manipulator",
+  "output": {
+    "count": 1,
+    "item": "valoria:nature_ingot"
+  },
+
+  "core": "nature_core",
+  "time": 275,
+  "ingredients": [
+    {
+      "item": "valoria:nature_gift"
+    },
+    {
+      "item": "minecraft:netherite_ingot"
+    }
+  ]
+}

@@ -3,6 +3,7 @@ package com.idark.valoria.client.compat.jei;
 import com.idark.valoria.registries.recipe.CrusherRecipe;
 import com.idark.valoria.registries.recipe.JewelryRecipe;
 import com.idark.valoria.registries.recipe.KegRecipe;
+import com.idark.valoria.registries.recipe.ManipulatorRecipe;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.world.item.crafting.RecipeManager;
@@ -34,5 +35,9 @@ public class ModJeiRecipes {
 
     public List<CrusherRecipe> getCrusherRecipes() {
         return recipeManager.getAllRecipesFor(CrusherRecipe.Type.INSTANCE).stream().toList();
+    }
+
+    public List<ManipulatorRecipe> getManipulatorRecipes() {
+        return recipeManager.getAllRecipesFor(ManipulatorRecipe.Type.INSTANCE).stream().sorted(Comparator.comparing(ManipulatorRecipe::getCore).reversed()).sorted(Comparator.comparing(ManipulatorRecipe::getTime)).toList();
     }
 }

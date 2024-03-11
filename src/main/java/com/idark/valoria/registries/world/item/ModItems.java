@@ -314,6 +314,11 @@ public class ModItems {
 	public static final RegistryObject<Item> AQUARIUS_INGOT = ITEMS.register("aquarius_ingot", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> INFERNAL_INGOT = ITEMS.register("infernal_ingot", () -> new Item(new Item.Properties().fireResistant()));
 	public static final RegistryObject<Item> VOID_INGOT = ITEMS.register("void_ingot", () -> new Item(new Item.Properties().fireResistant()));
+	// Cores
+	public static final RegistryObject<Item> NATURE_CORE = ITEMS.register("nature_core", () -> new Item(new Item.Properties().fireResistant()));
+	public static final RegistryObject<Item> AQUARIUS_CORE = ITEMS.register("aquarius_core", () -> new Item(new Item.Properties().fireResistant()));
+	public static final RegistryObject<Item> INFERNAL_CORE = ITEMS.register("infernal_core", () -> new Item(new Item.Properties().fireResistant()));
+	public static final RegistryObject<Item> VOID_CORE = ITEMS.register("void_core", () -> new Item(new Item.Properties().fireResistant()));
 
 	// TOOLS (category)
 	public static final RegistryObject<Item> CLUB = ITEMS.register("club",

@@ -1,0 +1,18 @@
+{
+  "type": "valoria:manipulator",
+  "output": {
+    "count": 1,
+    "item": "valoria:infernal_leggings"
+  },
+
+  "core": "infernal_core",
+  "time": 550,
+  "ingredients": [
+    {
+      "item": "valoria:depth_leggings"
+    },
+    {
+      "item": "valoria:infernal_ingot"
+    }
+  ]
+}

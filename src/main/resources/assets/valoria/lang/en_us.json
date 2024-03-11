@@ -6,6 +6,7 @@
 	"config.jade.plugin_valoria.crusher": "Crusher",
 	"config.jade.plugin_valoria.keg": "Keg",
 	"config.jade.plugin_valoria.key": "Key",
+	"config.jade.plugin_valoria.manipulator": "Manipulator",
 	"valoria.jade.openable_with": "Openable with:",
 	"valoria.jade.progress": "Progress:",
 
@@ -15,6 +16,7 @@
 	"tooltip.valoria.rmb_equip": "[RMB] - to equip",
 	"tooltip.valoria.recharge": "Not enough resources to recharge.",
 	"tooltip.valoria.charges": "Not enough charges to use.",
+	"tooltip.valoria.core_charges": "Charges",
 	"tooltip.valoria.wet": "You can't use the ability when you're wet!.",
 	"tooltip.valoria.magma_charge_full": "Fully charged",
 	"tooltip.valoria.magma_charge_half": "Half charged",
@@ -51,6 +53,7 @@
 	"jei.valoria.brewery": "Brewery",
 	"jei.valoria.jewelry": "Jewelry",
 	"jei.valoria.crusher": "Stonecrusher",
+	"jei.valoria.manipulator": "Manipulator",
 	"effect.valoria.tipsy.description": "You're drunk? Ye you're drunk, jokes aside slow down's entity but increases entity armor and damage",
 	"effect.valoria.stun.description": "Prevents the entity to move and attack",
 	"effect.valoria.aloeregen.description": "Slowly regenerates HP",
@@ -152,6 +155,8 @@
 	"entity.valoria.kunai": "Kunai",
 	"entity.valoria.spectral_blade": "Spectral Bade",
 	"entity.valoria.meat": "Meat Block",
+	"entity.valoria.shadewood_chest": "Shadewood Boat",
+	"entity.valoria.shadewood_chest_boat": "Shadewood Chest Boat",
 
 	"effect.valoria.tipsy": "Tipsy",
 	"effect.valoria.stun": "Stun",
@@ -162,6 +167,10 @@
 	"item.minecraft.lingering_potion.effect.aloe_potion": "Lingering Aloe Potion",
 	"item.minecraft.tipped_arrow.effect.aloe_potion": "Arrow of Aloe Regeneration",
 
+	"item.valoria.nature_core": "Nature Core",
+	"item.valoria.aquarius_core": "Aquarius Core",
+	"item.valoria.infernal_core": "Infernal Core",
+	"item.valoria.void_core": "Void Core",
 	"item.valoria.lexicon": "Lexicon",
 	"item.valoria.page": "Page",
 	"item.valoria.cobalt_helmet": "Cobalt Helmet",

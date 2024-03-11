@@ -92,8 +92,7 @@ public class KegBlockEntity extends BlockSimpleInventory implements TickableBloc
         ItemStack result = recipe.get().getResultItem(RegistryAccess.EMPTY);
 
         this.getItemHandler().removeItem(0, 1);
-        this.getItemHandler().setItem(0, new ItemStack(result.getItem(),
-                this.getItemHandler().getItem(0).getCount() + result.getCount()));
+        this.getItemHandler().setItem(0, new ItemStack(result.getItem(), result.getCount()));
     }
 
     private Optional<KegRecipe> getCurrentRecipe() {

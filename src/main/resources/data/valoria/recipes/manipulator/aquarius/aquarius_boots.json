@@ -1,0 +1,18 @@
+{
+  "type": "valoria:manipulator",
+  "output": {
+    "count": 1,
+    "item": "valoria:depth_boots"
+  },
+
+  "core": "aquarius_core",
+  "time": 550,
+  "ingredients": [
+    {
+      "item": "valoria:nature_boots"
+    },
+    {
+      "item": "valoria:aquarius_ingot"
+    }
+  ]
+}

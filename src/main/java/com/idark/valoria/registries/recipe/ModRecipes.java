@@ -16,6 +16,8 @@ public class ModRecipes {
             .register("jewelry", () -> JewelryRecipe.Serializer.INSTANCE);
     public static final RegistryObject<RecipeSerializer<CrusherRecipe>> CRUSHER_SERIALIZER = SERIALIZERS
             .register("crusher", () -> CrusherRecipe.Serializer.INSTANCE);
+    public static final RegistryObject<RecipeSerializer<ManipulatorRecipe>> MANIPULATOR_SERIALIZER = SERIALIZERS
+            .register("manipulator", () -> ManipulatorRecipe.Serializer.INSTANCE);
 
     public static void register(IEventBus eventBus) {
         SERIALIZERS.register(eventBus);

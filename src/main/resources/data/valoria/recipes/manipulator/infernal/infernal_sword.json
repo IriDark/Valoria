@@ -1,0 +1,18 @@
+{
+  "type": "valoria:manipulator",
+  "output": {
+    "count": 1,
+    "item": "valoria:infernal_sword"
+  },
+
+  "core": "infernal_core",
+  "time": 500,
+  "ingredients": [
+    {
+      "item": "valoria:coral_reef"
+    },
+    {
+      "item": "valoria:infernal_ingot"
+    }
+  ]
+}

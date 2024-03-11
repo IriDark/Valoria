@@ -52,6 +52,7 @@
 - Added Swamp Wanderer (Redone him and added back to game)
 - Added Shadewood Boat
 - Added Shadewood Chest Boat
+- Added Elemental manipulator crafts
 
 - Reworked keg a little
 - Reworked Keyblocks (Umbral Blocks)
