@@ -144,6 +144,9 @@
 	"enchantment.valoria.explosive_flame": "Explosive Flame",
 	"enchantment.valoria.bleeding": "Bleeding",
 	"enchantment.valoria.radius": "Radius",
+	"enchantment.valoria.explosive_flame.desc": "Charged attack of blazereap will be quite explosive",
+	"enchantment.valoria.bleeding.desc": "Chance to set a bleeding effect on enemy after a hit",
+	"enchantment.valoria.radius.desc": "Increases radius for radius attack abilities",
 
  	"itemGroup.valoriaModTab": "Valoria - Main",
  	"itemGroup.valoriaBlocksModTab": "Valoria - Blocks",

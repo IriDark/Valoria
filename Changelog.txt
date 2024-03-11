@@ -6,6 +6,7 @@
 
 - Added functionality for ALL runes (finally did it lmao)
 - Added Jade compat
+- Added Compat for Enchantment Descriptions
 - Added 2 attributes to Prospectors pick
 - Added a new painting The Starry night by Vincent Van Gogh
 - Added Entities to vailla tags
@@ -109,6 +110,7 @@
 - Changed Corpsecleaver to SwordItem, so it will support sword enchantments
 - Changed HoundItem (Bloodhound sword) to SwordItem, so it will support sword enchantments
 - Changed Sounds of abilities to new ones (Credit to Calamity mod <3)
+- Changed Time in JEI recipes converted to seconds now
 
 - Decreased Limestone spawn chance
 - Decreased particles count (15 -> 4) when picking up Mannequin

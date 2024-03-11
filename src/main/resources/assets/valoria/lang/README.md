@@ -8,4 +8,6 @@ example file: en_us.json
 - You can freely translate the mod and commit it directly to GitHub or DM me in discord (@iri_dark)
 and send the translation file directly to me
 - `\n` means "new line". If you want to split text into multiple lines, use `\n` to do it. (Useful for translating lexicon)
+- Don't translate the mod name, it's not that necessarily.  
+Example for the correct one: "Valoria - Blocks" - "Valoria - Блоки"
 - Translations aren't 100% accurate, so you can edit them to fix the mistakes

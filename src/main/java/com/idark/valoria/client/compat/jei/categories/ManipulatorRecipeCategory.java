@@ -73,7 +73,9 @@ public class ManipulatorRecipeCategory implements IRecipeCategory<ManipulatorRec
     @Override
     public void draw(ManipulatorRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics gui, double mouseX, double mouseY) {
         Font font_renderer = Minecraft.getInstance().font;
-        String time = Integer.toString(recipe.getTime());
+        int ticks = recipe.getTime();
+        int seconds = ticks / 20;
+        String time = Integer.toString(seconds);
         int stringWidth = font_renderer.width(time);
 
         ResourceLocation timeIcon = new ResourceLocation(Valoria.MOD_ID, "textures/gui/jei/time.png");
@@ -103,6 +105,6 @@ public class ManipulatorRecipeCategory implements IRecipeCategory<ManipulatorRec
             gui.blit(cores, 0 / 2, 0, 191*2, 27*2, 5*2, 5*2, 512, 512);
         }
 
-        gui.drawString(font_renderer, time, (95 - stringWidth) / 2, 28 + font_renderer.lineHeight, 0xffffff);
+        gui.drawString(font_renderer, time + "s", (95 - stringWidth) / 2, 28 + font_renderer.lineHeight, 0xffffff);
     }
 }

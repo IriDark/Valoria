@@ -114,6 +114,8 @@ dependencies {
     compileOnly fg.deobf("com.blamejared.crafttweaker:CraftTweaker-forge-1.20.1:14.0.13")
     runtimeOnly fg.deobf("com.blamejared.crafttweaker:CraftTweaker-forge-1.20.1:14.0.13")
 
+    implementation fg.deobf("curse.maven:bookshelf-228525:5084135")
+    implementation fg.deobf("curse.maven:enchantment-descriptions-250419:5136988")
     implementation fg.deobf("curse.maven:plusutils-979003:5133553")
     implementation fg.deobf("curse.maven:appleskin-248787:4770828")
     implementation fg.deobf("curse.maven:advanced-xray-256256:4840340")

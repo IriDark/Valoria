@@ -72,7 +72,9 @@ public class JewelryRecipeCategory implements IRecipeCategory<JewelryRecipe> {
     @Override
     public void draw(JewelryRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics gui, double mouseX, double mouseY) {
         Font font_renderer = Minecraft.getInstance().font;
-        String time = Integer.toString(recipe.getTime());
+        int ticks = recipe.getTime();
+        int seconds = ticks / 20;
+        String time = Integer.toString(seconds);
         int stringWidth = font_renderer.width(time);
 
         ResourceLocation timeIcon = new ResourceLocation(Valoria.MOD_ID, "textures/gui/jei/time.png");
@@ -85,6 +87,6 @@ public class JewelryRecipeCategory implements IRecipeCategory<JewelryRecipe> {
             gui.blit(arrow, 90, 16, 0, 0, width, 16, 32, 32);
         }
         
-        gui.drawString(font_renderer, time, (95 - stringWidth) / 2, 28 + font_renderer.lineHeight, 0xffffff);
+        gui.drawString(font_renderer, time + "s", (95 - stringWidth) / 2, 28 + font_renderer.lineHeight, 0xffffff);
     }
 }

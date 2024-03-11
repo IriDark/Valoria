@@ -71,7 +71,9 @@ public class KegRecipeCategory implements IRecipeCategory<KegRecipe> {
     @Override
     public void draw(KegRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics gui, double mouseX, double mouseY) {
         Font font_renderer = Minecraft.getInstance().font;
-        String time = Integer.toString(recipe.getTime());
+        int ticks = recipe.getTime();
+        int seconds = ticks / 20;
+        String time = Integer.toString(seconds);
         int stringWidth = font_renderer.width(time);
 
         ResourceLocation arrow = new ResourceLocation(Valoria.MOD_ID, "textures/gui/jei/progress_arrow.png");
@@ -83,6 +85,6 @@ public class KegRecipeCategory implements IRecipeCategory<KegRecipe> {
 
         ResourceLocation timeIcon = new ResourceLocation(Valoria.MOD_ID, "textures/gui/jei/time.png");
         gui.blit(timeIcon, 50 / 2, 29 + font_renderer.lineHeight, 0, 0, 7, 7, 16, 16);
-        gui.drawString(font_renderer, time, (95 - stringWidth) / 2, 28 + font_renderer.lineHeight, 0xffffff);
+        gui.drawString(font_renderer, time + "s", (95 - stringWidth) / 2, 28 + font_renderer.lineHeight, 0xffffff);
     }
 }
