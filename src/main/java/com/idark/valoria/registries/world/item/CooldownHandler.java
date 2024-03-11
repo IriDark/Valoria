@@ -4,9 +4,7 @@ import com.idark.valoria.network.CooldownSoundPacket;
 import com.idark.valoria.network.PacketHandler;
 import com.idark.valoria.registries.world.item.types.KatanaItem;
 import com.idark.valoria.registries.world.item.types.ScytheItem;
-import com.idark.valoria.registries.sounds.ModSoundRegistry;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.item.Item;
 
 public class CooldownHandler {
