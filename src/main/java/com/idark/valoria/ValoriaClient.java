@@ -7,6 +7,7 @@ import com.idark.valoria.client.particle.types.SlashParticleType;
 import com.idark.valoria.client.particle.types.SparkleParticleType;
 import com.idark.valoria.client.render.entity.*;
 import com.idark.valoria.client.color.ModBlockColors;
+import com.idark.valoria.registries.sounds.CooldownSoundInstance;
 import com.idark.valoria.registries.world.block.ModBlocks;
 import com.idark.valoria.registries.world.block.entity.ModBlockEntities;
 import com.idark.valoria.registries.world.block.types.ModWoodTypes;
@@ -53,6 +54,8 @@ public class ValoriaClient {
     public static ModelLayerLocation BELT_LAYER = new ModelLayerLocation(new ResourceLocation(Valoria.MOD_ID, "belt"), "main");
     public static ModelResourceLocation KEG_MODEL = new ModelResourceLocation(Valoria.MOD_ID, "keg_barrel", "");
     public static ModelResourceLocation SPHERE = new ModelResourceLocation(Valoria.MOD_ID, "elemental_sphere", "");
+
+    public static CooldownSoundInstance COOLDOWN_SOUND = new CooldownSoundInstance(null);
 
     public static ShaderInstance getGlowingParticleShader() {
         return GLOWING_PARTICLE_SHADER;

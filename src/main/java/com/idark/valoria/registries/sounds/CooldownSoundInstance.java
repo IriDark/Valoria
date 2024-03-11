@@ -9,7 +9,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class CooldownSoundInstance extends AbstractTickableSoundInstance {
-    private final LocalPlayer player;
+    public final LocalPlayer player;
 
     public CooldownSoundInstance(LocalPlayer pPlayer) {
         super(ModSoundRegistry.RECHARGE.get(), SoundSource.PLAYERS, SoundInstance.createUnseededRandom());
