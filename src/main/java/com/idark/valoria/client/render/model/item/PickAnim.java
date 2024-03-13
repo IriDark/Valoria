@@ -47,7 +47,7 @@ public class PickAnim extends ItemAnims {
     public void renderArmWithItem(AbstractClientPlayer player, float partialTicks, float pitch, InteractionHand hand, float swingProgress, ItemStack stack, float equippedProgress, PoseStack poseStack, MultiBufferSource buffer, int combinedLight) {
         boolean flag = hand == InteractionHand.MAIN_HAND;
         int i = flag ? 1 : -1;
-        poseStack.translate((float)i * 0.56F, -0.52F + 1 * -0.6F, -0.72F);
+        poseStack.translate((float) i * 0.56F, -0.52F + 1 * -0.6F, -0.72F);
 
         poseStack.translate(0, 0.68f, 0);
         poseStack.translate(0, -0.125F + 0.7F - ((float) Math.PI / 5F), 0);

@@ -9,22 +9,22 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 
 public class ExplosiveFlameEnchantment extends Enchantment {
-	
+
     public ExplosiveFlameEnchantment() {
-        super(Rarity.RARE, ModEnchantments.BLAZE, new EquipmentSlot[] {EquipmentSlot.MAINHAND});
+        super(Rarity.RARE, ModEnchantments.BLAZE, new EquipmentSlot[]{EquipmentSlot.MAINHAND});
     }
-	
-	public boolean canEnchant(ItemStack stack) {
-		Item item = stack.getItem();
-		return stack.isEnchantable() && (item instanceof BlazeReapItem);
-	}
-	
+
+    public boolean canEnchant(ItemStack stack) {
+        Item item = stack.getItem();
+        return stack.isEnchantable() && (item instanceof BlazeReapItem);
+    }
+
     @Override
     public int getMaxLevel() {
         return 1;
-    }	
-	
-	public boolean checkCompatibility(Enchantment ench) {
-		return super.checkCompatibility(ench) && ench != Enchantments.FIRE_ASPECT;
-    }	
+    }
+
+    public boolean checkCompatibility(Enchantment ench) {
+        return super.checkCompatibility(ench) && ench != Enchantments.FIRE_ASPECT;
+    }
 }

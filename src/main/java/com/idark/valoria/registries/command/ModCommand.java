@@ -2,24 +2,20 @@ package com.idark.valoria.registries.command;
 
 import com.idark.valoria.api.unlockable.Unlockable;
 import com.idark.valoria.capability.IUnlockable;
-import com.idark.valoria.client.gui.toast.ModToast;
+import com.idark.valoria.network.PacketHandler;
 import com.idark.valoria.network.PageToastPacket;
+import com.idark.valoria.network.UnlockableUpdatePacket;
 import com.idark.valoria.registries.command.main.CommandArgument;
 import com.idark.valoria.registries.command.main.CommandBuilder;
 import com.idark.valoria.registries.command.main.CommandPart;
 import com.idark.valoria.registries.command.main.CommandVariant;
 import com.idark.valoria.registries.world.item.types.MagmaSwordItem;
-import com.idark.valoria.network.PacketHandler;
-import com.idark.valoria.network.UnlockableUpdatePacket;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import net.minecraft.client.Minecraft;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.Collection;
 
@@ -56,11 +52,11 @@ public class ModCommand {
                         })
                 );
 
-        dispatcher.register(builder.permission((p)->p.hasPermission(2)).build());
+        dispatcher.register(builder.permission((p) -> p.hasPermission(2)).build());
     }
 
     private static void giveAllPages(CommandSourceStack command, Collection<? extends ServerPlayer> targetPlayers) throws CommandSyntaxException {
-        for(ServerPlayer player : targetPlayers) {
+        for (ServerPlayer player : targetPlayers) {
             if (targetPlayers.size() == 1) {
                 command.sendSuccess(() -> Component.translatable("commands.valoria.page.give.single", targetPlayers.iterator().next().getDisplayName()), true);
             } else {
@@ -74,7 +70,7 @@ public class ModCommand {
     }
 
     private static void removeAllPages(CommandSourceStack command, Collection<? extends ServerPlayer> targetPlayers) throws CommandSyntaxException {
-        for(ServerPlayer player : targetPlayers) {
+        for (ServerPlayer player : targetPlayers) {
             if (targetPlayers.size() == 1) {
                 command.sendSuccess(() -> Component.translatable("commands.valoria.page.remove.single", targetPlayers.iterator().next().getDisplayName()), true);
             } else {
@@ -88,7 +84,7 @@ public class ModCommand {
     }
 
     private static void givePage(CommandSourceStack command, Collection<? extends ServerPlayer> targetPlayers, Unlockable pages) throws CommandSyntaxException {
-        for(ServerPlayer player : targetPlayers) {
+        for (ServerPlayer player : targetPlayers) {
             if (targetPlayers.size() == 1) {
                 command.sendSuccess(() -> Component.translatable("commands.valoria.page.give.single", targetPlayers.iterator().next().getDisplayName()), true);
             } else {
@@ -102,7 +98,7 @@ public class ModCommand {
     }
 
     private static void removePage(CommandSourceStack command, Collection<? extends ServerPlayer> targetPlayers, Unlockable pages) throws CommandSyntaxException {
-        for(ServerPlayer player : targetPlayers) {
+        for (ServerPlayer player : targetPlayers) {
             if (targetPlayers.size() == 1) {
                 command.sendSuccess(() -> Component.translatable("commands.valoria.page.remove.single", targetPlayers.iterator().next().getDisplayName()), true);
             } else {
@@ -116,7 +112,7 @@ public class ModCommand {
     }
 
     private static void setCharge(CommandSourceStack command, Collection<? extends ServerPlayer> targetPlayers, int pCharge, CommandContext p) throws CommandSyntaxException {
-        for(ServerPlayer player : targetPlayers) {
+        for (ServerPlayer player : targetPlayers) {
             MagmaSwordItem.setCharges(player.getOffhandItem(), pCharge);
             MagmaSwordItem.setCharges(player.getMainHandItem(), pCharge);
             command.sendSuccess(() -> Component.translatable("commands.valoria.charges.set.add", pCharge).append(" to " + player.getName().getString()), true);

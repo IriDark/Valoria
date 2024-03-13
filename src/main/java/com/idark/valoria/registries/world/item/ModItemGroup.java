@@ -1,9 +1,9 @@
 package com.idark.valoria.registries.world.item;
 
 import com.idark.valoria.Valoria;
+import com.idark.valoria.registries.TagsRegistry;
 import com.idark.valoria.registries.world.block.ModBlocks;
 import com.idark.valoria.registries.world.entity.decoration.ModPaintings;
-import com.idark.valoria.registries.TagsRegistry;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;

@@ -67,8 +67,8 @@ public class GoblinModel<T extends GoblinEntity> extends HumanoidModel<T> {
 
     @Override
     public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        this.head.xRot = headPitch * ((float)Math.PI / 180F);
-        this.head.yRot = netHeadYaw * ((float)Math.PI / 180F);
+        this.head.xRot = headPitch * ((float) Math.PI / 180F);
+        this.head.yRot = netHeadYaw * ((float) Math.PI / 180F);
         this.head.getChild("cube_r1").yRot = Mth.sin(ageInTicks * 0.06F) * 0.06F;
         this.head.getChild("cube_r2").yRot = Mth.sin(ageInTicks * -0.06F) * 0.06F;
         this.head.getChild("cube_r1").xRot = Mth.sin(ageInTicks * 0.01F) * 0.01F;
@@ -78,14 +78,14 @@ public class GoblinModel<T extends GoblinEntity> extends HumanoidModel<T> {
         this.leftArm.yRot = Mth.sin(ageInTicks * -0.06F) * 0.06F;
         this.rightArm.zRot = Mth.sin(ageInTicks * 0.06F) * 0.06F;
         this.leftArm.zRot = Mth.sin(ageInTicks * -0.06F) * 0.06F;
-        this.rightLeg.xRot = Mth.cos(limbSwing * 0.7F + (float)Math.PI) * f;
+        this.rightLeg.xRot = Mth.cos(limbSwing * 0.7F + (float) Math.PI) * f;
         this.leftLeg.xRot = Mth.cos(limbSwing * 0.7F) * f;
         this.rightArm.xRot = Mth.cos(limbSwing * 0.7F + (float) Math.PI) * 2.0F * limbSwingAmount * 0.5F;
         this.leftArm.xRot = Mth.cos(limbSwing * 0.7F) * 2.0F * limbSwingAmount * 0.5F;
 
         if (entity.isAggressive()) {
-            float f1 = Mth.sin(this.attackTime * (float)Math.PI);
-            float f2 = Mth.sin((1.0F - (1.0F - this.attackTime) * (1.0F - this.attackTime)) * (float)Math.PI);
+            float f1 = Mth.sin(this.attackTime * (float) Math.PI);
+            float f2 = Mth.sin((1.0F - (1.0F - this.attackTime) * (1.0F - this.attackTime)) * (float) Math.PI);
             this.rightArm.zRot = 0.0F;
             this.leftArm.zRot = 0.0F;
             this.rightArm.yRot = -(0.1F - f1 * 0.6F);

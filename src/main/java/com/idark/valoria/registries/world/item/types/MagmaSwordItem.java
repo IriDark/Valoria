@@ -103,21 +103,14 @@ public class MagmaSwordItem extends SwordItem implements Vanishable {
                 player.getCooldowns().addCooldown(this, 300);
                 setCharges(stack, 0);
                 Vector3d pos = new Vector3d(player.getX(), player.getY() + 0.3f, player.getZ());
-                List<LivingEntity> hitEntities = new ArrayList<LivingEntity>();
+                List<LivingEntity> hitEntities = new ArrayList<>();
                 for (int i = 0; i < 360; i += 10) {
-                    float yawDouble = 0;
-                    if (i <= 180) {
-                        yawDouble = ((float) i) / 180F;
-                    } else {
-                        yawDouble = 1F - ((((float) i) - 180F) / 180F);
-                    }
-
                     ModUtils.spawnParticlesInRadius(worldIn, stack, ParticleTypes.LARGE_SMOKE, pos, 0, player.getRotationVector().y + i, 1);
                     ModUtils.spawnParticlesInRadius(worldIn, stack, ParticleTypes.LARGE_SMOKE, pos, 0, player.getRotationVector().y + i, 4);
                     ModUtils.radiusHit(worldIn, stack, player, ParticleTypes.FLAME, hitEntities, pos, 0, player.getRotationVector().y + i, 4);
                 }
 
-                float damage = (float) (player.getAttribute(Attributes.ATTACK_DAMAGE).getValue() + 5) + EnchantmentHelper.getSweepingDamageRatio(player);
+                float damage = (float) (player.getAttributeValue(Attributes.ATTACK_DAMAGE) + 5) + EnchantmentHelper.getSweepingDamageRatio(player);
                 for (LivingEntity damagedEntity : hitEntities) {
                     damagedEntity.hurt(worldIn.damageSources().generic(), damage);
                     damagedEntity.knockback(0.4F, player.getX() - entityLiving.getX(), player.getZ() - entityLiving.getZ());

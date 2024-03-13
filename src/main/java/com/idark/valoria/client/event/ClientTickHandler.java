@@ -5,7 +5,8 @@ import net.minecraftforge.event.TickEvent;
 
 public class ClientTickHandler {
 
-    private ClientTickHandler() {}
+    private ClientTickHandler() {
+    }
 
     public static int ticksInGame = 0;
     public static float partialTicks = 0;

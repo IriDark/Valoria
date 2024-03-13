@@ -46,31 +46,24 @@ public class AquariusScytheItem extends ScytheItem implements Vanishable {
      */
     @Override
     public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entityLiving) {
-        Player player = (Player)entityLiving;
+        Player player = (Player) entityLiving;
         player.awardStat(Stats.ITEM_USED.get(this));
         ModUtils.applyCooldownToItemList(player, scytheItems, 100);
 
         Vector3d pos = new Vector3d(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());
-        List<LivingEntity> hitEntities = new ArrayList<LivingEntity>();
+        List<LivingEntity> hitEntities = new ArrayList<>();
         for (int i = 0; i < 360; i += 10) {
-            float yawDouble = 0;
-            if (i <= 180) {
-                yawDouble = ((float) i) / 180F;
-            } else {
-                yawDouble = 1F - ((((float) i) - 180F) / 180F);
-            }
-
             ModUtils.radiusHit(level, stack, player, ParticleTypes.BUBBLE_POP, hitEntities, pos, 0, player.getRotationVector().y + i, 3);
             ModUtils.spawnParticlesInRadius(level, stack, ParticleTypes.UNDERWATER, pos, 0, player.getRotationVector().y + i, 3);
         }
 
-        float damage = (float) (player.getAttribute(Attributes.ATTACK_DAMAGE).getValue()) + EnchantmentHelper.getSweepingDamageRatio(player);
+        float damage = (float) (player.getAttributeValue(Attributes.ATTACK_DAMAGE)) + EnchantmentHelper.getSweepingDamageRatio(player);
         for (LivingEntity entity : hitEntities) {
             entity.hurt(level.damageSources().generic(), damage);
             entity.knockback(0.4F, player.getX() - entity.getX(), player.getZ() - entity.getZ());
             if (RandomUtil.percentChance(0.25f)) {
                 entity.knockback(0.6F, player.getX() - entity.getX(), player.getZ() - entity.getZ());
-                entity.level().playSound(null, entity.getOnPos(), ModSoundRegistry.WATER_ABILITY.get(), SoundSource.AMBIENT,0.2f, 1.2f);
+                entity.level().playSound(null, entity.getOnPos(), ModSoundRegistry.WATER_ABILITY.get(), SoundSource.AMBIENT, 0.2f, 1.2f);
             }
 
             if (!player.isCreative()) {
@@ -78,8 +71,8 @@ public class AquariusScytheItem extends ScytheItem implements Vanishable {
             }
         }
 
-        level.playSound(player, player.blockPosition(), SoundEvents.PLAYER_ATTACK_SWEEP, SoundSource.AMBIENT, 10f, 1f);
-        level.playSound(player, player.blockPosition(), ModSoundRegistry.SWIFTSLICE.get(), SoundSource.AMBIENT, 10f, 1f);
+        level.playSound(null, player.blockPosition(), SoundEvents.PLAYER_ATTACK_SWEEP, SoundSource.AMBIENT, 10f, 1f);
+        level.playSound(null, player.blockPosition(), ModSoundRegistry.SWIFTSLICE.get(), SoundSource.AMBIENT, 10f, 1f);
         return stack;
     }
 }

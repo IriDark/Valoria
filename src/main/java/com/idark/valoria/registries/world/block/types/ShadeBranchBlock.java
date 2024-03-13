@@ -1,8 +1,8 @@
 package com.idark.valoria.registries.world.block.types;
 
-import com.idark.valoria.registries.world.block.ModBlocks;
 import com.idark.valoria.client.particle.ModParticles;
 import com.idark.valoria.client.particle.types.Particles;
+import com.idark.valoria.registries.world.block.ModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
@@ -61,7 +61,7 @@ public class ShadeBranchBlock extends BushBlock {
                         .setAlpha(1f, 1f).setScale(0.072f, 0.02f)
                         .setColor(1f, 1f, 1f)
                         .setLifetime(46)
-                        .setSpin(((float)Math.toRadians(random.nextBoolean() ? -2 : 4)))
+                        .setSpin(((float) Math.toRadians(random.nextBoolean() ? -2 : 4)))
                         .spawn(world, pos.getX() + 0.5F + ((random.nextFloat() - 0.5f) * 0.9f), pos.getY() - 0.05, pos.getZ() + 0.5F + ((random.nextFloat() - 0.5f * 0.9f)));
             }
         }

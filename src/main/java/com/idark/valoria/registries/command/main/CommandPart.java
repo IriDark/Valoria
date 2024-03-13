@@ -11,7 +11,7 @@ public class CommandPart {
         this.argumentName = argumentName;
     }
 
-    public ArgumentBuilder build(){
+    public ArgumentBuilder build() {
         return Commands.literal(getArgumentName());
     }
 
@@ -19,7 +19,7 @@ public class CommandPart {
         return argumentName;
     }
 
-    public static CommandPart create(String name){
+    public static CommandPart create(String name) {
         return new CommandPart(name);
     }
 

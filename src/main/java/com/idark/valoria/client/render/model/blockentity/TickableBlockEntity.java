@@ -7,6 +7,6 @@ public interface TickableBlockEntity {
     void tick();
 
     static <T extends BlockEntity> BlockEntityTicker<T> getTickerHelper() {
-        return (level0, pos0, state0, blockEntity) -> ((TickableBlockEntity)blockEntity).tick();
+        return (level0, pos0, state0, blockEntity) -> ((TickableBlockEntity) blockEntity).tick();
     }
 }

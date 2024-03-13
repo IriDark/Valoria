@@ -5,8 +5,8 @@ import com.google.common.collect.Multimap;
 import com.idark.valoria.client.gui.overlay.CorpsecleaverRender;
 import com.idark.valoria.config.ClientConfig;
 import com.idark.valoria.registries.world.damage.ModDamageSources;
-import com.idark.valoria.registries.world.entity.projectile.MeatBlockEntity;
 import com.idark.valoria.registries.world.entity.ai.attributes.ModAttributes;
+import com.idark.valoria.registries.world.entity.projectile.MeatBlockEntity;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
@@ -19,7 +19,6 @@ import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
@@ -32,7 +31,7 @@ public class CorpsecleaverItem extends SwordItem implements Vanishable {
     public CorpsecleaverItem(Tier pTier, int pAttackDamageModifier, float pAttackSpeedModifier, Item.Properties pProperties) {
         super(pTier, pAttackDamageModifier, pAttackSpeedModifier, pProperties);
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
-        this.attackDamage = (float)pAttackDamageModifier + pTier.getAttackDamageBonus();
+        this.attackDamage = (float) pAttackDamageModifier + pTier.getAttackDamageBonus();
         builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Weapon modifier", this.attackDamage, AttributeModifier.Operation.ADDITION));
         builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Weapon modifier", pAttackSpeedModifier, AttributeModifier.Operation.ADDITION));
         builder.put(ModAttributes.PROJECTILE_DAMAGE.get(), new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", 5.0F, AttributeModifier.Operation.ADDITION));
@@ -61,11 +60,6 @@ public class CorpsecleaverItem extends SwordItem implements Vanishable {
                     stack.hurtAndBreak(1, playerEntity, (player) -> player.broadcastBreakEvent(entityLiving.getUsedItemHand()));
                     MeatBlockEntity meat = new MeatBlockEntity(level, playerEntity, stack);
                     meat.shootFromRotation(playerEntity, playerEntity.getXRot(), playerEntity.getYRot(), 0.0F, 2.5F + (float) 0 * 0.5F, 1.0F);
-
-                    if (playerEntity.getAbilities().instabuild) {
-                        meat.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
-                    }
-
                     level.addFreshEntity(meat);
                     level.playSound(playerEntity, meat, SoundEvents.LLAMA_SWAG, SoundSource.PLAYERS, 1.0F, 1.0F);
                     if (!playerEntity.getAbilities().instabuild) {

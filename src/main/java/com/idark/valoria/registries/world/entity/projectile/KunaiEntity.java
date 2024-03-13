@@ -35,229 +35,229 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class KunaiEntity extends AbstractArrow {
-	public static final EntityDataAccessor<Byte> LOYALTY_LEVEL = SynchedEntityData.defineId(KunaiEntity.class, EntityDataSerializers.BYTE);
-	public static final EntityDataAccessor<Byte> PIERCE_LEVEL = SynchedEntityData.defineId(KunaiEntity.class, EntityDataSerializers.BYTE);
-	public ItemStack thrownStack = new ItemStack(ModItems.SAMURAI_KUNAI.get());
-	public boolean dealtDamage;
-	public boolean notRenderable;
-	public boolean piercing;
-	public IntOpenHashSet piercedEntities;
-	public List<Entity> hitEntities;
-	public float rotationVelocity = 0;
-	public int returningTicks;
+    public static final EntityDataAccessor<Byte> LOYALTY_LEVEL = SynchedEntityData.defineId(KunaiEntity.class, EntityDataSerializers.BYTE);
+    public static final EntityDataAccessor<Byte> PIERCE_LEVEL = SynchedEntityData.defineId(KunaiEntity.class, EntityDataSerializers.BYTE);
+    public ItemStack thrownStack = new ItemStack(ModItems.SAMURAI_KUNAI.get());
+    public boolean dealtDamage;
+    public boolean notRenderable;
+    public boolean piercing;
+    public IntOpenHashSet piercedEntities;
+    public List<Entity> hitEntities;
+    public float rotationVelocity = 0;
+    public int returningTicks;
 
-	public KunaiEntity(EntityType<? extends KunaiEntity> type, Level worldIn) {
-		super(type, worldIn);
-	}
+    public KunaiEntity(EntityType<? extends KunaiEntity> type, Level worldIn) {
+        super(type, worldIn);
+    }
 
-	public KunaiEntity(Level worldIn, LivingEntity thrower, ItemStack thrownStackIn) {
-		super(ModEntityTypes.KUNAI.get(), thrower, worldIn);
-		this.thrownStack = thrownStackIn.copy();
-		this.entityData.set(LOYALTY_LEVEL, (byte) EnchantmentHelper.getLoyalty(thrownStackIn));
-		this.entityData.set(PIERCE_LEVEL, (byte) EnchantmentHelper.getItemEnchantmentLevel(Enchantments.PIERCING, thrownStackIn));
-	}
+    public KunaiEntity(Level worldIn, LivingEntity thrower, ItemStack thrownStackIn) {
+        super(ModEntityTypes.KUNAI.get(), thrower, worldIn);
+        this.thrownStack = thrownStackIn.copy();
+        this.entityData.set(LOYALTY_LEVEL, (byte) EnchantmentHelper.getLoyalty(thrownStackIn));
+        this.entityData.set(PIERCE_LEVEL, (byte) EnchantmentHelper.getItemEnchantmentLevel(Enchantments.PIERCING, thrownStackIn));
+    }
 
-	@OnlyIn(Dist.CLIENT)
-	public KunaiEntity(Level worldIn, double x, double y, double z) {
-		super(ModEntityTypes.KUNAI.get(), x, y, z, worldIn);
-	}
+    @OnlyIn(Dist.CLIENT)
+    public KunaiEntity(Level worldIn, double x, double y, double z) {
+        super(ModEntityTypes.KUNAI.get(), x, y, z, worldIn);
+    }
 
-	public void defineSynchedData() {
-		super.defineSynchedData();
-		this.entityData.define(LOYALTY_LEVEL, (byte)0);
-		this.entityData.define(PIERCE_LEVEL, (byte)0);
-	}
+    public void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(LOYALTY_LEVEL, (byte) 0);
+        this.entityData.define(PIERCE_LEVEL, (byte) 0);
+    }
 
-	@OnlyIn(Dist.CLIENT)
-	public boolean shouldRenderAtSqrDistance(double distance) {
-		double d0 = this.getBoundingBox().getSize() * 10.0D;
-		if (Double.isNaN(d0)) {
-			d0 = 1.0D;
-		}
-	
-		d0 = d0 * 64.0D * getViewScale();
-		this.notRenderable = distance < d0 * d0;	
-		return this.notRenderable;
-	}
+    @OnlyIn(Dist.CLIENT)
+    public boolean shouldRenderAtSqrDistance(double distance) {
+        double d0 = this.getBoundingBox().getSize() * 10.0D;
+        if (Double.isNaN(d0)) {
+            d0 = 1.0D;
+        }
 
-	public void tick() {
-		if (this.inGroundTime > 4) {
-			this.dealtDamage = true;
-		}
+        d0 = d0 * 64.0D * getViewScale();
+        this.notRenderable = distance < d0 * d0;
+        return this.notRenderable;
+    }
 
-		Entity entity = this.getOwner();
-		if ((this.dealtDamage || this.isNoPhysics()) && entity != null) {
-			int i = this.entityData.get(LOYALTY_LEVEL);
-			int p = this.entityData.get(PIERCE_LEVEL);
-			if (p > 0) {
-				this.piercing = true;
-				this.setShotFromCrossbow(true);
-				this.setCritArrow(true);
-			}
-			
-			if (i > 0 && !this.shouldReturnToThrower()) {
-				if (!this.level().isClientSide && this.pickup == AbstractArrow.Pickup.ALLOWED) {
-				this.spawnAtLocation(this.getPickupItem(), 0.1F);
-				}
+    public void tick() {
+        if (this.inGroundTime > 4) {
+            this.dealtDamage = true;
+        }
 
-			this.discard();
-		} else if (i > 0) {
-            this.setNoPhysics(true);
-            Vec3 vector3d = new Vec3(entity.getX() - this.getX(), entity.getEyeY() - this.getY(), entity.getZ() - this.getZ());
-            this.setPosRaw(this.getX(), this.getY() + vector3d.y * 0.015D * (double)i, this.getZ());
-            if (this.level().isClientSide) {
-               this.yOld = this.getY();
+        Entity entity = this.getOwner();
+        if ((this.dealtDamage || this.isNoPhysics()) && entity != null) {
+            int i = this.entityData.get(LOYALTY_LEVEL);
+            int p = this.entityData.get(PIERCE_LEVEL);
+            if (p > 0) {
+                this.piercing = true;
+                this.setShotFromCrossbow(true);
+                this.setCritArrow(true);
             }
 
-            double d0 = 0.05D * (double)i;
-            this.setDeltaMovement(this.getDeltaMovement().scale(0.95D).add(vector3d.normalize().scale(d0)));
-            if (this.returningTicks == 0) {
-               this.playSound(SoundEvents.TRIDENT_RETURN, 10.0F, 1.0F);
+            if (i > 0 && !this.shouldReturnToThrower()) {
+                if (!this.level().isClientSide && this.pickup == AbstractArrow.Pickup.ALLOWED) {
+                    this.spawnAtLocation(this.getPickupItem(), 0.1F);
+                }
+
+                this.discard();
+            } else if (i > 0) {
+                this.setNoPhysics(true);
+                Vec3 vector3d = new Vec3(entity.getX() - this.getX(), entity.getEyeY() - this.getY(), entity.getZ() - this.getZ());
+                this.setPosRaw(this.getX(), this.getY() + vector3d.y * 0.015D * (double) i, this.getZ());
+                if (this.level().isClientSide) {
+                    this.yOld = this.getY();
+                }
+
+                double d0 = 0.05D * (double) i;
+                this.setDeltaMovement(this.getDeltaMovement().scale(0.95D).add(vector3d.normalize().scale(d0)));
+                if (this.returningTicks == 0) {
+                    this.playSound(SoundEvents.TRIDENT_RETURN, 10.0F, 1.0F);
+                }
+
+                ++this.returningTicks;
             }
+        }
 
-            ++this.returningTicks;
-			}
-		}
+        if (!this.notRenderable && !this.inGround) {
+            Vec3 vector3d = this.getDeltaMovement();
+            double a3 = vector3d.x;
+            double a4 = vector3d.y;
+            double a0 = vector3d.z;
+            for (int a = 0; a < 3; ++a) {
+                this.level().addParticle(ParticleTypes.WHITE_ASH, this.getX() + a3 * (double) a / 4.0D, this.getY() + a4 * (double) a / 4.0D, this.getZ() + a0 * (double) a / 4.0D, -a3, -a4 + 0.2D, -a0);
+            }
+        }
 
-		if (!this.notRenderable && !this.inGround) {
-			Vec3 vector3d = this.getDeltaMovement();
-			double a3 = vector3d.x;
-			double a4 = vector3d.y;
-			double a0 = vector3d.z;		
-			for(int a = 0; a < 3; ++a) {
-				this.level().addParticle(ParticleTypes.WHITE_ASH, this.getX() + a3 * (double)a / 4.0D, this.getY() + a4 * (double)a / 4.0D, this.getZ() + a0 * (double)a / 4.0D, -a3, -a4 + 0.2D, -a0);
-			}
-		}
-	
-		super.tick();
-	}
+        super.tick();
+    }
 
-	private boolean shouldReturnToThrower() {
-		Entity entity = this.getOwner();
-		if (entity != null && entity.isAlive()) {
-			return !(entity instanceof ServerPlayer) || !entity.isSpectator();
-		} else {
-			return false;
-		}
-	}
+    private boolean shouldReturnToThrower() {
+        Entity entity = this.getOwner();
+        if (entity != null && entity.isAlive()) {
+            return !(entity instanceof ServerPlayer) || !entity.isSpectator();
+        } else {
+            return false;
+        }
+    }
 
 
-	public ItemStack getPickupItem() {
-		return this.thrownStack.copy();
-	}
+    public ItemStack getPickupItem() {
+        return this.thrownStack.copy();
+    }
 
-	@Nullable
-	public EntityHitResult findHitEntity(Vec3 startVec, Vec3 endVec) {
-		return this.dealtDamage ? null : super.findHitEntity(startVec, endVec);
-	}
+    @Nullable
+    public EntityHitResult findHitEntity(Vec3 startVec, Vec3 endVec) {
+        return this.dealtDamage ? null : super.findHitEntity(startVec, endVec);
+    }
 
-	@Override
-	public void onHitEntity(EntityHitResult result) {
-		Entity entity = result.getEntity();
-		int e = (int)EnchantmentHelper.getDamageBonus(this.thrownStack, MobType.UNDEFINED);
-		float f = 7f + (float)Math.max(0, e - 2);
-		if (entity instanceof LivingEntity livingentity) {
+    @Override
+    public void onHitEntity(EntityHitResult result) {
+        Entity entity = result.getEntity();
+        int e = (int) EnchantmentHelper.getDamageBonus(this.thrownStack, MobType.UNDEFINED);
+        float f = 7f + (float) Math.max(0, e - 2);
+        if (entity instanceof LivingEntity livingentity) {
             f += EnchantmentHelper.getDamageBonus(this.thrownStack, livingentity.getMobType());
-		}
+        }
 
-		Entity shooter = this.getOwner();
-		DamageSource damagesource = level().damageSources().trident(this, shooter == null ? this : shooter);
-		this.dealtDamage = true;
-		if (entity.hurt(damagesource, f)) {
-			if (entity.getType() == EntityType.ENDERMAN) {
-				return;
-			}
+        Entity shooter = this.getOwner();
+        DamageSource damagesource = level().damageSources().trident(this, shooter == null ? this : shooter);
+        this.dealtDamage = true;
+        if (entity.hurt(damagesource, f)) {
+            if (entity.getType() == EntityType.ENDERMAN) {
+                return;
+            }
 
-			if (entity instanceof LivingEntity living) {
-				if (shooter instanceof LivingEntity) {
-					EnchantmentHelper.doPostHurtEffects(living, shooter);
-					EnchantmentHelper.doPostDamageEffects((LivingEntity)shooter, living);
-				}
+            if (entity instanceof LivingEntity living) {
+                if (shooter instanceof LivingEntity) {
+                    EnchantmentHelper.doPostHurtEffects(living, shooter);
+                    EnchantmentHelper.doPostDamageEffects((LivingEntity) shooter, living);
+                }
 
-				this.doPostHurtEffects(living);
-			}
-		}
+                this.doPostHurtEffects(living);
+            }
+        }
 
-		if (this.getPierceLevel() > 0) {
-			if (this.piercedEntities == null) {
-				this.piercedEntities = new IntOpenHashSet(5);
-			}
+        if (this.getPierceLevel() > 0) {
+            if (this.piercedEntities == null) {
+                this.piercedEntities = new IntOpenHashSet(5);
+            }
 
-			if (this.hitEntities == null) {
-				this.hitEntities = Lists.newArrayListWithCapacity(5);
-			}
+            if (this.hitEntities == null) {
+                this.hitEntities = Lists.newArrayListWithCapacity(5);
+            }
 
-			if (this.piercedEntities.size() >= this.getPierceLevel() + 1) {
-				this.discard();
-				return;
-			}
+            if (this.piercedEntities.size() >= this.getPierceLevel() + 1) {
+                this.discard();
+                return;
+            }
 
-			this.piercedEntities.add(entity.getId());
-		}
-		
+            this.piercedEntities.add(entity.getId());
+        }
+
         if (entity instanceof LivingEntity livingentity) {
             if (entity.isAlive() && this.hitEntities != null) {
-				this.hitEntities.add(livingentity);		
-			}
-		}
-	}
+                this.hitEntities.add(livingentity);
+            }
+        }
+    }
 
-	public SoundEvent getDefaultHitGroundSoundEvent() {
-		return SoundEvents.TRIDENT_HIT_GROUND;
-	}
+    public SoundEvent getDefaultHitGroundSoundEvent() {
+        return SoundEvents.TRIDENT_HIT_GROUND;
+    }
 
-	@Override
-	public SoundEvent getHitGroundSoundEvent() {
-		return SoundEvents.TRIDENT_HIT_GROUND;
-	}
+    @Override
+    public SoundEvent getHitGroundSoundEvent() {
+        return SoundEvents.TRIDENT_HIT_GROUND;
+    }
 
-	public void playerTouch(Player pEntity) {
-		if (this.ownedBy(pEntity) || this.getOwner() == null) {
-			super.playerTouch(pEntity);
-		}
-	}
+    public void playerTouch(Player pEntity) {
+        if (this.ownedBy(pEntity) || this.getOwner() == null) {
+            super.playerTouch(pEntity);
+        }
+    }
 
-	@Override
-	public Packet<ClientGamePacketListener> getAddEntityPacket() {
-		return NetworkHooks.getEntitySpawningPacket(this);
-	}
+    @Override
+    public Packet<ClientGamePacketListener> getAddEntityPacket() {
+        return NetworkHooks.getEntitySpawningPacket(this);
+    }
 
-	public void readAdditionalSaveData(CompoundTag compound) {
-		super.readAdditionalSaveData(compound);
-		if (compound.contains("Kunai", 10)) {
-			this.thrownStack = ItemStack.of(compound.getCompound("Kunai"));
-		}
+    public void readAdditionalSaveData(CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+        if (compound.contains("Kunai", 10)) {
+            this.thrownStack = ItemStack.of(compound.getCompound("Kunai"));
+        }
 
-		this.dealtDamage = compound.getBoolean("DealtDamage");
-		this.setPierceLevel(compound.getByte("PierceLevel"));		
-		this.entityData.set(LOYALTY_LEVEL, (byte)EnchantmentHelper.getLoyalty(this.thrownStack));
-		this.entityData.set(PIERCE_LEVEL, (byte)EnchantmentHelper.getItemEnchantmentLevel(Enchantments.PIERCING, this.thrownStack));
-	}
+        this.dealtDamage = compound.getBoolean("DealtDamage");
+        this.setPierceLevel(compound.getByte("PierceLevel"));
+        this.entityData.set(LOYALTY_LEVEL, (byte) EnchantmentHelper.getLoyalty(this.thrownStack));
+        this.entityData.set(PIERCE_LEVEL, (byte) EnchantmentHelper.getItemEnchantmentLevel(Enchantments.PIERCING, this.thrownStack));
+    }
 
-	public void addAdditionalSaveData(CompoundTag compound) {
-		super.addAdditionalSaveData(compound);
-		compound.put("Kunai", this.thrownStack.save(new CompoundTag()));
-		compound.putBoolean("DealtDamage", this.dealtDamage);
-		compound.putByte("PierceLevel", this.getPierceLevel());
-	}
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        compound.put("Kunai", this.thrownStack.save(new CompoundTag()));
+        compound.putBoolean("DealtDamage", this.dealtDamage);
+        compound.putByte("PierceLevel", this.getPierceLevel());
+    }
 
-	public byte getPierceLevel() {
-		return this.entityData.get(PIERCE_LEVEL);
-	}
+    public byte getPierceLevel() {
+        return this.entityData.get(PIERCE_LEVEL);
+    }
 
-	public void tickDespawn() {
-		int i = this.entityData.get(LOYALTY_LEVEL);
-		if (this.pickup != AbstractArrow.Pickup.ALLOWED || i <= 0) {
-			super.tickDespawn();
-		}
-	}
+    public void tickDespawn() {
+        int i = this.entityData.get(LOYALTY_LEVEL);
+        if (this.pickup != AbstractArrow.Pickup.ALLOWED || i <= 0) {
+            super.tickDespawn();
+        }
+    }
 
-	public float getWaterInertia() {
-		return 0.5F;
-	}
+    public float getWaterInertia() {
+        return 0.5F;
+    }
 
-	@OnlyIn(Dist.CLIENT)
-	public boolean shouldRender(double x, double y, double z) {
-		return true;
-	}
+    @OnlyIn(Dist.CLIENT)
+    public boolean shouldRender(double x, double y, double z) {
+        return true;
+    }
 }

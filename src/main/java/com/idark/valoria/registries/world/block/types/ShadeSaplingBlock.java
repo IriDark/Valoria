@@ -12,15 +12,15 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 
 public class ShadeSaplingBlock extends SaplingBlock {
-	public static final IntegerProperty STAGE = BlockStateProperties.STAGE;
+    public static final IntegerProperty STAGE = BlockStateProperties.STAGE;
 
     public ShadeSaplingBlock(AbstractTreeGrower treeIn, BlockBehaviour.Properties properties) {
-		super(treeIn, properties);
+        super(treeIn, properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(STAGE, 0));
-	}
-	
-	protected boolean mayPlaceOn(BlockState state, BlockGetter worldIn, BlockPos pos) {
-		Block block = state.getBlock();
-		return block == ModBlocks.VOID_TAINT.get() || block == ModBlocks.VOID_GRASS.get();
-	}
+    }
+
+    protected boolean mayPlaceOn(BlockState state, BlockGetter worldIn, BlockPos pos) {
+        Block block = state.getBlock();
+        return block == ModBlocks.VOID_TAINT.get() || block == ModBlocks.VOID_GRASS.get();
+    }
 }	

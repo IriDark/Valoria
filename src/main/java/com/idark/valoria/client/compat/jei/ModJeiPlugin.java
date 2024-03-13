@@ -1,7 +1,6 @@
 package com.idark.valoria.client.compat.jei;
 
 import com.idark.valoria.Valoria;
-import com.idark.valoria.client.compat.jei.categories.CrusherRecipeCategory;
 import com.idark.valoria.client.compat.jei.categories.JewelryRecipeCategory;
 import com.idark.valoria.client.compat.jei.categories.KegRecipeCategory;
 import com.idark.valoria.client.compat.jei.categories.ManipulatorRecipeCategory;

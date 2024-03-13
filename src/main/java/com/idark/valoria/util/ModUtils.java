@@ -2,11 +2,11 @@ package com.idark.valoria.util;
 
 
 import com.idark.valoria.registries.world.item.enchant.ModEnchantments;
-import com.idark.valoria.registries.world.item.types.curio.charm.BloodSight;
 import com.idark.valoria.registries.world.item.types.CoralReefItem;
 import com.idark.valoria.registries.world.item.types.HoundItem;
 import com.idark.valoria.registries.world.item.types.MurasamaItem;
 import com.idark.valoria.registries.world.item.types.ScytheItem;
+import com.idark.valoria.registries.world.item.types.curio.charm.BloodSight;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
@@ -93,7 +93,7 @@ public class ModUtils {
         Z = Math.sin(locPitch + pitch) * Math.sin(locYaw + yaw) * pRadius * 0.75F;
         if (type != null && !level.isClientSide() && level instanceof ServerLevel pServer) {
             //level.addParticle(type, pos.x + X, pos.y + Y + ((Math.random() - 0.5D) * 0.2F), pos.z + Z, 0d, 0d, 0d);
-            pServer.sendParticles(type, pos.x + X, pos.y + Y + ((Math.random() - 0.5D) * 0.2F), pos.z + Z,1,  0, 0, 0, 0);
+            pServer.sendParticles(type, pos.x + X, pos.y + Y + ((Math.random() - 0.5D) * 0.2F), pos.z + Z, 1, 0, 0, 0, 0);
         }
     }
 
@@ -162,15 +162,15 @@ public class ModUtils {
         Z = Math.sin(locPitch + pitch) * Math.sin(locYaw + yaw) * pRadius * 0.75F;
         if (!level.isClientSide() && level instanceof ServerLevel pServer) {
             //level.addParticle(type, pos.x + X, pos.y + Y + ((Math.random() - 0.5D) * 0.2F), pos.z + Z, 0d, 0d, 0d);
-            pServer.sendParticles(type, pos.x + X, pos.y + Y + ((Math.random() - 0.5D) * 0.2F), pos.z + Z, 1,  0, 0, 0, 0);
+            pServer.sendParticles(type, pos.x + X, pos.y + Y + ((Math.random() - 0.5D) * 0.2F), pos.z + Z, 1, 0, 0, 0, 0);
         }
     }
 
     /**
      * @param hitEntities List for damaged entities
-     * @param type   Particle that will appear at marked mobs
-     * @param pos    Position
-     * @param radius Distance in blocks
+     * @param type        Particle that will appear at marked mobs
+     * @param pos         Position
+     * @param radius      Distance in blocks
      * @see com.idark.valoria.registries.world.item.types.BeastScytheItem#finishUsingItem(ItemStack, Level, LivingEntity) Example
      */
     public static void spawnParticlesMark(Level level, Player player, List<LivingEntity> hitEntities, ParticleOptions type, Vector3d pos, float pitchRaw, float yawRaw, float radius) {
@@ -232,7 +232,7 @@ public class ModUtils {
                 double ZZ = Math.cos(pitch) * speed / (ii + 1);
 
                 //level.addParticle(options, pos.x + X, pos.y + Y, pos.z + Z, XX, YY, ZZ);
-                pServer.sendParticles(options, pos.x + X, pos.y + Y, pos.z + Z, 1,  XX, YY, ZZ, 0);
+                pServer.sendParticles(options, pos.x + X, pos.y + Y, pos.z + Z, 1, XX, YY, ZZ, 0);
             }
         }
     }
@@ -271,8 +271,8 @@ public class ModUtils {
     /**
      * Spawns particles line to attacked mob position
      *
-     * @param pPlayer Player pos for calculating Attacked mob and positions
-     * @param pType   Particle that will spawn line
+     * @param pPlayer   Player pos for calculating Attacked mob and positions
+     * @param pType     Particle that will spawn line
      * @param pDuration cooldown
      * @see BloodSight#curioTick(SlotContext, ItemStack)   Example
      */
@@ -314,11 +314,12 @@ public class ModUtils {
 
     /**
      * Spawns particle lines to nearby Mobs
-     * @param pPlayer Player for reciving pos from
-     * @param pType Particle type to spawn
+     *
+     * @param pPlayer     Player for reciving pos from
+     * @param pType       Particle type to spawn
      * @param hitEntities list of Entities
-     * @param pos Position in Vec3
-     * @param radius Radius to spawn
+     * @param pos         Position in Vec3
+     * @param radius      Radius to spawn
      * @see HoundItem#finishUsingItem(ItemStack, Level, LivingEntity) Example
      */
     public static void spawnParticlesLineToNearbyMobs(Level pLevel, Player pPlayer, ParticleOptions pType, List<LivingEntity> hitEntities, Vec3 pos, float pitchRaw, float yawRaw, float radius) {
@@ -366,10 +367,10 @@ public class ModUtils {
     }
 
     /**
-     * @param pPlayer Player for reciving pos from
+     * @param pPlayer     Player for reciving pos from
      * @param hitEntities list of Entities
-     * @param pos Position in Vec3
-     * @param radius Radius to check mobs
+     * @param pos         Position in Vec3
+     * @param radius      Radius to check mobs
      */
     public static void markNearbyMobs(Level pLevel, Player pPlayer, List<LivingEntity> hitEntities, Vec3 pos, float pitchRaw, float yawRaw, float radius) {
         double pitch = ((pitchRaw + 90) * Math.PI) / 180;
@@ -422,11 +423,11 @@ public class ModUtils {
     }
 
     /**
-     * @param from pos from
+     * @param from   pos from
      * @param entity entity (projectile, player etc.
      * @param filter (e) -> true as default
-     * @param to pos to
-     * @param level level
+     * @param to     pos to
+     * @param level  level
      * @return HitResult
      */
     public static HitResult getHitResult(Vec3 from, Entity entity, Predicate<Entity> filter, Vec3 to, Level level) {

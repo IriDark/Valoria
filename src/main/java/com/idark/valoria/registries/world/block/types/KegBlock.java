@@ -1,10 +1,10 @@
 package com.idark.valoria.registries.world.block.types;
 
+import com.idark.valoria.client.render.model.blockentity.TickableBlockEntity;
+import com.idark.valoria.registries.TagsRegistry;
 import com.idark.valoria.registries.world.block.entity.BlockSimpleInventory;
 import com.idark.valoria.registries.world.block.entity.KegBlockEntity;
-import com.idark.valoria.client.render.model.blockentity.TickableBlockEntity;
 import com.idark.valoria.registries.world.item.ModItems;
-import com.idark.valoria.registries.TagsRegistry;
 import com.idark.valoria.util.PacketUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -42,7 +42,7 @@ import javax.annotation.Nullable;
 
 public class KegBlock extends HorizontalDirectionalBlock implements EntityBlock, SimpleWaterloggedBlock {
 
-    private static BooleanProperty BREWING = BooleanProperty.create("brewing");
+    private static final BooleanProperty BREWING = BooleanProperty.create("brewing");
     private static final VoxelShape shape_west_east = Block.box(0, 0, 2, 16, 14, 14);
     private static final VoxelShape shape_north_south = Block.box(2, 0, 0, 14, 14, 16);
 
@@ -89,7 +89,7 @@ public class KegBlock extends HorizontalDirectionalBlock implements EntityBlock,
             } else if (isHoldingBottle && itemStack.is(TagsRegistry.BOTTLE_DRINKS)) {
                 player.getItemInHand(hand).setCount(playerHeldItem.getCount() - 1);
             }
-    }
+        }
 
         return (isHoldingCup && itemStack.is(TagsRegistry.CUP_DRINKS)) || (isHoldingBottle && itemStack.is(TagsRegistry.BOTTLE_DRINKS));
     }
@@ -135,7 +135,7 @@ public class KegBlock extends HorizontalDirectionalBlock implements EntityBlock,
             PacketUtils.SUpdateTileEntityPacket(tile);
             return InteractionResult.SUCCESS;
         } else if (!tile.getItemHandler().getItem(0).isEmpty() && !tile.getItemHandler().getItem(0).is(TagsRegistry.CUP_DRINKS) && !tile.getItemHandler().getItem(0).is(TagsRegistry.BOTTLE_DRINKS)) {
-            if (!player.isCreative()  && !tile.getItemHandler().getItem(0).is(Items.HONEY_BOTTLE)) {
+            if (!player.isCreative() && !tile.getItemHandler().getItem(0).is(Items.HONEY_BOTTLE)) {
                 world.addFreshEntity(new ItemEntity(world, player.getX() + 0.5F, player.getY() + 0.5F, player.getZ() + 0.5F, tile.getItemHandler().getItem(0).copy()));
             } else if (!player.isCreative() && tile.getItemHandler().getItem(0).is(Items.HONEY_BOTTLE) && stack.is(Items.GLASS_BOTTLE)) {
                 player.getItemInHand(hand).setCount(stack.getCount() - 1);

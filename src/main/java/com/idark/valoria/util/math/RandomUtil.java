@@ -115,7 +115,7 @@ public final class RandomUtil {
             if (n <= 0)
                 return false;
 
-            return rand.nextFloat() < 1 / (float)n;
+            return rand.nextFloat() < 1 / (float) n;
         }
 
         public boolean percentChance(double percentChance) {
@@ -159,7 +159,7 @@ public final class RandomUtil {
         }
 
         public int randomNumberBetween(int min, int max) {
-            return min + (int)Math.floor(rand.nextDouble() * (1 + max - min));
+            return min + (int) Math.floor(rand.nextDouble() * (1 + max - min));
         }
 
         public double randomValueBetween(double min, double max) {
@@ -186,9 +186,9 @@ public final class RandomUtil {
             BlockPos.MutableBlockPos mutablePos = centerPos.mutable();
 
             for (int i = 0; i < tries; i++) {
-                int newX = (int)Math.floor(mutablePos.getX() + rand.nextFloat() * xRadius * 2 - xRadius);
-                int newY = (int)Math.floor(mutablePos.getY() + rand.nextFloat() * yRadius * 2 - yRadius);
-                int newZ = (int)Math.floor(mutablePos.getZ() + rand.nextFloat() * zRadius * 2 - zRadius);
+                int newX = (int) Math.floor(mutablePos.getX() + rand.nextFloat() * xRadius * 2 - xRadius);
+                int newY = (int) Math.floor(mutablePos.getY() + rand.nextFloat() * yRadius * 2 - yRadius);
+                int newZ = (int) Math.floor(mutablePos.getZ() + rand.nextFloat() * zRadius * 2 - zRadius);
 
                 mutablePos.set(newX, newY, newZ);
 

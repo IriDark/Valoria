@@ -57,7 +57,7 @@ public class TaintedRootsFeature extends Feature<TaintedRootsConfig> {
             if (pLevel.isOutsideBuildHeight(pPos)) {
                 return false;
             }
-        } while(pLevel.getBlockState(pPos).isAir());
+        } while (pLevel.getBlockState(pPos).isAir());
 
         pPos.move(0, 1, 0);
         return true;

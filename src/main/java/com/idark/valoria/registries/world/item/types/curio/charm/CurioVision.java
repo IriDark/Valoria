@@ -23,7 +23,7 @@ public class CurioVision extends Item implements ICurioItem {
 
     public CurioVision(Properties properties) {
         super(properties);
-	}
+    }
 
     @Override
     public boolean canEquipFromUse(SlotContext slot, ItemStack stack) {
@@ -36,10 +36,10 @@ public class CurioVision extends Item implements ICurioItem {
     }
 
     @Nonnull
-	@Override
-	public ICurio.SoundInfo getEquipSound(SlotContext slotContext, ItemStack stack) {
+    @Override
+    public ICurio.SoundInfo getEquipSound(SlotContext slotContext, ItemStack stack) {
         return new ICurio.SoundInfo(SoundEvents.ARMOR_EQUIP_GOLD, 1.0f, 1.0f);
-	}
+    }
 
     @Override
     public void curioTick(SlotContext slotContext, ItemStack stack) {
@@ -51,10 +51,10 @@ public class CurioVision extends Item implements ICurioItem {
             }
         }
     }
-	
-	@Override
+
+    @Override
     public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags) {
         super.appendHoverText(stack, world, tooltip, flags);
         tooltip.add(Component.translatable("tooltip.valoria.vision").withStyle(ChatFormatting.GRAY));
-	}
+    }
 }

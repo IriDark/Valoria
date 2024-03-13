@@ -18,10 +18,10 @@ public class UnlockablePage extends Page {
     @Override
     @OnlyIn(Dist.CLIENT)
     public void render(GuiGraphics gui, int x, int y, int mouseX, int mouseY) {
-        for (int i = 0; i < entries.length; i ++) {
+        for (int i = 0; i < entries.length; i++) {
             if (entries[i].isUnlocked()) {
-                gui.renderItem(entries[i].icon,x + 3, y + 8 + i * 20);
-                gui.renderItemDecorations(Minecraft.getInstance().font, entries[i].icon,x + 3, y + 8 + i * 20, null);
+                gui.renderItem(entries[i].icon, x + 3, y + 8 + i * 20);
+                gui.renderItemDecorations(Minecraft.getInstance().font, entries[i].icon, x + 3, y + 8 + i * 20, null);
                 drawText(gui, I18n.get(entries[i].chapter.titleKey), x + 24, y + 20 + i * 20 - Minecraft.getInstance().font.lineHeight, false);
             } else {
                 //gui.blit(new ResourceLocation(Valoria.MOD_ID, ""), x + 3, y + 8 + i * 20, 0, 0, 16, 16, 16, 16);

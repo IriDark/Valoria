@@ -29,7 +29,6 @@ import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.type.capability.ICurio;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
-import top.theillusivec4.curios.api.type.inventory.ICurioStacksHandler;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -143,20 +142,19 @@ public class CurioItemProperty extends Item implements ICurioItem, ICurioTexture
             if (!player.getCooldowns().isOnCooldown(stack.getItem())) {
                 player.addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, 200));
                 player.getCooldowns().addCooldown(stack.getItem(), 300);
-
                 stack.hurtAndBreak(material == AccessoryMaterial.GOLD ? pGoldDamage : pDefaultDamage, player, (p_220045_0_) -> p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
             }
         }
 
-        if (player.hurtMarked)
+        if (player.hurtMarked) {
             stack.hurtAndBreak(material == AccessoryMaterial.GOLD ? pGoldDamage : pDefaultDamage, player, (p_220045_0_) -> p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
+        }
     }
 
     @Override
     public boolean makesPiglinsNeutral(SlotContext slotContext, ItemStack stack) {
         return material == AccessoryMaterial.GOLD;
     }
-
 
     @Override
     public ResourceLocation getTexture(ItemStack stack, LivingEntity entity) {
@@ -203,7 +201,7 @@ public class CurioItemProperty extends Item implements ICurioItem, ICurioTexture
                 };
 
             case GLOVES:
-                if (!HandsRenderer.isDefault2) {
+                if (!HandsRenderer.isDefault) {
                     return switch (material) {
                         case LEATHER -> getGlovesTexture("leather", true);
                         case IRON -> getGlovesTexture("iron", true);

@@ -1,9 +1,9 @@
 package com.idark.valoria.client.gui.screen.book;
 
-import com.idark.valoria.client.gui.screen.book.unlockable.RegisterUnlockables;
-import com.idark.valoria.client.gui.screen.book.unlockable.UnlockableBookmark;
 import com.idark.valoria.client.gui.screen.book.pages.TitledCraftEntry;
 import com.idark.valoria.client.gui.screen.book.pages.TitledTextPage;
+import com.idark.valoria.client.gui.screen.book.unlockable.RegisterUnlockables;
+import com.idark.valoria.client.gui.screen.book.unlockable.UnlockableBookmark;
 import com.idark.valoria.registries.world.item.ModItems;
 import net.minecraft.world.item.Items;
 

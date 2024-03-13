@@ -18,7 +18,7 @@ public class UnlockableBookmark {
     private final Item item;
     private final int x;
     private final int y;
-    public  Chapter chapter;
+    public Chapter chapter;
     public static Unlockable unlockable;
 
     private final String translate;

@@ -68,14 +68,14 @@ public class GlowVioletSproutFeature extends Feature<TwistingVinesConfig> {
             if (pLevel.isOutsideBuildHeight(pPos)) {
                 return false;
             }
-        } while(pLevel.getBlockState(pPos).isAir());
+        } while (pLevel.getBlockState(pPos).isAir());
 
         pPos.move(0, 1, 0);
         return true;
     }
 
     public static void placeSproutColumn(LevelAccessor pLevel, RandomSource pRandom, BlockPos.MutableBlockPos pPos, int pLength, int pMinAge, int pMaxAge) {
-        for(int i = 1; i <= pLength; ++i) {
+        for (int i = 1; i <= pLength; ++i) {
             if (pLevel.isEmptyBlock(pPos)) {
                 if (i == pLength || !pLevel.isEmptyBlock(pPos.above())) {
                     pLevel.setBlock(pPos, ModBlocks.GLOW_VIOLET_SPROUT.get().defaultBlockState().setValue(GrowingPlantHeadBlock.AGE, Mth.nextInt(pRandom, pMinAge, pMaxAge)), 2);

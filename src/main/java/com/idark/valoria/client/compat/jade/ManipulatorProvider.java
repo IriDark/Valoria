@@ -1,6 +1,5 @@
 package com.idark.valoria.client.compat.jade;
 
-import com.idark.valoria.registries.world.block.entity.JewelryBlockEntity;
 import com.idark.valoria.registries.world.block.entity.ManipulatorBlockEntity;
 import com.idark.valoria.registries.world.item.ModItems;
 import net.minecraft.nbt.CompoundTag;

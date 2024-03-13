@@ -56,6 +56,7 @@ public class SarcoBlock extends HorizontalDirectionalBlock {
 
     private static final VoxelShape shape = Block.box(0, 0, 0, 16, 12, 16);
     Random rand = new Random();
+
     public SarcoBlock(BlockBehaviour.Properties pProperties) {
         super(pProperties);
         this.registerDefaultState(this.stateDefinition.any().setValue(PART, BedPart.FOOT).setValue(OPEN, false).setValue(LOOTED, false));

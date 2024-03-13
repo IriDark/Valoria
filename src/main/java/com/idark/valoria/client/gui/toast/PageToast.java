@@ -17,9 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @OnlyIn(Dist.CLIENT)
-public class ModToast implements Toast {
+public class PageToast implements Toast {
 
-    public static ModToast instance;
+    public static PageToast instance;
     public ResourceLocation TEXTURE = new ResourceLocation(Valoria.MOD_ID, "textures/gui/toast.png");
     public boolean pUnlock;
 
@@ -36,13 +36,13 @@ public class ModToast implements Toast {
             drawWrappingText(pGuiGraphics, "gui.valoria.delete_page", 92, 12, 120, true);
         }
 
-        return (double)pTimeSinceLastVisible >= 5000.0D * pToastComponent.getNotificationDisplayTimeMultiplier() ? Visibility.HIDE : Visibility.SHOW;
+        return (double) pTimeSinceLastVisible >= 5000.0D * pToastComponent.getNotificationDisplayTimeMultiplier() ? Visibility.HIDE : Visibility.SHOW;
     }
 
-    public ModToast(boolean pUnlock) {
+    public PageToast(boolean pUnlock) {
         this.pUnlock = pUnlock;
     }
-    
+
     @Override
     public int width() {
         return 180;
@@ -71,11 +71,10 @@ public class ModToast implements Toast {
             } else if (font.width(line) + font.width(s) > wrap) {
                 lines.add(line);
                 line = s + " ";
-            }
-            else line += s + " ";
+            } else line += s + " ";
         }
         if (!line.isEmpty()) lines.add(line);
-        for (int i = 0; i < lines.size(); i ++) {
+        for (int i = 0; i < lines.size(); i++) {
             drawText(gui, lines.get(i), x, y + i * (font.lineHeight + 1), Centered);
         }
     }

@@ -14,6 +14,7 @@ import java.util.List;
 
 /**
  * The main functional done in a CriticalHitEvent
+ *
  * @see com.idark.valoria.Events#critDamage(CriticalHitEvent) here
  */
 public class RuneAccuracy extends Item implements ICurioItem {

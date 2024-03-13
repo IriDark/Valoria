@@ -13,21 +13,22 @@ import java.util.Random;
 
 public class WickedOreBlock extends Block {
     Random rand = new Random();
+
     public WickedOreBlock(BlockBehaviour.Properties properties) {
         super(properties);
     }
 
     @Override
     public void wasExploded(Level worldIn, BlockPos pos, Explosion explosionIn) {
-        for (int i = 0;i<5;i++) {
-        worldIn.addParticle(ParticleTypes.REVERSE_PORTAL, pos.getX() + rand.nextDouble(), pos.getY() + 0.5D, pos.getZ() + rand.nextDouble(), 0d, 0.05d, 0d);
+        for (int i = 0; i < 5; i++) {
+            worldIn.addParticle(ParticleTypes.REVERSE_PORTAL, pos.getX() + rand.nextDouble(), pos.getY() + 0.5D, pos.getZ() + rand.nextDouble(), 0d, 0.05d, 0d);
         }
     }
 
     @Override
     public void destroy(LevelAccessor worldIn, BlockPos pos, BlockState state) {
-        for (int i = 0;i<5;i++) {
-        worldIn.addParticle(ParticleTypes.REVERSE_PORTAL, pos.getX() + rand.nextDouble(), pos.getY() + 0.5D, pos.getZ() + rand.nextDouble(), 0d, 0.05d, 0d);
+        for (int i = 0; i < 5; i++) {
+            worldIn.addParticle(ParticleTypes.REVERSE_PORTAL, pos.getX() + rand.nextDouble(), pos.getY() + 0.5D, pos.getZ() + rand.nextDouble(), 0d, 0.05d, 0d);
         }
     }
 }

@@ -1,10 +1,10 @@
 package com.idark.valoria.client.compat.jei.categories;
 
 import com.idark.valoria.Valoria;
-import com.idark.valoria.registries.world.block.ModBlocks;
 import com.idark.valoria.client.compat.jei.ModRecipeTypes;
 import com.idark.valoria.client.event.ClientTickHandler;
 import com.idark.valoria.registries.recipe.JewelryRecipe;
+import com.idark.valoria.registries.world.block.ModBlocks;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -86,7 +86,7 @@ public class JewelryRecipeCategory implements IRecipeCategory<JewelryRecipe> {
             width /= ((double) recipe.getTime() / (double) (ClientTickHandler.ticksInGame % recipe.getTime()));
             gui.blit(arrow, 90, 16, 0, 0, width, 16, 32, 32);
         }
-        
+
         gui.drawString(font_renderer, time + "s", (95 - stringWidth) / 2, 28 + font_renderer.lineHeight, 0xffffff);
     }
 }

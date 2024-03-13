@@ -31,7 +31,7 @@ public class KegRecipe implements Recipe<SimpleContainer> {
 
     @Override
     public boolean matches(SimpleContainer pContainer, Level pLevel) {
-        if(pLevel.isClientSide()) {
+        if (pLevel.isClientSide()) {
             return false;
         }
 
@@ -95,7 +95,7 @@ public class KegRecipe implements Recipe<SimpleContainer> {
             JsonArray ingredients = GsonHelper.getAsJsonArray(pSerializedRecipe, "ingredients");
             final NonNullList<Ingredient> inputs = readIngredients(GsonHelper.getAsJsonArray(pSerializedRecipe, "ingredients"));
 
-            for(int i = 0; i < inputs.size(); i++) {
+            for (int i = 0; i < inputs.size(); i++) {
                 inputs.set(i, Ingredient.fromJson(ingredients.get(i)));
             }
 

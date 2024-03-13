@@ -23,6 +23,7 @@ public class ManipulatorMenu extends AbstractContainerMenu {
     public final BlockEntity tileEntity;
     public final Player playerEntity;
     public final IItemHandler playerInventory;
+
     protected ManipulatorMenu(@Nullable MenuType<?> pMenuType, int pContainerId, BlockEntity tileEntity, Player playerEntity, IItemHandler playerInventory) {
         super(pMenuType, pContainerId);
         this.tileEntity = tileEntity;
@@ -40,7 +41,7 @@ public class ManipulatorMenu extends AbstractContainerMenu {
 
         if (tileEntity != null) {
             tileEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(h -> {
-                this.addSlot(new SlotItemHandler(h,0, 27, 53));
+                this.addSlot(new SlotItemHandler(h, 0, 27, 53));
                 this.addSlot(new SlotItemHandler(h, 1, 76, 53));
 
                 this.addSlot(new ResultSlot(h, 2, 134, 53));

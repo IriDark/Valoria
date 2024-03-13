@@ -26,65 +26,65 @@ public class CommandArgument extends CommandPart {
     private ArgumentType type;
     private SuggestionProvider suggestionProvider;
 
-    public CommandArgument(String name,ArgumentType type) {
+    public CommandArgument(String name, ArgumentType type) {
         super(name);
         this.type = type;
     }
 
-    public static CommandArgument blockPos(String name){
+    public static CommandArgument blockPos(String name) {
         return new CommandArgument(name, BlockPosArgument.blockPos());
     }
 
-    public static CommandArgument word(String name){
+    public static CommandArgument word(String name) {
         return new CommandArgument(name, StringArgumentType.word());
     }
 
-    public static CommandArgument string(String name){
+    public static CommandArgument string(String name) {
         return new CommandArgument(name, StringArgumentType.string());
     }
 
-    public static CommandArgument greedyString(String name){
+    public static CommandArgument greedyString(String name) {
         return new CommandArgument(name, StringArgumentType.greedyString());
     }
 
-    public static CommandArgument integer(String name){
+    public static CommandArgument integer(String name) {
 
         return new CommandArgument(name, IntegerArgumentType.integer());
     }
 
-    public static CommandArgument bool(String name){
+    public static CommandArgument bool(String name) {
         return new CommandArgument(name, BoolArgumentType.bool());
     }
 
-    public static CommandArgument doubleArg(String name){
+    public static CommandArgument doubleArg(String name) {
         return new CommandArgument(name, DoubleArgumentType.doubleArg());
     }
 
-    public static CommandArgument integer(String name,int min,int max){
-        return new CommandArgument(name, IntegerArgumentType.integer(min,max));
+    public static CommandArgument integer(String name, int min, int max) {
+        return new CommandArgument(name, IntegerArgumentType.integer(min, max));
     }
 
-    public static CommandArgument integer(String name,int min){
+    public static CommandArgument integer(String name, int min) {
         return new CommandArgument(name, IntegerArgumentType.integer(min));
     }
 
-    public static CommandArgument entities(String name){
+    public static CommandArgument entities(String name) {
         return new CommandArgument(name, EntityArgument.entities());
     }
 
-    public static CommandArgument create(String name,ArgumentType type){
-        return new CommandArgument(name,type);
+    public static CommandArgument create(String name, ArgumentType type) {
+        return new CommandArgument(name, type);
     }
 
-    public static CommandArgument players(String name){
+    public static CommandArgument players(String name) {
         return new CommandArgument(name, EntityArgument.players());
     }
 
-    public static CommandArgument vector3(String name){
-        return new CommandArgument(name,Vec3Argument.vec3(false));
+    public static CommandArgument vector3(String name) {
+        return new CommandArgument(name, Vec3Argument.vec3(false));
     }
 
-    public static CommandArgument vector2(String name){
+    public static CommandArgument vector2(String name) {
         return new CommandArgument(name, Vec2Argument.vec2(false));
     }
 
@@ -94,49 +94,49 @@ public class CommandArgument extends CommandPart {
         return this;
     }
 
-    public int getInt(CommandContext<CommandSourceStack> context){
-        return IntegerArgumentType.getInteger(context,getArgumentName());
+    public int getInt(CommandContext<CommandSourceStack> context) {
+        return IntegerArgumentType.getInteger(context, getArgumentName());
     }
 
 
-    public boolean getBoolean(CommandContext<CommandSourceStack> context){
-        return BoolArgumentType.getBool(context,getArgumentName());
+    public boolean getBoolean(CommandContext<CommandSourceStack> context) {
+        return BoolArgumentType.getBool(context, getArgumentName());
     }
 
 
-    public double getDouble(CommandContext<CommandSourceStack> context){
-        return DoubleArgumentType.getDouble(context,getArgumentName());
+    public double getDouble(CommandContext<CommandSourceStack> context) {
+        return DoubleArgumentType.getDouble(context, getArgumentName());
     }
 
-    public String getString(CommandContext<CommandSourceStack> context){
-        return StringArgumentType.getString(context,getArgumentName());
+    public String getString(CommandContext<CommandSourceStack> context) {
+        return StringArgumentType.getString(context, getArgumentName());
     }
 
-    public Vec3 getVector3(CommandContext<CommandSourceStack> context){
-        return Vec3Argument.getVec3(context,getArgumentName());
+    public Vec3 getVector3(CommandContext<CommandSourceStack> context) {
+        return Vec3Argument.getVec3(context, getArgumentName());
     }
 
-    public BlockPos getBlockPos(CommandContext<CommandSourceStack> context){
+    public BlockPos getBlockPos(CommandContext<CommandSourceStack> context) {
         try {
-            return BlockPosArgument.getLoadedBlockPos(context,getArgumentName());
+            return BlockPosArgument.getLoadedBlockPos(context, getArgumentName());
         } catch (CommandSyntaxException e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    public Collection<? extends Entity> getEntities(CommandContext<CommandSourceStack> context){
+    public Collection<? extends Entity> getEntities(CommandContext<CommandSourceStack> context) {
         try {
-            return EntityArgument.getEntities(context,getArgumentName());
+            return EntityArgument.getEntities(context, getArgumentName());
         } catch (CommandSyntaxException e) {
             e.printStackTrace();
         }
         return Collections.emptyList();
     }
 
-    public Collection<? extends ServerPlayer> getPlayers(CommandContext<CommandSourceStack> context){
+    public Collection<? extends ServerPlayer> getPlayers(CommandContext<CommandSourceStack> context) {
         try {
-            return EntityArgument.getPlayers(context,getArgumentName());
+            return EntityArgument.getPlayers(context, getArgumentName());
         } catch (CommandSyntaxException e) {
             e.printStackTrace();
         }
@@ -145,9 +145,9 @@ public class CommandArgument extends CommandPart {
 
 
     @Override
-    public ArgumentBuilder build(){
-        RequiredArgumentBuilder res = Commands.argument(getArgumentName(),type);
-        if (suggestionProvider != null){
+    public ArgumentBuilder build() {
+        RequiredArgumentBuilder res = Commands.argument(getArgumentName(), type);
+        if (suggestionProvider != null) {
             res = res.suggests(suggestionProvider);
         }
         return res;

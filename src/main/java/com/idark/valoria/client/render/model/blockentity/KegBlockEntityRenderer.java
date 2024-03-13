@@ -1,9 +1,9 @@
 package com.idark.valoria.client.render.model.blockentity;
 
 import com.idark.valoria.Valoria;
+import com.idark.valoria.client.event.ClientTickHandler;
 import com.idark.valoria.registries.world.block.entity.KegBlockEntity;
 import com.idark.valoria.registries.world.block.types.KegBlock;
-import com.idark.valoria.client.event.ClientTickHandler;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
@@ -20,7 +20,8 @@ public class KegBlockEntityRenderer implements BlockEntityRenderer<KegBlockEntit
 
     public static final ModelResourceLocation KEG_BARREL = new ModelResourceLocation(new ResourceLocation(Valoria.MOD_ID, "keg_barrel"), "");
 
-    public KegBlockEntityRenderer() {}
+    public KegBlockEntityRenderer() {
+    }
 
     @Override
     public void render(KegBlockEntity keg, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {

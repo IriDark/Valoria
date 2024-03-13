@@ -1,4 +1,5 @@
 {
+	"render_type": "minecraft:cutout",
 	"texture_size": [64, 64],
 	"textures": {
 		"10": "valoria:block/elemental_manipulator",

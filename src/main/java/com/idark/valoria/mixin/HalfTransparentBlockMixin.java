@@ -19,7 +19,7 @@ public class HalfTransparentBlockMixin extends Block {
 
     @Inject(method = "skipRendering", at = @At("RETURN"), cancellable = true)
     public void onSkip(BlockState pState, BlockState pAdjacentBlockState, Direction pSide, CallbackInfoReturnable<Boolean> cir) {
-        if(pAdjacentBlockState.is(ModBlocks.SUSPICIOUS_ICE.get())) {
+        if (pAdjacentBlockState.is(ModBlocks.SUSPICIOUS_ICE.get())) {
             cir.setReturnValue(true);
         }
     }

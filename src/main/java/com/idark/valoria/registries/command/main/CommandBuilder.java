@@ -8,10 +8,10 @@ import net.minecraft.commands.Commands;
 import java.util.LinkedList;
 import java.util.function.Predicate;
 
-public class CommandBuilder extends CommandVariant{
+public class CommandBuilder extends CommandVariant {
 
     private String command;
-    private Predicate<CommandSourceStack> permission = (p)->true;
+    private Predicate<CommandSourceStack> permission = (p) -> true;
     private LinkedList<CommandVariant> branches = new LinkedList<>();
 
 
@@ -19,7 +19,7 @@ public class CommandBuilder extends CommandVariant{
         this.command = command;
     }
 
-    public CommandBuilder variants(CommandVariant... branches){
+    public CommandBuilder variants(CommandVariant... branches) {
         for (CommandVariant branch : branches) {
             this.branches.add(branch);
         }
@@ -32,25 +32,25 @@ public class CommandBuilder extends CommandVariant{
     }
 
     @Override
-    public LiteralArgumentBuilder build(){
-        ArgumentBuilder res =  Commands.literal(command).requires(permission);
+    public LiteralArgumentBuilder build() {
+        ArgumentBuilder res = Commands.literal(command).requires(permission);
         for (CommandVariant branch : branches) {
             res = res.then(branch.build());
         }
         boolean hasArguments = getArguments() != null;
-        if (hasArguments){
+        if (hasArguments) {
             hasArguments = getArguments().length > 0;
         }
         if (hasArguments) {
             res = mergeArguments(getArguments(), 0);
         }
-        if (getExecutable() != null){
+        if (getExecutable() != null) {
             res = res.executes(getExecutable());
         }
-        return (LiteralArgumentBuilder)res;
+        return (LiteralArgumentBuilder) res;
     }
 
-    public void addVariant(CommandVariant branch){
+    public void addVariant(CommandVariant branch) {
         this.branches.add(branch);
     }
 

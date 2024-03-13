@@ -1,8 +1,8 @@
 package com.idark.valoria.registries.world.block.types;
 
+import com.idark.valoria.registries.recipe.CrusherRecipe;
 import com.idark.valoria.registries.world.block.entity.BlockSimpleInventory;
 import com.idark.valoria.registries.world.block.entity.CrusherBlockEntity;
-import com.idark.valoria.registries.recipe.CrusherRecipe;
 import com.idark.valoria.util.PacketUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
@@ -29,9 +29,9 @@ import java.util.Optional;
 public class CrusherBlock extends Block implements EntityBlock {
 
     public CrusherBlock(Properties properties) {
-		super(properties);
+        super(properties);
     }
-	
+
     @Nonnull
     @Override
     public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
@@ -48,9 +48,9 @@ public class CrusherBlock extends Block implements EntityBlock {
 
             super.onRemove(state, world, pos, newState, isMoving);
         }
-	}
-	
-	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
+    }
+
+    public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
         CrusherBlockEntity tile = (CrusherBlockEntity) world.getBlockEntity(pos);
         ItemStack stack = player.getItemInHand(handIn).copy();
         if (tile.getItemHandler().getItem(0).isEmpty()) {
@@ -73,9 +73,9 @@ public class CrusherBlock extends Block implements EntityBlock {
             return InteractionResult.SUCCESS;
         }
 
-		if ((isValid(tile.getItemHandler().getItem(0), tile) && stack.getItem() instanceof PickaxeItem) && (!tile.getItemHandler().getItem(0).isEmpty())) {
-			if (player instanceof ServerPlayer serverPlayer) {
-			    tile.craftItem(serverPlayer);
+        if ((isValid(tile.getItemHandler().getItem(0), tile) && stack.getItem() instanceof PickaxeItem) && (!tile.getItemHandler().getItem(0).isEmpty())) {
+            if (player instanceof ServerPlayer serverPlayer) {
+                tile.craftItem(serverPlayer);
                 player.getItemInHand(handIn).hurtAndBreak(5, player, (p_220045_0_) -> p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
             }
 
@@ -86,13 +86,13 @@ public class CrusherBlock extends Block implements EntityBlock {
             }
 
             tile.getItemHandler().removeItemNoUpdate(0);
-			return InteractionResult.SUCCESS;
-		}
-		
-		return InteractionResult.SUCCESS;
-	}
+            return InteractionResult.SUCCESS;
+        }
 
-	private static boolean isValid(ItemStack stack, CrusherBlockEntity tile) {
+        return InteractionResult.SUCCESS;
+    }
+
+    private static boolean isValid(ItemStack stack, CrusherBlockEntity tile) {
         Optional<CrusherRecipe> recipeOptional = tile.getCurrentRecipe();
         if (recipeOptional.isPresent()) {
             CrusherRecipe recipe = recipeOptional.get();
@@ -105,7 +105,7 @@ public class CrusherBlock extends Block implements EntityBlock {
         }
 
         return false;
-	}
+    }
 
     @Override
     public boolean triggerEvent(BlockState state, Level world, BlockPos pos, int id, int param) {

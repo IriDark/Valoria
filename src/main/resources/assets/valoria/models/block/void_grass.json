@@ -1,5 +1,5 @@
 {
-    "parent": "block/cube",
+	"parent": "block/cube",
     "textures": {
 	    "up": "valoria:block/void_grass_top",
 	    "particle": "valoria:block/void_spores",

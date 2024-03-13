@@ -43,12 +43,12 @@ public class CrusherBlockEntity extends BlockSimpleInventory {
         this.getItemHandler().removeItem(0, 1);
         Vec3 block = new Vec3(this.getBlockPos().getX() + 0.5f, this.getBlockPos().getY() + 1.5f, this.getBlockPos().getZ() + 0.5f);
         LootUtil.SpawnLoot(this.level, this.getBlockPos().above(), LootUtil.createLoot(recipe.get().getOutput(), LootUtil.getGiftParameters((ServerLevel) this.level, block, plr)));
-        this.level.playSound(null, this.getBlockPos(), SoundEvents.CALCITE_BREAK , SoundSource.BLOCKS, 1.0f, 1.0f);
+        this.level.playSound(null, this.getBlockPos(), SoundEvents.CALCITE_BREAK, SoundSource.BLOCKS, 1.0f, 1.0f);
     }
 
     public Optional<CrusherRecipe> getCurrentRecipe() {
         SimpleContainer inventory = new SimpleContainer(this.getItemHandler().getContainerSize());
-        for(int i = 0; i < this.getItemHandler().getContainerSize(); i++) {
+        for (int i = 0; i < this.getItemHandler().getContainerSize(); i++) {
             inventory.setItem(i, this.getItemHandler().getItem(i));
         }
 

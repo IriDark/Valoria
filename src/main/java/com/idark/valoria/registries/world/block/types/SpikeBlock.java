@@ -37,18 +37,18 @@ public class SpikeBlock extends DirectionalBlock implements SimpleWaterloggedBlo
     private static final VoxelShape westAabb = Block.box(13, 0, 0, 16, 16, 16);
     public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
 
-	public SpikeBlock(BlockBehaviour.Properties properties) {
-		super(properties);
+    public SpikeBlock(BlockBehaviour.Properties properties) {
+        super(properties);
         this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, Boolean.valueOf(false)).setValue(FACING, Direction.UP).setValue(AGE, 0));
-	}
+    }
 
-	public void entityInside(BlockState state, Level worldIn, BlockPos pos, Entity entityIn) {
-		entityIn.hurt(entityIn.damageSources().generic(), 1.5F);
-	}
-	
+    public void entityInside(BlockState state, Level worldIn, BlockPos pos, Entity entityIn) {
+        entityIn.hurt(entityIn.damageSources().generic(), 1.5F);
+    }
+
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
-    Direction direction = (state.getValue(FACING));
+        Direction direction = (state.getValue(FACING));
         return switch (direction) {
             case NORTH -> northAabb;
             case SOUTH -> southAabb;

@@ -1,7 +1,7 @@
 package com.idark.valoria.registries.world.item.types;
 
-import com.idark.valoria.registries.world.item.enchant.ModEnchantments;
 import com.idark.valoria.registries.sounds.ModSoundRegistry;
+import com.idark.valoria.registries.world.item.enchant.ModEnchantments;
 import com.idark.valoria.util.ModUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
@@ -49,7 +49,7 @@ public class BlazeReapItem extends PickaxeItem implements Vanishable {
     }
 
     /**
-     *Some sounds taken from the CalamityMod (Terraria) in a <a href="https://calamitymod.wiki.gg/wiki/Category:Sound_effects">Calamity Mod Wiki.gg</a>
+     * Some sounds taken from the CalamityMod (Terraria) in a <a href="https://calamitymod.wiki.gg/wiki/Category:Sound_effects">Calamity Mod Wiki.gg</a>
      */
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
@@ -58,7 +58,6 @@ public class BlazeReapItem extends PickaxeItem implements Vanishable {
                 List<ItemStack> items = player.inventoryMenu.getItems();
                 int gunpowder = 0;
                 boolean canCharge = false;
-
                 if (!player.isCreative()) {
                     for (ItemStack item : items) {
                         if (item.getItem().equals(Items.GUNPOWDER)) {
@@ -75,7 +74,6 @@ public class BlazeReapItem extends PickaxeItem implements Vanishable {
 
                 if (canCharge) {
                     gunpowder = 5;
-
                     if (!player.isCreative()) {
                         for (ItemStack item : items) {
                             if (item.getItem().equals(Items.GUNPOWDER)) {
@@ -102,7 +100,7 @@ public class BlazeReapItem extends PickaxeItem implements Vanishable {
                     player.displayClientMessage(Component.translatable("tooltip.valoria.recharge").withStyle(ChatFormatting.GRAY), true);
                 }
 
-                for(int i = 0; i < 6; ++i) {
+                for (int i = 0; i < 6; ++i) {
                     double d0 = rand.nextGaussian() * 0.02D;
                     double d1 = rand.nextGaussian() * 0.02D;
                     double d2 = rand.nextGaussian() * 0.02D;
@@ -149,7 +147,7 @@ public class BlazeReapItem extends PickaxeItem implements Vanishable {
                 }
             }
 
-            if (EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.EXPLOSIVE_FLAME.get(), itemstack) > 0) {
+            if (EnchantmentHelper.getTagEnchantmentLevel(ModEnchantments.EXPLOSIVE_FLAME.get(), itemstack) > 0) {
                 if (!level.isClientSide) {
                     level.explode(player, pos.x + X, pos.y + Y, pos.z + Z, 4.0F, Level.ExplosionInteraction.TNT);
                 }
@@ -161,7 +159,7 @@ public class BlazeReapItem extends PickaxeItem implements Vanishable {
                     if (!enemy.equals(player)) {
                         enemy.hurt(level.damageSources().generic(), 10F);
                         enemy.knockback(0.6F, player.getX() + X - entity.getX(), player.getZ() + Z - entity.getZ());
-                        if (EnchantmentHelper.getItemEnchantmentLevel(Enchantments.FIRE_ASPECT, itemstack) > 0) {
+                        if (EnchantmentHelper.getTagEnchantmentLevel(Enchantments.FIRE_ASPECT, itemstack) > 0) {
                             int i = EnchantmentHelper.getFireAspect(player);
                             enemy.setSecondsOnFire(i * 4);
                         }
@@ -177,18 +175,16 @@ public class BlazeReapItem extends PickaxeItem implements Vanishable {
             for (int i = 0; i < 10; i++) {
                 level.addParticle(ParticleTypes.LARGE_SMOKE, pos.x + X + ((rand.nextDouble() - 0.5D) * 3), pos.y + Y + ((rand.nextDouble() - 0.5D) * 3), pos.z + Z + ((rand.nextDouble() - 0.5D) * 3), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2));
             }
+
             for (int i = 0; i < 25; i++) {
                 level.addParticle(ParticleTypes.FLAME, pos.x + X + ((rand.nextDouble() - 0.5D) * 3), pos.y + Y + ((rand.nextDouble() - 0.5D) * 3), pos.z + Z + ((rand.nextDouble() - 0.5D) * 3), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2));
             }
 
             if (level instanceof ServerLevel srv) {
-                //level.addParticle(ParticleTypes.EXPLOSION_EMITTER, pos.x + X, pos.y + Y, player.getZ() + Z, 0d, 0d, 0d);
-                srv.sendParticles(ParticleTypes.EXPLOSION_EMITTER, pos.x + X, pos.y + Y, player.getZ() + Z, 1, 0, 0, 0,0);
+                srv.sendParticles(ParticleTypes.EXPLOSION_EMITTER, pos.x + X, pos.y + Y, player.getZ() + Z, 1, 0, 0, 0, 0);
             }
 
             level.playSound(null, player.blockPosition().offset((int) X, (int) (Y + player.getEyeHeight()), (int) Z), SoundEvents.GENERIC_EXPLODE, SoundSource.AMBIENT, 10f, 1f);
-
-
             return InteractionResultHolder.success(itemstack);
         }
 

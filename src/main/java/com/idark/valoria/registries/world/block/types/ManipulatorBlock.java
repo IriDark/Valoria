@@ -1,8 +1,8 @@
 package com.idark.valoria.registries.world.block.types;
 
+import com.idark.valoria.client.gui.menu.ManipulatorMenu;
 import com.idark.valoria.client.render.model.blockentity.TickableBlockEntity;
 import com.idark.valoria.registries.world.block.entity.ManipulatorBlockEntity;
-import com.idark.valoria.client.gui.menu.ManipulatorMenu;
 import com.idark.valoria.registries.world.item.ModItems;
 import com.idark.valoria.util.PacketUtils;
 import net.minecraft.core.BlockPos;
@@ -49,8 +49,8 @@ public class ManipulatorBlock extends Block implements EntityBlock {
         float chance = 0.35f;
         if (chance < rand.nextFloat()) {
             pLevel.addParticle(ParticleTypes.PORTAL, pos.getX() + rand.nextDouble(),
-                pos.getY() + 0.5D, pos.getZ() + rand.nextDouble(),
-                0d, 0.05d, 0d);
+                    pos.getY() + 0.5D, pos.getZ() + rand.nextDouble(),
+                    0d, 0.05d, 0d);
         }
 
         super.animateTick(stateIn, pLevel, pos, rand);
@@ -120,6 +120,7 @@ public class ManipulatorBlock extends Block implements EntityBlock {
 
         return InteractionResult.CONSUME;
     }
+
     private MenuProvider createContainerProvider(Level worldIn, BlockPos pos) {
         return new MenuProvider() {
 

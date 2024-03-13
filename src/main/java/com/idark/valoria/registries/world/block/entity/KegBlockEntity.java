@@ -1,8 +1,8 @@
 package com.idark.valoria.registries.world.block.entity;
 
-import com.idark.valoria.registries.world.block.types.KegBlock;
 import com.idark.valoria.client.render.model.blockentity.TickableBlockEntity;
 import com.idark.valoria.registries.recipe.KegRecipe;
+import com.idark.valoria.registries.world.block.types.KegBlock;
 import com.idark.valoria.util.PacketUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -97,7 +97,7 @@ public class KegBlockEntity extends BlockSimpleInventory implements TickableBloc
 
     private Optional<KegRecipe> getCurrentRecipe() {
         SimpleContainer inventory = new SimpleContainer(this.getItemHandler().getContainerSize());
-        for(int i = 0; i < this.getItemHandler().getContainerSize(); i++) {
+        for (int i = 0; i < this.getItemHandler().getContainerSize(); i++) {
             inventory.setItem(i, this.getItemHandler().getItem(i));
         }
 

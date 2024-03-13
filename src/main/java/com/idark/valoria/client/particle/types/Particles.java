@@ -1,6 +1,5 @@
 package com.idark.valoria.client.particle.types;
 
-import com.idark.valoria.client.particle.types.GenericParticleData;
 import com.idark.valoria.registries.world.item.types.TransformShardItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleType;
@@ -13,9 +12,10 @@ import net.minecraftforge.registries.RegistryObject;
 import java.util.Random;
 
 /**
- Custom mod particles only client-sided.
- May not work with Optifine and cant be created with command /particle
- @see TransformShardItem#rightClickOnCertainBlockState(ItemStack, Player, Level, BlockState, BlockPos) Example
+ * Custom mod particles only client-sided.
+ * May not work with Optifine and cant be created with command /particle
+ *
+ * @see TransformShardItem#rightClickOnCertainBlockState(ItemStack, Player, Level, BlockState, BlockPos) Example
  */
 public class Particles {
     public static class ParticleBuilder {
@@ -49,7 +49,6 @@ public class Particles {
         }
 
         /**
-         *
          * @param r1 Red value
          * @param g1 Green value
          * @param b1 Blue value
@@ -68,8 +67,14 @@ public class Particles {
         }
 
         public ParticleBuilder setColor(float r1, float g1, float b1, float a1, float r2, float g2, float b2, float a2) {
-            data.r1 = r1; data.g1 = g1; data.b1 = b1; data.a1 = a1;
-            data.r2 = r2; data.g2 = g2; data.b2 = b2; data.a2 = a2;
+            data.r1 = r1;
+            data.g1 = g1;
+            data.b1 = b1;
+            data.a1 = a1;
+            data.r2 = r2;
+            data.g2 = g2;
+            data.b2 = b2;
+            data.a2 = a2;
             return this;
         }
 
@@ -80,7 +85,7 @@ public class Particles {
 
         /**
          * @param pAlpha Alpha value
-         * @param pEnd End value
+         * @param pEnd   End value
          */
         public ParticleBuilder setAlpha(float pAlpha, float pEnd) {
             data.a1 = pAlpha;
@@ -120,6 +125,7 @@ public class Particles {
 
         /**
          * Lifetime of particle (Time to disappear)
+         *
          * @param lifetime value
          */
         public ParticleBuilder setLifetime(int lifetime) {
@@ -146,6 +152,7 @@ public class Particles {
 
         /**
          * Velocity of particle
+         *
          * @param vx Velocity x
          * @param vy Velocity y
          * @param vz Velocity z
@@ -182,11 +189,10 @@ public class Particles {
         }
 
         /**
-         *
          * @param level entity Level
-         * @param x X pos
-         * @param y Y pos
-         * @param z Z pos
+         * @param x     X pos
+         * @param y     Y pos
+         * @param z     Z pos
          */
         public ParticleBuilder spawn(net.minecraft.world.level.Level level, double x, double y, double z) {
             double yaw = random.nextFloat() * Math.PI * 2, pitch = random.nextFloat() * Math.PI - Math.PI / 2,
@@ -205,7 +211,7 @@ public class Particles {
         }
 
         public ParticleBuilder repeat(Level world, double x, double y, double z, int n) {
-            for (int i = 0; i < n; i ++) spawn(world, x, y, z);
+            for (int i = 0; i < n; i++) spawn(world, x, y, z);
             return this;
         }
     }
@@ -216,9 +222,10 @@ public class Particles {
 
     /**
      * Creates the particle
+     *
      * @param type ModParticle type to spawn
      */
     public static ParticleBuilder create(RegistryObject<?> type) {
-        return new ParticleBuilder((ParticleType<?>)type.get());
+        return new ParticleBuilder((ParticleType<?>) type.get());
     }
 }

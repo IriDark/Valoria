@@ -16,7 +16,7 @@ import net.minecraft.world.item.enchantment.Enchantments;
 public class BleedingEnchantment extends Enchantment {
 
     public BleedingEnchantment() {
-        super(Rarity.RARE, EnchantmentCategory.WEAPON, new EquipmentSlot[] {EquipmentSlot.MAINHAND});
+        super(Rarity.RARE, EnchantmentCategory.WEAPON, new EquipmentSlot[]{EquipmentSlot.MAINHAND});
     }
 
     public boolean canEnchant(ItemStack stack) {

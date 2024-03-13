@@ -33,8 +33,14 @@ public class GenericParticleData implements ParticleOptions {
         ).apply(instance, (r1, g1, b1, a1, r2, g2, b2, a2, scale1, scale2,
                            lifetime, spin, gravity) -> {
             GenericParticleData data = new GenericParticleData(type);
-            data.r1 = r1; data.g1 = g1; data.b1 = b1; data.a1 = a1;
-            data.r2 = r2; data.g2 = g2; data.b2 = b2; data.a2 = a2;
+            data.r1 = r1;
+            data.g1 = g1;
+            data.b1 = b1;
+            data.a1 = a1;
+            data.r2 = r2;
+            data.g2 = g2;
+            data.b2 = b2;
+            data.a2 = a2;
             data.scale1 = scale1;
             data.scale2 = scale2;
             data.lifetime = lifetime;

@@ -38,9 +38,9 @@ public class HandsModelDefault extends HumanoidModel<LivingEntity> {
         PartDefinition right_leg = root.addOrReplaceChild("right_leg", new CubeListBuilder(), PartPose.ZERO);
         PartDefinition left_leg = root.addOrReplaceChild("left_leg", new CubeListBuilder(), PartPose.ZERO);
 
-        PartDefinition right_glove = root.addOrReplaceChild("right_glove", CubeListBuilder.create().texOffs(24, 0).addBox(-1.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.2F))
+        PartDefinition right_glove = root.addOrReplaceChild("right_glove", CubeListBuilder.create().texOffs(24, 0).addBox(-1.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.35F))
                 .texOffs(0, 24).addBox(-1.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.45F)), PartPose.offset(-5.0F, 2.0F, 0.0F));
-        PartDefinition left_glove = root.addOrReplaceChild("left_glove", CubeListBuilder.create().texOffs(12, 12).mirror().addBox(-3.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.2F)).mirror(false)
+        PartDefinition left_glove = root.addOrReplaceChild("left_glove", CubeListBuilder.create().texOffs(12, 12).mirror().addBox(-3.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.35F)).mirror(false)
                 .texOffs(0, 0).mirror().addBox(-3.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.45F)).mirror(false), PartPose.offset(5.0F, 2.0F, 0.0F));
 
         return LayerDefinition.create(mesh, 64, 64);

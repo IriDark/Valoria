@@ -1,7 +1,7 @@
 package com.idark.valoria.network;
 
 import com.idark.valoria.Valoria;
-import com.idark.valoria.client.gui.toast.ModToast;
+import com.idark.valoria.client.gui.toast.PageToast;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Player;
@@ -53,6 +53,6 @@ public class PageToastPacket {
 
     @OnlyIn(Dist.CLIENT)
     public static void toast(PageToastPacket packet) {
-        Minecraft.getInstance().getToasts().addToast(new ModToast(packet.unlock));
+        Minecraft.getInstance().getToasts().addToast(new PageToast(packet.unlock));
     }
 }

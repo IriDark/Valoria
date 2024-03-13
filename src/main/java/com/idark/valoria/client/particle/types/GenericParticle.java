@@ -22,13 +22,13 @@ public class GenericParticle extends TextureSheetParticle {
         this.zd = vz;
         this.setLifetime(data.lifetime);
         this.gravity = data.gravity ? 1 : 0;
-        Color.RGBtoHSB((int)(255 * Math.min(1.0f, data.r1)), (int)(255 * Math.min(1.0f, data.g1)), (int)(255 * Math.min(1.0f, data.b1)), hsv1);
-        Color.RGBtoHSB((int)(255 * Math.min(1.0f, data.r2)), (int)(255 * Math.min(1.0f, data.g2)), (int)(255 * Math.min(1.0f, data.b2)), hsv2);
+        Color.RGBtoHSB((int) (255 * Math.min(1.0f, data.r1)), (int) (255 * Math.min(1.0f, data.g1)), (int) (255 * Math.min(1.0f, data.b1)), hsv1);
+        Color.RGBtoHSB((int) (255 * Math.min(1.0f, data.r2)), (int) (255 * Math.min(1.0f, data.g2)), (int) (255 * Math.min(1.0f, data.b2)), hsv2);
         updateTraits();
     }
 
     protected float getCoeff() {
-        return (float)this.age / this.lifetime;
+        return (float) this.age / this.lifetime;
     }
 
     protected void updateTraits() {

@@ -12,11 +12,12 @@ import net.minecraftforge.event.TickEvent;
 
 public class DashOverlayRender {
 
-    private DashOverlayRender() {}
+    private DashOverlayRender() {
+    }
 
     public static int dashTime = 0;
     public static boolean isDash = false;
-	private static final ResourceLocation DASH = new ResourceLocation(Valoria.MOD_ID + ":textures/gui/overlay/speedlines.png");
+    private static final ResourceLocation DASH = new ResourceLocation(Valoria.MOD_ID + ":textures/gui/overlay/speedlines.png");
 
     public static void tick(TickEvent.ClientTickEvent event) {
         if (isDash) {
@@ -39,7 +40,7 @@ public class DashOverlayRender {
             float alpha = 0.5F;
 
             if (ticks < 10) {
-                alpha = 5 /ticks;
+                alpha = 5 / ticks;
             }
 
             if (ticks >= 20) {

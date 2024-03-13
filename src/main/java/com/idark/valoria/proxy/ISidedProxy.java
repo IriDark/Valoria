@@ -5,5 +5,6 @@ import net.minecraft.world.level.Level;
 
 public interface ISidedProxy {
     Player getPlayer();
+
     Level getWorld();
 }

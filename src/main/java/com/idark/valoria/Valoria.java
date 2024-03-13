@@ -1,45 +1,44 @@
 package com.idark.valoria;
 
 import com.google.common.collect.ImmutableMap;
-import com.idark.valoria.datagen.ModBlockStateProvider;
-import com.idark.valoria.registries.world.entity.living.*;
-import com.idark.valoria.registries.world.item.types.ScytheItem;
-import com.idark.valoria.registries.world.levelgen.LevelGen;
-import com.idark.valoria.registries.world.block.ModBlocks;
-import com.idark.valoria.registries.world.block.entity.ModBlockEntities;
-import com.idark.valoria.registries.world.block.types.ModWoodTypes;
 import com.idark.valoria.capability.IUnlockable;
 import com.idark.valoria.client.event.ClientTickHandler;
 import com.idark.valoria.client.gui.menu.ModMenuTypes;
-import com.idark.valoria.client.particle.ModParticles;
 import com.idark.valoria.client.gui.overlay.CorpsecleaverRender;
 import com.idark.valoria.client.gui.overlay.DashOverlayRender;
-import com.idark.valoria.client.render.curio.BeltRenderer;
-import com.idark.valoria.client.render.curio.HandsRenderer;
-import com.idark.valoria.client.render.curio.NecklaceRenderer;
 import com.idark.valoria.client.gui.overlay.MagmaBarRender;
-import com.idark.valoria.client.event.TooltipEventHandler;
 import com.idark.valoria.client.gui.screen.JewelryScreen;
 import com.idark.valoria.client.gui.screen.ManipulatorScreen;
 import com.idark.valoria.client.gui.screen.book.LexiconChapters;
 import com.idark.valoria.client.gui.screen.book.unlockable.RegisterUnlockables;
-import com.idark.valoria.registries.command.arguments.ModArgumentTypes;
+import com.idark.valoria.client.particle.ModParticles;
+import com.idark.valoria.client.render.curio.BeltRenderer;
+import com.idark.valoria.client.render.curio.HandsRenderer;
+import com.idark.valoria.client.render.curio.NecklaceRenderer;
 import com.idark.valoria.config.ClientConfig;
-import com.idark.valoria.registries.world.effect.ModEffects;
-import com.idark.valoria.registries.world.effect.potion.ModPotions;
-import com.idark.valoria.registries.world.item.enchant.ModEnchantments;
-import com.idark.valoria.registries.world.entity.ModEntityTypes;
-import com.idark.valoria.registries.world.entity.ai.attributes.ModAttributes;
-import com.idark.valoria.registries.world.item.ModItemGroup;
-import com.idark.valoria.registries.world.item.ModItems;
-import com.idark.valoria.registries.world.item.types.mana.staffs.StaffItem;
+import com.idark.valoria.datagen.ModBlockStateProvider;
 import com.idark.valoria.network.PacketHandler;
-import com.idark.valoria.registries.world.entity.decoration.ModPaintings;
 import com.idark.valoria.proxy.ClientProxy;
 import com.idark.valoria.proxy.ISidedProxy;
 import com.idark.valoria.proxy.ServerProxy;
+import com.idark.valoria.registries.command.arguments.ModArgumentTypes;
 import com.idark.valoria.registries.recipe.ModRecipes;
 import com.idark.valoria.registries.sounds.ModSoundRegistry;
+import com.idark.valoria.registries.world.block.ModBlocks;
+import com.idark.valoria.registries.world.block.entity.ModBlockEntities;
+import com.idark.valoria.registries.world.block.types.ModWoodTypes;
+import com.idark.valoria.registries.world.effect.ModEffects;
+import com.idark.valoria.registries.world.effect.potion.ModPotions;
+import com.idark.valoria.registries.world.entity.ModEntityTypes;
+import com.idark.valoria.registries.world.entity.ai.attributes.ModAttributes;
+import com.idark.valoria.registries.world.entity.decoration.ModPaintings;
+import com.idark.valoria.registries.world.entity.living.*;
+import com.idark.valoria.registries.world.item.ModItemGroup;
+import com.idark.valoria.registries.world.item.ModItems;
+import com.idark.valoria.registries.world.item.enchant.ModEnchantments;
+import com.idark.valoria.registries.world.item.types.ScytheItem;
+import com.idark.valoria.registries.world.item.types.mana.staffs.StaffItem;
+import com.idark.valoria.registries.world.levelgen.LevelGen;
 import com.idark.valoria.util.LootUtil;
 import com.idark.valoria.util.WorldRenderHandler;
 import net.minecraft.client.gui.screens.MenuScreens;
@@ -111,7 +110,6 @@ public class Valoria {
             forgeBus.addListener(CorpsecleaverRender::onDrawScreenPost);
             forgeBus.addListener(MagmaBarRender::onDrawScreenPost);
             forgeBus.addListener(StaffItem::onDrawScreenPost);
-            forgeBus.addListener(TooltipEventHandler::onPostTooltipEvent);
             return new Object();
         });
 
@@ -229,7 +227,7 @@ public class Valoria {
                         Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                         SwampWandererEntity::checkDrownedSpawnRules);
             });
-    }
+        }
 
         @SubscribeEvent
         public static void registerAttributes(EntityAttributeCreationEvent event) {

@@ -1,14 +1,13 @@
 package com.idark.valoria.client.render.entity;
 
 import com.idark.valoria.Valoria;
-import com.idark.valoria.registries.world.entity.living.DraugrEntity;
 import com.idark.valoria.client.render.model.entity.DraugrModel;
+import com.idark.valoria.registries.world.entity.living.DraugrEntity;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.HumanoidMobRenderer;
 import net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.monster.AbstractSkeleton;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -17,7 +16,7 @@ public class DraugrRenderer extends HumanoidMobRenderer<DraugrEntity, DraugrMode
     protected static final ResourceLocation TEXTURE = new ResourceLocation(Valoria.MOD_ID, "textures/entity/draugr.png");
 
     public DraugrRenderer(EntityRendererProvider.Context context) {
-        super(context, new DraugrModel<>(DraugrModel.createBodyLayer().bakeRoot()),0.4F);
+        super(context, new DraugrModel<>(DraugrModel.createBodyLayer().bakeRoot()), 0.4F);
     }
 
     @Override

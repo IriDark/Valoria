@@ -45,10 +45,10 @@ public class UnlockableProvider implements IUnlockable, INBTSerializable<Compoun
     public Set<Unlockable> getUnlockables() {
         return unlockables;
     }
-    
+
     @Override
     public CompoundTag serializeNBT() {
-        ListTag unlockables = new ListTag ();
+        ListTag unlockables = new ListTag();
         for (Unlockable unlockable : getUnlockables()) {
             unlockables.add(StringTag.valueOf(unlockable.getId()));
         }

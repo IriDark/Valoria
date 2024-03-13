@@ -3,7 +3,6 @@ package com.idark.valoria.client.compat.jei.categories;
 import com.idark.valoria.Valoria;
 import com.idark.valoria.client.compat.jei.ModRecipeTypes;
 import com.idark.valoria.client.event.ClientTickHandler;
-import com.idark.valoria.registries.recipe.JewelryRecipe;
 import com.idark.valoria.registries.recipe.ManipulatorRecipe;
 import com.idark.valoria.registries.world.block.ModBlocks;
 import mezz.jei.api.constants.VanillaTypes;
@@ -90,19 +89,19 @@ public class ManipulatorRecipeCategory implements IRecipeCategory<ManipulatorRec
         }
 
         if (recipe.getCore().equals("infernal_core")) {
-            gui.blit(cores, 0 / 2, 0, 181*2, 27*2, 5*2, 5*2, 512, 512);
+            gui.blit(cores, 0 / 2, 0, 181 * 2, 27 * 2, 5 * 2, 5 * 2, 512, 512);
         }
 
         if (recipe.getCore().equals("nature_core")) {
-            gui.blit(cores, 0 / 2, 0, 186*2, 27*2, 5*2, 5*2, 512, 512);
+            gui.blit(cores, 0 / 2, 0, 186 * 2, 27 * 2, 5 * 2, 5 * 2, 512, 512);
         }
 
         if (recipe.getCore().equals("aquarius_core")) {
-            gui.blit(cores, 0 / 2, 0, 176*2, 27*2, 5*2, 5*2, 512, 512);
+            gui.blit(cores, 0 / 2, 0, 176 * 2, 27 * 2, 5 * 2, 5 * 2, 512, 512);
         }
 
         if (recipe.getCore().equals("void_core")) {
-            gui.blit(cores, 0 / 2, 0, 191*2, 27*2, 5*2, 5*2, 512, 512);
+            gui.blit(cores, 0 / 2, 0, 191 * 2, 27 * 2, 5 * 2, 5 * 2, 512, 512);
         }
 
         gui.drawString(font_renderer, time + "s", (95 - stringWidth) / 2, 28 + font_renderer.lineHeight, 0xffffff);

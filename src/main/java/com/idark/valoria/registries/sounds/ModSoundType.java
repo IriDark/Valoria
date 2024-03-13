@@ -14,7 +14,7 @@ public class ModSoundType extends SoundType {
     private final Supplier<SoundEvent> fallSoundIn;
 
     public ModSoundType(float volumeIn, float pitchIn, Supplier<SoundEvent> breakSoundIn, Supplier<SoundEvent> stepSoundIn, Supplier<SoundEvent> placeSoundIn, Supplier<SoundEvent> hitSoundIn, Supplier<SoundEvent> fallSoundIn) {
-        super(volumeIn, pitchIn,null,null,null,null,null);
+        super(volumeIn, pitchIn, null, null, null, null, null);
         this.placeSoundIn = placeSoundIn;
         this.breakSoundIn = breakSoundIn;
         this.stepSoundIn = stepSoundIn;

@@ -1,4 +1,5 @@
 {
+  "render_type": "minecraft:cutout",
   "parent": "minecraft:block/template_trapdoor_open",
   "textures": {
     "texture": "valoria:block/bronze_trapdoor"

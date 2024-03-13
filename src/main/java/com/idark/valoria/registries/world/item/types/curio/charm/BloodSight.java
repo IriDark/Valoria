@@ -1,8 +1,8 @@
 package com.idark.valoria.registries.world.item.types.curio.charm;
 
 import com.idark.valoria.client.event.ClientTickHandler;
-import com.idark.valoria.registries.world.item.ModItems;
 import com.idark.valoria.registries.sounds.ModSoundRegistry;
+import com.idark.valoria.registries.world.item.ModItems;
 import com.idark.valoria.util.ModUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.BlockParticleOption;
@@ -70,7 +70,7 @@ public class BloodSight extends Item implements ICurioItem, Vanishable {
                 stack.hurtAndBreak(damageAmount, player, (p0) -> p0.broadcastBreakEvent(EquipmentSlot.MAINHAND));
             }
 
-            if (hits >= duration/2) {
+            if (hits >= duration / 2) {
                 player.getCooldowns().addCooldown(stack.getItem(), 600);
                 hits = 0;
             }

@@ -14,24 +14,24 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
 public class KunaiRenderer<T extends KunaiEntity> extends EntityRenderer<T> {
-	public KunaiRenderer(EntityRendererProvider.Context context) {
-		super(context);
-	}
+    public KunaiRenderer(EntityRendererProvider.Context context) {
+        super(context);
+    }
 
-	public void render(KunaiEntity entityIn, float entityYaw, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light) {
-		if (!Minecraft.getInstance().isPaused() && !(entityIn.inGround || entityIn.onGround())) {
-			entityIn.rotationVelocity = Mth.lerp(partialTicks, entityIn.rotationVelocity, entityIn.rotationVelocity + 10);
-		}
+    public void render(KunaiEntity entityIn, float entityYaw, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light) {
+        if (!Minecraft.getInstance().isPaused() && !(entityIn.inGround || entityIn.onGround())) {
+            entityIn.rotationVelocity = Mth.lerp(partialTicks, entityIn.rotationVelocity, entityIn.rotationVelocity + 10);
+        }
 
-		ms.pushPose();
-		ms.mulPose(Axis.YP.rotationDegrees(Mth.lerp(partialTicks, entityIn.yRotO, entityIn.getYRot()) + 90.0F));
-		ms.mulPose(Axis.ZP.rotationDegrees(Mth.lerp(partialTicks, entityIn.xRotO - 90 + entityIn.rotationVelocity, entityIn.getXRot() - 90 + entityIn.rotationVelocity)));
-		ItemStack stack = entityIn.thrownStack;
-		Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.FIXED, light, OverlayTexture.NO_OVERLAY, ms, buffers, entityIn.level(), 0);
-		ms.popPose();
-	}
+        ms.pushPose();
+        ms.mulPose(Axis.YP.rotationDegrees(Mth.lerp(partialTicks, entityIn.yRotO, entityIn.getYRot()) + 90.0F));
+        ms.mulPose(Axis.ZP.rotationDegrees(Mth.lerp(partialTicks, entityIn.xRotO - 90 + entityIn.rotationVelocity, entityIn.getXRot() - 90 + entityIn.rotationVelocity)));
+        ItemStack stack = entityIn.thrownStack;
+        Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.FIXED, light, OverlayTexture.NO_OVERLAY, ms, buffers, entityIn.level(), 0);
+        ms.popPose();
+    }
 
-	public ResourceLocation getTextureLocation(KunaiEntity entity) {
-		return null;
-	}
+    public ResourceLocation getTextureLocation(KunaiEntity entity) {
+        return null;
+    }
 }

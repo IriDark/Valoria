@@ -1,4 +1,5 @@
 {
+  "render_type": "minecraft:cutout",
   "textures": {
     "1": "valoria:block/tinted_cattail_top",
     "2": "valoria:block/cattail_top",

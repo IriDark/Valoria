@@ -19,6 +19,7 @@ public class TagsRegistry {
     public static TagKey<Block> block(final ResourceLocation name) {
         return TagKey.create(Registries.BLOCK, name);
     }
+
     private static TagKey<DamageType> damage(final ResourceLocation name) {
         return TagKey.create(Registries.DAMAGE_TYPE, name);
     }

@@ -46,8 +46,8 @@ public class CooldownSoundPacket {
     public static void handle(CooldownSoundPacket msg, Supplier<NetworkEvent.Context> ctx) {
         ctx.get().enqueueWork(() -> {
             assert ctx.get().getDirection() == NetworkDirection.PLAY_TO_CLIENT;
-                playSound();
-            });
+            playSound();
+        });
 
         ctx.get().setPacketHandled(true);
     }

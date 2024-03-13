@@ -3,12 +3,12 @@ package com.idark.valoria.registries.world.item.types;
 import com.google.common.base.Suppliers;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
-import com.idark.valoria.registries.world.block.entity.CrushableBlockEntity;
-import com.idark.valoria.registries.world.entity.ai.attributes.ModAttributes;
-import com.idark.valoria.registries.world.item.types.curio.necklace.PickNecklace;
-import com.idark.valoria.registries.world.block.types.CrushableBlock;
 import com.idark.valoria.client.render.model.item.ItemAnims;
 import com.idark.valoria.client.render.model.item.PickAnim;
+import com.idark.valoria.registries.world.block.entity.CrushableBlockEntity;
+import com.idark.valoria.registries.world.block.types.CrushableBlock;
+import com.idark.valoria.registries.world.entity.ai.attributes.ModAttributes;
+import com.idark.valoria.registries.world.item.types.curio.necklace.PickNecklace;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.BlockParticleOption;
@@ -43,7 +43,6 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotResult;
-import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +62,7 @@ public class PickItem extends Item implements ICustomAnimationItem, Vanishable {
     public PickItem(Item.Properties pProperties, int attackDamageIn, float attackSpeedIn, int speed) {
         super(pProperties);
         this.attackDamageIn = (float) attackDamageIn;
-        this.attackSpeedIn =  attackSpeedIn;
+        this.attackSpeedIn = attackSpeedIn;
         this.excavationSpeed = (float) speed;
     }
 
@@ -120,9 +119,8 @@ public class PickItem extends Item implements ICustomAnimationItem, Vanishable {
             if (hitresult instanceof BlockHitResult blockhitresult) {
                 if (hitresult.getType() == HitResult.Type.BLOCK) {
                     int i = this.getUseDuration(pStack) - pRemainingUseDuration + 1;
-                    int speed = getExcavationAccessories(player).isEmpty() ? (int)excavationSpeed + 15: (int)excavationSpeed + 10;
+                    int speed = getExcavationAccessories(player).isEmpty() ? (int) excavationSpeed + 15 : (int) excavationSpeed + 10;
                     boolean flag = i % speed == 5;
-
                     if (flag) {
                         BlockPos blockpos = blockhitresult.getBlockPos();
                         BlockState blockstate = pLevel.getBlockState(blockpos);

@@ -1,9 +1,9 @@
 package com.idark.valoria.registries.world.entity.projectile;
 
+import com.idark.valoria.registries.sounds.ModSoundRegistry;
 import com.idark.valoria.registries.world.block.ModBlocks;
 import com.idark.valoria.registries.world.damage.ModDamageSources;
 import com.idark.valoria.registries.world.entity.ModEntityTypes;
-import com.idark.valoria.registries.sounds.ModSoundRegistry;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -84,14 +84,14 @@ public class MeatBlockEntity extends AbstractArrow {
 
     public void onHit(HitResult pResult) {
         super.onHit(pResult);
-        if (pResult.getType() != HitResult.Type.ENTITY || !this.ownedBy(((EntityHitResult)pResult).getEntity())) {
+        if (pResult.getType() != HitResult.Type.ENTITY || !this.ownedBy(((EntityHitResult) pResult).getEntity())) {
             if (!this.level().isClientSide) {
                 BlockState state = ModBlocks.CATTAIL.get().defaultBlockState();
                 for (int a = 0; a < 10; ++a) {
-                    this.level().addParticle(new BlockParticleOption(ParticleTypes.BLOCK, state),  xo, yo + 4, zo, 0.2d, 0.04d, 0.2d);
+                    this.level().addParticle(new BlockParticleOption(ParticleTypes.BLOCK, state), xo, yo + 4, zo, 0.2d, 0.04d, 0.2d);
                 }
 
-                this.level().playSound(this, this.getOnPos(),  SoundEvents.FROGSPAWN_BREAK, SoundSource.AMBIENT, 0.4f, 1f);
+                this.level().playSound(this, this.getOnPos(), SoundEvents.FROGSPAWN_BREAK, SoundSource.AMBIENT, 0.4f, 1f);
                 this.removeAfterChangingDimensions();
             }
         }
@@ -127,7 +127,7 @@ public class MeatBlockEntity extends AbstractArrow {
         }
 
         Entity shooter = this.getOwner();
-        DamageSource damagesource = new DamageSource(ModDamageSources.source(level(), ModDamageSources.BLEEDING).typeHolder(),this, (Entity) (shooter == null ? this : shooter));
+        DamageSource damagesource = new DamageSource(ModDamageSources.source(level(), ModDamageSources.BLEEDING).typeHolder(), this, (Entity) (shooter == null ? this : shooter));
         this.dealtDamage = true;
         if (entity.hurt(damagesource, f)) {
             if (entity.getType() == EntityType.ENDERMAN) {

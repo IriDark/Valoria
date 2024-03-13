@@ -35,7 +35,7 @@ public class CrusherRecipe implements Recipe<Container> {
 
     @Override
     public boolean matches(Container pContainer, Level pLevel) {
-        if(pLevel.isClientSide()) {
+        if (pLevel.isClientSide()) {
             return false;
         }
 

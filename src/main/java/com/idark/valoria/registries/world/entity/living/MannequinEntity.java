@@ -34,15 +34,15 @@ public class MannequinEntity extends Mob implements IForgeEntity {
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        entityData.define(LAST_DAMAGE,0f);
+        entityData.define(LAST_DAMAGE, 0f);
     }
 
     @Override
     public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
         Level level = pPlayer.level();
         if (pPlayer.isShiftKeyDown()) {
-            if(!level.isClientSide()) {
-                if(!pPlayer.isCreative()) {
+            if (!level.isClientSide()) {
+                if (!pPlayer.isCreative()) {
                     level.addFreshEntity(new ItemEntity(level, this.getX(), this.getY() + 0.7D, this.getZ(), ModItems.MANNEQUIN_SPAWN_EGG.get().getDefaultInstance()));
                 }
 
@@ -61,11 +61,11 @@ public class MannequinEntity extends Mob implements IForgeEntity {
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-        .add(Attributes.MAX_HEALTH, 1000)
-        .add(Attributes.MOVEMENT_SPEED, 0.0D)
-        .add(Attributes.KNOCKBACK_RESISTANCE, 1.0D)
-        .add(Attributes.FOLLOW_RANGE, 0.0D)
-        .add(Attributes.SPAWN_REINFORCEMENTS_CHANCE);
+                .add(Attributes.MAX_HEALTH, 1000)
+                .add(Attributes.MOVEMENT_SPEED, 0.0D)
+                .add(Attributes.KNOCKBACK_RESISTANCE, 1.0D)
+                .add(Attributes.FOLLOW_RANGE, 0.0D)
+                .add(Attributes.SPAWN_REINFORCEMENTS_CHANCE);
     }
 
     @Override
@@ -81,10 +81,10 @@ public class MannequinEntity extends Mob implements IForgeEntity {
             this.heal(getMaxHealth());
         }
 
-	    return super.hurt(source, amount);
-	}
+        return super.hurt(source, amount);
+    }
 
-    public float getLastDamage(){
+    public float getLastDamage() {
         return entityData.get(LAST_DAMAGE);
     }
 

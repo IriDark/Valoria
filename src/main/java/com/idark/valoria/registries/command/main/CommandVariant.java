@@ -14,18 +14,18 @@ public class CommandVariant {
         this.arguments = arguments;
     }
 
-    public CommandVariant execute(Command<CommandSourceStack> executable){
+    public CommandVariant execute(Command<CommandSourceStack> executable) {
         this.executable = executable;
         return this;
     }
 
-    public static CommandVariant arguments(CommandPart... arguments){
+    public static CommandVariant arguments(CommandPart... arguments) {
         CommandVariant branch = new CommandVariant(arguments);
         return branch;
     }
 
 
-    public CommandVariant setArguments(CommandPart... arguments){
+    public CommandVariant setArguments(CommandPart... arguments) {
         this.arguments = arguments;
         return this;
     }
@@ -38,11 +38,11 @@ public class CommandVariant {
         return executable;
     }
 
-    public ArgumentBuilder build(){
-        return mergeArguments(arguments,0);
+    public ArgumentBuilder build() {
+        return mergeArguments(arguments, 0);
     }
 
-    public ArgumentBuilder mergeArguments(CommandPart[] arguments,int index){
+    public ArgumentBuilder mergeArguments(CommandPart[] arguments, int index) {
         if (index < arguments.length - 1) {
             ArgumentBuilder next = mergeArguments(arguments, index + 1);
             return arguments[index].build().then(next);

@@ -22,49 +22,33 @@ import top.theillusivec4.curios.api.client.ICurioRenderer;
 public class HandsRenderer implements ICurioRenderer {
     public static ResourceLocation TEXTURE = new ResourceLocation(Valoria.MOD_ID, "textures/entity/necklace/empty.png");
 
-    public static boolean isDefault2;
-    public boolean isDefault(LivingEntity entity) {
-       if (entity instanceof AbstractClientPlayer player) {
-            isDefault2 = player.getModelName().equals("default");
-            return player.getModelName().equals("default");
-       }
+    public static boolean isDefault;
 
-        return isDefault2;
+    public boolean isDefault(LivingEntity entity) {
+        if (entity instanceof AbstractClientPlayer player) {
+            isDefault = player.getModelName().equals("default");
+            return player.getModelName().equals("default");
+        }
+
+        return isDefault;
     }
 
     @Override
-    public <T extends LivingEntity, M extends EntityModel<T>> void render(ItemStack stack, SlotContext slotContext,
-                                                                          PoseStack matrixStack, RenderLayerParent<T, M> renderLayerParent, MultiBufferSource renderTypeBuffer,
-                                                                          int light, float limbSwing, float limbSwingAmount, float partialTicks,
-                                                                          float ageInTicks, float netHeadYaw, float headPitch) {
+    public <T extends LivingEntity, M extends EntityModel<T>> void render(ItemStack stack, SlotContext slotContext, PoseStack matrixStack, RenderLayerParent<T, M> renderLayerParent, MultiBufferSource renderTypeBuffer, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+        LivingEntity entity = slotContext.entity();
+        if (stack.getItem() instanceof ICurioTexture curio) {
+            TEXTURE = curio.getTexture(stack, entity);
+        }
 
         if (!isDefault(slotContext.entity())) {
-            HandsModel model = null;
-            if (model == null) {
-                model = new HandsModel(Minecraft.getInstance().getEntityModels().bakeLayer(ValoriaClient.HANDS_LAYER_SLIM));
-            }
-
-            LivingEntity entity = slotContext.entity();
-            if (stack.getItem() instanceof ICurioTexture) {
-                ICurioTexture curio = (ICurioTexture) stack.getItem();
-                TEXTURE = curio.getTexture(stack, entity);
-            }
-
+            HandsModel model;
+            model = new HandsModel(Minecraft.getInstance().getEntityModels().bakeLayer(ValoriaClient.HANDS_LAYER_SLIM));
             ICurioRenderer.followBodyRotations(entity, model);
             model.setupAnim(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
             model.renderToBuffer(matrixStack, renderTypeBuffer.getBuffer(RenderType.entityCutoutNoCull(TEXTURE)), light, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
         } else if (isDefault(slotContext.entity())) {
-            HandsModelDefault model = null;
-            if (model == null) {
-                model = new HandsModelDefault(Minecraft.getInstance().getEntityModels().bakeLayer(ValoriaClient.HANDS_LAYER));
-            }
-
-            LivingEntity entity = slotContext.entity();
-            if (stack.getItem() instanceof ICurioTexture) {
-                ICurioTexture curio = (ICurioTexture) stack.getItem();
-                TEXTURE = curio.getTexture(stack, entity);
-            }
-
+            HandsModelDefault model;
+            model = new HandsModelDefault(Minecraft.getInstance().getEntityModels().bakeLayer(ValoriaClient.HANDS_LAYER));
             ICurioRenderer.followBodyRotations(entity, model);
             model.setupAnim(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
             model.renderToBuffer(matrixStack, renderTypeBuffer.getBuffer(RenderType.entityCutoutNoCull(TEXTURE)), light, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);

@@ -11,6 +11,7 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.stats.Stats;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffectUtil;
@@ -38,9 +39,9 @@ public class ModDrinkItem extends Item {
     public ModDrinkItem(int nutrition, int saturation, int stackSize, Item pItem, MobEffectInstance... pEffects) {
         super(new Properties()
                 .food(new FoodProperties.Builder()
-                .alwaysEat().nutrition(nutrition)
-                .saturationMod(saturation)
-                .build())
+                        .alwaysEat().nutrition(nutrition)
+                        .saturationMod(saturation)
+                        .build())
                 .stacksTo(stackSize)
         );
 
@@ -59,21 +60,16 @@ public class ModDrinkItem extends Item {
     @Override
     public ItemStack finishUsingItem(ItemStack stack, Level world, LivingEntity entity) {
         Player playerEntity = entity instanceof Player ? (Player) entity : null;
-        if (playerEntity instanceof ServerPlayer) {
-            CriteriaTriggers.CONSUME_ITEM.trigger((ServerPlayer) playerEntity, stack);
-        }
-
         if (!world.isClientSide) {
+            CriteriaTriggers.CONSUME_ITEM.trigger((ServerPlayer) playerEntity, stack);
+            playerEntity.awardStat(Stats.ITEM_USED.get(stack.getItem()));
             for (MobEffectInstance mobeffectinstance : effects) {
                 entity.addEffect(new MobEffectInstance(mobeffectinstance));
             }
 
-            if (playerEntity == null || !playerEntity.getAbilities().instabuild) {
+            if (!playerEntity.getAbilities().instabuild) {
                 stack.shrink(1);
-
-                if (playerEntity != null) {
-                    playerEntity.getInventory().add(new ItemStack(item.getItem()));
-                }
+                playerEntity.getInventory().add(new ItemStack(item.getItem()));
             }
         }
 
@@ -96,12 +92,12 @@ public class ModDrinkItem extends Item {
         if (effects.isEmpty()) {
             pTooltips.add(NO_EFFECT);
         } else {
-            for(MobEffectInstance mobeffectinstance : effects) {
+            for (MobEffectInstance mobeffectinstance : effects) {
                 MutableComponent mutablecomponent = Component.translatable(mobeffectinstance.getDescriptionId());
                 MobEffect mobeffect = mobeffectinstance.getEffect();
                 Map<Attribute, AttributeModifier> map = mobeffect.getAttributeModifiers();
                 if (!map.isEmpty()) {
-                    for(Map.Entry<Attribute, AttributeModifier> entry : map.entrySet()) {
+                    for (Map.Entry<Attribute, AttributeModifier> entry : map.entrySet()) {
                         AttributeModifier attributemodifier = entry.getValue();
                         AttributeModifier attributemodifier1 = new AttributeModifier(attributemodifier.getName(), mobeffect.getAttributeModifierValue(mobeffectinstance.getAmplifier(), attributemodifier), attributemodifier.getOperation());
                         list.add(new Pair<>(entry.getKey(), attributemodifier1));
@@ -124,7 +120,7 @@ public class ModDrinkItem extends Item {
             pTooltips.add(CommonComponents.EMPTY);
             pTooltips.add(Component.translatable("potion.whenDrank").withStyle(ChatFormatting.DARK_PURPLE));
 
-            for(Pair<Attribute, AttributeModifier> pair : list) {
+            for (Pair<Attribute, AttributeModifier> pair : list) {
                 AttributeModifier attributemodifier2 = pair.getSecond();
                 double d0 = attributemodifier2.getAmount();
                 double d1;

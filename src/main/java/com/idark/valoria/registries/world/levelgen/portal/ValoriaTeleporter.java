@@ -10,6 +10,7 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.common.util.ITeleporter;
 
 import java.util.function.Function;
+
 public class ValoriaTeleporter implements ITeleporter {
     public static BlockPos thisPos = BlockPos.ZERO;
     public static boolean insideDimension = true;
@@ -20,7 +21,8 @@ public class ValoriaTeleporter implements ITeleporter {
     }
 
     @Override
-    public Entity placeEntity(Entity entity, ServerLevel currentWorld, ServerLevel destinationWorld, float yaw, Function<Boolean, Entity> repositionEntity) {entity = repositionEntity.apply(false);
+    public Entity placeEntity(Entity entity, ServerLevel currentWorld, ServerLevel destinationWorld, float yaw, Function<Boolean, Entity> repositionEntity) {
+        entity = repositionEntity.apply(false);
         int y = 61;
         if (!insideDimension) {
             y = thisPos.getY();
@@ -30,7 +32,7 @@ public class ValoriaTeleporter implements ITeleporter {
         int tries = 0;
         while ((destinationWorld.getBlockState(destinationPos).getBlock() != Blocks.AIR) &&
                 !destinationWorld.getBlockState(destinationPos).canBeReplaced(Fluids.WATER) &&
-                (destinationWorld.getBlockState(destinationPos.above()).getBlock()  != Blocks.AIR) &&
+                (destinationWorld.getBlockState(destinationPos.above()).getBlock() != Blocks.AIR) &&
                 !destinationWorld.getBlockState(destinationPos.above()).canBeReplaced(Fluids.WATER) && (tries < 25)) {
             destinationPos = destinationPos.above(2);
             tries++;

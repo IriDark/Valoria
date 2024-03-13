@@ -2,11 +2,10 @@ package com.idark.valoria.registries.world.item.types;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
-import com.idark.valoria.client.gui.overlay.CorpsecleaverRender;
 import com.idark.valoria.client.gui.overlay.DashOverlayRender;
 import com.idark.valoria.config.ClientConfig;
-import com.idark.valoria.registries.world.item.ModItems;
 import com.idark.valoria.registries.sounds.ModSoundRegistry;
+import com.idark.valoria.registries.world.item.ModItems;
 import com.idark.valoria.util.ModUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -186,7 +185,7 @@ public class KatanaItem extends TieredItem implements Vanishable {
             for (LivingEntity entity : hitEntities) {
                 entity.hurt(level.damageSources().generic(), (float) (player.getAttribute(Attributes.ATTACK_DAMAGE).getValue() * ii) + EnchantmentHelper.getSweepingDamageRatio(player));
                 entity.knockback(0.4F, player.getX() - entity.getX(), player.getZ() - entity.getZ());
-                if (EnchantmentHelper.getItemEnchantmentLevel(Enchantments.FIRE_ASPECT, stack) > 0) {
+                if (EnchantmentHelper.getTagEnchantmentLevel(Enchantments.FIRE_ASPECT, stack) > 0) {
                     int i = EnchantmentHelper.getFireAspect(player);
                     entity.setSecondsOnFire(i * 4);
                 }
@@ -211,17 +210,13 @@ public class KatanaItem extends TieredItem implements Vanishable {
     public static double distance(Vector3d pos1, Level worldIn, Player player) {
         double pitch = ((player.getRotationVector().x + 90) * Math.PI) / 180;
         double yaw = ((player.getRotationVector().y + 90) * Math.PI) / 180;
-
         double locYaw = 0;
         double locPitch = 0;
         double locDistance = 5D;
-
         Vec3 pos = new Vec3(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());
-
         double X = Math.sin(locPitch + pitch) * Math.cos(locYaw + yaw) * locDistance;
         double Y = Math.cos(locPitch + pitch) * locDistance;
         double Z = Math.sin(locPitch + pitch) * Math.sin(locYaw + yaw) * locDistance;
-
         Vec3 playerPos = player.getEyePosition();
         Vec3 EndPos = (player.getViewVector(0.0f).scale(2.0d));
         Vec3 vec3 = playerPos.add(EndPos);
@@ -233,7 +228,6 @@ public class KatanaItem extends TieredItem implements Vanishable {
         X = hitresult.getLocation().x() - pos.x;
         Y = hitresult.getLocation().y() - pos.y;
         Z = hitresult.getLocation().z() - pos.z;
-
         return Math.sqrt((X - pos1.x) * (X - pos1.x) + (Y - pos1.y) * (Y - pos1.y) + (Z - pos1.z) * (Z - pos1.z));
     }
 

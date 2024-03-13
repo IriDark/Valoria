@@ -19,7 +19,7 @@ public abstract class AbstractClientPlayerMixin {
             if (itemstack.is(TagsRegistry.BOWS)) {
                 float f = cir.getReturnValue();
                 int i = self.getTicksUsingItem();
-                float f1 = (float)i / 20.0F;
+                float f1 = (float) i / 20.0F;
                 if (f1 > 1.0F) {
                     f1 = 1.0F;
                 } else {

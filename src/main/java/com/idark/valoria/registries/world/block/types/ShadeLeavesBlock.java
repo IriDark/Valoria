@@ -25,7 +25,7 @@ public class ShadeLeavesBlock extends LeavesBlock {
                         .setAlpha(1f, 1f).setScale(0.072f, 0.02f)
                         .setColor(1f, 1f, 1f)
                         .setLifetime(82)
-                        .setSpin(((float)Math.toRadians(random.nextBoolean() ? -2 : 4)))
+                        .setSpin(((float) Math.toRadians(random.nextBoolean() ? -2 : 4)))
                         .spawn(world, pos.getX() + 0.5F + ((random.nextFloat() - 0.5f) * 0.9f), pos.getY() - 0.05, pos.getZ() + 0.5F + ((random.nextFloat() - 0.5f * 0.9f)));
             }
         }

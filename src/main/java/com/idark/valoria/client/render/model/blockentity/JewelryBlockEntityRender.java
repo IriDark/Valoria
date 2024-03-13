@@ -26,7 +26,7 @@ public class JewelryBlockEntityRender implements BlockEntityRenderer<JewelryBloc
             if (item.isEmpty()) continue;
 
             pPoseStack.pushPose();
-            pPoseStack.translate(spacing * i +offset, 1.025F, spacing * i +offset);
+            pPoseStack.translate(spacing * i + offset, 1.025F, spacing * i + offset);
             pPoseStack.mulPose(Axis.XP.rotationDegrees(90.0F));
             pPoseStack.scale(0.65F, 0.65F, 0.65F);
 
@@ -37,7 +37,7 @@ public class JewelryBlockEntityRender implements BlockEntityRenderer<JewelryBloc
         ItemStack item = pBlockEntity.itemOutputHandler.getStackInSlot(0);
 
         pPoseStack.pushPose();
-        pPoseStack.translate(spacing * 2.1 +offset, 1.06F, spacing / 2 +offset);
+        pPoseStack.translate(spacing * 2.1 + offset, 1.06F, spacing / 2 + offset);
         pPoseStack.mulPose(Axis.XP.rotationDegrees(90.0F));
         pPoseStack.scale(0.65F, 0.65F, 0.65F);
 

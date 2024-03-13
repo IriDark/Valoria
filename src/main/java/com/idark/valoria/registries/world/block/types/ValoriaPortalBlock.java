@@ -93,7 +93,8 @@ public class ValoriaPortalBlock extends Block {
 
     public BlockState rotate(BlockState pState, Rotation pRot) {
         return switch (pRot) {
-            case COUNTERCLOCKWISE_90, CLOCKWISE_90 -> pState.getValue(AXIS) == Direction.Axis.X ? pState.setValue(AXIS, Direction.Axis.Z) : pState;
+            case COUNTERCLOCKWISE_90, CLOCKWISE_90 ->
+                    pState.getValue(AXIS) == Direction.Axis.X ? pState.setValue(AXIS, Direction.Axis.Z) : pState;
             default -> pState;
         };
     }

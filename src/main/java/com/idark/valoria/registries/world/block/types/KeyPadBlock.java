@@ -2,8 +2,8 @@ package com.idark.valoria.registries.world.block.types;
 
 import com.idark.valoria.client.particle.ModParticles;
 import com.idark.valoria.client.particle.types.Particles;
-import com.idark.valoria.registries.world.item.ModItems;
 import com.idark.valoria.registries.TagsRegistry;
+import com.idark.valoria.registries.world.item.ModItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;

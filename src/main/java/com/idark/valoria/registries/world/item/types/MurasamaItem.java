@@ -40,7 +40,7 @@ public class MurasamaItem extends SwordItem implements Vanishable {
     }
 
     /**
-     *Some sounds taken from the CalamityMod (Terraria) in a <a href="https://calamitymod.wiki.gg/wiki/Category:Sound_effects">Calamity Mod Wiki.gg</a>
+     * Some sounds taken from the CalamityMod (Terraria) in a <a href="https://calamitymod.wiki.gg/wiki/Category:Sound_effects">Calamity Mod Wiki.gg</a>
      */
     public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
         ItemStack itemstack = playerIn.getItemInHand(handIn);
@@ -53,14 +53,14 @@ public class MurasamaItem extends SwordItem implements Vanishable {
     }
 
     public void onUseTick(Level worldIn, LivingEntity livingEntityIn, ItemStack stack, int count) {
-        Player player = (Player)livingEntityIn;
+        Player player = (Player) livingEntityIn;
         addCharge(stack, 1);
-        for (int ii = 0; ii < 1 + Mth.nextInt(RandomSource.create(), 0,2); ii += 1) {
+        for (int ii = 0; ii < 1 + Mth.nextInt(RandomSource.create(), 0, 2); ii += 1) {
             ModUtils.spawnParticlesAroundPosition(new Vector3d(player.getX(), player.getY() + (player.getEyeHeight() / 2), player.getZ()), 2f, (float) (rand.nextDouble() * 0.1F), worldIn, DustParticleOptions.REDSTONE);
         }
 
         if (getCharge(stack) == 20) {
-            player.playNotifySound(ModSoundRegistry.RECHARGE.get(), SoundSource.PLAYERS,0.6f,1);
+            player.playNotifySound(ModSoundRegistry.RECHARGE.get(), SoundSource.PLAYERS, 0.6f, 1);
         }
     }
 
@@ -81,7 +81,7 @@ public class MurasamaItem extends SwordItem implements Vanishable {
     }
 
     /**
-     *Some sounds taken from the CalamityMod (Terraria) in a <a href="https://calamitymod.wiki.gg/wiki/Category:Sound_effects">Calamity Mod Wiki.gg</a>
+     * Some sounds taken from the CalamityMod (Terraria) in a <a href="https://calamitymod.wiki.gg/wiki/Category:Sound_effects">Calamity Mod Wiki.gg</a>
      */
     public void releaseUsing(ItemStack stack, Level level, LivingEntity entityLiving, int timeLeft) {
         Player player = (Player) entityLiving;
@@ -100,24 +100,23 @@ public class MurasamaItem extends SwordItem implements Vanishable {
             player.awardStat(Stats.ITEM_USED.get(this));
 
             Vector3d pos = new Vector3d(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());
-            List<LivingEntity> hitEntities = new ArrayList<LivingEntity>();
+            List<LivingEntity> hitEntities = new ArrayList<>();
             double maxDistance = distance(pos, level, player);
 
             for (int i = 0; i < 10; i += 1) {
                 double locYaw = 0;
                 double locPitch = 0;
                 double locDistance = i * 0.5D;
-
                 double X = Math.sin(locPitch + pitch) * Math.cos(locYaw + yaw) * locDistance;
                 double Y = Math.cos(locPitch + pitch) * locDistance;
                 double Z = Math.sin(locPitch + pitch) * Math.sin(locYaw + yaw) * locDistance;
 
                 level.addParticle(ParticleTypes.POOF, pos.x + X + (rand.nextDouble() - 0.5D), pos.y + Y, pos.z + Z + (rand.nextDouble() - 0.5D), 0d, 0.05d, 0d);
-                for (int ii = 0; ii < 1 + Mth.nextInt(RandomSource.create(), 0,2); ii += 1) {
+                for (int ii = 0; ii < 1 + Mth.nextInt(RandomSource.create(), 0, 2); ii += 1) {
                     ModUtils.spawnParticlesAroundPosition(new Vector3d(pos.x + X, pos.y + Y, pos.z + Z), 3F, (float) (rand.nextDouble() * 0.05F), level, DustParticleOptions.REDSTONE);
                 }
 
-                List<Entity> entities = level.getEntitiesOfClass(Entity.class,  new AABB(pos.x + X - 0.5D,pos.y + Y - 0.5D,pos.z + Z - 0.5D,pos.x + X + 0.5D,pos.y + Y + 0.5D,pos.z + Z + 0.5D));
+                List<Entity> entities = level.getEntitiesOfClass(Entity.class, new AABB(pos.x + X - 0.5D, pos.y + Y - 0.5D, pos.z + Z - 0.5D, pos.x + X + 0.5D, pos.y + Y + 0.5D, pos.z + Z + 0.5D));
                 for (Entity entity : entities) {
                     if (entity instanceof LivingEntity enemy) {
                         if (!hitEntities.contains(enemy) && (!enemy.equals(player))) {
@@ -137,7 +136,7 @@ public class MurasamaItem extends SwordItem implements Vanishable {
             for (LivingEntity entity : hitEntities) {
                 entity.hurt(level.damageSources().generic(), (float) (player.getAttribute(Attributes.ATTACK_DAMAGE).getValue() * ii) + EnchantmentHelper.getSweepingDamageRatio(player));
                 entity.knockback(0.4F, player.getX() - entity.getX(), player.getZ() - entity.getZ());
-                if (EnchantmentHelper.getItemEnchantmentLevel(Enchantments.FIRE_ASPECT, stack) > 0) {
+                if (EnchantmentHelper.getTagEnchantmentLevel(Enchantments.FIRE_ASPECT, stack) > 0) {
                     int i = EnchantmentHelper.getFireAspect(player);
                     entity.setSecondsOnFire(i * 4);
                 }
@@ -148,7 +147,7 @@ public class MurasamaItem extends SwordItem implements Vanishable {
                 stack.hurtAndBreak(hits, player, (p_220045_0_) -> p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
             }
 
-            for (int i = 0;i<4;i++) {
+            for (int i = 0; i < 4; i++) {
                 level.addParticle(ParticleTypes.POOF, player.getX() + (rand.nextDouble() - 0.5D), player.getY(), player.getZ() + (rand.nextDouble() - 0.5D), 0d, 0.05d, 0d);
             }
 
@@ -168,7 +167,7 @@ public class MurasamaItem extends SwordItem implements Vanishable {
                 level.addParticle(ParticleTypes.POOF, pos.x + X + ((rand.nextDouble() - 0.5D) * 3), pos.y + Y + ((rand.nextDouble() - 0.5D) * 3), pos.z + Z + ((rand.nextDouble() - 0.5D) * 3), 0d, 0.05d, 0d);
             }
 
-            List<Entity> entities = level.getEntitiesOfClass(Entity.class,  new AABB(pos.x + X - 3D,pos.y + Y - 3D,pos.z + Z - 2.5D,pos.x + X + 3D,pos.y + Y + 3D,pos.z + Z + 3D));
+            List<Entity> entities = level.getEntitiesOfClass(Entity.class, new AABB(pos.x + X - 3D, pos.y + Y - 3D, pos.z + Z - 2.5D, pos.x + X + 3D, pos.y + Y + 3D, pos.z + Z + 3D));
             for (Entity entity : entities) {
                 if (entity instanceof LivingEntity enemy) {
                     if (!hitEntities.contains(enemy) && (!enemy.equals(player))) {
@@ -186,19 +185,17 @@ public class MurasamaItem extends SwordItem implements Vanishable {
                 }
             }
         }
+
         setCharge(stack, 0);
     }
 
     public static double distance(Vector3d pos1, Level worldIn, Player player) {
         double pitch = ((player.getRotationVector().x + 90) * Math.PI) / 180;
         double yaw = ((player.getRotationVector().y + 90) * Math.PI) / 180;
-
         double locYaw = 0;
         double locPitch = 0;
         double locDistance = 5D;
-
         Vec3 pos = new Vec3(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());
-
         double X = Math.sin(locPitch + pitch) * Math.cos(locYaw + yaw) * locDistance;
         double Y = Math.cos(locPitch + pitch) * locDistance;
         double Z = Math.sin(locPitch + pitch) * Math.sin(locYaw + yaw) * locDistance;
@@ -215,12 +212,12 @@ public class MurasamaItem extends SwordItem implements Vanishable {
         Y = hitresult.getLocation().y() - pos.y;
         Z = hitresult.getLocation().z() - pos.z;
 
-        return Math.sqrt((X - pos1.x) * (X - pos1.x) + (Y - pos1.y)*(Y - pos1.y) + (Z - pos1.z)*(Z - pos1.z));
+        return Math.sqrt((X - pos1.x) * (X - pos1.x) + (Y - pos1.y) * (Y - pos1.y) + (Z - pos1.z) * (Z - pos1.z));
     }
 
     public static int getCharge(ItemStack stack) {
         CompoundTag nbt = stack.getTag();
-        if (nbt==null) {
+        if (nbt == null) {
             nbt = new CompoundTag();
             stack.setTag(nbt);
         }
@@ -235,7 +232,7 @@ public class MurasamaItem extends SwordItem implements Vanishable {
 
     public static void setCharge(ItemStack stack, int charge) {
         CompoundTag nbt = stack.getTag();
-        if (nbt==null) {
+        if (nbt == null) {
             nbt = new CompoundTag();
             stack.setTag(nbt);
         }

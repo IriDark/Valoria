@@ -12,23 +12,23 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class VoidRootsBlock extends BushBlock {
-	private static final VoxelShape shape = Block.box(3, 0, 3, 13, 8, 13);
+    private static final VoxelShape shape = Block.box(3, 0, 3, 13, 8, 13);
 
-	public VoidRootsBlock(BlockBehaviour.Properties properties) {
-		super(properties);
-	}
+    public VoidRootsBlock(BlockBehaviour.Properties properties) {
+        super(properties);
+    }
 
-	@Override
-	public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
+    @Override
+    public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
         return shape;
     }
-	
-	protected boolean mayPlaceOn(BlockState state, BlockGetter worldIn, BlockPos pos) {
-		Block block = state.getBlock();
-		return block == ModBlocks.VOID_TAINT.get() || block == ModBlocks.VOID_GRASS.get();
-	}
-	
-	public boolean canBeReplaced(BlockState state, BlockPlaceContext useContext) {
-		return true;
-	}
+
+    protected boolean mayPlaceOn(BlockState state, BlockGetter worldIn, BlockPos pos) {
+        Block block = state.getBlock();
+        return block == ModBlocks.VOID_TAINT.get() || block == ModBlocks.VOID_GRASS.get();
+    }
+
+    public boolean canBeReplaced(BlockState state, BlockPlaceContext useContext) {
+        return true;
+    }
 }

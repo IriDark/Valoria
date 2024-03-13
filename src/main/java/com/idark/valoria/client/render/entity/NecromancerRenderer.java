@@ -1,8 +1,8 @@
 package com.idark.valoria.client.render.entity;
 
 import com.idark.valoria.Valoria;
-import com.idark.valoria.registries.world.entity.living.NecromancerEntity;
 import com.idark.valoria.client.render.model.entity.NecromancerModel;
+import com.idark.valoria.registries.world.entity.living.NecromancerEntity;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.HumanoidMobRenderer;
@@ -17,7 +17,7 @@ public class NecromancerRenderer extends HumanoidMobRenderer<NecromancerEntity, 
     protected static final ResourceLocation TEXTURE = new ResourceLocation(Valoria.MOD_ID, "textures/entity/necromancer.png");
 
     public NecromancerRenderer(EntityRendererProvider.Context context) {
-        super(context, new NecromancerModel<>(NecromancerModel.createBodyLayer().bakeRoot()),0.4F);
+        super(context, new NecromancerModel<>(NecromancerModel.createBodyLayer().bakeRoot()), 0.4F);
     }
 
     @Override

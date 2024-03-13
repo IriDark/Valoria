@@ -16,26 +16,26 @@ public class ModSoundRegistry {
 
     //public static final RegistryObject<SoundEvent> MAGIC_USE = registerSound("item.magic.use");
     public static final RegistryObject<SoundEvent> SWIFTSLICE = registerSound("item.swiftslice.use");
-	public static final RegistryObject<SoundEvent> RECHARGE = registerSound("item.recharge.use");
-	public static final RegistryObject<SoundEvent> BLAZECHARGE = registerSound("item.blazecharge.use");
-	public static final RegistryObject<SoundEvent> ERUPTION = registerSound("item.eruption.use");
-	//public static final RegistryObject<SoundEvent> PIERCE = registerSound("item.pierce.ambient");
-	public static final RegistryObject<SoundEvent> DISAPPEAR = registerSound("item.disappear.ambient");
-	public static final RegistryObject<SoundEvent> EQUIP_CURSE = registerSound("item.curse.ambient");
-	public static final RegistryObject<SoundEvent> REPAIR = registerSound("item.repair.ambient");
-	public static final RegistryObject<SoundEvent> POT_BREAK = registerSound("block.pot_break.ambient");
-	public static final RegistryObject<SoundEvent> POT_STEP = registerSound("block.pot_step.ambient");
-	public static final RegistryObject<SoundEvent> POT_PLACE = registerSound("block.pot_place.ambient");
-	public static final RegistryObject<SoundEvent> BAG_OPEN = registerSound("item.bag_open.use");
-	public static final RegistryObject<SoundEvent> WATER_ABILITY = registerSound("item.water_ability.use");
-	public static final RegistryObject<SoundEvent> PHANTASM_ABILITY = registerSound("item.phantasm_ability.use");
-	public static final RegistryObject<SoundEvent> BLOODHOUND_ABILITY = registerSound("item.bloodhound_ability.use");
+    public static final RegistryObject<SoundEvent> RECHARGE = registerSound("item.recharge.use");
+    public static final RegistryObject<SoundEvent> BLAZECHARGE = registerSound("item.blazecharge.use");
+    public static final RegistryObject<SoundEvent> ERUPTION = registerSound("item.eruption.use");
+    //public static final RegistryObject<SoundEvent> PIERCE = registerSound("item.pierce.ambient");
+    public static final RegistryObject<SoundEvent> DISAPPEAR = registerSound("item.disappear.ambient");
+    public static final RegistryObject<SoundEvent> EQUIP_CURSE = registerSound("item.curse.ambient");
+    public static final RegistryObject<SoundEvent> REPAIR = registerSound("item.repair.ambient");
+    public static final RegistryObject<SoundEvent> POT_BREAK = registerSound("block.pot_break.ambient");
+    public static final RegistryObject<SoundEvent> POT_STEP = registerSound("block.pot_step.ambient");
+    public static final RegistryObject<SoundEvent> POT_PLACE = registerSound("block.pot_place.ambient");
+    public static final RegistryObject<SoundEvent> BAG_OPEN = registerSound("item.bag_open.use");
+    public static final RegistryObject<SoundEvent> WATER_ABILITY = registerSound("item.water_ability.use");
+    public static final RegistryObject<SoundEvent> PHANTASM_ABILITY = registerSound("item.phantasm_ability.use");
+    public static final RegistryObject<SoundEvent> BLOODHOUND_ABILITY = registerSound("item.bloodhound_ability.use");
 
     //SoundType
-	public static final ModSoundType POT = new ModSoundType(1, 1, POT_BREAK, POT_STEP, POT_PLACE, ()-> SoundEvents.STONE_HIT, ()-> SoundEvents.STONE_FALL);
-	public static final ModSoundType SUSPICIOUS_TOMBSTONE = new ModSoundType(1.0F, 1.0F, ()-> SoundEvents.SUSPICIOUS_SAND_BREAK, ()-> SoundEvents.MUD_BRICKS_STEP, ()-> SoundEvents.STONE_PLACE, ()-> SoundEvents.SUSPICIOUS_GRAVEL_HIT, ()-> SoundEvents.STONE_FALL);
+    public static final ModSoundType POT = new ModSoundType(1, 1, POT_BREAK, POT_STEP, POT_PLACE, () -> SoundEvents.STONE_HIT, () -> SoundEvents.STONE_FALL);
+    public static final ModSoundType SUSPICIOUS_TOMBSTONE = new ModSoundType(1.0F, 1.0F, () -> SoundEvents.SUSPICIOUS_SAND_BREAK, () -> SoundEvents.MUD_BRICKS_STEP, () -> SoundEvents.STONE_PLACE, () -> SoundEvents.SUSPICIOUS_GRAVEL_HIT, () -> SoundEvents.STONE_FALL);
 
-	public static RegistryObject<SoundEvent> registerSound(String name){
-        return SOUNDS.register(name,()-> SoundEvent.createVariableRangeEvent(new ResourceLocation(Valoria.MOD_ID,name)));
-	}
+    public static RegistryObject<SoundEvent> registerSound(String name) {
+        return SOUNDS.register(name, () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(Valoria.MOD_ID, name)));
+    }
 }

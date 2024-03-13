@@ -2,10 +2,8 @@ package com.idark.valoria.registries.world.item.types;
 
 import com.idark.valoria.registries.sounds.ModSoundRegistry;
 import com.idark.valoria.util.ModUtils;
-import com.idark.valoria.util.math.RandUtils;
 import com.idark.valoria.util.math.RandomUtil;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
@@ -17,7 +15,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.SoundType;
 import org.joml.Vector3d;
 
 import java.util.ArrayList;
@@ -56,46 +53,39 @@ public class CoralReefItem extends SwordItem implements Vanishable {
         return UseAnim.NONE;
     }
 
-	public int getUseDuration(ItemStack stack) {
-      return 30;
-	}
+    public int getUseDuration(ItemStack stack) {
+        return 30;
+    }
 
     /**
-     *Some sounds taken from the CalamityMod (Terraria) in a <a href="https://calamitymod.wiki.gg/wiki/Category:Sound_effects">Calamity Mod Wiki.gg</a>
+     * Some sounds taken from the CalamityMod (Terraria) in a <a href="https://calamitymod.wiki.gg/wiki/Category:Sound_effects">Calamity Mod Wiki.gg</a>
      */
     public void releaseUsing(ItemStack stack, Level worldIn, LivingEntity entityLiving, int timeLeft) {
-        Player player = (Player)entityLiving;
+        Player player = (Player) entityLiving;
         player.getCooldowns().addCooldown(this, 300);
         player.awardStat(Stats.ITEM_USED.get(this));
         Vector3d pos = new Vector3d(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());
-        List<LivingEntity> hitEntities = new ArrayList<LivingEntity>();
+        List<LivingEntity> hitEntities = new ArrayList<>();
 
         for (int i = 0; i < 360; i += 10) {
-            float yawDouble = 0;
-            if (i <= 180) {
-                yawDouble = ((float) i) / 180F;
-            } else {
-                yawDouble = 1F - ((((float) i) - 180F) / 180F);
-            }
-
             ModUtils.radiusHit(worldIn, stack, player, ParticleTypes.BUBBLE_POP, hitEntities, pos, 0, player.getRotationVector().y + i, 3);
             ModUtils.spawnParticlesInRadius(worldIn, stack, ParticleTypes.UNDERWATER, pos, 0, player.getRotationVector().y + i, 3);
         }
 
-        float damage = (float) (player.getAttribute(Attributes.ATTACK_DAMAGE).getValue()) + EnchantmentHelper.getSweepingDamageRatio(player);
+        float damage = (float) (player.getAttributeValue(Attributes.ATTACK_DAMAGE)) + EnchantmentHelper.getSweepingDamageRatio(player);
         for (LivingEntity damagedEntity : hitEntities) {
             damagedEntity.hurt(worldIn.damageSources().generic(), damage);
             damagedEntity.knockback(0.4F, player.getX() - entityLiving.getX(), player.getZ() - entityLiving.getZ());
             if (RandomUtil.percentChance(0.25f)) {
                 damagedEntity.knockback(0.6F, player.getX() - damagedEntity.getX(), player.getZ() - damagedEntity.getZ());
-                damagedEntity.level().playSound(null, damagedEntity.getOnPos(), ModSoundRegistry.WATER_ABILITY.get(), SoundSource.AMBIENT,0.2f, 1.2f);
+                damagedEntity.level().playSound(null, damagedEntity.getOnPos(), ModSoundRegistry.WATER_ABILITY.get(), SoundSource.AMBIENT, 0.2f, 1.2f);
             }
         }
 
         if (!player.isCreative()) {
-            stack.hurtAndBreak(hitEntities.size(), player, (p_220045_0_) -> {p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND);});
+            stack.hurtAndBreak(hitEntities.size(), player, (p_220045_0_) -> p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
         }
 
-        worldIn.playSound(player, player.blockPosition(), ModSoundRegistry.WATER_ABILITY.get(), SoundSource.AMBIENT, 0.8f, 1f);
+        worldIn.playSound(null, player.blockPosition(), ModSoundRegistry.WATER_ABILITY.get(), SoundSource.AMBIENT, 0.8f, 1f);
     }
 }

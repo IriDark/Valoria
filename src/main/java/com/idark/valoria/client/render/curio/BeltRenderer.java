@@ -23,22 +23,17 @@ public class BeltRenderer implements ICurioRenderer {
     BeltModel model = null;
 
     @Override
-    public <T extends LivingEntity, M extends EntityModel<T>> void render(ItemStack stack, SlotContext slotContext,
-                                                                          PoseStack matrixStack, RenderLayerParent<T, M> renderLayerParent, MultiBufferSource renderTypeBuffer,
-                                                                          int light, float limbSwing, float limbSwingAmount, float partialTicks,
-                                                                          float ageInTicks, float netHeadYaw, float headPitch) {
+    public <T extends LivingEntity, M extends EntityModel<T>> void render(ItemStack stack, SlotContext slotContext, PoseStack matrixStack, RenderLayerParent<T, M> renderLayerParent, MultiBufferSource renderTypeBuffer, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
         if (model == null) {
             model = new BeltModel(Minecraft.getInstance().getEntityModels().bakeLayer(ValoriaClient.BELT_LAYER));
         }
 
         LivingEntity entity = slotContext.entity();
-        if (stack.getItem() instanceof ICurioTexture) {
-            ICurioTexture curio = (ICurioTexture) stack.getItem();
+        if (stack.getItem() instanceof ICurioTexture curio) {
             TEXTURE = curio.getTexture(stack, entity);
         }
 
         ICurioRenderer.followBodyRotations(entity, model);
-
         model.setupAnim(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
         model.renderToBuffer(matrixStack, renderTypeBuffer.getBuffer(RenderType.entityCutoutNoCull(TEXTURE)), light, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
     }

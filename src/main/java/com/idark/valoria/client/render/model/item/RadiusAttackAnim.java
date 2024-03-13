@@ -21,14 +21,14 @@ public class RadiusAttackAnim extends ItemAnims {
     @Override
     @OnlyIn(Dist.CLIENT)
     public void setupAnimRight(HumanoidModel model, Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        model.rightArm.xRot = Mth.cos(ageInTicks * 0.95F) -0.8f;
+        model.rightArm.xRot = Mth.cos(ageInTicks * 0.95F) - 0.8f;
         model.rightArm.zRot = 5;
     }
 
     @Override
     @OnlyIn(Dist.CLIENT)
     public void setupAnimLeft(HumanoidModel model, Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        model.leftArm.xRot = Mth.cos(ageInTicks * 0.95F) -0.8f;
+        model.leftArm.xRot = Mth.cos(ageInTicks * 0.95F) - 0.8f;
         model.leftArm.zRot = -5;
     }
 

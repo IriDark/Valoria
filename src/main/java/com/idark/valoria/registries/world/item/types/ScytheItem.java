@@ -23,7 +23,7 @@ import org.joml.Vector3d;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ScytheItem extends SwordItem implements ICustomAnimationItem, Vanishable{
+public class ScytheItem extends SwordItem implements ICustomAnimationItem, Vanishable {
     public static RadiusAttackAnim animation = new RadiusAttackAnim();
     public static List<Item> scytheItems = new ArrayList<>();
 
@@ -51,32 +51,25 @@ public class ScytheItem extends SwordItem implements ICustomAnimationItem, Vanis
         return animation;
     }
 
-	public int getUseDuration(ItemStack stack) {
-      return 5;
-	}
+    public int getUseDuration(ItemStack stack) {
+        return 5;
+    }
 
     /**
-     *Some sounds taken from the CalamityMod (Terraria) in a <a href="https://calamitymod.wiki.gg/wiki/Category:Sound_effects">Calamity Mod Wiki.gg</a>
+     * Some sounds taken from the CalamityMod (Terraria) in a <a href="https://calamitymod.wiki.gg/wiki/Category:Sound_effects">Calamity Mod Wiki.gg</a>
      */
     public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entityLiving) {
-        Player player = (Player)entityLiving;
+        Player player = (Player) entityLiving;
         player.awardStat(Stats.ITEM_USED.get(this));
         ModUtils.applyCooldownToItemList(player, scytheItems, 100);
 
         Vector3d pos = new Vector3d(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());
-        List<LivingEntity> hitEntities = new ArrayList<LivingEntity>();
+        List<LivingEntity> hitEntities = new ArrayList<>();
         for (int i = 0; i < 360; i += 10) {
-            float yawDouble = 0;
-            if (i <= 180) {
-                yawDouble = ((float) i) / 180F;
-            } else {
-                yawDouble = 1F - ((((float) i) - 180F) / 180F);
-            }
-
             ModUtils.radiusHit(level, stack, player, ParticleTypes.POOF, hitEntities, pos, 0, player.getRotationVector().y + i, 3);
         }
 
-        float damage = (float) (player.getAttribute(Attributes.ATTACK_DAMAGE).getValue()) + EnchantmentHelper.getSweepingDamageRatio(player);
+        float damage = (float) (player.getAttributeValue(Attributes.ATTACK_DAMAGE)) + EnchantmentHelper.getSweepingDamageRatio(player);
         for (LivingEntity entity : hitEntities) {
             entity.hurt(level.damageSources().generic(), damage);
             entity.knockback(0.4F, player.getX() - entity.getX(), player.getZ() - entity.getZ());
@@ -84,12 +77,13 @@ public class ScytheItem extends SwordItem implements ICustomAnimationItem, Vanis
                 int i = EnchantmentHelper.getFireAspect(player);
                 entity.setSecondsOnFire(i * 4);
             }
+
             if (!player.isCreative()) {
-                stack.hurtAndBreak(hitEntities.size(), player, (p_220045_0_) -> {p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND);});
+                stack.hurtAndBreak(hitEntities.size(), player, (p_220045_0_) -> p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
             }
         }
 
-        level.playSound(player, player.blockPosition(), ModSoundRegistry.SWIFTSLICE.get(), SoundSource.AMBIENT, 10f, 1f);
+        level.playSound(null, player.blockPosition(), ModSoundRegistry.SWIFTSLICE.get(), SoundSource.AMBIENT, 10f, 1f);
         return stack;
     }
 }

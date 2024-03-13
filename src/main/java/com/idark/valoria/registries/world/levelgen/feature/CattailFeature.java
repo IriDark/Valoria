@@ -35,7 +35,8 @@ public class CattailFeature extends Feature<RandomPatchConfiguration> {
             blockpos$mutable.set(blockpos).move(rand.nextInt(config.xzSpread() + 1) - rand.nextInt(config.xzSpread() + 1), rand.nextInt(config.ySpread() + 1) - rand.nextInt(config.ySpread() + 1), rand.nextInt(config.xzSpread() + 1) - rand.nextInt(config.xzSpread() + 1));
             if (level.getBlockState(blockpos$mutable).getBlock() == Blocks.WATER && level.getBlockState(blockpos$mutable.above()).getBlock() == Blocks.AIR) {
                 BlockState bottomRiceState = ModBlocks.CATTAIL.get().defaultBlockState().setValue(TallWaterFlowerBlock.HALF, DoubleBlockHalf.LOWER);
-                if (bottomRiceState.canSurvive(level, blockpos$mutable)) {DoublePlantBlock.placeAt(level, bottomRiceState, blockpos$mutable, 2);
+                if (bottomRiceState.canSurvive(level, blockpos$mutable)) {
+                    DoublePlantBlock.placeAt(level, bottomRiceState, blockpos$mutable, 2);
                     ++i;
                 }
             }

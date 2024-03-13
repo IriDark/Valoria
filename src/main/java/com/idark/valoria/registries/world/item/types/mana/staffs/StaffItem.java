@@ -31,6 +31,7 @@ import org.lwjgl.opengl.GL11;
 import java.util.List;
 import java.util.Random;
 
+// TODO: Completely (maybe) redone this
 public class StaffItem extends Item implements IManaItem {
 
     //This thing is a huge experiment don't take it serious lmao
@@ -97,7 +98,7 @@ public class StaffItem extends Item implements IManaItem {
                 }
 
                 return new InteractionResultHolder<>(InteractionResult.CONSUME, stack);
-            } else if (player.isShiftKeyDown()){
+            } else if (player.isShiftKeyDown()) {
                 pLevel.addParticle(ParticleTypes.ENCHANT, player.getX(), player.getY(), player.getZ(), 1, 1, 1);
                 ManaItemUtils.addMana(stack, 5, 100);
             }
@@ -143,25 +144,25 @@ public class StaffItem extends Item implements IManaItem {
                 mc.textureManager.bindForSetup(BAR);
                 if (barType == 1) {
                     // UI
-                    gui.blit(BAR, xCord, yCord, 0, 0, 96 *2, 20 *2, 512 *2, 512 *2);
+                    gui.blit(BAR, xCord, yCord, 0, 0, 96 * 2, 20 * 2, 512 * 2, 512 * 2);
 
                     // Spell
-                    gui.blit(BAR, xCord + 12, yCord + 6, spell, 219 *2, 11 *2, 11 *2, 512 *2, 512 *2);
+                    gui.blit(BAR, xCord + 12, yCord + 6, spell, 219 * 2, 11 * 2, 11 * 2, 512 * 2, 512 * 2);
 
                     // Mana Bar
-                    gui.blit(BAR, xCord + 42, yCord + 8, 192 * 2, 71 * 2, (bar* 2), 7 *2, 512 *2, 512 *2);
+                    gui.blit(BAR, xCord + 42, yCord + 8, 192 * 2, 71 * 2, (bar * 2), 7 * 2, 512 * 2, 512 * 2);
 
-                    if (bar > 0 && bar < max -25) {
+                    if (bar > 0 && bar < max - 25) {
                         // Mana bar ending
-                        gui.blit(BAR, xCord + (bar* 2) + 40, yCord + 10, 193 * 2, 91 * 2, 2, 7 * 2, 512 * 2, 512 * 2);
+                        gui.blit(BAR, xCord + (bar * 2) + 40, yCord + 10, 193 * 2, 91 * 2, 2, 7 * 2, 512 * 2, 512 * 2);
                     }
 
                     // Cooldown Bar
-                    gui.blit(BAR, xCord + 62, yCord + 28, 192 * 2, 85 * 2, (cd* 2), 3 *2, 512 *2, 512 *2);
+                    gui.blit(BAR, xCord + 62, yCord + 28, 192 * 2, 85 * 2, (cd * 2), 3 * 2, 512 * 2, 512 * 2);
 
                     if (cd > 0 && cd < 57) {
                         // Cooldown bar ending
-                        gui.blit(BAR, xCord + (cd* 2) + 60, yCord + 28, 192 * 2, 91 * 2, 2, 7 * 2, 512 * 2, 512 * 2);
+                        gui.blit(BAR, xCord + (cd * 2) + 60, yCord + 28, 192 * 2, 91 * 2, 2, 7 * 2, 512 * 2, 512 * 2);
                     }
 
                 } else if (barType == 2) {

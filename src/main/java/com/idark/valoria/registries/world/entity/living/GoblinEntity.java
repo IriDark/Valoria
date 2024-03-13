@@ -33,7 +33,10 @@ import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.npc.AbstractVillager;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -167,8 +170,8 @@ public class GoblinEntity extends PathfinderMob implements NeutralMob, Enemy {
         if (pId == 45) {
             ItemStack itemstack = this.getItemBySlot(EquipmentSlot.MAINHAND);
             if (!itemstack.isEmpty()) {
-                for(int i = 0; i < 8; ++i) {
-                    Vec3 vec3 = (new Vec3(((double)this.random.nextFloat() - 0.5D) * 0.1D, Math.random() * 0.1D + 0.1D, 0.0D)).xRot(-this.getXRot() * ((float)Math.PI / 180F)).yRot(-this.getYRot() * ((float)Math.PI / 180F));
+                for (int i = 0; i < 8; ++i) {
+                    Vec3 vec3 = (new Vec3(((double) this.random.nextFloat() - 0.5D) * 0.1D, Math.random() * 0.1D + 0.1D, 0.0D)).xRot(-this.getXRot() * ((float) Math.PI / 180F)).yRot(-this.getYRot() * ((float) Math.PI / 180F));
                     this.level().addParticle(new ItemParticleOption(ParticleTypes.ITEM, itemstack), this.getX() + this.getLookAngle().x / 2.0D, this.getY(), this.getZ() + this.getLookAngle().z / 2.0D, vec3.x, vec3.y + 0.05D, vec3.z);
                 }
             }
@@ -183,10 +186,10 @@ public class GoblinEntity extends PathfinderMob implements NeutralMob, Enemy {
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-        .add(Attributes.MAX_HEALTH, 25.0D)
-        .add(Attributes.MOVEMENT_SPEED, 0.18D)
-        .add(Attributes.ATTACK_DAMAGE, 2.0D)
-        .add(Attributes.FOLLOW_RANGE, 20.0D);
+                .add(Attributes.MAX_HEALTH, 25.0D)
+                .add(Attributes.MOVEMENT_SPEED, 0.18D)
+                .add(Attributes.ATTACK_DAMAGE, 2.0D)
+                .add(Attributes.FOLLOW_RANGE, 20.0D);
     }
 
     @Override
@@ -320,7 +323,7 @@ public class GoblinEntity extends PathfinderMob implements NeutralMob, Enemy {
 
         public boolean canUse() {
             if (super.canUse() && this.toAvoid instanceof Player) {
-                return this.avoidStrongPlayer((Player)this.toAvoid);
+                return this.avoidStrongPlayer((Player) this.toAvoid);
             } else {
                 return false;
             }
@@ -334,7 +337,7 @@ public class GoblinEntity extends PathfinderMob implements NeutralMob, Enemy {
          * Execute a one shot task or start executing a continuous task
          */
         public void start() {
-            GoblinEntity.this.setTarget((LivingEntity)null);
+            GoblinEntity.this.setTarget((LivingEntity) null);
             super.start();
         }
 
@@ -342,7 +345,7 @@ public class GoblinEntity extends PathfinderMob implements NeutralMob, Enemy {
          * Keep ticking a continuous task that has already been started
          */
         public void tick() {
-            GoblinEntity.this.setTarget((LivingEntity)null);
+            GoblinEntity.this.setTarget((LivingEntity) null);
             super.tick();
         }
     }
@@ -458,7 +461,7 @@ public class GoblinEntity extends PathfinderMob implements NeutralMob, Enemy {
             List<ItemEntity> list = GoblinEntity.this.level().getEntitiesOfClass(ItemEntity.class, GoblinEntity.this.getBoundingBox().inflate(8.0D, 8.0D, 8.0D), GoblinEntity.ALLOWED_ITEMS);
             ItemStack itemstack = GoblinEntity.this.getItemBySlot(EquipmentSlot.MAINHAND);
             if (itemstack.isEmpty() && !list.isEmpty()) {
-                GoblinEntity.this.getNavigation().moveTo(list.get(0), (double)1.2F);
+                GoblinEntity.this.getNavigation().moveTo(list.get(0), (double) 1.2F);
             }
 
         }
@@ -466,11 +469,12 @@ public class GoblinEntity extends PathfinderMob implements NeutralMob, Enemy {
         public void start() {
             List<ItemEntity> list = GoblinEntity.this.level().getEntitiesOfClass(ItemEntity.class, GoblinEntity.this.getBoundingBox().inflate(8.0D, 8.0D, 8.0D), GoblinEntity.ALLOWED_ITEMS);
             if (!list.isEmpty()) {
-                GoblinEntity.this.getNavigation().moveTo(list.get(0), (double)1.2F);
+                GoblinEntity.this.getNavigation().moveTo(list.get(0), (double) 1.2F);
             }
 
         }
     }
+
     class RemoveDirtGoal extends MoveToBlockGoal {
         private final Block blockToRemove;
         private final Mob removerMob;
@@ -528,7 +532,7 @@ public class GoblinEntity extends PathfinderMob implements NeutralMob, Enemy {
                     this.removerMob.setDeltaMovement(vec31.x, 0.3, vec31.z);
                     if (!level.isClientSide) {
                         d3 = 0.08;
-                        ((ServerLevel)level).sendParticles(new ItemParticleOption(ParticleTypes.ITEM, new ItemStack(Items.DIRT)), (double)blockpos1.getX() + 0.5, (double)blockpos1.getY() + 0.7, (double)blockpos1.getZ() + 0.5, 3, ((double)randomsource.nextFloat() - 0.5) * 0.08, ((double)randomsource.nextFloat() - 0.5) * 0.08, ((double)randomsource.nextFloat() - 0.5) * 0.08, 0.15000000596046448);
+                        ((ServerLevel) level).sendParticles(new ItemParticleOption(ParticleTypes.ITEM, new ItemStack(Items.DIRT)), (double) blockpos1.getX() + 0.5, (double) blockpos1.getY() + 0.7, (double) blockpos1.getZ() + 0.5, 3, ((double) randomsource.nextFloat() - 0.5) * 0.08, ((double) randomsource.nextFloat() - 0.5) * 0.08, ((double) randomsource.nextFloat() - 0.5) * 0.08, 0.15000000596046448);
                     }
                 }
 
@@ -543,11 +547,11 @@ public class GoblinEntity extends PathfinderMob implements NeutralMob, Enemy {
                 if (this.ticksSinceReachedGoal > 60) {
                     level.setBlockAndUpdate(blockpos1, Blocks.DIRT.defaultBlockState());
                     if (!level.isClientSide) {
-                        for(int i = 0; i < 20; ++i) {
+                        for (int i = 0; i < 20; ++i) {
                             d3 = randomsource.nextGaussian() * 0.02;
                             double d1 = randomsource.nextGaussian() * 0.02;
                             double d2 = randomsource.nextGaussian() * 0.02;
-                            ((ServerLevel)level).sendParticles(ParticleTypes.POOF, (double)blockpos1.getX() + 0.5, (double)blockpos1.getY(), (double)blockpos1.getZ() + 0.5, 1, d3, d1, d2, 0.15000000596046448);
+                            ((ServerLevel) level).sendParticles(ParticleTypes.POOF, (double) blockpos1.getX() + 0.5, (double) blockpos1.getY(), (double) blockpos1.getZ() + 0.5, 1, d3, d1, d2, 0.15000000596046448);
                         }
 
                         this.playBreakSound(level, blockpos1);
@@ -568,7 +572,7 @@ public class GoblinEntity extends PathfinderMob implements NeutralMob, Enemy {
                 BlockPos[] var4 = ablockpos;
                 int var5 = ablockpos.length;
 
-                for(int var6 = 0; var6 < var5; ++var6) {
+                for (int var6 = 0; var6 < var5; ++var6) {
                     BlockPos blockpos = var4[var6];
                     if (pLevel.getBlockState(blockpos).is(this.blockToRemove)) {
                         return blockpos;
@@ -646,7 +650,7 @@ public class GoblinEntity extends PathfinderMob implements NeutralMob, Enemy {
                     this.removerMob.setDeltaMovement(vec31.x, 0.3, vec31.z);
                     if (!level.isClientSide) {
                         d3 = 0.08;
-                        ((ServerLevel)level).sendParticles(new ItemParticleOption(ParticleTypes.ITEM, new ItemStack(Items.DIRT)), (double)blockpos1.getX() + 0.5, (double)blockpos1.getY() + 0.7, (double)blockpos1.getZ() + 0.5, 3, ((double)randomsource.nextFloat() - 0.5) * 0.08, ((double)randomsource.nextFloat() - 0.5) * 0.08, ((double)randomsource.nextFloat() - 0.5) * 0.08, 0.15000000596046448);
+                        ((ServerLevel) level).sendParticles(new ItemParticleOption(ParticleTypes.ITEM, new ItemStack(Items.DIRT)), (double) blockpos1.getX() + 0.5, (double) blockpos1.getY() + 0.7, (double) blockpos1.getZ() + 0.5, 3, ((double) randomsource.nextFloat() - 0.5) * 0.08, ((double) randomsource.nextFloat() - 0.5) * 0.08, ((double) randomsource.nextFloat() - 0.5) * 0.08, 0.15000000596046448);
                     }
                 }
 
@@ -661,11 +665,11 @@ public class GoblinEntity extends PathfinderMob implements NeutralMob, Enemy {
                 if (this.ticksSinceReachedGoal > 60) {
                     level.removeBlock(blockpos1, false);
                     if (!level.isClientSide) {
-                        for(int i = 0; i < 20; ++i) {
+                        for (int i = 0; i < 20; ++i) {
                             d3 = randomsource.nextGaussian() * 0.02;
                             double d1 = randomsource.nextGaussian() * 0.02;
                             double d2 = randomsource.nextGaussian() * 0.02;
-                            ((ServerLevel)level).sendParticles(ParticleTypes.POOF, (double)blockpos1.getX() + 0.5, (double)blockpos1.getY(), (double)blockpos1.getZ() + 0.5, 1, d3, d1, d2, 0.15000000596046448);
+                            ((ServerLevel) level).sendParticles(ParticleTypes.POOF, (double) blockpos1.getX() + 0.5, (double) blockpos1.getY(), (double) blockpos1.getZ() + 0.5, 1, d3, d1, d2, 0.15000000596046448);
                         }
 
                         this.playBreakSound(level, blockpos1);
@@ -686,7 +690,7 @@ public class GoblinEntity extends PathfinderMob implements NeutralMob, Enemy {
                 BlockPos[] var4 = ablockpos;
                 int var5 = ablockpos.length;
 
-                for(int var6 = 0; var6 < var5; ++var6) {
+                for (int var6 = 0; var6 < var5; ++var6) {
                     BlockPos blockpos = var4[var6];
                     if (pLevel.getBlockState(blockpos).is(BlockTags.CROPS)) {
                         return blockpos;
@@ -726,7 +730,7 @@ public class GoblinEntity extends PathfinderMob implements NeutralMob, Enemy {
                 } else {
                     this.interval = 100;
                     BlockPos blockpos = this.mob.blockPosition();
-                    return GoblinEntity.this.level().isDay() && GoblinEntity.this.level().canSeeSky(blockpos) && !((ServerLevel)GoblinEntity.this.level()).isVillage(blockpos) && this.setWantedPos();
+                    return GoblinEntity.this.level().isDay() && GoblinEntity.this.level().canSeeSky(blockpos) && !((ServerLevel) GoblinEntity.this.level()).isVillage(blockpos) && this.setWantedPos();
                 }
             } else {
                 return false;

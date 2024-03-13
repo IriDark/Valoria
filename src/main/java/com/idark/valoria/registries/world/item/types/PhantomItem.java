@@ -5,7 +5,6 @@ import com.idark.valoria.registries.world.item.ModItems;
 import com.idark.valoria.util.ModUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
@@ -56,18 +55,9 @@ public class PhantomItem extends SwordItem implements Vanishable {
         Player player = (Player) entityLiving;
         player.getCooldowns().addCooldown(this, 750);
         player.awardStat(Stats.ITEM_USED.get(this));
-
         Vector3d pos = new Vector3d(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());
-        List<LivingEntity> hitEntities = new ArrayList<LivingEntity>();
-
+        List<LivingEntity> hitEntities = new ArrayList<>();
         for (int i = 0; i < 360; i += 10) {
-            float yawDouble = 0;
-            if (i <= 180) {
-                yawDouble = ((float) i) / 180F;
-            } else {
-                yawDouble = 1F - ((((float) i) - 180F) / 180F);
-            }
-
             ModUtils.radiusHit(level, stack, player, ParticleTypes.SOUL_FIRE_FLAME, hitEntities, pos, 0, player.getRotationVector().y + i, 3);
         }
 
@@ -78,15 +68,15 @@ public class PhantomItem extends SwordItem implements Vanishable {
             }
         }
 
-        level.playSound(player, player.blockPosition(), ModSoundRegistry.PHANTASM_ABILITY.get(), SoundSource.AMBIENT, 1.0F, 1.0F);
-        Minecraft.getInstance().gameRenderer.displayItemActivation(new ItemStack(ModItems.ETERNITY.get()));
+        level.playSound(null, player.blockPosition(), ModSoundRegistry.PHANTASM_ABILITY.get(), SoundSource.AMBIENT, 1.0F, 1.0F);
+        Minecraft.getInstance().gameRenderer.displayItemActivation(ModItems.ETERNITY.get().getDefaultInstance());
         if (!player.isCreative()) {
             stack.hurtAndBreak(35, player, (p_220045_0_) -> p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
         }
 
         if (!player.level().isClientSide) {
             level.addParticle(ParticleTypes.EXPLOSION_EMITTER, player.getX(), player.getY(), player.getZ(), 1f, 1f, 1f);
-            float damage = (float) (player.getAttribute(Attributes.ATTACK_DAMAGE).getValue()) + EnchantmentHelper.getSweepingDamageRatio(player);
+            float damage = (float) (player.getAttributeValue(Attributes.ATTACK_DAMAGE)) + EnchantmentHelper.getSweepingDamageRatio(player);
             for (LivingEntity entity : hitEntities) {
                 if (!entity.level().isClientSide && entity instanceof Player && ((Player) entity).isCreative()) {
                     continue;
@@ -99,7 +89,7 @@ public class PhantomItem extends SwordItem implements Vanishable {
                     level.addParticle(ParticleTypes.SOUL_FIRE_FLAME, entity.getX(), entity.getY(), entity.getZ(), 1f, 1f, 1f);
                 }
 
-                if (EnchantmentHelper.getItemEnchantmentLevel(Enchantments.FIRE_ASPECT, stack) > 0) {
+                if (EnchantmentHelper.getTagEnchantmentLevel(Enchantments.FIRE_ASPECT, stack) > 0) {
                     int e = EnchantmentHelper.getFireAspect(player);
                     entity.setSecondsOnFire(e * 4);
                 }

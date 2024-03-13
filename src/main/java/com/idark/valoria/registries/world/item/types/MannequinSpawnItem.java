@@ -39,7 +39,7 @@ public class MannequinSpawnItem extends Item {
             }
 
             EntityType<?> entitytype = ModEntityTypes.MANNEQUIN.get();
-            if (entitytype.spawn((ServerLevel)level, itemstack, pContext.getPlayer(), blockpos1, MobSpawnType.SPAWN_EGG, true, !Objects.equals(blockpos, blockpos1) && direction == Direction.UP) != null) {
+            if (entitytype.spawn((ServerLevel) level, itemstack, pContext.getPlayer(), blockpos1, MobSpawnType.SPAWN_EGG, true, !Objects.equals(blockpos, blockpos1) && direction == Direction.UP) != null) {
                 itemstack.shrink(1);
                 level.gameEvent(pContext.getPlayer(), GameEvent.ENTITY_PLACE, blockpos);
             }

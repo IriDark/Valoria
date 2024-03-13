@@ -1,34 +1,31 @@
 package com.idark.valoria;
 
-import com.idark.valoria.client.particle.*;
+import com.idark.valoria.client.color.ModBlockColors;
+import com.idark.valoria.client.particle.ModParticles;
 import com.idark.valoria.client.particle.types.ChompParticle;
 import com.idark.valoria.client.particle.types.ShadewoodLeafParticleType;
 import com.idark.valoria.client.particle.types.SlashParticleType;
 import com.idark.valoria.client.particle.types.SparkleParticleType;
-import com.idark.valoria.client.render.entity.*;
-import com.idark.valoria.client.color.ModBlockColors;
-import com.idark.valoria.registries.sounds.CooldownSoundInstance;
-import com.idark.valoria.registries.world.block.ModBlocks;
-import com.idark.valoria.registries.world.block.entity.ModBlockEntities;
-import com.idark.valoria.registries.world.block.types.ModWoodTypes;
 import com.idark.valoria.client.render.curio.model.BeltModel;
 import com.idark.valoria.client.render.curio.model.HandsModel;
 import com.idark.valoria.client.render.curio.model.HandsModelDefault;
 import com.idark.valoria.client.render.curio.model.NecklaceModel;
+import com.idark.valoria.client.render.entity.*;
 import com.idark.valoria.client.render.model.blockentity.*;
 import com.idark.valoria.client.render.model.item.Item2DRenderer;
+import com.idark.valoria.client.render.model.item.ModItemModelProperties;
 import com.idark.valoria.config.ClientConfig;
+import com.idark.valoria.registries.sounds.CooldownSoundInstance;
+import com.idark.valoria.registries.world.block.entity.ModBlockEntities;
+import com.idark.valoria.registries.world.block.types.ModWoodTypes;
 import com.idark.valoria.registries.world.entity.ModEntityTypes;
 import com.idark.valoria.registries.world.entity.decoration.CustomBoatEntity;
 import com.idark.valoria.registries.world.item.ModItems;
-import com.idark.valoria.client.render.model.item.ModItemModelProperties;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.BoatModel;
 import net.minecraft.client.model.ChestBoatModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
@@ -76,81 +73,6 @@ public class ValoriaClient {
         @SubscribeEvent
         public static void doClientStuff(FMLClientSetupEvent event) {
             event.enqueueWork(() -> {
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.TAINTED_ROOTS.get(), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.VOIDVINE.get(), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.VIOLET_SPROUT_PLANT.get(), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.VIOLET_SPROUT.get(), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.GLOW_VIOLET_SPROUT_PLANT.get(), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.GLOW_VIOLET_SPROUT.get(), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.ABYSSAL_GLOWFERN_PLANT.get(), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.ABYSSAL_GLOWFERN.get(), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.FALSEFLOWER.get(), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.FALSEFLOWER_SMALL.get(), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.SOULFLOWER.get(), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.VOID_ROOTS.get(), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.VOID_SERPENTS.get(), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.GAIB_ROOTS.get(), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.KARUSAKAN_ROOTS.get(), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.DRIED_PLANT.get(), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.DRIED_ROOTS.get(), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.ALOE_SMALL.get(), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.ALOE.get(), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.CATTAIL.get(), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.SOULROOT.get(), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.CRIMSON_SOULROOT.get(), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.DOUBLE_SOULROOT.get(), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.MAGMAROOT.get(), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.DOUBLE_MAGMAROOT.get(), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.GOLDY.get(), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.DOUBLE_GOLDY.get(), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.BLOODROOT.get(), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.RAJUSH.get(), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.ELEMENTAL_MANIPULATOR.get(), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.SPIDER_EGG.get(), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.ELEGANT_PEDESTAL.get(), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.POT_SMALL.get(), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.POT_SMALL_HANDLES.get(), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.POT_LONG.get(), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.POT_LONG_HANDLES.get(), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.POT_LONG_MOSSY.get(), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.POT_LONG_MOSSY_HANDLES.get(), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.BRONZE_GLASS.get(), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.BRONZE_LAMP.get(), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.BRONZE_TRAPDOOR_GLASS.get(), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.SHADEWOOD_PRESSURE_PLATE.get(), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.SHADEWOOD_BUTTON.get(), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.SHADEWOOD_DOOR.get(), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.SHADEWOOD_TRAPDOOR.get(), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.BRONZE_TRAPDOOR.get(), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.AMBER_CRYSTAL.get(), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.AMETHYST_CRYSTAL.get(), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.RUBY_CRYSTAL.get(), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.SAPPHIRE_CRYSTAL.get(), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.VOID_CRYSTAL.get(), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.SPIKES.get(), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.SHADEWOOD_LEAVES.get(), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.SHADEWOOD_BRANCH.get(), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.SHADEWOOD_SAPLING.get(), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.POTTED_VOIDVINE.get(), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.POTTED_SHADEWOOD_SAPLING.get(), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.POTTED_FALSEFLOWER_SMALL.get(), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.POTTED_FALSEFLOWER.get(), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.POTTED_DRIED_ROOTS.get(), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.POTTED_DRIED_PLANT.get(), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.POTTED_SOULFLOWER.get(), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.POTTED_SOULROOT.get(), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.POTTED_VOID_ROOTS.get(), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.POTTED_VOID_SERPENTS.get(), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.POTTED_SOULROOT.get(), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.POTTED_CRIMSON_SOULROOT.get(), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.POTTED_RAJUSH.get(), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.POTTED_MAGMAROOT.get(), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.POTTED_GOLDY.get(), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.POTTED_BLOODROOT.get(), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.POTTED_ALOE_SMALL.get(), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.QUICKSAND.get(), RenderType.cutout());
-                ItemBlockRenderTypes.setRenderLayer(ModBlocks.SUSPICIOUS_ICE.get(), RenderType.translucent());
-
                 BlockEntityRenderers.register(ModBlockEntities.MANIPULATOR_BLOCK_ENTITY.get(), (trd) -> new ManipulatorBlockEntityRenderer());
                 BlockEntityRenderers.register(ModBlockEntities.JEWELRY_BLOCK_ENTITY.get(), (trd) -> new JewelryBlockEntityRender());
                 BlockEntityRenderers.register(ModBlockEntities.KEG_BLOCK_ENTITY.get(), (trd) -> new KegBlockEntityRenderer());
@@ -186,14 +108,13 @@ public class ValoriaClient {
 
         @SubscribeEvent
         public static void onModelRegistryEvent(ModelEvent.RegisterAdditional event) {
+            event.register(KEG_MODEL);
+            event.register(SPHERE);
             if (ClientConfig.IN_HAND_MODELS_32X.get()) {
                 for (String item : Item2DRenderer.HAND_MODEL_ITEMS) {
                     event.register(new ModelResourceLocation(new ResourceLocation(Valoria.MOD_ID, item + "_in_hand"), "inventory"));
                 }
             }
-
-            event.register(KEG_MODEL);
-            event.register(SPHERE);
         }
 
         @SubscribeEvent
@@ -205,15 +126,14 @@ public class ValoriaClient {
 
         @SubscribeEvent
         public static void onRegisterLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
-            for (CustomBoatEntity.Type boatType : CustomBoatEntity.Type.values()) {
-                event.registerLayerDefinition(CustomBoatRenderer.createBoatModelName(boatType), BoatModel::createBodyModel);
-                event.registerLayerDefinition(CustomBoatRenderer.createChestBoatModelName(boatType), ChestBoatModel::createBodyModel);
-            }
-
             event.registerLayerDefinition(ValoriaClient.NECKLACE_LAYER, NecklaceModel::createBodyLayer);
             event.registerLayerDefinition(ValoriaClient.BELT_LAYER, BeltModel::createBodyLayer);
             event.registerLayerDefinition(ValoriaClient.HANDS_LAYER, HandsModelDefault::createBodyLayer);
             event.registerLayerDefinition(ValoriaClient.HANDS_LAYER_SLIM, HandsModel::createBodyLayer);
+            for (CustomBoatEntity.Type boatType : CustomBoatEntity.Type.values()) {
+                event.registerLayerDefinition(CustomBoatRenderer.createBoatModelName(boatType), BoatModel::createBodyModel);
+                event.registerLayerDefinition(CustomBoatRenderer.createChestBoatModelName(boatType), ChestBoatModel::createBodyModel);
+            }
         }
 
         @OnlyIn(Dist.CLIENT)
@@ -225,16 +145,13 @@ public class ValoriaClient {
             Minecraft.getInstance().particleEngine.register(ModParticles.GEODE_PARTICLE.get(), SparkleParticleType.Factory::new);
             Minecraft.getInstance().particleEngine.register(ModParticles.SHADEWOOD_LEAF_PARTICLE.get(), ShadewoodLeafParticleType.Factory::new);
             Minecraft.getInstance().particleEngine.register(ModParticles.CHOMP.get(), ChompParticle.Factory::new);
-
         }
 
         @OnlyIn(Dist.CLIENT)
         @SubscribeEvent
         public static void shaderRegistry(RegisterShadersEvent event) throws IOException {
-            event.registerShader(new ShaderInstance(event.getResourceProvider(), new ResourceLocation("valoria:glowing_particle"), DefaultVertexFormat.PARTICLE),
-                    shader -> GLOWING_PARTICLE_SHADER = shader);
-            event.registerShader(new ShaderInstance(event.getResourceProvider(), new ResourceLocation("valoria:sprite_particle"), DefaultVertexFormat.PARTICLE),
-                    shader -> SPRITE_PARTICLE_SHADER = shader);
+            event.registerShader(new ShaderInstance(event.getResourceProvider(), new ResourceLocation("valoria:glowing_particle"), DefaultVertexFormat.PARTICLE), shader -> GLOWING_PARTICLE_SHADER = shader);
+            event.registerShader(new ShaderInstance(event.getResourceProvider(), new ResourceLocation("valoria:sprite_particle"), DefaultVertexFormat.PARTICLE), shader -> SPRITE_PARTICLE_SHADER = shader);
         }
     }
 }
