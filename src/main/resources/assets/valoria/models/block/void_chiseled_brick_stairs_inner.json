@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/inner_stairs",
-  "textures": {
-    "bottom": "valoria:block/void_chiseled_brick",
-    "top": "valoria:block/void_chiseled_brick",
-    "side": "valoria:block/void_chiseled_brick"
-  }
-}

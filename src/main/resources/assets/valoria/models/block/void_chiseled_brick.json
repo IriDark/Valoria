@@ -1,6 +1,12 @@
 {
-    "parent": "block/cube_all",
+    "parent": "block/cube",
     "textures": {
-        "all": "valoria:block/void_chiseled_brick"
+        "up": "valoria:block/void_chiseled_bricks",
+        "particle": "valoria:block/void_chiseled_brick",
+        "north": "valoria:block/void_chiseled_brick",
+        "south": "valoria:block/void_chiseled_brick",
+        "east": "valoria:block/void_chiseled_brick",
+        "west": "valoria:block/void_chiseled_brick",
+        "down": "valoria:block/void_brick"
     }
 }

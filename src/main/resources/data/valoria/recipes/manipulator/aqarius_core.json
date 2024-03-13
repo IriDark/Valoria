@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " / ",
+    "/#/",
+    " / "
+  ],
+  "key": {
+    "#": {
+      "item": "valoria:sapphire_gem"
+    },
+    "/": {
+      "item": "valoria:oceanic_shell"
+    }
+  },
+  "result": {
+    "item": "valoria:aquarius_core",
+    "count": 1
+  }
+}

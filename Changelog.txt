@@ -54,6 +54,7 @@
 - Added Shadewood Boat
 - Added Shadewood Chest Boat
 - Added Elemental manipulator crafts
+- Added 2 new command's "addAllPages", "removeAllPages"
 
 - Reworked keg a little
 - Reworked Keyblocks (Umbral Blocks)
@@ -96,6 +97,8 @@
 - Fixed Bug - Necklaces now bigger than player 2'nd layer
 - Fixed Entities attributes
 - Fixed Crash - When HitResult.getType() was MISS game decides to crash (Blazereap)
+- Fixed Server errors in KatanaItem and CorpsecleaverItem - Client sided a ClientConfig checking
+- Fixed Server error - Cant call the "/valoria addPage/removePage" command
 
 - Changed Stonecrusher recipe
 - Changed opacity for Eternity appearing after Phantom ability

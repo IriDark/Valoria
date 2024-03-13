@@ -54,7 +54,7 @@ public class BloodSight extends Item implements ICurioItem, Vanishable {
         Player player = (Player) slotContext.entity();
         Level pLevel = player.level();
         LivingEntity lastHurtMob = player.getLastAttacker();
-        int duration = 15;
+        int duration = (stack.getItem() == ModItems.BLOODSIGHT_MONOCLE.get()) ? 12 : 6;
         if (lastHurtMob != null && ClientTickHandler.ticksInGame % duration == 1 && !pLevel.isClientSide() && pLevel instanceof ServerLevel
                 && !player.getCooldowns().isOnCooldown(stack.getItem())) {
             for (int i = 0; i < ClientTickHandler.ticksInGame % duration; i++) {

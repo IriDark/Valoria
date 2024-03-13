@@ -19,6 +19,7 @@ import java.util.List;
 @OnlyIn(Dist.CLIENT)
 public class ModToast implements Toast {
 
+    public static ModToast instance;
     public ResourceLocation TEXTURE = new ResourceLocation(Valoria.MOD_ID, "textures/gui/toast.png");
     public boolean pUnlock;
 

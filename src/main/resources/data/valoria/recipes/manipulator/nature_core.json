@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " / ",
+    "/#/",
+    " / "
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:emerald"
+    },
+    "/": {
+      "item": "valoria:nature_gift"
+    }
+  },
+  "result": {
+    "item": "valoria:nature_core",
+    "count": 1
+  }
+}

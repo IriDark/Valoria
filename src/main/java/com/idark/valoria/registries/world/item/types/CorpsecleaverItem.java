@@ -22,6 +22,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class CorpsecleaverItem extends SwordItem implements Vanishable {
     private final float attackDamage;
@@ -43,6 +45,13 @@ public class CorpsecleaverItem extends SwordItem implements Vanishable {
 
     public int getUseDuration(ItemStack stack) {
         return 72000;
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public void clientConfig(Player playerEntity) {
+        if (ClientConfig.BLOOD_OVERLAY.get() || !playerEntity.isCreative()) {
+            CorpsecleaverRender.isThrow = true;
+        }
     }
 
     public void releaseUsing(ItemStack stack, Level level, LivingEntity entityLiving, int timeLeft) {
@@ -69,8 +78,8 @@ public class CorpsecleaverItem extends SwordItem implements Vanishable {
                 }
 
                 playerEntity.awardStat(Stats.ITEM_USED.get(this));
-                if (ClientConfig.BLOOD_OVERLAY.get() || !playerEntity.isCreative()) {
-                    CorpsecleaverRender.isThrow = true;
+                if (level.isClientSide()) {
+                    clientConfig(playerEntity);
                 }
             }
         }

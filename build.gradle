@@ -32,6 +32,8 @@ minecraft {
 
     runs {
         client {
+            args "--username", "IriDark_"
+
             workingDirectory project.file('run')
 	        jvmArg "-Dmixin.env.disableRefMap=true"
 		

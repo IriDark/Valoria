@@ -3,6 +3,7 @@ package com.idark.valoria.api.unlockable;
 import com.idark.valoria.capability.IUnlockable;
 import com.idark.valoria.client.gui.toast.ModToast;
 import com.idark.valoria.network.PacketHandler;
+import com.idark.valoria.network.PageToastPacket;
 import com.idark.valoria.network.UnlockableUpdatePacket;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.Entity;
@@ -30,9 +31,7 @@ public class UnlockUtils {
             unlockable.award((Player) entity);
 
             PacketHandler.sendTo((Player) entity, new UnlockableUpdatePacket((Player) entity));
-            if (unlockable.hasToast()) {
-                Minecraft.getInstance().getToasts().addToast(new ModToast(true));
-            }
+            PacketHandler.sendTo((Player) entity, new PageToastPacket((Player) entity, true));
         });
     }
 
@@ -43,8 +42,7 @@ public class UnlockUtils {
             k.removeUnlockable(unlockable);
 
             PacketHandler.sendTo((Player) entity, new UnlockableUpdatePacket((Player) entity));
-            Minecraft.getInstance().getToasts().addToast(new ModToast(false));
-
+            PacketHandler.sendTo((Player) entity, new PageToastPacket((Player) entity, false));
         });
     }
 
@@ -60,7 +58,7 @@ public class UnlockUtils {
             }
 
             PacketHandler.sendTo((Player) entity, new UnlockableUpdatePacket((Player) entity));
-            Minecraft.getInstance().getToasts().addToast(new ModToast(true));
+            PacketHandler.sendTo((Player) entity, new PageToastPacket((Player) entity, true));
         });
     }
 
@@ -70,7 +68,7 @@ public class UnlockUtils {
             k.removeAllUnlockable();
 
             PacketHandler.sendTo((Player) entity, new UnlockableUpdatePacket((Player) entity));
-            Minecraft.getInstance().getToasts().addToast(new ModToast(false));
+            PacketHandler.sendTo((Player) entity, new PageToastPacket((Player) entity, false));
         });
     }
 }

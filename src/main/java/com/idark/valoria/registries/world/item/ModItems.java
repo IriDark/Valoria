@@ -33,7 +33,6 @@ import net.minecraftforge.registries.RegistryObject;
 public class ModItems {
 	public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Valoria.MOD_ID);
 
-	// BLOCK-ITEMS (category)
 	// Plants
 	public static final RegistryObject<Item> VOIDVINE = ITEMS.register("voidvine", () -> new TaintTransformBlockItem(ModBlocks.VOIDVINE.get(), new Item.Properties()));
 	public static final RegistryObject<Item> VIOLET_SPROUT = ITEMS.register("violet_sprout", () -> new TaintTransformBlockItem(ModBlocks.VIOLET_SPROUT.get(), new Item.Properties()));
@@ -61,6 +60,7 @@ public class ModItems {
 	public static final RegistryObject<Item> SOULFLOWER = ITEMS.register("soulflower", () -> new BlockItem(ModBlocks.SOULFLOWER.get(), new Item.Properties()));
 	public static final RegistryObject<Item> VOID_ROOTS = ITEMS.register("void_roots", () -> new BlockItem(ModBlocks.VOID_ROOTS.get(), new Item.Properties()));
 	public static final RegistryObject<Item> VOID_SERPENTS = ITEMS.register("void_serpents", () -> new BlockItem(ModBlocks.VOID_SERPENTS.get(), new Item.Properties()));
+
 	// Ore
 	public static final RegistryObject<Item> GEODITE_DIRT = ITEMS.register("geodite_dirt", () -> new BlockItem(ModBlocks.GEODITE_DIRT.get(), new Item.Properties()));
 	public static final RegistryObject<Item> GEODITE_STONE = ITEMS.register("geodite_stone", () -> new BlockItem(ModBlocks.GEODITE_STONE.get(), new Item.Properties()));
@@ -77,14 +77,17 @@ public class ModItems {
 	public static final RegistryObject<Item> PEARLIUM_ORE = ITEMS.register("pearlium_ore", () -> new BlockItem(ModBlocks.PEARLIUM_ORE.get(), new Item.Properties()));
 	public static final RegistryObject<Item> WICKED_AMETHYST_ORE = ITEMS.register("wicked_amethyst_ore", () -> new BlockItem(ModBlocks.WICKED_AMETHYST_ORE.get(), new Item.Properties()));
 	public static final RegistryObject<Item> DORMANT_CRYSTALS = ITEMS.register("dormant_crystals", () -> new BlockItem(ModBlocks.DORMANT_CRYSTALS.get(), new Item.Properties()));
+
 	// Raw
 	public static final RegistryObject<Item> RAW_COBALT_ORE_BLOCK = ITEMS.register("raw_cobalt_ore", () -> new BlockItem(ModBlocks.RAW_COBALT_ORE_BLOCK.get(), new Item.Properties()));
+
 	// Crystals
 	public static final RegistryObject<Item> VOID_CRYSTAL = ITEMS.register("void_crystal", () -> new BlockItem(ModBlocks.VOID_CRYSTAL.get(), new Item.Properties()));
 	public static final RegistryObject<Item> AMBER_CRYSTAL = ITEMS.register("amber_crystal", () -> new BlockItem(ModBlocks.AMBER_CRYSTAL.get(), new Item.Properties()));
 	public static final RegistryObject<Item> AMETHYST_CRYSTAL = ITEMS.register("amethyst_crystal", () -> new BlockItem(ModBlocks.AMETHYST_CRYSTAL.get(), new Item.Properties()));
 	public static final RegistryObject<Item> RUBY_CRYSTAL = ITEMS.register("ruby_crystal", () -> new BlockItem(ModBlocks.RUBY_CRYSTAL.get(), new Item.Properties()));
 	public static final RegistryObject<Item> SAPPHIRE_CRYSTAL = ITEMS.register("sapphire_crystal", () -> new BlockItem(ModBlocks.SAPPHIRE_CRYSTAL.get(), new Item.Properties()));
+
 	// Ingot Blocks
 	public static final RegistryObject<Item> AMETHYST_BLOCK = ITEMS.register("amethyst_block", () -> new BlockItem(ModBlocks.AMETHYST_BLOCK.get(), new Item.Properties()));
 	public static final RegistryObject<Item> SAPPHIRE_BLOCK = ITEMS.register("sapphire_block", () -> new BlockItem(ModBlocks.SAPPHIRE_BLOCK.get(), new Item.Properties()));
@@ -96,6 +99,7 @@ public class ModItems {
 	public static final RegistryObject<Item> INFERNAL_BLOCK = ITEMS.register("infernal_block", () -> new BlockItem(ModBlocks.INFERNAL_BLOCK.get(), new Item.Properties()));
 	public static final RegistryObject<Item> AWAKENED_VOID_BLOCK = ITEMS.register("awakened_void_block", () -> new BlockItem(ModBlocks.AWAKENED_VOID_BLOCK.get(), new Item.Properties().fireResistant()));
 	public static final RegistryObject<Item> PEARLIUM = ITEMS.register("pearlium", () -> new BlockItem(ModBlocks.PEARLIUM.get(), new Item.Properties()));
+
 	// Stones
 	public static final RegistryObject<Item> EYE_MEAT = ITEMS.register("eye_meat", () -> new BlockItem(ModBlocks.EYE_MEAT.get(), new Item.Properties()));
 	public static final RegistryObject<Item> EYE_STONE = ITEMS.register("eye_stone", () -> new BlockItem(ModBlocks.EYE_STONE.get(), new Item.Properties()));
@@ -168,6 +172,7 @@ public class ModItems {
 	public static final RegistryObject<Item> VOID_PILLAR = ITEMS.register("void_pillar", () -> new BlockItem(ModBlocks.VOID_PILLAR.get(), new Item.Properties()));
 	public static final RegistryObject<Item> VOID_PILLAR_AMETHYST = ITEMS.register("void_pillar_amethyst", () -> new BlockItem(ModBlocks.VOID_PILLAR_AMETHYST.get(), new Item.Properties()));
 	public static final RegistryObject<Item> CHARGED_VOID_PILLAR = ITEMS.register("charged_void_pillar", () -> new BlockItem(ModBlocks.CHARGED_VOID_PILLAR.get(), new Item.Properties()));
+
 	// Wood
 	public static final RegistryObject<Item> SHADELOG = ITEMS.register("shadelog", () -> new BlockItem(ModBlocks.SHADELOG.get(), new Item.Properties()));
 	public static final RegistryObject<Item> SHADEWOOD = ITEMS.register("shadewood", () -> new BlockItem(ModBlocks.SHADEWOOD.get(), new Item.Properties()));
@@ -206,6 +211,7 @@ public class ModItems {
 	public static final RegistryObject<Item> POT_LONG_MOSSY = ITEMS.register("pot_long_mossy", () -> new BlockItem(ModBlocks.POT_LONG_MOSSY.get(), new Item.Properties()));
 	public static final RegistryObject<Item> POT_LONG_MOSSY_HANDLES = ITEMS.register("pot_long_mossy_handles", () -> new BlockItem(ModBlocks.POT_LONG_MOSSY_HANDLES.get(), new Item.Properties()));
 	public static final RegistryObject<Item> SPIDER_EGG = ITEMS.register("spider_egg", () -> new BlockItem(ModBlocks.SPIDER_EGG.get(), new Item.Properties()));
+
 	// Bronze
 	public static final RegistryObject<Item> BRONZE_BLOCK = ITEMS.register("bronze_block", () -> new BlockItem(ModBlocks.BRONZE_BLOCK.get(), new Item.Properties()));
 	public static final RegistryObject<Item> BRONZE_VENT = ITEMS.register("bronze_vent", () -> new BlockItem(ModBlocks.BRONZE_VENT.get(), new Item.Properties()));
@@ -214,7 +220,8 @@ public class ModItems {
 	public static final RegistryObject<Item> BRONZE_LAMP = ITEMS.register("bronze_lamp", () -> new BlockItem(ModBlocks.BRONZE_LAMP.get(), new Item.Properties()));
 	public static final RegistryObject<Item> DECORATED_BRONZE_LAMP = ITEMS.register("decorated_bronze_lamp", () -> new BlockItem(ModBlocks.DECORATED_BRONZE_LAMP.get(), new Item.Properties()));
 	public static final RegistryObject<Item> BRONZE_LAMP_BLOCK = ITEMS.register("bronze_lamp_block", () -> new BlockItem(ModBlocks.BRONZE_LAMP_BLOCK.get(), new Item.Properties()));
-	// ARMOR (category)
+
+	// ARMOR
 	public static final RegistryObject<Item> COBALT_HELMET = ITEMS.register("cobalt_helmet", () -> new ArmorItem(ModArmorMaterial.COBALT, ArmorItem.Type.HELMET, (new Item.Properties())));
 	public static final RegistryObject<Item> COBALT_CHESTPLATE = ITEMS.register("cobalt_chestplate", () -> new ArmorItem(ModArmorMaterial.COBALT, ArmorItem.Type.CHESTPLATE, (new Item.Properties())));
 	public static final RegistryObject<Item> COBALT_LEGGINGS = ITEMS.register("cobalt_leggings", () -> new ArmorItem(ModArmorMaterial.COBALT, ArmorItem.Type.LEGGINGS, (new Item.Properties())));
@@ -243,9 +250,9 @@ public class ModItems {
 	public static final RegistryObject<Item> PHANTASM_CHESTPLATE = ITEMS.register("phantasm_chestplate", () -> new ModArmorItem(ModArmorMaterial.PHANTASM, ArmorItem.Type.CHESTPLATE, (new Item.Properties().fireResistant())));
 	public static final RegistryObject<Item> PHANTASM_LEGGINGS = ITEMS.register("phantasm_leggings", () -> new ModArmorItem(ModArmorMaterial.PHANTASM, ArmorItem.Type.LEGGINGS, (new Item.Properties().fireResistant())));
 	public static final RegistryObject<Item> PHANTASM_BOOTS = ITEMS.register("phantasm_boots", () -> new ModArmorItem(ModArmorMaterial.PHANTASM, ArmorItem.Type.BOOTS, (new Item.Properties().fireResistant())));
-	// ITEMS (global category)
-	public static final RegistryObject<Item> STAFF = ITEMS.register("basic_staff", () -> new StaffItem(new Item.Properties()));
 
+	// ITEMS
+	public static final RegistryObject<Item> STAFF = ITEMS.register("basic_staff", () -> new StaffItem(new Item.Properties()));
 	public static final RegistryObject<Item> RAW_COBALT = ITEMS.register("raw_cobalt", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> AMBER_GEM = ITEMS.register("amber_gem", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> AMETHYST_GEM = ITEMS.register("amethyst_gem", () -> new Item(new Item.Properties()));
@@ -297,7 +304,7 @@ public class ModItems {
 	public static final RegistryObject<Item> COKE_BOTTLE = ITEMS.register("coke_bottle", () -> new ModDrinkItem(0, 1, 1, ModItems.BOTTLE.get(), new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 250)));
 	public static final RegistryObject<Item> APPLE_PIE = ITEMS.register("apple_pie", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(3).saturationMod(1.4f).build())));
 	public static final RegistryObject<Item> HOLIDAY_CANDY = ITEMS.register("holiday_candy", () -> new Item(new Item.Properties().stacksTo(16).food(new FoodProperties.Builder().nutrition(1).saturationMod(0.2f).build())));
-	public static final RegistryObject<Item> EYE_CHUNK = ITEMS.register("eye_chunk", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().effect(new MobEffectInstance(MobEffects.POISON, 100), 2f).nutrition(1).saturationMod(0.2f).build())));
+	public static final RegistryObject<Item> EYE_CHUNK = ITEMS.register("eye_chunk", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().effect(new MobEffectInstance(MobEffects.POISON, 100), 0.4f).effect(new MobEffectInstance(MobEffects.NIGHT_VISION, 300), 1f).nutrition(1).saturationMod(0.2f).build())));
 	public static final RegistryObject<Item> TAINTED_BERRIES = ITEMS.register("tainted_berries", () -> new ItemNameBlockItem(ModBlocks.TAINTED_ROOTS.get(), new Item.Properties().food(new FoodProperties.Builder().nutrition(2).saturationMod(0.3f).build())));
 	//public static final RegistryObject<Item> WAND_OF_NATURE = ITEMS.register("wand_of_nature", () -> new NatureStaff(new Item.Properties().stacksTo(1)));
 	public static final RegistryObject<Item> DUNESTONE_BRICK = ITEMS.register("dunestone_brick", () -> new Item(new Item.Properties()));
