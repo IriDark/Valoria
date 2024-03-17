@@ -5,6 +5,7 @@ import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.function.Predicate;
 
@@ -20,9 +21,7 @@ public class CommandBuilder extends CommandVariant {
     }
 
     public CommandBuilder variants(CommandVariant... branches) {
-        for (CommandVariant branch : branches) {
-            this.branches.add(branch);
-        }
+        this.branches.addAll(Arrays.asList(branches));
         return this;
     }
 

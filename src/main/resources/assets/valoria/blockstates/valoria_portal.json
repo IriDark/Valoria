@@ -1,11 +1,5 @@
 {
   "variants": {
-    "axis=x": {
-      "model": "valoria:block/valoria_portal"
-    },
-    "axis=z": {
-      "model": "valoria:block/valoria_portal",
-      "y": 90
-    }
+    "": { "model": "valoria:block/valoria_portal" }
   }
 }

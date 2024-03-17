@@ -20,16 +20,11 @@ public class Unlockable {
         return id;
     }
 
-    public boolean hasToast() {
-        return true;
-    }
-
     public boolean hasAllAward() {
         return true;
     }
 
     public void award(Player player) {
-
     }
 
     @OnlyIn(Dist.CLIENT)

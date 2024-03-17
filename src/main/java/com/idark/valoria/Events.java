@@ -8,6 +8,7 @@ import com.idark.valoria.capability.UnloackbleCap;
 import com.idark.valoria.client.gui.screen.book.unlockable.ItemUnlockable;
 import com.idark.valoria.network.PacketHandler;
 import com.idark.valoria.network.UnlockableUpdatePacket;
+import com.idark.valoria.registries.TagsRegistry;
 import com.idark.valoria.registries.world.item.ModItems;
 import com.idark.valoria.util.math.RandomUtil;
 import net.minecraft.nbt.CompoundTag;
@@ -23,6 +24,7 @@ import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
+import net.minecraftforge.event.entity.living.ShieldBlockEvent;
 import net.minecraftforge.event.entity.player.CriticalHitEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -39,6 +41,17 @@ public class Events {
             event.addCapability(new ResourceLocation(Valoria.MOD_ID, "pages"), new UnloackbleCap());
     }
 
+    @SubscribeEvent
+    public void disableBlock(ShieldBlockEvent event) {
+        if (event.getDamageSource().getDirectEntity() instanceof Player player) {
+            LivingEntity mob = event.getEntity();
+            ItemStack weapon = player.getMainHandItem();
+            if (!weapon.isEmpty() && weapon.is(TagsRegistry.CAN_DISABLE_SHIELD) && mob instanceof Player attacked) {
+                attacked.disableShield(true);
+            }
+        }
+    }
+    
     @SubscribeEvent
     public void critDamage(CriticalHitEvent event) {
         if (CuriosApi.getCuriosHelper().findEquippedCurio(ModItems.RUNE_OF_ACCURACY.get(), event.getEntity()).isPresent()) {

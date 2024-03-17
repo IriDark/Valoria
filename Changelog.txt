@@ -66,6 +66,7 @@
 - Reworked Void Grass
 - Reworked Goblin AI
 - Reworked Goblin Model From default Model to Humanoid, so they can hold items in hand
+- Reworked Kunais's
 
 - Resprited Void stone
 - Resprited Uncharged Shard

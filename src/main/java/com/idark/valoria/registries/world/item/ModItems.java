@@ -191,7 +191,11 @@ public class ModItems {
     // BlockItem Misc
     public static final RegistryObject<Item> VOID_TAINT_LANTERN = ITEMS.register("void_taint_lantern", () -> new BlockItem(ModBlocks.VOID_TAINT_LANTERN.get(), new Item.Properties()));
     public static final RegistryObject<Item> ABYSSAL_LANTERN = ITEMS.register("abyssal_lantern", () -> new BlockItem(ModBlocks.ABYSSAL_LANTERN.get(), new Item.Properties()));
+
+    // TEST
     public static final RegistryObject<Item> VALORIA_PORTAL = ITEMS.register("valoria_portal", () -> new BlockItem(ModBlocks.VALORIA_PORTAL.get(), new Item.Properties()));
+
+    public static final RegistryObject<Item> VALORIA_PORTAL_FRAME = ITEMS.register("valoria_portal_frame", () -> new BlockItem(ModBlocks.VALORIA_PORTAL_FRAME.get(), new Item.Properties()));
     public static final RegistryObject<Item> STONE_CRUSHER = ITEMS.register("stone_crusher", () -> new BlockItem(ModBlocks.STONE_CRUSHER.get(), new Item.Properties()));
     public static final RegistryObject<Item> JEWELER_TABLE = ITEMS.register("jeweler_table", () -> new BlockItem(ModBlocks.JEWELER_TABLE.get(), new Item.Properties()));
     public static final RegistryObject<Item> KEG = ITEMS.register("keg", () -> new BlockItem(ModBlocks.KEG.get(), new Item.Properties()));
@@ -234,10 +238,10 @@ public class ModItems {
     public static final RegistryObject<Item> AWAKENED_VOID_CHESTPLATE = ITEMS.register("awakened_void_chestplate", () -> new ArmorItem(ModArmorMaterial.AWAKENED_VOID, ArmorItem.Type.CHESTPLATE, (new Item.Properties().fireResistant())));
     public static final RegistryObject<Item> AWAKENED_VOID_LEGGINGS = ITEMS.register("awakened_void_leggings", () -> new ArmorItem(ModArmorMaterial.AWAKENED_VOID, ArmorItem.Type.LEGGINGS, (new Item.Properties().fireResistant())));
     public static final RegistryObject<Item> AWAKENED_VOID_BOOTS = ITEMS.register("awakened_void_boots", () -> new ArmorItem(ModArmorMaterial.AWAKENED_VOID, ArmorItem.Type.BOOTS, (new Item.Properties().fireResistant())));
-    public static final RegistryObject<Item> NATURE_HELMET = ITEMS.register("nature_helmet", () -> new ModEffectArmorItem(ModArmorMaterial.NATURE, ArmorItem.Type.HELMET, (new Item.Properties())));
-    public static final RegistryObject<Item> NATURE_CHESTPLATE = ITEMS.register("nature_chestplate", () -> new ModEffectArmorItem(ModArmorMaterial.NATURE, ArmorItem.Type.CHESTPLATE, (new Item.Properties())));
-    public static final RegistryObject<Item> NATURE_LEGGINGS = ITEMS.register("nature_leggings", () -> new ModEffectArmorItem(ModArmorMaterial.NATURE, ArmorItem.Type.LEGGINGS, (new Item.Properties())));
-    public static final RegistryObject<Item> NATURE_BOOTS = ITEMS.register("nature_boots", () -> new ModEffectArmorItem(ModArmorMaterial.NATURE, ArmorItem.Type.BOOTS, (new Item.Properties())));
+    public static final RegistryObject<Item> NATURE_HELMET = ITEMS.register("nature_helmet", () -> new ModArmorItem(ModArmorMaterial.NATURE, ArmorItem.Type.HELMET, (new Item.Properties())));
+    public static final RegistryObject<Item> NATURE_CHESTPLATE = ITEMS.register("nature_chestplate", () -> new ModArmorItem(ModArmorMaterial.NATURE, ArmorItem.Type.CHESTPLATE, (new Item.Properties())));
+    public static final RegistryObject<Item> NATURE_LEGGINGS = ITEMS.register("nature_leggings", () -> new ModArmorItem(ModArmorMaterial.NATURE, ArmorItem.Type.LEGGINGS, (new Item.Properties())));
+    public static final RegistryObject<Item> NATURE_BOOTS = ITEMS.register("nature_boots", () -> new ModArmorItem(ModArmorMaterial.NATURE, ArmorItem.Type.BOOTS, (new Item.Properties())));
     public static final RegistryObject<Item> DEPTH_HELMET = ITEMS.register("depth_helmet", () -> new ModArmorItem(ModArmorMaterial.DEPTH, ArmorItem.Type.HELMET, (new Item.Properties())));
     public static final RegistryObject<Item> DEPTH_CHESTPLATE = ITEMS.register("depth_chestplate", () -> new ModArmorItem(ModArmorMaterial.DEPTH, ArmorItem.Type.CHESTPLATE, (new Item.Properties())));
     public static final RegistryObject<Item> DEPTH_LEGGINGS = ITEMS.register("depth_leggings", () -> new ModArmorItem(ModArmorMaterial.DEPTH, ArmorItem.Type.LEGGINGS, (new Item.Properties())));
@@ -306,6 +310,9 @@ public class ModItems {
     public static final RegistryObject<Item> HOLIDAY_CANDY = ITEMS.register("holiday_candy", () -> new Item(new Item.Properties().stacksTo(16).food(new FoodProperties.Builder().nutrition(1).saturationMod(0.2f).build())));
     public static final RegistryObject<Item> EYE_CHUNK = ITEMS.register("eye_chunk", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().effect(new MobEffectInstance(MobEffects.POISON, 100), 0.4f).effect(new MobEffectInstance(MobEffects.NIGHT_VISION, 300), 1f).nutrition(1).saturationMod(0.2f).build())));
     public static final RegistryObject<Item> TAINTED_BERRIES = ITEMS.register("tainted_berries", () -> new ItemNameBlockItem(ModBlocks.TAINTED_ROOTS.get(), new Item.Properties().food(new FoodProperties.Builder().nutrition(2).saturationMod(0.3f).build())));
+    public static final RegistryObject<Item> COOKED_GLOW_VIOLET_SPROUT = ITEMS.register("cooked_glow_violet_sprout", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(4).saturationMod(0.5f).effect(new MobEffectInstance(MobEffects.NIGHT_VISION, 500), 1f).build())));
+    public static final RegistryObject<Item> COOKED_ABYSSAL_GLOWFERN = ITEMS.register("cooked_abyssal_glowfern", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(4).saturationMod(0.5f).effect(new MobEffectInstance(MobEffects.NIGHT_VISION, 500), 1f).build())));
+
     //public static final RegistryObject<Item> WAND_OF_NATURE = ITEMS.register("wand_of_nature", () -> new NatureStaff(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> DUNESTONE_BRICK = ITEMS.register("dunestone_brick", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> TOMBSTONE_BRICK = ITEMS.register("tombstone_brick", () -> new Item(new Item.Properties()));

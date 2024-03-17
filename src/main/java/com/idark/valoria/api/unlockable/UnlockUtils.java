@@ -14,9 +14,7 @@ public class UnlockUtils {
     public static boolean isUnlockable(Entity entity, Unlockable unlockable) {
         if (!(entity instanceof Player)) return false;
         AtomicBoolean isKnow = new AtomicBoolean(false);
-        entity.getCapability(IUnlockable.INSTANCE, null).ifPresent((k) -> {
-            isKnow.set(k.isUnlockable(unlockable));
-        });
+        entity.getCapability(IUnlockable.INSTANCE, null).ifPresent((k) -> isKnow.set(k.isUnlockable(unlockable)));
         return isKnow.get();
     }
 
@@ -25,9 +23,7 @@ public class UnlockUtils {
         entity.getCapability(IUnlockable.INSTANCE, null).ifPresent((k) -> {
             if (k.isUnlockable(unlockable)) return;
             k.addUnlockable(unlockable);
-
             unlockable.award((Player) entity);
-
             PacketHandler.sendTo((Player) entity, new UnlockableUpdatePacket((Player) entity));
             PacketHandler.sendTo((Player) entity, new PageToastPacket((Player) entity, true));
         });
@@ -38,7 +34,6 @@ public class UnlockUtils {
         entity.getCapability(IUnlockable.INSTANCE, null).ifPresent((k) -> {
             if (!k.isUnlockable(unlockable)) return;
             k.removeUnlockable(unlockable);
-
             PacketHandler.sendTo((Player) entity, new UnlockableUpdatePacket((Player) entity));
             PacketHandler.sendTo((Player) entity, new PageToastPacket((Player) entity, false));
         });
@@ -48,7 +43,6 @@ public class UnlockUtils {
         if (!(entity instanceof Player)) return;
         entity.getCapability(IUnlockable.INSTANCE, null).ifPresent((k) -> {
             k.addAllUnlockable();
-
             for (Unlockable unlockable : Unlockables.getUnlockables()) {
                 if (unlockable.hasAllAward()) {
                     unlockable.award((Player) entity);
@@ -64,7 +58,6 @@ public class UnlockUtils {
         if (!(entity instanceof Player)) return;
         entity.getCapability(IUnlockable.INSTANCE, null).ifPresent((k) -> {
             k.removeAllUnlockable();
-
             PacketHandler.sendTo((Player) entity, new UnlockableUpdatePacket((Player) entity));
             PacketHandler.sendTo((Player) entity, new PageToastPacket((Player) entity, false));
         });

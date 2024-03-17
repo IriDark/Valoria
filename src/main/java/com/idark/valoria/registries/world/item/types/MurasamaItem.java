@@ -77,7 +77,7 @@ public class MurasamaItem extends SwordItem implements Vanishable {
         if (!slotChanged) {
             return false;
         }
-        return super.shouldCauseReequipAnimation(oldStack, newStack, slotChanged);
+        return super.shouldCauseReequipAnimation(oldStack, newStack, true);
     }
 
     /**

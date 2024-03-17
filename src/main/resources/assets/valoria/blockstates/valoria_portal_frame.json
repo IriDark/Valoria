@@ -1,0 +1,15 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "valoria:block/valoria_portal_frame"
+      },
+      {
+        "model": "valoria:block/valoria_cracked_portal_frame"
+      },
+      {
+        "model": "valoria:block/valoria_broken_portal_frame"
+      }
+    ]
+  }
+}

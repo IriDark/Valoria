@@ -30,6 +30,7 @@ public class TagsRegistry {
 
     public static final TagKey<Block> KEY_BLOCKS = block(new ResourceLocation(MODID, "key_blocks"));
     public static final TagKey<Item> BOWS = item(new ResourceLocation(MODID, "bows"));
+    public static final TagKey<Item> CAN_DISABLE_SHIELD = item(new ResourceLocation(MODID, "can_disable_shield"));
     public static final TagKey<Item> CUP_DRINKS = item(new ResourceLocation(MODID, "wooden_cup_drinks"));
     public static final TagKey<Item> BOTTLE_DRINKS = item(new ResourceLocation(MODID, "bottle_drinks"));
     public static final TagKey<Item> TRINKETS = item(new ResourceLocation(MODID, "trinkets"));

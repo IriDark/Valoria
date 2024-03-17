@@ -475,7 +475,7 @@ public class GoblinEntity extends PathfinderMob implements NeutralMob, Enemy {
         }
     }
 
-    class RemoveDirtGoal extends MoveToBlockGoal {
+    static class RemoveDirtGoal extends MoveToBlockGoal {
         private final Block blockToRemove;
         private final Mob removerMob;
         private int ticksSinceReachedGoal;
@@ -531,7 +531,6 @@ public class GoblinEntity extends PathfinderMob implements NeutralMob, Enemy {
                     vec31 = this.removerMob.getDeltaMovement();
                     this.removerMob.setDeltaMovement(vec31.x, 0.3, vec31.z);
                     if (!level.isClientSide) {
-                        d3 = 0.08;
                         ((ServerLevel) level).sendParticles(new ItemParticleOption(ParticleTypes.ITEM, new ItemStack(Items.DIRT)), (double) blockpos1.getX() + 0.5, (double) blockpos1.getY() + 0.7, (double) blockpos1.getZ() + 0.5, 3, ((double) randomsource.nextFloat() - 0.5) * 0.08, ((double) randomsource.nextFloat() - 0.5) * 0.08, ((double) randomsource.nextFloat() - 0.5) * 0.08, 0.15000000596046448);
                     }
                 }
@@ -569,11 +568,10 @@ public class GoblinEntity extends PathfinderMob implements NeutralMob, Enemy {
                 return pPos;
             } else {
                 BlockPos[] ablockpos = new BlockPos[]{pPos.below(), pPos.west(), pPos.east(), pPos.north(), pPos.south(), pPos.below().below()};
-                BlockPos[] var4 = ablockpos;
                 int var5 = ablockpos.length;
 
                 for (int var6 = 0; var6 < var5; ++var6) {
-                    BlockPos blockpos = var4[var6];
+                    BlockPos blockpos = ablockpos[var6];
                     if (pLevel.getBlockState(blockpos).is(this.blockToRemove)) {
                         return blockpos;
                     }
@@ -595,7 +593,7 @@ public class GoblinEntity extends PathfinderMob implements NeutralMob, Enemy {
         }
     }
 
-    class RemoveCropsGoal extends MoveToBlockGoal {
+    static class RemoveCropsGoal extends MoveToBlockGoal {
         private final Mob removerMob;
         private int ticksSinceReachedGoal;
         private static final int WAIT_AFTER_BLOCK_FOUND = 20;
@@ -649,7 +647,6 @@ public class GoblinEntity extends PathfinderMob implements NeutralMob, Enemy {
                     vec31 = this.removerMob.getDeltaMovement();
                     this.removerMob.setDeltaMovement(vec31.x, 0.3, vec31.z);
                     if (!level.isClientSide) {
-                        d3 = 0.08;
                         ((ServerLevel) level).sendParticles(new ItemParticleOption(ParticleTypes.ITEM, new ItemStack(Items.DIRT)), (double) blockpos1.getX() + 0.5, (double) blockpos1.getY() + 0.7, (double) blockpos1.getZ() + 0.5, 3, ((double) randomsource.nextFloat() - 0.5) * 0.08, ((double) randomsource.nextFloat() - 0.5) * 0.08, ((double) randomsource.nextFloat() - 0.5) * 0.08, 0.15000000596046448);
                     }
                 }
@@ -687,11 +684,10 @@ public class GoblinEntity extends PathfinderMob implements NeutralMob, Enemy {
                 return pPos;
             } else {
                 BlockPos[] ablockpos = new BlockPos[]{pPos.below(), pPos.west(), pPos.east(), pPos.north(), pPos.south(), pPos.below().below()};
-                BlockPos[] var4 = ablockpos;
                 int var5 = ablockpos.length;
 
                 for (int var6 = 0; var6 < var5; ++var6) {
-                    BlockPos blockpos = var4[var6];
+                    BlockPos blockpos = ablockpos[var6];
                     if (pLevel.getBlockState(blockpos).is(BlockTags.CROPS)) {
                         return blockpos;
                     }

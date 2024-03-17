@@ -21,6 +21,7 @@ public class ModParticles {
     public static RegistryObject<SlashParticleType> PHANTOM_SLASH = PARTICLES.register("phantom_slash", SlashParticleType::new);
     public static RegistryObject<ShadewoodLeafParticleType> SHADEWOOD_LEAF_PARTICLE = PARTICLES.register("shadewood_leaf", ShadewoodLeafParticleType::new);
 
+    public static RegistryObject<SimpleParticleType> VOID_GLITTER = PARTICLES.register("void_glitter",  () -> new SimpleParticleType(false));
     public static final RegistryObject<SimpleParticleType> CHOMP = PARTICLES.register("chomp", () -> new SimpleParticleType(true));
 
     public static void register(IEventBus eventBus) {

@@ -20,8 +20,7 @@ public class CommandVariant {
     }
 
     public static CommandVariant arguments(CommandPart... arguments) {
-        CommandVariant branch = new CommandVariant(arguments);
-        return branch;
+        return new CommandVariant(arguments);
     }
 
 

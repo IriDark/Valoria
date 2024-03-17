@@ -6,11 +6,11 @@ import java.util.Map;
 
 public class Unlockables {
     public static Map<String, Unlockable> unlockableMap = new HashMap<String, Unlockable>();
-    public static ArrayList<Unlockable> unlockables = new ArrayList<Unlockable>();
+    public static ArrayList<Unlockable> unlockable = new ArrayList<Unlockable>();
 
-    public static void addKnowledge(String id, Unlockable spell) {
-        unlockableMap.put(id, spell);
-        unlockables.add(spell);
+    public static void addKnowledge(String id, Unlockable unlockable) {
+        unlockableMap.put(id, unlockable);
+        Unlockables.unlockable.add(unlockable);
     }
 
     public static Unlockable getUnlockable(int id) {
@@ -23,7 +23,7 @@ public class Unlockables {
 
     public static void register(Unlockable unlockable) {
         unlockableMap.put(unlockable.getId(), unlockable);
-        unlockables.add(unlockable);
+        Unlockables.unlockable.add(unlockable);
     }
 
     public static int size() {
@@ -31,6 +31,6 @@ public class Unlockables {
     }
 
     public static ArrayList<Unlockable> getUnlockables() {
-        return unlockables;
+        return unlockable;
     }
 }

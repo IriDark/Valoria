@@ -121,6 +121,8 @@ public abstract class ModItemGroup {
             event.accept(ModItems.BOTTLE);
             event.accept(ModItems.TAINTED_BERRIES);
             event.accept(ModItems.EYE_CHUNK);
+            event.accept(ModItems.COOKED_ABYSSAL_GLOWFERN);
+            event.accept(ModItems.COOKED_GLOW_VIOLET_SPROUT);
             event.accept(ModItems.ALOE_PIECE);
             event.accept(ModItems.ALOE_BANDAGE);
             event.accept(ModItems.ALOE_BANDAGE_UPGRADED);
@@ -510,6 +512,8 @@ public abstract class ModItemGroup {
             event.accept(ModItems.STONE_CRUSHER);
             event.accept(ModItems.JEWELER_TABLE);
             event.accept(ModItems.KEG);
+            event.accept(ModItems.VALORIA_PORTAL_FRAME);
+            event.accept(ModItems.VALORIA_PORTAL);
             event.accept(ModItems.UMBRAL_KEYPAD);
             event.accept(ModItems.CUT_UMBRAL_BLOCK);
             event.accept(ModItems.UMBRAL_BRICKS);

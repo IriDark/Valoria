@@ -26,6 +26,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.BoatModel;
 import net.minecraft.client.model.ChestBoatModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
+import net.minecraft.client.particle.EndRodParticle;
 import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
@@ -145,6 +146,7 @@ public class ValoriaClient {
             Minecraft.getInstance().particleEngine.register(ModParticles.GEODE_PARTICLE.get(), SparkleParticleType.Factory::new);
             Minecraft.getInstance().particleEngine.register(ModParticles.SHADEWOOD_LEAF_PARTICLE.get(), ShadewoodLeafParticleType.Factory::new);
             Minecraft.getInstance().particleEngine.register(ModParticles.CHOMP.get(), ChompParticle.Factory::new);
+            Minecraft.getInstance().particleEngine.register(ModParticles.VOID_GLITTER.get(), EndRodParticle.Provider::new);
         }
 
         @OnlyIn(Dist.CLIENT)

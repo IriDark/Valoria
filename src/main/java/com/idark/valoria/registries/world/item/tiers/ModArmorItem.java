@@ -1,6 +1,7 @@
 package com.idark.valoria.registries.world.item.tiers;
 
 import com.google.common.collect.ImmutableMap;
+import com.idark.valoria.registries.world.effect.ModEffects;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -18,6 +19,7 @@ import java.util.Random;
 public class ModArmorItem extends ArmorItem {
     private static final Map<ArmorMaterial, MobEffect> MATERIAL_TO_EFFECT_MAP = new ImmutableMap.Builder<ArmorMaterial, MobEffect>()
             .put(ModArmorMaterial.DEPTH, MobEffects.WATER_BREATHING)
+            .put(ModArmorMaterial.NATURE, ModEffects.ALOEREGEN.get())
             .put(ModArmorMaterial.INFERNAL, MobEffects.DAMAGE_BOOST)
             .build();
 
@@ -62,18 +64,18 @@ public class ModArmorItem extends ArmorItem {
     private boolean hasFullSuitOfArmorOn(Player player) {
         ItemStack boots = player.getInventory().getArmor(0);
         ItemStack leggings = player.getInventory().getArmor(1);
-        ItemStack breastplate = player.getInventory().getArmor(2);
+        ItemStack chestplate = player.getInventory().getArmor(2);
         ItemStack helmet = player.getInventory().getArmor(3);
 
-        return !helmet.isEmpty() && !breastplate.isEmpty() && !leggings.isEmpty() && !boots.isEmpty();
+        return !helmet.isEmpty() && !chestplate.isEmpty() && !leggings.isEmpty() && !boots.isEmpty();
     }
 
     private boolean hasCorrectArmorOn(ArmorMaterial material, Player player) {
         ArmorItem boots = ((ArmorItem) player.getInventory().getArmor(0).getItem());
         ArmorItem leggings = ((ArmorItem) player.getInventory().getArmor(1).getItem());
-        ArmorItem breastplate = ((ArmorItem) player.getInventory().getArmor(2).getItem());
+        ArmorItem chestplate = ((ArmorItem) player.getInventory().getArmor(2).getItem());
         ArmorItem helmet = ((ArmorItem) player.getInventory().getArmor(3).getItem());
 
-        return helmet.getMaterial() == material && breastplate.getMaterial() == material && leggings.getMaterial() == material && boots.getMaterial() == material;
+        return helmet.getMaterial() == material && chestplate.getMaterial() == material && leggings.getMaterial() == material && boots.getMaterial() == material;
     }
 }

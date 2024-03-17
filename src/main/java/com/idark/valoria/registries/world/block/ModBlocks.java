@@ -40,6 +40,8 @@ public class ModBlocks {
     public static final RegistryObject<Block> BRONZE_TRAPDOOR_GLASS = registerBlock("bronze_trapdoor_glass",
             () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_TRAPDOOR).noOcclusion(), BlockSetType.IRON));
     // Umbral
+    public static final RegistryObject<Block> VALORIA_PORTAL_FRAME = BLOCK.register("valoria_portal_frame",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(-1f, 3600000.8F).sound(SoundType.DEEPSLATE_TILES).noLootTable()));
     public static final RegistryObject<Block> UMBRAL_KEYPAD = BLOCK.register("umbral_keypad",
             () -> new KeyPadBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(-1f, 3600000.8F).sound(SoundType.NETHER_BRICKS).noLootTable()));
     public static final RegistryObject<Block> CUT_UMBRAL_BLOCK = BLOCK.register("cut_umbral_block",
