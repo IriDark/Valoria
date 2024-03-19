@@ -3,11 +3,6 @@ buildscript {
         maven { url = 'https://maven.minecraftforge.net' }
         maven { url = 'https://repo.spongepowered.org/repository/maven-public/' }
         maven { url = 'https://maven.parchmentmc.org' }
-        maven {
-            name = "sonatype"
-            url = "https://oss.sonatype.org/content/repositories/snapshots/"
-        }
-
         mavenCentral()
         mavenLocal()
     }
@@ -91,6 +86,7 @@ mixin {
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
+    maven { url 'https://jitpack.io' }
     maven {
         url "https://maven.theillusivec4.top/"
     }
@@ -105,9 +101,9 @@ repositories {
         url "https://maven.blamejared.com"
     }
 
-    flatDir {
-         dir 'libs'
-    }
+    //flatDir {
+    //     dir 'libs'
+    //}
 
     mavenCentral()
     mavenLocal()
