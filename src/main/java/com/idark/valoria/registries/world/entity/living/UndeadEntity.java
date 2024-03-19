@@ -51,10 +51,6 @@ public class UndeadEntity extends Monster implements TraceableEntity {
         this.xpReward = 3;
     }
 
-    public static AttributeSupplier.Builder createAttributes() {
-        return Monster.createMonsterAttributes().add(Attributes.MAX_HEALTH, 6.0D).add(Attributes.ATTACK_DAMAGE, 4.0D);
-    }
-
     protected float getStandingEyeHeight(Pose pPose, EntityDimensions pDimensions) {
         return pDimensions.height - 0.28125F;
     }
@@ -102,6 +98,10 @@ public class UndeadEntity extends Monster implements TraceableEntity {
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Player.class, true));
     }
 
+    public static AttributeSupplier.Builder createAttributes() {
+        return Monster.createMonsterAttributes().add(Attributes.MAX_HEALTH, 6.0D).add(Attributes.ATTACK_DAMAGE, 4.0D);
+    }
+
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(DATA_FLAGS_ID, (byte)0);
@@ -144,10 +144,6 @@ public class UndeadEntity extends Monster implements TraceableEntity {
         return this.owner;
     }
 
-    public void setOwner(Mob pOwner) {
-        this.owner = pOwner;
-    }
-
     @Nullable
     public BlockPos getBoundOrigin() {
         return this.boundOrigin;
@@ -179,6 +175,10 @@ public class UndeadEntity extends Monster implements TraceableEntity {
 
     public void setIsCharging(boolean pCharging) {
         this.setUndeadFlag(1, pCharging);
+    }
+
+    public void setOwner(Mob pOwner) {
+        this.owner = pOwner;
     }
 
     public void setLimitedLife(int pLimitedLifeTicks) {

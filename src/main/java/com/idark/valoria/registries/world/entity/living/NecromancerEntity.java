@@ -153,6 +153,10 @@ public class NecromancerEntity extends AbstractNecromancer implements RangedAtta
 
     }
 
+    void setWololoTarget(@Nullable Skeleton pWololoTarget) {
+        this.wololoTarget = pWololoTarget;
+    }
+
     void setHorseWololoTarget(@Nullable Horse pWololoTarget) {
         this.wololoTargetHorse = pWololoTarget;
     }
@@ -160,10 +164,6 @@ public class NecromancerEntity extends AbstractNecromancer implements RangedAtta
     @Nullable
     Skeleton getWololoTarget() {
         return this.wololoTarget;
-    }
-
-    void setWololoTarget(@Nullable Skeleton pWololoTarget) {
-        this.wololoTarget = pWololoTarget;
     }
 
     @Nullable

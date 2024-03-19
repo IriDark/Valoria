@@ -47,6 +47,11 @@ public class NecromancerFangs extends Entity implements TraceableEntity {
     protected void defineSynchedData() {
     }
 
+    public void setOwner(@Nullable LivingEntity pOwner) {
+        this.owner = pOwner;
+        this.ownerUUID = pOwner == null ? null : pOwner.getUUID();
+    }
+
     /**
      * Returns null or the entityliving it was ignited by
      */
@@ -60,11 +65,6 @@ public class NecromancerFangs extends Entity implements TraceableEntity {
         }
 
         return this.owner;
-    }
-
-    public void setOwner(@Nullable LivingEntity pOwner) {
-        this.owner = pOwner;
-        this.ownerUUID = pOwner == null ? null : pOwner.getUUID();
     }
 
     /**

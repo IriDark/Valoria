@@ -3,8 +3,8 @@ buildscript {
         maven { url = 'https://maven.minecraftforge.net' }
         maven { url = 'https://repo.spongepowered.org/repository/maven-public/' }
         maven { url = 'https://maven.parchmentmc.org' }
-        maven{ url 'https://jitpack.io' }
         mavenCentral()
+        mavenLocal()
     }
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
@@ -87,7 +87,8 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
     mavenCentral()
-	maven {	
+    mavenLocal()
+    maven {
         url "https://maven.theillusivec4.top/"
     }
     maven {
@@ -99,6 +100,10 @@ repositories {
     }
     maven {
         url "https://maven.blamejared.com"
+    }
+
+    flatDir {
+         dir 'libs'
     }
 }
 
@@ -152,17 +157,7 @@ publishing {
     }
     repositories {
         maven {
-            url "file:///${project.projectDir}/mcmodsrepo"
+            url = "file:///${project.projectDir}/../mcmodsrepo"
         }
     }
-}
-
-// Produces the source-jar, which is for JitPack
-task sourcesJar(type: Jar, dependsOn: classes) {
-    classifier = "sources"
-    from sourceSets.main.allSource
-}
-
-artifacts {
-    archives sourcesJar
 }
