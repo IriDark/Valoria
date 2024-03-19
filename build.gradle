@@ -3,6 +3,7 @@ buildscript {
         maven { url = 'https://maven.minecraftforge.net' }
         maven { url = 'https://repo.spongepowered.org/repository/maven-public/' }
         maven { url = 'https://maven.parchmentmc.org' }
+        maven{ url 'https://jitpack.io' }
         mavenCentral()
     }
     dependencies {
@@ -19,7 +20,7 @@ apply plugin: 'org.spongepowered.mixin'
 apply plugin: 'org.parchmentmc.librarian.forgegradle'
 
 version = '1.20.1-build-0.6b'
-group = 'com.idark.valoria'
+group = 'com.github.IriDark'
 archivesBaseName = 'Valoria'
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
@@ -29,7 +30,6 @@ println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getPro
 minecraft {
     mappings channel: 'parchment', version: '2023.06.26-1.20.1'
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
-
     runs {
         client {
             args "--username", "IriDark_"
@@ -100,8 +100,6 @@ repositories {
     maven {
         url "https://maven.blamejared.com"
     }
-
-    maven { url 'https://jitpack.io' }
 }
 
 dependencies {
