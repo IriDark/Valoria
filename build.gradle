@@ -7,6 +7,7 @@ buildscript {
             name = "sonatype"
             url = "https://oss.sonatype.org/content/repositories/snapshots/"
         }
+
         mavenCentral()
         mavenLocal()
     }
@@ -90,8 +91,6 @@ mixin {
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
-    mavenCentral()
-    mavenLocal()
     maven {
         url "https://maven.theillusivec4.top/"
     }
@@ -109,6 +108,9 @@ repositories {
     flatDir {
          dir 'libs'
     }
+
+    mavenCentral()
+    mavenLocal()
 }
 
 dependencies {
