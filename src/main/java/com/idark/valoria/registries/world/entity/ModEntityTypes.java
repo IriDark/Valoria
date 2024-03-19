@@ -4,10 +4,7 @@ import com.idark.valoria.Valoria;
 import com.idark.valoria.registries.world.entity.decoration.CustomBoatEntity;
 import com.idark.valoria.registries.world.entity.decoration.CustomChestBoatEntity;
 import com.idark.valoria.registries.world.entity.living.*;
-import com.idark.valoria.registries.world.entity.projectile.KunaiEntity;
-import com.idark.valoria.registries.world.entity.projectile.MeatBlockEntity;
-import com.idark.valoria.registries.world.entity.projectile.PoisonedKunaiEntity;
-import com.idark.valoria.registries.world.entity.projectile.SpectralBladeEntity;
+import com.idark.valoria.registries.world.entity.projectile.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -31,13 +28,23 @@ public class ModEntityTypes {
 
     public static final RegistryObject<EntityType<DraugrEntity>> DRAUGR = ENTITY_TYPES.register("draugr",
             () -> EntityType.Builder.of(DraugrEntity::new, MobCategory.CREATURE)
-                    .sized(0.6f, 1.95f)
+                    .sized(0.6f, 2.0f)
                     .build(new ResourceLocation(Valoria.MOD_ID, "draugr").toString()));
 
     public static final RegistryObject<EntityType<NecromancerEntity>> NECROMANCER = ENTITY_TYPES.register("necromancer",
             () -> EntityType.Builder.of(NecromancerEntity::new, MobCategory.CREATURE)
-                    .sized(1f, 2f)
+                    .sized(0.6f, 2.0f)
                     .build(new ResourceLocation(Valoria.MOD_ID, "necromancer").toString()));
+
+    public static final RegistryObject<EntityType<UndeadEntity>> UNDEAD = ENTITY_TYPES.register("undead",
+            () -> EntityType.Builder.of(UndeadEntity::new, MobCategory.MONSTER)
+                    .sized(0.4f, 0.8f)
+                    .build(new ResourceLocation(Valoria.MOD_ID, "undead").toString()));
+
+    public static final RegistryObject<EntityType<NecromancerFangs>> NECROMANCER_FANGS = ENTITY_TYPES.register("necromancer_fangs",
+            () -> EntityType.Builder.<NecromancerFangs>of(NecromancerFangs::new, MobCategory.MISC)
+                    .sized(1, 1f)
+                    .build(new ResourceLocation(Valoria.MOD_ID, "necromancer_fangs").toString()));
 
     public static final RegistryObject<EntityType<MannequinEntity>> MANNEQUIN = ENTITY_TYPES.register("mannequin",
             () -> EntityType.Builder.of(MannequinEntity::new, MobCategory.CREATURE)

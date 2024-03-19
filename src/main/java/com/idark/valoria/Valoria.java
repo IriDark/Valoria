@@ -236,6 +236,7 @@ public class Valoria {
             event.put(ModEntityTypes.DRAUGR.get(), DraugrEntity.createAttributes().build());
             event.put(ModEntityTypes.NECROMANCER.get(), NecromancerEntity.createAttributes().build());
             event.put(ModEntityTypes.SWAMP_WANDERER.get(), SwampWandererEntity.createAttributes().build());
+            event.put(ModEntityTypes.UNDEAD.get(), UndeadEntity.createAttributes().build());
         }
 
         @SubscribeEvent

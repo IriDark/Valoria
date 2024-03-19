@@ -1,5 +1,6 @@
 package com.idark.valoria.client.render.model.entity;
 
+import com.idark.valoria.registries.world.entity.living.NecromancerEntity;
 import com.idark.valoria.registries.world.item.ModItems;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -110,6 +111,21 @@ public class NecromancerModel<T extends Mob & RangedAttackMob> extends HumanoidM
             this.leftArm.zRot = -2.3561945F;
             this.rightArm.yRot = 0.0F;
             this.leftArm.yRot = 0.0F;
+        }
+
+        if (pEntity instanceof NecromancerEntity caster) {
+            if (caster.isCastingSpell()) {
+                this.rightArm.z = 0.0F;
+                this.rightArm.x = -5.0F;
+                this.leftArm.z = 0.0F;
+                this.leftArm.x = 5.0F;
+                this.rightArm.xRot = Mth.cos(pAgeInTicks * 0.6662F) * 0.25F;
+                this.leftArm.xRot = Mth.cos(pAgeInTicks * 0.6662F) * 0.25F;
+                this.rightArm.zRot = 2.3561945F;
+                this.leftArm.zRot = -2.3561945F;
+                this.rightArm.yRot = 0.0F;
+                this.leftArm.yRot = 0.0F;
+            }
         }
     }
 

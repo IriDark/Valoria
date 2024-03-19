@@ -100,6 +100,8 @@ repositories {
     maven {
         url "https://maven.blamejared.com"
     }
+
+    maven { url 'https://jitpack.io' }
 }
 
 dependencies {
@@ -155,4 +157,14 @@ publishing {
             url "file:///${project.projectDir}/mcmodsrepo"
         }
     }
+}
+
+// Produces the source-jar, which is for JitPack
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = "sources"
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives sourcesJar
 }

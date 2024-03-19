@@ -97,6 +97,8 @@ public class ValoriaClient {
             EntityRenderers.register(ModEntityTypes.SPECTRAL_BLADE.get(), SpectralBladeRenderer::new);
             EntityRenderers.register(ModEntityTypes.POISONED_KUNAI.get(), PoisonedKunaiRenderer::new);
             EntityRenderers.register(ModEntityTypes.MEAT.get(), MeatBlockRenderer::new);
+            EntityRenderers.register(ModEntityTypes.NECROMANCER_FANGS.get(), NecromancerFangsRenderer::new);
+            EntityRenderers.register(ModEntityTypes.UNDEAD.get(), UndeadRenderer::new);
 
             ModItemModelProperties.makeBow(ModItems.SAMURAI_LONG_BOW.get());
             ModItemModelProperties.makeBow(ModItems.NATURE_BOW.get());

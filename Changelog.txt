@@ -55,6 +55,8 @@
 - Added Shadewood Chest Boat
 - Added Elemental manipulator crafts
 - Added 2 new command's "addAllPages", "removeAllPages"
+- Added Necromancer
+- Added Undead
 
 - Reworked keg a little
 - Reworked Keyblocks (Umbral Blocks)

@@ -36,8 +36,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import org.joml.Vector3d;
 
 import java.util.ArrayList;
@@ -124,13 +122,6 @@ public class KatanaItem extends TieredItem implements Vanishable {
         return 30;
     }
 
-    @OnlyIn(Dist.CLIENT)
-    public void clientConfig() {
-        if (ClientConfig.DASH_OVERLAY.get()) {
-            DashOverlayRender.isDash = true;
-        }
-    }
-
     /**
      * Some sounds taken from the CalamityMod (Terraria) in a <a href="https://calamitymod.wiki.gg/wiki/Category:Sound_effects">Calamity Mod Wiki.gg</a>
      */
@@ -201,8 +192,8 @@ public class KatanaItem extends TieredItem implements Vanishable {
             }
 
             level.playSound(player, player.blockPosition(), ModSoundRegistry.SWIFTSLICE.get(), SoundSource.AMBIENT, 10f, 1f);
-            if (level.isClientSide()) {
-                clientConfig();
+            if (ClientConfig.DASH_OVERLAY.get()) {
+                DashOverlayRender.isDash = true;
             }
         }
     }

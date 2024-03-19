@@ -1,11 +1,8 @@
 package com.idark.valoria.config;
 
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ForgeConfigSpec;
 import org.apache.commons.lang3.tuple.Pair;
 
-@OnlyIn(Dist.CLIENT)
 public class ClientConfig {
     public static ForgeConfigSpec.ConfigValue<Integer>
             MAGMA_CHARGE_BAR_Y, MAGMA_CHARGE_BAR_X, MAGMA_CHARGE_BAR_TYPE, MANA_BAR_Y, MANA_BAR_X, MANA_BAR_TYPE, DEBUG_X, DEBUG_Y;

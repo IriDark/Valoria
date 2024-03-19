@@ -306,6 +306,8 @@ public abstract class ModItemGroup {
             event.accept(ModItems.MANNEQUIN_SPAWN_EGG);
             event.accept(ModItems.SWAMP_WANDERER_SPAWN_EGG);
             event.accept(ModItems.DRAUGR_SPAWN_EGG);
+            event.accept(ModItems.NECROMANCER_SPAWN_EGG);
+            event.accept(ModItems.UNDEAD_SPAWN_EGG);
             event.accept(ModItems.GOBLIN_SPAWN_EGG);
         }
 

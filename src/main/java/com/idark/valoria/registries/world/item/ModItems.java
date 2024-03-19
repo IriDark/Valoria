@@ -640,6 +640,10 @@ public class ModItems {
             () -> new ForgeSpawnEggItem(ModEntityTypes.DRAUGR, ColorUtils.hexToDecimal("76695C"), ColorUtils.hexToDecimal("d6d0c9"), new Item.Properties()));
     public static final RegistryObject<ForgeSpawnEggItem> SWAMP_WANDERER_SPAWN_EGG = ITEMS.register("swamp_wanderer_spawn_egg",
             () -> new ForgeSpawnEggItem(ModEntityTypes.SWAMP_WANDERER, ColorUtils.hexToDecimal("606239"), ColorUtils.hexToDecimal("b8b377"), new Item.Properties()));
+    public static final RegistryObject<ForgeSpawnEggItem> NECROMANCER_SPAWN_EGG = ITEMS.register("necromancer_spawn_egg",
+            () -> new ForgeSpawnEggItem(ModEntityTypes.NECROMANCER, ColorUtils.hexToDecimal("4b4857"), ColorUtils.hexToDecimal("958fb7"), new Item.Properties()));
+    public static final RegistryObject<ForgeSpawnEggItem> UNDEAD_SPAWN_EGG = ITEMS.register("undead_spawn_egg",
+            () -> new ForgeSpawnEggItem(ModEntityTypes.UNDEAD, ColorUtils.hexToDecimal("625F71"), ColorUtils.hexToDecimal("ffffff"), new Item.Properties()));
     public static final RegistryObject<MannequinSpawnItem> MANNEQUIN_SPAWN_EGG = ITEMS.register("mannequin_spawn_egg",
             () -> new MannequinSpawnItem(new Item.Properties()));
 
