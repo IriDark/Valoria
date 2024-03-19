@@ -3,6 +3,10 @@ buildscript {
         maven { url = 'https://maven.minecraftforge.net' }
         maven { url = 'https://repo.spongepowered.org/repository/maven-public/' }
         maven { url = 'https://maven.parchmentmc.org' }
+        maven {
+            name = "sonatype"
+            url = "https://oss.sonatype.org/content/repositories/snapshots/"
+        }
         mavenCentral()
         mavenLocal()
     }
@@ -150,9 +154,36 @@ jar {
 
 jar.finalizedBy('reobfJar')
 publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            artifact jar
+    publications.create('mavenJava', MavenPublication) {
+        from components.java
+        artifact tasks.jarJar
+
+        artifactId = project.archivesBaseName
+        pom {
+            name = 'Valoria'
+            description = 'Valoria mod'
+            scm {
+                url = 'https://github.com/IriDark/Valoria'
+                connection = 'scm:git:git@github.com:IriDark/Valoria.git'
+                developerConnection = 'scm:git:git@github.com:IriDark/Valoria.git'
+            }
+            issueManagement {
+                system = 'github'
+                url = 'https://github.com/IriDark/Valoria/issues'
+            }
+            licenses {
+                license {
+                    name = 'CC-BY-NC-4.0'
+                    distribution = 'repo'
+                }
+            }
+            developers {
+                developer {
+                    id = 'IriDark'
+                    name = 'IriDark'
+                    roles = ['developer']
+                }
+            }
         }
     }
     repositories {
@@ -160,4 +191,8 @@ publishing {
             url = "file:///${project.projectDir}/../mcmodsrepo"
         }
     }
+}
+
+artifacts {
+    archives tasks.jarJar
 }
