@@ -193,6 +193,11 @@ publishing {
     }
 }
 
+// Produces the source-jar, which is for JitPack
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = "sources"
+    from sourceSets.main.allSource
+}
 artifacts {
     archives tasks.jarJar
 }
