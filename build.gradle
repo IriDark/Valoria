@@ -154,7 +154,7 @@ jar.finalizedBy('reobfJar')
 publishing {
     publications.create('mavenJava', MavenPublication) {
         from components.java
-        artifact tasks.jarJar
+        artifact jar
 
         artifactId = project.archivesBaseName
         pom {
@@ -197,5 +197,5 @@ task sourcesJar(type: Jar, dependsOn: classes) {
     from sourceSets.main.allSource
 }
 artifacts {
-    archives tasks.jarJar
+    archives jar
 }
