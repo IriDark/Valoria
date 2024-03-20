@@ -13,6 +13,9 @@ buildscript {
     }
 }
 
+plugins {
+    id "com.modrinth.minotaur" version "2.+"
+}
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
@@ -86,6 +89,20 @@ mixin {
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
+    maven {
+        name = "Modrinth"
+        url = "https://api.modrinth.com/maven"
+    }
+    maven {
+        url "https://maven.minecraftforge.net/releases/"
+        authentication {
+            basic(BasicAuthentication)
+        }
+        credentials {
+            username = System.env.MAVEN_USER ?:'fake'
+            password = System.env.MAVEN_PASSWORD ?:'news'
+        }
+    }
     maven { url 'https://jitpack.io' }
     maven {
         url "https://maven.theillusivec4.top/"
@@ -140,11 +157,11 @@ jar {
     manifest {
         attributes([
                 "Specification-Title": "valoria",
-                "Specification-Vendor": "valoria",
+                "Specification-Vendor": "IriDark",
                 "Specification-Version": "1", // We are version 1 of ourselves
                 "Implementation-Title": project.name,
-                "Implementation-Version": "${version}",
-                "Implementation-Vendor" :"valoria",
+                "Implementation-Version": project.jar.archiveVersion,
+                "Implementation-Vendor" :"IriDark",
                 "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }
@@ -152,43 +169,30 @@ jar {
 
 jar.finalizedBy('reobfJar')
 publishing {
-    publications.create('mavenJava', MavenPublication) {
-        from components.java
-        artifact jar
-
-        artifactId = project.archivesBaseName
-        pom {
-            name = 'Valoria'
-            description = 'Valoria mod'
-            scm {
-                url = 'https://github.com/IriDark/Valoria'
-                connection = 'scm:git:git@github.com:IriDark/Valoria.git'
-                developerConnection = 'scm:git:git@github.com:IriDark/Valoria.git'
-            }
-            issueManagement {
-                system = 'github'
-                url = 'https://github.com/IriDark/Valoria/issues'
-            }
-            licenses {
-                license {
-                    name = 'CC-BY-NC-4.0'
-                    distribution = 'repo'
-                }
-            }
-            developers {
-                developer {
-                    id = 'IriDark'
-                    name = 'IriDark'
-                    roles = ['developer']
-                }
-            }
+    publications {
+        mavenJava(MavenPublication) {
+            artifact jar
         }
     }
     repositories {
+        //maven {
+        //    url = "file:///${project.projectDir}/../mcmodsrepo"
+        //}
         maven {
-            url = "file:///${project.projectDir}/../mcmodsrepo"
+            url "https://maven.minecraftforge.net/releases/"
+            authentication {
+                basic(BasicAuthentication)
+            }
+            credentials {
+                username = System.env.MAVEN_USER ?:'fake'
+                password = System.env.MAVEN_PASSWORD ?:'news'
+            }
         }
     }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
 }
 
 // Produces the source-jar, which is for JitPack
@@ -196,6 +200,22 @@ task sourcesJar(type: Jar, dependsOn: classes) {
     classifier = "sources"
     from sourceSets.main.allSource
 }
+
+modrinth {
+    token = System.getenv("modrinthtoken") // Remember to have the MODRINTH_TOKEN environment variable set or else this will fail - just make sure it stays private!
+    projectId = "valoriadev" // This can be the project ID or the slug. Either will work!
+    versionNumber = "0.6b" // You don't need to set this manually. Will fail if Modrinth has this version already
+    versionType = "alpha" // This is the default -- can also be `beta` or `alpha`
+    versionName = "Dev Build 0.6b"
+    uploadFile = tasks.jar // With Loom, this MUST be set to `remapJar` instead of `jar`!
+    dependencies { // A special DSL for creating dependencies
+        // scope.type
+        // The scope can be `required`, `optional`, `incompatible`, or `embedded`
+        // The type can either be `project` or `version`
+        required.project "curios" // Creates a new required dependency on Fabric API
+    }
+}
+
 artifacts {
     archives jar
 }
