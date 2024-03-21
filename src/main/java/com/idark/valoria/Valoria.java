@@ -15,6 +15,7 @@ import com.idark.valoria.client.particle.ModParticles;
 import com.idark.valoria.client.render.curio.BeltRenderer;
 import com.idark.valoria.client.render.curio.HandsRenderer;
 import com.idark.valoria.client.render.curio.NecklaceRenderer;
+import com.idark.valoria.client.render.model.item.Item2DRenderer;
 import com.idark.valoria.config.ClientConfig;
 import com.idark.valoria.datagen.ModBlockStateProvider;
 import com.idark.valoria.network.PacketHandler;
@@ -36,7 +37,6 @@ import com.idark.valoria.registries.world.entity.living.*;
 import com.idark.valoria.registries.world.item.ModItemGroup;
 import com.idark.valoria.registries.world.item.ModItems;
 import com.idark.valoria.registries.world.item.enchant.ModEnchantments;
-import com.idark.valoria.registries.world.item.types.ScytheItem;
 import com.idark.valoria.registries.world.item.types.mana.staffs.StaffItem;
 import com.idark.valoria.registries.world.levelgen.LevelGen;
 import com.idark.valoria.util.LootUtil;
@@ -124,6 +124,33 @@ public class Valoria {
         event.enqueueWork(() -> {
             LexiconChapters.init();
 
+            Item2DRenderer.handModelItems.add("cobalt_sword");
+            Item2DRenderer.handModelItems.add("netherite_scythe");
+            Item2DRenderer.handModelItems.add("diamond_scythe");
+            Item2DRenderer.handModelItems.add("golden_scythe");
+            Item2DRenderer.handModelItems.add("iron_scythe");
+            Item2DRenderer.handModelItems.add("netherite_spear");
+            Item2DRenderer.handModelItems.add("diamond_spear");
+            Item2DRenderer.handModelItems.add("golden_spear");
+            Item2DRenderer.handModelItems.add("wooden_spear");
+            Item2DRenderer.handModelItems.add("stone_spear");
+            Item2DRenderer.handModelItems.add("iron_spear");
+            Item2DRenderer.handModelItems.add("ent");
+            Item2DRenderer.handModelItems.add("nature_scythe");
+            Item2DRenderer.handModelItems.add("infernal_sword");
+            Item2DRenderer.handModelItems.add("infernal_scythe");
+            Item2DRenderer.handModelItems.add("bloodhound");
+            Item2DRenderer.handModelItems.add("void_edge");
+            Item2DRenderer.handModelItems.add("bronze_sword");
+            Item2DRenderer.handModelItems.add("glaive");
+            Item2DRenderer.handModelItems.add("infernal_sword");
+            Item2DRenderer.handModelItems.add("coral_reef");
+            Item2DRenderer.handModelItems.add("beast");
+            Item2DRenderer.handModelItems.add("aquarius_scythe");
+            Item2DRenderer.handModelItems.add("blaze_reap");
+            Item2DRenderer.handModelItems.add("murasama");
+            Item2DRenderer.handModelItems.add("phantom");
+
             CuriosRendererRegistry.register(ModItems.IRON_NECKLACE_AMBER.get(), NecklaceRenderer::new);
             CuriosRendererRegistry.register(ModItems.IRON_NECKLACE_DIAMOND.get(), NecklaceRenderer::new);
             CuriosRendererRegistry.register(ModItems.IRON_NECKLACE_EMERALD.get(), NecklaceRenderer::new);
@@ -179,16 +206,6 @@ public class Valoria {
             fireblock.setFlammable(ModBlocks.SHADEWOOD_PLANKS.get(), 5, 25);
             fireblock.setFlammable(ModBlocks.STRIPPED_SHADELOG.get(), 5, 30);
             fireblock.setFlammable(ModBlocks.STRIPPED_SHADEWOOD.get(), 5, 30);
-
-            ScytheItem.scytheItems.add(ModItems.IRON_SCYTHE.get());
-            ScytheItem.scytheItems.add(ModItems.GOLDEN_SCYTHE.get());
-            ScytheItem.scytheItems.add(ModItems.DIAMOND_SCYTHE.get());
-            ScytheItem.scytheItems.add(ModItems.NETHERITE_SCYTHE.get());
-            ScytheItem.scytheItems.add(ModItems.BEAST.get());
-            ScytheItem.scytheItems.add(ModItems.NATURE_SCYTHE.get());
-            ScytheItem.scytheItems.add(ModItems.AQUARIUS_SCYTHE.get());
-            ScytheItem.scytheItems.add(ModItems.INFERNAL_SCYTHE.get());
-
             AxeItem.STRIPPABLES = new ImmutableMap.Builder<Block, Block>().putAll(AxeItem.STRIPPABLES)
                     .put(ModBlocks.SHADELOG.get(), ModBlocks.STRIPPED_SHADELOG.get())
                     .put(ModBlocks.SHADEWOOD.get(), ModBlocks.STRIPPED_SHADEWOOD.get()).build();

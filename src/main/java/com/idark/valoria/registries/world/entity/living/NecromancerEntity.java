@@ -80,7 +80,10 @@ public class NecromancerEntity extends AbstractNecromancer implements RangedAtta
                 .add(Attributes.MOVEMENT_SPEED, 0.25)
                 .add(Attributes.MAX_HEALTH, 32.0D)
                 .add(Attributes.ATTACK_DAMAGE, 2.0D)
-                .add(Attributes.FOLLOW_RANGE, 20.0D);
+                .add(Attributes.FOLLOW_RANGE, 20.0D)
+                .add(Attributes.ARMOR, 4.0D)
+                .add(Attributes.ARMOR_TOUGHNESS, 1.0D);
+
     }
 
     public MobType getMobType() {

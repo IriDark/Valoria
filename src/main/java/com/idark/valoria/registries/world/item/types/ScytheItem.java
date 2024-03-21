@@ -18,6 +18,7 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.joml.Vector3d;
 
 import java.util.ArrayList;
@@ -25,7 +26,6 @@ import java.util.List;
 
 public class ScytheItem extends SwordItem implements ICustomAnimationItem, Vanishable {
     public static RadiusAttackAnim animation = new RadiusAttackAnim();
-    public static List<Item> scytheItems = new ArrayList<>();
 
     public ScytheItem(Tier tier, int attackDamageIn, float attackSpeedIn, Properties builderIn) {
         super(tier, attackDamageIn, attackSpeedIn, builderIn);
@@ -61,7 +61,11 @@ public class ScytheItem extends SwordItem implements ICustomAnimationItem, Vanis
     public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entityLiving) {
         Player player = (Player) entityLiving;
         player.awardStat(Stats.ITEM_USED.get(this));
-        ModUtils.applyCooldownToItemList(player, scytheItems, 100);
+        for (Item item : ForgeRegistries.ITEMS) {
+            if (item instanceof ScytheItem) {
+                player.getCooldowns().addCooldown(item, 100);
+            }
+        }
 
         Vector3d pos = new Vector3d(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());
         List<LivingEntity> hitEntities = new ArrayList<>();

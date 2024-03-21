@@ -114,7 +114,7 @@ public class ValoriaClient {
             event.register(KEG_MODEL);
             event.register(SPHERE);
             if (ClientConfig.IN_HAND_MODELS_32X.get()) {
-                for (String item : Item2DRenderer.HAND_MODEL_ITEMS) {
+                for (String item : Item2DRenderer.handModelItems) {
                     event.register(new ModelResourceLocation(new ResourceLocation(Valoria.MOD_ID, item + "_in_hand"), "inventory"));
                 }
             }

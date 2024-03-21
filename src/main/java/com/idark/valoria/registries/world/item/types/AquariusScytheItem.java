@@ -17,6 +17,7 @@ import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.Vanishable;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.joml.Vector3d;
 
 import java.util.ArrayList;
@@ -48,7 +49,11 @@ public class AquariusScytheItem extends ScytheItem implements Vanishable {
     public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entityLiving) {
         Player player = (Player) entityLiving;
         player.awardStat(Stats.ITEM_USED.get(this));
-        ModUtils.applyCooldownToItemList(player, scytheItems, 100);
+        for (Item item : ForgeRegistries.ITEMS) {
+            if (item instanceof ScytheItem) {
+                player.getCooldowns().addCooldown(item, 100);
+            }
+        }
 
         Vector3d pos = new Vector3d(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());
         List<LivingEntity> hitEntities = new ArrayList<>();

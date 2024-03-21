@@ -17,7 +17,10 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.Vanishable;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ClipContext;
@@ -25,13 +28,14 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.joml.Vector3d;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class MurasamaItem extends SwordItem implements Vanishable {
+public class MurasamaItem extends KatanaItem implements Vanishable {
 
     static Random rand = new Random();
 
@@ -64,10 +68,6 @@ public class MurasamaItem extends SwordItem implements Vanishable {
         }
     }
 
-    public UseAnim getUseAnimation(ItemStack stack) {
-        return UseAnim.NONE;
-    }
-
     public int getUseDuration(ItemStack stack) {
         return 78000;
     }
@@ -85,6 +85,7 @@ public class MurasamaItem extends SwordItem implements Vanishable {
      */
     public void releaseUsing(ItemStack stack, Level level, LivingEntity entityLiving, int timeLeft) {
         Player player = (Player) entityLiving;
+        player.awardStat(Stats.ITEM_USED.get(this));
         double pitch = ((player.getRotationVector().x + 90) * Math.PI) / 180;
         double yaw = ((player.getRotationVector().y + 90) * Math.PI) / 180;
 
@@ -96,8 +97,11 @@ public class MurasamaItem extends SwordItem implements Vanishable {
                 player.push(5, 2 * 0.25, 5);
             }
 
-            player.getCooldowns().addCooldown(this, 75);
-            player.awardStat(Stats.ITEM_USED.get(this));
+            for (Item item : ForgeRegistries.ITEMS) {
+                if (item instanceof KatanaItem) {
+                    player.getCooldowns().addCooldown(item, 75);
+                }
+            }
 
             Vector3d pos = new Vector3d(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());
             List<LivingEntity> hitEntities = new ArrayList<>();

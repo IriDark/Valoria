@@ -5,8 +5,6 @@ import com.google.common.collect.Multimap;
 import com.idark.valoria.client.gui.overlay.DashOverlayRender;
 import com.idark.valoria.config.ClientConfig;
 import com.idark.valoria.registries.sounds.ModSoundRegistry;
-import com.idark.valoria.registries.world.item.ModItems;
-import com.idark.valoria.util.ModUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -36,10 +34,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.joml.Vector3d;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -52,17 +50,13 @@ public class KatanaItem extends TieredItem implements Vanishable {
         super(tier, builderIn);
         this.attackDamage = (float) attackDamageIn + tier.getAttackDamageBonus();
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
-        builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Weapon modifier", (double) this.attackDamage, AttributeModifier.Operation.ADDITION));
-        builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Weapon modifier", (double) attackSpeedIn, AttributeModifier.Operation.ADDITION));
+        builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Weapon modifier", this.attackDamage, AttributeModifier.Operation.ADDITION));
+        builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Weapon modifier", attackSpeedIn, AttributeModifier.Operation.ADDITION));
         this.attributeModifiers = builder.build();
     }
 
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchant) {
-        return enchant.category != EnchantmentCategory.BREAKABLE && enchant.category == EnchantmentCategory.WEAPON || enchant.category == EnchantmentCategory.DIGGER;
-    }
-
-    public float getAttackDamage() {
-        return this.attackDamage;
+        return enchant.category == EnchantmentCategory.WEAPON;
     }
 
     public boolean canAttackBlock(BlockState state, Level worldIn, BlockPos pos, Player player) {
@@ -78,17 +72,13 @@ public class KatanaItem extends TieredItem implements Vanishable {
     }
 
     public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-        stack.hurtAndBreak(1, attacker, (entity) -> {
-            entity.broadcastBreakEvent(EquipmentSlot.MAINHAND);
-        });
+        stack.hurtAndBreak(1, attacker, (entity) -> entity.broadcastBreakEvent(EquipmentSlot.MAINHAND));
         return true;
     }
 
     public boolean mineBlock(ItemStack stack, Level worldIn, BlockState state, BlockPos pos, LivingEntity entityLiving) {
         if (state.getDestroySpeed(worldIn, pos) != 0.0F) {
-            stack.hurtAndBreak(4, entityLiving, (entity) -> {
-                entity.broadcastBreakEvent(EquipmentSlot.MAINHAND);
-            });
+            stack.hurtAndBreak(4, entityLiving, (entity) -> entity.broadcastBreakEvent(EquipmentSlot.MAINHAND));
         }
 
         return true;
@@ -127,6 +117,7 @@ public class KatanaItem extends TieredItem implements Vanishable {
      */
     public void releaseUsing(ItemStack stack, Level level, LivingEntity entityLiving, int timeLeft) {
         Player player = (Player) entityLiving;
+        player.awardStat(Stats.ITEM_USED.get(this));
         double pitch = ((player.getRotationVector().x + 90) * Math.PI) / 180;
         double yaw = ((player.getRotationVector().y + 90) * Math.PI) / 180;
         double locYaw = 0;
@@ -139,9 +130,11 @@ public class KatanaItem extends TieredItem implements Vanishable {
                 player.push(5, 2 * 0.25, 5);
             }
 
-            List<Item> katanas = Arrays.asList(ModItems.IRON_KATANA.get(), ModItems.GOLDEN_KATANA.get(), ModItems.DIAMOND_KATANA.get(), ModItems.NETHERITE_KATANA.get(), ModItems.HOLIDAY_KATANA.get(), ModItems.SAMURAI_KATANA.get());
-            ModUtils.applyCooldownToItemList(player, katanas, 75);
-            player.awardStat(Stats.ITEM_USED.get(this));
+            for (Item item : ForgeRegistries.ITEMS) {
+                if (item instanceof KatanaItem) {
+                    player.getCooldowns().addCooldown(item, 75);
+                }
+            }
 
             Vector3d pos = new Vector3d(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());
             List<LivingEntity> hitEntities = new ArrayList<LivingEntity>();

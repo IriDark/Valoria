@@ -19,21 +19,26 @@ import net.minecraftforge.client.event.ModelEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 @OnlyIn(Dist.CLIENT)
 public class Item2DRenderer {
-    public static final String[] HAND_MODEL_ITEMS = new String[]{"cobalt_sword", "netherite_scythe", "diamond_scythe", "golden_scythe", "iron_scythe",
+
+    public static final String[] HAND_MODEL_ITEMS = new String[]{"cobalt_sword", "netherite_scythe", "diamond_scythe",
+            "golden_scythe", "iron_scythe",
             "netherite_spear", "diamond_spear", "golden_spear", "wooden_spear", "stone_spear", "iron_spear",
             "ent", "nature_scythe", "infernal_sword", "infernal_scythe",
-            "bloodhound", "void_edge", "bronze_sword", "glaive", "infernal_sword", "coral_reef", "beast", "aquarius_scythe",
+            "bloodhound", "void_edge", "bronze_sword", "glaive", "infernal_sword",
+            "coral_reef", "beast", "aquarius_scythe",
             "blaze_reap", "murasama", "phantom"};
+    public static List<String> handModelItems = new ArrayList<>();
 
     @SubscribeEvent
     public static void onModelBakeEvent(ModelEvent.ModifyBakingResult event) {
         Map<ResourceLocation, BakedModel> map = event.getModels();
-        for (String item : HAND_MODEL_ITEMS) {
+        for (String item : handModelItems) {
             ResourceLocation modelInventory = new ModelResourceLocation(new ResourceLocation(Valoria.MOD_ID, item), "inventory");
             ResourceLocation modelHand = new ModelResourceLocation(new ResourceLocation(Valoria.MOD_ID, item + "_in_hand"), "inventory");
 

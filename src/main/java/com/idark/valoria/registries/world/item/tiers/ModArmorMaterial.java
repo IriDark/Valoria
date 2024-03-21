@@ -13,19 +13,19 @@ import java.util.function.Supplier;
 public enum ModArmorMaterial implements ArmorMaterial {
 
     // Helmet, Chestplate, Leggings, Boots
-    COBALT("cobalt", 42, new int[]{2, 8, 6, 1}, 18,
+    COBALT("cobalt", 46, new int[]{2, 8, 6, 1}, 18,
             SoundEvents.ARMOR_EQUIP_IRON, 1.2f, 0.05f, () -> Ingredient.of(ModItems.COBALT_INGOT.get())),
-    SAMURAI("samurai", 48, new int[]{5, 9, 8, 4}, 16,
+    SAMURAI("samurai", 52, new int[]{5, 9, 8, 4}, 16,
             SoundEvents.ARMOR_EQUIP_IRON, 2.5f, 0.0f, () -> Ingredient.of(ModItems.ANCIENT_INGOT.get())),
-    NATURE("nature", 56, new int[]{6, 10, 9, 5}, 17,
+    NATURE("nature", 62, new int[]{6, 10, 9, 5}, 17,
             SoundEvents.ARMOR_EQUIP_IRON, 3f, 0.0f, () -> Ingredient.of(ModItems.NATURE_INGOT.get())),
-    DEPTH("depth", 64, new int[]{6, 11, 9, 6}, 15,
+    DEPTH("depth", 68, new int[]{6, 11, 9, 6}, 15,
             SoundEvents.ARMOR_EQUIP_IRON, 3.6f, 0.0f, () -> Ingredient.of(ModItems.AQUARIUS_INGOT.get())),
-    INFERNAL("infernal", 68, new int[]{7, 12, 9, 7}, 14,
+    INFERNAL("infernal", 72, new int[]{7, 12, 9, 7}, 14,
             SoundEvents.ARMOR_EQUIP_NETHERITE, 4.5f, 0.1f, () -> Ingredient.of(ModItems.INFERNAL_INGOT.get())),
-    AWAKENED_VOID("awakened_void", 76, new int[]{8, 10, 9, 8}, 10,
+    AWAKENED_VOID("awakened_void", 78, new int[]{8, 10, 9, 8}, 10,
             SoundEvents.ARMOR_EQUIP_NETHERITE, 8f, 0.2f, () -> Ingredient.of(ModItems.VOID_INGOT.get())),
-    PHANTASM("phantasm", 82, new int[]{15, 30, 20, 10}, 30,
+    PHANTASM("phantasm", 92, new int[]{15, 30, 20, 10}, 30,
             SoundEvents.ARMOR_EQUIP_NETHERITE, 30f, 0.6f, () -> Ingredient.of(ModItems.ILLUSION_STONE.get()));
 
     private final String name;
