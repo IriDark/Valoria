@@ -35,12 +35,14 @@ import net.minecraft.client.renderer.blockentity.SignRenderer;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.*;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.io.IOException;
 
@@ -114,8 +116,11 @@ public class ValoriaClient {
             event.register(KEG_MODEL);
             event.register(SPHERE);
             if (ClientConfig.IN_HAND_MODELS_32X.get()) {
-                for (String item : Item2DRenderer.handModelItems) {
-                    event.register(new ModelResourceLocation(new ResourceLocation(Valoria.MOD_ID, item + "_in_hand"), "inventory"));
+                for (Item item : Item2DRenderer.handModelItems) {
+                    ResourceLocation itemId = ForgeRegistries.ITEMS.getKey(item.getDefaultInstance().getItem());
+                    String itemIdString = itemId.toString();
+
+                    event.register(new ModelResourceLocation(new ResourceLocation(itemIdString + "_in_hand"), "inventory"));
                 }
             }
         }

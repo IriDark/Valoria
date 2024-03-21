@@ -52,6 +52,7 @@ import net.minecraft.world.level.block.FireBlock;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.ModelEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -120,36 +121,40 @@ public class Valoria {
         MinecraftForge.EVENT_BUS.register(new Events());
     }
 
+    /**
+     * To add your items here you'll need to add it in FMLClientSetupEvent event like this one but in your mod class and add an event to client side
+     * @see ValoriaClient.RegistryEvents#onModelRegistryEvent(ModelEvent.RegisterAdditional) 
+     */
+
     private void clientSetup(final FMLClientSetupEvent event) {
         event.enqueueWork(() -> {
             LexiconChapters.init();
 
-            Item2DRenderer.handModelItems.add("cobalt_sword");
-            Item2DRenderer.handModelItems.add("netherite_scythe");
-            Item2DRenderer.handModelItems.add("diamond_scythe");
-            Item2DRenderer.handModelItems.add("golden_scythe");
-            Item2DRenderer.handModelItems.add("iron_scythe");
-            Item2DRenderer.handModelItems.add("netherite_spear");
-            Item2DRenderer.handModelItems.add("diamond_spear");
-            Item2DRenderer.handModelItems.add("golden_spear");
-            Item2DRenderer.handModelItems.add("wooden_spear");
-            Item2DRenderer.handModelItems.add("stone_spear");
-            Item2DRenderer.handModelItems.add("iron_spear");
-            Item2DRenderer.handModelItems.add("ent");
-            Item2DRenderer.handModelItems.add("nature_scythe");
-            Item2DRenderer.handModelItems.add("infernal_sword");
-            Item2DRenderer.handModelItems.add("infernal_scythe");
-            Item2DRenderer.handModelItems.add("bloodhound");
-            Item2DRenderer.handModelItems.add("void_edge");
-            Item2DRenderer.handModelItems.add("bronze_sword");
-            Item2DRenderer.handModelItems.add("glaive");
-            Item2DRenderer.handModelItems.add("infernal_sword");
-            Item2DRenderer.handModelItems.add("coral_reef");
-            Item2DRenderer.handModelItems.add("beast");
-            Item2DRenderer.handModelItems.add("aquarius_scythe");
-            Item2DRenderer.handModelItems.add("blaze_reap");
-            Item2DRenderer.handModelItems.add("murasama");
-            Item2DRenderer.handModelItems.add("phantom");
+            Item2DRenderer.handModelItems.add(ModItems.COBALT_SWORD.get());
+            Item2DRenderer.handModelItems.add(ModItems.NETHERITE_SCYTHE.get());
+            Item2DRenderer.handModelItems.add(ModItems.DIAMOND_SCYTHE.get());
+            Item2DRenderer.handModelItems.add(ModItems.GOLDEN_SCYTHE.get());
+            Item2DRenderer.handModelItems.add(ModItems.IRON_SCYTHE.get());
+            Item2DRenderer.handModelItems.add(ModItems.NETHERITE_SPEAR.get());
+            Item2DRenderer.handModelItems.add(ModItems.DIAMOND_SPEAR.get());
+            Item2DRenderer.handModelItems.add(ModItems.GOLDEN_SPEAR.get());
+            Item2DRenderer.handModelItems.add(ModItems.WOODEN_SPEAR.get());
+            Item2DRenderer.handModelItems.add(ModItems.STONE_SPEAR.get());
+            Item2DRenderer.handModelItems.add(ModItems.IRON_SPEAR.get());
+            Item2DRenderer.handModelItems.add(ModItems.ENT.get());
+            Item2DRenderer.handModelItems.add(ModItems.NATURE_SCYTHE.get());
+            Item2DRenderer.handModelItems.add(ModItems.INFERNAL_SWORD.get());
+            Item2DRenderer.handModelItems.add(ModItems.INFERNAL_SCYTHE.get());
+            Item2DRenderer.handModelItems.add(ModItems.BLOODROOT.get());
+            Item2DRenderer.handModelItems.add(ModItems.VOID_EDGE.get());
+            Item2DRenderer.handModelItems.add(ModItems.BRONZE_SWORD.get());
+            Item2DRenderer.handModelItems.add(ModItems.GLAIVE.get());
+            Item2DRenderer.handModelItems.add(ModItems.CORAL_REEF.get());
+            Item2DRenderer.handModelItems.add(ModItems.BEAST.get()); // MrBeast???? Omg
+            Item2DRenderer.handModelItems.add(ModItems.AQUARIUS_SCYTHE.get());
+            Item2DRenderer.handModelItems.add(ModItems.BLAZE_REAP.get());
+            Item2DRenderer.handModelItems.add(ModItems.MURASAMA.get());
+            Item2DRenderer.handModelItems.add(ModItems.PHANTOM.get());
 
             CuriosRendererRegistry.register(ModItems.IRON_NECKLACE_AMBER.get(), NecklaceRenderer::new);
             CuriosRendererRegistry.register(ModItems.IRON_NECKLACE_DIAMOND.get(), NecklaceRenderer::new);

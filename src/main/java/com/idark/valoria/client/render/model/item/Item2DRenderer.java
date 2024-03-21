@@ -1,6 +1,5 @@
 package com.idark.valoria.client.render.model.item;
 
-import com.idark.valoria.Valoria;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.ItemOverrides;
@@ -10,6 +9,7 @@ import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.api.distmarker.Dist;
@@ -17,6 +17,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.client.event.ModelEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -26,21 +27,18 @@ import java.util.Map;
 @OnlyIn(Dist.CLIENT)
 public class Item2DRenderer {
 
-    public static final String[] HAND_MODEL_ITEMS = new String[]{"cobalt_sword", "netherite_scythe", "diamond_scythe",
-            "golden_scythe", "iron_scythe",
-            "netherite_spear", "diamond_spear", "golden_spear", "wooden_spear", "stone_spear", "iron_spear",
-            "ent", "nature_scythe", "infernal_sword", "infernal_scythe",
-            "bloodhound", "void_edge", "bronze_sword", "glaive", "infernal_sword",
-            "coral_reef", "beast", "aquarius_scythe",
-            "blaze_reap", "murasama", "phantom"};
-    public static List<String> handModelItems = new ArrayList<>();
+    public static List<Item> handModelItems = new ArrayList<>();
 
     @SubscribeEvent
     public static void onModelBakeEvent(ModelEvent.ModifyBakingResult event) {
         Map<ResourceLocation, BakedModel> map = event.getModels();
-        for (String item : handModelItems) {
-            ResourceLocation modelInventory = new ModelResourceLocation(new ResourceLocation(Valoria.MOD_ID, item), "inventory");
-            ResourceLocation modelHand = new ModelResourceLocation(new ResourceLocation(Valoria.MOD_ID, item + "_in_hand"), "inventory");
+        for (Item item : handModelItems) {
+            ResourceLocation itemId = ForgeRegistries.ITEMS.getKey(item.getDefaultInstance().getItem());
+            String itemIdString = itemId.toString();
+
+            ResourceLocation modelInventory = new ModelResourceLocation(new ResourceLocation(itemIdString), "inventory");
+            ResourceLocation modelHand = new ModelResourceLocation(new ResourceLocation(itemIdString + "_in_hand"), "inventory");
+            // huh? (16x for some reason yknow)
 
             BakedModel bakedModelDefault = map.get(modelInventory);
             BakedModel bakedModelHand = map.get(modelHand);
