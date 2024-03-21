@@ -47,14 +47,25 @@ public class Item2DRenderer {
             BakedModel bakedModelDefault = map.get(modelInventory);
             BakedModel bakedModelHand = map.get(modelHand);
 
-            if (bakedModelDefault == null) {
-                System.err.println("[onModelBakeEvent] No model found for inventory: " + modelInventory);
-                continue;
+            int attempts = 0;
+            while (attempts < 3) {
+                if (bakedModelDefault == null) {
+                    System.out.println("[onModelBakeEvent] No model found for inventory: " + modelInventory);
+                    attempts++;
+                    continue;
+                }
+
+                if (bakedModelHand == null) {
+                    System.out.println("[onModelBakeEvent] No model found for hand: " + modelHand);
+                    attempts++;
+                    continue;
+                }
+
+                break;
             }
 
-            if (bakedModelHand == null) {
-                System.err.println("[onModelBakeEvent] No model found for hand: " + modelHand);
-                continue;
+            if (attempts == 3) {
+                System.out.println("[onModelBakeEvent] All attempts failed to load models, skipping.");
             }
 
             BakedModel modelWrapper = new BakedModel() {
