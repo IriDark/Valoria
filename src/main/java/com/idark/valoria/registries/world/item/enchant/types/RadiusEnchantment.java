@@ -2,6 +2,7 @@ package com.idark.valoria.registries.world.item.enchant.types;
 
 import com.idark.valoria.registries.world.item.enchant.ModEnchantments;
 import com.idark.valoria.registries.world.item.types.MagmaSwordItem;
+import com.idark.valoria.registries.world.item.types.PhantomItem;
 import com.idark.valoria.registries.world.item.types.ScytheItem;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.Item;
@@ -17,7 +18,7 @@ public class RadiusEnchantment extends Enchantment {
 
     public boolean canEnchant(ItemStack stack) {
         Item item = stack.getItem();
-        return stack.isEnchantable() && (item instanceof ScytheItem) || (item instanceof MagmaSwordItem);
+        return stack.isEnchantable() && (item instanceof ScytheItem) || (item instanceof MagmaSwordItem) || (item instanceof PhantomItem);
     }
 
     @Override

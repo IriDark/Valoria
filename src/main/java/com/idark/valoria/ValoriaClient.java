@@ -118,8 +118,12 @@ public class ValoriaClient {
             if (ClientConfig.IN_HAND_MODELS_32X.get()) {
                 for (Item item : Item2DRenderer.handModelItems) {
                     ResourceLocation itemId = ForgeRegistries.ITEMS.getKey(item.getDefaultInstance().getItem());
-                    String itemIdString = itemId.toString();
+                    if (itemId == null) {
+                        System.err.println("[onModelRegistryEvent] Failed to get item ID for item: " + item.getName(item.getDefaultInstance()));
+                        continue;
+                    }
 
+                    String itemIdString = itemId.toString();
                     event.register(new ModelResourceLocation(new ResourceLocation(itemIdString + "_in_hand"), "inventory"));
                 }
             }

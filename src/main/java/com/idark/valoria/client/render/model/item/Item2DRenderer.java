@@ -18,6 +18,7 @@ import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.client.event.ModelEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.registries.ForgeRegistries;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -34,14 +35,28 @@ public class Item2DRenderer {
         Map<ResourceLocation, BakedModel> map = event.getModels();
         for (Item item : handModelItems) {
             ResourceLocation itemId = ForgeRegistries.ITEMS.getKey(item.getDefaultInstance().getItem());
-            String itemIdString = itemId.toString();
+            if (itemId == null) {
+                System.err.println("[onModelBakeEvent] Failed to get item ID for item: " + item.getName(item.getDefaultInstance()));
+                continue;
+            }
 
+            String itemIdString = itemId.toString();
             ResourceLocation modelInventory = new ModelResourceLocation(new ResourceLocation(itemIdString), "inventory");
             ResourceLocation modelHand = new ModelResourceLocation(new ResourceLocation(itemIdString + "_in_hand"), "inventory");
-            // huh? (16x for some reason yknow)
 
             BakedModel bakedModelDefault = map.get(modelInventory);
             BakedModel bakedModelHand = map.get(modelHand);
+
+            if (bakedModelDefault == null) {
+                System.err.println("[onModelBakeEvent] No model found for inventory: " + modelInventory);
+                continue;
+            }
+
+            if (bakedModelHand == null) {
+                System.err.println("[onModelBakeEvent] No model found for hand: " + modelHand);
+                continue;
+            }
+
             BakedModel modelWrapper = new BakedModel() {
                 @Override
                 public List<BakedQuad> getQuads(@Nullable BlockState pState, @Nullable Direction pDirection, RandomSource pRandom) {
@@ -79,14 +94,16 @@ public class Item2DRenderer {
                 }
 
                 @Override
-                public BakedModel applyTransform(ItemDisplayContext transformType, PoseStack poseStack, boolean applyLeftHandTransform) {
+                public @NotNull BakedModel applyTransform(ItemDisplayContext transformType, PoseStack poseStack, boolean applyLeftHandTransform) {
                     BakedModel modelToUse = bakedModelDefault;
                     if (transformType != ItemDisplayContext.GUI && transformType != ItemDisplayContext.GROUND && transformType != ItemDisplayContext.FIXED) {
                         modelToUse = bakedModelHand;
                     }
+
                     return ForgeHooksClient.handleCameraTransforms(poseStack, modelToUse, transformType, applyLeftHandTransform);
                 }
             };
+
             map.put(modelInventory, modelWrapper);
         }
     }
