@@ -138,7 +138,7 @@ public class MurasamaItem extends KatanaItem implements Vanishable {
             float ii = 1F;
 
             for (LivingEntity entity : hitEntities) {
-                entity.hurt(level.damageSources().generic(), (float) (player.getAttribute(Attributes.ATTACK_DAMAGE).getValue() * ii) + EnchantmentHelper.getSweepingDamageRatio(player));
+                entity.hurt(level.damageSources().playerAttack(player), (float) ((player.getAttribute(Attributes.ATTACK_DAMAGE).getValue() * (double) ii) + EnchantmentHelper.getSweepingDamageRatio(player) + EnchantmentHelper.getDamageBonus(stack, entity.getMobType())) * 1.35f);
                 entity.knockback(0.4F, player.getX() - entity.getX(), player.getZ() - entity.getZ());
                 if (EnchantmentHelper.getTagEnchantmentLevel(Enchantments.FIRE_ASPECT, stack) > 0) {
                     int i = EnchantmentHelper.getFireAspect(player);

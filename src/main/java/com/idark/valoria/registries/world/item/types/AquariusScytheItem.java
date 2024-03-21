@@ -64,7 +64,7 @@ public class AquariusScytheItem extends ScytheItem implements Vanishable {
 
         float damage = (float) (player.getAttributeValue(Attributes.ATTACK_DAMAGE)) + EnchantmentHelper.getSweepingDamageRatio(player);
         for (LivingEntity entity : hitEntities) {
-            entity.hurt(level.damageSources().generic(), damage);
+            entity.hurt(level.damageSources().playerAttack(player), (damage + EnchantmentHelper.getDamageBonus(stack, entity.getMobType())) * 1.35f);
             entity.knockback(0.4F, player.getX() - entity.getX(), player.getZ() - entity.getZ());
             if (RandomUtil.percentChance(0.25f)) {
                 entity.knockback(0.6F, player.getX() - entity.getX(), player.getZ() - entity.getZ());

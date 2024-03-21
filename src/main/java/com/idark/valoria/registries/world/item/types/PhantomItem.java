@@ -82,7 +82,7 @@ public class PhantomItem extends SwordItem implements Vanishable {
                     continue;
                 }
 
-                entity.hurt(level.damageSources().generic(), damage);
+                entity.hurt(level.damageSources().playerAttack(player), (damage + EnchantmentHelper.getDamageBonus(stack, entity.getMobType())) * 1.35f);
                 entity.moveTo(player.getX(), player.getY(), player.getZ(), player.getYRot(), player.getXRot());
                 entity.knockback(3f, entity.getX() + 2f, entity.getZ() + 2f);
                 for (int p = 0; p < 4; p++) {

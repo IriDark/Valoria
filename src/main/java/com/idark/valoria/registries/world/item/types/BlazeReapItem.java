@@ -157,7 +157,7 @@ public class BlazeReapItem extends PickaxeItem implements Vanishable {
             for (Entity entity : entities) {
                 if (entity instanceof LivingEntity enemy) {
                     if (!enemy.equals(player)) {
-                        enemy.hurt(level.damageSources().generic(), 10F);
+                        entity.hurt(level.damageSources().playerAttack(player), 10);
                         enemy.knockback(0.6F, player.getX() + X - entity.getX(), player.getZ() + Z - entity.getZ());
                         if (EnchantmentHelper.getTagEnchantmentLevel(Enchantments.FIRE_ASPECT, itemstack) > 0) {
                             int i = EnchantmentHelper.getFireAspect(player);

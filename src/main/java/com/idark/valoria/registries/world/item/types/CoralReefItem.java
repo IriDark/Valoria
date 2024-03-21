@@ -74,7 +74,7 @@ public class CoralReefItem extends SwordItem implements Vanishable {
 
         float damage = (float) (player.getAttributeValue(Attributes.ATTACK_DAMAGE)) + EnchantmentHelper.getSweepingDamageRatio(player);
         for (LivingEntity damagedEntity : hitEntities) {
-            damagedEntity.hurt(worldIn.damageSources().generic(), damage);
+            damagedEntity.hurt(worldIn.damageSources().playerAttack(player), (damage + EnchantmentHelper.getDamageBonus(stack, damagedEntity.getMobType())) * 1.35f);
             damagedEntity.knockback(0.4F, player.getX() - entityLiving.getX(), player.getZ() - entityLiving.getZ());
             if (RandomUtil.percentChance(0.25f)) {
                 damagedEntity.knockback(0.6F, player.getX() - damagedEntity.getX(), player.getZ() - damagedEntity.getZ());

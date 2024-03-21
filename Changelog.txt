@@ -57,6 +57,7 @@
 - Added 2 new command's "addAllPages", "removeAllPages"
 - Added Necromancer
 - Added Undead
+- Added Description to scythes
 
 - Reworked keg a little
 - Reworked Keyblocks (Umbral Blocks)
@@ -69,6 +70,7 @@
 - Reworked Goblin AI
 - Reworked Goblin Model From default Model to Humanoid, so they can hold items in hand
 - Reworked Kunais's
+- Reworked Item2DRenderer for better compatibility with other mods that can use it
 
 - Resprited Void stone
 - Resprited Uncharged Shard
@@ -102,6 +104,7 @@
 - Fixed Crash - When HitResult.getType() was MISS game decides to crash (Blazereap)
 - Fixed Server errors in KatanaItem and CorpsecleaverItem - Client sided a ClientConfig checking
 - Fixed Server error - Cant call the "/valoria addPage/removePage" command
+- Fixed Bug - Damage from Scythes / Katanas etc. damaged through armor and through FTB Chunks
 
 - Changed Stonecrusher recipe
 - Changed opacity for Eternity appearing after Phantom ability
