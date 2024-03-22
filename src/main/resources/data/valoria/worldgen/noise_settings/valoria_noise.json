@@ -519,6 +519,44 @@
             }
           }
         }
+      },
+      {
+        "type": "minecraft:condition",
+        "if_true": {
+          "type": "minecraft:vertical_gradient",
+          "random_name": "picrite_layer_below",
+          "true_at_and_below": {
+            "absolute": -32
+          },
+          "false_at_and_above": {
+            "absolute": -24
+          }
+        },
+        "then_run": {
+          "type": "minecraft:block",
+          "result_state": {
+            "Name": "valoria:picrite"
+          }
+        }
+      },
+      {
+        "type": "minecraft:condition",
+        "if_true": {
+          "type": "minecraft:vertical_gradient",
+          "random_name": "picrite_layer_top",
+          "true_at_and_below": {
+            "absolute": -24
+          },
+          "false_at_and_above": {
+            "absolute": -20
+          }
+        },
+        "then_run": {
+          "type": "minecraft:block",
+          "result_state": {
+            "Name": "valoria:deep_marble"
+          }
+        }
       }
     ]
   }

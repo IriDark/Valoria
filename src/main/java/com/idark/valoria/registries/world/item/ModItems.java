@@ -103,10 +103,16 @@ public class ModItems {
     // Stones
     public static final RegistryObject<Item> EYE_MEAT = ITEMS.register("eye_meat", () -> new BlockItem(ModBlocks.EYE_MEAT.get(), new Item.Properties()));
     public static final RegistryObject<Item> EYE_STONE = ITEMS.register("eye_stone", () -> new BlockItem(ModBlocks.EYE_STONE.get(), new Item.Properties()));
+
     public static final RegistryObject<Item> DEEP_MARBLE = ITEMS.register("deep_marble", () -> new BlockItem(ModBlocks.DEEP_MARBLE.get(), new Item.Properties()));
     public static final RegistryObject<Item> POLISHED_DEEP_MARBLE = ITEMS.register("polished_deep_marble", () -> new BlockItem(ModBlocks.POLISHED_DEEP_MARBLE.get(), new Item.Properties()));
     public static final RegistryObject<Item> DEEP_MARBLE_WALL = ITEMS.register("deep_marble_wall", () -> new BlockItem(ModBlocks.DEEP_MARBLE_WALL.get(), new Item.Properties()));
     public static final RegistryObject<Item> POLISHED_DEEP_MARBLE_WALL = ITEMS.register("polished_deep_marble_wall", () -> new BlockItem(ModBlocks.POLISHED_DEEP_MARBLE_WALL.get(), new Item.Properties()));
+
+    public static final RegistryObject<Item> PICRITE = ITEMS.register("picrite", () -> new BlockItem(ModBlocks.PICRITE.get(), new Item.Properties()));
+    public static final RegistryObject<Item> POLISHED_PICRITE = ITEMS.register("polished_picrite", () -> new BlockItem(ModBlocks.POLISHED_PICRITE.get(), new Item.Properties()));
+    public static final RegistryObject<Item> PICRITE_WALL = ITEMS.register("picrite_wall", () -> new BlockItem(ModBlocks.PICRITE_WALL.get(), new Item.Properties()));
+    public static final RegistryObject<Item> POLISHED_PICRITE_WALL = ITEMS.register("polished_picrite_wall", () -> new BlockItem(ModBlocks.POLISHED_PICRITE_WALL.get(), new Item.Properties()));
     public static final RegistryObject<Item> EPHEMARITE_LOW = ITEMS.register("ephemarite_low", () -> new BlockItem(ModBlocks.EPHEMARITE_LOW.get(), new Item.Properties()));
     public static final RegistryObject<Item> EPHEMARITE = ITEMS.register("ephemarite", () -> new BlockItem(ModBlocks.EPHEMARITE.get(), new Item.Properties()));
     public static final RegistryObject<Item> POLISHED_EPHEMARITE_LOW = ITEMS.register("polished_ephemarite_low", () -> new BlockItem(ModBlocks.POLISHED_EPHEMARITE_LOW.get(), new Item.Properties()));
@@ -191,10 +197,6 @@ public class ModItems {
     // BlockItem Misc
     public static final RegistryObject<Item> VOID_TAINT_LANTERN = ITEMS.register("void_taint_lantern", () -> new BlockItem(ModBlocks.VOID_TAINT_LANTERN.get(), new Item.Properties()));
     public static final RegistryObject<Item> ABYSSAL_LANTERN = ITEMS.register("abyssal_lantern", () -> new BlockItem(ModBlocks.ABYSSAL_LANTERN.get(), new Item.Properties()));
-
-    // TEST
-    public static final RegistryObject<Item> VALORIA_PORTAL = ITEMS.register("valoria_portal", () -> new BlockItem(ModBlocks.VALORIA_PORTAL.get(), new Item.Properties()));
-
     public static final RegistryObject<Item> VALORIA_PORTAL_FRAME = ITEMS.register("valoria_portal_frame", () -> new BlockItem(ModBlocks.VALORIA_PORTAL_FRAME.get(), new Item.Properties()));
     public static final RegistryObject<Item> STONE_CRUSHER = ITEMS.register("stone_crusher", () -> new BlockItem(ModBlocks.STONE_CRUSHER.get(), new Item.Properties()));
     public static final RegistryObject<Item> JEWELER_TABLE = ITEMS.register("jeweler_table", () -> new BlockItem(ModBlocks.JEWELER_TABLE.get(), new Item.Properties()));

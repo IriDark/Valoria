@@ -1,12 +1,15 @@
 package com.idark.valoria.client.render.model.item;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.ItemOverrides;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.Item;
@@ -47,25 +50,18 @@ public class Item2DRenderer {
             BakedModel bakedModelDefault = map.get(modelInventory);
             BakedModel bakedModelHand = map.get(modelHand);
 
-            int attempts = 0;
-            while (attempts < 3) {
-                if (bakedModelDefault == null) {
-                    System.out.println("[onModelBakeEvent] No model found for inventory: " + modelInventory);
-                    attempts++;
-                    continue;
-                }
-
-                if (bakedModelHand == null) {
-                    System.out.println("[onModelBakeEvent] No model found for hand: " + modelHand);
-                    attempts++;
-                    continue;
-                }
-
-                break;
+            if (bakedModelDefault == null) {
+                System.out.println("[onModelBakeEvent] No model found for inventory: " + modelInventory);
+                continue;
             }
 
-            if (attempts == 3) {
-                System.out.println("[onModelBakeEvent] All attempts failed to load models, skipping.");
+            if (bakedModelHand == null) {
+                System.out.println("[onModelBakeEvent] No model found for hand: " + modelHand);
+                continue;
+            }
+
+            if (Minecraft.getInstance().player != null && bakedModelHand == null || bakedModelDefault == null) {
+                Minecraft.getInstance().player.displayClientMessage(Component.literal("Minecraft Tried to crash but Valoria prevented it by skipping some of model renderer some of them may be 16x").withStyle(ChatFormatting.GRAY), true);
             }
 
             BakedModel modelWrapper = new BakedModel() {

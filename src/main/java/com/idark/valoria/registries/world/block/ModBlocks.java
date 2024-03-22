@@ -41,7 +41,7 @@ public class ModBlocks {
             () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_TRAPDOOR).noOcclusion(), BlockSetType.IRON));
     // Umbral
     public static final RegistryObject<Block> VALORIA_PORTAL_FRAME = BLOCK.register("valoria_portal_frame",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(-1f, 3600000.8F).sound(SoundType.DEEPSLATE_TILES).noLootTable()));
+            () -> new ValoriaPortalFrame(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(42f, 3600000.8F).sound(SoundType.DEEPSLATE_TILES)));
     public static final RegistryObject<Block> UMBRAL_KEYPAD = BLOCK.register("umbral_keypad",
             () -> new KeyPadBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(-1f, 3600000.8F).sound(SoundType.NETHER_BRICKS).noLootTable()));
     public static final RegistryObject<Block> CUT_UMBRAL_BLOCK = BLOCK.register("cut_umbral_block",
@@ -108,6 +108,22 @@ public class ModBlocks {
     public static final RegistryObject<Block> POLISHED_DEEP_MARBLE_SLAB = registerBlock("polished_deep_marble_slab",
             () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE).requiresCorrectToolForDrops().strength(3f, 4f)));
     public static final RegistryObject<Block> POLISHED_DEEP_MARBLE_WALL = BLOCK.register("polished_deep_marble_wall",
+            () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE).requiresCorrectToolForDrops().strength(3f, 4f)));
+    public static final RegistryObject<Block> PICRITE = BLOCK.register("picrite",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE).requiresCorrectToolForDrops().strength(6f, 6f)));
+    public static final RegistryObject<Block> PICRITE_STAIRS = registerBlock("picrite_stairs",
+            () -> new StairBlock(() -> PICRITE.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.DEEPSLATE).strength(3f, 4f).requiresCorrectToolForDrops()));
+    public static final RegistryObject<Block> PICRITE_SLAB = registerBlock("picrite_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE).requiresCorrectToolForDrops().strength(3f, 4f)));
+    public static final RegistryObject<Block> PICRITE_WALL = BLOCK.register("picrite_wall",
+            () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE).requiresCorrectToolForDrops().strength(3f, 4f)));
+    public static final RegistryObject<Block> POLISHED_PICRITE = BLOCK.register("polished_picrite",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE).requiresCorrectToolForDrops().strength(6f, 6f)));
+    public static final RegistryObject<Block> POLISHED_PICRITE_STAIRS = registerBlock("polished_picrite_stairs",
+            () -> new StairBlock(() -> POLISHED_PICRITE.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.DEEPSLATE).strength(3f, 4f).requiresCorrectToolForDrops()));
+    public static final RegistryObject<Block> POLISHED_PICRITE_SLAB = registerBlock("polished_picrite_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE).requiresCorrectToolForDrops().strength(3f, 4f)));
+    public static final RegistryObject<Block> POLISHED_PICRITE_WALL = BLOCK.register("polished_picrite_wall",
             () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE).requiresCorrectToolForDrops().strength(3f, 4f)));
     public static final RegistryObject<Block> EPHEMARITE_LOW = BLOCK.register("ephemarite_low",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(3f, 4f)));

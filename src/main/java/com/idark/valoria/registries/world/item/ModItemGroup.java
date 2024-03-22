@@ -469,6 +469,14 @@ public abstract class ModItemGroup {
             event.accept(ModBlocks.POLISHED_DEEP_MARBLE_SLAB);
             event.accept(ModItems.DEEP_MARBLE_WALL);
             event.accept(ModItems.POLISHED_DEEP_MARBLE_WALL);
+            event.accept(ModItems.PICRITE);
+            event.accept(ModItems.POLISHED_PICRITE);
+            event.accept(ModBlocks.PICRITE_STAIRS);
+            event.accept(ModBlocks.PICRITE_SLAB);
+            event.accept(ModBlocks.POLISHED_PICRITE_STAIRS);
+            event.accept(ModBlocks.POLISHED_PICRITE_SLAB);
+            event.accept(ModItems.PICRITE_WALL);
+            event.accept(ModItems.POLISHED_PICRITE_WALL);
             event.accept(ModItems.VOID_TAINT_LANTERN);
             event.accept(ModItems.ABYSSAL_LANTERN);
             event.accept(ModItems.VOID_GRASS);
@@ -515,7 +523,6 @@ public abstract class ModItemGroup {
             event.accept(ModItems.JEWELER_TABLE);
             event.accept(ModItems.KEG);
             event.accept(ModItems.VALORIA_PORTAL_FRAME);
-            event.accept(ModItems.VALORIA_PORTAL);
             event.accept(ModItems.UMBRAL_KEYPAD);
             event.accept(ModItems.CUT_UMBRAL_BLOCK);
             event.accept(ModItems.UMBRAL_BRICKS);

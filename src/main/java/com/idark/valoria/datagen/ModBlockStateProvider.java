@@ -23,7 +23,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
     protected void registerStatesAndModels() {
         blockWithItem(ModBlocks.DEEP_MARBLE);
         blockWithItem(ModBlocks.POLISHED_DEEP_MARBLE);
-        blockWithItem(ModBlocks.POLISHED_DEEP_MARBLE);
+        blockWithItem(ModBlocks.PICRITE);
+        blockWithItem(ModBlocks.POLISHED_PICRITE);
         blockWithItem(ModBlocks.EYE_STONE);
 
         stairsBlock((StairBlock) ModBlocks.DEEP_MARBLE_STAIRS.get(), blockTexture(ModBlocks.DEEP_MARBLE.get()));
@@ -38,6 +39,20 @@ public class ModBlockStateProvider extends BlockStateProvider {
         blockItem(ModBlocks.POLISHED_DEEP_MARBLE_STAIRS);
         blockItem(ModBlocks.DEEP_MARBLE_SLAB);
         blockItem(ModBlocks.POLISHED_DEEP_MARBLE_SLAB);
+
+        stairsBlock((StairBlock) ModBlocks.PICRITE_STAIRS.get(), blockTexture(ModBlocks.PICRITE.get()));
+        stairsBlock((StairBlock) ModBlocks.POLISHED_PICRITE_STAIRS.get(), blockTexture(ModBlocks.POLISHED_PICRITE.get()));
+        slabBlock((SlabBlock) ModBlocks.PICRITE_SLAB.get(), blockTexture(ModBlocks.PICRITE.get()), blockTexture(ModBlocks.PICRITE.get()));
+        slabBlock((SlabBlock) ModBlocks.POLISHED_PICRITE_SLAB.get(), blockTexture(ModBlocks.POLISHED_PICRITE.get()), blockTexture(ModBlocks.POLISHED_PICRITE.get()));
+
+        wallBlock((WallBlock) ModBlocks.PICRITE_WALL.get(), blockTexture(ModBlocks.PICRITE.get()));
+        wallBlock((WallBlock) ModBlocks.POLISHED_PICRITE_WALL.get(), blockTexture(ModBlocks.POLISHED_PICRITE.get()));
+
+        blockItem(ModBlocks.PICRITE_STAIRS);
+        blockItem(ModBlocks.POLISHED_PICRITE_STAIRS);
+        blockItem(ModBlocks.PICRITE_SLAB);
+        blockItem(ModBlocks.POLISHED_PICRITE_SLAB);
+
     }
 
     private void saplingBlock(RegistryObject<Block> blockRegistryObject) {

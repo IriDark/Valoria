@@ -20,13 +20,6 @@
       "valoria:bloodsight/repair"
     ]
   },
-  "item.magic.use": {
-    "subtitle": "Spell Used ★",
-    "replace": "true",
-    "sounds": [
-      "valoria:magic"
-    ]
-  },
   "item.water_ability.use": {
     "subtitle": "Aquarius Ability Used ★",
     "replace": "true",

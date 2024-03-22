@@ -13,9 +13,12 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.pattern.BlockPattern;
 
 public class ValoriaPortalBlock extends Block {
+
     public ValoriaPortalBlock(Properties pProperties) {
         super(pProperties);
     }
@@ -59,6 +62,14 @@ public class ValoriaPortalBlock extends Block {
 
                 player.setPortalCooldown();
             }
+        }
+    }
+
+    @Override
+    public void neighborChanged(BlockState state, Level world, BlockPos pos, Block block, BlockPos pos2, boolean unknown) {
+        BlockPattern.BlockPatternMatch frame = ValoriaPortalFrame.getOrCreatePortalShape().find(world, pos);
+        if (frame == null && world.dimension() != LevelGen.VALORIA_KEY) {
+            world.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
         }
     }
 }
