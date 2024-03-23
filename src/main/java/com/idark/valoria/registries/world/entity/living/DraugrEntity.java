@@ -22,10 +22,7 @@ import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
-import net.minecraft.world.item.BowItem;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.ProjectileWeaponItem;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
@@ -33,11 +30,12 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import javax.annotation.Nullable;
 import java.time.LocalDate;
-import java.time.temporal.ChronoField;
-import java.util.Random;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DraugrEntity extends Monster implements RangedAttackMob {
-    private final RangedBowAttackGoal<net.minecraft.world.entity.monster.AbstractSkeleton> bowGoal = new RangedBowAttackGoal(this, 1.0, 20, 15.0F);
+    public static List<Item> draugrCanSpawnWith = new ArrayList<>();
+    private final RangedBowAttackGoal<net.minecraft.world.entity.monster.AbstractSkeleton> bowGoal = new RangedBowAttackGoal<>(this, 1.0, 20, 15.0F);
     private final MeleeAttackGoal meleeGoal = new MeleeAttackGoal(this, 1.2, false) {
         public void stop() {
             super.stop();
@@ -57,14 +55,14 @@ public class DraugrEntity extends Monster implements RangedAttackMob {
 
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new RestrictSunGoal(this));
-        this.goalSelector.addGoal(1, new AvoidEntityGoal(this, Wolf.class, 6.0F, 1.0, 1.2));
+        this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, Wolf.class, 6.0F, 1.0, 1.2));
         this.goalSelector.addGoal(2, new WaterAvoidingRandomStrollGoal(this, 1.0));
         this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
-        this.targetSelector.addGoal(1, new HurtByTargetGoal(this, new Class[0]));
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal(this, Player.class, true));
-        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal(this, IronGolem.class, true));
-        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal(this, Turtle.class, 10, true, false, Turtle.BABY_ON_LAND_SELECTOR));
+        this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolem.class, true));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Turtle.class, 10, true, false, Turtle.BABY_ON_LAND_SELECTOR));
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -90,13 +88,9 @@ public class DraugrEntity extends Monster implements RangedAttackMob {
         }
     }
 
-    ItemStack[] stacks = {
-            new ItemStack(Items.BOW), new ItemStack(Items.WOODEN_AXE), new ItemStack(Items.STONE_SWORD), new ItemStack(Items.IRON_SWORD), new ItemStack(Items.GOLDEN_AXE), new ItemStack(Items.IRON_PICKAXE)
-    };
-
     protected void populateDefaultEquipmentSlots(RandomSource pRandom, DifficultyInstance pDifficulty) {
         super.populateDefaultEquipmentSlots(pRandom, pDifficulty);
-        this.setItemSlot(EquipmentSlot.MAINHAND, stacks[new Random().nextInt(stacks.length)]);
+        this.setItemSlot(EquipmentSlot.MAINHAND, draugrCanSpawnWith.get(pRandom.nextInt(0, draugrCanSpawnWith.size())).getDefaultInstance());
     }
 
     @Nullable
@@ -109,8 +103,8 @@ public class DraugrEntity extends Monster implements RangedAttackMob {
         this.setCanPickUpLoot(randomsource.nextFloat() < 0.55F * pDifficulty.getSpecialMultiplier());
         if (this.getItemBySlot(EquipmentSlot.HEAD).isEmpty()) {
             LocalDate localdate = LocalDate.now();
-            int i = localdate.get(ChronoField.DAY_OF_MONTH);
-            int j = localdate.get(ChronoField.MONTH_OF_YEAR);
+            int i = localdate.getDayOfMonth();
+            int j = localdate.getMonth().getValue();
             if (j == 10 && i == 31 && randomsource.nextFloat() < 0.25F) {
                 this.setItemSlot(EquipmentSlot.HEAD, new ItemStack(randomsource.nextFloat() < 0.1F ? Blocks.JACK_O_LANTERN : Blocks.CARVED_PUMPKIN));
                 this.armorDropChances[EquipmentSlot.HEAD.getIndex()] = 0.0F;
@@ -125,9 +119,7 @@ public class DraugrEntity extends Monster implements RangedAttackMob {
         if (!this.level().isClientSide) {
             this.goalSelector.removeGoal(this.meleeGoal);
             this.goalSelector.removeGoal(this.bowGoal);
-            ItemStack itemstack = this.getItemInHand(ProjectileUtil.getWeaponHoldingHand(this, (item) -> {
-                return item instanceof BowItem;
-            }));
+            ItemStack itemstack = this.getItemInHand(ProjectileUtil.getWeaponHoldingHand(this, (item) -> item instanceof BowItem));
             if (itemstack.is(Items.BOW)) {
                 int i = 20;
                 if (this.level().getDifficulty() != Difficulty.HARD) {
@@ -144,9 +136,7 @@ public class DraugrEntity extends Monster implements RangedAttackMob {
     }
 
     public void performRangedAttack(LivingEntity pTarget, float pDistanceFactor) {
-        ItemStack itemstack = this.getProjectile(this.getItemInHand(ProjectileUtil.getWeaponHoldingHand(this, (item) -> {
-            return item instanceof BowItem;
-        })));
+        ItemStack itemstack = this.getProjectile(this.getItemInHand(ProjectileUtil.getWeaponHoldingHand(this, (item) -> item instanceof BowItem)));
         AbstractArrow abstractarrow = this.getArrow(itemstack, pDistanceFactor);
         if (this.getMainHandItem().getItem() instanceof BowItem) {
             abstractarrow = ((BowItem) this.getMainHandItem().getItem()).customArrow(abstractarrow);

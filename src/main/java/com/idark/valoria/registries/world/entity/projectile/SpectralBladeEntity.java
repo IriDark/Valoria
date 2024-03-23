@@ -44,11 +44,6 @@ public class SpectralBladeEntity extends AbstractArrow {
         this.thrownStack = thrownStackIn.copy();
     }
 
-    @OnlyIn(Dist.CLIENT)
-    public SpectralBladeEntity(Level worldIn, double x, double y, double z) {
-        super(ModEntityTypes.SPECTRAL_BLADE.get(), x, y, z, worldIn);
-    }
-
     public void tick() {
         if (this.inGroundTime > 4) {
             this.dealtDamage = true;

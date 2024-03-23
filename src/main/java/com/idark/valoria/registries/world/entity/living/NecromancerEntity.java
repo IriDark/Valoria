@@ -458,7 +458,7 @@ public class NecromancerEntity extends AbstractNecromancer {
     }
 
     public class WololoSpellGoal extends AbstractNecromancer.SpellcasterUseSpellGoal {
-        private final TargetingConditions wololoTargeting = TargetingConditions.forNonCombat().range(8.0D);
+        private final TargetingConditions wololoTargeting = TargetingConditions.forCombat().range(8.0D);
 
         /**
          * Returns whether execution should begin. You can also read and cache any state necessary for execution in this
@@ -507,6 +507,7 @@ public class NecromancerEntity extends AbstractNecromancer {
                     BlockPos pos = new BlockPos(target.getBlockX(), target.getBlockY(), target.getBlockZ());
                     mob.setItemInHand(InteractionHand.MAIN_HAND, Items.BOW.getDefaultInstance());
                     mob.moveTo(pos, 0.0F, 0.0F);
+                    mob.getLookControl().setLookAt(target.getLookAngle());
                     mob.setHealth(target.getHealth());
                     target.discard();
                 }

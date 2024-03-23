@@ -50,11 +50,6 @@ public class MeatBlockEntity extends AbstractArrow {
         this.thrownStack = thrownStackIn.copy();
     }
 
-    @OnlyIn(Dist.CLIENT)
-    public MeatBlockEntity(Level worldIn, double x, double y, double z) {
-        super(ModEntityTypes.MEAT.get(), x, y, z, worldIn);
-    }
-
     public void tick() {
         if (this.inGroundTime > 4) {
             this.dealtDamage = true;
@@ -83,7 +78,6 @@ public class MeatBlockEntity extends AbstractArrow {
     }
 
     public void onHit(HitResult pResult) {
-        super.onHit(pResult);
         if (pResult.getType() != HitResult.Type.ENTITY || !this.ownedBy(((EntityHitResult) pResult).getEntity())) {
             if (!this.level().isClientSide) {
                 BlockState state = ModBlocks.CATTAIL.get().defaultBlockState();
@@ -96,6 +90,7 @@ public class MeatBlockEntity extends AbstractArrow {
             }
         }
 
+        super.onHit(pResult);
     }
 
     @Override
@@ -120,7 +115,7 @@ public class MeatBlockEntity extends AbstractArrow {
     public void onHitEntity(EntityHitResult result) {
         super.onHitEntity(result);
         Entity entity = result.getEntity();
-        int e = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.SHARPNESS, this.thrownStack);
+        int e = EnchantmentHelper.getTagEnchantmentLevel(Enchantments.SHARPNESS, this.thrownStack);
         float f = 7.5f + (((float) e) - 1.5f);
         if (entity instanceof LivingEntity livingentity) {
             f += EnchantmentHelper.getDamageBonus(this.thrownStack, livingentity.getMobType());

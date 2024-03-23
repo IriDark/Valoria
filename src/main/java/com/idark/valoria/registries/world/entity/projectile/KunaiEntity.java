@@ -20,8 +20,6 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
 public class KunaiEntity extends AbstractKunai {
@@ -40,11 +38,6 @@ public class KunaiEntity extends AbstractKunai {
         this.thrownStack = thrownStackIn.copy();
         this.entityData.set(LOYALTY_LEVEL, (byte) EnchantmentHelper.getLoyalty(thrownStackIn));
         this.entityData.set(PIERCE_LEVEL, (byte) EnchantmentHelper.getTagEnchantmentLevel(Enchantments.PIERCING, thrownStackIn));
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    public KunaiEntity(Level worldIn, double x, double y, double z) {
-        super(ModEntityTypes.KUNAI.get(), x, y, z, worldIn);
     }
 
     public void defineSynchedData() {

@@ -46,6 +46,7 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.item.AxeItem;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FireBlock;
@@ -212,6 +213,14 @@ public class Valoria {
             fireblock.setFlammable(ModBlocks.SHADEWOOD_PLANKS.get(), 5, 25);
             fireblock.setFlammable(ModBlocks.STRIPPED_SHADELOG.get(), 5, 30);
             fireblock.setFlammable(ModBlocks.STRIPPED_SHADEWOOD.get(), 5, 30);
+
+            DraugrEntity.draugrCanSpawnWith.add(Items.BOW);
+            DraugrEntity.draugrCanSpawnWith.add(Items.WOODEN_AXE);
+            DraugrEntity.draugrCanSpawnWith.add(Items.STONE_SWORD);
+            DraugrEntity.draugrCanSpawnWith.add(Items.IRON_SWORD);
+            DraugrEntity.draugrCanSpawnWith.add(Items.GOLDEN_AXE);
+            DraugrEntity.draugrCanSpawnWith.add(Items.IRON_PICKAXE);
+
             AxeItem.STRIPPABLES = new ImmutableMap.Builder<Block, Block>().putAll(AxeItem.STRIPPABLES)
                     .put(ModBlocks.SHADELOG.get(), ModBlocks.STRIPPED_SHADELOG.get())
                     .put(ModBlocks.SHADEWOOD.get(), ModBlocks.STRIPPED_SHADEWOOD.get()).build();
