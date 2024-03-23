@@ -220,6 +220,10 @@ public class Valoria {
             DraugrEntity.draugrCanSpawnWith.add(Items.IRON_SWORD);
             DraugrEntity.draugrCanSpawnWith.add(Items.GOLDEN_AXE);
             DraugrEntity.draugrCanSpawnWith.add(Items.IRON_PICKAXE);
+            GoblinEntity.goblinCanSpawnWith.add(ModItems.WOODEN_RAPIER.get());
+            GoblinEntity.goblinCanSpawnWith.add(ModItems.STONE_RAPIER.get());
+            GoblinEntity.goblinCanSpawnWith.add(ModItems.IRON_RAPIER.get());
+            GoblinEntity.goblinCanSpawnWith.add(ModItems.CLUB.get());
 
             AxeItem.STRIPPABLES = new ImmutableMap.Builder<Block, Block>().putAll(AxeItem.STRIPPABLES)
                     .put(ModBlocks.SHADELOG.get(), ModBlocks.STRIPPED_SHADELOG.get())

@@ -50,14 +50,14 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.ForgeEventFactory;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
-import java.util.Random;
 import java.util.UUID;
 import java.util.function.Predicate;
 
 public class GoblinEntity extends PathfinderMob implements NeutralMob, Enemy {
-
+    public static List<Item> goblinCanSpawnWith = new ArrayList<>();
     private final SimpleContainer inventory = new SimpleContainer(8);
     private static final EntityDataAccessor<Integer> DATA_REMAINING_ANGER_TIME = SynchedEntityData.defineId(GoblinEntity.class, EntityDataSerializers.INT);
     private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
@@ -148,14 +148,10 @@ public class GoblinEntity extends PathfinderMob implements NeutralMob, Enemy {
         return pLevel.getBlockState(pPos.below()).is(BlockTags.ANIMALS_SPAWNABLE_ON) && isBrightEnoughToSpawn(pLevel, pPos);
     }
 
-    ItemStack[] stacks = {
-            new ItemStack(ModItems.IRON_RAPIER.get()), new ItemStack(ModItems.STONE_RAPIER.get()), new ItemStack(ModItems.WOODEN_RAPIER.get()), new ItemStack(ModItems.CLUB.get())
-    };
-
     protected void populateDefaultEquipmentSlots(RandomSource pRandom, DifficultyInstance pDifficulty) {
         super.populateDefaultEquipmentSlots(pRandom, pDifficulty);
         if (RandomUtil.percentChance(0.3f)) {
-            this.setItemSlot(EquipmentSlot.MAINHAND, stacks[new Random().nextInt(stacks.length)]);
+            this.setItemSlot(EquipmentSlot.MAINHAND, goblinCanSpawnWith.get(pRandom.nextInt(0, goblinCanSpawnWith.size())).getDefaultInstance());
         }
     }
 
