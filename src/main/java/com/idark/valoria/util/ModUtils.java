@@ -93,7 +93,6 @@ public class ModUtils {
         Y = Math.cos(locPitch + pitch) * pRadius * 0.75F;
         Z = Math.sin(locPitch + pitch) * Math.sin(locYaw + yaw) * pRadius * 0.75F;
         if (type != null && !level.isClientSide() && level instanceof ServerLevel pServer) {
-            //level.addParticle(type, pos.x + X, pos.y + Y + ((Math.random() - 0.5D) * 0.2F), pos.z + Z, 0d, 0d, 0d);
             pServer.sendParticles(type, pos.x + X, pos.y + Y + ((Math.random() - 0.5D) * 0.2F), pos.z + Z, 1, 0, 0, 0, 0);
         }
     }
@@ -143,7 +142,7 @@ public class ModUtils {
      * Spawns particles in radius like in radiusHit
      *
      * @param radius Distance in blocks
-     * @param stack Stack to add radius enchantment levels (can be null)
+     * @param stack  Stack to add radius enchantment levels (can be null)
      * @param type   Particle that will spawn at radius
      * @param pos    Position
      * @see CoralReefItem#releaseUsing(ItemStack, Level, LivingEntity, int) ItemExample
@@ -161,7 +160,6 @@ public class ModUtils {
         double Z = Math.sin(locPitch + pitch) * Math.sin(locYaw + yaw) * pRadius * 0.75F;
 
         if (!level.isClientSide() && level instanceof ServerLevel pServer) {
-            //level.addParticle(type, pos.x + X, pos.y + Y + ((Math.random() - 0.5D) * 0.2F), pos.z + Z, 0d, 0d, 0d);
             pServer.sendParticles(type, pos.x + X, pos.y + Y + ((Math.random() - 0.5D) * 0.2F), pos.z + Z, 1, 0, 0, 0, 0);
         }
     }
@@ -225,12 +223,10 @@ public class ModUtils {
             for (int ii = 0; ii < count; ii += 1) {
                 double yaw = Math.atan2(dZ, dX);
                 double pitch = Math.atan2(Math.sqrt(dZ * dZ + dX * dX), dY) + Math.PI;
-
                 double XX = Math.sin(pitch) * Math.cos(yaw) * speed / (ii + 1);
                 double YY = Math.sin(pitch) * Math.sin(yaw) * speed / (ii + 1);
                 double ZZ = Math.cos(pitch) * speed / (ii + 1);
 
-                //level.addParticle(options, pos.x + X, pos.y + Y, pos.z + Z, XX, YY, ZZ);
                 pServer.sendParticles(options, pos.x + X, pos.y + Y, pos.z + Z, 1, XX, YY, ZZ, 0);
             }
         }
@@ -257,7 +253,6 @@ public class ModUtils {
                 double dX = pos.x - EndPos.x;
                 double dY = pos.y - EndPos.y;
                 double dZ = pos.z - EndPos.z;
-
                 float x = (float) (dX / distanceInBlocks);
                 float y = (float) (dY / distanceInBlocks);
                 float z = (float) (dZ / distanceInBlocks);
@@ -290,7 +285,6 @@ public class ModUtils {
                 double dX = pos.x - EndPos.x;
                 double dY = pos.y - EndPos.y;
                 double dZ = pos.z - EndPos.z;
-
                 float x = (float) (dX / distanceInBlocks);
                 float y = (float) (dY / distanceInBlocks);
                 float z = (float) (dZ / distanceInBlocks);
@@ -353,7 +347,6 @@ public class ModUtils {
                     float z = (float) (dZ / distanceInBlocks);
 
                     if (!pLevel.isClientSide() && pLevel instanceof ServerLevel pServer) {
-                        //pLevel.addParticle(pType, pos.x - (x * i), pos.y - (y * i), pos.z - (z * i), 0, 0, 0);
                         pServer.sendParticles(pType, pos.x - (x * i), pos.y - (y * i), pos.z - (z * i), 1, 0, 0, 0, 0);
                     }
                 }
@@ -396,7 +389,7 @@ public class ModUtils {
     }
 
     /**
-     * @param pType EntityType to heal
+     * @param pType       EntityType to heal
      * @param pHealer     Healer entity
      * @param hitEntities list of Entities
      * @param pos         Position in Vec3
@@ -405,7 +398,6 @@ public class ModUtils {
     public static void healNearbyTypedMobs(MobCategory pType, Float pHeal, Level pLevel, LivingEntity pHealer, List<LivingEntity> hitEntities, Vector3d pos, float pitchRaw, float yawRaw, float radius) {
         double pitch = ((pitchRaw + 90) * Math.PI) / 180;
         double yaw = ((yawRaw + 90) * Math.PI) / 180;
-
         double locYaw = 0;
         double locPitch = 0;
         double X = Math.sin(locPitch + pitch) * Math.cos(locYaw + yaw) * radius;
@@ -435,7 +427,6 @@ public class ModUtils {
     public static void healNearbyMobs(Float pHeal, Level pLevel, LivingEntity pHealer, List<LivingEntity> hitEntities, Vector3d pos, float pitchRaw, float yawRaw, float radius) {
         double pitch = ((pitchRaw + 90) * Math.PI) / 180;
         double yaw = ((yawRaw + 90) * Math.PI) / 180;
-
         double locYaw = 0;
         double locPitch = 0;
         double X = Math.sin(locPitch + pitch) * Math.cos(locYaw + yaw) * radius;
@@ -470,13 +461,11 @@ public class ModUtils {
             double dX = pFrom.x - pTo.x;
             double dY = pFrom.y - pTo.y;
             double dZ = pFrom.z - pTo.z;
-
             float x = (float) (dX / distanceInBlocks);
             float y = (float) (dY / distanceInBlocks);
             float z = (float) (dZ / distanceInBlocks);
 
             if (!pLevel.isClientSide() && pLevel instanceof ServerLevel pServer) {
-                //pLevel.addParticle(pType, pFrom.x - (x * i), pFrom.y - (y * i), pFrom.z - (z * i), 0, 0, 0);
                 pServer.sendParticles(pType, pFrom.x - (x * i), pFrom.y - (y * i), pFrom.z - (z * i), 1, 0, 0, 0, 0);
             }
         }

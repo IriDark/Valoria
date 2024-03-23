@@ -1,6 +1,7 @@
 package com.idark.valoria.registries.world.entity.living;
 
-import net.minecraft.core.particles.ParticleTypes;
+import com.idark.valoria.util.ColorUtils;
+import net.minecraft.core.particles.DustColorTransitionOptions;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -14,6 +15,8 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
+import org.joml.Vector3f;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
@@ -72,11 +75,18 @@ public abstract class AbstractNecromancer extends Monster {
     public void tick() {
         super.tick();
         if (this.level().isClientSide && this.isCastingSpell()) {
+            AbstractNecromancer.necromancerSpell spell = this.getCurrentSpell();
+            int d0 = spell.spellColor[0];
+            int d1 = spell.spellColor[1];
+            int d2 = spell.spellColor[2];
+            Vector3f PARTICLE_COLOR = Vec3.fromRGB24(ColorUtils.packColor(155, d0, d1, d2)).toVector3f();
+            Vector3f TO_PARTICLE_COLOR = Vec3.fromRGB24(ColorUtils.packColor(0, d0/2, d1/2, d2/2)).toVector3f();
+
             float f = this.yBodyRot * ((float) Math.PI / 180F) + Mth.cos((float) this.tickCount * 0.6662F) * 0.35F;
             float f1 = Mth.cos(f);
             float f2 = Mth.sin(f);
-            this.level().addParticle(ParticleTypes.REVERSE_PORTAL, this.getX() + (double) f1 * 0.6D, this.getY() + 1.8D, this.getZ() + (double) f2 * 0.6D, 0, 0.15, 0);
-            this.level().addParticle(ParticleTypes.REVERSE_PORTAL, this.getX() - (double) f1 * 0.6D, this.getY() + 1.8D, this.getZ() - (double) f2 * 0.6D, 0, 0.15, 0);
+            this.level().addParticle(new DustColorTransitionOptions(PARTICLE_COLOR, TO_PARTICLE_COLOR, 1.0F), this.getX() + (double) f1 * 0.6D, this.getY() + 1.8D, this.getZ() + (double) f2 * 0.6D, 0, 0.15, 0);
+            this.level().addParticle(new DustColorTransitionOptions(PARTICLE_COLOR, TO_PARTICLE_COLOR, 1.0F), this.getX() - (double) f1 * 0.6D, this.getY() + 1.8D, this.getZ() - (double) f2 * 0.6D, 0, 0.15, 0);
         }
 
     }
@@ -89,22 +99,20 @@ public abstract class AbstractNecromancer extends Monster {
         return SoundEvents.EVOKER_CAST_SPELL;
     }
 
-    public static enum necromancerSpell {
-        NONE(0, 0.0D, 0.0D, 0.0D),
-        SUMMON_MOBS(1, 0.7D, 0.7D, 0.8D),
-        FANGS(2, 0.4D, 0.3D, 0.35D),
-        WOLOLO(3, 0.7D, 0.5D, 0.2D),
-        DISAPPEAR(4, 0.3D, 0.3D, 0.8D),
-        BLINDNESS(5, 0.1D, 0.1D, 0.2D),
-        HEAL_TARGET(6, 0.7D, 0.1D, 0.2D);
+    public enum necromancerSpell {
+        NONE(0, 0, 0, 0),
+        SUMMON_MOBS(1, 255, 255, 255),
+        FANGS(2, 255, 255, 255),
+        WOLOLO(3, 65, 57, 74),
+        HEAL(4, 164, 202, 65);
 
         private static final IntFunction<AbstractNecromancer.necromancerSpell> BY_ID = ByIdMap.continuous((p_263091_) -> p_263091_.id, values(), ByIdMap.OutOfBoundsStrategy.ZERO);
         final int id;
-        final double[] spellColor;
+        final int[] spellColor;
 
-        private necromancerSpell(int pId, double pRed, double pGreen, double pBlue) {
+        necromancerSpell(int pId, int pRed, int pGreen, int pBlue) {
             this.id = pId;
-            this.spellColor = new double[]{pRed, pGreen, pBlue};
+            this.spellColor = new int[]{pRed, pGreen, pBlue};
         }
 
         public static AbstractNecromancer.necromancerSpell byId(int pId) {

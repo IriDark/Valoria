@@ -15,11 +15,10 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
-public class NecromancerModel<T extends Mob & RangedAttackMob> extends HumanoidModel<T> {
+public class NecromancerModel<T extends Mob> extends HumanoidModel<T> {
     public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation("modid", "necromancer"), "main");
 
     public NecromancerModel(ModelPart root) {

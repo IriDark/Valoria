@@ -29,7 +29,6 @@ import net.minecraft.world.entity.animal.Wolf;
 import net.minecraft.world.entity.animal.horse.Horse;
 import net.minecraft.world.entity.animal.horse.SkeletonHorse;
 import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.entity.monster.Skeleton;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
@@ -48,7 +47,7 @@ import java.time.temporal.ChronoField;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NecromancerEntity extends AbstractNecromancer implements RangedAttackMob {
+public class NecromancerEntity extends AbstractNecromancer {
 
     @Nullable
     private Skeleton wololoTarget;
@@ -63,6 +62,7 @@ public class NecromancerEntity extends AbstractNecromancer implements RangedAtta
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new NecromancerEntity.CastingSpellGoal());
         this.goalSelector.addGoal(3, new NecromancerEntity.AttackSpellGoal());
+        this.goalSelector.addGoal(2, new NecromancerEntity.HealSelfSpellGoal());
         this.goalSelector.addGoal(2, new NecromancerEntity.HealTargetSpellGoal());
         this.goalSelector.addGoal(4, new NecromancerEntity.SummonMobsSpellGoal());
         this.goalSelector.addGoal(6, new NecromancerEntity.WololoSpellGoal());
@@ -154,11 +154,6 @@ public class NecromancerEntity extends AbstractNecromancer implements RangedAtta
 
     public double getMyRidingOffset() {
         return -0.6;
-    }
-
-    @Override
-    public void performRangedAttack(LivingEntity pTarget, float pVelocity) {
-
     }
 
     void setWololoTarget(@Nullable Skeleton pWololoTarget) {
@@ -283,62 +278,72 @@ public class NecromancerEntity extends AbstractNecromancer implements RangedAtta
         }
 
         protected int getCastWarmupTime() {
-            return 25;
+            return 85;
         }
 
         protected int getCastingTime() {
-            return 100;
+            return 50;
         }
 
         protected int getCastingInterval() {
-            return 340;
+            return 320;
+        }
+
+        private void spawnZombie(ServerLevel serverLevel, BlockPos blockpos) {
+            Zombie zombie = EntityType.ZOMBIE.create(NecromancerEntity.this.level());
+            if (zombie != null) {
+                zombie.moveTo(blockpos, 0.0F, 0.0F);
+                zombie.finalizeSpawn(serverLevel, NecromancerEntity.this.level().getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, null, null);
+                zombie.setHealth(zombie.getMaxHealth() / 2);
+                zombie.setTarget(NecromancerEntity.this.getTarget());
+                serverLevel.addFreshEntityWithPassengers(zombie);
+            }
+        }
+
+        private void spawnSkeletons(ServerLevel serverLevel, BlockPos blockpos) {
+            Skeleton skeleton = EntityType.SKELETON.create(NecromancerEntity.this.level());
+            if (skeleton != null) {
+                skeleton.moveTo(blockpos, 0.0F, 0.0F);
+                skeleton.finalizeSpawn(serverLevel, NecromancerEntity.this.level().getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, null, null);
+                skeleton.setHealth(skeleton.getMaxHealth() / 2);
+                skeleton.setTarget(NecromancerEntity.this.getTarget());
+                serverLevel.addFreshEntityWithPassengers(skeleton);
+            }
+        }
+
+        private void spawnUndead(ServerLevel serverLevel, BlockPos blockpos) {
+            UndeadEntity undead = ModEntityTypes.UNDEAD.get().create(NecromancerEntity.this.level());
+            if (undead != null) {
+                undead.moveTo(blockpos, 0.0F, 0.0F);
+                undead.finalizeSpawn(serverLevel, NecromancerEntity.this.level().getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, null, null);
+                undead.setOwner(NecromancerEntity.this);
+                undead.setBoundOrigin(blockpos);
+                undead.setLimitedLife(20 * (5 + NecromancerEntity.this.random.nextInt(90)));
+                serverLevel.addFreshEntityWithPassengers(undead);
+            }
         }
 
         protected void performSpellCasting() {
             ServerLevel serverlevel = (ServerLevel) NecromancerEntity.this.level();
-            for (int i = 0; i < 3; ++i) {
-                BlockPos blockpos = NecromancerEntity.this.blockPosition().offset(-2 + NecromancerEntity.this.random.nextInt(5), 0, -2 + NecromancerEntity.this.random.nextInt(5));
+            if (NecromancerEntity.this.getTarget() != null) {
                 if (!serverlevel.isDay() || serverlevel.isRaining()) {
-                    if (RandomUtil.fiftyFifty()) {
-                        Zombie zombie = EntityType.ZOMBIE.create(NecromancerEntity.this.level());
-                        if (zombie != null) {
-                            zombie.moveTo(blockpos, 0.0F, 0.0F);
-                            zombie.finalizeSpawn(serverlevel, NecromancerEntity.this.level().getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, null, null);
-                            zombie.setHealth(zombie.getMaxHealth() / 2);
-                            zombie.setTarget(NecromancerEntity.this.getTarget());
-                            serverlevel.addFreshEntityWithPassengers(zombie);
+                    for (int i = 0; i < 3; ++i) {
+                        BlockPos blockpos = NecromancerEntity.this.blockPosition().offset(-2 + NecromancerEntity.this.random.nextInt(5), 0, -2 + NecromancerEntity.this.random.nextInt(5));
+                        BlockPos undeadSpawnPos = NecromancerEntity.this.blockPosition().offset(-2 + NecromancerEntity.this.random.nextInt(5), 1, -2 + NecromancerEntity.this.random.nextInt(5));
+                        if (RandomUtil.fiftyFifty()) {
+                            spawnSkeletons(serverlevel, blockpos);
+                        } else {
+                            spawnZombie(serverlevel, blockpos);
                         }
-                    } else if (RandomUtil.fiftyFifty()) {
-                        Skeleton skeleton = EntityType.SKELETON.create(NecromancerEntity.this.level());
-                        if (skeleton != null) {
-                            skeleton.moveTo(blockpos, 0.0F, 0.0F);
-                            skeleton.finalizeSpawn(serverlevel, NecromancerEntity.this.level().getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, null, null);
-                            skeleton.setHealth(skeleton.getMaxHealth() / 2);
-                            skeleton.setTarget(NecromancerEntity.this.getTarget());
-                            serverlevel.addFreshEntityWithPassengers(skeleton);
-                        }
-                    } else if (RandomUtil.percentChance(5)) {
-                        BlockPos blockpos1 = NecromancerEntity.this.blockPosition().offset(-2 + NecromancerEntity.this.random.nextInt(5), 1, -2 + NecromancerEntity.this.random.nextInt(5));
-                        UndeadEntity undead = ModEntityTypes.UNDEAD.get().create(NecromancerEntity.this.level());
-                        if (undead != null) {
-                            undead.moveTo(blockpos1, 0.0F, 0.0F);
-                            undead.finalizeSpawn(serverlevel, NecromancerEntity.this.level().getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, null, null);
-                            undead.setOwner(NecromancerEntity.this);
-                            undead.setBoundOrigin(blockpos);
-                            undead.setLimitedLife(20 * (5 + NecromancerEntity.this.random.nextInt(90)));
-                            serverlevel.addFreshEntityWithPassengers(undead);
+
+                        if(RandomUtil.percentChance(5)) {
+                            spawnUndead(serverlevel, undeadSpawnPos);
                         }
                     }
                 } else {
-                    BlockPos blockpos1 = NecromancerEntity.this.blockPosition().offset(-2 + NecromancerEntity.this.random.nextInt(5), 1, -2 + NecromancerEntity.this.random.nextInt(5));
-                    UndeadEntity undead = ModEntityTypes.UNDEAD.get().create(NecromancerEntity.this.level());
-                    if (undead != null) {
-                        undead.moveTo(blockpos1, 0.0F, 0.0F);
-                        undead.finalizeSpawn(serverlevel, NecromancerEntity.this.level().getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, null, null);
-                        undead.setOwner(NecromancerEntity.this);
-                        undead.setBoundOrigin(blockpos);
-                        undead.setLimitedLife(20 * (5 + NecromancerEntity.this.random.nextInt(90)));
-                        serverlevel.addFreshEntityWithPassengers(undead);
+                    for (int i = 0; i < 3; ++i) {
+                        BlockPos undeadSpawnPos = NecromancerEntity.this.blockPosition().offset(-2 + NecromancerEntity.this.random.nextInt(5), 1, -2 + NecromancerEntity.this.random.nextInt(5));
+                        spawnUndead(serverlevel, undeadSpawnPos);
                     }
                 }
             }
@@ -370,18 +375,17 @@ public class NecromancerEntity extends AbstractNecromancer implements RangedAtta
         }
 
         protected int getCastingTime() {
-            return 100;
+            return 55;
         }
 
         protected int getCastingInterval() {
-            return 340;
+            return 320;
         }
 
         protected void performSpellCasting() {
             ServerLevel serverLevel = (ServerLevel)NecromancerEntity.this.level();
             List<Monster> targets = serverLevel.getNearbyEntities(Monster.class, this.targeting, NecromancerEntity.this, NecromancerEntity.this.getBoundingBox().inflate(4.0D));
             List<LivingEntity> toHeal = new ArrayList<>();
-
             for (Monster target : targets) {
                 if (!(target instanceof NecromancerEntity) && target.getHealth() < target.getMaxHealth()) {
                     Vector3d pos = new Vector3d(NecromancerEntity.this.getX(), NecromancerEntity.this.getY(), NecromancerEntity.this.getZ());
@@ -403,7 +407,53 @@ public class NecromancerEntity extends AbstractNecromancer implements RangedAtta
         }
 
         protected AbstractNecromancer.necromancerSpell getSpell() {
-            return necromancerSpell.HEAL_TARGET;
+            return necromancerSpell.HEAL;
+        }
+    }
+
+    public class HealSelfSpellGoal extends AbstractNecromancer.SpellcasterUseSpellGoal {
+
+        public boolean canUse() {
+            if (!super.canUse()) {
+                return false;
+            } else {
+                return NecromancerEntity.this.getHealth() < NecromancerEntity.this.getMaxHealth();
+            }
+        }
+
+        protected int getCastWarmupTime() {
+            return 85;
+        }
+
+        protected int getCastingTime() {
+            return 75;
+        }
+
+        protected int getCastingInterval() {
+            return 285;
+        }
+
+        protected void performSpellCasting() {
+            ServerLevel serverLevel = (ServerLevel) NecromancerEntity.this.level();
+            if (NecromancerEntity.this.getHealth() < NecromancerEntity.this.getMaxHealth()) {
+                Vector3d pos = new Vector3d(NecromancerEntity.this.getX(), NecromancerEntity.this.getY(), NecromancerEntity.this.getZ());
+                for (int i = 0; i < 360; i += 10) {
+
+                    // Here's the example
+                    ModUtils.spawnParticlesAroundPosition(pos, 2, 1, serverLevel, ParticleTypes.HAPPY_VILLAGER);
+                    NecromancerEntity.this.heal(3);
+                }
+
+                serverLevel.playSound(null, NecromancerEntity.this.getX(), NecromancerEntity.this.getY(), NecromancerEntity.this.getZ(), SoundEvents.EVOKER_CAST_SPELL, NecromancerEntity.this.getSoundSource(), 0.42F, 1.23F);
+            }
+        }
+
+        protected SoundEvent getSpellPrepareSound() {
+            return SoundEvents.EVOKER_PREPARE_SUMMON;
+        }
+
+        protected AbstractNecromancer.necromancerSpell getSpell() {
+            return necromancerSpell.HEAL;
         }
     }
 
