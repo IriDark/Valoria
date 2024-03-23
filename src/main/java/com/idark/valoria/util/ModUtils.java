@@ -43,7 +43,6 @@ public class ModUtils {
      *
      * @param items         ItemList to apply the cooldown
      * @param cooldownTicks Time of cooldown
-     * @see ScytheItem#finishUsingItem(ItemStack, Level, LivingEntity) Example
      */
     public static void applyCooldownToItemList(Player player, List<Item> items, int cooldownTicks) {
         for (Item pItems : items) {

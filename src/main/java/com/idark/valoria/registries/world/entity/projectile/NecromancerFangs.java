@@ -7,10 +7,7 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.TraceableEntity;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
@@ -42,7 +39,6 @@ public class NecromancerFangs extends Entity implements TraceableEntity {
         this.setYRot(pYRot * (180F / (float)Math.PI));
         this.setPos(pX, pY, pZ);
     }
-
 
     protected void defineSynchedData() {
     }
@@ -131,7 +127,7 @@ public class NecromancerFangs extends Entity implements TraceableEntity {
             if (livingentity == null) {
                 pTarget.hurt(this.damageSources().magic(), 6.0F);
             } else {
-                if (livingentity.isAlliedTo(pTarget)) {
+                if (pTarget.getTeam() != null ? livingentity.isAlliedTo(pTarget) : pTarget.getType().getCategory().equals(MobCategory.MONSTER)) {
                     return;
                 }
 
