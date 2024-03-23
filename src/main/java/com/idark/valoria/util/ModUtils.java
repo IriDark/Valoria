@@ -1,6 +1,7 @@
 package com.idark.valoria.util;
 
 
+import com.idark.valoria.registries.world.entity.living.NecromancerEntity;
 import com.idark.valoria.registries.world.item.enchant.ModEnchantments;
 import com.idark.valoria.registries.world.item.types.CoralReefItem;
 import com.idark.valoria.registries.world.item.types.HoundItem;
@@ -16,6 +17,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.Item;
@@ -142,24 +144,23 @@ public class ModUtils {
      * Spawns particles in radius like in radiusHit
      *
      * @param radius Distance in blocks
+     * @param stack Stack to add radius enchantment levels (can be null)
      * @param type   Particle that will spawn at radius
      * @param pos    Position
-     * @see CoralReefItem#releaseUsing(ItemStack, Level, LivingEntity, int) Example
+     * @see CoralReefItem#releaseUsing(ItemStack, Level, LivingEntity, int) ItemExample
+     * @see NecromancerEntity.HealTargetSpellGoal MobExample
      */
-    public static void spawnParticlesInRadius(Level level, ItemStack stack, ParticleOptions type, Vector3d pos, float pitchRaw, float yawRaw, float radius) {
+    public static void spawnParticlesInRadius(Level level, @Nullable ItemStack stack, ParticleOptions type, Vector3d pos, float pitchRaw, float yawRaw, float radius) {
         double pitch = ((pitchRaw + 90) * Math.PI) / 180;
         double yaw = ((yawRaw + 90) * Math.PI) / 180;
 
-        float pRadius = radius + getRadius(stack);
+        float pRadius = stack != null ? radius + getRadius(stack) : radius;
         double locYaw = 0;
         double locPitch = 0;
-        double X = Math.sin(locPitch + pitch) * Math.cos(locYaw + yaw) * pRadius;
-        double Y = Math.cos(locPitch + pitch) * pRadius;
-        double Z = Math.sin(locPitch + pitch) * Math.sin(locYaw + yaw) * pRadius;
+        double X = Math.sin(locPitch + pitch) * Math.cos(locYaw + yaw) * pRadius * 0.75F;
+        double Y = Math.cos(locPitch + pitch) * pRadius * 0.75F;
+        double Z = Math.sin(locPitch + pitch) * Math.sin(locYaw + yaw) * pRadius * 0.75F;
 
-        X = Math.sin(locPitch + pitch) * Math.cos(locYaw + yaw) * pRadius * 0.75F;
-        Y = Math.cos(locPitch + pitch) * pRadius * 0.75F;
-        Z = Math.sin(locPitch + pitch) * Math.sin(locYaw + yaw) * pRadius * 0.75F;
         if (!level.isClientSide() && level instanceof ServerLevel pServer) {
             //level.addParticle(type, pos.x + X, pos.y + Y + ((Math.random() - 0.5D) * 0.2F), pos.z + Z, 0d, 0d, 0d);
             pServer.sendParticles(type, pos.x + X, pos.y + Y + ((Math.random() - 0.5D) * 0.2F), pos.z + Z, 1, 0, 0, 0, 0);
@@ -221,7 +222,6 @@ public class ModUtils {
         double dZ = -Z;
 
         int count = 1 + Mth.nextInt(source, 0, 2);
-
         if (!level.isClientSide() && level instanceof ServerLevel pServer) {
             for (int ii = 0; ii < count; ii += 1) {
                 double yaw = Math.atan2(dZ, dX);
@@ -320,7 +320,7 @@ public class ModUtils {
      * @param hitEntities list of Entities
      * @param pos         Position in Vec3
      * @param radius      Radius to spawn
-     * @see HoundItem#finishUsingItem(ItemStack, Level, LivingEntity) Example
+     * @see HoundItem#finishUsingItem(ItemStack, Level, LivingEntity) ItemExample
      */
     public static void spawnParticlesLineToNearbyMobs(Level pLevel, Player pPlayer, ParticleOptions pType, List<LivingEntity> hitEntities, Vec3 pos, float pitchRaw, float yawRaw, float radius) {
         double pitch = ((pitchRaw + 90) * Math.PI) / 180;
@@ -392,6 +392,67 @@ public class ModUtils {
                 }
 
                 livingEntity.addEffect(new MobEffectInstance(MobEffects.GLOWING, 40, 0, false, false, false));
+            }
+        }
+    }
+
+    /**
+     * @param pType EntityType to heal
+     * @param pHealer     Healer entity
+     * @param hitEntities list of Entities
+     * @param pos         Position in Vec3
+     * @param radius      Radius to check mobs
+     */
+    public static void healNearbyTypedMobs(MobCategory pType, Float pHeal, Level pLevel, LivingEntity pHealer, List<LivingEntity> hitEntities, Vector3d pos, float pitchRaw, float yawRaw, float radius) {
+        double pitch = ((pitchRaw + 90) * Math.PI) / 180;
+        double yaw = ((yawRaw + 90) * Math.PI) / 180;
+
+        double locYaw = 0;
+        double locPitch = 0;
+        double X = Math.sin(locPitch + pitch) * Math.cos(locYaw + yaw) * radius;
+        double Y = Math.cos(locPitch + pitch) * radius;
+        double Z = Math.sin(locPitch + pitch) * Math.sin(locYaw + yaw) * radius;
+
+        AABB boundingBox = new AABB(pos.x, pos.y - 8 + ((Math.random() - 0.5D) * 0.2F), pos.z, pos.x + X, pos.y + Y + ((Math.random() - 0.5D) * 0.2F), pos.z + Z);
+        List<Entity> entities = pLevel.getEntitiesOfClass(Entity.class, boundingBox);
+        for (Entity entity : entities) {
+            if (entity instanceof LivingEntity livingEntity && !hitEntities.contains(livingEntity) && !livingEntity.equals(pHealer) && pType.equals(entity.getType().getCategory())) {
+                hitEntities.add(livingEntity);
+                if (!livingEntity.isAlive()) {
+                    return;
+                }
+
+                livingEntity.heal(pHeal);
+            }
+        }
+    }
+
+    /**
+     * @param pHealer     Healer entity
+     * @param hitEntities list of Entities
+     * @param pos         Position in Vec3
+     * @param radius      Radius to check mobs
+     */
+    public static void healNearbyMobs(Float pHeal, Level pLevel, LivingEntity pHealer, List<LivingEntity> hitEntities, Vector3d pos, float pitchRaw, float yawRaw, float radius) {
+        double pitch = ((pitchRaw + 90) * Math.PI) / 180;
+        double yaw = ((yawRaw + 90) * Math.PI) / 180;
+
+        double locYaw = 0;
+        double locPitch = 0;
+        double X = Math.sin(locPitch + pitch) * Math.cos(locYaw + yaw) * radius;
+        double Y = Math.cos(locPitch + pitch) * radius;
+        double Z = Math.sin(locPitch + pitch) * Math.sin(locYaw + yaw) * radius;
+
+        AABB boundingBox = new AABB(pos.x, pos.y - 8 + ((Math.random() - 0.5D) * 0.2F), pos.z, pos.x + X, pos.y + Y + ((Math.random() - 0.5D) * 0.2F), pos.z + Z);
+        List<Entity> entities = pLevel.getEntitiesOfClass(Entity.class, boundingBox);
+        for (Entity entity : entities) {
+            if (entity instanceof LivingEntity livingEntity && !hitEntities.contains(livingEntity) && !livingEntity.equals(pHealer)) {
+                hitEntities.add(livingEntity);
+                if (!livingEntity.isAlive()) {
+                    return;
+                }
+
+                livingEntity.heal(pHeal);
             }
         }
     }

@@ -204,10 +204,11 @@ task sourcesJar(type: Jar, dependsOn: classes) {
 modrinth {
     token = System.getenv("modrinthtoken") // Remember to have the MODRINTH_TOKEN environment variable set or else this will fail - just make sure it stays private!
     projectId = "valoriadev" // This can be the project ID or the slug. Either will work!
-    versionNumber = "0.6b" // You don't need to set this manually. Will fail if Modrinth has this version already
+    versionNumber = "0.6b-dev" // You don't need to set this manually. Will fail if Modrinth has this version already
     versionType = "alpha" // This is the default -- can also be `beta` or `alpha`
     versionName = "Dev Build 0.6b"
     uploadFile = tasks.jar // With Loom, this MUST be set to `remapJar` instead of `jar`!
+    changelog = "Just a DevBuild to test things, its some sorta like minecraft snapshots to find bugs and report them"
     dependencies { // A special DSL for creating dependencies
         // scope.type
         // The scope can be `required`, `optional`, `incompatible`, or `embedded`

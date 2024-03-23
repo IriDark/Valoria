@@ -29,7 +29,7 @@ import java.util.Map;
 public class Item2DRenderer {
 
     /**
-     * Adds the item id which will be searched
+     * Adds the item ID which will be searched
      * @see com.idark.valoria.Valoria#clientSetup(FMLClientSetupEvent) Valoria Client Setup
      */
     public static List<Item> handModelItems = new ArrayList<>();

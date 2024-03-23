@@ -2,9 +2,11 @@ package com.idark.valoria.registries.world.entity.living;
 
 import com.idark.valoria.registries.world.entity.ModEntityTypes;
 import com.idark.valoria.registries.world.entity.projectile.NecromancerFangs;
+import com.idark.valoria.util.ModUtils;
 import com.idark.valoria.util.math.RandomUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -38,10 +40,12 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.joml.Vector3d;
 
 import javax.annotation.Nullable;
 import java.time.LocalDate;
 import java.time.temporal.ChronoField;
+import java.util.ArrayList;
 import java.util.List;
 
 public class NecromancerEntity extends AbstractNecromancer implements RangedAttackMob {
@@ -59,12 +63,13 @@ public class NecromancerEntity extends AbstractNecromancer implements RangedAtta
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new NecromancerEntity.CastingSpellGoal());
         this.goalSelector.addGoal(3, new NecromancerEntity.AttackSpellGoal());
+        this.goalSelector.addGoal(2, new NecromancerEntity.HealTargetSpellGoal());
         this.goalSelector.addGoal(4, new NecromancerEntity.SummonMobsSpellGoal());
         this.goalSelector.addGoal(6, new NecromancerEntity.WololoSpellGoal());
         this.goalSelector.addGoal(11, new NecromancerEntity.WololoHorseSpellGoal());
 
         this.goalSelector.addGoal(1, new RestrictSunGoal(this));
-        this.goalSelector.addGoal(1, new AvoidEntityGoal(this, Player.class, 14.0F, 1.35, 1.8));
+        this.goalSelector.addGoal(1, new AvoidEntityGoal(this, Player.class, 14.0F, 1.15, 1.4));
         this.goalSelector.addGoal(1, new AvoidEntityGoal(this, Wolf.class, 6.0F, 1.0, 1.2));
         this.goalSelector.addGoal(2, new WaterAvoidingRandomStrollGoal(this, 1.0));
         this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 8.0F));
@@ -300,6 +305,7 @@ public class NecromancerEntity extends AbstractNecromancer implements RangedAtta
                             zombie.moveTo(blockpos, 0.0F, 0.0F);
                             zombie.finalizeSpawn(serverlevel, NecromancerEntity.this.level().getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, null, null);
                             zombie.setHealth(zombie.getMaxHealth() / 2);
+                            zombie.setTarget(NecromancerEntity.this.getTarget());
                             serverlevel.addFreshEntityWithPassengers(zombie);
                         }
                     } else if (RandomUtil.fiftyFifty()) {
@@ -308,9 +314,10 @@ public class NecromancerEntity extends AbstractNecromancer implements RangedAtta
                             skeleton.moveTo(blockpos, 0.0F, 0.0F);
                             skeleton.finalizeSpawn(serverlevel, NecromancerEntity.this.level().getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, null, null);
                             skeleton.setHealth(skeleton.getMaxHealth() / 2);
+                            skeleton.setTarget(NecromancerEntity.this.getTarget());
                             serverlevel.addFreshEntityWithPassengers(skeleton);
                         }
-                    } else if (RandomUtil.percentChance(15)) {
+                    } else if (RandomUtil.percentChance(5)) {
                         BlockPos blockpos1 = NecromancerEntity.this.blockPosition().offset(-2 + NecromancerEntity.this.random.nextInt(5), 1, -2 + NecromancerEntity.this.random.nextInt(5));
                         UndeadEntity undead = ModEntityTypes.UNDEAD.get().create(NecromancerEntity.this.level());
                         if (undead != null) {
@@ -343,6 +350,60 @@ public class NecromancerEntity extends AbstractNecromancer implements RangedAtta
 
         protected AbstractNecromancer.necromancerSpell getSpell() {
             return necromancerSpell.SUMMON_MOBS;
+        }
+    }
+
+    public class HealTargetSpellGoal extends AbstractNecromancer.SpellcasterUseSpellGoal {
+        private final TargetingConditions targeting = TargetingConditions.forCombat().range(4.0D);
+
+        public boolean canUse() {
+            if (!super.canUse()) {
+                return false;
+            } else {
+                List<Monster> targets = NecromancerEntity.this.level().getNearbyEntities(Monster.class, this.targeting, NecromancerEntity.this, NecromancerEntity.this.getBoundingBox().inflate(16.0D));
+                return !targets.isEmpty();
+            }
+        }
+
+        protected int getCastWarmupTime() {
+            return 45;
+        }
+
+        protected int getCastingTime() {
+            return 100;
+        }
+
+        protected int getCastingInterval() {
+            return 340;
+        }
+
+        protected void performSpellCasting() {
+            ServerLevel serverLevel = (ServerLevel)NecromancerEntity.this.level();
+            List<Monster> targets = serverLevel.getNearbyEntities(Monster.class, this.targeting, NecromancerEntity.this, NecromancerEntity.this.getBoundingBox().inflate(4.0D));
+            List<LivingEntity> toHeal = new ArrayList<>();
+
+            for (Monster target : targets) {
+                if (!(target instanceof NecromancerEntity) && target.getHealth() < target.getMaxHealth()) {
+                    Vector3d pos = new Vector3d(NecromancerEntity.this.getX(), NecromancerEntity.this.getY(), NecromancerEntity.this.getZ());
+                    for (int i = 0; i < 360; i += 10) {
+
+                        // Here's the example
+                        ModUtils.spawnParticlesInRadius(serverLevel, null, ParticleTypes.HAPPY_VILLAGER, pos, 0, NecromancerEntity.this.getRotationVector().y + i, 4);
+                        ModUtils.healNearbyTypedMobs(MobCategory.MONSTER, 5.0F, serverLevel, NecromancerEntity.this, toHeal, pos, 0, NecromancerEntity.this.getRotationVector().y + i, 4);
+                    }
+
+                    serverLevel.playSound(null, target.getX(), target.getY(), target.getZ(), SoundEvents.EVOKER_CAST_SPELL, target.getSoundSource(), 0.42F, 1.23F);
+                    break;
+                }
+            }
+        }
+
+        protected SoundEvent getSpellPrepareSound() {
+            return SoundEvents.EVOKER_PREPARE_SUMMON;
+        }
+
+        protected AbstractNecromancer.necromancerSpell getSpell() {
+            return necromancerSpell.HEAL_TARGET;
         }
     }
 

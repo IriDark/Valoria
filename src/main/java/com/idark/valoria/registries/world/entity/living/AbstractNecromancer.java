@@ -95,7 +95,8 @@ public abstract class AbstractNecromancer extends Monster {
         FANGS(2, 0.4D, 0.3D, 0.35D),
         WOLOLO(3, 0.7D, 0.5D, 0.2D),
         DISAPPEAR(4, 0.3D, 0.3D, 0.8D),
-        BLINDNESS(5, 0.1D, 0.1D, 0.2D);
+        BLINDNESS(5, 0.1D, 0.1D, 0.2D),
+        HEAL_TARGET(6, 0.7D, 0.1D, 0.2D);
 
         private static final IntFunction<AbstractNecromancer.necromancerSpell> BY_ID = ByIdMap.continuous((p_263091_) -> p_263091_.id, values(), ByIdMap.OutOfBoundsStrategy.ZERO);
         final int id;
