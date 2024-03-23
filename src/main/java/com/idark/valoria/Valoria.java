@@ -155,6 +155,7 @@ public class Valoria {
             Item2DRenderer.handModelItems.add(ModItems.BLAZE_REAP.get());
             Item2DRenderer.handModelItems.add(ModItems.MURASAMA.get());
             Item2DRenderer.handModelItems.add(ModItems.PHANTOM.get());
+            Item2DRenderer.modIds.add("valoria:");
 
             CuriosRendererRegistry.register(ModItems.IRON_NECKLACE_AMBER.get(), NecklaceRenderer::new);
             CuriosRendererRegistry.register(ModItems.IRON_NECKLACE_DIAMOND.get(), NecklaceRenderer::new);

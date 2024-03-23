@@ -42,7 +42,6 @@ import net.minecraftforge.client.event.*;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import java.io.IOException;
 
@@ -117,14 +116,9 @@ public class ValoriaClient {
             event.register(SPHERE);
             if (ClientConfig.IN_HAND_MODELS_32X.get()) {
                 for (Item item : Item2DRenderer.handModelItems) {
-                    ResourceLocation itemId = ForgeRegistries.ITEMS.getKey(item.getDefaultInstance().getItem());
-                    if (itemId == null) {
-                        System.err.println("[onModelRegistryEvent] Failed to get item ID for item: " + item.getName(item.getDefaultInstance()));
-                        continue;
+                    for (String id : Item2DRenderer.modIds) {
+                        event.register(new ModelResourceLocation(new ResourceLocation(id + item + "_in_hand"), "inventory"));
                     }
-
-                    String itemIdString = itemId.toString();
-                    event.register(new ModelResourceLocation(new ResourceLocation(itemIdString + "_in_hand"), "inventory"));
                 }
             }
         }
