@@ -43,7 +43,6 @@ import org.joml.Vector3d;
 
 import javax.annotation.Nullable;
 import java.time.LocalDate;
-import java.time.temporal.ChronoField;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -113,8 +112,8 @@ public class NecromancerEntity extends AbstractNecromancer {
         this.setCanPickUpLoot(randomsource.nextFloat() < 0.55F * pDifficulty.getSpecialMultiplier());
         if (this.getItemBySlot(EquipmentSlot.HEAD).isEmpty()) {
             LocalDate localdate = LocalDate.now();
-            int i = localdate.get(ChronoField.DAY_OF_MONTH);
-            int j = localdate.get(ChronoField.MONTH_OF_YEAR);
+            int i = localdate.getDayOfMonth();
+            int j = localdate.getMonth().getValue();
             if (j == 10 && i == 31 && randomsource.nextFloat() < 0.25F) {
                 this.setItemSlot(EquipmentSlot.HEAD, new ItemStack(randomsource.nextFloat() < 0.1F ? Blocks.JACK_O_LANTERN : Blocks.CARVED_PUMPKIN));
                 this.armorDropChances[EquipmentSlot.HEAD.getIndex()] = 0.0F;
@@ -178,9 +177,11 @@ public class NecromancerEntity extends AbstractNecromancer {
         protected int getCastingTime() {
             return 40;
         }
-
+        protected int getCastWarmupTime() {
+            return 42;
+        }
         protected int getCastingInterval() {
-            return 100;
+            return 125;
         }
 
         protected void performSpellCasting() {
@@ -365,7 +366,7 @@ public class NecromancerEntity extends AbstractNecromancer {
             if (!super.canUse()) {
                 return false;
             } else {
-                List<Monster> targets = NecromancerEntity.this.level().getNearbyEntities(Monster.class, this.targeting, NecromancerEntity.this, NecromancerEntity.this.getBoundingBox().inflate(16.0D));
+                List<Monster> targets = NecromancerEntity.this.level().getNearbyEntities(Monster.class, this.targeting, NecromancerEntity.this, NecromancerEntity.this.getBoundingBox().inflate(4.0D));
                 return !targets.isEmpty();
             }
         }

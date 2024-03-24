@@ -137,6 +137,7 @@ public class Valoria {
             Item2DRenderer.handModelItems.add(ModItems.GOLDEN_SCYTHE.get());
             Item2DRenderer.handModelItems.add(ModItems.IRON_SCYTHE.get());
             Item2DRenderer.handModelItems.add(ModItems.NETHERITE_SPEAR.get());
+            Item2DRenderer.handModelItems.add(ModItems.BLOODHOUND.get());
             Item2DRenderer.handModelItems.add(ModItems.DIAMOND_SPEAR.get());
             Item2DRenderer.handModelItems.add(ModItems.GOLDEN_SPEAR.get());
             Item2DRenderer.handModelItems.add(ModItems.WOODEN_SPEAR.get());

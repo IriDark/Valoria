@@ -1,7 +1,7 @@
 package com.idark.valoria.registries.world.entity.living;
 
-import com.idark.valoria.util.ColorUtils;
-import net.minecraft.core.particles.DustColorTransitionOptions;
+import com.idark.valoria.client.particle.ModParticles;
+import com.idark.valoria.client.particle.types.Particles;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -15,11 +15,10 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.Vec3;
-import org.joml.Vector3f;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
+import java.util.Random;
 import java.util.function.IntFunction;
 
 public abstract class AbstractNecromancer extends Monster {
@@ -76,19 +75,25 @@ public abstract class AbstractNecromancer extends Monster {
         super.tick();
         if (this.level().isClientSide && this.isCastingSpell()) {
             AbstractNecromancer.necromancerSpell spell = this.getCurrentSpell();
-            int d0 = spell.spellColor[0];
-            int d1 = spell.spellColor[1];
-            int d2 = spell.spellColor[2];
-            Vector3f PARTICLE_COLOR = Vec3.fromRGB24(ColorUtils.packColor(155, d0, d1, d2)).toVector3f();
-            Vector3f TO_PARTICLE_COLOR = Vec3.fromRGB24(ColorUtils.packColor(0, d0/2, d1/2, d2/2)).toVector3f();
+            float r = spell.spellColor[0] / 255.0f;
+            float g = spell.spellColor[1] / 255.0f;
+            float b = spell.spellColor[2] / 255.0f;
 
             float f = this.yBodyRot * ((float) Math.PI / 180F) + Mth.cos((float) this.tickCount * 0.6662F) * 0.35F;
             float f1 = Mth.cos(f);
             float f2 = Mth.sin(f);
-            this.level().addParticle(new DustColorTransitionOptions(PARTICLE_COLOR, TO_PARTICLE_COLOR, 1.0F), this.getX() + (double) f1 * 0.6D, this.getY() + 1.8D, this.getZ() + (double) f2 * 0.6D, 0, 0.15, 0);
-            this.level().addParticle(new DustColorTransitionOptions(PARTICLE_COLOR, TO_PARTICLE_COLOR, 1.0F), this.getX() - (double) f1 * 0.6D, this.getY() + 1.8D, this.getZ() - (double) f2 * 0.6D, 0, 0.15, 0);
+            for (int i = 0; i < 0.2f; i++) {
+                Particles.create(ModParticles.SPHERE)
+                        .addVelocity(((new Random().nextDouble() - 0.5D) / 30), (new Random().nextDouble() + 0.5D) / 12, (new Random().nextDouble() - 0.5D) / 30)
+                        .setAlpha(0.65f, 0)
+                        .setScale(0.2f, 0)
+                        .setColor(r, g, b, 0, 0, 0)
+                        .setLifetime(16)
+                        .setSpin((0.5f * (float) ((new Random().nextDouble() - 0.5D) * 2)))
+                        .spawn(this.level(), this.getX() + (double) f1 * 0.6D, this.getY() + 1.8D, this.getZ() - 0.1 + (double) f2 * 0.6D)
+                        .spawn(this.level(), this.getX() - (double) f1 * 0.6D, this.getY() + 1.8D, this.getZ() + 0.1 - (double) f2 * 0.6D);
+            }
         }
-
     }
 
     protected int getSpellCastingTime() {
@@ -101,9 +106,9 @@ public abstract class AbstractNecromancer extends Monster {
 
     public enum necromancerSpell {
         NONE(0, 0, 0, 0),
-        SUMMON_MOBS(1, 255, 255, 255),
-        FANGS(2, 255, 255, 255),
-        WOLOLO(3, 65, 57, 74),
+        SUMMON_MOBS(1, 30, 35, 75),
+        FANGS(2, 160, 164, 164),
+        WOLOLO(3, 46, 51, 60),
         HEAL(4, 164, 202, 65);
 
         private static final IntFunction<AbstractNecromancer.necromancerSpell> BY_ID = ByIdMap.continuous((p_263091_) -> p_263091_.id, values(), ByIdMap.OutOfBoundsStrategy.ZERO);

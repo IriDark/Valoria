@@ -2,13 +2,10 @@ package com.idark.valoria.client.gui.screen.book;
 
 import com.idark.valoria.Valoria;
 import com.idark.valoria.client.gui.screen.book.unlockable.UnlockableBookmark;
-import com.idark.valoria.util.ColorUtils;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
@@ -18,9 +15,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.lwjgl.glfw.GLFW;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class LexiconGui extends Screen {
     public static final ResourceLocation BACKGROUND = new ResourceLocation(Valoria.MOD_ID, "textures/gui/book/lexicon.png");
@@ -138,7 +132,6 @@ public class LexiconGui extends Screen {
             }
 
             // END
-
             if (mouseX >= guiLeft + 267 + 2 && mouseX < guiLeft + 267 + 35 && mouseY >= guiTop + 10 + 4 && mouseY < guiTop + 10 + 25) {
                 mc.player.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundSource.NEUTRAL, 1.0f, 1.0f);
                 changeChapter(LexiconChapters.MAIN_PAGE);
@@ -182,37 +175,6 @@ public class LexiconGui extends Screen {
     public void changeChapter(Chapter next) {
         currentChapter = next;
         currentPage = 0;
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    public static void drawText(GuiGraphics gui, String text, int x, int y, boolean Centered) {
-        Font font = Minecraft.getInstance().font;
-        if (!Centered) {
-            gui.drawString(font, I18n.get(text), x, y, ColorUtils.packColor(255, 220, 200, 180), true);
-        } else {
-            gui.drawCenteredString(font, I18n.get(text), x, y, ColorUtils.packColor(255, 220, 200, 180));
-        }
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    public static void drawWrappingText(GuiGraphics gui, String text, int x, int y, int wrap, boolean Centered) {
-        Font font = Minecraft.getInstance().font;
-        List<String> lines = new ArrayList<>();
-        String[] words = I18n.get(text).split(" ");
-        String line = "";
-        for (String s : words) {
-            if (s.equals("\n")) {
-                lines.add(line);
-                line = "";
-            } else if (font.width(line) + font.width(s) > wrap) {
-                lines.add(line);
-                line = s + " ";
-            } else line += s + " ";
-        }
-        if (!line.isEmpty()) lines.add(line);
-        for (int i = 0; i < lines.size(); i++) {
-            drawText(gui, lines.get(i), x, y + i * (font.lineHeight + 1), Centered);
-        }
     }
 
     @OnlyIn(Dist.CLIENT)

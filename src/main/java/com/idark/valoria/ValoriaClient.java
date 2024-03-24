@@ -4,7 +4,6 @@ import com.idark.valoria.client.color.ModBlockColors;
 import com.idark.valoria.client.particle.ModParticles;
 import com.idark.valoria.client.particle.types.ChompParticle;
 import com.idark.valoria.client.particle.types.ShadewoodLeafParticleType;
-import com.idark.valoria.client.particle.types.SlashParticleType;
 import com.idark.valoria.client.particle.types.SparkleParticleType;
 import com.idark.valoria.client.render.curio.model.BeltModel;
 import com.idark.valoria.client.render.curio.model.HandsModel;
@@ -145,8 +144,7 @@ public class ValoriaClient {
         @OnlyIn(Dist.CLIENT)
         @SubscribeEvent
         public static void registerFactories(RegisterParticleProvidersEvent event) {
-            Minecraft.getInstance().particleEngine.register(ModParticles.SPARKLE_PARTICLE.get(), SparkleParticleType.Factory::new);
-            Minecraft.getInstance().particleEngine.register(ModParticles.PHANTOM_SLASH.get(), SlashParticleType.Factory::new);
+            Minecraft.getInstance().particleEngine.register(ModParticles.SPHERE.get(), SparkleParticleType.Factory::new);
             Minecraft.getInstance().particleEngine.register(ModParticles.TRANSFORM_PARTICLE.get(), SparkleParticleType.Factory::new);
             Minecraft.getInstance().particleEngine.register(ModParticles.GEODE_PARTICLE.get(), SparkleParticleType.Factory::new);
             Minecraft.getInstance().particleEngine.register(ModParticles.SHADEWOOD_LEAF_PARTICLE.get(), ShadewoodLeafParticleType.Factory::new);

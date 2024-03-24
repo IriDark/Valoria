@@ -430,8 +430,6 @@ public class ModItems {
             () -> new PickaxeItem(ModItemTier.HOLIDAY, -1, -3f, new Item.Properties()));
     public static final RegistryObject<Item> HOLIDAY_AXE = ITEMS.register("holiday_axe",
             () -> new AxeItem(ModItemTier.HOLIDAY, 1, -3f, new Item.Properties()));
-    public static final RegistryObject<Item> XMAS_SWORD = ITEMS.register("xmas_sword",
-            () -> new SwordItem(ModItemTier.HOLIDAY, 3, -2.3f, new Item.Properties()));
     public static final RegistryObject<Item> COBALT_SWORD = ITEMS.register("cobalt_sword",
             () -> new SwordItem(ModItemTier.COBALT, 7, -2.2f, new Item.Properties()));
     public static final RegistryObject<Item> COBALT_PICKAXE = ITEMS.register("cobalt_pickaxe",

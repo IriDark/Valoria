@@ -229,7 +229,6 @@ public class GoblinEntity extends PathfinderMob implements NeutralMob, Enemy {
         if (!this.level().isClientSide) {
             this.reassessWeaponGoal();
         }
-
     }
 
     public int getRemainingPersistentAngerTime() {
