@@ -1,5 +1,8 @@
 package com.idark.valoria.registries.world.entity.living;
 
+import com.idark.valoria.network.NecromancerSummonParticlePacket;
+import com.idark.valoria.network.NecromancerTransformParticlePacket;
+import com.idark.valoria.network.PacketHandler;
 import com.idark.valoria.registries.world.entity.ModEntityTypes;
 import com.idark.valoria.registries.world.entity.projectile.NecromancerFangs;
 import com.idark.valoria.util.ModUtils;
@@ -39,12 +42,14 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.NotNull;
 import org.joml.Vector3d;
 
 import javax.annotation.Nullable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class NecromancerEntity extends AbstractNecromancer {
 
@@ -68,15 +73,15 @@ public class NecromancerEntity extends AbstractNecromancer {
         this.goalSelector.addGoal(11, new NecromancerEntity.WololoHorseSpellGoal());
 
         this.goalSelector.addGoal(1, new RestrictSunGoal(this));
-        this.goalSelector.addGoal(1, new AvoidEntityGoal(this, Player.class, 14.0F, 1.15, 1.4));
-        this.goalSelector.addGoal(1, new AvoidEntityGoal(this, Wolf.class, 6.0F, 1.0, 1.2));
+        this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, Player.class, 14.0F, 1.15, 1.4));
         this.goalSelector.addGoal(2, new WaterAvoidingRandomStrollGoal(this, 1.0));
         this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal(this, Player.class, true));
-        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal(this, IronGolem.class, true));
-        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal(this, Turtle.class, 10, true, false, Turtle.BABY_ON_LAND_SELECTOR));
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Wolf.class, true));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolem.class, true));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Turtle.class, 10, true, false, Turtle.BABY_ON_LAND_SELECTOR));
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -90,7 +95,7 @@ public class NecromancerEntity extends AbstractNecromancer {
 
     }
 
-    public MobType getMobType() {
+    public @NotNull MobType getMobType() {
         return MobType.UNDEAD;
     }
 
@@ -175,13 +180,10 @@ public class NecromancerEntity extends AbstractNecromancer {
 
     class AttackSpellGoal extends AbstractNecromancer.SpellcasterUseSpellGoal {
         protected int getCastingTime() {
-            return 40;
-        }
-        protected int getCastWarmupTime() {
-            return 42;
+            return 45;
         }
         protected int getCastingInterval() {
-            return 125;
+            return 160;
         }
 
         protected void performSpellCasting() {
@@ -279,11 +281,11 @@ public class NecromancerEntity extends AbstractNecromancer {
         }
 
         protected int getCastWarmupTime() {
-            return 85;
+            return 25;
         }
 
         protected int getCastingTime() {
-            return 50;
+            return 65;
         }
 
         protected int getCastingInterval() {
@@ -292,29 +294,33 @@ public class NecromancerEntity extends AbstractNecromancer {
 
         private void spawnZombie(ServerLevel serverLevel, BlockPos blockpos) {
             Zombie zombie = EntityType.ZOMBIE.create(NecromancerEntity.this.level());
-            if (zombie != null) {
+            if (zombie != null && serverLevel.isEmptyBlock(blockpos) && serverLevel.isEmptyBlock(blockpos.above())) {
                 zombie.moveTo(blockpos, 0.0F, 0.0F);
                 zombie.finalizeSpawn(serverLevel, NecromancerEntity.this.level().getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, null, null);
                 zombie.setHealth(zombie.getMaxHealth() / 2);
                 zombie.setTarget(NecromancerEntity.this.getTarget());
                 serverLevel.addFreshEntityWithPassengers(zombie);
+            } else {
+                spawnUndead(serverLevel, blockpos.above());
             }
         }
 
         private void spawnSkeletons(ServerLevel serverLevel, BlockPos blockpos) {
             Skeleton skeleton = EntityType.SKELETON.create(NecromancerEntity.this.level());
-            if (skeleton != null) {
+            if (skeleton != null && serverLevel.isEmptyBlock(blockpos) && serverLevel.isEmptyBlock(blockpos.above())) {
                 skeleton.moveTo(blockpos, 0.0F, 0.0F);
                 skeleton.finalizeSpawn(serverLevel, NecromancerEntity.this.level().getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, null, null);
                 skeleton.setHealth(skeleton.getMaxHealth() / 2);
                 skeleton.setTarget(NecromancerEntity.this.getTarget());
                 serverLevel.addFreshEntityWithPassengers(skeleton);
+            } else {
+                spawnUndead(serverLevel, blockpos.above());
             }
         }
 
         private void spawnUndead(ServerLevel serverLevel, BlockPos blockpos) {
             UndeadEntity undead = ModEntityTypes.UNDEAD.get().create(NecromancerEntity.this.level());
-            if (undead != null) {
+            if (undead != null && serverLevel.isEmptyBlock(blockpos)) {
                 undead.moveTo(blockpos, 0.0F, 0.0F);
                 undead.finalizeSpawn(serverLevel, NecromancerEntity.this.level().getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, null, null);
                 undead.setOwner(NecromancerEntity.this);
@@ -347,6 +353,8 @@ public class NecromancerEntity extends AbstractNecromancer {
                         spawnUndead(serverlevel, undeadSpawnPos);
                     }
                 }
+
+                PacketHandler.sendToTracking(serverlevel, NecromancerEntity.this.getOnPos(), new NecromancerSummonParticlePacket((float) NecromancerEntity.this.getOnPos().getX(), (float) NecromancerEntity.this.getOnPos().getY() + 1.2f, (float) NecromancerEntity.this.getOnPos().getZ(), (float) ((new Random().nextDouble() - 0.5D) / 64), (float) 0, (float) ((new Random().nextDouble() - 0.5D) / 64), 30, 35, 75));
             }
         }
 
@@ -506,9 +514,18 @@ public class NecromancerEntity extends AbstractNecromancer {
                 if (mob != null) {
                     serverlevel.addFreshEntity(mob);
                     BlockPos pos = new BlockPos(target.getBlockX(), target.getBlockY(), target.getBlockZ());
-                    mob.setItemInHand(InteractionHand.MAIN_HAND, Items.BOW.getDefaultInstance());
-                    mob.moveTo(pos, 0.0F, 0.0F);
-                    mob.getLookControl().setLookAt(target.getLookAngle());
+                    for (int i = 0; i < 360; i += 10) {
+                        PacketHandler.sendToTracking(serverlevel, target.getOnPos(), new NecromancerTransformParticlePacket(target.getBlockX()+0.5f, target.getBlockY(), target.getBlockZ()+0.5f, target.getRotationVector().y + i, target.getBlockX()+0.5f, target.getBlockY() - 0.25F, target.getBlockZ()+0.5f, 46, 51, 60));
+                    }
+
+                    if (!target.getMainHandItem().isEmpty()) {
+                        mob.setItemInHand(InteractionHand.MAIN_HAND, Items.BOW.getDefaultInstance());
+                    } else if (!target.getOffhandItem().isEmpty()){
+                        mob.setItemInHand(InteractionHand.OFF_HAND, Items.BOW.getDefaultInstance());
+                    }
+
+                    mob.moveTo(pos, target.getYRot(), target.getXRot());
+                    mob.getLookControl().setLookAt(target.getLookControl().getWantedX(), target.getLookControl().getWantedY(), target.getLookControl().getWantedZ());
                     mob.setHealth(target.getHealth());
                     target.discard();
                 }
@@ -586,6 +603,7 @@ public class NecromancerEntity extends AbstractNecromancer {
                     BlockPos pos = new BlockPos(target.getBlockX(), target.getBlockY(), target.getBlockZ());
                     mob.setItemInHand(InteractionHand.MAIN_HAND, Items.BOW.getDefaultInstance());
                     mob.moveTo(pos, 0.0F, 0.0F);
+                    PacketHandler.sendToTracking(serverlevel, target.getOnPos(), new NecromancerSummonParticlePacket((float) target.getOnPos().getX(), target.getOnPos().getY() + 1.2f, target.getOnPos().getZ(), (float) ((new Random().nextDouble() - 0.5D) / 64), (float) 0, (float) ((new Random().nextDouble() - 0.5D) / 64), 30, 35, 75));
                     target.discard();
                 }
             }

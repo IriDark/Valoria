@@ -28,6 +28,8 @@ public final class PacketHandler {
         HANDLER.registerMessage(id++, UnlockableUpdatePacket.class, UnlockableUpdatePacket::encode, UnlockableUpdatePacket::decode, UnlockableUpdatePacket::handle);
         HANDLER.registerMessage(id++, CooldownSoundPacket.class, CooldownSoundPacket::encode, CooldownSoundPacket::decode, CooldownSoundPacket::handle);
         HANDLER.registerMessage(id++, PageToastPacket.class, PageToastPacket::encode, PageToastPacket::decode, PageToastPacket::handle);
+        HANDLER.registerMessage(id++, NecromancerSummonParticlePacket.class, NecromancerSummonParticlePacket::encode, NecromancerSummonParticlePacket::decode, NecromancerSummonParticlePacket::handle);
+        HANDLER.registerMessage(id++, NecromancerTransformParticlePacket.class, NecromancerTransformParticlePacket::encode, NecromancerTransformParticlePacket::decode, NecromancerTransformParticlePacket::handle);
     }
 
     private static final PacketDistributor<Pair<Level, BlockPos>> TRACKING_CHUNK_AND_NEAR = new PacketDistributor<>(

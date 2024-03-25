@@ -1,7 +1,6 @@
 package com.idark.valoria.client.render.model.entity;
 
 import com.idark.valoria.registries.world.entity.living.NecromancerEntity;
-import com.idark.valoria.registries.world.item.ModItems;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.AnimationUtils;
@@ -97,19 +96,6 @@ public class NecromancerModel<T extends Mob> extends HumanoidModel<T> {
             var10000 = this.leftArm;
             var10000.xRot -= $$7 * 1.2F - $$8 * 0.4F;
             AnimationUtils.bobArms(this.rightArm, this.leftArm, pAgeInTicks);
-        }
-
-        if (pEntity.isAggressive() && ($$6.isEmpty() || $$6.is(ModItems.STAFF.get()))) {
-            this.rightArm.z = 0.0F;
-            this.rightArm.x = -5.0F;
-            this.leftArm.z = 0.0F;
-            this.leftArm.x = 5.0F;
-            this.rightArm.xRot = Mth.cos(pAgeInTicks * 0.6662F) * 0.25F;
-            this.leftArm.xRot = Mth.cos(pAgeInTicks * 0.6662F) * 0.25F;
-            this.rightArm.zRot = 2.3561945F;
-            this.leftArm.zRot = -2.3561945F;
-            this.rightArm.yRot = 0.0F;
-            this.leftArm.yRot = 0.0F;
         }
 
         if (pEntity instanceof NecromancerEntity caster) {

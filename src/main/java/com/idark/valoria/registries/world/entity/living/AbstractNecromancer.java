@@ -2,6 +2,7 @@ package com.idark.valoria.registries.world.entity.living;
 
 import com.idark.valoria.client.particle.ModParticles;
 import com.idark.valoria.client.particle.types.Particles;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -15,6 +16,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.Level;
+import org.joml.Vector3d;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
@@ -79,19 +81,41 @@ public abstract class AbstractNecromancer extends Monster {
             float g = spell.spellColor[1] / 255.0f;
             float b = spell.spellColor[2] / 255.0f;
 
-            float f = this.yBodyRot * ((float) Math.PI / 180F) + Mth.cos((float) this.tickCount * 0.6662F) * 0.35F;
+            float f = this.yBodyRot * ((float) Math.PI / 180F) + Mth.cos(this.tickCount * 0.6662F) * 0.25F;
             float f1 = Mth.cos(f);
             float f2 = Mth.sin(f);
-            for (int i = 0; i < 0.2f; i++) {
+            for (int i = 0; i < 1f; i++) {
                 Particles.create(ModParticles.SPHERE)
-                        .addVelocity(((new Random().nextDouble() - 0.5D) / 30), (new Random().nextDouble() + 0.5D) / 12, (new Random().nextDouble() - 0.5D) / 30)
+                        .addVelocity(((new Random().nextDouble() - 0.5D) / 30), (new Random().nextDouble() + 0.5D) / 6, (new Random().nextDouble() - 0.5D) / 30)
                         .setAlpha(0.65f, 0)
                         .setScale(0.2f, 0)
                         .setColor(r, g, b, 0, 0, 0)
-                        .setLifetime(16)
+                        .setLifetime(8)
                         .setSpin((0.5f * (float) ((new Random().nextDouble() - 0.5D) * 2)))
-                        .spawn(this.level(), this.getX() + (double) f1 * 0.6D, this.getY() + 1.8D, this.getZ() - 0.1 + (double) f2 * 0.6D)
-                        .spawn(this.level(), this.getX() - (double) f1 * 0.6D, this.getY() + 1.8D, this.getZ() + 0.1 - (double) f2 * 0.6D);
+                        .spawn(this.level(), this.getX() + 0.2 + (double) f1 * 0.6D, this.getY() + 1.8D, this.getZ() + 0.2 + (double) f2 * 0.6D)
+                        .spawn(this.level(), this.getX() - 0.2 - (double) f1 * 0.6D, this.getY() + 1.8D, this.getZ() - 0.2 - (double) f2 * 0.6D);
+            }
+
+            if (spell.id == necromancerSpell.SUMMON_MOBS.id || spell.id == necromancerSpell.HEAL.id) {
+                BlockPos blockpos = AbstractNecromancer.this.blockPosition().offset(-2 + AbstractNecromancer.this.random.nextInt(5), 0, -2 + AbstractNecromancer.this.random.nextInt(5));
+                Vector3d direction = new Vector3d(AbstractNecromancer.this.getX() - blockpos.getX(), AbstractNecromancer.this.getY() + blockpos.getY(), AbstractNecromancer.this.getZ() - blockpos.getZ()).normalize();
+                double speed = 0.3;
+                double motionX = direction.x * speed;
+                double motionY = direction.y * speed;
+                double motionZ = direction.z * speed;
+                for (int i = 0; i < 0.2f; i++) {
+                    double startX = blockpos.getX() + 0.5;
+                    double startY = blockpos.getY() - 0.2;
+                    double startZ = blockpos.getZ() + 0.5;
+                    Particles.create(ModParticles.SPHERE)
+                            .addVelocity(motionX, motionY, motionZ)
+                            .setAlpha(0.65f, 0)
+                            .setScale(0.2f, 0)
+                            .setColor(r, g, b, 0, 0, 0)
+                            .setLifetime(8)
+                            .setSpin((0.5f * (float) ((new Random().nextDouble() - 0.5D) * 2)))
+                            .spawn(this.level(), startX, startY, startZ);
+                }
             }
         }
     }
