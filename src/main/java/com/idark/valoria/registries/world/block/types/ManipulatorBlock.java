@@ -2,9 +2,12 @@ package com.idark.valoria.registries.world.block.types;
 
 import com.idark.valoria.client.gui.menu.ManipulatorMenu;
 import com.idark.valoria.client.render.model.blockentity.TickableBlockEntity;
+import com.idark.valoria.network.ManipulatorParticlePacket;
+import com.idark.valoria.network.PacketHandler;
 import com.idark.valoria.registries.world.block.entity.ManipulatorBlockEntity;
 import com.idark.valoria.registries.world.item.ModItems;
 import com.idark.valoria.util.PacketUtils;
+import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
@@ -93,17 +96,25 @@ public class ManipulatorBlock extends Block implements EntityBlock {
         }
 
         ItemStack core = player.getItemInHand(hand);
-        Map<Supplier<Item>, Consumer<ManipulatorBlockEntity>> coreActions = new HashMap<>();
-        coreActions.put(ModItems.NATURE_CORE, block -> block.nature_core = 8);
-        coreActions.put(ModItems.AQUARIUS_CORE, block -> block.aquarius_core = 8);
-        coreActions.put(ModItems.INFERNAL_CORE, block -> block.infernal_core = 8);
-        coreActions.put(ModItems.VOID_CORE, block -> block.void_core = 8);
+        Map<Supplier<Item>, Pair<Consumer<ManipulatorBlockEntity>, int[]>> coreActions = new HashMap<>();
+        coreActions.put(ModItems.NATURE_CORE, Pair.of(block -> block.nature_core = 8, new int[]{46, 204, 113}));
+        coreActions.put(ModItems.AQUARIUS_CORE, Pair.of(block -> block.aquarius_core = 8, new int[]{17, 195, 214}));
+        coreActions.put(ModItems.INFERNAL_CORE, Pair.of(block -> block.infernal_core = 8, new int[]{231, 76, 60}));
+        coreActions.put(ModItems.VOID_CORE, Pair.of(block -> block.void_core = 8, new int[]{52, 73, 94}));
         boolean coreUpdated = false;
-        for (Map.Entry<Supplier<Item>, Consumer<ManipulatorBlockEntity>> entry : coreActions.entrySet()) {
+        for (Map.Entry<Supplier<Item>, Pair<Consumer<ManipulatorBlockEntity>, int[]>> entry : coreActions.entrySet()) {
             if (core.is(entry.getKey().get()) && coreBlock.getCore(entry.getKey().get()) != 8) {
-                entry.getValue().accept(coreBlock);
+                entry.getValue().getFirst().accept(coreBlock);
                 if (!player.getAbilities().instabuild) {
                     core.shrink(1);
+                }
+
+                for (int i = 0; i < 360; i += 10) {
+                    int[] color = entry.getValue().getSecond();
+                    int r = color[0];
+                    int g = color[1];
+                    int b = color[2];
+                    PacketHandler.sendToTracking(world, pos, new ManipulatorParticlePacket(pos.getX() + 0.5f, pos.getY(), pos.getZ() + 0.5f, player.getRotationVector().y + i, pos.getX() + 0.5f, pos.getY() - 0.25F, pos.getZ() + 0.5f, r, g, b));
                 }
 
                 coreUpdated = true;

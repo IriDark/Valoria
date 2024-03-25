@@ -10,7 +10,7 @@ import org.joml.Vector3d;
 
 import java.util.function.Supplier;
 
-public class NecromancerTransformParticlePacket {
+public class ManipulatorParticlePacket {
 
     private final float posX;
     private final float posY;
@@ -22,7 +22,7 @@ public class NecromancerTransformParticlePacket {
 
     private final float colorR, colorG, colorB;
 
-    public NecromancerTransformParticlePacket(float posX, float posY, float posZ, float yawRaw, float posToX, float posToY, float posToZ, float colorR, float colorG, float colorB) {
+    public ManipulatorParticlePacket(float posX, float posY, float posZ, float yawRaw, float posToX, float posToY, float posToZ, float colorR, float colorG, float colorB) {
         this.posX = posX;
         this.posY = posY;
         this.posZ = posZ;
@@ -37,18 +37,18 @@ public class NecromancerTransformParticlePacket {
         this.colorB = colorB;
     }
 
-    public static NecromancerTransformParticlePacket decode(FriendlyByteBuf buf) {
-        return new NecromancerTransformParticlePacket(buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat());
+    public static ManipulatorParticlePacket decode(FriendlyByteBuf buf) {
+        return new ManipulatorParticlePacket(buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat());
     }
 
-    public static void handle(NecromancerTransformParticlePacket msg, Supplier<NetworkEvent.Context> ctx) {
+    public static void handle(ManipulatorParticlePacket msg, Supplier<NetworkEvent.Context> ctx) {
         if (ctx.get().getDirection().getReceptionSide().isClient()) {
             ctx.get().enqueueWork(() -> {
                 Level world = Valoria.proxy.getWorld();
                 double pitch = ((90) * Math.PI) / 180;
                 double yaw = ((msg.yawRaw + 90) * Math.PI) / 180;
 
-                float pRadius = 1;
+                float pRadius = 0.25f;
                 double locYaw = 0;
                 double locPitch = 0;
                 double X = Math.sin(locPitch + pitch) * Math.cos(locYaw + yaw) * pRadius * 0.75F;
@@ -57,12 +57,11 @@ public class NecromancerTransformParticlePacket {
                 Vector3d d = new Vector3d(msg.posX - msg.posToX, msg.posY - msg.posToY, msg.posZ - msg.posToZ);
                 Particles.create(ModParticles.SPHERE)
                         .addVelocity(d.x, d.y, d.z)
-                        .setAlpha(0.65f, 0)
-                        .setScale(0.2f, 0)
+                        .setAlpha(0.52f, 0)
+                        .setScale(0.1f, 0)
                         .setColor(msg.colorR / 255, msg.colorG / 255, msg.colorB / 255, 0, 0, 0)
                         .setLifetime(6)
                         .spawn(world, msg.posX + X, msg.posY + Y + ((Math.random() - 0.5D) * 0.2F), msg.posZ + Z);
-
 
                 ctx.get().setPacketHandled(true);
             });

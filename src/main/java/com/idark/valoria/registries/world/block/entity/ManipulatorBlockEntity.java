@@ -2,6 +2,8 @@ package com.idark.valoria.registries.world.block.entity;
 
 import com.idark.valoria.client.gui.menu.ManipulatorMenu;
 import com.idark.valoria.client.render.model.blockentity.TickableBlockEntity;
+import com.idark.valoria.network.ManipulatorCraftParticlePacket;
+import com.idark.valoria.network.PacketHandler;
 import com.idark.valoria.registries.recipe.ManipulatorRecipe;
 import com.idark.valoria.registries.world.item.ModItems;
 import com.idark.valoria.util.PacketUtils;
@@ -120,6 +122,81 @@ public class ManipulatorBlockEntity extends BlockEntity implements MenuProvider,
                     startCraft = true;
                     setMaxProgress();
                     setChanged(level, getBlockPos(), getBlockState());
+                    for (int i = 0; i < 5; i++) {
+                        double xOffset, yOffset, zOffset;
+                        double motionX, motionY, motionZ;
+                        float R, G, B;
+                        switch (i) {
+                            case 0:
+                                xOffset = this.getBlockPos().getX() + 0.85f;
+                                yOffset = this.getBlockPos().getY() + 1.10f;
+                                zOffset = this.getBlockPos().getZ() + 0.85f;
+                                motionX = this.getBlockPos().getCenter().x + 0.5f;
+                                motionY = this.getBlockPos().getCenter().y + 0.5f;
+                                motionZ = this.getBlockPos().getCenter().z + 0.5f;
+                                R = 231;
+                                G = 76;
+                                B = 60;
+                                break;
+                            case 1:
+                                xOffset = this.getBlockPos().getX() + 0.15f;
+                                yOffset = this.getBlockPos().getY() + 1.10f;
+                                zOffset = this.getBlockPos().getZ() + 0.15f;
+                                motionX = this.getBlockPos().getCenter().x - 0.5f;
+                                motionY = this.getBlockPos().getCenter().y + 0.5f;
+                                motionZ = this.getBlockPos().getCenter().z - 0.5f;
+                                R = 46;
+                                G = 204;
+                                B = 113;
+                                break;
+                            case 2:
+                                xOffset = this.getBlockPos().getX() + 0.85f;
+                                yOffset = this.getBlockPos().getY() + 1.10f;
+                                zOffset = this.getBlockPos().getZ() + 0.15f;
+                                motionX = this.getBlockPos().getCenter().x + 0.5f;
+                                motionY = this.getBlockPos().getCenter().y + 0.5f;
+                                motionZ = this.getBlockPos().getCenter().z - 0.5f;
+                                R = 17;
+                                G = 195;
+                                B = 214;
+                                break;
+                            case 3:
+                                xOffset = this.getBlockPos().getX() + 0.15;
+                                yOffset = this.getBlockPos().getY() + 1.10f;
+                                zOffset = this.getBlockPos().getZ() + 0.85f;
+                                motionX = this.getBlockPos().getCenter().x - 0.5f;
+                                motionY = this.getBlockPos().getCenter().y + 0.5f;
+                                motionZ = this.getBlockPos().getCenter().z + 0.5f;
+                                R = 52;
+                                G = 73;
+                                B = 94;
+                                break;
+                            case 4:
+                                xOffset = this.getBlockPos().getX() + 0.5f;
+                                yOffset = this.getBlockPos().getY() + 1.30f;
+                                zOffset = this.getBlockPos().getZ() + 0.5f;
+                                motionX = this.getBlockPos().getX() + 0.5f;
+                                motionY = this.getBlockPos().getY() + 1.46f;
+                                motionZ = this.getBlockPos().getZ() + 0.5f;
+                                R = 255;
+                                G = 255;
+                                B = 255;
+                                break;
+                            default:
+                                xOffset = 0;
+                                yOffset = 0;
+                                zOffset = 0;
+                                motionX = this.getBlockPos().getCenter().x + 0.05f;
+                                motionY = this.getBlockPos().getCenter().y + 0.5f;
+                                motionZ = this.getBlockPos().getCenter().z + 0.05f;
+                                R = 0;
+                                G = 0;
+                                B = 0;
+                        }
+
+                        PacketHandler.sendToTracking(this.level, this.getBlockPos(), new ManipulatorCraftParticlePacket((float) xOffset, (float) yOffset, (float) zOffset, (float) motionX, (float) motionY, (float) motionZ, R, G, B));
+                    }
+
                     if (hasProgressFinished()) {
                         craftItem();
                         resetProgress();
@@ -198,13 +275,13 @@ public class ManipulatorBlockEntity extends BlockEntity implements MenuProvider,
     }
 
     public int getCore(Item coreItem) {
-        if (coreItem.equals(ModItems.NATURE_CORE.get())) {
+        if (coreItem.getDefaultInstance().is(ModItems.NATURE_CORE.get())) {
             return nature_core;
-        } else if (coreItem.equals(ModItems.AQUARIUS_CORE.get())) {
+        } else if (coreItem.getDefaultInstance().is(ModItems.AQUARIUS_CORE.get())) {
             return aquarius_core;
-        } else if (coreItem.equals(ModItems.INFERNAL_CORE.get())) {
+        } else if (coreItem.getDefaultInstance().is(ModItems.INFERNAL_CORE.get())) {
             return infernal_core;
-        } else if (coreItem.equals(ModItems.VOID_CORE.get())) {
+        } else if (coreItem.getDefaultInstance().is(ModItems.VOID_CORE.get())) {
             return void_core;
         } else {
             throw new IllegalArgumentException("Unknown core item: " + coreItem);
@@ -226,7 +303,7 @@ public class ManipulatorBlockEntity extends BlockEntity implements MenuProvider,
     }
 
     @Override
-    public void load(CompoundTag pTag) {
+    public void load(@NotNull CompoundTag pTag) {
         super.load(pTag);
         itemHandler.deserializeNBT(pTag.getCompound("inv"));
         itemOutputHandler.deserializeNBT(pTag.getCompound("output"));
@@ -262,7 +339,7 @@ public class ManipulatorBlockEntity extends BlockEntity implements MenuProvider,
     }
 
     @Override
-    public Component getDisplayName() {
+    public @NotNull Component getDisplayName() {
         return Component.translatable("menu.valoria.manipulator");
     }
 

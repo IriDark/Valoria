@@ -58,6 +58,7 @@
 - Added Necromancer
 - Added Undead
 - Added Description to scythes
+- Added Particles to Manipulator
 
 - Reworked keg a little
 - Reworked Keyblocks (Umbral Blocks)
