@@ -23,12 +23,11 @@ import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.Vanishable;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.registries.ForgeRegistries;
+import org.jetbrains.annotations.NotNull;
 import org.joml.Vector3d;
 
 import java.util.ArrayList;
@@ -46,7 +45,7 @@ public class MurasamaItem extends KatanaItem implements Vanishable {
     /**
      * Some sounds taken from the CalamityMod (Terraria) in a <a href="https://calamitymod.wiki.gg/wiki/Category:Sound_effects">Calamity Mod Wiki.gg</a>
      */
-    public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
+    public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level worldIn, Player playerIn, @NotNull InteractionHand handIn) {
         ItemStack itemstack = playerIn.getItemInHand(handIn);
         if (itemstack.getDamageValue() >= itemstack.getMaxDamage() - 1) {
             return InteractionResultHolder.fail(itemstack);
@@ -56,7 +55,7 @@ public class MurasamaItem extends KatanaItem implements Vanishable {
         }
     }
 
-    public void onUseTick(Level worldIn, LivingEntity livingEntityIn, ItemStack stack, int count) {
+    public void onUseTick(@NotNull Level worldIn, @NotNull LivingEntity livingEntityIn, @NotNull ItemStack stack, int count) {
         Player player = (Player) livingEntityIn;
         addCharge(stack, 1);
         for (int ii = 0; ii < 1 + Mth.nextInt(RandomSource.create(), 0, 2); ii += 1) {
@@ -68,7 +67,7 @@ public class MurasamaItem extends KatanaItem implements Vanishable {
         }
     }
 
-    public int getUseDuration(ItemStack stack) {
+    public int getUseDuration(@NotNull ItemStack stack) {
         return 78000;
     }
 
@@ -83,7 +82,7 @@ public class MurasamaItem extends KatanaItem implements Vanishable {
     /**
      * Some sounds taken from the CalamityMod (Terraria) in a <a href="https://calamitymod.wiki.gg/wiki/Category:Sound_effects">Calamity Mod Wiki.gg</a>
      */
-    public void releaseUsing(ItemStack stack, Level level, LivingEntity entityLiving, int timeLeft) {
+    public void releaseUsing(@NotNull ItemStack stack, @NotNull Level level, @NotNull LivingEntity entityLiving, int timeLeft) {
         Player player = (Player) entityLiving;
         player.awardStat(Stats.ITEM_USED.get(this));
         double pitch = ((player.getRotationVector().x + 90) * Math.PI) / 180;
@@ -138,7 +137,7 @@ public class MurasamaItem extends KatanaItem implements Vanishable {
             float ii = 1F;
 
             for (LivingEntity entity : hitEntities) {
-                entity.hurt(level.damageSources().playerAttack(player), (float) ((player.getAttribute(Attributes.ATTACK_DAMAGE).getValue() * (double) ii) + EnchantmentHelper.getSweepingDamageRatio(player) + EnchantmentHelper.getDamageBonus(stack, entity.getMobType())) * 1.35f);
+                entity.hurt(level.damageSources().playerAttack(player), (float) ((player.getAttributeValue(Attributes.ATTACK_DAMAGE) * (double) ii) + EnchantmentHelper.getSweepingDamageRatio(player) + EnchantmentHelper.getDamageBonus(stack, entity.getMobType())) * 1.35f);
                 entity.knockback(0.4F, player.getX() - entity.getX(), player.getZ() - entity.getZ());
                 if (EnchantmentHelper.getTagEnchantmentLevel(Enchantments.FIRE_ASPECT, stack) > 0) {
                     int i = EnchantmentHelper.getFireAspect(player);
@@ -181,7 +180,7 @@ public class MurasamaItem extends KatanaItem implements Vanishable {
             }
 
             for (LivingEntity entity : hitEntities) {
-                entity.hurt(level.damageSources().generic(), (float) (player.getAttribute(Attributes.ATTACK_DAMAGE).getValue() * ii) + EnchantmentHelper.getSweepingDamageRatio(player));
+                entity.hurt(level.damageSources().generic(), (float) (player.getAttributeValue(Attributes.ATTACK_DAMAGE) * ii) + EnchantmentHelper.getSweepingDamageRatio(player));
                 entity.knockback(0.4F, player.getX() - entity.getX(), player.getZ() - entity.getZ());
                 if (EnchantmentHelper.getEnchantmentLevel(Enchantments.FIRE_ASPECT, entity) > 0) {
                     int i = EnchantmentHelper.getFireAspect(player);
@@ -191,32 +190,6 @@ public class MurasamaItem extends KatanaItem implements Vanishable {
         }
 
         setCharge(stack, 0);
-    }
-
-    public static double distance(Vector3d pos1, Level worldIn, Player player) {
-        double pitch = ((player.getRotationVector().x + 90) * Math.PI) / 180;
-        double yaw = ((player.getRotationVector().y + 90) * Math.PI) / 180;
-        double locYaw = 0;
-        double locPitch = 0;
-        double locDistance = 5D;
-        Vec3 pos = new Vec3(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());
-        double X = Math.sin(locPitch + pitch) * Math.cos(locYaw + yaw) * locDistance;
-        double Y = Math.cos(locPitch + pitch) * locDistance;
-        double Z = Math.sin(locPitch + pitch) * Math.sin(locYaw + yaw) * locDistance;
-
-        Vec3 playerPos = player.getEyePosition();
-        Vec3 EndPos = (player.getViewVector(0.0f).scale(2.0d));
-        Vec3 vec3 = playerPos.add(EndPos);
-        HitResult hitresult = worldIn.clip(new ClipContext(playerPos, vec3, ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, null));
-        if (hitresult.getType() != HitResult.Type.MISS) {
-            vec3 = hitresult.getLocation();
-        }
-
-        X = hitresult.getLocation().x() - pos.x;
-        Y = hitresult.getLocation().y() - pos.y;
-        Z = hitresult.getLocation().z() - pos.z;
-
-        return Math.sqrt((X - pos1.x) * (X - pos1.x) + (Y - pos1.y) * (Y - pos1.y) + (Z - pos1.z) * (Z - pos1.z));
     }
 
     public static int getCharge(ItemStack stack) {

@@ -1,9 +1,12 @@
 package com.idark.valoria.registries.world.block.types;
 
 import com.idark.valoria.Valoria;
+import com.idark.valoria.network.PacketHandler;
+import com.idark.valoria.network.packets.NecromancerSummonParticlePacket;
 import com.idark.valoria.registries.world.entity.ModEntityTypes;
 import com.idark.valoria.registries.world.entity.living.DraugrEntity;
 import com.idark.valoria.util.LootUtil;
+import com.idark.valoria.util.math.RandomUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -21,6 +24,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.Skeleton;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -37,7 +41,7 @@ import net.minecraft.world.level.block.state.properties.BedPart;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
-import net.minecraft.world.level.pathfinder.PathComputationType;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -45,7 +49,8 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
 import java.time.LocalDate;
-import java.time.temporal.ChronoField;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class SarcoBlock extends HorizontalDirectionalBlock {
@@ -53,6 +58,8 @@ public class SarcoBlock extends HorizontalDirectionalBlock {
     public static final EnumProperty<BedPart> PART = BlockStateProperties.BED_PART;
     private static final BooleanProperty OPEN = BooleanProperty.create("open");
     private static final BooleanProperty LOOTED = BooleanProperty.create("looted");
+    public static List<Item> spawnableWith = new ArrayList<>();
+    public static List<Item> halloweenSpawnableWith = new ArrayList<>();
 
     private static final VoxelShape shape = Block.box(0, 0, 0, 16, 12, 16);
     Random rand = new Random();
@@ -69,18 +76,10 @@ public class SarcoBlock extends HorizontalDirectionalBlock {
 
     private static boolean isHalloween() {
         LocalDate localdate = LocalDate.now();
-        int i = localdate.get(ChronoField.DAY_OF_MONTH);
-        int j = localdate.get(ChronoField.MONTH_OF_YEAR);
+        int i = localdate.getDayOfMonth();
+        int j = localdate.getMonth().getValue();
         return j == 10 && i >= 20 || j == 11 && i <= 3;
     }
-
-    ItemStack[] stacks = {
-            new ItemStack(Items.BOW), new ItemStack(Items.WOODEN_AXE), new ItemStack(Items.STONE_SWORD), new ItemStack(Items.IRON_SWORD), new ItemStack(Items.GOLDEN_AXE), new ItemStack(Items.IRON_PICKAXE)
-    };
-
-    ItemStack[] halloween = {
-            new ItemStack(Items.PUMPKIN), new ItemStack(Items.MELON), new ItemStack(Items.JACK_O_LANTERN), new ItemStack(Items.CARVED_PUMPKIN)
-    };
 
     ItemStack[] armor_head = {
             new ItemStack(Items.LEATHER_HELMET), new ItemStack(Items.CHAINMAIL_HELMET), new ItemStack(Items.GOLDEN_HELMET), new ItemStack(Items.AIR)
@@ -98,6 +97,52 @@ public class SarcoBlock extends HorizontalDirectionalBlock {
             new ItemStack(Items.LEATHER_BOOTS), new ItemStack(Items.CHAINMAIL_BOOTS), new ItemStack(Items.GOLDEN_BOOTS), new ItemStack(Items.AIR)
     };
 
+    private void spawnSkeletons(Level pLevel, BlockPos pPos, InteractionHand hand) {
+        Skeleton skeleton = EntityType.SKELETON.create(pLevel);
+        double d0 = (double)pPos.getX() + (rand.nextDouble() - rand.nextDouble()) * (double)4 + 0.5;
+        double d1 = pPos.getY() + rand.nextInt(2);
+        double d2 = (double)pPos.getZ() + (rand.nextDouble() - rand.nextDouble()) * (double)4 + 0.5;
+        if (skeleton != null) {
+            if (pLevel.noCollision(skeleton, new AABB(new BlockPos((int) d0, (int) d1, (int) d2)))) {
+                skeleton.moveTo(d0, d1, d2, 0.0F, 0.0F);
+                skeleton.setItemInHand(hand, spawnableWith.get(rand.nextInt(spawnableWith.size())).getDefaultInstance());
+                if (isHalloween()) {
+                    skeleton.setItemSlot(EquipmentSlot.HEAD, halloweenSpawnableWith.get(rand.nextInt(spawnableWith.size())).getDefaultInstance());
+                } else {
+                    if (rand.nextFloat() <= 0.4) {
+                        skeleton.setItemSlot(EquipmentSlot.HEAD, armor_head[rand.nextInt(armor_head.length)]);
+                    }
+                }
+
+                if (rand.nextFloat() <= 0.4) {
+                    skeleton.setItemSlot(EquipmentSlot.CHEST, armor_chest[rand.nextInt(armor_chest.length)]);
+                    skeleton.setItemSlot(EquipmentSlot.LEGS, armor_legs[rand.nextInt(armor_legs.length)]);
+                    skeleton.setItemSlot(EquipmentSlot.FEET, armor_boots[rand.nextInt(armor_boots.length)]);
+                }
+
+                pLevel.addFreshEntity(skeleton);
+            }
+        }
+    }
+
+    private void spawnDraugr(Level pLevel, BlockPos pPos, InteractionHand hand) {
+        DraugrEntity entity = ModEntityTypes.DRAUGR.get().create(pLevel);
+        double d0 = (double)pPos.getX() + (rand.nextDouble() - rand.nextDouble()) * (double)4 + 0.5;
+        double d1 = pPos.getY() + rand.nextInt(2);
+        double d2 = (double)pPos.getZ() + (rand.nextDouble() - rand.nextDouble()) * (double)4 + 0.5;
+        if (entity != null) {
+            if (pLevel.noCollision(entity, new AABB(new BlockPos((int) d0, (int) d1, (int) d2)))) {
+                entity.moveTo(d0, d1, d2, 0.0F, 0.0F);
+                entity.setItemInHand(hand, spawnableWith.get(rand.nextInt(spawnableWith.size())).getDefaultInstance());
+                if (isHalloween()) {
+                    entity.setItemSlot(EquipmentSlot.HEAD, halloweenSpawnableWith.get(rand.nextInt(spawnableWith.size())).getDefaultInstance());
+                }
+
+                pLevel.addFreshEntity(entity);
+            }
+        }
+    }
+
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         BlockPos oppositePos = pPos.relative(pState.getValue(FACING));
         if (pState.getValue(PART) == BedPart.HEAD) {
@@ -106,10 +151,21 @@ public class SarcoBlock extends HorizontalDirectionalBlock {
 
         if (!pState.getValue(OPEN)) {
             pLevel.setBlockAndUpdate(pPos, pState.setValue(OPEN, true).setValue(LOOTED, false));
-
             BlockState oppositeState = pLevel.getBlockState(oppositePos);
             if (oppositeState.getBlock() == this) {
                 pLevel.setBlockAndUpdate(oppositePos, oppositeState.setValue(OPEN, true).setValue(LOOTED, false));
+            }
+
+            if (!pLevel.isClientSide && pLevel instanceof ServerLevel serv) {
+                double posX = (pPos.getCenter().x + oppositePos.getCenter().x) / 2.0;
+                double posY = (pPos.getCenter().y + oppositePos.getCenter().y) / 2.0;
+                double posZ = (pPos.getCenter().z + oppositePos.getCenter().z) / 2.0;
+
+                double offsetX = (new Random().nextDouble() - 0.5) / 16;
+                double offsetY = 0;
+                double offsetZ = (new Random().nextDouble() - 0.5) / 16;
+
+                PacketHandler.sendToTracking(serv, pPos, new NecromancerSummonParticlePacket((float) posX, (float) posY, (float) posZ, (float) offsetX, (float) offsetY, (float) offsetZ, 30, 35, 75));
             }
 
             for (int i = 0; i < 10; i++) {
@@ -121,47 +177,19 @@ public class SarcoBlock extends HorizontalDirectionalBlock {
             for (int i = 0; i < Mth.nextFloat(RandomSource.create(), 1, 4); i++) {
                 boolean randomHand = Mth.nextFloat(RandomSource.create(), 0, 1) < 0.5;
                 InteractionHand hand = randomHand ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND;
-                boolean RandomMob = RandomSource.create().nextFloat() < 0.7F;
-
-                if (RandomMob) {
-                    Skeleton skeleton = EntityType.SKELETON.create(pLevel);
-                    skeleton.moveTo((double) pPos.getX() + rand.nextDouble(), pPos.getY() + 0.4f, (double) pPos.getZ() + rand.nextDouble(), 0.0F, 0.0F);
-                    skeleton.setItemInHand(hand, stacks[rand.nextInt(stacks.length)]);
-                    if (isHalloween()) {
-                        skeleton.setItemSlot(EquipmentSlot.HEAD, halloween[rand.nextInt(halloween.length)]);
-                    } else {
-                        if (rand.nextFloat() <= 0.4) {
-                            skeleton.setItemSlot(EquipmentSlot.HEAD, armor_head[rand.nextInt(armor_head.length)]);
-                        }
-                    }
-
-                    if (rand.nextFloat() <= 0.4) {
-                        skeleton.setItemSlot(EquipmentSlot.CHEST, armor_chest[rand.nextInt(armor_chest.length)]);
-                        skeleton.setItemSlot(EquipmentSlot.LEGS, armor_legs[rand.nextInt(armor_legs.length)]);
-                        skeleton.setItemSlot(EquipmentSlot.FEET, armor_boots[rand.nextInt(armor_boots.length)]);
-                    }
-
-                    pLevel.addFreshEntity(skeleton);
+                if (RandomUtil.fiftyFifty()) {
+                    spawnSkeletons(pLevel, pPos, hand);
                 } else {
-                    DraugrEntity entity = ModEntityTypes.DRAUGR.get().create(pLevel);
-                    entity.moveTo((double) pPos.getX() + rand.nextDouble(), pPos.getY() + 0.4f, (double) pPos.getZ() + rand.nextDouble(), 0.0F, 0.0F);
-                    entity.setItemInHand(hand, stacks[rand.nextInt(stacks.length)]);
-                    if (isHalloween()) {
-                        entity.setItemSlot(EquipmentSlot.HEAD, halloween[rand.nextInt(halloween.length)]);
-                    }
-
-                    pLevel.addFreshEntity(entity);
+                    spawnDraugr(pLevel, pPos, hand);
                 }
             }
         }
 
         if (pState.getValue(OPEN) && !pState.getValue(LOOTED)) {
-
             if (pPlayer instanceof ServerPlayer serverPlayer) {
                 Vec3 block = new Vec3(pPos.getX() - 0.5f, pPos.getY(), pPos.getZ() - 0.5f);
                 LootUtil.SpawnLoot(pLevel, pPos.above(), LootUtil.createLoot(new ResourceLocation(Valoria.MOD_ID, "items/sarcophagus"), LootUtil.getGiftParameters((ServerLevel) pLevel, block, serverPlayer)));
                 pLevel.setBlockAndUpdate(pPos, pState.setValue(OPEN, true).setValue(LOOTED, true));
-
                 BlockState oppositeState = pLevel.getBlockState(oppositePos);
                 if (oppositeState.getBlock() == this) {
                     pLevel.setBlockAndUpdate(oppositePos, oppositeState.setValue(OPEN, true).setValue(LOOTED, true));
@@ -239,9 +267,5 @@ public class SarcoBlock extends HorizontalDirectionalBlock {
     public long getSeed(BlockState pState, BlockPos pPos) {
         BlockPos $$2 = pPos.relative(pState.getValue(FACING), pState.getValue(PART) == BedPart.HEAD ? 0 : 1);
         return Mth.getSeed($$2.getX(), pPos.getY(), $$2.getZ());
-    }
-
-    public boolean isPathfindable(BlockState pState, BlockGetter pLevel, BlockPos pPos, PathComputationType pType) {
-        return false;
     }
 }

@@ -28,6 +28,7 @@ import com.idark.valoria.registries.sounds.ModSoundRegistry;
 import com.idark.valoria.registries.world.block.ModBlocks;
 import com.idark.valoria.registries.world.block.entity.ModBlockEntities;
 import com.idark.valoria.registries.world.block.types.ModWoodTypes;
+import com.idark.valoria.registries.world.block.types.SarcoBlock;
 import com.idark.valoria.registries.world.effect.ModEffects;
 import com.idark.valoria.registries.world.effect.potion.ModPotions;
 import com.idark.valoria.registries.world.entity.ModEntityTypes;
@@ -225,6 +226,15 @@ public class Valoria {
             GoblinEntity.goblinCanSpawnWith.add(ModItems.STONE_RAPIER.get());
             GoblinEntity.goblinCanSpawnWith.add(ModItems.IRON_RAPIER.get());
             GoblinEntity.goblinCanSpawnWith.add(ModItems.CLUB.get());
+            SarcoBlock.spawnableWith.add(Items.BOW);
+            SarcoBlock.spawnableWith.add(Items.WOODEN_AXE);
+            SarcoBlock.spawnableWith.add(Items.STONE_SWORD);
+            SarcoBlock.spawnableWith.add(Items.IRON_SWORD);
+            SarcoBlock.spawnableWith.add(Items.GOLDEN_AXE);
+            SarcoBlock.spawnableWith.add(Items.IRON_PICKAXE);
+            SarcoBlock.halloweenSpawnableWith.add(Items.PUMPKIN);
+            SarcoBlock.halloweenSpawnableWith.add(Items.JACK_O_LANTERN);
+            SarcoBlock.halloweenSpawnableWith.add(Items.CARVED_PUMPKIN);
 
             AxeItem.STRIPPABLES = new ImmutableMap.Builder<Block, Block>().putAll(AxeItem.STRIPPABLES)
                     .put(ModBlocks.SHADELOG.get(), ModBlocks.STRIPPED_SHADELOG.get())

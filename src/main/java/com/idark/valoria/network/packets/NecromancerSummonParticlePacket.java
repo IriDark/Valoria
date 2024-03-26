@@ -42,11 +42,11 @@ public class NecromancerSummonParticlePacket {
         if (ctx.get().getDirection().getReceptionSide().isClient()) {
             ctx.get().enqueueWork(() -> {
                 Level world = Valoria.proxy.getWorld();
-                for (int i = 0; i < 46; i++) {
+                for (int i = 0; i < 26; i++) {
                     Particles.create(ModParticles.SPHERE)
                             .addVelocity(msg.velX + ((random.nextDouble() - 0.5D) / (2 * random.nextDouble()) / 5), msg.velY + ((random.nextDouble() - 0.5D) / (20 - (5 * random.nextDouble()))), msg.velZ + ((random.nextDouble() - 0.5D) / (2 * random.nextDouble()) / 5))
                             .setAlpha(0.12f, 0)
-                            .setScale(0.32f, 2)
+                            .setScale(0.36f, 2)
                             .setColor(msg.colorR, msg.colorG, msg.colorB)
                             .setLifetime(125 + random.nextInt(100))
                             .setSpin((0.5f * (float) ((random.nextDouble() - 0.5D) / 2)))
