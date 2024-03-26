@@ -147,7 +147,7 @@ public class PoisonedKunaiEntity extends AbstractKunai {
         this.returnToPlayer = compound.getBoolean("DealtDamage");
         this.setPierceLevel(compound.getByte("PierceLevel"));
         this.entityData.set(LOYALTY_LEVEL, (byte) EnchantmentHelper.getLoyalty(this.thrownStack));
-        this.entityData.set(PIERCE_LEVEL, (byte) EnchantmentHelper.getItemEnchantmentLevel(Enchantments.PIERCING, this.thrownStack));
+        this.entityData.set(PIERCE_LEVEL, (byte) EnchantmentHelper.getTagEnchantmentLevel(Enchantments.PIERCING, this.thrownStack));
     }
 
     public void addAdditionalSaveData(CompoundTag compound) {

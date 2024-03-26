@@ -1,8 +1,8 @@
 package com.idark.valoria.registries.world.entity.living;
 
-import com.idark.valoria.network.NecromancerSummonParticlePacket;
-import com.idark.valoria.network.NecromancerTransformParticlePacket;
 import com.idark.valoria.network.PacketHandler;
+import com.idark.valoria.network.packets.NecromancerSummonParticlePacket;
+import com.idark.valoria.network.packets.NecromancerTransformParticlePacket;
 import com.idark.valoria.registries.world.entity.ModEntityTypes;
 import com.idark.valoria.registries.world.entity.projectile.NecromancerFangs;
 import com.idark.valoria.util.ModUtils;

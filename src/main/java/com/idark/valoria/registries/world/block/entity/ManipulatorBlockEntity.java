@@ -2,8 +2,8 @@ package com.idark.valoria.registries.world.block.entity;
 
 import com.idark.valoria.client.gui.menu.ManipulatorMenu;
 import com.idark.valoria.client.render.model.blockentity.TickableBlockEntity;
-import com.idark.valoria.network.ManipulatorCraftParticlePacket;
 import com.idark.valoria.network.PacketHandler;
+import com.idark.valoria.network.packets.ManipulatorCraftParticlePacket;
 import com.idark.valoria.registries.recipe.ManipulatorRecipe;
 import com.idark.valoria.registries.world.item.ModItems;
 import com.idark.valoria.util.PacketUtils;

@@ -7,7 +7,7 @@ import com.idark.valoria.capability.IUnlockable;
 import com.idark.valoria.capability.UnloackbleCap;
 import com.idark.valoria.client.gui.screen.book.unlockable.ItemUnlockable;
 import com.idark.valoria.network.PacketHandler;
-import com.idark.valoria.network.UnlockableUpdatePacket;
+import com.idark.valoria.network.packets.UnlockableUpdatePacket;
 import com.idark.valoria.registries.TagsRegistry;
 import com.idark.valoria.registries.world.item.ModItems;
 import com.idark.valoria.util.math.RandomUtil;

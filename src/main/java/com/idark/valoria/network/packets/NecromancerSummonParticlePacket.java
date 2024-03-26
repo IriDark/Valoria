@@ -1,4 +1,4 @@
-package com.idark.valoria.network;
+package com.idark.valoria.network.packets;
 
 import com.idark.valoria.Valoria;
 import com.idark.valoria.client.particle.ModParticles;

@@ -1,7 +1,7 @@
 package com.idark.valoria.registries.world.item;
 
-import com.idark.valoria.network.CooldownSoundPacket;
 import com.idark.valoria.network.PacketHandler;
+import com.idark.valoria.network.packets.CooldownSoundPacket;
 import com.idark.valoria.registries.world.item.types.KatanaItem;
 import com.idark.valoria.registries.world.item.types.ScytheItem;
 import net.minecraft.server.level.ServerPlayer;

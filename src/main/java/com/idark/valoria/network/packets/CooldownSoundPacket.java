@@ -1,4 +1,4 @@
-package com.idark.valoria.network;
+package com.idark.valoria.network.packets;
 
 import com.idark.valoria.ValoriaClient;
 import com.idark.valoria.registries.sounds.CooldownSoundInstance;

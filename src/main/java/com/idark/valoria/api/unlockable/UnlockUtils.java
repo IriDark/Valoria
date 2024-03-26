@@ -2,8 +2,8 @@ package com.idark.valoria.api.unlockable;
 
 import com.idark.valoria.capability.IUnlockable;
 import com.idark.valoria.network.PacketHandler;
-import com.idark.valoria.network.PageToastPacket;
-import com.idark.valoria.network.UnlockableUpdatePacket;
+import com.idark.valoria.network.packets.PageToastPacket;
+import com.idark.valoria.network.packets.UnlockableUpdatePacket;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 

@@ -79,6 +79,9 @@
 - Resprited Wicked Amethyst Item
 - Resprited Soul shard
 - Resprited Cattail
+- Resprited Bloodhound
+- Resprited Murasama
+- Resprited Yamato
 
 - Renamed Uncharged Stone -> Uncharged Shard
 - Renamed Soulstone -> Soul shard
@@ -106,6 +109,7 @@
 - Fixed Server errors in KatanaItem and CorpsecleaverItem - Client sided a ClientConfig checking
 - Fixed Server error - Cant call the "/valoria addPage/removePage" command
 - Fixed Bug - Damage from Scythes / Katanas etc. damaged through armor and through FTB Chunks
+- Fixed 1 pixel offset of Bloodhound icon in gui
 
 - Changed Stonecrusher recipe
 - Changed opacity for Eternity appearing after Phantom ability
