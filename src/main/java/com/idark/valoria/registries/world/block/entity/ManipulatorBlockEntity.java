@@ -173,10 +173,10 @@ public class ManipulatorBlockEntity extends BlockEntity implements MenuProvider,
                                 break;
                             case 4:
                                 xOffset = this.getBlockPos().getX() + 0.5f;
-                                yOffset = this.getBlockPos().getY() + 1.30f;
+                                yOffset = this.getBlockPos().getY() + 1.45f;
                                 zOffset = this.getBlockPos().getZ() + 0.5f;
                                 motionX = this.getBlockPos().getX() + 0.5f;
-                                motionY = this.getBlockPos().getY() + 1.46f;
+                                motionY = this.getBlockPos().getY() + 1.75f;
                                 motionZ = this.getBlockPos().getZ() + 0.5f;
                                 R = 255;
                                 G = 255;

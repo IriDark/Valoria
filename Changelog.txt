@@ -72,6 +72,7 @@
 - Reworked Goblin Model From default Model to Humanoid, so they can hold items in hand
 - Reworked Kunais's
 - Reworked Item2DRenderer for better compatibility with other mods that can use it
+- Reworked Sarcophagus
 
 - Resprited Void stone
 - Resprited Uncharged Shard

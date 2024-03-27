@@ -5,7 +5,6 @@ import com.idark.valoria.registries.world.entity.living.NecromancerEntity;
 import com.idark.valoria.registries.world.item.enchant.ModEnchantments;
 import com.idark.valoria.registries.world.item.types.CoralReefItem;
 import com.idark.valoria.registries.world.item.types.HoundItem;
-import com.idark.valoria.registries.world.item.types.MurasamaItem;
 import com.idark.valoria.registries.world.item.types.ScytheItem;
 import com.idark.valoria.registries.world.item.types.curio.charm.BloodSight;
 import net.minecraft.core.particles.ParticleOptions;
@@ -204,7 +203,6 @@ public class ModUtils {
      * @param options  Particle that will spawn at radius
      * @param speed    Speed of particles
      * @param pos      Position
-     * @see MurasamaItem#onUseTick(Level, LivingEntity, ItemStack, int) Example
      */
     public static void spawnParticlesAroundPosition(Vector3d pos, float distance, float speed, Level level, ParticleOptions options) {
         Random rand = new Random();

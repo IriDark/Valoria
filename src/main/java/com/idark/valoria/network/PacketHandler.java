@@ -33,6 +33,7 @@ public final class PacketHandler {
         HANDLER.registerMessage(id++, NecromancerTransformParticlePacket.class, NecromancerTransformParticlePacket::encode, NecromancerTransformParticlePacket::decode, NecromancerTransformParticlePacket::handle);
         HANDLER.registerMessage(id++, ManipulatorParticlePacket.class, ManipulatorParticlePacket::encode, ManipulatorParticlePacket::decode, ManipulatorParticlePacket::handle);
         HANDLER.registerMessage(id++, ManipulatorCraftParticlePacket.class, ManipulatorCraftParticlePacket::encode, ManipulatorCraftParticlePacket::decode, ManipulatorCraftParticlePacket::handle);
+        HANDLER.registerMessage(id++, MurasamaParticlePacket.class, MurasamaParticlePacket::encode, MurasamaParticlePacket::decode, MurasamaParticlePacket::handle);
     }
 
     private static final PacketDistributor<Pair<Level, BlockPos>> TRACKING_CHUNK_AND_NEAR = new PacketDistributor<>(

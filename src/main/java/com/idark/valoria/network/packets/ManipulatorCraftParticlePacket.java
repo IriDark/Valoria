@@ -43,11 +43,11 @@ public class ManipulatorCraftParticlePacket {
         if (ctx.get().getDirection().getReceptionSide().isClient()) {
             ctx.get().enqueueWork(() -> {
                 Level world = Valoria.proxy.getWorld();
-                Vector3d d = new Vector3d(msg.posX - msg.posToX, msg.posY - msg.posToY, msg.posZ - msg.posToZ);
+                Vector3d d = new Vector3d(msg.posX - msg.posToX, msg.posY - msg.posToY + 0.05f, msg.posZ - msg.posToZ);
                 Particles.create(ModParticles.SPHERE)
                         .addVelocity(d.x, d.y, d.z)
-                        .setAlpha(0.30f, 1)
-                        .setScale(0.08f, 0)
+                        .setAlpha(0.35f, 1)
+                        .setScale(0.055f, 0.15f)
                         .setColor(msg.colorR / 255, msg.colorG / 255, msg.colorB / 255, 0, 0, 0)
                         .setLifetime(2)
                         .spawn(world, msg.posX, msg.posY, msg.posZ);

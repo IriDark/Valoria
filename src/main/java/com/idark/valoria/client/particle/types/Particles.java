@@ -12,8 +12,7 @@ import net.minecraftforge.registries.RegistryObject;
 import java.util.Random;
 
 /**
- * Custom mod particles only client-sided.
- * May not work with Optifine and cant be created with command /particle
+ * May not work with Optifine
  *
  * @see TransformShardItem#rightClickOnCertainBlockState(ItemStack, Player, Level, BlockState, BlockPos) Example
  */

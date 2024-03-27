@@ -148,7 +148,6 @@ public class KatanaItem extends TieredItem implements Vanishable {
                     double Z = Math.sin(locPitch + pitch) * Math.sin(locYaw + yaw) * locDistance;
 
                     srv.sendParticles(ParticleTypes.POOF, pos.x + X + (rand.nextDouble() - 0.5D), pos.y + Y, pos.z + Z + (rand.nextDouble() - 0.5D), 1, 0, 0.5, 0, 0);
-                    //level.addParticle(ParticleTypes.POOF, pos.x + X + (rand.nextDouble() - 0.5D), pos.y + Y, pos.z + Z + (rand.nextDouble() - 0.5D), 0d, 0.05d, 0d);
                     List<Entity> entities = level.getEntitiesOfClass(Entity.class, new AABB(pos.x + X - 0.5D, pos.y + Y - 0.5D, pos.z + Z - 0.5D, pos.x + X + 0.5D, pos.y + Y + 0.5D, pos.z + Z + 0.5D));
                     for (Entity entity : entities) {
                         if (entity instanceof LivingEntity enemy) {

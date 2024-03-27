@@ -1,11 +1,12 @@
 package com.idark.valoria.registries.world.item.types;
 
 import com.idark.valoria.client.gui.overlay.DashOverlayRender;
+import com.idark.valoria.network.PacketHandler;
+import com.idark.valoria.network.packets.MurasamaParticlePacket;
 import com.idark.valoria.registries.sounds.ModSoundRegistry;
-import com.idark.valoria.util.ModUtils;
-import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.Mth;
@@ -58,8 +59,10 @@ public class MurasamaItem extends KatanaItem implements Vanishable {
     public void onUseTick(@NotNull Level worldIn, @NotNull LivingEntity livingEntityIn, @NotNull ItemStack stack, int count) {
         Player player = (Player) livingEntityIn;
         addCharge(stack, 1);
-        for (int ii = 0; ii < 1 + Mth.nextInt(RandomSource.create(), 0, 2); ii += 1) {
-            ModUtils.spawnParticlesAroundPosition(new Vector3d(player.getX(), player.getY() + (player.getEyeHeight() / 2), player.getZ()), 2f, (float) (rand.nextDouble() * 0.1F), worldIn, DustParticleOptions.REDSTONE);
+        if (worldIn instanceof ServerLevel srv) {
+            for (int ii = 0; ii < 1 + Mth.nextInt(RandomSource.create(), 0, 2); ii += 1) {
+                PacketHandler.sendToTracking(srv, player.getOnPos(), new MurasamaParticlePacket(3F, (float) player.getX(), (float) (player.getY() + (player.getEyeHeight() / 2)), (float) player.getZ(), 255, 0, 0));
+            }
         }
 
         if (getCharge(stack) == 20) {
@@ -98,15 +101,14 @@ public class MurasamaItem extends KatanaItem implements Vanishable {
 
             for (Item item : ForgeRegistries.ITEMS) {
                 if (item instanceof KatanaItem) {
-                    player.getCooldowns().addCooldown(item, 75);
+                    player.getCooldowns().addCooldown(item, 125);
                 }
             }
 
             Vector3d pos = new Vector3d(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());
             List<LivingEntity> hitEntities = new ArrayList<>();
             double maxDistance = distance(pos, level, player);
-
-            for (int i = 0; i < 10; i += 1) {
+            for (int i = 0; i < 25; i += 1) {
                 double locYaw = 0;
                 double locPitch = 0;
                 double locDistance = i * 0.5D;
@@ -114,9 +116,11 @@ public class MurasamaItem extends KatanaItem implements Vanishable {
                 double Y = Math.cos(locPitch + pitch) * locDistance;
                 double Z = Math.sin(locPitch + pitch) * Math.sin(locYaw + yaw) * locDistance;
 
-                level.addParticle(ParticleTypes.POOF, pos.x + X + (rand.nextDouble() - 0.5D), pos.y + Y, pos.z + Z + (rand.nextDouble() - 0.5D), 0d, 0.05d, 0d);
-                for (int ii = 0; ii < 1 + Mth.nextInt(RandomSource.create(), 0, 2); ii += 1) {
-                    ModUtils.spawnParticlesAroundPosition(new Vector3d(pos.x + X, pos.y + Y, pos.z + Z), 3F, (float) (rand.nextDouble() * 0.05F), level, DustParticleOptions.REDSTONE);
+                level.addParticle(ParticleTypes.WAX_OFF, pos.x + X + (rand.nextDouble() - 0.5D), pos.y + Y, pos.z + Z + (rand.nextDouble() - 0.5D), 0d, 0.05d, 0d);
+                if (level instanceof ServerLevel srv) {
+                    for (int ii = 0; ii < 1 + Mth.nextInt(RandomSource.create(), 0, 2); ii += 1) {
+                        PacketHandler.sendToTracking(srv, player.getOnPos(), new MurasamaParticlePacket(3F, (float) (pos.x + X), (float) (pos.y + Y), (float) (pos.z + Z), 255, 0, 0));
+                    }
                 }
 
                 List<Entity> entities = level.getEntitiesOfClass(Entity.class, new AABB(pos.x + X - 0.5D, pos.y + Y - 0.5D, pos.z + Z - 0.5D, pos.x + X + 0.5D, pos.y + Y + 0.5D, pos.z + Z + 0.5D));
@@ -135,7 +139,6 @@ public class MurasamaItem extends KatanaItem implements Vanishable {
 
             int hits = hitEntities.size();
             float ii = 1F;
-
             for (LivingEntity entity : hitEntities) {
                 entity.hurt(level.damageSources().playerAttack(player), (float) ((player.getAttributeValue(Attributes.ATTACK_DAMAGE) * (double) ii) + EnchantmentHelper.getSweepingDamageRatio(player) + EnchantmentHelper.getDamageBonus(stack, entity.getMobType())) * 1.35f);
                 entity.knockback(0.4F, player.getX() - entity.getX(), player.getZ() - entity.getZ());
@@ -157,18 +160,11 @@ public class MurasamaItem extends KatanaItem implements Vanishable {
             level.playSound(player, player.blockPosition(), ModSoundRegistry.SWIFTSLICE.get(), SoundSource.AMBIENT, 10f, 1f);
             DashOverlayRender.isDash = true;
             hitEntities.clear();
-
             double locYaw = 0;
             double locPitch = 0;
-
             double X = Math.sin(locPitch + pitch) * Math.cos(locYaw + yaw) * maxDistance;
             double Y = Math.cos(locPitch + pitch) * maxDistance;
             double Z = Math.sin(locPitch + pitch) * Math.sin(locYaw + yaw) * maxDistance;
-
-            for (int iii = 0; iii < 25; iii += 1) {
-                ModUtils.spawnParticlesAroundPosition(new Vector3d(pos.x + X, pos.y + Y, pos.z + Z), 5F, (float) (rand.nextDouble() * 0.05F), level, DustParticleOptions.REDSTONE);
-                level.addParticle(ParticleTypes.POOF, pos.x + X + ((rand.nextDouble() - 0.5D) * 3), pos.y + Y + ((rand.nextDouble() - 0.5D) * 3), pos.z + Z + ((rand.nextDouble() - 0.5D) * 3), 0d, 0.05d, 0d);
-            }
 
             List<Entity> entities = level.getEntitiesOfClass(Entity.class, new AABB(pos.x + X - 3D, pos.y + Y - 3D, pos.z + Z - 2.5D, pos.x + X + 3D, pos.y + Y + 3D, pos.z + Z + 3D));
             for (Entity entity : entities) {
