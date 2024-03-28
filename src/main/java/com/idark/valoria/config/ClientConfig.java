@@ -5,7 +5,7 @@ import org.apache.commons.lang3.tuple.Pair;
 
 public class ClientConfig {
     public static ForgeConfigSpec.ConfigValue<Integer>
-            MAGMA_CHARGE_BAR_Y, MAGMA_CHARGE_BAR_X, MAGMA_CHARGE_BAR_TYPE, MANA_BAR_Y, MANA_BAR_X, MANA_BAR_TYPE, DEBUG_X, DEBUG_Y;
+            MAGMA_CHARGE_BAR_Y, MAGMA_CHARGE_BAR_X, MAGMA_CHARGE_BAR_TYPE, MANA_BAR_Y, MANA_BAR_X, MANA_BAR_TYPE;
     public static ForgeConfigSpec.ConfigValue<Boolean>
             IN_HAND_MODELS_32X, DASH_OVERLAY, BLOOD_OVERLAY;
 
@@ -18,7 +18,7 @@ public class ClientConfig {
                 .define("DashOverlay", true);
         BLOOD_OVERLAY = builder.comment("When enabled shows a red vignette on screen corners (Default: true)")
                 .comment("Reload Resourcepacks when joining world (F3+T)")
-                .define("DashOverlay", true);
+                .define("BloodOverlay", true);
         MAGMA_CHARGE_BAR_Y = builder.comment("(Y) Coordinate for Magma Bar")
                 .comment("Can be edited in-game without reloading packs (If nothing changed reload packs with [F3+T] keybind)")
                 .define("MagmaBarY", 5);
@@ -37,13 +37,6 @@ public class ClientConfig {
         MANA_BAR_TYPE = builder.comment("Type of Mana Bar")
                 .comment("Can be edited in-game without reloading packs (If nothing changed reload packs with [F3+T] keybind)")
                 .defineInRange("ManaBarType", 1, 1, 3);
-
-        DEBUG_Y = builder.comment("(Y) Coordinate for Debuging UI`s")
-                .comment("Can be edited in-game without reloading packs (If nothing changed reload packs with [F3+T] keybind)")
-                .define("DebugY", 0);
-        DEBUG_X = builder.comment("(X) Coordinate for Debuging UI`s")
-                .comment("Can be edited in-game without reloading packs (If nothing changed reload packs with [F3+T] keybind)")
-                .define("DebugX", 0);
     }
 
     public static final ClientConfig INSTANCE;

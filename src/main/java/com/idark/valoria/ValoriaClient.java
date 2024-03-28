@@ -34,7 +34,6 @@ import net.minecraft.client.renderer.blockentity.SignRenderer;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Item;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.*;
@@ -114,10 +113,8 @@ public class ValoriaClient {
             event.register(KEG_MODEL);
             event.register(SPHERE);
             if (ClientConfig.IN_HAND_MODELS_32X.get()) {
-                for (Item item : Item2DRenderer.handModelItems) {
-                    for (String id : Item2DRenderer.modIds) {
-                        event.register(new ModelResourceLocation(new ResourceLocation(id + item + "_in_hand"), "inventory"));
-                    }
+                for (String itemId : Item2DRenderer.handModelItems) {
+                    event.register(new ModelResourceLocation(new ResourceLocation(itemId + "_in_hand"), "inventory"));
                 }
             }
         }

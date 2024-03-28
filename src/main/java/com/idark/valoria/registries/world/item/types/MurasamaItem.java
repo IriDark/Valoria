@@ -57,8 +57,8 @@ public class MurasamaItem extends KatanaItem implements Vanishable {
     }
 
     public void onUseTick(@NotNull Level worldIn, @NotNull LivingEntity livingEntityIn, @NotNull ItemStack stack, int count) {
-        Player player = (Player) livingEntityIn;
         addCharge(stack, 1);
+        Player player = (Player) livingEntityIn;
         if (worldIn instanceof ServerLevel srv) {
             for (int ii = 0; ii < 1 + Mth.nextInt(RandomSource.create(), 0, 2); ii += 1) {
                 PacketHandler.sendToTracking(srv, player.getOnPos(), new MurasamaParticlePacket(3F, (float) player.getX(), (float) (player.getY() + (player.getEyeHeight() / 2)), (float) player.getZ(), 255, 0, 0));
@@ -90,7 +90,6 @@ public class MurasamaItem extends KatanaItem implements Vanishable {
         player.awardStat(Stats.ITEM_USED.get(this));
         double pitch = ((player.getRotationVector().x + 90) * Math.PI) / 180;
         double yaw = ((player.getRotationVector().y + 90) * Math.PI) / 180;
-
         if (getCharge(stack) >= 20) {
             Vec3 dir = (player.getViewVector(0.0f).scale(2.0d));
             if (dir.x < 5f) {

@@ -4,6 +4,7 @@ import com.idark.valoria.client.gui.menu.ManipulatorMenu;
 import com.idark.valoria.client.render.model.blockentity.TickableBlockEntity;
 import com.idark.valoria.network.PacketHandler;
 import com.idark.valoria.network.packets.ManipulatorCraftParticlePacket;
+import com.idark.valoria.network.packets.ManipulatorEmptyParticlePacket;
 import com.idark.valoria.registries.recipe.ManipulatorRecipe;
 import com.idark.valoria.registries.world.item.ModItems;
 import com.idark.valoria.util.PacketUtils;
@@ -203,6 +204,21 @@ public class ManipulatorBlockEntity extends BlockEntity implements MenuProvider,
                     }
 
                     PacketUtils.SUpdateTileEntityPacket(this);
+                } else if (recipe.get().getCore().equals("empty") && itemOutputHandler.getStackInSlot(0).getCount() < itemOutputHandler.getStackInSlot(0).getMaxStackSize()) {
+                    increaseCraftingProgress();
+                    startCraft = true;
+                    setMaxProgress();
+                    setChanged(level, getBlockPos(), getBlockState());
+                    if (hasProgressFinished()) {
+                        craftItem();
+                        resetProgress();
+                    }
+
+                    for (int i = 0; i < 360; i += 25) {
+                        PacketHandler.sendToTracking(this.level, this.getBlockPos(), new ManipulatorEmptyParticlePacket((float) this.getBlockPos().getX() + 0.5f, (float) this.getBlockPos().getY() + 0.75f, (float) this.getBlockPos().getZ() + 0.5f, i, (float) this.getBlockPos().getX() + 0.5f, (float) this.getBlockPos().getY() + 0.65f, ((float) this.getBlockPos().getZ() + 0.5f), 255, 255, 255));
+                    }
+
+                    PacketUtils.SUpdateTileEntityPacket(this);
                 }
             } else {
                 resetProgress();
@@ -223,7 +239,10 @@ public class ManipulatorBlockEntity extends BlockEntity implements MenuProvider,
         Optional<ManipulatorRecipe> recipe = getCurrentRecipe();
         ItemStack result = recipe.get().getResultItem(RegistryAccess.EMPTY);
 
-        decreaseCharge(recipe.get().getCore(), 1);
+        if (!recipe.get().getCore().equals("empty")) {
+            decreaseCharge(recipe.get().getCore(), 1);
+        }
+
         itemHandler.extractItem(0, 1, false);
         itemHandler.extractItem(1, 1, false);
         itemOutputHandler.insertItem(0, new ItemStack(result.getItem(), result.getCount()), false);

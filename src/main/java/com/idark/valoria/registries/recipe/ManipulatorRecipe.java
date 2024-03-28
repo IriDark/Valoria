@@ -13,6 +13,7 @@ import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
@@ -100,7 +101,7 @@ public class ManipulatorRecipe implements Recipe<Container> {
         public static final ResourceLocation ID = new ResourceLocation(Valoria.MOD_ID, "manipulator");
 
         @Override
-        public ManipulatorRecipe fromJson(ResourceLocation pRecipeId, JsonObject pSerializedRecipe) {
+        public @NotNull ManipulatorRecipe fromJson(ResourceLocation pRecipeId, JsonObject pSerializedRecipe) {
             ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(pSerializedRecipe, "output"));
             String core = pSerializedRecipe.get("core").getAsString();
             int time = GsonHelper.getAsInt(pSerializedRecipe, "time");

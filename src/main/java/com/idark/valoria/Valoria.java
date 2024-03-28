@@ -132,33 +132,31 @@ public class Valoria {
         event.enqueueWork(() -> {
             LexiconChapters.init();
 
-            Item2DRenderer.handModelItems.add(ModItems.COBALT_SWORD.get());
-            Item2DRenderer.handModelItems.add(ModItems.NETHERITE_SCYTHE.get());
-            Item2DRenderer.handModelItems.add(ModItems.DIAMOND_SCYTHE.get());
-            Item2DRenderer.handModelItems.add(ModItems.GOLDEN_SCYTHE.get());
-            Item2DRenderer.handModelItems.add(ModItems.IRON_SCYTHE.get());
-            Item2DRenderer.handModelItems.add(ModItems.NETHERITE_SPEAR.get());
-            Item2DRenderer.handModelItems.add(ModItems.BLOODHOUND.get());
-            Item2DRenderer.handModelItems.add(ModItems.DIAMOND_SPEAR.get());
-            Item2DRenderer.handModelItems.add(ModItems.GOLDEN_SPEAR.get());
-            Item2DRenderer.handModelItems.add(ModItems.WOODEN_SPEAR.get());
-            Item2DRenderer.handModelItems.add(ModItems.STONE_SPEAR.get());
-            Item2DRenderer.handModelItems.add(ModItems.IRON_SPEAR.get());
-            Item2DRenderer.handModelItems.add(ModItems.ENT.get());
-            Item2DRenderer.handModelItems.add(ModItems.NATURE_SCYTHE.get());
-            Item2DRenderer.handModelItems.add(ModItems.INFERNAL_SWORD.get());
-            Item2DRenderer.handModelItems.add(ModItems.INFERNAL_SCYTHE.get());
-            Item2DRenderer.handModelItems.add(ModItems.BLOODROOT.get());
-            Item2DRenderer.handModelItems.add(ModItems.VOID_EDGE.get());
-            Item2DRenderer.handModelItems.add(ModItems.BRONZE_SWORD.get());
-            Item2DRenderer.handModelItems.add(ModItems.GLAIVE.get());
-            Item2DRenderer.handModelItems.add(ModItems.CORAL_REEF.get());
-            Item2DRenderer.handModelItems.add(ModItems.BEAST.get()); // MrBeast???? Omg
-            Item2DRenderer.handModelItems.add(ModItems.AQUARIUS_SCYTHE.get());
-            Item2DRenderer.handModelItems.add(ModItems.BLAZE_REAP.get());
-            Item2DRenderer.handModelItems.add(ModItems.MURASAMA.get());
-            Item2DRenderer.handModelItems.add(ModItems.PHANTOM.get());
-            Item2DRenderer.modIds.add("valoria:");
+            Item2DRenderer.handModelItems.add("valoria:phantom");
+            Item2DRenderer.handModelItems.add("valoria:bloodhound");
+            Item2DRenderer.handModelItems.add("valoria:cobalt_sword");
+            Item2DRenderer.handModelItems.add("valoria:netherite_scythe");
+            Item2DRenderer.handModelItems.add("valoria:diamond_scythe");
+            Item2DRenderer.handModelItems.add("valoria:golden_scythe");
+            Item2DRenderer.handModelItems.add("valoria:iron_scythe");
+            Item2DRenderer.handModelItems.add("valoria:netherite_spear");
+            Item2DRenderer.handModelItems.add("valoria:diamond_spear");
+            Item2DRenderer.handModelItems.add("valoria:golden_spear");
+            Item2DRenderer.handModelItems.add("valoria:iron_spear");
+            Item2DRenderer.handModelItems.add("valoria:stone_spear");
+            Item2DRenderer.handModelItems.add("valoria:wooden_spear");
+            Item2DRenderer.handModelItems.add("valoria:ent");
+            Item2DRenderer.handModelItems.add("valoria:nature_scythe");
+            Item2DRenderer.handModelItems.add("valoria:infernal_sword");
+            Item2DRenderer.handModelItems.add("valoria:infernal_scythe");
+            Item2DRenderer.handModelItems.add("valoria:void_edge");
+            Item2DRenderer.handModelItems.add("valoria:bronze_sword");
+            Item2DRenderer.handModelItems.add("valoria:glaive");
+            Item2DRenderer.handModelItems.add("valoria:coral_reef");
+            Item2DRenderer.handModelItems.add("valoria:beast"); // MrBeast???? Omg
+            Item2DRenderer.handModelItems.add("valoria:aquarius_scythe");
+            Item2DRenderer.handModelItems.add("valoria:blaze_reap");
+            Item2DRenderer.handModelItems.add("valoria:murasama");
 
             CuriosRendererRegistry.register(ModItems.IRON_NECKLACE_AMBER.get(), NecklaceRenderer::new);
             CuriosRendererRegistry.register(ModItems.IRON_NECKLACE_DIAMOND.get(), NecklaceRenderer::new);
