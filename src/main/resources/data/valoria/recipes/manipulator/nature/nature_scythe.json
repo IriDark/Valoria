@@ -6,6 +6,7 @@
   },
 
   "core": "nature_core",
+  "cores": 1,
   "time": 500,
   "ingredients": [
     {

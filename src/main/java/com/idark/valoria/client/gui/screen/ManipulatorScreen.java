@@ -15,7 +15,6 @@ import net.minecraft.world.item.ItemStack;
 
 public class ManipulatorScreen extends AbstractContainerScreen<ManipulatorMenu> {
     private final ResourceLocation GUI = new ResourceLocation(Valoria.MOD_ID, "textures/gui/container/manipulator.png");
-
     public ManipulatorScreen(ManipulatorMenu screenContainer, Inventory inv, Component titleIn) {
         super(screenContainer, inv, titleIn);
         this.imageHeight = 165;
@@ -66,7 +65,6 @@ public class ManipulatorScreen extends AbstractContainerScreen<ManipulatorMenu> 
     protected void renderLabels(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY) {
         pGuiGraphics.drawString(this.font, this.title, this.titleLabelX + 42, this.titleLabelY, 4210752, false);
         pGuiGraphics.drawString(this.font, this.playerInventoryTitle, this.inventoryLabelX, this.inventoryLabelY - 46, 4210752, false);
-
     }
 
     @Override
@@ -75,7 +73,7 @@ public class ManipulatorScreen extends AbstractContainerScreen<ManipulatorMenu> 
         int i = this.leftPos;
         int j = this.topPos;
         gui.blit(GUI, i, j, 0, 0, this.imageWidth, this.imageHeight);
-
+        gui.blit(GUI, i + 76, j + 53, 208, 0, 16, 16);
         if (menu.tileEntity instanceof ManipulatorBlockEntity elemental) {
             if (elemental.infernal_core != 0) {
                 gui.blit(GUI, i + 16, j + 25, 181, 27, 5, 5);

@@ -59,7 +59,6 @@ public class InfernalScytheItem extends ScytheItem implements Vanishable {
         for (int i = 0; i < 360; i += 10) {
             ModUtils.radiusHit(level, stack, player, ParticleTypes.FLAME, hitEntities, pos, 0, player.getRotationVector().y + i, 3);
             ModUtils.spawnParticlesInRadius(level, stack, ParticleTypes.SMOKE, pos, 0, player.getRotationVector().y + i, 3);
-
         }
 
         float damage = (float) (player.getAttributeValue(Attributes.ATTACK_DAMAGE)) + EnchantmentHelper.getSweepingDamageRatio(player);

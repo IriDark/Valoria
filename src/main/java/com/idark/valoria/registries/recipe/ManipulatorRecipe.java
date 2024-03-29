@@ -25,12 +25,14 @@ public class ManipulatorRecipe implements Recipe<Container> {
     private final ItemStack output;
     private final ResourceLocation id;
     private final String pCoreId;
+    private final int cores;
     private final int time;
 
-    public ManipulatorRecipe(ResourceLocation id, ItemStack output, String pCoreId, int time, Ingredient... inputItems) {
+    public ManipulatorRecipe(ResourceLocation id, ItemStack output, String pCoreId, int cores, int time, Ingredient... inputItems) {
         this.id = id;
         this.output = output;
         this.pCoreId = pCoreId;
+        this.cores = cores;
         this.time = time;
         this.inputs = NonNullList.of(Ingredient.EMPTY, inputItems);
     }
@@ -49,6 +51,10 @@ public class ManipulatorRecipe implements Recipe<Container> {
 
     public int getTime() {
         return time;
+    }
+
+    public int getCoresNeeded() {
+        return cores;
     }
 
     @Override
@@ -101,18 +107,18 @@ public class ManipulatorRecipe implements Recipe<Container> {
         public static final ResourceLocation ID = new ResourceLocation(Valoria.MOD_ID, "manipulator");
 
         @Override
-        public @NotNull ManipulatorRecipe fromJson(ResourceLocation pRecipeId, JsonObject pSerializedRecipe) {
+        public @NotNull ManipulatorRecipe fromJson(@NotNull ResourceLocation pRecipeId, @NotNull JsonObject pSerializedRecipe) {
             ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(pSerializedRecipe, "output"));
-            String core = pSerializedRecipe.get("core").getAsString();
+            String core = pSerializedRecipe.has("core") ? pSerializedRecipe.get("core").getAsString() : "empty";
+            int cores = pSerializedRecipe.has("cores") ? GsonHelper.getAsInt(pSerializedRecipe, "cores") : 0;
             int time = GsonHelper.getAsInt(pSerializedRecipe, "time");
-
             JsonArray pIngredients = GsonHelper.getAsJsonArray(pSerializedRecipe, "ingredients");
             List<Ingredient> inputs = new ArrayList<>();
             for (JsonElement e : pIngredients) {
                 inputs.add(Ingredient.fromJson(e));
             }
 
-            return new ManipulatorRecipe(pRecipeId, output, core, time, inputs.toArray(new Ingredient[0]));
+            return new ManipulatorRecipe(pRecipeId, output, core, cores, time, inputs.toArray(new Ingredient[0]));
         }
 
         @Override
@@ -124,8 +130,9 @@ public class ManipulatorRecipe implements Recipe<Container> {
 
             ItemStack output = pBuffer.readItem();
             String core = pBuffer.readUtf();
+            int cores = pBuffer.readInt();
             int time = pBuffer.readInt();
-            return new ManipulatorRecipe(pRecipeId, output, core, time, inputs);
+            return new ManipulatorRecipe(pRecipeId, output, core, cores, time, inputs);
         }
 
         @Override
@@ -137,6 +144,7 @@ public class ManipulatorRecipe implements Recipe<Container> {
 
             pBuffer.writeItemStack(pRecipe.getResultItem(RegistryAccess.EMPTY), false);
             pBuffer.writeUtf(pRecipe.getCore());
+            pBuffer.writeInt(pRecipe.getCoresNeeded());
             pBuffer.writeInt(pRecipe.getTime());
         }
     }

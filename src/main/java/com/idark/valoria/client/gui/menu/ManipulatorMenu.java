@@ -1,5 +1,6 @@
 package com.idark.valoria.client.gui.menu;
 
+import com.idark.valoria.client.gui.menu.slots.IngotSlot;
 import com.idark.valoria.client.gui.menu.slots.ResultSlot;
 import com.idark.valoria.registries.world.block.ModBlocks;
 import net.minecraft.core.BlockPos;
@@ -16,6 +17,7 @@ import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 
@@ -34,15 +36,14 @@ public class ManipulatorMenu extends AbstractContainerMenu {
     public ManipulatorMenu(int windowId, Level world, BlockPos pos, Inventory playerInventory, Player player) {
         super(ModMenuTypes.MANIPULATOR_MENU.get(), windowId);
         this.tileEntity = world.getBlockEntity(pos);
-        playerEntity = player;
-
         this.playerInventory = new InvWrapper(playerInventory);
         this.layoutPlayerInventorySlots(8, 84);
 
+        playerEntity = player;
         if (tileEntity != null) {
             tileEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(h -> {
                 this.addSlot(new SlotItemHandler(h, 0, 27, 53));
-                this.addSlot(new SlotItemHandler(h, 1, 76, 53));
+                this.addSlot(new IngotSlot(h, 1, 76, 53));
 
                 this.addSlot(new ResultSlot(h, 2, 134, 53));
             });
@@ -50,7 +51,7 @@ public class ManipulatorMenu extends AbstractContainerMenu {
     }
 
     @Override
-    public boolean stillValid(Player playerIn) {
+    public boolean stillValid(@NotNull Player playerIn) {
         return stillValid(ContainerLevelAccess.create(tileEntity.getLevel(), tileEntity.getBlockPos()), playerIn, ModBlocks.ELEMENTAL_MANIPULATOR.get());
     }
 

@@ -59,6 +59,7 @@
 - Added Undead
 - Added Description to scythes
 - Added Particles to Manipulator
+- Added Valoria ingots to forge tag #ingots
 
 - Reworked keg a little
 - Reworked Keyblocks (Umbral Blocks)

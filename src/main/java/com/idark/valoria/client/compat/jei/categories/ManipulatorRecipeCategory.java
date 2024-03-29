@@ -89,19 +89,23 @@ public class ManipulatorRecipeCategory implements IRecipeCategory<ManipulatorRec
         }
 
         if (recipe.getCore().equals("infernal_core")) {
-            gui.blit(cores, 0 / 2, 0, 181 * 2, 27 * 2, 5 * 2, 5 * 2, 512, 512);
+            gui.blit(cores, 0, 0, 181 * 2, 27 * 2, 10, 10, 512, 512);
         }
 
         if (recipe.getCore().equals("nature_core")) {
-            gui.blit(cores, 0 / 2, 0, 186 * 2, 27 * 2, 5 * 2, 5 * 2, 512, 512);
+            gui.blit(cores, 0, 0, 186 * 2, 27 * 2, 10, 10, 512, 512);
         }
 
         if (recipe.getCore().equals("aquarius_core")) {
-            gui.blit(cores, 0 / 2, 0, 176 * 2, 27 * 2, 5 * 2, 5 * 2, 512, 512);
+            gui.blit(cores, 0, 0, 176 * 2, 27 * 2, 10, 10, 512, 512);
         }
 
         if (recipe.getCore().equals("void_core")) {
-            gui.blit(cores, 0 / 2, 0, 191 * 2, 27 * 2, 5 * 2, 5 * 2, 512, 512);
+            gui.blit(cores, 0, 0, 191 * 2, 27 * 2, 10, 10, 512, 512);
+        }
+
+        if (mouseX >= (double) 0 && mouseX < 8 && mouseY >= (double) 0 && mouseY < 8) {
+            gui.renderTooltip(Minecraft.getInstance().font, Component.translatable("tooltip.valoria.core_charges").append(": " + recipe.getCoresNeeded() + "/8"), -34, -2);
         }
 
         gui.drawString(font_renderer, time + "s", (95 - stringWidth) / 2, 28 + font_renderer.lineHeight, 0xffffff);
