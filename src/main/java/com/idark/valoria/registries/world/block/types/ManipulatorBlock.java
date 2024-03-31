@@ -4,7 +4,7 @@ import com.idark.valoria.client.gui.menu.ManipulatorMenu;
 import com.idark.valoria.client.render.model.blockentity.TickableBlockEntity;
 import com.idark.valoria.network.PacketHandler;
 import com.idark.valoria.network.packets.ManipulatorParticlePacket;
-import com.idark.valoria.registries.world.block.entity.ManipulatorBlockEntity;
+import com.idark.valoria.registries.world.block.entity.types.ManipulatorBlockEntity;
 import com.idark.valoria.registries.world.item.ModItems;
 import com.idark.valoria.util.PacketUtils;
 import com.mojang.datafixers.util.Pair;

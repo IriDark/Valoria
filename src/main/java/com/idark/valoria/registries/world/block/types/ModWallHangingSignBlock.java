@@ -1,6 +1,6 @@
 package com.idark.valoria.registries.world.block.types;
 
-import com.idark.valoria.registries.world.block.entity.ModHangingSignBlockEntity;
+import com.idark.valoria.registries.world.block.entity.types.ModHangingSignBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.WallHangingSignBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;

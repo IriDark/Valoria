@@ -1,6 +1,7 @@
 package com.idark.valoria;
 
 import com.idark.valoria.client.color.ModBlockColors;
+import com.idark.valoria.client.compat.quark.QuarkIntegration;
 import com.idark.valoria.client.particle.ModParticles;
 import com.idark.valoria.client.particle.types.ChompParticle;
 import com.idark.valoria.client.particle.types.ShadewoodLeafParticleType;
@@ -67,7 +68,9 @@ public class ValoriaClient {
 
         @SubscribeEvent
         public static void ColorMappingBlocks(RegisterColorHandlersEvent.Block event) {
-            event.register((state, world, pos, tintIndex) -> ModBlockColors.getInstance().getColor(state, world, pos, tintIndex), ModBlockColors.MODDED);
+            event.register((state, world, pos, tintIndex) -> ModBlockColors.getInstance().getGrassColor(state, world, pos, tintIndex), ModBlockColors.MODDED_GRASS);
+            event.register((state, world, pos, tintIndex) -> ModBlockColors.getInstance().getFoliageColor(state, world, pos, tintIndex), ModBlockColors.MODDED_FOLIAGE);
+            if(QuarkIntegration.isLoaded()) event.register((state, world, pos, tintIndex) -> ModBlockColors.getInstance().getFoliageColor(state, world, pos, tintIndex), ModBlockColors.QUARK);
         }
 
         @SubscribeEvent
@@ -82,6 +85,10 @@ public class ValoriaClient {
                 BlockEntityRenderers.register(ModBlockEntities.SIGN_BLOCK_ENTITIES.get(), SignRenderer::new);
                 BlockEntityRenderers.register(ModBlockEntities.HANGING_SIGN_BLOCK_ENTITIES.get(), HangingSignRenderer::new);
                 Sheets.addWoodType(ModWoodTypes.SHADEWOOD);
+                if(QuarkIntegration.isLoaded()) {
+                    BlockEntityRenderers.register(QuarkIntegration.LoadedOnly.CHEST_BLOCK_ENTITY.get(), ModChestRender::new);
+                    BlockEntityRenderers.register(QuarkIntegration.LoadedOnly.TRAPPED_CHEST_BLOCK_ENTITY.get(), ModTrappedChestRender::new);
+                }
             });
 
             EntityRenderers.register(ModEntityTypes.BOAT.get(), m -> new CustomBoatRenderer(m, false));

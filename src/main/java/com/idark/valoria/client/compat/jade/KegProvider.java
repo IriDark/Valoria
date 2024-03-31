@@ -1,7 +1,7 @@
 package com.idark.valoria.client.compat.jade;
 
 import com.idark.valoria.registries.TagsRegistry;
-import com.idark.valoria.registries.world.block.entity.KegBlockEntity;
+import com.idark.valoria.registries.world.block.entity.types.KegBlockEntity;
 import com.idark.valoria.registries.world.item.ModItems;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;

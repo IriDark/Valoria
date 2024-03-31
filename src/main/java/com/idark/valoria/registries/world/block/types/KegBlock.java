@@ -2,8 +2,8 @@ package com.idark.valoria.registries.world.block.types;
 
 import com.idark.valoria.client.render.model.blockentity.TickableBlockEntity;
 import com.idark.valoria.registries.TagsRegistry;
-import com.idark.valoria.registries.world.block.entity.BlockSimpleInventory;
-import com.idark.valoria.registries.world.block.entity.KegBlockEntity;
+import com.idark.valoria.registries.world.block.entity.types.BlockSimpleInventory;
+import com.idark.valoria.registries.world.block.entity.types.KegBlockEntity;
 import com.idark.valoria.registries.world.item.ModItems;
 import com.idark.valoria.util.PacketUtils;
 import net.minecraft.core.BlockPos;

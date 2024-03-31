@@ -1,6 +1,6 @@
 package com.idark.valoria.registries.world.block.types;
 
-import com.idark.valoria.registries.world.block.entity.CrushableBlockEntity;
+import com.idark.valoria.registries.world.block.entity.types.CrushableBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;

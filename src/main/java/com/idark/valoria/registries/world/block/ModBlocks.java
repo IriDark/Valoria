@@ -358,6 +358,11 @@ public class ModBlocks {
             () -> new ShadeSaplingBlock(new ShadeWoodTree(), BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)));
     public static final RegistryObject<Block> POTTED_SHADEWOOD_SAPLING = BLOCK.register("potted_shadewood_sapling",
             () -> new FlowerPotBlock(SHADEWOOD_SAPLING.get(), BlockBehaviour.Properties.copy(Blocks.GRASS).instabreak().noOcclusion()));
+    public static final RegistryObject<Block> SHADEWOOD_FENCE = registerBlock("shadewood_fence",
+            () -> new FenceBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE)));
+    public static final RegistryObject<Block> SHADEWOOD_FENCE_GATE = registerBlock("shadewood_fence_gate",
+            () -> new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE_GATE), ModWoodTypes.SHADEWOOD));
+
     // Signs
     public static final RegistryObject<Block> SHADEWOOD_SIGN = BLOCK.register("shadewood_sign",
             () -> new ModStandingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).noOcclusion().noCollission(), ModWoodTypes.SHADEWOOD));

@@ -1,0 +1,8 @@
+{
+  "parent": "quark:block/vertical_slab",
+  "textures": {
+    "bottom": "valoria:block/dunestone_bricks",
+    "top": "valoria:block/dunestone_bricks",
+    "side": "valoria:block/dunestone_bricks"
+  }
+}

@@ -131,8 +131,8 @@ dependencies {
 
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
-    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:5.3.5+1.20.1:api")
-    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:5.3.5+1.20.1")
+    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:5.7.2+1.20.1:api")
+    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:5.7.2+1.20.1")
 
     compileOnly fg.deobf("mezz.jei:jei-1.20.1-common-api:15.0.0.14")
     runtimeOnly fg.deobf("mezz.jei:jei-1.20.1-forge:15.0.0.14")
@@ -151,6 +151,8 @@ dependencies {
     //implementation fg.deobf("curse.maven:mutil-351914:4824501")
     //implementation fg.deobf("curse.maven:tetra-289712:4857842")
     implementation fg.deobf("curse.maven:jade-324717:4986594")
+    implementation fg.deobf("maven.modrinth:quark:1.20.1-4.0-439")
+    implementation fg.deobf("maven.modrinth:zeta:1.20.1-1.0-14")
 }
 
 jar {
@@ -194,9 +196,9 @@ task sourcesJar(type: Jar, dependsOn: classes) {
 modrinth {
     token = System.getenv("modrinthtoken") // Remember to have the MODRINTH_TOKEN environment variable set or else this will fail - just make sure it stays private!
     projectId = "valoriadev" // This can be the project ID or the slug. Either will work!
-    versionNumber = "0.6b.240328374" // You don't need to set this manually. Will fail if Modrinth has this version already
+    versionNumber = "0.6b.240329344" // You don't need to set this manually. Will fail if Modrinth has this version already
     versionType = "alpha" // This is the default -- can also be `beta` or `alpha`
-    versionName = "Dev Build - 0.6b.240328374"
+    versionName = "Dev Build - 0.6b.240329344"
     uploadFile = tasks.jar // With Loom, this MUST be set to `remapJar` instead of `jar`!
     changelog = "Just a DevBuild to test things, its some sorta like minecraft snapshots to find bugs and report them"
     dependencies { // A special DSL for creating dependencies

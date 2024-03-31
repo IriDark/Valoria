@@ -2,6 +2,7 @@ package com.idark.valoria;
 
 import com.google.common.collect.ImmutableMap;
 import com.idark.valoria.capability.IUnlockable;
+import com.idark.valoria.client.compat.quark.QuarkIntegration;
 import com.idark.valoria.client.event.ClientTickHandler;
 import com.idark.valoria.client.gui.menu.ModMenuTypes;
 import com.idark.valoria.client.gui.overlay.CorpsecleaverRender;
@@ -75,6 +76,7 @@ import top.theillusivec4.curios.api.client.CuriosRendererRegistry;
 @Mod(Valoria.MOD_ID)
 public class Valoria {
     public static final String MOD_ID = "valoria";
+
     public static final ISidedProxy proxy = DistExecutor.unsafeRunForDist(() -> ClientProxy::new, () -> ServerProxy::new);
 
     public Valoria() {
@@ -90,6 +92,7 @@ public class Valoria {
         ModPotions.register(eventBus);
         ModItems.register(eventBus);
         ModBlocks.register(eventBus);
+        if (QuarkIntegration.isLoaded()) QuarkIntegration.init(eventBus);
         ModBlockEntities.register(eventBus);
         ModRecipes.register(eventBus);
         ModMenuTypes.register(eventBus);

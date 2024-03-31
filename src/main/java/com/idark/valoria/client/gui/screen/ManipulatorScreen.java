@@ -2,7 +2,7 @@ package com.idark.valoria.client.gui.screen;
 
 import com.idark.valoria.Valoria;
 import com.idark.valoria.client.gui.menu.ManipulatorMenu;
-import com.idark.valoria.registries.world.block.entity.ManipulatorBlockEntity;
+import com.idark.valoria.registries.world.block.entity.types.ManipulatorBlockEntity;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;

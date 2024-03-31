@@ -2,6 +2,7 @@ package com.idark.valoria.registries.world.block.entity;
 
 import com.idark.valoria.Valoria;
 import com.idark.valoria.registries.world.block.ModBlocks;
+import com.idark.valoria.registries.world.block.entity.types.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -10,8 +11,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 public class ModBlockEntities {
 
-    public static DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES =
-            DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, Valoria.MOD_ID);
+    public static DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, Valoria.MOD_ID);
 
     public static final RegistryObject<BlockEntityType<ModSignBlockEntity>> SIGN_BLOCK_ENTITIES = BLOCK_ENTITIES.register("sign", () -> BlockEntityType.Builder.of(ModSignBlockEntity::new, ModBlocks.SHADEWOOD_SIGN.get(), ModBlocks.SHADEWOOD_WALL_SIGN.get()).build(null));
     public static final RegistryObject<BlockEntityType<ModHangingSignBlockEntity>> HANGING_SIGN_BLOCK_ENTITIES = BLOCK_ENTITIES.register("hanging_sign", () -> BlockEntityType.Builder.of(ModHangingSignBlockEntity::new, ModBlocks.SHADEWOOD_HANGING_SIGN.get(), ModBlocks.SHADEWOOD_WALL_HANGING_SIGN.get()).build(null));

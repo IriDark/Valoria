@@ -1,6 +1,6 @@
 package com.idark.valoria.client.compat.jade;
 
-import com.idark.valoria.registries.world.block.entity.ManipulatorBlockEntity;
+import com.idark.valoria.registries.world.block.entity.types.ManipulatorBlockEntity;
 import com.idark.valoria.registries.world.item.ModItems;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;

@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_column",
+  "textures": {
+    "end": "valoria:block/shadewood_planks",
+    "side": "valoria:block/shadewood_bookshelf"
+  }
+}

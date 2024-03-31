@@ -1,0 +1,8 @@
+{
+  "parent": "quark:block/vertical_slab",
+  "textures": {
+    "bottom": "valoria:block/polished_deep_marble",
+    "top": "valoria:block/polished_deep_marble",
+    "side": "valoria:block/polished_deep_marble"
+  }
+}

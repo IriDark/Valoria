@@ -1,0 +1,18 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "valoria:block/shadewood_bookshelf"
+      },
+      {
+        "model": "valoria:block/shadewood_bookshelf_0"
+      },
+      {
+        "model": "valoria:block/shadewood_bookshelf_1"
+      },
+      {
+        "model": "valoria:block/shadewood_bookshelf_2"
+      }
+    ]
+  }
+}

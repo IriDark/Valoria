@@ -15,6 +15,10 @@
     "valoria:shadewood_planks_slab",
     "valoria:shadewood_planks_stairs",
     "valoria:shadewood_sign",
-    "valoria:shadewood_wall_sign"
+    "valoria:shadewood_wall_sign",
+    "valoria:shadewood_bookshelf",
+    "valoria:shadewood_ladder",
+    "valoria:shadewood_fence",
+    "valoria:shadewood_fence_gate"
   ]
 }

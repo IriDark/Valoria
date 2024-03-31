@@ -1,0 +1,9 @@
+{
+  "variants": {
+    "type=north": { "model": "valoria:block/limestone_vertical_slab", "y": 0, "uvlock": true },
+    "type=south": { "model": "valoria:block/limestone_vertical_slab", "y": 180, "uvlock": true },
+    "type=east": { "model": "valoria:block/limestone_vertical_slab", "y": 90, "uvlock": true },
+    "type=west": { "model": "valoria:block/limestone_vertical_slab", "y": 270, "uvlock": true },
+    "type=double": { "model": "valoria:block/limestone" }
+  }
+}

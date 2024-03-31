@@ -60,6 +60,9 @@
 - Added Description to scythes
 - Added Particles to Manipulator
 - Added Valoria ingots to forge tag #ingots
+- Added Shadewood Fence
+- Added Shadewood Fence Gate
+- Added Quark Compat
 
 - Reworked keg a little
 - Reworked Keyblocks (Umbral Blocks)

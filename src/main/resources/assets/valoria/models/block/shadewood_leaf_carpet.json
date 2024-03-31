@@ -1,0 +1,7 @@
+{
+  "render_type": "minecraft:cutout_mipped",
+  "parent": "quark:block/leaf_carpet",
+  "textures": {
+    "all": "valoria:block/shadewood_leaves"
+  }
+}

@@ -2,7 +2,7 @@ package com.idark.valoria.registries.world.block.types;
 
 import com.idark.valoria.client.gui.menu.JewelryMenu;
 import com.idark.valoria.client.render.model.blockentity.TickableBlockEntity;
-import com.idark.valoria.registries.world.block.entity.JewelryBlockEntity;
+import com.idark.valoria.registries.world.block.entity.types.JewelryBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
