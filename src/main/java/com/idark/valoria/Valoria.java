@@ -19,6 +19,7 @@ import com.idark.valoria.client.render.curio.NecklaceRenderer;
 import com.idark.valoria.client.render.model.item.Item2DRenderer;
 import com.idark.valoria.config.ClientConfig;
 import com.idark.valoria.datagen.ModBlockStateProvider;
+import com.idark.valoria.datagen.ModRecipeProvider;
 import com.idark.valoria.network.PacketHandler;
 import com.idark.valoria.proxy.ClientProxy;
 import com.idark.valoria.proxy.ISidedProxy;
@@ -292,7 +293,7 @@ public class Valoria {
             DataGenerator generator = event.getGenerator();
             PackOutput packOutput = generator.getPackOutput();
             ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
-            //generator.addProvider(event.includeServer(), new ModRecipeProvider(packOutput));
+            generator.addProvider(event.includeServer(), new ModRecipeProvider(packOutput));
             generator.addProvider(event.includeClient(), new ModBlockStateProvider(packOutput, existingFileHelper));
         }
     }

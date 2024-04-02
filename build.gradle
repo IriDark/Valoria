@@ -140,14 +140,14 @@ dependencies {
     compileOnly fg.deobf("com.blamejared.crafttweaker:CraftTweaker-forge-1.20.1:14.0.13")
     runtimeOnly fg.deobf("com.blamejared.crafttweaker:CraftTweaker-forge-1.20.1:14.0.13")
 
-    implementation fg.deobf("curse.maven:bookshelf-228525:5084135")
-    implementation fg.deobf("curse.maven:enchantment-descriptions-250419:5136988")
+    //implementation fg.deobf("curse.maven:bookshelf-228525:5084135")
+    //implementation fg.deobf("curse.maven:enchantment-descriptions-250419:5136988")
     //implementation fg.deobf("curse.maven:plusutils-979003:5133553")
     implementation fg.deobf("curse.maven:appleskin-248787:4770828")
-    implementation fg.deobf("curse.maven:advanced-xray-256256:4840340")
-    implementation fg.deobf("curse.maven:farmers-delight-398521:4679319")
-    implementation fg.deobf("curse.maven:model-gap-fix-676136:4607206")
-    implementation fg.deobf("curse.maven:just-enough-effect-descriptions-jeed-532286:4978810")
+    //implementation fg.deobf("curse.maven:advanced-xray-256256:4840340")
+    //implementation fg.deobf("curse.maven:farmers-delight-398521:4679319")
+    //implementation fg.deobf("curse.maven:model-gap-fix-676136:4607206")
+    //implementation fg.deobf("curse.maven:just-enough-effect-descriptions-jeed-532286:4978810")
     //implementation fg.deobf("curse.maven:mutil-351914:4824501")
     //implementation fg.deobf("curse.maven:tetra-289712:4857842")
     implementation fg.deobf("curse.maven:jade-324717:4986594")
@@ -167,6 +167,10 @@ jar {
                 "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }
+}
+
+processResources {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
 jar.finalizedBy('reobfJar')
@@ -196,9 +200,9 @@ task sourcesJar(type: Jar, dependsOn: classes) {
 modrinth {
     token = System.getenv("modrinthtoken") // Remember to have the MODRINTH_TOKEN environment variable set or else this will fail - just make sure it stays private!
     projectId = "valoriadev" // This can be the project ID or the slug. Either will work!
-    versionNumber = "0.6b.240329344" // You don't need to set this manually. Will fail if Modrinth has this version already
+    versionNumber = "0.6b.240402271" // You don't need to set this manually. Will fail if Modrinth has this version already
     versionType = "alpha" // This is the default -- can also be `beta` or `alpha`
-    versionName = "Dev Build - 0.6b.240329344"
+    versionName = "Dev Build - 0.6b.240402271"
     uploadFile = tasks.jar // With Loom, this MUST be set to `remapJar` instead of `jar`!
     changelog = "Just a DevBuild to test things, its some sorta like minecraft snapshots to find bugs and report them"
     dependencies { // A special DSL for creating dependencies

@@ -1,6 +1,6 @@
 {
   "replace": false,
   "values": [
-    "valoria:shadewood_hedge"
+    { "id": "valoria:shadewood_hedge", "required":  false }
   ]
 }

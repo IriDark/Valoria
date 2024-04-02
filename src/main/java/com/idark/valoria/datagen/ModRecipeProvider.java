@@ -1,13 +1,19 @@
 package com.idark.valoria.datagen;
 
+import com.idark.valoria.Valoria;
+import com.idark.valoria.client.compat.quark.QuarkIntegration;
 import com.idark.valoria.registries.world.block.ModBlocks;
 import com.idark.valoria.registries.world.item.ModItems;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.ItemLike;
+import net.minecraftforge.common.crafting.ConditionalRecipe;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
+import net.minecraftforge.common.crafting.conditions.ModLoadedCondition;
 
 import java.util.function.Consumer;
 
@@ -135,9 +141,49 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         netheriteSmithing(pWriter, ModItems.GOLDEN_RING_EMERALD.get(), RecipeCategory.MISC, ModItems.NETHERITE_RING_EMERALD.get());
         netheriteSmithing(pWriter, ModItems.GOLDEN_RING_RUBY.get(), RecipeCategory.MISC, ModItems.NETHERITE_RING_RUBY.get());
         netheriteSmithing(pWriter, ModItems.GOLDEN_RING_SAPPHIRE.get(), RecipeCategory.MISC, ModItems.NETHERITE_RING_SAPPHIRE.get());
+
+        verticalSlabRecipe(pWriter, ModBlocks.SHADEWOOD_PLANKS_SLAB.get(), QuarkIntegration.LoadedOnly.SHADEWOOD_PLANKS_VERTICAL_SLAB.get());
+        verticalSlabRecipe(pWriter, ModBlocks.BRONZE_BLOCK_SLAB.get(), QuarkIntegration.LoadedOnly.BRONZE_VERTICAL_SLAB.get());
+        verticalSlabRecipe(pWriter, ModBlocks.CUT_BRONZE_SLAB.get(), QuarkIntegration.LoadedOnly.CUT_BRONZE_VERTICAL_SLAB.get());
+        verticalSlabRecipe(pWriter, ModBlocks.AMBANE_STONE_SLAB.get(), QuarkIntegration.LoadedOnly.AMBANE_STONE_VERTICAL_SLAB.get());
+        verticalSlabRecipe(pWriter, ModBlocks.DUNESTONE_SLAB.get(), QuarkIntegration.LoadedOnly.DUNESTONE_VERTICAL_SLAB.get());
+        verticalSlabRecipe(pWriter, ModBlocks.TOMBSTONE_SLAB.get(), QuarkIntegration.LoadedOnly.TOMBSTONE_VERTICAL_SLAB.get());
+        verticalSlabRecipe(pWriter, ModBlocks.LIMESTONE_SLAB.get(), QuarkIntegration.LoadedOnly.LIMESTONE_VERTICAL_SLAB.get());
+        verticalSlabRecipe(pWriter, ModBlocks.DEEP_MARBLE_SLAB.get(), QuarkIntegration.LoadedOnly.DEEP_MARBLE_VERTICAL_SLAB.get());
+        verticalSlabRecipe(pWriter, ModBlocks.PICRITE_SLAB.get(), QuarkIntegration.LoadedOnly.PICRITE_VERTICAL_SLAB.get());
+        verticalSlabRecipe(pWriter, ModBlocks.VOID_STONE_SLAB.get(), QuarkIntegration.LoadedOnly.VOID_STONE_VERTICAL_SLAB.get());
+        verticalSlabRecipe(pWriter, ModBlocks.CRYSTAL_STONE_SLAB.get(), QuarkIntegration.LoadedOnly.CRYSTAL_STONE_VERTICAL_SLAB.get());
+
+        verticalSlabRecipe(pWriter, ModBlocks.POLISHED_AMBANE_STONE_SLAB.get(), QuarkIntegration.LoadedOnly.POLISHED_AMBANE_STONE_VERTICAL_SLAB.get());
+        verticalSlabRecipe(pWriter, ModBlocks.POLISHED_LIMESTONE_SLAB.get(), QuarkIntegration.LoadedOnly.POLISHED_LIMESTONE_VERTICAL_SLAB.get());
+        verticalSlabRecipe(pWriter, ModBlocks.POLISHED_DEEP_MARBLE_SLAB.get(), QuarkIntegration.LoadedOnly.POLISHED_DEEP_MARBLE_VERTICAL_SLAB.get());
+        verticalSlabRecipe(pWriter, ModBlocks.POLISHED_PICRITE_SLAB.get(), QuarkIntegration.LoadedOnly.POLISHED_PICRITE_VERTICAL_SLAB.get());
+
+        verticalSlabRecipe(pWriter, ModBlocks.AMBANE_STONE_BRICKS_SLAB.get(), QuarkIntegration.LoadedOnly.AMBANE_STONE_BRICKS_VERTICAL_SLAB.get());
+        verticalSlabRecipe(pWriter, ModBlocks.DUNESTONE_BRICKS_SLAB.get(), QuarkIntegration.LoadedOnly.DUNESTONE_BRICKS_VERTICAL_SLAB.get());
+        verticalSlabRecipe(pWriter, ModBlocks.TOMBSTONE_BRICKS_SLAB.get(), QuarkIntegration.LoadedOnly.TOMBSTONE_BRICKS_VERTICAL_SLAB.get());
+        verticalSlabRecipe(pWriter, ModBlocks.LIMESTONE_BRICKS_SLAB.get(), QuarkIntegration.LoadedOnly.LIMESTONE_BRICKS_VERTICAL_SLAB.get());
+        verticalSlabRecipe(pWriter, ModBlocks.VOID_BRICK_SLAB.get(), QuarkIntegration.LoadedOnly.VOID_BRICK_VERTICAL_SLAB.get());
+        verticalSlabRecipe(pWriter, ModBlocks.CRYSTAL_STONE_BRICKS_SLAB.get(), QuarkIntegration.LoadedOnly.CRYSTAL_STONE_BRICKS_VERTICAL_SLAB.get());
+
+        verticalSlabRecipe(pWriter, ModBlocks.VOID_CHISELED_BRICKS_SLAB.get(), QuarkIntegration.LoadedOnly.CHISELED_VOID_BRICKS_VERTICAL_SLAB.get());
+        verticalSlabRecipe(pWriter, ModBlocks.CRACKED_LIMESTONE_BRICKS_SLAB.get(), QuarkIntegration.LoadedOnly.CRACKED_LIMESTONE_BRICKS_VERTICAL_SLAB.get());
+        verticalSlabRecipe(pWriter, ModBlocks.VOID_CRACKED_BRICK_SLAB.get(), QuarkIntegration.LoadedOnly.VOID_CRACKED_BRICK_VERTICAL_SLAB.get());
     }
 
     public static void cutterResultFromBase(Consumer<FinishedRecipe> pFinishedRecipeConsumer, RecipeCategory pCategory, ItemLike pResult, ItemLike pMaterial, int pCount) {
         stonecutterResultFromBase(pFinishedRecipeConsumer, pCategory, pResult, pMaterial, pCount);
+    }
+
+    public static void verticalSlabRecipe(Consumer<FinishedRecipe> consumer, ItemLike slab, ItemLike verticalSlab) {
+        ConditionalRecipe.builder()
+                .addCondition(new ModLoadedCondition("quark"))
+                .addRecipe(consumer1 -> ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, verticalSlab, 3)
+                        .define('#', slab)
+                        .pattern("#")
+                        .pattern("#")
+                        .pattern("#")
+                        .unlockedBy(getHasName(slab), has(slab)).save(consumer1, new ResourceLocation(Valoria.MOD_ID, getItemName(verticalSlab))))
+                .build(consumer, new ResourceLocation(Valoria.MOD_ID, "crafting/" + getItemName(verticalSlab)));
     }
 }

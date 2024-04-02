@@ -16,9 +16,12 @@
     "valoria:shadewood_planks_stairs",
     "valoria:shadewood_sign",
     "valoria:shadewood_wall_sign",
-    "valoria:shadewood_bookshelf",
-    "valoria:shadewood_ladder",
     "valoria:shadewood_fence",
-    "valoria:shadewood_fence_gate"
+    "valoria:shadewood_fence_gate",
+
+    { "id": "valoria:shadewood_bookshelf", "required":  false },
+    { "id": "valoria:shadewood_ladder", "required":  false },
+    { "id": "valoria:shadewood_chest", "required":  false },
+    { "id": "valoria:trapped_shadewood_chest", "required":  false }
   ]
 }

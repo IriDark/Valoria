@@ -1,20 +1,26 @@
 package com.idark.valoria.registries.world.item.types;
 
 import com.idark.valoria.registries.world.entity.ModEntityTypes;
+import com.idark.valoria.registries.world.entity.living.MannequinEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 
-import java.util.Objects;
+import java.util.function.Consumer;
 
 public class MannequinSpawnItem extends Item {
     public MannequinSpawnItem(Item.Properties properties) {
@@ -22,30 +28,36 @@ public class MannequinSpawnItem extends Item {
     }
 
     public InteractionResult useOn(UseOnContext pContext) {
-        Level level = pContext.getLevel();
-        if (!(level instanceof ServerLevel)) {
-            return InteractionResult.SUCCESS;
+        Direction direction = pContext.getClickedFace();
+        if (direction == Direction.DOWN) {
+            return InteractionResult.FAIL;
         } else {
+            Level level = pContext.getLevel();
+            BlockPlaceContext blockplacecontext = new BlockPlaceContext(pContext);
+            BlockPos blockpos = blockplacecontext.getClickedPos();
             ItemStack itemstack = pContext.getItemInHand();
-            BlockPos blockpos = pContext.getClickedPos();
-            Direction direction = pContext.getClickedFace();
-            BlockState blockstate = level.getBlockState(blockpos);
+            Vec3 vec3 = Vec3.atBottomCenterOf(blockpos);
+            AABB aabb = ModEntityTypes.MANNEQUIN.get().getDimensions().makeBoundingBox(vec3.x(), vec3.y(), vec3.z());
+            if (level.noCollision(null, aabb) && level.getEntities(null, aabb).isEmpty()) {
+                if (level instanceof ServerLevel serverlevel) {
+                    Consumer<MannequinEntity> consumer = EntityType.createDefaultStackConfig(serverlevel, itemstack, pContext.getPlayer());
+                    MannequinEntity armorstand = ModEntityTypes.MANNEQUIN.get().create(serverlevel, itemstack.getTag(), consumer, blockpos, MobSpawnType.SPAWN_EGG, true, true);
+                    if (armorstand == null) {
+                        return InteractionResult.FAIL;
+                    }
 
-            BlockPos blockpos1;
-            if (blockstate.getCollisionShape(level, blockpos).isEmpty()) {
-                blockpos1 = blockpos;
-            } else {
-                blockpos1 = blockpos.relative(direction);
-            }
+                    float f = (float) Mth.floor((Mth.wrapDegrees(pContext.getRotation() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
+                    armorstand.moveTo(armorstand.getX(), armorstand.getY(), armorstand.getZ(), f, 0.0F);
+                    serverlevel.addFreshEntityWithPassengers(armorstand);
+                    level.playSound(null, armorstand.getX(), armorstand.getY(), armorstand.getZ(), SoundEvents.GRASS_PLACE, SoundSource.BLOCKS, 0.35F, 0.9F);
+                    armorstand.gameEvent(GameEvent.ENTITY_PLACE, pContext.getPlayer());
+                }
 
-            EntityType<?> entitytype = ModEntityTypes.MANNEQUIN.get();
-            if (entitytype.spawn((ServerLevel) level, itemstack, pContext.getPlayer(), blockpos1, MobSpawnType.SPAWN_EGG, true, !Objects.equals(blockpos, blockpos1) && direction == Direction.UP) != null) {
                 itemstack.shrink(1);
-                level.gameEvent(pContext.getPlayer(), GameEvent.ENTITY_PLACE, blockpos);
+                return InteractionResult.sidedSuccess(level.isClientSide);
+            } else {
+                return InteractionResult.FAIL;
             }
-
         }
-        return InteractionResult.PASS;
     }
-
 }

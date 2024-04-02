@@ -1,6 +1,6 @@
 {
   "replace": false,
   "values": [
-    "valoria:shadewood_planks_vertical_slab"
+    { "id": "valoria:shadewood_planks_vertical_slab","required": false }
   ]
 }

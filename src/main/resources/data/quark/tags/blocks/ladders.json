@@ -1,6 +1,6 @@
 {
   "replace": false,
   "values": [
-    "valoria:shadewood_ladder"
+    { "id": "valoria:shadewood_ladder", "required":  false }
   ]
 }
