@@ -1,21 +1,21 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "com.idark.valoria.mixin",
+  "package": "com.idark.valoria.core.mixin",
   "compatibilityLevel": "JAVA_17",
   "refmap": "valoria.refmap.json",
   "mixins": [
-    "com.idark.valoria.core.mixin.AttributeMixin",
-    "com.idark.valoria.core.mixin.HalfTransparentBlockMixin",
-    "com.idark.valoria.core.mixin.MixinCooldownTracker",
-    "com.idark.valoria.core.mixin.RangedAttributeMixin"
+    "AttributeMixin",
+    "HalfTransparentBlockMixin",
+    "MixinCooldownTracker",
+    "RangedAttributeMixin"
   ],
   "client": [
-    "com.idark.valoria.core.mixin.AbstractClientPlayerMixin",
-    "com.idark.valoria.core.mixin.HumanoidModelMixin",
-    "com.idark.valoria.core.mixin.ItemInHandLayerMixin",
-    "com.idark.valoria.core.mixin.ItemInHandRendererMixin",
-    "com.idark.valoria.core.mixin.LevelRendererMixin"
+    "AbstractClientPlayerMixin",
+    "HumanoidModelMixin",
+    "ItemInHandLayerMixin",
+    "ItemInHandRendererMixin",
+    "LevelRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1
