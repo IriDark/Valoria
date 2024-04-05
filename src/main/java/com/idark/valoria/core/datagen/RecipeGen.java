@@ -4,17 +4,20 @@ import com.idark.valoria.Valoria;
 import com.idark.valoria.compat.quark.QuarkIntegration;
 import com.idark.valoria.registries.BlockRegistry;
 import com.idark.valoria.registries.ItemsRegistry;
+import com.idark.valoria.registries.TagsRegistry;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.recipes.FinishedRecipe;
-import net.minecraft.data.recipes.RecipeCategory;
-import net.minecraft.data.recipes.RecipeProvider;
-import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.crafting.ConditionalRecipe;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
 import net.minecraftforge.common.crafting.conditions.ModLoadedCondition;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Consumer;
 
@@ -25,7 +28,7 @@ public class RecipeGen extends RecipeProvider implements IConditionBuilder {
     }
 
     @Override
-    public void buildRecipes(Consumer<FinishedRecipe> pWriter) {
+    public void buildRecipes(@NotNull Consumer<FinishedRecipe> pWriter) {
         cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.POLISHED_AMBANE_STONE.get(), BlockRegistry.AMBANE_STONE.get(), 1);
         cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.AMBANE_STONE_STAIRS.get(), BlockRegistry.AMBANE_STONE.get(), 1);
         cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.AMBANE_STONE_SLAB.get(), BlockRegistry.AMBANE_STONE.get(), 2);
@@ -190,20 +193,145 @@ public class RecipeGen extends RecipeProvider implements IConditionBuilder {
         verticalSlabRecipe(pWriter, BlockRegistry.CRACKED_LIMESTONE_BRICKS_SLAB.get(), QuarkIntegration.LoadedOnly.CRACKED_LIMESTONE_BRICKS_VERTICAL_SLAB.get());
         verticalSlabRecipe(pWriter, BlockRegistry.VOID_CRACKED_BRICK_SLAB.get(), QuarkIntegration.LoadedOnly.VOID_CRACKED_BRICK_VERTICAL_SLAB.get());
 
+        ladderRecipe(pWriter, BlockRegistry.SHADEWOOD_PLANKS.get(), QuarkIntegration.LoadedOnly.SHADEWOOD_LADDER.get());
+        chestRecipes(pWriter, QuarkIntegration.LoadedOnly.SHADEWOOD_CHEST.get(), QuarkIntegration.LoadedOnly.TRAPPED_SHADEWOOD_CHEST.get(), BlockRegistry.SHADEWOOD_PLANKS.get(), TagsRegistry.SHADEWOOD);
+
+        postRecipe(pWriter, BlockRegistry.STRIPPED_SHADELOG.get(), QuarkIntegration.LoadedOnly.STRIPPED_SHADELOG_POST.get());
+        postRecipe(pWriter, BlockRegistry.SHADELOG.get(), QuarkIntegration.LoadedOnly.SHADELOG_POST.get());
+
+        hedgeRecipe(pWriter, TagsRegistry.SHADEWOOD, BlockRegistry.SHADEWOOD_LEAVES.get(), QuarkIntegration.LoadedOnly.SHADEWOOD_LEAF_HEDGE.get());
+        leafCarpetRecipe(pWriter, BlockRegistry.SHADEWOOD_LEAVES.get(), QuarkIntegration.LoadedOnly.SHADEWOOD_LEAF_CARPET.get());
+
+        bookshelfRecipe(pWriter, BlockRegistry.SHADEWOOD_PLANKS.get(), QuarkIntegration.LoadedOnly.SHADEWOOD_BOOKSHELF.get());
+
+        fence(pWriter, BlockRegistry.SHADEWOOD_FENCE.get(), BlockRegistry.SHADEWOOD_PLANKS.get());
+        fenceGate(pWriter, BlockRegistry.SHADEWOOD_FENCE_GATE.get(), BlockRegistry.SHADEWOOD_PLANKS.get());
+
         slab(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.EPHEMARITE_SLAB.get(), BlockRegistry.EPHEMARITE.get());
-        stairBuilder(BlockRegistry.EPHEMARITE_STAIRS.get(), Ingredient.of(BlockRegistry.EPHEMARITE.get()));
+        stairs(pWriter, BlockRegistry.EPHEMARITE_STAIRS.get(), BlockRegistry.EPHEMARITE.get());
         wall(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.EPHEMARITE_WALL.get(), BlockRegistry.EPHEMARITE.get());
         polished(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.EPHEMARITE.get(), BlockRegistry.POLISHED_EPHEMARITE.get());
 
         slab(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.EPHEMARITE_LOW_SLAB.get(), BlockRegistry.EPHEMARITE_LOW.get());
-        stairBuilder(BlockRegistry.EPHEMARITE_LOW_STAIRS.get(), Ingredient.of(BlockRegistry.EPHEMARITE_LOW.get()));
+        stairs(pWriter, BlockRegistry.EPHEMARITE_LOW_STAIRS.get(), BlockRegistry.EPHEMARITE_LOW.get());
         wall(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.EPHEMARITE_LOW_WALL.get(), BlockRegistry.EPHEMARITE_LOW.get());
         polished(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.EPHEMARITE_LOW.get(), BlockRegistry.POLISHED_EPHEMARITE_LOW.get());
 
         slab(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.POLISHED_EPHEMARITE_SLAB.get(), BlockRegistry.POLISHED_EPHEMARITE.get());
-        stairBuilder(BlockRegistry.POLISHED_EPHEMARITE_STAIRS.get(), Ingredient.of(BlockRegistry.POLISHED_EPHEMARITE.get()));
+        stairs(pWriter, BlockRegistry.POLISHED_EPHEMARITE_STAIRS.get(), BlockRegistry.POLISHED_EPHEMARITE.get());
         slab(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.POLISHED_EPHEMARITE_LOW_SLAB.get(), BlockRegistry.POLISHED_EPHEMARITE_LOW.get());
-        stairBuilder(BlockRegistry.POLISHED_EPHEMARITE_LOW_STAIRS.get(), Ingredient.of(BlockRegistry.POLISHED_EPHEMARITE_LOW.get()));
+        stairs(pWriter, BlockRegistry.POLISHED_EPHEMARITE_LOW_STAIRS.get(), BlockRegistry.POLISHED_EPHEMARITE_LOW.get());
+    }
+
+    public static void stairs(Consumer<FinishedRecipe> pFinishedRecipeConsumer, ItemLike pStairs, ItemLike pMaterial) {
+        stairBuilder(pStairs, Ingredient.of(pMaterial)).unlockedBy(getHasName(pMaterial), has(pMaterial)).save(pFinishedRecipeConsumer);
+    }
+
+    public static void fence(Consumer<FinishedRecipe> pFinishedRecipeConsumer, ItemLike pFence, ItemLike pMaterial) {
+        fenceBuilder(pFence, Ingredient.of(pMaterial)).unlockedBy(getHasName(pMaterial), has(pMaterial)).save(pFinishedRecipeConsumer);
+    }
+
+    public static void fenceGate(Consumer<FinishedRecipe> pFinishedRecipeConsumer, ItemLike pFenceGate, ItemLike pMaterial) {
+        fenceGateBuilder(pFenceGate, Ingredient.of(pMaterial)).unlockedBy(getHasName(pMaterial), has(pMaterial)).save(pFinishedRecipeConsumer);
+    }
+
+    public static void bookshelfRecipe(Consumer<FinishedRecipe> consumer, ItemLike plank, ItemLike bookshelf) {
+        ConditionalRecipe.builder()
+                .addCondition(new ModLoadedCondition("quark"))
+                .addRecipe(consumer1 -> ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, bookshelf)
+                        .define('#', plank)
+                        .define('B', Items.BOOK)
+                        .pattern("###")
+                        .pattern("BBB")
+                        .pattern("###")
+                        .unlockedBy(getHasName(plank), has(plank)).save(consumer1))
+                .build(consumer, new ResourceLocation(Valoria.MOD_ID, "crafting/" + getItemName(bookshelf)));
+    }
+
+    public static void ladderRecipe(Consumer<FinishedRecipe> consumer, ItemLike plank, ItemLike ladder) {
+        ConditionalRecipe.builder()
+                .addCondition(new ModLoadedCondition("quark"))
+                .addRecipe(consumer1 -> ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ladder, 4)
+                        .define('#', Items.STICK)
+                        .define('W', plank)
+                        .pattern("# #")
+                        .pattern("#W#")
+                        .pattern("# #")
+                        .unlockedBy(getHasName(plank), has(plank)).save(consumer1))
+                .build(consumer, new ResourceLocation(Valoria.MOD_ID, "crafting/" + getItemName(ladder)));
+    }
+
+    public static void postRecipe(Consumer<FinishedRecipe> consumer, ItemLike wood, ItemLike post) {
+        ConditionalRecipe.builder()
+                .addCondition(new ModLoadedCondition("quark"))
+                .addRecipe(consumer1 -> ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, post, 8)
+                        .define('#', wood)
+                        .pattern("#")
+                        .pattern("#")
+                        .pattern("#")
+                        .unlockedBy(getHasName(wood), has(wood)).save(consumer1))
+                .build(consumer, new ResourceLocation(Valoria.MOD_ID, "crafting/" + getItemName(post)));
+    }
+
+    public static void hedgeRecipe(Consumer<FinishedRecipe> consumer, TagKey<Item> log, ItemLike leaves, ItemLike hedge) {
+        ConditionalRecipe.builder()
+                .addCondition(new ModLoadedCondition("quark"))
+                .addRecipe(consumer1 -> ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, hedge, 2)
+                        .define('#', log)
+                        .define('L', leaves)
+                        .pattern("L")
+                        .pattern("#")
+                        .unlockedBy(getHasName(leaves), has(leaves)).save(consumer1))
+                .build(consumer, new ResourceLocation(Valoria.MOD_ID, "crafting/" + getItemName(hedge)));
+    }
+
+    public static void leafCarpetRecipe(Consumer<FinishedRecipe> consumer, ItemLike leaves, ItemLike carpet) {
+        ConditionalRecipe.builder()
+                .addCondition(new ModLoadedCondition("quark"))
+                .addRecipe(consumer1 -> ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, carpet, 3)
+                        .define('#', leaves)
+                        .pattern("##")
+                        .unlockedBy(getHasName(leaves), has(leaves)).save(consumer1))
+                .build(consumer, new ResourceLocation(Valoria.MOD_ID, "crafting/" + getItemName(carpet)));
+    }
+
+    public static void chestRecipes(Consumer<FinishedRecipe> consumer, Block pNormal, Block pTrapped, ItemLike planks, TagKey<Item> log) {
+        ConditionalRecipe.builder()
+                .addCondition(new ModLoadedCondition("quark"))
+                .addRecipe(consumer1 -> ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, pNormal)
+                        .define('#', planks)
+                        .pattern("###")
+                        .pattern("# #")
+                        .pattern("###")
+                        .unlockedBy(getHasName(planks), has(planks))
+                        .save(consumer1, new ResourceLocation(Valoria.MOD_ID, "crafting/" + getItemName(pNormal))))
+                .build(consumer, new ResourceLocation(Valoria.MOD_ID, "crafting/" + getItemName(pNormal)
+                )
+        );
+
+        ConditionalRecipe.builder()
+                .addCondition(new ModLoadedCondition("quark"))
+                .addRecipe(consumer1 -> ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, pNormal, 4)
+                        .define('#', log)
+                        .pattern("###")
+                        .pattern("# #")
+                        .pattern("###")
+                        .unlockedBy(getHasName(pNormal), has(pNormal))
+                        .save(consumer1, new ResourceLocation(Valoria.MOD_ID, "crafting/" + getItemName(pNormal) + "_wood")))
+                .build(consumer, new ResourceLocation(Valoria.MOD_ID, "crafting/" + getItemName(pNormal) + "_wood"
+                )
+        );
+
+        ConditionalRecipe.builder()
+                .addCondition(new ModLoadedCondition("quark"))
+                .addRecipe(consumer1 -> ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, pTrapped)
+                        .requires(pNormal)
+                        .requires(Items.TRIPWIRE_HOOK)
+                        .unlockedBy(getHasName(pNormal), has(pNormal))
+                        .save(consumer1, new ResourceLocation(Valoria.MOD_ID, "crafting/" + getItemName(pTrapped))))
+                .build(consumer, new ResourceLocation(Valoria.MOD_ID, "crafting/" + getItemName(pTrapped)
+                )
+        );
     }
 
     public static void cutterResultFromBase(Consumer<FinishedRecipe> pFinishedRecipeConsumer, RecipeCategory pCategory, ItemLike pResult, ItemLike pMaterial, int pCount) {

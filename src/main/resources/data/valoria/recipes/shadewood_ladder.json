@@ -1,0 +1,35 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "forge:mod_loaded",
+          "modid": "quark"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "category": "building",
+        "key": {
+          "#": {
+            "item": "minecraft:stick"
+          },
+          "W": {
+            "item": "valoria:shadewood_planks"
+          }
+        },
+        "pattern": [
+          "# #",
+          "#W#",
+          "# #"
+        ],
+        "result": {
+          "count": 4,
+          "item": "valoria:shadewood_ladder"
+        },
+        "show_notification": true
+      }
+    }
+  ]
+}

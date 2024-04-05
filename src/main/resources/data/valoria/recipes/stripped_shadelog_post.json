@@ -1,0 +1,32 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "forge:mod_loaded",
+          "modid": "quark"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "category": "building",
+        "key": {
+          "#": {
+            "item": "valoria:stripped_shadelog"
+          }
+        },
+        "pattern": [
+          "#",
+          "#",
+          "#"
+        ],
+        "result": {
+          "count": 8,
+          "item": "valoria:stripped_shadelog_post"
+        },
+        "show_notification": true
+      }
+    }
+  ]
+}

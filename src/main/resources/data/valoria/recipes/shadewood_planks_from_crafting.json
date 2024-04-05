@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "tag": "valoria:shadelogs"
+      "tag": "valoria:logs/shadewood"
     }
   ],
   "result": {
