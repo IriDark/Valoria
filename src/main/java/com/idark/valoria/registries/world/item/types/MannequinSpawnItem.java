@@ -1,7 +1,7 @@
 package com.idark.valoria.registries.world.item.types;
 
 import com.idark.valoria.registries.world.entity.ModEntityTypes;
-import com.idark.valoria.registries.world.entity.living.MannequinEntity;
+import com.idark.valoria.registries.world.entity.decoration.MannequinEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;

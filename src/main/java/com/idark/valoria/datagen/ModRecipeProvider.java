@@ -1,7 +1,7 @@
 package com.idark.valoria.datagen;
 
 import com.idark.valoria.Valoria;
-import com.idark.valoria.client.compat.quark.QuarkIntegration;
+import com.idark.valoria.compat.quark.QuarkIntegration;
 import com.idark.valoria.registries.world.block.ModBlocks;
 import com.idark.valoria.registries.world.item.ModItems;
 import net.minecraft.data.PackOutput;
@@ -10,6 +10,7 @@ import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.common.crafting.ConditionalRecipe;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
@@ -25,9 +26,6 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
 
     @Override
     public void buildRecipes(Consumer<FinishedRecipe> pWriter) {
-        cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.POLISHED_EPHEMARITE.get(), ModBlocks.EPHEMARITE.get(), 1);
-        cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.POLISHED_EPHEMARITE_LOW.get(), ModBlocks.EPHEMARITE_LOW.get(), 1);
-
         cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.POLISHED_AMBANE_STONE.get(), ModBlocks.AMBANE_STONE.get(), 1);
         cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.AMBANE_STONE_STAIRS.get(), ModBlocks.AMBANE_STONE.get(), 1);
         cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.AMBANE_STONE_SLAB.get(), ModBlocks.AMBANE_STONE.get(), 2);
@@ -40,9 +38,25 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.AMBANE_STONE_BRICKS_WALL.get(), ModBlocks.AMBANE_STONE_BRICKS.get(), 1);
         cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CHISELED_AMBANE_STONE_BRICKS.get(), ModBlocks.AMBANE_STONE_BRICKS.get(), 1);
 
-        cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.POLISHED_AMBANE_STONE.get(), ModBlocks.POLISHED_AMBANE_STONE.get(), 1);
         cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.POLISHED_AMBANE_STONE_SLAB.get(), ModBlocks.POLISHED_AMBANE_STONE.get(), 2);
         cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.POLISHED_AMBANE_STONE_STAIRS.get(), ModBlocks.POLISHED_AMBANE_STONE.get(), 1);
+
+        cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.EPHEMARITE_SLAB.get(), ModBlocks.EPHEMARITE.get(), 1);
+        cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.EPHEMARITE_STAIRS.get(), ModBlocks.EPHEMARITE.get(), 1);
+        cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.EPHEMARITE_WALL.get(), ModBlocks.EPHEMARITE.get(), 1);
+        cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.EPHEMARITE_LOW.get(), ModBlocks.EPHEMARITE.get(), 2);
+
+        cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.EPHEMARITE_LOW_SLAB.get(), ModBlocks.EPHEMARITE_LOW.get(), 1);
+        cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.EPHEMARITE_LOW_STAIRS.get(), ModBlocks.EPHEMARITE_LOW.get(), 1);
+        cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.EPHEMARITE_LOW_WALL.get(), ModBlocks.EPHEMARITE_LOW.get(), 1);
+
+        cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.POLISHED_EPHEMARITE.get(), ModBlocks.EPHEMARITE.get(), 1);
+        cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.POLISHED_EPHEMARITE_SLAB.get(), ModBlocks.POLISHED_EPHEMARITE.get(), 2);
+        cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.POLISHED_EPHEMARITE_STAIRS.get(), ModBlocks.POLISHED_EPHEMARITE.get(), 1);
+
+        cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.POLISHED_EPHEMARITE_LOW.get(), ModBlocks.EPHEMARITE_LOW.get(), 1);
+        cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.POLISHED_EPHEMARITE_LOW_SLAB.get(), ModBlocks.POLISHED_EPHEMARITE_LOW.get(), 2);
+        cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.POLISHED_EPHEMARITE_LOW_STAIRS.get(), ModBlocks.POLISHED_EPHEMARITE_LOW.get(), 1);
 
         cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.POLISHED_DUNESTONE.get(), ModBlocks.DUNESTONE.get(), 1);
         cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.DUNESTONE_STAIRS.get(), ModBlocks.DUNESTONE.get(), 1);
@@ -86,7 +100,6 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CRYSTAL_STONE_PILLAR.get(), ModBlocks.CRYSTAL_STONE.get(), 1);
 
         cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CUT_POLISHED_CRYSTAL_STONE.get(), ModBlocks.POLISHED_CRYSTAL_STONE.get(), 1);
-
         cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CRYSTAL_STONE_BRICKS_STAIRS.get(), ModBlocks.CRYSTAL_STONE_BRICKS.get(), 1);
         cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CRYSTAL_STONE_BRICKS_SLAB.get(), ModBlocks.CRYSTAL_STONE_BRICKS.get(), 2);
         cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CRYSTAL_STONE_BRICKS_WALL.get(), ModBlocks.CRYSTAL_STONE_BRICKS.get(), 1);
@@ -143,8 +156,15 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         netheriteSmithing(pWriter, ModItems.GOLDEN_RING_SAPPHIRE.get(), RecipeCategory.MISC, ModItems.NETHERITE_RING_SAPPHIRE.get());
 
         verticalSlabRecipe(pWriter, ModBlocks.SHADEWOOD_PLANKS_SLAB.get(), QuarkIntegration.LoadedOnly.SHADEWOOD_PLANKS_VERTICAL_SLAB.get());
+
         verticalSlabRecipe(pWriter, ModBlocks.BRONZE_BLOCK_SLAB.get(), QuarkIntegration.LoadedOnly.BRONZE_VERTICAL_SLAB.get());
         verticalSlabRecipe(pWriter, ModBlocks.CUT_BRONZE_SLAB.get(), QuarkIntegration.LoadedOnly.CUT_BRONZE_VERTICAL_SLAB.get());
+
+        verticalSlabRecipe(pWriter, ModBlocks.EPHEMARITE_SLAB.get(), QuarkIntegration.LoadedOnly.EPHEMARITE_VERTICAL_SLAB.get());
+        verticalSlabRecipe(pWriter, ModBlocks.EPHEMARITE_LOW_SLAB.get(), QuarkIntegration.LoadedOnly.EPHEMARITE_LOW_VERTICAL_SLAB.get());
+        verticalSlabRecipe(pWriter, ModBlocks.POLISHED_EPHEMARITE_SLAB.get(), QuarkIntegration.LoadedOnly.POLISHED_EPHEMARITE_VERTICAL_SLAB.get());
+        verticalSlabRecipe(pWriter, ModBlocks.POLISHED_EPHEMARITE_LOW_SLAB.get(), QuarkIntegration.LoadedOnly.POLISHED_EPHEMARITE_LOW_VERTICAL_SLAB.get());
+
         verticalSlabRecipe(pWriter, ModBlocks.AMBANE_STONE_SLAB.get(), QuarkIntegration.LoadedOnly.AMBANE_STONE_VERTICAL_SLAB.get());
         verticalSlabRecipe(pWriter, ModBlocks.DUNESTONE_SLAB.get(), QuarkIntegration.LoadedOnly.DUNESTONE_VERTICAL_SLAB.get());
         verticalSlabRecipe(pWriter, ModBlocks.TOMBSTONE_SLAB.get(), QuarkIntegration.LoadedOnly.TOMBSTONE_VERTICAL_SLAB.get());
@@ -169,6 +189,21 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         verticalSlabRecipe(pWriter, ModBlocks.VOID_CHISELED_BRICKS_SLAB.get(), QuarkIntegration.LoadedOnly.CHISELED_VOID_BRICKS_VERTICAL_SLAB.get());
         verticalSlabRecipe(pWriter, ModBlocks.CRACKED_LIMESTONE_BRICKS_SLAB.get(), QuarkIntegration.LoadedOnly.CRACKED_LIMESTONE_BRICKS_VERTICAL_SLAB.get());
         verticalSlabRecipe(pWriter, ModBlocks.VOID_CRACKED_BRICK_SLAB.get(), QuarkIntegration.LoadedOnly.VOID_CRACKED_BRICK_VERTICAL_SLAB.get());
+
+        slab(pWriter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.EPHEMARITE_SLAB.get(), ModBlocks.EPHEMARITE.get());
+        stairBuilder(ModBlocks.EPHEMARITE_STAIRS.get(), Ingredient.of(ModBlocks.EPHEMARITE.get()));
+        wall(pWriter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.EPHEMARITE_WALL.get(), ModBlocks.EPHEMARITE.get());
+        polished(pWriter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.EPHEMARITE.get(), ModBlocks.POLISHED_EPHEMARITE.get());
+
+        slab(pWriter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.EPHEMARITE_LOW_SLAB.get(), ModBlocks.EPHEMARITE_LOW.get());
+        stairBuilder(ModBlocks.EPHEMARITE_LOW_STAIRS.get(), Ingredient.of(ModBlocks.EPHEMARITE_LOW.get()));
+        wall(pWriter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.EPHEMARITE_LOW_WALL.get(), ModBlocks.EPHEMARITE_LOW.get());
+        polished(pWriter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.EPHEMARITE_LOW.get(), ModBlocks.POLISHED_EPHEMARITE_LOW.get());
+
+        slab(pWriter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.POLISHED_EPHEMARITE_SLAB.get(), ModBlocks.POLISHED_EPHEMARITE.get());
+        stairBuilder(ModBlocks.POLISHED_EPHEMARITE_STAIRS.get(), Ingredient.of(ModBlocks.POLISHED_EPHEMARITE.get()));
+        slab(pWriter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.POLISHED_EPHEMARITE_LOW_SLAB.get(), ModBlocks.POLISHED_EPHEMARITE_LOW.get());
+        stairBuilder(ModBlocks.POLISHED_EPHEMARITE_LOW_STAIRS.get(), Ingredient.of(ModBlocks.POLISHED_EPHEMARITE_LOW.get()));
     }
 
     public static void cutterResultFromBase(Consumer<FinishedRecipe> pFinishedRecipeConsumer, RecipeCategory pCategory, ItemLike pResult, ItemLike pMaterial, int pCount) {

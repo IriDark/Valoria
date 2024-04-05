@@ -4,6 +4,7 @@ import com.idark.valoria.client.particle.ModParticles;
 import com.idark.valoria.registries.world.levelgen.LevelGen;
 import com.idark.valoria.registries.world.levelgen.portal.ValoriaTeleporter;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
@@ -11,13 +12,18 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.pattern.BlockPattern;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class ValoriaPortalBlock extends Block {
+    private static final VoxelShape shape = Block.box(0, 7, 0, 16, 8, 16);
 
     public ValoriaPortalBlock(Properties pProperties) {
         super(pProperties);
@@ -27,6 +33,11 @@ public class ValoriaPortalBlock extends Block {
         if (pEntity.canChangeDimensions()) {
             handlePortal(pEntity, pPos);
         }
+    }
+
+    @Override
+    public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
+        return shape;
     }
 
     public void animateTick(BlockState pState, Level pLevel, BlockPos pPos, RandomSource pRandom) {
@@ -63,6 +74,22 @@ public class ValoriaPortalBlock extends Block {
                 player.setPortalCooldown();
             }
         }
+    }
+
+    public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pFacingPos) {
+        BlockPattern.BlockPatternMatch frame = ValoriaPortalFrame.getOrCreatePortalShape().find(pLevel, pCurrentPos);
+        if (frame != null) {
+            for(int i = 0; i < 3; ++i) {
+                for (int j = 0; j < 3; ++j) {
+                    BlockPos blockpos1 = frame.getFrontTopLeft().offset(-3, 0, -3);
+                    if (pLevel.isEmptyBlock(blockpos1.offset(i, 0, j))) {
+                        return Blocks.AIR.defaultBlockState();
+                    }
+                }
+            }
+        }
+
+        return super.updateShape(pState, pFacing, pFacingState, pLevel, pCurrentPos, pFacingPos);
     }
 
     @Override

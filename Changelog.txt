@@ -3,6 +3,7 @@
 - Optimized Infernal Sword
 - Optimized Scythe Items
 - Optimized Lexicon Page Item
+- Optimized Mannequin
 
 - Added functionality for ALL runes (finally did it lmao)
 - Added Jade compat
@@ -63,6 +64,7 @@
 - Added Shadewood Fence
 - Added Shadewood Fence Gate
 - Added Quark Compat
+- Added Building blocks for ephemarite (slabs, stairs, walls)
 
 - Reworked keg a little
 - Reworked Keyblocks (Umbral Blocks)
@@ -87,6 +89,7 @@
 - Resprited Bloodhound
 - Resprited Murasama
 - Resprited Yamato
+- Resprited Shadewood Planks and related items
 
 - Renamed Uncharged Stone -> Uncharged Shard
 - Renamed Soulstone -> Soul shard
@@ -130,9 +133,11 @@
 - Changed HoundItem (Bloodhound sword) to SwordItem, so it will support sword enchantments
 - Changed Sounds of abilities to new ones (Credit to Calamity mod <3)
 - Changed Time in JEI recipes converted to seconds now
+- Changed Block Tab sorting
 
 - Decreased Limestone spawn chance
 - Decreased particles count (15 -> 4) when picking up Mannequin
 - Decreased particles count (16 -> 3) after attacking Mannequin
 
 - Deleted class KeyBlock now it's powered with Tags
+- Updated forge version 1.20.1-47.2.0 -> 1.20.1-47.2.16

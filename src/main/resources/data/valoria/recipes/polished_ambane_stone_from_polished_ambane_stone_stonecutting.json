@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "count": 1,
-  "ingredient": {
-    "item": "valoria:polished_ambane_stone"
-  },
-  "result": "valoria:polished_ambane_stone"
-}

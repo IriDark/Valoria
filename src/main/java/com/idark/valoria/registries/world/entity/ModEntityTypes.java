@@ -3,6 +3,7 @@ package com.idark.valoria.registries.world.entity;
 import com.idark.valoria.Valoria;
 import com.idark.valoria.registries.world.entity.decoration.CustomBoatEntity;
 import com.idark.valoria.registries.world.entity.decoration.CustomChestBoatEntity;
+import com.idark.valoria.registries.world.entity.decoration.MannequinEntity;
 import com.idark.valoria.registries.world.entity.living.*;
 import com.idark.valoria.registries.world.entity.projectile.*;
 import net.minecraft.resources.ResourceLocation;

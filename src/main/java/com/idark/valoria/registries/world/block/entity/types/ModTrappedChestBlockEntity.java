@@ -1,6 +1,6 @@
 package com.idark.valoria.registries.world.block.entity.types;
 
-import com.idark.valoria.client.compat.quark.QuarkIntegration;
+import com.idark.valoria.compat.quark.QuarkIntegration;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;

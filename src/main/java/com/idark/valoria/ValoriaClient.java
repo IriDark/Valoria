@@ -1,7 +1,6 @@
 package com.idark.valoria;
 
 import com.idark.valoria.client.color.ModBlockColors;
-import com.idark.valoria.client.compat.quark.QuarkIntegration;
 import com.idark.valoria.client.particle.ModParticles;
 import com.idark.valoria.client.particle.types.ChompParticle;
 import com.idark.valoria.client.particle.types.ShadewoodLeafParticleType;
@@ -14,6 +13,7 @@ import com.idark.valoria.client.render.entity.*;
 import com.idark.valoria.client.render.model.blockentity.*;
 import com.idark.valoria.client.render.model.item.Item2DRenderer;
 import com.idark.valoria.client.render.model.item.ModItemModelProperties;
+import com.idark.valoria.compat.quark.QuarkIntegration;
 import com.idark.valoria.config.ClientConfig;
 import com.idark.valoria.registries.sounds.CooldownSoundInstance;
 import com.idark.valoria.registries.world.block.entity.ModBlockEntities;

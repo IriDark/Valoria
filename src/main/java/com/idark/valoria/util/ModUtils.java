@@ -7,6 +7,7 @@ import com.idark.valoria.registries.world.item.types.CoralReefItem;
 import com.idark.valoria.registries.world.item.types.HoundItem;
 import com.idark.valoria.registries.world.item.types.ScytheItem;
 import com.idark.valoria.registries.world.item.types.curio.charm.BloodSight;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
@@ -23,6 +24,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
@@ -36,6 +38,27 @@ import java.util.Random;
 import java.util.function.Predicate;
 
 public class ModUtils {
+
+    /**
+     * @param pSize Portal Size
+     * @param pPortal Portal State
+     * @param pFrame Portal Frame
+     */
+    public static void createEndShapedPortal(int pSize, Level pDestination, BlockPos pPos, BlockState pPortal, BlockState pFrame) {
+        for (int i = 0; i <  pSize - 1; ++i) {
+            for (int j = 0; j < pSize - 1; ++j) {
+                pDestination.setBlock(pPos.offset(i, 0, j), pPortal, 2);
+            }
+        }
+
+        for (int i = 0; i < pSize; i++) {
+            for (int j = 0; j < pSize; j++) {
+                if (i == 0 || i == pSize - 1 || j == 0 || j == pSize - 1) {
+                    pDestination.setBlock(pPos.offset(i, 0, j), pFrame, 2);
+                }
+            }
+        }
+    }
 
     /**
      * Applies a cooldown to item list

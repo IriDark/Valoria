@@ -1,6 +1,6 @@
 {
   "parent": "block/cube_all",
   "textures": {
-    "all": "valoria:block/polished_ephemarite_stone"
+    "all": "valoria:block/polished_ephemarite"
   }
 }

@@ -2,6 +2,7 @@ package com.idark.valoria.registries.world.levelgen.portal;
 
 import com.idark.valoria.registries.world.block.ModBlocks;
 import com.idark.valoria.registries.world.block.types.ValoriaPortalBlock;
+import com.idark.valoria.util.ModUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
@@ -50,7 +51,8 @@ public class ValoriaTeleporter implements ITeleporter {
             }
 
             if (doSetBlock) {
-                destinationWorld.setBlock(destinationPos, ModBlocks.VALORIA_PORTAL.get().defaultBlockState(), 3);
+                BlockPos blockpos1 = destinationPos.offset(-3, 0, -3);
+                ModUtils.createEndShapedPortal(5, destinationWorld, blockpos1, ModBlocks.VALORIA_PORTAL.get().defaultBlockState(), ModBlocks.VALORIA_PORTAL_FRAME.get().defaultBlockState());
             }
         }
 

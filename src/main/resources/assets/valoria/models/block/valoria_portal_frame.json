@@ -1,6 +1,12 @@
 {
-  "parent": "block/cube_all",
+  "parent": "block/cube",
   "textures": {
-    "all": "valoria:block/valoria_portal_frame"
+    "up": "valoria:block/valoria_portal_frame",
+    "particle": "valoria:block/valoria_portal_frame",
+    "north": "valoria:block/valoria_portal_frame_activator_side",
+    "south": "valoria:block/valoria_portal_frame",
+    "east": "valoria:block/valoria_portal_frame",
+    "west": "valoria:block/valoria_portal_frame",
+    "down": "valoria:block/valoria_portal_frame"
   }
 }

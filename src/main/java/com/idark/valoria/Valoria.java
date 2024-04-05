@@ -2,7 +2,6 @@ package com.idark.valoria;
 
 import com.google.common.collect.ImmutableMap;
 import com.idark.valoria.capability.IUnlockable;
-import com.idark.valoria.client.compat.quark.QuarkIntegration;
 import com.idark.valoria.client.event.ClientTickHandler;
 import com.idark.valoria.client.gui.menu.ModMenuTypes;
 import com.idark.valoria.client.gui.overlay.CorpsecleaverRender;
@@ -17,6 +16,7 @@ import com.idark.valoria.client.render.curio.BeltRenderer;
 import com.idark.valoria.client.render.curio.HandsRenderer;
 import com.idark.valoria.client.render.curio.NecklaceRenderer;
 import com.idark.valoria.client.render.model.item.Item2DRenderer;
+import com.idark.valoria.compat.quark.QuarkIntegration;
 import com.idark.valoria.config.ClientConfig;
 import com.idark.valoria.datagen.ModBlockStateProvider;
 import com.idark.valoria.datagen.ModRecipeProvider;
@@ -35,9 +35,10 @@ import com.idark.valoria.registries.world.effect.ModEffects;
 import com.idark.valoria.registries.world.effect.potion.ModPotions;
 import com.idark.valoria.registries.world.entity.ModEntityTypes;
 import com.idark.valoria.registries.world.entity.ai.attributes.ModAttributes;
+import com.idark.valoria.registries.world.entity.decoration.MannequinEntity;
 import com.idark.valoria.registries.world.entity.decoration.ModPaintings;
 import com.idark.valoria.registries.world.entity.living.*;
-import com.idark.valoria.registries.world.item.ModItemGroup;
+import com.idark.valoria.registries.world.item.ModItemTab;
 import com.idark.valoria.registries.world.item.ModItems;
 import com.idark.valoria.registries.world.item.enchant.ModEnchantments;
 import com.idark.valoria.registries.world.item.types.mana.staffs.StaffItem;
@@ -120,8 +121,8 @@ public class Valoria {
             return new Object();
         });
 
-        ModItemGroup.register(eventBus);
-        eventBus.addListener(ModItemGroup::addCreative);
+        ModItemTab.register(eventBus);
+        eventBus.addListener(ModItemTab::addCreative);
 
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new Events());

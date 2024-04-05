@@ -3,7 +3,7 @@ package com.idark.valoria.client.compat.jei.categories;
 import com.idark.valoria.Valoria;
 import com.idark.valoria.client.compat.jei.ModRecipeTypes;
 import com.idark.valoria.registries.recipe.CrusherRecipe;
-import com.idark.valoria.registries.world.item.ModItems;
+import com.idark.valoria.registries.world.block.ModBlocks;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -33,7 +33,7 @@ public class CrusherRecipeCategory implements IRecipeCategory<CrusherRecipe> {
         ResourceLocation backgroundImage = new ResourceLocation(Valoria.MOD_ID, "textures/gui/jei/jewelry.png");
 
         background = helper.createDrawable(backgroundImage, 0, 0, 148, 48);
-        icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModItems.STONE_CRUSHER.get()));
+        icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.STONE_CRUSHER.get()));
     }
 
     @Override

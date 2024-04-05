@@ -2,7 +2,7 @@ package com.idark.valoria.client.render.entity;
 
 import com.idark.valoria.Valoria;
 import com.idark.valoria.client.render.model.entity.MannequinModel;
-import com.idark.valoria.registries.world.entity.living.MannequinEntity;
+import com.idark.valoria.registries.world.entity.decoration.MannequinEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -25,7 +25,7 @@ public class MannequinRenderer extends MobRenderer<MannequinEntity, MannequinMod
     private static final DecimalFormat FORMAT = new DecimalFormat("###.##", new DecimalFormatSymbols(Locale.ENGLISH));
 
     public MannequinRenderer(EntityRendererProvider.Context context) {
-        super(context, new MannequinModel<>(MannequinModel.createBodyLayer().bakeRoot()), 0.7F);
+        super(context, new MannequinModel<>(MannequinModel.createBodyLayer().bakeRoot()), 0.0F);
     }
 
     @Override

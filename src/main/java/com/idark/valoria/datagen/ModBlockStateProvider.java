@@ -1,7 +1,7 @@
 package com.idark.valoria.datagen;
 
 import com.idark.valoria.Valoria;
-import com.idark.valoria.client.compat.quark.QuarkIntegration;
+import com.idark.valoria.compat.quark.QuarkIntegration;
 import com.idark.valoria.registries.world.block.ModBlocks;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
@@ -30,8 +30,20 @@ public class ModBlockStateProvider extends BlockStateProvider {
         slabBlock((SlabBlock) ModBlocks.DEEP_MARBLE_SLAB.get(), blockTexture(ModBlocks.DEEP_MARBLE.get()), blockTexture(ModBlocks.DEEP_MARBLE.get()));
         slabBlock((SlabBlock) ModBlocks.POLISHED_DEEP_MARBLE_SLAB.get(), blockTexture(ModBlocks.POLISHED_DEEP_MARBLE.get()), blockTexture(ModBlocks.POLISHED_DEEP_MARBLE.get()));
 
+        stairsBlock((StairBlock) ModBlocks.EPHEMARITE_LOW_STAIRS.get(), blockTexture(ModBlocks.EPHEMARITE_LOW.get()));
+        stairsBlock((StairBlock) ModBlocks.EPHEMARITE_STAIRS.get(), blockTexture(ModBlocks.EPHEMARITE.get()));
+        slabBlock((SlabBlock) ModBlocks.EPHEMARITE_LOW_SLAB.get(), blockTexture(ModBlocks.EPHEMARITE_LOW.get()), blockTexture(ModBlocks.EPHEMARITE_LOW.get()));
+        slabBlock((SlabBlock) ModBlocks.EPHEMARITE_SLAB.get(), blockTexture(ModBlocks.EPHEMARITE.get()), blockTexture(ModBlocks.EPHEMARITE.get()));
+
+        stairsBlock((StairBlock) ModBlocks.POLISHED_EPHEMARITE_LOW_STAIRS.get(), blockTexture(ModBlocks.POLISHED_EPHEMARITE_LOW.get()));
+        stairsBlock((StairBlock) ModBlocks.POLISHED_EPHEMARITE_STAIRS.get(), blockTexture(ModBlocks.POLISHED_EPHEMARITE.get()));
+        slabBlock((SlabBlock) ModBlocks.POLISHED_EPHEMARITE_LOW_SLAB.get(), blockTexture(ModBlocks.POLISHED_EPHEMARITE_LOW.get()), blockTexture(ModBlocks.POLISHED_EPHEMARITE_LOW.get()));
+        slabBlock((SlabBlock) ModBlocks.POLISHED_EPHEMARITE_SLAB.get(), blockTexture(ModBlocks.POLISHED_EPHEMARITE.get()), blockTexture(ModBlocks.POLISHED_EPHEMARITE.get()));
+
         wallBlock((WallBlock) ModBlocks.DEEP_MARBLE_WALL.get(), blockTexture(ModBlocks.DEEP_MARBLE.get()));
         wallBlock((WallBlock) ModBlocks.POLISHED_DEEP_MARBLE_WALL.get(), blockTexture(ModBlocks.POLISHED_DEEP_MARBLE.get()));
+        wallBlock((WallBlock) ModBlocks.EPHEMARITE_WALL.get(), blockTexture(ModBlocks.EPHEMARITE.get()));
+        wallBlock((WallBlock) ModBlocks.EPHEMARITE_LOW_WALL.get(), blockTexture(ModBlocks.EPHEMARITE_LOW.get()));
 
         fenceBlock((FenceBlock) ModBlocks.SHADEWOOD_FENCE.get(), blockTexture(ModBlocks.SHADEWOOD_PLANKS.get()));
         fenceGateBlock((FenceGateBlock) ModBlocks.SHADEWOOD_FENCE_GATE.get(), blockTexture(ModBlocks.SHADEWOOD_PLANKS.get()));
@@ -40,6 +52,14 @@ public class ModBlockStateProvider extends BlockStateProvider {
         blockItem(ModBlocks.POLISHED_DEEP_MARBLE_STAIRS);
         blockItem(ModBlocks.DEEP_MARBLE_SLAB);
         blockItem(ModBlocks.POLISHED_DEEP_MARBLE_SLAB);
+        blockItem(ModBlocks.EPHEMARITE_STAIRS);
+        blockItem(ModBlocks.EPHEMARITE_LOW_STAIRS);
+        blockItem(ModBlocks.EPHEMARITE_SLAB);
+        blockItem(ModBlocks.EPHEMARITE_LOW_SLAB);
+        blockItem(ModBlocks.POLISHED_EPHEMARITE_STAIRS);
+        blockItem(ModBlocks.POLISHED_EPHEMARITE_LOW_STAIRS);
+        blockItem(ModBlocks.POLISHED_EPHEMARITE_SLAB);
+        blockItem(ModBlocks.POLISHED_EPHEMARITE_LOW_SLAB);
 
         stairsBlock((StairBlock) ModBlocks.PICRITE_STAIRS.get(), blockTexture(ModBlocks.PICRITE.get()));
         stairsBlock((StairBlock) ModBlocks.POLISHED_PICRITE_STAIRS.get(), blockTexture(ModBlocks.POLISHED_PICRITE.get()));
@@ -54,6 +74,10 @@ public class ModBlockStateProvider extends BlockStateProvider {
         blockItem(ModBlocks.PICRITE_SLAB);
         blockItem(ModBlocks.POLISHED_PICRITE_SLAB);
         if(QuarkIntegration.isLoaded()) {
+            blockItem(ModBlocks.EPHEMARITE_SLAB);
+            blockItem(ModBlocks.EPHEMARITE_LOW_SLAB);
+            blockItem(ModBlocks.POLISHED_EPHEMARITE_SLAB);
+            blockItem(ModBlocks.POLISHED_EPHEMARITE_LOW_SLAB);
             blockItem(QuarkIntegration.LoadedOnly.BRONZE_VERTICAL_SLAB);
             blockItem(QuarkIntegration.LoadedOnly.CUT_BRONZE_VERTICAL_SLAB);
             blockItem(QuarkIntegration.LoadedOnly.AMBANE_STONE_BRICKS_VERTICAL_SLAB);
