@@ -2,7 +2,7 @@ package com.idark.valoria.client.render.entity;
 
 import com.idark.valoria.Valoria;
 import com.idark.valoria.client.render.model.entity.SwampWandererModel;
-import com.idark.valoria.registries.world.entity.living.SwampWandererEntity;
+import com.idark.valoria.registries.entity.living.SwampWandererEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;

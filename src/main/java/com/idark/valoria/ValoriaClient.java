@@ -14,13 +14,13 @@ import com.idark.valoria.client.render.model.blockentity.*;
 import com.idark.valoria.client.render.model.item.Item2DRenderer;
 import com.idark.valoria.client.render.model.item.ModItemModelProperties;
 import com.idark.valoria.compat.quark.QuarkIntegration;
-import com.idark.valoria.config.ClientConfig;
+import com.idark.valoria.core.config.ClientConfig;
+import com.idark.valoria.registries.ItemsRegistry;
+import com.idark.valoria.registries.block.entity.ModBlockEntities;
+import com.idark.valoria.registries.block.types.ModWoodTypes;
+import com.idark.valoria.registries.entity.ModEntityTypes;
+import com.idark.valoria.registries.entity.decoration.CustomBoatEntity;
 import com.idark.valoria.registries.sounds.CooldownSoundInstance;
-import com.idark.valoria.registries.world.block.entity.ModBlockEntities;
-import com.idark.valoria.registries.world.block.types.ModWoodTypes;
-import com.idark.valoria.registries.world.entity.ModEntityTypes;
-import com.idark.valoria.registries.world.entity.decoration.CustomBoatEntity;
-import com.idark.valoria.registries.world.item.ModItems;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.BoatModel;
@@ -106,13 +106,13 @@ public class ValoriaClient {
             EntityRenderers.register(ModEntityTypes.NECROMANCER_FANGS.get(), NecromancerFangsRenderer::new);
             EntityRenderers.register(ModEntityTypes.UNDEAD.get(), UndeadRenderer::new);
 
-            ModItemModelProperties.makeBow(ModItems.SAMURAI_LONG_BOW.get());
-            ModItemModelProperties.makeBow(ModItems.NATURE_BOW.get());
-            ModItemModelProperties.makeBow(ModItems.AQUARIUS_BOW.get());
-            ModItemModelProperties.makeBow(ModItems.BOW_OF_DARKNESS.get());
-            ModItemModelProperties.makeBow(ModItems.PHANTASM_BOW.get());
-            ModItemModelProperties.makeSize(ModItems.SOUL_COLLECTOR.get());
-            ModItemModelProperties.makeCooldown(ModItems.SPECTRAL_BLADE.get());
+            ModItemModelProperties.makeBow(ItemsRegistry.SAMURAI_LONG_BOW.get());
+            ModItemModelProperties.makeBow(ItemsRegistry.NATURE_BOW.get());
+            ModItemModelProperties.makeBow(ItemsRegistry.AQUARIUS_BOW.get());
+            ModItemModelProperties.makeBow(ItemsRegistry.BOW_OF_DARKNESS.get());
+            ModItemModelProperties.makeBow(ItemsRegistry.PHANTASM_BOW.get());
+            ModItemModelProperties.makeSize(ItemsRegistry.SOUL_COLLECTOR.get());
+            ModItemModelProperties.makeCooldown(ItemsRegistry.SPECTRAL_BLADE.get());
         }
 
         @SubscribeEvent

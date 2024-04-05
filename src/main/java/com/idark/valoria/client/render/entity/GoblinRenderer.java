@@ -2,7 +2,7 @@ package com.idark.valoria.client.render.entity;
 
 import com.idark.valoria.Valoria;
 import com.idark.valoria.client.render.model.entity.GoblinModel;
-import com.idark.valoria.registries.world.entity.living.GoblinEntity;
+import com.idark.valoria.registries.entity.living.GoblinEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.MultiBufferSource;

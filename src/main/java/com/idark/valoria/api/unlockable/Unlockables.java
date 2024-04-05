@@ -8,7 +8,7 @@ public class Unlockables {
     public static Map<String, Unlockable> unlockableMap = new HashMap<String, Unlockable>();
     public static ArrayList<Unlockable> unlockable = new ArrayList<Unlockable>();
 
-    public static void addKnowledge(String id, Unlockable unlockable) {
+    public static void addUnlockable(String id, Unlockable unlockable) {
         unlockableMap.put(id, unlockable);
         Unlockables.unlockable.add(unlockable);
     }

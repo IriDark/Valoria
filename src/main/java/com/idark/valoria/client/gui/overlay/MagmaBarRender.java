@@ -1,8 +1,8 @@
 package com.idark.valoria.client.gui.overlay;
 
 import com.idark.valoria.Valoria;
-import com.idark.valoria.config.ClientConfig;
-import com.idark.valoria.registries.world.item.types.MagmaSwordItem;
+import com.idark.valoria.core.config.ClientConfig;
+import com.idark.valoria.registries.item.types.MagmaSwordItem;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;

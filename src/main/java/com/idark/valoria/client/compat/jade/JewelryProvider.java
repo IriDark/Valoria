@@ -1,6 +1,6 @@
 package com.idark.valoria.client.compat.jade;
 
-import com.idark.valoria.registries.world.block.entity.types.JewelryBlockEntity;
+import com.idark.valoria.registries.block.entity.types.JewelryBlockEntity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;

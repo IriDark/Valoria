@@ -2,7 +2,7 @@ package com.idark.valoria.client.render.entity;
 
 import com.google.common.collect.ImmutableMap;
 import com.idark.valoria.Valoria;
-import com.idark.valoria.registries.world.entity.decoration.CustomBoatEntity;
+import com.idark.valoria.registries.entity.decoration.CustomBoatEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.datafixers.util.Pair;

@@ -1,7 +1,7 @@
 package com.idark.valoria.client.compat.jade;
 
-import com.idark.valoria.registries.world.block.entity.types.ManipulatorBlockEntity;
-import com.idark.valoria.registries.world.item.ModItems;
+import com.idark.valoria.registries.ItemsRegistry;
+import com.idark.valoria.registries.block.entity.types.ManipulatorBlockEntity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -38,10 +38,10 @@ public enum ManipulatorProvider implements IBlockComponentProvider, IServerDataP
         tooltip.append(new ProgressArrowElement((float) progress / total));
         IElementHelper elements = tooltip.getElementHelper();
         IElement icon = elements.item(new ItemStack(Items.CLOCK), 0.5f).size(new Vec2(11, 10)).translate(new Vec2(0, -1));
-        IElement element_n = elements.item(new ItemStack(ModItems.NATURE_CORE.get()), 0.5f).size(new Vec2(11, 10)).translate(new Vec2(0, -1));
-        IElement element_a = elements.item(new ItemStack(ModItems.AQUARIUS_CORE.get()), 0.5f).size(new Vec2(11, 10)).translate(new Vec2(0, -1));
-        IElement element_v = elements.item(new ItemStack(ModItems.VOID_CORE.get()), 0.5f).size(new Vec2(11, 10)).translate(new Vec2(0, -1));
-        IElement element_i = elements.item(new ItemStack(ModItems.INFERNAL_CORE.get()), 0.5f).size(new Vec2(11, 10)).translate(new Vec2(0, -1));
+        IElement element_n = elements.item(new ItemStack(ItemsRegistry.NATURE_CORE.get()), 0.5f).size(new Vec2(11, 10)).translate(new Vec2(0, -1));
+        IElement element_a = elements.item(new ItemStack(ItemsRegistry.AQUARIUS_CORE.get()), 0.5f).size(new Vec2(11, 10)).translate(new Vec2(0, -1));
+        IElement element_v = elements.item(new ItemStack(ItemsRegistry.VOID_CORE.get()), 0.5f).size(new Vec2(11, 10)).translate(new Vec2(0, -1));
+        IElement element_i = elements.item(new ItemStack(ItemsRegistry.INFERNAL_CORE.get()), 0.5f).size(new Vec2(11, 10)).translate(new Vec2(0, -1));
         icon.message(null);
         tooltip.add(icon);
         tooltip.append(Component.translatable("valoria.jade.progress"));

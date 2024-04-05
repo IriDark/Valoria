@@ -1,6 +1,6 @@
 package com.idark.valoria.client.render.model.blockentity;
 
-import com.idark.valoria.registries.world.block.entity.types.JewelryBlockEntity;
+import com.idark.valoria.registries.block.entity.types.JewelryBlockEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;

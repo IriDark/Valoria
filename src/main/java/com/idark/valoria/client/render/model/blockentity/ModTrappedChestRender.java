@@ -1,7 +1,7 @@
 package com.idark.valoria.client.render.model.blockentity;
 
 import com.idark.valoria.Valoria;
-import com.idark.valoria.registries.world.block.entity.types.ModTrappedChestBlockEntity;
+import com.idark.valoria.registries.block.entity.types.ModTrappedChestBlockEntity;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.blockentity.ChestRenderer;
 import net.minecraft.client.resources.model.Material;

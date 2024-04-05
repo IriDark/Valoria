@@ -4,7 +4,7 @@ import com.idark.valoria.Valoria;
 import com.idark.valoria.ValoriaClient;
 import com.idark.valoria.client.render.curio.model.HandsModel;
 import com.idark.valoria.client.render.curio.model.HandsModelDefault;
-import com.idark.valoria.registries.world.item.types.curio.ICurioTexture;
+import com.idark.valoria.registries.item.types.curio.ICurioTexture;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.EntityModel;

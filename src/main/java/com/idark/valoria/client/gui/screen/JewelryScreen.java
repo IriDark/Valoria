@@ -2,7 +2,7 @@ package com.idark.valoria.client.gui.screen;
 
 import com.idark.valoria.Valoria;
 import com.idark.valoria.client.gui.menu.JewelryMenu;
-import com.idark.valoria.registries.world.block.entity.types.JewelryBlockEntity;
+import com.idark.valoria.registries.block.entity.types.JewelryBlockEntity;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;

@@ -1,7 +1,7 @@
 package com.idark.valoria.client.render.entity;
 
 import com.idark.valoria.Valoria;
-import com.idark.valoria.registries.world.entity.projectile.NecromancerFangs;
+import com.idark.valoria.registries.entity.projectile.NecromancerFangs;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;

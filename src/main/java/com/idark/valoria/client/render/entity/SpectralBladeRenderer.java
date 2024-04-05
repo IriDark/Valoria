@@ -1,7 +1,7 @@
 package com.idark.valoria.client.render.entity;
 
-import com.idark.valoria.registries.world.entity.projectile.SpectralBladeEntity;
-import com.idark.valoria.registries.world.item.ModItems;
+import com.idark.valoria.registries.ItemsRegistry;
+import com.idark.valoria.registries.entity.projectile.SpectralBladeEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
@@ -24,7 +24,7 @@ public class SpectralBladeRenderer<T extends SpectralBladeEntity> extends Entity
         ms.mulPose(Axis.YP.rotationDegrees(Mth.lerp(partialTicks, entityIn.yRotO, entityIn.getYRot()) + 90.0F));
         ms.mulPose(Axis.XP.rotationDegrees(90F));
         ms.mulPose(Axis.ZP.rotationDegrees(45F));
-        ItemStack stack = new ItemStack(ModItems.SPECTRAL_BLADE_THROWN.get());
+        ItemStack stack = new ItemStack(ItemsRegistry.SPECTRAL_BLADE_THROWN.get());
         Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.FIXED, light, OverlayTexture.NO_OVERLAY, ms, buffers, entityIn.level(), 0);
         ms.popPose();
     }

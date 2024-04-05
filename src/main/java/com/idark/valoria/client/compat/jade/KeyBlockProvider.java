@@ -1,6 +1,6 @@
 package com.idark.valoria.client.compat.jade;
 
-import com.idark.valoria.registries.world.item.ModItems;
+import com.idark.valoria.registries.ItemsRegistry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -22,7 +22,7 @@ public enum KeyBlockProvider implements IBlockComponentProvider, IServerDataProv
             offsetY = -3;
         }
 
-        IElement key = elements.item(new ItemStack(ModItems.VOID_KEY.get()), 0.75f).size(new Vec2(11, 0)).translate(new Vec2(0, offsetY));
+        IElement key = elements.item(new ItemStack(ItemsRegistry.VOID_KEY.get()), 0.75f).size(new Vec2(11, 0)).translate(new Vec2(0, offsetY));
         key.message(null);
         key.align(IElement.Align.RIGHT);
         tooltip.add(key);

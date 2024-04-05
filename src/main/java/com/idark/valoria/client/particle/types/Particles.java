@@ -1,6 +1,6 @@
 package com.idark.valoria.client.particle.types;
 
-import com.idark.valoria.registries.world.item.types.TransformShardItem;
+import com.idark.valoria.registries.item.types.TransformShardItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.world.entity.player.Player;

@@ -3,14 +3,14 @@ package com.idark.valoria;
 import com.idark.valoria.api.unlockable.UnlockUtils;
 import com.idark.valoria.api.unlockable.Unlockable;
 import com.idark.valoria.api.unlockable.Unlockables;
-import com.idark.valoria.capability.IUnlockable;
-import com.idark.valoria.capability.UnloackbleCap;
 import com.idark.valoria.client.gui.screen.book.unlockable.ItemUnlockable;
-import com.idark.valoria.network.PacketHandler;
-import com.idark.valoria.network.packets.UnlockableUpdatePacket;
+import com.idark.valoria.core.capability.IUnlockable;
+import com.idark.valoria.core.capability.UnloackbleCap;
+import com.idark.valoria.core.network.PacketHandler;
+import com.idark.valoria.core.network.packets.UnlockableUpdatePacket;
+import com.idark.valoria.registries.ItemsRegistry;
 import com.idark.valoria.registries.TagsRegistry;
-import com.idark.valoria.registries.world.item.ModItems;
-import com.idark.valoria.util.math.RandomUtil;
+import com.idark.valoria.util.RandomUtil;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -54,7 +54,7 @@ public class Events {
     
     @SubscribeEvent
     public void critDamage(CriticalHitEvent event) {
-        if (CuriosApi.getCuriosHelper().findEquippedCurio(ModItems.RUNE_OF_ACCURACY.get(), event.getEntity()).isPresent()) {
+        if (CuriosApi.getCuriosHelper().findEquippedCurio(ItemsRegistry.RUNE_OF_ACCURACY.get(), event.getEntity()).isPresent()) {
             if (RandomUtil.percentChance(0.1f)) {
                 event.getTarget().hurt(event.getEntity().level().damageSources().playerAttack(event.getEntity()), (float) (event.getEntity().getAttributeValue(Attributes.ATTACK_DAMAGE) * 1.5f));
             }

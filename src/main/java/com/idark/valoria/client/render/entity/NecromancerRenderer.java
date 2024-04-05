@@ -2,7 +2,7 @@ package com.idark.valoria.client.render.entity;
 
 import com.idark.valoria.Valoria;
 import com.idark.valoria.client.render.model.entity.NecromancerModel;
-import com.idark.valoria.registries.world.entity.living.NecromancerEntity;
+import com.idark.valoria.registries.entity.living.NecromancerEntity;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.HumanoidMobRenderer;

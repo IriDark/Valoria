@@ -1,6 +1,6 @@
 package com.idark.valoria.client.color;
 
-import com.idark.valoria.registries.world.block.ModBlocks;
+import com.idark.valoria.registries.BlockRegistry;
 import net.minecraft.client.color.block.BlockColor;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.core.BlockPos;
@@ -15,7 +15,7 @@ public class ModBlockColors implements BlockColor {
     private static final ModBlockColors INSTANCE = new ModBlockColors();
 
     public static final Block[] MODDED_GRASS = {
-            ModBlocks.CATTAIL.get()
+            BlockRegistry.CATTAIL.get()
     };
 
     public static final Block[] MODDED_FOLIAGE = {

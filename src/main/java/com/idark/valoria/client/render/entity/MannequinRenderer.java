@@ -2,7 +2,7 @@ package com.idark.valoria.client.render.entity;
 
 import com.idark.valoria.Valoria;
 import com.idark.valoria.client.render.model.entity.MannequinModel;
-import com.idark.valoria.registries.world.entity.decoration.MannequinEntity;
+import com.idark.valoria.registries.entity.decoration.MannequinEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;

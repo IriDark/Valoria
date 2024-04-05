@@ -1,7 +1,6 @@
 package com.idark.valoria;
 
 import com.google.common.collect.ImmutableMap;
-import com.idark.valoria.capability.IUnlockable;
 import com.idark.valoria.client.event.ClientTickHandler;
 import com.idark.valoria.client.gui.menu.ModMenuTypes;
 import com.idark.valoria.client.gui.overlay.CorpsecleaverRender;
@@ -17,32 +16,28 @@ import com.idark.valoria.client.render.curio.HandsRenderer;
 import com.idark.valoria.client.render.curio.NecklaceRenderer;
 import com.idark.valoria.client.render.model.item.Item2DRenderer;
 import com.idark.valoria.compat.quark.QuarkIntegration;
-import com.idark.valoria.config.ClientConfig;
-import com.idark.valoria.datagen.ModBlockStateProvider;
-import com.idark.valoria.datagen.ModRecipeProvider;
-import com.idark.valoria.network.PacketHandler;
-import com.idark.valoria.proxy.ClientProxy;
-import com.idark.valoria.proxy.ISidedProxy;
-import com.idark.valoria.proxy.ServerProxy;
+import com.idark.valoria.core.capability.IUnlockable;
+import com.idark.valoria.core.config.ClientConfig;
+import com.idark.valoria.core.datagen.BlockStateGen;
+import com.idark.valoria.core.datagen.RecipeGen;
+import com.idark.valoria.core.network.PacketHandler;
+import com.idark.valoria.core.proxy.ClientProxy;
+import com.idark.valoria.core.proxy.ISidedProxy;
+import com.idark.valoria.core.proxy.ServerProxy;
+import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.block.entity.ModBlockEntities;
+import com.idark.valoria.registries.block.types.ModWoodTypes;
+import com.idark.valoria.registries.block.types.SarcoBlock;
 import com.idark.valoria.registries.command.arguments.ModArgumentTypes;
-import com.idark.valoria.registries.recipe.ModRecipes;
+import com.idark.valoria.registries.effect.potion.ModPotions;
+import com.idark.valoria.registries.entity.ModEntityTypes;
+import com.idark.valoria.registries.entity.ai.attributes.ModAttributes;
+import com.idark.valoria.registries.entity.decoration.MannequinEntity;
+import com.idark.valoria.registries.entity.decoration.ModPaintings;
+import com.idark.valoria.registries.entity.living.*;
+import com.idark.valoria.registries.item.types.mana.staffs.StaffItem;
+import com.idark.valoria.registries.levelgen.LevelGen;
 import com.idark.valoria.registries.sounds.ModSoundRegistry;
-import com.idark.valoria.registries.world.block.ModBlocks;
-import com.idark.valoria.registries.world.block.entity.ModBlockEntities;
-import com.idark.valoria.registries.world.block.types.ModWoodTypes;
-import com.idark.valoria.registries.world.block.types.SarcoBlock;
-import com.idark.valoria.registries.world.effect.ModEffects;
-import com.idark.valoria.registries.world.effect.potion.ModPotions;
-import com.idark.valoria.registries.world.entity.ModEntityTypes;
-import com.idark.valoria.registries.world.entity.ai.attributes.ModAttributes;
-import com.idark.valoria.registries.world.entity.decoration.MannequinEntity;
-import com.idark.valoria.registries.world.entity.decoration.ModPaintings;
-import com.idark.valoria.registries.world.entity.living.*;
-import com.idark.valoria.registries.world.item.ModItemTab;
-import com.idark.valoria.registries.world.item.ModItems;
-import com.idark.valoria.registries.world.item.enchant.ModEnchantments;
-import com.idark.valoria.registries.world.item.types.mana.staffs.StaffItem;
-import com.idark.valoria.registries.world.levelgen.LevelGen;
 import com.idark.valoria.util.LootUtil;
 import com.idark.valoria.util.WorldRenderHandler;
 import net.minecraft.client.gui.screens.MenuScreens;
@@ -87,16 +82,16 @@ public class Valoria {
 
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
         ModSoundRegistry.SOUNDS.register(eventBus);
-        ModEffects.register(eventBus);
-        ModEnchantments.register(eventBus);
+        EffectsRegistry.register(eventBus);
+        EnchantmentsRegistry.register(eventBus);
         ModPaintings.register(eventBus);
         ModAttributes.register(eventBus);
         ModPotions.register(eventBus);
-        ModItems.register(eventBus);
-        ModBlocks.register(eventBus);
+        ItemsRegistry.register(eventBus);
+        BlockRegistry.register(eventBus);
         if (QuarkIntegration.isLoaded()) QuarkIntegration.init(eventBus);
         ModBlockEntities.register(eventBus);
-        ModRecipes.register(eventBus);
+        RecipesRegistry.register(eventBus);
         ModMenuTypes.register(eventBus);
         ModEntityTypes.register(eventBus);
         ModParticles.register(eventBus);
@@ -121,8 +116,8 @@ public class Valoria {
             return new Object();
         });
 
-        ModItemTab.register(eventBus);
-        eventBus.addListener(ModItemTab::addCreative);
+        ItemTabRegistry.register(eventBus);
+        eventBus.addListener(ItemTabRegistry::addCreative);
 
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new Events());
@@ -163,41 +158,41 @@ public class Valoria {
             Item2DRenderer.handModelItems.add("valoria:blaze_reap");
             Item2DRenderer.handModelItems.add("valoria:murasama");
 
-            CuriosRendererRegistry.register(ModItems.IRON_NECKLACE_AMBER.get(), NecklaceRenderer::new);
-            CuriosRendererRegistry.register(ModItems.IRON_NECKLACE_DIAMOND.get(), NecklaceRenderer::new);
-            CuriosRendererRegistry.register(ModItems.IRON_NECKLACE_EMERALD.get(), NecklaceRenderer::new);
-            CuriosRendererRegistry.register(ModItems.IRON_NECKLACE_RUBY.get(), NecklaceRenderer::new);
-            CuriosRendererRegistry.register(ModItems.IRON_NECKLACE_SAPPHIRE.get(), NecklaceRenderer::new);
-            CuriosRendererRegistry.register(ModItems.IRON_NECKLACE_ARMOR.get(), NecklaceRenderer::new);
-            CuriosRendererRegistry.register(ModItems.IRON_NECKLACE_HEALTH.get(), NecklaceRenderer::new);
-            CuriosRendererRegistry.register(ModItems.IRON_NECKLACE_WEALTH.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.IRON_NECKLACE_AMBER.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.IRON_NECKLACE_DIAMOND.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.IRON_NECKLACE_EMERALD.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.IRON_NECKLACE_RUBY.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.IRON_NECKLACE_SAPPHIRE.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.IRON_NECKLACE_ARMOR.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.IRON_NECKLACE_HEALTH.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.IRON_NECKLACE_WEALTH.get(), NecklaceRenderer::new);
 
-            CuriosRendererRegistry.register(ModItems.GOLDEN_NECKLACE_AMBER.get(), NecklaceRenderer::new);
-            CuriosRendererRegistry.register(ModItems.GOLDEN_NECKLACE_DIAMOND.get(), NecklaceRenderer::new);
-            CuriosRendererRegistry.register(ModItems.GOLDEN_NECKLACE_EMERALD.get(), NecklaceRenderer::new);
-            CuriosRendererRegistry.register(ModItems.GOLDEN_NECKLACE_RUBY.get(), NecklaceRenderer::new);
-            CuriosRendererRegistry.register(ModItems.GOLDEN_NECKLACE_SAPPHIRE.get(), NecklaceRenderer::new);
-            CuriosRendererRegistry.register(ModItems.GOLDEN_NECKLACE_ARMOR.get(), NecklaceRenderer::new);
-            CuriosRendererRegistry.register(ModItems.GOLDEN_NECKLACE_HEALTH.get(), NecklaceRenderer::new);
-            CuriosRendererRegistry.register(ModItems.GOLDEN_NECKLACE_WEALTH.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.GOLDEN_NECKLACE_AMBER.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.GOLDEN_NECKLACE_DIAMOND.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.GOLDEN_NECKLACE_EMERALD.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.GOLDEN_NECKLACE_RUBY.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.GOLDEN_NECKLACE_SAPPHIRE.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.GOLDEN_NECKLACE_ARMOR.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.GOLDEN_NECKLACE_HEALTH.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.GOLDEN_NECKLACE_WEALTH.get(), NecklaceRenderer::new);
 
-            CuriosRendererRegistry.register(ModItems.NETHERITE_NECKLACE_AMBER.get(), NecklaceRenderer::new);
-            CuriosRendererRegistry.register(ModItems.NETHERITE_NECKLACE_DIAMOND.get(), NecklaceRenderer::new);
-            CuriosRendererRegistry.register(ModItems.NETHERITE_NECKLACE_EMERALD.get(), NecklaceRenderer::new);
-            CuriosRendererRegistry.register(ModItems.NETHERITE_NECKLACE_RUBY.get(), NecklaceRenderer::new);
-            CuriosRendererRegistry.register(ModItems.NETHERITE_NECKLACE_SAPPHIRE.get(), NecklaceRenderer::new);
-            CuriosRendererRegistry.register(ModItems.NETHERITE_NECKLACE_ARMOR.get(), NecklaceRenderer::new);
-            CuriosRendererRegistry.register(ModItems.NETHERITE_NECKLACE_HEALTH.get(), NecklaceRenderer::new);
-            CuriosRendererRegistry.register(ModItems.NETHERITE_NECKLACE_WEALTH.get(), NecklaceRenderer::new);
-            CuriosRendererRegistry.register(ModItems.PICK_NECKLACE.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.NETHERITE_NECKLACE_AMBER.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.NETHERITE_NECKLACE_DIAMOND.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.NETHERITE_NECKLACE_EMERALD.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.NETHERITE_NECKLACE_RUBY.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.NETHERITE_NECKLACE_SAPPHIRE.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.NETHERITE_NECKLACE_ARMOR.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.NETHERITE_NECKLACE_HEALTH.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.NETHERITE_NECKLACE_WEALTH.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.PICK_NECKLACE.get(), NecklaceRenderer::new);
 
-            CuriosRendererRegistry.register(ModItems.LEATHER_GLOVES.get(), HandsRenderer::new);
-            CuriosRendererRegistry.register(ModItems.IRON_GLOVES.get(), HandsRenderer::new);
-            CuriosRendererRegistry.register(ModItems.GOLDEN_GLOVES.get(), HandsRenderer::new);
-            CuriosRendererRegistry.register(ModItems.DIAMOND_GLOVES.get(), HandsRenderer::new);
-            CuriosRendererRegistry.register(ModItems.NETHERITE_GLOVES.get(), HandsRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.LEATHER_GLOVES.get(), HandsRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.IRON_GLOVES.get(), HandsRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.GOLDEN_GLOVES.get(), HandsRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.DIAMOND_GLOVES.get(), HandsRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.NETHERITE_GLOVES.get(), HandsRenderer::new);
 
-            CuriosRendererRegistry.register(ModItems.LEATHER_BELT.get(), BeltRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.LEATHER_BELT.get(), BeltRenderer::new);
 
             MenuScreens.register(ModMenuTypes.JEWELRY_MENU.get(), JewelryScreen::new);
             MenuScreens.register(ModMenuTypes.MANIPULATOR_MENU.get(), ManipulatorScreen::new);
@@ -210,14 +205,14 @@ public class Valoria {
         RegisterUnlockables.init();
         event.enqueueWork(() -> {
             FireBlock fireblock = (FireBlock) Blocks.FIRE;
-            fireblock.setFlammable(ModBlocks.SHADELOG.get(), 5, 20);
-            fireblock.setFlammable(ModBlocks.SHADEWOOD.get(), 5, 20);
-            fireblock.setFlammable(ModBlocks.SHADEWOOD_LEAVES.get(), 30, 60);
-            fireblock.setFlammable(ModBlocks.SHADEWOOD_PLANKS_SLAB.get(), 5, 40);
-            fireblock.setFlammable(ModBlocks.SHADEWOOD_PLANKS_STAIRS.get(), 5, 40);
-            fireblock.setFlammable(ModBlocks.SHADEWOOD_PLANKS.get(), 5, 25);
-            fireblock.setFlammable(ModBlocks.STRIPPED_SHADELOG.get(), 5, 30);
-            fireblock.setFlammable(ModBlocks.STRIPPED_SHADEWOOD.get(), 5, 30);
+            fireblock.setFlammable(BlockRegistry.SHADELOG.get(), 5, 20);
+            fireblock.setFlammable(BlockRegistry.SHADEWOOD.get(), 5, 20);
+            fireblock.setFlammable(BlockRegistry.SHADEWOOD_LEAVES.get(), 30, 60);
+            fireblock.setFlammable(BlockRegistry.SHADEWOOD_PLANKS_SLAB.get(), 5, 40);
+            fireblock.setFlammable(BlockRegistry.SHADEWOOD_PLANKS_STAIRS.get(), 5, 40);
+            fireblock.setFlammable(BlockRegistry.SHADEWOOD_PLANKS.get(), 5, 25);
+            fireblock.setFlammable(BlockRegistry.STRIPPED_SHADELOG.get(), 5, 30);
+            fireblock.setFlammable(BlockRegistry.STRIPPED_SHADEWOOD.get(), 5, 30);
 
             DraugrEntity.draugrCanSpawnWith.add(Items.BOW);
             DraugrEntity.draugrCanSpawnWith.add(Items.WOODEN_AXE);
@@ -225,10 +220,10 @@ public class Valoria {
             DraugrEntity.draugrCanSpawnWith.add(Items.IRON_SWORD);
             DraugrEntity.draugrCanSpawnWith.add(Items.GOLDEN_AXE);
             DraugrEntity.draugrCanSpawnWith.add(Items.IRON_PICKAXE);
-            GoblinEntity.goblinCanSpawnWith.add(ModItems.WOODEN_RAPIER.get());
-            GoblinEntity.goblinCanSpawnWith.add(ModItems.STONE_RAPIER.get());
-            GoblinEntity.goblinCanSpawnWith.add(ModItems.IRON_RAPIER.get());
-            GoblinEntity.goblinCanSpawnWith.add(ModItems.CLUB.get());
+            GoblinEntity.goblinCanSpawnWith.add(ItemsRegistry.WOODEN_RAPIER.get());
+            GoblinEntity.goblinCanSpawnWith.add(ItemsRegistry.STONE_RAPIER.get());
+            GoblinEntity.goblinCanSpawnWith.add(ItemsRegistry.IRON_RAPIER.get());
+            GoblinEntity.goblinCanSpawnWith.add(ItemsRegistry.CLUB.get());
             SarcoBlock.spawnableWith.add(Items.BOW);
             SarcoBlock.spawnableWith.add(Items.WOODEN_AXE);
             SarcoBlock.spawnableWith.add(Items.STONE_SWORD);
@@ -240,8 +235,8 @@ public class Valoria {
             SarcoBlock.halloweenSpawnableWith.add(Items.CARVED_PUMPKIN);
 
             AxeItem.STRIPPABLES = new ImmutableMap.Builder<Block, Block>().putAll(AxeItem.STRIPPABLES)
-                    .put(ModBlocks.SHADELOG.get(), ModBlocks.STRIPPED_SHADELOG.get())
-                    .put(ModBlocks.SHADEWOOD.get(), ModBlocks.STRIPPED_SHADEWOOD.get()).build();
+                    .put(BlockRegistry.SHADELOG.get(), BlockRegistry.STRIPPED_SHADELOG.get())
+                    .put(BlockRegistry.SHADEWOOD.get(), BlockRegistry.STRIPPED_SHADEWOOD.get()).build();
 
             WoodType.register(ModWoodTypes.SHADEWOOD);
         });
@@ -294,8 +289,8 @@ public class Valoria {
             DataGenerator generator = event.getGenerator();
             PackOutput packOutput = generator.getPackOutput();
             ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
-            generator.addProvider(event.includeServer(), new ModRecipeProvider(packOutput));
-            generator.addProvider(event.includeClient(), new ModBlockStateProvider(packOutput, existingFileHelper));
+            generator.addProvider(event.includeServer(), new RecipeGen(packOutput));
+            generator.addProvider(event.includeClient(), new BlockStateGen(packOutput, existingFileHelper));
         }
     }
 }

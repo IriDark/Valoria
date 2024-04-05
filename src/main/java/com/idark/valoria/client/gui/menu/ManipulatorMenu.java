@@ -2,7 +2,7 @@ package com.idark.valoria.client.gui.menu;
 
 import com.idark.valoria.client.gui.menu.slots.IngotSlot;
 import com.idark.valoria.client.gui.menu.slots.ResultSlot;
-import com.idark.valoria.registries.world.block.ModBlocks;
+import com.idark.valoria.registries.BlockRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -52,7 +52,7 @@ public class ManipulatorMenu extends AbstractContainerMenu {
 
     @Override
     public boolean stillValid(@NotNull Player playerIn) {
-        return stillValid(ContainerLevelAccess.create(tileEntity.getLevel(), tileEntity.getBlockPos()), playerIn, ModBlocks.ELEMENTAL_MANIPULATOR.get());
+        return stillValid(ContainerLevelAccess.create(tileEntity.getLevel(), tileEntity.getBlockPos()), playerIn, BlockRegistry.ELEMENTAL_MANIPULATOR.get());
     }
 
     // VANILLA INVENTORY

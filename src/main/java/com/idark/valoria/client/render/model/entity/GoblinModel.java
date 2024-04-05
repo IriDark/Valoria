@@ -1,6 +1,6 @@
 package com.idark.valoria.client.render.model.entity;
 
-import com.idark.valoria.registries.world.entity.living.GoblinEntity;
+import com.idark.valoria.registries.entity.living.GoblinEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.AnimationUtils;

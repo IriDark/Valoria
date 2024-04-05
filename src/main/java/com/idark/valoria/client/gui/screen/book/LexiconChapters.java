@@ -4,7 +4,7 @@ import com.idark.valoria.client.gui.screen.book.pages.TitledCraftEntry;
 import com.idark.valoria.client.gui.screen.book.pages.TitledTextPage;
 import com.idark.valoria.client.gui.screen.book.unlockable.RegisterUnlockables;
 import com.idark.valoria.client.gui.screen.book.unlockable.UnlockableBookmark;
-import com.idark.valoria.registries.world.item.ModItems;
+import com.idark.valoria.registries.ItemsRegistry;
 import net.minecraft.world.item.Items;
 
 import java.util.ArrayList;
@@ -26,7 +26,7 @@ public class LexiconChapters {
         MAIN_PAGE = new Chapter(
                 "gui.valoria.main.name",
                 new TitledTextPage("gui.valoria.main"),
-                new TitledCraftEntry("gui.valoria.knowledge", ModItems.LEXICON.get().getDefaultInstance(), Items.PAPER.getDefaultInstance(), Items.BOOK.getDefaultInstance())
+                new TitledCraftEntry("gui.valoria.knowledge", ItemsRegistry.LEXICON.get().getDefaultInstance(), Items.PAPER.getDefaultInstance(), Items.BOOK.getDefaultInstance())
         );
 
         TREASURES_PAGE = new Chapter(
@@ -46,10 +46,10 @@ public class LexiconChapters {
                 new TitledTextPage("gui.valoria.crypt")
         );
 
-        LEXICON = new Bookmark(ModItems.LEXICON.get(), "gui.valoria.main.name", 267, 10, MAIN_PAGE);
-        TREASURES = new Bookmark(ModItems.AMETHYST_GEM.get(), "gui.valoria.jewelry", 267, 38, TREASURES_PAGE);
-        MEDICINE = new Bookmark(ModItems.ALOE_BANDAGE.get(), "gui.valoria.medicine.name", 267, 66, MEDICINE_PAGE);
-        CRYPT = new UnlockableBookmark(ModItems.CRYPT.get(), "gui.valoria.crypt.name", 267, 94, CRYPT_PAGE, RegisterUnlockables.CRYPT);
+        LEXICON = new Bookmark(ItemsRegistry.LEXICON.get(), "gui.valoria.main.name", 267, 10, MAIN_PAGE);
+        TREASURES = new Bookmark(ItemsRegistry.AMETHYST_GEM.get(), "gui.valoria.jewelry", 267, 38, TREASURES_PAGE);
+        MEDICINE = new Bookmark(ItemsRegistry.ALOE_BANDAGE.get(), "gui.valoria.medicine.name", 267, 66, MEDICINE_PAGE);
+        CRYPT = new UnlockableBookmark(ItemsRegistry.CRYPT.get(), "gui.valoria.crypt.name", 267, 94, CRYPT_PAGE, RegisterUnlockables.CRYPT);
 
         categories.add(LEXICON);
         categories.add(TREASURES);

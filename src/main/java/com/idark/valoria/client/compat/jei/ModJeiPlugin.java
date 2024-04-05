@@ -4,7 +4,7 @@ import com.idark.valoria.Valoria;
 import com.idark.valoria.client.compat.jei.categories.JewelryRecipeCategory;
 import com.idark.valoria.client.compat.jei.categories.KegRecipeCategory;
 import com.idark.valoria.client.compat.jei.categories.ManipulatorRecipeCategory;
-import com.idark.valoria.registries.world.block.ModBlocks;
+import com.idark.valoria.registries.BlockRegistry;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
@@ -41,9 +41,9 @@ public class ModJeiPlugin implements IModPlugin {
 
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
-        registration.addRecipeCatalyst(new ItemStack(ModBlocks.KEG.get()), ModRecipeTypes.BREWERY);
-        registration.addRecipeCatalyst(new ItemStack(ModBlocks.JEWELER_TABLE.get()), ModRecipeTypes.JEWELRY);
-        registration.addRecipeCatalyst(new ItemStack(ModBlocks.ELEMENTAL_MANIPULATOR.get()), ModRecipeTypes.MANIPULATOR);
+        registration.addRecipeCatalyst(new ItemStack(BlockRegistry.KEG.get()), ModRecipeTypes.BREWERY);
+        registration.addRecipeCatalyst(new ItemStack(BlockRegistry.JEWELER_TABLE.get()), ModRecipeTypes.JEWELRY);
+        registration.addRecipeCatalyst(new ItemStack(BlockRegistry.ELEMENTAL_MANIPULATOR.get()), ModRecipeTypes.MANIPULATOR);
         //registration.addRecipeCatalyst(new ItemStack(ModItems.STONE_CRUSHER.get()), ModRecipeTypes.CRUSHER);
     }
 }

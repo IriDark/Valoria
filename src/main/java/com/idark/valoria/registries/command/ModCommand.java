@@ -1,15 +1,15 @@
 package com.idark.valoria.registries.command;
 
 import com.idark.valoria.api.unlockable.Unlockable;
-import com.idark.valoria.capability.IUnlockable;
-import com.idark.valoria.network.PacketHandler;
-import com.idark.valoria.network.packets.PageToastPacket;
-import com.idark.valoria.network.packets.UnlockableUpdatePacket;
+import com.idark.valoria.core.capability.IUnlockable;
+import com.idark.valoria.core.network.PacketHandler;
+import com.idark.valoria.core.network.packets.PageToastPacket;
+import com.idark.valoria.core.network.packets.UnlockableUpdatePacket;
 import com.idark.valoria.registries.command.main.CommandArgument;
 import com.idark.valoria.registries.command.main.CommandBuilder;
 import com.idark.valoria.registries.command.main.CommandPart;
 import com.idark.valoria.registries.command.main.CommandVariant;
-import com.idark.valoria.registries.world.item.types.MagmaSwordItem;
+import com.idark.valoria.registries.item.types.MagmaSwordItem;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;

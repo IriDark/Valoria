@@ -1,6 +1,6 @@
 package com.idark.valoria.client.render.entity;
 
-import com.idark.valoria.registries.world.entity.projectile.PoisonedKunaiEntity;
+import com.idark.valoria.registries.entity.projectile.PoisonedKunaiEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;

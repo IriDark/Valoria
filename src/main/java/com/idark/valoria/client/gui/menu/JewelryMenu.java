@@ -3,7 +3,7 @@ package com.idark.valoria.client.gui.menu;
 import com.idark.valoria.client.gui.menu.slots.GemSlot;
 import com.idark.valoria.client.gui.menu.slots.ResultSlot;
 import com.idark.valoria.client.gui.menu.slots.TrinketsSlot;
-import com.idark.valoria.registries.world.block.ModBlocks;
+import com.idark.valoria.registries.BlockRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -53,7 +53,7 @@ public class JewelryMenu extends AbstractContainerMenu {
 
     @Override
     public boolean stillValid(Player playerIn) {
-        return stillValid(ContainerLevelAccess.create(tileEntity.getLevel(), tileEntity.getBlockPos()), playerIn, ModBlocks.JEWELER_TABLE.get());
+        return stillValid(ContainerLevelAccess.create(tileEntity.getLevel(), tileEntity.getBlockPos()), playerIn, BlockRegistry.JEWELER_TABLE.get());
     }
 
     // VANILLA INVENTORY

@@ -1,9 +1,9 @@
 package com.idark.valoria.api.unlockable;
 
-import com.idark.valoria.capability.IUnlockable;
-import com.idark.valoria.network.PacketHandler;
-import com.idark.valoria.network.packets.PageToastPacket;
-import com.idark.valoria.network.packets.UnlockableUpdatePacket;
+import com.idark.valoria.core.capability.IUnlockable;
+import com.idark.valoria.core.network.PacketHandler;
+import com.idark.valoria.core.network.packets.PageToastPacket;
+import com.idark.valoria.core.network.packets.UnlockableUpdatePacket;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 
@@ -11,7 +11,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class UnlockUtils {
 
-    public static boolean isUnlockable(Entity entity, Unlockable unlockable) {
+    public static boolean isUnlocked(Entity entity, Unlockable unlockable) {
         if (!(entity instanceof Player)) return false;
         AtomicBoolean isKnow = new AtomicBoolean(false);
         entity.getCapability(IUnlockable.INSTANCE, null).ifPresent((k) -> isKnow.set(k.isUnlockable(unlockable)));
@@ -39,7 +39,7 @@ public class UnlockUtils {
         });
     }
 
-    public static void addAllUnlockable(Entity entity) {
+    public static void addAllUnlockables(Entity entity) {
         if (!(entity instanceof Player)) return;
         entity.getCapability(IUnlockable.INSTANCE, null).ifPresent((k) -> {
             k.addAllUnlockable();
@@ -54,7 +54,7 @@ public class UnlockUtils {
         });
     }
 
-    public static void removeAllUnlockable(Entity entity) {
+    public static void removeAllUnlockables(Entity entity) {
         if (!(entity instanceof Player)) return;
         entity.getCapability(IUnlockable.INSTANCE, null).ifPresent((k) -> {
             k.removeAllUnlockable();

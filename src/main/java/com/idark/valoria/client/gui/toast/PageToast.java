@@ -1,8 +1,8 @@
 package com.idark.valoria.client.gui.toast;
 
 import com.idark.valoria.Valoria;
-import com.idark.valoria.registries.world.item.ModItems;
-import com.idark.valoria.util.ColorUtils;
+import com.idark.valoria.registries.ItemsRegistry;
+import com.idark.valoria.util.ValoriaUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -27,8 +27,8 @@ public class PageToast implements Toast {
     public Visibility render(GuiGraphics pGuiGraphics, ToastComponent pToastComponent, long pTimeSinceLastVisible) {
         pGuiGraphics.blit(TEXTURE, 0, 0, 0, 0, this.width(), this.height(), 256, 32);
 
-        pGuiGraphics.renderItem(ModItems.CRYPT.get().getDefaultInstance(), 8, 8);
-        pGuiGraphics.renderItem(ModItems.LEXICON.get().getDefaultInstance(), 155, 8);
+        pGuiGraphics.renderItem(ItemsRegistry.CRYPT.get().getDefaultInstance(), 8, 8);
+        pGuiGraphics.renderItem(ItemsRegistry.LEXICON.get().getDefaultInstance(), 155, 8);
 
         if (pUnlock) {
             drawWrappingText(pGuiGraphics, "gui.valoria.new_page", 90, 8, 120, true);
@@ -52,9 +52,9 @@ public class PageToast implements Toast {
     public static void drawText(GuiGraphics gui, String text, int x, int y, boolean Centered) {
         Font font = Minecraft.getInstance().font;
         if (!Centered) {
-            gui.drawString(font, I18n.get(text), x, y, ColorUtils.packColor(255, 220, 200, 180), true);
+            gui.drawString(font, I18n.get(text), x, y, ValoriaUtils.color.packColor(255, 220, 200, 180), true);
         } else {
-            gui.drawCenteredString(font, I18n.get(text), x, y, ColorUtils.packColor(255, 220, 200, 180));
+            gui.drawCenteredString(font, I18n.get(text), x, y, ValoriaUtils.color.packColor(255, 220, 200, 180));
         }
     }
 

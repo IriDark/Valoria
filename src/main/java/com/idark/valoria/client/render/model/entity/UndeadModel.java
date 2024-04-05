@@ -1,6 +1,6 @@
 package com.idark.valoria.client.render.model.entity;
 
-import com.idark.valoria.registries.world.entity.living.UndeadEntity;
+import com.idark.valoria.registries.entity.living.UndeadEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.ArmedModel;
 import net.minecraft.client.model.HierarchicalModel;

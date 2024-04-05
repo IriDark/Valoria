@@ -29,7 +29,7 @@ public class UnlockableEntry {
         if (unlockable == null) {
             return true;
         } else {
-            return (UnlockUtils.isUnlockable(Minecraft.getInstance().player, unlockable));
+            return (UnlockUtils.isUnlocked(Minecraft.getInstance().player, unlockable));
         }
     }
 }

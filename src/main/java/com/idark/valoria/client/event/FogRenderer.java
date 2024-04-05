@@ -1,7 +1,7 @@
 package com.idark.valoria.client.event;
 
-import com.idark.valoria.registries.world.block.ModBlocks;
-import com.idark.valoria.registries.world.levelgen.LevelGen;
+import com.idark.valoria.registries.BlockRegistry;
+import com.idark.valoria.registries.levelgen.LevelGen;
 import com.mojang.blaze3d.shaders.FogShape;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.level.block.state.BlockState;
@@ -18,13 +18,13 @@ public class FogRenderer {
         @SubscribeEvent
         public static void onFogRender(ViewportEvent.RenderFog e) {
             BlockState blockState = e.getCamera().getBlockAtCamera();
-            if (!Minecraft.getInstance().options.getCameraType().isFirstPerson() && e.getCamera().getBlockAtCamera().is(ModBlocks.QUICKSAND.get())) {
+            if (!Minecraft.getInstance().options.getCameraType().isFirstPerson() && e.getCamera().getBlockAtCamera().is(BlockRegistry.QUICKSAND.get())) {
                 e.setCanceled(true);
                 e.setNearPlaneDistance(0.0F);
                 e.setFarPlaneDistance(1.5F);
             }
 
-            if (Minecraft.getInstance().options.getCameraType().isFirstPerson() && e.getCamera().getBlockAtCamera().is(ModBlocks.QUICKSAND.get())) {
+            if (Minecraft.getInstance().options.getCameraType().isFirstPerson() && e.getCamera().getBlockAtCamera().is(BlockRegistry.QUICKSAND.get())) {
                 e.setCanceled(true);
                 e.setNearPlaneDistance(0.0F);
                 e.setFarPlaneDistance(1.5F);
@@ -41,13 +41,13 @@ public class FogRenderer {
         @SubscribeEvent
         public static void onFogColor(ViewportEvent.ComputeFogColor e) {
             BlockState blockState = e.getCamera().getBlockAtCamera();
-            if (!Minecraft.getInstance().options.getCameraType().isFirstPerson() && e.getCamera().getBlockAtCamera().is(ModBlocks.QUICKSAND.get())) {
+            if (!Minecraft.getInstance().options.getCameraType().isFirstPerson() && e.getCamera().getBlockAtCamera().is(BlockRegistry.QUICKSAND.get())) {
                 e.setRed(0.57f);
                 e.setGreen(0.48f);
                 e.setBlue(0.34f);
             }
 
-            if (Minecraft.getInstance().options.getCameraType().isFirstPerson() && e.getCamera().getBlockAtCamera().is(ModBlocks.QUICKSAND.get())) {
+            if (Minecraft.getInstance().options.getCameraType().isFirstPerson() && e.getCamera().getBlockAtCamera().is(BlockRegistry.QUICKSAND.get())) {
                 e.setRed(0.57f);
                 e.setGreen(0.48f);
                 e.setBlue(0.34f);

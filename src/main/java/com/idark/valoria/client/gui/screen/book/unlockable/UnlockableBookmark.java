@@ -65,7 +65,7 @@ public class UnlockableBookmark {
         if (unlockable == null) {
             return false;
         } else {
-            return (UnlockUtils.isUnlockable(Minecraft.getInstance().player, unlockable));
+            return (UnlockUtils.isUnlocked(Minecraft.getInstance().player, unlockable));
         }
     }
 }

@@ -1,7 +1,7 @@
 package com.idark.valoria.client.render.model.blockentity;
 
-import com.idark.valoria.registries.world.block.ModBlocks;
-import com.idark.valoria.registries.world.block.entity.types.CrushableBlockEntity;
+import com.idark.valoria.registries.BlockRegistry;
+import com.idark.valoria.registries.block.entity.types.CrushableBlockEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
@@ -28,7 +28,7 @@ public class CrushableBlockRenderer implements BlockEntityRenderer<CrushableBloc
     public void render(CrushableBlockEntity pBlockEntity, float pPartialTick, PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight, int pPackedOverlay) {
         if (pBlockEntity.getLevel() != null) {
             int i = pBlockEntity.getBlockState().getValue(BlockStateProperties.DUSTED);
-            boolean isIce = pBlockEntity.getBlockState().is(ModBlocks.SUSPICIOUS_ICE.get());
+            boolean isIce = pBlockEntity.getBlockState().is(BlockRegistry.SUSPICIOUS_ICE.get());
             if (i > 0 || isIce) {
                 Direction direction = pBlockEntity.getHitDirection();
                 ItemStack itemstack = pBlockEntity.getItem();

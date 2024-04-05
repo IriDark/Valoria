@@ -3,8 +3,8 @@ package com.idark.valoria.client.compat.jei.categories;
 import com.idark.valoria.Valoria;
 import com.idark.valoria.client.compat.jei.ModRecipeTypes;
 import com.idark.valoria.client.event.ClientTickHandler;
+import com.idark.valoria.registries.BlockRegistry;
 import com.idark.valoria.registries.recipe.ManipulatorRecipe;
-import com.idark.valoria.registries.world.block.ModBlocks;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -36,7 +36,7 @@ public class ManipulatorRecipeCategory implements IRecipeCategory<ManipulatorRec
         ResourceLocation backgroundImage = new ResourceLocation(Valoria.MOD_ID, "textures/gui/jei/manipulator.png");
 
         background = helper.createDrawable(backgroundImage, 0, 0, 148, 48);
-        icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.ELEMENTAL_MANIPULATOR.get()));
+        icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(BlockRegistry.ELEMENTAL_MANIPULATOR.get()));
     }
 
     @Override
