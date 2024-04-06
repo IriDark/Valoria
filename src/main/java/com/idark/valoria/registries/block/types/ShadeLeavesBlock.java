@@ -21,7 +21,7 @@ public class ShadeLeavesBlock extends LeavesBlock {
         if (world.getBlockState(new BlockPos(pos.getX(), pos.getY() - 1, pos.getZ())).isAir()) {
             if (random.nextFloat() < 0.035) {
                 Particles.create(ModParticles.SHADEWOOD_LEAF_PARTICLE)
-                        .addVelocity(((random.nextDouble() - 0.5D) / 12), ((random.nextDouble() - 0.87D) / 4), ((random.nextDouble() - 0.5D) / 12))
+                        .addVelocity(((random.nextDouble() - 0.5D) / 6), ((random.nextDouble() - 1.25D) / 3), ((random.nextDouble() - 0.5D) / 6))
                         .setAlpha(1f, 1f).setScale(0.072f, 0.02f)
                         .setColor(1f, 1f, 1f)
                         .setLifetime(82)

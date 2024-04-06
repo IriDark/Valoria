@@ -1,4 +1,5 @@
 {
+  "ambientocclusion": true,
   "render_type": "minecraft:cutout",
   "parent": "minecraft:block/cross",
   "textures": {
