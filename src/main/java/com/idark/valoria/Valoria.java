@@ -39,7 +39,7 @@ import com.idark.valoria.registries.item.types.mana.staffs.StaffItem;
 import com.idark.valoria.registries.levelgen.LevelGen;
 import com.idark.valoria.registries.sounds.ModSoundRegistry;
 import com.idark.valoria.util.LootUtil;
-import com.idark.valoria.util.WorldRenderHandler;
+import com.idark.valoria.util.RenderUtils;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
@@ -106,7 +106,7 @@ public class Valoria {
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ClientConfig.SPEC);
         DistExecutor.unsafeCallWhenOn(Dist.CLIENT, () -> () -> {
             forgeBus.addListener(ClientTickHandler::clientTickEnd);
-            forgeBus.addListener(WorldRenderHandler::onRenderWorldLast);
+            forgeBus.addListener(RenderUtils::onRenderWorldLast);
             forgeBus.addListener(DashOverlayRender::tick);
             forgeBus.addListener(DashOverlayRender::onDrawScreenPost);
             forgeBus.addListener(CorpsecleaverRender::tick);

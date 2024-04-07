@@ -1,7 +1,7 @@
 package com.idark.valoria.client.particle.types;
 
 import com.idark.valoria.ValoriaClient;
-import com.idark.valoria.util.WorldRenderHandler;
+import com.idark.valoria.util.RenderUtils;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
@@ -22,7 +22,7 @@ public class SpriteParticleRenderType implements ParticleRenderType {
         RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         RenderSystem.setShader(ValoriaClient::getSpriteParticleShader);
         RenderSystem.setShaderTexture(0, TextureAtlas.LOCATION_PARTICLES);
-        WorldRenderHandler.particleMVMatrix = RenderSystem.getModelViewMatrix();
+        RenderUtils.particleMVMatrix = RenderSystem.getModelViewMatrix();
         bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.PARTICLE);
     }
 

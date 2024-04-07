@@ -9,6 +9,7 @@ import com.idark.valoria.registries.item.tiers.ModArmorMaterial;
 import com.idark.valoria.registries.item.tiers.ModItemTier;
 import com.idark.valoria.registries.item.types.*;
 import com.idark.valoria.registries.item.types.curio.CurioItemProperty;
+import com.idark.valoria.registries.item.types.curio.GlovesItem;
 import com.idark.valoria.registries.item.types.curio.charm.*;
 import com.idark.valoria.registries.item.types.curio.enums.AccessoryGem;
 import com.idark.valoria.registries.item.types.curio.enums.AccessoryMaterial;
@@ -378,15 +379,15 @@ public class ItemsRegistry {
     public static final RegistryObject<Item> NETHERITE_RING_SAPPHIRE = ITEMS.register("netherite_ring_sapphire",
             () -> new CurioItemProperty(AccessoryType.RING, AccessoryGem.SAPPHIRE, AccessoryMaterial.NETHERITE, new Item.Properties().stacksTo(1).durability(420).rarity(Rarity.EPIC)));
     public static final RegistryObject<Item> LEATHER_GLOVES = ITEMS.register("leather_gloves",
-            () -> new CurioItemProperty(AccessoryType.GLOVES, AccessoryGem.NONE, AccessoryMaterial.LEATHER, new Item.Properties().stacksTo(1).durability(100).rarity(Rarity.UNCOMMON)));
+            () -> new GlovesItem(AccessoryGem.NONE, AccessoryMaterial.LEATHER, new Item.Properties().stacksTo(1).durability(100).rarity(Rarity.UNCOMMON)));
     public static final RegistryObject<Item> IRON_GLOVES = ITEMS.register("iron_gloves",
-            () -> new CurioItemProperty(AccessoryType.GLOVES, AccessoryGem.ARMOR, AccessoryMaterial.IRON, new Item.Properties().stacksTo(1).durability(190).rarity(Rarity.UNCOMMON)));
+            () -> new GlovesItem(AccessoryGem.ARMOR, AccessoryMaterial.IRON, new Item.Properties().stacksTo(1).durability(190).rarity(Rarity.UNCOMMON)));
     public static final RegistryObject<Item> GOLDEN_GLOVES = ITEMS.register("golden_gloves",
-            () -> new CurioItemProperty(AccessoryType.GLOVES, AccessoryGem.TOUGH, AccessoryMaterial.GOLD, new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.UNCOMMON)));
+            () -> new GlovesItem(AccessoryGem.TOUGH, AccessoryMaterial.GOLD, new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.UNCOMMON)));
     public static final RegistryObject<Item> DIAMOND_GLOVES = ITEMS.register("diamond_gloves",
-            () -> new CurioItemProperty(AccessoryType.GLOVES, AccessoryGem.DIAMOND, AccessoryMaterial.DIAMOND, new Item.Properties().stacksTo(1).durability(240).rarity(Rarity.UNCOMMON)));
+            () -> new GlovesItem(AccessoryGem.DIAMOND, AccessoryMaterial.DIAMOND, new Item.Properties().stacksTo(1).durability(240).rarity(Rarity.UNCOMMON)));
     public static final RegistryObject<Item> NETHERITE_GLOVES = ITEMS.register("netherite_gloves",
-            () -> new CurioItemProperty(AccessoryType.GLOVES, AccessoryGem.TANK, AccessoryMaterial.NETHERITE, new Item.Properties().stacksTo(1).durability(300).rarity(Rarity.UNCOMMON)));
+            () -> new GlovesItem(AccessoryGem.TANK, AccessoryMaterial.NETHERITE, new Item.Properties().stacksTo(1).durability(300).rarity(Rarity.UNCOMMON)));
     public static final RegistryObject<Item> AMBER_TOTEM = ITEMS.register("amber_golden_totem",
             () -> new Item(new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.EPIC)));
     public static final RegistryObject<Item> AMBER_WINGLET = ITEMS.register("amber_golden_winglet",

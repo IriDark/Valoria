@@ -6,7 +6,7 @@ import com.idark.valoria.core.network.PacketHandler;
 import com.idark.valoria.core.network.packets.ManipulatorParticlePacket;
 import com.idark.valoria.registries.ItemsRegistry;
 import com.idark.valoria.registries.block.entity.types.ManipulatorBlockEntity;
-import com.idark.valoria.util.PacketUtils;
+import com.idark.valoria.util.ValoriaUtils;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -123,7 +123,7 @@ public class ManipulatorBlock extends Block implements EntityBlock {
         }
 
         if (coreUpdated) {
-            PacketUtils.SUpdateTileEntityPacket(coreBlock);
+            ValoriaUtils.tileEntity.SUpdateTileEntityPacket(coreBlock);
         } else {
             MenuProvider containerProvider = createContainerProvider(world, pos);
             NetworkHooks.openScreen(((ServerPlayer) player), containerProvider, tileEntity.getBlockPos());

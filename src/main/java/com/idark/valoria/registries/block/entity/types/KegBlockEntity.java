@@ -4,7 +4,7 @@ import com.idark.valoria.client.render.model.blockentity.TickableBlockEntity;
 import com.idark.valoria.registries.block.entity.ModBlockEntities;
 import com.idark.valoria.registries.block.types.KegBlock;
 import com.idark.valoria.registries.recipe.KegRecipe;
-import com.idark.valoria.util.PacketUtils;
+import com.idark.valoria.util.ValoriaUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.RegistryAccess;
@@ -59,7 +59,7 @@ public class KegBlockEntity extends BlockSimpleInventory implements TickableBloc
                     resetProgress();
                 }
 
-                PacketUtils.SUpdateTileEntityPacket(this);
+                ValoriaUtils.tileEntity.SUpdateTileEntityPacket(this);
             } else {
                 resetProgress();
             }
@@ -164,7 +164,7 @@ public class KegBlockEntity extends BlockSimpleInventory implements TickableBloc
     public void setChanged() {
         super.setChanged();
         if (level != null && !level.isClientSide) {
-            PacketUtils.SUpdateTileEntityPacket(this);
+            ValoriaUtils.tileEntity.SUpdateTileEntityPacket(this);
         }
     }
 }

@@ -5,25 +5,28 @@ import com.idark.valoria.ValoriaClient;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.EntityModel;
-import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.entity.EntityRenderer;
-import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.resources.model.BakedModel;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.event.RenderLevelStageEvent;
+import net.minecraftforge.fml.ModList;
+import org.joml.Matrix4f;
+import org.lwjgl.opengl.GL11;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class RenderUtils {
 
@@ -70,24 +73,23 @@ public class RenderUtils {
      * Dimensions xSize, ySize, zSize are specified in pixels, small addition to this description: this method conflicts with renderTooltip
      */
     public static void renderItemModelInGui(ItemStack stack, int x, int y, float xSize, float ySize, float zSize) {
-        BakedModel bakedmodel = Minecraft.getInstance().getItemRenderer().getModel(stack, (Level) null, (LivingEntity) null, 0);
-
+        BakedModel bakedmodel = Minecraft.getInstance().getItemRenderer().getModel(stack, null, null, 0);
         PoseStack posestack = RenderSystem.getModelViewStack();
         posestack.pushPose();
         posestack.translate(x, y, (100.0F));
         posestack.translate((double) xSize / 2, (double) ySize / 2, 0.0D);
         posestack.scale(1.0F, -1.0F, 1.0F);
         posestack.scale(xSize, ySize, zSize);
+
         RenderSystem.applyModelViewMatrix();
-        PoseStack posestack1 = new PoseStack();
+        PoseStack pose = new PoseStack();
         MultiBufferSource.BufferSource multibuffersource$buffersource = Minecraft.getInstance().renderBuffers().bufferSource();
         boolean flag = !bakedmodel.usesBlockLight();
         if (flag) {
             Lighting.setupForFlatItems();
         }
 
-        Minecraft.getInstance().getItemRenderer().render(stack, ItemDisplayContext.GUI, false, posestack1, multibuffersource$buffersource, 15728880, OverlayTexture.NO_OVERLAY, bakedmodel);
-
+        Minecraft.getInstance().getItemRenderer().render(stack, ItemDisplayContext.GUI, false, pose, multibuffersource$buffersource, 15728880, OverlayTexture.NO_OVERLAY, bakedmodel);
         RenderSystem.disableDepthTest();
         multibuffersource$buffersource.endBatch();
         RenderSystem.enableDepthTest();
@@ -100,17 +102,36 @@ public class RenderUtils {
         RenderSystem.applyModelViewMatrix();
     }
 
-    public static Vec3 followBodyRotation(LivingEntity living) {
-        Vec3 rotate = new Vec3(0, 0, 0);
-        EntityRenderer<? super LivingEntity> render = Minecraft.getInstance().getEntityRenderDispatcher().getRenderer(living);
-        if (render instanceof LivingEntityRenderer) {
-            LivingEntityRenderer<LivingEntity, EntityModel<LivingEntity>> livingRenderer = (LivingEntityRenderer<LivingEntity, EntityModel<LivingEntity>>) render;
-            EntityModel<LivingEntity> entityModel = livingRenderer.getModel();
-            if (entityModel instanceof HumanoidModel) {
-                HumanoidModel<LivingEntity> bipedModel = (HumanoidModel<LivingEntity>) entityModel;
-                rotate = new Vec3(bipedModel.body.xRot, bipedModel.body.yRot, bipedModel.body.zRot);
-            }
+    @OnlyIn(Dist.CLIENT)
+    public static Matrix4f particleMVMatrix = null;
+
+    public static void onRenderWorldLast(RenderLevelStageEvent event) {
+        if (event.getStage() == RenderLevelStageEvent.Stage.AFTER_LEVEL) {
+            RenderSystem.getModelViewStack().pushPose();
+            RenderSystem.getModelViewStack().setIdentity();
+            if (particleMVMatrix != null) RenderSystem.getModelViewStack().mulPoseMatrix(particleMVMatrix);
+            RenderSystem.applyModelViewMatrix();
+            RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+            getDelayedRender().endBatch(RenderUtils.DELAYED_PARTICLE);
+            RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
+            getDelayedRender().endBatch(RenderUtils.GLOWING_PARTICLE);
+            RenderSystem.getModelViewStack().popPose();
+            RenderSystem.applyModelViewMatrix();
         }
-        return rotate;
+    }
+
+    static MultiBufferSource.BufferSource DELAYED_RENDER = null;
+
+    public static MultiBufferSource.BufferSource getDelayedRender() {
+        if (DELAYED_RENDER == null) {
+            Map<RenderType, BufferBuilder> buffers = new HashMap<>();
+            for (RenderType type : new RenderType[]{
+                    RenderUtils.DELAYED_PARTICLE,
+                    RenderUtils.GLOWING_PARTICLE}) {
+                buffers.put(type, new BufferBuilder(ModList.get().isLoaded("rubidium") ? 32768 : type.bufferSize()));
+            }
+            DELAYED_RENDER = MultiBufferSource.immediateWithBuffers(buffers, new BufferBuilder(128));
+        }
+        return DELAYED_RENDER;
     }
 }

@@ -3,9 +3,9 @@ package com.idark.valoria.registries.item.types.curio;
 import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.Multimap;
 import com.idark.valoria.Valoria;
+import com.idark.valoria.client.render.curio.HandsRenderer;
 import com.idark.valoria.registries.item.types.curio.enums.AccessoryGem;
 import com.idark.valoria.registries.item.types.curio.enums.AccessoryMaterial;
-import com.idark.valoria.registries.item.types.curio.enums.AccessoryType;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -34,21 +34,17 @@ import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
-public class CurioItemProperty extends Item implements ICurioItem, ICurioTexture, Vanishable {
+public class GlovesItem extends Item implements ICurioItem, ICurioTexture, Vanishable {
 
-    private static final ResourceLocation BELT_TEXTURE = new ResourceLocation(Valoria.MOD_ID, "textures/entity/leather_belt.png");
-
-    private static ResourceLocation getNecklaceTexture(String material, String gem) {
-        return new ResourceLocation(Valoria.MOD_ID, "textures/entity/necklace/" + material + "_necklace_" + gem + ".png");
+    public static ResourceLocation getGlovesTexture(String material, boolean slim) {
+        return slim ? new ResourceLocation(Valoria.MOD_ID, "textures/entity/gloves/" + material + "_gloves" + "_slim" + ".png") : new ResourceLocation(Valoria.MOD_ID, "textures/entity/gloves/" + material + "_gloves" + ".png");
     }
 
-    public AccessoryType type;
     public AccessoryGem gem;
     public AccessoryMaterial material;
 
-    public CurioItemProperty(AccessoryType type, AccessoryGem gem, AccessoryMaterial material, Item.Properties properties) {
+    public GlovesItem(AccessoryGem gem, AccessoryMaterial material, Item.Properties properties) {
         super(properties);
-        this.type = type;
         this.gem = gem;
         this.material = material;
     }
@@ -67,7 +63,6 @@ public class CurioItemProperty extends Item implements ICurioItem, ICurioTexture
     @Override
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(SlotContext slotContext, UUID uuid, ItemStack stack) {
         Multimap<Attribute, AttributeModifier> atts = LinkedHashMultimap.create();
-        // Reciving Gem Type & gives atts
         switch (gem) {
             case NONE:
                 atts.put(Attributes.ARMOR, new AttributeModifier(uuid, "bonus", 0.5, AttributeModifier.Operation.ADDITION));
@@ -153,49 +148,23 @@ public class CurioItemProperty extends Item implements ICurioItem, ICurioTexture
 
     @Override
     public ResourceLocation getTexture(ItemStack stack, LivingEntity entity) {
-        return switch (type) {
-            case NECKLACE -> switch (material) {
-                case IRON -> switch (gem) {
-                    case NONE, BELT, TANK, TOUGH -> null;
-                    case AMBER -> getNecklaceTexture("iron", "amber");
-                    case DIAMOND -> getNecklaceTexture("iron", "diamond");
-                    case EMERALD -> getNecklaceTexture("iron", "emerald");
-                    case RUBY -> getNecklaceTexture("iron", "ruby");
-                    case SAPPHIRE -> getNecklaceTexture("iron", "sapphire");
-                    case ARMOR -> getNecklaceTexture("iron", "armor");
-                    case HEALTH -> getNecklaceTexture("iron", "health");
-                    case WEALTH -> getNecklaceTexture("iron", "wealth");
-                };
-
-                case GOLD -> switch (gem) {
-                    case NONE, BELT, TANK, TOUGH -> null;
-                    case AMBER -> getNecklaceTexture("golden", "amber");
-                    case DIAMOND -> getNecklaceTexture("golden", "diamond");
-                    case EMERALD -> getNecklaceTexture("golden", "emerald");
-                    case RUBY -> getNecklaceTexture("golden", "ruby");
-                    case SAPPHIRE -> getNecklaceTexture("golden", "sapphire");
-                    case ARMOR -> getNecklaceTexture("golden", "armor");
-                    case HEALTH -> getNecklaceTexture("golden", "health");
-                    case WEALTH -> getNecklaceTexture("golden", "wealth");
-                };
-
-                case NETHERITE -> switch (gem) {
-                    case NONE, BELT, TANK, TOUGH -> null;
-                    case AMBER -> getNecklaceTexture("netherite", "amber");
-                    case DIAMOND -> getNecklaceTexture("netherite", "diamond");
-                    case EMERALD -> getNecklaceTexture("netherite", "emerald");
-                    case RUBY -> getNecklaceTexture("netherite", "ruby");
-                    case SAPPHIRE -> getNecklaceTexture("netherite", "sapphire");
-                    case ARMOR -> getNecklaceTexture("netherite", "armor");
-                    case HEALTH -> getNecklaceTexture("netherite", "health");
-                    case WEALTH -> getNecklaceTexture("netherite", "wealth");
-                };
-
-                default -> null;
+        if (!HandsRenderer.isDefault) {
+            return switch (material) {
+                case LEATHER -> getGlovesTexture("leather", true);
+                case IRON -> getGlovesTexture("iron", true);
+                case GOLD -> getGlovesTexture("golden", true);
+                case DIAMOND -> getGlovesTexture("diamond", true);
+                case NETHERITE -> getGlovesTexture("netherite", true);
             };
-            case BELT -> BELT_TEXTURE;
-            default -> null;
-        };
+        } else {
+            return switch (material) {
+                case LEATHER -> getGlovesTexture("leather", false);
+                case IRON -> getGlovesTexture("iron", false);
+                case GOLD -> getGlovesTexture("golden", false);
+                case DIAMOND -> getGlovesTexture("diamond", false);
+                case NETHERITE -> getGlovesTexture("netherite", false);
+            };
+        }
     }
 
     @Override
@@ -205,8 +174,6 @@ public class CurioItemProperty extends Item implements ICurioItem, ICurioTexture
             tooltip.add(Component.translatable("tooltip.valoria.amber").withStyle(ChatFormatting.GRAY));
         } else if (material == AccessoryMaterial.GOLD) {
             tooltip.add(Component.translatable("tooltip.valoria.golden").withStyle(ChatFormatting.GRAY));
-        } else if (type == AccessoryType.BELT) {
-            tooltip.add(Component.translatable("tooltip.valoria.belt").withStyle(ChatFormatting.GRAY));
         }
 
         tooltip.add(Component.translatable("tooltip.valoria.rmb_equip").withStyle(ChatFormatting.GREEN));

@@ -12,7 +12,7 @@ import java.util.Random;
 import java.util.function.Predicate;
 
 public final class RandomUtil {
-    private static final char[] ALPHANUMERIC_CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789".toCharArray();
+
     public static final EasyRandom rand = new EasyRandom(new Random());
 
     public static boolean fiftyFifty() {
@@ -80,16 +80,6 @@ public final class RandomUtil {
 
     public static BlockPos getRandomPositionWithinRange(BlockPos centerPos, int xRadius, int yRadius, int zRadius, boolean safeSurfacePlacement, Level world, @Nullable Predicate<BlockState> statePredicate, int tries) {
         return rand.getRandomPositionWithinRange(centerPos, xRadius, yRadius, zRadius, safeSurfacePlacement, world, statePredicate, tries);
-    }
-
-    public static String getRandomAlphaNumeric(int length) {
-        StringBuilder builder = new StringBuilder();
-
-        for (int i = 0; i < length; i++) {
-            builder.append(ALPHANUMERIC_CHARACTERS[rand.randomNumberUpTo(ALPHANUMERIC_CHARACTERS.length)]);
-        }
-
-        return builder.toString();
     }
 
     public static final class EasyRandom {
@@ -200,16 +190,6 @@ public final class RandomUtil {
             }
 
             return centerPos;
-        }
-
-        public String getRandomAlphaNumeric(int length) {
-            StringBuilder builder = new StringBuilder();
-
-            for (int i = 0; i < length; i++) {
-                builder.append(getRandomSelection(ALPHANUMERIC_CHARACTERS));
-            }
-
-            return builder.toString();
         }
     }
 }

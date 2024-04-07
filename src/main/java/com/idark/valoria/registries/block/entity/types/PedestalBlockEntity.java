@@ -1,7 +1,7 @@
 package com.idark.valoria.registries.block.entity.types;
 
 import com.idark.valoria.registries.block.entity.ModBlockEntities;
-import com.idark.valoria.util.PacketUtils;
+import com.idark.valoria.util.ValoriaUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
@@ -53,7 +53,7 @@ public class PedestalBlockEntity extends BlockSimpleInventory {
     public void setChanged() {
         super.setChanged();
         if (level != null && !level.isClientSide) {
-            PacketUtils.SUpdateTileEntityPacket(this);
+            ValoriaUtils.tileEntity.SUpdateTileEntityPacket(this);
         }
     }
 }

@@ -3,7 +3,7 @@ package com.idark.valoria.registries.block.types;
 import com.idark.valoria.registries.block.entity.types.BlockSimpleInventory;
 import com.idark.valoria.registries.block.entity.types.CrusherBlockEntity;
 import com.idark.valoria.registries.recipe.CrusherRecipe;
-import com.idark.valoria.util.PacketUtils;
+import com.idark.valoria.util.ValoriaUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.server.level.ServerPlayer;
@@ -67,7 +67,7 @@ public class CrusherBlock extends Block implements EntityBlock {
                     player.getInventory().removeItem(player.getItemInHand(handIn));
                 }
 
-                PacketUtils.SUpdateTileEntityPacket(tile);
+                ValoriaUtils.tileEntity.SUpdateTileEntityPacket(tile);
             }
 
             return InteractionResult.SUCCESS;

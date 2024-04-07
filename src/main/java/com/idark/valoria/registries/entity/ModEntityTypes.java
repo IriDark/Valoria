@@ -48,7 +48,7 @@ public class ModEntityTypes {
                     .build(new ResourceLocation(Valoria.MOD_ID, "necromancer_fangs").toString()));
 
     public static final RegistryObject<EntityType<MannequinEntity>> MANNEQUIN = ENTITY_TYPES.register("mannequin",
-            () -> EntityType.Builder.of(MannequinEntity::new, MobCategory.CREATURE)
+            () -> EntityType.Builder.of(MannequinEntity::new, MobCategory.MISC)
                     .sized(0.6f, 1.95f)
                     .build(new ResourceLocation(Valoria.MOD_ID, "mannequin").toString()));
 

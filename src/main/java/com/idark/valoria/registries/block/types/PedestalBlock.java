@@ -2,7 +2,7 @@ package com.idark.valoria.registries.block.types;
 
 import com.idark.valoria.registries.block.entity.types.BlockSimpleInventory;
 import com.idark.valoria.registries.block.entity.types.PedestalBlockEntity;
-import com.idark.valoria.util.PacketUtils;
+import com.idark.valoria.util.ValoriaUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.Containers;
@@ -83,7 +83,7 @@ public class PedestalBlock extends Block implements EntityBlock, SimpleWaterlogg
 
                 stack.setCount(1);
                 tile.getItemHandler().setItem(0, stack);
-                PacketUtils.SUpdateTileEntityPacket(tile);
+                ValoriaUtils.tileEntity.SUpdateTileEntityPacket(tile);
                 return InteractionResult.SUCCESS;
             } else {
                 tile.getItemHandler().setItem(0, stack);
@@ -91,7 +91,7 @@ public class PedestalBlock extends Block implements EntityBlock, SimpleWaterlogg
                     player.getInventory().removeItem(player.getItemInHand(hand));
                 }
 
-                PacketUtils.SUpdateTileEntityPacket(tile);
+                ValoriaUtils.tileEntity.SUpdateTileEntityPacket(tile);
                 return InteractionResult.SUCCESS;
             }
         }
@@ -102,7 +102,7 @@ public class PedestalBlock extends Block implements EntityBlock, SimpleWaterlogg
             }
 
             tile.getItemHandler().removeItemNoUpdate(0);
-            PacketUtils.SUpdateTileEntityPacket(tile);
+            ValoriaUtils.tileEntity.SUpdateTileEntityPacket(tile);
             return InteractionResult.SUCCESS;
         }
 

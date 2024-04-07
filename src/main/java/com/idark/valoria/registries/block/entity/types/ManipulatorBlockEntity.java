@@ -8,7 +8,7 @@ import com.idark.valoria.core.network.packets.ManipulatorEmptyParticlePacket;
 import com.idark.valoria.registries.ItemsRegistry;
 import com.idark.valoria.registries.block.entity.ModBlockEntities;
 import com.idark.valoria.registries.recipe.ManipulatorRecipe;
-import com.idark.valoria.util.PacketUtils;
+import com.idark.valoria.util.ValoriaUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.RegistryAccess;
@@ -204,7 +204,7 @@ public class ManipulatorBlockEntity extends BlockEntity implements MenuProvider,
                         resetProgress();
                     }
 
-                    PacketUtils.SUpdateTileEntityPacket(this);
+                    ValoriaUtils.tileEntity.SUpdateTileEntityPacket(this);
                 } else if (recipe.get().getCore().equals("empty") && itemOutputHandler.getStackInSlot(0).getCount() < itemOutputHandler.getStackInSlot(0).getMaxStackSize()) {
                     increaseCraftingProgress();
                     startCraft = true;
@@ -219,7 +219,7 @@ public class ManipulatorBlockEntity extends BlockEntity implements MenuProvider,
                         PacketHandler.sendToTracking(this.level, this.getBlockPos(), new ManipulatorEmptyParticlePacket((float) this.getBlockPos().getX() + 0.5f, (float) this.getBlockPos().getY() + 0.75f, (float) this.getBlockPos().getZ() + 0.5f, i, (float) this.getBlockPos().getX() + 0.5f, (float) this.getBlockPos().getY() + 0.65f, ((float) this.getBlockPos().getZ() + 0.5f), 255, 255, 255));
                     }
 
-                    PacketUtils.SUpdateTileEntityPacket(this);
+                    ValoriaUtils.tileEntity.SUpdateTileEntityPacket(this);
                 }
             } else {
                 resetProgress();
@@ -354,7 +354,7 @@ public class ManipulatorBlockEntity extends BlockEntity implements MenuProvider,
     public void setChanged() {
         super.setChanged();
         if (level != null && !level.isClientSide) {
-            PacketUtils.SUpdateTileEntityPacket(this);
+            ValoriaUtils.tileEntity.SUpdateTileEntityPacket(this);
         }
     }
 

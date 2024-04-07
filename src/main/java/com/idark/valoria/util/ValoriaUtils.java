@@ -13,6 +13,8 @@ import com.idark.valoria.registries.item.types.curio.charm.BloodSight;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.server.level.ServerChunkCache;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -25,8 +27,10 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.HitResult;
@@ -47,12 +51,12 @@ import java.util.function.Predicate;
 public class ValoriaUtils {
 
     /**
-     * @param pSize Portal Size
+     * @param pSize   Portal Size
      * @param pPortal Portal State
-     * @param pFrame Portal Frame
+     * @param pFrame  Portal Frame
      */
     public static void createEndShapedPortal(int pSize, Level pDestination, BlockPos pPos, BlockState pPortal, BlockState pFrame) {
-        for (int i = 0; i <  pSize - 1; ++i) {
+        for (int i = 0; i < pSize - 1; ++i) {
             for (int j = 0; j < pSize - 1; ++j) {
                 pDestination.setBlock(pPos.offset(i, 0, j), pPortal, 2);
             }
@@ -551,32 +555,34 @@ public class ValoriaUtils {
     public static class scheduler {
         private static ScheduledExecutorService scheduler = null;
         private static final HashMultimap<Integer, Runnable> scheduledSynchTasks = HashMultimap.create();
-
         private static boolean running = true;
 
         public static void scheduleSyncronisedTask(Runnable run, int ticks) {
             scheduledSynchTasks.put(ServerTickHandler.tick + ticks, run);
         }
 
+        /**
+         * @param run scheduled task example: level.playSound( ... );
+         */
         public static void scheduleAsyncTask(Runnable run, int time, TimeUnit unit) {
-            if (scheduler == null || !running)
+            if (scheduler == null || !running) {
                 serverStartupTasks();
+            }
 
             scheduler.schedule(run, time, unit);
         }
 
         public static void serverStartupTasks() {
-            if (scheduler != null)
+            if (scheduler != null) {
                 scheduler.shutdownNow();
+            }
 
             scheduler = Executors.newScheduledThreadPool(1);
-
             handleSyncScheduledTasks(null);
         }
 
         public static void serverShutdownTasks() {
             handleSyncScheduledTasks(null);
-
             scheduler.shutdownNow();
             scheduler = null;
             running = false;
@@ -585,17 +591,29 @@ public class ValoriaUtils {
         public static void handleSyncScheduledTasks(@Nullable Integer tick) {
             if (scheduledSynchTasks.containsKey(tick)) {
                 Iterator<Runnable> tasks = tick == null ? scheduledSynchTasks.values().iterator() : scheduledSynchTasks.get(tick).iterator();
-
                 while (tasks.hasNext()) {
                     try {
                         tasks.next().run();
-                    }
-
-                    catch (Exception ex) {
+                    } catch (Exception ex) {
                         System.out.print(ex.getMessage());
                     }
 
                     tasks.remove();
+                }
+            }
+        }
+    }
+
+    public static class tileEntity {
+
+        public static void SUpdateTileEntityPacket(BlockEntity tile) {
+            if (tile.getLevel() instanceof ServerLevel) {
+                Packet<?> packet = tile.getUpdatePacket();
+                if (packet != null) {
+                    BlockPos pos = tile.getBlockPos();
+                    ((ServerChunkCache) tile.getLevel().getChunkSource()).chunkMap
+                            .getPlayers(new ChunkPos(pos), false)
+                            .forEach(e -> e.connection.send(packet));
                 }
             }
         }

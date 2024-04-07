@@ -20,57 +20,55 @@ import net.minecraftforge.common.loot.IGlobalLootModifier;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
 
 import javax.annotation.Nonnull;
 import java.util.Collection;
 import java.util.List;
 
 public final class LootUtil {
-    public static LootTable getTable(ServerLevel world, ResourceLocation table) {
-        return world.getServer().getLootData().getLootTable(table);
+
+    public static final DeferredRegister<Codec<? extends IGlobalLootModifier>> LOOT_MODIFIER_SERIALIZERS = DeferredRegister.create(ForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, Valoria.MOD_ID);
+
+    public static LootTable getTable(ServerLevel pServer, ResourceLocation pLoot) {
+        return pServer.getServer().getLootData().getLootTable(pLoot);
     }
 
     /**
      * Drops loot when using item
      */
-    public static void DropLoot(Player player, Collection<ItemStack> stacks) {
-        for (ItemStack stack : stacks) {
-            player.drop(stack, false);
+    public static void DropLoot(Player pPlayer, Collection<ItemStack> pItemStacks) {
+        for (ItemStack stack : pItemStacks) {
+            pPlayer.drop(stack, false);
         }
     }
 
     /**
      * Spawns loot on a block position when using item
      */
-    public static void SpawnLoot(Level world, BlockPos blockpos, Collection<ItemStack> stacks) {
-        if (!world.isClientSide()) {
-            for (ItemStack stack : stacks) {
-                world.addFreshEntity(new ItemEntity(world, blockpos.getX() + 0.5F, blockpos.getY() + 0.5F, blockpos.getZ() + 0.5F, stack));
+    public static void SpawnLoot(Level pLevel, BlockPos pPos, Collection<ItemStack> pItemStacks) {
+        if (!pLevel.isClientSide()) {
+            for (ItemStack stack : pItemStacks) {
+                pLevel.addFreshEntity(new ItemEntity(pLevel, pPos.getX() + 0.5F, pPos.getY() + 0.5F, pPos.getZ() + 0.5F, stack));
             }
         }
     }
 
     @Nonnull
-    public static List<ItemStack> createLoot(ResourceLocation table, LootParams params) {
-        LootTable loot = getTable(params.getLevel(), table);
+    public static List<ItemStack> createLoot(ResourceLocation pLoot, LootParams pParams) {
+        LootTable loot = getTable(pParams.getLevel(), pLoot);
         if (loot == LootTable.EMPTY)
             return Lists.newArrayList();
 
-        return loot.getRandomItems(params);
+        return loot.getRandomItems(pParams);
     }
 
-    public static LootParams getGiftParameters(ServerLevel level, Vec3 pos, Entity entity) {
-        return getGiftParameters(level, pos, 0, entity);
+    public static LootParams getGiftParameters(ServerLevel pLevel, Vec3 pPos, Entity pEntity) {
+        return getGiftParameters(pLevel, pPos, 0, pEntity);
     }
 
-    public static LootParams getGiftParameters(ServerLevel level, Vec3 pos, float luck, Entity entity) {
-        return new LootParams.Builder(level).withParameter(LootContextParams.THIS_ENTITY, entity).withParameter(LootContextParams.ORIGIN, pos).withLuck(luck).create(LootContextParamSets.GIFT);
+    public static LootParams getGiftParameters(ServerLevel pLevel, Vec3 pPos, float pLuckValue, Entity pEntity) {
+        return new LootParams.Builder(pLevel).withParameter(LootContextParams.THIS_ENTITY, pEntity).withParameter(LootContextParams.ORIGIN, pPos).withLuck(pLuckValue).create(LootContextParamSets.GIFT);
     }
-
-    public static final DeferredRegister<Codec<? extends IGlobalLootModifier>> LOOT_MODIFIER_SERIALIZERS = DeferredRegister.create(ForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, Valoria.MOD_ID);
-
-    public static final RegistryObject<Codec<? extends IGlobalLootModifier>> ADD_ITEM = LOOT_MODIFIER_SERIALIZERS.register("add_item", AddItemModifier.CODEC);
 
     public static void register(IEventBus eventBus) {
         LOOT_MODIFIER_SERIALIZERS.register(eventBus);

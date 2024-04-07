@@ -5,7 +5,7 @@ import com.idark.valoria.registries.ItemsRegistry;
 import com.idark.valoria.registries.TagsRegistry;
 import com.idark.valoria.registries.block.entity.types.BlockSimpleInventory;
 import com.idark.valoria.registries.block.entity.types.KegBlockEntity;
-import com.idark.valoria.util.PacketUtils;
+import com.idark.valoria.util.ValoriaUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.Containers;
@@ -122,7 +122,7 @@ public class KegBlock extends HorizontalDirectionalBlock implements EntityBlock,
                 }
             }
 
-            PacketUtils.SUpdateTileEntityPacket(tile);
+            ValoriaUtils.tileEntity.SUpdateTileEntityPacket(tile);
             return InteractionResult.SUCCESS;
         }
 
@@ -132,7 +132,7 @@ public class KegBlock extends HorizontalDirectionalBlock implements EntityBlock,
             }
 
             tile.getItemHandler().removeItemNoUpdate(0);
-            PacketUtils.SUpdateTileEntityPacket(tile);
+            ValoriaUtils.tileEntity.SUpdateTileEntityPacket(tile);
             return InteractionResult.SUCCESS;
         } else if (!tile.getItemHandler().getItem(0).isEmpty() && !tile.getItemHandler().getItem(0).is(TagsRegistry.CUP_DRINKS) && !tile.getItemHandler().getItem(0).is(TagsRegistry.BOTTLE_DRINKS)) {
             if (!player.isCreative() && !tile.getItemHandler().getItem(0).is(Items.HONEY_BOTTLE)) {
@@ -143,7 +143,7 @@ public class KegBlock extends HorizontalDirectionalBlock implements EntityBlock,
             }
 
             tile.getItemHandler().removeItemNoUpdate(0);
-            PacketUtils.SUpdateTileEntityPacket(tile);
+            ValoriaUtils.tileEntity.SUpdateTileEntityPacket(tile);
             return InteractionResult.SUCCESS;
         }
 

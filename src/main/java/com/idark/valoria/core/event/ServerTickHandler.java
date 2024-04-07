@@ -14,25 +14,23 @@ public class ServerTickHandler {
 
     public static void preInit() {
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
-
         eventBus.addListener(EventPriority.NORMAL, false, TickEvent.ServerTickEvent.class, ServerTickHandler::serverTick);
         eventBus.addListener(EventPriority.NORMAL, false, ServerStartingEvent.class, ServerTickHandler::serverStarting);
         eventBus.addListener(EventPriority.NORMAL, false, ServerStoppingEvent.class, ServerTickHandler::serverStopping);
     }
 
-    private static void serverTick(final TickEvent.ServerTickEvent ev) {
-        if (ev.phase == TickEvent.Phase.END) {
+    private static void serverTick(final TickEvent.ServerTickEvent serverTickEvent) {
+        if (serverTickEvent.phase == TickEvent.Phase.END) {
             tick++;
-
             ValoriaUtils.scheduler.handleSyncScheduledTasks(tick);
         }
     }
 
-    private static void serverStarting(final ServerStartingEvent ev) {
+    private static void serverStarting(final ServerStartingEvent serverStartingEvent) {
         ValoriaUtils.scheduler.serverStartupTasks();
     }
 
-    private static void serverStopping(final ServerStoppingEvent ev) {
+    private static void serverStopping(final ServerStoppingEvent serverStoppingEvent) {
         ValoriaUtils.scheduler.serverShutdownTasks();
     }
 }

@@ -4,7 +4,7 @@ import com.idark.valoria.client.gui.menu.JewelryMenu;
 import com.idark.valoria.client.render.model.blockentity.TickableBlockEntity;
 import com.idark.valoria.registries.block.entity.ModBlockEntities;
 import com.idark.valoria.registries.recipe.JewelryRecipe;
-import com.idark.valoria.util.PacketUtils;
+import com.idark.valoria.util.ValoriaUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.RegistryAccess;
@@ -113,7 +113,7 @@ public class JewelryBlockEntity extends BlockEntity implements MenuProvider, Tic
     public void setChanged() {
         super.setChanged();
         if (level != null && !level.isClientSide) {
-            PacketUtils.SUpdateTileEntityPacket(this);
+            ValoriaUtils.tileEntity.SUpdateTileEntityPacket(this);
         }
     }
 
@@ -160,7 +160,7 @@ public class JewelryBlockEntity extends BlockEntity implements MenuProvider, Tic
                     resetProgress();
                 }
 
-                PacketUtils.SUpdateTileEntityPacket(this);
+                ValoriaUtils.tileEntity.SUpdateTileEntityPacket(this);
             } else {
                 resetProgress();
             }
