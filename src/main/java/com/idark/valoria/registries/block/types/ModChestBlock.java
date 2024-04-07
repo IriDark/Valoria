@@ -1,6 +1,6 @@
 package com.idark.valoria.registries.block.types;
 
-import com.idark.valoria.registries.block.entity.types.ModChestBlockEntity;
+import com.idark.valoria.registries.block.entity.ModChestBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.ChestBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;

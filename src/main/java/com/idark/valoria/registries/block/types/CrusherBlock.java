@@ -1,7 +1,7 @@
 package com.idark.valoria.registries.block.types;
 
-import com.idark.valoria.registries.block.entity.types.BlockSimpleInventory;
-import com.idark.valoria.registries.block.entity.types.CrusherBlockEntity;
+import com.idark.valoria.registries.block.entity.BlockSimpleInventory;
+import com.idark.valoria.registries.block.entity.CrusherBlockEntity;
 import com.idark.valoria.registries.recipe.CrusherRecipe;
 import com.idark.valoria.util.ValoriaUtils;
 import net.minecraft.core.BlockPos;

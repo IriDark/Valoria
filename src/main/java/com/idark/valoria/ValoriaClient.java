@@ -15,8 +15,8 @@ import com.idark.valoria.client.render.model.item.Item2DRenderer;
 import com.idark.valoria.client.render.model.item.ModItemModelProperties;
 import com.idark.valoria.compat.quark.QuarkIntegration;
 import com.idark.valoria.core.config.ClientConfig;
+import com.idark.valoria.registries.BlockEntitiesRegistry;
 import com.idark.valoria.registries.ItemsRegistry;
-import com.idark.valoria.registries.block.entity.ModBlockEntities;
 import com.idark.valoria.registries.block.types.ModWoodTypes;
 import com.idark.valoria.registries.entity.ModEntityTypes;
 import com.idark.valoria.registries.entity.decoration.CustomBoatEntity;
@@ -76,14 +76,14 @@ public class ValoriaClient {
         @SubscribeEvent
         public static void doClientStuff(FMLClientSetupEvent event) {
             event.enqueueWork(() -> {
-                BlockEntityRenderers.register(ModBlockEntities.MANIPULATOR_BLOCK_ENTITY.get(), (trd) -> new ManipulatorBlockEntityRenderer());
-                BlockEntityRenderers.register(ModBlockEntities.JEWELRY_BLOCK_ENTITY.get(), (trd) -> new JewelryBlockEntityRender());
-                BlockEntityRenderers.register(ModBlockEntities.KEG_BLOCK_ENTITY.get(), (trd) -> new KegBlockEntityRenderer());
-                BlockEntityRenderers.register(ModBlockEntities.CRUSHABLE_BLOCK_ENTITY.get(), (trd) -> new CrushableBlockRenderer());
-                BlockEntityRenderers.register(ModBlockEntities.CRUSHER_BLOCK_ENTITY.get(), (trd) -> new CrusherBlockEntityRenderer());
-                BlockEntityRenderers.register(ModBlockEntities.PEDESTAL_BLOCK_ENTITY.get(), (trd) -> new PedestalBlockEntityRenderer());
-                BlockEntityRenderers.register(ModBlockEntities.SIGN_BLOCK_ENTITIES.get(), SignRenderer::new);
-                BlockEntityRenderers.register(ModBlockEntities.HANGING_SIGN_BLOCK_ENTITIES.get(), HangingSignRenderer::new);
+                BlockEntityRenderers.register(BlockEntitiesRegistry.MANIPULATOR_BLOCK_ENTITY.get(), (trd) -> new ManipulatorBlockEntityRenderer());
+                BlockEntityRenderers.register(BlockEntitiesRegistry.JEWELRY_BLOCK_ENTITY.get(), (trd) -> new JewelryBlockEntityRender());
+                BlockEntityRenderers.register(BlockEntitiesRegistry.KEG_BLOCK_ENTITY.get(), (trd) -> new KegBlockEntityRenderer());
+                BlockEntityRenderers.register(BlockEntitiesRegistry.CRUSHABLE_BLOCK_ENTITY.get(), (trd) -> new CrushableBlockRenderer());
+                BlockEntityRenderers.register(BlockEntitiesRegistry.CRUSHER_BLOCK_ENTITY.get(), (trd) -> new CrusherBlockEntityRenderer());
+                BlockEntityRenderers.register(BlockEntitiesRegistry.PEDESTAL_BLOCK_ENTITY.get(), (trd) -> new PedestalBlockEntityRenderer());
+                BlockEntityRenderers.register(BlockEntitiesRegistry.SIGN_BLOCK_ENTITIES.get(), SignRenderer::new);
+                BlockEntityRenderers.register(BlockEntitiesRegistry.HANGING_SIGN_BLOCK_ENTITIES.get(), HangingSignRenderer::new);
                 Sheets.addWoodType(ModWoodTypes.SHADEWOOD);
                 if(QuarkIntegration.isLoaded()) {
                     BlockEntityRenderers.register(QuarkIntegration.LoadedOnly.CHEST_BLOCK_ENTITY.get(), ModChestRender::new);

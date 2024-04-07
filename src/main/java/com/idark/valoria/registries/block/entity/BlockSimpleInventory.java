@@ -1,4 +1,4 @@
-package com.idark.valoria.registries.block.entity.types;
+package com.idark.valoria.registries.block.entity;
 
 import com.google.common.base.Preconditions;
 import net.minecraft.core.BlockPos;

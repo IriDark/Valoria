@@ -1,7 +1,7 @@
 package com.idark.valoria.registries.block.types;
 
-import com.idark.valoria.registries.block.entity.types.BlockSimpleInventory;
-import com.idark.valoria.registries.block.entity.types.PedestalBlockEntity;
+import com.idark.valoria.registries.block.entity.BlockSimpleInventory;
+import com.idark.valoria.registries.block.entity.PedestalBlockEntity;
 import com.idark.valoria.util.ValoriaUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

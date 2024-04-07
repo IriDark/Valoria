@@ -1,6 +1,6 @@
 package com.idark.valoria.registries.block.types;
 
-import com.idark.valoria.registries.block.entity.types.ModTrappedChestBlockEntity;
+import com.idark.valoria.registries.block.entity.ModTrappedChestBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;

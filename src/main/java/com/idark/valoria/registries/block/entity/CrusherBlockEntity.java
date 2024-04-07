@@ -1,6 +1,6 @@
-package com.idark.valoria.registries.block.entity.types;
+package com.idark.valoria.registries.block.entity;
 
-import com.idark.valoria.registries.block.entity.ModBlockEntities;
+import com.idark.valoria.registries.BlockEntitiesRegistry;
 import com.idark.valoria.registries.recipe.CrusherRecipe;
 import com.idark.valoria.util.LootUtil;
 import com.idark.valoria.util.ValoriaUtils;
@@ -26,7 +26,7 @@ public class CrusherBlockEntity extends BlockSimpleInventory {
     }
 
     public CrusherBlockEntity(BlockPos pos, BlockState state) {
-        this(ModBlockEntities.CRUSHER_BLOCK_ENTITY.get(), pos, state);
+        this(BlockEntitiesRegistry.CRUSHER_BLOCK_ENTITY.get(), pos, state);
     }
 
     @Override

@@ -1,6 +1,6 @@
-package com.idark.valoria.registries.block.entity.types;
+package com.idark.valoria.registries.block.entity;
 
-import com.idark.valoria.registries.block.entity.ModBlockEntities;
+import com.idark.valoria.registries.BlockEntitiesRegistry;
 import com.idark.valoria.registries.block.types.CrushableBlock;
 import com.mojang.logging.LogUtils;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
@@ -51,7 +51,7 @@ public class CrushableBlockEntity extends BlockEntity {
     private long lootTableSeed;
 
     public CrushableBlockEntity(BlockPos pPos, BlockState pBlockState) {
-        super(ModBlockEntities.CRUSHABLE_BLOCK_ENTITY.get(), pPos, pBlockState);
+        super(BlockEntitiesRegistry.CRUSHABLE_BLOCK_ENTITY.get(), pPos, pBlockState);
     }
 
     public boolean brush(long pStartTick, Player pPlayer, Direction pHitDirection) {

@@ -1,9 +1,9 @@
 package com.idark.valoria.client.compat.jade;
 
-import com.idark.valoria.registries.block.entity.types.CrusherBlockEntity;
-import com.idark.valoria.registries.block.entity.types.JewelryBlockEntity;
-import com.idark.valoria.registries.block.entity.types.KegBlockEntity;
-import com.idark.valoria.registries.block.entity.types.ManipulatorBlockEntity;
+import com.idark.valoria.registries.block.entity.CrusherBlockEntity;
+import com.idark.valoria.registries.block.entity.JewelryBlockEntity;
+import com.idark.valoria.registries.block.entity.KegBlockEntity;
+import com.idark.valoria.registries.block.entity.ManipulatorBlockEntity;
 import com.idark.valoria.registries.block.types.*;
 import net.minecraft.resources.ResourceLocation;
 import snownee.jade.api.IWailaClientRegistration;

@@ -5,7 +5,7 @@ import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import com.idark.valoria.client.render.model.item.ItemAnims;
 import com.idark.valoria.client.render.model.item.PickAnim;
-import com.idark.valoria.registries.block.entity.types.CrushableBlockEntity;
+import com.idark.valoria.registries.block.entity.CrushableBlockEntity;
 import com.idark.valoria.registries.block.types.CrushableBlock;
 import com.idark.valoria.registries.entity.ai.attributes.ModAttributes;
 import com.idark.valoria.registries.item.types.curio.necklace.PickNecklace;

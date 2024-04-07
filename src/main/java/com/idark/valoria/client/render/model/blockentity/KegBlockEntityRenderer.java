@@ -2,7 +2,7 @@ package com.idark.valoria.client.render.model.blockentity;
 
 import com.idark.valoria.Valoria;
 import com.idark.valoria.client.event.ClientTickHandler;
-import com.idark.valoria.registries.block.entity.types.KegBlockEntity;
+import com.idark.valoria.registries.block.entity.KegBlockEntity;
 import com.idark.valoria.registries.block.types.KegBlock;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;

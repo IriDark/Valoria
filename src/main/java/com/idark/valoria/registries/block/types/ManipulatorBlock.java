@@ -4,10 +4,9 @@ import com.idark.valoria.client.gui.menu.ManipulatorMenu;
 import com.idark.valoria.client.render.model.blockentity.TickableBlockEntity;
 import com.idark.valoria.core.network.PacketHandler;
 import com.idark.valoria.core.network.packets.ManipulatorParticlePacket;
-import com.idark.valoria.registries.ItemsRegistry;
-import com.idark.valoria.registries.block.entity.types.ManipulatorBlockEntity;
+import com.idark.valoria.registries.block.entity.ManipulatorBlockEntity;
+import com.idark.valoria.registries.item.types.CoreBuilder;
 import com.idark.valoria.util.ValoriaUtils;
-import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
@@ -17,7 +16,6 @@ import net.minecraft.world.*;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -35,10 +33,6 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
 
 public class ManipulatorBlock extends Block implements EntityBlock {
 
@@ -96,30 +90,21 @@ public class ManipulatorBlock extends Block implements EntityBlock {
         }
 
         ItemStack core = player.getItemInHand(hand);
-        Map<Supplier<Item>, Pair<Consumer<ManipulatorBlockEntity>, int[]>> coreActions = new HashMap<>();
-        coreActions.put(ItemsRegistry.NATURE_CORE, Pair.of(block -> block.nature_core = 8, new int[]{46, 204, 113}));
-        coreActions.put(ItemsRegistry.AQUARIUS_CORE, Pair.of(block -> block.aquarius_core = 8, new int[]{17, 195, 214}));
-        coreActions.put(ItemsRegistry.INFERNAL_CORE, Pair.of(block -> block.infernal_core = 8, new int[]{231, 76, 60}));
-        coreActions.put(ItemsRegistry.VOID_CORE, Pair.of(block -> block.void_core = 8, new int[]{52, 73, 94}));
         boolean coreUpdated = false;
-        for (Map.Entry<Supplier<Item>, Pair<Consumer<ManipulatorBlockEntity>, int[]>> entry : coreActions.entrySet()) {
-            if (core.is(entry.getKey().get()) && coreBlock.getCore(entry.getKey().get()) != 8) {
-                entry.getValue().getFirst().accept(coreBlock);
-                if (!player.getAbilities().instabuild) {
-                    core.shrink(1);
-                }
-
-                for (int i = 0; i < 360; i += 10) {
-                    int[] color = entry.getValue().getSecond();
-                    int r = color[0];
-                    int g = color[1];
-                    int b = color[2];
-                    PacketHandler.sendToTracking(world, pos, new ManipulatorParticlePacket(pos.getX() + 0.5f, pos.getY(), pos.getZ() + 0.5f, player.getRotationVector().y + i, pos.getX() + 0.5f, pos.getY() - 0.25F, pos.getZ() + 0.5f, r, g, b));
-                }
-
-                coreUpdated = true;
-                break;
+        if (core.getItem() instanceof CoreBuilder builder && coreBlock.getCoreNBT(builder.getCoreName()) != 8) {
+            if (!player.getAbilities().instabuild) {
+                core.shrink(1);
             }
+
+            for (int i = 0; i < 360; i += 10) {
+                int r = builder.getCoreColor()[0];
+                int g = builder.getCoreColor()[1];
+                int b = builder.getCoreColor()[2];
+                PacketHandler.sendToTracking(world, pos, new ManipulatorParticlePacket(pos.getX() + 0.5f, pos.getY(), pos.getZ() + 0.5f, player.getRotationVector().y + i, pos.getX() + 0.5f, pos.getY() - 0.25F, pos.getZ() + 0.5f, r, g, b));
+            }
+
+            coreBlock.setCharge(builder.getCoreName(), builder.getGivenCores());
+            coreUpdated = true;
         }
 
         if (coreUpdated) {

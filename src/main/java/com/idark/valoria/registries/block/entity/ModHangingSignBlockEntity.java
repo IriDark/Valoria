@@ -1,6 +1,6 @@
-package com.idark.valoria.registries.block.entity.types;
+package com.idark.valoria.registries.block.entity;
 
-import com.idark.valoria.registries.block.entity.ModBlockEntities;
+import com.idark.valoria.registries.BlockEntitiesRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.HangingSignBlockEntity;
@@ -13,6 +13,6 @@ public class ModHangingSignBlockEntity extends HangingSignBlockEntity {
 
     @Override
     public BlockEntityType<?> getType() {
-        return ModBlockEntities.HANGING_SIGN_BLOCK_ENTITIES.get();
+        return BlockEntitiesRegistry.HANGING_SIGN_BLOCK_ENTITIES.get();
     }
 }

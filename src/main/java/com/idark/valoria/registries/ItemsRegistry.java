@@ -144,10 +144,10 @@ public class ItemsRegistry {
     public static final RegistryObject<Item> INFERNAL_INGOT = ITEMS.register("infernal_ingot", () -> new Item(new Item.Properties().fireResistant()));
     public static final RegistryObject<Item> VOID_INGOT = ITEMS.register("void_ingot", () -> new Item(new Item.Properties().fireResistant()));
     // Cores
-    public static final RegistryObject<Item> NATURE_CORE = ITEMS.register("nature_core", () -> new Item(new Item.Properties().fireResistant()));
-    public static final RegistryObject<Item> AQUARIUS_CORE = ITEMS.register("aquarius_core", () -> new Item(new Item.Properties().fireResistant()));
-    public static final RegistryObject<Item> INFERNAL_CORE = ITEMS.register("infernal_core", () -> new Item(new Item.Properties().fireResistant()));
-    public static final RegistryObject<Item> VOID_CORE = ITEMS.register("void_core", () -> new Item(new Item.Properties().fireResistant()));
+    public static final RegistryObject<Item> NATURE_CORE = ITEMS.register("nature_core", () -> new CoreBuilder(new Item.Properties().fireResistant(), 8, new int[]{46, 204, 113}, "nature_core"));
+    public static final RegistryObject<Item> AQUARIUS_CORE = ITEMS.register("aquarius_core", () -> new CoreBuilder(new Item.Properties().fireResistant(), 8, new int[]{17, 195, 214}, "aquarius_core"));
+    public static final RegistryObject<Item> INFERNAL_CORE = ITEMS.register("infernal_core", () -> new CoreBuilder(new Item.Properties().fireResistant(), 8, new int[]{231, 76, 60}, "infernal_core"));
+    public static final RegistryObject<Item> VOID_CORE = ITEMS.register("void_core", () -> new CoreBuilder(new Item.Properties().fireResistant(), 8, new int[]{52, 73, 94}, "void_core"));
 
     // TOOLS (category)
     public static final RegistryObject<Item> CLUB = ITEMS.register("club",

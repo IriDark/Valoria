@@ -1,6 +1,6 @@
-package com.idark.valoria.registries.block.entity.types;
+package com.idark.valoria.registries.block.entity;
 
-import com.idark.valoria.registries.block.entity.ModBlockEntities;
+import com.idark.valoria.registries.BlockEntitiesRegistry;
 import com.idark.valoria.util.ValoriaUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -17,7 +17,7 @@ public class PedestalBlockEntity extends BlockSimpleInventory {
     }
 
     public PedestalBlockEntity(BlockPos pos, BlockState state) {
-        this(ModBlockEntities.PEDESTAL_BLOCK_ENTITY.get(), pos, state);
+        this(BlockEntitiesRegistry.PEDESTAL_BLOCK_ENTITY.get(), pos, state);
     }
 
     @Override

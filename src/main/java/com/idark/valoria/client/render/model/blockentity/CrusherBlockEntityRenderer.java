@@ -1,6 +1,6 @@
 package com.idark.valoria.client.render.model.blockentity;
 
-import com.idark.valoria.registries.block.entity.types.CrusherBlockEntity;
+import com.idark.valoria.registries.block.entity.CrusherBlockEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;

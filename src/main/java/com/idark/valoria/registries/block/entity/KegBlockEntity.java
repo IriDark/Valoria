@@ -1,7 +1,7 @@
-package com.idark.valoria.registries.block.entity.types;
+package com.idark.valoria.registries.block.entity;
 
 import com.idark.valoria.client.render.model.blockentity.TickableBlockEntity;
-import com.idark.valoria.registries.block.entity.ModBlockEntities;
+import com.idark.valoria.registries.BlockEntitiesRegistry;
 import com.idark.valoria.registries.block.types.KegBlock;
 import com.idark.valoria.registries.recipe.KegRecipe;
 import com.idark.valoria.util.ValoriaUtils;
@@ -32,7 +32,7 @@ public class KegBlockEntity extends BlockSimpleInventory implements TickableBloc
     }
 
     public KegBlockEntity(BlockPos pos, BlockState state) {
-        this(ModBlockEntities.KEG_BLOCK_ENTITY.get(), pos, state);
+        this(BlockEntitiesRegistry.KEG_BLOCK_ENTITY.get(), pos, state);
     }
 
     @Override

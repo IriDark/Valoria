@@ -25,7 +25,6 @@ import com.idark.valoria.core.proxy.ClientProxy;
 import com.idark.valoria.core.proxy.ISidedProxy;
 import com.idark.valoria.core.proxy.ServerProxy;
 import com.idark.valoria.registries.*;
-import com.idark.valoria.registries.block.entity.ModBlockEntities;
 import com.idark.valoria.registries.block.types.ModWoodTypes;
 import com.idark.valoria.registries.block.types.SarcoBlock;
 import com.idark.valoria.registries.command.arguments.ModArgumentTypes;
@@ -90,7 +89,7 @@ public class Valoria {
         ItemsRegistry.register(eventBus);
         BlockRegistry.register(eventBus);
         if (QuarkIntegration.isLoaded()) QuarkIntegration.init(eventBus);
-        ModBlockEntities.register(eventBus);
+        BlockEntitiesRegistry.register(eventBus);
         RecipesRegistry.register(eventBus);
         ModMenuTypes.register(eventBus);
         ModEntityTypes.register(eventBus);

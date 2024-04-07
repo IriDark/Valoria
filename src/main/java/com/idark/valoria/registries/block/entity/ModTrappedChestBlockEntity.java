@@ -1,4 +1,4 @@
-package com.idark.valoria.registries.block.entity.types;
+package com.idark.valoria.registries.block.entity;
 
 import com.idark.valoria.compat.quark.QuarkIntegration;
 import net.minecraft.core.BlockPos;

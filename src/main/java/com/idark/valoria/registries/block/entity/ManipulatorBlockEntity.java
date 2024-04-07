@@ -1,12 +1,11 @@
-package com.idark.valoria.registries.block.entity.types;
+package com.idark.valoria.registries.block.entity;
 
 import com.idark.valoria.client.gui.menu.ManipulatorMenu;
 import com.idark.valoria.client.render.model.blockentity.TickableBlockEntity;
 import com.idark.valoria.core.network.PacketHandler;
 import com.idark.valoria.core.network.packets.ManipulatorCraftParticlePacket;
 import com.idark.valoria.core.network.packets.ManipulatorEmptyParticlePacket;
-import com.idark.valoria.registries.ItemsRegistry;
-import com.idark.valoria.registries.block.entity.ModBlockEntities;
+import com.idark.valoria.registries.BlockEntitiesRegistry;
 import com.idark.valoria.registries.recipe.ManipulatorRecipe;
 import com.idark.valoria.util.ValoriaUtils;
 import net.minecraft.core.BlockPos;
@@ -21,7 +20,6 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -87,7 +85,7 @@ public class ManipulatorBlockEntity extends BlockEntity implements MenuProvider,
     }
 
     public ManipulatorBlockEntity(BlockPos pos, BlockState state) {
-        this(ModBlockEntities.MANIPULATOR_BLOCK_ENTITY.get(), pos, state);
+        this(BlockEntitiesRegistry.MANIPULATOR_BLOCK_ENTITY.get(), pos, state);
     }
 
     @Nonnull
@@ -283,6 +281,17 @@ public class ManipulatorBlockEntity extends BlockEntity implements MenuProvider,
         return nbt.getInt(name);
     }
 
+    public void setCharge(String name, int charge) {
+        CompoundTag nbt = this.serializeNBT();
+        if (nbt == null) {
+            nbt = new CompoundTag();
+            this.deserializeNBT(nbt);
+        }
+
+        nbt.putInt(name, charge);
+        this.deserializeNBT(nbt);
+    }
+
     public void decreaseCharge(String name, int charge) {
         CompoundTag nbt = this.serializeNBT();
         if (nbt == null) {
@@ -294,17 +303,13 @@ public class ManipulatorBlockEntity extends BlockEntity implements MenuProvider,
         this.deserializeNBT(nbt);
     }
 
-    public int getCore(Item coreItem) {
-        if (coreItem.getDefaultInstance().is(ItemsRegistry.NATURE_CORE.get())) {
-            return nature_core;
-        } else if (coreItem.getDefaultInstance().is(ItemsRegistry.AQUARIUS_CORE.get())) {
-            return aquarius_core;
-        } else if (coreItem.getDefaultInstance().is(ItemsRegistry.INFERNAL_CORE.get())) {
-            return infernal_core;
-        } else if (coreItem.getDefaultInstance().is(ItemsRegistry.VOID_CORE.get())) {
-            return void_core;
+    public int getCoreNBT(String name) {
+        CompoundTag nbt = this.serializeNBT();
+        if (nbt != null) {
+            this.deserializeNBT(nbt);
+            return nbt.getInt(name);
         } else {
-            throw new IllegalArgumentException("Unknown core item: " + coreItem);
+            throw new IllegalArgumentException("Unknown core");
         }
     }
 
