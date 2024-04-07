@@ -5,6 +5,7 @@ import com.idark.valoria.registries.block.types.*;
 import com.idark.valoria.registries.levelgen.tree.ShadeWoodTree;
 import com.idark.valoria.registries.sounds.ModSoundRegistry;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -427,25 +428,25 @@ public class BlockRegistry {
             () -> new SpiderBlock(BlockBehaviour.Properties.copy(Blocks.STONE).instabreak().noOcclusion().sound(SoundType.FROGSPAWN)));
     // Ore
     public static final RegistryObject<Block> AMBER_ORE = registerBlock("amber_ore",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(4f, 4f)));
+            () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(4f, 4f), UniformInt.of(0, 2)));
     public static final RegistryObject<Block> RUBY_ORE = registerBlock("ruby_ore",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(4f, 4f)));
+            () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(4f, 4f), UniformInt.of(0, 2)));
     public static final RegistryObject<Block> SAPPHIRE_ORE = registerBlock("sapphire_ore",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(4f, 4f)));
+            () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(4f, 4f), UniformInt.of(0, 2)));
     public static final RegistryObject<Block> COBALT_ORE = registerBlock("cobalt_ore",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(6.0F, 30.0F)));
     public static final RegistryObject<Block> DEEPSLATE_AMBER_ORE = registerBlock("deepslate_amber_ore",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE).requiresCorrectToolForDrops().strength(8f, 8f)));
+            () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE).requiresCorrectToolForDrops().strength(8f, 8f), UniformInt.of(0, 2)));
     public static final RegistryObject<Block> DEEPSLATE_RUBY_ORE = registerBlock("deepslate_ruby_ore",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE).requiresCorrectToolForDrops().strength(8f, 8f)));
+            () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE).requiresCorrectToolForDrops().strength(8f, 8f), UniformInt.of(0, 2)));
     public static final RegistryObject<Block> DEEPSLATE_SAPPHIRE_ORE = registerBlock("deepslate_sapphire_ore",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE).requiresCorrectToolForDrops().strength(8f, 8f)));
+            () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE).requiresCorrectToolForDrops().strength(8f, 8f), UniformInt.of(0, 2)));
     public static final RegistryObject<Block> DEEPSLATE_COBALT_ORE = registerBlock("deepslate_cobalt_ore",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE).requiresCorrectToolForDrops().strength(10f, 30f)));
     public static final RegistryObject<Block> WICKED_AMETHYST_ORE = registerBlock("wicked_amethyst_ore",
-            () -> new WickedOreBlock(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(11f, 8f).sound(SoundType.NETHER_BRICKS)));
+            () -> new WickedOreBlock(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(11f, 8f).sound(SoundType.NETHER_BRICKS), UniformInt.of(0, 1)));
     public static final RegistryObject<Block> DORMANT_CRYSTALS = registerBlock("dormant_crystals",
-            () -> new WickedOreBlock(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(11f, 8f).sound(SoundType.NETHER_BRICKS)));
+            () -> new WickedOreBlock(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(11f, 8f).sound(SoundType.NETHER_BRICKS), UniformInt.of(0, 3)));
     public static final RegistryObject<Block> PEARLIUM_ORE = registerBlock("pearlium_ore",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(6f, 4f)));
     // Crystals
