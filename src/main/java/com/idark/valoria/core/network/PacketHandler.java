@@ -35,6 +35,7 @@ public final class PacketHandler {
         HANDLER.registerMessage(id++, ManipulatorCraftParticlePacket.class, ManipulatorCraftParticlePacket::encode, ManipulatorCraftParticlePacket::decode, ManipulatorCraftParticlePacket::handle);
         HANDLER.registerMessage(id++, ManipulatorEmptyParticlePacket.class, ManipulatorEmptyParticlePacket::encode, ManipulatorEmptyParticlePacket::decode, ManipulatorEmptyParticlePacket::handle);
         HANDLER.registerMessage(id++, MurasamaParticlePacket.class, MurasamaParticlePacket::encode, MurasamaParticlePacket::decode, MurasamaParticlePacket::handle);
+        HANDLER.registerMessage(id++, SarcophagusSummonPacket.class, SarcophagusSummonPacket::encode, SarcophagusSummonPacket::decode, SarcophagusSummonPacket::handle);
     }
 
     private static final PacketDistributor<Pair<Level, BlockPos>> TRACKING_CHUNK_AND_NEAR = new PacketDistributor<>(

@@ -85,7 +85,7 @@ public abstract class AbstractNecromancer extends Monster {
             float f1 = Mth.cos(f);
             float f2 = Mth.sin(f);
             for (int i = 0; i < 1f; i++) {
-                Particles.create(ModParticles.SPHERE)
+                Particles.create(ModParticles.GLOWING_SPHERE)
                         .addVelocity(((new Random().nextDouble() - 0.5D) / 30), (new Random().nextDouble() + 0.5D) / 6, (new Random().nextDouble() - 0.5D) / 30)
                         .setAlpha(0.65f, 0)
                         .setScale(0.2f, 0)
@@ -107,7 +107,7 @@ public abstract class AbstractNecromancer extends Monster {
                     double startX = blockpos.getX() + 0.5;
                     double startY = blockpos.getY() - 0.2;
                     double startZ = blockpos.getZ() + 0.5;
-                    Particles.create(ModParticles.SPHERE)
+                    Particles.create(ModParticles.GLOWING_SPHERE)
                             .addVelocity(motionX, motionY, motionZ)
                             .setAlpha(0.65f, 0)
                             .setScale(0.2f, 0)

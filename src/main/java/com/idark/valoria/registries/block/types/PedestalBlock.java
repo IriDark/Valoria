@@ -74,26 +74,24 @@ public class PedestalBlock extends Block implements EntityBlock, SimpleWaterlogg
     public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         PedestalBlockEntity tile = (PedestalBlockEntity) world.getBlockEntity(pos);
         ItemStack stack = player.getItemInHand(hand).copy();
-
         if ((!stack.isEmpty()) && (tile.getItemHandler().getItem(0).isEmpty())) {
             if (stack.getCount() > 1) {
                 if (!player.isCreative()) {
-                    player.getItemInHand(hand).setCount(stack.getCount() - 1);
+                    player.getItemInHand(hand).shrink(1);
                 }
 
                 stack.setCount(1);
                 tile.getItemHandler().setItem(0, stack);
-                ValoriaUtils.tileEntity.SUpdateTileEntityPacket(tile);
-                return InteractionResult.SUCCESS;
             } else {
                 tile.getItemHandler().setItem(0, stack);
                 if (!player.isCreative()) {
                     player.getInventory().removeItem(player.getItemInHand(hand));
                 }
 
-                ValoriaUtils.tileEntity.SUpdateTileEntityPacket(tile);
-                return InteractionResult.SUCCESS;
             }
+
+            ValoriaUtils.tileEntity.SUpdateTileEntityPacket(tile);
+            return InteractionResult.SUCCESS;
         }
 
         if (!tile.getItemHandler().getItem(0).isEmpty()) {

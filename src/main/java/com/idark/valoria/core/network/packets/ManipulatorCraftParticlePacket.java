@@ -44,7 +44,7 @@ public class ManipulatorCraftParticlePacket {
             ctx.get().enqueueWork(() -> {
                 Level world = Valoria.proxy.getWorld();
                 Vector3d d = new Vector3d(msg.posX - msg.posToX, msg.posY - msg.posToY + 0.05f, msg.posZ - msg.posToZ);
-                Particles.create(ModParticles.SPHERE)
+                Particles.create(ModParticles.GLOWING_SPHERE)
                         .addVelocity(d.x, d.y, d.z)
                         .setAlpha(0.35f, 1)
                         .setScale(0.055f, 0.15f)

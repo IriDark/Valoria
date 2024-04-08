@@ -17,6 +17,6 @@ public class SparkleParticle extends GenericParticle {
 
     @Override
     public void render(VertexConsumer b, Camera info, float pticks) {
-        super.render(true ? RenderUtils.getDelayedRender().getBuffer(RenderUtils.GLOWING_PARTICLE) : b, info, pticks);
+        super.render(RenderUtils.getDelayedRender().getBuffer(RenderUtils.GLOWING_PARTICLE), info, pticks);
     }
 }

@@ -10,7 +10,7 @@ import net.minecraftforge.network.NetworkEvent;
 import java.util.Random;
 import java.util.function.Supplier;
 
-public class NecromancerSummonParticlePacket {
+public class SarcophagusSummonPacket {
     private static final Random random = new Random();
     private final float posX;
     private final float posY;
@@ -20,7 +20,7 @@ public class NecromancerSummonParticlePacket {
     private final float velZ;
     private final float colorR, colorG, colorB;
 
-    public NecromancerSummonParticlePacket(float posX, float posY, float posZ, float velX, float velY, float velZ, float colorR, float colorG, float colorB) {
+    public SarcophagusSummonPacket(float posX, float posY, float posZ, float velX, float velY, float velZ, float colorR, float colorG, float colorB) {
         this.posX = posX;
         this.posY = posY;
         this.posZ = posZ;
@@ -34,16 +34,16 @@ public class NecromancerSummonParticlePacket {
         this.colorB = colorB;
     }
 
-    public static NecromancerSummonParticlePacket decode(FriendlyByteBuf buf) {
-        return new NecromancerSummonParticlePacket(buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat());
+    public static SarcophagusSummonPacket decode(FriendlyByteBuf buf) {
+        return new SarcophagusSummonPacket(buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat());
     }
 
-    public static void handle(NecromancerSummonParticlePacket msg, Supplier<NetworkEvent.Context> ctx) {
+    public static void handle(SarcophagusSummonPacket msg, Supplier<NetworkEvent.Context> ctx) {
         if (ctx.get().getDirection().getReceptionSide().isClient()) {
             ctx.get().enqueueWork(() -> {
                 Level world = Valoria.proxy.getWorld();
                 for (int i = 0; i < 26; i++) {
-                    Particles.create(ModParticles.GLOWING_SPHERE)
+                    Particles.create(ModParticles.SPHERE)
                             .addVelocity(msg.velX + ((random.nextDouble() - 0.5D) / (2 * random.nextDouble()) / 5), msg.velY + ((random.nextDouble() - 0.5D) / (20 - (5 * random.nextDouble()))), msg.velZ + ((random.nextDouble() - 0.5D) / (2 * random.nextDouble()) / 5))
                             .setAlpha(0.12f, 0)
                             .setScale(0.36f, 2)

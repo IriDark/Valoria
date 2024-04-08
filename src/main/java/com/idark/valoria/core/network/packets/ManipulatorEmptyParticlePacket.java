@@ -55,7 +55,7 @@ public class ManipulatorEmptyParticlePacket {
                 double Y = Math.cos(locPitch + pitch) * pRadius * 0.75F;
                 double Z = Math.sin(locPitch + pitch) * Math.sin(locYaw + yaw) * pRadius * 0.75F;
                 Vector3d d = new Vector3d(msg.posX - msg.posToX, msg.posY - msg.posToY, msg.posZ - msg.posToZ);
-                Particles.create(ModParticles.SPHERE)
+                Particles.create(ModParticles.GLOWING_SPHERE)
                         .addVelocity(d.x, d.y, d.z)
                         .setAlpha(0.45f, 0)
                         .setScale(0.025f, 0)

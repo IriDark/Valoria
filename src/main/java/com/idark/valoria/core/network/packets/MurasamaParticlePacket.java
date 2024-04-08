@@ -57,7 +57,7 @@ public class MurasamaParticlePacket {
                     double XX = Math.sin(pitch) * Math.cos(yaw) * (float) (rand.nextDouble() * 0.05F) / (ii + 1);
                     double YY = Math.sin(pitch) * Math.sin(yaw) * (float) (rand.nextDouble() * 0.05F) / (ii + 1);
                     double ZZ = Math.cos(pitch) * (float) (rand.nextDouble() * 0.05F) / (ii + 1);
-                    Particles.create(ModParticles.SPHERE)
+                    Particles.create(ModParticles.GLOWING_SPHERE)
                             .addVelocity(XX, YY, ZZ)
                             .setAlpha(0.50f, 1)
                             .setScale(0.12f, 0)

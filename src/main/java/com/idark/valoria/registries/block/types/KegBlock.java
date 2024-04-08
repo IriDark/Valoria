@@ -80,14 +80,11 @@ public class KegBlock extends HorizontalDirectionalBlock implements EntityBlock,
     public boolean isCupOrBottle(KegBlockEntity tile, Player player, InteractionHand hand) {
         ItemStack itemStack = tile.getItemHandler().getItem(0);
         ItemStack playerHeldItem = player.getItemInHand(hand).copy();
-
         boolean isHoldingCup = playerHeldItem.getItem() == ItemsRegistry.WOODEN_CUP.get();
         boolean isHoldingBottle = playerHeldItem.getItem() == ItemsRegistry.BOTTLE.get();
         if (!player.isCreative()) {
-            if (isHoldingCup && itemStack.is(TagsRegistry.CUP_DRINKS)) {
-                player.getItemInHand(hand).setCount(playerHeldItem.getCount() - 1);
-            } else if (isHoldingBottle && itemStack.is(TagsRegistry.BOTTLE_DRINKS)) {
-                player.getItemInHand(hand).setCount(playerHeldItem.getCount() - 1);
+            if (isHoldingCup && itemStack.is(TagsRegistry.CUP_DRINKS) || isHoldingBottle && itemStack.is(TagsRegistry.BOTTLE_DRINKS)) {
+                player.getItemInHand(hand).shrink(1);
             }
         }
 
@@ -108,7 +105,7 @@ public class KegBlock extends HorizontalDirectionalBlock implements EntityBlock,
         if ((!stack.isEmpty()) && !stack.is(TagsRegistry.ALCOHOL) && (tile.getItemHandler().getItem(0).isEmpty())) {
             if (stack.getCount() > 1) {
                 if (!player.isCreative()) {
-                    player.getItemInHand(hand).setCount(stack.getCount() - 1);
+                    player.getItemInHand(hand).shrink(1);
                 }
 
                 stack.setCount(1);

@@ -2,7 +2,7 @@ package com.idark.valoria.registries.block.types;
 
 import com.idark.valoria.Valoria;
 import com.idark.valoria.core.network.PacketHandler;
-import com.idark.valoria.core.network.packets.NecromancerSummonParticlePacket;
+import com.idark.valoria.core.network.packets.SarcophagusSummonPacket;
 import com.idark.valoria.registries.entity.ModEntityTypes;
 import com.idark.valoria.registries.entity.living.DraugrEntity;
 import com.idark.valoria.util.LootUtil;
@@ -165,7 +165,7 @@ public class SarcoBlock extends HorizontalDirectionalBlock {
                 double offsetY = 0;
                 double offsetZ = (new Random().nextDouble() - 0.5) / 16;
 
-                PacketHandler.sendToTracking(serv, pPos, new NecromancerSummonParticlePacket((float) posX, (float) posY, (float) posZ, (float) offsetX, (float) offsetY, (float) offsetZ, 30, 35, 75));
+                PacketHandler.sendToTracking(serv, pPos, new SarcophagusSummonPacket((float) posX, (float) posY, (float) posZ, (float) offsetX, (float) offsetY, (float) offsetZ, 30, 35, 75));
             }
 
             for (int i = 0; i < 10; i++) {
