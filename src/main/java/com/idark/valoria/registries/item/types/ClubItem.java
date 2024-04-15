@@ -28,8 +28,8 @@ public class ClubItem extends SwordItem implements Vanishable {
     public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         stack.hurtAndBreak(2, attacker, (entity) -> entity.broadcastBreakEvent(EquipmentSlot.MAINHAND));
 
-        if (RandomUtil.percentChance(7d)) {
-            target.addEffect(new MobEffectInstance(EffectsRegistry.STUN.get(), 200, 1));
+        if (RandomUtil.percentChance(0.25f)) {
+            target.addEffect(new MobEffectInstance(EffectsRegistry.STUN.get(), 85, 0));
             if (target.level().isClientSide) {
                 for (int i = 0; i < 10; i++) {
                     target.level().addParticle(ParticleTypes.POOF, target.getX() + rand.nextDouble(), target.getY(), target.getZ() + rand.nextDouble(), 0d, 0.05d, 0d);

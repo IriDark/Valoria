@@ -20,9 +20,6 @@ public class StunEffect extends MobEffect {
     public void applyEffectTick(LivingEntity entityLivingBaseIn, int amplifier) {
         super.applyEffectTick(entityLivingBaseIn, amplifier);
         entityLivingBaseIn.setSpeed(0);
-        entityLivingBaseIn.setYRot(entityLivingBaseIn.yRotO);
-        entityLivingBaseIn.setXRot(entityLivingBaseIn.xRotO);
-        entityLivingBaseIn.yHeadRot = entityLivingBaseIn.yHeadRotO;
     }
 
     @Override

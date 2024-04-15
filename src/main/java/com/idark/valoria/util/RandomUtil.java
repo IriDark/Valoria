@@ -23,10 +23,6 @@ public final class RandomUtil {
         return rand.oneInNChance(n);
     }
 
-    public static boolean percentChance(double percentChance) {
-        return rand.percentChance(percentChance);
-    }
-
     /**
      * @param percentChance from 0.00f to 1
      */
@@ -106,16 +102,6 @@ public final class RandomUtil {
                 return false;
 
             return rand.nextFloat() < 1 / (float) n;
-        }
-
-        public boolean percentChance(double percentChance) {
-            if (percentChance <= 0)
-                return false;
-
-            if (percentChance >= 1)
-                return true;
-
-            return rand.nextDouble() < percentChance;
         }
 
         public boolean percentChance(float percentChance) {

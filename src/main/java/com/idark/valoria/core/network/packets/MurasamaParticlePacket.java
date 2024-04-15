@@ -19,9 +19,9 @@ public class MurasamaParticlePacket {
     private final float posY;
     private final float posZ;
 
-    private final float colorR, colorG, colorB;
+    private final int colorR, colorG, colorB;
 
-    public MurasamaParticlePacket(float distance, float posX, float posY, float posZ, float colorR, float colorG, float colorB) {
+    public MurasamaParticlePacket(float distance, float posX, float posY, float posZ, int colorR, int colorG, int colorB) {
         this.distance = distance;
         this.posX = posX;
         this.posY = posY;
@@ -33,7 +33,7 @@ public class MurasamaParticlePacket {
     }
 
     public static MurasamaParticlePacket decode(FriendlyByteBuf buf) {
-        return new MurasamaParticlePacket(buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat());
+        return new MurasamaParticlePacket(buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readInt(), buf.readInt(), buf.readInt());
     }
 
     public static void handle(MurasamaParticlePacket msg, Supplier<NetworkEvent.Context> ctx) {
@@ -61,7 +61,7 @@ public class MurasamaParticlePacket {
                             .addVelocity(XX, YY, ZZ)
                             .setAlpha(0.50f, 1)
                             .setScale(0.12f, 0)
-                            .setColor(msg.colorR / 255, msg.colorG / 255, msg.colorB / 255, 1, (float) 67 / 255, (float) 231 / 255)
+                            .setColor(msg.colorR, msg.colorG, msg.colorB, 255, 67, 231)
                             .setLifetime(6)
                             .spawn(world, msg.posX + X, msg.posY + Y, msg.posZ + Z);
                 }

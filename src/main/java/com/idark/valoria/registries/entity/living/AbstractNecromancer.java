@@ -77,9 +77,9 @@ public abstract class AbstractNecromancer extends Monster {
         super.tick();
         if (this.level().isClientSide && this.isCastingSpell()) {
             AbstractNecromancer.necromancerSpell spell = this.getCurrentSpell();
-            float r = spell.spellColor[0] / 255.0f;
-            float g = spell.spellColor[1] / 255.0f;
-            float b = spell.spellColor[2] / 255.0f;
+            int r = spell.spellColor[0];
+            int g = spell.spellColor[1];
+            int b = spell.spellColor[2];
 
             float f = this.yBodyRot * ((float) Math.PI / 180F) + Mth.cos(this.tickCount * 0.6662F) * 0.25F;
             float f1 = Mth.cos(f);

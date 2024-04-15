@@ -27,11 +27,9 @@ group = 'com.github.IriDark'
 archivesBaseName = 'Valoria'
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
-
 println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
-
 minecraft {
-    mappings channel: 'parchment', version: '2023.06.26-1.20.1'
+    mappings channel: 'parchment', version: '2023.09.03-1.20.1'
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
     runs {
         client {
@@ -87,7 +85,6 @@ mixin {
 }
 
 sourceSets.main.resources { srcDir 'src/generated/resources' }
-
 repositories {
     maven {
         name = "Modrinth"
@@ -142,17 +139,24 @@ dependencies {
 
     //implementation fg.deobf("curse.maven:bookshelf-228525:5084135")
     //implementation fg.deobf("curse.maven:enchantment-descriptions-250419:5136988")
-    //implementation fg.deobf("curse.maven:plusutils-979003:5133553")
-    implementation fg.deobf("curse.maven:appleskin-248787:4770828")
+    runtimeOnly fg.deobf("curse.maven:plusutils-979003:5133553")
+    runtimeOnly fg.deobf("curse.maven:appleskin-248787:4770828")
+
+    // used to test ore balance
     //implementation fg.deobf("curse.maven:advanced-xray-256256:4840340")
-    //implementation fg.deobf("curse.maven:farmers-delight-398521:4679319")
+
+    // todo: compat
+    implementation fg.deobf("curse.maven:farmers-delight-398521:4679319")
+
     //implementation fg.deobf("curse.maven:model-gap-fix-676136:4607206")
     //implementation fg.deobf("curse.maven:just-enough-effect-descriptions-jeed-532286:4978810")
     //implementation fg.deobf("curse.maven:mutil-351914:4824501")
     //implementation fg.deobf("curse.maven:tetra-289712:4857842")
+
     implementation fg.deobf("curse.maven:jade-324717:4986594")
     implementation fg.deobf("maven.modrinth:quark:1.20.1-4.0-439")
     implementation fg.deobf("maven.modrinth:zeta:1.20.1-1.0-14")
+    implementation fg.deobf("maven.modrinth:just-enough-resources-jer:1.4.0.247")
 }
 
 jar {
@@ -200,9 +204,9 @@ task sourcesJar(type: Jar, dependsOn: classes) {
 modrinth {
     token = System.getenv("modrinthtoken") // Remember to have the MODRINTH_TOKEN environment variable set or else this will fail - just make sure it stays private!
     projectId = "valoriadev" // This can be the project ID or the slug. Either will work!
-    versionNumber = "0.6b.240407585" // You don't need to set this manually. Will fail if Modrinth has this version already
+    versionNumber = "0.6b.240414309" // You don't need to set this manually. Will fail if Modrinth has this version already
     versionType = "alpha" // This is the default -- can also be `beta` or `alpha`
-    versionName = "Dev Build - 0.6b.240407585"
+    versionName = "Dev Build - 0.6b.240414309"
     uploadFile = tasks.jar // With Loom, this MUST be set to `remapJar` instead of `jar`!
     changelog = "Just a DevBuild to test things, its some sorta like minecraft snapshots to find bugs and report them"
     dependencies { // A special DSL for creating dependencies

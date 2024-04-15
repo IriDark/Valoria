@@ -65,7 +65,7 @@ public class JewelryRecipeCategory implements IRecipeCategory<JewelryRecipe> {
         ItemStack resultStack = recipe.getResultItem(RegistryAccess.EMPTY);
 
         builder.addSlot(RecipeIngredientRole.INPUT, 4, 16).addItemStacks(Arrays.asList(recipeIngredients.get(0).getItems()));
-        builder.addSlot(RecipeIngredientRole.RENDER_ONLY, 63, 16).addItemStacks(Arrays.asList(recipeIngredients.get(1).getItems()));
+        builder.addSlot(RecipeIngredientRole.INPUT, 63, 16).addItemStacks(Arrays.asList(recipeIngredients.get(1).getItems()));
         builder.addSlot(RecipeIngredientRole.OUTPUT, 125, 16).addItemStack(resultStack);
     }
 

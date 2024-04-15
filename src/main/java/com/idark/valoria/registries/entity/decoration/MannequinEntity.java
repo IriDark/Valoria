@@ -64,19 +64,29 @@ public class MannequinEntity extends AbstractDecorationMob implements IForgeEnti
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 1000)
+                .add(Attributes.MAX_HEALTH, 1)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 1.0D);
     }
 
+    /**
+     * Actually damages the entity
+     */
+    public void kill() {
+        this.actuallyHurt(this.level().damageSources().genericKill(), Float.MAX_VALUE);
+    }
+
+    /**
+     * Only sends a packet of damage without damaging, so it's some sorta of invisibility
+     */
     @Override
     public boolean hurt(@NotNull DamageSource source, float amount) {
         if (source == this.damageSources().fellOutOfWorld()) {
             this.remove(RemovalReason.KILLED);
-            return true;
+            return false;
         }
 
         if (source.is(DamageTypeTags.BYPASSES_INVULNERABILITY)) {
-            this.remove(RemovalReason.KILLED);
+            kill();
             return false;
         } else {
             BlockState state = Blocks.HAY_BLOCK.defaultBlockState();
@@ -84,13 +94,15 @@ public class MannequinEntity extends AbstractDecorationMob implements IForgeEnti
                 this.level().addParticle(new BlockParticleOption(ParticleTypes.BLOCK, state), this.getX(), this.getY() + 0.7D, this.getZ(), 0d, 0.02d, 0d);
             }
 
+            // Reset of LAST_DAMAGE value to prevent visual bugs
+            entityData.set(LAST_DAMAGE, 0f);
             if (hurtTime == 0) {
-                entityData.set(LAST_DAMAGE, 0f);
                 entityData.set(LAST_DAMAGE, amount);
-                MannequinEntity.this.setHealth(getMaxHealth());
             }
 
-            return super.hurt(source, amount);
+            this.markHurt();
+            this.level().broadcastDamageEvent(this, source);
+            return true;
         }
     }
 

@@ -1,6 +1,7 @@
 package com.idark.valoria.client.gui.overlay;
 
 import com.idark.valoria.Valoria;
+import com.idark.valoria.core.config.ClientConfig;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -18,6 +19,12 @@ public class DashOverlayRender {
     public static int dashTime = 0;
     public static boolean isDash = false;
     private static final ResourceLocation DASH = new ResourceLocation(Valoria.MOD_ID + ":textures/gui/overlay/speedlines.png");
+
+    public static void showDashOverlay() {
+        if (ClientConfig.DASH_OVERLAY.get()) {
+            DashOverlayRender.isDash = true;
+        }
+    }
 
     public static void tick(TickEvent.ClientTickEvent event) {
         if (isDash) {

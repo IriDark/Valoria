@@ -38,11 +38,11 @@ public class BleedingEnchantment extends Enchantment {
     }
 
     public void doPostAttack(LivingEntity pUser, Entity pTarget, int pLevel) {
-        if (RandomUtil.percentChance(10d + pLevel)) {
+        if (RandomUtil.percentChance(0.05f * pLevel)) {
             if (pTarget instanceof LivingEntity livingentity) {
                 if (pLevel > 0) {
-                    int i = 20 + pUser.getRandom().nextInt(85 * pLevel);
-                    livingentity.addEffect(new MobEffectInstance(EffectsRegistry.BLEEDING.get(), i, pLevel));
+                    int i = 40 + pUser.getRandom().nextInt(85 * pLevel);
+                    livingentity.addEffect(new MobEffectInstance(EffectsRegistry.BLEEDING.get(), i, pLevel - 1, false, false));
                 }
             }
         }

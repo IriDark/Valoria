@@ -271,7 +271,7 @@ public class SwampWandererEntity extends Zombie {
          */
         protected boolean isValidTarget(LevelReader pLevel, BlockPos pPos) {
             BlockPos blockpos = pPos.above();
-            return pLevel.isEmptyBlock(blockpos) && pLevel.isEmptyBlock(blockpos.above()) ? pLevel.getBlockState(pPos).entityCanStandOn(pLevel, pPos, this.drowned) : false;
+            return pLevel.isEmptyBlock(blockpos) && pLevel.isEmptyBlock(blockpos.above()) && pLevel.getBlockState(pPos).entityCanStandOn(pLevel, pPos, this.drowned);
         }
 
         /**

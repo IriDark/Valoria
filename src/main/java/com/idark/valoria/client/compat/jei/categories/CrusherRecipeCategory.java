@@ -61,7 +61,7 @@ public class CrusherRecipeCategory implements IRecipeCategory<CrusherRecipe> {
         NonNullList<Ingredient> recipeIngredients = recipe.getIngredients();
         ResourceLocation loot = recipe.getOutput();
 
-        builder.addSlot(RecipeIngredientRole.RENDER_ONLY, 63, 16).addItemStacks(Arrays.asList(recipeIngredients.get(0).getItems()));
+        builder.addSlot(RecipeIngredientRole.INPUT, 63, 16).addItemStacks(Arrays.asList(recipeIngredients.get(0).getItems()));
         builder.addSlot(RecipeIngredientRole.INPUT, 63, 16).addItemStack(new ItemStack(Items.IRON_PICKAXE));
         //builder.addSlot(RecipeIngredientRole.OUTPUT, 125, 16).addItemStacks(LootUtil.createWeightedLoot(loot, LootUtil.getGiftParameters2(null, 100), 100));
     }

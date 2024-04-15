@@ -1,6 +1,9 @@
 package com.idark.valoria.registries.item.types;
 
 import com.idark.valoria.client.gui.overlay.DashOverlayRender;
+import com.idark.valoria.client.particle.ModParticles;
+import com.idark.valoria.client.particle.types.Particles;
+import com.idark.valoria.core.config.ClientConfig;
 import com.idark.valoria.core.network.PacketHandler;
 import com.idark.valoria.core.network.packets.MurasamaParticlePacket;
 import com.idark.valoria.registries.sounds.ModSoundRegistry;
@@ -17,6 +20,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -35,7 +39,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class MurasamaItem extends KatanaItem implements Vanishable {
+public class MurasamaItem extends KatanaItem implements Vanishable, IParticleItem {
 
     static Random rand = new Random();
 
@@ -79,6 +83,7 @@ public class MurasamaItem extends KatanaItem implements Vanishable {
         if (!slotChanged) {
             return false;
         }
+
         return super.shouldCauseReequipAnimation(oldStack, newStack, true);
     }
 
@@ -90,12 +95,11 @@ public class MurasamaItem extends KatanaItem implements Vanishable {
         player.awardStat(Stats.ITEM_USED.get(this));
         double pitch = ((player.getRotationVector().x + 90) * Math.PI) / 180;
         double yaw = ((player.getRotationVector().y + 90) * Math.PI) / 180;
+        float dashDistance = 5f;
         if (getCharge(stack) >= 20) {
             Vec3 dir = (player.getViewVector(0.0f).scale(2.0d));
-            if (dir.x < 5f) {
+            if (dir.x < dashDistance) {
                 player.push(dir.x, dir.y * 0.25, dir.z);
-            } else {
-                player.push(5, 2 * 0.25, 5);
             }
 
             for (Item item : ForgeRegistries.ITEMS) {
@@ -106,14 +110,12 @@ public class MurasamaItem extends KatanaItem implements Vanishable {
 
             Vector3d pos = new Vector3d(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());
             List<LivingEntity> hitEntities = new ArrayList<>();
-            double maxDistance = distance(pos, level, player);
+            double maxDistance = distance(dashDistance, level, player);
             for (int i = 0; i < 25; i += 1) {
-                double locYaw = 0;
-                double locPitch = 0;
                 double locDistance = i * 0.5D;
-                double X = Math.sin(locPitch + pitch) * Math.cos(locYaw + yaw) * locDistance;
-                double Y = Math.cos(locPitch + pitch) * locDistance;
-                double Z = Math.sin(locPitch + pitch) * Math.sin(locYaw + yaw) * locDistance;
+                double X = Math.sin(pitch) * Math.cos(yaw) * locDistance;
+                double Y = Math.cos(pitch) * locDistance;
+                double Z = Math.sin(pitch) * Math.sin(yaw) * locDistance;
 
                 level.addParticle(ParticleTypes.WAX_OFF, pos.x + X + (rand.nextDouble() - 0.5D), pos.y + Y, pos.z + Z + (rand.nextDouble() - 0.5D), 0d, 0.05d, 0d);
                 if (level instanceof ServerLevel srv) {
@@ -136,7 +138,6 @@ public class MurasamaItem extends KatanaItem implements Vanishable {
                 }
             }
 
-            int hits = hitEntities.size();
             float ii = 1F;
             for (LivingEntity entity : hitEntities) {
                 entity.hurt(level.damageSources().playerAttack(player), (float) ((player.getAttributeValue(Attributes.ATTACK_DAMAGE) * (double) ii) + EnchantmentHelper.getSweepingDamageRatio(player) + EnchantmentHelper.getDamageBonus(stack, entity.getMobType())) * 1.35f);
@@ -145,11 +146,12 @@ public class MurasamaItem extends KatanaItem implements Vanishable {
                     int i = EnchantmentHelper.getFireAspect(player);
                     entity.setSecondsOnFire(i * 4);
                 }
-                ii = ii - (1F / (hits * 2));
+
+                ii = ii - (1F / (hitEntities.size() * 2));
             }
 
             if (!player.isCreative()) {
-                stack.hurtAndBreak(hits, player, (p_220045_0_) -> p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
+                stack.hurtAndBreak(hitEntities.size(), player, (p_220045_0_) -> p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
             }
 
             for (int i = 0; i < 4; i++) {
@@ -157,7 +159,6 @@ public class MurasamaItem extends KatanaItem implements Vanishable {
             }
 
             level.playSound(player, player.blockPosition(), ModSoundRegistry.SWIFTSLICE.get(), SoundSource.AMBIENT, 10f, 1f);
-            DashOverlayRender.isDash = true;
             hitEntities.clear();
             double locYaw = 0;
             double locPitch = 0;
@@ -181,6 +182,10 @@ public class MurasamaItem extends KatanaItem implements Vanishable {
                     int i = EnchantmentHelper.getFireAspect(player);
                     entity.setSecondsOnFire(i * 4);
                 }
+            }
+
+            if (ClientConfig.DASH_OVERLAY.get()) {
+                DashOverlayRender.isDash = true;
             }
         }
 
@@ -214,5 +219,32 @@ public class MurasamaItem extends KatanaItem implements Vanishable {
 
     public static void addCharge(ItemStack stack, int charge) {
         setCharge(stack, getCharge(stack) + charge);
+    }
+
+    @Override
+    public void addParticles(Level level, ItemEntity entity) {
+        RandomSource source = RandomSource.create();
+        double X = ((rand.nextDouble() - 0.5D) * 0.3f);
+        double Y = ((rand.nextDouble() - 0.5D) + 0.3f);
+        double Z = ((rand.nextDouble() - 0.5D) * 0.3f);
+
+        double dX = -X;
+        double dY = -Y;
+        double dZ = -Z;
+        int count = Mth.nextInt(source, 0, 1);
+        for (int ii = 0; ii < count; ii += 1) {
+            double yaw = Math.atan2(dZ, dX);
+            double pitch = Math.atan2(Math.sqrt(dZ * dZ + dX * dX), dY) + Math.PI;
+            double XX = Math.sin(pitch) * Math.cos(yaw) * (float) (rand.nextDouble() * 0.05F) / (ii + 1);
+            double YY = Math.sin(pitch) * Math.sin(yaw) * (float) (rand.nextDouble() * 0.05F) / (ii + 1);
+            double ZZ = Math.cos(pitch) * (float) (rand.nextDouble() * 0.05F) / (ii + 1);
+            Particles.create(ModParticles.GLOWING_SPHERE)
+                    .addVelocity(XX, YY, ZZ)
+                    .setAlpha(0.50f, 1)
+                    .setScale(0.12f, 0)
+                    .setColor(255, 0, 0, 255, 67, 231)
+                    .setLifetime(6)
+                    .spawn(level, entity.getX() + X, entity.getY() + Y, entity.getZ() + Z);
+        }
     }
 }

@@ -7,7 +7,6 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -19,44 +18,37 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
-import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.gameevent.GameEvent;
 
 import javax.annotation.Nullable;
 import java.util.Random;
 
 public class SpikeTrapBlock extends DirectionalBlock {
     public static final BooleanProperty LIT = RedstoneTorchBlock.LIT;
-    private static IntegerProperty STATE = IntegerProperty.create("triggered", 0, 1);
     public static final DirectionProperty FACING = BlockStateProperties.FACING;
     Random rand = new Random();
+    public BlockState state;
+    public BlockState spike;
 
-    public SpikeTrapBlock(BlockBehaviour.Properties properties) {
+    public SpikeTrapBlock(BlockState pState, BlockState pSpikes, BlockBehaviour.Properties properties) {
         super(properties);
-        registerDefaultState(this.stateDefinition.any().setValue(STATE, 0).setValue(LIT, Boolean.valueOf(false)).setValue(FACING, Direction.UP));
+        this.state = pState;
+        this.spike = pSpikes;
     }
 
     @Override
     public void stepOn(Level level, BlockPos pos, BlockState state, Entity entityIn) {
-        if (state.getValue(STATE) == 1) {
-            return;
-        }
-
-        if (state.getValue(STATE) == 0) {
-            Direction direction = state.getValue(DirectionalBlock.FACING);
-            BlockPos newPos = pos.offset(direction.getNormal());
-            BlockState spikeBlock = BlockRegistry.SPIKES.get().defaultBlockState().setValue(DirectionalBlock.FACING, direction);
-            BlockState tombstone = BlockRegistry.POLISHED_TOMBSTONE.get().defaultBlockState();
-
-            if (!level.getBlockState(newPos).isSolid()) {
-                level.setBlockAndUpdate(newPos, spikeBlock);
-                level.scheduleTick(newPos, BlockRegistry.SPIKES.get(), 1);
-                level.setBlockAndUpdate(pos, state.setValue(STATE, Integer.valueOf(1)).setValue(DirectionalBlock.FACING, state.getValue(DirectionalBlock.FACING)));
-                level.setBlockAndUpdate(pos, tombstone);
-                level.playSound((Player) null, pos, SoundEvents.PISTON_EXTEND, SoundSource.BLOCKS, 0.3F, level.random.nextFloat() * 0.25F + 0.6F);
-                if (level.isClientSide()) {
-                    for (int i = 0; i < 10; i++) {
-                        level.addParticle(ParticleTypes.POOF, pos.getX() + rand.nextDouble(), pos.getY() + 0.5D, pos.getZ() + rand.nextDouble(), 0d, 0.05d, 0d);
-                    }
+        Direction direction = state.getValue(DirectionalBlock.FACING);
+        BlockPos newPos = pos.offset(direction.getNormal());
+        BlockState spikeBlock = BlockRegistry.SPIKES.get().defaultBlockState().setValue(DirectionalBlock.FACING, direction);
+        if (!level.getBlockState(newPos).isSolid()) {
+            level.setBlockAndUpdate(newPos, spikeBlock);
+            level.scheduleTick(newPos, BlockRegistry.SPIKES.get(), 1);
+            level.setBlockAndUpdate(pos, this.state);
+            level.playSound(null, pos, SoundEvents.PISTON_EXTEND, SoundSource.BLOCKS, 0.3F, level.random.nextFloat() * 0.25F + 0.6F);
+            if (level.isClientSide()) {
+                for (int i = 0; i < 10; i++) {
+                    level.addParticle(ParticleTypes.POOF, pos.getX() + rand.nextDouble(), pos.getY() + 0.5D, pos.getZ() + rand.nextDouble(), 0d, 0.05d, 0d);
                 }
             }
         }
@@ -66,26 +58,24 @@ public class SpikeTrapBlock extends DirectionalBlock {
     public void neighborChanged(BlockState state, Level level, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
         Direction direction = state.getValue(DirectionalBlock.FACING);
         BlockPos newPos = pos.offset(direction.getNormal());
-        BlockState spikeBlock = BlockRegistry.SPIKES.get().defaultBlockState().setValue(DirectionalBlock.FACING, direction);
-        BlockState tombstone = BlockRegistry.POLISHED_TOMBSTONE.get().defaultBlockState();
         if (level.hasNeighborSignal(pos)) {
             if (!level.getBlockState(newPos).isSolid()) {
-                level.setBlockAndUpdate(newPos, spikeBlock);
+                level.setBlockAndUpdate(newPos, this.spike);
                 level.scheduleTick(newPos, BlockRegistry.SPIKES.get(), 1);
-                level.setBlockAndUpdate(pos, tombstone);
-                level.playSound((Player) null, pos, SoundEvents.PISTON_EXTEND, SoundSource.BLOCKS, 0.3F, level.random.nextFloat() * 0.25F + 0.6F);
+                level.playSound(null, pos, SoundEvents.PISTON_EXTEND, SoundSource.BLOCKS, 0.3F, level.random.nextFloat() * 0.25F + 0.6F);
                 if (level.isClientSide()) {
                     for (int i = 0; i < 10; i++) {
                         level.addParticle(ParticleTypes.POOF, pos.getX() + rand.nextDouble(), pos.getY() + 0.5D, pos.getZ() + rand.nextDouble(), 0d, 0.05d, 0d);
                     }
                 }
             }
+
+            level.gameEvent(null, GameEvent.BLOCK_ACTIVATE, pos);
         }
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(STATE);
         builder.add(FACING);
         builder.add(LIT);
     }

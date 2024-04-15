@@ -1,8 +1,8 @@
 package com.idark.valoria.registries.entity.living;
 
 import com.idark.valoria.core.network.PacketHandler;
+import com.idark.valoria.core.network.packets.CircleShapedParticlePacket;
 import com.idark.valoria.core.network.packets.NecromancerSummonParticlePacket;
-import com.idark.valoria.core.network.packets.NecromancerTransformParticlePacket;
 import com.idark.valoria.registries.entity.ModEntityTypes;
 import com.idark.valoria.registries.entity.projectile.NecromancerFangs;
 import com.idark.valoria.util.RandomUtil;
@@ -87,11 +87,11 @@ public class NecromancerEntity extends AbstractNecromancer {
     public static AttributeSupplier.Builder createAttributes() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MOVEMENT_SPEED, 0.25)
-                .add(Attributes.MAX_HEALTH, 32.0D)
+                .add(Attributes.MAX_HEALTH, 45.0D)
                 .add(Attributes.ATTACK_DAMAGE, 2.0D)
-                .add(Attributes.FOLLOW_RANGE, 20.0D)
+                .add(Attributes.FOLLOW_RANGE, 18.0D)
                 .add(Attributes.ARMOR, 4.0D)
-                .add(Attributes.ARMOR_TOUGHNESS, 1.0D);
+                .add(Attributes.ARMOR_TOUGHNESS, 1.5D);
 
     }
 
@@ -399,8 +399,6 @@ public class NecromancerEntity extends AbstractNecromancer {
                 if (!(target instanceof NecromancerEntity) && target.getHealth() < target.getMaxHealth()) {
                     Vector3d pos = new Vector3d(NecromancerEntity.this.getX(), NecromancerEntity.this.getY(), NecromancerEntity.this.getZ());
                     for (int i = 0; i < 360; i += 10) {
-
-                        // Here's the example
                         ValoriaUtils.spawnParticlesInRadius(serverLevel, null, ParticleTypes.HAPPY_VILLAGER, pos, 0, NecromancerEntity.this.getRotationVector().y + i, 4);
                         ValoriaUtils.healNearbyTypedMobs(MobCategory.MONSTER, 5.0F, serverLevel, NecromancerEntity.this, toHeal, pos, 0, NecromancerEntity.this.getRotationVector().y + i, 4);
                     }
@@ -447,8 +445,6 @@ public class NecromancerEntity extends AbstractNecromancer {
             if (NecromancerEntity.this.getHealth() < NecromancerEntity.this.getMaxHealth()) {
                 Vector3d pos = new Vector3d(NecromancerEntity.this.getX(), NecromancerEntity.this.getY(), NecromancerEntity.this.getZ());
                 for (int i = 0; i < 360; i += 10) {
-
-                    // Here's the example
                     ValoriaUtils.spawnParticlesAroundPosition(pos, 2, 1, serverLevel, ParticleTypes.HAPPY_VILLAGER);
                     NecromancerEntity.this.heal(3);
                 }
@@ -515,7 +511,7 @@ public class NecromancerEntity extends AbstractNecromancer {
                     serverlevel.addFreshEntity(mob);
                     BlockPos pos = new BlockPos(target.getBlockX(), target.getBlockY(), target.getBlockZ());
                     for (int i = 0; i < 360; i += 10) {
-                        PacketHandler.sendToTracking(serverlevel, target.getOnPos(), new NecromancerTransformParticlePacket(target.getBlockX()+0.5f, target.getBlockY(), target.getBlockZ()+0.5f, target.getRotationVector().y + i, target.getBlockX()+0.5f, target.getBlockY() - 0.25F, target.getBlockZ()+0.5f, 46, 51, 60));
+                        PacketHandler.sendToTracking(serverlevel, target.getOnPos(), new CircleShapedParticlePacket(target.getBlockX()+0.5f, target.getBlockY(), target.getBlockZ()+0.5f, target.getRotationVector().y + i, target.getBlockX()+0.5f, target.getBlockY() - 0.25F, target.getBlockZ()+0.5f, 46, 51, 60));
                     }
 
                     if (!target.getMainHandItem().isEmpty()) {

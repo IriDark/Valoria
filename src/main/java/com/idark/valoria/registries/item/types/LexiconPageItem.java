@@ -2,7 +2,6 @@ package com.idark.valoria.registries.item.types;
 
 import com.idark.valoria.api.unlockable.UnlockUtils;
 import com.idark.valoria.api.unlockable.Unlockable;
-import com.idark.valoria.client.gui.screen.book.unlockable.UnlockableBookmark;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
@@ -16,6 +15,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -24,13 +24,13 @@ public class LexiconPageItem extends Item {
     public Unlockable unlockable;
     public String lang;
 
-    public LexiconPageItem(Properties props, Unlockable pUnlockable, String pPageName) {
+    public LexiconPageItem(Properties props, @NotNull Unlockable pUnlockable, String pPageName) {
         super(props);
         this.unlockable = pUnlockable;
         this.lang = pPageName;
     }
 
-    public LexiconPageItem(Properties props, Unlockable pUnlockable) {
+    public LexiconPageItem(Properties props, @NotNull Unlockable pUnlockable) {
         super(props);
         this.unlockable = pUnlockable;
     }
@@ -40,7 +40,7 @@ public class LexiconPageItem extends Item {
         ItemStack stack = player.getItemInHand(hand);
         player.awardStat(Stats.ITEM_USED.get(this));
         if (!world.isClientSide) {
-            if (UnlockableBookmark.unlockable != null && !UnlockableBookmark.isUnlocked()) {
+            if (!UnlockUtils.isUnlocked(player, unlockable)) {
                 player.playSound(SoundEvents.PLAYER_LEVELUP, 1, 0);
                 player.getInventory().removeItem(stack);
                 UnlockUtils.addUnlockable(player, unlockable);

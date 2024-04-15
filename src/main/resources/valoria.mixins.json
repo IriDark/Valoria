@@ -7,16 +7,18 @@
   "mixins": [
     "AttributeMixin",
     "HalfTransparentBlockMixin",
+    "InventoryMixin",
+    "ItemEntityMixin",
     "MixinCooldownTracker",
     "RangedAttributeMixin"
   ],
   "client": [
-    "AbstractClientPlayerMixin",
-    "HumanoidModelMixin",
-    "ItemInHandLayerMixin",
-    "ItemInHandRendererMixin",
-    "LevelRendererMixin",
-    "PlayerRendererMixin"
+    "client.AbstractClientPlayerMixin",
+    "client.HumanoidModelMixin",
+    "client.ItemInHandLayerMixin",
+    "client.ItemInHandRendererMixin",
+    "client.LevelRendererMixin",
+    "client.PlayerRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

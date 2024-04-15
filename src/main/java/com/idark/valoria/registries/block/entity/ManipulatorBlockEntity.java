@@ -3,6 +3,7 @@ package com.idark.valoria.registries.block.entity;
 import com.idark.valoria.client.gui.menu.ManipulatorMenu;
 import com.idark.valoria.client.render.model.blockentity.TickableBlockEntity;
 import com.idark.valoria.core.network.PacketHandler;
+import com.idark.valoria.core.network.packets.CubeShapedParticlePacket;
 import com.idark.valoria.core.network.packets.ManipulatorCraftParticlePacket;
 import com.idark.valoria.core.network.packets.ManipulatorEmptyParticlePacket;
 import com.idark.valoria.registries.BlockEntitiesRegistry;
@@ -219,8 +220,6 @@ public class ManipulatorBlockEntity extends BlockEntity implements MenuProvider,
 
                     ValoriaUtils.tileEntity.SUpdateTileEntityPacket(this);
                 }
-            } else {
-                resetProgress();
             }
         }
     }
@@ -267,6 +266,7 @@ public class ManipulatorBlockEntity extends BlockEntity implements MenuProvider,
     }
 
     private void resetProgress() {
+        PacketHandler.sendToTracking(this.level, this.getBlockPos(), new CubeShapedParticlePacket((float) this.getBlockPos().getCenter().x, (float) this.getBlockPos().getCenter().y - 0.25f, (float) this.getBlockPos().getCenter().z, 6, (float) this.getBlockPos().getCenter().x, (float) this.getBlockPos().getCenter().y - 0.45f, (float) this.getBlockPos().getCenter().z, 255, 255, 255));
         progress = 0;
         startCraft = false;
     }

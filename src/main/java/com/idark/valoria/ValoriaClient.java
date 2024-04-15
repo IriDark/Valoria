@@ -106,6 +106,9 @@ public class ValoriaClient {
             EntityRenderers.register(ModEntityTypes.MEAT.get(), MeatBlockRenderer::new);
             EntityRenderers.register(ModEntityTypes.NECROMANCER_FANGS.get(), NecromancerFangsRenderer::new);
             EntityRenderers.register(ModEntityTypes.UNDEAD.get(), UndeadRenderer::new);
+            EntityRenderers.register(ModEntityTypes.PHANTOM_ARROW.get(), AbstractValoriaArrowRenderer::new);
+            EntityRenderers.register(ModEntityTypes.WICKED_ARROW.get(), AbstractValoriaArrowRenderer::new);
+            EntityRenderers.register(ModEntityTypes.SOUL_ARROW.get(), AbstractValoriaArrowRenderer::new);
 
             ModItemModelProperties.makeBow(ItemsRegistry.SAMURAI_LONG_BOW.get());
             ModItemModelProperties.makeBow(ItemsRegistry.NATURE_BOW.get());
@@ -156,6 +159,8 @@ public class ValoriaClient {
             Minecraft.getInstance().particleEngine.register(ModParticles.SHADEWOOD_LEAF_PARTICLE.get(), ShadewoodLeafParticleType.Factory::new);
             Minecraft.getInstance().particleEngine.register(ModParticles.CHOMP.get(), ChompParticle.Factory::new);
             Minecraft.getInstance().particleEngine.register(ModParticles.VOID_GLITTER.get(), EndRodParticle.Provider::new);
+            Minecraft.getInstance().particleEngine.register(ModParticles.GLITTER.get(), SparkleParticleType.Factory::new);
+            Minecraft.getInstance().particleEngine.register(ModParticles.SKULL.get(), SparkleParticleType.Factory::new);
         }
 
         @OnlyIn(Dist.CLIENT)

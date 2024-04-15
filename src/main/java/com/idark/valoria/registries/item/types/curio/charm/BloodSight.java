@@ -1,7 +1,11 @@
 package com.idark.valoria.registries.item.types.curio.charm;
 
 import com.idark.valoria.client.event.ClientTickHandler;
+import com.idark.valoria.client.particle.ModParticles;
+import com.idark.valoria.client.particle.types.Particles;
+import com.idark.valoria.core.event.ServerTickHandler;
 import com.idark.valoria.registries.ItemsRegistry;
+import com.idark.valoria.registries.item.types.IParticleItem;
 import com.idark.valoria.registries.sounds.ModSoundRegistry;
 import com.idark.valoria.util.ValoriaUtils;
 import net.minecraft.ChatFormatting;
@@ -13,6 +17,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -28,7 +33,7 @@ import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Random;
 
-public class BloodSight extends Item implements ICurioItem, Vanishable {
+public class BloodSight extends Item implements ICurioItem, Vanishable, IParticleItem {
     private int hits = 0;
 
     public BloodSight(Properties properties) {
@@ -55,24 +60,27 @@ public class BloodSight extends Item implements ICurioItem, Vanishable {
         Level pLevel = player.level();
         LivingEntity lastHurtMob = player.getLastAttacker();
         int duration = (stack.getItem() == ItemsRegistry.BLOODSIGHT_MONOCLE.get()) ? 12 : 6;
-        if (lastHurtMob != null && ClientTickHandler.ticksInGame % duration == 1 && !pLevel.isClientSide() && pLevel instanceof ServerLevel
-                && !player.getCooldowns().isOnCooldown(stack.getItem())) {
-            for (int i = 0; i < ClientTickHandler.ticksInGame % duration; i++) {
-                ValoriaUtils.damageLastAttackedMob(pLevel, player, this.getDamage(0, RandomSource.create()));
-                if (lastHurtMob.hurtMarked) {
-                    hits++;
+        int damageAmount = (stack.getItem() == ItemsRegistry.BLOODSIGHT_MONOCLE.get()) ? new Random().nextInt(2, 6) : new Random().nextInt(2, 8);
+        System.out.print(ServerTickHandler.tick);
+        if (!pLevel.isClientSide() && pLevel instanceof ServerLevel serverLevel) {
+            if (lastHurtMob != null && ClientTickHandler.ticksInGame % duration == 1 && !player.getCooldowns().isOnCooldown(stack.getItem())) {
+                for (int i = 0; i < ClientTickHandler.ticksInGame % duration; i++) {
+                    ValoriaUtils.damageLastAttackedMob(serverLevel, player, this.getDamage(0, RandomSource.create()));
+                    if (lastHurtMob.hurtMarked) {
+                        hits++;
+                    }
                 }
-            }
 
-            ValoriaUtils.spawnParticlesLineToAttackedMobWithCooldown(pLevel, player, new BlockParticleOption(ParticleTypes.BLOCK, Blocks.REDSTONE_BLOCK.defaultBlockState()), duration);
-            if (player.hurtMarked) {
-                int damageAmount = (stack.getItem() == ItemsRegistry.BLOODSIGHT_MONOCLE.get()) ? new Random().nextInt(0, 4) : new Random().nextInt(1, 5);
-                stack.hurtAndBreak(damageAmount, player, (p0) -> p0.broadcastBreakEvent(EquipmentSlot.MAINHAND));
-            }
+                ValoriaUtils.spawnParticlesLineToAttackedMobWithCooldown(serverLevel, player, new BlockParticleOption(ParticleTypes.BLOCK, Blocks.REDSTONE_BLOCK.defaultBlockState()), duration);
+                if (player.hurtMarked) {
+                    stack.hurtAndBreak(damageAmount, player, (p0) -> p0.broadcastBreakEvent(EquipmentSlot.MAINHAND));
+                }
 
-            if (hits >= duration / 2) {
-                player.getCooldowns().addCooldown(stack.getItem(), 600);
-                hits = 0;
+                if (hits >= duration / 2) {
+                    stack.hurtAndBreak(damageAmount, player, (p0) -> p0.broadcastBreakEvent(EquipmentSlot.MAINHAND));
+                    player.getCooldowns().addCooldown(stack.getItem(), 600);
+                    hits = 0;
+                }
             }
         }
     }
@@ -95,6 +103,27 @@ public class BloodSight extends Item implements ICurioItem, Vanishable {
         if (stack.getItem() == ItemsRegistry.BROKEN_BLOODSIGHT_MONOCLE.get()) {
             tooltip.add(Component.empty());
             tooltip.add(Component.translatable("tooltip.valoria.bloodsight_curse").withStyle(ChatFormatting.RED).withStyle(ChatFormatting.ITALIC));
+        }
+    }
+
+    @Override
+    public void addParticles(Level level, ItemEntity entity) {
+        if (entity.getItem().is(ItemsRegistry.BROKEN_BLOODSIGHT_MONOCLE.get())) {
+            Particles.create(ModParticles.SKULL)
+                    .addVelocity(0.05f, 0.04f, 0.05f)
+                    .setAlpha(0.25f, 0)
+                    .setScale(0.1f, 0)
+                    .setColor(0.366f, 0.643f, 0.315f, 0.915f, 0.225f, 0.915f)
+                    .setLifetime(6)
+                    .spawn(level, entity.getX() + (new Random().nextDouble() - 0.5f) / 2, entity.getY() + (new Random().nextDouble() + 0.1f) / 2, entity.getZ());
+        } else {
+            Particles.create(ModParticles.GLITTER)
+                    .addVelocity(0f, 0.04f, 0f)
+                    .setAlpha(0.95f, 0)
+                    .setScale(0.1f, 0)
+                    .setColor(0f, 0f, 0f, 0f, 0f, 0.915f)
+                    .setLifetime(6)
+                    .spawn(level, entity.getX() + (new Random().nextDouble() - 0.5f) / 2, entity.getY() + (new Random().nextDouble() + 0.1f) / 2, entity.getZ());
         }
     }
 }

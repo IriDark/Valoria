@@ -1,9 +1,10 @@
 package com.idark.valoria.registries.entity.living;
 
 import com.idark.valoria.registries.ItemsRegistry;
+import com.idark.valoria.registries.entity.ai.goals.RemoveBlockGoal;
+import com.idark.valoria.registries.entity.ai.goals.*;
 import com.idark.valoria.util.RandomUtil;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.SectionPos;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -11,7 +12,6 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.TimeUtil;
@@ -37,21 +37,16 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.SwordItem;
-import net.minecraft.world.level.*;
-import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.BlockAndTintGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.CaveVines;
-import net.minecraft.world.level.block.SweetBerryBushBlock;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.chunk.ChunkAccess;
-import net.minecraft.world.level.chunk.ChunkStatus;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.event.ForgeEventFactory;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
-import java.util.EnumSet;
 import java.util.List;
 import java.util.UUID;
 import java.util.function.Predicate;
@@ -115,9 +110,9 @@ public class GoblinEntity extends PathfinderMob implements NeutralMob, Enemy {
             ItemStack itemstack = this.getItemBySlot(EquipmentSlot.MAINHAND);
             if (this.canEat(itemstack)) {
                 if (this.ticksSinceEaten > 600) {
-                    ItemStack itemstack1 = itemstack.finishUsingItem(this.level(), this);
-                    if (!itemstack1.isEmpty()) {
-                        this.setItemSlot(EquipmentSlot.MAINHAND, itemstack1);
+                    ItemStack foodStack = itemstack.finishUsingItem(this.level(), this);
+                    if (!foodStack.isEmpty()) {
+                        this.setItemSlot(EquipmentSlot.MAINHAND, foodStack);
                     }
 
                     this.ticksSinceEaten = 0;
@@ -196,25 +191,25 @@ public class GoblinEntity extends PathfinderMob implements NeutralMob, Enemy {
         this.targetSelector.addGoal(3, new HurtByTargetGoal(this).setAlertOthers());
         this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, AbstractVillager.class, true, true));
         this.targetSelector.addGoal(5, new ResetUniversalAngerTargetGoal<>(this, true));
-        this.goalSelector.addGoal(3, new GoblinAvoidEntityGoal<>(this, Player.class, 16, 1.6, 1.8));
+        this.goalSelector.addGoal(3, new AvoidStrongEntityGoal<>(this, Player.class, 16, 1.6, 1.8));
 
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(2, new WaterAvoidingRandomStrollGoal(this, 1.3));
-        this.goalSelector.addGoal(0, new GoblinPanicGoal(1.85));
+        this.goalSelector.addGoal(0, new AdvancedPanicGoal(this, 1.85, this.getHealth() < 12));
         this.goalSelector.addGoal(0, new OpenDoorGoal(this, true));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8));
         this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 1.5D, false));
         this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(3, new RandomStrollGoal(this, 1.3));
         this.goalSelector.addGoal(6, new ResetUniversalAngerTargetGoal<>(this, true));
-        this.goalSelector.addGoal(3, new CollectBerriesGoal(1.3F, 12, 4));
+        this.goalSelector.addGoal(3, new CollectBerriesGoal(this, 1.3, 12, 4));
         this.goalSelector.addGoal(0, new AvoidEntityGoal<>(this, Wolf.class, 8, 1.6, 1.4));
         this.goalSelector.addGoal(0, new AvoidEntityGoal<>(this, Creeper.class, 12, 1.8, 1.4));
-        this.goalSelector.addGoal(0, new SearchForItemsGoal());
-        this.goalSelector.addGoal(6, new RemoveDirtGoal(Blocks.FARMLAND, this, 1.4, 10));
+        this.goalSelector.addGoal(0, new SearchForItemsGoal(this, ALLOWED_ITEMS));
+        this.goalSelector.addGoal(6, new RemoveBlockGoal(Blocks.FARMLAND, this, 1.4, 10));
         this.goalSelector.addGoal(6, new RemoveCropsGoal(this, 1.4, 10));
         this.goalSelector.addGoal(3, new FollowMobGoal(this, 1.4, 6, 10));
-        this.goalSelector.addGoal(0, new SeekShelterGoal(1.8));
+        this.goalSelector.addGoal(0, new SeekShelterGoal(this, 1.8));
     }
 
     public void reassessWeaponGoal() {
@@ -294,10 +289,10 @@ public class GoblinEntity extends PathfinderMob implements NeutralMob, Enemy {
         Entity entity = source.getEntity();
         if (entity instanceof Player player) {
             if (player.getAttribute(Attributes.ATTACK_DAMAGE).getValue() > 10f) {
-                this.goalSelector.addGoal(1, new GoblinPanicGoal(1.5));
+                this.goalSelector.addGoal(1, new AdvancedPanicGoal(this,1.5, this.getHealth() < 12));
                 this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 15, 1.2, 1.8));
             } else if (this.getHealth() < 12) {
-                this.goalSelector.addGoal(1, new GoblinPanicGoal(1.5));
+                this.goalSelector.addGoal(1, new AdvancedPanicGoal(this,1.5, this.getHealth() < 12));
                 this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 15, 1.2, 1.8));
             } else {
                 if (!player.getAbilities().instabuild)
@@ -306,430 +301,5 @@ public class GoblinEntity extends PathfinderMob implements NeutralMob, Enemy {
         }
 
         return super.hurt(source, amount);
-    }
-
-    class GoblinAvoidEntityGoal<T extends LivingEntity> extends AvoidEntityGoal<T> {
-        private final GoblinEntity pGoblin;
-
-        public GoblinAvoidEntityGoal(GoblinEntity pGoblin, Class<T> pEntityClassToAvoid, float pMaxDist, double pWalkSpeedModifier, double pSprintSpeedModifier) {
-            super(pGoblin, pEntityClassToAvoid, pMaxDist, pWalkSpeedModifier, pSprintSpeedModifier);
-            this.pGoblin = pGoblin;
-        }
-
-        public boolean canUse() {
-            if (super.canUse() && this.toAvoid instanceof Player) {
-                return this.avoidStrongPlayer((Player) this.toAvoid);
-            } else {
-                return false;
-            }
-        }
-
-        private boolean avoidStrongPlayer(Player player) {
-            return player.getAttributeValue(Attributes.ATTACK_DAMAGE) >= this.mob.getAttributeValue(Attributes.ATTACK_DAMAGE);
-        }
-
-        /**
-         * Execute a one shot task or start executing a continuous task
-         */
-        public void start() {
-            GoblinEntity.this.setTarget((LivingEntity) null);
-            super.start();
-        }
-
-        /**
-         * Keep ticking a continuous task that has already been started
-         */
-        public void tick() {
-            GoblinEntity.this.setTarget((LivingEntity) null);
-            super.tick();
-        }
-    }
-
-    class GoblinPanicGoal extends PanicGoal {
-        public GoblinPanicGoal(double pSpeedModifier) {
-            super(GoblinEntity.this, pSpeedModifier);
-        }
-
-        protected boolean shouldPanic() {
-            return this.mob.isFreezing() || this.mob.isOnFire() || this.mob.getHealth() < 12;
-        }
-    }
-
-    public class CollectBerriesGoal extends MoveToBlockGoal {
-        private static final int WAIT_TICKS = 40;
-        protected int ticksWaited;
-
-        public CollectBerriesGoal(double pSpeedModifier, int pSearchRange, int pVerticalSearchRange) {
-            super(GoblinEntity.this, pSpeedModifier, pSearchRange, pVerticalSearchRange);
-        }
-
-        public double acceptedDistance() {
-            return 2.0D;
-        }
-
-        public boolean shouldRecalculatePath() {
-            return this.tryTicks % 100 == 0;
-        }
-
-        protected boolean isValidTarget(LevelReader pLevel, BlockPos pPos) {
-            BlockState blockstate = pLevel.getBlockState(pPos);
-            return blockstate.is(Blocks.SWEET_BERRY_BUSH) && blockstate.getValue(SweetBerryBushBlock.AGE) >= 2 || CaveVines.hasGlowBerries(blockstate);
-        }
-
-        public void tick() {
-            if (this.isReachedTarget()) {
-                if (this.ticksWaited >= 40) {
-                    this.onReachedTarget();
-                } else {
-                    ++this.ticksWaited;
-                }
-            }
-
-            super.tick();
-        }
-
-        protected void onReachedTarget() {
-            if (net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(GoblinEntity.this.level(), GoblinEntity.this)) {
-                BlockState blockstate = GoblinEntity.this.level().getBlockState(this.blockPos);
-                if (blockstate.is(Blocks.SWEET_BERRY_BUSH)) {
-                    this.pickSweetBerries(blockstate);
-                } else if (CaveVines.hasGlowBerries(blockstate)) {
-                    this.pickGlowBerry(blockstate);
-                }
-
-            }
-        }
-
-        private void pickGlowBerry(BlockState pState) {
-            CaveVines.use(GoblinEntity.this, pState, GoblinEntity.this.level(), this.blockPos);
-        }
-
-        private void pickSweetBerries(BlockState pState) {
-            int i = pState.getValue(SweetBerryBushBlock.AGE);
-            pState.setValue(SweetBerryBushBlock.AGE, Integer.valueOf(1));
-            int j = 1 + GoblinEntity.this.level().random.nextInt(2) + (i == 3 ? 1 : 0);
-            ItemStack itemstack = GoblinEntity.this.getItemBySlot(EquipmentSlot.MAINHAND);
-            if (itemstack.isEmpty()) {
-                GoblinEntity.this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.SWEET_BERRIES));
-                --j;
-            }
-
-            if (j > 0) {
-                Block.popResource(GoblinEntity.this.level(), this.blockPos, new ItemStack(Items.SWEET_BERRIES, j));
-            }
-
-            GoblinEntity.this.playSound(SoundEvents.SWEET_BERRY_BUSH_PICK_BERRIES, 1.0F, 1.0F);
-            GoblinEntity.this.level().setBlock(this.blockPos, pState.setValue(SweetBerryBushBlock.AGE, Integer.valueOf(1)), 2);
-        }
-
-        public boolean canUse() {
-            return super.canUse();
-        }
-
-        public void start() {
-            this.ticksWaited = 0;
-            super.start();
-        }
-    }
-
-    class SearchForItemsGoal extends Goal {
-        public SearchForItemsGoal() {
-            this.setFlags(EnumSet.of(Goal.Flag.MOVE));
-        }
-
-        public boolean canUse() {
-            List<ItemEntity> list = GoblinEntity.this.level().getEntitiesOfClass(ItemEntity.class, GoblinEntity.this.getBoundingBox().inflate(8.0D, 8.0D, 8.0D), GoblinEntity.ALLOWED_ITEMS);
-            if (!GoblinEntity.this.getItemBySlot(EquipmentSlot.MAINHAND).isEmpty()) {
-                return false;
-            } else if (GoblinEntity.this.getTarget() == null && GoblinEntity.this.getLastHurtByMob() == null) {
-                if (GoblinEntity.this.getRandom().nextInt(reducedTickDelay(2)) != 0) {
-                    return false;
-                } else {
-                    return !list.isEmpty() && GoblinEntity.this.getItemBySlot(EquipmentSlot.MAINHAND).isEmpty();
-                }
-            } else {
-                return false;
-            }
-        }
-
-        public void tick() {
-            List<ItemEntity> list = GoblinEntity.this.level().getEntitiesOfClass(ItemEntity.class, GoblinEntity.this.getBoundingBox().inflate(8.0D, 8.0D, 8.0D), GoblinEntity.ALLOWED_ITEMS);
-            ItemStack itemstack = GoblinEntity.this.getItemBySlot(EquipmentSlot.MAINHAND);
-            if (itemstack.isEmpty() && !list.isEmpty()) {
-                GoblinEntity.this.getNavigation().moveTo(list.get(0), (double) 1.2F);
-            }
-
-        }
-
-        public void start() {
-            List<ItemEntity> list = GoblinEntity.this.level().getEntitiesOfClass(ItemEntity.class, GoblinEntity.this.getBoundingBox().inflate(8.0D, 8.0D, 8.0D), GoblinEntity.ALLOWED_ITEMS);
-            if (!list.isEmpty()) {
-                GoblinEntity.this.getNavigation().moveTo(list.get(0), (double) 1.2F);
-            }
-
-        }
-    }
-
-    static class RemoveDirtGoal extends MoveToBlockGoal {
-        private final Block blockToRemove;
-        private final Mob removerMob;
-        private int ticksSinceReachedGoal;
-        private static final int WAIT_AFTER_BLOCK_FOUND = 20;
-
-        public RemoveDirtGoal(Block pBlockToRemove, PathfinderMob pRemoverMob, double pSpeedModifier, int pSearchRange) {
-            super(pRemoverMob, pSpeedModifier, 24, pSearchRange);
-            this.blockToRemove = pBlockToRemove;
-            this.removerMob = pRemoverMob;
-        }
-
-        public boolean canUse() {
-            if (!ForgeEventFactory.getMobGriefingEvent(this.removerMob.level(), this.removerMob)) {
-                return false;
-            } else if (this.nextStartTick > 0) {
-                --this.nextStartTick;
-                return false;
-            } else if (this.findNearestBlock()) {
-                this.nextStartTick = reducedTickDelay(20);
-                return true;
-            } else {
-                this.nextStartTick = this.nextStartTick(this.mob);
-                return false;
-            }
-        }
-
-        public void stop() {
-            super.stop();
-            this.removerMob.fallDistance = 1.0F;
-        }
-
-        public void start() {
-            super.start();
-            this.ticksSinceReachedGoal = 0;
-        }
-
-        public void playDestroyProgressSound(LevelAccessor pLevel, BlockPos pPos) {
-        }
-
-        public void playBreakSound(Level pLevel, BlockPos pPos) {
-        }
-
-        public void tick() {
-            super.tick();
-            Level level = this.removerMob.level();
-            BlockPos blockpos = this.removerMob.blockPosition();
-            BlockPos blockpos1 = this.getPosWithBlock(blockpos, level);
-            RandomSource randomsource = this.removerMob.getRandom();
-            if (this.isReachedTarget() && blockpos1 != null) {
-                Vec3 vec31;
-                double d3;
-                if (this.ticksSinceReachedGoal > 0) {
-                    vec31 = this.removerMob.getDeltaMovement();
-                    this.removerMob.setDeltaMovement(vec31.x, 0.3, vec31.z);
-                    if (!level.isClientSide) {
-                        ((ServerLevel) level).sendParticles(new ItemParticleOption(ParticleTypes.ITEM, new ItemStack(Items.DIRT)), (double) blockpos1.getX() + 0.5, (double) blockpos1.getY() + 0.7, (double) blockpos1.getZ() + 0.5, 3, ((double) randomsource.nextFloat() - 0.5) * 0.08, ((double) randomsource.nextFloat() - 0.5) * 0.08, ((double) randomsource.nextFloat() - 0.5) * 0.08, 0.15000000596046448);
-                    }
-                }
-
-                if (this.ticksSinceReachedGoal % 2 == 0) {
-                    vec31 = this.removerMob.getDeltaMovement();
-                    this.removerMob.setDeltaMovement(vec31.x, -0.3, vec31.z);
-                    if (this.ticksSinceReachedGoal % 6 == 0) {
-                        this.playDestroyProgressSound(level, this.blockPos);
-                    }
-                }
-
-                if (this.ticksSinceReachedGoal > 60) {
-                    level.setBlockAndUpdate(blockpos1, Blocks.DIRT.defaultBlockState());
-                    if (!level.isClientSide) {
-                        for (int i = 0; i < 20; ++i) {
-                            d3 = randomsource.nextGaussian() * 0.02;
-                            double d1 = randomsource.nextGaussian() * 0.02;
-                            double d2 = randomsource.nextGaussian() * 0.02;
-                            ((ServerLevel) level).sendParticles(ParticleTypes.POOF, (double) blockpos1.getX() + 0.5, (double) blockpos1.getY(), (double) blockpos1.getZ() + 0.5, 1, d3, d1, d2, 0.15000000596046448);
-                        }
-
-                        this.playBreakSound(level, blockpos1);
-                    }
-                }
-
-                ++this.ticksSinceReachedGoal;
-            }
-
-        }
-
-        @Nullable
-        private BlockPos getPosWithBlock(BlockPos pPos, BlockGetter pLevel) {
-            if (pLevel.getBlockState(pPos).is(this.blockToRemove)) {
-                return pPos;
-            } else {
-                BlockPos[] ablockpos = new BlockPos[]{pPos.below(), pPos.west(), pPos.east(), pPos.north(), pPos.south(), pPos.below().below()};
-                int var5 = ablockpos.length;
-
-                for (int var6 = 0; var6 < var5; ++var6) {
-                    BlockPos blockpos = ablockpos[var6];
-                    if (pLevel.getBlockState(blockpos).is(this.blockToRemove)) {
-                        return blockpos;
-                    }
-                }
-
-                return null;
-            }
-        }
-
-        protected boolean isValidTarget(LevelReader pLevel, BlockPos pPos) {
-            ChunkAccess chunkaccess = pLevel.getChunk(SectionPos.blockToSectionCoord(pPos.getX()), SectionPos.blockToSectionCoord(pPos.getZ()), ChunkStatus.FULL, false);
-            if (chunkaccess == null) {
-                return false;
-            } else if (!chunkaccess.getBlockState(pPos).canEntityDestroy(pLevel, pPos, this.removerMob)) {
-                return false;
-            } else {
-                return chunkaccess.getBlockState(pPos).is(this.blockToRemove) && chunkaccess.getBlockState(pPos.above()).isAir() && chunkaccess.getBlockState(pPos.above(2)).isAir();
-            }
-        }
-    }
-
-    static class RemoveCropsGoal extends MoveToBlockGoal {
-        private final Mob removerMob;
-        private int ticksSinceReachedGoal;
-        private static final int WAIT_AFTER_BLOCK_FOUND = 20;
-
-        public RemoveCropsGoal(PathfinderMob pRemoverMob, double pSpeedModifier, int pSearchRange) {
-            super(pRemoverMob, pSpeedModifier, 24, pSearchRange);
-            this.removerMob = pRemoverMob;
-        }
-
-        public boolean canUse() {
-            if (!ForgeEventFactory.getMobGriefingEvent(this.removerMob.level(), this.removerMob)) {
-                return false;
-            } else if (this.nextStartTick > 0) {
-                --this.nextStartTick;
-                return false;
-            } else if (this.findNearestBlock()) {
-                this.nextStartTick = reducedTickDelay(20);
-                return true;
-            } else {
-                this.nextStartTick = this.nextStartTick(this.mob);
-                return false;
-            }
-        }
-
-        public void stop() {
-            super.stop();
-            this.removerMob.fallDistance = 1.0F;
-        }
-
-        public void start() {
-            super.start();
-            this.ticksSinceReachedGoal = 0;
-        }
-
-        public void playDestroyProgressSound(LevelAccessor pLevel, BlockPos pPos) {
-        }
-
-        public void playBreakSound(Level pLevel, BlockPos pPos) {
-        }
-
-        public void tick() {
-            super.tick();
-            Level level = this.removerMob.level();
-            BlockPos blockpos = this.removerMob.blockPosition();
-            BlockPos blockpos1 = this.getPosWithBlock(blockpos, level);
-            RandomSource randomsource = this.removerMob.getRandom();
-            if (this.isReachedTarget() && blockpos1 != null) {
-                Vec3 vec31;
-                double d3;
-                if (this.ticksSinceReachedGoal > 0) {
-                    vec31 = this.removerMob.getDeltaMovement();
-                    this.removerMob.setDeltaMovement(vec31.x, 0.3, vec31.z);
-                    if (!level.isClientSide) {
-                        ((ServerLevel) level).sendParticles(new ItemParticleOption(ParticleTypes.ITEM, new ItemStack(Items.DIRT)), (double) blockpos1.getX() + 0.5, (double) blockpos1.getY() + 0.7, (double) blockpos1.getZ() + 0.5, 3, ((double) randomsource.nextFloat() - 0.5) * 0.08, ((double) randomsource.nextFloat() - 0.5) * 0.08, ((double) randomsource.nextFloat() - 0.5) * 0.08, 0.15000000596046448);
-                    }
-                }
-
-                if (this.ticksSinceReachedGoal % 2 == 0) {
-                    vec31 = this.removerMob.getDeltaMovement();
-                    this.removerMob.setDeltaMovement(vec31.x, -0.3, vec31.z);
-                    if (this.ticksSinceReachedGoal % 6 == 0) {
-                        this.playDestroyProgressSound(level, this.blockPos);
-                    }
-                }
-
-                if (this.ticksSinceReachedGoal > 60) {
-                    level.removeBlock(blockpos1, false);
-                    if (!level.isClientSide) {
-                        for (int i = 0; i < 20; ++i) {
-                            d3 = randomsource.nextGaussian() * 0.02;
-                            double d1 = randomsource.nextGaussian() * 0.02;
-                            double d2 = randomsource.nextGaussian() * 0.02;
-                            ((ServerLevel) level).sendParticles(ParticleTypes.POOF, (double) blockpos1.getX() + 0.5, (double) blockpos1.getY(), (double) blockpos1.getZ() + 0.5, 1, d3, d1, d2, 0.15000000596046448);
-                        }
-
-                        this.playBreakSound(level, blockpos1);
-                    }
-                }
-
-                ++this.ticksSinceReachedGoal;
-            }
-
-        }
-
-        @Nullable
-        private BlockPos getPosWithBlock(BlockPos pPos, BlockGetter pLevel) {
-            if (pLevel.getBlockState(pPos).is(BlockTags.CROPS)) {
-                return pPos;
-            } else {
-                BlockPos[] ablockpos = new BlockPos[]{pPos.below(), pPos.west(), pPos.east(), pPos.north(), pPos.south(), pPos.below().below()};
-                int var5 = ablockpos.length;
-
-                for (int var6 = 0; var6 < var5; ++var6) {
-                    BlockPos blockpos = ablockpos[var6];
-                    if (pLevel.getBlockState(blockpos).is(BlockTags.CROPS)) {
-                        return blockpos;
-                    }
-                }
-
-                return null;
-            }
-        }
-
-        protected boolean isValidTarget(LevelReader pLevel, BlockPos pPos) {
-            ChunkAccess chunkaccess = pLevel.getChunk(SectionPos.blockToSectionCoord(pPos.getX()), SectionPos.blockToSectionCoord(pPos.getZ()), ChunkStatus.FULL, false);
-            if (chunkaccess == null) {
-                return false;
-            } else if (!chunkaccess.getBlockState(pPos).canEntityDestroy(pLevel, pPos, this.removerMob)) {
-                return false;
-            } else {
-                return chunkaccess.getBlockState(pPos).is(BlockTags.CROPS) && chunkaccess.getBlockState(pPos.above()).isAir() && chunkaccess.getBlockState(pPos.above(2)).isAir();
-            }
-        }
-    }
-
-    class SeekShelterGoal extends FleeSunGoal {
-        private int interval = reducedTickDelay(100);
-
-        public SeekShelterGoal(double pSpeedModifier) {
-            super(GoblinEntity.this, pSpeedModifier);
-        }
-
-        public boolean canUse() {
-            if (this.mob.getTarget() == null) {
-                if (GoblinEntity.this.level().isThundering() && GoblinEntity.this.level().canSeeSky(this.mob.blockPosition())) {
-                    return this.setWantedPos();
-                } else if (this.interval > 0) {
-                    --this.interval;
-                    return false;
-                } else {
-                    this.interval = 100;
-                    BlockPos blockpos = this.mob.blockPosition();
-                    return GoblinEntity.this.level().isDay() && GoblinEntity.this.level().canSeeSky(blockpos) && !((ServerLevel) GoblinEntity.this.level()).isVillage(blockpos) && this.setWantedPos();
-                }
-            } else {
-                return false;
-            }
-        }
-
-        public void start() {
-            super.start();
-        }
     }
 }

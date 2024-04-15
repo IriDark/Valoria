@@ -23,7 +23,6 @@ import javax.annotation.Nullable;
 public abstract class AbstractKunai extends AbstractArrow {
 
     public boolean returnToPlayer;
-    public boolean notRenderable;
 
     public AbstractKunai(EntityType<? extends AbstractKunai> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
@@ -40,18 +39,6 @@ public abstract class AbstractKunai extends AbstractArrow {
         if (pShooter instanceof Player) {
             this.pickup = AbstractArrow.Pickup.ALLOWED;
         }
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    public boolean shouldRenderAtSqrDistance(double distance) {
-        double d0 = this.getBoundingBox().getSize() * 10.0D;
-        if (Double.isNaN(d0)) {
-            d0 = 1.0D;
-        }
-
-        d0 = d0 * 64.0D * getViewScale();
-        this.notRenderable = distance < d0 * d0;
-        return this.notRenderable;
     }
 
     public boolean shouldReturnToThrower() {

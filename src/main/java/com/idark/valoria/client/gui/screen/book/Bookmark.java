@@ -1,46 +1,86 @@
 package com.idark.valoria.client.gui.screen.book;
 
 import com.idark.valoria.Valoria;
+import com.idark.valoria.api.unlockable.UnlockUtils;
+import com.idark.valoria.api.unlockable.Unlockable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+
+import javax.annotation.Nullable;
 
 public class Bookmark {
 
     public static final ResourceLocation BACKGROUND = new ResourceLocation(Valoria.MOD_ID, "textures/gui/book/lexicon.png");
-    private final Item item;
-    private final int x;
+    public final Item item;
+    public final int x = 267;
     private final int y;
-    public Chapter chapter;
+    private final int index;
+    public final Chapter chapter;
+    public final MutableComponent translate;
+    public Unlockable unlockable;
 
-    private final String translate;
-
-    public Bookmark(Item item, String pTranslate, int x, int y, Chapter chapter) {
+    public Bookmark(int index, Item item, @Nullable MutableComponent pTranslate, Chapter chapter) {
+        this.index = index;
         this.item = item;
-        this.x = x;
-        this.y = y;
         this.translate = pTranslate;
         this.chapter = chapter;
+        this.y = getColumn();
+        LexiconChapters.categories.add(this);
     }
 
-    public void render(GuiGraphics gui, int guiLeft, int guiTop, int mouseX, int mouseY, boolean ShowTooltip) {
-        gui.blit(BACKGROUND, guiLeft + x, guiTop + y, 287, 15, 18, 18, 512, 512);
-        if (!item.getDefaultInstance().isEmpty()) {
-            gui.blit(BACKGROUND, guiLeft + x, guiTop + y, 0, 193, 35, 25, 512, 512);
-            gui.renderItem(item.getDefaultInstance(), guiLeft + x + 2, guiTop + y + 4);
+    public Bookmark(int index, Item item, @Nullable MutableComponent pTranslate, Chapter chapter, Unlockable pUnlockablePage) {
+        this.index = index;
+        this.item = item;
+        this.translate = pTranslate;
+        this.chapter = chapter;
+        this.y = getColumn();
+        unlockable = pUnlockablePage;
+        LexiconChapters.categories.add(this);
+    }
+
+    public void render(GuiGraphics gui, int guiLeft, int guiTop, int mouseX, int mouseY) {
+        if (isUnlocked()) {
             if (mouseX >= guiLeft + x + 2 && mouseX < guiLeft + x + 35 && mouseY >= guiTop + y + 4 && mouseY < guiTop + y + 25) {
                 gui.blit(BACKGROUND, guiLeft + x, guiTop + y, 0, 218, 35, 25, 512, 512);
-                if (ShowTooltip) {
-                    renderTooltip(gui, Component.translatable(translate), guiLeft + x + 10, guiTop + y + 20);
+                gui.renderItem(item.getDefaultInstance(), guiLeft + x + 7, guiTop + y + 4);
+                if (translate != null) {
+                    renderTooltip(gui, translate, mouseX + 4, mouseY + 10);
                 }
+            } else {
+                gui.blit(BACKGROUND, guiLeft + x, guiTop + y, 287, 15, 18, 18, 512, 512);
+                gui.blit(BACKGROUND, guiLeft + x, guiTop + y, 0, 193, 35, 25, 512, 512);
+                gui.renderItem(item.getDefaultInstance(), guiLeft + x + 2, guiTop + y + 4);
             }
         }
     }
 
+    public int getColumn() {
+        return 10 + (index * 28);
+    }
+
+    public Chapter getChapter() {
+        return chapter;
+    }
+
+    public boolean onClick(double mouseX, double mouseY, int guiLeft, int guiTop) {
+        return mouseX >= guiLeft + x + 2 && mouseX < guiLeft + x + 35 && mouseY >= guiTop + y + 4 && mouseY < guiTop + y + 25;
+    }
+
     public void renderTooltip(GuiGraphics gui, MutableComponent component, int x, int y) {
         gui.renderTooltip(Minecraft.getInstance().font, component, x, y);
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public boolean isUnlocked() {
+        if (unlockable == null) {
+            return true;
+        } else {
+            return (UnlockUtils.isUnlocked(Minecraft.getInstance().player, unlockable));
+        }
     }
 }

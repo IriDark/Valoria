@@ -1,11 +1,12 @@
 package com.idark.valoria.registries.block.types;
 
-import com.idark.valoria.client.particle.ModParticles;
-import com.idark.valoria.client.particle.types.Particles;
+import com.idark.valoria.core.network.PacketHandler;
+import com.idark.valoria.core.network.packets.KeypadParticlePacket;
 import com.idark.valoria.registries.ItemsRegistry;
 import com.idark.valoria.registries.TagsRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -19,6 +20,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 
 import java.util.Random;
@@ -77,22 +79,15 @@ public class KeyPadBlock extends Block {
                     BlockState targetState = pLevel.getBlockState(targetPos);
                     if (targetState.is(TagsRegistry.KEY_BLOCKS)) {
                         pLevel.setBlockAndUpdate(targetPos, Blocks.AIR.defaultBlockState());
-                        for (int a = 0; a < 12; a++) {
-                            Particles.create(ModParticles.TRANSFORM_PARTICLE)
-                                    .addVelocity(((rand.nextDouble() - 0.5D) / 30), ((rand.nextDouble() - 0.5D) / 30), ((rand.nextDouble() - 0.5D) / 30))
-                                    .setAlpha(1.0f, 0)
-                                    .setScale(0.3f, 0)
-                                    .setColor(0.466f, 0.643f, 0.815f, 0.466f, 0.643f, 0.815f)
-                                    .setLifetime(36)
-                                    .setSpin((0.5f * (float) ((rand.nextDouble() - 0.5D) * 2)))
-                                    .spawn(pLevel, pos.getX() + (rand.nextDouble() * 1.25), pos.getY() + 0.5F + ((rand.nextDouble() - 0.5D) * 1.25), pos.getZ() + 0.5F + ((rand.nextDouble() - 0.5D) * 1.25))
-                                    .spawn(pLevel, targetPos.getX() + (rand.nextDouble() * 1.25), targetPos.getY() + 0.5F + ((rand.nextDouble() - 0.5D) * 1.25), targetPos.getZ() + 0.5F + ((rand.nextDouble() - 0.5D) * 1.25));
+                        if (pLevel instanceof ServerLevel p) {
+                            PacketHandler.sendToTracking(p, pos, new KeypadParticlePacket(pos.getX(), pos.getY(), pos.getZ(), targetPos.getX(), targetPos.getY(), targetPos.getZ()));
                         }
                     }
                 }
             }
         }
 
+        pLevel.gameEvent(null, GameEvent.BLOCK_ACTIVATE, pos);
         pLevel.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
     }
 

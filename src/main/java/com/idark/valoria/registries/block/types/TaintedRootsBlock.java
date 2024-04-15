@@ -53,7 +53,7 @@ public class TaintedRootsBlock extends BushBlock implements BonemealableBlock {
     public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
         BlockPos blockpos = pPos.above();
         if (pState.getBlock() == this)
-            return pLevel.getBlockState(blockpos).isSolid();
+            return pLevel.getBlockState(blockpos).isCollisionShapeFullBlock(pLevel, blockpos);
         return this.mayPlaceOn(pLevel.getBlockState(blockpos), pLevel, blockpos);
     }
 

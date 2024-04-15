@@ -19,10 +19,5 @@
     "valoria_enter_world": {
       "trigger": "minecraft:tick"
     }
-  },
-  "rewards": {
-    "loot": [
-      "valoria:items/lexicon"
-    ]
   }
 }

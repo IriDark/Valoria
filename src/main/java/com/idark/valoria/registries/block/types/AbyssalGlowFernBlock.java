@@ -11,8 +11,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class AbyssalGlowFernBlock extends GrowingPlantHeadBlock {
     protected static final VoxelShape SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 9.0D, 16.0D);
-    private static final double GROW_PER_TICK_PROBABILITY = 0.14D;
-
     public AbyssalGlowFernBlock(BlockBehaviour.Properties p_54300_) {
         super(p_54300_, Direction.UP, SHAPE, true, 0.14D);
     }
@@ -24,7 +22,7 @@ public class AbyssalGlowFernBlock extends GrowingPlantHeadBlock {
 
     @Override
     protected boolean canGrowInto(BlockState pState) {
-        return true;
+        return pState.isAir();
     }
 
     @Override

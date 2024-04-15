@@ -1,5 +1,6 @@
 package com.idark.valoria.client.render.model.entity;
 
+import com.idark.valoria.registries.entity.decoration.MannequinEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.EntityModel;
@@ -52,20 +53,22 @@ public class MannequinModel<T extends Entity> extends EntityModel<T> {
 
     @Override
     public void setupAnim(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float HeadPitch) {
-        float factor = (float) Math.sin(ageInTicks * 2f);
-        float speed = 0.1f;
-        this.Body.xRot = Mth.cos(limbSwing * 0.5662F * speed + (float) Math.PI) * 0.4F * factor * limbSwingAmount;
-        this.Body.zRot = Mth.sin(limbSwing * 0.2262F * speed + (float) Math.PI) * 0.1F * factor * limbSwingAmount;
-        this.Head.xRot = Mth.cos(limbSwing * 0.5662F * speed + (float) Math.PI) * 0.4F * factor * limbSwingAmount;
-        this.Head.zRot = Mth.sin(limbSwing * 0.2262F * speed + (float) Math.PI) * 0.1F * factor * limbSwingAmount;
-        this.LeftArm.xRot = Mth.cos(limbSwing * 0.5662F * speed + (float) Math.PI) * 0.4F * factor * limbSwingAmount;
-        this.LeftArm.zRot = Mth.sin(limbSwing * 0.2262F * speed + (float) Math.PI) * 0.1F * factor * limbSwingAmount;
-        this.RightArm.xRot = Mth.cos(limbSwing * 0.5662F * speed + (float) Math.PI) * 0.4F * factor * limbSwingAmount;
-        this.RightArm.zRot = Mth.sin(limbSwing * 0.2262F * speed + (float) Math.PI) * 0.1F * factor * limbSwingAmount;
-        this.LeftLeg.xRot = Mth.cos(limbSwing * 0.5662F * speed + (float) Math.PI) * 0.4F * factor * limbSwingAmount;
-        this.LeftLeg.zRot = Mth.sin(limbSwing * 0.2262F * speed + (float) Math.PI) * 0.1F * factor * limbSwingAmount;
-        this.RightLeg.xRot = Mth.cos(limbSwing * 0.5662F * speed + (float) Math.PI) * 0.4F * factor * limbSwingAmount;
-        this.RightLeg.zRot = Mth.sin(limbSwing * 0.2262F * speed + (float) Math.PI) * 0.1F * factor * limbSwingAmount;
+        if (entityIn instanceof MannequinEntity entity) {
+            float factor = (float) Math.sin(ageInTicks + entity.getLastDamage() * 0.5);
+            float speed = 0.1f;
+            this.Body.xRot = Mth.cos(limbSwing * 0.5662F * speed + (float) Math.PI) * 0.4F * factor * limbSwingAmount;
+            this.Body.zRot = Mth.sin(limbSwing * 0.2262F * speed + (float) Math.PI) * 0.1F * factor * limbSwingAmount;
+            this.Head.xRot = Mth.cos(limbSwing * 0.5662F * speed + (float) Math.PI) * 0.4F * factor * limbSwingAmount;
+            this.Head.zRot = Mth.sin(limbSwing * 0.2262F * speed + (float) Math.PI) * 0.1F * factor * limbSwingAmount;
+            this.LeftArm.xRot = Mth.cos(limbSwing * 0.5662F * speed + (float) Math.PI) * 0.4F * factor * limbSwingAmount;
+            this.LeftArm.zRot = Mth.sin(limbSwing * 0.2262F * speed + (float) Math.PI) * 0.1F * factor * limbSwingAmount;
+            this.RightArm.xRot = Mth.cos(limbSwing * 0.5662F * speed + (float) Math.PI) * 0.4F * factor * limbSwingAmount;
+            this.RightArm.zRot = Mth.sin(limbSwing * 0.2262F * speed + (float) Math.PI) * 0.1F * factor * limbSwingAmount;
+            this.LeftLeg.xRot = Mth.cos(limbSwing * 0.5662F * speed + (float) Math.PI) * 0.4F * factor * limbSwingAmount;
+            this.LeftLeg.zRot = Mth.sin(limbSwing * 0.2262F * speed + (float) Math.PI) * 0.1F * factor * limbSwingAmount;
+            this.RightLeg.xRot = Mth.cos(limbSwing * 0.5662F * speed + (float) Math.PI) * 0.4F * factor * limbSwingAmount;
+            this.RightLeg.zRot = Mth.sin(limbSwing * 0.2262F * speed + (float) Math.PI) * 0.1F * factor * limbSwingAmount;
+        }
     }
 
     @Override

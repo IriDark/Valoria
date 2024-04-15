@@ -11,7 +11,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class VioletSproutBlock extends GrowingPlantHeadBlock {
     protected static final VoxelShape SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 9.0D, 16.0D);
-    private static final double GROW_PER_TICK_PROBABILITY = 0.14D;
     boolean pGlow;
 
     public VioletSproutBlock(BlockBehaviour.Properties p_54300_, boolean pGlow) {
@@ -26,7 +25,7 @@ public class VioletSproutBlock extends GrowingPlantHeadBlock {
 
     @Override
     protected boolean canGrowInto(BlockState pState) {
-        return true;
+        return pState.isAir();
     }
 
     @Override

@@ -68,7 +68,7 @@ public class PoisonedKunaiItem extends KunaiItem implements Vanishable {
 
     public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         stack.hurtAndBreak(1, attacker, (entity) -> entity.broadcastBreakEvent(EquipmentSlot.MAINHAND));
-        if (RandomUtil.percentChance(25d)) {
+        if (RandomUtil.percentChance(0.25f)) {
             target.addEffect(new MobEffectInstance(MobEffects.POISON, 425, 0));
             if (target.level().isClientSide) {
                 for (int i = 0; i < 10; i++) {

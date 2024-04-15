@@ -65,6 +65,10 @@
 - Added Shadewood Fence Gate
 - Added Quark Compat
 - Added Building blocks for ephemarite (slabs, stairs, walls)
+- Added Void traps
+- Added Custom Arrows
+- Added Custom Bows
+- Added Umbral Activator block
 
 - Reworked keg a little
 - Reworked Keyblocks (Umbral Blocks)
@@ -79,6 +83,7 @@
 - Reworked Kunais's
 - Reworked Item2DRenderer for better compatibility with other mods that can use it
 - Reworked Sarcophagus
+- Reworked Mannequin
 
 - Resprited Void stone
 - Resprited Uncharged Shard
@@ -106,6 +111,7 @@
 
 - Fixed Misspells in Sounds tooltips
 - Fixed Misspell in Jewelry JEI
+- Fixed Coffe -> Coffee
 - Fixed 1 pixel Y offset in jei
 - Fixed Plants LootTable
 - Fixed Baby Goblins
@@ -118,6 +124,10 @@
 - Fixed Server error - Cant call the "/valoria addPage/removePage" command
 - Fixed Bug - Damage from Scythes / Katanas etc. damaged through armor and through FTB Chunks
 - Fixed 1 pixel offset of Bloodhound icon in gui
+- Fixed Mannequin visual bugs (First value to appear was 1 then the damage value, now its appears only as a damage value)
+- Fixed Second gui slot in jei recipes
+- Fixed Katana's dash - damaged through walls
+- Fixed Flower pots offsets - yeah that was bug, not a feature :( but such a cool bug lol
 
 - Changed Stonecrusher recipe
 - Changed opacity for Eternity appearing after Phantom ability

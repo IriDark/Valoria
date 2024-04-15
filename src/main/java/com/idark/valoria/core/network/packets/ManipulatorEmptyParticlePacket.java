@@ -20,9 +20,9 @@ public class ManipulatorEmptyParticlePacket {
     private final float posToZ;
     private final float yawRaw;
 
-    private final float colorR, colorG, colorB;
+    private final int colorR, colorG, colorB;
 
-    public ManipulatorEmptyParticlePacket(float posX, float posY, float posZ, float yawRaw, float posToX, float posToY, float posToZ, float colorR, float colorG, float colorB) {
+    public ManipulatorEmptyParticlePacket(float posX, float posY, float posZ, float yawRaw, float posToX, float posToY, float posToZ, int colorR, int colorG, int colorB) {
         this.posX = posX;
         this.posY = posY;
         this.posZ = posZ;
@@ -38,7 +38,7 @@ public class ManipulatorEmptyParticlePacket {
     }
 
     public static ManipulatorEmptyParticlePacket decode(FriendlyByteBuf buf) {
-        return new ManipulatorEmptyParticlePacket(buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat());
+        return new ManipulatorEmptyParticlePacket(buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readInt(), buf.readInt(), buf.readInt());
     }
 
     public static void handle(ManipulatorEmptyParticlePacket msg, Supplier<NetworkEvent.Context> ctx) {
@@ -59,7 +59,7 @@ public class ManipulatorEmptyParticlePacket {
                         .addVelocity(d.x, d.y, d.z)
                         .setAlpha(0.45f, 0)
                         .setScale(0.025f, 0)
-                        .setColor(msg.colorR / 255, msg.colorG / 255, msg.colorB / 255, 0, 0, 0)
+                        .setColor(msg.colorR, msg.colorG, msg.colorB, 0, 0, 0)
                         .setLifetime(4)
                         .spawn(world, msg.posX + X, msg.posY + Y + ((Math.random() - 0.5D) * 0.2F), msg.posZ + Z);
 

@@ -20,15 +20,15 @@ import com.idark.valoria.core.capability.IUnlockable;
 import com.idark.valoria.core.config.ClientConfig;
 import com.idark.valoria.core.datagen.BlockStateGen;
 import com.idark.valoria.core.datagen.RecipeGen;
+import com.idark.valoria.core.event.ServerTickHandler;
 import com.idark.valoria.core.network.PacketHandler;
 import com.idark.valoria.core.proxy.ClientProxy;
 import com.idark.valoria.core.proxy.ISidedProxy;
 import com.idark.valoria.core.proxy.ServerProxy;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.block.types.ModWoodTypes;
-import com.idark.valoria.registries.block.types.SarcoBlock;
+import com.idark.valoria.registries.block.types.SarcophagusBlock;
 import com.idark.valoria.registries.command.arguments.ModArgumentTypes;
-import com.idark.valoria.registries.effect.potion.ModPotions;
 import com.idark.valoria.registries.entity.ModEntityTypes;
 import com.idark.valoria.registries.entity.ai.attributes.ModAttributes;
 import com.idark.valoria.registries.entity.decoration.MannequinEntity;
@@ -36,6 +36,7 @@ import com.idark.valoria.registries.entity.decoration.ModPaintings;
 import com.idark.valoria.registries.entity.living.*;
 import com.idark.valoria.registries.item.types.mana.staffs.StaffItem;
 import com.idark.valoria.registries.levelgen.LevelGen;
+import com.idark.valoria.registries.recipe.PotionBrewery;
 import com.idark.valoria.registries.sounds.ModSoundRegistry;
 import com.idark.valoria.util.LootUtil;
 import com.idark.valoria.util.RenderUtils;
@@ -85,9 +86,10 @@ public class Valoria {
         EnchantmentsRegistry.register(eventBus);
         ModPaintings.register(eventBus);
         ModAttributes.register(eventBus);
-        ModPotions.register(eventBus);
+        PotionBrewery.register(eventBus);
         ItemsRegistry.register(eventBus);
         BlockRegistry.register(eventBus);
+        PoiRegistries.register(eventBus);
         if (QuarkIntegration.isLoaded()) QuarkIntegration.init(eventBus);
         BlockEntitiesRegistry.register(eventBus);
         RecipesRegistry.register(eventBus);
@@ -101,9 +103,10 @@ public class Valoria {
         LevelGen.PLACEMENT_MODIFIERS.register(eventBus);
 
         IEventBus forgeBus = MinecraftForge.EVENT_BUS;
-
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ClientConfig.SPEC);
+
         DistExecutor.unsafeCallWhenOn(Dist.CLIENT, () -> () -> {
+            forgeBus.addListener(ServerTickHandler::serverTick);
             forgeBus.addListener(ClientTickHandler::clientTickEnd);
             forgeBus.addListener(RenderUtils::onRenderWorldLast);
             forgeBus.addListener(DashOverlayRender::tick);
@@ -120,11 +123,13 @@ public class Valoria {
 
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new Events());
+        MinecraftForge.EVENT_BUS.register(new ServerTickHandler());
     }
 
     /**
      * To add your items here you'll need to add it in FMLClientSetupEvent event like this one but in your mod class and add an event to client side
-     * @see ValoriaClient.RegistryEvents#onModelRegistryEvent(ModelEvent.RegisterAdditional) 
+     *
+     * @see ValoriaClient.RegistryEvents#onModelRegistryEvent(ModelEvent.RegisterAdditional)
      */
 
     private void clientSetup(final FMLClientSetupEvent event) {
@@ -200,7 +205,7 @@ public class Valoria {
 
     private void setup(final FMLCommonSetupEvent event) {
         PacketHandler.init();
-        ModPotions.bootStrap();
+        PotionBrewery.bootStrap();
         RegisterUnlockables.init();
         event.enqueueWork(() -> {
             FireBlock fireblock = (FireBlock) Blocks.FIRE;
@@ -223,15 +228,15 @@ public class Valoria {
             GoblinEntity.goblinCanSpawnWith.add(ItemsRegistry.STONE_RAPIER.get());
             GoblinEntity.goblinCanSpawnWith.add(ItemsRegistry.IRON_RAPIER.get());
             GoblinEntity.goblinCanSpawnWith.add(ItemsRegistry.CLUB.get());
-            SarcoBlock.spawnableWith.add(Items.BOW);
-            SarcoBlock.spawnableWith.add(Items.WOODEN_AXE);
-            SarcoBlock.spawnableWith.add(Items.STONE_SWORD);
-            SarcoBlock.spawnableWith.add(Items.IRON_SWORD);
-            SarcoBlock.spawnableWith.add(Items.GOLDEN_AXE);
-            SarcoBlock.spawnableWith.add(Items.IRON_PICKAXE);
-            SarcoBlock.halloweenSpawnableWith.add(Items.PUMPKIN);
-            SarcoBlock.halloweenSpawnableWith.add(Items.JACK_O_LANTERN);
-            SarcoBlock.halloweenSpawnableWith.add(Items.CARVED_PUMPKIN);
+            SarcophagusBlock.spawnableWith.add(Items.BOW);
+            SarcophagusBlock.spawnableWith.add(Items.WOODEN_AXE);
+            SarcophagusBlock.spawnableWith.add(Items.STONE_SWORD);
+            SarcophagusBlock.spawnableWith.add(Items.IRON_SWORD);
+            SarcophagusBlock.spawnableWith.add(Items.GOLDEN_AXE);
+            SarcophagusBlock.spawnableWith.add(Items.IRON_PICKAXE);
+            SarcophagusBlock.halloweenSpawnableWith.add(Items.PUMPKIN);
+            SarcophagusBlock.halloweenSpawnableWith.add(Items.JACK_O_LANTERN);
+            SarcophagusBlock.halloweenSpawnableWith.add(Items.CARVED_PUMPKIN);
 
             AxeItem.STRIPPABLES = new ImmutableMap.Builder<Block, Block>().putAll(AxeItem.STRIPPABLES)
                     .put(BlockRegistry.SHADELOG.get(), BlockRegistry.STRIPPED_SHADELOG.get())

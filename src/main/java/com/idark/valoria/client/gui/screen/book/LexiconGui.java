@@ -1,7 +1,7 @@
 package com.idark.valoria.client.gui.screen.book;
 
 import com.idark.valoria.Valoria;
-import com.idark.valoria.client.gui.screen.book.unlockable.UnlockableBookmark;
+import com.idark.valoria.client.gui.screen.book.pages.TextPage;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -25,7 +25,7 @@ public class LexiconGui extends Screen {
     public LexiconGui() {
         super(Component.translatable("gui.valoria.main"));
         if (currentChapter == null) {
-            currentChapter = LexiconChapters.MAIN_PAGE;
+            currentChapter = LexiconChapters.MAIN_CHAPTER;
         }
     }
 
@@ -42,7 +42,6 @@ public class LexiconGui extends Screen {
         Minecraft mc = Minecraft.getInstance();
         RenderSystem.setShaderTexture(0, BACKGROUND);
         item = ItemStack.EMPTY;
-
         this.width = mc.getWindow().getGuiScaledWidth();
         this.height = mc.getWindow().getGuiScaledHeight();
         int guiLeft = (width - 272) / 2, guiTop = (height - 180) / 2;
@@ -77,23 +76,25 @@ public class LexiconGui extends Screen {
         } else {
             gui.blit(BACKGROUND, guiLeft - 12, guiTop + 168, 275, 121, 3, 6, 512, 512);
         }
+
         // END
-
-        // Bookmarks
-        LexiconChapters.LEXICON.render(gui, guiLeft, guiTop, mouseX, mouseY, true);
-        LexiconChapters.TREASURES.render(gui, guiLeft, guiTop, mouseX, mouseY, true);
-        LexiconChapters.MEDICINE.render(gui, guiLeft, guiTop, mouseX, mouseY, true);
-        if (UnlockableBookmark.unlockable != null && UnlockableBookmark.isUnlocked()) {
-            LexiconChapters.CRYPT.render(gui, guiLeft, guiTop, mouseX, mouseY, true);
+        for (Bookmark bookmark : LexiconChapters.categories) {
+            if (bookmark.isUnlocked()) {
+                bookmark.render(gui, guiLeft, guiTop, mouseX, mouseY);
+            }
         }
-
-        // Category footer
-        gui.blit(BACKGROUND, guiLeft + 48, guiTop + 31, 97, 180, 38, 13, 512, 512);
-        gui.blit(BACKGROUND, guiLeft + 186, guiTop + 31, 97, 180, 38, 13, 512, 512);
 
         Page left = currentChapter.getPage(currentPage), right = currentChapter.getPage(currentPage + 1);
         if (left != null) left.fullRender(gui, guiLeft + 10, guiTop + 8, mouseX, mouseY);
         if (right != null) right.fullRender(gui, guiLeft + 140, guiTop + 8, mouseX, mouseY);
+        if (left instanceof TextPage) {
+            gui.blit(BACKGROUND, guiLeft + 48, guiTop + 31, 97, 180, 38, 13, 512, 512);
+        }
+
+        if (right instanceof TextPage) {
+            gui.blit(BACKGROUND, guiLeft + 186, guiTop + 31, 97, 180, 38, 13, 512, 512);
+        }
+
         if (currentChapter.size() >= currentPage + 3) {
             if (mouseX >= guiLeft + 250 && mouseX < guiLeft + 250 + 9 && mouseY >= guiTop + 150 && mouseY < guiTop + 150 + 8) {
                 gui.blit(BACKGROUND, guiLeft + 250, guiTop + 150, 272, 104, 9, 8, 512, 512);
@@ -128,15 +129,10 @@ public class LexiconGui extends Screen {
             // START
             if (mouseX >= guiLeft - 14 && mouseX < guiLeft && mouseY >= guiTop + 138 && mouseY < guiTop + 138 + 7) {
                 mc.player.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundSource.NEUTRAL, 1.0f, 1.0f);
-                changeChapter(LexiconChapters.THANKS_PAGE);
+                changeChapter(LexiconChapters.THANKS_CHAPTER);
             }
 
             // END
-            if (mouseX >= guiLeft + 267 + 2 && mouseX < guiLeft + 267 + 35 && mouseY >= guiTop + 10 + 4 && mouseY < guiTop + 10 + 25) {
-                mc.player.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundSource.NEUTRAL, 1.0f, 1.0f);
-                changeChapter(LexiconChapters.MAIN_PAGE);
-            }
-
             if (currentChapter.size() >= currentPage + 3) {
                 if (mouseX >= guiLeft + 250 && mouseX < guiLeft + 250 + 9 && mouseY >= guiTop + 150 && mouseY < guiTop + 150 + 8) {
                     mc.player.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundSource.NEUTRAL, 1.0f, 1.0f);
@@ -151,20 +147,10 @@ public class LexiconGui extends Screen {
                 }
             }
 
-            if (mouseX >= guiLeft + 267 + 2 && mouseX < guiLeft + 267 + 35 && mouseY >= guiTop + 38 + 4 && mouseY < guiTop + 38 + 25) {
-                mc.player.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundSource.NEUTRAL, 1.0f, 1.0f);
-                changeChapter(LexiconChapters.TREASURES_PAGE);
-            }
-
-            if (mouseX >= guiLeft + 267 + 2 && mouseX < guiLeft + 267 + 35 && mouseY >= guiTop + 66 + 4 && mouseY < guiTop + 66 + 25) {
-                mc.player.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundSource.NEUTRAL, 1.0f, 1.0f);
-                changeChapter(LexiconChapters.MEDICINE_PAGE);
-            }
-
-            if (UnlockableBookmark.unlockable != null && UnlockableBookmark.isUnlocked()) {
-                if (mouseX >= guiLeft + 267 + 2 && mouseX < guiLeft + 267 + 35 && mouseY >= guiTop + 94 + 4 && mouseY < guiTop + 94 + 25) {
+            for (Bookmark bookmark : LexiconChapters.categories) {
+                if (bookmark.isUnlocked() && bookmark.onClick(mouseX, mouseY, guiLeft, guiTop)) {
                     mc.player.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundSource.NEUTRAL, 1.0f, 1.0f);
-                    changeChapter(LexiconChapters.CRYPT_PAGE);
+                    changeChapter(bookmark.getChapter());
                 }
             }
         }

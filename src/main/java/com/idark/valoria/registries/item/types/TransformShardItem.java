@@ -3,6 +3,7 @@ package com.idark.valoria.registries.item.types;
 import com.idark.valoria.client.particle.ModParticles;
 import com.idark.valoria.client.particle.types.Particles;
 import com.idark.valoria.registries.BlockRegistry;
+import com.idark.valoria.registries.ItemsRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
@@ -10,6 +11,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -20,7 +22,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.Random;
 
-public class TransformShardItem extends Item {
+public class TransformShardItem extends Item implements IParticleItem {
     Random rand = new Random();
     public TransformType type;
 
@@ -76,6 +78,29 @@ public class TransformShardItem extends Item {
             if (!player.isCreative()) {
                 stack.shrink(1);
             }
+        }
+    }
+
+    @Override
+    public void addParticles(Level level, ItemEntity entity) {
+        if (entity.getItem().is(ItemsRegistry.AMETHYST.get())) {
+            Particles.create(ModParticles.GLOWING_SPHERE)
+                    .addVelocity((rand.nextDouble() / 30), 0.05f, (rand.nextDouble() / 30))
+                    .setAlpha(0.25f, 0)
+                    .setScale(0.1f, 0)
+                    .setColor(0.866f, 0.643f, 0.815f, 0.266f, 0.943f, 5.815f)
+                    .setLifetime(7)
+                    .setSpin((0.5f * (float) ((rand.nextDouble() - 0.5D) * 2)))
+                    .spawn(level, entity.getX() + (rand.nextDouble() - 0.5f) / 2, entity.getY() + 0.4F, entity.getZ());
+        } else {
+            Particles.create(ModParticles.GLOWING_SPHERE)
+                    .addVelocity((rand.nextDouble() / 30), 0.05f, (rand.nextDouble() / 30))
+                    .setAlpha(0.25f, 0)
+                    .setScale(0.1f, 0)
+                    .setColor(0.466f, 0.643f, 0.815f, 1.466f, 0.643f, 0.815f)
+                    .setLifetime(7)
+                    .setSpin((0.5f * (float) ((rand.nextDouble() - 0.5D) * 2)))
+                    .spawn(level, entity.getX() + (rand.nextDouble() - 0.5f) / 2, entity.getY() + 0.4F, entity.getZ());
         }
     }
 }

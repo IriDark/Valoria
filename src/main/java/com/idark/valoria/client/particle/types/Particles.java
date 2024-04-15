@@ -55,6 +55,11 @@ public class Particles {
          * @param g2 End Green value
          * @param b2 End Blue value
          */
+        public ParticleBuilder setColor(int r1, int g1, int b1, int r2, int g2, int b2) {
+            setColor((float) r1 / 255, (float) g1 / 255, (float) b1 / 255, data.a1, (float) r2 / 255, (float) g2 / 255, (float) b2 / 255, data.a2);
+            return this;
+        }
+
         public ParticleBuilder setColor(float r1, float g1, float b1, float r2, float g2, float b2) {
             setColor(r1, g1, b1, data.a1, r2, g2, b2, data.a2);
             return this;

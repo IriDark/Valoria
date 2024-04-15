@@ -45,10 +45,10 @@ public class SarcophagusSummonPacket {
                 for (int i = 0; i < 26; i++) {
                     Particles.create(ModParticles.SPHERE)
                             .addVelocity(msg.velX + ((random.nextDouble() - 0.5D) / (2 * random.nextDouble()) / 5), msg.velY + ((random.nextDouble() - 0.5D) / (20 - (5 * random.nextDouble()))), msg.velZ + ((random.nextDouble() - 0.5D) / (2 * random.nextDouble()) / 5))
-                            .setAlpha(0.12f, 0)
+                            .setAlpha(0.22f, 0)
                             .setScale(0.36f, 2)
                             .setColor(msg.colorR, msg.colorG, msg.colorB)
-                            .setLifetime(125 + random.nextInt(100))
+                            .setLifetime(95 + random.nextInt(100))
                             .setSpin((0.5f * (float) ((random.nextDouble() - 0.5D) / 2)))
                             .spawn(world, msg.posX, msg.posY, msg.posZ);
                 }

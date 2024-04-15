@@ -40,6 +40,10 @@ public abstract class AbstractDecorationMob extends Mob implements IForgeEntity 
     protected void doPush(@NotNull Entity pEntity) {
     }
 
+    public boolean canBeLeashed(@NotNull Player pPlayer) {
+        return false;
+    }
+
     protected void pushEntities() {
         List<Entity> list = this.level().getEntities(this, this.getBoundingBox(), RIDABLE_MINECARTS);
         for (Entity entity : list) {
@@ -132,11 +136,6 @@ public abstract class AbstractDecorationMob extends Mob implements IForgeEntity 
 
     @Override
     protected void checkFallDamage(double y, boolean onGroundIn, BlockState state, BlockPos pos) {
-    }
-
-    @Override
-    public void setNoGravity(boolean ignored) {
-        super.setNoGravity(true);
     }
 
     @Override

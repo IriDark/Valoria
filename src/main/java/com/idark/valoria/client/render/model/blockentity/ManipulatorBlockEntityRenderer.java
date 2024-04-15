@@ -15,8 +15,6 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
-import java.util.Random;
-
 public class ManipulatorBlockEntityRenderer implements BlockEntityRenderer<ManipulatorBlockEntity> {
     public static final ModelResourceLocation SPHERE = new ModelResourceLocation(new ResourceLocation(Valoria.MOD_ID, "elemental_sphere"), "");
 
@@ -25,12 +23,10 @@ public class ManipulatorBlockEntityRenderer implements BlockEntityRenderer<Manip
 
     @Override
     public void render(ManipulatorBlockEntity manipulatorBlockEntity, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
-        Random random = new Random();
-
         ms.pushPose();
         double sinValue = Math.sin((ClientTickHandler.ticksInGame + Minecraft.getInstance().getPartialTick()) * 0.1);
         float y = 0.6f + (float) (sinValue / 20);
-        float rot = random.nextFloat() + (float) (sinValue * 180 + random.nextFloat());
+        float rot = ClientTickHandler.ticksInGame * 0.5f;
 
         ms.translate(0.5f, y, 0.5f);
         ms.scale(1.0f, 1.0f, 1.0f);

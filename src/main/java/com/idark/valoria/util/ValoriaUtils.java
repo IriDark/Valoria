@@ -1,8 +1,6 @@
 package com.idark.valoria.util;
 
 
-import com.google.common.collect.HashMultimap;
-import com.idark.valoria.core.event.ServerTickHandler;
 import com.idark.valoria.registries.EnchantmentsRegistry;
 import com.idark.valoria.registries.entity.living.NecromancerEntity;
 import com.idark.valoria.registries.item.types.BeastScytheItem;
@@ -40,12 +38,8 @@ import top.theillusivec4.curios.api.SlotContext;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 import java.util.function.Predicate;
 
 public class ValoriaUtils {
@@ -549,58 +543,6 @@ public class ValoriaUtils {
 
         public static int hexToDecimal(String hex) {
             return Integer.parseInt(hex, 16);
-        }
-    }
-
-    public static class scheduler {
-        private static ScheduledExecutorService scheduler = null;
-        private static final HashMultimap<Integer, Runnable> scheduledSynchTasks = HashMultimap.create();
-        private static boolean running = true;
-
-        public static void scheduleSyncronisedTask(Runnable run, int ticks) {
-            scheduledSynchTasks.put(ServerTickHandler.tick + ticks, run);
-        }
-
-        /**
-         * @param run scheduled task example: level.playSound( ... );
-         */
-        public static void scheduleAsyncTask(Runnable run, int time, TimeUnit unit) {
-            if (scheduler == null || !running) {
-                serverStartupTasks();
-            }
-
-            scheduler.schedule(run, time, unit);
-        }
-
-        public static void serverStartupTasks() {
-            if (scheduler != null) {
-                scheduler.shutdownNow();
-            }
-
-            scheduler = Executors.newScheduledThreadPool(1);
-            handleSyncScheduledTasks(null);
-        }
-
-        public static void serverShutdownTasks() {
-            handleSyncScheduledTasks(null);
-            scheduler.shutdownNow();
-            scheduler = null;
-            running = false;
-        }
-
-        public static void handleSyncScheduledTasks(@Nullable Integer tick) {
-            if (scheduledSynchTasks.containsKey(tick)) {
-                Iterator<Runnable> tasks = tick == null ? scheduledSynchTasks.values().iterator() : scheduledSynchTasks.get(tick).iterator();
-                while (tasks.hasNext()) {
-                    try {
-                        tasks.next().run();
-                    } catch (Exception ex) {
-                        System.out.print(ex.getMessage());
-                    }
-
-                    tasks.remove();
-                }
-            }
         }
     }
 

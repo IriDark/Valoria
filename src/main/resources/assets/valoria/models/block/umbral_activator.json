@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "up": "valoria:block/umbral_activator",
+    "particle": "valoria:block/umbral_activator_side",
+    "north": "valoria:block/umbral_activator_side",
+    "south": "valoria:block/umbral_activator_side",
+    "east": "valoria:block/umbral_activator_side",
+    "west": "valoria:block/umbral_activator_side",
+    "down": "valoria:block/umbral_activator_side"
+  }
+}

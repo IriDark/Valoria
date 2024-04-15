@@ -2,12 +2,15 @@ package com.idark.valoria.registries;
 
 import com.idark.valoria.Valoria;
 import com.idark.valoria.client.gui.screen.book.unlockable.RegisterUnlockables;
+import com.idark.valoria.client.particle.ModParticles;
 import com.idark.valoria.registries.entity.ModEntityTypes;
 import com.idark.valoria.registries.entity.decoration.CustomBoatEntity;
 import com.idark.valoria.registries.item.tiers.ModArmorItem;
 import com.idark.valoria.registries.item.tiers.ModArmorMaterial;
 import com.idark.valoria.registries.item.tiers.ModItemTier;
 import com.idark.valoria.registries.item.types.*;
+import com.idark.valoria.registries.item.types.arrow.SoulArrowItem;
+import com.idark.valoria.registries.item.types.arrow.WickedArrowItem;
 import com.idark.valoria.registries.item.types.curio.CurioItemProperty;
 import com.idark.valoria.registries.item.types.curio.GlovesItem;
 import com.idark.valoria.registries.item.types.curio.charm.*;
@@ -85,15 +88,15 @@ public class ItemsRegistry {
     public static final RegistryObject<Item> STONE_GEODE = ITEMS.register("stone_geode", () -> new Item(new Item.Properties().rarity(Rarity.EPIC)));
     public static final RegistryObject<Item> MINERS_BAG = ITEMS.register("miners_bag", () -> new DropItemProperty(DropType.MINERS, new Item.Properties().rarity(Rarity.EPIC)));
     public static final RegistryObject<Item> GEM_BAG = ITEMS.register("gem_bag", () -> new DropItemProperty(DropType.GEM, new Item.Properties().rarity(Rarity.EPIC)));
-    public static final RegistryObject<Item> NATURE_GIFT = ITEMS.register("nature_gift", () -> new Item(new Item.Properties().stacksTo(16)));
-    public static final RegistryObject<Item> OCEANIC_SHELL = ITEMS.register("oceanic_shell", () -> new Item(new Item.Properties().stacksTo(16)));
-    public static final RegistryObject<Item> INFERNAL_STONE = ITEMS.register("infernal_stone", () -> new Item(new Item.Properties().stacksTo(16)));
-    public static final RegistryObject<Item> BONE_FRAGMENT = ITEMS.register("bone_fragment", () -> new Item(new Item.Properties().stacksTo(16)));
+    public static final RegistryObject<Item> NATURE_GIFT = ITEMS.register("nature_gift", () -> new ParticleMaterialItem(ModParticles.GLOWING_SPHERE.get(), new int[]{20, 235, 0}, new int[]{132, 235, 22}, 0.35f, new Item.Properties().stacksTo(16)));
+    public static final RegistryObject<Item> OCEANIC_SHELL = ITEMS.register("oceanic_shell", () -> new ParticleMaterialItem(ModParticles.GLOWING_SPHERE.get(), new int[]{20, 145, 235}, new int[]{45, 0, 0}, 0.35f, new Item.Properties().stacksTo(16)));
+    public static final RegistryObject<Item> INFERNAL_STONE = ITEMS.register("infernal_stone", () -> new ParticleMaterialItem(ModParticles.GLOWING_SPHERE.get(), new int[]{255, 145, 45}, new int[]{45, 0, 0}, 0.35f, new Item.Properties().stacksTo(16)));
+    public static final RegistryObject<Item> BONE_FRAGMENT = ITEMS.register("bone_fragment", () -> new ParticleMaterialItem(ModParticles.GLOWING_SPHERE.get(), new int[]{145, 235, 25}, new int[]{132, 215, 22}, 0.35f, new Item.Properties().stacksTo(16)));
     public static final RegistryObject<Item> PAIN_CRYSTAL = ITEMS.register("pain_crystal", () -> new Item(new Item.Properties().stacksTo(16)));
     public static final RegistryObject<Item> ILLUSION_STONE = ITEMS.register("illusion_stone", () -> new Item(new Item.Properties().stacksTo(16)));
     public static final RegistryObject<Item> SOUL_COLLECTOR_EMPTY = ITEMS.register("soul_collector_empty", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> SOUL_COLLECTOR = ITEMS.register("soul_collector", () -> new Item(new Item.Properties()));
-    public static final RegistryObject<Item> VOID_KEY = ITEMS.register("void_key", () -> new Item(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC)));
+    public static final RegistryObject<Item> VOID_KEY = ITEMS.register("void_key", () -> new Item(new Item.Properties().stacksTo(8).rarity(Rarity.EPIC)));
     public static final RegistryObject<Item> GAIB_ROOT = ITEMS.register("gaib_root", () -> new Item(new Item.Properties().stacksTo(16)));
     public static final RegistryObject<Item> KARUSAKAN_ROOT = ITEMS.register("karusakan_root", () -> new Item(new Item.Properties().stacksTo(16)));
     public static final RegistryObject<Item> WOODEN_CUP = ITEMS.register("wooden_cup", () -> new Item(new Item.Properties()));
@@ -107,12 +110,12 @@ public class ItemsRegistry {
     public static final RegistryObject<Item> ALOE_BANDAGE = ITEMS.register("aloe_bandage", () -> new AloeBandageItem(1600, 0));
     public static final RegistryObject<Item> ALOE_BANDAGE_UPGRADED = ITEMS.register("aloe_bandage_upgraded", () -> new AloeBandageItem(1450, 1));
     public static final RegistryObject<Item> CACAO_CUP = ITEMS.register("cacao_cup", () -> new ModDrinkItem(0, 1, 1, ItemsRegistry.CUP.get(), new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 250)));
-    public static final RegistryObject<Item> COFFE_CUP = ITEMS.register("coffe_cup", () -> new ModDrinkItem(0, 1, 1, ItemsRegistry.CUP.get(), new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 250)));
+    public static final RegistryObject<Item> COFFEE_CUP = ITEMS.register("coffee_cup", () -> new ModDrinkItem(0, 1, 1, ItemsRegistry.CUP.get(), new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 250)));
     public static final RegistryObject<Item> TEA_CUP = ITEMS.register("tea_cup", () -> new ModDrinkItem(0, 1, 1, ItemsRegistry.CUP.get(), new MobEffectInstance(MobEffects.DIG_SPEED, 100)));
     public static final RegistryObject<Item> GREEN_TEA_CUP = ITEMS.register("green_tea_cup", () -> new ModDrinkItem(0, 1, 1, ItemsRegistry.CUP.get(), new MobEffectInstance(EffectsRegistry.ALOEREGEN.get(), 1800)));
     public static final RegistryObject<Item> BEER_CUP = ITEMS.register("beer_cup", () -> new ModDrinkItem(0, 1, 1, ItemsRegistry.WOODEN_CUP.get(), new MobEffectInstance(EffectsRegistry.TIPSY.get(), 400, 0)));
     public static final RegistryObject<Item> RUM_CUP = ITEMS.register("rum_cup", () -> new ModDrinkItem(0, 1, 1, ItemsRegistry.WOODEN_CUP.get(), new MobEffectInstance(EffectsRegistry.TIPSY.get(), 400, 0), new MobEffectInstance(MobEffects.CONFUSION, 120, 0)));
-    public static final RegistryObject<Item> KVASS_BOTTLE = ITEMS.register("kvass_bottle", () -> new ModDrinkItem(0, 1, 1, ItemsRegistry.BOTTLE.get(), new MobEffectInstance(MobEffects.SATURATION, 300)));
+    public static final RegistryObject<Item> KVASS_BOTTLE = ITEMS.register("kvass_bottle", () -> new ModDrinkItem(0, 1, 1, ItemsRegistry.BOTTLE.get(), new MobEffectInstance(EffectsRegistry.ALOEREGEN.get(), 200)));
     public static final RegistryObject<Item> WINE_BOTTLE = ITEMS.register("wine_bottle", () -> new ModDrinkItem(0, 1, 1, ItemsRegistry.BOTTLE.get(), new MobEffectInstance(EffectsRegistry.TIPSY.get(), 450, 1), new MobEffectInstance(MobEffects.CONFUSION, 300)));
     public static final RegistryObject<Item> AKVAVIT_BOTTLE = ITEMS.register("akvavit_bottle", () -> new ModDrinkItem(0, 1, 1, ItemsRegistry.BOTTLE.get(), new MobEffectInstance(EffectsRegistry.TIPSY.get(), 500, 1), new MobEffectInstance(MobEffects.CONFUSION, 320)));
     public static final RegistryObject<Item> LIQUOR_BOTTLE = ITEMS.register("liquor_bottle", () -> new ModDrinkItem(0, 1, 1, ItemsRegistry.BOTTLE.get(), new MobEffectInstance(EffectsRegistry.TIPSY.get(), 350, 1), new MobEffectInstance(MobEffects.CONFUSION, 120)));
@@ -123,8 +126,8 @@ public class ItemsRegistry {
     public static final RegistryObject<Item> COKE_BOTTLE = ITEMS.register("coke_bottle", () -> new ModDrinkItem(0, 1, 1, ItemsRegistry.BOTTLE.get(), new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 250)));
     public static final RegistryObject<Item> APPLE_PIE = ITEMS.register("apple_pie", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(3).saturationMod(1.4f).build())));
     public static final RegistryObject<Item> HOLIDAY_CANDY = ITEMS.register("holiday_candy", () -> new Item(new Item.Properties().stacksTo(16).food(new FoodProperties.Builder().nutrition(1).saturationMod(0.2f).build())));
-    public static final RegistryObject<Item> EYE_CHUNK = ITEMS.register("eye_chunk", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().effect(new MobEffectInstance(MobEffects.POISON, 100), 0.4f).effect(new MobEffectInstance(MobEffects.NIGHT_VISION, 300), 1f).nutrition(1).saturationMod(0.2f).build())));
-    public static final RegistryObject<Item> TAINTED_BERRIES = ITEMS.register("tainted_berries", () -> new ItemNameBlockItem(BlockRegistry.TAINTED_ROOTS.get(), new Item.Properties().food(new FoodProperties.Builder().nutrition(2).saturationMod(0.3f).build())));
+    public static final RegistryObject<Item> EYE_CHUNK = ITEMS.register("eye_chunk", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().effect(new MobEffectInstance(MobEffects.POISON, 100), 0.4f).effect(new MobEffectInstance(MobEffects.NIGHT_VISION, 300), 1f).nutrition(1).saturationMod(0.2f).fast().build())));
+    public static final RegistryObject<Item> TAINTED_BERRIES = ITEMS.register("tainted_berries", () -> new ItemNameBlockItem(BlockRegistry.TAINTED_ROOTS.get(), new Item.Properties().food(new FoodProperties.Builder().nutrition(2).saturationMod(0.3f).fast().build())));
     public static final RegistryObject<Item> COOKED_GLOW_VIOLET_SPROUT = ITEMS.register("cooked_glow_violet_sprout", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(4).saturationMod(0.5f).effect(new MobEffectInstance(MobEffects.NIGHT_VISION, 500), 1f).build())));
     public static final RegistryObject<Item> COOKED_ABYSSAL_GLOWFERN = ITEMS.register("cooked_abyssal_glowfern", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(4).saturationMod(0.5f).effect(new MobEffectInstance(MobEffects.NIGHT_VISION, 500), 1f).build())));
 
@@ -415,37 +418,41 @@ public class ItemsRegistry {
     public static final RegistryObject<Item> RUNE = ITEMS.register("rune",
             () -> new CurioRune(new Item.Properties().stacksTo(16).rarity(Rarity.UNCOMMON)));
     public static final RegistryObject<Item> RUNE_OF_VISION = ITEMS.register("rune_of_vision",
-            () -> new CurioVision(new Item.Properties().stacksTo(1).durability(8).rarity(Rarity.EPIC)));
+            () -> new CurioVision(new Item.Properties().stacksTo(1).durability(16).rarity(Rarity.EPIC)));
     public static final RegistryObject<Item> RUNE_OF_WEALTH = ITEMS.register("rune_of_wealth",
-            () -> new CurioWealth(new Item.Properties().stacksTo(1).durability(8).rarity(Rarity.EPIC)));
+            () -> new CurioWealth(new Item.Properties().stacksTo(1).durability(16).rarity(Rarity.EPIC)));
     public static final RegistryObject<Item> RUNE_OF_CURSES = ITEMS.register("rune_of_curses",
             () -> new CurioCurses(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC)));
     public static final RegistryObject<Item> RUNE_OF_STRENGTH = ITEMS.register("rune_of_strength",
-            () -> new CurioStrength(new Item.Properties().stacksTo(1).durability(8).rarity(Rarity.EPIC)));
+            () -> new CurioStrength(new Item.Properties().stacksTo(1).durability(16).rarity(Rarity.EPIC)));
     public static final RegistryObject<Item> RUNE_OF_ACCURACY = ITEMS.register("rune_of_accuracy",
-            () -> new RuneAccuracy(new Item.Properties().stacksTo(1).durability(8).rarity(Rarity.EPIC)));
+            () -> new RuneAccuracy(new Item.Properties().stacksTo(1).durability(16).rarity(Rarity.EPIC)));
     public static final RegistryObject<Item> RUNE_OF_DEEP = ITEMS.register("rune_of_deep",
-            () -> new RuneDeep(new Item.Properties().stacksTo(1).durability(8).rarity(Rarity.EPIC)));
+            () -> new RuneDeep(new Item.Properties().stacksTo(1).durability(16).rarity(Rarity.EPIC)));
     public static final RegistryObject<Item> RUNE_OF_PYRO = ITEMS.register("rune_of_pyro",
-            () -> new CurioPyro(new Item.Properties().stacksTo(1).durability(8).rarity(Rarity.EPIC)));
+            () -> new CurioPyro(new Item.Properties().stacksTo(1).durability(16).rarity(Rarity.EPIC)));
     public static final RegistryObject<Item> RUNE_OF_COLD = ITEMS.register("rune_of_cold",
-            () -> new RuneCold(new Item.Properties().stacksTo(1).durability(8).rarity(Rarity.EPIC)));
+            () -> new RuneCold(new Item.Properties().stacksTo(1).durability(16).rarity(Rarity.EPIC)));
     public static final RegistryObject<Item> BROKEN_BLOODSIGHT_MONOCLE = ITEMS.register("broken_bloodsight_monocle",
             () -> new BloodSight(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC).durability(300)));
     public static final RegistryObject<Item> BLOODSIGHT_MONOCLE = ITEMS.register("bloodsight_monocle",
             () -> new BloodSight(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC).durability(300)));
     public static final RegistryObject<Item> SAMURAI_LONG_BOW = ITEMS.register("samurai_long_bow",
-            () -> new BowItem(new Item.Properties().stacksTo(1)));
+            () -> new ConfigurableBowItem(6, 3, new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> NATURE_BOW = ITEMS.register("nature_bow",
-            () -> new BowItem(new Item.Properties().stacksTo(1)));
+            () -> new ConfigurableBowItem(17, 2, new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> AQUARIUS_BOW = ITEMS.register("aquarius_bow",
-            () -> new BowItem(new Item.Properties().fireResistant().stacksTo(1)));
+            () -> new ConfigurableBowItem(17, 3, new Item.Properties().fireResistant().stacksTo(1)));
     public static final RegistryObject<Item> BOW_OF_DARKNESS = ITEMS.register("bow_of_darkness",
-            () -> new BowItem(new Item.Properties().fireResistant().stacksTo(1)));
+            () -> new ConfigurableBowItem(17, 4, new Item.Properties().fireResistant().stacksTo(1)));
     public static final RegistryObject<Item> PHANTASM_BOW = ITEMS.register("phantasm_bow",
-            () -> new BowItem(new Item.Properties().fireResistant().stacksTo(1)));
+            () -> new PhantasmBowItem(new Item.Properties().fireResistant().stacksTo(1)));
     public static final RegistryObject<Item> PICK = ITEMS.register("pick",
             () -> new PickItem(new Item.Properties().fireResistant().stacksTo(1).durability(64), 1, -2.8f, 5));
+    public static final RegistryObject<Item> WICKED_ARROW = ITEMS.register("wicked_arrow",
+            () -> new WickedArrowItem(new Item.Properties()));
+    public static final RegistryObject<Item> SOUL_ARROW = ITEMS.register("soul_arrow",
+            () -> new SoulArrowItem(new Item.Properties()));
 
     public static final RegistryObject<ForgeSpawnEggItem> GOBLIN_SPAWN_EGG = ITEMS.register("goblin_spawn_egg",
             () -> new ForgeSpawnEggItem(ModEntityTypes.GOBLIN, ValoriaUtils.color.hexToDecimal("185b36"), ValoriaUtils.color.hexToDecimal("6BB447"), new Item.Properties()));

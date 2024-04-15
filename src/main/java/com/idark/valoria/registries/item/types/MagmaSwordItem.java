@@ -43,7 +43,7 @@ public class MagmaSwordItem extends SwordItem implements Vanishable {
     public boolean hurtEnemy(ItemStack pStack, LivingEntity pTarget, LivingEntity pAttacker) {
         pStack.hurtAndBreak(1, pAttacker, (p_43296_) -> p_43296_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
         if (isCharged(pStack) < 2) {
-            if (RandomUtil.percentChance(10d)) {
+            if (RandomUtil.percentChance(0.25f)) {
                 addCharge(pStack, 1);
             }
         }

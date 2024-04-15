@@ -3,8 +3,8 @@ package com.idark.valoria.registries.item.types;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import com.idark.valoria.client.gui.overlay.DashOverlayRender;
-import com.idark.valoria.core.config.ClientConfig;
 import com.idark.valoria.registries.sounds.ModSoundRegistry;
+import com.idark.valoria.util.ValoriaUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -27,11 +27,11 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -119,33 +119,28 @@ public class KatanaItem extends TieredItem implements Vanishable {
     public void releaseUsing(@NotNull ItemStack stack, @NotNull Level level, @NotNull LivingEntity entityLiving, int timeLeft) {
         Player player = (Player) entityLiving;
         player.awardStat(Stats.ITEM_USED.get(this));
+        Vector3d pos = new Vector3d(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());
         double pitch = ((player.getRotationVector().x + 90) * Math.PI) / 180;
         double yaw = ((player.getRotationVector().y + 90) * Math.PI) / 180;
-        double locYaw = 0;
-        double locPitch = 0;
-        if (!player.isFallFlying()) {
-            Vec3 dir = (player.getViewVector(0.0f).scale(2.0d));
-            if (dir.x < 5f) {
-                player.push(dir.x, dir.y * 0.25, dir.z);
-            } else {
-                player.push(5, 2 * 0.25, 5);
-            }
+        float dashDistance = 2f;
 
+        // preventing using the katana when flying on Elytra
+        if (!player.isFallFlying()) {
+            Vec3 dir = (player.getViewVector(0.0f).scale(dashDistance));
+            player.push(dir.x, dir.y * 0.25, dir.z);
             for (Item item : ForgeRegistries.ITEMS) {
                 if (item instanceof KatanaItem) {
                     player.getCooldowns().addCooldown(item, 75);
                 }
             }
 
-            Vector3d pos = new Vector3d(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());
-            List<LivingEntity> hitEntities = new ArrayList<LivingEntity>();
-            double maxDistance = distance(pos, level, player);
+            List<LivingEntity> hitEntities = new ArrayList<>();
             if (level instanceof ServerLevel srv) {
                 for (int i = 0; i < 10; i += 1) {
                     double locDistance = i * 0.5D;
-                    double X = Math.sin(locPitch + pitch) * Math.cos(locYaw + yaw) * locDistance;
-                    double Y = Math.cos(locPitch + pitch) * locDistance;
-                    double Z = Math.sin(locPitch + pitch) * Math.sin(locYaw + yaw) * locDistance;
+                    double X = Math.sin(pitch) * Math.cos(yaw) * locDistance;
+                    double Y = Math.cos(pitch) * locDistance;
+                    double Z = Math.sin(pitch) * Math.sin(yaw) * locDistance;
 
                     srv.sendParticles(ParticleTypes.POOF, pos.x + X + (rand.nextDouble() - 0.5D), pos.y + Y, pos.z + Z + (rand.nextDouble() - 0.5D), 1, 0, 0.5, 0, 0);
                     List<Entity> entities = level.getEntitiesOfClass(Entity.class, new AABB(pos.x + X - 0.5D, pos.y + Y - 0.5D, pos.z + Z - 0.5D, pos.x + X + 0.5D, pos.y + Y + 0.5D, pos.z + Z + 0.5D));
@@ -157,15 +152,13 @@ public class KatanaItem extends TieredItem implements Vanishable {
                         }
                     }
 
-                    if (locDistance >= maxDistance) {
+                    if (locDistance >= distance(dashDistance, level, player)) {
                         break;
                     }
                 }
             }
 
-            int hits = hitEntities.size();
             float ii = 1F;
-
             for (LivingEntity entity : hitEntities) {
                 entity.hurt(level.damageSources().playerAttack(player), (float) ((player.getAttributeValue(Attributes.ATTACK_DAMAGE) * (double) ii) + EnchantmentHelper.getSweepingDamageRatio(player) + EnchantmentHelper.getDamageBonus(stack, entity.getMobType())) * 1.35f);
                 entity.knockback(0.4F, player.getX() - entity.getX(), player.getZ() - entity.getZ());
@@ -173,46 +166,50 @@ public class KatanaItem extends TieredItem implements Vanishable {
                     int i = EnchantmentHelper.getFireAspect(player);
                     entity.setSecondsOnFire(i * 4);
                 }
-                ii = ii - (1F / (hits * 2));
+
+                ii = ii - (1F / (hitEntities.size() * 2));
             }
 
             if (!player.isCreative()) {
-                stack.hurtAndBreak(hits, player, (p_220045_0_) -> p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
+                stack.hurtAndBreak(hitEntities.size(), player, (p_220045_0_) -> p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
             }
-
             for (int i = 0; i < 4; i++) {
                 level.addParticle(ParticleTypes.POOF, player.getX() + (rand.nextDouble() - 0.5D), player.getY(), player.getZ() + (rand.nextDouble() - 0.5D), 0d, 0.05d, 0d);
             }
 
             level.playSound(player, player.blockPosition(), ModSoundRegistry.SWIFTSLICE.get(), SoundSource.AMBIENT, 10f, 1f);
-            if (ClientConfig.DASH_OVERLAY.get()) {
-                DashOverlayRender.isDash = true;
-            }
+            DashOverlayRender.showDashOverlay();
         }
     }
 
-    public static double distance(Vector3d pos1, Level worldIn, Player player) {
+    public static double distance(float distance, Level level, Player player) {
         double pitch = ((player.getRotationVector().x + 90) * Math.PI) / 180;
         double yaw = ((player.getRotationVector().y + 90) * Math.PI) / 180;
-        double locYaw = 0;
-        double locPitch = 0;
-        double locDistance = 5D;
+        double X = Math.sin(pitch) * Math.cos(yaw) * distance;
+        double Y = Math.cos(pitch) * distance;
+        double Z = Math.sin(pitch) * Math.sin(yaw) * distance;
+
         Vec3 pos = new Vec3(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());
-        double X = Math.sin(locPitch + pitch) * Math.cos(locYaw + yaw) * locDistance;
-        double Y = Math.cos(locPitch + pitch) * locDistance;
-        double Z = Math.sin(locPitch + pitch) * Math.sin(locYaw + yaw) * locDistance;
-        Vec3 playerPos = player.getEyePosition();
         Vec3 EndPos = (player.getViewVector(0.0f).scale(2.0d));
-        Vec3 vec3 = playerPos.add(EndPos);
-        HitResult hitresult = worldIn.clip(new ClipContext(playerPos, vec3, ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, null));
-        if (hitresult.getType() != HitResult.Type.MISS) {
-            vec3 = hitresult.getLocation();
+
+        HitResult hitresult = ValoriaUtils.getHitResult(player.getEyePosition(), player, (e) -> true, EndPos, level);
+        if (hitresult != null) {
+            switch (hitresult.getType()) {
+                case BLOCK, MISS:
+                    X = hitresult.getLocation().x();
+                    Y = hitresult.getLocation().y();
+                    Z = hitresult.getLocation().z();
+                    break;
+                case ENTITY:
+                    Entity entity = ((EntityHitResult) hitresult).getEntity();
+                    X = entity.getX();
+                    Y = entity.getY();
+                    Z = entity.getZ();
+                    break;
+            }
         }
 
-        X = hitresult.getLocation().x() - pos.x;
-        Y = hitresult.getLocation().y() - pos.y;
-        Z = hitresult.getLocation().z() - pos.z;
-        return Math.sqrt((X - pos1.x) * (X - pos1.x) + (Y - pos1.y) * (Y - pos1.y) + (Z - pos1.z) * (Z - pos1.z));
+        return Math.sqrt((X - pos.x) * (X - pos.x) + (Y - pos.y) * (Y - pos.y) + (Z - pos.z) * (Z - pos.z));
     }
 
     @Override

@@ -34,6 +34,7 @@ public abstract class ItemTabRegistry {
                     .hideTitle()
                     .title(Component.translatable("itemGroup.valoriaModTab"))
                     .withTabsImage(getTabsImage())
+                    .withTabsAfter(ItemTabRegistry.VALORIA_BLOCKS_TAB.getKey())
                     .backgroundSuffix("valoria_item.png").withBackgroundLocation(getBackgroundImage()).build());
 
     public static final RegistryObject<CreativeModeTab> VALORIA_BLOCKS_TAB = CREATIVE_MODE_TABS.register("valoriablocksmodtab",
@@ -97,6 +98,8 @@ public abstract class ItemTabRegistry {
             event.accept(ItemsRegistry.AMETHYST);
             event.accept(ItemsRegistry.SOUL_SHARD);
             event.accept(ItemsRegistry.UNCHARGED_SHARD);
+            event.accept(ItemsRegistry.WICKED_ARROW);
+            event.accept(ItemsRegistry.SOUL_ARROW);
             event.accept(ItemsRegistry.TOXINS_BOTTLE);
             event.accept(ItemsRegistry.NATURE_GIFT);
             event.accept(ItemsRegistry.OCEANIC_SHELL);
@@ -126,7 +129,7 @@ public abstract class ItemTabRegistry {
             event.accept(ItemsRegistry.ALOE_BANDAGE);
             event.accept(ItemsRegistry.ALOE_BANDAGE_UPGRADED);
             event.accept(ItemsRegistry.CACAO_CUP);
-            event.accept(ItemsRegistry.COFFE_CUP);
+            event.accept(ItemsRegistry.COFFEE_CUP);
             event.accept(ItemsRegistry.TEA_CUP);
             event.accept(ItemsRegistry.GREEN_TEA_CUP);
             event.accept(ItemsRegistry.BEER_CUP);
@@ -532,6 +535,8 @@ public abstract class ItemTabRegistry {
             event.accept(BlockRegistry.VOID_CHISELED_BRICKS_SLAB);
             if (QuarkIntegration.isLoaded()) event.accept(QuarkIntegration.LoadedOnly.CHISELED_VOID_BRICKS_VERTICAL_SLAB);
             event.accept(BlockRegistry.POLISHED_VOID_STONE);
+            event.accept(BlockRegistry.VOID_FIRECHARGE_TRAP);
+            event.accept(BlockRegistry.VOID_SPIKES_TRAP);
             event.accept(BlockRegistry.VOID_PILLAR);
             event.accept(BlockRegistry.VOID_PILLAR_AMETHYST);
             event.accept(BlockRegistry.CHARGED_VOID_PILLAR);
@@ -582,6 +587,7 @@ public abstract class ItemTabRegistry {
             event.accept(BlockRegistry.ELEMENTAL_MANIPULATOR);
             event.accept(BlockRegistry.VALORIA_PORTAL_FRAME);
             event.accept(BlockRegistry.UMBRAL_KEYPAD);
+            event.accept(BlockRegistry.UMBRAL_ACTIVATOR);
             event.accept(BlockRegistry.CUT_UMBRAL_BLOCK);
             event.accept(BlockRegistry.UMBRAL_BRICKS);
             event.accept(BlockRegistry.UMBRAL_BLOCK);

@@ -57,6 +57,19 @@ public class ModEntityTypes {
                     .sized(0.35f, 0.35f)
                     .build(new ResourceLocation(Valoria.MOD_ID, "kunai").toString()));
 
+    public static final RegistryObject<EntityType<PhantomArrow>> PHANTOM_ARROW = ENTITY_TYPES.register("phantom_arrow",
+            () -> EntityType.Builder.<PhantomArrow>of(PhantomArrow::new, MobCategory.MISC)
+                    .sized(0.35f, 0.35f)
+                    .build(new ResourceLocation(Valoria.MOD_ID, "phantom_arrow").toString()));
+    public static final RegistryObject<EntityType<WickedArrow>> WICKED_ARROW = ENTITY_TYPES.register("wicked_arrow",
+            () -> EntityType.Builder.<WickedArrow>of(WickedArrow::new, MobCategory.MISC)
+                    .sized(0.35f, 0.35f)
+                    .build(new ResourceLocation(Valoria.MOD_ID, "wicked_arrow").toString()));
+    public static final RegistryObject<EntityType<SoulArrow>> SOUL_ARROW = ENTITY_TYPES.register("soul_arrow",
+            () -> EntityType.Builder.<SoulArrow>of(SoulArrow::new, MobCategory.MISC)
+                    .sized(0.35f, 0.35f)
+                    .build(new ResourceLocation(Valoria.MOD_ID, "soul_arrow").toString()));
+
     public static final RegistryObject<EntityType<MeatBlockEntity>> MEAT = ENTITY_TYPES.register("meat",
             () -> EntityType.Builder.<MeatBlockEntity>of(MeatBlockEntity::new, MobCategory.MISC)
                     .sized(1, 1f)
