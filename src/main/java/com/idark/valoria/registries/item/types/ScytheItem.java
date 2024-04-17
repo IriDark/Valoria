@@ -28,9 +28,17 @@ import java.util.List;
 
 public class ScytheItem extends SwordItem implements ICustomAnimationItem, Vanishable {
     public static RadiusAttackAnim animation = new RadiusAttackAnim();
-
+    public int radius = 3;
     public ScytheItem(Tier tier, int attackDamageIn, float attackSpeedIn, Properties builderIn) {
         super(tier, attackDamageIn, attackSpeedIn, builderIn);
+    }
+
+    /**
+     * @param radius Default value is 3, specified in blocks
+     */
+    public ScytheItem(Tier tier, int attackDamageIn, float attackSpeedIn, int radius, Properties builderIn) {
+        super(tier, attackDamageIn, attackSpeedIn, builderIn);
+        this.radius = radius;
     }
 
     public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
@@ -72,7 +80,7 @@ public class ScytheItem extends SwordItem implements ICustomAnimationItem, Vanis
         Vector3d pos = new Vector3d(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());
         List<LivingEntity> hitEntities = new ArrayList<>();
         for (int i = 0; i < 360; i += 10) {
-            ValoriaUtils.radiusHit(level, stack, player, ParticleTypes.POOF, hitEntities, pos, 0, player.getRotationVector().y + i, 3);
+            ValoriaUtils.radiusHit(level, stack, player, ParticleTypes.POOF, hitEntities, pos, 0, player.getRotationVector().y + i, radius);
         }
 
         float damage = (float) (player.getAttributeValue(Attributes.ATTACK_DAMAGE)) + EnchantmentHelper.getSweepingDamageRatio(player);

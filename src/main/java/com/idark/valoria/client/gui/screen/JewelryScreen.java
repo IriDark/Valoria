@@ -1,15 +1,18 @@
 package com.idark.valoria.client.gui.screen;
 
 import com.idark.valoria.Valoria;
-import com.idark.valoria.client.gui.menu.JewelryMenu;
 import com.idark.valoria.registries.block.entity.JewelryBlockEntity;
+import com.idark.valoria.registries.menus.JewelryMenu;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
+@OnlyIn(Dist.CLIENT)
 public class JewelryScreen extends AbstractContainerScreen<JewelryMenu> {
     private final ResourceLocation GUI = new ResourceLocation(Valoria.MOD_ID, "textures/gui/container/jewelry.png");
 

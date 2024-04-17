@@ -1,8 +1,8 @@
 package com.idark.valoria.registries.block.entity;
 
-import com.idark.valoria.client.gui.menu.JewelryMenu;
 import com.idark.valoria.client.render.model.blockentity.TickableBlockEntity;
 import com.idark.valoria.registries.BlockEntitiesRegistry;
+import com.idark.valoria.registries.menus.JewelryMenu;
 import com.idark.valoria.registries.recipe.JewelryRecipe;
 import com.idark.valoria.util.ValoriaUtils;
 import net.minecraft.core.BlockPos;

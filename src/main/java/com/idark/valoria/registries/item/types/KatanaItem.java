@@ -44,6 +44,8 @@ import java.util.Random;
 
 public class KatanaItem extends TieredItem implements Vanishable {
     private final float attackDamage;
+    public float dashDistance = 1.8f;
+
     private final Multimap<Attribute, AttributeModifier> attributeModifiers;
     Random rand = new Random();
 
@@ -54,6 +56,19 @@ public class KatanaItem extends TieredItem implements Vanishable {
         builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Weapon modifier", this.attackDamage, AttributeModifier.Operation.ADDITION));
         builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Weapon modifier", attackSpeedIn, AttributeModifier.Operation.ADDITION));
         this.attributeModifiers = builder.build();
+    }
+
+    /**
+     * @param dashDistance Default value: 1.8f
+     */
+    public KatanaItem(Tier tier, int attackDamageIn, float attackSpeedIn, float dashDistance, Item.Properties builderIn) {
+        super(tier, builderIn);
+        this.attackDamage = (float) attackDamageIn + tier.getAttackDamageBonus();
+        ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
+        builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Weapon modifier", this.attackDamage, AttributeModifier.Operation.ADDITION));
+        builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Weapon modifier", attackSpeedIn, AttributeModifier.Operation.ADDITION));
+        this.attributeModifiers = builder.build();
+        this.dashDistance = dashDistance;
     }
 
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchant) {
@@ -122,7 +137,6 @@ public class KatanaItem extends TieredItem implements Vanishable {
         Vector3d pos = new Vector3d(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());
         double pitch = ((player.getRotationVector().x + 90) * Math.PI) / 180;
         double yaw = ((player.getRotationVector().y + 90) * Math.PI) / 180;
-        float dashDistance = 2f;
 
         // preventing using the katana when flying on Elytra
         if (!player.isFallFlying()) {
@@ -178,7 +192,7 @@ public class KatanaItem extends TieredItem implements Vanishable {
             }
 
             level.playSound(player, player.blockPosition(), ModSoundRegistry.SWIFTSLICE.get(), SoundSource.AMBIENT, 10f, 1f);
-            DashOverlayRender.showDashOverlay();
+            if (level.isClientSide) DashOverlayRender.showDashOverlay();
         }
     }
 
@@ -210,6 +224,11 @@ public class KatanaItem extends TieredItem implements Vanishable {
         }
 
         return Math.sqrt((X - pos.x) * (X - pos.x) + (Y - pos.y) * (Y - pos.y) + (Z - pos.z) * (Z - pos.z));
+    }
+
+    @Override
+    public boolean canPerformAction(ItemStack stack, net.minecraftforge.common.ToolAction toolAction) {
+        return net.minecraftforge.common.ToolActions.DEFAULT_SWORD_ACTIONS.contains(toolAction);
     }
 
     @Override

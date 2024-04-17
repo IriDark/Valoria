@@ -44,15 +44,15 @@ public class BlockRegistry {
     public static final RegistryObject<Block> VALORIA_PORTAL_FRAME = registerBlock("valoria_portal_frame",
             () -> new ValoriaPortalFrame(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).mapColor(MapColor.COLOR_PURPLE).strength(42f, 3600000.8F).sound(SoundType.DEEPSLATE_TILES)));
     public static final RegistryObject<Block> UMBRAL_KEYPAD = registerBlock("umbral_keypad",
-            () -> new KeyPadBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).mapColor(MapColor.COLOR_PURPLE).strength(-1f, 3600000.8F).sound(SoundType.NETHER_BRICKS).noLootTable()));
+            () -> new UmbralKeyPadBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).mapColor(MapColor.COLOR_PURPLE).strength(-1f, 3600000.8F).sound(SoundType.NETHER_BRICKS).noLootTable()));
     public static final RegistryObject<Block> CUT_UMBRAL_BLOCK = registerBlock("cut_umbral_block",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).mapColor(MapColor.COLOR_PURPLE).strength(-1f, 3600000.8F).sound(SoundType.NETHER_BRICKS).noLootTable()));
     public static final RegistryObject<Block> UMBRAL_BRICKS = registerBlock("umbral_bricks",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).mapColor(MapColor.COLOR_PURPLE).strength(-1f, 3600000.8F).sound(SoundType.NETHER_BRICKS).noLootTable()));
     public static final RegistryObject<Block> UMBRAL_BLOCK = registerBlock("umbral_block",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).mapColor(MapColor.COLOR_PURPLE).strength(-1f, 3600000.8F).sound(SoundType.NETHER_BRICKS).noLootTable()));
+            () -> new UmbralBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).mapColor(MapColor.COLOR_PURPLE).strength(-1f, 3600000.8F).sound(SoundType.NETHER_BRICKS).noLootTable()));
     public static final RegistryObject<Block> UMBRAL_ACTIVATOR = registerBlock("umbral_activator",
-            () -> new ActivatorBlock(BlockRegistry.UMBRAL_BLOCK.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).mapColor(MapColor.COLOR_PURPLE).strength(-1f, 3600000.8F).sound(SoundType.NETHER_BRICKS).noLootTable()));
+            () -> new UmbralActivatorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).mapColor(MapColor.COLOR_PURPLE).strength(-1f, 3600000.8F).sound(SoundType.NETHER_BRICKS).noLootTable()));
     // Metal
     public static final RegistryObject<Block> AMETHYST_BLOCK = registerBlock("amethyst_block",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).mapColor(MapColor.COLOR_PINK).requiresCorrectToolForDrops().strength(3f, 4f).sound(SoundType.AMETHYST)));

@@ -16,7 +16,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:bone_meal",
+          "name": "minecraft:diamond",
           "conditions": [
             {
               "condition": "minecraft:random_chance",
@@ -46,7 +46,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:raw_copper",
+          "name": "valoria:cobalt_ingot",
           "conditions": [
             {
               "condition": "minecraft:random_chance",
@@ -56,7 +56,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:raw_gold",
+          "name": "valoria:golden_spear",
           "conditions": [
             {
               "condition": "minecraft:random_chance",
@@ -66,7 +66,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:raw_iron",
+          "name": "minecraft:iron_ingot",
           "conditions": [
             {
               "condition": "minecraft:random_chance",
@@ -76,7 +76,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:stone_sword",
+          "name": "minecraft:diamond_sword",
           "functions": [
             {
               "function": "minecraft:set_damage",
@@ -151,7 +151,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:iron_ingot",
+          "name": "minecraft:gold_ingot",
           "conditions": [
             {
               "condition": "minecraft:random_chance",
@@ -161,7 +161,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:spider_eye",
+          "name": "valoria:bronze_ingot",
           "conditions": [
             {
               "condition": "minecraft:random_chance",

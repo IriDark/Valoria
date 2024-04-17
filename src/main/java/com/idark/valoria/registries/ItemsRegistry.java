@@ -227,13 +227,13 @@ public class ItemsRegistry {
     public static final RegistryObject<Item> HOLIDAY_KATANA = ITEMS.register("holiday_katana",
             () -> new KatanaItem(ModItemTier.HOLIDAY, 0, -2.2f, new Item.Properties()));
     public static final RegistryObject<Item> IRON_KATANA = ITEMS.register("iron_katana",
-            () -> new KatanaItem(Tiers.IRON, 0, -2.2f, new Item.Properties()));
+            () -> new KatanaItem(Tiers.IRON, 0, -2.2f, 1f, new Item.Properties()));
     public static final RegistryObject<Item> GOLDEN_KATANA = ITEMS.register("golden_katana",
-            () -> new KatanaItem(Tiers.GOLD, 2, -1.8f, new Item.Properties()));
+            () -> new KatanaItem(Tiers.GOLD, 2, -1.8f, 1.2f, new Item.Properties()));
     public static final RegistryObject<Item> DIAMOND_KATANA = ITEMS.register("diamond_katana",
-            () -> new KatanaItem(Tiers.DIAMOND, 1, -2f, new Item.Properties()));
+            () -> new KatanaItem(Tiers.DIAMOND, 1, -2f, 1.3f, new Item.Properties()));
     public static final RegistryObject<Item> NETHERITE_KATANA = ITEMS.register("netherite_katana",
-            () -> new KatanaItem(Tiers.NETHERITE, 2, -1.8f, new Item.Properties().fireResistant()));
+            () -> new KatanaItem(Tiers.NETHERITE, 2, -1.8f, 1.5f, new Item.Properties().fireResistant()));
     public static final RegistryObject<Item> SAMURAI_KATANA = ITEMS.register("samurai_katana",
             () -> new KatanaItem(ModItemTier.SAMURAI, 3, -2f, new Item.Properties()));
     public static final RegistryObject<Item> PEARLIUM_SWORD = ITEMS.register("pearlium_sword",
@@ -438,13 +438,13 @@ public class ItemsRegistry {
     public static final RegistryObject<Item> BLOODSIGHT_MONOCLE = ITEMS.register("bloodsight_monocle",
             () -> new BloodSight(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC).durability(300)));
     public static final RegistryObject<Item> SAMURAI_LONG_BOW = ITEMS.register("samurai_long_bow",
-            () -> new ConfigurableBowItem(6, 3, new Item.Properties().stacksTo(1)));
+            () -> new ConfigurableBowItem(2, new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> NATURE_BOW = ITEMS.register("nature_bow",
-            () -> new ConfigurableBowItem(17, 2, new Item.Properties().stacksTo(1)));
+            () -> new ConfigurableBowItem(1, new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> AQUARIUS_BOW = ITEMS.register("aquarius_bow",
-            () -> new ConfigurableBowItem(17, 3, new Item.Properties().fireResistant().stacksTo(1)));
+            () -> new ConfigurableBowItem(2, new Item.Properties().fireResistant().stacksTo(1)));
     public static final RegistryObject<Item> BOW_OF_DARKNESS = ITEMS.register("bow_of_darkness",
-            () -> new ConfigurableBowItem(17, 4, new Item.Properties().fireResistant().stacksTo(1)));
+            () -> new ConfigurableBowItem(3, new Item.Properties().fireResistant().stacksTo(1)));
     public static final RegistryObject<Item> PHANTASM_BOW = ITEMS.register("phantasm_bow",
             () -> new PhantasmBowItem(new Item.Properties().fireResistant().stacksTo(1)));
     public static final RegistryObject<Item> PICK = ITEMS.register("pick",

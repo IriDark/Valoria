@@ -69,6 +69,9 @@
 - Added Custom Arrows
 - Added Custom Bows
 - Added Umbral Activator block
+- Added Keg crafting recipe
+- Added Sword Actions to Katana's
+- Added Ambient Particles to some of items
 
 - Reworked keg a little
 - Reworked Keyblocks (Umbral Blocks)
@@ -149,5 +152,4 @@
 - Decreased particles count (15 -> 4) when picking up Mannequin
 - Decreased particles count (16 -> 3) after attacking Mannequin
 
-- Deleted class KeyBlock now it's powered with Tags
 - Updated forge version 1.20.1-47.2.0 -> 1.20.1-47.2.16

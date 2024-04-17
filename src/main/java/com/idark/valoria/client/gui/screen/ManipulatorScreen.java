@@ -1,8 +1,8 @@
 package com.idark.valoria.client.gui.screen;
 
 import com.idark.valoria.Valoria;
-import com.idark.valoria.client.gui.menu.ManipulatorMenu;
 import com.idark.valoria.registries.block.entity.ManipulatorBlockEntity;
+import com.idark.valoria.registries.menus.ManipulatorMenu;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -12,7 +12,10 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
+@OnlyIn(Dist.CLIENT)
 public class ManipulatorScreen extends AbstractContainerScreen<ManipulatorMenu> {
     private final ResourceLocation GUI = new ResourceLocation(Valoria.MOD_ID, "textures/gui/container/manipulator.png");
     public ManipulatorScreen(ManipulatorMenu screenContainer, Inventory inv, Component titleIn) {

@@ -3,7 +3,6 @@ package com.idark.valoria.registries.item.types;
 import com.idark.valoria.client.gui.overlay.DashOverlayRender;
 import com.idark.valoria.client.particle.ModParticles;
 import com.idark.valoria.client.particle.types.Particles;
-import com.idark.valoria.core.config.ClientConfig;
 import com.idark.valoria.core.network.PacketHandler;
 import com.idark.valoria.core.network.packets.MurasamaParticlePacket;
 import com.idark.valoria.registries.sounds.ModSoundRegistry;
@@ -184,9 +183,7 @@ public class MurasamaItem extends KatanaItem implements Vanishable, IParticleIte
                 }
             }
 
-            if (ClientConfig.DASH_OVERLAY.get()) {
-                DashOverlayRender.isDash = true;
-            }
+            if (level.isClientSide) DashOverlayRender.showDashOverlay();
         }
 
         setCharge(stack, 0);

@@ -2,9 +2,12 @@ package com.idark.valoria.client.gui.screen.book;
 
 
 import com.google.common.collect.Lists;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.List;
 
+@OnlyIn(Dist.CLIENT)
 public class Chapter {
     public String titleKey;
     public List<Page> pages;

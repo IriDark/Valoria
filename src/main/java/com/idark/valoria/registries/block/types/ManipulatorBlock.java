@@ -1,11 +1,11 @@
 package com.idark.valoria.registries.block.types;
 
-import com.idark.valoria.client.gui.menu.ManipulatorMenu;
 import com.idark.valoria.client.render.model.blockentity.TickableBlockEntity;
 import com.idark.valoria.core.network.PacketHandler;
 import com.idark.valoria.core.network.packets.ManipulatorParticlePacket;
 import com.idark.valoria.registries.block.entity.ManipulatorBlockEntity;
 import com.idark.valoria.registries.item.types.CoreBuilder;
+import com.idark.valoria.registries.menus.ManipulatorMenu;
 import com.idark.valoria.util.ValoriaUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;

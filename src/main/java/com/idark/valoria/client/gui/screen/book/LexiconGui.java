@@ -16,6 +16,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.lwjgl.glfw.GLFW;
 
+@OnlyIn(Dist.CLIENT)
 public class LexiconGui extends Screen {
     public static final ResourceLocation BACKGROUND = new ResourceLocation(Valoria.MOD_ID, "textures/gui/book/lexicon.png");
     public ItemStack item;
@@ -86,15 +87,9 @@ public class LexiconGui extends Screen {
 
         Page left = currentChapter.getPage(currentPage), right = currentChapter.getPage(currentPage + 1);
         if (left != null) left.fullRender(gui, guiLeft + 10, guiTop + 8, mouseX, mouseY);
-        if (right != null) right.fullRender(gui, guiLeft + 140, guiTop + 8, mouseX, mouseY);
-        if (left instanceof TextPage) {
-            gui.blit(BACKGROUND, guiLeft + 48, guiTop + 31, 97, 180, 38, 13, 512, 512);
-        }
-
-        if (right instanceof TextPage) {
-            gui.blit(BACKGROUND, guiLeft + 186, guiTop + 31, 97, 180, 38, 13, 512, 512);
-        }
-
+        if (right != null) right.fullRender(gui, guiLeft + 145, guiTop + 8, mouseX, mouseY);
+        if (left instanceof TextPage) gui.blit(BACKGROUND, guiLeft + 48, guiTop + 31, 97, 180, 38, 13, 512, 512);
+        if (right instanceof TextPage) gui.blit(BACKGROUND, guiLeft + 186, guiTop + 31, 97, 180, 38, 13, 512, 512);
         if (currentChapter.size() >= currentPage + 3) {
             if (mouseX >= guiLeft + 250 && mouseX < guiLeft + 250 + 9 && mouseY >= guiTop + 150 && mouseY < guiTop + 150 + 8) {
                 gui.blit(BACKGROUND, guiLeft + 250, guiTop + 150, 272, 104, 9, 8, 512, 512);

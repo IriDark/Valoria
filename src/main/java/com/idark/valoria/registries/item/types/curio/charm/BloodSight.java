@@ -54,6 +54,7 @@ public class BloodSight extends Item implements ICurioItem, Vanishable, IParticl
         return pLevel > 10 ? pLevel - 10 : 1 + pRandom.nextInt(1);
     }
 
+    // TODO: Fix server ticking
     @Override
     public void curioTick(SlotContext slotContext, ItemStack stack) {
         Player player = (Player) slotContext.entity();

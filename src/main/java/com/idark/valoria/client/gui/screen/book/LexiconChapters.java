@@ -1,5 +1,6 @@
 package com.idark.valoria.client.gui.screen.book;
 
+import com.idark.valoria.client.gui.screen.book.pages.MainPage;
 import com.idark.valoria.client.gui.screen.book.pages.TextPage;
 import com.idark.valoria.client.gui.screen.book.unlockable.RegisterUnlockables;
 import com.idark.valoria.registries.ItemsRegistry;
@@ -24,7 +25,7 @@ public class LexiconChapters {
 
         MAIN_CHAPTER = new Chapter(
                 "gui.valoria.main.name",
-                new TextPage("gui.valoria.main"),
+                new MainPage("gui.valoria.main"),
                 new TextPage("gui.valoria.knowledge")
                         .withCraftEntry(ItemsRegistry.LEXICON.get().getDefaultInstance(), Items.PAPER.getDefaultInstance(), Items.BOOK.getDefaultInstance())
         );

@@ -1,9 +1,5 @@
 package com.idark.valoria;
 
-import com.idark.valoria.api.unlockable.UnlockUtils;
-import com.idark.valoria.api.unlockable.Unlockable;
-import com.idark.valoria.api.unlockable.Unlockables;
-import com.idark.valoria.client.gui.screen.book.unlockable.ItemUnlockable;
 import com.idark.valoria.core.capability.IUnlockable;
 import com.idark.valoria.core.capability.UnloackbleCap;
 import com.idark.valoria.core.network.PacketHandler;
@@ -28,7 +24,6 @@ import net.minecraftforge.common.BasicItemListing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
-import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.living.ShieldBlockEvent;
 import net.minecraftforge.event.entity.player.CriticalHitEvent;
@@ -79,21 +74,6 @@ public class Events {
                 ((INBTSerializable<CompoundTag>) k).deserializeNBT(((INBTSerializable<CompoundTag>) o).serializeNBT())));
         if (!event.getEntity().level().isClientSide) {
             PacketHandler.sendTo((ServerPlayer) event.getEntity(), new UnlockableUpdatePacket(event.getEntity()));
-        }
-    }
-
-    @SubscribeEvent
-    public void playerTick(TickEvent.PlayerTickEvent event) {
-        if (!event.player.level().isClientSide) {
-            Player player = event.player;
-            List<ItemStack> items = player.inventoryMenu.getItems();
-            for (Unlockable unlockable : Unlockables.getUnlockables()) {
-                if (unlockable instanceof ItemUnlockable itemKnowledge) {
-                    if (itemKnowledge.canReceived(items)) {
-                        UnlockUtils.addUnlockable(player, unlockable);
-                    }
-                }
-            }
         }
     }
 

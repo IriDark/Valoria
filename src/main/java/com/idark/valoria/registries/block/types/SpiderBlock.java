@@ -24,8 +24,10 @@ public class SpiderBlock extends Block {
 
     private void spawnSpider(ServerLevel world, BlockPos pos) {
         CaveSpider spider = EntityType.CAVE_SPIDER.create(world);
-        spider.moveTo((double) pos.getX() + 0.5D, (double) pos.getY(), (double) pos.getZ() + 0.5D, 0.0F, 0.0F);
-        world.addFreshEntity(spider);
+        if(spider != null) {
+            spider.moveTo((double) pos.getX() + 0.5D, pos.getY(), (double) pos.getZ() + 0.5D, 0.0F, 0.0F);
+            world.addFreshEntity(spider);
+        }
     }
 
     @Override

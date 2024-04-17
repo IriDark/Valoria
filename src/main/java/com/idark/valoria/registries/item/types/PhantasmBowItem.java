@@ -38,8 +38,10 @@ public class PhantasmBowItem extends BowItem {
                 if (!((double)f < 0.1D)) {
                     boolean flag1 = player.getAbilities().instabuild || (itemstack.getItem() instanceof ArrowItem && ((ArrowItem)itemstack.getItem()).isInfinite(itemstack, pStack, player));
                     if (!pLevel.isClientSide) {
-                        AbstractArrow abstractarrow = new PhantomArrow(pLevel, player, itemstack);
+                        ArrowItem arrowitem = (ArrowItem)(itemstack.getItem() instanceof ArrowItem ? itemstack.getItem(): Items.ARROW);
+                        AbstractArrow abstractarrow = arrowitem == Items.ARROW ? new PhantomArrow(pLevel, player, itemstack) : arrowitem.createArrow(pLevel, itemstack, player);
                         abstractarrow = customArrow(abstractarrow);
+                        abstractarrow.setBaseDamage(abstractarrow.getBaseDamage() + 4);
                         abstractarrow.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, f * 3.0F, 1.0F);
                         if (f == 1.0F) {
                             abstractarrow.setCritArrow(true);

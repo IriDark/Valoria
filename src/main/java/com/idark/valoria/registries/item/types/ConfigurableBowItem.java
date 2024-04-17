@@ -16,11 +16,10 @@ import net.minecraft.world.level.Level;
 
 public class ConfigurableBowItem extends BowItem {
 
-    int baseDamage, range;
-    public ConfigurableBowItem(int pRange, int pBaseDamage, Properties pProperties) {
+    int baseDamage;
+    public ConfigurableBowItem(int pBaseDamage, Properties pProperties) {
         super(pProperties);
         baseDamage = pBaseDamage;
-        range = pRange;
     }
 
     public void releaseUsing(ItemStack pStack, Level pLevel, LivingEntity pEntityLiving, int pTimeLeft) {
@@ -86,9 +85,5 @@ public class ConfigurableBowItem extends BowItem {
                 }
             }
         }
-    }
-
-    public int getDefaultProjectileRange() {
-        return range;
     }
 }

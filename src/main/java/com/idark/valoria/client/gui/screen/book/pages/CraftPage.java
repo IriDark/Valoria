@@ -5,6 +5,8 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+// TODO
+@OnlyIn(Dist.CLIENT)
 public class CraftPage extends Page {
 
     public CraftPage() {

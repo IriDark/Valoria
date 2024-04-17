@@ -100,7 +100,7 @@ public class SpikeBlock extends DirectionalBlock implements SimpleWaterloggedBlo
     public void tick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
         int i = pState.getValue(AGE);
         if (i < 3) {
-            pLevel.setBlock(pPos, pState.setValue(AGE, Integer.valueOf(i + 1)), 2);
+            pLevel.setBlock(pPos, pState.setValue(AGE, i + 1), 2);
             pLevel.scheduleTick(pPos, this, Mth.nextInt(pRandom, 10, 20));
         } else {
             pLevel.removeBlock(pPos, false);

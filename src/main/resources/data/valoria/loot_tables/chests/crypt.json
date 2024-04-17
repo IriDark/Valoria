@@ -11,13 +11,13 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "weight": 2,
-          "name": "valoria:rune_of_curses"
+          "name": "valoria:rune_of_curses",
+          "weight": 2
         },
         {
           "type": "minecraft:item",
-          "weight": 1,
           "name": "valoria:toxins_bottle",
+          "weight": 1,
           "conditions": [
             {
               "condition": "minecraft:random_chance",
@@ -27,28 +27,28 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 5,
-          "name": "valoria:aloe_bandage"
+          "name": "valoria:aloe_bandage",
+          "weight": 5
         },
         {
           "type": "minecraft:item",
-          "weight": 2,
-          "name": "valoria:miners_bag"
+          "name": "valoria:miners_bag",
+          "weight": 2
         },
         {
           "type": "minecraft:item",
-          "weight": 4,
-          "name": "valoria:gem_bag"
+          "name": "valoria:gem_bag",
+          "weight": 4
         },
         {
           "type": "minecraft:item",
-          "weight": 3,
-          "name": "valoria:pick"
+          "name": "valoria:pick",
+          "weight": 3
         },
         {
           "type": "minecraft:item",
-          "weight": 1,
-          "name": "valoria:pick_necklace"
+          "name": "valoria:pick_necklace",
+          "weight": 1
         },
         {
           "type": "minecraft:item",
@@ -72,8 +72,8 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 1,
-          "name": "valoria:iron_ring"
+          "name": "valoria:iron_ring",
+          "weight": 1
         },
         {
           "type": "minecraft:item",
@@ -87,23 +87,23 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 3,
-          "name": "valoria:iron_chain"
+          "name": "valoria:iron_chain",
+          "weight": 3
         },
         {
           "type": "minecraft:item",
-          "weight": 2,
-          "name": "minecraft:golden_apple"
+          "name": "minecraft:golden_apple",
+          "weight": 2
         },
         {
           "type": "minecraft:item",
-          "weight": 12,
-          "name": "minecraft:bone"
+          "name": "minecraft:bone",
+          "weight": 12
         },
         {
           "type": "minecraft:item",
-          "weight": 5,
-          "name": "minecraft:gunpowder"
+          "name": "minecraft:gunpowder",
+          "weight": 5
         },
         {
           "type": "minecraft:item",
@@ -117,8 +117,8 @@
         },
         {
           "type": "minecraft:item",
+          "name": "minecraft:diamond",
           "weight": 6,
-          "name": "minecraft:iron_ingot",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -154,13 +154,13 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 3,
-          "name": "minecraft:iron_helmet"
+          "name": "minecraft:iron_helmet",
+          "weight": 3
         },
         {
           "type": "minecraft:item",
-          "weight": 2,
           "name": "minecraft:gold_nugget",
+          "weight": 2,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -196,28 +196,28 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 5,
-          "name": "minecraft:stick"
+          "name": "minecraft:stick",
+          "weight": 5
         },
         {
           "type": "minecraft:item",
-          "quality": 1,
-          "name": "minecraft:iron_sword"
+          "name": "minecraft:iron_sword",
+          "quality": 1
         },
         {
           "type": "minecraft:item",
-          "weight": 2,
-          "name": "minecraft:cobweb"
+          "name": "valoria:cobalt_ingot",
+          "weight": 2
         },
         {
           "type": "minecraft:item",
-          "weight": 4,
-          "name": "valoria:rune"
+          "name": "valoria:rune",
+          "weight": 4
         },
         {
           "type": "minecraft:item",
+          "name": "valoria:iron_spear",
           "weight": 3,
-          "name": "valoria:stone_spear",
           "functions": [
             {
               "function": "minecraft:set_damage",
@@ -253,8 +253,8 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 3,
-          "name": "valoria:bronze_ingot"
+          "name": "valoria:bronze_ingot",
+          "weight": 3
         }
       ]
     }

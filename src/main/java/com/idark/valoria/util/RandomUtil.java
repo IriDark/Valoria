@@ -19,9 +19,6 @@ public final class RandomUtil {
         return rand.fiftyFifty();
     }
 
-    public static boolean oneInNChance(int n) {
-        return rand.oneInNChance(n);
-    }
 
     /**
      * @param percentChance from 0.00f to 1
@@ -81,10 +78,6 @@ public final class RandomUtil {
     public static final class EasyRandom {
         private final Random rand;
 
-        public EasyRandom() {
-            this(new Random());
-        }
-
         public EasyRandom(@Nonnull Random rand) {
             this.rand = rand;
         }
@@ -95,13 +88,6 @@ public final class RandomUtil {
 
         public boolean fiftyFifty() {
             return rand.nextBoolean();
-        }
-
-        public boolean oneInNChance(int n) {
-            if (n <= 0)
-                return false;
-
-            return rand.nextFloat() < 1 / (float) n;
         }
 
         public boolean percentChance(float percentChance) {

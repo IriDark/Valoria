@@ -2,7 +2,6 @@ package com.idark.valoria;
 
 import com.google.common.collect.ImmutableMap;
 import com.idark.valoria.client.event.ClientTickHandler;
-import com.idark.valoria.client.gui.menu.ModMenuTypes;
 import com.idark.valoria.client.gui.overlay.CorpsecleaverRender;
 import com.idark.valoria.client.gui.overlay.DashOverlayRender;
 import com.idark.valoria.client.gui.overlay.MagmaBarRender;
@@ -20,7 +19,6 @@ import com.idark.valoria.core.capability.IUnlockable;
 import com.idark.valoria.core.config.ClientConfig;
 import com.idark.valoria.core.datagen.BlockStateGen;
 import com.idark.valoria.core.datagen.RecipeGen;
-import com.idark.valoria.core.event.ServerTickHandler;
 import com.idark.valoria.core.network.PacketHandler;
 import com.idark.valoria.core.proxy.ClientProxy;
 import com.idark.valoria.core.proxy.ISidedProxy;
@@ -93,7 +91,7 @@ public class Valoria {
         if (QuarkIntegration.isLoaded()) QuarkIntegration.init(eventBus);
         BlockEntitiesRegistry.register(eventBus);
         RecipesRegistry.register(eventBus);
-        ModMenuTypes.register(eventBus);
+        MenuRegistry.register(eventBus);
         ModEntityTypes.register(eventBus);
         ModParticles.register(eventBus);
         LootUtil.register(eventBus);
@@ -106,7 +104,6 @@ public class Valoria {
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ClientConfig.SPEC);
 
         DistExecutor.unsafeCallWhenOn(Dist.CLIENT, () -> () -> {
-            forgeBus.addListener(ServerTickHandler::serverTick);
             forgeBus.addListener(ClientTickHandler::clientTickEnd);
             forgeBus.addListener(RenderUtils::onRenderWorldLast);
             forgeBus.addListener(DashOverlayRender::tick);
@@ -123,7 +120,6 @@ public class Valoria {
 
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new Events());
-        MinecraftForge.EVENT_BUS.register(new ServerTickHandler());
     }
 
     /**
@@ -198,8 +194,8 @@ public class Valoria {
 
             CuriosRendererRegistry.register(ItemsRegistry.LEATHER_BELT.get(), BeltRenderer::new);
 
-            MenuScreens.register(ModMenuTypes.JEWELRY_MENU.get(), JewelryScreen::new);
-            MenuScreens.register(ModMenuTypes.MANIPULATOR_MENU.get(), ManipulatorScreen::new);
+            MenuScreens.register(MenuRegistry.JEWELRY_MENU.get(), JewelryScreen::new);
+            MenuScreens.register(MenuRegistry.MANIPULATOR_MENU.get(), ManipulatorScreen::new);
         });
     }
 

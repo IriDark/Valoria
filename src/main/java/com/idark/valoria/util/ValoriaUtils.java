@@ -1,6 +1,7 @@
 package com.idark.valoria.util;
 
 
+import com.google.common.collect.HashMultimap;
 import com.idark.valoria.registries.EnchantmentsRegistry;
 import com.idark.valoria.registries.entity.living.NecromancerEntity;
 import com.idark.valoria.registries.item.types.BeastScytheItem;
@@ -37,9 +38,12 @@ import org.joml.Vector3d;
 import top.theillusivec4.curios.api.SlotContext;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Predicate;
 
 public class ValoriaUtils {
@@ -128,25 +132,22 @@ public class ValoriaUtils {
      * Can be used in projectile tick() method.
      * Projectile will have a homing movement to nearby entity
      *
-     * @param entityNear List for nearby entities
+     * @param boundingBox radius example:
+     * <p>
+     * <p>
+     *                   new AABB(projectile.getX() - 3.5, projectile.getY() - 0.5, projectile.getZ() - 3.5,  <p>
+     *                   projectile.getX() + 3.5, projectile.getY() + 0.5, projectile.getZ() + 3.5);
+     *
      * @param pOwner     Owner of Projectile
      */
-    public static void homingMovement(Entity projectile, Level level, List<Entity> entityNear, Entity pOwner) {
-        AABB boundingBox = new AABB(projectile.getX() - 3.5, projectile.getY() - 0.5, projectile.getZ() - 3.5, projectile.getX() + 3.5, projectile.getY() + 0.5, projectile.getZ() + 3.5);
+    public static void homingMovement(double pSpeed, Entity projectile, Level level, Entity pOwner, AABB boundingBox) {
         List<LivingEntity> livingEntities = level.getEntitiesOfClass(LivingEntity.class, boundingBox);
-
-        if (entityNear == null) {
-            entityNear = new ArrayList<>();
-        }
-
         if (!level.isClientSide) {
             if (!livingEntities.isEmpty()) {
                 LivingEntity nearestEntity = null;
                 double nearestDistance = Double.MAX_VALUE;
-
                 for (LivingEntity livingEntity : livingEntities) {
                     double distance = projectile.distanceTo(livingEntity);
-
                     if (livingEntity != pOwner) {
                         if (distance < nearestDistance) {
                             nearestEntity = livingEntity;
@@ -157,13 +158,57 @@ public class ValoriaUtils {
 
                 if (nearestEntity != null) {
                     Vec3 targetPos = nearestEntity.position();
-                    Vec3 currentPos = projectile.position();
-                    Vec3 direction = targetPos.subtract(currentPos).normalize().scale(0.5f);
-                    projectile.setDeltaMovement(direction.x, direction.y, direction.z);
+                    double dX = targetPos.x - projectile.getX();
+                    double dY = targetPos.y - projectile.getY();
+                    double dZ = targetPos.z - projectile.getZ();
+                    double distance = Math.sqrt(dX * dX + dY * dY + dZ * dZ);
+                    projectile.setDeltaMovement(dX / distance * pSpeed, dY / distance * pSpeed, dZ / distance * pSpeed);
+                    //projectile.addDeltaMovement(new Vec3(dX / distance * pSpeed, dY / distance * pSpeed, dZ / distance * pSpeed));
                 }
             }
         }
     }
+
+    /**
+     * Can be used in projectile tick() method.
+     * Projectile will have a homing movement to nearby entity
+     *
+     * @param boundingBox radius example:
+     * <p>
+     * <p>
+     *                   new AABB(projectile.getX() - 3.5, projectile.getY() - 0.5, projectile.getZ() - 3.5,  <p>
+     *                   projectile.getX() + 3.5, projectile.getY() + 0.5, projectile.getZ() + 3.5);
+     *
+     * @param pOwner     Owner of Projectile
+     */
+    public static void inaccurateHomingMovement(double pSpeed, Entity projectile, Level level, Entity pOwner, AABB boundingBox) {
+        List<LivingEntity> livingEntities = level.getEntitiesOfClass(LivingEntity.class, boundingBox);
+        if (!level.isClientSide) {
+            if (!livingEntities.isEmpty()) {
+                LivingEntity nearestEntity = null;
+                double nearestDistance = Double.MAX_VALUE;
+                for (LivingEntity livingEntity : livingEntities) {
+                    double distance = projectile.distanceTo(livingEntity);
+                    if (livingEntity != pOwner) {
+                        if (distance < nearestDistance) {
+                            nearestEntity = livingEntity;
+                            nearestDistance = distance;
+                        }
+                    }
+                }
+
+                if (nearestEntity != null) {
+                    Vec3 targetPos = nearestEntity.position();
+                    double dX = targetPos.x - projectile.getX();
+                    double dY = targetPos.y - projectile.getY();
+                    double dZ = targetPos.z - projectile.getZ();
+                    double distance = Math.sqrt(dX * dX + dY * dY + dZ * dZ);
+                    projectile.addDeltaMovement(new Vec3(dX / distance * pSpeed, dY / distance * pSpeed, dZ / distance * pSpeed));
+                }
+            }
+        }
+    }
+
 
     /**
      * Spawns particles in radius like in radiusHit
@@ -556,6 +601,43 @@ public class ValoriaUtils {
                     ((ServerChunkCache) tile.getLevel().getChunkSource()).chunkMap
                             .getPlayers(new ChunkPos(pos), false)
                             .forEach(e -> e.connection.send(packet));
+                }
+            }
+        }
+    }
+
+    public static class scheduler {
+        private static ScheduledExecutorService scheduler = null;
+        private static final HashMultimap<Integer, Runnable> scheduledSynchTasks = HashMultimap.create();
+
+        public static void scheduleAsyncTask(Runnable run, int time, TimeUnit unit) {
+            if (scheduler == null) {
+                serverStartupTasks();
+            }
+
+            scheduler.schedule(run, time, unit);
+        }
+
+        public static void serverStartupTasks() {
+            if (scheduler != null) {
+                scheduler.shutdownNow();
+            }
+
+            scheduler = Executors.newScheduledThreadPool(1);
+            handleSyncScheduledTasks(null);
+        }
+
+        public static void handleSyncScheduledTasks(@Nullable Integer tick) {
+            if (scheduledSynchTasks.containsKey(tick)) {
+                Iterator<Runnable> tasks = tick == null ? scheduledSynchTasks.values().iterator() : scheduledSynchTasks.get(tick).iterator();
+                while (tasks.hasNext()) {
+                    try {
+                        tasks.next().run();
+                    } catch (Exception ex) {
+                        System.out.print(ex.getMessage());
+                    }
+
+                    tasks.remove();
                 }
             }
         }

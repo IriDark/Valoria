@@ -5,12 +5,14 @@ import com.idark.valoria.client.particle.ModParticles;
 import com.idark.valoria.client.particle.types.Particles;
 import com.idark.valoria.registries.entity.ModEntityTypes;
 import com.idark.valoria.util.RandomUtil;
+import com.idark.valoria.util.ValoriaUtils;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.Random;
@@ -22,7 +24,13 @@ public class SoulArrow extends AbstractValoriaArrow implements IProjectileTextur
     }
 
     public SoulArrow(Level pLevel, LivingEntity pShooter, ItemStack thrown) {
-        super(ModEntityTypes.SOUL_ARROW.get(), pLevel, pShooter, thrown, 0, 4);
+        super(ModEntityTypes.SOUL_ARROW.get(), pLevel, pShooter, thrown, 0, 1);
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        ValoriaUtils.inaccurateHomingMovement(0.2f, this, this.level(), this.getOwner(), new AABB(this.getX() - 4, this.getY() - 4, this.getZ() - 4, this.getX() + 4, this.getY() + 4, this.getZ() + 4));
     }
 
     @Override
