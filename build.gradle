@@ -1,3 +1,8 @@
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
+
+import java.nio.charset.StandardCharsets
+
 buildscript {
     repositories {
         maven { url = 'https://maven.minecraftforge.net' }
@@ -174,6 +179,47 @@ jar {
                 "Implementation-Vendor" :"IriDark",
                 "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
+    }
+}
+
+static InputStreamReader createInput(File f) throws FileNotFoundException {
+    return new InputStreamReader(new FileInputStream(f), StandardCharsets.UTF_8)
+}
+
+static OutputStreamWriter createOutput(File f) throws FileNotFoundException {
+    return new OutputStreamWriter(new FileOutputStream(f), StandardCharsets.UTF_8)
+}
+
+// Thanks to Skoow for helping with this
+task updateResources {
+    doLast {
+        File resourcesFolder = new File("src/main/resources"); resourcesFolder.mkdir()
+        File langFolder = new File(resourcesFolder, "assets/valoria/lang"); langFolder.mkdir()
+        File mainLangJson = new File(langFolder, "en_us.json"); mainLangJson.createNewFile()
+        Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create()
+        TreeMap<String,String> EN_US = gson.fromJson(createInput(mainLangJson), TreeMap<String,String>.class)
+        if(EN_US == null) {
+            println "Skipping langFile because of incorrect structure " + mainLangJson.getName()
+            return
+        }
+
+        File[] otherLangs = langFolder.listFiles( (FileFilter) (f) -> {return f != mainLangJson && f.isFile() && f.getName().endsWith(".json")})
+        println "\u001B[32m- Comparing langs...\u001B[0m"
+        for (final File otherLang in otherLangs) {
+            InputStreamReader reader = createInput(otherLang)
+            TreeMap<String,String> LANG = gson.fromJson(reader, TreeMap<String,String>.class)
+            reader.close();
+            if(LANG == null) {
+                println "Skipping langFile because of incorrect structure " + otherLang.getName()
+                continue
+            }
+
+            EN_US.forEach(LANG::putIfAbsent)
+            OutputStreamWriter writer = createOutput(otherLang)
+            gson.toJson(LANG, TreeMap<String, String>.class, writer)
+            writer.close()
+            println "\u001B[32m- Compared lang file\u001B[0m " + "\u001B[36m" + otherLang.getName() + "\u001B[0m"
+        }
     }
 }
 
