@@ -131,14 +131,13 @@ public class ValoriaUtils {
     /**
      * Can be used in projectile tick() method.
      * Projectile will have a homing movement to nearby entity
-     *
+     * @param pOwner     Owner of Projectile
      * @param boundingBox radius example:
      * <p>
-     * <p>
+     * <pre>{@code
      *                   new AABB(projectile.getX() - 3.5, projectile.getY() - 0.5, projectile.getZ() - 3.5,  <p>
      *                   projectile.getX() + 3.5, projectile.getY() + 0.5, projectile.getZ() + 3.5);
-     *
-     * @param pOwner     Owner of Projectile
+     *}</pre>
      */
     public static void homingMovement(double pSpeed, Entity projectile, Level level, Entity pOwner, AABB boundingBox) {
         List<LivingEntity> livingEntities = level.getEntitiesOfClass(LivingEntity.class, boundingBox);
