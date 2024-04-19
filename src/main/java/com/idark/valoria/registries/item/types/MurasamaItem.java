@@ -73,10 +73,6 @@ public class MurasamaItem extends KatanaItem implements Vanishable, IParticleIte
         }
     }
 
-    public int getUseDuration(@NotNull ItemStack stack) {
-        return 78000;
-    }
-
     @Override
     public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
         if (!slotChanged) {

@@ -25,7 +25,7 @@ public class HoundItem extends SwordItem implements Vanishable {
     }
 
     public int getUseDuration(ItemStack stack) {
-        return 25;
+        return 72000;
     }
 
     public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {

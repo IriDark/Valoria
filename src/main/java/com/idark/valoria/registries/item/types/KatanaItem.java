@@ -125,7 +125,7 @@ public class KatanaItem extends TieredItem implements Vanishable {
     }
 
     public int getUseDuration(@NotNull ItemStack stack) {
-        return 30;
+        return 72000;
     }
 
     /**

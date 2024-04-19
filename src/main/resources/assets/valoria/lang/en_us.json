@@ -169,6 +169,7 @@
 	"entity.valoria.phantom_arrow": "Phantom Arrow",
 	"entity.valoria.wicked_arrow": "Wicked Arrow",
 	"entity.valoria.soul_arrow": "Soul Arrow",
+	"entity.valoria.infernal_arrow": "Infernal Arrow",
 
 	"item.valoria.goblin_spawn_egg": "Goblin Spawn Egg",
 	"item.valoria.draugr_spawn_egg": "Draugr Spawn Egg",
@@ -283,7 +284,8 @@
  	"item.valoria.samurai_long_bow": "Samurai Long Bow",	
  	"item.valoria.nature_bow": "Nature Bow",
  	"item.valoria.aquarius_bow": "Aquarius Bow",
- 	"item.valoria.bow_of_darkness": "Bow Of Darkness",
+	"item.valoria.infernal_bow": "Infernal Bow",
+	"item.valoria.bow_of_darkness": "Bow Of Darkness",
  	"item.valoria.phantasm_bow": "Phantasm Bow",
 	"item.valoria.phantom": "Phantom",
 	"item.valoria.spectral_blade": "Spectral Blade",

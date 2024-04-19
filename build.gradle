@@ -204,7 +204,7 @@ task updateResources {
         }
 
         File[] otherLangs = langFolder.listFiles( (FileFilter) (f) -> {return f != mainLangJson && f.isFile() && f.getName().endsWith(".json")})
-        println "\u001B[32m- Comparing langs...\u001B[0m"
+        println "\u001B[32m- Comparing langs with:\u001B[0m " + mainLangJson.getName()
         for (final File otherLang in otherLangs) {
             InputStreamReader reader = createInput(otherLang)
             TreeMap<String,String> LANG = gson.fromJson(reader, TreeMap<String,String>.class)
@@ -254,9 +254,9 @@ task sourcesJar(type: Jar, dependsOn: classes) {
 modrinth {
     token = System.getenv("modrinthtoken") // Remember to have the MODRINTH_TOKEN environment variable set or else this will fail - just make sure it stays private!
     projectId = "valoriadev"
-    versionNumber = "0.6b.240416613"
+    versionNumber = "0.6b.240418667"
     versionType = "alpha"
-    versionName = "Dev Build - 0.6b.240416613"
+    versionName = "Dev Build - 0.6b.240418667"
     uploadFile = tasks.jar
     changelog = "Just a DevBuild to test things, its some sorta like minecraft snapshots to find bugs and report them"
     dependencies {

@@ -438,15 +438,17 @@ public class ItemsRegistry {
     public static final RegistryObject<Item> BLOODSIGHT_MONOCLE = ITEMS.register("bloodsight_monocle",
             () -> new BloodSight(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC).durability(300)));
     public static final RegistryObject<Item> SAMURAI_LONG_BOW = ITEMS.register("samurai_long_bow",
-            () -> new ConfigurableBowItem(2, new Item.Properties().stacksTo(1)));
+            () -> new ConfigurableBowItem(2, new Item.Properties().stacksTo(1).durability(684)));
     public static final RegistryObject<Item> NATURE_BOW = ITEMS.register("nature_bow",
-            () -> new ConfigurableBowItem(1, new Item.Properties().stacksTo(1).rarity(RarityRegistry.NATURE)));
+            () -> new ConfigurableBowItem(1, new Item.Properties().stacksTo(1).durability(1024).rarity(RarityRegistry.NATURE)));
     public static final RegistryObject<Item> AQUARIUS_BOW = ITEMS.register("aquarius_bow",
-            () -> new ConfigurableBowItem(2, new Item.Properties().fireResistant().rarity(RarityRegistry.AQUARIUS).stacksTo(1)));
+            () -> new ConfigurableBowItem(2, new Item.Properties().stacksTo(1).durability(1324).fireResistant().rarity(RarityRegistry.AQUARIUS)));
+    public static final RegistryObject<Item> INFERNAL_BOW = ITEMS.register("infernal_bow",
+            () -> new InfernalBowItem(new Item.Properties().fireResistant().stacksTo(1).durability(1684).rarity(RarityRegistry.INFERNAL)));
     public static final RegistryObject<Item> BOW_OF_DARKNESS = ITEMS.register("bow_of_darkness",
-            () -> new ConfigurableBowItem(3, new Item.Properties().fireResistant().stacksTo(1).rarity(RarityRegistry.VOID)));
+            () -> new ConfigurableBowItem(3, new Item.Properties().stacksTo(1).durability(2048).fireResistant().rarity(RarityRegistry.VOID)));
     public static final RegistryObject<Item> PHANTASM_BOW = ITEMS.register("phantasm_bow",
-            () -> new PhantasmBowItem(new Item.Properties().fireResistant().stacksTo(1).rarity(RarityRegistry.PHANTASM)));
+            () -> new PhantasmBowItem(new Item.Properties().fireResistant().stacksTo(1).durability(4028).rarity(RarityRegistry.PHANTASM)));
     public static final RegistryObject<Item> PICK = ITEMS.register("pick",
             () -> new PickItem(new Item.Properties().fireResistant().stacksTo(1).durability(64), 1, -2.8f, 5));
     public static final RegistryObject<Item> WICKED_ARROW = ITEMS.register("wicked_arrow",

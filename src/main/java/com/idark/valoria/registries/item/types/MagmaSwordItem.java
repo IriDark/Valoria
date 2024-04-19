@@ -73,7 +73,7 @@ public class MagmaSwordItem extends SwordItem implements Vanishable {
     }
 
     public int getUseDuration(ItemStack stack) {
-        return 30;
+        return 72000;
     }
 
     /**

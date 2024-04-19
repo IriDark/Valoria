@@ -70,6 +70,11 @@ public class ModEntityTypes {
                     .sized(0.35f, 0.35f)
                     .build(new ResourceLocation(Valoria.MOD_ID, "soul_arrow").toString()));
 
+    public static final RegistryObject<EntityType<InfernalArrow>> INFERNAL_ARROW = ENTITY_TYPES.register("infernal_arrow",
+            () -> EntityType.Builder.<InfernalArrow>of(InfernalArrow::new, MobCategory.MISC)
+                    .sized(0.35f, 0.35f)
+                    .build(new ResourceLocation(Valoria.MOD_ID, "infernal_arrow").toString()));
+
     public static final RegistryObject<EntityType<MeatBlockEntity>> MEAT = ENTITY_TYPES.register("meat",
             () -> EntityType.Builder.<MeatBlockEntity>of(MeatBlockEntity::new, MobCategory.MISC)
                     .sized(1, 1f)

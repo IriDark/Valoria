@@ -15,14 +15,14 @@ import net.minecraft.world.phys.Vec3;
 
 import java.util.Random;
 
-public class WickedArrow extends AbstractValoriaArrow implements IProjectileTexture {
+public class InfernalArrow extends AbstractValoriaArrow implements IProjectileTexture {
 
-    public WickedArrow(EntityType<? extends AbstractArrow> pEntityType, Level pLevel) {
+    public InfernalArrow(EntityType<? extends AbstractArrow> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }
 
-    public WickedArrow(Level pLevel, LivingEntity pShooter, ItemStack thrown) {
-        super(ModEntityTypes.WICKED_ARROW.get(), pLevel, pShooter, thrown, 0, 4);
+    public InfernalArrow(Level pLevel, LivingEntity pShooter, ItemStack thrown) {
+        super(ModEntityTypes.INFERNAL_ARROW.get(), pLevel, pShooter, thrown, 0, 1);
     }
 
     @Override
@@ -36,9 +36,9 @@ public class WickedArrow extends AbstractValoriaArrow implements IProjectileText
             for (int a = 0; a < 1; ++a) {
                 Particles.create(ModParticles.GLOWING_SPHERE)
                         .addVelocity((rand.nextDouble() / 32), 0.02f, (rand.nextDouble() / 32))
-                        .setAlpha(1, 0)
+                        .setAlpha(0.75f, 0)
                         .setScale(RandomUtil.randomValueUpTo(0.15f), 0)
-                        .setColor(225, 20, 85, 132, 26, 175)
+                        .setColor(235, 12, 65, 98, 24, 115)
                         .setLifetime(6)
                         .setSpin((0.5f * (float) ((rand.nextDouble() - 0.5D) * 2)))
                         .spawn(this.level(), this.getX() + a3 * (double) a / 4.0D, this.getY() + a4 * (double) a / 4.0D, this.getZ() + a0 * (double) a / 4.0D);
@@ -48,6 +48,6 @@ public class WickedArrow extends AbstractValoriaArrow implements IProjectileText
 
     @Override
     public ResourceLocation getTexture() {
-        return new ResourceLocation(Valoria.MOD_ID, "textures/entity/projectile/arrow/wicked_arrow.png");
+        return new ResourceLocation(Valoria.MOD_ID, "textures/entity/projectile/arrow/infernal_arrow.png");
     }
 }

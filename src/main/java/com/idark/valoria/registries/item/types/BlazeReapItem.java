@@ -41,7 +41,7 @@ public class BlazeReapItem extends PickaxeItem implements Vanishable {
     }
 
     public int getUseDuration(ItemStack stack) {
-        return 30;
+        return 72000;
     }
 
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchant) {

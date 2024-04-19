@@ -9,7 +9,7 @@
       "rotation": [
         0,
         90,
-        45
+        65
       ],
       "translation": [
         1.13,
@@ -26,7 +26,7 @@
       "rotation": [
         0,
         -90,
-        -45
+        -65
       ],
       "translation": [
         1.13,

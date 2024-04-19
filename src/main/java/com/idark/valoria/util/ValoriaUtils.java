@@ -1,6 +1,5 @@
 package com.idark.valoria.util;
 
-
 import com.google.common.collect.HashMultimap;
 import com.idark.valoria.registries.EnchantmentsRegistry;
 import com.idark.valoria.registries.entity.living.NecromancerEntity;
