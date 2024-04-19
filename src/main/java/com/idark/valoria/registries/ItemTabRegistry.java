@@ -226,6 +226,7 @@ public abstract class ItemTabRegistry {
             event.accept(ItemsRegistry.SAMURAI_LONG_BOW);
             event.accept(ItemsRegistry.NATURE_BOW);
             event.accept(ItemsRegistry.AQUARIUS_BOW);
+            event.accept(ItemsRegistry.INFERNAL_BOW);
             event.accept(ItemsRegistry.BOW_OF_DARKNESS);
             event.accept(ItemsRegistry.PHANTASM_BOW);
             event.accept(ItemsRegistry.PICK_NECKLACE);

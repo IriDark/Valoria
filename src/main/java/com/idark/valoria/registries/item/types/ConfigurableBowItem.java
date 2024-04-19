@@ -63,9 +63,7 @@ public class ConfigurableBowItem extends BowItem {
                             abstractarrow.setSecondsOnFire(100);
                         }
 
-                        pStack.hurtAndBreak(1, player, (p_289501_) -> {
-                            p_289501_.broadcastBreakEvent(player.getUsedItemHand());
-                        });
+                        pStack.hurtAndBreak(1, player, (p_289501_) -> p_289501_.broadcastBreakEvent(player.getUsedItemHand()));
                         if (flag1 || player.getAbilities().instabuild && (itemstack.is(Items.SPECTRAL_ARROW) || itemstack.is(Items.TIPPED_ARROW))) {
                             abstractarrow.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
                         }
