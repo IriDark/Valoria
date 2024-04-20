@@ -24,9 +24,10 @@ Immerse yourself in the enchanting realm of Valoria, where every corner holds a 
  ![](https://cdn.discordapp.com/attachments/838693800683372564/1039482418408726608/Untitled_11-07-2022_11-21-33.png)
          
                            Devs:
-                           - iDark | Code | Textures |
+                           - IriDark | Code | Textures |
                            - MaxBogomol | Code |
                            Special Thanks:
+                           - Ruthenium | Russian Translate |
                            - GraFik
                            - It's Cat
                            - AstemirDev
