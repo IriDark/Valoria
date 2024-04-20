@@ -101,6 +101,18 @@
       "valoria:pot/step5"
     ]
   },
+  "block.void_stone_break.ambient": {
+    "subtitle": "Block broken",
+    "replace": "true",
+    "sounds": [
+      "valoria:void_stone/break1",
+      "valoria:void_stone/break2",
+      "valoria:void_stone/break3",
+      "valoria:void_stone/break4",
+      "valoria:void_stone/break5",
+      "valoria:void_stone/break6"
+    ]
+  },
   "block.pot_place.ambient": {
     "subtitle": "Pot Place",
     "replace": "true",

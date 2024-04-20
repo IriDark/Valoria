@@ -273,35 +273,35 @@ public class BlockRegistry {
     public static final RegistryObject<Block> PEARLIUM = registerBlock("pearlium",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops().strength(3f, 4f).sound(SoundType.NETHER_BRICKS)));
     public static final RegistryObject<Block> VOID_STONE = registerBlock("void_stone",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(3f, 4f).sound(SoundType.NETHER_BRICKS)));
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(3f, 4f).sound(ModSoundRegistry.VOID_STONE)));
     public static final RegistryObject<Block> VOID_STONE_STAIRS = registerBlock("void_stone_stairs",
-            () -> new StairBlock(() -> VOID_STONE.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).mapColor(MapColor.COLOR_PURPLE).strength(2f, 4f).sound(SoundType.NETHER_BRICKS).requiresCorrectToolForDrops()));
+            () -> new StairBlock(() -> VOID_STONE.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).mapColor(MapColor.COLOR_PURPLE).strength(2f, 4f).sound(ModSoundRegistry.VOID_STONE).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> VOID_STONE_SLAB = registerBlock("void_stone_slab",
-            () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(6f, 4f).sound(SoundType.NETHER_BRICKS)));
+            () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(6f, 4f).sound(ModSoundRegistry.VOID_STONE)));
     public static final RegistryObject<Block> VOID_STONE_WALL = registerBlock("void_stone_wall",
-            () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(3f, 4f).sound(SoundType.NETHER_BRICKS)));
+            () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(3f, 4f).sound(ModSoundRegistry.VOID_STONE)));
     public static final RegistryObject<Block> VOID_PILLAR_AMETHYST = registerBlock("void_pillar_amethyst",
-            () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(2f, 4f).sound(SoundType.NETHER_BRICKS).lightLevel(setLightValue(4))));
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(2f, 4f).sound(ModSoundRegistry.VOID_STONE).lightLevel(setLightValue(4))));
     public static final RegistryObject<Block> VOID_PILLAR = registerBlock("void_pillar",
-            () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(2f, 4f).sound(SoundType.NETHER_BRICKS)));
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(2f, 4f).sound(ModSoundRegistry.VOID_STONE)));
     public static final RegistryObject<Block> VOID_BRICK = registerBlock("void_brick",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(2f, 4f).sound(SoundType.NETHER_BRICKS)));
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(2f, 4f).sound(ModSoundRegistry.VOID_STONE)));
     public static final RegistryObject<Block> VOID_BRICK_STAIRS = registerBlock("void_brick_stairs",
-            () -> new StairBlock(() -> VOID_BRICK.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).mapColor(MapColor.COLOR_PURPLE).strength(2f, 4f).requiresCorrectToolForDrops().sound(SoundType.NETHER_BRICKS)));
+            () -> new StairBlock(() -> VOID_BRICK.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).mapColor(MapColor.COLOR_PURPLE).strength(2f, 4f).requiresCorrectToolForDrops().sound(ModSoundRegistry.VOID_STONE)));
     public static final RegistryObject<Block> VOID_BRICK_SLAB = registerBlock("void_brick_slab",
-            () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(6f, 4f).sound(SoundType.NETHER_BRICKS)));
+            () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(6f, 4f).sound(ModSoundRegistry.VOID_STONE)));
     public static final RegistryObject<Block> VOID_BRICK_WALL = registerBlock("void_brick_wall",
-            () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(3f, 4f).sound(SoundType.NETHER_BRICKS)));
+            () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(3f, 4f).sound(ModSoundRegistry.VOID_STONE)));
     public static final RegistryObject<Block> VOID_CRACKED_BRICK = registerBlock("void_cracked_brick",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(2f, 4f).sound(SoundType.NETHER_BRICKS)));
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(2f, 4f).sound(ModSoundRegistry.VOID_STONE)));
     public static final RegistryObject<Block> VOID_CRACKED_BRICK_STAIRS = registerBlock("void_cracked_brick_stairs",
-            () -> new StairBlock(() -> VOID_CRACKED_BRICK.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).mapColor(MapColor.COLOR_PURPLE).strength(2f, 4f).requiresCorrectToolForDrops().sound(SoundType.NETHER_BRICKS)));
+            () -> new StairBlock(() -> VOID_CRACKED_BRICK.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).mapColor(MapColor.COLOR_PURPLE).strength(2f, 4f).requiresCorrectToolForDrops().sound(ModSoundRegistry.VOID_STONE)));
     public static final RegistryObject<Block> VOID_CRACKED_BRICK_SLAB = registerBlock("void_cracked_brick_slab",
-            () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(6f, 4f).sound(SoundType.NETHER_BRICKS)));
+            () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(6f, 4f).sound(ModSoundRegistry.VOID_STONE)));
     public static final RegistryObject<Block> VOID_CRACKED_BRICK_WALL = registerBlock("void_cracked_brick_wall",
-            () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(3f, 4f).sound(SoundType.NETHER_BRICKS)));
+            () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(3f, 4f).sound(ModSoundRegistry.VOID_STONE)));
     public static final RegistryObject<Block> POLISHED_VOID_STONE = registerBlock("polished_void_stone",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(2f, 4f).sound(SoundType.NETHER_BRICKS)));
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(2f, 4f).sound(ModSoundRegistry.VOID_STONE)));
     public static final RegistryObject<Block> POLISHED_TOMBSTONE = registerBlock("polished_tombstone",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops().strength(3f, 4f)));
     public static final RegistryObject<Block> VOID_CHISELED_BRICK = registerBlock("void_chiseled_brick",
