@@ -254,9 +254,9 @@ task sourcesJar(type: Jar, dependsOn: classes) {
 modrinth {
     token = System.getenv("modrinthtoken") // Remember to have the MODRINTH_TOKEN environment variable set or else this will fail - just make sure it stays private!
     projectId = "valoriadev"
-    versionNumber = "0.6b.240418667"
+    versionNumber = "0.6b.240420347"
     versionType = "alpha"
-    versionName = "Dev Build - 0.6b.240418667"
+    versionName = "Dev Build - 0.6b.240420347"
     uploadFile = tasks.jar
     changelog = "Just a DevBuild to test things, its some sorta like minecraft snapshots to find bugs and report them"
     dependencies {

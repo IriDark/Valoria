@@ -22,7 +22,10 @@ public enum ModItemTier implements Tier {
     AQUARIUS(4, 2756, 11f, 0f, 15,
             () -> Ingredient.of(ItemsRegistry.AQUARIUS_INGOT.get())),
     INFERNAL(5, 2800, 12f, 0f, 16,
-            () -> Ingredient.of(ItemsRegistry.INFERNAL_INGOT.get()));
+            () -> Ingredient.of(ItemsRegistry.INFERNAL_INGOT.get())),
+    BLOOD(4, 2031, 9.0F, 4.0F, 15,
+            () -> Ingredient.of(ItemsRegistry.PAIN_CRYSTAL.get())),
+    NONE(4, 2031, 9.0F, 4.0F, 15, Ingredient::of);
 
     private final int harvestLevel;
     private final int maxUses;

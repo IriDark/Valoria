@@ -158,15 +158,15 @@ public class ItemsRegistry {
     public static final RegistryObject<Item> BRONZE_SWORD = ITEMS.register("bronze_sword",
             () -> new SwordItem(Tiers.IRON, 6, -2.4f, new Item.Properties()));
     public static final RegistryObject<Item> VOID_EDGE = ITEMS.register("void_edge",
-            () -> new SwordItem(Tiers.NETHERITE, 7, -3f, new Item.Properties().rarity(RarityRegistry.VOID)));
+            () -> new SwordItem(ModItemTier.NONE, 7, -3f, new Item.Properties().rarity(RarityRegistry.VOID)));
     public static final RegistryObject<Item> QUANTUM_REAPER = ITEMS.register("quantum_reaper",
-            () -> new SwordItem(Tiers.NETHERITE, 8, -3f, new Item.Properties().rarity(RarityRegistry.VOID)));
+            () -> new SwordItem(ModItemTier.NONE, 8, -3f, new Item.Properties().rarity(RarityRegistry.VOID)));
     public static final RegistryObject<Item> BLOODHOUND = ITEMS.register("bloodhound",
-            () -> new HoundItem(Tiers.NETHERITE, 6, -2.2f, new Item.Properties()));
+            () -> new HoundItem(ModItemTier.BLOOD, 6, -2.2f, new Item.Properties()));
     public static final RegistryObject<Item> BLAZE_REAP = ITEMS.register("blaze_reap",
-            () -> new BlazeReapItem(Tiers.NETHERITE, 3, -3.4f, new Item.Properties()));
+            () -> new BlazeReapItem(ModItemTier.NONE, 3, -3.4f, new Item.Properties()));
     public static final RegistryObject<Item> PHANTOM = ITEMS.register("phantom",
-            () -> new PhantomItem(Tiers.NETHERITE, 6, -2.4f, new Item.Properties().rarity(RarityRegistry.PHANTASM)));
+            () -> new PhantomItem(ModItemTier.NONE, 6, -2.4f, new Item.Properties().rarity(RarityRegistry.PHANTASM)));
     public static final RegistryObject<Item> MURASAMA = ITEMS.register("murasama",
             () -> new MurasamaItem(ModItemTier.SAMURAI, 5, -2.4f, new Item.Properties()));
     public static final RegistryObject<Item> SAMURAI_KUNAI = ITEMS.register("samurai_kunai",
@@ -176,7 +176,7 @@ public class ItemsRegistry {
     public static final RegistryObject<Item> SPECTRAL_BLADE = ITEMS.register("spectral_blade",
             () -> new SpectralBladeItem(new Item.Properties().durability(852)));
     public static final RegistryObject<Item> CORPSECLEAVER = ITEMS.register("corpsecleaver",
-            () -> new CorpseCleaverItem(Tiers.NETHERITE, 2, -2.4F, new Item.Properties().durability(1151)));
+            () -> new CorpseCleaverItem(ModItemTier.BLOOD, 2, -2.4F, new Item.Properties().durability(1151)));
 
     // Placeholder for Entity Render
     public static final RegistryObject<Item> SPECTRAL_BLADE_THROWN = ITEMS.register("spectral_blade_thrown",
@@ -217,7 +217,7 @@ public class ItemsRegistry {
     public static final RegistryObject<Item> NETHERITE_SCYTHE = ITEMS.register("netherite_scythe",
             () -> new ScytheItem(Tiers.NETHERITE, 4, -3.0f, new Item.Properties().fireResistant()));
     public static final RegistryObject<Item> BEAST = ITEMS.register("beast",
-            () -> new BeastScytheItem(Tiers.DIAMOND, 8, -3.2f, new Item.Properties()));
+            () -> new BeastScytheItem(ModItemTier.NONE, 6, -3.2f, new Item.Properties()));
     public static final RegistryObject<Item> AQUARIUS_SCYTHE = ITEMS.register("aquarius_scythe",
             () -> new AquariusScytheItem(ModItemTier.AQUARIUS, 10, -3.0f, new Item.Properties().rarity(RarityRegistry.AQUARIUS)));
     public static final RegistryObject<Item> NATURE_SCYTHE = ITEMS.register("nature_scythe",
