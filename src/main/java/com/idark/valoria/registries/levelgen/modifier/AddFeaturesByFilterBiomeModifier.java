@@ -13,10 +13,7 @@ import net.minecraftforge.common.world.ModifiableBiomeInfo;
 
 import java.util.Optional;
 
-public record AddFeaturesByFilterBiomeModifier(HolderSet<Biome> allowedBiomes, Optional<HolderSet<Biome>> deniedBiomes,
-                                               Optional<Float> minimumTemperature, Optional<Float> maximumTemperature,
-                                               HolderSet<PlacedFeature> features,
-                                               GenerationStep.Decoration step) implements BiomeModifier {
+public record AddFeaturesByFilterBiomeModifier(HolderSet<Biome> allowedBiomes, Optional<HolderSet<Biome>> deniedBiomes, Optional<Float> minimumTemperature, Optional<Float> maximumTemperature, HolderSet<PlacedFeature> features, GenerationStep.Decoration step) implements BiomeModifier {
 
     @Override
     public void modify(Holder<Biome> biome, Phase phase, ModifiableBiomeInfo.BiomeInfo.Builder builder) {

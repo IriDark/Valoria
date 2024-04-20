@@ -21,20 +21,23 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotContext;
+import top.theillusivec4.curios.api.SlotResult;
 import top.theillusivec4.curios.api.type.capability.ICurio;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+@SuppressWarnings("removal")
 public class CurioCurses extends Item implements ICurioItem {
     public CurioCurses(Properties properties) {
         super(properties);
     }
 
-    RandomSource rand = RandomSource.create();
     MobEffect[] effects = {
             MobEffects.DARKNESS, MobEffects.WEAKNESS, MobEffects.WITHER, MobEffects.POISON, MobEffects.MOVEMENT_SLOWDOWN, MobEffects.DIG_SLOWDOWN
     };
@@ -49,6 +52,17 @@ public class CurioCurses extends Item implements ICurioItem {
         return false;
     }
 
+    @Override
+    public boolean canEquip(SlotContext slotContext, ItemStack stack) {
+        List<ItemStack> items = new ArrayList<>();
+        List<SlotResult> curioSlots = CuriosApi.getCuriosHelper().findCurios(slotContext.getWearer(), stack.getItem());
+        for (SlotResult slot : curioSlots) {
+            items.add(slot.stack());
+        }
+
+        return items.isEmpty() || slotContext.cosmetic();
+    }
+
     @Nonnull
     @Override
     public ICurio.SoundInfo getEquipSound(SlotContext slotContext, ItemStack stack) {
@@ -61,7 +75,7 @@ public class CurioCurses extends Item implements ICurioItem {
         Player player = (Player) slotContext.entity();
         if (!player.level().isClientSide() && player instanceof ServerPlayer pServer) {
             if (pServer.getActiveEffects().isEmpty() && !pServer.getCooldowns().isOnCooldown(this)) {
-                pServer.addEffect(new MobEffectInstance(effects[Mth.nextInt(rand, 0, 5)], 60, 0, false, true));
+                pServer.addEffect(new MobEffectInstance(effects[Mth.nextInt(RandomSource.create(), 0, 5)], 60, 0, false, true));
                 pServer.getCooldowns().addCooldown(this, 300);
                 pServer.level().playSound(null, pServer.getOnPos(), ModSoundRegistry.EQUIP_CURSE.get(), SoundSource.AMBIENT, 0.5f, 1f);
             }

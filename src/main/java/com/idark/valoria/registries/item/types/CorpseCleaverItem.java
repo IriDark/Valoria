@@ -24,10 +24,10 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-public class CorpsecleaverItem extends SwordItem implements Vanishable {
+public class CorpseCleaverItem extends SwordItem implements Vanishable {
     private final Multimap<Attribute, AttributeModifier> pAttributes;
 
-    public CorpsecleaverItem(Tier pTier, int pAttackDamageModifier, float pAttackSpeedModifier, Item.Properties pProperties) {
+    public CorpseCleaverItem(Tier pTier, int pAttackDamageModifier, float pAttackSpeedModifier, Item.Properties pProperties) {
         super(pTier, pAttackDamageModifier, pAttackSpeedModifier, pProperties);
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
         float attackDamage = (float) pAttackDamageModifier + pTier.getAttackDamageBonus();

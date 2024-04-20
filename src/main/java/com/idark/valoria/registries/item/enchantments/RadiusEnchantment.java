@@ -34,7 +34,7 @@ public class RadiusEnchantment extends Enchantment {
         return super.getMinCost(pEnchantmentLevel) + 50;
     }
 
-    public boolean checkCompatibility(Enchantment ench) {
-        return super.checkCompatibility(ench) && ench != Enchantments.SWEEPING_EDGE;
+    public boolean checkCompatibility(Enchantment pEnchantment) {
+        return super.checkCompatibility(pEnchantment) && pEnchantment != Enchantments.SWEEPING_EDGE;
     }
 }

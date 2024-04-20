@@ -33,13 +33,6 @@ import java.util.Objects;
 
 public class CrushableBlockEntity extends BlockEntity {
     private static final Logger LOGGER = LogUtils.getLogger();
-    private static final String LOOT_TABLE_TAG = "LootTable";
-    private static final String LOOT_TABLE_SEED_TAG = "LootTableSeed";
-    private static final String HIT_DIRECTION_TAG = "hit_direction";
-    private static final String ITEM_TAG = "item";
-    private static final int BRUSH_COOLDOWN_TICKS = 10;
-    private static final int BRUSH_RESET_TICKS = 40;
-    private static final int REQUIRED_BRUSHES_TO_BREAK = 10;
     private int brushCount;
     private long brushCountResetsAtTick;
     private long coolDownEndsAtTick;
@@ -54,7 +47,7 @@ public class CrushableBlockEntity extends BlockEntity {
         super(BlockEntitiesRegistry.CRUSHABLE_BLOCK_ENTITY.get(), pPos, pBlockState);
     }
 
-    public boolean brush(long pStartTick, Player pPlayer, Direction pHitDirection) {
+    public boolean crushing(long pStartTick, Player pPlayer, Direction pHitDirection) {
         if (this.hitDirection == null) {
             this.hitDirection = pHitDirection;
         }
@@ -72,8 +65,8 @@ public class CrushableBlockEntity extends BlockEntity {
                 int j = this.getCompletionState();
                 if (i != j) {
                     BlockState blockstate = this.getBlockState();
-                    BlockState blockstate1 = blockstate.setValue(BlockStateProperties.DUSTED, Integer.valueOf(j));
-                    this.level.setBlock(this.getBlockPos(), blockstate1, 3);
+                    BlockState pState = blockstate.setValue(BlockStateProperties.DUSTED, j);
+                    this.level.setBlock(this.getBlockPos(), pState, 3);
                 }
 
                 return false;
@@ -86,27 +79,21 @@ public class CrushableBlockEntity extends BlockEntity {
     public void unpackLootTable(Player pPlayer) {
         if (this.lootTable != null && this.level != null && !this.level.isClientSide() && this.level.getServer() != null) {
             LootTable loottable = this.level.getServer().getLootData().getLootTable(this.lootTable);
-            if (pPlayer instanceof ServerPlayer) {
-                ServerPlayer serverplayer = (ServerPlayer) pPlayer;
+            if (pPlayer instanceof ServerPlayer serverplayer) {
                 CriteriaTriggers.GENERATE_LOOT.trigger(serverplayer, this.lootTable);
             }
 
             LootParams lootparams = (new LootParams.Builder((ServerLevel) this.level)).withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(this.worldPosition)).withLuck(pPlayer.getLuck()).withParameter(LootContextParams.THIS_ENTITY, pPlayer).create(LootContextParamSets.CHEST);
             ObjectArrayList<ItemStack> objectarraylist = loottable.getRandomItems(lootparams, this.lootTableSeed);
-            ItemStack itemstack;
-            switch (objectarraylist.size()) {
-                case 0:
-                    itemstack = ItemStack.EMPTY;
-                    break;
-                case 1:
-                    itemstack = objectarraylist.get(0);
-                    break;
-                default:
+            this.item = switch (objectarraylist.size()) {
+                case 0 -> ItemStack.EMPTY;
+                case 1 -> objectarraylist.get(0);
+                default -> {
                     LOGGER.warn("Expected max 1 loot from loot table " + this.lootTable + " got " + objectarraylist.size());
-                    itemstack = objectarraylist.get(0);
-            }
+                    yield objectarraylist.get(0);
+                }
+            };
 
-            this.item = itemstack;
             this.lootTable = null;
             this.setChanged();
         }
@@ -119,8 +106,8 @@ public class CrushableBlockEntity extends BlockEntity {
             this.level.levelEvent(3008, this.getBlockPos(), Block.getId(blockstate));
             Block block = this.getBlockState().getBlock();
             Block block1;
-            if (block instanceof CrushableBlock brushableblock) {
-                block1 = brushableblock.getTurnsInto();
+            if (block instanceof CrushableBlock pBlock) {
+                block1 = pBlock.getTurnsInto();
             } else {
                 block1 = Blocks.AIR;
             }
@@ -133,7 +120,7 @@ public class CrushableBlockEntity extends BlockEntity {
         if (this.level != null && this.level.getServer() != null) {
             this.unpackLootTable(pPlayer);
             if (!this.item.isEmpty()) {
-                double d0 = (double) EntityType.ITEM.getWidth();
+                double d0 = EntityType.ITEM.getWidth();
                 double d1 = 1.0D - d0;
                 double d2 = d0 / 2.0D;
                 Direction direction = Objects.requireNonNullElse(this.hitDirection, Direction.UP);

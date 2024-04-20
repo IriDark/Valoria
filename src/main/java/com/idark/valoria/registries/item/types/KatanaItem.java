@@ -42,7 +42,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class KatanaItem extends TieredItem implements Vanishable {
+public class KatanaItem extends TieredItem implements Vanishable, ICooldownItem {
     private final float attackDamage;
     public float dashDistance = 1.8f;
 

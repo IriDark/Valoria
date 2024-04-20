@@ -147,10 +147,10 @@ public class ItemsRegistry {
     public static final RegistryObject<Item> INFERNAL_INGOT = ITEMS.register("infernal_ingot", () -> new Item(new Item.Properties().fireResistant().rarity(RarityRegistry.INFERNAL)));
     public static final RegistryObject<Item> VOID_INGOT = ITEMS.register("void_ingot", () -> new Item(new Item.Properties().fireResistant().rarity(RarityRegistry.VOID)));
     // Cores
-    public static final RegistryObject<Item> NATURE_CORE = ITEMS.register("nature_core", () -> new CoreBuilder(new Item.Properties().fireResistant().rarity(RarityRegistry.NATURE), 8, new int[]{46, 204, 113}, "nature_core"));
-    public static final RegistryObject<Item> AQUARIUS_CORE = ITEMS.register("aquarius_core", () -> new CoreBuilder(new Item.Properties().fireResistant().rarity(RarityRegistry.AQUARIUS), 8, new int[]{17, 195, 214}, "aquarius_core"));
-    public static final RegistryObject<Item> INFERNAL_CORE = ITEMS.register("infernal_core", () -> new CoreBuilder(new Item.Properties().fireResistant().rarity(RarityRegistry.INFERNAL), 8, new int[]{231, 76, 60}, "infernal_core"));
-    public static final RegistryObject<Item> VOID_CORE = ITEMS.register("void_core", () -> new CoreBuilder(new Item.Properties().fireResistant().rarity(RarityRegistry.VOID), 8, new int[]{52, 73, 94}, "void_core"));
+    public static final RegistryObject<Item> NATURE_CORE = ITEMS.register("nature_core", () -> new CoreItem(new Item.Properties().fireResistant().rarity(RarityRegistry.NATURE), 8, new int[]{46, 204, 113}, "nature_core"));
+    public static final RegistryObject<Item> AQUARIUS_CORE = ITEMS.register("aquarius_core", () -> new CoreItem(new Item.Properties().fireResistant().rarity(RarityRegistry.AQUARIUS), 8, new int[]{17, 195, 214}, "aquarius_core"));
+    public static final RegistryObject<Item> INFERNAL_CORE = ITEMS.register("infernal_core", () -> new CoreItem(new Item.Properties().fireResistant().rarity(RarityRegistry.INFERNAL), 8, new int[]{231, 76, 60}, "infernal_core"));
+    public static final RegistryObject<Item> VOID_CORE = ITEMS.register("void_core", () -> new CoreItem(new Item.Properties().fireResistant().rarity(RarityRegistry.VOID), 8, new int[]{52, 73, 94}, "void_core"));
 
     // TOOLS (category)
     public static final RegistryObject<Item> CLUB = ITEMS.register("club",
@@ -176,7 +176,7 @@ public class ItemsRegistry {
     public static final RegistryObject<Item> SPECTRAL_BLADE = ITEMS.register("spectral_blade",
             () -> new SpectralBladeItem(new Item.Properties().durability(852)));
     public static final RegistryObject<Item> CORPSECLEAVER = ITEMS.register("corpsecleaver",
-            () -> new CorpsecleaverItem(Tiers.NETHERITE, 2, -2.4F, new Item.Properties().durability(1151)));
+            () -> new CorpseCleaverItem(Tiers.NETHERITE, 2, -2.4F, new Item.Properties().durability(1151)));
 
     // Placeholder for Entity Render
     public static final RegistryObject<Item> SPECTRAL_BLADE_THROWN = ITEMS.register("spectral_blade_thrown",

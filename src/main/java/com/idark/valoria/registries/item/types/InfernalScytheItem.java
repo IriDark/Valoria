@@ -55,7 +55,7 @@ public class InfernalScytheItem extends ScytheItem implements Vanishable {
         }
 
         Vector3d pos = new Vector3d(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());
-        List<LivingEntity> hitEntities = new ArrayList<LivingEntity>();
+        List<LivingEntity> hitEntities = new ArrayList<>();
         for (int i = 0; i < 360; i += 10) {
             ValoriaUtils.radiusHit(level, stack, player, ParticleTypes.FLAME, hitEntities, pos, 0, player.getRotationVector().y + i, 3);
             ValoriaUtils.spawnParticlesInRadius(level, stack, ParticleTypes.SMOKE, pos, 0, player.getRotationVector().y + i, 3);

@@ -4,7 +4,7 @@ import com.idark.valoria.client.render.model.blockentity.TickableBlockEntity;
 import com.idark.valoria.core.network.PacketHandler;
 import com.idark.valoria.core.network.packets.ManipulatorParticlePacket;
 import com.idark.valoria.registries.block.entity.ManipulatorBlockEntity;
-import com.idark.valoria.registries.item.types.CoreBuilder;
+import com.idark.valoria.registries.item.types.CoreItem;
 import com.idark.valoria.registries.menus.ManipulatorMenu;
 import com.idark.valoria.util.ValoriaUtils;
 import net.minecraft.core.BlockPos;
@@ -91,7 +91,7 @@ public class ManipulatorBlock extends Block implements EntityBlock {
 
         ItemStack core = player.getItemInHand(hand);
         boolean coreUpdated = false;
-        if (core.getItem() instanceof CoreBuilder builder && coreBlock.getCoreNBT(builder.getCoreName()) != 8) {
+        if (core.getItem() instanceof CoreItem builder && coreBlock.getCoreNBT(builder.getCoreName()) != 8) {
             if (!player.getAbilities().instabuild) {
                 core.shrink(1);
             }

@@ -29,10 +29,11 @@ public enum ModItemTier implements Tier {
     private final float efficiency;
     private final float attackDamage;
     private final int enchantability;
+
+    @Deprecated
     private final LazyLoadedValue<Ingredient> repairMaterial;
 
-    ModItemTier(int harvestLevel, int maxUses, float efficiency,
-                float attackDamage, int enchantability, Supplier<Ingredient> repairMaterial) {
+    ModItemTier(int harvestLevel, int maxUses, float efficiency, float attackDamage, int enchantability, Supplier<Ingredient> repairMaterial) {
         this.harvestLevel = harvestLevel;
         this.maxUses = maxUses;
         this.efficiency = efficiency;

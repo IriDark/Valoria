@@ -51,8 +51,7 @@ import java.util.function.Supplier;
 @SuppressWarnings("removal")
 public class PickItem extends Item implements ICustomAnimationItem, Vanishable {
     public static PickAnim animation = new PickAnim();
-    public static final int ANIMATION_DURATION = 10;
-    public static final int USE_DURATION = 200;
+    @Deprecated
     public static final double MAX_BRUSH_DISTANCE = Math.sqrt(ServerGamePacketListenerImpl.MAX_INTERACTION_DISTANCE) - 1.0D;
     public float excavationSpeed;
     public float attackDamageIn;
@@ -120,16 +119,15 @@ public class PickItem extends Item implements ICustomAnimationItem, Vanishable {
                 if (hitresult.getType() == HitResult.Type.BLOCK) {
                     int i = this.getUseDuration(pStack) - pRemainingUseDuration + 1;
                     int speed = getExcavationAccessories(player).isEmpty() ? (int) excavationSpeed + 15 : (int) excavationSpeed + 10;
-                    boolean flag = i % speed == 5;
-                    if (flag) {
+                    if (i % speed == 5) {
                         BlockPos blockpos = blockhitresult.getBlockPos();
                         BlockState blockstate = pLevel.getBlockState(blockpos);
                         HumanoidArm humanoidarm = pLivingEntity.getUsedItemHand() == InteractionHand.MAIN_HAND ? player.getMainArm() : player.getMainArm().getOpposite();
                         this.spawnDustParticles(pLevel, blockhitresult, blockstate, pLivingEntity.getViewVector(0.0F), humanoidarm);
-                        Block $$18 = blockstate.getBlock();
+                        Block pBlock = blockstate.getBlock();
                         SoundEvent soundevent;
-                        if ($$18 instanceof CrushableBlock brushableblock) {
-                            soundevent = brushableblock.getBrushSound();
+                        if (pBlock instanceof CrushableBlock block) {
+                            soundevent = block.getCrushSound();
                         } else {
                             soundevent = SoundEvents.BRUSH_GENERIC;
                         }
@@ -137,13 +135,10 @@ public class PickItem extends Item implements ICustomAnimationItem, Vanishable {
                         pLevel.playSound(player, blockpos, soundevent, SoundSource.BLOCKS);
                         if (!pLevel.isClientSide()) {
                             BlockEntity blockentity = pLevel.getBlockEntity(blockpos);
-                            if (blockentity instanceof CrushableBlockEntity brushableblockentity) {
-                                boolean flag1 = brushableblockentity.brush(pLevel.getGameTime(), player, blockhitresult.getDirection());
-                                if (flag1) {
+                            if (blockentity instanceof CrushableBlockEntity blockEntity) {
+                                if (blockEntity.crushing(pLevel.getGameTime(), player, blockhitresult.getDirection())) {
                                     EquipmentSlot equipmentslot = pStack.equals(player.getItemBySlot(EquipmentSlot.OFFHAND)) ? EquipmentSlot.OFFHAND : EquipmentSlot.MAINHAND;
-                                    pStack.hurtAndBreak(1, pLivingEntity, (p_279044_) -> {
-                                        p_279044_.broadcastBreakEvent(equipmentslot);
-                                    });
+                                    pStack.hurtAndBreak(1, pLivingEntity, (p_279044_) -> p_279044_.broadcastBreakEvent(equipmentslot));
                                 }
                             }
                         }
@@ -164,7 +159,6 @@ public class PickItem extends Item implements ICustomAnimationItem, Vanishable {
     }
 
     public void spawnDustParticles(Level pLevel, BlockHitResult pHitResult, BlockState pState, Vec3 pPos, HumanoidArm pArm) {
-        double d0 = 3.0D;
         int i = pArm == HumanoidArm.RIGHT ? 1 : -1;
         int j = pLevel.getRandom().nextInt(7, 12);
         BlockParticleOption blockparticleoption = new BlockParticleOption(ParticleTypes.BLOCK, pState);
@@ -179,9 +173,6 @@ public class PickItem extends Item implements ICustomAnimationItem, Vanishable {
     }
 
     record DustParticlesDelta(double xd, double yd, double zd) {
-        private static final double ALONG_SIDE_DELTA = 1.0D;
-        private static final double OUT_FROM_SIDE_DELTA = 0.1D;
-
         public static PickItem.DustParticlesDelta fromDirection(Vec3 pPos, Direction pDirection) {
 
             return switch (pDirection) {

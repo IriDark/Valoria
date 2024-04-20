@@ -22,19 +22,16 @@ import org.jetbrains.annotations.Nullable;
 
 public class CrushableBlock extends BaseEntityBlock {
     private static final IntegerProperty DUSTED = BlockStateProperties.DUSTED;
-    public static final int TICK_DELAY = 2;
     private final Block turnsInto;
     private final SoundEvent crushSound;
-    private final SoundEvent crushCompletedSound;
     private final boolean isIce;
 
-    public CrushableBlock(boolean isIce, Block pTurnsInto, BlockBehaviour.Properties pProperties, SoundEvent pCrushSound, SoundEvent pCrushCompletedSound) {
+    public CrushableBlock(boolean isIce, Block pTurnsInto, BlockBehaviour.Properties pProperties, SoundEvent pCrushSound) {
         super(pProperties);
         this.isIce = isIce;
         this.turnsInto = pTurnsInto;
         this.crushSound = pCrushSound;
-        this.crushCompletedSound = pCrushCompletedSound;
-        this.registerDefaultState(this.stateDefinition.any().setValue(DUSTED, Integer.valueOf(0)));
+        this.registerDefaultState(this.stateDefinition.any().setValue(DUSTED, 0));
     }
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
@@ -58,7 +55,7 @@ public class CrushableBlock extends BaseEntityBlock {
     }
 
     public boolean skipRendering(BlockState pState, BlockState pAdjacentBlockState, Direction pSide) {
-        return this.isIce ? pAdjacentBlockState.is(this) || pAdjacentBlockState.is(Blocks.ICE) : false;
+        return this.isIce && (pAdjacentBlockState.is(this) || pAdjacentBlockState.is(Blocks.ICE));
     }
 
     /**
@@ -74,8 +71,8 @@ public class CrushableBlock extends BaseEntityBlock {
 
     public void tick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
         BlockEntity blockentity = pLevel.getBlockEntity(pPos);
-        if (blockentity instanceof CrushableBlockEntity brushableblockentity) {
-            brushableblockentity.checkReset();
+        if (blockentity instanceof CrushableBlockEntity pBlockEntity) {
+            pBlockEntity.checkReset();
         }
     }
 
@@ -87,11 +84,7 @@ public class CrushableBlock extends BaseEntityBlock {
         return this.turnsInto;
     }
 
-    public SoundEvent getBrushSound() {
+    public SoundEvent getCrushSound() {
         return this.crushSound;
-    }
-
-    public SoundEvent getBrushCompletedSound() {
-        return this.crushCompletedSound;
     }
 }

@@ -19,12 +19,7 @@ public class ExplosiveFlameEnchantment extends Enchantment {
         return stack.isEnchantable() && (item instanceof BlazeReapItem);
     }
 
-    @Override
-    public int getMaxLevel() {
-        return 1;
-    }
-
-    public boolean checkCompatibility(Enchantment ench) {
-        return super.checkCompatibility(ench) && ench != Enchantments.FIRE_ASPECT;
+    public boolean checkCompatibility(Enchantment pEnchantment) {
+        return super.checkCompatibility(pEnchantment) && pEnchantment != Enchantments.FIRE_ASPECT;
     }
 }

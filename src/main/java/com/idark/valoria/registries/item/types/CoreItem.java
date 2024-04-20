@@ -3,7 +3,7 @@ package com.idark.valoria.registries.item.types;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.registries.RegistryObject;
 
-public class CoreBuilder extends Item {
+public class CoreItem extends Item {
 
     private final int givenCores;
     private final int[] color;
@@ -14,7 +14,7 @@ public class CoreBuilder extends Item {
      * @param pColor (R, G, B)
      * @param pCoreID Core name
      */
-    public CoreBuilder(Properties pProperties, int pGivenCores, int[] pColor, String pCoreID) {
+    public CoreItem(Properties pProperties, int pGivenCores, int[] pColor, String pCoreID) {
         super(pProperties);
         givenCores = pGivenCores;
         color = pColor;
@@ -25,7 +25,7 @@ public class CoreBuilder extends Item {
      * @param pGivenCores Max value: 8
      * @param pColor (R, G, B)
      */
-    public CoreBuilder(Properties pProperties, int pGivenCores, int[] pColor, RegistryObject<Item> item) {
+    public CoreItem(Properties pProperties, int pGivenCores, int[] pColor, RegistryObject<Item> item) {
         super(pProperties);
         givenCores = pGivenCores;
         color = pColor;
