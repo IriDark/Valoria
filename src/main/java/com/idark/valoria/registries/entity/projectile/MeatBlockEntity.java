@@ -2,8 +2,8 @@ package com.idark.valoria.registries.entity.projectile;
 
 import com.idark.valoria.registries.BlockRegistry;
 import com.idark.valoria.registries.DamageSourceRegistry;
+import com.idark.valoria.registries.SoundsRegistry;
 import com.idark.valoria.registries.entity.ModEntityTypes;
-import com.idark.valoria.registries.sounds.ModSoundRegistry;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -64,7 +64,7 @@ public class MeatBlockEntity extends AbstractArrow {
             if (!this.level().isClientSide()) {
                 this.removeAfterChangingDimensions();
             } else {
-                this.level().playSound(this, this.getOnPos(), ModSoundRegistry.DISAPPEAR.get(), SoundSource.AMBIENT, 0.4f, 1f);
+                this.level().playSound(this, this.getOnPos(), SoundsRegistry.DISAPPEAR.get(), SoundSource.AMBIENT, 0.4f, 1f);
                 for (int a = 0; a < 6; ++a) {
                     double d0 = rand.nextGaussian() * 0.02D;
                     double d1 = rand.nextGaussian() * 0.02D;

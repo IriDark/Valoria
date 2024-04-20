@@ -69,40 +69,8 @@
       "valoria:eruption"
     ]
   },
-  "item.pierce.ambient": {
-    "subtitle": "Pierce",
-    "replace": "true",
-    "sounds": [
-      "valoria:pierce1",
-      "valoria:pierce2",
-      "valoria:pierce3"
-    ]
-  },
-  "block.pot_break.ambient": {
-    "subtitle": "Pot Break",
-    "replace": "true",
-    "sounds": [
-      "valoria:pot/shatter1",
-      "valoria:pot/shatter2",
-      "valoria:pot/shatter3",
-      "valoria:pot/shatter4",
-      "valoria:pot/shatter5",
-      "valoria:pot/shatter6"
-    ]
-  },
-  "block.pot_step.ambient": {
-    "subtitle": "Pot Step",
-    "replace": "true",
-    "sounds": [
-      "valoria:pot/step1",
-      "valoria:pot/step2",
-      "valoria:pot/step3",
-      "valoria:pot/step4",
-      "valoria:pot/step5"
-    ]
-  },
-  "block.void_stone_break.ambient": {
-    "subtitle": "Block broken",
+  "block.void_stone.place": {
+    "subtitle": "subtitles.block.generic.place",
     "replace": "true",
     "sounds": [
       "valoria:void_stone/break1",
@@ -113,8 +81,76 @@
       "valoria:void_stone/break6"
     ]
   },
-  "block.pot_place.ambient": {
-    "subtitle": "Pot Place",
+  "block.void_stone.break": {
+    "subtitle": "subtitles.block.generic.break",
+    "replace": "true",
+    "sounds": [
+      "valoria:void_stone/break1",
+      "valoria:void_stone/break2",
+      "valoria:void_stone/break3",
+      "valoria:void_stone/break4",
+      "valoria:void_stone/break5",
+      "valoria:void_stone/break6"
+    ]
+  },
+  "block.void_stone.step": {
+    "subtitle": "subtitles.block.generic.footsteps",
+    "replace": "true",
+    "sounds": [
+      "valoria:void_stone/step1",
+      "valoria:void_stone/step2",
+      "valoria:void_stone/step3",
+      "valoria:void_stone/step4",
+      "valoria:void_stone/step5",
+      "valoria:void_stone/step6"
+    ]
+  },
+  "block.void_grass.break": {
+    "subtitle": "subtitles.block.generic.break",
+    "replace": "true",
+    "sounds": [
+      "valoria:void_grass/break1",
+      "valoria:void_grass/break2",
+      "valoria:void_grass/break3"
+    ]
+  },
+  "block.void_grass.step": {
+    "subtitle": "subtitles.block.generic.footsteps",
+    "replace": "true",
+    "sounds": [
+      "valoria:void_grass/step1",
+      "valoria:void_grass/step2",
+      "valoria:void_grass/step3",
+      "valoria:void_grass/step4",
+      "valoria:void_grass/step5",
+      "valoria:void_grass/step6"
+    ]
+  },
+  "block.pot.break": {
+    "subtitle": "subtitles.block.generic.break",
+    "replace": "true",
+    "sounds": [
+      "valoria:pot/shatter1",
+      "valoria:pot/shatter2",
+      "valoria:pot/shatter3",
+      "valoria:pot/shatter4",
+      "valoria:pot/shatter5",
+      "valoria:pot/shatter6"
+    ]
+  },
+  "block.pot.step": {
+    "subtitle": "subtitles.block.generic.footsteps",
+    "replace": "true",
+    "sounds": [
+      "valoria:pot/step1",
+      "valoria:pot/step2",
+      "valoria:pot/step3",
+      "valoria:pot/step4",
+      "valoria:pot/step5"
+    ]
+  },
+  "block.pot.place": {
+    "subtitle": "subtitles.block.generic.place",
     "replace": "true",
     "sounds": [
       "valoria:pot/place1",

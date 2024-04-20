@@ -1,6 +1,6 @@
 package com.idark.valoria.registries.item.types;
 
-import com.idark.valoria.registries.sounds.ModSoundRegistry;
+import com.idark.valoria.registries.SoundsRegistry;
 import com.idark.valoria.util.RandomUtil;
 import com.idark.valoria.util.ValoriaUtils;
 import net.minecraft.core.particles.ParticleTypes;
@@ -80,7 +80,7 @@ public class InfernalScytheItem extends ScytheItem implements Vanishable {
         }
 
         level.playSound(null, player.blockPosition(), SoundEvents.PLAYER_ATTACK_SWEEP, SoundSource.AMBIENT, 10f, 1f);
-        level.playSound(null, player.blockPosition(), ModSoundRegistry.SWIFTSLICE.get(), SoundSource.AMBIENT, 10f, 1f);
+        level.playSound(null, player.blockPosition(), SoundsRegistry.SWIFTSLICE.get(), SoundSource.AMBIENT, 10f, 1f);
         return stack;
     }
 }

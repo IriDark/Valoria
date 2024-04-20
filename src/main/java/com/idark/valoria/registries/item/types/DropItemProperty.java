@@ -1,7 +1,7 @@
 package com.idark.valoria.registries.item.types;
 
 import com.idark.valoria.Valoria;
-import com.idark.valoria.registries.sounds.ModSoundRegistry;
+import com.idark.valoria.registries.SoundsRegistry;
 import com.idark.valoria.util.LootUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.advancements.CriteriaTriggers;
@@ -33,7 +33,7 @@ public class DropItemProperty extends Item {
     @Override
     public InteractionResultHolder<ItemStack> use(Level worldIn, Player player, InteractionHand hand) {
         ItemStack heldStack = player.getItemInHand(hand);
-        worldIn.playSound(null, player.blockPosition(), ModSoundRegistry.BAG_OPEN.get(), SoundSource.AMBIENT, 10f, 1f);
+        worldIn.playSound(null, player.blockPosition(), SoundsRegistry.BAG_OPEN.get(), SoundSource.AMBIENT, 10f, 1f);
         if (player instanceof ServerPlayer serverPlayer) {
             Vec3 playerPos = serverPlayer.position();
             serverPlayer.awardStat(Stats.ITEM_USED.get(this));

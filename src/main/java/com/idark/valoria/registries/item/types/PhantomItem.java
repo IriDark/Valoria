@@ -1,7 +1,7 @@
 package com.idark.valoria.registries.item.types;
 
 import com.idark.valoria.registries.ItemsRegistry;
-import com.idark.valoria.registries.sounds.ModSoundRegistry;
+import com.idark.valoria.registries.SoundsRegistry;
 import com.idark.valoria.util.ValoriaUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.particles.ParticleTypes;
@@ -68,7 +68,7 @@ public class PhantomItem extends SwordItem implements Vanishable {
             }
         }
 
-        level.playSound(null, player.blockPosition(), ModSoundRegistry.PHANTASM_ABILITY.get(), SoundSource.AMBIENT, 1.0F, 1.0F);
+        level.playSound(null, player.blockPosition(), SoundsRegistry.PHANTASM_ABILITY.get(), SoundSource.AMBIENT, 1.0F, 1.0F);
         Minecraft.getInstance().gameRenderer.displayItemActivation(ItemsRegistry.ETERNITY.get().getDefaultInstance());
         if (!player.isCreative()) {
             stack.hurtAndBreak(35, player, (p_220045_0_) -> p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));

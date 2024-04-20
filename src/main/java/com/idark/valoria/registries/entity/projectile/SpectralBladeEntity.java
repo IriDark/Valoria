@@ -1,8 +1,8 @@
 package com.idark.valoria.registries.entity.projectile;
 
 import com.idark.valoria.registries.ItemsRegistry;
+import com.idark.valoria.registries.SoundsRegistry;
 import com.idark.valoria.registries.entity.ModEntityTypes;
-import com.idark.valoria.registries.sounds.ModSoundRegistry;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
@@ -60,7 +60,7 @@ public class SpectralBladeEntity extends AbstractArrow {
             if (!this.level().isClientSide()) {
                 this.removeAfterChangingDimensions();
             } else {
-                this.level().playSound(this, this.getOnPos(), ModSoundRegistry.DISAPPEAR.get(), SoundSource.AMBIENT, 0.4f, 1f);
+                this.level().playSound(this, this.getOnPos(), SoundsRegistry.DISAPPEAR.get(), SoundSource.AMBIENT, 0.4f, 1f);
                 for (int a = 0; a < 6; ++a) {
                     double d0 = rand.nextGaussian() * 0.02D;
                     double d1 = rand.nextGaussian() * 0.02D;
@@ -91,7 +91,7 @@ public class SpectralBladeEntity extends AbstractArrow {
     }
 
     public void onHitBlock(BlockHitResult pResult) {
-        this.level().playSound(this, this.getOnPos(), ModSoundRegistry.DISAPPEAR.get(), SoundSource.AMBIENT, 0.4f, 1f);
+        this.level().playSound(this, this.getOnPos(), SoundsRegistry.DISAPPEAR.get(), SoundSource.AMBIENT, 0.4f, 1f);
     }
 
     @Override
@@ -106,7 +106,7 @@ public class SpectralBladeEntity extends AbstractArrow {
         Entity shooter = this.getOwner();
         DamageSource damagesource = level().damageSources().trident(this, (Entity) (shooter == null ? this : shooter));
         this.dealtDamage = true;
-        this.level().playSound(this, this.getOnPos(), ModSoundRegistry.DISAPPEAR.get(), SoundSource.AMBIENT, 0.4f, 1f);
+        this.level().playSound(this, this.getOnPos(), SoundsRegistry.DISAPPEAR.get(), SoundSource.AMBIENT, 0.4f, 1f);
         if (entity.hurt(damagesource, f)) {
             if (entity.getType() == EntityType.ENDERMAN) {
                 return;
@@ -125,12 +125,12 @@ public class SpectralBladeEntity extends AbstractArrow {
     }
 
     public SoundEvent getDefaultHitGroundSoundEvent() {
-        return ModSoundRegistry.DISAPPEAR.get();
+        return SoundsRegistry.DISAPPEAR.get();
     }
 
     @Override
     public SoundEvent getHitGroundSoundEvent() {
-        return ModSoundRegistry.DISAPPEAR.get();
+        return SoundsRegistry.DISAPPEAR.get();
     }
 
     public void playerTouch(Player pEntity) {

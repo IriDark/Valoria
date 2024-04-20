@@ -1,5 +1,6 @@
 package com.idark.valoria.registries.sounds;
 
+import com.idark.valoria.registries.SoundsRegistry;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
 import net.minecraft.client.resources.sounds.SoundInstance;
@@ -12,7 +13,7 @@ public class CooldownSoundInstance extends AbstractTickableSoundInstance {
     public final LocalPlayer player;
 
     public CooldownSoundInstance(LocalPlayer pPlayer) {
-        super(ModSoundRegistry.RECHARGE.get(), SoundSource.PLAYERS, SoundInstance.createUnseededRandom());
+        super(SoundsRegistry.RECHARGE.get(), SoundSource.PLAYERS, SoundInstance.createUnseededRandom());
         this.player = pPlayer;
         this.looping = false;
         this.delay = 0;

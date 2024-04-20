@@ -35,7 +35,6 @@ import com.idark.valoria.registries.entity.living.*;
 import com.idark.valoria.registries.item.types.mana.staffs.StaffItem;
 import com.idark.valoria.registries.levelgen.LevelGen;
 import com.idark.valoria.registries.recipe.PotionBrewery;
-import com.idark.valoria.registries.sounds.ModSoundRegistry;
 import com.idark.valoria.util.LootUtil;
 import com.idark.valoria.util.RenderUtils;
 import net.minecraft.client.gui.screens.MenuScreens;
@@ -79,7 +78,7 @@ public class Valoria {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
 
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
-        ModSoundRegistry.SOUNDS.register(eventBus);
+        SoundsRegistry.SOUNDS.register(eventBus);
         EffectsRegistry.register(eventBus);
         EnchantmentsRegistry.register(eventBus);
         ModPaintings.register(eventBus);

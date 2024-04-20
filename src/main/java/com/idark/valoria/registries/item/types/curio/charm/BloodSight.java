@@ -5,8 +5,8 @@ import com.idark.valoria.client.particle.ModParticles;
 import com.idark.valoria.client.particle.types.Particles;
 import com.idark.valoria.core.event.ServerTickHandler;
 import com.idark.valoria.registries.ItemsRegistry;
+import com.idark.valoria.registries.SoundsRegistry;
 import com.idark.valoria.registries.item.types.IParticleItem;
-import com.idark.valoria.registries.sounds.ModSoundRegistry;
 import com.idark.valoria.util.ValoriaUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.BlockParticleOption;
@@ -94,7 +94,7 @@ public class BloodSight extends Item implements ICurioItem, Vanishable, IParticl
     @Nonnull
     @Override
     public ICurio.SoundInfo getEquipSound(SlotContext slotContext, ItemStack stack) {
-        return stack.getItem() == ItemsRegistry.BLOODSIGHT_MONOCLE.get() ? new ICurio.SoundInfo(SoundEvents.ARMOR_EQUIP_CHAIN, 1.0f, 1.0f) : new ICurio.SoundInfo(ModSoundRegistry.EQUIP_CURSE.get(), 1.0f, 1.0f);
+        return stack.getItem() == ItemsRegistry.BLOODSIGHT_MONOCLE.get() ? new ICurio.SoundInfo(SoundEvents.ARMOR_EQUIP_CHAIN, 1.0f, 1.0f) : new ICurio.SoundInfo(SoundsRegistry.EQUIP_CURSE.get(), 1.0f, 1.0f);
     }
 
     @Override

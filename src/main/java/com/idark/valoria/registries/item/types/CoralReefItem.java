@@ -1,6 +1,6 @@
 package com.idark.valoria.registries.item.types;
 
-import com.idark.valoria.registries.sounds.ModSoundRegistry;
+import com.idark.valoria.registries.SoundsRegistry;
 import com.idark.valoria.util.RandomUtil;
 import com.idark.valoria.util.ValoriaUtils;
 import net.minecraft.core.particles.ParticleTypes;
@@ -33,7 +33,7 @@ public class CoralReefItem extends SwordItem implements Vanishable {
         pStack.hurtAndBreak(1, pAttacker, (p_43296_) -> p_43296_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
         if (RandomUtil.percentChance(0.07f)) {
             pTarget.knockback(0.6F, pAttacker.getX() - pTarget.getX(), pAttacker.getZ() - pTarget.getZ());
-            pTarget.level().playSound(null, pTarget.getOnPos(), ModSoundRegistry.WATER_ABILITY.get(), SoundSource.AMBIENT, 0.7f, 1.2f);
+            pTarget.level().playSound(null, pTarget.getOnPos(), SoundsRegistry.WATER_ABILITY.get(), SoundSource.AMBIENT, 0.7f, 1.2f);
         }
 
         return true;
@@ -78,7 +78,7 @@ public class CoralReefItem extends SwordItem implements Vanishable {
             damagedEntity.knockback(0.4F, player.getX() - entityLiving.getX(), player.getZ() - entityLiving.getZ());
             if (RandomUtil.percentChance(0.25f)) {
                 damagedEntity.knockback(0.6F, player.getX() - damagedEntity.getX(), player.getZ() - damagedEntity.getZ());
-                damagedEntity.level().playSound(null, damagedEntity.getOnPos(), ModSoundRegistry.WATER_ABILITY.get(), SoundSource.AMBIENT, 0.2f, 1.2f);
+                damagedEntity.level().playSound(null, damagedEntity.getOnPos(), SoundsRegistry.WATER_ABILITY.get(), SoundSource.AMBIENT, 0.2f, 1.2f);
             }
         }
 
@@ -86,6 +86,6 @@ public class CoralReefItem extends SwordItem implements Vanishable {
             stack.hurtAndBreak(hitEntities.size(), player, (p_220045_0_) -> p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
         }
 
-        worldIn.playSound(null, player.blockPosition(), ModSoundRegistry.WATER_ABILITY.get(), SoundSource.AMBIENT, 0.8f, 1f);
+        worldIn.playSound(null, player.blockPosition(), SoundsRegistry.WATER_ABILITY.get(), SoundSource.AMBIENT, 0.8f, 1f);
     }
 }

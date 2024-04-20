@@ -5,7 +5,7 @@ import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Multimap;
 import com.idark.valoria.client.gui.overlay.DashOverlayRender;
-import com.idark.valoria.registries.sounds.ModSoundRegistry;
+import com.idark.valoria.registries.SoundsRegistry;
 import com.idark.valoria.util.ValoriaUtils;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.ChatFormatting;
@@ -210,7 +210,7 @@ public class KatanaItem extends TieredItem implements Vanishable, ICooldownItem 
                 level.addParticle(ParticleTypes.POOF, player.getX() + (rand.nextDouble() - 0.5D), player.getY(), player.getZ() + (rand.nextDouble() - 0.5D), 0d, 0.05d, 0d);
             }
 
-            level.playSound(player, player.blockPosition(), ModSoundRegistry.SWIFTSLICE.get(), SoundSource.AMBIENT, 10f, 1f);
+            level.playSound(player, player.blockPosition(), SoundsRegistry.SWIFTSLICE.get(), SoundSource.AMBIENT, 10f, 1f);
             if (level.isClientSide) DashOverlayRender.showDashOverlay();
         }
     }

@@ -2,7 +2,6 @@ package com.idark.valoria.client.event;
 
 import com.idark.valoria.registries.BlockRegistry;
 import com.idark.valoria.registries.levelgen.LevelGen;
-import com.mojang.blaze3d.shaders.FogShape;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.api.distmarker.Dist;
@@ -19,7 +18,6 @@ public class FogRenderer {
 
         @SubscribeEvent
         public static void onFogRender(ViewportEvent.RenderFog e) {
-            BlockState blockState = e.getCamera().getBlockAtCamera();
             if (!Minecraft.getInstance().options.getCameraType().isFirstPerson() && e.getCamera().getBlockAtCamera().is(BlockRegistry.QUICKSAND.get())) {
                 e.setCanceled(true);
                 e.setNearPlaneDistance(0.0F);
@@ -30,13 +28,6 @@ public class FogRenderer {
                 e.setCanceled(true);
                 e.setNearPlaneDistance(0.0F);
                 e.setFarPlaneDistance(1.5F);
-            }
-
-            if (!blockState.liquid() && Minecraft.getInstance().player.level().dimension() == LevelGen.VALORIA_KEY) {
-                e.setCanceled(true);
-                e.setNearPlaneDistance(0.1F);
-                e.setFarPlaneDistance(35.5F);
-                e.setFogShape(FogShape.CYLINDER);
             }
         }
 

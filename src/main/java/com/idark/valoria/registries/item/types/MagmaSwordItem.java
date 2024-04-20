@@ -1,6 +1,6 @@
 package com.idark.valoria.registries.item.types;
 
-import com.idark.valoria.registries.sounds.ModSoundRegistry;
+import com.idark.valoria.registries.SoundsRegistry;
 import com.idark.valoria.util.RandomUtil;
 import com.idark.valoria.util.ValoriaUtils;
 import net.minecraft.ChatFormatting;
@@ -116,7 +116,7 @@ public class MagmaSwordItem extends SwordItem implements Vanishable {
                     damagedEntity.setSecondsOnFire(12);
                 }
 
-                worldIn.playSound(player, player.blockPosition(), ModSoundRegistry.ERUPTION.get(), SoundSource.AMBIENT, 10f, 1f);
+                worldIn.playSound(player, player.blockPosition(), SoundsRegistry.ERUPTION.get(), SoundSource.AMBIENT, 10f, 1f);
                 if (!player.isCreative()) {
                     stack.hurtAndBreak(hitEntities.size(), player, (p_220045_0_) -> p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
                 }

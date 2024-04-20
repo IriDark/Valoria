@@ -5,7 +5,7 @@ import com.idark.valoria.client.particle.ModParticles;
 import com.idark.valoria.client.particle.types.Particles;
 import com.idark.valoria.core.network.PacketHandler;
 import com.idark.valoria.core.network.packets.MurasamaParticlePacket;
-import com.idark.valoria.registries.sounds.ModSoundRegistry;
+import com.idark.valoria.registries.SoundsRegistry;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
@@ -69,7 +69,7 @@ public class MurasamaItem extends KatanaItem implements Vanishable, IParticleIte
         }
 
         if (getCharge(stack) == 20) {
-            player.playNotifySound(ModSoundRegistry.RECHARGE.get(), SoundSource.PLAYERS, 0.6f, 1);
+            player.playNotifySound(SoundsRegistry.RECHARGE.get(), SoundSource.PLAYERS, 0.6f, 1);
         }
     }
 
@@ -153,7 +153,7 @@ public class MurasamaItem extends KatanaItem implements Vanishable, IParticleIte
                 level.addParticle(ParticleTypes.POOF, player.getX() + (rand.nextDouble() - 0.5D), player.getY(), player.getZ() + (rand.nextDouble() - 0.5D), 0d, 0.05d, 0d);
             }
 
-            level.playSound(player, player.blockPosition(), ModSoundRegistry.SWIFTSLICE.get(), SoundSource.AMBIENT, 10f, 1f);
+            level.playSound(player, player.blockPosition(), SoundsRegistry.SWIFTSLICE.get(), SoundSource.AMBIENT, 10f, 1f);
             hitEntities.clear();
             double locYaw = 0;
             double locPitch = 0;

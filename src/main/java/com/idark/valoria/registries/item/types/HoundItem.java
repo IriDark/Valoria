@@ -2,7 +2,7 @@ package com.idark.valoria.registries.item.types;
 
 import com.idark.valoria.core.network.PacketHandler;
 import com.idark.valoria.core.network.packets.LineToNearbyMobsParticlePacket;
-import com.idark.valoria.registries.sounds.ModSoundRegistry;
+import com.idark.valoria.registries.SoundsRegistry;
 import com.idark.valoria.util.ValoriaUtils;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
@@ -45,7 +45,7 @@ public class HoundItem extends SwordItem implements Vanishable {
         Player player = (Player) entityLiving;
         player.awardStat(Stats.ITEM_USED.get(this));
         player.getCooldowns().addCooldown(this, 120);
-        player.level().playSound(null, player.getOnPos(), ModSoundRegistry.BLOODHOUND_ABILITY.get(), SoundSource.AMBIENT, 0.4f, 1.2f);
+        player.level().playSound(null, player.getOnPos(), SoundsRegistry.BLOODHOUND_ABILITY.get(), SoundSource.AMBIENT, 0.4f, 1.2f);
         Vec3 pos = new Vec3(player.getX(), player.getY() + 0.2f, player.getZ());
         List<LivingEntity> markedEntities = new ArrayList<>();
         if (level instanceof ServerLevel pServ) {

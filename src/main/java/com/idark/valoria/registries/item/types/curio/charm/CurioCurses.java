@@ -2,7 +2,7 @@ package com.idark.valoria.registries.item.types.curio.charm;
 
 import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.Multimap;
-import com.idark.valoria.registries.sounds.ModSoundRegistry;
+import com.idark.valoria.registries.SoundsRegistry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -77,7 +77,7 @@ public class CurioCurses extends Item implements ICurioItem {
             if (pServer.getActiveEffects().isEmpty() && !pServer.getCooldowns().isOnCooldown(this)) {
                 pServer.addEffect(new MobEffectInstance(effects[Mth.nextInt(RandomSource.create(), 0, 5)], 60, 0, false, true));
                 pServer.getCooldowns().addCooldown(this, 300);
-                pServer.level().playSound(null, pServer.getOnPos(), ModSoundRegistry.EQUIP_CURSE.get(), SoundSource.AMBIENT, 0.5f, 1f);
+                pServer.level().playSound(null, pServer.getOnPos(), SoundsRegistry.EQUIP_CURSE.get(), SoundSource.AMBIENT, 0.5f, 1f);
             }
         }
     }

@@ -1,6 +1,6 @@
 package com.idark.valoria.registries.item.types;
 
-import com.idark.valoria.registries.sounds.ModSoundRegistry;
+import com.idark.valoria.registries.SoundsRegistry;
 import com.idark.valoria.util.RandomUtil;
 import com.idark.valoria.util.ValoriaUtils;
 import net.minecraft.core.particles.ParticleTypes;
@@ -36,7 +36,7 @@ public class AquariusScytheItem extends ScytheItem implements Vanishable {
         pStack.hurtAndBreak(1, pAttacker, (p_43296_) -> p_43296_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
         if (RandomUtil.percentChance(0.15f)) {
             pTarget.knockback(0.6F, pAttacker.getX() - pTarget.getX(), pAttacker.getZ() - pTarget.getZ());
-            pTarget.level().playSound(null, pTarget.getOnPos(), ModSoundRegistry.WATER_ABILITY.get(), SoundSource.AMBIENT, 0.7f, 1.2f);
+            pTarget.level().playSound(null, pTarget.getOnPos(), SoundsRegistry.WATER_ABILITY.get(), SoundSource.AMBIENT, 0.7f, 1.2f);
         }
 
         return true;
@@ -68,7 +68,7 @@ public class AquariusScytheItem extends ScytheItem implements Vanishable {
             entity.knockback(0.4F, player.getX() - entity.getX(), player.getZ() - entity.getZ());
             if (RandomUtil.percentChance(0.25f)) {
                 entity.knockback(0.6F, player.getX() - entity.getX(), player.getZ() - entity.getZ());
-                entity.level().playSound(null, entity.getOnPos(), ModSoundRegistry.WATER_ABILITY.get(), SoundSource.AMBIENT, 0.2f, 1.2f);
+                entity.level().playSound(null, entity.getOnPos(), SoundsRegistry.WATER_ABILITY.get(), SoundSource.AMBIENT, 0.2f, 1.2f);
             }
 
             if (!player.isCreative()) {
@@ -77,7 +77,7 @@ public class AquariusScytheItem extends ScytheItem implements Vanishable {
         }
 
         level.playSound(null, player.blockPosition(), SoundEvents.PLAYER_ATTACK_SWEEP, SoundSource.AMBIENT, 10f, 1f);
-        level.playSound(null, player.blockPosition(), ModSoundRegistry.SWIFTSLICE.get(), SoundSource.AMBIENT, 10f, 1f);
+        level.playSound(null, player.blockPosition(), SoundsRegistry.SWIFTSLICE.get(), SoundSource.AMBIENT, 10f, 1f);
         return stack;
     }
 }

@@ -3,7 +3,6 @@ package com.idark.valoria.registries;
 import com.idark.valoria.Valoria;
 import com.idark.valoria.registries.block.types.*;
 import com.idark.valoria.registries.levelgen.tree.ShadeWoodTree;
-import com.idark.valoria.registries.sounds.ModSoundRegistry;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -273,35 +272,35 @@ public class BlockRegistry {
     public static final RegistryObject<Block> PEARLIUM = registerBlock("pearlium",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops().strength(3f, 4f).sound(SoundType.NETHER_BRICKS)));
     public static final RegistryObject<Block> VOID_STONE = registerBlock("void_stone",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(3f, 4f).sound(ModSoundRegistry.VOID_STONE)));
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(3f, 4f).sound(SoundsRegistry.VOID_STONE)));
     public static final RegistryObject<Block> VOID_STONE_STAIRS = registerBlock("void_stone_stairs",
-            () -> new StairBlock(() -> VOID_STONE.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).mapColor(MapColor.COLOR_PURPLE).strength(2f, 4f).sound(ModSoundRegistry.VOID_STONE).requiresCorrectToolForDrops()));
+            () -> new StairBlock(() -> VOID_STONE.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).mapColor(MapColor.COLOR_PURPLE).strength(2f, 4f).sound(SoundsRegistry.VOID_STONE).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> VOID_STONE_SLAB = registerBlock("void_stone_slab",
-            () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(6f, 4f).sound(ModSoundRegistry.VOID_STONE)));
+            () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(6f, 4f).sound(SoundsRegistry.VOID_STONE)));
     public static final RegistryObject<Block> VOID_STONE_WALL = registerBlock("void_stone_wall",
-            () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(3f, 4f).sound(ModSoundRegistry.VOID_STONE)));
+            () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(3f, 4f).sound(SoundsRegistry.VOID_STONE)));
     public static final RegistryObject<Block> VOID_PILLAR_AMETHYST = registerBlock("void_pillar_amethyst",
-            () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(2f, 4f).sound(ModSoundRegistry.VOID_STONE).lightLevel(setLightValue(4))));
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(2f, 4f).sound(SoundsRegistry.VOID_STONE).lightLevel(setLightValue(4))));
     public static final RegistryObject<Block> VOID_PILLAR = registerBlock("void_pillar",
-            () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(2f, 4f).sound(ModSoundRegistry.VOID_STONE)));
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(2f, 4f).sound(SoundsRegistry.VOID_STONE)));
     public static final RegistryObject<Block> VOID_BRICK = registerBlock("void_brick",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(2f, 4f).sound(ModSoundRegistry.VOID_STONE)));
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(2f, 4f).sound(SoundsRegistry.VOID_STONE)));
     public static final RegistryObject<Block> VOID_BRICK_STAIRS = registerBlock("void_brick_stairs",
-            () -> new StairBlock(() -> VOID_BRICK.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).mapColor(MapColor.COLOR_PURPLE).strength(2f, 4f).requiresCorrectToolForDrops().sound(ModSoundRegistry.VOID_STONE)));
+            () -> new StairBlock(() -> VOID_BRICK.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).mapColor(MapColor.COLOR_PURPLE).strength(2f, 4f).requiresCorrectToolForDrops().sound(SoundsRegistry.VOID_STONE)));
     public static final RegistryObject<Block> VOID_BRICK_SLAB = registerBlock("void_brick_slab",
-            () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(6f, 4f).sound(ModSoundRegistry.VOID_STONE)));
+            () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(6f, 4f).sound(SoundsRegistry.VOID_STONE)));
     public static final RegistryObject<Block> VOID_BRICK_WALL = registerBlock("void_brick_wall",
-            () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(3f, 4f).sound(ModSoundRegistry.VOID_STONE)));
+            () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(3f, 4f).sound(SoundsRegistry.VOID_STONE)));
     public static final RegistryObject<Block> VOID_CRACKED_BRICK = registerBlock("void_cracked_brick",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(2f, 4f).sound(ModSoundRegistry.VOID_STONE)));
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(2f, 4f).sound(SoundsRegistry.VOID_STONE)));
     public static final RegistryObject<Block> VOID_CRACKED_BRICK_STAIRS = registerBlock("void_cracked_brick_stairs",
-            () -> new StairBlock(() -> VOID_CRACKED_BRICK.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).mapColor(MapColor.COLOR_PURPLE).strength(2f, 4f).requiresCorrectToolForDrops().sound(ModSoundRegistry.VOID_STONE)));
+            () -> new StairBlock(() -> VOID_CRACKED_BRICK.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).mapColor(MapColor.COLOR_PURPLE).strength(2f, 4f).requiresCorrectToolForDrops().sound(SoundsRegistry.VOID_STONE)));
     public static final RegistryObject<Block> VOID_CRACKED_BRICK_SLAB = registerBlock("void_cracked_brick_slab",
-            () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(6f, 4f).sound(ModSoundRegistry.VOID_STONE)));
+            () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(6f, 4f).sound(SoundsRegistry.VOID_STONE)));
     public static final RegistryObject<Block> VOID_CRACKED_BRICK_WALL = registerBlock("void_cracked_brick_wall",
-            () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(3f, 4f).sound(ModSoundRegistry.VOID_STONE)));
+            () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(3f, 4f).sound(SoundsRegistry.VOID_STONE)));
     public static final RegistryObject<Block> POLISHED_VOID_STONE = registerBlock("polished_void_stone",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(2f, 4f).sound(ModSoundRegistry.VOID_STONE)));
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(2f, 4f).sound(SoundsRegistry.VOID_STONE)));
     public static final RegistryObject<Block> POLISHED_TOMBSTONE = registerBlock("polished_tombstone",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops().strength(3f, 4f)));
     public static final RegistryObject<Block> VOID_CHISELED_BRICK = registerBlock("void_chiseled_brick",
@@ -313,9 +312,9 @@ public class BlockRegistry {
     public static final RegistryObject<Block> VOID_CHISELED_BRICKS_SLAB = registerBlock("void_chiseled_bricks_slab",
             () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(6f, 4f).sound(SoundType.NETHER_BRICKS)));
     public static final RegistryObject<Block> VOID_GRASS = registerBlock("void_grass",
-            () -> new VoidGrassBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(1f, 4f).sound(SoundType.FROGLIGHT)));
+            () -> new VoidGrassBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(1f, 4f).sound(SoundsRegistry.VOID_GRASS)));
     public static final RegistryObject<Block> VOID_TAINT = registerBlock("void_taint",
-            () -> new VoidTaintBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(2f, 4f).sound(SoundType.FROGLIGHT)));
+            () -> new VoidTaintBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(2f, 4f).sound(SoundsRegistry.VOID_GRASS)));
     public static final RegistryObject<Block> VOID_TAINT_LANTERN = registerBlock("void_taint_lantern",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.SEA_LANTERN).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(1f, 2f).sound(SoundType.FROGLIGHT).lightLevel((p_152688_) -> 9)));
     public static final RegistryObject<Block> ABYSSAL_LANTERN = registerBlock("abyssal_lantern",
@@ -323,9 +322,9 @@ public class BlockRegistry {
     public static final RegistryObject<Block> TOMBSTONE = registerBlock("tombstone",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops().strength(3f, 4f)));
     public static final RegistryObject<CrushableBlock> SUSPICIOUS_ICE = registerBlock("suspicious_ice",
-            () -> new CrushableBlock(true, Blocks.ICE, BlockBehaviour.Properties.copy(Blocks.ICE).friction(0.98F).noOcclusion().strength(0.5F).mapColor(MapColor.ICE).instrument(NoteBlockInstrument.SNARE).strength(0.25F).sound(ModSoundRegistry.SUSPICIOUS_TOMBSTONE).pushReaction(PushReaction.DESTROY), SoundEvents.BRUSH_GRAVEL));
+            () -> new CrushableBlock(true, Blocks.ICE, BlockBehaviour.Properties.copy(Blocks.ICE).friction(0.98F).noOcclusion().strength(0.5F).mapColor(MapColor.ICE).instrument(NoteBlockInstrument.SNARE).strength(0.25F).sound(SoundsRegistry.SUSPICIOUS_TOMBSTONE).pushReaction(PushReaction.DESTROY), SoundEvents.BRUSH_GRAVEL));
     public static final RegistryObject<CrushableBlock> SUSPICIOUS_TOMBSTONE = registerBlock("suspicious_tombstone",
-            () -> new CrushableBlock(false, TOMBSTONE.get(), BlockBehaviour.Properties.of().mapColor(MapColor.STONE).mapColor(MapColor.COLOR_BLACK).instrument(NoteBlockInstrument.SNARE).strength(0.85F).sound(ModSoundRegistry.SUSPICIOUS_TOMBSTONE).pushReaction(PushReaction.DESTROY), SoundEvents.BRUSH_GRAVEL));
+            () -> new CrushableBlock(false, TOMBSTONE.get(), BlockBehaviour.Properties.of().mapColor(MapColor.STONE).mapColor(MapColor.COLOR_BLACK).instrument(NoteBlockInstrument.SNARE).strength(0.85F).sound(SoundsRegistry.SUSPICIOUS_TOMBSTONE).pushReaction(PushReaction.DESTROY), SoundEvents.BRUSH_GRAVEL));
     public static final RegistryObject<Block> SPIKES = registerBlock("spikes",
             () -> new SpikeBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_GRAY).strength(-1f, 3600000.8F).noLootTable().dynamicShape().noOcclusion()));
     public static final RegistryObject<Block> CUT_TOMBSTONE = registerBlock("cut_tombstone",
@@ -469,17 +468,17 @@ public class BlockRegistry {
             () -> new AmethystClusterBlock(7, 3, BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(1f, 0f).sound(SoundType.GLASS).noOcclusion()));
     // Pots
     public static final RegistryObject<Block> POT_SMALL = registerBlock("pot_small",
-            () -> new PotBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).instabreak().noOcclusion().sound(ModSoundRegistry.POT)));
+            () -> new PotBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).instabreak().noOcclusion().sound(SoundsRegistry.POT)));
     public static final RegistryObject<Block> POT_SMALL_HANDLES = registerBlock("pot_small_handles",
-            () -> new PotBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).lootFrom(BlockRegistry.POT_SMALL).instabreak().noOcclusion().sound(ModSoundRegistry.POT)));
+            () -> new PotBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).lootFrom(BlockRegistry.POT_SMALL).instabreak().noOcclusion().sound(SoundsRegistry.POT)));
     public static final RegistryObject<Block> POT_LONG = registerBlock("pot_long",
-            () -> new PotBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).instabreak().noOcclusion().sound(ModSoundRegistry.POT)));
+            () -> new PotBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).instabreak().noOcclusion().sound(SoundsRegistry.POT)));
     public static final RegistryObject<Block> POT_LONG_HANDLES = registerBlock("pot_long_handles",
-            () -> new PotBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).lootFrom(BlockRegistry.POT_LONG).instabreak().noOcclusion().sound(ModSoundRegistry.POT)));
+            () -> new PotBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).lootFrom(BlockRegistry.POT_LONG).instabreak().noOcclusion().sound(SoundsRegistry.POT)));
     public static final RegistryObject<Block> POT_LONG_MOSSY = registerBlock("pot_long_mossy",
-            () -> new PotBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).lootFrom(BlockRegistry.POT_LONG).instabreak().noOcclusion().sound(ModSoundRegistry.POT)));
+            () -> new PotBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).lootFrom(BlockRegistry.POT_LONG).instabreak().noOcclusion().sound(SoundsRegistry.POT)));
     public static final RegistryObject<Block> POT_LONG_MOSSY_HANDLES = registerBlock("pot_long_mossy_handles",
-            () -> new PotBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).lootFrom(BlockRegistry.POT_LONG).instabreak().noOcclusion().sound(ModSoundRegistry.POT)));
+            () -> new PotBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).lootFrom(BlockRegistry.POT_LONG).instabreak().noOcclusion().sound(SoundsRegistry.POT)));
     // Plants`
     public static final RegistryObject<Block> TAINTED_ROOTS = BLOCK.register("tainted_roots",
             () -> new TaintedRootsBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).mapColor(MapColor.COLOR_MAGENTA).randomTicks().noCollission().instabreak().sound(SoundType.CAVE_VINES).pushReaction(PushReaction.DESTROY)));
