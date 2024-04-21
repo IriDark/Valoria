@@ -77,9 +77,9 @@ public class ValoriaClient {
 
         @SubscribeEvent
         public static void ColorMappingItems(RegisterColorHandlersEvent.Item event) {
-            event.register((p_92687_, p_92688_) -> 10465278, BlockRegistry.SHADEWOOD_LEAVES.get());
+            event.register((p_92687_, p_92688_) -> 10473726, BlockRegistry.SHADEWOOD_LEAVES.get());
             event.register((p_92687_, p_92688_) -> 11301619, BlockRegistry.VOID_GRASS.get(), BlockRegistry.VOID_TAINT.get(), BlockRegistry.VOID_ROOTS.get());
-            if(QuarkIntegration.isLoaded()) event.register((p_92687_, p_92688_) -> 10465278, QuarkIntegration.LoadedOnly.SHADEWOOD_LEAF_CARPET.get(), QuarkIntegration.LoadedOnly.SHADEWOOD_LEAF_HEDGE.get());
+            if(QuarkIntegration.isLoaded()) event.register((p_92687_, p_92688_) -> 10473726, QuarkIntegration.LoadedOnly.SHADEWOOD_LEAF_CARPET.get(), QuarkIntegration.LoadedOnly.SHADEWOOD_LEAF_HEDGE.get());
         }
 
         @SubscribeEvent
