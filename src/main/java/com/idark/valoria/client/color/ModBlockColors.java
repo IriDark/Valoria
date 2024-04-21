@@ -32,6 +32,8 @@ public class ModBlockColors implements BlockColor {
 
     public static final Block[] MODDED_FOLIAGE = {
             BlockRegistry.SHADEWOOD_LEAVES.get(),
+            BlockRegistry.SHADEWOOD_BRANCH.get(),
+            BlockRegistry.SHADEWOOD_SAPLING.get()
     };
 
     public static final Block[] QUARK = {

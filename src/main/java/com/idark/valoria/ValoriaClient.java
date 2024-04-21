@@ -72,14 +72,15 @@ public class ValoriaClient {
         public static void ColorMappingBlocks(RegisterColorHandlersEvent.Block event) {
             event.register((state, world, pos, tintIndex) -> ModBlockColors.getInstance().getGrassColor(state, world, pos, tintIndex), ModBlockColors.MODDED_GRASS);
             event.register((state, world, pos, tintIndex) -> ModBlockColors.getInstance().getFoliageColor(state, world, pos, tintIndex), ModBlockColors.MODDED_FOLIAGE);
-            if(QuarkIntegration.isLoaded()) event.register((state, world, pos, tintIndex) -> ModBlockColors.getInstance().getGrassColor(state, world, pos, tintIndex), ModBlockColors.QUARK);
+            if(QuarkIntegration.isLoaded()) event.register((state, world, pos, tintIndex) -> ModBlockColors.getInstance().getFoliageColor(state, world, pos, tintIndex), ModBlockColors.QUARK);
         }
 
         @SubscribeEvent
         public static void ColorMappingItems(RegisterColorHandlersEvent.Item event) {
-            event.register((p_92687_, p_92688_) -> 10473726, BlockRegistry.SHADEWOOD_LEAVES.get());
-            event.register((p_92687_, p_92688_) -> 11301619, BlockRegistry.VOID_GRASS.get(), BlockRegistry.VOID_TAINT.get(), BlockRegistry.VOID_ROOTS.get());
-            if(QuarkIntegration.isLoaded()) event.register((p_92687_, p_92688_) -> 10473726, QuarkIntegration.LoadedOnly.SHADEWOOD_LEAF_CARPET.get(), QuarkIntegration.LoadedOnly.SHADEWOOD_LEAF_HEDGE.get());
+            event.register((stack, tintIndex) -> tintIndex > 0 ? -1 : 9100543, BlockRegistry.SHADEWOOD_BRANCH.get(), BlockRegistry.SHADEWOOD_SAPLING.get());
+            event.register((stack, tintIndex) -> 9100543, BlockRegistry.SHADEWOOD_LEAVES.get());
+            event.register((stack, tintIndex) -> 11301619, BlockRegistry.VOID_GRASS.get(), BlockRegistry.VOID_TAINT.get(), BlockRegistry.VOID_ROOTS.get());
+            if(QuarkIntegration.isLoaded()) event.register((stack, tintIndex) -> 9100543, QuarkIntegration.LoadedOnly.SHADEWOOD_LEAF_CARPET.get(), QuarkIntegration.LoadedOnly.SHADEWOOD_LEAF_HEDGE.get());
         }
 
         @SubscribeEvent
