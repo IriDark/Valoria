@@ -5,11 +5,12 @@ import java.nio.charset.StandardCharsets
 
 buildscript {
     repositories {
+        mavenLocal()
+        mavenCentral()
         maven { url = 'https://maven.minecraftforge.net' }
         maven { url = 'https://repo.spongepowered.org/repository/maven-public/' }
         maven { url = 'https://maven.parchmentmc.org' }
-        mavenLocal()
-        mavenCentral()
+        maven{ url = 'https://jitpack.io' }
     }
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
@@ -91,81 +92,45 @@ mixin {
 
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 repositories {
+    mavenLocal()
+    mavenCentral()
     maven {
         name = "Modrinth"
         url = "https://api.modrinth.com/maven"
     }
-    maven {
-        url "https://maven.minecraftforge.net/releases/"
-        authentication {
-            basic(BasicAuthentication)
-        }
-        credentials {
-            username = System.env.MAVEN_USER ?:'fake'
-            password = System.env.MAVEN_PASSWORD ?:'news'
-        }
-    }
+    maven { url "https://maven.theillusivec4.top/"}
+    maven { url "https://cursemaven.com"}
+    maven { url "https://maven.blamejared.com"}
     maven { url 'https://jitpack.io' }
-    maven {
-        url "https://maven.theillusivec4.top/"
-    }
-    maven {
-        name = "ModMaven"
-        url = "https://modmaven.k-4u.nl"
-    }
-    maven {
-        url "https://cursemaven.com"
-    }
-    maven {
-        url "https://maven.blamejared.com"
-    }
-
-    //flatDir {
-    //     dir 'libs'
-    //}
-
-    mavenLocal()
-    mavenCentral()
 }
 
 dependencies {
     minecraft 'net.minecraftforge:forge:1.20.1-47.2.16'
-
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
+    // API's
     compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:5.7.2+1.20.1:api")
-    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:5.7.2+1.20.1")
-
     compileOnly fg.deobf("mezz.jei:jei-1.20.1-common-api:15.2.0.27")
-    runtimeOnly fg.deobf("mezz.jei:jei-1.20.1-forge:15.2.0.27")
-
     compileOnly fg.deobf("com.blamejared.crafttweaker:CraftTweaker-forge-1.20.1:14.0.13")
-    runtimeOnly fg.deobf("com.blamejared.crafttweaker:CraftTweaker-forge-1.20.1:14.0.13")
-
-    //implementation fg.deobf("curse.maven:bookshelf-228525:5084135")
-    //implementation fg.deobf("curse.maven:enchantment-descriptions-250419:5136988")
-    runtimeOnly fg.deobf("curse.maven:plusutils-979003:5133553")
-    runtimeOnly fg.deobf("curse.maven:appleskin-248787:4770828")
-
-    runtimeOnly fg.deobf("curse.maven:prism-lib-638111:4627141")
-    runtimeOnly fg.deobf("maven.modrinth:iceberg:1.1.13")
-    runtimeOnly fg.deobf("maven.modrinth:legendary-tooltips:1.4.5")
-
-    // used to test ore balance
-    //implementation fg.deobf("curse.maven:advanced-xray-256256:4840340")
-
-    // todo: compat
-    implementation fg.deobf("curse.maven:farmers-delight-398521:4679319")
-
-    //implementation fg.deobf("curse.maven:model-gap-fix-676136:4607206")
-    //implementation fg.deobf("curse.maven:just-enough-effect-descriptions-jeed-532286:4978810")
-    //implementation fg.deobf("curse.maven:mutil-351914:4824501")
-    //implementation fg.deobf("curse.maven:tetra-289712:4857842")
-
+    implementation fg.deobf("curse.maven:farmers-delight-398521:4679319") // todo: compat
     implementation fg.deobf("curse.maven:jade-324717:4986594")
     implementation fg.deobf("maven.modrinth:quark:1.20.1-4.0-439")
     implementation fg.deobf("maven.modrinth:zeta:1.20.1-1.0-14")
-    implementation fg.deobf("maven.modrinth:just-enough-resources-jer:1.4.0.247")
+
+    // RunTime
+    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:5.7.2+1.20.1")
+    runtimeOnly fg.deobf("mezz.jei:jei-1.20.1-forge:15.2.0.27")
+    runtimeOnly fg.deobf("com.blamejared.crafttweaker:CraftTweaker-forge-1.20.1:14.0.13")
+    runtimeOnly fg.deobf("curse.maven:plusutils-979003:5133553")
+    runtimeOnly fg.deobf("curse.maven:appleskin-248787:4770828")
+    runtimeOnly fg.deobf("curse.maven:prism-lib-638111:4627141")
+    runtimeOnly fg.deobf("maven.modrinth:iceberg:1.1.13")
+    runtimeOnly fg.deobf("maven.modrinth:legendary-tooltips:1.4.5")
+    //runtimeOnly fg.deobf("curse.maven:advanced-xray-256256:4840340") // used to test ore balance
+    //runtimeOnly fg.deobf("curse.maven:model-gap-fix-676136:4607206")
+    //runtimeOnly fg.deobf("curse.maven:just-enough-effect-descriptions-jeed-532286:4978810")
+    //runtimeOnly fg.deobf("curse.maven:mutil-351914:4824501")
+    //runtimeOnly fg.deobf("curse.maven:tetra-289712:4857842")
 }
 
 jar {
@@ -254,9 +219,9 @@ task sourcesJar(type: Jar, dependsOn: classes) {
 modrinth {
     token = System.getenv("modrinthtoken") // Remember to have the MODRINTH_TOKEN environment variable set or else this will fail - just make sure it stays private!
     projectId = "valoriadev"
-    versionNumber = "0.6b.240420440"
+    versionNumber = "${dev_version}"
     versionType = "alpha"
-    versionName = "Dev Build - 0.6b.240420440"
+    versionName = "Dev Build - ${dev_version}"
     uploadFile = tasks.jar
     changelog = "Just a DevBuild to test things, its some sorta like minecraft snapshots to find bugs and report them"
     dependencies {
