@@ -1,5 +1,6 @@
 package com.idark.valoria.client.color;
 
+import com.idark.valoria.compat.quark.QuarkIntegration;
 import com.idark.valoria.registries.BlockRegistry;
 import net.minecraft.client.color.block.BlockColor;
 import net.minecraft.client.renderer.BiomeColors;
@@ -34,7 +35,8 @@ public class ModBlockColors implements BlockColor {
     };
 
     public static final Block[] QUARK = {
-            // Will be used someday...
+            QuarkIntegration.LoadedOnly.SHADEWOOD_LEAF_CARPET.get(),
+            QuarkIntegration.LoadedOnly.SHADEWOOD_LEAF_HEDGE.get(),
     };
 
     public static ModBlockColors getInstance() {
