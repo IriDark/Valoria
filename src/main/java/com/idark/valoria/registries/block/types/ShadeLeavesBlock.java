@@ -25,8 +25,8 @@ public class ShadeLeavesBlock extends LeavesBlock {
                 Particles.create(ModParticles.SHADEWOOD_LEAF_PARTICLE)
                         .setColor((i >> 16 & 255) / 255.0F, (i >> 8 & 255) / 255.0F, (i & 255) / 255.0F)
                         .addVelocity(((random.nextDouble() - 0.5D) / 6), ((random.nextDouble() - 1.25D) / 3), ((random.nextDouble() - 0.5D) / 6))
-                        .setAlpha(0f, 1f).setScale(0.072f, 0.02f)
-                        .setLifetime(82)
+                        .setAlpha(0f, 0.65f).setScale(0.072f, 0f)
+                        .setLifetime(75)
                         .setSpin(((float) Math.toRadians(random.nextBoolean() ? -2 : 4)))
                         .spawn(world, pos.getX() + 0.5F + ((random.nextFloat() - 0.5f) * 0.9f), pos.getY() + 0.05, pos.getZ() + 0.5F + ((random.nextFloat() - 0.5f * 0.9f)));
             }

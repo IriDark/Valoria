@@ -55,7 +55,7 @@ public class TaintTransformBlockItem extends BlockItem {
         if (state.is(BlockRegistry.VOID_TAINT.get()) && state.getValue(VoidTaintBlock.TAINT) != 1) {
             worldIn.playSound(player, player.blockPosition(), SoundEvents.FROG_LAY_SPAWN, SoundSource.BLOCKS, 1.0F, 1.0F);
             worldIn.setBlockAndUpdate(pos, BlockRegistry.VOID_TAINT.get().defaultBlockState().setValue(VoidTaintBlock.TAINT, 1));
-            for (int i = 0; i < 12; i++) {
+            for (int i = 0; i < 6; i++) {
                 worldIn.addParticle(ParticleTypes.END_ROD, pos.getX() + rand.nextDouble(), pos.getY() + 1f, pos.getZ() + rand.nextDouble(), 0d, 0.05d, 0d);
             }
 

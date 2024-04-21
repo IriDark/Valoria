@@ -6,7 +6,6 @@ import com.idark.valoria.registries.entity.ai.attributes.ModAttributes;
 import com.idark.valoria.registries.entity.projectile.PoisonedKunaiEntity;
 import com.idark.valoria.util.RandomUtil;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -27,11 +26,9 @@ import net.minecraft.world.item.Vanishable;
 import net.minecraft.world.level.Level;
 
 import java.util.List;
-import java.util.Random;
 
 public class PoisonedKunaiItem extends KunaiItem implements Vanishable {
     private final Multimap<Attribute, AttributeModifier> tridentAttributes;
-    Random rand = new Random();
 
     public PoisonedKunaiItem(Item.Properties builderIn) {
         super(builderIn);
@@ -70,13 +67,6 @@ public class PoisonedKunaiItem extends KunaiItem implements Vanishable {
         stack.hurtAndBreak(1, attacker, (entity) -> entity.broadcastBreakEvent(EquipmentSlot.MAINHAND));
         if (RandomUtil.percentChance(0.25f)) {
             target.addEffect(new MobEffectInstance(MobEffects.POISON, 425, 0));
-            if (target.level().isClientSide) {
-                for (int i = 0; i < 10; i++) {
-                    target.level().addParticle(ParticleTypes.POOF, target.getX() + rand.nextDouble(), target.getY(), target.getZ() + rand.nextDouble(), 0d, 0.05d, 0d);
-                }
-            }
-
-            return true;
         }
 
         return true;
