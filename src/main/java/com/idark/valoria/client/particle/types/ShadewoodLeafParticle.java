@@ -1,6 +1,5 @@
 package com.idark.valoria.client.particle.types;
 
-
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.ParticleRenderType;
 
