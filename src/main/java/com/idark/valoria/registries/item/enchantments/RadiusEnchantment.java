@@ -1,14 +1,12 @@
 package com.idark.valoria.registries.item.enchantments;
 
 import com.idark.valoria.registries.EnchantmentsRegistry;
-import com.idark.valoria.registries.item.types.MagmaSwordItem;
-import com.idark.valoria.registries.item.types.PhantomItem;
-import com.idark.valoria.registries.item.types.ScytheItem;
+import com.idark.valoria.registries.item.types.IRadiusItem;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
+import org.jetbrains.annotations.NotNull;
 
 public class RadiusEnchantment extends Enchantment {
 
@@ -17,8 +15,7 @@ public class RadiusEnchantment extends Enchantment {
     }
 
     public boolean canEnchant(ItemStack stack) {
-        Item item = stack.getItem();
-        return stack.isEnchantable() && (item instanceof ScytheItem) || (item instanceof MagmaSwordItem) || (item instanceof PhantomItem);
+        return stack.isEnchantable() && stack.getItem() instanceof IRadiusItem;
     }
 
     @Override
@@ -34,7 +31,7 @@ public class RadiusEnchantment extends Enchantment {
         return super.getMinCost(pEnchantmentLevel) + 50;
     }
 
-    public boolean checkCompatibility(Enchantment pEnchantment) {
-        return super.checkCompatibility(pEnchantment) && pEnchantment != Enchantments.SWEEPING_EDGE;
+    public boolean checkCompatibility(@NotNull Enchantment pEnchantment) {
+        return pEnchantment != Enchantments.SWEEPING_EDGE;
     }
 }

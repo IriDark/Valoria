@@ -26,7 +26,7 @@ import org.joml.Vector3d;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ScytheItem extends SwordItem implements ICustomAnimationItem, Vanishable, ICooldownItem {
+public class ScytheItem extends SwordItem implements Vanishable, ICustomAnimationItem, ICooldownItem, IRadiusItem {
     public static RadiusAttackAnim animation = new RadiusAttackAnim();
     public int radius = 3;
     public ScytheItem(Tier tier, int attackDamageIn, float attackSpeedIn, Properties builderIn) {

@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class PhantomItem extends SwordItem implements Vanishable {
+public class PhantomItem extends SwordItem implements Vanishable, IRadiusItem {
     Random rand = new Random();
 
     public PhantomItem(Tier tier, int attackDamageIn, float attackSpeedIn, Properties builderIn) {
