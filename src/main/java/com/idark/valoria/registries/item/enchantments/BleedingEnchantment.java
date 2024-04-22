@@ -6,9 +6,6 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.minecraft.world.item.enchantment.Enchantments;
@@ -17,11 +14,6 @@ public class BleedingEnchantment extends Enchantment {
 
     public BleedingEnchantment() {
         super(Rarity.RARE, EnchantmentCategory.WEAPON, new EquipmentSlot[]{EquipmentSlot.MAINHAND});
-    }
-
-    public boolean canEnchant(ItemStack stack) {
-        Item item = stack.getItem();
-        return stack.isEnchantable() && (item instanceof SwordItem);
     }
 
     @Override

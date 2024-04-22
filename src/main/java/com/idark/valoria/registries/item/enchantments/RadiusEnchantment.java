@@ -1,9 +1,7 @@
 package com.idark.valoria.registries.item.enchantments;
 
 import com.idark.valoria.registries.EnchantmentsRegistry;
-import com.idark.valoria.registries.item.types.IRadiusItem;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import org.jetbrains.annotations.NotNull;
@@ -12,10 +10,6 @@ public class RadiusEnchantment extends Enchantment {
 
     public RadiusEnchantment() {
         super(Rarity.RARE, EnchantmentsRegistry.RADIUS_WEAPON, new EquipmentSlot[]{EquipmentSlot.MAINHAND});
-    }
-
-    public boolean canEnchant(ItemStack stack) {
-        return stack.isEnchantable() && stack.getItem() instanceof IRadiusItem;
     }
 
     @Override
