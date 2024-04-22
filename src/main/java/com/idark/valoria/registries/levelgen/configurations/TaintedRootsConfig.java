@@ -7,9 +7,7 @@ import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfigur
 
 public record TaintedRootsConfig(int spreadWidth, int spreadHeight) implements FeatureConfiguration {
 
-    public static final Codec<TaintedRootsConfig> CODEC = RecordCodecBuilder.create((p_191375_) -> {
-        return p_191375_.group(ExtraCodecs.POSITIVE_INT.fieldOf("spread_width").forGetter(TaintedRootsConfig::spreadWidth), ExtraCodecs.POSITIVE_INT.fieldOf("spread_height").forGetter(TaintedRootsConfig::spreadHeight)).apply(p_191375_, TaintedRootsConfig::new);
-    });
+    public static final Codec<TaintedRootsConfig> CODEC = RecordCodecBuilder.create((p_191375_) -> p_191375_.group(ExtraCodecs.POSITIVE_INT.fieldOf("spread_width").forGetter(TaintedRootsConfig::spreadWidth), ExtraCodecs.POSITIVE_INT.fieldOf("spread_height").forGetter(TaintedRootsConfig::spreadHeight)).apply(p_191375_, TaintedRootsConfig::new));
 
     public TaintedRootsConfig(int spreadWidth, int spreadHeight) {
         this.spreadWidth = spreadWidth;

@@ -16,6 +16,7 @@ import net.minecraft.world.level.dimension.LevelStem;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.configurations.BlockStateConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.TwistingVinesConfig;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
@@ -36,6 +37,7 @@ public class LevelGen {
     public static ResourceKey<ConfiguredFeature<?, ?>> SHADEWOOD_TREE = LevelGen.registerKey("shadewood_tree");
     public static ResourceKey<ConfiguredFeature<?, ?>> FANCY_SHADEWOOD_TREE = LevelGen.registerKey("fancy_shadewood_tree");
 
+    public static final RegistryObject<Feature<BlockStateConfiguration>> FALLEN_TREE = FEATURES.register("fallen_tree", () -> new FallenTreeFeature(BlockStateConfiguration.CODEC));
     public static final RegistryObject<Feature<RandomPatchConfiguration>> CATTAIL = FEATURES.register("cattail", () -> new CattailFeature(RandomPatchConfiguration.CODEC));
     public static final RegistryObject<Feature<TwistingVinesConfig>> ABYSSAL_GLOWFERN = FEATURES.register("abyssal_glowfern", () -> new AbyssalGlowfernFeature(TwistingVinesConfig.CODEC));
     public static final RegistryObject<Feature<TwistingVinesConfig>> VIOLET_SPROUT = FEATURES.register("violet_sprout", () -> new VioletSproutFeature(TwistingVinesConfig.CODEC));
