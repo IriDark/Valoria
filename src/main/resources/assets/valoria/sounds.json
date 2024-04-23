@@ -1,69 +1,69 @@
 {
   "item.disappear.ambient": {
-    "subtitle": "Spectral Blade Disappeared",
+    "subtitle": "subtitles.valoria.spectral_blade.disappear",
     "replace": "true",
     "sounds": [
       "valoria:spectral/disappear"
     ]
   },
   "item.curse.ambient": {
-    "subtitle": "Equipped Cursed Item",
+    "subtitle": "subtitles.valoria.curse.equip",
     "replace": "true",
     "sounds": [
       "valoria:bloodsight/equip_curse"
     ]
   },
   "item.repair.ambient": {
-    "subtitle": "Curse lost it's strength... ★",
+    "subtitle": "subtitles.valoria.curse.lost",
     "replace": "true",
     "sounds": [
       "valoria:bloodsight/repair"
     ]
   },
   "item.water_ability.use": {
-    "subtitle": "Aquarius Ability Used ★",
+    "subtitle": "subtitles.valoria.ability.use",
     "replace": "true",
     "sounds": [
       "valoria:water_ability"
     ]
   },
   "item.phantasm_ability.use": {
-    "subtitle": "Phantasm Ability Used ★",
+    "subtitle": "subtitles.valoria.ability.use",
     "replace": "true",
     "sounds": [
       "valoria:phantom_totem"
     ]
   },
   "item.bloodhound_ability.use": {
-    "subtitle": "Bloodhound Ability Used ★",
+    "subtitle": "subtitles.valoria.ability.use",
     "replace": "true",
     "sounds": [
       "valoria:bloodhound_ability"
     ]
   },
   "item.swiftslice.use": {
-    "subtitle": "Ability used ★",
+    "subtitle": "subtitles.valoria.ability.use",
     "replace": "true",
     "sounds": [
       "valoria:swiftslice"
     ]
   },
   "item.recharge.use": {
-    "subtitle": "Recharge",
+    "subtitle": "subtitles.valoria.item.recharge",
     "replace": "true",
     "sounds": [
       "valoria:recharge"
     ]
   },
   "item.blazecharge.use": {
-    "subtitle": "Blazecharge ★",
+    "subtitle": "subtitles.valoria.ability.use",
     "replace": "true",
     "sounds": [
       "valoria:blazecharge"
     ]
   },
   "item.eruption.use": {
-    "subtitle": "Eruption Ability Used ★",
+    "subtitle": "subtitles.valoria.ability.use",
     "replace": "true",
     "sounds": [
       "valoria:eruption"
@@ -160,7 +160,7 @@
     ]
   },
   "item.bag_open.use": {
-    "subtitle": "Opened Loot Bag",
+    "subtitle": "subtitles.valoria.lootbag.open",
     "replace": "true",
     "sounds": [
       "valoria:bag_open"

@@ -10,6 +10,12 @@
 	"valoria.jade.openable_with": "Openable with:",
 	"valoria.jade.progress": "Progress:",
 
+	"subtitles.valoria.curse.equip": "Equipped Cursed Item",
+	"subtitles.valoria.curse.lost": "Curse lost it's strength... ★",
+	"subtitles.valoria.spectral_blade.disappear": "Spectral Blade Disappeared",
+	"subtitles.valoria.ability.use": "Ability used ★",
+	"subtitles.valoria.item.recharge": "Recharge ★",
+	"subtitles.valoria.lootbag.open": "Opened Loot Bag ★",
 	"tooltip.valoria.wip": "This is an WIP item that can be buggy or even don't work. Use at your own risk!",
 	"tooltip.valoria.rmb": "[RMB] - to use",
 	"tooltip.valoria.rmb_shift": "[RMB + SHIFT] - to charge",
