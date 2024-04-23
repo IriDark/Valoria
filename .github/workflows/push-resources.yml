@@ -31,6 +31,7 @@ jobs:
           
           if [ -n "$(git status --porcelain  -- src/main/resources/)" ]; then
             git config --global user.name "Github Actions"
+            git config --global user.email "cli@github.com"
             git add src/main/resources/*
             git commit -m "Automatic resources update"
             git push
