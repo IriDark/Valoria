@@ -11,6 +11,10 @@ import org.joml.Vector3d;
 
 import java.util.function.Supplier;
 
+/**
+ * Very laggy, and mostly shitty code
+ * <p> todo: redo this
+ */
 public class CubeShapedParticlePacket {
 
     private final float posX;
