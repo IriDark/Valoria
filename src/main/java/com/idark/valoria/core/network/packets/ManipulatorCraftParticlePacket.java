@@ -6,7 +6,6 @@ import com.idark.valoria.client.particle.types.Particles;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.network.NetworkEvent;
-import org.joml.Vector3d;
 
 import java.util.function.Supplier;
 
@@ -43,14 +42,45 @@ public class ManipulatorCraftParticlePacket {
         if (ctx.get().getDirection().getReceptionSide().isClient()) {
             ctx.get().enqueueWork(() -> {
                 Level world = Valoria.proxy.getWorld();
-                Vector3d d = new Vector3d(msg.posX - msg.posToX, msg.posY - msg.posToY + 0.05f, msg.posZ - msg.posToZ);
                 Particles.create(ModParticles.GLOWING_SPHERE)
-                        .addVelocity(d.x, d.y, d.z)
+                        .addVelocity(-0.05f, 0.025f, -0.05f)
                         .setAlpha(0.35f, 1)
-                        .setScale(0.055f, 0.15f)
-                        .setColor(msg.colorR / 255, msg.colorG / 255, msg.colorB / 255, 0, 0, 0)
-                        .setLifetime(2)
-                        .spawn(world, msg.posX, msg.posY, msg.posZ);
+                        .setScale(0.025f, 0.1f)
+                        .setColor(231, 76, 60, 0, 0, 0)
+                        .setLifetime(8)
+                        .spawn(world, msg.posX + 0.85f, msg.posY + 1.10f, msg.posZ + 0.85f);
+
+                Particles.create(ModParticles.GLOWING_SPHERE)
+                        .addVelocity(0.05f, 0.025f, 0.05f)
+                        .setAlpha(0.35f, 1)
+                        .setScale(0.025f, 0.1f)
+                        .setColor(46, 204, 113, 0, 0, 0)
+                        .setLifetime(8)
+                        .spawn(world, msg.posX + 0.15f, msg.posY + 1.10f, msg.posZ + 0.15f);
+
+                Particles.create(ModParticles.GLOWING_SPHERE)
+                        .addVelocity(-0.05f, 0.025f, 0.05f)
+                        .setAlpha(0.35f, 1)
+                        .setScale(0.025f, 0.1f)
+                        .setColor(17, 195, 214, 0, 0, 0)
+                        .setLifetime(8)
+                        .spawn(world, msg.posX + 0.85f, msg.posY + 1.10f, msg.posZ + 0.15f);
+
+                Particles.create(ModParticles.GLOWING_SPHERE)
+                        .addVelocity(0.05f, 0.025f, -0.05f)
+                        .setAlpha(0.35f, 1)
+                        .setScale(0.025f, 0.1f)
+                        .setColor(52, 73, 94, 0, 0, 0)
+                        .setLifetime(8)
+                        .spawn(world, msg.posX + 0.15f, msg.posY + 1.10f, msg.posZ + 0.85f);
+
+                Particles.create(ModParticles.GLOWING_SPHERE)
+                        .addVelocity(0, 0.025f, 0)
+                        .setAlpha(0.1f, 0.5f)
+                        .setScale(0.025f, 0.1f)
+                        .setColor(255, 255, 255, 0, 0, 0)
+                        .setLifetime(12)
+                        .spawn(world, msg.posX + 0.5f, msg.posY + 1, msg.posZ + 0.5f);
 
                 ctx.get().setPacketHandled(true);
             });
