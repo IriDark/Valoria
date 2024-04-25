@@ -72,7 +72,9 @@ public class ValoriaClient {
         public static void ColorMappingBlocks(RegisterColorHandlersEvent.Block event) {
             event.register((state, world, pos, tintIndex) -> ModBlockColors.getInstance().getGrassColor(state, world, pos, tintIndex), ModBlockColors.MODDED_GRASS);
             event.register((state, world, pos, tintIndex) -> ModBlockColors.getInstance().getFoliageColor(state, world, pos, tintIndex), ModBlockColors.MODDED_FOLIAGE);
-            if(QuarkIntegration.isLoaded()) event.register((state, world, pos, tintIndex) -> ModBlockColors.getInstance().getFoliageColor(state, world, pos, tintIndex), ModBlockColors.QUARK);
+            if(QuarkIntegration.isLoaded()) {
+                event.register((state, world, pos, tintIndex) -> ModBlockColors.getInstance().getFoliageColor(state, world, pos, tintIndex), QuarkIntegration.LoadedOnly.SHADEWOOD_LEAF_CARPET.get(), QuarkIntegration.LoadedOnly.SHADEWOOD_LEAF_HEDGE.get());
+            }
         }
 
         @SubscribeEvent
@@ -80,7 +82,9 @@ public class ValoriaClient {
             event.register((stack, tintIndex) -> tintIndex > 0 ? -1 : 9100543, BlockRegistry.SHADEWOOD_BRANCH.get(), BlockRegistry.SHADEWOOD_SAPLING.get());
             event.register((stack, tintIndex) -> 9100543, BlockRegistry.SHADEWOOD_LEAVES.get());
             event.register((stack, tintIndex) -> 11301619, BlockRegistry.VOID_GRASS.get(), BlockRegistry.VOID_TAINT.get(), BlockRegistry.VOID_ROOTS.get());
-            if(QuarkIntegration.isLoaded()) event.register((stack, tintIndex) -> 9100543, QuarkIntegration.LoadedOnly.SHADEWOOD_LEAF_CARPET.get(), QuarkIntegration.LoadedOnly.SHADEWOOD_LEAF_HEDGE.get());
+            if(QuarkIntegration.isLoaded()) {
+                event.register((stack, tintIndex) -> 9100543, QuarkIntegration.LoadedOnly.SHADEWOOD_LEAF_CARPET.get(), QuarkIntegration.LoadedOnly.SHADEWOOD_LEAF_HEDGE.get());
+            }
         }
 
         @SubscribeEvent
