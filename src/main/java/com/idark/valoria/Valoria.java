@@ -32,7 +32,6 @@ import com.idark.valoria.registries.entity.ai.attributes.ModAttributes;
 import com.idark.valoria.registries.entity.decoration.MannequinEntity;
 import com.idark.valoria.registries.entity.decoration.ModPaintings;
 import com.idark.valoria.registries.entity.living.*;
-import com.idark.valoria.registries.item.types.mana.staffs.StaffItem;
 import com.idark.valoria.registries.levelgen.LevelGen;
 import com.idark.valoria.registries.recipe.PotionBrewery;
 import com.idark.valoria.util.LootUtil;
@@ -110,7 +109,7 @@ public class Valoria {
             forgeBus.addListener(CorpsecleaverRender::tick);
             forgeBus.addListener(CorpsecleaverRender::onDrawScreenPost);
             forgeBus.addListener(MagmaBarRender::onDrawScreenPost);
-            forgeBus.addListener(StaffItem::onDrawScreenPost);
+            //forgeBus.addListener(StaffItem::onDrawScreenPost);
             return new Object();
         });
 

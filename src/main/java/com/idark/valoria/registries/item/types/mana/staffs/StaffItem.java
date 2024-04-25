@@ -1,35 +1,8 @@
 package com.idark.valoria.registries.item.types.mana.staffs;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.core.config.ClientConfig;
 import com.idark.valoria.registries.item.types.mana.IManaItem;
 import com.idark.valoria.registries.item.types.mana.ManaItemType;
-import com.idark.valoria.registries.item.types.mana.ManaItemUtils;
-import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.stats.Stats;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.Level;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.RenderGuiOverlayEvent;
-import org.lwjgl.opengl.GL11;
-
-import java.util.List;
-import java.util.Random;
 
 // TODO: Completely (maybe) redone this
 public class StaffItem extends Item implements IManaItem {
@@ -39,14 +12,8 @@ public class StaffItem extends Item implements IManaItem {
         super(props);
     }
 
-    public static int spell;
-    public static int bar;
-    public static int cd = 57;
-    public static int max;
-
     @Override
     public int getMaxMana() {
-        max = 100;
         return 100;
     }
 
@@ -54,6 +21,13 @@ public class StaffItem extends Item implements IManaItem {
     public ManaItemType getManaItemType() {
         return ManaItemType.USING;
     }
+}
+
+    /*
+    public static int spell;
+    public static int bar;
+    public static int cd = 57;
+    public static int max;
 
 
     @Override
@@ -195,3 +169,4 @@ public class StaffItem extends Item implements IManaItem {
                 .append(Component.literal(" " + getModeString(stack) + "/100").withStyle(ChatFormatting.BLUE)));
     }
 }
+*/

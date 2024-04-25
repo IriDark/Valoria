@@ -162,7 +162,6 @@ public class ManipulatorBlockEntity extends BlockEntity implements MenuProvider,
     private void craftItem() {
         Optional<ManipulatorRecipe> recipe = getCurrentRecipe();
         ItemStack result = recipe.get().getResultItem(RegistryAccess.EMPTY);
-
         if (!recipe.get().getCore().equals("empty")) {
             decreaseCharge(recipe.get().getCore(), recipe.get().getCoresNeeded());
         }

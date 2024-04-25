@@ -43,7 +43,7 @@ public class QuarkIntegration {
     }
 
     /**
-     * Checks if Quark is loaded then loads the content inside the class (Auto BlockItem Reg)
+     * if Quark is installed loads the content inside this class (Auto BlockItem Reg)
      */
     public static class LoadedOnly {
         public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);

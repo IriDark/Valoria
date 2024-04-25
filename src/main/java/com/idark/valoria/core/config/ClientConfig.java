@@ -5,7 +5,7 @@ import org.apache.commons.lang3.tuple.Pair;
 
 public class ClientConfig {
     public static ForgeConfigSpec.ConfigValue<Integer>
-            MAGMA_CHARGE_BAR_Y, MAGMA_CHARGE_BAR_X, MAGMA_CHARGE_BAR_TYPE, MANA_BAR_Y, MANA_BAR_X, MANA_BAR_TYPE;
+            MAGMA_CHARGE_BAR_Y, MAGMA_CHARGE_BAR_X, MAGMA_CHARGE_BAR_TYPE; //, MANA_BAR_Y, MANA_BAR_X, MANA_BAR_TYPE;
     public static ForgeConfigSpec.ConfigValue<Boolean>
             IN_HAND_MODELS_32X, DASH_OVERLAY, BLOOD_OVERLAY, PHANTOM_ACTIVATION;
 
@@ -30,15 +30,15 @@ public class ClientConfig {
                 .defineInRange("MagmaBarType", 1, 1, 3);
         PHANTOM_ACTIVATION = builder.comment("Item activation on ability use")
                 .define("PhantomActivation", true);
-        MANA_BAR_Y = builder.comment("(Y) Coordinate for Mana Bar")
-                .comment("Can be edited in-game without reloading packs (If nothing changed reload packs with [F3+T] keybind)")
-                .define("ManaBarY", 5);
-        MANA_BAR_X = builder.comment("(X) Coordinate for Mana Bar")
-                .comment("Can be edited in-game without reloading packs (If nothing changed reload packs with [F3+T] keybind)")
-                .define("ManaBarX", 4);
-        MANA_BAR_TYPE = builder.comment("Type of Mana Bar")
-                .comment("Can be edited in-game without reloading packs (If nothing changed reload packs with [F3+T] keybind)")
-                .defineInRange("ManaBarType", 1, 1, 3);
+//        MANA_BAR_Y = builder.comment("(Y) Coordinate for Mana Bar")
+//                .comment("Can be edited in-game without reloading packs (If nothing changed reload packs with [F3+T] keybind)")
+//                .define("ManaBarY", 5);
+//        MANA_BAR_X = builder.comment("(X) Coordinate for Mana Bar")
+//                .comment("Can be edited in-game without reloading packs (If nothing changed reload packs with [F3+T] keybind)")
+//                .define("ManaBarX", 4);
+//        MANA_BAR_TYPE = builder.comment("Type of Mana Bar")
+//                .comment("Can be edited in-game without reloading packs (If nothing changed reload packs with [F3+T] keybind)")
+//                .defineInRange("ManaBarType", 1, 1, 3);
     }
 
     public static final ClientConfig INSTANCE;

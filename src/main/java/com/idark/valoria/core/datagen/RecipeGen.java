@@ -157,52 +157,53 @@ public class RecipeGen extends RecipeProvider implements IConditionBuilder {
         netheriteSmithing(pWriter, ItemsRegistry.GOLDEN_RING_EMERALD.get(), RecipeCategory.MISC, ItemsRegistry.NETHERITE_RING_EMERALD.get());
         netheriteSmithing(pWriter, ItemsRegistry.GOLDEN_RING_RUBY.get(), RecipeCategory.MISC, ItemsRegistry.NETHERITE_RING_RUBY.get());
         netheriteSmithing(pWriter, ItemsRegistry.GOLDEN_RING_SAPPHIRE.get(), RecipeCategory.MISC, ItemsRegistry.NETHERITE_RING_SAPPHIRE.get());
+        if(QuarkIntegration.isLoaded()) {
+            verticalSlabRecipe(pWriter, BlockRegistry.SHADEWOOD_PLANKS_SLAB.get(), QuarkIntegration.LoadedOnly.SHADEWOOD_PLANKS_VERTICAL_SLAB.get());
 
-        verticalSlabRecipe(pWriter, BlockRegistry.SHADEWOOD_PLANKS_SLAB.get(), QuarkIntegration.LoadedOnly.SHADEWOOD_PLANKS_VERTICAL_SLAB.get());
+            verticalSlabRecipe(pWriter, BlockRegistry.BRONZE_BLOCK_SLAB.get(), QuarkIntegration.LoadedOnly.BRONZE_VERTICAL_SLAB.get());
+            verticalSlabRecipe(pWriter, BlockRegistry.CUT_BRONZE_SLAB.get(), QuarkIntegration.LoadedOnly.CUT_BRONZE_VERTICAL_SLAB.get());
 
-        verticalSlabRecipe(pWriter, BlockRegistry.BRONZE_BLOCK_SLAB.get(), QuarkIntegration.LoadedOnly.BRONZE_VERTICAL_SLAB.get());
-        verticalSlabRecipe(pWriter, BlockRegistry.CUT_BRONZE_SLAB.get(), QuarkIntegration.LoadedOnly.CUT_BRONZE_VERTICAL_SLAB.get());
+            verticalSlabRecipe(pWriter, BlockRegistry.EPHEMARITE_SLAB.get(), QuarkIntegration.LoadedOnly.EPHEMARITE_VERTICAL_SLAB.get());
+            verticalSlabRecipe(pWriter, BlockRegistry.EPHEMARITE_LOW_SLAB.get(), QuarkIntegration.LoadedOnly.EPHEMARITE_LOW_VERTICAL_SLAB.get());
+            verticalSlabRecipe(pWriter, BlockRegistry.POLISHED_EPHEMARITE_SLAB.get(), QuarkIntegration.LoadedOnly.POLISHED_EPHEMARITE_VERTICAL_SLAB.get());
+            verticalSlabRecipe(pWriter, BlockRegistry.POLISHED_EPHEMARITE_LOW_SLAB.get(), QuarkIntegration.LoadedOnly.POLISHED_EPHEMARITE_LOW_VERTICAL_SLAB.get());
 
-        verticalSlabRecipe(pWriter, BlockRegistry.EPHEMARITE_SLAB.get(), QuarkIntegration.LoadedOnly.EPHEMARITE_VERTICAL_SLAB.get());
-        verticalSlabRecipe(pWriter, BlockRegistry.EPHEMARITE_LOW_SLAB.get(), QuarkIntegration.LoadedOnly.EPHEMARITE_LOW_VERTICAL_SLAB.get());
-        verticalSlabRecipe(pWriter, BlockRegistry.POLISHED_EPHEMARITE_SLAB.get(), QuarkIntegration.LoadedOnly.POLISHED_EPHEMARITE_VERTICAL_SLAB.get());
-        verticalSlabRecipe(pWriter, BlockRegistry.POLISHED_EPHEMARITE_LOW_SLAB.get(), QuarkIntegration.LoadedOnly.POLISHED_EPHEMARITE_LOW_VERTICAL_SLAB.get());
+            verticalSlabRecipe(pWriter, BlockRegistry.AMBANE_STONE_SLAB.get(), QuarkIntegration.LoadedOnly.AMBANE_STONE_VERTICAL_SLAB.get());
+            verticalSlabRecipe(pWriter, BlockRegistry.DUNESTONE_SLAB.get(), QuarkIntegration.LoadedOnly.DUNESTONE_VERTICAL_SLAB.get());
+            verticalSlabRecipe(pWriter, BlockRegistry.TOMBSTONE_SLAB.get(), QuarkIntegration.LoadedOnly.TOMBSTONE_VERTICAL_SLAB.get());
+            verticalSlabRecipe(pWriter, BlockRegistry.LIMESTONE_SLAB.get(), QuarkIntegration.LoadedOnly.LIMESTONE_VERTICAL_SLAB.get());
+            verticalSlabRecipe(pWriter, BlockRegistry.DEEP_MARBLE_SLAB.get(), QuarkIntegration.LoadedOnly.DEEP_MARBLE_VERTICAL_SLAB.get());
+            verticalSlabRecipe(pWriter, BlockRegistry.PICRITE_SLAB.get(), QuarkIntegration.LoadedOnly.PICRITE_VERTICAL_SLAB.get());
+            verticalSlabRecipe(pWriter, BlockRegistry.VOID_STONE_SLAB.get(), QuarkIntegration.LoadedOnly.VOID_STONE_VERTICAL_SLAB.get());
+            verticalSlabRecipe(pWriter, BlockRegistry.CRYSTAL_STONE_SLAB.get(), QuarkIntegration.LoadedOnly.CRYSTAL_STONE_VERTICAL_SLAB.get());
 
-        verticalSlabRecipe(pWriter, BlockRegistry.AMBANE_STONE_SLAB.get(), QuarkIntegration.LoadedOnly.AMBANE_STONE_VERTICAL_SLAB.get());
-        verticalSlabRecipe(pWriter, BlockRegistry.DUNESTONE_SLAB.get(), QuarkIntegration.LoadedOnly.DUNESTONE_VERTICAL_SLAB.get());
-        verticalSlabRecipe(pWriter, BlockRegistry.TOMBSTONE_SLAB.get(), QuarkIntegration.LoadedOnly.TOMBSTONE_VERTICAL_SLAB.get());
-        verticalSlabRecipe(pWriter, BlockRegistry.LIMESTONE_SLAB.get(), QuarkIntegration.LoadedOnly.LIMESTONE_VERTICAL_SLAB.get());
-        verticalSlabRecipe(pWriter, BlockRegistry.DEEP_MARBLE_SLAB.get(), QuarkIntegration.LoadedOnly.DEEP_MARBLE_VERTICAL_SLAB.get());
-        verticalSlabRecipe(pWriter, BlockRegistry.PICRITE_SLAB.get(), QuarkIntegration.LoadedOnly.PICRITE_VERTICAL_SLAB.get());
-        verticalSlabRecipe(pWriter, BlockRegistry.VOID_STONE_SLAB.get(), QuarkIntegration.LoadedOnly.VOID_STONE_VERTICAL_SLAB.get());
-        verticalSlabRecipe(pWriter, BlockRegistry.CRYSTAL_STONE_SLAB.get(), QuarkIntegration.LoadedOnly.CRYSTAL_STONE_VERTICAL_SLAB.get());
+            verticalSlabRecipe(pWriter, BlockRegistry.POLISHED_AMBANE_STONE_SLAB.get(), QuarkIntegration.LoadedOnly.POLISHED_AMBANE_STONE_VERTICAL_SLAB.get());
+            verticalSlabRecipe(pWriter, BlockRegistry.POLISHED_LIMESTONE_SLAB.get(), QuarkIntegration.LoadedOnly.POLISHED_LIMESTONE_VERTICAL_SLAB.get());
+            verticalSlabRecipe(pWriter, BlockRegistry.POLISHED_DEEP_MARBLE_SLAB.get(), QuarkIntegration.LoadedOnly.POLISHED_DEEP_MARBLE_VERTICAL_SLAB.get());
+            verticalSlabRecipe(pWriter, BlockRegistry.POLISHED_PICRITE_SLAB.get(), QuarkIntegration.LoadedOnly.POLISHED_PICRITE_VERTICAL_SLAB.get());
 
-        verticalSlabRecipe(pWriter, BlockRegistry.POLISHED_AMBANE_STONE_SLAB.get(), QuarkIntegration.LoadedOnly.POLISHED_AMBANE_STONE_VERTICAL_SLAB.get());
-        verticalSlabRecipe(pWriter, BlockRegistry.POLISHED_LIMESTONE_SLAB.get(), QuarkIntegration.LoadedOnly.POLISHED_LIMESTONE_VERTICAL_SLAB.get());
-        verticalSlabRecipe(pWriter, BlockRegistry.POLISHED_DEEP_MARBLE_SLAB.get(), QuarkIntegration.LoadedOnly.POLISHED_DEEP_MARBLE_VERTICAL_SLAB.get());
-        verticalSlabRecipe(pWriter, BlockRegistry.POLISHED_PICRITE_SLAB.get(), QuarkIntegration.LoadedOnly.POLISHED_PICRITE_VERTICAL_SLAB.get());
+            verticalSlabRecipe(pWriter, BlockRegistry.AMBANE_STONE_BRICKS_SLAB.get(), QuarkIntegration.LoadedOnly.AMBANE_STONE_BRICKS_VERTICAL_SLAB.get());
+            verticalSlabRecipe(pWriter, BlockRegistry.DUNESTONE_BRICKS_SLAB.get(), QuarkIntegration.LoadedOnly.DUNESTONE_BRICKS_VERTICAL_SLAB.get());
+            verticalSlabRecipe(pWriter, BlockRegistry.TOMBSTONE_BRICKS_SLAB.get(), QuarkIntegration.LoadedOnly.TOMBSTONE_BRICKS_VERTICAL_SLAB.get());
+            verticalSlabRecipe(pWriter, BlockRegistry.LIMESTONE_BRICKS_SLAB.get(), QuarkIntegration.LoadedOnly.LIMESTONE_BRICKS_VERTICAL_SLAB.get());
+            verticalSlabRecipe(pWriter, BlockRegistry.VOID_BRICK_SLAB.get(), QuarkIntegration.LoadedOnly.VOID_BRICK_VERTICAL_SLAB.get());
+            verticalSlabRecipe(pWriter, BlockRegistry.CRYSTAL_STONE_BRICKS_SLAB.get(), QuarkIntegration.LoadedOnly.CRYSTAL_STONE_BRICKS_VERTICAL_SLAB.get());
 
-        verticalSlabRecipe(pWriter, BlockRegistry.AMBANE_STONE_BRICKS_SLAB.get(), QuarkIntegration.LoadedOnly.AMBANE_STONE_BRICKS_VERTICAL_SLAB.get());
-        verticalSlabRecipe(pWriter, BlockRegistry.DUNESTONE_BRICKS_SLAB.get(), QuarkIntegration.LoadedOnly.DUNESTONE_BRICKS_VERTICAL_SLAB.get());
-        verticalSlabRecipe(pWriter, BlockRegistry.TOMBSTONE_BRICKS_SLAB.get(), QuarkIntegration.LoadedOnly.TOMBSTONE_BRICKS_VERTICAL_SLAB.get());
-        verticalSlabRecipe(pWriter, BlockRegistry.LIMESTONE_BRICKS_SLAB.get(), QuarkIntegration.LoadedOnly.LIMESTONE_BRICKS_VERTICAL_SLAB.get());
-        verticalSlabRecipe(pWriter, BlockRegistry.VOID_BRICK_SLAB.get(), QuarkIntegration.LoadedOnly.VOID_BRICK_VERTICAL_SLAB.get());
-        verticalSlabRecipe(pWriter, BlockRegistry.CRYSTAL_STONE_BRICKS_SLAB.get(), QuarkIntegration.LoadedOnly.CRYSTAL_STONE_BRICKS_VERTICAL_SLAB.get());
+            verticalSlabRecipe(pWriter, BlockRegistry.VOID_CHISELED_BRICKS_SLAB.get(), QuarkIntegration.LoadedOnly.CHISELED_VOID_BRICKS_VERTICAL_SLAB.get());
+            verticalSlabRecipe(pWriter, BlockRegistry.CRACKED_LIMESTONE_BRICKS_SLAB.get(), QuarkIntegration.LoadedOnly.CRACKED_LIMESTONE_BRICKS_VERTICAL_SLAB.get());
+            verticalSlabRecipe(pWriter, BlockRegistry.VOID_CRACKED_BRICK_SLAB.get(), QuarkIntegration.LoadedOnly.VOID_CRACKED_BRICK_VERTICAL_SLAB.get());
 
-        verticalSlabRecipe(pWriter, BlockRegistry.VOID_CHISELED_BRICKS_SLAB.get(), QuarkIntegration.LoadedOnly.CHISELED_VOID_BRICKS_VERTICAL_SLAB.get());
-        verticalSlabRecipe(pWriter, BlockRegistry.CRACKED_LIMESTONE_BRICKS_SLAB.get(), QuarkIntegration.LoadedOnly.CRACKED_LIMESTONE_BRICKS_VERTICAL_SLAB.get());
-        verticalSlabRecipe(pWriter, BlockRegistry.VOID_CRACKED_BRICK_SLAB.get(), QuarkIntegration.LoadedOnly.VOID_CRACKED_BRICK_VERTICAL_SLAB.get());
+            ladderRecipe(pWriter, BlockRegistry.SHADEWOOD_PLANKS.get(), QuarkIntegration.LoadedOnly.SHADEWOOD_LADDER.get());
+            chestRecipes(pWriter, QuarkIntegration.LoadedOnly.SHADEWOOD_CHEST.get(), QuarkIntegration.LoadedOnly.TRAPPED_SHADEWOOD_CHEST.get(), BlockRegistry.SHADEWOOD_PLANKS.get(), TagsRegistry.SHADEWOOD);
 
-        ladderRecipe(pWriter, BlockRegistry.SHADEWOOD_PLANKS.get(), QuarkIntegration.LoadedOnly.SHADEWOOD_LADDER.get());
-        chestRecipes(pWriter, QuarkIntegration.LoadedOnly.SHADEWOOD_CHEST.get(), QuarkIntegration.LoadedOnly.TRAPPED_SHADEWOOD_CHEST.get(), BlockRegistry.SHADEWOOD_PLANKS.get(), TagsRegistry.SHADEWOOD);
+            postRecipe(pWriter, BlockRegistry.STRIPPED_SHADELOG.get(), QuarkIntegration.LoadedOnly.STRIPPED_SHADELOG_POST.get());
+            postRecipe(pWriter, BlockRegistry.SHADELOG.get(), QuarkIntegration.LoadedOnly.SHADELOG_POST.get());
 
-        postRecipe(pWriter, BlockRegistry.STRIPPED_SHADELOG.get(), QuarkIntegration.LoadedOnly.STRIPPED_SHADELOG_POST.get());
-        postRecipe(pWriter, BlockRegistry.SHADELOG.get(), QuarkIntegration.LoadedOnly.SHADELOG_POST.get());
+            hedgeRecipe(pWriter, TagsRegistry.SHADEWOOD, BlockRegistry.SHADEWOOD_LEAVES.get(), QuarkIntegration.LoadedOnly.SHADEWOOD_LEAF_HEDGE.get());
+            leafCarpetRecipe(pWriter, BlockRegistry.SHADEWOOD_LEAVES.get(), QuarkIntegration.LoadedOnly.SHADEWOOD_LEAF_CARPET.get());
 
-        hedgeRecipe(pWriter, TagsRegistry.SHADEWOOD, BlockRegistry.SHADEWOOD_LEAVES.get(), QuarkIntegration.LoadedOnly.SHADEWOOD_LEAF_HEDGE.get());
-        leafCarpetRecipe(pWriter, BlockRegistry.SHADEWOOD_LEAVES.get(), QuarkIntegration.LoadedOnly.SHADEWOOD_LEAF_CARPET.get());
-
-        bookshelfRecipe(pWriter, BlockRegistry.SHADEWOOD_PLANKS.get(), QuarkIntegration.LoadedOnly.SHADEWOOD_BOOKSHELF.get());
+            bookshelfRecipe(pWriter, BlockRegistry.SHADEWOOD_PLANKS.get(), QuarkIntegration.LoadedOnly.SHADEWOOD_BOOKSHELF.get());
+        }
 
         fence(pWriter, BlockRegistry.SHADEWOOD_FENCE.get(), BlockRegistry.SHADEWOOD_PLANKS.get());
         fenceGate(pWriter, BlockRegistry.SHADEWOOD_FENCE_GATE.get(), BlockRegistry.SHADEWOOD_PLANKS.get());

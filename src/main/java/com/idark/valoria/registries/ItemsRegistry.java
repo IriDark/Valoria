@@ -20,7 +20,6 @@ import com.idark.valoria.registries.item.types.curio.enums.AccessoryType;
 import com.idark.valoria.registries.item.types.curio.necklace.PickNecklace;
 import com.idark.valoria.registries.item.types.food.AloeBandageItem;
 import com.idark.valoria.registries.item.types.food.ModDrinkItem;
-import com.idark.valoria.registries.item.types.mana.staffs.StaffItem;
 import com.idark.valoria.util.ValoriaUtils;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -74,7 +73,7 @@ public class ItemsRegistry {
     public static final RegistryObject<Item> PHANTASM_BOOTS = ITEMS.register("phantasm_boots", () -> new ModArmorItem(ModArmorMaterial.PHANTASM, ArmorItem.Type.BOOTS, (new Item.Properties().rarity(RarityRegistry.PHANTASM).fireResistant())));
 
     // ITEMS
-    public static final RegistryObject<Item> STAFF = ITEMS.register("basic_staff", () -> new StaffItem(new Item.Properties()));
+    //public static final RegistryObject<Item> STAFF = ITEMS.register("basic_staff", () -> new StaffItem(new Item.Properties()));
     public static final RegistryObject<Item> RAW_COBALT = ITEMS.register("raw_cobalt", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> AMBER_GEM = ITEMS.register("amber_gem", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> AMETHYST_GEM = ITEMS.register("amethyst_gem", () -> new Item(new Item.Properties()));
