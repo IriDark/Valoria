@@ -10,10 +10,9 @@ issueTrackerURL = ""
   displayURL = "https://discord.gg/wWdXpwuPmK" 
   logoFile = "Valoria_Logo.png"
   credits = "Calamity Mod (sounds)"
-  authors = "IriDark, MaxBogomol"
+  authors = "IriDark"
   description = '''
 Valoria — A big RPG themed project that adds some mobs, blocks, weapons, and some bunch of content in "vanilla" texture style
-Special Thanks: Ruthenium, .sweetberries, GraFik, It's Cat, Astemir, WOSAJ, Vuzz, Auriny, Arky Fursblack, FoxPlane, Rainach, Feimos.
 '''
     [[dependencies.valoria]]
   modId = "forge"
