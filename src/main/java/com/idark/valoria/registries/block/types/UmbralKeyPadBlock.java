@@ -2,9 +2,7 @@ package com.idark.valoria.registries.block.types;
 
 import com.idark.valoria.registries.ItemsRegistry;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -35,18 +33,6 @@ public class UmbralKeyPadBlock extends UmbralBlock {
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
         builder.add(KEY_CLICKED);
-    }
-
-    @Override
-    public void deactivateDoor(ServerLevel level, BlockPos pos) {
-        BlockState state = level.getBlockState(pos);
-        level.setBlockAndUpdate(pos, state.setValue(ACTIVE, false).setValue(RETURN, false).setValue(KEY_CLICKED, false));
-        for (Direction e : Direction.values()) {
-            BlockState checkedState = level.getBlockState(pos.relative(e));
-            if (checkedState.getBlock() instanceof UmbralBlock && checkedState.getValue(ACTIVE)) {
-                level.setBlockAndUpdate(pos.relative(e), checkedState.setValue(ACTIVE, false).setValue(RETURN, false));
-            }
-        }
     }
 
     @Override

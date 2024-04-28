@@ -70,7 +70,7 @@ public class UmbralBlock extends Block {
 
     public void deactivateDoor(ServerLevel level, BlockPos pos) {
         BlockState state = level.getBlockState(pos);
-        level.setBlockAndUpdate(pos, state.setValue(ACTIVE, false).setValue(RETURN, false));
+        level.setBlockAndUpdate(pos, state.getBlock().defaultBlockState());
         for (Direction e : Direction.values()) {
             BlockState checkedState = level.getBlockState(pos.relative(e));
             if (checkedState.getBlock() instanceof UmbralBlock && checkedState.getValue(ACTIVE)) {
@@ -79,6 +79,8 @@ public class UmbralBlock extends Block {
         }
     }
 
+    // TODO: Fix scheduling
+    // When player leaves world / server closes on returning state, block cant tick, and will be opened until there's a neighbor update
     @Deprecated
     public void tick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
         if(pState.getValue(ACTIVE)) {
