@@ -1,53 +1,68 @@
 ![Valoria](https://github.com/IriDark/Valoria/blob/main/icons/valoria_logo.png?raw=true)
 
-# 🌸 Valoria — Development
+# Development
 
-Embark on a thrilling adventure with the Valoria mod, a dynamic addition to your Minecraft experience. Valoria introduces a diverse array of new monsters, a plethora of vibrant plants, a wide assortment of weapons, and much more to enhance your gameplay.
 
-# Key Features:
-### New Monster Varieties:
-Encounter a host of formidable and unique monsters that roam the lands of Valoria. From menacing creatures lurking in the shadows to powerful bosses (in plans tbh) challenging even the bravest adventurers.
+# About
+Requires: [**Curios API**](https://modrinth.com/mod/curios)
 
-### Lush Flora:
-Explore the enriched landscapes adorned with a multitude of exotic plants. Valoria introduces a rich collection of flora, each with its own distinct characteristics, adding both beauty and danger to the world.
+**Valoria — A big RPG themed project that adds some mobs, blocks, weapons, and some bunch of content in "vanilla" texture style**
 
-### Expansive Weaponry:
-Arm yourself with an extensive arsenal of weapons tailored for every play style. From traditional swords and bows to innovative and powerful enchanted gear, Valoria offers a vast array of tools to combat the challenges that lie ahead.
+---
+# Features
+- New mobs 
+- Dimension
+- Huge weaponry! with a special abilities!
+- Dungeons
+- Lush Flora:
+Explore the enriched landscapes with an exotic plants <p> Valoria introduces a rich collection of flora, adding both beauty and danger to the dimensions
 
-### Adventurous Exploration:
-Delve into the depths of Valoria and uncover hidden treasures, dungeons, and secrets scattered across the landscape. The mod encourages exploration with rewarding experiences for those daring enough to venture into the unknown.
+---
 
-### Enhanced Gameplay:
-Valoria not only introduces new content but also enhances the overall gameplay experience. Whether you're a seasoned player or a newcomer to Minecraft, the mod provides fresh challenges and opportunities to make your adventure in the blocky world even more captivating.
-Immerse yourself in the enchanting realm of Valoria, where every corner holds a new discovery and every battle shapes your destiny. Are you ready to embrace the excitement that awaits in this extraordinary Minecraft mod?
+![Valoria Ecotone](https://github.com/IriDark/Valoria/blob/main/icons/valoria_ecotone_biome.png?raw=true)
+![Valoria Small Ruin](https://github.com/IriDark/Valoria/blob/main/icons/valoria_small_ruin.png?raw=true)
 
- ![](https://cdn.discordapp.com/attachments/838693800683372564/1039482418408726608/Untitled_11-07-2022_11-21-33.png)
-         
-                           Devs:
-                           - IriDark | Code | Textures |
-                           - MaxBogomol | Code |
-                           Special Thanks:
-                           - Ruthenium | Russian Translate |
-                           - GraFik
-                           - It's Cat
-                           - AstemirDev
-                           - Wosaj
-                           - Skoow
-                           - Auriny
-                           - Arky Fursblack
-                           - FoxPlane
-                           - Rainach
+---
 
-![](https://cdn.discordapp.com/attachments/838693800683372564/1039482418408726608/Untitled_11-07-2022_11-21-33.png)
+<details> <summary> Compatibility </summary>
 
-[![Paypal](https://github.com/IriDark/Valoria/blob/main/icons/pp.png?raw=true)](https://www.paypal.com/donate/?hosted_button_id=2VUEXEBSWEXUA)
-[![Ko-Fi](https://github.com/IriDark/Valoria/blob/main/icons/kofi.png?raw=true)](https://ko-fi.com/idark)
-[![Github](https://github.com/IriDark/Valoria/blob/main/icons/github.png?raw=true)](https://github.com/IriDark/Valoria)
-[![Discord](https://github.com/IriDark/Valoria/blob/main/icons/discord.png?raw=true)](https://discord.gg/wWdXpwuPmK)
-[![Curseforge](https://github.com/IriDark/Valoria/blob/main/icons/curseforge.png?raw=true)](https://www.curseforge.com/minecraft/mc-mods/valoria)
-[![Modrinth](https://github.com/IriDark/Valoria/blob/main/icons/modrinth.png?raw=true)](https://modrinth.com/mod/valoria)
+- Compatible: [**Jade**](https://modrinth.com/mod/jade)  
+- Compatible: [**Jeed**](https://modrinth.com/mod/just-enough-effect-descriptions-jeed)  
+- Compatible: [**Tetra**](https://modrinth.com/mod/tetra)  
+- Compatible: [**Enchantment Descriptions**](https://modrinth.com/mod/enchantment-descriptions)
 
-![](https://cdn.discordapp.com/attachments/838693800683372564/1039482418408726608/Untitled_11-07-2022_11-21-33.png)
+</details> <details> <summary>Our plans!</summary>
 
-## &#10060; You`re not allowed to use the textures of the project, even slightly changing them, this is considered theft.
-## &#9989; You`re allowed to use the source code of the project.
+- Bosses
+- Magic system
+- Tons of new mobs
+- More unique items and their mechanics
+- And more!
+</details> <details> <summary> Contributors </summary>
+
+- MaxBogomol `| Code |`
+- AstemirDev `| Code |`
+- Ruthenium `| Russian Translate |`
+- Auriny `| Code | Testing |`
+- Skoow `| Code |`
+- Gato `| Models |`
+- GraFik
+- Wosaj
+- FoxPlane
+- Rainach
+- .sweetberries
+- Feimos
+- Avacuoss
+
+</details>
+
+---
+
+# Links
+
+[<img alt="Paypal" height="82" src="https://github.com/IriDark/Valoria/blob/main/icons/pp.png?raw=true" width="82"/>](https://www.paypal.com/donate/?hosted_button_id=2VUEXEBSWEXUA)
+[<img alt="Ko-Fi" height="82" src="https://github.com/IriDark/Valoria/blob/main/icons/kofi.png?raw=true" width="82"/>](https://ko-fi.com/idark)
+[<img alt="Github" height="82" src="https://github.com/IriDark/Valoria/blob/main/icons/github.png?raw=true" width="82"/>](https://github.com/IriDark/Valoria)
+[<img alt="Discord" height="82" src="https://github.com/IriDark/Valoria/blob/main/icons/discord.png?raw=true" width="82"/>](https://discord.gg/wWdXpwuPmK)
+[<img alt="Curseforge" height="82" src="https://github.com/IriDark/Valoria/blob/main/icons/curseforge.png?raw=true" width="82"/>](https://www.curseforge.com/minecraft/mc-mods/valoria)
+[<img alt="Modrinth" height="82" src="https://github.com/IriDark/Valoria/blob/main/icons/modrinth.png?raw=true" width="82"/>](https://modrinth.com/mod/valoria)
