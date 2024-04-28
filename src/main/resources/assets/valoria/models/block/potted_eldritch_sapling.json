@@ -2,7 +2,7 @@
   "render_type": "minecraft:cutout",
   "parent": "valoria:block/layered_flower_pot_cross",
   "textures": {
-    "plant": "valoria:block/shadewood_sapling",
-    "layer": "valoria:block/shadewood_sapling_tint"
+    "plant": "valoria:block/eldritch_sapling",
+    "layer": "valoria:block/eldritch_sapling_tint"
   }
 }

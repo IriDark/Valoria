@@ -31,6 +31,8 @@ public class ModBlockColors implements BlockColor {
     public static final Block[] MODDED_FOLIAGE = {
             BlockRegistry.ELDRITCH_LEAVES.get(),
             BlockRegistry.ELDRITCH_SAPLING.get(),
+            BlockRegistry.POTTED_SHADEWOOD_SAPLING.get(),
+            BlockRegistry.POTTED_ELDRITCH_SAPLING.get(),
 
             BlockRegistry.SHADEWOOD_LEAVES.get(),
             BlockRegistry.SHADEWOOD_BRANCH.get(),
