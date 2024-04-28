@@ -44,9 +44,9 @@ public class DropItemProperty extends Item {
 
             switch (type) {
                 case MINERS ->
-                        LootUtil.DropLoot(serverPlayer, LootUtil.createLoot(new ResourceLocation(Valoria.MOD_ID, "items/miners_bag"), LootUtil.getGiftParameters((ServerLevel) worldIn, playerPos, serverPlayer)));
+                        LootUtil.DropLoot(serverPlayer, LootUtil.createLoot(new ResourceLocation(Valoria.ID, "items/miners_bag"), LootUtil.getGiftParameters((ServerLevel) worldIn, playerPos, serverPlayer)));
                 case GEM ->
-                        LootUtil.DropLoot(serverPlayer, LootUtil.createLoot(new ResourceLocation(Valoria.MOD_ID, "items/gem_bag"), LootUtil.getGiftParameters((ServerLevel) worldIn, playerPos, serverPlayer)));
+                        LootUtil.DropLoot(serverPlayer, LootUtil.createLoot(new ResourceLocation(Valoria.ID, "items/gem_bag"), LootUtil.getGiftParameters((ServerLevel) worldIn, playerPos, serverPlayer)));
             }
 
             return InteractionResultHolder.consume(heldStack);

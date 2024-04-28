@@ -48,6 +48,6 @@ public class InfernalArrow extends AbstractValoriaArrow implements IProjectileTe
 
     @Override
     public ResourceLocation getTexture() {
-        return new ResourceLocation(Valoria.MOD_ID, "textures/entity/projectile/arrow/infernal_arrow.png");
+        return new ResourceLocation(Valoria.ID, "textures/entity/projectile/arrow/infernal_arrow.png");
     }
 }

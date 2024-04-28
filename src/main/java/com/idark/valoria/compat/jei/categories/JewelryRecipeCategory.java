@@ -33,7 +33,7 @@ public class JewelryRecipeCategory implements IRecipeCategory<JewelryRecipe> {
 
     public JewelryRecipeCategory(IGuiHelper helper) {
         title = Component.translatable("jei.valoria.jewelry");
-        ResourceLocation backgroundImage = new ResourceLocation(Valoria.MOD_ID, "textures/gui/jei/jewelry.png");
+        ResourceLocation backgroundImage = new ResourceLocation(Valoria.ID, "textures/gui/jei/jewelry.png");
 
         background = helper.createDrawable(backgroundImage, 0, 0, 148, 48);
         icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(BlockRegistry.JEWELER_TABLE.get()));
@@ -77,10 +77,10 @@ public class JewelryRecipeCategory implements IRecipeCategory<JewelryRecipe> {
         String time = Integer.toString(seconds);
         int stringWidth = font_renderer.width(time);
 
-        ResourceLocation timeIcon = new ResourceLocation(Valoria.MOD_ID, "textures/gui/jei/time.png");
+        ResourceLocation timeIcon = new ResourceLocation(Valoria.ID, "textures/gui/jei/time.png");
         gui.blit(timeIcon, 50 / 2, 29 + font_renderer.lineHeight, 0, 0, 7, 7, 16, 16);
 
-        ResourceLocation arrow = new ResourceLocation(Valoria.MOD_ID, "textures/gui/jei/progress_arrow.png");
+        ResourceLocation arrow = new ResourceLocation(Valoria.ID, "textures/gui/jei/progress_arrow.png");
         int width = 22;
         if (ClientTickHandler.ticksInGame % recipe.getTime() > 0) {
             width /= ((double) recipe.getTime() / (double) (ClientTickHandler.ticksInGame % recipe.getTime()));

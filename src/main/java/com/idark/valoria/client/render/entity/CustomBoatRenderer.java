@@ -30,7 +30,7 @@ public class CustomBoatRenderer extends EntityRenderer<CustomBoatEntity> {
     public CustomBoatRenderer(EntityRendererProvider.Context context, boolean chest) {
         super(context);
         this.shadowRadius = 0.8F;
-        this.boatResources = Stream.of(CustomBoatEntity.Type.values()).collect(ImmutableMap.toImmutableMap(type -> type, type -> Pair.of(new ResourceLocation(Valoria.MOD_ID, getTextureLocation(type, chest)), this.createBoatModel(context, type, chest))));
+        this.boatResources = Stream.of(CustomBoatEntity.Type.values()).collect(ImmutableMap.toImmutableMap(type -> type, type -> Pair.of(new ResourceLocation(Valoria.ID, getTextureLocation(type, chest)), this.createBoatModel(context, type, chest))));
     }
 
     private BoatModel createBoatModel(EntityRendererProvider.Context context, CustomBoatEntity.Type type, boolean chest) {
@@ -40,7 +40,7 @@ public class CustomBoatRenderer extends EntityRenderer<CustomBoatEntity> {
     }
 
     private static ModelLayerLocation createLocation(String path) {
-        return new ModelLayerLocation(new ResourceLocation(Valoria.MOD_ID, path), "main");
+        return new ModelLayerLocation(new ResourceLocation(Valoria.ID, path), "main");
     }
 
     public static ModelLayerLocation createBoatModelName(CustomBoatEntity.Type type) {

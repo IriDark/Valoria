@@ -10,7 +10,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 
 public class TagsRegistry {
-    private final static String MODID = Valoria.MOD_ID;
 
     public static TagKey<Item> item(final ResourceLocation name) {
         return TagKey.create(Registries.ITEM, name);
@@ -28,17 +27,18 @@ public class TagsRegistry {
         return TagKey.create(Registries.PAINTING_VARIANT, name);
     }
 
-    public static final TagKey<Block> KEY_BLOCKS = block(new ResourceLocation(MODID, "key_blocks"));
-    public static final TagKey<Item> SHADEWOOD = item(new ResourceLocation(MODID, "logs/shadewood"));
-    public static final TagKey<Item> BOWS = item(new ResourceLocation(MODID, "bows"));
-    public static final TagKey<Item> CAN_DISABLE_SHIELD = item(new ResourceLocation(MODID, "can_disable_shield"));
-    public static final TagKey<Item> CUP_DRINKS = item(new ResourceLocation(MODID, "wooden_cup_drinks"));
-    public static final TagKey<Item> BOTTLE_DRINKS = item(new ResourceLocation(MODID, "bottle_drinks"));
-    public static final TagKey<Item> TRINKETS = item(new ResourceLocation(MODID, "trinkets"));
-    public static final TagKey<Item> GEMS = item(new ResourceLocation(MODID, "gems"));
-    public static final TagKey<Item> POTIONS = item(new ResourceLocation(MODID, "potions"));
-    public static final TagKey<Item> ALCOHOL = item(new ResourceLocation(MODID, "alcohol"));
-    public static final TagKey<Item> RUM = item(new ResourceLocation(MODID, "rum"));
-    public static final TagKey<Item> GEODES = item(new ResourceLocation(MODID, "geodes"));
-    public static final TagKey<PaintingVariant> MODDED = painting(new ResourceLocation(MODID, "painting"));
+    public static final TagKey<Block> KEY_BLOCKS = block(new ResourceLocation(Valoria.ID, "key_blocks"));
+    public static final TagKey<Item> ELDRITCH = item(new ResourceLocation(Valoria.ID, "logs/eldritch"));
+    public static final TagKey<Item> SHADEWOOD = item(new ResourceLocation(Valoria.ID, "logs/shadewood"));
+    public static final TagKey<Item> BOWS = item(new ResourceLocation(Valoria.ID, "bows"));
+    public static final TagKey<Item> CAN_DISABLE_SHIELD = item(new ResourceLocation(Valoria.ID, "can_disable_shield"));
+    public static final TagKey<Item> CUP_DRINKS = item(new ResourceLocation(Valoria.ID, "wooden_cup_drinks"));
+    public static final TagKey<Item> BOTTLE_DRINKS = item(new ResourceLocation(Valoria.ID, "bottle_drinks"));
+    public static final TagKey<Item> TRINKETS = item(new ResourceLocation(Valoria.ID, "trinkets"));
+    public static final TagKey<Item> GEMS = item(new ResourceLocation(Valoria.ID, "gems"));
+    public static final TagKey<Item> POTIONS = item(new ResourceLocation(Valoria.ID, "potions"));
+    public static final TagKey<Item> ALCOHOL = item(new ResourceLocation(Valoria.ID, "alcohol"));
+    public static final TagKey<Item> RUM = item(new ResourceLocation(Valoria.ID, "rum"));
+    public static final TagKey<Item> GEODES = item(new ResourceLocation(Valoria.ID, "geodes"));
+    public static final TagKey<PaintingVariant> MODDED = painting(new ResourceLocation(Valoria.ID, "painting"));
 }

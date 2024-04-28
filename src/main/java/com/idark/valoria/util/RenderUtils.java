@@ -47,7 +47,7 @@ public class RenderUtils {
     });
 
     public static RenderType GLOWING_PARTICLE = RenderType.create(
-            Valoria.MOD_ID + ":glowing_particle",
+            Valoria.ID + ":glowing_particle",
             DefaultVertexFormat.PARTICLE,
             VertexFormat.Mode.QUADS, 256, true, false,
             RenderType.CompositeState.builder()
@@ -59,7 +59,7 @@ public class RenderUtils {
                     .createCompositeState(false));
 
     public static RenderType DELAYED_PARTICLE = RenderType.create(
-            Valoria.MOD_ID + ":delayed_particle",
+            Valoria.ID + ":delayed_particle",
             DefaultVertexFormat.PARTICLE,
             VertexFormat.Mode.QUADS, 256, true, false,
             RenderType.CompositeState.builder()

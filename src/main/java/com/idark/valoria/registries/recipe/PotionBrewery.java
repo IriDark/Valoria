@@ -13,7 +13,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 public class PotionBrewery extends PotionBrewing {
-    public static final DeferredRegister<Potion> POTIONS = DeferredRegister.create(ForgeRegistries.POTIONS, Valoria.MOD_ID);
+    public static final DeferredRegister<Potion> POTIONS = DeferredRegister.create(ForgeRegistries.POTIONS, Valoria.ID);
     public static final RegistryObject<Potion> ALOE_POTION = POTIONS.register("aloe_potion",
             () -> new Potion(new MobEffectInstance(EffectsRegistry.ALOEREGEN.get(), 3600, 0)));
 

@@ -188,7 +188,7 @@ public class SarcophagusBlock extends HorizontalDirectionalBlock {
         if (pState.getValue(OPEN) && !pState.getValue(LOOTED)) {
             if (pPlayer instanceof ServerPlayer serverPlayer) {
                 Vec3 block = new Vec3(pPos.getX() - 0.5f, pPos.getY(), pPos.getZ() - 0.5f);
-                LootUtil.SpawnLoot(pLevel, pPos.above(), LootUtil.createLoot(new ResourceLocation(Valoria.MOD_ID, "items/sarcophagus"), LootUtil.getGiftParameters((ServerLevel) pLevel, block, serverPlayer)));
+                LootUtil.SpawnLoot(pLevel, pPos.above(), LootUtil.createLoot(new ResourceLocation(Valoria.ID, "items/sarcophagus"), LootUtil.getGiftParameters((ServerLevel) pLevel, block, serverPlayer)));
                 pLevel.setBlockAndUpdate(pPos, pState.setValue(OPEN, true).setValue(LOOTED, true));
                 BlockState oppositeState = pLevel.getBlockState(oppositePos);
                 if (oppositeState.getBlock() == this) {

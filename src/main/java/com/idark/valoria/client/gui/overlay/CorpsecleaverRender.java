@@ -32,7 +32,7 @@ public class CorpsecleaverRender {
         }
     }
 
-    private static final ResourceLocation BLOOD = new ResourceLocation(Valoria.MOD_ID + ":textures/gui/overlay/blood.png");
+    private static final ResourceLocation BLOOD = new ResourceLocation(Valoria.ID + ":textures/gui/overlay/blood.png");
 
     public static void onDrawScreenPost(RenderGuiOverlayEvent.Post event) {
         if (ThrowTime > 0) {

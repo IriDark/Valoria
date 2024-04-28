@@ -3,10 +3,12 @@ package com.idark.valoria.registries.effect;
 import com.idark.valoria.client.particle.ModParticles;
 import com.idark.valoria.client.particle.types.Particles;
 import com.idark.valoria.registries.DamageSourceRegistry;
+import com.idark.valoria.registries.EffectsRegistry;
 import com.idark.valoria.util.ValoriaUtils;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -22,24 +24,27 @@ public class BleedingEffect extends MobEffect {
 
     @Override
     public void applyEffectTick(LivingEntity pEntity, int amplifier) {
-        if (amplifier < 1) {
-            if (pEntity.getHealth() > 2.0F) {
-                pEntity.hurt(new DamageSource(DamageSourceRegistry.source(pEntity.level(), DamageSourceRegistry.BLEEDING).typeHolder()), 1.0F);
+        DamageSource dmg = DamageSourceRegistry.source(pEntity.level(), DamageSourceRegistry.BLEEDING);
+        if (!pEntity.hasEffect(EffectsRegistry.ALOEREGEN.get()) && !pEntity.hasEffect(MobEffects.REGENERATION)) {
+            if (amplifier < 1) {
+                if (pEntity.getHealth() > 2) {
+                    pEntity.hurt(dmg, 1);
+                }
+            } else {
+                pEntity.hurt(dmg, 1);
             }
-        } else {
-            pEntity.hurt(new DamageSource(DamageSourceRegistry.source(pEntity.level(), DamageSourceRegistry.BLEEDING).typeHolder()), 1.0F);
-        }
 
-        for (int a = 0; a < 5; a++) {
-            Particles.create(ModParticles.SPHERE)
-                    .randomOffset(0.7f, 0f, 0.7f)
-                    .randomVelocity(0.5f, 0, 0.5f)
-                    .enableGravity()
-                    .setAlpha(1f, 0)
-                    .setScale(0.1f, 0)
-                    .setColor(145, 0, 20, 255, 0, 0)
-                    .setLifetime(6)
-                    .spawn(pEntity.level(), pEntity.getX() + (new Random().nextDouble() - 0.5f) / 2, pEntity.getY() + (new Random().nextDouble() + 1f) / 2, pEntity.getZ());
+            for (int a = 0; a < 5; a++) {
+                Particles.create(ModParticles.SPHERE)
+                        .randomOffset(0.7f, 0f, 0.7f)
+                        .randomVelocity(0.5f, 0, 0.5f)
+                        .enableGravity()
+                        .setAlpha(1f, 0)
+                        .setScale(0.1f, 0)
+                        .setColor(145, 0, 20, 255, 0, 0)
+                        .setLifetime(6)
+                        .spawn(pEntity.level(), pEntity.getX() + (new Random().nextDouble() - 0.5f) / 2, pEntity.getY() + (new Random().nextDouble() + 1f) / 2, pEntity.getZ());
+            }
         }
     }
 

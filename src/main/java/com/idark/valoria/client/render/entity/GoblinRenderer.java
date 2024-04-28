@@ -12,7 +12,7 @@ import net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer;
 import net.minecraft.resources.ResourceLocation;
 
 public class GoblinRenderer extends HumanoidMobRenderer<GoblinEntity, GoblinModel<GoblinEntity>> {
-    protected static final ResourceLocation TEXTURE = new ResourceLocation(Valoria.MOD_ID, "textures/entity/goblin.png");
+    protected static final ResourceLocation TEXTURE = new ResourceLocation(Valoria.ID, "textures/entity/goblin.png");
 
     public GoblinRenderer(EntityRendererProvider.Context context) {
         super(context, new GoblinModel<>(GoblinModel.createBodyLayer().bakeRoot()), 0.4F);

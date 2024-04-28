@@ -8,7 +8,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 public class ModPaintings {
-    public static final DeferredRegister<PaintingVariant> PAINTING_TYPES = DeferredRegister.create(ForgeRegistries.PAINTING_VARIANTS, Valoria.MOD_ID);
+    public static final DeferredRegister<PaintingVariant> PAINTING_TYPES = DeferredRegister.create(ForgeRegistries.PAINTING_VARIANTS, Valoria.ID);
 
     public static final RegistryObject<PaintingVariant> BIG_MOUNTAINS =
             PAINTING_TYPES.register("big_mountains", () -> new PaintingVariant(32, 48));

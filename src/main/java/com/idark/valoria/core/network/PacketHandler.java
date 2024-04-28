@@ -18,7 +18,7 @@ import net.minecraftforge.network.simple.SimpleChannel;
 public final class PacketHandler {
     private static final String PROTOCOL = "10";
     public static final SimpleChannel HANDLER = NetworkRegistry.newSimpleChannel(
-            new ResourceLocation(Valoria.MOD_ID, "network"),
+            new ResourceLocation(Valoria.ID, "network"),
             () -> PROTOCOL,
             PROTOCOL::equals,
             PROTOCOL::equals

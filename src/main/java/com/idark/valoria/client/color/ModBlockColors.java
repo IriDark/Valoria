@@ -15,7 +15,6 @@ import org.jetbrains.annotations.Nullable;
 
 @OnlyIn(Dist.CLIENT)
 public class ModBlockColors implements BlockColor {
-
     private static final ModBlockColors INSTANCE = new ModBlockColors();
 
     public static final Block[] MODDED_GRASS = {
@@ -30,6 +29,9 @@ public class ModBlockColors implements BlockColor {
     };
 
     public static final Block[] MODDED_FOLIAGE = {
+            BlockRegistry.ELDRITCH_LEAVES.get(),
+            BlockRegistry.ELDRITCH_SAPLING.get(),
+
             BlockRegistry.SHADEWOOD_LEAVES.get(),
             BlockRegistry.SHADEWOOD_BRANCH.get(),
             BlockRegistry.SHADEWOOD_SAPLING.get()

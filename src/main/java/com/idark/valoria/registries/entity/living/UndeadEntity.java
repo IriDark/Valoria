@@ -333,13 +333,13 @@ public class UndeadEntity extends Monster implements TraceableEntity {
                     if (UndeadEntity.this.getTarget() == null) {
                         Vec3 vec31 = UndeadEntity.this.getDeltaMovement();
                         UndeadEntity.this.setYRot(-((float)Mth.atan2(vec31.x, vec31.z)) * (180F / (float)Math.PI));
-                        UndeadEntity.this.yBodyRot = UndeadEntity.this.getYRot();
                     } else {
                         double d2 = UndeadEntity.this.getTarget().getX() - UndeadEntity.this.getX();
                         double d1 = UndeadEntity.this.getTarget().getZ() - UndeadEntity.this.getZ();
                         UndeadEntity.this.setYRot(-((float)Mth.atan2(d2, d1)) * (180F / (float)Math.PI));
-                        UndeadEntity.this.yBodyRot = UndeadEntity.this.getYRot();
                     }
+
+                    UndeadEntity.this.yBodyRot = UndeadEntity.this.getYRot();
                 }
 
             }
@@ -376,11 +376,11 @@ public class UndeadEntity extends Monster implements TraceableEntity {
             }
 
             for(int i = 0; i < 3; ++i) {
-                BlockPos blockpos1 = blockpos.offset(UndeadEntity.this.random.nextInt(15) - 7, UndeadEntity.this.random.nextInt(11) - 5, UndeadEntity.this.random.nextInt(15) - 7);
-                if (UndeadEntity.this.level().isEmptyBlock(blockpos1)) {
-                    UndeadEntity.this.moveControl.setWantedPosition((double)blockpos1.getX() + 0.5D, (double)blockpos1.getY() + 0.5D, (double)blockpos1.getZ() + 0.5D, 0.25D);
+                BlockPos pos = blockpos.offset(UndeadEntity.this.random.nextInt(15) - 7, UndeadEntity.this.random.nextInt(11) - 5, UndeadEntity.this.random.nextInt(15) - 7);
+                if (UndeadEntity.this.level().isEmptyBlock(pos)) {
+                    UndeadEntity.this.moveControl.setWantedPosition((double)pos.getX() + 0.5D, (double)pos.getY() + 0.5D, (double)pos.getZ() + 0.5D, 0.25D);
                     if (UndeadEntity.this.getTarget() == null) {
-                        UndeadEntity.this.getLookControl().setLookAt((double)blockpos1.getX() + 0.5D, (double)blockpos1.getY() + 0.5D, (double)blockpos1.getZ() + 0.5D, 180.0F, 20.0F);
+                        UndeadEntity.this.getLookControl().setLookAt((double)pos.getX() + 0.5D, (double)pos.getY() + 0.5D, (double)pos.getZ() + 0.5D, 180.0F, 20.0F);
                     }
                     break;
                 }

@@ -18,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 public class NecromancerFangsRenderer extends EntityRenderer<NecromancerFangs> {
-    protected static final ResourceLocation TEXTURE = new ResourceLocation(Valoria.MOD_ID, "textures/entity/necromancer_fangs.png");
+    protected static final ResourceLocation TEXTURE = new ResourceLocation(Valoria.ID, "textures/entity/necromancer_fangs.png");
     private final EvokerFangsModel<NecromancerFangs> model;
 
     public NecromancerFangsRenderer(EntityRendererProvider.Context pContext) {

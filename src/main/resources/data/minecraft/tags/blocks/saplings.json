@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "valoria:shadewood_sapling"
+    "valoria:shadewood_sapling",
+    "valoria:eldritch_sapling"
   ]
 }

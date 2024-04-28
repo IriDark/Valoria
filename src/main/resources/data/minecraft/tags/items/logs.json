@@ -1,9 +1,13 @@
 {
   "replace": false,
   "values": [
-  	"valoria:shadelog",
-  	"valoria:stripped_shadelog",
-  	"valoria:shadewood",
-  	"valoria:stripped_shadewood"
+    "valoria:shadelog",
+    "valoria:stripped_shadelog",
+    "valoria:shadewood",
+    "valoria:stripped_shadewood",
+    "valoria:eldritch_log",
+    "valoria:stripped_eldritch_log",
+    "valoria:eldritch_wood",
+    "valoria:stripped_eldritch_wood"
   ]
 }

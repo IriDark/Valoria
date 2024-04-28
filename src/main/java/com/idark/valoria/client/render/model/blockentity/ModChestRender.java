@@ -20,7 +20,7 @@ public class ModChestRender extends ChestRenderer<ModChestBlockEntity> {
     }
 
     private static Material chestMaterial(String pChestName) {
-        return new Material(CHEST_SHEET, new ResourceLocation(Valoria.MOD_ID,"entity/chest/" + pChestName));
+        return new Material(CHEST_SHEET, new ResourceLocation(Valoria.ID,"entity/chest/" + pChestName));
     }
 
     @Override

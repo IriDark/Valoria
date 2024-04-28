@@ -38,6 +38,7 @@
     - Added Wicked Amethyst Gen
     - Added Dormant Crystals Gen
     - Added Gen to All plants from this World
+    - Added Eldritch tree
 
     - Reworked Shadewood tree
     - 2 New biomes (Shadewood forest, Void Barren)

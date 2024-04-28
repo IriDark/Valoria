@@ -20,7 +20,7 @@ import java.util.List;
 public class PageToast implements Toast {
 
     public static PageToast instance;
-    public ResourceLocation TEXTURE = new ResourceLocation(Valoria.MOD_ID, "textures/gui/toast.png");
+    public ResourceLocation TEXTURE = new ResourceLocation(Valoria.ID, "textures/gui/toast.png");
     public boolean pUnlock;
 
     @Override

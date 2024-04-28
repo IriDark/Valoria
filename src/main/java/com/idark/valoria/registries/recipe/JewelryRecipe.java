@@ -91,7 +91,7 @@ public class JewelryRecipe implements Recipe<Container> {
 
     public static class Serializer implements RecipeSerializer<JewelryRecipe> {
         public static final Serializer INSTANCE = new Serializer();
-        public static final ResourceLocation ID = new ResourceLocation(Valoria.MOD_ID, "jewelry");
+        public static final ResourceLocation ID = new ResourceLocation(Valoria.ID, "jewelry");
 
         @Override
         public JewelryRecipe fromJson(ResourceLocation pRecipeId, JsonObject pSerializedRecipe) {

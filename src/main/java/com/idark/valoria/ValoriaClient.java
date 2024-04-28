@@ -48,12 +48,12 @@ import java.io.IOException;
 
 public class ValoriaClient {
     public static ShaderInstance GLOWING_PARTICLE_SHADER, SPRITE_PARTICLE_SHADER;
-    public static ModelLayerLocation NECKLACE_LAYER = new ModelLayerLocation(new ResourceLocation(Valoria.MOD_ID, "necklace"), "main");
-    public static ModelLayerLocation HANDS_LAYER = new ModelLayerLocation(new ResourceLocation(Valoria.MOD_ID, "hands"), "main");
-    public static ModelLayerLocation HANDS_LAYER_SLIM = new ModelLayerLocation(new ResourceLocation(Valoria.MOD_ID, "hands_slim"), "main");
-    public static ModelLayerLocation BELT_LAYER = new ModelLayerLocation(new ResourceLocation(Valoria.MOD_ID, "belt"), "main");
-    public static ModelResourceLocation KEG_MODEL = new ModelResourceLocation(Valoria.MOD_ID, "keg_barrel", "");
-    public static ModelResourceLocation SPHERE = new ModelResourceLocation(Valoria.MOD_ID, "elemental_sphere", "");
+    public static ModelLayerLocation NECKLACE_LAYER = new ModelLayerLocation(new ResourceLocation(Valoria.ID, "necklace"), "main");
+    public static ModelLayerLocation HANDS_LAYER = new ModelLayerLocation(new ResourceLocation(Valoria.ID, "hands"), "main");
+    public static ModelLayerLocation HANDS_LAYER_SLIM = new ModelLayerLocation(new ResourceLocation(Valoria.ID, "hands_slim"), "main");
+    public static ModelLayerLocation BELT_LAYER = new ModelLayerLocation(new ResourceLocation(Valoria.ID, "belt"), "main");
+    public static ModelResourceLocation KEG_MODEL = new ModelResourceLocation(Valoria.ID, "keg_barrel", "");
+    public static ModelResourceLocation SPHERE = new ModelResourceLocation(Valoria.ID, "elemental_sphere", "");
 
     public static CooldownSoundInstance COOLDOWN_SOUND = new CooldownSoundInstance(null);
 
@@ -73,16 +73,17 @@ public class ValoriaClient {
             event.register((state, world, pos, tintIndex) -> ModBlockColors.getInstance().getGrassColor(state, world, pos, tintIndex), ModBlockColors.MODDED_GRASS);
             event.register((state, world, pos, tintIndex) -> ModBlockColors.getInstance().getFoliageColor(state, world, pos, tintIndex), ModBlockColors.MODDED_FOLIAGE);
             if(QuarkIntegration.isLoaded()) {
-                event.register((state, world, pos, tintIndex) -> ModBlockColors.getInstance().getFoliageColor(state, world, pos, tintIndex), QuarkIntegration.LoadedOnly.SHADEWOOD_LEAF_CARPET.get(), QuarkIntegration.LoadedOnly.SHADEWOOD_LEAF_HEDGE.get());
+                event.register((state, world, pos, tintIndex) -> ModBlockColors.getInstance().getFoliageColor(state, world, pos, tintIndex), QuarkIntegration.LoadedOnly.SHADEWOOD_LEAF_CARPET.get(), QuarkIntegration.LoadedOnly.SHADEWOOD_LEAF_HEDGE.get(), QuarkIntegration.LoadedOnly.ELDRITCH_LEAF_CARPET.get(), QuarkIntegration.LoadedOnly.ELDRITCH_LEAF_HEDGE.get());
             }
         }
 
         @SubscribeEvent
         public static void ColorMappingItems(RegisterColorHandlersEvent.Item event) {
-            event.register((stack, tintIndex) -> tintIndex > 0 ? -1 : 9100543, BlockRegistry.SHADEWOOD_BRANCH.get(), BlockRegistry.SHADEWOOD_SAPLING.get());
-            event.register((stack, tintIndex) -> 9100543, BlockRegistry.SHADEWOOD_LEAVES.get());
+            event.register((stack, tintIndex) -> tintIndex > 0 ? -1 : 12487423, BlockRegistry.ELDRITCH_SAPLING.get(), BlockRegistry.ELDRITCH_LEAVES.get());
+            event.register((stack, tintIndex) -> tintIndex > 0 ? -1 : 9100543, BlockRegistry.SHADEWOOD_BRANCH.get(), BlockRegistry.SHADEWOOD_SAPLING.get(), BlockRegistry.SHADEWOOD_LEAVES.get());
             event.register((stack, tintIndex) -> 11301619, BlockRegistry.VOID_GRASS.get(), BlockRegistry.VOID_TAINT.get(), BlockRegistry.VOID_ROOTS.get());
             if(QuarkIntegration.isLoaded()) {
+                event.register((stack, tintIndex) -> 12487423, QuarkIntegration.LoadedOnly.ELDRITCH_LEAF_CARPET.get(), QuarkIntegration.LoadedOnly.ELDRITCH_LEAF_HEDGE.get());
                 event.register((stack, tintIndex) -> 9100543, QuarkIntegration.LoadedOnly.SHADEWOOD_LEAF_CARPET.get(), QuarkIntegration.LoadedOnly.SHADEWOOD_LEAF_HEDGE.get());
             }
         }
@@ -98,6 +99,7 @@ public class ValoriaClient {
                 BlockEntityRenderers.register(BlockEntitiesRegistry.PEDESTAL_BLOCK_ENTITY.get(), (trd) -> new PedestalBlockEntityRenderer());
                 BlockEntityRenderers.register(BlockEntitiesRegistry.SIGN_BLOCK_ENTITIES.get(), SignRenderer::new);
                 BlockEntityRenderers.register(BlockEntitiesRegistry.HANGING_SIGN_BLOCK_ENTITIES.get(), HangingSignRenderer::new);
+                Sheets.addWoodType(ModWoodTypes.ELDRITCH);
                 Sheets.addWoodType(ModWoodTypes.SHADEWOOD);
                 if(QuarkIntegration.isLoaded()) {
                     BlockEntityRenderers.register(QuarkIntegration.LoadedOnly.CHEST_BLOCK_ENTITY.get(), ModChestRender::new);

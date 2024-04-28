@@ -2,6 +2,7 @@ package com.idark.valoria.registries;
 
 import com.idark.valoria.Valoria;
 import com.idark.valoria.registries.block.types.*;
+import com.idark.valoria.registries.levelgen.tree.EldritchTree;
 import com.idark.valoria.registries.levelgen.tree.ShadeWoodTree;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -26,9 +27,13 @@ import java.util.function.Supplier;
 import java.util.function.ToIntFunction;
 
 public class BlockRegistry {
-    private final static String MODID = Valoria.MOD_ID;
-    public static final DeferredRegister<Block> BLOCK = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
+    public static final DeferredRegister<Block> BLOCK = DeferredRegister.create(ForgeRegistries.BLOCKS, Valoria.ID);
+
     // Door & Trapdoors
+    public static final RegistryObject<Block> ELDRITCH_DOOR = registerBlock("eldritch_door",
+            () -> new DoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_DOOR).mapColor(MapColor.COLOR_MAGENTA).noOcclusion(), BlockSetType.OAK));
+    public static final RegistryObject<Block> ELDRITCH_TRAPDOOR = registerBlock("eldritch_trapdoor",
+            () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_TRAPDOOR).mapColor(MapColor.COLOR_MAGENTA).noOcclusion(), BlockSetType.OAK));
     public static final RegistryObject<Block> SHADEWOOD_DOOR = registerBlock("shadewood_door",
             () -> new DoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_DOOR).mapColor(MapColor.COLOR_PURPLE).noOcclusion(), BlockSetType.OAK));
     public static final RegistryObject<Block> SHADEWOOD_TRAPDOOR = registerBlock("shadewood_trapdoor",
@@ -381,14 +386,42 @@ public class BlockRegistry {
     public static final RegistryObject<Block> SHADEWOOD_BRANCH = registerBlock("shadewood_branch",
             () -> new ShadeBranchBlock(BlockBehaviour.Properties.copy(Blocks.GRASS).mapColor(MapColor.COLOR_CYAN).instabreak().noOcclusion()));
     public static final RegistryObject<Block> SHADEWOOD_SAPLING = registerBlock("shadewood_sapling",
-            () -> new ShadeSaplingBlock(new ShadeWoodTree(), BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING).mapColor(MapColor.COLOR_CYAN)));
+            () -> new ValoriaSaplingBlock(new ShadeWoodTree(), BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING).mapColor(MapColor.COLOR_CYAN)));
     public static final RegistryObject<Block> POTTED_SHADEWOOD_SAPLING = BLOCK.register("potted_shadewood_sapling",
-            () -> new FlowerPotBlock(SHADEWOOD_SAPLING.get(), BlockBehaviour.Properties.copy(Blocks.GRASS).mapColor(MapColor.COLOR_CYAN).instabreak().noOcclusion()));
+            () -> new FlowerPotBlock(SHADEWOOD_SAPLING.get(), BlockBehaviour.Properties.copy(Blocks.POTTED_POPPY).mapColor(MapColor.COLOR_CYAN).instabreak().noOcclusion()));
     public static final RegistryObject<Block> SHADEWOOD_FENCE = registerBlock("shadewood_fence",
             () -> new FenceBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE).mapColor(MapColor.COLOR_PURPLE)));
     public static final RegistryObject<Block> SHADEWOOD_FENCE_GATE = registerBlock("shadewood_fence_gate",
             () -> new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE_GATE).mapColor(MapColor.COLOR_PURPLE), ModWoodTypes.SHADEWOOD));
 
+    public static final RegistryObject<Block> ELDRITCH_PRESSURE_PLATE = registerBlock("eldritch_pressure_plate",
+            () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_MAGENTA).noOcclusion().noCollission(), BlockSetType.OAK));
+    public static final RegistryObject<Block> ELDRITCH_BUTTON = registerBlock("eldritch_button",
+            () -> new ButtonBlock(BlockBehaviour.Properties.copy(Blocks.OAK_BUTTON).mapColor(MapColor.COLOR_MAGENTA).sound(SoundType.WOOD).noCollission(), BlockSetType.OAK, 30, true));
+    public static final RegistryObject<Block> ELDRITCH_LOG = registerBlock("eldritch_log",
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).mapColor(MapColor.COLOR_MAGENTA)));
+    public static final RegistryObject<Block> STRIPPED_ELDRITCH_LOG = registerBlock("stripped_eldritch_log",
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.STRIPPED_OAK_LOG).mapColor(MapColor.COLOR_MAGENTA)));
+    public static final RegistryObject<Block> ELDRITCH_WOOD = registerBlock("eldritch_wood",
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).mapColor(MapColor.COLOR_MAGENTA)));
+    public static final RegistryObject<Block> STRIPPED_ELDRITCH_WOOD = registerBlock("stripped_eldritch_wood",
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).mapColor(MapColor.COLOR_MAGENTA)));
+    public static final RegistryObject<Block> ELDRITCH_PLANKS = registerBlock("eldritch_planks",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_MAGENTA)));
+    public static final RegistryObject<Block> ELDRITCH_PLANKS_SLAB = registerBlock("eldritch_planks_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.OAK_SLAB).mapColor(MapColor.COLOR_MAGENTA)));
+    public static final RegistryObject<Block> ELDRITCH_PLANKS_STAIRS = registerBlock("eldritch_planks_stairs",
+            () -> new StairBlock(() -> ELDRITCH_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.OAK_STAIRS).mapColor(MapColor.COLOR_PURPLE)));
+    public static final RegistryObject<Block> ELDRITCH_LEAVES = registerBlock("eldritch_leaves",
+            () -> new ShadeLeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES).mapColor(MapColor.COLOR_MAGENTA)));
+    public static final RegistryObject<Block> ELDRITCH_SAPLING = registerBlock("eldritch_sapling",
+            () -> new ValoriaSaplingBlock(new EldritchTree(), BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING).mapColor(MapColor.COLOR_MAGENTA)));
+    public static final RegistryObject<Block> POTTED_ELDRITCH_SAPLING = BLOCK.register("potted_eldritch_sapling",
+            () -> new FlowerPotBlock(ELDRITCH_SAPLING.get(), BlockBehaviour.Properties.copy(Blocks.POTTED_POPPY).mapColor(MapColor.COLOR_MAGENTA).instabreak().noOcclusion()));
+    public static final RegistryObject<Block> ELDRITCH_FENCE = registerBlock("eldritch_fence",
+            () -> new FenceBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE).mapColor(MapColor.COLOR_MAGENTA)));
+    public static final RegistryObject<Block> ELDRITCH_FENCE_GATE = registerBlock("eldritch_fence_gate",
+            () -> new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE_GATE).mapColor(MapColor.COLOR_MAGENTA), ModWoodTypes.ELDRITCH));
     // Signs
     public static final RegistryObject<Block> SHADEWOOD_SIGN = BLOCK.register("shadewood_sign",
             () -> new ModStandingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_PURPLE).noOcclusion().noCollission(), ModWoodTypes.SHADEWOOD));
@@ -398,7 +431,15 @@ public class BlockRegistry {
             () -> new ModCeilingHangingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_PURPLE).noOcclusion().noCollission(), ModWoodTypes.SHADEWOOD));
     public static final RegistryObject<Block> SHADEWOOD_WALL_HANGING_SIGN = BLOCK.register("shadewood_wall_hanging_sign",
             () -> new ModWallHangingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_PURPLE).noOcclusion().noCollission(), ModWoodTypes.SHADEWOOD));
-
+    
+    public static final RegistryObject<Block> ELDRITCH_SIGN = BLOCK.register("eldritch_sign",
+            () -> new ModStandingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_MAGENTA).noOcclusion().noCollission(), ModWoodTypes.ELDRITCH));
+    public static final RegistryObject<Block> ELDRITCH_WALL_SIGN = BLOCK.register("eldritch_wall_sign",
+            () -> new ModWallSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_MAGENTA).noOcclusion().noCollission(), ModWoodTypes.ELDRITCH));
+    public static final RegistryObject<Block> ELDRITCH_HANGING_SIGN = BLOCK.register("eldritch_hanging_sign",
+            () -> new ModCeilingHangingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_MAGENTA).noOcclusion().noCollission(), ModWoodTypes.ELDRITCH));
+    public static final RegistryObject<Block> ELDRITCH_WALL_HANGING_SIGN = BLOCK.register("eldritch_wall_hanging_sign",
+            () -> new ModWallHangingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_MAGENTA).noOcclusion().noCollission(), ModWoodTypes.ELDRITCH));
     // Other
     public static final RegistryObject<Block> VALORIA_PORTAL = registerBlock("valoria_portal",
             () -> new ValoriaPortalBlock(BlockBehaviour.Properties.copy(Blocks.NETHER_PORTAL).mapColor(MapColor.COLOR_PURPLE)));

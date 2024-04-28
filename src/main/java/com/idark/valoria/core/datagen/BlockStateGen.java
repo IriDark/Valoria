@@ -8,6 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.*;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ModelFile;
+import net.minecraftforge.client.model.generators.ModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -15,7 +16,7 @@ import net.minecraftforge.registries.RegistryObject;
 public class BlockStateGen extends BlockStateProvider {
 
     public BlockStateGen(PackOutput output, ExistingFileHelper exFileHelper) {
-        super(output, Valoria.MOD_ID, exFileHelper);
+        super(output, Valoria.ID, exFileHelper);
     }
 
     @Override
@@ -25,6 +26,23 @@ public class BlockStateGen extends BlockStateProvider {
         blockWithItem(BlockRegistry.PICRITE);
         blockWithItem(BlockRegistry.POLISHED_PICRITE);
         blockWithItem(BlockRegistry.EYE_STONE);
+
+        blockWithItem(BlockRegistry.ELDRITCH_LOG);
+        blockWithItem(BlockRegistry.STRIPPED_ELDRITCH_LOG);
+        blockWithItem(BlockRegistry.ELDRITCH_PLANKS);
+        blockWithItem(BlockRegistry.ELDRITCH_LEAVES);
+        doorBlock((DoorBlock) BlockRegistry.ELDRITCH_DOOR.get(), new ResourceLocation(Valoria.ID, ModelProvider.BLOCK_FOLDER + "/eldritch_door_bottom"), new ResourceLocation(Valoria.ID, ModelProvider.BLOCK_FOLDER + "/eldritch_door_top"));
+        trapdoorBlock((TrapDoorBlock) BlockRegistry.ELDRITCH_TRAPDOOR.get(), blockTexture(BlockRegistry.ELDRITCH_TRAPDOOR.get()), true);
+
+        signBlock((StandingSignBlock) BlockRegistry.ELDRITCH_SIGN.get(), (WallSignBlock) BlockRegistry.ELDRITCH_WALL_SIGN.get(), blockTexture(BlockRegistry.ELDRITCH_PLANKS.get()));
+        hangingSignBlock(BlockRegistry.ELDRITCH_HANGING_SIGN.get(), BlockRegistry.ELDRITCH_WALL_HANGING_SIGN.get(), blockTexture(BlockRegistry.ELDRITCH_PLANKS.get()));
+
+        buttonBlock((ButtonBlock) BlockRegistry.ELDRITCH_BUTTON.get(), blockTexture(BlockRegistry.ELDRITCH_PLANKS.get()));
+
+        pressurePlateBlock((PressurePlateBlock) BlockRegistry.ELDRITCH_PRESSURE_PLATE.get(), blockTexture(BlockRegistry.ELDRITCH_PLANKS.get()));
+
+        stairsBlock((StairBlock) BlockRegistry.ELDRITCH_PLANKS_STAIRS.get(), blockTexture(BlockRegistry.ELDRITCH_PLANKS.get()));
+        slabBlock((SlabBlock) BlockRegistry.ELDRITCH_PLANKS_SLAB.get(), blockTexture(BlockRegistry.ELDRITCH_PLANKS.get()), blockTexture(BlockRegistry.ELDRITCH_PLANKS.get()));
 
         stairsBlock((StairBlock) BlockRegistry.DEEP_MARBLE_STAIRS.get(), blockTexture(BlockRegistry.DEEP_MARBLE.get()));
         stairsBlock((StairBlock) BlockRegistry.POLISHED_DEEP_MARBLE_STAIRS.get(), blockTexture(BlockRegistry.DEEP_MARBLE.get()));
@@ -48,6 +66,8 @@ public class BlockStateGen extends BlockStateProvider {
 
         fenceBlock((FenceBlock) BlockRegistry.SHADEWOOD_FENCE.get(), blockTexture(BlockRegistry.SHADEWOOD_PLANKS.get()));
         fenceGateBlock((FenceGateBlock) BlockRegistry.SHADEWOOD_FENCE_GATE.get(), blockTexture(BlockRegistry.SHADEWOOD_PLANKS.get()));
+        fenceBlock((FenceBlock) BlockRegistry.ELDRITCH_FENCE.get(), blockTexture(BlockRegistry.ELDRITCH_PLANKS.get()));
+        fenceGateBlock((FenceGateBlock) BlockRegistry.ELDRITCH_FENCE_GATE.get(), blockTexture(BlockRegistry.ELDRITCH_PLANKS.get()));
 
         blockItem(BlockRegistry.DEEP_MARBLE_STAIRS);
         blockItem(BlockRegistry.POLISHED_DEEP_MARBLE_STAIRS);
@@ -79,6 +99,7 @@ public class BlockStateGen extends BlockStateProvider {
             blockItem(BlockRegistry.EPHEMARITE_LOW_SLAB);
             blockItem(BlockRegistry.POLISHED_EPHEMARITE_SLAB);
             blockItem(BlockRegistry.POLISHED_EPHEMARITE_LOW_SLAB);
+            blockItem(QuarkIntegration.LoadedOnly.ELDRITCH_PLANKS_VERTICAL_SLAB);
             blockItem(QuarkIntegration.LoadedOnly.BRONZE_VERTICAL_SLAB);
             blockItem(QuarkIntegration.LoadedOnly.CUT_BRONZE_VERTICAL_SLAB);
             blockItem(QuarkIntegration.LoadedOnly.AMBANE_STONE_BRICKS_VERTICAL_SLAB);
@@ -136,7 +157,7 @@ public class BlockStateGen extends BlockStateProvider {
     }
 
     private void blockItem(RegistryObject<Block> blockRegistryObject) {
-        simpleBlockItem(blockRegistryObject.get(), new ModelFile.UncheckedModelFile(Valoria.MOD_ID +
+        simpleBlockItem(blockRegistryObject.get(), new ModelFile.UncheckedModelFile(Valoria.ID +
                 ":block/" + ForgeRegistries.BLOCKS.getKey(blockRegistryObject.get()).getPath()));
     }
 

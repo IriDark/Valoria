@@ -16,7 +16,7 @@ import javax.annotation.Nullable;
 @OnlyIn(Dist.CLIENT)
 public class Bookmark {
 
-    public static final ResourceLocation BACKGROUND = new ResourceLocation(Valoria.MOD_ID, "textures/gui/book/lexicon.png");
+    public static final ResourceLocation BACKGROUND = new ResourceLocation(Valoria.ID, "textures/gui/book/lexicon.png");
     public final Item item;
     public final int x = 267;
     private final int y;

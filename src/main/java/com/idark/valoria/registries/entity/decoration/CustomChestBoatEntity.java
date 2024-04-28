@@ -23,6 +23,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 
@@ -108,9 +109,10 @@ public class CustomChestBoatEntity extends CustomBoatEntity implements HasCustom
     }
 
     @Override
-    public Item getDropItem() {
+    public @NotNull Item getDropItem() {
         return switch (this.getCustomBoatEntityType()) {
             case SHADEWOOD -> ItemsRegistry.SHADEWOOD_CHEST_BOAT_ITEM.get();
+            case ELDRITCH -> ItemsRegistry.ELDRITCH_CHEST_BOAT_ITEM.get();
         };
     }
 

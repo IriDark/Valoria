@@ -18,7 +18,7 @@ import net.minecraft.world.item.Items;
 
 public class KegBlockEntityRenderer implements BlockEntityRenderer<KegBlockEntity> {
 
-    public static final ModelResourceLocation KEG_BARREL = new ModelResourceLocation(new ResourceLocation(Valoria.MOD_ID, "keg_barrel"), "");
+    public static final ModelResourceLocation KEG_BARREL = new ModelResourceLocation(new ResourceLocation(Valoria.ID, "keg_barrel"), "");
 
     public KegBlockEntityRenderer() {
     }

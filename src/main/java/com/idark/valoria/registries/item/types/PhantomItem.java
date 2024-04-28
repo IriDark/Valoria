@@ -54,14 +54,13 @@ public class PhantomItem extends SwordItem implements Vanishable, IRadiusItem {
      */
     public void releaseUsing(ItemStack stack, Level level, LivingEntity entityLiving, int timeLeft) {
         Player player = (Player) entityLiving;
-        player.getCooldowns().addCooldown(this, 450);
         player.awardStat(Stats.ITEM_USED.get(this));
+        player.getCooldowns().addCooldown(this, 450);
+        float damage = (float) (player.getAttributeValue(Attributes.ATTACK_DAMAGE)) + EnchantmentHelper.getSweepingDamageRatio(player);
+
         Vector3d pos = new Vector3d(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());
         List<LivingEntity> hitEntities = new ArrayList<>();
-        for (int i = 0; i < 360; i += 10) {
-            ValoriaUtils.radiusHit(level, stack, player, ParticleTypes.SOUL_FIRE_FLAME, hitEntities, pos, 0, player.getRotationVector().y + i, pRadius);
-        }
-
+        ValoriaUtils.radiusHit(level, stack, player, ParticleTypes.SOUL_FIRE_FLAME, hitEntities, pos, 0, player.getRotationVector().y, pRadius);
         if (level.isClientSide()) {
             for (int a = 0; a < 12; a++) {
                 level.addParticle(ParticleTypes.SOUL_FIRE_FLAME, player.getX() + ((rand.nextDouble() - 0.7D) * 1), player.getY() + ((rand.nextDouble() - 1D) * 1), player.getZ() + ((rand.nextDouble() - 0.5D) * 1), 0.05d * ((rand.nextDouble() - 0.5D) * 1), 0.05d * ((rand.nextDouble() - 0.5D) * 1), 0.05d * ((rand.nextDouble() - 0.5D) * 1));
@@ -70,8 +69,6 @@ public class PhantomItem extends SwordItem implements Vanishable, IRadiusItem {
         }
 
         level.playSound(null, player.blockPosition(), SoundsRegistry.PHANTASM_ABILITY.get(), SoundSource.AMBIENT, 1.0F, 1.0F);
-
-        // displays eternity totem on use if client config value is true
         if (ClientConfig.PHANTOM_ACTIVATION.get()) {
             Minecraft.getInstance().gameRenderer.displayItemActivation(ItemsRegistry.ETERNITY.get().getDefaultInstance());
         }
@@ -80,14 +77,14 @@ public class PhantomItem extends SwordItem implements Vanishable, IRadiusItem {
             stack.hurtAndBreak(35, player, (p_220045_0_) -> p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
         }
 
-        float damage = (float) (player.getAttributeValue(Attributes.ATTACK_DAMAGE)) + EnchantmentHelper.getSweepingDamageRatio(player);
         for (LivingEntity entityInRadius : hitEntities) {
             if (entityInRadius instanceof Player && ((Player) entityInRadius).isCreative()) {
                 continue;
             }
 
             entityInRadius.hurt(level.damageSources().playerAttack(player), (damage + EnchantmentHelper.getDamageBonus(stack, entityInRadius.getMobType())) * 1.35f);
-            entityInRadius.knockback(0.52f, entityInRadius.getX(), entityInRadius.getZ());
+            entityInRadius.moveTo(player.getX(), player.getY(), player.getZ(), player.getYRot(), player.getXRot());
+            entityInRadius.knockback(1f, entityInRadius.getX() + 2f, entityInRadius.getZ() + 2f);
             if (EnchantmentHelper.getTagEnchantmentLevel(Enchantments.FIRE_ASPECT, stack) > 0) {
                 int e = EnchantmentHelper.getFireAspect(player);
                 entityInRadius.setSecondsOnFire(e * 4);

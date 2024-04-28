@@ -14,7 +14,7 @@ public class DamageSourceRegistry {
     public static final ResourceKey<DamageType> QUICKSAND_SUFFOCATING = register("quicksand_suffocating");
 
     private static ResourceKey<DamageType> register(String name) {
-        return ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation(Valoria.MOD_ID, name));
+        return ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation(Valoria.ID, name));
     }
 
     public static DamageSource source(Level level, ResourceKey<DamageType> key) {

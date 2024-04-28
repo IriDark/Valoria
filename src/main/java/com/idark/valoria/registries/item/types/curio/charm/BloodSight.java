@@ -1,9 +1,7 @@
 package com.idark.valoria.registries.item.types.curio.charm;
 
-import com.idark.valoria.client.event.ClientTickHandler;
 import com.idark.valoria.client.particle.ModParticles;
 import com.idark.valoria.client.particle.types.Particles;
-import com.idark.valoria.core.event.ServerTickHandler;
 import com.idark.valoria.registries.ItemsRegistry;
 import com.idark.valoria.registries.SoundsRegistry;
 import com.idark.valoria.registries.item.types.IParticleItem;
@@ -54,7 +52,6 @@ public class BloodSight extends Item implements ICurioItem, Vanishable, IParticl
         return pLevel > 10 ? pLevel - 10 : 1 + pRandom.nextInt(1);
     }
 
-    // TODO: Fix server ticking
     @Override
     public void curioTick(SlotContext slotContext, ItemStack stack) {
         Player player = (Player) slotContext.entity();
@@ -62,14 +59,11 @@ public class BloodSight extends Item implements ICurioItem, Vanishable, IParticl
         LivingEntity lastHurtMob = player.getLastAttacker();
         int duration = (stack.getItem() == ItemsRegistry.BLOODSIGHT_MONOCLE.get()) ? 12 : 6;
         int damageAmount = (stack.getItem() == ItemsRegistry.BLOODSIGHT_MONOCLE.get()) ? new Random().nextInt(2, 6) : new Random().nextInt(2, 8);
-        System.out.print(ServerTickHandler.tick);
         if (!pLevel.isClientSide() && pLevel instanceof ServerLevel serverLevel) {
-            if (lastHurtMob != null && ClientTickHandler.ticksInGame % duration == 1 && !player.getCooldowns().isOnCooldown(stack.getItem())) {
-                for (int i = 0; i < ClientTickHandler.ticksInGame % duration; i++) {
-                    ValoriaUtils.damageLastAttackedMob(serverLevel, player, this.getDamage(0, RandomSource.create()));
-                    if (lastHurtMob.hurtMarked) {
-                        hits++;
-                    }
+            if (lastHurtMob != null && !player.getCooldowns().isOnCooldown(stack.getItem())) {
+                ValoriaUtils.damageLastAttackedMob(serverLevel, player, this.getDamage(0, RandomSource.create()));
+                if (lastHurtMob.hurtMarked) {
+                    hits++;
                 }
 
                 ValoriaUtils.spawnParticlesLineToAttackedMobWithCooldown(serverLevel, player, new BlockParticleOption(ParticleTypes.BLOCK, Blocks.REDSTONE_BLOCK.defaultBlockState()), duration);

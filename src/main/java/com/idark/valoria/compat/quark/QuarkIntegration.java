@@ -28,16 +28,11 @@ import java.util.function.Supplier;
 
 public class QuarkIntegration {
 
-    private final static String MODID = Valoria.MOD_ID;
-
     public static void init(IEventBus eventBus) {
         LoadedOnly.BLOCKS.register(eventBus);
         LoadedOnly.BLOCK_ENTITIES.register(eventBus);
     }
 
-    /**
-     * @return If quark is in ModList - true, otherwise false
-     */
     public static boolean isLoaded() {
         return ModList.get().isLoaded("quark");
     }
@@ -46,8 +41,53 @@ public class QuarkIntegration {
      * if Quark is installed loads the content inside this class (Auto BlockItem Reg)
      */
     public static class LoadedOnly {
-        public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
-        public static DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, Valoria.MOD_ID);
+        public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Valoria.ID);
+        public static DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, Valoria.ID);
+
+        // Shadewood
+        public static final RegistryObject<Block> SHADELOG_POST = registerBlock("shadelog_post",
+                () -> new WoodPostBlock(null, BlockRegistry.SHADELOG.get(), "", SoundType.WOOD));
+        public static final RegistryObject<Block> STRIPPED_SHADELOG_POST = registerBlock("stripped_shadelog_post",
+                () -> new WoodPostBlock(null, BlockRegistry.STRIPPED_SHADELOG.get(), "striped_", SoundType.WOOD));
+        public static final RegistryObject<Block> SHADEWOOD_LEAF_CARPET = registerBlock("shadewood_leaf_carpet",
+                () -> new LeafCarpetBlock("shadewood", BlockRegistry.SHADEWOOD_LEAVES.get(), null));
+        public static final RegistryObject<Block> SHADEWOOD_PLANKS_VERTICAL_SLAB = registerBlock("shadewood_planks_vertical_slab",
+                () -> new VerticalSlabBlock(BlockRegistry.SHADEWOOD_PLANKS, BlockBehaviour.Properties.copy(Blocks.OAK_SLAB)));
+        public static final RegistryObject<Block> HOLLOW_SHADELOG = registerBlock("hollow_shadelog",
+                () -> new HollowLogBlock(BlockRegistry.SHADELOG.get(), null, true));
+        public static final RegistryObject<Block> SHADEWOOD_LEAF_HEDGE = registerBlock("shadewood_hedge",
+                () -> new HedgeBlock("shadewood", null, Blocks.OAK_FENCE, BlockRegistry.SHADEWOOD_LEAVES.get()));
+        public static final RegistryObject<Block> SHADEWOOD_BOOKSHELF = registerBlock("shadewood_bookshelf",
+                () -> new Block(BlockBehaviour.Properties.copy(Blocks.BOOKSHELF).sound(SoundType.WOOD)));
+        public static final RegistryObject<Block> SHADEWOOD_LADDER = registerBlock("shadewood_ladder",
+                () -> new LadderBlock(BlockBehaviour.Properties.copy(Blocks.LADDER).sound(SoundType.WOOD)));
+        public static final RegistryObject<Block> SHADEWOOD_CHEST = registerBlock("shadewood_chest",
+                () -> new ModChestBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).instrument(NoteBlockInstrument.BASS).strength(2.5F).sound(SoundType.WOOD).ignitedByLava(), LoadedOnly.CHEST_BLOCK_ENTITY::get));
+        public static final RegistryObject<Block> TRAPPED_SHADEWOOD_CHEST = registerBlock("trapped_shadewood_chest",
+                () -> new ModTrappedChestBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).instrument(NoteBlockInstrument.BASS).strength(2.5F).sound(SoundType.WOOD).ignitedByLava(), LoadedOnly.TRAPPED_CHEST_BLOCK_ENTITY::get));
+        // Eldritch
+        public static final RegistryObject<Block> ELDRITCH_LOG_POST = registerBlock("eldritch_log_post",
+                () -> new WoodPostBlock(null, BlockRegistry.ELDRITCH_LOG.get(), "", SoundType.WOOD));
+        public static final RegistryObject<Block> STRIPPED_ELDRITCH_LOG_POST = registerBlock("stripped_eldritch_log_post",
+                () -> new WoodPostBlock(null, BlockRegistry.STRIPPED_ELDRITCH_LOG.get(), "striped_", SoundType.WOOD));
+        public static final RegistryObject<Block> ELDRITCH_LEAF_CARPET = registerBlock("eldritch_leaf_carpet",
+                () -> new LeafCarpetBlock("eldritch", BlockRegistry.ELDRITCH_LEAVES.get(), null));
+        public static final RegistryObject<Block> ELDRITCH_PLANKS_VERTICAL_SLAB = registerBlock("eldritch_planks_vertical_slab",
+                () -> new VerticalSlabBlock(BlockRegistry.ELDRITCH_PLANKS, BlockBehaviour.Properties.copy(Blocks.OAK_SLAB)));
+        public static final RegistryObject<Block> HOLLOW_ELDRITCH_LOG = registerBlock("hollow_eldritch_log",
+                () -> new HollowLogBlock(BlockRegistry.ELDRITCH_LOG.get(), null, true));
+        public static final RegistryObject<Block> ELDRITCH_LEAF_HEDGE = registerBlock("eldritch_hedge",
+                () -> new HedgeBlock("eldritch", null, Blocks.OAK_FENCE, BlockRegistry.ELDRITCH_LEAVES.get()));
+        public static final RegistryObject<Block> ELDRITCH_BOOKSHELF = registerBlock("eldritch_bookshelf",
+                () -> new Block(BlockBehaviour.Properties.copy(Blocks.BOOKSHELF).sound(SoundType.WOOD)));
+        public static final RegistryObject<Block> ELDRITCH_LADDER = registerBlock("eldritch_ladder",
+                () -> new LadderBlock(BlockBehaviour.Properties.copy(Blocks.LADDER).sound(SoundType.WOOD)));
+
+        public static final RegistryObject<Block> ELDRITCH_CHEST = registerBlock("eldritch_chest",
+                () -> new ModChestBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).instrument(NoteBlockInstrument.BASS).strength(2.5F).sound(SoundType.WOOD).ignitedByLava(), LoadedOnly.CHEST_BLOCK_ENTITY::get));
+        public static final RegistryObject<Block> TRAPPED_ELDRITCH_CHEST = registerBlock("trapped_eldritch_chest",
+                () -> new ModTrappedChestBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).instrument(NoteBlockInstrument.BASS).strength(2.5F).sound(SoundType.WOOD).ignitedByLava(), LoadedOnly.TRAPPED_CHEST_BLOCK_ENTITY::get));
+
 
         public static final RegistryObject<Block> EPHEMARITE_VERTICAL_SLAB = registerBlock("ephemarite_vertical_slab",
                 () -> new VerticalSlabBlock(BlockRegistry.EPHEMARITE, BlockBehaviour.Properties.copy(BlockRegistry.EPHEMARITE_SLAB.get())));
@@ -57,16 +97,6 @@ public class QuarkIntegration {
                 () -> new VerticalSlabBlock(BlockRegistry.POLISHED_EPHEMARITE_LOW, BlockBehaviour.Properties.copy(BlockRegistry.POLISHED_EPHEMARITE_LOW_SLAB.get())));
         public static final RegistryObject<Block> POLISHED_EPHEMARITE_VERTICAL_SLAB = registerBlock("polished_ephemarite_vertical_slab",
                 () -> new VerticalSlabBlock(BlockRegistry.POLISHED_EPHEMARITE, BlockBehaviour.Properties.copy(BlockRegistry.POLISHED_EPHEMARITE_SLAB.get())));
-        public static final RegistryObject<Block> VERTICAL_SHADEWOOD_PLANKS_ = registerBlock("vertical_shadewood_planks",
-                () -> new Block(BlockBehaviour.Properties.copy(BlockRegistry.SHADEWOOD_PLANKS.get())));
-        public static final RegistryObject<Block> SHADELOG_POST = registerBlock("shadelog_post",
-                () -> new WoodPostBlock(null, BlockRegistry.SHADELOG.get(), "", SoundType.WOOD));
-        public static final RegistryObject<Block> STRIPPED_SHADELOG_POST = registerBlock("stripped_shadelog_post",
-                () -> new WoodPostBlock(null, BlockRegistry.STRIPPED_SHADELOG.get(), "striped_", SoundType.WOOD));
-        public static final RegistryObject<Block> SHADEWOOD_LEAF_CARPET = registerBlock("shadewood_leaf_carpet",
-                () -> new LeafCarpetBlock("shadewood", BlockRegistry.SHADEWOOD_LEAVES.get(), null));
-        public static final RegistryObject<Block> SHADEWOOD_PLANKS_VERTICAL_SLAB = registerBlock("shadewood_planks_vertical_slab",
-                () -> new VerticalSlabBlock(BlockRegistry.SHADEWOOD_PLANKS, BlockBehaviour.Properties.copy(Blocks.OAK_SLAB)));
         public static final RegistryObject<Block> BRONZE_VERTICAL_SLAB = registerBlock("bronze_block_vertical_slab",
                 () -> new VerticalSlabBlock(BlockRegistry.BRONZE_BLOCK, BlockBehaviour.Properties.copy(BlockRegistry.BRONZE_BLOCK_SLAB.get())));
         public static final RegistryObject<Block> CUT_BRONZE_VERTICAL_SLAB = registerBlock("cut_bronze_vertical_slab",
@@ -115,21 +145,9 @@ public class QuarkIntegration {
                 () -> new VerticalSlabBlock(BlockRegistry.VOID_CRACKED_BRICK, BlockBehaviour.Properties.copy(BlockRegistry.VOID_CRACKED_BRICK.get())));
         public static final RegistryObject<Block> CHISELED_VOID_BRICKS_VERTICAL_SLAB = registerBlock("void_chiseled_bricks_vertical_slab",
                 () -> new VerticalSlabBlock(BlockRegistry.VOID_CHISELED_BRICKS, BlockBehaviour.Properties.copy(BlockRegistry.VOID_CHISELED_BRICKS.get())));
-        public static final RegistryObject<Block> HOLLOW_SHADELOG = registerBlock("hollow_shadelog",
-                () -> new HollowLogBlock(BlockRegistry.SHADELOG.get(), null, true));
-        public static final RegistryObject<Block> SHADEWOOD_LEAF_HEDGE = registerBlock("shadewood_hedge",
-                () -> new HedgeBlock("shadewood", null, Blocks.OAK_FENCE, BlockRegistry.SHADEWOOD_LEAVES.get()));
-        public static final RegistryObject<Block> SHADEWOOD_BOOKSHELF = registerBlock("shadewood_bookshelf",
-                () -> new Block(BlockBehaviour.Properties.copy(Blocks.BOOKSHELF).sound(SoundType.WOOD)));
-        public static final RegistryObject<Block> SHADEWOOD_LADDER = registerBlock("shadewood_ladder",
-                () -> new LadderBlock(BlockBehaviour.Properties.copy(Blocks.LADDER).sound(SoundType.WOOD)));
-        public static final RegistryObject<Block> SHADEWOOD_CHEST = registerBlock("shadewood_chest",
-                () -> new ModChestBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).instrument(NoteBlockInstrument.BASS).strength(2.5F).sound(SoundType.WOOD).ignitedByLava(), LoadedOnly.CHEST_BLOCK_ENTITY::get));
-        public static final RegistryObject<Block> TRAPPED_SHADEWOOD_CHEST = registerBlock("trapped_shadewood_chest",
-                () -> new ModTrappedChestBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).instrument(NoteBlockInstrument.BASS).strength(2.5F).sound(SoundType.WOOD).ignitedByLava(), LoadedOnly.TRAPPED_CHEST_BLOCK_ENTITY::get));
 
-        public static final RegistryObject<BlockEntityType<ModChestBlockEntity>> CHEST_BLOCK_ENTITY = BLOCK_ENTITIES.register("mod_chest", () -> BlockEntityType.Builder.of(ModChestBlockEntity::new, LoadedOnly.SHADEWOOD_CHEST.get()).build(null));
-        public static final RegistryObject<BlockEntityType<ModTrappedChestBlockEntity>> TRAPPED_CHEST_BLOCK_ENTITY = BLOCK_ENTITIES.register("mod_trapped_chest", () -> BlockEntityType.Builder.of(ModTrappedChestBlockEntity::new, LoadedOnly.TRAPPED_SHADEWOOD_CHEST.get()).build(null));
+        public static final RegistryObject<BlockEntityType<ModChestBlockEntity>> CHEST_BLOCK_ENTITY = BLOCK_ENTITIES.register("mod_chest", () -> BlockEntityType.Builder.of(ModChestBlockEntity::new, LoadedOnly.SHADEWOOD_CHEST.get(), LoadedOnly.ELDRITCH_CHEST.get()).build(null));
+        public static final RegistryObject<BlockEntityType<ModTrappedChestBlockEntity>> TRAPPED_CHEST_BLOCK_ENTITY = BLOCK_ENTITIES.register("mod_trapped_chest", () -> BlockEntityType.Builder.of(ModTrappedChestBlockEntity::new, LoadedOnly.TRAPPED_SHADEWOOD_CHEST.get(), LoadedOnly.TRAPPED_ELDRITCH_CHEST.get()).build(null));
 
         private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
             RegistryObject<T> toReturn = BLOCKS.register(name, block);

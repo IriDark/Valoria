@@ -89,7 +89,7 @@ public class CrusherRecipe implements Recipe<Container> {
 
     public static class Serializer implements RecipeSerializer<CrusherRecipe> {
         public static final CrusherRecipe.Serializer INSTANCE = new CrusherRecipe.Serializer();
-        public static final ResourceLocation ID = new ResourceLocation(Valoria.MOD_ID, "crusher");
+        public static final ResourceLocation ID = new ResourceLocation(Valoria.ID, "crusher");
 
         @Override
         public CrusherRecipe fromJson(ResourceLocation pRecipeId, JsonObject pSerializedRecipe) {

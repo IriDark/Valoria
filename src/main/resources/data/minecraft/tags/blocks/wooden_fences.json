@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "valoria:shadewood_fence"
+    "valoria:shadewood_fence",
+    "valoria:eldritch_fence"
   ]
 }

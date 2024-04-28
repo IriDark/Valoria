@@ -14,7 +14,7 @@ import net.minecraft.world.entity.LivingEntity;
 
 public class BeltModel extends HumanoidModel<LivingEntity> {
     public ModelPart root, model;
-    public static ModelLayerLocation BELT_LAYER = new ModelLayerLocation(new ResourceLocation(Valoria.MOD_ID, "belt"), "main");
+    public static ModelLayerLocation BELT_LAYER = new ModelLayerLocation(new ResourceLocation(Valoria.ID, "belt"), "main");
 
     public BeltModel(ModelPart root) {
         super(root);

@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "valoria:shadewood_planks_slab"
+    "valoria:shadewood_planks_slab",
+    "valoria:eldritch_planks_slab"
   ]
 }

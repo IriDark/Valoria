@@ -85,7 +85,7 @@ public class KegRecipe implements Recipe<SimpleContainer> {
 
     public static class Serializer implements RecipeSerializer<KegRecipe> {
         public static final Serializer INSTANCE = new Serializer();
-        public static final ResourceLocation ID = new ResourceLocation(Valoria.MOD_ID, "keg_brewery");
+        public static final ResourceLocation ID = new ResourceLocation(Valoria.ID, "keg_brewery");
 
         @Override
         public KegRecipe fromJson(ResourceLocation pRecipeId, JsonObject pSerializedRecipe) {

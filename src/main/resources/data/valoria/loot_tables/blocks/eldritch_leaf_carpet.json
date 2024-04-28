@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "valoria:vertical_shadewood_planks"
+          "name": "valoria:eldritch_leaf_carpet"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "valoria:blocks/vertical_shadewood_planks"
+  "random_sequence": "valoria:blocks/eldritch_leaf_carpet"
 }

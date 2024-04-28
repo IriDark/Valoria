@@ -15,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
 @OnlyIn(Dist.CLIENT)
 public class UndeadRenderer extends MobRenderer<UndeadEntity, UndeadModel> {
 
-    protected static final ResourceLocation TEXTURE = new ResourceLocation(Valoria.MOD_ID, "textures/entity/undead.png");
+    protected static final ResourceLocation TEXTURE = new ResourceLocation(Valoria.ID, "textures/entity/undead.png");
 
     public UndeadRenderer(EntityRendererProvider.Context p_174435_) {
         super(p_174435_, new UndeadModel(p_174435_.bakeLayer(ModelLayers.VEX)), 0.3F);

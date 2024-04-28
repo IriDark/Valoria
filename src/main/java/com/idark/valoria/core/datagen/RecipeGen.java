@@ -159,6 +159,7 @@ public class RecipeGen extends RecipeProvider implements IConditionBuilder {
         netheriteSmithing(pWriter, ItemsRegistry.GOLDEN_RING_SAPPHIRE.get(), RecipeCategory.MISC, ItemsRegistry.NETHERITE_RING_SAPPHIRE.get());
         if(QuarkIntegration.isLoaded()) {
             verticalSlabRecipe(pWriter, BlockRegistry.SHADEWOOD_PLANKS_SLAB.get(), QuarkIntegration.LoadedOnly.SHADEWOOD_PLANKS_VERTICAL_SLAB.get());
+            verticalSlabRecipe(pWriter, BlockRegistry.ELDRITCH_PLANKS_SLAB.get(), QuarkIntegration.LoadedOnly.ELDRITCH_PLANKS_VERTICAL_SLAB.get());
 
             verticalSlabRecipe(pWriter, BlockRegistry.BRONZE_BLOCK_SLAB.get(), QuarkIntegration.LoadedOnly.BRONZE_VERTICAL_SLAB.get());
             verticalSlabRecipe(pWriter, BlockRegistry.CUT_BRONZE_SLAB.get(), QuarkIntegration.LoadedOnly.CUT_BRONZE_VERTICAL_SLAB.get());
@@ -194,15 +195,20 @@ public class RecipeGen extends RecipeProvider implements IConditionBuilder {
             verticalSlabRecipe(pWriter, BlockRegistry.VOID_CRACKED_BRICK_SLAB.get(), QuarkIntegration.LoadedOnly.VOID_CRACKED_BRICK_VERTICAL_SLAB.get());
 
             ladderRecipe(pWriter, BlockRegistry.SHADEWOOD_PLANKS.get(), QuarkIntegration.LoadedOnly.SHADEWOOD_LADDER.get());
+            ladderRecipe(pWriter, BlockRegistry.ELDRITCH_PLANKS.get(), QuarkIntegration.LoadedOnly.ELDRITCH_LADDER.get());
             chestRecipes(pWriter, QuarkIntegration.LoadedOnly.SHADEWOOD_CHEST.get(), QuarkIntegration.LoadedOnly.TRAPPED_SHADEWOOD_CHEST.get(), BlockRegistry.SHADEWOOD_PLANKS.get(), TagsRegistry.SHADEWOOD);
+            chestRecipes(pWriter, QuarkIntegration.LoadedOnly.ELDRITCH_CHEST.get(), QuarkIntegration.LoadedOnly.TRAPPED_ELDRITCH_CHEST.get(), BlockRegistry.ELDRITCH_PLANKS.get(), TagsRegistry.ELDRITCH);
 
             postRecipe(pWriter, BlockRegistry.STRIPPED_SHADELOG.get(), QuarkIntegration.LoadedOnly.STRIPPED_SHADELOG_POST.get());
             postRecipe(pWriter, BlockRegistry.SHADELOG.get(), QuarkIntegration.LoadedOnly.SHADELOG_POST.get());
 
             hedgeRecipe(pWriter, TagsRegistry.SHADEWOOD, BlockRegistry.SHADEWOOD_LEAVES.get(), QuarkIntegration.LoadedOnly.SHADEWOOD_LEAF_HEDGE.get());
             leafCarpetRecipe(pWriter, BlockRegistry.SHADEWOOD_LEAVES.get(), QuarkIntegration.LoadedOnly.SHADEWOOD_LEAF_CARPET.get());
+            hedgeRecipe(pWriter, TagsRegistry.ELDRITCH, BlockRegistry.ELDRITCH_LEAVES.get(), QuarkIntegration.LoadedOnly.ELDRITCH_LEAF_HEDGE.get());
+            leafCarpetRecipe(pWriter, BlockRegistry.ELDRITCH_LEAVES.get(), QuarkIntegration.LoadedOnly.ELDRITCH_LEAF_CARPET.get());
 
             bookshelfRecipe(pWriter, BlockRegistry.SHADEWOOD_PLANKS.get(), QuarkIntegration.LoadedOnly.SHADEWOOD_BOOKSHELF.get());
+            bookshelfRecipe(pWriter, BlockRegistry.ELDRITCH_PLANKS.get(), QuarkIntegration.LoadedOnly.ELDRITCH_BOOKSHELF.get());
         }
 
         fence(pWriter, BlockRegistry.SHADEWOOD_FENCE.get(), BlockRegistry.SHADEWOOD_PLANKS.get());
@@ -246,7 +252,7 @@ public class RecipeGen extends RecipeProvider implements IConditionBuilder {
                         .pattern("BBB")
                         .pattern("###")
                         .unlockedBy(getHasName(plank), has(plank)).save(consumer1))
-                .build(consumer, new ResourceLocation(Valoria.MOD_ID, "crafting/" + getItemName(bookshelf)));
+                .build(consumer, new ResourceLocation(Valoria.ID, "crafting/" + getItemName(bookshelf)));
     }
 
     public static void ladderRecipe(Consumer<FinishedRecipe> consumer, ItemLike plank, ItemLike ladder) {
@@ -259,7 +265,7 @@ public class RecipeGen extends RecipeProvider implements IConditionBuilder {
                         .pattern("#W#")
                         .pattern("# #")
                         .unlockedBy(getHasName(plank), has(plank)).save(consumer1))
-                .build(consumer, new ResourceLocation(Valoria.MOD_ID, "crafting/" + getItemName(ladder)));
+                .build(consumer, new ResourceLocation(Valoria.ID, "crafting/" + getItemName(ladder)));
     }
 
     public static void postRecipe(Consumer<FinishedRecipe> consumer, ItemLike wood, ItemLike post) {
@@ -271,7 +277,7 @@ public class RecipeGen extends RecipeProvider implements IConditionBuilder {
                         .pattern("#")
                         .pattern("#")
                         .unlockedBy(getHasName(wood), has(wood)).save(consumer1))
-                .build(consumer, new ResourceLocation(Valoria.MOD_ID, "crafting/" + getItemName(post)));
+                .build(consumer, new ResourceLocation(Valoria.ID, "crafting/" + getItemName(post)));
     }
 
     public static void hedgeRecipe(Consumer<FinishedRecipe> consumer, TagKey<Item> log, ItemLike leaves, ItemLike hedge) {
@@ -283,7 +289,7 @@ public class RecipeGen extends RecipeProvider implements IConditionBuilder {
                         .pattern("L")
                         .pattern("#")
                         .unlockedBy(getHasName(leaves), has(leaves)).save(consumer1))
-                .build(consumer, new ResourceLocation(Valoria.MOD_ID, "crafting/" + getItemName(hedge)));
+                .build(consumer, new ResourceLocation(Valoria.ID, "crafting/" + getItemName(hedge)));
     }
 
     public static void leafCarpetRecipe(Consumer<FinishedRecipe> consumer, ItemLike leaves, ItemLike carpet) {
@@ -293,7 +299,7 @@ public class RecipeGen extends RecipeProvider implements IConditionBuilder {
                         .define('#', leaves)
                         .pattern("##")
                         .unlockedBy(getHasName(leaves), has(leaves)).save(consumer1))
-                .build(consumer, new ResourceLocation(Valoria.MOD_ID, "crafting/" + getItemName(carpet)));
+                .build(consumer, new ResourceLocation(Valoria.ID, "crafting/" + getItemName(carpet)));
     }
 
     public static void chestRecipes(Consumer<FinishedRecipe> consumer, Block pNormal, Block pTrapped, ItemLike planks, TagKey<Item> log) {
@@ -305,8 +311,8 @@ public class RecipeGen extends RecipeProvider implements IConditionBuilder {
                         .pattern("# #")
                         .pattern("###")
                         .unlockedBy(getHasName(planks), has(planks))
-                        .save(consumer1, new ResourceLocation(Valoria.MOD_ID, "crafting/" + getItemName(pNormal))))
-                .build(consumer, new ResourceLocation(Valoria.MOD_ID, "crafting/" + getItemName(pNormal)
+                        .save(consumer1, new ResourceLocation(Valoria.ID, "crafting/" + getItemName(pNormal))))
+                .build(consumer, new ResourceLocation(Valoria.ID, "crafting/" + getItemName(pNormal)
                 )
         );
 
@@ -318,8 +324,8 @@ public class RecipeGen extends RecipeProvider implements IConditionBuilder {
                         .pattern("# #")
                         .pattern("###")
                         .unlockedBy(getHasName(pNormal), has(pNormal))
-                        .save(consumer1, new ResourceLocation(Valoria.MOD_ID, "crafting/" + getItemName(pNormal) + "_wood")))
-                .build(consumer, new ResourceLocation(Valoria.MOD_ID, "crafting/" + getItemName(pNormal) + "_wood"
+                        .save(consumer1, new ResourceLocation(Valoria.ID, "crafting/" + getItemName(pNormal) + "_wood")))
+                .build(consumer, new ResourceLocation(Valoria.ID, "crafting/" + getItemName(pNormal) + "_wood"
                 )
         );
 
@@ -329,8 +335,8 @@ public class RecipeGen extends RecipeProvider implements IConditionBuilder {
                         .requires(pNormal)
                         .requires(Items.TRIPWIRE_HOOK)
                         .unlockedBy(getHasName(pNormal), has(pNormal))
-                        .save(consumer1, new ResourceLocation(Valoria.MOD_ID, "crafting/" + getItemName(pTrapped))))
-                .build(consumer, new ResourceLocation(Valoria.MOD_ID, "crafting/" + getItemName(pTrapped)
+                        .save(consumer1, new ResourceLocation(Valoria.ID, "crafting/" + getItemName(pTrapped))))
+                .build(consumer, new ResourceLocation(Valoria.ID, "crafting/" + getItemName(pTrapped)
                 )
         );
     }
@@ -347,7 +353,7 @@ public class RecipeGen extends RecipeProvider implements IConditionBuilder {
                         .pattern("#")
                         .pattern("#")
                         .pattern("#")
-                        .unlockedBy(getHasName(slab), has(slab)).save(consumer1, new ResourceLocation(Valoria.MOD_ID, getItemName(verticalSlab))))
-                .build(consumer, new ResourceLocation(Valoria.MOD_ID, "crafting/" + getItemName(verticalSlab)));
+                        .unlockedBy(getHasName(slab), has(slab)).save(consumer1, new ResourceLocation(Valoria.ID, getItemName(verticalSlab))))
+                .build(consumer, new ResourceLocation(Valoria.ID, "crafting/" + getItemName(verticalSlab)));
     }
 }

@@ -48,6 +48,6 @@ public class PhantomArrow extends AbstractValoriaArrow implements IProjectileTex
 
     @Override
     public ResourceLocation getTexture() {
-        return new ResourceLocation(Valoria.MOD_ID, "textures/entity/projectile/arrow/phantom_arrow.png");
+        return new ResourceLocation(Valoria.ID, "textures/entity/projectile/arrow/phantom_arrow.png");
     }
 }

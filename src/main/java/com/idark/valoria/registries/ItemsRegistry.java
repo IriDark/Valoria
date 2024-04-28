@@ -32,7 +32,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 public class ItemsRegistry {
-    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Valoria.MOD_ID);
+    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Valoria.ID);
 
     public static final RegistryObject<Item> VOIDVINE = ITEMS.register("voidvine", () -> new TaintTransformBlockItem(BlockRegistry.VOIDVINE.get(), new Item.Properties()));
     public static final RegistryObject<Item> VIOLET_SPROUT = ITEMS.register("violet_sprout", () -> new TaintTransformBlockItem(BlockRegistry.VIOLET_SPROUT.get(), new Item.Properties()));
@@ -42,6 +42,11 @@ public class ItemsRegistry {
     public static final RegistryObject<Item> SHADEWOOD_CHEST_BOAT_ITEM = ITEMS.register("shadewood_chest_boat", () -> new CustomBoatItem(true, CustomBoatEntity.Type.SHADEWOOD, new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> SHADEWOOD_SIGN = ITEMS.register("shadewood_sign", () -> new SignItem(new Item.Properties().stacksTo(16), BlockRegistry.SHADEWOOD_SIGN.get(), BlockRegistry.SHADEWOOD_WALL_SIGN.get()));
     public static final RegistryObject<Item> SHADEWOOD_HANGING_SIGN = ITEMS.register("shadewood_hanging_sign", () -> new HangingSignItem(BlockRegistry.SHADEWOOD_HANGING_SIGN.get(), BlockRegistry.SHADEWOOD_WALL_HANGING_SIGN.get(), new Item.Properties().stacksTo(16)));
+    public static final RegistryObject<Item> ELDRITCH_BOAT_ITEM = ITEMS.register("eldritch_boat", () -> new CustomBoatItem(false, CustomBoatEntity.Type.ELDRITCH, new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> ELDRITCH_CHEST_BOAT_ITEM = ITEMS.register("eldritch_chest_boat", () -> new CustomBoatItem(true, CustomBoatEntity.Type.ELDRITCH, new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> ELDRITCH_SIGN = ITEMS.register("eldritch_sign", () -> new SignItem(new Item.Properties().stacksTo(16), BlockRegistry.ELDRITCH_SIGN.get(), BlockRegistry.ELDRITCH_WALL_SIGN.get()));
+    public static final RegistryObject<Item> ELDRITCH_HANGING_SIGN = ITEMS.register("eldritch_hanging_sign", () -> new HangingSignItem(BlockRegistry.ELDRITCH_HANGING_SIGN.get(), BlockRegistry.ELDRITCH_WALL_HANGING_SIGN.get(), new Item.Properties().stacksTo(16)));
+
     // ARMOR
     public static final RegistryObject<Item> COBALT_HELMET = ITEMS.register("cobalt_helmet", () -> new ArmorItem(ModArmorMaterial.COBALT, ArmorItem.Type.HELMET, (new Item.Properties())));
     public static final RegistryObject<Item> COBALT_CHESTPLATE = ITEMS.register("cobalt_chestplate", () -> new ArmorItem(ModArmorMaterial.COBALT, ArmorItem.Type.CHESTPLATE, (new Item.Properties())));
@@ -73,6 +78,7 @@ public class ItemsRegistry {
     public static final RegistryObject<Item> PHANTASM_BOOTS = ITEMS.register("phantasm_boots", () -> new ModArmorItem(ModArmorMaterial.PHANTASM, ArmorItem.Type.BOOTS, (new Item.Properties().rarity(RarityRegistry.PHANTASM).fireResistant())));
 
     // ITEMS
+    public static final RegistryObject<Item> DEBUG = ITEMS.register("debug_item", () -> new DebugItem(new Item.Properties()));
     //public static final RegistryObject<Item> STAFF = ITEMS.register("basic_staff", () -> new StaffItem(new Item.Properties()));
     public static final RegistryObject<Item> RAW_COBALT = ITEMS.register("raw_cobalt", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> AMBER_GEM = ITEMS.register("amber_gem", () -> new Item(new Item.Properties()));

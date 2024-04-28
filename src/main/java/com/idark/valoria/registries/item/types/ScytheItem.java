@@ -79,9 +79,7 @@ public class ScytheItem extends SwordItem implements Vanishable, ICustomAnimatio
 
         Vector3d pos = new Vector3d(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());
         List<LivingEntity> hitEntities = new ArrayList<>();
-        for (int i = 0; i < 360; i += 10) {
-            ValoriaUtils.radiusHit(level, stack, player, ParticleTypes.POOF, hitEntities, pos, 0, player.getRotationVector().y + i, radius);
-        }
+        ValoriaUtils.radiusHit(level, stack, player, ParticleTypes.POOF, hitEntities, pos, 0, player.getRotationVector().y, radius);
 
         float damage = (float) (player.getAttributeValue(Attributes.ATTACK_DAMAGE)) + EnchantmentHelper.getSweepingDamageRatio(player);
         for (LivingEntity entity : hitEntities) {

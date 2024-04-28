@@ -3,6 +3,7 @@ package com.idark.valoria.registries;
 import com.idark.valoria.Valoria;
 import com.idark.valoria.compat.quark.QuarkIntegration;
 import com.idark.valoria.registries.entity.decoration.ModPaintings;
+import com.idark.valoria.util.ValoriaUtils;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
@@ -23,11 +24,10 @@ import net.minecraftforge.registries.RegistryObject;
 import java.util.Comparator;
 import java.util.function.Predicate;
 
-@Mod.EventBusSubscriber(modid = Valoria.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(modid = Valoria.ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public abstract class ItemTabRegistry {
-
     private static final Comparator<Holder<PaintingVariant>> PAINTING_COMPARATOR = Comparator.comparing(Holder::value, Comparator.<PaintingVariant>comparingInt((p_270004_) -> p_270004_.getHeight() * p_270004_.getWidth()).thenComparing(PaintingVariant::getWidth));
-    public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, Valoria.MOD_ID);
+    public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, Valoria.ID);
 
     public static final RegistryObject<CreativeModeTab> VALORIA_TAB = CREATIVE_MODE_TABS.register("valoriamodtab",
             () -> CreativeModeTab.builder().icon(() -> new ItemStack(ItemsRegistry.EYE_CHUNK.get()))
@@ -45,11 +45,11 @@ public abstract class ItemTabRegistry {
                     .backgroundSuffix("valoria_item.png").withBackgroundLocation(getBackgroundImage()).build());
 
     public static ResourceLocation getBackgroundImage() {
-        return new ResourceLocation(Valoria.MOD_ID, "textures/gui/container/tab_valoria_item.png");
+        return new ResourceLocation(Valoria.ID, "textures/gui/container/tab_valoria_item.png");
     }
 
     public static ResourceLocation getTabsImage() {
-        return new ResourceLocation(Valoria.MOD_ID, "textures/gui/container/tabs_valoria.png");
+        return new ResourceLocation(Valoria.ID, "textures/gui/container/tabs_valoria.png");
     }
 
     public static void register(IEventBus eventBus) {
@@ -58,6 +58,7 @@ public abstract class ItemTabRegistry {
 
     public static void addCreative(BuildCreativeModeTabContentsEvent event) {
         if (event.getTabKey() == ItemTabRegistry.VALORIA_TAB.getKey()) {
+            if(ValoriaUtils.isIDE) event.accept(ItemsRegistry.DEBUG);
             event.accept(ItemsRegistry.COBALT_HELMET);
             event.accept(ItemsRegistry.COBALT_CHESTPLATE);
             event.accept(ItemsRegistry.COBALT_LEGGINGS);
@@ -547,7 +548,6 @@ public abstract class ItemTabRegistry {
             event.accept(BlockRegistry.STRIPPED_SHADELOG);
             event.accept(BlockRegistry.STRIPPED_SHADEWOOD);
             event.accept(BlockRegistry.SHADEWOOD_PLANKS);
-            if (QuarkIntegration.isLoaded()) event.accept(QuarkIntegration.LoadedOnly.VERTICAL_SHADEWOOD_PLANKS_);
             event.accept(BlockRegistry.SHADEWOOD_PLANKS_STAIRS);
             event.accept(BlockRegistry.SHADEWOOD_PLANKS_SLAB);
             if (QuarkIntegration.isLoaded()) {
@@ -560,7 +560,7 @@ public abstract class ItemTabRegistry {
             event.accept(BlockRegistry.SHADEWOOD_FENCE_GATE);
             event.accept(BlockRegistry.SHADEWOOD_DOOR);
             event.accept(BlockRegistry.SHADEWOOD_TRAPDOOR);
-            event.accept(BlockRegistry.SHADEWOOD_TRAPDOOR);
+            event.accept(BlockRegistry.SHADEWOOD_PRESSURE_PLATE);
             event.accept(BlockRegistry.SHADEWOOD_BUTTON);
             event.accept(BlockRegistry.SHADEWOOD_SAPLING);
             event.accept(BlockRegistry.SHADEWOOD_BRANCH);
@@ -568,9 +568,8 @@ public abstract class ItemTabRegistry {
             if (QuarkIntegration.isLoaded()) {
                 event.accept(QuarkIntegration.LoadedOnly.SHADEWOOD_LEAF_HEDGE);
                 event.accept(QuarkIntegration.LoadedOnly.SHADEWOOD_LEAF_CARPET);
+                event.accept(QuarkIntegration.LoadedOnly.SHADEWOOD_LADDER);
             }
-
-            if (QuarkIntegration.isLoaded()) event.accept(QuarkIntegration.LoadedOnly.SHADEWOOD_LADDER);
             event.accept(ItemsRegistry.SHADEWOOD_SIGN);
             event.accept(ItemsRegistry.SHADEWOOD_HANGING_SIGN);
             event.accept(ItemsRegistry.SHADEWOOD_BOAT_ITEM);
@@ -581,6 +580,41 @@ public abstract class ItemTabRegistry {
                 event.accept(QuarkIntegration.LoadedOnly.TRAPPED_SHADEWOOD_CHEST);
             }
 
+            event.accept(BlockRegistry.ELDRITCH_LOG);
+            if (QuarkIntegration.isLoaded()) event.accept(QuarkIntegration.LoadedOnly.HOLLOW_ELDRITCH_LOG);
+            event.accept(BlockRegistry.ELDRITCH_WOOD);
+            event.accept(BlockRegistry.STRIPPED_ELDRITCH_LOG);
+            event.accept(BlockRegistry.STRIPPED_ELDRITCH_WOOD);
+            event.accept(BlockRegistry.ELDRITCH_PLANKS);
+            event.accept(BlockRegistry.ELDRITCH_PLANKS_STAIRS);
+            event.accept(BlockRegistry.ELDRITCH_PLANKS_SLAB);
+            if (QuarkIntegration.isLoaded()) {
+                event.accept(QuarkIntegration.LoadedOnly.ELDRITCH_PLANKS_VERTICAL_SLAB);
+                event.accept(QuarkIntegration.LoadedOnly.ELDRITCH_LOG_POST);
+                event.accept(QuarkIntegration.LoadedOnly.STRIPPED_ELDRITCH_LOG_POST);
+            }
+            event.accept(BlockRegistry.ELDRITCH_FENCE);
+            event.accept(BlockRegistry.ELDRITCH_FENCE_GATE);
+            event.accept(BlockRegistry.ELDRITCH_DOOR);
+            event.accept(BlockRegistry.ELDRITCH_TRAPDOOR);
+            event.accept(BlockRegistry.ELDRITCH_PRESSURE_PLATE);
+            event.accept(BlockRegistry.ELDRITCH_BUTTON);
+            event.accept(BlockRegistry.ELDRITCH_SAPLING);
+            event.accept(BlockRegistry.ELDRITCH_LEAVES);
+            if (QuarkIntegration.isLoaded()) {
+                event.accept(QuarkIntegration.LoadedOnly.ELDRITCH_LEAF_HEDGE);
+                event.accept(QuarkIntegration.LoadedOnly.ELDRITCH_LEAF_CARPET);
+                event.accept(QuarkIntegration.LoadedOnly.ELDRITCH_LADDER);
+            }
+            event.accept(ItemsRegistry.ELDRITCH_SIGN);
+            event.accept(ItemsRegistry.ELDRITCH_HANGING_SIGN);
+            event.accept(ItemsRegistry.ELDRITCH_BOAT_ITEM);
+            event.accept(ItemsRegistry.ELDRITCH_CHEST_BOAT_ITEM);
+            if (QuarkIntegration.isLoaded()) {
+                event.accept(QuarkIntegration.LoadedOnly.ELDRITCH_BOOKSHELF);
+                event.accept(QuarkIntegration.LoadedOnly.ELDRITCH_CHEST);
+                event.accept(QuarkIntegration.LoadedOnly.TRAPPED_ELDRITCH_CHEST);
+            }
             event.accept(BlockRegistry.KEG);
             event.accept(BlockRegistry.ELEGANT_PEDESTAL);
             event.accept(BlockRegistry.JEWELER_TABLE);

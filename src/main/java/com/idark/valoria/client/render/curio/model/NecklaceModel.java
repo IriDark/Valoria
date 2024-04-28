@@ -18,7 +18,7 @@ import net.minecraft.world.item.ItemStack;
 
 public class NecklaceModel extends HumanoidModel<LivingEntity> {
     public ModelPart root, model;
-    public static ModelLayerLocation NECKLACE_LAYER = new ModelLayerLocation(new ResourceLocation(Valoria.MOD_ID, "amulet"), "main");
+    public static ModelLayerLocation NECKLACE_LAYER = new ModelLayerLocation(new ResourceLocation(Valoria.ID, "amulet"), "main");
 
     public NecklaceModel(ModelPart root) {
         super(root);

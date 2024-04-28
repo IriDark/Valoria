@@ -1,0 +1,71 @@
+{
+  "temperature": 0.9,
+  "downfall": 0.4,
+  "has_precipitation": false,
+  "effects": {
+    "sky_color": 3420225,
+    "fog_color": 10518688,
+    "water_color": 5718385,
+    "water_fog_color": 2561575,
+    "grass_color": 9204467,
+    "foliage_color": 12487423,
+    "mood_sound": {
+      "sound": "minecraft:ambient.crimson_forest.mood",
+      "tick_delay": 6700,
+      "block_search_extent": 8,
+      "offset": 3
+    },
+    "additions_sound": {
+      "sound": "minecraft:ambient.crimson_forest.additions",
+      "tick_chance": 0.0155
+    },
+    "music": {
+      "sound": "minecraft:music.nether.warped_forest",
+      "min_delay": 12000,
+      "max_delay": 24000,
+      "replace_current_music": true
+    },
+    "particle": {
+      "options": {
+        "type": "minecraft:mycelium"
+      },
+      "probability": 0.002
+    }
+  },
+  "spawners": {
+    "ambient": [],
+    "axolotls": [],
+    "creature": [],
+    "misc": [],
+    "monster": [],
+    "underground_water_creature": [],
+    "water_ambient": [],
+    "water_creature": []
+  },
+  "spawn_costs": {},
+  "carvers": {},
+  "features": [
+    [
+      "valoria:eldritch_tree",
+      "valoria:fancy_eldritch_tree",
+      "valoria:void_roots",
+      "valoria:soulflower",
+      "valoria:falseflower",
+      "valoria:falseflower_small",
+      "valoria:wicked_amethyst_ore",
+      "valoria:void_serpents",
+      "valoria:void_taint",
+      "valoria:dormant_crystals",
+      "valoria:patch_cattail",
+      "valoria:abyssal_glowfern",
+      "valoria:violet_sprout",
+      "valoria:glow_violet_sprout",
+      "valoria:void_taint_lantern",
+      "valoria:patch_voidvine",
+      "valoria:blackstone",
+      "valoria:deep_marble",
+      "valoria:tainted_roots",
+      "valoria:eldritch_fallen_tree"
+    ]
+  ]
+}

@@ -21,7 +21,7 @@ public class DashOverlayRender {
 
     public static int dashTime = 0;
     public static boolean isDash = false;
-    private static final ResourceLocation DASH = new ResourceLocation(Valoria.MOD_ID + ":textures/gui/overlay/speedlines.png");
+    private static final ResourceLocation DASH = new ResourceLocation(Valoria.ID + ":textures/gui/overlay/speedlines.png");
 
     public static void showDashOverlay() {
         if (ClientConfig.DASH_OVERLAY.get()) {

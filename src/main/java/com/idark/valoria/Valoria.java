@@ -18,6 +18,7 @@ import com.idark.valoria.compat.quark.QuarkIntegration;
 import com.idark.valoria.core.capability.IUnlockable;
 import com.idark.valoria.core.config.ClientConfig;
 import com.idark.valoria.core.datagen.BlockStateGen;
+import com.idark.valoria.core.datagen.LootTableGen;
 import com.idark.valoria.core.datagen.RecipeGen;
 import com.idark.valoria.core.network.PacketHandler;
 import com.idark.valoria.core.proxy.ClientProxy;
@@ -66,9 +67,9 @@ import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import top.theillusivec4.curios.api.client.CuriosRendererRegistry;
 
-@Mod(Valoria.MOD_ID)
+@Mod(Valoria.ID)
 public class Valoria {
-    public static final String MOD_ID = "valoria";
+    public static final String ID = "valoria";
 
     public static final ISidedProxy proxy = DistExecutor.unsafeRunForDist(() -> ClientProxy::new, () -> ServerProxy::new);
 
@@ -211,6 +212,14 @@ public class Valoria {
             fireblock.setFlammable(BlockRegistry.SHADEWOOD_PLANKS.get(), 5, 25);
             fireblock.setFlammable(BlockRegistry.STRIPPED_SHADELOG.get(), 5, 30);
             fireblock.setFlammable(BlockRegistry.STRIPPED_SHADEWOOD.get(), 5, 30);
+            fireblock.setFlammable(BlockRegistry.ELDRITCH_LOG.get(), 5, 20);
+            fireblock.setFlammable(BlockRegistry.ELDRITCH_WOOD.get(), 5, 20);
+            fireblock.setFlammable(BlockRegistry.ELDRITCH_LEAVES.get(), 30, 60);
+            fireblock.setFlammable(BlockRegistry.ELDRITCH_PLANKS_SLAB.get(), 5, 40);
+            fireblock.setFlammable(BlockRegistry.ELDRITCH_PLANKS_STAIRS.get(), 5, 40);
+            fireblock.setFlammable(BlockRegistry.ELDRITCH_PLANKS.get(), 5, 25);
+            fireblock.setFlammable(BlockRegistry.STRIPPED_ELDRITCH_LOG.get(), 5, 30);
+            fireblock.setFlammable(BlockRegistry.STRIPPED_ELDRITCH_WOOD.get(), 5, 30);
 
             DraugrEntity.draugrCanSpawnWith.add(Items.BOW);
             DraugrEntity.draugrCanSpawnWith.add(Items.WOODEN_AXE);
@@ -234,8 +243,11 @@ public class Valoria {
 
             AxeItem.STRIPPABLES = new ImmutableMap.Builder<Block, Block>().putAll(AxeItem.STRIPPABLES)
                     .put(BlockRegistry.SHADELOG.get(), BlockRegistry.STRIPPED_SHADELOG.get())
-                    .put(BlockRegistry.SHADEWOOD.get(), BlockRegistry.STRIPPED_SHADEWOOD.get()).build();
+                    .put(BlockRegistry.SHADEWOOD.get(), BlockRegistry.STRIPPED_SHADEWOOD.get())
+                    .put(BlockRegistry.ELDRITCH_LOG.get(), BlockRegistry.STRIPPED_ELDRITCH_LOG.get())
+                    .put(BlockRegistry.ELDRITCH_WOOD.get(), BlockRegistry.STRIPPED_ELDRITCH_WOOD.get()).build();
 
+            WoodType.register(ModWoodTypes.ELDRITCH);
             WoodType.register(ModWoodTypes.SHADEWOOD);
         });
     }
@@ -287,6 +299,7 @@ public class Valoria {
             DataGenerator generator = event.getGenerator();
             PackOutput packOutput = generator.getPackOutput();
             ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
+            generator.addProvider(event.includeServer(), LootTableGen.create(packOutput));
             generator.addProvider(event.includeServer(), new RecipeGen(packOutput));
             generator.addProvider(event.includeClient(), new BlockStateGen(packOutput, existingFileHelper));
         }

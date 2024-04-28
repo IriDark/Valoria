@@ -30,12 +30,14 @@ import net.minecraftforge.registries.RegistryObject;
 import java.util.Optional;
 
 public class LevelGen {
-    public static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(ForgeRegistries.FEATURES, Valoria.MOD_ID);
-    public static DeferredRegister<Codec<? extends BiomeModifier>> BIOME_MODIFIER_SERIALIZERS = DeferredRegister.create(ForgeRegistries.Keys.BIOME_MODIFIER_SERIALIZERS, Valoria.MOD_ID);
-    public static final DeferredRegister<PlacementModifierType<?>> PLACEMENT_MODIFIERS = DeferredRegister.create(BuiltInRegistries.PLACEMENT_MODIFIER_TYPE.key(), Valoria.MOD_ID);
+    public static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(ForgeRegistries.FEATURES, Valoria.ID);
+    public static DeferredRegister<Codec<? extends BiomeModifier>> BIOME_MODIFIER_SERIALIZERS = DeferredRegister.create(ForgeRegistries.Keys.BIOME_MODIFIER_SERIALIZERS, Valoria.ID);
+    public static final DeferredRegister<PlacementModifierType<?>> PLACEMENT_MODIFIERS = DeferredRegister.create(BuiltInRegistries.PLACEMENT_MODIFIER_TYPE.key(), Valoria.ID);
     public static final RegistryObject<PlacementModifierType<BiomeTagFilter>> BIOME_TAG = PLACEMENT_MODIFIERS.register("biome_tag", () -> typeConvert(BiomeTagFilter.CODEC));
     public static ResourceKey<ConfiguredFeature<?, ?>> SHADEWOOD_TREE = LevelGen.registerKey("shadewood_tree");
     public static ResourceKey<ConfiguredFeature<?, ?>> FANCY_SHADEWOOD_TREE = LevelGen.registerKey("fancy_shadewood_tree");
+    public static ResourceKey<ConfiguredFeature<?, ?>> ELDRITCH_TREE = LevelGen.registerKey("eldritch_tree");
+    public static ResourceKey<ConfiguredFeature<?, ?>> FANCY_ELDRITCH_TREE = LevelGen.registerKey("fancy_eldritch_tree");
 
     public static final RegistryObject<Feature<BlockStateConfiguration>> FALLEN_TREE = FEATURES.register("fallen_tree", () -> new FallenTreeFeature(BlockStateConfiguration.CODEC));
     public static final RegistryObject<Feature<RandomPatchConfiguration>> CATTAIL = FEATURES.register("cattail", () -> new CattailFeature(RandomPatchConfiguration.CODEC));
@@ -44,13 +46,13 @@ public class LevelGen {
     public static final RegistryObject<Feature<TwistingVinesConfig>> GLOW_VIOLET_SPROUT = FEATURES.register("glow_violet_sprout", () -> new GlowVioletSproutFeature(TwistingVinesConfig.CODEC));
     public static final RegistryObject<Feature<TaintedRootsConfig>> TAINTED_ROOTS = FEATURES.register("tainted_roots", () -> new TaintedRootsFeature(TaintedRootsConfig.CODEC));
 
-    public static final ResourceKey<LevelStem> VALORIA = ResourceKey.create(Registries.LEVEL_STEM, new ResourceLocation(Valoria.MOD_ID, "the_valoria"));
-    public static final ResourceKey<Level> VALORIA_KEY = ResourceKey.create(Registries.DIMENSION, new ResourceLocation(Valoria.MOD_ID, "the_valoria"));
-    public static final ResourceKey<Biome> SHADE_FOREST = ResourceKey.create(Registries.BIOME, new ResourceLocation(Valoria.MOD_ID, "shade_forest"));
-    public static final ResourceKey<Biome> VOID_BARREN = ResourceKey.create(Registries.BIOME, new ResourceLocation(Valoria.MOD_ID, "void_barren"));
+    public static final ResourceKey<LevelStem> VALORIA = ResourceKey.create(Registries.LEVEL_STEM, new ResourceLocation(Valoria.ID, "the_valoria"));
+    public static final ResourceKey<Level> VALORIA_KEY = ResourceKey.create(Registries.DIMENSION, new ResourceLocation(Valoria.ID, "the_valoria"));
+    public static final ResourceKey<Biome> SHADE_FOREST = ResourceKey.create(Registries.BIOME, new ResourceLocation(Valoria.ID, "shade_forest"));
+    public static final ResourceKey<Biome> VOID_BARREN = ResourceKey.create(Registries.BIOME, new ResourceLocation(Valoria.ID, "void_barren"));
 
     public static ResourceKey<ConfiguredFeature<?, ?>> registerKey(String name) {
-        return ResourceKey.create(Registries.CONFIGURED_FEATURE, new ResourceLocation(Valoria.MOD_ID, name));
+        return ResourceKey.create(Registries.CONFIGURED_FEATURE, new ResourceLocation(Valoria.ID, name));
     }
 
     private static <P extends PlacementModifier> PlacementModifierType<P> typeConvert(Codec<P> codec) {

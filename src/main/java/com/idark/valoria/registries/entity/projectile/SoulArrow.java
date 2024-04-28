@@ -56,6 +56,6 @@ public class SoulArrow extends AbstractValoriaArrow implements IProjectileTextur
 
     @Override
     public ResourceLocation getTexture() {
-        return new ResourceLocation(Valoria.MOD_ID, "textures/entity/projectile/arrow/soul_arrow.png");
+        return new ResourceLocation(Valoria.ID, "textures/entity/projectile/arrow/soul_arrow.png");
     }
 }

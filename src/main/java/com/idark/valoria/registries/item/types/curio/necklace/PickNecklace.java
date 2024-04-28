@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.UUID;
 
 public class PickNecklace extends Item implements ICurioItem, ICurioTexture {
-    private static final ResourceLocation PICK = new ResourceLocation(Valoria.MOD_ID, "textures/entity/necklace/pick_necklace.png");
+    private static final ResourceLocation PICK = new ResourceLocation(Valoria.ID, "textures/entity/necklace/pick_necklace.png");
 
     public PickNecklace(Item.Properties properties) {
         super(properties);

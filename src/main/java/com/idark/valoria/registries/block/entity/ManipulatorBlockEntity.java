@@ -140,10 +140,7 @@ public class ManipulatorBlockEntity extends BlockEntity implements MenuProvider,
                         resetProgress();
                     }
 
-                    for (int i = 0; i < 360; i += 25) {
-                        PacketHandler.sendToTracking(this.level, this.getBlockPos(), new ManipulatorEmptyParticlePacket((float) this.getBlockPos().getX() + 0.5f, (float) this.getBlockPos().getY() + 0.75f, (float) this.getBlockPos().getZ() + 0.5f, i, (float) this.getBlockPos().getX() + 0.5f, (float) this.getBlockPos().getY() + 0.65f, ((float) this.getBlockPos().getZ() + 0.5f), 255, 255, 255));
-                    }
-
+                    PacketHandler.sendToTracking(this.level, this.getBlockPos(), new ManipulatorEmptyParticlePacket((float) this.getBlockPos().getX() + 0.5f, (float) this.getBlockPos().getY() + 0.75f, (float) this.getBlockPos().getZ() + 0.5f, (float) this.getBlockPos().getX() + 0.5f, (float) this.getBlockPos().getY() + 0.65f, ((float) this.getBlockPos().getZ() + 0.5f), 255, 255, 255));
                     ValoriaUtils.tileEntity.SUpdateTileEntityPacket(this);
                 }
             }
@@ -191,7 +188,7 @@ public class ManipulatorBlockEntity extends BlockEntity implements MenuProvider,
     }
 
     private void resetProgress() {
-        PacketHandler.sendToTracking(this.level, this.getBlockPos(), new CubeShapedParticlePacket((float) this.getBlockPos().getCenter().x, (float) this.getBlockPos().getCenter().y - 0.25f, (float) this.getBlockPos().getCenter().z, 6, (float) this.getBlockPos().getCenter().x, (float) this.getBlockPos().getCenter().y - 0.45f, (float) this.getBlockPos().getCenter().z, 255, 255, 255));
+        PacketHandler.sendToTracking(this.level, this.getBlockPos(), new CubeShapedParticlePacket((float) this.getBlockPos().getCenter().x, (float) this.getBlockPos().getCenter().y - 0.25f, (float) this.getBlockPos().getCenter().z, 0.62f, 0.15f, 255, 255, 255));
         progress = 0;
         startCraft = false;
     }

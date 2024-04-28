@@ -17,7 +17,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class ManipulatorScreen extends AbstractContainerScreen<ManipulatorMenu> {
-    private final ResourceLocation GUI = new ResourceLocation(Valoria.MOD_ID, "textures/gui/container/manipulator.png");
+    private final ResourceLocation GUI = new ResourceLocation(Valoria.ID, "textures/gui/container/manipulator.png");
     public ManipulatorScreen(ManipulatorMenu screenContainer, Inventory inv, Component titleIn) {
         super(screenContainer, inv, titleIn);
         this.imageHeight = 165;

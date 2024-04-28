@@ -7,19 +7,27 @@ import com.idark.valoria.core.network.packets.UnlockableUpdatePacket;
 import com.idark.valoria.registries.ItemsRegistry;
 import com.idark.valoria.registries.TagsRegistry;
 import com.idark.valoria.util.RandomUtil;
+import com.idark.valoria.util.ValoriaUtils;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.BasicItemListing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.INBTSerializable;
@@ -27,6 +35,7 @@ import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.living.ShieldBlockEvent;
 import net.minecraftforge.event.entity.player.CriticalHitEvent;
+import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.village.VillagerTradesEvent;
 import net.minecraftforge.event.village.WandererTradesEvent;
@@ -35,6 +44,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import top.theillusivec4.curios.api.CuriosApi;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 @SuppressWarnings("removal")
 public class Events {
@@ -42,7 +52,37 @@ public class Events {
     @SubscribeEvent
     public void attachEntityCaps(AttachCapabilitiesEvent<Entity> event) {
         if (event.getObject() instanceof Player)
-            event.addCapability(new ResourceLocation(Valoria.MOD_ID, "pages"), new UnloackbleCap());
+            event.addCapability(new ResourceLocation(Valoria.ID, "pages"), new UnloackbleCap());
+    }
+
+    @SubscribeEvent
+    public void onTooltip(ItemTooltipEvent e) {
+        if (ValoriaUtils.isIDE) {
+            ItemStack itemStack = e.getItemStack();
+            Stream<ResourceLocation> itemTagStream = itemStack.getTags().map(TagKey::location);
+            if (Minecraft.getInstance().options.advancedItemTooltips) {
+                if (Screen.hasControlDown()) {
+                    if (!itemStack.getTags().toList().isEmpty()) {
+                        e.getToolTip().add(Component.empty());
+                        e.getToolTip().add(Component.literal("ItemTags: " + itemTagStream.toList()).withStyle(ChatFormatting.DARK_GRAY));
+                    }
+
+                    if (itemStack.getItem() instanceof BlockItem blockItem) {
+                        BlockState blockState = blockItem.getBlock().defaultBlockState();
+                        Stream<ResourceLocation> blockTagStream = blockState.getTags().map(TagKey::location);
+                        if (!blockState.getTags().map(TagKey::location).toList().isEmpty()) {
+                            if (itemStack.getTags().toList().isEmpty())
+                                e.getToolTip().add(Component.empty());
+
+                            e.getToolTip().add(Component.literal("BlockTags: " + blockTagStream.toList()).withStyle(ChatFormatting.DARK_GRAY));
+                        }
+                    }
+                } else if (!itemStack.getTags().toList().isEmpty() || itemStack.getItem() instanceof BlockItem blockItem && !blockItem.getBlock().defaultBlockState().getTags().toList().isEmpty()) {
+                    e.getToolTip().add(Component.empty());
+                    e.getToolTip().add(Component.literal("Press [Control] to get tags info").withStyle(ChatFormatting.GRAY));
+                }
+            }
+        }
     }
 
     @SubscribeEvent
@@ -93,6 +133,7 @@ public class Events {
         ResourceLocation professionKey = ForgeRegistries.VILLAGER_PROFESSIONS.getKey(profession);
         if (professionKey != null) {
             if (professionKey.getPath().equals("toolsmith")) {
+                trades.clear();
                 trades.get(1).add(itemPurchase(6, ItemsRegistry.IRON_RING.get(), 1, 4, 2));
                 trades.get(2).add(itemPurchase(16, ItemsRegistry.IRON_GLOVES.get(), 1, 1, 12));
                 trades.get(1).add(itemPurchase(4, ItemsRegistry.IRON_CHAIN.get(), 1, 2, 6));

@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "valoria:block/eldritch_planks_slab"
+    },
+    "type=double": {
+      "model": "valoria:block/eldritch_planks"
+    },
+    "type=top": {
+      "model": "valoria:block/eldritch_planks_slab_top"
+    }
+  }
+}

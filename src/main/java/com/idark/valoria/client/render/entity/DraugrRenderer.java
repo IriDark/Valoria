@@ -13,7 +13,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class DraugrRenderer extends HumanoidMobRenderer<DraugrEntity, DraugrModel<DraugrEntity>> {
-    protected static final ResourceLocation TEXTURE = new ResourceLocation(Valoria.MOD_ID, "textures/entity/draugr.png");
+    protected static final ResourceLocation TEXTURE = new ResourceLocation(Valoria.ID, "textures/entity/draugr.png");
 
     public DraugrRenderer(EntityRendererProvider.Context context) {
         super(context, new DraugrModel<>(DraugrModel.createBodyLayer().bakeRoot()), 0.4F);

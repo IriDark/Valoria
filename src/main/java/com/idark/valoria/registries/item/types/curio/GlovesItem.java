@@ -37,7 +37,7 @@ import java.util.UUID;
 public class GlovesItem extends Item implements ICurioItem, ICurioTexture, Vanishable {
 
     public static ResourceLocation getGlovesTexture(String material, boolean slim) {
-        return slim ? new ResourceLocation(Valoria.MOD_ID, "textures/entity/gloves/" + material + "_gloves" + "_slim" + ".png") : new ResourceLocation(Valoria.MOD_ID, "textures/entity/gloves/" + material + "_gloves" + ".png");
+        return slim ? new ResourceLocation(Valoria.ID, "textures/entity/gloves/" + material + "_gloves" + "_slim" + ".png") : new ResourceLocation(Valoria.ID, "textures/entity/gloves/" + material + "_gloves" + ".png");
     }
 
     public AccessoryGem gem;

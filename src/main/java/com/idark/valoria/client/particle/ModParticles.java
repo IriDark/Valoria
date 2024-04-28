@@ -13,7 +13,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 public class ModParticles {
 
-    public static final DeferredRegister<ParticleType<?>> PARTICLES = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, Valoria.MOD_ID);
+    public static final DeferredRegister<ParticleType<?>> PARTICLES = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, Valoria.ID);
 
     public static RegistryObject<SphereParticleType> SPHERE = PARTICLES.register("sphere", SphereParticleType::new);
 

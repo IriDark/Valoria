@@ -16,7 +16,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
 public class ManipulatorBlockEntityRenderer implements BlockEntityRenderer<ManipulatorBlockEntity> {
-    public static final ModelResourceLocation SPHERE = new ModelResourceLocation(new ResourceLocation(Valoria.MOD_ID, "elemental_sphere"), "");
+    public static final ModelResourceLocation SPHERE = new ModelResourceLocation(new ResourceLocation(Valoria.ID, "elemental_sphere"), "");
 
     public ManipulatorBlockEntityRenderer() {
     }

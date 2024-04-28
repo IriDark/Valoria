@@ -121,7 +121,6 @@ dependencies {
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:5.7.2+1.20.1")
     runtimeOnly fg.deobf("mezz.jei:jei-1.20.1-forge:15.2.0.27")
     runtimeOnly fg.deobf("com.blamejared.crafttweaker:CraftTweaker-forge-1.20.1:14.0.13")
-    runtimeOnly fg.deobf("curse.maven:plusutils-979003:5133553")
     runtimeOnly fg.deobf("curse.maven:appleskin-248787:4770828")
     //runtimeOnly fg.deobf("curse.maven:prism-lib-638111:4627141")
     //runtimeOnly fg.deobf("maven.modrinth:iceberg:1.1.13")

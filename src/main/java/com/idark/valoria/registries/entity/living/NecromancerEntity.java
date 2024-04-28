@@ -398,10 +398,8 @@ public class NecromancerEntity extends AbstractNecromancer {
             for (Monster target : targets) {
                 if (!(target instanceof NecromancerEntity) && target.getHealth() < target.getMaxHealth()) {
                     Vector3d pos = new Vector3d(NecromancerEntity.this.getX(), NecromancerEntity.this.getY(), NecromancerEntity.this.getZ());
-                    for (int i = 0; i < 360; i += 10) {
-                        ValoriaUtils.spawnParticlesInRadius(serverLevel, null, ParticleTypes.HAPPY_VILLAGER, pos, 0, NecromancerEntity.this.getRotationVector().y + i, 4);
-                        ValoriaUtils.healNearbyTypedMobs(MobCategory.MONSTER, 5.0F, serverLevel, NecromancerEntity.this, toHeal, pos, 0, NecromancerEntity.this.getRotationVector().y + i, 4);
-                    }
+                    ValoriaUtils.spawnParticlesInRadius(serverLevel, null, ParticleTypes.HAPPY_VILLAGER, pos, 0, NecromancerEntity.this.getRotationVector().y, 4);
+                    ValoriaUtils.healNearbyTypedMobs(MobCategory.MONSTER, 5.0F, serverLevel, NecromancerEntity.this, toHeal, pos, 0, NecromancerEntity.this.getRotationVector().y, 4);
 
                     serverLevel.playSound(null, target.getX(), target.getY(), target.getZ(), SoundEvents.EVOKER_CAST_SPELL, target.getSoundSource(), 0.42F, 1.23F);
                     break;
@@ -444,11 +442,8 @@ public class NecromancerEntity extends AbstractNecromancer {
             ServerLevel serverLevel = (ServerLevel) NecromancerEntity.this.level();
             if (NecromancerEntity.this.getHealth() < NecromancerEntity.this.getMaxHealth()) {
                 Vector3d pos = new Vector3d(NecromancerEntity.this.getX(), NecromancerEntity.this.getY(), NecromancerEntity.this.getZ());
-                for (int i = 0; i < 360; i += 10) {
-                    ValoriaUtils.spawnParticlesAroundPosition(pos, 2, 1, serverLevel, ParticleTypes.HAPPY_VILLAGER);
-                    NecromancerEntity.this.heal(3);
-                }
-
+                ValoriaUtils.spawnParticlesAroundPosition(pos, 2, 1, serverLevel, ParticleTypes.HAPPY_VILLAGER);
+                NecromancerEntity.this.heal(25);
                 serverLevel.playSound(null, NecromancerEntity.this.getX(), NecromancerEntity.this.getY(), NecromancerEntity.this.getZ(), SoundEvents.EVOKER_CAST_SPELL, NecromancerEntity.this.getSoundSource(), 0.42F, 1.23F);
             }
         }
@@ -510,10 +505,7 @@ public class NecromancerEntity extends AbstractNecromancer {
                 if (mob != null) {
                     serverlevel.addFreshEntity(mob);
                     BlockPos pos = new BlockPos(target.getBlockX(), target.getBlockY(), target.getBlockZ());
-                    for (int i = 0; i < 360; i += 10) {
-                        PacketHandler.sendToTracking(serverlevel, target.getOnPos(), new CircleShapedParticlePacket(target.getBlockX()+0.5f, target.getBlockY(), target.getBlockZ()+0.5f, target.getRotationVector().y + i, target.getBlockX()+0.5f, target.getBlockY() - 0.25F, target.getBlockZ()+0.5f, 46, 51, 60));
-                    }
-
+                    PacketHandler.sendToTracking(serverlevel, target.getOnPos(), new CircleShapedParticlePacket(target.getBlockX()+0.5f, target.getBlockY(), target.getBlockZ()+0.5f, target.getRotationVector().y, 0, 0.2f, 0, 46, 51, 60));
                     if (!target.getMainHandItem().isEmpty()) {
                         mob.setItemInHand(InteractionHand.MAIN_HAND, Items.BOW.getDefaultInstance());
                     } else if (!target.getOffhandItem().isEmpty()){

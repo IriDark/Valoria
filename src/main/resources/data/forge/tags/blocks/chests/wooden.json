@@ -2,6 +2,8 @@
   "replace": false,
   "values": [
     { "id": "valoria:shadewood_chest", "required":  false },
-    { "id": "valoria:trapped_shadewood_chest", "required":  false }
+    { "id": "valoria:trapped_shadewood_chest", "required":  false },
+    { "id": "valoria:eldritch_chest", "required":  false },
+    { "id": "valoria:trapped_eldritch_chest", "required":  false }
   ]
 }

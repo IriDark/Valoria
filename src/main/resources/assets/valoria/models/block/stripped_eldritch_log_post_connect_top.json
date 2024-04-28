@@ -1,0 +1,6 @@
+{
+  "parent": "quark:block/post_connect_top",
+  "textures": {
+    "texture": "valoria:block/stripped_eldritch_log"
+  }
+}

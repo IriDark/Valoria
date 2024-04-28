@@ -15,6 +15,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.network.NetworkHooks;
+import org.jetbrains.annotations.NotNull;
 
 public class CustomBoatEntity extends Boat {
     private static final EntityDataAccessor<Integer> BOAT_TYPE = SynchedEntityData.defineId(CustomBoatEntity.class, EntityDataSerializers.INT);
@@ -37,9 +38,10 @@ public class CustomBoatEntity extends Boat {
     }
 
     @Override
-    public Item getDropItem() {
+    public @NotNull Item getDropItem() {
         return switch (this.getCustomBoatEntityType()) {
             case SHADEWOOD -> ItemsRegistry.SHADEWOOD_BOAT_ITEM.get();
+            case ELDRITCH -> ItemsRegistry.ELDRITCH_BOAT_ITEM.get();
         };
     }
 
@@ -71,7 +73,8 @@ public class CustomBoatEntity extends Boat {
     }
 
     public enum Type {
-        SHADEWOOD(BlockRegistry.SHADEWOOD_PLANKS.get(), "shadewood");
+        SHADEWOOD(BlockRegistry.SHADEWOOD_PLANKS.get(), "shadewood"),
+        ELDRITCH(BlockRegistry.ELDRITCH_PLANKS.get(), "eldritch");
 
         private final String name;
         private final Block block;

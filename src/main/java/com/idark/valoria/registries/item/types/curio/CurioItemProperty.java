@@ -36,10 +36,10 @@ import java.util.UUID;
 
 public class CurioItemProperty extends Item implements ICurioItem, ICurioTexture, Vanishable {
 
-    private static final ResourceLocation BELT_TEXTURE = new ResourceLocation(Valoria.MOD_ID, "textures/entity/leather_belt.png");
+    private static final ResourceLocation BELT_TEXTURE = new ResourceLocation(Valoria.ID, "textures/entity/leather_belt.png");
 
     private static ResourceLocation getNecklaceTexture(String material, String gem) {
-        return new ResourceLocation(Valoria.MOD_ID, "textures/entity/necklace/" + material + "_necklace_" + gem + ".png");
+        return new ResourceLocation(Valoria.ID, "textures/entity/necklace/" + material + "_necklace_" + gem + ".png");
     }
 
     public AccessoryType type;

@@ -14,7 +14,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class JewelryScreen extends AbstractContainerScreen<JewelryMenu> {
-    private final ResourceLocation GUI = new ResourceLocation(Valoria.MOD_ID, "textures/gui/container/jewelry.png");
+    private final ResourceLocation GUI = new ResourceLocation(Valoria.ID, "textures/gui/container/jewelry.png");
 
     public JewelryScreen(JewelryMenu screenContainer, Inventory inv, Component titleIn) {
         super(screenContainer, inv, titleIn);

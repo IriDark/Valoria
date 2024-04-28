@@ -6,7 +6,6 @@ import com.idark.valoria.client.particle.types.Particles;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.network.NetworkEvent;
-import org.joml.Vector3d;
 
 import java.util.function.Supplier;
 
@@ -45,24 +44,21 @@ public class CircleShapedParticlePacket {
         if (ctx.get().getDirection().getReceptionSide().isClient()) {
             ctx.get().enqueueWork(() -> {
                 Level world = Valoria.proxy.getWorld();
-                double pitch = ((90) * Math.PI) / 180;
-                double yaw = ((msg.yawRaw + 90) * Math.PI) / 180;
-
                 float pRadius = 1;
-                double locYaw = 0;
-                double locPitch = 0;
-                double X = Math.sin(locPitch + pitch) * Math.cos(locYaw + yaw) * pRadius * 0.75F;
-                double Y = Math.cos(locPitch + pitch) * pRadius * 0.75F;
-                double Z = Math.sin(locPitch + pitch) * Math.sin(locYaw + yaw) * pRadius * 0.75F;
-                Vector3d d = new Vector3d(msg.posX - msg.posToX, msg.posY - msg.posToY, msg.posZ - msg.posToZ);
-                Particles.create(ModParticles.GLOWING_SPHERE)
-                        .addVelocity(d.x, d.y, d.z)
-                        .setAlpha(0.65f, 0)
-                        .setScale(0.2f, 0)
-                        .setColor(msg.colorR, msg.colorG, msg.colorB, 0, 0, 0)
-                        .setLifetime(6)
-                        .spawn(world, msg.posX + X, msg.posY + Y + ((Math.random() - 0.5D) * 0.2F), msg.posZ + Z);
-
+                double pitch = ((90) * Math.PI) / 180;
+                for (int i = 0; i < 360; i += 10) {
+                    double yaw = ((msg.yawRaw + 90 + i) * Math.PI) / 180;
+                    double X = Math.sin(pitch) * Math.cos(yaw) * pRadius * 0.75F;
+                    double Y = Math.cos(pitch) * pRadius * 0.75F;
+                    double Z = Math.sin(pitch) * Math.sin(yaw) * pRadius * 0.75F;
+                    Particles.create(ModParticles.GLOWING_SPHERE)
+                            .addVelocity(msg.posToX, msg.posToY,msg.posToZ)
+                            .setAlpha(0.25f, 0)
+                            .setScale(0.2f, 0)
+                            .setColor(msg.colorR, msg.colorG, msg.colorB, 0, 0, 0)
+                            .setLifetime(6)
+                            .spawn(world, msg.posX + X, msg.posY + Y * 0.2F, msg.posZ + Z);
+                }
 
                 ctx.get().setPacketHandled(true);
             });

@@ -11,10 +11,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 
-public class ShadeSaplingBlock extends SaplingBlock {
+public class ValoriaSaplingBlock extends SaplingBlock {
     public static final IntegerProperty STAGE = BlockStateProperties.STAGE;
 
-    public ShadeSaplingBlock(AbstractTreeGrower treeIn, BlockBehaviour.Properties properties) {
+    public ValoriaSaplingBlock(AbstractTreeGrower treeIn, BlockBehaviour.Properties properties) {
         super(treeIn, properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(STAGE, 0));
     }

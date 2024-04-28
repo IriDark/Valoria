@@ -77,7 +77,7 @@ public enum ModArmorMaterial implements ArmorMaterial {
 
     @Override
     public String getName() {
-        return Valoria.MOD_ID + ":" + this.name;
+        return Valoria.ID + ":" + this.name;
     }
 
     @Override

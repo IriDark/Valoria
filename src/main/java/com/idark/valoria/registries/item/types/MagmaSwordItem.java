@@ -103,12 +103,9 @@ public class MagmaSwordItem extends SwordItem implements Vanishable, IRadiusItem
                 setCharges(stack, 0);
                 Vector3d pos = new Vector3d(player.getX(), player.getY() + 0.3f, player.getZ());
                 List<LivingEntity> hitEntities = new ArrayList<>();
-                for (int i = 0; i < 360; i += 10) {
-                    ValoriaUtils.spawnParticlesInRadius(worldIn, stack, ParticleTypes.LARGE_SMOKE, pos, 0, player.getRotationVector().y + i, 1);
-                    ValoriaUtils.spawnParticlesInRadius(worldIn, stack, ParticleTypes.LARGE_SMOKE, pos, 0, player.getRotationVector().y + i, 4);
-                    ValoriaUtils.radiusHit(worldIn, stack, player, ParticleTypes.FLAME, hitEntities, pos, 0, player.getRotationVector().y + i, 4);
-                }
-
+                ValoriaUtils.spawnParticlesInRadius(worldIn, stack, ParticleTypes.LARGE_SMOKE, pos, 0, player.getRotationVector().y, 1);
+                ValoriaUtils.spawnParticlesInRadius(worldIn, stack, ParticleTypes.LARGE_SMOKE, pos, 0, player.getRotationVector().y, 4);
+                ValoriaUtils.radiusHit(worldIn, stack, player, ParticleTypes.FLAME, hitEntities, pos, 0, player.getRotationVector().y, 4);
                 float damage = (float) (player.getAttributeValue(Attributes.ATTACK_DAMAGE) + 5) + EnchantmentHelper.getSweepingDamageRatio(player);
                 for (LivingEntity damagedEntity : hitEntities) {
                     damagedEntity.hurt(worldIn.damageSources().playerAttack(player), (damage + EnchantmentHelper.getDamageBonus(stack, damagedEntity.getMobType())) * 1.35f);

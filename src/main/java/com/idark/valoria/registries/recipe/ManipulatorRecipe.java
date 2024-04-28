@@ -104,7 +104,7 @@ public class ManipulatorRecipe implements Recipe<Container> {
 
     public static class Serializer implements RecipeSerializer<ManipulatorRecipe> {
         public static final ManipulatorRecipe.Serializer INSTANCE = new ManipulatorRecipe.Serializer();
-        public static final ResourceLocation ID = new ResourceLocation(Valoria.MOD_ID, "manipulator");
+        public static final ResourceLocation ID = new ResourceLocation(Valoria.ID, "manipulator");
 
         @Override
         public @NotNull ManipulatorRecipe fromJson(@NotNull ResourceLocation pRecipeId, @NotNull JsonObject pSerializedRecipe) {

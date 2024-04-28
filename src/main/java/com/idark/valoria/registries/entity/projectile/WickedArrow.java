@@ -48,6 +48,6 @@ public class WickedArrow extends AbstractValoriaArrow implements IProjectileText
 
     @Override
     public ResourceLocation getTexture() {
-        return new ResourceLocation(Valoria.MOD_ID, "textures/entity/projectile/arrow/wicked_arrow.png");
+        return new ResourceLocation(Valoria.ID, "textures/entity/projectile/arrow/wicked_arrow.png");
     }
 }

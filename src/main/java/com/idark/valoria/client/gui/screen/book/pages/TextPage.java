@@ -15,7 +15,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class TextPage extends Page {
     public String text, title;
     private boolean hasTitle = true;
-    public static final ResourceLocation BACKGROUND = new ResourceLocation(Valoria.MOD_ID, "textures/gui/book/lexicon.png");
+    public static final ResourceLocation BACKGROUND = new ResourceLocation(Valoria.ID, "textures/gui/book/lexicon.png");
     public ItemStack result;
     public ItemStack[] inputs;
     private boolean hasRecipe = false;

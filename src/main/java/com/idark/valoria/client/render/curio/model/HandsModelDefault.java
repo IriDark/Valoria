@@ -13,7 +13,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 
 public class HandsModelDefault extends HumanoidModel<LivingEntity> {
-    public static ModelLayerLocation HANDS_MODEL = new ModelLayerLocation(new ResourceLocation(Valoria.MOD_ID, "hands"), "main");
+    public static ModelLayerLocation HANDS_MODEL = new ModelLayerLocation(new ResourceLocation(Valoria.ID, "hands"), "main");
 
     public ModelPart root, right_glove, left_glove;
 
