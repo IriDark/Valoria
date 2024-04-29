@@ -51,7 +51,6 @@ public class LevelGen {
     public static final ResourceKey<Biome> SHADE_FOREST = ResourceKey.create(Registries.BIOME, new ResourceLocation(Valoria.ID, "shade_forest"));
     public static final ResourceKey<Biome> ECOTONE = ResourceKey.create(Registries.BIOME, new ResourceLocation(Valoria.ID, "ecotone"));
     public static final ResourceKey<Biome> VOID_BARREN = ResourceKey.create(Registries.BIOME, new ResourceLocation(Valoria.ID, "void_barren"));
-    public static final ResourceKey<Biome> DEAD_LANDS = ResourceKey.create(Registries.BIOME, new ResourceLocation(Valoria.ID, "dead_lands"));
 
     public static ResourceKey<ConfiguredFeature<?, ?>> registerKey(String name) {
         return ResourceKey.create(Registries.CONFIGURED_FEATURE, new ResourceLocation(Valoria.ID, name));
