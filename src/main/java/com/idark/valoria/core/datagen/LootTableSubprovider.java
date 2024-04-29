@@ -45,6 +45,7 @@ public class LootTableSubprovider extends BlockLootSubProvider {
         this.add(BlockRegistry.ELDRITCH_HANGING_SIGN.get(), block -> createSingleItemTable(block));
         this.add(BlockRegistry.ELDRITCH_WALL_HANGING_SIGN.get(), block -> createSingleItemTable(block));
 
+        this.dropSelf(BlockRegistry.BRONZE_GLASS_PANE.get());
         this.dropSelf(BlockRegistry.ELDRITCH_LOG.get());
         this.dropSelf(BlockRegistry.STRIPPED_ELDRITCH_LOG.get());
         this.dropSelf(BlockRegistry.ELDRITCH_PLANKS.get());

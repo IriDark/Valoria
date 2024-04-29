@@ -29,6 +29,8 @@ public class RecipeGen extends RecipeProvider implements IConditionBuilder {
 
     @Override
     public void buildRecipes(@NotNull Consumer<FinishedRecipe> pWriter) {
+        stainedGlassPaneFromStainedGlass(pWriter, BlockRegistry.BRONZE_GLASS_PANE.get(), BlockRegistry.BRONZE_GLASS.get());
+
         cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.POLISHED_AMBANE_STONE.get(), BlockRegistry.AMBANE_STONE.get(), 1);
         cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.AMBANE_STONE_STAIRS.get(), BlockRegistry.AMBANE_STONE.get(), 1);
         cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.AMBANE_STONE_SLAB.get(), BlockRegistry.AMBANE_STONE.get(), 2);

@@ -375,6 +375,7 @@ public abstract class ItemTabRegistry {
             if (QuarkIntegration.isLoaded()) event.accept(QuarkIntegration.LoadedOnly.BRONZE_VERTICAL_SLAB);
             event.accept(BlockRegistry.BRONZE_VENT);
             event.accept(BlockRegistry.BRONZE_GLASS);
+            event.accept(BlockRegistry.BRONZE_GLASS_PANE);
             event.accept(BlockRegistry.CUT_BRONZE);
             event.accept(BlockRegistry.CUT_BRONZE_STAIRS);
             event.accept(BlockRegistry.CUT_BRONZE_SLAB);

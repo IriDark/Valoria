@@ -92,6 +92,8 @@ public class BlockRegistry {
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).mapColor(MapColor.COLOR_BROWN).requiresCorrectToolForDrops().strength(3f, 4f).sound(SoundType.NETHERITE_BLOCK)));
     public static final RegistryObject<Block> BRONZE_GLASS = registerBlock("bronze_glass",
             () -> new GlassBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).mapColor(MapColor.COLOR_BROWN).requiresCorrectToolForDrops().strength(1f, 4f).noOcclusion().sound(SoundType.GLASS)));
+    public static final RegistryObject<Block> BRONZE_GLASS_PANE = registerBlock("bronze_glass_pane",
+            () -> new IronBarsBlock(BlockBehaviour.Properties.copy(Blocks.GLASS_PANE).mapColor(MapColor.COLOR_BROWN).requiresCorrectToolForDrops().strength(1f, 4f).noOcclusion().sound(SoundType.GLASS)));
     // Raw
     public static final RegistryObject<Block> RAW_COBALT_ORE_BLOCK = registerBlock("raw_cobalt_ore",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.RAW_COPPER_BLOCK).mapColor(MapColor.COLOR_BLUE).requiresCorrectToolForDrops().strength(3f, 4f)));
