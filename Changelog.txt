@@ -4,6 +4,7 @@
 - Optimized Scythe Items
 - Optimized Lexicon Page Item
 - Optimized Mannequin
+- Optimized Weapons abilities
 
 - Added functionality for ALL runes (finally did it lmao)
 - Added Jade compat
@@ -41,7 +42,7 @@
     - Added Eldritch tree
 
     - Reworked Shadewood tree
-    - 2 New biomes (Shadewood forest, Void Barren)
+    - 2 New biomes (Shadewood forest, Void Barren, Ecotone)
 - Added Fancy Shadewood Tree
 - Added Pearlium generation
 - Added Crystal disk generation
