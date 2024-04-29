@@ -114,19 +114,17 @@ public class BlazeReapItem extends PickaxeItem implements Vanishable {
             player.getCooldowns().addCooldown(this, 50);
             player.awardStat(Stats.ITEM_USED.get(this));
             Vec3 pos = new Vec3(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());
+
             double pitch = ((player.getRotationVector().x + 90) * Math.PI) / 180;
             double yaw = ((player.getRotationVector().y + 90) * Math.PI) / 180;
-            double locYaw = 0;
-            double locPitch = 0;
-            double locDistance = 15D;
-            double X = Math.sin(locPitch + pitch) * Math.cos(locYaw + yaw) * locDistance;
-            double Y = Math.cos(locPitch + pitch) * locDistance;
-            double Z = Math.sin(locPitch + pitch) * Math.sin(locYaw + yaw) * locDistance;
+            double X = Math.sin(pitch) * Math.cos(yaw) * 15;
+            double Y = Math.cos(pitch) * 15;
+            double Z = Math.sin(pitch) * Math.sin(yaw) * 15;
             Vec3 playerPos = player.getEyePosition();
             Vec3 EndPos = (player.getViewVector(0.0f).scale(20.0d));
 
             // Notice that: when Miss is unchecked - game will crash
-            if (ProjectileUtil.getEntityHitResult(player, playerPos, EndPos, new AABB(pos.x + X - 3D, pos.y + Y - 3D, pos.z + Z - 3D, pos.x + X + 3D, pos.y + Y + 3D, pos.z + Z + 3D), (e) -> true, locDistance) == null) {
+            if (ProjectileUtil.getEntityHitResult(player, playerPos, EndPos, new AABB(pos.x + X - 3D, pos.y + Y - 3D, pos.z + Z - 3D, pos.x + X + 3D, pos.y + Y + 3D, pos.z + Z + 3D), (e) -> true, 15) == null) {
                 HitResult hitresult = ValoriaUtils.getHitResult(playerPos, player, (e) -> true, EndPos, level);
                 if (hitresult != null) {
                     switch (hitresult.getType()) {
@@ -172,11 +170,8 @@ public class BlazeReapItem extends PickaxeItem implements Vanishable {
                 itemstack.hurtAndBreak(10, player, (p_220045_0_) -> p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
             }
 
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < 12; i++) {
                 level.addParticle(ParticleTypes.LARGE_SMOKE, pos.x + X + ((rand.nextDouble() - 0.5D) * 3), pos.y + Y + ((rand.nextDouble() - 0.5D) * 3), pos.z + Z + ((rand.nextDouble() - 0.5D) * 3), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2));
-            }
-
-            for (int i = 0; i < 25; i++) {
                 level.addParticle(ParticleTypes.FLAME, pos.x + X + ((rand.nextDouble() - 0.5D) * 3), pos.y + Y + ((rand.nextDouble() - 0.5D) * 3), pos.z + Z + ((rand.nextDouble() - 0.5D) * 3), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2));
             }
 

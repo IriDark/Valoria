@@ -7,7 +7,6 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -15,24 +14,17 @@ import net.minecraft.world.level.block.state.BlockState;
 import java.util.Random;
 
 public class ClubItem extends SwordItem implements Vanishable {
-    Random rand = new Random();
-
     public ClubItem(Tier tier, int attackDamageIn, float attackSpeedIn, Item.Properties builderIn) {
         super(tier, attackDamageIn, attackSpeedIn, builderIn);
     }
 
-    public boolean canAttackBlock(BlockState state, Level worldIn, BlockPos pos, Player player) {
-        return !player.isCreative();
-    }
-
     public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         stack.hurtAndBreak(2, attacker, (entity) -> entity.broadcastBreakEvent(EquipmentSlot.MAINHAND));
-
         if (RandomUtil.percentChance(0.25f)) {
             target.addEffect(new MobEffectInstance(EffectsRegistry.STUN.get(), 85, 0));
             if (target.level().isClientSide) {
                 for (int i = 0; i < 10; i++) {
-                    target.level().addParticle(ParticleTypes.POOF, target.getX() + rand.nextDouble(), target.getY(), target.getZ() + rand.nextDouble(), 0d, 0.05d, 0d);
+                    target.level().addParticle(ParticleTypes.POOF, target.getX() + new Random().nextDouble(), target.getY(), target.getZ() + new Random().nextDouble(), 0d, 0.05d, 0d);
                 }
             }
         }

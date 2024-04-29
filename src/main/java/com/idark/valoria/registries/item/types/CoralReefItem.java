@@ -64,17 +64,19 @@ public class CoralReefItem extends SwordItem implements Vanishable {
         Player player = (Player) entityLiving;
         player.getCooldowns().addCooldown(this, 300);
         player.awardStat(Stats.ITEM_USED.get(this));
+
+        float damage = (float) (player.getAttributeValue(Attributes.ATTACK_DAMAGE)) + EnchantmentHelper.getSweepingDamageRatio(player);
         Vector3d pos = new Vector3d(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());
         List<LivingEntity> hitEntities = new ArrayList<>();
+
         ValoriaUtils.radiusHit(worldIn, stack, player, ParticleTypes.BUBBLE_POP, hitEntities, pos, 0, player.getRotationVector().y, 3);
         ValoriaUtils.spawnParticlesInRadius(worldIn, stack, ParticleTypes.UNDERWATER, pos, 0, player.getRotationVector().y, 3);
-        float damage = (float) (player.getAttributeValue(Attributes.ATTACK_DAMAGE)) + EnchantmentHelper.getSweepingDamageRatio(player);
         for (LivingEntity damagedEntity : hitEntities) {
             damagedEntity.hurt(worldIn.damageSources().playerAttack(player), (damage + EnchantmentHelper.getDamageBonus(stack, damagedEntity.getMobType())) * 1.35f);
             damagedEntity.knockback(0.4F, player.getX() - entityLiving.getX(), player.getZ() - entityLiving.getZ());
             if (RandomUtil.percentChance(0.25f)) {
                 damagedEntity.knockback(0.6F, player.getX() - damagedEntity.getX(), player.getZ() - damagedEntity.getZ());
-                damagedEntity.level().playSound(null, damagedEntity.getOnPos(), SoundsRegistry.WATER_ABILITY.get(), SoundSource.AMBIENT, 0.2f, 1.2f);
+                worldIn.playSound(null, damagedEntity.getOnPos(), SoundsRegistry.WATER_ABILITY.get(), SoundSource.AMBIENT, 0.2f, 1.2f);
             }
         }
 

@@ -15,6 +15,9 @@ import org.joml.Vector3d;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Used to debug some particle packets and other things
+ */
 public class DebugItem extends Item {
     public DebugItem(Properties pProperties) {
         super(pProperties);

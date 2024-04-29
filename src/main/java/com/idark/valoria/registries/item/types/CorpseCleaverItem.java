@@ -3,7 +3,6 @@ package com.idark.valoria.registries.item.types;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import com.idark.valoria.client.gui.overlay.CorpsecleaverRender;
-import com.idark.valoria.core.config.ClientConfig;
 import com.idark.valoria.registries.DamageSourceRegistry;
 import com.idark.valoria.registries.entity.ai.attributes.ModAttributes;
 import com.idark.valoria.registries.entity.projectile.MeatBlockEntity;
@@ -21,8 +20,6 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class CorpseCleaverItem extends SwordItem implements Vanishable {
     private final Multimap<Attribute, AttributeModifier> pAttributes;
@@ -45,13 +42,6 @@ public class CorpseCleaverItem extends SwordItem implements Vanishable {
         return 72000;
     }
 
-    @OnlyIn(Dist.CLIENT)
-    public void clientConfig(Player playerEntity) {
-        if (ClientConfig.BLOOD_OVERLAY.get() || !playerEntity.isCreative()) {
-            CorpsecleaverRender.isThrow = true;
-        }
-    }
-
     public void releaseUsing(ItemStack stack, Level level, LivingEntity entityLiving, int timeLeft) {
         if (entityLiving instanceof Player playerEntity) {
             if (this.getUseDuration(stack) - timeLeft >= 6) {
@@ -65,15 +55,11 @@ public class CorpseCleaverItem extends SwordItem implements Vanishable {
                         stack.hurtAndBreak(1, playerEntity, (player) -> player.broadcastBreakEvent(entityLiving.getUsedItemHand()));
                         playerEntity.hurt(new DamageSource(DamageSourceRegistry.source(level, DamageSourceRegistry.BLEEDING).typeHolder()), 2.0F);
                         playerEntity.getCooldowns().addCooldown(this, 40);
-                    } else {
-                        playerEntity.getCooldowns().addCooldown(this, 15);
                     }
                 }
 
                 playerEntity.awardStat(Stats.ITEM_USED.get(this));
-                if (level.isClientSide()) {
-                    clientConfig(playerEntity);
-                }
+                if (level.isClientSide) CorpsecleaverRender.showOverlay(playerEntity);
             }
         }
     }

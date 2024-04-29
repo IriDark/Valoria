@@ -42,7 +42,6 @@ public class CustomBoatItem extends Item {
             List<Entity> list = level.getEntities(player, player.getBoundingBox().expandTowards(vector3d.scale(5.0D)).inflate(1.0D), ENTITY_PREDICATE);
             if (!list.isEmpty()) {
                 Vec3 vector3d1 = player.getEyePosition(1.0F);
-
                 for (Entity entity : list) {
                     AABB aabb = entity.getBoundingBox().inflate(entity.getPickRadius());
                     if (aabb.contains(vector3d1)) {

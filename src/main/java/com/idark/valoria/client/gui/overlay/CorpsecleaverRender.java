@@ -1,12 +1,14 @@
 package com.idark.valoria.client.gui.overlay;
 
 import com.idark.valoria.Valoria;
+import com.idark.valoria.core.config.ClientConfig;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.RenderGuiOverlayEvent;
@@ -29,6 +31,12 @@ public class CorpsecleaverRender {
                 ThrowTime = 0;
                 isThrow = false;
             }
+        }
+    }
+
+    public static void showOverlay(Player playerEntity) {
+        if (ClientConfig.BLOOD_OVERLAY.get() || !playerEntity.isCreative()) {
+            CorpsecleaverRender.isThrow = true;
         }
     }
 

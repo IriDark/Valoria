@@ -38,6 +38,7 @@ public class BeastScytheItem extends ScytheItem implements Vanishable {
     public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entityLiving) {
         Player player = (Player) entityLiving;
         player.awardStat(Stats.ITEM_USED.get(this));
+        float damage = (float) (player.getAttributeValue(Attributes.ATTACK_DAMAGE)) + EnchantmentHelper.getSweepingDamageRatio(player);
         for (Item item : ForgeRegistries.ITEMS) {
             if (item instanceof ScytheItem) {
                 player.getCooldowns().addCooldown(item, 100);
@@ -49,7 +50,6 @@ public class BeastScytheItem extends ScytheItem implements Vanishable {
         List<LivingEntity> markEntities = new ArrayList<>();
         ValoriaUtils.radiusHit(level, stack, player, null, hitEntities, pos, 0, player.getRotationVector().y, 3);
         ValoriaUtils.spawnParticlesMark(level, player, markEntities, ModParticles.CHOMP.get(), pos, 0, player.getRotationVector().y, 3);
-        float damage = (float) (player.getAttributeValue(Attributes.ATTACK_DAMAGE)) + EnchantmentHelper.getSweepingDamageRatio(player);
         for (LivingEntity entity : hitEntities) {
             entity.hurt(level.damageSources().playerAttack(player), (damage + EnchantmentHelper.getDamageBonus(stack, entity.getMobType())) * 1.35f);
             entity.knockback(0.4F, player.getX() - entity.getX(), player.getZ() - entity.getZ());

@@ -82,31 +82,33 @@ public class MagmaSwordItem extends SwordItem implements Vanishable, IRadiusItem
     public void releaseUsing(ItemStack stack, Level worldIn, LivingEntity entityLiving, int timeLeft) {
         Player player = (Player) entityLiving;
         player.awardStat(Stats.ITEM_USED.get(this));
+        float damage = (float) (player.getAttributeValue(Attributes.ATTACK_DAMAGE) + 5) + EnchantmentHelper.getSweepingDamageRatio(player);
+
+        Vector3d pos = new Vector3d(player.getX(), player.getY() + 0.3f, player.getZ());
         if (isCharged(stack) == 2) {
-            if (entityLiving.isInWaterOrRain()) {
+            if (player.isInWaterOrRain()) {
+                setCharges(stack, 1);
                 player.getCooldowns().addCooldown(this, 150);
                 player.displayClientMessage(Component.translatable("tooltip.valoria.wet").withStyle(ChatFormatting.GRAY), true);
-                setCharges(stack, 1);
                 worldIn.playSound(player, player.blockPosition(), SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 10f, 1f);
                 if (!player.isCreative()) {
                     stack.hurtAndBreak(5, player, (p_220045_0_) -> p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
                 }
 
                 if (!worldIn.isClientSide() && worldIn instanceof ServerLevel pServer) {
-                    for (int i = 0; i < 20; i++) {
+                    for (int i = 0; i < 16; i++) {
                         pServer.sendParticles(ParticleTypes.POOF, player.getX() + ((rand.nextDouble() - 0.5D) * 3), player.getY() + ((rand.nextDouble() - 0.5D) * 3), player.getZ() + ((rand.nextDouble() - 0.5D) * 3), 1, 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0);
                         pServer.sendParticles(ParticleTypes.LARGE_SMOKE, player.getX() + ((rand.nextDouble() - 0.5D) * 3), player.getY() + ((rand.nextDouble() - 0.5D) * 3), player.getZ() + ((rand.nextDouble() - 0.5D) * 3), 1, 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0);
                     }
                 }
             } else {
-                player.getCooldowns().addCooldown(this, 300);
-                setCharges(stack, 0);
-                Vector3d pos = new Vector3d(player.getX(), player.getY() + 0.3f, player.getZ());
                 List<LivingEntity> hitEntities = new ArrayList<>();
+                setCharges(stack, 0);
+                player.getCooldowns().addCooldown(this, 300);
+
                 ValoriaUtils.spawnParticlesInRadius(worldIn, stack, ParticleTypes.LARGE_SMOKE, pos, 0, player.getRotationVector().y, 1);
                 ValoriaUtils.spawnParticlesInRadius(worldIn, stack, ParticleTypes.LARGE_SMOKE, pos, 0, player.getRotationVector().y, 4);
                 ValoriaUtils.radiusHit(worldIn, stack, player, ParticleTypes.FLAME, hitEntities, pos, 0, player.getRotationVector().y, 4);
-                float damage = (float) (player.getAttributeValue(Attributes.ATTACK_DAMAGE) + 5) + EnchantmentHelper.getSweepingDamageRatio(player);
                 for (LivingEntity damagedEntity : hitEntities) {
                     damagedEntity.hurt(worldIn.damageSources().playerAttack(player), (damage + EnchantmentHelper.getDamageBonus(stack, damagedEntity.getMobType())) * 1.35f);
                     damagedEntity.knockback(0.4F, player.getX() - entityLiving.getX(), player.getZ() - entityLiving.getZ());
