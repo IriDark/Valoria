@@ -81,7 +81,7 @@ public class KatanaItem extends TieredItem implements Vanishable, ICooldownItem 
         builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Weapon modifier", attackSpeedIn, AttributeModifier.Operation.ADDITION));
         this.attributeModifiers = builder.build();
         this.dashDistance = dashDistance;
-        this.effects = pEffects != null ? ImmutableList.copyOf(pEffects) : ImmutableList.of();
+        this.effects = ImmutableList.copyOf(pEffects);
     }
 
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchant) {

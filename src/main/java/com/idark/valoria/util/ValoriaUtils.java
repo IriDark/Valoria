@@ -92,7 +92,7 @@ public class ValoriaUtils {
     }
 
     /**
-     * Doing a circled attack near player with:
+     * Performs a circled attack near player
      *
      * @param radius      Attack radius
      * @param type        Particle type used to show radius
@@ -131,9 +131,7 @@ public class ValoriaUtils {
      * @param pOwner     Owner of Projectile
      * @param boundingBox radius example:
      * <p>
-     * <pre>{@code
-     *                   new AABB(projectile.getX() - 3.5, projectile.getY() - 0.5, projectile.getZ() - 3.5,  <p>
-     *                   projectile.getX() + 3.5, projectile.getY() + 0.5, projectile.getZ() + 3.5);
+     * <pre>{@code new AABB(projectile.getX() - 3.5, projectile.getY() - 0.5, projectile.getZ() - 3.5, projectile.getX() + 3.5, projectile.getY() + 0.5, projectile.getZ() + 3.5);
      *}</pre>
      */
     public static void homingMovement(double pSpeed, Entity projectile, Level level, Entity pOwner, AABB boundingBox) {
@@ -168,14 +166,11 @@ public class ValoriaUtils {
     /**
      * Can be used in projectile tick() method.
      * Projectile will have a homing movement to nearby entity
-     *
+     * @param pOwner     Owner of Projectile
      * @param boundingBox radius example:
      * <p>
-     * <p>
-     *                   new AABB(projectile.getX() - 3.5, projectile.getY() - 0.5, projectile.getZ() - 3.5,  <p>
-     *                   projectile.getX() + 3.5, projectile.getY() + 0.5, projectile.getZ() + 3.5);
-     *
-     * @param pOwner     Owner of Projectile
+     * <pre>{@code new AABB(projectile.getX() - 3.5, projectile.getY() - 0.5, projectile.getZ() - 3.5, projectile.getX() + 3.5, projectile.getY() + 0.5, projectile.getZ() + 3.5);
+     *}</pre>
      */
     public static void inaccurateHomingMovement(double pSpeed, Entity projectile, Level level, Entity pOwner, AABB boundingBox) {
         List<LivingEntity> livingEntities = level.getEntitiesOfClass(LivingEntity.class, boundingBox);
