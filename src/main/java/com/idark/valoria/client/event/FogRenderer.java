@@ -1,9 +1,7 @@
 package com.idark.valoria.client.event;
 
 import com.idark.valoria.registries.BlockRegistry;
-import com.idark.valoria.registries.levelgen.LevelGen;
 import net.minecraft.client.Minecraft;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.ViewportEvent;
@@ -33,7 +31,6 @@ public class FogRenderer {
 
         @SubscribeEvent
         public static void onFogColor(ViewportEvent.ComputeFogColor e) {
-            BlockState blockState = e.getCamera().getBlockAtCamera();
             if (!Minecraft.getInstance().options.getCameraType().isFirstPerson() && e.getCamera().getBlockAtCamera().is(BlockRegistry.QUICKSAND.get())) {
                 e.setRed(0.57f);
                 e.setGreen(0.48f);
@@ -44,12 +41,6 @@ public class FogRenderer {
                 e.setRed(0.57f);
                 e.setGreen(0.48f);
                 e.setBlue(0.34f);
-            }
-
-            if (!blockState.liquid() && Minecraft.getInstance().player.level().dimension() == LevelGen.VALORIA_KEY) {
-                e.setRed(0.140f);
-                e.setGreen(0.060f);
-                e.setBlue(0.156f);
             }
         }
     }
