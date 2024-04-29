@@ -567,6 +567,14 @@ public class ValoriaUtils {
             return alpha << 24 | red << 16 | green << 8 | blue;
         }
 
+        public static int packColor(float red, float green, float blue) {
+            return ((int)(red * 255.0F) & 255) << 16 | ((int)(green * 255.0F) & 255) << 8 | (int)(blue * 255.0F) & 255;
+        }
+
+        public static int packColor(float alpha, float red, float green, float blue) {
+            return ((int)(alpha * 255.0F) & 255) << 24 | ((int)(red * 255.0F) & 255) << 16 | ((int)(green * 255.0F) & 255) << 8 | (int)(blue * 255.0F) & 255;
+        }
+
         public static int hexToDecimal(String hex) {
             return Integer.parseInt(hex, 16);
         }
