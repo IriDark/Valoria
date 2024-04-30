@@ -46,39 +46,7 @@ public class LexiconGui extends Screen {
         this.width = mc.getWindow().getGuiScaledWidth();
         this.height = mc.getWindow().getGuiScaledHeight();
         int guiLeft = (width - 272) / 2, guiTop = (height - 180) / 2;
-
-        // Book
         gui.blit(BACKGROUND, guiLeft, guiTop, 0, 0, 272, 180, 512, 512);
-
-        // START
-        gui.blit(BACKGROUND, guiLeft - 19, guiTop + 132, 272, 132, 17, 48, 512, 512);
-
-        if (mouseX >= guiLeft - 14 && mouseX < guiLeft && mouseY >= guiTop + 138 && mouseY < guiTop + 138 + 7) {
-            gui.blit(BACKGROUND, guiLeft - 15, guiTop + 137, 279, 112, 9, 9, 512, 512);
-            renderTooltip(gui, Component.translatable("gui.valoria.thanks.name"), guiLeft - 14, guiTop + 138);
-        } else {
-            gui.blit(BACKGROUND, guiLeft - 14, guiTop + 138, 272, 113, 7, 7, 512, 512);
-        }
-
-        if (mouseX >= guiLeft - 12 && mouseX < guiLeft && mouseY >= guiTop + 148 && mouseY < guiTop + 148 + 6) {
-            gui.blit(BACKGROUND, guiLeft - 12, guiTop + 148, 272, 121, 3, 6, 512, 512);
-        } else {
-            gui.blit(BACKGROUND, guiLeft - 12, guiTop + 148, 275, 121, 3, 6, 512, 512);
-        }
-
-        if (mouseX >= guiLeft - 12 && mouseX < guiLeft && mouseY >= guiTop + 158 && mouseY < guiTop + 158 + 6) {
-            gui.blit(BACKGROUND, guiLeft - 12, guiTop + 158, 272, 121, 3, 6, 512, 512);
-        } else {
-            gui.blit(BACKGROUND, guiLeft - 12, guiTop + 158, 275, 121, 3, 6, 512, 512);
-        }
-
-        if (mouseX >= guiLeft - 12 && mouseX < guiLeft && mouseY >= guiTop + 168 && mouseY < guiTop + 168 + 6) {
-            gui.blit(BACKGROUND, guiLeft - 12, guiTop + 168, 272, 121, 3, 6, 512, 512);
-        } else {
-            gui.blit(BACKGROUND, guiLeft - 12, guiTop + 168, 275, 121, 3, 6, 512, 512);
-        }
-
-        // END
         for (Bookmark bookmark : LexiconChapters.categories) {
             if (bookmark.isUnlocked()) {
                 bookmark.render(gui, guiLeft, guiTop, mouseX, mouseY);
@@ -120,14 +88,6 @@ public class LexiconGui extends Screen {
             this.width = mc.getWindow().getGuiScaledWidth();
             this.height = mc.getWindow().getGuiScaledHeight();
             int guiLeft = (width - 272) / 2, guiTop = (height - 180) / 2;
-
-            // START
-            if (mouseX >= guiLeft - 14 && mouseX < guiLeft && mouseY >= guiTop + 138 && mouseY < guiTop + 138 + 7) {
-                mc.player.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundSource.NEUTRAL, 1.0f, 1.0f);
-                changeChapter(LexiconChapters.THANKS_CHAPTER);
-            }
-
-            // END
             if (currentChapter.size() >= currentPage + 3) {
                 if (mouseX >= guiLeft + 250 && mouseX < guiLeft + 250 + 9 && mouseY >= guiTop + 150 && mouseY < guiTop + 150 + 8) {
                     mc.player.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundSource.NEUTRAL, 1.0f, 1.0f);

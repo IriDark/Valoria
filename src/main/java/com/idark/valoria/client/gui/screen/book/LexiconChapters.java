@@ -13,16 +13,9 @@ import java.util.List;
 public class LexiconChapters {
     public static List<Bookmark> categories = new ArrayList<>();
     public static Bookmark LEXICON, TREASURES, MEDICINE, CRYPT;
-    public static Chapter THANKS_CHAPTER, MAIN_CHAPTER, TREASURES_CHAPTER, MEDICINE_CHAPTER, CRYPT_CHAPTER;
+    public static Chapter MAIN_CHAPTER, TREASURES_CHAPTER, MEDICINE_CHAPTER, CRYPT_CHAPTER;
 
     public static void init() {
-        THANKS_CHAPTER = new Chapter(
-                "gui.valoria.thanks.name",
-                new TextPage("gui.valoria.thanks"),
-                new TextPage("gui.valoria.thanks.about")
-                        .withCustomTitle("gui.valoria.thanks.name")
-        );
-
         MAIN_CHAPTER = new Chapter(
                 "gui.valoria.main.name",
                 new MainPage("gui.valoria.main"),
