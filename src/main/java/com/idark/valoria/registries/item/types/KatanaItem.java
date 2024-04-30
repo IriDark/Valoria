@@ -37,6 +37,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+//TODO: Would be good to show the player katana dash distance as a attribute
 public class KatanaItem extends SwordItem implements ICooldownItem {
     public float dashDistance = 1.8f;
     public float chance = 1;

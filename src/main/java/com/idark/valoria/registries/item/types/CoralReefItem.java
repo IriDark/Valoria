@@ -22,6 +22,7 @@ import org.joml.Vector3d;
 import java.util.ArrayList;
 import java.util.List;
 
+//TODO: Rework the ability
 public class CoralReefItem extends SwordItem {
 
     public CoralReefItem(Tier tier, int attackDamageIn, float attackSpeedIn, Properties builderIn) {

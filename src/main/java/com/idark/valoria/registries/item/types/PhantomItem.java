@@ -26,6 +26,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+//TODO:
+// Fix to the ability (Works weird on server)
+// Work on GFX side of the ability
+// Something like on-screen particles would be cool
 public class PhantomItem extends SwordItem implements IRadiusItem {
     Random rand = new Random();
     public float pRadius = 3;

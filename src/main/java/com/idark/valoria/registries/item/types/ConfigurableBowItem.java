@@ -14,6 +14,7 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 
+//TODO: Would be good to show the player: Bow attack damage, Special arrow
 public class ConfigurableBowItem extends BowItem {
 
     int baseDamage;

@@ -29,6 +29,7 @@ import org.joml.Vector3d;
 import java.util.ArrayList;
 import java.util.List;
 
+//TODO: Would be good to show the player scythe attack radius as a attribute
 public class ScytheItem extends SwordItem implements ICustomAnimationItem, ICooldownItem, IRadiusItem {
     public static RadiusAttackAnim animation = new RadiusAttackAnim();
     public int radius = 3;
