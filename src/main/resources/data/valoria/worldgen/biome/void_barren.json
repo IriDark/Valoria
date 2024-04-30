@@ -37,8 +37,22 @@
     "axolotls": [],
     "creature": [],
     "misc": [],
-    "monster": [],
-    "underground_water_creature": [],
+    "monster": [
+      {
+        "type": "minecraft:enderman",
+        "weight": 1,
+        "minCount": 1,
+        "maxCount": 1
+      }
+    ],
+    "underground_water_creature": [
+      {
+        "type": "minecraft:glow_squid",
+        "weight": 1,
+        "minCount": 1,
+        "maxCount": 1
+      }
+    ],
     "water_ambient": [],
     "water_creature": []
   },
