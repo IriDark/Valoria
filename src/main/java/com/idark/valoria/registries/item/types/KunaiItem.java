@@ -19,7 +19,10 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
@@ -27,7 +30,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.List;
 
-public class KunaiItem extends Item implements Vanishable {
+public class KunaiItem extends Item {
     private final Multimap<Attribute, AttributeModifier> tridentAttributes;
 
     public KunaiItem(Item.Properties builderIn) {
@@ -44,7 +47,7 @@ public class KunaiItem extends Item implements Vanishable {
     }
 
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchant) {
-        return enchant == Enchantments.PIERCING || enchant == Enchantments.FIRE_ASPECT || enchant == Enchantments.LOYALTY || enchant == Enchantments.MENDING || enchant == Enchantments.SWEEPING_EDGE || enchant == Enchantments.MOB_LOOTING || enchant == Enchantments.SHARPNESS || enchant == Enchantments.BANE_OF_ARTHROPODS || enchant == Enchantments.SMITE;
+        return enchant == Enchantments.VANISHING_CURSE || enchant == Enchantments.PIERCING || enchant == Enchantments.FIRE_ASPECT || enchant == Enchantments.LOYALTY || enchant == Enchantments.MENDING || enchant == Enchantments.SWEEPING_EDGE || enchant == Enchantments.MOB_LOOTING || enchant == Enchantments.SHARPNESS || enchant == Enchantments.BANE_OF_ARTHROPODS || enchant == Enchantments.SMITE;
     }
 
     public UseAnim getUseAnimation(ItemStack stack) {

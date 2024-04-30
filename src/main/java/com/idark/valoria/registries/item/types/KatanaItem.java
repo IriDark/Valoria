@@ -1,8 +1,6 @@
 package com.idark.valoria.registries.item.types;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMultimap;
-import com.google.common.collect.Multimap;
 import com.idark.valoria.client.gui.overlay.DashOverlayRender;
 import com.idark.valoria.registries.SoundsRegistry;
 import com.idark.valoria.util.RandomUtil;
@@ -14,24 +12,18 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attribute;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.EntityHitResult;
@@ -45,22 +37,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class KatanaItem extends TieredItem implements Vanishable, ICooldownItem {
-    private final float attackDamage;
+public class KatanaItem extends SwordItem implements ICooldownItem {
     public float dashDistance = 1.8f;
     public float chance = 1;
 
-    private final Multimap<Attribute, AttributeModifier> attributeModifiers;
     Random rand = new Random();
     private final ImmutableList<MobEffectInstance> effects;
 
     public KatanaItem(Tier tier, int attackDamageIn, float attackSpeedIn, Item.Properties builderIn) {
-        super(tier, builderIn);
-        this.attackDamage = (float) attackDamageIn + tier.getAttackDamageBonus();
-        ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
-        builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Weapon modifier", this.attackDamage, AttributeModifier.Operation.ADDITION));
-        builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Weapon modifier", attackSpeedIn, AttributeModifier.Operation.ADDITION));
-        this.attributeModifiers = builder.build();
+        super(tier, attackDamageIn, attackSpeedIn, builderIn);
         this.effects = ImmutableList.of();
     }
 
@@ -69,12 +54,7 @@ public class KatanaItem extends TieredItem implements Vanishable, ICooldownItem 
      * @param pEffects MobEffect instance that applied on hit enemies
      */
     public KatanaItem(Tier tier, int attackDamageIn, float attackSpeedIn, float dashDistance, Item.Properties builderIn, MobEffectInstance... pEffects) {
-        super(tier, builderIn);
-        this.attackDamage = (float) attackDamageIn + tier.getAttackDamageBonus();
-        ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
-        builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Weapon modifier", this.attackDamage, AttributeModifier.Operation.ADDITION));
-        builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Weapon modifier", attackSpeedIn, AttributeModifier.Operation.ADDITION));
-        this.attributeModifiers = builder.build();
+        super(tier, attackDamageIn, attackSpeedIn, builderIn);
         this.dashDistance = dashDistance;
         this.effects = ImmutableList.copyOf(pEffects);
     }
@@ -90,52 +70,18 @@ public class KatanaItem extends TieredItem implements Vanishable, ICooldownItem 
      */
 
     public KatanaItem(Tier tier, int attackDamageIn, float attackSpeedIn, float dashDistance, Item.Properties builderIn, float chance, MobEffectInstance... pEffects) {
-        super(tier, builderIn);
-        this.attackDamage = (float) attackDamageIn + tier.getAttackDamageBonus();
-        ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
-        builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Weapon modifier", this.attackDamage, AttributeModifier.Operation.ADDITION));
-        builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Weapon modifier", attackSpeedIn, AttributeModifier.Operation.ADDITION));
-        this.attributeModifiers = builder.build();
+        super(tier, attackDamageIn, attackSpeedIn, builderIn);
         this.dashDistance = dashDistance;
         this.effects = ImmutableList.copyOf(pEffects);
         this.chance = chance;
     }
 
-    public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchant) {
-        return enchant.category == EnchantmentCategory.WEAPON;
-    }
-
-    public boolean canAttackBlock(@NotNull BlockState state, @NotNull Level worldIn, @NotNull BlockPos pos, Player player) {
-        return !player.isCreative();
-    }
-
-    public float getDestroySpeed(@NotNull ItemStack stack, BlockState state) {
-        if (state.is(Blocks.COBWEB)) {
-            return 15.0F;
-        } else {
-            return state.is(BlockTags.SWORD_EFFICIENT) ? 1.5F : 1.0F;
-        }
-    }
-
-    public boolean hurtEnemy(ItemStack stack, @NotNull LivingEntity target, @NotNull LivingEntity attacker) {
-        stack.hurtAndBreak(1, attacker, (entity) -> entity.broadcastBreakEvent(EquipmentSlot.MAINHAND));
-        return true;
-    }
-
     public boolean mineBlock(@NotNull ItemStack stack, @NotNull Level worldIn, BlockState state, @NotNull BlockPos pos, LivingEntity entityLiving) {
         if (state.getDestroySpeed(worldIn, pos) != 0.0F) {
-            stack.hurtAndBreak(4, entityLiving, (entity) -> entity.broadcastBreakEvent(EquipmentSlot.MAINHAND));
+            stack.hurtAndBreak(5, entityLiving, (entity) -> entity.broadcastBreakEvent(EquipmentSlot.MAINHAND));
         }
 
         return true;
-    }
-
-    public boolean isCorrectToolForDrops(BlockState blockIn) {
-        return blockIn.is(Blocks.COBWEB);
-    }
-
-    public @NotNull Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(@NotNull EquipmentSlot equipmentSlot) {
-        return equipmentSlot == EquipmentSlot.MAINHAND ? this.attributeModifiers : super.getDefaultAttributeModifiers(equipmentSlot);
     }
 
     public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level worldIn, Player playerIn, @NotNull InteractionHand handIn) {
@@ -148,10 +94,6 @@ public class KatanaItem extends TieredItem implements Vanishable, ICooldownItem 
 
             return InteractionResultHolder.consume(itemstack);
         }
-    }
-
-    public @NotNull UseAnim getUseAnimation(@NotNull ItemStack stack) {
-        return UseAnim.NONE;
     }
 
     public int getUseDuration(@NotNull ItemStack stack) {
@@ -268,11 +210,6 @@ public class KatanaItem extends TieredItem implements Vanishable, ICooldownItem 
         }
 
         return Math.sqrt((X - pos.x) * (X - pos.x) + (Y - pos.y) * (Y - pos.y) + (Z - pos.z) * (Z - pos.z));
-    }
-
-    @Override
-    public boolean canPerformAction(ItemStack stack, net.minecraftforge.common.ToolAction toolAction) {
-        return net.minecraftforge.common.ToolActions.DEFAULT_SWORD_ACTIONS.contains(toolAction);
     }
 
     @Override

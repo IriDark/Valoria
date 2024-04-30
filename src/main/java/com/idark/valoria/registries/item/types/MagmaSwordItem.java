@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class MagmaSwordItem extends SwordItem implements Vanishable, IRadiusItem {
+public class MagmaSwordItem extends SwordItem implements IRadiusItem {
 
     Random rand = new Random();
 

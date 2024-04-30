@@ -22,12 +22,11 @@ import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.Vanishable;
 import net.minecraft.world.level.Level;
 
 import java.util.List;
 
-public class PoisonedKunaiItem extends KunaiItem implements Vanishable {
+public class PoisonedKunaiItem extends KunaiItem {
     private final Multimap<Attribute, AttributeModifier> tridentAttributes;
 
     public PoisonedKunaiItem(Item.Properties builderIn) {

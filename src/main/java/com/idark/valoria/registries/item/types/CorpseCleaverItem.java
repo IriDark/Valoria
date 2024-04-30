@@ -21,7 +21,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 
-public class CorpseCleaverItem extends SwordItem implements Vanishable {
+public class CorpseCleaverItem extends SwordItem {
     private final Multimap<Attribute, AttributeModifier> pAttributes;
 
     public CorpseCleaverItem(Tier pTier, int pAttackDamageModifier, float pAttackSpeedModifier, Item.Properties pProperties) {
