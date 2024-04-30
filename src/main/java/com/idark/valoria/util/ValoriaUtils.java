@@ -1,24 +1,35 @@
 package com.idark.valoria.util;
 
 import com.google.common.collect.HashMultimap;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
 import com.idark.valoria.registries.EnchantmentsRegistry;
 import com.idark.valoria.registries.entity.living.NecromancerEntity;
 import com.idark.valoria.registries.item.types.BeastScytheItem;
 import com.idark.valoria.registries.item.types.CoralReefItem;
 import com.idark.valoria.registries.item.types.curio.charm.BloodSight;
+import com.mojang.datafixers.util.Pair;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.chat.CommonComponents;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.server.level.ServerChunkCache;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffectUtil;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.Item;
@@ -38,6 +49,7 @@ import top.theillusivec4.curios.api.SlotContext;
 import javax.annotation.Nullable;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -544,6 +556,62 @@ public class ValoriaUtils {
         }
 
         return hitresult;
+    }
+
+    public static void addEffectsTooltip(ImmutableList<MobEffectInstance> effects, List<Component> pTooltips, float pDurationFactor, float chance) {
+        List<Pair<Attribute, AttributeModifier>> list = Lists.newArrayList();
+        if (!effects.isEmpty()) {
+            for (MobEffectInstance mobeffectinstance : effects) {
+                pTooltips.add(CommonComponents.EMPTY);
+                if (chance != 0) {
+                    pTooltips.add(Component.translatable("tooltip.valoria.with_chance").withStyle(ChatFormatting.GRAY).append(Component.literal(String.format("%.1f%%", chance * 100))));
+                }
+
+                MutableComponent mutablecomponent = Component.translatable(mobeffectinstance.getDescriptionId());
+                MobEffect mobeffect = mobeffectinstance.getEffect();
+                Map<Attribute, AttributeModifier> map = mobeffect.getAttributeModifiers();
+                if (!map.isEmpty()) {
+                    for (Map.Entry<Attribute, AttributeModifier> entry : map.entrySet()) {
+                        AttributeModifier entryValue = entry.getValue();
+                        AttributeModifier attributeModifier = new AttributeModifier(entryValue.getName(), mobeffect.getAttributeModifierValue(mobeffectinstance.getAmplifier(), entryValue), entryValue.getOperation());
+                        list.add(new Pair<>(entry.getKey(), attributeModifier));
+                    }
+                }
+
+                if (mobeffectinstance.getAmplifier() > 0) {
+                    mutablecomponent = Component.translatable("potion.withAmplifier", mutablecomponent, Component.translatable("potion.potency." + mobeffectinstance.getAmplifier()));
+                }
+
+                if (!mobeffectinstance.endsWithin(20)) {
+                    mutablecomponent = Component.translatable("potion.withDuration", mutablecomponent, MobEffectUtil.formatDuration(mobeffectinstance, pDurationFactor));
+                }
+
+                pTooltips.add(mutablecomponent.withStyle(mobeffect.getCategory().getTooltipFormatting()));
+            }
+        }
+
+        if (!list.isEmpty()) {
+            pTooltips.add(CommonComponents.EMPTY);
+            pTooltips.add(Component.translatable("potion.whenDrank").withStyle(ChatFormatting.DARK_PURPLE));
+
+            for (Pair<Attribute, AttributeModifier> pair : list) {
+                AttributeModifier secondPair = pair.getSecond();
+                double d0 = secondPair.getAmount();
+                double d1;
+                if (secondPair.getOperation() != AttributeModifier.Operation.MULTIPLY_BASE && secondPair.getOperation() != AttributeModifier.Operation.MULTIPLY_TOTAL) {
+                    d1 = secondPair.getAmount();
+                } else {
+                    d1 = secondPair.getAmount() * 100.0D;
+                }
+
+                if (d0 > 0.0D) {
+                    pTooltips.add(Component.translatable("attribute.modifier.plus." + secondPair.getOperation().toValue(), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(d1), Component.translatable(pair.getFirst().getDescriptionId())).withStyle(ChatFormatting.BLUE));
+                } else if (d0 < 0.0D) {
+                    d1 *= -1.0D;
+                    pTooltips.add(Component.translatable("attribute.modifier.take." + secondPair.getOperation().toValue(), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(d1), Component.translatable(pair.getFirst().getDescriptionId())).withStyle(ChatFormatting.RED));
+                }
+            }
+        }
     }
 
     public static class color {

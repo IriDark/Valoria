@@ -2,27 +2,22 @@ package com.idark.valoria.registries.item.types;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMultimap;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Multimap;
 import com.idark.valoria.client.gui.overlay.DashOverlayRender;
 import com.idark.valoria.registries.SoundsRegistry;
+import com.idark.valoria.util.RandomUtil;
 import com.idark.valoria.util.ValoriaUtils;
-import com.mojang.datafixers.util.Pair;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffectUtil;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -48,12 +43,12 @@ import org.joml.Vector3d;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
 public class KatanaItem extends TieredItem implements Vanishable, ICooldownItem {
     private final float attackDamage;
     public float dashDistance = 1.8f;
+    public float chance = 1;
 
     private final Multimap<Attribute, AttributeModifier> attributeModifiers;
     Random rand = new Random();
@@ -82,6 +77,28 @@ public class KatanaItem extends TieredItem implements Vanishable, ICooldownItem 
         this.attributeModifiers = builder.build();
         this.dashDistance = dashDistance;
         this.effects = ImmutableList.copyOf(pEffects);
+    }
+
+    /**
+     * @param dashDistance Default value: 1.8f
+     * @param chance Chance to apply effects
+     * @param pEffects Effects applied on attack
+     * <p>
+     * <pre>{@code public static final RegistryObject<Item> KATANA_NAME = ITEMS.register("katana_id", () -> new KatanaItem(TIER, ATTACK_DAMAGE, ATTACK_SPEED, DISTANCE, new Item.Properties(), CHANCE, new MobEffectInstance(EFFECT, EFFECT DURATION, EFFECT_LEVEL)));
+     * }</pre>
+     *
+     */
+
+    public KatanaItem(Tier tier, int attackDamageIn, float attackSpeedIn, float dashDistance, Item.Properties builderIn, float chance, MobEffectInstance... pEffects) {
+        super(tier, builderIn);
+        this.attackDamage = (float) attackDamageIn + tier.getAttackDamageBonus();
+        ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
+        builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Weapon modifier", this.attackDamage, AttributeModifier.Operation.ADDITION));
+        builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Weapon modifier", attackSpeedIn, AttributeModifier.Operation.ADDITION));
+        this.attributeModifiers = builder.build();
+        this.dashDistance = dashDistance;
+        this.effects = ImmutableList.copyOf(pEffects);
+        this.chance = chance;
     }
 
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchant) {
@@ -195,8 +212,16 @@ public class KatanaItem extends TieredItem implements Vanishable, ICooldownItem 
                 }
 
                 if (!effects.isEmpty()) {
-                    for(MobEffectInstance effectInstance : effects) {
-                        entity.addEffect(new MobEffectInstance(effectInstance));
+                    if (chance > 1 || chance == 0) {
+                        for (MobEffectInstance effectInstance : effects) {
+                            if(RandomUtil.percentChance(chance)) {
+                                entity.addEffect(new MobEffectInstance(effectInstance));
+                            }
+                        }
+                    } else {
+                        for (MobEffectInstance effectInstance : effects) {
+                            entity.addEffect(new MobEffectInstance(effectInstance));
+                        }
                     }
                 }
 
@@ -250,63 +275,11 @@ public class KatanaItem extends TieredItem implements Vanishable, ICooldownItem 
         return net.minecraftforge.common.ToolActions.DEFAULT_SWORD_ACTIONS.contains(toolAction);
     }
 
-    public void addEffectsTooltip(List<Component> pTooltips, float pDurationFactor) {
-        List<Pair<Attribute, AttributeModifier>> list = Lists.newArrayList();
-        if (!effects.isEmpty()) {
-            for (MobEffectInstance mobeffectinstance : effects) {
-                pTooltips.add(CommonComponents.EMPTY);
-                MutableComponent mutablecomponent = Component.translatable(mobeffectinstance.getDescriptionId());
-                MobEffect mobeffect = mobeffectinstance.getEffect();
-                Map<Attribute, AttributeModifier> map = mobeffect.getAttributeModifiers();
-                if (!map.isEmpty()) {
-                    for (Map.Entry<Attribute, AttributeModifier> entry : map.entrySet()) {
-                        AttributeModifier attributemodifier = entry.getValue();
-                        AttributeModifier attributemodifier1 = new AttributeModifier(attributemodifier.getName(), mobeffect.getAttributeModifierValue(mobeffectinstance.getAmplifier(), attributemodifier), attributemodifier.getOperation());
-                        list.add(new Pair<>(entry.getKey(), attributemodifier1));
-                    }
-                }
-
-                if (mobeffectinstance.getAmplifier() > 0) {
-                    mutablecomponent = Component.translatable("potion.withAmplifier", mutablecomponent, Component.translatable("potion.potency." + mobeffectinstance.getAmplifier()));
-                }
-
-                if (!mobeffectinstance.endsWithin(20)) {
-                    mutablecomponent = Component.translatable("potion.withDuration", mutablecomponent, MobEffectUtil.formatDuration(mobeffectinstance, pDurationFactor));
-                }
-
-                pTooltips.add(mutablecomponent.withStyle(mobeffect.getCategory().getTooltipFormatting()));
-            }
-        }
-
-        if (!list.isEmpty()) {
-            pTooltips.add(CommonComponents.EMPTY);
-            pTooltips.add(Component.translatable("potion.whenDrank").withStyle(ChatFormatting.DARK_PURPLE));
-
-            for (Pair<Attribute, AttributeModifier> pair : list) {
-                AttributeModifier attributemodifier2 = pair.getSecond();
-                double d0 = attributemodifier2.getAmount();
-                double d1;
-                if (attributemodifier2.getOperation() != AttributeModifier.Operation.MULTIPLY_BASE && attributemodifier2.getOperation() != AttributeModifier.Operation.MULTIPLY_TOTAL) {
-                    d1 = attributemodifier2.getAmount();
-                } else {
-                    d1 = attributemodifier2.getAmount() * 100.0D;
-                }
-
-                if (d0 > 0.0D) {
-                    pTooltips.add(Component.translatable("attribute.modifier.plus." + attributemodifier2.getOperation().toValue(), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(d1), Component.translatable(pair.getFirst().getDescriptionId())).withStyle(ChatFormatting.BLUE));
-                } else if (d0 < 0.0D) {
-                    d1 *= -1.0D;
-                    pTooltips.add(Component.translatable("attribute.modifier.take." + attributemodifier2.getOperation().toValue(), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(d1), Component.translatable(pair.getFirst().getDescriptionId())).withStyle(ChatFormatting.RED));
-                }
-            }
-        }
-    }
-
     @Override
     public void appendHoverText(@NotNull ItemStack stack, Level world, @NotNull List<Component> tooltip, @NotNull TooltipFlag flags) {
         super.appendHoverText(stack, world, tooltip, flags);
         tooltip.add(Component.translatable("tooltip.valoria.katana").withStyle(ChatFormatting.GRAY));
         tooltip.add(Component.translatable("tooltip.valoria.rmb").withStyle(ChatFormatting.GREEN));
-        addEffectsTooltip(tooltip, 1);
+        ValoriaUtils.addEffectsTooltip(effects, tooltip, 1, chance);
     }
 }
