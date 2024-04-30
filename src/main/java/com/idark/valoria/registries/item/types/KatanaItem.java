@@ -212,7 +212,7 @@ public class KatanaItem extends TieredItem implements Vanishable, ICooldownItem 
                 }
 
                 if (!effects.isEmpty()) {
-                    if (chance > 1 || chance == 0) {
+                    if (chance < 1 || chance != 0) {
                         for (MobEffectInstance effectInstance : effects) {
                             if(RandomUtil.percentChance(chance)) {
                                 entity.addEffect(new MobEffectInstance(effectInstance));
