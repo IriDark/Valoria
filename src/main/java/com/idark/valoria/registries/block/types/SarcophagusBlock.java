@@ -3,7 +3,7 @@ package com.idark.valoria.registries.block.types;
 import com.idark.valoria.Valoria;
 import com.idark.valoria.core.network.PacketHandler;
 import com.idark.valoria.core.network.packets.SarcophagusSummonPacket;
-import com.idark.valoria.registries.entity.ModEntityTypes;
+import com.idark.valoria.registries.EntityTypeRegistry;
 import com.idark.valoria.registries.entity.living.DraugrEntity;
 import com.idark.valoria.util.LootUtil;
 import com.idark.valoria.util.RandomUtil;
@@ -126,7 +126,7 @@ public class SarcophagusBlock extends HorizontalDirectionalBlock {
     }
 
     private void spawnDraugr(Level pLevel, BlockPos pPos, InteractionHand hand) {
-        DraugrEntity entity = ModEntityTypes.DRAUGR.get().create(pLevel);
+        DraugrEntity entity = EntityTypeRegistry.DRAUGR.get().create(pLevel);
         double d0 = (double)pPos.getX() + (rand.nextDouble() - rand.nextDouble()) * (double)4 + 0.5;
         double d1 = pPos.getY() + rand.nextInt(2);
         double d2 = (double)pPos.getZ() + (rand.nextDouble() - rand.nextDouble()) * (double)4 + 0.5;

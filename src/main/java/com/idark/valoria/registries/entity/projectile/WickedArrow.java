@@ -3,7 +3,7 @@ package com.idark.valoria.registries.entity.projectile;
 import com.idark.valoria.Valoria;
 import com.idark.valoria.client.particle.ModParticles;
 import com.idark.valoria.client.particle.types.Particles;
-import com.idark.valoria.registries.entity.ModEntityTypes;
+import com.idark.valoria.registries.EntityTypeRegistry;
 import com.idark.valoria.util.RandomUtil;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
@@ -22,7 +22,7 @@ public class WickedArrow extends AbstractValoriaArrow implements IProjectileText
     }
 
     public WickedArrow(Level pLevel, LivingEntity pShooter, ItemStack thrown) {
-        super(ModEntityTypes.WICKED_ARROW.get(), pLevel, pShooter, thrown, 0, 4);
+        super(EntityTypeRegistry.WICKED_ARROW.get(), pLevel, pShooter, thrown, 0, 4);
     }
 
     @Override

@@ -2,8 +2,8 @@ package com.idark.valoria.registries.entity.projectile;
 
 import com.idark.valoria.registries.BlockRegistry;
 import com.idark.valoria.registries.DamageSourceRegistry;
+import com.idark.valoria.registries.EntityTypeRegistry;
 import com.idark.valoria.registries.SoundsRegistry;
-import com.idark.valoria.registries.entity.ModEntityTypes;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -46,7 +46,7 @@ public class MeatBlockEntity extends AbstractArrow {
     }
 
     public MeatBlockEntity(Level worldIn, LivingEntity thrower, ItemStack thrownStackIn) {
-        super(ModEntityTypes.MEAT.get(), thrower, worldIn);
+        super(EntityTypeRegistry.MEAT.get(), thrower, worldIn);
         this.thrownStack = thrownStackIn.copy();
     }
 

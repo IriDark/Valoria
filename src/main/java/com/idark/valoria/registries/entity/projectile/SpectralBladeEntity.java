@@ -1,8 +1,8 @@
 package com.idark.valoria.registries.entity.projectile;
 
+import com.idark.valoria.registries.EntityTypeRegistry;
 import com.idark.valoria.registries.ItemsRegistry;
 import com.idark.valoria.registries.SoundsRegistry;
-import com.idark.valoria.registries.entity.ModEntityTypes;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
@@ -40,7 +40,7 @@ public class SpectralBladeEntity extends AbstractArrow {
     }
 
     public SpectralBladeEntity(Level worldIn, LivingEntity thrower, ItemStack thrownStackIn) {
-        super(ModEntityTypes.SPECTRAL_BLADE.get(), thrower, worldIn);
+        super(EntityTypeRegistry.SPECTRAL_BLADE.get(), thrower, worldIn);
         this.thrownStack = thrownStackIn.copy();
     }
 

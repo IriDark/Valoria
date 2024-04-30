@@ -1,7 +1,7 @@
 package com.idark.valoria.registries.entity.decoration;
 
+import com.idark.valoria.registries.EntityTypeRegistry;
 import com.idark.valoria.registries.ItemsRegistry;
-import com.idark.valoria.registries.entity.ModEntityTypes;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
@@ -39,7 +39,7 @@ public class CustomChestBoatEntity extends CustomBoatEntity implements HasCustom
     }
 
     public CustomChestBoatEntity(Level level, double x, double y, double z) {
-        this(ModEntityTypes.CHEST_BOAT.get(), level);
+        this(EntityTypeRegistry.CHEST_BOAT.get(), level);
         this.setPos(x, y, z);
         this.xo = x;
         this.yo = y;

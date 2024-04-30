@@ -19,6 +19,7 @@ public class ShadeLeavesBlock extends LeavesBlock {
 
     @OnlyIn(Dist.CLIENT)
     public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource random) {
+        super.animateTick(state, world, pos, random);
         int i = Minecraft.getInstance().getBlockColors().getColor(state, world, pos, 0);
         if (world.getBlockState(new BlockPos(pos.getX(), pos.getY() - 1, pos.getZ())).isAir()) {
             if (random.nextFloat() < 0.035) {

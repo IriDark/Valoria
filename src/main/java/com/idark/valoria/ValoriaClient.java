@@ -18,9 +18,9 @@ import com.idark.valoria.compat.quark.QuarkIntegration;
 import com.idark.valoria.core.config.ClientConfig;
 import com.idark.valoria.registries.BlockEntitiesRegistry;
 import com.idark.valoria.registries.BlockRegistry;
+import com.idark.valoria.registries.EntityTypeRegistry;
 import com.idark.valoria.registries.ItemsRegistry;
 import com.idark.valoria.registries.block.types.ModWoodTypes;
-import com.idark.valoria.registries.entity.ModEntityTypes;
 import com.idark.valoria.registries.entity.decoration.CustomBoatEntity;
 import com.idark.valoria.registries.sounds.CooldownSoundInstance;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
@@ -107,24 +107,24 @@ public class ValoriaClient {
                 }
             });
 
-            EntityRenderers.register(ModEntityTypes.BOAT.get(), m -> new CustomBoatRenderer(m, false));
-            EntityRenderers.register(ModEntityTypes.CHEST_BOAT.get(), m -> new CustomBoatRenderer(m, true));
+            EntityRenderers.register(EntityTypeRegistry.BOAT.get(), m -> new CustomBoatRenderer(m, false));
+            EntityRenderers.register(EntityTypeRegistry.CHEST_BOAT.get(), m -> new CustomBoatRenderer(m, true));
 
-            EntityRenderers.register(ModEntityTypes.NECROMANCER.get(), NecromancerRenderer::new);
-            EntityRenderers.register(ModEntityTypes.DRAUGR.get(), DraugrRenderer::new);
-            EntityRenderers.register(ModEntityTypes.GOBLIN.get(), GoblinRenderer::new);
-            EntityRenderers.register(ModEntityTypes.SWAMP_WANDERER.get(), SwampWandererRenderer::new);
-            EntityRenderers.register(ModEntityTypes.MANNEQUIN.get(), MannequinRenderer::new);
-            EntityRenderers.register(ModEntityTypes.KUNAI.get(), KunaiRenderer::new);
-            EntityRenderers.register(ModEntityTypes.SPECTRAL_BLADE.get(), SpectralBladeRenderer::new);
-            EntityRenderers.register(ModEntityTypes.POISONED_KUNAI.get(), PoisonedKunaiRenderer::new);
-            EntityRenderers.register(ModEntityTypes.MEAT.get(), MeatBlockRenderer::new);
-            EntityRenderers.register(ModEntityTypes.NECROMANCER_FANGS.get(), NecromancerFangsRenderer::new);
-            EntityRenderers.register(ModEntityTypes.UNDEAD.get(), UndeadRenderer::new);
-            EntityRenderers.register(ModEntityTypes.PHANTOM_ARROW.get(), AbstractValoriaArrowRenderer::new);
-            EntityRenderers.register(ModEntityTypes.WICKED_ARROW.get(), AbstractValoriaArrowRenderer::new);
-            EntityRenderers.register(ModEntityTypes.SOUL_ARROW.get(), AbstractValoriaArrowRenderer::new);
-            EntityRenderers.register(ModEntityTypes.INFERNAL_ARROW.get(), AbstractValoriaArrowRenderer::new);
+            EntityRenderers.register(EntityTypeRegistry.NECROMANCER.get(), NecromancerRenderer::new);
+            EntityRenderers.register(EntityTypeRegistry.DRAUGR.get(), DraugrRenderer::new);
+            EntityRenderers.register(EntityTypeRegistry.GOBLIN.get(), GoblinRenderer::new);
+            EntityRenderers.register(EntityTypeRegistry.SWAMP_WANDERER.get(), SwampWandererRenderer::new);
+            EntityRenderers.register(EntityTypeRegistry.MANNEQUIN.get(), MannequinRenderer::new);
+            EntityRenderers.register(EntityTypeRegistry.KUNAI.get(), KunaiRenderer::new);
+            EntityRenderers.register(EntityTypeRegistry.SPECTRAL_BLADE.get(), SpectralBladeRenderer::new);
+            EntityRenderers.register(EntityTypeRegistry.POISONED_KUNAI.get(), PoisonedKunaiRenderer::new);
+            EntityRenderers.register(EntityTypeRegistry.MEAT.get(), MeatBlockRenderer::new);
+            EntityRenderers.register(EntityTypeRegistry.NECROMANCER_FANGS.get(), NecromancerFangsRenderer::new);
+            EntityRenderers.register(EntityTypeRegistry.UNDEAD.get(), UndeadRenderer::new);
+            EntityRenderers.register(EntityTypeRegistry.PHANTOM_ARROW.get(), AbstractValoriaArrowRenderer::new);
+            EntityRenderers.register(EntityTypeRegistry.WICKED_ARROW.get(), AbstractValoriaArrowRenderer::new);
+            EntityRenderers.register(EntityTypeRegistry.SOUL_ARROW.get(), AbstractValoriaArrowRenderer::new);
+            EntityRenderers.register(EntityTypeRegistry.INFERNAL_ARROW.get(), AbstractValoriaArrowRenderer::new);
 
             ModItemModelProperties.makeBow(ItemsRegistry.INFERNAL_BOW.get());
             ModItemModelProperties.makeBow(ItemsRegistry.SAMURAI_LONG_BOW.get());

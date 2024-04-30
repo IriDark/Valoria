@@ -1,8 +1,8 @@
 package com.idark.valoria.registries.entity.decoration;
 
 import com.idark.valoria.registries.BlockRegistry;
+import com.idark.valoria.registries.EntityTypeRegistry;
 import com.idark.valoria.registries.ItemsRegistry;
-import com.idark.valoria.registries.entity.ModEntityTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
@@ -26,7 +26,7 @@ public class CustomBoatEntity extends Boat {
     }
 
     public CustomBoatEntity(Level level, double x, double y, double z) {
-        this(ModEntityTypes.BOAT.get(), level);
+        this(EntityTypeRegistry.BOAT.get(), level);
         this.setPos(x, y, z);
         this.xo = x;
         this.yo = y;

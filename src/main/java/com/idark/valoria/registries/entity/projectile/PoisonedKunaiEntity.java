@@ -1,8 +1,8 @@
 package com.idark.valoria.registries.entity.projectile;
 
 import com.google.common.collect.Lists;
+import com.idark.valoria.registries.EntityTypeRegistry;
 import com.idark.valoria.registries.ItemsRegistry;
-import com.idark.valoria.registries.entity.ModEntityTypes;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -39,7 +39,7 @@ public class PoisonedKunaiEntity extends AbstractKunai {
     }
 
     public PoisonedKunaiEntity(Level worldIn, LivingEntity thrower, ItemStack thrownStackIn) {
-        super(ModEntityTypes.POISONED_KUNAI.get(), thrower, worldIn);
+        super(EntityTypeRegistry.POISONED_KUNAI.get(), thrower, worldIn);
         this.thrownStack = thrownStackIn.copy();
         this.entityData.set(LOYALTY_LEVEL, (byte) EnchantmentHelper.getLoyalty(thrownStackIn));
         this.entityData.set(PIERCE_LEVEL, (byte) EnchantmentHelper.getTagEnchantmentLevel(Enchantments.PIERCING, thrownStackIn));

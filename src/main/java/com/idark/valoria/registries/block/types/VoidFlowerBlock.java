@@ -8,7 +8,7 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.BushBlock;
+import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
@@ -17,24 +17,9 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-public class VoidFlowerBlock extends BushBlock {
-    private final MobEffect stewEffect;
-    private final int stewEffectDuration;
-    private static final VoxelShape shape = Block.box(3, 0, 3, 13, 8, 13);
-
-    public VoidFlowerBlock(MobEffect effect, int effectDuration, BlockBehaviour.Properties properties) {
-        super(properties);
-        this.stewEffect = effect;
-        if (effect.isInstantenous()) {
-            this.stewEffectDuration = effectDuration;
-        } else {
-            this.stewEffectDuration = effectDuration * 20;
-        }
-    }
-
-    @Override
-    public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
-        return shape;
+public class VoidFlowerBlock extends FlowerBlock {
+    public VoidFlowerBlock(java.util.function.Supplier<MobEffect> effect, int effectDuration, BlockBehaviour.Properties properties) {
+        super(effect, effectDuration, properties);
     }
 
     protected boolean mayPlaceOn(BlockState state, BlockGetter worldIn, BlockPos pos) {
@@ -53,13 +38,5 @@ public class VoidFlowerBlock extends BushBlock {
                 worldIn.addParticle(ParticleTypes.SMOKE, d0 + rand.nextDouble() / 5.0D, (double) pos.getY() + (0.5D - rand.nextDouble()), d1 + rand.nextDouble() / 5.0D, 0.0D, 0.0D, 0.0D);
             }
         }
-    }
-
-    public MobEffect getStewEffect() {
-        return this.stewEffect;
-    }
-
-    public int getStewEffectDuration() {
-        return this.stewEffectDuration;
     }
 }

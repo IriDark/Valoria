@@ -28,10 +28,8 @@ import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.block.types.ModWoodTypes;
 import com.idark.valoria.registries.block.types.SarcophagusBlock;
 import com.idark.valoria.registries.command.arguments.ModArgumentTypes;
-import com.idark.valoria.registries.entity.ModEntityTypes;
 import com.idark.valoria.registries.entity.ai.attributes.ModAttributes;
 import com.idark.valoria.registries.entity.decoration.MannequinEntity;
-import com.idark.valoria.registries.entity.decoration.ModPaintings;
 import com.idark.valoria.registries.entity.living.*;
 import com.idark.valoria.registries.levelgen.LevelGen;
 import com.idark.valoria.registries.recipe.PotionBrewery;
@@ -81,7 +79,7 @@ public class Valoria {
         SoundsRegistry.SOUNDS.register(eventBus);
         EffectsRegistry.register(eventBus);
         EnchantmentsRegistry.register(eventBus);
-        ModPaintings.register(eventBus);
+        PaintingRegistry.register(eventBus);
         ModAttributes.register(eventBus);
         PotionBrewery.register(eventBus);
         ItemsRegistry.register(eventBus);
@@ -91,7 +89,7 @@ public class Valoria {
         BlockEntitiesRegistry.register(eventBus);
         RecipesRegistry.register(eventBus);
         MenuRegistry.register(eventBus);
-        ModEntityTypes.register(eventBus);
+        EntityTypeRegistry.register(eventBus);
         ModParticles.register(eventBus);
         LootUtil.register(eventBus);
         ModArgumentTypes.register(eventBus);
@@ -267,17 +265,17 @@ public class Valoria {
         @SubscribeEvent
         public static void commonSetup(FMLCommonSetupEvent event) {
             event.enqueueWork(() -> {
-                SpawnPlacements.register(ModEntityTypes.GOBLIN.get(),
+                SpawnPlacements.register(EntityTypeRegistry.GOBLIN.get(),
                         SpawnPlacements.Type.ON_GROUND,
                         Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                         GoblinEntity::checkGoblinSpawnRules);
 
-                SpawnPlacements.register(ModEntityTypes.DRAUGR.get(),
+                SpawnPlacements.register(EntityTypeRegistry.DRAUGR.get(),
                         SpawnPlacements.Type.ON_GROUND,
                         Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                         DraugrEntity::checkMonsterSpawnRules);
 
-                SpawnPlacements.register(ModEntityTypes.SWAMP_WANDERER.get(),
+                SpawnPlacements.register(EntityTypeRegistry.SWAMP_WANDERER.get(),
                         SpawnPlacements.Type.IN_WATER,
                         Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                         SwampWandererEntity::checkDrownedSpawnRules);
@@ -286,12 +284,12 @@ public class Valoria {
 
         @SubscribeEvent
         public static void registerAttributes(EntityAttributeCreationEvent event) {
-            event.put(ModEntityTypes.MANNEQUIN.get(), MannequinEntity.createAttributes().build());
-            event.put(ModEntityTypes.GOBLIN.get(), GoblinEntity.createAttributes().build());
-            event.put(ModEntityTypes.DRAUGR.get(), DraugrEntity.createAttributes().build());
-            event.put(ModEntityTypes.NECROMANCER.get(), NecromancerEntity.createAttributes().build());
-            event.put(ModEntityTypes.SWAMP_WANDERER.get(), SwampWandererEntity.createAttributes().build());
-            event.put(ModEntityTypes.UNDEAD.get(), UndeadEntity.createAttributes().build());
+            event.put(EntityTypeRegistry.MANNEQUIN.get(), MannequinEntity.createAttributes().build());
+            event.put(EntityTypeRegistry.GOBLIN.get(), GoblinEntity.createAttributes().build());
+            event.put(EntityTypeRegistry.DRAUGR.get(), DraugrEntity.createAttributes().build());
+            event.put(EntityTypeRegistry.NECROMANCER.get(), NecromancerEntity.createAttributes().build());
+            event.put(EntityTypeRegistry.SWAMP_WANDERER.get(), SwampWandererEntity.createAttributes().build());
+            event.put(EntityTypeRegistry.UNDEAD.get(), UndeadEntity.createAttributes().build());
         }
 
         @SubscribeEvent

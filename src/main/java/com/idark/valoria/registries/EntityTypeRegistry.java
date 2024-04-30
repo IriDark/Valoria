@@ -1,4 +1,4 @@
-package com.idark.valoria.registries.entity;
+package com.idark.valoria.registries;
 
 import com.idark.valoria.Valoria;
 import com.idark.valoria.registries.entity.decoration.CustomBoatEntity;
@@ -14,7 +14,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
-public class ModEntityTypes {
+public class EntityTypeRegistry {
     public static DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, Valoria.ID);
 
     public static final RegistryObject<EntityType<SwampWandererEntity>> SWAMP_WANDERER = ENTITY_TYPES.register("swamp_wanderer",

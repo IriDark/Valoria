@@ -3,7 +3,7 @@ package com.idark.valoria.registries.entity.projectile;
 import com.idark.valoria.Valoria;
 import com.idark.valoria.client.particle.ModParticles;
 import com.idark.valoria.client.particle.types.Particles;
-import com.idark.valoria.registries.entity.ModEntityTypes;
+import com.idark.valoria.registries.EntityTypeRegistry;
 import com.idark.valoria.util.RandomUtil;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
@@ -22,7 +22,7 @@ public class InfernalArrow extends AbstractValoriaArrow implements IProjectileTe
     }
 
     public InfernalArrow(Level pLevel, LivingEntity pShooter, ItemStack thrown) {
-        super(ModEntityTypes.INFERNAL_ARROW.get(), pLevel, pShooter, thrown, 0, 1);
+        super(EntityTypeRegistry.INFERNAL_ARROW.get(), pLevel, pShooter, thrown, 0, 1);
     }
 
     @Override

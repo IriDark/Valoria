@@ -1,6 +1,6 @@
 package com.idark.valoria.registries.entity.projectile;
 
-import com.idark.valoria.registries.entity.ModEntityTypes;
+import com.idark.valoria.registries.EntityTypeRegistry;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
@@ -30,7 +30,7 @@ public class NecromancerFangs extends Entity implements TraceableEntity {
     }
 
     public NecromancerFangs(Level pLevel, double pX, double pY, double pZ, float pYRot, int pWarmupDelay, LivingEntity pOwner) {
-        this(ModEntityTypes.NECROMANCER_FANGS.get(), pLevel);
+        this(EntityTypeRegistry.NECROMANCER_FANGS.get(), pLevel);
         this.warmupDelayTicks = pWarmupDelay;
         this.setOwner(pOwner);
         this.setYRot(pYRot * (180F / (float)Math.PI));

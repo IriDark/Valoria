@@ -584,15 +584,15 @@ public class BlockRegistry {
     public static final RegistryObject<Block> POTTED_RAJUSH = BLOCK.register("potted_crimson_rajush",
             () -> new FlowerPotBlock(RAJUSH.get(), BlockBehaviour.Properties.copy(Blocks.POTTED_POPPY).instabreak().noOcclusion()));
     public static final RegistryObject<Block> FALSEFLOWER = registerBlock("falseflower",
-            () -> new VoidFlowerBlock(MobEffects.POISON, 2, BlockBehaviour.Properties.copy(Blocks.CRIMSON_ROOTS).mapColor(MapColor.COLOR_MAGENTA)));
+            () -> new VoidFlowerBlock(() -> MobEffects.POISON, 2, BlockBehaviour.Properties.copy(Blocks.CRIMSON_ROOTS).mapColor(MapColor.COLOR_MAGENTA)));
     public static final RegistryObject<Block> POTTED_FALSEFLOWER = BLOCK.register("potted_falseflower",
             () -> new FlowerPotBlock(FALSEFLOWER.get(), BlockBehaviour.Properties.copy(Blocks.POTTED_POPPY).instabreak().noOcclusion()));
     public static final RegistryObject<Block> FALSEFLOWER_SMALL = registerBlock("falseflower_small",
-            () -> new VoidFlowerBlock(MobEffects.POISON, 2, BlockBehaviour.Properties.copy(Blocks.CRIMSON_ROOTS).mapColor(MapColor.COLOR_MAGENTA)));
+            () -> new VoidFlowerBlock(() -> MobEffects.POISON, 2, BlockBehaviour.Properties.copy(Blocks.CRIMSON_ROOTS).mapColor(MapColor.COLOR_MAGENTA)));
     public static final RegistryObject<Block> POTTED_FALSEFLOWER_SMALL = BLOCK.register("potted_falseflower_small",
             () -> new FlowerPotBlock(FALSEFLOWER_SMALL.get(), BlockBehaviour.Properties.copy(Blocks.POTTED_POPPY).instabreak().noOcclusion()));
     public static final RegistryObject<Block> SOULFLOWER = registerBlock("soulflower",
-            () -> new VoidFlowerBlock(MobEffects.NIGHT_VISION, 5, BlockBehaviour.Properties.copy(Blocks.CRIMSON_ROOTS).mapColor(MapColor.COLOR_MAGENTA)));
+            () -> new VoidFlowerBlock(() -> MobEffects.NIGHT_VISION, 5, BlockBehaviour.Properties.copy(Blocks.CRIMSON_ROOTS).mapColor(MapColor.COLOR_MAGENTA)));
     public static final RegistryObject<Block> POTTED_SOULFLOWER = BLOCK.register("potted_soulflower",
             () -> new FlowerPotBlock(SOULFLOWER.get(), BlockBehaviour.Properties.copy(Blocks.POTTED_POPPY).instabreak().noOcclusion()));
     public static final RegistryObject<Block> VOID_ROOTS = registerBlock("void_roots",

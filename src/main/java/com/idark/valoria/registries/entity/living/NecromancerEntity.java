@@ -3,7 +3,7 @@ package com.idark.valoria.registries.entity.living;
 import com.idark.valoria.core.network.PacketHandler;
 import com.idark.valoria.core.network.packets.CircleShapedParticlePacket;
 import com.idark.valoria.core.network.packets.NecromancerSummonParticlePacket;
-import com.idark.valoria.registries.entity.ModEntityTypes;
+import com.idark.valoria.registries.EntityTypeRegistry;
 import com.idark.valoria.registries.entity.projectile.NecromancerFangs;
 import com.idark.valoria.util.RandomUtil;
 import com.idark.valoria.util.ValoriaUtils;
@@ -319,7 +319,7 @@ public class NecromancerEntity extends AbstractNecromancer {
         }
 
         private void spawnUndead(ServerLevel serverLevel, BlockPos blockpos) {
-            UndeadEntity undead = ModEntityTypes.UNDEAD.get().create(NecromancerEntity.this.level());
+            UndeadEntity undead = EntityTypeRegistry.UNDEAD.get().create(NecromancerEntity.this.level());
             if (undead != null && serverLevel.isEmptyBlock(blockpos)) {
                 undead.moveTo(blockpos, 0.0F, 0.0F);
                 undead.finalizeSpawn(serverLevel, NecromancerEntity.this.level().getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, null, null);
@@ -501,7 +501,7 @@ public class NecromancerEntity extends AbstractNecromancer {
             Skeleton target = NecromancerEntity.this.getWololoTarget();
             ServerLevel serverlevel = (ServerLevel) NecromancerEntity.this.level();
             if (target != null && target.isAlive()) {
-                DraugrEntity mob = ModEntityTypes.DRAUGR.get().create(serverlevel);
+                DraugrEntity mob = EntityTypeRegistry.DRAUGR.get().create(serverlevel);
                 if (mob != null) {
                     serverlevel.addFreshEntity(mob);
                     BlockPos pos = new BlockPos(target.getBlockX(), target.getBlockY(), target.getBlockZ());

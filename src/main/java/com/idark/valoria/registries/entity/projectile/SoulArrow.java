@@ -3,7 +3,7 @@ package com.idark.valoria.registries.entity.projectile;
 import com.idark.valoria.Valoria;
 import com.idark.valoria.client.particle.ModParticles;
 import com.idark.valoria.client.particle.types.Particles;
-import com.idark.valoria.registries.entity.ModEntityTypes;
+import com.idark.valoria.registries.EntityTypeRegistry;
 import com.idark.valoria.util.RandomUtil;
 import com.idark.valoria.util.ValoriaUtils;
 import net.minecraft.resources.ResourceLocation;
@@ -24,7 +24,7 @@ public class SoulArrow extends AbstractValoriaArrow implements IProjectileTextur
     }
 
     public SoulArrow(Level pLevel, LivingEntity pShooter, ItemStack thrown) {
-        super(ModEntityTypes.SOUL_ARROW.get(), pLevel, pShooter, thrown, 0, 1);
+        super(EntityTypeRegistry.SOUL_ARROW.get(), pLevel, pShooter, thrown, 0, 1);
     }
 
     @Override

@@ -3,7 +3,7 @@ package com.idark.valoria.registries.entity.projectile;
 import com.idark.valoria.Valoria;
 import com.idark.valoria.client.particle.ModParticles;
 import com.idark.valoria.client.particle.types.Particles;
-import com.idark.valoria.registries.entity.ModEntityTypes;
+import com.idark.valoria.registries.EntityTypeRegistry;
 import com.idark.valoria.util.RandomUtil;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
@@ -22,7 +22,7 @@ public class PhantomArrow extends AbstractValoriaArrow implements IProjectileTex
     }
 
     public PhantomArrow(Level pLevel, LivingEntity pShooter, ItemStack thrown) {
-        super(ModEntityTypes.PHANTOM_ARROW.get(), pLevel, pShooter, thrown, 2, 6);
+        super(EntityTypeRegistry.PHANTOM_ARROW.get(), pLevel, pShooter, thrown, 2, 6);
     }
 
     @Override

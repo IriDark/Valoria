@@ -3,7 +3,6 @@ package com.idark.valoria.registries;
 import com.idark.valoria.Valoria;
 import com.idark.valoria.client.gui.screen.book.unlockable.RegisterUnlockables;
 import com.idark.valoria.client.particle.ModParticles;
-import com.idark.valoria.registries.entity.ModEntityTypes;
 import com.idark.valoria.registries.entity.decoration.CustomBoatEntity;
 import com.idark.valoria.registries.item.tiers.ModArmorItem;
 import com.idark.valoria.registries.item.tiers.ModArmorMaterial;
@@ -462,15 +461,15 @@ public class ItemsRegistry {
             () -> new SoulArrowItem(new Item.Properties().rarity(RarityRegistry.AQUARIUS)));
 
     public static final RegistryObject<ForgeSpawnEggItem> GOBLIN_SPAWN_EGG = ITEMS.register("goblin_spawn_egg",
-            () -> new ForgeSpawnEggItem(ModEntityTypes.GOBLIN, ValoriaUtils.color.hexToDecimal("185b36"), ValoriaUtils.color.hexToDecimal("6BB447"), new Item.Properties()));
+            () -> new ForgeSpawnEggItem(EntityTypeRegistry.GOBLIN, ValoriaUtils.color.hexToDecimal("185b36"), ValoriaUtils.color.hexToDecimal("6BB447"), new Item.Properties()));
     public static final RegistryObject<ForgeSpawnEggItem> DRAUGR_SPAWN_EGG = ITEMS.register("draugr_spawn_egg",
-            () -> new ForgeSpawnEggItem(ModEntityTypes.DRAUGR, ValoriaUtils.color.hexToDecimal("76695C"), ValoriaUtils.color.hexToDecimal("d6d0c9"), new Item.Properties()));
+            () -> new ForgeSpawnEggItem(EntityTypeRegistry.DRAUGR, ValoriaUtils.color.hexToDecimal("76695C"), ValoriaUtils.color.hexToDecimal("d6d0c9"), new Item.Properties()));
     public static final RegistryObject<ForgeSpawnEggItem> SWAMP_WANDERER_SPAWN_EGG = ITEMS.register("swamp_wanderer_spawn_egg",
-            () -> new ForgeSpawnEggItem(ModEntityTypes.SWAMP_WANDERER, ValoriaUtils.color.hexToDecimal("606239"), ValoriaUtils.color.hexToDecimal("b8b377"), new Item.Properties()));
+            () -> new ForgeSpawnEggItem(EntityTypeRegistry.SWAMP_WANDERER, ValoriaUtils.color.hexToDecimal("606239"), ValoriaUtils.color.hexToDecimal("b8b377"), new Item.Properties()));
     public static final RegistryObject<ForgeSpawnEggItem> NECROMANCER_SPAWN_EGG = ITEMS.register("necromancer_spawn_egg",
-            () -> new ForgeSpawnEggItem(ModEntityTypes.NECROMANCER, ValoriaUtils.color.hexToDecimal("4b4857"), ValoriaUtils.color.hexToDecimal("958fb7"), new Item.Properties()));
+            () -> new ForgeSpawnEggItem(EntityTypeRegistry.NECROMANCER, ValoriaUtils.color.hexToDecimal("4b4857"), ValoriaUtils.color.hexToDecimal("958fb7"), new Item.Properties()));
     public static final RegistryObject<ForgeSpawnEggItem> UNDEAD_SPAWN_EGG = ITEMS.register("undead_spawn_egg",
-            () -> new ForgeSpawnEggItem(ModEntityTypes.UNDEAD, ValoriaUtils.color.hexToDecimal("625F71"), ValoriaUtils.color.hexToDecimal("ffffff"), new Item.Properties()));
+            () -> new ForgeSpawnEggItem(EntityTypeRegistry.UNDEAD, ValoriaUtils.color.hexToDecimal("625F71"), ValoriaUtils.color.hexToDecimal("ffffff"), new Item.Properties()));
     public static final RegistryObject<MannequinSpawnItem> MANNEQUIN_SPAWN_EGG = ITEMS.register("mannequin_spawn_egg",
             () -> new MannequinSpawnItem(new Item.Properties()));
 

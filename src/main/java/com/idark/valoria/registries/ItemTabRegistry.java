@@ -2,7 +2,6 @@ package com.idark.valoria.registries;
 
 import com.idark.valoria.Valoria;
 import com.idark.valoria.compat.quark.QuarkIntegration;
-import com.idark.valoria.registries.entity.decoration.ModPaintings;
 import com.idark.valoria.util.ValoriaUtils;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
@@ -639,7 +638,7 @@ public abstract class ItemTabRegistry {
             event.accept(BlockRegistry.MEAT_BLOCK);
             event.accept(BlockRegistry.EYE_MEAT);
             event.accept(BlockRegistry.SARCOPHAGUS);
-            event.getParameters().holders().lookup(ModPaintings.PAINTING_TYPES.getRegistryKey()).ifPresent((p_270026_) -> generatePresetPaintings(event, p_270026_, (p_270037_) -> p_270037_.is(TagsRegistry.MODDED), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
+            event.getParameters().holders().lookup(PaintingRegistry.PAINTING_TYPES.getRegistryKey()).ifPresent((p_270026_) -> generatePresetPaintings(event, p_270026_, (p_270037_) -> p_270037_.is(TagsRegistry.MODDED), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
         }
     }
 

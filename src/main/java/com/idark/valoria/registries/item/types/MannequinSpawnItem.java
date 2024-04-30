@@ -1,6 +1,6 @@
 package com.idark.valoria.registries.item.types;
 
-import com.idark.valoria.registries.entity.ModEntityTypes;
+import com.idark.valoria.registries.EntityTypeRegistry;
 import com.idark.valoria.registries.entity.decoration.MannequinEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -37,11 +37,11 @@ public class MannequinSpawnItem extends Item {
             BlockPos blockpos = blockplacecontext.getClickedPos();
             ItemStack itemstack = pContext.getItemInHand();
             Vec3 vec3 = Vec3.atBottomCenterOf(blockpos);
-            AABB aabb = ModEntityTypes.MANNEQUIN.get().getDimensions().makeBoundingBox(vec3.x(), vec3.y(), vec3.z());
+            AABB aabb = EntityTypeRegistry.MANNEQUIN.get().getDimensions().makeBoundingBox(vec3.x(), vec3.y(), vec3.z());
             if (level.noCollision(null, aabb) && level.getEntities(null, aabb).isEmpty() && !level.getBlockState(blockpos.below()).isAir()) {
                 if (level instanceof ServerLevel serverlevel) {
                     Consumer<MannequinEntity> consumer = EntityType.createDefaultStackConfig(serverlevel, itemstack, pContext.getPlayer());
-                    MannequinEntity mannequin = ModEntityTypes.MANNEQUIN.get().create(serverlevel, itemstack.getTag(), consumer, blockpos, MobSpawnType.SPAWN_EGG, true, true);
+                    MannequinEntity mannequin = EntityTypeRegistry.MANNEQUIN.get().create(serverlevel, itemstack.getTag(), consumer, blockpos, MobSpawnType.SPAWN_EGG, true, true);
                     if (mannequin == null) {
                         return InteractionResult.FAIL;
                     }
