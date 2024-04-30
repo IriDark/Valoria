@@ -23,18 +23,23 @@ public class UnlockableArgumentType implements ArgumentType<Unlockable> {
 
     @Override
     public <S> CompletableFuture<Suggestions> listSuggestions(final CommandContext<S> context, final SuggestionsBuilder builder) {
-        for (Unlockable s : Unlockables.getUnlockables())
-            if (s.getId().startsWith(builder.getRemainingLowerCase()))
+        for (Unlockable s : Unlockables.getUnlockables()) {
+            if (s.getId().startsWith(builder.getRemainingLowerCase())) {
                 builder.suggest(s.getId());
+            }
+        }
         return builder.buildFuture();
     }
 
     @Override
     public Unlockable parse(StringReader reader) throws CommandSyntaxException {
-        ResourceLocation rl = ResourceLocation.read(reader);
-        Unlockable s = Unlockables.getUnlockable(rl.toString());
-        if (s == null) throw UNKNOWN.create(rl.toString());
-        return s;
+        ResourceLocation location = ResourceLocation.read(reader);
+        Unlockable unlockable = Unlockables.getUnlockable(location.toString());
+        if (unlockable == null) {
+            throw UNKNOWN.create(location.toString());
+        }
+
+        return unlockable;
     }
 
     public static UnlockableArgumentType unlockableArgumentType() {

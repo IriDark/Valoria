@@ -153,14 +153,6 @@ public class CommandArgument extends CommandPart {
         return res;
     }
 
-//    public LexiconPages getPages(final CommandContext<?> context, final String name) {
-//        return context.getArgument(name, LexiconPages.class);
-//    }
-//
-//    public static CommandArgument pages(String pName) {
-//        return new CommandArgument(pName, EnumArgument.enumArgument(LexiconPages.class));
-//    }
-
     public Unlockable getPages(final CommandContext<?> context, final String name) {
         return context.getArgument(name, UnlockableArgumentType.getUnlockable(context, name).getClass());
     }

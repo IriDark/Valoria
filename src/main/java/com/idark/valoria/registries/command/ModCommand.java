@@ -24,34 +24,37 @@ public class ModCommand {
         CommandArgument targets = CommandArgument.entities("targets");
         CommandArgument pages = CommandArgument.pages("pages");
         CommandArgument charges = CommandArgument.integer("charges", 0, 2);
-        CommandBuilder builder = new CommandBuilder("valoria")
-                .variants(
-                        new CommandVariant(CommandPart.create("addAllPages"), targets).execute((p) -> {
+        CommandBuilder lexicon = new CommandBuilder("lexicon");
+        CommandBuilder builder = new CommandBuilder("valoria").variants(
+                lexicon.variants(
+                        new CommandVariant(CommandPart.create("addAll"), targets).execute((p) -> {
                             giveAllPages(p.getSource(), targets.getPlayers(p));
                             return 1;
                         }),
 
-                        new CommandVariant(CommandPart.create("addPage"), targets, pages).execute((p) -> {
+                        new CommandVariant(CommandPart.create("add"), targets, pages).execute((p) -> {
                             givePage(p.getSource(), targets.getPlayers(p), pages.getPages(p, "pages"));
                             return 1;
                         }),
 
-                        new CommandVariant(CommandPart.create("removeAllPages"), targets).execute((p) -> {
+                        new CommandVariant(CommandPart.create("removeAll"), targets).execute((p) -> {
                             removeAllPages(p.getSource(), targets.getPlayers(p));
                             return 1;
                         }),
 
-                        new CommandVariant(CommandPart.create("removePage"), targets, pages).execute((p) -> {
+                        new CommandVariant(CommandPart.create("remove"), targets, pages).execute((p) -> {
                             removePage(p.getSource(), targets.getPlayers(p), pages.getPages(p, "pages"));
                             return 1;
-                        }),
-
-                        new CommandVariant(CommandPart.create("setCharge"), targets, charges).execute((p) -> {
-                            setCharge(p.getSource(), targets.getPlayers(p), charges.getInt(p), p);
-                            return 1;
                         })
-                );
+                ),
 
+                new CommandVariant(CommandPart.create("setCharge"), targets, charges).execute((p) -> {
+                    setCharge(p.getSource(), targets.getPlayers(p), charges.getInt(p), p);
+                    return 1;
+                })
+        );
+
+        dispatcher.register(lexicon.permission((p) -> p.hasPermission(2)).build());
         dispatcher.register(builder.permission((p) -> p.hasPermission(2)).build());
     }
 
