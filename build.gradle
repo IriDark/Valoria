@@ -117,12 +117,12 @@ dependencies {
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:5.7.2+1.20.1")
     runtimeOnly fg.deobf("mezz.jei:jei-1.20.1-forge:15.2.0.27")
     runtimeOnly fg.deobf("curse.maven:appleskin-248787:4770828")
-    //runtimeOnly fg.deobf("curse.maven:prism-lib-638111:4627141")
-    //runtimeOnly fg.deobf("maven.modrinth:iceberg:1.1.13")
-    //runtimeOnly fg.deobf("maven.modrinth:legendary-tooltips:1.4.5")
-    //runtimeOnly fg.deobf("curse.maven:advanced-xray-256256:4840340") // used to test ore balance
-    //runtimeOnly fg.deobf("curse.maven:model-gap-fix-676136:4607206")
-    //runtimeOnly fg.deobf("curse.maven:just-enough-effect-descriptions-jeed-532286:4978810")
+    runtimeOnly fg.deobf("curse.maven:prism-lib-638111:4627141")
+    runtimeOnly fg.deobf("maven.modrinth:iceberg:1.1.13")
+    runtimeOnly fg.deobf("maven.modrinth:legendary-tooltips:1.4.5")
+    runtimeOnly fg.deobf("curse.maven:advanced-xray-256256:4840340") // used to test ore balance
+    runtimeOnly fg.deobf("curse.maven:model-gap-fix-676136:4607206")
+    runtimeOnly fg.deobf("curse.maven:just-enough-effect-descriptions-jeed-532286:4978810")
     //runtimeOnly fg.deobf("curse.maven:mutil-351914:4824501")
     //runtimeOnly fg.deobf("curse.maven:tetra-289712:4857842")
 }
