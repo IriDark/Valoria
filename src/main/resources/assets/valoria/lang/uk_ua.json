@@ -29,6 +29,8 @@
   "advancement.valoria:valoria": "Valoria",
   "advancement.valoria:valoria.desc": "Початок пригод!",
   "advancement.valoria:word": "Багато алкоголю шкодить здоров'ю!",
+  "attribute.valoria.attack_radius": "Attack Radius",
+  "attribute.valoria.dash_distance": "Dash Distance",
   "attribute.valoria.excavation_speed": "швидкости розкопок",
   "attribute.valoria.projectile_damage": "шкоди від снаряду",
   "biome.valoria.shade_forest": "Shade Forest",
