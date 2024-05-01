@@ -29,6 +29,8 @@
   "advancement.valoria:valoria": "Valoria",
   "advancement.valoria:valoria.desc": "Начало нашего путешествия!",
   "advancement.valoria:word": "Слово ро-м и... слово сме-рть...",
+  "attribute.valoria.attack_radius": "Attack Radius",
+  "attribute.valoria.dash_distance": "Dash Distance",
   "attribute.valoria.excavation_speed": "Скорость Раскопки",
   "attribute.valoria.projectile_damage": "Урон от снаряда",
   "biome.valoria.shade_forest": "Тенелес",
