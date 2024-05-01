@@ -28,7 +28,6 @@ import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.block.types.ModWoodTypes;
 import com.idark.valoria.registries.block.types.SarcophagusBlock;
 import com.idark.valoria.registries.command.arguments.ModArgumentTypes;
-import com.idark.valoria.registries.entity.ai.attributes.ModAttributes;
 import com.idark.valoria.registries.entity.decoration.MannequinEntity;
 import com.idark.valoria.registries.entity.living.*;
 import com.idark.valoria.registries.levelgen.LevelGen;
@@ -38,6 +37,7 @@ import com.idark.valoria.util.RenderUtils;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.Items;
@@ -53,6 +53,7 @@ import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
+import net.minecraftforge.event.entity.EntityAttributeModificationEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
@@ -80,7 +81,7 @@ public class Valoria {
         EffectsRegistry.register(eventBus);
         EnchantmentsRegistry.register(eventBus);
         PaintingRegistry.register(eventBus);
-        ModAttributes.register(eventBus);
+        AttributeRegistry.register(eventBus);
         PotionBrewery.register(eventBus);
         ItemsRegistry.register(eventBus);
         BlockRegistry.register(eventBus);
@@ -290,6 +291,12 @@ public class Valoria {
             event.put(EntityTypeRegistry.NECROMANCER.get(), NecromancerEntity.createAttributes().build());
             event.put(EntityTypeRegistry.SWAMP_WANDERER.get(), SwampWandererEntity.createAttributes().build());
             event.put(EntityTypeRegistry.UNDEAD.get(), UndeadEntity.createAttributes().build());
+        }
+
+        @SubscribeEvent
+        public static void attachAttribute(EntityAttributeModificationEvent event) {
+            event.add(EntityType.PLAYER, AttributeRegistry.DASH_DISTANCE.get());
+            event.add(EntityType.PLAYER, AttributeRegistry.ATTACK_RADIUS.get());
         }
 
         @SubscribeEvent

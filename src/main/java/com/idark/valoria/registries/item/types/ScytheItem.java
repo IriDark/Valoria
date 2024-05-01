@@ -1,8 +1,11 @@
 package com.idark.valoria.registries.item.types;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMultimap;
+import com.google.common.collect.Multimap;
 import com.idark.valoria.client.render.model.item.ItemAnims;
 import com.idark.valoria.client.render.model.item.RadiusAttackAnim;
+import com.idark.valoria.registries.AttributeRegistry;
 import com.idark.valoria.registries.SoundsRegistry;
 import com.idark.valoria.util.RandomUtil;
 import com.idark.valoria.util.ValoriaUtils;
@@ -16,6 +19,8 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
@@ -28,17 +33,22 @@ import org.joml.Vector3d;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
-//TODO: Would be good to show the player scythe attack radius as a attribute
 public class ScytheItem extends SwordItem implements ICustomAnimationItem, ICooldownItem, IRadiusItem {
     public static RadiusAttackAnim animation = new RadiusAttackAnim();
-    public int radius = 3;
     public float chance = 1;
     private final ImmutableList<MobEffectInstance> effects;
+    private final Multimap<Attribute, AttributeModifier> defaultModifiers;
 
     public ScytheItem(Tier tier, int attackDamageIn, float attackSpeedIn, Properties builderIn) {
         super(tier, attackDamageIn, attackSpeedIn, builderIn);
         this.effects = ImmutableList.of();
+        ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
+        builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", attackDamageIn, AttributeModifier.Operation.ADDITION));
+        builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Tool modifier", attackSpeedIn, AttributeModifier.Operation.ADDITION));
+        builder.put(AttributeRegistry.ATTACK_RADIUS.get(), new AttributeModifier(UUID.fromString("49438567-6ad2-41bd-8385-676ad2a1bd5e"), "Tool modifier", 3, AttributeModifier.Operation.ADDITION));
+        this.defaultModifiers = builder.build();
     }
 
     /**
@@ -50,8 +60,12 @@ public class ScytheItem extends SwordItem implements ICustomAnimationItem, ICool
      */
     public ScytheItem(Tier tier, int attackDamageIn, float attackSpeedIn, int radius, Properties builderIn, MobEffectInstance... pEffects) {
         super(tier, attackDamageIn, attackSpeedIn, builderIn);
-        this.radius = radius;
         this.effects = ImmutableList.copyOf(pEffects);
+        ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
+        builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", attackDamageIn, AttributeModifier.Operation.ADDITION));
+        builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Tool modifier", attackSpeedIn, AttributeModifier.Operation.ADDITION));
+        builder.put(AttributeRegistry.ATTACK_RADIUS.get(), new AttributeModifier(UUID.fromString("49438567-6ad2-41bd-8385-676ad2a1bd5e"), "Tool modifier", radius, AttributeModifier.Operation.ADDITION));
+        this.defaultModifiers = builder.build();
     }
 
     /**
@@ -64,9 +78,13 @@ public class ScytheItem extends SwordItem implements ICustomAnimationItem, ICool
      */
     public ScytheItem(Tier tier, int attackDamageIn, float attackSpeedIn, int radius, Properties builderIn, float chance, MobEffectInstance... pEffects) {
         super(tier, attackDamageIn, attackSpeedIn, builderIn);
-        this.radius = radius;
         this.effects = ImmutableList.copyOf(pEffects);
         this.chance = chance;
+        ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
+        builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", attackDamageIn, AttributeModifier.Operation.ADDITION));
+        builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Tool modifier", attackSpeedIn, AttributeModifier.Operation.ADDITION));
+        builder.put(AttributeRegistry.ATTACK_RADIUS.get(), new AttributeModifier(UUID.fromString("49438567-6ad2-41bd-8385-676ad2a1bd5e"), "Tool modifier", radius, AttributeModifier.Operation.ADDITION));
+        this.defaultModifiers = builder.build();
     }
 
     public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
@@ -100,6 +118,7 @@ public class ScytheItem extends SwordItem implements ICustomAnimationItem, ICool
         Player player = (Player) entityLiving;
         player.awardStat(Stats.ITEM_USED.get(this));
         float damage = (float) (player.getAttributeValue(Attributes.ATTACK_DAMAGE)) + EnchantmentHelper.getSweepingDamageRatio(player);
+        float radius = (float) player.getAttributeValue(AttributeRegistry.ATTACK_RADIUS.get());
         for (Item item : ForgeRegistries.ITEMS) {
             if (item instanceof ScytheItem) {
                 player.getCooldowns().addCooldown(item, 100);
@@ -138,6 +157,10 @@ public class ScytheItem extends SwordItem implements ICustomAnimationItem, ICool
 
         level.playSound(null, player.blockPosition(), SoundsRegistry.SWIFTSLICE.get(), SoundSource.AMBIENT, 10f, 1f);
         return stack;
+    }
+
+    public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot pEquipmentSlot) {
+        return pEquipmentSlot == EquipmentSlot.MAINHAND ? this.defaultModifiers : super.getDefaultAttributeModifiers(pEquipmentSlot);
     }
 
     @Override

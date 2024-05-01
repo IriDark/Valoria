@@ -1,6 +1,8 @@
 {
 	"attribute.valoria.excavation_speed": "Excavation Speed",
 	"attribute.valoria.projectile_damage": "Projectile Damage",
+	"attribute.valoria.dash_distance": "Dash Distance",
+	"attribute.valoria.attack_radius": "Attack Radius",
 
 	"config.jade.plugin_valoria.jewelry": "Jewelry",
 	"config.jade.plugin_valoria.crusher": "Crusher",

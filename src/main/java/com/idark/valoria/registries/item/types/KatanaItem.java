@@ -1,7 +1,10 @@
 package com.idark.valoria.registries.item.types;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMultimap;
+import com.google.common.collect.Multimap;
 import com.idark.valoria.client.gui.overlay.DashOverlayRender;
+import com.idark.valoria.registries.AttributeRegistry;
 import com.idark.valoria.registries.SoundsRegistry;
 import com.idark.valoria.util.RandomUtil;
 import com.idark.valoria.util.ValoriaUtils;
@@ -18,6 +21,8 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
@@ -36,18 +41,23 @@ import org.joml.Vector3d;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 
-//TODO: Would be good to show the player katana dash distance as a attribute
 public class KatanaItem extends SwordItem implements ICooldownItem {
-    public float dashDistance = 1.8f;
     public float chance = 1;
 
     Random rand = new Random();
     private final ImmutableList<MobEffectInstance> effects;
+    private final Multimap<Attribute, AttributeModifier> defaultModifiers;
 
     public KatanaItem(Tier tier, int attackDamageIn, float attackSpeedIn, Item.Properties builderIn) {
         super(tier, attackDamageIn, attackSpeedIn, builderIn);
         this.effects = ImmutableList.of();
+        ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
+        builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", attackDamageIn, AttributeModifier.Operation.ADDITION));
+        builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Tool modifier", attackSpeedIn, AttributeModifier.Operation.ADDITION));
+        builder.put(AttributeRegistry.DASH_DISTANCE.get(), new AttributeModifier(UUID.fromString("b0e5853a-d071-40db-a585-3ad07100db82"), "Tool modifier", 1.8f, AttributeModifier.Operation.ADDITION));
+        this.defaultModifiers = builder.build();
     }
 
     /**
@@ -56,8 +66,12 @@ public class KatanaItem extends SwordItem implements ICooldownItem {
      */
     public KatanaItem(Tier tier, int attackDamageIn, float attackSpeedIn, float dashDistance, Item.Properties builderIn, MobEffectInstance... pEffects) {
         super(tier, attackDamageIn, attackSpeedIn, builderIn);
-        this.dashDistance = dashDistance;
         this.effects = ImmutableList.copyOf(pEffects);
+        ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
+        builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", attackDamageIn, AttributeModifier.Operation.ADDITION));
+        builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Tool modifier", attackSpeedIn, AttributeModifier.Operation.ADDITION));
+        builder.put(AttributeRegistry.DASH_DISTANCE.get(), new AttributeModifier(UUID.fromString("b0e5853a-d071-40db-a585-3ad07100db82"), "Tool modifier", dashDistance, AttributeModifier.Operation.ADDITION));
+        this.defaultModifiers = builder.build();
     }
 
     /**
@@ -72,9 +86,13 @@ public class KatanaItem extends SwordItem implements ICooldownItem {
 
     public KatanaItem(Tier tier, int attackDamageIn, float attackSpeedIn, float dashDistance, Item.Properties builderIn, float chance, MobEffectInstance... pEffects) {
         super(tier, attackDamageIn, attackSpeedIn, builderIn);
-        this.dashDistance = dashDistance;
         this.effects = ImmutableList.copyOf(pEffects);
         this.chance = chance;
+        ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
+        builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", attackDamageIn, AttributeModifier.Operation.ADDITION));
+        builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Tool modifier", attackSpeedIn, AttributeModifier.Operation.ADDITION));
+        builder.put(AttributeRegistry.DASH_DISTANCE.get(), new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", dashDistance, AttributeModifier.Operation.ADDITION));
+        this.defaultModifiers = builder.build();
     }
 
     public boolean mineBlock(@NotNull ItemStack stack, @NotNull Level worldIn, BlockState state, @NotNull BlockPos pos, LivingEntity entityLiving) {
@@ -92,7 +110,6 @@ public class KatanaItem extends SwordItem implements ICooldownItem {
         } else {
             playerIn.startUsingItem(handIn);
             itemstack.hurtAndBreak(10, playerIn, (entity) -> playerIn.broadcastBreakEvent(EquipmentSlot.MAINHAND));
-
             return InteractionResultHolder.consume(itemstack);
         }
     }
@@ -110,6 +127,7 @@ public class KatanaItem extends SwordItem implements ICooldownItem {
         Vector3d pos = new Vector3d(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());
         double pitch = ((player.getRotationVector().x + 90) * Math.PI) / 180;
         double yaw = ((player.getRotationVector().y + 90) * Math.PI) / 180;
+        float dashDistance = (float) player.getAttributeValue(AttributeRegistry.DASH_DISTANCE.get());
 
         // preventing using the katana when flying on Elytra
         if (!player.isFallFlying()) {
@@ -211,6 +229,10 @@ public class KatanaItem extends SwordItem implements ICooldownItem {
         }
 
         return Math.sqrt((X - pos.x) * (X - pos.x) + (Y - pos.y) * (Y - pos.y) + (Z - pos.z) * (Z - pos.z));
+    }
+
+    public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot pEquipmentSlot) {
+        return pEquipmentSlot == EquipmentSlot.MAINHAND ? this.defaultModifiers : super.getDefaultAttributeModifiers(pEquipmentSlot);
     }
 
     @Override

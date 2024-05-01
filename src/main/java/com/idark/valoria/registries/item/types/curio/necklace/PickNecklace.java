@@ -3,7 +3,7 @@ package com.idark.valoria.registries.item.types.curio.necklace;
 import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.Multimap;
 import com.idark.valoria.Valoria;
-import com.idark.valoria.registries.entity.ai.attributes.ModAttributes;
+import com.idark.valoria.registries.AttributeRegistry;
 import com.idark.valoria.registries.item.types.curio.ICurioTexture;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -34,7 +34,7 @@ public class PickNecklace extends Item implements ICurioItem, ICurioTexture {
     @Override
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(SlotContext slotContext, UUID uuid, ItemStack stack) {
         Multimap<Attribute, AttributeModifier> atts = LinkedHashMultimap.create();
-        atts.put(ModAttributes.EXCAVATION_SPEED.get(), new AttributeModifier(uuid, "bonus", 3, AttributeModifier.Operation.ADDITION));
+        atts.put(AttributeRegistry.EXCAVATION_SPEED.get(), new AttributeModifier(uuid, "bonus", 3, AttributeModifier.Operation.ADDITION));
 
         return atts;
     }
