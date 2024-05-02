@@ -46,6 +46,7 @@ Explore the enriched landscapes with an exotic plants <p> Valoria introduces a r
 - Auriny `| Code | Testing |`
 - Skoow `| Code |`
 - Gato `| Models |`
+- KoteykaTheCat `| Done a portfolio page for me! |`
 - GraFik
 - Wosaj
 - FoxPlane

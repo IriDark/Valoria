@@ -69,6 +69,14 @@ public class GoblinEntity extends PathfinderMob implements NeutralMob, Enemy {
         }
     };
 
+    public int getExperienceReward() {
+        if (this.isBaby()) {
+            this.xpReward = (int)((double)this.xpReward * 2.5D);
+        }
+
+        return super.getExperienceReward();
+    }
+
     @Nullable
     private UUID persistentAngerTarget;
     private int ticksSinceEaten;
