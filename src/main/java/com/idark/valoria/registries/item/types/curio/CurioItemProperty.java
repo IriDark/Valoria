@@ -70,14 +70,14 @@ public class CurioItemProperty extends Item implements ICurioItem, ICurioTexture
         // Reciving Gem Type & gives atts
         switch (gem) {
             case NONE:
-                atts.put(Attributes.ARMOR, new AttributeModifier(uuid, "bonus", 0.5, AttributeModifier.Operation.ADDITION));
+                atts.put(Attributes.ARMOR, new AttributeModifier(uuid, "bonus", 0.2, AttributeModifier.Operation.ADDITION));
                 break;
             case AMBER:
-                atts.put(Attributes.ARMOR, new AttributeModifier(uuid, "bonus", 1, AttributeModifier.Operation.ADDITION));
+                atts.put(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(uuid, "bonus", 0.25f, AttributeModifier.Operation.ADDITION));
                 break;
             case DIAMOND:
-                atts.put(Attributes.ARMOR, new AttributeModifier(uuid, "bonus", 4, AttributeModifier.Operation.ADDITION));
-                atts.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(uuid, "bonus", 2, AttributeModifier.Operation.ADDITION));
+                atts.put(Attributes.ARMOR, new AttributeModifier(uuid, "bonus", 2, AttributeModifier.Operation.ADDITION));
+                atts.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(uuid, "bonus", 1.2f, AttributeModifier.Operation.ADDITION));
                 break;
             case EMERALD:
                 atts.put(Attributes.LUCK, new AttributeModifier(uuid, "bonus", 1, AttributeModifier.Operation.ADDITION));
@@ -98,29 +98,29 @@ public class CurioItemProperty extends Item implements ICurioItem, ICurioTexture
                 break;
             case ARMOR:
                 if (material == AccessoryMaterial.IRON) {
-                    atts.put(Attributes.ARMOR, new AttributeModifier(uuid, "bonus", 3, AttributeModifier.Operation.ADDITION));
+                    atts.put(Attributes.ARMOR, new AttributeModifier(uuid, "bonus", 1.5f, AttributeModifier.Operation.ADDITION));
                 } else {
-                    atts.put(Attributes.ARMOR, new AttributeModifier(uuid, "bonus", 6, AttributeModifier.Operation.ADDITION));
-                    atts.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(uuid, "bonus", 2, AttributeModifier.Operation.ADDITION));
+                    atts.put(Attributes.ARMOR, new AttributeModifier(uuid, "bonus", 3.6f, AttributeModifier.Operation.ADDITION));
+                    atts.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(uuid, "bonus", 1.2f, AttributeModifier.Operation.ADDITION));
                 }
                 break;
             case TOUGH:
-                atts.put(Attributes.ARMOR, new AttributeModifier(uuid, "bonus", 1.5, AttributeModifier.Operation.ADDITION));
-                atts.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(uuid, "bonus", 1, AttributeModifier.Operation.ADDITION));
+                atts.put(Attributes.ARMOR, new AttributeModifier(uuid, "bonus", 1.25, AttributeModifier.Operation.ADDITION));
+                atts.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(uuid, "bonus", 0.5f, AttributeModifier.Operation.ADDITION));
                 break;
             case TANK:
-                atts.put(Attributes.ARMOR, new AttributeModifier(uuid, "bonus", 5, AttributeModifier.Operation.ADDITION));
-                atts.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(uuid, "bonus", 2, AttributeModifier.Operation.ADDITION));
+                atts.put(Attributes.ARMOR, new AttributeModifier(uuid, "bonus", 2.5f, AttributeModifier.Operation.ADDITION));
+                atts.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(uuid, "bonus", 1.5f, AttributeModifier.Operation.ADDITION));
                 break;
             case WEALTH:
                 if (material == AccessoryMaterial.IRON) {
                     atts.put(Attributes.LUCK, new AttributeModifier(uuid, "bonus", 1.5, AttributeModifier.Operation.ADDITION));
                 } else {
-                    atts.put(Attributes.LUCK, new AttributeModifier(uuid, "bonus", 3, AttributeModifier.Operation.ADDITION));
+                    atts.put(Attributes.LUCK, new AttributeModifier(uuid, "bonus", 2, AttributeModifier.Operation.ADDITION));
                 }
                 break;
             case BELT:
-                atts.put(Attributes.ARMOR, new AttributeModifier(uuid, "bonus", 0.5, AttributeModifier.Operation.ADDITION));
+                atts.put(Attributes.ARMOR, new AttributeModifier(uuid, "bonus", 0.2, AttributeModifier.Operation.ADDITION));
                 CuriosApi.addSlotModifier(atts, "charm", uuid, 2.0, AttributeModifier.Operation.ADDITION);
                 break;
         }
