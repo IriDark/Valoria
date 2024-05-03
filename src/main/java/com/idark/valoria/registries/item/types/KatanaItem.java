@@ -91,7 +91,7 @@ public class KatanaItem extends SwordItem implements ICooldownItem {
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
         builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", attackDamageIn, AttributeModifier.Operation.ADDITION));
         builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Tool modifier", attackSpeedIn, AttributeModifier.Operation.ADDITION));
-        builder.put(AttributeRegistry.DASH_DISTANCE.get(), new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", dashDistance, AttributeModifier.Operation.ADDITION));
+        builder.put(AttributeRegistry.DASH_DISTANCE.get(), new AttributeModifier(UUID.fromString("b0e5853a-d071-40db-a585-3ad07100db82"), "Tool modifier", dashDistance, AttributeModifier.Operation.ADDITION));
         this.defaultModifiers = builder.build();
     }
 

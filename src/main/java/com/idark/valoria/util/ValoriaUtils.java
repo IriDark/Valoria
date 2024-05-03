@@ -561,12 +561,12 @@ public class ValoriaUtils {
     public static void addEffectsTooltip(ImmutableList<MobEffectInstance> effects, List<Component> pTooltips, float pDurationFactor, float chance) {
         List<Pair<Attribute, AttributeModifier>> list = Lists.newArrayList();
         if (!effects.isEmpty()) {
+            if (chance != 0) {
+                pTooltips.add(Component.translatable("tooltip.valoria.with_chance").withStyle(ChatFormatting.GRAY).append(Component.literal(String.format("%.1f%%", chance * 100))));
+            }
+
             for (MobEffectInstance mobeffectinstance : effects) {
                 pTooltips.add(CommonComponents.EMPTY);
-                if (chance != 0) {
-                    pTooltips.add(Component.translatable("tooltip.valoria.with_chance").withStyle(ChatFormatting.GRAY).append(Component.literal(String.format("%.1f%%", chance * 100))));
-                }
-
                 MutableComponent mutablecomponent = Component.translatable(mobeffectinstance.getDescriptionId());
                 MobEffect mobeffect = mobeffectinstance.getEffect();
                 Map<Attribute, AttributeModifier> map = mobeffect.getAttributeModifiers();
@@ -587,29 +587,6 @@ public class ValoriaUtils {
                 }
 
                 pTooltips.add(mutablecomponent.withStyle(mobeffect.getCategory().getTooltipFormatting()));
-            }
-        }
-
-        if (!list.isEmpty()) {
-            pTooltips.add(CommonComponents.EMPTY);
-            pTooltips.add(Component.translatable("potion.whenDrank").withStyle(ChatFormatting.DARK_PURPLE));
-
-            for (Pair<Attribute, AttributeModifier> pair : list) {
-                AttributeModifier secondPair = pair.getSecond();
-                double d0 = secondPair.getAmount();
-                double d1;
-                if (secondPair.getOperation() != AttributeModifier.Operation.MULTIPLY_BASE && secondPair.getOperation() != AttributeModifier.Operation.MULTIPLY_TOTAL) {
-                    d1 = secondPair.getAmount();
-                } else {
-                    d1 = secondPair.getAmount() * 100.0D;
-                }
-
-                if (d0 > 0.0D) {
-                    pTooltips.add(Component.translatable("attribute.modifier.plus." + secondPair.getOperation().toValue(), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(d1), Component.translatable(pair.getFirst().getDescriptionId())).withStyle(ChatFormatting.BLUE));
-                } else if (d0 < 0.0D) {
-                    d1 *= -1.0D;
-                    pTooltips.add(Component.translatable("attribute.modifier.take." + secondPair.getOperation().toValue(), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(d1), Component.translatable(pair.getFirst().getDescriptionId())).withStyle(ChatFormatting.RED));
-                }
             }
         }
     }
