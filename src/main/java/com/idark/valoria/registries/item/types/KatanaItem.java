@@ -105,6 +105,14 @@ public class KatanaItem extends SwordItem implements ICooldownItem {
     public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level worldIn, Player playerIn, @NotNull InteractionHand handIn) {
         ItemStack itemstack = playerIn.getItemInHand(handIn);
         playerIn.startUsingItem(handIn);
+        if (!playerIn.isFallFlying()) {
+            for (Item item : ForgeRegistries.ITEMS) {
+                if (item instanceof KatanaItem) {
+                    playerIn.getCooldowns().addCooldown(item, 75);
+                }
+            }
+        }
+
         return InteractionResultHolder.consume(itemstack);
     }
 
@@ -127,12 +135,6 @@ public class KatanaItem extends SwordItem implements ICooldownItem {
         if (!player.isFallFlying()) {
             Vec3 dir = (player.getViewVector(0.0f).scale(dashDistance));
             player.push(dir.x, dir.y * 0.25, dir.z);
-            for (Item item : ForgeRegistries.ITEMS) {
-                if (item instanceof KatanaItem) {
-                    player.getCooldowns().addCooldown(item, 75);
-                }
-            }
-
             List<LivingEntity> hitEntities = new ArrayList<>();
             if (level instanceof ServerLevel srv) {
                 for (int i = 0; i < 10; i += 1) {

@@ -58,6 +58,9 @@ import java.util.function.Predicate;
 
 public class ValoriaUtils {
 
+    /**
+     * Checks if the game was started in IDE
+     */
     public static boolean isIDE = !FMLLoader.isProduction();
 
     /**

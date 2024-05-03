@@ -85,7 +85,7 @@ public class CurioItemProperty extends Item implements ICurioItem, ICurioTexture
                 atts.put(Attributes.MAX_HEALTH, new AttributeModifier(uuid, "bonus", 1, AttributeModifier.Operation.ADDITION));
                 break;
             case SAPPHIRE:
-                atts.put(Attributes.MOVEMENT_SPEED, new AttributeModifier(uuid, "bonus", 0.25, AttributeModifier.Operation.ADDITION));
+                atts.put(Attributes.MOVEMENT_SPEED, new AttributeModifier(uuid, "bonus", 0.05, AttributeModifier.Operation.ADDITION));
                 break;
 
             case HEALTH:
