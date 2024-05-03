@@ -104,16 +104,20 @@ public class KatanaItem extends SwordItem implements ICooldownItem {
 
     public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level worldIn, Player playerIn, @NotNull InteractionHand handIn) {
         ItemStack itemstack = playerIn.getItemInHand(handIn);
-        playerIn.startUsingItem(handIn);
-        if (!playerIn.isFallFlying()) {
-            for (Item item : ForgeRegistries.ITEMS) {
-                if (item instanceof KatanaItem) {
-                    playerIn.getCooldowns().addCooldown(item, 75);
+        if(!playerIn.isShiftKeyDown()) {
+            playerIn.startUsingItem(handIn);
+            if (!playerIn.isFallFlying()) {
+                for (Item item : ForgeRegistries.ITEMS) {
+                    if (item instanceof KatanaItem) {
+                        playerIn.getCooldowns().addCooldown(item, 75);
+                    }
                 }
             }
+
+            return InteractionResultHolder.consume(itemstack);
         }
 
-        return InteractionResultHolder.consume(itemstack);
+        return InteractionResultHolder.pass(itemstack);
     }
 
     public int getUseDuration(@NotNull ItemStack stack) {

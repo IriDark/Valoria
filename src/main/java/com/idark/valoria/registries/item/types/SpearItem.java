@@ -70,8 +70,10 @@ public class SpearItem extends TieredItem implements Vanishable {
     public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
         ItemStack itemstack = playerIn.getItemInHand(handIn);
         if (throwable) {
-            playerIn.startUsingItem(handIn);
-            return InteractionResultHolder.consume(itemstack);
+            if (!playerIn.isShiftKeyDown()) {
+                playerIn.startUsingItem(handIn);
+                return InteractionResultHolder.consume(itemstack);
+            }
         }
 
         return InteractionResultHolder.pass(itemstack);

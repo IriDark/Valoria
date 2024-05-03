@@ -66,8 +66,12 @@ public class CorpseCleaverItem extends SwordItem {
 
     public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
         ItemStack itemstack = playerIn.getItemInHand(handIn);
-        playerIn.startUsingItem(handIn);
-        return InteractionResultHolder.consume(itemstack);
+        if(!playerIn.isShiftKeyDown()) {
+            playerIn.startUsingItem(handIn);
+            return InteractionResultHolder.consume(itemstack);
+        }
+
+        return InteractionResultHolder.pass(itemstack);
     }
 
     public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot equipmentSlot) {

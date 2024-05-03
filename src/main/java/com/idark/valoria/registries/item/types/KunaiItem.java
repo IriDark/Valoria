@@ -84,8 +84,12 @@ public class KunaiItem extends Item {
 
     public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
         ItemStack itemstack = playerIn.getItemInHand(handIn);
-        playerIn.startUsingItem(handIn);
-        return InteractionResultHolder.consume(itemstack);
+        if(!playerIn.isShiftKeyDown()) {
+            playerIn.startUsingItem(handIn);
+            return InteractionResultHolder.consume(itemstack);
+        }
+
+        return InteractionResultHolder.pass(itemstack);
     }
 
     public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
