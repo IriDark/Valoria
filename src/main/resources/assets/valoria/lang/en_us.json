@@ -18,7 +18,7 @@
 	"subtitles.valoria.ability.use": "Ability used ★",
 	"subtitles.valoria.item.recharge": "Recharge ★",
 	"subtitles.valoria.lootbag.open": "Opened Loot Bag ★",
-	"tooltip.valoria.with_chance": "Applies with chance - ",
+	"tooltip.valoria.with_chance": "Applies with chance: ",
 	"tooltip.valoria.wip": "This is an WIP item that can be buggy or even don't work. Use at your own risk!",
 	"tooltip.valoria.rmb": "[RMB] - to use",
 	"tooltip.valoria.rmb_shift": "[RMB + SHIFT] - to charge",

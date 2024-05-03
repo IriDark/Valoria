@@ -579,15 +579,17 @@ public class ValoriaUtils {
                 }
 
                 if (mobeffectinstance.getAmplifier() > 0) {
-                    mutablecomponent = Component.translatable("potion.withAmplifier", mutablecomponent, Component.translatable("potion.potency." + mobeffectinstance.getAmplifier()));
+                    mutablecomponent = Component.literal(" ").append(Component.translatable("potion.withAmplifier", mutablecomponent, Component.translatable("potion.potency." + mobeffectinstance.getAmplifier())));
                 }
 
                 if (!mobeffectinstance.endsWithin(20)) {
-                    mutablecomponent = Component.translatable("potion.withDuration", mutablecomponent, MobEffectUtil.formatDuration(mobeffectinstance, pDurationFactor));
+                    mutablecomponent = Component.literal(" ").append(Component.translatable("potion.withDuration", mutablecomponent, MobEffectUtil.formatDuration(mobeffectinstance, pDurationFactor)));
                 }
 
                 pTooltips.add(mutablecomponent.withStyle(mobeffect.getCategory().getTooltipFormatting()));
             }
+
+            pTooltips.add(CommonComponents.EMPTY);
         }
     }
 
