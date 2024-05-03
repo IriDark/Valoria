@@ -50,12 +50,8 @@ public class MurasamaItem extends KatanaItem implements IParticleItem {
      */
     public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level worldIn, Player playerIn, @NotNull InteractionHand handIn) {
         ItemStack itemstack = playerIn.getItemInHand(handIn);
-        if (itemstack.getDamageValue() >= itemstack.getMaxDamage() - 1) {
-            return InteractionResultHolder.fail(itemstack);
-        } else {
-            playerIn.startUsingItem(handIn);
-            return InteractionResultHolder.consume(itemstack);
-        }
+        playerIn.startUsingItem(handIn);
+        return InteractionResultHolder.consume(itemstack);
     }
 
     public void onUseTick(@NotNull Level worldIn, @NotNull LivingEntity livingEntityIn, @NotNull ItemStack stack, int count) {

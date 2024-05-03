@@ -89,12 +89,8 @@ public class ScytheItem extends SwordItem implements ICustomAnimationItem, ICool
 
     public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
         ItemStack itemstack = playerIn.getItemInHand(handIn);
-        if (itemstack.getDamageValue() >= itemstack.getMaxDamage() - 1) {
-            return InteractionResultHolder.fail(itemstack);
-        } else {
-            playerIn.startUsingItem(handIn);
-            return InteractionResultHolder.consume(itemstack);
-        }
+        playerIn.startUsingItem(handIn);
+        return InteractionResultHolder.consume(itemstack);
     }
 
     public UseAnim getUseAnimation(ItemStack pStack) {
