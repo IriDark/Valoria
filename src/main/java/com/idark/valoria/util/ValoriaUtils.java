@@ -562,11 +562,11 @@ public class ValoriaUtils {
         List<Pair<Attribute, AttributeModifier>> list = Lists.newArrayList();
         if (!effects.isEmpty()) {
             if (chance != 0) {
+                pTooltips.add(CommonComponents.EMPTY);
                 pTooltips.add(Component.translatable("tooltip.valoria.with_chance").withStyle(ChatFormatting.GRAY).append(Component.literal(String.format("%.1f%%", chance * 100))));
             }
 
             for (MobEffectInstance mobeffectinstance : effects) {
-                pTooltips.add(CommonComponents.EMPTY);
                 MutableComponent mutablecomponent = Component.translatable(mobeffectinstance.getDescriptionId());
                 MobEffect mobeffect = mobeffectinstance.getEffect();
                 Map<Attribute, AttributeModifier> map = mobeffect.getAttributeModifiers();
