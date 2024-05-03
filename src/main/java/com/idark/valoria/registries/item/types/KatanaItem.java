@@ -105,13 +105,8 @@ public class KatanaItem extends SwordItem implements ICooldownItem {
 
     public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level worldIn, Player playerIn, @NotNull InteractionHand handIn) {
         ItemStack itemstack = playerIn.getItemInHand(handIn);
-        if (itemstack.getDamageValue() >= itemstack.getMaxDamage() - 1) {
-            return InteractionResultHolder.fail(itemstack);
-        } else {
-            playerIn.startUsingItem(handIn);
-            itemstack.hurtAndBreak(10, playerIn, (entity) -> playerIn.broadcastBreakEvent(EquipmentSlot.MAINHAND));
-            return InteractionResultHolder.consume(itemstack);
-        }
+        playerIn.startUsingItem(handIn);
+        return InteractionResultHolder.consume(itemstack);
     }
 
     public int getUseDuration(@NotNull ItemStack stack) {
@@ -190,8 +185,10 @@ public class KatanaItem extends SwordItem implements ICooldownItem {
             }
 
             if (!player.isCreative()) {
+                stack.hurtAndBreak(5, player, (entity) -> entity.broadcastBreakEvent(EquipmentSlot.MAINHAND));
                 stack.hurtAndBreak(hitEntities.size(), player, (p_220045_0_) -> p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
             }
+
             for (int i = 0; i < 4; i++) {
                 level.addParticle(ParticleTypes.POOF, player.getX() + (rand.nextDouble() - 0.5D), player.getY(), player.getZ() + (rand.nextDouble() - 0.5D), 0d, 0.05d, 0d);
             }
