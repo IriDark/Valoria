@@ -56,7 +56,10 @@ public class EntityTypeRegistry {
             () -> EntityType.Builder.<KunaiEntity>of(KunaiEntity::new, MobCategory.MISC)
                     .sized(0.35f, 0.35f)
                     .build(new ResourceLocation(Valoria.ID, "kunai").toString()));
-
+    public static final RegistryObject<EntityType<ThrownSpearEntity>> SPEAR = ENTITY_TYPES.register("spear",
+            () -> EntityType.Builder.<ThrownSpearEntity>of(ThrownSpearEntity::new, MobCategory.MISC)
+                    .sized(0.35f, 0.35f)
+                    .build(new ResourceLocation(Valoria.ID, "spear").toString()));
     public static final RegistryObject<EntityType<PhantomArrow>> PHANTOM_ARROW = ENTITY_TYPES.register("phantom_arrow",
             () -> EntityType.Builder.<PhantomArrow>of(PhantomArrow::new, MobCategory.MISC)
                     .sized(0.35f, 0.35f)

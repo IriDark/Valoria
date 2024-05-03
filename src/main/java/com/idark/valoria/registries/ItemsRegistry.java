@@ -187,19 +187,19 @@ public class ItemsRegistry {
             () -> new Item(new Item.Properties()));
 
     public static final RegistryObject<Item> WOODEN_SPEAR = ITEMS.register("wooden_spear",
-            () -> new SpearItem(Tiers.WOOD, 3, -3f, new Item.Properties()));
+            () -> new SpearItem(Tiers.WOOD, 3, -3f, 1.4f, new Item.Properties()));
     public static final RegistryObject<Item> STONE_SPEAR = ITEMS.register("stone_spear",
-            () -> new SpearItem(Tiers.STONE, 4, -3f, new Item.Properties()));
+            () -> new SpearItem(Tiers.STONE, 4, -3f, 2, new Item.Properties()));
     public static final RegistryObject<Item> IRON_SPEAR = ITEMS.register("iron_spear",
-            () -> new SpearItem(Tiers.IRON, 5, -3f, new Item.Properties()));
+            () -> new SpearItem(Tiers.IRON, 5, -3f, 3.2f, new Item.Properties()));
     public static final RegistryObject<Item> GOLDEN_SPEAR = ITEMS.register("golden_spear",
-            () -> new SpearItem(Tiers.GOLD, 6, -2.9f, new Item.Properties()));
+            () -> new SpearItem(Tiers.GOLD, 6, -2.9f, 3.5f, new Item.Properties()));
     public static final RegistryObject<Item> DIAMOND_SPEAR = ITEMS.register("diamond_spear",
-            () -> new SpearItem(Tiers.DIAMOND, 3, -2.9f, new Item.Properties()));
+            () -> new SpearItem(Tiers.DIAMOND, 3, -2.9f, 4, new Item.Properties()));
     public static final RegistryObject<Item> NETHERITE_SPEAR = ITEMS.register("netherite_spear",
-            () -> new SpearItem(Tiers.NETHERITE, 3, -2.9f, new Item.Properties()));
+            () -> new SpearItem(Tiers.NETHERITE, 3, -2.9f, 6, new Item.Properties()));
     public static final RegistryObject<Item> GLAIVE = ITEMS.register("glaive",
-            () -> new SpearItem(Tiers.NETHERITE, 6, -3.2f, new Item.Properties()));
+            () -> new SpearItem(Tiers.NETHERITE, 6, -3.2f, false, new Item.Properties()));
     public static final RegistryObject<Item> WOODEN_RAPIER = ITEMS.register("wooden_rapier",
             () -> new SwordItem(Tiers.WOOD, 0, -1.8f, new Item.Properties()));
     public static final RegistryObject<Item> STONE_RAPIER = ITEMS.register("stone_rapier",

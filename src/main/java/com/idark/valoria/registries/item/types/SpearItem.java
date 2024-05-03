@@ -3,22 +3,29 @@ package com.idark.valoria.registries.item.types;
 import com.google.common.base.Suppliers;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
+import com.idark.valoria.registries.AttributeRegistry;
 import com.idark.valoria.registries.BlockRegistry;
 import com.idark.valoria.registries.ItemsRegistry;
+import com.idark.valoria.registries.entity.projectile.ThrownSpearEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -31,20 +38,80 @@ public class SpearItem extends TieredItem implements Vanishable {
     Random rand = new Random();
     private final float attackDamage;
     private final float attackSpeed;
+    private final float projectileDamage;
+    private final boolean throwable;
     private final Supplier<Multimap<Attribute, AttributeModifier>> attributeModifiers = Suppliers.memoize(this::createAttributes);
 
-    public SpearItem(Tier tier, int attackDamageIn, float attackSpeedIn, Item.Properties builderIn) {
+    public SpearItem(Tier tier, int attackDamageIn, float attackSpeedIn, float projectileDamageIn, Item.Properties builderIn) {
         super(tier, builderIn);
         this.attackDamage = (float) attackDamageIn + tier.getAttackDamageBonus();
         this.attackSpeed = attackSpeedIn;
+        this.projectileDamage = projectileDamageIn;
+        throwable = true;
+    }
+
+    public SpearItem(Tier tier, int attackDamageIn, float attackSpeedIn, boolean throwableIn, Item.Properties builderIn) {
+        super(tier, builderIn);
+        this.attackDamage = (float) attackDamageIn + tier.getAttackDamageBonus();
+        this.attackSpeed = attackSpeedIn;
+        this.throwable = throwableIn;
+        this.projectileDamage = 0f;
     }
 
     private Multimap<Attribute, AttributeModifier> createAttributes() {
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
-        builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Weapon modifier", (double) this.attackDamage, AttributeModifier.Operation.ADDITION));
-        builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Weapon modifier", (double) attackSpeed, AttributeModifier.Operation.ADDITION));
+        builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Weapon modifier", this.attackDamage, AttributeModifier.Operation.ADDITION));
+        builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Weapon modifier", attackSpeed, AttributeModifier.Operation.ADDITION));
         builder.put(ForgeMod.ENTITY_REACH.get(), new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Spear modifier", 1, AttributeModifier.Operation.ADDITION));
+        builder.put(AttributeRegistry.PROJECTILE_DAMAGE.get(), new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", projectileDamage, AttributeModifier.Operation.ADDITION));
         return builder.build();
+    }
+
+    public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
+        ItemStack itemstack = playerIn.getItemInHand(handIn);
+        if (throwable) {
+            playerIn.startUsingItem(handIn);
+            return InteractionResultHolder.consume(itemstack);
+        }
+
+        return InteractionResultHolder.pass(itemstack);
+    }
+
+    public UseAnim getUseAnimation(ItemStack stack) {
+        return UseAnim.SPEAR;
+    }
+
+    public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchant) {
+        return enchant == Enchantments.VANISHING_CURSE || enchant == Enchantments.PIERCING || enchant == Enchantments.FIRE_ASPECT || enchant == Enchantments.LOYALTY || enchant == Enchantments.MENDING || enchant == Enchantments.SWEEPING_EDGE || enchant == Enchantments.MOB_LOOTING || enchant == Enchantments.SHARPNESS || enchant == Enchantments.BANE_OF_ARTHROPODS || enchant == Enchantments.SMITE;
+    }
+
+    public int getUseDuration(ItemStack stack) {
+        return 72000;
+    }
+
+    public void releaseUsing(ItemStack stack, Level worldIn, LivingEntity entityLiving, int timeLeft) {
+        if (entityLiving instanceof Player playerEntity) {
+            int i = this.getUseDuration(stack) - timeLeft;
+            if (i >= 6) {
+                if (!worldIn.isClientSide) {
+                    stack.hurtAndBreak(1, playerEntity, (player) -> player.broadcastBreakEvent(entityLiving.getUsedItemHand()));
+                    ThrownSpearEntity spear = new ThrownSpearEntity(worldIn, playerEntity, stack, 2, 4);
+                    spear.setItem(stack);
+                    spear.shootFromRotation(playerEntity, playerEntity.getXRot(), playerEntity.getYRot(), 0.0F, 2.5F + (float) 0 * 0.5F, 1.0F);
+                    if (playerEntity.getAbilities().instabuild) {
+                        spear.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
+                    }
+
+                    worldIn.addFreshEntity(spear);
+                    worldIn.playSound(playerEntity, spear, SoundEvents.ARROW_SHOOT, SoundSource.PLAYERS, 1.0F, 1.0F);
+                    if (!playerEntity.getAbilities().instabuild) {
+                        playerEntity.getInventory().removeItem(stack);
+                    }
+                }
+
+                playerEntity.awardStat(Stats.ITEM_USED.get(this));
+            }
+        }
     }
 
     public boolean canAttackBlock(BlockState state, Level worldIn, BlockPos pos, Player player) {

@@ -24,7 +24,8 @@ import java.util.List;
 
 public class AbstractValoriaArrow extends AbstractArrow {
 
-    public ItemStack arrowItem;
+    //Prevents random NPE`s on rendering
+    public ItemStack arrowItem = ItemStack.EMPTY;
     int minDamage;
     public AbstractValoriaArrow(EntityType<? extends AbstractArrow> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
