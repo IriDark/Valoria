@@ -85,7 +85,7 @@ public class CurioCurses extends Item implements ICurioItem {
     @Override
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(SlotContext slotContext, UUID uuid, ItemStack stack) {
         Multimap<Attribute, AttributeModifier> atts = LinkedHashMultimap.create();
-        atts.put(Attributes.MAX_HEALTH, new AttributeModifier(uuid, "bonus", 5, AttributeModifier.Operation.ADDITION));
+        atts.put(Attributes.MAX_HEALTH, new AttributeModifier(uuid, "bonus", 3, AttributeModifier.Operation.ADDITION));
         return atts;
     }
 

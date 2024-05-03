@@ -23,7 +23,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.Vanishable;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.ForgeMod;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.type.capability.ICurio;
@@ -73,7 +72,7 @@ public class CurioItemProperty extends Item implements ICurioItem, ICurioTexture
                 atts.put(Attributes.ARMOR, new AttributeModifier(uuid, "bonus", 0.2, AttributeModifier.Operation.ADDITION));
                 break;
             case AMBER:
-                atts.put(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(uuid, "bonus", 0.25f, AttributeModifier.Operation.ADDITION));
+                atts.put(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(uuid, "bonus", 0.1f, AttributeModifier.Operation.ADDITION));
                 break;
             case DIAMOND:
                 atts.put(Attributes.ARMOR, new AttributeModifier(uuid, "bonus", 2, AttributeModifier.Operation.ADDITION));
@@ -86,7 +85,7 @@ public class CurioItemProperty extends Item implements ICurioItem, ICurioTexture
                 atts.put(Attributes.MAX_HEALTH, new AttributeModifier(uuid, "bonus", 1, AttributeModifier.Operation.ADDITION));
                 break;
             case SAPPHIRE:
-                atts.put(ForgeMod.SWIM_SPEED.get(), new AttributeModifier(uuid, "bonus", 0.1, AttributeModifier.Operation.ADDITION));
+                atts.put(Attributes.MOVEMENT_SPEED, new AttributeModifier(uuid, "bonus", 0.25, AttributeModifier.Operation.ADDITION));
                 break;
 
             case HEALTH:
