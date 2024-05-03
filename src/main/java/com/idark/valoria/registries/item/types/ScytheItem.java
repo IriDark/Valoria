@@ -38,8 +38,8 @@ import java.util.UUID;
 public class ScytheItem extends SwordItem implements ICustomAnimationItem, ICooldownItem, IRadiusItem {
     public static RadiusAttackAnim animation = new RadiusAttackAnim();
     public float chance = 1;
-    private final ImmutableList<MobEffectInstance> effects;
-    private final Multimap<Attribute, AttributeModifier> defaultModifiers;
+    public final ImmutableList<MobEffectInstance> effects;
+    public final Multimap<Attribute, AttributeModifier> defaultModifiers;
 
     public ScytheItem(Tier tier, int attackDamageIn, float attackSpeedIn, Properties builderIn) {
         super(tier, attackDamageIn, attackSpeedIn, builderIn);

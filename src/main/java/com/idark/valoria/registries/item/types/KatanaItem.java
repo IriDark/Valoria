@@ -47,8 +47,8 @@ public class KatanaItem extends SwordItem implements ICooldownItem {
     public float chance = 1;
 
     Random rand = new Random();
-    private final ImmutableList<MobEffectInstance> effects;
-    private final Multimap<Attribute, AttributeModifier> defaultModifiers;
+    public final ImmutableList<MobEffectInstance> effects;
+    public final Multimap<Attribute, AttributeModifier> defaultModifiers;
 
     public KatanaItem(Tier tier, int attackDamageIn, float attackSpeedIn, Item.Properties builderIn) {
         super(tier, attackDamageIn, attackSpeedIn, builderIn);
@@ -83,7 +83,6 @@ public class KatanaItem extends SwordItem implements ICooldownItem {
      * }</pre>
      *
      */
-
     public KatanaItem(Tier tier, int attackDamageIn, float attackSpeedIn, float dashDistance, Item.Properties builderIn, float chance, MobEffectInstance... pEffects) {
         super(tier, attackDamageIn, attackSpeedIn, builderIn);
         this.effects = ImmutableList.copyOf(pEffects);

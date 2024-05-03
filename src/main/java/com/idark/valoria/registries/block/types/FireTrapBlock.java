@@ -28,7 +28,7 @@ public class FireTrapBlock extends Block {
     public int secondsOnFire;
     public BlockState state;
     public int[] color;
-    private final ImmutableList<MobEffectInstance> effects;
+    public final ImmutableList<MobEffectInstance> effects;
 
 
     public FireTrapBlock(BlockState pState, float pDamage, int pSecondsOnFire, int[] pColor, BlockBehaviour.Properties properties) {
