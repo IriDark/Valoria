@@ -98,47 +98,51 @@ public class SarcophagusBlock extends HorizontalDirectionalBlock {
     };
 
     private void spawnSkeletons(Level pLevel, BlockPos pPos, InteractionHand hand) {
-        Skeleton skeleton = EntityType.SKELETON.create(pLevel);
-        double d0 = (double)pPos.getX() + (rand.nextDouble() - rand.nextDouble()) * (double)4 + 0.5;
-        double d1 = pPos.getY() + rand.nextInt(2);
-        double d2 = (double)pPos.getZ() + (rand.nextDouble() - rand.nextDouble()) * (double)4 + 0.5;
-        if (skeleton != null) {
-            if (pLevel.noCollision(skeleton, new AABB(new BlockPos((int) d0, (int) d1, (int) d2)))) {
-                skeleton.moveTo(d0, d1, d2, 0.0F, 0.0F);
-                skeleton.setItemInHand(hand, spawnableWith.get(rand.nextInt(spawnableWith.size())).getDefaultInstance());
-                if (isHalloween()) {
-                    skeleton.setItemSlot(EquipmentSlot.HEAD, halloweenSpawnableWith.get(rand.nextInt(spawnableWith.size())).getDefaultInstance());
-                } else {
-                    if (rand.nextFloat() <= 0.4) {
-                        skeleton.setItemSlot(EquipmentSlot.HEAD, armor_head[rand.nextInt(armor_head.length)]);
+        Skeleton entity = EntityType.SKELETON.create(pLevel);
+        for (int tries = 0; tries < 10; tries++) {
+            double x = (double) pPos.getX() + (rand.nextDouble() - rand.nextDouble()) * 6;
+            double y = pPos.getY() + rand.nextInt(1, 2);
+            double z = (double) pPos.getZ() + (rand.nextDouble() - rand.nextDouble()) * 6;
+            if (entity != null) {
+                if (pLevel.noCollision(entity, new AABB(x, y, z, x, y, z).inflate(1))) {
+                    entity.moveTo(x, y, z, 0.0F, 0.0F);
+                    entity.setItemInHand(hand, spawnableWith.get(rand.nextInt(spawnableWith.size())).getDefaultInstance());
+                    if (isHalloween()) {
+                        entity.setItemSlot(EquipmentSlot.HEAD, halloweenSpawnableWith.get(rand.nextInt(spawnableWith.size())).getDefaultInstance());
+                    } else {
+                        if (rand.nextFloat() <= 0.4) {
+                            entity.setItemSlot(EquipmentSlot.HEAD, armor_head[rand.nextInt(armor_head.length)]);
+                        }
                     }
-                }
 
-                if (rand.nextFloat() <= 0.4) {
-                    skeleton.setItemSlot(EquipmentSlot.CHEST, armor_chest[rand.nextInt(armor_chest.length)]);
-                    skeleton.setItemSlot(EquipmentSlot.LEGS, armor_legs[rand.nextInt(armor_legs.length)]);
-                    skeleton.setItemSlot(EquipmentSlot.FEET, armor_boots[rand.nextInt(armor_boots.length)]);
-                }
+                    if (rand.nextFloat() <= 0.4) {
+                        entity.setItemSlot(EquipmentSlot.CHEST, armor_chest[rand.nextInt(armor_chest.length)]);
+                        entity.setItemSlot(EquipmentSlot.LEGS, armor_legs[rand.nextInt(armor_legs.length)]);
+                        entity.setItemSlot(EquipmentSlot.FEET, armor_boots[rand.nextInt(armor_boots.length)]);
+                    }
 
-                pLevel.addFreshEntity(skeleton);
+                    pLevel.addFreshEntity(entity);
+                }
             }
         }
     }
 
     private void spawnDraugr(Level pLevel, BlockPos pPos, InteractionHand hand) {
         DraugrEntity entity = EntityTypeRegistry.DRAUGR.get().create(pLevel);
-        double d0 = (double)pPos.getX() + (rand.nextDouble() - rand.nextDouble()) * (double)4 + 0.5;
-        double d1 = pPos.getY() + rand.nextInt(2);
-        double d2 = (double)pPos.getZ() + (rand.nextDouble() - rand.nextDouble()) * (double)4 + 0.5;
-        if (entity != null) {
-            if (pLevel.noCollision(entity, new AABB(new BlockPos((int) d0, (int) d1, (int) d2)))) {
-                entity.moveTo(d0, d1, d2, 0.0F, 0.0F);
-                entity.setItemInHand(hand, spawnableWith.get(rand.nextInt(spawnableWith.size())).getDefaultInstance());
-                if (isHalloween()) {
-                    entity.setItemSlot(EquipmentSlot.HEAD, halloweenSpawnableWith.get(rand.nextInt(spawnableWith.size())).getDefaultInstance());
-                }
+        for (int tries = 0; tries < 10; tries++) {
+            double x = (double) pPos.getX() + (rand.nextDouble() - rand.nextDouble()) * 6;
+            double y = pPos.getY() + rand.nextInt(1, 2);
+            double z = (double) pPos.getZ() + (rand.nextDouble() - rand.nextDouble()) * 6;
+            if (entity != null) {
+                if (pLevel.noCollision(entity, new AABB(x, y, z, x, y, z).inflate(1))) {
+                    entity.moveTo(x, y, z, 0.0F, 0.0F);
+                    entity.setItemInHand(hand, spawnableWith.get(rand.nextInt(spawnableWith.size())).getDefaultInstance());
+                    if (isHalloween()) {
+                        entity.setItemSlot(EquipmentSlot.HEAD, halloweenSpawnableWith.get(rand.nextInt(spawnableWith.size())).getDefaultInstance());
+                    }
 
-                pLevel.addFreshEntity(entity);
+                    pLevel.addFreshEntity(entity);
+                }
             }
         }
     }

@@ -89,6 +89,8 @@
 - Reworked Item2DRenderer for better compatibility with other mods that can use it
 - Reworked Sarcophagus
 - Reworked Mannequin
+- Reworked Accessories
+- Reworked Spears
 
 - Resprited Void stone
 - Resprited Uncharged Shard
@@ -100,6 +102,8 @@
 - Resprited Murasama
 - Resprited Yamato
 - Resprited Shadewood Planks and related items
+- Resprited Katana's
+- Resprited Scythe's
 
 - Renamed Uncharged Stone -> Uncharged Shard
 - Renamed Soulstone -> Soul shard
@@ -133,6 +137,7 @@
 - Fixed Second gui slot in jei recipes
 - Fixed Katana's dash - damaged through walls
 - Fixed Flower pots offsets - yeah that was bug, not a feature :( but such a cool bug lol
+- Fixed Katana's for double-clicking mouses
 
 - Changed Stonecrusher recipe
 - Changed opacity for Eternity appearing after Phantom ability
@@ -149,6 +154,7 @@
 - Changed Sounds of abilities to new ones (Credit to Calamity mod <3)
 - Changed Time in JEI recipes converted to seconds now
 - Changed Block Tab sorting
+- Changed Crypt LootTable
 
 - Decreased Limestone spawn chance
 - Decreased particles count (15 -> 4) when picking up Mannequin
