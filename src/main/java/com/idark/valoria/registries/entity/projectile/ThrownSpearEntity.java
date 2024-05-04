@@ -1,5 +1,8 @@
 package com.idark.valoria.registries.entity.projectile;
 
+import com.idark.valoria.client.particle.ModParticles;
+import com.idark.valoria.client.particle.types.Particles;
+import com.idark.valoria.registries.EnchantmentsRegistry;
 import com.idark.valoria.registries.EntityTypeRegistry;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -30,6 +33,7 @@ import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
+import java.util.Random;
 
 public class ThrownSpearEntity extends AbstractValoriaArrow implements ItemSupplier {
     public static final EntityDataAccessor<Byte> LOYALTY_LEVEL = SynchedEntityData.defineId(ThrownSpearEntity.class, EntityDataSerializers.BYTE);
@@ -77,15 +81,15 @@ public class ThrownSpearEntity extends AbstractValoriaArrow implements ItemSuppl
 
         this.returnToPlayer = compound.getBoolean("DealtDamage");
         this.setPierceLevel(compound.getByte("PierceLevel"));
-        this.entityData.set(LOYALTY_LEVEL, (byte) EnchantmentHelper.getLoyalty(this.arrowItem));
-        this.entityData.set(PIERCE_LEVEL, (byte) EnchantmentHelper.getTagEnchantmentLevel(Enchantments.PIERCING, this.arrowItem));
+        this.entityData.set(LOYALTY_LEVEL, (byte) EnchantmentHelper.getLoyalty(this.getItem()));
+        this.entityData.set(PIERCE_LEVEL, (byte) EnchantmentHelper.getTagEnchantmentLevel(Enchantments.PIERCING, this.getItem()));
         ItemStack itemstack = ItemStack.of(compound.getCompound("Item"));
         this.setItem(itemstack);
     }
 
     public void addAdditionalSaveData(@NotNull CompoundTag compound) {
         super.addAdditionalSaveData(compound);
-        compound.put("Spear", this.arrowItem.save(new CompoundTag()));
+        compound.put("Spear", this.getItem().save(new CompoundTag()));
         compound.putBoolean("DealtDamage", this.returnToPlayer);
         compound.putByte("PierceLevel", this.getPierceLevel());
         ItemStack itemstack = this.getItemRaw();
@@ -172,18 +176,43 @@ public class ThrownSpearEntity extends AbstractValoriaArrow implements ItemSuppl
     }
 
     @Override
+    public void onRemovedFromWorld() {
+        if(this.getOwner() instanceof Player player) {
+            if(!player.getAbilities().instabuild) {
+                player.spawnAtLocation(this.getItem());
+            }
+        }
+
+        super.onRemovedFromWorld();
+    }
+
+    @Override
     public void onHitEntity(EntityHitResult result) {
         Entity entity = result.getEntity();
         Entity shooter = this.getOwner();
         DamageSource damagesource = level().damageSources().trident(this, shooter == null ? this : shooter);
-        int e = (int) EnchantmentHelper.getDamageBonus(this.arrowItem, MobType.UNDEFINED);
+        int e = (int) EnchantmentHelper.getDamageBonus(this.getItem(), MobType.UNDEFINED);
         float f = 7f + (float) Math.max(0, e - 2);
         if (entity instanceof LivingEntity livingentity) {
-            f += EnchantmentHelper.getDamageBonus(this.arrowItem, livingentity.getMobType());
+            f += EnchantmentHelper.getDamageBonus(this.getItem(), livingentity.getMobType());
         }
 
-        if (EnchantmentHelper.getTagEnchantmentLevel(Enchantments.PIERCING, this.arrowItem) == 0) {
+        if (EnchantmentHelper.getTagEnchantmentLevel(Enchantments.PIERCING, this.getItem()) == 0) {
             this.returnToPlayer = true;
+        }
+
+        if(EnchantmentHelper.getTagEnchantmentLevel(EnchantmentsRegistry.BLEEDING.get(), this.getItem()) > 0) {
+            for (int a = 0; a < 12; a++) {
+                Particles.create(ModParticles.SPHERE)
+                        .randomOffset(0.7f, 0f, 0.7f)
+                        .randomVelocity(0.5f, 0, 0.5f)
+                        .enableGravity()
+                        .setAlpha(1f, 0)
+                        .setScale(0.1f, 0)
+                        .setColor(145, 0, 20, 255, 0, 0)
+                        .setLifetime(6)
+                        .spawn(entity.level(), entity.getX() + (new Random().nextDouble() - 0.5f) / 2, entity.getY() + (new Random().nextDouble() + 1f) / 2, entity.getZ());
+            }
         }
 
         if (entity.hurt(damagesource, f)) {

@@ -34,7 +34,7 @@ import net.minecraftforge.common.ForgeMod;
 import java.util.Random;
 import java.util.function.Supplier;
 
-public class SpearItem extends TieredItem implements Vanishable {
+public class SpearItem extends SwordItem implements Vanishable {
     Random rand = new Random();
     private final float attackDamage;
     private final float attackSpeed;
@@ -43,7 +43,7 @@ public class SpearItem extends TieredItem implements Vanishable {
     private final Supplier<Multimap<Attribute, AttributeModifier>> attributeModifiers = Suppliers.memoize(this::createAttributes);
 
     public SpearItem(Tier tier, int attackDamageIn, float attackSpeedIn, float projectileDamageIn, Item.Properties builderIn) {
-        super(tier, builderIn);
+        super(tier, attackDamageIn, attackSpeedIn, builderIn);
         this.attackDamage = (float) attackDamageIn + tier.getAttackDamageBonus();
         this.attackSpeed = attackSpeedIn;
         this.projectileDamage = projectileDamageIn;
@@ -51,7 +51,7 @@ public class SpearItem extends TieredItem implements Vanishable {
     }
 
     public SpearItem(Tier tier, int attackDamageIn, float attackSpeedIn, boolean throwableIn, Item.Properties builderIn) {
-        super(tier, builderIn);
+        super(tier, attackDamageIn, attackSpeedIn, builderIn);
         this.attackDamage = (float) attackDamageIn + tier.getAttackDamageBonus();
         this.attackSpeed = attackSpeedIn;
         this.throwable = throwableIn;
@@ -65,6 +65,10 @@ public class SpearItem extends TieredItem implements Vanishable {
         builder.put(ForgeMod.ENTITY_REACH.get(), new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Spear modifier", 1, AttributeModifier.Operation.ADDITION));
         builder.put(AttributeRegistry.PROJECTILE_DAMAGE.get(), new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", projectileDamage, AttributeModifier.Operation.ADDITION));
         return builder.build();
+    }
+
+    public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchant) {
+        return enchant.category.canEnchant(stack.getItem()) || enchant == Enchantments.PIERCING || enchant == Enchantments.LOYALTY;
     }
 
     public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
@@ -81,10 +85,6 @@ public class SpearItem extends TieredItem implements Vanishable {
 
     public UseAnim getUseAnimation(ItemStack stack) {
         return UseAnim.SPEAR;
-    }
-
-    public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchant) {
-        return enchant == Enchantments.VANISHING_CURSE || enchant == Enchantments.PIERCING || enchant == Enchantments.FIRE_ASPECT || enchant == Enchantments.LOYALTY || enchant == Enchantments.MENDING || enchant == Enchantments.SWEEPING_EDGE || enchant == Enchantments.MOB_LOOTING || enchant == Enchantments.SHARPNESS || enchant == Enchantments.BANE_OF_ARTHROPODS || enchant == Enchantments.SMITE;
     }
 
     public int getUseDuration(ItemStack stack) {
@@ -114,23 +114,6 @@ public class SpearItem extends TieredItem implements Vanishable {
                 playerEntity.awardStat(Stats.ITEM_USED.get(this));
             }
         }
-    }
-
-    public boolean canAttackBlock(BlockState state, Level worldIn, BlockPos pos, Player player) {
-        return !player.isCreative();
-    }
-
-    public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-        stack.hurtAndBreak(1, attacker, (entity) -> entity.broadcastBreakEvent(EquipmentSlot.MAINHAND));
-        return true;
-    }
-
-    public boolean mineBlock(ItemStack stack, Level worldIn, BlockState state, BlockPos pos, LivingEntity entityLiving) {
-        if (state.getDestroySpeed(worldIn, pos) != 0.0F) {
-            stack.hurtAndBreak(2, entityLiving, (entity) -> entity.broadcastBreakEvent(EquipmentSlot.MAINHAND));
-        }
-
-        return true;
     }
 
     public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot equipmentSlot) {

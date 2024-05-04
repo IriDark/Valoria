@@ -41,6 +41,17 @@ public abstract class AbstractKunai extends AbstractArrow {
         }
     }
 
+    @Override
+    public void onRemovedFromWorld() {
+        if(this.getOwner() instanceof Player player) {
+            if(!player.getAbilities().instabuild) {
+                player.spawnAtLocation(this.getPickupItem());
+            }
+        }
+
+        super.onRemovedFromWorld();
+    }
+
     public boolean shouldReturnToThrower() {
         Entity entity = this.getOwner();
         if (entity != null && entity.isAlive()) {
