@@ -41,9 +41,10 @@ public class CurioItemProperty extends TieredItem implements ICurioItem, ICurioT
     public AccessoryType type;
     public AccessoryGem gem;
     public AccessoryMaterial material;
-
+    public Tier tier;
     public CurioItemProperty(Tier tier, AccessoryType type, AccessoryGem gem, AccessoryMaterial material, Item.Properties properties) {
         super(tier, properties);
+        this.tier = tier;
         this.type = type;
         this.gem = gem;
         this.material = material;
@@ -66,57 +67,49 @@ public class CurioItemProperty extends TieredItem implements ICurioItem, ICurioT
         // Reciving Gem Type & gives atts
         switch (gem) {
             case NONE:
-                atts.put(Attributes.ARMOR, new AttributeModifier(uuid, "bonus", 0.2, AttributeModifier.Operation.ADDITION));
+                atts.put(Attributes.ARMOR, new AttributeModifier(uuid, "bonus", 0.2 + (tier.getLevel() * 0.05), AttributeModifier.Operation.ADDITION));
                 break;
             case AMBER:
-                atts.put(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(uuid, "bonus", 0.1f, AttributeModifier.Operation.ADDITION));
+                atts.put(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(uuid, "bonus", 0.025f + (tier.getLevel() * 0.005), AttributeModifier.Operation.ADDITION));
                 break;
             case DIAMOND:
-                atts.put(Attributes.ARMOR, new AttributeModifier(uuid, "bonus", 2, AttributeModifier.Operation.ADDITION));
+                atts.put(Attributes.ARMOR, new AttributeModifier(uuid, "bonus", 2 + (tier.getLevel() * 0.5), AttributeModifier.Operation.ADDITION));
                 atts.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(uuid, "bonus", 1.2f, AttributeModifier.Operation.ADDITION));
                 break;
             case EMERALD:
-                atts.put(Attributes.LUCK, new AttributeModifier(uuid, "bonus", 1, AttributeModifier.Operation.ADDITION));
+                atts.put(Attributes.LUCK, new AttributeModifier(uuid, "bonus", 1 + (tier.getLevel() * 0.5), AttributeModifier.Operation.ADDITION));
                 break;
             case RUBY:
-                atts.put(Attributes.MAX_HEALTH, new AttributeModifier(uuid, "bonus", 1, AttributeModifier.Operation.ADDITION));
+                atts.put(Attributes.MAX_HEALTH, new AttributeModifier(uuid, "bonus", 1 + (tier.getLevel() * 0.5), AttributeModifier.Operation.ADDITION));
                 break;
             case SAPPHIRE:
-                atts.put(Attributes.MOVEMENT_SPEED, new AttributeModifier(uuid, "bonus", 0.05, AttributeModifier.Operation.ADDITION));
+                atts.put(Attributes.MOVEMENT_SPEED, new AttributeModifier(uuid, "bonus", 0.05 + (tier.getLevel() * 0.05), AttributeModifier.Operation.ADDITION));
                 break;
 
             case HEALTH:
-                if (material == AccessoryMaterial.IRON) {
-                    atts.put(Attributes.MAX_HEALTH, new AttributeModifier(uuid, "bonus", 1, AttributeModifier.Operation.ADDITION));
-                } else {
-                    atts.put(Attributes.MAX_HEALTH, new AttributeModifier(uuid, "bonus", 2.5, AttributeModifier.Operation.ADDITION));
-                }
+                atts.put(Attributes.MAX_HEALTH, new AttributeModifier(uuid, "bonus", 1.5f + (tier.getLevel() * 0.25), AttributeModifier.Operation.ADDITION));
                 break;
             case ARMOR:
                 if (material == AccessoryMaterial.IRON) {
-                    atts.put(Attributes.ARMOR, new AttributeModifier(uuid, "bonus", 1.5f, AttributeModifier.Operation.ADDITION));
+                    atts.put(Attributes.ARMOR, new AttributeModifier(uuid, "bonus", 1.5f + (tier.getLevel() * 0.05), AttributeModifier.Operation.ADDITION));
                 } else {
-                    atts.put(Attributes.ARMOR, new AttributeModifier(uuid, "bonus", 3.6f, AttributeModifier.Operation.ADDITION));
+                    atts.put(Attributes.ARMOR, new AttributeModifier(uuid, "bonus", 3.6f + (tier.getLevel() * 0.05), AttributeModifier.Operation.ADDITION));
                     atts.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(uuid, "bonus", 1.2f, AttributeModifier.Operation.ADDITION));
                 }
                 break;
             case TOUGH:
-                atts.put(Attributes.ARMOR, new AttributeModifier(uuid, "bonus", 1.25, AttributeModifier.Operation.ADDITION));
+                atts.put(Attributes.ARMOR, new AttributeModifier(uuid, "bonus", 1.25 + (tier.getLevel() * 0.05), AttributeModifier.Operation.ADDITION));
                 atts.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(uuid, "bonus", 0.5f, AttributeModifier.Operation.ADDITION));
                 break;
             case TANK:
-                atts.put(Attributes.ARMOR, new AttributeModifier(uuid, "bonus", 2.5f, AttributeModifier.Operation.ADDITION));
+                atts.put(Attributes.ARMOR, new AttributeModifier(uuid, "bonus", 2.5f + (tier.getLevel() * 0.05), AttributeModifier.Operation.ADDITION));
                 atts.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(uuid, "bonus", 1.5f, AttributeModifier.Operation.ADDITION));
                 break;
             case WEALTH:
-                if (material == AccessoryMaterial.IRON) {
-                    atts.put(Attributes.LUCK, new AttributeModifier(uuid, "bonus", 1.5, AttributeModifier.Operation.ADDITION));
-                } else {
-                    atts.put(Attributes.LUCK, new AttributeModifier(uuid, "bonus", 2, AttributeModifier.Operation.ADDITION));
-                }
+                atts.put(Attributes.LUCK, new AttributeModifier(uuid, "bonus", 1.5 + (tier.getLevel() * 0.25), AttributeModifier.Operation.ADDITION));
                 break;
             case BELT:
-                atts.put(Attributes.ARMOR, new AttributeModifier(uuid, "bonus", 0.2, AttributeModifier.Operation.ADDITION));
+                atts.put(Attributes.ARMOR, new AttributeModifier(uuid, "bonus", 0.2 + (tier.getLevel() * 0.05), AttributeModifier.Operation.ADDITION));
                 CuriosApi.addSlotModifier(atts, "charm", uuid, 2.0, AttributeModifier.Operation.ADDITION);
                 break;
         }
@@ -199,8 +192,6 @@ public class CurioItemProperty extends TieredItem implements ICurioItem, ICurioT
         super.appendHoverText(stack, world, tooltip, flags);
         if (gem == AccessoryGem.AMBER) {
             tooltip.add(Component.translatable("tooltip.valoria.amber").withStyle(ChatFormatting.GRAY));
-        } else if (material == AccessoryMaterial.GOLD) {
-            tooltip.add(Component.translatable("tooltip.valoria.golden").withStyle(ChatFormatting.GRAY));
         } else if (type == AccessoryType.BELT) {
             tooltip.add(Component.translatable("tooltip.valoria.belt").withStyle(ChatFormatting.GRAY));
         }
