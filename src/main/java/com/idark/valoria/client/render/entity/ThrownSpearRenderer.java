@@ -26,8 +26,13 @@ public class ThrownSpearRenderer extends EntityRenderer<ThrownSpearEntity> {
 
     public void render(ThrownSpearEntity entityIn, float entityYaw, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light) {
         ms.pushPose();
+        if (!Minecraft.getInstance().isPaused() && !(entityIn.inGround || entityIn.onGround())) {
+            entityIn.rotationVelocity = Mth.lerp(partialTicks, entityIn.rotationVelocity, (entityIn.rotationVelocity + 1.2f) + (float) entityIn.getDeltaMovement().x);
+        }
+
+        ms.scale(1.5f, 1.5f, 1.5f);
         ms.mulPose(Axis.YP.rotationDegrees(Mth.lerp(partialTicks, entityIn.yRotO, entityIn.getYRot()) + 90.0F));
-        ms.mulPose(Axis.ZP.rotationDegrees(Mth.lerp(partialTicks, entityIn.xRotO, entityIn.getXRot()) + 50.0F));
+        ms.mulPose(Axis.ZP.rotationDegrees(Mth.lerp(partialTicks, entityIn.xRotO, entityIn.getXRot()) + entityIn.rotationVelocity));
 
         ModelResourceLocation MODEL = new ModelResourceLocation(Valoria.ID, ForgeRegistries.ITEMS.getKey(entityIn.getItem().getItem()).getPath() + "_in_hand", "inventory");
         BakedModel spear = Minecraft.getInstance().getItemRenderer().getItemModelShaper().getModelManager().getModel(MODEL);

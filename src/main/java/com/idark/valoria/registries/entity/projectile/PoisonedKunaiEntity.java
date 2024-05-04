@@ -83,7 +83,7 @@ public class PoisonedKunaiEntity extends AbstractKunai {
             }
         }
 
-        if (!this.shouldRender(this.getX(), this.getY(), this.getZ()) && !this.inGround) {
+        if (this.shouldRender(this.getX(), this.getY(), this.getZ()) && !this.inGround) {
             Vec3 vector3d = this.getDeltaMovement();
             double a3 = vector3d.x;
             double a4 = vector3d.y;

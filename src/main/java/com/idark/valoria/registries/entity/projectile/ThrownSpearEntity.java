@@ -37,6 +37,7 @@ public class ThrownSpearEntity extends AbstractValoriaArrow implements ItemSuppl
     private static final EntityDataAccessor<ItemStack> DATA_ITEM_STACK = SynchedEntityData.defineId(ThrownSpearEntity.class, EntityDataSerializers.ITEM_STACK);
     public int returningTicks;
     public boolean returnToPlayer;
+    public float rotationVelocity = 50;
 
     public ThrownSpearEntity(Level worldIn, LivingEntity thrower, ItemStack thrownStackIn, int minDamage, int baseDamage) {
         super(EntityTypeRegistry.SPEAR.get(), worldIn, thrower, thrownStackIn, minDamage, baseDamage);
@@ -157,13 +158,13 @@ public class ThrownSpearEntity extends AbstractValoriaArrow implements ItemSuppl
             }
         }
 
-        if (!this.shouldRender(this.getX(), this.getY(), this.getZ()) && !this.inGround) {
+        if (this.shouldRender(this.getX(), this.getY(), this.getZ()) && !this.inGround) {
             Vec3 vector3d = this.getDeltaMovement();
             double a3 = vector3d.x;
             double a4 = vector3d.y;
             double a0 = vector3d.z;
-            for (int a = 0; a < 3; ++a) {
-                this.level().addParticle(ParticleTypes.WHITE_ASH, this.getX() + a3 * (double) a / 4.0D, this.getY() + a4 * (double) a / 4.0D, this.getZ() + a0 * (double) a / 4.0D, -a3, -a4 + 0.2D, -a0);
+            for (int a = 0; a < 1; ++a) {
+                this.level().addParticle(ParticleTypes.POOF, this.getX() + a3 * (double) a / 4.0D, this.getY() + a4 * (double) a / 4.0D, this.getZ() + a0 * (double) a / 4.0D, -a3, 0.1, -a0);
             }
         }
 
