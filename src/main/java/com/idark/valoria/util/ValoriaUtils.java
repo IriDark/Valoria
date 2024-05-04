@@ -596,6 +596,24 @@ public class ValoriaUtils {
         }
     }
 
+    /**
+     *
+     * @param pPos Position to start from
+     * @param entity Entity that being checked to spawn
+     * @return Safe spot pos
+     */
+    private BlockPos searchSafeSpot(Level pLevel, BlockPos pPos, LivingEntity entity) {
+        Random rand = new Random();
+        int x = pPos.getX() + (rand.nextInt() - rand.nextInt()) * 6;
+        int y = pPos.getY() + rand.nextInt(1, 2);
+        int z = pPos.getZ() + (rand.nextInt() - rand.nextInt()) * 6;
+        if (pLevel.noCollision(entity, new AABB(x, y, z, x, y, z).inflate(1))) {
+            return new BlockPos(x, y, z);
+        }
+
+        return null;
+    }
+
     public static class color {
         public static int getAlpha(int packedColor) {
             return packedColor >>> 24;
