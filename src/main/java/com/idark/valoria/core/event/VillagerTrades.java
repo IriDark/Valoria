@@ -38,7 +38,7 @@ public class VillagerTrades {
             }
 
             if (event.getType() == VillagerProfession.LIBRARIAN) {
-                trades.get(1).add(itemSell(1, ItemsRegistry.LEXICON.get(), 1, 12));
+                trades.get(1).add(itemSell(1, ItemsRegistry.LEXICON.get(), 1, 2));
             }
         }
 
