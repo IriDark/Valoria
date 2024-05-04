@@ -19,6 +19,8 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotContext;
@@ -115,6 +117,10 @@ public class CurioItemProperty extends TieredItem implements ICurioItem, ICurioT
         }
 
         return atts;
+    }
+
+    public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchant) {
+        return enchant == Enchantments.VANISHING_CURSE || enchant == Enchantments.UNBREAKING || enchant == Enchantments.MENDING;
     }
 
     @Override

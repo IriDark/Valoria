@@ -15,6 +15,8 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.type.capability.ICurio;
@@ -37,6 +39,10 @@ public class PickNecklace extends Item implements ICurioItem, ICurioTexture {
         atts.put(AttributeRegistry.EXCAVATION_SPEED.get(), new AttributeModifier(uuid, "bonus", 3, AttributeModifier.Operation.ADDITION));
 
         return atts;
+    }
+
+    public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchant) {
+        return enchant == Enchantments.VANISHING_CURSE || enchant == Enchantments.UNBREAKING || enchant == Enchantments.MENDING;
     }
 
     @Nonnull
