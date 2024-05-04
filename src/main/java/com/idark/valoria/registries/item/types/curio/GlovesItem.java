@@ -18,10 +18,7 @@ import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.Vanishable;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.type.capability.ICurio;
@@ -32,7 +29,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
-public class GlovesItem extends Item implements ICurioItem, ICurioTexture, Vanishable {
+public class GlovesItem extends TieredItem implements ICurioItem, ICurioTexture, Vanishable {
 
     public static ResourceLocation getGlovesTexture(String material, boolean slim) {
         return slim ? new ResourceLocation(Valoria.ID, "textures/entity/gloves/" + material + "_gloves" + "_slim" + ".png") : new ResourceLocation(Valoria.ID, "textures/entity/gloves/" + material + "_gloves" + ".png");
@@ -41,8 +38,8 @@ public class GlovesItem extends Item implements ICurioItem, ICurioTexture, Vanis
     public AccessoryGem gem;
     public AccessoryMaterial material;
 
-    public GlovesItem(AccessoryGem gem, AccessoryMaterial material, Item.Properties properties) {
-        super(properties);
+    public GlovesItem(Tier tier, AccessoryGem gem, AccessoryMaterial material, Item.Properties properties) {
+        super(tier, properties);
         this.gem = gem;
         this.material = material;
     }

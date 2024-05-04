@@ -18,10 +18,7 @@ import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.Vanishable;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotContext;
@@ -33,7 +30,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
-public class CurioItemProperty extends Item implements ICurioItem, ICurioTexture, Vanishable {
+public class CurioItemProperty extends TieredItem implements ICurioItem, ICurioTexture, Vanishable {
 
     private static final ResourceLocation BELT_TEXTURE = new ResourceLocation(Valoria.ID, "textures/entity/leather_belt.png");
 
@@ -45,8 +42,8 @@ public class CurioItemProperty extends Item implements ICurioItem, ICurioTexture
     public AccessoryGem gem;
     public AccessoryMaterial material;
 
-    public CurioItemProperty(AccessoryType type, AccessoryGem gem, AccessoryMaterial material, Item.Properties properties) {
-        super(properties);
+    public CurioItemProperty(Tier tier, AccessoryType type, AccessoryGem gem, AccessoryMaterial material, Item.Properties properties) {
+        super(tier, properties);
         this.type = type;
         this.gem = gem;
         this.material = material;
