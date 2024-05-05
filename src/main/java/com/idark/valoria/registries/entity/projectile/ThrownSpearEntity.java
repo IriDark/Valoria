@@ -4,6 +4,7 @@ import com.idark.valoria.client.particle.ModParticles;
 import com.idark.valoria.client.particle.types.Particles;
 import com.idark.valoria.registries.EnchantmentsRegistry;
 import com.idark.valoria.registries.EntityTypeRegistry;
+import com.idark.valoria.registries.SoundsRegistry;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
@@ -12,7 +13,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -42,6 +43,7 @@ public class ThrownSpearEntity extends AbstractValoriaArrow implements ItemSuppl
     public int returningTicks;
     public boolean returnToPlayer;
     public float rotationVelocity = 50;
+    public boolean wasInGround;
 
     public ThrownSpearEntity(Level worldIn, LivingEntity thrower, ItemStack thrownStackIn, int minDamage, int baseDamage) {
         super(EntityTypeRegistry.SPEAR.get(), worldIn, thrower, thrownStackIn, minDamage, baseDamage);
@@ -58,6 +60,15 @@ public class ThrownSpearEntity extends AbstractValoriaArrow implements ItemSuppl
 
     public ThrownSpearEntity(EntityType<? extends ThrownSpearEntity> type, Level worldIn) {
         super(type, worldIn);
+    }
+
+    public @NotNull SoundEvent getDefaultHitGroundSoundEvent() {
+        return SoundsRegistry.SPEAR_GROUND_IMPACT.get();
+    }
+
+    @Override
+    public @NotNull SoundEvent getHitGroundSoundEvent() {
+        return SoundsRegistry.SPEAR_GROUND_IMPACT.get();
     }
 
     public void defineSynchedData() {
@@ -155,21 +166,23 @@ public class ThrownSpearEntity extends AbstractValoriaArrow implements ItemSuppl
                 double d0 = 0.05D * (double) i;
                 this.setDeltaMovement(this.getDeltaMovement().scale(0.95D).add(vector3d.normalize().scale(d0)));
                 if (this.returningTicks == 0) {
-                    this.playSound(SoundEvents.TRIDENT_RETURN, 10.0F, 1.0F);
+                    this.playSound(SoundsRegistry.SPEAR_RETURN.get(), 10.0F, 0.6F);
                 }
 
                 ++this.returningTicks;
             }
         }
 
-        if (this.shouldRender(this.getX(), this.getY(), this.getZ()) && !this.inGround) {
+        if(this.inGround) {
+            wasInGround = true;
+        }
+
+        if (this.shouldRender(this.getX(), this.getY(), this.getZ()) && !this.inGround && !wasInGround) {
             Vec3 vector3d = this.getDeltaMovement();
             double a3 = vector3d.x;
             double a4 = vector3d.y;
             double a0 = vector3d.z;
-            for (int a = 0; a < 1; ++a) {
-                this.level().addParticle(ParticleTypes.POOF, this.getX() + a3 * (double) a / 4.0D, this.getY() + a4 * (double) a / 4.0D, this.getZ() + a0 * (double) a / 4.0D, -a3, 0.1, -a0);
-            }
+            this.level().addParticle(ParticleTypes.POOF, this.getX() + a3 / 4.0D, this.getY() + a4 / 4.0D, this.getZ() + a0 / 4.0D, -a3, 0.1, -a0);
         }
 
         super.tick();

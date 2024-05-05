@@ -30,12 +30,16 @@ public class SoundsRegistry {
     public static final RegistryObject<SoundEvent> WATER_ABILITY = registerSound("item.water_ability.use");
     public static final RegistryObject<SoundEvent> PHANTASM_ABILITY = registerSound("item.phantasm_ability.use");
     public static final RegistryObject<SoundEvent> BLOODHOUND_ABILITY = registerSound("item.bloodhound_ability.use");
+    public static final RegistryObject<SoundEvent> SPEAR_GROUND_IMPACT = registerSound("item.spear.hit_ground");
+    public static final RegistryObject<SoundEvent> SPEAR_RETURN = registerSound("item.spear.return");
+    public static final RegistryObject<SoundEvent> SPEAR_THROW = registerSound("item.spear.throw");
 
     public static final RegistryObject<SoundEvent> VOID_STONE_PLACE = registerSound("block.void_stone.place");
     public static final RegistryObject<SoundEvent> VOID_STONE_BREAK = registerSound("block.void_stone.break");
     public static final RegistryObject<SoundEvent> VOID_STONE_STEP = registerSound("block.void_stone.step");
     public static final RegistryObject<SoundEvent> VOID_GRASS_STEP = registerSound("block.void_grass.step");
     public static final RegistryObject<SoundEvent> VOID_GRASS_BREAK = registerSound("block.void_grass.break");
+
 
     //SoundType
     public static final ModSoundType POT = new ModSoundType(1, 1, POT_BREAK, POT_STEP, POT_PLACE, () -> SoundEvents.STONE_HIT, () -> SoundEvents.STONE_FALL);

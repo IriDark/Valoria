@@ -1,4 +1,31 @@
 {
+  "item.spear.hit_ground": {
+    "subtitle": "subtitles.valoria.spear.hit_ground",
+    "replace": "true",
+    "sounds": [
+      "valoria:spear/ground_impact1",
+      "valoria:spear/ground_impact2",
+      "valoria:spear/ground_impact3",
+      "valoria:spear/ground_impact4"
+    ]
+  },
+  "item.spear.return": {
+    "subtitle": "subtitles.valoria.spear.return",
+    "replace": "true",
+    "sounds": [
+      "valoria:spear/return1",
+      "valoria:spear/return2",
+      "valoria:spear/return3"
+    ]
+  },
+  "item.spear.throw": {
+    "subtitle": "subtitles.valoria.spear.throw",
+    "replace": "true",
+    "sounds": [
+      "valoria:spear/throw1",
+      "valoria:spear/throw2"
+    ]
+  },
   "item.disappear.ambient": {
     "subtitle": "subtitles.valoria.spectral_blade.disappear",
     "replace": "true",

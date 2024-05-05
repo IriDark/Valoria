@@ -6,6 +6,7 @@ import com.google.common.collect.Multimap;
 import com.idark.valoria.registries.AttributeRegistry;
 import com.idark.valoria.registries.BlockRegistry;
 import com.idark.valoria.registries.ItemsRegistry;
+import com.idark.valoria.registries.SoundsRegistry;
 import com.idark.valoria.registries.entity.projectile.ThrownSpearEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -105,7 +106,7 @@ public class SpearItem extends SwordItem implements Vanishable {
                     }
 
                     worldIn.addFreshEntity(spear);
-                    worldIn.playSound(playerEntity, spear, SoundEvents.ARROW_SHOOT, SoundSource.PLAYERS, 1.0F, 1.0F);
+                    worldIn.playSound(null, spear, SoundsRegistry.SPEAR_THROW.get(), SoundSource.PLAYERS, 1.0F, 0.9F);
                     if (!playerEntity.getAbilities().instabuild) {
                         playerEntity.getInventory().removeItem(stack);
                     }

@@ -12,6 +12,9 @@
 	"valoria.jade.openable_with": "Openable with:",
 	"valoria.jade.progress": "Progress:",
 
+	"subtitles.valoria.spear.hit_ground": "Spear vibrates",
+	"subtitles.valoria.spear.return": "Spear returns",
+	"subtitles.valoria.spear.throw": "Spear clangs",
 	"subtitles.valoria.curse.equip": "Equipped Cursed Item",
 	"subtitles.valoria.curse.lost": "Curse lost it's strength... ★",
 	"subtitles.valoria.spectral_blade.disappear": "Spectral Blade Disappeared",
