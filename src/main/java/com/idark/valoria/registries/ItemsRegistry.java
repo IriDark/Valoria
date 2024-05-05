@@ -251,13 +251,13 @@ public class ItemsRegistry {
     public static final RegistryObject<Item> HOLIDAY_AXE = ITEMS.register("holiday_axe",
             () -> new AxeItem(ModItemTier.HOLIDAY, 1, -3f, new Item.Properties()));
     public static final RegistryObject<Item> COBALT_SWORD = ITEMS.register("cobalt_sword",
-            () -> new SwordItem(ModItemTier.COBALT, 7, -2.2f, new Item.Properties()));
+            () -> new SwordItem(ModItemTier.COBALT, 9, -2.2f, new Item.Properties()));
     public static final RegistryObject<Item> COBALT_PICKAXE = ITEMS.register("cobalt_pickaxe",
-            () -> new PickaxeItem(ModItemTier.COBALT, 2, -3f, new Item.Properties()));
+            () -> new PickaxeItem(ModItemTier.COBALT, 4, -3f, new Item.Properties()));
     public static final RegistryObject<Item> COBALT_SHOVEL = ITEMS.register("cobalt_shovel",
-            () -> new ShovelItem(ModItemTier.COBALT, 2, -3f, new Item.Properties()));
+            () -> new ShovelItem(ModItemTier.COBALT, 5f, -3f, new Item.Properties()));
     public static final RegistryObject<Item> COBALT_AXE = ITEMS.register("cobalt_axe",
-            () -> new AxeItem(ModItemTier.COBALT, 9, -3.4f, new Item.Properties()));
+            () -> new AxeItem(ModItemTier.COBALT, 10.5f, -2.8f, new Item.Properties()));
     public static final RegistryObject<Item> COBALT_HOE = ITEMS.register("cobalt_hoe",
             () -> new HoeItem(ModItemTier.COBALT, 0, 0f, new Item.Properties()));
     public static final RegistryObject<Item> ENT = ITEMS.register("ent",

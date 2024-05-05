@@ -10,7 +10,7 @@ import java.util.function.Supplier;
 public enum ModItemTier implements Tier {
 
     NONE(0, 2031, 9.0F, 4.0F, 15, Ingredient::of),
-    COBALT(4, 1676, 5f, 0f, 16,
+    COBALT(4, 2048, 8.5F, 0f, 16,
             () -> Ingredient.of(ItemsRegistry.COBALT_INGOT.get())),
     PEARLIUM(2, 325, 6.0F, 2.0F, 15,
             () -> Ingredient.of(ItemsRegistry.PEARLIUM_INGOT.get())),
