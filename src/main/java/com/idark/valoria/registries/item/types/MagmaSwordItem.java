@@ -90,7 +90,7 @@ public class MagmaSwordItem extends SwordItem implements IRadiusItem {
                 setCharges(stack, 1);
                 player.getCooldowns().addCooldown(this, 150);
                 player.displayClientMessage(Component.translatable("tooltip.valoria.wet").withStyle(ChatFormatting.GRAY), true);
-                worldIn.playSound(player, player.blockPosition(), SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 10f, 1f);
+                worldIn.playSound(player, player.blockPosition(), SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 1f, 1f);
                 if (!player.isCreative()) {
                     stack.hurtAndBreak(5, player, (p_220045_0_) -> p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
                 }
@@ -115,7 +115,7 @@ public class MagmaSwordItem extends SwordItem implements IRadiusItem {
                     damagedEntity.setSecondsOnFire(12);
                 }
 
-                worldIn.playSound(player, player.blockPosition(), SoundsRegistry.ERUPTION.get(), SoundSource.AMBIENT, 10f, 1f);
+                worldIn.playSound(null, player.blockPosition(), SoundsRegistry.ERUPTION.get(), SoundSource.AMBIENT, 1f, 1f);
                 if (!player.isCreative()) {
                     stack.hurtAndBreak(hitEntities.size(), player, (p_220045_0_) -> p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
                 }

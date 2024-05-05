@@ -198,7 +198,7 @@ public class KatanaItem extends SwordItem implements ICooldownItem {
                 level.addParticle(ParticleTypes.POOF, player.getX() + (rand.nextDouble() - 0.5D), player.getY(), player.getZ() + (rand.nextDouble() - 0.5D), 0d, 0.05d, 0d);
             }
 
-            level.playSound(player, player.blockPosition(), SoundsRegistry.SWIFTSLICE.get(), SoundSource.AMBIENT, 10f, 1f);
+            level.playSound(null, player.getOnPos(), SoundsRegistry.SWIFTSLICE.get(), SoundSource.PLAYERS, 1.0F, 1F);
             if (level.isClientSide) DashOverlayRender.showDashOverlay();
         }
     }
@@ -212,7 +212,6 @@ public class KatanaItem extends SwordItem implements ICooldownItem {
 
         Vec3 pos = new Vec3(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());
         Vec3 EndPos = (player.getViewVector(0.0f).scale(2.0d));
-
         HitResult hitresult = ValoriaUtils.getHitResult(player.getEyePosition(), player, (e) -> true, EndPos, level);
         if (hitresult != null) {
             switch (hitresult.getType()) {

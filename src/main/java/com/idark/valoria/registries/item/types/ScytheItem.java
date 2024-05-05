@@ -155,7 +155,7 @@ public class ScytheItem extends SwordItem implements ICustomAnimationItem, ICool
             }
         }
 
-        level.playSound(null, player.blockPosition(), SoundsRegistry.SWIFTSLICE.get(), SoundSource.AMBIENT, 10f, 1f);
+        level.playSound(null, player.getOnPos(), SoundsRegistry.SWIFTSLICE.get(), SoundSource.PLAYERS, 1.0F, 1F);
         return stack;
     }
 

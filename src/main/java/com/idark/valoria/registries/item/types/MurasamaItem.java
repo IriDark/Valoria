@@ -137,7 +137,6 @@ public class MurasamaItem extends KatanaItem implements IParticleItem {
                 level.addParticle(ParticleTypes.POOF, player.getX() + (rand.nextDouble() - 0.5D), player.getY(), player.getZ() + (rand.nextDouble() - 0.5D), 0d, 0.05d, 0d);
             }
 
-            level.playSound(player, player.blockPosition(), SoundsRegistry.SWIFTSLICE.get(), SoundSource.AMBIENT, 10f, 1f);
             hitEntities.clear();
             double locYaw = 0;
             double locPitch = 0;
@@ -163,6 +162,7 @@ public class MurasamaItem extends KatanaItem implements IParticleItem {
                 }
             }
 
+            level.playSound(null, player.getOnPos(), SoundsRegistry.SWIFTSLICE.get(), SoundSource.PLAYERS, 1.0F, 1F);
             if (level.isClientSide) DashOverlayRender.showDashOverlay();
         }
 

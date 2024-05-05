@@ -94,7 +94,7 @@ public class BlazeReapItem extends PickaxeItem implements Vanishable {
 
                     setCharge(itemstack, 1);
                     player.getCooldowns().addCooldown(this, 20);
-                    level.playSound(player, player.blockPosition(), SoundsRegistry.BLAZECHARGE.get(), SoundSource.AMBIENT, 10f, 1f);
+                    level.playSound(null, player.blockPosition(), SoundsRegistry.BLAZECHARGE.get(), SoundSource.AMBIENT, 1f, 1f);
                     player.awardStat(Stats.ITEM_USED.get(this));
                 } else {
                     player.displayClientMessage(Component.translatable("tooltip.valoria.recharge").withStyle(ChatFormatting.GRAY), true);
@@ -179,7 +179,7 @@ public class BlazeReapItem extends PickaxeItem implements Vanishable {
                 srv.sendParticles(ParticleTypes.EXPLOSION_EMITTER, pos.x + X, pos.y + Y, player.getZ() + Z, 1, 0, 0, 0, 0);
             }
 
-            level.playSound(null, player.blockPosition().offset((int) X, (int) (Y + player.getEyeHeight()), (int) Z), SoundEvents.GENERIC_EXPLODE, SoundSource.AMBIENT, 10f, 1f);
+            level.playSound(null, player.blockPosition().offset((int) X, (int) (Y + player.getEyeHeight()), (int) Z), SoundEvents.GENERIC_EXPLODE, SoundSource.AMBIENT, 2f, 1f);
             return InteractionResultHolder.success(itemstack);
         }
 
