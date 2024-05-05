@@ -1,13 +1,13 @@
 package com.idark.valoria.registries.item.types.curio.charm;
 
-import com.idark.valoria.util.RandomUtil;
+import com.google.common.collect.LinkedHashMultimap;
+import com.google.common.collect.Multimap;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -18,6 +18,7 @@ import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
 import javax.annotation.Nonnull;
 import java.util.List;
+import java.util.UUID;
 
 public class CurioStrength extends Item implements ICurioItem {
     public CurioStrength(Properties properties) {
@@ -41,14 +42,10 @@ public class CurioStrength extends Item implements ICurioItem {
     }
 
     @Override
-    public void curioTick(SlotContext slotContext, ItemStack stack) {
-        Player player = (Player) slotContext.entity();
-        if (!player.level().isClientSide() && !player.hasEffect(MobEffects.DAMAGE_BOOST)) {
-            player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 230));
-            if (RandomUtil.fiftyFifty()) {
-                stack.hurtAndBreak(1, player, (p_220045_0_) -> p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
-            }
-        }
+    public Multimap<Attribute, AttributeModifier> getAttributeModifiers(SlotContext slotContext, UUID uuid, ItemStack stack) {
+        Multimap<Attribute, AttributeModifier> atts = LinkedHashMultimap.create();
+        atts.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(uuid, "bonus", 0.1, AttributeModifier.Operation.MULTIPLY_TOTAL));
+        return atts;
     }
 
     @Override

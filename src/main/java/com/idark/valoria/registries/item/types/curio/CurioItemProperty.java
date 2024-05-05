@@ -85,7 +85,7 @@ public class CurioItemProperty extends TieredItem implements ICurioItem, ICurioT
                 atts.put(Attributes.MAX_HEALTH, new AttributeModifier(uuid, "bonus", 1 + (tier.getLevel() * 0.5), AttributeModifier.Operation.ADDITION));
                 break;
             case SAPPHIRE:
-                atts.put(Attributes.MOVEMENT_SPEED, new AttributeModifier(uuid, "bonus", 0.05 + (tier.getLevel() * 0.05), AttributeModifier.Operation.ADDITION));
+                atts.put(Attributes.MOVEMENT_SPEED, new AttributeModifier(uuid, "bonus", 0.05 + (tier.getLevel() * 0.05), AttributeModifier.Operation.MULTIPLY_TOTAL));
                 break;
 
             case HEALTH:

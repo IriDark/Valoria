@@ -1,0 +1,6 @@
+{
+  "parent": "valoria:item/quantum_reaper",
+  "textures": {
+    "layer0": "valoria:item/debug"
+  }
+}

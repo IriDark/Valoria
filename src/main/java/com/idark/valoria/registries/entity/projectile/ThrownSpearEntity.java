@@ -1,5 +1,7 @@
 package com.idark.valoria.registries.entity.projectile;
 
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Sets;
 import com.idark.valoria.client.particle.ModParticles;
 import com.idark.valoria.client.particle.types.Particles;
 import com.idark.valoria.registries.EnchantmentsRegistry;
@@ -7,6 +9,7 @@ import com.idark.valoria.registries.EntityTypeRegistry;
 import com.idark.valoria.registries.SoundsRegistry;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -15,6 +18,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -25,6 +29,7 @@ import net.minecraft.world.entity.projectile.ItemSupplier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
@@ -35,6 +40,7 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.Random;
+import java.util.Set;
 
 public class ThrownSpearEntity extends AbstractValoriaArrow implements ItemSupplier {
     public static final EntityDataAccessor<Byte> LOYALTY_LEVEL = SynchedEntityData.defineId(ThrownSpearEntity.class, EntityDataSerializers.BYTE);
@@ -44,6 +50,7 @@ public class ThrownSpearEntity extends AbstractValoriaArrow implements ItemSuppl
     public boolean returnToPlayer;
     public float rotationVelocity = 50;
     public boolean wasInGround;
+    private final Set<MobEffectInstance> effects = Sets.newHashSet();
 
     public ThrownSpearEntity(Level worldIn, LivingEntity thrower, ItemStack thrownStackIn, int minDamage, int baseDamage) {
         super(EntityTypeRegistry.SPEAR.get(), worldIn, thrower, thrownStackIn, minDamage, baseDamage);
@@ -84,8 +91,37 @@ public class ThrownSpearEntity extends AbstractValoriaArrow implements ItemSuppl
         }
     }
 
+    public void addEffect(MobEffectInstance pEffectInstance) {
+        this.effects.add(pEffectInstance);
+    }
+
+    public void addAdditionalSaveData(@NotNull CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        if (!this.effects.isEmpty()) {
+            ListTag listtag = new ListTag();
+
+            for(MobEffectInstance mobeffectinstance : this.effects) {
+                listtag.add(mobeffectinstance.save(new CompoundTag()));
+            }
+
+            compound.put("CustomPotionEffects", listtag);
+        }
+
+        compound.put("Spear", this.getItem().save(new CompoundTag()));
+        compound.putBoolean("DealtDamage", this.returnToPlayer);
+        compound.putByte("PierceLevel", this.getPierceLevel());
+        ItemStack itemstack = this.getItemRaw();
+        if (!itemstack.isEmpty()) {
+            compound.put("Item", itemstack.save(new CompoundTag()));
+        }
+    }
+
     public void readAdditionalSaveData(@NotNull CompoundTag compound) {
         super.readAdditionalSaveData(compound);
+        for(MobEffectInstance mobeffectinstance : PotionUtils.getCustomEffects(compound)) {
+            this.addEffect(mobeffectinstance);
+        }
+
         if (compound.contains("Spear", 10)) {
             this.arrowItem = ItemStack.of(compound.getCompound("Spear"));
         }
@@ -96,17 +132,6 @@ public class ThrownSpearEntity extends AbstractValoriaArrow implements ItemSuppl
         this.entityData.set(PIERCE_LEVEL, (byte) EnchantmentHelper.getTagEnchantmentLevel(Enchantments.PIERCING, this.getItem()));
         ItemStack itemstack = ItemStack.of(compound.getCompound("Item"));
         this.setItem(itemstack);
-    }
-
-    public void addAdditionalSaveData(@NotNull CompoundTag compound) {
-        super.addAdditionalSaveData(compound);
-        compound.put("Spear", this.getItem().save(new CompoundTag()));
-        compound.putBoolean("DealtDamage", this.returnToPlayer);
-        compound.putByte("PierceLevel", this.getPierceLevel());
-        ItemStack itemstack = this.getItemRaw();
-        if (!itemstack.isEmpty()) {
-            compound.put("Item", itemstack.save(new CompoundTag()));
-        }
     }
 
     public void tickDespawn() {
@@ -173,7 +198,7 @@ public class ThrownSpearEntity extends AbstractValoriaArrow implements ItemSuppl
             }
         }
 
-        if(this.inGround) {
+        if (this.inGround) {
             wasInGround = true;
         }
 
@@ -182,11 +207,12 @@ public class ThrownSpearEntity extends AbstractValoriaArrow implements ItemSuppl
             double a3 = vector3d.x;
             double a4 = vector3d.y;
             double a0 = vector3d.z;
-            this.level().addParticle(ParticleTypes.POOF, this.getX() + a3 / 4.0D, this.getY() + a4 / 4.0D, this.getZ() + a0 / 4.0D, -a3, 0.1, -a0);
+            this.level().addParticle(ParticleTypes.CRIT, this.getX() + a3 / 4.0D, this.getY() + a4 / 4.0D, this.getZ() + a0 / 4.0D, -a3, 0.1, -a0);
         }
 
         super.tick();
     }
+
 
     @Override
     public void onRemovedFromWorld() {
@@ -197,6 +223,17 @@ public class ThrownSpearEntity extends AbstractValoriaArrow implements ItemSuppl
         }
 
         super.onRemovedFromWorld();
+    }
+
+    protected void doPostHurtEffects(LivingEntity pLiving) {
+        super.doPostHurtEffects(pLiving);
+        Entity entity = this.getEffectSource();
+        if (!this.effects.isEmpty()) {
+            for(MobEffectInstance effect : this.effects) {
+                pLiving.addEffect(effect, entity);
+            }
+        }
+
     }
 
     @Override
@@ -214,7 +251,8 @@ public class ThrownSpearEntity extends AbstractValoriaArrow implements ItemSuppl
             this.returnToPlayer = true;
         }
 
-        if(EnchantmentHelper.getTagEnchantmentLevel(EnchantmentsRegistry.BLEEDING.get(), this.getItem()) > 0) {
+        boolean flag = entity.getType() == EntityType.ENDERMAN;
+        if(EnchantmentHelper.getTagEnchantmentLevel(EnchantmentsRegistry.BLEEDING.get(), this.getItem()) > 0 && !flag) {
             for (int a = 0; a < 12; a++) {
                 Particles.create(ModParticles.SPHERE)
                         .randomOffset(0.7f, 0f, 0.7f)
@@ -241,6 +279,12 @@ public class ThrownSpearEntity extends AbstractValoriaArrow implements ItemSuppl
 
                 this.doPostHurtEffects(living);
             }
+        }
+    }
+
+    public void setEffectsFromList(ImmutableList<MobEffectInstance> effects) {
+        for(MobEffectInstance mobeffectinstance : effects) {
+            this.effects.add(new MobEffectInstance(mobeffectinstance));
         }
     }
 

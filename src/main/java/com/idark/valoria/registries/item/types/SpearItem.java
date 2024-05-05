@@ -1,6 +1,7 @@
 package com.idark.valoria.registries.item.types;
 
 import com.google.common.base.Suppliers;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import com.idark.valoria.registries.AttributeRegistry;
@@ -8,14 +9,19 @@ import com.idark.valoria.registries.BlockRegistry;
 import com.idark.valoria.registries.ItemsRegistry;
 import com.idark.valoria.registries.SoundsRegistry;
 import com.idark.valoria.registries.entity.projectile.ThrownSpearEntity;
+import com.idark.valoria.util.RandomUtil;
+import com.idark.valoria.util.ValoriaUtils;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -26,12 +32,14 @@ import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.ForgeMod;
 
+import java.util.List;
 import java.util.Random;
 import java.util.function.Supplier;
 
@@ -42,21 +50,42 @@ public class SpearItem extends SwordItem implements Vanishable {
     private final float projectileDamage;
     private final boolean throwable;
     private final Supplier<Multimap<Attribute, AttributeModifier>> attributeModifiers = Suppliers.memoize(this::createAttributes);
+    public float chance = 1;
+    public final ImmutableList<MobEffectInstance> effects;
 
-    public SpearItem(Tier tier, int attackDamageIn, float attackSpeedIn, float projectileDamageIn, Item.Properties builderIn) {
+    /**
+     * @param pEffects Effects applied on attack
+     */
+    public SpearItem(Tier tier, int attackDamageIn, float attackSpeedIn, float projectileDamageIn, Item.Properties builderIn, MobEffectInstance... pEffects) {
         super(tier, attackDamageIn, attackSpeedIn, builderIn);
         this.attackDamage = (float) attackDamageIn + tier.getAttackDamageBonus();
         this.attackSpeed = attackSpeedIn;
         this.projectileDamage = projectileDamageIn;
+        this.effects = ImmutableList.copyOf(pEffects);
         throwable = true;
     }
 
-    public SpearItem(Tier tier, int attackDamageIn, float attackSpeedIn, boolean throwableIn, Item.Properties builderIn) {
+    /**
+     * @param pChance Chance to apply effects
+     * @param pEffects Effects applied on attack
+    */
+    public SpearItem(Tier tier, int attackDamageIn, float attackSpeedIn, float projectileDamageIn, float pChance, Item.Properties builderIn, MobEffectInstance... pEffects) {
         super(tier, attackDamageIn, attackSpeedIn, builderIn);
         this.attackDamage = (float) attackDamageIn + tier.getAttackDamageBonus();
         this.attackSpeed = attackSpeedIn;
-        this.throwable = throwableIn;
+        this.projectileDamage = projectileDamageIn;
+        this.effects = ImmutableList.copyOf(pEffects);
+        this.chance = pChance;
+        throwable = true;
+    }
+
+    public SpearItem(Tier tier, int attackDamageIn, float attackSpeedIn, boolean pThrowable, Item.Properties builderIn) {
+        super(tier, attackDamageIn, attackSpeedIn, builderIn);
+        this.attackDamage = (float) attackDamageIn + tier.getAttackDamageBonus();
+        this.attackSpeed = attackSpeedIn;
+        this.throwable = pThrowable;
         this.projectileDamage = 0f;
+        this.effects = ImmutableList.of();
     }
 
     private Multimap<Attribute, AttributeModifier> createAttributes() {
@@ -92,6 +121,23 @@ public class SpearItem extends SwordItem implements Vanishable {
         return 72000;
     }
 
+    public boolean hurtEnemy(ItemStack pStack, LivingEntity pTarget, LivingEntity pAttacker) {
+        if (!effects.isEmpty()) {
+            if (chance < 1 || chance != 0) {
+                for (MobEffectInstance effectInstance : effects) {
+                    if(RandomUtil.percentChance(chance)) {
+                        pTarget.addEffect(new MobEffectInstance(effectInstance));
+                    }
+                }
+            } else {
+                for (MobEffectInstance effectInstance : effects) {
+                    pTarget.addEffect(new MobEffectInstance(effectInstance));
+                }
+            }
+        }
+        return super.hurtEnemy(pStack, pTarget, pAttacker);
+    }
+
     public void releaseUsing(ItemStack stack, Level worldIn, LivingEntity entityLiving, int timeLeft) {
         if (entityLiving instanceof Player playerEntity) {
             int i = this.getUseDuration(stack) - timeLeft;
@@ -105,6 +151,11 @@ public class SpearItem extends SwordItem implements Vanishable {
                         spear.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
                     }
 
+                    if (EnchantmentHelper.getTagEnchantmentLevel(Enchantments.FIRE_ASPECT, stack) > 0) {
+                        spear.setSecondsOnFire(100);
+                    }
+
+                    spear.setEffectsFromList(effects);
                     worldIn.addFreshEntity(spear);
                     worldIn.playSound(null, spear, SoundsRegistry.SPEAR_THROW.get(), SoundSource.PLAYERS, 1.0F, 0.9F);
                     if (!playerEntity.getAbilities().instabuild) {
@@ -151,5 +202,13 @@ public class SpearItem extends SwordItem implements Vanishable {
                 }
             }
         }
+    }
+
+    @Override
+    public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags) {
+        super.appendHoverText(stack, world, tooltip, flags);
+        tooltip.add(Component.translatable("tooltip.valoria.spear").withStyle(ChatFormatting.GRAY));
+        tooltip.add(Component.translatable("tooltip.valoria.rmb").withStyle(ChatFormatting.GREEN));
+        ValoriaUtils.addEffectsTooltip(effects, tooltip, 1, chance);
     }
 }
