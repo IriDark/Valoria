@@ -14,17 +14,17 @@ public enum ModItemTier implements Tier {
             () -> Ingredient.of(ItemsRegistry.COBALT_INGOT.get())),
     PEARLIUM(2, 325, 6.0F, 2.0F, 15,
             () -> Ingredient.of(ItemsRegistry.PEARLIUM_INGOT.get())),
-    HOLIDAY(2, 350, 6.0F, 2.0F, 11,
+    HOLIDAY(2, 370, 6.0F, 2.0F, 11,
             () -> Ingredient.of(ItemsRegistry.HOLIDAY_CANDY.get())),
-    SAMURAI(3, 1600, 8.0F, 3.0F, 10,
+    SAMURAI(3, 1600, 8.5F, 3.0F, 10,
             () -> Ingredient.of(ItemsRegistry.ANCIENT_INGOT.get())),
-    NATURE(5, 2451, 10f, 0f, 18,
+    NATURE(5, 2651, 11f, 0f, 18,
             () -> Ingredient.of(ItemsRegistry.NATURE_INGOT.get())),
-    AQUARIUS(6, 2756, 11f, 0f, 15,
+    AQUARIUS(6, 3256, 12f, 0f, 15,
             () -> Ingredient.of(ItemsRegistry.AQUARIUS_INGOT.get())),
-    INFERNAL(7, 2800, 12f, 0f, 16,
+    INFERNAL(7, 4256, 13f, 0f, 16,
             () -> Ingredient.of(ItemsRegistry.INFERNAL_INGOT.get())),
-    BLOOD(4, 2031, 9.0F, 4.0F, 15,
+    BLOOD(4, 2431, 9.0F, 4.0F, 15,
             () -> Ingredient.of(ItemsRegistry.PAIN_CRYSTAL.get()));
 
     private final int harvestLevel;
