@@ -1,7 +1,6 @@
 {
   "type": "valoria:crusher",
-  "loot_table": "valoria:items/crusher",
-
+  "loot_table": "valoria:items/stone_geode",
   "ingredients": [
     {
       "item": "valoria:stone_geode"
