@@ -153,15 +153,11 @@ public class BlazeReapItem extends PickaxeItem implements Vanishable {
 
             List<Entity> entities = level.getEntitiesOfClass(Entity.class, new AABB(pos.x + X - 3D, pos.y + Y - 3D, pos.z + Z - 3D, pos.x + X + 3D, pos.y + Y + 3D, pos.z + Z + 3D));
             for (Entity entity : entities) {
-                if (entity instanceof LivingEntity enemy) {
-                    if (!enemy.equals(player)) {
-                        entity.hurt(level.damageSources().playerAttack(player), 10);
-                        enemy.knockback(0.6F, player.getX() + X - entity.getX(), player.getZ() + Z - entity.getZ());
-                        if (EnchantmentHelper.getTagEnchantmentLevel(Enchantments.FIRE_ASPECT, itemstack) > 0) {
-                            int i = EnchantmentHelper.getFireAspect(player);
-                            enemy.setSecondsOnFire(i * 4);
-                        }
-                    }
+                entity.hurt(level.damageSources().playerAttack(player), 10);
+                ((LivingEntity) entity).knockback(0.6F, player.getX() + X - entity.getX(), player.getZ() + Z - entity.getZ());
+                if (EnchantmentHelper.getTagEnchantmentLevel(Enchantments.FIRE_ASPECT, itemstack) > 0) {
+                    int i = EnchantmentHelper.getFireAspect(player);
+                    entity.setSecondsOnFire(i * 4);
                 }
             }
 

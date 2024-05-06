@@ -129,7 +129,6 @@ public class Valoria {
     private void clientSetup(final FMLClientSetupEvent event) {
         event.enqueueWork(() -> {
             LexiconChapters.init();
-
             Item2DRenderer.handModelItems.add("valoria:phantom");
             Item2DRenderer.handModelItems.add("valoria:bloodhound");
             Item2DRenderer.handModelItems.add("valoria:cobalt_sword");
@@ -137,6 +136,7 @@ public class Valoria {
             Item2DRenderer.handModelItems.add("valoria:diamond_scythe");
             Item2DRenderer.handModelItems.add("valoria:golden_scythe");
             Item2DRenderer.handModelItems.add("valoria:iron_scythe");
+            Item2DRenderer.handModelItems.add("valoria:pyratite_spear");
             Item2DRenderer.handModelItems.add("valoria:netherite_spear");
             Item2DRenderer.handModelItems.add("valoria:diamond_spear");
             Item2DRenderer.handModelItems.add("valoria:golden_spear");

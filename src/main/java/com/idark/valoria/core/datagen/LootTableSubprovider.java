@@ -2,6 +2,7 @@ package com.idark.valoria.core.datagen;
 
 import com.idark.valoria.compat.quark.QuarkIntegration;
 import com.idark.valoria.registries.BlockRegistry;
+import com.idark.valoria.registries.ItemsRegistry;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Items;
@@ -44,6 +45,7 @@ public class LootTableSubprovider extends BlockLootSubProvider {
         this.add(BlockRegistry.ELDRITCH_WALL_SIGN.get(), block -> createSingleItemTable(block));
         this.add(BlockRegistry.ELDRITCH_HANGING_SIGN.get(), block -> createSingleItemTable(block));
         this.add(BlockRegistry.ELDRITCH_WALL_HANGING_SIGN.get(), block -> createSingleItemTable(block));
+        this.add(BlockRegistry.PYRATITE_ORE.get(), block -> createOreDrop(block, ItemsRegistry.PYRATITE.get()));
 
         this.dropSelf(BlockRegistry.BRONZE_GLASS_PANE.get());
         this.dropSelf(BlockRegistry.ELDRITCH_LOG.get());

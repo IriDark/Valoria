@@ -24,6 +24,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -150,6 +151,7 @@ public class ItemsRegistry {
     public static final RegistryObject<Item> AQUARIUS_INGOT = ITEMS.register("aquarius_ingot", () -> new Item(new Item.Properties().rarity(RarityRegistry.AQUARIUS)));
     public static final RegistryObject<Item> INFERNAL_INGOT = ITEMS.register("infernal_ingot", () -> new Item(new Item.Properties().fireResistant().rarity(RarityRegistry.INFERNAL)));
     public static final RegistryObject<Item> VOID_INGOT = ITEMS.register("void_ingot", () -> new Item(new Item.Properties().fireResistant().rarity(RarityRegistry.VOID)));
+    public static final RegistryObject<Item> PYRATITE = ITEMS.register("pyratite", () -> new Item(new Item.Properties().rarity(RarityRegistry.INFERNAL)));
     // Cores
     public static final RegistryObject<Item> NATURE_CORE = ITEMS.register("nature_core", () -> new CoreItem(new Item.Properties().fireResistant().rarity(RarityRegistry.NATURE), 8, new int[]{46, 204, 113}, "nature_core"));
     public static final RegistryObject<Item> AQUARIUS_CORE = ITEMS.register("aquarius_core", () -> new CoreItem(new Item.Properties().fireResistant().rarity(RarityRegistry.AQUARIUS), 8, new int[]{17, 195, 214}, "aquarius_core"));
@@ -198,8 +200,10 @@ public class ItemsRegistry {
             () -> new SpearItem(Tiers.DIAMOND, 3, -2.9f, 4, new Item.Properties()));
     public static final RegistryObject<Item> NETHERITE_SPEAR = ITEMS.register("netherite_spear",
             () -> new SpearItem(Tiers.NETHERITE, 3, -2.9f, 6, new Item.Properties()));
+    public static final RegistryObject<Item> PYRATITE_SPEAR = ITEMS.register("pyratite_spear",
+            () -> new ExplosiveSpearItem(ModItemTier.PYRATITE, 5, -2.9f, 7.5f, Level.ExplosionInteraction.NONE, new Item.Properties().rarity(RarityRegistry.INFERNAL)));
     public static final RegistryObject<Item> GLAIVE = ITEMS.register("glaive",
-            () -> new SpearItem(Tiers.NETHERITE, 6, -3.2f, false, new Item.Properties()));
+            () -> new SpearItem(Tiers.IRON, 8, -3.2f, false, new Item.Properties()));
     public static final RegistryObject<Item> WOODEN_RAPIER = ITEMS.register("wooden_rapier",
             () -> new SwordItem(Tiers.WOOD, 0, -1.8f, new Item.Properties()));
     public static final RegistryObject<Item> STONE_RAPIER = ITEMS.register("stone_rapier",

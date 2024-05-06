@@ -18,6 +18,8 @@ public enum ModItemTier implements Tier {
             () -> Ingredient.of(ItemsRegistry.HOLIDAY_CANDY.get())),
     SAMURAI(3, 1600, 8.5F, 3.0F, 10,
             () -> Ingredient.of(ItemsRegistry.ANCIENT_INGOT.get())),
+    PYRATITE(6, 3312, 11.5F, 4.0F, 12,
+            () -> Ingredient.of(ItemsRegistry.PYRATITE.get())),
     NATURE(5, 2651, 11f, 0f, 18,
             () -> Ingredient.of(ItemsRegistry.NATURE_INGOT.get())),
     AQUARIUS(6, 3256, 12f, 0f, 15,

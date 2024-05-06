@@ -51,13 +51,15 @@ public class ThrownSpearEntity extends AbstractValoriaArrow implements ItemSuppl
     public boolean returnToPlayer;
     public float rotationVelocity = 50;
     public boolean wasInGround;
+    private boolean shouldExplode;
+    private boolean isExploded;
+    private Level.ExplosionInteraction interaction;
     private final Set<MobEffectInstance> effects = Sets.newHashSet();
 
     public ThrownSpearEntity(Level worldIn, LivingEntity thrower, ItemStack thrownStackIn, int minDamage, int baseDamage) {
         super(EntityTypeRegistry.SPEAR.get(), worldIn, thrower, thrownStackIn, minDamage, baseDamage);
         this.minDamage = minDamage;
         this.baseDamage = baseDamage;
-
         this.entityData.set(LOYALTY_LEVEL, (byte) EnchantmentHelper.getLoyalty(thrownStackIn));
         this.entityData.set(PIERCE_LEVEL, (byte) EnchantmentHelper.getTagEnchantmentLevel(Enchantments.PIERCING, thrownStackIn));
         this.setOwner(thrower);
@@ -92,6 +94,11 @@ public class ThrownSpearEntity extends AbstractValoriaArrow implements ItemSuppl
         }
     }
 
+    public void setExplode(boolean shouldExplode, Level.ExplosionInteraction pInteraction) {
+        this.shouldExplode = shouldExplode;
+        interaction = pInteraction;
+    }
+
     public void addEffect(MobEffectInstance pEffectInstance) {
         this.effects.add(pEffectInstance);
     }
@@ -107,7 +114,6 @@ public class ThrownSpearEntity extends AbstractValoriaArrow implements ItemSuppl
             compound.put("CustomPotionEffects", listtag);
         }
 
-        compound.put("Spear", this.getItem().save(new CompoundTag()));
         compound.putBoolean("DealtDamage", this.returnToPlayer);
         compound.putByte("PierceLevel", this.getPierceLevel());
         ItemStack itemstack = this.getItemRaw();
@@ -120,10 +126,6 @@ public class ThrownSpearEntity extends AbstractValoriaArrow implements ItemSuppl
         super.readAdditionalSaveData(compound);
         for(MobEffectInstance mobeffectinstance : PotionUtils.getCustomEffects(compound)) {
             this.addEffect(mobeffectinstance);
-        }
-
-        if (compound.contains("Spear", 10)) {
-            this.arrowItem = ItemStack.of(compound.getCompound("Spear"));
         }
 
         this.returnToPlayer = compound.getBoolean("DealtDamage");
@@ -234,6 +236,13 @@ public class ThrownSpearEntity extends AbstractValoriaArrow implements ItemSuppl
     protected void onHitBlock(BlockHitResult pResult) {
         super.onHitBlock(pResult);
         this.wasInGround = true;
+        if(this.shouldExplode && !this.isExploded) {
+            if (!this.level().isClientSide) {
+                this.level().explode(this, this.getX(), this.getY(), this.getZ(), 4.0F, interaction);
+            }
+
+            this.isExploded = true;
+        }
     }
 
     @Override
@@ -279,6 +288,14 @@ public class ThrownSpearEntity extends AbstractValoriaArrow implements ItemSuppl
 
                 this.doPostHurtEffects(living);
             }
+        }
+
+        if(this.shouldExplode && !this.isExploded) {
+            if (!this.level().isClientSide) {
+                this.level().explode(this, this.getX(), this.getY(), this.getZ(), 2.0F, interaction);
+            }
+
+            this.isExploded = true;
         }
     }
 

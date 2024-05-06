@@ -50,11 +50,11 @@ import java.util.stream.Stream;
 
 public class SpearItem extends SwordItem implements Vanishable {
     Random rand = new Random();
-    private final float attackDamage;
-    private final float attackSpeed;
-    private final float projectileDamage;
-    private final boolean throwable;
     private final Supplier<Multimap<Attribute, AttributeModifier>> attributeModifiers = Suppliers.memoize(this::createAttributes);
+    public final float attackDamage;
+    public final float attackSpeed;
+    public final float projectileDamage;
+    public final boolean throwable;
     public float chance = 1;
     public final ImmutableList<MobEffectInstance> effects;
 

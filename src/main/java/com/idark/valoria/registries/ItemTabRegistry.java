@@ -106,6 +106,7 @@ public abstract class ItemTabRegistry {
             event.accept(ItemsRegistry.INFERNAL_STONE);
             event.accept(ItemsRegistry.BONE_FRAGMENT);
             event.accept(ItemsRegistry.PAIN_CRYSTAL);
+            event.accept(ItemsRegistry.PYRATITE);
             event.accept(ItemsRegistry.ILLUSION_STONE);
             event.accept(ItemsRegistry.NATURE_CORE);
             event.accept(ItemsRegistry.AQUARIUS_CORE);
@@ -176,6 +177,7 @@ public abstract class ItemTabRegistry {
             event.accept(ItemsRegistry.GOLDEN_SPEAR);
             event.accept(ItemsRegistry.DIAMOND_SPEAR);
             event.accept(ItemsRegistry.NETHERITE_SPEAR);
+            event.accept(ItemsRegistry.PYRATITE_SPEAR);
             event.accept(ItemsRegistry.GLAIVE);
             event.accept(ItemsRegistry.WOODEN_RAPIER);
             event.accept(ItemsRegistry.STONE_RAPIER);
@@ -492,6 +494,7 @@ public abstract class ItemTabRegistry {
             event.accept(BlockRegistry.POLISHED_AMBANE_STONE_SLAB);
             if (QuarkIntegration.isLoaded()) event.accept(QuarkIntegration.LoadedOnly.POLISHED_AMBANE_STONE_VERTICAL_SLAB);
             event.accept(BlockRegistry.EYE_STONE);
+            event.accept(BlockRegistry.PYRATITE_ORE);
             event.accept(BlockRegistry.DEEP_MARBLE);
             event.accept(BlockRegistry.DEEP_MARBLE_STAIRS);
             event.accept(BlockRegistry.DEEP_MARBLE_SLAB);

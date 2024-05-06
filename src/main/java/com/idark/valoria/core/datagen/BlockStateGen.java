@@ -26,6 +26,7 @@ public class BlockStateGen extends BlockStateProvider {
         blockWithItem(BlockRegistry.PICRITE);
         blockWithItem(BlockRegistry.POLISHED_PICRITE);
         blockWithItem(BlockRegistry.EYE_STONE);
+        blockWithItem(BlockRegistry.PYRATITE_ORE);
 
         paneBlockWithRenderType((IronBarsBlock) BlockRegistry.BRONZE_GLASS_PANE.get(), blockTexture(BlockRegistry.BRONZE_GLASS.get()), blockTexture(BlockRegistry.BRONZE_BLOCK.get()), "cutout");
 

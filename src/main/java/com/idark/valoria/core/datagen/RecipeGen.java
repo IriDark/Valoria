@@ -29,6 +29,7 @@ public class RecipeGen extends RecipeProvider implements IConditionBuilder {
 
     @Override
     public void buildRecipes(@NotNull Consumer<FinishedRecipe> pWriter) {
+        spearRecipe(pWriter, ItemsRegistry.PYRATITE.get(), ItemsRegistry.PYRATITE_SPEAR.get());
         stainedGlassPaneFromStainedGlass(pWriter, BlockRegistry.BRONZE_GLASS_PANE.get(), BlockRegistry.BRONZE_GLASS.get());
 
         cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.POLISHED_AMBANE_STONE.get(), BlockRegistry.AMBANE_STONE.get(), 1);
@@ -242,6 +243,17 @@ public class RecipeGen extends RecipeProvider implements IConditionBuilder {
 
     public static void fenceGate(Consumer<FinishedRecipe> pFinishedRecipeConsumer, ItemLike pFenceGate, ItemLike pMaterial) {
         fenceGateBuilder(pFenceGate, Ingredient.of(pMaterial)).unlockedBy(getHasName(pMaterial), has(pMaterial)).save(pFinishedRecipeConsumer);
+    }
+
+    public static void spearRecipe(Consumer<FinishedRecipe> consumer, ItemLike material, ItemLike spear) {
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, spear)
+                .define('/', Items.STICK)
+                .define('X', material)
+                .pattern(" XX")
+                .pattern(" /X")
+                .pattern("/  ")
+                .unlockedBy(getHasName(spear), has(spear))
+                .save(consumer, new ResourceLocation(Valoria.ID, "crafting/" + getItemName(spear)));
     }
 
     public static void bookshelfRecipe(Consumer<FinishedRecipe> consumer, ItemLike plank, ItemLike bookshelf) {
