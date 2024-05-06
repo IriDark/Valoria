@@ -1,6 +1,7 @@
 package com.idark.valoria.registries.item.types.food;
 
 import com.idark.valoria.registries.EffectsRegistry;
+import com.idark.valoria.registries.ItemsRegistry;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
@@ -15,6 +16,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
+
+import java.util.List;
 
 public class AloeBandageItem extends Item {
 
@@ -47,18 +50,26 @@ public class AloeBandageItem extends Item {
         if (!world.isClientSide) {
             CriteriaTriggers.CONSUME_ITEM.trigger((ServerPlayer) player, stack);
             player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
-            entity.addEffect(new MobEffectInstance(EffectsRegistry.ALOEREGEN.get(), time, power));
-            for(MobEffectInstance effect : entity.getActiveEffects()) {
-                if(effect.getEffect().getCategory() == MobEffectCategory.HARMFUL) {
-                    effect.addCurativeItem(stack);
+            player.addEffect(new MobEffectInstance(EffectsRegistry.ALOEREGEN.get(), time, power));
+            if(stack.is(ItemsRegistry.ALOE_BANDAGE_UPGRADED.get())) {
+                List<MobEffectInstance> harmfulEffects = player.getActiveEffects().stream().filter(effect -> effect.getEffect().getCategory() == MobEffectCategory.HARMFUL).toList();
+                for (MobEffectInstance effect : harmfulEffects) {
+                    System.out.print(effect);
+                    effect.getCurativeItems().add(stack);
+                }
+
+                player.curePotionEffects(stack);
+            } else {
+                if (player.hasEffect(EffectsRegistry.BLEEDING.get())) {
+                    player.removeEffect(EffectsRegistry.BLEEDING.get());
                 }
             }
 
-            entity.curePotionEffects(stack);
             if (!player.getAbilities().instabuild) {
                 stack.shrink(1);
             }
         }
+
         return stack;
     }
 

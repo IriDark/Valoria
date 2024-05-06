@@ -108,7 +108,7 @@ public class SpearItem extends SwordItem implements Vanishable {
 
     public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
         ItemStack itemstack = playerIn.getItemInHand(handIn);
-        if (throwable) {
+        if (throwable && !playerIn.isShiftKeyDown()) {
             if (!playerIn.isShiftKeyDown()) {
                 playerIn.startUsingItem(handIn);
                 return InteractionResultHolder.consume(itemstack);
