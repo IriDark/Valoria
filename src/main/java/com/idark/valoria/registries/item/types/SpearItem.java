@@ -184,14 +184,9 @@ public class SpearItem extends SwordItem implements Vanishable {
         BlockPos pos = context.getClickedPos();
         Player player = context.getPlayer();
         InteractionHand handIn = context.getHand();
-        rightClickOnCertainBlockState(stack, handIn, player, worldIn, state, pos);
-        return super.onItemUseFirst(stack, context);
-    }
-
-    private void rightClickOnCertainBlockState(ItemStack stack, InteractionHand handIn, Player player, Level worldIn, BlockState state, BlockPos pos) {
         if ((state.is(BlockRegistry.CHARGED_VOID_PILLAR.get())) || (state.is(BlockRegistry.VOID_PILLAR_AMETHYST.get()))) {
-            worldIn.playSound(player, player.blockPosition(), SoundEvents.RESPAWN_ANCHOR_AMBIENT, SoundSource.BLOCKS, 10f, 1f);
-            worldIn.playSound(player, player.blockPosition(), SoundEvents.RESPAWN_ANCHOR_CHARGE, SoundSource.BLOCKS, 1.0F, 1.0F);
+            worldIn.playSound(player, player.blockPosition(), SoundEvents.RESPAWN_ANCHOR_AMBIENT, SoundSource.BLOCKS, 1, 1);
+            worldIn.playSound(player, player.blockPosition(), SoundEvents.RESPAWN_ANCHOR_CHARGE, SoundSource.BLOCKS, 1, 1);
             for (int i = 0; i < 16; i++) {
                 worldIn.addParticle(ParticleTypes.POOF, pos.getX() + rand.nextDouble(), pos.getY() + 0.5F + rand.nextDouble() * 1.1, pos.getZ() + 0.5F + rand.nextDouble(), 0d, 0.05d, 0d);
             }
@@ -200,13 +195,12 @@ public class SpearItem extends SwordItem implements Vanishable {
             if (!worldIn.isClientSide) {
                 if (!player.getAbilities().instabuild) {
                     player.drop(new ItemStack(ItemsRegistry.UNCHARGED_SHARD.get()), true);
-                    if (stack.getItem() instanceof SpearItem) {
-                        worldIn.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.RESPAWN_ANCHOR_CHARGE, SoundSource.BLOCKS, 1.0F, 1.0F);
-                        stack.hurtAndBreak(10, player, (playerEntity) -> playerEntity.broadcastBreakEvent(handIn));
-                    }
+                    stack.hurtAndBreak(10, player, (playerEntity) -> playerEntity.broadcastBreakEvent(handIn));
                 }
             }
         }
+
+        return super.onItemUseFirst(stack, context);
     }
 
     @Override

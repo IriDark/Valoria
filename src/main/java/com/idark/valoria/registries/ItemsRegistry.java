@@ -176,7 +176,7 @@ public class ItemsRegistry {
     public static final RegistryObject<Item> SAMURAI_KUNAI = ITEMS.register("samurai_kunai",
             () -> new KunaiItem(new Item.Properties().durability(360)));
     public static final RegistryObject<Item> SAMURAI_POISONED_KUNAI = ITEMS.register("samurai_poisoned_kunai",
-            () -> new PoisonedKunaiItem(new Item.Properties().durability(360)));
+            () -> new KunaiItem(new Item.Properties().durability(360)));
     public static final RegistryObject<Item> SPECTRAL_BLADE = ITEMS.register("spectral_blade",
             () -> new SpectralBladeItem(new Item.Properties().durability(852)));
     public static final RegistryObject<Item> CORPSECLEAVER = ITEMS.register("corpsecleaver",

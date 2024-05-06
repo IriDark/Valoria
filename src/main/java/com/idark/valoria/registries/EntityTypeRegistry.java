@@ -88,11 +88,6 @@ public class EntityTypeRegistry {
                     .sized(0.35f, 0.35f)
                     .build(new ResourceLocation(Valoria.ID, "spectral_blade").toString()));
 
-    public static final RegistryObject<EntityType<PoisonedKunaiEntity>> POISONED_KUNAI = ENTITY_TYPES.register("poisoned_kunai",
-            () -> EntityType.Builder.<PoisonedKunaiEntity>of(PoisonedKunaiEntity::new, MobCategory.MISC)
-                    .sized(0.35f, 0.35f)
-                    .build(new ResourceLocation(Valoria.ID, "poisoned_kunai").toString()));
-
     public static final RegistryObject<EntityType<CustomBoatEntity>> BOAT = ENTITY_TYPES.register("boat",
             () -> EntityType.Builder.<CustomBoatEntity>of(CustomBoatEntity::new, MobCategory.MISC)
                     .sized(1.375f, 0.5625f)

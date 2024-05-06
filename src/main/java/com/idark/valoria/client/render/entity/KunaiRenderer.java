@@ -26,7 +26,7 @@ public class KunaiRenderer<T extends KunaiEntity> extends EntityRenderer<T> {
         ms.pushPose();
         ms.mulPose(Axis.YP.rotationDegrees(Mth.lerp(partialTicks, entityIn.yRotO, entityIn.getYRot()) + 90.0F));
         ms.mulPose(Axis.ZP.rotationDegrees(Mth.lerp(partialTicks, entityIn.xRotO - 90 + entityIn.rotationVelocity, entityIn.getXRot() - 90 + entityIn.rotationVelocity)));
-        ItemStack stack = entityIn.thrownStack;
+        ItemStack stack = entityIn.getItem();
         Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.FIXED, light, OverlayTexture.NO_OVERLAY, ms, buffers, entityIn.level(), 0);
         ms.popPose();
     }

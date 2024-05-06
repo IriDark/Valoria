@@ -3,7 +3,10 @@ package com.idark.valoria.registries.item.types;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import com.idark.valoria.registries.AttributeRegistry;
+import com.idark.valoria.registries.ItemsRegistry;
 import com.idark.valoria.registries.entity.projectile.KunaiEntity;
+import com.idark.valoria.registries.item.tiers.ModItemTier;
+import com.idark.valoria.util.RandomUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -12,6 +15,8 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -19,10 +24,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.UseAnim;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
@@ -30,13 +32,13 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.List;
 
-public class KunaiItem extends Item {
+public class KunaiItem extends SwordItem {
     private final Multimap<Attribute, AttributeModifier> tridentAttributes;
 
     public KunaiItem(Item.Properties builderIn) {
-        super(builderIn);
+        super(ModItemTier.NONE, 3, -1.9F, builderIn);
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
-        builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", 3.0D, AttributeModifier.Operation.ADDITION));
+        builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", 3, AttributeModifier.Operation.ADDITION));
         builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Tool modifier", -1.9F, AttributeModifier.Operation.ADDITION));
         builder.put(AttributeRegistry.PROJECTILE_DAMAGE.get(), new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", 6.0F, AttributeModifier.Operation.ADDITION));
         this.tridentAttributes = builder.build();
@@ -47,7 +49,7 @@ public class KunaiItem extends Item {
     }
 
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchant) {
-        return enchant == Enchantments.VANISHING_CURSE || enchant == Enchantments.PIERCING || enchant == Enchantments.FIRE_ASPECT || enchant == Enchantments.LOYALTY || enchant == Enchantments.MENDING || enchant == Enchantments.SWEEPING_EDGE || enchant == Enchantments.MOB_LOOTING || enchant == Enchantments.SHARPNESS || enchant == Enchantments.BANE_OF_ARTHROPODS || enchant == Enchantments.SMITE;
+        return enchant.category.canEnchant(stack.getItem()) || enchant == Enchantments.PIERCING || enchant == Enchantments.LOYALTY;
     }
 
     public UseAnim getUseAnimation(ItemStack stack) {
@@ -66,6 +68,7 @@ public class KunaiItem extends Item {
                     stack.hurtAndBreak(1, playerEntity, (player) -> player.broadcastBreakEvent(entityLiving.getUsedItemHand()));
                     KunaiEntity kunaiEntity = new KunaiEntity(worldIn, playerEntity, stack);
                     kunaiEntity.shootFromRotation(playerEntity, playerEntity.getXRot(), playerEntity.getYRot(), 0.0F, 2.5F + (float) 0 * 0.5F, 1.0F);
+                    kunaiEntity.setItem(stack);
                     if (playerEntity.getAbilities().instabuild) {
                         kunaiEntity.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
                     }
@@ -93,24 +96,17 @@ public class KunaiItem extends Item {
     }
 
     public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-        stack.hurtAndBreak(1, attacker, (entity) -> entity.broadcastBreakEvent(EquipmentSlot.MAINHAND));
-        return true;
-    }
-
-    public boolean mineBlock(ItemStack stack, Level worldIn, BlockState state, BlockPos pos, LivingEntity entityLiving) {
-        if ((double) state.getDestroySpeed(worldIn, pos) != 0.0D) {
-            stack.hurtAndBreak(2, entityLiving, (entity) -> entity.broadcastBreakEvent(EquipmentSlot.MAINHAND));
+        if(stack.is(ItemsRegistry.SAMURAI_POISONED_KUNAI.get())) {
+            if (RandomUtil.percentChance(0.25f)) {
+                target.addEffect(new MobEffectInstance(MobEffects.POISON, 425, 0));
+            }
         }
 
-        return true;
+        return super.hurtEnemy(stack, target, attacker);
     }
 
     public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot equipmentSlot) {
         return equipmentSlot == EquipmentSlot.MAINHAND ? this.tridentAttributes : super.getDefaultAttributeModifiers(equipmentSlot);
-    }
-
-    public int getEnchantmentValue() {
-        return 1;
     }
 
     @Override

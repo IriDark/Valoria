@@ -33,6 +33,7 @@ import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkHooks;
@@ -99,7 +100,6 @@ public class ThrownSpearEntity extends AbstractValoriaArrow implements ItemSuppl
         super.addAdditionalSaveData(compound);
         if (!this.effects.isEmpty()) {
             ListTag listtag = new ListTag();
-
             for(MobEffectInstance mobeffectinstance : this.effects) {
                 listtag.add(mobeffectinstance.save(new CompoundTag()));
             }
@@ -198,10 +198,6 @@ public class ThrownSpearEntity extends AbstractValoriaArrow implements ItemSuppl
             }
         }
 
-        if (this.inGround) {
-            wasInGround = true;
-        }
-
         if (this.shouldRender(this.getX(), this.getY(), this.getZ()) && !this.inGround && !wasInGround) {
             Vec3 vector3d = this.getDeltaMovement();
             double a3 = vector3d.x;
@@ -233,7 +229,11 @@ public class ThrownSpearEntity extends AbstractValoriaArrow implements ItemSuppl
                 pLiving.addEffect(effect, entity);
             }
         }
+    }
 
+    protected void onHitBlock(BlockHitResult pResult) {
+        super.onHitBlock(pResult);
+        this.wasInGround = true;
     }
 
     @Override
