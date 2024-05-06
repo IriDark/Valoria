@@ -6,6 +6,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.stats.Stats;
+import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -21,14 +22,11 @@ public class AloeBandageItem extends Item {
     private final int time;
 
     public AloeBandageItem(int time, int power) {
-        super(
-                new Properties().food(
-                        new FoodProperties
-                                .Builder()
-                                .alwaysEat()
-                                .nutrition(0)
-                                .saturationMod(0)
-                                .build())
+        super(new Properties().food(new FoodProperties.Builder()
+                .alwaysEat()
+                .nutrition(0)
+                .saturationMod(0)
+                .build())
         );
 
         this.power = power;
@@ -50,6 +48,13 @@ public class AloeBandageItem extends Item {
             CriteriaTriggers.CONSUME_ITEM.trigger((ServerPlayer) player, stack);
             player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
             entity.addEffect(new MobEffectInstance(EffectsRegistry.ALOEREGEN.get(), time, power));
+            for(MobEffectInstance effect : entity.getActiveEffects()) {
+                if(effect.getEffect().getCategory() == MobEffectCategory.HARMFUL) {
+                    effect.addCurativeItem(stack);
+                }
+            }
+
+            entity.curePotionEffects(stack);
             if (!player.getAbilities().instabuild) {
                 stack.shrink(1);
             }

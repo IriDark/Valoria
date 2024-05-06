@@ -4,6 +4,7 @@ import com.google.common.base.Suppliers;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
+import com.google.common.collect.Sets;
 import com.idark.valoria.registries.AttributeRegistry;
 import com.idark.valoria.registries.BlockRegistry;
 import com.idark.valoria.registries.ItemsRegistry;
@@ -38,10 +39,14 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.ForgeMod;
+import net.minecraftforge.common.ToolAction;
 
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class SpearItem extends SwordItem implements Vanishable {
     Random rand = new Random();
@@ -210,5 +215,16 @@ public class SpearItem extends SwordItem implements Vanishable {
         tooltip.add(Component.translatable("tooltip.valoria.spear").withStyle(ChatFormatting.GRAY));
         tooltip.add(Component.translatable("tooltip.valoria.rmb").withStyle(ChatFormatting.GREEN));
         ValoriaUtils.addEffectsTooltip(effects, tooltip, 1, chance);
+    }
+
+    public static final Set<ToolAction> SPEAR = of(net.minecraftforge.common.ToolActions.SWORD_DIG);
+
+    @Override
+    public boolean canPerformAction(ItemStack stack, net.minecraftforge.common.ToolAction toolAction) {
+        return SPEAR.contains(toolAction);
+    }
+
+    private static Set<ToolAction> of(ToolAction... actions) {
+        return Stream.of(actions).collect(Collectors.toCollection(Sets::newIdentityHashSet));
     }
 }

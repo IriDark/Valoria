@@ -193,7 +193,7 @@ public class ItemsRegistry {
     public static final RegistryObject<Item> IRON_SPEAR = ITEMS.register("iron_spear",
             () -> new SpearItem(Tiers.IRON, 5, -3f, 3.2f, new Item.Properties()));
     public static final RegistryObject<Item> GOLDEN_SPEAR = ITEMS.register("golden_spear",
-            () -> new SpearItem(Tiers.GOLD, 6, -2.9f, 3.5f, new Item.Properties()));
+            () -> new SpearItem(Tiers.GOLD, 5, -2.9f, 3.5f, new Item.Properties()));
     public static final RegistryObject<Item> DIAMOND_SPEAR = ITEMS.register("diamond_spear",
             () -> new SpearItem(Tiers.DIAMOND, 3, -2.9f, 4, new Item.Properties()));
     public static final RegistryObject<Item> NETHERITE_SPEAR = ITEMS.register("netherite_spear",
@@ -205,17 +205,17 @@ public class ItemsRegistry {
     public static final RegistryObject<Item> STONE_RAPIER = ITEMS.register("stone_rapier",
             () -> new SwordItem(Tiers.STONE, 0, -1.8f, new Item.Properties()));
     public static final RegistryObject<Item> IRON_RAPIER = ITEMS.register("iron_rapier",
-            () -> new SwordItem(Tiers.IRON, 0, -1.7f, new Item.Properties()));
+            () -> new SwordItem(Tiers.IRON, 1, -1.7f, new Item.Properties()));
     public static final RegistryObject<Item> GOLDEN_RAPIER = ITEMS.register("golden_rapier",
-            () -> new SwordItem(Tiers.GOLD, 1, -1.5f, new Item.Properties()));
+            () -> new SwordItem(Tiers.GOLD, 0, -1.5f, new Item.Properties()));
     public static final RegistryObject<Item> DIAMOND_RAPIER = ITEMS.register("diamond_rapier",
-            () -> new SwordItem(Tiers.DIAMOND, 0, -1.5f, new Item.Properties()));
+            () -> new SwordItem(Tiers.DIAMOND, 2, -1.5f, new Item.Properties()));
     public static final RegistryObject<Item> NETHERITE_RAPIER = ITEMS.register("netherite_rapier",
-            () -> new SwordItem(Tiers.NETHERITE, 0, -1.5f, new Item.Properties()));
+            () -> new SwordItem(Tiers.NETHERITE, 2, -1.5f, new Item.Properties()));
     public static final RegistryObject<Item> IRON_SCYTHE = ITEMS.register("iron_scythe",
             () -> new ScytheItem(Tiers.IRON, 5, -3.2f, new Item.Properties()));
     public static final RegistryObject<Item> GOLDEN_SCYTHE = ITEMS.register("golden_scythe",
-            () -> new ScytheItem(Tiers.GOLD, 6, -3.1f, new Item.Properties()));
+            () -> new ScytheItem(Tiers.GOLD, 5, -3.1f, new Item.Properties()));
     public static final RegistryObject<Item> DIAMOND_SCYTHE = ITEMS.register("diamond_scythe",
             () -> new ScytheItem(Tiers.DIAMOND, 8, -3.0f, new Item.Properties()));
     public static final RegistryObject<Item> NETHERITE_SCYTHE = ITEMS.register("netherite_scythe",
@@ -231,15 +231,15 @@ public class ItemsRegistry {
     public static final RegistryObject<Item> HOLIDAY_KATANA = ITEMS.register("holiday_katana",
             () -> new KatanaItem(ModItemTier.HOLIDAY, 0, -2.2f, new Item.Properties()));
     public static final RegistryObject<Item> IRON_KATANA = ITEMS.register("iron_katana",
-            () -> new KatanaItem(Tiers.IRON, 0, -2.2f, 1f, new Item.Properties()));
+            () -> new KatanaItem(Tiers.IRON, 3, -2.2f, 1f, new Item.Properties()));
     public static final RegistryObject<Item> GOLDEN_KATANA = ITEMS.register("golden_katana",
-            () -> new KatanaItem(Tiers.GOLD, 2, -1.8f, 1.2f, new Item.Properties()));
+            () -> new KatanaItem(Tiers.GOLD, 3, -1.8f, 1.2f, new Item.Properties()));
     public static final RegistryObject<Item> DIAMOND_KATANA = ITEMS.register("diamond_katana",
-            () -> new KatanaItem(Tiers.DIAMOND, 1, -2f, 1.3f, new Item.Properties()));
+            () -> new KatanaItem(Tiers.DIAMOND, 4, -2f, 1.3f, new Item.Properties()));
     public static final RegistryObject<Item> NETHERITE_KATANA = ITEMS.register("netherite_katana",
-            () -> new KatanaItem(Tiers.NETHERITE, 2, -1.8f, 1.5f, new Item.Properties().fireResistant()));
+            () -> new KatanaItem(Tiers.NETHERITE, 4, -1.8f, 1.5f, new Item.Properties().fireResistant()));
     public static final RegistryObject<Item> SAMURAI_KATANA = ITEMS.register("samurai_katana",
-            () -> new KatanaItem(ModItemTier.SAMURAI, 3, -2f, new Item.Properties()));
+            () -> new KatanaItem(ModItemTier.SAMURAI, 5, -2f, new Item.Properties()));
     public static final RegistryObject<Item> PEARLIUM_SWORD = ITEMS.register("pearlium_sword",
             () -> new SwordItem(ModItemTier.PEARLIUM, 5, -2.6f, new Item.Properties()));
     public static final RegistryObject<Item> PEARLIUM_PICKAXE = ITEMS.register("pearlium_pickaxe",
