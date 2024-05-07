@@ -35,6 +35,7 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
@@ -101,7 +102,8 @@ public class ThrownSpearEntity extends AbstractValoriaArrow implements ItemSuppl
         explosive_radius = radius;
     }
 
-    private void explode() {
+    protected void onHit(HitResult pResult) {
+        super.onHit(pResult);
         if(this.shouldExplode && !this.isExploded) {
             if (!this.level().isClientSide) {
                 this.level().explode(this, this.getX(), this.getY(), this.getZ(), explosive_radius, interaction);
@@ -223,16 +225,14 @@ public class ThrownSpearEntity extends AbstractValoriaArrow implements ItemSuppl
         super.tick();
     }
 
-
-    @Override
-    public void onRemovedFromWorld() {
-        if(this.getOwner() instanceof Player player) {
-            if(!player.getAbilities().instabuild) {
+    protected void onBelowWorld() {
+        if (this.getOwner() instanceof Player player) {
+            if (!player.getAbilities().instabuild) {
                 player.spawnAtLocation(this.getItem());
             }
         }
 
-        super.onRemovedFromWorld();
+        super.onBelowWorld();
     }
 
     protected void doPostHurtEffects(LivingEntity pLiving) {
@@ -248,7 +248,6 @@ public class ThrownSpearEntity extends AbstractValoriaArrow implements ItemSuppl
     protected void onHitBlock(BlockHitResult pResult) {
         super.onHitBlock(pResult);
         this.wasInGround = true;
-        this.explode();
     }
 
     @Override
@@ -295,8 +294,6 @@ public class ThrownSpearEntity extends AbstractValoriaArrow implements ItemSuppl
                 this.doPostHurtEffects(living);
             }
         }
-
-        this.explode();
     }
 
     public void setEffectsFromList(ImmutableList<MobEffectInstance> effects) {

@@ -7,22 +7,17 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.EntityHitResult;
@@ -145,25 +140,12 @@ public class BlazeReapItem extends PickaxeItem implements Vanishable {
                 }
             }
 
-            if (EnchantmentHelper.getTagEnchantmentLevel(EnchantmentsRegistry.EXPLOSIVE_FLAME.get(), itemstack) > 0) {
-                if (!level.isClientSide) {
-                    level.explode(player, pos.x + X, pos.y + Y, pos.z + Z, 4.0F, Level.ExplosionInteraction.TNT);
+            if(!level.isClientSide) {
+                if (EnchantmentHelper.getTagEnchantmentLevel(EnchantmentsRegistry.EXPLOSIVE_FLAME.get(), itemstack) > 0) {
+                    level.explode(player, pos.x + X, pos.y + Y, pos.z + Z, 4F, Level.ExplosionInteraction.TNT);
+                } else {
+                    level.explode(player, pos.x + X, pos.y + Y, pos.z + Z, 4F, Level.ExplosionInteraction.NONE);
                 }
-            }
-
-            List<Entity> entities = level.getEntitiesOfClass(Entity.class, new AABB(pos.x + X - 3D, pos.y + Y - 3D, pos.z + Z - 3D, pos.x + X + 3D, pos.y + Y + 3D, pos.z + Z + 3D));
-            for (Entity entity : entities) {
-                entity.hurt(level.damageSources().playerAttack(player), 10);
-                ((LivingEntity) entity).knockback(0.6F, player.getX() + X - entity.getX(), player.getZ() + Z - entity.getZ());
-                if (EnchantmentHelper.getTagEnchantmentLevel(Enchantments.FIRE_ASPECT, itemstack) > 0) {
-                    int i = EnchantmentHelper.getFireAspect(player);
-                    entity.setSecondsOnFire(i * 4);
-                }
-            }
-
-            player.knockback(1.2F, X, Z);
-            if (!player.isCreative()) {
-                itemstack.hurtAndBreak(10, player, (p_220045_0_) -> p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
             }
 
             for (int i = 0; i < 12; i++) {
@@ -171,11 +153,6 @@ public class BlazeReapItem extends PickaxeItem implements Vanishable {
                 level.addParticle(ParticleTypes.FLAME, pos.x + X + ((rand.nextDouble() - 0.5D) * 3), pos.y + Y + ((rand.nextDouble() - 0.5D) * 3), pos.z + Z + ((rand.nextDouble() - 0.5D) * 3), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2));
             }
 
-            if (level instanceof ServerLevel srv) {
-                srv.sendParticles(ParticleTypes.EXPLOSION_EMITTER, pos.x + X, pos.y + Y, player.getZ() + Z, 1, 0, 0, 0, 0);
-            }
-
-            level.playSound(null, player.blockPosition().offset((int) X, (int) (Y + player.getEyeHeight()), (int) Z), SoundEvents.GENERIC_EXPLODE, SoundSource.AMBIENT, 2f, 1f);
             return InteractionResultHolder.success(itemstack);
         }
 
