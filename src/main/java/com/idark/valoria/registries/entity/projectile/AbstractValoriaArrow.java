@@ -23,7 +23,6 @@ import java.util.List;
 
 public class AbstractValoriaArrow extends AbstractArrow {
 
-    //Prevents random NPE`s on rendering
     public ItemStack arrowItem = ItemStack.EMPTY;
     int minDamage;
     public AbstractValoriaArrow(EntityType<? extends AbstractArrow> pEntityType, Level pLevel) {
@@ -56,8 +55,8 @@ public class AbstractValoriaArrow extends AbstractArrow {
     protected void onHitEntity(EntityHitResult pResult) {
         super.onHitEntity(pResult);
         Entity entity = pResult.getEntity();
-        float f = (float)this.getDeltaMovement().length();
-        int i = Mth.ceil(Mth.clamp((double)f * this.baseDamage, 0.0D, Integer.MAX_VALUE));
+        double velocity = this.getDeltaMovement().length();
+        int damage = Mth.ceil(Mth.clamp(velocity * this.baseDamage, 0.0D, Integer.MAX_VALUE));
         if (this.getPierceLevel() > 0) {
             if (this.piercingIgnoreEntityIds == null) {
                 this.piercingIgnoreEntityIds = new IntOpenHashSet(5);
@@ -76,8 +75,8 @@ public class AbstractValoriaArrow extends AbstractArrow {
         }
 
         if (this.isCritArrow()) {
-            long j = this.random.nextInt(i / 2 + 2);
-            i = (int)Math.min(j + (long)i, 2147483647L);
+            long j = this.random.nextInt(damage / 2 + 2);
+            damage = (int) Math.min(j + (long) damage, 2147483647L);
         }
 
         Entity entity1 = this.getOwner();
@@ -97,7 +96,7 @@ public class AbstractValoriaArrow extends AbstractArrow {
             entity.setSecondsOnFire(5);
         }
 
-        if (entity.hurt(damagesource, (float)i)) {
+        if (entity.hurt(damagesource, (float) damage)) {
             if (flag) {
                 return;
             }
