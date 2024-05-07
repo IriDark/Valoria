@@ -27,10 +27,9 @@ import net.minecraft.world.phys.Vec3;
 import java.util.List;
 import java.util.Random;
 
+//TODO: Probably rework
 public class BlazeReapItem extends PickaxeItem implements Vanishable {
-
     Random rand = new Random();
-
     public BlazeReapItem(Tier tier, int attackDamageIn, float attackSpeedIn, Properties builder) {
         super(tier, attackDamageIn, attackSpeedIn, builder);
     }
@@ -50,17 +49,14 @@ public class BlazeReapItem extends PickaxeItem implements Vanishable {
         ItemStack itemstack = player.getItemInHand(hand);
         if (player.isShiftKeyDown()) {
             if (isCharged(itemstack) == 0) {
-                List<ItemStack> items = player.inventoryMenu.getItems();
+                List<ItemStack> items = player.inventoryMenu.getItems().stream().filter(item -> item.is(Items.GUNPOWDER)).toList();
                 int gunpowder = 0;
                 boolean canCharge = false;
                 if (!player.isCreative()) {
                     for (ItemStack item : items) {
-                        if (item.getItem().equals(Items.GUNPOWDER)) {
-                            gunpowder = gunpowder + item.getCount();
-                            if (gunpowder >= 5) {
-                                canCharge = true;
-                                break;
-                            }
+                        gunpowder = gunpowder + item.getCount();
+                        if (gunpowder >= 5) {
+                            canCharge = true;
                         }
                     }
                 } else {
@@ -71,18 +67,16 @@ public class BlazeReapItem extends PickaxeItem implements Vanishable {
                     gunpowder = 5;
                     if (!player.isCreative()) {
                         for (ItemStack item : items) {
-                            if (item.getItem().equals(Items.GUNPOWDER)) {
-                                if (gunpowder - item.getCount() >= 0) {
-                                    gunpowder = gunpowder - item.getCount();
-                                    player.getInventory().removeItem(item);
-                                } else {
-                                    item.setCount(item.getCount() - gunpowder);
-                                    gunpowder = 0;
-                                }
+                            if (gunpowder - item.getCount() >= 0) {
+                                gunpowder = gunpowder - item.getCount();
+                                player.getInventory().removeItem(item);
+                            } else {
+                                item.setCount(item.getCount() - gunpowder);
+                                gunpowder = 0;
+                            }
 
-                                if (gunpowder <= 0) {
-                                    break;
-                                }
+                            if (gunpowder <= 0) {
+                                break;
                             }
                         }
                     }
@@ -117,8 +111,6 @@ public class BlazeReapItem extends PickaxeItem implements Vanishable {
             double Z = Math.sin(pitch) * Math.sin(yaw) * 15;
             Vec3 playerPos = player.getEyePosition();
             Vec3 EndPos = (player.getViewVector(0.0f).scale(20.0d));
-
-            // Notice that: when Miss is unchecked - game will crash
             if (ProjectileUtil.getEntityHitResult(player, playerPos, EndPos, new AABB(pos.x + X - 3D, pos.y + Y - 3D, pos.z + Z - 3D, pos.x + X + 3D, pos.y + Y + 3D, pos.z + Z + 3D), (e) -> true, 15) == null) {
                 HitResult hitresult = ValoriaUtils.getHitResult(playerPos, player, (e) -> true, EndPos, level);
                 if (hitresult != null) {

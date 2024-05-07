@@ -13,12 +13,11 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.event.ForgeEventFactory;
 
-//TODO: Would be good to show the player: Bow attack damage, Special arrow
 public class ConfigurableBowItem extends BowItem {
-
-    int baseDamage;
-    public ConfigurableBowItem(int pBaseDamage, Properties pProperties) {
+    double baseDamage;
+    public ConfigurableBowItem(double pBaseDamage, Properties pProperties) {
         super(pProperties);
         baseDamage = pBaseDamage;
     }
@@ -29,7 +28,7 @@ public class ConfigurableBowItem extends BowItem {
             ItemStack itemstack = player.getProjectile(pStack);
 
             int i = this.getUseDuration(pStack) - pTimeLeft;
-            i = net.minecraftforge.event.ForgeEventFactory.onArrowLoose(pStack, pLevel, player, i, !itemstack.isEmpty() || flag);
+            i = ForgeEventFactory.onArrowLoose(pStack, pLevel, player, i, !itemstack.isEmpty() || flag);
             if (i < 0) return;
 
             if (!itemstack.isEmpty() || flag) {
