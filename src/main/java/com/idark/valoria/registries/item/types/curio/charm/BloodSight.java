@@ -5,6 +5,7 @@ import com.idark.valoria.client.particle.types.Particles;
 import com.idark.valoria.registries.ItemsRegistry;
 import com.idark.valoria.registries.SoundsRegistry;
 import com.idark.valoria.registries.item.types.IParticleItem;
+import com.idark.valoria.util.RandomUtil;
 import com.idark.valoria.util.ValoriaUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.BlockParticleOption;
@@ -57,11 +58,18 @@ public class BloodSight extends Item implements ICurioItem, Vanishable, IParticl
         Player player = (Player) slotContext.entity();
         Level pLevel = player.level();
         LivingEntity lastHurtMob = player.getLastAttacker();
-        int duration = (stack.getItem() == ItemsRegistry.BLOODSIGHT_MONOCLE.get()) ? 12 : 6;
-        int damageAmount = (stack.getItem() == ItemsRegistry.BLOODSIGHT_MONOCLE.get()) ? new Random().nextInt(2, 6) : new Random().nextInt(2, 8);
+        boolean flag = stack.getItem() == ItemsRegistry.BLOODSIGHT_MONOCLE.get();
+        int duration = flag ? 12 : 6;
+        int damageAmount = flag ? new Random().nextInt(2, 6) : new Random().nextInt(2, 8);
         if (!pLevel.isClientSide() && pLevel instanceof ServerLevel serverLevel) {
             if (lastHurtMob != null && !player.getCooldowns().isOnCooldown(stack.getItem())) {
                 ValoriaUtils.damageLastAttackedMob(serverLevel, player, this.getDamage(0, RandomSource.create()));
+                if (flag) {
+                    if(RandomUtil.percentChance(0.25f)) {
+                        player.hurt(pLevel.damageSources().magic(), 0.5f);
+                    }
+                }
+
                 if (lastHurtMob.hurtMarked) {
                     hits++;
                 }

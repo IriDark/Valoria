@@ -58,7 +58,7 @@ public class EntityTypeRegistry {
             () -> EntityType.Builder.of(MannequinEntity::new, MobCategory.MISC)
                     .sized(0.6f, 1.95f)
                     .clientTrackingRange(4)
-                    .updateInterval(10)
+                    .updateInterval(8)
                     .build(new ResourceLocation(Valoria.ID, "mannequin").toString()));
 
     public static final RegistryObject<EntityType<KunaiEntity>> KUNAI = ENTITY_TYPES.register("kunai",

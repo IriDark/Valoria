@@ -40,6 +40,14 @@ public class MannequinEntity extends AbstractDecorationMob implements IForgeEnti
         entityData.define(LAST_DAMAGE, 0f);
     }
 
+    public void tick() {
+        super.tick();
+        if (this.isInWall()) {
+            this.spawnAtLocation(ItemsRegistry.MANNEQUIN_SPAWN_EGG.get());
+            this.discard();
+        }
+    }
+
     @Override
     public @NotNull InteractionResult mobInteract(Player pPlayer, @NotNull InteractionHand pHand) {
         Level level = pPlayer.level();
