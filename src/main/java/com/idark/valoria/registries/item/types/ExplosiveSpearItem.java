@@ -18,22 +18,29 @@ import net.minecraft.world.level.Level;
 
 public class ExplosiveSpearItem extends SpearItem implements Vanishable {
     private final Level.ExplosionInteraction interaction;
+    private final float explosive_radius;
 
     /**
      * @param pEffects Effects applied on attack
+     * @param pRadius Explosive radius
+     * @param interaction Explosive interaction
      */
-    public ExplosiveSpearItem(Tier tier, int attackDamageIn, float attackSpeedIn, float projectileDamageIn, Level.ExplosionInteraction interaction, Item.Properties builderIn, MobEffectInstance... pEffects) {
+    public ExplosiveSpearItem(Tier tier, int attackDamageIn, float attackSpeedIn, float projectileDamageIn, float pRadius, Level.ExplosionInteraction interaction, Item.Properties builderIn, MobEffectInstance... pEffects) {
         super(tier, attackDamageIn, attackSpeedIn, projectileDamageIn, builderIn, pEffects);
         this.interaction = interaction;
+        explosive_radius = pRadius;
     }
 
     /**
      * @param pChance Chance to apply effects
+     * @param pRadius Explosive radius
+     * @param interaction Explosive interaction
      * @param pEffects Effects applied on attack
      */
-    public ExplosiveSpearItem(Tier tier, int attackDamageIn, float attackSpeedIn, float projectileDamageIn, float pChance, Level.ExplosionInteraction interaction, Item.Properties builderIn, MobEffectInstance... pEffects) {
+    public ExplosiveSpearItem(Tier tier, int attackDamageIn, float attackSpeedIn, float projectileDamageIn, float pChance, float pRadius, Level.ExplosionInteraction interaction, Item.Properties builderIn, MobEffectInstance... pEffects) {
         super(tier, attackDamageIn, attackSpeedIn, projectileDamageIn, pChance, builderIn, pEffects);
         this.interaction = interaction;
+        explosive_radius = pRadius;
     }
 
     public void releaseUsing(ItemStack stack, Level worldIn, LivingEntity entityLiving, int timeLeft) {
@@ -45,7 +52,7 @@ public class ExplosiveSpearItem extends SpearItem implements Vanishable {
                     ThrownSpearEntity spear = new ThrownSpearEntity(worldIn, playerEntity, stack, 2, 4);
                     spear.setItem(stack);
                     spear.shootFromRotation(playerEntity, playerEntity.getXRot(), playerEntity.getYRot(), 0.0F, 2.5F + (float) 0 * 0.5F, 1.0F);
-                    spear.setExplode(true, interaction);
+                    spear.setExplode(interaction, explosive_radius);
                     if (playerEntity.getAbilities().instabuild) {
                         spear.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
                     }

@@ -201,7 +201,7 @@ public class ItemsRegistry {
     public static final RegistryObject<Item> NETHERITE_SPEAR = ITEMS.register("netherite_spear",
             () -> new SpearItem(Tiers.NETHERITE, 3, -2.9f, 6, new Item.Properties()));
     public static final RegistryObject<Item> PYRATITE_SPEAR = ITEMS.register("pyratite_spear",
-            () -> new ExplosiveSpearItem(ModItemTier.PYRATITE, 5, -2.9f, 7.5f, Level.ExplosionInteraction.NONE, new Item.Properties().rarity(RarityRegistry.INFERNAL)));
+            () -> new ExplosiveSpearItem(ModItemTier.PYRATITE, 5, -2.9f, 7.5f, 0.75f, Level.ExplosionInteraction.NONE, new Item.Properties().rarity(RarityRegistry.INFERNAL)));
     public static final RegistryObject<Item> GLAIVE = ITEMS.register("glaive",
             () -> new SpearItem(Tiers.IRON, 8, -3.2f, false, new Item.Properties()));
     public static final RegistryObject<Item> WOODEN_RAPIER = ITEMS.register("wooden_rapier",

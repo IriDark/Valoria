@@ -6,6 +6,7 @@ import com.idark.valoria.client.particle.ModParticles;
 import com.idark.valoria.client.particle.types.Particles;
 import com.idark.valoria.registries.EnchantmentsRegistry;
 import com.idark.valoria.registries.EntityTypeRegistry;
+import com.idark.valoria.registries.ItemsRegistry;
 import com.idark.valoria.registries.SoundsRegistry;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -28,7 +29,6 @@ import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.ItemSupplier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
@@ -50,6 +50,7 @@ public class ThrownSpearEntity extends AbstractValoriaArrow implements ItemSuppl
     public int returningTicks;
     public boolean returnToPlayer;
     public float rotationVelocity = 50;
+    private float explosive_radius;
     public boolean wasInGround;
     private boolean shouldExplode;
     private boolean isExploded;
@@ -94,9 +95,20 @@ public class ThrownSpearEntity extends AbstractValoriaArrow implements ItemSuppl
         }
     }
 
-    public void setExplode(boolean shouldExplode, Level.ExplosionInteraction pInteraction) {
-        this.shouldExplode = shouldExplode;
+    public void setExplode(Level.ExplosionInteraction pInteraction, float radius) {
+        this.shouldExplode = true;
         interaction = pInteraction;
+        explosive_radius = radius;
+    }
+
+    private void explode() {
+        if(this.shouldExplode && !this.isExploded) {
+            if (!this.level().isClientSide) {
+                this.level().explode(this, this.getX(), this.getY(), this.getZ(), explosive_radius, interaction);
+            }
+
+            this.isExploded = true;
+        }
     }
 
     public void addEffect(MobEffectInstance pEffectInstance) {
@@ -236,13 +248,7 @@ public class ThrownSpearEntity extends AbstractValoriaArrow implements ItemSuppl
     protected void onHitBlock(BlockHitResult pResult) {
         super.onHitBlock(pResult);
         this.wasInGround = true;
-        if(this.shouldExplode && !this.isExploded) {
-            if (!this.level().isClientSide) {
-                this.level().explode(this, this.getX(), this.getY(), this.getZ(), 4.0F, interaction);
-            }
-
-            this.isExploded = true;
-        }
+        this.explode();
     }
 
     @Override
@@ -290,13 +296,7 @@ public class ThrownSpearEntity extends AbstractValoriaArrow implements ItemSuppl
             }
         }
 
-        if(this.shouldExplode && !this.isExploded) {
-            if (!this.level().isClientSide) {
-                this.level().explode(this, this.getX(), this.getY(), this.getZ(), 2.0F, interaction);
-            }
-
-            this.isExploded = true;
-        }
+        this.explode();
     }
 
     public void setEffectsFromList(ImmutableList<MobEffectInstance> effects) {
@@ -306,7 +306,7 @@ public class ThrownSpearEntity extends AbstractValoriaArrow implements ItemSuppl
     }
 
     protected Item getDefaultItem() {
-        return Items.AIR;
+        return ItemsRegistry.STONE_SPEAR.get();
     }
 
     protected ItemStack getItemRaw() {
