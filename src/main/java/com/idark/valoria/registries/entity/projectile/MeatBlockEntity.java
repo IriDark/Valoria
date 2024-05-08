@@ -7,8 +7,6 @@ import com.idark.valoria.registries.SoundsRegistry;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -18,20 +16,15 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.network.NetworkHooks;
 
 import javax.annotation.Nullable;
 
@@ -93,22 +86,13 @@ public class MeatBlockEntity extends AbstractArrow {
         super.onHit(pResult);
     }
 
-    @Override
-    public void setKnockback(int pKnockback) {
-        this.knockback = 5;
-    }
-
     public ItemStack getPickupItem() {
-        return this.thrownStack.copy();
+        return ItemStack.EMPTY;
     }
 
     @Nullable
     public EntityHitResult findHitEntity(Vec3 startVec, Vec3 endVec) {
         return this.dealtDamage ? null : super.findHitEntity(startVec, endVec);
-    }
-
-    public void onHitBlock(BlockHitResult pResult) {
-        super.onHitBlock(pResult);
     }
 
     @Override
@@ -150,17 +134,6 @@ public class MeatBlockEntity extends AbstractArrow {
         return SoundEvents.FROGSPAWN_BREAK;
     }
 
-    public void playerTouch(Player pEntity) {
-        if (this.ownedBy(pEntity) || this.getOwner() == null) {
-            super.playerTouch(pEntity);
-        }
-    }
-
-    @Override
-    public Packet<ClientGamePacketListener> getAddEntityPacket() {
-        return NetworkHooks.getEntitySpawningPacket(this);
-    }
-
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         if (compound.contains("meat", 10)) {
@@ -179,14 +152,5 @@ public class MeatBlockEntity extends AbstractArrow {
         if (this.pickup != Pickup.DISALLOWED) {
             super.tickDespawn();
         }
-    }
-
-    public float getWaterInertia() {
-        return 0.8F;
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    public boolean shouldRender(double x, double y, double z) {
-        return true;
     }
 }
