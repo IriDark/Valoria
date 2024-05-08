@@ -564,7 +564,7 @@ public class ValoriaUtils {
     public static void addEffectsTooltip(ImmutableList<MobEffectInstance> effects, List<Component> pTooltips, float pDurationFactor, float chance) {
         List<Pair<Attribute, AttributeModifier>> list = Lists.newArrayList();
         if (!effects.isEmpty()) {
-            if (chance < 0) {
+            if (chance > 0 && chance < 1) {
                 pTooltips.add(CommonComponents.EMPTY);
                 pTooltips.add(Component.translatable("tooltip.valoria.with_chance").withStyle(ChatFormatting.GRAY).append(Component.literal(String.format("%.1f%%", chance * 100))));
             } else {

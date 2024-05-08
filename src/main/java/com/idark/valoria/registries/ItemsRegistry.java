@@ -160,7 +160,7 @@ public class ItemsRegistry {
 
     // TOOLS (category)
     public static final RegistryObject<Item> CLUB = ITEMS.register("club",
-            () -> new ClubItem(Tiers.WOOD, 5, -3.2f, new Item.Properties()));
+            () -> new HitEffectItem(Tiers.WOOD, 5, -3.2f, new Item.Properties(), 0.1f, new MobEffectInstance(EffectsRegistry.STUN.get(),  60, 0)));
     public static final RegistryObject<Item> BRONZE_SWORD = ITEMS.register("bronze_sword",
             () -> new SwordItem(Tiers.IRON, 6, -2.4f, new Item.Properties()));
     public static final RegistryObject<Item> VOID_EDGE = ITEMS.register("void_edge",
