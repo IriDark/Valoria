@@ -17,6 +17,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
 
+//TODO: Probably rework
 public class PotBlock extends HorizontalDirectionalBlock implements SimpleWaterloggedBlock {
 
     private static final VoxelShape shape = Block.box(3, 0, 3, 13, 14, 13);

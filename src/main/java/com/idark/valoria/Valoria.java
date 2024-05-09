@@ -68,6 +68,9 @@ import top.theillusivec4.curios.api.client.CuriosRendererRegistry;
 
 @Mod(Valoria.ID)
 public class Valoria {
+    //TODO: More pyratite content
+    //TODO: Mobs for valoria
+    //TODO: Misc gen for valoria
     public static final String ID = "valoria";
 
     public static final ISidedProxy proxy = DistExecutor.unsafeRunForDist(() -> ClientProxy::new, () -> ServerProxy::new);

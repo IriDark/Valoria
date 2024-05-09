@@ -22,13 +22,12 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.Random;
 
+//TODO: probably rework
 public class TransformShardItem extends Item implements IParticleItem {
     Random rand = new Random();
-    public TransformType type;
 
-    public TransformShardItem(TransformType type, Properties properties) {
+    public TransformShardItem(Properties properties) {
         super(properties);
-        this.type = type;
     }
 
     @Override
@@ -43,42 +42,34 @@ public class TransformShardItem extends Item implements IParticleItem {
         BlockState state = worldIn.getBlockState(context.getClickedPos());
         BlockPos pos = context.getClickedPos();
         Player player = context.getPlayer();
-        rightClickOnCertainBlockState(stack, player, worldIn, state, pos);
-        return super.onItemUseFirst(stack, context);
-    }
-
-    public void rightClickOnCertainBlockState(ItemStack stack, Player player, Level worldIn, BlockState state, BlockPos pos) {
         if (state.is(BlockRegistry.VOID_PILLAR.get())) {
             worldIn.playSound(player, player.blockPosition(), SoundEvents.RESPAWN_ANCHOR_AMBIENT, SoundSource.BLOCKS, 10f, 1f);
             worldIn.playSound(player, player.blockPosition(), SoundEvents.RESPAWN_ANCHOR_CHARGE, SoundSource.BLOCKS, 1.0F, 1.0F);
-            switch (type) {
-                case WICKED:
-                    worldIn.setBlockAndUpdate(pos, BlockRegistry.VOID_PILLAR_AMETHYST.get().defaultBlockState().setValue(RotatedPillarBlock.AXIS, state.getValue(RotatedPillarBlock.AXIS)));
-                    for (int i = 0; i < 26; i++) {
-                        Particles.create(ModParticles.TRANSFORM_PARTICLE)
-                                .addVelocity(((rand.nextDouble() - 0.5D) / 30), ((rand.nextDouble() - 0.5D) / 30), ((rand.nextDouble() - 0.5D) / 30))
-                                .setAlpha(1.0f, 0)
-                                .setScale(0.3f, 0)
-                                .setColor(0.466f, 0.643f, 0.815f, 0.466f, 0.643f, 0.815f)
-                                .setLifetime(36)
-                                .setSpin((0.5f * (float) ((rand.nextDouble() - 0.5D) * 2)))
-                                .spawn(worldIn, pos.getX() + (rand.nextDouble() * 1.25), pos.getY() + 0.5F + ((rand.nextDouble() - 0.5D) * 1.25), pos.getZ() + 0.5F + ((rand.nextDouble() - 0.5D) * 1.25));
-                    }
-
-                    break;
-                case SOUL:
-                    worldIn.setBlockAndUpdate(pos, BlockRegistry.CHARGED_VOID_PILLAR.get().defaultBlockState().setValue(RotatedPillarBlock.AXIS, state.getValue(RotatedPillarBlock.AXIS)));
-                    for (int i = 0; i < 10; i++) {
-                        worldIn.addParticle(ParticleTypes.SOUL, pos.getX(), pos.getY() + 0.5F + rand.nextDouble() * 0.75, pos.getZ() + rand.nextDouble(), 0d, 0.05d, 0d);
-                    }
-
-                    break;
+            if (stack.is(ItemsRegistry.AMETHYST.get())) {
+                worldIn.setBlockAndUpdate(pos, BlockRegistry.VOID_PILLAR_AMETHYST.get().defaultBlockState().setValue(RotatedPillarBlock.AXIS, state.getValue(RotatedPillarBlock.AXIS)));
+                for (int i = 0; i < 26; i++) {
+                    Particles.create(ModParticles.TRANSFORM_PARTICLE)
+                            .addVelocity(((rand.nextDouble() - 0.5D) / 30), ((rand.nextDouble() - 0.5D) / 30), ((rand.nextDouble() - 0.5D) / 30))
+                            .setAlpha(1.0f, 0)
+                            .setScale(0.3f, 0)
+                            .setColor(0.466f, 0.643f, 0.815f, 0.466f, 0.643f, 0.815f)
+                            .setLifetime(36)
+                            .setSpin((0.5f * (float) ((rand.nextDouble() - 0.5D) * 2)))
+                            .spawn(worldIn, pos.getX() + (rand.nextDouble() * 1.25), pos.getY() + 0.5F + ((rand.nextDouble() - 0.5D) * 1.25), pos.getZ() + 0.5F + ((rand.nextDouble() - 0.5D) * 1.25));
+                }
+            } else {
+                worldIn.setBlockAndUpdate(pos, BlockRegistry.CHARGED_VOID_PILLAR.get().defaultBlockState().setValue(RotatedPillarBlock.AXIS, state.getValue(RotatedPillarBlock.AXIS)));
+                for (int i = 0; i < 10; i++) {
+                    worldIn.addParticle(ParticleTypes.SOUL, pos.getX() + (rand.nextDouble() * 1.25), pos.getY() + 0.5F + ((rand.nextDouble() - 0.5D) * 1.25), pos.getZ() + 0.5F + ((rand.nextDouble() - 0.5D) * 1.25), 0d, 0.05d, 0d);
+                }
             }
 
             if (!player.isCreative()) {
                 stack.shrink(1);
             }
         }
+
+        return super.onItemUseFirst(stack, context);
     }
 
     @Override
