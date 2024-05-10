@@ -1,0 +1,51 @@
+name: Bug report
+description: A clear and concise description of what the bug is.
+labels: ["bug"]
+
+body:
+  - type: textarea
+    id: issue
+    attributes:
+    label: Issue
+    description: Explain your issue in all the details.
+    validations:
+    required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+    label: Steps to reproduce
+    description: What exactly you did to make the bug happen.
+    validations:
+    required: true
+  - type: input
+    id: build
+    attributes:
+    label: Build
+    description: The build number (jar name).
+    placeholder: LATEST IS NOT A VERSION.
+    validations:
+    required: true
+  - type: textarea
+    id: mods
+    attributes:
+    label: Mods used
+    description: The mod repositories or links to mod pages, that are related to the issue, if applicable.
+    validations:
+    required: false
+  - type: textarea
+    id: logs
+    attributes:
+    label: Crashlogs
+    description: User\AppData\Roaming\.minecraft\logs\**latest.log**
+    placeholder: REQUIRED if you are reporting a crash.
+    validations:
+    required: false
+  - type: checkboxes
+    id: agreement
+    attributes:
+    label: Submission
+    description: Check the boxes to confirm that you have read the lines below.
+    options:
+      - label: I have updated to the latest version to make sure my issue has not been fixed.
+      - label: I have searched the closed and open issues to make sure that this problem has not already been reported.
+    required: true
