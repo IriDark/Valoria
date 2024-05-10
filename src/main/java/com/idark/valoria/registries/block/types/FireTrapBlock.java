@@ -20,10 +20,7 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 
-import java.util.Random;
-
 public class FireTrapBlock extends Block {
-    Random rand = new Random();
     public float damage;
     public int secondsOnFire;
     public BlockState state;
@@ -72,10 +69,10 @@ public class FireTrapBlock extends Block {
             int radius = 1;
             boolean isWaterNearby = isWaterNearby(level, pos, radius);
             if (isWaterNearby) {
-                level.playSound(null, pos, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 0.05F, level.random.nextFloat() * 0.5F + 0.5F);
-                level.addParticle(ParticleTypes.POOF, pos.getX() + rand.nextDouble(), pos.getY() + 0.7D, pos.getZ() + rand.nextDouble(), 0d, 0.05d, 0d);
+                level.playSound(null, pos, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 0.05F, level.getRandom().nextFloat() * 0.5F + 0.5F);
+                level.addParticle(ParticleTypes.POOF, pos.getX() + level.getRandom().nextDouble(), pos.getY() + 0.7D, pos.getZ() + level.getRandom().nextDouble(), 0d, 0.05d, 0d);
             } else {
-                level.playSound(null, pos, SoundEvents.FIREWORK_ROCKET_BLAST, SoundSource.BLOCKS, 0.3F, level.random.nextFloat() * 0.25F + 0.6F);
+                level.playSound(null, pos, SoundEvents.FIREWORK_ROCKET_BLAST, SoundSource.BLOCKS, 0.3F, level.getRandom().nextFloat() * 0.25F + 0.6F);
                 if (level instanceof ServerLevel serverLevel) {
                     PacketHandler.sendToTracking(serverLevel, pos, new FireTrapParticlePacket(pos.getCenter().x, pos.getY(), pos.getCenter().z, color[0], color[1], color[2], color[3], color[4], color[5]));
                     living.hurt(living.damageSources().inFire(), damage);

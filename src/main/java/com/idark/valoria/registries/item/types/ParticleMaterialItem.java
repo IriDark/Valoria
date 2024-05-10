@@ -5,15 +5,13 @@ import com.idark.valoria.client.particle.types.Particles;
 import com.idark.valoria.registries.ItemsRegistry;
 import com.idark.valoria.util.RandomUtil;
 import net.minecraft.core.particles.ParticleType;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Random;
-
 public class ParticleMaterialItem extends Item implements IParticleItem {
-    private final Random rand = new Random();
     public ParticleType<?> particle;
     public int[] color;
     public int[] colorTo;
@@ -37,6 +35,7 @@ public class ParticleMaterialItem extends Item implements IParticleItem {
 
     @Override
     public void addParticles(Level level, ItemEntity entity) {
+        RandomSource rand = level.getRandom();
         if (particle != null && color != null && colorTo != null) {
             if (!entity.isInWater()) {
                 Particles.create(particle)

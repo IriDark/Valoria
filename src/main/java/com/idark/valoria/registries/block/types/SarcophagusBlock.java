@@ -62,7 +62,6 @@ public class SarcophagusBlock extends HorizontalDirectionalBlock {
     public static List<Item> halloweenSpawnableWith = new ArrayList<>();
 
     private static final VoxelShape shape = Block.box(0, 0, 0, 16, 12, 16);
-    Random rand = new Random();
 
     public SarcophagusBlock(BlockBehaviour.Properties pProperties) {
         super(pProperties);
@@ -98,6 +97,7 @@ public class SarcophagusBlock extends HorizontalDirectionalBlock {
     };
 
     private void spawnSkeletons(Level pLevel, BlockPos pPos, InteractionHand hand) {
+        RandomSource rand = pLevel.getRandom();
         Skeleton entity = EntityType.SKELETON.create(pLevel);
         for (int tries = 0; tries < 10; tries++) {
             double x = (double) pPos.getX() + (rand.nextDouble() - rand.nextDouble()) * 6;
@@ -128,6 +128,7 @@ public class SarcophagusBlock extends HorizontalDirectionalBlock {
     }
 
     private void spawnDraugr(Level pLevel, BlockPos pPos, InteractionHand hand) {
+        RandomSource rand = pLevel.getRandom();
         DraugrEntity entity = EntityTypeRegistry.DRAUGR.get().create(pLevel);
         for (int tries = 0; tries < 10; tries++) {
             double x = (double) pPos.getX() + (rand.nextDouble() - rand.nextDouble()) * 6;
@@ -148,6 +149,7 @@ public class SarcophagusBlock extends HorizontalDirectionalBlock {
     }
 
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+        RandomSource rand = pLevel.getRandom();
         BlockPos oppositePos = pPos.relative(pState.getValue(FACING));
         if (pState.getValue(PART) == BedPart.HEAD) {
             oppositePos = pPos.relative(pState.getValue(FACING).getOpposite());

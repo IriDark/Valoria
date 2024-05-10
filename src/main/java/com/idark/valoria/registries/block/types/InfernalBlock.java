@@ -5,6 +5,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -17,11 +18,8 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
 
-import java.util.Random;
-
 public class InfernalBlock extends Block {
     private static IntegerProperty STATE = IntegerProperty.create("awakened", 0, 1);
-    Random rand = new Random();
 
     public InfernalBlock(BlockBehaviour.Properties properties) {
         super(properties);
@@ -35,11 +33,11 @@ public class InfernalBlock extends Block {
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
+    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
         ItemStack itemstack = player.getItemInHand(handIn);
         if (handIn == InteractionHand.MAIN_HAND && !isValidFuel(itemstack) && isValidFuel(player.getItemInHand(InteractionHand.OFF_HAND))) {
             return InteractionResult.PASS;
-        } else if (isValidFuel(itemstack) && Infernal(player, rand, world, pos, state)) {
+        } else if (isValidFuel(itemstack) && Infernal(player, level.getRandom(), level, pos, state)) {
             if (!player.getAbilities().instabuild) {
                 itemstack.shrink(1);
             }
@@ -52,10 +50,9 @@ public class InfernalBlock extends Block {
         return stack.getItem() == ItemsRegistry.INFERNAL_STONE.get();
     }
 
-    private static boolean Infernal(Player player, Random rand, Level worldIn, BlockPos pos, BlockState state) {
+    private static boolean Infernal(Player player, RandomSource rand, Level worldIn, BlockPos pos, BlockState state) {
         if (state.getValue(STATE) == 0) {
             worldIn.playSound(player, player.blockPosition(), SoundEvents.RESPAWN_ANCHOR_AMBIENT, SoundSource.BLOCKS, 10f, 1f);
-
             for (int i = 0; i < 25; i++) {
                 double d2 = rand.nextGaussian() * 0.02D;
                 double d3 = rand.nextGaussian() * 0.02D;

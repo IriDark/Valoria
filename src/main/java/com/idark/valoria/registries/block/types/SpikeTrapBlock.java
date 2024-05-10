@@ -6,6 +6,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
@@ -21,12 +22,10 @@ import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
 
 import javax.annotation.Nullable;
-import java.util.Random;
 
 public class SpikeTrapBlock extends DirectionalBlock {
     public static final BooleanProperty LIT = RedstoneTorchBlock.LIT;
     public static final DirectionProperty FACING = BlockStateProperties.FACING;
-    Random rand = new Random();
     public BlockState state;
     public BlockState spike;
 
@@ -38,6 +37,7 @@ public class SpikeTrapBlock extends DirectionalBlock {
 
     @Override
     public void stepOn(Level level, BlockPos pos, BlockState state, Entity entityIn) {
+        RandomSource rand = level.getRandom();
         Direction direction = state.getValue(DirectionalBlock.FACING);
         BlockPos newPos = pos.offset(direction.getNormal());
         BlockState spikeBlock = BlockRegistry.SPIKES.get().defaultBlockState().setValue(DirectionalBlock.FACING, direction);
@@ -56,6 +56,7 @@ public class SpikeTrapBlock extends DirectionalBlock {
 
     @Override
     public void neighborChanged(BlockState state, Level level, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
+        RandomSource rand = level.getRandom();
         Direction direction = state.getValue(DirectionalBlock.FACING);
         BlockPos newPos = pos.offset(direction.getNormal());
         if (level.hasNeighborSignal(pos)) {

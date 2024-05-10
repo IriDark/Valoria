@@ -33,11 +33,8 @@ import org.joml.Vector3d;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class MurasamaItem extends KatanaItem implements IParticleItem {
-
-    static Random rand = new Random();
 
     public MurasamaItem(Tier tier, int attackDamageIn, float attackSpeedIn, Properties builderIn) {
         super(tier, attackDamageIn, attackSpeedIn, builderIn);
@@ -70,6 +67,7 @@ public class MurasamaItem extends KatanaItem implements IParticleItem {
      * Some sounds taken from the CalamityMod (Terraria) in a <a href="https://calamitymod.wiki.gg/wiki/Category:Sound_effects">Calamity Mod Wiki.gg</a>
      */
     public void releaseUsing(@NotNull ItemStack stack, @NotNull Level level, @NotNull LivingEntity entityLiving, int timeLeft) {
+        RandomSource rand = level.getRandom();
         Player player = (Player) entityLiving;
         player.awardStat(Stats.ITEM_USED.get(this));
         double pitch = ((player.getRotationVector().x + 90) * Math.PI) / 180;
@@ -200,7 +198,7 @@ public class MurasamaItem extends KatanaItem implements IParticleItem {
 
     @Override
     public void addParticles(Level level, ItemEntity entity) {
-        RandomSource source = RandomSource.create();
+        RandomSource rand = level.getRandom();
         double X = ((rand.nextDouble() - 0.5D) * 0.3f);
         double Y = ((rand.nextDouble() - 0.5D) + 0.3f);
         double Z = ((rand.nextDouble() - 0.5D) * 0.3f);
@@ -208,7 +206,7 @@ public class MurasamaItem extends KatanaItem implements IParticleItem {
         double dX = -X;
         double dY = -Y;
         double dZ = -Z;
-        int count = Mth.nextInt(source, 0, 1);
+        int count = Mth.nextInt(rand, 0, 1);
         for (int ii = 0; ii < count; ii += 1) {
             double yaw = Math.atan2(dZ, dX);
             double pitch = Math.atan2(Math.sqrt(dZ * dZ + dX * dX), dY) + Math.PI;

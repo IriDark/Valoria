@@ -19,6 +19,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
@@ -42,14 +43,12 @@ import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.ToolAction;
 
 import java.util.List;
-import java.util.Random;
 import java.util.Set;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class SpearItem extends SwordItem implements Vanishable {
-    Random rand = new Random();
     private final Supplier<Multimap<Attribute, AttributeModifier>> attributeModifiers = Suppliers.memoize(this::createAttributes);
     public final float attackDamage;
     public final float attackSpeed;
@@ -180,6 +179,7 @@ public class SpearItem extends SwordItem implements Vanishable {
     @Override
     public InteractionResult onItemUseFirst(ItemStack stack, UseOnContext context) {
         Level worldIn = context.getLevel();
+        RandomSource rand = worldIn.getRandom();
         BlockState state = worldIn.getBlockState(context.getClickedPos());
         BlockPos pos = context.getClickedPos();
         Player player = context.getPlayer();
