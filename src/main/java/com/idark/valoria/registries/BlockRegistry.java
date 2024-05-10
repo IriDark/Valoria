@@ -134,7 +134,7 @@ public class BlockRegistry {
             () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE_BRICK_SLAB).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> POLISHED_PICRITE_WALL = registerBlock("polished_picrite_wall",
             () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE_BRICK_WALL).requiresCorrectToolForDrops()));
-    public static final RegistryObject<Block> EPHEMARITE_LOW = registerBlock("ephemarite_low",
+    public static final RegistryObject<Block> EPHEMARITE_LOW = BLOCK.register("ephemarite_low",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.TERRACOTTA_BROWN).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> EPHEMARITE_LOW_SLAB = registerBlock("ephemarite_low_slab",
             () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.STONE_SLAB).mapColor(MapColor.TERRACOTTA_BROWN).requiresCorrectToolForDrops().sound(SoundType.STONE)));
@@ -142,7 +142,7 @@ public class BlockRegistry {
             () -> new StairBlock(() -> EPHEMARITE_LOW.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.STONE_STAIRS).mapColor(MapColor.TERRACOTTA_BROWN).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> EPHEMARITE_LOW_WALL = registerBlock("ephemarite_low_wall",
             () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.STONE_BRICK_WALL).mapColor(MapColor.TERRACOTTA_BROWN).requiresCorrectToolForDrops()));
-    public static final RegistryObject<Block> EPHEMARITE = registerBlock("ephemarite",
+    public static final RegistryObject<Block> EPHEMARITE = BLOCK.register("ephemarite",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.TERRACOTTA_BROWN).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> EPHEMARITE_SLAB = registerBlock("ephemarite_slab",
             () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.STONE_SLAB).mapColor(MapColor.TERRACOTTA_BROWN).requiresCorrectToolForDrops().sound(SoundType.STONE)));

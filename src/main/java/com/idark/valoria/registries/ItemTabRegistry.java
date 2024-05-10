@@ -400,7 +400,7 @@ public abstract class ItemTabRegistry {
             event.accept(BlockRegistry.DUNESTONE_BRICKS_WALL);
             event.accept(BlockRegistry.CUT_DUNESTONE);
             event.accept(BlockRegistry.POLISHED_DUNESTONE);
-            event.accept(BlockRegistry.EPHEMARITE);
+            event.accept(ItemsRegistry.EPHEMARITE);
             event.accept(BlockRegistry.EPHEMARITE_STAIRS);
             event.accept(BlockRegistry.EPHEMARITE_SLAB);
             if (QuarkIntegration.isLoaded()) event.accept(QuarkIntegration.LoadedOnly.EPHEMARITE_VERTICAL_SLAB);
@@ -409,7 +409,7 @@ public abstract class ItemTabRegistry {
             event.accept(BlockRegistry.POLISHED_EPHEMARITE_STAIRS);
             event.accept(BlockRegistry.POLISHED_EPHEMARITE_SLAB);
             if (QuarkIntegration.isLoaded()) event.accept(QuarkIntegration.LoadedOnly.POLISHED_EPHEMARITE_VERTICAL_SLAB);
-            event.accept(BlockRegistry.EPHEMARITE_LOW);
+            event.accept(ItemsRegistry.EPHEMARITE_LOW);
             event.accept(BlockRegistry.EPHEMARITE_LOW_STAIRS);
             event.accept(BlockRegistry.EPHEMARITE_LOW_SLAB);
             if (QuarkIntegration.isLoaded()) event.accept(QuarkIntegration.LoadedOnly.EPHEMARITE_LOW_VERTICAL_SLAB);

@@ -45,23 +45,19 @@ public class TaintTransformBlockItem extends BlockItem {
         BlockPos pos = context.getClickedPos();
         Player player = context.getPlayer();
         if (player != null && player.isShiftKeyDown()) {
-            rightClickOnCertainBlockState(stack, player, worldIn, state, pos);
+            if (state.is(BlockRegistry.VOID_TAINT.get()) && state.getValue(VoidTaintBlock.TAINT) != 1) {
+                worldIn.playSound(player, player.blockPosition(), SoundEvents.FROG_LAY_SPAWN, SoundSource.BLOCKS, 1.0F, 1.0F);
+                worldIn.setBlockAndUpdate(pos, BlockRegistry.VOID_TAINT.get().defaultBlockState().setValue(VoidTaintBlock.TAINT, 1));
+                for (int i = 0; i < 6; i++) {
+                    worldIn.addParticle(ParticleTypes.END_ROD, pos.getX() + rand.nextDouble(), pos.getY() + 1f, pos.getZ() + rand.nextDouble(), 0d, 0.05d, 0d);
+                }
+
+                if (!player.isCreative()) {
+                    stack.shrink(1);
+                }
+            }
         }
 
         return super.onItemUseFirst(stack, context);
-    }
-
-    public void rightClickOnCertainBlockState(ItemStack stack, Player player, Level worldIn, BlockState state, BlockPos pos) {
-        if (state.is(BlockRegistry.VOID_TAINT.get()) && state.getValue(VoidTaintBlock.TAINT) != 1) {
-            worldIn.playSound(player, player.blockPosition(), SoundEvents.FROG_LAY_SPAWN, SoundSource.BLOCKS, 1.0F, 1.0F);
-            worldIn.setBlockAndUpdate(pos, BlockRegistry.VOID_TAINT.get().defaultBlockState().setValue(VoidTaintBlock.TAINT, 1));
-            for (int i = 0; i < 6; i++) {
-                worldIn.addParticle(ParticleTypes.END_ROD, pos.getX() + rand.nextDouble(), pos.getY() + 1f, pos.getZ() + rand.nextDouble(), 0d, 0.05d, 0d);
-            }
-
-            if (!player.isCreative()) {
-                stack.shrink(1);
-            }
-        }
     }
 }
