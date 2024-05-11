@@ -18,6 +18,7 @@
     "client.ItemInHandLayerMixin",
     "client.ItemInHandRendererMixin",
     "client.LevelRendererMixin",
+    "client.LivingEntityRendererMixin",
     "client.PlayerRendererMixin"
   ],
   "injectors": {

@@ -35,7 +35,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class ScytheItem extends SwordItem implements ICustomAnimationItem, ICooldownItem, IRadiusItem {
+public class ScytheItem extends SwordItem implements ICustomAnimationItem, ICooldownItem, IRadiusItem, ISpinAttackItem {
     public static RadiusAttackAnim animation = new RadiusAttackAnim();
     public float chance = 1;
     public final ImmutableList<MobEffectInstance> effects;
@@ -90,7 +90,7 @@ public class ScytheItem extends SwordItem implements ICustomAnimationItem, ICool
     public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
         ItemStack itemstack = playerIn.getItemInHand(handIn);
         if(!playerIn.isShiftKeyDown()) {
-            playerIn.startUsingItem(handIn);
+            playerIn.startUsingItem(InteractionHand.MAIN_HAND);
             return InteractionResultHolder.consume(itemstack);
         }
 
@@ -108,7 +108,7 @@ public class ScytheItem extends SwordItem implements ICustomAnimationItem, ICool
     }
 
     public int getUseDuration(ItemStack stack) {
-        return 5;
+        return 8;
     }
 
     /**

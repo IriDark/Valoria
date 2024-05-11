@@ -30,10 +30,12 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
@@ -79,6 +81,21 @@ public class ValoriaUtils {
             for (int j = 0; j < pSize; j++) {
                 if (i == 0 || i == pSize - 1 || j == 0 || j == pSize - 1) {
                     pDestination.setBlock(pPos.offset(i, 0, j), pFrame, 2);
+                }
+            }
+        }
+    }
+
+    /**
+     * Performs a spin attack with checking a collision with targets
+     */
+    public static void checkSpinAttack(Level level, Player player) {
+        List<Entity> list = level.getEntities(player, player.getBoundingBox().inflate(1));
+        float damage = (float) (player.getAttributeValue(Attributes.ATTACK_DAMAGE)) + EnchantmentHelper.getSweepingDamageRatio(player);
+        if (!list.isEmpty()) {
+            for (Entity entity : list) {
+                if (entity instanceof LivingEntity target) {
+                    target.hurt(level.damageSources().playerAttack(player), (damage + EnchantmentHelper.getDamageBonus(player.getUseItem(), target.getMobType())) * 1.35f);
                 }
             }
         }
@@ -141,14 +158,47 @@ public class ValoriaUtils {
     }
 
     /**
-     * Can be used in projectile tick() method.
-     * Projectile will have a homing movement to nearby entity
-     * @param pOwner     Owner of Projectile
-     * @param boundingBox radius example:
-     * <p>
-     * <pre>{@code new AABB(projectile.getX() - 3.5, projectile.getY() - 0.5, projectile.getZ() - 3.5, projectile.getX() + 3.5, projectile.getY() + 0.5, projectile.getZ() + 3.5);
-     *}</pre>
+     * Performs a circled attack near player
+     *
+     * @param radius      Attack radius
+     * @param type        Particle type used to show radius
+     * @param hitEntities List for damaged entities
+     * @param pos         Position
      */
+    public static void radiusHit(Level level, Player player, @Nullable ParticleOptions type, List<LivingEntity> hitEntities, Vector3d pos, float pitchRaw, float yawRaw, float radius) {
+        for (int i = 0; i < 360; i += 10) {
+            double pitch = ((pitchRaw + 90) * Math.PI) / 180;
+            double yaw = ((yawRaw + 90) * Math.PI) / 180;
+            double X = Math.sin(pitch) * Math.cos(yaw + i) * radius;
+            double Y = Math.cos(pitch) * radius;
+            double Z = Math.sin(pitch) * Math.sin(yaw + i) * radius;
+
+            AABB boundingBox = new AABB(pos.x, pos.y - 1 + ((Math.random() - 0.5D) * 0.2F), pos.z, pos.x + X, pos.y + Y + ((Math.random() - 0.5D) * 0.2F), pos.z + Z);
+            List<Entity> entities = level.getEntitiesOfClass(Entity.class, boundingBox);
+            for (Entity entity : entities) {
+                if (entity instanceof LivingEntity livingEntity && !hitEntities.contains(livingEntity) && !livingEntity.equals(player)) {
+                    hitEntities.add(livingEntity);
+                }
+            }
+
+            X = Math.sin(pitch) * Math.cos(yaw + i) * radius * 0.75F;
+            Y = Math.cos(pitch) * radius * 0.75F;
+            Z = Math.sin(pitch) * Math.sin(yaw + i) * radius * 0.75F;
+            if (type != null && !level.isClientSide() && level instanceof ServerLevel pServer) {
+                pServer.sendParticles(type, pos.x + X, pos.y + Y + ((Math.random() - 0.5D) * 0.2F), pos.z + Z, 1, 0, 0, 0, 0);
+            }
+        }
+    }
+
+        /**
+         * Can be used in projectile tick() method.
+         * Projectile will have a homing movement to nearby entity
+         * @param pOwner     Owner of Projectile
+         * @param boundingBox radius example:
+         * <p>
+         * <pre>{@code new AABB(projectile.getX() - 3.5, projectile.getY() - 0.5, projectile.getZ() - 3.5, projectile.getX() + 3.5, projectile.getY() + 0.5, projectile.getZ() + 3.5);
+         *}</pre>
+         */
     public static void homingMovement(double pSpeed, Entity projectile, Level level, Entity pOwner, AABB boundingBox) {
         List<LivingEntity> livingEntities = level.getEntitiesOfClass(LivingEntity.class, boundingBox);
         if (!level.isClientSide) {

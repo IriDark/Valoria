@@ -101,16 +101,20 @@ public class KatanaItem extends SwordItem implements ICooldownItem {
         return true;
     }
 
+    public void applyCooldown(Player playerIn) {
+        for (Item item : ForgeRegistries.ITEMS) {
+            if (item instanceof KatanaItem) {
+                playerIn.getCooldowns().addCooldown(item, 75);
+            }
+        }
+    }
+
     public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level worldIn, Player playerIn, @NotNull InteractionHand handIn) {
         ItemStack itemstack = playerIn.getItemInHand(handIn);
         if(!playerIn.isShiftKeyDown()) {
-            playerIn.startUsingItem(handIn);
-            if (!playerIn.isFallFlying()) {
-                for (Item item : ForgeRegistries.ITEMS) {
-                    if (item instanceof KatanaItem) {
-                        playerIn.getCooldowns().addCooldown(item, 75);
-                    }
-                }
+            playerIn.startUsingItem(InteractionHand.MAIN_HAND);
+            if (!playerIn.isFallFlying() && playerIn.isUsingItem()) {
+                applyCooldown(playerIn);
             }
 
             return InteractionResultHolder.consume(itemstack);
@@ -134,7 +138,6 @@ public class KatanaItem extends SwordItem implements ICooldownItem {
         double pitch = ((player.getRotationVector().x + 90) * Math.PI) / 180;
         double yaw = ((player.getRotationVector().y + 90) * Math.PI) / 180;
         float dashDistance = (float) player.getAttributeValue(AttributeRegistry.DASH_DISTANCE.get());
-
         // preventing using the katana when flying on Elytra
         if (!player.isFallFlying()) {
             Vec3 dir = (player.getViewVector(0.0f).scale(dashDistance));
