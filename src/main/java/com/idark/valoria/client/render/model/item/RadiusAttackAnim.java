@@ -39,6 +39,6 @@ public class RadiusAttackAnim extends ItemAnims {
         poseStack.mulPose(Axis.XN.rotationDegrees(90f));
         poseStack.mulPose(Axis.YP.rotationDegrees(flag ? 90f : -90f));
         poseStack.mulPose(Axis.XN.rotationDegrees(56 * swingAmount));
-        poseStack.mulPose(Axis.XP.rotationDegrees((-60 + player.getUseItemRemainingTicks() * 16 - partialTicks)));
+        poseStack.mulPose(Axis.XP.rotationDegrees((-80 + player.getUseItemRemainingTicks() * 14 - partialTicks) * 2f));
     }
 }

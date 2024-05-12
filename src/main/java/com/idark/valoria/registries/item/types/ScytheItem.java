@@ -108,7 +108,7 @@ public class ScytheItem extends SwordItem implements ICustomAnimationItem, ICool
     }
 
     public int getUseDuration(ItemStack stack) {
-        return 8;
+        return 7;
     }
 
     /**

@@ -198,6 +198,8 @@ public class SpearItem extends SwordItem implements Vanishable {
                     stack.hurtAndBreak(10, player, (playerEntity) -> playerEntity.broadcastBreakEvent(handIn));
                 }
             }
+
+            return InteractionResult.SUCCESS;
         }
 
         return super.onItemUseFirst(stack, context);
