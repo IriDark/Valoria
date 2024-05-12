@@ -1,6 +1,7 @@
-package com.idark.valoria.client.render.model.item;
+package com.idark.valoria.client.render.model.item.animation;
 
 import com.idark.valoria.client.event.ClientTickHandler;
+import com.idark.valoria.client.render.model.item.ItemAnims;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
@@ -16,7 +17,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-public class PickAnim extends ItemAnims {
+public class CrushingAnimation extends ItemAnims {
 
     @Override
     @OnlyIn(Dist.CLIENT)
@@ -35,8 +36,6 @@ public class PickAnim extends ItemAnims {
     @Override
     @OnlyIn(Dist.CLIENT)
     public void renderArmWithItem(LivingEntity livingEntity, ItemStack itemStack, ItemDisplayContext displayContext, HumanoidArm arm, PoseStack poseStack, MultiBufferSource buffer, int packedLight) {
-        HumanoidArm mainArm = livingEntity.getMainArm();
-        boolean flag = arm == mainArm;
         poseStack.translate(0, -0.15f, 0);
         poseStack.translate(0, -0.125F + 0.7F - ((float) Math.PI / 5F), 0);
         poseStack.mulPose(Axis.XP.rotationDegrees((float) (-45f * Math.sin((ClientTickHandler.ticksInGame + Minecraft.getInstance().getPartialTick()) / 1.2) - 65)));

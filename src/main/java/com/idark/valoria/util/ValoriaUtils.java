@@ -102,6 +102,22 @@ public class ValoriaUtils {
     }
 
     /**
+     * Performs a spin attack with checking a collision with targets
+     */
+
+    public static void checkSpinAttack(Level level, Player player, double inflateValue) {
+        List<Entity> list = level.getEntities(player, player.getBoundingBox().inflate(inflateValue));
+        float damage = (float) (player.getAttributeValue(Attributes.ATTACK_DAMAGE)) + EnchantmentHelper.getSweepingDamageRatio(player);
+        if (!list.isEmpty()) {
+            for (Entity entity : list) {
+                if (entity instanceof LivingEntity target) {
+                    target.hurt(level.damageSources().playerAttack(player), (damage + EnchantmentHelper.getDamageBonus(player.getUseItem(), target.getMobType())) * 1.35f);
+                }
+            }
+        }
+    }
+
+    /**
      * Applies a cooldown to item list
      *
      * @param items         ItemList to apply the cooldown

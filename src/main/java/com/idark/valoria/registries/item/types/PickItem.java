@@ -4,7 +4,7 @@ import com.google.common.base.Suppliers;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import com.idark.valoria.client.render.model.item.ItemAnims;
-import com.idark.valoria.client.render.model.item.PickAnim;
+import com.idark.valoria.client.render.model.item.animation.CrushingAnimation;
 import com.idark.valoria.registries.AttributeRegistry;
 import com.idark.valoria.registries.block.entity.CrushableBlockEntity;
 import com.idark.valoria.registries.block.types.CrushableBlock;
@@ -50,7 +50,7 @@ import java.util.function.Supplier;
 
 @SuppressWarnings("removal")
 public class PickItem extends Item implements ICustomAnimationItem, Vanishable {
-    public static PickAnim animation = new PickAnim();
+    public static CrushingAnimation animation = new CrushingAnimation();
     @Deprecated
     public static final double MAX_BRUSH_DISTANCE = Math.sqrt(ServerGamePacketListenerImpl.MAX_INTERACTION_DISTANCE) - 1.0D;
     public float excavationSpeed;

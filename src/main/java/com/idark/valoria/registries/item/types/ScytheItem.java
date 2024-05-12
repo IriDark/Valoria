@@ -4,7 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import com.idark.valoria.client.render.model.item.ItemAnims;
-import com.idark.valoria.client.render.model.item.RadiusAttackAnim;
+import com.idark.valoria.client.render.model.item.animation.SpinAttackAnimation;
 import com.idark.valoria.registries.AttributeRegistry;
 import com.idark.valoria.registries.SoundsRegistry;
 import com.idark.valoria.util.RandomUtil;
@@ -36,7 +36,7 @@ import java.util.List;
 import java.util.UUID;
 
 public class ScytheItem extends SwordItem implements ICustomAnimationItem, ICooldownItem, IRadiusItem, ISpinAttackItem {
-    public static RadiusAttackAnim animation = new RadiusAttackAnim();
+    public static SpinAttackAnimation animation = new SpinAttackAnimation();
     public float chance = 1;
     public final ImmutableList<MobEffectInstance> effects;
     public final Multimap<Attribute, AttributeModifier> defaultModifiers;

@@ -1,5 +1,6 @@
-package com.idark.valoria.client.render.model.item;
+package com.idark.valoria.client.render.model.item.animation;
 
+import com.idark.valoria.client.render.model.item.ItemAnims;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.model.HumanoidModel;
@@ -12,7 +13,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-public class RadiusAttackAnim extends ItemAnims {
+public class SpinAttackAnimation extends ItemAnims {
 
     @Override
     @OnlyIn(Dist.CLIENT)
