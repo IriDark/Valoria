@@ -9,7 +9,7 @@ import com.idark.valoria.client.gui.screen.JewelryScreen;
 import com.idark.valoria.client.gui.screen.ManipulatorScreen;
 import com.idark.valoria.client.gui.screen.book.LexiconChapters;
 import com.idark.valoria.client.gui.screen.book.unlockable.RegisterUnlockables;
-import com.idark.valoria.client.particle.ModParticles;
+import com.idark.valoria.client.particle.ParticleRegistry;
 import com.idark.valoria.client.render.curio.BeltRenderer;
 import com.idark.valoria.client.render.curio.HandsRenderer;
 import com.idark.valoria.client.render.curio.NecklaceRenderer;
@@ -94,7 +94,7 @@ public class Valoria {
         RecipesRegistry.register(eventBus);
         MenuRegistry.register(eventBus);
         EntityTypeRegistry.register(eventBus);
-        ModParticles.register(eventBus);
+        ParticleRegistry.register(eventBus);
         LootUtil.register(eventBus);
         ModArgumentTypes.register(eventBus);
         LevelGen.FEATURES.register(eventBus);

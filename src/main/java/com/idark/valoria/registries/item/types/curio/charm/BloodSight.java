@@ -1,6 +1,6 @@
 package com.idark.valoria.registries.item.types.curio.charm;
 
-import com.idark.valoria.client.particle.ModParticles;
+import com.idark.valoria.client.particle.ParticleRegistry;
 import com.idark.valoria.client.particle.types.Particles;
 import com.idark.valoria.registries.ItemsRegistry;
 import com.idark.valoria.registries.SoundsRegistry;
@@ -112,7 +112,7 @@ public class BloodSight extends Item implements ICurioItem, Vanishable, IParticl
     @Override
     public void addParticles(Level level, ItemEntity entity) {
         if (entity.getItem().is(ItemsRegistry.BROKEN_BLOODSIGHT_MONOCLE.get())) {
-            Particles.create(ModParticles.SKULL)
+            Particles.create(ParticleRegistry.SKULL)
                     .addVelocity(0.05f, 0.04f, 0.05f)
                     .setAlpha(0.25f, 0)
                     .setScale(0.1f, 0)
@@ -120,7 +120,7 @@ public class BloodSight extends Item implements ICurioItem, Vanishable, IParticl
                     .setLifetime(6)
                     .spawn(level, entity.getX() + (new Random().nextDouble() - 0.5f) / 2, entity.getY() + (new Random().nextDouble() + 0.1f) / 2, entity.getZ());
         } else {
-            Particles.create(ModParticles.GLITTER)
+            Particles.create(ParticleRegistry.GLITTER)
                     .addVelocity(0f, 0.04f, 0f)
                     .setAlpha(0.95f, 0)
                     .setScale(0.1f, 0)

@@ -1,6 +1,6 @@
 package com.idark.valoria.registries.item.types;
 
-import com.idark.valoria.client.particle.ModParticles;
+import com.idark.valoria.client.particle.ParticleRegistry;
 import com.idark.valoria.client.particle.types.Particles;
 import com.idark.valoria.registries.BlockRegistry;
 import com.idark.valoria.registries.ItemsRegistry;
@@ -48,7 +48,7 @@ public class TransformShardItem extends Item implements IParticleItem {
             if (stack.is(ItemsRegistry.AMETHYST.get())) {
                 worldIn.setBlockAndUpdate(pos, BlockRegistry.VOID_PILLAR_AMETHYST.get().defaultBlockState().setValue(RotatedPillarBlock.AXIS, state.getValue(RotatedPillarBlock.AXIS)));
                 for (int i = 0; i < 26; i++) {
-                    Particles.create(ModParticles.TRANSFORM_PARTICLE)
+                    Particles.create(ParticleRegistry.TRANSFORM_PARTICLE)
                             .addVelocity(((rand.nextDouble() - 0.5D) / 30), ((rand.nextDouble() - 0.5D) / 30), ((rand.nextDouble() - 0.5D) / 30))
                             .setAlpha(1.0f, 0)
                             .setScale(0.3f, 0)
@@ -75,7 +75,7 @@ public class TransformShardItem extends Item implements IParticleItem {
     @Override
     public void addParticles(Level level, ItemEntity entity) {
         if (entity.getItem().is(ItemsRegistry.AMETHYST.get())) {
-            Particles.create(ModParticles.GLOWING_SPHERE)
+            Particles.create(ParticleRegistry.GLOWING_SPHERE)
                     .addVelocity((rand.nextDouble() / 30), 0.05f, (rand.nextDouble() / 30))
                     .setAlpha(0.25f, 0)
                     .setScale(0.1f, 0)
@@ -84,7 +84,7 @@ public class TransformShardItem extends Item implements IParticleItem {
                     .setSpin((0.5f * (float) ((rand.nextDouble() - 0.5D) * 2)))
                     .spawn(level, entity.getX() + (rand.nextDouble() - 0.5f) / 2, entity.getY() + 0.4F, entity.getZ());
         } else {
-            Particles.create(ModParticles.GLOWING_SPHERE)
+            Particles.create(ParticleRegistry.GLOWING_SPHERE)
                     .addVelocity((rand.nextDouble() / 30), 0.05f, (rand.nextDouble() / 30))
                     .setAlpha(0.25f, 0)
                     .setScale(0.1f, 0)

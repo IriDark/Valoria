@@ -1,7 +1,7 @@
 package com.idark.valoria.core.network.packets;
 
 import com.idark.valoria.Valoria;
-import com.idark.valoria.client.particle.ModParticles;
+import com.idark.valoria.client.particle.ParticleRegistry;
 import com.idark.valoria.client.particle.types.Particles;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.level.Level;
@@ -55,7 +55,7 @@ public class ManipulatorParticlePacket {
                 double Y = Math.cos(locPitch + pitch) * pRadius * 0.75F;
                 double Z = Math.sin(locPitch + pitch) * Math.sin(locYaw + yaw) * pRadius * 0.75F;
                 Vector3d d = new Vector3d(msg.posX - msg.posToX, msg.posY - msg.posToY, msg.posZ - msg.posToZ);
-                Particles.create(ModParticles.GLOWING_SPHERE)
+                Particles.create(ParticleRegistry.GLOWING_SPHERE)
                         .addVelocity(d.x, d.y, d.z)
                         .setAlpha(0.52f, 0)
                         .setScale(0.1f, 0)

@@ -89,7 +89,7 @@ public class ValoriaUtils {
     /**
      * Performs a spin attack with checking a collision with targets
      */
-    public static void checkSpinAttack(Level level, Player player) {
+    public static void spinAttack(Level level, Player player) {
         List<Entity> list = level.getEntities(player, player.getBoundingBox().inflate(1));
         float damage = (float) (player.getAttributeValue(Attributes.ATTACK_DAMAGE)) + EnchantmentHelper.getSweepingDamageRatio(player);
         if (!list.isEmpty()) {
@@ -105,7 +105,7 @@ public class ValoriaUtils {
      * Performs a spin attack with checking a collision with targets
      */
 
-    public static void checkSpinAttack(Level level, Player player, double inflateValue) {
+    public static void spinAttack(Level level, Player player, double inflateValue) {
         List<Entity> list = level.getEntities(player, player.getBoundingBox().inflate(inflateValue));
         float damage = (float) (player.getAttributeValue(Attributes.ATTACK_DAMAGE)) + EnchantmentHelper.getSweepingDamageRatio(player);
         if (!list.isEmpty()) {

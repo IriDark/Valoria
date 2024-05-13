@@ -1,7 +1,7 @@
 package com.idark.valoria;
 
 import com.idark.valoria.client.color.ModBlockColors;
-import com.idark.valoria.client.particle.ModParticles;
+import com.idark.valoria.client.particle.ParticleRegistry;
 import com.idark.valoria.client.particle.types.ChompParticle;
 import com.idark.valoria.client.particle.types.ShadewoodLeafParticleType;
 import com.idark.valoria.client.particle.types.SparkleParticleType;
@@ -169,15 +169,15 @@ public class ValoriaClient {
         @OnlyIn(Dist.CLIENT)
         @SubscribeEvent
         public static void registerFactories(RegisterParticleProvidersEvent event) {
-            Minecraft.getInstance().particleEngine.register(ModParticles.SPHERE.get(), SphereParticleType.Factory::new);
-            Minecraft.getInstance().particleEngine.register(ModParticles.GLOWING_SPHERE.get(), SparkleParticleType.Factory::new);
-            Minecraft.getInstance().particleEngine.register(ModParticles.TRANSFORM_PARTICLE.get(), SparkleParticleType.Factory::new);
-            Minecraft.getInstance().particleEngine.register(ModParticles.GEODE_PARTICLE.get(), SparkleParticleType.Factory::new);
-            Minecraft.getInstance().particleEngine.register(ModParticles.SHADEWOOD_LEAF_PARTICLE.get(), ShadewoodLeafParticleType.Factory::new);
-            Minecraft.getInstance().particleEngine.register(ModParticles.CHOMP.get(), ChompParticle.Factory::new);
-            Minecraft.getInstance().particleEngine.register(ModParticles.VOID_GLITTER.get(), EndRodParticle.Provider::new);
-            Minecraft.getInstance().particleEngine.register(ModParticles.GLITTER.get(), SparkleParticleType.Factory::new);
-            Minecraft.getInstance().particleEngine.register(ModParticles.SKULL.get(), SparkleParticleType.Factory::new);
+            Minecraft.getInstance().particleEngine.register(ParticleRegistry.SPHERE.get(), SphereParticleType.Factory::new);
+            Minecraft.getInstance().particleEngine.register(ParticleRegistry.GLOWING_SPHERE.get(), SparkleParticleType.Factory::new);
+            Minecraft.getInstance().particleEngine.register(ParticleRegistry.TRANSFORM_PARTICLE.get(), SparkleParticleType.Factory::new);
+            Minecraft.getInstance().particleEngine.register(ParticleRegistry.GEODE_PARTICLE.get(), SparkleParticleType.Factory::new);
+            Minecraft.getInstance().particleEngine.register(ParticleRegistry.SHADEWOOD_LEAF_PARTICLE.get(), ShadewoodLeafParticleType.Factory::new);
+            Minecraft.getInstance().particleEngine.register(ParticleRegistry.CHOMP.get(), ChompParticle.Factory::new);
+            Minecraft.getInstance().particleEngine.register(ParticleRegistry.VOID_GLITTER.get(), EndRodParticle.Provider::new);
+            Minecraft.getInstance().particleEngine.register(ParticleRegistry.GLITTER.get(), SparkleParticleType.Factory::new);
+            Minecraft.getInstance().particleEngine.register(ParticleRegistry.SKULL.get(), SparkleParticleType.Factory::new);
         }
 
         @OnlyIn(Dist.CLIENT)

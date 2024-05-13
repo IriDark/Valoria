@@ -1,7 +1,7 @@
 package com.idark.valoria.core.network.packets;
 
 import com.idark.valoria.Valoria;
-import com.idark.valoria.client.particle.ModParticles;
+import com.idark.valoria.client.particle.ParticleRegistry;
 import com.idark.valoria.client.particle.types.Particles;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.Mth;
@@ -57,7 +57,7 @@ public class MurasamaParticlePacket {
                     double XX = Math.sin(pitch) * Math.cos(yaw) * (float) (rand.nextDouble() * 0.05F) / (ii + 1);
                     double YY = Math.sin(pitch) * Math.sin(yaw) * (float) (rand.nextDouble() * 0.05F) / (ii + 1);
                     double ZZ = Math.cos(pitch) * (float) (rand.nextDouble() * 0.05F) / (ii + 1);
-                    Particles.create(ModParticles.GLOWING_SPHERE)
+                    Particles.create(ParticleRegistry.GLOWING_SPHERE)
                             .addVelocity(XX, YY, ZZ)
                             .setAlpha(0.50f, 1)
                             .setScale(0.12f, 0)

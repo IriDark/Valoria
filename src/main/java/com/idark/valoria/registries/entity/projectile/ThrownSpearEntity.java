@@ -2,7 +2,7 @@ package com.idark.valoria.registries.entity.projectile;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Sets;
-import com.idark.valoria.client.particle.ModParticles;
+import com.idark.valoria.client.particle.ParticleRegistry;
 import com.idark.valoria.client.particle.types.Particles;
 import com.idark.valoria.registries.EnchantmentsRegistry;
 import com.idark.valoria.registries.EntityTypeRegistry;
@@ -268,7 +268,7 @@ public class ThrownSpearEntity extends AbstractValoriaArrow implements ItemSuppl
         boolean flag = entity.getType() == EntityType.ENDERMAN;
         if(EnchantmentHelper.getTagEnchantmentLevel(EnchantmentsRegistry.BLEEDING.get(), this.getItem()) > 0 && !flag) {
             for (int a = 0; a < 12; a++) {
-                Particles.create(ModParticles.SPHERE)
+                Particles.create(ParticleRegistry.SPHERE)
                         .randomOffset(0.7f, 0f, 0.7f)
                         .randomVelocity(0.5f, 0, 0.5f)
                         .enableGravity()

@@ -1,6 +1,6 @@
 package com.idark.valoria.registries.effect;
 
-import com.idark.valoria.client.particle.ModParticles;
+import com.idark.valoria.client.particle.ParticleRegistry;
 import com.idark.valoria.client.particle.types.Particles;
 import com.idark.valoria.registries.DamageSourceRegistry;
 import com.idark.valoria.registries.EffectsRegistry;
@@ -35,7 +35,7 @@ public class BleedingEffect extends MobEffect {
             }
 
             for (int a = 0; a < 5; a++) {
-                Particles.create(ModParticles.SPHERE)
+                Particles.create(ParticleRegistry.SPHERE)
                         .randomOffset(0.7f, 0f, 0.7f)
                         .randomVelocity(0.5f, 0, 0.5f)
                         .enableGravity()

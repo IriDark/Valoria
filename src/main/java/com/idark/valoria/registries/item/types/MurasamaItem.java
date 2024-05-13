@@ -1,7 +1,7 @@
 package com.idark.valoria.registries.item.types;
 
 import com.idark.valoria.client.gui.overlay.DashOverlayRender;
-import com.idark.valoria.client.particle.ModParticles;
+import com.idark.valoria.client.particle.ParticleRegistry;
 import com.idark.valoria.client.particle.types.Particles;
 import com.idark.valoria.core.network.PacketHandler;
 import com.idark.valoria.core.network.packets.MurasamaParticlePacket;
@@ -213,7 +213,7 @@ public class MurasamaItem extends KatanaItem implements IParticleItem {
             double XX = Math.sin(pitch) * Math.cos(yaw) * (float) (rand.nextDouble() * 0.05F) / (ii + 1);
             double YY = Math.sin(pitch) * Math.sin(yaw) * (float) (rand.nextDouble() * 0.05F) / (ii + 1);
             double ZZ = Math.cos(pitch) * (float) (rand.nextDouble() * 0.05F) / (ii + 1);
-            Particles.create(ModParticles.GLOWING_SPHERE)
+            Particles.create(ParticleRegistry.GLOWING_SPHERE)
                     .addVelocity(XX, YY, ZZ)
                     .setAlpha(0.50f, 1)
                     .setScale(0.12f, 0)

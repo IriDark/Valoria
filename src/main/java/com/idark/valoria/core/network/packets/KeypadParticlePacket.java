@@ -1,7 +1,7 @@
 package com.idark.valoria.core.network.packets;
 
 import com.idark.valoria.Valoria;
-import com.idark.valoria.client.particle.ModParticles;
+import com.idark.valoria.client.particle.ParticleRegistry;
 import com.idark.valoria.client.particle.types.Particles;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.level.Level;
@@ -38,7 +38,7 @@ public class KeypadParticlePacket {
                 Level pLevel = Valoria.proxy.getWorld();
                 Random rand = new Random();
                 for (int a = 0; a < 3; a++) {
-                    Particles.create(ModParticles.TRANSFORM_PARTICLE)
+                    Particles.create(ParticleRegistry.TRANSFORM_PARTICLE)
                             .addVelocity(((rand.nextDouble() - 0.5D) / 30), ((rand.nextDouble() - 0.5D) / 30), ((rand.nextDouble() - 0.5D) / 30))
                             .setAlpha(1.0f, 0)
                             .setScale(0.3f, 0)

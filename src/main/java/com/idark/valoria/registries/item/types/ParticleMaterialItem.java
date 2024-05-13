@@ -1,6 +1,6 @@
 package com.idark.valoria.registries.item.types;
 
-import com.idark.valoria.client.particle.ModParticles;
+import com.idark.valoria.client.particle.ParticleRegistry;
 import com.idark.valoria.client.particle.types.Particles;
 import com.idark.valoria.registries.ItemsRegistry;
 import com.idark.valoria.util.RandomUtil;
@@ -49,7 +49,7 @@ public class ParticleMaterialItem extends Item implements IParticleItem {
             }
 
             if (entity.getItem().is(ItemsRegistry.INFERNAL_STONE.get())) {
-                Particles.create(ModParticles.SPHERE)
+                Particles.create(ParticleRegistry.SPHERE)
                         .addVelocity((rand.nextDouble() / 32), 0.062f, (rand.nextDouble() / 32))
                         .setAlpha(alpha, 0)
                         .setScale(RandomUtil.randomValueUpTo(0.1f), RandomUtil.randomValueUpTo(0.1f))

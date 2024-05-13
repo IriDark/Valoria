@@ -1,7 +1,7 @@
 package com.idark.valoria.core.network.packets;
 
 import com.idark.valoria.Valoria;
-import com.idark.valoria.client.particle.ModParticles;
+import com.idark.valoria.client.particle.ParticleRegistry;
 import com.idark.valoria.client.particle.types.Particles;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.Entity;
@@ -75,7 +75,7 @@ public class LineToNearbyMobsParticlePacket {
                             float x = (float) (dX / distanceInBlocks);
                             float y = (float) (dY / distanceInBlocks);
                             float z = (float) (dZ / distanceInBlocks);
-                            Particles.create(ModParticles.GLOWING_SPHERE)
+                            Particles.create(ParticleRegistry.GLOWING_SPHERE)
                                     .addVelocity(0, 0.2f, 0)
                                     .setAlpha(0.25f, 0)
                                     .setScale(0.2f, 0)

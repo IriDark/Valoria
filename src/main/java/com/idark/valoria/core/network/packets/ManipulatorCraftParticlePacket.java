@@ -1,7 +1,7 @@
 package com.idark.valoria.core.network.packets;
 
 import com.idark.valoria.Valoria;
-import com.idark.valoria.client.particle.ModParticles;
+import com.idark.valoria.client.particle.ParticleRegistry;
 import com.idark.valoria.client.particle.types.Particles;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.level.Level;
@@ -42,7 +42,7 @@ public class ManipulatorCraftParticlePacket {
         if (ctx.get().getDirection().getReceptionSide().isClient()) {
             ctx.get().enqueueWork(() -> {
                 Level world = Valoria.proxy.getWorld();
-                Particles.create(ModParticles.GLOWING_SPHERE)
+                Particles.create(ParticleRegistry.GLOWING_SPHERE)
                         .addVelocity(-0.05f, 0.025f, -0.05f)
                         .setAlpha(0.35f, 1)
                         .setScale(0.025f, 0.1f)
@@ -50,7 +50,7 @@ public class ManipulatorCraftParticlePacket {
                         .setLifetime(8)
                         .spawn(world, msg.posX + 0.85f, msg.posY + 1.10f, msg.posZ + 0.85f);
 
-                Particles.create(ModParticles.GLOWING_SPHERE)
+                Particles.create(ParticleRegistry.GLOWING_SPHERE)
                         .addVelocity(0.05f, 0.025f, 0.05f)
                         .setAlpha(0.35f, 1)
                         .setScale(0.025f, 0.1f)
@@ -58,7 +58,7 @@ public class ManipulatorCraftParticlePacket {
                         .setLifetime(8)
                         .spawn(world, msg.posX + 0.15f, msg.posY + 1.10f, msg.posZ + 0.15f);
 
-                Particles.create(ModParticles.GLOWING_SPHERE)
+                Particles.create(ParticleRegistry.GLOWING_SPHERE)
                         .addVelocity(-0.05f, 0.025f, 0.05f)
                         .setAlpha(0.35f, 1)
                         .setScale(0.025f, 0.1f)
@@ -66,7 +66,7 @@ public class ManipulatorCraftParticlePacket {
                         .setLifetime(8)
                         .spawn(world, msg.posX + 0.85f, msg.posY + 1.10f, msg.posZ + 0.15f);
 
-                Particles.create(ModParticles.GLOWING_SPHERE)
+                Particles.create(ParticleRegistry.GLOWING_SPHERE)
                         .addVelocity(0.05f, 0.025f, -0.05f)
                         .setAlpha(0.35f, 1)
                         .setScale(0.025f, 0.1f)
@@ -74,7 +74,7 @@ public class ManipulatorCraftParticlePacket {
                         .setLifetime(8)
                         .spawn(world, msg.posX + 0.15f, msg.posY + 1.10f, msg.posZ + 0.85f);
 
-                Particles.create(ModParticles.GLOWING_SPHERE)
+                Particles.create(ParticleRegistry.GLOWING_SPHERE)
                         .addVelocity(0, 0.025f, 0)
                         .setAlpha(0.1f, 0.5f)
                         .setScale(0.025f, 0.1f)

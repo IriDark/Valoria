@@ -1,7 +1,7 @@
 package com.idark.valoria.core.network.packets;
 
 import com.idark.valoria.Valoria;
-import com.idark.valoria.client.particle.ModParticles;
+import com.idark.valoria.client.particle.ParticleRegistry;
 import com.idark.valoria.client.particle.types.Particles;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.level.Level;
@@ -51,7 +51,7 @@ public class CircleShapedParticlePacket {
                     double X = Math.sin(pitch) * Math.cos(yaw) * pRadius * 0.75F;
                     double Y = Math.cos(pitch) * pRadius * 0.75F;
                     double Z = Math.sin(pitch) * Math.sin(yaw) * pRadius * 0.75F;
-                    Particles.create(ModParticles.GLOWING_SPHERE)
+                    Particles.create(ParticleRegistry.GLOWING_SPHERE)
                             .addVelocity(msg.posToX, msg.posToY,msg.posToZ)
                             .setAlpha(0.25f, 0)
                             .setScale(0.2f, 0)

@@ -1,7 +1,7 @@
 package com.idark.valoria.core.network.packets;
 
 import com.idark.valoria.Valoria;
-import com.idark.valoria.client.particle.ModParticles;
+import com.idark.valoria.client.particle.ParticleRegistry;
 import com.idark.valoria.client.particle.types.Particles;
 import com.idark.valoria.util.RandomUtil;
 import net.minecraft.core.particles.ParticleTypes;
@@ -44,7 +44,7 @@ public class FireTrapParticlePacket {
             ctx.get().enqueueWork(() -> {
                 Level level = Valoria.proxy.getWorld();
                 for (int i = 0; i < 20; i++) {
-                    Particles.create(ModParticles.GLOWING_SPHERE)
+                    Particles.create(ParticleRegistry.GLOWING_SPHERE)
                             .addVelocity((new Random().nextDouble() - 0.5D) / 30, (new Random().nextDouble() + 0.5D) / 6, (new Random().nextDouble() - 0.5D) / 30)
                             .setAlpha(0.15f, 0)
                             .setScale(0.32f + RandomUtil.randomValueUpTo(0.2f), RandomUtil.randomValueUpTo(0.2f))
@@ -52,7 +52,7 @@ public class FireTrapParticlePacket {
                             .setLifetime(21)
                             .setSpin(0.5f)
                             .spawn(level, msg.posX, msg.posY + 1.2f, msg.posZ);
-                    Particles.create(ModParticles.SPHERE)
+                    Particles.create(ParticleRegistry.SPHERE)
                             .addVelocity((new Random().nextDouble() - 0.2D) / 30, (new Random().nextDouble() + 0.2D) / 6, (new Random().nextDouble() - 0.2D) / 30)
                             .setAlpha(0.25f, 0)
                             .setScale(0.25f, RandomUtil.randomValueUpTo(0.55f))

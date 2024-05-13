@@ -1,7 +1,7 @@
 package com.idark.valoria.core.network.packets;
 
 import com.idark.valoria.Valoria;
-import com.idark.valoria.client.particle.ModParticles;
+import com.idark.valoria.client.particle.ParticleRegistry;
 import com.idark.valoria.client.particle.types.Particles;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.level.Level;
@@ -52,7 +52,7 @@ public class ParticleLinePacket {
                     float x = (float) (dX / distanceInBlocks);
                     float y = (float) (dY / distanceInBlocks);
                     float z = (float) (dZ / distanceInBlocks);
-                    Particles.create(ModParticles.GLOWING_SPHERE)
+                    Particles.create(ParticleRegistry.GLOWING_SPHERE)
                             .addVelocity((x / i) / 2, (y * i), (z / i) / 2)
                             .setAlpha(1, 0)
                             .setScale(0.2f, 0)

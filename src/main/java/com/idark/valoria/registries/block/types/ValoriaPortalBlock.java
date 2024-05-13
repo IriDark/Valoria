@@ -1,6 +1,6 @@
 package com.idark.valoria.registries.block.types;
 
-import com.idark.valoria.client.particle.ModParticles;
+import com.idark.valoria.client.particle.ParticleRegistry;
 import com.idark.valoria.registries.levelgen.LevelGen;
 import com.idark.valoria.registries.levelgen.portal.ValoriaTeleporter;
 import net.minecraft.core.BlockPos;
@@ -55,7 +55,7 @@ public class ValoriaPortalBlock extends Block {
             double d4 = 0.07D;
             double d5 = 0.0D;
 
-            pLevel.addParticle(ModParticles.VOID_GLITTER.get(), d0, d1, d2, d3, d4, d5);
+            pLevel.addParticle(ParticleRegistry.VOID_GLITTER.get(), d0, d1, d2, d3, d4, d5);
         }
     }
 

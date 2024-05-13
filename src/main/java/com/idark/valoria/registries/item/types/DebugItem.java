@@ -34,8 +34,7 @@ public class DebugItem extends Item implements ICustomAnimationItem, ISpinAttack
     }
 
     public void onUseTick(Level pLevel, LivingEntity pLivingEntity, ItemStack pStack, int pRemainingUseDuration) {
-        pLivingEntity.setBoundingBox(pLivingEntity.getBoundingBox());
-        ValoriaUtils.checkSpinAttack(pLevel, (Player) pLivingEntity, 0.5f);
+        ValoriaUtils.spinAttack(pLevel, (Player) pLivingEntity, 0.5f);
     }
 
     public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {

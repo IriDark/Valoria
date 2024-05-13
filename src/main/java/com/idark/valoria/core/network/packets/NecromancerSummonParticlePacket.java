@@ -1,7 +1,7 @@
 package com.idark.valoria.core.network.packets;
 
 import com.idark.valoria.Valoria;
-import com.idark.valoria.client.particle.ModParticles;
+import com.idark.valoria.client.particle.ParticleRegistry;
 import com.idark.valoria.client.particle.types.Particles;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.level.Level;
@@ -43,7 +43,7 @@ public class NecromancerSummonParticlePacket {
             ctx.get().enqueueWork(() -> {
                 Level world = Valoria.proxy.getWorld();
                 for (int i = 0; i < 26; i++) {
-                    Particles.create(ModParticles.GLOWING_SPHERE)
+                    Particles.create(ParticleRegistry.GLOWING_SPHERE)
                             .addVelocity(msg.velX + ((random.nextDouble() - 0.5D) / (2 * random.nextDouble()) / 5), msg.velY + ((random.nextDouble() - 0.5D) / (20 - (5 * random.nextDouble()))), msg.velZ + ((random.nextDouble() - 0.5D) / (2 * random.nextDouble()) / 5))
                             .setAlpha(0.12f, 0)
                             .setScale(0.36f, 2)

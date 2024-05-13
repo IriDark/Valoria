@@ -1,7 +1,7 @@
 package com.idark.valoria.core.network.packets;
 
 import com.idark.valoria.Valoria;
-import com.idark.valoria.client.particle.ModParticles;
+import com.idark.valoria.client.particle.ParticleRegistry;
 import com.idark.valoria.client.particle.types.Particles;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.level.Level;
@@ -43,7 +43,7 @@ public class CubeShapedParticlePacket {
                 for (int i = 0; i < 15; i++) {
                     float size = msg.size;
                     double Offset = Math.sin(i - 5) * size;
-                    Particles.create(ModParticles.GLOWING_SPHERE)
+                    Particles.create(ParticleRegistry.GLOWING_SPHERE)
                             .addVelocity(0, msg.speedY, 0)
                             .setAlpha(0.25f, 0)
                             .setScale(0.1f, 0)
@@ -51,7 +51,7 @@ public class CubeShapedParticlePacket {
                             .setLifetime(10)
                             .spawn(world, msg.posX + size, msg.posY, msg.posZ + Offset);
 
-                    Particles.create(ModParticles.GLOWING_SPHERE)
+                    Particles.create(ParticleRegistry.GLOWING_SPHERE)
                             .addVelocity(0, msg.speedY, 0)
                             .setAlpha(0.25f, 0)
                             .setScale(0.1f, 0)
@@ -59,7 +59,7 @@ public class CubeShapedParticlePacket {
                             .setLifetime(10)
                             .spawn(world, msg.posX - size, msg.posY, msg.posZ - Offset);
 
-                    Particles.create(ModParticles.GLOWING_SPHERE)
+                    Particles.create(ParticleRegistry.GLOWING_SPHERE)
                             .addVelocity(0, msg.speedY, 0)
                             .setAlpha(0.25f, 0)
                             .setScale(0.1f, 0)
@@ -67,7 +67,7 @@ public class CubeShapedParticlePacket {
                             .setLifetime(10)
                             .spawn(world, msg.posX + Offset, msg.posY, msg.posZ + size);
 
-                    Particles.create(ModParticles.GLOWING_SPHERE)
+                    Particles.create(ParticleRegistry.GLOWING_SPHERE)
                             .addVelocity(0, msg.speedY, 0)
                             .setAlpha(0.25f, 0)
                             .setScale(0.1f, 0)

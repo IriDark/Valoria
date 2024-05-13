@@ -1,7 +1,7 @@
 package com.idark.valoria.registries.entity.projectile;
 
 import com.idark.valoria.Valoria;
-import com.idark.valoria.client.particle.ModParticles;
+import com.idark.valoria.client.particle.ParticleRegistry;
 import com.idark.valoria.client.particle.types.Particles;
 import com.idark.valoria.registries.EntityTypeRegistry;
 import com.idark.valoria.util.RandomUtil;
@@ -34,7 +34,7 @@ public class WickedArrow extends AbstractValoriaArrow implements IProjectileText
             double a0 = vector3d.z;
             Random rand = new Random();
             for (int a = 0; a < 1; ++a) {
-                Particles.create(ModParticles.GLOWING_SPHERE)
+                Particles.create(ParticleRegistry.GLOWING_SPHERE)
                         .addVelocity((rand.nextDouble() / 32), 0.02f, (rand.nextDouble() / 32))
                         .setAlpha(1, 0)
                         .setScale(RandomUtil.randomValueUpTo(0.15f), 0)

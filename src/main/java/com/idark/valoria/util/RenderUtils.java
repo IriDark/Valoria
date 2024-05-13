@@ -29,22 +29,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RenderUtils {
+    @OnlyIn(Dist.CLIENT)
+    public static Matrix4f particleMVMatrix = null;
+    @OnlyIn(Dist.CLIENT)
 
-    public static final RenderStateShard.TransparencyStateShard ADDITIVE_TRANSPARENCY = new RenderStateShard.TransparencyStateShard("lightning_transparency", () -> {
-        RenderSystem.enableBlend();
-        RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE);
-    }, () -> {
-        RenderSystem.disableBlend();
-        RenderSystem.defaultBlendFunc();
-    });
-
-    public static final RenderStateShard.TransparencyStateShard NORMAL_TRANSPARENCY = new RenderStateShard.TransparencyStateShard("lightning_transparency", () -> {
-        RenderSystem.enableBlend();
-        RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
-    }, () -> {
-        RenderSystem.disableBlend();
-        RenderSystem.defaultBlendFunc();
-    });
+    public static final RenderStateShard.TransparencyStateShard ADDITIVE_TRANSPARENCY = new RenderStateShard.TransparencyStateShard("lightning_transparency", () -> {RenderSystem.enableBlend();RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE);}, () -> {RenderSystem.disableBlend();RenderSystem.defaultBlendFunc();});
+    public static final RenderStateShard.TransparencyStateShard NORMAL_TRANSPARENCY = new RenderStateShard.TransparencyStateShard("lightning_transparency", () -> {RenderSystem.enableBlend();RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);}, () -> {RenderSystem.disableBlend();RenderSystem.defaultBlendFunc();});
 
     public static RenderType GLOWING_PARTICLE = RenderType.create(
             Valoria.ID + ":glowing_particle",
@@ -101,9 +91,6 @@ public class RenderUtils {
         posestack.popPose();
         RenderSystem.applyModelViewMatrix();
     }
-
-    @OnlyIn(Dist.CLIENT)
-    public static Matrix4f particleMVMatrix = null;
 
     public static void onRenderWorldLast(RenderLevelStageEvent event) {
         if (event.getStage() == RenderLevelStageEvent.Stage.AFTER_LEVEL) {

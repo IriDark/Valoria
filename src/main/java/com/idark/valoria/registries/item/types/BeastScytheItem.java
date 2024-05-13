@@ -1,6 +1,6 @@
 package com.idark.valoria.registries.item.types;
 
-import com.idark.valoria.client.particle.ModParticles;
+import com.idark.valoria.client.particle.ParticleRegistry;
 import com.idark.valoria.registries.SoundsRegistry;
 import com.idark.valoria.util.ValoriaUtils;
 import net.minecraft.sounds.SoundEvents;
@@ -48,7 +48,7 @@ public class BeastScytheItem extends ScytheItem {
         List<LivingEntity> hitEntities = new ArrayList<>();
         List<LivingEntity> markEntities = new ArrayList<>();
         ValoriaUtils.radiusHit(level, stack, player, null, hitEntities, pos, 0, player.getRotationVector().y, 3);
-        ValoriaUtils.spawnParticlesMark(level, player, markEntities, ModParticles.CHOMP.get(), pos, 0, player.getRotationVector().y, 3);
+        ValoriaUtils.spawnParticlesMark(level, player, markEntities, ParticleRegistry.CHOMP.get(), pos, 0, player.getRotationVector().y, 3);
         for (LivingEntity entity : hitEntities) {
             entity.hurt(level.damageSources().playerAttack(player), (damage + EnchantmentHelper.getDamageBonus(stack, entity.getMobType())) * 1.35f);
             entity.knockback(0.4F, player.getX() - entity.getX(), player.getZ() - entity.getZ());
