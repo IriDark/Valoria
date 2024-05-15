@@ -283,6 +283,11 @@ public class Valoria {
                         SpawnPlacements.Type.IN_WATER,
                         Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                         SwampWandererEntity::checkDrownedSpawnRules);
+
+                SpawnPlacements.register(EntityTypeRegistry.SHADEWOOD_SPIDER.get(),
+                        SpawnPlacements.Type.ON_GROUND,
+                        Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                        ShadewoodSpider::checkMonsterSpawnRules);
             });
         }
 
@@ -294,6 +299,7 @@ public class Valoria {
             event.put(EntityTypeRegistry.NECROMANCER.get(), NecromancerEntity.createAttributes().build());
             event.put(EntityTypeRegistry.SWAMP_WANDERER.get(), SwampWandererEntity.createAttributes().build());
             event.put(EntityTypeRegistry.UNDEAD.get(), UndeadEntity.createAttributes().build());
+            event.put(EntityTypeRegistry.SHADEWOOD_SPIDER.get(), ShadewoodSpider.createAttributes().build());
         }
 
         @SubscribeEvent

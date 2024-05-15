@@ -125,6 +125,7 @@ public class ValoriaClient {
             EntityRenderers.register(EntityTypeRegistry.SOUL_ARROW.get(), AbstractValoriaArrowRenderer::new);
             EntityRenderers.register(EntityTypeRegistry.INFERNAL_ARROW.get(), AbstractValoriaArrowRenderer::new);
             EntityRenderers.register(EntityTypeRegistry.SPEAR.get(), ThrownSpearRenderer::new);
+            EntityRenderers.register(EntityTypeRegistry.SHADEWOOD_SPIDER.get(), ShadewoodSpiderRenderer::new);
 
             ModItemModelProperties.makeBow(ItemsRegistry.INFERNAL_BOW.get());
             ModItemModelProperties.makeBow(ItemsRegistry.SAMURAI_LONG_BOW.get());

@@ -35,6 +35,12 @@ public class EntityTypeRegistry {
                     .clientTrackingRange(8)
                     .build(new ResourceLocation(Valoria.ID, "draugr").toString()));
 
+    public static final RegistryObject<EntityType<ShadewoodSpider>> SHADEWOOD_SPIDER = ENTITY_TYPES.register("shadewood_spider",
+            () -> EntityType.Builder.of(ShadewoodSpider::new, MobCategory.MONSTER)
+                    .sized(1.4f, 0.9f)
+                    .clientTrackingRange(8)
+                    .build(new ResourceLocation(Valoria.ID, "shadewood_spider").toString()));
+
     public static final RegistryObject<EntityType<NecromancerEntity>> NECROMANCER = ENTITY_TYPES.register("necromancer",
             () -> EntityType.Builder.of(NecromancerEntity::new, MobCategory.CREATURE)
                     .sized(0.6f, 2.0f)
