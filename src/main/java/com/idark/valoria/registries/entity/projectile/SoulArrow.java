@@ -30,7 +30,7 @@ public class SoulArrow extends AbstractValoriaArrow implements IProjectileTextur
     @Override
     public void tick() {
         super.tick();
-        ValoriaUtils.inaccurateHomingMovement(0.2f, this, this.level(), this.getOwner(), new AABB(this.getX() - 4, this.getY() - 4, this.getZ() - 4, this.getX() + 4, this.getY() + 4, this.getZ() + 4));
+        ValoriaUtils.inaccurateHomingMovement(0.005f, this, this.level(), this.getOwner(), new AABB(this.getX() - 4, this.getY() - 4, this.getZ() - 4, this.getX() + 4, this.getY() + 4, this.getZ() + 4));
     }
 
     @Override

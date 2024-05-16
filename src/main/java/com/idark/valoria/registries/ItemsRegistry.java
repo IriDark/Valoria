@@ -477,6 +477,8 @@ public class ItemsRegistry {
             () -> new ForgeSpawnEggItem(EntityTypeRegistry.NECROMANCER, ValoriaUtils.color.hexToDecimal("4b4857"), ValoriaUtils.color.hexToDecimal("958fb7"), new Item.Properties()));
     public static final RegistryObject<ForgeSpawnEggItem> UNDEAD_SPAWN_EGG = ITEMS.register("undead_spawn_egg",
             () -> new ForgeSpawnEggItem(EntityTypeRegistry.UNDEAD, ValoriaUtils.color.hexToDecimal("625F71"), ValoriaUtils.color.hexToDecimal("ffffff"), new Item.Properties()));
+    public static final RegistryObject<ForgeSpawnEggItem> SHADEWOOD_SPIDER_SPAWN_EGG = ITEMS.register("shadewood_spider_spawn_egg",
+            () -> new ForgeSpawnEggItem(EntityTypeRegistry.SHADEWOOD_SPIDER, ValoriaUtils.color.hexToDecimal("373C53"), ValoriaUtils.color.hexToDecimal("6EABB7"), new Item.Properties()));
     public static final RegistryObject<MannequinSpawnItem> MANNEQUIN_SPAWN_EGG = ITEMS.register("mannequin_spawn_egg",
             () -> new MannequinSpawnItem(new Item.Properties()));
 

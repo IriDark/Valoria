@@ -206,44 +206,6 @@ public class ValoriaUtils {
         }
     }
 
-        /**
-         * Can be used in projectile tick() method.
-         * Projectile will have a homing movement to nearby entity
-         * @param pOwner     Owner of Projectile
-         * @param boundingBox radius example:
-         * <p>
-         * <pre>{@code new AABB(projectile.getX() - 3.5, projectile.getY() - 0.5, projectile.getZ() - 3.5, projectile.getX() + 3.5, projectile.getY() + 0.5, projectile.getZ() + 3.5);
-         *}</pre>
-         */
-    public static void homingMovement(double pSpeed, Entity projectile, Level level, Entity pOwner, AABB boundingBox) {
-        List<LivingEntity> livingEntities = level.getEntitiesOfClass(LivingEntity.class, boundingBox);
-        if (!level.isClientSide) {
-            if (!livingEntities.isEmpty()) {
-                LivingEntity nearestEntity = null;
-                double nearestDistance = Double.MAX_VALUE;
-                for (LivingEntity livingEntity : livingEntities) {
-                    double distance = projectile.distanceTo(livingEntity);
-                    if (livingEntity != pOwner) {
-                        if (distance < nearestDistance) {
-                            nearestEntity = livingEntity;
-                            nearestDistance = distance;
-                        }
-                    }
-                }
-
-                if (nearestEntity != null) {
-                    Vec3 targetPos = nearestEntity.position();
-                    double dX = targetPos.x - projectile.getX();
-                    double dY = targetPos.y - projectile.getY();
-                    double dZ = targetPos.z - projectile.getZ();
-                    double distance = Math.sqrt(dX * dX + dY * dY + dZ * dZ);
-                    projectile.setDeltaMovement(dX / distance * pSpeed, dY / distance * pSpeed, dZ / distance * pSpeed);
-                    //projectile.addDeltaMovement(new Vec3(dX / distance * pSpeed, dY / distance * pSpeed, dZ / distance * pSpeed));
-                }
-            }
-        }
-    }
-
     /**
      * Can be used in projectile tick() method.
      * Projectile will have a homing movement to nearby entity
@@ -274,8 +236,7 @@ public class ValoriaUtils {
                     double dX = targetPos.x - projectile.getX();
                     double dY = targetPos.y - projectile.getY();
                     double dZ = targetPos.z - projectile.getZ();
-                    double distance = Math.sqrt(dX * dX + dY * dY + dZ * dZ);
-                    projectile.addDeltaMovement(new Vec3(dX / distance * pSpeed, dY / distance * pSpeed, dZ / distance * pSpeed));
+                    projectile.setDeltaMovement(projectile.getDeltaMovement().add(dX / Math.sqrt(dX * dX) * pSpeed, dY / Math.sqrt(dY * dY) * pSpeed, dZ / Math.sqrt(dZ * dZ) * pSpeed));
                 }
             }
         }

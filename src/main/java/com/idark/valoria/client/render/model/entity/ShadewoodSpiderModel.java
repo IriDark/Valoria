@@ -48,7 +48,8 @@ public class ShadewoodSpiderModel<T extends Entity> extends HierarchicalModel<T>
         PartDefinition body0 = partdefinition.addOrReplaceChild("body0", CubeListBuilder.create().texOffs(0, 40).addBox(-3.0F, -12.0F, -3.0F, 6.0F, 6.0F, 7.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 24.0F, 0.0F));
         PartDefinition body1 = partdefinition.addOrReplaceChild("body1", CubeListBuilder.create(), PartPose.offset(0.0F, 24.0F, 0.0F));
         PartDefinition body1_r1 = body1.addOrReplaceChild("body1_r1", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -3.75F, 0.0F, 8.0F, 7.0F, 11.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, -9.0F, 3.0F, 0.2618F, 0.0F, 0.0F));
-        PartDefinition head = partdefinition.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 18).addBox(-4.0F, -13.0F, -11.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 24.0F, 0.0F));
+        PartDefinition head = partdefinition.addOrReplaceChild("head", CubeListBuilder.create(), PartPose.offset(0.0F, 24.0F, 0.0F));
+        PartDefinition head_r1 = head.addOrReplaceChild("head_r1", CubeListBuilder.create().texOffs(0, 18).addBox(-4.0F, -4.0F, -4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.3053F, -9.0F, -6.9933F, 0.0F, -0.0436F, 0.0F));
 
         CubeListBuilder cubelistbuilder = CubeListBuilder.create().texOffs(27, 4).addBox(-15.0F, -1.0F, -1.0F, 16.0F, 2.0F, 2.0F);
         CubeListBuilder cubelistbuilder1 = CubeListBuilder.create().texOffs(27, 4).mirror().addBox(-1.0F, -1.0F, -1.0F, 16.0F, 2.0F, 2.0F);
@@ -68,7 +69,8 @@ public class ShadewoodSpiderModel<T extends Entity> extends HierarchicalModel<T>
 
     public void setupAnim(T pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch) {
         this.head.yRot = pNetHeadYaw * ((float)Math.PI / 180F);
-        this.head.xRot = pHeadPitch * ((float)Math.PI / 180F);
+        this.head.xRot = pHeadPitch * ((float)Math.PI / 360F);
+        this.body1.xRot = -(Mth.cos(pLimbSwing * 0.6662F * 2.0F) * 0.2F) * pLimbSwingAmount;
         this.rightHindLeg.zRot = (-(float)Math.PI / 4F);
         this.leftHindLeg.zRot = ((float)Math.PI / 4F);
         this.rightMiddleHindLeg.zRot = -0.58119464F;

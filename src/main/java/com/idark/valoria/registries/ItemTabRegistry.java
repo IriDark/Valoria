@@ -313,6 +313,7 @@ public abstract class ItemTabRegistry {
             event.accept(ItemsRegistry.NECROMANCER_SPAWN_EGG);
             event.accept(ItemsRegistry.UNDEAD_SPAWN_EGG);
             event.accept(ItemsRegistry.GOBLIN_SPAWN_EGG);
+            event.accept(ItemsRegistry.SHADEWOOD_SPIDER_SPAWN_EGG);
         }
 
         if (event.getTabKey() == ItemTabRegistry.VALORIA_BLOCKS_TAB.getKey()) {
