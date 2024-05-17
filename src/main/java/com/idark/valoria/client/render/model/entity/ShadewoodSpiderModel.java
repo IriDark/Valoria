@@ -62,55 +62,58 @@ public class ShadewoodSpiderModel<T extends Entity> extends HierarchicalModel<T>
         PartDefinition rightFrontLeg = partdefinition.addOrReplaceChild("right_front_leg", cubelistbuilder, PartPose.offset(-4.0F, 15.0F, -1.0F));
         PartDefinition leftFrontLeg = partdefinition.addOrReplaceChild("left_front_leg", cubelistbuilder1, PartPose.offset(4.0F, 15.0F, -1.0F));
 
-        PartDefinition right_chelicer = head.addOrReplaceChild("right_chelicer", CubeListBuilder.create().texOffs(0, 0).addBox(1.0F, -8.0F, -12.0F, 2.0F, 5.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
-        PartDefinition left_chelicer = head.addOrReplaceChild("left_chelicer", CubeListBuilder.create().texOffs(0, 18).addBox(-3.0F, -8.0F, -12.0F, 2.0F, 5.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+        PartDefinition right_chelicer = head.addOrReplaceChild("right_chelicer", CubeListBuilder.create().texOffs(0, 0).addBox(1.0F, -8.0F, -11.8F, 2.0F, 5.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+        PartDefinition left_chelicer = head.addOrReplaceChild("left_chelicer", CubeListBuilder.create().texOffs(0, 18).addBox(-2.0F, -8.0F, -11.8F, 2.0F, 5.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
         return LayerDefinition.create(meshdefinition, 128, 128);
     }
 
     public void setupAnim(T pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch) {
-        this.head.yRot = pNetHeadYaw * ((float)Math.PI / 180F);
-        this.head.xRot = pHeadPitch * ((float)Math.PI / 360F);
+        this.head.yRot = pNetHeadYaw * ((float) Math.PI / 180F);
+        this.head.xRot = pHeadPitch * ((float) Math.PI / 360F);
         this.body1.xRot = -(Mth.cos(pLimbSwing * 0.6662F * 2.0F) * 0.2F) * pLimbSwingAmount;
-        this.rightHindLeg.zRot = (-(float)Math.PI / 4F);
-        this.leftHindLeg.zRot = ((float)Math.PI / 4F);
+        this.rightHindLeg.zRot = (-(float) Math.PI / 4F);
+        this.leftHindLeg.zRot = ((float) Math.PI / 4F);
         this.rightMiddleHindLeg.zRot = -0.58119464F;
         this.leftMiddleHindLeg.zRot = 0.58119464F;
         this.rightMiddleFrontLeg.zRot = -0.58119464F;
         this.leftMiddleFrontLeg.zRot = 0.58119464F;
-        this.rightFrontLeg.zRot = (-(float)Math.PI / 4F);
-        this.leftFrontLeg.zRot = ((float)Math.PI / 4F);
-        this.rightHindLeg.yRot = ((float)Math.PI / 4F);
-        this.leftHindLeg.yRot = (-(float)Math.PI / 4F);
-        this.rightMiddleHindLeg.yRot = ((float)Math.PI / 8F);
-        this.leftMiddleHindLeg.yRot = (-(float)Math.PI / 8F);
-        this.rightMiddleFrontLeg.yRot = (-(float)Math.PI / 8F);
-        this.leftMiddleFrontLeg.yRot = ((float)Math.PI / 8F);
-        this.rightFrontLeg.yRot = (-(float)Math.PI / 4F);
-        this.leftFrontLeg.yRot = ((float)Math.PI / 4F);
-        float f3 = -(Mth.cos(pLimbSwing * 0.6662F * 2.0F + 0.0F) * 0.4F) * pLimbSwingAmount;
-        float f4 = -(Mth.cos(pLimbSwing * 0.6662F * 2.0F + (float)Math.PI) * 0.4F) * pLimbSwingAmount;
-        float f5 = -(Mth.cos(pLimbSwing * 0.6662F * 2.0F + ((float)Math.PI / 2F)) * 0.4F) * pLimbSwingAmount;
-        float f6 = -(Mth.cos(pLimbSwing * 0.6662F * 2.0F + ((float)Math.PI * 1.5F)) * 0.4F) * pLimbSwingAmount;
-        float f7 = Math.abs(Mth.sin(pLimbSwing * 0.6662F + 0.0F) * 0.4F) * pLimbSwingAmount;
-        float f8 = Math.abs(Mth.sin(pLimbSwing * 0.6662F + (float)Math.PI) * 0.4F) * pLimbSwingAmount;
-        float f9 = Math.abs(Mth.sin(pLimbSwing * 0.6662F + ((float)Math.PI / 2F)) * 0.4F) * pLimbSwingAmount;
-        float f10 = Math.abs(Mth.sin(pLimbSwing * 0.6662F + ((float)Math.PI * 1.5F)) * 0.4F) * pLimbSwingAmount;
-        this.rightHindLeg.yRot += f3;
-        this.leftHindLeg.yRot += -f3;
-        this.rightMiddleHindLeg.yRot += f4;
-        this.leftMiddleHindLeg.yRot += -f4;
-        this.rightMiddleFrontLeg.yRot += f5;
-        this.leftMiddleFrontLeg.yRot += -f5;
-        this.rightFrontLeg.yRot += f6;
-        this.leftFrontLeg.yRot += -f6;
-        this.rightHindLeg.zRot += f7;
-        this.leftHindLeg.zRot += -f7;
-        this.rightMiddleHindLeg.zRot += f8;
-        this.leftMiddleHindLeg.zRot += -f8;
-        this.rightMiddleFrontLeg.zRot += f9;
-        this.leftMiddleFrontLeg.zRot += -f9;
-        this.rightFrontLeg.zRot += f10;
-        this.leftFrontLeg.zRot += -f10;
+        this.rightFrontLeg.zRot = (-(float) Math.PI / 4F);
+        this.leftFrontLeg.zRot = ((float) Math.PI / 4F);
+        this.rightHindLeg.yRot = ((float) Math.PI / 4F);
+        this.leftHindLeg.yRot = (-(float) Math.PI / 4F);
+        this.rightMiddleHindLeg.yRot = ((float) Math.PI / 8F);
+        this.leftMiddleHindLeg.yRot = (-(float) Math.PI / 8F);
+        this.rightMiddleFrontLeg.yRot = (-(float) Math.PI / 8F);
+        this.leftMiddleFrontLeg.yRot = ((float) Math.PI / 8F);
+        this.rightFrontLeg.yRot = (-(float) Math.PI / 4F);
+        this.leftFrontLeg.yRot = ((float) Math.PI / 4F);
+
+        float pHindLegY = -(Mth.cos(pLimbSwing * 0.6662F * 2.0F + 0.0F) * 0.4F) * pLimbSwingAmount;
+        float pMiddleHindLegY = -(Mth.cos(pLimbSwing * 0.6662F * 2.0F + (float) Math.PI) * 0.4F) * pLimbSwingAmount;
+        float pMiddleFrontLegY = -(Mth.cos(pLimbSwing * 0.6662F * 2.0F + ((float) Math.PI / 2F)) * 0.4F) * pLimbSwingAmount;
+        float pFrontLegY = -(Mth.cos(pLimbSwing * 0.6662F * 2.0F + ((float) Math.PI * 1.5F)) * 0.4F) * pLimbSwingAmount;
+
+        float pHindLegZ = Math.abs(Mth.sin(pLimbSwing * 0.6662F + 0.0F) * 0.4F) * pLimbSwingAmount;
+        float pMiddleHindLegZ = Math.abs(Mth.sin(pLimbSwing * 0.6662F + (float) Math.PI) * 0.4F) * pLimbSwingAmount;
+        float pMiddleFrontLegZ = Math.abs(Mth.sin(pLimbSwing * 0.6662F + ((float) Math.PI / 2F)) * 0.4F) * pLimbSwingAmount;
+        float pFrontLegZ = Math.abs(Mth.sin(pLimbSwing * 0.6662F + ((float) Math.PI * 1.5F)) * 0.4F) * pLimbSwingAmount;
+
+        this.rightHindLeg.yRot += pHindLegY;
+        this.leftHindLeg.yRot -= pHindLegY;
+        this.rightMiddleHindLeg.yRot += pMiddleHindLegY;
+        this.leftMiddleHindLeg.yRot -= pMiddleHindLegY;
+        this.rightMiddleFrontLeg.yRot += pMiddleFrontLegY;
+        this.leftMiddleFrontLeg.yRot -= pMiddleFrontLegY;
+        this.rightFrontLeg.yRot += pFrontLegY;
+        this.leftFrontLeg.yRot -= pFrontLegY;
+        this.rightHindLeg.zRot += pHindLegZ;
+        this.leftHindLeg.zRot -= pHindLegZ;
+        this.rightMiddleHindLeg.zRot += pMiddleHindLegZ;
+        this.leftMiddleHindLeg.zRot -= pMiddleHindLegZ;
+        this.rightMiddleFrontLeg.zRot += pMiddleFrontLegZ;
+        this.leftMiddleFrontLeg.zRot -= pMiddleFrontLegZ;
+        this.rightFrontLeg.zRot += pFrontLegZ;
+        this.leftFrontLeg.zRot -= pFrontLegZ;
     }
 
     @Override
