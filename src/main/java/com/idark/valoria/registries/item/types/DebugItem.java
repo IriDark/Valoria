@@ -3,6 +3,8 @@ package com.idark.valoria.registries.item.types;
 import com.idark.valoria.client.render.model.item.ItemAnims;
 import com.idark.valoria.client.render.model.item.animation.SpinAttackAnimation;
 import com.idark.valoria.util.ValoriaUtils;
+import net.minecraft.client.Minecraft;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
@@ -40,6 +42,9 @@ public class DebugItem extends Item implements ICustomAnimationItem, ISpinAttack
     public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
         ItemStack itemstack = playerIn.getItemInHand(handIn);
         playerIn.startUsingItem(handIn);
+        Minecraft.getInstance().gameRenderer.shutdownEffect();
+        Minecraft.getInstance().gameRenderer.loadEffect(new ResourceLocation("shaders/post/spider.json"));
+
         return InteractionResultHolder.consume(itemstack);
     }
 }

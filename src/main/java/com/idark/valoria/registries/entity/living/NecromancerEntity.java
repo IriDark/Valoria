@@ -325,7 +325,7 @@ public class NecromancerEntity extends AbstractNecromancer {
                 undead.finalizeSpawn(serverLevel, NecromancerEntity.this.level().getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, null, null);
                 undead.setOwner(NecromancerEntity.this);
                 undead.setBoundOrigin(blockpos);
-                undead.setLimitedLife(20 * (5 + NecromancerEntity.this.random.nextInt(90)));
+                undead.setLimitedLife(20 + NecromancerEntity.this.random.nextInt(60));
                 serverLevel.addFreshEntityWithPassengers(undead);
             }
         }

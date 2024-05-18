@@ -21,8 +21,6 @@ import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.ai.goal.target.TargetGoal;
-import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.raid.Raider;
@@ -35,15 +33,9 @@ import net.minecraft.world.phys.Vec3;
 import javax.annotation.Nullable;
 import java.util.EnumSet;
 
-public class UndeadEntity extends Monster implements TraceableEntity {
+public class UndeadEntity extends AbstractMinionEntity {
     public static final int TICKS_PER_FLAP = Mth.ceil(3.9269907F);
     protected static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(UndeadEntity.class, EntityDataSerializers.BYTE);
-    @Nullable
-    Mob owner;
-    @Nullable
-    private BlockPos boundOrigin;
-    private boolean hasLimitedLife;
-    private int limitedLifeTicks;
 
     public UndeadEntity(EntityType<? extends UndeadEntity> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
@@ -59,23 +51,8 @@ public class UndeadEntity extends Monster implements TraceableEntity {
         return this.tickCount % TICKS_PER_FLAP == 0;
     }
 
-    public void move(MoverType pType, Vec3 pPos) {
-        super.move(pType, pPos);
-        this.checkInsideBlocks();
-    }
-
-    /**
-     * Called to update the entity's position/logic.
-     */
-    public void tick() {
-        super.tick();
-        this.setNoGravity(true);
-        if (this.hasLimitedLife && --this.limitedLifeTicks <= 0) {
-            this.limitedLifeTicks = 20;
-            this.hurt(this.damageSources().starve(), 1.0F);
-        }
-
-        if (this.shouldRenderAtSqrDistance(4) && this.isCharging()) {
+    public void spawnParticlesTrail() {
+        if(this.isCharging()) {
             Vec3 vector3d = this.getDeltaMovement();
             double a3 = vector3d.x;
             double a4 = vector3d.y;
@@ -94,7 +71,7 @@ public class UndeadEntity extends Monster implements TraceableEntity {
         this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 3.0F, 1.0F));
         this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Mob.class, 8.0F));
         this.targetSelector.addGoal(1, (new HurtByTargetGoal(this, Raider.class)).setAlertOthers());
-        this.targetSelector.addGoal(2, new UndeadEntity.UndeadCopyOwnerTargetGoal(this));
+        this.targetSelector.addGoal(2, new CopyOwnerTargetGoal(this));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Player.class, true));
     }
 
@@ -105,52 +82,6 @@ public class UndeadEntity extends Monster implements TraceableEntity {
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(DATA_FLAGS_ID, (byte)0);
-    }
-
-    /**
-     * (abstract) Protected helper method to read subclass entity data from NBT.
-     */
-    public void readAdditionalSaveData(CompoundTag pCompound) {
-        super.readAdditionalSaveData(pCompound);
-        if (pCompound.contains("BoundX")) {
-            this.boundOrigin = new BlockPos(pCompound.getInt("BoundX"), pCompound.getInt("BoundY"), pCompound.getInt("BoundZ"));
-        }
-
-        if (pCompound.contains("LifeTicks")) {
-            this.setLimitedLife(pCompound.getInt("LifeTicks"));
-        }
-
-    }
-
-    public void addAdditionalSaveData(CompoundTag pCompound) {
-        super.addAdditionalSaveData(pCompound);
-        if (this.boundOrigin != null) {
-            pCompound.putInt("BoundX", this.boundOrigin.getX());
-            pCompound.putInt("BoundY", this.boundOrigin.getY());
-            pCompound.putInt("BoundZ", this.boundOrigin.getZ());
-        }
-
-        if (this.hasLimitedLife) {
-            pCompound.putInt("LifeTicks", this.limitedLifeTicks);
-        }
-
-    }
-
-    /**
-     * Returns null or the entityliving it was ignited by
-     */
-    @Nullable
-    public Mob getOwner() {
-        return this.owner;
-    }
-
-    @Nullable
-    public BlockPos getBoundOrigin() {
-        return this.boundOrigin;
-    }
-
-    public void setBoundOrigin(@Nullable BlockPos pBoundOrigin) {
-        this.boundOrigin = pBoundOrigin;
     }
 
     private boolean getUndeadFlag(int pMask) {
@@ -175,15 +106,6 @@ public class UndeadEntity extends Monster implements TraceableEntity {
 
     public void setIsCharging(boolean pCharging) {
         this.setUndeadFlag(1, pCharging);
-    }
-
-    public void setOwner(Mob pOwner) {
-        this.owner = pOwner;
-    }
-
-    public void setLimitedLife(int pLimitedLifeTicks) {
-        this.hasLimitedLife = true;
-        this.limitedLifeTicks = pLimitedLifeTicks;
     }
 
     protected SoundEvent getAmbientSound() {
@@ -292,33 +214,9 @@ public class UndeadEntity extends Monster implements TraceableEntity {
         }
     }
 
-    class UndeadCopyOwnerTargetGoal extends TargetGoal {
-        private final TargetingConditions copyOwnerTargeting = TargetingConditions.forNonCombat().ignoreLineOfSight().ignoreInvisibilityTesting();
-
-        public UndeadCopyOwnerTargetGoal(PathfinderMob pMob) {
-            super(pMob, false);
-        }
-
-        /**
-         * Returns whether execution should begin. You can also read and cache any state necessary for execution in this
-         * method as well.
-         */
-        public boolean canUse() {
-            return UndeadEntity.this.owner != null && UndeadEntity.this.owner.getTarget() != null && this.canAttack(UndeadEntity.this.owner.getTarget(), this.copyOwnerTargeting);
-        }
-
-        /**
-         * Execute a one shot task or start executing a continuous task
-         */
-        public void start() {
-            UndeadEntity.this.setTarget(UndeadEntity.this.owner.getTarget());
-            super.start();
-        }
-    }
-
     class UndeadMoveControl extends MoveControl {
-        public UndeadMoveControl(UndeadEntity pVex) {
-            super(pVex);
+        public UndeadMoveControl(UndeadEntity pMinion) {
+            super(pMinion);
         }
 
         public void tick() {
