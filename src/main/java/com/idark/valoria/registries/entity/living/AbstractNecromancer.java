@@ -1,134 +1,129 @@
 package com.idark.valoria.registries.entity.living;
 
-import com.idark.valoria.client.particle.ParticleRegistry;
-import com.idark.valoria.client.particle.types.Particles;
-import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.ByIdMap;
-import net.minecraft.util.Mth;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.level.Level;
-import org.joml.Vector3d;
+import com.idark.valoria.client.particle.*;
+import com.idark.valoria.client.particle.types.*;
+import net.minecraft.core.*;
+import net.minecraft.nbt.*;
+import net.minecraft.network.syncher.*;
+import net.minecraft.sounds.*;
+import net.minecraft.util.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.monster.*;
+import net.minecraft.world.level.*;
+import org.joml.*;
 
-import javax.annotation.Nullable;
-import java.util.EnumSet;
+import javax.annotation.*;
 import java.util.Random;
-import java.util.function.IntFunction;
+import java.util.*;
+import java.util.function.*;
+import java.lang.Math;
 
-public abstract class AbstractNecromancer extends Monster {
+public abstract class AbstractNecromancer extends Monster{
 
     private static final EntityDataAccessor<Byte> DATA_SPELL_CASTING_ID = SynchedEntityData.defineId(AbstractNecromancer.class, EntityDataSerializers.BYTE);
     protected int spellCastingTickCount;
     private AbstractNecromancer.necromancerSpell currentSpell = AbstractNecromancer.necromancerSpell.NONE;
 
-    protected AbstractNecromancer(EntityType<? extends Monster> pEntityType, Level pLevel) {
+    protected AbstractNecromancer(EntityType<? extends Monster> pEntityType, Level pLevel){
         super(pEntityType, pLevel);
     }
 
-    protected void defineSynchedData() {
+    protected void defineSynchedData(){
         super.defineSynchedData();
-        this.entityData.define(DATA_SPELL_CASTING_ID, (byte) 0);
+        this.entityData.define(DATA_SPELL_CASTING_ID, (byte)0);
     }
 
-    public void readAdditionalSaveData(CompoundTag pCompound) {
+    public void readAdditionalSaveData(CompoundTag pCompound){
         super.readAdditionalSaveData(pCompound);
         this.spellCastingTickCount = pCompound.getInt("SpellTicks");
     }
 
-    public void addAdditionalSaveData(CompoundTag pCompound) {
+    public void addAdditionalSaveData(CompoundTag pCompound){
         super.addAdditionalSaveData(pCompound);
         pCompound.putInt("SpellTicks", this.spellCastingTickCount);
     }
 
-    public boolean isCastingSpell() {
-        if (this.level().isClientSide) {
+    public boolean isCastingSpell(){
+        if(this.level().isClientSide){
             return this.entityData.get(DATA_SPELL_CASTING_ID) > 0;
-        } else {
+        }else{
             return this.spellCastingTickCount > 0;
         }
     }
 
-    public void setIsCastingSpell(AbstractNecromancer.necromancerSpell pCurrentSpell) {
+    public void setIsCastingSpell(AbstractNecromancer.necromancerSpell pCurrentSpell){
         this.currentSpell = pCurrentSpell;
-        this.entityData.set(DATA_SPELL_CASTING_ID, (byte) pCurrentSpell.id);
+        this.entityData.set(DATA_SPELL_CASTING_ID, (byte)pCurrentSpell.id);
     }
 
-    protected AbstractNecromancer.necromancerSpell getCurrentSpell() {
+    public AbstractNecromancer.necromancerSpell getCurrentSpell(){
         return !this.level().isClientSide ? this.currentSpell : AbstractNecromancer.necromancerSpell.byId(this.entityData.get(DATA_SPELL_CASTING_ID));
     }
 
-    protected void customServerAiStep() {
+    protected void customServerAiStep(){
         super.customServerAiStep();
-        if (this.spellCastingTickCount > 0) {
+        if(this.spellCastingTickCount > 0){
             --this.spellCastingTickCount;
         }
 
     }
 
-    public void tick() {
+    public void tick(){
         super.tick();
-        if (this.level().isClientSide && this.isCastingSpell()) {
+        if(this.level().isClientSide && this.isCastingSpell()){
             AbstractNecromancer.necromancerSpell spell = this.getCurrentSpell();
             int r = spell.spellColor[0];
             int g = spell.spellColor[1];
             int b = spell.spellColor[2];
 
-            float f = this.yBodyRot * ((float) Math.PI / 180F) + Mth.cos(this.tickCount * 0.6662F) * 0.25F;
+            float f = this.yBodyRot * ((float)Math.PI / 180F) + Mth.cos(this.tickCount * 0.6662F) * 0.25F;
             float f1 = Mth.cos(f);
             float f2 = Mth.sin(f);
-            for (int i = 0; i < 1f; i++) {
+            for(int i = 0; i < 1f; i++){
                 Particles.create(ParticleRegistry.GLOWING_SPHERE)
-                        .addVelocity(((new Random().nextDouble() - 0.5D) / 30), (new Random().nextDouble() + 0.5D) / 6, (new Random().nextDouble() - 0.5D) / 30)
-                        .setAlpha(0.65f, 0)
-                        .setScale(0.2f, 0)
-                        .setColor(r, g, b, 0, 0, 0)
-                        .setLifetime(8)
-                        .setSpin((0.5f * (float) ((new Random().nextDouble() - 0.5D) * 2)))
-                        .spawn(this.level(), this.getX() + 0.2 + (double) f1 * 0.6D, this.getY() + 1.8D, this.getZ() + 0.2 + (double) f2 * 0.6D)
-                        .spawn(this.level(), this.getX() - 0.2 - (double) f1 * 0.6D, this.getY() + 1.8D, this.getZ() - 0.2 - (double) f2 * 0.6D);
+                .addVelocity(((new Random().nextDouble() - 0.5D) / 30), (new Random().nextDouble() + 0.5D) / 6, (new Random().nextDouble() - 0.5D) / 30)
+                .setAlpha(0.65f, 0)
+                .setScale(0.2f, 0)
+                .setColor(r, g, b, 0, 0, 0)
+                .setLifetime(8)
+                .setSpin((0.5f * (float)((new Random().nextDouble() - 0.5D) * 2)))
+                .spawn(this.level(), this.getX() + 0.2 + (double)f1 * 0.6D, this.getY() + 1.8D, this.getZ() + 0.2 + (double)f2 * 0.6D)
+                .spawn(this.level(), this.getX() - 0.2 - (double)f1 * 0.6D, this.getY() + 1.8D, this.getZ() - 0.2 - (double)f2 * 0.6D);
             }
 
-            if (spell.id == necromancerSpell.SUMMON_MOBS.id || spell.id == necromancerSpell.HEAL.id) {
+            if(spell.id == necromancerSpell.SUMMON_MOBS.id || spell.id == necromancerSpell.HEAL.id){
                 BlockPos blockpos = AbstractNecromancer.this.blockPosition().offset(-2 + AbstractNecromancer.this.random.nextInt(5), 0, -2 + AbstractNecromancer.this.random.nextInt(5));
                 Vector3d direction = new Vector3d(AbstractNecromancer.this.getX() - blockpos.getX(), AbstractNecromancer.this.getY() + blockpos.getY(), AbstractNecromancer.this.getZ() - blockpos.getZ()).normalize();
                 double speed = 0.3;
                 double motionX = direction.x * speed;
                 double motionY = direction.y * speed;
                 double motionZ = direction.z * speed;
-                for (int i = 0; i < 0.2f; i++) {
+                for(int i = 0; i < 0.2f; i++){
                     double startX = blockpos.getX() + 0.5;
                     double startY = blockpos.getY() - 0.2;
                     double startZ = blockpos.getZ() + 0.5;
                     Particles.create(ParticleRegistry.GLOWING_SPHERE)
-                            .addVelocity(motionX, motionY, motionZ)
-                            .setAlpha(0.65f, 0)
-                            .setScale(0.2f, 0)
-                            .setColor(r, g, b, 0, 0, 0)
-                            .setLifetime(8)
-                            .setSpin((0.5f * (float) ((new Random().nextDouble() - 0.5D) * 2)))
-                            .spawn(this.level(), startX, startY, startZ);
+                    .addVelocity(motionX, motionY, motionZ)
+                    .setAlpha(0.65f, 0)
+                    .setScale(0.2f, 0)
+                    .setColor(r, g, b, 0, 0, 0)
+                    .setLifetime(8)
+                    .setSpin((0.5f * (float)((new Random().nextDouble() - 0.5D) * 2)))
+                    .spawn(this.level(), startX, startY, startZ);
                 }
             }
         }
     }
 
-    protected int getSpellCastingTime() {
+    public int getSpellCastingTime(){
         return this.spellCastingTickCount;
     }
-
-    public SoundEvent getCastingSoundEvent() {
+    public SoundEvent getCastingSoundEvent(){
         return SoundEvents.EVOKER_CAST_SPELL;
     }
 
-    public enum necromancerSpell {
+    public enum necromancerSpell{
         NONE(0, 0, 0, 0),
         SUMMON_MOBS(1, 30, 35, 75),
         FANGS(2, 160, 164, 164),
@@ -139,18 +134,18 @@ public abstract class AbstractNecromancer extends Monster {
         final int id;
         final int[] spellColor;
 
-        necromancerSpell(int pId, int pRed, int pGreen, int pBlue) {
+        necromancerSpell(int pId, int pRed, int pGreen, int pBlue){
             this.id = pId;
             this.spellColor = new int[]{pRed, pGreen, pBlue};
         }
 
-        public static AbstractNecromancer.necromancerSpell byId(int pId) {
+        public static AbstractNecromancer.necromancerSpell byId(int pId){
             return BY_ID.apply(pId);
         }
     }
 
-    protected class SpellcasterCastingSpellGoal extends Goal {
-        public SpellcasterCastingSpellGoal() {
+    public class SpellcasterCastingSpellGoal extends Goal{
+        public SpellcasterCastingSpellGoal(){
             this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
         }
 
@@ -158,14 +153,14 @@ public abstract class AbstractNecromancer extends Monster {
          * Returns whether execution should begin. You can also read and cache any state necessary for execution in this
          * method as well.
          */
-        public boolean canUse() {
-            return AbstractNecromancer.this.getSpellCastingTime() > 0;
+        public boolean canUse(){
+            return AbstractNecromancer.this.isCastingSpell();
         }
 
         /**
          * Execute a one shot task or start executing a continuous task
          */
-        public void start() {
+        public void start(){
             super.start();
             AbstractNecromancer.this.navigation.stop();
         }
@@ -173,7 +168,7 @@ public abstract class AbstractNecromancer extends Monster {
         /**
          * Reset the task's internal state. Called when this task is interrupted by another one
          */
-        public void stop() {
+        public void stop(){
             super.stop();
             AbstractNecromancer.this.setIsCastingSpell(AbstractNecromancer.necromancerSpell.NONE);
         }
@@ -181,15 +176,14 @@ public abstract class AbstractNecromancer extends Monster {
         /**
          * Keep ticking a continuous task that has already been started
          */
-        public void tick() {
-            if (AbstractNecromancer.this.getTarget() != null) {
-                AbstractNecromancer.this.getLookControl().setLookAt(AbstractNecromancer.this.getTarget(), (float) AbstractNecromancer.this.getMaxHeadYRot(), (float) AbstractNecromancer.this.getMaxHeadXRot());
+        public void tick(){
+            if(AbstractNecromancer.this.getTarget() != null){
+                AbstractNecromancer.this.getLookControl().setLookAt(AbstractNecromancer.this.getTarget(), (float)AbstractNecromancer.this.getMaxHeadYRot(), (float)AbstractNecromancer.this.getMaxHeadXRot());
             }
-
         }
     }
 
-    protected abstract class SpellcasterUseSpellGoal extends Goal {
+    public abstract class SpellcasterUseSpellGoal extends Goal{
         protected int attackWarmupDelay;
         protected int nextAttackTickCount;
 
@@ -197,12 +191,12 @@ public abstract class AbstractNecromancer extends Monster {
          * Returns whether execution should begin. You can also read and cache any state necessary for execution in this
          * method as well.
          */
-        public boolean canUse() {
+        public boolean canUse(){
             LivingEntity livingentity = AbstractNecromancer.this.getTarget();
-            if (livingentity != null && livingentity.isAlive()) {
-                if (AbstractNecromancer.this.isCastingSpell()) {
+            if(livingentity != null && livingentity.isAlive()){
+                if(AbstractNecromancer.this.isCastingSpell()){
                     return false;
-                } else {
+                }else{
                     return AbstractNecromancer.this.tickCount >= this.nextAttackTickCount;
                 }
             } else {
@@ -213,7 +207,7 @@ public abstract class AbstractNecromancer extends Monster {
         /**
          * Returns whether an in-progress EntityAIBase should continue executing
          */
-        public boolean canContinueToUse() {
+        public boolean canContinueToUse(){
             LivingEntity livingentity = AbstractNecromancer.this.getTarget();
             return livingentity != null && livingentity.isAlive() && this.attackWarmupDelay > 0;
         }
@@ -221,24 +215,24 @@ public abstract class AbstractNecromancer extends Monster {
         /**
          * Execute a one shot task or start executing a continuous task
          */
-        public void start() {
+        public void start(){
+            AbstractNecromancer.this.setIsCastingSpell(this.getSpell());
             this.attackWarmupDelay = this.adjustedTickDelay(this.getCastWarmupTime());
             AbstractNecromancer.this.spellCastingTickCount = this.getCastingTime();
             this.nextAttackTickCount = AbstractNecromancer.this.tickCount + this.getCastingInterval();
             SoundEvent soundevent = this.getSpellPrepareSound();
-            if (soundevent != null) {
+            if(soundevent != null){
                 AbstractNecromancer.this.playSound(soundevent, 1.0F, 1.0F);
             }
 
-            AbstractNecromancer.this.setIsCastingSpell(this.getSpell());
         }
 
         /**
          * Keep ticking a continuous task that has already been started
          */
-        public void tick() {
+        public void tick(){
             --this.attackWarmupDelay;
-            if (this.attackWarmupDelay == 0) {
+            if(this.attackWarmupDelay == 0){
                 this.performSpellCasting();
                 AbstractNecromancer.this.playSound(AbstractNecromancer.this.getCastingSoundEvent(), 1.0F, 1.0F);
             }
@@ -246,17 +240,17 @@ public abstract class AbstractNecromancer extends Monster {
 
         protected abstract void performSpellCasting();
 
-        protected int getCastWarmupTime() {
+        public int getCastWarmupTime(){
             return 20;
         }
 
-        protected abstract int getCastingTime();
+        public abstract int getCastingTime();
 
-        protected abstract int getCastingInterval();
+        public abstract int getCastingInterval();
 
         @Nullable
-        protected abstract SoundEvent getSpellPrepareSound();
+        public abstract SoundEvent getSpellPrepareSound();
 
-        protected abstract AbstractNecromancer.necromancerSpell getSpell();
+        public abstract AbstractNecromancer.necromancerSpell getSpell();
     }
 }

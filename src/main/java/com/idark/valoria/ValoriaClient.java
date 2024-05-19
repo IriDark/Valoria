@@ -1,53 +1,37 @@
 package com.idark.valoria;
 
-import com.idark.valoria.client.color.ModBlockColors;
-import com.idark.valoria.client.particle.ParticleRegistry;
-import com.idark.valoria.client.particle.types.ChompParticle;
-import com.idark.valoria.client.particle.types.ShadewoodLeafParticleType;
-import com.idark.valoria.client.particle.types.SparkleParticleType;
-import com.idark.valoria.client.particle.types.SphereParticleType;
-import com.idark.valoria.client.render.curio.model.BeltModel;
-import com.idark.valoria.client.render.curio.model.HandsModel;
-import com.idark.valoria.client.render.curio.model.HandsModelDefault;
-import com.idark.valoria.client.render.curio.model.NecklaceModel;
+import com.idark.valoria.client.color.*;
+import com.idark.valoria.client.particle.*;
+import com.idark.valoria.client.particle.types.*;
+import com.idark.valoria.client.render.curio.model.*;
 import com.idark.valoria.client.render.entity.*;
 import com.idark.valoria.client.render.model.blockentity.*;
-import com.idark.valoria.client.render.model.item.Item2DRenderer;
-import com.idark.valoria.client.render.model.item.ModItemModelProperties;
-import com.idark.valoria.compat.quark.QuarkIntegration;
-import com.idark.valoria.core.config.ClientConfig;
-import com.idark.valoria.registries.BlockEntitiesRegistry;
-import com.idark.valoria.registries.BlockRegistry;
-import com.idark.valoria.registries.EntityTypeRegistry;
-import com.idark.valoria.registries.ItemsRegistry;
-import com.idark.valoria.registries.block.types.ModWoodTypes;
-import com.idark.valoria.registries.entity.decoration.CustomBoatEntity;
-import com.idark.valoria.registries.sounds.CooldownSoundInstance;
-import com.mojang.blaze3d.vertex.DefaultVertexFormat;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.BoatModel;
-import net.minecraft.client.model.ChestBoatModel;
-import net.minecraft.client.model.geom.ModelLayerLocation;
-import net.minecraft.client.particle.EndRodParticle;
-import net.minecraft.client.renderer.ShaderInstance;
-import net.minecraft.client.renderer.Sheets;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
-import net.minecraft.client.renderer.blockentity.HangingSignRenderer;
-import net.minecraft.client.renderer.blockentity.SignRenderer;
-import net.minecraft.client.renderer.entity.EntityRenderers;
-import net.minecraft.client.resources.model.ModelResourceLocation;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import com.idark.valoria.client.render.model.item.*;
+import com.idark.valoria.compat.quark.*;
+import com.idark.valoria.core.config.*;
+import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.block.types.*;
+import com.idark.valoria.registries.entity.decoration.*;
+import com.idark.valoria.registries.sounds.*;
+import com.mojang.blaze3d.vertex.*;
+import net.minecraft.client.*;
+import net.minecraft.client.model.*;
+import net.minecraft.client.model.geom.*;
+import net.minecraft.client.particle.*;
+import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.blockentity.*;
+import net.minecraft.client.renderer.entity.*;
+import net.minecraft.client.resources.model.*;
+import net.minecraft.resources.*;
+import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.client.event.*;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.eventbus.api.*;
+import net.minecraftforge.fml.common.*;
+import net.minecraftforge.fml.event.lifecycle.*;
 
-import java.io.IOException;
+import java.io.*;
 
 public class ValoriaClient {
-    public static ShaderInstance GLOWING_PARTICLE_SHADER, SPRITE_PARTICLE_SHADER;
     public static ModelLayerLocation NECKLACE_LAYER = new ModelLayerLocation(new ResourceLocation(Valoria.ID, "necklace"), "main");
     public static ModelLayerLocation HANDS_LAYER = new ModelLayerLocation(new ResourceLocation(Valoria.ID, "hands"), "main");
     public static ModelLayerLocation HANDS_LAYER_SLIM = new ModelLayerLocation(new ResourceLocation(Valoria.ID, "hands_slim"), "main");
@@ -57,12 +41,17 @@ public class ValoriaClient {
 
     public static CooldownSoundInstance COOLDOWN_SOUND = new CooldownSoundInstance(null);
 
+    public static ShaderInstance GLOWING_SHADER, GLOWING_PARTICLE_SHADER, SPRITE_PARTICLE_SHADER;
     public static ShaderInstance getGlowingParticleShader() {
         return GLOWING_PARTICLE_SHADER;
     }
 
     public static ShaderInstance getSpriteParticleShader() {
         return SPRITE_PARTICLE_SHADER;
+    }
+
+    public static ShaderInstance getGlowingShader() {
+        return GLOWING_SHADER;
     }
 
     @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
@@ -184,6 +173,7 @@ public class ValoriaClient {
         @OnlyIn(Dist.CLIENT)
         @SubscribeEvent
         public static void shaderRegistry(RegisterShadersEvent event) throws IOException {
+            event.registerShader(new ShaderInstance(event.getResourceProvider(), new ResourceLocation("valoria:glowing"), DefaultVertexFormat.POSITION_COLOR), shader -> GLOWING_SHADER = shader);
             event.registerShader(new ShaderInstance(event.getResourceProvider(), new ResourceLocation("valoria:glowing_particle"), DefaultVertexFormat.PARTICLE), shader -> GLOWING_PARTICLE_SHADER = shader);
             event.registerShader(new ShaderInstance(event.getResourceProvider(), new ResourceLocation("valoria:sprite_particle"), DefaultVertexFormat.PARTICLE), shader -> SPRITE_PARTICLE_SHADER = shader);
         }

@@ -1,16 +1,19 @@
 package com.idark.valoria.client.render.entity;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.client.render.model.entity.NecromancerModel;
-import com.idark.valoria.registries.entity.living.NecromancerEntity;
-import net.minecraft.client.model.geom.ModelLayerLocation;
-import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.HumanoidMobRenderer;
-import net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.monster.AbstractSkeleton;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import com.idark.valoria.*;
+import com.idark.valoria.client.event.*;
+import com.idark.valoria.client.render.model.entity.*;
+import com.idark.valoria.registries.entity.living.AbstractNecromancer.*;
+import com.idark.valoria.registries.entity.living.*;
+import com.idark.valoria.util.*;
+import com.mojang.blaze3d.vertex.*;
+import com.mojang.math.*;
+import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.entity.*;
+import net.minecraft.resources.*;
+import net.minecraftforge.api.distmarker.*;
+
+import java.awt.*;
 
 @OnlyIn(Dist.CLIENT)
 public class NecromancerRenderer extends HumanoidMobRenderer<NecromancerEntity, NecromancerModel<NecromancerEntity>> {
@@ -25,16 +28,28 @@ public class NecromancerRenderer extends HumanoidMobRenderer<NecromancerEntity, 
         return TEXTURE;
     }
 
-    public NecromancerRenderer(EntityRendererProvider.Context pContext, ModelLayerLocation p_174383_, ModelLayerLocation pInnerModelLayer, ModelLayerLocation pOuterModelLayer) {
-        super(pContext, new NecromancerModel<>(pContext.bakeLayer(p_174383_)), 0.5F);
-        this.addLayer(new HumanoidArmorLayer(this, new NecromancerModel(pContext.bakeLayer(pInnerModelLayer)), new NecromancerModel(pContext.bakeLayer(pOuterModelLayer)), pContext.getModelManager()));
-    }
+    public void render(NecromancerEntity entityIn, float entityYaw, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light){
+        if(entityIn.getCurrentSpell() == necromancerSpell.HEAL){
+            float alpha = 1;
+            if(entityIn.isCastingSpell()){
+                float time = (entityIn.tickCount + partialTicks) / 20f;
+                alpha = (float)Math.sin(Math.PI * 0.25f - time);
+            }
 
-    public ResourceLocation getTextureLocation(AbstractSkeleton pEntity) {
-        return TEXTURE;
-    }
+            if(alpha > 1f) alpha = 1f;
+            if(alpha < 0f) alpha = 0f;
+            MultiBufferSource bufferDelayed = RenderUtils.getDelayedRender();
+            VertexConsumer builder = bufferDelayed.getBuffer(RenderUtils.GLOWING);
+            ms.pushPose();
 
-    protected boolean isShaking(AbstractSkeleton pEntity) {
-        return pEntity.isShaking();
+            ms.translate(0, 0.01f, 0);
+            ms.mulPose(Axis.YP.rotationDegrees(-ClientTickHandler.ticksInGame * 0.3f));
+            RenderUtils.renderAura(ms, builder, 1, 0.75f, 6, new Color(85, 175, 45), Color.WHITE, 0.15f * alpha, 0, true, true);
+            RenderUtils.renderAura(ms, builder, 2.5f, 1.25f, 6, new Color(45, 145, 45), Color.WHITE, 0.25f * alpha, 0, true, true);
+            RenderUtils.renderAura(ms, builder, 0.8f, 0f, 6, new Color(85, 175, 45), Color.WHITE, 0, alpha, false, true);
+            ms.popPose();
+        }
+
+        super.render(entityIn, entityYaw, partialTicks, ms, buffers, light);
     }
 }
