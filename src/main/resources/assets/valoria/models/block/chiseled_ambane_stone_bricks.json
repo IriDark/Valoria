@@ -1,6 +1,6 @@
 {
-    "parent": "block/cube_all",
-    "textures": {
-        "all": "valoria:block/chiseled_ambane_stone_bricks"
-    }
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "valoria:block/chiseled_ambane_stone_bricks"
+  }
 }

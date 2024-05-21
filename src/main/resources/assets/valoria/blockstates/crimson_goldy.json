@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": { "model": "valoria:block/crimson_goldy" }
+    "": {
+      "model": "valoria:block/crimson_goldy"
+    }
   }
 }

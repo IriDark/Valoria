@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": { "model" : "valoria:block/void_ore" }
+    "": {
+      "model": "valoria:block/void_ore"
+    }
   }
 }

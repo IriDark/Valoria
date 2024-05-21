@@ -1,5 +1,7 @@
 {
-  "variants" : {
-    "" : { "model": "valoria:block/elegant_pedestal" }
+  "variants": {
+    "": {
+      "model": "valoria:block/elegant_pedestal"
+    }
   }
 }

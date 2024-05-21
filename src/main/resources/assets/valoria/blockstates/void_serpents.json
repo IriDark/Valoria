@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": { "model" : "valoria:block/void_serpents" }
+    "": {
+      "model": "valoria:block/void_serpents"
+    }
   }
 }

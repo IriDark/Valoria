@@ -1,5 +1,5 @@
 {
-	"variants": {
+  "variants": {
     "facing=east,half=bottom,open=false": {
       "model": "valoria:block/bronze_trapdoor_bottom",
       "y": 90

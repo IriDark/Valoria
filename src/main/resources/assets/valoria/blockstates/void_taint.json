@@ -1,10 +1,10 @@
 {
   "variants": {
     "taint=0": {
-      "model" : "valoria:block/void_veins"
+      "model": "valoria:block/void_veins"
     },
     "taint=1": {
-      "model" : "valoria:block/void_spores"
+      "model": "valoria:block/void_spores"
     }
   }
 }

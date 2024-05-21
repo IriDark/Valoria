@@ -1,6 +1,6 @@
 {
-    "parent" : "item/handheld",
-    "textures" : {
-        "layer0" : "valoria:item/diamond_scythe"
-    }
+  "parent": "item/handheld",
+  "textures": {
+    "layer0": "valoria:item/diamond_scythe"
+  }
 }

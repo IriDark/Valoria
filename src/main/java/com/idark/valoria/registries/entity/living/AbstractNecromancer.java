@@ -2,8 +2,10 @@ package com.idark.valoria.registries.entity.living;
 
 import com.idark.valoria.client.particle.*;
 import com.idark.valoria.client.particle.types.*;
+import net.minecraft.client.*;
 import net.minecraft.core.*;
 import net.minecraft.nbt.*;
+import net.minecraft.network.chat.*;
 import net.minecraft.network.syncher.*;
 import net.minecraft.sounds.*;
 import net.minecraft.util.*;
@@ -11,9 +13,10 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.level.*;
+import org.checkerframework.checker.nullness.qual.*;
 import org.joml.*;
 
-import javax.annotation.*;
+import javax.annotation.Nullable;
 import java.util.Random;
 import java.util.*;
 import java.util.function.*;
@@ -44,6 +47,10 @@ public abstract class AbstractNecromancer extends Monster{
         pCompound.putInt("SpellTicks", this.spellCastingTickCount);
     }
 
+    public boolean hasTarget(){
+        return AbstractNecromancer.this.getTarget() != null;
+    }
+
     public boolean isCastingSpell(){
         if(this.level().isClientSide){
             return this.entityData.get(DATA_SPELL_CASTING_ID) > 0;
@@ -66,7 +73,6 @@ public abstract class AbstractNecromancer extends Monster{
         if(this.spellCastingTickCount > 0){
             --this.spellCastingTickCount;
         }
-
     }
 
     public void tick(){
@@ -119,6 +125,7 @@ public abstract class AbstractNecromancer extends Monster{
     public int getSpellCastingTime(){
         return this.spellCastingTickCount;
     }
+
     public SoundEvent getCastingSoundEvent(){
         return SoundEvents.EVOKER_CAST_SPELL;
     }
@@ -128,11 +135,12 @@ public abstract class AbstractNecromancer extends Monster{
         SUMMON_MOBS(1, 30, 35, 75),
         FANGS(2, 160, 164, 164),
         WOLOLO(3, 46, 51, 60),
-        HEAL(4, 164, 202, 65);
+        HEAL(4, 164, 202, 65),
+        KNOCKBACK(5, 185, 201, 203);
 
         private static final IntFunction<AbstractNecromancer.necromancerSpell> BY_ID = ByIdMap.continuous((p_263091_) -> p_263091_.id, values(), ByIdMap.OutOfBoundsStrategy.ZERO);
-        final int id;
-        final int[] spellColor;
+        public final int id;
+        public final int[] spellColor;
 
         necromancerSpell(int pId, int pRed, int pGreen, int pBlue){
             this.id = pId;
@@ -199,7 +207,7 @@ public abstract class AbstractNecromancer extends Monster{
                 }else{
                     return AbstractNecromancer.this.tickCount >= this.nextAttackTickCount;
                 }
-            } else {
+            }else{
                 return false;
             }
         }
@@ -225,6 +233,7 @@ public abstract class AbstractNecromancer extends Monster{
                 AbstractNecromancer.this.playSound(soundevent, 1.0F, 1.0F);
             }
 
+            Minecraft.getInstance().player.displayClientMessage(Component.literal(AbstractNecromancer.this.getCurrentSpell().name()), true);
         }
 
         /**

@@ -1,19 +1,19 @@
 {
-    "type": "minecraft:crafting_shaped",
-    "pattern": [
-        "/X",
-        "X/"
-    ],
-    "key": {
-        "/": {
-            "item": "valoria:tombstone_brick"
-        },
-        "X": {
-            "item": "valoria:tombstone_bricks"
-        }
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "/X",
+    "X/"
+  ],
+  "key": {
+    "/": {
+      "item": "valoria:tombstone_brick"
     },
-    "result": {
-        "item": "valoria:cut_tombstone",
-        "count": 4
+    "X": {
+      "item": "valoria:tombstone_bricks"
     }
+  },
+  "result": {
+    "item": "valoria:cut_tombstone",
+    "count": 4
+  }
 }

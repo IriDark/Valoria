@@ -24,33 +24,33 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class ValoriaPortalBlock extends Block {
+public class ValoriaPortalBlock extends Block{
     protected static final VoxelShape shape = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 12.0D, 16.0D);
 
-    public ValoriaPortalBlock(Properties pProperties) {
+    public ValoriaPortalBlock(Properties pProperties){
         super(pProperties);
     }
 
-    public void entityInside(BlockState pState, Level pLevel, BlockPos pPos, Entity pEntity) {
-        if (pEntity.canChangeDimensions() && Shapes.joinIsNotEmpty(Shapes.create(pEntity.getBoundingBox().move(-pPos.getX(), -pPos.getY(), -pPos.getZ())), pState.getShape(pLevel, pPos), BooleanOp.AND)) {
+    public void entityInside(BlockState pState, Level pLevel, BlockPos pPos, Entity pEntity){
+        if(pEntity.canChangeDimensions() && Shapes.joinIsNotEmpty(Shapes.create(pEntity.getBoundingBox().move(-pPos.getX(), -pPos.getY(), -pPos.getZ())), pState.getShape(pLevel, pPos), BooleanOp.AND)){
             handlePortal(pEntity, pPos);
         }
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
+    public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context){
         return shape;
     }
 
-    public void animateTick(BlockState pState, Level pLevel, BlockPos pPos, RandomSource pRandom) {
-        if (pRandom.nextInt(100) == 0) {
-            pLevel.playLocalSound((double) pPos.getX() + 0.5D, (double) pPos.getY() + 0.5D, (double) pPos.getZ() + 0.5D, SoundEvents.PORTAL_AMBIENT, SoundSource.BLOCKS, 0.5F, pRandom.nextFloat() * 0.4F - 3F, false);
+    public void animateTick(BlockState pState, Level pLevel, BlockPos pPos, RandomSource pRandom){
+        if(pRandom.nextInt(100) == 0){
+            pLevel.playLocalSound((double)pPos.getX() + 0.5D, (double)pPos.getY() + 0.5D, (double)pPos.getZ() + 0.5D, SoundEvents.PORTAL_AMBIENT, SoundSource.BLOCKS, 0.5F, pRandom.nextFloat() * 0.4F - 3F, false);
         }
 
-        for (int i = 0; i < 0.8f; ++i) {
-            double d0 = (double) pPos.getX() + pRandom.nextDouble();
-            double d1 = (double) pPos.getY() + pRandom.nextDouble();
-            double d2 = (double) pPos.getZ() + pRandom.nextDouble();
+        for(int i = 0; i < 0.8f; ++i){
+            double d0 = (double)pPos.getX() + pRandom.nextDouble();
+            double d1 = (double)pPos.getY() + pRandom.nextDouble();
+            double d2 = (double)pPos.getZ() + pRandom.nextDouble();
             double d3 = 0.0D;
             double d4 = 0.07D;
             double d5 = 0.0D;
@@ -59,17 +59,17 @@ public class ValoriaPortalBlock extends Block {
         }
     }
 
-    private void handlePortal(Entity player, BlockPos pPos) {
-        if (player.isOnPortalCooldown()) {
+    private void handlePortal(Entity player, BlockPos pPos){
+        if(player.isOnPortalCooldown()){
             player.setPortalCooldown();
-        } else if (player.level() instanceof ServerLevel serverlevel) {
+        }else if(player.level() instanceof ServerLevel serverlevel){
             MinecraftServer minecraftserver = serverlevel.getServer();
             ResourceKey<Level> resourcekey = player.level().dimension() == LevelGen.VALORIA_KEY ? Level.OVERWORLD : LevelGen.VALORIA_KEY;
             ServerLevel portalDimension = minecraftserver.getLevel(resourcekey);
-            if (portalDimension != null && !player.isPassenger()) {
-                if (resourcekey == LevelGen.VALORIA_KEY) {
+            if(portalDimension != null && !player.isPassenger()){
+                if(resourcekey == LevelGen.VALORIA_KEY){
                     player.changeDimension(portalDimension, new ValoriaTeleporter(pPos, true));
-                } else {
+                }else{
                     player.changeDimension(portalDimension, new ValoriaTeleporter(pPos, false));
                 }
 
@@ -78,13 +78,13 @@ public class ValoriaPortalBlock extends Block {
         }
     }
 
-    public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pFacingPos) {
+    public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pFacingPos){
         BlockPattern.BlockPatternMatch frame = ValoriaPortalFrame.getOrCreatePortalShape().find(pLevel, pCurrentPos);
-        if (frame != null) {
-            for(int i = 0; i < 3; ++i) {
-                for (int j = 0; j < 3; ++j) {
+        if(frame != null){
+            for(int i = 0; i < 3; ++i){
+                for(int j = 0; j < 3; ++j){
                     BlockPos blockpos1 = frame.getFrontTopLeft().offset(-3, 0, -3);
-                    if (pLevel.isEmptyBlock(blockpos1.offset(i, 0, j))) {
+                    if(pLevel.isEmptyBlock(blockpos1.offset(i, 0, j))){
                         return Blocks.AIR.defaultBlockState();
                     }
                 }
@@ -95,9 +95,9 @@ public class ValoriaPortalBlock extends Block {
     }
 
     @Override
-    public void neighborChanged(BlockState state, Level world, BlockPos pos, Block block, BlockPos pos2, boolean unknown) {
+    public void neighborChanged(BlockState state, Level world, BlockPos pos, Block block, BlockPos pos2, boolean unknown){
         BlockPattern.BlockPatternMatch frame = ValoriaPortalFrame.getOrCreatePortalShape().find(world, pos);
-        if (frame == null && world.dimension() != LevelGen.VALORIA_KEY) {
+        if(frame == null && world.dimension() != LevelGen.VALORIA_KEY){
             world.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
         }
     }

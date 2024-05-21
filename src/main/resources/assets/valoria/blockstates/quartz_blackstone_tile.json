@@ -1,11 +1,21 @@
 {
   "variants": {
-		"": [
-			{ "model" : "valoria:block/quartz_blackstone_tile" },
-			{  "model" : "valoria:block/quartz_blackstone_tile1" },
-			{	"model" : "valoria:block/quartz_blackstone_tile2" },
-			{	"model" : "valoria:block/quartz_blackstone_tile3" },
-			{	"model" : "valoria:block/quartz_blackstone_tile3" }
-		]
-	}
+    "": [
+      {
+        "model": "valoria:block/quartz_blackstone_tile"
+      },
+      {
+        "model": "valoria:block/quartz_blackstone_tile1"
+      },
+      {
+        "model": "valoria:block/quartz_blackstone_tile2"
+      },
+      {
+        "model": "valoria:block/quartz_blackstone_tile3"
+      },
+      {
+        "model": "valoria:block/quartz_blackstone_tile3"
+      }
+    ]
+  }
 }

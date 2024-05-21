@@ -1,48 +1,47 @@
 package com.idark.valoria.client.gui.screen.book;
 
 
-import com.google.common.collect.Lists;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import com.google.common.collect.*;
+import net.minecraftforge.api.distmarker.*;
 
-import java.util.List;
+import java.util.*;
 
 @OnlyIn(Dist.CLIENT)
-public class Chapter {
+public class Chapter{
     public String titleKey;
     public List<Page> pages;
 
-    public Chapter(String titleKey, Page... pages) {
+    public Chapter(String titleKey, Page... pages){
         this.titleKey = titleKey;
         this.pages = Lists.newArrayList(pages);
     }
 
-    public Page getPage(int i) {
-        if (i >= size()) return null;
+    public Page getPage(int i){
+        if(i >= size()) return null;
         return pages.get(i);
     }
 
-    public int size() {
+    public int size(){
         return pages.size();
     }
 
-    public void setPage(int i, Page page) {
+    public void setPage(int i, Page page){
         pages.set(i, page);
     }
 
-    public void addPage(int i, Page page) {
+    public void addPage(int i, Page page){
         pages.add(i, page);
     }
 
-    public void addPage(Page page) {
+    public void addPage(Page page){
         pages.add(page);
     }
 
-    public void removePage(Page page) {
+    public void removePage(Page page){
         pages.remove(page);
     }
 
-    public void removePage(int i) {
+    public void removePage(int i){
         pages.remove(i);
     }
 }

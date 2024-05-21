@@ -1,5 +1,7 @@
 {
-  "variants" : {
-    "" : { "model": "valoria:block/awakened_void_block" }
+  "variants": {
+    "": {
+      "model": "valoria:block/awakened_void_block"
+    }
   }
 }

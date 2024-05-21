@@ -1,8 +1,16 @@
 {
   "variants": {
-    "age=0": { "model" : "valoria:block/umbral_activator" },
-    "age=1": { "model" : "valoria:block/umbral_block" },
-    "age=2": { "model" : "valoria:block/umbral_block" },
-    "age=3": { "model" : "valoria:block/umbral_block" }
+    "age=0": {
+      "model": "valoria:block/umbral_activator"
+    },
+    "age=1": {
+      "model": "valoria:block/umbral_block"
+    },
+    "age=2": {
+      "model": "valoria:block/umbral_block"
+    },
+    "age=3": {
+      "model": "valoria:block/umbral_block"
+    }
   }
 }

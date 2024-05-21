@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": { "model" : "valoria:block/potted_dried_plant" }
+    "": {
+      "model": "valoria:block/potted_dried_plant"
+    }
   }
 }

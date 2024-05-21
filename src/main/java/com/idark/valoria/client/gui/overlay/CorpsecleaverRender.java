@@ -1,49 +1,47 @@
 package com.idark.valoria.client.gui.overlay;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.core.config.ClientConfig;
-import com.mojang.blaze3d.platform.GlStateManager;
-import com.mojang.blaze3d.platform.Lighting;
-import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.RenderGuiOverlayEvent;
-import net.minecraftforge.event.TickEvent;
+import com.idark.valoria.*;
+import com.idark.valoria.core.config.*;
+import com.mojang.blaze3d.platform.*;
+import com.mojang.blaze3d.systems.*;
+import net.minecraft.client.*;
+import net.minecraft.client.gui.*;
+import net.minecraft.resources.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraftforge.api.distmarker.*;
+import net.minecraftforge.client.event.*;
+import net.minecraftforge.event.*;
 
 @OnlyIn(Dist.CLIENT)
-public class CorpsecleaverRender {
+public class CorpsecleaverRender{
 
-    private CorpsecleaverRender() {
+    private CorpsecleaverRender(){
     }
 
     public static boolean isThrow = false;
     public static int ThrowTime = 0;
 
-    public static void tick(TickEvent.ClientTickEvent event) {
-        if (isThrow) {
-            if (ThrowTime < 35) {
+    public static void tick(TickEvent.ClientTickEvent event){
+        if(isThrow){
+            if(ThrowTime < 35){
                 ThrowTime = ThrowTime + 1;
-            } else {
+            }else{
                 ThrowTime = 0;
                 isThrow = false;
             }
         }
     }
 
-    public static void showOverlay(Player playerEntity) {
-        if (ClientConfig.BLOOD_OVERLAY.get() || !playerEntity.isCreative()) {
+    public static void showOverlay(Player playerEntity){
+        if(ClientConfig.BLOOD_OVERLAY.get() || !playerEntity.isCreative()){
             CorpsecleaverRender.isThrow = true;
         }
     }
 
     private static final ResourceLocation BLOOD = new ResourceLocation(Valoria.ID + ":textures/gui/overlay/blood.png");
 
-    public static void onDrawScreenPost(RenderGuiOverlayEvent.Post event) {
-        if (ThrowTime > 0) {
+    public static void onDrawScreenPost(RenderGuiOverlayEvent.Post event){
+        if(ThrowTime > 0){
             Minecraft mc = Minecraft.getInstance();
             GuiGraphics gui = event.getGuiGraphics();
 
@@ -56,11 +54,11 @@ public class CorpsecleaverRender {
             float ticks = ThrowTime + event.getPartialTick();
             float alpha = 0.5F;
 
-            if (ticks < 10) {
+            if(ticks < 10){
                 alpha = 5 / ticks;
             }
 
-            if (ticks >= 20) {
+            if(ticks >= 20){
                 alpha = 0.1F - ((ticks - 20) / 15);
             }
 

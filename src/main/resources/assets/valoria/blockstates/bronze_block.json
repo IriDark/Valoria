@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": { "model" : "valoria:block/bronze_block" }
+    "": {
+      "model": "valoria:block/bronze_block"
+    }
   }
 }

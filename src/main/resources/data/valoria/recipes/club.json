@@ -1,20 +1,20 @@
 {
-    "type": "minecraft:crafting_shaped",
-    "pattern": [
-        "/",
-        "X",
-        "/"
-    ],
-    "key": {
-        "X": {
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "/",
+    "X",
+    "/"
+  ],
+  "key": {
+    "X": {
       "tag": "minecraft:logs"
-        },
-        "/": {
-            "item": "minecraft:stick"
-        }
     },
-    "result": {
-        "item": "valoria:club",
-        "count": 1
+    "/": {
+      "item": "minecraft:stick"
     }
+  },
+  "result": {
+    "item": "valoria:club",
+    "count": 1
+  }
 }

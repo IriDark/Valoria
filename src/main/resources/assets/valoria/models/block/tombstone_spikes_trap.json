@@ -1,12 +1,12 @@
 {
-    "parent": "block/cube",
-    "textures": {
-	    "up": "valoria:block/tombstone_spikes_trap",
-	    "particle": "valoria:block/polished_tombstone",
-		"north": "valoria:block/polished_tombstone",
-		"south": "valoria:block/polished_tombstone",
-		"east": "valoria:block/polished_tombstone",
-		"west": "valoria:block/polished_tombstone",
-	    "down": "valoria:block/polished_tombstone"
-    }
+  "parent": "block/cube",
+  "textures": {
+    "up": "valoria:block/tombstone_spikes_trap",
+    "particle": "valoria:block/polished_tombstone",
+    "north": "valoria:block/polished_tombstone",
+    "south": "valoria:block/polished_tombstone",
+    "east": "valoria:block/polished_tombstone",
+    "west": "valoria:block/polished_tombstone",
+    "down": "valoria:block/polished_tombstone"
+  }
 }

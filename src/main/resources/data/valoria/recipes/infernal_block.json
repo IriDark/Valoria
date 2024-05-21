@@ -1,17 +1,17 @@
 {
-    "type": "minecraft:crafting_shaped",
-    "pattern": [
-        "///",
-        "///",
-        "///"
-    ],
-    "key": {
-        "/": {
-            "item": "valoria:infernal_ingot"
-        }
-    },
-    "result": {
-        "item": "valoria:infernal_block",
-        "count": 1
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "///",
+    "///",
+    "///"
+  ],
+  "key": {
+    "/": {
+      "item": "valoria:infernal_ingot"
     }
+  },
+  "result": {
+    "item": "valoria:infernal_block",
+    "count": 1
+  }
 }

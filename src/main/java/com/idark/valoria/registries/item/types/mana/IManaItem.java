@@ -1,6 +1,6 @@
 package com.idark.valoria.registries.item.types.mana;
 
-public interface IManaItem {
+public interface IManaItem{
     int getMaxMana();
 
     ManaItemType getManaItemType();

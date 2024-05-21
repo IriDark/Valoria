@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": { "model" : "valoria:block/void_firecharge_trap" }
+    "": {
+      "model": "valoria:block/void_firecharge_trap"
+    }
   }
 }

@@ -14,12 +14,12 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
-public class SpectralBladeRenderer<T extends SpectralBladeEntity> extends EntityRenderer<T> {
-    public SpectralBladeRenderer(EntityRendererProvider.Context context) {
+public class SpectralBladeRenderer<T extends SpectralBladeEntity> extends EntityRenderer<T>{
+    public SpectralBladeRenderer(EntityRendererProvider.Context context){
         super(context);
     }
 
-    public void render(SpectralBladeEntity entityIn, float entityYaw, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light) {
+    public void render(SpectralBladeEntity entityIn, float entityYaw, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light){
         ms.pushPose();
         ms.mulPose(Axis.YP.rotationDegrees(Mth.lerp(partialTicks, entityIn.yRotO, entityIn.getYRot()) + 90.0F));
         ms.mulPose(Axis.XP.rotationDegrees(90F));
@@ -29,7 +29,7 @@ public class SpectralBladeRenderer<T extends SpectralBladeEntity> extends Entity
         ms.popPose();
     }
 
-    public ResourceLocation getTextureLocation(SpectralBladeEntity entity) {
+    public ResourceLocation getTextureLocation(SpectralBladeEntity entity){
         return null;
     }
 }

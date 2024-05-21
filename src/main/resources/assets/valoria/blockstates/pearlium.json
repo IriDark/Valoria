@@ -1,5 +1,7 @@
 {
-  "variants" : {
-    "" : { "model": "valoria:block/pearlium" }
+  "variants": {
+    "": {
+      "model": "valoria:block/pearlium"
+    }
   }
 }

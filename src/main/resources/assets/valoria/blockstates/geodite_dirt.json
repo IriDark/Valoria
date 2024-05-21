@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": { "model" : "valoria:block/geodite_dirt" }
+    "": {
+      "model": "valoria:block/geodite_dirt"
+    }
   }
 }

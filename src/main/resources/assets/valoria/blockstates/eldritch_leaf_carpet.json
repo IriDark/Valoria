@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": { "model" : "valoria:block/eldritch_leaf_carpet" }
+    "": {
+      "model": "valoria:block/eldritch_leaf_carpet"
+    }
   }
 }

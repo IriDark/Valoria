@@ -1,6 +1,6 @@
 {
-    "parent" : "item/handheld",
-    "textures" : {
-        "layer0" : "valoria:item/infernal_hoe"
-    }
+  "parent": "item/handheld",
+  "textures": {
+    "layer0": "valoria:item/infernal_hoe"
+  }
 }

@@ -1,9 +1,9 @@
 package com.idark.valoria.registries.item.types;
 
-import net.minecraft.world.item.Item;
-import net.minecraftforge.registries.RegistryObject;
+import net.minecraft.world.item.*;
+import net.minecraftforge.registries.*;
 
-public class CoreItem extends Item {
+public class CoreItem extends Item{
 
     private final int givenCores;
     private final int[] color;
@@ -14,7 +14,7 @@ public class CoreItem extends Item {
      * @param pColor (R, G, B)
      * @param pCoreID Core name
      */
-    public CoreItem(Properties pProperties, int pGivenCores, int[] pColor, String pCoreID) {
+    public CoreItem(Properties pProperties, int pGivenCores, int[] pColor, String pCoreID){
         super(pProperties);
         givenCores = pGivenCores;
         color = pColor;
@@ -25,22 +25,22 @@ public class CoreItem extends Item {
      * @param pGivenCores Max value: 8
      * @param pColor (R, G, B)
      */
-    public CoreItem(Properties pProperties, int pGivenCores, int[] pColor, RegistryObject<Item> item) {
+    public CoreItem(Properties pProperties, int pGivenCores, int[] pColor, RegistryObject<Item> item){
         super(pProperties);
         givenCores = pGivenCores;
         color = pColor;
         coreName = item.getId().getPath();
     }
 
-    public String getCoreName() {
+    public String getCoreName(){
         return coreName;
     }
 
-    public int[] getCoreColor() {
+    public int[] getCoreColor(){
         return color;
     }
 
-    public int getGivenCores() {
+    public int getGivenCores(){
         return givenCores;
     }
 }

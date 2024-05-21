@@ -1,33 +1,27 @@
 package com.idark.valoria.core.mixin.client;
 
 
-import com.idark.valoria.ValoriaClient;
-import com.idark.valoria.client.render.curio.model.HandsModel;
-import com.idark.valoria.registries.item.types.curio.GlovesItem;
-import com.idark.valoria.registries.item.types.curio.ICurioTexture;
-import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.PlayerModel;
-import net.minecraft.client.model.geom.ModelPart;
-import net.minecraft.client.player.AbstractClientPlayer;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.LivingEntityRenderer;
-import net.minecraft.client.renderer.entity.player.PlayerRenderer;
-import net.minecraft.client.renderer.texture.OverlayTexture;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import top.theillusivec4.curios.api.CuriosApi;
-import top.theillusivec4.curios.api.SlotResult;
+import com.idark.valoria.*;
+import com.idark.valoria.client.render.curio.model.*;
+import com.idark.valoria.registries.item.types.curio.*;
+import com.mojang.blaze3d.vertex.*;
+import net.minecraft.client.*;
+import net.minecraft.client.model.*;
+import net.minecraft.client.model.geom.*;
+import net.minecraft.client.player.*;
+import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.entity.*;
+import net.minecraft.client.renderer.entity.player.*;
+import net.minecraft.client.renderer.texture.*;
+import org.spongepowered.asm.mixin.*;
+import org.spongepowered.asm.mixin.injection.*;
+import org.spongepowered.asm.mixin.injection.callback.*;
+import top.theillusivec4.curios.api.*;
 
-import java.util.List;
+import java.util.*;
 
 @Mixin(PlayerRenderer.class)
-public abstract class PlayerRendererMixin extends LivingEntityRenderer<AbstractClientPlayer, PlayerModel<AbstractClientPlayer>> {
+public abstract class PlayerRendererMixin extends LivingEntityRenderer<AbstractClientPlayer, PlayerModel<AbstractClientPlayer>>{
 
     @Shadow
     protected abstract void setupRotations(AbstractClientPlayer entityLiving, PoseStack matrixStack, float ageInTicks, float rotationYaw, float partialTicks);
@@ -35,17 +29,17 @@ public abstract class PlayerRendererMixin extends LivingEntityRenderer<AbstractC
     @Shadow
     protected abstract void setModelProperties(AbstractClientPlayer clientPlayer);
 
-    public PlayerRendererMixin(EntityRendererProvider.Context context, PlayerModel<AbstractClientPlayer> model, float shadowRadius) {
+    public PlayerRendererMixin(EntityRendererProvider.Context context, PlayerModel<AbstractClientPlayer> model, float shadowRadius){
         super(context, model, shadowRadius);
     }
 
     @Inject(method = "renderHand", at = @At("HEAD"))
-    private void valoria$renderHand(PoseStack pPose, MultiBufferSource pBuffer, int pLight, AbstractClientPlayer pPlayer, ModelPart pArm, ModelPart pWear, CallbackInfo ci) {
+    private void valoria$renderHand(PoseStack pPose, MultiBufferSource pBuffer, int pLight, AbstractClientPlayer pPlayer, ModelPart pArm, ModelPart pWear, CallbackInfo ci){
         List<SlotResult> curioSlots = CuriosApi.getCuriosHelper().findCurios(pPlayer, (i) -> true);
-        for (SlotResult slot : curioSlots) {
-            if (slot.slotContext().cosmetic() || slot.slotContext().visible()) {
-                if (slot.stack().getItem() instanceof ICurioTexture item) {
-                    if (item instanceof GlovesItem) {
+        for(SlotResult slot : curioSlots){
+            if(slot.slotContext().cosmetic() || slot.slotContext().visible()){
+                if(slot.stack().getItem() instanceof ICurioTexture item){
+                    if(item instanceof GlovesItem){
                         var playerModel = getModel();
 
                         setModelProperties(pPlayer);
@@ -57,13 +51,13 @@ public abstract class PlayerRendererMixin extends LivingEntityRenderer<AbstractC
 
                         var pRenderLayer = playerModel.slim ? ValoriaClient.HANDS_LAYER_SLIM : ValoriaClient.HANDS_LAYER;
                         var pTexture = item.getTexture(slot.stack(), pPlayer);
-                        if (pRenderLayer == null || pTexture == null) return;
+                        if(pRenderLayer == null || pTexture == null) return;
 
                         var pModel = new HandsModel(Minecraft.getInstance().getEntityModels().bakeLayer(pRenderLayer));
-                        if (pArm == pModel.right_glove) {
+                        if(pArm == pModel.right_glove){
                             pModel.right_glove.copyFrom(pArm);
                             pModel.right_glove.render(pPose, pBuffer.getBuffer(RenderType.entityTranslucent(pTexture)), pLight, OverlayTexture.NO_OVERLAY);
-                        } else {
+                        }else{
                             pModel.left_glove.copyFrom(pArm);
                             pModel.left_glove.render(pPose, pBuffer.getBuffer(RenderType.entityTranslucent(pTexture)), pLight, OverlayTexture.NO_OVERLAY);
                         }

@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": { "model" : "valoria:block/polished_void_stone" }
+    "": {
+      "model": "valoria:block/polished_void_stone"
+    }
   }
 }

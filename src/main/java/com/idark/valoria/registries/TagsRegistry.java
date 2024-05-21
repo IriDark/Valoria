@@ -9,21 +9,21 @@ import net.minecraft.world.entity.decoration.PaintingVariant;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 
-public class TagsRegistry {
+public class TagsRegistry{
 
-    public static TagKey<Item> item(final ResourceLocation name) {
+    public static TagKey<Item> item(final ResourceLocation name){
         return TagKey.create(Registries.ITEM, name);
     }
 
-    public static TagKey<Block> block(final ResourceLocation name) {
+    public static TagKey<Block> block(final ResourceLocation name){
         return TagKey.create(Registries.BLOCK, name);
     }
 
-    private static TagKey<DamageType> damage(final ResourceLocation name) {
+    private static TagKey<DamageType> damage(final ResourceLocation name){
         return TagKey.create(Registries.DAMAGE_TYPE, name);
     }
 
-    public static TagKey<PaintingVariant> painting(final ResourceLocation name) {
+    public static TagKey<PaintingVariant> painting(final ResourceLocation name){
         return TagKey.create(Registries.PAINTING_VARIANT, name);
     }
 

@@ -1,44 +1,42 @@
 package com.idark.valoria.client.gui.screen.book;
 
-import com.idark.valoria.client.gui.screen.book.pages.MainPage;
-import com.idark.valoria.client.gui.screen.book.pages.TextPage;
-import com.idark.valoria.client.gui.screen.book.unlockable.RegisterUnlockables;
-import com.idark.valoria.registries.ItemsRegistry;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.Items;
+import com.idark.valoria.client.gui.screen.book.pages.*;
+import com.idark.valoria.client.gui.screen.book.unlockable.*;
+import com.idark.valoria.registries.*;
+import net.minecraft.network.chat.*;
+import net.minecraft.world.item.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
-public class LexiconChapters {
+public class LexiconChapters{
     public static List<Bookmark> categories = new ArrayList<>();
     public static Bookmark LEXICON, TREASURES, MEDICINE, CRYPT;
     public static Chapter MAIN_CHAPTER, TREASURES_CHAPTER, MEDICINE_CHAPTER, CRYPT_CHAPTER;
 
-    public static void init() {
+    public static void init(){
         MAIN_CHAPTER = new Chapter(
-                "gui.valoria.main.name",
-                new MainPage("gui.valoria.main"),
-                new TextPage("gui.valoria.knowledge")
-                        .withCraftEntry(ItemsRegistry.LEXICON.get().getDefaultInstance(), Items.PAPER.getDefaultInstance(), Items.BOOK.getDefaultInstance())
+        "gui.valoria.main.name",
+        new MainPage("gui.valoria.main"),
+        new TextPage("gui.valoria.knowledge")
+        .withCraftEntry(ItemsRegistry.LEXICON.get().getDefaultInstance(), Items.PAPER.getDefaultInstance(), Items.BOOK.getDefaultInstance())
         );
 
         TREASURES_CHAPTER = new Chapter(
-                "gui.valoria.jewelry",
-                new TextPage("gui.valoria.treasures"),
-                new TextPage("gui.valoria.treasure.gems"),
-                new TextPage("gui.valoria.treasure.gems.about")
-                        .withCustomTitle("gui.valoria.treasure.gems.name")
+        "gui.valoria.jewelry",
+        new TextPage("gui.valoria.treasures"),
+        new TextPage("gui.valoria.treasure.gems"),
+        new TextPage("gui.valoria.treasure.gems.about")
+        .withCustomTitle("gui.valoria.treasure.gems.name")
         );
 
         MEDICINE_CHAPTER = new Chapter(
-                "gui.valoria.medicine",
-                new TextPage("gui.valoria.medicine")
+        "gui.valoria.medicine",
+        new TextPage("gui.valoria.medicine")
         );
 
         CRYPT_CHAPTER = new Chapter(
-                "gui.valoria.crypt.name",
-                new TextPage("gui.valoria.crypt")
+        "gui.valoria.crypt.name",
+        new TextPage("gui.valoria.crypt")
         );
 
         LEXICON = new Bookmark(0, ItemsRegistry.LEXICON.get(), Component.translatable("gui.valoria.main.name"), MAIN_CHAPTER);

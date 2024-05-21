@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": { "model" : "valoria:block/crystal_stone_bricks" }
+    "": {
+      "model": "valoria:block/crystal_stone_bricks"
+    }
   }
 }

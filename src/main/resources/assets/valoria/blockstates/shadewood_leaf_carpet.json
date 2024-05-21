@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": { "model" : "valoria:block/shadewood_leaf_carpet" }
+    "": {
+      "model": "valoria:block/shadewood_leaf_carpet"
+    }
   }
 }

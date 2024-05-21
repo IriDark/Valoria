@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": { "model" : "valoria:block/elemental_sphere" }
+    "": {
+      "model": "valoria:block/elemental_sphere"
+    }
   }
 }

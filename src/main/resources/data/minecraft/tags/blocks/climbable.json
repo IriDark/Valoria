@@ -1,7 +1,13 @@
 {
   "replace": false,
   "values": [
-    { "id": "valoria:shadewood_ladder", "required":  false },
-    { "id": "valoria:eldritch_ladder", "required":  false }
+    {
+      "id": "valoria:shadewood_ladder",
+      "required": false
+    },
+    {
+      "id": "valoria:eldritch_ladder",
+      "required": false
+    }
   ]
 }

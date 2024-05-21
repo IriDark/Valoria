@@ -6,13 +6,13 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class ModChestBlockEntity extends ChestBlockEntity {
-    public ModChestBlockEntity(BlockPos pPos, BlockState pBlockState) {
+public class ModChestBlockEntity extends ChestBlockEntity{
+    public ModChestBlockEntity(BlockPos pPos, BlockState pBlockState){
         super(QuarkIntegration.LoadedOnly.CHEST_BLOCK_ENTITY.get(), pPos, pBlockState);
     }
 
     @Override
-    public BlockEntityType<?> getType() {
+    public BlockEntityType<?> getType(){
         return QuarkIntegration.LoadedOnly.CHEST_BLOCK_ENTITY.get();
     }
 }

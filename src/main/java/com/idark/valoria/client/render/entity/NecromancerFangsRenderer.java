@@ -17,20 +17,20 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
-public class NecromancerFangsRenderer extends EntityRenderer<NecromancerFangs> {
+public class NecromancerFangsRenderer extends EntityRenderer<NecromancerFangs>{
     protected static final ResourceLocation TEXTURE = new ResourceLocation(Valoria.ID, "textures/entity/necromancer_fangs.png");
     private final EvokerFangsModel<NecromancerFangs> model;
 
-    public NecromancerFangsRenderer(EntityRendererProvider.Context pContext) {
+    public NecromancerFangsRenderer(EntityRendererProvider.Context pContext){
         super(pContext);
         this.model = new EvokerFangsModel<>(pContext.bakeLayer(ModelLayers.EVOKER_FANGS));
     }
 
-    public void render(NecromancerFangs pEntity, float pEntityYaw, float pPartialTicks, @NotNull PoseStack pMatrixStack, @NotNull MultiBufferSource pBuffer, int pPackedLight) {
+    public void render(NecromancerFangs pEntity, float pEntityYaw, float pPartialTicks, @NotNull PoseStack pMatrixStack, @NotNull MultiBufferSource pBuffer, int pPackedLight){
         float f = pEntity.getAnimationProgress(pPartialTicks);
-        if (f != 0.0F) {
+        if(f != 0.0F){
             float f1 = 2.0F;
-            if (f > 0.9F) {
+            if(f > 0.9F){
                 f1 *= (1.0F - f) / 0.1F;
             }
 
@@ -50,7 +50,7 @@ public class NecromancerFangsRenderer extends EntityRenderer<NecromancerFangs> {
     /**
      * Returns the location of an entity's texture.
      */
-    public @NotNull ResourceLocation getTextureLocation(@NotNull NecromancerFangs pEntity) {
+    public @NotNull ResourceLocation getTextureLocation(@NotNull NecromancerFangs pEntity){
         return TEXTURE;
     }
 }

@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": { "model" : "valoria:block/amethyst_block" }
+    "": {
+      "model": "valoria:block/amethyst_block"
+    }
   }
 }

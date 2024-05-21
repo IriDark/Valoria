@@ -170,28 +170,94 @@
     "valoria:amethyst_crystal",
     "valoria:ruby_crystal",
     "valoria:sapphire_crystal",
-    { "id": "valoria:bronze_block_vertical_slab", "required": false },
-    { "id": "valoria:cut_bronze_vertical_slab", "required": false },
-    { "id": "valoria:ambane_stone_vertical_slab", "required": false },
-    { "id": "valoria:polished_ambane_stone_vertical_slab", "required": false },
-    { "id": "valoria:dunestone_vertical_slab", "required": false },
-    { "id": "valoria:dunestone_bricks_vertical_slab", "required": false },
-    { "id": "valoria:limestone_vertical_slab", "required": false },
-    { "id": "valoria:limestone_bricks_vertical_slab", "required": false },
-    { "id": "valoria:cut_limestone_vertical_slab", "required": false },
-    { "id": "valoria:polished_limestone_vertical_slab", "required": false },
-    { "id": "valoria:crystal_stone_vertical_slab", "required": false },
-    { "id": "valoria:crystal_stone_bricks_vertical_slab", "required": false },
-    { "id": "valoria:tombstone_vertical_slab", "required": false },
-    { "id": "valoria:tombstone_bricks_vertical_slab", "required": false },
-    { "id": "valoria:deep_marble_vertical_slab", "required": false },
-    { "id": "valoria:polished_deep_marble_vertical_slab", "required": false },
-    { "id": "valoria:picrite_vertical_slab", "required": false },
-    { "id": "valoria:polished_picrite_vertical_slab", "required": false },
-    { "id": "valoria:void_stone_vertical_slab", "required": false },
-    { "id": "valoria:void_brick_vertical_slab", "required": false },
-    { "id": "valoria:cracked_void_brick_vertical_slab", "required": false },
-    { "id": "valoria:chiseled_void_bricks_vertical_slab", "required": false }
+    {
+      "id": "valoria:bronze_block_vertical_slab",
+      "required": false
+    },
+    {
+      "id": "valoria:cut_bronze_vertical_slab",
+      "required": false
+    },
+    {
+      "id": "valoria:ambane_stone_vertical_slab",
+      "required": false
+    },
+    {
+      "id": "valoria:polished_ambane_stone_vertical_slab",
+      "required": false
+    },
+    {
+      "id": "valoria:dunestone_vertical_slab",
+      "required": false
+    },
+    {
+      "id": "valoria:dunestone_bricks_vertical_slab",
+      "required": false
+    },
+    {
+      "id": "valoria:limestone_vertical_slab",
+      "required": false
+    },
+    {
+      "id": "valoria:limestone_bricks_vertical_slab",
+      "required": false
+    },
+    {
+      "id": "valoria:cut_limestone_vertical_slab",
+      "required": false
+    },
+    {
+      "id": "valoria:polished_limestone_vertical_slab",
+      "required": false
+    },
+    {
+      "id": "valoria:crystal_stone_vertical_slab",
+      "required": false
+    },
+    {
+      "id": "valoria:crystal_stone_bricks_vertical_slab",
+      "required": false
+    },
+    {
+      "id": "valoria:tombstone_vertical_slab",
+      "required": false
+    },
+    {
+      "id": "valoria:tombstone_bricks_vertical_slab",
+      "required": false
+    },
+    {
+      "id": "valoria:deep_marble_vertical_slab",
+      "required": false
+    },
+    {
+      "id": "valoria:polished_deep_marble_vertical_slab",
+      "required": false
+    },
+    {
+      "id": "valoria:picrite_vertical_slab",
+      "required": false
+    },
+    {
+      "id": "valoria:polished_picrite_vertical_slab",
+      "required": false
+    },
+    {
+      "id": "valoria:void_stone_vertical_slab",
+      "required": false
+    },
+    {
+      "id": "valoria:void_brick_vertical_slab",
+      "required": false
+    },
+    {
+      "id": "valoria:cracked_void_brick_vertical_slab",
+      "required": false
+    },
+    {
+      "id": "valoria:chiseled_void_bricks_vertical_slab",
+      "required": false
+    }
   ]
 }
 

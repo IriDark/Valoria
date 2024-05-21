@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": { "model" : "valoria:block/polished_ephemarite_low" }
+    "": {
+      "model": "valoria:block/polished_ephemarite_low"
+    }
   }
 }

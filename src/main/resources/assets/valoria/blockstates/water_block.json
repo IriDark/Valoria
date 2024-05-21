@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": { "model" : "valoria:block/water_block" }
+    "": {
+      "model": "valoria:block/water_block"
+    }
   }
 }

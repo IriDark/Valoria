@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": { "model" : "valoria:block/void_chiseled_bricks" }
+    "": {
+      "model": "valoria:block/void_chiseled_bricks"
+    }
   }
 }

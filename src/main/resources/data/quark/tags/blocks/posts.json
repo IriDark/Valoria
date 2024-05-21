@@ -1,9 +1,21 @@
 {
   "replace": false,
   "values": [
-    { "id": "valoria:eldritch_log_post", "required": false },
-    { "id": "valoria:stripped_eldritch_log_post", "required": false },
-    { "id": "valoria:shadelog_post", "required": false },
-    { "id": "valoria:stripped_shadelog_post", "required": false }
+    {
+      "id": "valoria:eldritch_log_post",
+      "required": false
+    },
+    {
+      "id": "valoria:stripped_eldritch_log_post",
+      "required": false
+    },
+    {
+      "id": "valoria:shadelog_post",
+      "required": false
+    },
+    {
+      "id": "valoria:stripped_shadelog_post",
+      "required": false
+    }
   ]
 }

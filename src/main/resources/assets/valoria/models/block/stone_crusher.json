@@ -1,12 +1,12 @@
 {
-    "parent": "block/cube",
-    "textures": {
-	    "up": "valoria:block/stonecrusher_top_geode",
-	    "particle": "valoria:block/stonecrusher_top_geode",
-		"north": "valoria:block/stonecrusher_side_1",
-		"south": "valoria:block/stonecrusher_side_1",
-		"east": "valoria:block/stonecrusher_side_0",
-		"west": "valoria:block/stonecrusher_side_1",
-	    "down": "valoria:block/stonecrusher_bottom"
-    }
+  "parent": "block/cube",
+  "textures": {
+    "up": "valoria:block/stonecrusher_top_geode",
+    "particle": "valoria:block/stonecrusher_top_geode",
+    "north": "valoria:block/stonecrusher_side_1",
+    "south": "valoria:block/stonecrusher_side_1",
+    "east": "valoria:block/stonecrusher_side_0",
+    "west": "valoria:block/stonecrusher_side_1",
+    "down": "valoria:block/stonecrusher_bottom"
+  }
 }

@@ -1,14 +1,12 @@
 package com.idark.valoria.core.capability;
 
-import com.idark.valoria.api.unlockable.Unlockable;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityManager;
-import net.minecraftforge.common.capabilities.CapabilityToken;
+import com.idark.valoria.api.unlockable.*;
+import net.minecraftforge.common.capabilities.*;
 
-import java.util.Set;
+import java.util.*;
 
-public interface IUnlockable {
-    Capability<IUnlockable> INSTANCE = CapabilityManager.get(new CapabilityToken<>() {
+public interface IUnlockable{
+    Capability<IUnlockable> INSTANCE = CapabilityManager.get(new CapabilityToken<>(){
     });
 
     boolean isUnlockable(Unlockable unlockable);

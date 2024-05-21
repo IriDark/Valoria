@@ -9,15 +9,15 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class AbstractValoriaArrowRenderer<T extends AbstractValoriaArrow> extends ArrowRenderer<T> {
+public class AbstractValoriaArrowRenderer<T extends AbstractValoriaArrow> extends ArrowRenderer<T>{
 
-    public AbstractValoriaArrowRenderer(EntityRendererProvider.Context context) {
+    public AbstractValoriaArrowRenderer(EntityRendererProvider.Context context){
         super(context);
     }
 
     @Override
-    public ResourceLocation getTextureLocation(T arrow) {
-        if (arrow instanceof IProjectileTexture texture) {
+    public ResourceLocation getTextureLocation(T arrow){
+        if(arrow instanceof IProjectileTexture texture){
             return texture.getTexture();
         }
 

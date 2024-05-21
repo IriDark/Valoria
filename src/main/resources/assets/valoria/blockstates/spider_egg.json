@@ -1,5 +1,7 @@
 {
-  "variants" : {
-    "" : { "model": "valoria:block/spider_egg" }
+  "variants": {
+    "": {
+      "model": "valoria:block/spider_egg"
+    }
   }
 }

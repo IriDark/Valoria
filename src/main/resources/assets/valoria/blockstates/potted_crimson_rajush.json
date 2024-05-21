@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": { "model" : "valoria:block/potted_crimson_rajush" }
+    "": {
+      "model": "valoria:block/potted_crimson_rajush"
+    }
   }
 }

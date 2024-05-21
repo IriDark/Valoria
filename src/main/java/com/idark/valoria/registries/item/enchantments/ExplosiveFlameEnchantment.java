@@ -1,17 +1,16 @@
 package com.idark.valoria.registries.item.enchantments;
 
-import com.idark.valoria.registries.EnchantmentsRegistry;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.Enchantments;
+import com.idark.valoria.registries.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.item.enchantment.*;
 
-public class ExplosiveFlameEnchantment extends Enchantment {
+public class ExplosiveFlameEnchantment extends Enchantment{
 
-    public ExplosiveFlameEnchantment() {
+    public ExplosiveFlameEnchantment(){
         super(Rarity.RARE, EnchantmentsRegistry.BLAZE, new EquipmentSlot[]{EquipmentSlot.MAINHAND});
     }
 
-    public boolean checkCompatibility(Enchantment pEnchantment) {
+    public boolean checkCompatibility(Enchantment pEnchantment){
         return super.checkCompatibility(pEnchantment) && pEnchantment != Enchantments.FIRE_ASPECT;
     }
 }

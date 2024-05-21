@@ -32,7 +32,6 @@
           }
         }
       ],
-
       "placement": [
         {
           "type": "minecraft:block_predicate_filter",
@@ -43,7 +42,6 @@
         }
       ]
     },
-
     "spread_width": 8,
     "spread_height": 4
   }

@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": { "model" : "valoria:block/quicksand" }
+    "": {
+      "model": "valoria:block/quicksand"
+    }
   }
 }

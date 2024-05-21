@@ -1,6 +1,6 @@
 {
-    "parent" : "item/handheld",
-    "textures" : {
-        "layer0" : "valoria:item/pot_long_mossy_handles"
-    }
+  "parent": "item/handheld",
+  "textures": {
+    "layer0": "valoria:item/pot_long_mossy_handles"
+  }
 }

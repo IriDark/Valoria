@@ -1,43 +1,42 @@
 package com.idark.valoria.registries.item.types;
 
-import com.google.common.collect.ImmutableList;
-import com.idark.valoria.util.RandomUtil;
-import com.idark.valoria.util.ValoriaUtils;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
+import com.google.common.collect.*;
+import com.idark.valoria.util.*;
+import net.minecraft.network.chat.*;
+import net.minecraft.world.effect.*;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.item.*;
-import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.NotNull;
+import net.minecraft.world.level.*;
+import org.jetbrains.annotations.*;
 
-import java.util.List;
+import java.util.*;
 
-public class HitEffectItem extends SwordItem {
+public class HitEffectItem extends SwordItem{
     public float chance = 1;
     public final ImmutableList<MobEffectInstance> effects;
-    public HitEffectItem(Tier tier, int attackDamageIn, float attackSpeedIn, Item.Properties builderIn, float pChance, MobEffectInstance... pEffects) {
+
+    public HitEffectItem(Tier tier, int attackDamageIn, float attackSpeedIn, Item.Properties builderIn, float pChance, MobEffectInstance... pEffects){
         super(tier, attackDamageIn, attackSpeedIn, builderIn);
         this.chance = pChance;
         this.effects = ImmutableList.copyOf(pEffects);
     }
 
-    public HitEffectItem(Tier tier, int attackDamageIn, float attackSpeedIn, Item.Properties builderIn, MobEffectInstance... pEffects) {
+    public HitEffectItem(Tier tier, int attackDamageIn, float attackSpeedIn, Item.Properties builderIn, MobEffectInstance... pEffects){
         super(tier, attackDamageIn, attackSpeedIn, builderIn);
         this.effects = ImmutableList.copyOf(pEffects);
     }
 
-    public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+    public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker){
         stack.hurtAndBreak(2, attacker, (entity) -> entity.broadcastBreakEvent(EquipmentSlot.MAINHAND));
-        if (!effects.isEmpty()) {
-            if (chance < 1 || chance != 0) {
-                for (MobEffectInstance effectInstance : effects) {
-                    if(RandomUtil.percentChance(chance)) {
+        if(!effects.isEmpty()){
+            if(chance < 1 || chance != 0){
+                for(MobEffectInstance effectInstance : effects){
+                    if(RandomUtil.percentChance(chance)){
                         target.addEffect(new MobEffectInstance(effectInstance));
                     }
                 }
-            } else {
-                for (MobEffectInstance effectInstance : effects) {
+            }else{
+                for(MobEffectInstance effectInstance : effects){
                     target.addEffect(new MobEffectInstance(effectInstance));
                 }
             }
@@ -47,7 +46,7 @@ public class HitEffectItem extends SwordItem {
     }
 
     @Override
-    public void appendHoverText(@NotNull ItemStack stack, Level world, @NotNull List<Component> tooltip, @NotNull TooltipFlag flags) {
+    public void appendHoverText(@NotNull ItemStack stack, Level world, @NotNull List<Component> tooltip, @NotNull TooltipFlag flags){
         super.appendHoverText(stack, world, tooltip, flags);
         ValoriaUtils.addEffectsTooltip(effects, tooltip, 1, chance);
     }

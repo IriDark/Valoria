@@ -19,7 +19,9 @@
     "crude"
   ],
   "material": {
-    "items": [ "valoria:amber_gem" ]
+    "items": [
+      "valoria:amber_gem"
+    ]
   },
   "requiredTools": {
     "hammer_dig": "minecraft:stone"

@@ -1,25 +1,23 @@
 package com.idark.valoria.client.render.entity;
 
-import com.idark.valoria.registries.entity.projectile.KunaiEntity;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Axis;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.entity.EntityRenderer;
-import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Mth;
-import net.minecraft.world.item.ItemDisplayContext;
-import net.minecraft.world.item.ItemStack;
+import com.idark.valoria.registries.entity.projectile.*;
+import com.mojang.blaze3d.vertex.*;
+import com.mojang.math.*;
+import net.minecraft.client.*;
+import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.entity.*;
+import net.minecraft.client.renderer.texture.*;
+import net.minecraft.resources.*;
+import net.minecraft.util.*;
+import net.minecraft.world.item.*;
 
-public class KunaiRenderer<T extends KunaiEntity> extends EntityRenderer<T> {
-    public KunaiRenderer(EntityRendererProvider.Context context) {
+public class KunaiRenderer<T extends KunaiEntity> extends EntityRenderer<T>{
+    public KunaiRenderer(EntityRendererProvider.Context context){
         super(context);
     }
 
-    public void render(KunaiEntity entityIn, float entityYaw, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light) {
-        if (!Minecraft.getInstance().isPaused() && !(entityIn.inGround || entityIn.onGround())) {
+    public void render(KunaiEntity entityIn, float entityYaw, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light){
+        if(!Minecraft.getInstance().isPaused() && !(entityIn.inGround || entityIn.onGround())){
             entityIn.rotationVelocity = Mth.lerp(partialTicks, entityIn.rotationVelocity, entityIn.rotationVelocity + 10);
         }
 
@@ -31,7 +29,7 @@ public class KunaiRenderer<T extends KunaiEntity> extends EntityRenderer<T> {
         ms.popPose();
     }
 
-    public ResourceLocation getTextureLocation(KunaiEntity entity) {
+    public ResourceLocation getTextureLocation(KunaiEntity entity){
         return null;
     }
 }

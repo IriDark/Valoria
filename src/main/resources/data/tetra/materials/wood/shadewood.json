@@ -19,7 +19,9 @@
     "wooden"
   ],
   "material": {
-    "items": [ "valoria:shadewood_planks" ]
+    "items": [
+      "valoria:shadewood_planks"
+    ]
   },
   "requiredTools": {
     "axe_dig": "minecraft:stone"

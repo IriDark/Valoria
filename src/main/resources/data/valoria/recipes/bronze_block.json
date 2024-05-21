@@ -1,17 +1,17 @@
 {
-    "type": "minecraft:crafting_shaped",
-    "pattern": [
-        "///",
-        "///",
-        "///"
-    ],
-    "key": {
-        "/": {
-            "item": "valoria:bronze_ingot"
-        }
-    },
-    "result": {
-        "item": "valoria:bronze_block",
-        "count": 1
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "///",
+    "///",
+    "///"
+  ],
+  "key": {
+    "/": {
+      "item": "valoria:bronze_ingot"
     }
+  },
+  "result": {
+    "item": "valoria:bronze_block",
+    "count": 1
+  }
 }

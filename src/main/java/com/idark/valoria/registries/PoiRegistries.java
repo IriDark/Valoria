@@ -9,13 +9,13 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
-public class PoiRegistries {
+public class PoiRegistries{
 
     public static final DeferredRegister<PoiType> POI = DeferredRegister.create(ForgeRegistries.POI_TYPES, Valoria.ID);
 
     public static final RegistryObject<PoiType> VALORIA_PORTAL = POI.register("arcana_portal", () -> new PoiType(ImmutableSet.copyOf(ForgeRegistries.BLOCKS.getValue(new ResourceLocation(Valoria.ID, "valoria_portal")).getStateDefinition().getPossibleStates()), 0, 1));
 
-    public static void register(IEventBus eventBus) {
+    public static void register(IEventBus eventBus){
         POI.register(eventBus);
     }
 }

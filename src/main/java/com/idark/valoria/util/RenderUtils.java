@@ -18,53 +18,63 @@ import org.joml.*;
 import org.lwjgl.opengl.*;
 
 import java.awt.*;
-import java.util.*;
 import java.lang.Math;
+import java.util.*;
 
-public class RenderUtils {
+public class RenderUtils{
     @OnlyIn(Dist.CLIENT)
     public static Matrix4f particleMVMatrix = null;
+
     @OnlyIn(Dist.CLIENT)
+    public static final RenderStateShard.TransparencyStateShard ADDITIVE_TRANSPARENCY = new RenderStateShard.TransparencyStateShard("lightning_transparency", () -> {
+        RenderSystem.enableBlend();
+        RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE);
+    }, () -> {
+        RenderSystem.disableBlend();
+        RenderSystem.defaultBlendFunc();
+    });
 
-    public static final RenderStateShard.TransparencyStateShard ADDITIVE_TRANSPARENCY = new RenderStateShard.TransparencyStateShard("lightning_transparency", () -> {RenderSystem.enableBlend();RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE);}, () -> {RenderSystem.disableBlend();RenderSystem.defaultBlendFunc();});
-    public static final RenderStateShard.TransparencyStateShard NORMAL_TRANSPARENCY = new RenderStateShard.TransparencyStateShard("lightning_transparency", () -> {RenderSystem.enableBlend();RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);}, () -> {RenderSystem.disableBlend();RenderSystem.defaultBlendFunc();});
+    public static final RenderStateShard.TransparencyStateShard NORMAL_TRANSPARENCY = new RenderStateShard.TransparencyStateShard("lightning_transparency", () -> {
+        RenderSystem.enableBlend();
+        RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
+    }, () -> {
+        RenderSystem.disableBlend();
+        RenderSystem.defaultBlendFunc();
+    });
 
-    public static final RenderType GLOWING = RenderType.create(
-            Valoria.ID + ":glowing",
-            DefaultVertexFormat.POSITION_COLOR,
-            VertexFormat.Mode.QUADS, 256, true, false,
-            RenderType.CompositeState.builder()
-                    .setWriteMaskState(new RenderStateShard.WriteMaskStateShard(true, false))
-                    .setLightmapState(new RenderStateShard.LightmapStateShard(false))
-                    .setTransparencyState(ADDITIVE_TRANSPARENCY)
-                    .setShaderState(new RenderStateShard.ShaderStateShard(ValoriaClient::getGlowingShader))
-                    .createCompositeState(false)
+    public static final RenderType GLOWING = RenderType.create(Valoria.ID + ":glowing",
+    DefaultVertexFormat.POSITION_COLOR,
+    VertexFormat.Mode.QUADS, 256, true, false,
+    RenderType.CompositeState.builder()
+    .setWriteMaskState(new RenderStateShard.WriteMaskStateShard(true, false))
+    .setLightmapState(new RenderStateShard.LightmapStateShard(false))
+    .setTransparencyState(ADDITIVE_TRANSPARENCY)
+    .setShaderState(new RenderStateShard.ShaderStateShard(ValoriaClient::getGlowingShader))
+    .createCompositeState(false)
     );
 
-    public static RenderType GLOWING_PARTICLE = RenderType.create(
-            Valoria.ID + ":glowing_particle",
-            DefaultVertexFormat.PARTICLE,
-            VertexFormat.Mode.QUADS, 256, true, false,
-            RenderType.CompositeState.builder()
-                    .setWriteMaskState(new RenderStateShard.WriteMaskStateShard(true, false))
-                    .setLightmapState(new RenderStateShard.LightmapStateShard(false))
-                    .setTransparencyState(ADDITIVE_TRANSPARENCY)
-                    .setTextureState(new RenderStateShard.TextureStateShard(TextureAtlas.LOCATION_PARTICLES, false, false))
-                    .setShaderState(new RenderStateShard.ShaderStateShard(ValoriaClient::getGlowingParticleShader))
-                    .createCompositeState(false));
+    public static RenderType GLOWING_PARTICLE = RenderType.create(Valoria.ID + ":glowing_particle",
+    DefaultVertexFormat.PARTICLE,
+    VertexFormat.Mode.QUADS, 256, true, false,
+    RenderType.CompositeState.builder()
+    .setWriteMaskState(new RenderStateShard.WriteMaskStateShard(true, false))
+    .setLightmapState(new RenderStateShard.LightmapStateShard(false))
+    .setTransparencyState(ADDITIVE_TRANSPARENCY)
+    .setTextureState(new RenderStateShard.TextureStateShard(TextureAtlas.LOCATION_PARTICLES, false, false))
+    .setShaderState(new RenderStateShard.ShaderStateShard(ValoriaClient::getGlowingParticleShader))
+    .createCompositeState(false));
 
-    public static RenderType DELAYED_PARTICLE = RenderType.create(
-            Valoria.ID + ":delayed_particle",
-            DefaultVertexFormat.PARTICLE,
-            VertexFormat.Mode.QUADS, 256, true, false,
-            RenderType.CompositeState.builder()
-                    .setWriteMaskState(new RenderStateShard.WriteMaskStateShard(true, false))
-                    .setTransparencyState(NORMAL_TRANSPARENCY)
-                    .setTextureState(new RenderStateShard.TextureStateShard(TextureAtlas.LOCATION_PARTICLES, false, false))
-                    .setShaderState(new RenderStateShard.ShaderStateShard(ValoriaClient::getSpriteParticleShader))
-                    .createCompositeState(false));
+    public static RenderType DELAYED_PARTICLE = RenderType.create(Valoria.ID + ":delayed_particle",
+    DefaultVertexFormat.PARTICLE,
+    VertexFormat.Mode.QUADS, 256, true, false,
+    RenderType.CompositeState.builder()
+    .setWriteMaskState(new RenderStateShard.WriteMaskStateShard(true, false))
+    .setTransparencyState(NORMAL_TRANSPARENCY)
+    .setTextureState(new RenderStateShard.TextureStateShard(TextureAtlas.LOCATION_PARTICLES, false, false))
+    .setShaderState(new RenderStateShard.ShaderStateShard(ValoriaClient::getSpriteParticleShader))
+    .createCompositeState(false));
 
-    public static void renderAura(PoseStack mStack, VertexConsumer builder, float radius, float size, int longs, Color color1, Color color2, float alpha1, float alpha2, boolean renderSide, boolean renderFloor) {
+    public static void renderAura(PoseStack mStack, VertexConsumer builder, float radius, float size, int longs, Color color1, Color color2, float alpha1, float alpha2, boolean renderSide, boolean renderFloor){
         float r1 = color1.getRed() / 255f;
         float g1 = color1.getGreen() / 255f;
         float b1 = color1.getBlue() / 255f;
@@ -76,31 +86,29 @@ public class RenderUtils {
         float startU = 0;
         float endU = Mth.PI * 2;
         float stepU = (endU - startU) / longs;
-        for (int i = 0; i < longs; ++i) {
+        for(int i = 0; i < longs; ++i){
             float u = i * stepU + startU;
             float un = (i + 1 == longs) ? endU : (i + 1) * stepU + startU;
-
             auraPiece(mStack, builder, radius, size, u, r2, g2, b2, alpha2);
             auraPiece(mStack, builder, radius, 0, u, r1, g2, b1, alpha1);
             auraPiece(mStack, builder, radius, 0, un, r1, g2, b1, alpha1);
             auraPiece(mStack, builder, radius, size, un, r2, g2, b2, alpha2);
-
-            if (renderSide) {
+            if(renderSide){
                 auraPiece(mStack, builder, radius, 0, u, r1, g2, b1, alpha1);
                 auraPiece(mStack, builder, radius, size, u, r2, g2, b2, alpha2);
                 auraPiece(mStack, builder, radius, size, un, r2, g2, b2, alpha2);
                 auraPiece(mStack, builder, radius, 0, un, r1, g2, b1, alpha1);
             }
 
-            if (renderFloor) {
-                auraPiece(mStack, builder, 0, 0, u,r2, g2, b2, alpha2);
+            if(renderFloor){
+                auraPiece(mStack, builder, 0, 0, u, r2, g2, b2, alpha2);
                 auraPiece(mStack, builder, 0, 0, un, r2, g2, b2, alpha2);
                 auraPiece(mStack, builder, radius, 0, u, r1, g1, b1, alpha1);
                 auraPiece(mStack, builder, radius, 0, un, r1, g1, b1, alpha1);
 
-                if (renderSide) {
+                if(renderSide){
                     auraPiece(mStack, builder, 0, 0, un, r2, g2, b2, alpha2);
-                    auraPiece(mStack, builder, 0, 0, u,r2, g2, b2, alpha2);
+                    auraPiece(mStack, builder, 0, 0, u, r2, g2, b2, alpha2);
                     auraPiece(mStack, builder, radius, 0, un, r1, g1, b1, alpha1);
                     auraPiece(mStack, builder, radius, 0, u, r1, g1, b1, alpha1);
                 }
@@ -109,9 +117,9 @@ public class RenderUtils {
     }
 
 
-    public static void auraPiece(PoseStack mStack, VertexConsumer builder, float radius, float size, float angle, float r, float g, float b, float alpha) {
+    public static void auraPiece(PoseStack mStack, VertexConsumer builder, float radius, float size, float angle, float r, float g, float b, float alpha){
         mStack.pushPose();
-        mStack.mulPose(Axis.YP.rotationDegrees((float) Math.toDegrees(angle)));
+        mStack.mulPose(Axis.YP.rotationDegrees((float)Math.toDegrees(angle)));
         mStack.translate(radius, 0, 0);
         Matrix4f mat = mStack.last().pose();
         builder.vertex(mat, 0, size, 0).color(r, g, b, alpha).endVertex();
@@ -121,12 +129,12 @@ public class RenderUtils {
     /**
      * Dimensions xSize, ySize, zSize are specified in pixels, small addition to this description: this method conflicts with renderTooltip
      */
-    public static void renderItemModelInGui(ItemStack stack, int x, int y, float xSize, float ySize, float zSize) {
+    public static void renderItemModelInGui(ItemStack stack, int x, int y, float xSize, float ySize, float zSize){
         BakedModel bakedmodel = Minecraft.getInstance().getItemRenderer().getModel(stack, null, null, 0);
         PoseStack posestack = RenderSystem.getModelViewStack();
         posestack.pushPose();
         posestack.translate(x, y, (100.0F));
-        posestack.translate((double) xSize / 2, (double) ySize / 2, 0.0D);
+        posestack.translate((double)xSize / 2, (double)ySize / 2, 0.0D);
         posestack.scale(1.0F, -1.0F, 1.0F);
         posestack.scale(xSize, ySize, zSize);
 
@@ -134,7 +142,7 @@ public class RenderUtils {
         PoseStack pose = new PoseStack();
         MultiBufferSource.BufferSource multibuffersource$buffersource = Minecraft.getInstance().renderBuffers().bufferSource();
         boolean flag = !bakedmodel.usesBlockLight();
-        if (flag) {
+        if(flag){
             Lighting.setupForFlatItems();
         }
 
@@ -142,8 +150,7 @@ public class RenderUtils {
         RenderSystem.disableDepthTest();
         multibuffersource$buffersource.endBatch();
         RenderSystem.enableDepthTest();
-
-        if (flag) {
+        if(flag){
             Lighting.setupFor3DItems();
         }
 
@@ -151,11 +158,14 @@ public class RenderUtils {
         RenderSystem.applyModelViewMatrix();
     }
 
-    public static void onRenderWorldLast(RenderLevelStageEvent event) {
-        if (event.getStage() == RenderLevelStageEvent.Stage.AFTER_LEVEL) {
+    public static void afterLevelRender(RenderLevelStageEvent event){
+        if(event.getStage() == RenderLevelStageEvent.Stage.AFTER_LEVEL){
             RenderSystem.getModelViewStack().pushPose();
             RenderSystem.getModelViewStack().setIdentity();
-            if (particleMVMatrix != null) RenderSystem.getModelViewStack().mulPoseMatrix(particleMVMatrix);
+            if(particleMVMatrix != null){
+                RenderSystem.getModelViewStack().mulPoseMatrix(particleMVMatrix);
+            }
+
             RenderSystem.applyModelViewMatrix();
             RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
             getDelayedRender().endBatch(RenderUtils.DELAYED_PARTICLE);
@@ -169,17 +179,18 @@ public class RenderUtils {
 
     static MultiBufferSource.BufferSource DELAYED_RENDER = null;
 
-    public static MultiBufferSource.BufferSource getDelayedRender() {
-        if (DELAYED_RENDER == null) {
+    public static MultiBufferSource.BufferSource getDelayedRender(){
+        if(DELAYED_RENDER == null){
             Map<RenderType, BufferBuilder> buffers = new HashMap<>();
-            for (RenderType type : new RenderType[]{
-                    RenderUtils.DELAYED_PARTICLE,
-                    RenderUtils.GLOWING_PARTICLE,
-                    RenderUtils.GLOWING}) {
+            for(RenderType type : new RenderType[]{
+            RenderUtils.DELAYED_PARTICLE,
+            RenderUtils.GLOWING_PARTICLE,
+            RenderUtils.GLOWING}){
                 buffers.put(type, new BufferBuilder(ModList.get().isLoaded("rubidium") ? 32768 : type.bufferSize()));
             }
             DELAYED_RENDER = MultiBufferSource.immediateWithBuffers(buffers, new BufferBuilder(128));
         }
+
         return DELAYED_RENDER;
     }
 }

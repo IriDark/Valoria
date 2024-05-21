@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": { "model" : "valoria:block/abyssal_lantern" }
+    "": {
+      "model": "valoria:block/abyssal_lantern"
+    }
   }
 }

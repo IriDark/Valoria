@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": { "model" : "valoria:block/dormant_crystals" }
+    "": {
+      "model": "valoria:block/dormant_crystals"
+    }
   }
 }

@@ -1,49 +1,47 @@
 package com.idark.valoria.core.network.packets;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.client.gui.toast.PageToast;
-import net.minecraft.client.Minecraft;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.network.NetworkDirection;
-import net.minecraftforge.network.NetworkEvent;
+import com.idark.valoria.*;
+import com.idark.valoria.client.gui.toast.*;
+import net.minecraft.client.*;
+import net.minecraft.network.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.level.*;
+import net.minecraftforge.api.distmarker.*;
+import net.minecraftforge.network.*;
 
-import java.util.UUID;
-import java.util.function.Supplier;
+import java.util.*;
+import java.util.function.*;
 
-public class PageToastPacket {
+public class PageToastPacket{
     private final UUID uuid;
     private final boolean unlock;
 
-    public PageToastPacket(UUID uuid, boolean pUnlock) {
+    public PageToastPacket(UUID uuid, boolean pUnlock){
         this.uuid = uuid;
         unlock = pUnlock;
     }
 
-    public PageToastPacket(Player entity, boolean pUnlock) {
+    public PageToastPacket(Player entity, boolean pUnlock){
         this.uuid = entity.getUUID();
         unlock = pUnlock;
     }
 
-    public static void encode(PageToastPacket object, FriendlyByteBuf buffer) {
+    public static void encode(PageToastPacket object, FriendlyByteBuf buffer){
         buffer.writeUUID(object.uuid);
         buffer.writeBoolean(object.unlock);
     }
 
-    public static PageToastPacket decode(FriendlyByteBuf buffer) {
+    public static PageToastPacket decode(FriendlyByteBuf buffer){
         return new PageToastPacket(buffer.readUUID(), buffer.readBoolean());
     }
 
-    public static void handle(PageToastPacket packet, Supplier<NetworkEvent.Context> ctx) {
+    public static void handle(PageToastPacket packet, Supplier<NetworkEvent.Context> ctx){
         ctx.get().enqueueWork(() -> {
             assert ctx.get().getDirection() == NetworkDirection.PLAY_TO_CLIENT;
 
             Level world = Valoria.proxy.getWorld();
             Player player = world.getPlayerByUUID(packet.uuid);
-            if (player != null) {
+            if(player != null){
                 toast(packet);
             }
         });
@@ -52,7 +50,7 @@ public class PageToastPacket {
     }
 
     @OnlyIn(Dist.CLIENT)
-    public static void toast(PageToastPacket packet) {
+    public static void toast(PageToastPacket packet){
         Minecraft.getInstance().getToasts().addToast(new PageToast(packet.unlock));
     }
 }

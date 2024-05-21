@@ -1,43 +1,41 @@
 package com.idark.valoria.core.datagen;
 
-import com.idark.valoria.compat.quark.QuarkIntegration;
-import com.idark.valoria.registries.BlockRegistry;
-import com.idark.valoria.registries.ItemsRegistry;
-import net.minecraft.data.loot.BlockLootSubProvider;
-import net.minecraft.world.flag.FeatureFlags;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.storage.loot.LootTable;
-import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
+import com.idark.valoria.compat.quark.*;
+import com.idark.valoria.registries.*;
+import net.minecraft.data.loot.*;
+import net.minecraft.world.flag.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.storage.loot.*;
+import net.minecraft.world.level.storage.loot.providers.number.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.function.Function;
+import java.util.*;
+import java.util.function.*;
 
-public class LootTableSubprovider extends BlockLootSubProvider {
+public class LootTableSubprovider extends BlockLootSubProvider{
     public final List<Block> blocks = new ArrayList<>();
-    public LootTableSubprovider() {
+
+    public LootTableSubprovider(){
         super(Set.of(), FeatureFlags.REGISTRY.allFlags());
     }
 
-    protected void add(Block pBlock, Function<Block, LootTable.Builder> pFactory) {
+    protected void add(Block pBlock, Function<Block, LootTable.Builder> pFactory){
         this.add(pBlock, pFactory.apply(pBlock));
         blocks.add(pBlock);
     }
 
-    protected void dropSelf(Block pBlock) {
+    protected void dropSelf(Block pBlock){
         this.dropOther(pBlock, pBlock);
         blocks.add(pBlock);
     }
 
     @Override
-    protected Iterable<Block> getKnownBlocks() {
+    protected Iterable<Block> getKnownBlocks(){
         return blocks;
     }
 
     @Override
-    protected void generate() {
+    protected void generate(){
         this.add(BlockRegistry.ELDRITCH_DOOR.get(), block -> createDoorTable(BlockRegistry.ELDRITCH_DOOR.get()));
         this.add(BlockRegistry.ELDRITCH_PLANKS_SLAB.get(), block -> createSlabItemTable(BlockRegistry.ELDRITCH_PLANKS_SLAB.get()));
         this.add(BlockRegistry.ELDRITCH_LEAVES.get(), block -> createLeavesDrops(block, BlockRegistry.ELDRITCH_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
@@ -58,7 +56,7 @@ public class LootTableSubprovider extends BlockLootSubProvider {
         this.dropSelf(BlockRegistry.ELDRITCH_BUTTON.get());
         this.dropSelf(BlockRegistry.ELDRITCH_PRESSURE_PLATE.get());
         this.dropSelf(BlockRegistry.ELDRITCH_SAPLING.get());
-        if(QuarkIntegration.isLoaded()) {
+        if(QuarkIntegration.isLoaded()){
             this.dropSelf(QuarkIntegration.LoadedOnly.ELDRITCH_LEAF_CARPET.get());
             this.dropSelf(QuarkIntegration.LoadedOnly.ELDRITCH_LADDER.get());
             this.dropSelf(QuarkIntegration.LoadedOnly.ELDRITCH_LOG_POST.get());

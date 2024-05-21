@@ -1,7 +1,13 @@
 {
   "replace": false,
   "values": [
-    { "id": "valoria:eldritch_planks_vertical_slab","required": false },
-    { "id": "valoria:shadewood_planks_vertical_slab","required": false }
+    {
+      "id": "valoria:eldritch_planks_vertical_slab",
+      "required": false
+    },
+    {
+      "id": "valoria:shadewood_planks_vertical_slab",
+      "required": false
+    }
   ]
 }

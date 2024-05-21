@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": { "model" : "valoria:block/jeweler_table" }
+    "": {
+      "model": "valoria:block/jeweler_table"
+    }
   }
 }

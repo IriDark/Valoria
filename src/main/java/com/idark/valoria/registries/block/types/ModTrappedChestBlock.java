@@ -18,13 +18,13 @@ import net.minecraft.world.level.block.state.BlockState;
 import javax.annotation.Nullable;
 import java.util.function.Supplier;
 
-public class ModTrappedChestBlock extends ChestBlock {
+public class ModTrappedChestBlock extends ChestBlock{
 
-    public ModTrappedChestBlock(BlockBehaviour.Properties pProperties, Supplier<BlockEntityType<? extends ChestBlockEntity>> pBlockEntityType) {
+    public ModTrappedChestBlock(BlockBehaviour.Properties pProperties, Supplier<BlockEntityType<? extends ChestBlockEntity>> pBlockEntityType){
         super(pProperties, pBlockEntityType);
     }
 
-    protected Stat<ResourceLocation> getOpenChestStat() {
+    protected Stat<ResourceLocation> getOpenChestStat(){
         return Stats.CUSTOM.get(Stats.TRIGGER_TRAPPED_CHEST);
     }
 
@@ -33,7 +33,7 @@ public class ModTrappedChestBlock extends ChestBlock {
      * @deprecated call via {@link net.minecraft.world.level.block.state.BlockBehaviour.BlockStateBase#isSignalSource}
      * whenever possible. Implementing/overriding is fine.
      */
-    public boolean isSignalSource(BlockState pState) {
+    public boolean isSignalSource(BlockState pState){
         return true;
     }
 
@@ -41,7 +41,7 @@ public class ModTrappedChestBlock extends ChestBlock {
      * @deprecated call via {@link net.minecraft.world.level.block.state.BlockBehaviour.BlockStateBase#getSignal}
      * whenever possible. Implementing/overriding is fine.
      */
-    public int getSignal(BlockState pBlockState, BlockGetter pBlockAccess, BlockPos pPos, Direction pSide) {
+    public int getSignal(BlockState pBlockState, BlockGetter pBlockAccess, BlockPos pPos, Direction pSide){
         return Mth.clamp(ChestBlockEntity.getOpenCount(pBlockAccess, pPos), 0, 15);
     }
 
@@ -49,13 +49,13 @@ public class ModTrappedChestBlock extends ChestBlock {
      * @deprecated call via {@link net.minecraft.world.level.block.state.BlockBehaviour.BlockStateBase#getDirectSignal}
      * whenever possible. Implementing/overriding is fine.
      */
-    public int getDirectSignal(BlockState pBlockState, BlockGetter pBlockAccess, BlockPos pPos, Direction pSide) {
+    public int getDirectSignal(BlockState pBlockState, BlockGetter pBlockAccess, BlockPos pPos, Direction pSide){
         return pSide == Direction.UP ? pBlockState.getSignal(pBlockAccess, pPos, pSide) : 0;
     }
 
     @Nullable
     @Override
-    public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
+    public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState){
         return new ModTrappedChestBlockEntity(pPos, pState);
     }
 }

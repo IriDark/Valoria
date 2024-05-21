@@ -1,8 +1,12 @@
 {
   "variants": {
     "": [
-      { "model" : "valoria:block/glow_violet_sprout" },
-      { "model" : "valoria:block/violet_sprout" }
+      {
+        "model": "valoria:block/glow_violet_sprout"
+      },
+      {
+        "model": "valoria:block/violet_sprout"
+      }
     ]
   }
 }

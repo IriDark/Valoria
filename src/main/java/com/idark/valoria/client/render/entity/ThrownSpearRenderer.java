@@ -19,15 +19,15 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.registries.ForgeRegistries;
 
 @OnlyIn(Dist.CLIENT)
-public class ThrownSpearRenderer extends EntityRenderer<ThrownSpearEntity> {
-    public ThrownSpearRenderer(EntityRendererProvider.Context context) {
+public class ThrownSpearRenderer extends EntityRenderer<ThrownSpearEntity>{
+    public ThrownSpearRenderer(EntityRendererProvider.Context context){
         super(context);
     }
 
-    public void render(ThrownSpearEntity entityIn, float entityYaw, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light) {
+    public void render(ThrownSpearEntity entityIn, float entityYaw, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light){
         ms.pushPose();
-        if (!Minecraft.getInstance().isPaused() && !(entityIn.inGround || entityIn.onGround())) {
-            entityIn.rotationVelocity = Mth.lerp(partialTicks, entityIn.rotationVelocity, (entityIn.rotationVelocity + 1.2f) + (float) entityIn.getDeltaMovement().x);
+        if(!Minecraft.getInstance().isPaused() && !(entityIn.inGround || entityIn.onGround())){
+            entityIn.rotationVelocity = Mth.lerp(partialTicks, entityIn.rotationVelocity, (entityIn.rotationVelocity + 1.2f) + (float)entityIn.getDeltaMovement().x);
         }
 
         ms.scale(1.5f, 1.5f, 1.5f);
@@ -42,7 +42,7 @@ public class ThrownSpearRenderer extends EntityRenderer<ThrownSpearEntity> {
     }
 
     @Override
-    public ResourceLocation getTextureLocation(ThrownSpearEntity pEntity) {
+    public ResourceLocation getTextureLocation(ThrownSpearEntity pEntity){
         return null;
     }
 }

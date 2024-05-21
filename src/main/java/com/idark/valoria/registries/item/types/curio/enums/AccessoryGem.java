@@ -1,6 +1,6 @@
 package com.idark.valoria.registries.item.types.curio.enums;
 
-public enum AccessoryGem {
+public enum AccessoryGem{
     NONE,
     AMBER,
     DIAMOND,

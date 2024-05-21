@@ -1,62 +1,56 @@
 package com.idark.valoria.registries;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.compat.quark.QuarkIntegration;
-import com.idark.valoria.util.ValoriaUtils;
-import net.minecraft.core.Holder;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.decoration.Painting;
-import net.minecraft.world.entity.decoration.PaintingVariant;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.RegistryObject;
+import com.idark.valoria.*;
+import com.idark.valoria.compat.quark.*;
+import com.idark.valoria.util.*;
+import net.minecraft.core.*;
+import net.minecraft.core.registries.*;
+import net.minecraft.nbt.*;
+import net.minecraft.network.chat.*;
+import net.minecraft.resources.*;
+import net.minecraft.world.entity.decoration.*;
+import net.minecraft.world.item.*;
+import net.minecraftforge.event.*;
+import net.minecraftforge.eventbus.api.*;
+import net.minecraftforge.fml.common.*;
+import net.minecraftforge.registries.*;
 
-import java.util.Comparator;
-import java.util.function.Predicate;
+import java.util.*;
+import java.util.function.*;
 
 @Mod.EventBusSubscriber(modid = Valoria.ID, bus = Mod.EventBusSubscriber.Bus.MOD)
-public abstract class ItemTabRegistry {
+public abstract class ItemTabRegistry{
     private static final Comparator<Holder<PaintingVariant>> PAINTING_COMPARATOR = Comparator.comparing(Holder::value, Comparator.<PaintingVariant>comparingInt((p_270004_) -> p_270004_.getHeight() * p_270004_.getWidth()).thenComparing(PaintingVariant::getWidth));
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, Valoria.ID);
 
-    public static final RegistryObject<CreativeModeTab> VALORIA_TAB = CREATIVE_MODE_TABS.register("valoriamodtab",
-            () -> CreativeModeTab.builder().icon(() -> new ItemStack(ItemsRegistry.EYE_CHUNK.get()))
-                    .hideTitle()
-                    .title(Component.translatable("itemGroup.valoriaModTab"))
-                    .withTabsImage(getTabsImage())
-                    .withTabsAfter(ItemTabRegistry.VALORIA_BLOCKS_TAB.getKey())
-                    .backgroundSuffix("valoria_item.png").withBackgroundLocation(getBackgroundImage()).build());
-
     public static final RegistryObject<CreativeModeTab> VALORIA_BLOCKS_TAB = CREATIVE_MODE_TABS.register("valoriablocksmodtab",
-            () -> CreativeModeTab.builder().icon(() -> new ItemStack(BlockRegistry.JEWELER_TABLE.get()))
-                    .hideTitle()
-                    .title(Component.translatable("itemGroup.valoriaBlocksModTab"))
-                    .withTabsImage(getTabsImage())
-                    .backgroundSuffix("valoria_item.png").withBackgroundLocation(getBackgroundImage()).build());
+    () -> CreativeModeTab.builder().icon(() -> new ItemStack(BlockRegistry.JEWELER_TABLE.get()))
+    .hideTitle()
+    .title(Component.translatable("itemGroup.valoriaBlocksModTab"))
+    .withTabsImage(getTabsImage())
+    .backgroundSuffix("valoria_item.png").withBackgroundLocation(getBackgroundImage()).build());
+    public static final RegistryObject<CreativeModeTab> VALORIA_TAB = CREATIVE_MODE_TABS.register("valoriamodtab",
+    () -> CreativeModeTab.builder().icon(() -> new ItemStack(ItemsRegistry.EYE_CHUNK.get()))
+    .hideTitle()
+    .title(Component.translatable("itemGroup.valoriaModTab"))
+    .withTabsImage(getTabsImage())
+    .withTabsAfter(ItemTabRegistry.VALORIA_BLOCKS_TAB.getKey())
+    .backgroundSuffix("valoria_item.png").withBackgroundLocation(getBackgroundImage()).build());
 
-    public static ResourceLocation getBackgroundImage() {
+    public static ResourceLocation getBackgroundImage(){
         return new ResourceLocation(Valoria.ID, "textures/gui/container/tab_valoria_item.png");
     }
 
-    public static ResourceLocation getTabsImage() {
+    public static ResourceLocation getTabsImage(){
         return new ResourceLocation(Valoria.ID, "textures/gui/container/tabs_valoria.png");
     }
 
-    public static void register(IEventBus eventBus) {
+    public static void register(IEventBus eventBus){
         CREATIVE_MODE_TABS.register(eventBus);
     }
 
-    public static void addCreative(BuildCreativeModeTabContentsEvent event) {
-        if (event.getTabKey() == ItemTabRegistry.VALORIA_TAB.getKey()) {
+    public static void addCreative(BuildCreativeModeTabContentsEvent event){
+        if(event.getTabKey() == ItemTabRegistry.VALORIA_TAB.getKey()){
             if(ValoriaUtils.isIDE) event.accept(ItemsRegistry.DEBUG);
             event.accept(ItemsRegistry.COBALT_HELMET);
             event.accept(ItemsRegistry.COBALT_CHESTPLATE);
@@ -316,7 +310,7 @@ public abstract class ItemTabRegistry {
             event.accept(ItemsRegistry.SHADEWOOD_SPIDER_SPAWN_EGG);
         }
 
-        if (event.getTabKey() == ItemTabRegistry.VALORIA_BLOCKS_TAB.getKey()) {
+        if(event.getTabKey() == ItemTabRegistry.VALORIA_BLOCKS_TAB.getKey()){
             event.accept(BlockRegistry.ALOE);
             event.accept(BlockRegistry.ALOE_SMALL);
             event.accept(BlockRegistry.CATTAIL);
@@ -374,14 +368,14 @@ public abstract class ItemTabRegistry {
             event.accept(BlockRegistry.BRONZE_BLOCK);
             event.accept(BlockRegistry.BRONZE_BLOCK_STAIRS);
             event.accept(BlockRegistry.BRONZE_BLOCK_SLAB);
-            if (QuarkIntegration.isLoaded()) event.accept(QuarkIntegration.LoadedOnly.BRONZE_VERTICAL_SLAB);
+            if(QuarkIntegration.isLoaded()) event.accept(QuarkIntegration.LoadedOnly.BRONZE_VERTICAL_SLAB);
             event.accept(BlockRegistry.BRONZE_VENT);
             event.accept(BlockRegistry.BRONZE_GLASS);
             event.accept(BlockRegistry.BRONZE_GLASS_PANE);
             event.accept(BlockRegistry.CUT_BRONZE);
             event.accept(BlockRegistry.CUT_BRONZE_STAIRS);
             event.accept(BlockRegistry.CUT_BRONZE_SLAB);
-            if (QuarkIntegration.isLoaded()) event.accept(QuarkIntegration.LoadedOnly.CUT_BRONZE_VERTICAL_SLAB);
+            if(QuarkIntegration.isLoaded()) event.accept(QuarkIntegration.LoadedOnly.CUT_BRONZE_VERTICAL_SLAB);
             event.accept(BlockRegistry.BRONZE_LAMP_BLOCK);
             event.accept(BlockRegistry.BRONZE_LAMP);
             event.accept(BlockRegistry.DECORATED_BRONZE_LAMP);
@@ -392,65 +386,65 @@ public abstract class ItemTabRegistry {
             event.accept(BlockRegistry.DUNESTONE);
             event.accept(BlockRegistry.DUNESTONE_STAIRS);
             event.accept(BlockRegistry.DUNESTONE_SLAB);
-            if (QuarkIntegration.isLoaded()) event.accept(QuarkIntegration.LoadedOnly.DUNESTONE_VERTICAL_SLAB);
+            if(QuarkIntegration.isLoaded()) event.accept(QuarkIntegration.LoadedOnly.DUNESTONE_VERTICAL_SLAB);
             event.accept(BlockRegistry.DUNESTONE_WALL);
             event.accept(BlockRegistry.DUNESTONE_BRICKS);
             event.accept(BlockRegistry.DUNESTONE_BRICKS_STAIRS);
             event.accept(BlockRegistry.DUNESTONE_BRICKS_SLAB);
-            if (QuarkIntegration.isLoaded()) event.accept(QuarkIntegration.LoadedOnly.DUNESTONE_BRICKS_VERTICAL_SLAB);
+            if(QuarkIntegration.isLoaded()) event.accept(QuarkIntegration.LoadedOnly.DUNESTONE_BRICKS_VERTICAL_SLAB);
             event.accept(BlockRegistry.DUNESTONE_BRICKS_WALL);
             event.accept(BlockRegistry.CUT_DUNESTONE);
             event.accept(BlockRegistry.POLISHED_DUNESTONE);
             event.accept(ItemsRegistry.EPHEMARITE);
             event.accept(BlockRegistry.EPHEMARITE_STAIRS);
             event.accept(BlockRegistry.EPHEMARITE_SLAB);
-            if (QuarkIntegration.isLoaded()) event.accept(QuarkIntegration.LoadedOnly.EPHEMARITE_VERTICAL_SLAB);
+            if(QuarkIntegration.isLoaded()) event.accept(QuarkIntegration.LoadedOnly.EPHEMARITE_VERTICAL_SLAB);
             event.accept(BlockRegistry.EPHEMARITE_WALL);
             event.accept(BlockRegistry.POLISHED_EPHEMARITE);
             event.accept(BlockRegistry.POLISHED_EPHEMARITE_STAIRS);
             event.accept(BlockRegistry.POLISHED_EPHEMARITE_SLAB);
-            if (QuarkIntegration.isLoaded()) event.accept(QuarkIntegration.LoadedOnly.POLISHED_EPHEMARITE_VERTICAL_SLAB);
+            if(QuarkIntegration.isLoaded()) event.accept(QuarkIntegration.LoadedOnly.POLISHED_EPHEMARITE_VERTICAL_SLAB);
             event.accept(ItemsRegistry.EPHEMARITE_LOW);
             event.accept(BlockRegistry.EPHEMARITE_LOW_STAIRS);
             event.accept(BlockRegistry.EPHEMARITE_LOW_SLAB);
-            if (QuarkIntegration.isLoaded()) event.accept(QuarkIntegration.LoadedOnly.EPHEMARITE_LOW_VERTICAL_SLAB);
+            if(QuarkIntegration.isLoaded()) event.accept(QuarkIntegration.LoadedOnly.EPHEMARITE_LOW_VERTICAL_SLAB);
             event.accept(BlockRegistry.EPHEMARITE_LOW_WALL);
             event.accept(BlockRegistry.POLISHED_EPHEMARITE_LOW);
             event.accept(BlockRegistry.POLISHED_EPHEMARITE_LOW_STAIRS);
             event.accept(BlockRegistry.POLISHED_EPHEMARITE_LOW_SLAB);
-            if (QuarkIntegration.isLoaded()) event.accept(QuarkIntegration.LoadedOnly.POLISHED_EPHEMARITE_LOW_VERTICAL_SLAB);
+            if(QuarkIntegration.isLoaded()) event.accept(QuarkIntegration.LoadedOnly.POLISHED_EPHEMARITE_LOW_VERTICAL_SLAB);
             event.accept(BlockRegistry.LIMESTONE);
             event.accept(BlockRegistry.LIMESTONE_STAIRS);
             event.accept(BlockRegistry.LIMESTONE_SLAB);
-            if (QuarkIntegration.isLoaded()) event.accept(QuarkIntegration.LoadedOnly.LIMESTONE_VERTICAL_SLAB);
+            if(QuarkIntegration.isLoaded()) event.accept(QuarkIntegration.LoadedOnly.LIMESTONE_VERTICAL_SLAB);
             event.accept(BlockRegistry.LIMESTONE_WALL);
             event.accept(BlockRegistry.LIMESTONE_BRICKS);
             event.accept(BlockRegistry.LIMESTONE_BRICKS_STAIRS);
             event.accept(BlockRegistry.LIMESTONE_BRICKS_SLAB);
-            if (QuarkIntegration.isLoaded()) event.accept(QuarkIntegration.LoadedOnly.LIMESTONE_BRICKS_VERTICAL_SLAB);
+            if(QuarkIntegration.isLoaded()) event.accept(QuarkIntegration.LoadedOnly.LIMESTONE_BRICKS_VERTICAL_SLAB);
             event.accept(BlockRegistry.CRACKED_LIMESTONE_BRICKS);
             event.accept(BlockRegistry.CRACKED_LIMESTONE_BRICKS_STAIRS);
             event.accept(BlockRegistry.CRACKED_LIMESTONE_BRICKS_SLAB);
-            if (QuarkIntegration.isLoaded()) event.accept(QuarkIntegration.LoadedOnly.CRACKED_LIMESTONE_BRICKS_VERTICAL_SLAB);
+            if(QuarkIntegration.isLoaded()) event.accept(QuarkIntegration.LoadedOnly.CRACKED_LIMESTONE_BRICKS_VERTICAL_SLAB);
             event.accept(BlockRegistry.LIMESTONE_BRICKS_WALL);
             event.accept(BlockRegistry.CUT_LIMESTONE);
             event.accept(BlockRegistry.CUT_LIMESTONE_STAIRS);
             event.accept(BlockRegistry.CUT_LIMESTONE_SLAB);
-            if (QuarkIntegration.isLoaded()) event.accept(QuarkIntegration.LoadedOnly.CUT_LIMESTONE_VERTICAL_SLAB);
+            if(QuarkIntegration.isLoaded()) event.accept(QuarkIntegration.LoadedOnly.CUT_LIMESTONE_VERTICAL_SLAB);
             event.accept(BlockRegistry.CRACKED_LIMESTONE_BRICKS_WALL);
             event.accept(BlockRegistry.POLISHED_LIMESTONE);
             event.accept(BlockRegistry.POLISHED_LIMESTONE_STAIRS);
             event.accept(BlockRegistry.POLISHED_LIMESTONE_SLAB);
-            if (QuarkIntegration.isLoaded()) event.accept(QuarkIntegration.LoadedOnly.POLISHED_LIMESTONE_VERTICAL_SLAB);
+            if(QuarkIntegration.isLoaded()) event.accept(QuarkIntegration.LoadedOnly.POLISHED_LIMESTONE_VERTICAL_SLAB);
             event.accept(BlockRegistry.CRYSTAL_STONE);
             event.accept(BlockRegistry.CRYSTAL_STONE_STAIRS);
             event.accept(BlockRegistry.CRYSTAL_STONE_SLAB);
-            if (QuarkIntegration.isLoaded()) event.accept(QuarkIntegration.LoadedOnly.CRYSTAL_STONE_VERTICAL_SLAB);
+            if(QuarkIntegration.isLoaded()) event.accept(QuarkIntegration.LoadedOnly.CRYSTAL_STONE_VERTICAL_SLAB);
             event.accept(BlockRegistry.CRYSTAL_STONE_WALL);
             event.accept(BlockRegistry.CRYSTAL_STONE_BRICKS);
             event.accept(BlockRegistry.CRYSTAL_STONE_BRICKS_STAIRS);
             event.accept(BlockRegistry.CRYSTAL_STONE_BRICKS_SLAB);
-            if (QuarkIntegration.isLoaded()) event.accept(QuarkIntegration.LoadedOnly.CRYSTAL_STONE_BRICKS_VERTICAL_SLAB);
+            if(QuarkIntegration.isLoaded()) event.accept(QuarkIntegration.LoadedOnly.CRYSTAL_STONE_BRICKS_VERTICAL_SLAB);
             event.accept(BlockRegistry.CRYSTAL_STONE_BRICKS_WALL);
             event.accept(BlockRegistry.CUT_CRYSTAL_STONE);
             event.accept(BlockRegistry.CUT_POLISHED_CRYSTAL_STONE);
@@ -459,12 +453,12 @@ public abstract class ItemTabRegistry {
             event.accept(BlockRegistry.TOMBSTONE);
             event.accept(BlockRegistry.TOMBSTONE_STAIRS);
             event.accept(BlockRegistry.TOMBSTONE_SLAB);
-            if (QuarkIntegration.isLoaded()) event.accept(QuarkIntegration.LoadedOnly.TOMBSTONE_VERTICAL_SLAB);
+            if(QuarkIntegration.isLoaded()) event.accept(QuarkIntegration.LoadedOnly.TOMBSTONE_VERTICAL_SLAB);
             event.accept(BlockRegistry.TOMBSTONE_WALL);
             event.accept(BlockRegistry.TOMBSTONE_BRICKS);
             event.accept(BlockRegistry.TOMBSTONE_BRICKS_STAIRS);
             event.accept(BlockRegistry.TOMBSTONE_BRICKS_SLAB);
-            if (QuarkIntegration.isLoaded()) event.accept(QuarkIntegration.LoadedOnly.TOMBSTONE_BRICKS_VERTICAL_SLAB);
+            if(QuarkIntegration.isLoaded()) event.accept(QuarkIntegration.LoadedOnly.TOMBSTONE_BRICKS_VERTICAL_SLAB);
             event.accept(BlockRegistry.TOMBSTONE_BRICKS_WALL);
             event.accept(BlockRegistry.CRACKED_TOMBSTONE_BRICKS);
             event.accept(BlockRegistry.CRACKED_TOMBSTONE_BRICKS_WALL);
@@ -481,40 +475,40 @@ public abstract class ItemTabRegistry {
             event.accept(BlockRegistry.AMBANE_STONE);
             event.accept(BlockRegistry.AMBANE_STONE_STAIRS);
             event.accept(BlockRegistry.AMBANE_STONE_SLAB);
-            if (QuarkIntegration.isLoaded()) event.accept(QuarkIntegration.LoadedOnly.AMBANE_STONE_VERTICAL_SLAB);
+            if(QuarkIntegration.isLoaded()) event.accept(QuarkIntegration.LoadedOnly.AMBANE_STONE_VERTICAL_SLAB);
             event.accept(BlockRegistry.AMBANE_STONE_WALL);
             event.accept(BlockRegistry.AMBANE_STONE_BRICKS);
             event.accept(BlockRegistry.AMBANE_STONE_BRICKS_STAIRS);
             event.accept(BlockRegistry.AMBANE_STONE_BRICKS_SLAB);
-            if (QuarkIntegration.isLoaded()) event.accept(QuarkIntegration.LoadedOnly.AMBANE_STONE_BRICKS_VERTICAL_SLAB);
+            if(QuarkIntegration.isLoaded()) event.accept(QuarkIntegration.LoadedOnly.AMBANE_STONE_BRICKS_VERTICAL_SLAB);
             event.accept(BlockRegistry.AMBANE_STONE_BRICKS_WALL);
             event.accept(BlockRegistry.CHISELED_AMBANE_STONE_BRICKS);
             event.accept(BlockRegistry.CUT_AMBANE_STONE);
             event.accept(BlockRegistry.POLISHED_AMBANE_STONE);
             event.accept(BlockRegistry.POLISHED_AMBANE_STONE_STAIRS);
             event.accept(BlockRegistry.POLISHED_AMBANE_STONE_SLAB);
-            if (QuarkIntegration.isLoaded()) event.accept(QuarkIntegration.LoadedOnly.POLISHED_AMBANE_STONE_VERTICAL_SLAB);
+            if(QuarkIntegration.isLoaded()) event.accept(QuarkIntegration.LoadedOnly.POLISHED_AMBANE_STONE_VERTICAL_SLAB);
             event.accept(BlockRegistry.EYE_STONE);
             event.accept(BlockRegistry.PYRATITE_ORE);
             event.accept(BlockRegistry.DEEP_MARBLE);
             event.accept(BlockRegistry.DEEP_MARBLE_STAIRS);
             event.accept(BlockRegistry.DEEP_MARBLE_SLAB);
-            if (QuarkIntegration.isLoaded()) event.accept(QuarkIntegration.LoadedOnly.DEEP_MARBLE_VERTICAL_SLAB);
+            if(QuarkIntegration.isLoaded()) event.accept(QuarkIntegration.LoadedOnly.DEEP_MARBLE_VERTICAL_SLAB);
             event.accept(BlockRegistry.DEEP_MARBLE_WALL);
             event.accept(BlockRegistry.POLISHED_DEEP_MARBLE);
             event.accept(BlockRegistry.POLISHED_DEEP_MARBLE_STAIRS);
             event.accept(BlockRegistry.POLISHED_DEEP_MARBLE_SLAB);
-            if (QuarkIntegration.isLoaded()) event.accept(QuarkIntegration.LoadedOnly.POLISHED_DEEP_MARBLE_VERTICAL_SLAB);
+            if(QuarkIntegration.isLoaded()) event.accept(QuarkIntegration.LoadedOnly.POLISHED_DEEP_MARBLE_VERTICAL_SLAB);
             event.accept(BlockRegistry.POLISHED_DEEP_MARBLE_WALL);
             event.accept(BlockRegistry.PICRITE);
             event.accept(BlockRegistry.PICRITE_STAIRS);
             event.accept(BlockRegistry.PICRITE_SLAB);
-            if (QuarkIntegration.isLoaded()) event.accept(QuarkIntegration.LoadedOnly.PICRITE_VERTICAL_SLAB);
+            if(QuarkIntegration.isLoaded()) event.accept(QuarkIntegration.LoadedOnly.PICRITE_VERTICAL_SLAB);
             event.accept(BlockRegistry.PICRITE_WALL);
             event.accept(BlockRegistry.POLISHED_PICRITE);
             event.accept(BlockRegistry.POLISHED_PICRITE_STAIRS);
             event.accept(BlockRegistry.POLISHED_PICRITE_SLAB);
-            if (QuarkIntegration.isLoaded()) event.accept(QuarkIntegration.LoadedOnly.POLISHED_PICRITE_VERTICAL_SLAB);
+            if(QuarkIntegration.isLoaded()) event.accept(QuarkIntegration.LoadedOnly.POLISHED_PICRITE_VERTICAL_SLAB);
             event.accept(BlockRegistry.POLISHED_PICRITE_WALL);
             event.accept(BlockRegistry.VOID_TAINT_LANTERN);
             event.accept(BlockRegistry.ABYSSAL_LANTERN);
@@ -523,23 +517,23 @@ public abstract class ItemTabRegistry {
             event.accept(BlockRegistry.VOID_STONE);
             event.accept(BlockRegistry.VOID_STONE_STAIRS);
             event.accept(BlockRegistry.VOID_STONE_SLAB);
-            if (QuarkIntegration.isLoaded()) event.accept(QuarkIntegration.LoadedOnly.VOID_STONE_VERTICAL_SLAB);
+            if(QuarkIntegration.isLoaded()) event.accept(QuarkIntegration.LoadedOnly.VOID_STONE_VERTICAL_SLAB);
             event.accept(BlockRegistry.VOID_STONE_WALL);
             event.accept(BlockRegistry.VOID_BRICK);
             event.accept(BlockRegistry.VOID_BRICK_STAIRS);
             event.accept(BlockRegistry.VOID_BRICK_SLAB);
-            if (QuarkIntegration.isLoaded()) event.accept(QuarkIntegration.LoadedOnly.VOID_BRICK_VERTICAL_SLAB);
+            if(QuarkIntegration.isLoaded()) event.accept(QuarkIntegration.LoadedOnly.VOID_BRICK_VERTICAL_SLAB);
             event.accept(BlockRegistry.VOID_BRICK_WALL);
             event.accept(BlockRegistry.VOID_CRACKED_BRICK);
             event.accept(BlockRegistry.VOID_CRACKED_BRICK_STAIRS);
             event.accept(BlockRegistry.VOID_CRACKED_BRICK_SLAB);
-            if (QuarkIntegration.isLoaded()) event.accept(QuarkIntegration.LoadedOnly.VOID_CRACKED_BRICK_VERTICAL_SLAB);
+            if(QuarkIntegration.isLoaded()) event.accept(QuarkIntegration.LoadedOnly.VOID_CRACKED_BRICK_VERTICAL_SLAB);
             event.accept(BlockRegistry.VOID_CRACKED_BRICK_WALL);
             event.accept(BlockRegistry.VOID_CHISELED_BRICK);
             event.accept(BlockRegistry.VOID_CHISELED_BRICKS);
             event.accept(BlockRegistry.VOID_CHISELED_BRICKS_STAIRS);
             event.accept(BlockRegistry.VOID_CHISELED_BRICKS_SLAB);
-            if (QuarkIntegration.isLoaded()) event.accept(QuarkIntegration.LoadedOnly.CHISELED_VOID_BRICKS_VERTICAL_SLAB);
+            if(QuarkIntegration.isLoaded()) event.accept(QuarkIntegration.LoadedOnly.CHISELED_VOID_BRICKS_VERTICAL_SLAB);
             event.accept(BlockRegistry.POLISHED_VOID_STONE);
             event.accept(BlockRegistry.VOID_FIRECHARGE_TRAP);
             event.accept(BlockRegistry.VOID_SPIKES_TRAP);
@@ -547,14 +541,14 @@ public abstract class ItemTabRegistry {
             event.accept(BlockRegistry.VOID_PILLAR_AMETHYST);
             event.accept(BlockRegistry.CHARGED_VOID_PILLAR);
             event.accept(BlockRegistry.SHADELOG);
-            if (QuarkIntegration.isLoaded()) event.accept(QuarkIntegration.LoadedOnly.HOLLOW_SHADELOG);
+            if(QuarkIntegration.isLoaded()) event.accept(QuarkIntegration.LoadedOnly.HOLLOW_SHADELOG);
             event.accept(BlockRegistry.SHADEWOOD);
             event.accept(BlockRegistry.STRIPPED_SHADELOG);
             event.accept(BlockRegistry.STRIPPED_SHADEWOOD);
             event.accept(BlockRegistry.SHADEWOOD_PLANKS);
             event.accept(BlockRegistry.SHADEWOOD_PLANKS_STAIRS);
             event.accept(BlockRegistry.SHADEWOOD_PLANKS_SLAB);
-            if (QuarkIntegration.isLoaded()) {
+            if(QuarkIntegration.isLoaded()){
                 event.accept(QuarkIntegration.LoadedOnly.SHADEWOOD_PLANKS_VERTICAL_SLAB);
                 event.accept(QuarkIntegration.LoadedOnly.SHADELOG_POST);
                 event.accept(QuarkIntegration.LoadedOnly.STRIPPED_SHADELOG_POST);
@@ -569,7 +563,7 @@ public abstract class ItemTabRegistry {
             event.accept(BlockRegistry.SHADEWOOD_SAPLING);
             event.accept(BlockRegistry.SHADEWOOD_BRANCH);
             event.accept(BlockRegistry.SHADEWOOD_LEAVES);
-            if (QuarkIntegration.isLoaded()) {
+            if(QuarkIntegration.isLoaded()){
                 event.accept(QuarkIntegration.LoadedOnly.SHADEWOOD_LEAF_HEDGE);
                 event.accept(QuarkIntegration.LoadedOnly.SHADEWOOD_LEAF_CARPET);
                 event.accept(QuarkIntegration.LoadedOnly.SHADEWOOD_LADDER);
@@ -578,21 +572,21 @@ public abstract class ItemTabRegistry {
             event.accept(ItemsRegistry.SHADEWOOD_HANGING_SIGN);
             event.accept(ItemsRegistry.SHADEWOOD_BOAT_ITEM);
             event.accept(ItemsRegistry.SHADEWOOD_CHEST_BOAT_ITEM);
-            if (QuarkIntegration.isLoaded()) {
+            if(QuarkIntegration.isLoaded()){
                 event.accept(QuarkIntegration.LoadedOnly.SHADEWOOD_BOOKSHELF);
                 event.accept(QuarkIntegration.LoadedOnly.SHADEWOOD_CHEST);
                 event.accept(QuarkIntegration.LoadedOnly.TRAPPED_SHADEWOOD_CHEST);
             }
 
             event.accept(BlockRegistry.ELDRITCH_LOG);
-            if (QuarkIntegration.isLoaded()) event.accept(QuarkIntegration.LoadedOnly.HOLLOW_ELDRITCH_LOG);
+            if(QuarkIntegration.isLoaded()) event.accept(QuarkIntegration.LoadedOnly.HOLLOW_ELDRITCH_LOG);
             event.accept(BlockRegistry.ELDRITCH_WOOD);
             event.accept(BlockRegistry.STRIPPED_ELDRITCH_LOG);
             event.accept(BlockRegistry.STRIPPED_ELDRITCH_WOOD);
             event.accept(BlockRegistry.ELDRITCH_PLANKS);
             event.accept(BlockRegistry.ELDRITCH_PLANKS_STAIRS);
             event.accept(BlockRegistry.ELDRITCH_PLANKS_SLAB);
-            if (QuarkIntegration.isLoaded()) {
+            if(QuarkIntegration.isLoaded()){
                 event.accept(QuarkIntegration.LoadedOnly.ELDRITCH_PLANKS_VERTICAL_SLAB);
                 event.accept(QuarkIntegration.LoadedOnly.ELDRITCH_LOG_POST);
                 event.accept(QuarkIntegration.LoadedOnly.STRIPPED_ELDRITCH_LOG_POST);
@@ -605,7 +599,7 @@ public abstract class ItemTabRegistry {
             event.accept(BlockRegistry.ELDRITCH_BUTTON);
             event.accept(BlockRegistry.ELDRITCH_SAPLING);
             event.accept(BlockRegistry.ELDRITCH_LEAVES);
-            if (QuarkIntegration.isLoaded()) {
+            if(QuarkIntegration.isLoaded()){
                 event.accept(QuarkIntegration.LoadedOnly.ELDRITCH_LEAF_HEDGE);
                 event.accept(QuarkIntegration.LoadedOnly.ELDRITCH_LEAF_CARPET);
                 event.accept(QuarkIntegration.LoadedOnly.ELDRITCH_LADDER);
@@ -614,7 +608,7 @@ public abstract class ItemTabRegistry {
             event.accept(ItemsRegistry.ELDRITCH_HANGING_SIGN);
             event.accept(ItemsRegistry.ELDRITCH_BOAT_ITEM);
             event.accept(ItemsRegistry.ELDRITCH_CHEST_BOAT_ITEM);
-            if (QuarkIntegration.isLoaded()) {
+            if(QuarkIntegration.isLoaded()){
                 event.accept(QuarkIntegration.LoadedOnly.ELDRITCH_BOOKSHELF);
                 event.accept(QuarkIntegration.LoadedOnly.ELDRITCH_CHEST);
                 event.accept(QuarkIntegration.LoadedOnly.TRAPPED_ELDRITCH_CHEST);
@@ -646,7 +640,7 @@ public abstract class ItemTabRegistry {
         }
     }
 
-    private static void generatePresetPaintings(CreativeModeTab.Output pOutput, HolderLookup.RegistryLookup<PaintingVariant> pPaintingVariants, Predicate<Holder<PaintingVariant>> pPredicate, CreativeModeTab.TabVisibility pTabVisibility) {
+    private static void generatePresetPaintings(CreativeModeTab.Output pOutput, HolderLookup.RegistryLookup<PaintingVariant> pPaintingVariants, Predicate<Holder<PaintingVariant>> pPredicate, CreativeModeTab.TabVisibility pTabVisibility){
         pPaintingVariants.listElements().filter(pPredicate).sorted(PAINTING_COMPARATOR).forEach((p_269979_) -> {
             ItemStack itemstack = new ItemStack(Items.PAINTING);
             CompoundTag compoundtag = itemstack.getOrCreateTagElement("EntityTag");

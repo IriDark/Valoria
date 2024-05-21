@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": { "model": "valoria:block/pyratite_ore" }
+    "": {
+      "model": "valoria:block/pyratite_ore"
+    }
   }
 }

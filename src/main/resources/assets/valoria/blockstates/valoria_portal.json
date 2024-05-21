@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": { "model": "valoria:block/valoria_portal" }
+    "": {
+      "model": "valoria:block/valoria_portal"
+    }
   }
 }

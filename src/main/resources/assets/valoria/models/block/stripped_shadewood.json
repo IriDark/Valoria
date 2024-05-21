@@ -1,7 +1,7 @@
 {
-    "parent": "block/cube_column",
-    "textures": {
-        "end": "valoria:block/stripped_shadelog",
-	    "side": "valoria:block/stripped_shadelog"
-    }
+  "parent": "block/cube_column",
+  "textures": {
+    "end": "valoria:block/stripped_shadelog",
+    "side": "valoria:block/stripped_shadelog"
+  }
 }

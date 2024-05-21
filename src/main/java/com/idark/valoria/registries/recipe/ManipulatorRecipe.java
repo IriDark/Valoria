@@ -20,7 +20,7 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ManipulatorRecipe implements Recipe<Container> {
+public class ManipulatorRecipe implements Recipe<Container>{
     private final NonNullList<Ingredient> inputs;
     private final ItemStack output;
     private final ResourceLocation id;
@@ -28,7 +28,7 @@ public class ManipulatorRecipe implements Recipe<Container> {
     private final int cores;
     private final int time;
 
-    public ManipulatorRecipe(ResourceLocation id, ItemStack output, String pCoreId, int cores, int time, Ingredient... inputItems) {
+    public ManipulatorRecipe(ResourceLocation id, ItemStack output, String pCoreId, int cores, int time, Ingredient... inputItems){
         this.id = id;
         this.output = output;
         this.pCoreId = pCoreId;
@@ -38,10 +38,10 @@ public class ManipulatorRecipe implements Recipe<Container> {
     }
 
     @Override
-    public boolean matches(Container pContainer, Level pLevel) {
+    public boolean matches(Container pContainer, Level pLevel){
         boolean craft = true;
-        for (int i = 0; i < 2; i += 1) {
-            if (!inputs.get(i).test(pContainer.getItem(i))) {
+        for(int i = 0; i < 2; i += 1){
+            if(!inputs.get(i).test(pContainer.getItem(i))){
                 craft = false;
             }
         }
@@ -49,72 +49,72 @@ public class ManipulatorRecipe implements Recipe<Container> {
         return craft;
     }
 
-    public int getTime() {
+    public int getTime(){
         return time;
     }
 
-    public int getCoresNeeded() {
+    public int getCoresNeeded(){
         return cores;
     }
 
     @Override
-    public ItemStack assemble(Container pContainer, RegistryAccess pRegistryAccess) {
+    public ItemStack assemble(Container pContainer, RegistryAccess pRegistryAccess){
         return output;
     }
 
     @Override
-    public boolean canCraftInDimensions(int pWidth, int pHeight) {
+    public boolean canCraftInDimensions(int pWidth, int pHeight){
         return true;
     }
 
     @Override
-    public ItemStack getResultItem(RegistryAccess pRegistryAccess) {
+    public ItemStack getResultItem(RegistryAccess pRegistryAccess){
         return output.copy();
     }
 
-    public String getCore() {
+    public String getCore(){
         return pCoreId;
     }
 
     @Nonnull
     @Override
-    public NonNullList<Ingredient> getIngredients() {
+    public NonNullList<Ingredient> getIngredients(){
         return inputs;
     }
 
     @Override
-    public ResourceLocation getId() {
+    public ResourceLocation getId(){
         return id;
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<?> getSerializer(){
         return ManipulatorRecipe.Serializer.INSTANCE;
     }
 
     @Override
-    public RecipeType<?> getType() {
+    public RecipeType<?> getType(){
         return ManipulatorRecipe.Type.INSTANCE;
     }
 
-    public static class Type implements RecipeType<ManipulatorRecipe> {
+    public static class Type implements RecipeType<ManipulatorRecipe>{
         public static final ManipulatorRecipe.Type INSTANCE = new ManipulatorRecipe.Type();
         public static final String ID = "manipulator";
     }
 
-    public static class Serializer implements RecipeSerializer<ManipulatorRecipe> {
+    public static class Serializer implements RecipeSerializer<ManipulatorRecipe>{
         public static final ManipulatorRecipe.Serializer INSTANCE = new ManipulatorRecipe.Serializer();
         public static final ResourceLocation ID = new ResourceLocation(Valoria.ID, "manipulator");
 
         @Override
-        public @NotNull ManipulatorRecipe fromJson(@NotNull ResourceLocation pRecipeId, @NotNull JsonObject pSerializedRecipe) {
+        public @NotNull ManipulatorRecipe fromJson(@NotNull ResourceLocation pRecipeId, @NotNull JsonObject pSerializedRecipe){
             ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(pSerializedRecipe, "output"));
             String core = pSerializedRecipe.has("core") ? pSerializedRecipe.get("core").getAsString() : "empty";
             int cores = pSerializedRecipe.has("cores") ? GsonHelper.getAsInt(pSerializedRecipe, "cores") : 0;
             int time = GsonHelper.getAsInt(pSerializedRecipe, "time");
             JsonArray pIngredients = GsonHelper.getAsJsonArray(pSerializedRecipe, "ingredients");
             List<Ingredient> inputs = new ArrayList<>();
-            for (JsonElement e : pIngredients) {
+            for(JsonElement e : pIngredients){
                 inputs.add(Ingredient.fromJson(e));
             }
 
@@ -122,9 +122,9 @@ public class ManipulatorRecipe implements Recipe<Container> {
         }
 
         @Override
-        public @Nullable ManipulatorRecipe fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
+        public @Nullable ManipulatorRecipe fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer){
             Ingredient[] inputs = new Ingredient[pBuffer.readInt()];
-            for (int i = 0; i < inputs.length; i++) {
+            for(int i = 0; i < inputs.length; i++){
                 inputs[i] = Ingredient.fromNetwork(pBuffer);
             }
 
@@ -136,9 +136,9 @@ public class ManipulatorRecipe implements Recipe<Container> {
         }
 
         @Override
-        public void toNetwork(FriendlyByteBuf pBuffer, ManipulatorRecipe pRecipe) {
+        public void toNetwork(FriendlyByteBuf pBuffer, ManipulatorRecipe pRecipe){
             pBuffer.writeInt(pRecipe.getIngredients().size());
-            for (Ingredient input : pRecipe.getIngredients()) {
+            for(Ingredient input : pRecipe.getIngredients()){
                 input.toNetwork(pBuffer);
             }
 

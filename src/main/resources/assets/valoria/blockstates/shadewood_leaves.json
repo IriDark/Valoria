@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": { "model" : "valoria:block/shadewood_leaves" }
+    "": {
+      "model": "valoria:block/shadewood_leaves"
+    }
   }
 }

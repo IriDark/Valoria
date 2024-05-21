@@ -3,7 +3,6 @@
   "textures": {
     "layer0": "valoria:item/blaze_reap"
   },
-
   "display": {
     "firstperson_righthand": {
       "rotation": [

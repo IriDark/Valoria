@@ -5,20 +5,20 @@ import com.idark.valoria.registries.item.types.mana.ManaItemType;
 import net.minecraft.world.item.Item;
 
 // TODO: Completely (maybe) redone this
-public class StaffItem extends Item implements IManaItem {
+public class StaffItem extends Item implements IManaItem{
 
     //This thing is a huge experiment don't take it serious lmao
-    public StaffItem(Item.Properties props) {
+    public StaffItem(Item.Properties props){
         super(props);
     }
 
     @Override
-    public int getMaxMana() {
+    public int getMaxMana(){
         return 100;
     }
 
     @Override
-    public ManaItemType getManaItemType() {
+    public ManaItemType getManaItemType(){
         return ManaItemType.USING;
     }
 }

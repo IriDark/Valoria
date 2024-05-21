@@ -1,18 +1,18 @@
 {
-    "type": "minecraft:crafting_shaped",
-    "pattern": [
-        "X/X"
-    ],
-    "key": {
-        "/": {
-            "item": "valoria:bronze_lamp"
-        },
-		"X": {
-            "item": "valoria:bronze_ingot"
-        }
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "X/X"
+  ],
+  "key": {
+    "/": {
+      "item": "valoria:bronze_lamp"
     },
-    "result": {
-        "item": "valoria:decorated_bronze_lamp",
-        "count": 1
+    "X": {
+      "item": "valoria:bronze_ingot"
     }
+  },
+  "result": {
+    "item": "valoria:decorated_bronze_lamp",
+    "count": 1
+  }
 }

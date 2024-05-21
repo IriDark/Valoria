@@ -67,7 +67,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import top.theillusivec4.curios.api.client.CuriosRendererRegistry;
 
 @Mod(Valoria.ID)
-public class Valoria {
+public class Valoria{
     //TODO: More pyratite content
     //TODO: Mobs for valoria
     //TODO: Misc gen for valoria
@@ -75,10 +75,9 @@ public class Valoria {
 
     public static final ISidedProxy proxy = DistExecutor.unsafeRunForDist(() -> ClientProxy::new, () -> ServerProxy::new);
 
-    public Valoria() {
+    public Valoria(){
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
-
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
         SoundsRegistry.SOUNDS.register(eventBus);
         EffectsRegistry.register(eventBus);
@@ -89,7 +88,10 @@ public class Valoria {
         ItemsRegistry.register(eventBus);
         BlockRegistry.register(eventBus);
         PoiRegistries.register(eventBus);
-        if (QuarkIntegration.isLoaded()) QuarkIntegration.init(eventBus);
+        if(QuarkIntegration.isLoaded()){
+            QuarkIntegration.init(eventBus);
+        }
+
         BlockEntitiesRegistry.register(eventBus);
         RecipesRegistry.register(eventBus);
         MenuRegistry.register(eventBus);
@@ -103,10 +105,9 @@ public class Valoria {
 
         IEventBus forgeBus = MinecraftForge.EVENT_BUS;
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ClientConfig.SPEC);
-
         DistExecutor.unsafeCallWhenOn(Dist.CLIENT, () -> () -> {
             forgeBus.addListener(ClientTickHandler::clientTickEnd);
-            forgeBus.addListener(RenderUtils::onRenderWorldLast);
+            forgeBus.addListener(RenderUtils::afterLevelRender);
             forgeBus.addListener(DashOverlayRender::tick);
             forgeBus.addListener(DashOverlayRender::onDrawScreenPost);
             forgeBus.addListener(CorpsecleaverRender::tick);
@@ -125,11 +126,10 @@ public class Valoria {
 
     /**
      * To add your items here you'll need to add it in FMLClientSetupEvent event like this one but in your mod class and add an event to client side
-     *
      * @see ValoriaClient.RegistryEvents#onModelRegistryEvent(ModelEvent.RegisterAdditional)
      */
 
-    private void clientSetup(final FMLClientSetupEvent event) {
+    private void clientSetup(final FMLClientSetupEvent event){
         event.enqueueWork(() -> {
             LexiconChapters.init();
             Item2DRenderer.handModelItems.add("valoria:phantom");
@@ -200,12 +200,12 @@ public class Valoria {
         });
     }
 
-    private void setup(final FMLCommonSetupEvent event) {
+    private void setup(final FMLCommonSetupEvent event){
         PacketHandler.init();
         PotionBrewery.bootStrap();
         RegisterUnlockables.init();
         event.enqueueWork(() -> {
-            FireBlock fireblock = (FireBlock) Blocks.FIRE;
+            FireBlock fireblock = (FireBlock)Blocks.FIRE;
             fireblock.setFlammable(BlockRegistry.SHADELOG.get(), 5, 20);
             fireblock.setFlammable(BlockRegistry.SHADEWOOD.get(), 5, 20);
             fireblock.setFlammable(BlockRegistry.SHADEWOOD_LEAVES.get(), 30, 60);
@@ -244,55 +244,55 @@ public class Valoria {
             SarcophagusBlock.halloweenSpawnableWith.add(Items.CARVED_PUMPKIN);
 
             AxeItem.STRIPPABLES = new ImmutableMap.Builder<Block, Block>().putAll(AxeItem.STRIPPABLES)
-                    .put(BlockRegistry.SHADELOG.get(), BlockRegistry.STRIPPED_SHADELOG.get())
-                    .put(BlockRegistry.SHADEWOOD.get(), BlockRegistry.STRIPPED_SHADEWOOD.get())
-                    .put(BlockRegistry.ELDRITCH_LOG.get(), BlockRegistry.STRIPPED_ELDRITCH_LOG.get())
-                    .put(BlockRegistry.ELDRITCH_WOOD.get(), BlockRegistry.STRIPPED_ELDRITCH_WOOD.get()).build();
+            .put(BlockRegistry.SHADELOG.get(), BlockRegistry.STRIPPED_SHADELOG.get())
+            .put(BlockRegistry.SHADEWOOD.get(), BlockRegistry.STRIPPED_SHADEWOOD.get())
+            .put(BlockRegistry.ELDRITCH_LOG.get(), BlockRegistry.STRIPPED_ELDRITCH_LOG.get())
+            .put(BlockRegistry.ELDRITCH_WOOD.get(), BlockRegistry.STRIPPED_ELDRITCH_WOOD.get()).build();
 
             WoodType.register(ModWoodTypes.ELDRITCH);
             WoodType.register(ModWoodTypes.SHADEWOOD);
         });
     }
 
-    private void processIMC(final InterModProcessEvent event) {
+    private void processIMC(final InterModProcessEvent event){
         // some example code to receive and process InterModComms from other mods
     }
 
     @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
-    public static class RegistryEvents {
+    public static class RegistryEvents{
 
         @SubscribeEvent
-        public static void registerCaps(RegisterCapabilitiesEvent event) {
+        public static void registerCaps(RegisterCapabilitiesEvent event){
             event.register(IUnlockable.class);
         }
 
         @SubscribeEvent
-        public static void commonSetup(FMLCommonSetupEvent event) {
+        public static void commonSetup(FMLCommonSetupEvent event){
             event.enqueueWork(() -> {
                 SpawnPlacements.register(EntityTypeRegistry.GOBLIN.get(),
-                        SpawnPlacements.Type.ON_GROUND,
-                        Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-                        GoblinEntity::checkGoblinSpawnRules);
+                SpawnPlacements.Type.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                GoblinEntity::checkGoblinSpawnRules);
 
                 SpawnPlacements.register(EntityTypeRegistry.DRAUGR.get(),
-                        SpawnPlacements.Type.ON_GROUND,
-                        Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-                        DraugrEntity::checkMonsterSpawnRules);
+                SpawnPlacements.Type.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                DraugrEntity::checkMonsterSpawnRules);
 
                 SpawnPlacements.register(EntityTypeRegistry.SWAMP_WANDERER.get(),
-                        SpawnPlacements.Type.IN_WATER,
-                        Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-                        SwampWandererEntity::checkDrownedSpawnRules);
+                SpawnPlacements.Type.IN_WATER,
+                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                SwampWandererEntity::checkDrownedSpawnRules);
 
                 SpawnPlacements.register(EntityTypeRegistry.SHADEWOOD_SPIDER.get(),
-                        SpawnPlacements.Type.ON_GROUND,
-                        Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-                        ShadewoodSpider::checkMonsterSpawnRules);
+                SpawnPlacements.Type.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                ShadewoodSpider::checkMonsterSpawnRules);
             });
         }
 
         @SubscribeEvent
-        public static void registerAttributes(EntityAttributeCreationEvent event) {
+        public static void registerAttributes(EntityAttributeCreationEvent event){
             event.put(EntityTypeRegistry.MANNEQUIN.get(), MannequinEntity.createAttributes().build());
             event.put(EntityTypeRegistry.GOBLIN.get(), GoblinEntity.createAttributes().build());
             event.put(EntityTypeRegistry.DRAUGR.get(), DraugrEntity.createAttributes().build());
@@ -303,13 +303,13 @@ public class Valoria {
         }
 
         @SubscribeEvent
-        public static void attachAttribute(EntityAttributeModificationEvent event) {
+        public static void attachAttribute(EntityAttributeModificationEvent event){
             event.add(EntityType.PLAYER, AttributeRegistry.DASH_DISTANCE.get());
             event.add(EntityType.PLAYER, AttributeRegistry.ATTACK_RADIUS.get());
         }
 
         @SubscribeEvent
-        public static void gatherData(GatherDataEvent event) {
+        public static void gatherData(GatherDataEvent event){
             DataGenerator generator = event.getGenerator();
             PackOutput packOutput = generator.getPackOutput();
             ExistingFileHelper existingFileHelper = event.getExistingFileHelper();

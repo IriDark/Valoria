@@ -1,7 +1,7 @@
 {
-    "render_type": "minecraft:cutout",
-    "parent": "block/cube_all",
-    "textures": {
-        "all": "valoria:block/bronze_glass"
-    }
+  "render_type": "minecraft:cutout",
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "valoria:block/bronze_glass"
+  }
 }

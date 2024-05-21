@@ -11,7 +11,8 @@
     },
     "X": {
       "item": "minecraft:iron_ingot"
-    }},
+    }
+  },
   "result": {
     "item": "valoria:pick",
     "count": 1

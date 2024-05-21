@@ -1,18 +1,16 @@
 package com.idark.valoria.registries.sounds;
 
-import com.idark.valoria.registries.SoundsRegistry;
-import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
-import net.minecraft.client.resources.sounds.SoundInstance;
-import net.minecraft.sounds.SoundSource;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import com.idark.valoria.registries.*;
+import net.minecraft.client.player.*;
+import net.minecraft.client.resources.sounds.*;
+import net.minecraft.sounds.*;
+import net.minecraftforge.api.distmarker.*;
 
 @OnlyIn(Dist.CLIENT)
-public class CooldownSoundInstance extends AbstractTickableSoundInstance {
+public class CooldownSoundInstance extends AbstractTickableSoundInstance{
     public final LocalPlayer player;
 
-    public CooldownSoundInstance(LocalPlayer pPlayer) {
+    public CooldownSoundInstance(LocalPlayer pPlayer){
         super(SoundsRegistry.RECHARGE.get(), SoundSource.PLAYERS, SoundInstance.createUnseededRandom());
         this.player = pPlayer;
         this.looping = false;
@@ -20,12 +18,12 @@ public class CooldownSoundInstance extends AbstractTickableSoundInstance {
         this.volume = 1.10F;
     }
 
-    public void tick() {
-        if (!this.player.isRemoved()) {
-            this.x = (float) this.player.getX();
-            this.y = (float) this.player.getY();
-            this.z = (float) this.player.getZ();
-        } else {
+    public void tick(){
+        if(!this.player.isRemoved()){
+            this.x = (float)this.player.getX();
+            this.y = (float)this.player.getY();
+            this.z = (float)this.player.getZ();
+        }else{
             this.stop();
         }
     }

@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": { "model" : "valoria:block/bronze_vent" }
+    "": {
+      "model": "valoria:block/bronze_vent"
+    }
   }
 }

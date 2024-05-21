@@ -1,45 +1,40 @@
 package com.idark.valoria.registries.entity.ai.goals;
 
-import net.minecraft.core.BlockPos;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.PathfinderMob;
-import net.minecraft.world.entity.ai.goal.MoveToBlockGoal;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.CaveVines;
-import net.minecraft.world.level.block.SweetBerryBushBlock;
-import net.minecraft.world.level.block.state.BlockState;
-import org.jetbrains.annotations.NotNull;
+import net.minecraft.core.*;
+import net.minecraft.sounds.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.*;
+import org.jetbrains.annotations.*;
 
-public class CollectBerriesGoal extends MoveToBlockGoal {
+public class CollectBerriesGoal extends MoveToBlockGoal{
     protected int ticksWaited;
 
-    public CollectBerriesGoal(PathfinderMob pMob, double pSpeedModifier, int pSearchRange, int pVerticalSearchRange) {
+    public CollectBerriesGoal(PathfinderMob pMob, double pSpeedModifier, int pSearchRange, int pVerticalSearchRange){
         super(pMob, pSpeedModifier, pSearchRange, pVerticalSearchRange);
     }
 
-    public double acceptedDistance() {
+    public double acceptedDistance(){
         return 2.0D;
     }
 
-    public boolean shouldRecalculatePath() {
+    public boolean shouldRecalculatePath(){
         return this.tryTicks % 100 == 0;
     }
 
-    protected boolean isValidTarget(LevelReader pLevel, @NotNull BlockPos pPos) {
+    protected boolean isValidTarget(LevelReader pLevel, @NotNull BlockPos pPos){
         BlockState blockstate = pLevel.getBlockState(pPos);
         return blockstate.is(Blocks.SWEET_BERRY_BUSH) && blockstate.getValue(SweetBerryBushBlock.AGE) >= 2 || CaveVines.hasGlowBerries(blockstate);
     }
 
-    public void tick() {
-        if (this.isReachedTarget()) {
-            if (this.ticksWaited >= 40) {
+    public void tick(){
+        if(this.isReachedTarget()){
+            if(this.ticksWaited >= 40){
                 this.onReachedTarget();
-            } else {
+            }else{
                 ++this.ticksWaited;
             }
         }
@@ -47,33 +42,33 @@ public class CollectBerriesGoal extends MoveToBlockGoal {
         super.tick();
     }
 
-    protected void onReachedTarget() {
-        if (net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(mob.level(), mob)) {
+    protected void onReachedTarget(){
+        if(net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(mob.level(), mob)){
             BlockState blockstate = mob.level().getBlockState(this.blockPos);
-            if (blockstate.is(Blocks.SWEET_BERRY_BUSH)) {
+            if(blockstate.is(Blocks.SWEET_BERRY_BUSH)){
                 this.pickSweetBerries(blockstate);
-            } else if (CaveVines.hasGlowBerries(blockstate)) {
+            }else if(CaveVines.hasGlowBerries(blockstate)){
                 this.pickGlowBerry(blockstate);
             }
 
         }
     }
 
-    private void pickGlowBerry(BlockState pState) {
+    private void pickGlowBerry(BlockState pState){
         CaveVines.use(mob, pState, mob.level(), this.blockPos);
     }
 
-    private void pickSweetBerries(BlockState pState) {
+    private void pickSweetBerries(BlockState pState){
         int i = pState.getValue(SweetBerryBushBlock.AGE);
         pState.setValue(SweetBerryBushBlock.AGE, 1);
         int j = 1 + mob.level().random.nextInt(2) + (i == 3 ? 1 : 0);
         ItemStack itemstack = mob.getItemBySlot(EquipmentSlot.MAINHAND);
-        if (itemstack.isEmpty()) {
+        if(itemstack.isEmpty()){
             mob.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.SWEET_BERRIES));
             --j;
         }
 
-        if (j > 0) {
+        if(j > 0){
             Block.popResource(mob.level(), this.blockPos, new ItemStack(Items.SWEET_BERRIES, j));
         }
 
@@ -81,11 +76,11 @@ public class CollectBerriesGoal extends MoveToBlockGoal {
         mob.level().setBlock(this.blockPos, pState.setValue(SweetBerryBushBlock.AGE, 1), 2);
     }
 
-    public boolean canUse() {
+    public boolean canUse(){
         return super.canUse();
     }
 
-    public void start() {
+    public void start(){
         this.ticksWaited = 0;
         super.start();
     }

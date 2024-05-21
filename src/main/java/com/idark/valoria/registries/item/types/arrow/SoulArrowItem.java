@@ -14,17 +14,17 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class SoulArrowItem extends ArrowItem {
-    public SoulArrowItem(Item.Properties pProperties) {
+public class SoulArrowItem extends ArrowItem{
+    public SoulArrowItem(Item.Properties pProperties){
         super(pProperties);
     }
 
-    public AbstractArrow createArrow(Level pLevel, ItemStack pStack, LivingEntity pShooter) {
+    public AbstractArrow createArrow(Level pLevel, ItemStack pStack, LivingEntity pShooter){
         return new SoulArrow(pLevel, pShooter, pStack);
     }
 
     @Override
-    public void appendHoverText(@NotNull ItemStack stack, Level world, @NotNull List<Component> tooltip, @NotNull TooltipFlag flags) {
+    public void appendHoverText(@NotNull ItemStack stack, Level world, @NotNull List<Component> tooltip, @NotNull TooltipFlag flags){
         super.appendHoverText(stack, world, tooltip, flags);
         tooltip.add(Component.translatable("tooltip.valoria.homing").withStyle(ChatFormatting.GRAY));
     }

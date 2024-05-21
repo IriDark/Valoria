@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": { "model" : "valoria:block/ambane_stone_bricks" }
+    "": {
+      "model": "valoria:block/ambane_stone_bricks"
+    }
   }
 }

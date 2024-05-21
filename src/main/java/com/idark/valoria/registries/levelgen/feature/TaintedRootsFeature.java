@@ -15,18 +15,47 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 
-public class TaintedRootsFeature extends Feature<TaintedRootsConfig> {
+public class TaintedRootsFeature extends Feature<TaintedRootsConfig>{
 
-    public TaintedRootsFeature(Codec<TaintedRootsConfig> pCodec) {
+    public TaintedRootsFeature(Codec<TaintedRootsConfig> pCodec){
         super(pCodec);
     }
 
-    public boolean place(FeaturePlaceContext<TaintedRootsConfig> pContext) {
+    private static boolean findFirstAirBlockAboveGround(LevelAccessor pLevel, BlockPos.MutableBlockPos pPos){
+        do{
+            pPos.move(0, -1, 0);
+            if(pLevel.isOutsideBuildHeight(pPos)){
+                return false;
+            }
+        }while(pLevel.getBlockState(pPos).isAir());
+
+        pPos.move(0, 1, 0);
+        return true;
+    }
+
+    public static void placeRoot(LevelAccessor pLevel, RandomSource pRandom, BlockPos.MutableBlockPos pPos, int pMinAge, int pMaxAge){
+        if(!pLevel.isEmptyBlock(pPos.above())){
+            pLevel.setBlock(pPos, BlockRegistry.TAINTED_ROOTS.get().defaultBlockState().setValue(TaintedRootsBlock.AGE, Mth.nextInt(pRandom, pMinAge, pMaxAge)), 2);
+        }
+
+        pPos.move(Direction.UP);
+    }
+
+    private static boolean isInvalidPlacementLocation(LevelAccessor pLevel, BlockPos pPos){
+        if(!pLevel.isEmptyBlock(pPos)){
+            return true;
+        }else{
+            BlockState blockstate = pLevel.getBlockState(pPos.below());
+            return !blockstate.is(BlockRegistry.VOID_STONE.get()) && !blockstate.is(BlockRegistry.VOID_TAINT.get());
+        }
+    }
+
+    public boolean place(FeaturePlaceContext<TaintedRootsConfig> pContext){
         WorldGenLevel worldgenlevel = pContext.level();
         BlockPos blockpos = pContext.origin();
-        if (isInvalidPlacementLocation(worldgenlevel, blockpos)) {
+        if(isInvalidPlacementLocation(worldgenlevel, blockpos)){
             return false;
-        } else {
+        }else{
             RandomSource randomsource = pContext.random();
             TaintedRootsConfig roots = pContext.config();
             int i = roots.spreadWidth();
@@ -34,12 +63,12 @@ public class TaintedRootsFeature extends Feature<TaintedRootsConfig> {
             BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
 
             int step = 3;
-            for (int x = -i; x <= i; x += step) {
-                for (int y = -j; y <= j; y += step) {
-                    for (int z = -i; z <= i; z += step) {
+            for(int x = -i; x <= i; x += step){
+                for(int y = -j; y <= j; y += step){
+                    for(int z = -i; z <= i; z += step){
                         blockpos$mutableblockpos.set(blockpos).move(Mth.nextInt(randomsource, -i, i), Mth.nextInt(randomsource, -j, j), Mth.nextInt(randomsource, -i, i));
-                        if (findFirstAirBlockAboveGround(worldgenlevel, blockpos$mutableblockpos) && !isInvalidPlacementLocation(worldgenlevel, blockpos$mutableblockpos)) {
-                            if (RandomUtil.fiftyFifty()) {
+                        if(findFirstAirBlockAboveGround(worldgenlevel, blockpos$mutableblockpos) && !isInvalidPlacementLocation(worldgenlevel, blockpos$mutableblockpos)){
+                            if(RandomUtil.fiftyFifty()){
                                 placeRoot(worldgenlevel, randomsource, blockpos$mutableblockpos, 0, 2);
                             }
                         }
@@ -48,35 +77,6 @@ public class TaintedRootsFeature extends Feature<TaintedRootsConfig> {
             }
 
             return true;
-        }
-    }
-
-    private static boolean findFirstAirBlockAboveGround(LevelAccessor pLevel, BlockPos.MutableBlockPos pPos) {
-        do {
-            pPos.move(0, -1, 0);
-            if (pLevel.isOutsideBuildHeight(pPos)) {
-                return false;
-            }
-        } while (pLevel.getBlockState(pPos).isAir());
-
-        pPos.move(0, 1, 0);
-        return true;
-    }
-
-    public static void placeRoot(LevelAccessor pLevel, RandomSource pRandom, BlockPos.MutableBlockPos pPos, int pMinAge, int pMaxAge) {
-        if (!pLevel.isEmptyBlock(pPos.above())) {
-            pLevel.setBlock(pPos, BlockRegistry.TAINTED_ROOTS.get().defaultBlockState().setValue(TaintedRootsBlock.AGE, Mth.nextInt(pRandom, pMinAge, pMaxAge)), 2);
-        }
-
-        pPos.move(Direction.UP);
-    }
-
-    private static boolean isInvalidPlacementLocation(LevelAccessor pLevel, BlockPos pPos) {
-        if (!pLevel.isEmptyBlock(pPos)) {
-            return true;
-        } else {
-            BlockState blockstate = pLevel.getBlockState(pPos.below());
-            return !blockstate.is(BlockRegistry.VOID_STONE.get()) && !blockstate.is(BlockRegistry.VOID_TAINT.get());
         }
     }
 }

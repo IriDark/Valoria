@@ -1,5 +1,7 @@
 {
-  "variants" : {
-    "" : { "model": "valoria:block/tombstone_bricks" }
+  "variants": {
+    "": {
+      "model": "valoria:block/tombstone_bricks"
+    }
   }
 }

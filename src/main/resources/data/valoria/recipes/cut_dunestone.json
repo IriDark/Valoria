@@ -1,19 +1,19 @@
 {
-    "type": "minecraft:crafting_shaped",
-    "pattern": [
-        "/X",
-        "X/"
-    ],
-    "key": {
-        "/": {
-            "item": "valoria:dunestone_brick"
-        },
-        "X": {
-            "item": "valoria:dunestone_bricks"
-        }
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "/X",
+    "X/"
+  ],
+  "key": {
+    "/": {
+      "item": "valoria:dunestone_brick"
     },
-    "result": {
-        "item": "valoria:cut_dunestone",
-        "count": 4
+    "X": {
+      "item": "valoria:dunestone_bricks"
     }
+  },
+  "result": {
+    "item": "valoria:cut_dunestone",
+    "count": 4
+  }
 }

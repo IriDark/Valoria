@@ -1,7 +1,6 @@
 {
   "type": "valoria:crusher",
   "loot_table": "valoria:blocks/crusher/ephemarite_low",
-
   "ingredients": [
     {
       "item": "valoria:ephemarite_low"

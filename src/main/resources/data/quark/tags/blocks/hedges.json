@@ -1,7 +1,13 @@
 {
   "replace": false,
   "values": [
-    { "id": "valoria:eldritch_hedge", "required":  false },
-    { "id": "valoria:shadewood_hedge", "required":  false }
+    {
+      "id": "valoria:eldritch_hedge",
+      "required": false
+    },
+    {
+      "id": "valoria:shadewood_hedge",
+      "required": false
+    }
   ]
 }

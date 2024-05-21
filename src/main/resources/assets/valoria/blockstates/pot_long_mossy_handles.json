@@ -1,20 +1,20 @@
 {
-  "variants" : {
-    "facing=east" : {
-	"model": "valoria:block/pot_long_mossy_handles",
-	"y": 90
-	},
-	"facing=north" : {
-	"model": "valoria:block/pot_long_mossy_handles",
-	"y": 180
-	},
-	"facing=south" : {
-	"model": "valoria:block/pot_long_mossy_handles",
-	"y": 180
-	},
-	"facing=west" : {
-	"model": "valoria:block/pot_long_mossy_handles",
-	"y": 90
-	}
+  "variants": {
+    "facing=east": {
+      "model": "valoria:block/pot_long_mossy_handles",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "valoria:block/pot_long_mossy_handles",
+      "y": 180
+    },
+    "facing=south": {
+      "model": "valoria:block/pot_long_mossy_handles",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "valoria:block/pot_long_mossy_handles",
+      "y": 90
+    }
   }
 }

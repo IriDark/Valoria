@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": { "model" : "valoria:block/cut_umbral_block" }
+    "": {
+      "model": "valoria:block/cut_umbral_block"
+    }
   }
 }

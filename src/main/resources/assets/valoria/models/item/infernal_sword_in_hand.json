@@ -1,9 +1,8 @@
 {
-  "parent" : "item/handheld",
+  "parent": "item/handheld",
   "textures": {
     "layer0": "valoria:item/infernal_sword_in_hand"
   },
-
   "display": {
     "thirdperson_righthand": {
       "rotation": [

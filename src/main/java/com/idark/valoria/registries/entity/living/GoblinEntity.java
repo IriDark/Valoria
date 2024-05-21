@@ -1,80 +1,61 @@
 package com.idark.valoria.registries.entity.living;
 
-import com.idark.valoria.registries.ItemsRegistry;
+import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.entity.ai.goals.RemoveBlockGoal;
 import com.idark.valoria.registries.entity.ai.goals.*;
-import com.idark.valoria.util.RandomUtil;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ItemParticleOption;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.util.RandomSource;
-import net.minecraft.util.TimeUtil;
-import net.minecraft.util.VisibleForDebug;
-import net.minecraft.util.valueproviders.UniformInt;
-import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.SimpleContainer;
-import net.minecraft.world.damagesource.DamageSource;
+import com.idark.valoria.util.*;
+import net.minecraft.core.*;
+import net.minecraft.core.particles.*;
+import net.minecraft.nbt.*;
+import net.minecraft.network.syncher.*;
+import net.minecraft.server.level.*;
+import net.minecraft.tags.*;
+import net.minecraft.util.*;
+import net.minecraft.util.valueproviders.*;
+import net.minecraft.world.*;
+import net.minecraft.world.damagesource.*;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.ai.goal.*;
-import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.ai.goal.target.ResetUniversalAngerTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.*;
 import net.minecraft.world.entity.animal.*;
-import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.monster.Creeper;
-import net.minecraft.world.entity.monster.Enemy;
-import net.minecraft.world.entity.npc.AbstractVillager;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.SwordItem;
-import net.minecraft.world.level.BlockAndTintGetter;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
-import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.entity.item.*;
+import net.minecraft.world.entity.monster.*;
+import net.minecraft.world.entity.npc.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.pathfinder.*;
+import net.minecraft.world.phys.*;
 
-import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-import java.util.function.Predicate;
+import javax.annotation.*;
+import java.util.*;
+import java.util.function.*;
 
-public class GoblinEntity extends PathfinderMob implements NeutralMob, Enemy {
+public class GoblinEntity extends PathfinderMob implements NeutralMob, Enemy{
     public static List<Item> goblinCanSpawnWith = new ArrayList<>();
     private final SimpleContainer inventory = new SimpleContainer(8);
     private static final EntityDataAccessor<Integer> DATA_REMAINING_ANGER_TIME = SynchedEntityData.defineId(GoblinEntity.class, EntityDataSerializers.INT);
     private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
     private static final EntityDataAccessor<Boolean> DATA_BABY_ID = SynchedEntityData.defineId(GoblinEntity.class, EntityDataSerializers.BOOLEAN);
-    private final MeleeAttackGoal meleeGoal = new MeleeAttackGoal(this, 1.2, false) {
-        public void stop() {
+    private final MeleeAttackGoal meleeGoal = new MeleeAttackGoal(this, 1.2, false){
+        public void stop(){
             super.stop();
             GoblinEntity.this.setAggressive(false);
         }
 
-        public void start() {
+        public void start(){
             super.start();
             GoblinEntity.this.setAggressive(true);
         }
     };
 
-    public int getExperienceReward() {
-        if (this.isBaby()) {
-            this.xpReward = (int)((double)this.xpReward * 2.5D);
-        }
-
-        return super.getExperienceReward();
+    public GoblinEntity(EntityType<? extends PathfinderMob> type, Level worldIn){
+        super(type, worldIn);
+        this.setCanPickUpLoot(true);
+        this.setPathfindingMalus(BlockPathTypes.POWDER_SNOW, -1.0F);
+        this.setPathfindingMalus(BlockPathTypes.DANGER_POWDER_SNOW, -1.0F);
     }
 
     @Nullable
@@ -82,117 +63,118 @@ public class GoblinEntity extends PathfinderMob implements NeutralMob, Enemy {
     private int ticksSinceEaten;
     static final Predicate<ItemEntity> ALLOWED_ITEMS = (p_289438_) -> !p_289438_.hasPickUpDelay() && p_289438_.isAlive() || p_289438_.getItem().isEdible() || p_289438_.getItem() == Items.GOLD_INGOT.getDefaultInstance() || p_289438_.getItem() == Items.GOLD_BLOCK.getDefaultInstance() || p_289438_.getItem() == Items.GOLD_NUGGET.getDefaultInstance() || p_289438_.getItem() == ItemsRegistry.SAMURAI_KUNAI.get().getDefaultInstance() || p_289438_.getItem() == ItemsRegistry.SAMURAI_POISONED_KUNAI.get().getDefaultInstance() || p_289438_.getItem().getItem() instanceof SwordItem;
 
-    public GoblinEntity(EntityType<? extends PathfinderMob> type, Level worldIn) {
-        super(type, worldIn);
-        this.setCanPickUpLoot(true);
-        this.setPathfindingMalus(BlockPathTypes.POWDER_SNOW, -1.0F);
-        this.setPathfindingMalus(BlockPathTypes.DANGER_POWDER_SNOW, -1.0F);
+    public static boolean isBrightEnoughToSpawn(BlockAndTintGetter pLevel, BlockPos pPos){
+        return pLevel.getRawBrightness(pPos, 0) > 8;
+    }
+
+    public static boolean checkGoblinSpawnRules(EntityType<GoblinEntity> pGoblin, LevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, RandomSource pRandom){
+        return pLevel.getBlockState(pPos.below()).is(BlockTags.ANIMALS_SPAWNABLE_ON) && isBrightEnoughToSpawn(pLevel, pPos);
+    }
+
+    public static AttributeSupplier.Builder createAttributes(){
+        return Mob.createMobAttributes()
+        .add(Attributes.MAX_HEALTH, 25.0D)
+        .add(Attributes.MOVEMENT_SPEED, 0.18D)
+        .add(Attributes.ATTACK_DAMAGE, 2.0D)
+        .add(Attributes.FOLLOW_RANGE, 20.0D);
+    }
+
+    public int getExperienceReward(){
+        if(this.isBaby()){
+            this.xpReward = (int)((double)this.xpReward * 2.5D);
+        }
+
+        return super.getExperienceReward();
     }
 
     @VisibleForDebug
-    public SimpleContainer getInventory() {
+    public SimpleContainer getInventory(){
         return this.inventory;
     }
 
-    public void dropCustomDeathLoot(DamageSource pSource, int pLooting, boolean pRecentlyHit) {
+    public void dropCustomDeathLoot(DamageSource pSource, int pLooting, boolean pRecentlyHit){
         super.dropCustomDeathLoot(pSource, pLooting, pRecentlyHit);
         this.inventory.removeAllItems().forEach(this::spawnAtLocation);
     }
 
-    public boolean shouldDespawnInPeaceful() {
+    public boolean shouldDespawnInPeaceful(){
         return false;
     }
 
-    private boolean canEat(ItemStack pStack) {
+    private boolean canEat(ItemStack pStack){
         return pStack.getItem().isEdible() && this.getTarget() == null && this.onGround() && !this.isSleeping();
     }
 
-    public boolean wantsToPickUp(ItemStack pStack) {
+    public boolean wantsToPickUp(ItemStack pStack){
         Item item = pStack.getItem();
         return item.isEdible() || item == ItemsRegistry.SAMURAI_KUNAI.get() || item == ItemsRegistry.SAMURAI_POISONED_KUNAI.get() || item == Items.GOLD_INGOT || item == Items.GOLD_BLOCK || item == Items.GOLD_NUGGET || item instanceof SwordItem && this.getInventory().canAddItem(pStack);
     }
 
-    public void aiStep() {
-        if (!this.level().isClientSide && this.isAlive() && this.isEffectiveAi()) {
+    public void aiStep(){
+        if(!this.level().isClientSide && this.isAlive() && this.isEffectiveAi()){
             ++this.ticksSinceEaten;
             ItemStack itemstack = this.getItemBySlot(EquipmentSlot.MAINHAND);
-            if (this.canEat(itemstack)) {
-                if (this.ticksSinceEaten > 600) {
+            if(this.canEat(itemstack)){
+                if(this.ticksSinceEaten > 600){
                     ItemStack foodStack = itemstack.finishUsingItem(this.level(), this);
-                    if (!foodStack.isEmpty()) {
+                    if(!foodStack.isEmpty()){
                         this.setItemSlot(EquipmentSlot.MAINHAND, foodStack);
                     }
 
                     this.ticksSinceEaten = 0;
-                } else if (this.ticksSinceEaten > 560 && this.random.nextFloat() < 0.1F) {
+                }else if(this.ticksSinceEaten > 560 && this.random.nextFloat() < 0.1F){
                     this.playSound(this.getEatingSound(itemstack), 1.0F, 1.0F);
                     this.heal(1.25F);
-                    this.level().broadcastEntityEvent(this, (byte) 45);
+                    this.level().broadcastEntityEvent(this, (byte)45);
                 }
             }
         }
 
-        if (!this.level().isClientSide) {
-            this.updatePersistentAnger((ServerLevel) this.level(), true);
+        if(!this.level().isClientSide){
+            this.updatePersistentAnger((ServerLevel)this.level(), true);
         }
 
-        if (this.getHealth() < 12) {
+        if(this.getHealth() < 12){
             this.stopBeingAngry();
         }
 
         super.aiStep();
     }
 
-    public static boolean isBrightEnoughToSpawn(BlockAndTintGetter pLevel, BlockPos pPos) {
-        return pLevel.getRawBrightness(pPos, 0) > 8;
-    }
-
-    public static boolean checkGoblinSpawnRules(EntityType<GoblinEntity> pGoblin, LevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, RandomSource pRandom) {
-        return pLevel.getBlockState(pPos.below()).is(BlockTags.ANIMALS_SPAWNABLE_ON) && isBrightEnoughToSpawn(pLevel, pPos);
-    }
-
-    protected void populateDefaultEquipmentSlots(RandomSource pRandom, DifficultyInstance pDifficulty) {
+    protected void populateDefaultEquipmentSlots(RandomSource pRandom, DifficultyInstance pDifficulty){
         super.populateDefaultEquipmentSlots(pRandom, pDifficulty);
-        if (RandomUtil.percentChance(0.3f)) {
+        if(RandomUtil.percentChance(0.3f)){
             this.setItemSlot(EquipmentSlot.MAINHAND, goblinCanSpawnWith.get(pRandom.nextInt(0, goblinCanSpawnWith.size())).getDefaultInstance());
         }
     }
 
     @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag){
         RandomSource randomsource = pLevel.getRandom();
         this.populateDefaultEquipmentSlots(randomsource, pDifficulty);
         return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
     }
 
-    public void handleEntityEvent(byte pId) {
-        if (pId == 45) {
+    public void handleEntityEvent(byte pId){
+        if(pId == 45){
             ItemStack itemstack = this.getItemBySlot(EquipmentSlot.MAINHAND);
-            if (!itemstack.isEmpty()) {
-                for (int i = 0; i < 8; ++i) {
-                    Vec3 vec3 = (new Vec3(((double) this.random.nextFloat() - 0.5D) * 0.1D, Math.random() * 0.1D + 0.1D, 0.0D)).xRot(-this.getXRot() * ((float) Math.PI / 180F)).yRot(-this.getYRot() * ((float) Math.PI / 180F));
+            if(!itemstack.isEmpty()){
+                for(int i = 0; i < 8; ++i){
+                    Vec3 vec3 = (new Vec3(((double)this.random.nextFloat() - 0.5D) * 0.1D, Math.random() * 0.1D + 0.1D, 0.0D)).xRot(-this.getXRot() * ((float)Math.PI / 180F)).yRot(-this.getYRot() * ((float)Math.PI / 180F));
                     this.level().addParticle(new ItemParticleOption(ParticleTypes.ITEM, itemstack), this.getX() + this.getLookAngle().x / 2.0D, this.getY(), this.getZ() + this.getLookAngle().z / 2.0D, vec3.x, vec3.y + 0.05D, vec3.z);
                 }
             }
-        } else {
+        }else{
             super.handleEntityEvent(pId);
         }
     }
 
-    public boolean canHoldItem(ItemStack pStack) {
+    public boolean canHoldItem(ItemStack pStack){
         return super.canHoldItem(pStack);
     }
 
-    public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 25.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.18D)
-                .add(Attributes.ATTACK_DAMAGE, 2.0D)
-                .add(Attributes.FOLLOW_RANGE, 20.0D);
-    }
-
     @Override
-    protected void registerGoals() {
+    protected void registerGoals(){
         super.registerGoals();
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Animal.class, 10, true, true, (p_28604_) -> p_28604_ instanceof Chicken || p_28604_ instanceof Rabbit || p_28604_ instanceof Pig));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, AbstractFish.class, 20, true, true, (p_28600_) -> p_28600_ instanceof AbstractSchoolingFish));
@@ -220,91 +202,91 @@ public class GoblinEntity extends PathfinderMob implements NeutralMob, Enemy {
         this.goalSelector.addGoal(0, new SeekShelterGoal(this, 1.8));
     }
 
-    public void reassessWeaponGoal() {
+    public void reassessWeaponGoal(){
         this.level();
-        if (!this.level().isClientSide) {
+        if(!this.level().isClientSide){
             this.goalSelector.removeGoal(this.meleeGoal);
         }
     }
 
-    public void setItemSlot(EquipmentSlot pSlot, ItemStack pStack) {
+    public void setItemSlot(EquipmentSlot pSlot, ItemStack pStack){
         super.setItemSlot(pSlot, pStack);
-        if (!this.level().isClientSide) {
+        if(!this.level().isClientSide){
             this.reassessWeaponGoal();
         }
     }
 
-    public int getRemainingPersistentAngerTime() {
+    public int getRemainingPersistentAngerTime(){
         return this.entityData.get(DATA_REMAINING_ANGER_TIME);
     }
 
-    public void setRemainingPersistentAngerTime(int pTime) {
+    public void setRemainingPersistentAngerTime(int pTime){
         this.entityData.set(DATA_REMAINING_ANGER_TIME, pTime);
     }
 
-    public void startPersistentAngerTimer() {
+    public void startPersistentAngerTimer(){
         this.setRemainingPersistentAngerTime(PERSISTENT_ANGER_TIME.sample(this.random));
     }
 
     @Nullable
-    public UUID getPersistentAngerTarget() {
+    public UUID getPersistentAngerTarget(){
         return this.persistentAngerTarget;
     }
 
-    public void setPersistentAngerTarget(@Nullable UUID pTarget) {
+    public void setPersistentAngerTarget(@Nullable UUID pTarget){
         this.persistentAngerTarget = pTarget;
     }
 
-    protected void defineSynchedData() {
+    protected void defineSynchedData(){
         super.defineSynchedData();
         this.getEntityData().define(DATA_BABY_ID, false);
         this.entityData.define(DATA_REMAINING_ANGER_TIME, 0);
     }
 
-    public void setBaby(boolean Baby) {
-        this.getEntityData().set(DATA_BABY_ID, Baby);
-    }
-
     @Override
-    public float getScale() {
+    public float getScale(){
         return this.isBaby() ? 1f : 1.45F;
     }
 
-    public void onSyncedDataUpdated(EntityDataAccessor<?> pKey) {
-        if (DATA_BABY_ID.equals(pKey)) {
+    public void onSyncedDataUpdated(EntityDataAccessor<?> pKey){
+        if(DATA_BABY_ID.equals(pKey)){
             this.refreshDimensions();
         }
 
         super.onSyncedDataUpdated(pKey);
     }
 
-    public void addAdditionalSaveData(CompoundTag pCompound) {
+    public void addAdditionalSaveData(CompoundTag pCompound){
         super.addAdditionalSaveData(pCompound);
         this.addPersistentAngerSaveData(pCompound);
     }
 
-    public void readAdditionalSaveData(CompoundTag pCompound) {
+    public void readAdditionalSaveData(CompoundTag pCompound){
         super.readAdditionalSaveData(pCompound);
         this.readPersistentAngerSaveData(this.level(), pCompound);
     }
 
-    public boolean isBaby() {
+    public boolean isBaby(){
         return this.getEntityData().get(DATA_BABY_ID);
     }
 
+    public void setBaby(boolean Baby){
+        this.getEntityData().set(DATA_BABY_ID, Baby);
+    }
+
     @Override
-    public boolean hurt(DamageSource source, float amount) {
+    public boolean hurt(DamageSource source, float amount){
         Entity entity = source.getEntity();
-        if (entity instanceof Player player) {
-            if (player.getAttribute(Attributes.ATTACK_DAMAGE).getValue() > 10f) {
-                this.goalSelector.addGoal(1, new AdvancedPanicGoal(this,1.5, this.getHealth() < 12));
+        if(entity instanceof Player player){
+            if(player.getAttribute(Attributes.ATTACK_DAMAGE).getValue() > 10f){
+                this.goalSelector.addGoal(1, new AdvancedPanicGoal(this, 1.5, this.getHealth() < 12));
                 this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 15, 1.2, 1.8));
-            } else if (this.getHealth() < 12) {
-                this.goalSelector.addGoal(1, new AdvancedPanicGoal(this,1.5, this.getHealth() < 12));
+            }else if(this.getHealth() < 12){
+                this.goalSelector.addGoal(1, new AdvancedPanicGoal(this, 1.5, this.getHealth() < 12));
                 this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 15, 1.2, 1.8));
-            } else {
-                if (!player.getAbilities().instabuild)
-                    this.setTarget((Player) entity);
+            }else{
+                if(!player.getAbilities().instabuild)
+                    this.setTarget((Player)entity);
             }
         }
 

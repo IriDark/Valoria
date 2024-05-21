@@ -1,20 +1,20 @@
 {
-    "type": "minecraft:crafting_shaped",
-    "pattern": [
-        "XX ",
-        "X/X",
-        "XX "
-    ],
-    "key": {
-        "/": {
-		"tag": "minecraft:planks"
-		},
-		"X": {
-		"item": "minecraft:stick"
-		}
-	},
-    "result": {
-        "item": "valoria:wooden_cup",
-        "count": 1
-	}
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "XX ",
+    "X/X",
+    "XX "
+  ],
+  "key": {
+    "/": {
+      "tag": "minecraft:planks"
+    },
+    "X": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "valoria:wooden_cup",
+    "count": 1
+  }
 }

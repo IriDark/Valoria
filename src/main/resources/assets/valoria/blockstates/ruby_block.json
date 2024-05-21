@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": { "model" : "valoria:block/ruby_block" }
+    "": {
+      "model": "valoria:block/ruby_block"
+    }
   }
 }

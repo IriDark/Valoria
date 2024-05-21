@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": { "model" : "valoria:block/cut_bronze" }
+    "": {
+      "model": "valoria:block/cut_bronze"
+    }
   }
 }

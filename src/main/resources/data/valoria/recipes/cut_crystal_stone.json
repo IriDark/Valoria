@@ -1,19 +1,19 @@
 {
-    "type": "minecraft:crafting_shaped",
-    "pattern": [
-        "/X",
-        "X/"
-    ],
-    "key": {
-        "/": {
-            "item": "valoria:crystal_stone_brick"
-        },
-        "X": {
-            "item": "valoria:crystal_stone_bricks"
-        }
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "/X",
+    "X/"
+  ],
+  "key": {
+    "/": {
+      "item": "valoria:crystal_stone_brick"
     },
-    "result": {
-        "item": "valoria:cut_crystal_stone",
-        "count": 4
+    "X": {
+      "item": "valoria:crystal_stone_bricks"
     }
+  },
+  "result": {
+    "item": "valoria:cut_crystal_stone",
+    "count": 4
+  }
 }

@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": { "model" : "valoria:block/cut_dunestone" }
+    "": {
+      "model": "valoria:block/cut_dunestone"
+    }
   }
 }

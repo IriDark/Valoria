@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": { "model" : "valoria:block/void_taint_lantern" }
+    "": {
+      "model": "valoria:block/void_taint_lantern"
+    }
   }
 }

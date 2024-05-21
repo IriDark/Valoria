@@ -1,31 +1,27 @@
 package com.idark.valoria.registries.recipe;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.idark.valoria.Valoria;
-import net.minecraft.core.NonNullList;
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
-import net.minecraft.world.Container;
-import net.minecraft.world.item.ItemStack;
+import com.google.gson.*;
+import com.idark.valoria.*;
+import net.minecraft.core.*;
+import net.minecraft.network.*;
+import net.minecraft.resources.*;
+import net.minecraft.util.*;
+import net.minecraft.world.*;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.*;
-import net.minecraft.world.level.Level;
+import net.minecraft.world.level.*;
 import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.List;
+import javax.annotation.*;
+import java.util.*;
 
-public class JewelryRecipe implements Recipe<Container> {
+public class JewelryRecipe implements Recipe<Container>{
     private final NonNullList<Ingredient> inputs;
     private final ItemStack output;
     private final ResourceLocation id;
     private final int time;
 
-    public JewelryRecipe(ResourceLocation id, ItemStack output, int time, Ingredient... inputItems) {
+    public JewelryRecipe(ResourceLocation id, ItemStack output, int time, Ingredient... inputItems){
         this.id = id;
         this.output = output;
         this.time = time;
@@ -33,10 +29,10 @@ public class JewelryRecipe implements Recipe<Container> {
     }
 
     @Override
-    public boolean matches(Container pContainer, Level pLevel) {
+    public boolean matches(Container pContainer, Level pLevel){
         boolean craft = true;
-        for (int i = 0; i < 2; i += 1) {
-            if (!inputs.get(i).test(pContainer.getItem(i))) {
+        for(int i = 0; i < 2; i += 1){
+            if(!inputs.get(i).test(pContainer.getItem(i))){
                 craft = false;
             }
         }
@@ -45,62 +41,62 @@ public class JewelryRecipe implements Recipe<Container> {
     }
 
     @Override
-    public ItemStack assemble(Container pContainer, RegistryAccess pRegistryAccess) {
+    public ItemStack assemble(Container pContainer, RegistryAccess pRegistryAccess){
         return output;
     }
 
     @Override
-    public boolean canCraftInDimensions(int pWidth, int pHeight) {
+    public boolean canCraftInDimensions(int pWidth, int pHeight){
         return true;
     }
 
     @Override
-    public ItemStack getResultItem(RegistryAccess pRegistryAccess) {
+    public ItemStack getResultItem(RegistryAccess pRegistryAccess){
         return output.copy();
     }
 
     @Nonnull
     @Override
-    public NonNullList<Ingredient> getIngredients() {
+    public NonNullList<Ingredient> getIngredients(){
         return inputs;
     }
 
-    public int getTime() {
+    public int getTime(){
         return time;
     }
 
     @Override
-    public ResourceLocation getId() {
+    public ResourceLocation getId(){
         return id;
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<?> getSerializer(){
         return Serializer.INSTANCE;
     }
 
     @Override
-    public RecipeType<?> getType() {
+    public RecipeType<?> getType(){
         return Type.INSTANCE;
     }
 
-    public static class Type implements RecipeType<JewelryRecipe> {
+    public static class Type implements RecipeType<JewelryRecipe>{
         public static final Type INSTANCE = new Type();
         public static final String ID = "jewelry";
     }
 
-    public static class Serializer implements RecipeSerializer<JewelryRecipe> {
+    public static class Serializer implements RecipeSerializer<JewelryRecipe>{
         public static final Serializer INSTANCE = new Serializer();
         public static final ResourceLocation ID = new ResourceLocation(Valoria.ID, "jewelry");
 
         @Override
-        public JewelryRecipe fromJson(ResourceLocation pRecipeId, JsonObject pSerializedRecipe) {
+        public JewelryRecipe fromJson(ResourceLocation pRecipeId, JsonObject pSerializedRecipe){
             ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(pSerializedRecipe, "output"));
             int time = GsonHelper.getAsInt(pSerializedRecipe, "time");
 
             JsonArray pIngredients = GsonHelper.getAsJsonArray(pSerializedRecipe, "ingredients");
             List<Ingredient> inputs = new ArrayList<>();
-            for (JsonElement e : pIngredients) {
+            for(JsonElement e : pIngredients){
                 inputs.add(Ingredient.fromJson(e));
             }
 
@@ -108,9 +104,9 @@ public class JewelryRecipe implements Recipe<Container> {
         }
 
         @Override
-        public @Nullable JewelryRecipe fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
+        public @Nullable JewelryRecipe fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer){
             Ingredient[] inputs = new Ingredient[pBuffer.readInt()];
-            for (int i = 0; i < inputs.length; i++) {
+            for(int i = 0; i < inputs.length; i++){
                 inputs[i] = Ingredient.fromNetwork(pBuffer);
             }
 
@@ -120,9 +116,9 @@ public class JewelryRecipe implements Recipe<Container> {
         }
 
         @Override
-        public void toNetwork(FriendlyByteBuf pBuffer, JewelryRecipe pRecipe) {
+        public void toNetwork(FriendlyByteBuf pBuffer, JewelryRecipe pRecipe){
             pBuffer.writeInt(pRecipe.getIngredients().size());
-            for (Ingredient input : pRecipe.getIngredients()) {
+            for(Ingredient input : pRecipe.getIngredients()){
                 input.toNetwork(pBuffer);
             }
 

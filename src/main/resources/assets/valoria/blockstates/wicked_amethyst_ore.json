@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": { "model" : "valoria:block/wicked_amethyst_ore" }
+    "": {
+      "model": "valoria:block/wicked_amethyst_ore"
+    }
   }
 }

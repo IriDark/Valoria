@@ -11,33 +11,33 @@ import net.minecraft.world.item.crafting.RecipeManager;
 import java.util.Comparator;
 import java.util.List;
 
-public class ModJeiRecipes {
+public class ModJeiRecipes{
     private final RecipeManager recipeManager;
 
-    public ModJeiRecipes() {
+    public ModJeiRecipes(){
         Minecraft minecraft = Minecraft.getInstance();
         ClientLevel level = minecraft.level;
 
-        if (level != null) {
+        if(level != null){
             this.recipeManager = level.getRecipeManager();
-        } else {
+        }else{
             throw new NullPointerException("minecraft world must not be null.");
         }
     }
 
-    public List<KegRecipe> getBreweryRecipes() {
+    public List<KegRecipe> getBreweryRecipes(){
         return recipeManager.getAllRecipesFor(KegRecipe.Type.INSTANCE).stream().sorted(Comparator.comparing(KegRecipe::getTime)).toList();
     }
 
-    public List<JewelryRecipe> getJewelryRecipes() {
+    public List<JewelryRecipe> getJewelryRecipes(){
         return recipeManager.getAllRecipesFor(JewelryRecipe.Type.INSTANCE).stream().sorted(Comparator.comparing(JewelryRecipe::getTime)).toList();
     }
 
-    public List<CrusherRecipe> getCrusherRecipes() {
+    public List<CrusherRecipe> getCrusherRecipes(){
         return recipeManager.getAllRecipesFor(CrusherRecipe.Type.INSTANCE).stream().toList();
     }
 
-    public List<ManipulatorRecipe> getManipulatorRecipes() {
+    public List<ManipulatorRecipe> getManipulatorRecipes(){
         return recipeManager.getAllRecipesFor(ManipulatorRecipe.Type.INSTANCE).stream().sorted(Comparator.comparing(ManipulatorRecipe::getCore).reversed()).sorted(Comparator.comparing(ManipulatorRecipe::getTime)).toList();
     }
 }

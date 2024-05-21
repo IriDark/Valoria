@@ -19,7 +19,9 @@
     "crude"
   ],
   "material": {
-    "items": [ "valoria:amethyst_gem" ]
+    "items": [
+      "valoria:amethyst_gem"
+    ]
   },
   "requiredTools": {
     "hammer_dig": "minecraft:stone"

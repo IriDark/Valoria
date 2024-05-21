@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": { "model" : "valoria:block/aloe_small" }
+    "": {
+      "model": "valoria:block/aloe_small"
+    }
   }
 }

@@ -1,18 +1,31 @@
 package com.idark.valoria.registries.item.types;
 
+import com.idark.valoria.*;
+import com.idark.valoria.client.event.*;
 import com.idark.valoria.client.gui.overlay.DashOverlayRender;
 import com.idark.valoria.client.particle.ParticleRegistry;
 import com.idark.valoria.client.particle.types.Particles;
 import com.idark.valoria.core.network.PacketHandler;
 import com.idark.valoria.core.network.packets.MurasamaParticlePacket;
 import com.idark.valoria.registries.SoundsRegistry;
+import com.idark.valoria.registries.item.interfaces.*;
+import com.idark.valoria.util.*;
+import com.mojang.blaze3d.platform.*;
+import com.mojang.blaze3d.systems.*;
+import com.mojang.blaze3d.vertex.*;
+import com.mojang.math.*;
+import net.minecraft.client.*;
+import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.texture.*;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.*;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.*;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -34,29 +47,72 @@ import org.joml.Vector3d;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MurasamaItem extends KatanaItem implements IParticleItem {
+public class MurasamaItem extends KatanaItem implements IParticleItem{
 
-    public MurasamaItem(Tier tier, int attackDamageIn, float attackSpeedIn, Properties builderIn) {
+    public MurasamaItem(Tier tier, int attackDamageIn, float attackSpeedIn, Properties builderIn){
         super(tier, attackDamageIn, attackSpeedIn, builderIn);
     }
 
-    public void onUseTick(@NotNull Level worldIn, @NotNull LivingEntity livingEntityIn, @NotNull ItemStack stack, int count) {
+    public static int getCharge(ItemStack stack){
+        CompoundTag nbt = stack.getTag();
+        if(nbt == null){
+            nbt = new CompoundTag();
+            stack.setTag(nbt);
+        }
+        if(!nbt.contains("charge")){
+            nbt.putInt("charge", 0);
+            stack.setTag(nbt);
+            return 0;
+        }else{
+            return nbt.getInt("charge");
+        }
+    }
+
+    public static void setCharge(ItemStack stack, int charge){
+        CompoundTag nbt = stack.getTag();
+        if(nbt == null){
+            nbt = new CompoundTag();
+            stack.setTag(nbt);
+        }
+        nbt.putInt("charge", charge);
+        stack.setTag(nbt);
+    }
+
+    public static void addCharge(ItemStack stack, int charge){
+        setCharge(stack, getCharge(stack) + charge);
+    }
+
+    public void onUseTick(@NotNull Level worldIn, @NotNull LivingEntity livingEntityIn, @NotNull ItemStack stack, int count){
         addCharge(stack, 1);
-        Player player = (Player) livingEntityIn;
-        if (worldIn instanceof ServerLevel srv) {
-            for (int ii = 0; ii < 1 + Mth.nextInt(RandomSource.create(), 0, 2); ii += 1) {
-                PacketHandler.sendToTracking(srv, player.getOnPos(), new MurasamaParticlePacket(3F, (float) player.getX(), (float) (player.getY() + (player.getEyeHeight() / 2)), (float) player.getZ(), 255, 0, 0));
+        Player player = (Player)livingEntityIn;
+        if(worldIn instanceof ServerLevel srv){
+            for(int ii = 0; ii < 1 + Mth.nextInt(RandomSource.create(), 0, 2); ii += 1){
+                PacketHandler.sendToTracking(srv, player.getOnPos(), new MurasamaParticlePacket(3F, (float)player.getX(), (float)(player.getY() + (player.getEyeHeight() / 2)), (float)player.getZ(), 255, 0, 0));
             }
         }
 
-        if (getCharge(stack) == 20) {
+        if(getCharge(stack) == 20){
             player.playNotifySound(SoundsRegistry.RECHARGE.get(), SoundSource.PLAYERS, 0.6f, 1);
         }
     }
 
+    public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level worldIn, Player playerIn, @NotNull InteractionHand handIn){
+        ItemStack itemstack = playerIn.getItemInHand(handIn);
+        if(!playerIn.isShiftKeyDown()){
+            playerIn.startUsingItem(InteractionHand.MAIN_HAND);
+            if(!playerIn.isFallFlying() && playerIn.isUsingItem() && getCharge(itemstack) == 20){
+                applyCooldown(playerIn);
+            }
+
+            return InteractionResultHolder.consume(itemstack);
+        }
+
+        return InteractionResultHolder.pass(itemstack);
+    }
+
     @Override
-    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
-        if (!slotChanged) {
+    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged){
+        if(!slotChanged){
             return false;
         }
 
@@ -66,21 +122,21 @@ public class MurasamaItem extends KatanaItem implements IParticleItem {
     /**
      * Some sounds taken from the CalamityMod (Terraria) in a <a href="https://calamitymod.wiki.gg/wiki/Category:Sound_effects">Calamity Mod Wiki.gg</a>
      */
-    public void releaseUsing(@NotNull ItemStack stack, @NotNull Level level, @NotNull LivingEntity entityLiving, int timeLeft) {
+    public void releaseUsing(@NotNull ItemStack stack, @NotNull Level level, @NotNull LivingEntity entityLiving, int timeLeft){
         RandomSource rand = level.getRandom();
-        Player player = (Player) entityLiving;
+        Player player = (Player)entityLiving;
         player.awardStat(Stats.ITEM_USED.get(this));
         double pitch = ((player.getRotationVector().x + 90) * Math.PI) / 180;
         double yaw = ((player.getRotationVector().y + 90) * Math.PI) / 180;
         float dashDistance = 5f;
-        if (getCharge(stack) >= 20) {
+        if(getCharge(stack) >= 20){
             Vec3 dir = (player.getViewVector(0.0f).scale(2.0d));
-            if (dir.x < dashDistance) {
+            if(dir.x < dashDistance){
                 player.push(dir.x, dir.y * 0.25, dir.z);
             }
 
-            for (Item item : ForgeRegistries.ITEMS) {
-                if (item instanceof KatanaItem) {
+            for(Item item : ForgeRegistries.ITEMS){
+                if(item instanceof KatanaItem){
                     player.getCooldowns().addCooldown(item, 125);
                 }
             }
@@ -88,38 +144,38 @@ public class MurasamaItem extends KatanaItem implements IParticleItem {
             Vector3d pos = new Vector3d(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());
             List<LivingEntity> hitEntities = new ArrayList<>();
             double maxDistance = distance(dashDistance, level, player);
-            for (int i = 0; i < 25; i += 1) {
+            for(int i = 0; i < 25; i += 1){
                 double locDistance = i * 0.5D;
                 double X = Math.sin(pitch) * Math.cos(yaw) * locDistance;
                 double Y = Math.cos(pitch) * locDistance;
                 double Z = Math.sin(pitch) * Math.sin(yaw) * locDistance;
 
                 level.addParticle(ParticleTypes.WAX_OFF, pos.x + X + (rand.nextDouble() - 0.5D), pos.y + Y, pos.z + Z + (rand.nextDouble() - 0.5D), 0d, 0.05d, 0d);
-                if (level instanceof ServerLevel srv) {
-                    for (int ii = 0; ii < 1 + Mth.nextInt(RandomSource.create(), 0, 2); ii += 1) {
-                        PacketHandler.sendToTracking(srv, player.getOnPos(), new MurasamaParticlePacket(3F, (float) (pos.x + X), (float) (pos.y + Y), (float) (pos.z + Z), 255, 0, 0));
+                if(level instanceof ServerLevel srv){
+                    for(int ii = 0; ii < 1 + Mth.nextInt(RandomSource.create(), 0, 2); ii += 1){
+                        PacketHandler.sendToTracking(srv, player.getOnPos(), new MurasamaParticlePacket(3F, (float)(pos.x + X), (float)(pos.y + Y), (float)(pos.z + Z), 255, 0, 0));
                     }
                 }
 
                 List<Entity> entities = level.getEntitiesOfClass(Entity.class, new AABB(pos.x + X - 0.5D, pos.y + Y - 0.5D, pos.z + Z - 0.5D, pos.x + X + 0.5D, pos.y + Y + 0.5D, pos.z + Z + 0.5D));
-                for (Entity entity : entities) {
-                    if (entity instanceof LivingEntity enemy) {
-                        if (!hitEntities.contains(enemy) && (!enemy.equals(player))) {
+                for(Entity entity : entities){
+                    if(entity instanceof LivingEntity enemy){
+                        if(!hitEntities.contains(enemy) && (!enemy.equals(player))){
                             hitEntities.add(enemy);
                         }
                     }
                 }
 
-                if (locDistance >= maxDistance) {
+                if(locDistance >= maxDistance){
                     break;
                 }
             }
 
             float ii = 1F;
-            for (LivingEntity entity : hitEntities) {
-                entity.hurt(level.damageSources().playerAttack(player), (float) ((player.getAttributeValue(Attributes.ATTACK_DAMAGE) * (double) ii) + EnchantmentHelper.getSweepingDamageRatio(player) + EnchantmentHelper.getDamageBonus(stack, entity.getMobType())) * 1.35f);
+            for(LivingEntity entity : hitEntities){
+                entity.hurt(level.damageSources().playerAttack(player), (float)((player.getAttributeValue(Attributes.ATTACK_DAMAGE) * (double)ii) + EnchantmentHelper.getSweepingDamageRatio(player) + EnchantmentHelper.getDamageBonus(stack, entity.getMobType())) * 1.35f);
                 entity.knockback(0.4F, player.getX() - entity.getX(), player.getZ() - entity.getZ());
-                if (EnchantmentHelper.getTagEnchantmentLevel(Enchantments.FIRE_ASPECT, stack) > 0) {
+                if(EnchantmentHelper.getTagEnchantmentLevel(Enchantments.FIRE_ASPECT, stack) > 0){
                     int i = EnchantmentHelper.getFireAspect(player);
                     entity.setSecondsOnFire(i * 4);
                 }
@@ -127,11 +183,11 @@ public class MurasamaItem extends KatanaItem implements IParticleItem {
                 ii = ii - (1F / (hitEntities.size() * 2));
             }
 
-            if (!player.isCreative()) {
+            if(!player.isCreative()){
                 stack.hurtAndBreak(hitEntities.size(), player, (p_220045_0_) -> p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
             }
 
-            for (int i = 0; i < 4; i++) {
+            for(int i = 0; i < 4; i++){
                 level.addParticle(ParticleTypes.POOF, player.getX() + (rand.nextDouble() - 0.5D), player.getY(), player.getZ() + (rand.nextDouble() - 0.5D), 0d, 0.05d, 0d);
             }
 
@@ -143,61 +199,32 @@ public class MurasamaItem extends KatanaItem implements IParticleItem {
             double Z = Math.sin(locPitch + pitch) * Math.sin(locYaw + yaw) * maxDistance;
 
             List<Entity> entities = level.getEntitiesOfClass(Entity.class, new AABB(pos.x + X - 3D, pos.y + Y - 3D, pos.z + Z - 2.5D, pos.x + X + 3D, pos.y + Y + 3D, pos.z + Z + 3D));
-            for (Entity entity : entities) {
-                if (entity instanceof LivingEntity enemy) {
-                    if (!hitEntities.contains(enemy) && (!enemy.equals(player))) {
+            for(Entity entity : entities){
+                if(entity instanceof LivingEntity enemy){
+                    if(!hitEntities.contains(enemy) && (!enemy.equals(player))){
                         hitEntities.add(enemy);
                     }
                 }
             }
 
-            for (LivingEntity entity : hitEntities) {
-                entity.hurt(level.damageSources().generic(), (float) (player.getAttributeValue(Attributes.ATTACK_DAMAGE) * ii) + EnchantmentHelper.getSweepingDamageRatio(player));
+            for(LivingEntity entity : hitEntities){
+                entity.hurt(level.damageSources().generic(), (float)(player.getAttributeValue(Attributes.ATTACK_DAMAGE) * ii) + EnchantmentHelper.getSweepingDamageRatio(player));
                 entity.knockback(0.4F, player.getX() - entity.getX(), player.getZ() - entity.getZ());
-                if (EnchantmentHelper.getEnchantmentLevel(Enchantments.FIRE_ASPECT, entity) > 0) {
+                if(EnchantmentHelper.getEnchantmentLevel(Enchantments.FIRE_ASPECT, entity) > 0){
                     int i = EnchantmentHelper.getFireAspect(player);
                     entity.setSecondsOnFire(i * 4);
                 }
             }
 
             level.playSound(null, player.getOnPos(), SoundsRegistry.SWIFTSLICE.get(), SoundSource.PLAYERS, 1.0F, 1F);
-            if (level.isClientSide) DashOverlayRender.showDashOverlay();
+            if(level.isClientSide) DashOverlayRender.showDashOverlay();
         }
 
         setCharge(stack, 0);
     }
 
-    public static int getCharge(ItemStack stack) {
-        CompoundTag nbt = stack.getTag();
-        if (nbt == null) {
-            nbt = new CompoundTag();
-            stack.setTag(nbt);
-        }
-        if (!nbt.contains("charge")) {
-            nbt.putInt("charge", 0);
-            stack.setTag(nbt);
-            return 0;
-        } else {
-            return nbt.getInt("charge");
-        }
-    }
-
-    public static void setCharge(ItemStack stack, int charge) {
-        CompoundTag nbt = stack.getTag();
-        if (nbt == null) {
-            nbt = new CompoundTag();
-            stack.setTag(nbt);
-        }
-        nbt.putInt("charge", charge);
-        stack.setTag(nbt);
-    }
-
-    public static void addCharge(ItemStack stack, int charge) {
-        setCharge(stack, getCharge(stack) + charge);
-    }
-
     @Override
-    public void addParticles(Level level, ItemEntity entity) {
+    public void addParticles(Level level, ItemEntity entity){
         RandomSource rand = level.getRandom();
         double X = ((rand.nextDouble() - 0.5D) * 0.3f);
         double Y = ((rand.nextDouble() - 0.5D) + 0.3f);
@@ -207,19 +234,19 @@ public class MurasamaItem extends KatanaItem implements IParticleItem {
         double dY = -Y;
         double dZ = -Z;
         int count = Mth.nextInt(rand, 0, 1);
-        for (int ii = 0; ii < count; ii += 1) {
+        for(int ii = 0; ii < count; ii += 1){
             double yaw = Math.atan2(dZ, dX);
             double pitch = Math.atan2(Math.sqrt(dZ * dZ + dX * dX), dY) + Math.PI;
-            double XX = Math.sin(pitch) * Math.cos(yaw) * (float) (rand.nextDouble() * 0.05F) / (ii + 1);
-            double YY = Math.sin(pitch) * Math.sin(yaw) * (float) (rand.nextDouble() * 0.05F) / (ii + 1);
-            double ZZ = Math.cos(pitch) * (float) (rand.nextDouble() * 0.05F) / (ii + 1);
+            double XX = Math.sin(pitch) * Math.cos(yaw) * (float)(rand.nextDouble() * 0.05F) / (ii + 1);
+            double YY = Math.sin(pitch) * Math.sin(yaw) * (float)(rand.nextDouble() * 0.05F) / (ii + 1);
+            double ZZ = Math.cos(pitch) * (float)(rand.nextDouble() * 0.05F) / (ii + 1);
             Particles.create(ParticleRegistry.GLOWING_SPHERE)
-                    .addVelocity(XX, YY, ZZ)
-                    .setAlpha(0.50f, 1)
-                    .setScale(0.12f, 0)
-                    .setColor(255, 0, 0, 255, 67, 231)
-                    .setLifetime(6)
-                    .spawn(level, entity.getX() + X, entity.getY() + Y, entity.getZ() + Z);
+            .addVelocity(XX, YY, ZZ)
+            .setAlpha(0.50f, 1)
+            .setScale(0.12f, 0)
+            .setColor(255, 0, 0, 255, 67, 231)
+            .setLifetime(6)
+            .spawn(level, entity.getX() + X, entity.getY() + Y, entity.getZ() + Z);
         }
     }
 }

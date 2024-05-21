@@ -19,33 +19,33 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class LexiconPageItem extends Item {
+public class LexiconPageItem extends Item{
 
     public Unlockable unlockable;
     public String lang;
 
-    public LexiconPageItem(Properties props, @NotNull Unlockable pUnlockable, String pPageName) {
+    public LexiconPageItem(Properties props, @NotNull Unlockable pUnlockable, String pPageName){
         super(props);
         this.unlockable = pUnlockable;
         this.lang = pPageName;
     }
 
-    public LexiconPageItem(Properties props, @NotNull Unlockable pUnlockable) {
+    public LexiconPageItem(Properties props, @NotNull Unlockable pUnlockable){
         super(props);
         this.unlockable = pUnlockable;
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
+    public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand){
         ItemStack stack = player.getItemInHand(hand);
         player.awardStat(Stats.ITEM_USED.get(this));
-        if (!world.isClientSide) {
-            if (!UnlockUtils.isUnlocked(player, unlockable)) {
+        if(!world.isClientSide){
+            if(!UnlockUtils.isUnlocked(player, unlockable)){
                 player.playSound(SoundEvents.PLAYER_LEVELUP, 1, 0);
                 player.getInventory().removeItem(stack);
                 UnlockUtils.addUnlockable(player, unlockable);
                 return new InteractionResultHolder<>(InteractionResult.SUCCESS, stack);
-            } else {
+            }else{
                 world.playSound(null, player.getOnPos(), SoundEvents.PLAYER_BURP, SoundSource.AMBIENT, 0.7f, 0.2f);
                 player.displayClientMessage(Component.translatable("gui.valoria.obtained").withStyle(ChatFormatting.GRAY), true);
                 return new InteractionResultHolder<>(InteractionResult.FAIL, stack);
@@ -56,9 +56,9 @@ public class LexiconPageItem extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags) {
+    public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags){
         super.appendHoverText(stack, world, tooltip, flags);
-        if (!lang.isEmpty()) {
+        if(!lang.isEmpty()){
             tooltip.add(Component.translatable("tooltip.valoria.page").withStyle(ChatFormatting.GRAY).append(Component.translatable(lang).withStyle(ChatFormatting.BLUE)));
         }
     }

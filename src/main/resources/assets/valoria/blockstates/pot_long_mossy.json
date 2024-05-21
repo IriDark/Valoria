@@ -1,5 +1,7 @@
 {
-  "variants" : {
-    "" : { "model": "valoria:block/pot_long_mossy" }
+  "variants": {
+    "": {
+      "model": "valoria:block/pot_long_mossy"
+    }
   }
 }

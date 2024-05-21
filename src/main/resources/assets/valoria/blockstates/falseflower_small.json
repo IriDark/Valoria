@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": { "model" : "valoria:block/falseflower_small" }
+    "": {
+      "model": "valoria:block/falseflower_small"
+    }
   }
 }

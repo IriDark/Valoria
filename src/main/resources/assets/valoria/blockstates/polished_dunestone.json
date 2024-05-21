@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": { "model" : "valoria:block/polished_dunestone" }
+    "": {
+      "model": "valoria:block/polished_dunestone"
+    }
   }
 }

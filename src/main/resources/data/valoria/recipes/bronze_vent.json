@@ -1,19 +1,19 @@
 {
-    "type": "minecraft:crafting_shaped",
-    "pattern": [
-        "/O",
-        "O/"
-    ],
-    "key": {
-        "/": {
-            "item": "valoria:bronze_ingot"
-        },
-		"O": {
-            "item": "valoria:bronze_block"
-        }
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "/O",
+    "O/"
+  ],
+  "key": {
+    "/": {
+      "item": "valoria:bronze_ingot"
     },
-    "result": {
-        "item": "valoria:bronze_vent",
-        "count": 1
+    "O": {
+      "item": "valoria:bronze_block"
     }
+  },
+  "result": {
+    "item": "valoria:bronze_vent",
+    "count": 1
+  }
 }

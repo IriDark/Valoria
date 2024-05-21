@@ -1,17 +1,17 @@
 {
-    "type": "minecraft:crafting_shaped",
-    "pattern": [
-        " / ",
-        "///",
-        "// "
-    ],
-    "key": {
-        "/": {
-            "item": "minecraft:leather"
-        }
-    },
-    "result": {
-        "item": "valoria:leather_gloves",
-        "count": 1
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " / ",
+    "///",
+    "// "
+  ],
+  "key": {
+    "/": {
+      "item": "minecraft:leather"
     }
+  },
+  "result": {
+    "item": "valoria:leather_gloves",
+    "count": 1
+  }
 }

@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": { "model" : "valoria:block/geodite_stone" }
+    "": {
+      "model": "valoria:block/geodite_stone"
+    }
   }
 }

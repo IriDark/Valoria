@@ -19,7 +19,9 @@
     "crude"
   ],
   "material": {
-    "items": [ "valoria:ruby_gem" ]
+    "items": [
+      "valoria:ruby_gem"
+    ]
   },
   "requiredTools": {
     "hammer_dig": "minecraft:stone"

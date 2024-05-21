@@ -1,6 +1,7 @@
 {
   "variants": {
-    "": { "model" : "valoria:block/void_grass"
-	}
+    "": {
+      "model": "valoria:block/void_grass"
+    }
   }
 }

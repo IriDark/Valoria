@@ -19,7 +19,9 @@
     "crude"
   ],
   "material": {
-    "items": [ "valoria:sapphire_gem" ]
+    "items": [
+      "valoria:sapphire_gem"
+    ]
   },
   "requiredTools": {
     "hammer_dig": "minecraft:stone"

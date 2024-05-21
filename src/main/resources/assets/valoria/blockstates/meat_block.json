@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": { "model" : "valoria:block/meat_block" }
+    "": {
+      "model": "valoria:block/meat_block"
+    }
   }
 }

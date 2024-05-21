@@ -1,78 +1,74 @@
 package com.idark.valoria.client.render.entity;
 
-import com.google.common.collect.ImmutableMap;
-import com.idark.valoria.Valoria;
-import com.idark.valoria.registries.entity.decoration.CustomBoatEntity;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.datafixers.util.Pair;
-import com.mojang.math.Axis;
-import net.minecraft.client.model.BoatModel;
-import net.minecraft.client.model.ChestBoatModel;
-import net.minecraft.client.model.geom.ModelLayerLocation;
-import net.minecraft.client.model.geom.ModelPart;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.entity.EntityRenderer;
-import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Mth;
-import org.joml.Quaternionf;
+import com.google.common.collect.*;
+import com.idark.valoria.*;
+import com.idark.valoria.registries.entity.decoration.*;
+import com.mojang.blaze3d.vertex.*;
+import com.mojang.datafixers.util.*;
+import com.mojang.math.*;
+import net.minecraft.client.model.*;
+import net.minecraft.client.model.geom.*;
+import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.entity.*;
+import net.minecraft.client.renderer.texture.*;
+import net.minecraft.resources.*;
+import net.minecraft.util.*;
+import org.joml.*;
 
-import java.util.Map;
-import java.util.stream.Stream;
+import java.util.*;
+import java.util.stream.*;
+import java.lang.Math;
 
-public class CustomBoatRenderer extends EntityRenderer<CustomBoatEntity> {
+public class CustomBoatRenderer extends EntityRenderer<CustomBoatEntity>{
 
     private final Map<CustomBoatEntity.Type, Pair<ResourceLocation, BoatModel>> boatResources;
 
-    public CustomBoatRenderer(EntityRendererProvider.Context context, boolean chest) {
+    public CustomBoatRenderer(EntityRendererProvider.Context context, boolean chest){
         super(context);
         this.shadowRadius = 0.8F;
         this.boatResources = Stream.of(CustomBoatEntity.Type.values()).collect(ImmutableMap.toImmutableMap(type -> type, type -> Pair.of(new ResourceLocation(Valoria.ID, getTextureLocation(type, chest)), this.createBoatModel(context, type, chest))));
     }
 
-    private BoatModel createBoatModel(EntityRendererProvider.Context context, CustomBoatEntity.Type type, boolean chest) {
+    private static ModelLayerLocation createLocation(String path){
+        return new ModelLayerLocation(new ResourceLocation(Valoria.ID, path), "main");
+    }
+
+    public static ModelLayerLocation createBoatModelName(CustomBoatEntity.Type type){
+        return createLocation("boat/" + type.getName());
+    }
+
+    public static ModelLayerLocation createChestBoatModelName(CustomBoatEntity.Type type){
+        return createLocation("chest_boat/" + type.getName());
+    }
+
+    private static String getTextureLocation(CustomBoatEntity.Type type, boolean chest){
+        return chest ? "textures/entity/chest_boat/" + type.getName() + ".png" : "textures/entity/boat/" + type.getName() + ".png";
+    }
+
+    private BoatModel createBoatModel(EntityRendererProvider.Context context, CustomBoatEntity.Type type, boolean chest){
         ModelLayerLocation modellayerlocation = chest ? createChestBoatModelName(type) : createBoatModelName(type);
         ModelPart modelpart = context.bakeLayer(modellayerlocation);
         return chest ? new ChestBoatModel(modelpart) : new BoatModel(modelpart);
     }
 
-    private static ModelLayerLocation createLocation(String path) {
-        return new ModelLayerLocation(new ResourceLocation(Valoria.ID, path), "main");
-    }
-
-    public static ModelLayerLocation createBoatModelName(CustomBoatEntity.Type type) {
-        return createLocation("boat/" + type.getName());
-    }
-
-    public static ModelLayerLocation createChestBoatModelName(CustomBoatEntity.Type type) {
-        return createLocation("chest_boat/" + type.getName());
-    }
-
-    private static String getTextureLocation(CustomBoatEntity.Type type, boolean chest) {
-        return chest ? "textures/entity/chest_boat/" + type.getName() + ".png" : "textures/entity/boat/" + type.getName() + ".png";
-    }
-
     @Override
-    public void render(CustomBoatEntity boat, float boatYaw, float partialTicks, PoseStack stack, MultiBufferSource buffer, int light) {
+    public void render(CustomBoatEntity boat, float boatYaw, float partialTicks, PoseStack stack, MultiBufferSource buffer, int light){
         stack.pushPose();
         stack.translate(0.0F, 0.375F, 0.0F);
         stack.mulPose(Axis.YP.rotationDegrees(180.0F - boatYaw));
-        float f = (float) boat.getHurtTime() - partialTicks;
+        float f = (float)boat.getHurtTime() - partialTicks;
         float f1 = boat.getDamage() - partialTicks;
-        if (f1 < 0.0F) {
+        if(f1 < 0.0F){
             f1 = 0.0F;
         }
 
-        if (f > 0.0F) {
-            stack.mulPose(Axis.XP.rotationDegrees(Mth.sin(f) * f * f1 / 10.0F * (float) boat.getHurtDir()));
+        if(f > 0.0F){
+            stack.mulPose(Axis.XP.rotationDegrees(Mth.sin(f) * f * f1 / 10.0F * (float)boat.getHurtDir()));
         }
 
         float f2 = boat.getBubbleAngle(partialTicks);
-        if (!Mth.equal(f2, 0.0F)) {
-            stack.mulPose((new Quaternionf()).setAngleAxis(boat.getBubbleAngle(partialTicks) * ((float) Math.PI / 180F), 1.0F, 0.0F, 1.0F));
+        if(!Mth.equal(f2, 0.0F)){
+            stack.mulPose((new Quaternionf()).setAngleAxis(boat.getBubbleAngle(partialTicks) * ((float)Math.PI / 180F), 1.0F, 0.0F, 1.0F));
         }
 
         Pair<ResourceLocation, BoatModel> pair = this.getModelWithLocation(boat);
@@ -83,7 +79,7 @@ public class CustomBoatRenderer extends EntityRenderer<CustomBoatEntity> {
         model.setupAnim(boat, partialTicks, 0.0F, -0.1F, 0.0F, 0.0F);
         VertexConsumer vertexconsumer = buffer.getBuffer(model.renderType(resourcelocation));
         model.renderToBuffer(stack, vertexconsumer, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
-        if (!boat.isUnderWater()) {
+        if(!boat.isUnderWater()){
             VertexConsumer vertex = buffer.getBuffer(RenderType.waterMask());
             model.waterPatch().render(stack, vertex, light, OverlayTexture.NO_OVERLAY);
         }
@@ -93,11 +89,11 @@ public class CustomBoatRenderer extends EntityRenderer<CustomBoatEntity> {
     }
 
     @Override
-    public ResourceLocation getTextureLocation(CustomBoatEntity boat) {
+    public ResourceLocation getTextureLocation(CustomBoatEntity boat){
         return this.getModelWithLocation(boat).getFirst();
     }
 
-    public Pair<ResourceLocation, BoatModel> getModelWithLocation(CustomBoatEntity boat) {
+    public Pair<ResourceLocation, BoatModel> getModelWithLocation(CustomBoatEntity boat){
         return this.boatResources.get(boat.getCustomBoatEntityType());
     }
 }

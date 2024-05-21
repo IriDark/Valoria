@@ -7,25 +7,25 @@ import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.core.particles.ParticleType;
 
-public class SparkleParticleType extends ParticleType<GenericParticleData> {
-    public SparkleParticleType() {
+public class SparkleParticleType extends ParticleType<GenericParticleData>{
+    public SparkleParticleType(){
         super(true, GenericParticleData.DESERIALIZER);
     }
 
     @Override
-    public Codec<GenericParticleData> codec() {
+    public Codec<GenericParticleData> codec(){
         return GenericParticleData.codecFor(this);
     }
 
-    public static class Factory implements ParticleProvider<GenericParticleData> {
+    public static class Factory implements ParticleProvider<GenericParticleData>{
         private final SpriteSet sprite;
 
-        public Factory(SpriteSet sprite) {
+        public Factory(SpriteSet sprite){
             this.sprite = sprite;
         }
 
         @Override
-        public Particle createParticle(GenericParticleData data, ClientLevel world, double x, double y, double z, double mx, double my, double mz) {
+        public Particle createParticle(GenericParticleData data, ClientLevel world, double x, double y, double z, double mx, double my, double mz){
             SparkleParticle ret = new SparkleParticle(world, data, x, y, z, mx, my, mz);
             ret.pickSprite(sprite);
             return ret;

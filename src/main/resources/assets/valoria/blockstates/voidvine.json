@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": { "model" : "valoria:block/voidvine" }
+    "": {
+      "model": "valoria:block/voidvine"
+    }
   }
 }

@@ -49,21 +49,21 @@
           "weight": 60,
           "name": "minecraft:stick"
         },
-		{
+        {
           "type": "minecraft:item",
           "weight": 35,
           "name": "minecraft:torch"
         },
-		{
+        {
           "type": "minecraft:item",
           "weight": 50,
           "name": "minecraft:cobblestone"
-        },			
-		{
+        },
+        {
           "type": "minecraft:item",
           "weight": 40,
           "name": "valoria:amber_gem"
-        },		
+        },
         {
           "type": "minecraft:item",
           "weight": 6,

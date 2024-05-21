@@ -9,15 +9,12 @@
     "W": {
       "item": "minecraft:hay_block"
     },
-
     "O": {
       "item": "minecraft:wheat"
     },
-
     "T": {
       "item": "minecraft:armor_stand"
     },
-
     "X": {
       "item": "minecraft:target"
     }

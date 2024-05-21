@@ -7,53 +7,53 @@ import net.minecraft.world.item.Rarity;
 
 import java.util.function.UnaryOperator;
 
-public class RarityRegistry {
+public class RarityRegistry{
 
     public static UnaryOperator<Style> infernal_modifier = style -> style
-            .withColor(TextColor.fromRgb(0xd8401d))
-            .withBold(false)
-            .withItalic(false)
-            .withUnderlined(false)
-            .withStrikethrough(false)
-            .withObfuscated(false)
-            .withFont(new ResourceLocation("minecraft", "default"));
+    .withColor(TextColor.fromRgb(0xd8401d))
+    .withBold(false)
+    .withItalic(false)
+    .withUnderlined(false)
+    .withStrikethrough(false)
+    .withObfuscated(false)
+    .withFont(new ResourceLocation("minecraft", "default"));
 
     public static UnaryOperator<Style> aquarius_modifier = style -> style
-            .withColor(TextColor.fromRgb(0xb6ffe7))
-            .withBold(false)
-            .withItalic(false)
-            .withUnderlined(false)
-            .withStrikethrough(false)
-            .withObfuscated(false)
-            .withFont(new ResourceLocation("minecraft", "default"));
+    .withColor(TextColor.fromRgb(0xb6ffe7))
+    .withBold(false)
+    .withItalic(false)
+    .withUnderlined(false)
+    .withStrikethrough(false)
+    .withObfuscated(false)
+    .withFont(new ResourceLocation("minecraft", "default"));
 
 
     public static UnaryOperator<Style> nature_modifier = style -> style
-            .withColor(TextColor.fromRgb(0x88ed68))
-            .withBold(false)
-            .withItalic(false)
-            .withUnderlined(false)
-            .withStrikethrough(false)
-            .withObfuscated(false)
-            .withFont(new ResourceLocation("minecraft", "default"));
+    .withColor(TextColor.fromRgb(0x88ed68))
+    .withBold(false)
+    .withItalic(false)
+    .withUnderlined(false)
+    .withStrikethrough(false)
+    .withObfuscated(false)
+    .withFont(new ResourceLocation("minecraft", "default"));
 
     public static UnaryOperator<Style> void_modifier = style -> style
-            .withColor(TextColor.fromRgb(0xf06de7))
-            .withBold(false)
-            .withItalic(false)
-            .withUnderlined(false)
-            .withStrikethrough(false)
-            .withObfuscated(false)
-            .withFont(new ResourceLocation("minecraft", "default"));
+    .withColor(TextColor.fromRgb(0xf06de7))
+    .withBold(false)
+    .withItalic(false)
+    .withUnderlined(false)
+    .withStrikethrough(false)
+    .withObfuscated(false)
+    .withFont(new ResourceLocation("minecraft", "default"));
 
     public static UnaryOperator<Style> phantasm_modifier = style -> style
-            .withColor(TextColor.fromRgb(0x8269db))
-            .withBold(false)
-            .withItalic(false)
-            .withUnderlined(false)
-            .withStrikethrough(false)
-            .withObfuscated(false)
-            .withFont(new ResourceLocation("minecraft", "default"));
+    .withColor(TextColor.fromRgb(0x8269db))
+    .withBold(false)
+    .withItalic(false)
+    .withUnderlined(false)
+    .withStrikethrough(false)
+    .withObfuscated(false)
+    .withFont(new ResourceLocation("minecraft", "default"));
 
     public static final Rarity INFERNAL = Rarity.create("infernal", infernal_modifier);
     public static final Rarity AQUARIUS = Rarity.create("aquarius", aquarius_modifier);

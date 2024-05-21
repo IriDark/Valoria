@@ -1,17 +1,12 @@
 package com.idark.valoria.registries;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.registries.effect.AloeRegenEffect;
-import com.idark.valoria.registries.effect.BleedingEffect;
-import com.idark.valoria.registries.effect.StunEffect;
-import com.idark.valoria.registries.effect.TipsyEffect;
-import net.minecraft.world.effect.MobEffect;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import com.idark.valoria.*;
+import com.idark.valoria.registries.effect.*;
+import net.minecraft.world.effect.*;
+import net.minecraftforge.eventbus.api.*;
+import net.minecraftforge.registries.*;
 
-public class EffectsRegistry {
+public class EffectsRegistry{
     private final static String MODID = Valoria.ID;
     public static final DeferredRegister<MobEffect> EFFECTS = DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, MODID);
 
@@ -20,7 +15,7 @@ public class EffectsRegistry {
     public static final RegistryObject<MobEffect> TIPSY = EFFECTS.register("tipsy", TipsyEffect::new);
     public static final RegistryObject<MobEffect> BLEEDING = EFFECTS.register("bleeding", BleedingEffect::new);
 
-    public static void register(IEventBus eventBus) {
+    public static void register(IEventBus eventBus){
         EFFECTS.register(eventBus);
     }
 }

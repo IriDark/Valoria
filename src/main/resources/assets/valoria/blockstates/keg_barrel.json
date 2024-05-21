@@ -1,6 +1,6 @@
 {
-  "variants" : {
-    "" : {
+  "variants": {
+    "": {
       "model": "valoria:block/keg_barrel"
     }
   }

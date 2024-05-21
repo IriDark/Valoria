@@ -1,47 +1,45 @@
 package com.idark.valoria.client.gui.overlay;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.core.config.ClientConfig;
-import com.mojang.blaze3d.platform.GlStateManager;
-import com.mojang.blaze3d.platform.Lighting;
-import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.RenderGuiOverlayEvent;
-import net.minecraftforge.event.TickEvent;
+import com.idark.valoria.*;
+import com.idark.valoria.core.config.*;
+import com.mojang.blaze3d.platform.*;
+import com.mojang.blaze3d.systems.*;
+import net.minecraft.client.*;
+import net.minecraft.client.gui.*;
+import net.minecraft.resources.*;
+import net.minecraftforge.api.distmarker.*;
+import net.minecraftforge.client.event.*;
+import net.minecraftforge.event.*;
 
 @OnlyIn(Dist.CLIENT)
-public class DashOverlayRender {
+public class DashOverlayRender{
 
-    private DashOverlayRender() {
+    private DashOverlayRender(){
     }
 
     public static int dashTime = 0;
     public static boolean isDash = false;
     private static final ResourceLocation DASH = new ResourceLocation(Valoria.ID + ":textures/gui/overlay/speedlines.png");
 
-    public static void showDashOverlay() {
-        if (ClientConfig.DASH_OVERLAY.get()) {
+    public static void showDashOverlay(){
+        if(ClientConfig.DASH_OVERLAY.get()){
             DashOverlayRender.isDash = true;
         }
     }
 
-    public static void tick(TickEvent.ClientTickEvent event) {
-        if (isDash) {
-            if (dashTime < 35) {
+    public static void tick(TickEvent.ClientTickEvent event){
+        if(isDash){
+            if(dashTime < 35){
                 dashTime = dashTime + 1;
-            } else {
+            }else{
                 dashTime = 0;
                 isDash = false;
             }
         }
     }
 
-    public static void onDrawScreenPost(RenderGuiOverlayEvent.Post event) {
-        if (dashTime > 0) {
+    public static void onDrawScreenPost(RenderGuiOverlayEvent.Post event){
+        if(dashTime > 0){
             Minecraft mc = Minecraft.getInstance();
             GuiGraphics gui = event.getGuiGraphics();
             gui.pose().pushPose();
@@ -49,11 +47,11 @@ public class DashOverlayRender {
             float ticks = dashTime + event.getPartialTick();
             float alpha = 0.5F;
 
-            if (ticks < 10) {
+            if(ticks < 10){
                 alpha = 5 / ticks;
             }
 
-            if (ticks >= 20) {
+            if(ticks >= 20){
                 alpha = 0.5F - ((ticks - 20) / 15);
             }
 

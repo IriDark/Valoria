@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": { "model": "valoria:block/bloodroot" }
+    "": {
+      "model": "valoria:block/bloodroot"
+    }
   }
 }

@@ -18,7 +18,7 @@
         0.68
       ]
     },
-	"firstperson_lefthand": {
+    "firstperson_lefthand": {
       "rotation": [
         0,
         -90,
@@ -52,7 +52,7 @@
         0.85
       ]
     },
-	"thirdperson_lefthand": {
+    "thirdperson_lefthand": {
       "rotation": [
         0,
         -90,
@@ -69,22 +69,22 @@
         0.85
       ]
     },
-	"gui": {
-        "rotation": [
-           0,
-           0,
-           0
-       ],
-       "translation": [
-           1.5,
-           0,
-           0
-       ],
-       "scale": [
-           1,
-           1,
-           1
-       ]
+    "gui": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        1.5,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
     }
   }
 }

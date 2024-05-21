@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": { "model" : "valoria:block/abyssal_glowfern" }
+    "": {
+      "model": "valoria:block/abyssal_glowfern"
+    }
   }
 }

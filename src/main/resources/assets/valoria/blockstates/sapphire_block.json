@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": { "model" : "valoria:block/sapphire_block" }
+    "": {
+      "model": "valoria:block/sapphire_block"
+    }
   }
 }

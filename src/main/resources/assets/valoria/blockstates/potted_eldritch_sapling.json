@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": { "model" : "valoria:block/potted_eldritch_sapling" }
+    "": {
+      "model": "valoria:block/potted_eldritch_sapling"
+    }
   }
 }

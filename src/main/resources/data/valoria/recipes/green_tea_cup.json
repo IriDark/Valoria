@@ -1,20 +1,20 @@
 {
-    "type": "minecraft:crafting_shaped",
-    "pattern": [
-        " X ",
-        " X ",
-        " / "
-    ],
-    "key": {
-        "/": {
-		"item": "valoria:cup"
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " X ",
+    " X ",
+    " / "
+  ],
+  "key": {
+    "/": {
+      "item": "valoria:cup"
     },
-		"X": {
-		"item": "valoria:aloe_piece"
-		}
-	},
-    "result": {
-        "item": "valoria:green_tea_cup",
-        "count": 1
-	}
+    "X": {
+      "item": "valoria:aloe_piece"
+    }
+  },
+  "result": {
+    "item": "valoria:green_tea_cup",
+    "count": 1
+  }
 }

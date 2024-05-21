@@ -1,8 +1,8 @@
 {
-	"parent": "minecraft:block/door_bottom_left_open",
-	"render_type": "minecraft:cutout",
-	"textures": {
-		"bottom": "valoria:block/bronze_door_bottom",
-		"top": "valoria:block/bronze_door_door_top"
-	}
+  "parent": "minecraft:block/door_bottom_left_open",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "bottom": "valoria:block/bronze_door_bottom",
+    "top": "valoria:block/bronze_door_door_top"
+  }
 }

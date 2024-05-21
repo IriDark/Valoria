@@ -6,17 +6,17 @@ import net.minecraft.world.level.block.GrowingPlantBodyBlock;
 import net.minecraft.world.level.block.GrowingPlantHeadBlock;
 import net.minecraft.world.phys.shapes.Shapes;
 
-public class VioletSproutPlantBlock extends GrowingPlantBodyBlock {
+public class VioletSproutPlantBlock extends GrowingPlantBodyBlock{
 
     boolean pGlow;
 
-    public VioletSproutPlantBlock(Properties pProperties, Boolean pGlow) {
+    public VioletSproutPlantBlock(Properties pProperties, Boolean pGlow){
         super(pProperties, Direction.UP, Shapes.block(), true);
         this.pGlow = pGlow;
     }
 
     @Override
-    protected GrowingPlantHeadBlock getHeadBlock() {
-        return pGlow ? (GrowingPlantHeadBlock) BlockRegistry.GLOW_VIOLET_SPROUT.get() : (GrowingPlantHeadBlock) BlockRegistry.VIOLET_SPROUT.get();
+    protected GrowingPlantHeadBlock getHeadBlock(){
+        return pGlow ? (GrowingPlantHeadBlock)BlockRegistry.GLOW_VIOLET_SPROUT.get() : (GrowingPlantHeadBlock)BlockRegistry.VIOLET_SPROUT.get();
     }
 }

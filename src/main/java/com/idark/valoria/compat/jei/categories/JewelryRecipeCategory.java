@@ -1,37 +1,34 @@
 package com.idark.valoria.compat.jei.categories;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.client.event.ClientTickHandler;
-import com.idark.valoria.compat.jei.ModRecipeTypes;
-import com.idark.valoria.registries.BlockRegistry;
-import com.idark.valoria.registries.recipe.JewelryRecipe;
-import mezz.jei.api.constants.VanillaTypes;
-import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
-import mezz.jei.api.gui.drawable.IDrawable;
-import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
-import mezz.jei.api.helpers.IGuiHelper;
-import mezz.jei.api.recipe.IFocusGroup;
-import mezz.jei.api.recipe.RecipeIngredientRole;
+import com.idark.valoria.*;
+import com.idark.valoria.client.event.*;
+import com.idark.valoria.compat.jei.*;
+import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.recipe.*;
+import mezz.jei.api.constants.*;
+import mezz.jei.api.gui.builder.*;
+import mezz.jei.api.gui.drawable.*;
+import mezz.jei.api.gui.ingredient.*;
+import mezz.jei.api.helpers.*;
 import mezz.jei.api.recipe.RecipeType;
-import mezz.jei.api.recipe.category.IRecipeCategory;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.core.NonNullList;
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
+import mezz.jei.api.recipe.*;
+import mezz.jei.api.recipe.category.*;
+import net.minecraft.client.*;
+import net.minecraft.client.gui.*;
+import net.minecraft.core.*;
+import net.minecraft.network.chat.*;
+import net.minecraft.resources.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.item.crafting.*;
 
-import java.util.Arrays;
+import java.util.*;
 
-public class JewelryRecipeCategory implements IRecipeCategory<JewelryRecipe> {
+public class JewelryRecipeCategory implements IRecipeCategory<JewelryRecipe>{
     private final Component title;
     private final IDrawable background;
     private final IDrawable icon;
 
-    public JewelryRecipeCategory(IGuiHelper helper) {
+    public JewelryRecipeCategory(IGuiHelper helper){
         title = Component.translatable("jei.valoria.jewelry");
         ResourceLocation backgroundImage = new ResourceLocation(Valoria.ID, "textures/gui/jei/jewelry.png");
 
@@ -40,27 +37,27 @@ public class JewelryRecipeCategory implements IRecipeCategory<JewelryRecipe> {
     }
 
     @Override
-    public RecipeType<JewelryRecipe> getRecipeType() {
+    public RecipeType<JewelryRecipe> getRecipeType(){
         return ModRecipeTypes.JEWELRY;
     }
 
     @Override
-    public Component getTitle() {
+    public Component getTitle(){
         return this.title;
     }
 
     @Override
-    public IDrawable getBackground() {
+    public IDrawable getBackground(){
         return this.background;
     }
 
     @Override
-    public IDrawable getIcon() {
+    public IDrawable getIcon(){
         return this.icon;
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, JewelryRecipe recipe, IFocusGroup focusGroup) {
+    public void setRecipe(IRecipeLayoutBuilder builder, JewelryRecipe recipe, IFocusGroup focusGroup){
         NonNullList<Ingredient> recipeIngredients = recipe.getIngredients();
         ItemStack resultStack = recipe.getResultItem(RegistryAccess.EMPTY);
 
@@ -70,7 +67,7 @@ public class JewelryRecipeCategory implements IRecipeCategory<JewelryRecipe> {
     }
 
     @Override
-    public void draw(JewelryRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics gui, double mouseX, double mouseY) {
+    public void draw(JewelryRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics gui, double mouseX, double mouseY){
         Font font_renderer = Minecraft.getInstance().font;
         int ticks = recipe.getTime();
         int seconds = ticks / 20;
@@ -82,8 +79,8 @@ public class JewelryRecipeCategory implements IRecipeCategory<JewelryRecipe> {
 
         ResourceLocation arrow = new ResourceLocation(Valoria.ID, "textures/gui/jei/progress_arrow.png");
         int width = 22;
-        if (ClientTickHandler.ticksInGame % recipe.getTime() > 0) {
-            width /= ((double) recipe.getTime() / (double) (ClientTickHandler.ticksInGame % recipe.getTime()));
+        if(ClientTickHandler.ticksInGame % recipe.getTime() > 0){
+            width /= ((double)recipe.getTime() / (double)(ClientTickHandler.ticksInGame % recipe.getTime()));
             gui.blit(arrow, 90, 16, 0, 0, width, 16, 32, 32);
         }
 

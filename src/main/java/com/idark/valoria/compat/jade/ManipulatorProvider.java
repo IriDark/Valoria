@@ -17,14 +17,14 @@ import snownee.jade.api.ui.IElement;
 import snownee.jade.api.ui.IElementHelper;
 import snownee.jade.impl.ui.ProgressArrowElement;
 
-public enum ManipulatorProvider implements IBlockComponentProvider, IServerDataProvider<BlockAccessor> {
+public enum ManipulatorProvider implements IBlockComponentProvider, IServerDataProvider<BlockAccessor>{
 
     INSTANCE;
 
     @Override
-    public void appendTooltip(ITooltip tooltip, BlockAccessor accessor, IPluginConfig config) {
+    public void appendTooltip(ITooltip tooltip, BlockAccessor accessor, IPluginConfig config){
         CompoundTag data = accessor.getServerData();
-        if (!data.contains("progress")) {
+        if(!data.contains("progress")){
             return;
         }
 
@@ -35,7 +35,7 @@ public enum ManipulatorProvider implements IBlockComponentProvider, IServerDataP
         int infernal_core = data.getInt("infernal");
         int void_core = data.getInt("void");
 
-        tooltip.append(new ProgressArrowElement((float) progress / total));
+        tooltip.append(new ProgressArrowElement((float)progress / total));
         IElementHelper elements = tooltip.getElementHelper();
         IElement icon = elements.item(new ItemStack(Items.CLOCK), 0.5f).size(new Vec2(11, 10)).translate(new Vec2(0, -1));
         IElement element_n = elements.item(new ItemStack(ItemsRegistry.NATURE_CORE.get()), 0.5f).size(new Vec2(11, 10)).translate(new Vec2(0, -1));
@@ -60,8 +60,8 @@ public enum ManipulatorProvider implements IBlockComponentProvider, IServerDataP
     }
 
     @Override
-    public void appendServerData(CompoundTag data, BlockAccessor accessor) {
-        ManipulatorBlockEntity manipulatorBlockEntity = (ManipulatorBlockEntity) accessor.getBlockEntity();
+    public void appendServerData(CompoundTag data, BlockAccessor accessor){
+        ManipulatorBlockEntity manipulatorBlockEntity = (ManipulatorBlockEntity)accessor.getBlockEntity();
         data.putInt("progress", manipulatorBlockEntity.progress);
         data.putInt("total", manipulatorBlockEntity.progressMax);
 
@@ -72,7 +72,7 @@ public enum ManipulatorProvider implements IBlockComponentProvider, IServerDataP
     }
 
     @Override
-    public ResourceLocation getUid() {
+    public ResourceLocation getUid(){
         return ModPlugin.MANIPULATOR;
     }
 }

@@ -1,15 +1,15 @@
 {
-    "type": "minecraft:crafting_shapeless",
-    "ingredients": [
-	{
-		"item": "valoria:wicked_amethyst"
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "valoria:wicked_amethyst"
     },
-	{
-		"item": "valoria:uncharged_shard"
-	}
-	],
-    "result": {
-        "item": "valoria:wicked_amethyst",
-        "count": 2
+    {
+      "item": "valoria:uncharged_shard"
     }
+  ],
+  "result": {
+    "item": "valoria:wicked_amethyst",
+    "count": 2
+  }
 }

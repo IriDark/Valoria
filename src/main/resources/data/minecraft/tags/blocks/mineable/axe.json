@@ -18,7 +18,6 @@
     "valoria:shadewood_wall_sign",
     "valoria:shadewood_fence",
     "valoria:shadewood_fence_gate",
-
     "valoria:eldritch_log",
     "valoria:stripped_eldritch_log",
     "valoria:eldritch_wood",
@@ -30,13 +29,37 @@
     "valoria:eldritch_wall_sign",
     "valoria:eldritch_fence",
     "valoria:eldritch_fence_gate",
-    { "id": "valoria:eldritch_bookshelf", "required":  false },
-    { "id": "valoria:eldritch_ladder", "required":  false },
-    { "id": "valoria:eldritch_chest", "required":  false },
-    { "id": "valoria:trapped_eldritch_chest", "required":  false },
-    { "id": "valoria:shadewood_bookshelf", "required":  false },
-    { "id": "valoria:shadewood_ladder", "required":  false },
-    { "id": "valoria:shadewood_chest", "required":  false },
-    { "id": "valoria:trapped_shadewood_chest", "required":  false }
+    {
+      "id": "valoria:eldritch_bookshelf",
+      "required": false
+    },
+    {
+      "id": "valoria:eldritch_ladder",
+      "required": false
+    },
+    {
+      "id": "valoria:eldritch_chest",
+      "required": false
+    },
+    {
+      "id": "valoria:trapped_eldritch_chest",
+      "required": false
+    },
+    {
+      "id": "valoria:shadewood_bookshelf",
+      "required": false
+    },
+    {
+      "id": "valoria:shadewood_ladder",
+      "required": false
+    },
+    {
+      "id": "valoria:shadewood_chest",
+      "required": false
+    },
+    {
+      "id": "valoria:trapped_shadewood_chest",
+      "required": false
+    }
   ]
 }

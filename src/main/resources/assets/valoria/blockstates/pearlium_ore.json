@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": { "model" : "valoria:block/pearlium_ore" }
+    "": {
+      "model": "valoria:block/pearlium_ore"
+    }
   }
 }

@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": { "model" : "valoria:block/stone_crusher" }
+    "": {
+      "model": "valoria:block/stone_crusher"
+    }
   }
 }

@@ -1,18 +1,17 @@
 package com.idark.valoria.core.network.packets;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.client.particle.ParticleRegistry;
-import com.idark.valoria.client.particle.types.Particles;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.util.Mth;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.Level;
-import net.minecraftforge.network.NetworkEvent;
+import com.idark.valoria.*;
+import com.idark.valoria.client.particle.*;
+import com.idark.valoria.client.particle.types.*;
+import net.minecraft.network.*;
+import net.minecraft.util.*;
+import net.minecraft.world.level.*;
+import net.minecraftforge.network.*;
 
-import java.util.Random;
-import java.util.function.Supplier;
+import java.util.*;
+import java.util.function.*;
 
-public class MurasamaParticlePacket {
+public class MurasamaParticlePacket{
 
     private final float distance;
     private final float posX;
@@ -21,7 +20,7 @@ public class MurasamaParticlePacket {
 
     private final int colorR, colorG, colorB;
 
-    public MurasamaParticlePacket(float distance, float posX, float posY, float posZ, int colorR, int colorG, int colorB) {
+    public MurasamaParticlePacket(float distance, float posX, float posY, float posZ, int colorR, int colorG, int colorB){
         this.distance = distance;
         this.posX = posX;
         this.posY = posY;
@@ -32,12 +31,12 @@ public class MurasamaParticlePacket {
         this.colorB = colorB;
     }
 
-    public static MurasamaParticlePacket decode(FriendlyByteBuf buf) {
+    public static MurasamaParticlePacket decode(FriendlyByteBuf buf){
         return new MurasamaParticlePacket(buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readInt(), buf.readInt(), buf.readInt());
     }
 
-    public static void handle(MurasamaParticlePacket msg, Supplier<NetworkEvent.Context> ctx) {
-        if (ctx.get().getDirection().getReceptionSide().isClient()) {
+    public static void handle(MurasamaParticlePacket msg, Supplier<NetworkEvent.Context> ctx){
+        if(ctx.get().getDirection().getReceptionSide().isClient()){
             ctx.get().enqueueWork(() -> {
                 Level world = Valoria.proxy.getWorld();
                 Random rand = new Random();
@@ -51,19 +50,19 @@ public class MurasamaParticlePacket {
                 double dZ = -Z;
                 int count = 1 + Mth.nextInt(source, 0, 2);
 
-                for (int ii = 0; ii < count; ii += 1) {
+                for(int ii = 0; ii < count; ii += 1){
                     double yaw = Math.atan2(dZ, dX);
                     double pitch = Math.atan2(Math.sqrt(dZ * dZ + dX * dX), dY) + Math.PI;
-                    double XX = Math.sin(pitch) * Math.cos(yaw) * (float) (rand.nextDouble() * 0.05F) / (ii + 1);
-                    double YY = Math.sin(pitch) * Math.sin(yaw) * (float) (rand.nextDouble() * 0.05F) / (ii + 1);
-                    double ZZ = Math.cos(pitch) * (float) (rand.nextDouble() * 0.05F) / (ii + 1);
+                    double XX = Math.sin(pitch) * Math.cos(yaw) * (float)(rand.nextDouble() * 0.05F) / (ii + 1);
+                    double YY = Math.sin(pitch) * Math.sin(yaw) * (float)(rand.nextDouble() * 0.05F) / (ii + 1);
+                    double ZZ = Math.cos(pitch) * (float)(rand.nextDouble() * 0.05F) / (ii + 1);
                     Particles.create(ParticleRegistry.GLOWING_SPHERE)
-                            .addVelocity(XX, YY, ZZ)
-                            .setAlpha(0.50f, 1)
-                            .setScale(0.12f, 0)
-                            .setColor(msg.colorR, msg.colorG, msg.colorB, 255, 67, 231)
-                            .setLifetime(6)
-                            .spawn(world, msg.posX + X, msg.posY + Y, msg.posZ + Z);
+                    .addVelocity(XX, YY, ZZ)
+                    .setAlpha(0.50f, 1)
+                    .setScale(0.12f, 0)
+                    .setColor(msg.colorR, msg.colorG, msg.colorB, 255, 67, 231)
+                    .setLifetime(6)
+                    .spawn(world, msg.posX + X, msg.posY + Y, msg.posZ + Z);
                 }
 
                 ctx.get().setPacketHandled(true);
@@ -71,7 +70,7 @@ public class MurasamaParticlePacket {
         }
     }
 
-    public void encode(FriendlyByteBuf buf) {
+    public void encode(FriendlyByteBuf buf){
         buf.writeFloat(distance);
 
         buf.writeFloat(posX);

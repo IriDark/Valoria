@@ -1,19 +1,19 @@
 {
-    "type": "minecraft:crafting_shaped",
-    "pattern": [
-        "/#",
-        "#/"
-    ],
-    "key": {
-        "#": {
-		"item": "minecraft:string"
-		},
-		"/": {
-		"item": "valoria:aloe_piece"
-		}
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "/#",
+    "#/"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:string"
     },
-    "result": {
-        "item": "valoria:aloe_bandage",
-        "count": 2
-	}
+    "/": {
+      "item": "valoria:aloe_piece"
+    }
+  },
+  "result": {
+    "item": "valoria:aloe_bandage",
+    "count": 2
+  }
 }

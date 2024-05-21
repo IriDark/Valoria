@@ -31,7 +31,7 @@ import net.minecraftforge.fml.event.lifecycle.*;
 
 import java.io.*;
 
-public class ValoriaClient {
+public class ValoriaClient{
     public static ModelLayerLocation NECKLACE_LAYER = new ModelLayerLocation(new ResourceLocation(Valoria.ID, "necklace"), "main");
     public static ModelLayerLocation HANDS_LAYER = new ModelLayerLocation(new ResourceLocation(Valoria.ID, "hands"), "main");
     public static ModelLayerLocation HANDS_LAYER_SLIM = new ModelLayerLocation(new ResourceLocation(Valoria.ID, "hands_slim"), "main");
@@ -42,43 +42,44 @@ public class ValoriaClient {
     public static CooldownSoundInstance COOLDOWN_SOUND = new CooldownSoundInstance(null);
 
     public static ShaderInstance GLOWING_SHADER, GLOWING_PARTICLE_SHADER, SPRITE_PARTICLE_SHADER;
-    public static ShaderInstance getGlowingParticleShader() {
+
+    public static ShaderInstance getGlowingParticleShader(){
         return GLOWING_PARTICLE_SHADER;
     }
 
-    public static ShaderInstance getSpriteParticleShader() {
+    public static ShaderInstance getSpriteParticleShader(){
         return SPRITE_PARTICLE_SHADER;
     }
 
-    public static ShaderInstance getGlowingShader() {
+    public static ShaderInstance getGlowingShader(){
         return GLOWING_SHADER;
     }
 
     @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
-    public static class RegistryEvents {
+    public static class RegistryEvents{
 
         @SubscribeEvent
-        public static void ColorMappingBlocks(RegisterColorHandlersEvent.Block event) {
+        public static void ColorMappingBlocks(RegisterColorHandlersEvent.Block event){
             event.register((state, world, pos, tintIndex) -> ModBlockColors.getInstance().getGrassColor(state, world, pos, tintIndex), ModBlockColors.MODDED_GRASS);
             event.register((state, world, pos, tintIndex) -> ModBlockColors.getInstance().getFoliageColor(state, world, pos, tintIndex), ModBlockColors.MODDED_FOLIAGE);
-            if(QuarkIntegration.isLoaded()) {
+            if(QuarkIntegration.isLoaded()){
                 event.register((state, world, pos, tintIndex) -> ModBlockColors.getInstance().getFoliageColor(state, world, pos, tintIndex), QuarkIntegration.LoadedOnly.SHADEWOOD_LEAF_CARPET.get(), QuarkIntegration.LoadedOnly.SHADEWOOD_LEAF_HEDGE.get(), QuarkIntegration.LoadedOnly.ELDRITCH_LEAF_CARPET.get(), QuarkIntegration.LoadedOnly.ELDRITCH_LEAF_HEDGE.get());
             }
         }
 
         @SubscribeEvent
-        public static void ColorMappingItems(RegisterColorHandlersEvent.Item event) {
+        public static void ColorMappingItems(RegisterColorHandlersEvent.Item event){
             event.register((stack, tintIndex) -> tintIndex > 0 ? -1 : 12487423, BlockRegistry.ELDRITCH_SAPLING.get(), BlockRegistry.ELDRITCH_LEAVES.get());
             event.register((stack, tintIndex) -> tintIndex > 0 ? -1 : 9100543, BlockRegistry.SHADEWOOD_BRANCH.get(), BlockRegistry.SHADEWOOD_SAPLING.get(), BlockRegistry.SHADEWOOD_LEAVES.get());
             event.register((stack, tintIndex) -> 11301619, BlockRegistry.VOID_GRASS.get(), BlockRegistry.VOID_TAINT.get(), BlockRegistry.VOID_ROOTS.get());
-            if(QuarkIntegration.isLoaded()) {
+            if(QuarkIntegration.isLoaded()){
                 event.register((stack, tintIndex) -> 12487423, QuarkIntegration.LoadedOnly.ELDRITCH_LEAF_CARPET.get(), QuarkIntegration.LoadedOnly.ELDRITCH_LEAF_HEDGE.get());
                 event.register((stack, tintIndex) -> 9100543, QuarkIntegration.LoadedOnly.SHADEWOOD_LEAF_CARPET.get(), QuarkIntegration.LoadedOnly.SHADEWOOD_LEAF_HEDGE.get());
             }
         }
 
         @SubscribeEvent
-        public static void doClientStuff(FMLClientSetupEvent event) {
+        public static void doClientStuff(FMLClientSetupEvent event){
             event.enqueueWork(() -> {
                 BlockEntityRenderers.register(BlockEntitiesRegistry.MANIPULATOR_BLOCK_ENTITY.get(), (trd) -> new ManipulatorBlockEntityRenderer());
                 BlockEntityRenderers.register(BlockEntitiesRegistry.JEWELRY_BLOCK_ENTITY.get(), (trd) -> new JewelryBlockEntityRender());
@@ -90,7 +91,7 @@ public class ValoriaClient {
                 BlockEntityRenderers.register(BlockEntitiesRegistry.HANGING_SIGN_BLOCK_ENTITIES.get(), HangingSignRenderer::new);
                 Sheets.addWoodType(ModWoodTypes.ELDRITCH);
                 Sheets.addWoodType(ModWoodTypes.SHADEWOOD);
-                if(QuarkIntegration.isLoaded()) {
+                if(QuarkIntegration.isLoaded()){
                     BlockEntityRenderers.register(QuarkIntegration.LoadedOnly.CHEST_BLOCK_ENTITY.get(), ModChestRender::new);
                     BlockEntityRenderers.register(QuarkIntegration.LoadedOnly.TRAPPED_CHEST_BLOCK_ENTITY.get(), ModTrappedChestRender::new);
                 }
@@ -127,30 +128,30 @@ public class ValoriaClient {
         }
 
         @SubscribeEvent
-        public static void onModelRegistryEvent(ModelEvent.RegisterAdditional event) {
+        public static void onModelRegistryEvent(ModelEvent.RegisterAdditional event){
             event.register(KEG_MODEL);
             event.register(SPHERE);
-            if (ClientConfig.IN_HAND_MODELS_32X.get()) {
-                for (String itemId : Item2DRenderer.handModelItems) {
+            if(ClientConfig.IN_HAND_MODELS_32X.get()){
+                for(String itemId : Item2DRenderer.handModelItems){
                     event.register(new ModelResourceLocation(new ResourceLocation(itemId + "_in_hand"), "inventory"));
                 }
             }
         }
 
         @SubscribeEvent
-        public static void onModelBakeEvent(ModelEvent.ModifyBakingResult event) {
-            if (ClientConfig.IN_HAND_MODELS_32X.get()) {
+        public static void onModelBakeEvent(ModelEvent.ModifyBakingResult event){
+            if(ClientConfig.IN_HAND_MODELS_32X.get()){
                 Item2DRenderer.onModelBakeEvent(event);
             }
         }
 
         @SubscribeEvent
-        public static void onRegisterLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
+        public static void onRegisterLayers(EntityRenderersEvent.RegisterLayerDefinitions event){
             event.registerLayerDefinition(ValoriaClient.NECKLACE_LAYER, NecklaceModel::createBodyLayer);
             event.registerLayerDefinition(ValoriaClient.BELT_LAYER, BeltModel::createBodyLayer);
             event.registerLayerDefinition(ValoriaClient.HANDS_LAYER, HandsModelDefault::createBodyLayer);
             event.registerLayerDefinition(ValoriaClient.HANDS_LAYER_SLIM, HandsModel::createBodyLayer);
-            for (CustomBoatEntity.Type boatType : CustomBoatEntity.Type.values()) {
+            for(CustomBoatEntity.Type boatType : CustomBoatEntity.Type.values()){
                 event.registerLayerDefinition(CustomBoatRenderer.createBoatModelName(boatType), BoatModel::createBodyModel);
                 event.registerLayerDefinition(CustomBoatRenderer.createChestBoatModelName(boatType), ChestBoatModel::createBodyModel);
             }
@@ -158,7 +159,7 @@ public class ValoriaClient {
 
         @OnlyIn(Dist.CLIENT)
         @SubscribeEvent
-        public static void registerFactories(RegisterParticleProvidersEvent event) {
+        public static void registerFactories(RegisterParticleProvidersEvent event){
             Minecraft.getInstance().particleEngine.register(ParticleRegistry.SPHERE.get(), SphereParticleType.Factory::new);
             Minecraft.getInstance().particleEngine.register(ParticleRegistry.GLOWING_SPHERE.get(), SparkleParticleType.Factory::new);
             Minecraft.getInstance().particleEngine.register(ParticleRegistry.TRANSFORM_PARTICLE.get(), SparkleParticleType.Factory::new);
@@ -172,7 +173,7 @@ public class ValoriaClient {
 
         @OnlyIn(Dist.CLIENT)
         @SubscribeEvent
-        public static void shaderRegistry(RegisterShadersEvent event) throws IOException {
+        public static void shaderRegistry(RegisterShadersEvent event) throws IOException{
             event.registerShader(new ShaderInstance(event.getResourceProvider(), new ResourceLocation("valoria:glowing"), DefaultVertexFormat.POSITION_COLOR), shader -> GLOWING_SHADER = shader);
             event.registerShader(new ShaderInstance(event.getResourceProvider(), new ResourceLocation("valoria:glowing_particle"), DefaultVertexFormat.PARTICLE), shader -> GLOWING_PARTICLE_SHADER = shader);
             event.registerShader(new ShaderInstance(event.getResourceProvider(), new ResourceLocation("valoria:sprite_particle"), DefaultVertexFormat.PARTICLE), shader -> SPRITE_PARTICLE_SHADER = shader);

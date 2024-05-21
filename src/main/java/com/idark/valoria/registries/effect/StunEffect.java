@@ -7,9 +7,9 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 
-public class StunEffect extends MobEffect {
+public class StunEffect extends MobEffect{
 
-    public StunEffect() {
+    public StunEffect(){
         super(MobEffectCategory.HARMFUL, ValoriaUtils.color.hexToDecimal("F6F1C5"));
         addAttributeModifier(Attributes.MOVEMENT_SPEED, "1107DE5E-7AE8-2030-840A-21B21F160890", -1F, AttributeModifier.Operation.MULTIPLY_TOTAL);
         addAttributeModifier(Attributes.ATTACK_DAMAGE, "22653B89-116E-49DC-9B6B-9971489B5BE5", -1F, AttributeModifier.Operation.MULTIPLY_TOTAL);
@@ -17,13 +17,13 @@ public class StunEffect extends MobEffect {
     }
 
     @Override
-    public void applyEffectTick(LivingEntity entityLivingBaseIn, int amplifier) {
+    public void applyEffectTick(LivingEntity entityLivingBaseIn, int amplifier){
         super.applyEffectTick(entityLivingBaseIn, amplifier);
         entityLivingBaseIn.setSpeed(0);
     }
 
     @Override
-    public boolean isDurationEffectTick(int duration, int amplifier) {
+    public boolean isDurationEffectTick(int duration, int amplifier){
         return true;
     }
 }

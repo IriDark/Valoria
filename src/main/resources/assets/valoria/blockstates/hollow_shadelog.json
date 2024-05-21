@@ -1,7 +1,16 @@
 {
   "variants": {
-    "axis=y":  { "model": "valoria:block/hollow_shadelog" },
-    "axis=z":   { "model": "valoria:block/hollow_shadelog_horizontal", "x": 90 },
-    "axis=x":   { "model": "valoria:block/hollow_shadelog_horizontal", "x": 90, "y": 90 }
+    "axis=y": {
+      "model": "valoria:block/hollow_shadelog"
+    },
+    "axis=z": {
+      "model": "valoria:block/hollow_shadelog_horizontal",
+      "x": 90
+    },
+    "axis=x": {
+      "model": "valoria:block/hollow_shadelog_horizontal",
+      "x": 90,
+      "y": 90
+    }
   }
 }

@@ -20,18 +20,18 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Random;
 
-public class TaintTransformBlockItem extends BlockItem {
+public class TaintTransformBlockItem extends BlockItem{
     Random rand = new Random();
 
-    public TaintTransformBlockItem(Block pBlock, Item.Properties pProperties) {
+    public TaintTransformBlockItem(Block pBlock, Item.Properties pProperties){
         super(pBlock, pProperties);
     }
 
     @Override
     @NotNull
-    public InteractionResult useOn(UseOnContext pContext) {
+    public InteractionResult useOn(UseOnContext pContext){
         Player player = pContext.getPlayer();
-        if (player != null && !player.isShiftKeyDown()) {
+        if(player != null && !player.isShiftKeyDown()){
             return this.place(new BlockPlaceContext(pContext));
         }
 
@@ -39,20 +39,20 @@ public class TaintTransformBlockItem extends BlockItem {
     }
 
     @Override
-    public InteractionResult onItemUseFirst(ItemStack stack, UseOnContext context) {
+    public InteractionResult onItemUseFirst(ItemStack stack, UseOnContext context){
         Level worldIn = context.getLevel();
         BlockState state = worldIn.getBlockState(context.getClickedPos());
         BlockPos pos = context.getClickedPos();
         Player player = context.getPlayer();
-        if (player != null && player.isShiftKeyDown()) {
-            if (state.is(BlockRegistry.VOID_TAINT.get()) && state.getValue(VoidTaintBlock.TAINT) != 1) {
+        if(player != null && player.isShiftKeyDown()){
+            if(state.is(BlockRegistry.VOID_TAINT.get()) && state.getValue(VoidTaintBlock.TAINT) != 1){
                 worldIn.playSound(player, player.blockPosition(), SoundEvents.FROG_LAY_SPAWN, SoundSource.BLOCKS, 1.0F, 1.0F);
                 worldIn.setBlockAndUpdate(pos, BlockRegistry.VOID_TAINT.get().defaultBlockState().setValue(VoidTaintBlock.TAINT, 1));
-                for (int i = 0; i < 6; i++) {
+                for(int i = 0; i < 6; i++){
                     worldIn.addParticle(ParticleTypes.END_ROD, pos.getX() + rand.nextDouble(), pos.getY() + 1f, pos.getZ() + rand.nextDouble(), 0d, 0.05d, 0d);
                 }
 
-                if (!player.isCreative()) {
+                if(!player.isCreative()){
                     stack.shrink(1);
                 }
             }

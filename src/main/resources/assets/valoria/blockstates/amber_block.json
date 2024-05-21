@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": { "model" : "valoria:block/amber_block" }
+    "": {
+      "model": "valoria:block/amber_block"
+    }
   }
 }

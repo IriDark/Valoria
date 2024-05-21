@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": { "model" : "valoria:block/raw_cobalt_ore" }
+    "": {
+      "model": "valoria:block/raw_cobalt_ore"
+    }
   }
 }

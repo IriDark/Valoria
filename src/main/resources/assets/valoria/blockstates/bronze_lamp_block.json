@@ -1,6 +1,10 @@
 {
   "variants": {
-    "lit=false": { "model" : "valoria:block/bronze_lamp_block" },
-	"lit=true": { "model" : "valoria:block/bronze_lamp_block_lit" }
+    "lit=false": {
+      "model": "valoria:block/bronze_lamp_block"
+    },
+    "lit=true": {
+      "model": "valoria:block/bronze_lamp_block_lit"
+    }
   }
 }

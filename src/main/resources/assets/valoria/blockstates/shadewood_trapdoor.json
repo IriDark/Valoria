@@ -1,5 +1,5 @@
 {
-	"variants": {
+  "variants": {
     "facing=east,half=bottom,open=false": {
       "model": "valoria:block/shadewood_trapdoor_bottom",
       "y": 90

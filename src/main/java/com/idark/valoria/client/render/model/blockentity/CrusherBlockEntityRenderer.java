@@ -1,22 +1,20 @@
 package com.idark.valoria.client.render.model.blockentity;
 
-import com.idark.valoria.registries.block.entity.CrusherBlockEntity;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Axis;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.LevelRenderer;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
-import net.minecraft.world.item.ItemDisplayContext;
-import net.minecraft.world.item.ItemStack;
+import com.idark.valoria.registries.block.entity.*;
+import com.mojang.blaze3d.vertex.*;
+import com.mojang.math.*;
+import net.minecraft.client.*;
+import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.blockentity.*;
+import net.minecraft.world.item.*;
 
-public class CrusherBlockEntityRenderer implements BlockEntityRenderer<CrusherBlockEntity> {
+public class CrusherBlockEntityRenderer implements BlockEntityRenderer<CrusherBlockEntity>{
 
-    public CrusherBlockEntityRenderer() {
+    public CrusherBlockEntityRenderer(){
     }
 
     @Override
-    public void render(CrusherBlockEntity crusherBlockEntity, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+    public void render(CrusherBlockEntity crusherBlockEntity, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay){
         ms.pushPose();
         ms.translate(0.5F, 1.025F, 0.5F);
         ms.mulPose(Axis.XP.rotationDegrees(90.0F));

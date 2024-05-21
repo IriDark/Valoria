@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": { "model" : "valoria:block/void_roots" }
+    "": {
+      "model": "valoria:block/void_roots"
+    }
   }
 }

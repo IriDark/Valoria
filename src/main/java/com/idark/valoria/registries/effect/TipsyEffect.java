@@ -6,9 +6,9 @@ import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 
-public class TipsyEffect extends MobEffect {
+public class TipsyEffect extends MobEffect{
 
-    public TipsyEffect() {
+    public TipsyEffect(){
         super(MobEffectCategory.NEUTRAL, ValoriaUtils.color.hexToDecimal("ecc597"));
         addAttributeModifier(Attributes.MOVEMENT_SPEED, "1107DE5E-7AE8-2030-840A-21B21F160890", -0.15F, AttributeModifier.Operation.MULTIPLY_TOTAL);
         addAttributeModifier(Attributes.ARMOR, "74841448-7BD1-4C3F-924D-EED3F7A6E439", 0.15F, AttributeModifier.Operation.MULTIPLY_TOTAL);
@@ -17,7 +17,7 @@ public class TipsyEffect extends MobEffect {
     }
 
     @Override
-    public boolean isDurationEffectTick(int duration, int amplifier) {
+    public boolean isDurationEffectTick(int duration, int amplifier){
         return true;
     }
 }

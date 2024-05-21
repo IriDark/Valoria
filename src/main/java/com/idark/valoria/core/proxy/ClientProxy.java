@@ -1,17 +1,17 @@
 package com.idark.valoria.core.proxy;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
+import net.minecraft.client.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.level.*;
 
-public class ClientProxy implements ISidedProxy {
+public class ClientProxy implements ISidedProxy{
     @Override
-    public Player getPlayer() {
+    public Player getPlayer(){
         return Minecraft.getInstance().player;
     }
 
     @Override
-    public Level getWorld() {
+    public Level getWorld(){
         return Minecraft.getInstance().level;
     }
 }

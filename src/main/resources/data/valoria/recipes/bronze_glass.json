@@ -1,20 +1,20 @@
 {
-    "type": "minecraft:crafting_shaped",
-    "pattern": [
-        " / ",
-        "/X/",
-        " / "
-    ],
-    "key": {
-        "/": {
-            "item": "valoria:bronze_ingot"
-        },
-		 "X": {
-            "item": "minecraft:glass"
-        }
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " / ",
+    "/X/",
+    " / "
+  ],
+  "key": {
+    "/": {
+      "item": "valoria:bronze_ingot"
     },
-    "result": {
-        "item": "valoria:bronze_glass",
-        "count": 1
+    "X": {
+      "item": "minecraft:glass"
     }
+  },
+  "result": {
+    "item": "valoria:bronze_glass",
+    "count": 1
+  }
 }

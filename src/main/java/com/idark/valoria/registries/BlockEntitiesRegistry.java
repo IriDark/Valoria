@@ -1,14 +1,12 @@
 package com.idark.valoria.registries;
 
-import com.idark.valoria.Valoria;
+import com.idark.valoria.*;
 import com.idark.valoria.registries.block.entity.*;
-import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.minecraft.world.level.block.entity.*;
+import net.minecraftforge.eventbus.api.*;
+import net.minecraftforge.registries.*;
 
-public class BlockEntitiesRegistry {
+public class BlockEntitiesRegistry{
 
     public static DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, Valoria.ID);
 
@@ -21,7 +19,7 @@ public class BlockEntitiesRegistry {
     public static final RegistryObject<BlockEntityType<JewelryBlockEntity>> JEWELRY_BLOCK_ENTITY = BLOCK_ENTITIES.register("jewelry_entity", () -> BlockEntityType.Builder.of(JewelryBlockEntity::new, BlockRegistry.JEWELER_TABLE.get()).build(null));
     public static final RegistryObject<BlockEntityType<ManipulatorBlockEntity>> MANIPULATOR_BLOCK_ENTITY = BLOCK_ENTITIES.register("manipulator_entity", () -> BlockEntityType.Builder.of(ManipulatorBlockEntity::new, BlockRegistry.ELEMENTAL_MANIPULATOR.get()).build(null));
 
-    public static void register(IEventBus eventBus) {
+    public static void register(IEventBus eventBus){
         BLOCK_ENTITIES.register(eventBus);
     }
 }

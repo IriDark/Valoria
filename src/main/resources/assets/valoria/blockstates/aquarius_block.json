@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": { "model" : "valoria:block/aquarius_block" }
+    "": {
+      "model": "valoria:block/aquarius_block"
+    }
   }
 }

@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": { "model" : "valoria:block/void_cracked_brick" }
+    "": {
+      "model": "valoria:block/void_cracked_brick"
+    }
   }
 }

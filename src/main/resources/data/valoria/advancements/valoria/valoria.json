@@ -4,11 +4,11 @@
       "item": "valoria:lexicon"
     },
     "title": {
-		"translate": "advancement.valoria:valoria"
-	},
+      "translate": "advancement.valoria:valoria"
+    },
     "description": {
-		"translate": "advancement.valoria:valoria.desc"
-	},
+      "translate": "advancement.valoria:valoria.desc"
+    },
     "background": "valoria:textures/block/limestone.png",
     "frame": "task",
     "show_toast": true,

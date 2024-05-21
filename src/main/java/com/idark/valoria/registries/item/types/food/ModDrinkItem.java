@@ -31,43 +31,43 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Map;
 
-public class ModDrinkItem extends Item {
+public class ModDrinkItem extends Item{
     private final ItemStack item;
     private final ImmutableList<MobEffectInstance> effects;
     private static final Component NO_EFFECT = Component.translatable("effect.none").withStyle(ChatFormatting.GRAY);
 
-    public ModDrinkItem(int nutrition, int saturation, int stackSize, Item pItem, MobEffectInstance... pEffects) {
+    public ModDrinkItem(int nutrition, int saturation, int stackSize, Item pItem, MobEffectInstance... pEffects){
         super(new Properties()
-                .food(new FoodProperties.Builder()
-                        .alwaysEat().nutrition(nutrition)
-                        .saturationMod(saturation)
-                        .build())
-                .stacksTo(stackSize)
+        .food(new FoodProperties.Builder()
+        .alwaysEat().nutrition(nutrition)
+        .saturationMod(saturation)
+        .build())
+        .stacksTo(stackSize)
         );
 
         this.item = pItem.getDefaultInstance();
         this.effects = ImmutableList.copyOf(pEffects);
     }
 
-    public SoundEvent getDrinkingSound() {
+    public SoundEvent getDrinkingSound(){
         return SoundEvents.GENERIC_DRINK;
     }
 
-    public SoundEvent getEatingSound() {
+    public SoundEvent getEatingSound(){
         return SoundEvents.GENERIC_DRINK;
     }
 
     @Override
-    public ItemStack finishUsingItem(ItemStack stack, Level world, LivingEntity entity) {
-        Player playerEntity = entity instanceof Player ? (Player) entity : null;
-        if (!world.isClientSide) {
-            CriteriaTriggers.CONSUME_ITEM.trigger((ServerPlayer) playerEntity, stack);
+    public ItemStack finishUsingItem(ItemStack stack, Level world, LivingEntity entity){
+        Player playerEntity = entity instanceof Player ? (Player)entity : null;
+        if(!world.isClientSide){
+            CriteriaTriggers.CONSUME_ITEM.trigger((ServerPlayer)playerEntity, stack);
             playerEntity.awardStat(Stats.ITEM_USED.get(stack.getItem()));
-            for (MobEffectInstance mobeffectinstance : effects) {
+            for(MobEffectInstance mobeffectinstance : effects){
                 entity.addEffect(new MobEffectInstance(mobeffectinstance));
             }
 
-            if (!playerEntity.getAbilities().instabuild) {
+            if(!playerEntity.getAbilities().instabuild){
                 stack.shrink(1);
                 playerEntity.getInventory().add(new ItemStack(item.getItem()));
             }
@@ -78,37 +78,37 @@ public class ModDrinkItem extends Item {
     }
 
     @Override
-    public int getUseDuration(ItemStack pStack) {
+    public int getUseDuration(ItemStack pStack){
         return 32;
     }
 
     @Override
-    public UseAnim getUseAnimation(ItemStack stack) {
+    public UseAnim getUseAnimation(ItemStack stack){
         return UseAnim.DRINK;
     }
 
-    public void addPotionTooltip(List<Component> pTooltips, float pDurationFactor) {
+    public void addPotionTooltip(List<Component> pTooltips, float pDurationFactor){
         List<Pair<Attribute, AttributeModifier>> list = Lists.newArrayList();
-        if (effects.isEmpty()) {
+        if(effects.isEmpty()){
             pTooltips.add(NO_EFFECT);
-        } else {
-            for (MobEffectInstance mobeffectinstance : effects) {
+        }else{
+            for(MobEffectInstance mobeffectinstance : effects){
                 MutableComponent mutablecomponent = Component.translatable(mobeffectinstance.getDescriptionId());
                 MobEffect mobeffect = mobeffectinstance.getEffect();
                 Map<Attribute, AttributeModifier> map = mobeffect.getAttributeModifiers();
-                if (!map.isEmpty()) {
-                    for (Map.Entry<Attribute, AttributeModifier> entry : map.entrySet()) {
+                if(!map.isEmpty()){
+                    for(Map.Entry<Attribute, AttributeModifier> entry : map.entrySet()){
                         AttributeModifier attributemodifier = entry.getValue();
                         AttributeModifier attributemodifier1 = new AttributeModifier(attributemodifier.getName(), mobeffect.getAttributeModifierValue(mobeffectinstance.getAmplifier(), attributemodifier), attributemodifier.getOperation());
                         list.add(new Pair<>(entry.getKey(), attributemodifier1));
                     }
                 }
 
-                if (mobeffectinstance.getAmplifier() > 0) {
+                if(mobeffectinstance.getAmplifier() > 0){
                     mutablecomponent = Component.translatable("potion.withAmplifier", mutablecomponent, Component.translatable("potion.potency." + mobeffectinstance.getAmplifier()));
                 }
 
-                if (!mobeffectinstance.endsWithin(20)) {
+                if(!mobeffectinstance.endsWithin(20)){
                     mutablecomponent = Component.translatable("potion.withDuration", mutablecomponent, MobEffectUtil.formatDuration(mobeffectinstance, pDurationFactor));
                 }
 
@@ -116,23 +116,23 @@ public class ModDrinkItem extends Item {
             }
         }
 
-        if (!list.isEmpty()) {
+        if(!list.isEmpty()){
             pTooltips.add(CommonComponents.EMPTY);
             pTooltips.add(Component.translatable("potion.whenDrank").withStyle(ChatFormatting.DARK_PURPLE));
 
-            for (Pair<Attribute, AttributeModifier> pair : list) {
+            for(Pair<Attribute, AttributeModifier> pair : list){
                 AttributeModifier attributemodifier2 = pair.getSecond();
                 double d0 = attributemodifier2.getAmount();
                 double d1;
-                if (attributemodifier2.getOperation() != AttributeModifier.Operation.MULTIPLY_BASE && attributemodifier2.getOperation() != AttributeModifier.Operation.MULTIPLY_TOTAL) {
+                if(attributemodifier2.getOperation() != AttributeModifier.Operation.MULTIPLY_BASE && attributemodifier2.getOperation() != AttributeModifier.Operation.MULTIPLY_TOTAL){
                     d1 = attributemodifier2.getAmount();
-                } else {
+                }else{
                     d1 = attributemodifier2.getAmount() * 100.0D;
                 }
 
-                if (d0 > 0.0D) {
+                if(d0 > 0.0D){
                     pTooltips.add(Component.translatable("attribute.modifier.plus." + attributemodifier2.getOperation().toValue(), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(d1), Component.translatable(pair.getFirst().getDescriptionId())).withStyle(ChatFormatting.BLUE));
-                } else if (d0 < 0.0D) {
+                }else if(d0 < 0.0D){
                     d1 *= -1.0D;
                     pTooltips.add(Component.translatable("attribute.modifier.take." + attributemodifier2.getOperation().toValue(), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(d1), Component.translatable(pair.getFirst().getDescriptionId())).withStyle(ChatFormatting.RED));
                 }
@@ -140,7 +140,7 @@ public class ModDrinkItem extends Item {
         }
     }
 
-    public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
+    public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltip, TooltipFlag pFlag){
         this.addPotionTooltip(pTooltip, 1);
     }
 }

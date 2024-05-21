@@ -22,31 +22,31 @@ import net.minecraft.world.phys.Vec3;
 
 import java.util.function.Consumer;
 
-public class MannequinSpawnItem extends Item {
-    public MannequinSpawnItem(Item.Properties properties) {
+public class MannequinSpawnItem extends Item{
+    public MannequinSpawnItem(Item.Properties properties){
         super(properties);
     }
 
-    public InteractionResult useOn(UseOnContext pContext) {
+    public InteractionResult useOn(UseOnContext pContext){
         Direction direction = pContext.getClickedFace();
-        if (direction == Direction.DOWN) {
+        if(direction == Direction.DOWN){
             return InteractionResult.FAIL;
-        } else {
+        }else{
             Level level = pContext.getLevel();
             BlockPlaceContext blockplacecontext = new BlockPlaceContext(pContext);
             BlockPos blockpos = blockplacecontext.getClickedPos();
             ItemStack itemstack = pContext.getItemInHand();
             Vec3 vec3 = Vec3.atBottomCenterOf(blockpos);
             AABB aabb = EntityTypeRegistry.MANNEQUIN.get().getDimensions().makeBoundingBox(vec3.x(), vec3.y(), vec3.z());
-            if (level.noCollision(null, aabb) && level.getEntities(null, aabb).isEmpty() && !level.getBlockState(blockpos.below()).isAir()) {
-                if (level instanceof ServerLevel serverlevel) {
+            if(level.noCollision(null, aabb) && level.getEntities(null, aabb).isEmpty() && !level.getBlockState(blockpos.below()).isAir()){
+                if(level instanceof ServerLevel serverlevel){
                     Consumer<MannequinEntity> consumer = EntityType.createDefaultStackConfig(serverlevel, itemstack, pContext.getPlayer());
                     MannequinEntity mannequin = EntityTypeRegistry.MANNEQUIN.get().create(serverlevel, itemstack.getTag(), consumer, blockpos, MobSpawnType.SPAWN_EGG, true, true);
-                    if (mannequin == null) {
+                    if(mannequin == null){
                         return InteractionResult.FAIL;
                     }
 
-                    float f = (float) Mth.floor((Mth.wrapDegrees(pContext.getRotation() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
+                    float f = (float)Mth.floor((Mth.wrapDegrees(pContext.getRotation() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
                     mannequin.moveTo(mannequin.getX(), mannequin.getY(), mannequin.getZ(), f, 0.0F);
                     serverlevel.addFreshEntityWithPassengers(mannequin);
                     level.playSound(null, mannequin.getX(), mannequin.getY(), mannequin.getZ(), SoundEvents.GRASS_PLACE, SoundSource.BLOCKS, 0.35F, 0.9F);
@@ -55,7 +55,7 @@ public class MannequinSpawnItem extends Item {
 
                 itemstack.shrink(1);
                 return InteractionResult.sidedSuccess(level.isClientSide);
-            } else {
+            }else{
                 return InteractionResult.FAIL;
             }
         }

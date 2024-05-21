@@ -1,6 +1,6 @@
 {
-    "parent": "block/cube_mirrored_all",
-    "textures": {
-        "all": "valoria:block/amber_ore"
-    }
+  "parent": "block/cube_mirrored_all",
+  "textures": {
+    "all": "valoria:block/amber_ore"
+  }
 }

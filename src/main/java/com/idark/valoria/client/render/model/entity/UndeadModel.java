@@ -1,21 +1,18 @@
 package com.idark.valoria.client.render.model.entity;
 
-import com.idark.valoria.registries.entity.living.UndeadEntity;
-import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.model.ArmedModel;
-import net.minecraft.client.model.HierarchicalModel;
-import net.minecraft.client.model.geom.ModelPart;
-import net.minecraft.client.model.geom.PartPose;
+import com.idark.valoria.registries.entity.living.*;
+import com.mojang.blaze3d.vertex.*;
+import net.minecraft.client.model.*;
+import net.minecraft.client.model.geom.*;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.util.Mth;
-import net.minecraft.world.entity.HumanoidArm;
-import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraft.client.renderer.*;
+import net.minecraft.util.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.item.*;
+import net.minecraftforge.api.distmarker.*;
 
 @OnlyIn(Dist.CLIENT)
-public class UndeadModel extends HierarchicalModel<UndeadEntity> implements ArmedModel {
+public class UndeadModel extends HierarchicalModel<UndeadEntity> implements ArmedModel{
     private final ModelPart root;
     private final ModelPart body;
     private final ModelPart rightArm;
@@ -24,7 +21,7 @@ public class UndeadModel extends HierarchicalModel<UndeadEntity> implements Arme
     private final ModelPart leftWing;
     private final ModelPart head;
 
-    public UndeadModel(ModelPart pRoot) {
+    public UndeadModel(ModelPart pRoot){
         super(RenderType::entityTranslucent);
         this.root = pRoot.getChild("root");
         this.body = this.root.getChild("body");
@@ -35,7 +32,7 @@ public class UndeadModel extends HierarchicalModel<UndeadEntity> implements Arme
         this.head = this.root.getChild("head");
     }
 
-    public static LayerDefinition createBodyLayer() {
+    public static LayerDefinition createBodyLayer(){
         MeshDefinition meshdefinition = new MeshDefinition();
         PartDefinition partdefinition = meshdefinition.getRoot();
         PartDefinition partdefinition1 = partdefinition.addOrReplaceChild("root", CubeListBuilder.create(), PartPose.offset(0.0F, -2.5F, 0.0F));
@@ -51,17 +48,17 @@ public class UndeadModel extends HierarchicalModel<UndeadEntity> implements Arme
     /**
      * Sets this entity's model rotation angles
      */
-    public void setupAnim(UndeadEntity pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch) {
+    public void setupAnim(UndeadEntity pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch){
         this.root().getAllParts().forEach(ModelPart::resetPose);
         this.head.yRot = pNetHeadYaw * ((float)Math.PI / 180F);
         this.head.xRot = pHeadPitch * ((float)Math.PI / 180F);
         float f = Mth.cos(pAgeInTicks * 5.5F * ((float)Math.PI / 180F)) * 0.1F;
         this.rightArm.zRot = ((float)Math.PI / 5F) + f;
         this.leftArm.zRot = -(((float)Math.PI / 5F) + f);
-        if (pEntity.isCharging()) {
+        if(pEntity.isCharging()){
             this.body.xRot = 0.0F;
             this.setArmsCharging(pEntity.getMainHandItem(), pEntity.getOffhandItem(), f);
-        } else {
+        }else{
             this.body.xRot = 0.15707964F;
         }
 
@@ -73,22 +70,22 @@ public class UndeadModel extends HierarchicalModel<UndeadEntity> implements Arme
         this.rightWing.zRot = 0.47123888F;
     }
 
-    private void setArmsCharging(ItemStack pRightHandItem, ItemStack pLeftHandItem, float p_265125_) {
-        if (pRightHandItem.isEmpty() && pLeftHandItem.isEmpty()) {
+    private void setArmsCharging(ItemStack pRightHandItem, ItemStack pLeftHandItem, float p_265125_){
+        if(pRightHandItem.isEmpty() && pLeftHandItem.isEmpty()){
             this.rightArm.xRot = -1.2217305F;
             this.rightArm.yRot = 0.2617994F;
             this.rightArm.zRot = -0.47123888F - p_265125_;
             this.leftArm.xRot = -1.2217305F;
             this.leftArm.yRot = -0.2617994F;
             this.leftArm.zRot = 0.47123888F + p_265125_;
-        } else {
-            if (!pRightHandItem.isEmpty()) {
+        }else{
+            if(!pRightHandItem.isEmpty()){
                 this.rightArm.xRot = 3.6651914F;
                 this.rightArm.yRot = 0.2617994F;
                 this.rightArm.zRot = -0.47123888F - p_265125_;
             }
 
-            if (!pLeftHandItem.isEmpty()) {
+            if(!pLeftHandItem.isEmpty()){
                 this.leftArm.xRot = 3.6651914F;
                 this.leftArm.yRot = -0.2617994F;
                 this.leftArm.zRot = 0.47123888F + p_265125_;
@@ -97,11 +94,11 @@ public class UndeadModel extends HierarchicalModel<UndeadEntity> implements Arme
         }
     }
 
-    public ModelPart root() {
+    public ModelPart root(){
         return this.root;
     }
 
-    public void translateToHand(HumanoidArm pSide, PoseStack pPoseStack) {
+    public void translateToHand(HumanoidArm pSide, PoseStack pPoseStack){
         boolean flag = pSide == HumanoidArm.RIGHT;
         ModelPart modelpart = flag ? this.rightArm : this.leftArm;
         this.root.translateAndRotate(pPoseStack);
@@ -111,10 +108,10 @@ public class UndeadModel extends HierarchicalModel<UndeadEntity> implements Arme
         this.offsetStackPosition(pPoseStack, flag);
     }
 
-    private void offsetStackPosition(PoseStack pPoseStack, boolean p_263414_) {
-        if (p_263414_) {
+    private void offsetStackPosition(PoseStack pPoseStack, boolean p_263414_){
+        if(p_263414_){
             pPoseStack.translate(0.046875D, -0.15625D, 0.078125D);
-        } else {
+        }else{
             pPoseStack.translate(-0.046875D, -0.15625D, 0.078125D);
         }
 

@@ -1,6 +1,9 @@
 {
   "replace": false,
   "values": [
-    { "id": "valoria:shadewood_bookshelf", "required":  false }
+    {
+      "id": "valoria:shadewood_bookshelf",
+      "required": false
+    }
   ]
 }

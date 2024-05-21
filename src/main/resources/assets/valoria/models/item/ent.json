@@ -1,6 +1,6 @@
 {
-    "parent" : "item/handheld",
-    "textures" : {
-        "layer0" : "valoria:item/ent"
-    }
+  "parent": "item/handheld",
+  "textures": {
+    "layer0": "valoria:item/ent"
+  }
 }

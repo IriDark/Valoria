@@ -12,7 +12,7 @@ import net.minecraftforge.registries.RegistryObject;
 /**
  * Some sounds taken from the CalamityMod (Terraria) in a <a href="https://calamitymod.wiki.gg/wiki/Category:Sound_effects">Calamity Mod Wiki.gg</a>
  */
-public class SoundsRegistry {
+public class SoundsRegistry{
     public static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, Valoria.ID);
 
     public static final RegistryObject<SoundEvent> SWIFTSLICE = registerSound("item.swiftslice.use");
@@ -47,7 +47,7 @@ public class SoundsRegistry {
     public static final ModSoundType VOID_STONE = new ModSoundType(0.75F, 0.87F, VOID_STONE_BREAK, VOID_STONE_STEP, VOID_STONE_PLACE, () -> SoundEvents.NETHER_BRICKS_HIT, () -> SoundEvents.NETHER_BRICKS_FALL);
     public static final ModSoundType VOID_GRASS = new ModSoundType(0.75F, 0.87F, VOID_GRASS_BREAK, VOID_GRASS_STEP, VOID_STONE_PLACE, () -> SoundEvents.FROGLIGHT_HIT, () -> SoundEvents.FROGLIGHT_FALL);
 
-    public static RegistryObject<SoundEvent> registerSound(String name) {
+    public static RegistryObject<SoundEvent> registerSound(String name){
         return SOUNDS.register(name, () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(Valoria.ID, name)));
     }
 }

@@ -1,12 +1,12 @@
 {
-    "parent": "block/cube",
-    "textures": {
-	    "up": "valoria:block/bronze_block",
-	    "particle": "valoria:block/bronze_block",
-		"north": "valoria:block/bronze_lamp_block_lit",
-		"south": "valoria:block/bronze_lamp_block_lit",
-		"east": "valoria:block/bronze_lamp_block_lit",
-		"west": "valoria:block/bronze_lamp_block_lit",
-	    "down": "valoria:block/bronze_lamp_block_lit"
-    }
+  "parent": "block/cube",
+  "textures": {
+    "up": "valoria:block/bronze_block",
+    "particle": "valoria:block/bronze_block",
+    "north": "valoria:block/bronze_lamp_block_lit",
+    "south": "valoria:block/bronze_lamp_block_lit",
+    "east": "valoria:block/bronze_lamp_block_lit",
+    "west": "valoria:block/bronze_lamp_block_lit",
+    "down": "valoria:block/bronze_lamp_block_lit"
+  }
 }
