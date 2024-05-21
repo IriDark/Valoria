@@ -1,30 +1,23 @@
 package com.idark.valoria.registries.item.types.curio.necklace;
 
-import com.google.common.collect.LinkedHashMultimap;
-import com.google.common.collect.Multimap;
-import com.idark.valoria.Valoria;
-import com.idark.valoria.registries.AttributeRegistry;
-import com.idark.valoria.registries.item.types.curio.ICurioTexture;
-import net.minecraft.ChatFormatting;
-import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attribute;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraft.world.level.Level;
-import top.theillusivec4.curios.api.SlotContext;
-import top.theillusivec4.curios.api.type.capability.ICurio;
-import top.theillusivec4.curios.api.type.capability.ICurioItem;
+import com.google.common.collect.*;
+import com.idark.valoria.*;
+import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.item.types.curio.*;
+import net.minecraft.*;
+import net.minecraft.network.chat.*;
+import net.minecraft.resources.*;
+import net.minecraft.sounds.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.item.enchantment.*;
+import net.minecraft.world.level.*;
+import top.theillusivec4.curios.api.*;
+import top.theillusivec4.curios.api.type.capability.*;
 
-import javax.annotation.Nonnull;
-import java.util.List;
-import java.util.UUID;
+import javax.annotation.*;
+import java.util.*;
 
 public class PickNecklace extends Item implements ICurioItem, ICurioTexture{
     private static final ResourceLocation PICK = new ResourceLocation(Valoria.ID, "textures/entity/necklace/pick_necklace.png");

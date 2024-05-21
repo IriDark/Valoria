@@ -1,17 +1,13 @@
 package com.idark.valoria.client.particle.types;
 
-import com.idark.valoria.ValoriaClient;
-import com.idark.valoria.util.RenderUtils;
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.BufferBuilder;
-import com.mojang.blaze3d.vertex.DefaultVertexFormat;
-import com.mojang.blaze3d.vertex.Tesselator;
-import com.mojang.blaze3d.vertex.VertexFormat;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.particle.ParticleRenderType;
-import net.minecraft.client.renderer.texture.TextureAtlas;
-import net.minecraft.client.renderer.texture.TextureManager;
-import org.lwjgl.opengl.GL11;
+import com.idark.valoria.*;
+import com.idark.valoria.util.*;
+import com.mojang.blaze3d.systems.*;
+import com.mojang.blaze3d.vertex.*;
+import net.minecraft.client.*;
+import net.minecraft.client.particle.*;
+import net.minecraft.client.renderer.texture.*;
+import org.lwjgl.opengl.*;
 
 public class SpriteParticleRenderType implements ParticleRenderType{
     public static final SpriteParticleRenderType INSTANCE = new SpriteParticleRenderType();

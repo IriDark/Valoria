@@ -1,15 +1,9 @@
 package com.idark.valoria.compat.jade;
 
-import com.idark.valoria.registries.block.entity.CrusherBlockEntity;
-import com.idark.valoria.registries.block.entity.JewelryBlockEntity;
-import com.idark.valoria.registries.block.entity.KegBlockEntity;
-import com.idark.valoria.registries.block.entity.ManipulatorBlockEntity;
+import com.idark.valoria.registries.block.entity.*;
 import com.idark.valoria.registries.block.types.*;
-import net.minecraft.resources.ResourceLocation;
-import snownee.jade.api.IWailaClientRegistration;
-import snownee.jade.api.IWailaCommonRegistration;
-import snownee.jade.api.IWailaPlugin;
-import snownee.jade.api.WailaPlugin;
+import net.minecraft.resources.*;
+import snownee.jade.api.*;
 
 @WailaPlugin
 public class ModPlugin implements IWailaPlugin{

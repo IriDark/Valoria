@@ -1,10 +1,9 @@
 package com.idark.valoria.registries.item.enchantments;
 
-import com.idark.valoria.registries.EnchantmentsRegistry;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.Enchantments;
-import org.jetbrains.annotations.NotNull;
+import com.idark.valoria.registries.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.item.enchantment.*;
+import org.jetbrains.annotations.*;
 
 public class RadiusEnchantment extends Enchantment{
 

@@ -8,8 +8,8 @@ import net.minecraft.world.level.*;
 import net.minecraftforge.network.*;
 import org.joml.*;
 
-import java.util.function.*;
 import java.lang.Math;
+import java.util.function.*;
 
 public class ManipulatorParticlePacket{
 

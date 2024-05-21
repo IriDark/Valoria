@@ -1,11 +1,9 @@
 package com.idark.valoria.client.particle.types;
 
-import com.mojang.serialization.Codec;
-import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.particle.Particle;
-import net.minecraft.client.particle.ParticleProvider;
-import net.minecraft.client.particle.SpriteSet;
-import net.minecraft.core.particles.ParticleType;
+import com.mojang.serialization.*;
+import net.minecraft.client.multiplayer.*;
+import net.minecraft.client.particle.*;
+import net.minecraft.core.particles.*;
 
 public class SparkleParticleType extends ParticleType<GenericParticleData>{
     public SparkleParticleType(){

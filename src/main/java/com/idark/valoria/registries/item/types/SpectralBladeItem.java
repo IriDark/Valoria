@@ -1,21 +1,19 @@
 package com.idark.valoria.registries.item.types;
 
-import com.idark.valoria.registries.entity.projectile.SpectralBladeEntity;
-import com.idark.valoria.registries.item.tiers.ModItemTier;
-import net.minecraft.ChatFormatting;
-import net.minecraft.network.chat.Component;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.stats.Stats;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.AbstractArrow;
+import com.idark.valoria.registries.entity.projectile.*;
+import com.idark.valoria.registries.item.tiers.*;
+import net.minecraft.*;
+import net.minecraft.network.chat.*;
+import net.minecraft.sounds.*;
+import net.minecraft.stats.*;
+import net.minecraft.world.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.entity.projectile.*;
 import net.minecraft.world.item.*;
-import net.minecraft.world.level.Level;
+import net.minecraft.world.level.*;
 
-import java.util.List;
+import java.util.*;
 
 public class SpectralBladeItem extends SwordItem{
     public SpectralBladeItem(Item.Properties builderIn){

@@ -1,12 +1,10 @@
 package com.idark.valoria.registries.item.types.mana;
 
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import top.theillusivec4.curios.api.CuriosApi;
-import top.theillusivec4.curios.api.SlotResult;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.item.*;
+import top.theillusivec4.curios.api.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @SuppressWarnings("removal")
 public class ManaUtils{

@@ -1,15 +1,15 @@
 package com.idark.valoria.client.particle.types;
 
-import com.idark.valoria.registries.item.types.TransformShardItem;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleType;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.registries.RegistryObject;
+import com.idark.valoria.registries.item.types.*;
+import net.minecraft.core.*;
+import net.minecraft.core.particles.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.state.*;
+import net.minecraftforge.registries.*;
 
-import java.util.Random;
+import java.util.*;
 
 /**
  * May not work with Optifine

@@ -1,19 +1,13 @@
 package com.idark.valoria.registries.item.tiers;
 
-import com.google.common.collect.ImmutableMap;
-import com.idark.valoria.registries.EffectsRegistry;
-import net.minecraft.world.effect.MobEffect;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.ArmorMaterial;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
+import com.google.common.collect.*;
+import com.idark.valoria.registries.*;
+import net.minecraft.world.effect.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.*;
 
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 @SuppressWarnings("removal")
 public class ModArmorItem extends ArmorItem{

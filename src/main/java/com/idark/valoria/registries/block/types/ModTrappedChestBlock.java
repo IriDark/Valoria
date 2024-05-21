@@ -1,22 +1,17 @@
 package com.idark.valoria.registries.block.types;
 
-import com.idark.valoria.registries.block.entity.ModTrappedChestBlockEntity;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.stats.Stat;
-import net.minecraft.stats.Stats;
-import net.minecraft.util.Mth;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.block.ChestBlock;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.entity.ChestBlockEntity;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.block.state.BlockState;
+import com.idark.valoria.registries.block.entity.*;
+import net.minecraft.core.*;
+import net.minecraft.resources.*;
+import net.minecraft.stats.*;
+import net.minecraft.util.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.*;
+import net.minecraft.world.level.block.state.*;
 
-import javax.annotation.Nullable;
-import java.util.function.Supplier;
+import javax.annotation.*;
+import java.util.function.*;
 
 public class ModTrappedChestBlock extends ChestBlock{
 

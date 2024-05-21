@@ -27,8 +27,8 @@ import net.minecraftforge.registries.*;
 import org.jetbrains.annotations.*;
 import org.joml.*;
 
-import java.util.*;
 import java.lang.Math;
+import java.util.*;
 
 public class KatanaItem extends SwordItem implements ICooldownItem{
     public float chance = 1;

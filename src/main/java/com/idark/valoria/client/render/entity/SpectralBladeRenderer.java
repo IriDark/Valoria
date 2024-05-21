@@ -1,18 +1,16 @@
 package com.idark.valoria.client.render.entity;
 
-import com.idark.valoria.registries.ItemsRegistry;
-import com.idark.valoria.registries.entity.projectile.SpectralBladeEntity;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Axis;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.entity.EntityRenderer;
-import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Mth;
-import net.minecraft.world.item.ItemDisplayContext;
-import net.minecraft.world.item.ItemStack;
+import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.entity.projectile.*;
+import com.mojang.blaze3d.vertex.*;
+import com.mojang.math.*;
+import net.minecraft.client.*;
+import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.entity.*;
+import net.minecraft.client.renderer.texture.*;
+import net.minecraft.resources.*;
+import net.minecraft.util.*;
+import net.minecraft.world.item.*;
 
 public class SpectralBladeRenderer<T extends SpectralBladeEntity> extends EntityRenderer<T>{
     public SpectralBladeRenderer(EntityRendererProvider.Context context){

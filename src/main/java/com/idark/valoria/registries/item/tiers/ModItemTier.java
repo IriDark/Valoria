@@ -1,11 +1,11 @@
 package com.idark.valoria.registries.item.tiers;
 
-import com.idark.valoria.registries.ItemsRegistry;
-import net.minecraft.util.LazyLoadedValue;
-import net.minecraft.world.item.Tier;
-import net.minecraft.world.item.crafting.Ingredient;
+import com.idark.valoria.registries.*;
+import net.minecraft.util.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.item.crafting.*;
 
-import java.util.function.Supplier;
+import java.util.function.*;
 
 public enum ModItemTier implements Tier{
 

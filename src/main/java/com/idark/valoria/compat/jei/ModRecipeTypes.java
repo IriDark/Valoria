@@ -1,11 +1,8 @@
 package com.idark.valoria.compat.jei;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.registries.recipe.CrusherRecipe;
-import com.idark.valoria.registries.recipe.JewelryRecipe;
-import com.idark.valoria.registries.recipe.KegRecipe;
-import com.idark.valoria.registries.recipe.ManipulatorRecipe;
-import mezz.jei.api.recipe.RecipeType;
+import com.idark.valoria.*;
+import com.idark.valoria.registries.recipe.*;
+import mezz.jei.api.recipe.*;
 
 public class ModRecipeTypes{
     public static final RecipeType<KegRecipe> BREWERY = RecipeType.create(Valoria.ID, "brewery", KegRecipe.class);

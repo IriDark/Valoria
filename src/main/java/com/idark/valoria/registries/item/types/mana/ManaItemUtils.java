@@ -1,7 +1,7 @@
 package com.idark.valoria.registries.item.types.mana;
 
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.nbt.*;
+import net.minecraft.world.item.*;
 
 public class ManaItemUtils{
     public static int getMana(ItemStack stack){

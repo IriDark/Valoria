@@ -1,30 +1,27 @@
 package com.idark.valoria.compat.jei.categories;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.client.event.ClientTickHandler;
-import com.idark.valoria.compat.jei.ModRecipeTypes;
-import com.idark.valoria.registries.BlockRegistry;
-import com.idark.valoria.registries.recipe.ManipulatorRecipe;
-import mezz.jei.api.constants.VanillaTypes;
-import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
-import mezz.jei.api.gui.drawable.IDrawable;
-import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
-import mezz.jei.api.helpers.IGuiHelper;
-import mezz.jei.api.recipe.IFocusGroup;
-import mezz.jei.api.recipe.RecipeIngredientRole;
+import com.idark.valoria.*;
+import com.idark.valoria.client.event.*;
+import com.idark.valoria.compat.jei.*;
+import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.recipe.*;
+import mezz.jei.api.constants.*;
+import mezz.jei.api.gui.builder.*;
+import mezz.jei.api.gui.drawable.*;
+import mezz.jei.api.gui.ingredient.*;
+import mezz.jei.api.helpers.*;
 import mezz.jei.api.recipe.RecipeType;
-import mezz.jei.api.recipe.category.IRecipeCategory;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.core.NonNullList;
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
+import mezz.jei.api.recipe.*;
+import mezz.jei.api.recipe.category.*;
+import net.minecraft.client.*;
+import net.minecraft.client.gui.*;
+import net.minecraft.core.*;
+import net.minecraft.network.chat.*;
+import net.minecraft.resources.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.item.crafting.*;
 
-import java.util.Arrays;
+import java.util.*;
 
 public class ManipulatorRecipeCategory implements IRecipeCategory<ManipulatorRecipe>{
     private final Component title;

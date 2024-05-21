@@ -1,8 +1,7 @@
 package com.idark.valoria.registries.item.types.mana.staffs;
 
-import com.idark.valoria.registries.item.types.mana.IManaItem;
-import com.idark.valoria.registries.item.types.mana.ManaItemType;
-import net.minecraft.world.item.Item;
+import com.idark.valoria.registries.item.types.mana.*;
+import net.minecraft.world.item.*;
 
 // TODO: Completely (maybe) redone this
 public class StaffItem extends Item implements IManaItem{

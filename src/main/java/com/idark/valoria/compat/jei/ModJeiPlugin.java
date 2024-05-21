@@ -1,17 +1,12 @@
 package com.idark.valoria.compat.jei;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.compat.jei.categories.JewelryRecipeCategory;
-import com.idark.valoria.compat.jei.categories.KegRecipeCategory;
-import com.idark.valoria.compat.jei.categories.ManipulatorRecipeCategory;
-import com.idark.valoria.registries.BlockRegistry;
-import mezz.jei.api.IModPlugin;
-import mezz.jei.api.JeiPlugin;
-import mezz.jei.api.registration.IRecipeCatalystRegistration;
-import mezz.jei.api.registration.IRecipeCategoryRegistration;
-import mezz.jei.api.registration.IRecipeRegistration;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.ItemStack;
+import com.idark.valoria.*;
+import com.idark.valoria.compat.jei.categories.*;
+import com.idark.valoria.registries.*;
+import mezz.jei.api.*;
+import mezz.jei.api.registration.*;
+import net.minecraft.resources.*;
+import net.minecraft.world.item.*;
 
 @JeiPlugin
 public class ModJeiPlugin implements IModPlugin{

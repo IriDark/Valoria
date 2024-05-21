@@ -1,16 +1,16 @@
 package com.idark.valoria.registries.item.types;
 
-import com.idark.valoria.client.particle.ParticleRegistry;
-import com.idark.valoria.client.particle.types.Particles;
-import com.idark.valoria.registries.ItemsRegistry;
+import com.idark.valoria.client.particle.*;
+import com.idark.valoria.client.particle.types.*;
+import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.item.interfaces.*;
-import com.idark.valoria.util.RandomUtil;
-import net.minecraft.core.particles.ParticleType;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.NotNull;
+import com.idark.valoria.util.*;
+import net.minecraft.core.particles.*;
+import net.minecraft.util.*;
+import net.minecraft.world.entity.item.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.*;
+import org.jetbrains.annotations.*;
 
 public class ParticleMaterialItem extends Item implements IParticleItem{
     public ParticleType<?> particle;

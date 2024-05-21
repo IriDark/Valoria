@@ -1,12 +1,9 @@
 package com.idark.valoria.client.render.entity;
 
-import com.idark.valoria.registries.entity.projectile.AbstractValoriaArrow;
-import com.idark.valoria.registries.entity.projectile.IProjectileTexture;
-import net.minecraft.client.renderer.entity.ArrowRenderer;
-import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import com.idark.valoria.registries.entity.projectile.*;
+import net.minecraft.client.renderer.entity.*;
+import net.minecraft.resources.*;
+import net.minecraftforge.api.distmarker.*;
 
 @OnlyIn(Dist.CLIENT)
 public class AbstractValoriaArrowRenderer<T extends AbstractValoriaArrow> extends ArrowRenderer<T>{

@@ -1,14 +1,12 @@
 package com.idark.valoria.registries.item.tiers;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.registries.ItemsRegistry;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.ArmorMaterial;
-import net.minecraft.world.item.crafting.Ingredient;
+import com.idark.valoria.*;
+import com.idark.valoria.registries.*;
+import net.minecraft.sounds.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.item.crafting.*;
 
-import java.util.function.Supplier;
+import java.util.function.*;
 
 public enum ModArmorMaterial implements ArmorMaterial{
 

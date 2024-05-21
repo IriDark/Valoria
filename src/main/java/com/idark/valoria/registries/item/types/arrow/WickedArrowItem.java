@@ -1,12 +1,10 @@
 package com.idark.valoria.registries.item.types.arrow;
 
-import com.idark.valoria.registries.entity.projectile.WickedArrow;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.projectile.AbstractArrow;
-import net.minecraft.world.item.ArrowItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
+import com.idark.valoria.registries.entity.projectile.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.projectile.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.*;
 
 public class WickedArrowItem extends ArrowItem{
     public WickedArrowItem(Item.Properties pProperties){

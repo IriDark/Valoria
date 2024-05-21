@@ -1,21 +1,16 @@
 package com.idark.valoria.compat.jade;
 
-import com.idark.valoria.registries.ItemsRegistry;
-import com.idark.valoria.registries.block.entity.ManipulatorBlockEntity;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.phys.Vec2;
-import snownee.jade.api.BlockAccessor;
-import snownee.jade.api.IBlockComponentProvider;
-import snownee.jade.api.IServerDataProvider;
-import snownee.jade.api.ITooltip;
-import snownee.jade.api.config.IPluginConfig;
-import snownee.jade.api.ui.IElement;
-import snownee.jade.api.ui.IElementHelper;
-import snownee.jade.impl.ui.ProgressArrowElement;
+import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.block.entity.*;
+import net.minecraft.nbt.*;
+import net.minecraft.network.chat.*;
+import net.minecraft.resources.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.phys.*;
+import snownee.jade.api.*;
+import snownee.jade.api.config.*;
+import snownee.jade.api.ui.*;
+import snownee.jade.impl.ui.*;
 
 public enum ManipulatorProvider implements IBlockComponentProvider, IServerDataProvider<BlockAccessor>{
 

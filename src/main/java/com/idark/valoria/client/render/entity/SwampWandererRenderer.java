@@ -1,13 +1,12 @@
 package com.idark.valoria.client.render.entity;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.client.render.model.entity.SwampWandererModel;
-import com.idark.valoria.registries.entity.living.SwampWandererEntity;
-import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.HumanoidMobRenderer;
-import net.minecraft.resources.ResourceLocation;
+import com.idark.valoria.*;
+import com.idark.valoria.client.render.model.entity.*;
+import com.idark.valoria.registries.entity.living.*;
+import com.mojang.blaze3d.vertex.*;
+import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.entity.*;
+import net.minecraft.resources.*;
 
 public class SwampWandererRenderer extends HumanoidMobRenderer<SwampWandererEntity, SwampWandererModel<SwampWandererEntity>>{
     protected static final ResourceLocation TEXTURE = new ResourceLocation(Valoria.ID, "textures/entity/swamp_wanderer.png");

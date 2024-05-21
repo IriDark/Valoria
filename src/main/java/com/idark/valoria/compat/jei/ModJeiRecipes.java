@@ -1,15 +1,11 @@
 package com.idark.valoria.compat.jei;
 
-import com.idark.valoria.registries.recipe.CrusherRecipe;
-import com.idark.valoria.registries.recipe.JewelryRecipe;
-import com.idark.valoria.registries.recipe.KegRecipe;
-import com.idark.valoria.registries.recipe.ManipulatorRecipe;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.world.item.crafting.RecipeManager;
+import com.idark.valoria.registries.recipe.*;
+import net.minecraft.client.*;
+import net.minecraft.client.multiplayer.*;
+import net.minecraft.world.item.crafting.*;
 
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 public class ModJeiRecipes{
     private final RecipeManager recipeManager;

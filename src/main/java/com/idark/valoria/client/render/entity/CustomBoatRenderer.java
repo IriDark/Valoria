@@ -15,9 +15,9 @@ import net.minecraft.resources.*;
 import net.minecraft.util.*;
 import org.joml.*;
 
+import java.lang.Math;
 import java.util.*;
 import java.util.stream.*;
-import java.lang.Math;
 
 public class CustomBoatRenderer extends EntityRenderer<CustomBoatEntity>{
 

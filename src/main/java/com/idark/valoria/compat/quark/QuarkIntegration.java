@@ -1,30 +1,21 @@
 package com.idark.valoria.compat.quark;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.registries.BlockRegistry;
-import com.idark.valoria.registries.ItemsRegistry;
-import com.idark.valoria.registries.block.entity.ModChestBlockEntity;
-import com.idark.valoria.registries.block.entity.ModTrappedChestBlockEntity;
-import com.idark.valoria.registries.block.types.ModChestBlock;
-import com.idark.valoria.registries.block.types.ModTrappedChestBlock;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.LadderBlock;
-import net.minecraft.world.level.block.SoundType;
-import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
-import net.minecraft.world.level.material.MapColor;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.ModList;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import com.idark.valoria.*;
+import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.block.entity.*;
+import com.idark.valoria.registries.block.types.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.*;
+import net.minecraft.world.level.block.state.*;
+import net.minecraft.world.level.block.state.properties.*;
+import net.minecraft.world.level.material.*;
+import net.minecraftforge.eventbus.api.*;
+import net.minecraftforge.fml.*;
+import net.minecraftforge.registries.*;
 import org.violetmoon.quark.content.building.block.*;
 
-import java.util.function.Supplier;
+import java.util.function.*;
 
 public class QuarkIntegration{
 
