@@ -13,20 +13,19 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.level.*;
-import org.checkerframework.checker.nullness.qual.*;
 import org.joml.*;
 
-import javax.annotation.Nullable;
+import javax.annotation.*;
+import java.lang.Math;
 import java.util.Random;
 import java.util.*;
 import java.util.function.*;
-import java.lang.Math;
 
 public abstract class AbstractNecromancer extends Monster{
 
     private static final EntityDataAccessor<Byte> DATA_SPELL_CASTING_ID = SynchedEntityData.defineId(AbstractNecromancer.class, EntityDataSerializers.BYTE);
     protected int spellCastingTickCount;
-    private AbstractNecromancer.necromancerSpell currentSpell = AbstractNecromancer.necromancerSpell.NONE;
+    private NecromancerSpells currentSpell = NecromancerSpells.NONE;
 
     protected AbstractNecromancer(EntityType<? extends Monster> pEntityType, Level pLevel){
         super(pEntityType, pLevel);
@@ -59,13 +58,13 @@ public abstract class AbstractNecromancer extends Monster{
         }
     }
 
-    public void setIsCastingSpell(AbstractNecromancer.necromancerSpell pCurrentSpell){
+    public void setIsCastingSpell(NecromancerSpells pCurrentSpell){
         this.currentSpell = pCurrentSpell;
         this.entityData.set(DATA_SPELL_CASTING_ID, (byte)pCurrentSpell.id);
     }
 
-    public AbstractNecromancer.necromancerSpell getCurrentSpell(){
-        return !this.level().isClientSide ? this.currentSpell : AbstractNecromancer.necromancerSpell.byId(this.entityData.get(DATA_SPELL_CASTING_ID));
+    public NecromancerSpells getCurrentSpell(){
+        return !this.level().isClientSide ? this.currentSpell : NecromancerSpells.byId(this.entityData.get(DATA_SPELL_CASTING_ID));
     }
 
     protected void customServerAiStep(){
@@ -78,7 +77,7 @@ public abstract class AbstractNecromancer extends Monster{
     public void tick(){
         super.tick();
         if(this.level().isClientSide && this.isCastingSpell()){
-            AbstractNecromancer.necromancerSpell spell = this.getCurrentSpell();
+            NecromancerSpells spell = this.getCurrentSpell();
             int r = spell.spellColor[0];
             int g = spell.spellColor[1];
             int b = spell.spellColor[2];
@@ -98,7 +97,7 @@ public abstract class AbstractNecromancer extends Monster{
                 .spawn(this.level(), this.getX() - 0.2 - (double)f1 * 0.6D, this.getY() + 1.8D, this.getZ() - 0.2 - (double)f2 * 0.6D);
             }
 
-            if(spell.id == necromancerSpell.SUMMON_MOBS.id || spell.id == necromancerSpell.HEAL.id){
+            if(spell.id == NecromancerSpells.SUMMON_MOBS.id || spell.id == NecromancerSpells.HEAL.id){
                 BlockPos blockpos = AbstractNecromancer.this.blockPosition().offset(-2 + AbstractNecromancer.this.random.nextInt(5), 0, -2 + AbstractNecromancer.this.random.nextInt(5));
                 Vector3d direction = new Vector3d(AbstractNecromancer.this.getX() - blockpos.getX(), AbstractNecromancer.this.getY() + blockpos.getY(), AbstractNecromancer.this.getZ() - blockpos.getZ()).normalize();
                 double speed = 0.3;
@@ -130,25 +129,37 @@ public abstract class AbstractNecromancer extends Monster{
         return SoundEvents.EVOKER_CAST_SPELL;
     }
 
-    public enum necromancerSpell{
+    public enum NecromancerSpells{
         NONE(0, 0, 0, 0),
         SUMMON_MOBS(1, 30, 35, 75),
         FANGS(2, 160, 164, 164),
         WOLOLO(3, 46, 51, 60),
-        HEAL(4, 164, 202, 65),
-        KNOCKBACK(5, 185, 201, 203);
+        HEAL(4, 164, 202, 65, true),
+        KNOCKBACK(5, 185, 201, 203, true);
 
-        private static final IntFunction<AbstractNecromancer.necromancerSpell> BY_ID = ByIdMap.continuous((p_263091_) -> p_263091_.id, values(), ByIdMap.OutOfBoundsStrategy.ZERO);
+        private static final IntFunction<NecromancerSpells> BY_ID = ByIdMap.continuous((p_263091_) -> p_263091_.id, values(), ByIdMap.OutOfBoundsStrategy.ZERO);
         public final int id;
+        public final boolean hasAura;
         public final int[] spellColor;
 
-        necromancerSpell(int pId, int pRed, int pGreen, int pBlue){
+        NecromancerSpells(int pId, int pRed, int pGreen, int pBlue, boolean pAura){
             this.id = pId;
+            this.hasAura = pAura;
             this.spellColor = new int[]{pRed, pGreen, pBlue};
         }
 
-        public static AbstractNecromancer.necromancerSpell byId(int pId){
+        NecromancerSpells(int pId, int pRed, int pGreen, int pBlue){
+            this.id = pId;
+            this.hasAura = false;
+            this.spellColor = new int[]{pRed, pGreen, pBlue};
+        }
+
+        public static NecromancerSpells byId(int pId){
             return BY_ID.apply(pId);
+        }
+
+        public static boolean hasAura(int pId){
+            return BY_ID.apply(pId).hasAura;
         }
     }
 
@@ -178,7 +189,7 @@ public abstract class AbstractNecromancer extends Monster{
          */
         public void stop(){
             super.stop();
-            AbstractNecromancer.this.setIsCastingSpell(AbstractNecromancer.necromancerSpell.NONE);
+            AbstractNecromancer.this.setIsCastingSpell(NecromancerSpells.NONE);
         }
 
         /**
@@ -260,6 +271,6 @@ public abstract class AbstractNecromancer extends Monster{
         @Nullable
         public abstract SoundEvent getSpellPrepareSound();
 
-        public abstract AbstractNecromancer.necromancerSpell getSpell();
+        public abstract NecromancerSpells getSpell();
     }
 }

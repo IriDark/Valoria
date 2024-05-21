@@ -33,10 +33,10 @@ import org.jetbrains.annotations.*;
 import org.joml.*;
 
 import javax.annotation.Nullable;
+import java.lang.Math;
 import java.time.*;
 import java.util.Random;
 import java.util.*;
-import java.lang.Math;
 
 public class NecromancerEntity extends AbstractNecromancer{
 
@@ -231,8 +231,8 @@ public class NecromancerEntity extends AbstractNecromancer{
             return SoundEvents.EVOKER_PREPARE_ATTACK;
         }
 
-        public AbstractNecromancer.necromancerSpell getSpell(){
-            return AbstractNecromancer.necromancerSpell.FANGS;
+        public NecromancerSpells getSpell(){
+            return NecromancerSpells.FANGS;
         }
     }
 
@@ -348,8 +348,8 @@ public class NecromancerEntity extends AbstractNecromancer{
             return SoundEvents.EVOKER_PREPARE_SUMMON;
         }
 
-        public AbstractNecromancer.necromancerSpell getSpell(){
-            return necromancerSpell.SUMMON_MOBS;
+        public NecromancerSpells getSpell(){
+            return NecromancerSpells.SUMMON_MOBS;
         }
     }
 
@@ -442,8 +442,8 @@ public class NecromancerEntity extends AbstractNecromancer{
             return SoundEvents.EVOKER_PREPARE_SUMMON;
         }
 
-        public AbstractNecromancer.necromancerSpell getSpell(){
-            return necromancerSpell.KNOCKBACK;
+        public NecromancerSpells getSpell(){
+            return NecromancerSpells.KNOCKBACK;
         }
     }
 
@@ -490,8 +490,8 @@ public class NecromancerEntity extends AbstractNecromancer{
             return SoundEvents.EVOKER_PREPARE_SUMMON;
         }
 
-        public AbstractNecromancer.necromancerSpell getSpell(){
-            return necromancerSpell.HEAL;
+        public NecromancerSpells getSpell(){
+            return NecromancerSpells.HEAL;
         }
     }
 
@@ -530,8 +530,8 @@ public class NecromancerEntity extends AbstractNecromancer{
             return SoundEvents.EVOKER_PREPARE_SUMMON;
         }
 
-        public AbstractNecromancer.necromancerSpell getSpell(){
-            return necromancerSpell.HEAL;
+        public NecromancerSpells getSpell(){
+            return NecromancerSpells.HEAL;
         }
     }
 
@@ -614,8 +614,8 @@ public class NecromancerEntity extends AbstractNecromancer{
             return SoundEvents.WARDEN_SONIC_CHARGE;
         }
 
-        public AbstractNecromancer.necromancerSpell getSpell(){
-            return AbstractNecromancer.necromancerSpell.WOLOLO;
+        public NecromancerSpells getSpell(){
+            return NecromancerSpells.WOLOLO;
         }
     }
 
@@ -691,8 +691,8 @@ public class NecromancerEntity extends AbstractNecromancer{
             return SoundEvents.WARDEN_SONIC_CHARGE;
         }
 
-        public AbstractNecromancer.necromancerSpell getSpell(){
-            return AbstractNecromancer.necromancerSpell.WOLOLO;
+        public NecromancerSpells getSpell(){
+            return NecromancerSpells.WOLOLO;
         }
     }
 }

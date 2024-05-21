@@ -3,8 +3,8 @@ package com.idark.valoria.client.render.entity;
 import com.idark.valoria.*;
 import com.idark.valoria.client.event.*;
 import com.idark.valoria.client.render.model.entity.*;
-import com.idark.valoria.registries.entity.living.*;
 import com.idark.valoria.registries.entity.living.AbstractNecromancer.*;
+import com.idark.valoria.registries.entity.living.*;
 import com.idark.valoria.util.*;
 import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.*;
@@ -29,7 +29,7 @@ public class NecromancerRenderer extends HumanoidMobRenderer<NecromancerEntity, 
     }
 
     public void render(NecromancerEntity entityIn, float entityYaw, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light){
-        if(entityIn.getCurrentSpell().id == necromancerSpell.HEAL.id || entityIn.getCurrentSpell().id == necromancerSpell.KNOCKBACK.id){
+        if(entityIn.getCurrentSpell().hasAura){
             float alpha = 1;
             if(entityIn.isCastingSpell()){
                 float time = (entityIn.tickCount + partialTicks) / 20f;
@@ -44,7 +44,7 @@ public class NecromancerRenderer extends HumanoidMobRenderer<NecromancerEntity, 
 
             ms.translate(0, 0.01f, 0);
             ms.mulPose(Axis.YP.rotationDegrees(-ClientTickHandler.ticksInGame * 0.3f));
-            AbstractNecromancer.necromancerSpell spell = entityIn.getCurrentSpell();
+            NecromancerSpells spell = entityIn.getCurrentSpell();
             int r = spell.spellColor[0];
             int g = spell.spellColor[1];
             int b = spell.spellColor[2];
