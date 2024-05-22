@@ -216,6 +216,38 @@ public class ValoriaUtils{
         }
     }
 
+    // Used to calculate knockback like in tnt
+    public static float getSeenPercent(Vec3 pVector, Entity pEntity, float pStrength){
+        AABB aabb = pEntity.getBoundingBox();
+        double d0 = 1.0D / ((aabb.maxX - aabb.minX) * 2.0D + 1.0D);
+        double d1 = 1.0D / ((aabb.maxY - aabb.minY) * 2.0D + 1.0D);
+        double d2 = 1.0D / ((aabb.maxZ - aabb.minZ) * 2.0D + 1.0D);
+        double d3 = (1.0D - Math.floor(1.0D / d0) * d0) / 2.0D;
+        double d4 = (1.0D - Math.floor(1.0D / d2) * d2) / 2.0D;
+        if(!(d0 < 0.0D) && !(d1 < 0.0D) && !(d2 < 0.0D)){
+            int i = 0;
+            int j = 0;
+            for(double d5 = 0.0D; d5 <= 1.0D; d5 += d0){
+                for(double d6 = 0.0D; d6 <= 1.0D; d6 += d1){
+                    for(double d7 = 0.0D; d7 <= 1.0D; d7 += d2){
+                        double d8 = Mth.lerp(d5, aabb.minX, aabb.maxX);
+                        double d9 = Mth.lerp(d6, aabb.minY, aabb.maxY);
+                        double d10 = Mth.lerp(d7, aabb.minZ, aabb.maxZ);
+                        Vec3 vec3 = new Vec3(d8 + d3, d9, d10 + d4);
+                        if(pEntity.level().clip(new ClipContext(vec3, pVector, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, pEntity)).getType() == HitResult.Type.MISS){
+                            ++i;
+                        }
+
+                        ++j;
+                    }
+                }
+            }
+
+            return ((float)i / (float)j) * pStrength;
+        }else{
+            return pStrength;
+        }
+    }
 
     /**
      * Spawns particles in radius like in radiusHit

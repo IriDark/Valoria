@@ -2,10 +2,8 @@ package com.idark.valoria.registries.entity.living;
 
 import com.idark.valoria.client.particle.*;
 import com.idark.valoria.client.particle.types.*;
-import net.minecraft.client.*;
 import net.minecraft.core.*;
 import net.minecraft.nbt.*;
-import net.minecraft.network.chat.*;
 import net.minecraft.network.syncher.*;
 import net.minecraft.sounds.*;
 import net.minecraft.util.*;
@@ -245,8 +243,6 @@ public abstract class AbstractNecromancer extends Monster{
             if(soundevent != null){
                 AbstractNecromancer.this.playSound(soundevent, 1.0F, 1.0F);
             }
-
-            Minecraft.getInstance().player.displayClientMessage(Component.literal(AbstractNecromancer.this.getCurrentSpell().name()), true);
         }
 
         /**
