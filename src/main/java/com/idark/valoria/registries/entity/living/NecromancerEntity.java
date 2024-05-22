@@ -259,12 +259,8 @@ public class NecromancerEntity extends AbstractNecromancer{
          * method as well.
          */
         public boolean canUse(){
-            if(!super.canUse()){
-                return false;
-            }else{
-                int i = NecromancerEntity.this.level().getNearbyEntities(Zombie.class, this.vexCountTargeting, NecromancerEntity.this, NecromancerEntity.this.getBoundingBox().inflate(16.0D)).size();
-                return NecromancerEntity.this.random.nextInt(8) + 1 > i;
-            }
+            int i = NecromancerEntity.this.level().getNearbyEntities(Zombie.class, this.vexCountTargeting, NecromancerEntity.this, NecromancerEntity.this.getBoundingBox().inflate(16.0D)).size();
+            return super.canUse() && NecromancerEntity.this.random.nextInt(8) + 1 > i;
         }
 
         public int getCastingTime(){
@@ -392,7 +388,7 @@ public class NecromancerEntity extends AbstractNecromancer{
          */
         public boolean canUse(){
             List<LivingEntity> entities = NecromancerEntity.this.level().getNearbyEntities(LivingEntity.class, this.targeting, NecromancerEntity.this, NecromancerEntity.this.getBoundingBox().inflate(range));
-            return NecromancerEntity.this.getTarget() != null && !NecromancerEntity.this.isCastingSpell() && !entities.isEmpty();
+            return super.canUse() && NecromancerEntity.this.getTarget() != null && !NecromancerEntity.this.isCastingSpell() && !entities.isEmpty();
         }
 
         public int getCastingTime(){
@@ -482,7 +478,7 @@ public class NecromancerEntity extends AbstractNecromancer{
          */
         public boolean canUse(){
             List<LivingEntity> entities = NecromancerEntity.this.level().getNearbyEntities(LivingEntity.class, this.targeting, NecromancerEntity.this, NecromancerEntity.this.getBoundingBox().inflate(range));
-            return NecromancerEntity.this.getTarget() != null && !NecromancerEntity.this.isCastingSpell() && !entities.isEmpty();
+            return super.canUse() && NecromancerEntity.this.getTarget() != null && !NecromancerEntity.this.isCastingSpell() && !entities.isEmpty();
         }
 
         public int getCastingTime(){
