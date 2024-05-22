@@ -75,7 +75,7 @@ public class NecromancerEntity extends AbstractNecromancer{
         this.goalSelector.addGoal(11, new NecromancerEntity.WololoHorseSpellGoal());
 
         this.goalSelector.addGoal(1, new RestrictSunGoal(this));
-        this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, Player.class, 14.0F, 1.15, 1.4));
+        this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, Player.class, 16.0F, 1.2, 1.4));
         this.goalSelector.addGoal(2, new WaterAvoidingRandomStrollGoal(this, 1.0));
         this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
@@ -83,7 +83,6 @@ public class NecromancerEntity extends AbstractNecromancer{
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Wolf.class, true));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolem.class, true));
-        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Turtle.class, 10, true, false, Turtle.BABY_ON_LAND_SELECTOR));
     }
 
     public @NotNull MobType getMobType(){
@@ -491,7 +490,7 @@ public class NecromancerEntity extends AbstractNecromancer{
         }
 
         public int getCastingInterval(){
-            return 125;
+            return 600;
         }
 
         protected void performSpellCasting(){
@@ -529,7 +528,7 @@ public class NecromancerEntity extends AbstractNecromancer{
         }
 
         public NecromancerSpells getSpell(){
-            return NecromancerSpells.KNOCKBACK;
+            return NecromancerSpells.POWERFUL_KNOCKBACK;
         }
     }
 

@@ -136,7 +136,8 @@ public abstract class AbstractNecromancer extends Monster{
         WOLOLO(3, 46, 51, 60),
         HEAL(4, 164, 202, 65, true),
         KNOCKBACK(5, 185, 201, 203, true),
-        EFFECT(6, 190, 105, 25);
+        POWERFUL_KNOCKBACK(6, 225, 201, 203, true),
+        EFFECT(7, 190, 105, 25);
 
         private static final IntFunction<NecromancerSpells> BY_ID = ByIdMap.continuous((p_263091_) -> p_263091_.id, values(), ByIdMap.OutOfBoundsStrategy.ZERO);
         public final int id;
@@ -174,7 +175,7 @@ public abstract class AbstractNecromancer extends Monster{
          * method as well.
          */
         public boolean canUse(){
-            return AbstractNecromancer.this.isCastingSpell();
+            return AbstractNecromancer.this.getSpellCastingTime() > 0;
         }
 
         /**
@@ -213,7 +214,7 @@ public abstract class AbstractNecromancer extends Monster{
          */
         public boolean canUse(){
             LivingEntity livingentity = AbstractNecromancer.this.getTarget();
-            if(livingentity != null && livingentity.isAlive()){
+            if(AbstractNecromancer.this.hasTarget() && livingentity.isAlive()){
                 if(AbstractNecromancer.this.isCastingSpell()){
                     return false;
                 }else{
