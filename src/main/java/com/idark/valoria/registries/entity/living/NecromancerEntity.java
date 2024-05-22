@@ -13,6 +13,7 @@ import net.minecraft.sounds.*;
 import net.minecraft.util.*;
 import net.minecraft.world.*;
 import net.minecraft.world.damagesource.*;
+import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.ai.goal.*;
@@ -56,15 +57,17 @@ public class NecromancerEntity extends AbstractNecromancer{
         .add(Attributes.MAX_HEALTH, 50.0)
         .add(Attributes.ATTACK_DAMAGE, 2.0)
         .add(Attributes.FOLLOW_RANGE, 18.0)
-        .add(Attributes.ARMOR, 7)
-        .add(Attributes.ARMOR_TOUGHNESS, 2);
+        .add(Attributes.ARMOR, 8)
+        .add(Attributes.ARMOR_TOUGHNESS, 3.5);
 
     }
 
     protected void registerGoals(){
         this.goalSelector.addGoal(0, new NecromancerEntity.CastingSpellGoal());
         this.goalSelector.addGoal(1, new NecromancerEntity.HealSelfSpellGoal());
+        this.goalSelector.addGoal(1, new NecromancerEntity.PowerfulKnockbackEntitiesGoal());
         this.goalSelector.addGoal(1, new NecromancerEntity.KnockbackEntitiesGoal());
+        this.goalSelector.addGoal(1, new NecromancerEntity.ApplyEffectSpellGoal());
         this.goalSelector.addGoal(2, new NecromancerEntity.HealTargetSpellGoal());
         this.goalSelector.addGoal(3, new NecromancerEntity.AttackSpellGoal());
         this.goalSelector.addGoal(4, new NecromancerEntity.SummonMobsSpellGoal());
@@ -90,7 +93,6 @@ public class NecromancerEntity extends AbstractNecromancer{
     public void rideTick(){
         super.rideTick();
         Entity entity = this.getControlledVehicle();
-
         if(entity instanceof PathfinderMob pathfindermob){
             this.yBodyRot = pathfindermob.yBodyRot;
         }
@@ -266,16 +268,12 @@ public class NecromancerEntity extends AbstractNecromancer{
             }
         }
 
-        public int getCastWarmupTime(){
+        public int getCastingTime(){
             return 75;
         }
 
-        public int getCastingTime(){
-            return 125;
-        }
-
         public int getCastingInterval(){
-            return 320;
+            return 185;
         }
 
         private void spawnZombie(ServerLevel serverLevel, BlockPos blockpos){
@@ -354,7 +352,7 @@ public class NecromancerEntity extends AbstractNecromancer{
     }
 
     class KnockbackEntitiesGoal extends AbstractNecromancer.SpellcasterUseSpellGoal{
-        private final float range = 3;
+        private final float range = NecromancerEntity.this.getHealth() < 25 ? 6 : 3;
         private final TargetingConditions targeting = TargetingConditions.forCombat().range(range).ignoreLineOfSight().ignoreInvisibilityTesting();
 
         public static float getSeenPercent(Vec3 pExplosionVector, Entity pEntity, float pStrength){
@@ -398,12 +396,8 @@ public class NecromancerEntity extends AbstractNecromancer{
             return NecromancerEntity.this.getTarget() != null && !NecromancerEntity.this.isCastingSpell() && !entities.isEmpty();
         }
 
-        public int getCastWarmupTime(){
-            return 50;
-        }
-
         public int getCastingTime(){
-            return 125;
+            return 45;
         }
 
         public int getCastingInterval(){
@@ -447,6 +441,98 @@ public class NecromancerEntity extends AbstractNecromancer{
         }
     }
 
+    class PowerfulKnockbackEntitiesGoal extends AbstractNecromancer.SpellcasterUseSpellGoal{
+        private final float range = NecromancerEntity.this.getHealth() < 25 ? 6 : 3;
+        private final TargetingConditions targeting = TargetingConditions.forCombat().range(range).ignoreLineOfSight().ignoreInvisibilityTesting();
+
+        public static float getSeenPercent(Vec3 pExplosionVector, Entity pEntity, float pStrength){
+            AABB aabb = pEntity.getBoundingBox();
+            double d0 = 1.0D / ((aabb.maxX - aabb.minX) * 2.0D + 1.0D);
+            double d1 = 1.0D / ((aabb.maxY - aabb.minY) * 2.0D + 1.0D);
+            double d2 = 1.0D / ((aabb.maxZ - aabb.minZ) * 2.0D + 1.0D);
+            double d3 = (1.0D - Math.floor(1.0D / d0) * d0) / 2.0D;
+            double d4 = (1.0D - Math.floor(1.0D / d2) * d2) / 2.0D;
+            if(!(d0 < 0.0D) && !(d1 < 0.0D) && !(d2 < 0.0D)){
+                int i = 0;
+                int j = 0;
+                for(double d5 = 0.0D; d5 <= 1.0D; d5 += d0){
+                    for(double d6 = 0.0D; d6 <= 1.0D; d6 += d1){
+                        for(double d7 = 0.0D; d7 <= 1.0D; d7 += d2){
+                            double d8 = Mth.lerp(d5, aabb.minX, aabb.maxX);
+                            double d9 = Mth.lerp(d6, aabb.minY, aabb.maxY);
+                            double d10 = Mth.lerp(d7, aabb.minZ, aabb.maxZ);
+                            Vec3 vec3 = new Vec3(d8 + d3, d9, d10 + d4);
+                            if(pEntity.level().clip(new ClipContext(vec3, pExplosionVector, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, pEntity)).getType() == HitResult.Type.MISS){
+                                ++i;
+                            }
+
+                            ++j;
+                        }
+                    }
+                }
+
+                return ((float)i / (float)j) * pStrength;
+            }else{
+                return pStrength;
+            }
+        }
+
+        /**
+         * Returns whether execution should begin. You can also read and cache any state necessary for execution in this
+         * method as well.
+         */
+        public boolean canUse(){
+            List<LivingEntity> entities = NecromancerEntity.this.level().getNearbyEntities(LivingEntity.class, this.targeting, NecromancerEntity.this, NecromancerEntity.this.getBoundingBox().inflate(range));
+            return NecromancerEntity.this.getTarget() != null && !NecromancerEntity.this.isCastingSpell() && !entities.isEmpty();
+        }
+
+        public int getCastingTime(){
+            return 75;
+        }
+
+        public int getCastingInterval(){
+            return 125;
+        }
+
+        protected void performSpellCasting(){
+            if(NecromancerEntity.this.hasTarget()){
+                Vec3 vec3 = new Vec3(NecromancerEntity.this.getX(), NecromancerEntity.this.getY(), NecromancerEntity.this.getZ());
+                List<LivingEntity> entities = NecromancerEntity.this.level().getNearbyEntities(LivingEntity.class, this.targeting, NecromancerEntity.this, NecromancerEntity.this.getBoundingBox().inflate(range));
+                for(LivingEntity entity : entities){
+                    double distance = Math.sqrt(entity.distanceToSqr(vec3)) / range;
+                    double dX = entity.getX() - NecromancerEntity.this.getX();
+                    double dY = entity.getEyeY() - NecromancerEntity.this.getY();
+                    double dZ = entity.getZ() - NecromancerEntity.this.getZ();
+                    double sqrt = Math.sqrt(dX * dX + dY * dY + dZ * dZ);
+                    if(sqrt != 0.0D){
+                        dX /= sqrt;
+                        dY /= sqrt;
+                        dZ /= sqrt;
+                        double seenPercent = getSeenPercent(vec3, entity, 2.5f);
+                        double power = (1.0D - distance) * seenPercent;
+                        double powerAfterDamp = ProtectionEnchantment.getExplosionKnockbackAfterDampener(entity, power);
+                        dX *= powerAfterDamp;
+                        dY *= powerAfterDamp;
+                        dZ *= powerAfterDamp;
+                        Vec3 vec31 = new Vec3(dX * 2, dY * 0.5f, dZ * 2);
+                        entity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 80, 0));
+                        entity.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 40, 0));
+                        entity.hurtMarked = true; //Sync movements
+                        entity.setDeltaMovement(entity.getDeltaMovement().add(vec31));
+                    }
+                }
+            }
+        }
+
+        public SoundEvent getSpellPrepareSound(){
+            return SoundEvents.EVOKER_PREPARE_SUMMON;
+        }
+
+        public NecromancerSpells getSpell(){
+            return NecromancerSpells.KNOCKBACK;
+        }
+    }
+
     public class HealTargetSpellGoal extends AbstractNecromancer.SpellcasterUseSpellGoal{
         private final TargetingConditions targeting = TargetingConditions.forCombat().range(4.0D);
 
@@ -457,10 +543,6 @@ public class NecromancerEntity extends AbstractNecromancer{
                 List<Monster> targets = NecromancerEntity.this.level().getNearbyEntities(Monster.class, this.targeting, NecromancerEntity.this, NecromancerEntity.this.getBoundingBox().inflate(4.0D));
                 return !targets.isEmpty();
             }
-        }
-
-        public int getCastWarmupTime(){
-            return 45;
         }
 
         public int getCastingTime(){
@@ -495,6 +577,30 @@ public class NecromancerEntity extends AbstractNecromancer{
         }
     }
 
+    public class ApplyEffectSpellGoal extends AbstractNecromancer.SpellcasterUseSpellGoal{
+        public int getCastingTime(){
+            return 35;
+        }
+
+        public int getCastingInterval(){
+            return 320;
+        }
+
+        protected void performSpellCasting(){
+            if(NecromancerEntity.this.hasTarget()) {
+                NecromancerEntity.this.getTarget().addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 125, 0));
+            }
+        }
+
+        public SoundEvent getSpellPrepareSound(){
+            return SoundEvents.EVOKER_PREPARE_SUMMON;
+        }
+
+        public NecromancerSpells getSpell(){
+            return NecromancerSpells.EFFECT;
+        }
+    }
+
     public class HealSelfSpellGoal extends AbstractNecromancer.SpellcasterUseSpellGoal{
         public boolean canUse(){
             if(!super.canUse()){
@@ -502,10 +608,6 @@ public class NecromancerEntity extends AbstractNecromancer{
             }else{
                 return NecromancerEntity.this.getHealth() < NecromancerEntity.this.getMaxHealth();
             }
-        }
-
-        public int getCastWarmupTime(){
-            return 65;
         }
 
         public int getCastingTime(){
@@ -598,10 +700,6 @@ public class NecromancerEntity extends AbstractNecromancer{
             }
         }
 
-        public int getCastWarmupTime(){
-            return 40;
-        }
-
         public int getCastingTime(){
             return 60;
         }
@@ -673,10 +771,6 @@ public class NecromancerEntity extends AbstractNecromancer{
                     target.discard();
                 }
             }
-        }
-
-        public int getCastWarmupTime(){
-            return 40;
         }
 
         public int getCastingTime(){

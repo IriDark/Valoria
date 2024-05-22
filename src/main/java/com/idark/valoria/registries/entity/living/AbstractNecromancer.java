@@ -135,7 +135,8 @@ public abstract class AbstractNecromancer extends Monster{
         FANGS(2, 160, 164, 164),
         WOLOLO(3, 46, 51, 60),
         HEAL(4, 164, 202, 65, true),
-        KNOCKBACK(5, 185, 201, 203, true);
+        KNOCKBACK(5, 185, 201, 203, true),
+        EFFECT(6, 190, 105, 25);
 
         private static final IntFunction<NecromancerSpells> BY_ID = ByIdMap.continuous((p_263091_) -> p_263091_.id, values(), ByIdMap.OutOfBoundsStrategy.ZERO);
         public final int id;
@@ -236,7 +237,7 @@ public abstract class AbstractNecromancer extends Monster{
          */
         public void start(){
             AbstractNecromancer.this.setIsCastingSpell(this.getSpell());
-            this.attackWarmupDelay = this.adjustedTickDelay(this.getCastWarmupTime());
+            this.attackWarmupDelay = this.adjustedTickDelay(this.getCastingTime());
             AbstractNecromancer.this.spellCastingTickCount = this.getCastingTime();
             this.nextAttackTickCount = AbstractNecromancer.this.tickCount + this.getCastingInterval();
             SoundEvent soundevent = this.getSpellPrepareSound();
@@ -259,18 +260,11 @@ public abstract class AbstractNecromancer extends Monster{
         }
 
         protected abstract void performSpellCasting();
-
-        public int getCastWarmupTime(){
-            return 20;
-        }
-
         public abstract int getCastingTime();
-
         public abstract int getCastingInterval();
 
         @Nullable
         public abstract SoundEvent getSpellPrepareSound();
-
         public abstract NecromancerSpells getSpell();
     }
 }
