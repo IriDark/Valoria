@@ -10,6 +10,7 @@ import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.*;
 
+//TODO: Finish this
 @Mixin(Item.class)
 public class ItemMixin{
 
@@ -17,13 +18,6 @@ public class ItemMixin{
     public void use(Level pLevel, Player pPlayer, InteractionHand pUsedHand, CallbackInfoReturnable<InteractionResultHolder<ItemStack>> cir) {
         if(pPlayer.hasEffect(EffectsRegistry.STUN.get())){
             cir.setReturnValue(InteractionResultHolder.fail(pPlayer.getItemInHand(pUsedHand)));
-        }
-    }
-
-    @Inject(at = @At(value = "HEAD"), method = "releaseUsing", cancellable = true)
-    public void releaseUsing(ItemStack pStack, Level pLevel, LivingEntity pLivingEntity, int pTimeCharged, CallbackInfo ci){
-        if(pLivingEntity.hasEffect(EffectsRegistry.STUN.get())){
-            ci.cancel();
         }
     }
 
