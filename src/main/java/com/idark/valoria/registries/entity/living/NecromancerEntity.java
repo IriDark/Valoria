@@ -1,5 +1,6 @@
 package com.idark.valoria.registries.entity.living;
 
+import com.google.common.collect.*;
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.*;
 import com.idark.valoria.registries.*;
@@ -57,25 +58,30 @@ public class NecromancerEntity extends AbstractNecromancer{
         .add(Attributes.MAX_HEALTH, 50.0)
         .add(Attributes.ATTACK_DAMAGE, 2.0)
         .add(Attributes.FOLLOW_RANGE, 18.0)
-        .add(Attributes.ARMOR, 8)
-        .add(Attributes.ARMOR_TOUGHNESS, 3.5);
+        .add(Attributes.ARMOR, 12)
+        .add(Attributes.ARMOR_TOUGHNESS, 5);
 
     }
 
     protected void registerGoals(){
-        this.goalSelector.addGoal(0, new NecromancerEntity.CastingSpellGoal());
+        // general
         this.goalSelector.addGoal(1, new NecromancerEntity.HealSelfSpellGoal());
+        this.goalSelector.addGoal(2, new NecromancerEntity.HealTargetSpellGoal());
+        //attack
+        this.goalSelector.addGoal(0, new NecromancerEntity.AttackSpellGoal());
+        this.goalSelector.addGoal(1, new NecromancerEntity.SummonMobsSpellGoal());
         this.goalSelector.addGoal(1, new NecromancerEntity.PowerfulKnockbackEntitiesGoal());
         this.goalSelector.addGoal(1, new NecromancerEntity.HurtingKnockbackEntitiesGoal());
-        this.goalSelector.addGoal(1, new NecromancerEntity.KnockbackEntitiesGoal());
-        this.goalSelector.addGoal(1, new NecromancerEntity.ApplyStunEffectSpellGoal());
-        this.goalSelector.addGoal(1, new NecromancerEntity.ApplyEffectSpellGoal());
-        this.goalSelector.addGoal(2, new NecromancerEntity.HealTargetSpellGoal());
-        this.goalSelector.addGoal(3, new NecromancerEntity.AttackSpellGoal());
-        this.goalSelector.addGoal(4, new NecromancerEntity.SummonMobsSpellGoal());
-        this.goalSelector.addGoal(6, new NecromancerEntity.WololoSpellGoal());
-        this.goalSelector.addGoal(11, new NecromancerEntity.WololoHorseSpellGoal());
+        this.goalSelector.addGoal(2, new NecromancerEntity.KnockbackEntitiesGoal());
+        // misc
+        this.goalSelector.addGoal(2, new NecromancerEntity.ApplyEffectSpellGoal(new MobEffectInstance(EffectsRegistry.STUN.get(), 60, 0)));
+        this.goalSelector.addGoal(2, new NecromancerEntity.ApplyEffectSpellGoal(new MobEffectInstance(MobEffects.WEAKNESS, 145, 0)));
+        this.goalSelector.addGoal(2, new NecromancerEntity.ApplyEffectSpellGoal(new MobEffectInstance(MobEffects.WEAKNESS, 165, 1)));
+        this.goalSelector.addGoal(3, new NecromancerEntity.WololoSpellGoal());
+        this.goalSelector.addGoal(3, new NecromancerEntity.WololoHorseSpellGoal());
 
+        // ai
+        this.goalSelector.addGoal(0, new NecromancerEntity.CastingSpellGoal());
         this.goalSelector.addGoal(1, new RestrictSunGoal(this));
         this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, Player.class, 16.0F, 1.2, 1.4));
         this.goalSelector.addGoal(2, new WaterAvoidingRandomStrollGoal(this, 1.0));
@@ -266,11 +272,11 @@ public class NecromancerEntity extends AbstractNecromancer{
         }
 
         public int getCastingTime(){
-            return 75;
+            return 47;
         }
 
         public int getCastingInterval(){
-            return 100;
+            return 75;
         }
 
         private void spawnZombie(ServerLevel serverLevel, BlockPos blockpos){
@@ -573,6 +579,12 @@ public class NecromancerEntity extends AbstractNecromancer{
     }
 
     public class ApplyEffectSpellGoal extends AbstractNecromancer.SpellcasterUseSpellGoal{
+
+        public final ImmutableList<MobEffectInstance> effects;
+        public ApplyEffectSpellGoal(MobEffectInstance... pEffect) {
+            this.effects = ImmutableList.copyOf(pEffect);
+        }
+
         public int getCastingTime(){
             return 35;
         }
@@ -583,31 +595,9 @@ public class NecromancerEntity extends AbstractNecromancer{
 
         protected void performSpellCasting(){
             if(NecromancerEntity.this.hasTarget()) {
-                NecromancerEntity.this.getTarget().addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 145, 0));
-            }
-        }
-
-        public SoundEvent getSpellPrepareSound(){
-            return SoundEvents.EVOKER_PREPARE_SUMMON;
-        }
-
-        public NecromancerSpells getSpell(){
-            return NecromancerSpells.EFFECT;
-        }
-    }
-
-    public class ApplyStunEffectSpellGoal extends AbstractNecromancer.SpellcasterUseSpellGoal{
-        public int getCastingTime(){
-            return 35;
-        }
-
-        public int getCastingInterval(){
-            return 480;
-        }
-
-        protected void performSpellCasting(){
-            if(NecromancerEntity.this.hasTarget()) {
-                NecromancerEntity.this.getTarget().addEffect(new MobEffectInstance(EffectsRegistry.STUN.get(), 60, 0));
+                for(MobEffectInstance effectInstance : effects){
+                    NecromancerEntity.this.getTarget().addEffect(effectInstance);
+                }
             }
         }
 
