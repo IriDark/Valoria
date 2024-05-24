@@ -134,8 +134,7 @@ public abstract class AbstractNecromancer extends Monster{
         WOLOLO(3, 46, 51, 60),
         HEAL(4, 164, 202, 65, true),
         KNOCKBACK(5, 185, 201, 203, true),
-        POWERFUL_KNOCKBACK(6, 225, 201, 203, true),
-        EFFECT(7, 190, 105, 25);
+        EFFECT(6, 190, 105, 25);
 
         private static final IntFunction<NecromancerSpells> BY_ID = ByIdMap.continuous((p_263091_) -> p_263091_.id, values(), ByIdMap.OutOfBoundsStrategy.ZERO);
         public final int id;
