@@ -1,6 +1,18 @@
 {
-  "parent": "item/handheld",
-  "textures": {
-    "layer0": "valoria:item/murasama"
+  "parent": "minecraft:item/handheld",
+  "loader": "forge:separate_transforms",
+  "base": {
+    "parent": "valoria:item/murasama_in_hand"
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "valoria:item/murasama_icon"
+    },
+    "ground": {
+      "parent": "valoria:item/murasama_icon"
+    },
+    "fixed": {
+      "parent": "valoria:item/murasama_icon"
+    }
   }
 }

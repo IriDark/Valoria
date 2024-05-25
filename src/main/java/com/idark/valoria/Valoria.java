@@ -8,7 +8,6 @@ import com.idark.valoria.client.gui.screen.book.*;
 import com.idark.valoria.client.gui.screen.book.unlockable.*;
 import com.idark.valoria.client.particle.*;
 import com.idark.valoria.client.render.curio.*;
-import com.idark.valoria.client.render.model.item.*;
 import com.idark.valoria.compat.quark.*;
 import com.idark.valoria.core.capability.*;
 import com.idark.valoria.core.config.*;
@@ -92,7 +91,6 @@ public class Valoria{
             forgeBus.addListener(CorpsecleaverRender::tick);
             forgeBus.addListener(CorpsecleaverRender::onDrawScreenPost);
             forgeBus.addListener(MagmaBarRender::onDrawScreenPost);
-            //forgeBus.addListener(StaffItem::onDrawScreenPost);
             return new Object();
         });
 
@@ -111,33 +109,6 @@ public class Valoria{
     private void clientSetup(final FMLClientSetupEvent event){
         event.enqueueWork(() -> {
             LexiconChapters.init();
-            Item2DRenderer.handModelItems.add("valoria:phantom");
-            Item2DRenderer.handModelItems.add("valoria:bloodhound");
-            Item2DRenderer.handModelItems.add("valoria:cobalt_sword");
-            Item2DRenderer.handModelItems.add("valoria:netherite_scythe");
-            Item2DRenderer.handModelItems.add("valoria:diamond_scythe");
-            Item2DRenderer.handModelItems.add("valoria:golden_scythe");
-            Item2DRenderer.handModelItems.add("valoria:iron_scythe");
-            Item2DRenderer.handModelItems.add("valoria:pyratite_spear");
-            Item2DRenderer.handModelItems.add("valoria:netherite_spear");
-            Item2DRenderer.handModelItems.add("valoria:diamond_spear");
-            Item2DRenderer.handModelItems.add("valoria:golden_spear");
-            Item2DRenderer.handModelItems.add("valoria:iron_spear");
-            Item2DRenderer.handModelItems.add("valoria:stone_spear");
-            Item2DRenderer.handModelItems.add("valoria:wooden_spear");
-            Item2DRenderer.handModelItems.add("valoria:ent");
-            Item2DRenderer.handModelItems.add("valoria:nature_scythe");
-            Item2DRenderer.handModelItems.add("valoria:infernal_sword");
-            Item2DRenderer.handModelItems.add("valoria:infernal_scythe");
-            Item2DRenderer.handModelItems.add("valoria:void_edge");
-            Item2DRenderer.handModelItems.add("valoria:bronze_sword");
-            Item2DRenderer.handModelItems.add("valoria:glaive");
-            Item2DRenderer.handModelItems.add("valoria:coral_reef");
-            Item2DRenderer.handModelItems.add("valoria:beast"); // MrBeast???? Omg
-            Item2DRenderer.handModelItems.add("valoria:aquarius_scythe");
-            Item2DRenderer.handModelItems.add("valoria:blaze_reap");
-            Item2DRenderer.handModelItems.add("valoria:murasama");
-
             CuriosRendererRegistry.register(ItemsRegistry.IRON_NECKLACE_AMBER.get(), NecklaceRenderer::new);
             CuriosRendererRegistry.register(ItemsRegistry.IRON_NECKLACE_DIAMOND.get(), NecklaceRenderer::new);
             CuriosRendererRegistry.register(ItemsRegistry.IRON_NECKLACE_EMERALD.get(), NecklaceRenderer::new);

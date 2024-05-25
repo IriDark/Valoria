@@ -1,6 +1,0 @@
-{
-  "parent": "valoria:item/handheld_large",
-  "textures": {
-    "layer0": "valoria:item/scythe_of_nature_in_hand"
-  }
-}

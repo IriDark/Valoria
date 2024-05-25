@@ -1,25 +1,18 @@
 {
-  "parent": "valoria:item/spear",
-  "textures": {
-    "layer0": "valoria:item/bloodhound"
+  "parent": "minecraft:item/handheld",
+  "loader": "forge:separate_transforms",
+  "base": {
+    "parent": "valoria:item/bloodhound_in_hand"
   },
-  "display": {
+  "perspectives": {
     "gui": {
-      "rotation": [
-        0,
-        0,
-        0
-      ],
-      "translation": [
-        -1,
-        0,
-        0
-      ],
-      "scale": [
-        1,
-        1,
-        1
-      ]
+      "parent": "valoria:item/bloodhound_icon"
+    },
+    "ground": {
+      "parent": "valoria:item/bloodhound_icon"
+    },
+    "fixed": {
+      "parent": "valoria:item/bloodhound_icon"
     }
   }
 }

@@ -1,6 +1,18 @@
 {
-  "parent": "item/handheld",
-  "textures": {
-    "layer0": "valoria:item/diamond_scythe"
+  "parent": "minecraft:item/handheld",
+  "loader": "forge:separate_transforms",
+  "base": {
+    "parent": "valoria:item/diamond_scythe_in_hand"
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "valoria:item/diamond_scythe_icon"
+    },
+    "ground": {
+      "parent": "valoria:item/diamond_scythe_icon"
+    },
+    "fixed": {
+      "parent": "valoria:item/diamond_scythe_icon"
+    }
   }
 }

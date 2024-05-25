@@ -1,6 +1,18 @@
 {
-  "parent": "item/handheld",
-  "textures": {
-    "layer0": "valoria:item/beast"
+  "parent": "minecraft:item/handheld",
+  "loader": "forge:separate_transforms",
+  "base": {
+    "parent": "valoria:item/beast_in_hand"
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "valoria:item/beast_icon"
+    },
+    "ground": {
+      "parent": "valoria:item/beast_icon"
+    },
+    "fixed": {
+      "parent": "valoria:item/beast_icon"
+    }
   }
 }

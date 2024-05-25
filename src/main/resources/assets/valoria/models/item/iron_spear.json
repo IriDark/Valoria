@@ -1,6 +1,21 @@
 {
   "parent": "valoria:item/spear",
-  "textures": {
-    "layer0": "valoria:item/iron_spear"
+  "loader": "forge:separate_transforms",
+  "base": {
+    "parent": "valoria:item/iron_spear_in_hand"
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "valoria:item/iron_spear_icon"
+    },
+    "ground": {
+      "parent": "valoria:item/iron_spear_icon"
+    },
+    "fixed": {
+      "parent": "valoria:item/iron_spear_icon"
+    },
+    "none": {
+      "parent": "valoria:item/iron_spear_in_hand"
+    }
   }
 }

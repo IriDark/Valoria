@@ -8,7 +8,6 @@ import com.idark.valoria.client.render.entity.*;
 import com.idark.valoria.client.render.model.blockentity.*;
 import com.idark.valoria.client.render.model.item.*;
 import com.idark.valoria.compat.quark.*;
-import com.idark.valoria.core.config.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.block.types.*;
 import com.idark.valoria.registries.entity.decoration.*;
@@ -131,18 +130,6 @@ public class ValoriaClient{
         public static void onModelRegistryEvent(ModelEvent.RegisterAdditional event){
             event.register(KEG_MODEL);
             event.register(SPHERE);
-            if(ClientConfig.IN_HAND_MODELS_32X.get()){
-                for(String itemId : Item2DRenderer.handModelItems){
-                    event.register(new ModelResourceLocation(new ResourceLocation(itemId + "_in_hand"), "inventory"));
-                }
-            }
-        }
-
-        @SubscribeEvent
-        public static void onModelBakeEvent(ModelEvent.ModifyBakingResult event){
-            if(ClientConfig.IN_HAND_MODELS_32X.get()){
-                Item2DRenderer.onModelBakeEvent(event);
-            }
         }
 
         @SubscribeEvent

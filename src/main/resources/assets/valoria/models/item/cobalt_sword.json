@@ -1,6 +1,18 @@
 {
-  "parent": "item/handheld",
-  "textures": {
-    "layer0": "valoria:item/cobalt_sword"
+  "parent": "minecraft:item/handheld",
+  "loader": "forge:separate_transforms",
+  "base": {
+    "parent": "valoria:item/cobalt_sword_in_hand"
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "valoria:item/cobalt_sword_icon"
+    },
+    "ground": {
+      "parent": "valoria:item/cobalt_sword_icon"
+    },
+    "fixed": {
+      "parent": "valoria:item/cobalt_sword_icon"
+    }
   }
 }

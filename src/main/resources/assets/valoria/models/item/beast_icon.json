@@ -1,6 +1,6 @@
 {
   "parent": "item/handheld",
   "textures": {
-    "layer0": "valoria:item/yamato"
+    "layer0": "valoria:item/beast"
   }
 }

@@ -1,6 +1,21 @@
 {
-  "parent": "item/handheld",
-  "textures": {
-    "layer0": "valoria:item/glaive"
+  "parent": "valoria:item/spear",
+  "loader": "forge:separate_transforms",
+  "base": {
+    "parent": "valoria:item/glaive_in_hand"
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "valoria:item/glaive_icon"
+    },
+    "ground": {
+      "parent": "valoria:item/glaive_icon"
+    },
+    "fixed": {
+      "parent": "valoria:item/glaive_icon"
+    },
+    "none": {
+      "parent": "valoria:item/glaive_in_hand"
+    }
   }
 }

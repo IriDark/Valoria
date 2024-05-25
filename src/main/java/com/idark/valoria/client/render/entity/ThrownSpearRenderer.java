@@ -1,6 +1,5 @@
 package com.idark.valoria.client.render.entity;
 
-import com.idark.valoria.*;
 import com.idark.valoria.registries.entity.projectile.*;
 import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.*;
@@ -31,9 +30,9 @@ public class ThrownSpearRenderer extends EntityRenderer<ThrownSpearEntity>{
         ms.mulPose(Axis.YP.rotationDegrees(Mth.lerp(partialTicks, entityIn.yRotO, entityIn.getYRot()) + 90.0F));
         ms.mulPose(Axis.ZP.rotationDegrees(Mth.lerp(partialTicks, entityIn.xRotO, entityIn.getXRot()) + entityIn.rotationVelocity));
 
-        ModelResourceLocation MODEL = new ModelResourceLocation(Valoria.ID, ForgeRegistries.ITEMS.getKey(entityIn.getItem().getItem()).getPath() + "_in_hand", "inventory");
-        BakedModel spear = Minecraft.getInstance().getItemRenderer().getItemModelShaper().getModelManager().getModel(MODEL);
-        Minecraft.getInstance().getItemRenderer().render(entityIn.getItem(), ItemDisplayContext.FIXED, false, ms, buffers, light, OverlayTexture.NO_OVERLAY, spear);
+        ModelResourceLocation MODEL = new ModelResourceLocation(ForgeRegistries.ITEMS.getKey(entityIn.getItem().getItem()).getNamespace(), ForgeRegistries.ITEMS.getKey(entityIn.getItem().getItem()).getPath(), "inventory");
+        BakedModel spear = Minecraft.getInstance().getModelManager().getModel(MODEL);
+        Minecraft.getInstance().getItemRenderer().render(entityIn.getItem(), ItemDisplayContext.FIXED, false, ms, buffers, light, OverlayTexture.NO_OVERLAY, spear.applyTransform(ItemDisplayContext.NONE, ms, false));
         ms.popPose();
         super.render(entityIn, entityYaw, partialTicks, ms, buffers, light);
     }
