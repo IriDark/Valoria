@@ -1,13 +1,10 @@
 package com.idark.valoria.registries;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.registries.sounds.ModSoundType;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import com.idark.valoria.*;
+import net.minecraft.resources.*;
+import net.minecraft.sounds.*;
+import net.minecraftforge.common.util.*;
+import net.minecraftforge.registries.*;
 
 /**
  * Some sounds taken from the CalamityMod (Terraria) in a <a href="https://calamitymod.wiki.gg/wiki/Category:Sound_effects">Calamity Mod Wiki.gg</a>
@@ -42,10 +39,10 @@ public class SoundsRegistry{
 
 
     //SoundType
-    public static final ModSoundType POT = new ModSoundType(1, 1, POT_BREAK, POT_STEP, POT_PLACE, () -> SoundEvents.STONE_HIT, () -> SoundEvents.STONE_FALL);
-    public static final ModSoundType SUSPICIOUS_TOMBSTONE = new ModSoundType(1.0F, 1.0F, () -> SoundEvents.SUSPICIOUS_SAND_BREAK, () -> SoundEvents.MUD_BRICKS_STEP, () -> SoundEvents.STONE_PLACE, () -> SoundEvents.SUSPICIOUS_GRAVEL_HIT, () -> SoundEvents.STONE_FALL);
-    public static final ModSoundType VOID_STONE = new ModSoundType(0.75F, 0.87F, VOID_STONE_BREAK, VOID_STONE_STEP, VOID_STONE_PLACE, () -> SoundEvents.NETHER_BRICKS_HIT, () -> SoundEvents.NETHER_BRICKS_FALL);
-    public static final ModSoundType VOID_GRASS = new ModSoundType(0.75F, 0.87F, VOID_GRASS_BREAK, VOID_GRASS_STEP, VOID_STONE_PLACE, () -> SoundEvents.FROGLIGHT_HIT, () -> SoundEvents.FROGLIGHT_FALL);
+    public static final ForgeSoundType POT = new ForgeSoundType(1, 1, POT_BREAK, POT_STEP, POT_PLACE, () -> SoundEvents.STONE_HIT, () -> SoundEvents.STONE_FALL);
+    public static final ForgeSoundType SUSPICIOUS_TOMBSTONE = new ForgeSoundType(1.0F, 1.0F, () -> SoundEvents.SUSPICIOUS_SAND_BREAK, () -> SoundEvents.MUD_BRICKS_STEP, () -> SoundEvents.STONE_PLACE, () -> SoundEvents.SUSPICIOUS_GRAVEL_HIT, () -> SoundEvents.STONE_FALL);
+    public static final ForgeSoundType VOID_STONE = new ForgeSoundType(0.75F, 0.87F, VOID_STONE_BREAK, VOID_STONE_STEP, VOID_STONE_PLACE, () -> SoundEvents.NETHER_BRICKS_HIT, () -> SoundEvents.NETHER_BRICKS_FALL);
+    public static final ForgeSoundType VOID_GRASS = new ForgeSoundType(0.75F, 0.87F, VOID_GRASS_BREAK, VOID_GRASS_STEP, VOID_STONE_PLACE, () -> SoundEvents.FROGLIGHT_HIT, () -> SoundEvents.FROGLIGHT_FALL);
 
     public static RegistryObject<SoundEvent> registerSound(String name){
         return SOUNDS.register(name, () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(Valoria.ID, name)));
