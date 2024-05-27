@@ -132,8 +132,6 @@ public class GlovesItem extends TieredItem implements ICurioItem, ICurioTexture,
         super.appendHoverText(stack, world, tooltip, flags);
         if(gem == AccessoryGem.AMBER){
             tooltip.add(Component.translatable("tooltip.valoria.amber").withStyle(ChatFormatting.GRAY));
-        }else if(material == AccessoryMaterial.GOLD){
-            tooltip.add(Component.translatable("tooltip.valoria.golden").withStyle(ChatFormatting.GRAY));
         }
 
         tooltip.add(Component.translatable("tooltip.valoria.rmb_equip").withStyle(ChatFormatting.GREEN));

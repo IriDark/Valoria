@@ -1,17 +1,13 @@
 package com.idark.valoria.client.render.curio.model;
 
 import com.google.common.collect.*;
-import com.idark.valoria.*;
 import com.mojang.blaze3d.vertex.*;
 import net.minecraft.client.model.*;
 import net.minecraft.client.model.geom.*;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.resources.*;
 import net.minecraft.world.entity.*;
 
 public class HandsModel extends HumanoidModel<LivingEntity>{
-    public static ModelLayerLocation HANDS_LAYER_SLIM = new ModelLayerLocation(new ResourceLocation(Valoria.ID, "hands_slim"), "main");
-
     public ModelPart root, right_glove, left_glove;
 
     public HandsModel(ModelPart root){

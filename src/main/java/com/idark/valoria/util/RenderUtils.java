@@ -127,7 +127,8 @@ public class RenderUtils{
     }
 
     /**
-     * Dimensions xSize, ySize, zSize are specified in pixels, small addition to this description: this method conflicts with renderTooltip
+     * Dimensions xSize, ySize, zSize are specified in pixels
+     * @apiNote this method conflicts with renderTooltip, so it's should be added separately to the item
      */
     public static void renderItemModelInGui(ItemStack stack, int x, int y, float xSize, float ySize, float zSize){
         BakedModel bakedmodel = Minecraft.getInstance().getItemRenderer().getModel(stack, null, null, 0);
