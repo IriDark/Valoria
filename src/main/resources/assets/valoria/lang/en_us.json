@@ -1,4 +1,7 @@
 {
+  "key.category.valoria.general": "Valoria",
+  "key.valoria.bag_menu": "Jewelry Bag Menu",
+
   "attribute.valoria.excavation_speed": "Excavation Speed",
   "attribute.valoria.projectile_damage": "Projectile Damage",
   "attribute.valoria.dash_distance": "Dash Distance",

@@ -292,6 +292,7 @@ public abstract class ItemTabRegistry{
             event.accept(ItemsRegistry.BROKEN_BLOODSIGHT_MONOCLE);
             event.accept(ItemsRegistry.BLOODSIGHT_MONOCLE);
             event.accept(ItemsRegistry.PICK);
+            event.accept(ItemsRegistry.JEWELRY_BAG);
             event.accept(ItemsRegistry.RUNE);
             event.accept(ItemsRegistry.RUNE_OF_VISION);
             event.accept(ItemsRegistry.RUNE_OF_WEALTH);
