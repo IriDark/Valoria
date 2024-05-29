@@ -33,11 +33,6 @@ public class JewelryBagScreen extends Screen{
     }
 
     @Override
-    public boolean shouldCloseOnEsc(){
-        return true;
-    }
-
-    @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button){
         Player player = minecraft.player;
         selectedItem = getSelectedItem(mouseX, mouseY);
@@ -67,7 +62,7 @@ public class JewelryBagScreen extends Screen{
                                     selectedItem.shrink(count);
                                 }
 
-                                this.onClose();
+                                hover = false;
                             }
                         }
                     }
@@ -125,10 +120,16 @@ public class JewelryBagScreen extends Screen{
     @Override
     public void render(GuiGraphics gui, int mouseX, int mouseY, float partialTicks){
         super.render(gui, mouseX, mouseY, partialTicks);
+        int x = width / 2;
+        int y = height / 2;
+        float offset = Math.min(x * 0.7f,  y * 0.7f);
+        float step = (float) 360 / trinkets.size();
+        float i = 0f;
+        selectedItem = getSelectedItem(trinkets, mouseX, mouseY);
         if(hover && hoveramount < 1){
-            hoveramount += Minecraft.getInstance().getFrameTime() / 10;
+            hoveramount += Minecraft.getInstance().getDeltaFrameTime() / 8;
         }else if(!hover && hoveramount > 0){
-            hoveramount -= Minecraft.getInstance().getFrameTime() / 5;
+            hoveramount -= Minecraft.getInstance().getDeltaFrameTime() / 4;
         }
 
         if(hoveramount > 1){
@@ -136,53 +137,46 @@ public class JewelryBagScreen extends Screen{
         }
 
         if(!hover && hoveramount <= 0){
-            minecraft.player.closeContainer();
+            this.onClose();
         }
 
-        int x = width / 2;
-        int y = height / 2;
-        float offset = Math.min(x * 0.7f,  y * 0.7f);
-        RenderUtils.renderItemModelInGui(getOpenedBag(), x - 32, y - 32, 64, 64, 64);
         if (hover) {
             trinkets = getTrinkets();
         }
 
-        selectedItem = getSelectedItem(trinkets, mouseX, mouseY);
-        float step = (float) 360 / trinkets.size();
-        float i = 0f;
         float mouseDistance = getMouseDistance(mouseX, mouseY);
         if (mouseDistance > (offset * hoveramount)) {
             mouseDistance = (offset * hoveramount);
         }
 
+        float bagOffset = 32 * hoveramount;
+        float bagSize = 64 * hoveramount;
+        float trinketSize = 32 * hoveramount;
+        float trinketSizeHover = 48 * hoveramount;
+        float trinketOffset = trinketSize / 2;
+        float trinketOffsetHover = trinketSizeHover / 2;
+        RenderUtils.renderItemModelInGui(getOpenedBag(), x - bagOffset, y - bagOffset, bagSize, bagSize, bagSize);
         mouseAngleI = mouseDistance;
         for (ItemStack stack : trinkets) {
             double dst = Math.toRadians((i * step) + (step / 2));
             int X = (int) (Math.cos(dst) * (offset * Math.sin(Math.toRadians(90 * hoveramount))));
             int Y = (int) (Math.sin(dst) * (offset * Math.sin(Math.toRadians(90 * hoveramount))));
-            if (stack == selectedItem && mouseDistance > 35) {
-                RenderUtils.renderItemModelInGui(stack, x + X - 24, y + Y - 24, 48, 48, 48);
+            if (stack == selectedItem && mouseDistance > 45) {
+                RenderUtils.renderItemModelInGui(stack, x + X - trinketOffsetHover, y + Y - trinketOffsetHover, trinketSizeHover, trinketSizeHover, trinketSizeHover);
             } else {
-                RenderUtils.renderItemModelInGui(stack, x + X - 16, y + Y - 16, 32, 32, 32);
+                RenderUtils.renderItemModelInGui(stack, x + X - trinketOffset, y + Y - trinketOffset, trinketSize, trinketSize, trinketSize);
             }
 
-            i = i + 1F;
+            i = i + hoveramount;
         }
 
-        if (selectedItem != null && mouseDistance > 35) {
+        if (selectedItem != null && mouseDistance > 45) {
             gui.renderTooltip(Minecraft.getInstance().font, selectedItem, mouseX, mouseY);
-        }
-
-        if (mouseDistance <= 35) {
-            gui.renderTooltip(Minecraft.getInstance().font, getOpenedBag(), mouseX, mouseY);
         }
     }
 
     public float getMouseDistance(double X, double Y) {
-        double x = width / 2;
-        double y = height / 2;
-
-        return (float) Math.sqrt(Math.pow(x - X, 2) + Math.pow(y - Y, 2));
+        return (float) Math.sqrt(Math.pow(width / 2 - X, 2) + Math.pow(height / 2 - Y, 2));
     }
 
     public ItemStack getOpenedBag(){
