@@ -1,11 +1,15 @@
 package com.idark.valoria.client.gui.screen;
 
+import com.idark.valoria.*;
 import com.idark.valoria.registries.item.types.curio.*;
 import com.idark.valoria.util.*;
 import com.mojang.blaze3d.platform.*;
+import com.mojang.blaze3d.systems.*;
+import com.mojang.math.*;
 import net.minecraft.client.*;
 import net.minecraft.client.gui.*;
 import net.minecraft.client.gui.screens.*;
+import net.minecraft.client.renderer.*;
 import net.minecraft.core.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.world.entity.player.*;
@@ -173,6 +177,36 @@ public class JewelryBagScreen extends Screen{
         if (selectedItem != null && mouseDistance > 45) {
             gui.renderTooltip(Minecraft.getInstance().font, selectedItem, mouseX, mouseY);
         }
+
+        int k = ((DyeableLeatherItem)getOpenedBag().getItem()).getColor(getOpenedBag());
+        float r = (float)(k >> 16 & 255) / 255.0F;
+        float g = (float)(k >> 8 & 255) / 255.0F;
+        float b = (float)(k & 255) / 255.0F;
+        RenderSystem.enableBlend();
+        RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE);
+        MultiBufferSource.BufferSource buffersource = Minecraft.getInstance().renderBuffers().bufferSource();
+        RenderSystem.depthMask(false);
+        RenderSystem.setShader(ValoriaClient::getGlowingShader);
+
+        gui.pose().pushPose();
+        gui.pose().translate(width / 2,  height / 2, 0);
+        gui.pose().mulPose(Axis.ZP.rotationDegrees(getMouseAngle(mouseX, mouseY)));
+        RenderUtils.ray(gui.pose(), buffersource, 1f, (height / 2 * 0.7f * hoveramount), 40f, r, g, b, 1, r, g, b, 0);
+        buffersource.endBatch();
+        gui.pose().popPose();
+
+        RenderSystem.disableBlend();
+        RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
+        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+    }
+
+    public float getMouseAngle(double X, double Y) {
+        double angle =  Math.toDegrees(Math.atan2(Y-height / 2,X-width / 2));
+        if (angle < 0D) {
+            angle += 360D;
+        }
+
+        return (float) angle;
     }
 
     public float getMouseDistance(double X, double Y) {

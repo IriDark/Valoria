@@ -74,6 +74,10 @@ public class RenderUtils{
     .setShaderState(new RenderStateShard.ShaderStateShard(ValoriaClient::getSpriteParticleShader))
     .createCompositeState(false));
 
+    /**
+     * This code belongs to its author, and licensed under GPL-2.0 license
+     * @author MaxBogomol
+     */
     public static void renderAura(PoseStack mStack, VertexConsumer builder, float radius, float size, int longs, Color color1, Color color2, float alpha1, float alpha2, boolean renderSide, boolean renderFloor){
         float r1 = color1.getRed() / 255f;
         float g1 = color1.getGreen() / 255f;
@@ -116,7 +120,10 @@ public class RenderUtils{
         }
     }
 
-
+    /**
+     * This code belongs to its author, and licensed under GPL-2.0 license
+     * @author MaxBogomol
+     */
     public static void auraPiece(PoseStack mStack, VertexConsumer builder, float radius, float size, float angle, float r, float g, float b, float alpha){
         mStack.pushPose();
         mStack.mulPose(Axis.YP.rotationDegrees((float)Math.toDegrees(angle)));
@@ -127,8 +134,11 @@ public class RenderUtils{
     }
 
     /**
+     * This code belongs to its author, and licensed under GPL-2.0 license
      * Dimensions xSize, ySize, zSize are specified in pixels
      * @apiNote this method conflicts with renderTooltip, so it's should be added separately to the item
+     * @author MaxBogomol
+     *
      */
     public static void renderItemModelInGui(ItemStack stack, float x, float y, float xSize, float ySize, float zSize){
         BakedModel bakedmodel = Minecraft.getInstance().getItemRenderer().getModel(stack, null, null, 0);
@@ -157,6 +167,28 @@ public class RenderUtils{
 
         posestack.popPose();
         RenderSystem.applyModelViewMatrix();
+    }
+
+    /**
+     * This code belongs to its author, and licensed under GPL-2.0 license
+     * @author MaxBogomol
+     */
+    public static void ray(PoseStack mStack, MultiBufferSource buf, float width, float height, float endOffset, float r, float g, float b, float a) {
+        ray(mStack, buf, width, height, endOffset, r, g, b, a, r, g, b, a);
+    }
+
+    /**
+     * This code belongs to its author, and licensed under GPL-2.0 license
+     * @author MaxBogomol
+     */
+    public static void ray(PoseStack mStack, MultiBufferSource buf, float width, float height, float endOffset, float r1, float g1, float b1, float a1, float r2, float g2, float b2, float a2) {
+        VertexConsumer builder = buf.getBuffer(GLOWING);
+        Matrix4f mat = mStack.last().pose();
+
+        builder.vertex(mat, -width, width, -width).color(r1, g1, b1, a1).endVertex();
+        builder.vertex(mat, height, width * endOffset, -width * endOffset).color(r2, g2, b2, a2).endVertex();
+        builder.vertex(mat, height, -width * endOffset, -width * endOffset).color(r2, g2, b2, a2).endVertex();
+        builder.vertex(mat, -width, -width, -width).color(r1, g1, b1, a1).endVertex();
     }
 
     public static void afterLevelRender(RenderLevelStageEvent event){
