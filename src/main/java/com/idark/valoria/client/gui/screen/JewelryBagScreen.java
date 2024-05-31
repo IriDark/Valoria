@@ -1,6 +1,9 @@
 package com.idark.valoria.client.gui.screen;
 
 import com.idark.valoria.*;
+import com.idark.valoria.core.network.*;
+import com.idark.valoria.core.network.packets.*;
+import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.item.types.curio.*;
 import com.idark.valoria.util.*;
 import com.mojang.blaze3d.platform.*;
@@ -10,13 +13,11 @@ import net.minecraft.client.*;
 import net.minecraft.client.gui.*;
 import net.minecraft.client.gui.screens.*;
 import net.minecraft.client.renderer.*;
-import net.minecraft.core.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import top.theillusivec4.curios.api.*;
 import top.theillusivec4.curios.api.type.capability.*;
-import top.theillusivec4.curios.api.type.inventory.*;
 
 import java.util.*;
 
@@ -24,7 +25,7 @@ public class JewelryBagScreen extends Screen{
     public List<ItemStack> trinkets = new ArrayList<>();
     public ItemStack selectedItem;
     public float mouseAngleI = 0;
-    public float hoveramount = 0;
+    public float hoverAmount = 0;
     public boolean hover = true;
 
     public JewelryBagScreen(Component titleIn){
@@ -38,40 +39,17 @@ public class JewelryBagScreen extends Screen{
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button){
-        Player player = minecraft.player;
         selectedItem = getSelectedItem(mouseX, mouseY);
         float mouseDistance = getMouseDistance(mouseX, mouseY);
         float offset = Math.min((float)this.width / 2 * 0.7f,  (float)this.height / 2 * 0.7f);
-        if (mouseDistance > (offset * hoveramount)) {
-            mouseDistance = (offset * hoveramount);
+        if(mouseDistance > (offset * hoverAmount)){
+            mouseDistance = (offset * hoverAmount);
         }
 
         mouseAngleI = mouseDistance;
         if((selectedItem != null)){
-            CuriosApi.getCurio(selectedItem).ifPresent(
-            curio -> CuriosApi.getCuriosInventory(player).ifPresent(handler -> {
-                Map<String, ICurioStacksHandler> curios = handler.getCurios();
-                for(Map.Entry<String, ICurioStacksHandler> entry : curios.entrySet()){
-                    IDynamicStackHandler stackHandler = entry.getValue().getStacks();
-                    for(int i = 0; i < stackHandler.getSlots(); i++){
-                        NonNullList<Boolean> renderStates = entry.getValue().getRenders();
-                        SlotContext slotContext = new SlotContext(entry.getKey(), player, i, false, renderStates.size() > i && renderStates.get(i));
-                        if(stackHandler.isItemValid(i, selectedItem) && curio.canEquipFromUse(slotContext)){
-                            ItemStack present = stackHandler.getStackInSlot(i);
-                            if(present.isEmpty()){
-                                stackHandler.setStackInSlot(i, selectedItem.copy());
-                                curio.onEquipFromUse(slotContext);
-                                if(!player.isCreative()){
-                                    int count = selectedItem.getCount();
-                                    selectedItem.shrink(count);
-                                }
-
-                                hover = false;
-                            }
-                        }
-                    }
-                }
-            }));
+            PacketHandler.sendToServer(new CuriosSetStackPacket(selectedItem));
+            hover = false;
         }
 
         return true;
@@ -82,25 +60,17 @@ public class JewelryBagScreen extends Screen{
         Minecraft mc = Minecraft.getInstance();
         Player player = mc.player;
         List<ItemStack> items = player.inventoryMenu.getItems();
-        List<SlotResult> curioSlots = CuriosApi.getCuriosHelper().findCurios(player, (i) -> true);
-        for(SlotResult slot : curioSlots){
-            ICurioItem curio = (ICurioItem)slot.stack().getItem();
-            if(slot.stack() != null && curio.canEquipFromUse(slot.slotContext(), slot.stack())){
-                items.add(slot.stack());
+        ArrayList<ItemStack> curioItems = new ArrayList<>();
+        for(ItemStack stack : items){
+            if(stack.getItem() instanceof ICurioItem && stack.getItem() != ItemsRegistry.JEWELRY_BAG.get()){
+                curioItems.add(stack);
             }
         }
 
-        ArrayList<ItemStack> crystals = new ArrayList<>();
-        for (ItemStack stack : items) {
-            if (stack.getItem() instanceof ICurioItem) {
-                crystals.add(stack);
-            }
-        }
-
-        return crystals;
+        return curioItems;
     }
 
-    public ItemStack getSelectedItem(double X, double Y) {
+    public ItemStack getSelectedItem(double X, double Y){
         return getSelectedItem(getTrinkets(), X, Y);
     }
 
@@ -130,17 +100,17 @@ public class JewelryBagScreen extends Screen{
         float step = (float) 360 / trinkets.size();
         float i = 0f;
         selectedItem = getSelectedItem(trinkets, mouseX, mouseY);
-        if(hover && hoveramount < 1){
-            hoveramount += Minecraft.getInstance().getDeltaFrameTime() / 8;
-        }else if(!hover && hoveramount > 0){
-            hoveramount -= Minecraft.getInstance().getDeltaFrameTime() / 4;
+        if(hover && hoverAmount < 1){
+            hoverAmount += Minecraft.getInstance().getDeltaFrameTime() / 8;
+        }else if(!hover && hoverAmount > 0){
+            hoverAmount -= Minecraft.getInstance().getDeltaFrameTime() / 4;
         }
 
-        if(hoveramount > 1){
-            hoveramount = 1;
+        if(hoverAmount > 1){
+            hoverAmount = 1;
         }
 
-        if(!hover && hoveramount <= 0){
+        if(!hover && hoverAmount <= 0){
             this.onClose();
         }
 
@@ -149,29 +119,29 @@ public class JewelryBagScreen extends Screen{
         }
 
         float mouseDistance = getMouseDistance(mouseX, mouseY);
-        if (mouseDistance > (offset * hoveramount)) {
-            mouseDistance = (offset * hoveramount);
+        if (mouseDistance > (offset * hoverAmount)) {
+            mouseDistance = (offset * hoverAmount);
         }
 
-        float bagOffset = 32 * hoveramount;
-        float bagSize = 64 * hoveramount;
-        float trinketSize = 32 * hoveramount;
-        float trinketSizeHover = 48 * hoveramount;
+        float bagOffset = 32 * hoverAmount;
+        float bagSize = 64 * hoverAmount;
+        float trinketSize = 32 * hoverAmount;
+        float trinketSizeHover = 48 * hoverAmount;
         float trinketOffset = trinketSize / 2;
         float trinketOffsetHover = trinketSizeHover / 2;
         RenderUtils.renderItemModelInGui(getOpenedBag(), x - bagOffset, y - bagOffset, bagSize, bagSize, bagSize);
         mouseAngleI = mouseDistance;
         for (ItemStack stack : trinkets) {
             double dst = Math.toRadians((i * step) + (step / 2));
-            int X = (int) (Math.cos(dst) * (offset * Math.sin(Math.toRadians(90 * hoveramount))));
-            int Y = (int) (Math.sin(dst) * (offset * Math.sin(Math.toRadians(90 * hoveramount))));
+            int X = (int) (Math.cos(dst) * (offset * Math.sin(Math.toRadians(90 * hoverAmount))));
+            int Y = (int) (Math.sin(dst) * (offset * Math.sin(Math.toRadians(90 * hoverAmount))));
             if (stack == selectedItem && mouseDistance > 45) {
                 RenderUtils.renderItemModelInGui(stack, x + X - trinketOffsetHover, y + Y - trinketOffsetHover, trinketSizeHover, trinketSizeHover, trinketSizeHover);
             } else {
                 RenderUtils.renderItemModelInGui(stack, x + X - trinketOffset, y + Y - trinketOffset, trinketSize, trinketSize, trinketSize);
             }
 
-            i = i + hoveramount;
+            i = i + hoverAmount;
         }
 
         if (selectedItem != null && mouseDistance > 45) {
@@ -191,7 +161,7 @@ public class JewelryBagScreen extends Screen{
         gui.pose().pushPose();
         gui.pose().translate(width / 2,  height / 2, 0);
         gui.pose().mulPose(Axis.ZP.rotationDegrees(getMouseAngle(mouseX, mouseY)));
-        RenderUtils.ray(gui.pose(), buffersource, 1f, (height / 2 * 0.7f * hoveramount), 40f, r, g, b, 1, r, g, b, 0);
+        RenderUtils.ray(gui.pose(), buffersource, 1f, (height / 2 * 0.7f * hoverAmount), 40f, r, g, b, 1, r, g, b, 0);
         buffersource.endBatch();
         gui.pose().popPose();
 

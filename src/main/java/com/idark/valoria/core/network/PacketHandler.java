@@ -58,6 +58,7 @@ public final class PacketHandler{
         HANDLER.registerMessage(id++, FireTrapParticlePacket.class, FireTrapParticlePacket::encode, FireTrapParticlePacket::decode, FireTrapParticlePacket::handle);
         HANDLER.registerMessage(id++, KeypadParticlePacket.class, KeypadParticlePacket::encode, KeypadParticlePacket::decode, KeypadParticlePacket::handle);
         HANDLER.registerMessage(id++, ParticleLinePacket.class, ParticleLinePacket::encode, ParticleLinePacket::decode, ParticleLinePacket::handle);
+        HANDLER.registerMessage(id++, CuriosSetStackPacket.class, CuriosSetStackPacket::encode, CuriosSetStackPacket::decode, CuriosSetStackPacket::handle);
     }
 
     public static void sendTo(ServerPlayer playerMP, Object toSend){
@@ -76,6 +77,10 @@ public final class PacketHandler{
 
     public static void sendTo(Player entity, Object msg){
         HANDLER.send(PacketDistributor.PLAYER.with(() -> (ServerPlayer)entity), msg);
+    }
+
+    public static void sendEntity(Player entity, Object msg){
+        HANDLER.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> entity), msg);
     }
 
     public static void sendToServer(Object msg){
