@@ -48,8 +48,8 @@ public class JewelryBagScreen extends Screen{
 
         mouseAngleI = mouseDistance;
         if((selectedItem != null)){
-            PacketHandler.sendToServer(new CuriosSetStackPacket(selectedItem));
             hover = false;
+            PacketHandler.sendToServer(new CuriosSetStackPacket(selectedItem));
         }
 
         return true;
@@ -59,7 +59,7 @@ public class JewelryBagScreen extends Screen{
     public List<ItemStack> getTrinkets(){
         Minecraft mc = Minecraft.getInstance();
         Player player = mc.player;
-        List<ItemStack> items = player.inventoryMenu.getItems();
+        List<ItemStack> items = player.getInventory().items;
         ArrayList<ItemStack> curioItems = new ArrayList<>();
         for(ItemStack stack : items){
             if(stack.getItem() instanceof ICurioItem && stack.getItem() != ItemsRegistry.JEWELRY_BAG.get()){
@@ -75,9 +75,9 @@ public class JewelryBagScreen extends Screen{
     }
 
     public ItemStack getSelectedItem(List<ItemStack> pSelected, double X, double Y) {
+        int x = width / 2;
+        int y = height / 2;
         double step = (float) 360 / pSelected.size();
-        double x = width / 2;
-        double y = height / 2;
         double angle =  Math.toDegrees(Math.atan2(Y-y,X-x));
         if (angle < 0D) {
             angle += 360D;
@@ -88,6 +88,7 @@ public class JewelryBagScreen extends Screen{
                 return pSelected.get(i - 1);
             }
         }
+
         return null;
     }
 
@@ -193,16 +194,5 @@ public class JewelryBagScreen extends Screen{
         }
 
         return ItemStack.EMPTY;
-    }
-
-    @Override
-    public boolean keyPressed(int keyCode, int scanCode, int modifiers){
-        InputConstants.Key mouseKey = InputConstants.getKey(keyCode, scanCode);
-        if(this.minecraft.options.keyInventory.isActiveAndMatches(mouseKey)){
-            this.onClose();
-            return true;
-        }
-
-        return (super.keyPressed(keyCode, scanCode, modifiers));
     }
 }
