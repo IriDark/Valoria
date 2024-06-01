@@ -128,10 +128,6 @@ public class KatanaItem extends SwordItem implements ICooldownItem{
         ItemStack itemstack = playerIn.getItemInHand(handIn);
         if(!playerIn.isShiftKeyDown()){
             playerIn.startUsingItem(InteractionHand.MAIN_HAND);
-            if(!playerIn.isFallFlying() && playerIn.isUsingItem()){
-                applyCooldown(playerIn);
-            }
-
             return InteractionResultHolder.consume(itemstack);
         }
 
@@ -218,6 +214,9 @@ public class KatanaItem extends SwordItem implements ICooldownItem{
 
             level.playSound(null, player.getOnPos(), SoundsRegistry.SWIFTSLICE.get(), SoundSource.PLAYERS, 1.0F, 1F);
             if(level.isClientSide) DashOverlayRender.showDashOverlay();
+            if(!player.isFallFlying()){
+                applyCooldown(player);
+            }
         }
     }
 

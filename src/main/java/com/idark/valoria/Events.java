@@ -34,8 +34,9 @@ public class Events{
 
     @SubscribeEvent
     public void attachEntityCaps(AttachCapabilitiesEvent<Entity> event){
-        if(event.getObject() instanceof Player)
+        if(event.getObject() instanceof Player){
             event.addCapability(new ResourceLocation(Valoria.ID, "pages"), new UnloackbleCap());
+        }
     }
 
     @SubscribeEvent
@@ -54,8 +55,9 @@ public class Events{
                         BlockState blockState = blockItem.getBlock().defaultBlockState();
                         Stream<ResourceLocation> blockTagStream = blockState.getTags().map(TagKey::location);
                         if(!blockState.getTags().map(TagKey::location).toList().isEmpty()){
-                            if(itemStack.getTags().toList().isEmpty())
+                            if(itemStack.getTags().toList().isEmpty()){
                                 e.getToolTip().add(Component.empty());
+                            }
 
                             e.getToolTip().add(Component.literal("BlockTags: " + blockTagStream.toList()).withStyle(ChatFormatting.DARK_GRAY));
                         }

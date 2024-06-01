@@ -7,6 +7,7 @@ import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.*;
 import net.minecraft.client.*;
 import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.entity.*;
 import net.minecraft.client.renderer.texture.*;
 import net.minecraft.client.resources.model.*;
 import net.minecraft.util.*;
@@ -134,37 +135,28 @@ public class RenderUtils{
     }
 
     /**
-     * This code belongs to its author, and licensed under GPL-2.0 license
      * Dimensions xSize, ySize, zSize are specified in pixels
-     * @apiNote this method conflicts with renderTooltip, so it's should be added separately to the item
-     * @author MaxBogomol
-     *
      */
     public static void renderItemModelInGui(ItemStack stack, float x, float y, float xSize, float ySize, float zSize){
-        BakedModel bakedmodel = Minecraft.getInstance().getItemRenderer().getModel(stack, null, null, 0);
+        ItemRenderer renderer = Minecraft.getInstance().getItemRenderer();
         PoseStack posestack = RenderSystem.getModelViewStack();
+        BakedModel model = renderer.getModel(stack, null, null, 0);
+
         posestack.pushPose();
-        posestack.translate(x, y, (100.0F));
+        posestack.translate(x, y, 100.0F);
         posestack.translate((double)xSize / 2, (double)ySize / 2, 0.0D);
-        posestack.scale(1.0F, -1.0F, 1.0F);
-        posestack.scale(xSize, ySize, zSize);
+        posestack.scale(xSize, -ySize, zSize);
 
         RenderSystem.applyModelViewMatrix();
-        PoseStack pose = new PoseStack();
-        MultiBufferSource.BufferSource multibuffersource$buffersource = Minecraft.getInstance().renderBuffers().bufferSource();
-        boolean flag = !bakedmodel.usesBlockLight();
-        if(flag){
+        MultiBufferSource.BufferSource buffer = Minecraft.getInstance().renderBuffers().bufferSource();
+        if(!model.usesBlockLight()){
             Lighting.setupForFlatItems();
-        }
-
-        Minecraft.getInstance().getItemRenderer().render(stack, ItemDisplayContext.GUI, false, pose, multibuffersource$buffersource, 15728880, OverlayTexture.NO_OVERLAY, bakedmodel);
-        RenderSystem.disableDepthTest();
-        multibuffersource$buffersource.endBatch();
-        RenderSystem.enableDepthTest();
-        if(flag){
+        }else{
             Lighting.setupFor3DItems();
         }
 
+        renderer.render(stack, ItemDisplayContext.GUI, false, new PoseStack(), buffer, 15728880, OverlayTexture.NO_OVERLAY, model);
+        buffer.endBatch();
         posestack.popPose();
         RenderSystem.applyModelViewMatrix();
     }
