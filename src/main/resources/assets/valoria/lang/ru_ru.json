@@ -765,6 +765,7 @@
   "tooltip.valoria.current_mana": "Мана:",
   "tooltip.valoria.curses": "Накладывает случайные эффекты.",
   "tooltip.valoria.deep": "Даёт подводное дыхание, на некоторое время",
+  "tooltip.valoria.equipped": "Equipped: ",
   "tooltip.valoria.familiar": "Это оружие... так, знакомо мне...",
   "tooltip.valoria.geode": "Может быть разбито на Каменоломне",
   "tooltip.valoria.homing": "Обладает самонаводкой, но также меньшим уроном",
