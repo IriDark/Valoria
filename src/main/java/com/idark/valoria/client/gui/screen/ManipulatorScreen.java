@@ -75,8 +75,11 @@ public class ManipulatorScreen extends AbstractContainerScreen<ManipulatorMenu>{
         int i = this.leftPos;
         int j = this.topPos;
         gui.blit(GUI, i, j, 0, 0, this.imageWidth, this.imageHeight);
-        gui.blit(GUI, i + 76, j + 53, 208, 0, 16, 16);
         if(menu.tileEntity instanceof ManipulatorBlockEntity elemental){
+            if(elemental.itemHandler.getStackInSlot(1).isEmpty()) {
+                gui.blit(GUI, i + 76, j + 53, 208, 0, 16, 16);
+            }
+
             if(elemental.infernal_core != 0){
                 gui.blit(GUI, i + 16, j + 25, 181, 27, 5, 5);
             }

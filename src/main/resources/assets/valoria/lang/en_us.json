@@ -24,6 +24,7 @@
   "subtitles.valoria.lootbag.open": "Opened Loot Bag ★",
   "tooltip.valoria.geode": "Can be crushed on Stone Crusher",
   "tooltip.valoria.spear": "A spear that can be thrown at your enemy",
+  "tooltip.valoria.equipped": "Equipped: ",
   "tooltip.valoria.applies": "Applies: ",
   "tooltip.valoria.trinkets_bag": "Trinkets bag, used to quickly equip your accessories with a keybind [%s]",
   "tooltip.valoria.with_chance": "Applies with chance: ",

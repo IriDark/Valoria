@@ -1,24 +1,18 @@
 package com.idark.valoria.registries.menus;
 
-import com.idark.valoria.registries.BlockRegistry;
-import com.idark.valoria.registries.MenuRegistry;
-import com.idark.valoria.registries.menus.slots.IngotSlot;
+import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.menus.slots.ResultSlot;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.ContainerLevelAccess;
-import net.minecraft.world.inventory.MenuType;
-import net.minecraft.world.inventory.Slot;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.SlotItemHandler;
-import net.minecraftforge.items.wrapper.InvWrapper;
-import org.jetbrains.annotations.NotNull;
+import com.idark.valoria.registries.menus.slots.*;
+import net.minecraft.core.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.inventory.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.entity.*;
+import net.minecraftforge.common.capabilities.*;
+import net.minecraftforge.items.*;
+import net.minecraftforge.items.wrapper.*;
+import org.jetbrains.annotations.*;
 
 import javax.annotation.Nullable;
 
@@ -44,7 +38,7 @@ public class ManipulatorMenu extends AbstractContainerMenu{
         if(tileEntity != null){
             tileEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(h -> {
                 this.addSlot(new SlotItemHandler(h, 0, 27, 53));
-                this.addSlot(new IngotSlot(h, 1, 76, 53));
+                this.addSlot(new MaterialSlot(h, 1, 76, 53));
 
                 this.addSlot(new ResultSlot(h, 2, 134, 53));
             });
