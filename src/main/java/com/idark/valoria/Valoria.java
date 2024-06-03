@@ -259,6 +259,7 @@ public class Valoria{
         public static void attachAttribute(EntityAttributeModificationEvent event){
             event.add(EntityType.PLAYER, AttributeRegistry.DASH_DISTANCE.get());
             event.add(EntityType.PLAYER, AttributeRegistry.ATTACK_RADIUS.get());
+            event.add(EntityType.PLAYER, AttributeRegistry.PROJECTILE_DAMAGE.get());
         }
 
         @SubscribeEvent

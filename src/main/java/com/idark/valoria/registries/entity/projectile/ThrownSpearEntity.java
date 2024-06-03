@@ -1,48 +1,31 @@
 package com.idark.valoria.registries.entity.projectile;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Sets;
-import com.idark.valoria.client.particle.ParticleRegistry;
-import com.idark.valoria.client.particle.types.Particles;
-import com.idark.valoria.registries.EnchantmentsRegistry;
-import com.idark.valoria.registries.EntityTypeRegistry;
-import com.idark.valoria.registries.ItemsRegistry;
-import com.idark.valoria.registries.SoundsRegistry;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobType;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.AbstractArrow;
-import net.minecraft.world.entity.projectile.ItemSupplier;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.alchemy.PotionUtils;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.EntityHitResult;
-import net.minecraft.world.phys.HitResult;
-import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.network.NetworkHooks;
-import org.jetbrains.annotations.NotNull;
+import com.google.common.collect.*;
+import com.idark.valoria.client.particle.*;
+import com.idark.valoria.client.particle.types.*;
+import com.idark.valoria.registries.*;
+import net.minecraft.core.particles.*;
+import net.minecraft.nbt.*;
+import net.minecraft.network.protocol.*;
+import net.minecraft.network.protocol.game.*;
+import net.minecraft.network.syncher.*;
+import net.minecraft.server.level.*;
+import net.minecraft.sounds.*;
+import net.minecraft.world.damagesource.*;
+import net.minecraft.world.effect.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.entity.projectile.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.item.alchemy.*;
+import net.minecraft.world.item.enchantment.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.phys.*;
+import net.minecraftforge.network.*;
+import org.jetbrains.annotations.*;
 
 import javax.annotation.Nullable;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 public class ThrownSpearEntity extends AbstractValoriaArrow implements ItemSupplier{
     public static final EntityDataAccessor<Byte> LOYALTY_LEVEL = SynchedEntityData.defineId(ThrownSpearEntity.class, EntityDataSerializers.BYTE);
@@ -249,43 +232,43 @@ public class ThrownSpearEntity extends AbstractValoriaArrow implements ItemSuppl
         Entity entity = result.getEntity();
         Entity shooter = this.getOwner();
         DamageSource damagesource = level().damageSources().trident(this, shooter == null ? this : shooter);
-        int e = (int)EnchantmentHelper.getDamageBonus(this.getItem(), MobType.UNDEFINED);
-        float f = 7f + (float)Math.max(0, e - 2);
-        if(entity instanceof LivingEntity livingentity){
-            f += EnchantmentHelper.getDamageBonus(this.getItem(), livingentity.getMobType());
-        }
-
-        if(EnchantmentHelper.getTagEnchantmentLevel(Enchantments.PIERCING, this.getItem()) == 0){
-            this.returnToPlayer = true;
-        }
-
-        boolean flag = entity.getType() == EntityType.ENDERMAN;
-        if(EnchantmentHelper.getTagEnchantmentLevel(EnchantmentsRegistry.BLEEDING.get(), this.getItem()) > 0 && !flag){
-            for(int a = 0; a < 12; a++){
-                Particles.create(ParticleRegistry.SPHERE)
-                .randomOffset(0.7f, 0f, 0.7f)
-                .randomVelocity(0.5f, 0, 0.5f)
-                .enableGravity()
-                .setAlpha(1f, 0)
-                .setScale(0.1f, 0)
-                .setColor(145, 0, 20, 255, 0, 0)
-                .setLifetime(6)
-                .spawn(entity.level(), entity.getX() + (new Random().nextDouble() - 0.5f) / 2, entity.getY() + (new Random().nextDouble() + 1f) / 2, entity.getZ());
-            }
-        }
-
-        if(entity.hurt(damagesource, f)){
-            if(entity.getType() == EntityType.ENDERMAN){
-                return;
+        if(shooter instanceof Player player){
+            int e = (int)EnchantmentHelper.getDamageBonus(this.getItem(), MobType.UNDEFINED);
+            float f = (float)(player.getAttributes().getValue(AttributeRegistry.PROJECTILE_DAMAGE.get()) + Math.max(0, e - 2));
+            if(entity instanceof LivingEntity livingentity){
+                f += EnchantmentHelper.getDamageBonus(this.getItem(), livingentity.getMobType());
             }
 
-            if(entity instanceof LivingEntity living){
-                if(shooter instanceof LivingEntity){
-                    EnchantmentHelper.doPostHurtEffects(living, shooter);
-                    EnchantmentHelper.doPostDamageEffects((LivingEntity)shooter, living);
+            if(EnchantmentHelper.getTagEnchantmentLevel(Enchantments.PIERCING, this.getItem()) == 0){
+                this.returnToPlayer = true;
+            }
+
+            boolean flag = entity.getType() == EntityType.ENDERMAN;
+            if(EnchantmentHelper.getTagEnchantmentLevel(EnchantmentsRegistry.BLEEDING.get(), this.getItem()) > 0 && !flag){
+                for(int a = 0; a < 12; a++){
+                    Particles.create(ParticleRegistry.SPHERE)
+                    .randomOffset(0.7f, 0f, 0.7f)
+                    .randomVelocity(0.5f, 0, 0.5f)
+                    .enableGravity()
+                    .setAlpha(1f, 0)
+                    .setScale(0.1f, 0)
+                    .setColor(145, 0, 20, 255, 0, 0)
+                    .setLifetime(6)
+                    .spawn(entity.level(), entity.getX() + (new Random().nextDouble() - 0.5f) / 2, entity.getY() + (new Random().nextDouble() + 1f) / 2, entity.getZ());
+                }
+            }
+
+            if(entity.hurt(damagesource, f)){
+                if(entity.getType() == EntityType.ENDERMAN){
+                    return;
                 }
 
-                this.doPostHurtEffects(living);
+                if(entity instanceof LivingEntity living){
+                    EnchantmentHelper.doPostHurtEffects(living, player);
+                    EnchantmentHelper.doPostDamageEffects(player, living);
+
+                    this.doPostHurtEffects(living);
+                }
             }
         }
     }

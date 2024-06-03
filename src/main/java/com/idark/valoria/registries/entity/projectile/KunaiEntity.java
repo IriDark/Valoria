@@ -8,6 +8,7 @@ import net.minecraft.sounds.*;
 import net.minecraft.world.damagesource.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.player.*;
 import net.minecraft.world.entity.projectile.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.*;
@@ -93,32 +94,31 @@ public class KunaiEntity extends AbstractKunai implements ItemSupplier{
         Entity entity = result.getEntity();
         Entity shooter = this.getOwner();
         DamageSource damagesource = level().damageSources().trident(this, shooter == null ? this : shooter);
-        int e = (int)EnchantmentHelper.getDamageBonus(this.getItem(), MobType.UNDEFINED);
-        float f = 7f + (float)Math.max(0, e - 2);
-        if(entity instanceof LivingEntity livingentity){
-            f += EnchantmentHelper.getDamageBonus(this.getItem(), livingentity.getMobType());
-        }
-
-        if(EnchantmentHelper.getTagEnchantmentLevel(Enchantments.PIERCING, this.getItem()) == 0){
-            this.returnToPlayer = true;
-        }
-
-        if(entity.hurt(damagesource, f)){
-            if(entity.getType() == EntityType.ENDERMAN){
-                return;
+        if(shooter instanceof Player player){
+            int e = (int)EnchantmentHelper.getDamageBonus(this.getItem(), MobType.UNDEFINED);
+            float f = (float)(player.getAttributes().getValue(AttributeRegistry.PROJECTILE_DAMAGE.get()) + Math.max(0, e - 2));
+            if(entity instanceof LivingEntity livingentity){
+                f += EnchantmentHelper.getDamageBonus(this.getItem(), livingentity.getMobType());
             }
 
-            if(entity instanceof LivingEntity living){
-                if(shooter instanceof LivingEntity){
+            if(EnchantmentHelper.getTagEnchantmentLevel(Enchantments.PIERCING, this.getItem()) == 0){
+                this.returnToPlayer = true;
+            }
+
+            if(entity.hurt(damagesource, f)){
+                if(entity.getType() == EntityType.ENDERMAN){
+                    return;
+                }
+
+                if(entity instanceof LivingEntity living){
                     if(this.getItem().is(ItemsRegistry.SAMURAI_POISONED_KUNAI.get())){
                         living.addEffect(new MobEffectInstance(MobEffects.POISON, 170, 0));
                     }
 
-                    EnchantmentHelper.doPostHurtEffects(living, shooter);
-                    EnchantmentHelper.doPostDamageEffects((LivingEntity)shooter, living);
+                    EnchantmentHelper.doPostHurtEffects(living, player);
+                    EnchantmentHelper.doPostDamageEffects((LivingEntity)shooter, player);
+                    this.doPostHurtEffects(living);
                 }
-
-                this.doPostHurtEffects(living);
             }
         }
     }
