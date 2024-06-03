@@ -765,6 +765,7 @@
   "tooltip.valoria.current_mana": "Поточна мана:",
   "tooltip.valoria.curses": "Наділяє гравця різноманітними ефектами.",
   "tooltip.valoria.deep": "Надає підводне дихання на деякий час",
+  "tooltip.valoria.equipped": "Equipped: ",
   "tooltip.valoria.familiar": "Ця зброя... так знайома мені...",
   "tooltip.valoria.geode": "Може бути розтрощеним на Каменеломні",
   "tooltip.valoria.homing": "Has a homing movement, but lesser damage",
