@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " / ",
+    "/#/",
+    " / "
+  ],
+  "key": {
+    "#": {
+      "item": "valoria:amethyst_gem"
+    },
+    "/": {
+      "item": "valoria:nihility_shard"
+    }
+  },
+  "result": {
+    "item": "valoria:void_core",
+    "count": 1
+  }
+}

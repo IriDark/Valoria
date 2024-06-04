@@ -91,6 +91,7 @@ public class ItemsRegistry{
     public static final RegistryObject<Item> INFERNAL_STONE = ITEMS.register("infernal_stone", () -> new ParticleMaterialItem(ParticleRegistry.GLOWING_SPHERE.get(), new int[]{255, 145, 45}, new int[]{45, 0, 0}, 0.35f, new Item.Properties().stacksTo(16).rarity(RarityRegistry.INFERNAL)));
     public static final RegistryObject<Item> BONE_FRAGMENT = ITEMS.register("bone_fragment", () -> new ParticleMaterialItem(ParticleRegistry.GLOWING_SPHERE.get(), new int[]{145, 235, 25}, new int[]{132, 215, 22}, 0.35f, new Item.Properties().stacksTo(16)));
     public static final RegistryObject<Item> PAIN_CRYSTAL = ITEMS.register("pain_crystal", () -> new Item(new Item.Properties().stacksTo(16)));
+    public static final RegistryObject<Item> NIHILITY_SHARD = ITEMS.register("nihility_shard", () -> new Item(new Item.Properties().stacksTo(16)));
     public static final RegistryObject<Item> ILLUSION_STONE = ITEMS.register("illusion_stone", () -> new Item(new Item.Properties().rarity(RarityRegistry.PHANTASM).stacksTo(16)));
     public static final RegistryObject<Item> SOUL_COLLECTOR_EMPTY = ITEMS.register("soul_collector_empty", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> SOUL_COLLECTOR = ITEMS.register("soul_collector", () -> new Item(new Item.Properties()));
@@ -157,8 +158,6 @@ public class ItemsRegistry{
     () -> new HitEffectItem(Tiers.WOOD, 5, -3.2f, new Item.Properties(), 0.1f, new MobEffectInstance(EffectsRegistry.STUN.get(), 60, 0)));
     public static final RegistryObject<Item> BRONZE_SWORD = ITEMS.register("bronze_sword",
     () -> new SwordItem(Tiers.IRON, 6, -2.4f, new Item.Properties()));
-    public static final RegistryObject<Item> VOID_EDGE = ITEMS.register("void_edge",
-    () -> new SwordItem(ModItemTier.NONE, 7, -3f, new Item.Properties().rarity(RarityRegistry.VOID)));
     public static final RegistryObject<Item> QUANTUM_REAPER = ITEMS.register("quantum_reaper",
     () -> new SwordItem(ModItemTier.NONE, 8, -3f, new Item.Properties().rarity(RarityRegistry.VOID)));
     public static final RegistryObject<Item> BLOODHOUND = ITEMS.register("bloodhound",
@@ -226,6 +225,8 @@ public class ItemsRegistry{
     () -> new AquariusScytheItem(ModItemTier.AQUARIUS, 12, -3.0f, new Item.Properties().rarity(RarityRegistry.AQUARIUS)));
     public static final RegistryObject<Item> INFERNAL_SCYTHE = ITEMS.register("infernal_scythe",
     () -> new InfernalScytheItem(ModItemTier.INFERNAL, 14, -3.0f, new Item.Properties().fireResistant().rarity(RarityRegistry.INFERNAL)));
+    public static final RegistryObject<Item> VOID_SCYTHE = ITEMS.register("void_scythe",
+    () -> new ScytheItem(ModItemTier.NIHILITY, 16, -3.0f, 3, new Item.Properties().fireResistant().rarity(RarityRegistry.VOID), 0.5f, new MobEffectInstance(MobEffects.DARKNESS, 60, 0)));
     public static final RegistryObject<Item> HOLIDAY_KATANA = ITEMS.register("holiday_katana",
     () -> new KatanaItem(ModItemTier.HOLIDAY, 0, -2.2f, new Item.Properties()));
     public static final RegistryObject<Item> IRON_KATANA = ITEMS.register("iron_katana",
@@ -288,6 +289,17 @@ public class ItemsRegistry{
     () -> new AxeItem(ModItemTier.INFERNAL, 16.25f, -2.8f, new Item.Properties().fireResistant().rarity(RarityRegistry.INFERNAL)));
     public static final RegistryObject<Item> INFERNAL_HOE = ITEMS.register("infernal_hoe",
     () -> new HoeItem(ModItemTier.INFERNAL, 0, 0f, new Item.Properties().fireResistant().rarity(RarityRegistry.INFERNAL)));
+    public static final RegistryObject<Item> VOID_EDGE = ITEMS.register("void_edge",
+    () -> new SwordItem(ModItemTier.NIHILITY, 10, -2.55f, new Item.Properties().rarity(RarityRegistry.VOID)));
+    public static final RegistryObject<Item> VOID_PICKAXE = ITEMS.register("void_pickaxe",
+    () -> new PickaxeItem(ModItemTier.NIHILITY, 8, -2.8f, new Item.Properties().fireResistant().rarity(RarityRegistry.VOID)));
+    public static final RegistryObject<Item> VOID_SHOVEL = ITEMS.register("void_shovel",
+    () -> new ShovelItem(ModItemTier.NIHILITY, 8.5f, -2.9f, new Item.Properties().fireResistant().rarity(RarityRegistry.VOID)));
+    public static final RegistryObject<Item> VOID_AXE = ITEMS.register("void_axe",
+    () -> new AxeItem(ModItemTier.NIHILITY, 18f, -2.8f, new Item.Properties().fireResistant().rarity(RarityRegistry.VOID)));
+    public static final RegistryObject<Item> VOID_HOE = ITEMS.register("void_hoe",
+    () -> new HoeItem(ModItemTier.NIHILITY, 0, 0f, new Item.Properties().fireResistant().rarity(RarityRegistry.VOID)));
+
     // ACCESSORIES (category)
     public static final RegistryObject<Item> PICK_NECKLACE = ITEMS.register("pick_necklace",
     () -> new PickNecklace(new Item.Properties().stacksTo(1).durability(320).rarity(Rarity.EPIC)));

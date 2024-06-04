@@ -6,7 +6,7 @@
   },
   "core": "nature_core",
   "cores": 1,
-  "time": 520,
+  "time": 1500,
   "ingredients": [
     {
       "item": "minecraft:netherite_helmet"

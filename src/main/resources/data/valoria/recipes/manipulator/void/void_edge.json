@@ -1,0 +1,18 @@
+{
+  "type": "valoria:manipulator",
+  "output": {
+    "count": 1,
+    "item": "valoria:void_edge"
+  },
+  "core": "void_core",
+  "cores": 1,
+  "time": 525,
+  "ingredients": [
+    {
+      "item": "valoria:infernal_sword"
+    },
+    {
+      "item": "valoria:void_ingot"
+    }
+  ]
+}

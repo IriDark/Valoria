@@ -6,7 +6,7 @@
   },
   "core": "infernal_core",
   "cores": 1,
-  "time": 550,
+  "time": 1540,
   "ingredients": [
     {
       "item": "valoria:depth_boots"

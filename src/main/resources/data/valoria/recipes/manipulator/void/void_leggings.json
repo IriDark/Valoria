@@ -1,0 +1,18 @@
+{
+  "type": "valoria:manipulator",
+  "output": {
+    "count": 1,
+    "item": "valoria:void_leggings"
+  },
+  "core": "void_core",
+  "cores": 1,
+  "time": 1560,
+  "ingredients": [
+    {
+      "item": "valoria:infernal_leggings"
+    },
+    {
+      "item": "valoria:void_ingot"
+    }
+  ]
+}

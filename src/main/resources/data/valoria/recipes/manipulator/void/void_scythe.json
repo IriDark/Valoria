@@ -1,0 +1,18 @@
+{
+  "type": "valoria:manipulator",
+  "output": {
+    "count": 1,
+    "item": "valoria:void_scythe"
+  },
+  "core": "void_core",
+  "cores": 1,
+  "time": 525,
+  "ingredients": [
+    {
+      "item": "valoria:infernal_scythe"
+    },
+    {
+      "item": "valoria:void_ingot"
+    }
+  ]
+}

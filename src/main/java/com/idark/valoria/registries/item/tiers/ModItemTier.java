@@ -26,6 +26,7 @@ public enum ModItemTier implements Tier{
     () -> Ingredient.of(ItemsRegistry.AQUARIUS_INGOT.get())),
     INFERNAL(7, 4256, 13f, 0f, 16,
     () -> Ingredient.of(ItemsRegistry.INFERNAL_INGOT.get())),
+    NIHILITY(8, 4651, 14F, 0F, 18, () -> Ingredient.of(ItemsRegistry.NIHILITY_SHARD.get())),
     BLOOD(4, 2431, 9.0F, 4.0F, 15,
     () -> Ingredient.of(ItemsRegistry.PAIN_CRYSTAL.get()));
 

@@ -6,7 +6,7 @@
   },
   "core": "aquarius_core",
   "cores": 1,
-  "time": 550,
+  "time": 1520,
   "ingredients": [
     {
       "item": "valoria:nature_chestplate"

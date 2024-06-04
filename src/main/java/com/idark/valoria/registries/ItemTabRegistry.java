@@ -101,6 +101,7 @@ public abstract class ItemTabRegistry{
             event.accept(ItemsRegistry.BONE_FRAGMENT);
             event.accept(ItemsRegistry.PAIN_CRYSTAL);
             event.accept(ItemsRegistry.PYRATITE);
+            event.accept(ItemsRegistry.NIHILITY_SHARD);
             event.accept(ItemsRegistry.ILLUSION_STONE);
             event.accept(ItemsRegistry.NATURE_CORE);
             event.accept(ItemsRegistry.AQUARIUS_CORE);
@@ -158,7 +159,6 @@ public abstract class ItemTabRegistry{
             event.accept(ItemsRegistry.CORPSECLEAVER);
             event.accept(ItemsRegistry.BLOODHOUND);
             event.accept(ItemsRegistry.BRONZE_SWORD);
-            event.accept(ItemsRegistry.VOID_EDGE);
             event.accept(ItemsRegistry.QUANTUM_REAPER);
             event.accept(ItemsRegistry.BLAZE_REAP);
             event.accept(ItemsRegistry.PHANTOM);
@@ -219,6 +219,12 @@ public abstract class ItemTabRegistry{
             event.accept(ItemsRegistry.INFERNAL_SHOVEL);
             event.accept(ItemsRegistry.INFERNAL_AXE);
             event.accept(ItemsRegistry.INFERNAL_HOE);
+            event.accept(ItemsRegistry.VOID_EDGE);
+            event.accept(ItemsRegistry.VOID_SCYTHE);
+            event.accept(ItemsRegistry.VOID_PICKAXE);
+            event.accept(ItemsRegistry.VOID_SHOVEL);
+            event.accept(ItemsRegistry.VOID_AXE);
+            event.accept(ItemsRegistry.VOID_HOE);
             event.accept(ItemsRegistry.SAMURAI_LONG_BOW);
             event.accept(ItemsRegistry.NATURE_BOW);
             event.accept(ItemsRegistry.AQUARIUS_BOW);
