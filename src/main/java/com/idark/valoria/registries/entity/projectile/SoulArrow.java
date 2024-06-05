@@ -1,21 +1,18 @@
 package com.idark.valoria.registries.entity.projectile;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.client.particle.ParticleRegistry;
-import com.idark.valoria.client.particle.types.Particles;
-import com.idark.valoria.registries.EntityTypeRegistry;
-import com.idark.valoria.util.RandomUtil;
-import com.idark.valoria.util.ValoriaUtils;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.projectile.AbstractArrow;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.Vec3;
+import com.idark.valoria.*;
+import com.idark.valoria.client.particle.*;
+import com.idark.valoria.client.particle.types.*;
+import com.idark.valoria.registries.*;
+import com.idark.valoria.util.*;
+import net.minecraft.resources.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.projectile.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.phys.*;
 
-import java.util.Random;
+import java.util.*;
 
 public class SoulArrow extends AbstractValoriaArrow implements IProjectileTexture{
 
@@ -30,7 +27,7 @@ public class SoulArrow extends AbstractValoriaArrow implements IProjectileTextur
     @Override
     public void tick(){
         super.tick();
-        ValoriaUtils.inaccurateHomingMovement(0.01f, this, this.level(), this.getOwner(), new AABB(this.getX() - 4.5f, this.getY() - 4.5f, this.getZ() - 4.5f, this.getX() + 4.5f, this.getY() + 4.5f, this.getZ() + 4.5f));
+        ValoriaUtils.inaccurateHomingMovement(0.05f, this, this.level(), this.getOwner(), new AABB(this.getX() - 4.5f, this.getY() - 4.5f, this.getZ() - 4.5f, this.getX() + 4.5f, this.getY() + 4.5f, this.getZ() + 4.5f));
     }
 
     @Override

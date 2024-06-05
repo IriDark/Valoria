@@ -210,6 +210,7 @@ public class ValoriaUtils{
                     double dX = targetPos.x - projectile.getX();
                     double dY = targetPos.y - projectile.getY();
                     double dZ = targetPos.z - projectile.getZ();
+                    projectile.hurtMarked = true;
                     projectile.setDeltaMovement(projectile.getDeltaMovement().add(dX / Math.sqrt(dX * dX) * pSpeed, dY / Math.sqrt(dY * dY) * pSpeed, dZ / Math.sqrt(dZ * dZ) * pSpeed));
                 }
             }
