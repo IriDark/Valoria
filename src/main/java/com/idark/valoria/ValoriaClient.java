@@ -85,6 +85,7 @@ public class ValoriaClient{
                 event.register((stack, tintIndex) -> 9100543, QuarkIntegration.LoadedOnly.SHADEWOOD_LEAF_CARPET.get(), QuarkIntegration.LoadedOnly.SHADEWOOD_LEAF_HEDGE.get());
             }
 
+            event.register((p_92708_, p_92709_) -> p_92709_ > 0 ? -1 : ((DyeableLeatherItem)p_92708_.getItem()).getColor(p_92708_), ItemsRegistry.LEATHER_GLOVES.get());
             event.register((p_92708_, p_92709_) -> p_92709_ > 0 ? -1 : ((DyeableLeatherItem)p_92708_.getItem()).getColor(p_92708_), ItemsRegistry.JEWELRY_BAG.get());
         }
 

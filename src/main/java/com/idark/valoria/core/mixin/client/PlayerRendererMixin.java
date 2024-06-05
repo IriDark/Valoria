@@ -13,6 +13,7 @@ import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.entity.*;
 import net.minecraft.client.renderer.entity.player.*;
 import net.minecraft.client.renderer.texture.*;
+import net.minecraft.world.item.*;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.*;
@@ -54,12 +55,26 @@ public abstract class PlayerRendererMixin extends LivingEntityRenderer<AbstractC
                         if(pRenderLayer == null || pTexture == null) return;
 
                         var pModel = new HandsModel(Minecraft.getInstance().getEntityModels().bakeLayer(pRenderLayer));
-                        if(pArm == pModel.right_glove){
-                            pModel.right_glove.copyFrom(pArm);
-                            pModel.right_glove.render(pPose, pBuffer.getBuffer(RenderType.entityTranslucent(pTexture)), pLight, OverlayTexture.NO_OVERLAY);
-                        }else{
-                            pModel.left_glove.copyFrom(pArm);
-                            pModel.left_glove.render(pPose, pBuffer.getBuffer(RenderType.entityTranslucent(pTexture)), pLight, OverlayTexture.NO_OVERLAY);
+                        int k = ((DyeableLeatherItem)item).getColor(slot.stack());
+                        float f = (float)(k >> 16 & 255) / 255.0F;
+                        float f1 = (float)(k >> 8 & 255) / 255.0F;
+                        float f2 = (float)(k & 255) / 255.0F;
+                        if(item instanceof DyeableGlovesItem){
+                            if(pArm == pModel.right_glove){
+                                pModel.right_glove.copyFrom(pArm);
+                                pModel.right_glove.render(pPose, pBuffer.getBuffer(RenderType.entityTranslucent(pTexture)), pLight, OverlayTexture.NO_OVERLAY, f, f1, f2, 1);
+                            }else{
+                                pModel.left_glove.copyFrom(pArm);
+                                pModel.left_glove.render(pPose, pBuffer.getBuffer(RenderType.entityTranslucent(pTexture)), pLight, OverlayTexture.NO_OVERLAY, f, f1, f2, 1);
+                            }
+                        } else {
+                            if(pArm == pModel.right_glove){
+                                pModel.right_glove.copyFrom(pArm);
+                                pModel.right_glove.render(pPose, pBuffer.getBuffer(RenderType.entityTranslucent(pTexture)), pLight, OverlayTexture.NO_OVERLAY);
+                            }else{
+                                pModel.left_glove.copyFrom(pArm);
+                                pModel.left_glove.render(pPose, pBuffer.getBuffer(RenderType.entityTranslucent(pTexture)), pLight, OverlayTexture.NO_OVERLAY);
+                            }
                         }
                     }
                 }

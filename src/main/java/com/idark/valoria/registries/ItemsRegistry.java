@@ -396,7 +396,7 @@ public class ItemsRegistry{
     public static final RegistryObject<Item> NETHERITE_RING_SAPPHIRE = ITEMS.register("netherite_ring_sapphire",
     () -> new CurioItemProperty(Tiers.NETHERITE, AccessoryType.RING, AccessoryGem.SAPPHIRE, AccessoryMaterial.NETHERITE, new Item.Properties().stacksTo(1).durability(420).rarity(Rarity.EPIC)));
     public static final RegistryObject<Item> LEATHER_GLOVES = ITEMS.register("leather_gloves",
-    () -> new GlovesItem(ModItemTier.NONE, AccessoryGem.NONE, AccessoryMaterial.LEATHER, new Item.Properties().stacksTo(1).durability(100).rarity(Rarity.UNCOMMON)));
+    () -> new DyeableGlovesItem(ModItemTier.NONE, new Item.Properties().stacksTo(1).durability(100).rarity(Rarity.UNCOMMON)));
     public static final RegistryObject<Item> IRON_GLOVES = ITEMS.register("iron_gloves",
     () -> new GlovesItem(Tiers.IRON, AccessoryGem.ARMOR, AccessoryMaterial.IRON, new Item.Properties().stacksTo(1).durability(190).rarity(Rarity.UNCOMMON)));
     public static final RegistryObject<Item> GOLDEN_GLOVES = ITEMS.register("golden_gloves",

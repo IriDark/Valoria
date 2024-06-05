@@ -108,23 +108,13 @@ public class GlovesItem extends TieredItem implements ICurioItem, ICurioTexture,
 
     @Override
     public ResourceLocation getTexture(ItemStack stack, LivingEntity entity){
-        if(!HandsRenderer.isDefault){
-            return switch(material){
-                case LEATHER -> getGlovesTexture("leather", true);
-                case IRON -> getGlovesTexture("iron", true);
-                case GOLD -> getGlovesTexture("golden", true);
-                case DIAMOND -> getGlovesTexture("diamond", true);
-                case NETHERITE -> getGlovesTexture("netherite", true);
-            };
-        }else{
-            return switch(material){
-                case LEATHER -> getGlovesTexture("leather", false);
-                case IRON -> getGlovesTexture("iron", false);
-                case GOLD -> getGlovesTexture("golden", false);
-                case DIAMOND -> getGlovesTexture("diamond", false);
-                case NETHERITE -> getGlovesTexture("netherite", false);
-            };
-        }
+        return switch(material){
+            case LEATHER -> getGlovesTexture("leather", !HandsRenderer.isDefault);
+            case IRON -> getGlovesTexture("iron", !HandsRenderer.isDefault);
+            case GOLD -> getGlovesTexture("golden", !HandsRenderer.isDefault);
+            case DIAMOND -> getGlovesTexture("diamond", HandsRenderer.isDefault);
+            case NETHERITE -> getGlovesTexture("netherite", HandsRenderer.isDefault);
+        };
     }
 
     @Override

@@ -1,7 +1,6 @@
 package com.idark.valoria.client.render.curio.model;
 
 import com.google.common.collect.*;
-import com.mojang.blaze3d.vertex.*;
 import net.minecraft.client.model.*;
 import net.minecraft.client.model.geom.*;
 import net.minecraft.client.model.geom.builders.*;
@@ -63,10 +62,5 @@ public class JewelryBagModel extends HumanoidModel<LivingEntity>{
     @Override
     protected Iterable<ModelPart> bodyParts(){
         return ImmutableList.of(root.getChild("body"));
-    }
-
-    @Override
-    public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha){
-        super.renderToBuffer(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
     }
 }
