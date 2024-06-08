@@ -9,8 +9,9 @@
     "HalfTransparentBlockMixin",
     "InventoryMixin",
     "ItemEntityMixin",
-    "ItemMixin",
+    "LivingEntityMixin",
     "MixinCooldownTracker",
+    "PlayerMixin",
     "RangedAttributeMixin"
   ],
   "client": [
