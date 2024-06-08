@@ -155,6 +155,8 @@ public abstract class ItemTabRegistry{
             event.accept(ItemsRegistry.AQUARIUS_INGOT);
             event.accept(ItemsRegistry.INFERNAL_INGOT);
             event.accept(ItemsRegistry.VOID_INGOT);
+            event.accept(ItemsRegistry.SPIDER_FANG);
+            event.accept(ItemsRegistry.SILKEN_BLADE);
             event.accept(ItemsRegistry.CLUB);
             event.accept(ItemsRegistry.CORPSECLEAVER);
             event.accept(ItemsRegistry.BLOODHOUND);
@@ -162,6 +164,7 @@ public abstract class ItemTabRegistry{
             event.accept(ItemsRegistry.QUANTUM_REAPER);
             event.accept(ItemsRegistry.BLAZE_REAP);
             event.accept(ItemsRegistry.PHANTOM);
+            event.accept(ItemsRegistry.SILKEN_KUNAI);
             event.accept(ItemsRegistry.SAMURAI_KUNAI);
             event.accept(ItemsRegistry.SAMURAI_POISONED_KUNAI);
             event.accept(ItemsRegistry.SPECTRAL_BLADE);
@@ -184,6 +187,7 @@ public abstract class ItemTabRegistry{
             event.accept(ItemsRegistry.DIAMOND_SCYTHE);
             event.accept(ItemsRegistry.NETHERITE_SCYTHE);
             event.accept(ItemsRegistry.BEAST);
+            event.accept(ItemsRegistry.SILKEN_WAKIZASHI);
             event.accept(ItemsRegistry.HOLIDAY_KATANA);
             event.accept(ItemsRegistry.IRON_KATANA);
             event.accept(ItemsRegistry.GOLDEN_KATANA);

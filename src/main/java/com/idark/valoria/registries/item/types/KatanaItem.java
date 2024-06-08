@@ -32,7 +32,6 @@ import java.util.*;
 
 public class KatanaItem extends SwordItem implements ICooldownItem{
     public float chance = 1;
-
     public final ImmutableList<MobEffectInstance> effects;
     public final Multimap<Attribute, AttributeModifier> defaultModifiers;
 

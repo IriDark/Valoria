@@ -1,5 +1,6 @@
 package com.idark.valoria.registries.entity.projectile;
 
+import com.google.common.collect.*;
 import com.idark.valoria.registries.*;
 import net.minecraft.core.particles.*;
 import net.minecraft.nbt.*;
@@ -11,10 +12,13 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.entity.projectile.*;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.alchemy.*;
 import net.minecraft.world.item.enchantment.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
 import org.jetbrains.annotations.*;
+
+import java.util.*;
 
 public class KunaiEntity extends AbstractKunai implements ItemSupplier{
     public static final EntityDataAccessor<Byte> LOYALTY_LEVEL = SynchedEntityData.defineId(KunaiEntity.class, EntityDataSerializers.BYTE);
@@ -22,6 +26,7 @@ public class KunaiEntity extends AbstractKunai implements ItemSupplier{
     private static final EntityDataAccessor<ItemStack> DATA_ITEM_STACK = SynchedEntityData.defineId(KunaiEntity.class, EntityDataSerializers.ITEM_STACK);
     public float rotationVelocity = 0;
     public int returningTicks;
+    private final Set<MobEffectInstance> effects = Sets.newHashSet();
 
     public KunaiEntity(EntityType<? extends KunaiEntity> type, Level worldIn){
         super(type, worldIn);
@@ -89,6 +94,26 @@ public class KunaiEntity extends AbstractKunai implements ItemSupplier{
         return this.getItem().copy();
     }
 
+    protected void onBelowWorld(){
+        if(this.getOwner() instanceof Player player){
+            if(!player.getAbilities().instabuild){
+                player.spawnAtLocation(this.getItem());
+            }
+        }
+
+        super.onBelowWorld();
+    }
+
+    protected void doPostHurtEffects(LivingEntity pLiving){
+        super.doPostHurtEffects(pLiving);
+        Entity entity = this.getEffectSource();
+        if(!this.effects.isEmpty()){
+            for(MobEffectInstance effect : this.effects){
+                pLiving.addEffect(effect, entity);
+            }
+        }
+    }
+
     @Override
     public void onHitEntity(EntityHitResult result){
         Entity entity = result.getEntity();
@@ -111,10 +136,6 @@ public class KunaiEntity extends AbstractKunai implements ItemSupplier{
                 }
 
                 if(entity instanceof LivingEntity living){
-                    if(this.getItem().is(ItemsRegistry.SAMURAI_POISONED_KUNAI.get())){
-                        living.addEffect(new MobEffectInstance(MobEffects.POISON, 170, 0));
-                    }
-
                     EnchantmentHelper.doPostHurtEffects(living, player);
                     EnchantmentHelper.doPostDamageEffects((LivingEntity)shooter, player);
                     this.doPostHurtEffects(living);
@@ -123,8 +144,21 @@ public class KunaiEntity extends AbstractKunai implements ItemSupplier{
         }
     }
 
+    public void addEffect(MobEffectInstance pEffectInstance){
+        this.effects.add(pEffectInstance);
+    }
+
     public void addAdditionalSaveData(CompoundTag compound){
         super.addAdditionalSaveData(compound);
+        if(!this.effects.isEmpty()){
+            ListTag listtag = new ListTag();
+            for(MobEffectInstance mobeffectinstance : this.effects){
+                listtag.add(mobeffectinstance.save(new CompoundTag()));
+            }
+
+            compound.put("CustomPotionEffects", listtag);
+        }
+
         compound.putBoolean("DealtDamage", this.returnToPlayer);
         compound.putByte("PierceLevel", this.getPierceLevel());
         ItemStack itemstack = this.getItemRaw();
@@ -135,6 +169,10 @@ public class KunaiEntity extends AbstractKunai implements ItemSupplier{
 
     public void readAdditionalSaveData(CompoundTag compound){
         super.readAdditionalSaveData(compound);
+        for(MobEffectInstance mobeffectinstance : PotionUtils.getCustomEffects(compound)){
+            this.addEffect(mobeffectinstance);
+        }
+
         this.returnToPlayer = compound.getBoolean("DealtDamage");
         this.setPierceLevel(compound.getByte("PierceLevel"));
         this.entityData.set(LOYALTY_LEVEL, (byte)EnchantmentHelper.getLoyalty(this.getItem()));
@@ -147,6 +185,12 @@ public class KunaiEntity extends AbstractKunai implements ItemSupplier{
         int i = this.entityData.get(LOYALTY_LEVEL);
         if(this.pickup != AbstractArrow.Pickup.ALLOWED || i <= 0){
             super.tickDespawn();
+        }
+    }
+
+    public void setEffectsFromList(ImmutableList<MobEffectInstance> effects){
+        for(MobEffectInstance mobeffectinstance : effects){
+            this.effects.add(new MobEffectInstance(mobeffectinstance));
         }
     }
 

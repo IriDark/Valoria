@@ -102,6 +102,7 @@ public class ItemsRegistry{
     public static final RegistryObject<Item> CUP = ITEMS.register("cup", () -> new Item(new Item.Properties().stacksTo(16)));
     public static final RegistryObject<Item> BOTTLE = ITEMS.register("bottle", () -> new Item(new Item.Properties().stacksTo(16)));
     public static final RegistryObject<Item> ALOE_PIECE = ITEMS.register("aloe_piece", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> SPIDER_FANG = ITEMS.register("spider_fang", () -> new Item(new Item.Properties()));
 
     public static final RegistryObject<Item> LEXICON = ITEMS.register("lexicon", () -> new LexiconItem(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> CRYPT = ITEMS.register("page", () -> new LexiconPageItem(new Item.Properties().stacksTo(1), RegisterUnlockables.CRYPT, "gui.valoria.crypt.name"));
@@ -169,18 +170,23 @@ public class ItemsRegistry{
     public static final RegistryObject<Item> MURASAMA = ITEMS.register("murasama",
     () -> new MurasamaItem(ModItemTier.SAMURAI, 5, -2.4f, new Item.Properties()));
     public static final RegistryObject<Item> SAMURAI_KUNAI = ITEMS.register("samurai_kunai",
-    () -> new KunaiItem(new Item.Properties().durability(360)));
+    () -> new KunaiItem(3, -1.9F, new Item.Properties().durability(360)));
     public static final RegistryObject<Item> SAMURAI_POISONED_KUNAI = ITEMS.register("samurai_poisoned_kunai",
-    () -> new KunaiItem(new Item.Properties().durability(360)));
+    () -> new KunaiItem(3, -1.9F, new Item.Properties().durability(360), new MobEffectInstance(MobEffects.POISON, 170, 0)));
     public static final RegistryObject<Item> SPECTRAL_BLADE = ITEMS.register("spectral_blade",
     () -> new SpectralBladeItem(new Item.Properties().durability(852)));
     public static final RegistryObject<Item> CORPSECLEAVER = ITEMS.register("corpsecleaver",
     () -> new CorpseCleaverItem(ModItemTier.BLOOD, 2, -2.4F, new Item.Properties().durability(1151)));
+    public static final RegistryObject<Item> SILKEN_BLADE = ITEMS.register("silken_blade",
+    () -> new HitEffectItem(ModItemTier.NONE, 5, -3.2f, new Item.Properties(), 0.25f, new MobEffectInstance(MobEffects.DARKNESS, 120, 0), new MobEffectInstance(MobEffects.POISON, 45, 0)));
+    public static final RegistryObject<Item> SILKEN_WAKIZASHI = ITEMS.register("silken_wakizashi",
+    () -> new KatanaItem(ModItemTier.NONE, 0, -2.2f, 3, new Item.Properties(), 0.25f, new MobEffectInstance(MobEffects.DARKNESS, 120, 0), new MobEffectInstance(MobEffects.POISON, 45, 0)));
+    public static final RegistryObject<Item> SILKEN_KUNAI = ITEMS.register("silken_kunai",
+    () -> new KunaiItem(0, -2.2f, new Item.Properties(), 0.25f, new MobEffectInstance(MobEffects.DARKNESS, 120, 0), new MobEffectInstance(MobEffects.POISON, 45, 0)));
 
     // Placeholder for Entity Render
     public static final RegistryObject<Item> SPECTRAL_BLADE_THROWN = ITEMS.register("spectral_blade_thrown",
     () -> new Item(new Item.Properties()));
-
     public static final RegistryObject<Item> WOODEN_SPEAR = ITEMS.register("wooden_spear",
     () -> new SpearItem(Tiers.WOOD, 3, -3f, 1.4f, new Item.Properties()));
     public static final RegistryObject<Item> STONE_SPEAR = ITEMS.register("stone_spear",
@@ -226,7 +232,7 @@ public class ItemsRegistry{
     public static final RegistryObject<Item> INFERNAL_SCYTHE = ITEMS.register("infernal_scythe",
     () -> new InfernalScytheItem(ModItemTier.INFERNAL, 14, -3.0f, new Item.Properties().fireResistant().rarity(RarityRegistry.INFERNAL)));
     public static final RegistryObject<Item> VOID_SCYTHE = ITEMS.register("void_scythe",
-    () -> new ScytheItem(ModItemTier.NIHILITY, 16, -3.0f, 3, new Item.Properties().fireResistant().rarity(RarityRegistry.VOID), 0.5f, new MobEffectInstance(MobEffects.DARKNESS, 60, 0)));
+    () -> new ScytheItem(ModItemTier.NIHILITY, 16, -3.0f, 3, new Item.Properties().fireResistant().rarity(RarityRegistry.VOID), 0.5f, new MobEffectInstance(MobEffects.DARKNESS, 90, 0)));
     public static final RegistryObject<Item> HOLIDAY_KATANA = ITEMS.register("holiday_katana",
     () -> new KatanaItem(ModItemTier.HOLIDAY, 0, -2.2f, new Item.Properties()));
     public static final RegistryObject<Item> IRON_KATANA = ITEMS.register("iron_katana",

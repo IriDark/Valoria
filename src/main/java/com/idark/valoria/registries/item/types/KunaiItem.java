@@ -25,14 +25,28 @@ import java.util.*;
 
 public class KunaiItem extends SwordItem{
     private final Multimap<Attribute, AttributeModifier> tridentAttributes;
+    public final ImmutableList<MobEffectInstance> effects;
+    public float chance = 1;
 
-    public KunaiItem(Item.Properties builderIn){
-        super(ModItemTier.NONE, 3, -1.9F, builderIn);
+    public KunaiItem(int damage, float speed, Item.Properties builderIn, float chance, MobEffectInstance... pEffects){
+        super(ModItemTier.NONE, damage, speed, builderIn);
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
         builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", 3, AttributeModifier.Operation.ADDITION));
         builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Tool modifier", -1.9F, AttributeModifier.Operation.ADDITION));
         builder.put(AttributeRegistry.PROJECTILE_DAMAGE.get(), new AttributeModifier(UUID.fromString("5334b818-69d4-417e-b4b8-1869d4917e29"), "Tool modifier", 6.0F, AttributeModifier.Operation.ADDITION));
         this.tridentAttributes = builder.build();
+        this.chance = chance;
+        this.effects = ImmutableList.copyOf(pEffects);
+    }
+
+    public KunaiItem(int damage, float speed, Item.Properties builderIn, MobEffectInstance... pEffects){
+        super(ModItemTier.NONE, damage, speed, builderIn);
+        ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
+        builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", 3, AttributeModifier.Operation.ADDITION));
+        builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Tool modifier", -1.9F, AttributeModifier.Operation.ADDITION));
+        builder.put(AttributeRegistry.PROJECTILE_DAMAGE.get(), new AttributeModifier(UUID.fromString("5334b818-69d4-417e-b4b8-1869d4917e29"), "Tool modifier", 6.0F, AttributeModifier.Operation.ADDITION));
+        this.tridentAttributes = builder.build();
+        this.effects = ImmutableList.copyOf(pEffects);
     }
 
     public boolean canAttackBlock(BlockState state, Level worldIn, BlockPos pos, Player player){
@@ -59,6 +73,7 @@ public class KunaiItem extends SwordItem{
                     stack.hurtAndBreak(1, playerEntity, (player) -> player.broadcastBreakEvent(entityLiving.getUsedItemHand()));
                     KunaiEntity kunaiEntity = new KunaiEntity(worldIn, playerEntity, stack);
                     kunaiEntity.shootFromRotation(playerEntity, playerEntity.getXRot(), playerEntity.getYRot(), 0.0F, 2.5F + (float)0 * 0.5F, 1.0F);
+                    kunaiEntity.setEffectsFromList(effects);
                     kunaiEntity.setItem(stack);
                     if(playerEntity.getAbilities().instabuild){
                         kunaiEntity.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
@@ -87,9 +102,17 @@ public class KunaiItem extends SwordItem{
     }
 
     public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker){
-        if(stack.is(ItemsRegistry.SAMURAI_POISONED_KUNAI.get())){
-            if(RandomUtil.percentChance(0.25f)){
-                target.addEffect(new MobEffectInstance(MobEffects.POISON, 425, 0));
+        if(!effects.isEmpty()){
+            if(chance < 1 || chance != 0){
+                for(MobEffectInstance effectInstance : effects){
+                    if(RandomUtil.percentChance(chance)){
+                        target.addEffect(new MobEffectInstance(effectInstance));
+                    }
+                }
+            }else{
+                for(MobEffectInstance effectInstance : effects){
+                    target.addEffect(new MobEffectInstance(effectInstance));
+                }
             }
         }
 
@@ -104,5 +127,6 @@ public class KunaiItem extends SwordItem{
     public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags){
         super.appendHoverText(stack, world, tooltip, flags);
         tooltip.add(Component.translatable("tooltip.valoria.kunai").withStyle(ChatFormatting.GRAY));
+        ValoriaUtils.addEffectsTooltip(effects, tooltip, 1, chance);
     }
 }

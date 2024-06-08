@@ -266,7 +266,6 @@ public class ThrownSpearEntity extends AbstractValoriaArrow implements ItemSuppl
                 if(entity instanceof LivingEntity living){
                     EnchantmentHelper.doPostHurtEffects(living, player);
                     EnchantmentHelper.doPostDamageEffects(player, living);
-
                     this.doPostHurtEffects(living);
                 }
             }
