@@ -60,14 +60,4 @@ public abstract class PlayerMixin{
             cir.setReturnValue(true);
         }
     }
-
-    @Inject(method = "eat", at = @At("HEAD"), cancellable = true)
-    public void eat(Level pLevel, ItemStack pFood, CallbackInfoReturnable<ItemStack> cir) {
-        Player player = (Player) ((Object) this);
-        if(pFood.isEdible() && player.hasEffect(EffectsRegistry.STUN.get())){
-            player.stopUsingItem();
-        }
-
-        cir.setReturnValue(pFood);
-    }
 }
