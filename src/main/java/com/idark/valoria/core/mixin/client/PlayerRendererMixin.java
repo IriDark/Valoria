@@ -55,11 +55,11 @@ public abstract class PlayerRendererMixin extends LivingEntityRenderer<AbstractC
                         if(pRenderLayer == null || pTexture == null) return;
 
                         var pModel = new HandsModel(Minecraft.getInstance().getEntityModels().bakeLayer(pRenderLayer));
-                        int k = ((DyeableLeatherItem)item).getColor(slot.stack());
-                        float f = (float)(k >> 16 & 255) / 255.0F;
-                        float f1 = (float)(k >> 8 & 255) / 255.0F;
-                        float f2 = (float)(k & 255) / 255.0F;
                         if(item instanceof DyeableGlovesItem){
+                            int k = ((DyeableLeatherItem)item).getColor(slot.stack());
+                            float f = (float)(k >> 16 & 255) / 255.0F;
+                            float f1 = (float)(k >> 8 & 255) / 255.0F;
+                            float f2 = (float)(k & 255) / 255.0F;
                             if(pArm == pModel.right_glove){
                                 pModel.right_glove.copyFrom(pArm);
                                 pModel.right_glove.render(pPose, pBuffer.getBuffer(RenderType.entityTranslucent(pTexture)), pLight, OverlayTexture.NO_OVERLAY, f, f1, f2, 1);
