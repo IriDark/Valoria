@@ -30,13 +30,10 @@ public class HandsRenderer implements ICurioRenderer{
         return isDefault;
     }
 
+    // todo: awful code, redo
     @Override
     public <T extends LivingEntity, M extends EntityModel<T>> void render(ItemStack stack, SlotContext slotContext, PoseStack matrixStack, RenderLayerParent<T, M> renderLayerParent, MultiBufferSource renderTypeBuffer, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch){
         LivingEntity entity = slotContext.entity();
-        int k = ((DyeableLeatherItem)stack.getItem()).getColor(stack);
-        float f = (float)(k >> 16 & 255) / 255.0F;
-        float f1 = (float)(k >> 8 & 255) / 255.0F;
-        float f2 = (float)(k & 255) / 255.0F;
         if(stack.getItem() instanceof ICurioTexture curio){
             TEXTURE = curio.getTexture(stack, entity);
         }
@@ -47,6 +44,11 @@ public class HandsRenderer implements ICurioRenderer{
             ICurioRenderer.followBodyRotations(entity, model);
             model.setupAnim(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
             if(stack.getItem() instanceof DyeableGlovesItem){
+                int k = ((DyeableLeatherItem)stack.getItem()).getColor(stack);
+                float f = (float)(k >> 16 & 255) / 255.0F;
+                float f1 = (float)(k >> 8 & 255) / 255.0F;
+                float f2 = (float)(k & 255) / 255.0F;
+
                 model.renderToBuffer(matrixStack, renderTypeBuffer.getBuffer(RenderType.entityCutoutNoCull(TEXTURE)), light, OverlayTexture.NO_OVERLAY, f, f1, f2, 1);
             } else {
                 model.renderToBuffer(matrixStack, renderTypeBuffer.getBuffer(RenderType.entityCutoutNoCull(TEXTURE)), light, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
@@ -57,6 +59,11 @@ public class HandsRenderer implements ICurioRenderer{
             ICurioRenderer.followBodyRotations(entity, model);
             model.setupAnim(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
             if(stack.getItem() instanceof DyeableGlovesItem){
+                int k = ((DyeableLeatherItem)stack.getItem()).getColor(stack);
+                float f = (float)(k >> 16 & 255) / 255.0F;
+                float f1 = (float)(k >> 8 & 255) / 255.0F;
+                float f2 = (float)(k & 255) / 255.0F;
+
                 model.renderToBuffer(matrixStack, renderTypeBuffer.getBuffer(RenderType.entityCutoutNoCull(TEXTURE)), light, OverlayTexture.NO_OVERLAY, f, f1, f2, 1);
             } else {
                 model.renderToBuffer(matrixStack, renderTypeBuffer.getBuffer(RenderType.entityCutoutNoCull(TEXTURE)), light, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
