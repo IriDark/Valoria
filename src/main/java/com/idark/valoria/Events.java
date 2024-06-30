@@ -82,6 +82,41 @@ public class Events{
     }
 
     @SubscribeEvent
+    public void onEntityInteract(PlayerInteractEvent.EntityInteract event){
+        if(event.getEntity().hasEffect(EffectsRegistry.STUN.get())){
+            event.setCanceled(true);
+        }
+    }
+
+    @SubscribeEvent
+    public void onLivingBlockDestroy(LivingDestroyBlockEvent event){
+        if(event.getEntity().hasEffect(EffectsRegistry.STUN.get())){
+            event.setCanceled(true);
+        }
+    }
+
+    @SubscribeEvent
+    public void onPlayerBlockDestroy(PlayerEvent.BreakSpeed event){
+        if(event.getEntity().hasEffect(EffectsRegistry.STUN.get())){
+            event.setNewSpeed(-1);
+        }
+    }
+
+    @SubscribeEvent
+    public void onItemPickup(EntityItemPickupEvent event){
+        if(event.getEntity().hasEffect(EffectsRegistry.STUN.get())){
+            event.setCanceled(true);
+        }
+    }
+
+    @SubscribeEvent
+    public void onUseItem(LivingEntityUseItemEvent event){
+        if(event.getEntity().hasEffect(EffectsRegistry.STUN.get())){
+            event.setCanceled(true);
+        }
+    }
+
+    @SubscribeEvent
     public void critDamage(CriticalHitEvent event){
         if(CuriosApi.getCuriosHelper().findEquippedCurio(ItemsRegistry.RUNE_OF_ACCURACY.get(), event.getEntity()).isPresent()){
             if(RandomUtil.percentChance(0.1f)){

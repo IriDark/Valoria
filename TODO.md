@@ -28,4 +28,7 @@
 - Fix to the ability (Works weird on server)
 - Work on GFX side of the ability
 - Something like on-screen particles would be cool
+---
+### Winglets, Gazers, Totems
+- Finish them, maybe with all other Archeology content?
 
