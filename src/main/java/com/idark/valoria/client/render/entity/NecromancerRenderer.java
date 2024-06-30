@@ -28,6 +28,7 @@ public class NecromancerRenderer extends HumanoidMobRenderer<NecromancerEntity, 
         return TEXTURE;
     }
 
+    @Deprecated
     public void render(NecromancerEntity entityIn, float entityYaw, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light){
         if(entityIn.getCurrentSpell().hasAura){
             float alpha = 1;

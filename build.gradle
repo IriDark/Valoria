@@ -101,7 +101,7 @@ dependencies {
     // API's
     compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}+${minecraft_version}:api")
     compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
-    implementation fg.deobf("curse.maven:farmers-delight-398521:4679319") // todo: compat
+    implementation fg.deobf("curse.maven:farmers-delight-398521:4679319")
     implementation fg.deobf("curse.maven:jade-324717:4986594")
     implementation fg.deobf("maven.modrinth:quark:${minecraft_version}-4.0-439")
     implementation fg.deobf("maven.modrinth:zeta:${minecraft_version}-1.0-14")

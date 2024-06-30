@@ -13,14 +13,6 @@ import net.minecraft.world.item.*;
 import net.minecraftforge.api.distmarker.*;
 import org.lwjgl.glfw.*;
 
-//TODO:
-// Add more pages
-// Add Research tree (not sure, but would be interesting idea)
-// Add Progression to the mod, which will be shown in one of pages
-// More work on GFX side
-// Improve whole UI
-// Rework some shitty code
-// Finish Main Page
 @OnlyIn(Dist.CLIENT)
 public class LexiconGui extends Screen{
     public static final ResourceLocation BACKGROUND = new ResourceLocation(Valoria.ID, "textures/gui/book/lexicon.png");
