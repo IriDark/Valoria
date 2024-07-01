@@ -117,6 +117,20 @@ public class Events{
     }
 
     @SubscribeEvent
+    public void onAttack(AttackEntityEvent event){
+        if(event.getEntity().hasEffect(EffectsRegistry.STUN.get())){
+            event.setCanceled(true);
+        }
+    }
+
+    @SubscribeEvent
+    public void onLivingAttack(LivingAttackEvent event){
+        if(event.getSource().getEntity() instanceof LivingEntity e){
+            if(e.hasEffect(EffectsRegistry.STUN.get())) event.setCanceled(true);
+        }
+    }
+
+    @SubscribeEvent
     public void critDamage(CriticalHitEvent event){
         if(CuriosApi.getCuriosHelper().findEquippedCurio(ItemsRegistry.RUNE_OF_ACCURACY.get(), event.getEntity()).isPresent()){
             if(RandomUtil.percentChance(0.1f)){
