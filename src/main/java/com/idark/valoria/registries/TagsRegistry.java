@@ -1,13 +1,13 @@
 package com.idark.valoria.registries;
 
-import com.idark.valoria.Valoria;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.TagKey;
-import net.minecraft.world.damagesource.DamageType;
-import net.minecraft.world.entity.decoration.PaintingVariant;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
+import com.idark.valoria.*;
+import net.minecraft.core.registries.*;
+import net.minecraft.resources.*;
+import net.minecraft.tags.*;
+import net.minecraft.world.damagesource.*;
+import net.minecraft.world.entity.decoration.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.block.*;
 
 public class TagsRegistry{
 
@@ -40,5 +40,6 @@ public class TagsRegistry{
     public static final TagKey<Item> ALCOHOL = item(new ResourceLocation(Valoria.ID, "alcohol"));
     public static final TagKey<Item> RUM = item(new ResourceLocation(Valoria.ID, "rum"));
     public static final TagKey<Item> GEODES = item(new ResourceLocation(Valoria.ID, "geodes"));
+    public static final TagKey<Item> SMOKE_PARTICLE = item(new ResourceLocation(Valoria.ID, "smoke_particle"));
     public static final TagKey<PaintingVariant> MODDED = painting(new ResourceLocation(Valoria.ID, "painting"));
 }

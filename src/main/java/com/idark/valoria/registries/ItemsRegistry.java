@@ -86,13 +86,6 @@ public class ItemsRegistry{
     public static final RegistryObject<Item> STONE_GEODE = ITEMS.register("stone_geode", () -> new DescriptionItem("tooltip.valoria.geode", new Item.Properties().rarity(Rarity.EPIC)));
     public static final RegistryObject<Item> MINERS_BAG = ITEMS.register("miners_bag", () -> new DropItemProperty(DropType.MINERS, new Item.Properties().rarity(Rarity.EPIC)));
     public static final RegistryObject<Item> GEM_BAG = ITEMS.register("gem_bag", () -> new DropItemProperty(DropType.GEM, new Item.Properties().rarity(Rarity.EPIC)));
-    public static final RegistryObject<Item> NATURE_GIFT = ITEMS.register("nature_gift", () -> new ParticleMaterialItem(ParticleRegistry.GLOWING_SPHERE.get(), new int[]{20, 235, 0}, new int[]{132, 235, 22}, 0.35f, new Item.Properties().stacksTo(16).rarity(RarityRegistry.NATURE)));
-    public static final RegistryObject<Item> OCEANIC_SHELL = ITEMS.register("oceanic_shell", () -> new ParticleMaterialItem(ParticleRegistry.GLOWING_SPHERE.get(), new int[]{20, 145, 235}, new int[]{45, 0, 0}, 0.35f, new Item.Properties().stacksTo(16).rarity(RarityRegistry.AQUARIUS)));
-    public static final RegistryObject<Item> INFERNAL_STONE = ITEMS.register("infernal_stone", () -> new ParticleMaterialItem(ParticleRegistry.GLOWING_SPHERE.get(), new int[]{255, 145, 45}, new int[]{45, 0, 0}, 0.35f, new Item.Properties().stacksTo(16).rarity(RarityRegistry.INFERNAL)));
-    public static final RegistryObject<Item> BONE_FRAGMENT = ITEMS.register("bone_fragment", () -> new ParticleMaterialItem(ParticleRegistry.GLOWING_SPHERE.get(), new int[]{145, 235, 25}, new int[]{132, 215, 22}, 0.35f, new Item.Properties().stacksTo(16)));
-    public static final RegistryObject<Item> PAIN_CRYSTAL = ITEMS.register("pain_crystal", () -> new Item(new Item.Properties().stacksTo(16)));
-    public static final RegistryObject<Item> NIHILITY_SHARD = ITEMS.register("nihility_shard", () -> new Item(new Item.Properties().stacksTo(16)));
-    public static final RegistryObject<Item> ILLUSION_STONE = ITEMS.register("illusion_stone", () -> new Item(new Item.Properties().rarity(RarityRegistry.PHANTASM).stacksTo(16)));
     public static final RegistryObject<Item> SOUL_COLLECTOR_EMPTY = ITEMS.register("soul_collector_empty", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> SOUL_COLLECTOR = ITEMS.register("soul_collector", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> VOID_KEY = ITEMS.register("void_key", () -> new Item(new Item.Properties().stacksTo(8).rarity(RarityRegistry.VOID)));
@@ -103,6 +96,14 @@ public class ItemsRegistry{
     public static final RegistryObject<Item> BOTTLE = ITEMS.register("bottle", () -> new Item(new Item.Properties().stacksTo(16)));
     public static final RegistryObject<Item> ALOE_PIECE = ITEMS.register("aloe_piece", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> SPIDER_FANG = ITEMS.register("spider_fang", () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> NATURE_GIFT = ITEMS.register("nature_gift", () -> new ParticleMaterialItem(ParticleRegistry.GLOWING_SPHERE.get(), new int[]{20, 235, 0}, new int[]{132, 235, 22}, 0.35f, new Item.Properties().stacksTo(16).rarity(RarityRegistry.NATURE)));
+    public static final RegistryObject<Item> OCEANIC_SHELL = ITEMS.register("oceanic_shell", () -> new ParticleMaterialItem(ParticleRegistry.GLOWING_SPHERE.get(), new int[]{20, 145, 235}, new int[]{45, 0, 0}, 0.35f, new Item.Properties().stacksTo(16).rarity(RarityRegistry.AQUARIUS)));
+    public static final RegistryObject<Item> INFERNAL_STONE = ITEMS.register("infernal_stone", () -> new ParticleMaterialItem(ParticleRegistry.GLOWING_SPHERE.get(), new int[]{255, 145, 45}, new int[]{45, 0, 0}, 0.35f, new Item.Properties().stacksTo(16).rarity(RarityRegistry.INFERNAL)));
+    public static final RegistryObject<Item> BONE_FRAGMENT = ITEMS.register("bone_fragment", () -> new ParticleMaterialItem(ParticleRegistry.GLOWING_SPHERE.get(), new int[]{145, 235, 25}, new int[]{132, 215, 22}, 0.35f, new Item.Properties().stacksTo(16)));
+    public static final RegistryObject<Item> PAIN_CRYSTAL = ITEMS.register("pain_crystal", () -> new ParticleMaterialItem(ParticleRegistry.GLOWING_SPHERE.get(), new int[]{225, 42, 25}, new int[]{168, 92, 212}, 0.35f, new Item.Properties().stacksTo(16)));
+    public static final RegistryObject<Item> NIHILITY_SHARD = ITEMS.register("nihility_shard", () -> new ParticleMaterialItem(ParticleRegistry.GLOWING_SPHERE.get(), new int[]{215, 35, 145}, new int[]{25, 62, 25}, 0.35f, new Item.Properties().stacksTo(16).rarity(RarityRegistry.VOID)));
+    public static final RegistryObject<Item> ILLUSION_STONE = ITEMS.register("illusion_stone", () -> new ParticleMaterialItem(ParticleRegistry.GLOWING_SPHERE.get(), new int[]{145, 217, 215}, new int[]{255, 255, 255}, 0.35f, new Item.Properties().stacksTo(16).rarity(RarityRegistry.PHANTASM)));
 
     public static final RegistryObject<Item> LEXICON = ITEMS.register("lexicon", () -> new LexiconItem(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> CRYPT = ITEMS.register("page", () -> new LexiconPageItem(new Item.Properties().stacksTo(1), RegisterUnlockables.CRYPT, "gui.valoria.crypt.name"));

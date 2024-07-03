@@ -49,7 +49,7 @@ public class ParticleMaterialItem extends Item implements IParticleItem{
                 .spawn(level, entity.getX() + (rand.nextDouble() - 0.5f) / 4, entity.getY() + 0.35F, entity.getZ());
             }
 
-            if(entity.getItem().is(ItemsRegistry.INFERNAL_STONE.get())){
+            if(entity.getItem().is(TagsRegistry.SMOKE_PARTICLE)){
                 Particles.create(ParticleRegistry.SPHERE)
                 .addVelocity((rand.nextDouble() / 32), 0.062f, (rand.nextDouble() / 32))
                 .setAlpha(alpha, 0)
