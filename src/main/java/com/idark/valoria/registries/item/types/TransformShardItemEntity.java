@@ -1,9 +1,9 @@
 package com.idark.valoria.registries.item.types;
 
 import com.idark.valoria.client.particle.*;
-import com.idark.valoria.client.particle.types.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.item.interfaces.*;
+import com.idark.valoria.util.*;
 import net.minecraft.core.*;
 import net.minecraft.core.particles.*;
 import net.minecraft.sounds.*;
@@ -15,14 +15,16 @@ import net.minecraft.world.item.context.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.*;
+import net.minecraft.world.phys.*;
+import team.lodestar.lodestone.systems.particle.data.color.*;
 
 import java.util.*;
 
-//TODO: probably rework
-public class TransformShardItem extends Item implements IParticleItem{
+//TODO: probably rework (maybe?)
+public class TransformShardItemEntity extends Item implements IParticleItemEntity{
     Random rand = new Random();
 
-    public TransformShardItem(Properties properties){
+    public TransformShardItemEntity(Properties properties){
         super(properties);
     }
 
@@ -44,14 +46,8 @@ public class TransformShardItem extends Item implements IParticleItem{
             if(stack.is(ItemsRegistry.AMETHYST.get())){
                 worldIn.setBlockAndUpdate(pos, BlockRegistry.VOID_PILLAR_AMETHYST.get().defaultBlockState().setValue(RotatedPillarBlock.AXIS, state.getValue(RotatedPillarBlock.AXIS)));
                 for(int i = 0; i < 26; i++){
-                    Particles.create(ParticleRegistry.TRANSFORM_PARTICLE)
-                    .addVelocity(((rand.nextDouble() - 0.5D) / 30), ((rand.nextDouble() - 0.5D) / 30), ((rand.nextDouble() - 0.5D) / 30))
-                    .setAlpha(1.0f, 0)
-                    .setScale(0.3f, 0)
-                    .setColor(0.466f, 0.643f, 0.815f, 0.466f, 0.643f, 0.815f)
-                    .setLifetime(36)
-                    .setSpin((0.5f * (float)((rand.nextDouble() - 0.5D) * 2)))
-                    .spawn(worldIn, pos.getX() + (rand.nextDouble() * 1.25), pos.getY() + 0.5F + ((rand.nextDouble() - 0.5D) * 1.25), pos.getZ() + 0.5F + ((rand.nextDouble() - 0.5D) * 1.25));
+                    Vec3 position = new Vec3(pos.getX() + (rand.nextDouble() * 1.25), pos.getY() + 0.5F + ((rand.nextDouble() - 0.5D) * 1.25), pos.getZ() + 0.5F + ((rand.nextDouble() - 0.5D) * 1.25));
+                    ParticleEffects.transformParticle(worldIn, position, ColorParticleData.create(Pal.moderatePink, Pal.verySoftPink).build()).spawnParticles();
                 }
             }else{
                 worldIn.setBlockAndUpdate(pos, BlockRegistry.CHARGED_VOID_PILLAR.get().defaultBlockState().setValue(RotatedPillarBlock.AXIS, state.getValue(RotatedPillarBlock.AXIS)));
@@ -69,25 +65,12 @@ public class TransformShardItem extends Item implements IParticleItem{
     }
 
     @Override
-    public void addParticles(Level level, ItemEntity entity){
+    public void spawnParticles(Level level, ItemEntity entity){
+        Vec3 pos = new Vec3(entity.getX() + (rand.nextDouble() - 0.5f) / 6, entity.getY() + 0.4F, entity.getZ());
         if(entity.getItem().is(ItemsRegistry.AMETHYST.get())){
-            Particles.create(ParticleRegistry.GLOWING_SPHERE)
-            .addVelocity((rand.nextDouble() / 30), 0.05f, (rand.nextDouble() / 30))
-            .setAlpha(0.25f, 0)
-            .setScale(0.1f, 0)
-            .setColor(0.866f, 0.643f, 0.815f, 0.266f, 0.943f, 5.815f)
-            .setLifetime(7)
-            .setSpin((0.5f * (float)((rand.nextDouble() - 0.5D) * 2)))
-            .spawn(level, entity.getX() + (rand.nextDouble() - 0.5f) / 2, entity.getY() + 0.4F, entity.getZ());
+            ParticleEffects.itemParticles(level, pos, ColorParticleData.create(Pal.softMagenta, Pal.strongRed).build()).spawnParticles();
         }else{
-            Particles.create(ParticleRegistry.GLOWING_SPHERE)
-            .addVelocity((rand.nextDouble() / 30), 0.05f, (rand.nextDouble() / 30))
-            .setAlpha(0.25f, 0)
-            .setScale(0.1f, 0)
-            .setColor(0.466f, 0.643f, 0.815f, 1.466f, 0.643f, 0.815f)
-            .setLifetime(7)
-            .setSpin((0.5f * (float)((rand.nextDouble() - 0.5D) * 2)))
-            .spawn(level, entity.getX() + (rand.nextDouble() - 0.5f) / 2, entity.getY() + 0.4F, entity.getZ());
+            ParticleEffects.itemParticles(level, pos, ColorParticleData.create(Pal.oceanic, Pal.moderatePink).build()).spawnParticles();
         }
     }
 }

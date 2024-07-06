@@ -2,32 +2,27 @@ package com.idark.valoria.core.network.packets;
 
 import com.idark.valoria.*;
 import com.idark.valoria.client.particle.*;
-import com.idark.valoria.client.particle.types.*;
 import net.minecraft.network.*;
 import net.minecraft.world.level.*;
+import net.minecraft.world.phys.*;
 import net.minecraftforge.network.*;
 import org.joml.*;
+import team.lodestar.lodestone.systems.particle.data.color.*;
 
+import java.awt.*;
 import java.lang.Math;
 import java.util.function.*;
 
 public class ManipulatorParticlePacket{
 
-    private final float posX;
-    private final float posY;
-    private final float posZ;
-    private final float posToX;
-    private final float posToY;
-    private final float posToZ;
+    private final double posX, posY, posZ, posToX, posToY, posToZ;
     private final float yawRaw;
+    private final int colorR, colorG, colorB;
 
-    private final float colorR, colorG, colorB;
-
-    public ManipulatorParticlePacket(float posX, float posY, float posZ, float yawRaw, float posToX, float posToY, float posToZ, float colorR, float colorG, float colorB){
+    public ManipulatorParticlePacket(double posX, double posY, double posZ, double posToX, double posToY, double posToZ, float yawRaw, int colorR, int colorG, int colorB){
         this.posX = posX;
         this.posY = posY;
         this.posZ = posZ;
-
         this.posToX = posToX;
         this.posToY = posToY;
         this.posToZ = posToZ;
@@ -39,13 +34,13 @@ public class ManipulatorParticlePacket{
     }
 
     public static ManipulatorParticlePacket decode(FriendlyByteBuf buf){
-        return new ManipulatorParticlePacket(buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat());
+        return new ManipulatorParticlePacket(buf.readDouble(), buf.readDouble(), buf.readDouble(), buf.readDouble(), buf.readDouble(), buf.readDouble(), buf.readFloat(), buf.readInt(), buf.readInt(), buf.readInt());
     }
 
     public static void handle(ManipulatorParticlePacket msg, Supplier<NetworkEvent.Context> ctx){
         if(ctx.get().getDirection().getReceptionSide().isClient()){
             ctx.get().enqueueWork(() -> {
-                Level world = Valoria.proxy.getWorld();
+                Level pLevel = Valoria.proxy.getWorld();
                 double pitch = ((90) * Math.PI) / 180;
                 double yaw = ((msg.yawRaw + 90) * Math.PI) / 180;
 
@@ -56,31 +51,25 @@ public class ManipulatorParticlePacket{
                 double Y = Math.cos(locPitch + pitch) * pRadius * 0.75F;
                 double Z = Math.sin(locPitch + pitch) * Math.sin(locYaw + yaw) * pRadius * 0.75F;
                 Vector3d d = new Vector3d(msg.posX - msg.posToX, msg.posY - msg.posToY, msg.posZ - msg.posToZ);
-                Particles.create(ParticleRegistry.GLOWING_SPHERE)
-                .addVelocity(d.x, d.y, d.z)
-                .setAlpha(0.52f, 0)
-                .setScale(0.1f, 0)
-                .setColor(msg.colorR / 255, msg.colorG / 255, msg.colorB / 255, 0, 0, 0)
-                .setLifetime(6)
-                .spawn(world, msg.posX + X, msg.posY + Y + ((Math.random() - 0.5D) * 0.2F), msg.posZ + Z);
-
+                Vec3 particlePos = new Vec3(msg.posX + X, msg.posY + Y + ((Math.random() - 0.5D) * 0.2F), msg.posZ + Z);
+                Color color = new Color(msg.colorR, msg.colorG, msg.colorB);
+                ParticleEffects.particles(pLevel, particlePos, ColorParticleData.create(color, Color.white).build()).getBuilder().setMotion(d.x, d.y, d.z).spawn(pLevel, particlePos.x, particlePos.y, particlePos.z);
                 ctx.get().setPacketHandled(true);
             });
         }
     }
 
     public void encode(FriendlyByteBuf buf){
-        buf.writeFloat(posX);
-        buf.writeFloat(posY);
-        buf.writeFloat(posZ);
+        buf.writeDouble(posX);
+        buf.writeDouble(posY);
+        buf.writeDouble(posZ);
+        buf.writeDouble(posToX);
+        buf.writeDouble(posToY);
+        buf.writeDouble(posToZ);
+
         buf.writeFloat(yawRaw);
-
-        buf.writeFloat(posToX);
-        buf.writeFloat(posToY);
-        buf.writeFloat(posToZ);
-
-        buf.writeFloat(colorR);
-        buf.writeFloat(colorG);
-        buf.writeFloat(colorB);
+        buf.writeInt(colorR);
+        buf.writeInt(colorG);
+        buf.writeInt(colorB);
     }
 }

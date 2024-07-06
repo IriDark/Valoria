@@ -1,0 +1,49 @@
+package com.idark.valoria.client.particle;
+
+import net.minecraft.client.*;
+import team.lodestar.lodestone.registry.common.particle.*;
+import team.lodestar.lodestone.systems.easing.*;
+import team.lodestar.lodestone.systems.particle.builder.*;
+import team.lodestar.lodestone.systems.particle.data.*;
+import team.lodestar.lodestone.systems.particle.data.color.*;
+import team.lodestar.lodestone.systems.particle.data.spin.*;
+import team.lodestar.lodestone.systems.particle.screen.*;
+
+import static net.minecraft.util.Mth.nextFloat;
+
+public class ScreenParticleRegistry{
+    public static void spawnLightParticles(ScreenParticleHolder target, ColorParticleData data){
+        var rand = Minecraft.getInstance().level.getRandom();
+        ScreenParticleBuilder.create(LodestoneScreenParticleRegistry.SPARKLE, target)
+        .setTransparencyData(GenericParticleData.create(0.04f, 0f).setEasing(Easing.SINE_IN_OUT).build())
+        .setScaleData(GenericParticleData.create(0.8f + rand.nextFloat() * 0.1f, 0).setEasing(Easing.SINE_IN_OUT, Easing.BOUNCE_IN_OUT).build())
+        .setColorData(data)
+        .setLifetime(10 + rand.nextInt(10))
+        .setRandomOffset(0.05f)
+        .setRandomMotion(0.05f, 0.05f)
+        .spawnOnStack(0, 0);
+
+        ScreenParticleBuilder.create(LodestoneScreenParticleRegistry.WISP, target)
+        .setTransparencyData(GenericParticleData.create(0.03f, 0f).setEasing(Easing.SINE_IN_OUT).build())
+        .setSpinData(SpinParticleData.create(nextFloat(rand, 0.2f, 0.4f)).setEasing(Easing.EXPO_OUT).build())
+        .setScaleData(GenericParticleData.create(0.6f + rand.nextFloat() * 0.4f, 0).setEasing(Easing.EXPO_OUT).build())
+        .setColorData(data)
+        .setLifetime(20 + rand.nextInt(8))
+        .setRandomOffset(0.1f)
+        .setRandomMotion(0.4f, 0.4f)
+        .spawnOnStack(0, 0);
+    }
+
+    public static void spawnCoreParticles(ScreenParticleHolder target, ColorParticleData data){
+        var rand = Minecraft.getInstance().level.getRandom();
+        ScreenParticleBuilder.create(LodestoneScreenParticleRegistry.SPARKLE, target)
+        .setTransparencyData(GenericParticleData.create(0.10f, 0f).setEasing(Easing.SINE_IN_OUT).build())
+        .setScaleData(GenericParticleData.create(0.8f + rand.nextFloat() * 0.1f, 0).setEasing(Easing.SINE_IN_OUT, Easing.BOUNCE_IN_OUT).build())
+        .setSpinData(SpinParticleData.create(nextFloat(rand, 0f, 0.152f)).setEasing(Easing.CIRC_IN).build())
+        .setColorData(data)
+        .setLifetime(8 + rand.nextInt(10))
+        .setRandomOffset(0.05f)
+        .setRandomMotion(0.025f, 0.025f)
+        .spawnOnStack(0, 0);
+    }
+}

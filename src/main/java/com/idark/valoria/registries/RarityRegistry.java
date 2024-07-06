@@ -1,16 +1,16 @@
 package com.idark.valoria.registries;
 
-import net.minecraft.network.chat.Style;
-import net.minecraft.network.chat.TextColor;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Rarity;
+import com.idark.valoria.util.*;
+import net.minecraft.network.chat.*;
+import net.minecraft.resources.*;
+import net.minecraft.world.item.*;
 
-import java.util.function.UnaryOperator;
+import java.util.function.*;
 
 public class RarityRegistry{
 
     public static UnaryOperator<Style> infernal_modifier = style -> style
-    .withColor(TextColor.fromRgb(0xd8401d))
+    .withColor(TextColor.fromRgb(Pal.infernal.getRGB()))
     .withBold(false)
     .withItalic(false)
     .withUnderlined(false)
@@ -19,7 +19,7 @@ public class RarityRegistry{
     .withFont(new ResourceLocation("minecraft", "default"));
 
     public static UnaryOperator<Style> aquarius_modifier = style -> style
-    .withColor(TextColor.fromRgb(0xb6ffe7))
+    .withColor(TextColor.fromRgb(Pal.oceanic.getRGB()))
     .withBold(false)
     .withItalic(false)
     .withUnderlined(false)
@@ -29,7 +29,7 @@ public class RarityRegistry{
 
 
     public static UnaryOperator<Style> nature_modifier = style -> style
-    .withColor(TextColor.fromRgb(0x88ed68))
+    .withColor(TextColor.fromRgb(Pal.nature.getRGB()))
     .withBold(false)
     .withItalic(false)
     .withUnderlined(false)
@@ -38,7 +38,7 @@ public class RarityRegistry{
     .withFont(new ResourceLocation("minecraft", "default"));
 
     public static UnaryOperator<Style> void_modifier = style -> style
-    .withColor(TextColor.fromRgb(0xf06de7))
+    .withColor(TextColor.fromRgb(Pal.softMagenta.getRGB()))
     .withBold(false)
     .withItalic(false)
     .withUnderlined(false)
@@ -47,7 +47,7 @@ public class RarityRegistry{
     .withFont(new ResourceLocation("minecraft", "default"));
 
     public static UnaryOperator<Style> phantasm_modifier = style -> style
-    .withColor(TextColor.fromRgb(0x8269db))
+    .withColor(TextColor.fromRgb(Pal.softBlue.getRGB()))
     .withBold(false)
     .withItalic(false)
     .withUnderlined(false)

@@ -18,8 +18,8 @@ public abstract class ItemEntityMixin{
     public void addParticles(CallbackInfo ci){
         ItemEntity self = (ItemEntity)((Object)this);
         if(self.level().isClientSide){
-            if(self.getItem().getItem() instanceof IParticleItem item){
-                item.addParticles(Valoria.proxy.getWorld(), self);
+            if(self.getItem().getItem() instanceof IParticleItemEntity item){
+                item.spawnParticles(Valoria.proxy.getWorld(), self);
             }
         }
     }

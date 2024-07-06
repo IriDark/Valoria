@@ -77,7 +77,7 @@ public class UmbralBlock extends Block{
     }
 
     // TODO: Fix scheduling
-    // When player leaves world / server closes on returning state, block cant tick, and will be opened until there's a neighbor update
+    // When player leaves world / server closes on block returning state, block cant tick anymore, and will be opened until there's an neighbor update
     @Deprecated
     public void tick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom){
         if(pState.getValue(ACTIVE)){

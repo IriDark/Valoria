@@ -2,22 +2,22 @@ package com.idark.valoria.core.network.packets;
 
 import com.idark.valoria.*;
 import com.idark.valoria.client.particle.*;
-import com.idark.valoria.client.particle.types.*;
 import com.idark.valoria.util.*;
 import net.minecraft.core.particles.*;
 import net.minecraft.network.*;
 import net.minecraft.world.level.*;
+import net.minecraft.world.phys.*;
 import net.minecraftforge.network.*;
+import team.lodestar.lodestone.registry.common.particle.*;
+import team.lodestar.lodestone.systems.particle.data.color.*;
+import team.lodestar.lodestone.systems.particle.world.options.*;
 
-import java.util.*;
+import java.awt.*;
 import java.util.function.*;
 
 public class FireTrapParticlePacket{
 
-    private final double posX;
-    private final double posY;
-    private final double posZ;
-
+    private final double posX, posY, posZ;
     private final int colorR, colorG, colorB;
     private final int colorToR, colorToG, colorToB;
 
@@ -44,23 +44,11 @@ public class FireTrapParticlePacket{
             ctx.get().enqueueWork(() -> {
                 Level level = Valoria.proxy.getWorld();
                 for(int i = 0; i < 20; i++){
-                    Particles.create(ParticleRegistry.GLOWING_SPHERE)
-                    .addVelocity((new Random().nextDouble() - 0.5D) / 30, (new Random().nextDouble() + 0.5D) / 6, (new Random().nextDouble() - 0.5D) / 30)
-                    .setAlpha(0.15f, 0)
-                    .setScale(0.32f + RandomUtil.randomValueUpTo(0.2f), RandomUtil.randomValueUpTo(0.2f))
-                    .setColor(msg.colorR, msg.colorG, msg.colorB, msg.colorToR, msg.colorToG, msg.colorToB)
-                    .setLifetime(21)
-                    .setSpin(0.5f)
-                    .spawn(level, msg.posX, msg.posY + 1.2f, msg.posZ);
-                    Particles.create(ParticleRegistry.SPHERE)
-                    .addVelocity((new Random().nextDouble() - 0.2D) / 30, (new Random().nextDouble() + 0.2D) / 6, (new Random().nextDouble() - 0.2D) / 30)
-                    .setAlpha(0.25f, 0)
-                    .setScale(0.25f, RandomUtil.randomValueUpTo(0.55f))
-                    .setColor(0, 0, 0, 0, 0, 0)
-                    .setLifetime(32)
-                    .setSpin(0.5f)
-                    .spawn(level, msg.posX, msg.posY + 1.2f, msg.posZ);
-
+                    Color color = new Color(msg.colorR, msg.colorG, msg.colorB);
+                    Color colorTo = new Color(msg.colorToR, msg.colorToG, msg.colorToB);
+                    Vec3 pos = new Vec3(msg.posX, msg.posY + 1.2f, msg.posZ);
+                    ParticleEffects.fireParticles(level, pos, ColorParticleData.create(color, colorTo).build()).spawnParticles();
+                    ParticleEffects.smokeParticles(level, pos, ColorParticleData.create(Color.black, Pal.smoke).build(), new WorldParticleOptions(LodestoneParticleRegistry.SMOKE_PARTICLE)).spawnParticles();
                     level.addParticle(ParticleTypes.LAVA, msg.posX + 0.5, msg.posY + 1.5, msg.posZ + 0.5, 0.0D, 0.0D, 0.0D);
                 }
 
@@ -77,7 +65,6 @@ public class FireTrapParticlePacket{
         buf.writeInt(colorR);
         buf.writeInt(colorG);
         buf.writeInt(colorB);
-
         buf.writeInt(colorToR);
         buf.writeInt(colorToG);
         buf.writeInt(colorToB);

@@ -6,7 +6,7 @@ import net.minecraft.world.effect.*;
 public class StunEffect extends MobEffect{
 
     public StunEffect(){
-        super(MobEffectCategory.HARMFUL, ValoriaUtils.color.hexToDecimal("F6F1C5"));
+        super(MobEffectCategory.HARMFUL, ColorUtil.hexToDecimal("F6F1C5"));
     }
 
     @Override

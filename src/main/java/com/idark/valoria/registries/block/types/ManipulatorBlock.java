@@ -91,10 +91,7 @@ public class ManipulatorBlock extends Block implements EntityBlock{
             }
 
             for(int i = 0; i < 360; i += 10){
-                int r = builder.getCoreColor()[0];
-                int g = builder.getCoreColor()[1];
-                int b = builder.getCoreColor()[2];
-                PacketHandler.sendToTracking(world, pos, new ManipulatorParticlePacket(pos.getX() + 0.5f, pos.getY(), pos.getZ() + 0.5f, player.getRotationVector().y + i, pos.getX() + 0.5f, pos.getY() - 0.25F, pos.getZ() + 0.5f, r, g, b));
+                PacketHandler.sendToTracking(world, pos, new ManipulatorParticlePacket(pos.getX() + 0.5f, pos.getY(), pos.getZ() + 0.5f, pos.getX() + 0.5f, pos.getY() - 0.25F, pos.getZ() + 0.5f, player.getRotationVector().y + i, builder.getCoreColor().getRed(), builder.getCoreColor().getGreen(), builder.getCoreColor().getBlue()));
             }
 
             coreBlock.setCharge(builder.getCoreName(), builder.getGivenCores());

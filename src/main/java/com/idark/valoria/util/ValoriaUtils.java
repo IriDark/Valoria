@@ -644,40 +644,6 @@ public class ValoriaUtils{
         return null;
     }
 
-    public static class color{
-        public static int getAlpha(int packedColor){
-            return packedColor >>> 24;
-        }
-
-        public static int getRed(int packedColor){
-            return packedColor >> 16 & 255;
-        }
-
-        public static int getGreen(int packedColor){
-            return packedColor >> 8 & 255;
-        }
-
-        public static int getBlue(int packedColor){
-            return packedColor & 255;
-        }
-
-        public static int packColor(int alpha, int red, int green, int blue){
-            return alpha << 24 | red << 16 | green << 8 | blue;
-        }
-
-        public static int packColor(float red, float green, float blue){
-            return ((int)(red * 255.0F) & 255) << 16 | ((int)(green * 255.0F) & 255) << 8 | (int)(blue * 255.0F) & 255;
-        }
-
-        public static int packColor(float alpha, float red, float green, float blue){
-            return ((int)(alpha * 255.0F) & 255) << 24 | ((int)(red * 255.0F) & 255) << 16 | ((int)(green * 255.0F) & 255) << 8 | (int)(blue * 255.0F) & 255;
-        }
-
-        public static int hexToDecimal(String hex){
-            return Integer.parseInt(hex, 16);
-        }
-    }
-
     public static class tileEntity{
 
         public static void SUpdateTileEntityPacket(BlockEntity tile){

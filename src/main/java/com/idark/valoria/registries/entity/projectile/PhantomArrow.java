@@ -1,19 +1,16 @@
 package com.idark.valoria.registries.entity.projectile;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.client.particle.ParticleRegistry;
-import com.idark.valoria.client.particle.types.Particles;
-import com.idark.valoria.registries.EntityTypeRegistry;
-import com.idark.valoria.util.RandomUtil;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.projectile.AbstractArrow;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.Vec3;
-
-import java.util.Random;
+import com.idark.valoria.*;
+import com.idark.valoria.client.particle.*;
+import com.idark.valoria.registries.*;
+import com.idark.valoria.util.*;
+import net.minecraft.resources.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.projectile.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.phys.*;
+import team.lodestar.lodestone.systems.particle.data.color.*;
 
 public class PhantomArrow extends AbstractValoriaArrow implements IProjectileTexture{
 
@@ -32,17 +29,8 @@ public class PhantomArrow extends AbstractValoriaArrow implements IProjectileTex
             double a3 = vector3d.x;
             double a4 = vector3d.y;
             double a0 = vector3d.z;
-            Random rand = new Random();
-            for(int a = 0; a < 1; ++a){
-                Particles.create(ParticleRegistry.GLOWING_SPHERE)
-                .addVelocity((rand.nextDouble() / 32), 0.02f, (rand.nextDouble() / 32))
-                .setAlpha(1, 0)
-                .setScale(RandomUtil.randomValueUpTo(0.15f), 0)
-                .setColor(25, 60, 225, 32, 26, 235)
-                .setLifetime(6)
-                .setSpin((0.5f * (float)((rand.nextDouble() - 0.5D) * 2)))
-                .spawn(this.level(), this.getX() + a3 * (double)a / 4.0D, this.getY() + a4 * (double)a / 4.0D, this.getZ() + a0 * (double)a / 4.0D);
-            }
+            Vec3 pos = new Vec3(this.getX() + a3 * 0.5f, this.getY() + a4 * 0.5f, this.getZ()+ a0 * 0.5f);
+            ParticleEffects.trailMotionSparks(this.level(), pos, ColorParticleData.create(ColorUtil.valueOf("193ce1"), ColorUtil.valueOf("201aeb")).build()).spawnParticles();
         }
     }
 

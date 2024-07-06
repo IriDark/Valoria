@@ -18,9 +18,9 @@ public abstract class Page{
     public static void drawText(GuiGraphics gui, String text, int x, int y, boolean Centered){
         Font font = Minecraft.getInstance().font;
         if(!Centered){
-            gui.drawString(font, I18n.get(text), x, y, ValoriaUtils.color.packColor(255, 220, 200, 180), true);
+            gui.drawString(font, I18n.get(text), x, y, ColorUtil.packColor(255, 220, 200, 180), true);
         }else{
-            gui.drawCenteredString(font, I18n.get(text), x, y, ValoriaUtils.color.packColor(255, 220, 200, 180));
+            gui.drawCenteredString(font, I18n.get(text), x, y, ColorUtil.packColor(255, 220, 200, 180));
         }
     }
 

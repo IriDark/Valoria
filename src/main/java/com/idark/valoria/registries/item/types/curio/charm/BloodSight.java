@@ -1,7 +1,5 @@
 package com.idark.valoria.registries.item.types.curio.charm;
 
-import com.idark.valoria.client.particle.*;
-import com.idark.valoria.client.particle.types.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.item.interfaces.*;
 import com.idark.valoria.util.*;
@@ -23,7 +21,7 @@ import top.theillusivec4.curios.api.type.capability.*;
 import javax.annotation.*;
 import java.util.*;
 
-public class BloodSight extends Item implements ICurioItem, Vanishable, IParticleItem{
+public class BloodSight extends Item implements ICurioItem, Vanishable, IParticleItemEntity{
     private int hits = 0;
 
     public BloodSight(Properties properties){
@@ -101,23 +99,24 @@ public class BloodSight extends Item implements ICurioItem, Vanishable, IParticl
     }
 
     @Override
-    public void addParticles(Level level, ItemEntity entity){
-        if(entity.getItem().is(ItemsRegistry.BROKEN_BLOODSIGHT_MONOCLE.get())){
-            Particles.create(ParticleRegistry.SKULL)
-            .addVelocity(0.05f, 0.04f, 0.05f)
-            .setAlpha(0.25f, 0)
-            .setScale(0.1f, 0)
-            .setColor(0.366f, 0.643f, 0.315f, 0.915f, 0.225f, 0.915f)
-            .setLifetime(6)
-            .spawn(level, entity.getX() + (new Random().nextDouble() - 0.5f) / 2, entity.getY() + (new Random().nextDouble() + 0.1f) / 2, entity.getZ());
-        }else{
-            Particles.create(ParticleRegistry.GLITTER)
-            .addVelocity(0f, 0.04f, 0f)
-            .setAlpha(0.95f, 0)
-            .setScale(0.1f, 0)
-            .setColor(0f, 0f, 0f, 0f, 0f, 0.915f)
-            .setLifetime(6)
-            .spawn(level, entity.getX() + (new Random().nextDouble() - 0.5f) / 2, entity.getY() + (new Random().nextDouble() + 0.1f) / 2, entity.getZ());
-        }
+    public void spawnParticles(Level level, ItemEntity entity){
+        //todo
+//        if(entity.getItem().is(ItemsRegistry.BROKEN_BLOODSIGHT_MONOCLE.get())){
+//            Particles.create(ParticleRegistry.SKULL)
+//            .addVelocity(0.05f, 0.04f, 0.05f)
+//            .setAlpha(0.25f, 0)
+//            .setScale(0.1f, 0)
+//            .setColor(0.366f, 0.643f, 0.315f, 0.915f, 0.225f, 0.915f)
+//            .setLifetime(6)
+//            .spawn(level, entity.getX() + (new Random().nextDouble() - 0.5f) / 2, entity.getY() + (new Random().nextDouble() + 0.1f) / 2, entity.getZ());
+//        }else{
+//            Particles.create(ParticleRegistry.GLITTER)
+//            .addVelocity(0f, 0.04f, 0f)
+//            .setAlpha(0.95f, 0)
+//            .setScale(0.1f, 0)
+//            .setColor(0f, 0f, 0f, 0f, 0f, 0.915f)
+//            .setLifetime(6)
+//            .spawn(level, entity.getX() + (new Random().nextDouble() - 0.5f) / 2, entity.getY() + (new Random().nextDouble() + 0.1f) / 2, entity.getZ());
+//        }
     }
 }

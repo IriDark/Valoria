@@ -2,11 +2,14 @@ package com.idark.valoria.core.network.packets;
 
 import com.idark.valoria.*;
 import com.idark.valoria.client.particle.*;
-import com.idark.valoria.client.particle.types.*;
 import net.minecraft.network.*;
 import net.minecraft.world.level.*;
+import net.minecraft.world.phys.*;
 import net.minecraftforge.network.*;
+import team.lodestar.lodestone.systems.particle.data.*;
+import team.lodestar.lodestone.systems.particle.data.color.*;
 
+import java.awt.*;
 import java.util.function.*;
 
 public class ManipulatorEmptyParticlePacket{
@@ -41,21 +44,15 @@ public class ManipulatorEmptyParticlePacket{
     public static void handle(ManipulatorEmptyParticlePacket msg, Supplier<NetworkEvent.Context> ctx){
         if(ctx.get().getDirection().getReceptionSide().isClient()){
             ctx.get().enqueueWork(() -> {
-                Level world = Valoria.proxy.getWorld();
+                Level pLevel = Valoria.proxy.getWorld();
                 double pitch = ((90) * Math.PI) / 180;
                 float pRadius = 0.25f;
                 for(int i = 0; i < 360; i += 10){
                     double yaw = ((i + 90) * Math.PI) / 180;
-                    double X = Math.sin(pitch) * Math.cos(yaw) * pRadius * 0.75F;
-                    double Y = Math.cos(pitch) * pRadius * 0.75F;
-                    double Z = Math.sin(pitch) * Math.sin(yaw) * pRadius * 0.75F;
-                    Particles.create(ParticleRegistry.GLOWING_SPHERE)
-                    .addVelocity(0, 0.1f, 0)
-                    .setAlpha(0.45f, 0)
-                    .setScale(0.025f, 0)
-                    .setColor(msg.colorR, msg.colorG, msg.colorB, 0, 0, 0)
-                    .setLifetime(4)
-                    .spawn(world, msg.posX + X, msg.posY + Y + ((Math.random() - 0.5D) * 0.2F), msg.posZ + Z);
+                    double X = Math.sin(pitch) * Math.cos(yaw) * pRadius * 0.75F, Y = Math.cos(pitch) * pRadius * 0.75F, Z = Math.sin(pitch) * Math.sin(yaw) * pRadius * 0.75F;
+                    Vec3 particlePos = new Vec3(msg.posX + X, msg.posY + Y + ((Math.random() - 0.5D) * 0.2F), msg.posZ + Z);
+                    Color color = new Color(msg.colorR, msg.colorG, msg.colorB);
+                    ParticleEffects.particles(pLevel, particlePos, ColorParticleData.create(color, Color.black).build()).getBuilder().setMotion(0, 0.1f, 0).setLifetime(4).setScaleData(GenericParticleData.create(0.025f, 0).build()).spawn(pLevel, particlePos.x, particlePos.y, particlePos.z);
                 }
 
                 ctx.get().setPacketHandled(true);

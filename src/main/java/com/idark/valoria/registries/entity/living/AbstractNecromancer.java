@@ -1,8 +1,5 @@
 package com.idark.valoria.registries.entity.living;
 
-import com.idark.valoria.client.particle.*;
-import com.idark.valoria.client.particle.types.*;
-import net.minecraft.core.*;
 import net.minecraft.nbt.*;
 import net.minecraft.network.syncher.*;
 import net.minecraft.sounds.*;
@@ -11,11 +8,8 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.level.*;
-import org.joml.*;
 
 import javax.annotation.*;
-import java.lang.Math;
-import java.util.Random;
 import java.util.*;
 import java.util.function.*;
 
@@ -83,39 +77,40 @@ public abstract class AbstractNecromancer extends Monster{
             float f = this.yBodyRot * ((float)Math.PI / 180F) + Mth.cos(this.tickCount * 0.6662F) * 0.25F;
             float f1 = Mth.cos(f);
             float f2 = Mth.sin(f);
-            for(int i = 0; i < 1f; i++){
-                Particles.create(ParticleRegistry.GLOWING_SPHERE)
-                .addVelocity(((new Random().nextDouble() - 0.5D) / 30), (new Random().nextDouble() + 0.5D) / 6, (new Random().nextDouble() - 0.5D) / 30)
-                .setAlpha(0.65f, 0)
-                .setScale(0.2f, 0)
-                .setColor(r, g, b, 0, 0, 0)
-                .setLifetime(8)
-                .setSpin((0.5f * (float)((new Random().nextDouble() - 0.5D) * 2)))
-                .spawn(this.level(), this.getX() + 0.2 + (double)f1 * 0.6D, this.getY() + 1.8D, this.getZ() + 0.2 + (double)f2 * 0.6D)
-                .spawn(this.level(), this.getX() - 0.2 - (double)f1 * 0.6D, this.getY() + 1.8D, this.getZ() - 0.2 - (double)f2 * 0.6D);
-            }
-
-            if(spell.id == NecromancerSpells.SUMMON_MOBS.id || spell.id == NecromancerSpells.HEAL.id){
-                BlockPos blockpos = AbstractNecromancer.this.blockPosition().offset(-2 + AbstractNecromancer.this.random.nextInt(5), 0, -2 + AbstractNecromancer.this.random.nextInt(5));
-                Vector3d direction = new Vector3d(AbstractNecromancer.this.getX() - blockpos.getX(), AbstractNecromancer.this.getY() + blockpos.getY(), AbstractNecromancer.this.getZ() - blockpos.getZ()).normalize();
-                double speed = 0.3;
-                double motionX = direction.x * speed;
-                double motionY = direction.y * speed;
-                double motionZ = direction.z * speed;
-                for(int i = 0; i < 0.2f; i++){
-                    double startX = blockpos.getX() + 0.5;
-                    double startY = blockpos.getY() - 0.2;
-                    double startZ = blockpos.getZ() + 0.5;
-                    Particles.create(ParticleRegistry.GLOWING_SPHERE)
-                    .addVelocity(motionX, motionY, motionZ)
-                    .setAlpha(0.65f, 0)
-                    .setScale(0.2f, 0)
-                    .setColor(r, g, b, 0, 0, 0)
-                    .setLifetime(8)
-                    .setSpin((0.5f * (float)((new Random().nextDouble() - 0.5D) * 2)))
-                    .spawn(this.level(), startX, startY, startZ);
-                }
-            }
+            //todo
+//            for(int i = 0; i < 1f; i++){
+//                Particles.create(ParticleRegistry.GLOWING_SPHERE)
+//                .addVelocity(((new Random().nextDouble() - 0.5D) / 30), (new Random().nextDouble() + 0.5D) / 6, (new Random().nextDouble() - 0.5D) / 30)
+//                .setAlpha(0.65f, 0)
+//                .setScale(0.2f, 0)
+//                .setColor(r, g, b, 0, 0, 0)
+//                .setLifetime(8)
+//                .setSpin((0.5f * (float)((new Random().nextDouble() - 0.5D) * 2)))
+//                .spawn(this.level(), this.getX() + 0.2 + (double)f1 * 0.6D, this.getY() + 1.8D, this.getZ() + 0.2 + (double)f2 * 0.6D)
+//                .spawn(this.level(), this.getX() - 0.2 - (double)f1 * 0.6D, this.getY() + 1.8D, this.getZ() - 0.2 - (double)f2 * 0.6D);
+//            }
+//
+//            if(spell.id == NecromancerSpells.SUMMON_MOBS.id || spell.id == NecromancerSpells.HEAL.id){
+//                BlockPos blockpos = AbstractNecromancer.this.blockPosition().offset(-2 + AbstractNecromancer.this.random.nextInt(5), 0, -2 + AbstractNecromancer.this.random.nextInt(5));
+//                Vector3d direction = new Vector3d(AbstractNecromancer.this.getX() - blockpos.getX(), AbstractNecromancer.this.getY() + blockpos.getY(), AbstractNecromancer.this.getZ() - blockpos.getZ()).normalize();
+//                double speed = 0.3;
+//                double motionX = direction.x * speed;
+//                double motionY = direction.y * speed;
+//                double motionZ = direction.z * speed;
+//                for(int i = 0; i < 0.2f; i++){
+//                    double startX = blockpos.getX() + 0.5;
+//                    double startY = blockpos.getY() - 0.2;
+//                    double startZ = blockpos.getZ() + 0.5;
+//                    Particles.create(ParticleRegistry.GLOWING_SPHERE)
+//                    .addVelocity(motionX, motionY, motionZ)
+//                    .setAlpha(0.65f, 0)
+//                    .setScale(0.2f, 0)
+//                    .setColor(r, g, b, 0, 0, 0)
+//                    .setLifetime(8)
+//                    .setSpin((0.5f * (float)((new Random().nextDouble() - 0.5D) * 2)))
+//                    .spawn(this.level(), startX, startY, startZ);
+//                }
+//            }
         }
     }
 

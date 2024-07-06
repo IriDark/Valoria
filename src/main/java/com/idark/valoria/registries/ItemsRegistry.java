@@ -21,6 +21,8 @@ import net.minecraftforge.common.*;
 import net.minecraftforge.eventbus.api.*;
 import net.minecraftforge.registries.*;
 
+import java.awt.*;
+
 public class ItemsRegistry{
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Valoria.ID);
 
@@ -78,8 +80,8 @@ public class ItemsRegistry{
     public static final RegistryObject<Item> AMETHYST_GEM = ITEMS.register("amethyst_gem", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> RUBY_GEM = ITEMS.register("ruby_gem", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> SAPPHIRE_GEM = ITEMS.register("sapphire_gem", () -> new Item(new Item.Properties()));
-    public static final RegistryObject<Item> AMETHYST = ITEMS.register("wicked_amethyst", () -> new TransformShardItem(new Item.Properties().rarity(RarityRegistry.VOID)));
-    public static final RegistryObject<Item> SOUL_SHARD = ITEMS.register("soul_shard", () -> new TransformShardItem(new Item.Properties().rarity(RarityRegistry.AQUARIUS)));
+    public static final RegistryObject<Item> AMETHYST = ITEMS.register("wicked_amethyst", () -> new TransformShardItemEntity(new Item.Properties().rarity(RarityRegistry.VOID)));
+    public static final RegistryObject<Item> SOUL_SHARD = ITEMS.register("soul_shard", () -> new TransformShardItemEntity(new Item.Properties().rarity(RarityRegistry.AQUARIUS)));
     public static final RegistryObject<Item> UNCHARGED_SHARD = ITEMS.register("uncharged_shard", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> TOXINS_BOTTLE = ITEMS.register("toxins_bottle", () -> new Item(new Item.Properties().rarity(Rarity.EPIC)));
     public static final RegistryObject<Item> DIRT_GEODE = ITEMS.register("dirt_geode", () -> new DescriptionItem("tooltip.valoria.geode", new Item.Properties().rarity(Rarity.EPIC)));
@@ -97,13 +99,18 @@ public class ItemsRegistry{
     public static final RegistryObject<Item> ALOE_PIECE = ITEMS.register("aloe_piece", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> SPIDER_FANG = ITEMS.register("spider_fang", () -> new Item(new Item.Properties()));
 
-    public static final RegistryObject<Item> NATURE_GIFT = ITEMS.register("nature_gift", () -> new ParticleMaterialItem(ParticleRegistry.GLOWING_SPHERE.get(), new int[]{20, 235, 0}, new int[]{132, 235, 22}, 0.35f, new Item.Properties().stacksTo(16).rarity(RarityRegistry.NATURE)));
-    public static final RegistryObject<Item> OCEANIC_SHELL = ITEMS.register("oceanic_shell", () -> new ParticleMaterialItem(ParticleRegistry.GLOWING_SPHERE.get(), new int[]{20, 145, 235}, new int[]{45, 0, 0}, 0.35f, new Item.Properties().stacksTo(16).rarity(RarityRegistry.AQUARIUS)));
-    public static final RegistryObject<Item> INFERNAL_STONE = ITEMS.register("infernal_stone", () -> new ParticleMaterialItem(ParticleRegistry.GLOWING_SPHERE.get(), new int[]{255, 145, 45}, new int[]{45, 0, 0}, 0.35f, new Item.Properties().stacksTo(16).rarity(RarityRegistry.INFERNAL)));
-    public static final RegistryObject<Item> BONE_FRAGMENT = ITEMS.register("bone_fragment", () -> new ParticleMaterialItem(ParticleRegistry.GLOWING_SPHERE.get(), new int[]{145, 235, 25}, new int[]{132, 215, 22}, 0.35f, new Item.Properties().stacksTo(16)));
-    public static final RegistryObject<Item> PAIN_CRYSTAL = ITEMS.register("pain_crystal", () -> new ParticleMaterialItem(ParticleRegistry.GLOWING_SPHERE.get(), new int[]{225, 42, 25}, new int[]{168, 92, 212}, 0.35f, new Item.Properties().stacksTo(16)));
-    public static final RegistryObject<Item> NIHILITY_SHARD = ITEMS.register("nihility_shard", () -> new ParticleMaterialItem(ParticleRegistry.GLOWING_SPHERE.get(), new int[]{215, 35, 145}, new int[]{25, 62, 25}, 0.35f, new Item.Properties().stacksTo(16).rarity(RarityRegistry.VOID)));
-    public static final RegistryObject<Item> ILLUSION_STONE = ITEMS.register("illusion_stone", () -> new ParticleMaterialItem(ParticleRegistry.GLOWING_SPHERE.get(), new int[]{145, 217, 215}, new int[]{255, 255, 255}, 0.35f, new Item.Properties().stacksTo(16).rarity(RarityRegistry.PHANTASM)));
+    public static final RegistryObject<Item> NATURE_GIFT = ITEMS.register("nature_gift", () -> new ParticleMaterialItem(ParticleRegistry.GLOWING_SPHERE.get(), Pal.nature, Pal.vividCyan, 0.35f, new Item.Properties().stacksTo(16).rarity(RarityRegistry.NATURE)));
+    public static final RegistryObject<Item> OCEANIC_SHELL = ITEMS.register("oceanic_shell", () -> new ParticleMaterialItem(ParticleRegistry.GLOWING_SPHERE.get(), Pal.oceanic, Pal.magmatic, 0.35f, new Item.Properties().stacksTo(16).rarity(RarityRegistry.AQUARIUS)));
+    public static final RegistryObject<Item> INFERNAL_STONE = ITEMS.register("infernal_stone", () -> new ParticleMaterialItem(ParticleRegistry.GLOWING_SPHERE.get(), Pal.infernalBright, Pal.magmatic, 0.35f, new Item.Properties().stacksTo(16).rarity(RarityRegistry.INFERNAL)));
+    public static final RegistryObject<Item> BONE_FRAGMENT = ITEMS.register("bone_fragment", () -> new ParticleMaterialItem(ParticleRegistry.GLOWING_SPHERE.get(), Pal.vividGreen, Pal.cyan, 0.35f, new Item.Properties().stacksTo(16)));
+    public static final RegistryObject<Item> PAIN_CRYSTAL = ITEMS.register("pain_crystal", () -> new ParticleMaterialItem(ParticleRegistry.GLOWING_SPHERE.get(), Pal.strongRed, Pal.moderateViolet, 0.35f, new Item.Properties().stacksTo(16)));
+    public static final RegistryObject<Item> NIHILITY_SHARD = ITEMS.register("nihility_shard", () -> new ParticleMaterialItem(ParticleRegistry.GLOWING_SPHERE.get(), Pal.softMagenta, Pal.softMagenta, 0.35f, new Item.Properties().stacksTo(16).rarity(RarityRegistry.VOID)));
+    public static final RegistryObject<Item> ILLUSION_STONE = ITEMS.register("illusion_stone", () -> new ParticleMaterialItem(ParticleRegistry.GLOWING_SPHERE.get(), Pal.softBlue, Color.white, 0.35f, new Item.Properties().stacksTo(16).rarity(RarityRegistry.PHANTASM)));
+
+    public static final RegistryObject<Item> NATURE_CORE = ITEMS.register("nature_core", () -> new CoreItem(ParticleRegistry.GLOWING_SPHERE.get(), new Item.Properties().fireResistant().rarity(RarityRegistry.NATURE), 8, Pal.nature, Pal.vividCyan, "nature_core"));
+    public static final RegistryObject<Item> AQUARIUS_CORE = ITEMS.register("aquarius_core", () -> new CoreItem(ParticleRegistry.GLOWING_SPHERE.get(), new Item.Properties().fireResistant().rarity(RarityRegistry.AQUARIUS), 8, Pal.oceanic, Pal.magmatic, "aquarius_core"));
+    public static final RegistryObject<Item> INFERNAL_CORE = ITEMS.register("infernal_core", () -> new CoreItem(ParticleRegistry.GLOWING_SPHERE.get(), new Item.Properties().fireResistant().rarity(RarityRegistry.INFERNAL), 8, Pal.infernalBright, Pal.magmatic, "infernal_core"));
+    public static final RegistryObject<Item> VOID_CORE = ITEMS.register("void_core", () -> new CoreItem(ParticleRegistry.GLOWING_SPHERE.get(), new Item.Properties().fireResistant().rarity(RarityRegistry.VOID), 8, Pal.softMagenta, Pal.softMagenta, "void_core"));
 
     public static final RegistryObject<Item> LEXICON = ITEMS.register("lexicon", () -> new LexiconItem(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> CRYPT = ITEMS.register("page", () -> new LexiconPageItem(new Item.Properties().stacksTo(1), RegisterUnlockables.CRYPT, "gui.valoria.crypt.name"));
@@ -149,12 +156,6 @@ public class ItemsRegistry{
     public static final RegistryObject<Item> INFERNAL_INGOT = ITEMS.register("infernal_ingot", () -> new Item(new Item.Properties().fireResistant().rarity(RarityRegistry.INFERNAL)));
     public static final RegistryObject<Item> VOID_INGOT = ITEMS.register("void_ingot", () -> new Item(new Item.Properties().fireResistant().rarity(RarityRegistry.VOID)));
     public static final RegistryObject<Item> PYRATITE = ITEMS.register("pyratite", () -> new Item(new Item.Properties().rarity(RarityRegistry.INFERNAL)));
-    // Cores
-    public static final RegistryObject<Item> NATURE_CORE = ITEMS.register("nature_core", () -> new CoreItem(new Item.Properties().fireResistant().rarity(RarityRegistry.NATURE), 8, new int[]{46, 204, 113}, "nature_core"));
-    public static final RegistryObject<Item> AQUARIUS_CORE = ITEMS.register("aquarius_core", () -> new CoreItem(new Item.Properties().fireResistant().rarity(RarityRegistry.AQUARIUS), 8, new int[]{17, 195, 214}, "aquarius_core"));
-    public static final RegistryObject<Item> INFERNAL_CORE = ITEMS.register("infernal_core", () -> new CoreItem(new Item.Properties().fireResistant().rarity(RarityRegistry.INFERNAL), 8, new int[]{231, 76, 60}, "infernal_core"));
-    public static final RegistryObject<Item> VOID_CORE = ITEMS.register("void_core", () -> new CoreItem(new Item.Properties().fireResistant().rarity(RarityRegistry.VOID), 8, new int[]{52, 73, 94}, "void_core"));
-
     // TOOLS (category)
     public static final RegistryObject<Item> CLUB = ITEMS.register("club",
     () -> new HitEffectItem(Tiers.WOOD, 5, -3.2f, new Item.Properties(), 0.1f, new MobEffectInstance(EffectsRegistry.STUN.get(), 60, 0)));
@@ -478,17 +479,17 @@ public class ItemsRegistry{
     () -> new SoulArrowItem(new Item.Properties().rarity(RarityRegistry.AQUARIUS)));
 
     public static final RegistryObject<ForgeSpawnEggItem> GOBLIN_SPAWN_EGG = ITEMS.register("goblin_spawn_egg",
-    () -> new ForgeSpawnEggItem(EntityTypeRegistry.GOBLIN, ValoriaUtils.color.hexToDecimal("185b36"), ValoriaUtils.color.hexToDecimal("6BB447"), new Item.Properties()));
+    () -> new ForgeSpawnEggItem(EntityTypeRegistry.GOBLIN, ColorUtil.hexToDecimal("185b36"), ColorUtil.hexToDecimal("6BB447"), new Item.Properties()));
     public static final RegistryObject<ForgeSpawnEggItem> DRAUGR_SPAWN_EGG = ITEMS.register("draugr_spawn_egg",
-    () -> new ForgeSpawnEggItem(EntityTypeRegistry.DRAUGR, ValoriaUtils.color.hexToDecimal("76695C"), ValoriaUtils.color.hexToDecimal("d6d0c9"), new Item.Properties()));
+    () -> new ForgeSpawnEggItem(EntityTypeRegistry.DRAUGR, ColorUtil.hexToDecimal("76695C"), ColorUtil.hexToDecimal("d6d0c9"), new Item.Properties()));
     public static final RegistryObject<ForgeSpawnEggItem> SWAMP_WANDERER_SPAWN_EGG = ITEMS.register("swamp_wanderer_spawn_egg",
-    () -> new ForgeSpawnEggItem(EntityTypeRegistry.SWAMP_WANDERER, ValoriaUtils.color.hexToDecimal("606239"), ValoriaUtils.color.hexToDecimal("b8b377"), new Item.Properties()));
+    () -> new ForgeSpawnEggItem(EntityTypeRegistry.SWAMP_WANDERER, ColorUtil.hexToDecimal("606239"), ColorUtil.hexToDecimal("b8b377"), new Item.Properties()));
     public static final RegistryObject<ForgeSpawnEggItem> NECROMANCER_SPAWN_EGG = ITEMS.register("necromancer_spawn_egg",
-    () -> new ForgeSpawnEggItem(EntityTypeRegistry.NECROMANCER, ValoriaUtils.color.hexToDecimal("4b4857"), ValoriaUtils.color.hexToDecimal("958fb7"), new Item.Properties()));
+    () -> new ForgeSpawnEggItem(EntityTypeRegistry.NECROMANCER, ColorUtil.hexToDecimal("4b4857"), ColorUtil.hexToDecimal("958fb7"), new Item.Properties()));
     public static final RegistryObject<ForgeSpawnEggItem> UNDEAD_SPAWN_EGG = ITEMS.register("undead_spawn_egg",
-    () -> new ForgeSpawnEggItem(EntityTypeRegistry.UNDEAD, ValoriaUtils.color.hexToDecimal("625F71"), ValoriaUtils.color.hexToDecimal("ffffff"), new Item.Properties()));
+    () -> new ForgeSpawnEggItem(EntityTypeRegistry.UNDEAD, ColorUtil.hexToDecimal("625F71"), ColorUtil.hexToDecimal("ffffff"), new Item.Properties()));
     public static final RegistryObject<ForgeSpawnEggItem> SHADEWOOD_SPIDER_SPAWN_EGG = ITEMS.register("shadewood_spider_spawn_egg",
-    () -> new ForgeSpawnEggItem(EntityTypeRegistry.SHADEWOOD_SPIDER, ValoriaUtils.color.hexToDecimal("373C53"), ValoriaUtils.color.hexToDecimal("6EABB7"), new Item.Properties()));
+    () -> new ForgeSpawnEggItem(EntityTypeRegistry.SHADEWOOD_SPIDER, ColorUtil.hexToDecimal("373C53"), ColorUtil.hexToDecimal("6EABB7"), new Item.Properties()));
     public static final RegistryObject<MannequinSpawnItem> MANNEQUIN_SPAWN_EGG = ITEMS.register("mannequin_spawn_egg",
     () -> new MannequinSpawnItem(new Item.Properties()));
 

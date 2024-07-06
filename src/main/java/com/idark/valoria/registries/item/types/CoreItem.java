@@ -1,34 +1,37 @@
 package com.idark.valoria.registries.item.types;
 
+import com.idark.valoria.client.particle.*;
+import net.minecraft.core.particles.*;
 import net.minecraft.world.item.*;
+import net.minecraft.world.level.*;
+import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.registries.*;
+import org.jetbrains.annotations.*;
+import team.lodestar.lodestone.handlers.screenparticle.*;
+import team.lodestar.lodestone.systems.particle.data.color.*;
+import team.lodestar.lodestone.systems.particle.screen.*;
 
-public class CoreItem extends Item{
+import java.awt.*;
 
-    private final int givenCores;
-    private final int[] color;
+public class CoreItem extends Item implements ParticleEmitterHandler.ItemParticleSupplier{
     private final String coreName;
+    public ParticleType<?> particle;
+    public ColorParticleData color;
+    private final int givenCores;
 
-    /**
-     * @param pGivenCores Max value: 8
-     * @param pColor (R, G, B)
-     * @param pCoreID Core name
-     */
-    public CoreItem(Properties pProperties, int pGivenCores, int[] pColor, String pCoreID){
+    public CoreItem(@NotNull ParticleType<?> pType, Properties pProperties, int pGivenCores, Color pColor, Color pColorTo, String pCoreID){
         super(pProperties);
+        particle = pType;
         givenCores = pGivenCores;
-        color = pColor;
+        color = ColorParticleData.create(pColor, pColorTo).build();
         coreName = pCoreID;
     }
 
-    /**
-     * @param pGivenCores Max value: 8
-     * @param pColor (R, G, B)
-     */
-    public CoreItem(Properties pProperties, int pGivenCores, int[] pColor, RegistryObject<Item> item){
+    public CoreItem(@NotNull ParticleType<?> pType, Properties pProperties, int pGivenCores, Color pColor, Color pColorTo, RegistryObject<Item> item){
         super(pProperties);
+        particle = pType;
         givenCores = pGivenCores;
-        color = pColor;
+        color = ColorParticleData.create(pColor, pColorTo).build();
         coreName = item.getId().getPath();
     }
 
@@ -36,11 +39,17 @@ public class CoreItem extends Item{
         return coreName;
     }
 
-    public int[] getCoreColor(){
-        return color;
+    public Color getCoreColor(){
+        return new Color(color.r1, color.g1, color.b1).darker();
     }
 
     public int getGivenCores(){
         return givenCores;
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    @Override
+    public void spawnLateParticles(ScreenParticleHolder target, Level level, float partialTick, ItemStack stack, float x, float y) {
+        ScreenParticleRegistry.spawnCoreParticles(target, color);
     }
 }

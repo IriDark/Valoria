@@ -46,7 +46,6 @@ public final class PacketHandler{
         HANDLER.registerMessage(id++, UnlockableUpdatePacket.class, UnlockableUpdatePacket::encode, UnlockableUpdatePacket::decode, UnlockableUpdatePacket::handle);
         HANDLER.registerMessage(id++, CooldownSoundPacket.class, CooldownSoundPacket::encode, CooldownSoundPacket::decode, CooldownSoundPacket::handle);
         HANDLER.registerMessage(id++, PageToastPacket.class, PageToastPacket::encode, PageToastPacket::decode, PageToastPacket::handle);
-        HANDLER.registerMessage(id++, NecromancerSummonParticlePacket.class, NecromancerSummonParticlePacket::encode, NecromancerSummonParticlePacket::decode, NecromancerSummonParticlePacket::handle);
         HANDLER.registerMessage(id++, LineToNearbyMobsParticlePacket.class, LineToNearbyMobsParticlePacket::encode, LineToNearbyMobsParticlePacket::decode, LineToNearbyMobsParticlePacket::handle);
         HANDLER.registerMessage(id++, CircleShapedParticlePacket.class, CircleShapedParticlePacket::encode, CircleShapedParticlePacket::decode, CircleShapedParticlePacket::handle);
         HANDLER.registerMessage(id++, CubeShapedParticlePacket.class, CubeShapedParticlePacket::encode, CubeShapedParticlePacket::decode, CubeShapedParticlePacket::handle);
@@ -54,7 +53,7 @@ public final class PacketHandler{
         HANDLER.registerMessage(id++, ManipulatorCraftParticlePacket.class, ManipulatorCraftParticlePacket::encode, ManipulatorCraftParticlePacket::decode, ManipulatorCraftParticlePacket::handle);
         HANDLER.registerMessage(id++, ManipulatorEmptyParticlePacket.class, ManipulatorEmptyParticlePacket::encode, ManipulatorEmptyParticlePacket::decode, ManipulatorEmptyParticlePacket::handle);
         HANDLER.registerMessage(id++, MurasamaParticlePacket.class, MurasamaParticlePacket::encode, MurasamaParticlePacket::decode, MurasamaParticlePacket::handle);
-        HANDLER.registerMessage(id++, SarcophagusSummonPacket.class, SarcophagusSummonPacket::encode, SarcophagusSummonPacket::decode, SarcophagusSummonPacket::handle);
+        HANDLER.registerMessage(id++, SmokeParticlePacket.class, SmokeParticlePacket::encode, SmokeParticlePacket::decode, SmokeParticlePacket::handle);
         HANDLER.registerMessage(id++, FireTrapParticlePacket.class, FireTrapParticlePacket::encode, FireTrapParticlePacket::decode, FireTrapParticlePacket::handle);
         HANDLER.registerMessage(id++, KeypadParticlePacket.class, KeypadParticlePacket::encode, KeypadParticlePacket::decode, KeypadParticlePacket::handle);
         HANDLER.registerMessage(id++, ParticleLinePacket.class, ParticleLinePacket::encode, ParticleLinePacket::decode, ParticleLinePacket::handle);

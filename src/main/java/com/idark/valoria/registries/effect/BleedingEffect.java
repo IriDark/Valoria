@@ -1,7 +1,5 @@
 package com.idark.valoria.registries.effect;
 
-import com.idark.valoria.client.particle.*;
-import com.idark.valoria.client.particle.types.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.util.*;
 import net.minecraft.world.damagesource.*;
@@ -9,12 +7,10 @@ import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
 
-import java.util.*;
-
 public class BleedingEffect extends MobEffect{
 
     public BleedingEffect(){
-        super(MobEffectCategory.HARMFUL, ValoriaUtils.color.hexToDecimal("e02c2c"));
+        super(MobEffectCategory.HARMFUL, ColorUtil.hexToDecimal("e02c2c"));
         addAttributeModifier(Attributes.MOVEMENT_SPEED, "1107DE5E-7AE8-2030-840A-21B21F160890", -0.05F, AttributeModifier.Operation.MULTIPLY_TOTAL);
     }
 
@@ -30,17 +26,18 @@ public class BleedingEffect extends MobEffect{
                 pEntity.hurt(dmg, 1);
             }
 
-            for(int a = 0; a < 5; a++){
-                Particles.create(ParticleRegistry.SPHERE)
-                .randomOffset(0.7f, 0f, 0.7f)
-                .randomVelocity(0.5f, 0, 0.5f)
-                .enableGravity()
-                .setAlpha(1f, 0)
-                .setScale(0.1f, 0)
-                .setColor(145, 0, 20, 255, 0, 0)
-                .setLifetime(6)
-                .spawn(pEntity.level(), pEntity.getX() + (new Random().nextDouble() - 0.5f) / 2, pEntity.getY() + (new Random().nextDouble() + 1f) / 2, pEntity.getZ());
-            }
+            //todo
+//            for(int a = 0; a < 5; a++){
+//                Particles.create(ParticleRegistry.SPHERE)
+//                .randomOffset(0.7f, 0f, 0.7f)
+//                .randomVelocity(0.5f, 0, 0.5f)
+//                .enableGravity()
+//                .setAlpha(1f, 0)
+//                .setScale(0.1f, 0)
+//                .setColor(145, 0, 20, 255, 0, 0)
+//                .setLifetime(6)
+//                .spawn(pEntity.level(), pEntity.getX() + (new Random().nextDouble() - 0.5f) / 2, pEntity.getY() + (new Random().nextDouble() + 1f) / 2, pEntity.getZ());
+//            }
         }
     }
 

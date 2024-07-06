@@ -2,10 +2,12 @@ package com.idark.valoria.core.network.packets;
 
 import com.idark.valoria.*;
 import com.idark.valoria.client.particle.*;
-import com.idark.valoria.client.particle.types.*;
+import com.idark.valoria.util.*;
 import net.minecraft.network.*;
 import net.minecraft.world.level.*;
+import net.minecraft.world.phys.*;
 import net.minecraftforge.network.*;
+import team.lodestar.lodestone.systems.particle.data.color.*;
 
 import java.util.*;
 import java.util.function.*;
@@ -38,15 +40,10 @@ public class KeypadParticlePacket{
                 Level pLevel = Valoria.proxy.getWorld();
                 Random rand = new Random();
                 for(int a = 0; a < 3; a++){
-                    Particles.create(ParticleRegistry.TRANSFORM_PARTICLE)
-                    .addVelocity(((rand.nextDouble() - 0.5D) / 30), ((rand.nextDouble() - 0.5D) / 30), ((rand.nextDouble() - 0.5D) / 30))
-                    .setAlpha(1.0f, 0)
-                    .setScale(0.3f, 0)
-                    .setColor(0.466f, 0.643f, 0.815f, 0.466f, 0.643f, 0.815f)
-                    .setLifetime(36)
-                    .setSpin((0.5f * (float)((rand.nextDouble() - 0.5D) * 2)))
-                    .spawn(pLevel, msg.posX + (rand.nextDouble() * 1.25), msg.posY + 0.5F + ((rand.nextDouble() - 0.5D) * 1.25), msg.posZ + 0.5F + ((rand.nextDouble() - 0.5D) * 1.25))
-                    .spawn(pLevel, msg.targetPosX + (rand.nextDouble() * 1.25), msg.targetPosY + 0.5F + ((rand.nextDouble() - 0.5D) * 1.25), msg.targetPosZ + 0.5F + ((rand.nextDouble() - 0.5D) * 1.25));
+                    Vec3 position = new Vec3(msg.posX + (rand.nextDouble() * 1.25), msg.posY + 0.5F + ((rand.nextDouble() - 0.5D) * 1.25), msg.posZ + 0.5F + ((rand.nextDouble() - 0.5D) * 1.25));
+                    Vec3 targetPosition = new Vec3(msg.targetPosX + (rand.nextDouble() * 1.25), msg.targetPosY + 0.5F + ((rand.nextDouble() - 0.5D) * 1.25), msg.targetPosZ + 0.5F + ((rand.nextDouble() - 0.5D) * 1.25));
+                    ParticleEffects.transformParticle(pLevel, position, ColorParticleData.create(Pal.moderatePink, Pal.verySoftPink).build()).spawnParticles();
+                    ParticleEffects.transformParticle(pLevel, targetPosition, ColorParticleData.create(Pal.moderatePink, Pal.verySoftPink).build()).spawnParticles();
                 }
 
                 ctx.get().setPacketHandled(true);

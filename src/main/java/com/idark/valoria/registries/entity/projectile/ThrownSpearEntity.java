@@ -1,8 +1,6 @@
 package com.idark.valoria.registries.entity.projectile;
 
 import com.google.common.collect.*;
-import com.idark.valoria.client.particle.*;
-import com.idark.valoria.client.particle.types.*;
 import com.idark.valoria.registries.*;
 import net.minecraft.core.particles.*;
 import net.minecraft.nbt.*;
@@ -244,18 +242,19 @@ public class ThrownSpearEntity extends AbstractValoriaArrow implements ItemSuppl
             }
 
             boolean flag = entity.getType() == EntityType.ENDERMAN;
+            //todo
             if(EnchantmentHelper.getTagEnchantmentLevel(EnchantmentsRegistry.BLEEDING.get(), this.getItem()) > 0 && !flag){
-                for(int a = 0; a < 12; a++){
-                    Particles.create(ParticleRegistry.SPHERE)
-                    .randomOffset(0.7f, 0f, 0.7f)
-                    .randomVelocity(0.5f, 0, 0.5f)
-                    .enableGravity()
-                    .setAlpha(1f, 0)
-                    .setScale(0.1f, 0)
-                    .setColor(145, 0, 20, 255, 0, 0)
-                    .setLifetime(6)
-                    .spawn(entity.level(), entity.getX() + (new Random().nextDouble() - 0.5f) / 2, entity.getY() + (new Random().nextDouble() + 1f) / 2, entity.getZ());
-                }
+//                for(int a = 0; a < 12; a++){
+//                    Particles.create(ParticleRegistry.SPHERE)
+//                    .randomOffset(0.7f, 0f, 0.7f)
+//                    .randomVelocity(0.5f, 0, 0.5f)
+//                    .enableGravity()
+//                    .setAlpha(1f, 0)
+//                    .setScale(0.1f, 0)
+//                    .setColor(145, 0, 20, 255, 0, 0)
+//                    .setLifetime(6)
+//                    .spawn(entity.level(), entity.getX() + (new Random().nextDouble() - 0.5f) / 2, entity.getY() + (new Random().nextDouble() + 1f) / 2, entity.getZ());
+//                }
             }
 
             if(entity.hurt(damagesource, f)){

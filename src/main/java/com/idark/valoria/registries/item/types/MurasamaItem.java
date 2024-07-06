@@ -1,8 +1,6 @@
 package com.idark.valoria.registries.item.types;
 
 import com.idark.valoria.client.gui.overlay.*;
-import com.idark.valoria.client.particle.*;
-import com.idark.valoria.client.particle.types.*;
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.*;
 import com.idark.valoria.registries.*;
@@ -29,7 +27,7 @@ import org.joml.*;
 import java.lang.Math;
 import java.util.*;
 
-public class MurasamaItem extends KatanaItem implements IParticleItem{
+public class MurasamaItem extends KatanaItem implements IParticleItemEntity{
 
     public MurasamaItem(Tier tier, int attackDamageIn, float attackSpeedIn, Properties builderIn){
         super(tier, attackDamageIn, attackSpeedIn, builderIn);
@@ -69,7 +67,7 @@ public class MurasamaItem extends KatanaItem implements IParticleItem{
         Player player = (Player)livingEntityIn;
         if(worldIn instanceof ServerLevel srv){
             for(int ii = 0; ii < 1 + Mth.nextInt(RandomSource.create(), 0, 2); ii += 1){
-                PacketHandler.sendToTracking(srv, player.getOnPos(), new MurasamaParticlePacket(3F, (float)player.getX(), (float)(player.getY() + (player.getEyeHeight() / 2)), (float)player.getZ(), 255, 0, 0));
+                PacketHandler.sendToTracking(srv, player.getOnPos(), new MurasamaParticlePacket(3F, player.getX(), (player.getY() + (player.getEyeHeight() / 2)), player.getZ(), 255, 0, 0));
             }
         }
 
@@ -206,7 +204,7 @@ public class MurasamaItem extends KatanaItem implements IParticleItem{
     }
 
     @Override
-    public void addParticles(Level level, ItemEntity entity){
+    public void spawnParticles(Level level, ItemEntity entity){
         RandomSource rand = level.getRandom();
         double X = ((rand.nextDouble() - 0.5D) * 0.3f);
         double Y = ((rand.nextDouble() - 0.5D) + 0.3f);
@@ -216,19 +214,20 @@ public class MurasamaItem extends KatanaItem implements IParticleItem{
         double dY = -Y;
         double dZ = -Z;
         int count = Mth.nextInt(rand, 0, 1);
-        for(int ii = 0; ii < count; ii += 1){
-            double yaw = Math.atan2(dZ, dX);
-            double pitch = Math.atan2(Math.sqrt(dZ * dZ + dX * dX), dY) + Math.PI;
-            double XX = Math.sin(pitch) * Math.cos(yaw) * (float)(rand.nextDouble() * 0.05F) / (ii + 1);
-            double YY = Math.sin(pitch) * Math.sin(yaw) * (float)(rand.nextDouble() * 0.05F) / (ii + 1);
-            double ZZ = Math.cos(pitch) * (float)(rand.nextDouble() * 0.05F) / (ii + 1);
-            Particles.create(ParticleRegistry.GLOWING_SPHERE)
-            .addVelocity(XX, YY, ZZ)
-            .setAlpha(0.50f, 1)
-            .setScale(0.12f, 0)
-            .setColor(255, 0, 0, 255, 67, 231)
-            .setLifetime(6)
-            .spawn(level, entity.getX() + X, entity.getY() + Y, entity.getZ() + Z);
-        }
+        //todo
+//        for(int ii = 0; ii < count; ii += 1){
+//            double yaw = Math.atan2(dZ, dX);
+//            double pitch = Math.atan2(Math.sqrt(dZ * dZ + dX * dX), dY) + Math.PI;
+//            double XX = Math.sin(pitch) * Math.cos(yaw) * (float)(rand.nextDouble() * 0.05F) / (ii + 1);
+//            double YY = Math.sin(pitch) * Math.sin(yaw) * (float)(rand.nextDouble() * 0.05F) / (ii + 1);
+//            double ZZ = Math.cos(pitch) * (float)(rand.nextDouble() * 0.05F) / (ii + 1);
+//            Particles.create(ParticleRegistry.GLOWING_SPHERE)
+//            .addVelocity(XX, YY, ZZ)
+//            .setAlpha(0.50f, 1)
+//            .setScale(0.12f, 0)
+//            .setColor(255, 0, 0, 255, 67, 231)
+//            .setLifetime(6)
+//            .spawn(level, entity.getX() + X, entity.getY() + Y, entity.getZ() + Z);
+//        }
     }
 }

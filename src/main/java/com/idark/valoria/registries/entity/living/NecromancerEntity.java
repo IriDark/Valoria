@@ -340,7 +340,7 @@ public class NecromancerEntity extends AbstractNecromancer{
                     }
                 }
 
-                PacketHandler.sendToTracking(serverlevel, NecromancerEntity.this.getOnPos(), new NecromancerSummonParticlePacket((float)NecromancerEntity.this.getOnPos().getX(), (float)NecromancerEntity.this.getOnPos().getY() + 1.2f, (float)NecromancerEntity.this.getOnPos().getZ(), (float)((new Random().nextDouble() - 0.5D) / 64), (float)0, (float)((new Random().nextDouble() - 0.5D) / 64), 30, 35, 75));
+                PacketHandler.sendToTracking(serverlevel, NecromancerEntity.this.getOnPos(), new SmokeParticlePacket(NecromancerEntity.this.getOnPos().getX(), NecromancerEntity.this.getOnPos().getY() + 1.2f, NecromancerEntity.this.getOnPos().getZ(), ((new Random().nextDouble() - 0.5D) / 64), 0, ((new Random().nextDouble() - 0.5D) / 64), 30, 35, 75));
             }
         }
 
@@ -593,7 +593,7 @@ public class NecromancerEntity extends AbstractNecromancer{
                 if(mob != null){
                     serverlevel.addFreshEntity(mob);
                     BlockPos pos = new BlockPos(target.getBlockX(), target.getBlockY(), target.getBlockZ());
-                    PacketHandler.sendToTracking(serverlevel, target.getOnPos(), new CircleShapedParticlePacket(target.getBlockX() + 0.5f, target.getBlockY(), target.getBlockZ() + 0.5f, target.getRotationVector().y, 0, 0.2f, 0, 46, 51, 60));
+                    PacketHandler.sendToTracking(serverlevel, target.getOnPos(), new CircleShapedParticlePacket(target.getBlockX() + 0.5f, target.getBlockY(), target.getBlockZ() + 0.5f, target.getRotationVector().y, 46, 51, 60));
                     if(!target.getMainHandItem().isEmpty()){
                         mob.setItemInHand(InteractionHand.MAIN_HAND, Items.BOW.getDefaultInstance());
                     }else if(!target.getOffhandItem().isEmpty()){
@@ -675,7 +675,7 @@ public class NecromancerEntity extends AbstractNecromancer{
                     BlockPos pos = new BlockPos(target.getBlockX(), target.getBlockY(), target.getBlockZ());
                     mob.setItemInHand(InteractionHand.MAIN_HAND, Items.BOW.getDefaultInstance());
                     mob.moveTo(pos, 0.0F, 0.0F);
-                    PacketHandler.sendToTracking(serverlevel, target.getOnPos(), new NecromancerSummonParticlePacket((float)target.getOnPos().getX(), target.getOnPos().getY() + 1.2f, target.getOnPos().getZ(), (float)((new Random().nextDouble() - 0.5D) / 64), (float)0, (float)((new Random().nextDouble() - 0.5D) / 64), 30, 35, 75));
+                    PacketHandler.sendToTracking(serverlevel, target.getOnPos(), new SmokeParticlePacket(target.getOnPos().getX(), target.getOnPos().getY() + 1.2f, target.getOnPos().getZ(), ((new Random().nextDouble() - 0.5D) / 64), 0, ((new Random().nextDouble() - 0.5D) / 64), 30, 35, 75));
                     target.discard();
                 }
             }

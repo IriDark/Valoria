@@ -2,24 +2,22 @@ package com.idark.valoria.core.network.packets;
 
 import com.idark.valoria.*;
 import com.idark.valoria.client.particle.*;
-import com.idark.valoria.client.particle.types.*;
 import net.minecraft.network.*;
 import net.minecraft.world.level.*;
+import net.minecraft.world.phys.*;
 import net.minecraftforge.network.*;
+import team.lodestar.lodestone.systems.particle.data.color.*;
 
+import java.awt.*;
 import java.util.function.*;
 
 public class CubeShapedParticlePacket{
 
-    private final float posX;
-    private final float posY;
-    private final float posZ;
-    private final float speedY;
-    private final float size;
-
+    private final double posX, posY, posZ;
     private final int colorR, colorG, colorB;
+    private final float speedY, size;
 
-    public CubeShapedParticlePacket(float posX, float posY, float posZ, float size, float speedY, int colorR, int colorG, int colorB){
+    public CubeShapedParticlePacket(double posX, double posY, double posZ, float size, float speedY, int colorR, int colorG, int colorB){
         this.posX = posX;
         this.posY = posY;
         this.posZ = posZ;
@@ -33,47 +31,29 @@ public class CubeShapedParticlePacket{
     }
 
     public static CubeShapedParticlePacket decode(FriendlyByteBuf buf){
-        return new CubeShapedParticlePacket(buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readInt(), buf.readInt(), buf.readInt());
+        return new CubeShapedParticlePacket(buf.readDouble(), buf.readDouble(), buf.readDouble(), buf.readFloat(), buf.readFloat(), buf.readInt(), buf.readInt(), buf.readInt());
     }
 
     public static void handle(CubeShapedParticlePacket msg, Supplier<NetworkEvent.Context> ctx){
         if(ctx.get().getDirection().getReceptionSide().isClient()){
             ctx.get().enqueueWork(() -> {
-                Level world = Valoria.proxy.getWorld();
-                for(int i = 0; i < 15; i++){
-                    float size = msg.size;
-                    double Offset = Math.sin(i - 5) * size;
-                    Particles.create(ParticleRegistry.GLOWING_SPHERE)
-                    .addVelocity(0, msg.speedY, 0)
-                    .setAlpha(0.25f, 0)
-                    .setScale(0.1f, 0)
-                    .setColor(msg.colorR, msg.colorG, msg.colorB, 0, 0, 0)
-                    .setLifetime(10)
-                    .spawn(world, msg.posX + size, msg.posY, msg.posZ + Offset);
+                Level level = Valoria.proxy.getWorld();
+                Color color = new Color(msg.colorR, msg.colorG, msg.colorB);
+                float size = msg.size;
 
-                    Particles.create(ParticleRegistry.GLOWING_SPHERE)
-                    .addVelocity(0, msg.speedY, 0)
-                    .setAlpha(0.25f, 0)
-                    .setScale(0.1f, 0)
-                    .setColor(msg.colorR, msg.colorG, msg.colorB, 0, 0, 0)
-                    .setLifetime(10)
-                    .spawn(world, msg.posX - size, msg.posY, msg.posZ - Offset);
+                for(int i = 0; i < 25 * size; i++){
+                    double pOffset = Math.sin(i) * size;
 
-                    Particles.create(ParticleRegistry.GLOWING_SPHERE)
-                    .addVelocity(0, msg.speedY, 0)
-                    .setAlpha(0.25f, 0)
-                    .setScale(0.1f, 0)
-                    .setColor(msg.colorR, msg.colorG, msg.colorB, 0, 0, 0)
-                    .setLifetime(10)
-                    .spawn(world, msg.posX + Offset, msg.posY, msg.posZ + size);
+                    Vec3 pos0 = new Vec3(msg.posX + size, msg.posY, msg.posZ + pOffset);
+                    Vec3 pos1 = new Vec3(msg.posX - size, msg.posY, msg.posZ + pOffset);
+                    Vec3 pos2 = new Vec3(msg.posX + pOffset, msg.posY, msg.posZ - size);
+                    Vec3 pos3 = new Vec3(msg.posX - pOffset, msg.posY, msg.posZ + size);
 
-                    Particles.create(ParticleRegistry.GLOWING_SPHERE)
-                    .addVelocity(0, msg.speedY, 0)
-                    .setAlpha(0.25f, 0)
-                    .setScale(0.1f, 0)
-                    .setColor(msg.colorR, msg.colorG, msg.colorB, 0, 0, 0)
-                    .setLifetime(10)
-                    .spawn(world, msg.posX + Offset, msg.posY, msg.posZ - size);
+                    ParticleEffects.particles(level, pos0, ColorParticleData.create(color, Color.black).build()).getBuilder().setMotion(0, msg.speedY, 0).spawnLine(level, pos0, pos0);
+                    ParticleEffects.particles(level, pos0, ColorParticleData.create(color, Color.black).build()).getBuilder().setMotion(0, msg.speedY, 0).spawnLine(level, pos1, pos1);
+                    ParticleEffects.particles(level, pos0, ColorParticleData.create(color, Color.black).build()).getBuilder().setMotion(0, msg.speedY, 0).spawnLine(level, pos2, pos2);
+                    ParticleEffects.particles(level, pos0, ColorParticleData.create(color, Color.black).build()).getBuilder().setMotion(0, msg.speedY, 0).spawnLine(level, pos3, pos3);
+
                 }
 
                 ctx.get().setPacketHandled(true);
@@ -83,15 +63,15 @@ public class CubeShapedParticlePacket{
 
 
     public void encode(FriendlyByteBuf buf){
-        buf.writeFloat(posX);
-        buf.writeFloat(posY);
-        buf.writeFloat(posZ);
+        buf.writeDouble(posX);
+        buf.writeDouble(posY);
+        buf.writeDouble(posZ);
 
         buf.writeFloat(size);
         buf.writeFloat(speedY);
 
-        buf.writeFloat(colorR);
-        buf.writeFloat(colorG);
-        buf.writeFloat(colorB);
+        buf.writeInt(colorR);
+        buf.writeInt(colorG);
+        buf.writeInt(colorB);
     }
 }

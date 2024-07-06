@@ -2,7 +2,6 @@
 - Farmers Delight compat
 - Create compat
 - Redo the renders that was based on MaxBogomol's code
-- Maybe use the Lodestone lib (Not sure tbh)
 - More pyratite content
 - Mobs for valoria
 - Misc gen for valoria

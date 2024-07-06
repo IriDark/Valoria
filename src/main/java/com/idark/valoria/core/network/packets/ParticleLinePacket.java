@@ -2,21 +2,21 @@ package com.idark.valoria.core.network.packets;
 
 import com.idark.valoria.*;
 import com.idark.valoria.client.particle.*;
-import com.idark.valoria.client.particle.types.*;
 import net.minecraft.network.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
 import net.minecraftforge.network.*;
+import team.lodestar.lodestone.systems.particle.data.color.*;
 
+import java.awt.*;
 import java.util.function.*;
 
 public class ParticleLinePacket{
-    private final float posX, posY, posZ;
+    private final double posX, posY, posZ;
     private final float posToX, posToY, posToZ;
-    private final int colorR, colorG, colorB;
-    private final int colorToR, colorToG, colorToB;
+    private final int colorR, colorG, colorB, colorToR, colorToG, colorToB;
 
-    public ParticleLinePacket(float posX, float posY, float posZ, float posToX, float posToY, float posToZ, int colorR, int colorG, int colorB, int colorToR, int colorToG, int colorToB){
+    public ParticleLinePacket(double posX, double posY, double posZ, float posToX, float posToY, float posToZ, int colorR, int colorG, int colorB, int colorToR, int colorToG, int colorToB){
         this.posX = posX;
         this.posY = posY;
         this.posZ = posZ;
@@ -33,7 +33,7 @@ public class ParticleLinePacket{
     }
 
     public static ParticleLinePacket decode(FriendlyByteBuf buf){
-        return new ParticleLinePacket(buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readInt(), buf.readInt(), buf.readInt(), buf.readInt(), buf.readInt(), buf.readInt());
+        return new ParticleLinePacket(buf.readDouble(), buf.readDouble(), buf.readDouble(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readInt(), buf.readInt(), buf.readInt(), buf.readInt(), buf.readInt(), buf.readInt());
     }
 
     public static void handle(ParticleLinePacket msg, Supplier<NetworkEvent.Context> ctx){
@@ -52,13 +52,9 @@ public class ParticleLinePacket{
                     float x = (float)(dX / distanceInBlocks);
                     float y = (float)(dY / distanceInBlocks);
                     float z = (float)(dZ / distanceInBlocks);
-                    Particles.create(ParticleRegistry.GLOWING_SPHERE)
-                    .addVelocity((x / i) / 2, (y * i), (z / i) / 2)
-                    .setAlpha(1, 0)
-                    .setScale(0.2f, 0)
-                    .setColor(msg.colorR, msg.colorG, msg.colorB, 0, 0, 0)
-                    .setLifetime(6)
-                    .spawn(pLevel, pTo.x + (x * i), pTo.y + 0.2f + (y * i), pTo.z + (z * i));
+                    Vec3 particlePos = new Vec3(pTo.x + (x * i), pTo.y + 0.2f + (y * i), pTo.z + (z * i));
+                    Color color = new Color(msg.colorR, msg.colorG, msg.colorB);
+                    ParticleEffects.particles(pLevel, particlePos, ColorParticleData.create(color, Color.white).build()).spawnParticles();
                 }
             });
         }
@@ -67,19 +63,18 @@ public class ParticleLinePacket{
     }
 
     public void encode(FriendlyByteBuf buf){
-        buf.writeFloat(posX);
-        buf.writeFloat(posY);
-        buf.writeFloat(posZ);
-
+        buf.writeDouble(posX);
+        buf.writeDouble(posY);
+        buf.writeDouble(posZ);
         buf.writeFloat(posToX);
         buf.writeFloat(posToY);
         buf.writeFloat(posToZ);
 
-        buf.writeFloat(colorR);
-        buf.writeFloat(colorG);
-        buf.writeFloat(colorB);
-        buf.writeFloat(colorToR);
-        buf.writeFloat(colorToG);
-        buf.writeFloat(colorToB);
+        buf.writeInt(colorR);
+        buf.writeInt(colorG);
+        buf.writeInt(colorB);
+        buf.writeInt(colorToR);
+        buf.writeInt(colorToG);
+        buf.writeInt(colorToB);
     }
 }

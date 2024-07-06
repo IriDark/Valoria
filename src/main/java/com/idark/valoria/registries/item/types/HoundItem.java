@@ -48,7 +48,7 @@ public class HoundItem extends SwordItem{
         List<LivingEntity> markedEntities = new ArrayList<>();
         if(level instanceof ServerLevel pServ){
             ValoriaUtils.markNearbyMobs(level, player, markedEntities, pos, 0, player.getRotationVector().y, 15);
-            PacketHandler.sendToTracking(pServ, player.getOnPos(), new LineToNearbyMobsParticlePacket((float)player.getX(), (float)player.getY(), (float)player.getZ(), player.getRotationVector().y, 15, 255, 0, 0));
+            PacketHandler.sendToTracking(pServ, player.getOnPos(), new LineToNearbyMobsParticlePacket(player.getX(), player.getY(), player.getZ(), player.getRotationVector().y, 15, 255, 0, 0));
         }
 
         return stack;

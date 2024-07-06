@@ -2,25 +2,25 @@ package com.idark.valoria.core.network.packets;
 
 import com.idark.valoria.*;
 import com.idark.valoria.client.particle.*;
-import com.idark.valoria.client.particle.types.*;
 import net.minecraft.network.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
 import net.minecraftforge.network.*;
+import team.lodestar.lodestone.systems.particle.data.color.*;
 
+import java.awt.*;
+import java.util.List;
 import java.util.*;
 import java.util.function.*;
 
 public class LineToNearbyMobsParticlePacket{
-    private final float posX;
-    private final float posY;
-    private final float posZ;
+    private final double posX, posY, posZ;
     private final float yawRaw;
     private final float rad;
     private final int colorR, colorG, colorB;
 
-    public LineToNearbyMobsParticlePacket(float posX, float posY, float posZ, float yawRaw, float radius, int colorR, int colorG, int colorB){
+    public LineToNearbyMobsParticlePacket(double posX, double posY, double posZ, float yawRaw, float radius, int colorR, int colorG, int colorB){
         this.posX = posX;
         this.posY = posY;
         this.posZ = posZ;
@@ -34,7 +34,7 @@ public class LineToNearbyMobsParticlePacket{
     }
 
     public static LineToNearbyMobsParticlePacket decode(FriendlyByteBuf buf){
-        return new LineToNearbyMobsParticlePacket(buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readInt(), buf.readInt(), buf.readInt());
+        return new LineToNearbyMobsParticlePacket(buf.readDouble(), buf.readDouble(), buf.readDouble(), buf.readFloat(), buf.readFloat(), buf.readInt(), buf.readInt(), buf.readInt());
     }
 
     public static void handle(LineToNearbyMobsParticlePacket msg, Supplier<NetworkEvent.Context> ctx){
@@ -62,23 +62,20 @@ public class LineToNearbyMobsParticlePacket{
 
                         Vec3 pos = new Vec3(msg.posX, msg.posY, msg.posZ);
                         Vec3 pTo = new Vec3(livingEntity.getX(), livingEntity.getY(), livingEntity.getZ());
+                        Color color = new Color(msg.colorR, msg.colorG, msg.colorB);
+
                         double distance = pos.distanceTo(pTo);
                         double distanceInBlocks = Math.floor(distance);
                         for(int i = 0; i < distanceInBlocks; i++){
                             double dX = msg.posX - pTo.x;
                             double dY = msg.posY - pTo.y;
                             double dZ = msg.posZ - pTo.z;
-
                             float x = (float)(dX / distanceInBlocks);
                             float y = (float)(dY / distanceInBlocks);
                             float z = (float)(dZ / distanceInBlocks);
-                            Particles.create(ParticleRegistry.GLOWING_SPHERE)
-                            .addVelocity(0, 0.2f, 0)
-                            .setAlpha(0.25f, 0)
-                            .setScale(0.2f, 0)
-                            .setColor(msg.colorR, msg.colorG, msg.colorB, 0, 0, 0)
-                            .setLifetime(2)
-                            .spawn(pLevel, pos.x - (x * i), pos.y + 0.2f - (y * i), pos.z - (z * i));
+
+                            Vec3 particlePos = new Vec3(pos.x - (x * i), pos.y + 0.2f - (y * i), pos.z - (z * i));
+                            ParticleEffects.particles(pLevel, particlePos, ColorParticleData.create(color, Color.white).build()).spawnParticles();
                         }
                     }
                 }
@@ -89,14 +86,14 @@ public class LineToNearbyMobsParticlePacket{
     }
 
     public void encode(FriendlyByteBuf buf){
-        buf.writeFloat(posX);
-        buf.writeFloat(posY);
-        buf.writeFloat(posZ);
+        buf.writeDouble(posX);
+        buf.writeDouble(posY);
+        buf.writeDouble(posZ);
         buf.writeFloat(yawRaw);
         buf.writeFloat(rad);
 
-        buf.writeFloat(colorR);
-        buf.writeFloat(colorG);
-        buf.writeFloat(colorB);
+        buf.writeInt(colorR);
+        buf.writeInt(colorG);
+        buf.writeInt(colorB);
     }
 }
