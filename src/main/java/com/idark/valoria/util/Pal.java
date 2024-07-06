@@ -16,6 +16,7 @@ public class Pal{
 
     darkViolet = ColorUtil.valueOf("841aaf"),
     darkMagenta = ColorUtil.valueOf("621873"),
+    darkRed = ColorUtil.valueOf("910000"),
 
     softMagenta = ColorUtil.valueOf("f06de7"),
     softBlue = ColorUtil.valueOf("8269db"),

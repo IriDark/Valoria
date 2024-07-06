@@ -1,7 +1,9 @@
 package com.idark.valoria.registries.entity.projectile;
 
 import com.google.common.collect.*;
+import com.idark.valoria.client.particle.*;
 import com.idark.valoria.registries.*;
+import com.idark.valoria.util.*;
 import net.minecraft.core.particles.*;
 import net.minecraft.nbt.*;
 import net.minecraft.network.protocol.*;
@@ -21,8 +23,11 @@ import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
 import net.minecraftforge.network.*;
 import org.jetbrains.annotations.*;
+import team.lodestar.lodestone.systems.particle.data.color.*;
+import team.lodestar.lodestone.systems.particle.render_types.*;
 
 import javax.annotation.Nullable;
+import java.awt.*;
 import java.util.*;
 
 public class ThrownSpearEntity extends AbstractValoriaArrow implements ItemSupplier{
@@ -241,30 +246,24 @@ public class ThrownSpearEntity extends AbstractValoriaArrow implements ItemSuppl
                 this.returnToPlayer = true;
             }
 
-            boolean flag = entity.getType() == EntityType.ENDERMAN;
-            //todo
-            if(EnchantmentHelper.getTagEnchantmentLevel(EnchantmentsRegistry.BLEEDING.get(), this.getItem()) > 0 && !flag){
-//                for(int a = 0; a < 12; a++){
-//                    Particles.create(ParticleRegistry.SPHERE)
-//                    .randomOffset(0.7f, 0f, 0.7f)
-//                    .randomVelocity(0.5f, 0, 0.5f)
-//                    .enableGravity()
-//                    .setAlpha(1f, 0)
-//                    .setScale(0.1f, 0)
-//                    .setColor(145, 0, 20, 255, 0, 0)
-//                    .setLifetime(6)
-//                    .spawn(entity.level(), entity.getX() + (new Random().nextDouble() - 0.5f) / 2, entity.getY() + (new Random().nextDouble() + 1f) / 2, entity.getZ());
-//                }
-            }
-
             if(entity.hurt(damagesource, f)){
-                if(entity.getType() == EntityType.ENDERMAN){
+                boolean flag = entity.getType() == EntityType.ENDERMAN;
+                if(flag){
                     return;
                 }
 
                 if(entity instanceof LivingEntity living){
                     EnchantmentHelper.doPostHurtEffects(living, player);
                     EnchantmentHelper.doPostDamageEffects(player, living);
+
+                    // this piece of shit isn't spawning anymore (WHY?)
+                    if(EnchantmentHelper.getTagEnchantmentLevel(EnchantmentsRegistry.BLEEDING.get(), this.getItem()) > 0){
+                        for(int a = 0; a < 12; a++){
+                            Vec3 pos = new Vec3(living.getX() + (new Random().nextDouble() - 0.5f) / 2, living.getY() + (new Random().nextDouble() + 1f) / 2, living.getZ());
+                            ParticleEffects.particles(living.level(), pos, ColorParticleData.create(Pal.darkRed, Color.red).build()).getBuilder().setRandomMotion(0.5f, 0, 0.5f).setRandomOffset(0.7f, 0f, 0.7f).setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT).setGravityStrength(0.75f).spawn(living.level(), pos.x, pos.y, pos.z);
+                        }
+                    }
+
                     this.doPostHurtEffects(living);
                 }
             }

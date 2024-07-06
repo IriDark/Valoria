@@ -8,6 +8,7 @@ import net.minecraft.util.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
 import net.minecraftforge.network.*;
+import team.lodestar.lodestone.systems.particle.data.*;
 import team.lodestar.lodestone.systems.particle.data.color.*;
 
 import java.awt.*;
@@ -58,7 +59,7 @@ public class MurasamaParticlePacket{
                     double ZZ = Math.cos(pitch) * (float)(rand.nextDouble() * 0.05F) / (ii + 1);
                     Color color = new Color(msg.colorR, msg.colorG, msg.colorB);
                     Vec3 particlePos = new Vec3(msg.posX + X, msg.posY + Y, msg.posZ + Z);
-                    ParticleEffects.particles(pLevel, particlePos, ColorParticleData.create(color, Pal.lightViolet).build()).getBuilder().setMotion(XX, YY, ZZ).spawn(pLevel, msg.posX + X, msg.posY + Y, msg.posZ + Z);
+                    ParticleEffects.particles(pLevel, particlePos, ColorParticleData.create(color, Pal.lightViolet).build()).getBuilder().setTransparencyData(GenericParticleData.create(0.4f).build()).setMotion(XX, YY, ZZ).spawn(pLevel, msg.posX + X, msg.posY + Y, msg.posZ + Z);
                 }
 
                 ctx.get().setPacketHandled(true);
