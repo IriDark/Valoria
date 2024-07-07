@@ -113,7 +113,7 @@ public class SpearItem extends SwordItem implements Vanishable{
 
     public boolean hurtEnemy(ItemStack pStack, LivingEntity pTarget, LivingEntity pAttacker){
         if(!effects.isEmpty()){
-            if(chance < 1 || chance != 0){
+            if(chance < 1){
                 for(MobEffectInstance effectInstance : effects){
                     if(RandomUtil.percentChance(chance)){
                         pTarget.addEffect(new MobEffectInstance(effectInstance));

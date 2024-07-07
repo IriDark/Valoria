@@ -278,7 +278,7 @@ public class GoblinEntity extends PathfinderMob implements NeutralMob, Enemy{
     public boolean hurt(DamageSource source, float amount){
         Entity entity = source.getEntity();
         if(entity instanceof Player player){
-            if(player.getAttribute(Attributes.ATTACK_DAMAGE).getValue() > 10f){
+            if(player.getAttributeValue(Attributes.ATTACK_DAMAGE) > 10f){
                 this.goalSelector.addGoal(1, new AdvancedPanicGoal(this, 1.5, this.getHealth() < 12));
                 this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 15, 1.2, 1.8));
             }else if(this.getHealth() < 12){

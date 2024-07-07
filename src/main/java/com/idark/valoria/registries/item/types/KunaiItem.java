@@ -103,7 +103,7 @@ public class KunaiItem extends SwordItem{
 
     public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker){
         if(!effects.isEmpty()){
-            if(chance < 1 || chance != 0){
+            if(chance < 1){
                 for(MobEffectInstance effectInstance : effects){
                     if(RandomUtil.percentChance(chance)){
                         target.addEffect(new MobEffectInstance(effectInstance));

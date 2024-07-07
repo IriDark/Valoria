@@ -1,24 +1,30 @@
 package com.idark.valoria.core.network.packets;
 
 import com.idark.valoria.*;
+import com.idark.valoria.client.particle.*;
+import com.idark.valoria.util.*;
 import net.minecraft.network.*;
 import net.minecraft.world.level.*;
+import net.minecraft.world.phys.*;
 import net.minecraftforge.network.*;
+import team.lodestar.lodestone.systems.particle.data.*;
+import team.lodestar.lodestone.systems.particle.data.color.*;
 
+import java.awt.*;
 import java.util.function.*;
 
 public class ManipulatorCraftParticlePacket{
 
-    private final float posX;
-    private final float posY;
-    private final float posZ;
+    private final double posX;
+    private final double posY;
+    private final double posZ;
     private final float posToX;
     private final float posToY;
     private final float posToZ;
 
-    private final float colorR, colorG, colorB;
+    private final int colorR, colorG, colorB;
 
-    public ManipulatorCraftParticlePacket(float posX, float posY, float posZ, float posToX, float posToY, float posToZ, float colorR, float colorG, float colorB){
+    public ManipulatorCraftParticlePacket(double posX, double posY, double posZ, float posToX, float posToY, float posToZ, int colorR, int colorG, int colorB){
         this.posX = posX;
         this.posY = posY;
         this.posZ = posZ;
@@ -33,69 +39,43 @@ public class ManipulatorCraftParticlePacket{
     }
 
     public static ManipulatorCraftParticlePacket decode(FriendlyByteBuf buf){
-        return new ManipulatorCraftParticlePacket(buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat());
+        return new ManipulatorCraftParticlePacket(buf.readDouble(), buf.readDouble(), buf.readDouble(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readInt(), buf.readInt(), buf.readInt());
     }
 
     public static void handle(ManipulatorCraftParticlePacket msg, Supplier<NetworkEvent.Context> ctx){
         if(ctx.get().getDirection().getReceptionSide().isClient()){
             ctx.get().enqueueWork(() -> {
-                Level world = Valoria.proxy.getWorld();
-//                Particles.create(ParticleRegistry.GLOWING_SPHERE)
-//                .addVelocity(-0.05f, 0.025f, -0.05f)
-//                .setAlpha(0.35f, 1)
-//                .setScale(0.025f, 0.1f)
-//                .setColor(231, 76, 60, 0, 0, 0)
-//                .setLifetime(8)
-//                .spawn(world, msg.posX + 0.85f, msg.posY + 1.10f, msg.posZ + 0.85f);
-//
-//                Particles.create(ParticleRegistry.GLOWING_SPHERE)
-//                .addVelocity(0.05f, 0.025f, 0.05f)
-//                .setAlpha(0.35f, 1)
-//                .setScale(0.025f, 0.1f)
-//                .setColor(46, 204, 113, 0, 0, 0)
-//                .setLifetime(8)
-//                .spawn(world, msg.posX + 0.15f, msg.posY + 1.10f, msg.posZ + 0.15f);
-//
-//                Particles.create(ParticleRegistry.GLOWING_SPHERE)
-//                .addVelocity(-0.05f, 0.025f, 0.05f)
-//                .setAlpha(0.35f, 1)
-//                .setScale(0.025f, 0.1f)
-//                .setColor(17, 195, 214, 0, 0, 0)
-//                .setLifetime(8)
-//                .spawn(world, msg.posX + 0.85f, msg.posY + 1.10f, msg.posZ + 0.15f);
-//
-//                Particles.create(ParticleRegistry.GLOWING_SPHERE)
-//                .addVelocity(0.05f, 0.025f, -0.05f)
-//                .setAlpha(0.35f, 1)
-//                .setScale(0.025f, 0.1f)
-//                .setColor(52, 73, 94, 0, 0, 0)
-//                .setLifetime(8)
-//                .spawn(world, msg.posX + 0.15f, msg.posY + 1.10f, msg.posZ + 0.85f);
-//
-//                Particles.create(ParticleRegistry.GLOWING_SPHERE)
-//                .addVelocity(0, 0.025f, 0)
-//                .setAlpha(0.1f, 0.5f)
-//                .setScale(0.025f, 0.1f)
-//                .setColor(255, 255, 255, 0, 0, 0)
-//                .setLifetime(12)
-//                .spawn(world, msg.posX + 0.5f, msg.posY + 1, msg.posZ + 0.5f);
-//todo
+                Level pLevel = Valoria.proxy.getWorld();
+                Vec3 particlePos = new Vec3(msg.posX + 0.85f, msg.posY + 1.10f, msg.posZ + 0.85f);
+                ParticleEffects.particles(pLevel, particlePos, ColorParticleData.create(Pal.infernalBright, Color.black).build()).getBuilder().setMotion(-0.05f, 0.025f, -0.05f).setLifetime(8).setScaleData(GenericParticleData.create(0.025f, 0.1f).build()).spawn(pLevel, particlePos.x, particlePos.y, particlePos.z);
+
+                Vec3 particlePos1 = new Vec3(msg.posX + 0.15f, msg.posY + 1.10f, msg.posZ + 0.15f);
+                ParticleEffects.particles(pLevel, particlePos1, ColorParticleData.create(Pal.nature, Color.black).build()).getBuilder().setMotion(0.05f, 0.025f, 0.05f).setLifetime(8).setScaleData(GenericParticleData.create(0.025f, 0.1f).build()).spawn(pLevel, particlePos1.x, particlePos1.y, particlePos1.z);
+
+                Vec3 particlePos2 = new Vec3(msg.posX + 0.85f, msg.posY + 1.10f, msg.posZ + 0.15f);
+                ParticleEffects.particles(pLevel, particlePos2, ColorParticleData.create(Pal.oceanic, Color.black).build()).getBuilder().setMotion(-0.05f, 0.025f, 0.05f).setLifetime(8).setScaleData(GenericParticleData.create(0.025f, 0.1f).build()).spawn(pLevel, particlePos2.x, particlePos2.y, particlePos2.z);
+
+                Vec3 particlePos3 = new Vec3(msg.posX + 0.15f, msg.posY + 1.10f, msg.posZ + 0.85f);
+                ParticleEffects.particles(pLevel, particlePos3, ColorParticleData.create(Pal.vividCyan, Color.black).build()).getBuilder().setMotion(0.05f, 0.025f, -0.05f).setLifetime(8).setScaleData(GenericParticleData.create(0.025f, 0.1f).build()).spawn(pLevel, particlePos3.x, particlePos3.y, particlePos3.z);
+
+                Vec3 particlePos4 = new Vec3(msg.posX + 0.5f, msg.posY + 1, msg.posZ + 0.5f);
+                ParticleEffects.particles(pLevel, particlePos4, ColorParticleData.create(Color.white, Color.black).build()).getBuilder().setMotion(0, 0.025f, 0).setLifetime(12).setScaleData(GenericParticleData.create(0.025f, 0.1f).build()).spawn(pLevel, particlePos4.x, particlePos4.y, particlePos4.z);
                 ctx.get().setPacketHandled(true);
             });
         }
     }
 
     public void encode(FriendlyByteBuf buf){
-        buf.writeFloat(posX);
-        buf.writeFloat(posY);
-        buf.writeFloat(posZ);
+        buf.writeDouble(posX);
+        buf.writeDouble(posY);
+        buf.writeDouble(posZ);
 
         buf.writeFloat(posToX);
         buf.writeFloat(posToY);
         buf.writeFloat(posToZ);
 
-        buf.writeFloat(colorR);
-        buf.writeFloat(colorG);
-        buf.writeFloat(colorB);
+        buf.writeInt(colorR);
+        buf.writeInt(colorG);
+        buf.writeInt(colorB);
     }
 }

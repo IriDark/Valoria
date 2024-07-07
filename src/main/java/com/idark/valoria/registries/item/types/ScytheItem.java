@@ -127,7 +127,7 @@ public class ScytheItem extends SwordItem implements ICustomAnimationItem, ICool
             }
 
             if(!effects.isEmpty()){
-                if(chance < 1 || chance != 0){
+                if(chance < 1){
                     for(MobEffectInstance effectInstance : effects){
                         if(RandomUtil.percentChance(chance)){
                             entity.addEffect(new MobEffectInstance(effectInstance));

@@ -29,7 +29,7 @@ public class HitEffectItem extends SwordItem{
     public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker){
         stack.hurtAndBreak(2, attacker, (entity) -> entity.broadcastBreakEvent(EquipmentSlot.MAINHAND));
         if(!effects.isEmpty()){
-            if(chance < 1 || chance != 0){
+            if(chance < 1){
                 for(MobEffectInstance effectInstance : effects){
                     if(RandomUtil.percentChance(chance)){
                         target.addEffect(new MobEffectInstance(effectInstance));
