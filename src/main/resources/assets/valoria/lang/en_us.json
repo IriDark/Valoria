@@ -156,12 +156,15 @@
   "enchantment.valoria.explosive_flame.desc": "Charged attack of blazereap will be quite explosive",
   "enchantment.valoria.bleeding.desc": "Chance to set a bleeding effect on enemy after a hit",
   "enchantment.valoria.radius.desc": "Increases radius for radius attack abilities",
+
   "itemGroup.valoriaModTab": "Valoria - Main",
   "itemGroup.valoriaBlocksModTab": "Valoria - Blocks",
+
   "entity.valoria.swamp_wanderer": "Swamp Wanderer",
   "entity.valoria.mannequin": "Mannequin",
   "entity.valoria.goblin": "Goblin",
   "entity.valoria.draugr": "Draugr",
+  "entity.valoria.shadewood_spider": "Shadewood Spider",
   "entity.valoria.shadewood_chest": "Shadewood Boat",
   "entity.valoria.shadewood_chest_boat": "Shadewood Chest Boat",
   "entity.valoria.necromancer": "Necromancer",
@@ -174,18 +177,23 @@
   "entity.valoria.wicked_arrow": "Wicked Arrow",
   "entity.valoria.soul_arrow": "Soul Arrow",
   "entity.valoria.infernal_arrow": "Infernal Arrow",
+
   "item.valoria.goblin_spawn_egg": "Goblin Spawn Egg",
   "item.valoria.draugr_spawn_egg": "Draugr Spawn Egg",
   "item.valoria.mannequin_spawn_egg": "Mannequin",
+  "item.valoria.shadewood_spider_spawn_egg": "Shadewood Spider Spawn Egg",
   "item.valoria.swamp_wanderer_spawn_egg": "Swamp Wanderer Spawn Egg",
   "item.valoria.undead_spawn_egg": "Undead Spawn Egg",
   "item.valoria.necromancer_spawn_egg": "Necromancer Spawn Egg",
+
   "biome.valoria.void_barren": "Void Barren",
   "biome.valoria.shade_forest": "Shade Forest",
+
   "effect.valoria.tipsy": "Tipsy",
   "effect.valoria.stun": "Stun",
   "effect.valoria.aloeregen": "Aloe Regeneration",
   "effect.valoria.bleeding": "Bleeding",
+
   "item.minecraft.potion.effect.aloe_potion": "Aloe Potion",
   "item.minecraft.splash_potion.effect.aloe_potion": "Splash Aloe Potion",
   "item.minecraft.lingering_potion.effect.aloe_potion": "Lingering Aloe Potion",
@@ -455,6 +463,8 @@
   "item.valoria.shadewood_chest_boat": "Shadewood Boat with Chest",
   "item.valoria.eldritch_boat": "Eldritch Boat",
   "item.valoria.eldritch_chest_boat": "Eldritch Boat with Chest",
+  "item.valoria.debug_item": "Debug Item",
+
   "painting.valoria.big_mountains.title": "Big Mountains",
   "painting.valoria.forest_long.title": "Long Forest",
   "painting.valoria.hills.title": "Hills",
@@ -491,6 +501,9 @@
   "painting.valoria.emerald.author": "IriDark",
   "painting.valoria.village.author": "IriDark",
   "painting.valoria.starry_night.author": "Vincent van Gogh",
+
+  "block.valoria.void_firecharge_trap": "Void Firecharge Trap",
+  "block.valoria.void_spikes_trap": "Void Spikes Trap",
   "block.valoria.pyratite_ore": "Pyratite Ore",
   "block.valoria.tainted_roots": "Tainted Roots",
   "block.valoria.voidvine": "Voidvine",
