@@ -35,13 +35,17 @@ public class KatanaItem extends SwordItem implements ICooldownItem{
     public final ImmutableList<MobEffectInstance> effects;
     public final Multimap<Attribute, AttributeModifier> defaultModifiers;
 
+    // cringe
+    private final AttributeModifier dashModifier;
+
     public KatanaItem(Tier tier, int attackDamageIn, float attackSpeedIn, Item.Properties builderIn){
         super(tier, attackDamageIn, attackSpeedIn, builderIn);
         this.effects = ImmutableList.of();
+        dashModifier = new AttributeModifier(UUID.fromString("b0e5853a-d071-40db-a585-3ad07100db82"), "Tool modifier", 1.8f, AttributeModifier.Operation.ADDITION);
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
         builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", attackDamageIn, AttributeModifier.Operation.ADDITION));
         builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Tool modifier", attackSpeedIn, AttributeModifier.Operation.ADDITION));
-        builder.put(AttributeRegistry.DASH_DISTANCE.get(), new AttributeModifier(UUID.fromString("b0e5853a-d071-40db-a585-3ad07100db82"), "Tool modifier", 1.8f, AttributeModifier.Operation.ADDITION));
+        builder.put(AttributeRegistry.DASH_DISTANCE.get(), dashModifier);
         this.defaultModifiers = builder.build();
     }
 
@@ -52,10 +56,11 @@ public class KatanaItem extends SwordItem implements ICooldownItem{
     public KatanaItem(Tier tier, int attackDamageIn, float attackSpeedIn, float dashDistance, Item.Properties builderIn, MobEffectInstance... pEffects){
         super(tier, attackDamageIn, attackSpeedIn, builderIn);
         this.effects = ImmutableList.copyOf(pEffects);
+        dashModifier = new AttributeModifier(UUID.fromString("b0e5853a-d071-40db-a585-3ad07100db82"), "Tool modifier", dashDistance, AttributeModifier.Operation.ADDITION);
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
         builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", attackDamageIn, AttributeModifier.Operation.ADDITION));
         builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Tool modifier", attackSpeedIn, AttributeModifier.Operation.ADDITION));
-        builder.put(AttributeRegistry.DASH_DISTANCE.get(), new AttributeModifier(UUID.fromString("b0e5853a-d071-40db-a585-3ad07100db82"), "Tool modifier", dashDistance, AttributeModifier.Operation.ADDITION));
+        builder.put(AttributeRegistry.DASH_DISTANCE.get(), dashModifier);
         this.defaultModifiers = builder.build();
     }
 
@@ -71,11 +76,23 @@ public class KatanaItem extends SwordItem implements ICooldownItem{
         super(tier, attackDamageIn, attackSpeedIn, builderIn);
         this.effects = ImmutableList.copyOf(pEffects);
         this.chance = chance;
+        dashModifier = new AttributeModifier(UUID.fromString("b0e5853a-d071-40db-a585-3ad07100db82"), "Tool modifier", dashDistance, AttributeModifier.Operation.ADDITION);
+
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
         builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", attackDamageIn, AttributeModifier.Operation.ADDITION));
         builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Tool modifier", attackSpeedIn, AttributeModifier.Operation.ADDITION));
-        builder.put(AttributeRegistry.DASH_DISTANCE.get(), new AttributeModifier(UUID.fromString("b0e5853a-d071-40db-a585-3ad07100db82"), "Tool modifier", dashDistance, AttributeModifier.Operation.ADDITION));
+        builder.put(AttributeRegistry.DASH_DISTANCE.get(), dashModifier);
         this.defaultModifiers = builder.build();
+    }
+
+    public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot pEquipmentSlot){
+        if(pEquipmentSlot == EquipmentSlot.OFFHAND) {
+            ImmutableMultimap.Builder<Attribute, AttributeModifier> atts = ImmutableMultimap.builder();
+            atts.put(AttributeRegistry.DASH_DISTANCE.get(), dashModifier);
+            return atts.build();
+        }
+
+        return pEquipmentSlot == EquipmentSlot.MAINHAND ? this.defaultModifiers : super.getDefaultAttributeModifiers(pEquipmentSlot);
     }
 
     public static double distance(float distance, Level level, Player player){
@@ -217,10 +234,6 @@ public class KatanaItem extends SwordItem implements ICooldownItem{
                 applyCooldown(player);
             }
         }
-    }
-
-    public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot pEquipmentSlot){
-        return pEquipmentSlot == EquipmentSlot.MAINHAND ? this.defaultModifiers : super.getDefaultAttributeModifiers(pEquipmentSlot);
     }
 
     @Override

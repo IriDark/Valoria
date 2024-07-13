@@ -31,13 +31,18 @@ public class ScytheItem extends SwordItem implements ICustomAnimationItem, ICool
     public final ImmutableList<MobEffectInstance> effects;
     public final Multimap<Attribute, AttributeModifier> defaultModifiers;
 
+    // cringe
+    private final AttributeModifier radiusModifier;
+
     public ScytheItem(Tier tier, int attackDamageIn, float attackSpeedIn, Properties builderIn){
         super(tier, attackDamageIn, attackSpeedIn, builderIn);
         this.effects = ImmutableList.of();
+        radiusModifier = new AttributeModifier(UUID.fromString("49438567-6ad2-41bd-8385-676ad2a1bd5e"), "Tool modifier", 3, AttributeModifier.Operation.ADDITION);
+
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
         builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", attackDamageIn, AttributeModifier.Operation.ADDITION));
         builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Tool modifier", attackSpeedIn, AttributeModifier.Operation.ADDITION));
-        builder.put(AttributeRegistry.ATTACK_RADIUS.get(), new AttributeModifier(UUID.fromString("49438567-6ad2-41bd-8385-676ad2a1bd5e"), "Tool modifier", 3, AttributeModifier.Operation.ADDITION));
+        builder.put(AttributeRegistry.ATTACK_RADIUS.get(), radiusModifier);
         this.defaultModifiers = builder.build();
     }
 
@@ -51,10 +56,12 @@ public class ScytheItem extends SwordItem implements ICustomAnimationItem, ICool
     public ScytheItem(Tier tier, int attackDamageIn, float attackSpeedIn, int radius, Properties builderIn, MobEffectInstance... pEffects){
         super(tier, attackDamageIn, attackSpeedIn, builderIn);
         this.effects = ImmutableList.copyOf(pEffects);
+        radiusModifier = new AttributeModifier(UUID.fromString("49438567-6ad2-41bd-8385-676ad2a1bd5e"), "Tool modifier", radius, AttributeModifier.Operation.ADDITION);
+
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
         builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", attackDamageIn, AttributeModifier.Operation.ADDITION));
         builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Tool modifier", attackSpeedIn, AttributeModifier.Operation.ADDITION));
-        builder.put(AttributeRegistry.ATTACK_RADIUS.get(), new AttributeModifier(UUID.fromString("49438567-6ad2-41bd-8385-676ad2a1bd5e"), "Tool modifier", radius, AttributeModifier.Operation.ADDITION));
+        builder.put(AttributeRegistry.ATTACK_RADIUS.get(), radiusModifier);
         this.defaultModifiers = builder.build();
     }
 
@@ -70,11 +77,23 @@ public class ScytheItem extends SwordItem implements ICustomAnimationItem, ICool
         super(tier, attackDamageIn, attackSpeedIn, builderIn);
         this.effects = ImmutableList.copyOf(pEffects);
         this.chance = chance;
+        radiusModifier = new AttributeModifier(UUID.fromString("49438567-6ad2-41bd-8385-676ad2a1bd5e"), "Tool modifier", radius, AttributeModifier.Operation.ADDITION);
+
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
         builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", attackDamageIn, AttributeModifier.Operation.ADDITION));
         builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Tool modifier", attackSpeedIn, AttributeModifier.Operation.ADDITION));
-        builder.put(AttributeRegistry.ATTACK_RADIUS.get(), new AttributeModifier(UUID.fromString("49438567-6ad2-41bd-8385-676ad2a1bd5e"), "Tool modifier", radius, AttributeModifier.Operation.ADDITION));
+        builder.put(AttributeRegistry.ATTACK_RADIUS.get(), radiusModifier);
         this.defaultModifiers = builder.build();
+    }
+
+    public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot pEquipmentSlot){
+        if(pEquipmentSlot == EquipmentSlot.OFFHAND) {
+            ImmutableMultimap.Builder<Attribute, AttributeModifier> atts = ImmutableMultimap.builder();
+            atts.put(AttributeRegistry.DASH_DISTANCE.get(), radiusModifier);
+            return atts.build();
+        }
+
+        return pEquipmentSlot == EquipmentSlot.MAINHAND ? this.defaultModifiers : super.getDefaultAttributeModifiers(pEquipmentSlot);
     }
 
     public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn){
@@ -147,10 +166,6 @@ public class ScytheItem extends SwordItem implements ICustomAnimationItem, ICool
 
         level.playSound(null, player.getOnPos(), SoundsRegistry.SWIFTSLICE.get(), SoundSource.PLAYERS, 1.0F, 1F);
         return stack;
-    }
-
-    public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot pEquipmentSlot){
-        return pEquipmentSlot == EquipmentSlot.MAINHAND ? this.defaultModifiers : super.getDefaultAttributeModifiers(pEquipmentSlot);
     }
 
     @Override
