@@ -126,7 +126,7 @@ public class KatanaItem extends SwordItem implements ICooldownItem{
     public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level worldIn, Player playerIn, @NotNull InteractionHand handIn){
         ItemStack itemstack = playerIn.getItemInHand(handIn);
         if(!playerIn.isShiftKeyDown()){
-            playerIn.startUsingItem(InteractionHand.MAIN_HAND);
+            playerIn.startUsingItem(handIn);
             return InteractionResultHolder.consume(itemstack);
         }
 
