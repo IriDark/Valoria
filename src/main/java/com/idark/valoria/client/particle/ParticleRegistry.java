@@ -10,8 +10,8 @@ public class ParticleRegistry{
 
     public static final DeferredRegister<ParticleType<?>> PARTICLES = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, Valoria.ID);
 
+    public static RegistryObject<LodestoneWorldParticleType> SMOKE = PARTICLES.register("smoke", LodestoneWorldParticleType::new);
     public static RegistryObject<LodestoneWorldParticleType> SPHERE = PARTICLES.register("sphere", LodestoneWorldParticleType::new);
-    public static RegistryObject<LodestoneWorldParticleType> GLOWING_SPHERE = PARTICLES.register("glowing_sphere", LodestoneWorldParticleType::new);
     public static RegistryObject<LodestoneWorldParticleType> SKULL = PARTICLES.register("skull", LodestoneWorldParticleType::new);
     public static RegistryObject<LodestoneWorldParticleType> GLITTER = PARTICLES.register("glitter", LodestoneWorldParticleType::new);
     public static RegistryObject<LodestoneWorldParticleType> TRANSFORM_PARTICLE = PARTICLES.register("transform", LodestoneWorldParticleType::new);
