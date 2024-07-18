@@ -29,7 +29,7 @@ plugins {
     id 'org.parchmentmc.librarian.forgegradle' version '1.+'
 }
 
-version = '1.20.1-build-0.6b'
+version = '1.20.1-build-0.6.1b'
 group = 'com.github.IriDark'
 base {
     archivesName = 'Valoria'

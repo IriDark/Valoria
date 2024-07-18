@@ -29,5 +29,5 @@
 - Something like on-screen particles would be cool
 ---
 ### Winglets, Gazers, Totems
-- Finish them, maybe with all other Archeology content?
+- Finish them, maybe with all other Archaeology content?
 

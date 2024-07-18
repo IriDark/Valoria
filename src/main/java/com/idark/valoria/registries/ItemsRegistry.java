@@ -471,7 +471,7 @@ public class ItemsRegistry{
     () -> new ConfigurableBowItem(3, new Item.Properties().stacksTo(1).durability(2048).fireResistant().rarity(RarityRegistry.VOID)));
     public static final RegistryObject<Item> PHANTASM_BOW = ITEMS.register("phantasm_bow",
     () -> new PhantasmBowItem(new Item.Properties().fireResistant().stacksTo(1).durability(4028).rarity(RarityRegistry.PHANTASM)));
-    public static final RegistryObject<Item> PICK = ITEMS.register("pick",
+    public static final RegistryObject<Item> PICK = ITEMS.register("prospectors_pick",
     () -> new PickItem(new Item.Properties().fireResistant().stacksTo(1).durability(64), 1, -2.8f, 5));
     public static final RegistryObject<Item> WICKED_ARROW = ITEMS.register("wicked_arrow",
     () -> new WickedArrowItem(new Item.Properties().rarity(RarityRegistry.VOID)));

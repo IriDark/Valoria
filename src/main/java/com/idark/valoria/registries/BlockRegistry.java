@@ -449,6 +449,8 @@ public class BlockRegistry{
     () -> new KegBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).requiresCorrectToolForDrops().strength(1f, 1f).noOcclusion()));
     public static final RegistryObject<Block> SARCOPHAGUS = registerBlock("sarcophagus",
     () -> new SarcophagusBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops().strength(3f).noOcclusion()));
+    public static final RegistryObject<Block> ARCHAEOLOGY_TABLE = registerBlock("archaeology_table",
+    () -> new ArchaeologyTableBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops().strength(3f).noOcclusion()));
     public static final RegistryObject<Block> TILE = registerBlock("quartz_blackstone_tile",
     () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops().strength(3f, 1f)));
     public static final RegistryObject<Block> QUICKSAND = registerBlock("quicksand",

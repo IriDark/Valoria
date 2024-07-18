@@ -112,8 +112,8 @@ public class GlovesItem extends TieredItem implements ICurioItem, ICurioTexture,
             case LEATHER -> getGlovesTexture("leather", !HandsRenderer.isDefault);
             case IRON -> getGlovesTexture("iron", !HandsRenderer.isDefault);
             case GOLD -> getGlovesTexture("golden", !HandsRenderer.isDefault);
-            case DIAMOND -> getGlovesTexture("diamond", HandsRenderer.isDefault);
-            case NETHERITE -> getGlovesTexture("netherite", HandsRenderer.isDefault);
+            case DIAMOND -> getGlovesTexture("diamond", !HandsRenderer.isDefault);
+            case NETHERITE -> getGlovesTexture("netherite", !HandsRenderer.isDefault);
         };
     }
 

@@ -150,8 +150,8 @@ public class ValoriaClient{
             event.registerLayerDefinition(ValoriaClient.NECKLACE_LAYER, NecklaceModel::createBodyLayer);
             event.registerLayerDefinition(ValoriaClient.BELT_LAYER, BeltModel::createBodyLayer);
             event.registerLayerDefinition(ValoriaClient.BAG_LAYER, JewelryBagModel::createBodyLayer);
-            event.registerLayerDefinition(ValoriaClient.HANDS_LAYER, HandsModelDefault::createBodyLayer);
-            event.registerLayerDefinition(ValoriaClient.HANDS_LAYER_SLIM, HandsModel::createBodyLayer);
+            event.registerLayerDefinition(ValoriaClient.HANDS_LAYER, HandsModel::createBodyLayer);
+            event.registerLayerDefinition(ValoriaClient.HANDS_LAYER_SLIM, HandsModelSlim::createBodyLayer);
             for(CustomBoatEntity.Type boatType : CustomBoatEntity.Type.values()){
                 event.registerLayerDefinition(CustomBoatRenderer.createBoatModelName(boatType), BoatModel::createBodyModel);
                 event.registerLayerDefinition(CustomBoatRenderer.createChestBoatModelName(boatType), ChestBoatModel::createBodyModel);

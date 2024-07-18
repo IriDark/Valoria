@@ -34,6 +34,20 @@ public abstract class PlayerRendererMixin extends LivingEntityRenderer<AbstractC
         super(context, model, shadowRadius);
     }
 
+    @Unique
+    public float[] valoria$getColor(ItemStack stack){
+        if(stack.getItem() instanceof DyeableGlovesItem){
+            int color = ((DyeableLeatherItem)stack.getItem()).getColor(stack);
+            float r = (float)(color >> 16 & 255) / 255.0F;
+            float g = (float)(color >> 8 & 255) / 255.0F;
+            float b = (float)(color & 255) / 255.0F;
+
+            return new float[]{r, g, b};
+        }else{
+            return new float[]{1, 1, 1};
+        }
+    }
+
     @Inject(method = "renderHand", at = @At("HEAD"))
     private void valoria$renderHand(PoseStack pPose, MultiBufferSource pBuffer, int pLight, AbstractClientPlayer pPlayer, ModelPart pArm, ModelPart pWear, CallbackInfo ci){
         List<SlotResult> curioSlots = CuriosApi.getCuriosHelper().findCurios(pPlayer, (i) -> true);
@@ -41,6 +55,7 @@ public abstract class PlayerRendererMixin extends LivingEntityRenderer<AbstractC
             if(slot.slotContext().cosmetic() || slot.slotContext().visible()){
                 if(slot.stack().getItem() instanceof ICurioTexture item){
                     if(item instanceof GlovesItem){
+                        float[] color = valoria$getColor(slot.stack());
                         var playerModel = getModel();
 
                         setModelProperties(pPlayer);
@@ -54,27 +69,13 @@ public abstract class PlayerRendererMixin extends LivingEntityRenderer<AbstractC
                         var pTexture = item.getTexture(slot.stack(), pPlayer);
                         if(pRenderLayer == null || pTexture == null) return;
 
-                        var pModel = new HandsModel(Minecraft.getInstance().getEntityModels().bakeLayer(pRenderLayer));
-                        if(item instanceof DyeableGlovesItem){
-                            int k = ((DyeableLeatherItem)item).getColor(slot.stack());
-                            float f = (float)(k >> 16 & 255) / 255.0F;
-                            float f1 = (float)(k >> 8 & 255) / 255.0F;
-                            float f2 = (float)(k & 255) / 255.0F;
-                            if(pArm == pModel.right_glove){
-                                pModel.right_glove.copyFrom(pArm);
-                                pModel.right_glove.render(pPose, pBuffer.getBuffer(RenderType.entityTranslucent(pTexture)), pLight, OverlayTexture.NO_OVERLAY, f, f1, f2, 1);
-                            }else{
-                                pModel.left_glove.copyFrom(pArm);
-                                pModel.left_glove.render(pPose, pBuffer.getBuffer(RenderType.entityTranslucent(pTexture)), pLight, OverlayTexture.NO_OVERLAY, f, f1, f2, 1);
-                            }
-                        } else {
-                            if(pArm == pModel.right_glove){
-                                pModel.right_glove.copyFrom(pArm);
-                                pModel.right_glove.render(pPose, pBuffer.getBuffer(RenderType.entityTranslucent(pTexture)), pLight, OverlayTexture.NO_OVERLAY);
-                            }else{
-                                pModel.left_glove.copyFrom(pArm);
-                                pModel.left_glove.render(pPose, pBuffer.getBuffer(RenderType.entityTranslucent(pTexture)), pLight, OverlayTexture.NO_OVERLAY);
-                            }
+                        var pModel = new HandsModelSlim(Minecraft.getInstance().getEntityModels().bakeLayer(pRenderLayer));
+                        if(pArm == playerModel.rightArm){
+                            pModel.right_glove.copyFrom(pArm);
+                            pModel.right_glove.render(pPose, pBuffer.getBuffer(RenderType.entityTranslucent(pTexture)), pLight, OverlayTexture.NO_OVERLAY, color[0], color[1], color[2], 1);
+                        }else{
+                            pModel.left_glove.copyFrom(pArm);
+                            pModel.left_glove.render(pPose, pBuffer.getBuffer(RenderType.entityTranslucent(pTexture)), pLight, OverlayTexture.NO_OVERLAY, color[0], color[1], color[2], 1);
                         }
                     }
                 }
