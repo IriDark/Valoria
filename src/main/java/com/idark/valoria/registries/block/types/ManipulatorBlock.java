@@ -21,6 +21,7 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.phys.*;
+import net.minecraft.world.phys.shapes.*;
 import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.network.*;
 import org.jetbrains.annotations.*;
@@ -32,6 +33,24 @@ public class ManipulatorBlock extends Block implements EntityBlock{
 
     public ManipulatorBlock(BlockBehaviour.Properties properties){
         super(properties);
+    }
+
+    public VoxelShape makeShape(){
+        // Voxel shapes sucks
+        VoxelShape shape = Shapes.empty();
+        shape = Shapes.join(shape, Shapes.box(0.0625, 0, 0.0625, 0.9375, 0.1875, 0.9375), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0.25, 0.1875, 0.25, 0.75, 0.3125, 0.75), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0, 0.3125, 0, 1, 0.5, 1), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0.6875, 0.5, 0.6875, 1, 1, 1), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0, 0.5, 0.6875, 0.3125, 1, 1), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0, 0.5, 0, 0.3125, 1, 0.3125), BooleanOp.OR);
+        shape = Shapes.join(shape, Shapes.box(0.6875, 0.5, 0, 1, 1, 0.3125), BooleanOp.OR);
+        return shape;
+    }
+
+    @Override
+    public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context){
+        return makeShape();
     }
 
     @OnlyIn(Dist.CLIENT)

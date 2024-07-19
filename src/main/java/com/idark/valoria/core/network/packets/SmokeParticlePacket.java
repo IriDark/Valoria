@@ -5,11 +5,9 @@ import com.idark.valoria.client.particle.*;
 import com.idark.valoria.util.*;
 import net.minecraft.network.*;
 import net.minecraft.world.level.*;
+import net.minecraft.world.phys.*;
 import net.minecraftforge.network.*;
-import team.lodestar.lodestone.systems.particle.builder.*;
-import team.lodestar.lodestone.systems.particle.data.*;
 import team.lodestar.lodestone.systems.particle.data.color.*;
-import team.lodestar.lodestone.systems.particle.render_types.*;
 
 import java.awt.*;
 import java.util.*;
@@ -43,16 +41,9 @@ public class SmokeParticlePacket{
             ctx.get().enqueueWork(() -> {
                 Level pLevel = Valoria.proxy.getWorld();
                 Color color = new Color(msg.colorR, msg.colorG, msg.colorB);
+                Vec3 pos = new Vec3(msg.posX, msg.posY, msg.posZ);
                 for(int i = 0; i < 60; i++){
-                    WorldParticleBuilder.create(ParticleRegistry.SMOKE)
-                    .setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT.withDepthFade())
-                    .setTransparencyData(GenericParticleData.create(random.nextFloat(0, 0.6f), 0f).build())
-                    .setScaleData(GenericParticleData.create(0.92f, 0f).build())
-                    .setLifetime(95 + random.nextInt(100))
-                    .setColorData(ColorParticleData.create(color, Pal.darkestGray).build())
-                    .setRandomMotion(0.125f, 0, 0.125)
-                    .setRandomOffset(0.025f)
-                    .spawn(pLevel, msg.posX, msg.posY, msg.posZ);
+                    ParticleEffects.packetSmokeParticles(pLevel, pos, ColorParticleData.create(color, Pal.darkestGray).build()).spawnParticles();
                 }
 
                 ctx.get().setPacketHandled(true);

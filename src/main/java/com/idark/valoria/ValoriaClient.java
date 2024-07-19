@@ -166,6 +166,7 @@ public class ValoriaClient{
         @OnlyIn(Dist.CLIENT)
         @SubscribeEvent
         public static void registerFactories(RegisterParticleProvidersEvent event){
+            Minecraft.getInstance().particleEngine.register(ParticleRegistry.CUBE.get(), LodestoneWorldParticleType.Factory::new);
             Minecraft.getInstance().particleEngine.register(ParticleRegistry.SMOKE.get(), LodestoneWorldParticleType.Factory::new);
             Minecraft.getInstance().particleEngine.register(ParticleRegistry.SPHERE.get(), LodestoneWorldParticleType.Factory::new);
             Minecraft.getInstance().particleEngine.register(ParticleRegistry.TRANSFORM_PARTICLE.get(), LodestoneWorldParticleType.Factory::new);

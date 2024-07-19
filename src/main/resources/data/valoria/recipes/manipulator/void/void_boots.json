@@ -2,7 +2,7 @@
   "type": "valoria:manipulator",
   "output": {
     "count": 1,
-    "item": "valoria:void_boots"
+    "item": "valoria:awakened_void_boots"
   },
   "core": "void_core",
   "cores": 1,

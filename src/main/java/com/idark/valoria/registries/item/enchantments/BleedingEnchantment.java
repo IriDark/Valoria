@@ -37,6 +37,6 @@ public class BleedingEnchantment extends Enchantment{
     }
 
     public boolean checkCompatibility(Enchantment pEnchantment){
-        return super.checkCompatibility(pEnchantment) && pEnchantment != Enchantments.SWEEPING_EDGE;
+        return super.checkCompatibility(pEnchantment) && pEnchantment != Enchantments.SHARPNESS;
     }
 }

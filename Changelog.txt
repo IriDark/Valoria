@@ -2,11 +2,18 @@
 
 - Now Valoria requires Lodestone
 
+- Added custom Voxel shapes
+
 - ID change of "pick" -> "prospectors_pick"
 
 - Fixed Katana's, Scythe's
 - Fixed infinite use of Katana
 - Fixed Gloves rendering
+- Fixed Void armor craft recipe
+
+- Resprited Gazers, totems, winglets
+
+- Changed incompatibility of "Bleeding" enchantment from "Sweeping Edge" to "Sharpness"
 
 - Optimized Gloves code
 - Updated mods.toml

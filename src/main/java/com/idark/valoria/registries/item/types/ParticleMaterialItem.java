@@ -38,6 +38,7 @@ public class ParticleMaterialItem extends Item implements IParticleItemEntity, P
         alpha = 1f;
     }
 
+    @OnlyIn(Dist.CLIENT)
     @Override
     public void spawnParticles(Level level, ItemEntity entity){
         RandomSource rand = level.getRandom();

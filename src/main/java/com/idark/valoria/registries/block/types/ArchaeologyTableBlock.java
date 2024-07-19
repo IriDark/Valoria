@@ -9,17 +9,90 @@ import net.minecraft.world.item.context.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.*;
+import net.minecraft.world.level.block.state.StateDefinition.*;
 import net.minecraft.world.level.block.state.properties.*;
 import net.minecraft.world.phys.shapes.*;
 
 import javax.annotation.*;
 
 public class ArchaeologyTableBlock extends HorizontalDirectionalBlock{
-
     public static final EnumProperty<BedPart> PART = BlockStateProperties.BED_PART;
-    private static final VoxelShape shape = Block.box(0, 0, 0, 16, 16, 16);
+    public VoxelShape makeShape(BlockState state){
+        //I hate voxel shapes, the worst thing ive seen...
+        Direction direction = (state.getValue(FACING));
+        VoxelShape shape = Shapes.empty();
+        if(state.getValue(PART) == BedPart.FOOT){
+            switch(direction){
+                case WEST -> {
+                    shape = Shapes.join(shape, Shapes.box(0.8125, 0, 0.0625, 0.9375, 0.75, 0.1875), BooleanOp.OR);
+                    shape = Shapes.join(shape, Shapes.box(0, 0.5, 0.0625, 0.8125, 0.625, 0.1875), BooleanOp.OR);
+                    shape = Shapes.join(shape, Shapes.box(0, 0.5, 0.8125, 0.8125, 0.625, 0.9375), BooleanOp.OR);
+                    shape = Shapes.join(shape, Shapes.box(0.8125, 0.5, 0.1875, 0.9375, 0.625, 0.8125), BooleanOp.OR);
+                    shape = Shapes.join(shape, Shapes.box(0.8125, 0, 0.8125, 0.9375, 0.75, 0.9375), BooleanOp.OR);
+                    shape = Shapes.join(shape, Shapes.box(0, 0.75, 0, 1, 1, 1), BooleanOp.OR);
+                }
 
-    public ArchaeologyTableBlock(BlockBehaviour.Properties pProperties){
+                case EAST -> {
+                    shape = Shapes.join(shape, Shapes.box(0.0625, 0, 0.8125, 0.1875, 0.75, 0.9375), BooleanOp.OR);
+                    shape = Shapes.join(shape, Shapes.box(0.1875, 0.5, 0.8125, 1, 0.625, 0.9375), BooleanOp.OR);
+                    shape = Shapes.join(shape, Shapes.box(0.1875, 0.5, 0.0625, 1, 0.625, 0.1875), BooleanOp.OR);
+                    shape = Shapes.join(shape, Shapes.box(0.0625, 0.5, 0.1875, 0.1875, 0.625, 0.8125), BooleanOp.OR);
+                    shape = Shapes.join(shape, Shapes.box(0.0625, 0, 0.0625, 0.1875, 0.75, 0.1875), BooleanOp.OR);
+                    shape = Shapes.join(shape, Shapes.box(0, 0.75, 0, 1, 1, 1), BooleanOp.OR);
+                }
+
+                case NORTH -> {
+                    shape = Shapes.join(shape, Shapes.box(0.8125, 0, 0.8125, 0.9375, 0.75, 0.9375), BooleanOp.OR);
+                    shape = Shapes.join(shape, Shapes.box(0.8125, 0.5, 0, 0.9375, 0.625, 0.8125), BooleanOp.OR);
+                    shape = Shapes.join(shape, Shapes.box(0.0625, 0.5, 0, 0.1875, 0.625, 0.8125), BooleanOp.OR);
+                    shape = Shapes.join(shape, Shapes.box(0.1875, 0.5, 0.8125, 0.8125, 0.625, 0.9375), BooleanOp.OR);
+                    shape = Shapes.join(shape, Shapes.box(0.0625, 0, 0.8125, 0.1875, 0.75, 0.9375), BooleanOp.OR);
+                    shape = Shapes.join(shape, Shapes.box(0, 0.75, 0, 1, 1, 1), BooleanOp.OR);
+                }
+
+                case SOUTH -> {
+                    shape = Shapes.join(shape, Shapes.box(0.0625, 0, 0.0625, 0.1875, 0.75, 0.1875), BooleanOp.OR);
+                    shape = Shapes.join(shape, Shapes.box(0.0625, 0.5, 0.1875, 0.1875, 0.625, 1), BooleanOp.OR);
+                    shape = Shapes.join(shape, Shapes.box(0.8125, 0.5, 0.1875, 0.9375, 0.625, 1), BooleanOp.OR);
+                    shape = Shapes.join(shape, Shapes.box(0.1875, 0.5, 0.0625, 0.8125, 0.625, 0.1875), BooleanOp.OR);
+                    shape = Shapes.join(shape, Shapes.box(0.8125, 0, 0.0625, 0.9375, 0.75, 0.1875), BooleanOp.OR);
+                    shape = Shapes.join(shape, Shapes.box(0, 0.75, 0, 1, 1, 1), BooleanOp.OR);
+                }
+            }
+        }
+
+        if(state.getValue(PART) == BedPart.HEAD){
+            switch(direction){
+                case WEST -> {
+                    shape = Shapes.join(shape, Shapes.box(0, 0.75, 0, 1, 1, 1), BooleanOp.OR);
+                    shape = Shapes.join(shape, Shapes.box(0.0625, 0, 0.0625, 1, 0.75, 0.9375), BooleanOp.OR);
+                }
+                case EAST -> {
+                    shape = Shapes.join(shape, Shapes.box(0, 0.75, 0, 1, 1, 1), BooleanOp.OR);
+                    shape = Shapes.join(shape, Shapes.box(0, 0, 0.0625, 0.9375, 0.75, 0.9375), BooleanOp.OR);
+                }
+
+                case NORTH -> {
+                    shape = Shapes.join(shape, Shapes.box(0, 0.75, 0, 1, 1, 1), BooleanOp.OR);
+                    shape = Shapes.join(shape, Shapes.box(0.0625, 0, 0.0625, 0.9375, 0.75, 1), BooleanOp.OR);
+                }
+
+                case SOUTH -> {
+                    shape = Shapes.join(shape, Shapes.box(0, 0.75, 0, 1, 1, 1), BooleanOp.OR);
+                    shape = Shapes.join(shape, Shapes.box(0.0625, 0, 0, 0.9375, 0.75, 0.9375), BooleanOp.OR);
+                }
+            }
+        }
+
+        return shape;
+    }
+
+    @Override
+    public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context){
+        return makeShape(state);
+    }
+
+    public ArchaeologyTableBlock(Properties pProperties){
         super(pProperties);
         this.registerDefaultState(this.stateDefinition.any().setValue(PART, BedPart.FOOT));
     }
@@ -28,9 +101,8 @@ public class ArchaeologyTableBlock extends HorizontalDirectionalBlock{
         return pPart == BedPart.FOOT ? pDirection : pDirection.getOpposite();
     }
 
-    @Override
-    public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context){
-        return shape;
+    public RenderShape getRenderShape(BlockState pState) {
+        return RenderShape.MODEL;
     }
 
     public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pFacingPos){
@@ -77,7 +149,7 @@ public class ArchaeologyTableBlock extends HorizontalDirectionalBlock{
     }
 
     @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder){
+    protected void createBlockStateDefinition(Builder<Block, BlockState> builder){
         builder.add(FACING);
         builder.add(PART);
         super.createBlockStateDefinition(builder);

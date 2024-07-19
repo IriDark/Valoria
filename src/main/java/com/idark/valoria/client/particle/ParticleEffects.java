@@ -16,6 +16,7 @@ import team.lodestar.lodestone.systems.particle.render_types.*;
 import team.lodestar.lodestone.systems.particle.world.behaviors.components.*;
 import team.lodestar.lodestone.systems.particle.world.options.*;
 
+import java.util.*;
 import java.util.function.*;
 
 import static net.minecraft.util.Mth.nextFloat;
@@ -186,6 +187,31 @@ public class ParticleEffects{
         return new ParticleEffectSpawner(level, pos, particleBuilder);
     }
 
+    public static ParticleEffectSpawner packetSmokeParticles(Level level, Vec3 pos, ColorParticleData colorData){
+        return packetSmokeParticles(level, pos, colorData, new WorldParticleOptions(ParticleRegistry.SMOKE));
+    }
+
+    public static ParticleEffectSpawner packetSmokeParticles(Level level, Vec3 pos, ColorParticleData colorData, WorldParticleOptions options){
+        return packetSmokeParticles(level, pos, options, o -> WorldParticleBuilder.create(o).setColorData(colorData));
+    }
+
+    public static ParticleEffectSpawner packetSmokeParticles(Level level, Vec3 pos, WorldParticleOptions options, Function<WorldParticleOptions, WorldParticleBuilder> builderSupplier){
+        var builder = builderSupplier.apply(options);
+        return packetSmokeParticles(level, pos, builder);
+    }
+
+    public static ParticleEffectSpawner packetSmokeParticles(Level level, Vec3 pos, WorldParticleBuilder builder){
+        Random random = new Random();
+        final WorldParticleBuilder particleBuilder = builder
+        .setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT.withDepthFade())
+        .setTransparencyData(GenericParticleData.create(random.nextFloat(0, 0.6f), 0f).build())
+        .setScaleData(GenericParticleData.create(0.92f, 0f).build())
+        .setLifetime(95 + random.nextInt(100))
+        .setRandomMotion(0.125f, 0, 0.125)
+        .setRandomOffset(0.025f);
+
+        return new ParticleEffectSpawner(level, pos, particleBuilder);
+    }
 
     public static ParticleEffectSpawner itemParticles(Level level, Vec3 pos, ColorParticleData colorData){
         return itemParticles(level, pos, colorData, new WorldParticleOptions(LodestoneParticleRegistry.SPARK_PARTICLE));

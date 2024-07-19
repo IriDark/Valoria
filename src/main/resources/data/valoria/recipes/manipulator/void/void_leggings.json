@@ -2,7 +2,7 @@
   "type": "valoria:manipulator",
   "output": {
     "count": 1,
-    "item": "valoria:void_leggings"
+    "item": "valoria:awakened_void_leggings"
   },
   "core": "void_core",
   "cores": 1,

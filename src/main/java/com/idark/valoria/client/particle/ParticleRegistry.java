@@ -10,6 +10,7 @@ public class ParticleRegistry{
 
     public static final DeferredRegister<ParticleType<?>> PARTICLES = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, Valoria.ID);
 
+    public static RegistryObject<LodestoneWorldParticleType> CUBE = PARTICLES.register("cube", LodestoneWorldParticleType::new);
     public static RegistryObject<LodestoneWorldParticleType> SMOKE = PARTICLES.register("smoke", LodestoneWorldParticleType::new);
     public static RegistryObject<LodestoneWorldParticleType> SPHERE = PARTICLES.register("sphere", LodestoneWorldParticleType::new);
     public static RegistryObject<LodestoneWorldParticleType> SKULL = PARTICLES.register("skull", LodestoneWorldParticleType::new);

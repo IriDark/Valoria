@@ -2,7 +2,7 @@
   "type": "valoria:manipulator",
   "output": {
     "count": 1,
-    "item": "valoria:void_helmet"
+    "item": "valoria:awakened_void_helmet"
   },
   "core": "void_core",
   "cores": 1,
