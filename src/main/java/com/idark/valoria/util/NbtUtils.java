@@ -17,7 +17,12 @@ public class NbtUtils{
     public static void writeIntNbt(ItemStack stack, String name, int value){
         CompoundTag nbt = stack.getOrCreateTag();
         nbt.putInt(name, value);
-        stack.setTag(nbt);
+    }
+
+    public static void addCharge(ItemStack stack, int charge){
+        CompoundTag nbt = stack.getOrCreateTag();
+        int charges = nbt.getInt("charge");
+        nbt.putInt("charge", charges + charge);
     }
 
     public static void writeDoubleNbt(ItemStack stack, String name, double value){

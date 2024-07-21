@@ -5,7 +5,6 @@ import com.idark.valoria.registries.item.interfaces.*;
 import com.idark.valoria.util.*;
 import net.minecraft.*;
 import net.minecraft.core.particles.*;
-import net.minecraft.nbt.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
@@ -28,48 +27,10 @@ public class MagmaSwordItem extends SwordItem implements IRadiusItem{
         super(tier, attackDamageIn, attackSpeedIn, builderIn);
     }
 
-    public static int isCharged(ItemStack stack){
-        CompoundTag nbt = stack.getTag();
-        if(nbt == null){
-            nbt = new CompoundTag();
-            stack.setTag(nbt);
-        }
-        if(!nbt.contains("charge")){
-            nbt.putInt("charge", 0);
-            stack.setTag(nbt);
-            return 0;
-        }else{
-            return nbt.getInt("charge");
-        }
-    }
-
-    public static void addCharge(ItemStack stack, int charge){
-        CompoundTag nbt = stack.getTag();
-        if(nbt == null){
-            nbt = new CompoundTag();
-            stack.setTag(nbt);
-        }
-
-        int charges = nbt.getInt("charge");
-        nbt.putInt("charge", charges + charge);
-        stack.setTag(nbt);
-    }
-
-    public static void setCharges(ItemStack stack, int charge){
-        CompoundTag nbt = stack.getTag();
-        if(nbt == null){
-            nbt = new CompoundTag();
-            stack.setTag(nbt);
-        }
-
-        nbt.putInt("charge", charge);
-        stack.setTag(nbt);
-    }
-
     public static String getModeString(ItemStack stack){
-        if(isCharged(stack) == 2){
+        if(NbtUtils.readNbt(stack, "charge") == 2){
             return "tooltip.valoria.magma_charge_full";
-        }else if(isCharged(stack) == 1){
+        }else if(NbtUtils.readNbt(stack, "charge") == 1){
             return "tooltip.valoria.magma_charge_half";
         }
 
@@ -82,9 +43,9 @@ public class MagmaSwordItem extends SwordItem implements IRadiusItem{
 
     public boolean hurtEnemy(ItemStack pStack, LivingEntity pTarget, LivingEntity pAttacker){
         pStack.hurtAndBreak(1, pAttacker, (p_43296_) -> p_43296_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
-        if(isCharged(pStack) < 2){
+        if(NbtUtils.readNbt(pStack, "charge") < 2){
             if(RandomUtil.percentChance(0.1f)){
-                addCharge(pStack, 1);
+                NbtUtils.addCharge(pStack, 1);
             }
         }
 
@@ -126,9 +87,9 @@ public class MagmaSwordItem extends SwordItem implements IRadiusItem{
         float damage = (float)(player.getAttributeValue(Attributes.ATTACK_DAMAGE) + 5) + EnchantmentHelper.getSweepingDamageRatio(player);
 
         Vector3d pos = new Vector3d(player.getX(), player.getY() + 0.3f, player.getZ());
-        if(isCharged(stack) == 2){
+        if(NbtUtils.readNbt(stack, "charge") == 2){
             if(player.isInWaterOrRain()){
-                setCharges(stack, 1);
+                NbtUtils.addCharge(stack, 1);
                 player.getCooldowns().addCooldown(this, 150);
                 player.displayClientMessage(Component.translatable("tooltip.valoria.wet").withStyle(ChatFormatting.GRAY), true);
                 worldIn.playSound(player, player.blockPosition(), SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 1f, 1f);
@@ -144,7 +105,7 @@ public class MagmaSwordItem extends SwordItem implements IRadiusItem{
                 }
             }else{
                 List<LivingEntity> hitEntities = new ArrayList<>();
-                setCharges(stack, 0);
+                NbtUtils.writeIntNbt(stack, "charge", 0);
                 player.getCooldowns().addCooldown(this, 300);
 
                 ValoriaUtils.spawnParticlesInRadius(worldIn, stack, ParticleTypes.LARGE_SMOKE, pos, 0, player.getRotationVector().y, 1);

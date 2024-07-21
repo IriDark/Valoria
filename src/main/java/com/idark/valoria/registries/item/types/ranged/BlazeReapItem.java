@@ -25,7 +25,8 @@ import team.lodestar.lodestone.systems.particle.screen.*;
 import java.awt.*;
 import java.util.List;
 
-// TODO: FIX FUCKING NBT TAGS SYNCING, I HATE YOU MOJANG
+
+// some day it will be done, but not in this life: FIX FUCKING NBT TAGS SYNCING, I HATE YOU MOJANG
 // tags should be sent by packet
 public class BlazeReapItem extends PickaxeItem implements Vanishable, ParticleEmitterHandler.ItemParticleSupplier{
     public BlazeReapItem(Tier tier, int attackDamageIn, float attackSpeedIn, Properties builder){
@@ -135,7 +136,7 @@ public class BlazeReapItem extends PickaxeItem implements Vanishable, ParticleEm
     @OnlyIn(Dist.CLIENT)
     @Override
     public void spawnLateParticles(ScreenParticleHolder target, Level level, float partialTick, ItemStack stack, float x, float y) {
-        System.out.print(NbtUtils.readNbt(stack,"charge"));
+        System.out.print(stack.getTag());
         if (NbtUtils.readNbt(stack, "charge") == 1){
             ScreenParticleRegistry.spawnFireParticles(target, ColorParticleData.create(Color.white, Pal.strongRed).build());
         }
