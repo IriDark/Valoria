@@ -1,5 +1,6 @@
-package com.idark.valoria.registries.item.types;
+package com.idark.valoria.registries.item.types.ranged;
 
+import com.idark.valoria.registries.entity.projectile.*;
 import net.minecraft.sounds.*;
 import net.minecraft.stats.*;
 import net.minecraft.world.entity.*;
@@ -8,22 +9,19 @@ import net.minecraft.world.entity.projectile.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.*;
 import net.minecraft.world.level.*;
-import net.minecraftforge.event.*;
 
-public class ConfigurableBowItem extends BowItem{
-    double baseDamage;
-
-    public ConfigurableBowItem(double pBaseDamage, Properties pProperties){
+public class InfernalBowItem extends BowItem{
+    public InfernalBowItem(Properties pProperties){
         super(pProperties);
-        baseDamage = pBaseDamage;
     }
 
     public void releaseUsing(ItemStack pStack, Level pLevel, LivingEntity pEntityLiving, int pTimeLeft){
         if(pEntityLiving instanceof Player player){
             boolean flag = player.getAbilities().instabuild || EnchantmentHelper.getTagEnchantmentLevel(Enchantments.INFINITY_ARROWS, pStack) > 0;
             ItemStack itemstack = player.getProjectile(pStack);
+
             int i = this.getUseDuration(pStack) - pTimeLeft;
-            i = ForgeEventFactory.onArrowLoose(pStack, pLevel, player, i, !itemstack.isEmpty() || flag);
+            i = net.minecraftforge.event.ForgeEventFactory.onArrowLoose(pStack, pLevel, player, i, !itemstack.isEmpty() || flag);
             if(i < 0) return;
 
             if(!itemstack.isEmpty() || flag){
@@ -36,9 +34,9 @@ public class ConfigurableBowItem extends BowItem{
                     boolean infiniteArrows = player.getAbilities().instabuild || (itemstack.getItem() instanceof ArrowItem && ((ArrowItem)itemstack.getItem()).isInfinite(itemstack, pStack, player));
                     if(!pLevel.isClientSide){
                         ArrowItem arrowitem = (ArrowItem)(itemstack.getItem() instanceof ArrowItem ? itemstack.getItem() : Items.ARROW);
-                        AbstractArrow abstractarrow = arrowitem.createArrow(pLevel, itemstack, player);
+                        AbstractArrow abstractarrow = arrowitem == Items.ARROW ? new InfernalArrow(pLevel, player, itemstack) : arrowitem.createArrow(pLevel, itemstack, player);
                         abstractarrow = customArrow(abstractarrow);
-                        abstractarrow.setBaseDamage(abstractarrow.getBaseDamage() + baseDamage);
+                        abstractarrow.setBaseDamage(abstractarrow.getBaseDamage() + 2);
                         abstractarrow.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, power * 3.0F, 1.0F);
                         if(power == 1.0F){
                             abstractarrow.setCritArrow(true);
@@ -55,7 +53,7 @@ public class ConfigurableBowItem extends BowItem{
                         }
 
                         if(EnchantmentHelper.getTagEnchantmentLevel(Enchantments.FLAMING_ARROWS, pStack) > 0){
-                            abstractarrow.setSecondsOnFire(100);
+                            abstractarrow.setSecondsOnFire(150);
                         }
 
                         pStack.hurtAndBreak(1, player, (p_289501_) -> p_289501_.broadcastBreakEvent(player.getUsedItemHand()));

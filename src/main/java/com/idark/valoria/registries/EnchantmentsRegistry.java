@@ -3,7 +3,7 @@ package com.idark.valoria.registries;
 import com.idark.valoria.*;
 import com.idark.valoria.registries.item.enchantments.*;
 import com.idark.valoria.registries.item.interfaces.*;
-import com.idark.valoria.registries.item.types.*;
+import com.idark.valoria.registries.item.types.ranged.*;
 import net.minecraft.world.item.enchantment.*;
 import net.minecraftforge.eventbus.api.*;
 import net.minecraftforge.registries.*;

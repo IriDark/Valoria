@@ -6,12 +6,12 @@ import com.idark.valoria.client.particle.*;
 import com.idark.valoria.registries.entity.decoration.*;
 import com.idark.valoria.registries.item.tiers.*;
 import com.idark.valoria.registries.item.types.*;
-import com.idark.valoria.registries.item.types.arrow.*;
 import com.idark.valoria.registries.item.types.curio.*;
 import com.idark.valoria.registries.item.types.curio.charm.*;
 import com.idark.valoria.registries.item.types.curio.enums.*;
 import com.idark.valoria.registries.item.types.curio.necklace.*;
 import com.idark.valoria.registries.item.types.food.*;
+import com.idark.valoria.registries.item.types.ranged.*;
 import com.idark.valoria.util.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.food.*;
@@ -114,6 +114,8 @@ public class ItemsRegistry{
 
     public static final RegistryObject<Item> LEXICON = ITEMS.register("lexicon", () -> new LexiconItem(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> CRYPT = ITEMS.register("page", () -> new LexiconPageItem(new Item.Properties().stacksTo(1), RegisterUnlockables.CRYPT, "gui.valoria.crypt.name"));
+
+    public static final RegistryObject<Item> GUNPOOWDER_CHARGE = ITEMS.register("gunpowder_charge", () -> new GunpowderCharge(new Item.Properties().stacksTo(1)));
 
     public static final RegistryObject<Item> JEWELRY_BAG = ITEMS.register("jewelry_bag", () -> new JewelryBagItem(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> ALOE_BANDAGE = ITEMS.register("aloe_bandage", () -> new AloeBandageItem(1600, 0));
@@ -418,25 +420,25 @@ public class ItemsRegistry{
     public static final RegistryObject<Item> AMBER_WINGLET = ITEMS.register("amber_golden_winglet",
     () -> new Item(new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.EPIC)));
     public static final RegistryObject<Item> AMBER_GAZER = ITEMS.register("amber_golden_gazer",
-    () -> new Item(new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.EPIC)));
+    () -> new ParticleMaterialItem(ParticleRegistry.CUBE.get(), Pal.amber, Color.white, 0.35f, new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.EPIC)));
     public static final RegistryObject<Item> EMERALD_TOTEM = ITEMS.register("emerald_golden_totem",
     () -> new Item(new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.EPIC)));
     public static final RegistryObject<Item> EMERALD_WINGLET = ITEMS.register("emerald_golden_winglet",
     () -> new Item(new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.EPIC)));
     public static final RegistryObject<Item> EMERALD_GAZER = ITEMS.register("emerald_golden_gazer",
-    () -> new Item(new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.EPIC)));
+    () -> new ParticleMaterialItem(ParticleRegistry.CUBE.get(), Pal.emerald, Color.white, 0.35f, new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.EPIC)));
     public static final RegistryObject<Item> AMETHYST_TOTEM = ITEMS.register("amethyst_golden_totem",
     () -> new Item(new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.EPIC)));
     public static final RegistryObject<Item> AMETHYST_WINGLET = ITEMS.register("amethyst_golden_winglet",
     () -> new Item(new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.EPIC)));
     public static final RegistryObject<Item> AMETHYST_GAZER = ITEMS.register("amethyst_golden_gazer",
-    () -> new Item(new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.EPIC)));
+    () -> new ParticleMaterialItem(ParticleRegistry.CUBE.get(), Pal.amethyst, Color.white, 0.35f, new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.EPIC)));
     public static final RegistryObject<Item> RUBY_TOTEM = ITEMS.register("ruby_golden_totem",
     () -> new Item(new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.EPIC)));
     public static final RegistryObject<Item> RUBY_WINGLET = ITEMS.register("ruby_golden_winglet",
     () -> new Item(new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.EPIC)));
     public static final RegistryObject<Item> RUBY_GAZER = ITEMS.register("ruby_golden_gazer",
-    () -> new Item(new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.EPIC)));
+    () -> new ParticleMaterialItem(ParticleRegistry.CUBE.get(), Pal.ruby, Color.white, 0.35f, new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.EPIC)));
     public static final RegistryObject<Item> RUNE = ITEMS.register("rune",
     () -> new CurioRune(new Item.Properties().stacksTo(16).rarity(Rarity.UNCOMMON)));
     public static final RegistryObject<Item> RUNE_OF_VISION = ITEMS.register("rune_of_vision",

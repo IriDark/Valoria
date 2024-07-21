@@ -1,13 +1,14 @@
-package com.idark.valoria.registries.item.types;
+package com.idark.valoria.registries.item.types.ranged;
 
+import com.idark.valoria.client.particle.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.util.*;
 import net.minecraft.*;
 import net.minecraft.core.particles.*;
-import net.minecraft.nbt.*;
-import net.minecraft.network.chat.*;
+import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.*;
 import net.minecraft.stats.*;
+import net.minecraft.util.*;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.*;
@@ -16,45 +17,22 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
+import net.minecraftforge.api.distmarker.*;
+import team.lodestar.lodestone.handlers.screenparticle.*;
+import team.lodestar.lodestone.systems.particle.data.color.*;
+import team.lodestar.lodestone.systems.particle.screen.*;
 
-import java.util.*;
+import java.awt.*;
+import java.util.List;
 
-//TODO: Probably rework
-public class BlazeReapItem extends PickaxeItem implements Vanishable{
-    Random rand = new Random();
-
+// TODO: FIX FUCKING NBT TAGS SYNCING, I HATE YOU MOJANG
+// tags should be sent by packet
+public class BlazeReapItem extends PickaxeItem implements Vanishable, ParticleEmitterHandler.ItemParticleSupplier{
     public BlazeReapItem(Tier tier, int attackDamageIn, float attackSpeedIn, Properties builder){
         super(tier, attackDamageIn, attackSpeedIn, builder);
     }
-
-    public static int isCharged(ItemStack stack){
-        CompoundTag nbt = stack.getTag();
-        if(nbt == null){
-            nbt = new CompoundTag();
-            stack.setTag(nbt);
-        }
-        if(!nbt.contains("charge")){
-            nbt.putInt("charge", 0);
-            stack.setTag(nbt);
-            return 0;
-        }else{
-            return nbt.getInt("charge");
-        }
-    }
-
-    public static void setCharge(ItemStack stack, int charge){
-        CompoundTag nbt = stack.getTag();
-        if(nbt == null){
-            nbt = new CompoundTag();
-            stack.setTag(nbt);
-        }
-
-        nbt.putInt("charge", charge);
-        stack.setTag(nbt);
-    }
-
     public static String getModeString(ItemStack stack){
-        if(isCharged(stack) == 1){
+        if(NbtUtils.readNbt(stack, "charge") == 1){
             return "tooltip.valoria.rmb";
         }else{
             return "tooltip.valoria.rmb_shift";
@@ -73,42 +51,18 @@ public class BlazeReapItem extends PickaxeItem implements Vanishable{
      * Some sounds taken from the CalamityMod (Terraria) in a <a href="https://calamitymod.wiki.gg/wiki/Category:Sound_effects">Calamity Mod Wiki.gg</a>
      */
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand){
-        ItemStack itemstack = player.getItemInHand(hand);
+        ItemStack weapon = player.getItemInHand(hand);
+        ItemStack ammo = ValoriaUtils.getProjectile(player, weapon);
+        RandomSource rand = level.getRandom();
+        boolean hasAmmo = !ammo.isEmpty();
         if(player.isShiftKeyDown()){
-            if(isCharged(itemstack) == 0){
-                List<ItemStack> items = player.inventoryMenu.getItems().stream().filter(item -> item.is(Items.GUNPOWDER)).toList();
-                int gunpowder = 0;
-                boolean canCharge = false;
-                if(!player.isCreative()){
-                    for(ItemStack item : items){
-                        gunpowder = gunpowder + item.getCount();
-                        if(gunpowder >= 5){
-                            canCharge = true;
-                        }
-                    }
-                }else{
-                    canCharge = true;
-                }
-
-                if(canCharge){
-                    gunpowder = 5;
+            if(NbtUtils.readNbt(weapon, "charge") == 0){
+                if(hasAmmo){
                     if(!player.isCreative()){
-                        for(ItemStack item : items){
-                            if(gunpowder - item.getCount() >= 0){
-                                gunpowder = gunpowder - item.getCount();
-                                player.getInventory().removeItem(item);
-                            }else{
-                                item.setCount(item.getCount() - gunpowder);
-                                gunpowder = 0;
-                            }
-
-                            if(gunpowder <= 0){
-                                break;
-                            }
-                        }
+                        ammo.shrink(1);
                     }
 
-                    setCharge(itemstack, 1);
+                    NbtUtils.writeIntNbt(weapon, "charge", 1);
                     player.getCooldowns().addCooldown(this, 20);
                     level.playSound(null, player.blockPosition(), SoundsRegistry.BLAZECHARGE.get(), SoundSource.AMBIENT, 1f, 1f);
                     player.awardStat(Stats.ITEM_USED.get(this));
@@ -124,9 +78,9 @@ public class BlazeReapItem extends PickaxeItem implements Vanishable{
                 }
             }
 
-            return InteractionResultHolder.pass(itemstack);
-        }else if(isCharged(itemstack) == 1){
-            setCharge(itemstack, 0);
+            return InteractionResultHolder.pass(weapon);
+        }else if(NbtUtils.readNbt(weapon, "charge") == 1){
+            NbtUtils.writeIntNbt(weapon, "charge", 0);
             player.getCooldowns().addCooldown(this, 50);
             player.awardStat(Stats.ITEM_USED.get(this));
             Vec3 pos = new Vec3(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());
@@ -160,7 +114,7 @@ public class BlazeReapItem extends PickaxeItem implements Vanishable{
             }
 
             if(!level.isClientSide){
-                if(EnchantmentHelper.getTagEnchantmentLevel(EnchantmentsRegistry.EXPLOSIVE_FLAME.get(), itemstack) > 0){
+                if(EnchantmentHelper.getTagEnchantmentLevel(EnchantmentsRegistry.EXPLOSIVE_FLAME.get(), weapon) > 0){
                     level.explode(player, pos.x + X, pos.y + Y, pos.z + Z, 4F, Level.ExplosionInteraction.TNT);
                 }else{
                     level.explode(player, pos.x + X, pos.y + Y, pos.z + Z, 4F, Level.ExplosionInteraction.NONE);
@@ -172,10 +126,19 @@ public class BlazeReapItem extends PickaxeItem implements Vanishable{
                 level.addParticle(ParticleTypes.FLAME, pos.x + X + ((rand.nextDouble() - 0.5D) * 3), pos.y + Y + ((rand.nextDouble() - 0.5D) * 3), pos.z + Z + ((rand.nextDouble() - 0.5D) * 3), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2));
             }
 
-            return InteractionResultHolder.success(itemstack);
+            return InteractionResultHolder.success(weapon);
         }
 
-        return InteractionResultHolder.pass(itemstack);
+        return InteractionResultHolder.pass(weapon);
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    @Override
+    public void spawnLateParticles(ScreenParticleHolder target, Level level, float partialTick, ItemStack stack, float x, float y) {
+        System.out.print(NbtUtils.readNbt(stack,"charge"));
+        if (NbtUtils.readNbt(stack, "charge") == 1){
+            ScreenParticleRegistry.spawnFireParticles(target, ColorParticleData.create(Color.white, Pal.strongRed).build());
+        }
     }
 
     @Override

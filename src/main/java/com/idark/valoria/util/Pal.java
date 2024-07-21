@@ -5,6 +5,13 @@ import java.awt.*;
 // Mindustry code enjoyer :>
 public class Pal{
     public static Color
+    amber = ColorUtil.valueOf("e37c45"),
+    amethyst = ColorUtil.valueOf("ab51c9"),
+    ruby = ColorUtil.valueOf("c73a73"),
+    sapphire = ColorUtil.valueOf("4cb7d8"),
+    emerald = ColorUtil.valueOf("26b524"),
+    diamond = ColorUtil.valueOf("33ebcb"),
+
     nature = ColorUtil.valueOf("88ed68"),
     cyan = ColorUtil.valueOf("00DBEB"),
     oceanic = ColorUtil.valueOf("71DBFF"),

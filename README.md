@@ -1,13 +1,17 @@
 ![Valoria](https://github.com/IriDark/Valoria/blob/main/icons/valoria_logo.png?raw=true)
 
-# Development
+### Required
+[![Lodestone](https://img.shields.io/badge/%20-LODESTONE-5800ff?style=for-the-badge&color=5800ff&logo=curseforge&logoColor=5800ff&labelColor=FFFFFF)](https://www.curseforge.com/minecraft/mc-mods/lodestone)
+[![CurioApi](https://img.shields.io/badge/%20-CURIOS%20API-000000?style=for-the-badge&color=d48526&logo=curseforge&logoColor=000000&labelColor=FFFFFF)](https://www.curseforge.com/minecraft/mc-mods/curios)
 
 ---
+
 [![STARS](https://img.shields.io/github/stars/IriDark/Valoria?style=for-the-badge&label=%E2%AD%90%EF%B8%8FSTAR%20Valoria)](https://github.com/IriDark/Valoria)
 [![Discord](https://img.shields.io/discord/1252898892882903082?style=for-the-badge&logo=discord&label=VALORIA)](https://discord.gg/wWdXpwuPmK)
 [![Download](https://img.shields.io/curseforge/dt/698244?color=6aa84f&include_prereleases&label=Latest%20version&logo=curseforge&logoColor=white&style=for-the-badge)](https://www.curseforge.com/minecraft/mc-mods/valoria)
 [![Download](https://img.shields.io/modrinth/dt/valoria?color=6aa84f&include_prereleases&label=Latest%20version&logo=modrinth&logoColor=white&style=for-the-badge)](https://modrinth.com/mod/valoria)
 ![Github](https://img.shields.io/github/issues-pr/IriDark/Valoria?color=6aa84f&include_prereleases&label=ISSUES%20|%20PR&logo=github&logoColor=white&style=for-the-badge)
+
 
 # About
 Requires: [**Curios API**](https://modrinth.com/mod/curios)

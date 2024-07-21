@@ -162,6 +162,7 @@ public abstract class ItemTabRegistry{
             event.accept(ItemsRegistry.BLOODHOUND);
             event.accept(ItemsRegistry.BRONZE_SWORD);
             event.accept(ItemsRegistry.QUANTUM_REAPER);
+            event.accept(ItemsRegistry.GUNPOOWDER_CHARGE);
             event.accept(ItemsRegistry.BLAZE_REAP);
             event.accept(ItemsRegistry.PHANTOM);
             event.accept(ItemsRegistry.SILKEN_KUNAI);
@@ -624,6 +625,7 @@ public abstract class ItemTabRegistry{
                 event.accept(QuarkIntegration.LoadedOnly.ELDRITCH_CHEST);
                 event.accept(QuarkIntegration.LoadedOnly.TRAPPED_ELDRITCH_CHEST);
             }
+            event.accept(BlockRegistry.ARCHAEOLOGY_TABLE);
             event.accept(BlockRegistry.KEG);
             event.accept(BlockRegistry.ELEGANT_PEDESTAL);
             event.accept(BlockRegistry.JEWELER_TABLE);

@@ -2,7 +2,6 @@ package com.idark.valoria;
 
 import com.idark.valoria.client.color.*;
 import com.idark.valoria.client.particle.*;
-import com.idark.valoria.client.particle.types.*;
 import com.idark.valoria.client.render.curio.model.*;
 import com.idark.valoria.client.render.entity.*;
 import com.idark.valoria.client.render.model.blockentity.*;
@@ -17,7 +16,6 @@ import com.mojang.blaze3d.vertex.*;
 import net.minecraft.client.*;
 import net.minecraft.client.model.*;
 import net.minecraft.client.model.geom.*;
-import net.minecraft.client.particle.*;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.blockentity.*;
 import net.minecraft.client.renderer.entity.*;
@@ -31,7 +29,6 @@ import net.minecraftforge.eventbus.api.*;
 import net.minecraftforge.fml.common.*;
 import net.minecraftforge.fml.event.lifecycle.*;
 import org.lwjgl.glfw.*;
-import team.lodestar.lodestone.systems.particle.world.type.*;
 
 import java.io.*;
 
@@ -166,16 +163,7 @@ public class ValoriaClient{
         @OnlyIn(Dist.CLIENT)
         @SubscribeEvent
         public static void registerFactories(RegisterParticleProvidersEvent event){
-            Minecraft.getInstance().particleEngine.register(ParticleRegistry.CUBE.get(), LodestoneWorldParticleType.Factory::new);
-            Minecraft.getInstance().particleEngine.register(ParticleRegistry.SMOKE.get(), LodestoneWorldParticleType.Factory::new);
-            Minecraft.getInstance().particleEngine.register(ParticleRegistry.SPHERE.get(), LodestoneWorldParticleType.Factory::new);
-            Minecraft.getInstance().particleEngine.register(ParticleRegistry.TRANSFORM_PARTICLE.get(), LodestoneWorldParticleType.Factory::new);
-            Minecraft.getInstance().particleEngine.register(ParticleRegistry.GEODE_PARTICLE.get(), LodestoneWorldParticleType.Factory::new);
-            Minecraft.getInstance().particleEngine.register(ParticleRegistry.SHADEWOOD_LEAF_PARTICLE.get(), LodestoneWorldParticleType.Factory::new);
-            Minecraft.getInstance().particleEngine.register(ParticleRegistry.CHOMP.get(), ChompParticle.Factory::new);
-            Minecraft.getInstance().particleEngine.register(ParticleRegistry.VOID_GLITTER.get(), EndRodParticle.Provider::new);
-            Minecraft.getInstance().particleEngine.register(ParticleRegistry.GLITTER.get(), LodestoneWorldParticleType.Factory::new);
-            Minecraft.getInstance().particleEngine.register(ParticleRegistry.SKULL.get(), LodestoneWorldParticleType.Factory::new);
+            ParticleRegistry.registerParticleFactory(event);
         }
 
         @OnlyIn(Dist.CLIENT)

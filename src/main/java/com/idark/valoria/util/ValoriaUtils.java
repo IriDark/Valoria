@@ -5,6 +5,7 @@ import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.entity.living.*;
 import com.idark.valoria.registries.item.types.*;
 import com.idark.valoria.registries.item.types.curio.charm.*;
+import com.idark.valoria.registries.item.types.ranged.*;
 import com.mojang.datafixers.util.*;
 import net.minecraft.*;
 import net.minecraft.core.*;
@@ -12,6 +13,7 @@ import net.minecraft.core.particles.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.network.protocol.*;
 import net.minecraft.server.level.*;
+import net.minecraft.tags.*;
 import net.minecraft.util.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
@@ -78,9 +80,6 @@ public class ValoriaUtils{
         }
     }
 
-    /**
-     * Performs a spin attack with checking a collision with targets
-     */
 
     public static void spinAttack(Level level, Player player, double inflateValue){
         List<Entity> list = level.getEntities(player, player.getBoundingBox().inflate(inflateValue));
@@ -642,6 +641,31 @@ public class ValoriaUtils{
         }
 
         return null;
+    }
+
+    public static ItemStack getProjectile(Player player, ItemStack pShootable){
+        Predicate<ItemStack> predicate = (stack) -> stack.getItem() instanceof GunpowderCharge;
+        for(int i = 0; i < player.getInventory().getContainerSize(); ++i){
+            ItemStack ammo = player.getInventory().getItem(i);
+            if(predicate.test(ammo)){
+                return net.minecraftforge.common.ForgeHooks.getProjectile(player, pShootable, ammo);
+            }
+        }
+
+        // why cobblestone? i dunno too
+        return player.isCreative() ? Items.COBBLESTONE.getDefaultInstance() : ItemStack.EMPTY;
+    }
+
+    public static ItemStack getProjectile(Player player, ItemStack pShootable, TagKey<Item> pTag){
+        Predicate<ItemStack> predicate = (stack) -> stack.is(pTag);
+        for(int i = 0; i < player.getInventory().getContainerSize(); ++i){
+            ItemStack ammo = player.getInventory().getItem(i);
+            if(predicate.test(ammo)){
+                return net.minecraftforge.common.ForgeHooks.getProjectile(player, pShootable, ammo);
+            }
+        }
+
+        return player.isCreative() ? Items.COBBLESTONE.getDefaultInstance() : ItemStack.EMPTY;
     }
 
     public static class tileEntity{
