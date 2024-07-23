@@ -19,6 +19,8 @@ import com.idark.valoria.registries.block.types.*;
 import com.idark.valoria.registries.command.arguments.*;
 import com.idark.valoria.registries.entity.decoration.*;
 import com.idark.valoria.registries.entity.living.*;
+import com.idark.valoria.registries.item.types.*;
+import com.idark.valoria.registries.item.types.ranged.*;
 import com.idark.valoria.registries.levelgen.*;
 import com.idark.valoria.registries.recipe.*;
 import com.idark.valoria.util.*;
@@ -89,7 +91,8 @@ public class Valoria{
             forgeBus.addListener(DashOverlayRender::onDrawScreenPost);
             forgeBus.addListener(CorpsecleaverRender::tick);
             forgeBus.addListener(CorpsecleaverRender::onDrawScreenPost);
-            forgeBus.addListener(MagmaBarRender::onDrawScreenPost);
+            forgeBus.addListener(MagmaSwordItem::onDrawScreenPost);
+            forgeBus.addListener(BlazeReapItem::onDrawScreenPost);
             return new Object();
         });
 

@@ -1,11 +1,17 @@
 package com.idark.valoria.registries.item.types.ranged;
 
+import com.idark.valoria.*;
 import com.idark.valoria.client.particle.*;
+import com.idark.valoria.core.config.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.util.*;
+import com.mojang.blaze3d.systems.*;
 import net.minecraft.*;
+import net.minecraft.client.*;
+import net.minecraft.client.gui.*;
 import net.minecraft.core.particles.*;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.*;
 import net.minecraft.sounds.*;
 import net.minecraft.stats.*;
 import net.minecraft.util.*;
@@ -18,12 +24,15 @@ import net.minecraft.world.item.enchantment.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
 import net.minecraftforge.api.distmarker.*;
+import net.minecraftforge.client.event.*;
+import org.lwjgl.opengl.*;
 import team.lodestar.lodestone.handlers.screenparticle.*;
 import team.lodestar.lodestone.systems.particle.data.color.*;
 import team.lodestar.lodestone.systems.particle.screen.*;
 
 import java.awt.*;
 import java.util.List;
+import java.util.*;
 
 
 // some day it will be done, but not in this life: FIX FUCKING NBT TAGS SYNCING, I HATE YOU MOJANG
@@ -131,6 +140,54 @@ public class BlazeReapItem extends PickaxeItem implements Vanishable, ParticleEm
         }
 
         return InteractionResultHolder.pass(weapon);
+    }
+
+    private static final ResourceLocation BAR = new ResourceLocation(Valoria.ID, "textures/gui/overlay/blazecharge_bar.png");
+    @OnlyIn(Dist.CLIENT)
+    public static List<ItemStack> getAmmunition(){
+        Minecraft mc = Minecraft.getInstance();
+        Player player = mc.player;
+        List<ItemStack> items = player.getInventory().items;
+        ArrayList<ItemStack> ammoItems = new ArrayList<>();
+        for(ItemStack stack : items){
+            if(stack.getItem() instanceof GunpowderCharge){
+                ammoItems.add(stack);
+            }
+        }
+
+        return ammoItems;
+    }
+
+
+    @OnlyIn(Dist.CLIENT)
+    public static void onDrawScreenPost(RenderGuiOverlayEvent.Post event){
+        Minecraft mc = Minecraft.getInstance();
+        for(ItemStack itemStack : mc.player.getHandSlots()){
+            boolean renderBar = itemStack.getItem() instanceof BlazeReapItem && !mc.player.isSpectator();
+            if(renderBar){
+                GuiGraphics gui = event.getGuiGraphics();
+
+                gui.pose().pushPose();
+                gui.pose().translate(0, 0, -200);
+                RenderSystem.enableBlend();
+                RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+                int xCord = ClientConfig.MAGMA_CHARGE_BAR_X.get();
+                int yCord = ClientConfig.MAGMA_CHARGE_BAR_Y.get();
+                gui.blit(BAR, xCord, yCord, 0, 0, 73, 19, 128, 64);
+
+                float x = 6;
+                float y = 5.5f;
+                List<ItemStack> ammunition = getAmmunition();
+                int itemCount = Math.min(ammunition.size(), 3);
+                for (int i = 0; i < itemCount; i++) {
+                    ItemStack stack = ammunition.get(i);
+                    RenderUtils.renderItemModelInGui(stack, x + (16 * i), y, 16, 16, 16);
+                }
+
+                RenderSystem.disableBlend();
+                gui.pose().popPose();
+            }
+        }
     }
 
     @OnlyIn(Dist.CLIENT)
