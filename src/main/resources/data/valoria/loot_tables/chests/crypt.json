@@ -31,7 +31,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "valoria:pick",
+          "name": "valoria:prospectors_pick",
           "weight": 3
         },
         {

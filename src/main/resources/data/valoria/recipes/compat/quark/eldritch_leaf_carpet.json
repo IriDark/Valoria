@@ -1,0 +1,30 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "forge:mod_loaded",
+          "modid": "quark"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "category": "building",
+        "key": {
+          "#": {
+            "item": "valoria:eldritch_leaves"
+          }
+        },
+        "pattern": [
+          "##"
+        ],
+        "result": {
+          "count": 3,
+          "item": "valoria:eldritch_leaf_carpet"
+        },
+        "show_notification": true
+      }
+    }
+  ]
+}

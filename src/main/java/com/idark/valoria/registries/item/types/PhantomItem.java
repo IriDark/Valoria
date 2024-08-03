@@ -21,7 +21,7 @@ import org.joml.*;
 import java.util.*;
 
 //TODO:
-// Fix to the ability (Works weird on server)
+// Fix the ability (Works weird on server)
 // Work on GFX side of the ability
 // Something like on-screen particles would be cool
 public class PhantomItem extends SwordItem implements IRadiusItem{

@@ -115,7 +115,7 @@ public class ItemsRegistry{
     public static final RegistryObject<Item> LEXICON = ITEMS.register("lexicon", () -> new LexiconItem(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> CRYPT = ITEMS.register("page", () -> new LexiconPageItem(new Item.Properties().stacksTo(1), RegisterUnlockables.CRYPT, "gui.valoria.crypt.name"));
 
-    public static final RegistryObject<Item> GUNPOOWDER_CHARGE = ITEMS.register("gunpowder_charge", () -> new GunpowderCharge(new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> GUNPOOWDER_CHARGE = ITEMS.register("gunpowder_charge", () -> new GunpowderCharge(4f, new Item.Properties().stacksTo(1)));
 
     public static final RegistryObject<Item> JEWELRY_BAG = ITEMS.register("jewelry_bag", () -> new JewelryBagItem(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> ALOE_BANDAGE = ITEMS.register("aloe_bandage", () -> new AloeBandageItem(1600, 0));

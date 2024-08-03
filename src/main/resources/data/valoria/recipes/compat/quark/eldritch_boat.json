@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "boat",
+  "pattern": [
+    "# #",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "valoria:eldritch_planks"
+    }
+  },
+  "result": {
+    "item": "valoria:eldritch_boat"
+  }
+}
