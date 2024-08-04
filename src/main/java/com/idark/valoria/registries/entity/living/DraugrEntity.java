@@ -78,6 +78,10 @@ public class DraugrEntity extends Monster implements RangedAttackMob{
         }
     }
 
+    public static void spawnable(Item... T) {
+        Collections.addAll(draugrCanSpawnWith, T);
+    }
+
     protected void populateDefaultEquipmentSlots(RandomSource pRandom, DifficultyInstance pDifficulty){
         super.populateDefaultEquipmentSlots(pRandom, pDifficulty);
         this.setItemSlot(EquipmentSlot.MAINHAND, draugrCanSpawnWith.get(pRandom.nextInt(0, draugrCanSpawnWith.size())).getDefaultInstance());

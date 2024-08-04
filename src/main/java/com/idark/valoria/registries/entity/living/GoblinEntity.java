@@ -58,6 +58,10 @@ public class GoblinEntity extends PathfinderMob implements NeutralMob, Enemy{
         this.setPathfindingMalus(BlockPathTypes.DANGER_POWDER_SNOW, -1.0F);
     }
 
+    public static void spawnable(Item... T) {
+        Collections.addAll(goblinCanSpawnWith, T);
+    }
+
     @Nullable
     private UUID persistentAngerTarget;
     private int ticksSinceEaten;

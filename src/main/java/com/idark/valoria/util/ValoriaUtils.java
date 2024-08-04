@@ -13,6 +13,7 @@ import net.minecraft.core.particles.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.network.protocol.*;
 import net.minecraft.server.level.*;
+import net.minecraft.sounds.*;
 import net.minecraft.tags.*;
 import net.minecraft.util.*;
 import net.minecraft.world.effect.*;
@@ -643,8 +644,7 @@ public class ValoriaUtils{
         return null;
     }
 
-    public static ItemStack getProjectile(Player player, ItemStack pShootable){
-        Predicate<ItemStack> predicate = (stack) -> stack.getItem() instanceof GunpowderCharge;
+    public static ItemStack predicate(Player player, ItemStack pShootable, Predicate<ItemStack> predicate) {
         for(int i = 0; i < player.getInventory().getContainerSize(); ++i){
             ItemStack ammo = player.getInventory().getItem(i);
             if(predicate.test(ammo)){
@@ -656,16 +656,47 @@ public class ValoriaUtils{
         return player.isCreative() ? Items.COBBLESTONE.getDefaultInstance() : ItemStack.EMPTY;
     }
 
+    /**
+     * Searches items in player inventory that equals an instance of GunpowderCharge
+     */
+    public static ItemStack getProjectile(Player player, ItemStack pShootable){
+        Predicate<ItemStack> predicate = (stack) -> stack.getItem() instanceof GunpowderCharge;
+        return predicate(player, pShootable, predicate);
+    }
+
+    // same as getProjectile but searches for tagged items
     public static ItemStack getProjectile(Player player, ItemStack pShootable, TagKey<Item> pTag){
         Predicate<ItemStack> predicate = (stack) -> stack.is(pTag);
-        for(int i = 0; i < player.getInventory().getContainerSize(); ++i){
-            ItemStack ammo = player.getInventory().getItem(i);
-            if(predicate.test(ammo)){
-                return net.minecraftforge.common.ForgeHooks.getProjectile(player, pShootable, ammo);
+        return predicate(player, pShootable, predicate);
+    }
+
+    public static void addList(List<Item> list, Item... T) {
+        Collections.addAll(list, T);
+    }
+
+    public static void configExplode(Player player, ItemStack itemstack, Vec3 pos, Vec3 clipPos, double radius, float damage, float knockback) {
+        Level level = player.level();
+        RandomSource rand =  level.random;
+        List<Entity> entities = level.getEntitiesOfClass(Entity.class, new AABB(pos.x + clipPos.x - radius, pos.y + clipPos.y - radius, pos.z + clipPos.z - radius, pos.x + clipPos.x + radius, pos.y + clipPos.y + radius, pos.z + clipPos.z + radius));
+        for (Entity entity : entities) {
+            if (entity instanceof LivingEntity enemy) {
+                if (!enemy.equals(player)) {
+                    enemy.hurt(level.damageSources().generic(), damage);
+                    enemy.knockback(knockback, player.getX() + clipPos.x - entity.getX(), player.getZ() + clipPos.z - entity.getZ());
+                    if (EnchantmentHelper.getTagEnchantmentLevel(Enchantments.FIRE_ASPECT, itemstack) > 0) {
+                        int i = EnchantmentHelper.getFireAspect(player);
+                        enemy.setSecondsOnFire(i * 4);
+                    }
+                }
             }
         }
 
-        return player.isCreative() ? Items.COBBLESTONE.getDefaultInstance() : ItemStack.EMPTY;
+        if(level instanceof ServerLevel srv) {
+            srv.sendParticles(ParticleTypes.EXPLOSION_EMITTER, pos.x + clipPos.x, pos.y + clipPos.y, player.getZ() + clipPos.z, 1, 0, 0, 0,0);
+            srv.playSound(null, player.blockPosition().offset((int) clipPos.x, (int) (clipPos.y + player.getEyeHeight()), (int) clipPos.z), SoundEvents.GENERIC_EXPLODE, SoundSource.AMBIENT, 10f, 1f);
+            srv.sendParticles(ParticleTypes.LARGE_SMOKE, pos.x + clipPos.x + ((rand.nextDouble() - 0.5D) * 3), pos.y + clipPos.y + ((rand.nextDouble() - 0.5D) * 3), pos.z + clipPos.z + ((rand.nextDouble() - 0.5D) * 3), 8, 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.2f);
+            srv.sendParticles(ParticleTypes.FLAME, pos.x + clipPos.x + ((rand.nextDouble() - 0.5D) * 3), pos.y + clipPos.y + ((rand.nextDouble() - 0.5D) * 3), pos.z + clipPos.z + ((rand.nextDouble() - 0.5D) * 3), 6, 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.2f);
+        }
     }
 
     public static class tileEntity{

@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " X ",
+    "X/X",
+    " X "
+  ],
+  "key": {
+    "X": {
+      "item": "minecraft:gunpowder"
+    },
+    "/": {
+      "item": "minecraft:glass_bottle"
+    }
+  },
+  "result": {
+    "item": "valoria:gunpowder_charge",
+    "count": 2
+  }
+}

@@ -60,7 +60,7 @@ public class BlazeReapItem extends PickaxeItem implements Vanishable{
         ItemStack ammo = ValoriaUtils.getProjectile(player, weapon);
         RandomSource rand = level.getRandom();
         boolean hasAmmo = !ammo.isEmpty();
-        if(ammo.getItem() instanceof GunpowderCharge){
+        if(player.isCreative() || ammo.getItem() instanceof GunpowderCharge){
             if(player.isShiftKeyDown()){
                 if(NbtUtils.readNbt(weapon, "charge") == 0){
                     if(hasAmmo){
@@ -124,7 +124,7 @@ public class BlazeReapItem extends PickaxeItem implements Vanishable{
                     if(EnchantmentHelper.getTagEnchantmentLevel(EnchantmentsRegistry.EXPLOSIVE_FLAME.get(), weapon) > 0){
                         level.explode(player, pos.x + X, pos.y + Y, pos.z + Z, ((GunpowderCharge)ammo.getItem()).getRadius(), Level.ExplosionInteraction.TNT);
                     }else{
-                        level.explode(player, pos.x + X, pos.y + Y, pos.z + Z, ((GunpowderCharge)ammo.getItem()).getRadius(), Level.ExplosionInteraction.NONE);
+                        ValoriaUtils.configExplode(player, weapon, pos, new Vec3(X, Y, Z), 3, 25, 0.5f);
                     }
                 }
 
@@ -160,7 +160,7 @@ public class BlazeReapItem extends PickaxeItem implements Vanishable{
     public static void onDrawScreenPost(RenderGuiOverlayEvent.Post event){
         Minecraft mc = Minecraft.getInstance();
         for(ItemStack itemStack : mc.player.getHandSlots()){
-            boolean renderBar = itemStack.getItem() instanceof BlazeReapItem && !mc.player.isSpectator();
+            boolean renderBar = itemStack.getItem() instanceof BlazeReapItem && !mc.player.isSpectator() && !mc.player.isCreative();
             if(renderBar){
                 GuiGraphics gui = event.getGuiGraphics();
                 gui.pose().pushPose();

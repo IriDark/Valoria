@@ -226,5 +226,6 @@ modrinth {
     changelog = "Just a DevBuild to test things, its some sorta like minecraft snapshots to find bugs and report them"
     dependencies {
         required.project "curios"
+        required.project "lodestonelib"
     }
 }

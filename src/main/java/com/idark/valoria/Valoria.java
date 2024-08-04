@@ -175,26 +175,36 @@ public class Valoria{
             fireblock.setFlammable(BlockRegistry.ELDRITCH_PLANKS.get(), 5, 25);
             fireblock.setFlammable(BlockRegistry.STRIPPED_ELDRITCH_LOG.get(), 5, 30);
             fireblock.setFlammable(BlockRegistry.STRIPPED_ELDRITCH_WOOD.get(), 5, 30);
+            DraugrEntity.spawnable(
+                Items.BOW,
+                Items.WOODEN_AXE,
+                Items.STONE_SWORD,
+                Items.IRON_SWORD,
+                Items.GOLDEN_AXE,
+                Items.IRON_PICKAXE
+            );
 
-            DraugrEntity.draugrCanSpawnWith.add(Items.BOW);
-            DraugrEntity.draugrCanSpawnWith.add(Items.WOODEN_AXE);
-            DraugrEntity.draugrCanSpawnWith.add(Items.STONE_SWORD);
-            DraugrEntity.draugrCanSpawnWith.add(Items.IRON_SWORD);
-            DraugrEntity.draugrCanSpawnWith.add(Items.GOLDEN_AXE);
-            DraugrEntity.draugrCanSpawnWith.add(Items.IRON_PICKAXE);
-            GoblinEntity.goblinCanSpawnWith.add(ItemsRegistry.WOODEN_RAPIER.get());
-            GoblinEntity.goblinCanSpawnWith.add(ItemsRegistry.STONE_RAPIER.get());
-            GoblinEntity.goblinCanSpawnWith.add(ItemsRegistry.IRON_RAPIER.get());
-            GoblinEntity.goblinCanSpawnWith.add(ItemsRegistry.CLUB.get());
-            SarcophagusBlock.spawnableWith.add(Items.BOW);
-            SarcophagusBlock.spawnableWith.add(Items.WOODEN_AXE);
-            SarcophagusBlock.spawnableWith.add(Items.STONE_SWORD);
-            SarcophagusBlock.spawnableWith.add(Items.IRON_SWORD);
-            SarcophagusBlock.spawnableWith.add(Items.GOLDEN_AXE);
-            SarcophagusBlock.spawnableWith.add(Items.IRON_PICKAXE);
-            SarcophagusBlock.halloweenSpawnableWith.add(Items.PUMPKIN);
-            SarcophagusBlock.halloweenSpawnableWith.add(Items.JACK_O_LANTERN);
-            SarcophagusBlock.halloweenSpawnableWith.add(Items.CARVED_PUMPKIN);
+            GoblinEntity.spawnable(
+                ItemsRegistry.WOODEN_RAPIER.get(),
+                ItemsRegistry.STONE_RAPIER.get(),
+                ItemsRegistry.IRON_RAPIER.get(),
+                ItemsRegistry.CLUB.get()
+            );
+
+            ValoriaUtils.addList(SarcophagusBlock.spawnableWith,
+                Items.BOW,
+                Items.WOODEN_AXE,
+                Items.STONE_SWORD,
+                Items.IRON_SWORD,
+                Items.GOLDEN_AXE,
+                Items.IRON_PICKAXE
+            );
+
+            ValoriaUtils.addList(SarcophagusBlock.halloweenSpawnableWith,
+                Items.PUMPKIN,
+                Items.JACK_O_LANTERN,
+                Items.CARVED_PUMPKIN
+            );
 
             AxeItem.STRIPPABLES = new ImmutableMap.Builder<Block, Block>().putAll(AxeItem.STRIPPABLES)
             .put(BlockRegistry.SHADELOG.get(), BlockRegistry.STRIPPED_SHADELOG.get())
@@ -205,10 +215,6 @@ public class Valoria{
             WoodType.register(ModWoodTypes.ELDRITCH);
             WoodType.register(ModWoodTypes.SHADEWOOD);
         });
-    }
-
-    private void processIMC(final InterModProcessEvent event){
-        // some example code to receive and process InterModComms from other mods
     }
 
     @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
