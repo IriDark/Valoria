@@ -60,81 +60,83 @@ public class BlazeReapItem extends PickaxeItem implements Vanishable{
         ItemStack ammo = ValoriaUtils.getProjectile(player, weapon);
         RandomSource rand = level.getRandom();
         boolean hasAmmo = !ammo.isEmpty();
-        if(player.isCreative() || ammo.getItem() instanceof GunpowderCharge){
-            if(player.isShiftKeyDown()){
-                if(NbtUtils.readNbt(weapon, "charge") == 0){
-                    if(hasAmmo){
-                        if(!player.isCreative()){
-                            ammo.shrink(1);
-                        }
-
-                        NbtUtils.writeIntNbt(weapon, "charge", 1);
-                        player.getCooldowns().addCooldown(this, 20);
-                        level.playSound(null, player.blockPosition(), SoundsRegistry.BLAZECHARGE.get(), SoundSource.AMBIENT, 1f, 1f);
-                        player.awardStat(Stats.ITEM_USED.get(this));
-                    }else{
-                        player.displayClientMessage(Component.translatable("tooltip.valoria.recharge").withStyle(ChatFormatting.GRAY), true);
+        boolean flag = ammo.getItem() instanceof GunpowderCharge;
+        if(player.isShiftKeyDown()){
+            if(NbtUtils.readNbt(weapon, "charge") == 0){
+                if(hasAmmo){
+                    if(!player.isCreative()){
+                        ammo.shrink(1);
                     }
 
-                    for(int i = 0; i < 6; ++i){
-                        double d0 = rand.nextGaussian() * 0.02D;
-                        double d1 = rand.nextGaussian() * 0.02D;
-                        double d2 = rand.nextGaussian() * 0.02D;
-                        level.addParticle(ParticleTypes.FLAME, player.getRandomX(1.0D), player.getRandomY() - 0.5D, player.getRandomZ(1.0D), d0, d1, d2);
-                    }
+                    NbtUtils.writeIntNbt(weapon, "charge", 1);
+                    player.getCooldowns().addCooldown(this, 20);
+                    level.playSound(null, player.blockPosition(), SoundsRegistry.BLAZECHARGE.get(), SoundSource.AMBIENT, 1f, 1f);
+                    player.awardStat(Stats.ITEM_USED.get(this));
+                }else{
+                    player.displayClientMessage(Component.translatable("tooltip.valoria.recharge").withStyle(ChatFormatting.GRAY), true);
                 }
 
-                return InteractionResultHolder.pass(weapon);
-            }else if(NbtUtils.readNbt(weapon, "charge") == 1){
-                NbtUtils.writeIntNbt(weapon, "charge", 0);
-                player.getCooldowns().addCooldown(this, 50);
-                player.awardStat(Stats.ITEM_USED.get(this));
-                Vec3 pos = new Vec3(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());
-
-                double pitch = ((player.getRotationVector().x + 90) * Math.PI) / 180;
-                double yaw = ((player.getRotationVector().y + 90) * Math.PI) / 180;
-                double X = Math.sin(pitch) * Math.cos(yaw) * 15;
-                double Y = Math.cos(pitch) * 15;
-                double Z = Math.sin(pitch) * Math.sin(yaw) * 15;
-                Vec3 playerPos = player.getEyePosition();
-                Vec3 EndPos = (player.getViewVector(0.0f).scale(20.0d));
-                if(ProjectileUtil.getEntityHitResult(player, playerPos, EndPos, new AABB(pos.x + X - 3D, pos.y + Y - 3D, pos.z + Z - 3D, pos.x + X + 3D, pos.y + Y + 3D, pos.z + Z + 3D), (e) -> true, 15) == null){
-                    HitResult hitresult = ValoriaUtils.getHitResult(playerPos, player, (e) -> true, EndPos, level);
-                    if(hitresult != null){
-                        switch(hitresult.getType()){
-                            case BLOCK:
-                                X = hitresult.getLocation().x() - pos.x;
-                                Y = hitresult.getLocation().y() - pos.y;
-                                Z = hitresult.getLocation().z() - pos.z;
-                                break;
-                            case ENTITY:
-                                Entity entity = ((EntityHitResult)hitresult).getEntity();
-                                X = entity.getX() - pos.x;
-                                Y = entity.getY() - pos.y;
-                                Z = entity.getZ() - pos.z;
-                                break;
-                            case MISS:
-                                break;
-                        }
-                    }
+                for(int i = 0; i < 6; ++i){
+                    double d0 = rand.nextGaussian() * 0.02D;
+                    double d1 = rand.nextGaussian() * 0.02D;
+                    double d2 = rand.nextGaussian() * 0.02D;
+                    level.addParticle(ParticleTypes.FLAME, player.getRandomX(1.0D), player.getRandomY() - 0.5D, player.getRandomZ(1.0D), d0, d1, d2);
                 }
-
-                // I hate you mojang, where the fucking explosion damage configuration... why it's hardcoded... just WHY
-                if(!level.isClientSide){
-                    if(EnchantmentHelper.getTagEnchantmentLevel(EnchantmentsRegistry.EXPLOSIVE_FLAME.get(), weapon) > 0){
-                        level.explode(player, pos.x + X, pos.y + Y, pos.z + Z, ((GunpowderCharge)ammo.getItem()).getRadius(), Level.ExplosionInteraction.TNT);
-                    }else{
-                        ValoriaUtils.configExplode(player, weapon, pos, new Vec3(X, Y, Z), 3, 25, 0.5f);
-                    }
-                }
-
-                for(int i = 0; i < 12; i++){
-                    level.addParticle(ParticleTypes.LARGE_SMOKE, pos.x + X + ((rand.nextDouble() - 0.5D) * 3), pos.y + Y + ((rand.nextDouble() - 0.5D) * 3), pos.z + Z + ((rand.nextDouble() - 0.5D) * 3), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2));
-                    level.addParticle(ParticleTypes.FLAME, pos.x + X + ((rand.nextDouble() - 0.5D) * 3), pos.y + Y + ((rand.nextDouble() - 0.5D) * 3), pos.z + Z + ((rand.nextDouble() - 0.5D) * 3), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2));
-                }
-
-                return InteractionResultHolder.success(weapon);
             }
+
+            return InteractionResultHolder.pass(weapon);
+        }else if(NbtUtils.readNbt(weapon, "charge") == 1){
+            NbtUtils.writeIntNbt(weapon, "charge", 0);
+            player.getCooldowns().addCooldown(this, 50);
+            player.awardStat(Stats.ITEM_USED.get(this));
+            Vec3 pos = new Vec3(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());
+
+            double pitch = ((player.getRotationVector().x + 90) * Math.PI) / 180;
+            double yaw = ((player.getRotationVector().y + 90) * Math.PI) / 180;
+            double X = Math.sin(pitch) * Math.cos(yaw) * 15;
+            double Y = Math.cos(pitch) * 15;
+            double Z = Math.sin(pitch) * Math.sin(yaw) * 15;
+            Vec3 playerPos = player.getEyePosition();
+            Vec3 EndPos = (player.getViewVector(0.0f).scale(20.0d));
+            if(ProjectileUtil.getEntityHitResult(player, playerPos, EndPos, new AABB(pos.x + X - 3D, pos.y + Y - 3D, pos.z + Z - 3D, pos.x + X + 3D, pos.y + Y + 3D, pos.z + Z + 3D), (e) -> true, 15) == null){
+                HitResult hitresult = ValoriaUtils.getHitResult(playerPos, player, (e) -> true, EndPos, level);
+                if(hitresult != null){
+                    switch(hitresult.getType()){
+                        case BLOCK:
+                            X = hitresult.getLocation().x() - pos.x;
+                            Y = hitresult.getLocation().y() - pos.y;
+                            Z = hitresult.getLocation().z() - pos.z;
+                            break;
+                        case ENTITY:
+                            Entity entity = ((EntityHitResult)hitresult).getEntity();
+                            X = entity.getX() - pos.x;
+                            Y = entity.getY() - pos.y;
+                            Z = entity.getZ() - pos.z;
+                            break;
+                        case MISS:
+                            break;
+                    }
+                }
+            }
+
+            // I hate you mojang, where the fucking explosion damage configuration... why it's hardcoded... just WHY
+            float radius = flag ? ((GunpowderCharge)ammo.getItem()).getRadius() : 3f;
+            float damage = flag ? ((GunpowderCharge)ammo.getItem()).getDamage() : 25f;
+            float knockback = flag ? ((GunpowderCharge)ammo.getItem()).getKnockback() : 0.5f;
+            if(!level.isClientSide){
+                if(EnchantmentHelper.getTagEnchantmentLevel(EnchantmentsRegistry.EXPLOSIVE_FLAME.get(), weapon) > 0){
+                    level.explode(player, pos.x + X, pos.y + Y, pos.z + Z, radius, Level.ExplosionInteraction.TNT);
+                }else{
+                    ValoriaUtils.configExplode(player, weapon, pos, new Vec3(X, Y, Z), radius, damage, knockback);
+                }
+            }
+
+            for(int i = 0; i < 12; i++){
+                level.addParticle(ParticleTypes.LARGE_SMOKE, pos.x + X + ((rand.nextDouble() - 0.5D) * radius), pos.y + Y + ((rand.nextDouble() - 0.5D) * radius), pos.z + Z + ((rand.nextDouble() - 0.5D) * radius), 0.05d * ((rand.nextDouble() - 0.5D) * radius), 0.05d * ((rand.nextDouble() - 0.5D) * radius), 0.05d * ((rand.nextDouble() - 0.5D) * radius));
+                level.addParticle(ParticleTypes.FLAME, pos.x + X + ((rand.nextDouble() - 0.5D) * radius), pos.y + Y + ((rand.nextDouble() - 0.5D) * radius), pos.z + Z + ((rand.nextDouble() - 0.5D) * radius), 0.05d * ((rand.nextDouble() - 0.5D) * radius), 0.05d * ((rand.nextDouble() - 0.5D) * radius), 0.05d * ((rand.nextDouble() - 0.5D) * radius));
+            }
+
+            return InteractionResultHolder.success(weapon);
         }
 
         return InteractionResultHolder.pass(weapon);

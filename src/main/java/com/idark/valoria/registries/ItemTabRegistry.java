@@ -163,6 +163,7 @@ public abstract class ItemTabRegistry{
             event.accept(ItemsRegistry.BRONZE_SWORD);
             event.accept(ItemsRegistry.QUANTUM_REAPER);
             event.accept(ItemsRegistry.GUNPOOWDER_CHARGE);
+            event.accept(ItemsRegistry.PYRATITE_CHARGE);
             event.accept(ItemsRegistry.BLAZE_REAP);
             event.accept(ItemsRegistry.PHANTOM);
             event.accept(ItemsRegistry.SILKEN_KUNAI);

@@ -674,7 +674,7 @@ public class ValoriaUtils{
         Collections.addAll(list, T);
     }
 
-    public static void configExplode(Player player, ItemStack itemstack, Vec3 pos, Vec3 clipPos, double radius, float damage, float knockback) {
+    public static void configExplode(Player player, ItemStack itemstack, Vec3 pos, Vec3 clipPos, float radius, float damage, float knockback) {
         Level level = player.level();
         RandomSource rand =  level.random;
         List<Entity> entities = level.getEntitiesOfClass(Entity.class, new AABB(pos.x + clipPos.x - radius, pos.y + clipPos.y - radius, pos.z + clipPos.z - radius, pos.x + clipPos.x + radius, pos.y + clipPos.y + radius, pos.z + clipPos.z + radius));
@@ -692,10 +692,10 @@ public class ValoriaUtils{
         }
 
         if(level instanceof ServerLevel srv) {
-            srv.sendParticles(ParticleTypes.EXPLOSION_EMITTER, pos.x + clipPos.x, pos.y + clipPos.y, player.getZ() + clipPos.z, 1, 0, 0, 0,0);
+            srv.sendParticles(ParticleTypes.EXPLOSION_EMITTER, pos.x + clipPos.x, pos.y + clipPos.y, player.getZ() + clipPos.z, 1, 0, 0, 0, radius);
             srv.playSound(null, player.blockPosition().offset((int) clipPos.x, (int) (clipPos.y + player.getEyeHeight()), (int) clipPos.z), SoundEvents.GENERIC_EXPLODE, SoundSource.AMBIENT, 10f, 1f);
-            srv.sendParticles(ParticleTypes.LARGE_SMOKE, pos.x + clipPos.x + ((rand.nextDouble() - 0.5D) * 3), pos.y + clipPos.y + ((rand.nextDouble() - 0.5D) * 3), pos.z + clipPos.z + ((rand.nextDouble() - 0.5D) * 3), 8, 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.2f);
-            srv.sendParticles(ParticleTypes.FLAME, pos.x + clipPos.x + ((rand.nextDouble() - 0.5D) * 3), pos.y + clipPos.y + ((rand.nextDouble() - 0.5D) * 3), pos.z + clipPos.z + ((rand.nextDouble() - 0.5D) * 3), 6, 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.05d * ((rand.nextDouble() - 0.5D) * 2), 0.2f);
+            srv.sendParticles(ParticleTypes.LARGE_SMOKE, pos.x + clipPos.x + ((rand.nextDouble() - 0.5D) * radius), pos.y + clipPos.y + ((rand.nextDouble() - 0.5D) * radius), pos.z + clipPos.z + ((rand.nextDouble() - 0.5D) * radius), 8, 0.05d * ((rand.nextDouble() - 0.5D) * radius), 0.05d * ((rand.nextDouble() - 0.5D) * radius), 0.05d * ((rand.nextDouble() - 0.5D) * radius), 0.2f);
+            srv.sendParticles(ParticleTypes.FLAME, pos.x + clipPos.x + ((rand.nextDouble() - 0.5D) * radius), pos.y + clipPos.y + ((rand.nextDouble() - 0.5D) * radius), pos.z + clipPos.z + ((rand.nextDouble() - 0.5D) * radius), 6, 0.05d * ((rand.nextDouble() - 0.5D) * radius), 0.05d * ((rand.nextDouble() - 0.5D) * radius), 0.05d * ((rand.nextDouble() - 0.5D) * radius), 0.2f);
         }
     }
 
