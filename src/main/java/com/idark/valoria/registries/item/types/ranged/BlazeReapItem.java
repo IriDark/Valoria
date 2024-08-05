@@ -157,7 +157,6 @@ public class BlazeReapItem extends PickaxeItem implements Vanishable{
         return ammoItems;
     }
 
-
     @OnlyIn(Dist.CLIENT)
     public static void onDrawScreenPost(RenderGuiOverlayEvent.Post event){
         Minecraft mc = Minecraft.getInstance();

@@ -13,6 +13,8 @@
 - MAYBE rework the BlazeReap
 - Redo CoralReef
 - MAYBE rework TransformShard
+- Neoforge 1.21 port
+  - add data load conditions to compats
 ---
 ### Lexicon
 - Add more pages

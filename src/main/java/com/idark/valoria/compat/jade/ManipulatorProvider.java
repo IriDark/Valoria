@@ -32,11 +32,11 @@ public enum ManipulatorProvider implements IBlockComponentProvider, IServerDataP
 
         tooltip.append(new ProgressArrowElement((float)progress / total));
         IElementHelper elements = tooltip.getElementHelper();
-        IElement icon = elements.item(new ItemStack(Items.CLOCK), 0.5f).size(new Vec2(11, 10)).translate(new Vec2(0, -1));
-        IElement element_n = elements.item(new ItemStack(ItemsRegistry.NATURE_CORE.get()), 0.5f).size(new Vec2(11, 10)).translate(new Vec2(0, -1));
-        IElement element_a = elements.item(new ItemStack(ItemsRegistry.AQUARIUS_CORE.get()), 0.5f).size(new Vec2(11, 10)).translate(new Vec2(0, -1));
-        IElement element_v = elements.item(new ItemStack(ItemsRegistry.VOID_CORE.get()), 0.5f).size(new Vec2(11, 10)).translate(new Vec2(0, -1));
-        IElement element_i = elements.item(new ItemStack(ItemsRegistry.INFERNAL_CORE.get()), 0.5f).size(new Vec2(11, 10)).translate(new Vec2(0, -1));
+        IElement icon = elements.item(new ItemStack(Items.CLOCK), 1).translate(new Vec2(-2, -4));
+        IElement element_n = elements.item(new ItemStack(ItemsRegistry.NATURE_CORE.get()), 1).translate(new Vec2(0, -6));
+        IElement element_a = elements.item(new ItemStack(ItemsRegistry.AQUARIUS_CORE.get()), 1).translate(new Vec2(0, -6));
+        IElement element_v = elements.item(new ItemStack(ItemsRegistry.VOID_CORE.get()), 1).translate(new Vec2(0, -6));
+        IElement element_i = elements.item(new ItemStack(ItemsRegistry.INFERNAL_CORE.get()), 1).translate(new Vec2(0, -6));
         icon.message(null);
         tooltip.add(icon);
         tooltip.append(Component.translatable("valoria.jade.progress"));

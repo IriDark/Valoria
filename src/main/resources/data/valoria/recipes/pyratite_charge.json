@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "X/",
+    "/X"
+  ],
+  "key": {
+    "X": {
+      "item": "valoria:pyratite"
+    },
+    "/": {
+      "item": "valoria:gunpowder_charge"
+    }
+  },
+  "result": {
+    "item": "valoria:pyratite_charge",
+    "count": 2
+  }
+}

@@ -7,6 +7,7 @@ import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
 import net.minecraftforge.network.*;
 import org.joml.*;
+import team.lodestar.lodestone.systems.particle.data.*;
 import team.lodestar.lodestone.systems.particle.data.color.*;
 
 import java.awt.*;
@@ -53,7 +54,7 @@ public class ManipulatorParticlePacket{
                 Vector3d d = new Vector3d(msg.posX - msg.posToX, msg.posY - msg.posToY, msg.posZ - msg.posToZ);
                 Vec3 particlePos = new Vec3(msg.posX + X, msg.posY + Y + ((Math.random() - 0.5D) * 0.2F), msg.posZ + Z);
                 Color color = new Color(msg.colorR, msg.colorG, msg.colorB);
-                ParticleEffects.particles(pLevel, particlePos, ColorParticleData.create(color, Color.white).build()).getBuilder().setMotion(d.x, d.y, d.z).spawn(pLevel, particlePos.x, particlePos.y, particlePos.z);
+                ParticleEffects.particles(pLevel, particlePos, ColorParticleData.create(color, Color.white).build()).getBuilder().setMotion(d.x, d.y, d.z).enableNoClip().setTransparencyData(GenericParticleData.create(0.125f, 0f).build()).spawn(pLevel, particlePos.x, particlePos.y, particlePos.z);
                 ctx.get().setPacketHandled(true);
             });
         }
