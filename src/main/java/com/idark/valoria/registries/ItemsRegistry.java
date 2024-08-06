@@ -13,6 +13,8 @@ import com.idark.valoria.registries.item.types.curio.necklace.*;
 import com.idark.valoria.registries.item.types.food.*;
 import com.idark.valoria.registries.item.types.ranged.*;
 import com.idark.valoria.util.*;
+import net.minecraft.*;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.food.*;
 import net.minecraft.world.item.*;
@@ -20,14 +22,28 @@ import net.minecraft.world.level.*;
 import net.minecraftforge.common.*;
 import net.minecraftforge.eventbus.api.*;
 import net.minecraftforge.registries.*;
+import org.jetbrains.annotations.*;
 
 import java.awt.*;
+import java.util.List;
 
 public class ItemsRegistry{
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Valoria.ID);
+    public static final RegistryObject<Item> EPHEMARITE_LOW = ITEMS.register("ephemarite_low", () -> new BlockItem(BlockRegistry.EPHEMARITE_LOW.get(), new Item.Properties()){
+        @Override
+        public void appendHoverText(@NotNull ItemStack stack, Level world, @NotNull List<Component> tooltip, @NotNull TooltipFlag flags){
+            super.appendHoverText(stack, world, tooltip, flags);
+            tooltip.add(Component.translatable("tooltip.valoria.geode").withStyle(ChatFormatting.GRAY));
+        }
+    });
 
-    public static final RegistryObject<Item> EPHEMARITE_LOW = ITEMS.register("ephemarite_low", () -> new DescriptionBlockItem("tooltip.valoria.geode", BlockRegistry.EPHEMARITE_LOW.get(), new Item.Properties()));
-    public static final RegistryObject<Item> EPHEMARITE = ITEMS.register("ephemarite", () -> new DescriptionBlockItem("tooltip.valoria.geode", BlockRegistry.EPHEMARITE.get(), new Item.Properties()));
+    public static final RegistryObject<Item> EPHEMARITE = ITEMS.register("ephemarite", () -> new BlockItem(BlockRegistry.EPHEMARITE.get(), new Item.Properties()){
+        @Override
+        public void appendHoverText(@NotNull ItemStack stack, Level world, @NotNull List<Component> tooltip, @NotNull TooltipFlag flags){
+            super.appendHoverText(stack, world, tooltip, flags);
+            tooltip.add(Component.translatable("tooltip.valoria.geode").withStyle(ChatFormatting.GRAY));
+        }
+    });
 
     public static final RegistryObject<Item> VOIDVINE = ITEMS.register("voidvine", () -> new TaintTransformBlockItem(BlockRegistry.VOIDVINE.get(), new Item.Properties()));
     public static final RegistryObject<Item> VIOLET_SPROUT = ITEMS.register("violet_sprout", () -> new TaintTransformBlockItem(BlockRegistry.VIOLET_SPROUT.get(), new Item.Properties()));
@@ -84,8 +100,22 @@ public class ItemsRegistry{
     public static final RegistryObject<Item> SOUL_SHARD = ITEMS.register("soul_shard", () -> new TransformShardItemEntity(new Item.Properties().rarity(RarityRegistry.AQUARIUS)));
     public static final RegistryObject<Item> UNCHARGED_SHARD = ITEMS.register("uncharged_shard", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> TOXINS_BOTTLE = ITEMS.register("toxins_bottle", () -> new Item(new Item.Properties().rarity(Rarity.EPIC)));
-    public static final RegistryObject<Item> DIRT_GEODE = ITEMS.register("dirt_geode", () -> new DescriptionItem("tooltip.valoria.geode", new Item.Properties().rarity(Rarity.EPIC)));
-    public static final RegistryObject<Item> STONE_GEODE = ITEMS.register("stone_geode", () -> new DescriptionItem("tooltip.valoria.geode", new Item.Properties().rarity(Rarity.EPIC)));
+    public static final RegistryObject<Item> DIRT_GEODE = ITEMS.register("dirt_geode", () -> new Item(new Item.Properties().rarity(Rarity.EPIC)) {
+        @Override
+        public void appendHoverText(@NotNull ItemStack stack, Level world, @NotNull List<net.minecraft.network.chat.Component> tooltip, @NotNull TooltipFlag flags){
+            super.appendHoverText(stack, world, tooltip, flags);
+            tooltip.add(Component.translatable("tooltip.valoria.geode").withStyle(ChatFormatting.GRAY));
+        }
+    });
+
+    public static final RegistryObject<Item> STONE_GEODE = ITEMS.register("stone_geode", () -> new Item(new Item.Properties().rarity(Rarity.EPIC)) {
+        @Override
+        public void appendHoverText(@NotNull ItemStack stack, Level world, @NotNull List<net.minecraft.network.chat.Component> tooltip, @NotNull TooltipFlag flags){
+            super.appendHoverText(stack, world, tooltip, flags);
+            tooltip.add(Component.translatable("tooltip.valoria.geode").withStyle(ChatFormatting.GRAY));
+        }
+    });
+
     public static final RegistryObject<Item> MINERS_BAG = ITEMS.register("miners_bag", () -> new DropItemProperty(DropType.MINERS, new Item.Properties().rarity(Rarity.EPIC)));
     public static final RegistryObject<Item> GEM_BAG = ITEMS.register("gem_bag", () -> new DropItemProperty(DropType.GEM, new Item.Properties().rarity(Rarity.EPIC)));
     public static final RegistryObject<Item> SOUL_COLLECTOR_EMPTY = ITEMS.register("soul_collector_empty", () -> new Item(new Item.Properties()));

@@ -14,7 +14,6 @@ import org.jetbrains.annotations.*;
 import java.util.*;
 
 public class LexiconPageItem extends Item{
-
     public Unlockable unlockable;
     public String lang;
 

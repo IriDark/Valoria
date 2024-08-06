@@ -11,7 +11,6 @@ import net.minecraft.world.level.*;
 import net.minecraftforge.api.distmarker.*;
 
 public class LexiconItem extends Item{
-
     public LexiconItem(Properties props){
         super(props);
     }
