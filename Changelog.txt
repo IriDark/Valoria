@@ -3,6 +3,7 @@
 - Now Valoria requires Lodestone
 
 - Added custom Voxel shapes
+- Reworked Stone Crusher (A bit)
 
 - ID change of "pick" -> "prospectors_pick"
 

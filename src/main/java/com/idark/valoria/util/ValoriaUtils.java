@@ -699,6 +699,16 @@ public class ValoriaUtils{
         }
     }
 
+    public static boolean onePerTypeEquip(SlotContext slotContext, ItemStack stack){
+        List<ItemStack> items = new ArrayList<>();
+        List<SlotResult> curioSlots = CuriosApi.getCuriosHelper().findCurios(slotContext.getWearer(), stack.getItem());
+        for(SlotResult slot : curioSlots){
+            items.add(slot.stack());
+        }
+
+        return items.isEmpty() || slotContext.cosmetic();
+    }
+
     public static class tileEntity{
 
         public static void SUpdateTileEntityPacket(BlockEntity tile){

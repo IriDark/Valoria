@@ -1,6 +1,7 @@
 package com.idark.valoria.registries.item.types.curio;
 
 import com.idark.valoria.*;
+import com.idark.valoria.util.*;
 import net.minecraft.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.world.item.*;
@@ -16,13 +17,7 @@ public class JewelryBagItem extends DyeableCurioItem{
 
     @Override
     public boolean canEquip(SlotContext slotContext, ItemStack stack){
-        List<ItemStack> items = new ArrayList<>();
-        List<SlotResult> curioSlots = CuriosApi.getCuriosHelper().findCurios(slotContext.getWearer(), stack.getItem());
-        for(SlotResult slot : curioSlots){
-            items.add(slot.stack());
-        }
-
-        return items.isEmpty() || slotContext.cosmetic();
+        return ValoriaUtils.onePerTypeEquip(slotContext, stack);
     }
 
     @Override

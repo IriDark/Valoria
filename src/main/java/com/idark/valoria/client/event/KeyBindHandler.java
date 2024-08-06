@@ -16,7 +16,6 @@ import java.util.*;
 
 @OnlyIn(Dist.CLIENT)
 public class KeyBindHandler{
-
     private KeyBindHandler() {}
 
     @SubscribeEvent
@@ -38,7 +37,7 @@ public class KeyBindHandler{
         }
 
         if (!items.isEmpty()) {
-            Minecraft.getInstance().setScreen(new JewelryBagScreen(Component.empty()));
+            mc.setScreen(new JewelryBagScreen(Component.empty()));
         }
     }
 }

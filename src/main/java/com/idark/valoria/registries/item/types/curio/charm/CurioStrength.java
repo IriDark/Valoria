@@ -37,7 +37,7 @@ public class CurioStrength extends Item implements ICurioItem{
     @Override
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(SlotContext slotContext, UUID uuid, ItemStack stack){
         Multimap<Attribute, AttributeModifier> atts = LinkedHashMultimap.create();
-        atts.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(uuid, "bonus", 0.1, AttributeModifier.Operation.MULTIPLY_TOTAL));
+        atts.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(uuid, "bonus", 0.05f, AttributeModifier.Operation.MULTIPLY_TOTAL));
         return atts;
     }
 

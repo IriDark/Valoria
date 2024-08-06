@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " L ",
+    "LRL",
+    "LLL"
+  ],
+  "key": {
+    "L": {
+      "item": "minecraft:leather"
+    },
+    "R": {
+      "item": "valoria:rune"
+    }
+  },
+  "result": {
+    "item": "valoria:jewelry_bag",
+    "count": 1
+  }
+}

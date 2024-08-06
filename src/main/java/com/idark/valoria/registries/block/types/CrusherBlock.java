@@ -64,11 +64,11 @@ public class CrusherBlock extends Block implements EntityBlock{
         ItemStack stack = player.getItemInHand(handIn).copy();
         if(tile.getItemHandler().getItem(0).isEmpty()){
             if(stack.getCount() > 1){
+                stack.setCount(player.getItemInHand(handIn).getCount());
                 if(!player.isCreative()){
-                    player.getItemInHand(handIn).setCount(stack.getCount() - 1);
+                    player.getItemInHand(handIn).copyAndClear();
                 }
 
-                stack.setCount(1);
                 tile.getItemHandler().setItem(0, stack);
             }else{
                 tile.getItemHandler().setItem(0, stack);
@@ -85,10 +85,8 @@ public class CrusherBlock extends Block implements EntityBlock{
         if((isValid(tile.getItemHandler().getItem(0), tile) && stack.getItem() instanceof PickaxeItem) && (!tile.getItemHandler().getItem(0).isEmpty())){
             if(player instanceof ServerPlayer serverPlayer){
                 tile.craftItem(serverPlayer);
-                player.getItemInHand(handIn).hurtAndBreak(5, player, (p_220045_0_) -> p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
+                player.getItemInHand(handIn).hurtAndBreak(world.getRandom().nextInt(0, 2), player, (p_220045_0_) -> p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
             }
-
-            tile.getItemHandler().removeItemNoUpdate(0);
         }else if(!(stack.getItem() instanceof PickaxeItem) && !tile.getItemHandler().getItem(0).isEmpty()){
             if(!player.isCreative()){
                 world.addFreshEntity(new ItemEntity(world, player.getX() + 0.5F, player.getY() + 0.5F, player.getZ() + 0.5F, tile.getItemHandler().getItem(0).copy()));
