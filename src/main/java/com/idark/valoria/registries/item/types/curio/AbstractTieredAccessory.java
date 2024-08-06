@@ -31,7 +31,7 @@ public abstract class AbstractTieredAccessory extends TieredItem implements ICur
         this.type = type;
         this.gem = gem;
         this.material = material;
-        effects = gem == AccessoryGem.AMBER ? ImmutableList.of(new MobEffectInstance(MobEffects.DIG_SPEED, 200)) : ImmutableList.of();
+        effects = gem == AccessoryGem.AMBER ? ImmutableList.of(new MobEffectInstance(MobEffects.DIG_SPEED, 600)) : ImmutableList.of();
     }
 
     public AbstractTieredAccessory(Tier tier, AccessoryType type, AccessoryGem gem, AccessoryMaterial material, Properties pProperties, MobEffectInstance... pEffects){
@@ -56,10 +56,9 @@ public abstract class AbstractTieredAccessory extends TieredItem implements ICur
 
     @Override
     public void curioTick(SlotContext slotContext, ItemStack stack){
-        accessoryHurt(slotContext, stack, material);
-        if (ValoriaClient.JEWELRY_BONUSES_KEY.isDown()) {
-            applyEffects(slotContext, stack);
-        }
+        Player player = (Player)slotContext.entity();
+        if(player.hurtMarked) accessoryHurt(player, stack, material);
+        if(ValoriaClient.JEWELRY_BONUSES_KEY.isDown()) applyEffects(player, stack);
     }
 
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchant){
@@ -71,21 +70,20 @@ public abstract class AbstractTieredAccessory extends TieredItem implements ICur
         return material == AccessoryMaterial.GOLD;
     }
 
-    public static void accessoryHurt(SlotContext slotContext, ItemStack stack, AccessoryMaterial material){
-        Player player = (Player)slotContext.entity();
+    public static void accessoryHurt(Player player, ItemStack stack, AccessoryMaterial material){
         int pGoldDamage = new Random().nextInt(0, 8);
         int pDefaultDamage = new Random().nextInt(0, 2);
-        if(player.hurtMarked){
-            stack.hurtAndBreak(material == AccessoryMaterial.GOLD ? pGoldDamage : pDefaultDamage, player, (p_220045_0_) -> p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
-        }
+        stack.hurtAndBreak(material == AccessoryMaterial.GOLD ? pGoldDamage : pDefaultDamage, player, (p_220045_0_) -> p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
     }
 
-    public void applyEffects(SlotContext slotContext, ItemStack stack) {
-        Player player = (Player)slotContext.entity();
-        if(!effects.isEmpty()){
-            for(MobEffectInstance effectInstance : effects){
-                player.addEffect(new MobEffectInstance(effectInstance));
-                accessoryHurt(slotContext, stack, material);
+    public void applyEffects(Player player, ItemStack stack) {
+        if(!player.getCooldowns().isOnCooldown(stack.getItem())){
+            if(!effects.isEmpty()){
+                for(MobEffectInstance effectInstance : effects){
+                    player.addEffect(new MobEffectInstance(effectInstance));
+                    player.getCooldowns().addCooldown(stack.getItem(), effectInstance.getDuration() + 300);
+                    accessoryHurt(player, stack, material);
+                }
             }
         }
     }
