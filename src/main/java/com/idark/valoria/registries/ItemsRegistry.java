@@ -219,6 +219,11 @@ public class ItemsRegistry{
     public static final RegistryObject<Item> SILKEN_KUNAI = ITEMS.register("silken_kunai",
     () -> new KunaiItem(0, -2.2f, new Item.Properties(), 0.25f, new MobEffectInstance(MobEffects.DARKNESS, 120, 0), new MobEffectInstance(MobEffects.POISON, 45, 0)));
 
+    public static final RegistryObject<Item> THROWABLE_BOMB = ITEMS.register("throwable_bomb",
+    () -> new ThrowableBombItem(new Item.Properties().stacksTo(16)));
+    public static final RegistryObject<Item> DYNAMITE = ITEMS.register("dynamite",
+    () -> new ThrowableBombItem(3f, 60, new Item.Properties().stacksTo(16)));
+
     // Placeholder for Entity Render
     public static final RegistryObject<Item> SPECTRAL_BLADE_THROWN = ITEMS.register("spectral_blade_thrown",
     () -> new Item(new Item.Properties()));

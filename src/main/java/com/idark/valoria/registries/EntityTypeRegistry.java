@@ -62,6 +62,13 @@ public class EntityTypeRegistry{
     .updateInterval(4) // funny
     .build(new ResourceLocation(Valoria.ID, "mannequin").toString()));
 
+    public static final RegistryObject<EntityType<ThrowableBomb>> THROWABLE_BOMB = ENTITY_TYPES.register("throwable_bomb",
+    () -> EntityType.Builder.<ThrowableBomb>of(ThrowableBomb::new, MobCategory.MISC)
+    .sized(0.45f, 0.45f)
+    .clientTrackingRange(4)
+    .updateInterval(20)
+    .build(new ResourceLocation(Valoria.ID, "throwable_bomb").toString()));
+
     public static final RegistryObject<EntityType<KunaiEntity>> KUNAI = ENTITY_TYPES.register("kunai",
     () -> EntityType.Builder.<KunaiEntity>of(KunaiEntity::new, MobCategory.MISC)
     .sized(0.35f, 0.35f)

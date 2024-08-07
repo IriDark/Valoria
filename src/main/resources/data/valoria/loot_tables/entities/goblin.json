@@ -36,7 +36,7 @@
           "functions": [
             {
               "function": "minecraft:set_count",
-              "count": 2,
+              "count": 1,
               "conditions": [
                 {
                   "condition": "minecraft:random_chance",
@@ -46,7 +46,7 @@
             },
             {
               "function": "minecraft:set_count",
-              "count": 4,
+              "count": 2,
               "conditions": [
                 {
                   "condition": "minecraft:random_chance",

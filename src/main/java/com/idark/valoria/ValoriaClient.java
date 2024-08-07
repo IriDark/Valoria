@@ -116,6 +116,7 @@ public class ValoriaClient{
             EntityRenderers.register(EntityTypeRegistry.SWAMP_WANDERER.get(), SwampWandererRenderer::new);
             EntityRenderers.register(EntityTypeRegistry.MANNEQUIN.get(), MannequinRenderer::new);
             EntityRenderers.register(EntityTypeRegistry.KUNAI.get(), KunaiRenderer::new);
+            EntityRenderers.register(EntityTypeRegistry.THROWABLE_BOMB.get(), ThrownItemRenderer::new);
             EntityRenderers.register(EntityTypeRegistry.SPECTRAL_BLADE.get(), SpectralBladeRenderer::new);
             EntityRenderers.register(EntityTypeRegistry.MEAT.get(), MeatBlockRenderer::new);
             EntityRenderers.register(EntityTypeRegistry.NECROMANCER_FANGS.get(), NecromancerFangsRenderer::new);

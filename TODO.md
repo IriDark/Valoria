@@ -1,8 +1,6 @@
 # TODO:
 - Sounds and Particles to Goblins (like crying or smth like that, when they're going to run away)
-- Decrease amount of bones dropped from Goblins
 - Only throwing weapons like kunai's but stackable
-- Throwing bombs (Smoke too)
 - Stone Crusher page in  Lexicon
 - Farmers Delight compat
 - Create compat
@@ -13,13 +11,10 @@
 - Redo HandsRenderer
 - Redo PotBlock
 - Redo UmbralBock (Delayed)
-- Finish working on ShadewoodSpider
-- MAYBE rework the BlazeReap
 - Redo CoralReef
 - MAYBE rework TransformShard
 - Neoforge 1.21 port
   - add data load conditions to compats
-
 
 ---
 ### Lexicon

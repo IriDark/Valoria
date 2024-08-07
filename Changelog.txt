@@ -2,8 +2,12 @@
 
 - Now Valoria requires Lodestone
 
-- Added custom Voxel shapes
+- Added Custom Voxel shapes to some blocks
+- Added some Recipes
 - Reworked Stone Crusher (A bit)
+- Reworked Accessories
+- Reworked BlazeReap
+- Decreased amount of bones dropped from Goblins
 
 - ID change of "pick" -> "prospectors_pick"
 

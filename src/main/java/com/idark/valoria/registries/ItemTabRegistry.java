@@ -166,6 +166,8 @@ public abstract class ItemTabRegistry{
             event.accept(ItemsRegistry.PYRATITE_CHARGE);
             event.accept(ItemsRegistry.BLAZE_REAP);
             event.accept(ItemsRegistry.PHANTOM);
+            event.accept(ItemsRegistry.THROWABLE_BOMB);
+            event.accept(ItemsRegistry.DYNAMITE);
             event.accept(ItemsRegistry.SILKEN_KUNAI);
             event.accept(ItemsRegistry.SAMURAI_KUNAI);
             event.accept(ItemsRegistry.SAMURAI_POISONED_KUNAI);
