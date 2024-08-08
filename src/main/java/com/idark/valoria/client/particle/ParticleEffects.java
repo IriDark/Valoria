@@ -1,7 +1,10 @@
 package com.idark.valoria.client.particle;
 
+import com.idark.valoria.registries.*;
 import com.idark.valoria.util.*;
+import net.minecraft.core.particles.*;
 import net.minecraft.util.*;
+import net.minecraft.world.entity.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
 import team.lodestar.lodestone.helpers.*;
@@ -16,12 +19,30 @@ import team.lodestar.lodestone.systems.particle.render_types.*;
 import team.lodestar.lodestone.systems.particle.world.behaviors.components.*;
 import team.lodestar.lodestone.systems.particle.world.options.*;
 
+import java.awt.*;
 import java.util.*;
 import java.util.function.*;
 
 import static net.minecraft.util.Mth.nextFloat;
 
 public class ParticleEffects{
+
+    public static void spawnItemParticles(Level level, ItemEntity entity, ParticleType<?> particle, ColorParticleData color){
+        RandomSource rand = level.getRandom();
+        Vec3 pos = new Vec3(entity.getX() + (rand.nextDouble() - 0.5f) / 6, entity.getY() + 0.4F, entity.getZ());
+        if(particle != null && color != null){
+            if(!entity.isInWater()){
+                Color particleColor = new Color(color.r1, color.g1, color.b1);
+                Color particleColorTo = new Color(color.r2, color.g2, color.b2);
+
+                ParticleEffects.itemParticles(level, pos, ColorParticleData.create(particleColor, particleColorTo).build()).spawnParticles();
+            }
+
+            if(entity.getItem().is(TagsRegistry.SMOKE_PARTICLE)){
+                ParticleEffects.itemParticles(level, pos, ColorParticleData.create(Color.black, Pal.smoke).build()).getBuilder().setLifetime(16).setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT).spawn(level, pos.x, pos.y, pos.z);
+            }
+        }
+    }
 
     public static WorldParticleBuilder particleBloom(Level level, WorldParticleBuilder builder, int lifetime){
         var rand = level.random;

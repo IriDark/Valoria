@@ -1,7 +1,9 @@
 package com.idark.valoria.registries.item.types;
 
 import com.idark.valoria.client.particle.*;
+import com.idark.valoria.registries.item.interfaces.*;
 import net.minecraft.core.particles.*;
+import net.minecraft.world.entity.item.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraftforge.api.distmarker.*;
@@ -13,7 +15,9 @@ import team.lodestar.lodestone.systems.particle.screen.*;
 
 import java.awt.*;
 
-public class CoreItem extends Item implements ParticleEmitterHandler.ItemParticleSupplier{
+import static com.idark.valoria.client.particle.ParticleEffects.spawnItemParticles;
+
+public class CoreItem extends Item implements IParticleItemEntity, ParticleEmitterHandler.ItemParticleSupplier{
     private final String coreName;
     public ParticleType<?> particle;
     public ColorParticleData color;
@@ -45,6 +49,12 @@ public class CoreItem extends Item implements ParticleEmitterHandler.ItemParticl
 
     public int getGivenCores(){
         return givenCores;
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    @Override
+    public void spawnParticles(Level level, ItemEntity entity){
+        spawnItemParticles(level, entity, particle, color);
     }
 
     @OnlyIn(Dist.CLIENT)

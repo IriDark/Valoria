@@ -89,7 +89,7 @@ public class ScytheItem extends SwordItem implements ICustomAnimationItem, ICool
     public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot pEquipmentSlot){
         if(pEquipmentSlot == EquipmentSlot.OFFHAND) {
             ImmutableMultimap.Builder<Attribute, AttributeModifier> atts = ImmutableMultimap.builder();
-            atts.put(AttributeRegistry.DASH_DISTANCE.get(), radiusModifier);
+            atts.put(AttributeRegistry.ATTACK_RADIUS.get(), radiusModifier);
             return atts.build();
         }
 
