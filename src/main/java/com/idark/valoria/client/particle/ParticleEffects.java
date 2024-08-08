@@ -91,8 +91,7 @@ public class ParticleEffects{
     }
 
     public static ParticleEffectSpawner leafParticle(Level level, Vec3 pos, WorldParticleOptions options, Function<WorldParticleOptions, WorldParticleBuilder> builderSupplier){
-        var lengthData = GenericParticleData.create(0.1f, 0.2f, 0f).setEasing(Easing.SINE_IN, Easing.SINE_IN_OUT).build();
-        var builder = builderSupplier.apply(options.setBehaviorIfDefault(new SparkBehaviorComponent(lengthData)));
+        var builder = builderSupplier.apply(options);
         return leafParticle(level, pos, builder);
     }
 
@@ -103,6 +102,7 @@ public class ParticleEffects{
         .setTransparencyData(GenericParticleData.create(0.75f, 0f).build())
         .setScaleData(GenericParticleData.create(0.15f, RandomHelper.randomBetween(rand, 0.08f, 0.14f), 0).setEasing(Easing.EXPO_IN, Easing.EXPO_IN_OUT).build())
         .setLifetime(21)
+        .setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT.withDepthFade())
         .setSpinData(SpinParticleData.create(((float)Math.toRadians(rand.nextBoolean() ? -2 : 4))).build())
         .disableNoClip();
         return new ParticleEffectSpawner(level, pos, transformParticleBuilder);

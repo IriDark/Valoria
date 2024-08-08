@@ -75,24 +75,28 @@ public class EntityTypeRegistry{
     .clientTrackingRange(4)
     .updateInterval(20)
     .build(new ResourceLocation(Valoria.ID, "kunai").toString()));
+
     public static final RegistryObject<EntityType<ThrownSpearEntity>> SPEAR = ENTITY_TYPES.register("spear",
     () -> EntityType.Builder.<ThrownSpearEntity>of(ThrownSpearEntity::new, MobCategory.MISC)
-    .sized(0.35f, 0.35f)
+    .sized(0.5f, 0.35f)
     .clientTrackingRange(4)
     .updateInterval(20)
     .build(new ResourceLocation(Valoria.ID, "spear").toString()));
+
     public static final RegistryObject<EntityType<PhantomArrow>> PHANTOM_ARROW = ENTITY_TYPES.register("phantom_arrow",
     () -> EntityType.Builder.<PhantomArrow>of(PhantomArrow::new, MobCategory.MISC)
     .sized(0.35f, 0.35f)
     .clientTrackingRange(4)
     .updateInterval(20)
     .build(new ResourceLocation(Valoria.ID, "phantom_arrow").toString()));
+
     public static final RegistryObject<EntityType<WickedArrow>> WICKED_ARROW = ENTITY_TYPES.register("wicked_arrow",
     () -> EntityType.Builder.<WickedArrow>of(WickedArrow::new, MobCategory.MISC)
     .sized(0.35f, 0.35f)
     .clientTrackingRange(4)
     .updateInterval(20)
     .build(new ResourceLocation(Valoria.ID, "wicked_arrow").toString()));
+
     public static final RegistryObject<EntityType<SoulArrow>> SOUL_ARROW = ENTITY_TYPES.register("soul_arrow",
     () -> EntityType.Builder.<SoulArrow>of(SoulArrow::new, MobCategory.MISC)
     .sized(0.35f, 0.35f)
@@ -125,6 +129,7 @@ public class EntityTypeRegistry{
     () -> EntityType.Builder.<CustomBoatEntity>of(CustomBoatEntity::new, MobCategory.MISC)
     .sized(1.375f, 0.5625f)
     .build(new ResourceLocation(Valoria.ID, "valoria_boat").toString()));
+
     public static final RegistryObject<EntityType<CustomChestBoatEntity>> CHEST_BOAT = ENTITY_TYPES.register("chest_boat",
     () -> EntityType.Builder.<CustomChestBoatEntity>of(CustomChestBoatEntity::new, MobCategory.MISC)
     .sized(1.375f, 0.5625f)

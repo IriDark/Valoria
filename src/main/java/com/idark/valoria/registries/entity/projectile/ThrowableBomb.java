@@ -9,11 +9,9 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.projectile.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
-import net.minecraft.world.level.gameevent.*;
 import net.minecraft.world.phys.*;
 import org.jetbrains.annotations.*;
 
-// todo, fix collisions
 public class ThrowableBomb extends ThrowableItemProjectile{
     private static final EntityDataAccessor<Integer> DATA_FUSE_ID = SynchedEntityData.defineId(ThrowableBomb.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Float> DATA_RADIUS_ID = SynchedEntityData.defineId(ThrowableBomb.class, EntityDataSerializers.FLOAT);
@@ -51,37 +49,45 @@ public class ThrowableBomb extends ThrowableItemProjectile{
     @Override
     public void tick(){
         super.tick();
-        if (!this.isNoGravity()) {
+        if(!this.isNoGravity()){
             this.setDeltaMovement(this.getDeltaMovement().add(0.0D, -0.04D, 0.0D));
         }
 
         this.move(MoverType.SELF, this.getDeltaMovement());
         this.setDeltaMovement(this.getDeltaMovement().scale(0.98D));
-        if (this.onGround()) {
+        if(this.onGround()){
             this.setDeltaMovement(this.getDeltaMovement().multiply(0.7D, -0.5D, 0.7D));
         }
 
         int i = this.getFuse() - 1;
         this.setFuse(i);
-        if (i <= 0) {
+        if(i <= 0){
             this.discard();
-            if (!this.level().isClientSide) {
+            if(!this.level().isClientSide){
                 this.explode();
             }
-        } else {
+        }else{
             this.updateInWaterStateAndDoFluidPushing();
-            if (this.level().isClientSide) {
+            if(this.level().isClientSide){
                 this.level().addParticle(ParticleTypes.SMOKE, this.getX(), this.getY() + 0.5D, this.getZ(), 0.0D, 0.0D, 0.0D);
             }
         }
+
+        // something really rare but happens
+        if(this.isInWall()) {
+            this.discard();
+        }
+
+        this.checkInsideBlocks();
     }
 
     public void onHit(HitResult pResult){
-        if(pResult.getType() != HitResult.Type.ENTITY || !this.ownedBy(((EntityHitResult)pResult).getEntity())){
-            if(!this.level().isClientSide){
-                this.level().playSound(this, this.getOnPos(), SoundEvents.CREEPER_PRIMED, SoundSource.AMBIENT, 0.4f, 1f);
-                this.level().gameEvent(GameEvent.PROJECTILE_LAND, pResult.getLocation(), GameEvent.Context.of(this, null));
-            }
+        if (!this.level().isClientSide) {
+            this.level().playSound(this, this.getOnPos(), SoundEvents.CREEPER_PRIMED, SoundSource.AMBIENT, 0.4f, 1f);
+            this.level().broadcastEntityEvent(this, (byte)3);
+
+            // preventing stuck
+            this.setDeltaMovement(-0.07283160655324188, 0.05140070277125347, 0.0049501345270485525);
         }
 
         super.onHit(pResult);

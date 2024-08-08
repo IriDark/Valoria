@@ -58,7 +58,6 @@ public final class PacketHandler{
         HANDLER.registerMessage(id++, KeypadParticlePacket.class, KeypadParticlePacket::encode, KeypadParticlePacket::decode, KeypadParticlePacket::handle);
         HANDLER.registerMessage(id++, ParticleLinePacket.class, ParticleLinePacket::encode, ParticleLinePacket::decode, ParticleLinePacket::handle);
         HANDLER.registerMessage(id++, CuriosSetStackPacket.class, CuriosSetStackPacket::encode, CuriosSetStackPacket::decode, CuriosSetStackPacket::handle);
-
     }
 
     public static void sendTo(ServerPlayer playerMP, Object toSend){
