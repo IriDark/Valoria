@@ -82,12 +82,14 @@ public class ThrowableBomb extends ThrowableItemProjectile{
     }
 
     public void onHit(HitResult pResult){
-        if (!this.level().isClientSide) {
+        if (!this.level().isClientSide){
             this.level().playSound(this, this.getOnPos(), SoundEvents.CREEPER_PRIMED, SoundSource.AMBIENT, 0.4f, 1f);
             this.level().broadcastEntityEvent(this, (byte)3);
 
-            // preventing stuck
-            this.setDeltaMovement(-0.07283160655324188, 0.05140070277125347, 0.0049501345270485525);
+            if(!this.onGround()){
+                // preventing stuck
+                this.setDeltaMovement(-0.07283160655324188, 0.05140070277125347, 0.0049501345270485525);
+            }
         }
 
         super.onHit(pResult);

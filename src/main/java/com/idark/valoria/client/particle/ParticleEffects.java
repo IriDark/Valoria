@@ -87,7 +87,8 @@ public class ParticleEffects{
     }
 
     public static ParticleEffectSpawner leafParticle(Level level, Vec3 pos, ColorParticleData colorData, WorldParticleOptions options){
-        return leafParticle(level, pos, options, o -> WorldParticleBuilder.create(o).setColorData(colorData));
+        return leafParticle(level, pos, options, o -> WorldParticleBuilder.create(o).setColorData(colorData).setRenderType(LodestoneWorldParticleRenderType.PARTICLE_SHEET_OPAQUE)
+        );
     }
 
     public static ParticleEffectSpawner leafParticle(Level level, Vec3 pos, WorldParticleOptions options, Function<WorldParticleOptions, WorldParticleBuilder> builderSupplier){
@@ -97,17 +98,16 @@ public class ParticleEffects{
 
     public static ParticleEffectSpawner leafParticle(Level level, Vec3 pos, WorldParticleBuilder builder){
         RandomSource rand = level.getRandom();
-        final WorldParticleBuilder transformParticleBuilder = builder
-        .setMotion(((rand.nextDouble() - 0.5D) / 6), ((rand.nextDouble() - 1.25D) / 3), ((rand.nextDouble() - 0.5D) / 6))
-        .setTransparencyData(GenericParticleData.create(0.75f, 0f).build())
-        .setScaleData(GenericParticleData.create(0.15f, RandomHelper.randomBetween(rand, 0.08f, 0.14f), 0).setEasing(Easing.EXPO_IN, Easing.EXPO_IN_OUT).build())
-        .setLifetime(21)
-        .setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT.withDepthFade())
-        .setSpinData(SpinParticleData.create(((float)Math.toRadians(rand.nextBoolean() ? -2 : 4))).build())
-        .disableNoClip();
-        return new ParticleEffectSpawner(level, pos, transformParticleBuilder);
+        float f = rand.nextBoolean() ? 0.05F : 0.075F;
+        final WorldParticleBuilder particleBuilder = builder
+        .setLifetime(120)
+        .setGravityStrength(7.5E-4F)
+        .addMotion(((rand.nextDouble() - 0.5D) / 6), ((rand.nextDouble() - 1.25D) / 8), ((rand.nextDouble() - 0.5D) / 6))
+        .setSpinData(SpinParticleData.create((float)Math.toRadians(rand.nextBoolean() ? -5.0D : 5.0D)).build())
+        .setScaleData(GenericParticleData.create(f).build())
+        .setFrictionStrength(1);
+        return new ParticleEffectSpawner(level, pos, particleBuilder);
     }
-
 
     public static ParticleEffectSpawner transformParticle(Level level, Vec3 pos, ColorParticleData colorData){
         return transformParticle(level, pos, colorData, new WorldParticleOptions(ParticleRegistry.TRANSFORM_PARTICLE));

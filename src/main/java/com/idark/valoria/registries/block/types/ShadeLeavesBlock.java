@@ -25,8 +25,12 @@ public class ShadeLeavesBlock extends LeavesBlock{
         int i = Minecraft.getInstance().getBlockColors().getColor(state, world, pos, 0);
         if(world.getBlockState(new BlockPos(pos.getX(), pos.getY() - 1, pos.getZ())).isAir()){
             if(random.nextFloat() < 0.015){
+                double x = (double)pos.getX() + random.nextDouble();
+                double y = (double)pos.getY() - 0.05D;
+                double z = (double)pos.getZ() + random.nextDouble();
+
                 Color color = new Color((i >> 16 & 255) / 255.0F, (i >> 8 & 255) / 255.0F, (i & 255) / 255.0F);
-                Vec3 position = new Vec3(pos.getX() + 0.5F + ((random.nextFloat() - 0.5f) * 0.9f), pos.getY() + 0.05, pos.getZ() + 0.5F + ((random.nextFloat() - 0.5f * 0.9f)));
+                Vec3 position = new Vec3(x, y, z);
                 ParticleEffects.leafParticle(world, position, ColorParticleData.create(color, color.darker()).build()).spawnParticles();
             }
         }
