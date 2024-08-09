@@ -1,15 +1,15 @@
 package com.idark.valoria.registries.block.entity;
 
-import com.idark.valoria.registries.BlockEntitiesRegistry;
-import com.idark.valoria.util.ValoriaUtils;
-import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.Connection;
-import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
-import net.minecraft.world.SimpleContainer;
-import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.state.BlockState;
-import org.jetbrains.annotations.NotNull;
+import com.idark.valoria.registries.*;
+import com.idark.valoria.util.*;
+import net.minecraft.core.*;
+import net.minecraft.nbt.*;
+import net.minecraft.network.*;
+import net.minecraft.network.protocol.game.*;
+import net.minecraft.world.*;
+import net.minecraft.world.level.block.entity.*;
+import net.minecraft.world.level.block.state.*;
+import org.jetbrains.annotations.*;
 
 public class PedestalBlockEntity extends BlockSimpleInventory{
     public PedestalBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state){

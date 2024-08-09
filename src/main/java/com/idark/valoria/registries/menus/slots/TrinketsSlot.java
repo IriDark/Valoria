@@ -1,9 +1,8 @@
 package com.idark.valoria.registries.menus.slots;
 
-import com.idark.valoria.registries.TagsRegistry;
-import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.SlotItemHandler;
+import com.idark.valoria.registries.*;
+import net.minecraft.world.item.*;
+import net.minecraftforge.items.*;
 
 public class TrinketsSlot extends SlotItemHandler{
 

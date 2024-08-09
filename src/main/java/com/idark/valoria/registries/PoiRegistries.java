@@ -1,13 +1,11 @@
 package com.idark.valoria.registries;
 
-import com.google.common.collect.ImmutableSet;
-import com.idark.valoria.Valoria;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.ai.village.poi.PoiType;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import com.google.common.collect.*;
+import com.idark.valoria.*;
+import net.minecraft.resources.*;
+import net.minecraft.world.entity.ai.village.poi.*;
+import net.minecraftforge.eventbus.api.*;
+import net.minecraftforge.registries.*;
 
 public class PoiRegistries{
 

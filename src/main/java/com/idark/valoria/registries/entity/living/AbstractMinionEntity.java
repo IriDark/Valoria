@@ -1,17 +1,14 @@
 package com.idark.valoria.registries.entity.living;
 
-import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.PathfinderMob;
-import net.minecraft.world.entity.TraceableEntity;
-import net.minecraft.world.entity.ai.goal.target.TargetGoal;
-import net.minecraft.world.entity.ai.targeting.TargetingConditions;
-import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.level.Level;
+import net.minecraft.core.*;
+import net.minecraft.nbt.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.goal.target.*;
+import net.minecraft.world.entity.ai.targeting.*;
+import net.minecraft.world.entity.monster.*;
+import net.minecraft.world.level.*;
 
-import javax.annotation.Nullable;
+import javax.annotation.*;
 
 public abstract class AbstractMinionEntity extends Monster implements TraceableEntity{
     @Nullable

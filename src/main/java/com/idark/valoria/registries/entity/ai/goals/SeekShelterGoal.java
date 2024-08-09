@@ -1,9 +1,9 @@
 package com.idark.valoria.registries.entity.ai.goals;
 
-import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.PathfinderMob;
-import net.minecraft.world.entity.ai.goal.FleeSunGoal;
+import net.minecraft.core.*;
+import net.minecraft.server.level.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.goal.*;
 
 public class SeekShelterGoal extends FleeSunGoal{
 

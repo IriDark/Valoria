@@ -351,6 +351,7 @@ public abstract class ItemTabRegistry{
             event.accept(BlockRegistry.VOID_ROOTS);
             event.accept(ItemsRegistry.VOIDVINE);
             event.accept(BlockRegistry.VOID_SERPENTS);
+            event.accept(BlockRegistry.SHADE_BLOSSOM);
             event.accept(BlockRegistry.GEODITE_DIRT);
             event.accept(BlockRegistry.GEODITE_STONE);
             event.accept(BlockRegistry.AMBER_ORE);

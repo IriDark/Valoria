@@ -1,10 +1,9 @@
 package com.idark.valoria.registries.block.entity;
 
-import com.idark.valoria.registries.BlockEntitiesRegistry;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.entity.HangingSignBlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
+import com.idark.valoria.registries.*;
+import net.minecraft.core.*;
+import net.minecraft.world.level.block.entity.*;
+import net.minecraft.world.level.block.state.*;
 
 public class ModHangingSignBlockEntity extends HangingSignBlockEntity{
     public ModHangingSignBlockEntity(BlockPos pPos, BlockState pState){

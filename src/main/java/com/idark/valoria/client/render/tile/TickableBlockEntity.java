@@ -1,4 +1,4 @@
-package com.idark.valoria.client.render.model.blockentity;
+package com.idark.valoria.client.render.tile;
 
 import net.minecraft.world.level.block.entity.*;
 

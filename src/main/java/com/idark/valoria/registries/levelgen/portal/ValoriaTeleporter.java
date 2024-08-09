@@ -1,27 +1,21 @@
 package com.idark.valoria.registries.levelgen.portal;
 
-import com.idark.valoria.registries.BlockRegistry;
-import com.idark.valoria.registries.PoiRegistries;
-import net.minecraft.BlockUtil;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.TicketType;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.ai.village.poi.PoiManager;
-import net.minecraft.world.entity.ai.village.poi.PoiRecord;
-import net.minecraft.world.level.ChunkPos;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.HorizontalDirectionalBlock;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Fluids;
-import net.minecraft.world.level.portal.PortalInfo;
-import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.util.ITeleporter;
+import com.idark.valoria.registries.*;
+import net.minecraft.*;
+import net.minecraft.core.*;
+import net.minecraft.server.level.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.village.poi.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.*;
+import net.minecraft.world.level.material.*;
+import net.minecraft.world.level.portal.*;
+import net.minecraft.world.phys.*;
+import net.minecraftforge.common.util.*;
 
-import java.util.Comparator;
-import java.util.Optional;
-import java.util.function.Function;
+import java.util.*;
+import java.util.function.*;
 
 public class ValoriaTeleporter extends BaseTeleporter implements ITeleporter{
 

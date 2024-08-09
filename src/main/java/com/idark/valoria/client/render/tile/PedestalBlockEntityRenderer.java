@@ -1,4 +1,4 @@
-package com.idark.valoria.client.render.model.blockentity;
+package com.idark.valoria.client.render.tile;
 
 import com.idark.valoria.client.event.*;
 import com.idark.valoria.registries.block.entity.*;

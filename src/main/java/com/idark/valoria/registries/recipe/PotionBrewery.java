@@ -1,16 +1,11 @@
 package com.idark.valoria.registries.recipe;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.registries.EffectsRegistry;
-import com.idark.valoria.registries.ItemsRegistry;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.item.alchemy.Potion;
-import net.minecraft.world.item.alchemy.PotionBrewing;
-import net.minecraft.world.item.alchemy.Potions;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import com.idark.valoria.*;
+import com.idark.valoria.registries.*;
+import net.minecraft.world.effect.*;
+import net.minecraft.world.item.alchemy.*;
+import net.minecraftforge.eventbus.api.*;
+import net.minecraftforge.registries.*;
 
 public class PotionBrewery extends PotionBrewing{
     public static final DeferredRegister<Potion> POTIONS = DeferredRegister.create(ForgeRegistries.POTIONS, Valoria.ID);

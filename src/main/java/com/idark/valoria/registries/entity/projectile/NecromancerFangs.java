@@ -1,19 +1,19 @@
 package com.idark.valoria.registries.entity.projectile;
 
-import com.idark.valoria.registries.EntityTypeRegistry;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
+import com.idark.valoria.registries.*;
+import net.minecraft.core.particles.*;
+import net.minecraft.nbt.*;
+import net.minecraft.network.protocol.*;
+import net.minecraft.network.protocol.game.*;
+import net.minecraft.server.level.*;
+import net.minecraft.sounds.*;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.level.Level;
-import net.minecraftforge.network.NetworkHooks;
-import org.jetbrains.annotations.NotNull;
+import net.minecraft.world.level.*;
+import net.minecraftforge.network.*;
+import org.jetbrains.annotations.*;
 
 import javax.annotation.Nullable;
-import java.util.UUID;
+import java.util.*;
 
 public class NecromancerFangs extends Entity implements TraceableEntity{
     private int warmupDelayTicks;

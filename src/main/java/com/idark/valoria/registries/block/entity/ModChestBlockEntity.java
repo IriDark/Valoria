@@ -1,10 +1,9 @@
 package com.idark.valoria.registries.block.entity;
 
-import com.idark.valoria.compat.quark.QuarkIntegration;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.entity.ChestBlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
+import com.idark.valoria.compat.quark.*;
+import net.minecraft.core.*;
+import net.minecraft.world.level.block.entity.*;
+import net.minecraft.world.level.block.state.*;
 
 public class ModChestBlockEntity extends ChestBlockEntity{
     public ModChestBlockEntity(BlockPos pPos, BlockState pBlockState){

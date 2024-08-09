@@ -2,10 +2,10 @@ package com.idark.valoria;
 
 import com.idark.valoria.client.color.*;
 import com.idark.valoria.client.particle.*;
-import com.idark.valoria.client.render.curio.model.*;
 import com.idark.valoria.client.render.entity.*;
-import com.idark.valoria.client.render.model.blockentity.*;
+import com.idark.valoria.client.render.model.curio.*;
 import com.idark.valoria.client.render.model.item.*;
+import com.idark.valoria.client.render.tile.*;
 import com.idark.valoria.compat.quark.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.block.types.*;

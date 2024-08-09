@@ -1,7 +1,7 @@
 package com.idark.valoria.client.render.curio;
 
 import com.idark.valoria.*;
-import com.idark.valoria.client.render.curio.model.*;
+import com.idark.valoria.client.render.model.curio.*;
 import com.mojang.blaze3d.vertex.*;
 import net.minecraft.client.*;
 import net.minecraft.client.model.*;

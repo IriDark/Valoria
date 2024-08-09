@@ -1,4 +1,4 @@
-package com.idark.valoria.client.render.model.blockentity;
+package com.idark.valoria.client.render.tile;
 
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.block.entity.*;
@@ -17,7 +17,6 @@ import java.util.*;
 
 @OnlyIn(Dist.CLIENT)
 public class CrushableBlockRenderer implements BlockEntityRenderer<CrushableBlockEntity>{
-
 
     public CrushableBlockRenderer(){
     }

@@ -1,6 +1,6 @@
 package com.idark.valoria.registries.block.types;
 
-import com.idark.valoria.client.render.model.blockentity.*;
+import com.idark.valoria.client.render.tile.*;
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.*;
 import com.idark.valoria.registries.block.entity.*;

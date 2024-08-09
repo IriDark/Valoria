@@ -1,10 +1,9 @@
 package com.idark.valoria.registries.menus.slots;
 
-import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.SlotItemHandler;
+import net.minecraft.world.item.*;
+import net.minecraftforge.items.*;
 
-import javax.annotation.Nonnull;
+import javax.annotation.*;
 
 public class ResultSlot extends SlotItemHandler{
 

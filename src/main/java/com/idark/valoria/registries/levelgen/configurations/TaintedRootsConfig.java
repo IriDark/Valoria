@@ -1,9 +1,9 @@
 package com.idark.valoria.registries.levelgen.configurations;
 
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.util.ExtraCodecs;
-import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
+import com.mojang.serialization.*;
+import com.mojang.serialization.codecs.*;
+import net.minecraft.util.*;
+import net.minecraft.world.level.levelgen.feature.configurations.*;
 
 public record TaintedRootsConfig(int spreadWidth, int spreadHeight) implements FeatureConfiguration{
 

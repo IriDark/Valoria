@@ -1,4 +1,4 @@
-package com.idark.valoria.client.render.curio.model;
+package com.idark.valoria.client.render.model.curio;
 
 import com.google.common.collect.*;
 import com.idark.valoria.*;

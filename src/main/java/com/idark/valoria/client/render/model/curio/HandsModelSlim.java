@@ -1,42 +1,47 @@
-package com.idark.valoria.client.render.curio.model;
+package com.idark.valoria.client.render.model.curio;
 
 import com.google.common.collect.*;
-import com.idark.valoria.*;
-import com.mojang.blaze3d.vertex.*;
 import net.minecraft.client.model.*;
 import net.minecraft.client.model.geom.*;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.resources.*;
 import net.minecraft.world.entity.*;
 
-public class BeltModel extends HumanoidModel<LivingEntity>{
-    public ModelPart root, model;
-    public static ModelLayerLocation BELT_LAYER = new ModelLayerLocation(new ResourceLocation(Valoria.ID, "belt"), "main");
+public class HandsModelSlim extends HumanoidModel<LivingEntity>{
+    public ModelPart root, right_glove, left_glove;
 
-    public BeltModel(ModelPart root){
+    public HandsModelSlim(ModelPart root){
         super(root);
         this.root = root;
-        this.model = root.getChild("body").getChild("model");
+        this.right_glove = root.getChild("right_glove");
+        this.left_glove = root.getChild("left_glove");
     }
+
 
     public static LayerDefinition createBodyLayer(){
         MeshDefinition mesh = new MeshDefinition();
         PartDefinition root = mesh.getRoot();
+
+        // Empty ones to prevent crashing
         PartDefinition head = root.addOrReplaceChild("head", new CubeListBuilder(), PartPose.ZERO);
         PartDefinition hat = root.addOrReplaceChild("hat", new CubeListBuilder(), PartPose.ZERO);
+        PartDefinition body = root.addOrReplaceChild("body", new CubeListBuilder(), PartPose.ZERO);
         PartDefinition right_arm = root.addOrReplaceChild("right_arm", new CubeListBuilder(), PartPose.ZERO);
         PartDefinition left_arm = root.addOrReplaceChild("left_arm", new CubeListBuilder(), PartPose.ZERO);
         PartDefinition right_leg = root.addOrReplaceChild("right_leg", new CubeListBuilder(), PartPose.ZERO);
         PartDefinition left_leg = root.addOrReplaceChild("left_leg", new CubeListBuilder(), PartPose.ZERO);
 
-        PartDefinition body = root.addOrReplaceChild("body", new CubeListBuilder(), PartPose.ZERO);
-        PartDefinition model = body.addOrReplaceChild("model", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, 10.5F, -2.0F, 8.0F, 1.0F, 4.0F, new CubeDeformation(0.35F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+        PartDefinition right_glove = root.addOrReplaceChild("right_glove", CubeListBuilder.create().texOffs(0, 0).addBox(-2.0F, -2.0F, -2.0F, 3.0F, 12.0F, 4.0F, new CubeDeformation(0.35F)).texOffs(10, 12).addBox(-2.0F, -2.0F, -2.0F, 3.0F, 12.0F, 4.0F, new CubeDeformation(0.35F)), PartPose.offset(-5.0F, 2.0F, 0.0F));
+        PartDefinition left_glove = root.addOrReplaceChild("left_glove", CubeListBuilder.create().mirror().texOffs(0, 24).addBox(-1.0F, -2.0F, -2.0F, 3.0F, 12.0F, 4.0F, new CubeDeformation(0.35F)).texOffs(20, 0).mirror().addBox(-1.0F, -2.0F, -2.0F, 3.0F, 12.0F, 4.0F, new CubeDeformation(0.35F)).mirror(false), PartPose.offset(5.0F, 2.0F, 0.0F));
 
-        return LayerDefinition.create(mesh, 32, 32);
+        return LayerDefinition.create(mesh, 64, 64);
     }
 
     @Override
     public void setupAnim(LivingEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch){
+        if(entity instanceof LivingEntity){
+            right_glove.copyFrom(this.rightArm);
+            left_glove.copyFrom(this.leftArm);
+        }
     }
 
     @Override
@@ -46,11 +51,6 @@ public class BeltModel extends HumanoidModel<LivingEntity>{
 
     @Override
     protected Iterable<ModelPart> bodyParts(){
-        return ImmutableList.of(root.getChild("body"));
-    }
-
-    @Override
-    public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha){
-        super.renderToBuffer(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+        return ImmutableList.of(this.right_glove, this.left_glove);
     }
 }

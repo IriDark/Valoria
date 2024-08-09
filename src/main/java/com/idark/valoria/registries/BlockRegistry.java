@@ -605,6 +605,8 @@ public class BlockRegistry{
     () -> new TallRootsBlock(BlockBehaviour.Properties.copy(Blocks.CRIMSON_ROOTS).mapColor(MapColor.COLOR_BROWN)));
     public static final RegistryObject<Block> KARUSAKAN_ROOTS = registerBlock("karusakan_roots",
     () -> new TallRootsBlock(BlockBehaviour.Properties.copy(Blocks.CRIMSON_ROOTS).mapColor(MapColor.COLOR_BROWN)));
+    public static final RegistryObject<Block> SHADE_BLOSSOM = registerBlock("shade_blossom",
+    () -> new ShadeBlossomBlock(BlockBehaviour.Properties.copy(Blocks.SPORE_BLOSSOM).mapColor(MapColor.COLOR_LIGHT_BLUE)));
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block){
         RegistryObject<T> toReturn = BLOCK.register(name, block);
