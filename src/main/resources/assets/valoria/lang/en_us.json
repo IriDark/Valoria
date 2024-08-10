@@ -3,10 +3,6 @@
   "key.valoria.bag_menu": "Jewelry Bag Menu",
   "key.valoria.jewelry": "Jewelry Bonuses Key",
 
-  "attribute.valoria.excavation_speed": "Excavation Speed",
-  "attribute.valoria.projectile_damage": "Projectile Damage",
-  "attribute.valoria.dash_distance": "Dash Distance",
-  "attribute.valoria.attack_radius": "Attack Radius",
   "config.jade.plugin_valoria.jewelry": "Jewelry",
   "config.jade.plugin_valoria.crusher": "Crusher",
   "config.jade.plugin_valoria.keg": "Keg",
@@ -14,6 +10,12 @@
   "config.jade.plugin_valoria.manipulator": "Manipulator",
   "valoria.jade.openable_with": "Openable with:",
   "valoria.jade.progress": "Progress:",
+
+  "attribute.valoria.excavation_speed": "Excavation Speed",
+  "attribute.valoria.projectile_damage": "Projectile Damage",
+  "attribute.valoria.dash_distance": "Dash Distance",
+  "attribute.valoria.attack_radius": "Attack Radius",
+
   "subtitles.valoria.spear.hit_ground": "Spear vibrates",
   "subtitles.valoria.spear.return": "Spear returns",
   "subtitles.valoria.spear.throw": "Spear clangs",
@@ -23,6 +25,7 @@
   "subtitles.valoria.ability.use": "Ability used ★",
   "subtitles.valoria.item.recharge": "Recharge ★",
   "subtitles.valoria.lootbag.open": "Opened Loot Bag ★",
+
   "tooltip.valoria.geode": "Can be crushed on Stone Crusher",
   "tooltip.valoria.spear": "A spear that can be thrown at your enemy",
   "tooltip.valoria.equipped": "Equipped: ",
@@ -67,22 +70,27 @@
   "tooltip.valoria.page": "Unlock-able Page: ",
   "tooltip.valoria.scythe": "Slow weapon performing a circular strike",
   "tooltip.valoria.homing": "Has a homing movement, but lesser damage",
+
   "jei.valoria.brewery": "Brewery",
   "jei.valoria.jewelry": "Jewelry",
   "jei.valoria.crusher": "Stonecrusher",
   "jei.valoria.manipulator": "Manipulator",
+
   "effect.valoria.tipsy.description": "You're drunk? Ye you're drunk, jokes aside slow down's entity but increases entity armor and damage",
   "effect.valoria.stun.description": "Prevents the entity to move and attack",
   "effect.valoria.aloeregen.description": "Slowly regenerates HP",
   "effect.valoria.bleeding.description": "Entity will lose HP for a some time",
+
   "death.attack.bleeding": "%1$s lost all his blood",
   "death.attack.quicksand_suffocating": "%1$s sank like a sandcastle, breathless",
+
   "commands.valoria.page.unknown": "Unknown page",
   "commands.valoria.page.give.single": "Gave page to player %s",
   "commands.valoria.page.give.multiple": "Gave page to %s players",
   "commands.valoria.page.remove.single": "Removed page from player %s",
   "commands.valoria.page.remove.multiple": "Removed page from %s players",
   "commands.valoria.charges.set.add": "Set charges %s",
+
   "trim_material.valoria.bronze": "Bronze Material",
   "trim_material.valoria.cobalt": "Cobalt Material",
   "trim_material.valoria.ancient": "Ancient Material",
@@ -199,6 +207,9 @@
   "item.minecraft.splash_potion.effect.aloe_potion": "Splash Aloe Potion",
   "item.minecraft.lingering_potion.effect.aloe_potion": "Lingering Aloe Potion",
   "item.minecraft.tipped_arrow.effect.aloe_potion": "Arrow of Aloe Regeneration",
+  "item.valoria.throwable_bomb": "Throwable Bomb",
+  "item.valoria.dynamite": "Dynamite",
+  "item.valoria.shade_blossom_leaf": "Shade Blossom Leaf",
   "item.valoria.wicked_arrow": "Wicked Arrow",
   "item.valoria.soul_arrow": "Soul Arrow",
   "item.valoria.nature_core": "Nature Core",
@@ -427,6 +438,7 @@
   "item.valoria.toxins_bottle": "Toxins Bottle",
   "item.valoria.aloe_bandage": "Aloe Bandage",
   "item.valoria.aloe_bandage_upgraded": "Aloe Bandage",
+  "item.valoria.shade_blossom_bandage": "Shade Blossom Bandage",
   "item.valoria.stone_geode": "Stone Geode",
   "item.valoria.dirt_geode": "Dirt Geode",
   "item.valoria.miners_bag": "Miners Bag",
@@ -835,5 +847,7 @@
   "block.valoria.void_chiseled_bricks_vertical_slab": "Chiseled Void Bricks Vertical Slab",
   "block.valoria.void_taint": "Void Taint",
   "block.valoria.meat_block": "Meat Block",
-  "block.valoria.suspicious_ice": "Suspicious Ice"
+  "block.valoria.suspicious_ice": "Suspicious Ice",
+  "block.valoria.shade_blossom": "Shade Blossom",
+  "block.valoria.archaeology_table": "Archaeology Table"
 }

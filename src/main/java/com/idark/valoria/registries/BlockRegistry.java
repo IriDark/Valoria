@@ -505,17 +505,17 @@ public class BlockRegistry{
     () -> new AmethystClusterBlock(7, 3, BlockBehaviour.Properties.copy(Blocks.LARGE_AMETHYST_BUD).strength(1f, 0f).sound(SoundType.GLASS).noOcclusion()));
     // Pots
     public static final RegistryObject<Block> POT_SMALL = registerBlock("pot_small",
-    () -> new PotBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).instabreak().noOcclusion().sound(SoundsRegistry.POT)));
+    () -> new PotBlock(false, BlockBehaviour.Properties.copy(Blocks.GLASS).instabreak().noOcclusion().sound(SoundsRegistry.POT)));
     public static final RegistryObject<Block> POT_SMALL_HANDLES = registerBlock("pot_small_handles",
-    () -> new PotBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).lootFrom(BlockRegistry.POT_SMALL).instabreak().noOcclusion().sound(SoundsRegistry.POT)));
+    () -> new PotBlock(false, BlockBehaviour.Properties.copy(Blocks.GLASS).lootFrom(BlockRegistry.POT_SMALL).instabreak().noOcclusion().sound(SoundsRegistry.POT)));
     public static final RegistryObject<Block> POT_LONG = registerBlock("pot_long",
-    () -> new PotBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).instabreak().noOcclusion().sound(SoundsRegistry.POT)));
+    () -> new PotBlock(true, BlockBehaviour.Properties.copy(Blocks.GLASS).instabreak().noOcclusion().sound(SoundsRegistry.POT)));
     public static final RegistryObject<Block> POT_LONG_HANDLES = registerBlock("pot_long_handles",
-    () -> new PotBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).lootFrom(BlockRegistry.POT_LONG).instabreak().noOcclusion().sound(SoundsRegistry.POT)));
+    () -> new PotBlock(true, BlockBehaviour.Properties.copy(Blocks.GLASS).lootFrom(BlockRegistry.POT_LONG).instabreak().noOcclusion().sound(SoundsRegistry.POT)));
     public static final RegistryObject<Block> POT_LONG_MOSSY = registerBlock("pot_long_mossy",
-    () -> new PotBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).lootFrom(BlockRegistry.POT_LONG).instabreak().noOcclusion().sound(SoundsRegistry.POT)));
+    () -> new PotBlock(true, BlockBehaviour.Properties.copy(Blocks.GLASS).lootFrom(BlockRegistry.POT_LONG).instabreak().noOcclusion().sound(SoundsRegistry.POT)));
     public static final RegistryObject<Block> POT_LONG_MOSSY_HANDLES = registerBlock("pot_long_mossy_handles",
-    () -> new PotBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).lootFrom(BlockRegistry.POT_LONG).instabreak().noOcclusion().sound(SoundsRegistry.POT)));
+    () -> new PotBlock(true, BlockBehaviour.Properties.copy(Blocks.GLASS).lootFrom(BlockRegistry.POT_LONG).instabreak().noOcclusion().sound(SoundsRegistry.POT)));
     // Plants`
     public static final RegistryObject<Block> TAINTED_ROOTS = BLOCK.register("tainted_roots",
     () -> new TaintedRootsBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).mapColor(MapColor.COLOR_MAGENTA).randomTicks().noCollission().instabreak().sound(SoundType.CAVE_VINES).pushReaction(PushReaction.DESTROY)));

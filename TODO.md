@@ -13,6 +13,7 @@
 - Redo UmbralBock (Delayed)
 - Redo CoralReef
 - MAYBE rework TransformShard
+- Glowing Crystals in Valoria Caves
 - Neoforge 1.21 port
   - add data load conditions to compats
 

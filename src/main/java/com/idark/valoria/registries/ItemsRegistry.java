@@ -149,8 +149,9 @@ public class ItemsRegistry{
     public static final RegistryObject<Item> PYRATITE_CHARGE = ITEMS.register("pyratite_charge", () -> new GunpowderCharge(6f, 40f,  new Item.Properties().stacksTo(1)));
 
     public static final RegistryObject<Item> JEWELRY_BAG = ITEMS.register("jewelry_bag", () -> new JewelryBagItem(new Item.Properties().stacksTo(1)));
-    public static final RegistryObject<Item> ALOE_BANDAGE = ITEMS.register("aloe_bandage", () -> new AloeBandageItem(1600, 0));
-    public static final RegistryObject<Item> ALOE_BANDAGE_UPGRADED = ITEMS.register("aloe_bandage_upgraded", () -> new AloeBandageItem(1450, 1));
+    public static final RegistryObject<Item> ALOE_BANDAGE = ITEMS.register("aloe_bandage", () -> new BandageItem(false, 1600, 0));
+    public static final RegistryObject<Item> ALOE_BANDAGE_UPGRADED = ITEMS.register("aloe_bandage_upgraded", () -> new BandageItem(true, 1450, 1));
+    public static final RegistryObject<Item> SHADE_BLOSSOM_BANDAGE = ITEMS.register("shade_blossom_bandage", () -> new BandageItem(true, 1750, 1)); //todo custom effect
     public static final RegistryObject<Item> CACAO_CUP = ITEMS.register("cacao_cup", () -> new ModDrinkItem(0, 1, 1, ItemsRegistry.CUP.get(), new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 250)));
     public static final RegistryObject<Item> COFFEE_CUP = ITEMS.register("coffee_cup", () -> new ModDrinkItem(0, 1, 1, ItemsRegistry.CUP.get(), new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 250)));
     public static final RegistryObject<Item> TEA_CUP = ITEMS.register("tea_cup", () -> new ModDrinkItem(0, 1, 1, ItemsRegistry.CUP.get(), new MobEffectInstance(MobEffects.DIG_SPEED, 100)));
@@ -475,6 +476,8 @@ public class ItemsRegistry{
     () -> new Item(new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.EPIC)));
     public static final RegistryObject<Item> RUBY_GAZER = ITEMS.register("ruby_golden_gazer",
     () -> new ParticleMaterialItem(ParticleRegistry.CUBE.get(), Pal.ruby, Color.white, 0.35f, new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.EPIC)));
+    public static final RegistryObject<Item> SHADE_BLOSSOM_LEAF = ITEMS.register("shade_blossom_leaf",
+    () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> RUNE = ITEMS.register("rune",
     () -> new CurioRune(new Item.Properties().stacksTo(16).rarity(Rarity.UNCOMMON)));
     public static final RegistryObject<Item> RUNE_OF_VISION = ITEMS.register("rune_of_vision",

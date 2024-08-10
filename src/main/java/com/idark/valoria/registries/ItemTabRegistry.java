@@ -119,11 +119,13 @@ public abstract class ItemTabRegistry{
             event.accept(ItemsRegistry.BOTTLE);
             event.accept(ItemsRegistry.TAINTED_BERRIES);
             event.accept(ItemsRegistry.EYE_CHUNK);
+            event.accept(ItemsRegistry.SHADE_BLOSSOM_LEAF);
             event.accept(ItemsRegistry.COOKED_ABYSSAL_GLOWFERN);
             event.accept(ItemsRegistry.COOKED_GLOW_VIOLET_SPROUT);
             event.accept(ItemsRegistry.ALOE_PIECE);
             event.accept(ItemsRegistry.ALOE_BANDAGE);
             event.accept(ItemsRegistry.ALOE_BANDAGE_UPGRADED);
+            event.accept(ItemsRegistry.SHADE_BLOSSOM_BANDAGE);
             event.accept(ItemsRegistry.CACAO_CUP);
             event.accept(ItemsRegistry.COFFEE_CUP);
             event.accept(ItemsRegistry.TEA_CUP);

@@ -4,10 +4,14 @@
 
 - Added Custom Voxel shapes to some blocks
 - Added some Recipes
-- Added firefly like particles, spawned in Shadeforest
+- Added Firefly like particles, spawned in Shadeforest
+- Added Particles for Bandages
+- Added Shade Blossom
+- Added Shade Blossom Bandage
 - Reworked Stone Crusher (A bit)
 - Reworked Accessories
 - Reworked BlazeReap
+- Reworked Bandages
 - Decreased amount of bones dropped from Goblins
 
 - ID change of "pick" -> "prospectors_pick"
@@ -20,6 +24,8 @@
 - Fixed Void armor craft recipe
 
 - Resprited Gazers, totems, winglets
+- Resprited Bandages
+- Resprited Effects
 
 - Changed incompatibility of "Bleeding" enchantment from "Sweeping Edge" to "Sharpness"
 

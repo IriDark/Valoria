@@ -13,6 +13,17 @@
       "entries": [
         {
           "type": "minecraft:item",
+          "name": "valoria:throwable_bomb",
+          "weight": 3,
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance",
+              "chance": 0.1
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
           "weight": 2,
           "name": "minecraft:gold_ingot",
           "conditions": [

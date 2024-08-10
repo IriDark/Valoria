@@ -24,6 +24,7 @@ import com.idark.valoria.registries.item.types.ranged.*;
 import com.idark.valoria.registries.levelgen.*;
 import com.idark.valoria.registries.recipe.*;
 import com.idark.valoria.util.*;
+import com.mojang.logging.*;
 import net.minecraft.client.gui.screens.*;
 import net.minecraft.data.*;
 import net.minecraft.world.entity.*;
@@ -44,12 +45,13 @@ import net.minecraftforge.fml.common.*;
 import net.minecraftforge.fml.config.*;
 import net.minecraftforge.fml.event.lifecycle.*;
 import net.minecraftforge.fml.javafmlmod.*;
+import org.slf4j.*;
 import top.theillusivec4.curios.api.client.*;
 
 @Mod(Valoria.ID)
 public class Valoria{
     public static final String ID = "valoria";
-
+    public static final Logger LOGGER = LogUtils.getLogger();
     public static final ISidedProxy proxy = DistExecutor.unsafeRunForDist(() -> ClientProxy::new, () -> ServerProxy::new);
 
     public Valoria(){
