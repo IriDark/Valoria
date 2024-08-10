@@ -44,7 +44,6 @@ Explore the enriched landscapes with an exotic plants <p> Valoria introduces a r
 </details> <details> <summary>Our plans!</summary>
 
 - Bosses
-- Magic system
 - Tons of new mobs
 - More unique items and their mechanics
 - And more!
