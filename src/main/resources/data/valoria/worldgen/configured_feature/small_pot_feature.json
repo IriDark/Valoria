@@ -1,0 +1,22 @@
+{
+  "type": "valoria:simple_pot",
+  "config": {
+    "to_place": {
+      "type": "minecraft:weighted_state_provider",
+      "entries": [
+        {
+          "weight": 1,
+          "data": {
+            "Name": "valoria:pot_small"
+          }
+        },
+        {
+          "weight": 1,
+          "data": {
+            "Name": "valoria:pot_small_handles"
+          }
+        }
+      ]
+    }
+  }
+}

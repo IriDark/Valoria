@@ -1,0 +1,34 @@
+{
+  "type": "valoria:simple_pot",
+  "config": {
+    "to_place": {
+      "type": "minecraft:weighted_state_provider",
+      "entries": [
+        {
+          "weight": 1,
+          "data": {
+            "Name": "valoria:pot_long"
+          }
+        },
+        {
+          "weight": 1,
+          "data": {
+            "Name": "valoria:pot_long_handles"
+          }
+        },
+        {
+          "weight": 2,
+          "data": {
+            "Name": "valoria:pot_long_mossy"
+          }
+        },
+        {
+          "weight": 2,
+          "data": {
+            "Name": "valoria:pot_long_mossy_handles"
+          }
+        }
+      ]
+    }
+  }
+}

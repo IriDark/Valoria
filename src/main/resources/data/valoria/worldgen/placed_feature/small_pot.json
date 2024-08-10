@@ -1,0 +1,12 @@
+{
+  "feature": "valoria:small_pot_feature",
+  "placement": [
+    {
+      "type": "minecraft:count",
+      "count": 1
+    },
+    {
+      "type": "minecraft:in_square"
+    }
+  ]
+}

@@ -32,6 +32,7 @@ public class LevelGen{
 
     public static final RegistryObject<Feature<BlockStateConfiguration>> FALLEN_TREE = FEATURES.register("fallen_tree", () -> new FallenTreeFeature(BlockStateConfiguration.CODEC));
     public static final RegistryObject<Feature<RandomPatchConfiguration>> CATTAIL = FEATURES.register("cattail", () -> new CattailFeature(RandomPatchConfiguration.CODEC));
+    public static final RegistryObject<Feature<SimpleBlockConfiguration>> POT = FEATURES.register("simple_pot", () -> new PotFeature(SimpleBlockConfiguration.CODEC));
     public static final RegistryObject<Feature<TwistingVinesConfig>> ABYSSAL_GLOWFERN = FEATURES.register("abyssal_glowfern", () -> new AbyssalGlowfernFeature(TwistingVinesConfig.CODEC));
     public static final RegistryObject<Feature<TwistingVinesConfig>> VIOLET_SPROUT = FEATURES.register("violet_sprout", () -> new VioletSproutFeature(TwistingVinesConfig.CODEC));
     public static final RegistryObject<Feature<TwistingVinesConfig>> GLOW_VIOLET_SPROUT = FEATURES.register("glow_violet_sprout", () -> new GlowVioletSproutFeature(TwistingVinesConfig.CODEC));
