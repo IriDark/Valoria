@@ -6,7 +6,7 @@ If you are submitting a new block, make sure it has a translated name, and that 
 
 ### Translating tips
 To begin you'll need to create a translation json  
-Translation codes (can be found at your minecraft folder \assets\minecraft\lang) or [here](https://minecraft.fandom.com/wiki/Language)     
+Translation codes (can be found at your minecraft folder \assets\minecraft\lang) or [here](https://minecraft.wiki/w/Language)     
 example file: en_us.json
 
 ![](https://cdn.discordapp.com/attachments/838693800683372564/1039482418408726608/Untitled_11-07-2022_11-21-33.png)
