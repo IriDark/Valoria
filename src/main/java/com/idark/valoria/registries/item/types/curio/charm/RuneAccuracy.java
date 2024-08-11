@@ -1,5 +1,6 @@
 package com.idark.valoria.registries.item.types.curio.charm;
 
+import com.idark.valoria.util.*;
 import net.minecraft.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.world.item.*;
@@ -23,6 +24,11 @@ public class RuneAccuracy extends Item implements ICurioItem{
     @Override
     public boolean canEquipFromUse(SlotContext slot, ItemStack stack){
         return true;
+    }
+
+    @Override
+    public boolean canEquip(SlotContext slotContext, ItemStack stack){
+        return ValoriaUtils.onePerTypeEquip(slotContext, stack);
     }
 
     @Override

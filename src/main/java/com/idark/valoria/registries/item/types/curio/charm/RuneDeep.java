@@ -31,6 +31,11 @@ public class RuneDeep extends Item implements ICurioItem{
         return false;
     }
 
+    @Override
+    public boolean canEquip(SlotContext slotContext, ItemStack stack){
+        return ValoriaUtils.onePerTypeEquip(slotContext, stack);
+    }
+
     @Nonnull
     @Override
     public ICurio.SoundInfo getEquipSound(SlotContext slotContext, ItemStack stack){

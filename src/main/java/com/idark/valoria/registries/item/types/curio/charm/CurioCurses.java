@@ -19,7 +19,6 @@ import top.theillusivec4.curios.api.type.capability.*;
 import javax.annotation.*;
 import java.util.*;
 
-@SuppressWarnings("removal")
 public class CurioCurses extends Item implements ICurioItem{
     MobEffect[] effects = {
     MobEffects.DARKNESS, MobEffects.WEAKNESS, MobEffects.WITHER, MobEffects.POISON, MobEffects.MOVEMENT_SLOWDOWN, MobEffects.DIG_SLOWDOWN

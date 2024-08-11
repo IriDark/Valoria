@@ -80,20 +80,25 @@ public class CrushableBlockEntity extends BlockEntity{
                 CriteriaTriggers.GENERATE_LOOT.trigger(serverplayer, this.lootTable);
             }
 
-            LootParams lootparams = (new LootParams.Builder((ServerLevel)this.level)).withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(this.worldPosition)).withLuck(pPlayer.getLuck()).withParameter(LootContextParams.THIS_ENTITY, pPlayer).create(LootContextParamSets.CHEST);
-            ObjectArrayList<ItemStack> objectarraylist = loottable.getRandomItems(lootparams, this.lootTableSeed);
-            this.item = switch(objectarraylist.size()){
-                case 0 -> ItemStack.EMPTY;
-                case 1 -> objectarraylist.get(0);
-                default -> {
-                    LOGGER.warn("Expected max 1 loot from loot table " + this.lootTable + " got " + objectarraylist.size());
-                    yield objectarraylist.get(0);
-                }
-            };
-
-            this.lootTable = null;
-            this.setChanged();
+            unpack(pPlayer, loottable);
         }
+    }
+
+    public ItemStack unpack(@Nullable Player pPlayer, LootTable loottable) {
+        LootParams lootparams = (new LootParams.Builder((ServerLevel)this.level)).withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(this.worldPosition)).withLuck(pPlayer != null ? pPlayer.getLuck() : 0).withParameter(LootContextParams.THIS_ENTITY, pPlayer).create(LootContextParamSets.CHEST);
+        ObjectArrayList<ItemStack> objectarraylist = loottable.getRandomItems(lootparams, this.lootTableSeed);
+        this.item = switch(objectarraylist.size()){
+            case 0 -> ItemStack.EMPTY;
+            case 1 -> objectarraylist.get(0);
+            default -> {
+                LOGGER.warn("Expected max 1 loot from loot table " + this.lootTable + " got " + objectarraylist.size());
+                yield objectarraylist.get(0);
+            }
+        };
+
+        this.lootTable = null;
+        this.setChanged();
+        return objectarraylist.get(0);
     }
 
     private void brushingCompleted(Player pPlayer){
@@ -223,6 +228,10 @@ public class CrushableBlockEntity extends BlockEntity{
     public void setLootTable(ResourceLocation pLootTable, long pLootTableSeed){
         this.lootTable = pLootTable;
         this.lootTableSeed = pLootTableSeed;
+    }
+
+    public void setItem(ItemStack pItem){
+        this.item = pItem;
     }
 
     private int getCompletionState(){

@@ -218,7 +218,7 @@ public class ItemsRegistry{
     public static final RegistryObject<Item> SILKEN_WAKIZASHI = ITEMS.register("silken_wakizashi",
     () -> new KatanaItem(ModItemTier.NONE, 0, -2.2f, 3, new Item.Properties(), 0.25f, new MobEffectInstance(MobEffects.DARKNESS, 120, 0), new MobEffectInstance(MobEffects.POISON, 45, 0)));
     public static final RegistryObject<Item> SILKEN_KUNAI = ITEMS.register("silken_kunai",
-    () -> new KunaiItem(0, -2.2f, new Item.Properties(), 0.25f, new MobEffectInstance(MobEffects.DARKNESS, 120, 0), new MobEffectInstance(MobEffects.POISON, 45, 0)));
+    () -> new KunaiItem(0, -2.2f, new Item.Properties(), 0.25f, new MobEffectInstance(MobEffects.DARKNESS, 120, 0), new MobEffectInstance(MobEffects.POISON, 60, 1)));
 
     public static final RegistryObject<Item> THROWABLE_BOMB = ITEMS.register("throwable_bomb",
     () -> new ThrowableBombItem(new Item.Properties().stacksTo(16)));

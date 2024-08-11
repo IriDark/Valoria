@@ -27,6 +27,11 @@ public class CurioVision extends Item implements ICurioItem{
     }
 
     @Override
+    public boolean canEquip(SlotContext slotContext, ItemStack stack){
+        return ValoriaUtils.onePerTypeEquip(slotContext, stack);
+    }
+
+    @Override
     public boolean isEnchantable(ItemStack pStack){
         return false;
     }

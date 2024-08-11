@@ -29,6 +29,11 @@ public class CurioWealth extends Item implements ICurioItem{
     }
 
     @Override
+    public boolean canEquip(SlotContext slotContext, ItemStack stack){
+        return ValoriaUtils.onePerTypeEquip(slotContext, stack);
+    }
+
+    @Override
     public boolean canEquipFromUse(SlotContext slot, ItemStack stack){
         return true;
     }

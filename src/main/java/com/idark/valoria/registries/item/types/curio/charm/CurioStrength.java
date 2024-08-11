@@ -1,6 +1,7 @@
 package com.idark.valoria.registries.item.types.curio.charm;
 
 import com.google.common.collect.*;
+import com.idark.valoria.util.*;
 import net.minecraft.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.sounds.*;
@@ -26,6 +27,11 @@ public class CurioStrength extends Item implements ICurioItem{
     @Override
     public boolean isEnchantable(ItemStack pStack){
         return false;
+    }
+
+    @Override
+    public boolean canEquip(SlotContext slotContext, ItemStack stack){
+        return ValoriaUtils.onePerTypeEquip(slotContext, stack);
     }
 
     @Nonnull
