@@ -9,11 +9,10 @@ import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.blockentity.*;
 import net.minecraft.client.renderer.texture.*;
 import net.minecraft.core.*;
+import net.minecraft.util.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.state.properties.*;
 import net.minecraftforge.api.distmarker.*;
-
-import java.util.*;
 
 @OnlyIn(Dist.CLIENT)
 public class CrushableBlockRenderer implements BlockEntityRenderer<CrushableBlockEntity>{
@@ -43,7 +42,7 @@ public class CrushableBlockRenderer implements BlockEntityRenderer<CrushableBloc
                         pPoseStack.popPose();
                     }
                 }else{
-                    Random random = new Random();
+                    RandomSource random = pBlockEntity.getLevel().random;
                     random.setSeed(pBlockEntity.getBlockPos().asLong());
                     if(!itemstack.isEmpty()){
                         pPoseStack.pushPose();

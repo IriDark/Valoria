@@ -29,7 +29,7 @@ plugins {
     id 'org.parchmentmc.librarian.forgegradle' version '1.+'
 }
 
-version = '1.20.1-build-0.6.1b'
+version = '1.20.1-build-0.6.2b'
 group = 'com.github.IriDark'
 base {
     archivesName = 'Valoria'
@@ -140,8 +140,8 @@ jar {
 
 task sourcesJar(type: Jar) {
     archiveClassifier.set('sources')
+    duplicatesStrategy = DuplicatesStrategy.WARN
     from sourceSets.main.allSource
-    from sourceSets.main.allJava
 }
 
 java {

@@ -1,6 +1,19 @@
-# Changelog v0.6.1
+# Changelog v0.6.2
+- Fixed Shade Blossom Bandage Recipe
+- Fixed
+    Unable to load model: 'minecraft:item/pick_crushing_0' referenced from: valoria:prospectors_pick#inventory: java.io.FileNotFoundException: minecraft:models/item/pick_crushing_0.json
+    Unable to load model: 'minecraft:item/pick_crushing_2' referenced from: valoria:prospectors_pick#inventory: java.io.FileNotFoundException: minecraft:models/item/pick_crushing_2.json
+    Unable to load model: 'minecraft:item/pick_crushing_1' referenced from: valoria:prospectors_pick#inventory: java.io.FileNotFoundException: minecraft:models/item/pick_crushing_1.json
 
+- Fixed
+    Couldn't load tag minecraft:impact_projectiles as it is missing following references: valoria:poisoned_kunai (from main)
+    Couldn't load tag valoria:smoke_particle as it is missing following references: valora:infernal_core (from main)
+
+- Added Suspicious Ice generation
+
+# Changelog v0.6.1
 - Now Valoria requires Lodestone
+- Various playability changes
 
 - Added Custom Voxel shapes to some blocks
 - Added some Recipes
@@ -8,6 +21,8 @@
 - Added Particles for Bandages
 - Added Shade Blossom
 - Added Shade Blossom Bandage
+- Added Pots Generation
+
 - Reworked Stone Crusher (A bit)
 - Reworked Accessories
 - Reworked BlazeReap

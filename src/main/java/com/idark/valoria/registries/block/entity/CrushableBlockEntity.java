@@ -10,10 +10,12 @@ import net.minecraft.nbt.*;
 import net.minecraft.network.protocol.game.*;
 import net.minecraft.resources.*;
 import net.minecraft.server.level.*;
+import net.minecraft.util.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.item.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
+import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.*;
@@ -142,7 +144,6 @@ public class CrushableBlockEntity extends BlockEntity{
                     this.level.setBlock(this.getBlockPos(), this.getBlockState().setValue(BlockStateProperties.DUSTED, Integer.valueOf(j)), 3);
                 }
 
-                int k = 4;
                 this.brushCountResetsAtTick = this.level.getGameTime() + 4L;
             }
 
@@ -210,6 +211,13 @@ public class CrushableBlockEntity extends BlockEntity{
             pTag.put("item", this.item.save(new CompoundTag()));
         }
 
+    }
+
+    public static void setLootTable(BlockGetter pLevel, RandomSource pRandom, BlockPos pPos, ResourceLocation pLootTable) {
+        BlockEntity blockentity = pLevel.getBlockEntity(pPos);
+        if (blockentity instanceof CrushableBlockEntity entity) {
+            entity.setLootTable(pLootTable, pRandom.nextLong());
+        }
     }
 
     public void setLootTable(ResourceLocation pLootTable, long pLootTableSeed){

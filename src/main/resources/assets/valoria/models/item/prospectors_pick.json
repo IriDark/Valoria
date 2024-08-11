@@ -72,25 +72,5 @@
         0.68
       ]
     }
-  },
-  "overrides": [
-    {
-      "predicate": {
-        "brushing": 0.25
-      },
-      "model": "item/pick_crushing_0"
-    },
-    {
-      "predicate": {
-        "brushing": 0.5
-      },
-      "model": "item/pick_crushing_1"
-    },
-    {
-      "predicate": {
-        "brushing": 0.75
-      },
-      "model": "item/pick_crushing_2"
-    }
-  ]
+  }
 }

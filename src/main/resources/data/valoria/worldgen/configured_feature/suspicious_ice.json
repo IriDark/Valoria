@@ -1,0 +1,20 @@
+{
+  "type": "valoria:suspicious_state",
+  "config": {
+    "tries": 3,
+    "loot": "valoria:archaeology/suspicious_ice",
+    "targets": [
+      {
+        "target": {
+          "predicate_type": "minecraft:blockstate_match",
+          "block_state": {
+            "Name": "minecraft:ice"
+          }
+        },
+        "state": {
+          "Name": "valoria:suspicious_ice"
+        }
+      }
+    ]
+  }
+}
