@@ -1,6 +1,7 @@
 {
-  "type": "forge:add_features",
-  "biomes": "#minecraft:is_overworld",
+  "type": "valoria:add_features_by_filter",
+  "allowed_biomes": "#minecraft:is_overworld",
+  "denied_biomes": "#valoria:denied_cattail_biomes",
   "features": "valoria:small_pot",
   "step": "underground_ores"
 }

@@ -9,6 +9,9 @@
     Couldn't load tag minecraft:impact_projectiles as it is missing following references: valoria:poisoned_kunai (from main)
     Couldn't load tag valoria:smoke_particle as it is missing following references: valora:infernal_core (from main)
 
+- Fixed Cattail generation
+- Fixed Pot generation
+
 - Added Suspicious Ice generation
 - Added Suspicious Iceberg generation
 

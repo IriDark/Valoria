@@ -1,6 +1,6 @@
 {
   "type": "forge:add_features",
-  "biomes": "#minecraft:is_overworld",
+  "biomes": "minecraft:ice_spikes",
   "features": "valoria:suspicious_ice",
   "step": "underground_ores"
 }

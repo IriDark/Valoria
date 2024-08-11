@@ -1,7 +1,7 @@
 {
   "type": "valoria:add_features_by_filter",
   "allowed_biomes": "#minecraft:is_overworld",
-  "denied_biomes": "#forge:is_underground",
+  "denied_biomes": "#valoria:denied_cattail_biomes",
   "features": "valoria:patch_cattail",
   "step": "vegetal_decoration"
 }
