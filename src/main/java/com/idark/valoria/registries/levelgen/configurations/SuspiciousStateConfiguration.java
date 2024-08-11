@@ -48,7 +48,6 @@ public class SuspiciousStateConfiguration implements FeatureConfiguration {
 
         public final RuleTest target;
         public final BlockState state;
-
         TargetBlockState(RuleTest target, BlockState state) {
             this.target = target;
             this.state = state;

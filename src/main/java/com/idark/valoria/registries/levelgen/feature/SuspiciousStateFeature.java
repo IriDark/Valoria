@@ -28,12 +28,12 @@ public class SuspiciousStateFeature extends Feature<SuspiciousStateConfiguration
         SuspiciousStateConfiguration config = pContext.config();
 
         int i = 0;
-        BlockPos pos = worldgenlevel.getHeightmapPos(Types.WORLD_SURFACE_WG, blockpos);
+        BlockPos pos = worldgenlevel.getHeightmapPos(Types.WORLD_SURFACE_WG, blockpos).below();
         for(int j = 0; j < config.tries; ++j){
             for(SuspiciousStateConfiguration.TargetBlockState target : config.targetStates){
-                if(canPlace(target.state, randomsource, target)){
-                    worldgenlevel.setBlock(pos.below(), target.state, 2);
-                    CrushableBlockEntity.setLootTable(worldgenlevel, randomsource, pos.below(), config.loot);
+                if(canPlace(worldgenlevel.getBlockState(pos), randomsource, target)){
+                    worldgenlevel.setBlock(pos, target.state, 2);
+                    CrushableBlockEntity.setLootTable(worldgenlevel, randomsource, pos, config.loot);
                     ++i;
                     break;
                 }
@@ -44,6 +44,6 @@ public class SuspiciousStateFeature extends Feature<SuspiciousStateConfiguration
     }
 
     public static boolean canPlace(BlockState pState,  RandomSource pRandom, SuspiciousStateConfiguration.TargetBlockState pTargetState){
-        return !pTargetState.target.test(pState, pRandom);
+        return pTargetState.target.test(pState, pRandom);
     }
 }
