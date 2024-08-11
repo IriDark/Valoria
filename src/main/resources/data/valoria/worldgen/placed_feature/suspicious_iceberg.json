@@ -1,0 +1,15 @@
+{
+  "feature": "valoria:suspicious_iceberg",
+  "placement": [
+    {
+      "type": "minecraft:rarity_filter",
+      "chance": 250
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

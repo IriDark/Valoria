@@ -35,6 +35,7 @@ public class LevelGen{
     public static final RegistryObject<Feature<TwistingVinesConfig>> GLOW_VIOLET_SPROUT = FEATURES.register("glow_violet_sprout", () -> new GlowVioletSproutFeature(TwistingVinesConfig.CODEC));
     public static final RegistryObject<Feature<TaintedRootsConfig>> TAINTED_ROOTS = FEATURES.register("tainted_roots", () -> new TaintedRootsFeature(TaintedRootsConfig.CODEC));
     public static final RegistryObject<Feature<SuspiciousStateConfiguration>> SUSPICIOUS_STATE = FEATURES.register("suspicious_state", () -> new SuspiciousStateFeature(SuspiciousStateConfiguration.CODEC));
+    public static final RegistryObject<Feature<NoneFeatureConfiguration>> SUSPICIOUS_ICEBERG = FEATURES.register("suspicious_iceberg", () -> new SuspiciousIcebergFeature(NoneFeatureConfiguration.CODEC));
 
     public static ResourceKey<ConfiguredFeature<?, ?>> SHADEWOOD_TREE = registerKey(Registries.CONFIGURED_FEATURE, "shadewood_tree");
     public static ResourceKey<ConfiguredFeature<?, ?>> FANCY_SHADEWOOD_TREE = registerKey(Registries.CONFIGURED_FEATURE, "fancy_shadewood_tree");

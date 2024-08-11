@@ -10,6 +10,7 @@
     Couldn't load tag valoria:smoke_particle as it is missing following references: valora:infernal_core (from main)
 
 - Added Suspicious Ice generation
+- Added Suspicious Iceberg generation
 
 # Changelog v0.6.1
 - Now Valoria requires Lodestone
