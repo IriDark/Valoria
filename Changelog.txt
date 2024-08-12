@@ -12,6 +12,9 @@
 - Fixed Cattail generation
 - Fixed Pot generation
 
+- Nerfed Rune's
+- Buffed Silken Kunai
+
 - Added Suspicious Ice generation
 - Added Suspicious Iceberg generation
 

@@ -1,14 +1,17 @@
 package com.idark.valoria.registries.levelgen.feature;
 
+import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.block.entity.*;
 import com.idark.valoria.registries.levelgen.configurations.*;
 import com.mojang.serialization.*;
 import net.minecraft.core.*;
 import net.minecraft.util.*;
 import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.level.levelgen.Heightmap.*;
 import net.minecraft.world.level.levelgen.feature.*;
+import net.minecraft.world.level.storage.loot.*;
 
 public class SuspiciousStateFeature extends Feature<SuspiciousStateConfiguration>{
     public SuspiciousStateFeature(Codec<SuspiciousStateConfiguration> pCodec){
@@ -33,7 +36,14 @@ public class SuspiciousStateFeature extends Feature<SuspiciousStateConfiguration
             for(SuspiciousStateConfiguration.TargetBlockState target : config.targetStates){
                 if(canPlace(worldgenlevel.getBlockState(pos), randomsource, target)){
                     worldgenlevel.setBlock(pos, target.state, 2);
-                    CrushableBlockEntity.setLootTable(worldgenlevel, randomsource, pos, config.loot);
+                    BlockEntity blockentity = worldgenlevel.getBlockEntity(pos);
+                    if(target.state.is(BlockRegistry.SUSPICIOUS_ICE.get())){
+                        LootTable loot = worldgenlevel.getLevel().getServer().getLootData().getLootTable(config.loot);
+                        CrushableBlockEntity.unpackAndSetItem(worldgenlevel.getLevel(), blockentity, loot);
+                    } else {
+                        CrushableBlockEntity.setLootTable(randomsource, blockentity, config.loot);
+                    }
+
                     ++i;
                     break;
                 }
