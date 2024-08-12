@@ -1,8 +1,0 @@
-{
-  "parent": "quark:block/vertical_slab",
-  "textures": {
-    "bottom": "valoria:block/ephemarite_low",
-    "top": "valoria:block/ephemarite_low",
-    "side": "valoria:block/ephemarite_low"
-  }
-}

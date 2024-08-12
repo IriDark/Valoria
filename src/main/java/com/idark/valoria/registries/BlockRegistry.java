@@ -92,6 +92,24 @@ public class BlockRegistry{
     () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_RED).requiresCorrectToolForDrops().strength(3f, 4f)));
     public static final RegistryObject<Block> EYE_STONE = registerBlock("eye_stone",
     () -> new Block(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(6f, 6f)));
+
+    public static final RegistryObject<Block> COBBLED_SHALE = registerBlock("cobbled_shale",
+    () -> new Block(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE).requiresCorrectToolForDrops()));
+    public static final RegistryObject<Block> COBBLED_SHALE_STAIRS = registerBlock("cobbled_shale_stairs",
+    () -> new StairBlock(() -> COBBLED_SHALE.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.DEEPSLATE_BRICK_STAIRS).requiresCorrectToolForDrops()));
+    public static final RegistryObject<Block> COBBLED_SHALE_SLAB = registerBlock("cobbled_shale_slab",
+    () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE_BRICK_SLAB).requiresCorrectToolForDrops()));
+    public static final RegistryObject<Block> COBBLED_SHALE_WALL = registerBlock("cobbled_shale_wall",
+    () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE_BRICK_WALL).requiresCorrectToolForDrops()));
+    public static final RegistryObject<Block> POLISHED_COBBLED_SHALE = registerBlock("polished_cobbled_shale",
+    () -> new Block(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE).requiresCorrectToolForDrops()));
+    public static final RegistryObject<Block> POLISHED_COBBLED_SHALE_STAIRS = registerBlock("polished_cobbled_shale_stairs",
+    () -> new StairBlock(() -> POLISHED_COBBLED_SHALE.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.DEEPSLATE_BRICK_STAIRS).requiresCorrectToolForDrops()));
+    public static final RegistryObject<Block> POLISHED_COBBLED_SHALE_SLAB = registerBlock("polished_cobbled_shale_slab",
+    () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE_BRICK_SLAB).requiresCorrectToolForDrops()));
+    public static final RegistryObject<Block> POLISHED_COBBLED_SHALE_WALL = registerBlock("polished_cobbled_shale_wall",
+    () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE_BRICK_WALL).requiresCorrectToolForDrops()));
+
     public static final RegistryObject<Block> DEEP_MARBLE = registerBlock("deep_marble",
     () -> new Block(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> DEEP_MARBLE_STAIRS = registerBlock("deep_marble_stairs",

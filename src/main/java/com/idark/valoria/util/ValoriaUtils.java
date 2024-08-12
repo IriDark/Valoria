@@ -644,7 +644,7 @@ public class ValoriaUtils{
         return null;
     }
 
-    public static ItemStack predicate(Player player, ItemStack pShootable, Predicate<ItemStack> predicate) {
+    public static ItemStack predicate(Player player, ItemStack pShootable, Predicate<ItemStack> predicate){
         for(int i = 0; i < player.getInventory().getContainerSize(); ++i){
             ItemStack ammo = player.getInventory().getItem(i);
             if(predicate.test(ammo)){
@@ -670,20 +670,20 @@ public class ValoriaUtils{
         return predicate(player, pShootable, predicate);
     }
 
-    public static void addList(List<Item> list, Item... T) {
+    public static void addList(List<Item> list, Item... T){
         Collections.addAll(list, T);
     }
 
-    public static void configExplode(Player player, ItemStack itemstack, Vec3 pos, Vec3 clipPos, float radius, float damage, float knockback) {
+    public static void configExplode(Player player, ItemStack itemstack, Vec3 pos, Vec3 clipPos, float radius, float damage, float knockback){
         Level level = player.level();
-        RandomSource rand =  level.random;
+        RandomSource rand = level.random;
         List<Entity> entities = level.getEntitiesOfClass(Entity.class, new AABB(pos.x + clipPos.x - radius, pos.y + clipPos.y - radius, pos.z + clipPos.z - radius, pos.x + clipPos.x + radius, pos.y + clipPos.y + radius, pos.z + clipPos.z + radius));
-        for (Entity entity : entities) {
-            if (entity instanceof LivingEntity enemy) {
-                if (!enemy.equals(player)) {
+        for(Entity entity : entities){
+            if(entity instanceof LivingEntity enemy){
+                if(!enemy.equals(player)){
                     enemy.hurt(level.damageSources().generic(), damage);
                     enemy.knockback(knockback, player.getX() + clipPos.x - entity.getX(), player.getZ() + clipPos.z - entity.getZ());
-                    if (EnchantmentHelper.getTagEnchantmentLevel(Enchantments.FIRE_ASPECT, itemstack) > 0) {
+                    if(EnchantmentHelper.getTagEnchantmentLevel(Enchantments.FIRE_ASPECT, itemstack) > 0){
                         int i = EnchantmentHelper.getFireAspect(player);
                         enemy.setSecondsOnFire(i * 4);
                     }
@@ -691,9 +691,9 @@ public class ValoriaUtils{
             }
         }
 
-        if(level instanceof ServerLevel srv) {
+        if(level instanceof ServerLevel srv){
             srv.sendParticles(ParticleTypes.EXPLOSION_EMITTER, pos.x + clipPos.x, pos.y + clipPos.y, player.getZ() + clipPos.z, 1, 0, 0, 0, radius);
-            srv.playSound(null, player.blockPosition().offset((int) clipPos.x, (int) (clipPos.y + player.getEyeHeight()), (int) clipPos.z), SoundEvents.GENERIC_EXPLODE, SoundSource.AMBIENT, 10f, 1f);
+            srv.playSound(null, player.blockPosition().offset((int)clipPos.x, (int)(clipPos.y + player.getEyeHeight()), (int)clipPos.z), SoundEvents.GENERIC_EXPLODE, SoundSource.AMBIENT, 10f, 1f);
             srv.sendParticles(ParticleTypes.LARGE_SMOKE, pos.x + clipPos.x + ((rand.nextDouble() - 0.5D) * radius), pos.y + clipPos.y + ((rand.nextDouble() - 0.5D) * radius), pos.z + clipPos.z + ((rand.nextDouble() - 0.5D) * radius), 8, 0.05d * ((rand.nextDouble() - 0.5D) * radius), 0.05d * ((rand.nextDouble() - 0.5D) * radius), 0.05d * ((rand.nextDouble() - 0.5D) * radius), 0.2f);
             srv.sendParticles(ParticleTypes.FLAME, pos.x + clipPos.x + ((rand.nextDouble() - 0.5D) * radius), pos.y + clipPos.y + ((rand.nextDouble() - 0.5D) * radius), pos.z + clipPos.z + ((rand.nextDouble() - 0.5D) * radius), 6, 0.05d * ((rand.nextDouble() - 0.5D) * radius), 0.05d * ((rand.nextDouble() - 0.5D) * radius), 0.05d * ((rand.nextDouble() - 0.5D) * radius), 0.2f);
         }

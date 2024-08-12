@@ -27,13 +27,13 @@ public class PotFeature extends Feature<SimpleBlockConfiguration>{
         IntArrayList intarraylist = Util.toShuffledList(IntStream.rangeClosed(chunkpos.getMinBlockX(), chunkpos.getMaxBlockX()), randomsource);
         IntArrayList intarraylist1 = Util.toShuffledList(IntStream.rangeClosed(chunkpos.getMinBlockZ(), chunkpos.getMaxBlockZ()), randomsource);
         BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
-        for(Integer integer : intarraylist) {
-            for(Integer integer1 : intarraylist1) {
+        for(Integer integer : intarraylist){
+            for(Integer integer1 : intarraylist1){
                 blockpos$mutableblockpos.set(integer, 0, integer1);
                 BlockPos blockpos = worldgenlevel.getHeightmapPos(Types.MOTION_BLOCKING_NO_LEAVES, blockpos$mutableblockpos);
-                if (worldgenlevel.isEmptyBlock(blockpos) || worldgenlevel.getBlockState(blockpos).getCollisionShape(worldgenlevel, blockpos).isEmpty()) {
+                if(worldgenlevel.isEmptyBlock(blockpos) || worldgenlevel.getBlockState(blockpos).getCollisionShape(worldgenlevel, blockpos).isEmpty()){
                     BlockState blockstate = simpleblockconfiguration.toPlace().getState(p_159477_.random(), blockpos);
-                    if (blockstate.canSurvive(worldgenlevel, blockpos) && worldgenlevel.getBlockState(blockpos.below()).isSolid()){
+                    if(blockstate.canSurvive(worldgenlevel, blockpos) && worldgenlevel.getBlockState(blockpos.below()).isSolid()){
                         if(RandomUtil.percentChance(0.05f)) worldgenlevel.setBlock(blockpos, blockstate, 2);
                     }
 

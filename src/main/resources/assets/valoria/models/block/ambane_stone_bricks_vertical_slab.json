@@ -1,8 +1,0 @@
-{
-  "parent": "quark:block/vertical_slab",
-  "textures": {
-    "bottom": "valoria:block/ambane_stone_bricks",
-    "top": "valoria:block/ambane_stone_bricks",
-    "side": "valoria:block/ambane_stone_bricks"
-  }
-}

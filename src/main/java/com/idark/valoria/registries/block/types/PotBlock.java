@@ -13,6 +13,7 @@ import javax.annotation.*;
 
 public class PotBlock extends HorizontalDirectionalBlock implements SimpleWaterloggedBlock{
     private final boolean potLong;
+
     public PotBlock(boolean pLong, BlockBehaviour.Properties properties){
         super(properties);
         potLong = pLong;

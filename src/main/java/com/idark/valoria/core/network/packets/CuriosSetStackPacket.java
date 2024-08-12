@@ -16,6 +16,7 @@ import java.util.function.*;
 public class CuriosSetStackPacket{
 
     private final ItemStack stack;
+
     public CuriosSetStackPacket(ItemStack stack){
         this.stack = stack.copy();
     }

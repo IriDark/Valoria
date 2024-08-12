@@ -14,6 +14,7 @@ public class GunpowderCharge extends Item{
     private final float radius;
     private final float damage;
     private final float knockback;
+
     public GunpowderCharge(float pRadius, float pDamage, float pKnockback, Properties pProperties){
         super(pProperties);
         radius = pRadius;

@@ -11,22 +11,23 @@ import net.minecraft.world.level.*;
 public class ThrowableBombItem extends Item{
     private final float radius;
     private final int lifetime;
-    public ThrowableBombItem(Item.Properties pProperties) {
+
+    public ThrowableBombItem(Item.Properties pProperties){
         super(pProperties);
         this.radius = 1.25f;
         this.lifetime = 80;
     }
 
-    public ThrowableBombItem(float radius, int lifetime, Item.Properties pProperties) {
+    public ThrowableBombItem(float radius, int lifetime, Item.Properties pProperties){
         super(pProperties);
         this.radius = radius;
         this.lifetime = lifetime;
     }
 
-    public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pHand) {
+    public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pHand){
         ItemStack itemstack = pPlayer.getItemInHand(pHand);
         pLevel.playSound(null, pPlayer.getX(), pPlayer.getY(), pPlayer.getZ(), SoundEvents.SNOWBALL_THROW, SoundSource.NEUTRAL, 0.5F, 0.4F / (pLevel.getRandom().nextFloat() * 0.4F + 0.8F));
-        if (!pLevel.isClientSide) {
+        if(!pLevel.isClientSide){
             ThrowableBomb bomb = new ThrowableBomb(pLevel, pPlayer);
             bomb.setItem(itemstack);
             bomb.setFuse(lifetime);
@@ -36,7 +37,7 @@ public class ThrowableBombItem extends Item{
         }
 
         pPlayer.awardStat(Stats.ITEM_USED.get(this));
-        if (!pPlayer.getAbilities().instabuild) {
+        if(!pPlayer.getAbilities().instabuild){
             itemstack.shrink(1);
         }
 

@@ -100,7 +100,7 @@ public class ItemsRegistry{
     public static final RegistryObject<Item> SOUL_SHARD = ITEMS.register("soul_shard", () -> new TransformShardItemEntity(new Item.Properties().rarity(RarityRegistry.AQUARIUS)));
     public static final RegistryObject<Item> UNCHARGED_SHARD = ITEMS.register("uncharged_shard", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> TOXINS_BOTTLE = ITEMS.register("toxins_bottle", () -> new Item(new Item.Properties().rarity(Rarity.EPIC)));
-    public static final RegistryObject<Item> DIRT_GEODE = ITEMS.register("dirt_geode", () -> new Item(new Item.Properties().rarity(Rarity.EPIC)) {
+    public static final RegistryObject<Item> DIRT_GEODE = ITEMS.register("dirt_geode", () -> new Item(new Item.Properties().rarity(Rarity.EPIC)){
         @Override
         public void appendHoverText(@NotNull ItemStack stack, Level world, @NotNull List<net.minecraft.network.chat.Component> tooltip, @NotNull TooltipFlag flags){
             super.appendHoverText(stack, world, tooltip, flags);
@@ -108,7 +108,7 @@ public class ItemsRegistry{
         }
     });
 
-    public static final RegistryObject<Item> STONE_GEODE = ITEMS.register("stone_geode", () -> new Item(new Item.Properties().rarity(Rarity.EPIC)) {
+    public static final RegistryObject<Item> STONE_GEODE = ITEMS.register("stone_geode", () -> new Item(new Item.Properties().rarity(Rarity.EPIC)){
         @Override
         public void appendHoverText(@NotNull ItemStack stack, Level world, @NotNull List<net.minecraft.network.chat.Component> tooltip, @NotNull TooltipFlag flags){
             super.appendHoverText(stack, world, tooltip, flags);
@@ -146,7 +146,7 @@ public class ItemsRegistry{
     public static final RegistryObject<Item> CRYPT = ITEMS.register("page", () -> new LexiconPageItem(new Item.Properties().stacksTo(1), RegisterUnlockables.CRYPT, "gui.valoria.crypt.name"));
 
     public static final RegistryObject<Item> GUNPOOWDER_CHARGE = ITEMS.register("gunpowder_charge", () -> new GunpowderCharge(4f, 25f, new Item.Properties().stacksTo(1)));
-    public static final RegistryObject<Item> PYRATITE_CHARGE = ITEMS.register("pyratite_charge", () -> new GunpowderCharge(6f, 40f,  new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> PYRATITE_CHARGE = ITEMS.register("pyratite_charge", () -> new GunpowderCharge(6f, 40f, new Item.Properties().stacksTo(1)));
 
     public static final RegistryObject<Item> JEWELRY_BAG = ITEMS.register("jewelry_bag", () -> new JewelryBagItem(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> ALOE_BANDAGE = ITEMS.register("aloe_bandage", () -> new BandageItem(false, 1600, 0));

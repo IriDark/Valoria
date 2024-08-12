@@ -41,7 +41,7 @@ public class JewelryBagScreen extends Screen{
     public boolean mouseClicked(double mouseX, double mouseY, int button){
         selectedItem = getSelectedItem(mouseX, mouseY);
         float mouseDistance = getMouseDistance(mouseX, mouseY);
-        float offset = Math.min((float)this.width / 2 * 0.7f,  (float)this.height / 2 * 0.7f);
+        float offset = Math.min((float)this.width / 2 * 0.7f, (float)this.height / 2 * 0.7f);
         if(mouseDistance > (offset * hoverAmount)){
             mouseDistance = (offset * hoverAmount);
         }
@@ -74,17 +74,17 @@ public class JewelryBagScreen extends Screen{
         return getSelectedItem(getTrinkets(), X, Y);
     }
 
-    public ItemStack getSelectedItem(List<ItemStack> pSelected, double X, double Y) {
+    public ItemStack getSelectedItem(List<ItemStack> pSelected, double X, double Y){
         int x = width / 2;
         int y = height / 2;
-        double step = (float) 360 / pSelected.size();
-        double angle =  Math.toDegrees(Math.atan2(Y-y,X-x));
-        if (angle < 0D) {
+        double step = (float)360 / pSelected.size();
+        double angle = Math.toDegrees(Math.atan2(Y - y, X - x));
+        if(angle < 0D){
             angle += 360D;
         }
 
-        for (int i = 1; i <= pSelected.size(); i += 1) {
-            if ((((i-1) * step) <= angle) && (((i * step)) > angle)) {
+        for(int i = 1; i <= pSelected.size(); i += 1){
+            if((((i - 1) * step) <= angle) && (((i * step)) > angle)){
                 return pSelected.get(i - 1);
             }
         }
@@ -97,8 +97,8 @@ public class JewelryBagScreen extends Screen{
         super.render(gui, mouseX, mouseY, partialTicks);
         int x = width / 2;
         int y = height / 2;
-        float offset = Math.min(x * 0.7f,  y * 0.7f);
-        float step = (float) 360 / trinkets.size();
+        float offset = Math.min(x * 0.7f, y * 0.7f);
+        float step = (float)360 / trinkets.size();
         float i = 0f;
         selectedItem = getSelectedItem(trinkets, mouseX, mouseY);
         if(hover && hoverAmount < 1){
@@ -115,12 +115,12 @@ public class JewelryBagScreen extends Screen{
             this.onClose();
         }
 
-        if (hover) {
+        if(hover){
             trinkets = getTrinkets();
         }
 
         float mouseDistance = getMouseDistance(mouseX, mouseY);
-        if (mouseDistance > (offset * hoverAmount)) {
+        if(mouseDistance > (offset * hoverAmount)){
             mouseDistance = (offset * hoverAmount);
         }
 
@@ -132,20 +132,20 @@ public class JewelryBagScreen extends Screen{
         float trinketOffsetHover = trinketSizeHover / 2;
         RenderUtils.renderItemModelInGui(getOpenedBag(), x - bagOffset, y - bagOffset, bagSize, bagSize, bagSize);
         mouseAngleI = mouseDistance;
-        for (ItemStack stack : trinkets) {
+        for(ItemStack stack : trinkets){
             double dst = Math.toRadians((i * step) + (step / 2));
-            int X = (int) (Math.cos(dst) * (offset * Math.sin(Math.toRadians(90 * hoverAmount))));
-            int Y = (int) (Math.sin(dst) * (offset * Math.sin(Math.toRadians(90 * hoverAmount))));
-            if (stack == selectedItem && mouseDistance > 45) {
+            int X = (int)(Math.cos(dst) * (offset * Math.sin(Math.toRadians(90 * hoverAmount))));
+            int Y = (int)(Math.sin(dst) * (offset * Math.sin(Math.toRadians(90 * hoverAmount))));
+            if(stack == selectedItem && mouseDistance > 45){
                 RenderUtils.renderItemModelInGui(stack, x + X - trinketOffsetHover, y + Y - trinketOffsetHover, trinketSizeHover, trinketSizeHover, trinketSizeHover);
-            } else {
+            }else{
                 RenderUtils.renderItemModelInGui(stack, x + X - trinketOffset, y + Y - trinketOffset, trinketSize, trinketSize, trinketSize);
             }
 
             i = i + hoverAmount;
         }
 
-        if (selectedItem != null && mouseDistance > 45) {
+        if(selectedItem != null && mouseDistance > 45){
             gui.renderTooltip(Minecraft.getInstance().font, selectedItem, mouseX, mouseY);
         }
 
@@ -160,7 +160,7 @@ public class JewelryBagScreen extends Screen{
         RenderSystem.setShader(ValoriaClient::getGlowingShader);
 
         gui.pose().pushPose();
-        gui.pose().translate(width / 2,  height / 2, 0);
+        gui.pose().translate(width / 2, height / 2, 0);
         gui.pose().mulPose(Axis.ZP.rotationDegrees(getMouseAngle(mouseX, mouseY)));
         RenderUtils.ray(gui.pose(), buffersource, 1f, (height / 2 * 0.7f * hoverAmount), 40f, r, g, b, 1, r, g, b, 0);
         buffersource.endBatch();
@@ -171,17 +171,17 @@ public class JewelryBagScreen extends Screen{
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
     }
 
-    public float getMouseAngle(double X, double Y) {
-        double angle =  Math.toDegrees(Math.atan2(Y-height / 2,X-width / 2));
-        if (angle < 0D) {
+    public float getMouseAngle(double X, double Y){
+        double angle = Math.toDegrees(Math.atan2(Y - height / 2, X - width / 2));
+        if(angle < 0D){
             angle += 360D;
         }
 
-        return (float) angle;
+        return (float)angle;
     }
 
-    public float getMouseDistance(double X, double Y) {
-        return (float) Math.sqrt(Math.pow(width / 2 - X, 2) + Math.pow(height / 2 - Y, 2));
+    public float getMouseDistance(double X, double Y){
+        return (float)Math.sqrt(Math.pow(width / 2 - X, 2) + Math.pow(height / 2 - Y, 2));
     }
 
     public ItemStack getOpenedBag(){

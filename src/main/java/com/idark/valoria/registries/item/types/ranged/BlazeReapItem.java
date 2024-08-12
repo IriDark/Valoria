@@ -33,9 +33,11 @@ import java.util.*;
 // tags should be sent by packet
 public class BlazeReapItem extends PickaxeItem implements Vanishable{
     private static final ResourceLocation BAR = new ResourceLocation(Valoria.ID, "textures/gui/overlay/blazecharge_bar.png");
+
     public BlazeReapItem(Tier tier, int attackDamageIn, float attackSpeedIn, Properties builder){
         super(tier, attackDamageIn, attackSpeedIn, builder);
     }
+
     public static String getModeString(ItemStack stack){
         if(NbtUtils.readNbt(stack, "charge") == 1){
             return "tooltip.valoria.rmb";
@@ -176,7 +178,7 @@ public class BlazeReapItem extends PickaxeItem implements Vanishable{
                 float y = 5.5f;
                 List<ItemStack> ammunition = getAmmunition();
                 int itemCount = Math.min(ammunition.size(), 3);
-                for (int i = 0; i < itemCount; i++) {
+                for(int i = 0; i < itemCount; i++){
                     ItemStack stack = ammunition.get(i);
                     RenderUtils.renderItemModelInGui(stack, x + (16 * i), y, 16, 16, 16);
                 }

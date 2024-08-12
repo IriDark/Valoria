@@ -43,7 +43,7 @@ public class ParticleMaterialItem extends Item implements IParticleItemEntity, P
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void spawnLateParticles(ScreenParticleHolder target, Level level, float partialTick, ItemStack stack, float x, float y) {
+    public void spawnLateParticles(ScreenParticleHolder target, Level level, float partialTick, ItemStack stack, float x, float y){
         ScreenParticleRegistry.spawnLightParticles(target, color);
     }
 }

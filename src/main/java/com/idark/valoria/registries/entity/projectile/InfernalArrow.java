@@ -29,7 +29,7 @@ public class InfernalArrow extends AbstractValoriaArrow implements IProjectileTe
             double a3 = vector3d.x;
             double a4 = vector3d.y;
             double a0 = vector3d.z;
-            Vec3 pos = new Vec3(this.getX() + a3 * 0.5f, this.getY() + a4 * 0.5f, this.getZ()+ a0 * 0.5f);
+            Vec3 pos = new Vec3(this.getX() + a3 * 0.5f, this.getY() + a4 * 0.5f, this.getZ() + a0 * 0.5f);
             ParticleEffects.trailMotionSparks(this.level(), pos, ColorParticleData.create(Pal.infernal, Pal.darkMagenta).build()).spawnParticles();
         }
     }

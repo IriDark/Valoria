@@ -15,6 +15,7 @@ import java.util.*;
 
 public class DyeableGlovesItem extends GlovesItem implements ICurioItem, ICurioTexture, DyeableLeatherItem, Vanishable{
     private final float damage, armor;
+
     public DyeableGlovesItem(Tier tier, Item.Properties properties, float damage, float armor){
         super(tier, AccessoryGem.NONE, AccessoryMaterial.LEATHER, properties);
         this.damage = damage;

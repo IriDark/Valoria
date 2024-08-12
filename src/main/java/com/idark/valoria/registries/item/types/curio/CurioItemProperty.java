@@ -14,6 +14,7 @@ import java.util.*;
 
 public class CurioItemProperty extends AbstractTieredAccessory implements ICurioTexture{
     private static final ResourceLocation BELT_TEXTURE = new ResourceLocation(Valoria.ID, "textures/entity/leather_belt.png");
+
     public CurioItemProperty(Tier tier, AccessoryType type, AccessoryGem gem, AccessoryMaterial material, Properties pProperties, MobEffectInstance... pEffects){
         super(tier, type, gem, material, pProperties, pEffects);
     }

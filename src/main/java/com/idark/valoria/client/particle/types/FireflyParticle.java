@@ -23,7 +23,7 @@ public class FireflyParticle extends TextureSheetParticle{
         return ParticleRenderType.PARTICLE_SHEET_TRANSLUCENT;
     }
 
-    protected int getLightColor(float pPartialTick) {
+    protected int getLightColor(float pPartialTick){
         return 15728880;
     }
 
@@ -37,16 +37,16 @@ public class FireflyParticle extends TextureSheetParticle{
         this.xo = this.x;
         this.yo = this.y;
         this.zo = this.z;
-        if (this.age++ < this.lifetime && !(this.alpha <= 0.0F)) {
+        if(this.age++ < this.lifetime && !(this.alpha <= 0.0F)){
             this.xd += this.random.nextFloat() / 5000.0F * (float)(this.random.nextBoolean() ? 1 : -1);
             this.zd += this.random.nextFloat() / 5000.0F * (float)(this.random.nextBoolean() ? 1 : -1);
             this.yd -= this.gravity;
             this.move(this.xd, this.yd, this.zd);
-            if (this.age >= this.lifetime - 60 && this.alpha > 0.01F) {
+            if(this.age >= this.lifetime - 60 && this.alpha > 0.01F){
                 this.alpha -= 0.025F;
                 this.quadSize *= 1F;
             }
-        } else {
+        }else{
             this.remove();
         }
     }

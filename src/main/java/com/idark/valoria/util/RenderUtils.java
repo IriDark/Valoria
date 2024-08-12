@@ -166,7 +166,7 @@ public class RenderUtils{
      * @author MaxBogomol
      */
     @Deprecated(forRemoval = true, since = "0.6b")
-    public static void ray(PoseStack mStack, MultiBufferSource buf, float width, float height, float endOffset, float r, float g, float b, float a) {
+    public static void ray(PoseStack mStack, MultiBufferSource buf, float width, float height, float endOffset, float r, float g, float b, float a){
         ray(mStack, buf, width, height, endOffset, r, g, b, a, r, g, b, a);
     }
 
@@ -175,7 +175,7 @@ public class RenderUtils{
      * @author MaxBogomol
      */
     @Deprecated(forRemoval = true, since = "0.6b")
-    public static void ray(PoseStack mStack, MultiBufferSource buf, float width, float height, float endOffset, float r1, float g1, float b1, float a1, float r2, float g2, float b2, float a2) {
+    public static void ray(PoseStack mStack, MultiBufferSource buf, float width, float height, float endOffset, float r1, float g1, float b1, float a1, float r2, float g2, float b2, float a2){
         VertexConsumer builder = buf.getBuffer(GLOWING);
         Matrix4f mat = mStack.last().pose();
 

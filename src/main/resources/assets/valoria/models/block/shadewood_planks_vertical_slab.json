@@ -1,8 +1,0 @@
-{
-  "parent": "quark:block/vertical_slab",
-  "textures": {
-    "bottom": "valoria:block/shadewood_planks",
-    "top": "valoria:block/shadewood_planks",
-    "side": "valoria:block/shadewood_planks"
-  }
-}

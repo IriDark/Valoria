@@ -8,7 +8,6 @@ import com.idark.valoria.client.gui.screen.book.*;
 import com.idark.valoria.client.gui.screen.book.unlockable.*;
 import com.idark.valoria.client.particle.*;
 import com.idark.valoria.client.render.curio.*;
-import com.idark.valoria.compat.quark.*;
 import com.idark.valoria.core.capability.*;
 import com.idark.valoria.core.config.*;
 import com.idark.valoria.core.datagen.*;
@@ -67,9 +66,6 @@ public class Valoria{
         ItemsRegistry.register(eventBus);
         BlockRegistry.register(eventBus);
         PoiRegistries.register(eventBus);
-        if(QuarkIntegration.isLoaded()){
-            QuarkIntegration.init(eventBus);
-        }
 
         BlockEntitiesRegistry.register(eventBus);
         RecipesRegistry.register(eventBus);
@@ -178,34 +174,34 @@ public class Valoria{
             fireblock.setFlammable(BlockRegistry.STRIPPED_ELDRITCH_LOG.get(), 5, 30);
             fireblock.setFlammable(BlockRegistry.STRIPPED_ELDRITCH_WOOD.get(), 5, 30);
             DraugrEntity.spawnable(
-                Items.BOW,
-                Items.WOODEN_AXE,
-                Items.STONE_SWORD,
-                Items.IRON_SWORD,
-                Items.GOLDEN_AXE,
-                Items.IRON_PICKAXE
+            Items.BOW,
+            Items.WOODEN_AXE,
+            Items.STONE_SWORD,
+            Items.IRON_SWORD,
+            Items.GOLDEN_AXE,
+            Items.IRON_PICKAXE
             );
 
             GoblinEntity.spawnable(
-                ItemsRegistry.WOODEN_RAPIER.get(),
-                ItemsRegistry.STONE_RAPIER.get(),
-                ItemsRegistry.IRON_RAPIER.get(),
-                ItemsRegistry.CLUB.get()
+            ItemsRegistry.WOODEN_RAPIER.get(),
+            ItemsRegistry.STONE_RAPIER.get(),
+            ItemsRegistry.IRON_RAPIER.get(),
+            ItemsRegistry.CLUB.get()
             );
 
             ValoriaUtils.addList(SarcophagusBlock.spawnableWith,
-                Items.BOW,
-                Items.WOODEN_AXE,
-                Items.STONE_SWORD,
-                Items.IRON_SWORD,
-                Items.GOLDEN_AXE,
-                Items.IRON_PICKAXE
+            Items.BOW,
+            Items.WOODEN_AXE,
+            Items.STONE_SWORD,
+            Items.IRON_SWORD,
+            Items.GOLDEN_AXE,
+            Items.IRON_PICKAXE
             );
 
             ValoriaUtils.addList(SarcophagusBlock.halloweenSpawnableWith,
-                Items.PUMPKIN,
-                Items.JACK_O_LANTERN,
-                Items.CARVED_PUMPKIN
+            Items.PUMPKIN,
+            Items.JACK_O_LANTERN,
+            Items.CARVED_PUMPKIN
             );
 
             AxeItem.STRIPPABLES = new ImmutableMap.Builder<Block, Block>().putAll(AxeItem.STRIPPABLES)

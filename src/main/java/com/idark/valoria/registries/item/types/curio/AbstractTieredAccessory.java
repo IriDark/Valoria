@@ -25,6 +25,7 @@ public abstract class AbstractTieredAccessory extends TieredItem implements ICur
     public AccessoryMaterial material;
     public Tier tier;
     public final ImmutableList<MobEffectInstance> effects;
+
     public AbstractTieredAccessory(Tier tier, AccessoryType type, AccessoryGem gem, AccessoryMaterial material, Properties pProperties){
         super(tier, pProperties);
         this.tier = tier;
@@ -76,7 +77,7 @@ public abstract class AbstractTieredAccessory extends TieredItem implements ICur
         stack.hurtAndBreak(material == AccessoryMaterial.GOLD ? pGoldDamage : pDefaultDamage, player, (p_220045_0_) -> p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
     }
 
-    public void applyEffects(Player player, ItemStack stack) {
+    public void applyEffects(Player player, ItemStack stack){
         if(!player.getCooldowns().isOnCooldown(stack.getItem())){
             if(!effects.isEmpty()){
                 for(MobEffectInstance effectInstance : effects){

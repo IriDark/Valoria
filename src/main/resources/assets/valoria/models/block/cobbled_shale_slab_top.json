@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "valoria:block/deep_marble",
+    "side": "valoria:block/deep_marble",
+    "top": "valoria:block/deep_marble"
+  }
+}

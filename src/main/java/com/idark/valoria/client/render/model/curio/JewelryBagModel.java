@@ -10,13 +10,14 @@ import net.minecraft.world.item.*;
 
 public class JewelryBagModel extends HumanoidModel<LivingEntity>{
     public ModelPart root, model;
+
     public JewelryBagModel(ModelPart pRoot){
         super(pRoot);
         this.root = pRoot;
         this.model = root.getChild("body").getChild("model");
     }
 
-    public static LayerDefinition createBodyLayer() {
+    public static LayerDefinition createBodyLayer(){
         MeshDefinition meshdefinition = new MeshDefinition();
         PartDefinition partdefinition = meshdefinition.getRoot();
 

@@ -16,7 +16,6 @@
       "model": "valoria:block/archaeology_table",
       "y": 0
     },
-
     "facing=east,part=foot": {
       "model": "valoria:block/archaeology_table_half",
       "y": 180

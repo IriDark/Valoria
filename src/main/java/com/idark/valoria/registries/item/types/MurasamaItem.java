@@ -226,13 +226,13 @@ public class MurasamaItem extends KatanaItem implements IParticleItemEntity, Par
             double XX = Math.sin(pitch) * Math.cos(yaw) * (float)(rand.nextDouble() * 0.025F) / (ii + 1), YY = Math.sin(pitch) * Math.sin(yaw) * (float)(rand.nextDouble() * 0.025F) / (ii + 1), ZZ = Math.cos(pitch) * (float)(rand.nextDouble() * 0.025F) / (ii + 1);
             Vec3 pos = new Vec3(entity.getX() + X, entity.getY() + Y, entity.getZ() + Z);
 
-            ParticleEffects.itemParticles(level, pos, ColorParticleData.create(Pal.strongRed, Pal.moderateViolet).build()).getBuilder().setMotion(XX, YY, ZZ).spawn(level, pos.x,  pos.y, pos.z);
+            ParticleEffects.itemParticles(level, pos, ColorParticleData.create(Pal.strongRed, Pal.moderateViolet).build()).getBuilder().setMotion(XX, YY, ZZ).spawn(level, pos.x, pos.y, pos.z);
         }
     }
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void spawnLateParticles(ScreenParticleHolder target, Level level, float partialTick, ItemStack stack, float x, float y) {
+    public void spawnLateParticles(ScreenParticleHolder target, Level level, float partialTick, ItemStack stack, float x, float y){
         ScreenParticleRegistry.spawnCoreParticles(target, ColorParticleData.create(Pal.strongRed, Pal.moderateViolet).build());
     }
 }

@@ -46,7 +46,7 @@ public class LevelGen{
     public static final ResourceKey<Level> VALORIA_KEY = registerKey(Registries.DIMENSION, "the_valoria");
     public static final ResourceKey<Biome> SHADE_FOREST = registerKey(Registries.BIOME, "shade_forest");
     public static final ResourceKey<Biome> ECOTONE = registerKey(Registries.BIOME, "ecotone");
-    public static final ResourceKey<Biome> VOID_BARREN = registerKey(Registries.BIOME,"void_barren");
+    public static final ResourceKey<Biome> VOID_BARREN = registerKey(Registries.BIOME, "void_barren");
 
     public static RegistryObject<Codec<AddFeaturesByFilterBiomeModifier>> ADD_FEATURES_BY_FILTER = BIOME_MODIFIER_SERIALIZERS.register("add_features_by_filter", () ->
     RecordCodecBuilder.create(builder -> builder.group(

@@ -34,6 +34,7 @@ import java.util.*;
 
 public class MagmaSwordItem extends SwordItem implements IRadiusItem{
     private static final ResourceLocation BAR = new ResourceLocation(Valoria.ID, "textures/gui/overlay/magma_charge.png");
+
     public MagmaSwordItem(Tier tier, int attackDamageIn, float attackSpeedIn, Properties builderIn){
         super(tier, attackDamageIn, attackSpeedIn, builderIn);
     }
@@ -148,7 +149,7 @@ public class MagmaSwordItem extends SwordItem implements IRadiusItem{
     }
 
     @OnlyIn(Dist.CLIENT)
-    public static void renderBar(CompoundTag tag, GuiGraphics gui, int offsetX, int offsetY) {
+    public static void renderBar(CompoundTag tag, GuiGraphics gui, int offsetX, int offsetY){
         int barType = ClientConfig.MAGMA_CHARGE_BAR_TYPE.get();
         int xCord = ClientConfig.MAGMA_CHARGE_BAR_X.get() + offsetX;
         int yCord = ClientConfig.MAGMA_CHARGE_BAR_Y.get() + offsetY;

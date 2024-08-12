@@ -17,6 +17,7 @@ import javax.annotation.*;
 
 public class ArchaeologyTableBlock extends HorizontalDirectionalBlock{
     public static final EnumProperty<BedPart> PART = BlockStateProperties.BED_PART;
+
     public VoxelShape makeShape(BlockState state){
         //I hate voxel shapes, the worst thing ive seen...
         Direction direction = (state.getValue(FACING));
@@ -101,7 +102,7 @@ public class ArchaeologyTableBlock extends HorizontalDirectionalBlock{
         return pPart == BedPart.FOOT ? pDirection : pDirection.getOpposite();
     }
 
-    public RenderShape getRenderShape(BlockState pState) {
+    public RenderShape getRenderShape(BlockState pState){
         return RenderShape.MODEL;
     }
 

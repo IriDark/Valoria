@@ -11,15 +11,15 @@ import net.minecraftforge.api.distmarker.*;
 
 import java.util.*;
 
-public class SuitArmorItem extends ArmorItem {
+public class SuitArmorItem extends ArmorItem{
 
-    public SuitArmorItem(ArmorMaterial material, Type type, Properties properties) {
+    public SuitArmorItem(ArmorMaterial material, Type type, Properties properties){
         super(material, type, properties);
     }
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void appendHoverText(ItemStack stack, Level world, List<Component> list, TooltipFlag flags) {
+    public void appendHoverText(ItemStack stack, Level world, List<Component> list, TooltipFlag flags){
         Player player = Minecraft.getInstance().player;
         list.add(Component.empty());
         list.add(Component.translatable("tooltip.valoria.equipped").withStyle(ChatFormatting.GRAY));
@@ -29,7 +29,7 @@ public class SuitArmorItem extends ArmorItem {
         list.add(getArmorSetItemComponent(EquipmentSlot.FEET, player));
     }
 
-    public ItemStack getArmorSetItem(EquipmentSlot slot) {
+    public ItemStack getArmorSetItem(EquipmentSlot slot){
         return ItemStack.EMPTY;
     }
 
@@ -37,11 +37,11 @@ public class SuitArmorItem extends ArmorItem {
         return player.getItemBySlot(slot).getItem() == getArmorSetItem(slot).getItem();
     }
 
-    public ChatFormatting getDisplayColor() {
+    public ChatFormatting getDisplayColor(){
         return ChatFormatting.GREEN;
     }
 
-    public MutableComponent getArmorSetItemComponent(EquipmentSlot slot, Player player) {
+    public MutableComponent getArmorSetItemComponent(EquipmentSlot slot, Player player){
         return Component.literal(" ").append(Component.translatable(getArmorSetItem(slot).getDescriptionId()).withStyle(Style.EMPTY.withColor(hasArmorItem(slot, player) ? getDisplayColor() : ChatFormatting.RED)));
     }
 }

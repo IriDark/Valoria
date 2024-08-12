@@ -13,8 +13,8 @@ public class SamuraiArmorItem extends SuitArmorItem{
         super(material, type, properties);
     }
 
-    public float getBonusValue(EquipmentSlot slot) {
-        return switch (slot) {
+    public float getBonusValue(EquipmentSlot slot){
+        return switch(slot){
             case CHEST -> 0.15f;
             case HEAD, FEET -> 0.05f;
             case LEGS -> 0.1f;
@@ -23,7 +23,7 @@ public class SamuraiArmorItem extends SuitArmorItem{
     }
 
     @Override
-    public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot slot) {
+    public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot slot){
         ImmutableMultimap.Builder<Attribute, AttributeModifier> atts = ImmutableMultimap.builder();
         atts.putAll(super.getDefaultAttributeModifiers(slot));
         atts.put(AttributeRegistry.DASH_DISTANCE.get(), new AttributeModifier(UUID.fromString("58c87772-fa46-4635-8877-72fa464635a6"), "bonus", getBonusValue(slot), AttributeModifier.Operation.ADDITION));
@@ -31,8 +31,8 @@ public class SamuraiArmorItem extends SuitArmorItem{
     }
 
     @Override
-    public ItemStack getArmorSetItem(EquipmentSlot slot) {
-        return switch (slot) {
+    public ItemStack getArmorSetItem(EquipmentSlot slot){
+        return switch(slot){
             case HEAD -> ItemsRegistry.SAMURAI_KABUTO.get().getDefaultInstance();
             case CHEST -> ItemsRegistry.SAMURAI_CHESTPLATE.get().getDefaultInstance();
             case LEGS -> ItemsRegistry.SAMURAI_LEGGINGS.get().getDefaultInstance();

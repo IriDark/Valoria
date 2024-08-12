@@ -9,7 +9,7 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.*;
 
 import java.util.*;
 
-public class SuspiciousStateConfiguration implements FeatureConfiguration {
+public class SuspiciousStateConfiguration implements FeatureConfiguration{
     public static final Codec<SuspiciousStateConfiguration> CODEC = RecordCodecBuilder.create((instance) -> instance
     .group(
     Codec.list(SuspiciousStateConfiguration.TargetBlockState.CODEC).fieldOf("targets").forGetter((p_161027_) -> p_161027_.targetStates),
@@ -22,7 +22,7 @@ public class SuspiciousStateConfiguration implements FeatureConfiguration {
     public final int tries;
     public final ResourceLocation loot;
 
-    public SuspiciousStateConfiguration(List<SuspiciousStateConfiguration.TargetBlockState> targetStates, int tries, ResourceLocation loot) {
+    public SuspiciousStateConfiguration(List<SuspiciousStateConfiguration.TargetBlockState> targetStates, int tries, ResourceLocation loot){
         this.targetStates = targetStates;
         this.tries = tries;
         this.loot = loot;
@@ -32,11 +32,11 @@ public class SuspiciousStateConfiguration implements FeatureConfiguration {
         this(targetBlockStates, tries, loot);
     }
 
-    public static SuspiciousStateConfiguration.TargetBlockState target(RuleTest target, BlockState state) {
+    public static SuspiciousStateConfiguration.TargetBlockState target(RuleTest target, BlockState state){
         return new SuspiciousStateConfiguration.TargetBlockState(target, state);
     }
 
-    public static class TargetBlockState {
+    public static class TargetBlockState{
         public static final Codec<SuspiciousStateConfiguration.TargetBlockState> CODEC =
         RecordCodecBuilder.create((instance) -> instance
         .group(
@@ -48,7 +48,8 @@ public class SuspiciousStateConfiguration implements FeatureConfiguration {
 
         public final RuleTest target;
         public final BlockState state;
-        TargetBlockState(RuleTest target, BlockState state) {
+
+        TargetBlockState(RuleTest target, BlockState state){
             this.target = target;
             this.state = state;
         }
