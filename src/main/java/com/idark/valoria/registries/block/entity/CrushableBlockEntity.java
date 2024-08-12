@@ -91,7 +91,7 @@ public class CrushableBlockEntity extends BlockEntity{
             case 0 -> ItemStack.EMPTY;
             case 1 -> objectarraylist.get(0);
             default -> {
-                LOGGER.warn("Expected max 1 loot from loot table " + this.lootTable + " got " + objectarraylist.size());
+                LOGGER.warn("Expected max 1 loot from loot table {} got {}", this.lootTable, objectarraylist.size());
                 yield objectarraylist.get(0);
             }
         };
@@ -230,6 +230,9 @@ public class CrushableBlockEntity extends BlockEntity{
         }
     }
 
+    /**
+     * Unpacks the LootTable and sets the drop to tile entity
+     */
     public static void unpackAndSetItem(ServerLevel pLevel, BlockEntity blockentity, LootTable loottable) {
         if (blockentity instanceof CrushableBlockEntity entity){
             LootParams lootparams = (new LootParams.Builder(pLevel).withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(entity.worldPosition)).withLuck(0).create(LootContextParamSets.CHEST));
@@ -239,6 +242,9 @@ public class CrushableBlockEntity extends BlockEntity{
         }
     }
 
+    /**
+     * Sets the item to tile entity
+     */
     public static void setItem(BlockGetter pLevel, BlockPos pPos, ItemStack pItem) {
         BlockEntity blockentity = pLevel.getBlockEntity(pPos);
         if (blockentity instanceof CrushableBlockEntity entity) {

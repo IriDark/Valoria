@@ -36,8 +36,10 @@ public class SuspiciousStateFeature extends Feature<SuspiciousStateConfiguration
             for(SuspiciousStateConfiguration.TargetBlockState target : config.targetStates){
                 if(canPlace(worldgenlevel.getBlockState(pos), randomsource, target)){
                     worldgenlevel.setBlock(pos, target.state, 2);
+
+                    // prevents NPE`s and synchronises positions with tile entity
                     BlockEntity blockentity = worldgenlevel.getBlockEntity(pos);
-                    if(target.state.is(BlockRegistry.SUSPICIOUS_ICE.get())){
+                    if(target.state.is(TagsRegistry.UNPACK_LOOT)){
                         LootTable loot = worldgenlevel.getLevel().getServer().getLootData().getLootTable(config.loot);
                         CrushableBlockEntity.unpackAndSetItem(worldgenlevel.getLevel(), blockentity, loot);
                     } else {
