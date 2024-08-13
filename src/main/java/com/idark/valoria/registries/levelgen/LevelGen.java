@@ -17,11 +17,18 @@ import net.minecraft.world.level.levelgen.feature.*;
 import net.minecraft.world.level.levelgen.feature.configurations.*;
 import net.minecraft.world.level.levelgen.placement.*;
 import net.minecraftforge.common.world.*;
+import net.minecraftforge.eventbus.api.*;
 import net.minecraftforge.registries.*;
 
 import java.util.*;
 
 public class LevelGen{
+    public static void init(IEventBus eventBus) {
+        FEATURES.register(eventBus);
+        BIOME_MODIFIER_SERIALIZERS.register(eventBus);
+        PLACEMENT_MODIFIERS.register(eventBus);
+    }
+
     public static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(ForgeRegistries.FEATURES, Valoria.ID);
     public static DeferredRegister<Codec<? extends BiomeModifier>> BIOME_MODIFIER_SERIALIZERS = DeferredRegister.create(ForgeRegistries.Keys.BIOME_MODIFIER_SERIALIZERS, Valoria.ID);
     public static final DeferredRegister<PlacementModifierType<?>> PLACEMENT_MODIFIERS = DeferredRegister.create(BuiltInRegistries.PLACEMENT_MODIFIER_TYPE.key(), Valoria.ID);

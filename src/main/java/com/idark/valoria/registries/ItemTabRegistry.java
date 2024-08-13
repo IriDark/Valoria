@@ -557,6 +557,8 @@ public abstract class ItemTabRegistry{
             event.accept(ItemsRegistry.SHADEWOOD_HANGING_SIGN);
             event.accept(ItemsRegistry.SHADEWOOD_BOAT_ITEM);
             event.accept(ItemsRegistry.SHADEWOOD_CHEST_BOAT_ITEM);
+            event.accept(BlockRegistry.SHADEWOOD_CHEST);
+            event.accept(BlockRegistry.TRAPPED_SHADEWOOD_CHEST);
             event.accept(BlockRegistry.ELDRITCH_LOG);
             event.accept(BlockRegistry.ELDRITCH_WOOD);
             event.accept(BlockRegistry.STRIPPED_ELDRITCH_LOG);
@@ -576,6 +578,8 @@ public abstract class ItemTabRegistry{
             event.accept(ItemsRegistry.ELDRITCH_HANGING_SIGN);
             event.accept(ItemsRegistry.ELDRITCH_BOAT_ITEM);
             event.accept(ItemsRegistry.ELDRITCH_CHEST_BOAT_ITEM);
+            event.accept(BlockRegistry.ELDRITCH_CHEST);
+            event.accept(BlockRegistry.TRAPPED_ELDRITCH_CHEST);
             event.accept(BlockRegistry.ARCHAEOLOGY_TABLE);
             event.accept(BlockRegistry.KEG);
             event.accept(BlockRegistry.ELEGANT_PEDESTAL);

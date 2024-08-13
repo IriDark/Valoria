@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
+    "valoria:cobbled_shale_wall",
+    "valoria:polished_cobbled_shale_wall",
     "valoria:deep_marble_wall",
     "valoria:polished_deep_marble_wall",
     "valoria:ambane_stone_wall",

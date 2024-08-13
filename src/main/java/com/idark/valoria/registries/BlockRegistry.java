@@ -34,6 +34,15 @@ public class BlockRegistry{
     () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_TRAPDOOR).noOcclusion().mapColor(MapColor.COLOR_BROWN), BlockSetType.IRON));
     public static final RegistryObject<Block> BRONZE_TRAPDOOR_GLASS = registerBlock("bronze_trapdoor_glass",
     () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_TRAPDOOR).noOcclusion().mapColor(MapColor.COLOR_BROWN), BlockSetType.IRON));
+
+    public static final RegistryObject<Block> SHADEWOOD_CHEST = registerBlock("shadewood_chest",
+    () -> new ModChestBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).instrument(NoteBlockInstrument.BASS).strength(2.5F).sound(SoundType.WOOD).ignitedByLava(), BlockEntitiesRegistry.CHEST_BLOCK_ENTITY::get));
+    public static final RegistryObject<Block> TRAPPED_SHADEWOOD_CHEST = registerBlock("trapped_shadewood_chest",
+    () -> new ModTrappedChestBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).instrument(NoteBlockInstrument.BASS).strength(2.5F).sound(SoundType.WOOD).ignitedByLava(), BlockEntitiesRegistry.TRAPPED_CHEST_BLOCK_ENTITY::get));
+    public static final RegistryObject<Block> ELDRITCH_CHEST = registerBlock("eldritch_chest",
+    () -> new ModChestBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).instrument(NoteBlockInstrument.BASS).strength(2.5F).sound(SoundType.WOOD).ignitedByLava(), BlockEntitiesRegistry.CHEST_BLOCK_ENTITY::get));
+    public static final RegistryObject<Block> TRAPPED_ELDRITCH_CHEST = registerBlock("trapped_eldritch_chest",
+    () -> new ModTrappedChestBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).instrument(NoteBlockInstrument.BASS).strength(2.5F).sound(SoundType.WOOD).ignitedByLava(), BlockEntitiesRegistry.TRAPPED_CHEST_BLOCK_ENTITY::get));
     // Umbral
     public static final RegistryObject<Block> VALORIA_PORTAL_FRAME = registerBlock("valoria_portal_frame",
     () -> new ValoriaPortalFrame(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).mapColor(MapColor.COLOR_PURPLE).strength(42f, 3600000.8F).sound(SoundType.DEEPSLATE_TILES)));

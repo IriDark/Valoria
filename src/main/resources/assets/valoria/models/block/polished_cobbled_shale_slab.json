@@ -1,8 +1,8 @@
 {
   "parent": "minecraft:block/slab",
   "textures": {
-    "bottom": "valoria:block/polished_deep_marble",
-    "side": "valoria:block/polished_deep_marble",
-    "top": "valoria:block/polished_deep_marble"
+    "bottom": "valoria:block/polished_cobbled_shale",
+    "side": "valoria:block/polished_cobbled_shale",
+    "top": "valoria:block/polished_cobbled_shale"
   }
 }

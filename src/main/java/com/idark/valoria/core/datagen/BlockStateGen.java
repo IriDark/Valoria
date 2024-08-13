@@ -1,7 +1,6 @@
 package com.idark.valoria.core.datagen;
 
 import com.idark.valoria.*;
-import com.idark.valoria.compat.quark.*;
 import com.idark.valoria.registries.*;
 import net.minecraft.data.*;
 import net.minecraft.resources.*;
@@ -32,10 +31,6 @@ public class BlockStateGen extends BlockStateProvider{
         blockItem(BlockRegistry.POLISHED_DEEP_MARBLE_STAIRS);
         blockItem(BlockRegistry.DEEP_MARBLE_SLAB);
         blockItem(BlockRegistry.POLISHED_DEEP_MARBLE_SLAB);
-        if(QuarkIntegration.isLoaded()){
-            blockItem(QuarkIntegration.LoadedOnly.DEEP_MARBLE_VERTICAL_SLAB);
-            blockItem(QuarkIntegration.LoadedOnly.POLISHED_DEEP_MARBLE_VERTICAL_SLAB);
-        }
     }
 
     public void registerCobbledShale(){
@@ -54,10 +49,6 @@ public class BlockStateGen extends BlockStateProvider{
         blockItem(BlockRegistry.POLISHED_COBBLED_SHALE_STAIRS);
         blockItem(BlockRegistry.COBBLED_SHALE_SLAB);
         blockItem(BlockRegistry.POLISHED_COBBLED_SHALE_SLAB);
-        if(QuarkIntegration.isLoaded()){
-            blockItem(QuarkIntegration.LoadedOnly.COBBLED_SHALE_VERTICAL_SLAB);
-            blockItem(QuarkIntegration.LoadedOnly.POLISHED_COBBLED_SHALE_VERTICAL_SLAB);
-        }
     }
 
     @Override
@@ -126,35 +117,10 @@ public class BlockStateGen extends BlockStateProvider{
         blockItem(BlockRegistry.POLISHED_PICRITE_STAIRS);
         blockItem(BlockRegistry.PICRITE_SLAB);
         blockItem(BlockRegistry.POLISHED_PICRITE_SLAB);
-        if(QuarkIntegration.isLoaded()){
-            blockItem(BlockRegistry.EPHEMARITE_SLAB);
-            blockItem(BlockRegistry.EPHEMARITE_LOW_SLAB);
-            blockItem(BlockRegistry.POLISHED_EPHEMARITE_SLAB);
-            blockItem(BlockRegistry.POLISHED_EPHEMARITE_LOW_SLAB);
-            blockItem(QuarkIntegration.LoadedOnly.ELDRITCH_PLANKS_VERTICAL_SLAB);
-            blockItem(QuarkIntegration.LoadedOnly.BRONZE_VERTICAL_SLAB);
-            blockItem(QuarkIntegration.LoadedOnly.CUT_BRONZE_VERTICAL_SLAB);
-            blockItem(QuarkIntegration.LoadedOnly.AMBANE_STONE_BRICKS_VERTICAL_SLAB);
-            blockItem(QuarkIntegration.LoadedOnly.AMBANE_STONE_VERTICAL_SLAB);
-            blockItem(QuarkIntegration.LoadedOnly.POLISHED_AMBANE_STONE_VERTICAL_SLAB);
-            blockItem(QuarkIntegration.LoadedOnly.LIMESTONE_VERTICAL_SLAB);
-            blockItem(QuarkIntegration.LoadedOnly.LIMESTONE_BRICKS_VERTICAL_SLAB);
-            blockItem(QuarkIntegration.LoadedOnly.POLISHED_LIMESTONE_VERTICAL_SLAB);
-            blockItem(QuarkIntegration.LoadedOnly.CUT_LIMESTONE_VERTICAL_SLAB);
-            blockItem(QuarkIntegration.LoadedOnly.CRACKED_LIMESTONE_BRICKS_VERTICAL_SLAB);
-            blockItem(QuarkIntegration.LoadedOnly.DUNESTONE_VERTICAL_SLAB);
-            blockItem(QuarkIntegration.LoadedOnly.DUNESTONE_BRICKS_VERTICAL_SLAB);
-            blockItem(QuarkIntegration.LoadedOnly.CRYSTAL_STONE_VERTICAL_SLAB);
-            blockItem(QuarkIntegration.LoadedOnly.CRYSTAL_STONE_BRICKS_VERTICAL_SLAB);
-            blockItem(QuarkIntegration.LoadedOnly.TOMBSTONE_VERTICAL_SLAB);
-            blockItem(QuarkIntegration.LoadedOnly.TOMBSTONE_BRICKS_VERTICAL_SLAB);
-            blockItem(QuarkIntegration.LoadedOnly.PICRITE_VERTICAL_SLAB);
-            blockItem(QuarkIntegration.LoadedOnly.POLISHED_PICRITE_VERTICAL_SLAB);
-            blockItem(QuarkIntegration.LoadedOnly.VOID_STONE_VERTICAL_SLAB);
-            blockItem(QuarkIntegration.LoadedOnly.VOID_BRICK_VERTICAL_SLAB);
-            blockItem(QuarkIntegration.LoadedOnly.VOID_CRACKED_BRICK_VERTICAL_SLAB);
-            blockItem(QuarkIntegration.LoadedOnly.CHISELED_VOID_BRICKS_VERTICAL_SLAB);
-        }
+        blockItem(BlockRegistry.EPHEMARITE_SLAB);
+        blockItem(BlockRegistry.EPHEMARITE_LOW_SLAB);
+        blockItem(BlockRegistry.POLISHED_EPHEMARITE_SLAB);
+        blockItem(BlockRegistry.POLISHED_EPHEMARITE_LOW_SLAB);
     }
 
     private void saplingBlock(RegistryObject<Block> blockRegistryObject){
