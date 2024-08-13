@@ -84,7 +84,7 @@ public class CrushableBlockEntity extends BlockEntity{
         }
     }
 
-    public void unpack(@Nullable Player pPlayer, LootTable loottable) {
+    public void unpack(@Nullable Player pPlayer, LootTable loottable){
         LootParams lootparams = (new LootParams.Builder((ServerLevel)this.level)).withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(this.worldPosition)).withLuck(pPlayer != null ? pPlayer.getLuck() : 0).create(LootContextParamSets.CHEST);
         ObjectArrayList<ItemStack> objectarraylist = loottable.getRandomItems(lootparams, this.lootTableSeed);
         this.item = switch(objectarraylist.size()){
@@ -217,15 +217,15 @@ public class CrushableBlockEntity extends BlockEntity{
 
     }
 
-    public static void setLootTable(BlockGetter pLevel, RandomSource pRandom, BlockPos pPos, ResourceLocation pLootTable) {
+    public static void setLootTable(BlockGetter pLevel, RandomSource pRandom, BlockPos pPos, ResourceLocation pLootTable){
         BlockEntity blockentity = pLevel.getBlockEntity(pPos);
-        if (blockentity instanceof CrushableBlockEntity entity) {
+        if(blockentity instanceof CrushableBlockEntity entity){
             entity.setLootTable(pLootTable, pRandom.nextLong());
         }
     }
 
-    public static void setLootTable(RandomSource pRandom, BlockEntity blockentity, ResourceLocation pLootTable) {
-        if (blockentity instanceof CrushableBlockEntity entity) {
+    public static void setLootTable(RandomSource pRandom, BlockEntity blockentity, ResourceLocation pLootTable){
+        if(blockentity instanceof CrushableBlockEntity entity){
             entity.setLootTable(pLootTable, pRandom.nextLong());
         }
     }
@@ -233,8 +233,8 @@ public class CrushableBlockEntity extends BlockEntity{
     /**
      * Unpacks the LootTable and sets the drop to tile entity
      */
-    public static void unpackAndSetItem(ServerLevel pLevel, BlockEntity blockentity, LootTable loottable) {
-        if (blockentity instanceof CrushableBlockEntity entity){
+    public static void unpackAndSetItem(ServerLevel pLevel, BlockEntity blockentity, LootTable loottable){
+        if(blockentity instanceof CrushableBlockEntity entity){
             LootParams lootparams = (new LootParams.Builder(pLevel).withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(entity.worldPosition)).withLuck(0).create(LootContextParamSets.CHEST));
             ObjectArrayList<ItemStack> objectarraylist = loottable.getRandomItems(lootparams, pLevel.getRandom().nextLong());
             entity.setItem(objectarraylist.get(0));
@@ -245,9 +245,9 @@ public class CrushableBlockEntity extends BlockEntity{
     /**
      * Sets the item to tile entity
      */
-    public static void setItem(BlockGetter pLevel, BlockPos pPos, ItemStack pItem) {
+    public static void setItem(BlockGetter pLevel, BlockPos pPos, ItemStack pItem){
         BlockEntity blockentity = pLevel.getBlockEntity(pPos);
-        if (blockentity instanceof CrushableBlockEntity entity) {
+        if(blockentity instanceof CrushableBlockEntity entity){
             entity.setItem(pItem);
         }
     }

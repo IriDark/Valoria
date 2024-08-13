@@ -358,13 +358,14 @@ public class NecromancerEntity extends AbstractNecromancer{
         private final TargetingConditions targeting = TargetingConditions.forCombat().range(range).ignoreLineOfSight().ignoreInvisibilityTesting();
         private final boolean strong;
         public final ImmutableList<MobEffectInstance> effects;
-        public KnockbackEntitiesGoal(boolean strong, float range, MobEffectInstance... pEffect) {
-            this.range =  range;
+
+        public KnockbackEntitiesGoal(boolean strong, float range, MobEffectInstance... pEffect){
+            this.range = range;
             this.effects = ImmutableList.copyOf(pEffect);
             this.strong = strong;
         }
 
-        public KnockbackEntitiesGoal(boolean strong, MobEffectInstance... pEffect) {
+        public KnockbackEntitiesGoal(boolean strong, MobEffectInstance... pEffect){
             this.range = NecromancerEntity.this.getHealth() < 25 ? 6 : 3;
             this.effects = ImmutableList.copyOf(pEffect);
             this.strong = strong;
@@ -480,7 +481,8 @@ public class NecromancerEntity extends AbstractNecromancer{
     public class ApplyEffectSpellGoal extends AbstractNecromancer.SpellcasterUseSpellGoal{
 
         public final ImmutableList<MobEffectInstance> effects;
-        public ApplyEffectSpellGoal(MobEffectInstance... pEffect) {
+
+        public ApplyEffectSpellGoal(MobEffectInstance... pEffect){
             this.effects = ImmutableList.copyOf(pEffect);
         }
 
@@ -493,7 +495,7 @@ public class NecromancerEntity extends AbstractNecromancer{
         }
 
         protected void performSpellCasting(){
-            if(NecromancerEntity.this.hasTarget()) {
+            if(NecromancerEntity.this.hasTarget()){
                 for(MobEffectInstance effectInstance : effects){
                     NecromancerEntity.this.getTarget().addEffect(effectInstance);
                 }

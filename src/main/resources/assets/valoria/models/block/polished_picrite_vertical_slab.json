@@ -1,8 +1,0 @@
-{
-  "parent": "quark:block/vertical_slab",
-  "textures": {
-    "bottom": "valoria:block/polished_picrite",
-    "top": "valoria:block/polished_picrite",
-    "side": "valoria:block/polished_picrite"
-  }
-}

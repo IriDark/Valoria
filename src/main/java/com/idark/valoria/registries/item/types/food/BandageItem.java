@@ -19,6 +19,7 @@ import java.util.*;
 public class BandageItem extends Item{
     private final boolean removeAllEffects;
     private final ImmutableList<MobEffectInstance> effects;
+
     public BandageItem(boolean pCure, MobEffectInstance... pEffects){
         super(new Properties().food(new FoodProperties.Builder()
         .alwaysEat()

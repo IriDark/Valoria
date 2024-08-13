@@ -16,16 +16,17 @@ import java.util.*;
 
 @OnlyIn(Dist.CLIENT)
 public class KeyBindHandler{
-    private KeyBindHandler() {}
+    private KeyBindHandler(){
+    }
 
     @SubscribeEvent
-    public static void onInput(InputEvent event) {
-        if (ValoriaClient.BAG_MENU_KEY.isDown()) {
+    public static void onInput(InputEvent event){
+        if(ValoriaClient.BAG_MENU_KEY.isDown()){
             jewelryBagMenu();
         }
     }
 
-    public static void jewelryBagMenu() {
+    public static void jewelryBagMenu(){
         Minecraft mc = Minecraft.getInstance();
         Player player = mc.player;
         List<ItemStack> items = new ArrayList<>();
@@ -36,7 +37,7 @@ public class KeyBindHandler{
             }
         }
 
-        if (!items.isEmpty()) {
+        if(!items.isEmpty()){
             mc.setScreen(new JewelryBagScreen(Component.empty()));
         }
     }

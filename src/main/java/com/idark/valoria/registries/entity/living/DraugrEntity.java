@@ -78,7 +78,7 @@ public class DraugrEntity extends Monster implements RangedAttackMob{
         }
     }
 
-    public static void spawnable(Item... T) {
+    public static void spawnable(Item... T){
         Collections.addAll(draugrCanSpawnWith, T);
     }
 

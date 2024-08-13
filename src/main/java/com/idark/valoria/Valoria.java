@@ -8,7 +8,7 @@ import com.idark.valoria.client.gui.screen.book.*;
 import com.idark.valoria.client.gui.screen.book.unlockable.*;
 import com.idark.valoria.client.particle.*;
 import com.idark.valoria.client.render.curio.*;
-import com.idark.valoria.compat.quark.*;
+import com.idark.valoria.client.render.tile.*;
 import com.idark.valoria.core.capability.*;
 import com.idark.valoria.core.config.*;
 import com.idark.valoria.core.datagen.*;
@@ -26,6 +26,7 @@ import com.idark.valoria.registries.recipe.*;
 import com.idark.valoria.util.*;
 import com.mojang.logging.*;
 import net.minecraft.client.gui.screens.*;
+import net.minecraft.client.renderer.blockentity.*;
 import net.minecraft.data.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.item.*;
@@ -67,9 +68,7 @@ public class Valoria{
         ItemsRegistry.register(eventBus);
         BlockRegistry.register(eventBus);
         PoiRegistries.register(eventBus);
-        if(QuarkIntegration.isLoaded()){
-            QuarkIntegration.init(eventBus);
-        }
+        LevelGen.init(eventBus);
 
         BlockEntitiesRegistry.register(eventBus);
         RecipesRegistry.register(eventBus);
@@ -78,9 +77,6 @@ public class Valoria{
         ParticleRegistry.register(eventBus);
         LootUtil.register(eventBus);
         ModArgumentTypes.register(eventBus);
-        LevelGen.FEATURES.register(eventBus);
-        LevelGen.BIOME_MODIFIER_SERIALIZERS.register(eventBus);
-        LevelGen.PLACEMENT_MODIFIERS.register(eventBus);
 
         IEventBus forgeBus = MinecraftForge.EVENT_BUS;
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ClientConfig.SPEC);
@@ -109,10 +105,11 @@ public class Valoria{
      * To add your items here you'll need to add it in FMLClientSetupEvent event like this one but in your mod class and add an event to client side
      * @see ValoriaClient.RegistryEvents#onModelRegistryEvent(ModelEvent.RegisterAdditional)
      */
-
     private void clientSetup(final FMLClientSetupEvent event){
         event.enqueueWork(() -> {
             LexiconChapters.init();
+            BlockEntityRenderers.register(BlockEntitiesRegistry.CHEST_BLOCK_ENTITY.get(), ModChestRender::new);
+            BlockEntityRenderers.register(BlockEntitiesRegistry.TRAPPED_CHEST_BLOCK_ENTITY.get(), ModTrappedChestRender::new);
             CuriosRendererRegistry.register(ItemsRegistry.IRON_NECKLACE_AMBER.get(), NecklaceRenderer::new);
             CuriosRendererRegistry.register(ItemsRegistry.IRON_NECKLACE_DIAMOND.get(), NecklaceRenderer::new);
             CuriosRendererRegistry.register(ItemsRegistry.IRON_NECKLACE_EMERALD.get(), NecklaceRenderer::new);
@@ -178,34 +175,34 @@ public class Valoria{
             fireblock.setFlammable(BlockRegistry.STRIPPED_ELDRITCH_LOG.get(), 5, 30);
             fireblock.setFlammable(BlockRegistry.STRIPPED_ELDRITCH_WOOD.get(), 5, 30);
             DraugrEntity.spawnable(
-                Items.BOW,
-                Items.WOODEN_AXE,
-                Items.STONE_SWORD,
-                Items.IRON_SWORD,
-                Items.GOLDEN_AXE,
-                Items.IRON_PICKAXE
+            Items.BOW,
+            Items.WOODEN_AXE,
+            Items.STONE_SWORD,
+            Items.IRON_SWORD,
+            Items.GOLDEN_AXE,
+            Items.IRON_PICKAXE
             );
 
             GoblinEntity.spawnable(
-                ItemsRegistry.WOODEN_RAPIER.get(),
-                ItemsRegistry.STONE_RAPIER.get(),
-                ItemsRegistry.IRON_RAPIER.get(),
-                ItemsRegistry.CLUB.get()
+            ItemsRegistry.WOODEN_RAPIER.get(),
+            ItemsRegistry.STONE_RAPIER.get(),
+            ItemsRegistry.IRON_RAPIER.get(),
+            ItemsRegistry.CLUB.get()
             );
 
             ValoriaUtils.addList(SarcophagusBlock.spawnableWith,
-                Items.BOW,
-                Items.WOODEN_AXE,
-                Items.STONE_SWORD,
-                Items.IRON_SWORD,
-                Items.GOLDEN_AXE,
-                Items.IRON_PICKAXE
+            Items.BOW,
+            Items.WOODEN_AXE,
+            Items.STONE_SWORD,
+            Items.IRON_SWORD,
+            Items.GOLDEN_AXE,
+            Items.IRON_PICKAXE
             );
 
             ValoriaUtils.addList(SarcophagusBlock.halloweenSpawnableWith,
-                Items.PUMPKIN,
-                Items.JACK_O_LANTERN,
-                Items.CARVED_PUMPKIN
+            Items.PUMPKIN,
+            Items.JACK_O_LANTERN,
+            Items.CARVED_PUMPKIN
             );
 
             AxeItem.STRIPPABLES = new ImmutableMap.Builder<Block, Block>().putAll(AxeItem.STRIPPABLES)

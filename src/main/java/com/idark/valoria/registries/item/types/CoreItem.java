@@ -59,7 +59,7 @@ public class CoreItem extends Item implements IParticleItemEntity, ParticleEmitt
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void spawnLateParticles(ScreenParticleHolder target, Level level, float partialTick, ItemStack stack, float x, float y) {
+    public void spawnLateParticles(ScreenParticleHolder target, Level level, float partialTick, ItemStack stack, float x, float y){
         ScreenParticleRegistry.spawnCoreParticles(target, color);
     }
 }

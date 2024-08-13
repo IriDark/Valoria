@@ -1,8 +1,0 @@
-{
-  "parent": "quark:block/vertical_slab",
-  "textures": {
-    "bottom": "valoria:block/tombstone_bricks",
-    "top": "valoria:block/tombstone_bricks",
-    "side": "valoria:block/tombstone_bricks"
-  }
-}

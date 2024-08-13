@@ -24,7 +24,7 @@ public class DebugItem extends Item{
     }
 
     public void onUseTick(Level pLevel, LivingEntity pLivingEntity, ItemStack pStack, int pRemainingUseDuration){
-        if(pLevel instanceof ServerLevel serverLevel) PacketHandler.sendToTracking(serverLevel, pLivingEntity.getOnPos(), new CircleShapedParticlePacket(pLivingEntity.getX(), pLivingEntity.getY(), pLivingEntity.getZ(), pLivingEntity.getRotationVector().y, 255,123, 66));
+        if(pLevel instanceof ServerLevel serverLevel) PacketHandler.sendToTracking(serverLevel, pLivingEntity.getOnPos(), new CircleShapedParticlePacket(pLivingEntity.getX(), pLivingEntity.getY(), pLivingEntity.getZ(), pLivingEntity.getRotationVector().y, 255, 123, 66));
     }
 
     public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn){

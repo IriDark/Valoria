@@ -42,7 +42,7 @@ public class SuspiciousStateFeature extends Feature<SuspiciousStateConfiguration
                     if(target.state.is(TagsRegistry.UNPACK_LOOT)){
                         LootTable loot = worldgenlevel.getLevel().getServer().getLootData().getLootTable(config.loot);
                         CrushableBlockEntity.unpackAndSetItem(worldgenlevel.getLevel(), blockentity, loot);
-                    } else {
+                    }else{
                         CrushableBlockEntity.setLootTable(randomsource, blockentity, config.loot);
                     }
 
@@ -55,7 +55,7 @@ public class SuspiciousStateFeature extends Feature<SuspiciousStateConfiguration
         return i > 0;
     }
 
-    public static boolean canPlace(BlockState pState,  RandomSource pRandom, SuspiciousStateConfiguration.TargetBlockState pTargetState){
+    public static boolean canPlace(BlockState pState, RandomSource pRandom, SuspiciousStateConfiguration.TargetBlockState pTargetState){
         return pTargetState.target.test(pState, pRandom);
     }
 }

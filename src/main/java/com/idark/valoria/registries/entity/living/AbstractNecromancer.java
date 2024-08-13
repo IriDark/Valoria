@@ -251,11 +251,14 @@ public abstract class AbstractNecromancer extends Monster{
         }
 
         protected abstract void performSpellCasting();
+
         public abstract int getCastingTime();
+
         public abstract int getCastingInterval();
 
         @Nullable
         public abstract SoundEvent getSpellPrepareSound();
+
         public abstract NecromancerSpells getSpell();
     }
 }

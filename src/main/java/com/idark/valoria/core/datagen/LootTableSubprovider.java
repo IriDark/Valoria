@@ -1,13 +1,10 @@
 package com.idark.valoria.core.datagen;
 
-import com.idark.valoria.compat.quark.*;
 import com.idark.valoria.registries.*;
 import net.minecraft.data.loot.*;
 import net.minecraft.world.flag.*;
-import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.storage.loot.*;
-import net.minecraft.world.level.storage.loot.providers.number.*;
 
 import java.util.*;
 import java.util.function.*;
@@ -56,12 +53,5 @@ public class LootTableSubprovider extends BlockLootSubProvider{
         this.dropSelf(BlockRegistry.ELDRITCH_BUTTON.get());
         this.dropSelf(BlockRegistry.ELDRITCH_PRESSURE_PLATE.get());
         this.dropSelf(BlockRegistry.ELDRITCH_SAPLING.get());
-        if(QuarkIntegration.isLoaded()){
-            this.dropSelf(QuarkIntegration.LoadedOnly.ELDRITCH_LEAF_CARPET.get());
-            this.dropSelf(QuarkIntegration.LoadedOnly.ELDRITCH_LADDER.get());
-            this.dropSelf(QuarkIntegration.LoadedOnly.ELDRITCH_LOG_POST.get());
-            this.dropSelf(QuarkIntegration.LoadedOnly.ELDRITCH_PLANKS_VERTICAL_SLAB.get());
-            this.add(QuarkIntegration.LoadedOnly.ELDRITCH_BOOKSHELF.get(), block -> createSingleItemTableWithSilkTouch(block, Items.BOOK, ConstantValue.exactly(3.0F)));
-        }
     }
 }

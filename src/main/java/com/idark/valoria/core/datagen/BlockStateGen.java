@@ -1,7 +1,6 @@
 package com.idark.valoria.core.datagen;
 
 import com.idark.valoria.*;
-import com.idark.valoria.compat.quark.*;
 import com.idark.valoria.registries.*;
 import net.minecraft.data.*;
 import net.minecraft.resources.*;
@@ -16,10 +15,46 @@ public class BlockStateGen extends BlockStateProvider{
         super(output, Valoria.ID, exFileHelper);
     }
 
-    @Override
-    protected void registerStatesAndModels(){
+    public void registerMarbles(){
         blockWithItem(BlockRegistry.DEEP_MARBLE);
         blockWithItem(BlockRegistry.POLISHED_DEEP_MARBLE);
+
+        stairsBlock((StairBlock)BlockRegistry.DEEP_MARBLE_STAIRS.get(), blockTexture(BlockRegistry.DEEP_MARBLE.get()));
+        stairsBlock((StairBlock)BlockRegistry.POLISHED_DEEP_MARBLE_STAIRS.get(), blockTexture(BlockRegistry.DEEP_MARBLE.get()));
+        slabBlock((SlabBlock)BlockRegistry.DEEP_MARBLE_SLAB.get(), blockTexture(BlockRegistry.DEEP_MARBLE.get()), blockTexture(BlockRegistry.DEEP_MARBLE.get()));
+        slabBlock((SlabBlock)BlockRegistry.POLISHED_DEEP_MARBLE_SLAB.get(), blockTexture(BlockRegistry.POLISHED_DEEP_MARBLE.get()), blockTexture(BlockRegistry.POLISHED_DEEP_MARBLE.get()));
+
+        wallBlock((WallBlock)BlockRegistry.DEEP_MARBLE_WALL.get(), blockTexture(BlockRegistry.DEEP_MARBLE.get()));
+        wallBlock((WallBlock)BlockRegistry.POLISHED_DEEP_MARBLE_WALL.get(), blockTexture(BlockRegistry.POLISHED_DEEP_MARBLE.get()));
+
+        blockItem(BlockRegistry.DEEP_MARBLE_STAIRS);
+        blockItem(BlockRegistry.POLISHED_DEEP_MARBLE_STAIRS);
+        blockItem(BlockRegistry.DEEP_MARBLE_SLAB);
+        blockItem(BlockRegistry.POLISHED_DEEP_MARBLE_SLAB);
+    }
+
+    public void registerCobbledShale(){
+        blockWithItem(BlockRegistry.COBBLED_SHALE);
+        blockWithItem(BlockRegistry.POLISHED_COBBLED_SHALE);
+
+        stairsBlock((StairBlock)BlockRegistry.COBBLED_SHALE_STAIRS.get(), blockTexture(BlockRegistry.COBBLED_SHALE.get()));
+        stairsBlock((StairBlock)BlockRegistry.POLISHED_COBBLED_SHALE_STAIRS.get(), blockTexture(BlockRegistry.POLISHED_COBBLED_SHALE.get()));
+        slabBlock((SlabBlock)BlockRegistry.COBBLED_SHALE_SLAB.get(), blockTexture(BlockRegistry.COBBLED_SHALE.get()), blockTexture(BlockRegistry.DEEP_MARBLE.get()));
+        slabBlock((SlabBlock)BlockRegistry.POLISHED_COBBLED_SHALE_SLAB.get(), blockTexture(BlockRegistry.POLISHED_COBBLED_SHALE.get()), blockTexture(BlockRegistry.POLISHED_DEEP_MARBLE.get()));
+
+        wallBlock((WallBlock)BlockRegistry.COBBLED_SHALE_WALL.get(), blockTexture(BlockRegistry.COBBLED_SHALE.get()));
+        wallBlock((WallBlock)BlockRegistry.POLISHED_COBBLED_SHALE_WALL.get(), blockTexture(BlockRegistry.POLISHED_COBBLED_SHALE.get()));
+
+        blockItem(BlockRegistry.COBBLED_SHALE_STAIRS);
+        blockItem(BlockRegistry.POLISHED_COBBLED_SHALE_STAIRS);
+        blockItem(BlockRegistry.COBBLED_SHALE_SLAB);
+        blockItem(BlockRegistry.POLISHED_COBBLED_SHALE_SLAB);
+    }
+
+    @Override
+    protected void registerStatesAndModels(){
+        registerMarbles();
+        registerCobbledShale();
         blockWithItem(BlockRegistry.PICRITE);
         blockWithItem(BlockRegistry.POLISHED_PICRITE);
         blockWithItem(BlockRegistry.EYE_STONE);
@@ -44,11 +79,6 @@ public class BlockStateGen extends BlockStateProvider{
         stairsBlock((StairBlock)BlockRegistry.ELDRITCH_PLANKS_STAIRS.get(), blockTexture(BlockRegistry.ELDRITCH_PLANKS.get()));
         slabBlock((SlabBlock)BlockRegistry.ELDRITCH_PLANKS_SLAB.get(), blockTexture(BlockRegistry.ELDRITCH_PLANKS.get()), blockTexture(BlockRegistry.ELDRITCH_PLANKS.get()));
 
-        stairsBlock((StairBlock)BlockRegistry.DEEP_MARBLE_STAIRS.get(), blockTexture(BlockRegistry.DEEP_MARBLE.get()));
-        stairsBlock((StairBlock)BlockRegistry.POLISHED_DEEP_MARBLE_STAIRS.get(), blockTexture(BlockRegistry.DEEP_MARBLE.get()));
-        slabBlock((SlabBlock)BlockRegistry.DEEP_MARBLE_SLAB.get(), blockTexture(BlockRegistry.DEEP_MARBLE.get()), blockTexture(BlockRegistry.DEEP_MARBLE.get()));
-        slabBlock((SlabBlock)BlockRegistry.POLISHED_DEEP_MARBLE_SLAB.get(), blockTexture(BlockRegistry.POLISHED_DEEP_MARBLE.get()), blockTexture(BlockRegistry.POLISHED_DEEP_MARBLE.get()));
-
         stairsBlock((StairBlock)BlockRegistry.EPHEMARITE_LOW_STAIRS.get(), blockTexture(BlockRegistry.EPHEMARITE_LOW.get()));
         stairsBlock((StairBlock)BlockRegistry.EPHEMARITE_STAIRS.get(), blockTexture(BlockRegistry.EPHEMARITE.get()));
         slabBlock((SlabBlock)BlockRegistry.EPHEMARITE_LOW_SLAB.get(), blockTexture(BlockRegistry.EPHEMARITE_LOW.get()), blockTexture(BlockRegistry.EPHEMARITE_LOW.get()));
@@ -59,20 +89,11 @@ public class BlockStateGen extends BlockStateProvider{
         slabBlock((SlabBlock)BlockRegistry.POLISHED_EPHEMARITE_LOW_SLAB.get(), blockTexture(BlockRegistry.POLISHED_EPHEMARITE_LOW.get()), blockTexture(BlockRegistry.POLISHED_EPHEMARITE_LOW.get()));
         slabBlock((SlabBlock)BlockRegistry.POLISHED_EPHEMARITE_SLAB.get(), blockTexture(BlockRegistry.POLISHED_EPHEMARITE.get()), blockTexture(BlockRegistry.POLISHED_EPHEMARITE.get()));
 
-        wallBlock((WallBlock)BlockRegistry.DEEP_MARBLE_WALL.get(), blockTexture(BlockRegistry.DEEP_MARBLE.get()));
-        wallBlock((WallBlock)BlockRegistry.POLISHED_DEEP_MARBLE_WALL.get(), blockTexture(BlockRegistry.POLISHED_DEEP_MARBLE.get()));
-        wallBlock((WallBlock)BlockRegistry.EPHEMARITE_WALL.get(), blockTexture(BlockRegistry.EPHEMARITE.get()));
-        wallBlock((WallBlock)BlockRegistry.EPHEMARITE_LOW_WALL.get(), blockTexture(BlockRegistry.EPHEMARITE_LOW.get()));
-
         fenceBlock((FenceBlock)BlockRegistry.SHADEWOOD_FENCE.get(), blockTexture(BlockRegistry.SHADEWOOD_PLANKS.get()));
         fenceGateBlock((FenceGateBlock)BlockRegistry.SHADEWOOD_FENCE_GATE.get(), blockTexture(BlockRegistry.SHADEWOOD_PLANKS.get()));
         fenceBlock((FenceBlock)BlockRegistry.ELDRITCH_FENCE.get(), blockTexture(BlockRegistry.ELDRITCH_PLANKS.get()));
         fenceGateBlock((FenceGateBlock)BlockRegistry.ELDRITCH_FENCE_GATE.get(), blockTexture(BlockRegistry.ELDRITCH_PLANKS.get()));
 
-        blockItem(BlockRegistry.DEEP_MARBLE_STAIRS);
-        blockItem(BlockRegistry.POLISHED_DEEP_MARBLE_STAIRS);
-        blockItem(BlockRegistry.DEEP_MARBLE_SLAB);
-        blockItem(BlockRegistry.POLISHED_DEEP_MARBLE_SLAB);
         blockItem(BlockRegistry.EPHEMARITE_STAIRS);
         blockItem(BlockRegistry.EPHEMARITE_LOW_STAIRS);
         blockItem(BlockRegistry.EPHEMARITE_SLAB);
@@ -89,42 +110,17 @@ public class BlockStateGen extends BlockStateProvider{
 
         wallBlock((WallBlock)BlockRegistry.PICRITE_WALL.get(), blockTexture(BlockRegistry.PICRITE.get()));
         wallBlock((WallBlock)BlockRegistry.POLISHED_PICRITE_WALL.get(), blockTexture(BlockRegistry.POLISHED_PICRITE.get()));
+        wallBlock((WallBlock)BlockRegistry.EPHEMARITE_WALL.get(), blockTexture(BlockRegistry.EPHEMARITE.get()));
+        wallBlock((WallBlock)BlockRegistry.EPHEMARITE_LOW_WALL.get(), blockTexture(BlockRegistry.EPHEMARITE_LOW.get()));
 
         blockItem(BlockRegistry.PICRITE_STAIRS);
         blockItem(BlockRegistry.POLISHED_PICRITE_STAIRS);
         blockItem(BlockRegistry.PICRITE_SLAB);
         blockItem(BlockRegistry.POLISHED_PICRITE_SLAB);
-        if(QuarkIntegration.isLoaded()){
-            blockItem(BlockRegistry.EPHEMARITE_SLAB);
-            blockItem(BlockRegistry.EPHEMARITE_LOW_SLAB);
-            blockItem(BlockRegistry.POLISHED_EPHEMARITE_SLAB);
-            blockItem(BlockRegistry.POLISHED_EPHEMARITE_LOW_SLAB);
-            blockItem(QuarkIntegration.LoadedOnly.ELDRITCH_PLANKS_VERTICAL_SLAB);
-            blockItem(QuarkIntegration.LoadedOnly.BRONZE_VERTICAL_SLAB);
-            blockItem(QuarkIntegration.LoadedOnly.CUT_BRONZE_VERTICAL_SLAB);
-            blockItem(QuarkIntegration.LoadedOnly.AMBANE_STONE_BRICKS_VERTICAL_SLAB);
-            blockItem(QuarkIntegration.LoadedOnly.AMBANE_STONE_VERTICAL_SLAB);
-            blockItem(QuarkIntegration.LoadedOnly.POLISHED_AMBANE_STONE_VERTICAL_SLAB);
-            blockItem(QuarkIntegration.LoadedOnly.LIMESTONE_VERTICAL_SLAB);
-            blockItem(QuarkIntegration.LoadedOnly.LIMESTONE_BRICKS_VERTICAL_SLAB);
-            blockItem(QuarkIntegration.LoadedOnly.POLISHED_LIMESTONE_VERTICAL_SLAB);
-            blockItem(QuarkIntegration.LoadedOnly.CUT_LIMESTONE_VERTICAL_SLAB);
-            blockItem(QuarkIntegration.LoadedOnly.CRACKED_LIMESTONE_BRICKS_VERTICAL_SLAB);
-            blockItem(QuarkIntegration.LoadedOnly.DUNESTONE_VERTICAL_SLAB);
-            blockItem(QuarkIntegration.LoadedOnly.DUNESTONE_BRICKS_VERTICAL_SLAB);
-            blockItem(QuarkIntegration.LoadedOnly.CRYSTAL_STONE_VERTICAL_SLAB);
-            blockItem(QuarkIntegration.LoadedOnly.CRYSTAL_STONE_BRICKS_VERTICAL_SLAB);
-            blockItem(QuarkIntegration.LoadedOnly.TOMBSTONE_VERTICAL_SLAB);
-            blockItem(QuarkIntegration.LoadedOnly.TOMBSTONE_BRICKS_VERTICAL_SLAB);
-            blockItem(QuarkIntegration.LoadedOnly.DEEP_MARBLE_VERTICAL_SLAB);
-            blockItem(QuarkIntegration.LoadedOnly.POLISHED_DEEP_MARBLE_VERTICAL_SLAB);
-            blockItem(QuarkIntegration.LoadedOnly.PICRITE_VERTICAL_SLAB);
-            blockItem(QuarkIntegration.LoadedOnly.POLISHED_PICRITE_VERTICAL_SLAB);
-            blockItem(QuarkIntegration.LoadedOnly.VOID_STONE_VERTICAL_SLAB);
-            blockItem(QuarkIntegration.LoadedOnly.VOID_BRICK_VERTICAL_SLAB);
-            blockItem(QuarkIntegration.LoadedOnly.VOID_CRACKED_BRICK_VERTICAL_SLAB);
-            blockItem(QuarkIntegration.LoadedOnly.CHISELED_VOID_BRICKS_VERTICAL_SLAB);
-        }
+        blockItem(BlockRegistry.EPHEMARITE_SLAB);
+        blockItem(BlockRegistry.EPHEMARITE_LOW_SLAB);
+        blockItem(BlockRegistry.POLISHED_EPHEMARITE_SLAB);
+        blockItem(BlockRegistry.POLISHED_EPHEMARITE_LOW_SLAB);
     }
 
     private void saplingBlock(RegistryObject<Block> blockRegistryObject){

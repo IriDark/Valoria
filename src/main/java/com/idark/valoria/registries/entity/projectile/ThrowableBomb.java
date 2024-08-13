@@ -16,6 +16,7 @@ public class ThrowableBomb extends ThrowableItemProjectile{
     private static final EntityDataAccessor<Integer> DATA_FUSE_ID = SynchedEntityData.defineId(ThrowableBomb.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Float> DATA_RADIUS_ID = SynchedEntityData.defineId(ThrowableBomb.class, EntityDataSerializers.FLOAT);
     private static final EntityDataAccessor<ItemStack> DATA_ITEM_STACK = SynchedEntityData.defineId(ThrowableBomb.class, EntityDataSerializers.ITEM_STACK);
+
     public ThrowableBomb(EntityType<? extends ThrowableItemProjectile> pEntityType, Level pLevel){
         super(pEntityType, pLevel);
         this.setFuse(80);
@@ -34,7 +35,7 @@ public class ThrowableBomb extends ThrowableItemProjectile{
         this.setRadius(1.25f);
     }
 
-    public ThrowableBomb(Level pLevel, LivingEntity pShooter) {
+    public ThrowableBomb(Level pLevel, LivingEntity pShooter){
         super(EntityTypeRegistry.THROWABLE_BOMB.get(), pShooter, pLevel);
         this.setFuse(80);
         this.setRadius(1.25f);
@@ -74,7 +75,7 @@ public class ThrowableBomb extends ThrowableItemProjectile{
         }
 
         // something really rare but happens
-        if(this.isInWall()) {
+        if(this.isInWall()){
             this.discard();
         }
 
@@ -82,7 +83,7 @@ public class ThrowableBomb extends ThrowableItemProjectile{
     }
 
     public void onHit(HitResult pResult){
-        if (!this.level().isClientSide){
+        if(!this.level().isClientSide){
             this.level().playSound(this, this.getOnPos(), SoundEvents.CREEPER_PRIMED, SoundSource.AMBIENT, 0.4f, 1f);
             this.level().broadcastEntityEvent(this, (byte)3);
 
@@ -95,19 +96,19 @@ public class ThrowableBomb extends ThrowableItemProjectile{
         super.onHit(pResult);
     }
 
-    public void setItem(ItemStack pStack) {
-        if (!pStack.is(this.getDefaultItem()) || pStack.hasTag()) {
+    public void setItem(ItemStack pStack){
+        if(!pStack.is(this.getDefaultItem()) || pStack.hasTag()){
             this.getEntityData().set(DATA_ITEM_STACK, pStack.copyWithCount(1));
         }
     }
 
-    protected ItemStack getItemRaw() {
+    protected ItemStack getItemRaw(){
         return this.getEntityData().get(DATA_ITEM_STACK);
     }
 
-    public void addAdditionalSaveData(CompoundTag pCompound) {
+    public void addAdditionalSaveData(CompoundTag pCompound){
         ItemStack itemstack = this.getItemRaw();
-        if (!itemstack.isEmpty()) {
+        if(!itemstack.isEmpty()){
             pCompound.put("Item", itemstack.save(new CompoundTag()));
         }
 
@@ -118,40 +119,40 @@ public class ThrowableBomb extends ThrowableItemProjectile{
     /**
      * (abstract) Protected helper method to read subclass entity data from NBT.
      */
-    public void readAdditionalSaveData(CompoundTag pCompound) {
+    public void readAdditionalSaveData(CompoundTag pCompound){
         super.readAdditionalSaveData(pCompound);
         ItemStack itemstack = ItemStack.of(pCompound.getCompound("Item"));
         this.setFuse(pCompound.getShort("Fuse"));
         this.setItem(itemstack);
     }
 
-    protected void explode() {
+    protected void explode(){
         this.level().explode(this, this.getX(), this.getY(0.0625D), this.getZ(), getRadius(), Level.ExplosionInteraction.TNT);
     }
 
-    public void setFuse(int pLife) {
+    public void setFuse(int pLife){
         this.entityData.set(DATA_FUSE_ID, pLife);
     }
 
     /**
      * Gets the fuse from the data manager
      */
-    public int getFuse() {
+    public int getFuse(){
         return this.entityData.get(DATA_FUSE_ID);
     }
 
-    public void setRadius(float pRadius) {
+    public void setRadius(float pRadius){
         this.entityData.set(DATA_RADIUS_ID, pRadius);
     }
 
     /**
      * Gets the radius from the data manager
      */
-    public float getRadius() {
+    public float getRadius(){
         return this.entityData.get(DATA_RADIUS_ID);
     }
 
-    protected void defineSynchedData() {
+    protected void defineSynchedData(){
         this.getEntityData().define(DATA_ITEM_STACK, ItemStack.EMPTY);
         this.getEntityData().define(DATA_FUSE_ID, 80);
         this.getEntityData().define(DATA_RADIUS_ID, 1.25f);

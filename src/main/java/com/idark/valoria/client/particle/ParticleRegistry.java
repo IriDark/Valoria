@@ -28,7 +28,7 @@ public class ParticleRegistry{
     public static RegistryObject<SimpleParticleType> VOID_GLITTER = PARTICLES.register("void_glitter", () -> new SimpleParticleType(false));
     public static final RegistryObject<SimpleParticleType> CHOMP = PARTICLES.register("chomp", () -> new SimpleParticleType(true));
 
-    public static void registerParticleFactory(RegisterParticleProvidersEvent event) {
+    public static void registerParticleFactory(RegisterParticleProvidersEvent event){
         Minecraft.getInstance().particleEngine.register(ParticleRegistry.CUBE.get(), LodestoneWorldParticleType.Factory::new);
         Minecraft.getInstance().particleEngine.register(ParticleRegistry.SMOKE.get(), LodestoneWorldParticleType.Factory::new);
         Minecraft.getInstance().particleEngine.register(ParticleRegistry.SPHERE.get(), LodestoneWorldParticleType.Factory::new);

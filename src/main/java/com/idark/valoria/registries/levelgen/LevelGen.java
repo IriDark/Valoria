@@ -17,11 +17,18 @@ import net.minecraft.world.level.levelgen.feature.*;
 import net.minecraft.world.level.levelgen.feature.configurations.*;
 import net.minecraft.world.level.levelgen.placement.*;
 import net.minecraftforge.common.world.*;
+import net.minecraftforge.eventbus.api.*;
 import net.minecraftforge.registries.*;
 
 import java.util.*;
 
 public class LevelGen{
+    public static void init(IEventBus eventBus) {
+        FEATURES.register(eventBus);
+        BIOME_MODIFIER_SERIALIZERS.register(eventBus);
+        PLACEMENT_MODIFIERS.register(eventBus);
+    }
+
     public static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(ForgeRegistries.FEATURES, Valoria.ID);
     public static DeferredRegister<Codec<? extends BiomeModifier>> BIOME_MODIFIER_SERIALIZERS = DeferredRegister.create(ForgeRegistries.Keys.BIOME_MODIFIER_SERIALIZERS, Valoria.ID);
     public static final DeferredRegister<PlacementModifierType<?>> PLACEMENT_MODIFIERS = DeferredRegister.create(BuiltInRegistries.PLACEMENT_MODIFIER_TYPE.key(), Valoria.ID);
@@ -46,7 +53,7 @@ public class LevelGen{
     public static final ResourceKey<Level> VALORIA_KEY = registerKey(Registries.DIMENSION, "the_valoria");
     public static final ResourceKey<Biome> SHADE_FOREST = registerKey(Registries.BIOME, "shade_forest");
     public static final ResourceKey<Biome> ECOTONE = registerKey(Registries.BIOME, "ecotone");
-    public static final ResourceKey<Biome> VOID_BARREN = registerKey(Registries.BIOME,"void_barren");
+    public static final ResourceKey<Biome> VOID_BARREN = registerKey(Registries.BIOME, "void_barren");
 
     public static RegistryObject<Codec<AddFeaturesByFilterBiomeModifier>> ADD_FEATURES_BY_FILTER = BIOME_MODIFIER_SERIALIZERS.register("add_features_by_filter", () ->
     RecordCodecBuilder.create(builder -> builder.group(

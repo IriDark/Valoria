@@ -1,6 +1,6 @@
 package com.idark.valoria.registries.block.entity;
 
-import com.idark.valoria.compat.quark.*;
+import com.idark.valoria.registries.*;
 import net.minecraft.core.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
@@ -10,7 +10,7 @@ import net.minecraft.world.level.block.state.*;
 public class ModTrappedChestBlockEntity extends ChestBlockEntity{
 
     public ModTrappedChestBlockEntity(BlockPos pPos, BlockState pBlockState){
-        super(QuarkIntegration.LoadedOnly.TRAPPED_CHEST_BLOCK_ENTITY.get(), pPos, pBlockState);
+        super(BlockEntitiesRegistry.TRAPPED_CHEST_BLOCK_ENTITY.get(), pPos, pBlockState);
     }
 
     protected void signalOpenCount(Level p_155865_, BlockPos p_155866_, BlockState p_155867_, int p_155868_, int p_155869_){
@@ -24,6 +24,6 @@ public class ModTrappedChestBlockEntity extends ChestBlockEntity{
 
     @Override
     public BlockEntityType<?> getType(){
-        return QuarkIntegration.LoadedOnly.TRAPPED_CHEST_BLOCK_ENTITY.get();
+        return BlockEntitiesRegistry.TRAPPED_CHEST_BLOCK_ENTITY.get();
     }
 }

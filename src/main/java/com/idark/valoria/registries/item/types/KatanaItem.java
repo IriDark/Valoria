@@ -86,7 +86,7 @@ public class KatanaItem extends SwordItem implements ICooldownItem{
     }
 
     public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot pEquipmentSlot){
-        if(pEquipmentSlot == EquipmentSlot.OFFHAND) {
+        if(pEquipmentSlot == EquipmentSlot.OFFHAND){
             ImmutableMultimap.Builder<Attribute, AttributeModifier> atts = ImmutableMultimap.builder();
             atts.put(AttributeRegistry.DASH_DISTANCE.get(), dashModifier);
             return atts.build();
