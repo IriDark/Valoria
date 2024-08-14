@@ -479,7 +479,14 @@ public class ItemsRegistry{
     public static final RegistryObject<Item> SHADE_BLOSSOM_LEAF = ITEMS.register("shade_blossom_leaf",
     () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> RUNE = ITEMS.register("rune",
-    () -> new CurioRune(new Item.Properties().stacksTo(16).rarity(Rarity.UNCOMMON)));
+    () -> new Item(new Item.Properties().stacksTo(16).rarity(Rarity.UNCOMMON)) {
+        @Override
+        public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags){
+            super.appendHoverText(stack, world, tooltip, flags);
+            tooltip.add(Component.translatable("tooltip.valoria.rune").withStyle(ChatFormatting.GRAY));
+        }
+    });
+
     public static final RegistryObject<Item> RUNE_OF_VISION = ITEMS.register("rune_of_vision",
     () -> new CurioVision(new Item.Properties().stacksTo(1).durability(16).rarity(Rarity.EPIC)));
     public static final RegistryObject<Item> RUNE_OF_WEALTH = ITEMS.register("rune_of_wealth",

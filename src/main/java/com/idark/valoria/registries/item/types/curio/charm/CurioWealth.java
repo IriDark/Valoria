@@ -10,12 +10,10 @@ import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import top.theillusivec4.curios.api.*;
-import top.theillusivec4.curios.api.type.capability.*;
 
 import java.util.*;
 
-public class CurioWealth extends Item implements ICurioItem{
-
+public class CurioWealth extends CurioRune{
     public CurioWealth(Properties properties){
         super(properties);
     }
@@ -26,21 +24,6 @@ public class CurioWealth extends Item implements ICurioItem{
         if(RandomUtil.percentChance(0.005f)){
             stack.hurtAndBreak(1, player, (p_220045_0_) -> p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
         }
-    }
-
-    @Override
-    public boolean canEquip(SlotContext slotContext, ItemStack stack){
-        return ValoriaUtils.onePerTypeEquip(slotContext, stack);
-    }
-
-    @Override
-    public boolean canEquipFromUse(SlotContext slot, ItemStack stack){
-        return true;
-    }
-
-    @Override
-    public boolean isEnchantable(ItemStack pStack){
-        return false;
     }
 
     @Override

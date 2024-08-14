@@ -20,6 +20,7 @@ import com.idark.valoria.registries.command.arguments.*;
 import com.idark.valoria.registries.entity.decoration.*;
 import com.idark.valoria.registries.entity.living.*;
 import com.idark.valoria.registries.item.types.*;
+import com.idark.valoria.registries.item.types.curio.charm.*;
 import com.idark.valoria.registries.item.types.ranged.*;
 import com.idark.valoria.registries.levelgen.*;
 import com.idark.valoria.registries.recipe.*;
@@ -28,6 +29,7 @@ import com.mojang.logging.*;
 import net.minecraft.client.gui.screens.*;
 import net.minecraft.client.renderer.blockentity.*;
 import net.minecraft.data.*;
+import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.*;
@@ -203,6 +205,15 @@ public class Valoria{
             Items.PUMPKIN,
             Items.JACK_O_LANTERN,
             Items.CARVED_PUMPKIN
+            );
+
+            CurioCurses.effects(
+            MobEffects.DARKNESS,
+            MobEffects.WEAKNESS,
+            MobEffects.WITHER,
+            MobEffects.POISON,
+            MobEffects.MOVEMENT_SLOWDOWN,
+            MobEffects.DIG_SLOWDOWN
             );
 
             AxeItem.STRIPPABLES = new ImmutableMap.Builder<Block, Block>().putAll(AxeItem.STRIPPABLES)

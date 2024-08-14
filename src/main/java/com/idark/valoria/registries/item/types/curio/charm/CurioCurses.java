@@ -2,7 +2,6 @@ package com.idark.valoria.registries.item.types.curio.charm;
 
 import com.google.common.collect.*;
 import com.idark.valoria.registries.*;
-import com.idark.valoria.util.*;
 import net.minecraft.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.server.level.*;
@@ -19,28 +18,18 @@ import top.theillusivec4.curios.api.type.capability.*;
 import javax.annotation.*;
 import java.util.*;
 
-public class CurioCurses extends Item implements ICurioItem{
-    MobEffect[] effects = {
-    MobEffects.DARKNESS, MobEffects.WEAKNESS, MobEffects.WITHER, MobEffects.POISON, MobEffects.MOVEMENT_SLOWDOWN, MobEffects.DIG_SLOWDOWN
-    };
-
+public class CurioCurses extends CurioRune{
+    private static List<MobEffect> effects = new ArrayList<>();
     public CurioCurses(Properties properties){
         super(properties);
     }
 
-    @Override
-    public boolean canEquipFromUse(SlotContext slot, ItemStack stack){
-        return true;
+    public static void effects(MobEffect... T){
+        Collections.addAll(effects, T);
     }
 
-    @Override
-    public boolean isEnchantable(ItemStack pStack){
-        return false;
-    }
-
-    @Override
-    public boolean canEquip(SlotContext slotContext, ItemStack stack){
-        return ValoriaUtils.onePerTypeEquip(slotContext, stack);
+    public static void setEffects(List<MobEffect> effects){
+        CurioCurses.effects = effects;
     }
 
     @Nonnull
@@ -55,7 +44,8 @@ public class CurioCurses extends Item implements ICurioItem{
         Player player = (Player)slotContext.entity();
         if(!player.level().isClientSide() && player instanceof ServerPlayer pServer){
             if(pServer.getActiveEffects().isEmpty() && !pServer.getCooldowns().isOnCooldown(this)){
-                pServer.addEffect(new MobEffectInstance(effects[Mth.nextInt(RandomSource.create(), 0, 5)], 60, 0, false, true));
+                MobEffect[] effectsArray = effects.toArray(new MobEffect[0]);
+                pServer.addEffect(new MobEffectInstance(effectsArray[Mth.nextInt(RandomSource.create(), 0, 5)], 60, 0, false, true));
                 pServer.getCooldowns().addCooldown(this, 300);
                 pServer.level().playSound(null, pServer.getOnPos(), SoundsRegistry.EQUIP_CURSE.get(), SoundSource.AMBIENT, 0.5f, 1f);
             }
