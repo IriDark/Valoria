@@ -173,6 +173,8 @@ public class ItemsRegistry{
     public static final RegistryObject<Item> TAINTED_BERRIES = ITEMS.register("tainted_berries", () -> new ItemNameBlockItem(BlockRegistry.TAINTED_ROOTS.get(), new Item.Properties().food(new FoodProperties.Builder().nutrition(2).saturationMod(0.3f).fast().build())));
     public static final RegistryObject<Item> COOKED_GLOW_VIOLET_SPROUT = ITEMS.register("cooked_glow_violet_sprout", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(4).saturationMod(0.5f).effect(new MobEffectInstance(MobEffects.NIGHT_VISION, 500), 1f).build())));
     public static final RegistryObject<Item> COOKED_ABYSSAL_GLOWFERN = ITEMS.register("cooked_abyssal_glowfern", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(4).saturationMod(0.5f).effect(new MobEffectInstance(MobEffects.NIGHT_VISION, 500), 1f).build())));
+    public static final RegistryObject<Item> GOBLIN_MEAT = ITEMS.register("goblin_meat", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(1).saturationMod(0.2f).build())));
+    public static final RegistryObject<Item> COOKED_GOBLIN_MEAT = ITEMS.register("cooked_goblin_meat", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(4).saturationMod(0.6f).build())));
 
     //public static final RegistryObject<Item> WAND_OF_NATURE = ITEMS.register("wand_of_nature", () -> new NatureStaff(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> DUNESTONE_BRICK = ITEMS.register("dunestone_brick", () -> new Item(new Item.Properties()));
@@ -538,6 +540,9 @@ public class ItemsRegistry{
     () -> new ForgeSpawnEggItem(EntityTypeRegistry.UNDEAD, ColorUtil.hexToDecimal("625F71"), ColorUtil.hexToDecimal("ffffff"), new Item.Properties()));
     public static final RegistryObject<ForgeSpawnEggItem> SHADEWOOD_SPIDER_SPAWN_EGG = ITEMS.register("shadewood_spider_spawn_egg",
     () -> new ForgeSpawnEggItem(EntityTypeRegistry.SHADEWOOD_SPIDER, ColorUtil.hexToDecimal("373C53"), ColorUtil.hexToDecimal("6EABB7"), new Item.Properties()));
+    public static final RegistryObject<ForgeSpawnEggItem> SUCCUBUS_SPAWN_EGG = ITEMS.register("succubus_spawn_egg",
+    () -> new ForgeSpawnEggItem(EntityTypeRegistry.SUCCUBUS, ColorUtil.hexToDecimal("b64841"), ColorUtil.hexToDecimal("3a3b62"), new Item.Properties()));
+
     public static final RegistryObject<MannequinSpawnItem> MANNEQUIN_SPAWN_EGG = ITEMS.register("mannequin_spawn_egg",
     () -> new MannequinSpawnItem(new Item.Properties()));
 

@@ -50,6 +50,7 @@ public class NecromancerEntity extends AbstractNecromancer{
 
     public NecromancerEntity(EntityType<? extends NecromancerEntity> pEntityType, Level pLevel){
         super(pEntityType, pLevel);
+        this.xpReward = 8;
     }
 
     public static AttributeSupplier.Builder createAttributes(){

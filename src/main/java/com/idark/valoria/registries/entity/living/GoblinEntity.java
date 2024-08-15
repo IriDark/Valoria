@@ -53,6 +53,7 @@ public class GoblinEntity extends PathfinderMob implements NeutralMob, Enemy{
 
     public GoblinEntity(EntityType<? extends PathfinderMob> type, Level worldIn){
         super(type, worldIn);
+        this.xpReward = 3;
         this.setCanPickUpLoot(true);
         this.setPathfindingMalus(BlockPathTypes.POWDER_SNOW, -1.0F);
         this.setPathfindingMalus(BlockPathTypes.DANGER_POWDER_SNOW, -1.0F);
@@ -177,6 +178,7 @@ public class GoblinEntity extends PathfinderMob implements NeutralMob, Enemy{
         return super.canHoldItem(pStack);
     }
 
+    // maybe todo brain?
     @Override
     protected void registerGoals(){
         super.registerGoals();

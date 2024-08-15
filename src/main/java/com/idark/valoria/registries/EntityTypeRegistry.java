@@ -24,6 +24,12 @@ public class EntityTypeRegistry{
     .clientTrackingRange(8)
     .build(new ResourceLocation(Valoria.ID, "goblin").toString()));
 
+    public static final RegistryObject<EntityType<Succubus>> SUCCUBUS = ENTITY_TYPES.register("succubus",
+    () -> EntityType.Builder.of(Succubus::new, MobCategory.MONSTER)
+    .sized(0.6f, 2.0f)
+    .clientTrackingRange(8)
+    .build(new ResourceLocation(Valoria.ID, "succubus").toString()));
+
     public static final RegistryObject<EntityType<DraugrEntity>> DRAUGR = ENTITY_TYPES.register("draugr",
     () -> EntityType.Builder.of(DraugrEntity::new, MobCategory.CREATURE)
     .sized(0.6f, 2.0f)

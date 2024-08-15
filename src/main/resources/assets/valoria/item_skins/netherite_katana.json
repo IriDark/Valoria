@@ -1,0 +1,11 @@
+{
+  "trail": {
+    "color": [81, 69, 68],
+    "begin_pos": [0.0, 0.0, -0.2],
+    "end_pos": [0.0, 0.1, -0.8],
+    "lifetime": 4,
+    "interpolations": 3,
+    "texture_path": "epicfight:textures/particle/katana_trail.png",
+    "particle_type": "epicfight:swing_trail"
+  }
+}

@@ -28,6 +28,7 @@ public class ShadewoodSpider extends Monster{
 
     public ShadewoodSpider(EntityType<? extends ShadewoodSpider> pEntityType, Level pLevel){
         super(pEntityType, pLevel);
+        this.xpReward = 3;
     }
 
     public static AttributeSupplier.Builder createAttributes(){

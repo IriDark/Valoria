@@ -141,6 +141,8 @@ public abstract class ItemTabRegistry{
             event.accept(ItemsRegistry.WHISKEY_BOTTLE);
             event.accept(ItemsRegistry.COKE_BOTTLE);
             event.accept(ItemsRegistry.APPLE_PIE);
+            event.accept(ItemsRegistry.GOBLIN_MEAT);
+            event.accept(ItemsRegistry.COOKED_GOBLIN_MEAT);
             event.accept(ItemsRegistry.HOLIDAY_CANDY);
             event.accept(ItemsRegistry.DUNESTONE_BRICK);
             event.accept(ItemsRegistry.TOMBSTONE_BRICK);
@@ -324,6 +326,7 @@ public abstract class ItemTabRegistry{
             event.accept(ItemsRegistry.UNDEAD_SPAWN_EGG);
             event.accept(ItemsRegistry.GOBLIN_SPAWN_EGG);
             event.accept(ItemsRegistry.SHADEWOOD_SPIDER_SPAWN_EGG);
+            event.accept(ItemsRegistry.SUCCUBUS_SPAWN_EGG);
         }
 
         if(event.getTabKey() == ItemTabRegistry.VALORIA_BLOCKS_TAB.getKey()){

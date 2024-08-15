@@ -3,8 +3,8 @@
   "biomes": "minecraft:swamp",
   "spawners": {
     "type": "valoria:swamp_wanderer",
-    "weight": 120,
-    "minCount": 2,
-    "maxCount": 5
+    "weight": 60,
+    "minCount": 1,
+    "maxCount": 3
   }
 }

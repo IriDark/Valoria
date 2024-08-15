@@ -3,8 +3,8 @@
   "biomes": "#minecraft:is_overworld",
   "spawners": {
     "type": "valoria:goblin",
-    "weight": 80,
+    "weight": 85,
     "minCount": 1,
-    "maxCount": 4
+    "maxCount": 2
   }
 }

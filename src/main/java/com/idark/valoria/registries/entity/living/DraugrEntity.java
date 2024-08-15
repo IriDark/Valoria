@@ -41,6 +41,7 @@ public class DraugrEntity extends Monster implements RangedAttackMob{
     public DraugrEntity(EntityType<? extends DraugrEntity> pEntityType, Level pLevel){
         super(pEntityType, pLevel);
         this.reassessWeaponGoal();
+        this.xpReward = 5;
     }
 
     public static AttributeSupplier.Builder createAttributes(){

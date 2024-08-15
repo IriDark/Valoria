@@ -17,6 +17,7 @@ import com.idark.valoria.core.proxy.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.block.types.*;
 import com.idark.valoria.registries.command.arguments.*;
+import com.idark.valoria.registries.entity.ai.sensing.*;
 import com.idark.valoria.registries.entity.decoration.*;
 import com.idark.valoria.registries.entity.living.*;
 import com.idark.valoria.registries.item.types.*;
@@ -35,6 +36,7 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.properties.*;
 import net.minecraft.world.level.levelgen.*;
+import net.minecraft.world.level.levelgen.Heightmap.*;
 import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.client.event.*;
 import net.minecraftforge.common.*;
@@ -75,6 +77,7 @@ public class Valoria{
         BlockEntitiesRegistry.register(eventBus);
         RecipesRegistry.register(eventBus);
         MenuRegistry.register(eventBus);
+        SensorTypes.register(eventBus);
         EntityTypeRegistry.register(eventBus);
         ParticleRegistry.register(eventBus);
         LootUtil.register(eventBus);
@@ -257,6 +260,11 @@ public class Valoria{
                 SpawnPlacements.Type.ON_GROUND,
                 Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                 ShadewoodSpider::checkMonsterSpawnRules);
+
+                SpawnPlacements.register(EntityTypeRegistry.SUCCUBUS.get(),
+                SpawnPlacements.Type.ON_GROUND,
+                Types.WORLD_SURFACE_WG,
+                Succubus::checkMonsterSpawnRules);
             });
         }
 
@@ -269,6 +277,7 @@ public class Valoria{
             event.put(EntityTypeRegistry.SWAMP_WANDERER.get(), SwampWandererEntity.createAttributes().build());
             event.put(EntityTypeRegistry.UNDEAD.get(), UndeadEntity.createAttributes().build());
             event.put(EntityTypeRegistry.SHADEWOOD_SPIDER.get(), ShadewoodSpider.createAttributes().build());
+            event.put(EntityTypeRegistry.SUCCUBUS.get(), Succubus.createAttributes().build());
         }
 
         @SubscribeEvent
