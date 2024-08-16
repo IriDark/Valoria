@@ -188,7 +188,7 @@ public class Valoria{
             Items.IRON_PICKAXE
             );
 
-            GoblinEntity.spawnable(
+            Goblin.spawnable(
             ItemsRegistry.WOODEN_RAPIER.get(),
             ItemsRegistry.STONE_RAPIER.get(),
             ItemsRegistry.IRON_RAPIER.get(),
@@ -244,7 +244,7 @@ public class Valoria{
                 SpawnPlacements.register(EntityTypeRegistry.GOBLIN.get(),
                 SpawnPlacements.Type.ON_GROUND,
                 Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-                GoblinEntity::checkGoblinSpawnRules);
+                Goblin::checkGoblinSpawnRules);
 
                 SpawnPlacements.register(EntityTypeRegistry.DRAUGR.get(),
                 SpawnPlacements.Type.ON_GROUND,
@@ -271,7 +271,7 @@ public class Valoria{
         @SubscribeEvent
         public static void registerAttributes(EntityAttributeCreationEvent event){
             event.put(EntityTypeRegistry.MANNEQUIN.get(), MannequinEntity.createAttributes().build());
-            event.put(EntityTypeRegistry.GOBLIN.get(), GoblinEntity.createAttributes().build());
+            event.put(EntityTypeRegistry.GOBLIN.get(), Goblin.createAttributes().build());
             event.put(EntityTypeRegistry.DRAUGR.get(), DraugrEntity.createAttributes().build());
             event.put(EntityTypeRegistry.NECROMANCER.get(), NecromancerEntity.createAttributes().build());
             event.put(EntityTypeRegistry.SWAMP_WANDERER.get(), SwampWandererEntity.createAttributes().build());

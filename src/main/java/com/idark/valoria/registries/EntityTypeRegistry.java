@@ -18,8 +18,8 @@ public class EntityTypeRegistry{
     .clientTrackingRange(8)
     .build(new ResourceLocation(Valoria.ID, "swamp_wanderer").toString()));
 
-    public static final RegistryObject<EntityType<GoblinEntity>> GOBLIN = ENTITY_TYPES.register("goblin",
-    () -> EntityType.Builder.of(GoblinEntity::new, MobCategory.CREATURE)
+    public static final RegistryObject<EntityType<Goblin>> GOBLIN = ENTITY_TYPES.register("goblin",
+    () -> EntityType.Builder.of(Goblin::new, MobCategory.CREATURE)
     .sized(0.6f, 1.25f)
     .clientTrackingRange(8)
     .build(new ResourceLocation(Valoria.ID, "goblin").toString()));

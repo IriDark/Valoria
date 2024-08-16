@@ -49,7 +49,7 @@ public class Succubus extends Monster{
     public void setAttackTarget(LivingEntity pAttackTarget) {
         this.getBrain().setMemory(MemoryModuleType.ATTACK_TARGET, pAttackTarget);
         this.getBrain().eraseMemory(MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
-        FireRay.setCooldown(this, 600);
+        FireRay.setCooldown(this, 200);
     }
 
     public boolean doHurtTarget(Entity pEntity) {

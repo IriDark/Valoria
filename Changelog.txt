@@ -29,11 +29,15 @@
 - Added Shade Blossom
 - Added Shade Blossom Bandage
 - Added Pots Generation
+- Added Epic Fight compat (TODO)
+
+- Animated Goblins
 
 - Reworked Stone Crusher (A bit)
 - Reworked Accessories
 - Reworked BlazeReap
 - Reworked Bandages
+- Reworked Goblins
 - Decreased amount of bones dropped from Goblins
 
 - ID change of "pick" -> "prospectors_pick"

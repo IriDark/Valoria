@@ -56,13 +56,13 @@ public class FireRay extends Behavior<Succubus>{
                 }
 
                 pOwner.playSound(SoundEvents.WARDEN_SONIC_BOOM, 3.0F, 1.0F);
-                p_217704_.hurt(pLevel.damageSources().onFire(), 5F);
+                p_217704_.hurt(pLevel.damageSources().generic(), 5F);
             });
         }
     }
 
     protected void stop(ServerLevel pLevel, Succubus pEntity, long pGameTime) {
-        setCooldown(pEntity, 40);
+        setCooldown(pEntity, 200);
     }
 
     public static void setCooldown(LivingEntity pEntity, int pCooldown) {
