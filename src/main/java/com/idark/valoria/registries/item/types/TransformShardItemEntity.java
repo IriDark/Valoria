@@ -16,6 +16,7 @@ import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.phys.*;
+import net.minecraftforge.api.distmarker.*;
 import team.lodestar.lodestone.systems.particle.data.color.*;
 
 import java.util.*;
@@ -64,6 +65,7 @@ public class TransformShardItemEntity extends Item implements IParticleItemEntit
         return super.onItemUseFirst(stack, context);
     }
 
+    @OnlyIn(Dist.CLIENT)
     @Override
     public void spawnParticles(Level level, ItemEntity entity){
         Vec3 pos = new Vec3(entity.getX() + (rand.nextDouble() - 0.5f) / 6, entity.getY() + 0.4F, entity.getZ());

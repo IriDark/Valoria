@@ -2,13 +2,15 @@ package com.idark.valoria.registries.entity.ai.brains;
 
 import com.google.common.collect.*;
 import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.entity.ai.behaviour.*;
 import com.idark.valoria.registries.entity.ai.memory.*;
+import com.idark.valoria.registries.entity.ai.sensing.*;
 import com.idark.valoria.registries.entity.living.*;
 import com.mojang.datafixers.util.*;
+import com.mojang.serialization.*;
 import net.minecraft.core.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.*;
-import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.ai.behavior.*;
 import net.minecraft.world.entity.ai.memory.*;
 import net.minecraft.world.entity.ai.sensing.*;
@@ -19,15 +21,19 @@ import net.minecraft.world.level.*;
 import java.util.*;
 
 public class SuccubusAI{
-    public static Brain<?> makeBrain(Succubus mob, Brain<Succubus> pBrain) {
-        initCoreActivity(pBrain);
-        initIdleActivity(pBrain);
-        initRetreatActivity(pBrain);
-        initFightActivity(mob, pBrain);
-        pBrain.setCoreActivities(ImmutableSet.of(Activity.CORE));
-        pBrain.setDefaultActivity(Activity.IDLE);
-        pBrain.useDefaultActivity();
-        return pBrain;
+    protected static final ImmutableList<MemoryModuleType<?>> MEMORY_TYPES = ImmutableList.of(MemoryModuleType.LOOK_TARGET, MemoryModuleType.DOORS_TO_CLOSE, MemoryModuleType.NEAREST_LIVING_ENTITIES, MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES, MemoryModuleType.NEAREST_VISIBLE_PLAYER, MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER, MemoryModuleType.HURT_BY, MemoryModuleType.HURT_BY_ENTITY, MemoryModuleType.WALK_TARGET, MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE, MemoryModuleType.ATTACK_TARGET, MemoryModuleType.SONIC_BOOM_COOLDOWN, MemoryModuleType.SONIC_BOOM_SOUND_COOLDOWN, MemoryModuleType.SONIC_BOOM_SOUND_DELAY, MemoryModuleType.ATTACK_COOLING_DOWN, MemoryModuleType.INTERACTION_TARGET, MemoryModuleType.PATH, MemoryModuleType.ANGRY_AT, MemoryModuleType.NEAREST_VISIBLE_NEMESIS, MemoryModuleType.HOME);
+    protected static final ImmutableList<SensorType<? extends Sensor<? super Succubus>>> SENSOR_TYPES = ImmutableList.of(SensorType.NEAREST_LIVING_ENTITIES, SensorType.NEAREST_PLAYERS, SensorType.HURT_BY, SensorTypes.SUCCUBUS_SPECIFIC_SENSOR.get());
+    public static Brain<?> makeBrain(Succubus pWarden, Dynamic<?> pOps) {
+        Brain.Provider<Succubus> provider = Brain.provider(MEMORY_TYPES, SENSOR_TYPES);
+        Brain<Succubus> brain = provider.makeBrain(pOps);
+        initCoreActivity(brain);
+        initIdleActivity(brain);
+        initRetreatActivity(brain);
+        initFightActivity(pWarden, brain);
+        brain.setCoreActivities(ImmutableSet.of(Activity.CORE));
+        brain.setDefaultActivity(Activity.IDLE);
+        brain.useDefaultActivity();
+        return brain;
     }
 
     public static void initMemories(Succubus mob) {
@@ -44,20 +50,9 @@ public class SuccubusAI{
     }
 
     private static void initFightActivity(Succubus mob, Brain<Succubus> pBrain) {
-        pBrain.addActivityAndRemoveMemoryWhenStopped(
-        Activity.FIGHT,
-        10,
-        ImmutableList.of(
-        StopAttackingIfTargetInvalid.create((target) -> !mob.canTargetEntity(target)),
-        SetEntityLookTarget.create((target) -> isTarget(mob, target), (float)mob.getAttributeValue(Attributes.FOLLOW_RANGE)),
-        SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(1.2F),
-        MeleeAttack.create(18)),
-        MemoryModuleType.ATTACK_TARGET
-        );
-    }
-
-    private static boolean isTarget(Succubus mob, LivingEntity pEntity) {
-        return mob.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).filter((p_219509_) -> p_219509_ == pEntity).isPresent();
+        pBrain.addActivityAndRemoveMemoryWhenStopped(Activity.FIGHT, 10, ImmutableList.<net.minecraft.world.entity.ai.behavior.BehaviorControl<? super Succubus>>of(StopAttackingIfTargetInvalid.create((p_34981_) -> {
+            return !mob.canTargetEntity(p_34981_);
+        }), SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(1.0F), new FireRay(), MeleeAttack.create(20)), MemoryModuleType.ATTACK_TARGET);
     }
 
     private static RunOne<Succubus> createIdleLookBehaviors() {
@@ -70,18 +65,7 @@ public class SuccubusAI{
 
     public static void updateActivity(Succubus mob) {
         Brain<Succubus> brain = mob.getBrain();
-        Activity activity = brain.getActiveNonCoreActivity().orElse(null);
         brain.setActiveActivityToFirstValid(ImmutableList.of(Activity.FIGHT, Activity.IDLE));
-        Activity activity1 = brain.getActiveNonCoreActivity().orElse(null);
-        if (activity != activity1) {
-            playActivitySound(mob);
-        }
-
-        mob.setAggressive(brain.hasMemoryValue(MemoryModuleType.ATTACK_TARGET));
-    }
-
-    private static boolean isNearestValidAttackTarget(Succubus mob, LivingEntity pTarget) {
-        return findNearestValidAttackTarget(mob).filter((p_35085_) -> p_35085_ == pTarget).isPresent();
     }
 
     private static Optional<? extends LivingEntity> findNearestValidAttackTarget(Succubus p_35087_) {
@@ -113,7 +97,7 @@ public class SuccubusAI{
         return mob.getBrain().getMemory(MemoryModules.NEARBY_ADULT_SUCCUBUS.get()).orElse(ImmutableList.of());
     }
 
-    private static void stopWalking(Succubus mob) {
+    public static void stopWalking(Succubus mob) {
         mob.getBrain().eraseMemory(MemoryModuleType.WALK_TARGET);
         mob.getNavigation().stop();
     }

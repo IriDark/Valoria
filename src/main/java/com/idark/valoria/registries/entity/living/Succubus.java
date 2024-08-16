@@ -1,9 +1,8 @@
 package com.idark.valoria.registries.entity.living;
 
-import com.google.common.collect.*;
 import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.entity.ai.behaviour.*;
 import com.idark.valoria.registries.entity.ai.brains.*;
-import com.idark.valoria.registries.entity.ai.sensing.*;
 import com.mojang.serialization.*;
 import net.minecraft.nbt.*;
 import net.minecraft.network.protocol.game.*;
@@ -18,7 +17,6 @@ import net.minecraft.world.entity.ai.*;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.ai.memory.*;
 import net.minecraft.world.entity.ai.navigation.*;
-import net.minecraft.world.entity.ai.sensing.*;
 import net.minecraft.world.entity.ai.util.*;
 import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.level.*;
@@ -32,9 +30,6 @@ public class Succubus extends Monster{
     public final AnimationState idleAnimationState = new AnimationState();
     public AnimationState fireballAnimationState = new AnimationState();
     private int idleAnimationTimeout = 0;
-
-    protected static final ImmutableList<SensorType<? extends Sensor<? super Succubus>>> SENSOR_TYPES = ImmutableList.of(SensorType.NEAREST_LIVING_ENTITIES, SensorType.NEAREST_PLAYERS, SensorType.HURT_BY, SensorTypes.SUCCUBUS_SPECIFIC_SENSOR.get());
-    protected static final ImmutableList<MemoryModuleType<?>> MEMORY_TYPES = ImmutableList.of(MemoryModuleType.LOOK_TARGET, MemoryModuleType.DOORS_TO_CLOSE, MemoryModuleType.NEAREST_LIVING_ENTITIES, MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES, MemoryModuleType.NEAREST_VISIBLE_PLAYER, MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER, MemoryModuleType.HURT_BY, MemoryModuleType.HURT_BY_ENTITY, MemoryModuleType.WALK_TARGET, MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE, MemoryModuleType.ATTACK_TARGET, MemoryModuleType.ATTACK_COOLING_DOWN, MemoryModuleType.INTERACTION_TARGET, MemoryModuleType.PATH, MemoryModuleType.ANGRY_AT, MemoryModuleType.NEAREST_VISIBLE_NEMESIS, MemoryModuleType.HOME);
     public Succubus(EntityType<? extends Monster> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
         this.xpReward = 5;
@@ -54,27 +49,23 @@ public class Succubus extends Monster{
     public void setAttackTarget(LivingEntity pAttackTarget) {
         this.getBrain().setMemory(MemoryModuleType.ATTACK_TARGET, pAttackTarget);
         this.getBrain().eraseMemory(MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
+        FireRay.setCooldown(this, 600);
     }
 
     public boolean doHurtTarget(Entity pEntity) {
         this.level().broadcastEntityEvent(this, (byte)4);
         this.playSound(SoundEvents.WARDEN_ATTACK_IMPACT, 10.0F, this.getVoicePitch());
+        FireRay.setCooldown(this, 40);
         if(pEntity instanceof LivingEntity){
             ((LivingEntity)pEntity).addEffect(new MobEffectInstance(EffectsRegistry.BLEEDING.get(), 200), this);
         }
-
 
         return super.doHurtTarget(pEntity);
     }
 
     public void handleEntityEvent(byte pId) {
-//        if (pId == 4) {
-//            this.attackAnimationState.start(this.tickCount);
-//        if (pId == 62) {
-//            this.fireballAnimationState.start(this.tickCount);
-//        } else {
-            super.handleEntityEvent(pId);
-//        } todo
+        if (pId == 62) this.fireballAnimationState.start(this.tickCount);
+        super.handleEntityEvent(pId);
     }
 
     public boolean isAdult() {
@@ -86,7 +77,7 @@ public class Succubus extends Monster{
         .add(Attributes.MOVEMENT_SPEED, 0.25)
         .add(Attributes.MAX_HEALTH, 40.0D)
         .add(Attributes.ATTACK_DAMAGE, 6.0D)
-        .add(Attributes.FOLLOW_RANGE, 4.0D);
+        .add(Attributes.FOLLOW_RANGE, 12.0D);
     }
 
     @Override
@@ -107,9 +98,11 @@ public class Succubus extends Monster{
     }
 
     protected void customServerAiStep() {
-        this.level().getProfiler().push("succubusBrain");
-        this.getBrain().tick((ServerLevel)this.level(), this);
+        ServerLevel serverlevel = (ServerLevel)this.level();
+        serverlevel.getProfiler().push("succubusBrain");
+        this.getBrain().tick(serverlevel, this);
         this.level().getProfiler().pop();
+        super.customServerAiStep();
         SuccubusAI.maybePlayActivitySound(this);
         SuccubusAI.updateActivity(this);
     }
@@ -132,12 +125,9 @@ public class Succubus extends Monster{
         return flag;
     }
 
-    protected Brain.Provider<Succubus> brainProvider() {
-        return Brain.provider(MEMORY_TYPES, SENSOR_TYPES);
-    }
 
     protected Brain<?> makeBrain(Dynamic<?> pDynamic) {
-        return SuccubusAI.makeBrain(this, this.brainProvider().makeBrain(pDynamic));
+        return SuccubusAI.makeBrain(this, pDynamic);
     }
 
     public Brain<Succubus> getBrain() {

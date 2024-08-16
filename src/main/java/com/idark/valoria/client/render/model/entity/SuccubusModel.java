@@ -86,8 +86,8 @@ public class SuccubusModel<T extends Succubus> extends HierarchicalModel<T>{
         float f1 = pLimbSwing * 0.8662F;
         float f2 = Mth.cos(f1);
         float f3 = Mth.sin(f1);
-        this.leftLeg.xRot = 1.0F * f2 * f;
-        this.rightLeg.xRot = 1.0F * Mth.cos(f1 + (float)Math.PI) * f;
+        this.leftLeg.xRot = pLimbSwingAmount * f2 * f;
+        this.rightLeg.xRot = pLimbSwingAmount * Mth.cos(f1 + (float)Math.PI) * f;
         this.leftArm.xRot = -(0.6F * f2 * f);
         this.leftArm.zRot = 0.0F;
         this.rightArm.xRot = -(0.6F * f3 * f);
