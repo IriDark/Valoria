@@ -64,18 +64,9 @@ public class GoblinModel<T extends Goblin> extends HierarchicalModel<T> implemen
         this.head.getChild("left_ear").yRot = Mth.sin(ageInTicks * -0.06F) * 0.06F;
         this.head.getChild("right_ear").xRot = Mth.sin(ageInTicks * 0.01F) * 0.01F;
         this.head.getChild("left_ear").xRot = Mth.sin(ageInTicks * -0.01F) * 0.01F;
-
         if(entity.isAggressive()){
-            float f1 = Mth.sin(this.attackTime * (float)Math.PI);
-            float f2 = Mth.sin((1.0F - (1.0F - this.attackTime) * (1.0F - this.attackTime)) * (float)Math.PI);
-            this.right_arm.zRot = 0.0F;
-            this.left_arm.zRot = 0.0F;
-            this.right_arm.yRot = -(0.1F - f1 * 0.6F);
-            this.left_arm.yRot = 0.1F - f1 * 0.6F;
-            this.right_arm.xRot -= f1 * 1.2F - f2 * 0.4F;
-            this.left_arm.xRot -= f1 * 1.2F - f2 * 0.4F;
             if(!entity.getMainHandItem().isEmpty()){
-                this.animate(entity.attackAnimationState, GoblinAnimations.ATTACK_WEAPON, ageInTicks, 1f);
+                this.animate(entity.attackAnimationState, GoblinAnimations.ATTACK_WEAPON, ageInTicks, 2f);
             } else {
                 this.animate(entity.attackAnimationState, GoblinAnimations.ATTACK, ageInTicks, 1f);
             }
@@ -84,6 +75,7 @@ public class GoblinModel<T extends Goblin> extends HierarchicalModel<T> implemen
         }
 
         this.animateWalk(GoblinAnimations.WALK, limbSwing, limbSwingAmount, 2f, ageInTicks);
+        this.animate(entity.runAnimationState, GoblinAnimations.RUN, ageInTicks, 1f);
         this.animate(entity.idleAnimationState, GoblinAnimations.IDLE, ageInTicks, 0.5f);
     }
 

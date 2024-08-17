@@ -3,11 +3,9 @@ package com.idark.valoria.registries.entity.ai.goals;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.*;
 
-public class AdvancedPanicGoal extends PanicGoal{
-
+public class ReasonablePanicGoal extends PanicGoal{
     private final boolean reason;
-
-    public AdvancedPanicGoal(PathfinderMob mob, double pSpeedModifier, boolean pReason){
+    public ReasonablePanicGoal(PathfinderMob mob, double pSpeedModifier, boolean pReason){
         super(mob, pSpeedModifier);
         reason = pReason;
     }

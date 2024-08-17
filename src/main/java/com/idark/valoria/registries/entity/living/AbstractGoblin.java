@@ -1,7 +1,6 @@
 package com.idark.valoria.registries.entity.living;
 
 import com.idark.valoria.registries.*;
-import com.idark.valoria.registries.entity.ai.goals.*;
 import net.minecraft.core.particles.*;
 import net.minecraft.nbt.*;
 import net.minecraft.network.syncher.*;
@@ -11,11 +10,8 @@ import net.minecraft.util.valueproviders.*;
 import net.minecraft.world.*;
 import net.minecraft.world.damagesource.*;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.*;
-import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.item.*;
 import net.minecraft.world.entity.monster.*;
-import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.pathfinder.*;
@@ -112,23 +108,9 @@ public abstract class AbstractGoblin extends PathfinderMob implements NeutralMob
         super.aiStep();
     }
 
-    @Override
-    public boolean hurt(DamageSource source, float amount){
-        Entity entity = source.getEntity();
-        if(entity instanceof Player player){
-            if(player.getAttributeValue(Attributes.ATTACK_DAMAGE) > 10f){
-                this.goalSelector.addGoal(1, new AdvancedPanicGoal(this, 1.45f, player.getAttributeValue(Attributes.ATTACK_DAMAGE) > 10f));
-                this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 15, 1.2, 1.8));
-            }else if(this.getHealth() < 12){
-                this.goalSelector.addGoal(1, new AdvancedPanicGoal(this, 1.45f, this.getHealth() < 12));
-                this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 15, 1.2, 1.8));
-            }else{
-                if(!player.getAbilities().instabuild)
-                    this.setTarget((Player)entity);
-            }
-        }
-
-        return super.hurt(source, amount);
+    // panic reason
+    public final boolean isLowHP() {
+        return this.getHealth() < 12;
     }
 
     public void handleEntityEvent(byte pId){

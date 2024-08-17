@@ -24,6 +24,7 @@ import javax.annotation.*;
 public class Goblin extends AbstractGoblin{
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState attackAnimationState = new AnimationState();
+    public final AnimationState runAnimationState = new AnimationState();
     private int idleAnimationTimeout = 0;
     public Goblin(EntityType<? extends PathfinderMob> type, Level worldIn){
         super(type, worldIn);
@@ -53,6 +54,7 @@ public class Goblin extends AbstractGoblin{
     }
 
     private void setupAnimationStates() {
+        this.runAnimationState.animateWhen(this.isLowHP() || this.isSprinting(), this.tickCount);
         if(this.idleAnimationTimeout <= 0) {
             this.idleAnimationTimeout = 80;
             this.idleAnimationState.start(this.tickCount);
@@ -94,25 +96,23 @@ public class Goblin extends AbstractGoblin{
         this.targetSelector.addGoal(3, new HurtByTargetGoal(this).setAlertOthers());
         this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, AbstractVillager.class, true, true));
         this.targetSelector.addGoal(5, new ResetUniversalAngerTargetGoal<>(this, true));
-        this.goalSelector.addGoal(3, new AvoidStrongEntityGoal<>(this, Player.class, 16, 1.6, 1.8));
 
-        this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(2, new MoveTowardsTargetGoal(this, 0.9D, 32.0F));
-        this.goalSelector.addGoal(2, new WaterAvoidingRandomStrollGoal(this, 1.2));
-        this.goalSelector.addGoal(0, new AdvancedPanicGoal(this, 1.85, this.getHealth() < 12));
-        this.goalSelector.addGoal(0, new OpenDoorGoal(this, true));
-        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8));
-        this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(3, new RandomStrollGoal(this, 1.2));
-        this.goalSelector.addGoal(6, new ResetUniversalAngerTargetGoal<>(this, true));
-        this.goalSelector.addGoal(3, new CollectBerriesGoal(this, 1.2, 12, 4));
+        this.goalSelector.addGoal(0, new AvoidStrongEntityGoal<>(this, Player.class, 16, 1.2, 1.6));
         this.goalSelector.addGoal(0, new AvoidEntityGoal<>(this, Wolf.class, 8, 1.6, 1.4));
         this.goalSelector.addGoal(0, new AvoidEntityGoal<>(this, Creeper.class, 12, 1.8, 1.4));
         this.goalSelector.addGoal(0, new SearchForItemsGoal(this, ALLOWED_ITEMS));
+        this.goalSelector.addGoal(0, new OpenDoorGoal(this, true));
+        this.goalSelector.addGoal(0, new ReasonableAvoidEntityGoal<>(this, Player.class, 15, 1.25, 2, isLowHP()));
+        this.goalSelector.addGoal(0, new ReasonablePanicGoal(this, 2f, isLowHP()));
+        this.goalSelector.addGoal(0, new FloatGoal(this));
+        this.goalSelector.addGoal(2, new MoveTowardsTargetGoal(this, 0.9D, 32.0F));
+        this.goalSelector.addGoal(2, new WaterAvoidingRandomStrollGoal(this, 1.2));
+        this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(3, new RandomStrollGoal(this, 1.2));
+        this.goalSelector.addGoal(3, new CollectBerriesGoal(this, 1.2, 12, 4));
         this.goalSelector.addGoal(6, new RemoveBlockGoal(Blocks.FARMLAND, this, 1.4, 10));
         this.goalSelector.addGoal(6, new RemoveCropsGoal(this, 1.2, 10));
         this.goalSelector.addGoal(3, new FollowMobGoal(this, 1.2, 6, 10));
-        this.goalSelector.addGoal(0, new SeekShelterGoal(this, 1.2));
     }
 
     @Nullable
