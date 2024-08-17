@@ -14,11 +14,7 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.*;
 import org.jetbrains.annotations.*;
 
-import java.util.*;
-
 public class TaintTransformBlockItem extends BlockItem{
-    Random rand = new Random();
-
     public TaintTransformBlockItem(Block pBlock, Item.Properties pProperties){
         super(pBlock, pProperties);
     }
@@ -45,7 +41,7 @@ public class TaintTransformBlockItem extends BlockItem{
                 worldIn.playSound(player, player.blockPosition(), SoundEvents.FROG_LAY_SPAWN, SoundSource.BLOCKS, 1.0F, 1.0F);
                 worldIn.setBlockAndUpdate(pos, BlockRegistry.VOID_TAINT.get().defaultBlockState().setValue(VoidTaintBlock.TAINT, 1));
                 for(int i = 0; i < 6; i++){
-                    worldIn.addParticle(ParticleTypes.END_ROD, pos.getX() + rand.nextDouble(), pos.getY() + 1f, pos.getZ() + rand.nextDouble(), 0d, 0.05d, 0d);
+                    worldIn.addParticle(ParticleTypes.END_ROD, pos.getX() + worldIn.random.nextDouble(), pos.getY() + 1f, pos.getZ() + worldIn.random.nextDouble(), 0d, 0.05d, 0d);
                 }
 
                 if(!player.isCreative()){

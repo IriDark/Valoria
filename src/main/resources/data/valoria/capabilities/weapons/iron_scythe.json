@@ -1,0 +1,10 @@
+{
+  "attributes": {
+    "two_hand": {
+      "impact": 3.0,
+      "max_strikes": 3,
+      "armor_negation": 50.0
+    }
+  },
+  "type": "epicfight:longsword"
+}

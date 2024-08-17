@@ -1,0 +1,39 @@
+{
+  "collider": {
+    "size": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "center": [
+      0.0,
+      0.0,
+      0.0
+    ]
+  },
+  "livingmotion_modifier": {
+    "two_hand": {
+      "idle": "epicfight:biped/living/hold_uchigatana_sheath",
+      "run": "epicfight:biped/living/run_uchigatana_sheath",
+      "walk": "epicfight:biped/living/walk_uchigatana_sheath"
+    }
+  },
+  "hit_particle": "epicfight:cut",
+  "hit_sound": "epicfight:entity.hit.clash",
+  "swing_sound": "epicfight:entity.weapon.whoosh_hard",
+  "combos": {
+    "two_hand": [
+      "epicfight:biped/combat/greatsword_auto2",
+      "epicfight:biped/combat/tachi_auto2",
+      "epicfight:biped/combat/uchigatana_auto2",
+      "epicfight:biped/combat/trident_auto3",
+      "epicfight:biped/combat/uchigatana_sheath_dash",
+      "epicfight:biped/combat/dagger_dual_auto4"
+    ]
+  },
+  "styles": {
+    "default": "two_hand",
+    "cases": []
+  },
+  "category": "ranged"
+}

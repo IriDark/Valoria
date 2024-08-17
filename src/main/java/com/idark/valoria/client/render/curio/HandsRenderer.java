@@ -19,7 +19,6 @@ import top.theillusivec4.curios.api.client.*;
 public class HandsRenderer implements ICurioRenderer{
     public static ResourceLocation TEXTURE = new ResourceLocation(Valoria.ID, "textures/entity/necklace/empty.png");
     public static boolean isDefault;
-
     public boolean isDefault(LivingEntity entity){
         if(entity instanceof AbstractClientPlayer player){
             isDefault = player.getModelName().equals("default");
@@ -49,7 +48,6 @@ public class HandsRenderer implements ICurioRenderer{
             TEXTURE = curio.getTexture(stack, entity);
         }
 
-        // minecraft modding sucks
         float[] color = getColor(stack);
         if(isDefault(slotContext.entity())){
             HandsModel model = new HandsModel(Minecraft.getInstance().getEntityModels().bakeLayer(ValoriaClient.HANDS_LAYER));

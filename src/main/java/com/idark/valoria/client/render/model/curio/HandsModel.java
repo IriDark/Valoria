@@ -1,7 +1,6 @@
 package com.idark.valoria.client.render.model.curio;
 
 import com.google.common.collect.*;
-import com.mojang.blaze3d.vertex.*;
 import net.minecraft.client.model.*;
 import net.minecraft.client.model.geom.*;
 import net.minecraft.client.model.geom.builders.*;
@@ -16,7 +15,6 @@ public class HandsModel extends HumanoidModel<LivingEntity>{
         this.right_glove = root.getChild("right_glove");
         this.left_glove = root.getChild("left_glove");
     }
-
 
     public static LayerDefinition createBodyLayer(){
         MeshDefinition mesh = new MeshDefinition();
@@ -52,10 +50,5 @@ public class HandsModel extends HumanoidModel<LivingEntity>{
     @Override
     protected Iterable<ModelPart> bodyParts(){
         return ImmutableList.of(this.right_glove, this.left_glove);
-    }
-
-    @Override
-    public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha){
-        super.renderToBuffer(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
     }
 }

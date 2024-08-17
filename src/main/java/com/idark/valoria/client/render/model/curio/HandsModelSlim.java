@@ -16,7 +16,6 @@ public class HandsModelSlim extends HumanoidModel<LivingEntity>{
         this.left_glove = root.getChild("left_glove");
     }
 
-
     public static LayerDefinition createBodyLayer(){
         MeshDefinition mesh = new MeshDefinition();
         PartDefinition root = mesh.getRoot();

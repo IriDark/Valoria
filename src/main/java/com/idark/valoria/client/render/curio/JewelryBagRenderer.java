@@ -17,7 +17,6 @@ import top.theillusivec4.curios.api.client.*;
 public class JewelryBagRenderer implements ICurioRenderer{
     public static ResourceLocation TEXTURE = new ResourceLocation(Valoria.ID, "textures/entity/jewelry_bag.png");
     public static ResourceLocation OVERLAY = new ResourceLocation(Valoria.ID, "textures/entity/jewelry_bag_overlay.png");
-
     JewelryBagModel model = null;
 
     @Override
@@ -27,7 +26,7 @@ public class JewelryBagRenderer implements ICurioRenderer{
         }
 
         LivingEntity entity = slotContext.entity();
-        ICurioRenderer.followBodyRotations(entity, model);
+        ICurioRenderer.followBodyRotations(entity, model);  // breaks on epic fight anims
         model.setupAnim(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
         int k = ((DyeableLeatherItem)stack.getItem()).getColor(stack);
         float f = (float)(k >> 16 & 255) / 255.0F;

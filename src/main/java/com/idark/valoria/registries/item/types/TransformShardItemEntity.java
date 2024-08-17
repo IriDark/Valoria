@@ -19,12 +19,8 @@ import net.minecraft.world.phys.*;
 import net.minecraftforge.api.distmarker.*;
 import team.lodestar.lodestone.systems.particle.data.color.*;
 
-import java.util.*;
-
 //TODO: probably rework (maybe?)
 public class TransformShardItemEntity extends Item implements IParticleItemEntity{
-    Random rand = new Random();
-
     public TransformShardItemEntity(Properties properties){
         super(properties);
     }
@@ -41,6 +37,7 @@ public class TransformShardItemEntity extends Item implements IParticleItemEntit
         BlockState state = worldIn.getBlockState(context.getClickedPos());
         BlockPos pos = context.getClickedPos();
         Player player = context.getPlayer();
+        var rand = worldIn.random;
         if(state.is(BlockRegistry.VOID_PILLAR.get())){
             worldIn.playSound(player, player.blockPosition(), SoundEvents.RESPAWN_ANCHOR_AMBIENT, SoundSource.BLOCKS, 10f, 1f);
             worldIn.playSound(player, player.blockPosition(), SoundEvents.RESPAWN_ANCHOR_CHARGE, SoundSource.BLOCKS, 1.0F, 1.0F);
@@ -68,6 +65,7 @@ public class TransformShardItemEntity extends Item implements IParticleItemEntit
     @OnlyIn(Dist.CLIENT)
     @Override
     public void spawnParticles(Level level, ItemEntity entity){
+        var rand = level.random;
         Vec3 pos = new Vec3(entity.getX() + (rand.nextDouble() - 0.5f) / 6, entity.getY() + 0.4F, entity.getZ());
         if(entity.getItem().is(ItemsRegistry.AMETHYST.get())){
             ParticleEffects.itemParticles(level, pos, ColorParticleData.create(Pal.softMagenta, Pal.strongRed).build()).spawnParticles();
