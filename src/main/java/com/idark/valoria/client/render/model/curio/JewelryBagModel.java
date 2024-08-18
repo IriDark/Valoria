@@ -50,6 +50,11 @@ public class JewelryBagModel extends HumanoidModel<LivingEntity>{
             this.model.zScale = 1.0f;
         }
 
+        if(entity instanceof LivingEntity){
+            model.copyFrom(this.body);
+            model.y += 20;
+        } // hmmmm
+
         this.model.yRot = Mth.sin(limbSwing * 0.05F) * 0.03F;
         this.model.zRot = Mth.sin(limbSwing * 0.05F) * 0.03F;
         this.model.xRot = Mth.sin(limbSwing * 0.025F) * 0.03F;

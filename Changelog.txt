@@ -29,7 +29,7 @@
 - Added Shade Blossom
 - Added Shade Blossom Bandage
 - Added Pots Generation
-- Added Epic Fight compat (TODO)
+- Added Epic Fight compat (will be released as datapack, later maybe as mod that will fix some issues with abilities of modded weapons and maybe curios)
 
 - Animated Goblins
 
@@ -57,6 +57,7 @@
 
 - Optimized Gloves code
 - Updated mods.toml
+- Updated to Forge 47.2.20
 
 # Changelog v0.6
 
