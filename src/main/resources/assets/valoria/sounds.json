@@ -1,4 +1,12 @@
 {
+  "mob.troll.disappear": {
+    "subtitle": "subtitles.valoria.troll.disappear",
+    "replace": "true",
+    "sounds": [
+      "valoria:troll/disappear1",
+      "valoria:troll/disappear2"
+    ]
+  },
   "item.spear.hit_ground": {
     "subtitle": "subtitles.valoria.spear.hit_ground",
     "replace": "true",

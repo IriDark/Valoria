@@ -542,6 +542,8 @@ public class ItemsRegistry{
     () -> new ForgeSpawnEggItem(EntityTypeRegistry.SHADEWOOD_SPIDER, ColorUtil.hexToDecimal("373C53"), ColorUtil.hexToDecimal("6EABB7"), new Item.Properties()));
     public static final RegistryObject<ForgeSpawnEggItem> SUCCUBUS_SPAWN_EGG = ITEMS.register("succubus_spawn_egg",
     () -> new ForgeSpawnEggItem(EntityTypeRegistry.SUCCUBUS, ColorUtil.hexToDecimal("b64841"), ColorUtil.hexToDecimal("3a3b62"), new Item.Properties()));
+    public static final RegistryObject<ForgeSpawnEggItem> TROLL_SPAWN_EGG = ITEMS.register("troll_spawn_egg",
+    () -> new ForgeSpawnEggItem(EntityTypeRegistry.TROLL, ColorUtil.hexToDecimal("2d3a4a"), ColorUtil.hexToDecimal("847461"), new Item.Properties()));
 
     public static final RegistryObject<MannequinSpawnItem> MANNEQUIN_SPAWN_EGG = ITEMS.register("mannequin_spawn_egg",
     () -> new MannequinSpawnItem(new Item.Properties()));

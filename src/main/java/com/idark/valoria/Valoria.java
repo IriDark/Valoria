@@ -265,6 +265,11 @@ public class Valoria{
                 SpawnPlacements.Type.ON_GROUND,
                 Types.WORLD_SURFACE_WG,
                 Succubus::checkMonsterSpawnRules);
+
+                SpawnPlacements.register(EntityTypeRegistry.TROLL.get(),
+                SpawnPlacements.Type.ON_GROUND,
+                Types.WORLD_SURFACE_WG,
+                Troll::checkMonsterSpawnRules);
             });
         }
 
@@ -278,6 +283,7 @@ public class Valoria{
             event.put(EntityTypeRegistry.UNDEAD.get(), UndeadEntity.createAttributes().build());
             event.put(EntityTypeRegistry.SHADEWOOD_SPIDER.get(), ShadewoodSpider.createAttributes().build());
             event.put(EntityTypeRegistry.SUCCUBUS.get(), Succubus.createAttributes().build());
+            event.put(EntityTypeRegistry.TROLL.get(), Troll.createAttributes().build());
         }
 
         @SubscribeEvent

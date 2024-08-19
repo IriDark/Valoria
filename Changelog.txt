@@ -22,8 +22,11 @@
 - Now Valoria requires Lodestone
 - Various playability changes
 
+- Added Experience drop from Mobs
+- Added Trolls
+- Added Succubus
 - Added Custom Voxel shapes to some blocks
-- Added some Recipes
+- Added Some Recipes
 - Added Firefly like particles, spawned in Shadeforest
 - Added Particles for Bandages
 - Added Shade Blossom

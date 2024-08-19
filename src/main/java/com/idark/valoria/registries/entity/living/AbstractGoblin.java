@@ -164,6 +164,12 @@ public abstract class AbstractGoblin extends PathfinderMob implements NeutralMob
         super.onSyncedDataUpdated(pKey);
     }
 
+    protected void defineSynchedData(){
+        super.defineSynchedData();
+        this.getEntityData().define(DATA_BABY_ID, false);
+        this.entityData.define(DATA_REMAINING_ANGER_TIME, 0);
+    }
+
     public void addAdditionalSaveData(CompoundTag pCompound){
         super.addAdditionalSaveData(pCompound);
         this.addPersistentAngerSaveData(pCompound);
@@ -185,11 +191,5 @@ public abstract class AbstractGoblin extends PathfinderMob implements NeutralMob
 
     public void setBaby(boolean Baby){
         this.getEntityData().set(DATA_BABY_ID, Baby);
-    }
-
-    protected void defineSynchedData(){
-        super.defineSynchedData();
-        this.getEntityData().define(DATA_BABY_ID, false);
-        this.entityData.define(DATA_REMAINING_ANGER_TIME, 0);
     }
 }
