@@ -3,7 +3,7 @@
 - Only throwing weapons like kunai's but stackable
 - Stone Crusher page in  Lexicon
 - Farmers Delight compat
-- Create compat[latest (4).log](..%2F..%2F..%2FDownloads%2Flatest%20%284%29.log)
+- Create compat
 - Redo some of the renders that was based on MaxBogomol's code
 - More pyratite content
 - Mobs for valoria
@@ -19,6 +19,7 @@
 
 - Bronze recipes
 - Epic Fight Compat
+- Added Tomb variations
 ---
 ### Lexicon
 - Add more pages
