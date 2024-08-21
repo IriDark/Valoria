@@ -1,0 +1,20 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "valoria:block/mossy_tomb",
+      "y": 180
+    },
+    "facing=north": {
+      "model": "valoria:block/mossy_tomb",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "valoria:block/mossy_tomb",
+      "y": 90
+    },
+    "facing=west": {
+      "model": "valoria:block/mossy_tomb",
+      "y": 180
+    }
+  }
+}

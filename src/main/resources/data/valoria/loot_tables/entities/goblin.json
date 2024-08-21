@@ -32,7 +32,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:bone",
+          "name": "valoria:goblin_meat",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -53,12 +53,6 @@
                   "chance": 0.22
                 }
               ]
-            }
-          ],
-          "conditions": [
-            {
-              "condition": "minecraft:random_chance",
-              "chance": 0.75
             }
           ]
         }

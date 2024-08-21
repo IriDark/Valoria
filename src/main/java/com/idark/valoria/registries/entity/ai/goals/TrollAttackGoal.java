@@ -30,7 +30,6 @@ public class TrollAttackGoal extends MeleeAttackGoal{
         }
     }
 
-    //todo
     @Override
     public boolean canUse(){
         LivingEntity target = mob.getTarget();

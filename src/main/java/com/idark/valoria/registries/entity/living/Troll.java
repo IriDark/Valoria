@@ -15,8 +15,9 @@ import net.minecraft.world.level.pathfinder.*;
 
 import javax.annotation.*;
 
-//todo
 public class Troll extends Monster{
+    public final AnimationState idleAnimationState = new AnimationState();
+    private int idleAnimationTimeout = 0;
     public Troll(EntityType<? extends Monster> pEntityType, Level pLevel){
         super(pEntityType, pLevel);
         this.xpReward = 3;
@@ -31,6 +32,23 @@ public class Troll extends Monster{
         .add(Attributes.MOVEMENT_SPEED, 0.185D)
         .add(Attributes.ATTACK_DAMAGE, 6.0D)
         .add(Attributes.FOLLOW_RANGE, 20.0D);
+    }
+
+    @Override
+    public void tick(){
+        super.tick();
+        if(this.level().isClientSide()) {
+            setupAnimationStates();
+        }
+    }
+
+    private void setupAnimationStates() {
+        if(this.idleAnimationTimeout <= 0) {
+            this.idleAnimationTimeout = 60;
+            this.idleAnimationState.start(this.tickCount);
+        } else {
+            --this.idleAnimationTimeout;
+        }
     }
 
     public boolean doHurtTarget(Entity pEntity) {

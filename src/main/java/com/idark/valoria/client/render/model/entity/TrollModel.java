@@ -67,13 +67,14 @@ public class TrollModel<T extends Troll> extends HierarchicalModel<T> {
     @Override
     public void setupAnim(T pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
-        this.head.getChild("right_ear").yRot = Mth.sin(pAgeInTicks * 0.06F) * 0.06F;
-        this.head.getChild("left_ear").yRot = Mth.sin(pAgeInTicks * -0.06F) * 0.06F;
-        this.head.getChild("right_ear").xRot = Mth.sin(pAgeInTicks * 0.01F) * 0.01F;
-        this.head.getChild("left_ear").xRot = Mth.sin(pAgeInTicks * -0.01F) * 0.01F;
+        this.head.getChild("right_ear").yRot = Mth.sin(pAgeInTicks * 0.25F) * 0.06F;
+        this.head.getChild("left_ear").yRot = Mth.sin(pAgeInTicks * -0.25F) * 0.06F;
+        this.head.getChild("right_ear").xRot = Mth.sin(pAgeInTicks * 0.15F) * 0.01F;
+        this.head.getChild("left_ear").xRot = Mth.sin(pAgeInTicks * -0.15F) * 0.01F;
         this.animateHeadLookTarget(pNetHeadYaw, pHeadPitch);
-        this.animateWalk(GoblinAnimations.WALK, pLimbSwing, pLimbSwingAmount, 2, 3);
+        this.animateWalk(GoblinAnimations.WALK, pLimbSwing, pLimbSwingAmount, 2, 6);
         this.animateIdlePose(pAgeInTicks);
+        this.animate(pEntity.idleAnimationState, TrollAnimations.IDLE, pAgeInTicks, 0.5f);
     }
 
     private void animateHeadLookTarget(float pYaw, float pPitch) {

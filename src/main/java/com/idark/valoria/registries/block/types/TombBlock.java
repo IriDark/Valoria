@@ -12,17 +12,62 @@ import net.minecraft.world.phys.shapes.*;
 import javax.annotation.*;
 
 public class TombBlock extends HorizontalDirectionalBlock implements SimpleWaterloggedBlock{
-
-    private static final VoxelShape shape = Block.box(3, 0, 3, 14, 16, 14);
-
+    private final boolean isGrave;
     public TombBlock(BlockBehaviour.Properties properties){
         super(properties);
+        this.isGrave = false;
         registerDefaultState(defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, false));
     }
 
+    public TombBlock(boolean isGrave, BlockBehaviour.Properties properties){
+        super(properties);
+        this.isGrave = isGrave;
+        registerDefaultState(defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, false));
+    }
+
+    public VoxelShape makeGraveShape(BlockState state){
+        VoxelShape shape = Shapes.empty();
+        Direction direction = state.getValue(BlockStateProperties.HORIZONTAL_FACING);
+        switch(direction){
+            case SOUTH, NORTH -> {
+                shape = Shapes.join(shape, Shapes.box(0.0625, 0, 0.0625, 0.9375, 0.125, 0.9375), BooleanOp.OR);
+                shape = Shapes.join(shape, Shapes.box(0.1875, 0.125, 0.375, 0.8125, 0.875, 0.625), BooleanOp.OR);
+                shape = Shapes.join(shape, Shapes.box(0.25, 0.875, 0.375, 0.75, 0.9375, 0.625), BooleanOp.OR);
+            }
+
+            case WEST, EAST -> {
+                shape = Shapes.join(shape, Shapes.box(0.0625, 0, 0.0625, 0.9375, 0.125, 0.9375), BooleanOp.OR);
+                shape = Shapes.join(shape, Shapes.box(0.375, 0.125, 0.1875, 0.625, 0.875, 0.8125), BooleanOp.OR);
+                shape = Shapes.join(shape, Shapes.box(0.375, 0.875, 0.25, 0.625, 0.9375, 0.75), BooleanOp.OR);
+            }
+        }
+
+        return shape;
+    }
+
+    public VoxelShape makeTombShape(BlockState state){
+        VoxelShape shape = Shapes.empty();
+        Direction direction = state.getValue(BlockStateProperties.HORIZONTAL_FACING);
+        shape = Shapes.join(shape, Shapes.box(0.375, 0.1875, 0.375, 0.625, 0.5, 0.625), BooleanOp.OR);
+        switch(direction) {
+            case SOUTH, NORTH -> {
+                shape = Shapes.join(shape, Shapes.box(0.375, 0.75, 0.375, 0.625, 1, 0.625), BooleanOp.OR);
+                shape = Shapes.join(shape, Shapes.box(0.1875, 0, 0.1875, 0.8125, 0.25, 0.8125), BooleanOp.OR);
+                shape = Shapes.join(shape, Shapes.box(0.125, 0.5, 0.375, 0.875, 0.75, 0.625), BooleanOp.OR);
+            }
+
+            case WEST, EAST -> {
+                shape = Shapes.join(shape, Shapes.box(0.375, 0.75, 0.375, 0.625, 1, 0.625), BooleanOp.OR);
+                shape = Shapes.join(shape, Shapes.box(0.1875, 0, 0.1875, 0.8125, 0.25, 0.8125), BooleanOp.OR);
+                shape = Shapes.join(shape, Shapes.box(0.375, 0.5, 0.125, 0.625, 0.75, 0.875), BooleanOp.OR);
+            }
+        }
+
+        return shape;
+    }
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter reader, BlockPos pos, CollisionContext ctx){
-        return shape;
+        return this.isGrave ? makeGraveShape(state): makeTombShape(state);
     }
 
     @Override

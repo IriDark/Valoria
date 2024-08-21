@@ -470,8 +470,16 @@ public class BlockRegistry{
     () -> new CrusherBlock(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(1f, 2f)));
     public static final RegistryObject<Block> JEWELER_TABLE = registerBlock("jeweler_table",
     () -> new JewelerBlock(BlockBehaviour.Properties.copy(Blocks.CRAFTING_TABLE).requiresCorrectToolForDrops().strength(1f, 1f)));
+    public static final RegistryObject<Block> GRAVE = registerBlock("grave",
+    () -> new TombBlock(true, BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(1f, 1f).noOcclusion()));
     public static final RegistryObject<Block> TOMB = registerBlock("tomb",
     () -> new TombBlock(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(1f, 1f).noOcclusion()));
+    public static final RegistryObject<Block> MOSSY_TOMB = registerBlock("mossy_tomb",
+    () -> new TombBlock(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(1f, 1f).noOcclusion()));
+    public static final RegistryObject<Block> WOODEN_TOMB = registerBlock("wooden_tomb",
+    () -> new TombBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).requiresCorrectToolForDrops().strength(1f, 1f).noOcclusion()));
+    public static final RegistryObject<Block> MOSSY_WOODEN_TOMB = registerBlock("mossy_wooden_tomb",
+    () -> new TombBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).requiresCorrectToolForDrops().strength(1f, 1f).noOcclusion()));
     public static final RegistryObject<Block> KEG = registerBlock("keg",
     () -> new KegBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).requiresCorrectToolForDrops().strength(1f, 1f).noOcclusion()));
     public static final RegistryObject<Block> SARCOPHAGUS = registerBlock("sarcophagus",
