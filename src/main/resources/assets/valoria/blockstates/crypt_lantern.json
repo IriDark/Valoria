@@ -1,0 +1,11 @@
+{
+  "variants": {
+    "hanging=false": {
+      "model": "valoria:block/crypt_lantern"
+    },
+
+    "hanging=true": {
+      "model": "valoria:block/hanging_crypt_lantern"
+    }
+  }
+}

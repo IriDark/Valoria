@@ -33,6 +33,7 @@
 - Added Shade Blossom Bandage
 - Added Pots Generation
 - Added Epic Fight compat (will be released as datapack, later maybe as mod that will fix some issues with abilities of modded weapons and maybe curios)
+- Added Crypt Lantern
 
 - Animated Goblins
 

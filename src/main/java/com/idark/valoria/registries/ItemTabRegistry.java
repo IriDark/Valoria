@@ -597,6 +597,7 @@ public abstract class ItemTabRegistry{
             event.accept(BlockRegistry.UMBRAL_BRICKS);
             event.accept(BlockRegistry.UMBRAL_BLOCK);
             event.accept(BlockRegistry.TILE);
+            event.accept(BlockRegistry.CRYPT_LANTERN);
             event.accept(BlockRegistry.GRAVE);
             event.accept(BlockRegistry.TOMB);
             event.accept(BlockRegistry.MOSSY_TOMB);

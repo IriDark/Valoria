@@ -381,6 +381,8 @@ public class BlockRegistry{
     () -> new StairBlock(() -> TOMBSTONE_BRICKS.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> TOMBSTONE_BRICKS_WALL = registerBlock("tombstone_bricks_wall",
     () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops()));
+    public static final RegistryObject<Block> CRYPT_LANTERN = registerBlock("crypt_lantern", () -> new CryptLantern(BlockBehaviour.Properties.copy(Blocks.LANTERN)));
+
     // Wood
     public static final RegistryObject<Block> SHADEWOOD_PRESSURE_PLATE = registerBlock("shadewood_pressure_plate",
     () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_PURPLE).noOcclusion().noCollission(), BlockSetType.OAK));
@@ -441,6 +443,7 @@ public class BlockRegistry{
     () -> new FenceBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE).mapColor(MapColor.COLOR_MAGENTA)));
     public static final RegistryObject<Block> ELDRITCH_FENCE_GATE = registerBlock("eldritch_fence_gate",
     () -> new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE_GATE).mapColor(MapColor.COLOR_MAGENTA), ModWoodTypes.ELDRITCH));
+
     // Signs
     public static final RegistryObject<Block> SHADEWOOD_SIGN = BLOCK.register("shadewood_sign",
     () -> new ModStandingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_PURPLE).noOcclusion().noCollission(), ModWoodTypes.SHADEWOOD));
@@ -459,6 +462,7 @@ public class BlockRegistry{
     () -> new ModCeilingHangingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_MAGENTA).noOcclusion().noCollission(), ModWoodTypes.ELDRITCH));
     public static final RegistryObject<Block> ELDRITCH_WALL_HANGING_SIGN = BLOCK.register("eldritch_wall_hanging_sign",
     () -> new ModWallHangingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_MAGENTA).noOcclusion().noCollission(), ModWoodTypes.ELDRITCH));
+
     // Other
     public static final RegistryObject<Block> VALORIA_PORTAL = registerBlock("valoria_portal",
     () -> new ValoriaPortalBlock(BlockBehaviour.Properties.copy(Blocks.NETHER_PORTAL).mapColor(MapColor.COLOR_PURPLE)));

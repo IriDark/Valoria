@@ -46,7 +46,6 @@ public class ValoriaClient{
     public static ModelResourceLocation SPHERE = new ModelResourceLocation(Valoria.ID, "elemental_sphere", "");
 
     public static CooldownSoundInstance COOLDOWN_SOUND = new CooldownSoundInstance(null);
-
     public static ShaderInstance GLOWING_SHADER, GLOWING_PARTICLE_SHADER, SPRITE_PARTICLE_SHADER;
 
     public static ShaderInstance getGlowingParticleShader(){

@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
+    "valoria:wooden_tomb",
+    "valoria:mossy_wooden_tomb",
     "valoria:keg",
     "valoria:jeweler_table",
     "valoria:shadewood_door",
