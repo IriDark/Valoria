@@ -17,31 +17,40 @@
 
 - Added Suspicious Ice generation
 - Added Suspicious Iceberg generation
+- Added Experience drop from Mobs
+- Added Trolls
+- Added Succubus
+- Added Epic Fight compat (will be released as datapack, later maybe as mod that will fix some issues with abilities of modded weapons and maybe curios)
+- Added Crypt Lantern
+- Added Sake to Creative Tab
+
+- Changed Tipsy effect balance
+- Drinks are placeable now
+- Animated Goblins
+
+- Reworked Goblins
+- Decreased amount of bones dropped from Goblins
+
+- Resprited all the drinks
+
+- Updated to Forge 47.2.20
 
 # Changelog v0.6.1
 - Now Valoria requires Lodestone
 - Various playability changes
 
-- Added Experience drop from Mobs
-- Added Trolls
-- Added Succubus
 - Added Custom Voxel shapes to some blocks
-- Added Some Recipes
+- Added some Recipes
 - Added Firefly like particles, spawned in Shadeforest
 - Added Particles for Bandages
 - Added Shade Blossom
 - Added Shade Blossom Bandage
 - Added Pots Generation
-- Added Epic Fight compat (will be released as datapack, later maybe as mod that will fix some issues with abilities of modded weapons and maybe curios)
-- Added Crypt Lantern
-
-- Animated Goblins
 
 - Reworked Stone Crusher (A bit)
 - Reworked Accessories
 - Reworked BlazeReap
 - Reworked Bandages
-- Reworked Goblins
 - Decreased amount of bones dropped from Goblins
 
 - ID change of "pick" -> "prospectors_pick"
@@ -61,7 +70,6 @@
 
 - Optimized Gloves code
 - Updated mods.toml
-- Updated to Forge 47.2.20
 
 # Changelog v0.6
 

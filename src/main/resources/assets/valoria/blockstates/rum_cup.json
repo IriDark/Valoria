@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "cups=1": {
+      "model": "valoria:block/rum_cup"
+    },
+    "cups=2": {
+      "model": "valoria:block/rum_cup_two"
+    }
+  }
+}

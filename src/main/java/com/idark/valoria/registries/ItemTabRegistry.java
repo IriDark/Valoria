@@ -136,6 +136,7 @@ public abstract class ItemTabRegistry{
             event.accept(ItemsRegistry.AKVAVIT_BOTTLE);
             event.accept(ItemsRegistry.LIQUOR_BOTTLE);
             event.accept(ItemsRegistry.MEAD_BOTTLE);
+            event.accept(ItemsRegistry.SAKE_BOTTLE);
             event.accept(ItemsRegistry.RUM_BOTTLE);
             event.accept(ItemsRegistry.COGNAC_BOTTLE);
             event.accept(ItemsRegistry.WHISKEY_BOTTLE);

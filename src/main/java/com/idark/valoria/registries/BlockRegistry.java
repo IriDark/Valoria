@@ -3,14 +3,17 @@ package com.idark.valoria.registries;
 import com.idark.valoria.*;
 import com.idark.valoria.registries.block.types.*;
 import com.idark.valoria.registries.levelgen.tree.*;
+import net.minecraft.core.*;
 import net.minecraft.sounds.*;
 import net.minecraft.util.valueproviders.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.item.*;
+import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.level.block.state.properties.*;
 import net.minecraft.world.level.material.*;
+import net.minecraft.world.phys.shapes.*;
 import net.minecraftforge.eventbus.api.*;
 import net.minecraftforge.registries.*;
 
@@ -531,6 +534,33 @@ public class BlockRegistry{
     () -> new WickedOreBlock(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(8f, 12f).sound(SoundType.NETHER_BRICKS), UniformInt.of(0, 3)));
     public static final RegistryObject<Block> PEARLIUM_ORE = registerBlock("pearlium_ore",
     () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops()));
+    // Cups
+    public static final RegistryObject<Block> WOODEN_CUP = BLOCK.register("wooden_cup", BlockRegistry::cup);
+    public static final RegistryObject<Block> BEER_CUP = BLOCK.register("beer_cup", BlockRegistry::cup);
+    public static final RegistryObject<Block> RUM_CUP = BLOCK.register("rum_cup", BlockRegistry::cup);
+
+    public static final RegistryObject<Block> CUP = BLOCK.register("cup", BlockRegistry::cup);
+    public static final RegistryObject<Block> TEA_CUP = BLOCK.register("tea_cup", BlockRegistry::cup);
+    public static final RegistryObject<Block> GREEN_TEA_CUP = BLOCK.register("green_tea_cup", BlockRegistry::cup);
+    public static final RegistryObject<Block> COFFEE_CUP = BLOCK.register("coffee_cup", BlockRegistry::cup);
+    public static final RegistryObject<Block> CACAO_CUP = BLOCK.register("cacao_cup", BlockRegistry::cup);
+    // Bottles
+    public static final RegistryObject<Block> GLASS_BOTTLE = BLOCK.register("glass_bottle", () -> bottle(MapColor.COLOR_CYAN));
+    public static final RegistryObject<Block> RUM_BOTTLE = BLOCK.register("rum_bottle", () -> bottle(MapColor.COLOR_RED));
+    public static final RegistryObject<Block> COKE_BOTTLE = BLOCK.register("coke_bottle", () -> bottle(MapColor.COLOR_BROWN));
+    public static final RegistryObject<Block> AKVAVIT_BOTTLE = BLOCK.register("akvavit_bottle", () -> bottle(MapColor.COLOR_YELLOW));
+    public static final RegistryObject<Block> SAKE_BOTTLE = BLOCK.register("sake_bottle", () -> bottle(MapColor.COLOR_MAGENTA));
+    public static final RegistryObject<Block> LIQUOR_BOTTLE = BLOCK.register("liquor_bottle", () -> bottle(MapColor.COLOR_GREEN));
+    public static final RegistryObject<Block> WINE_BOTTLE = BLOCK.register("wine_bottle", () -> bottle(MapColor.COLOR_GREEN));
+    public static final RegistryObject<Block> MEAD_BOTTLE = BLOCK.register("mead_bottle", () -> bottle(MapColor.COLOR_ORANGE));
+
+    // Large Bottles
+    public static final RegistryObject<Block> KVASS_BOTTLE = BLOCK.register("kvass_bottle", () -> largeBottle(MapColor.COLOR_BROWN));
+    public static final RegistryObject<Block> WHISKEY_BOTTLE = BLOCK.register("whiskey_bottle", () -> largeBottle(MapColor.COLOR_RED));
+
+    // Special Bottles
+    public static final RegistryObject<Block> COGNAC_BOTTLE = BLOCK.register("cognac_bottle", () -> cognacBottle(MapColor.COLOR_RED));
+
     // Crystals
     public static final RegistryObject<Block> VOID_CRYSTAL = registerBlock("void_crystal",
     () -> new AmethystClusterBlock(7, 3, BlockBehaviour.Properties.copy(Blocks.LARGE_AMETHYST_BUD).strength(1f, 0f).sound(SoundType.GLASS).noOcclusion()));
@@ -646,6 +676,46 @@ public class BlockRegistry{
     () -> new TallRootsBlock(BlockBehaviour.Properties.copy(Blocks.CRIMSON_ROOTS).mapColor(MapColor.COLOR_BROWN)));
     public static final RegistryObject<Block> SHADE_BLOSSOM = registerBlock("shade_blossom",
     () -> new ShadeBlossomBlock(BlockBehaviour.Properties.copy(Blocks.SPORE_BLOSSOM).mapColor(MapColor.COLOR_LIGHT_BLUE)));
+
+    private static BottleBlock bottle(MapColor pMapColor) {
+        return new BottleBlock(BlockBehaviour.Properties.of().mapColor(pMapColor).noOcclusion().strength(0.1F).sound(SoundType.GLASS).pushReaction(PushReaction.DESTROY));
+    }
+
+    private static CupBlock cup() {
+        return new CupBlock(BlockBehaviour.Properties.of().noOcclusion().strength(0.1F).sound(SoundType.GLASS).pushReaction(PushReaction.DESTROY));
+    }
+
+    private static BottleBlock largeBottle(MapColor pMapColor) {
+        return new BottleBlock(BlockBehaviour.Properties.of().mapColor(pMapColor).noOcclusion().strength(0.1F).sound(SoundType.GLASS).pushReaction(PushReaction.DESTROY)) {
+            private static final VoxelShape FIRST_AABB = Shapes.box(0.40625, 0, 0.375, 0.78125, 0.6875, 0.75);
+            private static final VoxelShape SECOND_AABB = Shapes.box(0.09375, 0, 0.125, 0.96875, 0.6875, 0.9375);
+            private static final VoxelShape THIRD_ABB = Shapes.box(0, 0, 0, 1, 0.6875, 1);
+
+            public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
+                return switch(pState.getValue(BOTTLES)){
+                    default -> FIRST_AABB;
+                    case 2 -> SECOND_AABB;
+                    case 3, 4 -> THIRD_ABB;
+                };
+            }
+        };
+    }
+
+    private static BottleBlock cognacBottle(MapColor pMapColor) {
+        return new BottleBlock(BlockBehaviour.Properties.of().mapColor(pMapColor).noOcclusion().strength(0.1F).sound(SoundType.GLASS).pushReaction(PushReaction.DESTROY)) {
+            private static final VoxelShape FIRST_AABB = Shapes.box(0.34375, 0, 0.3125, 0.71875, 0.625, 0.6875);
+            private static final VoxelShape SECOND_AABB = Shapes.box(0.09375, 0, 0.0625, 0.90625, 0.625, 0.875);
+            private static final VoxelShape THIRD_ABB = Shapes.box(-0.02101600917974844, 0, 0.014467690303026637, 0.9946089908202516, 0.625, 1.0144676903030265);
+
+            public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
+                return switch(pState.getValue(BOTTLES)){
+                    default -> FIRST_AABB;
+                    case 2 -> SECOND_AABB;
+                    case 3, 4 -> THIRD_ABB;
+                };
+            }
+        };
+    }
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block){
         RegistryObject<T> toReturn = BLOCK.register(name, block);

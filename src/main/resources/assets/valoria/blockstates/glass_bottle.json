@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "bottles=1": {
+      "model": "valoria:block/glass_bottle"
+    },
+    "bottles=2": {
+      "model": "valoria:block/glass_bottle_two"
+    },
+    "bottles=3": {
+      "model": "valoria:block/glass_bottle_three"
+    },
+    "bottles=4": {
+      "model": "valoria:block/glass_bottle_four"
+    }
+  }
+}
