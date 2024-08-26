@@ -124,8 +124,8 @@ public class ItemsRegistry{
     public static final RegistryObject<Item> GAIB_ROOT = ITEMS.register("gaib_root", () -> new Item(new Item.Properties().stacksTo(16)));
     public static final RegistryObject<Item> KARUSAKAN_ROOT = ITEMS.register("karusakan_root", () -> new Item(new Item.Properties().stacksTo(16)));
     public static final RegistryObject<Item> WOODEN_CUP = ITEMS.register("wooden_cup", () -> new BlockItem(BlockRegistry.WOODEN_CUP.get(), new Item.Properties()));
-    public static final RegistryObject<Item> CUP = ITEMS.register("cup", () -> new BlockItem(BlockRegistry.CUP.get(), new Item.Properties().stacksTo(16)));
-    public static final RegistryObject<Item> BOTTLE = ITEMS.register("bottle", () -> new BlockItem(BlockRegistry.GLASS_BOTTLE.get(), new Item.Properties().stacksTo(16)));
+    public static final RegistryObject<Item> CUP = ITEMS.register("cup", () -> new BlockItem(BlockRegistry.CUP.get(), new Item.Properties().stacksTo(64)));
+    public static final RegistryObject<Item> BOTTLE = ITEMS.register("bottle", () -> new BlockItem(BlockRegistry.GLASS_BOTTLE.get(), new Item.Properties().stacksTo(64)));
     public static final RegistryObject<Item> ALOE_PIECE = ITEMS.register("aloe_piece", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> SPIDER_FANG = ITEMS.register("spider_fang", () -> new Item(new Item.Properties()));
 
@@ -152,12 +152,12 @@ public class ItemsRegistry{
     public static final RegistryObject<Item> ALOE_BANDAGE = ITEMS.register("aloe_bandage", () -> new BandageItem(false, 1600, 0));
     public static final RegistryObject<Item> ALOE_BANDAGE_UPGRADED = ITEMS.register("aloe_bandage_upgraded", () -> new BandageItem(true, 1450, 1));
     public static final RegistryObject<Item> SHADE_BLOSSOM_BANDAGE = ITEMS.register("shade_blossom_bandage", () -> new BandageItem(true, 1750, 1)); //todo custom effect
-    public static final RegistryObject<Item> CACAO_CUP = ITEMS.register("cacao_cup", () -> new PlaceableDrinkItem(BlockRegistry.CACAO_CUP.get(),0, 1, 1, ItemsRegistry.CUP.get(), new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 250)));
-    public static final RegistryObject<Item> COFFEE_CUP = ITEMS.register("coffee_cup", () -> new PlaceableDrinkItem(BlockRegistry.COFFEE_CUP.get(),0, 1, 1, ItemsRegistry.CUP.get(), new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 250)));
-    public static final RegistryObject<Item> TEA_CUP = ITEMS.register("tea_cup", () -> new PlaceableDrinkItem(BlockRegistry.TEA_CUP.get(),0, 1, 1, ItemsRegistry.CUP.get(), new MobEffectInstance(MobEffects.DIG_SPEED, 100)));
-    public static final RegistryObject<Item> GREEN_TEA_CUP = ITEMS.register("green_tea_cup", () -> new PlaceableDrinkItem(BlockRegistry.GREEN_TEA_CUP.get(),0, 1, 1, ItemsRegistry.CUP.get(), new MobEffectInstance(EffectsRegistry.ALOEREGEN.get(), 1800)));
-    public static final RegistryObject<Item> BEER_CUP = ITEMS.register("beer_cup", () -> new PlaceableDrinkItem(BlockRegistry.BEER_CUP.get(),0, 1, 1, ItemsRegistry.WOODEN_CUP.get(), new MobEffectInstance(EffectsRegistry.TIPSY.get(), 400, 0)));
-    public static final RegistryObject<Item> RUM_CUP = ITEMS.register("rum_cup", () -> new PlaceableDrinkItem(BlockRegistry.RUM_CUP.get(),0, 1, 1, ItemsRegistry.WOODEN_CUP.get(), new MobEffectInstance(EffectsRegistry.TIPSY.get(), 400, 0), new MobEffectInstance(MobEffects.CONFUSION, 120, 0)));
+    public static final RegistryObject<Item> CACAO_CUP = ITEMS.register("cacao_cup", () -> new PlaceableDrinkItem(BlockRegistry.CACAO_CUP.get(),0, 1, 64, ItemsRegistry.CUP.get(), new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 250)));
+    public static final RegistryObject<Item> COFFEE_CUP = ITEMS.register("coffee_cup", () -> new PlaceableDrinkItem(BlockRegistry.COFFEE_CUP.get(),0, 1, 1646, ItemsRegistry.CUP.get(), new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 250)));
+    public static final RegistryObject<Item> TEA_CUP = ITEMS.register("tea_cup", () -> new PlaceableDrinkItem(BlockRegistry.TEA_CUP.get(),0, 1, 16, ItemsRegistry.CUP.get(), new MobEffectInstance(MobEffects.DIG_SPEED, 100)));
+    public static final RegistryObject<Item> GREEN_TEA_CUP = ITEMS.register("green_tea_cup", () -> new PlaceableDrinkItem(BlockRegistry.GREEN_TEA_CUP.get(),0, 1, 64, ItemsRegistry.CUP.get(), new MobEffectInstance(EffectsRegistry.ALOEREGEN.get(), 1800)));
+    public static final RegistryObject<Item> BEER_CUP = ITEMS.register("beer_cup", () -> new PlaceableDrinkItem(BlockRegistry.BEER_CUP.get(),0, 1, 64, ItemsRegistry.WOODEN_CUP.get(), new MobEffectInstance(EffectsRegistry.TIPSY.get(), 400, 0)));
+    public static final RegistryObject<Item> RUM_CUP = ITEMS.register("rum_cup", () -> new PlaceableDrinkItem(BlockRegistry.RUM_CUP.get(),0, 1, 64, ItemsRegistry.WOODEN_CUP.get(), new MobEffectInstance(EffectsRegistry.TIPSY.get(), 400, 0), new MobEffectInstance(MobEffects.CONFUSION, 120, 0)));
     public static final RegistryObject<Item> KVASS_BOTTLE = ITEMS.register("kvass_bottle", () -> new PlaceableDrinkItem(BlockRegistry.KVASS_BOTTLE.get(),0, 1, 64, ItemsRegistry.BOTTLE.get(), new MobEffectInstance(EffectsRegistry.ALOEREGEN.get(), 200)));
     public static final RegistryObject<Item> WINE_BOTTLE = ITEMS.register("wine_bottle", () -> new PlaceableDrinkItem(BlockRegistry.WINE_BOTTLE.get(),0, 1, 64, ItemsRegistry.BOTTLE.get(), new MobEffectInstance(EffectsRegistry.TIPSY.get(), 450, 1), new MobEffectInstance(MobEffects.CONFUSION, 300)));
     public static final RegistryObject<Item> AKVAVIT_BOTTLE = ITEMS.register("akvavit_bottle", () -> new PlaceableDrinkItem(BlockRegistry.AKVAVIT_BOTTLE.get(),0, 1, 64, ItemsRegistry.BOTTLE.get(), new MobEffectInstance(EffectsRegistry.TIPSY.get(), 500, 1), new MobEffectInstance(MobEffects.CONFUSION, 320)));

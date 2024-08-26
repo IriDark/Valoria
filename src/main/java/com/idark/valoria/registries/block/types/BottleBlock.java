@@ -14,7 +14,6 @@ import net.minecraft.world.phys.shapes.*;
 
 public class BottleBlock extends Block{
     public static final IntegerProperty BOTTLES = IntegerProperty.create("bottles", 1, 4);
-    public static final BooleanProperty LIT = AbstractCandleBlock.LIT;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     private static final VoxelShape ONE_AABB = Shapes.box(0.40625, 0, 0.375, 0.65625, 0.625, 0.625);
     private static final VoxelShape TWO_AABB = Shapes.box(0.15625, 0, 0.375, 0.84375, 0.625, 0.8125);
@@ -22,11 +21,11 @@ public class BottleBlock extends Block{
     private static final VoxelShape FOUR_AABB = Shapes.box(0, 0, 0.0625, 0.90625, 0.625, 0.984375);
     public BottleBlock(BlockBehaviour.Properties pProperties) {
         super(pProperties);
-        this.registerDefaultState(this.stateDefinition.any().setValue(BOTTLES, 1).setValue(LIT, false).setValue(WATERLOGGED, false));
+        this.registerDefaultState(this.stateDefinition.any().setValue(BOTTLES, 1).setValue(WATERLOGGED, false));
     }
 
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-        if (pPlayer.getAbilities().mayBuild && pPlayer.getItemInHand(pHand).isEmpty() && pState.getValue(LIT)) {
+        if (pPlayer.getAbilities().mayBuild && pPlayer.getItemInHand(pHand).isEmpty()) {
             return InteractionResult.sidedSuccess(pLevel.isClientSide);
         } else {
             return InteractionResult.PASS;
@@ -70,7 +69,7 @@ public class BottleBlock extends Block{
     }
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-        pBuilder.add(BOTTLES, LIT, WATERLOGGED);
+        pBuilder.add(BOTTLES, WATERLOGGED);
     }
 
     public boolean placeLiquid(LevelAccessor pLevel, BlockPos pPos, BlockState pState, FluidState pFluidState) {

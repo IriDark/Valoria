@@ -26,6 +26,7 @@
 
 - Changed Tipsy effect balance
 - Drinks are placeable now
+- Drinks are stackable up to 64 now
 - Animated Goblins
 
 - Reworked Goblins

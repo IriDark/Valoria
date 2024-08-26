@@ -14,12 +14,11 @@ import net.minecraft.world.phys.shapes.*;
 
 public class CupBlock extends Block{
     public static final IntegerProperty CUPS = IntegerProperty.create("cups", 1, 2);
-    public static final BooleanProperty LIT = AbstractCandleBlock.LIT;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     private static final VoxelShape TWO_AABB = Shapes.box(0.0625, 0, 0.0625, 0.875, 0.3125, 0.875);
     public CupBlock(Properties pProperties) {
         super(pProperties);
-        this.registerDefaultState(this.stateDefinition.any().setValue(CUPS, 1).setValue(LIT, false).setValue(WATERLOGGED, false));
+        this.registerDefaultState(this.stateDefinition.any().setValue(CUPS, 1).setValue(WATERLOGGED, false));
     }
 
     public VoxelShape makeShape(){
@@ -31,7 +30,7 @@ public class CupBlock extends Block{
     }
 
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-        if (pPlayer.getAbilities().mayBuild && pPlayer.getItemInHand(pHand).isEmpty() && pState.getValue(LIT)) {
+        if (pPlayer.getAbilities().mayBuild && pPlayer.getItemInHand(pHand).isEmpty()) {
             return InteractionResult.sidedSuccess(pLevel.isClientSide);
         } else {
             return InteractionResult.PASS;
@@ -73,7 +72,7 @@ public class CupBlock extends Block{
     }
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-        pBuilder.add(CUPS, LIT, WATERLOGGED);
+        pBuilder.add(CUPS, WATERLOGGED);
     }
 
     public boolean placeLiquid(LevelAccessor pLevel, BlockPos pPos, BlockState pState, FluidState pFluidState) {

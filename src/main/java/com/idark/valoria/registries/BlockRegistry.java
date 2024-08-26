@@ -535,9 +535,9 @@ public class BlockRegistry{
     public static final RegistryObject<Block> PEARLIUM_ORE = registerBlock("pearlium_ore",
     () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops()));
     // Cups
-    public static final RegistryObject<Block> WOODEN_CUP = BLOCK.register("wooden_cup", BlockRegistry::cup);
-    public static final RegistryObject<Block> BEER_CUP = BLOCK.register("beer_cup", BlockRegistry::cup);
-    public static final RegistryObject<Block> RUM_CUP = BLOCK.register("rum_cup", BlockRegistry::cup);
+    public static final RegistryObject<Block> WOODEN_CUP = BLOCK.register("wooden_cup", BlockRegistry::woodenCup);
+    public static final RegistryObject<Block> BEER_CUP = BLOCK.register("beer_cup", BlockRegistry::woodenCup);
+    public static final RegistryObject<Block> RUM_CUP = BLOCK.register("rum_cup", BlockRegistry::woodenCup);
 
     public static final RegistryObject<Block> CUP = BLOCK.register("cup", BlockRegistry::cup);
     public static final RegistryObject<Block> TEA_CUP = BLOCK.register("tea_cup", BlockRegistry::cup);
@@ -683,6 +683,10 @@ public class BlockRegistry{
 
     private static CupBlock cup() {
         return new CupBlock(BlockBehaviour.Properties.of().noOcclusion().strength(0.1F).sound(SoundType.GLASS).pushReaction(PushReaction.DESTROY));
+    }
+
+    private static CupBlock woodenCup() {
+        return new CupBlock(BlockBehaviour.Properties.of().noOcclusion().strength(0.1F).sound(SoundType.WOOD).pushReaction(PushReaction.DESTROY));
     }
 
     private static BottleBlock largeBottle(MapColor pMapColor) {
