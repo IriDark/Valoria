@@ -469,10 +469,6 @@ public class BlockRegistry{
     // Other
     public static final RegistryObject<Block> VALORIA_PORTAL = registerBlock("valoria_portal",
     () -> new ValoriaPortalBlock(BlockBehaviour.Properties.copy(Blocks.NETHER_PORTAL).mapColor(MapColor.COLOR_PURPLE)));
-    public static final RegistryObject<Block> GEODITE_DIRT = registerBlock("geodite_dirt",
-    () -> new Block(BlockBehaviour.Properties.copy(Blocks.DIRT).strength(0.5f, 2f).sound(SoundType.ROOTED_DIRT)));
-    public static final RegistryObject<Block> GEODITE_STONE = registerBlock("geodite_stone",
-    () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(2f, 4f)));
     public static final RegistryObject<Block> STONE_CRUSHER = registerBlock("stone_crusher",
     () -> new CrusherBlock(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(1f, 2f)));
     public static final RegistryObject<Block> JEWELER_TABLE = registerBlock("jeweler_table",
