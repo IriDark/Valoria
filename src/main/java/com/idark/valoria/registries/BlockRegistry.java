@@ -673,25 +673,25 @@ public class BlockRegistry{
     public static final RegistryObject<Block> SHADE_BLOSSOM = registerBlock("shade_blossom",
     () -> new ShadeBlossomBlock(BlockBehaviour.Properties.copy(Blocks.SPORE_BLOSSOM).mapColor(MapColor.COLOR_LIGHT_BLUE)));
 
-    private static BottleBlock bottle(MapColor pMapColor) {
+    private static BottleBlock bottle(MapColor pMapColor){
         return new BottleBlock(BlockBehaviour.Properties.of().mapColor(pMapColor).noOcclusion().strength(0.1F).sound(SoundType.GLASS).pushReaction(PushReaction.DESTROY));
     }
 
-    private static CupBlock cup() {
+    private static CupBlock cup(){
         return new CupBlock(BlockBehaviour.Properties.of().noOcclusion().strength(0.1F).sound(SoundType.GLASS).pushReaction(PushReaction.DESTROY));
     }
 
-    private static CupBlock woodenCup() {
+    private static CupBlock woodenCup(){
         return new CupBlock(BlockBehaviour.Properties.of().noOcclusion().strength(0.1F).sound(SoundType.WOOD).pushReaction(PushReaction.DESTROY));
     }
 
-    private static BottleBlock largeBottle(MapColor pMapColor) {
-        return new BottleBlock(BlockBehaviour.Properties.of().mapColor(pMapColor).noOcclusion().strength(0.1F).sound(SoundType.GLASS).pushReaction(PushReaction.DESTROY)) {
+    private static BottleBlock largeBottle(MapColor pMapColor){
+        return new BottleBlock(BlockBehaviour.Properties.of().mapColor(pMapColor).noOcclusion().strength(0.1F).sound(SoundType.GLASS).pushReaction(PushReaction.DESTROY)){
             private static final VoxelShape FIRST_AABB = Shapes.box(0.40625, 0, 0.375, 0.78125, 0.6875, 0.75);
             private static final VoxelShape SECOND_AABB = Shapes.box(0.09375, 0, 0.125, 0.96875, 0.6875, 0.9375);
             private static final VoxelShape THIRD_ABB = Shapes.box(0, 0, 0, 1, 0.6875, 1);
 
-            public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
+            public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext){
                 return switch(pState.getValue(BOTTLES)){
                     default -> FIRST_AABB;
                     case 2 -> SECOND_AABB;
@@ -701,13 +701,13 @@ public class BlockRegistry{
         };
     }
 
-    private static BottleBlock cognacBottle(MapColor pMapColor) {
-        return new BottleBlock(BlockBehaviour.Properties.of().mapColor(pMapColor).noOcclusion().strength(0.1F).sound(SoundType.GLASS).pushReaction(PushReaction.DESTROY)) {
+    private static BottleBlock cognacBottle(MapColor pMapColor){
+        return new BottleBlock(BlockBehaviour.Properties.of().mapColor(pMapColor).noOcclusion().strength(0.1F).sound(SoundType.GLASS).pushReaction(PushReaction.DESTROY)){
             private static final VoxelShape FIRST_AABB = Shapes.box(0.34375, 0, 0.3125, 0.71875, 0.625, 0.6875);
             private static final VoxelShape SECOND_AABB = Shapes.box(0.09375, 0, 0.0625, 0.90625, 0.625, 0.875);
             private static final VoxelShape THIRD_ABB = Shapes.box(-0.02101600917974844, 0, 0.014467690303026637, 0.9946089908202516, 0.625, 1.0144676903030265);
 
-            public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
+            public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext){
                 return switch(pState.getValue(BOTTLES)){
                     default -> FIRST_AABB;
                     case 2 -> SECOND_AABB;

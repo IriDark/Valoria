@@ -20,6 +20,7 @@ import java.util.*;
 
 public class CurioCurses extends CurioRune{
     private static List<MobEffect> effects = new ArrayList<>();
+
     public CurioCurses(Properties properties){
         super(properties);
     }

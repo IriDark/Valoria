@@ -32,6 +32,7 @@ public abstract class AbstractGoblin extends PathfinderMob implements NeutralMob
     public static final EntityDataAccessor<Integer> DATA_REMAINING_ANGER_TIME = SynchedEntityData.defineId(AbstractGoblin.class, EntityDataSerializers.INT);
     public static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
     public static final EntityDataAccessor<Boolean> DATA_BABY_ID = SynchedEntityData.defineId(AbstractGoblin.class, EntityDataSerializers.BOOLEAN);
+
     public AbstractGoblin(EntityType<? extends PathfinderMob> pEntityType, Level pLevel){
         super(pEntityType, pLevel);
         this.setCanPickUpLoot(true);
@@ -109,7 +110,7 @@ public abstract class AbstractGoblin extends PathfinderMob implements NeutralMob
     }
 
     // panic reason
-    public final boolean isLowHP() {
+    public final boolean isLowHP(){
         return this.getHealth() < 12;
     }
 

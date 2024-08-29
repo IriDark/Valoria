@@ -29,7 +29,7 @@ public class CryptLantern extends LanternBlock{
         return shape;
     }
 
-    public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
+    public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext){
         return pState.getValue(HANGING) ? makeHangingShape() : makeShape();
     }
 }

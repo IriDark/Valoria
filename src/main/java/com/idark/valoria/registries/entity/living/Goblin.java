@@ -26,6 +26,7 @@ public class Goblin extends AbstractGoblin{
     public final AnimationState attackAnimationState = new AnimationState();
     public final AnimationState runAnimationState = new AnimationState();
     private int idleAnimationTimeout = 0;
+
     public Goblin(EntityType<? extends PathfinderMob> type, Level worldIn){
         super(type, worldIn);
         this.xpReward = 3;
@@ -39,7 +40,7 @@ public class Goblin extends AbstractGoblin{
         .add(Attributes.FOLLOW_RANGE, 20.0D);
     }
 
-    public boolean doHurtTarget(Entity pEntity) {
+    public boolean doHurtTarget(Entity pEntity){
         this.level().broadcastEntityEvent(this, (byte)4);
 //        this.playSound(SoundEvents.WARDEN_ATTACK_IMPACT, 10.0F, this.getVoicePitch());
         return super.doHurtTarget(pEntity);
@@ -48,17 +49,17 @@ public class Goblin extends AbstractGoblin{
     @Override
     public void tick(){
         super.tick();
-        if(this.level().isClientSide()) {
+        if(this.level().isClientSide()){
             setupAnimationStates();
         }
     }
 
-    private void setupAnimationStates() {
+    private void setupAnimationStates(){
         this.runAnimationState.animateWhen(this.isLowHP() || this.isSprinting(), this.tickCount);
-        if(this.idleAnimationTimeout <= 0) {
+        if(this.idleAnimationTimeout <= 0){
             this.idleAnimationTimeout = 80;
             this.idleAnimationState.start(this.tickCount);
-        } else {
+        }else{
             --this.idleAnimationTimeout;
         }
     }

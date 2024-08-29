@@ -19,7 +19,7 @@ public class SuccubusModel<T extends Succubus> extends HierarchicalModel<T>{
     private final ModelPart leftWing;
     private final ModelPart rightWing;
 
-    public SuccubusModel(ModelPart root) {
+    public SuccubusModel(ModelPart root){
         super(RenderType::entityCutoutNoCull);
         this.root = root;
         this.head = root.getChild("head");
@@ -66,7 +66,7 @@ public class SuccubusModel<T extends Succubus> extends HierarchicalModel<T>{
         return LayerDefinition.create(meshdefinition, 128, 128);
     }
 
-    public void setupAnim(T pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch) {
+    public void setupAnim(T pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch){
         this.root().getAllParts().forEach(ModelPart::resetPose);
         this.animateHeadLookTarget(pNetHeadYaw, pHeadPitch);
         this.animateWalk(pLimbSwing, pLimbSwingAmount);
@@ -75,12 +75,12 @@ public class SuccubusModel<T extends Succubus> extends HierarchicalModel<T>{
         this.animate(pEntity.fireballAnimationState, SuccubusAnimation.ATTACK_RANGE, pAgeInTicks);
     }
 
-    private void animateHeadLookTarget(float pYaw, float pPitch) {
+    private void animateHeadLookTarget(float pYaw, float pPitch){
         this.head.xRot = pPitch * ((float)Math.PI / 180F);
         this.head.yRot = pYaw * ((float)Math.PI / 180F);
     }
 
-    private void animateWalk(float pLimbSwing, float pLimbSwingAmount) {
+    private void animateWalk(float pLimbSwing, float pLimbSwingAmount){
         float f = Math.min(0.5F, 3.0F * pLimbSwingAmount);
         float f1 = pLimbSwing * 0.8662F;
         float f2 = Mth.cos(f1);
@@ -99,7 +99,7 @@ public class SuccubusModel<T extends Succubus> extends HierarchicalModel<T>{
         this.resetArmPoses();
     }
 
-    private void resetArmPoses() {
+    private void resetArmPoses(){
         this.leftArm.yRot = 0.0F;
         this.leftArm.z = 0;
         this.leftArm.x = 4;
@@ -111,7 +111,7 @@ public class SuccubusModel<T extends Succubus> extends HierarchicalModel<T>{
         this.rightArm.y = 0;
     }
 
-    private void animateIdlePose(float pAgeInTicks) {
+    private void animateIdlePose(float pAgeInTicks){
         float f = pAgeInTicks * 0.1F;
         float f1 = Mth.cos(f);
         float f2 = Mth.sin(f);

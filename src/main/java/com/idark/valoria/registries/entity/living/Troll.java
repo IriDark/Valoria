@@ -18,6 +18,7 @@ import javax.annotation.*;
 public class Troll extends Monster{
     public final AnimationState idleAnimationState = new AnimationState();
     private int idleAnimationTimeout = 0;
+
     public Troll(EntityType<? extends Monster> pEntityType, Level pLevel){
         super(pEntityType, pLevel);
         this.xpReward = 3;
@@ -37,21 +38,21 @@ public class Troll extends Monster{
     @Override
     public void tick(){
         super.tick();
-        if(this.level().isClientSide()) {
+        if(this.level().isClientSide()){
             setupAnimationStates();
         }
     }
 
-    private void setupAnimationStates() {
-        if(this.idleAnimationTimeout <= 0) {
+    private void setupAnimationStates(){
+        if(this.idleAnimationTimeout <= 0){
             this.idleAnimationTimeout = 60;
             this.idleAnimationState.start(this.tickCount);
-        } else {
+        }else{
             --this.idleAnimationTimeout;
         }
     }
 
-    public boolean doHurtTarget(Entity pEntity) {
+    public boolean doHurtTarget(Entity pEntity){
         this.level().broadcastEntityEvent(this, (byte)4);
         return super.doHurtTarget(pEntity);
     }
@@ -60,7 +61,7 @@ public class Troll extends Monster{
     protected void registerGoals(){
         super.registerGoals();
         // attack
-        this.targetSelector.addGoal(0, new TrollAttackGoal(this,  1, false));
+        this.targetSelector.addGoal(0, new TrollAttackGoal(this, 1, false));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
 
         // ai

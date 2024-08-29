@@ -20,6 +20,7 @@ public class GoblinModel<T extends Goblin> extends HierarchicalModel<T> implemen
     private final ModelPart right_leg;
     private final ModelPart right_arm;
     private final ModelPart left_arm;
+
     public GoblinModel(ModelPart pRoot){
         this.root = pRoot;
         this.head = pRoot.getChild("head");
@@ -67,7 +68,7 @@ public class GoblinModel<T extends Goblin> extends HierarchicalModel<T> implemen
         if(entity.isAggressive()){
             if(!entity.getMainHandItem().isEmpty()){
                 this.animate(entity.attackAnimationState, GoblinAnimations.ATTACK_WEAPON, ageInTicks, 2f);
-            } else {
+            }else{
                 this.animate(entity.attackAnimationState, GoblinAnimations.ATTACK, ageInTicks, 1f);
             }
 
@@ -79,11 +80,11 @@ public class GoblinModel<T extends Goblin> extends HierarchicalModel<T> implemen
         this.animate(entity.idleAnimationState, GoblinAnimations.IDLE, ageInTicks, 0.5f);
     }
 
-    protected ModelPart getArm(HumanoidArm pSide) {
+    protected ModelPart getArm(HumanoidArm pSide){
         return pSide == HumanoidArm.LEFT ? this.left_arm : this.right_arm;
     }
 
-    public void translateToHand(HumanoidArm pSide, PoseStack pPoseStack) {
+    public void translateToHand(HumanoidArm pSide, PoseStack pPoseStack){
         ModelPart arm = this.getArm(pSide);
         arm.translateAndRotate(pPoseStack);
 
@@ -92,7 +93,7 @@ public class GoblinModel<T extends Goblin> extends HierarchicalModel<T> implemen
         pPoseStack.translate(-0.1F, -0.32F, 0.065F);
     }
 
-    public ModelPart getHead() {
+    public ModelPart getHead(){
         return this.head;
     }
 

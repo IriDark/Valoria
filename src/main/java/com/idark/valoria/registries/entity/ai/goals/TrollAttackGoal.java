@@ -19,13 +19,13 @@ public class TrollAttackGoal extends MeleeAttackGoal{
     }
 
     @Nullable
-    protected SoundEvent getSound() {
+    protected SoundEvent getSound(){
         return SoundsRegistry.TROLL_DISAPPEAR.get();
     }
 
-    public void playSound() {
+    public void playSound(){
         SoundEvent soundevent = this.getSound();
-        if (soundevent != null) {
+        if(soundevent != null){
             mob.playSound(soundevent, 1f, mob.getVoicePitch());
         }
     }
@@ -46,9 +46,9 @@ public class TrollAttackGoal extends MeleeAttackGoal{
         return super.canUse();
     }
 
-    protected void checkAndPerformAttack(LivingEntity pEnemy, double pDistToEnemySqr) {
+    protected void checkAndPerformAttack(LivingEntity pEnemy, double pDistToEnemySqr){
         double d0 = this.getAttackReachSqr(pEnemy);
-        if (pDistToEnemySqr <= d0 && isTimeToAttack()) {
+        if(pDistToEnemySqr <= d0 && isTimeToAttack()){
             this.resetAttackCooldown();
             this.mob.swing(InteractionHand.MAIN_HAND);
             this.mob.doHurtTarget(pEnemy);

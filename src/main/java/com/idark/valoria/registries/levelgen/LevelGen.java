@@ -23,7 +23,7 @@ import net.minecraftforge.registries.*;
 import java.util.*;
 
 public class LevelGen{
-    public static void init(IEventBus eventBus) {
+    public static void init(IEventBus eventBus){
         FEATURES.register(eventBus);
         BIOME_MODIFIER_SERIALIZERS.register(eventBus);
         PLACEMENT_MODIFIERS.register(eventBus);

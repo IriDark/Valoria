@@ -10,7 +10,8 @@ import net.minecraft.resources.*;
 
 public class SuccubusRenderer extends MobRenderer<Succubus, SuccubusModel<Succubus>>{
     protected static final ResourceLocation TEXTURE = new ResourceLocation(Valoria.ID, "textures/entity/succubus.png");
-    public SuccubusRenderer(EntityRendererProvider.Context context) {
+
+    public SuccubusRenderer(EntityRendererProvider.Context context){
         super(context, new SuccubusModel<>(SuccubusModel.createBodyLayer().bakeRoot()), 0.4F);
     }
 

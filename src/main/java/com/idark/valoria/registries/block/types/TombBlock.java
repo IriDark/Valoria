@@ -13,6 +13,7 @@ import javax.annotation.*;
 
 public class TombBlock extends HorizontalDirectionalBlock implements SimpleWaterloggedBlock{
     private final boolean isGrave;
+
     public TombBlock(BlockBehaviour.Properties properties){
         super(properties);
         this.isGrave = false;
@@ -49,7 +50,7 @@ public class TombBlock extends HorizontalDirectionalBlock implements SimpleWater
         VoxelShape shape = Shapes.empty();
         Direction direction = state.getValue(BlockStateProperties.HORIZONTAL_FACING);
         shape = Shapes.join(shape, Shapes.box(0.375, 0.1875, 0.375, 0.625, 0.5, 0.625), BooleanOp.OR);
-        switch(direction) {
+        switch(direction){
             case SOUTH, NORTH -> {
                 shape = Shapes.join(shape, Shapes.box(0.375, 0.75, 0.375, 0.625, 1, 0.625), BooleanOp.OR);
                 shape = Shapes.join(shape, Shapes.box(0.1875, 0, 0.1875, 0.8125, 0.25, 0.8125), BooleanOp.OR);
@@ -65,9 +66,10 @@ public class TombBlock extends HorizontalDirectionalBlock implements SimpleWater
 
         return shape;
     }
+
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter reader, BlockPos pos, CollisionContext ctx){
-        return this.isGrave ? makeGraveShape(state): makeTombShape(state);
+        return this.isGrave ? makeGraveShape(state) : makeTombShape(state);
     }
 
     @Override
