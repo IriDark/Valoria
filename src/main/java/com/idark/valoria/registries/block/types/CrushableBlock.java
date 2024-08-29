@@ -13,11 +13,10 @@ import net.minecraft.world.level.block.state.properties.*;
 import org.jetbrains.annotations.*;
 
 public class CrushableBlock extends BaseEntityBlock{
-    private static final IntegerProperty DUSTED = BlockStateProperties.DUSTED;
+    public static final IntegerProperty DUSTED = BlockStateProperties.DUSTED;
     private final Block turnsInto;
     private final SoundEvent crushSound;
     private final boolean isIce;
-
     public CrushableBlock(boolean isIce, Block pTurnsInto, BlockBehaviour.Properties pProperties, SoundEvent pCrushSound){
         super(pProperties);
         this.isIce = isIce;

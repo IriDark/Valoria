@@ -14,12 +14,8 @@ import net.minecraft.world.level.block.state.properties.*;
 import net.minecraft.world.level.gameevent.*;
 import net.minecraft.world.phys.*;
 
-import java.util.*;
-
 public class UmbralKeyPadBlock extends UmbralBlock{
-    private static final BooleanProperty KEY_CLICKED = BooleanProperty.create("key");
-    Random rand = new Random();
-
+    public static final BooleanProperty KEY_CLICKED = BooleanProperty.create("key");
     public UmbralKeyPadBlock(BlockBehaviour.Properties properties){
         super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(KEY_CLICKED, false).setValue(ACTIVE, false).setValue(RETURN, false));
@@ -33,6 +29,7 @@ public class UmbralKeyPadBlock extends UmbralBlock{
 
     @Override
     public InteractionResult use(BlockState state, Level pLevel, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit){
+        var rand = pLevel.random;
         if(state.getValue(KEY_CLICKED)){
             if(!state.getValue(ACTIVE)){
                 pLevel.playSound(player, player.blockPosition(), SoundEvents.RESPAWN_ANCHOR_SET_SPAWN, SoundSource.BLOCKS, 0.8F, 1.2F);
