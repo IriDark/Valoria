@@ -210,17 +210,18 @@ public class Succubus extends Monster{
         return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
     }
 
-    protected SoundEvent getAmbientSound() {
-        if (this.level().isClientSide) {
-            return null;
-        } else {
-            return this.brain.hasMemoryValue(MemoryModuleType.ATTACK_TARGET) ? SoundEvents.ZOGLIN_ANGRY : SoundEvents.ZOGLIN_AMBIENT;
-        }
-    }
+    // was an experiment, todo sounds
+//    protected SoundEvent getAmbientSound() {
+//        if (this.level().isClientSide) {
+//            return null;
+//        } else {
+//            return this.brain.hasMemoryValue(MemoryModuleType.ATTACK_TARGET) ? SoundEvents.ZOGLIN_ANGRY : SoundEvents.ZOGLIN_AMBIENT;
+//        }
+//    }
 
-    public void playAngrySound() {
-        this.playSound(SoundEvents.WARDEN_LISTENING_ANGRY, 1.0F, this.getVoicePitch());
-    }
+//    public void playAngrySound() {
+//        this.playSound(SoundEvents.WARDEN_LISTENING_ANGRY, 1.0F, this.getVoicePitch());
+//    }
 
     protected boolean canRide(Entity pVehicle) {
         return false;
