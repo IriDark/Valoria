@@ -1,6 +1,5 @@
 package com.idark.valoria.registries.item.types.curio.charm;
 
-import com.idark.valoria.util.*;
 import net.minecraft.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.world.effect.*;
@@ -13,7 +12,6 @@ import top.theillusivec4.curios.api.*;
 import java.util.*;
 
 public class CurioVision extends CurioRune{
-
     public CurioVision(Properties properties){
         super(properties);
     }
@@ -23,7 +21,7 @@ public class CurioVision extends CurioRune{
         Player player = (Player)slotContext.entity();
         if(!player.level().isClientSide() && !player.hasEffect(MobEffects.NIGHT_VISION)){
             player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 400));
-            if(RandomUtil.fiftyFifty()){
+            if(arcRandom.fiftyFifty()){
                 stack.hurtAndBreak(1, player, (p_220045_0_) -> p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
             }
         }

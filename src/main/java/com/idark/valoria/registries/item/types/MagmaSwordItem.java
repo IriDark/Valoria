@@ -34,7 +34,7 @@ import java.util.*;
 
 public class MagmaSwordItem extends SwordItem implements IRadiusItem{
     private static final ResourceLocation BAR = new ResourceLocation(Valoria.ID, "textures/gui/overlay/magma_charge.png");
-
+    public ArcRandom arcRandom = new ArcRandom();
     public MagmaSwordItem(Tier tier, int attackDamageIn, float attackSpeedIn, Properties builderIn){
         super(tier, attackDamageIn, attackSpeedIn, builderIn);
     }
@@ -56,14 +56,14 @@ public class MagmaSwordItem extends SwordItem implements IRadiusItem{
     public boolean hurtEnemy(ItemStack pStack, LivingEntity pTarget, LivingEntity pAttacker){
         pStack.hurtAndBreak(1, pAttacker, (p_43296_) -> p_43296_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
         if(NbtUtils.readNbt(pStack, "charge") < 2){
-            if(RandomUtil.percentChance(0.1f)){
+            if(arcRandom.chance(0.1f)){
                 NbtUtils.addCharge(pStack, 1);
             }
         }
 
         if(EnchantmentHelper.getFireAspect(pAttacker) > 0){
             pAttacker.level().playSound(null, pTarget.getOnPos(), SoundEvents.FIRECHARGE_USE, SoundSource.AMBIENT, 1, 1);
-        }else if(RandomUtil.percentChance(0.07f)){
+        }else if(arcRandom.chance(0.07f)){
             pTarget.setSecondsOnFire(4);
             pAttacker.level().playSound(null, pTarget.getOnPos(), SoundEvents.FIRECHARGE_USE, SoundSource.AMBIENT, 1, 1);
         }

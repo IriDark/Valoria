@@ -26,7 +26,7 @@ import java.util.function.*;
 import static net.minecraft.util.Mth.nextFloat;
 
 public class ParticleEffects{
-
+    public static ArcRandom arcRandom = new ArcRandom();
     public static void spawnItemParticles(Level level, ItemEntity entity, ParticleType<?> particle, ColorParticleData color){
         RandomSource rand = level.getRandom();
         Vec3 pos = new Vec3(entity.getX() + (rand.nextDouble() - 0.5f) / 6, entity.getY() + 0.4F, entity.getZ());
@@ -174,7 +174,7 @@ public class ParticleEffects{
         RandomSource random = level.getRandom();
         final WorldParticleBuilder particleBuilder = builder
         .setTransparencyData(GenericParticleData.create(0.25f, 0f).build())
-        .setScaleData(GenericParticleData.create(0.32f + RandomUtil.randomValueUpTo(0.2f), RandomUtil.randomValueUpTo(0.2f)).build())
+        .setScaleData(GenericParticleData.create(0.32f + arcRandom.randomValueUpTo(0.2f), arcRandom.randomValueUpTo(0.2f)).build())
         .setLifetime(21)
         .setSpinData(SpinParticleData.create(0.5f, 0).build())
         .setMotion((random.nextDouble() - 0.2D) / 30, (random.nextDouble() + 0.2D) / 6, (random.nextDouble() - 0.2D) / 30)
@@ -199,7 +199,7 @@ public class ParticleEffects{
         RandomSource random = level.getRandom();
         final WorldParticleBuilder particleBuilder = builder
         .setTransparencyData(GenericParticleData.create(0.2f, 0f).build())
-        .setScaleData(GenericParticleData.create(0.25f + RandomUtil.randomValueUpTo(0.25f), RandomUtil.randomValueUpTo(0.2f)).build())
+        .setScaleData(GenericParticleData.create(0.25f + arcRandom.randomValueUpTo(0.25f), arcRandom.randomValueUpTo(0.2f)).build())
         .setLifetime(32)
         .setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT)
         .setSpinData(SpinParticleData.create(0.75f, 0).build())
@@ -251,7 +251,7 @@ public class ParticleEffects{
         RandomSource random = level.getRandom();
         final WorldParticleBuilder particleBuilder = builder
         .setTransparencyData(GenericParticleData.create(0.25f, 0f).build())
-        .setScaleData(GenericParticleData.create(0.05f + RandomUtil.randomValueUpTo(0.25f), RandomUtil.randomValueUpTo(0.2f)).build())
+        .setScaleData(GenericParticleData.create(0.05f + arcRandom.randomValueUpTo(0.25f), arcRandom.randomValueUpTo(0.2f)).build())
         .setLifetime(6)
         .setSpinData(SpinParticleData.create(0.5f * (float)((random.nextDouble() - 0.5D) * 2), 0).build())
         .setMotion((random.nextDouble() / 30), 0.05f, (random.nextDouble() / 30))

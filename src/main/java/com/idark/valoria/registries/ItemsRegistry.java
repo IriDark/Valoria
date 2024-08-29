@@ -219,7 +219,7 @@ public class ItemsRegistry{
     public static final RegistryObject<Item> SILKEN_BLADE = ITEMS.register("silken_blade",
     () -> new HitEffectItem(ModItemTier.NONE, 5, -3.2f, new Item.Properties(), 0.25f, new MobEffectInstance(MobEffects.DARKNESS, 120, 0), new MobEffectInstance(MobEffects.POISON, 45, 0)));
     public static final RegistryObject<Item> SILKEN_WAKIZASHI = ITEMS.register("silken_wakizashi",
-    () -> new KatanaItem(ModItemTier.NONE, 0, -2.2f, 3, new Item.Properties(), 0.25f, new MobEffectInstance(MobEffects.DARKNESS, 120, 0), new MobEffectInstance(MobEffects.POISON, 45, 0)));
+    () -> new KatanaItem(ModItemTier.NONE, 11, -2.2f, 3, new Item.Properties(), 0.25f, new MobEffectInstance(MobEffects.DARKNESS, 120, 0), new MobEffectInstance(MobEffects.POISON, 45, 0)));
     public static final RegistryObject<Item> SILKEN_KUNAI = ITEMS.register("silken_kunai",
     () -> new KunaiItem(0, -2.2f, new Item.Properties(), 0.25f, new MobEffectInstance(MobEffects.DARKNESS, 120, 0), new MobEffectInstance(MobEffects.POISON, 60, 1)));
 

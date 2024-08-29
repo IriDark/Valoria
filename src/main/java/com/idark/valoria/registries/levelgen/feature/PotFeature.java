@@ -34,7 +34,7 @@ public class PotFeature extends Feature<SimpleBlockConfiguration>{
                 if(worldgenlevel.isEmptyBlock(blockpos) || worldgenlevel.getBlockState(blockpos).getCollisionShape(worldgenlevel, blockpos).isEmpty()){
                     BlockState blockstate = simpleblockconfiguration.toPlace().getState(p_159477_.random(), blockpos);
                     if(blockstate.canSurvive(worldgenlevel, blockpos) && worldgenlevel.getBlockState(blockpos.below()).isSolid()){
-                        if(RandomUtil.percentChance(0.05f)) worldgenlevel.setBlock(blockpos, blockstate, 2);
+                        if(new ArcRandom().chance(0.05f)) worldgenlevel.setBlock(blockpos, blockstate, 2);
                     }
 
                     return true;

@@ -156,7 +156,7 @@ public class SuspiciousIcebergFeature extends Feature<NoneFeatureConfiguration>{
             if(pPlaceSnow && !blockstate.is(Blocks.WATER) && (double)pHeightRemaining <= (double)pRandom.nextInt(Math.max(1, pHeight / i)) + (double)pHeight * 0.6D && flag){
                 this.setBlock(pLevel, pPos, Blocks.SNOW_BLOCK.defaultBlockState());
             }else{
-                if(RandomUtil.percentChance(0.025f)){
+                if(new ArcRandom().chance(0.025f)){
                     this.setBlock(pLevel, pPos, BlockRegistry.SUSPICIOUS_ICE.get().defaultBlockState());
                 }else{
                     this.setBlock(pLevel, pPos, pState);

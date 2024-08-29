@@ -23,7 +23,7 @@ import java.util.*;
 
 public class BloodSight extends Item implements ICurioItem, Vanishable, IParticleItemEntity{
     private int hits = 0;
-
+    public ArcRandom arcRandom = new ArcRandom();
     public BloodSight(Properties properties){
         super(properties);
     }
@@ -54,7 +54,7 @@ public class BloodSight extends Item implements ICurioItem, Vanishable, IParticl
             if(lastHurtMob != null && !player.getCooldowns().isOnCooldown(stack.getItem())){
                 ValoriaUtils.damageLastAttackedMob(serverLevel, player, this.getDamage(0, RandomSource.create()));
                 if(flag){
-                    if(RandomUtil.percentChance(0.25f)){
+                    if(arcRandom.chance(0.25f)){
                         player.hurt(pLevel.damageSources().magic(), 0.5f);
                     }
                 }

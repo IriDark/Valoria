@@ -1,7 +1,6 @@
 package com.idark.valoria.registries.item.types.curio.charm;
 
 import com.google.common.collect.*;
-import com.idark.valoria.util.*;
 import net.minecraft.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.world.entity.*;
@@ -21,7 +20,7 @@ public class CurioWealth extends CurioRune{
     @Override
     public void curioTick(SlotContext slotContext, ItemStack stack){
         Player player = (Player)slotContext.entity();
-        if(RandomUtil.percentChance(0.005f)){
+        if(arcRandom.chance(0.005f)){
             stack.hurtAndBreak(1, player, (p_220045_0_) -> p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
         }
     }

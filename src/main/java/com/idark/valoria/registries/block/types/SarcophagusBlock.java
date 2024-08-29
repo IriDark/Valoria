@@ -31,7 +31,7 @@ import java.time.*;
 import java.util.*;
 
 public class SarcophagusBlock extends HorizontalDirectionalBlock{
-
+    public ArcRandom arcRandom = new ArcRandom();
     public static final EnumProperty<BedPart> PART = BlockStateProperties.BED_PART;
     private static final BooleanProperty OPEN = BooleanProperty.create("open");
     private static final BooleanProperty LOOTED = BooleanProperty.create("looted");
@@ -161,7 +161,7 @@ public class SarcophagusBlock extends HorizontalDirectionalBlock{
             for(int i = 0; i < Mth.nextFloat(RandomSource.create(), 1, 4); i++){
                 boolean randomHand = Mth.nextFloat(RandomSource.create(), 0, 1) < 0.5;
                 InteractionHand hand = randomHand ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND;
-                if(RandomUtil.fiftyFifty()){
+                if(arcRandom.fiftyFifty()){
                     spawnSkeletons(pLevel, pPos, hand);
                 }else{
                     spawnDraugr(pLevel, pPos, hand);

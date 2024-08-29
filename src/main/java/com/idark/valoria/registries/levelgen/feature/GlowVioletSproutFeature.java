@@ -82,7 +82,7 @@ public class GlowVioletSproutFeature extends Feature<TwistingVinesConfig>{
 
                             int j1 = 17;
                             int k1 = 25;
-                            if(RandomUtil.fiftyFifty()){
+                            if(new ArcRandom().fiftyFifty()){
                                 placeSproutColumn(worldgenlevel, randomsource, blockpos$mutableblockpos, i1, 17, 25);
                             }
                         }

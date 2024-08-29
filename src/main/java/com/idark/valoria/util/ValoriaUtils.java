@@ -709,6 +709,22 @@ public class ValoriaUtils{
         return items.isEmpty() || slotContext.cosmetic();
     }
 
+    public static void chanceEffect(LivingEntity pTarget, ImmutableList<MobEffectInstance> effects, float chance, ArcRandom arcRandom){
+        if(!effects.isEmpty()){
+            if(chance < 1){
+                for(MobEffectInstance effectInstance : effects){
+                    if(arcRandom.chance(chance)){
+                        pTarget.addEffect(new MobEffectInstance(effectInstance));
+                    }
+                }
+            }else{
+                for(MobEffectInstance effectInstance : effects){
+                    pTarget.addEffect(new MobEffectInstance(effectInstance));
+                }
+            }
+        }
+    }
+
     public static class tileEntity{
 
         public static void SUpdateTileEntityPacket(BlockEntity tile){

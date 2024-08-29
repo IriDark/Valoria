@@ -13,6 +13,7 @@ import top.theillusivec4.curios.api.*;
 import java.util.*;
 
 public class CurioPyro extends CurioRune{
+    public ArcRandom arcRandom = new ArcRandom();
     public CurioPyro(Properties properties){
         super(properties);
     }
@@ -23,7 +24,7 @@ public class CurioPyro extends CurioRune{
         if(!player.level().isClientSide() && !player.hasEffect(MobEffects.FIRE_RESISTANCE)){
             if(player.isInLava() || player.isOnFire()){
                 player.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 200));
-                if(RandomUtil.fiftyFifty()){
+                if(arcRandom.fiftyFifty()){
                     stack.hurtAndBreak(1, player, (p_220045_0_) -> p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
                 }
             }

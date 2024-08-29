@@ -17,7 +17,7 @@ import org.joml.*;
 import java.util.*;
 
 public class InfernalScytheItem extends ScytheItem{
-
+    public ArcRandom arcRandom = new ArcRandom();
     public InfernalScytheItem(Tier tier, int attackDamageIn, float attackSpeedIn, Item.Properties builderIn){
         super(tier, attackDamageIn, attackSpeedIn, builderIn);
     }
@@ -26,7 +26,7 @@ public class InfernalScytheItem extends ScytheItem{
         pStack.hurtAndBreak(1, pAttacker, (p_43296_) -> p_43296_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
         if(EnchantmentHelper.getFireAspect(pAttacker) > 0){
             pAttacker.level().playSound(null, pTarget.getOnPos(), SoundEvents.FIRECHARGE_USE, SoundSource.AMBIENT, 1, 1);
-        }else if(RandomUtil.percentChance(0.07f)){
+        }else if(arcRandom.chance(0.07f)){
             pTarget.setSecondsOnFire(4);
             pAttacker.level().playSound(null, pTarget.getOnPos(), SoundEvents.FIRECHARGE_USE, SoundSource.AMBIENT, 1, 1);
         }
@@ -59,7 +59,7 @@ public class InfernalScytheItem extends ScytheItem{
                 int i = EnchantmentHelper.getFireAspect(player);
                 entity.setSecondsOnFire(i * 4);
                 entity.level().playSound(null, entity.getOnPos(), SoundEvents.FIRECHARGE_USE, SoundSource.AMBIENT, 1, 1);
-            }else if(RandomUtil.percentChance(0.07f)){
+            }else if(arcRandom.chance(0.07f)){
                 entity.setSecondsOnFire(4);
                 entity.level().playSound(null, entity.getOnPos(), SoundEvents.FIRECHARGE_USE, SoundSource.AMBIENT, 1, 1);
             }

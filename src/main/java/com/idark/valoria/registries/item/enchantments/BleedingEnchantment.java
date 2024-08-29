@@ -7,7 +7,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.item.enchantment.*;
 
 public class BleedingEnchantment extends Enchantment{
-
+    public ArcRandom arcRandom = new ArcRandom();
     public BleedingEnchantment(){
         super(Rarity.RARE, EnchantmentCategory.WEAPON, new EquipmentSlot[]{EquipmentSlot.MAINHAND});
     }
@@ -26,7 +26,7 @@ public class BleedingEnchantment extends Enchantment{
     }
 
     public void doPostAttack(LivingEntity pUser, Entity pTarget, int pLevel){
-        if(RandomUtil.percentChance(0.05f * pLevel) || pUser.getUseItem().getEnchantmentLevel(Enchantments.PIERCING) > 0){
+        if(arcRandom.chance(0.05f * pLevel) || pUser.getUseItem().getEnchantmentLevel(Enchantments.PIERCING) > 0){
             if(pTarget instanceof LivingEntity livingentity){
                 if(pLevel > 0){
                     int i = 40 + pUser.getRandom().nextInt(85 * pLevel);

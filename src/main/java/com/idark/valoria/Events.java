@@ -31,6 +31,7 @@ import java.util.stream.*;
 
 @SuppressWarnings("removal")
 public class Events{
+    public ArcRandom arcRandom = new ArcRandom();
 
     @SubscribeEvent
     public void attachEntityCaps(AttachCapabilitiesEvent<Entity> event){
@@ -133,7 +134,7 @@ public class Events{
     @SubscribeEvent
     public void critDamage(CriticalHitEvent event){
         if(CuriosApi.getCuriosHelper().findEquippedCurio(ItemsRegistry.RUNE_OF_ACCURACY.get(), event.getEntity()).isPresent()){
-            if(RandomUtil.percentChance(0.1f)){
+            if(arcRandom.chance(0.1f)){
                 event.getTarget().hurt(event.getEntity().level().damageSources().playerAttack(event.getEntity()), (float)(event.getEntity().getAttributeValue(Attributes.ATTACK_DAMAGE) * 1.5f));
             }
         }

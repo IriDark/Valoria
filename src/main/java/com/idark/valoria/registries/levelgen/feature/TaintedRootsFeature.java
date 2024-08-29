@@ -64,7 +64,7 @@ public class TaintedRootsFeature extends Feature<TaintedRootsConfig>{
                     for(int z = -i; z <= i; z += step){
                         blockpos$mutableblockpos.set(blockpos).move(Mth.nextInt(randomsource, -i, i), Mth.nextInt(randomsource, -j, j), Mth.nextInt(randomsource, -i, i));
                         if(findFirstAirBlockAboveGround(worldgenlevel, blockpos$mutableblockpos) && !isInvalidPlacementLocation(worldgenlevel, blockpos$mutableblockpos)){
-                            if(RandomUtil.fiftyFifty()){
+                            if(new ArcRandom().fiftyFifty()){
                                 placeRoot(worldgenlevel, randomsource, blockpos$mutableblockpos, 0, 2);
                             }
                         }

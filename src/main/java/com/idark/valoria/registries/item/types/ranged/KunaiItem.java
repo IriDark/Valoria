@@ -27,7 +27,7 @@ public class KunaiItem extends SwordItem{
     private final Multimap<Attribute, AttributeModifier> tridentAttributes;
     public final ImmutableList<MobEffectInstance> effects;
     public float chance = 1;
-
+    public ArcRandom arc = new ArcRandom();
     public KunaiItem(int damage, float speed, Item.Properties builderIn, float chance, MobEffectInstance... pEffects){
         super(ModItemTier.NONE, damage, speed, builderIn);
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
@@ -102,20 +102,7 @@ public class KunaiItem extends SwordItem{
     }
 
     public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker){
-        if(!effects.isEmpty()){
-            if(chance < 1){
-                for(MobEffectInstance effectInstance : effects){
-                    if(RandomUtil.percentChance(chance)){
-                        target.addEffect(new MobEffectInstance(effectInstance));
-                    }
-                }
-            }else{
-                for(MobEffectInstance effectInstance : effects){
-                    target.addEffect(new MobEffectInstance(effectInstance));
-                }
-            }
-        }
-
+        ValoriaUtils.chanceEffect(target, effects, chance, arc);
         return super.hurtEnemy(stack, target, attacker);
     }
 

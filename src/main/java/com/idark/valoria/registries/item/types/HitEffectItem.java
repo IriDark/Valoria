@@ -14,7 +14,7 @@ import java.util.*;
 public class HitEffectItem extends SwordItem{
     public float chance = 1;
     public final ImmutableList<MobEffectInstance> effects;
-
+    public ArcRandom arcRandom = new ArcRandom();
     public HitEffectItem(Tier tier, int attackDamageIn, float attackSpeedIn, Item.Properties builderIn, float pChance, MobEffectInstance... pEffects){
         super(tier, attackDamageIn, attackSpeedIn, builderIn);
         this.chance = pChance;
@@ -28,20 +28,7 @@ public class HitEffectItem extends SwordItem{
 
     public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker){
         stack.hurtAndBreak(2, attacker, (entity) -> entity.broadcastBreakEvent(EquipmentSlot.MAINHAND));
-        if(!effects.isEmpty()){
-            if(chance < 1){
-                for(MobEffectInstance effectInstance : effects){
-                    if(RandomUtil.percentChance(chance)){
-                        target.addEffect(new MobEffectInstance(effectInstance));
-                    }
-                }
-            }else{
-                for(MobEffectInstance effectInstance : effects){
-                    target.addEffect(new MobEffectInstance(effectInstance));
-                }
-            }
-        }
-
+        ValoriaUtils.chanceEffect(target, effects, chance, arcRandom);
         return true;
     }
 

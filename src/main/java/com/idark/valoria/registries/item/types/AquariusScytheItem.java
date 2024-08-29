@@ -17,7 +17,7 @@ import org.joml.*;
 import java.util.*;
 
 public class AquariusScytheItem extends ScytheItem{
-
+    public ArcRandom arcRandom = new ArcRandom();
     public AquariusScytheItem(Tier tier, int attackDamageIn, float attackSpeedIn, Item.Properties builderIn){
         super(tier, attackDamageIn, attackSpeedIn, builderIn);
     }
@@ -27,7 +27,7 @@ public class AquariusScytheItem extends ScytheItem{
      */
     public boolean hurtEnemy(ItemStack pStack, LivingEntity pTarget, LivingEntity pAttacker){
         pStack.hurtAndBreak(1, pAttacker, (p_43296_) -> p_43296_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
-        if(RandomUtil.percentChance(0.15f)){
+        if(arcRandom.chance(0.15f)){
             pTarget.knockback(0.6F, pAttacker.getX() - pTarget.getX(), pAttacker.getZ() - pTarget.getZ());
             pTarget.level().playSound(null, pTarget.getOnPos(), SoundsRegistry.WATER_ABILITY.get(), SoundSource.AMBIENT, 0.7f, 1.2f);
         }
@@ -56,7 +56,7 @@ public class AquariusScytheItem extends ScytheItem{
         for(LivingEntity entity : hitEntities){
             entity.hurt(level.damageSources().playerAttack(player), (damage + EnchantmentHelper.getDamageBonus(stack, entity.getMobType())) * 1.35f);
             entity.knockback(0.4F, player.getX() - entity.getX(), player.getZ() - entity.getZ());
-            if(RandomUtil.percentChance(0.25f)){
+            if(arcRandom.chance(0.25f)){
                 entity.knockback(0.6F, player.getX() - entity.getX(), player.getZ() - entity.getZ());
                 level.playSound(null, entity.getOnPos(), SoundsRegistry.WATER_ABILITY.get(), SoundSource.AMBIENT, 0.2f, 1.2f);
             }

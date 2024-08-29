@@ -26,7 +26,7 @@ public class Goblin extends AbstractGoblin{
     public final AnimationState attackAnimationState = new AnimationState();
     public final AnimationState runAnimationState = new AnimationState();
     private int idleAnimationTimeout = 0;
-
+    public ArcRandom arcRandom = new ArcRandom();
     public Goblin(EntityType<? extends PathfinderMob> type, Level worldIn){
         super(type, worldIn);
         this.xpReward = 3;
@@ -66,7 +66,7 @@ public class Goblin extends AbstractGoblin{
 
     protected void populateDefaultEquipmentSlots(RandomSource pRandom, DifficultyInstance pDifficulty){
         super.populateDefaultEquipmentSlots(pRandom, pDifficulty);
-        if(RandomUtil.percentChance(0.3f)){
+        if(arcRandom.chance(0.3f)){
             this.setItemSlot(EquipmentSlot.MAINHAND, goblinCanSpawnWith.get(pRandom.nextInt(0, goblinCanSpawnWith.size())).getDefaultInstance());
         }
     }

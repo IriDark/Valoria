@@ -30,6 +30,8 @@ import java.util.*;
 import java.util.function.Supplier;
 import java.util.stream.*;
 
+import static com.idark.valoria.util.ValoriaUtils.chanceEffect;
+
 public class SpearItem extends SwordItem implements Vanishable{
     private final Supplier<Multimap<Attribute, AttributeModifier>> attributeModifiers = Suppliers.memoize(this::createAttributes);
     public final float attackDamage;
@@ -38,6 +40,7 @@ public class SpearItem extends SwordItem implements Vanishable{
     public final boolean throwable;
     public float chance = 1;
     public final ImmutableList<MobEffectInstance> effects;
+    public ArcRandom arcRandom = new ArcRandom();
 
     /**
      * @param pEffects Effects applied on attack
@@ -112,19 +115,7 @@ public class SpearItem extends SwordItem implements Vanishable{
     }
 
     public boolean hurtEnemy(ItemStack pStack, LivingEntity pTarget, LivingEntity pAttacker){
-        if(!effects.isEmpty()){
-            if(chance < 1){
-                for(MobEffectInstance effectInstance : effects){
-                    if(RandomUtil.percentChance(chance)){
-                        pTarget.addEffect(new MobEffectInstance(effectInstance));
-                    }
-                }
-            }else{
-                for(MobEffectInstance effectInstance : effects){
-                    pTarget.addEffect(new MobEffectInstance(effectInstance));
-                }
-            }
-        }
+        chanceEffect(pTarget, effects, chance, arcRandom);
         return super.hurtEnemy(pStack, pTarget, pAttacker);
     }
 

@@ -30,6 +30,7 @@ public class ScytheItem extends SwordItem implements ICustomAnimationItem, ICool
     public float chance = 1;
     public final ImmutableList<MobEffectInstance> effects;
     public final Multimap<Attribute, AttributeModifier> defaultModifiers;
+    public ArcRandom arcRandom = new ArcRandom();
 
     // cringe
     private final AttributeModifier radiusModifier;
@@ -145,20 +146,7 @@ public class ScytheItem extends SwordItem implements ICustomAnimationItem, ICool
                 entity.setSecondsOnFire(i * 4);
             }
 
-            if(!effects.isEmpty()){
-                if(chance < 1){
-                    for(MobEffectInstance effectInstance : effects){
-                        if(RandomUtil.percentChance(chance)){
-                            entity.addEffect(new MobEffectInstance(effectInstance));
-                        }
-                    }
-                }else{
-                    for(MobEffectInstance effectInstance : effects){
-                        entity.addEffect(new MobEffectInstance(effectInstance));
-                    }
-                }
-            }
-
+            ValoriaUtils.chanceEffect(entity, effects, chance, arcRandom);
             if(!player.isCreative()){
                 stack.hurtAndBreak(hitEntities.size(), player, (p_220045_0_) -> p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
             }

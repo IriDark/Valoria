@@ -1,6 +1,5 @@
 package com.idark.valoria.registries.item.types.curio.charm;
 
-import com.idark.valoria.util.*;
 import net.minecraft.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.world.effect.*;
@@ -23,7 +22,7 @@ public class RuneDeep extends CurioRune{
         if(!player.level().isClientSide() && !player.hasEffect(MobEffects.WATER_BREATHING)){
             if(player.isUnderWater() || player.isInWater()){
                 player.addEffect(new MobEffectInstance(MobEffects.WATER_BREATHING, 200));
-                if(RandomUtil.fiftyFifty()){
+                if(arcRandom.fiftyFifty()){
                     stack.hurtAndBreak(1, player, (p_220045_0_) -> p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
                 }
             }

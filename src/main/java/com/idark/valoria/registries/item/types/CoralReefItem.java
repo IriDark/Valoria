@@ -18,7 +18,7 @@ import java.util.*;
 
 //TODO: Rework the ability
 public class CoralReefItem extends SwordItem{
-
+    public ArcRandom arcRandom = new ArcRandom();
     public CoralReefItem(Tier tier, int attackDamageIn, float attackSpeedIn, Properties builderIn){
         super(tier, attackDamageIn, attackSpeedIn, builderIn);
     }
@@ -28,7 +28,7 @@ public class CoralReefItem extends SwordItem{
      */
     public boolean hurtEnemy(ItemStack pStack, LivingEntity pTarget, LivingEntity pAttacker){
         pStack.hurtAndBreak(1, pAttacker, (p_43296_) -> p_43296_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
-        if(RandomUtil.percentChance(0.07f)){
+        if(arcRandom.chance(0.07f)){
             pTarget.knockback(0.6F, pAttacker.getX() - pTarget.getX(), pAttacker.getZ() - pTarget.getZ());
             pTarget.level().playSound(null, pTarget.getOnPos(), SoundsRegistry.WATER_ABILITY.get(), SoundSource.AMBIENT, 0.7f, 1.2f);
         }
@@ -67,7 +67,7 @@ public class CoralReefItem extends SwordItem{
         for(LivingEntity damagedEntity : hitEntities){
             damagedEntity.hurt(worldIn.damageSources().playerAttack(player), (damage + EnchantmentHelper.getDamageBonus(stack, damagedEntity.getMobType())) * 1.35f);
             damagedEntity.knockback(0.4F, player.getX() - entityLiving.getX(), player.getZ() - entityLiving.getZ());
-            if(RandomUtil.percentChance(0.25f)){
+            if(arcRandom.chance(0.25f)){
                 damagedEntity.knockback(0.6F, player.getX() - damagedEntity.getX(), player.getZ() - damagedEntity.getZ());
                 worldIn.playSound(null, damagedEntity.getOnPos(), SoundsRegistry.WATER_ABILITY.get(), SoundSource.AMBIENT, 0.2f, 1.2f);
             }

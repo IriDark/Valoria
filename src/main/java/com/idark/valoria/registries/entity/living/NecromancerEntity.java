@@ -41,6 +41,7 @@ import java.util.Random;
 import java.util.*;
 
 public class NecromancerEntity extends AbstractNecromancer{
+    public ArcRandom arcRandom = new ArcRandom();
 
     @Nullable
     private Skeleton wololoTarget;
@@ -324,13 +325,13 @@ public class NecromancerEntity extends AbstractNecromancer{
                     for(int i = 0; i < 3; ++i){
                         BlockPos blockpos = NecromancerEntity.this.blockPosition().offset(-2 + NecromancerEntity.this.random.nextInt(5), 0, -2 + NecromancerEntity.this.random.nextInt(5));
                         BlockPos undeadSpawnPos = NecromancerEntity.this.blockPosition().offset(-2 + NecromancerEntity.this.random.nextInt(5), 1, -2 + NecromancerEntity.this.random.nextInt(5));
-                        if(RandomUtil.fiftyFifty()){
+                        if(arcRandom.fiftyFifty()){
                             spawnSkeletons(serverlevel, blockpos);
                         }else{
                             spawnZombie(serverlevel, blockpos);
                         }
 
-                        if(RandomUtil.percentChance(5)){
+                        if(arcRandom.chance(5)){
                             spawnUndead(serverlevel, undeadSpawnPos);
                         }
                     }
