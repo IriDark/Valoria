@@ -17,6 +17,10 @@
 - Neoforge 1.21 port
   - add data load conditions to compats
 
+- Crafting visual for Jeweler table
+- Resprite Rapiers
+- Fix Crypt Lantern texture
+- Katana in hand models like with Murasama??
 - Bronze recipes
 - Epic Fight Compat
 - Added Tomb variations
