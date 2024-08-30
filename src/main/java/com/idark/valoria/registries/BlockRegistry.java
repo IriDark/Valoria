@@ -19,6 +19,8 @@ import net.minecraftforge.registries.*;
 
 import java.util.function.*;
 
+import static com.idark.valoria.util.ValoriaUtils.*;
+
 public class BlockRegistry{
     public static final DeferredRegister<Block> BLOCK = DeferredRegister.create(ForgeRegistries.BLOCKS, Valoria.ID);
 
@@ -61,7 +63,7 @@ public class BlockRegistry{
     () -> new UmbralActivatorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).mapColor(MapColor.COLOR_PURPLE).strength(-1f, 3600000.8F).sound(SoundType.NETHER_BRICKS).noLootTable()));
 
     public static final RegistryObject<Block> PYRATITE_BLOCK = registerBlock("pyratite_block",
-    () -> new Block(BlockBehaviour.Properties.copy(Blocks.AMETHYST_BLOCK).mapColor(MapColor.COLOR_ORANGE).requiresCorrectToolForDrops()));
+    () -> new Block(BlockBehaviour.Properties.copy(Blocks.AMETHYST_BLOCK).mapColor(MapColor.COLOR_ORANGE).requiresCorrectToolForDrops().lightLevel(setLightValue(9))));
     public static final RegistryObject<Block> AMETHYST_BLOCK = registerBlock("amethyst_block",
     () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).mapColor(MapColor.COLOR_PINK).requiresCorrectToolForDrops().strength(3f, 4f).sound(SoundType.AMETHYST)));
     public static final RegistryObject<Block> SAPPHIRE_BLOCK = registerBlock("sapphire_block",
@@ -731,17 +733,5 @@ public class BlockRegistry{
 
     public static void register(IEventBus eventBus){
         BLOCK.register(eventBus);
-    }
-
-    private static ToIntFunction<BlockState> getLightValueLit(){
-        return (state) -> state.getValue(BlockStateProperties.LIT) ? 13 : 0;
-    }
-
-    private static ToIntFunction<BlockState> setLightValue(int pValue){
-        return (state) -> !state.isAir() ? pValue : 0;
-    }
-
-    private static ToIntFunction<BlockState> getPlantLightValue(){
-        return (state) -> !state.isAir() ? 9 : 0;
     }
 }

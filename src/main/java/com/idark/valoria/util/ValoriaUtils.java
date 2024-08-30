@@ -26,6 +26,7 @@ import net.minecraft.world.item.enchantment.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.*;
+import net.minecraft.world.level.block.state.properties.*;
 import net.minecraft.world.phys.*;
 import net.minecraftforge.fml.loading.*;
 import org.joml.*;
@@ -723,6 +724,18 @@ public class ValoriaUtils{
                 }
             }
         }
+    }
+
+    public static ToIntFunction<BlockState> setLightValue(int pValue){
+        return (state) -> !state.isAir() ? pValue : 0;
+    }
+
+    public static ToIntFunction<BlockState> getLightValueLit(){
+        return (state) -> state.getValue(BlockStateProperties.LIT) ? 13 : 0;
+    }
+
+    public static ToIntFunction<BlockState> getPlantLightValue(){
+        return (state) -> !state.isAir() ? 9 : 0;
     }
 
     public static class tileEntity{
