@@ -11,6 +11,7 @@
 
 - Fixed Cattail generation
 - Fixed Pot generation
+- Fixed Server Crashing
 
 - Nerfed Rune's
 - Buffed Silken Kunai

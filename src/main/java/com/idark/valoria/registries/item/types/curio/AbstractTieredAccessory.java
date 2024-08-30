@@ -59,7 +59,7 @@ public abstract class AbstractTieredAccessory extends TieredItem implements ICur
     public void curioTick(SlotContext slotContext, ItemStack stack){
         Player player = (Player)slotContext.entity();
         if(player.hurtMarked) accessoryHurt(player, stack, material);
-        if(ValoriaClient.JEWELRY_BONUSES_KEY.isDown()) applyEffects(player, stack);
+        if(player.level().isClientSide() && ValoriaClient.JEWELRY_BONUSES_KEY.isDown()) applyEffects(player, stack);
     }
 
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchant){
