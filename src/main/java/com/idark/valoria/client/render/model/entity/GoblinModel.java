@@ -58,6 +58,35 @@ public class GoblinModel<T extends Goblin> extends HierarchicalModel<T> implemen
         return LayerDefinition.create(meshdefinition, 64, 64);
     }
 
+    public static LayerDefinition createOldBodyLayer() {
+        MeshDefinition meshdefinition = new MeshDefinition();
+        PartDefinition partdefinition = meshdefinition.getRoot();
+
+        PartDefinition head = partdefinition.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-4.5F, -2.9F, -2.6528F, 9.0F, 7.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 5.9F, -0.3472F));
+
+        PartDefinition left_ear = head.addOrReplaceChild("left_ear", CubeListBuilder.create(), PartPose.offset(-5.2746F, -0.15F, -0.0868F));
+
+        PartDefinition left_ear_cube_r1 = left_ear.addOrReplaceChild("left_ear_cube_r1", CubeListBuilder.create().texOffs(0, 2).addBox(-4.9F, -18.0F, -2.5F, 1.0F, 1.0F, 1.0F, new CubeDeformation(0.0F))
+        .texOffs(24, 3).addBox(-6.9F, -20.0F, -2.5F, 3.0F, 2.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(5.2746F, 18.25F, 0.434F, 0.0F, 0.3054F, 0.0F));
+
+        PartDefinition right_ear = head.addOrReplaceChild("right_ear", CubeListBuilder.create(), PartPose.offset(5.2746F, -0.15F, -0.0868F));
+
+        PartDefinition right_ear_cube_r1 = right_ear.addOrReplaceChild("right_ear_cube_r1", CubeListBuilder.create().texOffs(0, 0).mirror().addBox(3.9F, -18.0F, -2.5F, 1.0F, 1.0F, 1.0F, new CubeDeformation(0.0F)).mirror(false)
+        .texOffs(24, 0).mirror().addBox(3.9F, -20.0F, -2.5F, 3.0F, 2.0F, 1.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(-5.2746F, 18.25F, 0.434F, 0.0F, -0.3054F, 0.0F));
+
+        PartDefinition body = partdefinition.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 13).addBox(-3.5F, -4.0F, -2.0F, 7.0F, 8.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 14.0F, 0.0F));
+
+        PartDefinition right_arm = partdefinition.addOrReplaceChild("right_arm", CubeListBuilder.create().texOffs(22, 13).addBox(-1.5F, -4.5F, -1.5F, 3.0F, 9.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(5.0F, 14.5F, 0.0F));
+
+        PartDefinition left_arm = partdefinition.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(0, 25).addBox(-1.5F, -4.5F, -1.5F, 3.0F, 9.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(-5.0F, 14.5F, 0.0F));
+
+        PartDefinition right_leg = partdefinition.addOrReplaceChild("right_leg", CubeListBuilder.create().texOffs(12, 25).addBox(-1.5F, -3.0F, -1.5F, 3.0F, 6.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(2.0F, 21.0F, 0.0F));
+
+        PartDefinition left_leg = partdefinition.addOrReplaceChild("left_leg", CubeListBuilder.create().texOffs(24, 25).addBox(-1.5F, -3.0F, -1.5F, 3.0F, 6.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(-2.0F, 21.0F, 0.0F));
+
+        return LayerDefinition.create(meshdefinition, 64, 64);
+    }
+
     @Override
     public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch){
         this.root().getAllParts().forEach(ModelPart::resetPose);

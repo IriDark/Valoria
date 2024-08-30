@@ -7,7 +7,7 @@ public class ClientConfig{
     public static ForgeConfigSpec.ConfigValue<Integer>
     MAGMA_CHARGE_BAR_Y, MAGMA_CHARGE_BAR_X, MAGMA_CHARGE_BAR_TYPE;
     public static ForgeConfigSpec.ConfigValue<Boolean>
-    DASH_OVERLAY, BLOOD_OVERLAY, PHANTOM_ACTIVATION;
+    DASH_OVERLAY, BLOOD_OVERLAY, PHANTOM_ACTIVATION, OLD_GOBLIN_MODEL;
 
     static{
         final Pair<ClientConfig, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(ClientConfig::new);
@@ -36,5 +36,7 @@ public class ClientConfig{
         .defineInRange("MagmaBarType", 1, 1, 3);
         PHANTOM_ACTIVATION = builder.comment("Item activation on ability use")
         .define("PhantomActivation", true);
+        OLD_GOBLIN_MODEL = builder.comment("Changes goblin model to old one")
+        .define("OldGoblinModel", false);
     }
 }
