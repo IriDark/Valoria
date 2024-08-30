@@ -20,10 +20,10 @@ public class ClientConfig{
 
     public ClientConfig(ForgeConfigSpec.Builder builder){
         DASH_OVERLAY = builder.comment("When enabled shows a wind like lines on screen corners (Default: true)")
-        .comment("Reload Resourcepacks when joining world (F3+T)")
+        .comment("Reload Resourcepacks after turning this on (F3+T)")
         .define("DashOverlay", true);
         BLOOD_OVERLAY = builder.comment("When enabled shows a red vignette on screen corners (Default: true)")
-        .comment("Reload Resourcepacks when joining world (F3+T)")
+        .comment("Reload Resourcepacks after turning this on (F3+T)")
         .define("BloodOverlay", true);
         MAGMA_CHARGE_BAR_Y = builder.comment("(Y) Coordinate for Magma Bar")
         .comment("Can be edited in-game without reloading packs (If nothing changed reload packs with [F3+T] keybind)")
@@ -37,6 +37,7 @@ public class ClientConfig{
         PHANTOM_ACTIVATION = builder.comment("Item activation on ability use")
         .define("PhantomActivation", true);
         OLD_GOBLIN_MODEL = builder.comment("Changes goblin model to old one")
+        .comment("Reload Resourcepacks after turning this on (F3+T)")
         .define("OldGoblinModel", false);
     }
 }

@@ -1,9 +1,12 @@
 package com.idark.valoria.registries.entity.living;
 
+import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.entity.ai.goals.*;
 import net.minecraft.nbt.*;
+import net.minecraft.sounds.*;
 import net.minecraft.util.*;
 import net.minecraft.world.*;
+import net.minecraft.world.damagesource.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.ai.goal.*;
@@ -56,6 +59,22 @@ public class Troll extends Monster{
         this.level().broadcastEntityEvent(this, (byte)4);
         return super.doHurtTarget(pEntity);
     }
+
+    public float getVoicePitch() {
+        return this.isBaby() ? (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.5F : (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.25F;
+    }
+
+//    protected SoundEvent getAmbientSound(){
+//        return SoundsRegistry.TROLL_IDLE.get();
+//    }
+
+    protected SoundEvent getHurtSound(DamageSource pDamageSource){
+        return SoundsRegistry.TROLL_HURT.get();
+    }
+
+//    protected SoundEvent getDeathSound(){
+//        return SoundsRegistry.TROLL_DEATH.get();
+//    }
 
     @Override
     protected void registerGoals(){

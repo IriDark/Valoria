@@ -12,6 +12,7 @@
 - Fixed Cattail generation
 - Fixed Pot generation
 - Fixed Server Crashing
+- Fixed Goblin Animations
 
 - Nerfed Rune's
 - Buffed Silken Kunai
@@ -27,6 +28,7 @@
 - Added Tomb variations
 - Added Pyratite block and Crystal
 - Added Silk touch drops to Crystals
+- Added Goblin Model Configuration
 
 - Deleted Geodites (Drops moved to ephemarite)
 - Deleted Void Crystal

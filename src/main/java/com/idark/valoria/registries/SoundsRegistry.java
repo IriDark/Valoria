@@ -37,7 +37,12 @@ public class SoundsRegistry{
     public static final RegistryObject<SoundEvent> VOID_GRASS_STEP = registerSound("block.void_grass.step");
     public static final RegistryObject<SoundEvent> VOID_GRASS_BREAK = registerSound("block.void_grass.break");
 
+    public static final RegistryObject<SoundEvent> GOBLIN_IDLE = registerSound("mob.goblin.idle");
+    public static final RegistryObject<SoundEvent> GOBLIN_HURT = registerSound("mob.goblin.hurt");
+    public static final RegistryObject<SoundEvent> GOBLIN_DEATH = registerSound("mob.goblin.death");
+
     public static final RegistryObject<SoundEvent> TROLL_DISAPPEAR = registerSound("mob.troll.disappear");
+    public static final RegistryObject<SoundEvent> TROLL_HURT = registerSound("mob.troll.hurt");
 
     //SoundType
     public static final ForgeSoundType POT = new ForgeSoundType(1, 1, POT_BREAK, POT_STEP, POT_PLACE, () -> SoundEvents.STONE_HIT, () -> SoundEvents.STONE_FALL);

@@ -1,10 +1,46 @@
 {
+  "mob.goblin.idle": {
+    "subtitle": "subtitles.valoria.goblin.idle",
+    "replace": "true",
+    "sounds": [
+      "valoria:goblin/idle1",
+      "valoria:goblin/idle2",
+      "valoria:goblin/idle3",
+      "valoria:goblin/idle4"
+    ]
+  },
+  "mob.goblin.hurt": {
+    "subtitle": "subtitles.valoria.goblin.hurt",
+    "replace": "true",
+    "sounds": [
+      "valoria:goblin/hurt1",
+      "valoria:goblin/hurt2",
+      "valoria:goblin/hurt3"
+    ]
+  },
+  "mob.goblin.death": {
+    "subtitle": "subtitles.valoria.goblin.death",
+    "replace": "true",
+    "sounds": [
+      "valoria:goblin/death1",
+      "valoria:goblin/death2"
+    ]
+  },
+
   "mob.troll.disappear": {
     "subtitle": "subtitles.valoria.troll.disappear",
     "replace": "true",
     "sounds": [
-      "valoria:troll/disappear1",
-      "valoria:troll/disappear2"
+      "valoria:troll/disappear0",
+      "valoria:troll/disappear1"
+    ]
+  },
+  "mob.troll.hurt": {
+    "subtitle": "subtitles.valoria.troll.hurt",
+    "replace": "true",
+    "sounds": [
+      "valoria:troll/hurt0",
+      "valoria:troll/hurt1"
     ]
   },
   "item.spear.hit_ground": {

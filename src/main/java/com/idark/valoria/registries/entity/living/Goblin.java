@@ -1,13 +1,16 @@
 package com.idark.valoria.registries.entity.living;
 
+import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.entity.ai.goals.RemoveBlockGoal;
 import com.idark.valoria.registries.entity.ai.goals.*;
 import com.idark.valoria.util.*;
 import net.minecraft.core.*;
 import net.minecraft.nbt.*;
+import net.minecraft.sounds.*;
 import net.minecraft.tags.*;
 import net.minecraft.util.*;
 import net.minecraft.world.*;
+import net.minecraft.world.damagesource.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.ai.goal.*;
@@ -24,7 +27,6 @@ import javax.annotation.*;
 public class Goblin extends AbstractGoblin{
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState attackAnimationState = new AnimationState();
-    public final AnimationState runAnimationState = new AnimationState();
     private int idleAnimationTimeout = 0;
     public ArcRandom arcRandom = new ArcRandom();
     public Goblin(EntityType<? extends PathfinderMob> type, Level worldIn){
@@ -42,8 +44,27 @@ public class Goblin extends AbstractGoblin{
 
     public boolean doHurtTarget(Entity pEntity){
         this.level().broadcastEntityEvent(this, (byte)4);
-//        this.playSound(SoundEvents.WARDEN_ATTACK_IMPACT, 10.0F, this.getVoicePitch());
         return super.doHurtTarget(pEntity);
+    }
+
+    protected float getSoundVolume() {
+        return 0.45F;
+    }
+
+    public float getVoicePitch() {
+        return this.isBaby() ? (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.5F : (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.25F;
+    }
+
+    protected SoundEvent getAmbientSound(){
+        return SoundsRegistry.GOBLIN_IDLE.get();
+    }
+
+    protected SoundEvent getHurtSound(DamageSource pDamageSource){
+        return SoundsRegistry.GOBLIN_HURT.get();
+    }
+
+    protected SoundEvent getDeathSound(){
+        return SoundsRegistry.GOBLIN_DEATH.get();
     }
 
     @Override
@@ -55,7 +76,6 @@ public class Goblin extends AbstractGoblin{
     }
 
     private void setupAnimationStates(){
-        this.runAnimationState.animateWhen(this.isLowHP() || this.isSprinting(), this.tickCount);
         if(this.idleAnimationTimeout <= 0){
             this.idleAnimationTimeout = 80;
             this.idleAnimationState.start(this.tickCount);

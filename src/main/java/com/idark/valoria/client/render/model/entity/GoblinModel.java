@@ -104,8 +104,13 @@ public class GoblinModel<T extends Goblin> extends HierarchicalModel<T> implemen
             AnimationUtils.bobArms(this.right_arm, this.left_arm, ageInTicks);
         }
 
-        this.animateWalk(GoblinAnimations.WALK, limbSwing, limbSwingAmount, 2f, ageInTicks);
-        this.animate(entity.runAnimationState, GoblinAnimations.RUN, ageInTicks, 1f);
+
+        if(entity.isLowHP() || entity.isSprinting()){
+            this.animateWalk(GoblinAnimations.RUN, limbSwing, limbSwingAmount, 4f, ageInTicks);
+        } else{
+            this.animateWalk(GoblinAnimations.WALK, limbSwing, limbSwingAmount, 2f, ageInTicks);
+        }
+
         this.animate(entity.idleAnimationState, GoblinAnimations.IDLE, ageInTicks, 0.5f);
     }
 
