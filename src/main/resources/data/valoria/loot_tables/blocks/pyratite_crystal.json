@@ -10,7 +10,7 @@
           "children": [
             {
               "type": "minecraft:item",
-              "name": "valoria:amethyst_crystal",
+              "name": "valoria:pyratite_crystal",
               "conditions": [
                 {
                   "condition": "minecraft:match_tool",
@@ -29,7 +29,7 @@
             },
             {
               "type": "minecraft:item",
-              "name": "valoria:amethyst_gem"
+              "name": "valoria:pyratite"
             }
           ]
         }

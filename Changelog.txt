@@ -24,8 +24,11 @@
 - Added Crypt Lantern
 - Added Sake to Creative Tab
 - Added Tomb variations
+- Added Pyratite block and Crystal
+- Added Silk touch drops to Crystals
 
 - Deleted Geodites (Drops moved to ephemarite)
+- Deleted Void Crystal
 
 - Changed Tipsy effect balance
 - Drinks are placeable now

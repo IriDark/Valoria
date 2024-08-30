@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "valoria:void_crystal"
+          "name": "valoria:pyratite_block"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "valoria:blocks/void_crystal"
+  "random_sequence": "valoria:blocks/pyratite_block"
 }

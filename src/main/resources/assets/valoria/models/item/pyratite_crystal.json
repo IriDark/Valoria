@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "valoria:block/void_crystal"
+    "layer0": "valoria:block/pyratite_crystal"
   }
 }

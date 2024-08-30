@@ -59,7 +59,9 @@ public class BlockRegistry{
     () -> new UmbralBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).mapColor(MapColor.COLOR_PURPLE).strength(-1f, 3600000.8F).sound(SoundType.NETHER_BRICKS).noLootTable()));
     public static final RegistryObject<Block> UMBRAL_ACTIVATOR = registerBlock("umbral_activator",
     () -> new UmbralActivatorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).mapColor(MapColor.COLOR_PURPLE).strength(-1f, 3600000.8F).sound(SoundType.NETHER_BRICKS).noLootTable()));
-    // Metal
+
+    public static final RegistryObject<Block> PYRATITE_BLOCK = registerBlock("pyratite_block",
+    () -> new Block(BlockBehaviour.Properties.copy(Blocks.AMETHYST_BLOCK).mapColor(MapColor.COLOR_ORANGE).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> AMETHYST_BLOCK = registerBlock("amethyst_block",
     () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).mapColor(MapColor.COLOR_PINK).requiresCorrectToolForDrops().strength(3f, 4f).sound(SoundType.AMETHYST)));
     public static final RegistryObject<Block> SAPPHIRE_BLOCK = registerBlock("sapphire_block",
@@ -558,7 +560,7 @@ public class BlockRegistry{
     public static final RegistryObject<Block> COGNAC_BOTTLE = BLOCK.register("cognac_bottle", () -> cognacBottle(MapColor.COLOR_RED));
 
     // Crystals
-    public static final RegistryObject<Block> VOID_CRYSTAL = registerBlock("void_crystal",
+    public static final RegistryObject<Block> PYRATITE_CRYSTAL = registerBlock("pyratite_crystal",
     () -> new AmethystClusterBlock(7, 3, BlockBehaviour.Properties.copy(Blocks.LARGE_AMETHYST_BUD).strength(1f, 0f).sound(SoundType.GLASS).noOcclusion()));
     public static final RegistryObject<Block> AMBER_CRYSTAL = registerBlock("amber_crystal",
     () -> new AmethystClusterBlock(7, 3, BlockBehaviour.Properties.copy(Blocks.LARGE_AMETHYST_BUD).strength(1f, 0f).sound(SoundType.GLASS).noOcclusion()));

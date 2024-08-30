@@ -370,6 +370,7 @@ public abstract class ItemTabRegistry{
             event.accept(BlockRegistry.PEARLIUM_ORE);
             event.accept(BlockRegistry.WICKED_AMETHYST_ORE);
             event.accept(BlockRegistry.DORMANT_CRYSTALS);
+            event.accept(BlockRegistry.PYRATITE_BLOCK);
             event.accept(BlockRegistry.AMBER_BLOCK);
             event.accept(BlockRegistry.AMETHYST_BLOCK);
             event.accept(BlockRegistry.RUBY_BLOCK);
@@ -378,7 +379,7 @@ public abstract class ItemTabRegistry{
             event.accept(BlockRegistry.AMETHYST_CRYSTAL);
             event.accept(BlockRegistry.RUBY_CRYSTAL);
             event.accept(BlockRegistry.SAPPHIRE_CRYSTAL);
-            event.accept(BlockRegistry.VOID_CRYSTAL);
+            event.accept(BlockRegistry.PYRATITE_CRYSTAL);
             event.accept(BlockRegistry.NATURE_BLOCK);
             event.accept(BlockRegistry.AQUARIUS_BLOCK);
             event.accept(BlockRegistry.INFERNAL_BLOCK);
