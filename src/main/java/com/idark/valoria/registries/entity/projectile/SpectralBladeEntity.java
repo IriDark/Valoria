@@ -87,28 +87,27 @@ public class SpectralBladeEntity extends AbstractArrow{
     @Override
     public void onHitEntity(EntityHitResult result){
         Entity entity = result.getEntity();
-        int e = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.SHARPNESS, this.thrownStack);
-        float f = 7.5f + (((float)e) - 1.5f);
-        if(entity instanceof LivingEntity livingentity){
-            f += EnchantmentHelper.getDamageBonus(this.thrownStack, livingentity.getMobType());
-        }
-
         Entity shooter = this.getOwner();
-        DamageSource damagesource = level().damageSources().trident(this, (Entity)(shooter == null ? this : shooter));
-        this.dealtDamage = true;
-        this.level().playSound(this, this.getOnPos(), SoundsRegistry.DISAPPEAR.get(), SoundSource.AMBIENT, 0.4f, 1f);
-        if(entity.hurt(damagesource, f)){
-            if(entity.getType() == EntityType.ENDERMAN){
-                return;
+        if(shooter instanceof Player player) {
+            int e = EnchantmentHelper.getTagEnchantmentLevel(Enchantments.SHARPNESS, this.thrownStack);
+            float f = (float) (player.getAttributes().getValue(AttributeRegistry.PROJECTILE_DAMAGE.get()) + Math.max(0, e - 2));
+            if (entity instanceof LivingEntity livingentity) {
+                f += EnchantmentHelper.getDamageBonus(this.thrownStack, livingentity.getMobType());
             }
 
-            if(entity instanceof LivingEntity living){
-                if(shooter instanceof LivingEntity){
-                    EnchantmentHelper.doPostHurtEffects(living, shooter);
-                    EnchantmentHelper.doPostDamageEffects((LivingEntity)shooter, living);
+            DamageSource damagesource = level().damageSources().trident(this, shooter);
+            this.dealtDamage = true;
+            this.level().playSound(this, this.getOnPos(), SoundsRegistry.DISAPPEAR.get(), SoundSource.AMBIENT, 0.4f, 1f);
+            if (entity.hurt(damagesource, f)) {
+                if (entity.getType() == EntityType.ENDERMAN) {
+                    return;
                 }
 
-                this.doPostHurtEffects(living);
+                if (entity instanceof LivingEntity living) {
+                    EnchantmentHelper.doPostHurtEffects(living, shooter);
+                    EnchantmentHelper.doPostDamageEffects((LivingEntity) shooter, living);
+                    this.doPostHurtEffects(living);
+                }
             }
         }
 

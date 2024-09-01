@@ -213,7 +213,7 @@ public class ItemsRegistry{
     public static final RegistryObject<Item> SAMURAI_POISONED_KUNAI = ITEMS.register("samurai_poisoned_kunai",
     () -> new KunaiItem(3, -1.9F, new Item.Properties().durability(360), new MobEffectInstance(MobEffects.POISON, 170, 0)));
     public static final RegistryObject<Item> SPECTRAL_BLADE = ITEMS.register("spectral_blade",
-    () -> new SpectralBladeItem(new Item.Properties().durability(852)));
+    () -> new SpectralBladeItem(1, -2.3f, new Item.Properties().durability(852)));
     public static final RegistryObject<Item> CORPSECLEAVER = ITEMS.register("corpsecleaver",
     () -> new CorpseCleaverItem(ModItemTier.BLOOD, 2, -2.4F, new Item.Properties().durability(1151)));
     public static final RegistryObject<Item> SILKEN_BLADE = ITEMS.register("silken_blade",
