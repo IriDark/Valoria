@@ -29,6 +29,7 @@
 - Added Pyratite block and Crystal
 - Added Silk touch drops to Crystals
 - Added Goblin Model Configuration
+- Added "in-hand" Models to Katanas (Contributed by Kerdo)
 
 - Deleted Geodites (Drops moved to ephemarite)
 - Deleted Void Crystal
