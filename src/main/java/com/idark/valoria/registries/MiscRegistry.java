@@ -1,12 +1,18 @@
 package com.idark.valoria.registries;
 
-import com.idark.valoria.*;
-import net.minecraft.world.entity.decoration.*;
-import net.minecraftforge.eventbus.api.*;
-import net.minecraftforge.registries.*;
+import com.google.common.collect.ImmutableSet;
+import com.idark.valoria.Valoria;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.ai.village.poi.PoiType;
+import net.minecraft.world.entity.decoration.PaintingVariant;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
-public class PaintingRegistry{
+public class MiscRegistry {
     public static final DeferredRegister<PaintingVariant> PAINTING_TYPES = DeferredRegister.create(ForgeRegistries.PAINTING_VARIANTS, Valoria.ID);
+    public static final DeferredRegister<PoiType> POI = DeferredRegister.create(ForgeRegistries.POI_TYPES, Valoria.ID);
 
     public static final RegistryObject<PaintingVariant> BIG_MOUNTAINS = PAINTING_TYPES.register("big_mountains", () -> new PaintingVariant(32, 48));
     public static final RegistryObject<PaintingVariant> FOREST_LONG = PAINTING_TYPES.register("forest_long", () -> new PaintingVariant(48, 16));
@@ -27,7 +33,10 @@ public class PaintingRegistry{
     public static final RegistryObject<PaintingVariant> EMERALD = PAINTING_TYPES.register("emerald", () -> new PaintingVariant(16, 16));
     public static final RegistryObject<PaintingVariant> THE_STARRY_NIGHT = PAINTING_TYPES.register("starry_night", () -> new PaintingVariant(32, 32));
 
-    public static void register(IEventBus eventBus){
+    public static final RegistryObject<PoiType> VALORIA_PORTAL = POI.register("valoria_portal", () -> new PoiType(ImmutableSet.copyOf(ForgeRegistries.BLOCKS.getValue(new ResourceLocation(Valoria.ID, "valoria_portal")).getStateDefinition().getPossibleStates()), 0, 1));
+
+    public static void init(IEventBus eventBus){
         PAINTING_TYPES.register(eventBus);
+        POI.register(eventBus);
     }
 }
