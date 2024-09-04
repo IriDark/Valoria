@@ -57,7 +57,13 @@
     "water_creature": []
   },
   "spawn_costs": {},
-  "carvers": {},
+  "carvers": {
+    "air": [
+      "minecraft:cave",
+      "minecraft:cave_extra_underground",
+      "minecraft:canyon"
+    ]
+  },
   "features": [
     [
       "valoria:eldritch_tree",
@@ -81,7 +87,8 @@
       "valoria:blackstone",
       "valoria:deep_marble",
       "valoria:tainted_roots",
-      "valoria:eldritch_fallen_tree"
+      "valoria:eldritch_fallen_tree",
+      "valoria:valoria_forest_rock"
     ]
   ]
 }
