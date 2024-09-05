@@ -10,11 +10,9 @@ import net.minecraftforge.network.*;
 import team.lodestar.lodestone.systems.particle.data.color.*;
 
 import java.awt.*;
-import java.util.*;
 import java.util.function.*;
 
 public class SmokeParticlePacket{
-    private static final Random random = new Random();
     private final double posX, posY, posZ, velX, velY, velZ;
     private final int colorR, colorG, colorB;
 

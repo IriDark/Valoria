@@ -318,31 +318,52 @@ public class NecromancerEntity extends AbstractNecromancer{
             }
         }
 
-        protected void performSpellCasting(){
-            ServerLevel serverlevel = (ServerLevel)NecromancerEntity.this.level();
-            if(NecromancerEntity.this.hasTarget()){
-                if(!serverlevel.isDay() || serverlevel.isRaining()){
-                    for(int i = 0; i < 3; ++i){
-                        BlockPos blockpos = NecromancerEntity.this.blockPosition().offset(-2 + NecromancerEntity.this.random.nextInt(5), 0, -2 + NecromancerEntity.this.random.nextInt(5));
-                        BlockPos undeadSpawnPos = NecromancerEntity.this.blockPosition().offset(-2 + NecromancerEntity.this.random.nextInt(5), 1, -2 + NecromancerEntity.this.random.nextInt(5));
-                        if(arcRandom.fiftyFifty()){
-                            spawnSkeletons(serverlevel, blockpos);
-                        }else{
-                            spawnZombie(serverlevel, blockpos);
-                        }
+        public void spawnUndead(ServerLevel serv) {
+            for(int i = 0; i < 3; ++i){
+                BlockPos undeadSpawnPos = NecromancerEntity.this.blockPosition().offset(-2 + NecromancerEntity.this.random.nextInt(5), 1, -2 + NecromancerEntity.this.random.nextInt(5));
+                spawnUndead(serv, undeadSpawnPos);
+            }
+        }
 
-                        if(arcRandom.chance(5)){
-                            spawnUndead(serverlevel, undeadSpawnPos);
-                        }
-                    }
+        public void spawnMobs(ServerLevel serv){
+            boolean flag = serv.isDay() && !serv.isRaining(); // Prevents sun avoiding mobs from spawning
+            if(flag){
+                spawnUndead(serv);
+                return;
+            }
+
+            for(int i = 0; i < 3; ++i){
+                BlockPos blockpos = NecromancerEntity.this.blockPosition().offset(-2 + NecromancerEntity.this.random.nextInt(5), 0, -2 + NecromancerEntity.this.random.nextInt(5));
+                if(arcRandom.fiftyFifty()){
+                    spawnSkeletons(serv, blockpos);
                 }else{
-                    for(int i = 0; i < 3; ++i){
-                        BlockPos undeadSpawnPos = NecromancerEntity.this.blockPosition().offset(-2 + NecromancerEntity.this.random.nextInt(5), 1, -2 + NecromancerEntity.this.random.nextInt(5));
-                        spawnUndead(serverlevel, undeadSpawnPos);
-                    }
+                    spawnZombie(serv, blockpos);
                 }
+            }
 
-                PacketHandler.sendToTracking(serverlevel, NecromancerEntity.this.getOnPos(), new SmokeParticlePacket(NecromancerEntity.this.getOnPos().getX(), NecromancerEntity.this.getOnPos().getY() + 1.2f, NecromancerEntity.this.getOnPos().getZ(), ((new Random().nextDouble() - 0.5D) / 64), 0, ((new Random().nextDouble() - 0.5D) / 64), 30, 35, 75));
+            if(arcRandom.chance(5)){
+                spawnUndead(serv);
+            }
+        }
+
+        protected void performSpellCasting(){
+            NecromancerEntity entity = NecromancerEntity.this;
+            boolean flag = entity.level().isClientSide || !entity.hasTarget();
+            if(flag){
+                return;
+            }
+
+            if(entity.level() instanceof ServerLevel serv){
+                spawnMobs(serv);
+                double posX = entity.getOnPos().getCenter().x;
+                double posY = entity.getOnPos().above().getCenter().y;
+                double posZ = entity.getOnPos().getCenter().z;
+
+                double offsetX = (new Random().nextDouble() - 0.5) / 64;
+                double offsetZ = (new Random().nextDouble() - 0.5) / 64;
+
+                // FIXME: 05.09.2024 Broken render???
+                PacketHandler.sendToTracking(serv, entity.getOnPos(), new SmokeParticlePacket(posX, posY - 0.5f, posZ, offsetX, 0, offsetZ, 255, 255, 255));
             }
         }
 

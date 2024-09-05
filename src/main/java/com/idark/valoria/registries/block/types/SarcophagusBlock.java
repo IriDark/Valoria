@@ -146,10 +146,9 @@ public class SarcophagusBlock extends HorizontalDirectionalBlock{
                 double posZ = (pPos.getCenter().z + oppositePos.getCenter().z) / 2.0;
 
                 double offsetX = (new Random().nextDouble() - 0.5) / 64;
-                double offsetY = 0;
                 double offsetZ = (new Random().nextDouble() - 0.5) / 64;
 
-                PacketHandler.sendToTracking(serv, pPos, new SmokeParticlePacket(posX, posY - 0.5f, posZ, offsetX, offsetY, offsetZ, 255, 255, 255));
+                PacketHandler.sendToTracking(serv, pPos, new SmokeParticlePacket(posX, posY - 0.5f, posZ, offsetX, 0, offsetZ, 255, 255, 255));
             }
 
             for(int i = 0; i < 10; i++){

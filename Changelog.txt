@@ -13,6 +13,9 @@
 - Fixed Pot generation
 - Fixed Server Crashing
 - Fixed Goblin Animations
+- Fixed Pot Item Models
+- Fixed Smoke Particles
+- Fixed Necromancer Particles
 
 - Nerfed Rune's
 - Buffed Silken Kunai

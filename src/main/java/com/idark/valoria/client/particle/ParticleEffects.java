@@ -224,7 +224,7 @@ public class ParticleEffects{
     public static ParticleEffectSpawner packetSmokeParticles(Level level, Vec3 pos, WorldParticleBuilder builder){
         Random random = new Random();
         final WorldParticleBuilder particleBuilder = builder
-        .setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT.withDepthFade())
+        .setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT)
         .setTransparencyData(GenericParticleData.create(random.nextFloat(0, 0.6f), 0f).build())
         .setScaleData(GenericParticleData.create(0.92f, 0f).build())
         .setLifetime(95 + random.nextInt(100))
