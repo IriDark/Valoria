@@ -613,7 +613,7 @@ public abstract class ItemTabRegistry{
             event.accept(BlockRegistry.MEAT_BLOCK);
             event.accept(BlockRegistry.EYE_MEAT);
             event.accept(BlockRegistry.SARCOPHAGUS);
-            event.getParameters().holders().lookup(PaintingRegistry.PAINTING_TYPES.getRegistryKey()).ifPresent((p_270026_) -> generatePresetPaintings(event, p_270026_, (p_270037_) -> p_270037_.is(TagsRegistry.MODDED), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
+            event.getParameters().holders().lookup(MiscRegistry.PAINTING_TYPES.getRegistryKey()).ifPresent((p_270026_) -> generatePresetPaintings(event, p_270026_, (p_270037_) -> p_270037_.is(TagsRegistry.MODDED), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
         }
     }
 

@@ -1,6 +1,18 @@
 {
-  "parent": "item/handheld",
-  "textures": {
-    "layer0": "valoria:item/holiday_katana"
+  "parent": "minecraft:item/handheld",
+  "loader": "forge:separate_transforms",
+  "base": {
+    "parent": "valoria:item/holiday_katana_in_hand"
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "valoria:item/holiday_katana_icon"
+    },
+    "ground": {
+      "parent": "valoria:item/holiday_katana_icon"
+    },
+    "fixed": {
+      "parent": "valoria:item/holiday_katana_icon"
+    }
   }
 }

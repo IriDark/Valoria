@@ -1,6 +1,18 @@
 {
-  "parent": "item/handheld",
-  "textures": {
-    "layer0": "valoria:item/iron_katana"
+  "parent": "minecraft:item/handheld",
+  "loader": "forge:separate_transforms",
+  "base": {
+    "parent": "valoria:item/iron_katana_in_hand"
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "valoria:item/iron_katana_icon"
+    },
+    "ground": {
+      "parent": "valoria:item/iron_katana_icon"
+    },
+    "fixed": {
+      "parent": "valoria:item/iron_katana_icon"
+    }
   }
 }

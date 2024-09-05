@@ -20,7 +20,7 @@ import java.util.function.*;
 public class ValoriaTeleporter extends BaseTeleporter implements ITeleporter{
 
     public ValoriaTeleporter(BlockPos pos, boolean insideDim){
-        super(pos, insideDim, PoiRegistries.VALORIA_PORTAL.getKey());
+        super(pos, insideDim, MiscRegistry.VALORIA_PORTAL.getKey());
     }
 
     public PortalInfo getPortalInfo(Entity entity, ServerLevel destWorld, Function<ServerLevel, PortalInfo> defaultPortalInfo){

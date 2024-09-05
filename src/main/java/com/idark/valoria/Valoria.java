@@ -66,12 +66,11 @@ public class Valoria{
         SoundsRegistry.SOUNDS.register(eventBus);
         EffectsRegistry.register(eventBus);
         EnchantmentsRegistry.register(eventBus);
-        PaintingRegistry.register(eventBus);
+        MiscRegistry.init(eventBus);
         AttributeRegistry.register(eventBus);
         PotionBrewery.register(eventBus);
         ItemsRegistry.register(eventBus);
         BlockRegistry.register(eventBus);
-        PoiRegistries.register(eventBus);
         LevelGen.init(eventBus);
 
         BlockEntitiesRegistry.register(eventBus);

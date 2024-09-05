@@ -54,6 +54,7 @@ Explore the enriched landscapes with an exotic plants <p> Valoria introduces a r
 - Skoow `| Code |`
 - Gato `| Models |`
 - KoteykaTheCat `| Done a portfolio page for me! |`
+- Kerdo `| Ideas | Contributions |`
 - TerraPrime
 - GraFik
 - Wosaj

@@ -1,5 +1,9 @@
-package com.idark.valoria.registries.item.types;
+package com.idark.valoria.registries.item.types.ranged;
 
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMultimap;
+import com.google.common.collect.Multimap;
+import com.idark.valoria.registries.AttributeRegistry;
 import com.idark.valoria.registries.entity.projectile.*;
 import com.idark.valoria.registries.item.tiers.*;
 import net.minecraft.*;
@@ -7,7 +11,11 @@ import net.minecraft.network.chat.*;
 import net.minecraft.sounds.*;
 import net.minecraft.stats.*;
 import net.minecraft.world.*;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.entity.projectile.*;
 import net.minecraft.world.item.*;
@@ -16,9 +24,21 @@ import net.minecraft.world.level.*;
 import java.util.*;
 
 public class SpectralBladeItem extends SwordItem{
-    public SpectralBladeItem(Item.Properties builderIn){
-        super(ModItemTier.NONE, 1, -2.3F, builderIn);
+    private final Multimap<Attribute, AttributeModifier> atr;
+
+    public SpectralBladeItem(int damage, float speed, Item.Properties builderIn){
+        super(ModItemTier.NONE, damage, speed, builderIn);
+        ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
+        builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", 3, AttributeModifier.Operation.ADDITION));
+        builder.put(AttributeRegistry.PROJECTILE_DAMAGE.get(), new AttributeModifier(UUID.fromString("5334b818-69d4-417e-b4b8-1869d4917e29"), "Tool modifier", 6.0F, AttributeModifier.Operation.ADDITION));
+        builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Tool modifier", -1.9F, AttributeModifier.Operation.ADDITION));
+        this.atr = builder.build();
     }
+
+    public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot equipmentSlot){
+        return equipmentSlot == EquipmentSlot.MAINHAND ? this.atr : super.getDefaultAttributeModifiers(equipmentSlot);
+    }
+
 
     public UseAnim getUseAnimation(ItemStack stack){
         return UseAnim.SPEAR;
