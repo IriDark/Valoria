@@ -586,6 +586,7 @@ public class BlockRegistry{
     public static final RegistryObject<Block> POT_LONG_MOSSY_HANDLES = registerBlock("pot_long_mossy_handles",
     () -> new PotBlock(true, BlockBehaviour.Properties.copy(Blocks.GLASS).lootFrom(BlockRegistry.POT_LONG).instabreak().noOcclusion().sound(SoundsRegistry.POT)));
     public static final RegistryObject<Block> CRYPT_POT = registerBlock("crypt_pot", BlockRegistry::cryptPot);
+    public static final RegistryObject<Block> DECORATED_CRYPT_POT = registerBlock("decorated_crypt_pot", BlockRegistry::cryptPot);
 
     // Plants
     public static final RegistryObject<Block> TAINTED_ROOTS = BLOCK.register("tainted_roots",

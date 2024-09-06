@@ -1,20 +1,7 @@
 {
   "variants": {
-    "facing=east": {
-      "model": "valoria:block/crypt_pot",
-      "y": 90
-    },
-    "facing=north": {
-      "model": "valoria:block/crypt_pot",
-      "y": 180
-    },
-    "facing=south": {
-      "model": "valoria:block/crypt_pot",
-      "y": 180
-    },
-    "facing=west": {
-      "model": "valoria:block/crypt_pot",
-      "y": 90
+    "": {
+      "model": "valoria:block/crypt_pot"
     }
   }
 }
