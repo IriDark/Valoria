@@ -3,7 +3,7 @@ package com.idark.valoria.registries.item.types.curio;
 import com.google.common.collect.*;
 import com.idark.valoria.*;
 import com.idark.valoria.client.render.curio.*;
-import com.idark.valoria.registries.item.types.curio.enums.*;
+import com.idark.valoria.registries.item.enums.*;
 import net.minecraft.resources.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;

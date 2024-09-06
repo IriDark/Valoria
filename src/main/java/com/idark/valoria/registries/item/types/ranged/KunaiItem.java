@@ -3,7 +3,7 @@ package com.idark.valoria.registries.item.types.ranged;
 import com.google.common.collect.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.entity.projectile.*;
-import com.idark.valoria.registries.item.tiers.*;
+import com.idark.valoria.registries.item.enums.*;
 import com.idark.valoria.util.*;
 import net.minecraft.*;
 import net.minecraft.core.*;

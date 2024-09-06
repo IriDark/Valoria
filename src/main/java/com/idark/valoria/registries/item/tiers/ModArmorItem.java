@@ -2,6 +2,7 @@ package com.idark.valoria.registries.item.tiers;
 
 import com.google.common.collect.*;
 import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.item.enums.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;

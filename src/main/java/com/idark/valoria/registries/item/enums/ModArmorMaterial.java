@@ -1,4 +1,4 @@
-package com.idark.valoria.registries.item.tiers;
+package com.idark.valoria.registries.item.enums;
 
 import com.idark.valoria.*;
 import com.idark.valoria.registries.*;

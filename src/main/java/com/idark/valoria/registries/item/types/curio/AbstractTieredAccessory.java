@@ -2,7 +2,7 @@ package com.idark.valoria.registries.item.types.curio;
 
 import com.google.common.collect.*;
 import com.idark.valoria.*;
-import com.idark.valoria.registries.item.types.curio.enums.*;
+import com.idark.valoria.registries.item.enums.*;
 import com.idark.valoria.util.*;
 import net.minecraft.*;
 import net.minecraft.network.chat.*;

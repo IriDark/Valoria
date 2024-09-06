@@ -1,4 +1,4 @@
-package com.idark.valoria.registries.item.types.curio.enums;
+package com.idark.valoria.registries.item.enums;
 
 public enum AccessoryMaterial{
     LEATHER("leather"),

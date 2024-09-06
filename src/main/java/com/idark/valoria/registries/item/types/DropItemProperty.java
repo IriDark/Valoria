@@ -2,6 +2,7 @@ package com.idark.valoria.registries.item.types;
 
 import com.idark.valoria.*;
 import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.item.enums.*;
 import com.idark.valoria.util.*;
 import net.minecraft.*;
 import net.minecraft.advancements.*;

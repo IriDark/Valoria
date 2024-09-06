@@ -1,17 +1,15 @@
 package com.idark.valoria.registries.item.types.ranged;
 
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import com.idark.valoria.registries.AttributeRegistry;
 import com.idark.valoria.registries.entity.projectile.*;
-import com.idark.valoria.registries.item.tiers.*;
+import com.idark.valoria.registries.item.enums.*;
 import net.minecraft.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.sounds.*;
 import net.minecraft.stats.*;
 import net.minecraft.world.*;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
