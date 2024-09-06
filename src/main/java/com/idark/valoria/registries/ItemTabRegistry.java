@@ -609,6 +609,7 @@ public abstract class ItemTabRegistry{
             event.accept(BlockRegistry.POT_LONG_HANDLES);
             event.accept(BlockRegistry.POT_LONG_MOSSY);
             event.accept(BlockRegistry.POT_LONG_MOSSY_HANDLES);
+            event.accept(BlockRegistry.CRYPT_POT);
             event.accept(BlockRegistry.SPIDER_EGG);
             event.accept(BlockRegistry.MEAT_BLOCK);
             event.accept(BlockRegistry.EYE_MEAT);

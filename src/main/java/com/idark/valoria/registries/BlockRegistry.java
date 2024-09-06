@@ -574,9 +574,9 @@ public class BlockRegistry{
     () -> new AmethystClusterBlock(7, 3, BlockBehaviour.Properties.copy(Blocks.LARGE_AMETHYST_BUD).strength(1f, 0f).sound(SoundType.GLASS).noOcclusion()));
     // Pots
     public static final RegistryObject<Block> POT_SMALL = registerBlock("pot_small",
-    () -> new PotBlock(false, BlockBehaviour.Properties.copy(Blocks.GLASS).instabreak().noOcclusion().sound(SoundsRegistry.POT)));
+    () -> new PotBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).instabreak().noOcclusion().sound(SoundsRegistry.POT)));
     public static final RegistryObject<Block> POT_SMALL_HANDLES = registerBlock("pot_small_handles",
-    () -> new PotBlock(false, BlockBehaviour.Properties.copy(Blocks.GLASS).lootFrom(BlockRegistry.POT_SMALL).instabreak().noOcclusion().sound(SoundsRegistry.POT)));
+    () -> new PotBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).lootFrom(BlockRegistry.POT_SMALL).instabreak().noOcclusion().sound(SoundsRegistry.POT)));
     public static final RegistryObject<Block> POT_LONG = registerBlock("pot_long",
     () -> new PotBlock(true, BlockBehaviour.Properties.copy(Blocks.GLASS).instabreak().noOcclusion().sound(SoundsRegistry.POT)));
     public static final RegistryObject<Block> POT_LONG_HANDLES = registerBlock("pot_long_handles",
@@ -585,7 +585,9 @@ public class BlockRegistry{
     () -> new PotBlock(true, BlockBehaviour.Properties.copy(Blocks.GLASS).lootFrom(BlockRegistry.POT_LONG).instabreak().noOcclusion().sound(SoundsRegistry.POT)));
     public static final RegistryObject<Block> POT_LONG_MOSSY_HANDLES = registerBlock("pot_long_mossy_handles",
     () -> new PotBlock(true, BlockBehaviour.Properties.copy(Blocks.GLASS).lootFrom(BlockRegistry.POT_LONG).instabreak().noOcclusion().sound(SoundsRegistry.POT)));
-    // Plants`
+    public static final RegistryObject<Block> CRYPT_POT = registerBlock("crypt_pot", BlockRegistry::cryptPot);
+
+    // Plants
     public static final RegistryObject<Block> TAINTED_ROOTS = BLOCK.register("tainted_roots",
     () -> new TaintedRootsBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).mapColor(MapColor.COLOR_MAGENTA).randomTicks().noCollission().instabreak().sound(SoundType.CAVE_VINES).pushReaction(PushReaction.DESTROY)));
     public static final RegistryObject<Block> VIOLET_SPROUT_PLANT = BLOCK.register("violet_sprout_plant",
@@ -689,6 +691,25 @@ public class BlockRegistry{
         return new CupBlock(BlockBehaviour.Properties.of().noOcclusion().strength(0.1F).sound(SoundType.WOOD).pushReaction(PushReaction.DESTROY));
     }
 
+    private static PotBlock cryptPot() {
+        return new PotBlock(true, BlockBehaviour.Properties.copy(Blocks.GLASS).instabreak().noOcclusion().sound(SoundsRegistry.POT)) {
+            public VoxelShape makeShape(){
+                VoxelShape shape = Shapes.empty();
+                shape = Shapes.join(shape, Shapes.box(0.25, 0, 0.25, 0.75, 0.625, 0.75), BooleanOp.OR);
+                shape = Shapes.join(shape, Shapes.box(0.375, 0.625, 0.375, 0.625, 0.6875, 0.625), BooleanOp.OR);
+                shape = Shapes.join(shape, Shapes.box(0.25, 0.6875, 0.25, 0.75, 0.8125, 0.75), BooleanOp.OR);
+                shape = Shapes.join(shape, Shapes.box(0.5, 0.1875, 0.75, 0.5, 0.5625, 0.9375), BooleanOp.OR);
+                shape = Shapes.join(shape, Shapes.box(0.5, 0.1875, 0.0625, 0.5, 0.5625, 0.25), BooleanOp.OR);
+
+                return shape;
+            }
+
+            @Override
+            public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context){
+                return makeShape();
+            }
+        };
+    }
     private static BottleBlock largeBottle(MapColor pMapColor){
         return new BottleBlock(BlockBehaviour.Properties.of().mapColor(pMapColor).noOcclusion().strength(0.1F).sound(SoundType.GLASS).pushReaction(PushReaction.DESTROY)){
             private static final VoxelShape FIRST_AABB = Shapes.box(0.40625, 0, 0.375, 0.78125, 0.6875, 0.75);

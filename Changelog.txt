@@ -33,6 +33,7 @@
 - Added Silk touch drops to Crystals
 - Added Goblin Model Configuration
 - Added "in-hand" Models to Katanas (Contributed by Kerdo)
+- Added Crypt Pots (Contributed by Kerdo)
 
 - Deleted Geodites (Drops moved to ephemarite)
 - Deleted Void Crystal

@@ -13,10 +13,15 @@ import javax.annotation.*;
 
 public class PotBlock extends HorizontalDirectionalBlock implements SimpleWaterloggedBlock{
     private final boolean potLong;
-
     public PotBlock(boolean pLong, BlockBehaviour.Properties properties){
         super(properties);
         potLong = pLong;
+        registerDefaultState(defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, false));
+    }
+
+    public PotBlock(BlockBehaviour.Properties properties){
+        super(properties);
+        potLong = false;
         registerDefaultState(defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, false));
     }
 
