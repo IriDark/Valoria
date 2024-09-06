@@ -82,51 +82,26 @@ public class CurioItemProperty extends AbstractTieredAccessory implements ICurio
         return attribute;
     }
 
-    //todo redo this shit
     @Override
-    public ResourceLocation getTexture(ItemStack stack, LivingEntity entity){
-        return switch(type){
-            case NECKLACE -> switch(material){
-                case IRON -> switch(gem){
-                    case NONE, BELT, TANK, TOUGH -> null;
-                    case AMBER -> getNecklaceTexture("iron", "amber");
-                    case DIAMOND -> getNecklaceTexture("iron", "diamond");
-                    case EMERALD -> getNecklaceTexture("iron", "emerald");
-                    case RUBY -> getNecklaceTexture("iron", "ruby");
-                    case SAPPHIRE -> getNecklaceTexture("iron", "sapphire");
-                    case ARMOR -> getNecklaceTexture("iron", "armor");
-                    case HEALTH -> getNecklaceTexture("iron", "health");
-                    case WEALTH -> getNecklaceTexture("iron", "wealth");
-                };
-
-                case GOLD -> switch(gem){
-                    case NONE, BELT, TANK, TOUGH -> null;
-                    case AMBER -> getNecklaceTexture("golden", "amber");
-                    case DIAMOND -> getNecklaceTexture("golden", "diamond");
-                    case EMERALD -> getNecklaceTexture("golden", "emerald");
-                    case RUBY -> getNecklaceTexture("golden", "ruby");
-                    case SAPPHIRE -> getNecklaceTexture("golden", "sapphire");
-                    case ARMOR -> getNecklaceTexture("golden", "armor");
-                    case HEALTH -> getNecklaceTexture("golden", "health");
-                    case WEALTH -> getNecklaceTexture("golden", "wealth");
-                };
-
-                case NETHERITE -> switch(gem){
-                    case NONE, BELT, TANK, TOUGH -> null;
-                    case AMBER -> getNecklaceTexture("netherite", "amber");
-                    case DIAMOND -> getNecklaceTexture("netherite", "diamond");
-                    case EMERALD -> getNecklaceTexture("netherite", "emerald");
-                    case RUBY -> getNecklaceTexture("netherite", "ruby");
-                    case SAPPHIRE -> getNecklaceTexture("netherite", "sapphire");
-                    case ARMOR -> getNecklaceTexture("netherite", "armor");
-                    case HEALTH -> getNecklaceTexture("netherite", "health");
-                    case WEALTH -> getNecklaceTexture("netherite", "wealth");
-                };
-
-                default -> null;
-            };
+    public ResourceLocation getTexture(ItemStack stack, LivingEntity entity) {
+        return switch (type) {
+            case NECKLACE -> getNecklaceTexture(material, gem);
             case BELT -> BELT_TEXTURE;
             default -> null;
         };
+    }
+
+    private ResourceLocation getNecklaceTexture(AccessoryMaterial material, AccessoryGem gem) {
+        if (!gem.isTextureApplicable() || material.isInvalid()) {
+            return null;
+        }
+
+        String materialName = material.getName();
+        String gemName = gem.getGemName();
+        if (materialName == null || gemName == null) {
+            return null;
+        }
+
+        return getNecklaceTexture(materialName, gemName);
     }
 }

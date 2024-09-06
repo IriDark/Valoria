@@ -60,12 +60,19 @@ public class GlovesItem extends AbstractTieredAccessory implements ICurioTexture
 
     @Override
     public ResourceLocation getTexture(ItemStack stack, LivingEntity entity){
-        return switch(material){
-            case LEATHER -> getGlovesTexture("leather", !HandsRenderer.isDefault);
-            case IRON -> getGlovesTexture("iron", !HandsRenderer.isDefault);
-            case GOLD -> getGlovesTexture("golden", !HandsRenderer.isDefault);
-            case DIAMOND -> getGlovesTexture("diamond", !HandsRenderer.isDefault);
-            case NETHERITE -> getGlovesTexture("netherite", !HandsRenderer.isDefault);
-        };
+        return getGloveTexture(material, !HandsRenderer.isDefault);
+    }
+
+    private ResourceLocation getGloveTexture(AccessoryMaterial material, boolean render) {
+        if (material.isInvalid()) {
+            return null;
+        }
+
+        String materialName = material.getName();
+        if (materialName == null) {
+            return null;
+        }
+
+        return getGlovesTexture(materialName, render);
     }
 }

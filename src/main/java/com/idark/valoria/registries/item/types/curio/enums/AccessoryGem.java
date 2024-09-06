@@ -1,16 +1,23 @@
 package com.idark.valoria.registries.item.types.curio.enums;
 
 public enum AccessoryGem{
-    NONE,
-    AMBER,
-    DIAMOND,
-    EMERALD,
-    RUBY,
-    SAPPHIRE,
-    ARMOR,
-    TOUGH,
-    TANK,
-    HEALTH,
-    BELT,
-    WEALTH
+    NONE, BELT, TANK, TOUGH, AMBER, DIAMOND, EMERALD, RUBY, SAPPHIRE, ARMOR, HEALTH, WEALTH;
+
+    public String getGemName() {
+        return switch (this) {
+            case AMBER -> "amber";
+            case DIAMOND -> "diamond";
+            case EMERALD -> "emerald";
+            case RUBY -> "ruby";
+            case SAPPHIRE -> "sapphire";
+            case ARMOR -> "armor";
+            case HEALTH -> "health";
+            case WEALTH -> "wealth";
+            default -> null;
+        };
+    }
+
+    public boolean isTextureApplicable() {
+        return this != NONE && this != BELT && this != TANK && this != TOUGH;
+    }
 }
