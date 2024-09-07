@@ -59,6 +59,7 @@
 - Added Shade Blossom
 - Added Shade Blossom Bandage
 - Added Pots Generation
+- Added some sort of Necromancy
 
 - Reworked Stone Crusher (A bit)
 - Reworked Accessories

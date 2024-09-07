@@ -117,7 +117,7 @@ public class ItemsRegistry{
     });
 
     //NECROMANCY
-//    public static final RegistryObject<Item> SUMMON_BOOK = ITEMS.register("summon_book", () -> new SummonBook(EntityTypeRegistry.UNDEAD.get(), 85,3, new Item.Properties().rarity(Rarity.EPIC)));
+    public static final RegistryObject<Item> SUMMON_BOOK = ITEMS.register("summon_book", () -> new SummonBook(EntityTypeRegistry.UNDEAD, 60,3, new Item.Properties().rarity(Rarity.EPIC)));
 
     public static final RegistryObject<Item> MINERS_BAG = ITEMS.register("miners_bag", () -> new DropItemProperty(DropType.MINERS, new Item.Properties().rarity(Rarity.EPIC)));
     public static final RegistryObject<Item> GEM_BAG = ITEMS.register("gem_bag", () -> new DropItemProperty(DropType.GEM, new Item.Properties().rarity(Rarity.EPIC)));

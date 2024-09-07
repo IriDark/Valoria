@@ -17,22 +17,32 @@ import net.minecraftforge.registries.*;
 import org.jetbrains.annotations.*;
 
 import java.util.*;
+import java.util.function.*;
 
 public class SummonBook extends Item{
-    //todo
-    private final EntityType<? extends AbstractMinionEntity> summonedEntity;
+    private final Supplier<? extends EntityType<? extends AbstractMinionEntity>> summonedEntity;
     public final Multimap<Attribute, AttributeModifier> defaultModifiers;
-    public SummonBook(EntityType<? extends AbstractMinionEntity> summoned, int lifetime, int count, Properties pProperties){
+
+    /**
+     * @param summoned Mob to summon, must be an extent of AbstractMinionEntity
+     * @param lifetime Summoned mob lifetime, specified in Seconds
+     * @param count Count of summoned mobs
+     */
+    public SummonBook(Supplier<? extends EntityType<? extends AbstractMinionEntity>> summoned, int lifetime, int count, Properties pProperties){
         super(pProperties);
         this.summonedEntity = summoned;
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
-        builder.put(AttributeRegistry.NECROMANCY_LIFETIME.get(), new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", lifetime, AttributeModifier.Operation.ADDITION));
-        builder.put(AttributeRegistry.NECROMANCY_COUNT.get(), new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Tool modifier", count, AttributeModifier.Operation.ADDITION));
+        builder.put(AttributeRegistry.NECROMANCY_LIFETIME.get(), new AttributeModifier(UUID.fromString("09a12525-61a5-4d57-a125-2561a56d578e"), "Tool modifier", lifetime, AttributeModifier.Operation.ADDITION));
+        builder.put(AttributeRegistry.NECROMANCY_COUNT.get(), new AttributeModifier(UUID.fromString("ed80691e-f153-4b5e-8069-1ef153bb5eed"), "Tool modifier", count, AttributeModifier.Operation.ADDITION));
         this.defaultModifiers = builder.build();
     }
 
     public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot pEquipmentSlot){
-        return this.defaultModifiers;
+        return pEquipmentSlot == EquipmentSlot.MAINHAND ? defaultModifiers : super.getDefaultAttributeModifiers(pEquipmentSlot);
+    }
+
+    protected EntityType<? extends AbstractMinionEntity> getDefaultType() {
+        return summonedEntity.get();
     }
 
     public void applyCooldown(Player playerIn){
@@ -43,16 +53,20 @@ public class SummonBook extends Item{
         }
     }
 
+    public int getLifetime(Player player) {
+        return (int)(player.getAttributeValue(AttributeRegistry.NECROMANCY_LIFETIME.get()) * 20);
+    }
+
     private void spawnMinions(ServerLevel serverLevel, Player player){
-        BlockPos blockpos = player.getOnPos();
-        AbstractMinionEntity summoned = summonedEntity.create(player.level());
+        BlockPos blockpos = player.getOnPos().above();
+        AbstractMinionEntity summoned = getDefaultType().create(player.level());
         if(summoned != null && serverLevel.isEmptyBlock(blockpos)){
             summoned.moveTo(blockpos, 0.0F, 0.0F);
             summoned.finalizeSpawn(serverLevel, player.level().getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, null, null);
             summoned.setOwner(player);
             summoned.setBoundOrigin(blockpos);
-            summoned.setLimitedLife((int)(player.getAttributeValue(AttributeRegistry.NECROMANCY_LIFETIME.get()) + serverLevel.random.nextInt(60)));
-            serverLevel.addFreshEntityWithPassengers(summoned);
+            summoned.setLimitedLife(getLifetime(player) + serverLevel.random.nextInt(60));
+            serverLevel.addFreshEntity(summoned);
         }
     }
 
@@ -64,10 +78,6 @@ public class SummonBook extends Item{
         }
 
         return InteractionResultHolder.pass(itemstack);
-    }
-
-    public UseAnim getUseAnimation(ItemStack pStack){
-        return UseAnim.CUSTOM;
     }
 
     public int getUseDuration(ItemStack stack){
@@ -90,6 +100,6 @@ public class SummonBook extends Item{
     @Override
     public void appendHoverText(@NotNull ItemStack stack, Level world, @NotNull List<Component> tooltip, @NotNull TooltipFlag flags){
         super.appendHoverText(stack, world, tooltip, flags);
-        tooltip.add(Component.translatable("tooltip.valoria.summons", summonedEntity.getDescription()).withStyle(ChatFormatting.GRAY));
+        tooltip.add(Component.translatable("tooltip.valoria.summons", getDefaultType().getDescription()).withStyle(ChatFormatting.GRAY));
     }
 }

@@ -8,6 +8,7 @@ import net.minecraft.world.entity.ai.goal.target.*;
 import net.minecraft.world.entity.ai.targeting.*;
 import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.level.*;
+import net.minecraft.world.scores.*;
 
 import javax.annotation.*;
 
@@ -81,6 +82,23 @@ public abstract class AbstractMinionEntity extends Monster implements TraceableE
 
     public void setOwner(LivingEntity pOwner){
         this.owner = pOwner;
+    }
+
+    public Team getTeam() {
+        LivingEntity livingentity = this.getOwner();
+        if (livingentity != null) {
+            return livingentity.getTeam();
+        }
+
+        return super.getTeam();
+    }
+
+    public boolean canAttack(LivingEntity pTarget){
+        return !this.isOwnedBy(pTarget) && super.canAttack(pTarget);
+    }
+
+    public boolean isOwnedBy(LivingEntity pEntity) {
+        return pEntity == this.getOwner();
     }
 
     @Nullable
