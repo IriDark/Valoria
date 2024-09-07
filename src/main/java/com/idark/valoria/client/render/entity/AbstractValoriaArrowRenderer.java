@@ -1,6 +1,7 @@
 package com.idark.valoria.client.render.entity;
 
 import com.idark.valoria.registries.entity.projectile.*;
+import com.idark.valoria.registries.item.interfaces.*;
 import net.minecraft.client.renderer.entity.*;
 import net.minecraft.resources.*;
 import net.minecraftforge.api.distmarker.*;

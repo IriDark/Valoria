@@ -3,6 +3,7 @@ package com.idark.valoria.registries.entity.projectile;
 import com.idark.valoria.*;
 import com.idark.valoria.client.particle.*;
 import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.item.interfaces.*;
 import com.idark.valoria.util.*;
 import net.minecraft.resources.*;
 import net.minecraft.world.entity.*;

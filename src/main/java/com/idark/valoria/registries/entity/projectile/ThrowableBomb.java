@@ -1,6 +1,8 @@
 package com.idark.valoria.registries.entity.projectile;
 
+import com.idark.valoria.*;
 import com.idark.valoria.registries.*;
+import net.minecraft.core.*;
 import net.minecraft.core.particles.*;
 import net.minecraft.nbt.*;
 import net.minecraft.network.syncher.*;
@@ -9,7 +11,9 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.projectile.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.phys.*;
+import net.minecraft.world.phys.shapes.*;
 import org.jetbrains.annotations.*;
 
 public class ThrowableBomb extends ThrowableItemProjectile{
@@ -50,14 +54,25 @@ public class ThrowableBomb extends ThrowableItemProjectile{
     @Override
     public void tick(){
         super.tick();
-        if(!this.isNoGravity()){
-            this.setDeltaMovement(this.getDeltaMovement().add(0.0D, -0.04D, 0.0D));
+        this.checkInsideBlocks();
+        Vec3 velocity = this.getDeltaMovement();
+        this.move(MoverType.SELF, velocity);
+        if (this.horizontalCollision) {
+            this.setDeltaMovement(new Vec3(-velocity.x * 0.5D, velocity.y * -0.8D, velocity.z * 0.5D));
+            velocity = this.getDeltaMovement();
         }
 
-        this.move(MoverType.SELF, this.getDeltaMovement());
-        this.setDeltaMovement(this.getDeltaMovement().scale(0.98D));
-        if(this.onGround()){
-            this.setDeltaMovement(this.getDeltaMovement().multiply(0.7D, -0.5D, 0.7D));
+        if (this.verticalCollision) {
+            velocity = this.getDeltaMovement();
+            this.setDeltaMovement(new Vec3(velocity.x * 0.7D, (-velocity.y * 0.5f) / 2, velocity.z * 0.7D));
+            if (Math.abs(velocity.x) < 0.1D && Math.abs(velocity.y) < 0.1D && Math.abs(velocity.z) < 0.1D) {
+                this.setDeltaMovement(new Vec3(0, (-velocity.y * 0.5f) / 2, 0));
+            }
+
+        }
+
+        if (!this.onGround()) {
+            this.setDeltaMovement(velocity.scale(0.98D));
         }
 
         int i = this.getFuse() - 1;
@@ -70,27 +85,52 @@ public class ThrowableBomb extends ThrowableItemProjectile{
         }else{
             this.updateInWaterStateAndDoFluidPushing();
             if(this.level().isClientSide){
-                this.level().addParticle(ParticleTypes.SMOKE, this.getX(), this.getY() + 0.5D, this.getZ(), 0.0D, 0.0D, 0.0D);
+                float yaw = this.getYRot();
+                float pitch = this.getXRot();
+
+                float yawRadians = (float) Math.toRadians(yaw);
+                float pitchRadians = (float) Math.toRadians(pitch);
+
+                double offsetX = -Math.sin(yawRadians) * 0.25;
+                double offsetZ = Math.cos(yawRadians) * 0.25;
+                double offsetY = -Math.sin(pitchRadians) * 0.3;
+                this.level().addParticle(ParticleTypes.SMOKE, this.getX() + offsetX, this.getY() + 0.3D + offsetY, this.getZ() + offsetZ, 0.0D, 0.0D, 0.0D);
             }
         }
+    }
 
-        // something really rare but happens
-        if(this.isInWall()){
-            this.discard();
+    protected void onInsideBlock(BlockState pState) {
+        if(!pState.isAir()) {
+            if (this.verticalCollision){
+                this.setOnGround(false);
+            }  else {
+                this.setDeltaMovement(new Vec3(-this.getDeltaMovement().x * 0.5D, this.getDeltaMovement().y * -0.8D, this.getDeltaMovement().z * 0.5D));
+            }
+
+            if (!pState.isAir() && isInsideBlocks()) {
+                Valoria.LOGGER.error("Entity discarded, stuck in blocks, position {}", this.getOnPos());
+                this.discard();
+            }
         }
+    }
 
-        this.checkInsideBlocks();
+    public boolean isInsideBlocks() {
+        if (this.noPhysics) {
+            return false;
+        } else {
+            float f = this.getDimensions(this.getPose()).width * 0.8F;
+            AABB aabb = AABB.ofSize(this.getEyePosition(), f, 1.0E-6D, f);
+            return BlockPos.betweenClosedStream(aabb).anyMatch((p_201942_) -> {
+                BlockState blockstate = this.level().getBlockState(p_201942_);
+                return !blockstate.isAir() && blockstate.isSolid() && Shapes.joinIsNotEmpty(blockstate.getCollisionShape(this.level(), p_201942_).move((double)p_201942_.getX(), (double)p_201942_.getY(), (double)p_201942_.getZ()), Shapes.create(aabb), BooleanOp.AND);
+            });
+        }
     }
 
     public void onHit(HitResult pResult){
         if(!this.level().isClientSide){
             this.level().playSound(this, this.getOnPos(), SoundEvents.CREEPER_PRIMED, SoundSource.AMBIENT, 0.4f, 1f);
             this.level().broadcastEntityEvent(this, (byte)3);
-
-            if(!this.onGround()){
-                // preventing stuck
-                this.setDeltaMovement(-0.07283160655324188, 0.05140070277125347, 0.0049501345270485525);
-            }
         }
 
         super.onHit(pResult);
