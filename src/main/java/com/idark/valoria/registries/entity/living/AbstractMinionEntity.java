@@ -2,6 +2,7 @@ package com.idark.valoria.registries.entity.living;
 
 import net.minecraft.core.*;
 import net.minecraft.nbt.*;
+import net.minecraft.server.level.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.target.*;
 import net.minecraft.world.entity.ai.targeting.*;
@@ -12,7 +13,7 @@ import javax.annotation.*;
 
 public abstract class AbstractMinionEntity extends Monster implements TraceableEntity{
     @Nullable
-    public Mob owner;
+    public LivingEntity owner;
     @Nullable
     public BlockPos boundOrigin;
     public boolean hasLimitedLife;
@@ -26,13 +27,21 @@ public abstract class AbstractMinionEntity extends Monster implements TraceableE
         super.tick();
         this.setNoGravity(true);
         if(this.hasLimitedLife && --this.limitedLifeTicks <= 0){
-            this.limitedLifeTicks = 20;
-            this.hurt(this.damageSources().starve(), 1.0F);
+            if(this.level() instanceof ServerLevel serv){
+                spawnDisappearParticles(serv);
+                this.remove(RemovalReason.KILLED);
+            }
         }
 
         if(this.shouldRenderAtSqrDistance(4)){
             spawnParticlesTrail();
         }
+    }
+
+    /**
+     * Server sided
+     */
+    public void spawnDisappearParticles(ServerLevel serverLevel){
     }
 
     public void spawnParticlesTrail(){
@@ -66,11 +75,11 @@ public abstract class AbstractMinionEntity extends Monster implements TraceableE
     }
 
     @Nullable
-    public Mob getOwner(){
+    public LivingEntity getOwner(){
         return this.owner;
     }
 
-    public void setOwner(Mob pOwner){
+    public void setOwner(LivingEntity pOwner){
         this.owner = pOwner;
     }
 
@@ -90,18 +99,25 @@ public abstract class AbstractMinionEntity extends Monster implements TraceableE
 
     class CopyOwnerTargetGoal extends TargetGoal{
         private final TargetingConditions copyOwnerTargeting = TargetingConditions.forNonCombat().ignoreLineOfSight().ignoreInvisibilityTesting();
-
-
         public CopyOwnerTargetGoal(PathfinderMob pMob){
             super(pMob, false);
         }
 
+        private LivingEntity getOwnerTarget() {
+            LivingEntity lastHurt = AbstractMinionEntity.this.owner.getLastHurtByMob();
+            if(lastHurt != null) {
+                return lastHurt;
+            }
+
+            return AbstractMinionEntity.this.owner.getLastHurtMob();
+        }
+
         public boolean canUse(){
-            return AbstractMinionEntity.this.owner != null && AbstractMinionEntity.this.owner.getTarget() != null && this.canAttack(AbstractMinionEntity.this.owner.getTarget(), this.copyOwnerTargeting);
+            return AbstractMinionEntity.this.owner != null && getOwnerTarget() != null && this.canAttack(getOwnerTarget(), this.copyOwnerTargeting);
         }
 
         public void start(){
-            AbstractMinionEntity.this.setTarget(AbstractMinionEntity.this.owner.getTarget());
+            AbstractMinionEntity.this.setTarget(getOwnerTarget());
             super.start();
         }
     }

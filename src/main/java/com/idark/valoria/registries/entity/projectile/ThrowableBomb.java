@@ -1,6 +1,5 @@
 package com.idark.valoria.registries.entity.projectile;
 
-import com.idark.valoria.*;
 import com.idark.valoria.registries.*;
 import net.minecraft.core.*;
 import net.minecraft.core.particles.*;
@@ -108,7 +107,8 @@ public class ThrowableBomb extends ThrowableItemProjectile{
             }
 
             if (!pState.isAir() && isInsideBlocks()) {
-                Valoria.LOGGER.error("Entity discarded, stuck in blocks, position {}", this.getOnPos());
+                // Valoria.LOGGER.error("Entity discarded, stuck in blocks, position {}", this.getOnPos());
+                // FIXME: 07.09.2024
                 this.discard();
             }
         }

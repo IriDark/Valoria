@@ -2,12 +2,17 @@ package com.idark.valoria.client.particle;
 
 import com.idark.valoria.registries.*;
 import com.idark.valoria.util.*;
+import com.mojang.blaze3d.platform.*;
+import com.mojang.blaze3d.systems.*;
+import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.texture.*;
 import net.minecraft.core.particles.*;
 import net.minecraft.util.*;
 import net.minecraft.world.entity.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
 import team.lodestar.lodestone.helpers.*;
+import team.lodestar.lodestone.registry.client.*;
 import team.lodestar.lodestone.registry.common.particle.*;
 import team.lodestar.lodestone.systems.easing.*;
 import team.lodestar.lodestone.systems.particle.*;
@@ -18,15 +23,36 @@ import team.lodestar.lodestone.systems.particle.data.spin.*;
 import team.lodestar.lodestone.systems.particle.render_types.*;
 import team.lodestar.lodestone.systems.particle.world.behaviors.components.*;
 import team.lodestar.lodestone.systems.particle.world.options.*;
+import team.lodestar.lodestone.systems.rendering.*;
 
 import java.awt.*;
-import java.util.*;
 import java.util.function.*;
 
+import static com.mojang.blaze3d.vertex.DefaultVertexFormat.PARTICLE;
+import static com.mojang.blaze3d.vertex.VertexFormat.Mode.QUADS;
 import static net.minecraft.util.Mth.nextFloat;
+import static team.lodestar.lodestone.registry.client.LodestoneRenderTypeRegistry.*;
 
 public class ParticleEffects{
     public static ArcRandom arcRandom = new ArcRandom();
+    public static final RenderStateShard.TransparencyStateShard NORMAL_TRANSPARENCY = new RenderStateShard.TransparencyStateShard("lightning_transparency", () -> {
+        RenderSystem.enableBlend();
+        RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
+    }, () -> {
+        RenderSystem.disableBlend();
+        RenderSystem.defaultBlendFunc();
+    });
+
+    public static final LodestoneRenderType NORMAL_PARTICLE = createGenericRenderType("additive_particle", PARTICLE, QUADS, builder()
+    .setShaderState(LodestoneShaderRegistry.PARTICLE)
+    .setTransparencyState(NORMAL_TRANSPARENCY)
+    .setTextureState(TextureAtlas.LOCATION_PARTICLES)
+    .setCullState(NO_CULL));
+
+    public static final LodestoneWorldParticleRenderType ADDITIVE_TRANSPARENT = new LodestoneWorldParticleRenderType(
+    NORMAL_PARTICLE, LodestoneShaderRegistry.PARTICLE, TextureAtlas.LOCATION_PARTICLES,
+    LodestoneRenderTypeRegistry.TRANSPARENT_FUNCTION);
+
     public static void spawnItemParticles(Level level, ItemEntity entity, ParticleType<?> particle, ColorParticleData color){
         RandomSource rand = level.getRandom();
         Vec3 pos = new Vec3(entity.getX() + (rand.nextDouble() - 0.5f) / 6, entity.getY() + 0.4F, entity.getZ());
@@ -205,32 +231,6 @@ public class ParticleEffects{
         .setSpinData(SpinParticleData.create(0.75f, 0).build())
         .setMotion((random.nextDouble() - 0.2D) / 30, (random.nextDouble() + 0.2D) / 4, (random.nextDouble() - 0.2D) / 30)
         .disableNoClip();
-        return new ParticleEffectSpawner(level, pos, particleBuilder);
-    }
-
-    public static ParticleEffectSpawner packetSmokeParticles(Level level, Vec3 pos, ColorParticleData colorData){
-        return packetSmokeParticles(level, pos, colorData, new WorldParticleOptions(ParticleRegistry.SMOKE));
-    }
-
-    public static ParticleEffectSpawner packetSmokeParticles(Level level, Vec3 pos, ColorParticleData colorData, WorldParticleOptions options){
-        return packetSmokeParticles(level, pos, options, o -> WorldParticleBuilder.create(o).setColorData(colorData));
-    }
-
-    public static ParticleEffectSpawner packetSmokeParticles(Level level, Vec3 pos, WorldParticleOptions options, Function<WorldParticleOptions, WorldParticleBuilder> builderSupplier){
-        var builder = builderSupplier.apply(options);
-        return packetSmokeParticles(level, pos, builder);
-    }
-
-    public static ParticleEffectSpawner packetSmokeParticles(Level level, Vec3 pos, WorldParticleBuilder builder){
-        Random random = new Random();
-        final WorldParticleBuilder particleBuilder = builder
-        .setRenderType(LodestoneWorldParticleRenderType.LUMITRANSPARENT)
-        .setTransparencyData(GenericParticleData.create(random.nextFloat(0, 0.6f), 0f).build())
-        .setScaleData(GenericParticleData.create(0.92f, 0f).build())
-        .setLifetime(95 + random.nextInt(100))
-        .setRandomMotion(0.125f, 0, 0.125)
-        .setRandomOffset(0.025f);
-
         return new ParticleEffectSpawner(level, pos, particleBuilder);
     }
 

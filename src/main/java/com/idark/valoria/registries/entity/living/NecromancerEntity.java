@@ -37,7 +37,6 @@ import org.joml.*;
 import javax.annotation.Nullable;
 import java.lang.Math;
 import java.time.*;
-import java.util.Random;
 import java.util.*;
 
 public class NecromancerEntity extends AbstractNecromancer{
@@ -359,11 +358,7 @@ public class NecromancerEntity extends AbstractNecromancer{
                 double posY = entity.getOnPos().above().getCenter().y;
                 double posZ = entity.getOnPos().getCenter().z;
 
-                double offsetX = (new Random().nextDouble() - 0.5) / 64;
-                double offsetZ = (new Random().nextDouble() - 0.5) / 64;
-
-                // FIXME: 05.09.2024 Broken render???
-                PacketHandler.sendToTracking(serv, entity.getOnPos(), new SmokeParticlePacket(posX, posY - 0.5f, posZ, offsetX, 0, offsetZ, 255, 255, 255));
+                PacketHandler.sendToTracking(serv, entity.getOnPos(), new SmokeParticlePacket(60, posX, posY - 0.5f, posZ, 0.125f, 0, 0.125f, 255, 255, 255));
             }
         }
 
@@ -700,7 +695,7 @@ public class NecromancerEntity extends AbstractNecromancer{
                     BlockPos pos = new BlockPos(target.getBlockX(), target.getBlockY(), target.getBlockZ());
                     mob.setItemInHand(InteractionHand.MAIN_HAND, Items.BOW.getDefaultInstance());
                     mob.moveTo(pos, 0.0F, 0.0F);
-                    PacketHandler.sendToTracking(serverlevel, target.getOnPos(), new SmokeParticlePacket(target.getOnPos().getX(), target.getOnPos().getY() + 1.2f, target.getOnPos().getZ(), ((new Random().nextDouble() - 0.5D) / 64), 0, ((new Random().nextDouble() - 0.5D) / 64), 30, 35, 75));
+                    PacketHandler.sendToTracking(serverlevel, target.getOnPos(), new SmokeParticlePacket(60, target.getOnPos().getX(), target.getOnPos().getY() + 1.2f, target.getOnPos().getZ(), 0.125f, 0, 0.125f, 30, 35, 75));
                     target.discard();
                 }
             }

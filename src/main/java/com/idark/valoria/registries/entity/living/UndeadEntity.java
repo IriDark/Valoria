@@ -1,9 +1,12 @@
 package com.idark.valoria.registries.entity.living;
 
+import com.idark.valoria.core.network.*;
+import com.idark.valoria.core.network.packets.*;
 import net.minecraft.core.*;
 import net.minecraft.core.particles.*;
 import net.minecraft.nbt.*;
 import net.minecraft.network.syncher.*;
+import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
 import net.minecraft.util.*;
 import net.minecraft.world.*;
@@ -45,6 +48,16 @@ public class UndeadEntity extends AbstractMinionEntity{
 
     public boolean isFlapping(){
         return this.tickCount % TICKS_PER_FLAP == 0;
+    }
+
+    @Override
+    public void spawnDisappearParticles(ServerLevel serverLevel){
+        double posX = this.getOnPos().getCenter().x;
+        double posY = this.getOnPos().above().getCenter().y;
+        double posZ = this.getOnPos().getCenter().z;
+
+        // TODO: 07.09.2024
+        PacketHandler.sendToTracking(serverLevel, this.getOnPos(), new SmokeParticlePacket(3,  posX, posY - 0.5f, posZ, 0, 0.125f, 0, 255, 255, 255));
     }
 
     public void spawnParticlesTrail(){
