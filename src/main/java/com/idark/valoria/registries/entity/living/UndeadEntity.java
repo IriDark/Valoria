@@ -55,8 +55,6 @@ public class UndeadEntity extends AbstractMinionEntity{
         double posX = this.getOnPos().getCenter().x;
         double posY = this.getOnPos().above().getCenter().y;
         double posZ = this.getOnPos().getCenter().z;
-
-        // TODO: 07.09.2024
         PacketHandler.sendToTracking(serverLevel, this.getOnPos(), new SmokeParticlePacket(3,  posX, posY - 0.5f, posZ, 0, 0.125f, 0, 255, 255, 255));
     }
 

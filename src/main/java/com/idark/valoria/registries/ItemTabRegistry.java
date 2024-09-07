@@ -109,6 +109,7 @@ public abstract class ItemTabRegistry{
             event.accept(ItemsRegistry.SOUL_COLLECTOR_EMPTY);
             event.accept(ItemsRegistry.SOUL_COLLECTOR);
             event.accept(ItemsRegistry.LEXICON);
+            event.accept(ItemsRegistry.SUMMON_BOOK);
             event.accept(ItemsRegistry.CRYPT);
             event.accept(ItemsRegistry.VOID_KEY);
             event.accept(ItemsRegistry.GAIB_ROOT);

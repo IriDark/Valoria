@@ -66,6 +66,7 @@
   "tooltip.valoria.page": "Unlock-able Page: ",
   "tooltip.valoria.scythe": "Slow weapon performing a circular strike",
   "tooltip.valoria.homing": "Has a homing movement, but lesser damage",
+  "tooltip.valoria.summons": "Summons entity: [%s]",
   "jei.valoria.brewery": "Brewery",
   "jei.valoria.jewelry": "Jewelry",
   "jei.valoria.crusher": "Stonecrusher",

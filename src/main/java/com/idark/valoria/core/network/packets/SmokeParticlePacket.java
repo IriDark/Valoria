@@ -73,7 +73,7 @@ public class SmokeParticlePacket{
             ctx.get().enqueueWork(() -> {
                 Color color = new Color(msg.colorR, msg.colorG, msg.colorB);
                 Vec3 pos = new Vec3(msg.posX, msg.posY, msg.posZ);
-                for(int i = 0; i < 60; i++){
+                for(int i = 0; i < msg.count; i++){
                     packetSmokeParticles(msg, pos, ColorParticleData.create(color, Pal.darkestGray).build()).spawnParticles();
                 }
 

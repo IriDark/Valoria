@@ -86,7 +86,6 @@ public class Valoria{
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ClientConfig.SPEC);
         DistExecutor.unsafeCallWhenOn(Dist.CLIENT, () -> () -> {
             forgeBus.addListener(KeyBindHandler::onInput);
-
             forgeBus.addListener(ClientTickHandler::clientTickEnd);
             forgeBus.addListener(RenderUtils::afterLevelRender);
             forgeBus.addListener(DashOverlayRender::tick);
@@ -100,7 +99,6 @@ public class Valoria{
 
         ItemTabRegistry.register(eventBus);
         eventBus.addListener(ItemTabRegistry::addCreative);
-
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new Events());
     }
@@ -290,6 +288,8 @@ public class Valoria{
             event.add(EntityType.PLAYER, AttributeRegistry.DASH_DISTANCE.get());
             event.add(EntityType.PLAYER, AttributeRegistry.ATTACK_RADIUS.get());
             event.add(EntityType.PLAYER, AttributeRegistry.PROJECTILE_DAMAGE.get());
+            event.add(EntityType.PLAYER, AttributeRegistry.NECROMANCY_LIFETIME.get());
+            event.add(EntityType.PLAYER, AttributeRegistry.NECROMANCY_COUNT.get());
         }
 
         @SubscribeEvent
