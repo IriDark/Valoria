@@ -789,6 +789,7 @@
   "tooltip.valoria.scythe": "Медленное оружие создающее круговой удар",
   "tooltip.valoria.spear": "A spear that can be thrown at your enemy",
   "tooltip.valoria.strength": "Даёт игроку бонус к урону на некоторое время",
+  "tooltip.valoria.summons": "Summons entity: [%s]",
   "tooltip.valoria.toxins": "Хороший способ умереть!",
   "tooltip.valoria.treasure": "Что же здесь может хранится?...",
   "tooltip.valoria.trinkets_bag": "Trinkets bag, used to quickly equip your accessories with a keybind [%s]",

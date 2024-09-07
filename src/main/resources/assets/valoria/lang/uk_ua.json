@@ -789,6 +789,7 @@
   "tooltip.valoria.scythe": "Повільна зброя, яка атакує круговим ударом",
   "tooltip.valoria.spear": "A spear that can be thrown at your enemy",
   "tooltip.valoria.strength": "Надає силу на деякий час",
+  "tooltip.valoria.summons": "Summons entity: [%s]",
   "tooltip.valoria.toxins": "Хороший спосіб померти!",
   "tooltip.valoria.treasure": "Що ж тут може бути?...",
   "tooltip.valoria.trinkets_bag": "Trinkets bag, used to quickly equip your accessories with a keybind [%s]",
