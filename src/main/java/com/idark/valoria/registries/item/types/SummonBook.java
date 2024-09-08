@@ -100,6 +100,8 @@ public class SummonBook extends Item{
     @Override
     public void appendHoverText(@NotNull ItemStack stack, Level world, @NotNull List<Component> tooltip, @NotNull TooltipFlag flags){
         super.appendHoverText(stack, world, tooltip, flags);
+        tooltip.add(Component.translatable("tooltip.valoria.necromancy").withStyle(ChatFormatting.GRAY));
+        tooltip.add(Component.empty());
         tooltip.add(Component.translatable("tooltip.valoria.summons", getDefaultType().getDescription()).withStyle(ChatFormatting.GRAY));
     }
 }

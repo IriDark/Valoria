@@ -23,6 +23,7 @@ import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.registries.*;
 import org.joml.*;
 
+import javax.annotation.Nullable;
 import java.util.*;
 
 public class ScytheItem extends SwordItem implements ICustomAnimationItem, ICooldownItem, IRadiusItem, ISpinAttackItem{
@@ -31,10 +32,7 @@ public class ScytheItem extends SwordItem implements ICustomAnimationItem, ICool
     public final ImmutableList<MobEffectInstance> effects;
     public final Multimap<Attribute, AttributeModifier> defaultModifiers;
     public ArcRandom arcRandom = new ArcRandom();
-
-    // cringe
     private final AttributeModifier radiusModifier;
-
     public ScytheItem(Tier tier, int attackDamageIn, float attackSpeedIn, Properties builderIn){
         super(tier, attackDamageIn, attackSpeedIn, builderIn);
         this.effects = ImmutableList.of();
@@ -121,38 +119,57 @@ public class ScytheItem extends SwordItem implements ICustomAnimationItem, ICool
         return 7;
     }
 
-    /**
-     * Some sounds taken from the CalamityMod (Terraria) in a <a href="https://calamitymod.wiki.gg/wiki/Category:Sound_effects">Calamity Mod Wiki.gg</a>
-     */
-    public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entityLiving){
-        Player player = (Player)entityLiving;
-        player.awardStat(Stats.ITEM_USED.get(this));
-        float damage = (float)(player.getAttributeValue(Attributes.ATTACK_DAMAGE)) + EnchantmentHelper.getSweepingDamageRatio(player);
-        float radius = (float)player.getAttributeValue(AttributeRegistry.ATTACK_RADIUS.get());
+    public SoundEvent getAttackSound() {
+        return SoundsRegistry.SWIFTSLICE.get();
+    }
+
+    @Nullable
+    public ParticleOptions getAttackParticle() {
+        return ParticleTypes.POOF;
+    }
+
+    public void applyCooldown(List<LivingEntity> hitEntities, Player playerIn){
         for(Item item : ForgeRegistries.ITEMS){
             if(item instanceof ScytheItem){
-                player.getCooldowns().addCooldown(item, 100);
+                playerIn.getCooldowns().addCooldown(item, hitEntities.isEmpty() ? 15 : 75);
             }
         }
+    }
 
-        Vector3d pos = new Vector3d(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());
+    public void performEffects(LivingEntity targets, Player player) {
+        targets.knockback(0.4F, player.getX() - targets.getX(), player.getZ() - targets.getZ());
+        if(EnchantmentHelper.getFireAspect(player) > 0){
+            int i = EnchantmentHelper.getFireAspect(player);
+            targets.setSecondsOnFire(i * 4);
+        }
+    }
+
+    public void performAttack(Level level, ItemStack stack, Player player) {
         List<LivingEntity> hitEntities = new ArrayList<>();
-        ValoriaUtils.radiusHit(level, stack, player, ParticleTypes.POOF, hitEntities, pos, 0, player.getRotationVector().y, radius);
+        Vector3d pos = new Vector3d(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());
+        float damage = (float)(player.getAttributeValue(Attributes.ATTACK_DAMAGE)) + EnchantmentHelper.getSweepingDamageRatio(player);
+        float radius = (float)player.getAttributeValue(AttributeRegistry.ATTACK_RADIUS.get());
+
+        ValoriaUtils.radiusHit(level, stack, player, getAttackParticle(), hitEntities, pos, 0, player.getRotationVector().y, radius);
+        applyCooldown(hitEntities, player);
         for(LivingEntity entity : hitEntities){
             entity.hurt(level.damageSources().playerAttack(player), (damage + EnchantmentHelper.getDamageBonus(stack, entity.getMobType())) * 1.35f);
-            entity.knockback(0.4F, player.getX() - entity.getX(), player.getZ() - entity.getZ());
-            if(EnchantmentHelper.getFireAspect(player) > 0){
-                int i = EnchantmentHelper.getFireAspect(player);
-                entity.setSecondsOnFire(i * 4);
-            }
-
+            performEffects(entity, player);
             ValoriaUtils.chanceEffect(entity, effects, chance, arcRandom);
             if(!player.isCreative()){
                 stack.hurtAndBreak(hitEntities.size(), player, (p_220045_0_) -> p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
             }
         }
+    }
 
-        level.playSound(null, player.getOnPos(), SoundsRegistry.SWIFTSLICE.get(), SoundSource.PLAYERS, 1.0F, 1F);
+    /**
+     * Some sounds taken from the CalamityMod (Terraria) in a <a href="https://calamitymod.wiki.gg/wiki/Category:Sound_effects">Calamity Mod Wiki.gg</a>
+     */
+    public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entityLiving){
+        Player player = (Player)entityLiving;
+        performAttack(level, stack, player);
+        player.awardStat(Stats.ITEM_USED.get(this));
+        level.playSound(null, player.getOnPos(), getAttackSound(), SoundSource.PLAYERS, 1.0F, 1F);
         return stack;
     }
 
