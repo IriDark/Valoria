@@ -1,4 +1,4 @@
-package com.idark.valoria.client.gui.screen.book.unlockable;
+package com.idark.valoria.client.ui.screen.book.unlockable;
 
 import com.idark.valoria.api.unlockable.*;
 

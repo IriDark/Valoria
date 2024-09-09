@@ -1,7 +1,7 @@
 package com.idark.valoria.registries;
 
 import com.idark.valoria.*;
-import com.idark.valoria.client.gui.screen.book.unlockable.*;
+import com.idark.valoria.client.ui.screen.book.unlockable.*;
 import com.idark.valoria.client.particle.*;
 import com.idark.valoria.registries.entity.decoration.*;
 import com.idark.valoria.registries.item.enums.*;
@@ -156,7 +156,7 @@ public class ItemsRegistry{
     public static final RegistryObject<Item> ALOE_BANDAGE_UPGRADED = ITEMS.register("aloe_bandage_upgraded", () -> new BandageItem(true, 1450, 1));
     public static final RegistryObject<Item> SHADE_BLOSSOM_BANDAGE = ITEMS.register("shade_blossom_bandage", () -> new BandageItem(true, 1750, 1)); //todo custom effect
     public static final RegistryObject<Item> CACAO_CUP = ITEMS.register("cacao_cup", () -> new PlaceableDrinkItem(BlockRegistry.CACAO_CUP.get(), 0, 1, 64, ItemsRegistry.CUP.get(), new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 250)));
-    public static final RegistryObject<Item> COFFEE_CUP = ITEMS.register("coffee_cup", () -> new PlaceableDrinkItem(BlockRegistry.COFFEE_CUP.get(), 0, 1, 1646, ItemsRegistry.CUP.get(), new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 250)));
+    public static final RegistryObject<Item> COFFEE_CUP = ITEMS.register("coffee_cup", () -> new PlaceableDrinkItem(BlockRegistry.COFFEE_CUP.get(), 0, 1, 64, ItemsRegistry.CUP.get(), new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 250)));
     public static final RegistryObject<Item> TEA_CUP = ITEMS.register("tea_cup", () -> new PlaceableDrinkItem(BlockRegistry.TEA_CUP.get(), 0, 1, 16, ItemsRegistry.CUP.get(), new MobEffectInstance(MobEffects.DIG_SPEED, 100)));
     public static final RegistryObject<Item> GREEN_TEA_CUP = ITEMS.register("green_tea_cup", () -> new PlaceableDrinkItem(BlockRegistry.GREEN_TEA_CUP.get(), 0, 1, 64, ItemsRegistry.CUP.get(), new MobEffectInstance(EffectsRegistry.ALOEREGEN.get(), 1800)));
     public static final RegistryObject<Item> BEER_CUP = ITEMS.register("beer_cup", () -> new PlaceableDrinkItem(BlockRegistry.BEER_CUP.get(), 0, 1, 64, ItemsRegistry.WOODEN_CUP.get(), new MobEffectInstance(EffectsRegistry.TIPSY.get(), 400, 0)));

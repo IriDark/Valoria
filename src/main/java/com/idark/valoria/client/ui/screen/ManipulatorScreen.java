@@ -1,4 +1,4 @@
-package com.idark.valoria.client.gui.screen;
+package com.idark.valoria.client.ui.screen;
 
 import com.idark.valoria.*;
 import com.idark.valoria.registries.block.entity.*;

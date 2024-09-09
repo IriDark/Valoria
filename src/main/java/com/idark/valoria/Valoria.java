@@ -2,10 +2,10 @@ package com.idark.valoria;
 
 import com.google.common.collect.*;
 import com.idark.valoria.client.event.*;
-import com.idark.valoria.client.gui.overlay.*;
-import com.idark.valoria.client.gui.screen.*;
-import com.idark.valoria.client.gui.screen.book.*;
-import com.idark.valoria.client.gui.screen.book.unlockable.*;
+import com.idark.valoria.client.ui.OverlayRender;
+import com.idark.valoria.client.ui.screen.*;
+import com.idark.valoria.client.ui.screen.book.*;
+import com.idark.valoria.client.ui.screen.book.unlockable.*;
 import com.idark.valoria.client.particle.*;
 import com.idark.valoria.client.render.curio.*;
 import com.idark.valoria.client.render.tile.*;
@@ -88,10 +88,8 @@ public class Valoria{
             forgeBus.addListener(KeyBindHandler::onInput);
             forgeBus.addListener(ClientTickHandler::clientTickEnd);
             forgeBus.addListener(RenderUtils::afterLevelRender);
-            forgeBus.addListener(DashOverlayRender::tick);
-            forgeBus.addListener(DashOverlayRender::onDrawScreenPost);
-            forgeBus.addListener(CorpsecleaverRender::tick);
-            forgeBus.addListener(CorpsecleaverRender::onDrawScreenPost);
+            forgeBus.addListener(OverlayRender::tick);
+            forgeBus.addListener(OverlayRender::onDrawScreenPost);
             forgeBus.addListener(MagmaSwordItem::onDrawScreenPost);
             forgeBus.addListener(BlazeReapItem::onDrawScreenPost);
             return new Object();

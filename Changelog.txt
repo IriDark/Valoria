@@ -16,6 +16,8 @@
 - Fixed Pot Item Models
 - Fixed Smoke Particles
 - Fixed Necromancer Particles
+- Fixed bug that coffee can be stacked up to 1646
+- Fixed bug that Murasama wasn't based on "dash_distance" attribute
 
 - Nerfed Rune's
 - Buffed Silken Kunai
@@ -38,14 +40,20 @@
 - Deleted Geodites (Drops moved to ephemarite)
 - Deleted Void Crystal
 
+- Reworked Goblins
+- Reworked Scythes
+- Reworked Katanas
+- Reworked Murasama
+- Reworked Overlay Rendering
+
+- Decreased amount of bones dropped from Goblins
+- Decreased Cooldown time for Scythes from 100 to 75, if no one was hit to 15
+
 - Changed Tipsy effect balance
 - Drinks are placeable now
 - Drinks are stackable up to 64 now
 - Animated Goblins
 - Buffed Katanas
-- Reworked Goblins
-- Reworked Scythes
-- Decreased amount of bones dropped from Goblins
 - Resprited all the drinks
 - Updated to Forge 47.2.20
 

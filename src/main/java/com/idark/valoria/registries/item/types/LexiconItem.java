@@ -1,6 +1,6 @@
 package com.idark.valoria.registries.item.types;
 
-import com.idark.valoria.client.gui.screen.book.*;
+import com.idark.valoria.client.ui.screen.book.*;
 import net.minecraft.client.*;
 import net.minecraft.sounds.*;
 import net.minecraft.stats.*;

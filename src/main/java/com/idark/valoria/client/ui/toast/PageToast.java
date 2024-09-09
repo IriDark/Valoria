@@ -1,4 +1,4 @@
-package com.idark.valoria.client.gui.toast;
+package com.idark.valoria.client.ui.toast;
 
 import com.idark.valoria.*;
 import com.idark.valoria.registries.*;

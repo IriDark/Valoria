@@ -1,7 +1,7 @@
 package com.idark.valoria.core.network.packets;
 
 import com.idark.valoria.*;
-import com.idark.valoria.client.gui.toast.*;
+import com.idark.valoria.client.ui.toast.*;
 import net.minecraft.client.*;
 import net.minecraft.network.*;
 import net.minecraft.world.entity.player.*;

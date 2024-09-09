@@ -1,7 +1,7 @@
-package com.idark.valoria.client.gui.screen.book.pages;
+package com.idark.valoria.client.ui.screen.book.pages;
 
 import com.idark.valoria.*;
-import com.idark.valoria.client.gui.screen.book.*;
+import com.idark.valoria.client.ui.screen.book.*;
 import net.minecraft.client.*;
 import net.minecraft.client.gui.*;
 import net.minecraft.client.resources.language.*;

@@ -1,7 +1,7 @@
-package com.idark.valoria.client.gui.screen.book;
+package com.idark.valoria.client.ui.screen.book;
 
-import com.idark.valoria.client.gui.screen.book.pages.*;
-import com.idark.valoria.client.gui.screen.book.unlockable.*;
+import com.idark.valoria.client.ui.screen.book.pages.*;
+import com.idark.valoria.client.ui.screen.book.unlockable.*;
 import com.idark.valoria.registries.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.world.item.*;

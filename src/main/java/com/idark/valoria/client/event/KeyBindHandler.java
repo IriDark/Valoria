@@ -1,7 +1,7 @@
 package com.idark.valoria.client.event;
 
 import com.idark.valoria.*;
-import com.idark.valoria.client.gui.screen.*;
+import com.idark.valoria.client.ui.screen.*;
 import com.idark.valoria.registries.item.types.curio.*;
 import net.minecraft.client.*;
 import net.minecraft.network.chat.*;

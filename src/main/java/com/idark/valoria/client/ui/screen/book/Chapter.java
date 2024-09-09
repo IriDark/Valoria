@@ -1,4 +1,4 @@
-package com.idark.valoria.client.gui.screen.book;
+package com.idark.valoria.client.ui.screen.book;
 
 
 import com.google.common.collect.*;

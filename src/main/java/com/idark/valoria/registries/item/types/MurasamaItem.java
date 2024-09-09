@@ -1,6 +1,6 @@
 package com.idark.valoria.registries.item.types;
 
-import com.idark.valoria.client.gui.overlay.*;
+import com.idark.valoria.client.ui.OverlayRender;
 import com.idark.valoria.client.particle.*;
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.*;
@@ -23,7 +23,6 @@ import net.minecraft.world.item.enchantment.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
 import net.minecraftforge.api.distmarker.*;
-import net.minecraftforge.registries.*;
 import org.jetbrains.annotations.*;
 import org.joml.*;
 import team.lodestar.lodestone.handlers.screenparticle.*;
@@ -105,108 +104,61 @@ public class MurasamaItem extends KatanaItem implements IParticleItemEntity, Par
         return super.shouldCauseReequipAnimation(oldStack, newStack, true);
     }
 
-    /**
-     * Some sounds taken from the CalamityMod (Terraria) in a <a href="https://calamitymod.wiki.gg/wiki/Category:Sound_effects">Calamity Mod Wiki.gg</a>
-     */
-    public void releaseUsing(@NotNull ItemStack stack, @NotNull Level level, @NotNull LivingEntity entityLiving, int timeLeft){
-        RandomSource rand = level.getRandom();
-        Player player = (Player)entityLiving;
-        player.awardStat(Stats.ITEM_USED.get(this));
+    private void performDash(@NotNull ItemStack stack, @NotNull Level level, @NotNull Player player, Vector3d pos, RandomSource rand) {
         double pitch = ((player.getRotationVector().x + 90) * Math.PI) / 180;
         double yaw = ((player.getRotationVector().y + 90) * Math.PI) / 180;
-        float dashDistance = 5f;
-        if(getCharge(stack) >= 20){
-            Vec3 dir = (player.getViewVector(0.0f).scale(2.0d));
-            if(dir.x < dashDistance){
-                player.push(dir.x, dir.y * 0.25, dir.z);
-            }
-
-            for(Item item : ForgeRegistries.ITEMS){
-                if(item instanceof KatanaItem){
-                    player.getCooldowns().addCooldown(item, 125);
-                }
-            }
-
-            Vector3d pos = new Vector3d(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());
-            List<LivingEntity> hitEntities = new ArrayList<>();
-            double maxDistance = distance(dashDistance, level, player);
-            for(int i = 0; i < 25; i += 1){
+        float dashDistance = (float) player.getAttributeValue(AttributeRegistry.DASH_DISTANCE.get());
+        Vec3 dir = (player.getViewVector(0.0f).scale(dashDistance));
+        player.push(dir.x, dir.y * 0.25, dir.z);
+        applyCooldown(player);
+        float ii = 1F;
+        if (level instanceof ServerLevel srv) {
+            for (int i = 0; i < 10; i += 1) {
                 double locDistance = i * 0.5D;
                 double X = Math.sin(pitch) * Math.cos(yaw) * locDistance;
                 double Y = Math.cos(pitch) * locDistance;
                 double Z = Math.sin(pitch) * Math.sin(yaw) * locDistance;
-
                 level.addParticle(ParticleTypes.WAX_OFF, pos.x + X + (rand.nextDouble() - 0.5D), pos.y + Y, pos.z + Z + (rand.nextDouble() - 0.5D), 0d, 0.05d, 0d);
-                if(level instanceof ServerLevel srv){
-                    for(int ii = 0; ii < 1 + Mth.nextInt(RandomSource.create(), 0, 2); ii += 1){
-                        PacketHandler.sendToTracking(srv, player.getOnPos(), new MurasamaParticlePacket(3F, (pos.x + X), (pos.y + Y), (pos.z + Z), 255, 0, 0));
-                    }
+                for (int count = 0; count < 1 + Mth.nextInt(RandomSource.create(), 0, 2); count += 1) {
+                    PacketHandler.sendToTracking(srv, player.getOnPos(), new MurasamaParticlePacket(3F, (pos.x + X), (pos.y + Y), (pos.z + Z), 255, 0, 0));
                 }
 
-                List<Entity> entities = level.getEntitiesOfClass(Entity.class, new AABB(pos.x + X - 0.5D, pos.y + Y - 0.5D, pos.z + Z - 0.5D, pos.x + X + 0.5D, pos.y + Y + 0.5D, pos.z + Z + 0.5D));
-                for(Entity entity : entities){
-                    if(entity instanceof LivingEntity enemy){
-                        if(!hitEntities.contains(enemy) && (!enemy.equals(player))){
-                            hitEntities.add(enemy);
+                List<LivingEntity> detectedEntities = level.getEntitiesOfClass(LivingEntity.class, new AABB(pos.x + X - 0.5D, pos.y + Y - 0.5D, pos.z + Z - 0.5D, pos.x + X + 0.5D, pos.y + Y + 0.5D, pos.z + Z + 0.5D));
+                for (LivingEntity entity : detectedEntities) {
+                    if (!entity.equals(player)) {
+                        entity.hurt(level.damageSources().playerAttack(player), (float) ((player.getAttributeValue(Attributes.ATTACK_DAMAGE) * (double) ii) + EnchantmentHelper.getSweepingDamageRatio(player) + EnchantmentHelper.getDamageBonus(stack, entity.getMobType())) * 1.35f);
+                        performEffects(entity, player);
+                        ValoriaUtils.chanceEffect(entity, effects, chance, arcRandom);
+                        if (!player.isCreative()) {
+                            stack.hurtAndBreak(getHurtAmount(detectedEntities), player, (plr) -> plr.broadcastBreakEvent(EquipmentSlot.MAINHAND));
                         }
                     }
+
+                    ii = ii - (1F / (detectedEntities.size() * 2));
                 }
 
-                if(locDistance >= maxDistance){
+                if (locDistance >= distance(dashDistance, level, player)) {
                     break;
                 }
             }
-
-            float ii = 1F;
-            for(LivingEntity entity : hitEntities){
-                entity.hurt(level.damageSources().playerAttack(player), (float)((player.getAttributeValue(Attributes.ATTACK_DAMAGE) * (double)ii) + EnchantmentHelper.getSweepingDamageRatio(player) + EnchantmentHelper.getDamageBonus(stack, entity.getMobType())) * 1.35f);
-                entity.knockback(0.4F, player.getX() - entity.getX(), player.getZ() - entity.getZ());
-                if(EnchantmentHelper.getTagEnchantmentLevel(Enchantments.FIRE_ASPECT, stack) > 0){
-                    int i = EnchantmentHelper.getFireAspect(player);
-                    entity.setSecondsOnFire(i * 4);
-                }
-
-                ii = ii - (1F / (hitEntities.size() * 2));
-            }
-
-            if(!player.isCreative()){
-                stack.hurtAndBreak(hitEntities.size(), player, (p_220045_0_) -> p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
-            }
-
-            for(int i = 0; i < 4; i++){
-                level.addParticle(ParticleTypes.POOF, player.getX() + (rand.nextDouble() - 0.5D), player.getY(), player.getZ() + (rand.nextDouble() - 0.5D), 0d, 0.05d, 0d);
-            }
-
-            hitEntities.clear();
-            double locYaw = 0;
-            double locPitch = 0;
-            double X = Math.sin(locPitch + pitch) * Math.cos(locYaw + yaw) * maxDistance;
-            double Y = Math.cos(locPitch + pitch) * maxDistance;
-            double Z = Math.sin(locPitch + pitch) * Math.sin(locYaw + yaw) * maxDistance;
-
-            List<Entity> entities = level.getEntitiesOfClass(Entity.class, new AABB(pos.x + X - 3D, pos.y + Y - 3D, pos.z + Z - 2.5D, pos.x + X + 3D, pos.y + Y + 3D, pos.z + Z + 3D));
-            for(Entity entity : entities){
-                if(entity instanceof LivingEntity enemy){
-                    if(!hitEntities.contains(enemy) && (!enemy.equals(player))){
-                        hitEntities.add(enemy);
-                    }
-                }
-            }
-
-            for(LivingEntity entity : hitEntities){
-                entity.hurt(level.damageSources().generic(), (float)(player.getAttributeValue(Attributes.ATTACK_DAMAGE) * ii) + EnchantmentHelper.getSweepingDamageRatio(player));
-                entity.knockback(0.4F, player.getX() - entity.getX(), player.getZ() - entity.getZ());
-                if(EnchantmentHelper.getEnchantmentLevel(Enchantments.FIRE_ASPECT, entity) > 0){
-                    int i = EnchantmentHelper.getFireAspect(player);
-                    entity.setSecondsOnFire(i * 4);
-                }
-            }
-
-            level.playSound(null, player.getOnPos(), SoundsRegistry.SWIFTSLICE.get(), SoundSource.PLAYERS, 1.0F, 1F);
-            if(level.isClientSide) DashOverlayRender.showDashOverlay();
         }
+    }
 
-        setCharge(stack, 0);
+    public void releaseUsing(@NotNull ItemStack stack, @NotNull Level level, @NotNull LivingEntity entityLiving, int timeLeft) {
+        RandomSource rand = level.getRandom();
+        Player player = (Player) entityLiving;
+        Vector3d pos = new Vector3d(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());
+        if (!player.isFallFlying() && getCharge(stack) >= 20) {
+            player.awardStat(Stats.ITEM_USED.get(this));
+            applyCooldown(player);
+            performDash(stack, level, player, pos, rand);
+            setCharge(stack, 0);
+            level.playSound(null, player.getOnPos(), getDashSound(), SoundSource.PLAYERS, 1.0F, 1F);
+            if (level.isClientSide) {
+                OverlayRender.setOverlayTexture(getOverlayTexture());
+                OverlayRender.showDashOverlay(getOverlayTime());
+            }
+        }
     }
 
     @Override

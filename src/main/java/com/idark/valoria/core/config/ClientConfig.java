@@ -3,13 +3,13 @@ package com.idark.valoria.core.config;
 import net.minecraftforge.common.*;
 import org.apache.commons.lang3.tuple.*;
 
-public class ClientConfig{
+public class ClientConfig {
     public static ForgeConfigSpec.ConfigValue<Integer>
-    MAGMA_CHARGE_BAR_Y, MAGMA_CHARGE_BAR_X, MAGMA_CHARGE_BAR_TYPE;
+            MAGMA_CHARGE_BAR_Y, MAGMA_CHARGE_BAR_X, MAGMA_CHARGE_BAR_TYPE;
     public static ForgeConfigSpec.ConfigValue<Boolean>
-    DASH_OVERLAY, BLOOD_OVERLAY, PHANTOM_ACTIVATION, OLD_GOBLIN_MODEL;
+            ABILITY_OVERLAY, PHANTOM_ACTIVATION, OLD_GOBLIN_MODEL;
 
-    static{
+    static {
         final Pair<ClientConfig, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(ClientConfig::new);
         SPEC = specPair.getRight();
         INSTANCE = specPair.getLeft();
@@ -17,14 +17,10 @@ public class ClientConfig{
 
     public static final ClientConfig INSTANCE;
     public static final ForgeConfigSpec SPEC;
-
     public ClientConfig(ForgeConfigSpec.Builder builder){
-        DASH_OVERLAY = builder.comment("When enabled shows a wind like lines on screen corners (Default: true)")
+        ABILITY_OVERLAY = builder.comment("When enabled shows the overlay after using a weapon ability (Default: true)")
         .comment("Reload Resourcepacks after turning this on (F3+T)")
         .define("DashOverlay", true);
-        BLOOD_OVERLAY = builder.comment("When enabled shows a red vignette on screen corners (Default: true)")
-        .comment("Reload Resourcepacks after turning this on (F3+T)")
-        .define("BloodOverlay", true);
         MAGMA_CHARGE_BAR_Y = builder.comment("(Y) Coordinate for Magma Bar")
         .comment("Can be edited in-game without reloading packs (If nothing changed reload packs with [F3+T] keybind)")
         .define("MagmaBarY", 5);
