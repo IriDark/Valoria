@@ -37,9 +37,7 @@ public class KatanaItem extends SwordItem implements ICooldownItem{
     public final ImmutableList<MobEffectInstance> effects;
     public final Multimap<Attribute, AttributeModifier> defaultModifiers;
     public  ArcRandom arcRandom = new ArcRandom();
-    // cringe
     private final AttributeModifier dashModifier;
-
     public KatanaItem(Tier tier, int attackDamageIn, float attackSpeedIn, Item.Properties builderIn){
         super(tier, attackDamageIn, attackSpeedIn, builderIn);
         this.effects = ImmutableList.of();
@@ -232,7 +230,7 @@ public class KatanaItem extends SwordItem implements ICooldownItem{
             player.awardStat(Stats.ITEM_USED.get(this));
             applyCooldown(player);
             performDash(stack, level, player, pos, rand);
-            level.playSound(null, player.getOnPos(), getDashSound(), SoundSource.PLAYERS, 1.0F, 1F);
+            level.playSound(null, player.getOnPos(), getDashSound(), SoundSource.PLAYERS, 1F, 1F);
             if (level.isClientSide) {
                 OverlayRender.setOverlayTexture(getOverlayTexture());
                 OverlayRender.showDashOverlay(getOverlayTime());

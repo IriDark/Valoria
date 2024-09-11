@@ -8,7 +8,6 @@ import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.item.interfaces.*;
 import com.idark.valoria.util.*;
 import net.minecraft.core.particles.*;
-import net.minecraft.nbt.*;
 import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
 import net.minecraft.stats.*;
@@ -33,42 +32,11 @@ import java.lang.Math;
 import java.util.*;
 
 public class MurasamaItem extends KatanaItem implements IParticleItemEntity, ParticleEmitterHandler.ItemParticleSupplier{
-
     public MurasamaItem(Tier tier, int attackDamageIn, float attackSpeedIn, Properties builderIn){
         super(tier, attackDamageIn, attackSpeedIn, builderIn);
     }
 
-    public static int getCharge(ItemStack stack){
-        CompoundTag nbt = stack.getTag();
-        if(nbt == null){
-            nbt = new CompoundTag();
-            stack.setTag(nbt);
-        }
-        if(!nbt.contains("charge")){
-            nbt.putInt("charge", 0);
-            stack.setTag(nbt);
-            return 0;
-        }else{
-            return nbt.getInt("charge");
-        }
-    }
-
-    public static void setCharge(ItemStack stack, int charge){
-        CompoundTag nbt = stack.getTag();
-        if(nbt == null){
-            nbt = new CompoundTag();
-            stack.setTag(nbt);
-        }
-        nbt.putInt("charge", charge);
-        stack.setTag(nbt);
-    }
-
-    public static void addCharge(ItemStack stack, int charge){
-        setCharge(stack, getCharge(stack) + charge);
-    }
-
     public void onUseTick(@NotNull Level worldIn, @NotNull LivingEntity livingEntityIn, @NotNull ItemStack stack, int count){
-        addCharge(stack, 1);
         Player player = (Player)livingEntityIn;
         if(worldIn instanceof ServerLevel srv){
             for(int ii = 0; ii < 1 + Mth.nextInt(RandomSource.create(), 0, 2); ii += 1){
@@ -76,7 +44,7 @@ public class MurasamaItem extends KatanaItem implements IParticleItemEntity, Par
             }
         }
 
-        if(getCharge(stack) == 20){
+        if(player.getTicksUsingItem() == 20){
             player.playNotifySound(SoundsRegistry.RECHARGE.get(), SoundSource.PLAYERS, 0.6f, 1);
         }
     }
@@ -85,7 +53,7 @@ public class MurasamaItem extends KatanaItem implements IParticleItemEntity, Par
         ItemStack itemstack = playerIn.getItemInHand(handIn);
         if(!playerIn.isShiftKeyDown()){
             playerIn.startUsingItem(InteractionHand.MAIN_HAND);
-            if(!playerIn.isFallFlying() && playerIn.isUsingItem() && getCharge(itemstack) == 20){
+            if(!playerIn.isFallFlying() && playerIn.isUsingItem() && playerIn.getTicksUsingItem() >= 20){
                 applyCooldown(playerIn);
             }
 
@@ -148,11 +116,10 @@ public class MurasamaItem extends KatanaItem implements IParticleItemEntity, Par
         RandomSource rand = level.getRandom();
         Player player = (Player) entityLiving;
         Vector3d pos = new Vector3d(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());
-        if (!player.isFallFlying() && getCharge(stack) >= 20) {
+        if (!player.isFallFlying() && player.getTicksUsingItem() >= 20) {
             player.awardStat(Stats.ITEM_USED.get(this));
             applyCooldown(player);
             performDash(stack, level, player, pos, rand);
-            setCharge(stack, 0);
             level.playSound(null, player.getOnPos(), getDashSound(), SoundSource.PLAYERS, 1.0F, 1F);
             if (level.isClientSide) {
                 OverlayRender.setOverlayTexture(getOverlayTexture());

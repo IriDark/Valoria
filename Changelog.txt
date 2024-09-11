@@ -40,6 +40,9 @@
 - Deleted Geodites (Drops moved to ephemarite)
 - Deleted Void Crystal
 
+- Optimized Katanas
+- Optimized Murasama
+
 - Reworked Goblins
 - Reworked Scythes
 - Reworked Katanas
