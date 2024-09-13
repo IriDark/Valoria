@@ -2,14 +2,15 @@ package com.idark.valoria;
 
 import com.google.common.collect.*;
 import com.idark.valoria.client.event.*;
-import com.idark.valoria.client.ui.OverlayRender;
-import com.idark.valoria.client.ui.screen.*;
-import com.idark.valoria.client.ui.screen.book.*;
-import com.idark.valoria.client.ui.screen.book.unlockable.*;
 import com.idark.valoria.client.particle.*;
 import com.idark.valoria.client.render.curio.*;
 import com.idark.valoria.client.render.tile.*;
+import com.idark.valoria.client.ui.*;
+import com.idark.valoria.client.ui.screen.*;
+import com.idark.valoria.client.ui.screen.book.*;
+import com.idark.valoria.client.ui.screen.book.unlockable.*;
 import com.idark.valoria.core.capability.*;
+import com.idark.valoria.core.conditions.*;
 import com.idark.valoria.core.config.*;
 import com.idark.valoria.core.datagen.*;
 import com.idark.valoria.core.network.*;
@@ -155,6 +156,7 @@ public class Valoria{
     private void setup(final FMLCommonSetupEvent event){
         PacketHandler.init();
         PotionBrewery.bootStrap();
+        LootConditionsRegistry.register();
         RegisterUnlockables.init();
         event.enqueueWork(() -> {
             FireBlock fireblock = (FireBlock)Blocks.FIRE;
@@ -298,6 +300,7 @@ public class Valoria{
             generator.addProvider(event.includeServer(), LootTableGen.create(packOutput));
             generator.addProvider(event.includeServer(), new RecipeGen(packOutput));
             generator.addProvider(event.includeClient(), new BlockStateGen(packOutput, existingFileHelper));
+            generator.addProvider(event.includeServer(), new LootModifiersProvider(packOutput));
         }
     }
 }

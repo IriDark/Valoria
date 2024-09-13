@@ -74,6 +74,8 @@
   "jei.valoria.jewelry": "Jewelry",
   "jei.valoria.crusher": "Stonecrusher",
   "jei.valoria.manipulator": "Manipulator",
+  "effect.valoria.sinister_prediction": "Sinister Prediction",
+  "effect.valoria.sinister_prediction.description": "Happy Halloween!",
   "effect.valoria.tipsy.description": "You're drunk? Ye you're drunk, jokes aside slow down's entity but increases entity armor and damage",
   "effect.valoria.stun.description": "Prevents the entity to move and attack",
   "effect.valoria.aloeregen.description": "Slowly regenerates HP",

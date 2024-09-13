@@ -7,7 +7,8 @@
     "valoria:gems_bag_from_shipwreck_supply",
     "valoria:miners_bag_from_buried_treasure",
     "valoria:gems_bag_from_shipwreck_treasure",
-    "valoria:miners_bag_from_underwater_ruin_big"
+    "valoria:miners_bag_from_underwater_ruin_big",
+    "valoria:candy_corn_from_mobs"
   ],
   "replace": false
 }

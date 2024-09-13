@@ -9,19 +9,20 @@ import net.minecraftforge.network.*;
 
 import java.util.function.*;
 
+//todo somehow redo this
 public class CooldownSoundPacket{
-    private final float posX;
-    private final float posY;
-    private final float posZ;
+    private final double posX;
+    private final double posY;
+    private final double posZ;
 
-    public CooldownSoundPacket(float posX, float posY, float posZ){
+    public CooldownSoundPacket(double posX, double posY, double posZ){
         this.posX = posX;
         this.posY = posY;
         this.posZ = posZ;
     }
 
     public static CooldownSoundPacket decode(FriendlyByteBuf buf){
-        return new CooldownSoundPacket(buf.readFloat(), buf.readFloat(), buf.readFloat());
+        return new CooldownSoundPacket(buf.readDouble(), buf.readDouble(), buf.readDouble());
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -29,7 +30,6 @@ public class CooldownSoundPacket{
         if(ValoriaClient.COOLDOWN_SOUND.player == null){
             ValoriaClient.COOLDOWN_SOUND = new CooldownSoundInstance(Minecraft.getInstance().player);
         }
-
         if(!Minecraft.getInstance().getSoundManager().isActive(ValoriaClient.COOLDOWN_SOUND)){
             Minecraft.getInstance().getSoundManager().play(ValoriaClient.COOLDOWN_SOUND);
         }
@@ -45,8 +45,8 @@ public class CooldownSoundPacket{
     }
 
     public void encode(FriendlyByteBuf buf){
-        buf.writeFloat(posX);
-        buf.writeFloat(posY);
-        buf.writeFloat(posZ);
+        buf.writeDouble(posX);
+        buf.writeDouble(posY);
+        buf.writeDouble(posZ);
     }
 }

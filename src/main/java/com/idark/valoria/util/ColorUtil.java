@@ -35,7 +35,25 @@ public class ColorUtil{
         return Integer.parseInt(hex, 16);
     }
 
-    // java Color sucks
+    public String getHex(int r, int g, int b) {
+        Color color = new Color(r,g,b);
+        String hex = Integer.toHexString(color.getRGB() & 0xffffff);
+        if (hex.length() < 6) {
+            hex = "0" + hex;
+        }
+
+        return "#" + hex;
+    }
+
+    public String getHex(Color color) {
+        String hex = Integer.toHexString(color.getRGB() & 0xffffff);
+        if (hex.length() < 6) {
+            hex = "0" + hex;
+        }
+
+        return "#" + hex;
+    }
+
     public static Color valueOf(String hex){
         int offset = hex.charAt(0) == '#' ? 1 : 0;
         int r = parseHex(hex, offset, offset + 2);

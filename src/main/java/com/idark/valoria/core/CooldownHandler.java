@@ -13,7 +13,7 @@ public class CooldownHandler{
      */
     public static void onCooldownEnd(ServerPlayer player, Item item){
         if(item instanceof ICooldownItem){
-            PacketHandler.sendTo(player, new CooldownSoundPacket((float)player.getX(), (float)player.getY() + (player.getBbHeight() / 2), (float)player.getZ()));
+            PacketHandler.sendTo(player, new CooldownSoundPacket(player.getX(), player.getY() + (player.getBbHeight() / 2), player.getZ()));
         }
     }
 }

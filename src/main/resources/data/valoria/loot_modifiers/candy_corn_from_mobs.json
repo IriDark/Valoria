@@ -1,0 +1,23 @@
+{
+  "type": "valoria:add_item",
+  "chance": 0.3,
+  "conditions": [
+    {
+      "condition": "valoria:local_date",
+      "day_of_month": {
+        "min": 1,
+        "max": 31
+      },
+      "month": {
+        "min": 10,
+        "max": 10
+      }
+    },
+    {
+      "condition": "valoria:mob_category",
+      "mob_category": "monster",
+      "target": "direct_killer"
+    }
+  ],
+  "item": "valoria:candy_corn"
+}
