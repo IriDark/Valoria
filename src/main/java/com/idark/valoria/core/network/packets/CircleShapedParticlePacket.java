@@ -34,7 +34,7 @@ public class CircleShapedParticlePacket{
     public static void handle(CircleShapedParticlePacket msg, Supplier<NetworkEvent.Context> ctx){
         if(ctx.get().getDirection().getReceptionSide().isClient()){
             ctx.get().enqueueWork(() -> {
-                Level level = Valoria.proxy.getWorld();
+                Level level = Valoria.proxy.getLevel();
                 float pRadius = 1;
                 double pitch = ((90) * Math.PI) / 180;
                 Color color = new Color(msg.colorR, msg.colorG, msg.colorB);

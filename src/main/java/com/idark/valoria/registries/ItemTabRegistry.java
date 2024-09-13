@@ -209,6 +209,12 @@ public abstract class ItemTabRegistry{
             event.accept(ItemsRegistry.PEARLIUM_AXE);
             event.accept(ItemsRegistry.HOLIDAY_PICKAXE);
             event.accept(ItemsRegistry.HOLIDAY_AXE);
+            event.accept(ItemsRegistry.CANDY_CORN);
+            event.accept(ItemsRegistry.PUMPKIN_BOMB);
+            event.accept(ItemsRegistry.WRAITH_KATANA);
+            event.accept(ItemsRegistry.REAPER_SCYTHE);
+            event.accept(ItemsRegistry.DREAD_AXE);
+            event.accept(ItemsRegistry.SOUL_REAVER);
             event.accept(ItemsRegistry.COBALT_SWORD);
             event.accept(ItemsRegistry.COBALT_PICKAXE);
             event.accept(ItemsRegistry.COBALT_SHOVEL);

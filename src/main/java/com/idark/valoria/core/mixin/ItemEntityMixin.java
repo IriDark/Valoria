@@ -19,7 +19,7 @@ public abstract class ItemEntityMixin{
         ItemEntity self = (ItemEntity)((Object)this);
         if(self.level().isClientSide){
             if(self.getItem().getItem() instanceof IParticleItemEntity item){
-                item.spawnParticles(Valoria.proxy.getWorld(), self);
+                item.spawnParticles(Valoria.proxy.getLevel(), self);
             }
         }
     }

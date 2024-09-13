@@ -9,7 +9,6 @@ import net.minecraftforge.api.distmarker.*;
 @OnlyIn(Dist.CLIENT)
 public class CooldownSoundInstance extends AbstractTickableSoundInstance{
     public final LocalPlayer player;
-
     public CooldownSoundInstance(LocalPlayer pPlayer){
         super(SoundsRegistry.RECHARGE.get(), SoundSource.PLAYERS, SoundInstance.createUnseededRandom());
         this.player = pPlayer;

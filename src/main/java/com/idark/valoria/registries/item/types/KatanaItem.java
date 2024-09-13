@@ -1,8 +1,8 @@
 package com.idark.valoria.registries.item.types;
 
 import com.google.common.collect.*;
-import com.idark.valoria.Valoria;
-import com.idark.valoria.client.ui.OverlayRender;
+import com.idark.valoria.*;
+import com.idark.valoria.client.ui.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.item.interfaces.*;
 import com.idark.valoria.util.*;
@@ -10,7 +10,7 @@ import net.minecraft.*;
 import net.minecraft.core.*;
 import net.minecraft.core.particles.*;
 import net.minecraft.network.chat.*;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.*;
 import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
 import net.minecraft.stats.*;
@@ -186,7 +186,7 @@ public class KatanaItem extends SwordItem implements ICooldownItem{
         }
     }
 
-    private void performDash(@NotNull ItemStack stack, @NotNull Level level, @NotNull Player player, Vector3d pos, RandomSource rand) {
+    public void performDash(@NotNull ItemStack stack, @NotNull Level level, @NotNull Player player, Vector3d pos, RandomSource rand) {
         double pitch = ((player.getRotationVector().x + 90) * Math.PI) / 180;
         double yaw = ((player.getRotationVector().y + 90) * Math.PI) / 180;
         double dashDistance = getDashDistance(player);
@@ -197,14 +197,14 @@ public class KatanaItem extends SwordItem implements ICooldownItem{
             for (int i = 0; i < 10; i += 1) {
                 double locDistance = i * 0.5D;
                 double X = Math.sin(pitch) * Math.cos(yaw) * locDistance;
-                double Y = Math.cos(pitch) * locDistance;
+                double Y = Math.cos(pitch) * 2;
                 double Z = Math.sin(pitch) * Math.sin(yaw) * locDistance;
 
                 srv.sendParticles(getDashParticle(), pos.x + X + (rand.nextDouble() - 0.5D), pos.y + Y, pos.z + Z + (rand.nextDouble() - 0.5D), 1, 0, 0.5, 0, 0);
                 List<LivingEntity> detectedEntities = level.getEntitiesOfClass(LivingEntity.class, new AABB(pos.x + X - 0.5D, pos.y + Y - 0.5D, pos.z + Z - 0.5D, pos.x + X + 0.5D, pos.y + Y + 0.5D, pos.z + Z + 0.5D));
                 for (LivingEntity entity : detectedEntities) {
                     if (!entity.equals(player)) {
-                        entity.hurt(level.damageSources().playerAttack(player), (float) ((player.getAttributeValue(Attributes.ATTACK_DAMAGE) * (double) ii) + EnchantmentHelper.getSweepingDamageRatio(player) + EnchantmentHelper.getDamageBonus(stack, entity.getMobType())) * 1.35f);
+                        entity.hurt(level.damageSources().playerAttack(player), (float) ((player.getAttributeValue(Attributes.ATTACK_DAMAGE) * ii) + EnchantmentHelper.getSweepingDamageRatio(player) + EnchantmentHelper.getDamageBonus(stack, entity.getMobType())) * 1.35f);
                         performEffects(entity, player);
                         ValoriaUtils.chanceEffect(entity, effects, chance, arcRandom);
                         if (!player.isCreative()) {

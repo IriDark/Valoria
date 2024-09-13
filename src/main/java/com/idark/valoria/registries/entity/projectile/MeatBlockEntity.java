@@ -103,7 +103,7 @@ public class MeatBlockEntity extends AbstractArrow{
 
             if(entity instanceof LivingEntity living){
                 if(shooter instanceof LivingEntity){
-                    ((LivingEntity)shooter).heal(0.5f);
+                    ((LivingEntity)shooter).heal(f * 0.1f);
                     EnchantmentHelper.doPostHurtEffects(living, shooter);
                     EnchantmentHelper.doPostDamageEffects((LivingEntity)shooter, living);
                 }

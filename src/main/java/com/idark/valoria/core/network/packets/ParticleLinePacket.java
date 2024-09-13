@@ -39,7 +39,7 @@ public class ParticleLinePacket{
     public static void handle(ParticleLinePacket msg, Supplier<NetworkEvent.Context> ctx){
         if(ctx.get().getDirection().getReceptionSide().isClient()){
             ctx.get().enqueueWork(() -> {
-                Level pLevel = Valoria.proxy.getWorld();
+                Level pLevel = Valoria.proxy.getLevel();
                 Vec3 pos = new Vec3(msg.posX, msg.posY, msg.posZ);
                 Vec3 pTo = new Vec3(msg.posToX, msg.posToY, msg.posToZ);
                 double distance = pos.distanceTo(pTo);

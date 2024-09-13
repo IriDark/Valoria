@@ -119,6 +119,13 @@
       "valoria:swiftslice"
     ]
   },
+  "item.halloween_slice.use": {
+    "subtitle": "subtitles.valoria.ability.use",
+    "replace": "true",
+    "sounds": [
+      "valoria:halloween_slice"
+    ]
+  },
   "item.recharge.use": {
     "subtitle": "subtitles.valoria.item.recharge",
     "replace": "true",

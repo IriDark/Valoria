@@ -43,7 +43,7 @@ public class UnlockableUpdatePacket{
         ctx.get().enqueueWork(() -> {
             assert ctx.get().getDirection() == NetworkDirection.PLAY_TO_CLIENT;
 
-            Level world = Valoria.proxy.getWorld();
+            Level world = Valoria.proxy.getLevel();
             Player player = world.getPlayerByUUID(packet.uuid);
             if(player != null){
                 player.getCapability(IUnlockable.INSTANCE, null).ifPresent((k) -> {

@@ -60,7 +60,7 @@ public class SmokeParticlePacket{
         .setRandomMotion(msg.velX, msg.velY, msg.velZ)
         .setRandomOffset(0.025f);
 
-        return new ParticleEffectSpawner(Valoria.proxy.getWorld(), pos, particleBuilder);
+        return new ParticleEffectSpawner(Valoria.proxy.getLevel(), pos, particleBuilder);
     }
 
 

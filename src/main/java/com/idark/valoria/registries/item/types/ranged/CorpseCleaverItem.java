@@ -1,11 +1,11 @@
 package com.idark.valoria.registries.item.types.ranged;
 
 import com.google.common.collect.*;
-import com.idark.valoria.Valoria;
-import com.idark.valoria.client.ui.OverlayRender;
+import com.idark.valoria.*;
+import com.idark.valoria.client.ui.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.entity.projectile.*;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.*;
 import net.minecraft.sounds.*;
 import net.minecraft.stats.*;
 import net.minecraft.world.*;
@@ -51,11 +51,12 @@ public class CorpseCleaverItem extends SwordItem{
                         playerEntity.hurt(new DamageSource(DamageSourceRegistry.source(level, DamageSourceRegistry.BLEEDING).typeHolder()), 2.0F);
                         playerEntity.getCooldowns().addCooldown(this, 40);
                     }
+                } else {
+                    OverlayRender.setOverlayTexture(new ResourceLocation(Valoria.ID, "textures/gui/overlay/blood.png"));
+                    OverlayRender.showDashOverlay(35);
                 }
 
                 playerEntity.awardStat(Stats.ITEM_USED.get(this));
-                OverlayRender.setOverlayTexture(new ResourceLocation(Valoria.ID, "textures/gui/overlay/blood.png"));
-                OverlayRender.showDashOverlay(35);
             }
         }
     }

@@ -12,6 +12,7 @@ import net.minecraftforge.registries.*;
 public class SoundsRegistry{
     public static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, Valoria.ID);
 
+    public static final RegistryObject<SoundEvent> HALLOWEEN_SLICE = registerSound("item.halloween_slice.use");
     public static final RegistryObject<SoundEvent> SWIFTSLICE = registerSound("item.swiftslice.use");
     public static final RegistryObject<SoundEvent> RECHARGE = registerSound("item.recharge.use");
     public static final RegistryObject<SoundEvent> BLAZECHARGE = registerSound("item.blazecharge.use");

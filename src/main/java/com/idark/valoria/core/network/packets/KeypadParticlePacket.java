@@ -37,7 +37,7 @@ public class KeypadParticlePacket{
     public static void handle(KeypadParticlePacket msg, Supplier<NetworkEvent.Context> ctx){
         if(ctx.get().getDirection().getReceptionSide().isClient()){
             ctx.get().enqueueWork(() -> {
-                Level pLevel = Valoria.proxy.getWorld();
+                Level pLevel = Valoria.proxy.getLevel();
                 Random rand = new Random();
                 for(int a = 0; a < 3; a++){
                     Vec3 position = new Vec3(msg.posX + (rand.nextDouble() * 1.25), msg.posY + 0.5F + ((rand.nextDouble() - 0.5D) * 1.25), msg.posZ + 0.5F + ((rand.nextDouble() - 0.5D) * 1.25));

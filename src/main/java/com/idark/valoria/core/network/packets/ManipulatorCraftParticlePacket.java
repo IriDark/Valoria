@@ -45,7 +45,7 @@ public class ManipulatorCraftParticlePacket{
     public static void handle(ManipulatorCraftParticlePacket msg, Supplier<NetworkEvent.Context> ctx){
         if(ctx.get().getDirection().getReceptionSide().isClient()){
             ctx.get().enqueueWork(() -> {
-                Level pLevel = Valoria.proxy.getWorld();
+                Level pLevel = Valoria.proxy.getLevel();
                 Vec3 particlePos = new Vec3(msg.posX + 0.85f, msg.posY + 1.10f, msg.posZ + 0.85f);
                 ParticleEffects.particles(pLevel, particlePos, ColorParticleData.create(Pal.infernalBright, Color.black).build()).getBuilder().setMotion(-0.05f, 0.025f, -0.05f).setLifetime(8).setScaleData(GenericParticleData.create(0.025f, 0.1f).build()).spawn(pLevel, particlePos.x, particlePos.y, particlePos.z);
 

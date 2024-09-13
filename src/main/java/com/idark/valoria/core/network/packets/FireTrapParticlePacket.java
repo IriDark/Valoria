@@ -42,7 +42,7 @@ public class FireTrapParticlePacket{
     public static void handle(FireTrapParticlePacket msg, Supplier<NetworkEvent.Context> ctx){
         if(ctx.get().getDirection().getReceptionSide().isClient()){
             ctx.get().enqueueWork(() -> {
-                Level level = Valoria.proxy.getWorld();
+                Level level = Valoria.proxy.getLevel();
                 for(int i = 0; i < 20; i++){
                     Color color = new Color(msg.colorR, msg.colorG, msg.colorB);
                     Color colorTo = new Color(msg.colorToR, msg.colorToG, msg.colorToB);

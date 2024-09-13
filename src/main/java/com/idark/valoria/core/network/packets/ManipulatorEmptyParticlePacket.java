@@ -44,7 +44,7 @@ public class ManipulatorEmptyParticlePacket{
     public static void handle(ManipulatorEmptyParticlePacket msg, Supplier<NetworkEvent.Context> ctx){
         if(ctx.get().getDirection().getReceptionSide().isClient()){
             ctx.get().enqueueWork(() -> {
-                Level pLevel = Valoria.proxy.getWorld();
+                Level pLevel = Valoria.proxy.getLevel();
                 double pitch = ((90) * Math.PI) / 180;
                 float pRadius = 0.25f;
                 for(int i = 0; i < 360; i += 10){

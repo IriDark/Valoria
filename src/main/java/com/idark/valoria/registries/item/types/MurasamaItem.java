@@ -1,7 +1,7 @@
 package com.idark.valoria.registries.item.types;
 
-import com.idark.valoria.client.ui.OverlayRender;
 import com.idark.valoria.client.particle.*;
+import com.idark.valoria.client.ui.*;
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.*;
 import com.idark.valoria.registries.*;
@@ -72,7 +72,7 @@ public class MurasamaItem extends KatanaItem implements IParticleItemEntity, Par
         return super.shouldCauseReequipAnimation(oldStack, newStack, true);
     }
 
-    private void performDash(@NotNull ItemStack stack, @NotNull Level level, @NotNull Player player, Vector3d pos, RandomSource rand) {
+    public void performDash(@NotNull ItemStack stack, @NotNull Level level, @NotNull Player player, Vector3d pos, RandomSource rand) {
         double pitch = ((player.getRotationVector().x + 90) * Math.PI) / 180;
         double yaw = ((player.getRotationVector().y + 90) * Math.PI) / 180;
         float dashDistance = (float) player.getAttributeValue(AttributeRegistry.DASH_DISTANCE.get());

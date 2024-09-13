@@ -39,7 +39,7 @@ public class MurasamaParticlePacket{
     public static void handle(MurasamaParticlePacket msg, Supplier<NetworkEvent.Context> ctx){
         if(ctx.get().getDirection().getReceptionSide().isClient()){
             ctx.get().enqueueWork(() -> {
-                Level pLevel = Valoria.proxy.getWorld();
+                Level pLevel = Valoria.proxy.getLevel();
                 Random rand = new Random();
                 RandomSource source = RandomSource.create();
                 double

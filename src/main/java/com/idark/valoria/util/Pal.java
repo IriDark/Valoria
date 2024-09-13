@@ -17,6 +17,7 @@ public class Pal{
     oceanic = ColorUtil.valueOf("71DBFF"),
     infernalBright = ColorUtil.valueOf("ff912d"),
     infernal = ColorUtil.valueOf("e45c41"),
+    halloween = ColorUtil.valueOf("ea7e3f"),
     magmatic = ColorUtil.valueOf("2d0000"),
 
     lightViolet = ColorUtil.valueOf("7f54ff"),

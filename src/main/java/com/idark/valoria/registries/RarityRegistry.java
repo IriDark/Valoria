@@ -46,6 +46,15 @@ public class RarityRegistry{
     .withObfuscated(false)
     .withFont(new ResourceLocation("minecraft", "default"));
 
+    public static UnaryOperator<Style> halloween_modifier = style -> style
+    .withColor(TextColor.fromRgb(Pal.halloween.getRGB()))
+    .withBold(false)
+    .withItalic(false)
+    .withUnderlined(false)
+    .withStrikethrough(false)
+    .withObfuscated(false)
+    .withFont(new ResourceLocation("minecraft", "default"));
+
     public static UnaryOperator<Style> phantasm_modifier = style -> style
     .withColor(TextColor.fromRgb(Pal.softBlue.getRGB()))
     .withBold(false)
@@ -55,6 +64,7 @@ public class RarityRegistry{
     .withObfuscated(false)
     .withFont(new ResourceLocation("minecraft", "default"));
 
+    public static final Rarity HALLOWEEN = Rarity.create("halloween", halloween_modifier);
     public static final Rarity INFERNAL = Rarity.create("infernal", infernal_modifier);
     public static final Rarity AQUARIUS = Rarity.create("aquarius", aquarius_modifier);
     public static final Rarity NATURE = Rarity.create("nature", nature_modifier);

@@ -37,7 +37,7 @@ public class CubeShapedParticlePacket{
     public static void handle(CubeShapedParticlePacket msg, Supplier<NetworkEvent.Context> ctx){
         if(ctx.get().getDirection().getReceptionSide().isClient()){
             ctx.get().enqueueWork(() -> {
-                Level level = Valoria.proxy.getWorld();
+                Level level = Valoria.proxy.getLevel();
                 Color color = new Color(msg.colorR, msg.colorG, msg.colorB);
                 float size = msg.size;
 

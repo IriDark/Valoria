@@ -1,8 +1,8 @@
 package com.idark.valoria.registries;
 
 import com.idark.valoria.*;
-import com.idark.valoria.client.ui.screen.book.unlockable.*;
 import com.idark.valoria.client.particle.*;
+import com.idark.valoria.client.ui.screen.book.unlockable.*;
 import com.idark.valoria.registries.entity.decoration.*;
 import com.idark.valoria.registries.item.enums.*;
 import com.idark.valoria.registries.item.tiers.*;
@@ -230,6 +230,20 @@ public class ItemsRegistry{
     () -> new ThrowableBombItem(new Item.Properties().stacksTo(16)));
     public static final RegistryObject<Item> DYNAMITE = ITEMS.register("dynamite",
     () -> new ThrowableBombItem(3f, 60, new Item.Properties().stacksTo(16)));
+
+    // HALLOWEEN
+    public static final RegistryObject<Item> PUMPKIN_BOMB = ITEMS.register("pumpkin_bomb",
+    () -> new ThrowableBombItem(new Item.Properties().rarity(RarityRegistry.HALLOWEEN).stacksTo(16)));
+    public static final RegistryObject<Item> CANDY_CORN = ITEMS.register("candy_corn",
+    () -> new Item(new Item.Properties().rarity(RarityRegistry.HALLOWEEN).stacksTo(16).food(new FoodProperties.Builder().nutrition(1).saturationMod(0.2f).build())));
+    public static final RegistryObject<Item> WRAITH_KATANA = ITEMS.register("wraith_katana",
+    () -> new WraithKatana(ModItemTier.HALLOWEEN, 2, -2.2f, new Item.Properties().rarity(RarityRegistry.HALLOWEEN)));
+    public static final RegistryObject<Item> REAPER_SCYTHE = ITEMS.register("reaper_scythe",
+    () -> new ScytheItem(ModItemTier.HALLOWEEN, 8, -3.0f, 3, new Item.Properties().fireResistant().rarity(RarityRegistry.HALLOWEEN), 0.5f, new MobEffectInstance(MobEffects.DARKNESS, 90, 0)));
+    public static final RegistryObject<Item> DREAD_AXE = ITEMS.register("dread_axe",
+    () -> new AxeItem(ModItemTier.HALLOWEEN, 6.5f, -2.8f, new Item.Properties().rarity(RarityRegistry.HALLOWEEN)));
+    public static final RegistryObject<Item> SOUL_REAVER = ITEMS.register("soul_reaver",
+    () -> new HitEffectItem(ModItemTier.HALLOWEEN, 4, -2.6f, new Item.Properties().rarity(RarityRegistry.HALLOWEEN), 0.25f, new MobEffectInstance(MobEffects.DARKNESS, 40, 0), new MobEffectInstance(MobEffects.WEAKNESS, 60, 1)));
 
     // Placeholder for Entity Render
     public static final RegistryObject<Item> SPECTRAL_BLADE_THROWN = ITEMS.register("spectral_blade_thrown",

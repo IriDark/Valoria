@@ -40,7 +40,7 @@ public class LineToNearbyMobsParticlePacket{
     public static void handle(LineToNearbyMobsParticlePacket msg, Supplier<NetworkEvent.Context> ctx){
         if(ctx.get().getDirection().getReceptionSide().isClient()){
             ctx.get().enqueueWork(() -> {
-                Level pLevel = Valoria.proxy.getWorld();
+                Level pLevel = Valoria.proxy.getLevel();
                 double pitch = (90 * Math.PI) / 180;
                 double yaw = ((msg.yawRaw + 90) * Math.PI) / 180;
 
