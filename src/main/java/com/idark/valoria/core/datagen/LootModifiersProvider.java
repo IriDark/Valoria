@@ -13,9 +13,7 @@ public class LootModifiersProvider extends GlobalLootModifierProvider{
     protected void start() {
         //todo datagen
 //        add("candy_corn_from_mobs", new AddItemModifier(new LootItemCondition[]{
-//        LocalDateCondition.time(IntRange.range(1, 30), IntRange.exact(9)).build(),
-//        TimeCheck.time(IntRange.range(6000, 13000)).build(),
-//        new MobCategoryCondition(EntityCategoryPredicate.of(MobCategory.MONSTER), EntityTarget.DIRECT_KILLER)},
+//        LocalDateCondition.time(IntRange.range(1, 30), IntRange.exact(9)).build(), new MobCategoryCondition(MobCategory.MONSTER)},
 //        ItemsRegistry.CANDY_CORN.get(), 1, 1));
     }
 }

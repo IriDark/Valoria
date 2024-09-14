@@ -9,7 +9,6 @@ import net.minecraft.world.level.storage.loot.predicates.*;
 
 public class MobCategoryCondition implements LootItemCondition{
     private final MobCategory category;
-
     public MobCategoryCondition(MobCategory category) {
         this.category = category;
     }

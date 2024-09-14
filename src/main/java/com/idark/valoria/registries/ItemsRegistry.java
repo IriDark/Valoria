@@ -15,6 +15,7 @@ import com.idark.valoria.registries.item.types.ranged.*;
 import com.idark.valoria.util.*;
 import net.minecraft.*;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.food.*;
 import net.minecraft.world.item.*;
@@ -237,13 +238,19 @@ public class ItemsRegistry{
     public static final RegistryObject<Item> CANDY_CORN = ITEMS.register("candy_corn",
     () -> new Item(new Item.Properties().rarity(RarityRegistry.HALLOWEEN).stacksTo(16).food(new FoodProperties.Builder().nutrition(1).saturationMod(0.2f).build())));
     public static final RegistryObject<Item> WRAITH_KATANA = ITEMS.register("wraith_katana",
-    () -> new WraithKatana(ModItemTier.HALLOWEEN, 2, -2.2f, new Item.Properties().rarity(RarityRegistry.HALLOWEEN)));
+    () -> new WraithKatana(ModItemTier.HALLOWEEN, 3, -2.2f, new Item.Properties().rarity(RarityRegistry.HALLOWEEN)));
     public static final RegistryObject<Item> REAPER_SCYTHE = ITEMS.register("reaper_scythe",
-    () -> new ScytheItem(ModItemTier.HALLOWEEN, 8, -3.0f, 3, new Item.Properties().fireResistant().rarity(RarityRegistry.HALLOWEEN), 0.5f, new MobEffectInstance(MobEffects.DARKNESS, 90, 0)));
+    () -> new ScytheItem(ModItemTier.HALLOWEEN, 9, -3.0f, 3, new Item.Properties().fireResistant().rarity(RarityRegistry.HALLOWEEN), 0.5f, new MobEffectInstance(MobEffects.DARKNESS, 90, 0)) {
+        @Override
+        public SoundEvent getAttackSound(){
+            return SoundsRegistry.HALLOWEEN_SLICE.get();
+        }
+    });
+
     public static final RegistryObject<Item> DREAD_AXE = ITEMS.register("dread_axe",
     () -> new AxeItem(ModItemTier.HALLOWEEN, 6.5f, -2.8f, new Item.Properties().rarity(RarityRegistry.HALLOWEEN)));
     public static final RegistryObject<Item> SOUL_REAVER = ITEMS.register("soul_reaver",
-    () -> new HitEffectItem(ModItemTier.HALLOWEEN, 4, -2.6f, new Item.Properties().rarity(RarityRegistry.HALLOWEEN), 0.25f, new MobEffectInstance(MobEffects.DARKNESS, 40, 0), new MobEffectInstance(MobEffects.WEAKNESS, 60, 1)));
+    () -> new HitEffectItem(ModItemTier.HALLOWEEN, 4, -2.8f, new Item.Properties().rarity(RarityRegistry.HALLOWEEN), 0.25f, new MobEffectInstance(MobEffects.DARKNESS, 40, 0), new MobEffectInstance(MobEffects.WEAKNESS, 60, 1)));
 
     // Placeholder for Entity Render
     public static final RegistryObject<Item> SPECTRAL_BLADE_THROWN = ITEMS.register("spectral_blade_thrown",

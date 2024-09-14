@@ -1,6 +1,6 @@
 {
   "type": "valoria:add_item",
-  "chance": 0.3,
+  "chance": 0.25,
   "conditions": [
     {
       "condition": "valoria:local_date",
