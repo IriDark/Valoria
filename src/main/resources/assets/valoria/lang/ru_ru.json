@@ -378,6 +378,8 @@
   "effect.valoria.aloeregen.description": "Медленно востанавливает здоровье",
   "effect.valoria.bleeding": "Кровотечение",
   "effect.valoria.bleeding.description": "Существо будет терять здоровье пока действует эффект",
+  "effect.valoria.sinister_prediction": "Sinister Prediction",
+  "effect.valoria.sinister_prediction.description": "Happy Halloween!",
   "effect.valoria.stun": "Оглушение",
   "effect.valoria.stun.description": "Не даёт атаковать и двигаться",
   "effect.valoria.tipsy": "Опьянение",

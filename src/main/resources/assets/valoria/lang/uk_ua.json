@@ -378,6 +378,8 @@
   "effect.valoria.aloeregen.description": "Повільно відновлює здоров'я",
   "effect.valoria.bleeding": "Кровотеча",
   "effect.valoria.bleeding.description": "Повільна втрата здоров'я",
+  "effect.valoria.sinister_prediction": "Sinister Prediction",
+  "effect.valoria.sinister_prediction.description": "Happy Halloween!",
   "effect.valoria.stun": "Приголомшення",
   "effect.valoria.stun.description": "Не дає атакувати та рухатись",
   "effect.valoria.tipsy": "Оп'яніння",
