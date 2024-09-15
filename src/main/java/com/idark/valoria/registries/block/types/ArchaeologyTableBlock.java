@@ -1,29 +1,40 @@
 package com.idark.valoria.registries.block.types;
 
-import net.minecraft.core.*;
-import net.minecraft.util.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.player.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.item.context.*;
-import net.minecraft.world.level.*;
-import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.state.*;
-import net.minecraft.world.level.block.state.StateDefinition.*;
-import net.minecraft.world.level.block.state.properties.*;
-import net.minecraft.world.phys.shapes.*;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition.Builder;
+import net.minecraft.world.level.block.state.properties.BedPart;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.phys.shapes.BooleanOp;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
-import javax.annotation.*;
+import javax.annotation.Nullable;
 
-public class ArchaeologyTableBlock extends HorizontalDirectionalBlock{
+public class ArchaeologyTableBlock extends HorizontalDirectionalBlock {
     public static final EnumProperty<BedPart> PART = BlockStateProperties.BED_PART;
 
-    public VoxelShape makeShape(BlockState state){
+    public VoxelShape makeShape(BlockState state) {
         //I hate voxel shapes, the worst thing ive seen...
         Direction direction = (state.getValue(FACING));
         VoxelShape shape = Shapes.empty();
-        if(state.getValue(PART) == BedPart.FOOT){
-            switch(direction){
+        if (state.getValue(PART) == BedPart.FOOT) {
+            switch (direction) {
                 case WEST -> {
                     shape = Shapes.join(shape, Shapes.box(0.8125, 0, 0.0625, 0.9375, 0.75, 0.1875), BooleanOp.OR);
                     shape = Shapes.join(shape, Shapes.box(0, 0.5, 0.0625, 0.8125, 0.625, 0.1875), BooleanOp.OR);
@@ -62,8 +73,8 @@ public class ArchaeologyTableBlock extends HorizontalDirectionalBlock{
             }
         }
 
-        if(state.getValue(PART) == BedPart.HEAD){
-            switch(direction){
+        if (state.getValue(PART) == BedPart.HEAD) {
+            switch (direction) {
                 case WEST -> {
                     shape = Shapes.join(shape, Shapes.box(0, 0.75, 0, 1, 1, 1), BooleanOp.OR);
                     shape = Shapes.join(shape, Shapes.box(0.0625, 0, 0.0625, 1, 0.75, 0.9375), BooleanOp.OR);
@@ -89,38 +100,38 @@ public class ArchaeologyTableBlock extends HorizontalDirectionalBlock{
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context){
+    public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
         return makeShape(state);
     }
 
-    public ArchaeologyTableBlock(Properties pProperties){
+    public ArchaeologyTableBlock(Properties pProperties) {
         super(pProperties);
         this.registerDefaultState(this.stateDefinition.any().setValue(PART, BedPart.FOOT));
     }
 
-    private static Direction getNeighbourDirection(BedPart pPart, Direction pDirection){
+    private static Direction getNeighbourDirection(BedPart pPart, Direction pDirection) {
         return pPart == BedPart.FOOT ? pDirection : pDirection.getOpposite();
     }
 
-    public RenderShape getRenderShape(BlockState pState){
+    public RenderShape getRenderShape(BlockState pState) {
         return RenderShape.MODEL;
     }
 
-    public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pFacingPos){
-        if(pFacing == getNeighbourDirection(pState.getValue(PART), pState.getValue(FACING))){
+    public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pFacingPos) {
+        if (pFacing == getNeighbourDirection(pState.getValue(PART), pState.getValue(FACING))) {
             return pFacingState.is(this) && pFacingState.getValue(PART) != pState.getValue(PART) ? pState : Blocks.AIR.defaultBlockState();
-        }else{
+        } else {
             return super.updateShape(pState, pFacing, pFacingState, pLevel, pCurrentPos, pFacingPos);
         }
     }
 
-    public void playerWillDestroy(Level pLevel, BlockPos pPos, BlockState pState, Player pPlayer){
-        if(!pLevel.isClientSide && pPlayer.isCreative()){
+    public void playerWillDestroy(Level pLevel, BlockPos pPos, BlockState pState, Player pPlayer) {
+        if (!pLevel.isClientSide && pPlayer.isCreative()) {
             BedPart part = pState.getValue(PART);
-            if(part == BedPart.FOOT){
+            if (part == BedPart.FOOT) {
                 BlockPos relativePos = pPos.relative(getNeighbourDirection(part, pState.getValue(FACING)));
                 BlockState state = pLevel.getBlockState(relativePos);
-                if(state.is(this) && state.getValue(PART) == BedPart.HEAD){
+                if (state.is(this) && state.getValue(PART) == BedPart.HEAD) {
                     pLevel.setBlock(relativePos, Blocks.AIR.defaultBlockState(), 35);
                     pLevel.levelEvent(pPlayer, 2001, relativePos, Block.getId(state));
                 }
@@ -131,7 +142,7 @@ public class ArchaeologyTableBlock extends HorizontalDirectionalBlock{
     }
 
     @Nullable
-    public BlockState getStateForPlacement(BlockPlaceContext pContext){
+    public BlockState getStateForPlacement(BlockPlaceContext pContext) {
         Direction direction = pContext.getHorizontalDirection().getClockWise();
         BlockPos pos = pContext.getClickedPos();
         BlockPos relativePos = pos.relative(direction);
@@ -139,9 +150,9 @@ public class ArchaeologyTableBlock extends HorizontalDirectionalBlock{
         return level.getBlockState(relativePos).canBeReplaced(pContext) && level.getWorldBorder().isWithinBounds(relativePos) ? this.defaultBlockState().setValue(FACING, direction) : null;
     }
 
-    public void setPlacedBy(Level pLevel, BlockPos pPos, BlockState pState, @Nullable LivingEntity pPlacer, ItemStack pStack){
+    public void setPlacedBy(Level pLevel, BlockPos pPos, BlockState pState, @Nullable LivingEntity pPlacer, ItemStack pStack) {
         super.setPlacedBy(pLevel, pPos, pState, pPlacer, pStack);
-        if(!pLevel.isClientSide){
+        if (!pLevel.isClientSide) {
             BlockPos relativePos = pPos.relative(pState.getValue(FACING));
             pLevel.setBlock(relativePos, pState.setValue(PART, BedPart.HEAD), 3);
             pLevel.blockUpdated(pPos, Blocks.AIR);
@@ -150,13 +161,13 @@ public class ArchaeologyTableBlock extends HorizontalDirectionalBlock{
     }
 
     @Override
-    protected void createBlockStateDefinition(Builder<Block, BlockState> builder){
+    protected void createBlockStateDefinition(Builder<Block, BlockState> builder) {
         builder.add(FACING);
         builder.add(PART);
         super.createBlockStateDefinition(builder);
     }
 
-    public long getSeed(BlockState pState, BlockPos pPos){
+    public long getSeed(BlockState pState, BlockPos pPos) {
         BlockPos relativePos = pPos.relative(pState.getValue(FACING), pState.getValue(PART) == BedPart.HEAD ? 0 : 1);
         return Mth.getSeed(relativePos.getX(), pPos.getY(), relativePos.getZ());
     }

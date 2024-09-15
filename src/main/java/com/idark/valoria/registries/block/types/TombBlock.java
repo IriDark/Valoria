@@ -1,35 +1,46 @@
 package com.idark.valoria.registries.block.types;
 
-import net.minecraft.core.*;
-import net.minecraft.world.item.context.*;
-import net.minecraft.world.level.*;
-import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.state.*;
-import net.minecraft.world.level.block.state.properties.*;
-import net.minecraft.world.level.material.*;
-import net.minecraft.world.phys.shapes.*;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.SimpleWaterloggedBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.phys.shapes.BooleanOp;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
-import javax.annotation.*;
+import javax.annotation.Nullable;
 
-public class TombBlock extends HorizontalDirectionalBlock implements SimpleWaterloggedBlock{
+public class TombBlock extends HorizontalDirectionalBlock implements SimpleWaterloggedBlock {
     private final boolean isGrave;
 
-    public TombBlock(BlockBehaviour.Properties properties){
+    public TombBlock(BlockBehaviour.Properties properties) {
         super(properties);
         this.isGrave = false;
         registerDefaultState(defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, false));
     }
 
-    public TombBlock(boolean isGrave, BlockBehaviour.Properties properties){
+    public TombBlock(boolean isGrave, BlockBehaviour.Properties properties) {
         super(properties);
         this.isGrave = isGrave;
         registerDefaultState(defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, false));
     }
 
-    public VoxelShape makeGraveShape(BlockState state){
+    public VoxelShape makeGraveShape(BlockState state) {
         VoxelShape shape = Shapes.empty();
         Direction direction = state.getValue(BlockStateProperties.HORIZONTAL_FACING);
-        switch(direction){
+        switch (direction) {
             case SOUTH, NORTH -> {
                 shape = Shapes.join(shape, Shapes.box(0.0625, 0, 0.0625, 0.9375, 0.125, 0.9375), BooleanOp.OR);
                 shape = Shapes.join(shape, Shapes.box(0.1875, 0.125, 0.375, 0.8125, 0.875, 0.625), BooleanOp.OR);
@@ -46,11 +57,11 @@ public class TombBlock extends HorizontalDirectionalBlock implements SimpleWater
         return shape;
     }
 
-    public VoxelShape makeTombShape(BlockState state){
+    public VoxelShape makeTombShape(BlockState state) {
         VoxelShape shape = Shapes.empty();
         Direction direction = state.getValue(BlockStateProperties.HORIZONTAL_FACING);
         shape = Shapes.join(shape, Shapes.box(0.375, 0.1875, 0.375, 0.625, 0.5, 0.625), BooleanOp.OR);
-        switch(direction){
+        switch (direction) {
             case SOUTH, NORTH -> {
                 shape = Shapes.join(shape, Shapes.box(0.375, 0.75, 0.375, 0.625, 1, 0.625), BooleanOp.OR);
                 shape = Shapes.join(shape, Shapes.box(0.1875, 0, 0.1875, 0.8125, 0.25, 0.8125), BooleanOp.OR);
@@ -68,30 +79,30 @@ public class TombBlock extends HorizontalDirectionalBlock implements SimpleWater
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, BlockGetter reader, BlockPos pos, CollisionContext ctx){
+    public VoxelShape getShape(BlockState state, BlockGetter reader, BlockPos pos, CollisionContext ctx) {
         return this.isGrave ? makeGraveShape(state) : makeTombShape(state);
     }
 
     @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder){
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(BlockStateProperties.WATERLOGGED);
         builder.add(FACING);
     }
 
     @Nullable
     @Override
-    public BlockState getStateForPlacement(BlockPlaceContext context){
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
         FluidState fluidState = context.getLevel().getFluidState(context.getClickedPos());
         return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite()).setValue(BlockStateProperties.WATERLOGGED, fluidState.getType() == Fluids.WATER);
     }
 
     @Override
-    public FluidState getFluidState(BlockState state){
+    public FluidState getFluidState(BlockState state) {
         return state.getValue(BlockStateProperties.WATERLOGGED) ? Fluids.WATER.getSource(false) : Fluids.EMPTY.defaultFluidState();
     }
 
-    public BlockState updateShape(BlockState pState, Direction pDirection, BlockState pNeighborState, LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pNeighborPos){
-        if(pState.getValue(BlockStateProperties.WATERLOGGED)){
+    public BlockState updateShape(BlockState pState, Direction pDirection, BlockState pNeighborState, LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pNeighborPos) {
+        if (pState.getValue(BlockStateProperties.WATERLOGGED)) {
             pLevel.scheduleTick(pCurrentPos, Fluids.WATER, Fluids.WATER.getTickDelay(pLevel));
         }
 

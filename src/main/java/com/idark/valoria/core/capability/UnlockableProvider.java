@@ -1,50 +1,55 @@
 package com.idark.valoria.core.capability;
 
-import com.idark.valoria.api.unlockable.*;
-import net.minecraft.nbt.*;
-import net.minecraftforge.common.util.*;
+import com.idark.valoria.api.unlockable.Unlockable;
+import com.idark.valoria.api.unlockable.Unlockables;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.StringTag;
+import net.minecraft.nbt.Tag;
+import net.minecraftforge.common.util.INBTSerializable;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
 
-public class UnlockableProvider implements IUnlockable, INBTSerializable<CompoundTag>{
+public class UnlockableProvider implements IUnlockable, INBTSerializable<CompoundTag> {
 
     Set<Unlockable> unlockables = new HashSet<>();
 
     @Override
-    public boolean isUnlockable(Unlockable unlockable){
+    public boolean isUnlockable(Unlockable unlockable) {
         return unlockables.contains(unlockable);
     }
 
     @Override
-    public void addUnlockable(Unlockable unlockable){
+    public void addUnlockable(Unlockable unlockable) {
         unlockables.add(unlockable);
     }
 
     @Override
-    public void removeUnlockable(Unlockable unlockable){
+    public void removeUnlockable(Unlockable unlockable) {
         unlockables.remove(unlockable);
     }
 
     @Override
-    public void addAllUnlockable(){
+    public void addAllUnlockable() {
         unlockables.clear();
         unlockables.addAll(Unlockables.getUnlockables());
     }
 
     @Override
-    public void removeAllUnlockable(){
+    public void removeAllUnlockable() {
         unlockables.clear();
     }
 
     @Override
-    public Set<Unlockable> getUnlockables(){
+    public Set<Unlockable> getUnlockables() {
         return unlockables;
     }
 
     @Override
-    public CompoundTag serializeNBT(){
+    public CompoundTag serializeNBT() {
         ListTag unlockables = new ListTag();
-        for(Unlockable unlockable : getUnlockables()){
+        for (Unlockable unlockable : getUnlockables()) {
             unlockables.add(StringTag.valueOf(unlockable.getId()));
         }
 
@@ -54,13 +59,13 @@ public class UnlockableProvider implements IUnlockable, INBTSerializable<Compoun
     }
 
     @Override
-    public void deserializeNBT(CompoundTag nbt){
+    public void deserializeNBT(CompoundTag nbt) {
         removeAllUnlockable();
-        if((nbt).contains("unlockables")){
+        if ((nbt).contains("unlockables")) {
             ListTag unlockables = nbt.getList("unlockables", Tag.TAG_STRING);
-            for(int i = 0; i < unlockables.size(); i++){
+            for (int i = 0; i < unlockables.size(); i++) {
                 Unlockable unlockable = Unlockables.getUnlockable(unlockables.getString(i));
-                if(unlockable != null) addUnlockable(unlockable);
+                if (unlockable != null) addUnlockable(unlockable);
             }
         }
     }

@@ -1,14 +1,19 @@
 package com.idark.valoria.core.conditions;
 
-import com.google.gson.*;
-import net.minecraft.util.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.level.storage.loot.*;
-import net.minecraft.world.level.storage.loot.parameters.*;
-import net.minecraft.world.level.storage.loot.predicates.*;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonSerializationContext;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 
-public class MobCategoryCondition implements LootItemCondition{
+public class MobCategoryCondition implements LootItemCondition {
     private final MobCategory category;
+
     public MobCategoryCondition(MobCategory category) {
         this.category = category;
     }
@@ -22,7 +27,7 @@ public class MobCategoryCondition implements LootItemCondition{
     }
 
     @Override
-    public LootItemConditionType getType(){
+    public LootItemConditionType getType() {
         return LootConditionsRegistry.MOB_CATEGORY_CONDITION;
     }
 

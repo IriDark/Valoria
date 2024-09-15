@@ -1,26 +1,25 @@
 package com.idark.valoria.core.network.packets;
 
-import com.idark.valoria.*;
-import com.idark.valoria.client.particle.*;
-import net.minecraft.network.*;
-import net.minecraft.world.level.*;
-import net.minecraft.world.phys.*;
-import net.minecraftforge.network.*;
-import org.joml.*;
-import team.lodestar.lodestone.systems.particle.data.*;
-import team.lodestar.lodestone.systems.particle.data.color.*;
+import com.idark.valoria.Valoria;
+import com.idark.valoria.client.particle.ParticleEffects;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.network.NetworkEvent;
+import org.joml.Vector3d;
+import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
+import team.lodestar.lodestone.systems.particle.data.color.ColorParticleData;
 
 import java.awt.*;
-import java.lang.Math;
-import java.util.function.*;
+import java.util.function.Supplier;
 
-public class ManipulatorParticlePacket{
+public class ManipulatorParticlePacket {
 
     private final double posX, posY, posZ, posToX, posToY, posToZ;
     private final float yawRaw;
     private final int colorR, colorG, colorB;
 
-    public ManipulatorParticlePacket(double posX, double posY, double posZ, double posToX, double posToY, double posToZ, float yawRaw, int colorR, int colorG, int colorB){
+    public ManipulatorParticlePacket(double posX, double posY, double posZ, double posToX, double posToY, double posToZ, float yawRaw, int colorR, int colorG, int colorB) {
         this.posX = posX;
         this.posY = posY;
         this.posZ = posZ;
@@ -34,12 +33,12 @@ public class ManipulatorParticlePacket{
         this.colorB = colorB;
     }
 
-    public static ManipulatorParticlePacket decode(FriendlyByteBuf buf){
+    public static ManipulatorParticlePacket decode(FriendlyByteBuf buf) {
         return new ManipulatorParticlePacket(buf.readDouble(), buf.readDouble(), buf.readDouble(), buf.readDouble(), buf.readDouble(), buf.readDouble(), buf.readFloat(), buf.readInt(), buf.readInt(), buf.readInt());
     }
 
-    public static void handle(ManipulatorParticlePacket msg, Supplier<NetworkEvent.Context> ctx){
-        if(ctx.get().getDirection().getReceptionSide().isClient()){
+    public static void handle(ManipulatorParticlePacket msg, Supplier<NetworkEvent.Context> ctx) {
+        if (ctx.get().getDirection().getReceptionSide().isClient()) {
             ctx.get().enqueueWork(() -> {
                 Level pLevel = Valoria.proxy.getLevel();
                 double pitch = ((90) * Math.PI) / 180;
@@ -60,7 +59,7 @@ public class ManipulatorParticlePacket{
         }
     }
 
-    public void encode(FriendlyByteBuf buf){
+    public void encode(FriendlyByteBuf buf) {
         buf.writeDouble(posX);
         buf.writeDouble(posY);
         buf.writeDouble(posZ);

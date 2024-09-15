@@ -35,7 +35,7 @@ public class MiscRegistry {
 
     public static final RegistryObject<PoiType> VALORIA_PORTAL = POI.register("valoria_portal", () -> new PoiType(ImmutableSet.copyOf(ForgeRegistries.BLOCKS.getValue(new ResourceLocation(Valoria.ID, "valoria_portal")).getStateDefinition().getPossibleStates()), 0, 1));
 
-    public static void init(IEventBus eventBus){
+    public static void init(IEventBus eventBus) {
         PAINTING_TYPES.register(eventBus);
         POI.register(eventBus);
     }

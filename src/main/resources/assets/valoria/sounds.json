@@ -1,4 +1,65 @@
 {
+  "mob.haunted_merchant.hurt": {
+    "subtitle": "subtitles.valoria.haunted_merchant.hurt",
+    "replace": "true",
+    "sounds": [
+      "valoria:haunted_merchant/hurt1",
+      "valoria:haunted_merchant/hurt2",
+      "valoria:haunted_merchant/hurt3"
+    ]
+  },
+  "mob.haunted_merchant.death": {
+    "subtitle": "subtitles.valoria.haunted_merchant.death",
+    "replace": "true",
+    "sounds": [
+      "valoria:haunted_merchant/death1",
+      "valoria:haunted_merchant/death2",
+      "valoria:haunted_merchant/death3"
+    ]
+  },
+  "mob.haunted_merchant.idle": {
+    "subtitle": "subtitles.valoria.haunted_merchant.idle",
+    "replace": "true",
+    "sounds": [
+      "valoria:haunted_merchant/idle1",
+      "valoria:haunted_merchant/idle2",
+      "valoria:haunted_merchant/idle3"
+    ]
+  },
+  "mob.haunted_merchant.yes": {
+    "subtitle": "subtitles.valoria.haunted_merchant.yes",
+    "replace": "true",
+    "sounds": [
+      "valoria:haunted_merchant/yes1",
+      "valoria:haunted_merchant/yes2",
+      "valoria:haunted_merchant/yes3"
+    ]
+  },
+  "mob.haunted_merchant.no": {
+    "subtitle": "subtitles.valoria.haunted_merchant.no",
+    "replace": "true",
+    "sounds": [
+      "valoria:haunted_merchant/no1",
+      "valoria:haunted_merchant/no2",
+      "valoria:haunted_merchant/no3"
+    ]
+  },
+  "mob.haunted_merchant.melee_attack": {
+    "subtitle": "subtitles.valoria.haunted_merchant.melee_attack",
+    "replace": "true",
+    "sounds": [
+      "valoria:haunted_merchant/melee_attack/attack1",
+      "valoria:haunted_merchant/melee_attack/attack2",
+      "valoria:haunted_merchant/melee_attack/attack3"
+    ]
+  },
+  "mob.haunted_merchant.ranged_attack": {
+    "subtitle": "subtitles.valoria.haunted_merchant.ranged_attack",
+    "replace": "true",
+    "sounds": [
+      "valoria:haunted_merchant/melee_attack/attack1"
+    ]
+  },
   "mob.goblin.idle": {
     "subtitle": "subtitles.valoria.goblin.idle",
     "replace": "true",
@@ -26,7 +87,6 @@
       "valoria:goblin/death2"
     ]
   },
-
   "mob.troll.disappear": {
     "subtitle": "subtitles.valoria.troll.disappear",
     "replace": "true",

@@ -1,13 +1,15 @@
 package com.idark.valoria.registries;
 
-import com.idark.valoria.*;
+import com.idark.valoria.Valoria;
 import com.idark.valoria.registries.block.entity.*;
-import net.minecraft.world.level.block.entity.*;
-import net.minecraft.world.level.block.entity.BlockEntityType.*;
-import net.minecraftforge.eventbus.api.*;
-import net.minecraftforge.registries.*;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.entity.BlockEntityType.Builder;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
-public class BlockEntitiesRegistry{
+public class BlockEntitiesRegistry {
     public static DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, Valoria.ID);
 
     public static final RegistryObject<BlockEntityType<ModSignBlockEntity>> SIGN_BLOCK_ENTITIES = BLOCK_ENTITIES.register("sign", () -> BlockEntityType.Builder.of(ModSignBlockEntity::new, BlockRegistry.SHADEWOOD_SIGN.get(), BlockRegistry.SHADEWOOD_WALL_SIGN.get(), BlockRegistry.ELDRITCH_SIGN.get(), BlockRegistry.ELDRITCH_WALL_SIGN.get()).build(null));
@@ -21,7 +23,7 @@ public class BlockEntitiesRegistry{
     public static final RegistryObject<BlockEntityType<ModChestBlockEntity>> CHEST_BLOCK_ENTITY = BLOCK_ENTITIES.register("mod_chest", () -> Builder.of(ModChestBlockEntity::new, BlockRegistry.SHADEWOOD_CHEST.get(), BlockRegistry.ELDRITCH_CHEST.get()).build(null));
     public static final RegistryObject<BlockEntityType<ModTrappedChestBlockEntity>> TRAPPED_CHEST_BLOCK_ENTITY = BLOCK_ENTITIES.register("mod_trapped_chest", () -> Builder.of(ModTrappedChestBlockEntity::new, BlockRegistry.TRAPPED_SHADEWOOD_CHEST.get(), BlockRegistry.TRAPPED_ELDRITCH_CHEST.get()).build(null));
 
-    public static void register(IEventBus eventBus){
+    public static void register(IEventBus eventBus) {
         BLOCK_ENTITIES.register(eventBus);
     }
 }

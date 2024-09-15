@@ -1,41 +1,47 @@
 package com.idark.valoria.registries.menus;
 
-import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.BlockRegistry;
+import com.idark.valoria.registries.MenuRegistry;
+import com.idark.valoria.registries.menus.slots.MaterialSlot;
 import com.idark.valoria.registries.menus.slots.ResultSlot;
-import com.idark.valoria.registries.menus.slots.*;
-import net.minecraft.core.*;
-import net.minecraft.world.entity.player.*;
-import net.minecraft.world.inventory.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.level.*;
-import net.minecraft.world.level.block.entity.*;
-import net.minecraftforge.common.capabilities.*;
-import net.minecraftforge.items.*;
-import net.minecraftforge.items.wrapper.*;
-import org.jetbrains.annotations.*;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.SlotItemHandler;
+import net.minecraftforge.items.wrapper.InvWrapper;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 
-public class ManipulatorMenu extends AbstractContainerMenu{
+public class ManipulatorMenu extends AbstractContainerMenu {
     public final BlockEntity tileEntity;
     public final Player playerEntity;
     public final IItemHandler playerInventory;
 
-    protected ManipulatorMenu(@Nullable MenuType<?> pMenuType, int pContainerId, BlockEntity tileEntity, Player playerEntity, IItemHandler playerInventory){
+    protected ManipulatorMenu(@Nullable MenuType<?> pMenuType, int pContainerId, BlockEntity tileEntity, Player playerEntity, IItemHandler playerInventory) {
         super(pMenuType, pContainerId);
         this.tileEntity = tileEntity;
         this.playerEntity = playerEntity;
         this.playerInventory = playerInventory;
     }
 
-    public ManipulatorMenu(int windowId, Level world, BlockPos pos, Inventory playerInventory, Player player){
+    public ManipulatorMenu(int windowId, Level world, BlockPos pos, Inventory playerInventory, Player player) {
         super(MenuRegistry.MANIPULATOR_MENU.get(), windowId);
         this.tileEntity = world.getBlockEntity(pos);
         this.playerInventory = new InvWrapper(playerInventory);
         this.layoutPlayerInventorySlots(8, 84);
 
         playerEntity = player;
-        if(tileEntity != null){
+        if (tileEntity != null) {
             tileEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(h -> {
                 this.addSlot(new SlotItemHandler(h, 0, 27, 53));
                 this.addSlot(new MaterialSlot(h, 1, 76, 53));
@@ -46,13 +52,13 @@ public class ManipulatorMenu extends AbstractContainerMenu{
     }
 
     @Override
-    public boolean stillValid(@NotNull Player playerIn){
+    public boolean stillValid(@NotNull Player playerIn) {
         return stillValid(ContainerLevelAccess.create(tileEntity.getLevel(), tileEntity.getBlockPos()), playerIn, BlockRegistry.ELEMENTAL_MANIPULATOR.get());
     }
 
     // VANILLA INVENTORY
-    private int addSlotRange(IItemHandler handler, int index, int x, int y, int amount, int dx){
-        for(int i = 0; i < amount; i++){
+    private int addSlotRange(IItemHandler handler, int index, int x, int y, int amount, int dx) {
+        for (int i = 0; i < amount; i++) {
             addSlot(new SlotItemHandler(handler, index, x, y));
             x += dx;
             index++;
@@ -61,8 +67,8 @@ public class ManipulatorMenu extends AbstractContainerMenu{
         return index;
     }
 
-    private int addSlotBox(IItemHandler handler, int index, int x, int y, int horAmount, int dx, int verAmount, int dy){
-        for(int j = 0; j < verAmount; j++){
+    private int addSlotBox(IItemHandler handler, int index, int x, int y, int horAmount, int dx, int verAmount, int dy) {
+        for (int j = 0; j < verAmount; j++) {
             index = addSlotRange(handler, index, x, y, horAmount, dx);
             y += dy;
         }
@@ -70,7 +76,7 @@ public class ManipulatorMenu extends AbstractContainerMenu{
         return index;
     }
 
-    private void layoutPlayerInventorySlots(int leftCol, int topRow){
+    private void layoutPlayerInventorySlots(int leftCol, int topRow) {
         addSlotBox(playerInventory, 9, leftCol, topRow, 9, 18, 3, 18);
 
         topRow += 58;
@@ -88,28 +94,28 @@ public class ManipulatorMenu extends AbstractContainerMenu{
     private static final int TE_INVENTORY_SLOT_COUNT = 3;
 
     @Override
-    public ItemStack quickMoveStack(Player playerIn, int index){
+    public ItemStack quickMoveStack(Player playerIn, int index) {
         Slot sourceSlot = slots.get(index);
-        if(!sourceSlot.hasItem()) return ItemStack.EMPTY;
+        if (!sourceSlot.hasItem()) return ItemStack.EMPTY;
         ItemStack sourceStack = sourceSlot.getItem();
         ItemStack copyOfSourceStack = sourceStack.copy();
 
-        if(index < VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT){
-            if(!moveItemStackTo(sourceStack, TE_INVENTORY_FIRST_SLOT_INDEX, TE_INVENTORY_FIRST_SLOT_INDEX
-            + TE_INVENTORY_SLOT_COUNT, false)){
+        if (index < VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT) {
+            if (!moveItemStackTo(sourceStack, TE_INVENTORY_FIRST_SLOT_INDEX, TE_INVENTORY_FIRST_SLOT_INDEX
+                    + TE_INVENTORY_SLOT_COUNT, false)) {
                 return ItemStack.EMPTY;
             }
-        }else if(index < TE_INVENTORY_FIRST_SLOT_INDEX + TE_INVENTORY_SLOT_COUNT){
-            if(!moveItemStackTo(sourceStack, VANILLA_FIRST_SLOT_INDEX, VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT, false)){
+        } else if (index < TE_INVENTORY_FIRST_SLOT_INDEX + TE_INVENTORY_SLOT_COUNT) {
+            if (!moveItemStackTo(sourceStack, VANILLA_FIRST_SLOT_INDEX, VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT, false)) {
                 return ItemStack.EMPTY;
             }
-        }else{
+        } else {
             System.out.println("Invalid slotIndex:" + index);
             return ItemStack.EMPTY;
         }
-        if(sourceStack.getCount() == 0){
+        if (sourceStack.getCount() == 0) {
             sourceSlot.set(ItemStack.EMPTY);
-        }else{
+        } else {
             sourceSlot.setChanged();
         }
 

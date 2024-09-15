@@ -1,16 +1,18 @@
 package com.idark.valoria.registries.entity.ai.brains;
 
-import com.google.common.collect.*;
-import com.idark.valoria.registries.entity.ai.behaviour.*;
-import com.idark.valoria.registries.entity.living.*;
-import com.mojang.datafixers.util.*;
-import net.minecraft.world.entity.*;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableSet;
+import com.idark.valoria.registries.entity.ai.behaviour.TradeWithMerchant;
+import com.idark.valoria.registries.entity.ai.behaviour.TradingBehaviour;
+import com.idark.valoria.registries.entity.living.HauntedMerchant;
+import com.mojang.datafixers.util.Pair;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.behavior.*;
-import net.minecraft.world.entity.ai.memory.*;
-import net.minecraft.world.entity.npc.Villager;
-import net.minecraft.world.entity.npc.VillagerProfession;
+import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 
-public class HauntedMerchantAI{
+public class HauntedMerchantAI {
     public static ImmutableList<Pair<Integer, ? extends BehaviorControl<? super HauntedMerchant>>> getCorePackage(float pSpeedModifier) {
         return ImmutableList.of(
                 Pair.of(0, InteractWithDoor.create()),

@@ -1,22 +1,25 @@
 package com.idark.valoria.registries.block.types;
 
-import com.idark.valoria.registries.*;
-import net.minecraft.core.*;
-import net.minecraft.world.level.*;
-import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.grower.*;
-import net.minecraft.world.level.block.state.*;
-import net.minecraft.world.level.block.state.properties.*;
+import com.idark.valoria.registries.BlockRegistry;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SaplingBlock;
+import net.minecraft.world.level.block.grower.AbstractTreeGrower;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 
-public class ValoriaSaplingBlock extends SaplingBlock{
+public class ValoriaSaplingBlock extends SaplingBlock {
     public static final IntegerProperty STAGE = BlockStateProperties.STAGE;
 
-    public ValoriaSaplingBlock(AbstractTreeGrower treeIn, BlockBehaviour.Properties properties){
+    public ValoriaSaplingBlock(AbstractTreeGrower treeIn, BlockBehaviour.Properties properties) {
         super(treeIn, properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(STAGE, 0));
     }
 
-    protected boolean mayPlaceOn(BlockState state, BlockGetter worldIn, BlockPos pos){
+    protected boolean mayPlaceOn(BlockState state, BlockGetter worldIn, BlockPos pos) {
         Block block = state.getBlock();
         return block == BlockRegistry.VOID_TAINT.get() || block == BlockRegistry.VOID_GRASS.get();
     }

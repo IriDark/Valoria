@@ -1,10 +1,10 @@
 package com.idark.valoria.core.datagen;
 
-import com.idark.valoria.*;
-import net.minecraft.data.*;
-import net.minecraftforge.common.data.*;
+import com.idark.valoria.Valoria;
+import net.minecraft.data.PackOutput;
+import net.minecraftforge.common.data.GlobalLootModifierProvider;
 
-public class LootModifiersProvider extends GlobalLootModifierProvider{
+public class LootModifiersProvider extends GlobalLootModifierProvider {
     public LootModifiersProvider(PackOutput output) {
         super(output, Valoria.ID);
     }

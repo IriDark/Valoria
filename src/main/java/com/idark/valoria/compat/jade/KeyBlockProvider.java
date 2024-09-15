@@ -1,23 +1,24 @@
 package com.idark.valoria.compat.jade;
 
-import com.idark.valoria.registries.*;
-import net.minecraft.nbt.*;
-import net.minecraft.network.chat.*;
-import net.minecraft.resources.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.phys.*;
+import com.idark.valoria.registries.ItemsRegistry;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.phys.Vec2;
 import snownee.jade.api.*;
-import snownee.jade.api.config.*;
-import snownee.jade.api.ui.*;
+import snownee.jade.api.config.IPluginConfig;
+import snownee.jade.api.ui.IElement;
+import snownee.jade.api.ui.IElementHelper;
 
-public enum KeyBlockProvider implements IBlockComponentProvider, IServerDataProvider<BlockAccessor>{
+public enum KeyBlockProvider implements IBlockComponentProvider, IServerDataProvider<BlockAccessor> {
     INSTANCE;
 
     @Override
-    public void appendTooltip(ITooltip tooltip, BlockAccessor accessor, IPluginConfig config){
+    public void appendTooltip(ITooltip tooltip, BlockAccessor accessor, IPluginConfig config) {
         IElementHelper elements = tooltip.getElementHelper();
         int offsetY = 0;
-        if(!config.get(Identifiers.MC_HARVEST_TOOL_NEW_LINE)){
+        if (!config.get(Identifiers.MC_HARVEST_TOOL_NEW_LINE)) {
             offsetY = -3;
         }
 
@@ -29,11 +30,11 @@ public enum KeyBlockProvider implements IBlockComponentProvider, IServerDataProv
     }
 
     @Override
-    public void appendServerData(CompoundTag data, BlockAccessor accessor){
+    public void appendServerData(CompoundTag data, BlockAccessor accessor) {
     }
 
     @Override
-    public ResourceLocation getUid(){
+    public ResourceLocation getUid() {
         return ModPlugin.KEY;
     }
 }

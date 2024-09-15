@@ -1,37 +1,40 @@
 package com.idark.valoria.registries.entity.projectile;
 
-import com.idark.valoria.*;
-import com.idark.valoria.client.particle.*;
-import com.idark.valoria.registries.*;
-import com.idark.valoria.registries.item.interfaces.*;
-import com.idark.valoria.util.*;
-import net.minecraft.resources.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.projectile.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.level.*;
-import net.minecraft.world.phys.*;
-import team.lodestar.lodestone.systems.particle.data.color.*;
+import com.idark.valoria.Valoria;
+import com.idark.valoria.client.particle.ParticleEffects;
+import com.idark.valoria.core.interfaces.IProjectileTexture;
+import com.idark.valoria.registries.EntityTypeRegistry;
+import com.idark.valoria.util.ColorUtil;
+import com.idark.valoria.util.ValoriaUtils;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
+import team.lodestar.lodestone.systems.particle.data.color.ColorParticleData;
 
-public class SoulArrow extends AbstractValoriaArrow implements IProjectileTexture{
+public class SoulArrow extends AbstractValoriaArrow implements IProjectileTexture {
 
-    public SoulArrow(EntityType<? extends AbstractArrow> pEntityType, Level pLevel){
+    public SoulArrow(EntityType<? extends AbstractArrow> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }
 
-    public SoulArrow(Level pLevel, LivingEntity pShooter, ItemStack thrown){
+    public SoulArrow(Level pLevel, LivingEntity pShooter, ItemStack thrown) {
         super(EntityTypeRegistry.SOUL_ARROW.get(), pLevel, pShooter, thrown, 0, 1);
     }
 
     @Override
-    public void tick(){
+    public void tick() {
         super.tick();
         ValoriaUtils.inaccurateHomingMovement(0.05f, this, this.level(), this.getOwner(), new AABB(this.getX() - 4.5f, this.getY() - 4.5f, this.getZ() - 4.5f, this.getX() + 4.5f, this.getY() + 4.5f, this.getZ() + 4.5f));
     }
 
     @Override
-    public void spawnParticlesTrail(){
-        if(!this.inGround){
+    public void spawnParticlesTrail() {
+        if (!this.inGround) {
             Vec3 vector3d = this.getDeltaMovement();
             double a3 = vector3d.x;
             double a4 = vector3d.y;
@@ -42,7 +45,7 @@ public class SoulArrow extends AbstractValoriaArrow implements IProjectileTextur
     }
 
     @Override
-    public ResourceLocation getTexture(){
+    public ResourceLocation getTexture() {
         return new ResourceLocation(Valoria.ID, "textures/entity/projectile/arrow/soul_arrow.png");
     }
 }

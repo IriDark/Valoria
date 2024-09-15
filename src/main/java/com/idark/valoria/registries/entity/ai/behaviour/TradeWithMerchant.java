@@ -1,19 +1,25 @@
 package com.idark.valoria.registries.entity.ai.behaviour;
 
-import com.google.common.collect.*;
-import com.idark.valoria.registries.entity.living.*;
-import net.minecraft.server.level.*;
-import net.minecraft.world.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.behavior.*;
-import net.minecraft.world.entity.ai.memory.*;
-import net.minecraft.world.entity.npc.*;
-import net.minecraft.world.item.*;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableSet;
+import com.idark.valoria.registries.entity.living.HauntedMerchant;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.behavior.Behavior;
+import net.minecraft.world.entity.ai.behavior.BehaviorUtils;
+import net.minecraft.world.entity.ai.memory.MemoryModuleType;
+import net.minecraft.world.entity.ai.memory.MemoryStatus;
+import net.minecraft.world.entity.npc.Villager;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 
-import java.util.*;
+import java.util.Set;
 
-public class TradeWithMerchant extends Behavior<HauntedMerchant>{
+public class TradeWithMerchant extends Behavior<HauntedMerchant> {
     private Set<Item> trades = ImmutableSet.of();
+
     public TradeWithMerchant() {
         super(ImmutableMap.of(MemoryModuleType.INTERACTION_TARGET, MemoryStatus.VALUE_PRESENT, MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES, MemoryStatus.VALUE_PRESENT));
     }
@@ -27,12 +33,12 @@ public class TradeWithMerchant extends Behavior<HauntedMerchant>{
     }
 
     protected void start(ServerLevel pLevel, HauntedMerchant pEntity, long pGameTime) {
-        Villager villager = (Villager)pEntity.getBrain().getMemory(MemoryModuleType.INTERACTION_TARGET).get();
+        Villager villager = (Villager) pEntity.getBrain().getMemory(MemoryModuleType.INTERACTION_TARGET).get();
         BehaviorUtils.lockGazeAndWalkToEachOther(pEntity, villager, 0.5F);
     }
 
     protected void tick(ServerLevel pLevel, HauntedMerchant pOwner, long pGameTime) {
-        HauntedMerchant villager = (HauntedMerchant)pOwner.getBrain().getMemory(MemoryModuleType.INTERACTION_TARGET).get();
+        HauntedMerchant villager = (HauntedMerchant) pOwner.getBrain().getMemory(MemoryModuleType.INTERACTION_TARGET).get();
         if (!(pOwner.distanceToSqr(villager) > 5.0D)) {
             BehaviorUtils.lockGazeAndWalkToEachOther(pOwner, villager, 0.5F);
             pOwner.gossip(pLevel, villager, pGameTime);
@@ -51,11 +57,12 @@ public class TradeWithMerchant extends Behavior<HauntedMerchant>{
         ItemStack itemstack = ItemStack.EMPTY;
         int i = 0;
 
-        while(i < simplecontainer.getContainerSize()) {
+        while (i < simplecontainer.getContainerSize()) {
             ItemStack itemstack1;
             Item item;
             int j;
-            label28: {
+            label28:
+            {
                 itemstack1 = simplecontainer.getItem(i);
                 if (!itemstack1.isEmpty()) {
                     item = itemstack1.getItem();

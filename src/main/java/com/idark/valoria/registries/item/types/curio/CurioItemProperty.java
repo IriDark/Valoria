@@ -1,36 +1,43 @@
 package com.idark.valoria.registries.item.types.curio;
 
-import com.google.common.collect.*;
-import com.idark.valoria.*;
-import com.idark.valoria.registries.item.enums.*;
-import net.minecraft.resources.*;
-import net.minecraft.world.effect.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.*;
-import net.minecraft.world.item.*;
-import top.theillusivec4.curios.api.*;
+import com.google.common.collect.LinkedHashMultimap;
+import com.google.common.collect.Multimap;
+import com.idark.valoria.Valoria;
+import com.idark.valoria.core.enums.AccessoryGem;
+import com.idark.valoria.core.enums.AccessoryMaterial;
+import com.idark.valoria.core.enums.AccessoryType;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Tier;
+import top.theillusivec4.curios.api.CuriosApi;
+import top.theillusivec4.curios.api.SlotContext;
 
-import java.util.*;
+import java.util.UUID;
 
-public class CurioItemProperty extends AbstractTieredAccessory implements ICurioTexture{
+public class CurioItemProperty extends AbstractTieredAccessory implements ICurioTexture {
     private static final ResourceLocation BELT_TEXTURE = new ResourceLocation(Valoria.ID, "textures/entity/leather_belt.png");
 
-    public CurioItemProperty(Tier tier, AccessoryType type, AccessoryGem gem, AccessoryMaterial material, Properties pProperties, MobEffectInstance... pEffects){
+    public CurioItemProperty(Tier tier, AccessoryType type, AccessoryGem gem, AccessoryMaterial material, Properties pProperties, MobEffectInstance... pEffects) {
         super(tier, type, gem, material, pProperties, pEffects);
     }
 
-    public CurioItemProperty(Tier tier, AccessoryType type, AccessoryGem gem, AccessoryMaterial material, Properties pProperties){
+    public CurioItemProperty(Tier tier, AccessoryType type, AccessoryGem gem, AccessoryMaterial material, Properties pProperties) {
         super(tier, type, gem, material, pProperties);
     }
 
-    private static ResourceLocation getNecklaceTexture(String material, String gem){
+    private static ResourceLocation getNecklaceTexture(String material, String gem) {
         return new ResourceLocation(Valoria.ID, "textures/entity/necklace/" + material + "_necklace_" + gem + ".png");
     }
 
     @Override
-    public Multimap<Attribute, AttributeModifier> getAttributeModifiers(SlotContext slotContext, UUID uuid, ItemStack stack){
+    public Multimap<Attribute, AttributeModifier> getAttributeModifiers(SlotContext slotContext, UUID uuid, ItemStack stack) {
         Multimap<Attribute, AttributeModifier> attribute = LinkedHashMultimap.create();
-        switch(gem){
+        switch (gem) {
             case NONE:
                 attribute.put(Attributes.ARMOR, new AttributeModifier(uuid, "bonus", 0.2 + (tier.getLevel() * 0.05), AttributeModifier.Operation.ADDITION));
                 break;
@@ -55,9 +62,9 @@ public class CurioItemProperty extends AbstractTieredAccessory implements ICurio
                 attribute.put(Attributes.MAX_HEALTH, new AttributeModifier(uuid, "bonus", 1.5f + (tier.getLevel() * 0.25), AttributeModifier.Operation.ADDITION));
                 break;
             case ARMOR:
-                if(material == AccessoryMaterial.IRON){
+                if (material == AccessoryMaterial.IRON) {
                     attribute.put(Attributes.ARMOR, new AttributeModifier(uuid, "bonus", 1.5f + (tier.getLevel() * 0.05), AttributeModifier.Operation.ADDITION));
-                }else{
+                } else {
                     attribute.put(Attributes.ARMOR, new AttributeModifier(uuid, "bonus", 3.6f + (tier.getLevel() * 0.05), AttributeModifier.Operation.ADDITION));
                     attribute.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(uuid, "bonus", 1.2f, AttributeModifier.Operation.ADDITION));
                 }

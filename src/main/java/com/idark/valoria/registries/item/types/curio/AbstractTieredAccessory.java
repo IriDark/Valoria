@@ -1,32 +1,38 @@
 package com.idark.valoria.registries.item.types.curio;
 
-import com.google.common.collect.*;
-import com.idark.valoria.*;
-import com.idark.valoria.registries.item.enums.*;
-import com.idark.valoria.util.*;
-import net.minecraft.*;
-import net.minecraft.network.chat.*;
-import net.minecraft.sounds.*;
-import net.minecraft.world.effect.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.player.*;
+import com.google.common.collect.ImmutableList;
+import com.idark.valoria.ValoriaClient;
+import com.idark.valoria.core.enums.AccessoryGem;
+import com.idark.valoria.core.enums.AccessoryMaterial;
+import com.idark.valoria.core.enums.AccessoryType;
+import com.idark.valoria.util.ValoriaUtils;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.enchantment.*;
-import net.minecraft.world.level.*;
-import top.theillusivec4.curios.api.*;
-import top.theillusivec4.curios.api.type.capability.*;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.Level;
+import top.theillusivec4.curios.api.SlotContext;
+import top.theillusivec4.curios.api.type.capability.ICurio;
+import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
-import javax.annotation.*;
-import java.util.*;
+import javax.annotation.Nonnull;
+import java.util.List;
+import java.util.Random;
 
-public abstract class AbstractTieredAccessory extends TieredItem implements ICurioItem, Vanishable{
+public abstract class AbstractTieredAccessory extends TieredItem implements ICurioItem, Vanishable {
     public AccessoryType type;
     public AccessoryGem gem;
     public AccessoryMaterial material;
     public Tier tier;
     public final ImmutableList<MobEffectInstance> effects;
 
-    public AbstractTieredAccessory(Tier tier, AccessoryType type, AccessoryGem gem, AccessoryMaterial material, Properties pProperties){
+    public AbstractTieredAccessory(Tier tier, AccessoryType type, AccessoryGem gem, AccessoryMaterial material, Properties pProperties) {
         super(tier, pProperties);
         this.tier = tier;
         this.type = type;
@@ -35,7 +41,7 @@ public abstract class AbstractTieredAccessory extends TieredItem implements ICur
         effects = gem == AccessoryGem.AMBER ? ImmutableList.of(new MobEffectInstance(MobEffects.DIG_SPEED, 600)) : ImmutableList.of();
     }
 
-    public AbstractTieredAccessory(Tier tier, AccessoryType type, AccessoryGem gem, AccessoryMaterial material, Properties pProperties, MobEffectInstance... pEffects){
+    public AbstractTieredAccessory(Tier tier, AccessoryType type, AccessoryGem gem, AccessoryMaterial material, Properties pProperties, MobEffectInstance... pEffects) {
         super(tier, pProperties);
         this.tier = tier;
         this.type = type;
@@ -46,41 +52,41 @@ public abstract class AbstractTieredAccessory extends TieredItem implements ICur
 
     @Nonnull
     @Override
-    public ICurio.SoundInfo getEquipSound(SlotContext slotContext, ItemStack stack){
+    public ICurio.SoundInfo getEquipSound(SlotContext slotContext, ItemStack stack) {
         return new ICurio.SoundInfo(SoundEvents.ARMOR_EQUIP_GOLD, 1.0f, 1.0f);
     }
 
     @Override
-    public boolean canEquipFromUse(SlotContext slot, ItemStack stack){
+    public boolean canEquipFromUse(SlotContext slot, ItemStack stack) {
         return true;
     }
 
     @Override
-    public void curioTick(SlotContext slotContext, ItemStack stack){
-        Player player = (Player)slotContext.entity();
-        if(player.hurtMarked) accessoryHurt(player, stack, material);
-        if(player.level().isClientSide() && ValoriaClient.JEWELRY_BONUSES_KEY.isDown()) applyEffects(player, stack);
+    public void curioTick(SlotContext slotContext, ItemStack stack) {
+        Player player = (Player) slotContext.entity();
+        if (player.hurtMarked) accessoryHurt(player, stack, material);
+        if (player.level().isClientSide() && ValoriaClient.JEWELRY_BONUSES_KEY.isDown()) applyEffects(player, stack);
     }
 
-    public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchant){
+    public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchant) {
         return enchant == Enchantments.VANISHING_CURSE || enchant == Enchantments.UNBREAKING || enchant == Enchantments.MENDING;
     }
 
     @Override
-    public boolean makesPiglinsNeutral(SlotContext slotContext, ItemStack stack){
+    public boolean makesPiglinsNeutral(SlotContext slotContext, ItemStack stack) {
         return material == AccessoryMaterial.GOLD;
     }
 
-    public static void accessoryHurt(Player player, ItemStack stack, AccessoryMaterial material){
+    public static void accessoryHurt(Player player, ItemStack stack, AccessoryMaterial material) {
         int pGoldDamage = new Random().nextInt(0, 8);
         int pDefaultDamage = new Random().nextInt(0, 2);
         stack.hurtAndBreak(material == AccessoryMaterial.GOLD ? pGoldDamage : pDefaultDamage, player, (p_220045_0_) -> p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
     }
 
-    public void applyEffects(Player player, ItemStack stack){
-        if(!player.getCooldowns().isOnCooldown(stack.getItem())){
-            if(!effects.isEmpty()){
-                for(MobEffectInstance effectInstance : effects){
+    public void applyEffects(Player player, ItemStack stack) {
+        if (!player.getCooldowns().isOnCooldown(stack.getItem())) {
+            if (!effects.isEmpty()) {
+                for (MobEffectInstance effectInstance : effects) {
                     player.addEffect(new MobEffectInstance(effectInstance));
                     player.getCooldowns().addCooldown(stack.getItem(), effectInstance.getDuration() + 300);
                     accessoryHurt(player, stack, material);
@@ -90,17 +96,17 @@ public abstract class AbstractTieredAccessory extends TieredItem implements ICur
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags){
+    public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags) {
         super.appendHoverText(stack, world, tooltip, flags);
-        if(gem == AccessoryGem.AMBER){
+        if (gem == AccessoryGem.AMBER) {
             tooltip.add(Component.translatable("tooltip.valoria.amber").withStyle(ChatFormatting.GRAY));
         }
 
-        if(type == AccessoryType.BELT){
+        if (type == AccessoryType.BELT) {
             tooltip.add(Component.translatable("tooltip.valoria.belt").withStyle(ChatFormatting.GRAY));
         }
 
-        if(!effects.isEmpty()){
+        if (!effects.isEmpty()) {
             ValoriaUtils.addEffectsTooltip(effects, tooltip, 1, 1);
             tooltip.add(Component.translatable("tooltip.valoria.jewelry_bonus", ValoriaClient.JEWELRY_BONUSES_KEY.getKey().getDisplayName()).withStyle(ChatFormatting.GREEN));
         }

@@ -1,72 +1,83 @@
 package com.idark.valoria.registries.item.types.ranged;
 
-import com.idark.valoria.*;
-import com.idark.valoria.core.config.*;
-import com.idark.valoria.registries.*;
-import com.idark.valoria.util.*;
-import com.mojang.blaze3d.systems.*;
-import net.minecraft.*;
-import net.minecraft.client.*;
-import net.minecraft.client.gui.*;
-import net.minecraft.core.particles.*;
-import net.minecraft.network.chat.*;
-import net.minecraft.resources.*;
-import net.minecraft.sounds.*;
-import net.minecraft.stats.*;
-import net.minecraft.util.*;
-import net.minecraft.world.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.player.*;
-import net.minecraft.world.entity.projectile.*;
+import com.idark.valoria.Valoria;
+import com.idark.valoria.core.config.ClientConfig;
+import com.idark.valoria.registries.EnchantmentsRegistry;
+import com.idark.valoria.registries.SoundsRegistry;
+import com.idark.valoria.util.NbtUtils;
+import com.idark.valoria.util.RenderUtils;
+import com.idark.valoria.util.ValoriaUtils;
+import com.mojang.blaze3d.systems.RenderSystem;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.enchantment.*;
-import net.minecraft.world.level.*;
-import net.minecraft.world.phys.*;
-import net.minecraftforge.api.distmarker.*;
-import net.minecraftforge.client.event.*;
-import org.lwjgl.opengl.*;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentCategory;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.event.RenderGuiOverlayEvent;
+import org.lwjgl.opengl.GL11;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 // some day it will be done, but not in this life: FIX FUCKING NBT TAGS SYNCING, I HATE YOU MOJANG
 // tags should be sent by packet
-public class BlazeReapItem extends PickaxeItem implements Vanishable{
+public class BlazeReapItem extends PickaxeItem implements Vanishable {
     private static final ResourceLocation BAR = new ResourceLocation(Valoria.ID, "textures/gui/overlay/blazecharge_bar.png");
 
-    public BlazeReapItem(Tier tier, int attackDamageIn, float attackSpeedIn, Properties builder){
+    public BlazeReapItem(Tier tier, int attackDamageIn, float attackSpeedIn, Properties builder) {
         super(tier, attackDamageIn, attackSpeedIn, builder);
     }
 
-    public static String getModeString(ItemStack stack){
-        if(NbtUtils.readNbt(stack, "charge") == 1){
+    public static String getModeString(ItemStack stack) {
+        if (NbtUtils.readNbt(stack, "charge") == 1) {
             return "tooltip.valoria.rmb";
-        }else{
+        } else {
             return "tooltip.valoria.rmb_shift";
         }
     }
 
-    public int getUseDuration(ItemStack stack){
+    public int getUseDuration(ItemStack stack) {
         return 72000;
     }
 
-    public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchant){
+    public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchant) {
         return enchant.category == EnchantmentCategory.WEAPON || enchant.category == EnchantmentCategory.DIGGER || enchant.category == EnchantmentsRegistry.BLAZE;
     }
 
     /**
      * Some sounds taken from the CalamityMod (Terraria) in a <a href="https://calamitymod.wiki.gg/wiki/Category:Sound_effects">Calamity Mod Wiki.gg</a>
      */
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand){
+    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack weapon = player.getItemInHand(hand);
         ItemStack ammo = ValoriaUtils.getProjectile(player, weapon);
         RandomSource rand = level.getRandom();
         boolean hasAmmo = !ammo.isEmpty();
         boolean flag = ammo.getItem() instanceof GunpowderCharge;
-        if(player.isShiftKeyDown()){
-            if(NbtUtils.readNbt(weapon, "charge") == 0){
-                if(hasAmmo){
-                    if(!player.isCreative()){
+        if (player.isShiftKeyDown()) {
+            if (NbtUtils.readNbt(weapon, "charge") == 0) {
+                if (hasAmmo) {
+                    if (!player.isCreative()) {
                         ammo.shrink(1);
                     }
 
@@ -74,11 +85,11 @@ public class BlazeReapItem extends PickaxeItem implements Vanishable{
                     player.getCooldowns().addCooldown(this, 20);
                     level.playSound(null, player.blockPosition(), SoundsRegistry.BLAZECHARGE.get(), SoundSource.AMBIENT, 1f, 1f);
                     player.awardStat(Stats.ITEM_USED.get(this));
-                }else{
+                } else {
                     player.displayClientMessage(Component.translatable("tooltip.valoria.recharge").withStyle(ChatFormatting.GRAY), true);
                 }
 
-                for(int i = 0; i < 6; ++i){
+                for (int i = 0; i < 6; ++i) {
                     double d0 = rand.nextGaussian() * 0.02D;
                     double d1 = rand.nextGaussian() * 0.02D;
                     double d2 = rand.nextGaussian() * 0.02D;
@@ -87,7 +98,7 @@ public class BlazeReapItem extends PickaxeItem implements Vanishable{
             }
 
             return InteractionResultHolder.pass(weapon);
-        }else if(NbtUtils.readNbt(weapon, "charge") == 1){
+        } else if (NbtUtils.readNbt(weapon, "charge") == 1) {
             NbtUtils.writeIntNbt(weapon, "charge", 0);
             player.getCooldowns().addCooldown(this, 50);
             player.awardStat(Stats.ITEM_USED.get(this));
@@ -100,17 +111,17 @@ public class BlazeReapItem extends PickaxeItem implements Vanishable{
             double Z = Math.sin(pitch) * Math.sin(yaw) * 15;
             Vec3 playerPos = player.getEyePosition();
             Vec3 EndPos = (player.getViewVector(0.0f).scale(20.0d));
-            if(ProjectileUtil.getEntityHitResult(player, playerPos, EndPos, new AABB(pos.x + X - 3D, pos.y + Y - 3D, pos.z + Z - 3D, pos.x + X + 3D, pos.y + Y + 3D, pos.z + Z + 3D), (e) -> true, 15) == null){
+            if (ProjectileUtil.getEntityHitResult(player, playerPos, EndPos, new AABB(pos.x + X - 3D, pos.y + Y - 3D, pos.z + Z - 3D, pos.x + X + 3D, pos.y + Y + 3D, pos.z + Z + 3D), (e) -> true, 15) == null) {
                 HitResult hitresult = ValoriaUtils.getHitResult(playerPos, player, (e) -> true, EndPos, level);
-                if(hitresult != null){
-                    switch(hitresult.getType()){
+                if (hitresult != null) {
+                    switch (hitresult.getType()) {
                         case BLOCK:
                             X = hitresult.getLocation().x() - pos.x;
                             Y = hitresult.getLocation().y() - pos.y;
                             Z = hitresult.getLocation().z() - pos.z;
                             break;
                         case ENTITY:
-                            Entity entity = ((EntityHitResult)hitresult).getEntity();
+                            Entity entity = ((EntityHitResult) hitresult).getEntity();
                             X = entity.getX() - pos.x;
                             Y = entity.getY() - pos.y;
                             Z = entity.getZ() - pos.z;
@@ -122,18 +133,18 @@ public class BlazeReapItem extends PickaxeItem implements Vanishable{
             }
 
             // I hate you mojang, where the fucking explosion damage configuration... why it's hardcoded... just WHY
-            float radius = flag ? ((GunpowderCharge)ammo.getItem()).getRadius() : 3f;
-            float damage = flag ? ((GunpowderCharge)ammo.getItem()).getDamage() : 25f;
-            float knockback = flag ? ((GunpowderCharge)ammo.getItem()).getKnockback() : 0.5f;
-            if(!level.isClientSide){
-                if(EnchantmentHelper.getTagEnchantmentLevel(EnchantmentsRegistry.EXPLOSIVE_FLAME.get(), weapon) > 0){
+            float radius = flag ? ((GunpowderCharge) ammo.getItem()).getRadius() : 3f;
+            float damage = flag ? ((GunpowderCharge) ammo.getItem()).getDamage() : 25f;
+            float knockback = flag ? ((GunpowderCharge) ammo.getItem()).getKnockback() : 0.5f;
+            if (!level.isClientSide) {
+                if (EnchantmentHelper.getTagEnchantmentLevel(EnchantmentsRegistry.EXPLOSIVE_FLAME.get(), weapon) > 0) {
                     level.explode(player, pos.x + X, pos.y + Y, pos.z + Z, radius, Level.ExplosionInteraction.TNT);
-                }else{
+                } else {
                     ValoriaUtils.configExplode(player, weapon, pos, new Vec3(X, Y, Z), radius, damage, knockback);
                 }
             }
 
-            for(int i = 0; i < 12; i++){
+            for (int i = 0; i < 12; i++) {
                 level.addParticle(ParticleTypes.LARGE_SMOKE, pos.x + X + ((rand.nextDouble() - 0.5D) * radius), pos.y + Y + ((rand.nextDouble() - 0.5D) * radius), pos.z + Z + ((rand.nextDouble() - 0.5D) * radius), 0.05d * ((rand.nextDouble() - 0.5D) * radius), 0.05d * ((rand.nextDouble() - 0.5D) * radius), 0.05d * ((rand.nextDouble() - 0.5D) * radius));
                 level.addParticle(ParticleTypes.FLAME, pos.x + X + ((rand.nextDouble() - 0.5D) * radius), pos.y + Y + ((rand.nextDouble() - 0.5D) * radius), pos.z + Z + ((rand.nextDouble() - 0.5D) * radius), 0.05d * ((rand.nextDouble() - 0.5D) * radius), 0.05d * ((rand.nextDouble() - 0.5D) * radius), 0.05d * ((rand.nextDouble() - 0.5D) * radius));
             }
@@ -145,13 +156,13 @@ public class BlazeReapItem extends PickaxeItem implements Vanishable{
     }
 
     @OnlyIn(Dist.CLIENT)
-    public static List<ItemStack> getAmmunition(){
+    public static List<ItemStack> getAmmunition() {
         Minecraft mc = Minecraft.getInstance();
         Player player = mc.player;
         List<ItemStack> items = player.getInventory().items;
         ArrayList<ItemStack> ammoItems = new ArrayList<>();
-        for(ItemStack stack : items){
-            if(stack.getItem() instanceof GunpowderCharge){
+        for (ItemStack stack : items) {
+            if (stack.getItem() instanceof GunpowderCharge) {
                 ammoItems.add(stack);
             }
         }
@@ -160,11 +171,11 @@ public class BlazeReapItem extends PickaxeItem implements Vanishable{
     }
 
     @OnlyIn(Dist.CLIENT)
-    public static void onDrawScreenPost(RenderGuiOverlayEvent.Post event){
+    public static void onDrawScreenPost(RenderGuiOverlayEvent.Post event) {
         Minecraft mc = Minecraft.getInstance();
-        for(ItemStack itemStack : mc.player.getHandSlots()){
+        for (ItemStack itemStack : mc.player.getHandSlots()) {
             boolean renderBar = itemStack.getItem() instanceof BlazeReapItem && !mc.player.isSpectator() && !mc.player.isCreative();
-            if(renderBar){
+            if (renderBar) {
                 GuiGraphics gui = event.getGuiGraphics();
                 gui.pose().pushPose();
                 gui.pose().translate(0, 0, -200);
@@ -178,7 +189,7 @@ public class BlazeReapItem extends PickaxeItem implements Vanishable{
                 float y = 5.5f;
                 List<ItemStack> ammunition = getAmmunition();
                 int itemCount = Math.min(ammunition.size(), 3);
-                for(int i = 0; i < itemCount; i++){
+                for (int i = 0; i < itemCount; i++) {
                     ItemStack stack = ammunition.get(i);
                     RenderUtils.renderItemModelInGui(stack, x + (16 * i), y, 16, 16, 16);
                 }
@@ -198,7 +209,7 @@ public class BlazeReapItem extends PickaxeItem implements Vanishable{
 //    }
 
     @Override
-    public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags){
+    public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags) {
         super.appendHoverText(stack, world, tooltip, flags);
         tooltip.add(1, Component.translatable("tooltip.valoria.familiar").withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
         tooltip.add(2, Component.empty());

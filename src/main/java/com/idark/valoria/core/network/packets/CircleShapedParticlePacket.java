@@ -1,22 +1,22 @@
 package com.idark.valoria.core.network.packets;
 
-import com.idark.valoria.*;
-import com.idark.valoria.client.particle.*;
-import net.minecraft.network.*;
-import net.minecraft.world.level.*;
-import net.minecraft.world.phys.*;
-import net.minecraftforge.network.*;
-import team.lodestar.lodestone.systems.particle.data.color.*;
+import com.idark.valoria.Valoria;
+import com.idark.valoria.client.particle.ParticleEffects;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.network.NetworkEvent;
+import team.lodestar.lodestone.systems.particle.data.color.ColorParticleData;
 
 import java.awt.*;
-import java.util.function.*;
+import java.util.function.Supplier;
 
-public class CircleShapedParticlePacket{
+public class CircleShapedParticlePacket {
     private final double posX, posY, posZ;
     private final float yawRaw;
     private final int colorR, colorG, colorB;
 
-    public CircleShapedParticlePacket(double posX, double posY, double posZ, float yawRaw, int colorR, int colorG, int colorB){
+    public CircleShapedParticlePacket(double posX, double posY, double posZ, float yawRaw, int colorR, int colorG, int colorB) {
         this.posX = posX;
         this.posY = posY;
         this.posZ = posZ;
@@ -27,18 +27,18 @@ public class CircleShapedParticlePacket{
         this.colorB = colorB;
     }
 
-    public static CircleShapedParticlePacket decode(FriendlyByteBuf buf){
+    public static CircleShapedParticlePacket decode(FriendlyByteBuf buf) {
         return new CircleShapedParticlePacket(buf.readDouble(), buf.readDouble(), buf.readDouble(), buf.readFloat(), buf.readInt(), buf.readInt(), buf.readInt());
     }
 
-    public static void handle(CircleShapedParticlePacket msg, Supplier<NetworkEvent.Context> ctx){
-        if(ctx.get().getDirection().getReceptionSide().isClient()){
+    public static void handle(CircleShapedParticlePacket msg, Supplier<NetworkEvent.Context> ctx) {
+        if (ctx.get().getDirection().getReceptionSide().isClient()) {
             ctx.get().enqueueWork(() -> {
                 Level level = Valoria.proxy.getLevel();
                 float pRadius = 1;
                 double pitch = ((90) * Math.PI) / 180;
                 Color color = new Color(msg.colorR, msg.colorG, msg.colorB);
-                for(int i = 0; i < 360; i += 10){
+                for (int i = 0; i < 360; i += 10) {
                     double yaw = ((msg.yawRaw + 90 + i) * Math.PI) / 180;
                     double X = Math.sin(pitch) * Math.cos(yaw) * pRadius * 0.75F;
                     double Y = Math.cos(pitch) * pRadius * 0.75F;
@@ -52,7 +52,7 @@ public class CircleShapedParticlePacket{
         }
     }
 
-    public void encode(FriendlyByteBuf buf){
+    public void encode(FriendlyByteBuf buf) {
         buf.writeDouble(posX);
         buf.writeDouble(posY);
         buf.writeDouble(posZ);

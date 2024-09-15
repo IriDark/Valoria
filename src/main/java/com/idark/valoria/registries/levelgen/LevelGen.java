@@ -1,29 +1,37 @@
 package com.idark.valoria.registries.levelgen;
 
-import com.idark.valoria.*;
-import com.idark.valoria.registries.levelgen.configurations.*;
+import com.idark.valoria.Valoria;
+import com.idark.valoria.registries.levelgen.configurations.SuspiciousStateConfiguration;
+import com.idark.valoria.registries.levelgen.configurations.TaintedRootsConfig;
 import com.idark.valoria.registries.levelgen.feature.*;
-import com.idark.valoria.registries.levelgen.modifier.*;
-import com.mojang.serialization.*;
-import com.mojang.serialization.codecs.*;
-import net.minecraft.core.*;
-import net.minecraft.core.registries.*;
-import net.minecraft.resources.*;
-import net.minecraft.world.level.*;
-import net.minecraft.world.level.biome.*;
-import net.minecraft.world.level.dimension.*;
-import net.minecraft.world.level.levelgen.*;
-import net.minecraft.world.level.levelgen.feature.*;
+import com.idark.valoria.registries.levelgen.modifier.AddFeaturesByFilterBiomeModifier;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.dimension.LevelStem;
+import net.minecraft.world.level.levelgen.GenerationStep;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.*;
-import net.minecraft.world.level.levelgen.placement.*;
-import net.minecraftforge.common.world.*;
-import net.minecraftforge.eventbus.api.*;
-import net.minecraftforge.registries.*;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import net.minecraft.world.level.levelgen.placement.PlacementModifier;
+import net.minecraft.world.level.levelgen.placement.PlacementModifierType;
+import net.minecraftforge.common.world.BiomeModifier;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
-import java.util.*;
+import java.util.Optional;
 
-public class LevelGen{
-    public static void init(IEventBus eventBus){
+public class LevelGen {
+    public static void init(IEventBus eventBus) {
         FEATURES.register(eventBus);
         BIOME_MODIFIER_SERIALIZERS.register(eventBus);
         PLACEMENT_MODIFIERS.register(eventBus);
@@ -56,20 +64,20 @@ public class LevelGen{
     public static final ResourceKey<Biome> VOID_BARREN = registerKey(Registries.BIOME, "void_barren");
 
     public static RegistryObject<Codec<AddFeaturesByFilterBiomeModifier>> ADD_FEATURES_BY_FILTER = BIOME_MODIFIER_SERIALIZERS.register("add_features_by_filter", () ->
-    RecordCodecBuilder.create(builder -> builder.group(
-    Biome.LIST_CODEC.fieldOf("allowed_biomes").forGetter(AddFeaturesByFilterBiomeModifier::allowedBiomes),
-    Biome.LIST_CODEC.optionalFieldOf("denied_biomes").orElse(Optional.empty()).forGetter(AddFeaturesByFilterBiomeModifier::deniedBiomes),
-    Codec.FLOAT.optionalFieldOf("min_temperature").orElse(Optional.empty()).forGetter(AddFeaturesByFilterBiomeModifier::minimumTemperature),
-    Codec.FLOAT.optionalFieldOf("max_temperature").orElse(Optional.empty()).forGetter(AddFeaturesByFilterBiomeModifier::maximumTemperature),
-    PlacedFeature.LIST_CODEC.fieldOf("features").forGetter(AddFeaturesByFilterBiomeModifier::features),
-    GenerationStep.Decoration.CODEC.fieldOf("step").forGetter(AddFeaturesByFilterBiomeModifier::step)
-    ).apply(builder, AddFeaturesByFilterBiomeModifier::new)));
+            RecordCodecBuilder.create(builder -> builder.group(
+                    Biome.LIST_CODEC.fieldOf("allowed_biomes").forGetter(AddFeaturesByFilterBiomeModifier::allowedBiomes),
+                    Biome.LIST_CODEC.optionalFieldOf("denied_biomes").orElse(Optional.empty()).forGetter(AddFeaturesByFilterBiomeModifier::deniedBiomes),
+                    Codec.FLOAT.optionalFieldOf("min_temperature").orElse(Optional.empty()).forGetter(AddFeaturesByFilterBiomeModifier::minimumTemperature),
+                    Codec.FLOAT.optionalFieldOf("max_temperature").orElse(Optional.empty()).forGetter(AddFeaturesByFilterBiomeModifier::maximumTemperature),
+                    PlacedFeature.LIST_CODEC.fieldOf("features").forGetter(AddFeaturesByFilterBiomeModifier::features),
+                    GenerationStep.Decoration.CODEC.fieldOf("step").forGetter(AddFeaturesByFilterBiomeModifier::step)
+            ).apply(builder, AddFeaturesByFilterBiomeModifier::new)));
 
-    public static <T> ResourceKey<T> registerKey(ResourceKey<? extends Registry<T>> pRegistryKey, String name){
+    public static <T> ResourceKey<T> registerKey(ResourceKey<? extends Registry<T>> pRegistryKey, String name) {
         return ResourceKey.create(pRegistryKey, new ResourceLocation(Valoria.ID, name));
     }
 
-    private static <P extends PlacementModifier> PlacementModifierType<P> typeConvert(Codec<P> codec){
+    private static <P extends PlacementModifier> PlacementModifierType<P> typeConvert(Codec<P> codec) {
         return () -> codec;
     }
 }

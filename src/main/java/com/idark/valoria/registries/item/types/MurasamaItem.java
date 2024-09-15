@@ -1,59 +1,67 @@
 package com.idark.valoria.registries.item.types;
 
-import com.idark.valoria.client.particle.*;
-import com.idark.valoria.client.ui.*;
-import com.idark.valoria.core.network.*;
-import com.idark.valoria.core.network.packets.*;
-import com.idark.valoria.registries.*;
-import com.idark.valoria.registries.item.interfaces.*;
-import com.idark.valoria.util.*;
-import net.minecraft.core.particles.*;
-import net.minecraft.server.level.*;
-import net.minecraft.sounds.*;
-import net.minecraft.stats.*;
-import net.minecraft.util.*;
-import net.minecraft.world.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.*;
-import net.minecraft.world.entity.item.*;
-import net.minecraft.world.entity.player.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.item.enchantment.*;
-import net.minecraft.world.level.*;
-import net.minecraft.world.phys.*;
-import net.minecraftforge.api.distmarker.*;
-import org.jetbrains.annotations.*;
-import org.joml.*;
-import team.lodestar.lodestone.handlers.screenparticle.*;
-import team.lodestar.lodestone.systems.particle.data.color.*;
-import team.lodestar.lodestone.systems.particle.screen.*;
+import com.idark.valoria.client.particle.ParticleEffects;
+import com.idark.valoria.client.particle.ScreenParticleRegistry;
+import com.idark.valoria.client.ui.OverlayRender;
+import com.idark.valoria.core.interfaces.IParticleItemEntity;
+import com.idark.valoria.core.network.PacketHandler;
+import com.idark.valoria.core.network.packets.MurasamaParticlePacket;
+import com.idark.valoria.registries.AttributeRegistry;
+import com.idark.valoria.registries.SoundsRegistry;
+import com.idark.valoria.util.Pal;
+import com.idark.valoria.util.ValoriaUtils;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
+import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.NotNull;
+import org.joml.Vector3d;
+import team.lodestar.lodestone.handlers.screenparticle.ParticleEmitterHandler;
+import team.lodestar.lodestone.systems.particle.data.color.ColorParticleData;
+import team.lodestar.lodestone.systems.particle.screen.ScreenParticleHolder;
 
-import java.lang.Math;
-import java.util.*;
+import java.util.List;
 
-public class MurasamaItem extends KatanaItem implements IParticleItemEntity, ParticleEmitterHandler.ItemParticleSupplier{
-    public MurasamaItem(Tier tier, int attackDamageIn, float attackSpeedIn, Properties builderIn){
+public class MurasamaItem extends KatanaItem implements IParticleItemEntity, ParticleEmitterHandler.ItemParticleSupplier {
+    public MurasamaItem(Tier tier, int attackDamageIn, float attackSpeedIn, Properties builderIn) {
         super(tier, attackDamageIn, attackSpeedIn, builderIn);
     }
 
-    public void onUseTick(@NotNull Level worldIn, @NotNull LivingEntity livingEntityIn, @NotNull ItemStack stack, int count){
-        Player player = (Player)livingEntityIn;
-        if(worldIn instanceof ServerLevel srv){
-            for(int ii = 0; ii < 1 + Mth.nextInt(RandomSource.create(), 0, 2); ii += 1){
+    public void onUseTick(@NotNull Level worldIn, @NotNull LivingEntity livingEntityIn, @NotNull ItemStack stack, int count) {
+        Player player = (Player) livingEntityIn;
+        if (worldIn instanceof ServerLevel srv) {
+            for (int ii = 0; ii < 1 + Mth.nextInt(RandomSource.create(), 0, 2); ii += 1) {
                 PacketHandler.sendToTracking(srv, player.getOnPos(), new MurasamaParticlePacket(3F, player.getX(), (player.getY() + (player.getEyeHeight() / 2)), player.getZ(), 235, 0, 25));
             }
         }
 
-        if(player.getTicksUsingItem() == 20){
+        if (player.getTicksUsingItem() == 20) {
             player.playNotifySound(SoundsRegistry.RECHARGE.get(), SoundSource.PLAYERS, 0.6f, 1);
         }
     }
 
-    public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level worldIn, Player playerIn, @NotNull InteractionHand handIn){
+    public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level worldIn, Player playerIn, @NotNull InteractionHand handIn) {
         ItemStack itemstack = playerIn.getItemInHand(handIn);
-        if(!playerIn.isShiftKeyDown()){
+        if (!playerIn.isShiftKeyDown()) {
             playerIn.startUsingItem(InteractionHand.MAIN_HAND);
-            if(!playerIn.isFallFlying() && playerIn.isUsingItem() && playerIn.getTicksUsingItem() >= 20){
+            if (!playerIn.isFallFlying() && playerIn.isUsingItem() && playerIn.getTicksUsingItem() >= 20) {
                 applyCooldown(playerIn);
             }
 
@@ -64,8 +72,8 @@ public class MurasamaItem extends KatanaItem implements IParticleItemEntity, Par
     }
 
     @Override
-    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged){
-        if(!slotChanged){
+    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
+        if (!slotChanged) {
             return false;
         }
 
@@ -129,7 +137,7 @@ public class MurasamaItem extends KatanaItem implements IParticleItemEntity, Par
     }
 
     @Override
-    public void spawnParticles(Level level, ItemEntity entity){
+    public void spawnParticles(Level level, ItemEntity entity) {
         RandomSource rand = level.getRandom();
         double X = ((rand.nextDouble() - 0.5D) * 0.3f);
         double Y = ((rand.nextDouble() - 0.5D) + 0.3f);
@@ -139,10 +147,10 @@ public class MurasamaItem extends KatanaItem implements IParticleItemEntity, Par
         double dY = -Y;
         double dZ = -Z;
         int count = Mth.nextInt(rand, 0, 1);
-        for(int ii = 0; ii < count; ii += 1){
+        for (int ii = 0; ii < count; ii += 1) {
             double yaw = Math.atan2(dZ, dX);
             double pitch = Math.atan2(Math.sqrt(dZ * dZ + dX * dX), dY) + Math.PI;
-            double XX = Math.sin(pitch) * Math.cos(yaw) * (float)(rand.nextDouble() * 0.025F) / (ii + 1), YY = Math.sin(pitch) * Math.sin(yaw) * (float)(rand.nextDouble() * 0.025F) / (ii + 1), ZZ = Math.cos(pitch) * (float)(rand.nextDouble() * 0.025F) / (ii + 1);
+            double XX = Math.sin(pitch) * Math.cos(yaw) * (float) (rand.nextDouble() * 0.025F) / (ii + 1), YY = Math.sin(pitch) * Math.sin(yaw) * (float) (rand.nextDouble() * 0.025F) / (ii + 1), ZZ = Math.cos(pitch) * (float) (rand.nextDouble() * 0.025F) / (ii + 1);
             Vec3 pos = new Vec3(entity.getX() + X, entity.getY() + Y, entity.getZ() + Z);
 
             ParticleEffects.itemParticles(level, pos, ColorParticleData.create(Pal.strongRed, Pal.moderateViolet).build()).getBuilder().setMotion(XX, YY, ZZ).spawn(level, pos.x, pos.y, pos.z);
@@ -151,7 +159,7 @@ public class MurasamaItem extends KatanaItem implements IParticleItemEntity, Par
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void spawnLateParticles(ScreenParticleHolder target, Level level, float partialTick, ItemStack stack, float x, float y){
+    public void spawnLateParticles(ScreenParticleHolder target, Level level, float partialTick, ItemStack stack, float x, float y) {
         ScreenParticleRegistry.spawnCoreParticles(target, ColorParticleData.create(Pal.strongRed, Pal.moderateViolet).build());
     }
 }

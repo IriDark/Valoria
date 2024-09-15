@@ -1,18 +1,21 @@
 package com.idark.valoria.registries.entity.living;
 
-import net.minecraft.core.*;
-import net.minecraft.nbt.*;
-import net.minecraft.server.level.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.goal.target.*;
-import net.minecraft.world.entity.ai.targeting.*;
-import net.minecraft.world.entity.monster.*;
-import net.minecraft.world.level.*;
-import net.minecraft.world.scores.*;
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.TraceableEntity;
+import net.minecraft.world.entity.ai.goal.target.TargetGoal;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.scores.Team;
 
-import javax.annotation.*;
+import javax.annotation.Nullable;
 
-public abstract class AbstractMinionEntity extends Monster implements TraceableEntity{
+public abstract class AbstractMinionEntity extends Monster implements TraceableEntity {
     @Nullable
     public LivingEntity owner;
     @Nullable
@@ -20,21 +23,21 @@ public abstract class AbstractMinionEntity extends Monster implements TraceableE
     public boolean hasLimitedLife;
     public int limitedLifeTicks;
 
-    protected AbstractMinionEntity(EntityType<? extends Monster> pEntityType, Level pLevel){
+    protected AbstractMinionEntity(EntityType<? extends Monster> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }
 
-    public void tick(){
+    public void tick() {
         super.tick();
         this.setNoGravity(true);
-        if(this.hasLimitedLife && --this.limitedLifeTicks <= 0){
-            if(this.level() instanceof ServerLevel serv){
+        if (this.hasLimitedLife && --this.limitedLifeTicks <= 0) {
+            if (this.level() instanceof ServerLevel serv) {
                 spawnDisappearParticles(serv);
                 this.remove(RemovalReason.KILLED);
             }
         }
 
-        if(this.shouldRenderAtSqrDistance(4)){
+        if (this.shouldRenderAtSqrDistance(4)) {
             spawnParticlesTrail();
         }
     }
@@ -42,45 +45,45 @@ public abstract class AbstractMinionEntity extends Monster implements TraceableE
     /**
      * Server sided
      */
-    public void spawnDisappearParticles(ServerLevel serverLevel){
+    public void spawnDisappearParticles(ServerLevel serverLevel) {
     }
 
-    public void spawnParticlesTrail(){
+    public void spawnParticlesTrail() {
     }
 
     /**
      * (abstract) Protected helper method to read subclass entity data from NBT.
      */
-    public void readAdditionalSaveData(CompoundTag pCompound){
+    public void readAdditionalSaveData(CompoundTag pCompound) {
         super.readAdditionalSaveData(pCompound);
-        if(pCompound.contains("BoundX")){
+        if (pCompound.contains("BoundX")) {
             this.boundOrigin = new BlockPos(pCompound.getInt("BoundX"), pCompound.getInt("BoundY"), pCompound.getInt("BoundZ"));
         }
 
-        if(pCompound.contains("LifeTicks")){
+        if (pCompound.contains("LifeTicks")) {
             this.setLimitedLife(pCompound.getInt("LifeTicks"));
         }
     }
 
-    public void addAdditionalSaveData(CompoundTag pCompound){
+    public void addAdditionalSaveData(CompoundTag pCompound) {
         super.addAdditionalSaveData(pCompound);
-        if(this.boundOrigin != null){
+        if (this.boundOrigin != null) {
             pCompound.putInt("BoundX", this.boundOrigin.getX());
             pCompound.putInt("BoundY", this.boundOrigin.getY());
             pCompound.putInt("BoundZ", this.boundOrigin.getZ());
         }
 
-        if(this.hasLimitedLife){
+        if (this.hasLimitedLife) {
             pCompound.putInt("LifeTicks", this.limitedLifeTicks);
         }
     }
 
     @Nullable
-    public LivingEntity getOwner(){
+    public LivingEntity getOwner() {
         return this.owner;
     }
 
-    public void setOwner(LivingEntity pOwner){
+    public void setOwner(LivingEntity pOwner) {
         this.owner = pOwner;
     }
 
@@ -93,7 +96,7 @@ public abstract class AbstractMinionEntity extends Monster implements TraceableE
         return super.getTeam();
     }
 
-    public boolean canAttack(LivingEntity pTarget){
+    public boolean canAttack(LivingEntity pTarget) {
         return !this.isOwnedBy(pTarget) && super.canAttack(pTarget);
     }
 
@@ -102,39 +105,40 @@ public abstract class AbstractMinionEntity extends Monster implements TraceableE
     }
 
     @Nullable
-    public BlockPos getBoundOrigin(){
+    public BlockPos getBoundOrigin() {
         return this.boundOrigin;
     }
 
-    public void setBoundOrigin(@Nullable BlockPos pBoundOrigin){
+    public void setBoundOrigin(@Nullable BlockPos pBoundOrigin) {
         this.boundOrigin = pBoundOrigin;
     }
 
-    public void setLimitedLife(int pLimitedLifeTicks){
+    public void setLimitedLife(int pLimitedLifeTicks) {
         this.hasLimitedLife = true;
         this.limitedLifeTicks = pLimitedLifeTicks;
     }
 
-    class CopyOwnerTargetGoal extends TargetGoal{
+    class CopyOwnerTargetGoal extends TargetGoal {
         private final TargetingConditions copyOwnerTargeting = TargetingConditions.forNonCombat().ignoreLineOfSight().ignoreInvisibilityTesting();
-        public CopyOwnerTargetGoal(PathfinderMob pMob){
+
+        public CopyOwnerTargetGoal(PathfinderMob pMob) {
             super(pMob, false);
         }
 
         private LivingEntity getOwnerTarget() {
             LivingEntity lastHurt = AbstractMinionEntity.this.owner.getLastHurtByMob();
-            if(lastHurt != null) {
+            if (lastHurt != null) {
                 return lastHurt;
             }
 
             return AbstractMinionEntity.this.owner.getLastHurtMob();
         }
 
-        public boolean canUse(){
+        public boolean canUse() {
             return AbstractMinionEntity.this.owner != null && getOwnerTarget() != null && this.canAttack(getOwnerTarget(), this.copyOwnerTargeting);
         }
 
-        public void start(){
+        public void start() {
             AbstractMinionEntity.this.setTarget(getOwnerTarget());
             super.start();
         }

@@ -1,25 +1,30 @@
 package com.idark.valoria.compat.jade;
 
-import com.idark.valoria.registries.*;
-import com.idark.valoria.registries.block.entity.*;
-import net.minecraft.nbt.*;
-import net.minecraft.network.chat.*;
-import net.minecraft.resources.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.phys.*;
-import snownee.jade.api.*;
-import snownee.jade.api.config.*;
-import snownee.jade.api.ui.*;
-import snownee.jade.impl.ui.*;
+import com.idark.valoria.registries.ItemsRegistry;
+import com.idark.valoria.registries.block.entity.ManipulatorBlockEntity;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.phys.Vec2;
+import snownee.jade.api.BlockAccessor;
+import snownee.jade.api.IBlockComponentProvider;
+import snownee.jade.api.IServerDataProvider;
+import snownee.jade.api.ITooltip;
+import snownee.jade.api.config.IPluginConfig;
+import snownee.jade.api.ui.IElement;
+import snownee.jade.api.ui.IElementHelper;
+import snownee.jade.impl.ui.ProgressArrowElement;
 
-public enum ManipulatorProvider implements IBlockComponentProvider, IServerDataProvider<BlockAccessor>{
+public enum ManipulatorProvider implements IBlockComponentProvider, IServerDataProvider<BlockAccessor> {
 
     INSTANCE;
 
     @Override
-    public void appendTooltip(ITooltip tooltip, BlockAccessor accessor, IPluginConfig config){
+    public void appendTooltip(ITooltip tooltip, BlockAccessor accessor, IPluginConfig config) {
         CompoundTag data = accessor.getServerData();
-        if(!data.contains("progress")){
+        if (!data.contains("progress")) {
             return;
         }
 
@@ -30,7 +35,7 @@ public enum ManipulatorProvider implements IBlockComponentProvider, IServerDataP
         int infernal_core = data.getInt("infernal");
         int void_core = data.getInt("void");
 
-        tooltip.append(new ProgressArrowElement((float)progress / total));
+        tooltip.append(new ProgressArrowElement((float) progress / total));
         IElementHelper elements = tooltip.getElementHelper();
         IElement icon = elements.item(new ItemStack(Items.CLOCK), 1).translate(new Vec2(-2, -4));
         IElement element_n = elements.item(new ItemStack(ItemsRegistry.NATURE_CORE.get()), 1).translate(new Vec2(0, -6));
@@ -55,8 +60,8 @@ public enum ManipulatorProvider implements IBlockComponentProvider, IServerDataP
     }
 
     @Override
-    public void appendServerData(CompoundTag data, BlockAccessor accessor){
-        ManipulatorBlockEntity manipulatorBlockEntity = (ManipulatorBlockEntity)accessor.getBlockEntity();
+    public void appendServerData(CompoundTag data, BlockAccessor accessor) {
+        ManipulatorBlockEntity manipulatorBlockEntity = (ManipulatorBlockEntity) accessor.getBlockEntity();
         data.putInt("progress", manipulatorBlockEntity.progress);
         data.putInt("total", manipulatorBlockEntity.progressMax);
 
@@ -67,7 +72,7 @@ public enum ManipulatorProvider implements IBlockComponentProvider, IServerDataP
     }
 
     @Override
-    public ResourceLocation getUid(){
+    public ResourceLocation getUid() {
         return ModPlugin.MANIPULATOR;
     }
 }

@@ -1,32 +1,34 @@
 package com.idark.valoria.compat.jei.categories;
 
-import com.idark.valoria.*;
-import com.idark.valoria.compat.jei.*;
-import com.idark.valoria.registries.*;
-import com.idark.valoria.registries.recipe.*;
-import mezz.jei.api.constants.*;
-import mezz.jei.api.gui.builder.*;
-import mezz.jei.api.gui.drawable.*;
-import mezz.jei.api.gui.ingredient.*;
-import mezz.jei.api.helpers.*;
+import com.idark.valoria.Valoria;
+import com.idark.valoria.compat.jei.ModRecipeTypes;
+import com.idark.valoria.registries.BlockRegistry;
+import com.idark.valoria.registries.item.recipe.CrusherRecipe;
+import mezz.jei.api.constants.VanillaTypes;
+import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
+import mezz.jei.api.gui.drawable.IDrawable;
+import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
+import mezz.jei.api.helpers.IGuiHelper;
+import mezz.jei.api.recipe.IFocusGroup;
+import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
-import mezz.jei.api.recipe.*;
-import mezz.jei.api.recipe.category.*;
-import net.minecraft.client.gui.*;
-import net.minecraft.core.*;
-import net.minecraft.network.chat.*;
-import net.minecraft.resources.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.item.crafting.*;
+import mezz.jei.api.recipe.category.IRecipeCategory;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.core.NonNullList;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 
-import java.util.*;
+import java.util.Arrays;
 
-public class CrusherRecipeCategory implements IRecipeCategory<CrusherRecipe>{
+public class CrusherRecipeCategory implements IRecipeCategory<CrusherRecipe> {
     private final Component title;
     private final IDrawable background;
     private final IDrawable icon;
 
-    public CrusherRecipeCategory(IGuiHelper helper){
+    public CrusherRecipeCategory(IGuiHelper helper) {
         title = Component.translatable("jei.valoria.crusher");
         ResourceLocation backgroundImage = new ResourceLocation(Valoria.ID, "textures/gui/jei/jewelry.png");
 
@@ -35,27 +37,27 @@ public class CrusherRecipeCategory implements IRecipeCategory<CrusherRecipe>{
     }
 
     @Override
-    public RecipeType<CrusherRecipe> getRecipeType(){
+    public RecipeType<CrusherRecipe> getRecipeType() {
         return ModRecipeTypes.CRUSHER;
     }
 
     @Override
-    public Component getTitle(){
+    public Component getTitle() {
         return this.title;
     }
 
     @Override
-    public IDrawable getBackground(){
+    public IDrawable getBackground() {
         return this.background;
     }
 
     @Override
-    public IDrawable getIcon(){
+    public IDrawable getIcon() {
         return this.icon;
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, CrusherRecipe recipe, IFocusGroup focusGroup){
+    public void setRecipe(IRecipeLayoutBuilder builder, CrusherRecipe recipe, IFocusGroup focusGroup) {
         NonNullList<Ingredient> recipeIngredients = recipe.getIngredients();
         ResourceLocation loot = recipe.getOutput();
 
@@ -65,6 +67,6 @@ public class CrusherRecipeCategory implements IRecipeCategory<CrusherRecipe>{
     }
 
     @Override
-    public void draw(CrusherRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics gui, double mouseX, double mouseY){
+    public void draw(CrusherRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics gui, double mouseX, double mouseY) {
     }
 }

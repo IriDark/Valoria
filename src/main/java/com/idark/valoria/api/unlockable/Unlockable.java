@@ -1,33 +1,34 @@
 package com.idark.valoria.api.unlockable;
 
-import net.minecraft.world.entity.player.*;
-import net.minecraft.world.item.*;
-import net.minecraftforge.api.distmarker.*;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
-public class Unlockable{
+public class Unlockable {
     public String id;
 
-    public Unlockable(String id){
+    public Unlockable(String id) {
         this.id = id;
     }
 
-    public boolean canReceived(){
+    public boolean canReceived() {
         return false;
     }
 
-    public String getId(){
+    public String getId() {
         return id;
     }
 
-    public boolean hasAllAward(){
+    public boolean hasAllAward() {
         return true;
     }
 
-    public void award(Player player){
+    public void award(Player player) {
     }
 
     @OnlyIn(Dist.CLIENT)
-    public ItemStack getIcon(){
+    public ItemStack getIcon() {
         return ItemStack.EMPTY;
     }
 }

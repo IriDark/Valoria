@@ -1,29 +1,32 @@
 package com.idark.valoria.client.render.entity;
 
-import com.idark.valoria.registries.entity.projectile.*;
-import com.mojang.blaze3d.vertex.*;
-import com.mojang.math.*;
-import net.minecraft.client.*;
-import net.minecraft.client.renderer.*;
-import net.minecraft.client.renderer.entity.*;
-import net.minecraft.client.renderer.texture.*;
-import net.minecraft.client.resources.model.*;
-import net.minecraft.resources.*;
-import net.minecraft.util.*;
-import net.minecraft.world.item.*;
-import net.minecraftforge.api.distmarker.*;
-import net.minecraftforge.registries.*;
+import com.idark.valoria.registries.entity.projectile.ThrownSpearEntity;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
+import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.registries.ForgeRegistries;
 
 @OnlyIn(Dist.CLIENT)
-public class ThrownSpearRenderer extends EntityRenderer<ThrownSpearEntity>{
-    public ThrownSpearRenderer(EntityRendererProvider.Context context){
+public class ThrownSpearRenderer extends EntityRenderer<ThrownSpearEntity> {
+    public ThrownSpearRenderer(EntityRendererProvider.Context context) {
         super(context);
     }
 
-    public void render(ThrownSpearEntity entityIn, float entityYaw, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light){
+    public void render(ThrownSpearEntity entityIn, float entityYaw, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light) {
         ms.pushPose();
-        if(!Minecraft.getInstance().isPaused() && !(entityIn.inGround || entityIn.onGround())){
-            entityIn.rotationVelocity = Mth.lerp(partialTicks, entityIn.rotationVelocity, (entityIn.rotationVelocity + 1.2f) + (float)entityIn.getDeltaMovement().x);
+        if (!Minecraft.getInstance().isPaused() && !(entityIn.inGround || entityIn.onGround())) {
+            entityIn.rotationVelocity = Mth.lerp(partialTicks, entityIn.rotationVelocity, (entityIn.rotationVelocity + 1.2f) + (float) entityIn.getDeltaMovement().x);
         }
 
         ms.scale(1.5f, 1.5f, 1.5f);
@@ -38,7 +41,7 @@ public class ThrownSpearRenderer extends EntityRenderer<ThrownSpearEntity>{
     }
 
     @Override
-    public ResourceLocation getTextureLocation(ThrownSpearEntity pEntity){
+    public ResourceLocation getTextureLocation(ThrownSpearEntity pEntity) {
         return null;
     }
 }

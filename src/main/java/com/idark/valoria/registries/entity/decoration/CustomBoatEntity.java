@@ -1,27 +1,31 @@
 package com.idark.valoria.registries.entity.decoration;
 
-import com.idark.valoria.registries.*;
-import net.minecraft.nbt.*;
-import net.minecraft.network.protocol.*;
-import net.minecraft.network.protocol.game.*;
-import net.minecraft.network.syncher.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.vehicle.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.level.*;
-import net.minecraft.world.level.block.*;
-import net.minecraftforge.network.*;
-import org.jetbrains.annotations.*;
+import com.idark.valoria.registries.BlockRegistry;
+import com.idark.valoria.registries.EntityTypeRegistry;
+import com.idark.valoria.registries.ItemsRegistry;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.vehicle.Boat;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraftforge.network.NetworkHooks;
+import org.jetbrains.annotations.NotNull;
 
-public class CustomBoatEntity extends Boat{
+public class CustomBoatEntity extends Boat {
     private static final EntityDataAccessor<Integer> BOAT_TYPE = SynchedEntityData.defineId(CustomBoatEntity.class, EntityDataSerializers.INT);
 
-    public CustomBoatEntity(EntityType<? extends Boat> type, Level level){
+    public CustomBoatEntity(EntityType<? extends Boat> type, Level level) {
         super(type, level);
         this.blocksBuilding = true;
     }
 
-    public CustomBoatEntity(Level level, double x, double y, double z){
+    public CustomBoatEntity(Level level, double x, double y, double z) {
         this(EntityTypeRegistry.BOAT.get(), level);
         this.setPos(x, y, z);
         this.xo = x;
@@ -29,71 +33,71 @@ public class CustomBoatEntity extends Boat{
         this.zo = z;
     }
 
-    public CustomBoatEntity.Type getCustomBoatEntityType(){
+    public CustomBoatEntity.Type getCustomBoatEntityType() {
         return CustomBoatEntity.Type.byId(this.getEntityData().get(BOAT_TYPE));
     }
 
-    public void setCustomBoatEntityType(CustomBoatEntity.Type boatType){
+    public void setCustomBoatEntityType(CustomBoatEntity.Type boatType) {
         this.getEntityData().set(BOAT_TYPE, boatType.ordinal());
     }
 
     @Override
-    public @NotNull Item getDropItem(){
-        return switch(this.getCustomBoatEntityType()){
+    public @NotNull Item getDropItem() {
+        return switch (this.getCustomBoatEntityType()) {
             case SHADEWOOD -> ItemsRegistry.SHADEWOOD_BOAT_ITEM.get();
             case ELDRITCH -> ItemsRegistry.ELDRITCH_BOAT_ITEM.get();
         };
     }
 
     @Override
-    protected void defineSynchedData(){
+    protected void defineSynchedData() {
         super.defineSynchedData();
         this.getEntityData().define(BOAT_TYPE, Type.SHADEWOOD.ordinal());
     }
 
     @Override
-    protected void addAdditionalSaveData(CompoundTag tag){
+    protected void addAdditionalSaveData(CompoundTag tag) {
         tag.putString("Type", this.getCustomBoatEntityType().getName());
     }
 
     @Override
-    protected void readAdditionalSaveData(CompoundTag tag){
-        if(tag.contains("Type", 8)){
+    protected void readAdditionalSaveData(CompoundTag tag) {
+        if (tag.contains("Type", 8)) {
             this.setCustomBoatEntityType(CustomBoatEntity.Type.getTypeFromString(tag.getString("Type")));
         }
     }
 
     @Override
-    public Packet<ClientGamePacketListener> getAddEntityPacket(){
+    public Packet<ClientGamePacketListener> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 
-    public enum Type{
+    public enum Type {
         SHADEWOOD(BlockRegistry.SHADEWOOD_PLANKS.get(), "shadewood"),
         ELDRITCH(BlockRegistry.ELDRITCH_PLANKS.get(), "eldritch");
 
         private final String name;
         private final Block block;
 
-        Type(Block block, String name){
+        Type(Block block, String name) {
             this.name = name;
             this.block = block;
         }
 
-        public static CustomBoatEntity.Type byId(int id){
+        public static CustomBoatEntity.Type byId(int id) {
             CustomBoatEntity.Type[] types = values();
-            if(id < 0 || id >= types.length){
+            if (id < 0 || id >= types.length) {
                 id = 0;
             }
 
             return types[id];
         }
 
-        public static CustomBoatEntity.Type getTypeFromString(String nameIn){
+        public static CustomBoatEntity.Type getTypeFromString(String nameIn) {
             CustomBoatEntity.Type[] types = values();
 
-            for(Type type : types){
-                if(type.getName().equals(nameIn)){
+            for (Type type : types) {
+                if (type.getName().equals(nameIn)) {
                     return type;
                 }
             }
@@ -101,15 +105,15 @@ public class CustomBoatEntity extends Boat{
             return types[0];
         }
 
-        public String getName(){
+        public String getName() {
             return this.name;
         }
 
-        public Block asPlank(){
+        public Block asPlank() {
             return this.block;
         }
 
-        public String toString(){
+        public String toString() {
             return this.name;
         }
     }

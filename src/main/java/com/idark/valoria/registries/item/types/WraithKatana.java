@@ -1,38 +1,41 @@
 package com.idark.valoria.registries.item.types;
 
-import com.idark.valoria.*;
-import com.idark.valoria.core.network.*;
-import com.idark.valoria.core.network.packets.*;
-import com.idark.valoria.registries.*;
-import com.idark.valoria.util.*;
-import net.minecraft.resources.*;
-import net.minecraft.server.level.*;
-import net.minecraft.sounds.*;
-import net.minecraft.util.*;
-import net.minecraft.world.effect.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.*;
-import net.minecraft.world.entity.player.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.item.enchantment.*;
-import net.minecraft.world.level.*;
-import net.minecraft.world.phys.*;
-import org.jetbrains.annotations.*;
-import org.joml.*;
+import com.idark.valoria.Valoria;
+import com.idark.valoria.core.network.PacketHandler;
+import com.idark.valoria.core.network.packets.DashParticlePacket;
+import com.idark.valoria.registries.SoundsRegistry;
+import com.idark.valoria.util.Pal;
+import com.idark.valoria.util.ValoriaUtils;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
+import org.joml.Vector3d;
 
-import java.lang.Math;
-import java.util.*;
+import java.util.List;
 
-public class WraithKatana extends KatanaItem{
-    public WraithKatana(Tier tier, int attackDamageIn, float attackSpeedIn, Properties builderIn){
+public class WraithKatana extends KatanaItem {
+    public WraithKatana(Tier tier, int attackDamageIn, float attackSpeedIn, Properties builderIn) {
         super(tier, attackDamageIn, attackSpeedIn, builderIn);
     }
 
-    public WraithKatana(Tier tier, int attackDamageIn, float attackSpeedIn, float dashDistance, Properties builderIn, MobEffectInstance... pEffects){
+    public WraithKatana(Tier tier, int attackDamageIn, float attackSpeedIn, float dashDistance, Properties builderIn, MobEffectInstance... pEffects) {
         super(tier, attackDamageIn, attackSpeedIn, dashDistance, builderIn, pEffects);
     }
 
-    public WraithKatana(Tier tier, int attackDamageIn, float attackSpeedIn, float dashDistance, Properties builderIn, float chance, MobEffectInstance... pEffects){
+    public WraithKatana(Tier tier, int attackDamageIn, float attackSpeedIn, float dashDistance, Properties builderIn, float chance, MobEffectInstance... pEffects) {
         super(tier, attackDamageIn, attackSpeedIn, dashDistance, builderIn, chance, pEffects);
     }
 

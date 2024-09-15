@@ -1,29 +1,31 @@
 package com.idark.valoria.registries.item.types;
 
-import com.idark.valoria.client.particle.*;
-import com.idark.valoria.registries.item.interfaces.*;
-import net.minecraft.core.particles.*;
-import net.minecraft.world.entity.item.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.level.*;
-import net.minecraftforge.api.distmarker.*;
-import net.minecraftforge.registries.*;
-import org.jetbrains.annotations.*;
-import team.lodestar.lodestone.handlers.screenparticle.*;
-import team.lodestar.lodestone.systems.particle.data.color.*;
-import team.lodestar.lodestone.systems.particle.screen.*;
+import com.idark.valoria.client.particle.ScreenParticleRegistry;
+import com.idark.valoria.core.interfaces.IParticleItemEntity;
+import net.minecraft.core.particles.ParticleType;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.registries.RegistryObject;
+import org.jetbrains.annotations.NotNull;
+import team.lodestar.lodestone.handlers.screenparticle.ParticleEmitterHandler;
+import team.lodestar.lodestone.systems.particle.data.color.ColorParticleData;
+import team.lodestar.lodestone.systems.particle.screen.ScreenParticleHolder;
 
 import java.awt.*;
 
 import static com.idark.valoria.client.particle.ParticleEffects.spawnItemParticles;
 
-public class CoreItem extends Item implements IParticleItemEntity, ParticleEmitterHandler.ItemParticleSupplier{
+public class CoreItem extends Item implements IParticleItemEntity, ParticleEmitterHandler.ItemParticleSupplier {
     private final String coreName;
     public ParticleType<?> particle;
     public ColorParticleData color;
     private final int givenCores;
 
-    public CoreItem(@NotNull ParticleType<?> pType, Properties pProperties, int pGivenCores, Color pColor, Color pColorTo, String pCoreID){
+    public CoreItem(@NotNull ParticleType<?> pType, Properties pProperties, int pGivenCores, Color pColor, Color pColorTo, String pCoreID) {
         super(pProperties);
         particle = pType;
         givenCores = pGivenCores;
@@ -31,7 +33,7 @@ public class CoreItem extends Item implements IParticleItemEntity, ParticleEmitt
         coreName = pCoreID;
     }
 
-    public CoreItem(@NotNull ParticleType<?> pType, Properties pProperties, int pGivenCores, Color pColor, Color pColorTo, RegistryObject<Item> item){
+    public CoreItem(@NotNull ParticleType<?> pType, Properties pProperties, int pGivenCores, Color pColor, Color pColorTo, RegistryObject<Item> item) {
         super(pProperties);
         particle = pType;
         givenCores = pGivenCores;
@@ -39,27 +41,27 @@ public class CoreItem extends Item implements IParticleItemEntity, ParticleEmitt
         coreName = item.getId().getPath();
     }
 
-    public String getCoreName(){
+    public String getCoreName() {
         return coreName;
     }
 
-    public Color getCoreColor(){
+    public Color getCoreColor() {
         return new Color(color.r1, color.g1, color.b1).darker();
     }
 
-    public int getGivenCores(){
+    public int getGivenCores() {
         return givenCores;
     }
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void spawnParticles(Level level, ItemEntity entity){
+    public void spawnParticles(Level level, ItemEntity entity) {
         spawnItemParticles(level, entity, particle, color);
     }
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void spawnLateParticles(ScreenParticleHolder target, Level level, float partialTick, ItemStack stack, float x, float y){
+    public void spawnLateParticles(ScreenParticleHolder target, Level level, float partialTick, ItemStack stack, float x, float y) {
         ScreenParticleRegistry.spawnCoreParticles(target, color);
     }
 }

@@ -1,56 +1,61 @@
 package com.idark.valoria.registries;
 
-import com.idark.valoria.*;
-import com.idark.valoria.util.*;
-import net.minecraft.core.*;
-import net.minecraft.core.registries.*;
-import net.minecraft.nbt.*;
-import net.minecraft.network.chat.*;
-import net.minecraft.resources.*;
-import net.minecraft.world.entity.decoration.*;
-import net.minecraft.world.item.*;
-import net.minecraftforge.event.*;
-import net.minecraftforge.eventbus.api.*;
-import net.minecraftforge.fml.common.*;
-import net.minecraftforge.registries.*;
+import com.idark.valoria.Valoria;
+import com.idark.valoria.util.ValoriaUtils;
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.decoration.Painting;
+import net.minecraft.world.entity.decoration.PaintingVariant;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.RegistryObject;
 
-import java.util.*;
-import java.util.function.*;
+import java.util.Comparator;
+import java.util.function.Predicate;
 
 @Mod.EventBusSubscriber(modid = Valoria.ID, bus = Mod.EventBusSubscriber.Bus.MOD)
-public abstract class ItemTabRegistry{
+public abstract class ItemTabRegistry {
     private static final Comparator<Holder<PaintingVariant>> PAINTING_COMPARATOR = Comparator.comparing(Holder::value, Comparator.<PaintingVariant>comparingInt((p_270004_) -> p_270004_.getHeight() * p_270004_.getWidth()).thenComparing(PaintingVariant::getWidth));
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, Valoria.ID);
 
     public static final RegistryObject<CreativeModeTab> VALORIA_BLOCKS_TAB = CREATIVE_MODE_TABS.register("valoriablocksmodtab",
-    () -> CreativeModeTab.builder().icon(() -> new ItemStack(BlockRegistry.JEWELER_TABLE.get()))
-    .hideTitle()
-    .title(Component.translatable("itemGroup.valoriaBlocksModTab"))
-    .withTabsImage(getTabsImage())
-    .backgroundSuffix("valoria_item.png").withBackgroundLocation(getBackgroundImage()).build());
+            () -> CreativeModeTab.builder().icon(() -> new ItemStack(BlockRegistry.JEWELER_TABLE.get()))
+                    .hideTitle()
+                    .title(Component.translatable("itemGroup.valoriaBlocksModTab"))
+                    .withTabsImage(getTabsImage())
+                    .backgroundSuffix("valoria_item.png").withBackgroundLocation(getBackgroundImage()).build());
     public static final RegistryObject<CreativeModeTab> VALORIA_TAB = CREATIVE_MODE_TABS.register("valoriamodtab",
-    () -> CreativeModeTab.builder().icon(() -> new ItemStack(ItemsRegistry.EYE_CHUNK.get()))
-    .hideTitle()
-    .title(Component.translatable("itemGroup.valoriaModTab"))
-    .withTabsImage(getTabsImage())
-    .withTabsAfter(ItemTabRegistry.VALORIA_BLOCKS_TAB.getKey())
-    .backgroundSuffix("valoria_item.png").withBackgroundLocation(getBackgroundImage()).build());
+            () -> CreativeModeTab.builder().icon(() -> new ItemStack(ItemsRegistry.EYE_CHUNK.get()))
+                    .hideTitle()
+                    .title(Component.translatable("itemGroup.valoriaModTab"))
+                    .withTabsImage(getTabsImage())
+                    .withTabsAfter(ItemTabRegistry.VALORIA_BLOCKS_TAB.getKey())
+                    .backgroundSuffix("valoria_item.png").withBackgroundLocation(getBackgroundImage()).build());
 
-    public static ResourceLocation getBackgroundImage(){
+    public static ResourceLocation getBackgroundImage() {
         return new ResourceLocation(Valoria.ID, "textures/gui/container/tab_valoria_item.png");
     }
 
-    public static ResourceLocation getTabsImage(){
+    public static ResourceLocation getTabsImage() {
         return new ResourceLocation(Valoria.ID, "textures/gui/container/tabs_valoria.png");
     }
 
-    public static void register(IEventBus eventBus){
+    public static void register(IEventBus eventBus) {
         CREATIVE_MODE_TABS.register(eventBus);
     }
 
-    public static void addCreative(BuildCreativeModeTabContentsEvent event){
-        if(event.getTabKey() == ItemTabRegistry.VALORIA_TAB.getKey()){
-            if(ValoriaUtils.isIDE) event.accept(ItemsRegistry.DEBUG);
+    public static void addCreative(BuildCreativeModeTabContentsEvent event) {
+        if (event.getTabKey() == ItemTabRegistry.VALORIA_TAB.getKey()) {
+            if (ValoriaUtils.isIDE) event.accept(ItemsRegistry.DEBUG);
             event.accept(ItemsRegistry.COBALT_HELMET);
             event.accept(ItemsRegistry.COBALT_CHESTPLATE);
             event.accept(ItemsRegistry.COBALT_LEGGINGS);
@@ -339,7 +344,7 @@ public abstract class ItemTabRegistry{
             event.accept(ItemsRegistry.HAUNTED_MERCHANT_SPAWN_EGG);
         }
 
-        if(event.getTabKey() == ItemTabRegistry.VALORIA_BLOCKS_TAB.getKey()){
+        if (event.getTabKey() == ItemTabRegistry.VALORIA_BLOCKS_TAB.getKey()) {
             event.accept(BlockRegistry.ALOE);
             event.accept(BlockRegistry.ALOE_SMALL);
             event.accept(BlockRegistry.CATTAIL);
@@ -627,7 +632,7 @@ public abstract class ItemTabRegistry{
         }
     }
 
-    private static void generatePresetPaintings(CreativeModeTab.Output pOutput, HolderLookup.RegistryLookup<PaintingVariant> pPaintingVariants, Predicate<Holder<PaintingVariant>> pPredicate, CreativeModeTab.TabVisibility pTabVisibility){
+    private static void generatePresetPaintings(CreativeModeTab.Output pOutput, HolderLookup.RegistryLookup<PaintingVariant> pPaintingVariants, Predicate<Holder<PaintingVariant>> pPredicate, CreativeModeTab.TabVisibility pTabVisibility) {
         pPaintingVariants.listElements().filter(pPredicate).sorted(PAINTING_COMPARATOR).forEach((p_269979_) -> {
             ItemStack itemstack = new ItemStack(Items.PAINTING);
             CompoundTag compoundtag = itemstack.getOrCreateTagElement("EntityTag");

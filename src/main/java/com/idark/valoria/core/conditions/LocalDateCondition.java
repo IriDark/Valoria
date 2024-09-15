@@ -1,32 +1,37 @@
 package com.idark.valoria.core.conditions;
 
-import com.google.gson.*;
-import net.minecraft.util.*;
-import net.minecraft.world.level.storage.loot.*;
-import net.minecraft.world.level.storage.loot.predicates.*;
-import org.jetbrains.annotations.*;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonSerializationContext;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.world.level.storage.loot.IntRange;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
-import java.time.*;
+import java.time.LocalDate;
 
-public class LocalDateCondition implements LootItemCondition{
+public class LocalDateCondition implements LootItemCondition {
     public final IntRange dayOfMonth;
     public final IntRange month;
+
     LocalDateCondition(IntRange day, IntRange month) {
         this.dayOfMonth = day;
         this.month = month;
     }
 
     @NotNull
-    public LootItemConditionType getType(){
+    public LootItemConditionType getType() {
         return LootConditionsRegistry.LOCAL_DATE_CONDITION;
     }
 
-    public boolean test(LootContext lootContext){
+    public boolean test(LootContext lootContext) {
         LocalDate localdate = LocalDate.now();
         int month = localdate.getDayOfMonth();
         int day = localdate.getMonth().getValue();
-        return this.dayOfMonth.test(lootContext,day) && this.month.test(lootContext,month);
+        return this.dayOfMonth.test(lootContext, day) && this.month.test(lootContext, month);
     }
 
     public static LocalDateCondition.Builder time(IntRange pDay, IntRange pMonth) {

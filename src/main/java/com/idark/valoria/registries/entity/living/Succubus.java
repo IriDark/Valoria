@@ -1,37 +1,41 @@
 package com.idark.valoria.registries.entity.living;
 
-import com.idark.valoria.registries.*;
-import com.idark.valoria.registries.entity.ai.behaviour.*;
-import com.idark.valoria.registries.entity.ai.brains.*;
-import com.mojang.serialization.*;
-import net.minecraft.nbt.*;
-import net.minecraft.network.protocol.game.*;
-import net.minecraft.network.syncher.*;
-import net.minecraft.server.level.*;
-import net.minecraft.sounds.*;
-import net.minecraft.world.*;
-import net.minecraft.world.damagesource.*;
-import net.minecraft.world.effect.*;
+import com.idark.valoria.registries.EffectsRegistry;
+import com.idark.valoria.registries.entity.ai.behaviour.FireRay;
+import com.idark.valoria.registries.entity.ai.brains.SuccubusAI;
+import com.mojang.serialization.Dynamic;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.game.DebugPackets;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.*;
-import net.minecraft.world.entity.ai.attributes.*;
-import net.minecraft.world.entity.ai.memory.*;
-import net.minecraft.world.entity.ai.navigation.*;
-import net.minecraft.world.entity.ai.util.*;
-import net.minecraft.world.entity.monster.*;
-import net.minecraft.world.level.*;
-import net.minecraft.world.level.pathfinder.*;
-import org.jetbrains.annotations.*;
+import net.minecraft.world.entity.ai.Brain;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.memory.MemoryModuleType;
+import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
+import net.minecraft.world.entity.ai.util.GoalUtils;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import org.jetbrains.annotations.Contract;
 
 import javax.annotation.Nullable;
 
-public class Succubus extends Monster{
+public class Succubus extends Monster {
     private static final EntityDataAccessor<Boolean> DATA_BABY_ID = SynchedEntityData.defineId(Succubus.class, EntityDataSerializers.BOOLEAN);
     public final AnimationState idleAnimationState = new AnimationState();
     public AnimationState fireballAnimationState = new AnimationState();
     private int idleAnimationTimeout = 0;
 
-    public Succubus(EntityType<? extends Monster> pEntityType, Level pLevel){
+    public Succubus(EntityType<? extends Monster> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
         this.xpReward = 5;
         this.getNavigation().setCanFloat(false);
@@ -41,65 +45,65 @@ public class Succubus extends Monster{
         this.setPathfindingMalus(BlockPathTypes.POWDER_SNOW, 8.0F);
     }
 
-    private void applyOpenDoorsAbility(){
-        if(GoalUtils.hasGroundPathNavigation(this)){
-            ((GroundPathNavigation)this.getNavigation()).setCanOpenDoors(true);
+    private void applyOpenDoorsAbility() {
+        if (GoalUtils.hasGroundPathNavigation(this)) {
+            ((GroundPathNavigation) this.getNavigation()).setCanOpenDoors(true);
         }
     }
 
-    public void setAttackTarget(LivingEntity pAttackTarget){
+    public void setAttackTarget(LivingEntity pAttackTarget) {
         this.getBrain().setMemory(MemoryModuleType.ATTACK_TARGET, pAttackTarget);
         this.getBrain().eraseMemory(MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
         FireRay.setCooldown(this, 200);
     }
 
-    public boolean doHurtTarget(Entity pEntity){
-        this.level().broadcastEntityEvent(this, (byte)4);
+    public boolean doHurtTarget(Entity pEntity) {
+        this.level().broadcastEntityEvent(this, (byte) 4);
         this.playSound(SoundEvents.WARDEN_ATTACK_IMPACT, 10.0F, this.getVoicePitch());
         FireRay.setCooldown(this, 40);
-        if(pEntity instanceof LivingEntity){
-            ((LivingEntity)pEntity).addEffect(new MobEffectInstance(EffectsRegistry.BLEEDING.get(), 200), this);
+        if (pEntity instanceof LivingEntity) {
+            ((LivingEntity) pEntity).addEffect(new MobEffectInstance(EffectsRegistry.BLEEDING.get(), 200), this);
         }
 
         return super.doHurtTarget(pEntity);
     }
 
-    public void handleEntityEvent(byte pId){
-        if(pId == 62) this.fireballAnimationState.start(this.tickCount);
+    public void handleEntityEvent(byte pId) {
+        if (pId == 62) this.fireballAnimationState.start(this.tickCount);
         super.handleEntityEvent(pId);
     }
 
-    public boolean isAdult(){
+    public boolean isAdult() {
         return !this.isBaby();
     }
 
-    public static AttributeSupplier.Builder createAttributes(){
+    public static AttributeSupplier.Builder createAttributes() {
         return Monster.createMonsterAttributes()
-        .add(Attributes.MOVEMENT_SPEED, 0.25)
-        .add(Attributes.MAX_HEALTH, 40.0D)
-        .add(Attributes.ATTACK_DAMAGE, 6.0D)
-        .add(Attributes.FOLLOW_RANGE, 12.0D);
+                .add(Attributes.MOVEMENT_SPEED, 0.25)
+                .add(Attributes.MAX_HEALTH, 40.0D)
+                .add(Attributes.ATTACK_DAMAGE, 6.0D)
+                .add(Attributes.FOLLOW_RANGE, 12.0D);
     }
 
     @Override
-    public void tick(){
+    public void tick() {
         super.tick();
-        if(this.level().isClientSide()){
+        if (this.level().isClientSide()) {
             setupAnimationStates();
         }
     }
 
-    private void setupAnimationStates(){
-        if(this.idleAnimationTimeout <= 0){
+    private void setupAnimationStates() {
+        if (this.idleAnimationTimeout <= 0) {
             this.idleAnimationTimeout = this.random.nextInt(17) + 80;
             this.idleAnimationState.start(this.tickCount);
-        }else{
+        } else {
             --this.idleAnimationTimeout;
         }
     }
 
-    protected void customServerAiStep(){
-        ServerLevel serverlevel = (ServerLevel)this.level();
+    protected void customServerAiStep() {
+        ServerLevel serverlevel = (ServerLevel) this.level();
         serverlevel.getProfiler().push("succubusBrain");
         this.getBrain().tick(serverlevel, this);
         this.level().getProfiler().pop();
@@ -108,16 +112,16 @@ public class Succubus extends Monster{
         SuccubusAI.updateActivity(this);
     }
 
-    public boolean hurt(DamageSource pSource, float pAmount){
+    public boolean hurt(DamageSource pSource, float pAmount) {
         boolean flag = super.hurt(pSource, pAmount);
-        if(!this.level().isClientSide && !this.isNoAi()){
+        if (!this.level().isClientSide && !this.isNoAi()) {
             Entity entity = pSource.getEntity();
-            if(flag && pSource.getEntity() instanceof LivingEntity){
-                SuccubusAI.wasHurtBy(this, (LivingEntity)pSource.getEntity());
+            if (flag && pSource.getEntity() instanceof LivingEntity) {
+                SuccubusAI.wasHurtBy(this, (LivingEntity) pSource.getEntity());
             }
 
-            if(this.brain.getMemory(MemoryModuleType.ATTACK_TARGET).isEmpty() && entity instanceof LivingEntity livingentity){
-                if(!pSource.isIndirect() || this.closerThan(livingentity, 5.0D)){
+            if (this.brain.getMemory(MemoryModuleType.ATTACK_TARGET).isEmpty() && entity instanceof LivingEntity livingentity) {
+                if (!pSource.isIndirect() || this.closerThan(livingentity, 5.0D)) {
                     this.setAttackTarget(livingentity);
                 }
             }
@@ -127,43 +131,43 @@ public class Succubus extends Monster{
     }
 
 
-    protected Brain<?> makeBrain(Dynamic<?> pDynamic){
+    protected Brain<?> makeBrain(Dynamic<?> pDynamic) {
         return SuccubusAI.makeBrain(this, pDynamic);
     }
 
-    public Brain<Succubus> getBrain(){
-        return (Brain<Succubus>)super.getBrain();
+    public Brain<Succubus> getBrain() {
+        return (Brain<Succubus>) super.getBrain();
     }
 
     @Nullable
-    public LivingEntity getTarget(){
+    public LivingEntity getTarget() {
         return this.brain.getMemory(MemoryModuleType.ATTACK_TARGET).orElse(null);
     }
 
-    protected void sendDebugPackets(){
+    protected void sendDebugPackets() {
         super.sendDebugPackets();
         DebugPackets.sendEntityBrain(this);
     }
 
-    public MobType getMobType(){
+    public MobType getMobType() {
         return MobType.UNDEAD;
     }
 
-    protected void defineSynchedData(){
+    protected void defineSynchedData() {
         super.defineSynchedData();
         this.getEntityData().define(DATA_BABY_ID, false);
     }
 
-    public boolean isBaby(){
+    public boolean isBaby() {
         return this.getEntityData().get(DATA_BABY_ID);
     }
 
-    public void setBaby(boolean child){
+    public void setBaby(boolean child) {
         this.getEntityData().set(DATA_BABY_ID, child);
     }
 
-    public void onSyncedDataUpdated(EntityDataAccessor<?> pKey){
-        if(DATA_BABY_ID.equals(pKey)){
+    public void onSyncedDataUpdated(EntityDataAccessor<?> pKey) {
+        if (DATA_BABY_ID.equals(pKey)) {
             this.refreshDimensions();
         }
 
@@ -171,19 +175,19 @@ public class Succubus extends Monster{
     }
 
     @Override
-    public float getScale(){
+    public float getScale() {
         return this.isBaby() ? 1f : 1.45F;
     }
 
-    public int getExperienceReward(){
-        if(this.isBaby()){
+    public int getExperienceReward() {
+        if (this.isBaby()) {
             this.xpReward = this.xpReward / 2;
         }
 
         return super.getExperienceReward();
     }
 
-    public void addAdditionalSaveData(CompoundTag pCompound){
+    public void addAdditionalSaveData(CompoundTag pCompound) {
         super.addAdditionalSaveData(pCompound);
         pCompound.putBoolean("IsBaby", this.isBaby());
     }
@@ -191,14 +195,14 @@ public class Succubus extends Monster{
     /**
      * (abstract) Protected helper method to read subclass entity data from NBT.
      */
-    public void readAdditionalSaveData(CompoundTag pCompound){
+    public void readAdditionalSaveData(CompoundTag pCompound) {
         super.readAdditionalSaveData(pCompound);
         this.setBaby(pCompound.getBoolean("IsBaby"));
     }
 
     @Contract("null->false")
-    public boolean canTargetEntity(@Nullable Entity p_219386_){
-        if(p_219386_ instanceof LivingEntity livingentity){
+    public boolean canTargetEntity(@Nullable Entity p_219386_) {
+        if (p_219386_ instanceof LivingEntity livingentity) {
             return this.level() == p_219386_.level() && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(p_219386_) && !this.isAlliedTo(p_219386_) && livingentity.getType() != EntityType.ARMOR_STAND && livingentity.getType() != EntityType.WARDEN && !livingentity.isInvulnerable() && !livingentity.isDeadOrDying() && this.level().getWorldBorder().isWithinBounds(livingentity.getBoundingBox());
         }
 
@@ -206,7 +210,7 @@ public class Succubus extends Monster{
     }
 
     @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag){
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
         SuccubusAI.initMemories(this);
         return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
     }
@@ -224,7 +228,7 @@ public class Succubus extends Monster{
 //        this.playSound(SoundEvents.WARDEN_LISTENING_ANGRY, 1.0F, this.getVoicePitch());
 //    }
 
-    protected boolean canRide(Entity pVehicle){
+    protected boolean canRide(Entity pVehicle) {
         return false;
     }
 }
