@@ -4,6 +4,8 @@ import com.google.common.collect.*;
 import com.idark.valoria.*;
 import com.idark.valoria.core.trades.*;
 import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.entity.ai.brains.HauntedMerchantAI;
+import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.*;
 import net.minecraft.nbt.*;
 import net.minecraft.network.syncher.*;
@@ -16,6 +18,7 @@ import net.minecraft.world.damagesource.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.*;
 import net.minecraft.world.entity.ai.attributes.*;
+import net.minecraft.world.entity.ai.behavior.VillagerGoalPackages;
 import net.minecraft.world.entity.ai.gossip.*;
 import net.minecraft.world.entity.ai.memory.*;
 import net.minecraft.world.entity.ai.navigation.*;
@@ -49,7 +52,7 @@ public class HauntedMerchant extends Monster implements NeutralMob, Enemy, Inven
     private final GossipContainer gossips = new GossipContainer();
     private long lastGossipTime;
     private long lastGossipDecayTime;
-    private static final ImmutableList<MemoryModuleType<?>> MEMORY_TYPES = ImmutableList.of(MemoryModuleType.HOME, MemoryModuleType.NEAREST_LIVING_ENTITIES, MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES, MemoryModuleType.NEAREST_PLAYERS, MemoryModuleType.NEAREST_VISIBLE_PLAYER, MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER, MemoryModuleType.WALK_TARGET, MemoryModuleType.LOOK_TARGET, MemoryModuleType.INTERACTION_TARGET, MemoryModuleType.PATH, MemoryModuleType.DOORS_TO_CLOSE, MemoryModuleType.HURT_BY, MemoryModuleType.HURT_BY_ENTITY, MemoryModuleType.NEAREST_HOSTILE, MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
+    private static final ImmutableList<MemoryModuleType<?>> MEMORY_TYPES = ImmutableList.of(MemoryModuleType.NEAREST_LIVING_ENTITIES, MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES, MemoryModuleType.NEAREST_PLAYERS, MemoryModuleType.NEAREST_VISIBLE_PLAYER, MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER, MemoryModuleType.WALK_TARGET, MemoryModuleType.LOOK_TARGET, MemoryModuleType.INTERACTION_TARGET, MemoryModuleType.PATH, MemoryModuleType.DOORS_TO_CLOSE, MemoryModuleType.HURT_BY, MemoryModuleType.HURT_BY_ENTITY, MemoryModuleType.NEAREST_HOSTILE, MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
     private static final ImmutableList<SensorType<? extends Sensor<? super HauntedMerchant>>> SENSOR_TYPES = ImmutableList.of(SensorType.NEAREST_LIVING_ENTITIES, SensorType.NEAREST_PLAYERS, SensorType.HURT_BY);
     public HauntedMerchant(EntityType<? extends Monster> pEntityType, Level pLevel){
         super(pEntityType, pLevel);
@@ -85,18 +88,16 @@ public class HauntedMerchant extends Monster implements NeutralMob, Enemy, Inven
         return brain;
     }
 
-    public void refreshBrain(ServerLevel pServerLevel) {
-        Brain<HauntedMerchant> brain = this.getBrain();
-        brain.stopAll(pServerLevel, this);
-        this.brain = brain.copyWithoutBehaviors();
-        this.registerBrainGoals(this.getBrain());
-    }
+    //TODO fix prices, idle, stroll, add anims & attacks
+    private void registerBrainGoals(Brain<HauntedMerchant> pBrain) {
+        pBrain.addActivity(Activity.CORE, HauntedMerchantAI.getCorePackage(0.5F));
+        pBrain.addActivity(Activity.IDLE, HauntedMerchantAI.getIdlePackage(0.5F));
+        pBrain.addActivity(Activity.HIDE, HauntedMerchantAI.getHidePackage(0.5F));
 
-    private void registerBrainGoals(Brain<HauntedMerchant> pVillagerBrain) {
-        pVillagerBrain.setCoreActivities(ImmutableSet.of(Activity.CORE));
-        pVillagerBrain.setDefaultActivity(Activity.IDLE);
-        pVillagerBrain.setActiveActivityIfPossible(Activity.IDLE);
-        pVillagerBrain.updateActivityFromSchedule(this.level().getDayTime(), this.level().getGameTime());
+        pBrain.setCoreActivities(ImmutableSet.of(Activity.CORE));
+        pBrain.setDefaultActivity(Activity.IDLE);
+        pBrain.setActiveActivityIfPossible(Activity.IDLE);
+        pBrain.updateActivityFromSchedule(this.level().getDayTime(), this.level().getGameTime());
     }
 
     public boolean shouldDespawnInPeaceful(){
@@ -115,7 +116,7 @@ public class HauntedMerchant extends Monster implements NeutralMob, Enemy, Inven
 
     private void setupAnimationStates(){
         if(this.idleAnimationTimeout <= 0){
-            this.idleAnimationTimeout = this.random.nextInt(20) + 80;
+            this.idleAnimationTimeout = 60;
             this.idleAnimationState.start(this.tickCount);
         }else{
             --this.idleAnimationTimeout;
