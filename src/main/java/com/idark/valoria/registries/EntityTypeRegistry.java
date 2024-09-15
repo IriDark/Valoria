@@ -36,6 +36,12 @@ public class EntityTypeRegistry{
     .clientTrackingRange(8)
     .build(new ResourceLocation(Valoria.ID, "troll").toString()));
 
+    public static final RegistryObject<EntityType<HauntedMerchant>> HAUNTED_MERCHANT = ENTITY_TYPES.register("haunted_merchant",
+    () -> EntityType.Builder.of(HauntedMerchant::new, MobCategory.MISC)
+    .sized(1.2f, 3.0f)
+    .clientTrackingRange(8)
+    .build(new ResourceLocation(Valoria.ID, "haunted_merchant").toString()));
+
     public static final RegistryObject<EntityType<DraugrEntity>> DRAUGR = ENTITY_TYPES.register("draugr",
     () -> EntityType.Builder.of(DraugrEntity::new, MobCategory.CREATURE)
     .sized(0.6f, 2.0f)

@@ -96,6 +96,7 @@ public class ValoriaClient{
             EntityRenderers.register(EntityTypeRegistry.BOAT.get(), m -> new CustomBoatRenderer(m, false));
             EntityRenderers.register(EntityTypeRegistry.CHEST_BOAT.get(), m -> new CustomBoatRenderer(m, true));
 
+            EntityRenderers.register(EntityTypeRegistry.HAUNTED_MERCHANT.get(), HauntedMerchantRenderer::new);
             EntityRenderers.register(EntityTypeRegistry.NECROMANCER.get(), NecromancerRenderer::new);
             EntityRenderers.register(EntityTypeRegistry.DRAUGR.get(), DraugrRenderer::new);
             EntityRenderers.register(EntityTypeRegistry.GOBLIN.get(), GoblinRenderer::new);

@@ -553,6 +553,8 @@ public class ItemsRegistry{
     public static final RegistryObject<Item> SOUL_ARROW = ITEMS.register("soul_arrow",
     () -> new SoulArrowItem(new Item.Properties().rarity(RarityRegistry.AQUARIUS)));
 
+    public static final RegistryObject<ForgeSpawnEggItem> HAUNTED_MERCHANT_SPAWN_EGG = ITEMS.register("haunted_merchant_spawn_egg",
+    () -> new ForgeSpawnEggItem(EntityTypeRegistry.HAUNTED_MERCHANT, ColorUtil.hexToDecimal("2e2732"), ColorUtil.hexToDecimal("e3901d"), new Item.Properties()));
     public static final RegistryObject<ForgeSpawnEggItem> GOBLIN_SPAWN_EGG = ITEMS.register("goblin_spawn_egg",
     () -> new ForgeSpawnEggItem(EntityTypeRegistry.GOBLIN, ColorUtil.hexToDecimal("185b36"), ColorUtil.hexToDecimal("6BB447"), new Item.Properties()));
     public static final RegistryObject<ForgeSpawnEggItem> DRAUGR_SPAWN_EGG = ITEMS.register("draugr_spawn_egg",

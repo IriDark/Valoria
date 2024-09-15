@@ -336,6 +336,7 @@ public abstract class ItemTabRegistry{
             event.accept(ItemsRegistry.SHADEWOOD_SPIDER_SPAWN_EGG);
             event.accept(ItemsRegistry.SUCCUBUS_SPAWN_EGG);
             event.accept(ItemsRegistry.TROLL_SPAWN_EGG);
+            event.accept(ItemsRegistry.HAUNTED_MERCHANT_SPAWN_EGG);
         }
 
         if(event.getTabKey() == ItemTabRegistry.VALORIA_BLOCKS_TAB.getKey()){
