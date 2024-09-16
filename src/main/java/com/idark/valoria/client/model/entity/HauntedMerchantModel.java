@@ -80,6 +80,7 @@ public class HauntedMerchantModel<T extends HauntedMerchant> extends Hierarchica
     @Override
     public void setupAnim(T pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
+        this.animateWalk(HauntedMerchantAnimations.WALK, pLimbSwing, pLimbSwingAmount, 2f, pAgeInTicks);
         this.animate(pEntity.idleAnimationState, HauntedMerchantAnimations.IDLE, pAgeInTicks, 1f);
     }
 

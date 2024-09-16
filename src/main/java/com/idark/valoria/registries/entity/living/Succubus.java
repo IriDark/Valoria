@@ -34,12 +34,13 @@ public class Succubus extends Monster {
     public final AnimationState idleAnimationState = new AnimationState();
     public AnimationState fireballAnimationState = new AnimationState();
     private int idleAnimationTimeout = 0;
-
     public Succubus(EntityType<? extends Monster> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
         this.xpReward = 5;
         this.getNavigation().setCanFloat(false);
         applyOpenDoorsAbility();
+
+        //todo
         this.setPathfindingMalus(BlockPathTypes.LAVA, 8.0F);
         this.setPathfindingMalus(BlockPathTypes.DAMAGE_OTHER, 8.0F);
         this.setPathfindingMalus(BlockPathTypes.POWDER_SNOW, 8.0F);
@@ -59,6 +60,8 @@ public class Succubus extends Monster {
 
     public boolean doHurtTarget(Entity pEntity) {
         this.level().broadcastEntityEvent(this, (byte) 4);
+
+        // placeholder
         this.playSound(SoundEvents.WARDEN_ATTACK_IMPACT, 10.0F, this.getVoicePitch());
         FireRay.setCooldown(this, 40);
         if (pEntity instanceof LivingEntity) {
@@ -129,7 +132,6 @@ public class Succubus extends Monster {
 
         return flag;
     }
-
 
     protected Brain<?> makeBrain(Dynamic<?> pDynamic) {
         return SuccubusAI.makeBrain(this, pDynamic);

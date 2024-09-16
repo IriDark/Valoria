@@ -185,6 +185,7 @@ public class SuccubusAI {
     private static void playActivitySound(Succubus mob) {
         mob.getBrain().getActiveNonCoreActivity().ifPresent((p_35104_) -> {
             if (p_35104_ == Activity.FIGHT) {
+                //todo
 //                mob.playAngrySound();
             }
         });

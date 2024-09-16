@@ -6,9 +6,12 @@ import com.google.common.collect.Sets;
 import com.idark.valoria.Valoria;
 import com.idark.valoria.core.trades.MerchantTrades;
 import com.idark.valoria.core.trades.ReputationTypes;
+import com.idark.valoria.registries.EffectsRegistry;
 import com.idark.valoria.registries.ItemsRegistry;
 import com.idark.valoria.registries.SoundsRegistry;
+import com.idark.valoria.registries.entity.ai.behaviour.FireRay;
 import com.idark.valoria.registries.entity.ai.brains.HauntedMerchantAI;
+import com.idark.valoria.registries.entity.ai.brains.SuccubusAI;
 import com.mojang.serialization.Dynamic;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
@@ -31,6 +34,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -57,6 +61,7 @@ import net.minecraft.world.item.trading.MerchantOffers;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
@@ -79,7 +84,7 @@ public class HauntedMerchant extends Monster implements NeutralMob, Enemy, Inven
     private final GossipContainer gossips = new GossipContainer();
     private long lastGossipTime;
     private long lastGossipDecayTime;
-    private static final ImmutableList<MemoryModuleType<?>> MEMORY_TYPES = ImmutableList.of(MemoryModuleType.NEAREST_LIVING_ENTITIES, MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES, MemoryModuleType.NEAREST_PLAYERS, MemoryModuleType.NEAREST_VISIBLE_PLAYER, MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER, MemoryModuleType.WALK_TARGET, MemoryModuleType.LOOK_TARGET, MemoryModuleType.INTERACTION_TARGET, MemoryModuleType.PATH, MemoryModuleType.DOORS_TO_CLOSE, MemoryModuleType.HURT_BY, MemoryModuleType.HURT_BY_ENTITY, MemoryModuleType.NEAREST_HOSTILE, MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
+    private static final ImmutableList<MemoryModuleType<?>> MEMORY_TYPES = ImmutableList.of(MemoryModuleType.NEAREST_LIVING_ENTITIES, MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES, MemoryModuleType.NEAREST_PLAYERS, MemoryModuleType.NEAREST_VISIBLE_PLAYER, MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER, MemoryModuleType.WALK_TARGET, MemoryModuleType.LOOK_TARGET, MemoryModuleType.INTERACTION_TARGET, MemoryModuleType.PATH, MemoryModuleType.DOORS_TO_CLOSE, MemoryModuleType.HURT_BY, MemoryModuleType.HURT_BY_ENTITY, MemoryModuleType.ATTACK_TARGET, MemoryModuleType.NEAREST_HOSTILE, MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
     private static final ImmutableList<SensorType<? extends Sensor<? super HauntedMerchant>>> SENSOR_TYPES = ImmutableList.of(SensorType.NEAREST_LIVING_ENTITIES, SensorType.NEAREST_PLAYERS, SensorType.HURT_BY);
 
     public HauntedMerchant(EntityType<? extends Monster> pEntityType, Level pLevel) {
@@ -89,14 +94,13 @@ public class HauntedMerchant extends Monster implements NeutralMob, Enemy, Inven
         this.getNavigation().setCanFloat(false);
         this.setPathfindingMalus(BlockPathTypes.LAVA, 8.0F);
         this.setPathfindingMalus(BlockPathTypes.DAMAGE_OTHER, 8.0F);
-        this.setPathfindingMalus(BlockPathTypes.POWDER_SNOW, 8.0F);
         this.setPathfindingMalus(BlockPathTypes.DANGER_FIRE, 16.0F);
         this.setPathfindingMalus(BlockPathTypes.DAMAGE_FIRE, -1.0F);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
         return Monster.createMonsterAttributes()
-                .add(Attributes.MOVEMENT_SPEED, 0.25)
+                .add(Attributes.MOVEMENT_SPEED, 0.32)
                 .add(Attributes.MAX_HEALTH, 40.0D)
                 .add(Attributes.ATTACK_DAMAGE, 6.0D)
                 .add(Attributes.FOLLOW_RANGE, 12.0D);
@@ -145,6 +149,22 @@ public class HauntedMerchant extends Monster implements NeutralMob, Enemy, Inven
     }
 
     @Override
+    protected void customServerAiStep() {
+        ServerLevel serverlevel = (ServerLevel) this.level();
+        serverlevel.getProfiler().push("hauntedMerchantBrain");
+        this.getBrain().tick(serverlevel, this);
+        this.level().getProfiler().pop();
+        HauntedMerchantAI.updateActivity(this);
+        if (this.lastTradedPlayer != null && this.level() instanceof ServerLevel) {
+            ((ServerLevel) this.level()).onReputationEvent(ReputationEventType.TRADE, this.lastTradedPlayer, this);
+            this.level().broadcastEntityEvent(this, (byte) 14);
+            this.lastTradedPlayer = null;
+        }
+
+        super.customServerAiStep();
+    }
+
+    @Override
     public void tick() {
         super.tick();
         if (this.level().isClientSide()) {
@@ -163,17 +183,6 @@ public class HauntedMerchant extends Monster implements NeutralMob, Enemy, Inven
         }
     }
 
-    @Override
-    protected void customServerAiStep() {
-        if (this.lastTradedPlayer != null && this.level() instanceof ServerLevel) {
-            ((ServerLevel) this.level()).onReputationEvent(ReputationEventType.TRADE, this.lastTradedPlayer, this);
-            this.level().broadcastEntityEvent(this, (byte) 14);
-            this.lastTradedPlayer = null;
-        }
-
-        super.customServerAiStep();
-    }
-
     public MobType getMobType() {
         return MobType.UNDEAD;
     }
@@ -183,6 +192,29 @@ public class HauntedMerchant extends Monster implements NeutralMob, Enemy, Inven
         RandomSource randomsource = pLevel.getRandom();
         this.populateDefaultEquipmentSlots(randomsource, pDifficulty);
         return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
+    }
+
+    public void setAttackTarget(LivingEntity pAttackTarget) {
+        this.getBrain().setMemory(MemoryModuleType.ATTACK_TARGET, pAttackTarget);
+        this.getBrain().eraseMemory(MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
+    }
+
+    public boolean hurt(DamageSource pSource, float pAmount) {
+        boolean flag = super.hurt(pSource, pAmount);
+        if (!this.level().isClientSide && !this.isNoAi()) {
+            Entity entity = pSource.getEntity();
+            if (flag && pSource.getEntity() instanceof LivingEntity) {
+                HauntedMerchantAI.wasHurtBy(this, (LivingEntity) pSource.getEntity());
+            }
+
+            if (this.brain.getMemory(MemoryModuleType.ATTACK_TARGET).isEmpty() && entity instanceof LivingEntity livingentity) {
+                if (!pSource.isIndirect() || this.closerThan(livingentity, 5.0D)) {
+                    this.setAttackTarget(livingentity);
+                }
+            }
+        }
+
+        return flag;
     }
 
     public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
@@ -209,6 +241,17 @@ public class HauntedMerchant extends Monster implements NeutralMob, Enemy, Inven
             double d2 = this.random.nextGaussian() * 0.02D;
             this.level().addParticle(pParticleOption, this.getRandomX(1.0D), this.getRandomY() + 1.0D, this.getRandomZ(1.0D), d0, d1, d2);
         }
+    }
+
+    public boolean doHurtTarget(Entity pEntity) {
+        this.level().broadcastEntityEvent(this, (byte) 4);
+        this.playSound(SoundsRegistry.HAUNTED_MERCHANT_MELEE.get(), 1.0F, this.getVoicePitch());
+        return super.doHurtTarget(pEntity);
+    }
+
+    @Nullable
+    public LivingEntity getTarget() {
+        return this.brain.getMemory(MemoryModuleType.ATTACK_TARGET).orElse(null);
     }
 
     public void handleEntityEvent(byte pId) {
