@@ -61,6 +61,7 @@ import net.minecraft.world.item.trading.MerchantOffers;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.Nullable;
 
@@ -70,6 +71,7 @@ import java.util.UUID;
 
 public class HauntedMerchant extends Monster implements NeutralMob, Enemy, InventoryCarrier, ReputationEventHandler, Merchant {
     public final AnimationState idleAnimationState = new AnimationState();
+    public final AnimationState meleeAttackAnimationState = new AnimationState();
     private int idleAnimationTimeout = 0;
     @Nullable
     public UUID persistentAngerTarget;
@@ -84,9 +86,8 @@ public class HauntedMerchant extends Monster implements NeutralMob, Enemy, Inven
     private final GossipContainer gossips = new GossipContainer();
     private long lastGossipTime;
     private long lastGossipDecayTime;
-    private static final ImmutableList<MemoryModuleType<?>> MEMORY_TYPES = ImmutableList.of(MemoryModuleType.NEAREST_LIVING_ENTITIES, MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES, MemoryModuleType.NEAREST_PLAYERS, MemoryModuleType.NEAREST_VISIBLE_PLAYER, MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER, MemoryModuleType.WALK_TARGET, MemoryModuleType.LOOK_TARGET, MemoryModuleType.INTERACTION_TARGET, MemoryModuleType.PATH, MemoryModuleType.DOORS_TO_CLOSE, MemoryModuleType.HURT_BY, MemoryModuleType.HURT_BY_ENTITY, MemoryModuleType.ATTACK_TARGET, MemoryModuleType.NEAREST_HOSTILE, MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
+    private static final ImmutableList<MemoryModuleType<?>> MEMORY_TYPES = ImmutableList.of(MemoryModuleType.NEAREST_LIVING_ENTITIES, MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES, MemoryModuleType.NEAREST_PLAYERS, MemoryModuleType.NEAREST_VISIBLE_PLAYER, MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER, MemoryModuleType.NEAREST_VISIBLE_NEMESIS, MemoryModuleType.WALK_TARGET, MemoryModuleType.LOOK_TARGET, MemoryModuleType.INTERACTION_TARGET, MemoryModuleType.PATH, MemoryModuleType.HURT_BY, MemoryModuleType.HURT_BY_ENTITY, MemoryModuleType.ATTACK_TARGET, MemoryModuleType.ANGRY_AT, MemoryModuleType.NEAREST_HOSTILE, MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
     private static final ImmutableList<SensorType<? extends Sensor<? super HauntedMerchant>>> SENSOR_TYPES = ImmutableList.of(SensorType.NEAREST_LIVING_ENTITIES, SensorType.NEAREST_PLAYERS, SensorType.HURT_BY);
-
     public HauntedMerchant(EntityType<? extends Monster> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
         this.xpReward = 5;
@@ -100,7 +101,7 @@ public class HauntedMerchant extends Monster implements NeutralMob, Enemy, Inven
 
     public static AttributeSupplier.Builder createAttributes() {
         return Monster.createMonsterAttributes()
-                .add(Attributes.MOVEMENT_SPEED, 0.32)
+                .add(Attributes.MOVEMENT_SPEED, 0.5)
                 .add(Attributes.MAX_HEALTH, 40.0D)
                 .add(Attributes.ATTACK_DAMAGE, 6.0D)
                 .add(Attributes.FOLLOW_RANGE, 12.0D);
@@ -132,15 +133,24 @@ public class HauntedMerchant extends Monster implements NeutralMob, Enemy, Inven
         DebugPackets.sendEntityBrain(this);
     }
 
-    //TODO stroll, add anims & attacks
-    private void registerBrainGoals(Brain<HauntedMerchant> pBrain) {
-        pBrain.addActivity(Activity.CORE, HauntedMerchantAI.getCorePackage(0.5F));
-        pBrain.addActivity(Activity.IDLE, HauntedMerchantAI.getIdlePackage(0.5F));
-        pBrain.addActivity(Activity.HIDE, HauntedMerchantAI.getHidePackage(0.5F));
+    public void handleEntityEvent(byte pId) {
+        if (pId == 4) this.meleeAttackAnimationState.start(this.tickCount);
+        if (pId == 13) this.addParticlesAroundSelf(ParticleTypes.FLAME);
+        if (pId == 14) this.addParticlesAroundSelf(ParticleTypes.HAPPY_VILLAGER);
+        super.handleEntityEvent(pId);
+    }
 
+    //TODO ranged attacks & fix targeting, try to figure out how the new ai system even works...
+    private void registerBrainGoals(Brain<HauntedMerchant> pBrain) {
+        HauntedMerchantAI.initFightActivity(this, pBrain);
         pBrain.setCoreActivities(ImmutableSet.of(Activity.CORE));
         pBrain.setDefaultActivity(Activity.IDLE);
         pBrain.setActiveActivityIfPossible(Activity.IDLE);
+        pBrain.useDefaultActivity();
+
+        pBrain.addActivity(Activity.CORE, HauntedMerchantAI.getCorePackage(0.5F));
+        pBrain.addActivity(Activity.IDLE, HauntedMerchantAI.getIdlePackage(0.5F));
+        pBrain.addActivity(Activity.HIDE, HauntedMerchantAI.getHidePackage(0.5F));
         pBrain.updateActivityFromSchedule(this.level().getDayTime(), this.level().getGameTime());
     }
 
@@ -192,6 +202,15 @@ public class HauntedMerchant extends Monster implements NeutralMob, Enemy, Inven
         RandomSource randomsource = pLevel.getRandom();
         this.populateDefaultEquipmentSlots(randomsource, pDifficulty);
         return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
+    }
+
+    @Contract("null->false")
+    public boolean canTargetEntity(@Nullable Entity p_219386_) {
+        if (p_219386_ instanceof LivingEntity livingentity) {
+            return this.level() == p_219386_.level() && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(p_219386_) && !this.isAlliedTo(p_219386_) && livingentity.getType() != EntityType.ARMOR_STAND && livingentity.getType() != EntityType.WARDEN && !livingentity.isInvulnerable() && !livingentity.isDeadOrDying() && this.level().getWorldBorder().isWithinBounds(livingentity.getBoundingBox());
+        }
+
+        return false;
     }
 
     public void setAttackTarget(LivingEntity pAttackTarget) {
@@ -252,17 +271,6 @@ public class HauntedMerchant extends Monster implements NeutralMob, Enemy, Inven
     @Nullable
     public LivingEntity getTarget() {
         return this.brain.getMemory(MemoryModuleType.ATTACK_TARGET).orElse(null);
-    }
-
-    public void handleEntityEvent(byte pId) {
-        if (pId == 13) {
-            this.addParticlesAroundSelf(ParticleTypes.FLAME);
-        } else if (pId == 14) {
-            this.addParticlesAroundSelf(ParticleTypes.HAPPY_VILLAGER);
-        } else {
-            super.handleEntityEvent(pId);
-        }
-
     }
 
     public SoundEvent getNotifyTradeSound() {

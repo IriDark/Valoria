@@ -28,7 +28,6 @@ import java.util.Optional;
 public class SuccubusAI {
     protected static final ImmutableList<MemoryModuleType<?>> MEMORY_TYPES = ImmutableList.of(MemoryModuleType.LOOK_TARGET, MemoryModuleType.DOORS_TO_CLOSE, MemoryModuleType.NEAREST_LIVING_ENTITIES, MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES, MemoryModuleType.NEAREST_VISIBLE_PLAYER, MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER, MemoryModuleType.HURT_BY, MemoryModuleType.HURT_BY_ENTITY, MemoryModuleType.WALK_TARGET, MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE, MemoryModuleType.ATTACK_TARGET, MemoryModuleType.SONIC_BOOM_COOLDOWN, MemoryModuleType.SONIC_BOOM_SOUND_COOLDOWN, MemoryModuleType.SONIC_BOOM_SOUND_DELAY, MemoryModuleType.ATTACK_COOLING_DOWN, MemoryModuleType.INTERACTION_TARGET, MemoryModuleType.PATH, MemoryModuleType.ANGRY_AT, MemoryModuleType.NEAREST_VISIBLE_NEMESIS, MemoryModuleType.HOME);
     protected static final ImmutableList<SensorType<? extends Sensor<? super Succubus>>> SENSOR_TYPES = ImmutableList.of(SensorType.NEAREST_LIVING_ENTITIES, SensorType.NEAREST_PLAYERS, SensorType.HURT_BY, SensorTypes.SUCCUBUS_SPECIFIC_SENSOR.get());
-
     public static Brain<?> makeBrain(Succubus pMob, Dynamic<?> pOps) {
         Brain.Provider<Succubus> provider = Brain.provider(MEMORY_TYPES, SENSOR_TYPES);
         Brain<Succubus> brain = provider.makeBrain(pOps);
@@ -55,16 +54,16 @@ public class SuccubusAI {
         pBrain.addActivity(Activity.IDLE, 10, ImmutableList.of(StartAttacking.create(SuccubusAI::findNearestValidAttackTarget), createIdleLookBehaviors(), createIdleMovementBehaviors(), SetLookAndInteract.create(EntityType.PLAYER, 4)));
     }
 
-    private static void initFightActivity(Succubus pWarden, Brain<Succubus> pBrain) {
+    private static void initFightActivity(Succubus pMob, Brain<Succubus> pBrain) {
         pBrain.addActivityAndRemoveMemoryWhenStopped(Activity.FIGHT, 10, ImmutableList.of(StopAttackingIfTargetInvalid.create((p_219540_) -> {
-            return !pWarden.canTargetEntity(p_219540_);
+            return !pMob.canTargetEntity(p_219540_);
         }), SetEntityLookTarget.create((p_219535_) -> {
-            return isTarget(pWarden, p_219535_);
-        }, (float) pWarden.getAttributeValue(Attributes.FOLLOW_RANGE)), SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(1.2F), new FireRay(), MeleeAttack.create(18)), MemoryModuleType.ATTACK_TARGET);
+            return isTarget(pMob, p_219535_);
+        }, (float) pMob.getAttributeValue(Attributes.FOLLOW_RANGE)), SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(1.2F), new FireRay(), MeleeAttack.create(18)), MemoryModuleType.ATTACK_TARGET);
     }
 
-    private static boolean isTarget(Succubus pWarden, LivingEntity pEntity) {
-        return pWarden.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).filter((p_219509_) -> p_219509_ == pEntity).isPresent();
+    private static boolean isTarget(Succubus pMob, LivingEntity pEntity) {
+        return pMob.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).filter((p_219509_) -> p_219509_ == pEntity).isPresent();
     }
 
 //    private static void initFightActivity(Succubus mob, Brain<Succubus> pBrain) {

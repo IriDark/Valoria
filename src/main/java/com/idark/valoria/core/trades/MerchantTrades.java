@@ -24,7 +24,8 @@ public class MerchantTrades {
                 new ItemsForItem(ItemsRegistry.WRAITH_KATANA.get(), ItemsRegistry.CANDY_CORN.get(), 12, 1, 4),
                 new ItemsForItem(ItemsRegistry.DREAD_AXE.get(), ItemsRegistry.CANDY_CORN.get(), 14, 1, 2),
                 new ItemsForItem(ItemsRegistry.REAPER_SCYTHE.get(), ItemsRegistry.CANDY_CORN.get(), 24, 1, 6),
-                new ItemsForItem(ItemsRegistry.SOUL_REAVER.get(), ItemsRegistry.CANDY_CORN.get(), 18, 1, 2)
+                new ItemsForItem(ItemsRegistry.SOUL_REAVER.get(), ItemsRegistry.CANDY_CORN.get(), 18, 1, 2),
+                new ItemsForItem(ItemsRegistry.PUMPKIN_BOMB.get(), ItemsRegistry.CANDY_CORN.get(), 8, 16, 1)
         };
     }
 

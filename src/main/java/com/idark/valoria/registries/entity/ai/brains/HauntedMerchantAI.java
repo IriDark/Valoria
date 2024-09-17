@@ -5,13 +5,12 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.idark.valoria.registries.entity.ai.behaviour.TradeWithMerchant;
 import com.idark.valoria.registries.entity.ai.behaviour.TradingBehaviour;
-import com.idark.valoria.registries.entity.ai.memory.MemoryModules;
 import com.idark.valoria.registries.entity.living.HauntedMerchant;
-import com.idark.valoria.registries.entity.living.Succubus;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.Brain;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.behavior.*;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.sensing.Sensor;
@@ -19,13 +18,13 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.schedule.Activity;
 import net.minecraft.world.level.GameRules;
 
-import java.util.List;
 import java.util.Optional;
 
 public class HauntedMerchantAI {
     public static ImmutableList<Pair<Integer, ? extends BehaviorControl<? super HauntedMerchant>>> getCorePackage(float pSpeedModifier) {
         return ImmutableList.of(
                 Pair.of(0, InteractWithDoor.create()),
+                Pair.of(0, StopBeingAngryIfTargetDead.create()),
                 Pair.of(1, new LookAtTargetSink(45, 90)),
                 Pair.of(2, new MoveToTargetSink()),
                 Pair.of(3, new TradingBehaviour(pSpeedModifier))
@@ -42,16 +41,28 @@ public class HauntedMerchantAI {
         }
     }
 
+    private static Optional<? extends LivingEntity> findNearestValidAttackTarget(HauntedMerchant p_35087_) {
+        Optional<LivingEntity> optional = BehaviorUtils.getLivingEntityFromUUIDMemory(p_35087_, MemoryModuleType.ANGRY_AT);
+        if (optional.isPresent() && Sensor.isEntityAttackableIgnoringLineOfSight(p_35087_, optional.get())) {
+            return optional;
+        } else {
+            Optional<? extends LivingEntity> optional1 = getTargetIfWithinRange(p_35087_, MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER);
+            return optional1.isPresent() ? optional1 : p_35087_.getBrain().getMemory(MemoryModuleType.NEAREST_VISIBLE_NEMESIS);
+        }
+    }
+
+    private static Optional<? extends LivingEntity> getTargetIfWithinRange(HauntedMerchant mob, MemoryModuleType<? extends LivingEntity> pMemoryType) {
+        return mob.getBrain().getMemory(pMemoryType).filter((p_35108_) -> p_35108_.closerThan(mob, 12.0D));
+    }
+
     public static void wasHurtBy(HauntedMerchant mob, LivingEntity pTarget) {
         if (!(pTarget instanceof HauntedMerchant)) {
-            if (!mob.getBrain().isActive(Activity.AVOID)) {
-                if (Sensor.isEntityAttackableIgnoringLineOfSight(mob, pTarget)) {
-                    if (!BehaviorUtils.isOtherTargetMuchFurtherAwayThanCurrentAttackTarget(mob, pTarget, 4.0D)) {
-                        if (pTarget.getType() == EntityType.PLAYER && mob.level().getGameRules().getBoolean(GameRules.RULE_UNIVERSAL_ANGER)) {
-                            setAngerTargetToNearestTargetablePlayerIfFound(mob, pTarget);
-                        } else {
-                            setAngerTarget(mob, pTarget);
-                        }
+            if (Sensor.isEntityAttackableIgnoringLineOfSight(mob, pTarget)) {
+                if (!BehaviorUtils.isOtherTargetMuchFurtherAwayThanCurrentAttackTarget(mob, pTarget, 4.0D)) {
+                    if (pTarget.getType() == EntityType.PLAYER && mob.level().getGameRules().getBoolean(GameRules.RULE_UNIVERSAL_ANGER)) {
+                        setAngerTargetToNearestTargetablePlayerIfFound(mob, pTarget);
+                    } else {
+                        setAngerTarget(mob, pTarget);
                     }
                 }
             }
@@ -81,14 +92,22 @@ public class HauntedMerchantAI {
         return ImmutableList.of(Pair.of(0, SetHiddenState.create(15, 3)), Pair.of(1, LocateHidingPlace.create(32, pSpeedModifier * 1.25F, 2)), getMinimalLookBehavior());
     }
 
+    public static void initFightActivity(HauntedMerchant pMob, Brain<HauntedMerchant> pBrain) {
+        pBrain.addActivityAndRemoveMemoryWhenStopped(Activity.FIGHT, 1, ImmutableList.of(StopAttackingIfTargetInvalid.create((p_219540_) -> !pMob.canTargetEntity(p_219540_)), SetEntityLookTarget.create((p_219535_) -> isTarget(pMob, p_219535_), (float) pMob.getAttributeValue(Attributes.FOLLOW_RANGE)), SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(1F), MeleeAttack.create(20)), MemoryModuleType.ATTACK_TARGET);
+    }
+
+    public static boolean isTarget(HauntedMerchant pMob, LivingEntity pEntity) {
+        return pMob.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).filter((p_219509_) -> p_219509_ == pEntity).isPresent();
+    }
+
     public static ImmutableList<Pair<Integer, ? extends BehaviorControl<? super HauntedMerchant>>> getIdlePackage(float pSpeedModifier) {
         return ImmutableList.of(
+                Pair.of(0, StartAttacking.create(HauntedMerchantAI::findNearestValidAttackTarget)),
                 Pair.of(0, new RunOne<>(ImmutableList.of(
                         Pair.of(InteractWith.of(EntityType.CAT, 8, MemoryModuleType.INTERACTION_TARGET, pSpeedModifier, 2), 1),
                         Pair.of(RandomStroll.stroll(pSpeedModifier), 1),
                         Pair.of(SetWalkTargetFromLookTarget.create(pSpeedModifier, 2), 1),
                         Pair.of(new DoNothing(30, 60), 1)))),
-
                 Pair.of(1, SetLookAndInteract.create(EntityType.PLAYER, 4)),
                 Pair.of(2, new GateBehavior<>(ImmutableMap.of(), ImmutableSet.of(MemoryModuleType.INTERACTION_TARGET), GateBehavior.OrderPolicy.ORDERED, GateBehavior.RunningPolicy.RUN_ONE, ImmutableList.of(
                         Pair.of(new TradeWithMerchant(), 1)))),
