@@ -171,7 +171,6 @@ public class RenderUtils {
 
     /**
      * This code belongs to its author, and licensed under GPL-2.0 license
-     *
      * @author MaxBogomol
      */
     @Deprecated(forRemoval = true, since = "0.6b")
@@ -181,7 +180,6 @@ public class RenderUtils {
 
     /**
      * This code belongs to its author, and licensed under GPL-2.0 license
-     *
      * @author MaxBogomol
      */
     @Deprecated(forRemoval = true, since = "0.6b")

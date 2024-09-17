@@ -162,6 +162,7 @@
   "enchantment.valoria.radius.desc": "Increases radius for radius attack abilities",
   "itemGroup.valoriaModTab": "Valoria - Main",
   "itemGroup.valoriaBlocksModTab": "Valoria - Blocks",
+  "entity.valoria.haunted_merchant": "Haunted Merchant",
   "entity.valoria.swamp_wanderer": "Swamp Wanderer",
   "entity.valoria.mannequin": "Mannequin",
   "entity.valoria.goblin": "Goblin",

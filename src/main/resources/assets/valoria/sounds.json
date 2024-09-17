@@ -84,7 +84,8 @@
     "replace": "true",
     "sounds": [
       "valoria:goblin/death1",
-      "valoria:goblin/death2"
+      "valoria:goblin/death2",
+      "valoria:goblin/death3"
     ]
   },
   "mob.troll.disappear": {

@@ -165,8 +165,8 @@ public class HauntedMerchant extends Monster implements NeutralMob, Enemy, Inven
         this.getBrain().tick(serverlevel, this);
         this.level().getProfiler().pop();
         HauntedMerchantAI.updateActivity(this);
-        if (this.lastTradedPlayer != null && this.level() instanceof ServerLevel) {
-            ((ServerLevel) this.level()).onReputationEvent(ReputationEventType.TRADE, this.lastTradedPlayer, this);
+        if (this.lastTradedPlayer != null) {
+            serverlevel.onReputationEvent(ReputationEventType.TRADE, this.lastTradedPlayer, this);
             this.level().broadcastEntityEvent(this, (byte) 14);
             this.lastTradedPlayer = null;
         }
@@ -222,13 +222,12 @@ public class HauntedMerchant extends Monster implements NeutralMob, Enemy, Inven
         boolean flag = super.hurt(pSource, pAmount);
         if (!this.level().isClientSide && !this.isNoAi()) {
             Entity entity = pSource.getEntity();
-            if (flag && pSource.getEntity() instanceof LivingEntity) {
-                HauntedMerchantAI.wasHurtBy(this, (LivingEntity) pSource.getEntity());
-            }
-
-            if (this.brain.getMemory(MemoryModuleType.ATTACK_TARGET).isEmpty() && entity instanceof LivingEntity livingentity) {
-                if (!pSource.isIndirect() || this.closerThan(livingentity, 5.0D)) {
-                    this.setAttackTarget(livingentity);
+            if(entity instanceof LivingEntity living) {
+                HauntedMerchantAI.wasHurtBy(this, living);
+                if (this.brain.getMemory(MemoryModuleType.ATTACK_TARGET).isEmpty()) {
+                    if (!pSource.isIndirect() || this.closerThan(living, 5.0D)) {
+                        this.setAttackTarget(living);
+                    }
                 }
             }
         }
@@ -238,23 +237,20 @@ public class HauntedMerchant extends Monster implements NeutralMob, Enemy, Inven
 
     public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
         ItemStack itemstack = pPlayer.getItemInHand(pHand);
-        if (!itemstack.is(ItemsRegistry.HAUNTED_MERCHANT_SPAWN_EGG.get()) && this.isAlive() && !this.isTrading() && !this.isBaby()) {
-            if (this.getOffers().isEmpty()) {
-                return InteractionResult.sidedSuccess(this.level().isClientSide);
-            } else {
-                if (!this.level().isClientSide) {
-                    this.startTrading(pPlayer);
-                }
-
-                return InteractionResult.sidedSuccess(this.level().isClientSide);
+        boolean isClientside = this.level().isClientSide;
+        if (!itemstack.is(ItemsRegistry.HAUNTED_MERCHANT_SPAWN_EGG.get()) && this.isAlive() && !this.isTrading()) {
+            if (!this.getOffers().isEmpty() && !isClientside) {
+                this.startTrading(pPlayer);
             }
+
+            return InteractionResult.sidedSuccess(isClientside);
         } else {
             return super.mobInteract(pPlayer, pHand);
         }
     }
 
     protected void addParticlesAroundSelf(ParticleOptions pParticleOption) {
-        for (int i = 0; i < 5; ++i) {
+        for (int i = 0; i < 4; ++i) {
             double d0 = this.random.nextGaussian() * 0.02D;
             double d1 = this.random.nextGaussian() * 0.02D;
             double d2 = this.random.nextGaussian() * 0.02D;
@@ -366,7 +362,7 @@ public class HauntedMerchant extends Monster implements NeutralMob, Enemy, Inven
     }
 
     public void die(DamageSource pCause) {
-        Valoria.LOGGER.info("Merchant {} died, message: '{}'", this, pCause.getLocalizedDeathMessage(this).getString());
+        Valoria.LOGGER.info("Merchant: {} died, message: '{}'", this, pCause.getLocalizedDeathMessage(this).getString());
         Entity entity = pCause.getEntity();
         if (entity != null) {
             this.tellWitnessesThatIWasMurdered(entity);
