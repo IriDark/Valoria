@@ -1,34 +1,29 @@
 package com.idark.valoria.registries.entity.living;
 
-import com.idark.valoria.client.particle.ParticleRegistry;
-import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.ByIdMap;
-import net.minecraft.util.Mth;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.level.Level;
-import org.joml.Vector3d;
-import team.lodestar.lodestone.systems.particle.builder.WorldParticleBuilder;
-import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
-import team.lodestar.lodestone.systems.particle.data.color.ColorParticleData;
-import team.lodestar.lodestone.systems.particle.data.spin.SpinParticleData;
+import com.idark.valoria.client.particle.*;
+import net.minecraft.core.*;
+import net.minecraft.nbt.*;
+import net.minecraft.network.syncher.*;
+import net.minecraft.sounds.*;
+import net.minecraft.util.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.monster.*;
+import net.minecraft.world.level.*;
+import org.joml.*;
+import team.lodestar.lodestone.systems.particle.builder.*;
+import team.lodestar.lodestone.systems.particle.data.*;
+import team.lodestar.lodestone.systems.particle.data.color.*;
+import team.lodestar.lodestone.systems.particle.data.spin.*;
 
-import javax.annotation.Nullable;
+import javax.annotation.*;
 import java.awt.*;
-import java.util.EnumSet;
+import java.lang.Math;
 import java.util.Random;
-import java.util.function.IntFunction;
+import java.util.*;
+import java.util.function.*;
 
 public abstract class AbstractNecromancer extends Monster {
-
     private static final EntityDataAccessor<Byte> DATA_SPELL_CASTING_ID = SynchedEntityData.defineId(AbstractNecromancer.class, EntityDataSerializers.BYTE);
     protected int spellCastingTickCount;
     private NecromancerSpells currentSpell = NecromancerSpells.NONE;

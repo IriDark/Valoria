@@ -1,73 +1,40 @@
 package com.idark.valoria.registries.entity.living;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Sets;
-import com.idark.valoria.Valoria;
-import com.idark.valoria.core.trades.MerchantTrades;
-import com.idark.valoria.core.trades.ReputationTypes;
-import com.idark.valoria.registries.EffectsRegistry;
-import com.idark.valoria.registries.ItemsRegistry;
-import com.idark.valoria.registries.SoundsRegistry;
-import com.idark.valoria.registries.entity.ai.behaviour.FireRay;
-import com.idark.valoria.registries.entity.ai.brains.HauntedMerchantAI;
-import com.idark.valoria.registries.entity.ai.brains.SuccubusAI;
-import com.mojang.serialization.Dynamic;
-import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.NbtOps;
-import net.minecraft.network.protocol.game.DebugPackets;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.Mth;
-import net.minecraft.util.RandomSource;
-import net.minecraft.util.TimeUtil;
-import net.minecraft.util.valueproviders.UniformInt;
-import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.SimpleContainer;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffectInstance;
+import com.google.common.collect.*;
+import com.idark.valoria.*;
+import com.idark.valoria.core.trades.*;
+import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.entity.ai.brains.*;
+import com.mojang.serialization.*;
+import net.minecraft.core.particles.*;
+import net.minecraft.nbt.*;
+import net.minecraft.network.protocol.game.*;
+import net.minecraft.network.syncher.*;
+import net.minecraft.server.level.*;
+import net.minecraft.sounds.*;
+import net.minecraft.util.*;
+import net.minecraft.util.valueproviders.*;
+import net.minecraft.world.*;
+import net.minecraft.world.damagesource.*;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.Brain;
-import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.gossip.GossipContainer;
-import net.minecraft.world.entity.ai.gossip.GossipType;
-import net.minecraft.world.entity.ai.memory.MemoryModuleType;
-import net.minecraft.world.entity.ai.memory.NearestVisibleLivingEntities;
-import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
-import net.minecraft.world.entity.ai.sensing.Sensor;
-import net.minecraft.world.entity.ai.sensing.SensorType;
-import net.minecraft.world.entity.ai.village.ReputationEventType;
-import net.minecraft.world.entity.monster.Enemy;
-import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.npc.InventoryCarrier;
-import net.minecraft.world.entity.npc.Villager;
-import net.minecraft.world.entity.npc.VillagerTrades;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.schedule.Activity;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.trading.Merchant;
-import net.minecraft.world.item.trading.MerchantOffer;
-import net.minecraft.world.item.trading.MerchantOffers;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
-import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.Nullable;
+import net.minecraft.world.entity.ai.*;
+import net.minecraft.world.entity.ai.attributes.*;
+import net.minecraft.world.entity.ai.gossip.*;
+import net.minecraft.world.entity.ai.memory.*;
+import net.minecraft.world.entity.ai.navigation.*;
+import net.minecraft.world.entity.ai.sensing.*;
+import net.minecraft.world.entity.ai.village.*;
+import net.minecraft.world.entity.monster.*;
+import net.minecraft.world.entity.npc.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.entity.schedule.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.item.trading.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.pathfinder.*;
+import org.jetbrains.annotations.*;
 
-import java.util.Optional;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 public class HauntedMerchant extends Monster implements NeutralMob, Enemy, InventoryCarrier, ReputationEventHandler, Merchant {
     public final AnimationState idleAnimationState = new AnimationState();
@@ -86,13 +53,14 @@ public class HauntedMerchant extends Monster implements NeutralMob, Enemy, Inven
     private final GossipContainer gossips = new GossipContainer();
     private long lastGossipTime;
     private long lastGossipDecayTime;
-    private static final ImmutableList<MemoryModuleType<?>> MEMORY_TYPES = ImmutableList.of(MemoryModuleType.NEAREST_LIVING_ENTITIES, MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES, MemoryModuleType.NEAREST_PLAYERS, MemoryModuleType.NEAREST_VISIBLE_PLAYER, MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER, MemoryModuleType.NEAREST_VISIBLE_NEMESIS, MemoryModuleType.WALK_TARGET, MemoryModuleType.LOOK_TARGET, MemoryModuleType.INTERACTION_TARGET, MemoryModuleType.PATH, MemoryModuleType.HURT_BY, MemoryModuleType.HURT_BY_ENTITY, MemoryModuleType.ATTACK_TARGET, MemoryModuleType.ANGRY_AT, MemoryModuleType.NEAREST_HOSTILE, MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
+    private static final ImmutableList<MemoryModuleType<?>> MEMORY_TYPES = ImmutableList.of(MemoryModuleType.NEAREST_LIVING_ENTITIES, MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES, MemoryModuleType.NEAREST_PLAYERS, MemoryModuleType.NEAREST_VISIBLE_PLAYER, MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER, MemoryModuleType.NEAREST_VISIBLE_NEMESIS, MemoryModuleType.WALK_TARGET, MemoryModuleType.LOOK_TARGET, MemoryModuleType.INTERACTION_TARGET, MemoryModuleType.PATH, MemoryModuleType.DOORS_TO_CLOSE, MemoryModuleType.HURT_BY, MemoryModuleType.HURT_BY_ENTITY, MemoryModuleType.ATTACK_TARGET, MemoryModuleType.ANGRY_AT, MemoryModuleType.NEAREST_HOSTILE, MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
     private static final ImmutableList<SensorType<? extends Sensor<? super HauntedMerchant>>> SENSOR_TYPES = ImmutableList.of(SensorType.NEAREST_LIVING_ENTITIES, SensorType.NEAREST_PLAYERS, SensorType.HURT_BY);
     public HauntedMerchant(EntityType<? extends Monster> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
         this.xpReward = 5;
-        ((GroundPathNavigation) this.getNavigation()).setCanOpenDoors(true);
-        this.getNavigation().setCanFloat(false);
+        ((GroundPathNavigation)this.getNavigation()).setCanOpenDoors(true);
+        this.getNavigation().setCanFloat(true);
+
         this.setPathfindingMalus(BlockPathTypes.LAVA, 8.0F);
         this.setPathfindingMalus(BlockPathTypes.DAMAGE_OTHER, 8.0F);
         this.setPathfindingMalus(BlockPathTypes.DANGER_FIRE, 16.0F);
@@ -143,15 +111,15 @@ public class HauntedMerchant extends Monster implements NeutralMob, Enemy, Inven
     //TODO ranged attacks & fix targeting, try to figure out how the new ai system even works...
     private void registerBrainGoals(Brain<HauntedMerchant> pBrain) {
         HauntedMerchantAI.initFightActivity(this, pBrain);
-        pBrain.setCoreActivities(ImmutableSet.of(Activity.CORE));
         pBrain.setDefaultActivity(Activity.IDLE);
         pBrain.setActiveActivityIfPossible(Activity.IDLE);
-        pBrain.useDefaultActivity();
+        pBrain.setCoreActivities(ImmutableSet.of(Activity.CORE));
 
         pBrain.addActivity(Activity.CORE, HauntedMerchantAI.getCorePackage(0.5F));
         pBrain.addActivity(Activity.IDLE, HauntedMerchantAI.getIdlePackage(0.5F));
         pBrain.addActivity(Activity.HIDE, HauntedMerchantAI.getHidePackage(0.5F));
         pBrain.updateActivityFromSchedule(this.level().getDayTime(), this.level().getGameTime());
+        pBrain.useDefaultActivity();
     }
 
     public boolean shouldDespawnInPeaceful() {
@@ -202,15 +170,6 @@ public class HauntedMerchant extends Monster implements NeutralMob, Enemy, Inven
         RandomSource randomsource = pLevel.getRandom();
         this.populateDefaultEquipmentSlots(randomsource, pDifficulty);
         return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
-    }
-
-    @Contract("null->false")
-    public boolean canTargetEntity(@Nullable Entity p_219386_) {
-        if (p_219386_ instanceof LivingEntity livingentity) {
-            return this.level() == p_219386_.level() && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(p_219386_) && !this.isAlliedTo(p_219386_) && livingentity.getType() != EntityType.ARMOR_STAND && livingentity.getType() != EntityType.WARDEN && !livingentity.isInvulnerable() && !livingentity.isDeadOrDying() && this.level().getWorldBorder().isWithinBounds(livingentity.getBoundingBox());
-        }
-
-        return false;
     }
 
     public void setAttackTarget(LivingEntity pAttackTarget) {

@@ -1,34 +1,39 @@
 package com.idark.valoria.registries.entity.ai.brains;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.ImmutableSet;
-import com.idark.valoria.registries.entity.ai.behaviour.TradeWithMerchant;
-import com.idark.valoria.registries.entity.ai.behaviour.TradingBehaviour;
-import com.idark.valoria.registries.entity.living.HauntedMerchant;
-import com.mojang.datafixers.util.Pair;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.Brain;
-import net.minecraft.world.entity.ai.attributes.Attributes;
+import com.google.common.collect.*;
+import com.idark.valoria.registries.entity.ai.behaviour.*;
+import com.idark.valoria.registries.entity.living.*;
+import com.mojang.datafixers.util.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.*;
 import net.minecraft.world.entity.ai.behavior.*;
-import net.minecraft.world.entity.ai.memory.MemoryModuleType;
-import net.minecraft.world.entity.ai.sensing.Sensor;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.schedule.Activity;
-import net.minecraft.world.level.GameRules;
+import net.minecraft.world.entity.ai.memory.*;
+import net.minecraft.world.entity.ai.sensing.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.entity.schedule.*;
+import net.minecraft.world.level.*;
 
-import java.util.Optional;
+import java.util.*;
 
 public class HauntedMerchantAI {
     public static ImmutableList<Pair<Integer, ? extends BehaviorControl<? super HauntedMerchant>>> getCorePackage(float pSpeedModifier) {
         return ImmutableList.of(
-                Pair.of(0, StopBeingAngryIfTargetDead.create()),
-                Pair.of(1, new LookAtTargetSink(45, 90)),
-                Pair.of(2, new MoveToTargetSink()),
-                Pair.of(3, new TradingBehaviour(pSpeedModifier)),
-                Pair.of(4, InteractWithDoor.create())
-                );
+        Pair.of(0, new Swim(0.8F)),
+        Pair.of(0, InteractWithDoor.create()),
+        Pair.of(1, new LookAtTargetSink(45, 90)),
+        Pair.of(2, new MoveToTargetSink()),
+        Pair.of(3, new TradingBehaviour(pSpeedModifier))
+        );
+    }
+
+    public static ImmutableList<Pair<Integer, ? extends BehaviorControl<? super HauntedMerchant>>> getAngryPackage(HauntedMerchant pMob, float pSpeedModifier) {
+        return ImmutableList.of(
+        Pair.of(0, MeleeAttack.create(20)),
+        Pair.of(0, StartAttacking.create(HauntedMerchantAI::findNearestValidAttackTarget)),
+        Pair.of(1, StopBeingAngryIfTargetDead.create()),
+        Pair.of(1, StopAttackingIfTargetInvalid.create()),
+        Pair.of(2, SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(pSpeedModifier))
+        );
     }
 
     protected static void setAngerTarget(HauntedMerchant mob, LivingEntity pTarget) {
@@ -56,15 +61,15 @@ public class HauntedMerchantAI {
     }
 
     public static void wasHurtBy(HauntedMerchant mob, LivingEntity pTarget) {
-        if (!(pTarget instanceof HauntedMerchant)) {
-            if (Sensor.isEntityAttackableIgnoringLineOfSight(mob, pTarget)) {
-                if (!BehaviorUtils.isOtherTargetMuchFurtherAwayThanCurrentAttackTarget(mob, pTarget, 4.0D)) {
-                    if (pTarget.getType() == EntityType.PLAYER && mob.level().getGameRules().getBoolean(GameRules.RULE_UNIVERSAL_ANGER)) {
-                        setAngerTargetToNearestTargetablePlayerIfFound(mob, pTarget);
-                    } else {
-                        setAngerTarget(mob, pTarget);
-                    }
+        if(Sensor.isEntityAttackableIgnoringLineOfSight(mob, pTarget)){
+            if(!BehaviorUtils.isOtherTargetMuchFurtherAwayThanCurrentAttackTarget(mob, pTarget, 4.0D)){
+                if(pTarget.getType() == EntityType.PLAYER && mob.level().getGameRules().getBoolean(GameRules.RULE_UNIVERSAL_ANGER)){
+                    setAngerTargetToNearestTargetablePlayerIfFound(mob, pTarget);
+                }else{
+                    setAngerTarget(mob, pTarget);
                 }
+
+                mob.setAggressive(true);
             }
         }
     }
@@ -85,15 +90,14 @@ public class HauntedMerchantAI {
     public static void updateActivity(HauntedMerchant mob) {
         Brain<HauntedMerchant> brain = mob.getBrain();
         brain.setActiveActivityToFirstValid(ImmutableList.of(Activity.FIGHT, Activity.IDLE));
-        mob.setAggressive(brain.hasMemoryValue(MemoryModuleType.ATTACK_TARGET));
     }
 
     public static ImmutableList<Pair<Integer, ? extends BehaviorControl<? super HauntedMerchant>>> getHidePackage(float pSpeedModifier) {
         return ImmutableList.of(Pair.of(0, SetHiddenState.create(15, 3)), Pair.of(1, LocateHidingPlace.create(32, pSpeedModifier * 1.25F, 2)), getMinimalLookBehavior());
     }
 
-    public static void initFightActivity(HauntedMerchant pMob, Brain<HauntedMerchant> pBrain) {
-        pBrain.addActivityAndRemoveMemoryWhenStopped(Activity.FIGHT, 1, ImmutableList.of(StopAttackingIfTargetInvalid.create((p_219540_) -> !pMob.canTargetEntity(p_219540_)), SetEntityLookTarget.create((p_219535_) -> isTarget(pMob, p_219535_), (float) pMob.getAttributeValue(Attributes.FOLLOW_RANGE)), SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(1F), MeleeAttack.create(20)), MemoryModuleType.ATTACK_TARGET);
+    public static void initFightActivity(HauntedMerchant pMob, Brain<HauntedMerchant> pBrain){
+        pBrain.addActivityWithConditions(Activity.FIGHT, getAngryPackage(pMob, 1), ImmutableSet.of(Pair.of(MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_PRESENT)));
     }
 
     public static boolean isTarget(HauntedMerchant pMob, LivingEntity pEntity) {
@@ -102,15 +106,13 @@ public class HauntedMerchantAI {
 
     public static ImmutableList<Pair<Integer, ? extends BehaviorControl<? super HauntedMerchant>>> getIdlePackage(float pSpeedModifier) {
         return ImmutableList.of(
-                Pair.of(0, StartAttacking.create(HauntedMerchantAI::findNearestValidAttackTarget)),
                 Pair.of(1, new RunOne<>(ImmutableList.of(
                         Pair.of(InteractWith.of(EntityType.CAT, 8, MemoryModuleType.INTERACTION_TARGET, pSpeedModifier, 2), 1),
                         Pair.of(RandomStroll.stroll(pSpeedModifier), 1),
                         Pair.of(SetWalkTargetFromLookTarget.create(pSpeedModifier, 2), 1),
                         Pair.of(new DoNothing(30, 60), 1)))),
                 Pair.of(2, SetLookAndInteract.create(EntityType.PLAYER, 4)),
-                Pair.of(3, new GateBehavior<>(ImmutableMap.of(), ImmutableSet.of(MemoryModuleType.INTERACTION_TARGET), GateBehavior.OrderPolicy.ORDERED, GateBehavior.RunningPolicy.RUN_ONE, ImmutableList.of(
-                        Pair.of(new TradeWithMerchant(), 1)))),
+                Pair.of(3, new GateBehavior<>(ImmutableMap.of(), ImmutableSet.of(MemoryModuleType.INTERACTION_TARGET), GateBehavior.OrderPolicy.ORDERED, GateBehavior.RunningPolicy.RUN_ONE, ImmutableList.of(Pair.of(new TradeWithMerchant(), 1)))),
                 Pair.of(99, UpdateActivityFromSchedule.create()));
     }
 

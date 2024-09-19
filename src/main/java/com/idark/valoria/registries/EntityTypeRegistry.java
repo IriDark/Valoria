@@ -1,18 +1,13 @@
 package com.idark.valoria.registries;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.registries.entity.decoration.CustomBoatEntity;
-import com.idark.valoria.registries.entity.decoration.CustomChestBoatEntity;
-import com.idark.valoria.registries.entity.decoration.MannequinEntity;
+import com.idark.valoria.*;
+import com.idark.valoria.registries.entity.decoration.*;
 import com.idark.valoria.registries.entity.living.*;
 import com.idark.valoria.registries.entity.projectile.*;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobCategory;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.minecraft.resources.*;
+import net.minecraft.world.entity.*;
+import net.minecraftforge.eventbus.api.*;
+import net.minecraftforge.registries.*;
 
 public class EntityTypeRegistry {
     public static DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, Valoria.ID);
@@ -43,7 +38,7 @@ public class EntityTypeRegistry {
 
     public static final RegistryObject<EntityType<HauntedMerchant>> HAUNTED_MERCHANT = ENTITY_TYPES.register("haunted_merchant",
             () -> EntityType.Builder.of(HauntedMerchant::new, MobCategory.MISC)
-                    .sized(1.2f, 3.0f)
+                    .sized(0.8f, 2.5f)
                     .clientTrackingRange(8)
                     .build(new ResourceLocation(Valoria.ID, "haunted_merchant").toString()));
 
