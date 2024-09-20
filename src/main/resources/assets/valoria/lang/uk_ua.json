@@ -799,6 +799,7 @@
   "tooltip.valoria.rune": "Пуста руна, проте на неї можна накласти любий позитивний ефект!",
   "tooltip.valoria.sarcophagus": "Обережніше! Цей саркофаг був пасткою. Захисти себе та будь насторожі!",
   "tooltip.valoria.scythe": "Повільна зброя, яка атакує круговим ударом",
+  "tooltip.valoria.souls": "Current souls: %s",
   "tooltip.valoria.spear": "A spear that can be thrown at your enemy",
   "tooltip.valoria.strength": "Надає силу на деякий час",
   "tooltip.valoria.summons": "Summons entity: [%s]",
