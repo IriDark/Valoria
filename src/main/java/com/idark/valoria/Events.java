@@ -1,42 +1,34 @@
 package com.idark.valoria;
 
-import com.idark.valoria.core.capability.IUnlockable;
-import com.idark.valoria.core.capability.UnloackbleCap;
-import com.idark.valoria.core.network.PacketHandler;
-import com.idark.valoria.core.network.packets.UnlockableUpdatePacket;
-import com.idark.valoria.registries.EffectsRegistry;
-import com.idark.valoria.registries.ItemsRegistry;
-import com.idark.valoria.registries.TagsRegistry;
-import com.idark.valoria.util.ArcRandom;
-import com.idark.valoria.util.ValoriaUtils;
-import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.tags.TagKey;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.util.INBTSerializable;
-import net.minecraftforge.event.AttachCapabilitiesEvent;
-import net.minecraftforge.event.entity.EntityJoinLevelEvent;
-import net.minecraftforge.event.entity.living.LivingAttackEvent;
-import net.minecraftforge.event.entity.living.LivingDestroyBlockEvent;
-import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
-import net.minecraftforge.event.entity.living.ShieldBlockEvent;
+import com.idark.valoria.core.capability.*;
+import com.idark.valoria.core.network.*;
+import com.idark.valoria.core.network.packets.*;
+import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.item.types.*;
+import com.idark.valoria.util.*;
+import net.minecraft.*;
+import net.minecraft.client.*;
+import net.minecraft.client.gui.screens.*;
+import net.minecraft.nbt.*;
+import net.minecraft.network.chat.*;
+import net.minecraft.resources.*;
+import net.minecraft.server.level.*;
+import net.minecraft.tags.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.block.state.*;
+import net.minecraftforge.common.capabilities.*;
+import net.minecraftforge.common.util.*;
+import net.minecraftforge.event.*;
+import net.minecraftforge.event.entity.*;
+import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.*;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import top.theillusivec4.curios.api.CuriosApi;
+import net.minecraftforge.eventbus.api.*;
+import top.theillusivec4.curios.api.*;
 
-import java.util.stream.Stream;
+import java.util.stream.*;
 
 @SuppressWarnings("removal")
 public class Events {
@@ -137,6 +129,18 @@ public class Events {
     public void onLivingAttack(LivingAttackEvent event) {
         if (event.getSource().getEntity() instanceof LivingEntity e) {
             if (e.hasEffect(EffectsRegistry.STUN.get())) event.setCanceled(true);
+        }
+    }
+
+    @SubscribeEvent
+    public void onPlayerKill(LivingDeathEvent deathEvent) {
+        Entity attacker = deathEvent.getSource().getEntity();
+        if(attacker instanceof Player plr) {
+            for (ItemStack itemStack : plr.getHandSlots()){
+                if(itemStack.is(ItemsRegistry.SOUL_COLLECTOR_EMPTY.get()) && itemStack.getItem() instanceof SoulCollectorItem soul) {
+                    soul.addCount(1, itemStack, plr);
+                }
+            }
         }
     }
 

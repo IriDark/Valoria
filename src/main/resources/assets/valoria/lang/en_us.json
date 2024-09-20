@@ -820,5 +820,6 @@
   "block.valoria.meat_block": "Meat Block",
   "block.valoria.suspicious_ice": "Suspicious Ice",
   "block.valoria.shade_blossom": "Shade Blossom",
-  "block.valoria.archaeology_table": "Archaeology Table"
+  "block.valoria.archaeology_table": "Archaeology Table",
+  "tooltip.valoria.souls": "Current souls: %s"
 }

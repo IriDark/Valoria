@@ -1,49 +1,35 @@
 package com.idark.valoria.registries.item.types;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.core.config.ClientConfig;
-import com.idark.valoria.core.interfaces.IRadiusItem;
-import com.idark.valoria.registries.SoundsRegistry;
-import com.idark.valoria.util.ArcRandom;
+import com.idark.valoria.*;
+import com.idark.valoria.core.config.*;
+import com.idark.valoria.core.interfaces.*;
+import com.idark.valoria.registries.*;
 import com.idark.valoria.util.NbtUtils;
-import com.idark.valoria.util.ValoriaUtils;
-import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.stats.Stats;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.player.Player;
+import com.idark.valoria.util.*;
+import net.minecraft.*;
+import net.minecraft.client.gui.*;
+import net.minecraft.core.particles.*;
+import net.minecraft.nbt.*;
+import net.minecraft.network.chat.*;
+import net.minecraft.resources.*;
+import net.minecraft.server.level.*;
+import net.minecraft.sounds.*;
+import net.minecraft.stats.*;
+import net.minecraft.util.*;
+import net.minecraft.world.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.*;
+import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraft.world.level.Level;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.RenderGuiOverlayEvent;
-import org.joml.Vector3d;
-import org.lwjgl.opengl.GL11;
+import net.minecraft.world.item.enchantment.*;
+import net.minecraft.world.level.*;
+import org.joml.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
-public class MagmaSwordItem extends SwordItem implements IRadiusItem {
+public class MagmaSwordItem extends SwordItem implements IRadiusItem, IOverlayItem{
     private static final ResourceLocation BAR = new ResourceLocation(Valoria.ID, "textures/gui/overlay/magma_charge.png");
     public ArcRandom arcRandom = new ArcRandom();
-
     public MagmaSwordItem(Tier tier, int attackDamageIn, float attackSpeedIn, Properties builderIn) {
         super(tier, attackDamageIn, attackSpeedIn, builderIn);
     }
@@ -157,8 +143,13 @@ public class MagmaSwordItem extends SwordItem implements IRadiusItem {
         tooltip.add(4, Component.translatable("tooltip.valoria.rmb").withStyle(ChatFormatting.GREEN));
     }
 
-    @OnlyIn(Dist.CLIENT)
-    public static void renderBar(CompoundTag tag, GuiGraphics gui, int offsetX, int offsetY) {
+    @Override
+    public ResourceLocation getTexture(){
+        return BAR;
+    }
+
+    @Override
+    public void render(CompoundTag tag, GuiGraphics gui, int offsetX, int offsetY){
         int barType = ClientConfig.MAGMA_CHARGE_BAR_TYPE.get();
         int xCord = ClientConfig.MAGMA_CHARGE_BAR_X.get() + offsetX;
         int yCord = ClientConfig.MAGMA_CHARGE_BAR_Y.get() + offsetY;
@@ -175,32 +166,6 @@ public class MagmaSwordItem extends SwordItem implements IRadiusItem {
             gui.blit(BAR, xCord, yCord, 20, 42, 22, 22, 64, 64);
             if (tag.getInt("charge") > 0) {
                 gui.blit(BAR, xCord, yCord, 42, tag.getInt("charge") == 1 ? 20 : 42, 22, 22, 64, 64);
-            }
-        }
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    public static void onDrawScreenPost(RenderGuiOverlayEvent.Post event) {
-        Minecraft mc = Minecraft.getInstance();
-        for (ItemStack itemStack : mc.player.getHandSlots()) {
-            GuiGraphics gui = event.getGuiGraphics();
-            boolean renderBar = itemStack.getItem() instanceof MagmaSwordItem && !mc.player.isSpectator();
-            if (renderBar) {
-                gui.pose().pushPose();
-                gui.pose().translate(0, 0, -200);
-                RenderSystem.enableBlend();
-                RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-                mc.textureManager.bindForSetup(BAR);
-                if (!mc.player.getMainHandItem().isEmpty()) {
-                    renderBar(mc.player.getMainHandItem().getOrCreateTag(), gui, 0, 0);
-                }
-
-                if (!mc.player.getOffhandItem().isEmpty()) {
-                    renderBar(mc.player.getOffhandItem().getOrCreateTag(), gui, 25, 0);
-                }
-
-                RenderSystem.disableBlend();
-                gui.pose().popPose();
             }
         }
     }

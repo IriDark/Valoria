@@ -108,7 +108,7 @@ public class HauntedMerchant extends Monster implements NeutralMob, Enemy, Inven
         super.handleEntityEvent(pId);
     }
 
-    //TODO ranged attacks & fix targeting, try to figure out how the new ai system even works...
+    //TODO ranged attacks, attacks, better pathfinding, try to figure out how the new ai system even works...
     private void registerBrainGoals(Brain<HauntedMerchant> pBrain) {
         HauntedMerchantAI.initFightActivity(this, pBrain);
         pBrain.setDefaultActivity(Activity.IDLE);

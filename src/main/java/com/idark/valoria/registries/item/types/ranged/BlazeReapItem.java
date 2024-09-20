@@ -1,48 +1,37 @@
 package com.idark.valoria.registries.item.types.ranged;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.core.config.ClientConfig;
-import com.idark.valoria.registries.EnchantmentsRegistry;
-import com.idark.valoria.registries.SoundsRegistry;
+import com.idark.valoria.*;
+import com.idark.valoria.core.config.*;
+import com.idark.valoria.core.interfaces.*;
+import com.idark.valoria.registries.*;
 import com.idark.valoria.util.NbtUtils;
-import com.idark.valoria.util.RenderUtils;
-import com.idark.valoria.util.ValoriaUtils;
-import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.stats.Stats;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.ProjectileUtil;
+import com.idark.valoria.util.*;
+import com.mojang.blaze3d.systems.*;
+import net.minecraft.*;
+import net.minecraft.client.*;
+import net.minecraft.client.gui.*;
+import net.minecraft.core.particles.*;
+import net.minecraft.nbt.*;
+import net.minecraft.network.chat.*;
+import net.minecraft.resources.*;
+import net.minecraft.sounds.*;
+import net.minecraft.stats.*;
+import net.minecraft.util.*;
+import net.minecraft.world.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.entity.projectile.*;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentCategory;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.EntityHitResult;
-import net.minecraft.world.phys.HitResult;
-import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.RenderGuiOverlayEvent;
-import org.lwjgl.opengl.GL11;
+import net.minecraft.world.item.enchantment.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.phys.*;
+import net.minecraftforge.api.distmarker.*;
+import org.lwjgl.opengl.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 
-// some day it will be done, but not in this life: FIX FUCKING NBT TAGS SYNCING, I HATE YOU MOJANG
-// tags should be sent by packet
-public class BlazeReapItem extends PickaxeItem implements Vanishable {
+public class BlazeReapItem extends PickaxeItem implements Vanishable, IOverlayItem {
     private static final ResourceLocation BAR = new ResourceLocation(Valoria.ID, "textures/gui/overlay/blazecharge_bar.png");
 
     public BlazeReapItem(Tier tier, int attackDamageIn, float attackSpeedIn, Properties builder) {
@@ -170,34 +159,32 @@ public class BlazeReapItem extends PickaxeItem implements Vanishable {
         return ammoItems;
     }
 
-    @OnlyIn(Dist.CLIENT)
-    public static void onDrawScreenPost(RenderGuiOverlayEvent.Post event) {
-        Minecraft mc = Minecraft.getInstance();
-        for (ItemStack itemStack : mc.player.getHandSlots()) {
-            boolean renderBar = itemStack.getItem() instanceof BlazeReapItem && !mc.player.isSpectator() && !mc.player.isCreative();
-            if (renderBar) {
-                GuiGraphics gui = event.getGuiGraphics();
-                gui.pose().pushPose();
-                gui.pose().translate(0, 0, -200);
-                RenderSystem.enableBlend();
-                RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-                int xCord = ClientConfig.MAGMA_CHARGE_BAR_X.get();
-                int yCord = ClientConfig.MAGMA_CHARGE_BAR_Y.get();
-                gui.blit(BAR, xCord, yCord, 0, 0, 73, 19, 128, 64);
+    @Override
+    public ResourceLocation getTexture(){
+        return BAR;
+    }
 
-                float x = 6;
-                float y = 5.5f;
-                List<ItemStack> ammunition = getAmmunition();
-                int itemCount = Math.min(ammunition.size(), 3);
-                for (int i = 0; i < itemCount; i++) {
-                    ItemStack stack = ammunition.get(i);
-                    RenderUtils.renderItemModelInGui(stack, x + (16 * i), y, 16, 16, 16);
-                }
+    @Override
+    public void render(CompoundTag tag, GuiGraphics gui, int offsetX, int offsetY){
+        gui.pose().pushPose();
+        gui.pose().translate(0, 0, -200);
+        RenderSystem.enableBlend();
+        RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+        int xCord = ClientConfig.MAGMA_CHARGE_BAR_X.get();
+        int yCord = ClientConfig.MAGMA_CHARGE_BAR_Y.get();
+        gui.blit(BAR, xCord, yCord, 0, 0, 73, 19, 128, 64);
 
-                RenderSystem.disableBlend();
-                gui.pose().popPose();
-            }
+        float x = 6;
+        float y = 5.5f;
+        List<ItemStack> ammunition = getAmmunition();
+        int itemCount = Math.min(ammunition.size(), 3);
+        for (int i = 0; i < itemCount; i++) {
+            ItemStack stack = ammunition.get(i);
+            RenderUtils.renderItemModelInGui(stack, x + (16 * i), y, 16, 16, 16);
         }
+
+        RenderSystem.disableBlend();
+        gui.pose().popPose();
     }
 
 //    @OnlyIn(Dist.CLIENT)
