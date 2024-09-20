@@ -9,10 +9,10 @@ import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.client.event.*;
 import org.lwjgl.opengl.*;
 
-@OnlyIn(Dist.CLIENT)
 public interface IOverlayItem{
     ResourceLocation getTexture();
 
+    @OnlyIn(Dist.CLIENT)
     void render(CompoundTag tag, GuiGraphics gui, int offsetX, int offsetY);
 
     default boolean toRender() {
@@ -27,6 +27,7 @@ public interface IOverlayItem{
         return 25;
     }
 
+    @OnlyIn(Dist.CLIENT)
     static void onDrawScreenPost(RenderGuiOverlayEvent.Post event){
         Minecraft mc = Minecraft.getInstance();
         GuiGraphics gui = event.getGuiGraphics();

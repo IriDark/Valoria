@@ -164,6 +164,7 @@ public class BlazeReapItem extends PickaxeItem implements Vanishable, IOverlayIt
         return BAR;
     }
 
+    @OnlyIn(Dist.CLIENT)
     @Override
     public void render(CompoundTag tag, GuiGraphics gui, int offsetX, int offsetY){
         gui.pose().pushPose();

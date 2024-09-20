@@ -23,6 +23,7 @@ import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.*;
 import net.minecraft.world.level.*;
+import net.minecraftforge.api.distmarker.*;
 import org.joml.*;
 
 import java.util.*;
@@ -148,6 +149,7 @@ public class MagmaSwordItem extends SwordItem implements IRadiusItem, IOverlayIt
         return BAR;
     }
 
+    @OnlyIn(Dist.CLIENT)
     @Override
     public void render(CompoundTag tag, GuiGraphics gui, int offsetX, int offsetY){
         int barType = ClientConfig.MAGMA_CHARGE_BAR_TYPE.get();

@@ -13,6 +13,7 @@ import net.minecraft.resources.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
+import net.minecraftforge.api.distmarker.*;
 
 import java.util.*;
 
@@ -96,6 +97,7 @@ public class SoulCollectorItem extends Item implements IOverlayItem{
         }
     }
 
+    @OnlyIn(Dist.CLIENT)
     @Override
     public void render(CompoundTag tag, GuiGraphics gui, int offsetX, int offsetY){
         int xCord = ClientConfig.MISC_UI_X.get() + offsetX;
