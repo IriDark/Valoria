@@ -822,5 +822,6 @@
   "block.valoria.shade_blossom": "Shade Blossom",
   "block.valoria.archaeology_table": "Archaeology Table",
   "tooltip.valoria.souls": "Current souls: %s",
-  "mod_description.valoria": "An RPG mod that aims to enchance overall minecraft experience, currently in development but already having a tons of new content!"
+  "mod_description.valoria": "An RPG mod that aims to enchance overall minecraft experience, currently in development but already having a tons of new content!",
+  "panorama.valoria.ecotone": "Ecotone"
 }

@@ -35,8 +35,6 @@ import org.lwjgl.glfw.*;
 
 import java.io.*;
 
-import static mod.maxbogomol.fluffy_fur.FluffyFurClient.MOD_INSTANCE;
-
 public class ValoriaClient {
 
     private static final String CATEGORY_KEY = "key.category.valoria.general";
@@ -66,6 +64,8 @@ public class ValoriaClient {
         return GLOWING_SHADER;
     }
 
+    public static FluffyFurMod MOD_INSTANCE;
+    public static FluffyFurPanorama ECOTONE_PANORAMA;
     public static void setupMenu() {
         MOD_INSTANCE = new FluffyFurMod(Valoria.ID, "Valoria", "0.6.2b").setDev("Iri ♡").setItem(new ItemStack(BlockRegistry.SHADE_BLOSSOM.get()))
         .setNameColor(Pal.verySoftPink).setVersionColor(Pal.cyan)
@@ -75,7 +75,13 @@ public class ValoriaClient {
         .addModrinthLink("https://modrinth.com/mod/valoria")
         .addDiscordLink("https://discord.gg/wWdXpwuPmK");
 
+        ECOTONE_PANORAMA = new FluffyFurPanorama(Valoria.ID + ":ecotone", Component.translatable("panorama.valoria.ecotone"))
+        .setMod(MOD_INSTANCE).setItem(new ItemStack(BlockRegistry.SHADE_BLOSSOM.get())).setSort(0)
+        .setTexture(new ResourceLocation(Valoria.ID, "textures/gui/title/background/panorama"))
+        .setLogo(new ResourceLocation(Valoria.ID, "textures/gui/title/valoria_logo.png"));
+
         FluffyFurClient.registerMod(MOD_INSTANCE);
+        FluffyFurClient.registerPanorama(ECOTONE_PANORAMA);
     }
 
     @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
