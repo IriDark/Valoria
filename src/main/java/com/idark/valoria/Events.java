@@ -13,6 +13,7 @@ import net.minecraft.nbt.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.resources.*;
 import net.minecraft.server.level.*;
+import net.minecraft.sounds.*;
 import net.minecraft.tags.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
@@ -138,6 +139,11 @@ public class Events {
         if(attacker instanceof Player plr) {
             for (ItemStack itemStack : plr.getHandSlots()){
                 if(itemStack.is(ItemsRegistry.SOUL_COLLECTOR_EMPTY.get()) && itemStack.getItem() instanceof SoulCollectorItem soul) {
+                    if(plr.level() instanceof ServerLevel level) {
+                        PacketHandler.sendToTracking(level, plr.getOnPos(), new SoulCollectParticlePacket(plr.getUUID(), deathEvent.getEntity().getX(), deathEvent.getEntity().getY(), deathEvent.getEntity().getZ()));
+                        level.playSound(null, plr.getOnPos(), soul.getTransformSound(), SoundSource.PLAYERS);
+                    }
+
                     soul.addCount(1, itemStack, plr);
                 }
             }

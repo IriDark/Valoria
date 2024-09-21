@@ -1,16 +1,16 @@
 package com.idark.valoria.core.network.packets;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.client.particle.ParticleEffects;
-import com.idark.valoria.util.Pal;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.network.NetworkEvent;
-import team.lodestar.lodestone.systems.particle.data.color.ColorParticleData;
+import com.idark.valoria.*;
+import com.idark.valoria.client.particle.*;
+import com.idark.valoria.util.*;
+import mod.maxbogomol.fluffy_fur.client.particle.data.*;
+import net.minecraft.network.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.phys.*;
+import net.minecraftforge.network.*;
 
-import java.util.Random;
-import java.util.function.Supplier;
+import java.util.*;
+import java.util.function.*;
 
 public class KeypadParticlePacket {
     private final double posX;
@@ -42,8 +42,8 @@ public class KeypadParticlePacket {
                 for (int a = 0; a < 3; a++) {
                     Vec3 position = new Vec3(msg.posX + (rand.nextDouble() * 1.25), msg.posY + 0.5F + ((rand.nextDouble() - 0.5D) * 1.25), msg.posZ + 0.5F + ((rand.nextDouble() - 0.5D) * 1.25));
                     Vec3 targetPosition = new Vec3(msg.targetPosX + (rand.nextDouble() * 1.25), msg.targetPosY + 0.5F + ((rand.nextDouble() - 0.5D) * 1.25), msg.targetPosZ + 0.5F + ((rand.nextDouble() - 0.5D) * 1.25));
-                    ParticleEffects.transformParticle(pLevel, position, ColorParticleData.create(Pal.moderatePink, Pal.verySoftPink).build()).spawnParticles();
-                    ParticleEffects.transformParticle(pLevel, targetPosition, ColorParticleData.create(Pal.moderatePink, Pal.verySoftPink).build()).spawnParticles();
+                    ParticleEffects.transformParticle(pLevel, position, ColorParticleData.create(Pal.moderatePink, Pal.verySoftPink).build());
+                    ParticleEffects.transformParticle(pLevel, targetPosition, ColorParticleData.create(Pal.moderatePink, Pal.verySoftPink).build());
                 }
 
                 ctx.get().setPacketHandled(true);

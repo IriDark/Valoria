@@ -2,7 +2,7 @@
 
 > [!IMPORTANT]
 > ### Required
-> [![Lodestone](https://img.shields.io/badge/%20-LODESTONE-5800ff?style=for-the-badge&color=5800ff&logo=curseforge&logoColor=5800ff&labelColor=FFFFFF)](https://www.curseforge.com/minecraft/mc-mods/lodestone)
+> [![FluffyFur](https://img.shields.io/badge/%20-FLUFFY%20FUR-5800ff?style=for-the-badge&color=d77787&logo=githubsponsors&logoColor=000000&labelColor=FFFFFF)](https://github.com/MaxBogomol/FluffyFur/tree/master)
 > [![CurioApi](https://img.shields.io/badge/%20-CURIOS%20API-000000?style=for-the-badge&color=d48526&logo=curseforge&logoColor=000000&labelColor=FFFFFF)](https://www.curseforge.com/minecraft/mc-mods/curios)
 
 ---
@@ -53,7 +53,7 @@ Explore the enriched landscapes with an exotic plants <p> Valoria introduces a r
 - Ruthenium `| Russian Translate |`
 - Auriny `| Code | Testing |`
 - Skoow `| Code |`
-- Gato `| Models |`
+- Sunday `| Models |`
 - KoteykaTheCat `| Done a portfolio page for me! |`
 - Kerdo `| Ideas | Contributions |`
 - TerraPrime

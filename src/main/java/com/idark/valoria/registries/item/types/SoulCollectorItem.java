@@ -10,6 +10,7 @@ import net.minecraft.client.gui.*;
 import net.minecraft.nbt.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.resources.*;
+import net.minecraft.sounds.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
@@ -59,7 +60,7 @@ public class SoulCollectorItem extends Item implements IOverlayItem{
     }
 
     public boolean isBarVisible(ItemStack pStack) {
-        return getCurrentSouls(pStack) > 0;
+        return getCurrentSouls(pStack) > 0 && getCurrentSouls(pStack) < getMaxSouls();
     }
 
     public int getBarWidth(ItemStack pStack) {
@@ -89,12 +90,17 @@ public class SoulCollectorItem extends Item implements IOverlayItem{
     }
 
     public void addCount(int count, ItemStack pStack, Player player) {
-        if(pStack.getOrCreateTag().getInt("Souls") >= getMaxSouls()) {
+        if(pStack.getOrCreateTag().getInt("Souls") >= getMaxSouls() - 1) {
             player.getInventory().removeItem(pStack);
             player.addItem(ItemsRegistry.SOUL_COLLECTOR.get().getDefaultInstance());
         } else{
             pStack.getOrCreateTag().putInt("Souls", getCurrentSouls(pStack) + count);
         }
+    }
+
+    //todo
+    public SoundEvent getTransformSound() {
+        return null;
     }
 
     @OnlyIn(Dist.CLIENT)

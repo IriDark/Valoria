@@ -1,6 +1,8 @@
 package com.idark.valoria.registries.entity.living;
 
 import com.idark.valoria.client.particle.*;
+import mod.maxbogomol.fluffy_fur.client.particle.*;
+import mod.maxbogomol.fluffy_fur.client.particle.data.*;
 import net.minecraft.core.*;
 import net.minecraft.nbt.*;
 import net.minecraft.network.syncher.*;
@@ -11,10 +13,6 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.level.*;
 import org.joml.*;
-import team.lodestar.lodestone.systems.particle.builder.*;
-import team.lodestar.lodestone.systems.particle.data.*;
-import team.lodestar.lodestone.systems.particle.data.color.*;
-import team.lodestar.lodestone.systems.particle.data.spin.*;
 
 import javax.annotation.*;
 import java.awt.*;
@@ -88,11 +86,11 @@ public abstract class AbstractNecromancer extends Monster {
             float f2 = Mth.sin(f);
             Color colorTo = new Color(r, g, b);
             for (int i = 0; i < 1f; i++) {
-                WorldParticleBuilder.create(ParticleRegistry.SPHERE)
+                ParticleBuilder.create(ParticleRegistry.SPHERE)
                         .setLifetime(8)
                         .setTransparencyData(GenericParticleData.create(0.65f, 0).build())
                         .setColorData(ColorParticleData.create(colorTo, Color.white).build())
-                        .addMotion(((this.random.nextDouble() - 0.5D) / 6), ((this.random.nextDouble() - 1.25D) / 8), ((this.random.nextDouble() - 0.5D) / 6))
+                        .addVelocity(((this.random.nextDouble() - 0.5D) / 6), ((this.random.nextDouble() - 1.25D) / 8), ((this.random.nextDouble() - 0.5D) / 6))
                         .setSpinData(SpinParticleData.create((0.5f * (float) ((new Random().nextDouble() - 0.5D) * 2))).build())
                         .setScaleData(GenericParticleData.create(0.2f, 0).build())
                         .spawn(this.level(), this.getX() + 0.2 + (double) f1 * 0.6D, this.getY() + 1.8D, this.getZ() + 0.2 + (double) f2 * 0.6D)
@@ -110,12 +108,12 @@ public abstract class AbstractNecromancer extends Monster {
                     double startX = blockpos.getX() + 0.5;
                     double startY = blockpos.getY() - 0.2;
                     double startZ = blockpos.getZ() + 0.5;
-                    WorldParticleBuilder.create(ParticleRegistry.SPHERE)
+                    ParticleBuilder.create(ParticleRegistry.SPHERE)
                             .setLifetime(8)
-                            .addMotion(motionX, motionY, motionZ)
+                            .addVelocity(motionX, motionY, motionZ)
                             .setTransparencyData(GenericParticleData.create(0.65f, 0).build())
                             .setColorData(ColorParticleData.create(colorTo, Color.white).build())
-                            .addMotion(((this.random.nextDouble() - 0.5D) / 6), ((this.random.nextDouble() - 1.25D) / 8), ((this.random.nextDouble() - 0.5D) / 6))
+                            .addVelocity(((this.random.nextDouble() - 0.5D) / 6), ((this.random.nextDouble() - 1.25D) / 8), ((this.random.nextDouble() - 0.5D) / 6))
                             .setSpinData(SpinParticleData.create((0.5f * (float) ((new Random().nextDouble() - 0.5D) * 2))).build())
                             .setScaleData(GenericParticleData.create(0.2f, 0).build())
                             .spawn(this.level(), startX, startY, startZ);

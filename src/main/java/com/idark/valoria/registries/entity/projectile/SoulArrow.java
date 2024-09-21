@@ -1,20 +1,17 @@
 package com.idark.valoria.registries.entity.projectile;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.client.particle.ParticleEffects;
-import com.idark.valoria.core.interfaces.IProjectileTexture;
-import com.idark.valoria.registries.EntityTypeRegistry;
-import com.idark.valoria.util.ColorUtil;
-import com.idark.valoria.util.ValoriaUtils;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.projectile.AbstractArrow;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.Vec3;
-import team.lodestar.lodestone.systems.particle.data.color.ColorParticleData;
+import com.idark.valoria.*;
+import com.idark.valoria.client.particle.*;
+import com.idark.valoria.core.interfaces.*;
+import com.idark.valoria.registries.*;
+import com.idark.valoria.util.*;
+import mod.maxbogomol.fluffy_fur.client.particle.data.*;
+import net.minecraft.resources.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.projectile.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.phys.*;
 
 public class SoulArrow extends AbstractValoriaArrow implements IProjectileTexture {
 
@@ -40,7 +37,7 @@ public class SoulArrow extends AbstractValoriaArrow implements IProjectileTextur
             double a4 = vector3d.y;
             double a0 = vector3d.z;
             Vec3 pos = new Vec3(this.getX() + a3 * 0.5f, this.getY() + a4 * 0.5f, this.getZ() + a0 * 0.5f);
-            ParticleEffects.trailMotionSparks(this.level(), pos, ColorParticleData.create(ColorUtil.valueOf("19419b"), ColorUtil.valueOf("0000af")).build()).spawnParticles();
+            ParticleEffects.trailMotionSparks(this.level(), pos, ColorParticleData.create(ColorUtil.valueOf("19419b"), ColorUtil.valueOf("0000af")).build());
         }
     }
 

@@ -1,20 +1,19 @@
 package com.idark.valoria.core.network.packets;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.client.particle.ParticleEffects;
-import com.idark.valoria.util.Pal;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.util.Mth;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.network.NetworkEvent;
-import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
-import team.lodestar.lodestone.systems.particle.data.color.ColorParticleData;
+import com.idark.valoria.*;
+import com.idark.valoria.util.*;
+import mod.maxbogomol.fluffy_fur.client.particle.*;
+import mod.maxbogomol.fluffy_fur.client.particle.data.*;
+import mod.maxbogomol.fluffy_fur.registry.client.*;
+import net.minecraft.network.*;
+import net.minecraft.util.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.phys.*;
+import net.minecraftforge.network.*;
 
 import java.awt.*;
-import java.util.Random;
-import java.util.function.Supplier;
+import java.util.*;
+import java.util.function.*;
 
 public class MurasamaParticlePacket {
 
@@ -60,7 +59,13 @@ public class MurasamaParticlePacket {
                     double ZZ = Math.cos(pitch) * (float) (rand.nextDouble() * 0.05F) / (ii + 1);
                     Color color = new Color(msg.colorR, msg.colorG, msg.colorB);
                     Vec3 particlePos = new Vec3(msg.posX + X, msg.posY + Y, msg.posZ + Z);
-                    ParticleEffects.particles(pLevel, particlePos, ColorParticleData.create(color, Pal.lightViolet).build()).getBuilder().setTransparencyData(GenericParticleData.create(0.4f).build()).setMotion(XX, YY, ZZ).spawn(pLevel, msg.posX + X, msg.posY + Y, msg.posZ + Z);
+                    ParticleBuilder.create(FluffyFurParticles.WISP)
+                    .setColorData(ColorParticleData.create(color, Pal.lightViolet).build())
+                    .setTransparencyData(GenericParticleData.create(0.4f).build())
+                    .setScaleData(GenericParticleData.create(0.2f, 0.1f, 0).build())
+                    .setLifetime(6)
+                    .setVelocity(XX, YY, ZZ)
+                    .spawn(pLevel, particlePos.x, particlePos.y, particlePos.z);
                 }
 
                 ctx.get().setPacketHandled(true);

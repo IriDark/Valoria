@@ -1,44 +1,41 @@
 package com.idark.valoria;
 
-import com.idark.valoria.client.color.ModBlockColors;
+import com.idark.valoria.client.color.*;
+import com.idark.valoria.client.model.*;
 import com.idark.valoria.client.model.curio.*;
-import com.idark.valoria.client.model.item.ModItemModelProperties;
-import com.idark.valoria.client.particle.ParticleRegistry;
+import com.idark.valoria.client.particle.*;
 import com.idark.valoria.client.render.entity.*;
 import com.idark.valoria.client.render.tile.*;
-import com.idark.valoria.client.sounds.CooldownSoundInstance;
-import com.idark.valoria.registries.BlockEntitiesRegistry;
-import com.idark.valoria.registries.BlockRegistry;
-import com.idark.valoria.registries.EntityTypeRegistry;
-import com.idark.valoria.registries.ItemsRegistry;
-import com.idark.valoria.registries.block.types.ModWoodTypes;
-import com.idark.valoria.registries.entity.decoration.CustomBoatEntity;
-import com.mojang.blaze3d.platform.InputConstants;
-import com.mojang.blaze3d.vertex.DefaultVertexFormat;
-import net.minecraft.client.KeyMapping;
-import net.minecraft.client.model.BoatModel;
-import net.minecraft.client.model.ChestBoatModel;
-import net.minecraft.client.model.geom.ModelLayerLocation;
-import net.minecraft.client.renderer.ShaderInstance;
-import net.minecraft.client.renderer.Sheets;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
-import net.minecraft.client.renderer.blockentity.HangingSignRenderer;
-import net.minecraft.client.renderer.blockentity.SignRenderer;
-import net.minecraft.client.renderer.entity.EntityRenderers;
-import net.minecraft.client.renderer.entity.ThrownItemRenderer;
-import net.minecraft.client.resources.model.ModelResourceLocation;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.DyeableLeatherItem;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import com.idark.valoria.client.sounds.*;
+import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.block.types.*;
+import com.idark.valoria.registries.entity.decoration.*;
+import com.idark.valoria.util.*;
+import com.mojang.blaze3d.platform.*;
+import com.mojang.blaze3d.vertex.*;
+import mod.maxbogomol.fluffy_fur.*;
+import mod.maxbogomol.fluffy_fur.client.gui.screen.*;
+import net.minecraft.client.*;
+import net.minecraft.client.model.*;
+import net.minecraft.client.model.geom.*;
+import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.blockentity.*;
+import net.minecraft.client.renderer.entity.*;
+import net.minecraft.client.resources.model.*;
+import net.minecraft.network.chat.*;
+import net.minecraft.resources.*;
+import net.minecraft.world.item.*;
+import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.client.event.*;
-import net.minecraftforge.client.settings.KeyConflictContext;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import org.lwjgl.glfw.GLFW;
+import net.minecraftforge.client.settings.*;
+import net.minecraftforge.eventbus.api.*;
+import net.minecraftforge.fml.common.*;
+import net.minecraftforge.fml.event.lifecycle.*;
+import org.lwjgl.glfw.*;
 
-import java.io.IOException;
+import java.io.*;
+
+import static mod.maxbogomol.fluffy_fur.FluffyFurClient.MOD_INSTANCE;
 
 public class ValoriaClient {
 
@@ -67,6 +64,18 @@ public class ValoriaClient {
 
     public static ShaderInstance getGlowingShader() {
         return GLOWING_SHADER;
+    }
+
+    public static void setupMenu() {
+        MOD_INSTANCE = new FluffyFurMod(Valoria.ID, "Valoria", "0.6.2b").setDev("Iri ♡").setItem(new ItemStack(BlockRegistry.SHADE_BLOSSOM.get()))
+        .setNameColor(Pal.verySoftPink).setVersionColor(Pal.cyan)
+        .setDescription(Component.translatable("mod_description.valoria"))
+        .addGithubLink("https://github.com/IriDark/Valoria")
+        .addCurseForgeLink("https://www.curseforge.com/minecraft/mc-mods/valoria")
+        .addModrinthLink("https://modrinth.com/mod/valoria")
+        .addDiscordLink("https://discord.gg/wWdXpwuPmK");
+
+        FluffyFurClient.registerMod(MOD_INSTANCE);
     }
 
     @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)

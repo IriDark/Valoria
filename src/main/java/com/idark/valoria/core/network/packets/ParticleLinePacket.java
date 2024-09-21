@@ -1,15 +1,15 @@
 package com.idark.valoria.core.network.packets;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.client.particle.ParticleEffects;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.network.NetworkEvent;
-import team.lodestar.lodestone.systems.particle.data.color.ColorParticleData;
+import com.idark.valoria.*;
+import com.idark.valoria.client.particle.*;
+import mod.maxbogomol.fluffy_fur.client.particle.data.*;
+import net.minecraft.network.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.phys.*;
+import net.minecraftforge.network.*;
 
 import java.awt.*;
-import java.util.function.Supplier;
+import java.util.function.*;
 
 public class ParticleLinePacket {
     private final double posX, posY, posZ;
@@ -54,7 +54,7 @@ public class ParticleLinePacket {
                     float z = (float) (dZ / distanceInBlocks);
                     Vec3 particlePos = new Vec3(pTo.x + (x * i), pTo.y + 0.2f + (y * i), pTo.z + (z * i));
                     Color color = new Color(msg.colorR, msg.colorG, msg.colorB);
-                    ParticleEffects.particles(pLevel, particlePos, ColorParticleData.create(color, Color.white).build()).spawnParticles();
+                    ParticleEffects.particles(pLevel, particlePos, ColorParticleData.create(color, Color.white).build());
                 }
             });
         }

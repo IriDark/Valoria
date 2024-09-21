@@ -1,46 +1,31 @@
 package com.idark.valoria.registries.item.types;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMultimap;
-import com.google.common.collect.Multimap;
-import com.idark.valoria.client.model.animations.ItemAnims;
-import com.idark.valoria.client.model.animations.SpinAttackAnimation;
-import com.idark.valoria.core.interfaces.ICooldownItem;
-import com.idark.valoria.core.interfaces.ICustomAnimationItem;
-import com.idark.valoria.core.interfaces.IRadiusItem;
-import com.idark.valoria.core.interfaces.ISpinAttackItem;
-import com.idark.valoria.registries.AttributeRegistry;
-import com.idark.valoria.registries.SoundsRegistry;
-import com.idark.valoria.util.ArcRandom;
-import com.idark.valoria.util.ValoriaUtils;
-import net.minecraft.ChatFormatting;
-import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.chat.Component;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.stats.Stats;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attribute;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.player.Player;
+import com.google.common.collect.*;
+import com.idark.valoria.client.model.animations.*;
+import com.idark.valoria.core.interfaces.*;
+import com.idark.valoria.registries.*;
+import com.idark.valoria.util.*;
+import mod.maxbogomol.fluffy_fur.client.animation.*;
+import mod.maxbogomol.fluffy_fur.common.item.*;
+import net.minecraft.*;
+import net.minecraft.core.particles.*;
+import net.minecraft.network.chat.*;
+import net.minecraft.sounds.*;
+import net.minecraft.stats.*;
+import net.minecraft.world.*;
+import net.minecraft.world.effect.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.*;
+import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.level.Level;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.registries.ForgeRegistries;
-import org.joml.Vector3d;
+import net.minecraft.world.item.enchantment.*;
+import net.minecraft.world.level.*;
+import net.minecraftforge.api.distmarker.*;
+import net.minecraftforge.registries.*;
+import org.joml.*;
 
-import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import javax.annotation.*;
+import java.util.*;
 
 public class ScytheItem extends SwordItem implements ICustomAnimationItem, ICooldownItem, IRadiusItem, ISpinAttackItem {
     public static SpinAttackAnimation animation = new SpinAttackAnimation();
@@ -128,7 +113,7 @@ public class ScytheItem extends SwordItem implements ICustomAnimationItem, ICool
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public ItemAnims getAnimation(ItemStack stack) {
+    public ItemAnimation getAnimation(ItemStack stack) {
         return animation;
     }
 

@@ -1,27 +1,21 @@
 package com.idark.valoria.core.network.packets;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.client.particle.ParticleRegistry;
-import com.idark.valoria.util.Pal;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.network.NetworkEvent;
-import team.lodestar.lodestone.systems.particle.ParticleEffectSpawner;
-import team.lodestar.lodestone.systems.particle.builder.WorldParticleBuilder;
-import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
-import team.lodestar.lodestone.systems.particle.data.color.ColorParticleData;
-import team.lodestar.lodestone.systems.particle.world.options.WorldParticleOptions;
+import com.idark.valoria.*;
+import com.idark.valoria.client.particle.*;
+import com.idark.valoria.util.*;
+import mod.maxbogomol.fluffy_fur.client.particle.*;
+import mod.maxbogomol.fluffy_fur.client.particle.data.*;
+import mod.maxbogomol.fluffy_fur.registry.client.*;
+import net.minecraft.network.*;
+import net.minecraft.util.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.phys.*;
+import net.minecraftforge.network.*;
 
 import java.awt.*;
-import java.util.Random;
-import java.util.UUID;
-import java.util.function.Function;
-import java.util.function.Supplier;
-
-import static com.idark.valoria.client.particle.ParticleEffects.ADDITIVE_TRANSPARENT;
+import java.util.*;
+import java.util.function.*;
 
 public class DashParticlePacket {
     private final UUID id;
@@ -50,33 +44,6 @@ public class DashParticlePacket {
         this.colorB = clr.getBlue();
     }
 
-    public static ParticleEffectSpawner packetDashParticles(DashParticlePacket msg, Vec3 pos, ColorParticleData colorData) {
-        return packetDashParticles(msg, pos, colorData, new WorldParticleOptions(ParticleRegistry.SPHERE));
-    }
-
-    public static ParticleEffectSpawner packetDashParticles(DashParticlePacket msg, Vec3 pos, ColorParticleData colorData, WorldParticleOptions options) {
-        return packetDashParticles(msg, pos, options, o -> WorldParticleBuilder.create(o).setColorData(colorData));
-    }
-
-    public static ParticleEffectSpawner packetDashParticles(DashParticlePacket msg, Vec3 pos, WorldParticleOptions options, Function<WorldParticleOptions, WorldParticleBuilder> builderSupplier) {
-        var builder = builderSupplier.apply(options);
-        return packetDashParticles(msg, pos, builder);
-    }
-
-    public static ParticleEffectSpawner packetDashParticles(DashParticlePacket msg, Vec3 pos, WorldParticleBuilder builder) {
-        Random random = new Random();
-        final WorldParticleBuilder particleBuilder = builder
-                .setRenderType(ADDITIVE_TRANSPARENT)
-                .setTransparencyData(GenericParticleData.create(random.nextFloat(0, 0.6f), 0f).build())
-                .setScaleData(GenericParticleData.create(0.92f, 0f).build())
-                .setLifetime(15)
-                .setRandomMotion(msg.velX, msg.velY, msg.velZ)
-                .setRandomOffset(0.025f, 0f, 0.025f);
-
-        return new ParticleEffectSpawner(Valoria.proxy.getLevel(), pos, particleBuilder);
-    }
-
-
     public static DashParticlePacket decode(FriendlyByteBuf buf) {
         return new DashParticlePacket(buf.readUUID(), buf.readInt(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readInt(), buf.readInt(), buf.readInt());
     }
@@ -98,7 +65,17 @@ public class DashParticlePacket {
                             double X = Math.sin(pitch) * Math.cos(yaw) * locDistance;
                             double Y = Math.cos(pitch) * 2;
                             double Z = Math.sin(pitch) * Math.sin(yaw) * locDistance;
-                            packetDashParticles(msg, pos, ColorParticleData.create(color, Pal.darkestGray).build()).getBuilder().spawn(level, pos.x + X + (rand.nextDouble() - 0.5D), pos.y + Y, pos.z + Z + (rand.nextDouble() - 0.5D));
+
+                            Random random = new Random();
+                            ParticleBuilder.create(ParticleRegistry.SPHERE)
+                            .setColorData(ColorParticleData.create(color, Pal.darkestGray).build())
+                            .setRenderType(FluffyFurRenderTypes.ADDITIVE_PARTICLE)
+                            .setTransparencyData(GenericParticleData.create(random.nextFloat(0, 0.6f), 0f).build())
+                            .setScaleData(GenericParticleData.create(0.92f, 0f).build())
+                            .setLifetime(15)
+                            .randomVelocity(msg.velX, msg.velY, msg.velZ)
+                            .randomOffset(0.025f, 0, 0.025f)
+                            .spawn(level, pos.x + X + (rand.nextDouble() - 0.5D), pos.y + Y, pos.z + Z + (rand.nextDouble() - 0.5D));
                         }
                     }
                 } else {

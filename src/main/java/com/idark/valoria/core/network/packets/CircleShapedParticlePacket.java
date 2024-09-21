@@ -1,15 +1,15 @@
 package com.idark.valoria.core.network.packets;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.client.particle.ParticleEffects;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.network.NetworkEvent;
-import team.lodestar.lodestone.systems.particle.data.color.ColorParticleData;
+import com.idark.valoria.*;
+import com.idark.valoria.client.particle.*;
+import mod.maxbogomol.fluffy_fur.client.particle.data.*;
+import net.minecraft.network.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.phys.*;
+import net.minecraftforge.network.*;
 
 import java.awt.*;
-import java.util.function.Supplier;
+import java.util.function.*;
 
 public class CircleShapedParticlePacket {
     private final double posX, posY, posZ;
@@ -44,7 +44,7 @@ public class CircleShapedParticlePacket {
                     double Y = Math.cos(pitch) * pRadius * 0.75F;
                     double Z = Math.sin(pitch) * Math.sin(yaw) * pRadius * 0.75F;
                     Vec3 pos = new Vec3(msg.posX + X, msg.posY + Y * 0.2F, msg.posZ + Z);
-                    ParticleEffects.particles(level, pos, ColorParticleData.create(color, Color.black).build()).spawnParticles();
+                    ParticleEffects.particles(level, pos, ColorParticleData.create(color, Color.black).build());
                 }
 
                 ctx.get().setPacketHandled(true);

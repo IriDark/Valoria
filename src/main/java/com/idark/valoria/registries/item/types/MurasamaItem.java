@@ -1,45 +1,36 @@
 package com.idark.valoria.registries.item.types;
 
-import com.idark.valoria.client.particle.ParticleEffects;
-import com.idark.valoria.client.particle.ScreenParticleRegistry;
-import com.idark.valoria.client.ui.OverlayRender;
-import com.idark.valoria.core.interfaces.IParticleItemEntity;
-import com.idark.valoria.core.network.PacketHandler;
-import com.idark.valoria.core.network.packets.MurasamaParticlePacket;
-import com.idark.valoria.registries.AttributeRegistry;
-import com.idark.valoria.registries.SoundsRegistry;
-import com.idark.valoria.util.Pal;
-import com.idark.valoria.util.ValoriaUtils;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.stats.Stats;
-import net.minecraft.util.Mth;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Tier;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import org.jetbrains.annotations.NotNull;
-import org.joml.Vector3d;
-import team.lodestar.lodestone.handlers.screenparticle.ParticleEmitterHandler;
-import team.lodestar.lodestone.systems.particle.data.color.ColorParticleData;
-import team.lodestar.lodestone.systems.particle.screen.ScreenParticleHolder;
+import com.idark.valoria.client.ui.*;
+import com.idark.valoria.core.interfaces.*;
+import com.idark.valoria.core.network.*;
+import com.idark.valoria.core.network.packets.*;
+import com.idark.valoria.registries.*;
+import com.idark.valoria.util.*;
+import mod.maxbogomol.fluffy_fur.client.particle.*;
+import mod.maxbogomol.fluffy_fur.client.particle.data.*;
+import mod.maxbogomol.fluffy_fur.registry.client.*;
+import net.minecraft.core.particles.*;
+import net.minecraft.server.level.*;
+import net.minecraft.sounds.*;
+import net.minecraft.stats.*;
+import net.minecraft.util.*;
+import net.minecraft.world.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.*;
+import net.minecraft.world.entity.item.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.item.enchantment.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.phys.*;
+import org.jetbrains.annotations.*;
+import org.joml.*;
 
-import java.util.List;
+import java.lang.Math;
+import java.util.*;
 
-public class MurasamaItem extends KatanaItem implements IParticleItemEntity, ParticleEmitterHandler.ItemParticleSupplier {
+//todo
+public class MurasamaItem extends KatanaItem implements IParticleItemEntity {
     public MurasamaItem(Tier tier, int attackDamageIn, float attackSpeedIn, Properties builderIn) {
         super(tier, attackDamageIn, attackSpeedIn, builderIn);
     }
@@ -152,14 +143,21 @@ public class MurasamaItem extends KatanaItem implements IParticleItemEntity, Par
             double pitch = Math.atan2(Math.sqrt(dZ * dZ + dX * dX), dY) + Math.PI;
             double XX = Math.sin(pitch) * Math.cos(yaw) * (float) (rand.nextDouble() * 0.025F) / (ii + 1), YY = Math.sin(pitch) * Math.sin(yaw) * (float) (rand.nextDouble() * 0.025F) / (ii + 1), ZZ = Math.cos(pitch) * (float) (rand.nextDouble() * 0.025F) / (ii + 1);
             Vec3 pos = new Vec3(entity.getX() + X, entity.getY() + Y, entity.getZ() + Z);
-
-            ParticleEffects.itemParticles(level, pos, ColorParticleData.create(Pal.strongRed, Pal.moderateViolet).build()).getBuilder().setMotion(XX, YY, ZZ).spawn(level, pos.x, pos.y, pos.z);
+            RandomSource random = level.getRandom();
+            ParticleBuilder.create(FluffyFurParticles.SPARKLE)
+            .setTransparencyData(GenericParticleData.create(0.25f, 0f).build())
+            .setScaleData(GenericParticleData.create(0.05f + arcRandom.randomValueUpTo(0.25f), arcRandom.randomValueUpTo(0.2f)).build())
+            .setLifetime(6)
+            .setColorData(ColorParticleData.create(Pal.strongRed, Pal.moderateViolet).build())
+            .setSpinData(SpinParticleData.create(0.5f * (float)((random.nextDouble() - 0.5D) * 2), 0).build())
+            .setVelocity(XX, YY, ZZ)
+            .spawn(level, pos.x, pos.y, pos.z);
         }
     }
 
-    @OnlyIn(Dist.CLIENT)
-    @Override
-    public void spawnLateParticles(ScreenParticleHolder target, Level level, float partialTick, ItemStack stack, float x, float y) {
-        ScreenParticleRegistry.spawnCoreParticles(target, ColorParticleData.create(Pal.strongRed, Pal.moderateViolet).build());
-    }
+//    @OnlyIn(Dist.CLIENT)
+//    @Override
+//    public void spawnLateParticles(ScreenParticleHolder target, Level level, float partialTick, ItemStack stack, float x, float y) {
+//        ScreenParticleRegistry.spawnCoreParticles(target, ColorParticleData.create(Pal.strongRed, Pal.moderateViolet).build());
+//    }
 }

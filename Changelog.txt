@@ -1,4 +1,5 @@
 # Changelog v0.6.2 (Full release)
+- Now Valoria requires Fluffy Fur
 - Fixed Shade Blossom Bandage Recipe
 - Fixed
     Unable to load model: 'minecraft:item/pick_crushing_0' referenced from: valoria:prospectors_pick#inventory: java.io.FileNotFoundException: minecraft:models/item/pick_crushing_0.json
@@ -38,6 +39,7 @@
 - Added "in-hand" Models to Katanas (Contributed by Kerdo)
 - Added Crypt Pots (Contributed by Kerdo)
 - Added Halloween Items
+- Added functionality to Soul Collector
 
 - Deleted Geodites (Drops moved to ephemarite)
 - Deleted Void Crystal
@@ -50,6 +52,7 @@
 - Reworked Katanas
 - Reworked Murasama
 - Reworked Overlay Rendering
+- Reworked Overlay items
 
 - Decreased amount of bones dropped from Goblins
 - Decreased Cooldown time for Scythes from 100 to 75, if no one was hit to 15

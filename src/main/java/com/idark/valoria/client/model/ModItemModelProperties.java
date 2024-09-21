@@ -1,9 +1,9 @@
-package com.idark.valoria.client.model.item;
+package com.idark.valoria.client.model;
 
-import net.minecraft.client.renderer.item.ItemProperties;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
+import net.minecraft.client.renderer.item.*;
+import net.minecraft.resources.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.item.*;
 
 public class ModItemModelProperties {
 

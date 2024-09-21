@@ -1,19 +1,15 @@
 package com.idark.valoria.core.network;
 
-import com.idark.valoria.Valoria;
+import com.idark.valoria.*;
 import com.idark.valoria.core.network.packets.*;
-import com.mojang.datafixers.util.Pair;
-import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerChunkCache;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.ChunkPos;
-import net.minecraft.world.level.Level;
-import net.minecraftforge.network.NetworkDirection;
-import net.minecraftforge.network.NetworkRegistry;
-import net.minecraftforge.network.PacketDistributor;
-import net.minecraftforge.network.simple.SimpleChannel;
+import com.mojang.datafixers.util.*;
+import net.minecraft.core.*;
+import net.minecraft.resources.*;
+import net.minecraft.server.level.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.level.*;
+import net.minecraftforge.network.*;
+import net.minecraftforge.network.simple.*;
 
 public final class PacketHandler {
     private static final String PROTOCOL = "10";
@@ -47,6 +43,7 @@ public final class PacketHandler {
 
     public static void init() {
         int id = 0;
+        HANDLER.registerMessage(id++, SoulCollectParticlePacket.class, SoulCollectParticlePacket::encode, SoulCollectParticlePacket::decode, SoulCollectParticlePacket::handle);
         HANDLER.registerMessage(id++, UnlockableUpdatePacket.class, UnlockableUpdatePacket::encode, UnlockableUpdatePacket::decode, UnlockableUpdatePacket::handle);
         HANDLER.registerMessage(id++, CooldownSoundPacket.class, CooldownSoundPacket::encode, CooldownSoundPacket::decode, CooldownSoundPacket::handle);
         HANDLER.registerMessage(id++, PageToastPacket.class, PageToastPacket::encode, PageToastPacket::decode, PageToastPacket::handle);

@@ -119,11 +119,11 @@ public class ItemsRegistry {
 
     //NECROMANCY
     public static final RegistryObject<Item> SUMMON_BOOK = ITEMS.register("summon_book", () -> new SummonBook(EntityTypeRegistry.UNDEAD, 30, 3, new Item.Properties().rarity(Rarity.EPIC)));
+    public static final RegistryObject<Item> SOUL_COLLECTOR_EMPTY = ITEMS.register("soul_collector_empty", () -> new SoulCollectorItem(new Item.Properties().stacksTo(1).rarity(RarityRegistry.PHANTASM)));
+    public static final RegistryObject<Item> SOUL_COLLECTOR = ITEMS.register("soul_collector", () -> new SoulCollectorItem(50, 50, new Item.Properties().rarity(RarityRegistry.PHANTASM)));
 
     public static final RegistryObject<Item> MINERS_BAG = ITEMS.register("miners_bag", () -> new DropItemProperty(DropType.MINERS, new Item.Properties().rarity(Rarity.EPIC)));
     public static final RegistryObject<Item> GEM_BAG = ITEMS.register("gem_bag", () -> new DropItemProperty(DropType.GEM, new Item.Properties().rarity(Rarity.EPIC)));
-    public static final RegistryObject<Item> SOUL_COLLECTOR_EMPTY = ITEMS.register("soul_collector_empty", () -> new SoulCollectorItem(new Item.Properties().stacksTo(1)));
-    public static final RegistryObject<Item> SOUL_COLLECTOR = ITEMS.register("soul_collector", () -> new SoulCollectorItem(50, 50, new Item.Properties()));
     public static final RegistryObject<Item> VOID_KEY = ITEMS.register("void_key", () -> new Item(new Item.Properties().stacksTo(8).rarity(RarityRegistry.VOID)));
     public static final RegistryObject<Item> GAIB_ROOT = ITEMS.register("gaib_root", () -> new Item(new Item.Properties().stacksTo(16)));
     public static final RegistryObject<Item> KARUSAKAN_ROOT = ITEMS.register("karusakan_root", () -> new Item(new Item.Properties().stacksTo(16)));

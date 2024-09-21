@@ -1,15 +1,16 @@
 package com.idark.valoria.core.network.packets;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.client.particle.ParticleEffects;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.network.NetworkEvent;
-import team.lodestar.lodestone.systems.particle.data.color.ColorParticleData;
+import com.idark.valoria.*;
+import mod.maxbogomol.fluffy_fur.client.particle.*;
+import mod.maxbogomol.fluffy_fur.client.particle.data.*;
+import mod.maxbogomol.fluffy_fur.registry.client.*;
+import net.minecraft.network.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.phys.*;
+import net.minecraftforge.network.*;
 
 import java.awt.*;
-import java.util.function.Supplier;
+import java.util.function.*;
 
 public class CubeShapedParticlePacket {
 
@@ -49,11 +50,37 @@ public class CubeShapedParticlePacket {
                     Vec3 pos2 = new Vec3(msg.posX + pOffset, msg.posY, msg.posZ - size);
                     Vec3 pos3 = new Vec3(msg.posX - pOffset, msg.posY, msg.posZ + size);
 
-                    ParticleEffects.particles(level, pos0, ColorParticleData.create(color, Color.black).build()).getBuilder().setMotion(0, msg.speedY, 0).spawnLine(level, pos0, pos0);
-                    ParticleEffects.particles(level, pos0, ColorParticleData.create(color, Color.black).build()).getBuilder().setMotion(0, msg.speedY, 0).spawnLine(level, pos1, pos1);
-                    ParticleEffects.particles(level, pos0, ColorParticleData.create(color, Color.black).build()).getBuilder().setMotion(0, msg.speedY, 0).spawnLine(level, pos2, pos2);
-                    ParticleEffects.particles(level, pos0, ColorParticleData.create(color, Color.black).build()).getBuilder().setMotion(0, msg.speedY, 0).spawnLine(level, pos3, pos3);
+                    ParticleBuilder.create(FluffyFurParticles.WISP)
+                    .setColorData(ColorParticleData.create(color, Color.black).build())
+                    .setTransparencyData(GenericParticleData.create(1.25f, 0f).build())
+                    .setScaleData(GenericParticleData.create(0.2f, 0.1f, 0).build())
+                    .setLifetime(6)
+                    .addVelocity(0, msg.speedY, 0)
+                    .spawn(level, pos0.x, pos0.y, pos0.z);
 
+                    ParticleBuilder.create(FluffyFurParticles.WISP)
+                    .setColorData(ColorParticleData.create(color, Color.black).build())
+                    .setTransparencyData(GenericParticleData.create(1.25f, 0f).build())
+                    .setScaleData(GenericParticleData.create(0.2f, 0.1f, 0).build())
+                    .setLifetime(6)
+                    .addVelocity(0, msg.speedY, 0)
+                    .spawn(level, pos1.x, pos1.y, pos1.z);
+
+                    ParticleBuilder.create(FluffyFurParticles.WISP)
+                    .setColorData(ColorParticleData.create(color, Color.black).build())
+                    .setTransparencyData(GenericParticleData.create(1.25f, 0f).build())
+                    .setScaleData(GenericParticleData.create(0.2f, 0.1f, 0).build())
+                    .setLifetime(6)
+                    .addVelocity(0, msg.speedY, 0)
+                    .spawn(level, pos2.x, pos2.y, pos2.z);
+
+                    ParticleBuilder.create(FluffyFurParticles.WISP)
+                    .setColorData(ColorParticleData.create(color, Color.black).build())
+                    .setTransparencyData(GenericParticleData.create(1.25f, 0f).build())
+                    .setScaleData(GenericParticleData.create(0.2f, 0.1f, 0).build())
+                    .setLifetime(6)
+                    .addVelocity(0, msg.speedY, 0)
+                    .spawn(level, pos3.x, pos3.y, pos3.z);
                 }
 
                 ctx.get().setPacketHandled(true);

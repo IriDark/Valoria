@@ -1,22 +1,19 @@
 package com.idark.valoria.client.model.animations;
 
-import com.idark.valoria.client.event.ClientTickHandler;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Axis;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.HumanoidModel;
-import net.minecraft.client.player.AbstractClientPlayer;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.HumanoidArm;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.ItemDisplayContext;
-import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import com.idark.valoria.client.event.*;
+import com.mojang.blaze3d.vertex.*;
+import com.mojang.math.*;
+import mod.maxbogomol.fluffy_fur.client.animation.*;
+import net.minecraft.client.*;
+import net.minecraft.client.model.*;
+import net.minecraft.client.player.*;
+import net.minecraft.client.renderer.*;
+import net.minecraft.world.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.item.*;
+import net.minecraftforge.api.distmarker.*;
 
-public class CrushingAnimation extends ItemAnims {
+public class CrushingAnimation extends ItemAnimation{
 
     @Override
     @OnlyIn(Dist.CLIENT)

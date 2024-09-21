@@ -1,26 +1,21 @@
 package com.idark.valoria.registries;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.util.ValoriaUtils;
-import net.minecraft.core.Holder;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.decoration.Painting;
-import net.minecraft.world.entity.decoration.PaintingVariant;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.RegistryObject;
+import com.idark.valoria.*;
+import com.idark.valoria.util.*;
+import net.minecraft.core.*;
+import net.minecraft.core.registries.*;
+import net.minecraft.nbt.*;
+import net.minecraft.network.chat.*;
+import net.minecraft.resources.*;
+import net.minecraft.world.entity.decoration.*;
+import net.minecraft.world.item.*;
+import net.minecraftforge.event.*;
+import net.minecraftforge.eventbus.api.*;
+import net.minecraftforge.fml.common.*;
+import net.minecraftforge.registries.*;
 
-import java.util.Comparator;
-import java.util.function.Predicate;
+import java.util.*;
+import java.util.function.*;
 
 @Mod.EventBusSubscriber(modid = Valoria.ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public abstract class ItemTabRegistry {
@@ -112,7 +107,7 @@ public abstract class ItemTabRegistry {
             event.accept(ItemsRegistry.INFERNAL_CORE);
             event.accept(ItemsRegistry.VOID_CORE);
             event.accept(ItemsRegistry.SOUL_COLLECTOR_EMPTY);
-            event.accept(ItemsRegistry.SOUL_COLLECTOR);
+            event.accept(ItemsRegistry.SOUL_COLLECTOR.get().getDefaultInstance());
             event.accept(ItemsRegistry.LEXICON);
             event.accept(ItemsRegistry.SUMMON_BOOK);
             event.accept(ItemsRegistry.CRYPT);

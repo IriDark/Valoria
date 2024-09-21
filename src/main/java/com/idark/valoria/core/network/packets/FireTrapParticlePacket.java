@@ -1,19 +1,17 @@
 package com.idark.valoria.core.network.packets;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.client.particle.ParticleEffects;
-import com.idark.valoria.util.Pal;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.network.NetworkEvent;
-import team.lodestar.lodestone.registry.common.particle.LodestoneParticleRegistry;
-import team.lodestar.lodestone.systems.particle.data.color.ColorParticleData;
-import team.lodestar.lodestone.systems.particle.world.options.WorldParticleOptions;
+import com.idark.valoria.*;
+import com.idark.valoria.client.particle.*;
+import com.idark.valoria.util.*;
+import mod.maxbogomol.fluffy_fur.client.particle.data.*;
+import net.minecraft.core.particles.*;
+import net.minecraft.network.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.phys.*;
+import net.minecraftforge.network.*;
 
 import java.awt.*;
-import java.util.function.Supplier;
+import java.util.function.*;
 
 public class FireTrapParticlePacket {
 
@@ -47,8 +45,8 @@ public class FireTrapParticlePacket {
                     Color color = new Color(msg.colorR, msg.colorG, msg.colorB);
                     Color colorTo = new Color(msg.colorToR, msg.colorToG, msg.colorToB);
                     Vec3 pos = new Vec3(msg.posX, msg.posY + 1.2f, msg.posZ);
-                    ParticleEffects.fireParticles(level, pos, ColorParticleData.create(color, colorTo).build()).spawnParticles();
-                    ParticleEffects.smokeParticles(level, pos, ColorParticleData.create(Color.black, Pal.smoke).build(), new WorldParticleOptions(LodestoneParticleRegistry.SMOKE_PARTICLE)).spawnParticles();
+                    ParticleEffects.fireParticles(level, pos, ColorParticleData.create(color, colorTo).build());
+                    ParticleEffects.smokeParticles(level, pos, ColorParticleData.create(Color.black, Pal.smoke).build());
                     level.addParticle(ParticleTypes.LAVA, msg.posX + 0.5, msg.posY + 1.5, msg.posZ + 0.5, 0.0D, 0.0D, 0.0D);
                 }
 

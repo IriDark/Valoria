@@ -1,16 +1,16 @@
 package com.idark.valoria.core.network.packets;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.client.particle.ParticleEffects;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.network.NetworkEvent;
-import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
-import team.lodestar.lodestone.systems.particle.data.color.ColorParticleData;
+import com.idark.valoria.*;
+import mod.maxbogomol.fluffy_fur.client.particle.*;
+import mod.maxbogomol.fluffy_fur.client.particle.data.*;
+import mod.maxbogomol.fluffy_fur.registry.client.*;
+import net.minecraft.network.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.phys.*;
+import net.minecraftforge.network.*;
 
 import java.awt.*;
-import java.util.function.Supplier;
+import java.util.function.*;
 
 public class ManipulatorEmptyParticlePacket {
 
@@ -52,7 +52,13 @@ public class ManipulatorEmptyParticlePacket {
                     double X = Math.sin(pitch) * Math.cos(yaw) * pRadius * 0.75F, Y = Math.cos(pitch) * pRadius * 0.75F, Z = Math.sin(pitch) * Math.sin(yaw) * pRadius * 0.75F;
                     Vec3 particlePos = new Vec3(msg.posX + X, msg.posY + Y + ((Math.random() - 0.5D) * 0.2F), msg.posZ + Z);
                     Color color = new Color(msg.colorR, msg.colorG, msg.colorB);
-                    ParticleEffects.particles(pLevel, particlePos, ColorParticleData.create(color, Color.black).build()).getBuilder().setMotion(0, 0.1f, 0).setLifetime(4).setScaleData(GenericParticleData.create(0.025f, 0).build()).spawn(pLevel, particlePos.x, particlePos.y, particlePos.z);
+                    ParticleBuilder.create(FluffyFurParticles.WISP)
+                    .setColorData(ColorParticleData.create(color, Color.black).build())
+                    .setTransparencyData(GenericParticleData.create(1.25f, 0f).build())
+                    .setScaleData(GenericParticleData.create(0.025f, 0).build())
+                    .setLifetime(4)
+                    .setVelocity(0, 0.1f, 0)
+                    .spawn(pLevel, particlePos.x, particlePos.y, particlePos.z);
                 }
 
                 ctx.get().setPacketHandled(true);

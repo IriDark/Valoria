@@ -1,17 +1,17 @@
 package com.idark.valoria.core.network.packets;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.client.particle.ParticleEffects;
-import com.idark.valoria.util.Pal;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.network.NetworkEvent;
-import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
-import team.lodestar.lodestone.systems.particle.data.color.ColorParticleData;
+import com.idark.valoria.*;
+import com.idark.valoria.util.*;
+import mod.maxbogomol.fluffy_fur.client.particle.*;
+import mod.maxbogomol.fluffy_fur.client.particle.data.*;
+import mod.maxbogomol.fluffy_fur.registry.client.*;
+import net.minecraft.network.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.phys.*;
+import net.minecraftforge.network.*;
 
 import java.awt.*;
-import java.util.function.Supplier;
+import java.util.function.*;
 
 public class ManipulatorCraftParticlePacket {
 
@@ -47,19 +47,49 @@ public class ManipulatorCraftParticlePacket {
             ctx.get().enqueueWork(() -> {
                 Level pLevel = Valoria.proxy.getLevel();
                 Vec3 particlePos = new Vec3(msg.posX + 0.85f, msg.posY + 1.10f, msg.posZ + 0.85f);
-                ParticleEffects.particles(pLevel, particlePos, ColorParticleData.create(Pal.infernalBright, Color.black).build()).getBuilder().setMotion(-0.05f, 0.025f, -0.05f).setLifetime(8).setScaleData(GenericParticleData.create(0.025f, 0.1f).build()).spawn(pLevel, particlePos.x, particlePos.y, particlePos.z);
+                ParticleBuilder.create(FluffyFurParticles.WISP)
+                .setColorData(ColorParticleData.create(Pal.infernalBright, Color.black).build())
+                .setTransparencyData(GenericParticleData.create(1.25f, 0f).build())
+                .setScaleData(GenericParticleData.create(0.025f, 0.1f).build())
+                .setLifetime(8)
+                .setVelocity(-0.05f, 0.025f, -0.05f)
+                .spawn(pLevel, particlePos.x, particlePos.y, particlePos.z);
 
                 Vec3 particlePos1 = new Vec3(msg.posX + 0.15f, msg.posY + 1.10f, msg.posZ + 0.15f);
-                ParticleEffects.particles(pLevel, particlePos1, ColorParticleData.create(Pal.nature, Color.black).build()).getBuilder().setMotion(0.05f, 0.025f, 0.05f).setLifetime(8).setScaleData(GenericParticleData.create(0.025f, 0.1f).build()).spawn(pLevel, particlePos1.x, particlePos1.y, particlePos1.z);
+                ParticleBuilder.create(FluffyFurParticles.WISP)
+                .setColorData(ColorParticleData.create(Pal.nature, Color.black).build())
+                .setTransparencyData(GenericParticleData.create(1.25f, 0f).build())
+                .setScaleData(GenericParticleData.create(0.025f, 0.1f).build())
+                .setLifetime(8)
+                .setVelocity(0.05f, 0.025f, 0.05f)
+                .spawn(pLevel, particlePos1.x, particlePos1.y, particlePos1.z);
 
                 Vec3 particlePos2 = new Vec3(msg.posX + 0.85f, msg.posY + 1.10f, msg.posZ + 0.15f);
-                ParticleEffects.particles(pLevel, particlePos2, ColorParticleData.create(Pal.oceanic, Color.black).build()).getBuilder().setMotion(-0.05f, 0.025f, 0.05f).setLifetime(8).setScaleData(GenericParticleData.create(0.025f, 0.1f).build()).spawn(pLevel, particlePos2.x, particlePos2.y, particlePos2.z);
+                ParticleBuilder.create(FluffyFurParticles.WISP)
+                .setColorData(ColorParticleData.create(Pal.oceanic, Color.black).build())
+                .setTransparencyData(GenericParticleData.create(1.25f, 0f).build())
+                .setScaleData(GenericParticleData.create(0.025f, 0.1f).build())
+                .setLifetime(8)
+                .setVelocity(-0.05f, 0.025f, 0.05f)
+                .spawn(pLevel, particlePos2.x, particlePos2.y, particlePos2.z);
 
                 Vec3 particlePos3 = new Vec3(msg.posX + 0.15f, msg.posY + 1.10f, msg.posZ + 0.85f);
-                ParticleEffects.particles(pLevel, particlePos3, ColorParticleData.create(Pal.vividCyan, Color.black).build()).getBuilder().setMotion(0.05f, 0.025f, -0.05f).setLifetime(8).setScaleData(GenericParticleData.create(0.025f, 0.1f).build()).spawn(pLevel, particlePos3.x, particlePos3.y, particlePos3.z);
+                ParticleBuilder.create(FluffyFurParticles.WISP)
+                .setColorData(ColorParticleData.create(Pal.vividCyan, Color.black).build())
+                .setTransparencyData(GenericParticleData.create(1.25f, 0f).build())
+                .setScaleData(GenericParticleData.create(0.025f, 0.1f).build())
+                .setLifetime(8)
+                .setVelocity(0.05f, 0.025f, -0.05f)
+                .spawn(pLevel, particlePos3.x, particlePos3.y, particlePos3.z);
 
                 Vec3 particlePos4 = new Vec3(msg.posX + 0.5f, msg.posY + 1, msg.posZ + 0.5f);
-                ParticleEffects.particles(pLevel, particlePos4, ColorParticleData.create(Color.white, Color.black).build()).getBuilder().setMotion(0, 0.025f, 0).setLifetime(12).setScaleData(GenericParticleData.create(0.025f, 0.1f).build()).spawn(pLevel, particlePos4.x, particlePos4.y, particlePos4.z);
+                ParticleBuilder.create(FluffyFurParticles.WISP)
+                .setColorData(ColorParticleData.create(Color.white, Color.black).build())
+                .setTransparencyData(GenericParticleData.create(1.25f, 0f).build())
+                .setScaleData(GenericParticleData.create(0.025f, 0.1f).build())
+                .setLifetime(12)
+                .setVelocity(0, 0.025f, 0)
+                .spawn(pLevel, particlePos4.x, particlePos4.y, particlePos4.z);
                 ctx.get().setPacketHandled(true);
             });
         }

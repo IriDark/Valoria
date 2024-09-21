@@ -10,7 +10,7 @@ updateJSONURL = ""
 displayURL = "https://discord.gg/wWdXpwuPmK"
 logoFile = "Valoria_Logo.png"
 credits = "Calamity Mod (sounds)"
-authors = "IriDark"
+authors = "IriDark, Sunday, Kerdo"
 description = '''
 Valoria — A big RPG themed project that adds some mobs, blocks, weapons, and some bunch of content in "vanilla" texture style
 '''
@@ -30,7 +30,11 @@ side = "BOTH"
 modId = "curios"
 mandatory = true
 versionRange = "[5.2.0-beta.3+1.20.1,)"
+ordering = "AFTER"
+side = "BOTH"
 [[dependencies.valoria]]
-modId = "lodestone"
+modId = "fluffy_fur"
 mandatory = true
-versionRange = "[1.20.1-1.6.2.1,)"
+versionRange = "[1.20.1-0.1-SNAPSHOT,)"
+ordering = "AFTER"
+side = "BOTH"

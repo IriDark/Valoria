@@ -1,16 +1,15 @@
 package com.idark.valoria.registries.block.types;
 
-import com.idark.valoria.client.particle.ParticleEffects;
-import net.minecraft.client.Minecraft;
-import net.minecraft.core.BlockPos;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.LeavesBlock;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import team.lodestar.lodestone.systems.particle.data.color.ColorParticleData;
+import com.idark.valoria.client.particle.*;
+import mod.maxbogomol.fluffy_fur.client.particle.data.*;
+import net.minecraft.client.*;
+import net.minecraft.core.*;
+import net.minecraft.util.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.*;
+import net.minecraft.world.phys.*;
+import net.minecraftforge.api.distmarker.*;
 
 import java.awt.*;
 
@@ -32,7 +31,7 @@ public class ShadeLeavesBlock extends LeavesBlock {
 
                 Color color = new Color((i >> 16 & 255) / 255.0F, (i >> 8 & 255) / 255.0F, (i & 255) / 255.0F);
                 Vec3 position = new Vec3(x, y, z);
-                ParticleEffects.leafParticle(world, position, ColorParticleData.create(color, color.darker()).build()).spawnParticles();
+                ParticleEffects.leafParticle(world, position, ColorParticleData.create(color, color.darker()).build());
             }
         }
     }

@@ -106,6 +106,7 @@ public class Valoria {
      * @see ValoriaClient.RegistryEvents#onModelRegistryEvent(ModelEvent.RegisterAdditional)
      */
     private void clientSetup(final FMLClientSetupEvent event) {
+        ValoriaClient.setupMenu();
         event.enqueueWork(() -> {
             LexiconChapters.init();
             BlockEntityRenderers.register(BlockEntitiesRegistry.CHEST_BLOCK_ENTITY.get(), ModChestRender::new);
