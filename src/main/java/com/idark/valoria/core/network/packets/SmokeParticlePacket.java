@@ -39,7 +39,7 @@ public class SmokeParticlePacket {
                 ParticleBuilder.create(ParticleRegistry.SMOKE)
                 .setRenderType(FluffyFurRenderTypes.ADDITIVE_PARTICLE)
                 .setColorData(color)
-                .setTransparencyData(GenericParticleData.create(random.nextFloat(0, 0.6f), 0f).build())
+                .setTransparencyData(GenericParticleData.create().setRandomValue(0, 0.6f, 0, 0).build())
                 .setScaleData(GenericParticleData.create(0.92f, 0f).build())
                 .setLifetime(95 + random.nextInt(100))
                 .randomVelocity(msg.velX, msg.velY, msg.velZ)

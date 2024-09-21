@@ -116,7 +116,7 @@ public class ParticleEffects{
                 .setTransparencyData(GenericParticleData.create(0.25f, 0f).build())
                 .setScaleData(GenericParticleData.create(0.05f + arcRandom.randomValueUpTo(0.25f), arcRandom.randomValueUpTo(0.2f)).build())
                 .setLifetime(16)
-                .setRenderType(FluffyFurRenderTypes.TRANSLUCENT_PARTICLE)
+                .setRenderType(FluffyFurRenderTypes.ADDITIVE_PARTICLE) //todo translucent later
                 .setColorData(ColorParticleData.create(Color.black, Pal.smoke).build())
                 .setSpinData(SpinParticleData.create(0.5f * (float)((rand.nextDouble() - 0.5D) * 2), 0).build())
                 .setVelocity((rand.nextDouble() / 30), 0.05f, (rand.nextDouble() / 30))

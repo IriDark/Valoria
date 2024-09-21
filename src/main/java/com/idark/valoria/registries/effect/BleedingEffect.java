@@ -46,17 +46,16 @@ public class BleedingEffect extends MobEffect {
     public void spawnParticles(LivingEntity pEntity) {
         Vec3 pos = new Vec3(pEntity.getX() + (new Random().nextDouble() - 0.5f) / 2, pEntity.getY() + (new Random().nextDouble() + 1f) / 2, pEntity.getZ());
         ParticleBuilder.create(FluffyFurParticles.WISP)
-        .setRenderType(FluffyFurRenderTypes.TRANSLUCENT_PARTICLE)
+        .setRenderType(FluffyFurRenderTypes.ADDITIVE_PARTICLE) //todo translucent later
         .setGravity(0.75f)
         .setColorData(ColorParticleData.create(Pal.darkRed, Color.red).build())
-        .setTransparencyData(GenericParticleData.create(1.25f, 0f).build())
+        .setTransparencyData(GenericParticleData.create(1f, 0f).build())
         .setScaleData(GenericParticleData.create(0.2f, 0.1f, 0).build())
         .setLifetime(6)
         .randomVelocity(0.5, 0, 0.5)
         .randomOffset(0.7, 0, 0.7)
         .addVelocity(0, 0.08f, 0)
         .spawn(pEntity.level(), pos.x, pos.y, pos.z);
-
     }
 
     @Override
