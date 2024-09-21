@@ -6,6 +6,7 @@ import mod.maxbogomol.fluffy_fur.client.particle.*;
 import mod.maxbogomol.fluffy_fur.client.particle.data.*;
 import mod.maxbogomol.fluffy_fur.common.easing.*;
 import mod.maxbogomol.fluffy_fur.registry.client.*;
+import net.minecraft.client.particle.*;
 import net.minecraft.core.particles.*;
 import net.minecraft.util.*;
 import net.minecraft.world.entity.item.*;
@@ -68,17 +69,11 @@ public class ParticleEffects{
     }
 
     public static void leafParticle(Level level, Vec3 pos, ColorParticleData data){
-        RandomSource rand = level.getRandom();
-        float f = rand.nextBoolean() ? 0.05F : 0.075F;
         ParticleBuilder.create(ParticleRegistry.SHADEWOOD_LEAF_PARTICLE)
-        .setLifetime(120)
-        .setRenderType(FluffyFurRenderTypes.TRANSLUCENT_PARTICLE_TEXTURE)
-        .setGravity(7.5E-4F)
+        .setParticleRenderType(ParticleRenderType.PARTICLE_SHEET_OPAQUE)
+        .setLightData(LightParticleData.DEFAULT)
+        .flatRandomOffset(0.75, 0, 0.75)
         .setColorData(data)
-        .addVelocity(((rand.nextDouble() - 0.5D) / 6), ((rand.nextDouble() - 1.25D) / 8), ((rand.nextDouble() - 0.5D) / 6))
-        .setSpinData(SpinParticleData.create((float)Math.toRadians(rand.nextBoolean() ? -5.0D : 5.0D)).build())
-        .setScaleData(GenericParticleData.create(f).build())
-        .setFriction(1)
         .spawn(level, pos.x, pos.y, pos.z);
     }
 

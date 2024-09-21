@@ -31,7 +31,7 @@ public class ShadeLeavesBlock extends LeavesBlock {
 
                 Color color = new Color((i >> 16 & 255) / 255.0F, (i >> 8 & 255) / 255.0F, (i & 255) / 255.0F);
                 Vec3 position = new Vec3(x, y, z);
-                ParticleEffects.leafParticle(world, position, ColorParticleData.create(color, color.darker()).build());
+                ParticleEffects.leafParticle(world, position, ColorParticleData.create(color.darker().darker(), color).build());
             }
         }
     }

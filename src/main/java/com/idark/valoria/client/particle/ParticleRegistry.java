@@ -21,7 +21,7 @@ public class ParticleRegistry {
     public static RegistryObject<GenericParticleType> GLITTER = PARTICLES.register("glitter", GenericParticleType::new);
     public static RegistryObject<GenericParticleType> TRANSFORM_PARTICLE = PARTICLES.register("transform", GenericParticleType::new);
     public static RegistryObject<GenericParticleType> GEODE_PARTICLE = PARTICLES.register("geode", GenericParticleType::new);
-    public static RegistryObject<GenericParticleType> SHADEWOOD_LEAF_PARTICLE = PARTICLES.register("shadewood_leaf", GenericParticleType::new);
+    public static RegistryObject<LeavesParticleType> SHADEWOOD_LEAF_PARTICLE = PARTICLES.register("shadewood_leaf", LeavesParticleType::new);
 
     public static RegistryObject<SimpleParticleType> HEAL = PARTICLES.register("heal", () -> new SimpleParticleType(false));
     public static RegistryObject<SimpleParticleType> FIREFLY = PARTICLES.register("firefly", () -> new SimpleParticleType(false));
@@ -34,7 +34,7 @@ public class ParticleRegistry {
         Minecraft.getInstance().particleEngine.register(ParticleRegistry.SPHERE.get(), GenericParticleType.Factory::new);
         Minecraft.getInstance().particleEngine.register(ParticleRegistry.TRANSFORM_PARTICLE.get(), GenericParticleType.Factory::new);
         Minecraft.getInstance().particleEngine.register(ParticleRegistry.GEODE_PARTICLE.get(), GenericParticleType.Factory::new);
-        Minecraft.getInstance().particleEngine.register(ParticleRegistry.SHADEWOOD_LEAF_PARTICLE.get(), GenericParticleType.Factory::new);
+        Minecraft.getInstance().particleEngine.register(ParticleRegistry.SHADEWOOD_LEAF_PARTICLE.get(), LeavesParticleType.Factory::new);
         Minecraft.getInstance().particleEngine.register(ParticleRegistry.CHOMP.get(), ChompParticle.Factory::new);
         Minecraft.getInstance().particleEngine.register(ParticleRegistry.FIREFLY.get(), FireflyParticle.Factory::new);
         Minecraft.getInstance().particleEngine.register(ParticleRegistry.HEAL.get(), EndRodParticle.Provider::new);

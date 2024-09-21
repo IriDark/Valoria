@@ -35,7 +35,7 @@ public class SoulCollectParticlePacket{
             ctx.get().enqueueWork(() -> {
                 Level level = Valoria.proxy.getLevel();
                 Player player = level.getPlayerByUUID(msg.uuid);
-                Vec3 pos = new Vec3(msg.posX, msg.posY * 0.2F, msg.posZ);
+                Vec3 pos = new Vec3(msg.posX, msg.posY, msg.posZ);
                 final Consumer<GenericParticle> blockTarget = p -> {
                     Vec3 pPos = p.getPosition();
 
@@ -56,12 +56,12 @@ public class SoulCollectParticlePacket{
                 ParticleBuilder.create(FluffyFurParticles.WISP)
                 .setColorData(ColorParticleData.create(Pal.cyan, Color.white).build())
                 .setTransparencyData(GenericParticleData.create(0.3f).setEasing(Easing.QUARTIC_OUT).build())
-                .setScaleData(GenericParticleData.create(0.025f, 0.5f, 0).setEasing(Easing.QUARTIC_OUT).build())
+                .setScaleData(GenericParticleData.create(0.035f, 0.075f, 0).setEasing(Easing.QUARTIC_OUT).build())
                 .addTickActor(blockTarget)
                 .setLifetime(60)
-                .randomVelocity(0.35f)
+                .randomVelocity(0.25f)
                 .disablePhysics()
-                .repeat(level, pos.x, pos.y, pos.z, 6);
+                .repeat(level, pos.x, pos.y, pos.z, 12);
 
                 ctx.get().setPacketHandled(true);
             });
