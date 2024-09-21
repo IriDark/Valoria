@@ -1,50 +1,39 @@
 package com.idark.valoria.registries.entity.living;
 
-import com.idark.valoria.core.network.PacketHandler;
-import com.idark.valoria.core.network.packets.SmokeParticlePacket;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.Mth;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.damagesource.DamageSource;
+import com.idark.valoria.core.network.*;
+import com.idark.valoria.core.network.packets.*;
+import net.minecraft.core.*;
+import net.minecraft.core.particles.*;
+import net.minecraft.nbt.*;
+import net.minecraft.network.syncher.*;
+import net.minecraft.server.level.*;
+import net.minecraft.sounds.*;
+import net.minecraft.util.*;
+import net.minecraft.world.*;
+import net.minecraft.world.damagesource.*;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.control.FlyingMoveControl;
-import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
-import net.minecraft.world.entity.ai.navigation.PathNavigation;
-import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.raid.Raider;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.entity.ai.attributes.*;
+import net.minecraft.world.entity.ai.control.*;
+import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.target.*;
+import net.minecraft.world.entity.ai.navigation.*;
+import net.minecraft.world.entity.monster.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.entity.raid.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.phys.*;
 
-import javax.annotation.Nullable;
-import java.util.EnumSet;
+import javax.annotation.*;
+import java.util.*;
 
-//todo: rework pathfinding
 public class UndeadEntity extends AbstractMinionEntity {
     public static final int TICKS_PER_FLAP = Mth.ceil(3.9269907F);
     protected static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(UndeadEntity.class, EntityDataSerializers.BYTE);
 
     public UndeadEntity(EntityType<? extends UndeadEntity> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
-        this.moveControl = new FlyingMoveControl(this, 20, true);
+        this.moveControl = new UndeadMoveControl(this);
         this.xpReward = 3;
     }
 
@@ -85,6 +74,7 @@ public class UndeadEntity extends AbstractMinionEntity {
 
     protected void registerGoals() {
         super.registerGoals();
+        this.goalSelector.addGoal(0, new UndeadEntityRandomMoveGoal());
         this.goalSelector.addGoal(4, new UndeadEntity.UndeadChargeAttackGoal());
         this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 3.0F, 1.0F));
         this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Mob.class, 8.0F));
@@ -151,18 +141,6 @@ public class UndeadEntity extends AbstractMinionEntity {
         this.setDropChance(EquipmentSlot.MAINHAND, 0.0F);
     }
 
-    protected void customServerAiStep() {
-        BlockPos blockpos = UndeadEntity.this.getBoundOrigin();
-        if (blockpos == null) {
-            blockpos = UndeadEntity.this.blockPosition();
-        }
-
-        BlockPos pos = blockpos.offset(this.random.nextInt(15), this.random.nextInt(5), this.random.nextInt(15));
-        if (UndeadEntity.this.level().isEmptyBlock(pos)) {
-            UndeadEntity.this.moveControl.setWantedPosition((double) pos.getX() + this.random.nextDouble(), (double) pos.getY() + this.random.nextDouble(), (double) pos.getZ() + this.random.nextDouble(), 1);
-        }
-    }
-
     protected PathNavigation createNavigation(Level pLevel) {
         FlyingPathNavigation flyingpathnavigation = new FlyingPathNavigation(this, pLevel);
         flyingpathnavigation.setCanOpenDoors(false);
@@ -176,6 +154,78 @@ public class UndeadEntity extends AbstractMinionEntity {
      */
     public double getMyRidingOffset() {
         return 0.4D;
+    }
+
+    class UndeadEntityRandomMoveGoal extends Goal {
+        public UndeadEntityRandomMoveGoal() {
+            this.setFlags(EnumSet.of(Goal.Flag.MOVE));
+        }
+
+        /**
+         * Returns whether execution should begin. You can also read and cache any state necessary for execution in this
+         * method as well.
+         */
+        public boolean canUse() {
+            return !UndeadEntity.this.getMoveControl().hasWanted() && UndeadEntity.this.random.nextInt(reducedTickDelay(7)) == 0;
+        }
+
+        /**
+         * Returns whether an in-progress EntityAIBase should continue executing
+         */
+        public boolean canContinueToUse() {
+            return false;
+        }
+
+        /**
+         * Keep ticking a continuous task that has already been started
+         */
+        public void tick() {
+            BlockPos blockpos = UndeadEntity.this.getBoundOrigin();
+            if (blockpos == null) {
+                blockpos = UndeadEntity.this.blockPosition();
+            }
+
+            for(int i = 0; i < 3; ++i) {
+                BlockPos blockpos1 = blockpos.offset(UndeadEntity.this.random.nextInt(15) - 7, UndeadEntity.this.random.nextInt(11) - 5, UndeadEntity.this.random.nextInt(15) - 7);
+                if (UndeadEntity.this.level().isEmptyBlock(blockpos1)) {
+                    UndeadEntity.this.moveControl.setWantedPosition((double)blockpos1.getX() + 0.5D, (double)blockpos1.getY() + 0.5D, (double)blockpos1.getZ() + 0.5D, 0.25D);
+                    if (UndeadEntity.this.getTarget() == null) {
+                        UndeadEntity.this.getLookControl().setLookAt((double)blockpos1.getX() + 0.5D, (double)blockpos1.getY() + 0.5D, (double)blockpos1.getZ() + 0.5D, 180.0F, 20.0F);
+                    }
+                    break;
+                }
+            }
+
+        }
+    }
+
+    class UndeadMoveControl extends MoveControl{
+        public UndeadMoveControl(UndeadEntity pUndeadEntity) {
+            super(pUndeadEntity);
+        }
+
+        public void tick() {
+            if (this.operation == MoveControl.Operation.MOVE_TO) {
+                Vec3 vec3 = new Vec3(this.wantedX - UndeadEntity.this.getX(), this.wantedY - UndeadEntity.this.getY(), this.wantedZ - UndeadEntity.this.getZ());
+                double d0 = vec3.length();
+                if (d0 < UndeadEntity.this.getBoundingBox().getSize()) {
+                    this.operation = MoveControl.Operation.WAIT;
+                    UndeadEntity.this.setDeltaMovement(UndeadEntity.this.getDeltaMovement().scale(0.5D));
+                } else {
+                    UndeadEntity.this.setDeltaMovement(UndeadEntity.this.getDeltaMovement().add(vec3.scale(this.speedModifier * 0.05D / d0)));
+                    if (UndeadEntity.this.getTarget() == null) {
+                        Vec3 vec31 = UndeadEntity.this.getDeltaMovement();
+                        UndeadEntity.this.setYRot(-((float)Mth.atan2(vec31.x, vec31.z)) * (180F / (float)Math.PI));
+                    } else {
+                        double d2 = UndeadEntity.this.getTarget().getX() - UndeadEntity.this.getX();
+                        double d1 = UndeadEntity.this.getTarget().getZ() - UndeadEntity.this.getZ();
+                        UndeadEntity.this.setYRot(-((float)Mth.atan2(d2, d1)) * (180F / (float)Math.PI));
+                    }
+                    UndeadEntity.this.yBodyRot = UndeadEntity.this.getYRot();
+                }
+
+            }
+        }
     }
 
     class UndeadChargeAttackGoal extends Goal {

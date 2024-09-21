@@ -100,7 +100,7 @@ public class SoulCollectorItem extends Item implements IOverlayItem{
 
     //todo
     public SoundEvent getTransformSound() {
-        return null;
+        return SoundEvents.ALLAY_HURT;
     }
 
     @OnlyIn(Dist.CLIENT)

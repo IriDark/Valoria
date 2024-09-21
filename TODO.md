@@ -4,7 +4,6 @@
 - Stone Crusher page in  Lexicon
 - Farmers Delight compat
 - Create compat
-- Maybe switch from Lodestone to own lib or a Fluffy Fur (Reason: Particles Rendering sucks)
 - More pyratite content
 - Mobs for valoria
 - Misc gen for valoria

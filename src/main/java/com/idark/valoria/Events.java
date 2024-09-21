@@ -9,6 +9,7 @@ import com.idark.valoria.util.*;
 import net.minecraft.*;
 import net.minecraft.client.*;
 import net.minecraft.client.gui.screens.*;
+import net.minecraft.core.*;
 import net.minecraft.nbt.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.resources.*;
@@ -19,7 +20,9 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
+import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.state.*;
+import net.minecraft.world.phys.*;
 import net.minecraftforge.common.capabilities.*;
 import net.minecraftforge.common.util.*;
 import net.minecraftforge.event.*;
@@ -134,17 +137,30 @@ public class Events {
     }
 
     @SubscribeEvent
-    public void onPlayerKill(LivingDeathEvent deathEvent) {
-        Entity attacker = deathEvent.getSource().getEntity();
-        if(attacker instanceof Player plr) {
-            for (ItemStack itemStack : plr.getHandSlots()){
-                if(itemStack.is(ItemsRegistry.SOUL_COLLECTOR_EMPTY.get()) && itemStack.getItem() instanceof SoulCollectorItem soul) {
-                    if(plr.level() instanceof ServerLevel level) {
-                        PacketHandler.sendToTracking(level, plr.getOnPos(), new SoulCollectParticlePacket(plr.getUUID(), deathEvent.getEntity().getX(), deathEvent.getEntity().getY(), deathEvent.getEntity().getZ()));
-                        level.playSound(null, plr.getOnPos(), soul.getTransformSound(), SoundSource.PLAYERS);
-                    }
+    public void onLivingDamage(LivingHurtEvent event){
+        LivingEntity entity = event.getEntity();
+        Level level = entity.level();
+        if(entity instanceof Player plr){
+            if(level instanceof ServerLevel serverLevel){
+                Vec3 pos = entity.position().add(0, entity.getBbHeight() / 2f, 0);
+                PacketHandler.sendToTracking(serverLevel, BlockPos.containing(pos), new SoulCollectParticlePacket(plr.getUUID(), pos.x(), pos.y(), pos.z()));
+            }
+        }
+    }
 
-                    soul.addCount(1, itemStack, plr);
+    @SubscribeEvent
+    public void onPlayerKill(LivingDeathEvent deathEvent) {
+        Level level = deathEvent.getEntity().level();
+        if(level instanceof ServerLevel serverLevel){
+            Entity attacker = deathEvent.getSource().getEntity();
+            if(attacker instanceof Player plr){
+                for(ItemStack itemStack : plr.getHandSlots()){
+                    if(itemStack.is(ItemsRegistry.SOUL_COLLECTOR_EMPTY.get()) && itemStack.getItem() instanceof SoulCollectorItem soul){
+                        Vec3 pos = deathEvent.getEntity().position().add(0, deathEvent.getEntity().getBbHeight() / 2f, 0);
+                        PacketHandler.sendToTracking(serverLevel, BlockPos.containing(pos), new SoulCollectParticlePacket(plr.getUUID(), pos.x(), pos.y(), pos.z()));
+                        serverLevel.playSound(null, BlockPos.containing(pos), soul.getTransformSound(), SoundSource.PLAYERS);
+                        soul.addCount(1, itemStack, plr);
+                    }
                 }
             }
         }

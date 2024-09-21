@@ -25,7 +25,6 @@ public abstract class AbstractNecromancer extends Monster {
     private static final EntityDataAccessor<Byte> DATA_SPELL_CASTING_ID = SynchedEntityData.defineId(AbstractNecromancer.class, EntityDataSerializers.BYTE);
     protected int spellCastingTickCount;
     private NecromancerSpells currentSpell = NecromancerSpells.NONE;
-
     protected AbstractNecromancer(EntityType<? extends Monster> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }

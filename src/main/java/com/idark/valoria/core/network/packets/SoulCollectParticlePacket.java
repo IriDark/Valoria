@@ -1,10 +1,10 @@
 package com.idark.valoria.core.network.packets;
 
 import com.idark.valoria.*;
-import com.idark.valoria.client.particle.*;
 import com.idark.valoria.util.*;
 import mod.maxbogomol.fluffy_fur.client.particle.*;
 import mod.maxbogomol.fluffy_fur.client.particle.data.*;
+import mod.maxbogomol.fluffy_fur.common.easing.*;
 import mod.maxbogomol.fluffy_fur.registry.client.*;
 import net.minecraft.network.*;
 import net.minecraft.world.entity.player.*;
@@ -31,23 +31,37 @@ public class SoulCollectParticlePacket{
     }
 
     public static void handle(SoulCollectParticlePacket msg, Supplier<Context> ctx) {
-        if (ctx.get().getDirection().getReceptionSide().isClient()) {
+        if (ctx.get().getDirection().getReceptionSide().isClient()){
             ctx.get().enqueueWork(() -> {
                 Level level = Valoria.proxy.getLevel();
                 Player player = level.getPlayerByUUID(msg.uuid);
                 Vec3 pos = new Vec3(msg.posX, msg.posY * 0.2F, msg.posZ);
-                for(int i = 0; i < 6; i++){
-                    Color color = new Color(new ArcRandom().nextInt(255), new ArcRandom().nextInt(255), new ArcRandom().nextInt(255)).brighter();
-                    ParticleBuilder.create(FluffyFurParticles.WISP)
-                    .setColorData(ColorParticleData.create(color, Color.black).build())
-                    .setTransparencyData(GenericParticleData.create(1.25f, 0f).build())
-                    .setScaleData(GenericParticleData.create(0.2f, 0.1f, 0).build())
-                    .setLifetime(6)
-                    .setVelocity(player.getX(), player.getY(), player.getZ())
-                    .spawn(level, pos.x + new ArcRandom().nextDouble(3), pos.y + new ArcRandom().nextDouble(3), pos.z + new ArcRandom().nextDouble(3));
+                final Consumer<GenericParticle> blockTarget = p -> {
+                    Vec3 pPos = p.getPosition();
 
-                    ParticleEffects.smokeParticles(level, pos, ColorParticleData.create(Pal.amber, Color.black).build());
-                }
+                    double dX = player.getX() - pPos.x();
+                    double dY = player.getY() - pPos.y();
+                    double dZ = player.getZ() - pPos.z();
+                    double yaw = Math.atan2(dZ, dX);
+                    double pitch = Math.atan2(Math.sqrt(dZ * dZ + dX * dX), dY) + Math.PI;
+
+                    float speed = 0.01f;
+                    double x = Math.sin(pitch) * Math.cos(yaw) * speed;
+                    double y = Math.cos(pitch) * speed;
+                    double z = Math.sin(pitch) * Math.sin(yaw) * speed;
+
+                    p.setSpeed(p.getSpeed().subtract(x, y, z));
+                };
+
+                ParticleBuilder.create(FluffyFurParticles.WISP)
+                .setColorData(ColorParticleData.create(Pal.cyan, Color.white).build())
+                .setTransparencyData(GenericParticleData.create(0.3f).setEasing(Easing.QUARTIC_OUT).build())
+                .setScaleData(GenericParticleData.create(0.025f, 0.5f, 0).setEasing(Easing.QUARTIC_OUT).build())
+                .addTickActor(blockTarget)
+                .setLifetime(60)
+                .randomVelocity(0.35f)
+                .disablePhysics()
+                .repeat(level, pos.x, pos.y, pos.z, 6);
 
                 ctx.get().setPacketHandled(true);
             });
