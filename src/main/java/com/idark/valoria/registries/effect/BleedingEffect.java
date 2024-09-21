@@ -3,7 +3,9 @@ package com.idark.valoria.registries.effect;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.util.*;
 import mod.maxbogomol.fluffy_fur.client.particle.*;
+import mod.maxbogomol.fluffy_fur.client.particle.behavior.*;
 import mod.maxbogomol.fluffy_fur.client.particle.data.*;
+import mod.maxbogomol.fluffy_fur.common.easing.*;
 import mod.maxbogomol.fluffy_fur.registry.client.*;
 import net.minecraft.world.damagesource.*;
 import net.minecraft.world.effect.*;
@@ -35,9 +37,7 @@ public class BleedingEffect extends MobEffect {
             }
 
             if (pEntity.level().isClientSide()) {
-                for (int a = 0; a < 5; a++) {
-                    spawnParticles(pEntity);
-                }
+                spawnParticles(pEntity);
             }
         }
     }
@@ -46,16 +46,19 @@ public class BleedingEffect extends MobEffect {
     public void spawnParticles(LivingEntity pEntity) {
         Vec3 pos = new Vec3(pEntity.getX() + (new Random().nextDouble() - 0.5f) / 2, pEntity.getY() + (new Random().nextDouble() + 1f) / 2, pEntity.getZ());
         ParticleBuilder.create(FluffyFurParticles.WISP)
-        .setRenderType(FluffyFurRenderTypes.ADDITIVE_PARTICLE) //todo translucent later
-        .setGravity(0.75f)
-        .setColorData(ColorParticleData.create(Pal.darkRed, Color.red).build())
-        .setTransparencyData(GenericParticleData.create(1f, 0f).build())
-        .setScaleData(GenericParticleData.create(0.2f, 0.1f, 0).build())
-        .setLifetime(6)
-        .randomVelocity(0.5, 0, 0.5)
-        .randomOffset(0.7, 0, 0.7)
-        .addVelocity(0, 0.08f, 0)
-        .spawn(pEntity.level(), pos.x, pos.y, pos.z);
+        .setRenderType(FluffyFurRenderTypes.TRANSLUCENT_PARTICLE)
+        .setBehavior(SparkParticleBehavior.create().build())
+        .setTransparencyData(GenericParticleData.create(1F, 0.6F, 0.0F).setEasing(Easing.EXPO_IN_OUT).build())
+        .setScaleData(GenericParticleData.create(0.06F, 0.2F, 0.0F).setEasing(Easing.BOUNCE_IN_OUT).build())
+        .randomVelocity(0.2f)
+        .addVelocity(0.0f, 0.2f, 0.0f)
+        .randomOffset(0.05f)
+        .setFriction(1f)
+        .enablePhysics()
+        .setGravity(1f)
+        .setColorData(ColorParticleData.create(Color.red, Pal.darkRed).build())
+        .setLifetime(22)
+        .repeat(pEntity.level(), pos.x, pos.y, pos.z, 6);
     }
 
     @Override

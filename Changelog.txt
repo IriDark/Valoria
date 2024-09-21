@@ -20,6 +20,7 @@
 - Fixed bug that coffee can be stacked up to 1646
 - Fixed bug that Murasama wasn't based on "dash_distance" attribute
 - Fixed Possible Server Crashing
+- Fixed Undead moving AI
 
 - Nerfed Rune's
 - Buffed Silken Kunai
@@ -39,7 +40,9 @@
 - Added "in-hand" Models to Katanas (Contributed by Kerdo)
 - Added Crypt Pots (Contributed by Kerdo)
 - Added Halloween Items
-- Added functionality to Soul Collector
+- Added Functionality to Soul Collector
+- Added Custom Panorama
+- Added Glow Layer to some Blocks and Items
 
 - Deleted Geodites (Drops moved to ephemarite)
 - Deleted Void Crystal
@@ -53,6 +56,7 @@
 - Reworked Murasama
 - Reworked Overlay Rendering
 - Reworked Overlay items
+- Reworked Bleeding FX
 
 - Decreased amount of bones dropped from Goblins
 - Decreased Cooldown time for Scythes from 100 to 75, if no one was hit to 15

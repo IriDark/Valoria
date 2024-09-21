@@ -1,14 +1,12 @@
 package com.idark.valoria.client.render.entity;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.client.model.entity.ShadewoodSpiderModel;
-import com.idark.valoria.client.render.layers.ShadewoodSpiderEyeLayer;
-import com.idark.valoria.registries.entity.living.ShadewoodSpider;
-import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import com.idark.valoria.*;
+import com.idark.valoria.client.model.entity.*;
+import com.idark.valoria.client.render.layers.*;
+import com.idark.valoria.registries.entity.living.*;
+import net.minecraft.client.renderer.entity.*;
+import net.minecraft.resources.*;
+import net.minecraftforge.api.distmarker.*;
 
 @OnlyIn(Dist.CLIENT)
 public class ShadewoodSpiderRenderer<T extends ShadewoodSpider> extends MobRenderer<T, ShadewoodSpiderModel<T>> {
@@ -16,7 +14,7 @@ public class ShadewoodSpiderRenderer<T extends ShadewoodSpider> extends MobRende
 
     public ShadewoodSpiderRenderer(EntityRendererProvider.Context pContext) {
         super(pContext, new ShadewoodSpiderModel<>(ShadewoodSpiderModel.createBodyLayer().bakeRoot()), 0.8F);
-        this.addLayer(new ShadewoodSpiderEyeLayer<>(this));
+        this.addLayer(new LuminescentLayer<>(new ResourceLocation(Valoria.ID, "textures/entity/shadewood_spider_eyes.png"), this));
     }
 
     protected float getFlipDegrees(T pLivingEntity) {

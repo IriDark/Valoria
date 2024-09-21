@@ -1,4 +1,19 @@
 {
+  "item.soul_collect.full": {
+    "subtitle": "subtitles.valoria.soul_collect",
+    "replace": "true",
+    "sounds": [
+      "valoria:soul_collect_full"
+    ]
+  },
+  "item.soul_collect": {
+    "subtitle": "subtitles.valoria.soul_collect",
+    "replace": "true",
+    "sounds": [
+      "valoria:soul_collect_0",
+      "valoria:soul_collect_1"
+    ]
+  },
   "mob.haunted_merchant.hurt": {
     "subtitle": "subtitles.valoria.haunted_merchant.hurt",
     "replace": "true",

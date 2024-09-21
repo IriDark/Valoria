@@ -93,14 +93,19 @@ public class SoulCollectorItem extends Item implements IOverlayItem{
         if(pStack.getOrCreateTag().getInt("Souls") >= getMaxSouls() - 1) {
             player.getInventory().removeItem(pStack);
             player.addItem(ItemsRegistry.SOUL_COLLECTOR.get().getDefaultInstance());
+            player.level().playSound(null, player.getOnPos(), getTransformSound(), SoundSource.PLAYERS, 1, player.level().random.nextFloat());
         } else{
             pStack.getOrCreateTag().putInt("Souls", getCurrentSouls(pStack) + count);
+            player.level().playSound(null, player.getOnPos(), getCollectSound(), SoundSource.PLAYERS, 1, player.level().random.nextFloat());
         }
     }
 
-    //todo
     public SoundEvent getTransformSound() {
-        return SoundEvents.ALLAY_HURT;
+        return SoundsRegistry.SOUL_COLLECT_FULL.get();
+    }
+
+    public SoundEvent getCollectSound() {
+        return SoundsRegistry.SOUL_COLLECT.get();
     }
 
     @OnlyIn(Dist.CLIENT)

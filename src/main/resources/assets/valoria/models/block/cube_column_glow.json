@@ -1,0 +1,39 @@
+{
+  "ambientocclusion": false,
+  "render_type": "minecraft:cutout",
+  "parent": "block/cube",
+  "textures": {
+    "glow": "#side_glow",
+    "north": "#side",
+    "east": "#side",
+    "south": "#side",
+    "west": "#side",
+    "up": "#end",
+    "down": "#end"
+  },
+  "elements": [
+    {
+      "from": [0, 0, 0],
+      "to": [16, 16, 16],
+      "faces": {
+        "north": {"uv": [0, 0, 16, 16], "texture": "#north", "cullface": "north"},
+        "east": {"uv": [0, 0, 16, 16], "texture": "#east", "cullface": "east"},
+        "south": {"uv": [0, 0, 16, 16], "texture": "#south", "cullface": "south"},
+        "west": {"uv": [0, 0, 16, 16], "texture": "#west", "cullface": "west"},
+        "up": {"uv": [0, 0, 16, 16], "texture": "#up", "cullface": "up"},
+        "down": {"uv": [0, 0, 16, 16], "texture": "#down", "cullface": "down"}
+      }
+    },
+    {
+      "from": [-0.25, -0.25, -0.25],
+      "to": [16.25, 16.25, 16.25],
+      "shade": false,
+      "faces": {
+        "north": {"uv": [0, 0, 16, 16], "forge_data": {"block_light": 15, "sky_light": 15 }, "texture": "#glow", "cullface": "north"},
+        "east": {"uv": [0, 0, 16, 16], "forge_data": {"block_light": 15, "sky_light": 15 }, "texture": "#glow", "cullface": "east"},
+        "south": {"uv": [0, 0, 16, 16], "forge_data": {"block_light": 15, "sky_light": 15 }, "texture": "#glow", "cullface": "south"},
+        "west": {"uv": [0, 0, 16, 16], "forge_data": {"block_light": 15, "sky_light": 15 }, "texture": "#glow", "cullface": "west"}
+      }
+    }
+  ]
+}

@@ -1,13 +1,10 @@
 package com.idark.valoria.registries;
 
-import com.idark.valoria.Valoria;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraftforge.common.util.ForgeSoundType;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import com.idark.valoria.*;
+import net.minecraft.resources.*;
+import net.minecraft.sounds.*;
+import net.minecraftforge.common.util.*;
+import net.minecraftforge.registries.*;
 
 /**
  * Some sounds taken from the CalamityMod (Terraria) in a <a href="https://calamitymod.wiki.gg/wiki/Category:Sound_effects">Calamity Mod Wiki.gg</a>
@@ -33,6 +30,8 @@ public class SoundsRegistry {
     public static final RegistryObject<SoundEvent> SPEAR_GROUND_IMPACT = registerSound("item.spear.hit_ground");
     public static final RegistryObject<SoundEvent> SPEAR_RETURN = registerSound("item.spear.return");
     public static final RegistryObject<SoundEvent> SPEAR_THROW = registerSound("item.spear.throw");
+    public static final RegistryObject<SoundEvent> SOUL_COLLECT_FULL = registerSound("item.soul_collect.full");
+    public static final RegistryObject<SoundEvent> SOUL_COLLECT = registerSound("item.soul_collect");
 
     public static final RegistryObject<SoundEvent> VOID_STONE_PLACE = registerSound("block.void_stone.place");
     public static final RegistryObject<SoundEvent> VOID_STONE_BREAK = registerSound("block.void_stone.break");

@@ -37,7 +37,7 @@ public class SmokeParticlePacket {
     public static void packetSmokeParticles(SmokeParticlePacket msg, Level level, ColorParticleData color) {
         Random random = new Random();
                 ParticleBuilder.create(ParticleRegistry.SMOKE)
-                .setRenderType(FluffyFurRenderTypes.ADDITIVE_PARTICLE)
+                .setRenderType(FluffyFurRenderTypes.TRANSLUCENT_PARTICLE)
                 .setColorData(color)
                 .setTransparencyData(GenericParticleData.create().setRandomValue(0, 0.6f, 0, 0).build())
                 .setScaleData(GenericParticleData.create(0.92f, 0f).build())

@@ -14,7 +14,6 @@ import net.minecraft.nbt.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.resources.*;
 import net.minecraft.server.level.*;
-import net.minecraft.sounds.*;
 import net.minecraft.tags.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
@@ -158,12 +157,12 @@ public class Events {
                     if(itemStack.is(ItemsRegistry.SOUL_COLLECTOR_EMPTY.get()) && itemStack.getItem() instanceof SoulCollectorItem soul){
                         Vec3 pos = deathEvent.getEntity().position().add(0, deathEvent.getEntity().getBbHeight() / 2f, 0);
                         PacketHandler.sendToTracking(serverLevel, BlockPos.containing(pos), new SoulCollectParticlePacket(plr.getUUID(), pos.x(), pos.y(), pos.z()));
-                        serverLevel.playSound(null, BlockPos.containing(pos), soul.getTransformSound(), SoundSource.PLAYERS);
                         soul.addCount(1, itemStack, plr);
                     }
                 }
             }
         }
+
     }
 
     @SubscribeEvent

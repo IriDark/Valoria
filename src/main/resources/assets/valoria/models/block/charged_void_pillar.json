@@ -1,7 +1,9 @@
 {
-  "parent": "minecraft:block/cube_column",
+  "parent": "valoria:block/cube_column_glow",
   "textures": {
     "end": "valoria:block/void_pillar_end",
-    "side": "valoria:block/charged_void_pillar"
+    "side": "valoria:block/charged_void_pillar",
+    "side_glow": "valoria:block/charged_void_pillar_glow",
+    "particle": "valoria:block/charged_void_pillar"
   }
 }
