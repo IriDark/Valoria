@@ -15,9 +15,6 @@
   ],
   "client": [
     "client.AbstractClientPlayerMixin",
-    "client.HumanoidModelMixin",
-    "client.ItemInHandLayerMixin",
-    "client.ItemInHandRendererMixin",
     "client.LevelRendererMixin",
     "client.LivingEntityRendererMixin",
     "client.PlayerRendererMixin"
