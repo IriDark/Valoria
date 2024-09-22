@@ -14,7 +14,9 @@ public class ShadewoodSpiderRenderer<T extends ShadewoodSpider> extends MobRende
 
     public ShadewoodSpiderRenderer(EntityRendererProvider.Context pContext) {
         super(pContext, new ShadewoodSpiderModel<>(ShadewoodSpiderModel.createBodyLayer().bakeRoot()), 0.8F);
-        this.addLayer(new LuminescentLayer<>(new ResourceLocation(Valoria.ID, "textures/entity/shadewood_spider_eyes.png"), this));
+        this.addLayer(new LuminescentLayer.Builder<>(this)
+        .setTexture(new ResourceLocation(Valoria.ID, "textures/entity/shadewood_spider_eyes.png"))
+        .build());
     }
 
     protected float getFlipDegrees(T pLivingEntity) {

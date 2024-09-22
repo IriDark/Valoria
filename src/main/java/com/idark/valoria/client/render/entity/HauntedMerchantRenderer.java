@@ -11,8 +11,11 @@ public class HauntedMerchantRenderer extends MobRenderer<HauntedMerchant, Haunte
     protected static final ResourceLocation TEXTURE = new ResourceLocation(Valoria.ID, "textures/entity/haunted_merchant.png");
 
     public HauntedMerchantRenderer(EntityRendererProvider.Context context){
-        super(context, new HauntedMerchantModel<>(HauntedMerchantModel.createBodyLayer().bakeRoot()), 1.2F);
-        this.addLayer(new LuminescentLayer<>(new ResourceLocation(Valoria.ID, "textures/entity/haunted_merchant_glow.png"), 1, 1, 0.65f, 1, this));
+        super(context, new HauntedMerchantModel<>(HauntedMerchantModel.createBodyLayer().bakeRoot()), 0.8F);
+        this.addLayer(new LuminescentLayer.Builder<>(this)
+        .setTexture(new ResourceLocation(Valoria.ID, "textures/entity/haunted_merchant_glow.png"))
+        .setBlue(0.5f)
+        .build());
     }
 
     @Override

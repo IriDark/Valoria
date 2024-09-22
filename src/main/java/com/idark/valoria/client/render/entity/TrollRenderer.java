@@ -12,7 +12,9 @@ public class TrollRenderer extends MobRenderer<Troll, TrollModel<Troll>> {
 
     public TrollRenderer(EntityRendererProvider.Context context) {
         super(context, new TrollModel<>(TrollModel.createBodyLayer().bakeRoot()), 0.8F);
-        this.addLayer(new LuminescentLayer<>(new ResourceLocation(Valoria.ID, "textures/entity/troll_eyes_layer.png"), this));
+        this.addLayer(new LuminescentLayer.Builder<>(this)
+        .setTexture(new ResourceLocation(Valoria.ID, "textures/entity/troll_eyes_layer.png"))
+        .build());
     }
 
     @Override
