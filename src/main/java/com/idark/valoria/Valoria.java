@@ -148,6 +148,7 @@ public class Valoria {
             CuriosRendererRegistry.register(ItemsRegistry.LEATHER_BELT.get(), BeltRenderer::new);
             CuriosRendererRegistry.register(ItemsRegistry.JEWELRY_BAG.get(), JewelryBagRenderer::new);
 
+            MenuScreens.register(MenuRegistry.KEG_MENU.get(), KegScreen::new);
             MenuScreens.register(MenuRegistry.JEWELRY_MENU.get(), JewelryScreen::new);
             MenuScreens.register(MenuRegistry.MANIPULATOR_MENU.get(), ManipulatorScreen::new);
         });

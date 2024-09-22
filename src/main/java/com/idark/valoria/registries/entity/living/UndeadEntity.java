@@ -1,7 +1,7 @@
 package com.idark.valoria.registries.entity.living;
 
 import com.idark.valoria.core.network.*;
-import com.idark.valoria.core.network.packets.*;
+import com.idark.valoria.core.network.packets.particle.*;
 import net.minecraft.core.*;
 import net.minecraft.core.particles.*;
 import net.minecraft.nbt.*;

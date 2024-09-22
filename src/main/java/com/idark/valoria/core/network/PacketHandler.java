@@ -2,6 +2,7 @@ package com.idark.valoria.core.network;
 
 import com.idark.valoria.*;
 import com.idark.valoria.core.network.packets.*;
+import com.idark.valoria.core.network.packets.particle.*;
 import com.mojang.datafixers.util.*;
 import net.minecraft.core.*;
 import net.minecraft.resources.*;
@@ -43,6 +44,7 @@ public final class PacketHandler {
 
     public static void init() {
         int id = 0;
+        HANDLER.registerMessage(id++, MinionSummonParticlePacket.class, MinionSummonParticlePacket::encode, MinionSummonParticlePacket::decode, MinionSummonParticlePacket::handle);
         HANDLER.registerMessage(id++, SoulCollectParticlePacket.class, SoulCollectParticlePacket::encode, SoulCollectParticlePacket::decode, SoulCollectParticlePacket::handle);
         HANDLER.registerMessage(id++, UnlockableUpdatePacket.class, UnlockableUpdatePacket::encode, UnlockableUpdatePacket::decode, UnlockableUpdatePacket::handle);
         HANDLER.registerMessage(id++, CooldownSoundPacket.class, CooldownSoundPacket::encode, CooldownSoundPacket::decode, CooldownSoundPacket::handle);

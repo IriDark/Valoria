@@ -17,6 +17,8 @@
 - Resprite Rapiers
 - Katana in hand models like with Murasama??
 - Bronze recipes
+- Portal dupe
+- UI to keg (MAYBE, or other ways to show the craft)
 ---
 ### Lexicon
 - Add more pages

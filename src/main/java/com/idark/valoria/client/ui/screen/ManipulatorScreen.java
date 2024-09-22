@@ -1,19 +1,17 @@
 package com.idark.valoria.client.ui.screen;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.registries.block.entity.ManipulatorBlockEntity;
-import com.idark.valoria.registries.menus.ManipulatorMenu;
-import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import com.idark.valoria.*;
+import com.idark.valoria.registries.block.entity.*;
+import com.idark.valoria.registries.menus.*;
+import com.mojang.blaze3d.systems.*;
+import net.minecraft.client.*;
+import net.minecraft.client.gui.*;
+import net.minecraft.client.gui.screens.inventory.*;
+import net.minecraft.network.chat.*;
+import net.minecraft.resources.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.item.*;
+import net.minecraftforge.api.distmarker.*;
 
 @OnlyIn(Dist.CLIENT)
 public class ManipulatorScreen extends AbstractContainerScreen<ManipulatorMenu> {
@@ -39,7 +37,7 @@ public class ManipulatorScreen extends AbstractContainerScreen<ManipulatorMenu> 
             pGuiGraphics.renderTooltip(this.font, this.getTooltipFromContainerItem(itemstack), itemstack.getTooltipImage(), itemstack, pX, pY);
         }
 
-        if (this.menu.tileEntity instanceof ManipulatorBlockEntity tile) {
+        if (this.menu.blockEntity instanceof ManipulatorBlockEntity tile) {
             int i = this.leftPos;
             int j = this.topPos;
             if (pX >= i + 16 && pX < i + 16 + 8 && pY >= j + 25 && pY < j + 25 + 8) {
@@ -77,7 +75,7 @@ public class ManipulatorScreen extends AbstractContainerScreen<ManipulatorMenu> 
         int i = this.leftPos;
         int j = this.topPos;
         gui.blit(GUI, i, j, 0, 0, this.imageWidth, this.imageHeight);
-        if (menu.tileEntity instanceof ManipulatorBlockEntity elemental) {
+        if (menu.blockEntity instanceof ManipulatorBlockEntity elemental) {
             if (elemental.itemHandler.getStackInSlot(1).isEmpty()) {
                 gui.blit(GUI, i + 76, j + 53, 208, 0, 16, 16);
             }

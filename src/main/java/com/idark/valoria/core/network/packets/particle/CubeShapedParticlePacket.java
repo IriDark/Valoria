@@ -1,4 +1,4 @@
-package com.idark.valoria.core.network.packets;
+package com.idark.valoria.core.network.packets.particle;
 
 import com.idark.valoria.*;
 import mod.maxbogomol.fluffy_fur.client.particle.*;

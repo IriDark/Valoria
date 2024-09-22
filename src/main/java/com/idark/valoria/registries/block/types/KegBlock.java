@@ -1,52 +1,35 @@
 package com.idark.valoria.registries.block.types;
 
-import com.idark.valoria.client.render.tile.TickableBlockEntity;
-import com.idark.valoria.registries.ItemsRegistry;
-import com.idark.valoria.registries.TagsRegistry;
-import com.idark.valoria.registries.block.entity.BlockSimpleInventory;
-import com.idark.valoria.registries.block.entity.KegBlockEntity;
-import com.idark.valoria.util.ValoriaUtils;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.world.Containers;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.EntityBlock;
-import net.minecraft.world.level.block.HorizontalDirectionalBlock;
-import net.minecraft.world.level.block.SimpleWaterloggedBlock;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityTicker;
-import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.material.FluidState;
-import net.minecraft.world.level.material.Fluids;
-import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jetbrains.annotations.NotNull;
+import com.idark.valoria.client.render.tile.*;
+import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.block.entity.*;
+import com.idark.valoria.registries.menus.*;
+import net.minecraft.core.*;
+import net.minecraft.network.chat.*;
+import net.minecraft.server.level.*;
+import net.minecraft.world.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.inventory.*;
+import net.minecraft.world.item.context.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.*;
+import net.minecraft.world.level.block.state.*;
+import net.minecraft.world.level.block.state.properties.*;
+import net.minecraft.world.level.material.*;
+import net.minecraft.world.phys.*;
+import net.minecraft.world.phys.shapes.*;
+import net.minecraftforge.network.*;
+import org.jetbrains.annotations.*;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.*;
 
 public class KegBlock extends HorizontalDirectionalBlock implements EntityBlock, SimpleWaterloggedBlock {
-
     private static final BooleanProperty BREWING = BooleanProperty.create("brewing");
     private static final VoxelShape shape_west_east = Block.box(0, 0, 2, 16, 14, 14);
     private static final VoxelShape shape_north_south = Block.box(2, 0, 0, 14, 14, 16);
-
-    public KegBlock(BlockBehaviour.Properties properties) {
+    public KegBlock(Properties properties) {
         super(properties);
         registerDefaultState(defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, false).setValue(BREWING, false));
     }
@@ -77,74 +60,32 @@ public class KegBlock extends HorizontalDirectionalBlock implements EntityBlock,
         }
     }
 
-    public boolean isCupOrBottle(KegBlockEntity tile, Player player, InteractionHand hand) {
-        ItemStack itemStack = tile.getItemHandler().getItem(0);
-        ItemStack playerHeldItem = player.getItemInHand(hand).copy();
-        boolean isHoldingCup = playerHeldItem.getItem() == ItemsRegistry.WOODEN_CUP.get();
-        boolean isHoldingBottle = playerHeldItem.getItem() == ItemsRegistry.BOTTLE.get();
-        if (!player.isCreative()) {
-            if (isHoldingCup && itemStack.is(TagsRegistry.CUP_DRINKS) || isHoldingBottle && itemStack.is(TagsRegistry.BOTTLE_DRINKS)) {
-                player.getItemInHand(hand).shrink(1);
-            }
-        }
-
-        return (isHoldingCup && itemStack.is(TagsRegistry.CUP_DRINKS)) || (isHoldingBottle && itemStack.is(TagsRegistry.BOTTLE_DRINKS));
-    }
-
     @Override
     public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        KegBlockEntity tile = (KegBlockEntity) world.getBlockEntity(pos);
-        ItemStack stack = player.getItemInHand(hand).copy();
-        if (stack.is(Items.HONEY_BOTTLE)) {
-            if (!player.isCreative()) {
-                world.addFreshEntity(new ItemEntity(world, player.getX() + 0.5F, player.getY() + 0.5F, player.getZ() + 0.5F, new ItemStack(Items.GLASS_BOTTLE)));
-            }
-        }
-
-        // Checking if not alcohol to prevent miss clicks and collecting with isCupOrBottle
-        if ((!stack.isEmpty()) && !stack.is(TagsRegistry.ALCOHOL) && (tile.getItemHandler().getItem(0).isEmpty())) {
-            if (stack.getCount() > 1) {
-                if (!player.isCreative()) {
-                    player.getItemInHand(hand).shrink(1);
-                }
-
-                stack.setCount(1);
-                tile.getItemHandler().setItem(0, stack);
-                world.setBlockAndUpdate(pos, state.setValue(BREWING, true));
-            } else {
-                tile.getItemHandler().setItem(0, stack);
-                world.setBlockAndUpdate(pos, state.setValue(BREWING, true));
-                if (!player.isCreative()) {
-                    player.getInventory().removeItem(player.getItemInHand(hand));
-                }
-            }
-
-            ValoriaUtils.tileEntity.SUpdateTileEntityPacket(tile);
+        if (world.isClientSide) {
             return InteractionResult.SUCCESS;
-        }
+        } else {
+            BlockEntity tileEntity = world.getBlockEntity(pos);
 
-        if (!tile.getItemHandler().getItem(0).isEmpty() && isCupOrBottle(tile, player, hand)) {
-            if (!player.isCreative()) {
-                world.addFreshEntity(new ItemEntity(world, player.getX() + 0.5F, player.getY() + 0.5F, player.getZ() + 0.5F, tile.getItemHandler().getItem(0).copy()));
+            MenuProvider containerProvider = createContainerProvider(world, pos);
+            NetworkHooks.openScreen(((ServerPlayer) player), containerProvider, tileEntity.getBlockPos());
+            return InteractionResult.CONSUME;
+        }
+    }
+
+    private MenuProvider createContainerProvider(Level worldIn, BlockPos pos) {
+        return new MenuProvider() {
+
+            @Override
+            public Component getDisplayName() {
+                return Component.translatable("menu.valoria.keg");
             }
 
-            tile.getItemHandler().removeItemNoUpdate(0);
-            ValoriaUtils.tileEntity.SUpdateTileEntityPacket(tile);
-            return InteractionResult.SUCCESS;
-        } else if (!tile.getItemHandler().getItem(0).isEmpty() && !tile.getItemHandler().getItem(0).is(TagsRegistry.CUP_DRINKS) && !tile.getItemHandler().getItem(0).is(TagsRegistry.BOTTLE_DRINKS)) {
-            if (!player.isCreative() && !tile.getItemHandler().getItem(0).is(Items.HONEY_BOTTLE)) {
-                world.addFreshEntity(new ItemEntity(world, player.getX() + 0.5F, player.getY() + 0.5F, player.getZ() + 0.5F, tile.getItemHandler().getItem(0).copy()));
-            } else if (!player.isCreative() && tile.getItemHandler().getItem(0).is(Items.HONEY_BOTTLE) && stack.is(Items.GLASS_BOTTLE)) {
-                player.getItemInHand(hand).setCount(stack.getCount() - 1);
-                world.addFreshEntity(new ItemEntity(world, player.getX() + 0.5F, player.getY() + 0.5F, player.getZ() + 0.5F, tile.getItemHandler().getItem(0).copy()));
+            @Override
+            public AbstractContainerMenu createMenu(int i, Inventory playerInventory, Player playerEntity) {
+                return new KegMenu(i, worldIn, pos, playerEntity, playerInventory);
             }
-
-            tile.getItemHandler().removeItemNoUpdate(0);
-            ValoriaUtils.tileEntity.SUpdateTileEntityPacket(tile);
-            return InteractionResult.SUCCESS;
-        }
-
-        return InteractionResult.PASS;
+        };
     }
 
     @Override

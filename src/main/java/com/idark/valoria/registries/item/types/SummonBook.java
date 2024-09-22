@@ -1,32 +1,26 @@
 package com.idark.valoria.registries.item.types;
 
-import com.google.common.collect.ImmutableMultimap;
-import com.google.common.collect.Multimap;
-import com.idark.valoria.registries.AttributeRegistry;
-import com.idark.valoria.registries.entity.living.AbstractMinionEntity;
-import net.minecraft.ChatFormatting;
-import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.ai.attributes.Attribute;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.Level;
-import net.minecraftforge.registries.ForgeRegistries;
-import org.jetbrains.annotations.NotNull;
+import com.google.common.collect.*;
+import com.idark.valoria.core.network.*;
+import com.idark.valoria.core.network.packets.particle.*;
+import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.entity.living.*;
+import net.minecraft.*;
+import net.minecraft.core.*;
+import net.minecraft.network.chat.*;
+import net.minecraft.server.level.*;
+import net.minecraft.world.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.phys.*;
+import net.minecraftforge.registries.*;
+import org.jetbrains.annotations.*;
 
-import java.util.List;
-import java.util.UUID;
-import java.util.function.Supplier;
+import java.util.*;
+import java.util.function.*;
 
 public class SummonBook extends Item {
     private final Supplier<? extends EntityType<? extends AbstractMinionEntity>> summonedEntity;
@@ -66,16 +60,22 @@ public class SummonBook extends Item {
         return (int) (player.getAttributeValue(AttributeRegistry.NECROMANCY_LIFETIME.get()) * 20);
     }
 
-    private void spawnMinions(ServerLevel serverLevel, Player player) {
+    private void spawnMinions(ServerLevel serverLevel, Player player){
         BlockPos blockpos = player.getOnPos().above();
         AbstractMinionEntity summoned = getDefaultType().create(player.level());
-        if (summoned != null && serverLevel.isEmptyBlock(blockpos)) {
-            summoned.moveTo(blockpos, 0.0F, 0.0F);
+        var rand = serverLevel.random;
+        double x = (double)blockpos.getX() + (rand.nextDouble() - rand.nextDouble()) * 6;
+        double y = blockpos.getY() + rand.nextInt(1, 2);
+        double z = (double)blockpos.getZ() + (rand.nextDouble() - rand.nextDouble()) * 6;
+        BlockPos spawnPos = BlockPos.containing(new Vec3(x, y, z));
+        if(summoned != null && serverLevel.isEmptyBlock(blockpos)){
+            summoned.moveTo(spawnPos, 0.0F, 0.0F);
             summoned.finalizeSpawn(serverLevel, player.level().getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, null, null);
             summoned.setOwner(player);
             summoned.setBoundOrigin(blockpos);
             summoned.setLimitedLife(getLifetime(player) + serverLevel.random.nextInt(60));
             serverLevel.addFreshEntity(summoned);
+            PacketHandler.sendToTracking(serverLevel, blockpos, new MinionSummonParticlePacket(player.getUUID(), spawnPos));
         }
     }
 
@@ -98,6 +98,10 @@ public class SummonBook extends Item {
         if (level instanceof ServerLevel server) {
             for (int i = 0; i < (int) (player.getAttributeValue(AttributeRegistry.NECROMANCY_COUNT.get())); ++i) {
                 spawnMinions(server, player);
+            }
+
+            if (!player.isCreative()) {
+                stack.hurtAndBreak(1, player, (plr) -> plr.broadcastBreakEvent(EquipmentSlot.MAINHAND));
             }
 
             applyCooldown(player);

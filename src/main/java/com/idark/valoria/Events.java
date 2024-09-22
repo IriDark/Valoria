@@ -3,6 +3,7 @@ package com.idark.valoria;
 import com.idark.valoria.core.capability.*;
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.*;
+import com.idark.valoria.core.network.packets.particle.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.item.types.*;
 import com.idark.valoria.util.*;
@@ -132,18 +133,6 @@ public class Events {
     public void onLivingAttack(LivingAttackEvent event) {
         if (event.getSource().getEntity() instanceof LivingEntity e) {
             if (e.hasEffect(EffectsRegistry.STUN.get())) event.setCanceled(true);
-        }
-    }
-
-    @SubscribeEvent
-    public void onLivingDamage(LivingHurtEvent event){
-        LivingEntity entity = event.getEntity();
-        Level level = entity.level();
-        if(entity instanceof Player plr){
-            if(level instanceof ServerLevel serverLevel){
-                Vec3 pos = entity.position().add(0, entity.getBbHeight() / 2f, 0);
-                PacketHandler.sendToTracking(serverLevel, BlockPos.containing(pos), new SoulCollectParticlePacket(plr.getUUID(), pos.x(), pos.y(), pos.z()));
-            }
         }
     }
 

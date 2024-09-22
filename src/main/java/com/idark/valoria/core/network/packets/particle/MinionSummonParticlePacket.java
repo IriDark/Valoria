@@ -1,4 +1,4 @@
-package com.idark.valoria.core.network.packets;
+package com.idark.valoria.core.network.packets.particle;
 
 import com.idark.valoria.*;
 import com.idark.valoria.util.*;
@@ -6,42 +6,38 @@ import mod.maxbogomol.fluffy_fur.client.particle.*;
 import mod.maxbogomol.fluffy_fur.client.particle.data.*;
 import mod.maxbogomol.fluffy_fur.common.easing.*;
 import mod.maxbogomol.fluffy_fur.registry.client.*;
+import net.minecraft.core.*;
 import net.minecraft.network.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.network.NetworkEvent.*;
+import net.minecraftforge.network.*;
 
-import java.awt.*;
 import java.util.*;
 import java.util.function.*;
 
-public class SoulCollectParticlePacket{
-    private final double posX, posY, posZ;
+public class MinionSummonParticlePacket{
     private final UUID uuid;
-    public SoulCollectParticlePacket(UUID uuid, double posX, double posY, double posZ) {
+    private final BlockPos pos;
+    public MinionSummonParticlePacket(UUID uuid, BlockPos pos) {
         this.uuid = uuid;
-        this.posX = posX;
-        this.posY = posY;
-        this.posZ = posZ;
+        this.pos = pos;
     }
 
-    public static SoulCollectParticlePacket decode(FriendlyByteBuf buf) {
-        return new SoulCollectParticlePacket(buf.readUUID(), buf.readDouble(), buf.readDouble(), buf.readDouble());
+    public static MinionSummonParticlePacket decode(FriendlyByteBuf buf) {
+        return new MinionSummonParticlePacket(buf.readUUID(), buf.readBlockPos());
     }
 
-    public static void handle(SoulCollectParticlePacket msg, Supplier<Context> ctx) {
-        if (ctx.get().getDirection().getReceptionSide().isClient()){
+    public static void handle(MinionSummonParticlePacket msg, Supplier<NetworkEvent.Context> ctx){
+        if(ctx.get().getDirection().getReceptionSide().isClient()){
             ctx.get().enqueueWork(() -> {
-                Level level = Valoria.proxy.getLevel();
-                Player player = level.getPlayerByUUID(msg.uuid);
-                Vec3 pos = new Vec3(msg.posX, msg.posY, msg.posZ);
+                Level pLevel = Valoria.proxy.getLevel();
+                Player player = pLevel.getPlayerByUUID(msg.uuid);
                 final Consumer<GenericParticle> blockTarget = p -> {
                     Vec3 pPos = p.getPosition();
-
-                    double dX = player.getX() - pPos.x();
-                    double dY = player.getY() - pPos.y();
-                    double dZ = player.getZ() - pPos.z();
+                    double dX = msg.pos.getX() - pPos.x();
+                    double dY = msg.pos.getY() - pPos.y();
+                    double dZ = msg.pos.getZ() - pPos.z();
                     double yaw = Math.atan2(dZ, dX);
                     double pitch = Math.atan2(Math.sqrt(dZ * dZ + dX * dX), dY) + Math.PI;
 
@@ -53,16 +49,15 @@ public class SoulCollectParticlePacket{
                     p.setSpeed(p.getSpeed().subtract(x, y, z));
                 };
 
-                ParticleBuilder.create(FluffyFurParticles.WISP)
-                .setColorData(ColorParticleData.create(Pal.cyan, Color.white).build())
+                ParticleBuilder.create(FluffyFurParticles.DOT)
+                .setColorData(ColorParticleData.create(Pal.vividGreen, Pal.amethyst).build())
                 .setTransparencyData(GenericParticleData.create(0.3f).setEasing(Easing.QUARTIC_OUT).build())
                 .setScaleData(GenericParticleData.create(0.035f, 0.075f, 0).setEasing(Easing.QUARTIC_OUT).build())
                 .addTickActor(blockTarget)
                 .setLifetime(60)
                 .randomVelocity(0.25f)
                 .disablePhysics()
-                .repeat(level, pos.x, pos.y, pos.z, 12);
-
+                .repeat(pLevel, player.getX(), player.getY(), player.getZ(), 12);
                 ctx.get().setPacketHandled(true);
             });
         }
@@ -70,8 +65,6 @@ public class SoulCollectParticlePacket{
 
     public void encode(FriendlyByteBuf buf) {
         buf.writeUUID(uuid);
-        buf.writeDouble(posX);
-        buf.writeDouble(posY);
-        buf.writeDouble(posZ);
+        buf.writeBlockPos(pos);
     }
 }

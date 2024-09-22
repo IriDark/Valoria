@@ -1,4 +1,22 @@
 {
+  "block.keg.ambient": {
+    "subtitle": "subtitles.valoria.keg.ambient",
+    "replace": "true",
+    "sounds": [
+      "valoria:keg_brewery/ambient_0",
+      "valoria:keg_brewery/ambient_1",
+      "valoria:keg_brewery/ambient_2",
+      "valoria:keg_brewery/ambient_3"
+
+    ]
+  },
+  "block.keg.brew": {
+    "subtitle": "subtitles.valoria.keg.brew",
+    "replace": "true",
+    "sounds": [
+      "valoria:keg_brewery/final_brew"
+    ]
+  },
   "item.soul_collect.full": {
     "subtitle": "subtitles.valoria.soul_collect",
     "replace": "true",

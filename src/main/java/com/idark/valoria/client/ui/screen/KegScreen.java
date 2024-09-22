@@ -9,12 +9,10 @@ import net.minecraft.client.gui.screens.inventory.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.resources.*;
 import net.minecraft.world.entity.player.*;
-import net.minecraftforge.api.distmarker.*;
 
-@OnlyIn(Dist.CLIENT)
-public class JewelryScreen extends AbstractContainerScreen<JewelryMenu> {
-    private final ResourceLocation GUI = new ResourceLocation(Valoria.ID, "textures/gui/container/jewelry.png");
-    public JewelryScreen(JewelryMenu screenContainer, Inventory inv, Component titleIn) {
+public class KegScreen extends AbstractContainerScreen<KegMenu>{
+    private final ResourceLocation GUI = new ResourceLocation(Valoria.ID, "textures/gui/container/keg_brewery.png");
+    public KegScreen(KegMenu screenContainer, Inventory inv, Component titleIn) {
         super(screenContainer, inv, titleIn);
         this.imageHeight = 165;
         this.inventoryLabelY = this.inventoryLabelY + 46;
@@ -39,11 +37,11 @@ public class JewelryScreen extends AbstractContainerScreen<JewelryMenu> {
         int i = this.leftPos;
         int j = this.topPos;
         gui.blit(GUI, i, j, 0, 0, this.imageWidth, this.imageHeight);
-        if (menu.blockEntity instanceof JewelryBlockEntity jewelry) {
-            if (jewelry.progress > 0 && !jewelry.itemHandler.getStackInSlot(1).isEmpty() && !jewelry.itemHandler.getStackInSlot(0).isEmpty()) {
-                int width = 24;
-                width /= ((double) jewelry.progressMax / (double) jewelry.progress);
-                gui.blit(GUI, i + 101, j + 47, 176, 0, width, 17, 256, 256);
+        if (menu.blockEntity instanceof KegBlockEntity keg) {
+            if (keg.progress > 0 && !keg.itemHandler.getStackInSlot(0).isEmpty()) {
+                int height = 21;
+                height /= ((double) keg.progressMax / (double) keg.progress);
+                gui.blit(GUI, i + 76, j + 52 - height, 176, 21-height, 22, height, 256, 256);
             }
         }
     }

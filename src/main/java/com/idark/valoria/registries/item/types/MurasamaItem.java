@@ -3,7 +3,7 @@ package com.idark.valoria.registries.item.types;
 import com.idark.valoria.client.ui.*;
 import com.idark.valoria.core.interfaces.*;
 import com.idark.valoria.core.network.*;
-import com.idark.valoria.core.network.packets.*;
+import com.idark.valoria.core.network.packets.particle.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.util.*;
 import mod.maxbogomol.fluffy_fur.client.particle.*;

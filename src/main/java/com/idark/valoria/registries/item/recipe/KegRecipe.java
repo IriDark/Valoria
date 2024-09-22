@@ -1,45 +1,38 @@
 package com.idark.valoria.registries.item.recipe;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.idark.valoria.Valoria;
-import net.minecraft.core.NonNullList;
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
-import net.minecraft.world.SimpleContainer;
-import net.minecraft.world.item.ItemStack;
+import com.google.gson.*;
+import com.idark.valoria.*;
+import net.minecraft.core.*;
+import net.minecraft.network.*;
+import net.minecraft.resources.*;
+import net.minecraft.util.*;
+import net.minecraft.world.*;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.*;
-import net.minecraft.world.level.Level;
+import net.minecraft.world.level.*;
 import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nonnull;
+import javax.annotation.*;
 
-public class KegRecipe implements Recipe<SimpleContainer> {
-    private final NonNullList<Ingredient> inputItems;
+public class KegRecipe implements Recipe<Container> {
+    private final Ingredient ingredient;
     private final ItemStack output;
     private final ResourceLocation id;
     private final int time;
-
-    public KegRecipe(NonNullList<Ingredient> inputItems, ItemStack output, ResourceLocation id, int time) {
-        this.inputItems = inputItems;
+    public KegRecipe(Ingredient inputItems, ItemStack output, ResourceLocation id, int time) {
+        this.ingredient = inputItems;
         this.output = output;
         this.id = id;
         this.time = time;
     }
 
     @Override
-    public boolean matches(SimpleContainer pContainer, Level pLevel) {
-        if (pLevel.isClientSide()) {
-            return false;
-        }
-
-        return inputItems.get(0).test(pContainer.getItem(0));
+    public boolean matches(Container pContainer, Level pLevel) {
+        return ingredient.test(pContainer.getItem(0));
     }
 
     @Override
-    public ItemStack assemble(SimpleContainer pContainer, RegistryAccess pRegistryAccess) {
+    public ItemStack assemble(Container pContainer, RegistryAccess pRegistryAccess) {
         return output.copy();
     }
 
@@ -56,7 +49,9 @@ public class KegRecipe implements Recipe<SimpleContainer> {
     @Nonnull
     @Override
     public NonNullList<Ingredient> getIngredients() {
-        return inputItems;
+        NonNullList<Ingredient> nonnulllist = NonNullList.create();
+        nonnulllist.add(this.ingredient);
+        return nonnulllist;
     }
 
     @Override
@@ -86,54 +81,28 @@ public class KegRecipe implements Recipe<SimpleContainer> {
     public static class Serializer implements RecipeSerializer<KegRecipe> {
         public static final Serializer INSTANCE = new Serializer();
         public static final ResourceLocation ID = new ResourceLocation(Valoria.ID, "keg_brewery");
-
-        private static NonNullList<Ingredient> readIngredients(JsonArray ingredientArray) {
-            NonNullList<Ingredient> nonnulllist = NonNullList.create();
-
-            for (int i = 0; i < ingredientArray.size(); ++i) {
-                Ingredient ingredient = Ingredient.fromJson(ingredientArray.get(i));
-                if (!ingredient.isEmpty()) {
-                    nonnulllist.add(ingredient);
-                }
-            }
-
-            return nonnulllist;
+        private static Ingredient readIngredients(JsonArray ingredientArray) {
+            return Ingredient.fromJson(ingredientArray.get(0));
         }
 
         @Override
         public KegRecipe fromJson(ResourceLocation pRecipeId, JsonObject pSerializedRecipe) {
             ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(pSerializedRecipe, "output"));
-
             int time = GsonHelper.getAsInt(pSerializedRecipe, "time");
-            JsonArray ingredients = GsonHelper.getAsJsonArray(pSerializedRecipe, "ingredients");
-            final NonNullList<Ingredient> inputs = readIngredients(GsonHelper.getAsJsonArray(pSerializedRecipe, "ingredients"));
-
-            for (int i = 0; i < inputs.size(); i++) {
-                inputs.set(i, Ingredient.fromJson(ingredients.get(i)));
-            }
-
+            final Ingredient inputs = readIngredients(GsonHelper.getAsJsonArray(pSerializedRecipe, "ingredients"));
             return new KegRecipe(inputs, output, pRecipeId, time);
         }
 
         @Override
         public @Nullable KegRecipe fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
-            NonNullList<Ingredient> inputs = NonNullList.withSize(pBuffer.readInt(), Ingredient.EMPTY);
-            for (int i = 0; i < inputs.toArray().length; i++) {
-                inputs.set(i, Ingredient.fromNetwork(pBuffer));
-            }
-
             int time = pBuffer.readInt();
             ItemStack output = pBuffer.readItem();
-            return new KegRecipe(inputs, output, pRecipeId, time);
+            return new KegRecipe(Ingredient.fromNetwork(pBuffer), output, pRecipeId, time);
         }
 
         @Override
         public void toNetwork(FriendlyByteBuf pBuffer, KegRecipe pRecipe) {
-            pBuffer.writeInt(pRecipe.inputItems.size());
-            for (Ingredient input : pRecipe.getIngredients()) {
-                input.toNetwork(pBuffer);
-            }
-
+            pRecipe.ingredient.toNetwork(pBuffer);
             pBuffer.writeInt(pRecipe.getTime());
             pBuffer.writeItemStack(pRecipe.getResultItem(RegistryAccess.EMPTY), false);
         }
