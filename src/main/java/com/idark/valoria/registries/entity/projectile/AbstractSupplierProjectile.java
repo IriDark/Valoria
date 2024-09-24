@@ -145,7 +145,6 @@ public abstract class AbstractSupplierProjectile extends AbstractValoriaArrow im
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 
-    //fixme, piercing freezes game
     public void tick() {
         super.tick();
         if (this.inGroundTime > 4) {
