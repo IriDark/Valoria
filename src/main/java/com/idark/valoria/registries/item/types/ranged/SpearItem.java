@@ -1,53 +1,35 @@
 package com.idark.valoria.registries.item.types.ranged;
 
-import com.google.common.base.Suppliers;
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMultimap;
-import com.google.common.collect.Multimap;
-import com.google.common.collect.Sets;
-import com.idark.valoria.registries.AttributeRegistry;
-import com.idark.valoria.registries.BlockRegistry;
-import com.idark.valoria.registries.ItemsRegistry;
-import com.idark.valoria.registries.SoundsRegistry;
-import com.idark.valoria.registries.entity.projectile.ThrownSpearEntity;
-import com.idark.valoria.util.ArcRandom;
-import com.idark.valoria.util.ValoriaUtils;
-import net.minecraft.ChatFormatting;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.chat.Component;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.stats.Stats;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attribute;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.AbstractArrow;
+import com.google.common.base.*;
+import com.google.common.collect.*;
+import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.entity.projectile.*;
+import com.idark.valoria.util.*;
+import net.minecraft.*;
+import net.minecraft.core.*;
+import net.minecraft.core.particles.*;
+import net.minecraft.network.chat.*;
+import net.minecraft.sounds.*;
+import net.minecraft.stats.*;
+import net.minecraft.util.*;
+import net.minecraft.world.*;
+import net.minecraft.world.effect.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.entity.projectile.*;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.context.UseOnContext;
-import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.RotatedPillarBlock;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.ForgeMod;
-import net.minecraftforge.common.ToolAction;
+import net.minecraft.world.item.context.*;
+import net.minecraft.world.item.enchantment.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.*;
+import net.minecraftforge.common.*;
+import org.jetbrains.annotations.*;
 
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.stream.*;
 
 import static com.idark.valoria.util.ValoriaUtils.chanceEffect;
 
@@ -144,18 +126,7 @@ public class SpearItem extends SwordItem implements Vanishable {
             if (i >= 6) {
                 if (!worldIn.isClientSide) {
                     stack.hurtAndBreak(1, playerEntity, (player) -> player.broadcastBreakEvent(entityLiving.getUsedItemHand()));
-                    ThrownSpearEntity spear = new ThrownSpearEntity(worldIn, playerEntity, stack, 2, 4);
-                    spear.setItem(stack);
-                    spear.shootFromRotation(playerEntity, playerEntity.getXRot(), playerEntity.getYRot(), 0.0F, 2.5F + (float) 0 * 0.5F, 1.0F);
-                    if (playerEntity.getAbilities().instabuild) {
-                        spear.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
-                    }
-
-                    if (EnchantmentHelper.getTagEnchantmentLevel(Enchantments.FIRE_ASPECT, stack) > 0) {
-                        spear.setSecondsOnFire(100);
-                    }
-
-                    spear.setEffectsFromList(effects);
+                    ThrownSpearEntity spear = shootProjectile(stack, worldIn, playerEntity);
                     worldIn.addFreshEntity(spear);
                     worldIn.playSound(null, spear, SoundsRegistry.SPEAR_THROW.get(), SoundSource.PLAYERS, 1.0F, 0.9F);
                     if (!playerEntity.getAbilities().instabuild) {
@@ -166,6 +137,27 @@ public class SpearItem extends SwordItem implements Vanishable {
                 playerEntity.awardStat(Stats.ITEM_USED.get(this));
             }
         }
+    }
+
+    private @NotNull ThrownSpearEntity shootProjectile(ItemStack stack, Level worldIn, Player playerEntity){
+        ThrownSpearEntity spear = new ThrownSpearEntity(worldIn, playerEntity, stack);
+        spear.setItem(stack);
+        int pierceLevel = EnchantmentHelper.getTagEnchantmentLevel(Enchantments.PIERCING, stack);
+        if (pierceLevel > 0) {
+            spear.setPierceLevel((byte)pierceLevel);
+        }
+
+        if (EnchantmentHelper.getTagEnchantmentLevel(Enchantments.FIRE_ASPECT, stack) > 0) {
+            spear.setSecondsOnFire(100);
+        }
+
+        spear.setEffectsFromList(effects);
+        spear.shootFromRotation(playerEntity, playerEntity.getXRot(), playerEntity.getYRot(), 0.0F, 2.5F + (float) 0 * 0.5F, 1.0F);
+        if (playerEntity.getAbilities().instabuild) {
+            spear.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
+        }
+
+        return spear;
     }
 
     public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot equipmentSlot) {

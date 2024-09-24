@@ -1,24 +1,17 @@
 package com.idark.valoria.registries.item.types.curio;
 
-import com.google.common.collect.LinkedHashMultimap;
-import com.google.common.collect.Multimap;
-import com.idark.valoria.Valoria;
-import com.idark.valoria.client.render.curio.HandsRenderer;
-import com.idark.valoria.core.enums.AccessoryGem;
-import com.idark.valoria.core.enums.AccessoryMaterial;
-import com.idark.valoria.core.enums.AccessoryType;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attribute;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Tier;
-import top.theillusivec4.curios.api.SlotContext;
+import com.google.common.collect.*;
+import com.idark.valoria.*;
+import com.idark.valoria.core.enums.*;
+import net.minecraft.client.player.*;
+import net.minecraft.resources.*;
+import net.minecraft.world.effect.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.*;
+import net.minecraft.world.item.*;
+import top.theillusivec4.curios.api.*;
 
-import java.util.UUID;
+import java.util.*;
 
 public class GlovesItem extends AbstractTieredAccessory implements ICurioTexture {
     public GlovesItem(Tier tier, AccessoryGem gem, AccessoryMaterial material, Item.Properties properties) {
@@ -67,10 +60,14 @@ public class GlovesItem extends AbstractTieredAccessory implements ICurioTexture
 
     @Override
     public ResourceLocation getTexture(ItemStack stack, LivingEntity entity) {
-        return getGloveTexture(material, !HandsRenderer.isDefault);
+        if (entity instanceof AbstractClientPlayer player) {
+            return getGloveTexture(material, !player.getModelName().equals("default"));
+        }
+
+        return getGloveTexture(material, false);
     }
 
-    private ResourceLocation getGloveTexture(AccessoryMaterial material, boolean render) {
+    public ResourceLocation getGloveTexture(AccessoryMaterial material, boolean render) {
         if (material.isInvalid()) {
             return null;
         }

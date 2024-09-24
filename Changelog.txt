@@ -21,6 +21,10 @@
 - Fixed bug that Murasama wasn't based on "dash_distance" attribute
 - Fixed Possible Server Crashing
 - Fixed Undead moving AI
+- Fixed Loyalty on Spears (Returned item removes all enchantments)
+- Fixed Glover Rendering
+- Fixed Valoria Portal Frames
+- Fixed Piercing
 
 - Nerfed Rune's
 - Buffed Silken Kunai
@@ -61,6 +65,7 @@
 - Reworked Overlay items
 - Reworked Bleeding FX
 - Reworked Kegs
+- Reworked Projectiles
 
 - Decreased amount of bones dropped from Goblins
 - Decreased Cooldown time for Scythes from 100 to 75, if no one was hit to 15
@@ -91,6 +96,9 @@
 - Reworked BlazeReap
 - Reworked Bandages
 - Decreased amount of bones dropped from Goblins
+- Nerfed Tipsy Effect:
+    Armor 35% -> 10%
+    Damage 45% -> 15%
 
 - ID change of "pick" -> "prospectors_pick"
 - Changed spawnables in Valoria dimension

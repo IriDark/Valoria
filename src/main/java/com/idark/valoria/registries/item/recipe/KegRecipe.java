@@ -15,12 +15,12 @@ import org.jetbrains.annotations.Nullable;
 import javax.annotation.*;
 
 public class KegRecipe implements Recipe<Container> {
-    private final Ingredient ingredient;
+    private final NonNullList<Ingredient> inputs;
     private final ItemStack output;
     private final ResourceLocation id;
     private final int time;
-    public KegRecipe(Ingredient inputItems, ItemStack output, ResourceLocation id, int time) {
-        this.ingredient = inputItems;
+    public KegRecipe(NonNullList<Ingredient> inputItems, ItemStack output, ResourceLocation id, int time) {
+        this.inputs = inputItems;
         this.output = output;
         this.id = id;
         this.time = time;
@@ -28,7 +28,7 @@ public class KegRecipe implements Recipe<Container> {
 
     @Override
     public boolean matches(Container pContainer, Level pLevel) {
-        return ingredient.test(pContainer.getItem(0));
+        return inputs.get(0).test(pContainer.getItem(0));
     }
 
     @Override
@@ -49,9 +49,7 @@ public class KegRecipe implements Recipe<Container> {
     @Nonnull
     @Override
     public NonNullList<Ingredient> getIngredients() {
-        NonNullList<Ingredient> nonnulllist = NonNullList.create();
-        nonnulllist.add(this.ingredient);
-        return nonnulllist;
+        return inputs;
     }
 
     @Override
@@ -81,28 +79,52 @@ public class KegRecipe implements Recipe<Container> {
     public static class Serializer implements RecipeSerializer<KegRecipe> {
         public static final Serializer INSTANCE = new Serializer();
         public static final ResourceLocation ID = new ResourceLocation(Valoria.ID, "keg_brewery");
-        private static Ingredient readIngredients(JsonArray ingredientArray) {
-            return Ingredient.fromJson(ingredientArray.get(0));
+        private static NonNullList<Ingredient> readIngredients(JsonArray ingredientArray) {
+            NonNullList<Ingredient> nonnulllist = NonNullList.create();
+            for (int i = 0; i < ingredientArray.size(); ++i) {
+                Ingredient ingredient = Ingredient.fromJson(ingredientArray.get(i));
+                if (!ingredient.isEmpty()) {
+                    nonnulllist.add(ingredient);
+                }
+            }
+
+            return nonnulllist;
         }
 
         @Override
         public KegRecipe fromJson(ResourceLocation pRecipeId, JsonObject pSerializedRecipe) {
             ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(pSerializedRecipe, "output"));
+
             int time = GsonHelper.getAsInt(pSerializedRecipe, "time");
-            final Ingredient inputs = readIngredients(GsonHelper.getAsJsonArray(pSerializedRecipe, "ingredients"));
+            JsonArray ingredients = GsonHelper.getAsJsonArray(pSerializedRecipe, "ingredients");
+            final NonNullList<Ingredient> inputs = readIngredients(GsonHelper.getAsJsonArray(pSerializedRecipe, "ingredients"));
+
+            for (int i = 0; i < inputs.size(); i++) {
+                inputs.set(i, Ingredient.fromJson(ingredients.get(i)));
+            }
+
             return new KegRecipe(inputs, output, pRecipeId, time);
         }
 
         @Override
         public @Nullable KegRecipe fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
+            NonNullList<Ingredient> inputs = NonNullList.withSize(pBuffer.readInt(), Ingredient.EMPTY);
+            for (int i = 0; i < inputs.toArray().length; i++) {
+                inputs.set(i, Ingredient.fromNetwork(pBuffer));
+            }
+
             int time = pBuffer.readInt();
             ItemStack output = pBuffer.readItem();
-            return new KegRecipe(Ingredient.fromNetwork(pBuffer), output, pRecipeId, time);
+            return new KegRecipe(inputs, output, pRecipeId, time);
         }
 
         @Override
         public void toNetwork(FriendlyByteBuf pBuffer, KegRecipe pRecipe) {
-            pRecipe.ingredient.toNetwork(pBuffer);
+            pBuffer.writeInt(pRecipe.inputs.size());
+            for (Ingredient input : pRecipe.getIngredients()) {
+                input.toNetwork(pBuffer);
+            }
+
             pBuffer.writeInt(pRecipe.getTime());
             pBuffer.writeItemStack(pRecipe.getResultItem(RegistryAccess.EMPTY), false);
         }

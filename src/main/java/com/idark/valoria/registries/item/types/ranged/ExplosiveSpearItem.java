@@ -1,20 +1,16 @@
 package com.idark.valoria.registries.item.types.ranged;
 
-import com.idark.valoria.registries.SoundsRegistry;
-import com.idark.valoria.registries.entity.projectile.ThrownSpearEntity;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.stats.Stats;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.AbstractArrow;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Tier;
-import net.minecraft.world.item.Vanishable;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraft.world.level.Level;
+import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.entity.projectile.*;
+import net.minecraft.sounds.*;
+import net.minecraft.stats.*;
+import net.minecraft.world.effect.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.entity.projectile.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.item.enchantment.*;
+import net.minecraft.world.level.*;
 
 public class ExplosiveSpearItem extends SpearItem implements Vanishable {
     private final Level.ExplosionInteraction interaction;
@@ -49,7 +45,7 @@ public class ExplosiveSpearItem extends SpearItem implements Vanishable {
             if (i >= 6) {
                 if (!worldIn.isClientSide) {
                     stack.hurtAndBreak(1, playerEntity, (player) -> player.broadcastBreakEvent(entityLiving.getUsedItemHand()));
-                    ThrownSpearEntity spear = new ThrownSpearEntity(worldIn, playerEntity, stack, 2, 4);
+                    ThrownSpearEntity spear = new ThrownSpearEntity(worldIn, playerEntity, stack);
                     spear.setItem(stack);
                     spear.shootFromRotation(playerEntity, playerEntity.getXRot(), playerEntity.getYRot(), 0.0F, 2.5F + (float) 0 * 0.5F, 1.0F);
                     spear.setExplode(interaction, explosive_radius);

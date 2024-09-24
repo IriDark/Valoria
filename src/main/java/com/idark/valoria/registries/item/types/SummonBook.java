@@ -25,7 +25,7 @@ import java.util.function.*;
 public class SummonBook extends Item {
     private final Supplier<? extends EntityType<? extends AbstractMinionEntity>> summonedEntity;
     public final Multimap<Attribute, AttributeModifier> defaultModifiers;
-
+    public boolean hasLimitedLife;
     /**
      * @param summoned Mob to summon, must be an extent of AbstractMinionEntity
      * @param lifetime Summoned mob lifetime, specified in Seconds
@@ -34,8 +34,23 @@ public class SummonBook extends Item {
     public SummonBook(Supplier<? extends EntityType<? extends AbstractMinionEntity>> summoned, int lifetime, int count, Properties pProperties) {
         super(pProperties);
         this.summonedEntity = summoned;
+        this.hasLimitedLife = true;
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
         builder.put(AttributeRegistry.NECROMANCY_LIFETIME.get(), new AttributeModifier(UUID.fromString("09a12525-61a5-4d57-a125-2561a56d578e"), "Tool modifier", lifetime, AttributeModifier.Operation.ADDITION));
+        builder.put(AttributeRegistry.NECROMANCY_COUNT.get(), new AttributeModifier(UUID.fromString("ed80691e-f153-4b5e-8069-1ef153bb5eed"), "Tool modifier", count, AttributeModifier.Operation.ADDITION));
+        this.defaultModifiers = builder.build();
+    }
+
+    /**
+     * Summons a minions without limited lifetime
+     * @param summoned Mob to summon, must be an extent of AbstractMinionEntity
+     * @param count    Count of summoned mobs
+     */
+    public SummonBook(Supplier<? extends EntityType<? extends AbstractMinionEntity>> summoned, int count, Properties pProperties) {
+        super(pProperties);
+        this.summonedEntity = summoned;
+        this.hasLimitedLife = false;
+        ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
         builder.put(AttributeRegistry.NECROMANCY_COUNT.get(), new AttributeModifier(UUID.fromString("ed80691e-f153-4b5e-8069-1ef153bb5eed"), "Tool modifier", count, AttributeModifier.Operation.ADDITION));
         this.defaultModifiers = builder.build();
     }
@@ -73,9 +88,9 @@ public class SummonBook extends Item {
             summoned.finalizeSpawn(serverLevel, player.level().getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, null, null);
             summoned.setOwner(player);
             summoned.setBoundOrigin(blockpos);
-            summoned.setLimitedLife(getLifetime(player) + serverLevel.random.nextInt(60));
+            if(hasLimitedLife) summoned.setLimitedLife(getLifetime(player) + serverLevel.random.nextInt(60));
             serverLevel.addFreshEntity(summoned);
-            PacketHandler.sendToTracking(serverLevel, blockpos, new MinionSummonParticlePacket(player.getUUID(), spawnPos));
+            PacketHandler.sendToTracking(serverLevel, blockpos, new MinionSummonParticlePacket(summoned.getId(), player.getOnPos().above()));
         }
     }
 

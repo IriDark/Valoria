@@ -1,28 +1,20 @@
 package com.idark.valoria.registries.block.types;
 
-import com.idark.valoria.client.particle.ParticleRegistry;
-import com.idark.valoria.registries.levelgen.LevelGen;
-import com.idark.valoria.registries.levelgen.portal.ValoriaTeleporter;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.pattern.BlockPattern;
-import net.minecraft.world.phys.shapes.BooleanOp;
-import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.Shapes;
-import net.minecraft.world.phys.shapes.VoxelShape;
+import com.idark.valoria.client.particle.*;
+import com.idark.valoria.registries.levelgen.*;
+import com.idark.valoria.registries.levelgen.portal.*;
+import net.minecraft.core.*;
+import net.minecraft.resources.*;
+import net.minecraft.server.*;
+import net.minecraft.server.level.*;
+import net.minecraft.sounds.*;
+import net.minecraft.util.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.*;
+import net.minecraft.world.level.block.state.pattern.*;
+import net.minecraft.world.phys.shapes.*;
 
 public class ValoriaPortalBlock extends Block {
     protected static final VoxelShape shape = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 12.0D, 16.0D);
@@ -97,7 +89,7 @@ public class ValoriaPortalBlock extends Block {
     @Override
     public void neighborChanged(BlockState state, Level world, BlockPos pos, Block block, BlockPos pos2, boolean unknown) {
         BlockPattern.BlockPatternMatch frame = ValoriaPortalFrame.getOrCreatePortalShape().find(world, pos);
-        if (frame == null && world.dimension() != LevelGen.VALORIA_KEY) {
+        if (frame == null) {
             world.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
         }
     }

@@ -1,37 +1,28 @@
 package com.idark.valoria.registries.item.types.ranged;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMultimap;
-import com.google.common.collect.Multimap;
-import com.idark.valoria.core.enums.ModItemTier;
-import com.idark.valoria.registries.AttributeRegistry;
-import com.idark.valoria.registries.entity.projectile.KunaiEntity;
-import com.idark.valoria.util.ArcRandom;
-import com.idark.valoria.util.ValoriaUtils;
-import net.minecraft.ChatFormatting;
-import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.Component;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.stats.Stats;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attribute;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.AbstractArrow;
+import com.google.common.collect.*;
+import com.idark.valoria.core.enums.*;
+import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.entity.projectile.*;
+import com.idark.valoria.util.*;
+import net.minecraft.*;
+import net.minecraft.core.*;
+import net.minecraft.network.chat.*;
+import net.minecraft.sounds.*;
+import net.minecraft.stats.*;
+import net.minecraft.world.*;
+import net.minecraft.world.effect.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.entity.projectile.*;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.item.enchantment.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.state.*;
+import org.jetbrains.annotations.*;
 
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class KunaiItem extends SwordItem {
     private final Multimap<Attribute, AttributeModifier> tridentAttributes;
@@ -82,14 +73,7 @@ public class KunaiItem extends SwordItem {
             if (i >= 6) {
                 if (!worldIn.isClientSide) {
                     stack.hurtAndBreak(1, playerEntity, (player) -> player.broadcastBreakEvent(entityLiving.getUsedItemHand()));
-                    KunaiEntity kunaiEntity = new KunaiEntity(worldIn, playerEntity, stack);
-                    kunaiEntity.shootFromRotation(playerEntity, playerEntity.getXRot(), playerEntity.getYRot(), 0.0F, 2.5F + (float) 0 * 0.5F, 1.0F);
-                    kunaiEntity.setEffectsFromList(effects);
-                    kunaiEntity.setItem(stack);
-                    if (playerEntity.getAbilities().instabuild) {
-                        kunaiEntity.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
-                    }
-
+                    KunaiEntity kunaiEntity = shootProjectile(stack, worldIn, playerEntity);
                     worldIn.addFreshEntity(kunaiEntity);
                     worldIn.playSound(playerEntity, kunaiEntity, SoundEvents.TRIDENT_THROW, SoundSource.PLAYERS, 1.0F, 1.0F);
                     if (!playerEntity.getAbilities().instabuild) {
@@ -100,6 +84,27 @@ public class KunaiItem extends SwordItem {
                 playerEntity.awardStat(Stats.ITEM_USED.get(this));
             }
         }
+    }
+
+    private @NotNull KunaiEntity shootProjectile(ItemStack stack, Level worldIn, Player playerEntity){
+        KunaiEntity kunaiEntity = new KunaiEntity(playerEntity, worldIn, stack);
+        kunaiEntity.setItem(stack);
+        int pierceLevel = EnchantmentHelper.getTagEnchantmentLevel(Enchantments.PIERCING, stack);
+        if (pierceLevel > 0) {
+            kunaiEntity.setPierceLevel((byte)pierceLevel);
+        }
+
+        if (EnchantmentHelper.getTagEnchantmentLevel(Enchantments.FIRE_ASPECT, stack) > 0) {
+            kunaiEntity.setSecondsOnFire(100);
+        }
+
+        kunaiEntity.setEffectsFromList(effects);
+        kunaiEntity.shootFromRotation(playerEntity, playerEntity.getXRot(), playerEntity.getYRot(), 0.0F, 2.5F + (float) 0 * 0.5F, 1.0F);
+        if (playerEntity.getAbilities().instabuild) {
+            kunaiEntity.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
+        }
+
+        return kunaiEntity;
     }
 
     public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
