@@ -39,7 +39,7 @@ import org.lwjgl.glfw.*;
 import java.io.*;
 
 import static com.idark.valoria.Valoria.*;
-import static mod.maxbogomol.fluffy_fur.registry.client.FluffyFurRenderTypes.addRenderType;
+import static mod.maxbogomol.fluffy_fur.registry.client.FluffyFurRenderTypes.addAdditiveRenderType;
 
 public class ValoriaClient {
     private static final String CATEGORY_KEY = "key.category.valoria.general";
@@ -224,7 +224,7 @@ public class ValoriaClient {
 
         @SubscribeEvent
         public static void registerRenderTypes(FMLClientSetupEvent event) {
-            addRenderType(VALORIA_PORTAL_RENDER_TYPE);
+            addAdditiveRenderType(VALORIA_PORTAL_RENDER_TYPE);
         }
 
         @OnlyIn(Dist.CLIENT)

@@ -1,5 +1,6 @@
 package com.idark.valoria.registries.block.types;
 
+import com.idark.valoria.registries.block.entity.ValoriaPortalBlockEntity;
 import com.idark.valoria.registries.levelgen.*;
 import com.idark.valoria.registries.levelgen.portal.*;
 import com.idark.valoria.util.*;
@@ -17,14 +18,16 @@ import net.minecraft.util.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.level.block.state.pattern.*;
 import net.minecraft.world.phys.shapes.*;
 import net.minecraftforge.api.distmarker.*;
+import org.jetbrains.annotations.Nullable;
 
 import java.awt.*;
 
-public class ValoriaPortalBlock extends Block {
+public class ValoriaPortalBlock extends Block implements EntityBlock {
     protected static final VoxelShape shape = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 12.0D, 16.0D);
 
     public ValoriaPortalBlock(Properties pProperties) {
@@ -112,5 +115,9 @@ public class ValoriaPortalBlock extends Block {
         if (frame == null) {
             world.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
         }
+    }
+
+    public @Nullable BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
+        return new ValoriaPortalBlockEntity(pPos, pState);
     }
 }

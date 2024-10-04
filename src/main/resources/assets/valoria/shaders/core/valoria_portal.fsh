@@ -10,13 +10,6 @@ uniform int EndPortalLayers;
 
 in vec4 texProj0;
 
-vec2 rot(vec2 v, float a) {
-    return mat2(
-    cos(a), -sin(a),
-    sin(a), cos(a)
-    ) * v;
-}
-
 const vec3[] COLORS = vec3[](
 vec3(0.022087, 0.098399, 0.110818),
 vec3(0.011892, 0.095924, 0.089485),
@@ -44,34 +37,26 @@ const mat4 SCALE_TRANSLATE = mat4(
 );
 
 mat4 end_portal_layer(float layer) {
-    mat4 translate = mat4(
-    1.0, 0.0, 0.0, 17.0 / layer,
-    0.0, 1.0, 0.0, (2.0 + layer / 1.5) * (GameTime * 1.5),
-    0.0, 0.0, 1.0, 0.0,
-    0.0, 0.0, 0.0, 1.0
-    );
+mat4 translate = mat4(
+1.0, 0.0, 0.0, 17.0 / layer,
+0.0, 1.0, 0.0, (2.0 + layer / 1.5) * (GameTime * 1.5),
+0.0, 0.0, 1.0, 0.0,
+0.0, 0.0, 0.0, 1.0
+);
 
-    mat2 rotate = rot(layer * layer, -3.14159 / 8.0);
-    mat2 scale = mat2((4.5 - layer / 4.0) * 2.0);
-    return mat4(scale * rotate) * translate * SCALE_TRANSLATE;
+mat2 rotate = mat2_rotate_z(radians((layer * layer * 4321.0 + layer * 9.0) * 2.0));
+
+mat2 scale = mat2((4.5 - layer / 4.0) * 2.0);
+
+return mat4(scale * rotate) * translate * SCALE_TRANSLATE;
 }
 
 out vec4 fragColor;
+
 void main() {
-    vec3 color = textureProj(Sampler0, texProj0).rgb * COLORS[0];
-    for (int i = 0; i < EndPortalLayers; i++) {
-        color += textureProj(Sampler1, texProj0 * end_portal_layer(float(i + 1))).rgb * COLORS[i];
-    }
-
-    float n = sin(4.0 * st.x + 4.0 * st.y + 0.8 * time);
-    float lines = cos((st.x + n * 0.8) * 3.14159);
-
-    fragColor = vec4(
-    mix(
-        vec3(0.055, 0.047, 0.075),
-        vec3(0.153, 0.149, 0.188),
-        smoothstep(0.0, 1.0, lines * 0.25 + 0.25)
-    ),
-    1.0
-    );
+vec3 color = textureProj(Sampler0, texProj0).rgb * COLORS[0];
+for (int i = 0; i < EndPortalLayers; i++) {
+color += textureProj(Sampler1, texProj0 * end_portal_layer(float(i + 1))).rgb * COLORS[i];
+}
+fragColor = vec4(color, 1.0);
 }
