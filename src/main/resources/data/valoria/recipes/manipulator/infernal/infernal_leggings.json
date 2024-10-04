@@ -6,13 +6,13 @@
   },
   "core": "infernal_core",
   "cores": 1,
-  "time": 1540,
+  "time": 2800,
   "ingredients": [
     {
-      "item": "valoria:depth_leggings"
+      "item": "minecraft:diamond_leggings"
     },
     {
-      "item": "valoria:infernal_ingot"
+      "item": "valoria:infernal_upgrade_smithing_template"
     }
   ]
 }

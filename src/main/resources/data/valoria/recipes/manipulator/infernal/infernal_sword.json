@@ -1,18 +1,19 @@
 {
   "type": "valoria:manipulator",
+  "category": "equipment",
   "output": {
     "count": 1,
     "item": "valoria:infernal_sword"
   },
   "core": "infernal_core",
   "cores": 1,
-  "time": 500,
+  "time": 2500,
   "ingredients": [
     {
-      "item": "valoria:coral_reef"
+      "item": "minecraft:diamond_sword"
     },
     {
-      "item": "valoria:infernal_ingot"
+      "item": "valoria:infernal_upgrade_smithing_template"
     }
   ]
 }

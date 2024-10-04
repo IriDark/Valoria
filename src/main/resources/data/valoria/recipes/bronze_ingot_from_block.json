@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "bronze_ingot",
+  "ingredients": [
+    {
+      "item": "valoria:bronze_block"
+    }
+  ],
+  "result": {
+    "item": "valoria:bronze_ingot",
+    "count": 9
+  }
+}

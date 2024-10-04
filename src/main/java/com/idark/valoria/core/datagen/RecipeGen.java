@@ -1,23 +1,20 @@
 package com.idark.valoria.core.datagen;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.registries.BlockRegistry;
-import com.idark.valoria.registries.ItemsRegistry;
-import net.minecraft.data.PackOutput;
+import com.idark.valoria.*;
+import com.idark.valoria.registries.*;
+import net.minecraft.data.*;
 import net.minecraft.data.recipes.*;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.TagKey;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.block.Block;
-import net.minecraftforge.common.crafting.ConditionalRecipe;
-import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
-import net.minecraftforge.common.crafting.conditions.ModLoadedCondition;
-import org.jetbrains.annotations.NotNull;
+import net.minecraft.resources.*;
+import net.minecraft.tags.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.*;
+import net.minecraftforge.common.crafting.*;
+import net.minecraftforge.common.crafting.conditions.*;
+import org.jetbrains.annotations.*;
 
-import java.util.function.Consumer;
+import java.util.function.*;
 
 public class RecipeGen extends RecipeProvider implements IConditionBuilder {
 
@@ -165,7 +162,7 @@ public class RecipeGen extends RecipeProvider implements IConditionBuilder {
 
     @Override
     public void buildRecipes(@NotNull Consumer<FinishedRecipe> pWriter) {
-        spearRecipe(pWriter, ItemsRegistry.PYRATITE.get(), ItemsRegistry.PYRATITE_SPEAR.get());
+        spearRecipe(pWriter, ItemsRegistry.pyratite.get(), ItemsRegistry.pyratiteSpear.get());
         stainedGlassPaneFromStainedGlass(pWriter, BlockRegistry.BRONZE_GLASS_PANE.get(), BlockRegistry.BRONZE_GLASS.get());
 
         cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.POLISHED_AMBANE_STONE.get(), BlockRegistry.AMBANE_STONE.get(), 1);
@@ -285,17 +282,17 @@ public class RecipeGen extends RecipeProvider implements IConditionBuilder {
         cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.VOID_CHISELED_BRICKS_STAIRS.get(), BlockRegistry.VOID_CHISELED_BRICKS.get(), 1);
         cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.VOID_CHISELED_BRICKS_SLAB.get(), BlockRegistry.VOID_CHISELED_BRICKS.get(), 2);
 
-        netheriteSmithing(pWriter, ItemsRegistry.GOLDEN_NECKLACE_AMBER.get(), RecipeCategory.MISC, ItemsRegistry.NETHERITE_NECKLACE_AMBER.get());
-        netheriteSmithing(pWriter, ItemsRegistry.GOLDEN_NECKLACE_DIAMOND.get(), RecipeCategory.MISC, ItemsRegistry.NETHERITE_NECKLACE_DIAMOND.get());
-        netheriteSmithing(pWriter, ItemsRegistry.GOLDEN_NECKLACE_EMERALD.get(), RecipeCategory.MISC, ItemsRegistry.NETHERITE_NECKLACE_EMERALD.get());
-        netheriteSmithing(pWriter, ItemsRegistry.GOLDEN_NECKLACE_RUBY.get(), RecipeCategory.MISC, ItemsRegistry.NETHERITE_NECKLACE_RUBY.get());
-        netheriteSmithing(pWriter, ItemsRegistry.GOLDEN_NECKLACE_SAPPHIRE.get(), RecipeCategory.MISC, ItemsRegistry.NETHERITE_NECKLACE_SAPPHIRE.get());
+        netheriteSmithing(pWriter, ItemsRegistry.goldenNecklaceAmber.get(), RecipeCategory.MISC, ItemsRegistry.netheriteNecklaceAmber.get());
+        netheriteSmithing(pWriter, ItemsRegistry.goldenNecklaceDiamond.get(), RecipeCategory.MISC, ItemsRegistry.netheriteNecklaceDiamond.get());
+        netheriteSmithing(pWriter, ItemsRegistry.goldenNecklaceEmerald.get(), RecipeCategory.MISC, ItemsRegistry.netheriteNecklaceEmerald.get());
+        netheriteSmithing(pWriter, ItemsRegistry.goldenNecklaceRuby.get(), RecipeCategory.MISC, ItemsRegistry.netheriteNecklaceRuby.get());
+        netheriteSmithing(pWriter, ItemsRegistry.goldenNecklaceSapphire.get(), RecipeCategory.MISC, ItemsRegistry.netheriteNecklaceSapphire.get());
 
-        netheriteSmithing(pWriter, ItemsRegistry.GOLDEN_RING_AMBER.get(), RecipeCategory.MISC, ItemsRegistry.NETHERITE_RING_AMBER.get());
-        netheriteSmithing(pWriter, ItemsRegistry.GOLDEN_RING_DIAMOND.get(), RecipeCategory.MISC, ItemsRegistry.NETHERITE_RING_DIAMOND.get());
-        netheriteSmithing(pWriter, ItemsRegistry.GOLDEN_RING_EMERALD.get(), RecipeCategory.MISC, ItemsRegistry.NETHERITE_RING_EMERALD.get());
-        netheriteSmithing(pWriter, ItemsRegistry.GOLDEN_RING_RUBY.get(), RecipeCategory.MISC, ItemsRegistry.NETHERITE_RING_RUBY.get());
-        netheriteSmithing(pWriter, ItemsRegistry.GOLDEN_RING_SAPPHIRE.get(), RecipeCategory.MISC, ItemsRegistry.NETHERITE_RING_SAPPHIRE.get());
+        netheriteSmithing(pWriter, ItemsRegistry.goldenRingAmber.get(), RecipeCategory.MISC, ItemsRegistry.netheriteRingAmber.get());
+        netheriteSmithing(pWriter, ItemsRegistry.goldenRingDiamond.get(), RecipeCategory.MISC, ItemsRegistry.netheriteRingDiamond.get());
+        netheriteSmithing(pWriter, ItemsRegistry.goldenRingEmerald.get(), RecipeCategory.MISC, ItemsRegistry.netheriteRingEmerald.get());
+        netheriteSmithing(pWriter, ItemsRegistry.goldenRingRuby.get(), RecipeCategory.MISC, ItemsRegistry.netheriteRingRuby.get());
+        netheriteSmithing(pWriter, ItemsRegistry.goldenRingSapphire.get(), RecipeCategory.MISC, ItemsRegistry.netheriteRingSapphire.get());
 
         fence(pWriter, BlockRegistry.SHADEWOOD_FENCE.get(), BlockRegistry.SHADEWOOD_PLANKS.get());
         fenceGate(pWriter, BlockRegistry.SHADEWOOD_FENCE_GATE.get(), BlockRegistry.SHADEWOOD_PLANKS.get());

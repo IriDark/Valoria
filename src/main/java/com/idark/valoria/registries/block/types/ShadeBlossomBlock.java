@@ -7,6 +7,7 @@ import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.phys.shapes.*;
+import net.minecraftforge.api.distmarker.*;
 
 public class ShadeBlossomBlock extends Block {
     public ShadeBlossomBlock(Properties pProperties) {
@@ -23,6 +24,7 @@ public class ShadeBlossomBlock extends Block {
         return Block.canSupportCenter(p_154710_, p_154711_.below(), Direction.UP) && !p_154710_.isWaterAt(p_154711_);
     }
 
+    @OnlyIn(Dist.CLIENT)
     public void animateTick(BlockState p_222503_, Level p_222504_, BlockPos p_222505_, RandomSource p_222506_) {
         int i = p_222505_.getX();
         int j = p_222505_.getY();

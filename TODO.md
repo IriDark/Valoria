@@ -15,10 +15,7 @@
 - Neoforge 1.21 port
 - Crafting visual for Jeweler table
 - Resprite Rapiers
-- Katana in hand models like with Murasama??
-- Bronze recipes
 - Portal dupe
-- UI to keg (MAYBE, or other ways to show the craft)
 ---
 ### Lexicon
 - Add more pages
@@ -37,3 +34,18 @@
 ### Winglets, Gazers, Totems
 - Finish them, maybe with all other Archaeology content?
 
+### БИОМЫ
+- Подбиомы для существующих
+- Различные отличия в высоте деревьев в подбиомах
+- Мясной биом
+- Выженные земли
+- Мёртвые деревья
+- Различного рода декорации мира, камушки, глыбы
+- Гористые биомы
+- Разделение океана на биомы
+- Генерация веток тенедрева 
+
+- Фикс партиклов манипулятора
+- Фикс партиклов горшка
+- Фикс партиклов стола археолога
+- Фикс удушья от листвы

@@ -1,14 +1,12 @@
 package com.idark.valoria.client.model.entity;
 
-import com.idark.valoria.registries.entity.decoration.MannequinEntity;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.model.EntityModel;
-import net.minecraft.client.model.geom.ModelPart;
-import net.minecraft.client.model.geom.PartPose;
+import com.idark.valoria.registries.entity.living.decoration.*;
+import com.mojang.blaze3d.vertex.*;
+import net.minecraft.client.model.*;
+import net.minecraft.client.model.geom.*;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.util.Mth;
-import net.minecraft.world.entity.Entity;
+import net.minecraft.util.*;
+import net.minecraft.world.entity.*;
 
 public class MannequinModel<T extends Entity> extends EntityModel<T> {
     private final ModelPart Head;

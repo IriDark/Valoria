@@ -20,8 +20,8 @@ import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.block.types.*;
 import com.idark.valoria.registries.command.arguments.*;
 import com.idark.valoria.registries.entity.ai.sensing.*;
-import com.idark.valoria.registries.entity.decoration.*;
 import com.idark.valoria.registries.entity.living.*;
+import com.idark.valoria.registries.entity.living.decoration.*;
 import com.idark.valoria.registries.item.recipe.*;
 import com.idark.valoria.registries.item.types.curio.charm.*;
 import com.idark.valoria.registries.levelgen.*;
@@ -53,23 +53,29 @@ import net.minecraftforge.fml.javafmlmod.*;
 import org.slf4j.*;
 import top.theillusivec4.curios.api.client.*;
 
+import java.util.*;
+
 @Mod(Valoria.ID)
 public class Valoria {
     public static final String ID = "valoria";
     public static final Logger LOGGER = LogUtils.getLogger();
     public static final ISidedProxy proxy = DistExecutor.unsafeRunForDist(() -> ClientProxy::new, () -> ServerProxy::new);
+    public static UUID BASE_ENTITY_REACH_UUID = UUID.fromString("c2e6b27c-fff1-4296-a6b2-7cfff13296cf");
+    public static UUID BASE_PROJECTILE_DAMAGE_UUID = UUID.fromString("5334b818-69d4-417e-b4b8-1869d4917e29");
+    public static UUID BASE_DASH_DISTANCE_UUID = UUID.fromString("b0e5853a-d071-40db-a585-3ad07100db82");
+    public static UUID BASE_ATTACK_RADIUS_UUID = UUID.fromString("49438567-6ad2-41bd-8385-676ad2a1bd5e");
+    public static UUID BASE_NECROMANCY_LIFETIME_UUID = UUID.fromString("09a12525-61a5-4d57-a125-2561a56d578e");
+    public static UUID BASE_NECROMANCY_COUNT_UUID = UUID.fromString("ed80691e-f153-4b5e-8069-1ef153bb5eed");
 
     public Valoria() {
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
-        SoundsRegistry.SOUNDS.register(eventBus);
         EffectsRegistry.register(eventBus);
         EnchantmentsRegistry.register(eventBus);
         MiscRegistry.init(eventBus);
         AttributeRegistry.register(eventBus);
         PotionBrewery.register(eventBus);
-        ItemsRegistry.register(eventBus);
+        EntityTypeRegistry.register(eventBus);
+        ItemsRegistry.load(eventBus);
         BlockRegistry.register(eventBus);
         LevelGen.init(eventBus);
 
@@ -77,7 +83,6 @@ public class Valoria {
         RecipesRegistry.register(eventBus);
         MenuRegistry.register(eventBus);
         SensorTypes.register(eventBus);
-        EntityTypeRegistry.register(eventBus);
         ParticleRegistry.register(eventBus);
         LootUtil.register(eventBus);
         ModArgumentTypes.register(eventBus);
@@ -87,7 +92,6 @@ public class Valoria {
         DistExecutor.unsafeCallWhenOn(Dist.CLIENT, () -> () -> {
             forgeBus.addListener(KeyBindHandler::onInput);
             forgeBus.addListener(ClientTickHandler::clientTickEnd);
-            forgeBus.addListener(RenderUtils::afterLevelRender);
             forgeBus.addListener(OverlayRender::tick);
             forgeBus.addListener(OverlayRender::onDrawScreenPost);
             forgeBus.addListener(IOverlayItem::onDrawScreenPost);
@@ -96,6 +100,9 @@ public class Valoria {
 
         ItemTabRegistry.register(eventBus);
         eventBus.addListener(ItemTabRegistry::addCreative);
+        SoundsRegistry.register(eventBus);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new Events());
     }
@@ -111,43 +118,42 @@ public class Valoria {
             LexiconChapters.init();
             BlockEntityRenderers.register(BlockEntitiesRegistry.CHEST_BLOCK_ENTITY.get(), ModChestRender::new);
             BlockEntityRenderers.register(BlockEntitiesRegistry.TRAPPED_CHEST_BLOCK_ENTITY.get(), ModTrappedChestRender::new);
-            CuriosRendererRegistry.register(ItemsRegistry.IRON_NECKLACE_AMBER.get(), NecklaceRenderer::new);
-            CuriosRendererRegistry.register(ItemsRegistry.IRON_NECKLACE_DIAMOND.get(), NecklaceRenderer::new);
-            CuriosRendererRegistry.register(ItemsRegistry.IRON_NECKLACE_EMERALD.get(), NecklaceRenderer::new);
-            CuriosRendererRegistry.register(ItemsRegistry.IRON_NECKLACE_RUBY.get(), NecklaceRenderer::new);
-            CuriosRendererRegistry.register(ItemsRegistry.IRON_NECKLACE_SAPPHIRE.get(), NecklaceRenderer::new);
-            CuriosRendererRegistry.register(ItemsRegistry.IRON_NECKLACE_ARMOR.get(), NecklaceRenderer::new);
-            CuriosRendererRegistry.register(ItemsRegistry.IRON_NECKLACE_HEALTH.get(), NecklaceRenderer::new);
-            CuriosRendererRegistry.register(ItemsRegistry.IRON_NECKLACE_WEALTH.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.ironNecklaceAmber.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.ironNecklaceDiamond.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.ironNecklaceEmerald.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.ironNecklaceRuby.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.ironNecklaceSapphire.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.ironNecklaceAmber.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.ironNecklaceHealth.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.ironNecklaceWealth.get(), NecklaceRenderer::new);
 
-            CuriosRendererRegistry.register(ItemsRegistry.GOLDEN_NECKLACE_AMBER.get(), NecklaceRenderer::new);
-            CuriosRendererRegistry.register(ItemsRegistry.GOLDEN_NECKLACE_DIAMOND.get(), NecklaceRenderer::new);
-            CuriosRendererRegistry.register(ItemsRegistry.GOLDEN_NECKLACE_EMERALD.get(), NecklaceRenderer::new);
-            CuriosRendererRegistry.register(ItemsRegistry.GOLDEN_NECKLACE_RUBY.get(), NecklaceRenderer::new);
-            CuriosRendererRegistry.register(ItemsRegistry.GOLDEN_NECKLACE_SAPPHIRE.get(), NecklaceRenderer::new);
-            CuriosRendererRegistry.register(ItemsRegistry.GOLDEN_NECKLACE_ARMOR.get(), NecklaceRenderer::new);
-            CuriosRendererRegistry.register(ItemsRegistry.GOLDEN_NECKLACE_HEALTH.get(), NecklaceRenderer::new);
-            CuriosRendererRegistry.register(ItemsRegistry.GOLDEN_NECKLACE_WEALTH.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.goldenNecklaceAmber.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.goldenNecklaceDiamond.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.goldenNecklaceEmerald.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.goldenNecklaceRuby.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.goldenNecklaceSapphire.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.goldenNecklaceAmber.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.goldenNecklaceHealth.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.goldenNecklaceWealth.get(), NecklaceRenderer::new);
 
-            CuriosRendererRegistry.register(ItemsRegistry.NETHERITE_NECKLACE_AMBER.get(), NecklaceRenderer::new);
-            CuriosRendererRegistry.register(ItemsRegistry.NETHERITE_NECKLACE_DIAMOND.get(), NecklaceRenderer::new);
-            CuriosRendererRegistry.register(ItemsRegistry.NETHERITE_NECKLACE_EMERALD.get(), NecklaceRenderer::new);
-            CuriosRendererRegistry.register(ItemsRegistry.NETHERITE_NECKLACE_RUBY.get(), NecklaceRenderer::new);
-            CuriosRendererRegistry.register(ItemsRegistry.NETHERITE_NECKLACE_SAPPHIRE.get(), NecklaceRenderer::new);
-            CuriosRendererRegistry.register(ItemsRegistry.NETHERITE_NECKLACE_ARMOR.get(), NecklaceRenderer::new);
-            CuriosRendererRegistry.register(ItemsRegistry.NETHERITE_NECKLACE_HEALTH.get(), NecklaceRenderer::new);
-            CuriosRendererRegistry.register(ItemsRegistry.NETHERITE_NECKLACE_WEALTH.get(), NecklaceRenderer::new);
-            CuriosRendererRegistry.register(ItemsRegistry.PICK_NECKLACE.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.netheriteNecklaceAmber.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.netheriteNecklaceDiamond.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.netheriteNecklaceEmerald.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.netheriteNecklaceRuby.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.netheriteNecklaceSapphire.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.netheriteNecklaceAmber.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.netheriteNecklaceHealth.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.netheriteNecklaceWealth.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.pickNecklace.get(), NecklaceRenderer::new);
 
-            CuriosRendererRegistry.register(ItemsRegistry.LEATHER_GLOVES.get(), HandsRenderer::new);
-            CuriosRendererRegistry.register(ItemsRegistry.IRON_GLOVES.get(), HandsRenderer::new);
-            CuriosRendererRegistry.register(ItemsRegistry.GOLDEN_GLOVES.get(), HandsRenderer::new);
-            CuriosRendererRegistry.register(ItemsRegistry.DIAMOND_GLOVES.get(), HandsRenderer::new);
-            CuriosRendererRegistry.register(ItemsRegistry.NETHERITE_GLOVES.get(), HandsRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.leatherGloves.get(), HandsRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.ironGloves.get(), HandsRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.goldenGloves.get(), HandsRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.diamondGloves.get(), HandsRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.netheriteGloves.get(), HandsRenderer::new);
 
-            CuriosRendererRegistry.register(ItemsRegistry.LEATHER_BELT.get(), BeltRenderer::new);
-            CuriosRendererRegistry.register(ItemsRegistry.JEWELRY_BAG.get(), JewelryBagRenderer::new);
-
+            CuriosRendererRegistry.register(ItemsRegistry.leatherBelt.get(), BeltRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.jewelryBag.get(), JewelryBagRenderer::new);
             MenuScreens.register(MenuRegistry.KEG_MENU.get(), KegScreen::new);
             MenuScreens.register(MenuRegistry.JEWELRY_MENU.get(), JewelryScreen::new);
             MenuScreens.register(MenuRegistry.MANIPULATOR_MENU.get(), ManipulatorScreen::new);
@@ -187,10 +193,10 @@ public class Valoria {
             );
 
             Goblin.spawnable(
-                    ItemsRegistry.WOODEN_RAPIER.get(),
-                    ItemsRegistry.STONE_RAPIER.get(),
-                    ItemsRegistry.IRON_RAPIER.get(),
-                    ItemsRegistry.CLUB.get()
+                    ItemsRegistry.woodenRapier.get(),
+                    ItemsRegistry.stoneRapier.get(),
+                    ItemsRegistry.ironRapier.get(),
+                    ItemsRegistry.club.get()
             );
 
             ValoriaUtils.addList(SarcophagusBlock.spawnableWith,
@@ -230,7 +236,6 @@ public class Valoria {
 
     @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
     public static class RegistryEvents {
-
         @SubscribeEvent
         public static void registerCaps(RegisterCapabilitiesEvent event) {
             event.register(IUnlockable.class);

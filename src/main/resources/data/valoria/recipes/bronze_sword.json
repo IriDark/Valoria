@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "X",
+    "X",
+    "/"
+  ],
+  "key": {
+    "X": {
+      "item": "valoria:bronze_ingot"
+    },
+    "/": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "valoria:bronze_sword",
+    "count": 1
+  }
+}

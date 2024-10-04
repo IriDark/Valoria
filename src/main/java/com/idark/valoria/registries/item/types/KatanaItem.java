@@ -1,62 +1,83 @@
 package com.idark.valoria.registries.item.types;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMultimap;
-import com.google.common.collect.Multimap;
-import com.idark.valoria.Valoria;
-import com.idark.valoria.client.ui.OverlayRender;
-import com.idark.valoria.core.interfaces.ICooldownItem;
-import com.idark.valoria.registries.AttributeRegistry;
-import com.idark.valoria.registries.SoundsRegistry;
-import com.idark.valoria.util.ArcRandom;
-import com.idark.valoria.util.ValoriaUtils;
-import net.minecraft.ChatFormatting;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.core.particles.ParticleTypes;
+import com.google.common.collect.*;
+import com.idark.valoria.*;
+import com.idark.valoria.client.ui.*;
+import com.idark.valoria.core.enums.*;
+import com.idark.valoria.core.interfaces.*;
+import com.idark.valoria.core.network.*;
+import com.idark.valoria.core.network.packets.particle.*;
+import com.idark.valoria.registries.*;
+import com.idark.valoria.util.*;
+import net.minecraft.*;
+import net.minecraft.core.*;
+import net.minecraft.core.particles.*;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.stats.Stats;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attribute;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.resources.*;
+import net.minecraft.server.level.*;
+import net.minecraft.sounds.*;
+import net.minecraft.stats.*;
+import net.minecraft.util.*;
+import net.minecraft.world.*;
+import net.minecraft.world.effect.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.*;
+import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.EntityHitResult;
-import net.minecraft.world.phys.HitResult;
-import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.registries.ForgeRegistries;
-import org.jetbrains.annotations.NotNull;
-import org.joml.Vector3d;
+import net.minecraft.world.item.enchantment.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.state.*;
+import net.minecraft.world.phys.*;
+import net.minecraftforge.registries.*;
+import org.jetbrains.annotations.*;
+import org.joml.*;
 
+import java.awt.*;
+import java.lang.Math;
 import java.util.List;
-import java.util.UUID;
+
+import static com.idark.valoria.Valoria.BASE_DASH_DISTANCE_UUID;
 
 public class KatanaItem extends SwordItem implements ICooldownItem {
     public float chance = 1;
+    public int overlayTime = 35;
+    public int cooldownTime = 75;
+    public int chargeTime = 0;
+    public boolean usePacket = false;
+    public Color color;
     public final ImmutableList<MobEffectInstance> effects;
     public final Multimap<Attribute, AttributeModifier> defaultModifiers;
     public ArcRandom arcRandom = new ArcRandom();
     private final AttributeModifier dashModifier;
+    public ResourceLocation texture = new ResourceLocation(Valoria.ID, "textures/gui/overlay/speedlines.png");
+    public ParticleOptions particleOptions = ParticleTypes.POOF;
+    public SoundEvent soundEvent = SoundsRegistry.SWIFTSLICE.get();
+    public SoundEvent chargedEvent;
+
+    public KatanaItem(Builder builderIn) {
+        super(builderIn.tier, builderIn.attackDamageIn, builderIn.attackSpeedIn, builderIn.itemProperties);
+        this.effects = builderIn.effects;
+        this.chargeTime = builderIn.chargeTime;
+        this.overlayTime = builderIn.overlayTime;
+        this.texture = builderIn.texture != null ? builderIn.texture : texture;
+        this.particleOptions = builderIn.particleOptions;
+        this.soundEvent = builderIn.soundEvent;
+        this.chargedEvent = builderIn.chargedEvent;
+        this.dashModifier = new AttributeModifier(BASE_DASH_DISTANCE_UUID, "Tool modifier", builderIn.dashDist, AttributeModifier.Operation.ADDITION);
+        this.usePacket = builderIn.usePacket;
+        this.color = builderIn.dashColor;
+
+        ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
+        builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", builderIn.attackDamageIn, AttributeModifier.Operation.ADDITION));
+        builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Tool modifier", builderIn.attackSpeedIn, AttributeModifier.Operation.ADDITION));
+        builder.put(AttributeRegistry.DASH_DISTANCE.get(), dashModifier);
+        this.defaultModifiers = builder.build();
+    }
 
     public KatanaItem(Tier tier, int attackDamageIn, float attackSpeedIn, Item.Properties builderIn) {
         super(tier, attackDamageIn, attackSpeedIn, builderIn);
         this.effects = ImmutableList.of();
-        dashModifier = new AttributeModifier(UUID.fromString("b0e5853a-d071-40db-a585-3ad07100db82"), "Tool modifier", 1.8f, AttributeModifier.Operation.ADDITION);
+        dashModifier = new AttributeModifier(BASE_DASH_DISTANCE_UUID, "Tool modifier", 1.8f, AttributeModifier.Operation.ADDITION);
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
         builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", attackDamageIn, AttributeModifier.Operation.ADDITION));
         builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Tool modifier", attackSpeedIn, AttributeModifier.Operation.ADDITION));
@@ -64,14 +85,11 @@ public class KatanaItem extends SwordItem implements ICooldownItem {
         this.defaultModifiers = builder.build();
     }
 
-    /**
-     * @param dashDistance Default value: 1.8f
-     * @param pEffects     MobEffect instance that applied on hit enemies
-     */
+    @Deprecated
     public KatanaItem(Tier tier, int attackDamageIn, float attackSpeedIn, float dashDistance, Item.Properties builderIn, MobEffectInstance... pEffects) {
         super(tier, attackDamageIn, attackSpeedIn, builderIn);
         this.effects = ImmutableList.copyOf(pEffects);
-        dashModifier = new AttributeModifier(UUID.fromString("b0e5853a-d071-40db-a585-3ad07100db82"), "Tool modifier", dashDistance, AttributeModifier.Operation.ADDITION);
+        dashModifier = new AttributeModifier(BASE_DASH_DISTANCE_UUID, "Tool modifier", dashDistance, AttributeModifier.Operation.ADDITION);
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
         builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", attackDamageIn, AttributeModifier.Operation.ADDITION));
         builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Tool modifier", attackSpeedIn, AttributeModifier.Operation.ADDITION));
@@ -79,19 +97,12 @@ public class KatanaItem extends SwordItem implements ICooldownItem {
         this.defaultModifiers = builder.build();
     }
 
-    /**
-     * @param dashDistance Default value: 1.8f
-     * @param chance       Chance to apply effects
-     * @param pEffects     Effects applied on attack
-     *                     <p>
-     *                     <pre>{@code public static final RegistryObject<Item> KATANA_NAME = ITEMS.register("katana_id", () -> new KatanaItem(TIER, ATTACK_DAMAGE, ATTACK_SPEED, DISTANCE, new Item.Properties(), CHANCE, new MobEffectInstance(EFFECT, EFFECT DURATION, EFFECT_LEVEL)));
-     *                     }</pre>
-     */
+    @Deprecated
     public KatanaItem(Tier tier, int attackDamageIn, float attackSpeedIn, float dashDistance, Item.Properties builderIn, float chance, MobEffectInstance... pEffects) {
         super(tier, attackDamageIn, attackSpeedIn, builderIn);
         this.effects = ImmutableList.copyOf(pEffects);
         this.chance = chance;
-        dashModifier = new AttributeModifier(UUID.fromString("b0e5853a-d071-40db-a585-3ad07100db82"), "Tool modifier", dashDistance, AttributeModifier.Operation.ADDITION);
+        dashModifier = new AttributeModifier(BASE_DASH_DISTANCE_UUID, "Tool modifier", dashDistance, AttributeModifier.Operation.ADDITION);
 
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
         builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", attackDamageIn, AttributeModifier.Operation.ADDITION));
@@ -100,13 +111,142 @@ public class KatanaItem extends SwordItem implements ICooldownItem {
         this.defaultModifiers = builder.build();
     }
 
-    public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot pEquipmentSlot) {
-        if (pEquipmentSlot == EquipmentSlot.OFFHAND) {
-            ImmutableMultimap.Builder<Attribute, AttributeModifier> atts = ImmutableMultimap.builder();
-            atts.put(AttributeRegistry.DASH_DISTANCE.get(), dashModifier);
-            return atts.build();
+    public void onUseTick(@NotNull Level worldIn, @NotNull LivingEntity livingEntityIn, @NotNull ItemStack stack, int count) {
+        Player player = (Player) livingEntityIn;
+        if (player.getTicksUsingItem() == chargeTime) {
+            if(chargedEvent != null) {
+                player.playNotifySound(chargedEvent, SoundSource.PLAYERS, 0.25f, 1);
+            }
+        }
+    }
+
+    @Override
+    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
+        if (!slotChanged) {
+            return false;
         }
 
+        return super.shouldCauseReequipAnimation(oldStack, newStack, true);
+    }
+
+    public static class Builder {
+        public Tier tier = ModItemTier.NONE;
+        public Item.Properties itemProperties;
+        private ResourceLocation texture;
+        public SoundEvent soundEvent;
+        public SoundEvent chargedEvent;
+        public Color dashColor;
+        public boolean usePacket = false;
+        public int attackDamageIn;
+        public float attackSpeedIn;
+        public float chance = 1;
+        public int overlayTime = 35;
+        public int cooldownTime = 75;
+        public int chargeTime = 0;
+        public float dashDist = 0.8f;
+        public ImmutableList<MobEffectInstance> effects = ImmutableList.of();
+        public ParticleOptions particleOptions;
+        public Builder(int attackDamageIn, float attackSpeedIn, Properties itemProperties) {
+            this.attackDamageIn = attackDamageIn;
+            this.attackSpeedIn = attackSpeedIn;
+            this.itemProperties = itemProperties;
+        }
+
+        public Builder setTier(Tier tier){
+            this.tier = tier;
+            return this;
+        }
+
+        /**
+         * @param event Sound that will be played when dash is performed
+         */
+        public Builder setSound(SoundEvent event){
+            this.soundEvent = event;
+            return this;
+        }
+
+        /**
+         * Currently a bit buged, called two times instead of one, but anyway :d
+         * @param event Sound that will be played when Katana is ready to perform dash
+         */
+        public Builder setChargedSound(SoundEvent event){
+            this.chargedEvent = event;
+            return this;
+        }
+
+        /**
+         * @param particleOptions Particle trail that will appear after dashing
+         */
+        public Builder setParticles(ParticleOptions particleOptions){
+            this.particleOptions = particleOptions;
+            return this;
+        }
+
+        /**
+         * Particle trail that will appear after dashing, but sent through a DashParticlePacket
+         * @param color Particle color
+         */
+        public Builder usePacket(Color color){
+            this.usePacket = true;
+            this.dashColor = color;
+            return this;
+        }
+
+        /**
+         * @param chance Chance of applying effects to target
+         * @param pEffects Effects that will be applied to target
+         */
+        public Builder setEffects(float chance, MobEffectInstance... pEffects){
+            this.chance = chance;
+            this.effects = ImmutableList.copyOf(pEffects);
+            return this;
+        }
+
+        /**
+         * @param pEffects Effects that will be applied to target
+         */
+        public Builder setEffects(MobEffectInstance... pEffects){
+            this.effects = ImmutableList.copyOf(pEffects);
+            return this;
+        }
+
+        public Builder setTimeToCharge(int useTime){
+            this.chargeTime = useTime;
+            return this;
+        }
+
+        public Builder setOverlayTime(int time){
+            this.overlayTime = time;
+            return this;
+        }
+
+        public Builder setCooldownTime(int cooldownTime){
+            this.cooldownTime = cooldownTime;
+            return this;
+        }
+
+        public Builder setDashDistance(float distance) {
+            this.dashDist = distance;
+            return this;
+        }
+
+        /**
+         * @param texture a ResourceLocation of texture that will be shown after dash is performed
+         */
+        public Builder setOverlay(ResourceLocation texture) {
+            this.texture = texture;
+            return this;
+        }
+
+        /**
+         * @return Build of KatanaItem with all the configurations you set :p
+         */
+        public KatanaItem build() {
+            return new KatanaItem(this);
+        }
+    }
+
+    public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot pEquipmentSlot) {
         return pEquipmentSlot == EquipmentSlot.MAINHAND ? this.defaultModifiers : super.getDefaultAttributeModifiers(pEquipmentSlot);
     }
 
@@ -150,14 +290,14 @@ public class KatanaItem extends SwordItem implements ICooldownItem {
     public void applyCooldown(Player playerIn) {
         for (Item item : ForgeRegistries.ITEMS) {
             if (item instanceof KatanaItem) {
-                playerIn.getCooldowns().addCooldown(item, 75);
+                playerIn.getCooldowns().addCooldown(item, cooldownTime);
             }
         }
     }
 
     public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level worldIn, Player playerIn, @NotNull InteractionHand handIn) {
         ItemStack itemstack = playerIn.getItemInHand(handIn);
-        if (!playerIn.isShiftKeyDown()) {
+        if (!playerIn.isShiftKeyDown() && handIn != InteractionHand.OFF_HAND) {
             playerIn.startUsingItem(handIn);
             return InteractionResultHolder.consume(itemstack);
         }
@@ -170,7 +310,7 @@ public class KatanaItem extends SwordItem implements ICooldownItem {
     }
 
     public SoundEvent getDashSound() {
-        return SoundsRegistry.SWIFTSLICE.get();
+        return soundEvent;
     }
 
     public double getDashDistance(Player player) {
@@ -178,15 +318,15 @@ public class KatanaItem extends SwordItem implements ICooldownItem {
     }
 
     public ParticleOptions getDashParticle() {
-        return ParticleTypes.POOF;
+        return particleOptions;
     }
 
     public ResourceLocation getOverlayTexture() {
-        return new ResourceLocation(Valoria.ID, "textures/gui/overlay/speedlines.png");
+        return texture;
     }
 
     public int getOverlayTime() {
-        return 35;
+        return overlayTime;
     }
 
     public int getHurtAmount(List<LivingEntity> detectedEntities) {
@@ -201,38 +341,42 @@ public class KatanaItem extends SwordItem implements ICooldownItem {
         }
     }
 
-    public void performDash(@NotNull ItemStack stack, @NotNull Level level, @NotNull Player player, Vector3d pos, RandomSource rand) {
+    public void performDash(@NotNull ItemStack stack, @NotNull Level level, @NotNull Player player, Vector3d pos, RandomSource rand){
         double pitch = ((player.getRotationVector().x + 90) * Math.PI) / 180;
         double yaw = ((player.getRotationVector().y + 90) * Math.PI) / 180;
         double dashDistance = getDashDistance(player);
         Vec3 dir = (player.getViewVector(0.0f).scale(dashDistance));
         player.push(dir.x, dir.y * 0.25, dir.z);
         double ii = 1D;
-        if (level instanceof ServerLevel srv) {
-            for (int i = 0; i < 10; i += 1) {
-                double locDistance = i * 0.5D;
-                double X = Math.sin(pitch) * Math.cos(yaw) * locDistance;
-                double Y = Math.cos(pitch) * 2;
-                double Z = Math.sin(pitch) * Math.sin(yaw) * locDistance;
+        if(level instanceof ServerLevel srv){
+            if(!usePacket){
+                for(int i = 0; i < 10; i += 1){
+                    double locDistance = i * 0.5D;
+                    double X = Math.sin(pitch) * Math.cos(yaw) * locDistance;
+                    double Y = Math.cos(pitch) * 2;
+                    double Z = Math.sin(pitch) * Math.sin(yaw) * locDistance;
 
-                srv.sendParticles(getDashParticle(), pos.x + X + (rand.nextDouble() - 0.5D), pos.y + Y, pos.z + Z + (rand.nextDouble() - 0.5D), 1, 0, 0.5, 0, 0);
-                List<LivingEntity> detectedEntities = level.getEntitiesOfClass(LivingEntity.class, new AABB(pos.x + X - 0.5D, pos.y + Y - 0.5D, pos.z + Z - 0.5D, pos.x + X + 0.5D, pos.y + Y + 0.5D, pos.z + Z + 0.5D));
-                for (LivingEntity entity : detectedEntities) {
-                    if (!entity.equals(player)) {
-                        entity.hurt(level.damageSources().playerAttack(player), (float) ((player.getAttributeValue(Attributes.ATTACK_DAMAGE) * ii) + EnchantmentHelper.getSweepingDamageRatio(player) + EnchantmentHelper.getDamageBonus(stack, entity.getMobType())) * 1.35f);
-                        performEffects(entity, player);
-                        ValoriaUtils.chanceEffect(entity, effects, chance, arcRandom);
-                        if (!player.isCreative()) {
-                            stack.hurtAndBreak(getHurtAmount(detectedEntities), player, (plr) -> plr.broadcastBreakEvent(EquipmentSlot.MAINHAND));
+                    srv.sendParticles(getDashParticle(), pos.x + X + (rand.nextDouble() - 0.5D), pos.y + Y, pos.z + Z + (rand.nextDouble() - 0.5D), 1, 0, 0.5, 0, 0);
+                    List<LivingEntity> detectedEntities = level.getEntitiesOfClass(LivingEntity.class, new AABB(pos.x + X - 0.5D, pos.y + Y - 0.5D, pos.z + Z - 0.5D, pos.x + X + 0.5D, pos.y + Y + 0.5D, pos.z + Z + 0.5D));
+                    for(LivingEntity entity : detectedEntities){
+                        if(!entity.equals(player)){
+                            entity.hurt(level.damageSources().playerAttack(player), (float)((player.getAttributeValue(Attributes.ATTACK_DAMAGE) * ii) + EnchantmentHelper.getSweepingDamageRatio(player) + EnchantmentHelper.getDamageBonus(stack, entity.getMobType())) * 1.35f);
+                            performEffects(entity, player);
+                            ValoriaUtils.chanceEffect(entity, effects, chance, arcRandom);
+                            if(!player.isCreative()){
+                                stack.hurtAndBreak(getHurtAmount(detectedEntities), player, (plr) -> plr.broadcastBreakEvent(EquipmentSlot.MAINHAND));
+                            }
                         }
+
+                        ii = ii - (1D / (detectedEntities.size() * 2));
                     }
 
-                    ii = ii - (1D / (detectedEntities.size() * 2));
+                    if(locDistance >= distance(dashDistance, level, player)){
+                        break;
+                    }
                 }
-
-                if (locDistance >= distance(dashDistance, level, player)) {
-                    break;
-                }
+            }else{
+                PacketHandler.sendToTracking(srv, player.getOnPos(), new DashParticlePacket(player.getUUID(), 1, 0, 0, 0, color));
             }
         }
     }
@@ -241,7 +385,7 @@ public class KatanaItem extends SwordItem implements ICooldownItem {
         RandomSource rand = level.getRandom();
         Player player = (Player) entityLiving;
         Vector3d pos = new Vector3d(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());
-        if (!player.isFallFlying()) {
+        if (!player.isFallFlying() && player.getTicksUsingItem() >= chargeTime) {
             player.awardStat(Stats.ITEM_USED.get(this));
             applyCooldown(player);
             performDash(stack, level, player, pos, rand);

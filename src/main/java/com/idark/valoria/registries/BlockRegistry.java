@@ -1,39 +1,37 @@
 package com.idark.valoria.registries;
 
-import com.idark.valoria.Valoria;
+import com.idark.valoria.*;
 import com.idark.valoria.registries.block.types.*;
-import com.idark.valoria.registries.levelgen.tree.EldritchTree;
-import com.idark.valoria.registries.levelgen.tree.ShadeWoodTree;
-import net.minecraft.core.BlockPos;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.valueproviders.UniformInt;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.level.BlockGetter;
+import com.idark.valoria.registries.item.types.*;
+import com.idark.valoria.registries.levelgen.tree.*;
+import mod.maxbogomol.fluffy_fur.client.particle.data.*;
+import net.minecraft.*;
+import net.minecraft.core.*;
+import net.minecraft.network.chat.*;
+import net.minecraft.sounds.*;
+import net.minecraft.util.valueproviders.*;
+import net.minecraft.world.effect.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockSetType;
-import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
-import net.minecraft.world.level.material.MapColor;
-import net.minecraft.world.level.material.PushReaction;
-import net.minecraft.world.phys.shapes.BooleanOp;
-import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.Shapes;
-import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.minecraft.world.level.block.state.*;
+import net.minecraft.world.level.block.state.properties.*;
+import net.minecraft.world.level.material.*;
+import net.minecraft.world.phys.shapes.*;
+import net.minecraftforge.eventbus.api.*;
+import net.minecraftforge.registries.*;
+import org.jetbrains.annotations.*;
 
-import java.util.function.Supplier;
+import java.util.*;
+import java.util.function.*;
 
+import static com.idark.valoria.registries.ItemsRegistry.BLOCK_ITEMS;
 import static com.idark.valoria.util.ValoriaUtils.*;
 
 public class BlockRegistry {
     public static final DeferredRegister<Block> BLOCK = DeferredRegister.create(ForgeRegistries.BLOCKS, Valoria.ID);
+    public static final RegistryObject<Block> SPIKES = registerBlock("spikes",
+    () -> new SpikeBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_GRAY).strength(-1f, 3600000.8F).noLootTable().dynamicShape().noOcclusion()));
 
     // Door & Trapdoors
     public static final RegistryObject<Block> ELDRITCH_DOOR = registerBlock("eldritch_door",
@@ -60,6 +58,7 @@ public class BlockRegistry {
             () -> new ModChestBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).instrument(NoteBlockInstrument.BASS).strength(2.5F).sound(SoundType.WOOD).ignitedByLava(), BlockEntitiesRegistry.CHEST_BLOCK_ENTITY::get));
     public static final RegistryObject<Block> TRAPPED_ELDRITCH_CHEST = registerBlock("trapped_eldritch_chest",
             () -> new ModTrappedChestBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).instrument(NoteBlockInstrument.BASS).strength(2.5F).sound(SoundType.WOOD).ignitedByLava(), BlockEntitiesRegistry.TRAPPED_CHEST_BLOCK_ENTITY::get));
+
     // Umbral
     public static final RegistryObject<Block> VALORIA_PORTAL_FRAME = registerBlock("valoria_portal_frame",
             () -> new ValoriaPortalFrame(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).mapColor(MapColor.COLOR_PURPLE).strength(42f, 3600000.8F).sound(SoundType.DEEPSLATE_TILES)));
@@ -170,6 +169,15 @@ public class BlockRegistry {
             () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE_BRICK_SLAB).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> POLISHED_PICRITE_WALL = registerBlock("polished_picrite_wall",
             () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE_BRICK_WALL).requiresCorrectToolForDrops()));
+
+    public static final RegistryObject<Item> EPHEMARITE_LOW_ITEM = BLOCK_ITEMS.register("ephemarite_low", () -> new BlockItem(BlockRegistry.EPHEMARITE_LOW.get(), new Item.Properties()) {
+        @Override
+        public void appendHoverText(@NotNull ItemStack stack, Level world, @NotNull List<Component> tooltip, @NotNull TooltipFlag flags) {
+            super.appendHoverText(stack, world, tooltip, flags);
+            tooltip.add(Component.translatable("tooltip.valoria.geode").withStyle(ChatFormatting.GRAY));
+        }
+    });
+
     public static final RegistryObject<Block> EPHEMARITE_LOW = BLOCK.register("ephemarite_low",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.TERRACOTTA_BROWN).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> EPHEMARITE_LOW_SLAB = registerBlock("ephemarite_low_slab",
@@ -178,6 +186,15 @@ public class BlockRegistry {
             () -> new StairBlock(() -> EPHEMARITE_LOW.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.STONE_STAIRS).mapColor(MapColor.TERRACOTTA_BROWN).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> EPHEMARITE_LOW_WALL = registerBlock("ephemarite_low_wall",
             () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.STONE_BRICK_WALL).mapColor(MapColor.TERRACOTTA_BROWN).requiresCorrectToolForDrops()));
+
+    public static final RegistryObject<Item> EPHEMARITE_ITEM = BLOCK_ITEMS.register("ephemarite", () -> new BlockItem(BlockRegistry.EPHEMARITE.get(), new Item.Properties()) {
+        @Override
+        public void appendHoverText(@NotNull ItemStack stack, Level world, @NotNull List<Component> tooltip, @NotNull TooltipFlag flags) {
+            super.appendHoverText(stack, world, tooltip, flags);
+            tooltip.add(Component.translatable("tooltip.valoria.geode").withStyle(ChatFormatting.GRAY));
+        }
+    });
+
     public static final RegistryObject<Block> EPHEMARITE = BLOCK.register("ephemarite",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.TERRACOTTA_BROWN).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> EPHEMARITE_SLAB = registerBlock("ephemarite_slab",
@@ -268,16 +285,18 @@ public class BlockRegistry {
             () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.STONE_BRICK_SLAB).mapColor(MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> LIMESTONE_BRICKS_WALL = registerBlock("limestone_bricks_wall",
             () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.STONE_BRICK_WALL).mapColor(MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops()));
+    public static final RegistryObject<Block> POLISHED_LIMESTONE = registerBlock("polished_limestone",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops()));
+    public static final RegistryObject<Block> POLISHED_LIMESTONE_STAIRS = registerBlock("polished_limestone_stairs",
+            () -> new StairBlock(() -> POLISHED_LIMESTONE.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.STONE_STAIRS).mapColor(MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops()));
+    public static final RegistryObject<Block> POLISHED_LIMESTONE_SLAB = registerBlock("polished_limestone_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.STONE_SLAB).mapColor(MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> CRACKED_LIMESTONE_BRICKS = registerBlock("cracked_limestone_bricks",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE_BRICKS).mapColor(MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> CRACKED_LIMESTONE_BRICKS_STAIRS = registerBlock("cracked_limestone_bricks_stairs",
             () -> new StairBlock(() -> CRACKED_LIMESTONE_BRICKS.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.STONE_BRICK_STAIRS).mapColor(MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> CRACKED_LIMESTONE_BRICKS_SLAB = registerBlock("cracked_limestone_bricks_slab",
             () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.STONE_BRICK_SLAB).mapColor(MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops()));
-    public static final RegistryObject<Block> CRACKED_TOMBSTONE_BRICKS = registerBlock("cracked_tombstone_bricks",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE_BRICKS).mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops()));
-    public static final RegistryObject<Block> CRACKED_TOMBSTONE_BRICKS_WALL = registerBlock("cracked_tombstone_bricks_wall",
-            () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.STONE_BRICK_WALL).mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> CRACKED_LIMESTONE_BRICKS_WALL = registerBlock("cracked_limestone_bricks_wall",
             () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.STONE_BRICK_WALL).mapColor(MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> CRYSTAL_STONE = registerBlock("crystal_stone",
@@ -302,16 +321,8 @@ public class BlockRegistry {
             () -> new StairBlock(() -> CRYSTAL_STONE.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.STONE_BRICK_STAIRS).mapColor(MapColor.TERRACOTTA_BLUE).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> CRYSTAL_STONE_BRICKS_WALL = registerBlock("crystal_stone_bricks_wall",
             () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.STONE_BRICK_WALL).mapColor(MapColor.TERRACOTTA_BLUE).requiresCorrectToolForDrops()));
-    public static final RegistryObject<Block> CHARGED_VOID_PILLAR = registerBlock("charged_void_pillar",
-            () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().sound(SoundType.NETHER_BRICKS).lightLevel(setLightValue(4))));
     public static final RegistryObject<Block> POLISHED_CRYSTAL_STONE = registerBlock("polished_crystal_stone",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.TERRACOTTA_BLUE).requiresCorrectToolForDrops()));
-    public static final RegistryObject<Block> POLISHED_LIMESTONE = registerBlock("polished_limestone",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops()));
-    public static final RegistryObject<Block> POLISHED_LIMESTONE_STAIRS = registerBlock("polished_limestone_stairs",
-            () -> new StairBlock(() -> POLISHED_LIMESTONE.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.STONE_STAIRS).mapColor(MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops()));
-    public static final RegistryObject<Block> POLISHED_LIMESTONE_SLAB = registerBlock("polished_limestone_slab",
-            () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.STONE_SLAB).mapColor(MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> PEARLIUM = registerBlock("pearlium",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops().sound(SoundType.NETHER_BRICKS)));
     public static final RegistryObject<Block> VOID_STONE = registerBlock("void_stone",
@@ -324,6 +335,8 @@ public class BlockRegistry {
             () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(3f, 6f).sound(SoundsRegistry.VOID_STONE)));
     public static final RegistryObject<Block> VOID_PILLAR_AMETHYST = registerBlock("void_pillar_amethyst",
             () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(3f, 6f).sound(SoundsRegistry.VOID_STONE).lightLevel(setLightValue(4))));
+    public static final RegistryObject<Block> CHARGED_VOID_PILLAR = registerBlock("charged_void_pillar",
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().sound(SoundType.NETHER_BRICKS).lightLevel(setLightValue(4))));
     public static final RegistryObject<Block> VOID_PILLAR = registerBlock("void_pillar",
             () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(3f, 6f).sound(SoundsRegistry.VOID_STONE)));
     public static final RegistryObject<Block> VOID_BRICK = registerBlock("void_brick",
@@ -344,6 +357,10 @@ public class BlockRegistry {
             () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(3f, 6f).sound(SoundsRegistry.VOID_STONE)));
     public static final RegistryObject<Block> POLISHED_VOID_STONE = registerBlock("polished_void_stone",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(3f, 6f).sound(SoundsRegistry.VOID_STONE)));
+    public static final RegistryObject<Block> VOID_FIRECHARGE_TRAP = registerBlock("void_firecharge_trap",
+             () -> new FireTrapBlock(BlockRegistry.POLISHED_VOID_STONE.get().defaultBlockState(), 12.0F, 14, ColorParticleData.create(185, 65, 145, 45, 25, 5).build(), BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops(), new MobEffectInstance(MobEffects.WITHER, 160, 0, false, true)));
+    public static final RegistryObject<Block> VOID_SPIKES_TRAP = registerBlock("void_spikes_trap",
+            () -> new SpikeTrapBlock(BlockRegistry.POLISHED_VOID_STONE.get().defaultBlockState(), SPIKES.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(3f, 4f)));
     public static final RegistryObject<Block> POLISHED_TOMBSTONE = registerBlock("polished_tombstone",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops().strength(3f, 6f)));
     public static final RegistryObject<Block> VOID_CHISELED_BRICK = registerBlock("void_chiseled_brick",
@@ -363,43 +380,37 @@ public class BlockRegistry {
     public static final RegistryObject<Block> ABYSSAL_LANTERN = registerBlock("abyssal_lantern",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.SEA_LANTERN).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(2f, 4f).sound(SoundType.FROGLIGHT).lightLevel((p_152688_) -> 15)));
     public static final RegistryObject<Block> TOMBSTONE = registerBlock("tombstone",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops()));
-    public static final RegistryObject<CrushableBlock> SUSPICIOUS_ICE = registerBlock("suspicious_ice",
-            () -> new CrushableBlock(true, Blocks.ICE, BlockBehaviour.Properties.copy(Blocks.ICE).friction(0.98F).noOcclusion().strength(0.5F).mapColor(MapColor.ICE).instrument(NoteBlockInstrument.SNARE).sound(SoundsRegistry.SUSPICIOUS_TOMBSTONE).pushReaction(PushReaction.DESTROY), SoundEvents.BRUSH_GRAVEL));
-    public static final RegistryObject<CrushableBlock> SUSPICIOUS_TOMBSTONE = registerBlock("suspicious_tombstone",
-            () -> new CrushableBlock(false, TOMBSTONE.get(), BlockBehaviour.Properties.of().mapColor(MapColor.STONE).mapColor(MapColor.COLOR_BLACK).instrument(NoteBlockInstrument.SNARE).strength(0.85F).sound(SoundsRegistry.SUSPICIOUS_TOMBSTONE).pushReaction(PushReaction.DESTROY), SoundEvents.BRUSH_GRAVEL));
-    public static final RegistryObject<Block> SPIKES = registerBlock("spikes",
-            () -> new SpikeBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_GRAY).strength(-1f, 3600000.8F).noLootTable().dynamicShape().noOcclusion()));
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops().sound(SoundsRegistry.TOMBSTONE)));
     public static final RegistryObject<Block> CUT_TOMBSTONE = registerBlock("cut_tombstone",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(3f, 4f)));
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(3f, 4f).sound(SoundsRegistry.TOMBSTONE)));
     public static final RegistryObject<Block> TOMBSTONE_FIRECHARGE_TRAP = registerBlock("tombstone_firecharge_trap",
-            () -> new FireTrapBlock(BlockRegistry.POLISHED_TOMBSTONE.get().defaultBlockState(), 6.0F, 8, new int[]{255, 145, 45, 45, 0, 0}, BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops()));
+            () -> new FireTrapBlock(BlockRegistry.POLISHED_TOMBSTONE.get().defaultBlockState(), 6.0F, 8, ColorParticleData.create(255, 145, 45, 45, 0, 0).build(), BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops().sound(SoundsRegistry.TOMBSTONE)));
     public static final RegistryObject<Block> TOMBSTONE_SPIKES_TRAP = registerBlock("tombstone_spikes_trap",
             () -> new SpikeTrapBlock(BlockRegistry.POLISHED_TOMBSTONE.get().defaultBlockState(), BlockRegistry.SPIKES.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops().strength(3f, 4f)));
-    public static final RegistryObject<Block> VOID_FIRECHARGE_TRAP = registerBlock("void_firecharge_trap",
-            () -> new FireTrapBlock(BlockRegistry.POLISHED_VOID_STONE.get().defaultBlockState(), 12.0F, 14, new int[]{185, 65, 145, 45, 25, 5}, BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops(), new MobEffectInstance(MobEffects.WITHER, 160, 0, false, true)));
-    public static final RegistryObject<Block> VOID_SPIKES_TRAP = registerBlock("void_spikes_trap",
-            () -> new SpikeTrapBlock(BlockRegistry.POLISHED_VOID_STONE.get().defaultBlockState(), BlockRegistry.SPIKES.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(3f, 4f)));
     public static final RegistryObject<Block> CUT_TOMBSTONE_PILLAR = registerBlock("cut_tombstone_pillar",
-            () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops()));
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops().sound(SoundsRegistry.TOMBSTONE)));
     public static final RegistryObject<Block> WICKED_TOMBSTONE_PILLAR = registerBlock("wicked_tombstone_pillar",
-            () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops()));
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops().sound(SoundsRegistry.TOMBSTONE)));
     public static final RegistryObject<Block> TOMBSTONE_PILLAR = registerBlock("tombstone_pillar",
-            () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops()));
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops().sound(SoundsRegistry.TOMBSTONE)));
     public static final RegistryObject<Block> TOMBSTONE_SLAB = registerBlock("tombstone_slab",
-            () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops().sound(SoundType.NETHER_BRICKS)));
+            () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops().sound(SoundsRegistry.TOMBSTONE)));
     public static final RegistryObject<Block> TOMBSTONE_STAIRS = registerBlock("tombstone_stairs",
-            () -> new StairBlock(() -> TOMBSTONE.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops()));
+            () -> new StairBlock(() -> TOMBSTONE.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops().sound(SoundsRegistry.TOMBSTONE)));
     public static final RegistryObject<Block> TOMBSTONE_WALL = registerBlock("tombstone_wall",
-            () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops()));
+            () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops().sound(SoundsRegistry.TOMBSTONE)));
     public static final RegistryObject<Block> TOMBSTONE_BRICKS = registerBlock("tombstone_bricks",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops()));
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops().sound(SoundsRegistry.TOMBSTONE_BRICKS)));
     public static final RegistryObject<Block> TOMBSTONE_BRICKS_SLAB = registerBlock("tombstone_bricks_slab",
-            () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops().sound(SoundType.NETHER_BRICKS)));
+            () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops().sound(SoundsRegistry.TOMBSTONE_BRICKS)));
     public static final RegistryObject<Block> TOMBSTONE_BRICKS_STAIRS = registerBlock("tombstone_bricks_stairs",
-            () -> new StairBlock(() -> TOMBSTONE_BRICKS.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops()));
+            () -> new StairBlock(() -> TOMBSTONE_BRICKS.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops().sound(SoundsRegistry.TOMBSTONE_BRICKS)));
     public static final RegistryObject<Block> TOMBSTONE_BRICKS_WALL = registerBlock("tombstone_bricks_wall",
-            () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops()));
+            () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops().sound(SoundsRegistry.TOMBSTONE_BRICKS)));
+    public static final RegistryObject<Block> CRACKED_TOMBSTONE_BRICKS = registerBlock("cracked_tombstone_bricks",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE_BRICKS).mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops().sound(SoundsRegistry.TOMBSTONE_BRICKS)));
+    public static final RegistryObject<Block> CRACKED_TOMBSTONE_BRICKS_WALL = registerBlock("cracked_tombstone_bricks_wall",
+            () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.STONE_BRICK_WALL).mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> CRYPT_LANTERN = registerBlock("crypt_lantern", () -> new CryptLantern(BlockBehaviour.Properties.copy(Blocks.LANTERN)));
 
     // Wood
@@ -556,6 +567,7 @@ public class BlockRegistry {
     public static final RegistryObject<Block> GREEN_TEA_CUP = BLOCK.register("green_tea_cup", BlockRegistry::cup);
     public static final RegistryObject<Block> COFFEE_CUP = BLOCK.register("coffee_cup", BlockRegistry::cup);
     public static final RegistryObject<Block> CACAO_CUP = BLOCK.register("cacao_cup", BlockRegistry::cup);
+
     // Bottles
     public static final RegistryObject<Block> GLASS_BOTTLE = BLOCK.register("glass_bottle", () -> bottle(MapColor.COLOR_CYAN));
     public static final RegistryObject<Block> RUM_BOTTLE = BLOCK.register("rum_bottle", () -> bottle(MapColor.COLOR_RED));
@@ -584,6 +596,7 @@ public class BlockRegistry {
             () -> new AmethystClusterBlock(7, 3, BlockBehaviour.Properties.copy(Blocks.LARGE_AMETHYST_BUD).strength(1f, 0f).sound(SoundType.GLASS).noOcclusion()));
     public static final RegistryObject<Block> SAPPHIRE_CRYSTAL = registerBlock("sapphire_crystal",
             () -> new AmethystClusterBlock(7, 3, BlockBehaviour.Properties.copy(Blocks.LARGE_AMETHYST_BUD).strength(1f, 0f).sound(SoundType.GLASS).noOcclusion()));
+
     // Pots
     public static final RegistryObject<Block> POT_SMALL = registerBlock("pot_small",
             () -> new PotBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).instabreak().noOcclusion().sound(SoundsRegistry.POT)));
@@ -601,6 +614,10 @@ public class BlockRegistry {
     public static final RegistryObject<Block> DECORATED_CRYPT_POT = registerBlock("decorated_crypt_pot", BlockRegistry::cryptPot);
 
     // Plants
+    public static final RegistryObject<Item> VOIDVINE_ITEM = BLOCK_ITEMS.register("voidvine", () -> new TaintTransformBlockItem(BlockRegistry.VOIDVINE.get(), new Item.Properties()));
+    public static final RegistryObject<Item> VIOLET_SPROUT_ITEM = BLOCK_ITEMS.register("violet_sprout", () -> new TaintTransformBlockItem(BlockRegistry.VIOLET_SPROUT.get(), new Item.Properties()));
+    public static final RegistryObject<Item> GLOW_VIOLET_SPROUT_ITEM = BLOCK_ITEMS.register("glow_violet_sprout", () -> new TaintTransformBlockItem(BlockRegistry.GLOW_VIOLET_SPROUT.get(), new Item.Properties()));
+    public static final RegistryObject<Item> ABYSSAL_GLOWFERN_ITEM = BLOCK_ITEMS.register("abyssal_glowfern", () -> new TaintTransformBlockItem(BlockRegistry.ABYSSAL_GLOWFERN.get(), new Item.Properties()));
     public static final RegistryObject<Block> TAINTED_ROOTS = BLOCK.register("tainted_roots",
             () -> new TaintedRootsBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).mapColor(MapColor.COLOR_MAGENTA).randomTicks().noCollission().instabreak().sound(SoundType.CAVE_VINES).pushReaction(PushReaction.DESTROY)));
     public static final RegistryObject<Block> VIOLET_SPROUT_PLANT = BLOCK.register("violet_sprout_plant",
@@ -692,6 +709,12 @@ public class BlockRegistry {
     public static final RegistryObject<Block> SHADE_BLOSSOM = registerBlock("shade_blossom",
             () -> new ShadeBlossomBlock(BlockBehaviour.Properties.copy(Blocks.SPORE_BLOSSOM).mapColor(MapColor.COLOR_LIGHT_BLUE)));
 
+    // Sus
+    public static final RegistryObject<CrushableBlock> SUSPICIOUS_ICE = registerBlock("suspicious_ice",
+            () -> new CrushableBlock(true, Blocks.ICE, BlockBehaviour.Properties.copy(Blocks.ICE).friction(0.98F).noOcclusion().strength(0.5F).mapColor(MapColor.ICE).instrument(NoteBlockInstrument.SNARE).sound(SoundsRegistry.SUSPICIOUS_TOMBSTONE).pushReaction(PushReaction.DESTROY), SoundEvents.BRUSH_GRAVEL));
+    public static final RegistryObject<CrushableBlock> SUSPICIOUS_TOMBSTONE = registerBlock("suspicious_tombstone",
+            () -> new CrushableBlock(false, TOMBSTONE.get(), BlockBehaviour.Properties.of().mapColor(MapColor.STONE).mapColor(MapColor.COLOR_BLACK).instrument(NoteBlockInstrument.SNARE).strength(0.85F).sound(SoundsRegistry.SUSPICIOUS_TOMBSTONE).pushReaction(PushReaction.DESTROY), SoundEvents.BRUSH_GRAVEL));
+
     private static BottleBlock bottle(MapColor pMapColor) {
         return new BottleBlock(BlockBehaviour.Properties.of().mapColor(pMapColor).noOcclusion().strength(0.1F).sound(SoundType.GLASS).pushReaction(PushReaction.DESTROY));
     }
@@ -763,7 +786,7 @@ public class BlockRegistry {
     }
 
     private static <T extends Block> void registerBlockItem(String name, RegistryObject<T> block) {
-        ItemsRegistry.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
+        BLOCK_ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
     }
 
     public static void register(IEventBus eventBus) {

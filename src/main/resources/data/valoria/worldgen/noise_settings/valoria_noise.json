@@ -545,7 +545,7 @@
           "type": "minecraft:vertical_gradient",
           "random_name": "picrite_layer_top",
           "true_at_and_below": {
-            "absolute": -24
+            "absolute": -28
           },
           "false_at_and_above": {
             "absolute": -20

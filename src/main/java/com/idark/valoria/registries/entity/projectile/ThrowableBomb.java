@@ -1,29 +1,19 @@
 package com.idark.valoria.registries.entity.projectile;
 
-import com.idark.valoria.registries.EntityTypeRegistry;
-import com.idark.valoria.registries.ItemsRegistry;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MoverType;
-import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.HitResult;
-import net.minecraft.world.phys.Vec3;
-import net.minecraft.world.phys.shapes.BooleanOp;
-import net.minecraft.world.phys.shapes.Shapes;
-import org.jetbrains.annotations.NotNull;
+import com.idark.valoria.registries.*;
+import net.minecraft.core.*;
+import net.minecraft.core.particles.*;
+import net.minecraft.nbt.*;
+import net.minecraft.network.syncher.*;
+import net.minecraft.sounds.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.projectile.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.state.*;
+import net.minecraft.world.phys.*;
+import net.minecraft.world.phys.shapes.*;
+import org.jetbrains.annotations.*;
 
 public class ThrowableBomb extends ThrowableItemProjectile {
     private static final EntityDataAccessor<Integer> DATA_FUSE_ID = SynchedEntityData.defineId(ThrowableBomb.class, EntityDataSerializers.INT);
@@ -57,7 +47,7 @@ public class ThrowableBomb extends ThrowableItemProjectile {
     @NotNull
     @Override
     protected Item getDefaultItem() {
-        return ItemsRegistry.THROWABLE_BOMB.get();
+        return ItemsRegistry.throwableBomb.get();
     }
 
     @Override

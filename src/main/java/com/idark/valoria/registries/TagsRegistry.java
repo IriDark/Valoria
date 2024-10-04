@@ -1,13 +1,13 @@
 package com.idark.valoria.registries;
 
-import com.idark.valoria.Valoria;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.TagKey;
-import net.minecraft.world.damagesource.DamageType;
-import net.minecraft.world.entity.decoration.PaintingVariant;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
+import com.idark.valoria.*;
+import net.minecraft.core.registries.*;
+import net.minecraft.resources.*;
+import net.minecraft.tags.*;
+import net.minecraft.world.damagesource.*;
+import net.minecraft.world.entity.decoration.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.block.*;
 
 public class TagsRegistry {
 
@@ -26,6 +26,8 @@ public class TagsRegistry {
     public static TagKey<PaintingVariant> painting(final ResourceLocation name) {
         return TagKey.create(Registries.PAINTING_VARIANT, name);
     }
+
+    public static final TagKey<Item> EXCLUDED_FROM_TAB = item(new ResourceLocation(Valoria.ID, "excluded"));
 
     public static final TagKey<Block> UNPACK_LOOT = block(new ResourceLocation(Valoria.ID, "unpack_loot"));
     public static final TagKey<Block> KEY_BLOCKS = block(new ResourceLocation(Valoria.ID, "key_blocks"));

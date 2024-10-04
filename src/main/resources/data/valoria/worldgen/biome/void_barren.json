@@ -1,6 +1,6 @@
 {
   "temperature": 0.5,
-  "downfall": 0.5,
+  "downfall": 0.0,
   "has_precipitation": false,
   "effects": {
     "sky_color": 7842047,
@@ -38,14 +38,7 @@
     "creature": [],
     "misc": [],
     "monster": [],
-    "underground_water_creature": [
-      {
-        "type": "minecraft:glow_squid",
-        "weight": 1,
-        "minCount": 1,
-        "maxCount": 1
-      }
-    ],
+    "underground_water_creature": [],
     "water_ambient": [],
     "water_creature": []
   },
@@ -59,22 +52,24 @@
   },
   "features": [
     [
+      "valoria:wicked_amethyst_ore",
+      "valoria:dormant_crystals",
+      "valoria:pyratite_ore",
+      "valoria:blackstone",
+      "valoria:deep_marble"
+    ],
+    [
       "valoria:void_roots",
       "valoria:soulflower",
       "valoria:falseflower",
       "valoria:falseflower_small",
-      "valoria:wicked_amethyst_ore",
-      "valoria:pyratite_ore",
       "valoria:void_serpents",
       "valoria:void_taint",
-      "valoria:dormant_crystals",
       "valoria:abyssal_glowfern",
       "valoria:violet_sprout",
       "valoria:glow_violet_sprout",
       "valoria:void_taint_lantern",
       "valoria:patch_voidvine",
-      "valoria:blackstone",
-      "valoria:deep_marble",
       "valoria:tainted_roots"
     ]
   ]

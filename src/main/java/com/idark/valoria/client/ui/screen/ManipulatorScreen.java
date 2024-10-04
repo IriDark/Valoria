@@ -13,10 +13,12 @@ import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraftforge.api.distmarker.*;
 
+import java.util.*;
+
 @OnlyIn(Dist.CLIENT)
 public class ManipulatorScreen extends AbstractContainerScreen<ManipulatorMenu> {
     private final ResourceLocation GUI = new ResourceLocation(Valoria.ID, "textures/gui/container/manipulator.png");
-
+    private static final Component MISSING_TEMPLATE_TOOLTIP = Component.translatable("container.upgrade.missing_template_tooltip");
     public ManipulatorScreen(ManipulatorMenu screenContainer, Inventory inv, Component titleIn) {
         super(screenContainer, inv, titleIn);
         this.imageHeight = 165;
@@ -28,6 +30,7 @@ public class ManipulatorScreen extends AbstractContainerScreen<ManipulatorMenu> 
         this.renderBackground(gui);
         super.render(gui, mouseX, mouseY, partialTicks);
         this.renderTooltip(gui, mouseX, mouseY);
+        this.renderOnboardingTooltips(gui, mouseX, mouseY);
     }
 
     @Override
@@ -67,6 +70,34 @@ public class ManipulatorScreen extends AbstractContainerScreen<ManipulatorMenu> 
     protected void renderLabels(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY) {
         pGuiGraphics.drawString(this.font, this.title, this.titleLabelX + 42, this.titleLabelY, 4210752, false);
         pGuiGraphics.drawString(this.font, this.playerInventoryTitle, this.inventoryLabelX, this.inventoryLabelY - 46, 4210752, false);
+    }
+
+    private void renderOnboardingTooltips(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY) {
+        Optional<Component> optional = Optional.empty();
+        if (this.hoveredSlot != null) {
+            ItemStack itemstack = this.getMenu().getSlot(1).getItem();
+            ItemStack itemstack1 = this.hoveredSlot.getItem();
+            if (itemstack.isEmpty()) {
+                if (this.hoveredSlot.index == 1) {
+                    optional = Optional.of(MISSING_TEMPLATE_TOOLTIP);
+                }
+            } else {
+                Item item = itemstack.getItem();
+                if (item instanceof SmithingTemplateItem smithingtemplateitem) {
+                    if (itemstack1.isEmpty()) {
+                        if (this.hoveredSlot.index == 1) {
+                            optional = Optional.of(smithingtemplateitem.getBaseSlotDescription());
+                        } else if (this.hoveredSlot.index == 2) {
+                            optional = Optional.of(smithingtemplateitem.getAdditionSlotDescription());
+                        }
+                    }
+                }
+            }
+        }
+
+        optional.ifPresent((p_280863_) -> {
+            pGuiGraphics.renderTooltip(this.font, this.font.split(p_280863_, 115), pMouseX, pMouseY);
+        });
     }
 
     @Override

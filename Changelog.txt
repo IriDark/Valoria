@@ -25,6 +25,10 @@
 - Fixed Glover Rendering
 - Fixed Valoria Portal Frames
 - Fixed Piercing
+- Fixed Spears Rotations
+- Fixed a bug that projectiles can damage through FTB Chunks privates
+- Fixed a bug that Rune of cold hasn't helped from other cold sources than Powder Snow
+- Fixed a bug that putting a Shard into a Void Pillar causes a server crashing
 
 - Nerfed Rune's
 - Buffed Silken Kunai
@@ -49,6 +53,13 @@
 - Added Glow Layer to some Blocks and Items
 - Added GUI to Kegs
 - Added Sounds to Kegs
+- Added Devourer spawn ability to Beast Scythe
+- Added Bows tooltips
+- Added Sound to Tombstone
+- Added More Biomes to Valoria Dimension
+- Added way to obtain Pearlium
+- Added own LootTable to Crystallized Deep Ruins
+- Added Elemental Smithing Templates
 
 - Deleted Geodites (Drops moved to ephemarite)
 - Deleted Void Crystal
@@ -66,15 +77,22 @@
 - Reworked Bleeding FX
 - Reworked Kegs
 - Reworked Projectiles
+- Reworked Necromancer Fangs -> Devourer
+- Reworked Bows
+- Reworked Elemental Progression
 
 - Decreased amount of bones dropped from Goblins
 - Decreased Cooldown time for Scythes from 100 to 75, if no one was hit to 15
+- Decreased Droprate of Gunpowder in Ephemarite crushing
+- Decreased Droprate of Geodes from Ephemarite mining
 
+- Buffed Katanas
+- Katanas cant be used in offhand now (Causes to many troubles lol)
+- Changed Item Tabs Sorting
 - Changed Tipsy effect balance
 - Drinks are placeable now
 - Drinks are stackable up to 64 now
 - Animated Goblins
-- Buffed Katanas
 - Resprited all the drinks
 - Updated to Forge 47.2.20
 

@@ -143,7 +143,7 @@ public class Events {
             Entity attacker = deathEvent.getSource().getEntity();
             if(attacker instanceof Player plr){
                 for(ItemStack itemStack : plr.getHandSlots()){
-                    if(itemStack.is(ItemsRegistry.SOUL_COLLECTOR_EMPTY.get()) && itemStack.getItem() instanceof SoulCollectorItem soul){
+                    if(itemStack.is(ItemsRegistry.soulCollectorEmpty.get()) && itemStack.getItem() instanceof SoulCollectorItem soul){
                         Vec3 pos = deathEvent.getEntity().position().add(0, deathEvent.getEntity().getBbHeight() / 2f, 0);
                         PacketHandler.sendToTracking(serverLevel, BlockPos.containing(pos), new SoulCollectParticlePacket(plr.getUUID(), pos.x(), pos.y(), pos.z()));
                         soul.addCount(1, itemStack, plr);
@@ -156,7 +156,7 @@ public class Events {
 
     @SubscribeEvent
     public void critDamage(CriticalHitEvent event) {
-        if (CuriosApi.getCuriosHelper().findEquippedCurio(ItemsRegistry.RUNE_OF_ACCURACY.get(), event.getEntity()).isPresent()) {
+        if (CuriosApi.getCuriosHelper().findEquippedCurio(ItemsRegistry.runeAccuracy.get(), event.getEntity()).isPresent()) {
             if (arcRandom.chance(0.1f)) {
                 event.getTarget().hurt(event.getEntity().level().damageSources().playerAttack(event.getEntity()), (float) (event.getEntity().getAttributeValue(Attributes.ATTACK_DAMAGE) * 1.5f));
             }

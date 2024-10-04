@@ -1,16 +1,14 @@
 package com.idark.valoria.core.trades;
 
-import com.google.common.collect.ImmutableMap;
-import com.idark.valoria.registries.ItemsRegistry;
-import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
-import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.npc.VillagerTrades.ItemListing;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.trading.MerchantOffer;
-import net.minecraft.world.level.block.Block;
+import com.google.common.collect.*;
+import com.idark.valoria.registries.*;
+import it.unimi.dsi.fastutil.ints.*;
+import net.minecraft.util.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.npc.VillagerTrades.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.item.trading.*;
+import net.minecraft.world.level.block.*;
 
 public class MerchantTrades {
     public static final Int2ObjectMap<ItemListing[]> HAUNTED_MERCHANT_TRADES = toIntMap(ImmutableMap.of(1, getHauntedTrader()));
@@ -21,11 +19,11 @@ public class MerchantTrades {
 
     public static ItemListing[] getHauntedTrader() {
         return new ItemListing[]{
-                new ItemsForItem(ItemsRegistry.WRAITH_KATANA.get(), ItemsRegistry.CANDY_CORN.get(), 12, 1, 4),
-                new ItemsForItem(ItemsRegistry.DREAD_AXE.get(), ItemsRegistry.CANDY_CORN.get(), 14, 1, 2),
-                new ItemsForItem(ItemsRegistry.REAPER_SCYTHE.get(), ItemsRegistry.CANDY_CORN.get(), 24, 1, 6),
-                new ItemsForItem(ItemsRegistry.SOUL_REAVER.get(), ItemsRegistry.CANDY_CORN.get(), 18, 1, 2),
-                new ItemsForItem(ItemsRegistry.PUMPKIN_BOMB.get(), ItemsRegistry.CANDY_CORN.get(), 8, 16, 1)
+                new ItemsForItem(ItemsRegistry.wraithKatana.get(), ItemsRegistry.candyCorn.get(), 36, 1, 4),
+                new ItemsForItem(ItemsRegistry.dreadAxe.get(), ItemsRegistry.candyCorn.get(), 26, 1, 2),
+                new ItemsForItem(ItemsRegistry.reaperScythe.get(), ItemsRegistry.candyCorn.get(), 52, 1, 6),
+                new ItemsForItem(ItemsRegistry.soulReaver.get(), ItemsRegistry.candyCorn.get(), 38, 1, 2),
+                new ItemsForItem(ItemsRegistry.pumpkinBomb.get(), ItemsRegistry.candyCorn.get(), 8, 16, 1)
         };
     }
 

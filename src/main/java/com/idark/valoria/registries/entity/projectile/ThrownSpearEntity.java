@@ -1,6 +1,7 @@
 package com.idark.valoria.registries.entity.projectile;
 
 import com.idark.valoria.registries.*;
+import mod.maxbogomol.fluffy_fur.client.screenshake.*;
 import net.minecraft.sounds.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.item.*;
@@ -9,7 +10,6 @@ import net.minecraft.world.phys.*;
 import org.jetbrains.annotations.*;
 
 public class ThrownSpearEntity extends AbstractSupplierProjectile {
-    public float rotationVelocity = 50;
     private float explosive_radius;
     private boolean shouldExplode;
     private boolean isExploded;
@@ -47,6 +47,7 @@ public class ThrownSpearEntity extends AbstractSupplierProjectile {
         if (this.shouldExplode && !this.isExploded) {
             if (!this.level().isClientSide) {
                 this.level().explode(this, this.getX(), this.getY(), this.getZ(), explosive_radius, interaction);
+                ScreenshakeHandler.addScreenshake(new ScreenshakeInstance(3).setIntensity(0.75f));
             }
 
             this.isExploded = true;

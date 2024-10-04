@@ -1,20 +1,16 @@
 package com.idark.valoria.client.ui.toast;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.registries.ItemsRegistry;
-import com.idark.valoria.util.ColorUtil;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.components.toasts.Toast;
-import net.minecraft.client.gui.components.toasts.ToastComponent;
-import net.minecraft.client.resources.language.I18n;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import com.idark.valoria.*;
+import com.idark.valoria.registries.*;
+import com.idark.valoria.util.*;
+import net.minecraft.client.*;
+import net.minecraft.client.gui.*;
+import net.minecraft.client.gui.components.toasts.*;
+import net.minecraft.client.resources.language.*;
+import net.minecraft.resources.*;
+import net.minecraftforge.api.distmarker.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @OnlyIn(Dist.CLIENT)
 public class PageToast implements Toast {
@@ -62,8 +58,8 @@ public class PageToast implements Toast {
     public Visibility render(GuiGraphics pGuiGraphics, ToastComponent pToastComponent, long pTimeSinceLastVisible) {
         pGuiGraphics.blit(TEXTURE, 0, 0, 0, 0, this.width(), this.height(), 256, 32);
 
-        pGuiGraphics.renderItem(ItemsRegistry.CRYPT.get().getDefaultInstance(), 8, 8);
-        pGuiGraphics.renderItem(ItemsRegistry.LEXICON.get().getDefaultInstance(), 155, 8);
+        pGuiGraphics.renderItem(ItemsRegistry.cryptPage.get().getDefaultInstance(), 8, 8);
+        pGuiGraphics.renderItem(ItemsRegistry.lexicon.get().getDefaultInstance(), 155, 8);
 
         if (pUnlock) {
             drawWrappingText(pGuiGraphics, "gui.valoria.new_page", 90, 8, 120, true);

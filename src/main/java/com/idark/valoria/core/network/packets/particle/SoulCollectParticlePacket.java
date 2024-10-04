@@ -1,11 +1,11 @@
 package com.idark.valoria.core.network.packets.particle;
 
 import com.idark.valoria.*;
+import com.idark.valoria.client.particle.*;
 import com.idark.valoria.util.*;
 import mod.maxbogomol.fluffy_fur.client.particle.*;
 import mod.maxbogomol.fluffy_fur.client.particle.data.*;
 import mod.maxbogomol.fluffy_fur.common.easing.*;
-import mod.maxbogomol.fluffy_fur.registry.client.*;
 import net.minecraft.network.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.level.*;
@@ -38,30 +38,30 @@ public class SoulCollectParticlePacket{
                 final Consumer<GenericParticle> blockTarget = p -> {
                     Player player = level.getPlayerByUUID(msg.uuid);
                     Vec3 pPos = p.getPosition();
+                    if(player != null){
+                        double dX = player.getX() - pPos.x();
+                        double dY = player.getY() - pPos.y();
+                        double dZ = player.getZ() - pPos.z();
+                        double yaw = Math.atan2(dZ, dX);
+                        double pitch = Math.atan2(Math.sqrt(dZ * dZ + dX * dX), dY) + Math.PI;
 
-                    double dX = player.getX() - pPos.x();
-                    double dY = player.getY() - pPos.y();
-                    double dZ = player.getZ() - pPos.z();
-                    double yaw = Math.atan2(dZ, dX);
-                    double pitch = Math.atan2(Math.sqrt(dZ * dZ + dX * dX), dY) + Math.PI;
-
-                    float speed = 0.01f;
-                    double x = Math.sin(pitch) * Math.cos(yaw) * speed;
-                    double y = Math.cos(pitch) * speed;
-                    double z = Math.sin(pitch) * Math.sin(yaw) * speed;
-
-                    p.setSpeed(p.getSpeed().subtract(x, y, z));
+                        float speed = 0.01f;
+                        double x = Math.sin(pitch) * Math.cos(yaw) * speed;
+                        double y = Math.cos(pitch) * speed;
+                        double z = Math.sin(pitch) * Math.sin(yaw) * speed;
+                        p.setSpeed(p.getSpeed().subtract(x, y, z));
+                    }
                 };
 
-                ParticleBuilder.create(FluffyFurParticles.WISP)
+                ParticleBuilder.create(ParticleRegistry.SKULL)
                 .setColorData(ColorParticleData.create(Pal.cyan, Color.white).build())
                 .setTransparencyData(GenericParticleData.create(0.3f).setEasing(Easing.QUARTIC_OUT).build())
-                .setScaleData(GenericParticleData.create(0.045f, 0.075f, 0).setEasing(Easing.QUARTIC_OUT).build())
+                .setScaleData(GenericParticleData.create(0.06f, 0.15f, 0).setEasing(Easing.QUARTIC_OUT).build())
                 .addTickActor(blockTarget)
-                .setLifetime(75)
+                .setLifetime(65)
                 .randomVelocity(0.25f)
                 .disablePhysics()
-                .repeat(level, pos.x, pos.y, pos.z, 12);
+                .repeat(level, pos.x, pos.y, pos.z, 8);
 
                 ctx.get().setPacketHandled(true);
             });

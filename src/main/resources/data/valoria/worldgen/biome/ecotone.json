@@ -1,14 +1,14 @@
 {
-  "temperature": 0.9,
-  "downfall": 0.4,
+  "temperature": 0.5,
+  "downfall": 0.0,
   "has_precipitation": false,
   "effects": {
     "sky_color": 7842047,
     "fog_color": 13549055,
     "water_color": 5718385,
     "water_fog_color": 2561575,
-    "grass_color": 9204467,
-    "foliage_color": 12487423,
+    "grass_color": 9466092,
+    "foliage_color": 11566585,
     "mood_sound": {
       "sound": "minecraft:ambient.crimson_forest.mood",
       "tick_delay": 6700,
@@ -45,14 +45,7 @@
     "creature": [],
     "misc": [],
     "monster": [],
-    "underground_water_creature": [
-      {
-        "type": "minecraft:glow_squid",
-        "weight": 2,
-        "minCount": 1,
-        "maxCount": 2
-      }
-    ],
+    "underground_water_creature": [],
     "water_ambient": [],
     "water_creature": []
   },
@@ -66,29 +59,31 @@
   },
   "features": [
     [
+      "valoria:wicked_amethyst_ore",
+      "valoria:dormant_crystals",
+      "valoria:pyratite_ore",
+      "valoria:blackstone",
+      "valoria:deep_marble"
+    ],
+    [
       "valoria:eldritch_tree",
       "valoria:fancy_eldritch_tree",
+      "valoria:eldritch_fallen_tree",
+      "valoria:valoria_forest_rock"
+    ],
+    [
       "valoria:void_roots",
       "valoria:soulflower",
-      "valoria:shade_blossom",
       "valoria:falseflower",
       "valoria:falseflower_small",
-      "valoria:wicked_amethyst_ore",
-      "valoria:pyratite_ore",
       "valoria:void_serpents",
       "valoria:void_taint",
-      "valoria:dormant_crystals",
-      "valoria:valoria_patch_cattail",
       "valoria:abyssal_glowfern",
       "valoria:violet_sprout",
       "valoria:glow_violet_sprout",
       "valoria:void_taint_lantern",
       "valoria:patch_voidvine",
-      "valoria:blackstone",
-      "valoria:deep_marble",
-      "valoria:tainted_roots",
-      "valoria:eldritch_fallen_tree",
-      "valoria:valoria_forest_rock"
+      "valoria:tainted_roots"
     ]
   ]
 }

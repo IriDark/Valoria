@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "nature_ingot",
+  "ingredients": [
+    {
+      "item": "valoria:nature_block"
+    }
+  ],
+  "result": {
+    "item": "valoria:nature_ingot",
+    "count": 9
+  }
+}

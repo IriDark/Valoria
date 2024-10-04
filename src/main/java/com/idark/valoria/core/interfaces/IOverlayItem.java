@@ -1,13 +1,12 @@
 package com.idark.valoria.core.interfaces;
 
-import com.mojang.blaze3d.systems.*;
 import net.minecraft.client.*;
 import net.minecraft.client.gui.*;
 import net.minecraft.nbt.*;
 import net.minecraft.resources.*;
 import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.client.event.*;
-import org.lwjgl.opengl.*;
+import net.minecraftforge.fml.*;
 
 public interface IOverlayItem{
     ResourceLocation getTexture();
@@ -27,6 +26,10 @@ public interface IOverlayItem{
         return 25;
     }
 
+    static boolean isEmbeddiumPlusLoaded() {
+        return ModList.get().isLoaded("embeddiumplus");
+    }
+
     @OnlyIn(Dist.CLIENT)
     static void onDrawScreenPost(RenderGuiOverlayEvent.Post event){
         Minecraft mc = Minecraft.getInstance();
@@ -35,13 +38,8 @@ public interface IOverlayItem{
         if(mainFlag && mc.player.getMainHandItem().getItem() instanceof IOverlayItem item){
             if(item.toRender()){
                 gui.pose().pushPose();
-                gui.pose().translate(0, 0, -200);
-                RenderSystem.enableBlend();
-                RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-                mc.textureManager.bindForSetup(item.getTexture());
+                gui.pose().translate(0, isEmbeddiumPlusLoaded() ? 10 : 0, -200);
                 item.render(mc.player.getMainHandItem().getOrCreateTag(), gui, item.mainHandOffset(), 0);
-
-                RenderSystem.disableBlend();
                 gui.pose().popPose();
             }
         }
@@ -49,13 +47,8 @@ public interface IOverlayItem{
         if(!mc.player.getOffhandItem().isEmpty() && mc.player.getOffhandItem().getItem() instanceof IOverlayItem item){
             if(item.toRender()){
                 gui.pose().pushPose();
-                gui.pose().translate(0, 0, -200);
-                RenderSystem.enableBlend();
-                RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-                mc.textureManager.bindForSetup(item.getTexture());
+                gui.pose().translate(0, isEmbeddiumPlusLoaded() ? 10 : 0, -200);
                 item.render(mc.player.getOffhandItem().getOrCreateTag(), gui, mainFlag ? item.offhandOffset() : item.mainHandOffset(), 0);
-
-                RenderSystem.disableBlend();
                 gui.pose().popPose();
             }
         }

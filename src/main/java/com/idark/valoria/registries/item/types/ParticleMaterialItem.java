@@ -7,9 +7,6 @@ import net.minecraft.world.entity.item.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraftforge.api.distmarker.*;
-import org.jetbrains.annotations.*;
-
-import java.awt.*;
 
 import static com.idark.valoria.client.particle.ParticleEffects.spawnItemParticles;
 
@@ -17,20 +14,9 @@ import static com.idark.valoria.client.particle.ParticleEffects.spawnItemParticl
 public class ParticleMaterialItem extends Item implements IParticleItemEntity {
     public ParticleType<?> particle;
     public ColorParticleData color;
-    public float alpha;
-
-    public ParticleMaterialItem(@NotNull ParticleType<?> pType, Color pColor, Color pColorTo, float pAlpha, Properties pProperties) {
+    public float alpha = 1f;
+    public ParticleMaterialItem(Properties pProperties) {
         super(pProperties);
-        particle = pType;
-        color = ColorParticleData.create(pColor, pColorTo).build();
-        alpha = pAlpha;
-    }
-
-    public ParticleMaterialItem(@NotNull ParticleType<?> pType, Color pColor, Color pColorTo, Properties pProperties) {
-        super(pProperties);
-        particle = pType;
-        color = ColorParticleData.create(pColor, pColorTo).build();
-        alpha = 1f;
     }
 
     @OnlyIn(Dist.CLIENT)

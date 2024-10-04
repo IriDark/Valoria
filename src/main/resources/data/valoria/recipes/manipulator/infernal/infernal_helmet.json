@@ -6,13 +6,13 @@
   },
   "core": "infernal_core",
   "cores": 1,
-  "time": 1540,
+  "time": 2600,
   "ingredients": [
     {
-      "item": "valoria:depth_helmet"
+      "item": "minecraft:diamond_helmet"
     },
     {
-      "item": "valoria:infernal_ingot"
+      "item": "valoria:infernal_upgrade_smithing_template"
     }
   ]
 }

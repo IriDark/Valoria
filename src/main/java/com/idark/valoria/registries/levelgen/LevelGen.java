@@ -1,34 +1,26 @@
 package com.idark.valoria.registries.levelgen;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.registries.levelgen.configurations.SuspiciousStateConfiguration;
-import com.idark.valoria.registries.levelgen.configurations.TaintedRootsConfig;
+import com.idark.valoria.*;
+import com.idark.valoria.registries.levelgen.configurations.*;
 import com.idark.valoria.registries.levelgen.feature.*;
-import com.idark.valoria.registries.levelgen.modifier.AddFeaturesByFilterBiomeModifier;
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.core.Registry;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.dimension.LevelStem;
-import net.minecraft.world.level.levelgen.GenerationStep;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
-import net.minecraft.world.level.levelgen.feature.Feature;
+import com.idark.valoria.registries.levelgen.modifier.*;
+import com.mojang.serialization.*;
+import com.mojang.serialization.codecs.*;
+import net.minecraft.core.*;
+import net.minecraft.core.registries.*;
+import net.minecraft.resources.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.biome.*;
+import net.minecraft.world.level.dimension.*;
+import net.minecraft.world.level.levelgen.*;
+import net.minecraft.world.level.levelgen.feature.*;
 import net.minecraft.world.level.levelgen.feature.configurations.*;
-import net.minecraft.world.level.levelgen.placement.PlacedFeature;
-import net.minecraft.world.level.levelgen.placement.PlacementModifier;
-import net.minecraft.world.level.levelgen.placement.PlacementModifierType;
-import net.minecraftforge.common.world.BiomeModifier;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.minecraft.world.level.levelgen.placement.*;
+import net.minecraftforge.common.world.*;
+import net.minecraftforge.eventbus.api.*;
+import net.minecraftforge.registries.*;
 
-import java.util.Optional;
+import java.util.*;
 
 public class LevelGen {
     public static void init(IEventBus eventBus) {
@@ -59,9 +51,14 @@ public class LevelGen {
 
     public static final ResourceKey<LevelStem> VALORIA = registerKey(Registries.LEVEL_STEM, "the_valoria");
     public static final ResourceKey<Level> VALORIA_KEY = registerKey(Registries.DIMENSION, "the_valoria");
-    public static final ResourceKey<Biome> SHADE_FOREST = registerKey(Registries.BIOME, "shade_forest");
-    public static final ResourceKey<Biome> ECOTONE = registerKey(Registries.BIOME, "ecotone");
     public static final ResourceKey<Biome> VOID_BARREN = registerKey(Registries.BIOME, "void_barren");
+    public static final ResourceKey<Biome> BARREN_ECOTONE = registerKey(Registries.BIOME, "barren_ecotone");
+    public static final ResourceKey<Biome> ECOTONE = registerKey(Registries.BIOME, "ecotone");
+    public static final ResourceKey<Biome> COAST = registerKey(Registries.BIOME, "coast");
+    public static final ResourceKey<Biome> OCEAN_WASTES = registerKey(Registries.BIOME, "ocean_wastes");
+    public static final ResourceKey<Biome> SHADED_BARRENS = registerKey(Registries.BIOME, "shaded_barrens");
+    public static final ResourceKey<Biome> SHADED_ECOTONE = registerKey(Registries.BIOME, "shaded_ecotone");
+    public static final ResourceKey<Biome> SHADE_FOREST = registerKey(Registries.BIOME, "shade_forest");
 
     public static RegistryObject<Codec<AddFeaturesByFilterBiomeModifier>> ADD_FEATURES_BY_FILTER = BIOME_MODIFIER_SERIALIZERS.register("add_features_by_filter", () ->
             RecordCodecBuilder.create(builder -> builder.group(

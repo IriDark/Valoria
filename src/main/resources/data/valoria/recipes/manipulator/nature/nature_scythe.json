@@ -1,5 +1,6 @@
 {
   "type": "valoria:manipulator",
+  "category": "equipment",
   "output": {
     "count": 1,
     "item": "valoria:nature_scythe"
@@ -9,10 +10,10 @@
   "time": 500,
   "ingredients": [
     {
-      "item": "valoria:netherite_scythe"
+      "item": "valoria:diamond_scythe"
     },
     {
-      "item": "valoria:nature_ingot"
+      "item": "valoria:nature_upgrade_smithing_template"
     }
   ]
 }

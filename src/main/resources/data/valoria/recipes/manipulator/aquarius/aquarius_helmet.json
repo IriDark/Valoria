@@ -1,18 +1,19 @@
 {
   "type": "valoria:manipulator",
+  "category": "equipment",
   "output": {
     "count": 1,
     "item": "valoria:depth_helmet"
   },
   "core": "aquarius_core",
   "cores": 1,
-  "time": 1520,
+  "time": 2000,
   "ingredients": [
     {
-      "item": "valoria:nature_helmet"
+      "item": "minecraft:diamond_helmet"
     },
     {
-      "item": "valoria:aquarius_ingot"
+      "item": "valoria:aquarius_upgrade_smithing_template"
     }
   ]
 }

@@ -1,0 +1,13 @@
+{
+  "type": "valoria:keg_brewery",
+  "time": 1200,
+  "ingredients": [
+    {
+      "item": "minecraft:honeycomb"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "item": "valoria:mead_bottle"
+  }
+}

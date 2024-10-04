@@ -1,15 +1,14 @@
 package com.idark.valoria.compat.jade;
 
-import com.idark.valoria.registries.ItemsRegistry;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.phys.Vec2;
+import com.idark.valoria.registries.*;
+import net.minecraft.nbt.*;
+import net.minecraft.network.chat.*;
+import net.minecraft.resources.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.phys.*;
 import snownee.jade.api.*;
-import snownee.jade.api.config.IPluginConfig;
-import snownee.jade.api.ui.IElement;
-import snownee.jade.api.ui.IElementHelper;
+import snownee.jade.api.config.*;
+import snownee.jade.api.ui.*;
 
 public enum KeyBlockProvider implements IBlockComponentProvider, IServerDataProvider<BlockAccessor> {
     INSTANCE;
@@ -22,7 +21,7 @@ public enum KeyBlockProvider implements IBlockComponentProvider, IServerDataProv
             offsetY = -3;
         }
 
-        IElement key = elements.item(new ItemStack(ItemsRegistry.VOID_KEY.get()), 0.75f).size(new Vec2(11, 0)).translate(new Vec2(0, offsetY));
+        IElement key = elements.item(new ItemStack(ItemsRegistry.voidKey.get()), 0.75f).size(new Vec2(11, 0)).translate(new Vec2(0, offsetY));
         key.message(null);
         key.align(IElement.Align.RIGHT);
         tooltip.add(key);

@@ -1,18 +1,19 @@
 {
   "type": "valoria:manipulator",
+  "category": "equipment",
   "output": {
     "count": 1,
     "item": "valoria:depth_chestplate"
   },
   "core": "aquarius_core",
   "cores": 1,
-  "time": 1520,
+  "time": 2100,
   "ingredients": [
     {
-      "item": "valoria:nature_chestplate"
+      "item": "minecraft:diamond_chestplate"
     },
     {
-      "item": "valoria:aquarius_ingot"
+      "item": "valoria:aquarius_upgrade_smithing_template"
     }
   ]
 }

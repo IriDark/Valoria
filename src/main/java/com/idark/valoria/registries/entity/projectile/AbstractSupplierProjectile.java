@@ -42,7 +42,7 @@ public abstract class AbstractSupplierProjectile extends AbstractValoriaArrow im
     }
 
     public AbstractSupplierProjectile(EntityType<? extends AbstractArrow> pEntityType, Level worldIn, LivingEntity thrower, ItemStack thrownStackIn){
-        super(pEntityType, worldIn, thrower, thrownStackIn, 0, 0);
+        super(pEntityType, worldIn, thrower, thrownStackIn, 0);
         this.entityData.set(LOYALTY_LEVEL, (byte) EnchantmentHelper.getLoyalty(thrownStackIn));
     }
 
@@ -331,7 +331,7 @@ public abstract class AbstractSupplierProjectile extends AbstractValoriaArrow im
     }
 
     protected Item getDefaultItem() {
-        return ItemsRegistry.STONE_SPEAR.get();
+        return ItemsRegistry.stoneSpear.get();
     }
 
     protected ItemStack getItemRaw() {

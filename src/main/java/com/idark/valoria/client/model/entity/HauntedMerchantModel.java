@@ -1,19 +1,15 @@
 package com.idark.valoria.client.model.entity;
 
-import com.idark.valoria.client.model.animations.HauntedMerchantAnimations;
-import com.idark.valoria.registries.entity.living.HauntedMerchant;
-import net.minecraft.client.model.HierarchicalModel;
-import net.minecraft.client.model.geom.ModelPart;
-import net.minecraft.client.model.geom.PartPose;
+import com.idark.valoria.client.model.animations.*;
+import com.idark.valoria.registries.entity.living.*;
+import net.minecraft.client.model.*;
+import net.minecraft.client.model.geom.*;
 import net.minecraft.client.model.geom.builders.*;
 
 public class HauntedMerchantModel<T extends HauntedMerchant> extends HierarchicalModel<T> {
     private final ModelPart root;
     private final ModelPart head;
     private final ModelPart body;
-    private final ModelPart eyes;
-    private final ModelPart eyes2;
-    private final ModelPart eyes3;
     private final ModelPart leftArm;
     private final ModelPart rightArm;
     private final ModelPart candle;
@@ -25,9 +21,6 @@ public class HauntedMerchantModel<T extends HauntedMerchant> extends Hierarchica
         this.root = root;
         this.head = root.getChild("head");
         this.body = root.getChild("body");
-        this.eyes = body.getChild("eyes");
-        this.eyes2 = body.getChild("eyes2");
-        this.eyes3 = body.getChild("eyes3");
         this.leftArm = root.getChild("left_arm");
         this.rightArm = root.getChild("right_arm");
         this.candle = root.getChild("candle");
@@ -45,12 +38,6 @@ public class HauntedMerchantModel<T extends HauntedMerchant> extends Hierarchica
         PartDefinition body = partdefinition.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 20).addBox(-6.0F, -20.0F, -5.0F, 12.0F, 20.0F, 8.0F, new CubeDeformation(0.0F))
                 .texOffs(30, 38).addBox(-8.0F, 0.0F, -5.0F, 16.0F, 4.0F, 10.0F, new CubeDeformation(0.0F))
                 .texOffs(0, 0).addBox(-10.0F, 4.0F, -5.0F, 20.0F, 8.0F, 12.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 12.0F, -1.0F));
-
-        PartDefinition eyes = body.addOrReplaceChild("eyes", CubeListBuilder.create().texOffs(0, 9).addBox(-1.5F, -0.5F, -2.0F, 3.0F, 1.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(0.5F, -9.5F, -4.1F));
-
-        PartDefinition eyes2 = body.addOrReplaceChild("eyes2", CubeListBuilder.create().texOffs(0, 9).addBox(-1.5F, -0.5F, -2.0F, 3.0F, 1.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(-0.5F, -1.5F, -4.1F));
-
-        PartDefinition eyes3 = body.addOrReplaceChild("eyes3", CubeListBuilder.create().texOffs(0, 9).addBox(-1.5F, -0.5F, 2.0F, 3.0F, 1.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(0.5F, 7.5F, -8.1F));
 
         PartDefinition left_arm = partdefinition.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(40, 20).addBox(-1.5F, -7.0F, -2.0F, 4.0F, 6.0F, 4.0F, new CubeDeformation(0.0F))
                 .texOffs(40, 52).addBox(-1.5F, -2.0F, -1.0F, 2.0F, 12.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(7.5F, -1.0F, -2.0F));
@@ -82,7 +69,8 @@ public class HauntedMerchantModel<T extends HauntedMerchant> extends Hierarchica
         this.root().getAllParts().forEach(ModelPart::resetPose);
         this.animateWalk(HauntedMerchantAnimations.WALK, pLimbSwing, pLimbSwingAmount, 3f, pAgeInTicks);
         this.animate(pEntity.idleAnimationState, HauntedMerchantAnimations.IDLE, pAgeInTicks, 1f);
-        this.animate(pEntity.meleeAttackAnimationState, HauntedMerchantAnimations.MELEE_ATTACK, pAgeInTicks, 1f);
+        this.animate(pEntity.meleeAttackAnimationState, HauntedMerchantAnimations.MELEE_ATTACK, pAgeInTicks, 3f);
+        this.animate(pEntity.rangedAttackAnimationState, HauntedMerchantAnimations.RANGED_ATTACK, pAgeInTicks, 3f);
     }
 
     public ModelPart getHead() {

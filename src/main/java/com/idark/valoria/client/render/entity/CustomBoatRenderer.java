@@ -1,27 +1,23 @@
 package com.idark.valoria.client.render.entity;
 
-import com.google.common.collect.ImmutableMap;
-import com.idark.valoria.Valoria;
-import com.idark.valoria.registries.entity.decoration.CustomBoatEntity;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.datafixers.util.Pair;
-import com.mojang.math.Axis;
-import net.minecraft.client.model.BoatModel;
-import net.minecraft.client.model.ChestBoatModel;
-import net.minecraft.client.model.geom.ModelLayerLocation;
-import net.minecraft.client.model.geom.ModelPart;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.entity.EntityRenderer;
-import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Mth;
-import org.joml.Quaternionf;
+import com.google.common.collect.*;
+import com.idark.valoria.*;
+import com.idark.valoria.registries.entity.living.decoration.*;
+import com.mojang.blaze3d.vertex.*;
+import com.mojang.datafixers.util.*;
+import com.mojang.math.*;
+import net.minecraft.client.model.*;
+import net.minecraft.client.model.geom.*;
+import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.entity.*;
+import net.minecraft.client.renderer.texture.*;
+import net.minecraft.resources.*;
+import net.minecraft.util.*;
+import org.joml.*;
 
-import java.util.Map;
-import java.util.stream.Stream;
+import java.lang.Math;
+import java.util.*;
+import java.util.stream.*;
 
 public class CustomBoatRenderer extends EntityRenderer<CustomBoatEntity> {
 

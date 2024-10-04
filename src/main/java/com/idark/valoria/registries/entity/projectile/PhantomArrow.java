@@ -20,7 +20,7 @@ public class PhantomArrow extends AbstractValoriaArrow implements IProjectileTex
     }
 
     public PhantomArrow(Level pLevel, LivingEntity pShooter, ItemStack thrown) {
-        super(EntityTypeRegistry.PHANTOM_ARROW.get(), pLevel, pShooter, thrown, 2, 6);
+        super(EntityTypeRegistry.PHANTOM_ARROW.get(), pLevel, pShooter, thrown, 6);
     }
 
     @Override

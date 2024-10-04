@@ -6,7 +6,8 @@ import com.idark.valoria.core.interfaces.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.util.NbtUtils;
 import com.idark.valoria.util.*;
-import com.mojang.blaze3d.systems.*;
+import mod.maxbogomol.fluffy_fur.client.screenshake.*;
+import mod.maxbogomol.fluffy_fur.common.easing.*;
 import net.minecraft.*;
 import net.minecraft.client.*;
 import net.minecraft.client.gui.*;
@@ -26,7 +27,6 @@ import net.minecraft.world.item.enchantment.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
 import net.minecraftforge.api.distmarker.*;
-import org.lwjgl.opengl.*;
 
 import java.util.*;
 
@@ -131,6 +131,8 @@ public class BlazeReapItem extends PickaxeItem implements Vanishable, IOverlayIt
                 } else {
                     ValoriaUtils.configExplode(player, weapon, pos, new Vec3(X, Y, Z), radius, damage, knockback);
                 }
+
+                ScreenshakeHandler.addScreenshake(new ScreenshakeInstance(5).setIntensity(radius * 0.85f).setEasing(Easing.ELASTIC_IN_OUT));
             }
 
             for (int i = 0; i < 12; i++) {
@@ -168,13 +170,9 @@ public class BlazeReapItem extends PickaxeItem implements Vanishable, IOverlayIt
     @Override
     public void render(CompoundTag tag, GuiGraphics gui, int offsetX, int offsetY){
         gui.pose().pushPose();
-        gui.pose().translate(0, 0, -200);
-        RenderSystem.enableBlend();
-        RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         int xCord = ClientConfig.MAGMA_CHARGE_BAR_X.get();
         int yCord = ClientConfig.MAGMA_CHARGE_BAR_Y.get();
         gui.blit(BAR, xCord, yCord, 0, 0, 73, 19, 128, 64);
-
         float x = 6;
         float y = 5.5f;
         List<ItemStack> ammunition = getAmmunition();
@@ -184,7 +182,6 @@ public class BlazeReapItem extends PickaxeItem implements Vanishable, IOverlayIt
             RenderUtils.renderItemModelInGui(stack, x + (16 * i), y, 16, 16, 16);
         }
 
-        RenderSystem.disableBlend();
         gui.pose().popPose();
     }
 

@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "infernal_ingot",
+  "ingredients": [
+    {
+      "item": "valoria:infernal_block"
+    }
+  ],
+  "result": {
+    "item": "valoria:infernal_ingot",
+    "count": 9
+  }
+}

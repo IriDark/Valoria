@@ -1,18 +1,19 @@
 {
   "type": "valoria:manipulator",
+  "category": "equipment",
   "output": {
     "count": 1,
     "item": "valoria:void_edge"
   },
   "core": "void_core",
   "cores": 1,
-  "time": 525,
+  "time": 3000,
   "ingredients": [
     {
-      "item": "valoria:infernal_sword"
+      "item": "minecraft:diamond_sword"
     },
     {
-      "item": "valoria:void_ingot"
+      "item": "valoria:void_upgrade_smithing_template"
     }
   ]
 }

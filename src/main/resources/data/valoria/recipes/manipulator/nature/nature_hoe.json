@@ -1,5 +1,6 @@
 {
   "type": "valoria:manipulator",
+  "category": "equipment",
   "output": {
     "count": 1,
     "item": "valoria:nature_hoe"
@@ -9,10 +10,10 @@
   "time": 500,
   "ingredients": [
     {
-      "item": "minecraft:netherite_hoe"
+      "item": "minecraft:diamond_hoe"
     },
     {
-      "item": "valoria:nature_ingot"
+      "item": "valoria:nature_upgrade_smithing_template"
     }
   ]
 }

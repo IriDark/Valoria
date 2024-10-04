@@ -1,0 +1,103 @@
+{
+  "temperature": 0.4,
+  "downfall": 0.0,
+  "has_precipitation": false,
+  "effects": {
+    "sky_color": 7842047,
+    "fog_color": 12440575,
+    "water_color": 4282481,
+    "water_fog_color": 2561575,
+    "grass_color": 7507187,
+    "foliage_color": 9082879,
+    "mood_sound": {
+      "sound": "minecraft:ambient.crimson_forest.mood",
+      "tick_delay": 6700,
+      "block_search_extent": 8,
+      "offset": 3
+    },
+    "additions_sound": {
+      "sound": "minecraft:ambient.crimson_forest.additions",
+      "tick_chance": 0.0155
+    },
+    "music": {
+      "sound": "minecraft:music.nether.warped_forest",
+      "max_delay": 24000,
+      "min_delay": 12000,
+      "replace_current_music": true
+    },
+    "particle": {
+      "options": {
+        "type": "valoria:firefly"
+      },
+      "probability": 0.002
+    }
+  },
+  "spawners": {
+    "ambient": [
+      {
+        "type": "minecraft:bat",
+        "weight": 1,
+        "minCount": 1,
+        "maxCount": 2
+      }
+    ],
+    "axolotls": [],
+    "creature": [],
+    "misc": [],
+    "monster": [
+      {
+        "type": "minecraft:skeleton",
+        "weight": 4,
+        "minCount": 1,
+        "maxCount": 2
+      },
+      {
+        "type": "valoria:shadewood_spider",
+        "weight": 14,
+        "minCount": 1,
+        "maxCount": 3
+      }
+    ],
+    "underground_water_creature": [],
+    "water_ambient": [],
+    "water_creature": []
+  },
+  "spawn_costs": {},
+  "carvers": {
+    "air": [
+      "minecraft:cave",
+      "minecraft:cave_extra_underground",
+      "minecraft:canyon"
+    ]
+  },
+  "features": [
+    [
+      "valoria:wicked_amethyst_ore",
+      "valoria:dormant_crystals",
+      "valoria:pyratite_ore",
+      "valoria:blackstone",
+      "valoria:deep_marble"
+    ],
+    [
+      "valoria:rare_eldritch_tree",
+      "valoria:rare_shadewood_tree",
+      "valoria:shadewood_fallen_tree",
+      "valoria:eldritch_fallen_tree",
+      "valoria:valoria_forest_rock"
+    ],
+    [
+      "valoria:void_roots",
+      "valoria:soulflower",
+      "valoria:falseflower",
+      "valoria:falseflower_small",
+      "valoria:void_serpents",
+      "valoria:void_taint",
+      "valoria:abyssal_glowfern",
+      "valoria:violet_sprout",
+      "valoria:glow_violet_sprout",
+      "valoria:void_taint_lantern",
+      "valoria:patch_voidvine",
+      "valoria:tainted_roots"
+    ]
+  ]
+}

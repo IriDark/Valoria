@@ -1,0 +1,13 @@
+{
+  "type": "valoria:keg_brewery",
+  "time": 1800,
+  "ingredients": [
+    {
+      "item": "valoria:wine_bottle"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "item": "valoria:cognac_bottle"
+  }
+}

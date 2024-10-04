@@ -1,22 +1,18 @@
 package com.idark.valoria.registries.block.types;
 
-import com.idark.valoria.registries.ItemsRegistry;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.minecraft.world.phys.BlockHitResult;
+import com.idark.valoria.registries.*;
+import net.minecraft.core.*;
+import net.minecraft.core.particles.*;
+import net.minecraft.sounds.*;
+import net.minecraft.util.*;
+import net.minecraft.world.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.*;
+import net.minecraft.world.level.block.state.properties.*;
+import net.minecraft.world.phys.*;
 
 public class InfernalBlock extends Block {
     private static IntegerProperty STATE = IntegerProperty.create("awakened", 0, 1);
@@ -27,7 +23,7 @@ public class InfernalBlock extends Block {
     }
 
     private static boolean isValidFuel(ItemStack stack) {
-        return stack.getItem() == ItemsRegistry.INFERNAL_STONE.get();
+        return stack.getItem() == ItemsRegistry.infernalStone.get();
     }
 
     private static boolean Infernal(Player player, RandomSource rand, Level worldIn, BlockPos pos, BlockState state) {

@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "void_ingot",
+  "ingredients": [
+    {
+      "item": "valoria:awakened_void_block"
+    }
+  ],
+  "result": {
+    "item": "valoria:void_ingot",
+    "count": 9
+  }
+}

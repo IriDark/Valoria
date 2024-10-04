@@ -1,5 +1,4 @@
 {
-	"credit": "Made with Blockbench",
 	"render_type": "minecraft:cutout",
 	"textures": {
 		"1": "valoria:block/crypt_pot",

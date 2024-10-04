@@ -1,18 +1,19 @@
 {
   "type": "valoria:manipulator",
+  "category": "equipment",
   "output": {
     "count": 1,
     "item": "valoria:infernal_boots"
   },
   "core": "infernal_core",
   "cores": 1,
-  "time": 1540,
+  "time": 2900,
   "ingredients": [
     {
-      "item": "valoria:depth_boots"
+      "item": "minecraft:diamond_boots"
     },
     {
-      "item": "valoria:infernal_ingot"
+      "item": "valoria:infernal_upgrade_smithing_template"
     }
   ]
 }

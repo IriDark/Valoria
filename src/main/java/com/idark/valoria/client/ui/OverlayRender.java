@@ -1,16 +1,14 @@
 package com.idark.valoria.client.ui;
 
-import com.idark.valoria.core.config.ClientConfig;
-import com.mojang.blaze3d.platform.GlStateManager;
-import com.mojang.blaze3d.platform.Lighting;
-import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.RenderGuiOverlayEvent;
-import net.minecraftforge.event.TickEvent;
+import com.idark.valoria.core.config.*;
+import com.mojang.blaze3d.platform.*;
+import com.mojang.blaze3d.systems.*;
+import net.minecraft.client.*;
+import net.minecraft.client.gui.*;
+import net.minecraft.resources.*;
+import net.minecraftforge.api.distmarker.*;
+import net.minecraftforge.client.event.*;
+import net.minecraftforge.event.*;
 
 @OnlyIn(Dist.CLIENT)
 public class OverlayRender {
@@ -78,7 +76,7 @@ public class OverlayRender {
             float fadeStart = 20;
             float fadeEnd = fadeStart + showTime;
             if (ticks < fadeEnd) {
-                float progress = (ticks - fadeStart) / (fadeEnd - fadeStart);
+                float progress = (ticks - fadeStart) / (fadeEnd - fadeStart) * 2;
                 alpha = 1.0F - progress;
             } else {
                 alpha = 0.0F;

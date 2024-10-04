@@ -1,0 +1,23 @@
+{
+  "result": {
+    "item": "valoria:silken_kunai"
+  },
+  "pattern": [
+    "  ",
+    " F",
+    "#T"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": {
+      "item": "minecraft:stick"
+    },
+    "T": {
+      "item": "valoria:shade_blossom_leaf"
+    },
+    "F": {
+      "item": "valoria:spider_fang"
+    }
+  }
+}

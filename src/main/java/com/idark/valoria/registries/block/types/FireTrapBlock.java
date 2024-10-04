@@ -3,6 +3,7 @@ package com.idark.valoria.registries.block.types;
 import com.google.common.collect.*;
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.particle.*;
+import mod.maxbogomol.fluffy_fur.client.particle.data.*;
 import net.minecraft.core.*;
 import net.minecraft.core.particles.*;
 import net.minecraft.server.level.*;
@@ -20,11 +21,11 @@ public class FireTrapBlock extends Block {
     public float damage;
     public int secondsOnFire;
     public BlockState state;
-    public int[] color;
+    public ColorParticleData color;
     public final ImmutableList<MobEffectInstance> effects;
 
 
-    public FireTrapBlock(BlockState pState, float pDamage, int pSecondsOnFire, int[] pColor, BlockBehaviour.Properties properties) {
+    public FireTrapBlock(BlockState pState, float pDamage, int pSecondsOnFire, ColorParticleData pColor, BlockBehaviour.Properties properties) {
         super(properties);
         this.damage = pDamage;
         this.secondsOnFire = pSecondsOnFire;
@@ -33,7 +34,7 @@ public class FireTrapBlock extends Block {
         this.effects = ImmutableList.of();
     }
 
-    public FireTrapBlock(BlockState pState, float pDamage, int pSecondsOnFire, int[] pColor, BlockBehaviour.Properties properties, MobEffectInstance... pEffects) {
+    public FireTrapBlock(BlockState pState, float pDamage, int pSecondsOnFire, ColorParticleData pColor, BlockBehaviour.Properties properties, MobEffectInstance... pEffects) {
         super(properties);
         this.damage = pDamage;
         this.secondsOnFire = pSecondsOnFire;
@@ -70,7 +71,7 @@ public class FireTrapBlock extends Block {
             } else {
                 level.playSound(null, pos, SoundEvents.FIREWORK_ROCKET_BLAST, SoundSource.BLOCKS, 0.3F, level.getRandom().nextFloat() * 0.25F + 0.6F);
                 if (level instanceof ServerLevel serverLevel) {
-                    PacketHandler.sendToTracking(serverLevel, pos, new FireTrapParticlePacket(pos.getCenter().x, pos.getY(), pos.getCenter().z, color[0], color[1], color[2], color[3], color[4], color[5]));
+                    PacketHandler.sendToTracking(serverLevel, pos, new FireTrapParticlePacket(pos.getCenter().x, pos.getY(), pos.getCenter().z, color.r1, color.g1, color.b1, color.r2, color.g2, color.b2));
                     living.hurt(living.damageSources().inFire(), damage);
                     living.setSecondsOnFire(secondsOnFire);
                     if (!effects.isEmpty()) {

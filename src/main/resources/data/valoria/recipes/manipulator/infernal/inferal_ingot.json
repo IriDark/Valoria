@@ -6,7 +6,7 @@
   },
   "core": "infernal_core",
   "cores": 1,
-  "time": 300,
+  "time": 400,
   "ingredients": [
     {
       "item": "valoria:infernal_stone"

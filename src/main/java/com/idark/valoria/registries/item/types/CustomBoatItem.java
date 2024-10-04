@@ -1,24 +1,17 @@
 package com.idark.valoria.registries.item.types;
 
-import com.idark.valoria.registries.entity.decoration.CustomBoatEntity;
-import com.idark.valoria.registries.entity.decoration.CustomChestBoatEntity;
-import net.minecraft.stats.Stats;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntitySelector;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.ClipContext;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.HitResult;
-import net.minecraft.world.phys.Vec3;
+import com.idark.valoria.registries.entity.living.decoration.*;
+import net.minecraft.stats.*;
+import net.minecraft.world.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.gameevent.*;
+import net.minecraft.world.phys.*;
 
-import java.util.List;
-import java.util.function.Predicate;
+import java.util.*;
+import java.util.function.*;
 
 public class CustomBoatItem extends Item {
     private static final Predicate<Entity> ENTITY_PREDICATE = EntitySelector.NO_SPECTATORS.and(Entity::isPickable);

@@ -1,14 +1,14 @@
 {
-  "temperature": 1.2,
-  "downfall": 0.5,
+  "temperature": 0.4,
+  "downfall": 0.0,
   "has_precipitation": false,
   "effects": {
     "sky_color": 7842047,
     "fog_color": 12440575,
     "water_color": 4800881,
     "water_fog_color": 2561575,
-    "grass_color": 11182078,
-    "foliage_color": 9100543,
+    "grass_color": 8951007,
+    "foliage_color": 10272748,
     "mood_sound": {
       "sound": "minecraft:ambient.crimson_forest.mood",
       "tick_delay": 6700,
@@ -58,14 +58,7 @@
         "maxCount": 3
       }
     ],
-    "underground_water_creature": [
-      {
-        "type": "minecraft:glow_squid",
-        "weight": 3,
-        "minCount": 1,
-        "maxCount": 2
-      }
-    ],
+    "underground_water_creature": [],
     "water_ambient": [],
     "water_creature": []
   },
@@ -78,30 +71,33 @@
     ]
   },
   "features": [
-    [
-      "valoria:shadewood_tree",
-      "valoria:fancy_shadewood_tree",
-      "valoria:void_roots",
-      "valoria:soulflower",
-      "valoria:shade_blossom",
-      "valoria:falseflower",
-      "valoria:falseflower_small",
-      "valoria:wicked_amethyst_ore",
-      "valoria:pyratite_ore",
-      "valoria:void_serpents",
-      "valoria:void_taint",
-      "valoria:dormant_crystals",
-      "valoria:valoria_patch_cattail",
-      "valoria:abyssal_glowfern",
-      "valoria:violet_sprout",
-      "valoria:glow_violet_sprout",
-      "valoria:void_taint_lantern",
-      "valoria:patch_voidvine",
-      "valoria:blackstone",
-      "valoria:deep_marble",
-      "valoria:tainted_roots",
-      "valoria:shadewood_fallen_tree",
-      "valoria:valoria_forest_rock"
-    ]
+      [
+        "valoria:wicked_amethyst_ore",
+        "valoria:dormant_crystals",
+        "valoria:pyratite_ore",
+        "valoria:blackstone",
+        "valoria:deep_marble"
+      ],
+      [
+        "valoria:shadewood_tree",
+        "valoria:fancy_shadewood_tree",
+        "valoria:shade_blossom",
+        "valoria:shadewood_fallen_tree",
+        "valoria:valoria_forest_rock"
+      ],
+      [
+        "valoria:void_roots",
+        "valoria:soulflower",
+        "valoria:falseflower",
+        "valoria:falseflower_small",
+        "valoria:void_serpents",
+        "valoria:void_taint",
+        "valoria:abyssal_glowfern",
+        "valoria:violet_sprout",
+        "valoria:glow_violet_sprout",
+        "valoria:void_taint_lantern",
+        "valoria:patch_voidvine",
+        "valoria:tainted_roots"
+      ]
   ]
 }

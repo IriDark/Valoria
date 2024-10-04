@@ -1,8 +1,13 @@
 package com.idark.valoria.registries.block.types;
 
-import com.idark.valoria.client.particle.*;
 import com.idark.valoria.registries.levelgen.*;
 import com.idark.valoria.registries.levelgen.portal.*;
+import com.idark.valoria.util.*;
+import mod.maxbogomol.fluffy_fur.client.particle.*;
+import mod.maxbogomol.fluffy_fur.client.particle.behavior.*;
+import mod.maxbogomol.fluffy_fur.client.particle.data.*;
+import mod.maxbogomol.fluffy_fur.common.easing.*;
+import mod.maxbogomol.fluffy_fur.registry.client.*;
 import net.minecraft.core.*;
 import net.minecraft.resources.*;
 import net.minecraft.server.*;
@@ -15,6 +20,9 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.level.block.state.pattern.*;
 import net.minecraft.world.phys.shapes.*;
+import net.minecraftforge.api.distmarker.*;
+
+import java.awt.*;
 
 public class ValoriaPortalBlock extends Block {
     protected static final VoxelShape shape = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 12.0D, 16.0D);
@@ -34,21 +42,33 @@ public class ValoriaPortalBlock extends Block {
         return shape;
     }
 
+    @OnlyIn(Dist.CLIENT)
     public void animateTick(BlockState pState, Level pLevel, BlockPos pPos, RandomSource pRandom) {
         if (pRandom.nextInt(100) == 0) {
             pLevel.playLocalSound((double) pPos.getX() + 0.5D, (double) pPos.getY() + 0.5D, (double) pPos.getZ() + 0.5D, SoundEvents.PORTAL_AMBIENT, SoundSource.BLOCKS, 0.5F, pRandom.nextFloat() * 0.4F - 3F, false);
         }
 
-        for (int i = 0; i < 0.8f; ++i) {
-            double d0 = (double) pPos.getX() + pRandom.nextDouble();
-            double d1 = (double) pPos.getY() + pRandom.nextDouble();
-            double d2 = (double) pPos.getZ() + pRandom.nextDouble();
-            double d3 = 0.0D;
-            double d4 = 0.07D;
-            double d5 = 0.0D;
+        RandomSource random = pLevel.getRandom();
+        ParticleBuilder.create(FluffyFurParticles.SQUARE)
+        .setBehavior(SparkParticleBehavior.create().build())
+        .setRenderType(FluffyFurRenderTypes.TRANSLUCENT_PARTICLE)
+        .setTransparencyData(GenericParticleData.create(0.25f, 0f).build())
+        .setScaleData(GenericParticleData.create(0.01f, 0.06f, 0).setEasing(Easing.QUINTIC_IN_OUT).build())
+        .flatRandomOffset(0.25f, 0f, 0.25f)
+        .setLifetime(24)
+        .setColorData(ColorParticleData.create(Color.black).setEasing(Easing.QUINTIC_IN_OUT).build())
+        .setVelocity(0, (random.nextDouble() + 0.2D) / 6, 0)
+        .spawn(pLevel, pPos.getX() + pRandom.nextDouble(), pPos.getY() + pRandom.nextDouble(), pPos.getZ() + pRandom.nextDouble());
 
-            pLevel.addParticle(ParticleRegistry.VOID_GLITTER.get(), d0, d1, d2, d3, d4, d5);
-        }
+        ParticleBuilder.create(FluffyFurParticles.SQUARE)
+        .setBehavior(SparkParticleBehavior.create().build())
+        .setTransparencyData(GenericParticleData.create(0.25f, 0f).build())
+        .setScaleData(GenericParticleData.create(0.01f, 0.03f, 0).setEasing(Easing.QUINTIC_IN_OUT).build())
+        .flatRandomOffset(0.45f, 0f, 0.45f)
+        .setLifetime(24)
+        .setColorData(ColorParticleData.create(Pal.moderatePink).setEasing(Easing.QUINTIC_IN_OUT).build())
+        .setVelocity(0, (random.nextDouble() + 0.2D) / 6, 0)
+        .spawn(pLevel, pPos.getX() + pRandom.nextDouble(), pPos.getY() + pRandom.nextDouble(), pPos.getZ() + pRandom.nextDouble());
     }
 
     private void handlePortal(Entity player, BlockPos pPos) {
@@ -60,9 +80,9 @@ public class ValoriaPortalBlock extends Block {
             ServerLevel portalDimension = minecraftserver.getLevel(resourcekey);
             if (portalDimension != null && !player.isPassenger()) {
                 if (resourcekey == LevelGen.VALORIA_KEY) {
-                    player.changeDimension(portalDimension, new ValoriaTeleporter(pPos, true));
+                    player.changeDimension(portalDimension, new ValoriaTeleporter(serverlevel, pPos, true));
                 } else {
-                    player.changeDimension(portalDimension, new ValoriaTeleporter(pPos, false));
+                    player.changeDimension(portalDimension, new ValoriaTeleporter(serverlevel, pPos, false));
                 }
 
                 player.setPortalCooldown();

@@ -1,18 +1,19 @@
 {
   "type": "valoria:manipulator",
+  "category": "equipment",
   "output": {
     "count": 1,
     "item": "valoria:aquarius_scythe"
   },
   "core": "aquarius_core",
   "cores": 1,
-  "time": 500,
+  "time": 1600,
   "ingredients": [
     {
-      "item": "valoria:nature_scythe"
+      "item": "valoria:diamond_scythe"
     },
     {
-      "item": "valoria:aquarius_ingot"
+      "item": "valoria:aquarius_upgrade_smithing_template"
     }
   ]
 }

@@ -1,0 +1,20 @@
+{
+  "result": {
+    "item": "valoria:pearlium_axe"
+  },
+  "pattern": [
+    "FF ",
+    "F# ",
+    " # "
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": {
+      "item": "minecraft:stick"
+    },
+    "F": {
+      "item": "valoria:pearlium_ingot"
+    }
+  }
+}

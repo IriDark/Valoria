@@ -59,7 +59,6 @@ minecraft {
 
         server {
             property 'forge.enabledGameTestNamespaces', "valoria"
-            args '--nogui'
         }
 
         gameTestServer {
@@ -76,9 +75,9 @@ minecraft {
 mixin {
     add sourceSets.main, "valoria.refmap.json"
     config "valoria.mixins.json"
+    dumpTargetOnFailure true
 }
 
-sourceSets.main.resources { srcDir 'src/generated/resources' }
 repositories {
     mavenLocal()
     mavenCentral()
@@ -91,6 +90,7 @@ repositories {
     maven { url "https://maven.blamejared.com"}
 }
 
+sourceSets.main.resources { srcDir 'src/generated/resources' }
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
@@ -109,6 +109,7 @@ dependencies {
     //runtimeOnly fg.deobf("curse.maven:mutil-351914:4824501")
     //runtimeOnly fg.deobf("curse.maven:tetra-289712:4857842")
 
+    runtimeOnly fg.deobf("maven.modrinth:journeymap:1.20.1-5.10.2-forge")
     runtimeOnly fg.deobf("maven.modrinth:legendary-tooltips:1.4.5")
     runtimeOnly fg.deobf("curse.maven:appleskin-248787:4770828")
     runtimeOnly fg.deobf("curse.maven:prism-lib-638111:4627141")
@@ -116,7 +117,8 @@ dependencies {
     runtimeOnly fg.deobf("curse.maven:advanced-xray-256256:4840340")
     runtimeOnly fg.deobf("curse.maven:model-gap-fix-676136:4607206")
     runtimeOnly fg.deobf("curse.maven:just-enough-effect-descriptions-jeed-532286:4978810")
-    runtimeOnly fg.deobf("maven.modrinth:embeddium:0.3.18+mc1.20.1")
+    runtimeOnly fg.deobf("maven.modrinth:embeddium:0.3.31+mc1.20.1")
+    runtimeOnly fg.deobf("maven.modrinth:embeddiumplus:1.20.1-v1.2.13")
     runtimeOnly fg.deobf("maven.modrinth:oculus:1.20.1-1.7.0")
 }
 
@@ -134,9 +136,9 @@ jar {
 }
 
 task sourcesJar(type: Jar) {
+    from sourceSets.main.allSource
     archiveClassifier.set('sources')
     duplicatesStrategy = DuplicatesStrategy.WARN
-    from sourceSets.main.allSource
 }
 
 java {
@@ -221,6 +223,5 @@ modrinth {
     changelog = "Just a DevBuild to test things, its some sorta like minecraft snapshots to find bugs and report them"
     dependencies {
         required.project "curios"
-        required.project "lodestonelib"
     }
 }

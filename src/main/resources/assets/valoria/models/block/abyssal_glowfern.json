@@ -1,7 +1,7 @@
 {
-  "render_type": "minecraft:cutout",
-  "parent": "minecraft:block/cross",
+  "parent": "valoria:block/glowing_plant",
   "textures": {
-    "cross": "valoria:block/abyssal_glowfern"
+    "cross": "valoria:block/abyssal_glowfern",
+    "glowing": "valoria:block/abyssal_glowfern_glow"
   }
 }

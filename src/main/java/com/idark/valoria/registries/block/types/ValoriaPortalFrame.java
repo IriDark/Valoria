@@ -4,6 +4,7 @@ import com.google.common.base.*;
 import com.idark.valoria.registries.*;
 import net.minecraft.core.*;
 import net.minecraft.network.protocol.game.*;
+import net.minecraft.sounds.*;
 import net.minecraft.world.item.context.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
@@ -70,7 +71,8 @@ public class ValoriaPortalFrame extends Block {
                     }
                 }
 
-                world.globalLevelEvent(1038, blockpos1.offset(1, 0, 1), 0);
+                BlockPos soundPos = blockpos1.offset(1, 0, 1);
+                world.playSound(null, soundPos.getX(), soundPos.getY(), soundPos.getZ(), SoundsRegistry.VALORIA_PORTAL_SPAWN.get(), SoundSource.HOSTILE, 1, 1);
             }
         }
     }

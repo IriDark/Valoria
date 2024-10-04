@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "aquarius_ingot",
+  "ingredients": [
+    {
+      "item": "valoria:aquarius_block"
+    }
+  ],
+  "result": {
+    "item": "valoria:aquarius_ingot",
+    "count": 9
+  }
+}

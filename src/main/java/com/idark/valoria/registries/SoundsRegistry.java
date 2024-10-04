@@ -4,6 +4,7 @@ import com.idark.valoria.*;
 import net.minecraft.resources.*;
 import net.minecraft.sounds.*;
 import net.minecraftforge.common.util.*;
+import net.minecraftforge.eventbus.api.*;
 import net.minecraftforge.registries.*;
 
 /**
@@ -40,6 +41,21 @@ public class SoundsRegistry {
     public static final RegistryObject<SoundEvent> VOID_STONE_STEP = registerSound("block.void_stone.step");
     public static final RegistryObject<SoundEvent> VOID_GRASS_STEP = registerSound("block.void_grass.step");
     public static final RegistryObject<SoundEvent> VOID_GRASS_BREAK = registerSound("block.void_grass.break");
+    public static final RegistryObject<SoundEvent> VALORIA_PORTAL_SPAWN = registerSound("block.valoria_portal.spawn");
+    public static final RegistryObject<SoundEvent> SARCOPHAGUS_OPEN = registerSound("block.sarcophagus.open");
+
+    public static final RegistryObject<SoundEvent> TOMBSTONE_BREAK = registerSound("block.tombstone.break");
+    public static final RegistryObject<SoundEvent> TOMBSTONE_HIT = registerSound("block.tombstone.hit");
+    public static final RegistryObject<SoundEvent> TOMBSTONE_BRICKS_BREAK = registerSound("block.tombstone_bricks.break");
+    public static final RegistryObject<SoundEvent> TOMBSTONE_STEP = registerSound("block.tombstone.step");
+    public static final RegistryObject<SoundEvent> TOMBSTONE_FALL = registerSound("block.tombstone.fall");
+    public static final RegistryObject<SoundEvent> TOMBSTONE_PLACE = registerSound("block.tombstone.place");
+    public static final RegistryObject<SoundEvent> TOMBSTONE_BRICKS_HIT = registerSound("block.tombstone_bricks.hit");
+    public static final RegistryObject<SoundEvent> TOMBSTONE_BRICKS_STEP = registerSound("block.tombstone_bricks.step");
+    public static final RegistryObject<SoundEvent> TOMBSTONE_BRICKS_FALL = registerSound("block.tombstone_bricks.fall");
+    public static final RegistryObject<SoundEvent> TOMBSTONE_BRICKS_PLACE = registerSound("block.tombstone_bricks.place");
+    public static final RegistryObject<SoundEvent> SUSPICIOUS_TOMBSTONE_BREAK = registerSound("block.suspicious_tombstone.break");
+    public static final RegistryObject<SoundEvent> SUSPICIOUS_TOMBSTONE_STEP = registerSound("block.suspicious_tombstone.step");
 
     public static final RegistryObject<SoundEvent> GOBLIN_IDLE = registerSound("mob.goblin.idle");
     public static final RegistryObject<SoundEvent> GOBLIN_HURT = registerSound("mob.goblin.hurt");
@@ -48,6 +64,8 @@ public class SoundsRegistry {
     public static final RegistryObject<SoundEvent> TROLL_DISAPPEAR = registerSound("mob.troll.disappear");
     public static final RegistryObject<SoundEvent> TROLL_HURT = registerSound("mob.troll.hurt");
 
+    public static final RegistryObject<SoundEvent> NECROMANCER_SUMMON_GROUND = registerSound("mob.necromancer_summon.ground");
+    public static final RegistryObject<SoundEvent> NECROMANCER_SUMMON_AIR = registerSound("mob.necromancer_summon.air");
     public static final RegistryObject<SoundEvent> HAUNTED_MERCHANT_DEATH = registerSound("mob.haunted_merchant.death");
     public static final RegistryObject<SoundEvent> HAUNTED_MERCHANT_HURT = registerSound("mob.haunted_merchant.hurt");
     public static final RegistryObject<SoundEvent> HAUNTED_MERCHANT_IDLE = registerSound("mob.haunted_merchant.idle");
@@ -57,12 +75,26 @@ public class SoundsRegistry {
     public static final RegistryObject<SoundEvent> HAUNTED_MERCHANT_RANGE = registerSound("mob.haunted_merchant.range_attack");
 
     //SoundType
-    public static final ForgeSoundType POT = new ForgeSoundType(1, 1, POT_BREAK, POT_STEP, POT_PLACE, () -> SoundEvents.STONE_HIT, () -> SoundEvents.STONE_FALL);
-    public static final ForgeSoundType SUSPICIOUS_TOMBSTONE = new ForgeSoundType(1.0F, 1.0F, () -> SoundEvents.SUSPICIOUS_SAND_BREAK, () -> SoundEvents.MUD_BRICKS_STEP, () -> SoundEvents.STONE_PLACE, () -> SoundEvents.SUSPICIOUS_GRAVEL_HIT, () -> SoundEvents.STONE_FALL);
+    public static final ForgeSoundType POT = new ForgeSoundType(1.0F, 1.0F, POT_BREAK, POT_STEP, POT_PLACE, () -> SoundEvents.STONE_HIT, () -> SoundEvents.STONE_FALL);
     public static final ForgeSoundType VOID_STONE = new ForgeSoundType(0.75F, 0.87F, VOID_STONE_BREAK, VOID_STONE_STEP, VOID_STONE_PLACE, () -> SoundEvents.NETHER_BRICKS_HIT, () -> SoundEvents.NETHER_BRICKS_FALL);
     public static final ForgeSoundType VOID_GRASS = new ForgeSoundType(0.75F, 0.87F, VOID_GRASS_BREAK, VOID_GRASS_STEP, VOID_STONE_PLACE, () -> SoundEvents.FROGLIGHT_HIT, () -> SoundEvents.FROGLIGHT_FALL);
+    public static final ForgeSoundType TOMBSTONE = new ForgeSoundType(0.65F, normalizedPitch(1.0f), TOMBSTONE_BREAK, TOMBSTONE_STEP, TOMBSTONE_PLACE, TOMBSTONE_HIT, TOMBSTONE_FALL);
+    public static final ForgeSoundType TOMBSTONE_BRICKS = new ForgeSoundType(1.0F, normalizedPitch(1.0f), TOMBSTONE_BRICKS_BREAK, TOMBSTONE_BRICKS_STEP, TOMBSTONE_BRICKS_PLACE, TOMBSTONE_BRICKS_HIT, TOMBSTONE_BRICKS_FALL);
+    public static final ForgeSoundType SUSPICIOUS_TOMBSTONE = new ForgeSoundType(1.0F, normalizedPitch(1.0f), SUSPICIOUS_TOMBSTONE_BREAK, SUSPICIOUS_TOMBSTONE_STEP, TOMBSTONE_BRICKS_PLACE, TOMBSTONE_HIT, TOMBSTONE_HIT);
+
+        /**
+     * Used in blocks to normalize pitch, because mojang did weird thing: pitch value * 0.8f
+     * @return Normalized pitch
+     */
+    public static float normalizedPitch(float pitch) {
+        return pitch / 0.8f;
+    }
 
     public static RegistryObject<SoundEvent> registerSound(String name) {
         return SOUNDS.register(name, () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(Valoria.ID, name)));
+    }
+
+    public static void register(IEventBus eventBus) {
+        SOUNDS.register(eventBus);
     }
 }

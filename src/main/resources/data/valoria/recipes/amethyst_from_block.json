@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "amethyst_gem",
+  "ingredients": [
+    {
+      "item": "valoria:amethyst_block"
+    }
+  ],
+  "result": {
+    "item": "valoria:amethyst_gem",
+    "count": 9
+  }
+}

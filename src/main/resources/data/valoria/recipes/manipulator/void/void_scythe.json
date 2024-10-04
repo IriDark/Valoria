@@ -1,18 +1,19 @@
 {
   "type": "valoria:manipulator",
+  "category": "equipment",
   "output": {
     "count": 1,
     "item": "valoria:void_scythe"
   },
   "core": "void_core",
   "cores": 1,
-  "time": 525,
+  "time": 3000,
   "ingredients": [
     {
-      "item": "valoria:infernal_scythe"
+      "item": "valoria:diamond_scythe"
     },
     {
-      "item": "valoria:void_ingot"
+      "item": "valoria:void_upgrade_smithing_template"
     }
   ]
 }

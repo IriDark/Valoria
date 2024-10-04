@@ -20,7 +20,7 @@ public class InfernalArrow extends AbstractValoriaArrow implements IProjectileTe
     }
 
     public InfernalArrow(Level pLevel, LivingEntity pShooter, ItemStack thrown) {
-        super(EntityTypeRegistry.INFERNAL_ARROW.get(), pLevel, pShooter, thrown, 0, 1);
+        super(EntityTypeRegistry.INFERNAL_ARROW.get(), pLevel, pShooter, thrown, 1);
     }
 
     @Override

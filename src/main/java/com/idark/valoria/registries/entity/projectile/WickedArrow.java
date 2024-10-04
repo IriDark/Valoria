@@ -20,7 +20,7 @@ public class WickedArrow extends AbstractValoriaArrow implements IProjectileText
     }
 
     public WickedArrow(Level pLevel, LivingEntity pShooter, ItemStack thrown) {
-        super(EntityTypeRegistry.WICKED_ARROW.get(), pLevel, pShooter, thrown, 0, 4);
+        super(EntityTypeRegistry.WICKED_ARROW.get(), pLevel, pShooter, thrown, 4);
     }
 
     @Override

@@ -16,6 +16,7 @@ import net.minecraft.world.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
+import net.minecraft.world.entity.item.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.entity.projectile.*;
 import net.minecraft.world.item.*;
@@ -31,6 +32,7 @@ import java.util.*;
 import java.util.function.Supplier;
 import java.util.stream.*;
 
+import static com.idark.valoria.Valoria.*;
 import static com.idark.valoria.util.ValoriaUtils.chanceEffect;
 
 public class SpearItem extends SwordItem implements Vanishable {
@@ -85,9 +87,9 @@ public class SpearItem extends SwordItem implements Vanishable {
     private Multimap<Attribute, AttributeModifier> createAttributes() {
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
         builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Weapon modifier", this.attackDamage, AttributeModifier.Operation.ADDITION));
-        builder.put(AttributeRegistry.PROJECTILE_DAMAGE.get(), new AttributeModifier(UUID.fromString("5334b818-69d4-417e-b4b8-1869d4917e29"), "Tool modifier", projectileDamage, AttributeModifier.Operation.ADDITION));
+        builder.put(AttributeRegistry.PROJECTILE_DAMAGE.get(), new AttributeModifier(BASE_PROJECTILE_DAMAGE_UUID, "Tool modifier", projectileDamage, AttributeModifier.Operation.ADDITION));
         builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Weapon modifier", attackSpeed, AttributeModifier.Operation.ADDITION));
-        builder.put(ForgeMod.ENTITY_REACH.get(), new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Spear modifier", 1, AttributeModifier.Operation.ADDITION));
+        builder.put(ForgeMod.ENTITY_REACH.get(), new AttributeModifier(BASE_ENTITY_REACH_UUID, "Spear modifier", 1, AttributeModifier.Operation.ADDITION));
         return builder.build();
     }
 
@@ -152,7 +154,7 @@ public class SpearItem extends SwordItem implements Vanishable {
         }
 
         spear.setEffectsFromList(effects);
-        spear.shootFromRotation(playerEntity, playerEntity.getXRot(), playerEntity.getYRot(), 0.0F, 2.5F + (float) 0 * 0.5F, 1.0F);
+        spear.shootFromRotation(playerEntity, playerEntity.getXRot(), playerEntity.getYRot(), 0.0F, 3F, 1.0F);
         if (playerEntity.getAbilities().instabuild) {
             spear.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
         }
@@ -182,7 +184,7 @@ public class SpearItem extends SwordItem implements Vanishable {
             worldIn.setBlockAndUpdate(pos, BlockRegistry.VOID_PILLAR.get().defaultBlockState().setValue(RotatedPillarBlock.AXIS, state.getValue(RotatedPillarBlock.AXIS)));
             if (!worldIn.isClientSide) {
                 if (!player.getAbilities().instabuild) {
-                    player.drop(new ItemStack(ItemsRegistry.UNCHARGED_SHARD.get()), true);
+                    worldIn.addFreshEntity(new ItemEntity(worldIn, player.getX(), player.getY(), player.getZ(), ItemsRegistry.unchargedShard.get().getDefaultInstance()));
                     stack.hurtAndBreak(10, player, (playerEntity) -> playerEntity.broadcastBreakEvent(handIn));
                 }
             }
@@ -199,7 +201,7 @@ public class SpearItem extends SwordItem implements Vanishable {
     public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags) {
         super.appendHoverText(stack, world, tooltip, flags);
         tooltip.add(Component.translatable("tooltip.valoria.spear").withStyle(ChatFormatting.GRAY));
-        tooltip.add(Component.translatable("tooltip.valoria.rmb").withStyle(ChatFormatting.GREEN));
+        tooltip.add(Component.translatable("tooltip.valoria.spear_pillars").withStyle(ChatFormatting.GRAY));
         ValoriaUtils.addEffectsTooltip(effects, tooltip, 1, chance);
     }
 

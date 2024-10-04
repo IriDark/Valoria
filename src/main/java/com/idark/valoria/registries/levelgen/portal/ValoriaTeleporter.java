@@ -1,77 +1,81 @@
 package com.idark.valoria.registries.levelgen.portal;
 
-import com.idark.valoria.registries.BlockRegistry;
-import com.idark.valoria.registries.MiscRegistry;
-import net.minecraft.BlockUtil;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.TicketType;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.ai.village.poi.PoiManager;
-import net.minecraft.world.entity.ai.village.poi.PoiRecord;
-import net.minecraft.world.level.ChunkPos;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.HorizontalDirectionalBlock;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Fluids;
-import net.minecraft.world.level.portal.PortalInfo;
-import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.util.ITeleporter;
+import com.idark.valoria.registries.*;
+import net.minecraft.*;
+import net.minecraft.BlockUtil.*;
+import net.minecraft.core.*;
+import net.minecraft.server.level.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.village.poi.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.*;
+import net.minecraft.world.level.material.*;
+import net.minecraft.world.level.portal.*;
+import net.minecraft.world.phys.*;
+import net.minecraftforge.common.util.*;
 
-import java.util.Comparator;
-import java.util.Optional;
-import java.util.function.Function;
+import java.util.*;
+import java.util.function.*;
 
 public class ValoriaTeleporter extends BaseTeleporter implements ITeleporter {
-
-    public ValoriaTeleporter(BlockPos pos, boolean insideDim) {
+    protected final ServerLevel level;
+    public ValoriaTeleporter(ServerLevel pLevel, BlockPos pos, boolean insideDim) {
         super(pos, insideDim, MiscRegistry.VALORIA_PORTAL.getKey());
+        this.level = pLevel;
     }
 
+    @Override
     public PortalInfo getPortalInfo(Entity entity, ServerLevel destWorld, Function<ServerLevel, PortalInfo> defaultPortalInfo) {
         entity.setPortalCooldown();
-        return findOrCreatePortal(destWorld, entity);
+        return findPlayerMadePortal(destWorld, entity);
     }
 
-    private PortalInfo findOrCreatePortal(ServerLevel level, Entity entity) {
-        level.getPoiManager().ensureLoadedAndValid(level, entity.blockPosition(), 256);
-        Optional<PoiRecord> portalPoi = level.getPoiManager().getInSquare((poiType) -> poiType.is(poi), entity.blockPosition(), 256, PoiManager.Occupancy.ANY).min(Comparator.<PoiRecord>comparingDouble((poi) -> poi.getPos().distSqr(entity.blockPosition())).thenComparingInt((poi) -> poi.getPos().getY()));
+    private PortalInfo findPlayerMadePortal(ServerLevel level, Entity entity) {
+        BlockPos pos = entity.blockPosition();
+        PoiManager poiManager = level.getPoiManager();
+        poiManager.ensureLoadedAndValid(level, pos, 256);
+        Optional<PoiRecord> optional = poiManager.getInSquare((poiType) ->
+        poiType.is(poi), pos, 256, PoiManager.Occupancy.ANY).sorted(Comparator.<PoiRecord>comparingDouble((poi) ->
+        poi.getPos().distSqr(pos)).thenComparingInt((poi) ->
+        poi.getPos().getY())).findFirst();
         BlockPos blockpos;
-        if (portalPoi.isEmpty()) {
-            BlockUtil.FoundRectangle rectangle = createPortal(level, entity.blockPosition(), BlockRegistry.VALORIA_PORTAL.get().defaultBlockState(), BlockRegistry.VALORIA_PORTAL_FRAME.get().defaultBlockState()).get();
-            blockpos = rectangle.minCorner.offset(2, 0, 2);
+        if(optional.isEmpty()) {
+            FoundRectangle rectangle = createPortal(level, entity);
+            blockpos = rectangle.minCorner;
             level.getChunkSource().addRegionTicket(TicketType.PORTAL, new ChunkPos(blockpos), 3, blockpos);
-            return new PortalInfo(new Vec3(rectangle.minCorner.getX() + 2, rectangle.minCorner.getY(), rectangle.minCorner.getZ() + 2), Vec3.ZERO, entity.getXRot(), entity.getYRot());
+            return new PortalInfo(new Vec3(rectangle.minCorner.getX(), rectangle.minCorner.getY(), rectangle.minCorner.getZ()), Vec3.ZERO, entity.getXRot(), entity.getYRot());
         }
 
-        blockpos = portalPoi.get().getPos();
-        return new PortalInfo(new Vec3(blockpos.getX(), blockpos.getY(), blockpos.getZ()), Vec3.ZERO, entity.getXRot(), entity.getYRot());
+        blockpos = optional.get().getPos();
+        return new PortalInfo(new Vec3(blockpos.getX(), blockpos.getY() - 1, blockpos.getZ()), Vec3.ZERO, entity.getXRot(), entity.getYRot());
+    }
+
+    private FoundRectangle createPortal(ServerLevel level, Entity entity) {
+        PoiManager poimanager = level.getPoiManager();
+        poimanager.ensureLoadedAndValid(level, entity.blockPosition(), 256);
+        BlockUtil.FoundRectangle rectangle = createPortal(level, entity.blockPosition(), BlockRegistry.VALORIA_PORTAL.get().defaultBlockState(), BlockRegistry.VALORIA_PORTAL_FRAME.get().defaultBlockState()).get();
+        BlockPos blockpos = rectangle.minCorner.offset(0, 0, 0);;
+        level.getChunkSource().addRegionTicket(TicketType.PORTAL, new ChunkPos(blockpos), 3, blockpos);
+        return new BlockUtil.FoundRectangle(blockpos, 3, 3);
     }
 
     @Override
     public Entity placeEntity(Entity entity, ServerLevel currentWorld, ServerLevel destinationWorld, float yaw, Function<Boolean, Entity> repositionEntity) {
         entity = repositionEntity.apply(false);
-        int y = 61;
+        int y = 64;
         if (!insideDimension) {
             y = thisPos.getY();
         }
 
         BlockPos destinationPos = new BlockPos(thisPos.getX(), y, thisPos.getZ());
         int tries = 0;
-        while ((destinationWorld.getBlockState(destinationPos).getBlock() != Blocks.AIR) &&
-                !destinationWorld.getBlockState(destinationPos).canBeReplaced(Fluids.WATER) &&
-                (destinationWorld.getBlockState(destinationPos.above()).getBlock() != Blocks.AIR) &&
-                !destinationWorld.getBlockState(destinationPos.above()).canBeReplaced(Fluids.WATER) && (tries < 25)) {
-            destinationPos = destinationPos.above(2);
+        while ((destinationWorld.getBlockState(destinationPos).getBlock() != Blocks.AIR) && !destinationWorld.getBlockState(destinationPos).canBeReplaced(Fluids.WATER) && (destinationWorld.getBlockState(destinationPos.above()).getBlock() != Blocks.AIR) && !destinationWorld.getBlockState(destinationPos.above()).canBeReplaced(Fluids.WATER) && (tries < 25)) {
+            destinationPos = destinationPos.above(4);
             tries++;
         }
 
         entity.setPos(destinationPos.getX(), destinationPos.getY(), destinationPos.getZ());
-        if (insideDimension) {
-            findOrCreatePortal(destinationWorld, entity);
-        }
-
         return entity;
     }
 

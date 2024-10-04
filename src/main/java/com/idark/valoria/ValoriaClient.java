@@ -9,12 +9,13 @@ import com.idark.valoria.client.render.tile.*;
 import com.idark.valoria.client.sounds.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.block.types.*;
-import com.idark.valoria.registries.entity.decoration.*;
+import com.idark.valoria.registries.entity.living.decoration.*;
 import com.idark.valoria.util.*;
 import com.mojang.blaze3d.platform.*;
 import com.mojang.blaze3d.vertex.*;
 import mod.maxbogomol.fluffy_fur.*;
 import mod.maxbogomol.fluffy_fur.client.gui.screen.*;
+import mod.maxbogomol.fluffy_fur.client.tooltip.*;
 import net.minecraft.client.*;
 import net.minecraft.client.model.*;
 import net.minecraft.client.model.geom.*;
@@ -24,6 +25,8 @@ import net.minecraft.client.renderer.entity.*;
 import net.minecraft.client.resources.model.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.resources.*;
+import net.minecraft.world.entity.ai.attributes.*;
+import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.client.event.*;
@@ -35,8 +38,10 @@ import org.lwjgl.glfw.*;
 
 import java.io.*;
 
-public class ValoriaClient {
+import static com.idark.valoria.Valoria.*;
+import static mod.maxbogomol.fluffy_fur.registry.client.FluffyFurRenderTypes.addRenderType;
 
+public class ValoriaClient {
     private static final String CATEGORY_KEY = "key.category.valoria.general";
     public static final KeyMapping BAG_MENU_KEY = new KeyMapping("key.valoria.bag_menu", KeyConflictContext.IN_GAME, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, CATEGORY_KEY);
     public static final KeyMapping JEWELRY_BONUSES_KEY = new KeyMapping("key.valoria.jewelry", KeyConflictContext.IN_GAME, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, CATEGORY_KEY);
@@ -48,22 +53,17 @@ public class ValoriaClient {
     public static ModelLayerLocation BAG_LAYER = new ModelLayerLocation(new ResourceLocation(Valoria.ID, "jewelry_bag"), "main");
     public static ModelResourceLocation KEG_MODEL = new ModelResourceLocation(Valoria.ID, "keg_barrel", "");
     public static ModelResourceLocation SPHERE = new ModelResourceLocation(Valoria.ID, "elemental_sphere", "");
+    public static ShaderInstance VALORIA_PORTAL;
+    public static ShaderInstance getValoriaPortal() {
+        return VALORIA_PORTAL;
+    }
+    public static final RenderStateShard.ShaderStateShard VALORIA_PORTAL_SHADER = new RenderStateShard.ShaderStateShard(ValoriaClient::getValoriaPortal);
+    public static final RenderType VALORIA_PORTAL_RENDER_TYPE = RenderType.create(Valoria.ID + ":valoria_portal", DefaultVertexFormat.POSITION, VertexFormat.Mode.QUADS, 256, false, false, RenderType.CompositeState.builder().setShaderState(VALORIA_PORTAL_SHADER).setTextureState(RenderStateShard.MultiTextureStateShard.builder().add(ValoriaPortalRenderer.END_SKY_LOCATION, false, false).add(ValoriaPortalRenderer.END_PORTAL_LOCATION, false, false).build()).createCompositeState(false));
+    public static RenderType valoriaPortal() {
+        return VALORIA_PORTAL_RENDER_TYPE;
+    }
 
     public static CooldownSoundInstance COOLDOWN_SOUND = new CooldownSoundInstance(null);
-    public static ShaderInstance GLOWING_SHADER, GLOWING_PARTICLE_SHADER, SPRITE_PARTICLE_SHADER;
-
-    public static ShaderInstance getGlowingParticleShader() {
-        return GLOWING_PARTICLE_SHADER;
-    }
-
-    public static ShaderInstance getSpriteParticleShader() {
-        return SPRITE_PARTICLE_SHADER;
-    }
-
-    public static ShaderInstance getGlowingShader() {
-        return GLOWING_SHADER;
-    }
-
     public static FluffyFurMod MOD_INSTANCE;
     public static FluffyFurPanorama ECOTONE_PANORAMA;
     public static void setupMenu() {
@@ -88,6 +88,45 @@ public class ValoriaClient {
     public static class RegistryEvents {
 
         @SubscribeEvent
+        public static void registerAttributeModifiers(FMLClientSetupEvent event){
+            TooltipModifierHandler.register(new AttributeTooltipModifier(){
+                public boolean isToolBase(AttributeModifier modifier, Player player, TooltipFlag flag){
+                    return modifier.getId().equals(BASE_ENTITY_REACH_UUID);
+                }
+            });
+
+            TooltipModifierHandler.register(new AttributeTooltipModifier(){
+                public boolean isToolBase(AttributeModifier modifier, Player player, TooltipFlag flag){
+                    return modifier.getId().equals(BASE_PROJECTILE_DAMAGE_UUID);
+                }
+            });
+
+            TooltipModifierHandler.register(new AttributeTooltipModifier(){
+                public boolean isToolBase(AttributeModifier modifier, Player player, TooltipFlag flag){
+                    return modifier.getId().equals(BASE_DASH_DISTANCE_UUID);
+                }
+            });
+
+            TooltipModifierHandler.register(new AttributeTooltipModifier(){
+                public boolean isToolBase(AttributeModifier modifier, Player player, TooltipFlag flag){
+                    return modifier.getId().equals(BASE_ATTACK_RADIUS_UUID);
+                }
+            });
+
+            TooltipModifierHandler.register(new AttributeTooltipModifier(){
+                public boolean isToolBase(AttributeModifier modifier, Player player, TooltipFlag flag){
+                    return modifier.getId().equals(BASE_NECROMANCY_COUNT_UUID);
+                }
+            });
+
+            TooltipModifierHandler.register(new AttributeTooltipModifier(){
+                public boolean isToolBase(AttributeModifier modifier, Player player, TooltipFlag flag){
+                    return modifier.getId().equals(BASE_NECROMANCY_LIFETIME_UUID);
+                }
+            });
+        }
+
+        @SubscribeEvent
         public static void ColorMappingBlocks(RegisterColorHandlersEvent.Block event) {
             event.register((state, world, pos, tintIndex) -> ModBlockColors.getInstance().getGrassColor(state, world, pos, tintIndex), ModBlockColors.MODDED_GRASS);
             event.register((state, world, pos, tintIndex) -> ModBlockColors.getInstance().getFoliageColor(state, world, pos, tintIndex), ModBlockColors.MODDED_FOLIAGE);
@@ -98,8 +137,8 @@ public class ValoriaClient {
             event.register((stack, tintIndex) -> tintIndex > 0 ? -1 : 12487423, BlockRegistry.ELDRITCH_SAPLING.get(), BlockRegistry.ELDRITCH_LEAVES.get());
             event.register((stack, tintIndex) -> tintIndex > 0 ? -1 : 9100543, BlockRegistry.SHADEWOOD_BRANCH.get(), BlockRegistry.SHADEWOOD_SAPLING.get(), BlockRegistry.SHADEWOOD_LEAVES.get());
             event.register((stack, tintIndex) -> 11301619, BlockRegistry.VOID_GRASS.get(), BlockRegistry.VOID_TAINT.get(), BlockRegistry.VOID_ROOTS.get());
-            event.register((p_92708_, p_92709_) -> p_92709_ > 0 ? -1 : ((DyeableLeatherItem) p_92708_.getItem()).getColor(p_92708_), ItemsRegistry.LEATHER_GLOVES.get());
-            event.register((p_92708_, p_92709_) -> p_92709_ > 0 ? -1 : ((DyeableLeatherItem) p_92708_.getItem()).getColor(p_92708_), ItemsRegistry.JEWELRY_BAG.get());
+            event.register((p_92708_, p_92709_) -> p_92709_ > 0 ? -1 : ((DyeableLeatherItem) p_92708_.getItem()).getColor(p_92708_), ItemsRegistry.leatherGloves.get());
+            event.register((p_92708_, p_92709_) -> p_92709_ > 0 ? -1 : ((DyeableLeatherItem) p_92708_.getItem()).getColor(p_92708_), ItemsRegistry.jewelryBag.get());
         }
 
         @SubscribeEvent
@@ -113,6 +152,7 @@ public class ValoriaClient {
                 BlockEntityRenderers.register(BlockEntitiesRegistry.PEDESTAL_BLOCK_ENTITY.get(), (trd) -> new PedestalBlockEntityRenderer());
                 BlockEntityRenderers.register(BlockEntitiesRegistry.SIGN_BLOCK_ENTITIES.get(), SignRenderer::new);
                 BlockEntityRenderers.register(BlockEntitiesRegistry.HANGING_SIGN_BLOCK_ENTITIES.get(), HangingSignRenderer::new);
+                BlockEntityRenderers.register(BlockEntitiesRegistry.VALORIA_PORTAL_BLOCK_ENTITY.get(), ValoriaPortalRenderer::new);
                 Sheets.addWoodType(ModWoodTypes.ELDRITCH);
                 Sheets.addWoodType(ModWoodTypes.SHADEWOOD);
             });
@@ -130,7 +170,7 @@ public class ValoriaClient {
             EntityRenderers.register(EntityTypeRegistry.THROWABLE_BOMB.get(), ThrownItemRenderer::new);
             EntityRenderers.register(EntityTypeRegistry.SPECTRAL_BLADE.get(), SpectralBladeRenderer::new);
             EntityRenderers.register(EntityTypeRegistry.MEAT.get(), MeatBlockRenderer::new);
-            EntityRenderers.register(EntityTypeRegistry.NECROMANCER_FANGS.get(), NecromancerFangsRenderer::new);
+            EntityRenderers.register(EntityTypeRegistry.DEVOURER.get(), DevourerRenderer::new);
             EntityRenderers.register(EntityTypeRegistry.UNDEAD.get(), UndeadRenderer::new);
             EntityRenderers.register(EntityTypeRegistry.PHANTOM_ARROW.get(), AbstractValoriaArrowRenderer::new);
             EntityRenderers.register(EntityTypeRegistry.WICKED_ARROW.get(), AbstractValoriaArrowRenderer::new);
@@ -141,14 +181,14 @@ public class ValoriaClient {
             EntityRenderers.register(EntityTypeRegistry.SUCCUBUS.get(), SuccubusRenderer::new);
             EntityRenderers.register(EntityTypeRegistry.TROLL.get(), TrollRenderer::new);
 
-            ModItemModelProperties.makeBow(ItemsRegistry.INFERNAL_BOW.get());
-            ModItemModelProperties.makeBow(ItemsRegistry.SAMURAI_LONG_BOW.get());
-            ModItemModelProperties.makeBow(ItemsRegistry.NATURE_BOW.get());
-            ModItemModelProperties.makeBow(ItemsRegistry.AQUARIUS_BOW.get());
-            ModItemModelProperties.makeBow(ItemsRegistry.BOW_OF_DARKNESS.get());
-            ModItemModelProperties.makeBow(ItemsRegistry.PHANTASM_BOW.get());
-            ModItemModelProperties.makeSize(ItemsRegistry.SOUL_COLLECTOR.get());
-            ModItemModelProperties.makeCooldown(ItemsRegistry.SPECTRAL_BLADE.get());
+            ModItemModelProperties.makeBow(ItemsRegistry.samuraiLongBow.get());
+            ModItemModelProperties.makeBow(ItemsRegistry.natureBow.get());
+            ModItemModelProperties.makeBow(ItemsRegistry.aquariusBow.get());
+            ModItemModelProperties.makeBow(ItemsRegistry.infernalBow.get());
+            ModItemModelProperties.makeBow(ItemsRegistry.voidBow.get());
+            ModItemModelProperties.makeBow(ItemsRegistry.phantasmBow.get());
+            ModItemModelProperties.makeSize(ItemsRegistry.soulCollector.get());
+            ModItemModelProperties.makeCooldown(ItemsRegistry.spectralBlade.get());
         }
 
         @SubscribeEvent
@@ -182,12 +222,15 @@ public class ValoriaClient {
             ParticleRegistry.registerParticleFactory(event);
         }
 
+        @SubscribeEvent
+        public static void registerRenderTypes(FMLClientSetupEvent event) {
+            addRenderType(VALORIA_PORTAL_RENDER_TYPE);
+        }
+
         @OnlyIn(Dist.CLIENT)
         @SubscribeEvent
-        public static void shaderRegistry(RegisterShadersEvent event) throws IOException {
-            event.registerShader(new ShaderInstance(event.getResourceProvider(), new ResourceLocation("valoria:glowing"), DefaultVertexFormat.POSITION_COLOR), shader -> GLOWING_SHADER = shader);
-            event.registerShader(new ShaderInstance(event.getResourceProvider(), new ResourceLocation("valoria:glowing_particle"), DefaultVertexFormat.PARTICLE), shader -> GLOWING_PARTICLE_SHADER = shader);
-            event.registerShader(new ShaderInstance(event.getResourceProvider(), new ResourceLocation("valoria:sprite_particle"), DefaultVertexFormat.PARTICLE), shader -> SPRITE_PARTICLE_SHADER = shader);
+        public static void shaderRegistry(RegisterShadersEvent event) throws IOException{
+            event.registerShader(new ShaderInstance(event.getResourceProvider(), new ResourceLocation(Valoria.ID, "valoria_portal"), DefaultVertexFormat.POSITION), shader -> VALORIA_PORTAL = shader);
         }
     }
 }

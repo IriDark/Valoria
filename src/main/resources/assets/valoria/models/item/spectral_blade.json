@@ -1,8 +1,19 @@
 {
   "parent": "item/handheld",
   "textures": {
-    "layer0": "valoria:item/spectral_blade"
+    "layer0": "valoria:item/spectral_blade",
+    "layer1": "valoria:item/spectral_blade_glow"
   },
+  "forge_data": {
+    "layers": {
+      "1": {
+        "block_light": 15,
+        "sky_light": 15
+      }
+    }
+  },
+  "loader": "forge:item_layers",
+  "render_types": {},
   "overrides": [
     {
       "predicate": {

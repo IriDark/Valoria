@@ -1,8 +1,8 @@
 package com.idark.valoria.registries;
 
 import com.idark.valoria.*;
-import com.idark.valoria.registries.entity.decoration.*;
 import com.idark.valoria.registries.entity.living.*;
+import com.idark.valoria.registries.entity.living.decoration.*;
 import com.idark.valoria.registries.entity.projectile.*;
 import net.minecraft.resources.*;
 import net.minecraft.world.entity.*;
@@ -66,12 +66,12 @@ public class EntityTypeRegistry {
                     .clientTrackingRange(8)
                     .build(new ResourceLocation(Valoria.ID, "undead").toString()));
 
-    public static final RegistryObject<EntityType<NecromancerFangs>> NECROMANCER_FANGS = ENTITY_TYPES.register("necromancer_fangs",
-            () -> EntityType.Builder.<NecromancerFangs>of(NecromancerFangs::new, MobCategory.MISC)
+    public static final RegistryObject<EntityType<Devourer>> DEVOURER = ENTITY_TYPES.register("devourer",
+            () -> EntityType.Builder.<Devourer>of(Devourer::new, MobCategory.MISC)
                     .sized(1, 1f)
                     .clientTrackingRange(6)
                     .updateInterval(2)
-                    .build(new ResourceLocation(Valoria.ID, "necromancer_fangs").toString()));
+                    .build(new ResourceLocation(Valoria.ID, "devourer").toString()));
 
     public static final RegistryObject<EntityType<MannequinEntity>> MANNEQUIN = ENTITY_TYPES.register("mannequin",
             () -> EntityType.Builder.of(MannequinEntity::new, MobCategory.MISC)

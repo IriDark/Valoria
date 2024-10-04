@@ -1,16 +1,13 @@
 package com.idark.valoria.core.datagen;
 
-import com.idark.valoria.registries.BlockRegistry;
-import com.idark.valoria.registries.ItemsRegistry;
-import net.minecraft.data.loot.BlockLootSubProvider;
-import net.minecraft.world.flag.FeatureFlags;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.storage.loot.LootTable;
+import com.idark.valoria.registries.*;
+import net.minecraft.data.loot.*;
+import net.minecraft.world.flag.*;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.storage.loot.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.function.Function;
+import java.util.*;
+import java.util.function.*;
 
 public class LootTableSubprovider extends BlockLootSubProvider {
     public final List<Block> blocks = new ArrayList<>();
@@ -43,7 +40,7 @@ public class LootTableSubprovider extends BlockLootSubProvider {
         this.add(BlockRegistry.ELDRITCH_WALL_SIGN.get(), block -> createSingleItemTable(block));
         this.add(BlockRegistry.ELDRITCH_HANGING_SIGN.get(), block -> createSingleItemTable(block));
         this.add(BlockRegistry.ELDRITCH_WALL_HANGING_SIGN.get(), block -> createSingleItemTable(block));
-        this.add(BlockRegistry.PYRATITE_ORE.get(), block -> createOreDrop(block, ItemsRegistry.PYRATITE.get()));
+        this.add(BlockRegistry.PYRATITE_ORE.get(), block -> createOreDrop(block, ItemsRegistry.pyratite.get()));
 
         this.dropSelf(BlockRegistry.BRONZE_GLASS_PANE.get());
         this.dropSelf(BlockRegistry.ELDRITCH_LOG.get());

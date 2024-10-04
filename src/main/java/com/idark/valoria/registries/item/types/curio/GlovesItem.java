@@ -14,6 +14,10 @@ import top.theillusivec4.curios.api.*;
 import java.util.*;
 
 public class GlovesItem extends AbstractTieredAccessory implements ICurioTexture {
+    public GlovesItem(Tier tier, Item.Properties properties) {
+        super(tier, properties);
+    }
+
     public GlovesItem(Tier tier, AccessoryGem gem, AccessoryMaterial material, Item.Properties properties) {
         super(tier, AccessoryType.GLOVES, gem, material, properties);
     }

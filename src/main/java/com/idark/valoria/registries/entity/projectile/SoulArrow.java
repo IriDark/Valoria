@@ -20,7 +20,7 @@ public class SoulArrow extends AbstractValoriaArrow implements IProjectileTextur
     }
 
     public SoulArrow(Level pLevel, LivingEntity pShooter, ItemStack thrown) {
-        super(EntityTypeRegistry.SOUL_ARROW.get(), pLevel, pShooter, thrown, 0, 1);
+        super(EntityTypeRegistry.SOUL_ARROW.get(), pLevel, pShooter, thrown, 1);
     }
 
     @Override

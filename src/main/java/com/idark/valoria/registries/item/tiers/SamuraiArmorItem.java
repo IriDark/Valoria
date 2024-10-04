@@ -1,16 +1,12 @@
 package com.idark.valoria.registries.item.tiers;
 
-import com.google.common.collect.ImmutableMultimap;
-import com.google.common.collect.Multimap;
-import com.idark.valoria.registries.AttributeRegistry;
-import com.idark.valoria.registries.ItemsRegistry;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.ai.attributes.Attribute;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.item.ArmorMaterial;
-import net.minecraft.world.item.ItemStack;
+import com.google.common.collect.*;
+import com.idark.valoria.registries.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.*;
+import net.minecraft.world.item.*;
 
-import java.util.UUID;
+import java.util.*;
 
 public class SamuraiArmorItem extends SuitArmorItem {
     public SamuraiArmorItem(ArmorMaterial material, Type type, Properties properties) {
@@ -32,16 +28,5 @@ public class SamuraiArmorItem extends SuitArmorItem {
         atts.putAll(super.getDefaultAttributeModifiers(slot));
         atts.put(AttributeRegistry.DASH_DISTANCE.get(), new AttributeModifier(UUID.fromString("58c87772-fa46-4635-8877-72fa464635a6"), "bonus", getBonusValue(slot), AttributeModifier.Operation.ADDITION));
         return slot == type.getSlot() ? atts.build() : super.getDefaultAttributeModifiers(slot);
-    }
-
-    @Override
-    public ItemStack getArmorSetItem(EquipmentSlot slot) {
-        return switch (slot) {
-            case HEAD -> ItemsRegistry.SAMURAI_KABUTO.get().getDefaultInstance();
-            case CHEST -> ItemsRegistry.SAMURAI_CHESTPLATE.get().getDefaultInstance();
-            case LEGS -> ItemsRegistry.SAMURAI_LEGGINGS.get().getDefaultInstance();
-            case FEET -> ItemsRegistry.SAMURAI_BOOTS.get().getDefaultInstance();
-            default -> ItemStack.EMPTY;
-        };
     }
 }

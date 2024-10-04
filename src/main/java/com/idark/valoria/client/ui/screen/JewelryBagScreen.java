@@ -1,29 +1,23 @@
 package com.idark.valoria.client.ui.screen;
 
-import com.idark.valoria.ValoriaClient;
-import com.idark.valoria.core.network.PacketHandler;
-import com.idark.valoria.core.network.packets.CuriosSetStackPacket;
-import com.idark.valoria.registries.ItemsRegistry;
-import com.idark.valoria.registries.item.types.curio.JewelryBagItem;
-import com.idark.valoria.util.RenderUtils;
-import com.mojang.blaze3d.platform.GlStateManager;
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.math.Axis;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.renderer.GameRenderer;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.DyeableLeatherItem;
-import net.minecraft.world.item.ItemStack;
-import top.theillusivec4.curios.api.CuriosApi;
-import top.theillusivec4.curios.api.SlotResult;
-import top.theillusivec4.curios.api.type.capability.ICurioItem;
+import com.idark.valoria.core.network.*;
+import com.idark.valoria.core.network.packets.*;
+import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.item.types.curio.*;
+import com.idark.valoria.util.*;
+import com.mojang.math.*;
+import mod.maxbogomol.fluffy_fur.client.render.*;
+import mod.maxbogomol.fluffy_fur.registry.client.*;
+import net.minecraft.client.*;
+import net.minecraft.client.gui.*;
+import net.minecraft.client.gui.screens.*;
+import net.minecraft.network.chat.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.item.*;
+import top.theillusivec4.curios.api.*;
+import top.theillusivec4.curios.api.type.capability.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class JewelryBagScreen extends Screen {
     public List<ItemStack> trinkets = new ArrayList<>();
@@ -66,7 +60,7 @@ public class JewelryBagScreen extends Screen {
         List<ItemStack> items = player.getInventory().items;
         ArrayList<ItemStack> curioItems = new ArrayList<>();
         for (ItemStack stack : items) {
-            if (stack.getItem() instanceof ICurioItem && stack.getItem() != ItemsRegistry.JEWELRY_BAG.get()) {
+            if (stack.getItem() instanceof ICurioItem && stack.getItem() != ItemsRegistry.jewelryBag.get()) {
                 curioItems.add(stack);
             }
         }
@@ -157,31 +151,17 @@ public class JewelryBagScreen extends Screen {
         float r = (float) (k >> 16 & 255) / 255.0F;
         float g = (float) (k >> 8 & 255) / 255.0F;
         float b = (float) (k & 255) / 255.0F;
-        RenderSystem.enableBlend();
-        RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE);
-        MultiBufferSource.BufferSource buffersource = Minecraft.getInstance().renderBuffers().bufferSource();
-        RenderSystem.depthMask(false);
-        RenderSystem.setShader(ValoriaClient::getGlowingShader);
 
         gui.pose().pushPose();
-        gui.pose().translate(width / 2, height / 2, 0);
-        gui.pose().mulPose(Axis.ZP.rotationDegrees(getMouseAngle(mouseX, mouseY)));
-        RenderUtils.ray(gui.pose(), buffersource, 1f, (height / 2 * 0.7f * hoverAmount), 40f, r, g, b, 1, r, g, b, 0);
-        buffersource.endBatch();
+        gui.pose().translate(x, y, 0);
+        gui.pose().mulPose(Axis.ZP.rotationDegrees((float)Math.toDegrees(Math.atan2(mouseY - y, mouseX - x) - 360) + 20));
+        RenderBuilder.create().setRenderType(FluffyFurRenderTypes.ADDITIVE)
+        .setColorRaw(r, g, b).setAlpha(1f)
+        .setSecondAlpha(0)
+        .renderRay(gui.pose(), 1f, (height / 2 * 0.7f * hoverAmount), 50f)
+        .endBatch();
+
         gui.pose().popPose();
-
-        RenderSystem.disableBlend();
-        RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-    }
-
-    public float getMouseAngle(double X, double Y) {
-        double angle = Math.toDegrees(Math.atan2(Y - height / 2, X - width / 2));
-        if (angle < 0D) {
-            angle += 360D;
-        }
-
-        return (float) angle;
     }
 
     public float getMouseDistance(double X, double Y) {

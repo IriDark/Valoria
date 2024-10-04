@@ -1,5 +1,6 @@
 {
   "type": "valoria:manipulator",
+  "category": "equipment",
   "output": {
     "count": 1,
     "item": "valoria:nature_shovel"
@@ -9,10 +10,10 @@
   "time": 500,
   "ingredients": [
     {
-      "item": "minecraft:netherite_shovel"
+      "item": "minecraft:diamond_shovel"
     },
     {
-      "item": "valoria:nature_ingot"
+      "item": "valoria:nature_upgrade_smithing_template"
     }
   ]
 }

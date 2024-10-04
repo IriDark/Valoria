@@ -6,7 +6,7 @@
   },
   "core": "aquarius_core",
   "cores": 1,
-  "time": 275,
+  "time": 350,
   "ingredients": [
     {
       "item": "valoria:oceanic_shell"

@@ -1,48 +1,39 @@
 package com.idark.valoria.registries.entity.projectile;
 
-import com.idark.valoria.registries.AttributeRegistry;
-import com.idark.valoria.registries.EntityTypeRegistry;
-import com.idark.valoria.registries.ItemsRegistry;
-import com.idark.valoria.registries.SoundsRegistry;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.AbstractArrow;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.EntityHitResult;
-import net.minecraft.world.phys.HitResult;
-import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.network.NetworkHooks;
+import com.idark.valoria.registries.*;
+import com.idark.valoria.util.*;
+import mod.maxbogomol.fluffy_fur.client.particle.*;
+import mod.maxbogomol.fluffy_fur.client.particle.data.*;
+import mod.maxbogomol.fluffy_fur.common.easing.*;
+import mod.maxbogomol.fluffy_fur.registry.client.*;
+import net.minecraft.core.particles.*;
+import net.minecraft.nbt.*;
+import net.minecraft.network.protocol.*;
+import net.minecraft.network.protocol.game.*;
+import net.minecraft.sounds.*;
+import net.minecraft.util.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.projectile.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.phys.*;
+import net.minecraftforge.api.distmarker.*;
+import net.minecraftforge.network.*;
 
-import javax.annotation.Nullable;
+import javax.annotation.*;
+import java.awt.*;
+import java.util.function.*;
 
-public class SpectralBladeEntity extends AbstractArrow {
+public class SpectralBladeEntity extends AbstractValoriaArrow {
     public boolean dealtDamage;
-    public ItemStack thrownStack = new ItemStack(ItemsRegistry.SPECTRAL_BLADE.get());
+    public ItemStack thrownStack = new ItemStack(ItemsRegistry.spectralBlade.get());
     RandomSource rand = RandomSource.create();
-
     public SpectralBladeEntity(EntityType<? extends SpectralBladeEntity> type, Level worldIn) {
         super(type, worldIn);
     }
 
     public SpectralBladeEntity(Level worldIn, LivingEntity thrower, ItemStack thrownStackIn) {
-        super(EntityTypeRegistry.SPECTRAL_BLADE.get(), thrower, worldIn);
-        this.thrownStack = thrownStackIn.copy();
+        super(EntityTypeRegistry.SPECTRAL_BLADE.get(), worldIn, thrower, thrownStackIn, 2);
     }
 
     public void tick() {
@@ -55,8 +46,7 @@ public class SpectralBladeEntity extends AbstractArrow {
         double a4 = vector3d.y;
         double a0 = vector3d.z;
         this.setDeltaMovement(a3, 0, a0);
-
-        this.level().addParticle(ParticleTypes.REVERSE_PORTAL, this.getX() + a3 / 4.0D, this.getY() + a4 / 4.0D, this.getZ() + a0 / 2.0D, -a3, -a4 + 0.2D, -a0);
+        spawnParticleTrail(level(), this, new Vec3(this.getX() + a3 / 4.0D, this.getY() + a4 / 4.0D, this.getZ() + a0 / 2.0D));
         if (isInWater()) {
             if (!this.level().isClientSide()) {
                 this.removeAfterChangingDimensions();
@@ -74,12 +64,41 @@ public class SpectralBladeEntity extends AbstractArrow {
         super.tick();
     }
 
+    public void spawnParticleTrail(Level level, Projectile projectile, Vec3 spawnPos){
+        if(level.isClientSide()){
+            final Consumer<GenericParticle> blockTarget = p -> {
+                Vec3 pPos = p.getPosition();
+                double dX = projectile.getX() - pPos.x();
+                double dY = projectile.getY() - pPos.y();
+                double dZ = projectile.getZ() - pPos.z();
+                double yaw = Math.atan2(dZ, dX);
+                double pitch = Math.atan2(Math.sqrt(dZ * dZ + dX * dX), dY) + Math.PI;
+
+                float speed = 0.01f;
+                double x = Math.sin(pitch) * Math.cos(yaw) * speed;
+                double y = Math.cos(pitch) * speed;
+                double z = Math.sin(pitch) * Math.sin(yaw) * speed;
+
+                p.setSpeed(p.getSpeed().subtract(x, y, z));
+            };
+
+            ParticleBuilder.create(FluffyFurParticles.SPARKLE)
+            .setColorData(ColorParticleData.create(Pal.cyan, Color.white).build())
+            .setTransparencyData(GenericParticleData.create(0.3f).setEasing(Easing.QUARTIC_OUT).build())
+            .setScaleData(GenericParticleData.create(0.06f, 0.15f, 0).setEasing(Easing.QUARTIC_OUT).build())
+            .addTickActor(blockTarget)
+            .setLifetime(16)
+            .randomVelocity(0.25f)
+            .disablePhysics()
+            .repeat(level, spawnPos.x(), spawnPos.y(), spawnPos.z(), 4);
+        }
+    }
+
     public void onHit(HitResult pResult) {
         super.onHit(pResult);
         if (!this.level().isClientSide) {
             this.discard();
         }
-
     }
 
     public ItemStack getPickupItem() {
@@ -91,39 +110,6 @@ public class SpectralBladeEntity extends AbstractArrow {
         return this.dealtDamage ? null : super.findHitEntity(startVec, endVec);
     }
 
-    public void onHitBlock(BlockHitResult pResult) {
-        this.level().playSound(this, this.getOnPos(), SoundsRegistry.DISAPPEAR.get(), SoundSource.AMBIENT, 0.4f, 1f);
-    }
-
-    @Override
-    public void onHitEntity(EntityHitResult result) {
-        Entity entity = result.getEntity();
-        Entity shooter = this.getOwner();
-        if (shooter instanceof Player player) {
-            int e = EnchantmentHelper.getTagEnchantmentLevel(Enchantments.SHARPNESS, this.thrownStack);
-            float f = (float) (player.getAttributes().getValue(AttributeRegistry.PROJECTILE_DAMAGE.get()) + Math.max(0, e - 2));
-            if (entity instanceof LivingEntity livingentity) {
-                f += EnchantmentHelper.getDamageBonus(this.thrownStack, livingentity.getMobType());
-            }
-
-            DamageSource damagesource = level().damageSources().trident(this, shooter);
-            this.dealtDamage = true;
-            this.level().playSound(this, this.getOnPos(), SoundsRegistry.DISAPPEAR.get(), SoundSource.AMBIENT, 0.4f, 1f);
-            if (entity.hurt(damagesource, f)) {
-                if (entity.getType() == EntityType.ENDERMAN) {
-                    return;
-                }
-
-                if (entity instanceof LivingEntity living) {
-                    EnchantmentHelper.doPostHurtEffects(living, shooter);
-                    EnchantmentHelper.doPostDamageEffects((LivingEntity) shooter, living);
-                    this.doPostHurtEffects(living);
-                }
-            }
-        }
-
-    }
-
     public SoundEvent getDefaultHitGroundSoundEvent() {
         return SoundsRegistry.DISAPPEAR.get();
     }
@@ -131,12 +117,6 @@ public class SpectralBladeEntity extends AbstractArrow {
     @Override
     public SoundEvent getHitGroundSoundEvent() {
         return SoundsRegistry.DISAPPEAR.get();
-    }
-
-    public void playerTouch(Player pEntity) {
-        if (this.ownedBy(pEntity) || this.getOwner() == null) {
-            super.playerTouch(pEntity);
-        }
     }
 
     @Override

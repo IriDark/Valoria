@@ -1,0 +1,102 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "rolls": 3,
+      "bonus_rolls": 6,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "valoria:pearlium_ingot",
+          "weight": 12,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 3,
+              "conditions": [
+                {
+                  "condition": "minecraft:random_chance",
+                  "chance": 0.5
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:golden_apple",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:pufferfish",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:kelp",
+          "weight": 9
+        },
+        {
+          "type": "minecraft:item",
+          "name": "valoria:sapphire_gem",
+          "weight": 8,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 5,
+              "conditions": [
+                {
+                  "condition": "minecraft:random_chance",
+                  "chance": 0.25
+                }
+              ]
+            },
+            {
+              "function": "minecraft:set_count",
+              "count": 3,
+              "conditions": [
+                {
+                  "condition": "minecraft:random_chance",
+                  "chance": 0.5
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "valoria:gem_bag",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "valoria:throwable_bomb",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 3,
+              "conditions": [
+                {
+                  "condition": "minecraft:random_chance",
+                  "chance": 0.5
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "valoria:dynamite",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "valoria:iron_chain",
+          "weight": 5
+        }
+      ]
+    }
+  ]
+}

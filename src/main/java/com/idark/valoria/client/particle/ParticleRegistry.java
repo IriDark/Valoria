@@ -14,7 +14,6 @@ public class ParticleRegistry {
 
     public static final DeferredRegister<ParticleType<?>> PARTICLES = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, Valoria.ID);
 
-    public static RegistryObject<GenericParticleType> CUBE = PARTICLES.register("cube", GenericParticleType::new);
     public static RegistryObject<GenericParticleType> SMOKE = PARTICLES.register("smoke", GenericParticleType::new);
     public static RegistryObject<GenericParticleType> SPHERE = PARTICLES.register("sphere", GenericParticleType::new);
     public static RegistryObject<GenericParticleType> SKULL = PARTICLES.register("skull", GenericParticleType::new);
@@ -29,7 +28,6 @@ public class ParticleRegistry {
     public static final RegistryObject<SimpleParticleType> CHOMP = PARTICLES.register("chomp", () -> new SimpleParticleType(true));
 
     public static void registerParticleFactory(RegisterParticleProvidersEvent event) {
-        Minecraft.getInstance().particleEngine.register(ParticleRegistry.CUBE.get(), GenericParticleType.Factory::new);
         Minecraft.getInstance().particleEngine.register(ParticleRegistry.SMOKE.get(), GenericParticleType.Factory::new);
         Minecraft.getInstance().particleEngine.register(ParticleRegistry.SPHERE.get(), GenericParticleType.Factory::new);
         Minecraft.getInstance().particleEngine.register(ParticleRegistry.TRANSFORM_PARTICLE.get(), GenericParticleType.Factory::new);

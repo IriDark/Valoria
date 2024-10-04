@@ -24,6 +24,8 @@ import org.jetbrains.annotations.*;
 
 import java.util.*;
 
+import static com.idark.valoria.Valoria.BASE_PROJECTILE_DAMAGE_UUID;
+
 public class KunaiItem extends SwordItem {
     private final Multimap<Attribute, AttributeModifier> tridentAttributes;
     public final ImmutableList<MobEffectInstance> effects;
@@ -34,7 +36,7 @@ public class KunaiItem extends SwordItem {
         super(ModItemTier.NONE, damage, speed, builderIn);
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
         builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", 3, AttributeModifier.Operation.ADDITION));
-        builder.put(AttributeRegistry.PROJECTILE_DAMAGE.get(), new AttributeModifier(UUID.fromString("5334b818-69d4-417e-b4b8-1869d4917e29"), "Tool modifier", 6.0F, AttributeModifier.Operation.ADDITION));
+        builder.put(AttributeRegistry.PROJECTILE_DAMAGE.get(), new AttributeModifier(BASE_PROJECTILE_DAMAGE_UUID, "Tool modifier", 6.0F, AttributeModifier.Operation.ADDITION));
         builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Tool modifier", -1.9F, AttributeModifier.Operation.ADDITION));
         this.tridentAttributes = builder.build();
         this.chance = chance;
@@ -45,7 +47,7 @@ public class KunaiItem extends SwordItem {
         super(ModItemTier.NONE, damage, speed, builderIn);
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
         builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", 3, AttributeModifier.Operation.ADDITION));
-        builder.put(AttributeRegistry.PROJECTILE_DAMAGE.get(), new AttributeModifier(UUID.fromString("5334b818-69d4-417e-b4b8-1869d4917e29"), "Tool modifier", 6.0F, AttributeModifier.Operation.ADDITION));
+        builder.put(AttributeRegistry.PROJECTILE_DAMAGE.get(), new AttributeModifier(BASE_PROJECTILE_DAMAGE_UUID, "Tool modifier", 6.0F, AttributeModifier.Operation.ADDITION));
         builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Tool modifier", -1.9F, AttributeModifier.Operation.ADDITION));
         this.tridentAttributes = builder.build();
         this.effects = ImmutableList.copyOf(pEffects);

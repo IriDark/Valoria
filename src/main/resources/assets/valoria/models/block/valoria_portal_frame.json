@@ -1,12 +1,35 @@
 {
+  "render_type": "minecraft:cutout",
   "parent": "block/cube",
   "textures": {
     "up": "valoria:block/valoria_portal_frame",
     "particle": "valoria:block/valoria_portal_frame",
     "north": "valoria:block/valoria_portal_frame_activator_side",
+    "north_glow": "valoria:block/valoria_portal_frame_activator_side_glow",
     "south": "valoria:block/valoria_portal_frame",
     "east": "valoria:block/valoria_portal_frame",
     "west": "valoria:block/valoria_portal_frame",
     "down": "valoria:block/valoria_portal_frame"
-  }
+  },
+  "elements": [
+    {
+      "from": [ 0, 0, 0 ],
+      "to": [ 16, 16, 16 ],
+      "faces": {
+        "down":  { "texture": "#down", "cullface": "down" },
+        "up":    { "texture": "#up", "cullface": "up" },
+        "north": { "texture": "#north", "cullface": "north" },
+        "south": { "texture": "#south", "cullface": "south" },
+        "west":  { "texture": "#west", "cullface": "west" },
+        "east":  { "texture": "#east", "cullface": "east" }
+      }
+    },
+    {
+      "from": [ 0, 0, 0 ],
+      "to": [ 16, 16, 16 ],
+      "faces": {
+        "north": { "forge_data": {"block_light": 15, "sky_light": 15 }, "texture": "#north_glow", "cullface": "north" }
+      }
+    }
+  ]
 }

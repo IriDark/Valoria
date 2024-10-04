@@ -1,19 +1,17 @@
 package com.idark.valoria.core.event;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.registries.ItemsRegistry;
-import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
-import net.minecraft.world.entity.npc.VillagerProfession;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.level.ItemLike;
-import net.minecraftforge.common.BasicItemListing;
-import net.minecraftforge.event.village.VillagerTradesEvent;
-import net.minecraftforge.event.village.WandererTradesEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import com.idark.valoria.*;
+import com.idark.valoria.registries.*;
+import it.unimi.dsi.fastutil.ints.*;
+import net.minecraft.world.entity.npc.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.*;
+import net.minecraftforge.common.*;
+import net.minecraftforge.event.village.*;
+import net.minecraftforge.eventbus.api.*;
+import net.minecraftforge.fml.common.*;
 
-import java.util.List;
+import java.util.*;
 
 public class VillagerTrades {
 
@@ -24,21 +22,21 @@ public class VillagerTrades {
         public static void addTrades(VillagerTradesEvent event) {
             Int2ObjectMap<List<net.minecraft.world.entity.npc.VillagerTrades.ItemListing>> trades = event.getTrades();
             if (event.getType() == VillagerProfession.TOOLSMITH) {
-                trades.get(1).add(itemSell(6, ItemsRegistry.IRON_RING.get(), 1, 4));
-                trades.get(2).add(itemSell(16, ItemsRegistry.IRON_GLOVES.get(), 1, 1));
-                trades.get(1).add(itemSell(4, ItemsRegistry.IRON_CHAIN.get(), 1, 2));
-                trades.get(3).add(itemSell(18, ItemsRegistry.IRON_RING_EMERALD.get(), 1, 1));
+                trades.get(1).add(itemSell(6, ItemsRegistry.ironRing.get(), 1, 4));
+                trades.get(2).add(itemSell(16, ItemsRegistry.ironGloves.get(), 1, 1));
+                trades.get(1).add(itemSell(4, ItemsRegistry.ironChain.get(), 1, 2));
+                trades.get(3).add(itemSell(18, ItemsRegistry.ironRingEmerald.get(), 1, 1));
             }
 
             if (event.getType() == VillagerProfession.WEAPONSMITH) {
-                trades.get(2).add(itemSell(14, ItemsRegistry.IRON_KATANA.get(), 1, 1));
-                trades.get(1).add(itemSell(6, ItemsRegistry.IRON_RAPIER.get(), 1, 1));
-                trades.get(1).add(itemSell(2, ItemsRegistry.CLUB.get(), 1, 2));
-                trades.get(2).add(itemSell(22, ItemsRegistry.IRON_SCYTHE.get(), 1, 1));
+                trades.get(2).add(itemSell(14, ItemsRegistry.ironKatana.get(), 1, 1));
+                trades.get(1).add(itemSell(6, ItemsRegistry.ironRapier.get(), 1, 1));
+                trades.get(1).add(itemSell(2, ItemsRegistry.club.get(), 1, 2));
+                trades.get(2).add(itemSell(22, ItemsRegistry.ironScythe.get(), 1, 1));
             }
 
             if (event.getType() == VillagerProfession.LIBRARIAN) {
-                trades.get(1).add(itemSell(1, ItemsRegistry.LEXICON.get(), 1, 2));
+                trades.get(1).add(itemSell(1, ItemsRegistry.lexicon.get(), 1, 2));
             }
         }
 
@@ -46,11 +44,11 @@ public class VillagerTrades {
         public static void addWanderingTrades(WandererTradesEvent event) {
             List<net.minecraft.world.entity.npc.VillagerTrades.ItemListing> trades = event.getGenericTrades();
             System.out.print(trades.get(1));
-            trades.add(itemSell(4, ItemsRegistry.IRON_RING.get(), 1, 12));
-            trades.add(itemSell(6, ItemsRegistry.KARUSAKAN_ROOT.get(), 1, 2));
-            trades.add(itemSell(6, ItemsRegistry.GAIB_ROOT.get(), 1, 2));
-            trades.add(itemSell(4, ItemsRegistry.ALOE_BANDAGE.get(), 2, 4));
-            trades.add(itemPurchase(4, ItemsRegistry.ALOE_PIECE.get(), 1, 2, 2));
+            trades.add(itemSell(4, ItemsRegistry.ironRing.get(), 1, 12));
+            trades.add(itemSell(6, ItemsRegistry.karusakanRoot.get(), 1, 2));
+            trades.add(itemSell(6, ItemsRegistry.gaibRoot.get(), 1, 2));
+            trades.add(itemSell(4, ItemsRegistry.aloeBandage.get(), 2, 4));
+            trades.add(itemPurchase(4, ItemsRegistry.aloePiece.get(), 1, 2, 2));
         }
 
         /**

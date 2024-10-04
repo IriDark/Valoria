@@ -16,10 +16,9 @@ import java.util.function.*;
 public class FireTrapParticlePacket {
 
     private final double posX, posY, posZ;
-    private final int colorR, colorG, colorB;
-    private final int colorToR, colorToG, colorToB;
-
-    public FireTrapParticlePacket(double posX, double posY, double posZ, int colorR, int colorG, int colorB, int colorToR, int colorToG, int colorToB) {
+    private final float colorR, colorG, colorB;
+    private final float colorToR, colorToG, colorToB;
+    public FireTrapParticlePacket(double posX, double posY, double posZ, float colorR, float colorG, float colorB, float colorToR, float colorToG, float colorToB) {
         this.posX = posX;
         this.posY = posY;
         this.posZ = posZ;
@@ -34,7 +33,7 @@ public class FireTrapParticlePacket {
     }
 
     public static FireTrapParticlePacket decode(FriendlyByteBuf buf) {
-        return new FireTrapParticlePacket(buf.readDouble(), buf.readDouble(), buf.readDouble(), buf.readInt(), buf.readInt(), buf.readInt(), buf.readInt(), buf.readInt(), buf.readInt());
+        return new FireTrapParticlePacket(buf.readDouble(), buf.readDouble(), buf.readDouble(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat());
     }
 
     public static void handle(FireTrapParticlePacket msg, Supplier<NetworkEvent.Context> ctx) {
@@ -60,11 +59,11 @@ public class FireTrapParticlePacket {
         buf.writeDouble(posY);
         buf.writeDouble(posZ);
 
-        buf.writeInt(colorR);
-        buf.writeInt(colorG);
-        buf.writeInt(colorB);
-        buf.writeInt(colorToR);
-        buf.writeInt(colorToG);
-        buf.writeInt(colorToB);
+        buf.writeFloat(colorR);
+        buf.writeFloat(colorG);
+        buf.writeFloat(colorB);
+        buf.writeFloat(colorToR);
+        buf.writeFloat(colorToG);
+        buf.writeFloat(colorToB);
     }
 }

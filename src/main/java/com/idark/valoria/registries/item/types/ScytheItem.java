@@ -6,6 +6,8 @@ import com.idark.valoria.core.interfaces.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.util.*;
 import mod.maxbogomol.fluffy_fur.client.animation.*;
+import mod.maxbogomol.fluffy_fur.client.screenshake.*;
+import mod.maxbogomol.fluffy_fur.common.easing.*;
 import mod.maxbogomol.fluffy_fur.common.item.*;
 import net.minecraft.*;
 import net.minecraft.core.particles.*;
@@ -27,79 +29,46 @@ import org.joml.*;
 import javax.annotation.*;
 import java.util.*;
 
-public class ScytheItem extends SwordItem implements ICustomAnimationItem, ICooldownItem, IRadiusItem, ISpinAttackItem {
-    public static SpinAttackAnimation animation = new SpinAttackAnimation();
-    public float chance = 1;
-    public final ImmutableList<MobEffectInstance> effects;
-    public final Multimap<Attribute, AttributeModifier> defaultModifiers;
-    public ArcRandom arcRandom = new ArcRandom();
-    private final AttributeModifier radiusModifier;
+import static com.idark.valoria.Valoria.BASE_ATTACK_RADIUS_UUID;
 
+public class ScytheItem extends SwordItem implements ICustomAnimationItem, ICooldownItem, IRadiusItem, ISpinAttackItem {
+    public float radius = 3;
+    protected float chance = 1;
+    public float screenShakeIntensity = 0.35f;
+    public int screenShakeDuration = 4;
+    public int minCooldown = 15;
+    public int maxCooldown = 75;
+    public Easing screenShakeEasing = Easing.CIRC_IN_OUT;
+    public ParticleOptions onAbilityParticles = ParticleTypes.POOF;
+    public SoundEvent abilitySound = SoundsRegistry.SWIFTSLICE.get();
+    public ImmutableList<MobEffectInstance> effects;
+    public SpinAttackAnimation animation = new SpinAttackAnimation();
+
+    public final Multimap<Attribute, AttributeModifier> defaultModifiers;
+    public final ArcRandom arcRandom = new ArcRandom();
     public ScytheItem(Tier tier, int attackDamageIn, float attackSpeedIn, Properties builderIn) {
         super(tier, attackDamageIn, attackSpeedIn, builderIn);
         this.effects = ImmutableList.of();
-        radiusModifier = new AttributeModifier(UUID.fromString("49438567-6ad2-41bd-8385-676ad2a1bd5e"), "Tool modifier", 3, AttributeModifier.Operation.ADDITION);
-
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
         builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", attackDamageIn, AttributeModifier.Operation.ADDITION));
         builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Tool modifier", attackSpeedIn, AttributeModifier.Operation.ADDITION));
-        builder.put(AttributeRegistry.ATTACK_RADIUS.get(), radiusModifier);
+        builder.put(AttributeRegistry.ATTACK_RADIUS.get(), new AttributeModifier(BASE_ATTACK_RADIUS_UUID, "Tool modifier", 3, AttributeModifier.Operation.ADDITION));
         this.defaultModifiers = builder.build();
     }
 
-    /**
-     * @param radius   Default value is 3, specified in blocks
-     * @param pEffects Effects applied on attack
-     *                 <p>
-     *                 <pre>{@code public static final RegistryObject<Item> SCYTHE_NAME = ITEMS.register("scythe_id", () -> new ScytheItem(TIER, ATTACK_DAMAGE, ATTACK_SPEED, RADIUS, new Item.Properties(), new MobEffectInstance(EFFECT, EFFECT DURATION, EFFECT_LEVEL)));
-     *                 }</pre>
-     */
-    public ScytheItem(Tier tier, int attackDamageIn, float attackSpeedIn, int radius, Properties builderIn, MobEffectInstance... pEffects) {
-        super(tier, attackDamageIn, attackSpeedIn, builderIn);
-        this.effects = ImmutableList.copyOf(pEffects);
-        radiusModifier = new AttributeModifier(UUID.fromString("49438567-6ad2-41bd-8385-676ad2a1bd5e"), "Tool modifier", radius, AttributeModifier.Operation.ADDITION);
-
-        ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
-        builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", attackDamageIn, AttributeModifier.Operation.ADDITION));
-        builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Tool modifier", attackSpeedIn, AttributeModifier.Operation.ADDITION));
-        builder.put(AttributeRegistry.ATTACK_RADIUS.get(), radiusModifier);
-        this.defaultModifiers = builder.build();
-    }
-
-    /**
-     * @param radius   Default value is 3, specified in blocks
-     * @param chance   Chance to apply effects
-     * @param pEffects Effects applied on attack
-     *                 <p>
-     *                 <pre>{@code public static final RegistryObject<Item> SCYTHE_NAME = ITEMS.register("scythe_id", () -> new ScytheItem(TIER, ATTACK_DAMAGE, ATTACK_SPEED, RADIUS, new Item.Properties(), CHANCE, new MobEffectInstance(EFFECT, EFFECT DURATION, EFFECT_LEVEL)));
-     *                 }</pre>
-     */
-    public ScytheItem(Tier tier, int attackDamageIn, float attackSpeedIn, int radius, Properties builderIn, float chance, MobEffectInstance... pEffects) {
-        super(tier, attackDamageIn, attackSpeedIn, builderIn);
-        this.effects = ImmutableList.copyOf(pEffects);
+    public ImmutableList<MobEffectInstance> addEffects(float chance, MobEffectInstance... pEffects) {
         this.chance = chance;
-        radiusModifier = new AttributeModifier(UUID.fromString("49438567-6ad2-41bd-8385-676ad2a1bd5e"), "Tool modifier", radius, AttributeModifier.Operation.ADDITION);
-
-        ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
-        builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", attackDamageIn, AttributeModifier.Operation.ADDITION));
-        builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Tool modifier", attackSpeedIn, AttributeModifier.Operation.ADDITION));
-        builder.put(AttributeRegistry.ATTACK_RADIUS.get(), radiusModifier);
-        this.defaultModifiers = builder.build();
+        this.effects = ImmutableList.copyOf(pEffects);
+        return effects;
     }
 
     public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot pEquipmentSlot) {
-        if (pEquipmentSlot == EquipmentSlot.OFFHAND) {
-            ImmutableMultimap.Builder<Attribute, AttributeModifier> atts = ImmutableMultimap.builder();
-            atts.put(AttributeRegistry.ATTACK_RADIUS.get(), radiusModifier);
-            return atts.build();
-        }
-
         return pEquipmentSlot == EquipmentSlot.MAINHAND ? this.defaultModifiers : super.getDefaultAttributeModifiers(pEquipmentSlot);
     }
 
     public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
         ItemStack itemstack = playerIn.getItemInHand(handIn);
-        if (!playerIn.isShiftKeyDown()) {
+        if (!playerIn.isShiftKeyDown() && handIn != InteractionHand.OFF_HAND) {
             playerIn.startUsingItem(handIn);
             return InteractionResultHolder.consume(itemstack);
         }
@@ -122,18 +91,18 @@ public class ScytheItem extends SwordItem implements ICustomAnimationItem, ICool
     }
 
     public SoundEvent getAttackSound() {
-        return SoundsRegistry.SWIFTSLICE.get();
+        return abilitySound;
     }
 
     @Nullable
     public ParticleOptions getAttackParticle() {
-        return ParticleTypes.POOF;
+        return onAbilityParticles;
     }
 
     public void applyCooldown(List<LivingEntity> hitEntities, Player playerIn) {
         for (Item item : ForgeRegistries.ITEMS) {
             if (item instanceof ScytheItem) {
-                playerIn.getCooldowns().addCooldown(item, hitEntities.isEmpty() ? 15 : 75);
+                playerIn.getCooldowns().addCooldown(item, hitEntities.isEmpty() ? minCooldown : maxCooldown);
             }
         }
     }
@@ -162,6 +131,8 @@ public class ScytheItem extends SwordItem implements ICustomAnimationItem, ICool
                 stack.hurtAndBreak(hitEntities.size(), player, (p_220045_0_) -> p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
             }
         }
+
+        ScreenshakeHandler.addScreenshake(new ScreenshakeInstance(screenShakeDuration).setIntensity(screenShakeIntensity).setEasing(screenShakeEasing));
     }
 
     /**

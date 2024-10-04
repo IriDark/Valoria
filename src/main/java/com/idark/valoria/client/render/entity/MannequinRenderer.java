@@ -1,23 +1,22 @@
 package com.idark.valoria.client.render.entity;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.client.model.entity.MannequinModel;
-import com.idark.valoria.registries.entity.decoration.MannequinEntity;
-import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.Minecraft;
+import com.idark.valoria.*;
+import com.idark.valoria.client.model.entity.*;
+import com.idark.valoria.registries.entity.living.decoration.*;
+import com.mojang.blaze3d.vertex.*;
+import net.minecraft.client.*;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.entity.*;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Mth;
-import org.joml.Matrix4f;
+import net.minecraft.resources.*;
+import net.minecraft.util.*;
+import org.joml.*;
 
 import java.awt.*;
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
-import java.util.Locale;
+import java.lang.Math;
+import java.text.*;
+import java.util.*;
 
 public class MannequinRenderer extends MobRenderer<MannequinEntity, MannequinModel<MannequinEntity>> {
 

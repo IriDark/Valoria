@@ -1,0 +1,17 @@
+{
+  "parent": "valoria:item/handheld_large",
+  "textures": {
+    "layer0": "valoria:item/reaper_scythe_in_hand",
+    "layer1": "valoria:item/reaper_scythe_glow"
+  },
+  "forge_data": {
+    "layers": {
+      "1": {
+        "block_light": 15,
+        "sky_light": 15
+      }
+    }
+  },
+  "loader": "forge:item_layers",
+  "render_types": {}
+}

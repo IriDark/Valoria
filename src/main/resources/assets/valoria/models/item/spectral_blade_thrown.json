@@ -1,6 +1,17 @@
 {
   "parent": "item/handheld",
   "textures": {
-    "layer0": "valoria:item/spectral_blade_thrown_alpha"
-  }
+    "layer0": "valoria:item/spectral_blade_thrown_alpha",
+    "layer1": "valoria:item/spectral_blade_thrown_alpha_glow"
+  },
+  "forge_data": {
+    "layers": {
+      "1": {
+        "block_light": 15,
+        "sky_light": 15
+      }
+    }
+  },
+  "loader": "forge:item_layers",
+  "render_types": {}
 }

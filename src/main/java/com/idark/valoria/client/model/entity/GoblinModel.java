@@ -1,23 +1,15 @@
 package com.idark.valoria.client.model.entity;
 
-import com.idark.valoria.client.model.animations.GoblinAnimations;
-import com.idark.valoria.registries.entity.living.Goblin;
-import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.model.AnimationUtils;
-import net.minecraft.client.model.ArmedModel;
-import net.minecraft.client.model.HeadedModel;
-import net.minecraft.client.model.HierarchicalModel;
-import net.minecraft.client.model.geom.ModelLayerLocation;
-import net.minecraft.client.model.geom.ModelPart;
-import net.minecraft.client.model.geom.PartPose;
+import com.idark.valoria.client.model.animations.*;
+import com.idark.valoria.registries.entity.living.*;
+import com.mojang.blaze3d.vertex.*;
+import net.minecraft.client.model.*;
+import net.minecraft.client.model.geom.*;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Mth;
-import net.minecraft.world.entity.HumanoidArm;
+import net.minecraft.util.*;
+import net.minecraft.world.entity.*;
 
 public class GoblinModel<T extends Goblin> extends HierarchicalModel<T> implements ArmedModel, HeadedModel {
-    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation("modid", "goblin"), "main");
-
     private final ModelPart root;
     private final ModelPart head;
     private final ModelPart body;

@@ -1,25 +1,20 @@
 package com.idark.valoria.core.network.packets;
 
-import com.idark.valoria.registries.ItemsRegistry;
-import net.minecraft.core.NonNullList;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.network.NetworkEvent.Context;
-import top.theillusivec4.curios.api.CuriosApi;
-import top.theillusivec4.curios.api.SlotContext;
-import top.theillusivec4.curios.api.type.capability.ICurioItem;
-import top.theillusivec4.curios.api.type.inventory.ICurioStacksHandler;
-import top.theillusivec4.curios.api.type.inventory.IDynamicStackHandler;
+import com.idark.valoria.registries.*;
+import net.minecraft.core.*;
+import net.minecraft.network.*;
+import net.minecraft.server.level.*;
+import net.minecraft.world.item.*;
+import net.minecraftforge.network.NetworkEvent.*;
+import top.theillusivec4.curios.api.*;
+import top.theillusivec4.curios.api.type.capability.*;
+import top.theillusivec4.curios.api.type.inventory.*;
 
-import java.util.List;
-import java.util.Map;
-import java.util.function.Supplier;
+import java.util.*;
+import java.util.function.*;
 
 public class CuriosSetStackPacket {
-
     private final ItemStack stack;
-
     public CuriosSetStackPacket(ItemStack stack) {
         this.stack = stack.copy();
     }
@@ -44,7 +39,7 @@ public class CuriosSetStackPacket {
 
                                         if (stackHandler.isItemValid(i, msg.stack) && curio.canEquipFromUse(slotContext)) {
                                             ItemStack previous = stackHandler.getStackInSlot(i);
-                                            if (previous.getItem() != ItemsRegistry.JEWELRY_BAG.get()) {
+                                            if (previous.getItem() != ItemsRegistry.jewelryBag.get()) {
                                                 List<ItemStack> items = player.getInventory().items;
                                                 for (ItemStack item : items) {
                                                     if (item.equals(msg.stack, false)) {

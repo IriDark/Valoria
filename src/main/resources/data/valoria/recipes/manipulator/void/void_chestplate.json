@@ -1,18 +1,19 @@
 {
   "type": "valoria:manipulator",
+  "category": "equipment",
   "output": {
     "count": 1,
     "item": "valoria:awakened_void_chestplate"
   },
   "core": "void_core",
   "cores": 1,
-  "time": 1560,
+  "time": 3500,
   "ingredients": [
     {
-      "item": "valoria:infernal_chestplate"
+      "item": "minecraft:diamond_chestplate"
     },
     {
-      "item": "valoria:void_ingot"
+      "item": "valoria:void_upgrade_smithing_template"
     }
   ]
 }

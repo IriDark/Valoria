@@ -232,7 +232,7 @@ public class NecromancerEntity extends AbstractNecromancer {
                 blockpos = blockpos.below();
             } while (blockpos.getY() >= Mth.floor(pMinY) - 1);
             if (flag) {
-                NecromancerEntity.this.level().addFreshEntity(new NecromancerFangs(NecromancerEntity.this.level(), pX, (double) blockpos.getY() + d0, pZ, pYRot, pWarmupDelay, NecromancerEntity.this));
+                NecromancerEntity.this.level().addFreshEntity(new Devourer(NecromancerEntity.this.level(), pX, (double) blockpos.getY() + d0, pZ, pYRot, pWarmupDelay, NecromancerEntity.this));
             }
         }
 
@@ -262,6 +262,13 @@ public class NecromancerEntity extends AbstractNecromancer {
     class SummonMobsSpellGoal extends AbstractNecromancer.SpellcasterUseSpellGoal {
         private final TargetingConditions vexCountTargeting = TargetingConditions.forNonCombat().range(16.0D).ignoreLineOfSight().ignoreInvisibilityTesting();
 
+        public void start() {
+            NecromancerEntity.this.setIsCastingSpell(this.getSpell());
+            this.attackWarmupDelay = this.adjustedTickDelay(this.getCastingTime());
+            NecromancerEntity.this.spellCastingTickCount = this.getCastingTime();
+            this.nextAttackTickCount = NecromancerEntity.this.tickCount + this.getCastingInterval();
+        }
+
         /**
          * Returns whether execution should begin. You can also read and cache any state necessary for execution in this
          * method as well.
@@ -272,11 +279,16 @@ public class NecromancerEntity extends AbstractNecromancer {
         }
 
         public int getCastingTime() {
-            return 47;
+            return 50;
         }
 
         public int getCastingInterval() {
-            return 75;
+            return 125;
+        }
+
+        @Override
+        public @Nullable SoundEvent getSpellPrepareSound(){
+            return null;
         }
 
         private void spawnZombie(ServerLevel serverLevel, BlockPos blockpos) {
@@ -328,6 +340,7 @@ public class NecromancerEntity extends AbstractNecromancer {
             boolean flag = serv.isDay() && !serv.isRaining(); // Prevents sun avoiding mobs from spawning
             if (flag) {
                 spawnUndead(serv);
+                serv.playSound(null, NecromancerEntity.this.blockPosition(), getSpellPrepareSound(true), SoundSource.HOSTILE);
                 return;
             }
 
@@ -343,6 +356,8 @@ public class NecromancerEntity extends AbstractNecromancer {
             if (arcRandom.chance(5)) {
                 spawnUndead(serv);
             }
+
+            serv.playSound(null, NecromancerEntity.this.blockPosition(), getSpellPrepareSound(false), SoundSource.HOSTILE);
         }
 
         protected void performSpellCasting() {
@@ -362,8 +377,8 @@ public class NecromancerEntity extends AbstractNecromancer {
             }
         }
 
-        public SoundEvent getSpellPrepareSound() {
-            return SoundEvents.EVOKER_PREPARE_SUMMON;
+        public SoundEvent getSpellPrepareSound(boolean isAir) {
+            return isAir ? SoundsRegistry.NECROMANCER_SUMMON_AIR.get() : SoundsRegistry.NECROMANCER_SUMMON_GROUND.get();
         }
 
         public NecromancerSpells getSpell() {

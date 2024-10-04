@@ -1,20 +1,18 @@
 package com.idark.valoria.client.render.entity;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.client.event.ClientTickHandler;
-import com.idark.valoria.client.model.entity.NecromancerModel;
-import com.idark.valoria.registries.entity.living.AbstractNecromancer.NecromancerSpells;
-import com.idark.valoria.registries.entity.living.NecromancerEntity;
-import com.idark.valoria.util.RenderUtils;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Axis;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.HumanoidMobRenderer;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import com.idark.valoria.*;
+import com.idark.valoria.client.event.*;
+import com.idark.valoria.client.model.entity.*;
+import com.idark.valoria.registries.entity.living.AbstractNecromancer.*;
+import com.idark.valoria.registries.entity.living.*;
+import com.idark.valoria.util.*;
+import com.mojang.blaze3d.vertex.*;
+import com.mojang.math.*;
+import mod.maxbogomol.fluffy_fur.registry.client.*;
+import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.entity.*;
+import net.minecraft.resources.*;
+import net.minecraftforge.api.distmarker.*;
 
 import java.awt.*;
 
@@ -42,8 +40,8 @@ public class NecromancerRenderer extends HumanoidMobRenderer<NecromancerEntity, 
 
             if (alpha > 1f) alpha = 1f;
             if (alpha < 0f) alpha = 0f;
-            MultiBufferSource bufferDelayed = RenderUtils.getDelayedRender();
-            VertexConsumer builder = bufferDelayed.getBuffer(RenderUtils.GLOWING);
+            MultiBufferSource bufferDelayed = FluffyFurRenderTypes.getDelayedRender();
+            VertexConsumer builder = bufferDelayed.getBuffer(FluffyFurRenderTypes.ADDITIVE_TEXTURE);
             ms.pushPose();
 
             ms.translate(0, 0.01f, 0);

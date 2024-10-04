@@ -1,18 +1,19 @@
 {
   "type": "valoria:manipulator",
+  "category": "equipment",
   "output": {
     "count": 1,
     "item": "valoria:nature_leggings"
   },
   "core": "nature_core",
   "cores": 1,
-  "time": 1500,
+  "time": 1400,
   "ingredients": [
     {
-      "item": "minecraft:netherite_leggings"
+      "item": "minecraft:diamond_leggings"
     },
     {
-      "item": "valoria:nature_ingot"
+      "item": "valoria:nature_upgrade_smithing_template"
     }
   ]
 }

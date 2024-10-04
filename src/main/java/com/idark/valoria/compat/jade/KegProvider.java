@@ -37,14 +37,14 @@ public enum KegProvider implements IBlockComponentProvider, IServerDataProvider<
         tooltip.append(Component.literal(" " + progress + "/" + total));
         if (!itemStack.isEmpty()) {
             if (itemStack.is(TagsRegistry.CUP_DRINKS)) {
-                IElement cup = elements.item(new ItemStack(ItemsRegistry.WOODEN_CUP.get()), 0.75f).size(new Vec2(11, 0)).translate(new Vec2(0, -26));
+                IElement cup = elements.item(new ItemStack(ItemsRegistry.woodenCup.get()), 0.75f).size(new Vec2(11, 0)).translate(new Vec2(0, -26));
                 cup.message(null);
                 cup.align(IElement.Align.RIGHT);
                 tooltip.add(cup);
             }
 
             if (itemStack.is(TagsRegistry.BOTTLE_DRINKS)) {
-                IElement bottle = elements.item(new ItemStack(ItemsRegistry.BOTTLE.get()), 0.75f).size(new Vec2(11, 0)).translate(new Vec2(0, -26));
+                IElement bottle = elements.item(new ItemStack(ItemsRegistry.bottle.get()), 0.75f).size(new Vec2(11, 0)).translate(new Vec2(0, -26));
                 bottle.message(null);
                 bottle.align(IElement.Align.RIGHT);
                 tooltip.add(bottle);

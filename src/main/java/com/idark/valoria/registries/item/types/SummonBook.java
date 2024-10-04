@@ -9,6 +9,7 @@ import net.minecraft.*;
 import net.minecraft.core.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.server.level.*;
+import net.minecraft.sounds.*;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
@@ -21,6 +22,8 @@ import org.jetbrains.annotations.*;
 
 import java.util.*;
 import java.util.function.*;
+
+import static com.idark.valoria.Valoria.*;
 
 public class SummonBook extends Item {
     private final Supplier<? extends EntityType<? extends AbstractMinionEntity>> summonedEntity;
@@ -36,8 +39,8 @@ public class SummonBook extends Item {
         this.summonedEntity = summoned;
         this.hasLimitedLife = true;
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
-        builder.put(AttributeRegistry.NECROMANCY_LIFETIME.get(), new AttributeModifier(UUID.fromString("09a12525-61a5-4d57-a125-2561a56d578e"), "Tool modifier", lifetime, AttributeModifier.Operation.ADDITION));
-        builder.put(AttributeRegistry.NECROMANCY_COUNT.get(), new AttributeModifier(UUID.fromString("ed80691e-f153-4b5e-8069-1ef153bb5eed"), "Tool modifier", count, AttributeModifier.Operation.ADDITION));
+        builder.put(AttributeRegistry.NECROMANCY_LIFETIME.get(), new AttributeModifier(BASE_NECROMANCY_LIFETIME_UUID, "Tool modifier", lifetime, AttributeModifier.Operation.ADDITION));
+        builder.put(AttributeRegistry.NECROMANCY_COUNT.get(), new AttributeModifier(BASE_NECROMANCY_COUNT_UUID, "Tool modifier", count, AttributeModifier.Operation.ADDITION));
         this.defaultModifiers = builder.build();
     }
 
@@ -51,7 +54,7 @@ public class SummonBook extends Item {
         this.summonedEntity = summoned;
         this.hasLimitedLife = false;
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
-        builder.put(AttributeRegistry.NECROMANCY_COUNT.get(), new AttributeModifier(UUID.fromString("ed80691e-f153-4b5e-8069-1ef153bb5eed"), "Tool modifier", count, AttributeModifier.Operation.ADDITION));
+        builder.put(AttributeRegistry.NECROMANCY_COUNT.get(), new AttributeModifier(BASE_NECROMANCY_COUNT_UUID, "Tool modifier", count, AttributeModifier.Operation.ADDITION));
         this.defaultModifiers = builder.build();
     }
 
@@ -108,6 +111,10 @@ public class SummonBook extends Item {
         return 7;
     }
 
+    public SoundEvent getUseSound() {
+        return SoundsRegistry.NECROMANCER_SUMMON_AIR.get();
+    }
+
     public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entityLiving) {
         Player player = (Player) entityLiving;
         if (level instanceof ServerLevel server) {
@@ -119,6 +126,7 @@ public class SummonBook extends Item {
                 stack.hurtAndBreak(1, player, (plr) -> plr.broadcastBreakEvent(EquipmentSlot.MAINHAND));
             }
 
+            level.playSound(null, player.blockPosition(), getUseSound(), SoundSource.PLAYERS);
             applyCooldown(player);
         }
 

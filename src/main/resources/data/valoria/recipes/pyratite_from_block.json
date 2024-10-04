@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "pyratite",
+  "ingredients": [
+    {
+      "item": "valoria:pyratite_block"
+    }
+  ],
+  "result": {
+    "item": "valoria:pyratite",
+    "count": 9
+  }
+}

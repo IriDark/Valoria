@@ -46,7 +46,7 @@ public class MagmaSwordItem extends SwordItem implements IRadiusItem, IOverlayIt
     }
 
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchant) {
-        return enchant != Enchantments.FIRE_ASPECT;
+        return super.canApplyAtEnchantingTable(stack, enchant) && enchant != Enchantments.FIRE_ASPECT;
     }
 
     public boolean hurtEnemy(ItemStack pStack, LivingEntity pTarget, LivingEntity pAttacker) {

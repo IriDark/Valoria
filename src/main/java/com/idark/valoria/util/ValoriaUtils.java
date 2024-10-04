@@ -1,69 +1,43 @@
 package com.idark.valoria.util;
 
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
-import com.idark.valoria.registries.EnchantmentsRegistry;
-import com.idark.valoria.registries.entity.living.NecromancerEntity;
-import com.idark.valoria.registries.item.types.BeastScytheItem;
-import com.idark.valoria.registries.item.types.CoralReefItem;
-import com.idark.valoria.registries.item.types.curio.charm.BloodSight;
-import com.idark.valoria.registries.item.types.ranged.GunpowderCharge;
-import com.mojang.datafixers.util.Pair;
-import net.minecraft.ChatFormatting;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.chat.CommonComponents;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.server.level.ServerChunkCache;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.tags.TagKey;
-import net.minecraft.util.Mth;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.effect.MobEffect;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffectUtil;
-import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobCategory;
-import net.minecraft.world.entity.ai.attributes.Attribute;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.ProjectileUtil;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraft.world.level.ChunkPos;
-import net.minecraft.world.level.ClipContext;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.HitResult;
-import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.fml.loading.FMLLoader;
-import org.joml.Vector3d;
-import top.theillusivec4.curios.api.CuriosApi;
-import top.theillusivec4.curios.api.SlotContext;
-import top.theillusivec4.curios.api.SlotResult;
+import com.google.common.collect.*;
+import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.entity.living.*;
+import com.idark.valoria.registries.item.types.*;
+import com.idark.valoria.registries.item.types.curio.charm.*;
+import com.idark.valoria.registries.item.types.ranged.*;
+import com.mojang.datafixers.util.*;
+import net.minecraft.*;
+import net.minecraft.core.*;
+import net.minecraft.core.particles.*;
+import net.minecraft.network.chat.*;
+import net.minecraft.network.protocol.*;
+import net.minecraft.server.level.*;
+import net.minecraft.sounds.*;
+import net.minecraft.tags.*;
+import net.minecraft.util.*;
+import net.minecraft.world.effect.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.entity.projectile.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.item.enchantment.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.entity.*;
+import net.minecraft.world.level.block.state.*;
+import net.minecraft.world.level.block.state.properties.*;
+import net.minecraft.world.phys.*;
+import net.minecraftforge.fml.loading.*;
+import org.joml.*;
+import top.theillusivec4.curios.api.*;
 
-import javax.annotation.Nullable;
+import javax.annotation.*;
+import java.lang.Math;
+import java.util.Random;
 import java.util.*;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
-import java.util.function.Predicate;
-import java.util.function.ToIntFunction;
+import java.util.concurrent.*;
+import java.util.function.*;
 
 public class ValoriaUtils {
 
@@ -775,7 +749,6 @@ public class ValoriaUtils {
     }
 
     public static class tileEntity {
-
         public static void SUpdateTileEntityPacket(BlockEntity tile) {
             if (tile.getLevel() instanceof ServerLevel) {
                 Packet<?> packet = tile.getUpdatePacket();

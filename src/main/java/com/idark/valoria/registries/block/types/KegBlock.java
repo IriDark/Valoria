@@ -4,12 +4,15 @@ import com.idark.valoria.client.render.tile.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.block.entity.*;
 import com.idark.valoria.registries.menus.*;
+import com.idark.valoria.util.*;
 import net.minecraft.core.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.server.level.*;
 import net.minecraft.world.*;
+import net.minecraft.world.entity.item.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.inventory.*;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.context.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
@@ -62,15 +65,34 @@ public class KegBlock extends HorizontalDirectionalBlock implements EntityBlock,
 
     @Override
     public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        if (world.isClientSide) {
-            return InteractionResult.SUCCESS;
-        } else {
-            BlockEntity tileEntity = world.getBlockEntity(pos);
+        KegBlockEntity tile = (KegBlockEntity) world.getBlockEntity(pos);
+        ItemStack stack = player.getItemInHand(hand).copy();
+        ItemStack playerHeldItem = player.getItemInHand(hand).copy();
+        boolean isHoldingCup = playerHeldItem.getItem() == ItemsRegistry.woodenCup.get();
+        boolean isHoldingBottle = playerHeldItem.getItem() == ItemsRegistry.bottle.get();
+        if(isHoldingCup || isHoldingBottle){
+            if(!tile.itemOutputHandler.getStackInSlot(0).isEmpty() && isCupOrBottle(tile, player, hand)){
+                if (!player.isCreative() && !tile.itemOutputHandler.getStackInSlot(0).is(Items.HONEY_BOTTLE)) {
+                    world.addFreshEntity(new ItemEntity(world, player.getX() + 0.5F, player.getY() + 0.5F, player.getZ() + 0.5F, tile.itemOutputHandler.getStackInSlot(0).copy()));
+                } else if (!player.isCreative() && tile.itemOutputHandler.getStackInSlot(0).is(Items.HONEY_BOTTLE) && stack.is(Items.GLASS_BOTTLE)) {
+                    player.getItemInHand(hand).setCount(stack.getCount() - 1);
+                    world.addFreshEntity(new ItemEntity(world, player.getX() + 0.5F, player.getY() + 0.5F, player.getZ() + 0.5F, tile.itemOutputHandler.getStackInSlot(0).copy()));
+                }
 
+                tile.itemOutputHandler.extractItem(0, 1, false);
+                ValoriaUtils.tileEntity.SUpdateTileEntityPacket(tile);
+                return InteractionResult.SUCCESS;
+            }
+
+            return InteractionResult.FAIL;
+        } else {
             MenuProvider containerProvider = createContainerProvider(world, pos);
-            NetworkHooks.openScreen(((ServerPlayer) player), containerProvider, tileEntity.getBlockPos());
-            return InteractionResult.CONSUME;
+            if(player instanceof ServerPlayer serverPlayer){
+                NetworkHooks.openScreen(serverPlayer, containerProvider, tile.getBlockPos());
+            }
         }
+
+        return InteractionResult.PASS;
     }
 
     private MenuProvider createContainerProvider(Level worldIn, BlockPos pos) {
@@ -86,6 +108,20 @@ public class KegBlock extends HorizontalDirectionalBlock implements EntityBlock,
                 return new KegMenu(i, worldIn, pos, playerEntity, playerInventory);
             }
         };
+    }
+
+    public boolean isCupOrBottle(KegBlockEntity tile, Player player, InteractionHand hand) {
+        ItemStack itemStack = tile.itemOutputHandler.getStackInSlot(0);
+        ItemStack playerHeldItem = player.getItemInHand(hand).copy();
+        boolean isHoldingCup = playerHeldItem.getItem() == ItemsRegistry.woodenCup.get();
+        boolean isHoldingBottle = playerHeldItem.getItem() == ItemsRegistry.bottle.get();
+        if (!player.isCreative()) {
+            if (isHoldingCup && itemStack.is(TagsRegistry.CUP_DRINKS) || isHoldingBottle && itemStack.is(TagsRegistry.BOTTLE_DRINKS)) {
+                player.getItemInHand(hand).shrink(1);
+            }
+        }
+
+        return (isHoldingCup && itemStack.is(TagsRegistry.CUP_DRINKS)) || (isHoldingBottle && itemStack.is(TagsRegistry.BOTTLE_DRINKS));
     }
 
     @Override

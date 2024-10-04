@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "ruby_gem",
+  "ingredients": [
+    {
+      "item": "valoria:ruby_block"
+    }
+  ],
+  "result": {
+    "item": "valoria:ruby_gem",
+    "count": 9
+  }
+}

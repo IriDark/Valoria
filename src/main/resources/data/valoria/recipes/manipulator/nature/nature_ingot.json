@@ -6,7 +6,7 @@
   },
   "core": "nature_core",
   "cores": 1,
-  "time": 275,
+  "time": 325,
   "ingredients": [
     {
       "item": "valoria:nature_gift"

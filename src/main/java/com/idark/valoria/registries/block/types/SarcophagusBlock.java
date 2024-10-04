@@ -12,6 +12,7 @@ import net.minecraft.core.particles.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.resources.*;
 import net.minecraft.server.level.*;
+import net.minecraft.sounds.*;
 import net.minecraft.util.*;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.*;
@@ -162,6 +163,8 @@ public class SarcophagusBlock extends HorizontalDirectionalBlock {
                 } else {
                     spawnDraugr(pLevel, pPos, hand);
                 }
+
+                pLevel.playSound(null, pPos, SoundsRegistry.SARCOPHAGUS_OPEN.get(), SoundSource.BLOCKS, 0.3f, 1);
             }
         }
 
