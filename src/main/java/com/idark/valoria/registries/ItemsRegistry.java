@@ -53,6 +53,7 @@ public class ItemsRegistry {
     // Block items
     shadewoodBoat, shadewoodChestBoat, shadewoodSign, shadewoodHangingSign,
     eldritchBoat, eldritchChestBoat, eldritchSign, eldritchHangingSign,
+
     // armor
     cobaltHelmet, cobaltChestplate, cobaltLeggings, cobaltBoots,
     samuraiKabuto, samuraiChestplate, samuraiLeggings, samuraiBoots,
@@ -61,6 +62,7 @@ public class ItemsRegistry {
     infernalHelmet, infernalChestplate, infernalLeggings, infernalBoots,
     awakenedVoidHelmet, awakenedVoidChestplate, awakenedVoidLeggings, awakenedVoidBoots,
     phantasmHelmet, phantasmChestplate, phantasmLeggings, phantasmBoots,
+
     // materials
     rawCobalt, amberGem, amethystGem, rubyGem, sapphireGem,
     wickedAmethyst, soulShard, unchargedShard,
@@ -70,15 +72,18 @@ public class ItemsRegistry {
     natureUpgrade, aquariusUpgrade, infernalUpgrade, voidUpgrade,
     gaibRoot, karusakanRoot, shadeBlossomLeaf, aloePiece,
     dunestoneBrick, tombstoneBrick, ambaneStoneBrick, limestoneBrick, crystalStoneBrick, voidStoneBrick,
-    bronzeIngot, pearliumIngot, cobaltIngot, ancientIngot,
+    bronzeIngot, pearliumIngot, cobaltIngot, blackGold, ancientIngot,
     natureIngot, aquariusIngot, infernalIngot, voidIngot,
     pyratite,
+
     // loot bags
     minersBag, gemBag, dirtGeode, stoneGeode,
+
     // misc
     debugItem, summonBook, soulCollectorEmpty, soulCollector,
     lexicon, cryptPage, voidKey, spectralBladeThrown,
     pick,
+
     // weapons
     club, bronzeSword, spectralBlade, corpseCleaver,
     samuraiKunai, samuraiPoisonedKunai, samuraiKatana, samuraiLongBow,
@@ -90,6 +95,7 @@ public class ItemsRegistry {
     woodenSpear, stoneSpear, ironSpear, goldenSpear, diamondSpear, netheriteSpear, pyratiteSpear, glaive,
     woodenRapier, stoneRapier, ironRapier, goldenRapier, diamondRapier, netheriteRapier,
     throwableBomb, dynamite,
+
     // tools
     pearliumSword, pearliumPickaxe, pearliumAxe,
     cobaltSword, cobaltPickaxe, cobaltAxe, cobaltShovel, cobaltHoe,
@@ -99,9 +105,11 @@ public class ItemsRegistry {
     voidEdge, voidScythe, voidPickaxe, voidAxe, voidShovel, voidHoe, voidBow,
     phantom, phantasmBow, eternity,
     wickedArrow, soulArrow,
+
     // event
     holidayCandy, holidayKatana, holidayPickaxe, holidayAxe,
     candyCorn, pumpkinBomb, wraithKatana, reaperScythe, dreadAxe, soulReaver,
+
     // accessories
     ironChain, ironNecklaceAmber, ironNecklaceDiamond, ironNecklaceEmerald, ironNecklaceRuby, ironNecklaceSapphire, ironNecklaceHealth, ironNecklaceArmor, ironNecklaceWealth,
     goldenChain, goldenNecklaceAmber, goldenNecklaceDiamond, goldenNecklaceEmerald, goldenNecklaceRuby, goldenNecklaceSapphire, goldenNecklaceHealth, goldenNecklaceArmor, goldenNecklaceWealth,
@@ -199,6 +207,7 @@ public class ItemsRegistry {
         bronzeIngot = registerItem("bronze_ingot");
         pearliumIngot = registerItem("pearlium_ingot");
         cobaltIngot = registerItem("cobalt_ingot");
+        blackGold = registerItem("black_gold_ingot");
         ancientIngot = registerItem("ancient_ingot");
         natureIngot = registerItem("nature_ingot", () -> new Item(new Item.Properties().rarity(RarityRegistry.NATURE)));
         aquariusIngot = registerItem("aquarius_ingot", () -> new Item(new Item.Properties().rarity(RarityRegistry.AQUARIUS)));

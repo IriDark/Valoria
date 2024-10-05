@@ -1,7 +1,7 @@
 {
   "parent": "item/handheld",
   "textures": {
-    "layer0": "valoria:item/blaze_reap"
+    "layer0": "valoria:item/arcane_gold_blaze_reap"
   },
   "display": {
     "firstperson_righthand": {

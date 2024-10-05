@@ -23,6 +23,7 @@ import com.idark.valoria.registries.entity.ai.sensing.*;
 import com.idark.valoria.registries.entity.living.*;
 import com.idark.valoria.registries.entity.living.decoration.*;
 import com.idark.valoria.registries.item.recipe.*;
+import com.idark.valoria.registries.item.skins.*;
 import com.idark.valoria.registries.item.types.curio.charm.*;
 import com.idark.valoria.registries.levelgen.*;
 import com.idark.valoria.util.*;
@@ -86,6 +87,7 @@ public class Valoria {
         ParticleRegistry.register(eventBus);
         LootUtil.register(eventBus);
         ModArgumentTypes.register(eventBus);
+        SkinsRegistry.register();
 
         IEventBus forgeBus = MinecraftForge.EVENT_BUS;
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ClientConfig.SPEC);

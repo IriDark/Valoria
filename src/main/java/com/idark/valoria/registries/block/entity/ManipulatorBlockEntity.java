@@ -138,7 +138,7 @@ public class ManipulatorBlockEntity extends BlockEntity implements MenuProvider,
         }
     }
 
-    private Optional<ManipulatorRecipe> getCurrentRecipe() {
+    public Optional<ManipulatorRecipe> getCurrentRecipe() {
         SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
         for (int i = 0; i < itemHandler.getSlots(); i++) {
             inventory.setItem(i, itemHandler.getStackInSlot(i));

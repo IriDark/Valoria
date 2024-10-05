@@ -1,9 +1,9 @@
 package com.idark.valoria.util;
 
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.nbt.*;
+import net.minecraft.world.item.*;
 
-
+//todo remove
 public class NbtUtils {
     public static int readNbt(ItemStack stack, String name) {
         CompoundTag nbt = stack.getOrCreateTag();
