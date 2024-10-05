@@ -60,6 +60,7 @@
 - Added way to obtain Pearlium
 - Added own LootTable to Crystallized Deep Ruins
 - Added Elemental Smithing Templates
+- Added Shader Rendering to Valoria Portal (Thanks to MaxBogomol for helping)
 
 - Deleted Geodites (Drops moved to ephemarite)
 - Deleted Void Crystal

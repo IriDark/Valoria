@@ -1,41 +1,5 @@
 {
-  "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "valoria:block/valoria_portal"
-  },
-  "elements": [
-    {
-      "from": [
-        0,
-        7,
-        0
-      ],
-      "to": [
-        16,
-        9,
-        16
-      ],
-      "faces": {
-        "up": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "rotation": 180,
-          "texture": "#all"
-        },
-        "down": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#all"
-        }
-      }
-    }
-  ]
+    "particle": "minecraft:block/obsidian"
+  }
 }

@@ -39,7 +39,7 @@ import org.lwjgl.glfw.*;
 import java.io.*;
 
 import static com.idark.valoria.Valoria.*;
-import static mod.maxbogomol.fluffy_fur.registry.client.FluffyFurRenderTypes.addAdditiveRenderType;
+import static mod.maxbogomol.fluffy_fur.registry.client.FluffyFurRenderTypes.*;
 
 public class ValoriaClient {
     private static final String CATEGORY_KEY = "key.category.valoria.general";
@@ -58,7 +58,7 @@ public class ValoriaClient {
         return VALORIA_PORTAL;
     }
     public static final RenderStateShard.ShaderStateShard VALORIA_PORTAL_SHADER = new RenderStateShard.ShaderStateShard(ValoriaClient::getValoriaPortal);
-    public static final RenderType VALORIA_PORTAL_RENDER_TYPE = RenderType.create(Valoria.ID + ":valoria_portal", DefaultVertexFormat.POSITION, VertexFormat.Mode.QUADS, 256, false, false, RenderType.CompositeState.builder().setShaderState(VALORIA_PORTAL_SHADER).setTextureState(RenderStateShard.MultiTextureStateShard.builder().add(ValoriaPortalRenderer.END_SKY_LOCATION, false, false).add(ValoriaPortalRenderer.END_PORTAL_LOCATION, false, false).build()).createCompositeState(false));
+    public static final RenderType VALORIA_PORTAL_RENDER_TYPE = RenderType.create(Valoria.ID + ":valoria_portal", DefaultVertexFormat.POSITION, VertexFormat.Mode.QUADS, 256, false, false, RenderType.CompositeState.builder().setShaderState(VALORIA_PORTAL_SHADER).setWriteMaskState(COLOR_WRITE).setTransparencyState(NORMAL_TRANSPARENCY).setTextureState(RenderStateShard.MultiTextureStateShard.builder().add(ValoriaPortalRenderer.BACKGROUND_LOC, false, false).add(ValoriaPortalRenderer.LAYER_LOC, false, false).build()).createCompositeState(false));
     public static RenderType valoriaPortal() {
         return VALORIA_PORTAL_RENDER_TYPE;
     }
@@ -224,7 +224,7 @@ public class ValoriaClient {
 
         @SubscribeEvent
         public static void registerRenderTypes(FMLClientSetupEvent event) {
-            addAdditiveRenderType(VALORIA_PORTAL_RENDER_TYPE);
+            addTranslucentRenderType(VALORIA_PORTAL_RENDER_TYPE);
         }
 
         @OnlyIn(Dist.CLIENT)

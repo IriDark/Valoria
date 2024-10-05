@@ -75,7 +75,7 @@ public class ValoriaTeleporter extends BaseTeleporter implements ITeleporter {
             tries++;
         }
 
-        entity.setPos(destinationPos.getX(), destinationPos.getY(), destinationPos.getZ());
+        entity.setPos(destinationPos.getX() - 2, destinationPos.getY(), destinationPos.getZ());
         return entity;
     }
 
