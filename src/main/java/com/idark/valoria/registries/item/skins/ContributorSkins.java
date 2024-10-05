@@ -13,6 +13,6 @@ public class ContributorSkins extends ItemSkin{
     @Override
     public void setupSkinEntries() {
         addSkinEntry(new ItemClassSkinEntry(ConfigurableBowItem.class, Valoria.ID+":arcane_gold_bow"));
-        addSkinEntry(new ItemClassSkinEntry(BlazeReapItem.class, Valoria.ID+":arcane_gold_blazereap"));
+        addSkinEntry(new ItemClassSkinEntry(BlazeReapItem.class, Valoria.ID+":arcane_gold_blaze_reap"));
     }
 }

@@ -1,6 +1,7 @@
 package com.idark.valoria.registries.item.skins;
 
 import com.idark.valoria.*;
+import com.idark.valoria.registries.ItemsRegistry;
 import mod.maxbogomol.fluffy_fur.client.model.item.*;
 import mod.maxbogomol.fluffy_fur.client.render.item.*;
 import mod.maxbogomol.fluffy_fur.common.itemskin.*;
@@ -35,18 +36,15 @@ public class SkinsRegistry{
     @Mod.EventBusSubscriber(modid = Valoria.ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     public static class ClientRegistryEvents{
         @SubscribeEvent
-        public static void modelRegistryItems(ModelEvent.RegisterAdditional event) {
+        public static void modelRegistrySkins(ModelEvent.RegisterAdditional event) {
             event.register(LargeItemRenderer.getModelResourceLocation(Valoria.ID, "blaze_reap"));
-        }
-
-        @SubscribeEvent
-        public static void modelRegistrySkins(ModelEvent.RegisterAdditional event){
             event.register(LargeItemRenderer.getModelResourceLocation(Valoria.ID, "skin/arcane_gold_blaze_reap"));
         }
 
         @SubscribeEvent
         public static void modelBakeSkins(ModelEvent.ModifyBakingResult event){
             Map<ResourceLocation, BakedModel> map = event.getModels();
+
             FluffyFurItemSkins.addLargeModel(map, Valoria.ID, "arcane_gold_blaze_reap");
             LargeItemRenderer.bakeModel(map, Valoria.ID, "blaze_reap", new ItemSkinItemOverrides());
         }
