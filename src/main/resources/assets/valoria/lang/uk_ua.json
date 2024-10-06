@@ -779,6 +779,7 @@
   "tooltip.valoria.bow_damage": "Damage on full tension %s+, with a Default Arrow used",
   "tooltip.valoria.charges": "Недостатньо зарядів для використання.",
   "tooltip.valoria.cold": "Захищає носія від холоду",
+  "tooltip.valoria.core": "Used to charge Manipulator with Elemental Power",
   "tooltip.valoria.core_charges": "Зарядів",
   "tooltip.valoria.crit": "Шанс 10% атакувати ворога критичним ударом",
   "tooltip.valoria.curses": "Наділяє гравця різноманітними ефектами.",
