@@ -30,6 +30,7 @@ import net.minecraftforge.api.distmarker.*;
 
 import java.util.*;
 
+import static com.idark.valoria.util.ValoriaUtils.addContributorTooltip;
 
 public class BlazeReapItem extends PickaxeItem implements Vanishable, IOverlayItem {
     private static final ResourceLocation BAR = new ResourceLocation(Valoria.ID, "textures/gui/overlay/blazecharge_bar.png");
@@ -193,12 +194,13 @@ public class BlazeReapItem extends PickaxeItem implements Vanishable, IOverlayIt
 //        }
 //    }
 
+    @OnlyIn(Dist.CLIENT)
     @Override
     public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags) {
         super.appendHoverText(stack, world, tooltip, flags);
-        tooltip.add(1, Component.translatable("tooltip.valoria.familiar").withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
-        tooltip.add(2, Component.empty());
-        tooltip.add(3, Component.translatable("tooltip.valoria.blazereap").withStyle(ChatFormatting.GRAY));
-        tooltip.add(4, Component.translatable(getModeString(stack)).withStyle(ChatFormatting.GREEN));
+        addContributorTooltip(stack, tooltip, "MaxBogomol", Styles.arcaneGold);
+        tooltip.add(Component.translatable("tooltip.valoria.familiar").withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
+        tooltip.add(Component.translatable("tooltip.valoria.blazereap").withStyle(ChatFormatting.GRAY));
+        tooltip.add(Component.translatable(getModeString(stack)).withStyle(ChatFormatting.GREEN));
     }
 }

@@ -7,6 +7,7 @@ import com.idark.valoria.registries.item.types.*;
 import com.idark.valoria.registries.item.types.curio.charm.*;
 import com.idark.valoria.registries.item.types.ranged.*;
 import com.mojang.datafixers.util.*;
+import mod.maxbogomol.fluffy_fur.common.itemskin.*;
 import net.minecraft.*;
 import net.minecraft.core.*;
 import net.minecraft.core.particles.*;
@@ -598,6 +599,26 @@ public class ValoriaUtils {
         }
 
         return hitresult;
+    }
+
+    public static void addContributorTooltip(ItemStack stack, List<Component> tooltip, String contributorName, ChatFormatting formated){
+        ItemSkin skin = ItemSkin.getSkinFromItem(stack);
+        if (skin != null) {
+            tooltip.remove(0);
+            tooltip.add(0, stack.getHoverName().copy().withStyle(ChatFormatting.WHITE).append(Component.literal(" ༶" + contributorName + "༶").withStyle(formated)));
+            tooltip.add(1, skin.getSkinComponent());
+            tooltip.add(2, Component.empty());
+        }
+    }
+
+    public static void addContributorTooltip(ItemStack stack, List<Component> tooltip, String contributorName, UnaryOperator<Style> styled){
+        ItemSkin skin = ItemSkin.getSkinFromItem(stack);
+        if (skin != null) {
+            tooltip.remove(0);
+            tooltip.add(0, stack.getHoverName().copy().withStyle(stack.getRarity().getStyleModifier()).append(Component.literal(" ༶" + contributorName + "༶").withStyle(styled)));
+            tooltip.add(1, skin.getSkinComponent());
+            tooltip.add(2, Component.empty());
+        }
     }
 
     public static void addEffectsTooltip(ImmutableList<MobEffectInstance> effects, List<Component> pTooltips, float pDurationFactor, float chance) {

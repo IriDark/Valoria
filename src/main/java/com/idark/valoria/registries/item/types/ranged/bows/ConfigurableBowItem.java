@@ -1,6 +1,7 @@
 package com.idark.valoria.registries.item.types.ranged.bows;
 
 import com.idark.valoria.registries.entity.projectile.*;
+import com.idark.valoria.util.*;
 import net.minecraft.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.server.level.*;
@@ -17,6 +18,8 @@ import org.jetbrains.annotations.*;
 
 import java.util.*;
 import java.util.function.*;
+
+import static com.idark.valoria.util.ValoriaUtils.addContributorTooltip;
 
 public class ConfigurableBowItem extends BowItem {
     public double baseDamage;
@@ -114,6 +117,7 @@ public class ConfigurableBowItem extends BowItem {
     @Override
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced){
         super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
+        addContributorTooltip(pStack, pTooltipComponents, "MaxBogomol", Styles.arcaneGold);
         double damage = calculateAverageDamage(pStack);
         if(arrow.get() != EntityType.ARROW) {
             pTooltipComponents.add(Component.translatable("tooltip.valoria.special_arrow").withStyle(ChatFormatting.GRAY)

@@ -1,0 +1,6 @@
+{
+  "parent": "valoria:item/skin/arcane_wood_bow",
+  "textures": {
+    "layer0": "valoria:item/arcane_wood_bow_pulling_0"
+  }
+}
