@@ -6,6 +6,7 @@ import com.idark.valoria.registries.item.types.ranged.bows.*;
 import mod.maxbogomol.fluffy_fur.client.model.item.*;
 import mod.maxbogomol.fluffy_fur.client.render.item.*;
 import mod.maxbogomol.fluffy_fur.common.itemskin.*;
+import mod.maxbogomol.fluffy_fur.registry.client.FluffyFurModels;
 import mod.maxbogomol.fluffy_fur.registry.common.item.*;
 import net.minecraft.client.resources.model.*;
 import net.minecraft.resources.*;
@@ -22,7 +23,7 @@ import java.util.*;
 public class SkinsRegistry{
     public static ItemSkin ARCANE_GOLD = new ArcaneGoldSkins(Valoria.ID + ":arcane_gold");
     public static void register(){
-        ItemSkinsHandler.register(ARCANE_GOLD);
+        ItemSkinHandler.register(ARCANE_GOLD);
         DistExecutor.unsafeCallWhenOn(Dist.CLIENT, () -> () -> {
             registerModels();
             return new Object();
@@ -31,14 +32,20 @@ public class SkinsRegistry{
 
     @OnlyIn(Dist.CLIENT)
     public static void registerModels(){
-        ItemSkinsModels.addSkin(Valoria.ID + ":arcane_wood_bow");
-        ItemSkinsModels.addSkin(Valoria.ID + ":arcane_gold_blaze_reap");
+        ItemSkinModels.addBowSkin(Valoria.ID + ":arcane_wood_bow");
+        ItemSkinModels.addSkin(Valoria.ID + ":arcane_gold_blaze_reap");
     }
 
     @Mod.EventBusSubscriber(modid = Valoria.ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     public static class ClientRegistryEvents{
         @SubscribeEvent
         public static void modelRegistrySkins(ModelEvent.RegisterAdditional event) {
+            for(RegistryObject<Item> item : ItemsRegistry.ITEMS.getEntries()){
+                if(item.get() instanceof ConfigurableBowItem){
+                    FluffyFurModels.addBowItemModel(event, Valoria.ID, item.getId().getPath());
+                }
+            }
+
             event.register(LargeItemRenderer.getModelResourceLocation(Valoria.ID, "blaze_reap"));
             event.register(LargeItemRenderer.getModelResourceLocation(Valoria.ID, "skin/arcane_gold_blaze_reap"));
         }
@@ -48,7 +55,7 @@ public class SkinsRegistry{
             Map<ResourceLocation, BakedModel> map = event.getModels();
             for(RegistryObject<Item> item : ItemsRegistry.ITEMS.getEntries()){
                 if(item.get() instanceof ConfigurableBowItem){
-                    FluffyFurItemSkins.addSkinModel(map, item.getId());
+                    FluffyFurModels.addBowItemModel(map, item.getId(), new BowSkinItemOverrides());
                 }
             }
 

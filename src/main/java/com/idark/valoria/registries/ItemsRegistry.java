@@ -83,7 +83,6 @@ public class ItemsRegistry {
     debugItem, summonBook, soulCollectorEmpty, soulCollector,
     lexicon, cryptPage, voidKey, spectralBladeThrown,
     pick,
-
     // weapons
     club, bronzeSword, spectralBlade, corpseCleaver,
     samuraiKunai, samuraiPoisonedKunai, samuraiKatana, samuraiLongBow,
