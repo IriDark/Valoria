@@ -3,6 +3,7 @@ package com.idark.valoria.registries.item.types;
 import com.idark.valoria.core.interfaces.*;
 import mod.maxbogomol.fluffy_fur.client.particle.data.*;
 import net.minecraft.core.particles.*;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.item.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
@@ -11,6 +12,7 @@ import net.minecraftforge.registries.*;
 import org.jetbrains.annotations.*;
 
 import java.awt.*;
+import java.util.List;
 
 import static com.idark.valoria.client.particle.ParticleEffects.spawnItemParticles;
 
@@ -47,6 +49,13 @@ public class CoreItem extends Item implements IParticleItemEntity {
 
     public int getGivenCores() {
         return givenCores;
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    @Override
+    public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced){
+        super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
+        pTooltipComponents.add(Component.translatable("tooltip.valoria.core"));
     }
 
     @OnlyIn(Dist.CLIENT)

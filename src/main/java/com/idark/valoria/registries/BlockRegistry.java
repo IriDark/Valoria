@@ -3,7 +3,7 @@ package com.idark.valoria.registries;
 import com.idark.valoria.*;
 import com.idark.valoria.registries.block.types.*;
 import com.idark.valoria.registries.item.types.*;
-import com.idark.valoria.registries.levelgen.tree.*;
+import com.idark.valoria.registries.level.tree.*;
 import mod.maxbogomol.fluffy_fur.client.particle.data.*;
 import net.minecraft.*;
 import net.minecraft.core.*;

@@ -4,7 +4,6 @@ import com.idark.valoria.*;
 import com.idark.valoria.core.config.*;
 import com.idark.valoria.core.interfaces.*;
 import com.idark.valoria.registries.*;
-import com.idark.valoria.util.NbtUtils;
 import com.idark.valoria.util.*;
 import mod.maxbogomol.fluffy_fur.client.screenshake.*;
 import mod.maxbogomol.fluffy_fur.common.easing.*;
@@ -40,11 +39,14 @@ public class BlazeReapItem extends PickaxeItem implements Vanishable, IOverlayIt
     }
 
     public static String getModeString(ItemStack stack) {
-        if (NbtUtils.readNbt(stack, "charge") == 1) {
-            return "tooltip.valoria.rmb";
-        } else {
-            return "tooltip.valoria.rmb_shift";
+        CompoundTag nbt = stack.getOrCreateTag();
+        if(nbt.contains("charge")){
+            if(nbt.getInt("charge") == 1){
+                return "tooltip.valoria.rmb";
+            }
         }
+
+        return "tooltip.valoria.rmb_shift";
     }
 
     public int getUseDuration(ItemStack stack) {
@@ -62,16 +64,17 @@ public class BlazeReapItem extends PickaxeItem implements Vanishable, IOverlayIt
         ItemStack weapon = player.getItemInHand(hand);
         ItemStack ammo = ValoriaUtils.getProjectile(player, weapon);
         RandomSource rand = level.getRandom();
+        CompoundTag nbt = weapon.getOrCreateTag();
         boolean hasAmmo = !ammo.isEmpty();
         boolean flag = ammo.getItem() instanceof GunpowderCharge;
         if (player.isShiftKeyDown()) {
-            if (NbtUtils.readNbt(weapon, "charge") == 0) {
+            if (nbt.contains("charge") && nbt.getInt("charge") == 0) {
                 if (hasAmmo) {
                     if (!player.isCreative()) {
                         ammo.shrink(1);
                     }
 
-                    NbtUtils.writeIntNbt(weapon, "charge", 1);
+                    nbt.putInt("charge", 1);
                     player.getCooldowns().addCooldown(this, 20);
                     level.playSound(null, player.blockPosition(), SoundsRegistry.BLAZECHARGE.get(), SoundSource.AMBIENT, 1f, 1f);
                     player.awardStat(Stats.ITEM_USED.get(this));
@@ -88,8 +91,8 @@ public class BlazeReapItem extends PickaxeItem implements Vanishable, IOverlayIt
             }
 
             return InteractionResultHolder.pass(weapon);
-        } else if (NbtUtils.readNbt(weapon, "charge") == 1) {
-            NbtUtils.writeIntNbt(weapon, "charge", 0);
+        } else if (nbt.contains("charge") && nbt.getInt("charge") == 1) {
+            nbt.putInt("charge", 0);
             player.getCooldowns().addCooldown(this, 50);
             player.awardStat(Stats.ITEM_USED.get(this));
             Vec3 pos = new Vec3(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());

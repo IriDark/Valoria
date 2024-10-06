@@ -1,8 +1,8 @@
 package com.idark.valoria.client.ui.screen;
 
 import com.idark.valoria.*;
+import com.idark.valoria.client.ui.menus.*;
 import com.idark.valoria.registries.block.entity.*;
-import com.idark.valoria.registries.menus.*;
 import com.mojang.blaze3d.systems.*;
 import net.minecraft.client.gui.*;
 import net.minecraft.client.gui.screens.inventory.*;

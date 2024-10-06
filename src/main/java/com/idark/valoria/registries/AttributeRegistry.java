@@ -6,7 +6,6 @@ import net.minecraftforge.eventbus.api.*;
 import net.minecraftforge.registries.*;
 
 public class AttributeRegistry {
-
     private static final DeferredRegister<Attribute> ATTRIBUTES = DeferredRegister.create(ForgeRegistries.Keys.ATTRIBUTES, Valoria.ID);
     public static final RegistryObject<Attribute> PROJECTILE_DAMAGE = ATTRIBUTES.register("projectile_damage", () -> new RangedAttribute("attribute.valoria.projectile_damage", 0.0D, 0.0D, 1024.0D).setSyncable(true));
     public static final RegistryObject<Attribute> DASH_DISTANCE = ATTRIBUTES.register("dash_distance", () -> new RangedAttribute("attribute.valoria.dash_distance", 0.0D, 0.0D, 128.0D).setSyncable(true));

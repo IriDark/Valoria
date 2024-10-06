@@ -76,6 +76,7 @@
   "tooltip.valoria.homing": "Has a homing movement, but lesser damage",
   "tooltip.valoria.summons": "Summons entity: [%s]",
   "tooltip.valoria.necromancy": "Used to summon minions with a limited lifetime, specified in seconds",
+  "tooltip.valoria.core": "Used to charge Manipulator with Elemental Power",
   "skin.valoria.arcane_gold": "Arcane Gold",
   "jei.valoria.brewery": "Brewery",
   "jei.valoria.jewelry": "Jewelry",

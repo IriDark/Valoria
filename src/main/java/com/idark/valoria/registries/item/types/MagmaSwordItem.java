@@ -4,7 +4,6 @@ import com.idark.valoria.*;
 import com.idark.valoria.core.config.*;
 import com.idark.valoria.core.interfaces.*;
 import com.idark.valoria.registries.*;
-import com.idark.valoria.util.NbtUtils;
 import com.idark.valoria.util.*;
 import net.minecraft.*;
 import net.minecraft.client.gui.*;
@@ -35,14 +34,23 @@ public class MagmaSwordItem extends SwordItem implements IRadiusItem, IOverlayIt
         super(tier, attackDamageIn, attackSpeedIn, builderIn);
     }
 
-    public static String getModeString(ItemStack stack) {
-        if (NbtUtils.readNbt(stack, "charge") == 2) {
-            return "tooltip.valoria.magma_charge_full";
-        } else if (NbtUtils.readNbt(stack, "charge") == 1) {
-            return "tooltip.valoria.magma_charge_half";
+    public static String getModeString(ItemStack stack){
+        CompoundTag nbt = stack.getOrCreateTag();
+        if(nbt.contains("charge")){
+            if(nbt.getInt("charge") == 2){
+                return "tooltip.valoria.magma_charge_full";
+            }else if(nbt.getInt("charge") == 1){
+                return "tooltip.valoria.magma_charge_half";
+            }
         }
 
         return "tooltip.valoria.magma_charge_empty";
+    }
+
+    public static void addCharge(ItemStack stack, int charge) {
+        CompoundTag nbt = stack.getOrCreateTag();
+        int charges = nbt.getInt("charge");
+        nbt.putInt("charge", charges + charge);
     }
 
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchant) {
@@ -51,9 +59,10 @@ public class MagmaSwordItem extends SwordItem implements IRadiusItem, IOverlayIt
 
     public boolean hurtEnemy(ItemStack pStack, LivingEntity pTarget, LivingEntity pAttacker) {
         pStack.hurtAndBreak(1, pAttacker, (p_43296_) -> p_43296_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
-        if (NbtUtils.readNbt(pStack, "charge") < 2) {
-            if (arcRandom.chance(0.1f)) {
-                NbtUtils.addCharge(pStack, 1);
+        CompoundTag nbt = pStack.getOrCreateTag();
+        if(nbt.getInt("charge") < 2){
+            if(arcRandom.chance(0.1f)){
+                addCharge(pStack, 1);
             }
         }
 
@@ -90,14 +99,14 @@ public class MagmaSwordItem extends SwordItem implements IRadiusItem, IOverlayIt
      */
     public void releaseUsing(ItemStack stack, Level worldIn, LivingEntity entityLiving, int timeLeft) {
         RandomSource rand = worldIn.getRandom();
+        CompoundTag nbt = stack.getOrCreateTag();
         Player player = (Player) entityLiving;
         player.awardStat(Stats.ITEM_USED.get(this));
         float damage = (float) (player.getAttributeValue(Attributes.ATTACK_DAMAGE) + 5) + EnchantmentHelper.getSweepingDamageRatio(player);
-
         Vector3d pos = new Vector3d(player.getX(), player.getY() + 0.3f, player.getZ());
-        if (NbtUtils.readNbt(stack, "charge") == 2) {
+        if (nbt.contains("charge") && nbt.getInt("charge") == 2) {
             if (player.isInWaterOrRain()) {
-                NbtUtils.addCharge(stack, 1);
+                addCharge(stack, 1);
                 player.getCooldowns().addCooldown(this, 150);
                 player.displayClientMessage(Component.translatable("tooltip.valoria.wet").withStyle(ChatFormatting.GRAY), true);
                 worldIn.playSound(player, player.blockPosition(), SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 1f, 1f);
@@ -113,9 +122,8 @@ public class MagmaSwordItem extends SwordItem implements IRadiusItem, IOverlayIt
                 }
             } else {
                 List<LivingEntity> hitEntities = new ArrayList<>();
-                NbtUtils.writeIntNbt(stack, "charge", 0);
+                nbt.putInt("charge", 0);
                 player.getCooldowns().addCooldown(this, 300);
-
                 ValoriaUtils.spawnParticlesInRadius(worldIn, stack, ParticleTypes.LARGE_SMOKE, pos, 0, player.getRotationVector().y, 1);
                 ValoriaUtils.spawnParticlesInRadius(worldIn, stack, ParticleTypes.LARGE_SMOKE, pos, 0, player.getRotationVector().y, 4);
                 ValoriaUtils.radiusHit(worldIn, stack, player, ParticleTypes.FLAME, hitEntities, pos, 0, player.getRotationVector().y, 4);

@@ -1,8 +1,8 @@
 package com.idark.valoria.registries.block.types;
 
-import com.idark.valoria.registries.block.entity.ValoriaPortalBlockEntity;
-import com.idark.valoria.registries.levelgen.*;
-import com.idark.valoria.registries.levelgen.portal.*;
+import com.idark.valoria.registries.block.entity.*;
+import com.idark.valoria.registries.level.*;
+import com.idark.valoria.registries.level.portal.*;
 import com.idark.valoria.util.*;
 import mod.maxbogomol.fluffy_fur.client.particle.*;
 import mod.maxbogomol.fluffy_fur.client.particle.behavior.*;
@@ -18,12 +18,12 @@ import net.minecraft.util.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.level.block.state.pattern.*;
 import net.minecraft.world.phys.shapes.*;
 import net.minecraftforge.api.distmarker.*;
-import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.*;
 
 import java.awt.*;
 

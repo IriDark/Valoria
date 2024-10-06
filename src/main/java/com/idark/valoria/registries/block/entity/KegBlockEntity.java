@@ -1,10 +1,10 @@
 package com.idark.valoria.registries.block.entity;
 
 import com.idark.valoria.client.render.tile.*;
+import com.idark.valoria.client.ui.menus.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.block.types.*;
 import com.idark.valoria.registries.item.recipe.*;
-import com.idark.valoria.registries.menus.*;
 import com.idark.valoria.util.*;
 import net.minecraft.core.*;
 import net.minecraft.nbt.*;
