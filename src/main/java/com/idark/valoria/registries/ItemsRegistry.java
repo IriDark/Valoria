@@ -7,6 +7,8 @@ import com.idark.valoria.core.enums.*;
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.particle.*;
 import com.idark.valoria.registries.entity.living.decoration.*;
+import com.idark.valoria.registries.item.skins.SkinTrimItem;
+import com.idark.valoria.registries.item.skins.SkinsRegistry;
 import com.idark.valoria.registries.item.tiers.*;
 import com.idark.valoria.registries.item.types.*;
 import com.idark.valoria.registries.item.types.curio.*;
@@ -82,7 +84,7 @@ public class ItemsRegistry {
     // misc
     debugItem, summonBook, soulCollectorEmpty, soulCollector,
     lexicon, cryptPage, voidKey, spectralBladeThrown,
-    pick,
+    pick, arcaneTrim,
     // weapons
     club, bronzeSword, spectralBlade, corpseCleaver,
     samuraiKunai, samuraiPoisonedKunai, samuraiKatana, samuraiLongBow,
@@ -294,6 +296,8 @@ public class ItemsRegistry {
         cryptPage = registerItem("page", () -> new LexiconPageItem(new Item.Properties().stacksTo(1), RegisterUnlockables.CRYPT, "gui.valoria.crypt.name"));
         voidKey = registerItem("void_key", () -> new Item(new Item.Properties().stacksTo(16).rarity(RarityRegistry.VOID)));
         pick = registerItem("prospectors_pick", () -> new PickItem(new Item.Properties().fireResistant().stacksTo(1).durability(64), 1, -2.8f, 5));
+        arcaneTrim = registerItem("arcane_trim", () -> new SkinTrimItem(SkinsRegistry.ARCANE_GOLD, new Item.Properties()));
+
         // weapons
         club = registerItem("club", () -> new HitEffectItem(Tiers.WOOD, 5, -3.2f, new Item.Properties(), 0.1f, new MobEffectInstance(EffectsRegistry.STUN.get(), 60, 0)));
         bronzeSword = registerItem("bronze_sword", () -> new SwordItem(Tiers.IRON, 6, -2.4f, new Item.Properties()));
