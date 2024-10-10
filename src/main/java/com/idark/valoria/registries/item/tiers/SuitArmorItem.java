@@ -1,5 +1,6 @@
 package com.idark.valoria.registries.item.tiers;
 
+import com.idark.valoria.registries.item.types.*;
 import net.minecraft.*;
 import net.minecraft.client.*;
 import net.minecraft.client.gui.screens.*;
@@ -13,7 +14,7 @@ import net.minecraftforge.registries.*;
 
 import java.util.*;
 
-public class SuitArmorItem extends ArmorItem {
+public class SuitArmorItem extends SkinableArmorItem{
 
     public SuitArmorItem(ArmorMaterial material, Type type, Properties properties) {
         super(material, type, properties);
@@ -22,6 +23,7 @@ public class SuitArmorItem extends ArmorItem {
     @OnlyIn(Dist.CLIENT)
     @Override
     public void appendHoverText(ItemStack stack, Level world, List<Component> list, TooltipFlag flags) {
+        super.appendHoverText(stack, world, list, flags);
         var player = Minecraft.getInstance().player;
         if(player != null && flags.isAdvanced()){
             if(Screen.hasShiftDown()){

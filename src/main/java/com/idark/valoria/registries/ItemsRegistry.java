@@ -7,8 +7,7 @@ import com.idark.valoria.core.enums.*;
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.particle.*;
 import com.idark.valoria.registries.entity.living.decoration.*;
-import com.idark.valoria.registries.item.skins.SkinTrimItem;
-import com.idark.valoria.registries.item.skins.SkinsRegistry;
+import com.idark.valoria.registries.item.skins.*;
 import com.idark.valoria.registries.item.tiers.*;
 import com.idark.valoria.registries.item.types.*;
 import com.idark.valoria.registries.item.types.curio.*;
@@ -154,10 +153,10 @@ public class ItemsRegistry {
         eldritchSign = BLOCK_ITEMS.register("eldritch_sign", () -> new SignItem(new Item.Properties().stacksTo(16), BlockRegistry.ELDRITCH_SIGN.get(), BlockRegistry.ELDRITCH_WALL_SIGN.get()));
         eldritchHangingSign = BLOCK_ITEMS.register("eldritch_hanging_sign", () -> new HangingSignItem(BlockRegistry.ELDRITCH_HANGING_SIGN.get(), BlockRegistry.ELDRITCH_WALL_HANGING_SIGN.get(), new Item.Properties().stacksTo(16)));
 
-        cobaltHelmet = registerItem("cobalt_helmet", () -> new ArmorItem(ModArmorMaterial.COBALT, ArmorItem.Type.HELMET, new Item.Properties()));
-        cobaltChestplate = registerItem("cobalt_chestplate", () -> new ArmorItem(ModArmorMaterial.COBALT, ArmorItem.Type.CHESTPLATE, new Item.Properties()));
-        cobaltLeggings = registerItem("cobalt_leggings", () -> new ArmorItem(ModArmorMaterial.COBALT, ArmorItem.Type.LEGGINGS, new Item.Properties()));
-        cobaltBoots = registerItem("cobalt_boots", () -> new ArmorItem(ModArmorMaterial.COBALT, ArmorItem.Type.BOOTS, new Item.Properties()));
+        cobaltHelmet = registerItem("cobalt_helmet", () -> new SkinableArmorItem(ModArmorMaterial.COBALT, ArmorItem.Type.HELMET, new Item.Properties()));
+        cobaltChestplate = registerItem("cobalt_chestplate", () -> new SkinableArmorItem(ModArmorMaterial.COBALT, ArmorItem.Type.CHESTPLATE, new Item.Properties()));
+        cobaltLeggings = registerItem("cobalt_leggings", () -> new SkinableArmorItem(ModArmorMaterial.COBALT, ArmorItem.Type.LEGGINGS, new Item.Properties()));
+        cobaltBoots = registerItem("cobalt_boots", () -> new SkinableArmorItem(ModArmorMaterial.COBALT, ArmorItem.Type.BOOTS, new Item.Properties()));
         samuraiKabuto = registerItem("samurai_kabuto", () -> new SamuraiArmorItem(ModArmorMaterial.SAMURAI, ArmorItem.Type.HELMET, new Item.Properties()));
         samuraiChestplate = registerItem("samurai_chestplate", () -> new SamuraiArmorItem(ModArmorMaterial.SAMURAI, ArmorItem.Type.CHESTPLATE, new Item.Properties()));
         samuraiLeggings = registerItem("samurai_leggings", () -> new SamuraiArmorItem(ModArmorMaterial.SAMURAI, ArmorItem.Type.LEGGINGS, new Item.Properties()));

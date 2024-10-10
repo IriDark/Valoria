@@ -2,6 +2,7 @@ package com.idark.valoria;
 
 import com.idark.valoria.client.color.*;
 import com.idark.valoria.client.model.*;
+import com.idark.valoria.client.model.armor.*;
 import com.idark.valoria.client.model.curio.*;
 import com.idark.valoria.client.particle.*;
 import com.idark.valoria.client.render.entity.*;
@@ -39,6 +40,7 @@ import org.lwjgl.glfw.*;
 import java.io.*;
 
 import static com.idark.valoria.Valoria.*;
+import static mod.maxbogomol.fluffy_fur.registry.client.FluffyFurModels.addLayer;
 import static mod.maxbogomol.fluffy_fur.registry.client.FluffyFurRenderTypes.*;
 
 public class ValoriaClient {
@@ -52,6 +54,10 @@ public class ValoriaClient {
     public static ModelLayerLocation BAG_LAYER = new ModelLayerLocation(new ResourceLocation(Valoria.ID, "jewelry_bag"), "main");
     public static ModelResourceLocation KEG_MODEL = new ModelResourceLocation(Valoria.ID, "keg_barrel", "");
     public static ModelResourceLocation SPHERE = new ModelResourceLocation(Valoria.ID, "elemental_sphere", "");
+    public static ModelLayerLocation THE_FALLEN_COLLECTOR_ARMOR_LAYER = addLayer(Valoria.ID, "the_fallen_collector_armor_layer");
+
+    public static TheFallenCollectorArmorModel THE_FALLEN_COLLECTOR_ARMOR = null;
+
     public static ShaderInstance VALORIA_PORTAL;
     public static ShaderInstance getValoriaPortal() {
         return VALORIA_PORTAL;
@@ -203,10 +209,17 @@ public class ValoriaClient {
             event.registerLayerDefinition(ValoriaClient.BAG_LAYER, JewelryBagModel::createBodyLayer);
             event.registerLayerDefinition(ValoriaClient.HANDS_LAYER, HandsModel::createBodyLayer);
             event.registerLayerDefinition(ValoriaClient.HANDS_LAYER_SLIM, HandsModelSlim::createBodyLayer);
+            event.registerLayerDefinition(THE_FALLEN_COLLECTOR_ARMOR_LAYER, TheFallenCollectorArmorModel::createBodyLayer);
+
             for (CustomBoatEntity.Type boatType : CustomBoatEntity.Type.values()) {
                 event.registerLayerDefinition(CustomBoatRenderer.createBoatModelName(boatType), BoatModel::createBodyModel);
                 event.registerLayerDefinition(CustomBoatRenderer.createChestBoatModelName(boatType), ChestBoatModel::createBodyModel);
             }
+        }
+
+        @SubscribeEvent
+        public static void addLayers(EntityRenderersEvent.AddLayers event) {
+            THE_FALLEN_COLLECTOR_ARMOR = new TheFallenCollectorArmorModel(event.getEntityModels().bakeLayer(THE_FALLEN_COLLECTOR_ARMOR_LAYER));
         }
 
         @SubscribeEvent

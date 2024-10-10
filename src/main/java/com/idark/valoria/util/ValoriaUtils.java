@@ -1,6 +1,7 @@
 package com.idark.valoria.util;
 
 import com.google.common.collect.*;
+import com.idark.valoria.core.interfaces.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.entity.living.*;
 import com.idark.valoria.registries.item.types.*;
@@ -601,21 +602,14 @@ public class ValoriaUtils {
         return hitresult;
     }
 
-    public static void addContributorTooltip(ItemStack stack, List<Component> tooltip, String contributorName, ChatFormatting formated){
+    public static void addContributorTooltip(ItemStack stack, List<Component> tooltip){
         ItemSkin skin = ItemSkin.getSkinFromItem(stack);
         if (skin != null) {
-            tooltip.remove(0);
-            tooltip.add(0, stack.getHoverName().copy().withStyle(ChatFormatting.WHITE).append(Component.literal(" ༶" + contributorName + "༶").withStyle(formated)));
-            tooltip.add(1, skin.getSkinComponent());
-            tooltip.add(2, Component.empty());
-        }
-    }
+            if(skin instanceof IAuthorItemSkin authored){
+                tooltip.remove(0);
+                tooltip.add(0, authored.getContributorComponent(stack));
+            }
 
-    public static void addContributorTooltip(ItemStack stack, List<Component> tooltip, String contributorName, UnaryOperator<Style> styled){
-        ItemSkin skin = ItemSkin.getSkinFromItem(stack);
-        if (skin != null) {
-            tooltip.remove(0);
-            tooltip.add(0, stack.getHoverName().copy().withStyle(stack.getRarity().getStyleModifier()).append(Component.literal(" ༶" + contributorName + "༶").withStyle(styled)));
             tooltip.add(1, skin.getSkinComponent());
             tooltip.add(2, Component.empty());
         }

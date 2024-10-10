@@ -201,7 +201,7 @@ public class BlazeReapItem extends PickaxeItem implements Vanishable, IOverlayIt
     @Override
     public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags) {
         super.appendHoverText(stack, world, tooltip, flags);
-        addContributorTooltip(stack, tooltip, "MaxBogomol", Styles.arcaneGold);
+        addContributorTooltip(stack, tooltip);
         tooltip.add(Component.translatable("tooltip.valoria.familiar").withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
         tooltip.add(Component.translatable("tooltip.valoria.blazereap").withStyle(ChatFormatting.GRAY));
         tooltip.add(Component.translatable(getModeString(stack)).withStyle(ChatFormatting.GREEN));
