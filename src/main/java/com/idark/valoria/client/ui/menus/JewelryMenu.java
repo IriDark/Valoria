@@ -20,7 +20,6 @@ public class JewelryMenu extends ContainerMenuBase{
         this.blockEntity = world.getBlockEntity(pos);
         this.playerEntity = player;
         this.playerInventory = new InvWrapper(playerInventory);
-        this.layoutPlayerInventorySlots(8, 84);
         if (blockEntity != null) {
             blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(h -> {
                 this.addSlot(new SlotItemHandler(h, 0, 27, 47));
@@ -29,6 +28,8 @@ public class JewelryMenu extends ContainerMenuBase{
                 this.addSlot(new ResultSlot(h, 2, 134, 47));
             });
         }
+
+        this.layoutPlayerInventorySlots(8, 84);
     }
 
     @Override

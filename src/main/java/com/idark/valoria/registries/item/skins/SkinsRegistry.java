@@ -26,10 +26,12 @@ public class SkinsRegistry{
     public static ItemSkin THE_FALLEN_COLLECTOR = new TheFallenCollector(Valoria.ID + ":the_fallen_collector");
     public static ItemSkin ARCANE_GOLD = new ArcaneGold(Valoria.ID + ":arcane_gold");
     public static ItemSkin CYBERPUNK = new Cyberpunk(Valoria.ID + ":cyberpunk");
+    public static ItemSkin MURAMASA = new Muramasa(Valoria.ID + ":muramasa");
     public static void register(){
         ItemSkinHandler.register(ARCANE_GOLD);
         ItemSkinHandler.register(THE_FALLEN_COLLECTOR);
         ItemSkinHandler.register(CYBERPUNK);
+        ItemSkinHandler.register(MURAMASA);
         DistExecutor.unsafeCallWhenOn(Dist.CLIENT, () -> () -> {
             registerModels();
             return new Object();
@@ -41,7 +43,7 @@ public class SkinsRegistry{
         ArcaneGold.registerModels();
         TheFallenCollector.registerModels();
         Cyberpunk.registerModels();
-        ItemSkinModels.addSkin(Valoria.ID + ":muramasa");
+        Muramasa.registerModels();
     }
 
     @Mod.EventBusSubscriber(modid = Valoria.ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
@@ -72,6 +74,7 @@ public class SkinsRegistry{
                 }
             }
 
+            FluffyFurItemSkins.addSkinModel(map, ItemsRegistry.quantumReaper.getId());
             FluffyFurItemSkins.addLargeModel(map, Valoria.ID, "muramasa");
             FluffyFurItemSkins.addLargeModel(map, Valoria.ID, "brand");
             FluffyFurItemSkins.addLargeModel(map, Valoria.ID, "arcane_gold_blaze_reap");

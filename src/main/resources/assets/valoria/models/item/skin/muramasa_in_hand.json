@@ -1,0 +1,6 @@
+{
+  "parent": "valoria:item/handheld_large",
+  "textures": {
+    "layer0": "valoria:item/muramasa_in_hand"
+  }
+}

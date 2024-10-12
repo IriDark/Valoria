@@ -1,4 +1,4 @@
-# Changelog v0.6.2 (Full release)
+# Changelog v0.6.2 - v0.6.3b
 - Now Valoria requires Fluffy Fur
 - Fixed Shade Blossom Bandage Recipe
 - Fixed
@@ -29,6 +29,7 @@
 - Fixed a bug that projectiles can damage through FTB Chunks privates
 - Fixed a bug that Rune of cold hasn't helped from other cold sources than Powder Snow
 - Fixed a bug that putting a Shard into a Void Pillar causes a server crashing
+- Fixed a small offset of placed items on Jewelry table
 
 - Nerfed Rune's
 - Buffed Silken Kunai

@@ -1,14 +1,12 @@
 package com.idark.valoria.client.render.tile;
 
-import com.idark.valoria.registries.block.entity.JewelryBlockEntity;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Axis;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.LevelRenderer;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
-import net.minecraft.world.item.ItemDisplayContext;
-import net.minecraft.world.item.ItemStack;
+import com.idark.valoria.registries.block.entity.*;
+import com.mojang.blaze3d.vertex.*;
+import com.mojang.math.*;
+import net.minecraft.client.*;
+import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.blockentity.*;
+import net.minecraft.world.item.*;
 
 public class JewelryBlockEntityRender implements BlockEntityRenderer<JewelryBlockEntity> {
 
@@ -26,7 +24,7 @@ public class JewelryBlockEntityRender implements BlockEntityRenderer<JewelryBloc
             if (item.isEmpty()) continue;
 
             pPoseStack.pushPose();
-            pPoseStack.translate(spacing * i + offset, 1.025F, spacing * i + offset);
+            pPoseStack.translate(spacing * i + offset, 1.01F, spacing * i + offset);
             pPoseStack.mulPose(Axis.XP.rotationDegrees(90.0F));
             pPoseStack.scale(0.65F, 0.65F, 0.65F);
 
@@ -37,7 +35,7 @@ public class JewelryBlockEntityRender implements BlockEntityRenderer<JewelryBloc
         ItemStack item = pBlockEntity.itemOutputHandler.getStackInSlot(0);
 
         pPoseStack.pushPose();
-        pPoseStack.translate(spacing * 2.1 + offset, 1.06F, spacing / 2 + offset);
+        pPoseStack.translate(spacing * 2.1 + offset, 1.01F, spacing / 2 + offset);
         pPoseStack.mulPose(Axis.XP.rotationDegrees(90.0F));
         pPoseStack.scale(0.65F, 0.65F, 0.65F);
 

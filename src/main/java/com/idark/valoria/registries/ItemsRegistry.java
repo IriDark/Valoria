@@ -18,6 +18,7 @@ import com.idark.valoria.registries.item.types.ranged.*;
 import com.idark.valoria.registries.item.types.ranged.bows.*;
 import com.idark.valoria.util.*;
 import mod.maxbogomol.fluffy_fur.client.particle.data.*;
+import mod.maxbogomol.fluffy_fur.common.itemskin.*;
 import net.minecraft.*;
 import net.minecraft.core.particles.*;
 import net.minecraft.network.chat.Component;
@@ -47,6 +48,8 @@ import java.lang.Math;
 import java.util.List;
 import java.util.function.*;
 
+import static com.idark.valoria.util.ValoriaUtils.addContributorTooltip;
+
 public class ItemsRegistry {
     public static final DeferredRegister<Item> BLOCK_ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Valoria.ID);
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Valoria.ID);
@@ -71,6 +74,7 @@ public class ItemsRegistry {
     boneFragment, painCrystal, nihilityShard, illusionStone,
     natureCore, aquariusCore, infernalCore, voidCore,
     natureUpgrade, aquariusUpgrade, infernalUpgrade, voidUpgrade,
+    arcaneTrim, muramasaTrim, cyberpunkTrim, theFallenTrim,
     gaibRoot, karusakanRoot, shadeBlossomLeaf, aloePiece,
     dunestoneBrick, tombstoneBrick, ambaneStoneBrick, limestoneBrick, crystalStoneBrick, voidStoneBrick,
     bronzeIngot, pearliumIngot, cobaltIngot, blackGold, ancientIngot,
@@ -83,7 +87,7 @@ public class ItemsRegistry {
     // misc
     debugItem, summonBook, soulCollectorEmpty, soulCollector,
     lexicon, cryptPage, voidKey, spectralBladeThrown,
-    pick, arcaneTrim,
+    pick,
     // weapons
     club, bronzeSword, spectralBlade, corpseCleaver,
     samuraiKunai, samuraiPoisonedKunai, samuraiKatana, samuraiLongBow,
@@ -265,6 +269,10 @@ public class ItemsRegistry {
         aquariusUpgrade = registerItem("aquarius_upgrade_smithing_template", () -> ElementalSmithingTemplateItem.createUpgradeTemplate(aquariusIngot));
         infernalUpgrade = registerItem("infernal_upgrade_smithing_template", () -> ElementalSmithingTemplateItem.createUpgradeTemplate(infernalIngot));
         voidUpgrade = registerItem("void_upgrade_smithing_template", () -> ElementalSmithingTemplateItem.createUpgradeTemplate(voidIngot));
+        arcaneTrim = registerItem("arcane_trim", () -> new SkinTrimItem(SkinsRegistry.ARCANE_GOLD, new Item.Properties()));
+        cyberpunkTrim = registerItem("cyberpunk_trim", () -> new SkinTrimItem(SkinsRegistry.CYBERPUNK, new Item.Properties()));
+        muramasaTrim = registerItem("muramasa_trim", () -> new SkinTrimItem(SkinsRegistry.MURAMASA, new Item.Properties()));
+        theFallenTrim = registerItem("the_fallen_trim", () -> new SkinTrimItem(SkinsRegistry.THE_FALLEN_COLLECTOR, new Item.Properties()));
 
         // loot bags
         dirtGeode = registerItem("dirt_geode", () -> new Item(new Item.Properties().rarity(Rarity.RARE)) {
@@ -295,12 +303,18 @@ public class ItemsRegistry {
         cryptPage = registerItem("page", () -> new LexiconPageItem(new Item.Properties().stacksTo(1), RegisterUnlockables.CRYPT, "gui.valoria.crypt.name"));
         voidKey = registerItem("void_key", () -> new Item(new Item.Properties().stacksTo(16).rarity(RarityRegistry.VOID)));
         pick = registerItem("prospectors_pick", () -> new PickItem(new Item.Properties().fireResistant().stacksTo(1).durability(64), 1, -2.8f, 5));
-        arcaneTrim = registerItem("arcane_trim", () -> new SkinTrimItem(SkinsRegistry.ARCANE_GOLD, new Item.Properties()));
 
         // weapons
         club = registerItem("club", () -> new HitEffectItem(Tiers.WOOD, 5, -3.2f, new Item.Properties(), 0.1f, new MobEffectInstance(EffectsRegistry.STUN.get(), 60, 0)));
         bronzeSword = registerItem("bronze_sword", () -> new SwordItem(Tiers.IRON, 6, -2.4f, new Item.Properties()));
-        quantumReaper = registerItem("quantum_reaper", () -> new SwordItem(ModItemTier.NONE, 8, -3f, new Item.Properties().rarity(RarityRegistry.VOID)));
+        quantumReaper = registerItem("quantum_reaper", () -> new SwordItem(ModItemTier.NONE, 8, -3f, new Item.Properties().rarity(RarityRegistry.VOID)) {
+            @Override
+            public void appendHoverText(@NotNull ItemStack stack, Level world, @NotNull List<Component> tooltip, @NotNull TooltipFlag flags) {
+                super.appendHoverText(stack, world, tooltip, flags);
+                addContributorTooltip(stack, tooltip);
+            }
+        });
+
         bloodHound = registerItem("bloodhound", () -> new HoundItem(ModItemTier.BLOOD, 6, -2.2f, new Item.Properties()));
         blazeReap = registerItem("blaze_reap", () -> new BlazeReapItem(ModItemTier.NONE, 3, -3.4f, new Item.Properties()));
         gunpowderCharge = registerItem("gunpowder_charge", () -> new GunpowderCharge(4f, 25f, new Item.Properties().stacksTo(1)));
@@ -591,8 +605,10 @@ public class ItemsRegistry {
             public void onUseTick(@NotNull Level worldIn, @NotNull LivingEntity livingEntityIn, @NotNull ItemStack stack, int count) {
                 Player player = (Player) livingEntityIn;
                 if (worldIn instanceof ServerLevel srv) {
+                    ItemSkin skin = ItemSkin.getSkinFromItem(stack);
+                    Color color = skin != null ? skin.getColor() : new Color(235, 0, 25);
                     for (int ii = 0; ii < 1 + Mth.nextInt(RandomSource.create(), 0, 2); ii += 1) {
-                        PacketHandler.sendToTracking(srv, player.getOnPos(), new MurasamaParticlePacket(3F, player.getX(), (player.getY() + (player.getEyeHeight() / 2)), player.getZ(), 235, 0, 25));
+                        PacketHandler.sendToTracking(srv, player.getOnPos(), new MurasamaParticlePacket(3F, player.getX(), (player.getY() + (player.getEyeHeight() / 2)), player.getZ(), color.getRed(), color.getGreen(), color.getBlue()));
                     }
                 }
 
@@ -615,8 +631,11 @@ public class ItemsRegistry {
                         double Y = Math.cos(pitch) * locDistance;
                         double Z = Math.sin(pitch) * Math.sin(yaw) * locDistance;
                         level.addParticle(ParticleTypes.WAX_OFF, pos.x + X + (rand.nextDouble() - 0.5D), pos.y + Y, pos.z + Z + (rand.nextDouble() - 0.5D), 0d, 0.05d, 0d);
+
+                        ItemSkin skin = ItemSkin.getSkinFromItem(stack);
+                        Color color = skin != null ? skin.getColor() : Color.RED;
                         for(int count = 0; count < 1 + Mth.nextInt(RandomSource.create(), 0, 2); count += 1){
-                            PacketHandler.sendToTracking(srv, player.getOnPos(), new MurasamaParticlePacket(3F, (pos.x + X), (pos.y + Y), (pos.z + Z), 255, 0, 0));
+                            PacketHandler.sendToTracking(srv, player.getOnPos(), new MurasamaParticlePacket(3F, (pos.x + X), (pos.y + Y), (pos.z + Z), color.getRed(), color.getGreen(), color.getBlue()));
                         }
 
                         List<LivingEntity> detectedEntities = level.getEntitiesOfClass(LivingEntity.class, new AABB(pos.x + X - 0.5D, pos.y + Y - 0.5D, pos.z + Z - 0.5D, pos.x + X + 0.5D, pos.y + Y + 0.5D, pos.z + Z + 0.5D));

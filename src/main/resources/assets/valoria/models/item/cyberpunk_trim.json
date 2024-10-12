@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "valoria:item/arcane_skin_trim"
+    "layer0": "valoria:item/cyberpunk_skin_trim"
   }
 }
