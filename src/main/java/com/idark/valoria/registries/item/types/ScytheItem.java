@@ -30,6 +30,7 @@ import javax.annotation.*;
 import java.util.*;
 
 import static com.idark.valoria.Valoria.BASE_ATTACK_RADIUS_UUID;
+import static com.idark.valoria.util.ValoriaUtils.addContributorTooltip;
 
 public class ScytheItem extends SwordItem implements ICustomAnimationItem, ICooldownItem, IRadiusItem, ISpinAttackItem {
     public float radius = 3;
@@ -149,6 +150,7 @@ public class ScytheItem extends SwordItem implements ICustomAnimationItem, ICool
     @Override
     public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags) {
         super.appendHoverText(stack, world, tooltip, flags);
+        addContributorTooltip(stack, tooltip);
         tooltip.add(Component.translatable("tooltip.valoria.scythe").withStyle(ChatFormatting.GRAY));
         tooltip.add(Component.translatable("tooltip.valoria.rmb").withStyle(ChatFormatting.GREEN));
         ValoriaUtils.addEffectsTooltip(effects, tooltip, 1, chance);

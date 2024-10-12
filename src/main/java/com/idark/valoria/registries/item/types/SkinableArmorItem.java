@@ -26,8 +26,8 @@ public class SkinableArmorItem extends ArmorItem implements IForgeItem{
     @Override
     public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
         ItemSkin skin = ItemSkin.getSkinFromItem(stack);
-        if (skin != null) return skin.getArmorTexture(stack, entity, slot, type);
-        return null;
+        if (skin == null) return null;
+        return skin.getArmorTexture(stack, entity, slot, type);
     }
 
     @OnlyIn(Dist.CLIENT)

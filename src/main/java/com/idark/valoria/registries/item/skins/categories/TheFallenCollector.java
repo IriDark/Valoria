@@ -3,9 +3,9 @@ package com.idark.valoria.registries.item.skins.categories;
 import com.idark.valoria.*;
 import com.idark.valoria.core.interfaces.*;
 import com.idark.valoria.registries.item.types.*;
-import com.idark.valoria.registries.item.types.ranged.*;
 import com.idark.valoria.util.*;
 import mod.maxbogomol.fluffy_fur.client.model.armor.*;
+import mod.maxbogomol.fluffy_fur.client.model.item.*;
 import mod.maxbogomol.fluffy_fur.common.itemskin.*;
 import net.minecraft.client.model.*;
 import net.minecraft.network.chat.*;
@@ -22,6 +22,13 @@ public class TheFallenCollector extends ItemSkin implements IAuthorItemSkin{
         return stack.getHoverName().copy().withStyle(stack.getRarity().getStyleModifier()).append(Component.literal(" ༶ Kerdo ༶").withStyle(Styles.nature));
     }
 
+    @OnlyIn(Dist.CLIENT)
+    public static void registerModels(){
+        ItemSkinModels.addSkin(Valoria.ID + ":the_fallen_collector_crown");
+        ItemSkinModels.addSkin(Valoria.ID + ":the_fallen_collector_coat");
+        ItemSkinModels.addSkin(Valoria.ID + ":brand");
+    }
+
     @Override
     public void setupSkinEntries() {
         addSkinEntry(new TheFallenCollectorSkinEntry(ArmorItem.class,
@@ -29,7 +36,7 @@ public class TheFallenCollector extends ItemSkin implements IAuthorItemSkin{
         .addArmorSkin(EquipmentSlot.HEAD, Valoria.ID + ":the_fallen_collector_crown")
         .addArmorSkin(EquipmentSlot.CHEST, Valoria.ID + ":the_fallen_collector_coat"));
 
-        addSkinEntry(new ItemClassSkinEntry(BlazeReapItem.class, Valoria.ID+":arcane_gold_blaze_reap"));
+        addSkinEntry(new ItemClassSkinEntry(KatanaItem.class, Valoria.ID+":brand"));
     }
 
     public static class TheFallenCollectorSkinEntry extends ArmorClassSkinEntry {

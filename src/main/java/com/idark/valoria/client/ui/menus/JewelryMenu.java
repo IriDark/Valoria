@@ -10,6 +10,7 @@ import net.minecraft.world.inventory.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.entity.*;
 import net.minecraftforge.common.capabilities.*;
+import net.minecraftforge.items.*;
 import net.minecraftforge.items.wrapper.*;
 
 public class JewelryMenu extends ContainerMenuBase{
@@ -22,7 +23,7 @@ public class JewelryMenu extends ContainerMenuBase{
         this.layoutPlayerInventorySlots(8, 84);
         if (blockEntity != null) {
             blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(h -> {
-                this.addSlot(new TrinketsSlot(h, 0, 27, 47));
+                this.addSlot(new SlotItemHandler(h, 0, 27, 47));
                 this.addSlot(new GemSlot(h, 1, 76, 47));
 
                 this.addSlot(new ResultSlot(h, 2, 134, 47));

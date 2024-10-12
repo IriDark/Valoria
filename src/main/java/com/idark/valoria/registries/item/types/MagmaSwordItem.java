@@ -27,6 +27,8 @@ import org.joml.*;
 
 import java.util.*;
 
+import static com.idark.valoria.util.ValoriaUtils.addContributorTooltip;
+
 public class MagmaSwordItem extends SwordItem implements IRadiusItem, IOverlayItem{
     private static final ResourceLocation BAR = new ResourceLocation(Valoria.ID, "textures/gui/overlay/magma_charge.png");
     public ArcRandom arcRandom = new ArcRandom();
@@ -146,10 +148,11 @@ public class MagmaSwordItem extends SwordItem implements IRadiusItem, IOverlayIt
     @Override
     public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags) {
         super.appendHoverText(stack, world, tooltip, flags);
-        tooltip.add(1, Component.translatable("tooltip.valoria.infernal_sword").withStyle(ChatFormatting.GRAY));
-        tooltip.add(2, Component.translatable(getModeString(stack)).withStyle(ChatFormatting.YELLOW));
-        tooltip.add(3, Component.empty());
-        tooltip.add(4, Component.translatable("tooltip.valoria.rmb").withStyle(ChatFormatting.GREEN));
+        addContributorTooltip(stack, tooltip);
+        tooltip.add(Component.translatable("tooltip.valoria.infernal_sword").withStyle(ChatFormatting.GRAY));
+        tooltip.add(Component.translatable(getModeString(stack)).withStyle(ChatFormatting.YELLOW));
+        tooltip.add(Component.empty());
+        tooltip.add(Component.translatable("tooltip.valoria.rmb").withStyle(ChatFormatting.GREEN));
     }
 
     @Override

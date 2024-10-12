@@ -68,7 +68,7 @@ public class BlazeReapItem extends PickaxeItem implements Vanishable, IOverlayIt
         boolean hasAmmo = !ammo.isEmpty();
         boolean flag = ammo.getItem() instanceof GunpowderCharge;
         if (player.isShiftKeyDown()) {
-            if (nbt.contains("charge") && nbt.getInt("charge") == 0) {
+            if (nbt.getInt("charge") == 0) {
                 if (hasAmmo) {
                     if (!player.isCreative()) {
                         ammo.shrink(1);
@@ -91,7 +91,7 @@ public class BlazeReapItem extends PickaxeItem implements Vanishable, IOverlayIt
             }
 
             return InteractionResultHolder.pass(weapon);
-        } else if (nbt.contains("charge") && nbt.getInt("charge") == 1) {
+        } else if (nbt.getInt("charge") == 1) {
             nbt.putInt("charge", 0);
             player.getCooldowns().addCooldown(this, 50);
             player.awardStat(Stats.ITEM_USED.get(this));
@@ -177,8 +177,8 @@ public class BlazeReapItem extends PickaxeItem implements Vanishable, IOverlayIt
         int xCord = ClientConfig.MAGMA_CHARGE_BAR_X.get();
         int yCord = ClientConfig.MAGMA_CHARGE_BAR_Y.get();
         gui.blit(BAR, xCord, yCord, 0, 0, 73, 19, 128, 64);
-        float x = 6;
-        float y = 5.5f;
+        float x = 4;
+        float y = 15.5f;
         List<ItemStack> ammunition = getAmmunition();
         int itemCount = Math.min(ammunition.size(), 3);
         for (int i = 0; i < itemCount; i++) {

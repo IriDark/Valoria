@@ -11,7 +11,6 @@ import mod.maxbogomol.fluffy_fur.common.itemskin.*;
 import mod.maxbogomol.fluffy_fur.registry.client.*;
 import mod.maxbogomol.fluffy_fur.registry.common.item.*;
 import net.minecraft.client.resources.model.*;
-import net.minecraft.core.registries.*;
 import net.minecraft.resources.*;
 import net.minecraft.world.item.*;
 import net.minecraftforge.api.distmarker.*;
@@ -26,9 +25,11 @@ import java.util.*;
 public class SkinsRegistry{
     public static ItemSkin THE_FALLEN_COLLECTOR = new TheFallenCollector(Valoria.ID + ":the_fallen_collector");
     public static ItemSkin ARCANE_GOLD = new ArcaneGold(Valoria.ID + ":arcane_gold");
+    public static ItemSkin CYBERPUNK = new Cyberpunk(Valoria.ID + ":cyberpunk");
     public static void register(){
         ItemSkinHandler.register(ARCANE_GOLD);
         ItemSkinHandler.register(THE_FALLEN_COLLECTOR);
+        ItemSkinHandler.register(CYBERPUNK);
         DistExecutor.unsafeCallWhenOn(Dist.CLIENT, () -> () -> {
             registerModels();
             return new Object();
@@ -37,16 +38,17 @@ public class SkinsRegistry{
 
     @OnlyIn(Dist.CLIENT)
     public static void registerModels(){
-        ItemSkinModels.addSkin(Valoria.ID + ":the_fallen_collector_crown");
-        ItemSkinModels.addSkin(Valoria.ID + ":the_fallen_collector_coat");
-        ItemSkinModels.addBowSkin(Valoria.ID + ":arcane_wood_bow");
-        ItemSkinModels.addSkin(Valoria.ID + ":arcane_gold_blaze_reap");
+        ArcaneGold.registerModels();
+        TheFallenCollector.registerModels();
+        Cyberpunk.registerModels();
+        ItemSkinModels.addSkin(Valoria.ID + ":muramasa");
     }
 
     @Mod.EventBusSubscriber(modid = Valoria.ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     public static class ClientRegistryEvents{
         @SubscribeEvent
         public static void modelRegistrySkins(ModelEvent.RegisterAdditional event) {
+            registerKatana(event);
             for(RegistryObject<Item> item : ItemsRegistry.ITEMS.getEntries()){
                 if(item.get() instanceof ConfigurableBowItem){
                     FluffyFurModels.addBowItemModel(event, Valoria.ID, item.getId().getPath());
@@ -55,28 +57,49 @@ public class SkinsRegistry{
 
             event.register(LargeItemRenderer.getModelResourceLocation(Valoria.ID, "blaze_reap"));
             event.register(LargeItemRenderer.getModelResourceLocation(Valoria.ID, "skin/arcane_gold_blaze_reap"));
+            event.register(LargeItemRenderer.getModelResourceLocation(Valoria.ID, "skin/muramasa"));
+            event.register(LargeItemRenderer.getModelResourceLocation(Valoria.ID, "skin/brand"));
         }
 
         @SubscribeEvent
         public static void modelBakeSkins(ModelEvent.ModifyBakingResult event){
             Map<ResourceLocation, BakedModel> map = event.getModels();
-            registerArmor(map);
+            bakeArmor(map);
+            bakeKatana(map);
             for(RegistryObject<Item> item : ItemsRegistry.ITEMS.getEntries()){
                 if(item.get() instanceof ConfigurableBowItem){
                     FluffyFurModels.addBowItemModel(map, item.getId(), new BowSkinItemOverrides());
                 }
             }
 
+            FluffyFurItemSkins.addLargeModel(map, Valoria.ID, "muramasa");
+            FluffyFurItemSkins.addLargeModel(map, Valoria.ID, "brand");
             FluffyFurItemSkins.addLargeModel(map, Valoria.ID, "arcane_gold_blaze_reap");
             LargeItemRenderer.bakeModel(map, Valoria.ID, "blaze_reap", new ItemSkinItemOverrides());
         }
     }
 
-    private static void registerArmor(Map<ResourceLocation, BakedModel> map){
-        for(var item : ForgeRegistries.ITEMS.getEntries()){
-            if(item.getValue() instanceof SkinableArmorItem){
-                var id = BuiltInRegistries.ITEM.getKey(item.getValue());
-                FluffyFurItemSkins.addSkinModel(map, id);
+    private static void registerKatana(ModelEvent.RegisterAdditional event){
+        for(RegistryObject<Item> item : ItemsRegistry.ITEMS.getEntries()){
+            if(item.get() instanceof KatanaItem){
+                event.register(LargeItemRenderer.getModelResourceLocation(Valoria.ID, item.getId().getPath()));
+            }
+        }
+    }
+
+    private static void bakeKatana(Map<ResourceLocation, BakedModel> map){
+        for(RegistryObject<Item> item : ItemsRegistry.ITEMS.getEntries()){
+            if(item.get() instanceof KatanaItem){
+                LargeItemRenderer.bakeModel(map, Valoria.ID, item.getId().getPath(), new ItemSkinItemOverrides());
+            }
+        }
+    }
+
+
+    private static void bakeArmor(Map<ResourceLocation, BakedModel> map){
+        for(RegistryObject<Item> item : ItemsRegistry.ITEMS.getEntries()){
+            if(item.get() instanceof SkinableArmorItem){
+                FluffyFurItemSkins.addSkinModel(map, item.getId());
             }
         }
     }

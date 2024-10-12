@@ -324,7 +324,7 @@ public class ItemsRegistry {
         .setDashDistance(1.6f)
         .setSound(SoundsRegistry.HALLOWEEN_SLICE.get())
         .setOverlay(new ResourceLocation(Valoria.ID, "textures/gui/overlay/roots.png"))
-        .usePacket(Pal.halloween)
+        .usePacket(Pal.mandarin)
         .build()
         );
 

@@ -56,7 +56,7 @@ public class Styles{
     .withFont(new ResourceLocation("minecraft", "default"));
 
     public static UnaryOperator<Style> halloween = style -> style
-    .withColor(TextColor.fromRgb(Pal.halloween.getRGB()))
+    .withColor(TextColor.fromRgb(Pal.mandarin.getRGB()))
     .withBold(false)
     .withItalic(false)
     .withUnderlined(false)

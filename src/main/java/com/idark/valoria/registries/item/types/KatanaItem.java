@@ -37,6 +37,7 @@ import java.lang.Math;
 import java.util.List;
 
 import static com.idark.valoria.Valoria.BASE_DASH_DISTANCE_UUID;
+import static com.idark.valoria.util.ValoriaUtils.addContributorTooltip;
 
 public class KatanaItem extends SwordItem implements ICooldownItem {
     public float chance = 1;
@@ -400,6 +401,7 @@ public class KatanaItem extends SwordItem implements ICooldownItem {
     @Override
     public void appendHoverText(@NotNull ItemStack stack, Level world, @NotNull List<Component> tooltip, @NotNull TooltipFlag flags) {
         super.appendHoverText(stack, world, tooltip, flags);
+        addContributorTooltip(stack, tooltip);
         tooltip.add(Component.translatable("tooltip.valoria.katana").withStyle(ChatFormatting.GRAY));
         tooltip.add(Component.translatable("tooltip.valoria.rmb").withStyle(ChatFormatting.GREEN));
         ValoriaUtils.addEffectsTooltip(effects, tooltip, 1, chance);
