@@ -98,6 +98,7 @@
 - Animated Goblins
 - Resprited all the drinks
 - Resprited Cobalt Ingot
+- Resprited Bow of Darkness
 - Updated to Forge 47.2.20
 
 # Changelog v0.6.1
