@@ -2,6 +2,7 @@
   "parent": "valoria:block/glowing_plant",
   "textures": {
     "cross": "valoria:block/abyssal_glowfern",
-    "glowing": "valoria:block/abyssal_glowfern_glow"
+    "glowing": "valoria:block/abyssal_glowfern_glow",
+    "particle": "valoria:block/abyssal_lantern"
   }
 }

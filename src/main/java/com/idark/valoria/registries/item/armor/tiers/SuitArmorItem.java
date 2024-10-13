@@ -1,4 +1,4 @@
-package com.idark.valoria.registries.item.tiers;
+package com.idark.valoria.registries.item.armor.tiers;
 
 import com.idark.valoria.registries.item.types.*;
 import net.minecraft.*;

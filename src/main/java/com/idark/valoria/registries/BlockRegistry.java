@@ -31,8 +31,7 @@ import static com.idark.valoria.util.ValoriaUtils.*;
 public class BlockRegistry {
     public static final DeferredRegister<Block> BLOCK = DeferredRegister.create(ForgeRegistries.BLOCKS, Valoria.ID);
     public static final RegistryObject<Block> SPIKES = registerBlock("spikes",
-    () -> new SpikeBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_GRAY).strength(-1f, 3600000.8F).noLootTable().dynamicShape().noOcclusion()));
-
+            () -> new SpikeBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_GRAY).strength(-1f, 3600000.8F).noLootTable().dynamicShape().noOcclusion()));
     // Door & Trapdoors
     public static final RegistryObject<Block> ELDRITCH_DOOR = registerBlock("eldritch_door",
             () -> new DoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_DOOR).mapColor(MapColor.COLOR_MAGENTA).noOcclusion(), BlockSetType.OAK));
@@ -494,7 +493,7 @@ public class BlockRegistry {
             () -> new ModWallHangingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_MAGENTA).noOcclusion().noCollission(), ModWoodTypes.ELDRITCH));
 
     // Other
-    public static final RegistryObject<Block> VALORIA_PORTAL = registerBlock("valoria_portal",
+    public static final RegistryObject<Block> VALORIA_PORTAL = BLOCK.register("valoria_portal",
             () -> new ValoriaPortalBlock(BlockBehaviour.Properties.copy(Blocks.NETHER_PORTAL).mapColor(MapColor.COLOR_PURPLE)));
     public static final RegistryObject<Block> STONE_CRUSHER = registerBlock("stone_crusher",
             () -> new CrusherBlock(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(1f, 2f)));

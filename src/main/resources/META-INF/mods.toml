@@ -4,9 +4,9 @@ license = "Code: Public Domain | Assets: Attribution-NonCommercial 4.0 Internati
 issueTrackerURL = "https://github.com/IriDark/Valoria/issues"
 [[mods]]
 modId = "valoria"
-version = "${file.jarVersion}}"
+version = "0.6.3b"
 displayName = "Valoria"
-updateJSONURL = "https://www.curseforge.com/minecraft/mc-mods/valoria"
+updateJSONURL = "https://raw.githubusercontent.com/IriDark/Valoria/refs/heads/main/update.json"
 displayURL = "https://discord.gg/wWdXpwuPmK"
 logoFile = "Valoria_Logo.png"
 credits = "Calamity Mod (sounds)"
