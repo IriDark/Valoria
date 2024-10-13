@@ -390,6 +390,7 @@
   "enchantment.valoria.explosive_flame.desc": "Заряженные атаки пламекоса будут вызывать взрыв",
   "enchantment.valoria.radius": "Радиус",
   "enchantment.valoria.radius.desc": "Увеличивает радиус для способностей атаки по радиусу.",
+  "entity.minecraft.villager.valoria.jeweler": "Jeweler",
   "entity.valoria.devourer": "Пожиратель",
   "entity.valoria.draugr": "Драург",
   "entity.valoria.goblin": "Гоблин",
