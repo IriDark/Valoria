@@ -1,3 +1,6 @@
+# Changelog v0.6.4b
+- Added Jeweler Profession
+
 # Changelog v0.6.2 - v0.6.3b
 - Now Valoria requires Fluffy Fur
 - Fixed Shade Blossom Bandage Recipe
