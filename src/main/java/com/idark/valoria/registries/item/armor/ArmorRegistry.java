@@ -1,4 +1,4 @@
-package com.idark.valoria.registries.item.armor.tiers;
+package com.idark.valoria.registries.item.armor;
 
 import com.idark.valoria.*;
 import com.idark.valoria.registries.*;
@@ -11,14 +11,73 @@ import org.jetbrains.annotations.*;
 import java.util.function.*;
 
 public class ArmorRegistry implements ArmorMaterial{
-    public static final ArmorRegistry COBALT = new ArmorRegistry("cobalt"); {{
+    public static final ArmorRegistry COBALT = new ArmorRegistry("cobalt") {{
         durabilityMultiplier = 46;
         equipSound = SoundEvents.ARMOR_EQUIP_IRON;
         toughness = 1;
         knockbackResistance = 0.05f;
+        enchantmentValue = 18;
         repairIngredient = () -> Ingredient.of(ItemsRegistry.cobaltIngot.get());
         setProtection(4, 10, 8, 4);
-    }}
+    }};
+
+    public static final ArmorRegistry SAMURAI = new ArmorRegistry("samurai") {{
+        durabilityMultiplier = 55;
+        equipSound = SoundEvents.ARMOR_EQUIP_IRON;
+        toughness = 2.5f;
+        knockbackResistance = 0.15f;
+        enchantmentValue = 16;
+        repairIngredient = () -> Ingredient.of(ItemsRegistry.ancientIngot.get());
+        setProtection(6, 12, 10, 5);
+    }};
+
+    public static final ArmorRegistry NATURE = new ArmorRegistry("nature") {{
+        durabilityMultiplier = 66;
+        equipSound = SoundEvents.ARMOR_EQUIP_IRON;
+        toughness = 3f;
+        enchantmentValue = 17;
+        repairIngredient = () -> Ingredient.of(ItemsRegistry.ancientIngot.get());
+        setProtection(6, 10, 9, 5);
+    }};
+
+    public static final ArmorRegistry DEPTH = new ArmorRegistry("depth") {{
+        durabilityMultiplier = 72;
+        equipSound = SoundEvents.ARMOR_EQUIP_IRON;
+        toughness = 3.6f;
+        enchantmentValue = 15;
+        repairIngredient = () -> Ingredient.of(ItemsRegistry.ancientIngot.get());
+        setProtection(6, 11, 9, 6);
+    }};
+
+    public static final ArmorRegistry INFERNAL = new ArmorRegistry("infernal") {{
+        durabilityMultiplier = 76;
+        equipSound = SoundEvents.ARMOR_EQUIP_NETHERITE;
+        toughness = 4.5f;
+        knockbackResistance = 0.1f;
+        enchantmentValue = 14;
+        repairIngredient = () -> Ingredient.of(ItemsRegistry.ancientIngot.get());
+        setProtection(7, 12, 9, 7);
+    }};
+
+    public static final ArmorRegistry VOID = new ArmorRegistry("awakened_void") {{
+        durabilityMultiplier = 82;
+        equipSound = SoundEvents.ARMOR_EQUIP_NETHERITE;
+        toughness = 4.5f;
+        knockbackResistance = 0.2f;
+        enchantmentValue = 10;
+        repairIngredient = () -> Ingredient.of(ItemsRegistry.ancientIngot.get());
+        setProtection(8, 12, 10, 8);
+    }};
+
+    public static final ArmorRegistry PHANTASM = new ArmorRegistry("phantasm") {{
+        durabilityMultiplier = 96;
+        equipSound = SoundEvents.ARMOR_EQUIP_NETHERITE;
+        toughness = 30;
+        knockbackResistance = 0.5f;
+        enchantmentValue = 15;
+        repairIngredient = () -> Ingredient.of(ItemsRegistry.ancientIngot.get());
+        setProtection(14, 18, 16, 12);
+    }};
 
     public String name;
     public int durabilityMultiplier;

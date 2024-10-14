@@ -1,8 +1,8 @@
 package com.idark.valoria.registries.item.armor.tiers;
 
 import com.google.common.collect.*;
-import com.idark.valoria.core.enums.*;
 import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.item.armor.ArmorRegistry;
 import net.minecraft.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.world.effect.*;
@@ -16,9 +16,9 @@ import java.util.*;
 @SuppressWarnings("removal")
 public class EffectArmorItem extends SuitArmorItem {
     private static final Map<ArmorMaterial, MobEffect> MATERIAL_TO_EFFECT_MAP = new ImmutableMap.Builder<ArmorMaterial, MobEffect>()
-            .put(ModArmorMaterial.DEPTH, MobEffects.WATER_BREATHING)
-            .put(ModArmorMaterial.NATURE, EffectsRegistry.ALOEREGEN.get())
-            .put(ModArmorMaterial.INFERNAL, MobEffects.DAMAGE_BOOST)
+            .put(ArmorRegistry.DEPTH, MobEffects.WATER_BREATHING)
+            .put(ArmorRegistry.NATURE, EffectsRegistry.ALOEREGEN.get())
+            .put(ArmorRegistry.INFERNAL, MobEffects.DAMAGE_BOOST)
             .build();
 
     public EffectArmorItem(ArmorMaterial material, ArmorItem.Type type, Properties settings) {
@@ -55,7 +55,7 @@ public class EffectArmorItem extends SuitArmorItem {
             ArmorMaterial mapArmorMaterial = entry.getKey();
             MobEffect mapStatusEffect = entry.getValue();
             if (hasCorrectArmorOn(mapArmorMaterial, player)) {
-                if (mapArmorMaterial == ModArmorMaterial.DEPTH) {
+                if (mapArmorMaterial == ArmorRegistry.DEPTH) {
                     if (player.isInWater()) {
                         addStatusEffectForMaterial(player, mapArmorMaterial, mapStatusEffect);
                     }
