@@ -13,7 +13,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.item.*;
 import net.minecraftforge.api.distmarker.*;
 
-public class TheFallenCollector extends ItemSkin implements IAuthorItemSkin{
+public class TheFallenCollector extends ItemSkin implements AuthoredItemSkin {
     public TheFallenCollector(String id){
         super(id, Pal.seaGreen);
     }

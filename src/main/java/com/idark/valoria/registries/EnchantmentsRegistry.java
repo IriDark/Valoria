@@ -1,7 +1,7 @@
 package com.idark.valoria.registries;
 
 import com.idark.valoria.Valoria;
-import com.idark.valoria.core.interfaces.IRadiusItem;
+import com.idark.valoria.core.interfaces.RadiusItem;
 import com.idark.valoria.registries.item.enchantments.BleedingEnchantment;
 import com.idark.valoria.registries.item.enchantments.ExplosiveFlameEnchantment;
 import com.idark.valoria.registries.item.enchantments.RadiusEnchantment;
@@ -18,7 +18,7 @@ import java.util.function.Supplier;
 public class EnchantmentsRegistry {
     public static final DeferredRegister<Enchantment> ENCHANTMENTS = DeferredRegister.create(ForgeRegistries.ENCHANTMENTS, Valoria.ID);
 
-    public static final EnchantmentCategory RADIUS_WEAPON = EnchantmentCategory.create("radius_weapon", item -> item instanceof IRadiusItem);
+    public static final EnchantmentCategory RADIUS_WEAPON = EnchantmentCategory.create("radius_weapon", item -> item instanceof RadiusItem);
     public static final EnchantmentCategory BLAZE = EnchantmentCategory.create("blaze", item -> item instanceof BlazeReapItem);
 
     public static final RegistryObject<Enchantment> EXPLOSIVE_FLAME = registerEnchantment("explosive_flame", ExplosiveFlameEnchantment::new);

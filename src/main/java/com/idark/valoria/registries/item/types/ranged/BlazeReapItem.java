@@ -31,7 +31,7 @@ import java.util.*;
 
 import static com.idark.valoria.util.ValoriaUtils.addContributorTooltip;
 
-public class BlazeReapItem extends PickaxeItem implements Vanishable, IOverlayItem {
+public class BlazeReapItem extends PickaxeItem implements Vanishable, OverlayRenderItem {
     private static final ResourceLocation BAR = new ResourceLocation(Valoria.ID, "textures/gui/overlay/blazecharge_bar.png");
 
     public BlazeReapItem(Tier tier, int attackDamageIn, float attackSpeedIn, Properties builder) {

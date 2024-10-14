@@ -32,7 +32,7 @@ import java.util.*;
 import static com.idark.valoria.Valoria.BASE_ATTACK_RADIUS_UUID;
 import static com.idark.valoria.util.ValoriaUtils.addContributorTooltip;
 
-public class ScytheItem extends SwordItem implements ICustomAnimationItem, ICooldownItem, IRadiusItem, ISpinAttackItem {
+public class ScytheItem extends SwordItem implements ICustomAnimationItem, CooldownNotifyItem, RadiusItem, SpinAttackItem {
     public float radius = 3;
     protected float chance = 1;
     public float screenShakeIntensity = 0.35f;

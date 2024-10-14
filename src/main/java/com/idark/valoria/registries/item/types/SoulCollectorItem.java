@@ -18,7 +18,7 @@ import net.minecraftforge.api.distmarker.*;
 
 import java.util.*;
 
-public class SoulCollectorItem extends Item implements IOverlayItem{
+public class SoulCollectorItem extends Item implements OverlayRenderItem {
     public int max;
     public int current;
     public static final ResourceLocation BAR = new ResourceLocation(Valoria.ID, "textures/gui/overlay/soul_collector.png");

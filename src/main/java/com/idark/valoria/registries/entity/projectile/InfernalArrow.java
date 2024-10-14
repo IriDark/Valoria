@@ -13,7 +13,7 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
 
-public class InfernalArrow extends AbstractValoriaArrow implements IProjectileTexture {
+public class InfernalArrow extends AbstractValoriaArrow implements TexturedArrow {
 
     public InfernalArrow(EntityType<? extends AbstractArrow> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);

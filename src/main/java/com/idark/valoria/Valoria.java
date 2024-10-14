@@ -96,7 +96,7 @@ public class Valoria {
             forgeBus.addListener(ClientTickHandler::clientTickEnd);
             forgeBus.addListener(OverlayRender::tick);
             forgeBus.addListener(OverlayRender::onDrawScreenPost);
-            forgeBus.addListener(IOverlayItem::onDrawScreenPost);
+            forgeBus.addListener(OverlayRenderItem::onDrawScreenPost);
             return new Object();
         });
 

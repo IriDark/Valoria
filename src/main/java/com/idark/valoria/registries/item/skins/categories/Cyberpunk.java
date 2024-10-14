@@ -11,7 +11,7 @@ import net.minecraft.network.chat.*;
 import net.minecraft.world.item.*;
 import net.minecraftforge.api.distmarker.*;
 
-public class Cyberpunk extends ItemSkin implements IAuthorItemSkin{
+public class Cyberpunk extends ItemSkin implements AuthoredItemSkin {
     public Cyberpunk(String id){
         super(id, Pal.majestyPurple);
     }

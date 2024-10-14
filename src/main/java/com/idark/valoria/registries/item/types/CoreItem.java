@@ -17,7 +17,7 @@ import java.util.List;
 import static com.idark.valoria.client.particle.ParticleEffects.spawnItemParticles;
 
 //todo
-public class CoreItem extends Item implements IParticleItemEntity {
+public class CoreItem extends Item implements ParticleItemEntity {
     private final String coreName;
     public ParticleType<?> particle;
     public ColorParticleData color;

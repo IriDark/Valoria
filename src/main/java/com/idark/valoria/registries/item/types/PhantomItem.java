@@ -24,7 +24,7 @@ import java.util.*;
 // Fix the ability (Works weird on server)
 // Work on GFX side of the ability
 // Something like on-screen particles would be cool
-public class PhantomItem extends SwordItem implements IRadiusItem {
+public class PhantomItem extends SwordItem implements RadiusItem {
     public float pRadius = 3;
 
     public PhantomItem(Tier tier, int attackDamageIn, float attackSpeedIn, Properties builderIn) {

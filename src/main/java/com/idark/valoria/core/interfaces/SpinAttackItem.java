@@ -1,4 +1,4 @@
 package com.idark.valoria.core.interfaces;
 
-public interface ISpinAttackItem {
+public interface SpinAttackItem {
 }

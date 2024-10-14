@@ -46,7 +46,9 @@ import org.joml.*;
 
 import java.awt.*;
 import java.lang.Math;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.function.*;
 
 import static com.idark.valoria.util.ValoriaUtils.addContributorTooltip;
@@ -219,48 +221,13 @@ public class ItemsRegistry {
         infernalIngot = registerItem("infernal_ingot", () -> new Item(new Item.Properties().fireResistant().rarity(RarityRegistry.INFERNAL)));
         voidIngot = registerItem("void_ingot", () -> new Item(new Item.Properties().fireResistant().rarity(RarityRegistry.VOID)));
         pyratite = registerItem("pyratite", () -> new Item(new Item.Properties().rarity(RarityRegistry.INFERNAL)));
-        natureGift = registerItem("nature_gift", () -> new ParticleMaterialItem(new Item.Properties().stacksTo(16).rarity(RarityRegistry.NATURE)){{
-            particle = ParticleRegistry.SPHERE.get();
-            alpha = 0.35f;
-            color = ColorParticleData.create(Pal.nature, Pal.vividCyan).build();
-        }});
-
-        boneFragment = registerItem("bone_fragment", () -> new ParticleMaterialItem(new Item.Properties().stacksTo(16).rarity(RarityRegistry.NATURE)){{
-            particle = ParticleRegistry.SPHERE.get();
-            alpha = 0.35f;
-            color = ColorParticleData.create(Pal.vividGreen, Pal.cyan).build();
-        }});
-
-        oceanicShell = registerItem("oceanic_shell", () -> new ParticleMaterialItem(new Item.Properties().stacksTo(16).rarity(RarityRegistry.AQUARIUS)){{
-            particle = ParticleRegistry.SPHERE.get();
-            alpha = 0.35f;
-            color = ColorParticleData.create(Pal.oceanic, Pal.magmatic).build();
-        }});
-
-        infernalStone = registerItem("infernal_stone", () -> new ParticleMaterialItem(new Item.Properties().stacksTo(16).rarity(RarityRegistry.INFERNAL)){{
-            particle = ParticleRegistry.SPHERE.get();
-            alpha = 0.35f;
-            color = ColorParticleData.create(Pal.infernalBright, Pal.magmatic).build();
-        }});
-
-        painCrystal = registerItem("pain_crystal", () -> new ParticleMaterialItem(new Item.Properties().stacksTo(16).rarity(RarityRegistry.NATURE)){{
-            particle = ParticleRegistry.SPHERE.get();
-            alpha = 0.35f;
-            color = ColorParticleData.create(Pal.strongRed, Pal.moderateViolet).build();
-        }});
-
-        nihilityShard = registerItem("nihility_shard", () -> new ParticleMaterialItem(new Item.Properties().stacksTo(16).rarity(RarityRegistry.VOID)){{
-            particle = ParticleRegistry.SPHERE.get();
-            alpha = 0.35f;
-            color = ColorParticleData.create(Pal.softMagenta).build();
-        }});
-
-        illusionStone = registerItem("illusion_stone", () -> new ParticleMaterialItem(new Item.Properties().stacksTo(16).rarity(RarityRegistry.PHANTASM)){{
-            particle = ParticleRegistry.SPHERE.get();
-            alpha = 0.35f;
-            color = ColorParticleData.create(Pal.softBlue, Color.white).build();
-        }});
-
+        natureGift = registerItem("nature_gift", () -> new ParticleMaterialItem(new Item.Properties().stacksTo(16).rarity(RarityRegistry.NATURE), 0.35f, ColorParticleData.create(Pal.nature, Pal.vividCyan).build(), ParticleRegistry.SPHERE.get()));
+        boneFragment = registerItem("bone_fragment", () -> new ParticleMaterialItem(new Item.Properties().stacksTo(16).rarity(RarityRegistry.NATURE), 0.35f, ColorParticleData.create(Pal.vividGreen, Pal.cyan).build(), ParticleRegistry.SPHERE.get()));
+        oceanicShell = registerItem("oceanic_shell", () -> new ParticleMaterialItem(new Item.Properties().stacksTo(16).rarity(RarityRegistry.AQUARIUS), 0.35f, ColorParticleData.create(Pal.oceanic, Pal.magmatic).build(), ParticleRegistry.SPHERE.get()));
+        infernalStone = registerItem("infernal_stone", () -> new ParticleMaterialItem(new Item.Properties().stacksTo(16).rarity(RarityRegistry.INFERNAL), 0.35f, ColorParticleData.create(Pal.infernalBright, Pal.magmatic).build(), ParticleRegistry.SPHERE.get()));
+        painCrystal = registerItem("pain_crystal", () -> new ParticleMaterialItem(new Item.Properties().stacksTo(16).rarity(RarityRegistry.NATURE), 0.35f, ColorParticleData.create(Pal.strongRed, Pal.moderateViolet).build(), ParticleRegistry.SPHERE.get()));
+        nihilityShard = registerItem("nihility_shard", () -> new ParticleMaterialItem(new Item.Properties().stacksTo(16).rarity(RarityRegistry.VOID), 0.35f, ColorParticleData.create(Pal.softMagenta).build(), ParticleRegistry.SPHERE.get()));
+        illusionStone = registerItem("illusion_stone", () -> new ParticleMaterialItem(new Item.Properties().stacksTo(16).rarity(RarityRegistry.PHANTASM), 0.35f, ColorParticleData.create(Pal.softBlue, Color.white).build(), ParticleRegistry.SPHERE.get()));
         natureCore = registerItem("nature_core", () -> new CoreItem(ParticleRegistry.SPHERE.get(), new Item.Properties().fireResistant().rarity(RarityRegistry.NATURE), 8, Pal.nature, Pal.vividCyan, "nature_core"));
         aquariusCore = registerItem("aquarius_core", () -> new CoreItem(ParticleRegistry.SPHERE.get(), new Item.Properties().fireResistant().rarity(RarityRegistry.AQUARIUS), 8, Pal.oceanic, Pal.magmatic, "aquarius_core"));
         infernalCore = registerItem("infernal_core", () -> new CoreItem(ParticleRegistry.SPHERE.get(), new Item.Properties().fireResistant().rarity(RarityRegistry.INFERNAL), 8, Pal.infernalBright, Pal.magmatic, "infernal_core"));
@@ -372,8 +339,7 @@ public class ItemsRegistry {
         beast = registerItem("beast", () -> new BeastScytheItem(ModItemTier.NONE, 13, -3.2f, new Item.Properties()) {{
             minCooldown = 40;
             maxCooldown = 150;
-        }
-        });
+        }});
 
         ironKatana = registerItem("iron_katana", () -> new KatanaItem(Tiers.IRON, 3, -2.2f, 1f, new Item.Properties()));
         goldenKatana = registerItem("golden_katana", () -> new KatanaItem(Tiers.GOLD, 2, -1.8f, 1.2f, new Item.Properties()));
@@ -487,32 +453,16 @@ public class ItemsRegistry {
         netheriteGloves = registerItem("netherite_gloves", () -> new GlovesItem(Tiers.NETHERITE, AccessoryGem.TANK, AccessoryMaterial.NETHERITE, new Item.Properties().stacksTo(1).durability(300).rarity(Rarity.UNCOMMON)));
         amberTotem = registerItem("amber_golden_totem", () -> new Item(new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.EPIC)));
         amberWinglet = registerItem("amber_golden_winglet", () -> new Item(new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.EPIC)));
-        amberGazer = registerItem("amber_golden_gazer", () -> new ParticleMaterialItem(new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.EPIC)){{
-            color = ColorParticleData.create(Pal.amber, Color.white).build();
-            alpha = 0.35f;
-        }});
-
+        amberGazer = registerItem("amber_golden_gazer", () -> new ParticleMaterialItem(new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.EPIC), ColorParticleData.create(Pal.amber, Color.white).build()));
         emeraldTotem = registerItem("emerald_golden_totem", () -> new Item(new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.EPIC)));
         emeraldWinglet = registerItem("emerald_golden_winglet", () -> new Item(new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.EPIC)));
-        emeraldGazer = registerItem("emerald_golden_gazer", () -> new ParticleMaterialItem(new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.EPIC)){{
-            color = ColorParticleData.create(Pal.emerald, Color.white).build();
-            alpha = 0.35f;
-        }});
-
+        emeraldGazer = registerItem("emerald_golden_gazer", () -> new ParticleMaterialItem(new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.EPIC), ColorParticleData.create(Pal.emerald, Color.white).build()));
         amethystTotem = registerItem("amethyst_golden_totem", () -> new Item(new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.EPIC)));
         amethystWinglet = registerItem("amethyst_golden_winglet", () -> new Item(new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.EPIC)));
-        amethystGazer = registerItem("amethyst_golden_gazer", () -> new ParticleMaterialItem(new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.EPIC)){{
-            color = ColorParticleData.create(Pal.amethyst, Color.white).build();
-            alpha = 0.35f;
-        }});
-
+        amethystGazer = registerItem("amethyst_golden_gazer", () -> new ParticleMaterialItem(new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.EPIC), ColorParticleData.create(Pal.amethyst, Color.white).build()));
         rubyTotem = registerItem("ruby_golden_totem", () -> new Item(new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.EPIC)));
         rubyWinglet = registerItem("ruby_golden_winglet", () -> new Item(new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.EPIC)));
-        rubyGazer = registerItem("ruby_golden_gazer", () -> new ParticleMaterialItem(new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.EPIC)){{
-            color = ColorParticleData.create(Pal.ruby, Color.white).build();
-            alpha = 0.35f;
-        }});
-
+        rubyGazer = registerItem("ruby_golden_gazer", () -> new ParticleMaterialItem(new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.EPIC), ColorParticleData.create(Pal.ruby, Color.white).build()));
         brokenMonocle = registerItem("broken_bloodsight_monocle", () -> new BloodSight(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC).durability(300)));
         monocle = registerItem("bloodsight_monocle", () -> new BloodSight(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC).durability(300)));
         jewelryBag = registerItem("jewelry_bag", () -> new JewelryBagItem(new Item.Properties().stacksTo(1)));
@@ -596,9 +546,8 @@ public class ItemsRegistry {
         return ITEMS.register(name, item);
     }
 
-
     private static KatanaItem murasamaProps(){
-        return new KatanaItem(ModItemTier.SAMURAI, 9, -2.4f, new Item.Properties()){{
+        return new KatanaItem(ModItemTier.SAMURAI, 14, -2.4f, new Item.Properties()){{
             chargeTime = 20;
             chargedEvent = SoundsRegistry.RECHARGE.get();
         }

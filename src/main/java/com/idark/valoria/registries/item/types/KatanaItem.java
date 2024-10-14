@@ -39,7 +39,7 @@ import java.util.List;
 import static com.idark.valoria.Valoria.BASE_DASH_DISTANCE_UUID;
 import static com.idark.valoria.util.ValoriaUtils.addContributorTooltip;
 
-public class KatanaItem extends SwordItem implements ICooldownItem {
+public class KatanaItem extends SwordItem implements CooldownNotifyItem {
     public float chance = 1;
     public int overlayTime = 35;
     public int cooldownTime = 75;

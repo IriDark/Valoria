@@ -20,7 +20,7 @@ import net.minecraft.world.phys.*;
 import net.minecraftforge.api.distmarker.*;
 
 //TODO: probably rework (maybe?)
-public class TransformShardItem extends Item implements IParticleItemEntity {
+public class TransformShardItem extends Item implements ParticleItemEntity {
     public TransformShardItem(Properties properties) {
         super(properties);
     }

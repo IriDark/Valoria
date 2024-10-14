@@ -13,7 +13,7 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
 
-public class SoulArrow extends AbstractValoriaArrow implements IProjectileTexture {
+public class SoulArrow extends AbstractValoriaArrow implements TexturedArrow {
 
     public SoulArrow(EntityType<? extends AbstractArrow> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);

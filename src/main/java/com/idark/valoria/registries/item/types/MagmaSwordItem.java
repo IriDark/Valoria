@@ -29,7 +29,7 @@ import java.util.*;
 
 import static com.idark.valoria.util.ValoriaUtils.addContributorTooltip;
 
-public class MagmaSwordItem extends SwordItem implements IRadiusItem, IOverlayItem{
+public class MagmaSwordItem extends SwordItem implements RadiusItem, OverlayRenderItem {
     private static final ResourceLocation BAR = new ResourceLocation(Valoria.ID, "textures/gui/overlay/magma_charge.png");
     public ArcRandom arcRandom = new ArcRandom();
     public MagmaSwordItem(Tier tier, int attackDamageIn, float attackSpeedIn, Properties builderIn) {

@@ -1,6 +1,6 @@
 package com.idark.valoria.client.render.entity;
 
-import com.idark.valoria.core.interfaces.IProjectileTexture;
+import com.idark.valoria.core.interfaces.TexturedArrow;
 import com.idark.valoria.registries.entity.projectile.AbstractValoriaArrow;
 import net.minecraft.client.renderer.entity.ArrowRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -17,7 +17,7 @@ public class AbstractValoriaArrowRenderer<T extends AbstractValoriaArrow> extend
 
     @Override
     public ResourceLocation getTextureLocation(T arrow) {
-        if (arrow instanceof IProjectileTexture texture) {
+        if (arrow instanceof TexturedArrow texture) {
             return texture.getTexture();
         }
 

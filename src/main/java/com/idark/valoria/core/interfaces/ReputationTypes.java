@@ -1,4 +1,4 @@
-package com.idark.valoria.core.trades;
+package com.idark.valoria.core.interfaces;
 
 import net.minecraft.world.entity.ai.village.ReputationEventType;
 

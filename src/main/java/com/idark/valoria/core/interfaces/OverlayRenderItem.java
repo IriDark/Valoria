@@ -8,7 +8,7 @@ import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.client.event.*;
 import net.minecraftforge.fml.*;
 
-public interface IOverlayItem{
+public interface OverlayRenderItem {
     ResourceLocation getTexture();
 
     @OnlyIn(Dist.CLIENT)
@@ -34,8 +34,8 @@ public interface IOverlayItem{
     static void onDrawScreenPost(RenderGuiOverlayEvent.Post event){
         Minecraft mc = Minecraft.getInstance();
         GuiGraphics gui = event.getGuiGraphics();
-        boolean mainFlag = !mc.player.getMainHandItem().isEmpty() && mc.player.getMainHandItem().getItem() instanceof IOverlayItem;
-        if(mainFlag && mc.player.getMainHandItem().getItem() instanceof IOverlayItem item){
+        boolean mainFlag = !mc.player.getMainHandItem().isEmpty() && mc.player.getMainHandItem().getItem() instanceof OverlayRenderItem;
+        if(mainFlag && mc.player.getMainHandItem().getItem() instanceof OverlayRenderItem item){
             if(item.toRender()){
                 gui.pose().pushPose();
                 gui.pose().translate(0, isEmbeddiumPlusLoaded() ? 10 : 0, -200);
@@ -44,7 +44,7 @@ public interface IOverlayItem{
             }
         }
 
-        if(!mc.player.getOffhandItem().isEmpty() && mc.player.getOffhandItem().getItem() instanceof IOverlayItem item){
+        if(!mc.player.getOffhandItem().isEmpty() && mc.player.getOffhandItem().getItem() instanceof OverlayRenderItem item){
             if(item.toRender()){
                 gui.pose().pushPose();
                 gui.pose().translate(0, isEmbeddiumPlusLoaded() ? 10 : 0, -200);

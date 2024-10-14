@@ -5,5 +5,5 @@ package com.idark.valoria.core.interfaces;
  *
  * @see com.idark.valoria.registries.item.enchantments.RadiusEnchantment Check me!
  */
-public interface IRadiusItem {
+public interface RadiusItem {
 }

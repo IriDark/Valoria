@@ -11,7 +11,7 @@ import net.minecraft.network.chat.*;
 import net.minecraft.world.item.*;
 import net.minecraftforge.api.distmarker.*;
 
-public class ArcaneGold extends ItemSkin implements IAuthorItemSkin{
+public class ArcaneGold extends ItemSkin implements AuthoredItemSkin {
     public ArcaneGold(String id){
         super(id, Pal.arcaneGold);
     }

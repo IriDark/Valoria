@@ -21,7 +21,7 @@ import top.theillusivec4.curios.api.type.capability.*;
 import javax.annotation.*;
 import java.util.*;
 
-public class BloodSight extends Item implements ICurioItem, Vanishable, IParticleItemEntity {
+public class BloodSight extends Item implements ICurioItem, Vanishable, ParticleItemEntity {
     private int hits = 0;
     public ArcRandom arcRandom = new ArcRandom();
 

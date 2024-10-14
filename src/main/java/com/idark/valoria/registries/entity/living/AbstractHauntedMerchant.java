@@ -2,6 +2,7 @@ package com.idark.valoria.registries.entity.living;
 
 import com.google.common.collect.*;
 import com.idark.valoria.*;
+import com.idark.valoria.core.interfaces.ReputationTypes;
 import com.idark.valoria.core.trades.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.entity.ai.brains.*;

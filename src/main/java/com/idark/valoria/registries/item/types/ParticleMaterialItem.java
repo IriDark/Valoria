@@ -11,12 +11,21 @@ import net.minecraftforge.api.distmarker.*;
 import static com.idark.valoria.client.particle.ParticleEffects.spawnItemParticles;
 
 //todo
-public class ParticleMaterialItem extends Item implements IParticleItemEntity {
+public class ParticleMaterialItem extends Item implements ParticleItemEntity {
     public ParticleType<?> particle;
     public ColorParticleData color;
-    public float alpha = 1f;
-    public ParticleMaterialItem(Properties pProperties) {
+    public float alpha;
+    public ParticleMaterialItem(Properties pProperties, float alpha, ColorParticleData color, ParticleType<?> particle) {
         super(pProperties);
+        this.alpha = alpha;
+        this.color = color;
+        this.particle = particle;
+    }
+
+    public ParticleMaterialItem(Properties pProperties, ColorParticleData color) {
+        super(pProperties);
+        this.alpha = 0.35f;
+        this.color = color;
     }
 
     @OnlyIn(Dist.CLIENT)

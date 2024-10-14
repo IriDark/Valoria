@@ -11,7 +11,7 @@ import net.minecraft.network.chat.*;
 import net.minecraft.world.item.*;
 import net.minecraftforge.api.distmarker.*;
 
-public class Muramasa extends ItemSkin implements IAuthorItemSkin{
+public class Muramasa extends ItemSkin implements AuthoredItemSkin {
     public Muramasa(String id){
         super(id, Pal.sapphire);
     }
