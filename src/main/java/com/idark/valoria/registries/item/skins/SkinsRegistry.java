@@ -84,7 +84,7 @@ public class SkinsRegistry{
 
     private static void registerKatana(ModelEvent.RegisterAdditional event){
         for(RegistryObject<Item> item : ItemsRegistry.ITEMS.getEntries()){
-            if(item.get() instanceof KatanaItem){
+            if(item.get() instanceof KatanaItem && ((KatanaItem) item.get()).hasLargeModel){
                 event.register(LargeItemRenderer.getModelResourceLocation(Valoria.ID, item.getId().getPath()));
             }
         }
@@ -92,7 +92,7 @@ public class SkinsRegistry{
 
     private static void bakeKatana(Map<ResourceLocation, BakedModel> map){
         for(RegistryObject<Item> item : ItemsRegistry.ITEMS.getEntries()){
-            if(item.get() instanceof KatanaItem){
+            if(item.get() instanceof KatanaItem && ((KatanaItem) item.get()).hasLargeModel){
                 LargeItemRenderer.bakeModel(map, Valoria.ID, item.getId().getPath(), new ItemSkinItemOverrides());
             }
         }

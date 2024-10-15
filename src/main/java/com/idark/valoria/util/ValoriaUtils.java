@@ -616,7 +616,6 @@ public class ValoriaUtils {
     }
 
     public static void addEffectsTooltip(ImmutableList<MobEffectInstance> effects, List<Component> pTooltips, float pDurationFactor, float chance) {
-        List<Pair<Attribute, AttributeModifier>> list = Lists.newArrayList();
         if (!effects.isEmpty()) {
             if (chance > 0 && chance < 1) {
                 pTooltips.add(CommonComponents.EMPTY);
@@ -629,15 +628,6 @@ public class ValoriaUtils {
             for (MobEffectInstance mobeffectinstance : effects) {
                 MutableComponent mutablecomponent = Component.translatable(mobeffectinstance.getDescriptionId());
                 MobEffect mobeffect = mobeffectinstance.getEffect();
-                Map<Attribute, AttributeModifier> map = mobeffect.getAttributeModifiers();
-                if (!map.isEmpty()) {
-                    for (Map.Entry<Attribute, AttributeModifier> entry : map.entrySet()) {
-                        AttributeModifier entryValue = entry.getValue();
-                        AttributeModifier attributeModifier = new AttributeModifier(entryValue.getName(), mobeffect.getAttributeModifierValue(mobeffectinstance.getAmplifier(), entryValue), entryValue.getOperation());
-                        list.add(new Pair<>(entry.getKey(), attributeModifier));
-                    }
-                }
-
                 if (mobeffectinstance.getAmplifier() > 0) {
                     mutablecomponent = Component.literal(" ").append(Component.translatable("potion.withAmplifier", mutablecomponent, Component.translatable("potion.potency." + mobeffectinstance.getAmplifier())));
                 }

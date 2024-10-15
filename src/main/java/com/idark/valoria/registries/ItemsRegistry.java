@@ -46,9 +46,7 @@ import org.joml.*;
 
 import java.awt.*;
 import java.lang.Math;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.function.*;
 
 import static com.idark.valoria.util.ValoriaUtils.addContributorTooltip;
@@ -305,6 +303,7 @@ public class ItemsRegistry {
         .setTier(ModItemTier.HALLOWEEN)
         .setDashDistance(1.6f)
         .setSound(SoundsRegistry.HALLOWEEN_SLICE.get())
+        .removeLargeModelCheck()
         .setOverlay(new ResourceLocation(Valoria.ID, "textures/gui/overlay/roots.png"))
         .usePacket(Pal.mandarin)
         .build()
@@ -351,7 +350,7 @@ public class ItemsRegistry {
         samuraiKatana = registerItem("samurai_katana", () -> new KatanaItem(ModItemTier.SAMURAI, 7, -2f, new Item.Properties()));
         samuraiLongBow = registerItem("samurai_long_bow", () -> new ConfigurableBowItem(3, new Item.Properties().stacksTo(1).durability(684)));
         silkenBlade = registerItem("silken_blade", () -> new HitEffectItem(ModItemTier.NONE, 5, -3.2f, new Item.Properties(), 0.25f, new MobEffectInstance(MobEffects.DARKNESS, 120, 0), new MobEffectInstance(MobEffects.POISON, 45, 0)));
-        silkenWakizashi = registerItem("silken_wakizashi", () -> new KatanaItem(ModItemTier.NONE, 11, -2.2f, 3, new Item.Properties(), 0.25f, new MobEffectInstance(MobEffects.DARKNESS, 120, 0), new MobEffectInstance(MobEffects.POISON, 45, 0)));
+        silkenWakizashi = registerItem("silken_wakizashi", () -> new KatanaItem.Builder(11, -2.2f, new Item.Properties()).setDashDistance(3).setEffects(0.25f, new MobEffectInstance(MobEffects.DARKNESS, 120, 0), new MobEffectInstance(MobEffects.POISON, 45, 0)).removeLargeModelCheck().build());
         silkenKunai = registerItem("silken_kunai", () -> new KunaiItem(0, -2.2f, new Item.Properties(), 0.25f, new MobEffectInstance(MobEffects.DARKNESS, 120, 0), new MobEffectInstance(MobEffects.POISON, 60, 1)));
 
         pearliumSword = registerItem("pearlium_sword", () -> new SwordItem(ModItemTier.PEARLIUM, 5, -2.6f, new Item.Properties()));

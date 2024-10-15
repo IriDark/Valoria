@@ -45,6 +45,7 @@ public class KatanaItem extends SwordItem implements CooldownNotifyItem {
     public int cooldownTime = 75;
     public int chargeTime = 0;
     public boolean usePacket = false;
+    public boolean hasLargeModel = true;
     public Color color;
     public final ImmutableList<MobEffectInstance> effects;
     public final Multimap<Attribute, AttributeModifier> defaultModifiers;
@@ -66,6 +67,7 @@ public class KatanaItem extends SwordItem implements CooldownNotifyItem {
         this.chargedEvent = builderIn.chargedEvent;
         this.dashModifier = new AttributeModifier(BASE_DASH_DISTANCE_UUID, "Tool modifier", builderIn.dashDist, AttributeModifier.Operation.ADDITION);
         this.usePacket = builderIn.usePacket;
+        this.hasLargeModel = builderIn.hasLargeModel;
         this.color = builderIn.dashColor;
 
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
@@ -138,6 +140,7 @@ public class KatanaItem extends SwordItem implements CooldownNotifyItem {
         public SoundEvent chargedEvent;
         public Color dashColor;
         public boolean usePacket = false;
+        public boolean hasLargeModel = true;
         public int attackDamageIn;
         public float attackSpeedIn;
         public float chance = 1;
@@ -190,6 +193,11 @@ public class KatanaItem extends SwordItem implements CooldownNotifyItem {
         public Builder usePacket(Color color){
             this.usePacket = true;
             this.dashColor = color;
+            return this;
+        }
+
+        public Builder removeLargeModelCheck(){
+            this.hasLargeModel = false;
             return this;
         }
 
@@ -310,24 +318,8 @@ public class KatanaItem extends SwordItem implements CooldownNotifyItem {
         return 72000;
     }
 
-    public SoundEvent getDashSound() {
-        return soundEvent;
-    }
-
     public double getDashDistance(Player player) {
         return player.getAttributeValue(AttributeRegistry.DASH_DISTANCE.get());
-    }
-
-    public ParticleOptions getDashParticle() {
-        return particleOptions;
-    }
-
-    public ResourceLocation getOverlayTexture() {
-        return texture;
-    }
-
-    public int getOverlayTime() {
-        return overlayTime;
     }
 
     public int getHurtAmount(List<LivingEntity> detectedEntities) {
@@ -357,7 +349,7 @@ public class KatanaItem extends SwordItem implements CooldownNotifyItem {
                     double Y = Math.cos(pitch) * 2;
                     double Z = Math.sin(pitch) * Math.sin(yaw) * locDistance;
 
-                    srv.sendParticles(getDashParticle(), pos.x + X + (rand.nextDouble() - 0.5D), pos.y + Y, pos.z + Z + (rand.nextDouble() - 0.5D), 1, 0, 0.5, 0, 0);
+                    srv.sendParticles(particleOptions, pos.x + X + (rand.nextDouble() - 0.5D), pos.y + Y, pos.z + Z + (rand.nextDouble() - 0.5D), 1, 0, 0.5, 0, 0);
                     List<LivingEntity> detectedEntities = level.getEntitiesOfClass(LivingEntity.class, new AABB(pos.x + X - 0.5D, pos.y + Y - 0.5D, pos.z + Z - 0.5D, pos.x + X + 0.5D, pos.y + Y + 0.5D, pos.z + Z + 0.5D));
                     for(LivingEntity entity : detectedEntities){
                         if(!entity.equals(player)){
@@ -390,10 +382,10 @@ public class KatanaItem extends SwordItem implements CooldownNotifyItem {
             player.awardStat(Stats.ITEM_USED.get(this));
             applyCooldown(player);
             performDash(stack, level, player, pos, rand);
-            level.playSound(null, player.getOnPos(), getDashSound(), SoundSource.PLAYERS, 1F, 1F);
+            level.playSound(null, player.getOnPos(), soundEvent, SoundSource.PLAYERS, 1F, 1F);
             if (level.isClientSide) {
-                OverlayRender.setOverlayTexture(getOverlayTexture());
-                OverlayRender.showDashOverlay(getOverlayTime());
+                OverlayRender.setOverlayTexture(texture);
+                OverlayRender.showDashOverlay(overlayTime);
             }
         }
     }

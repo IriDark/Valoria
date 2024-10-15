@@ -4,7 +4,7 @@ license = "Code: Public Domain | Assets: Attribution-NonCommercial 4.0 Internati
 issueTrackerURL = "https://github.com/IriDark/Valoria/issues"
 [[mods]]
 modId = "valoria"
-version = "0.6.3b"
+version = "${file.jarVersion}"
 displayName = "Valoria"
 updateJSONURL = "https://raw.githubusercontent.com/IriDark/Valoria/refs/heads/main/update.json"
 displayURL = "https://discord.gg/wWdXpwuPmK"
