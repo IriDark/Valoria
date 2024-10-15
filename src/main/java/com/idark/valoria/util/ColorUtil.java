@@ -2,6 +2,7 @@ package com.idark.valoria.util;
 
 import java.awt.*;
 
+// todo move to lib
 public class ColorUtil {
     public static int getAlpha(int packedColor) {
         return packedColor >>> 24;

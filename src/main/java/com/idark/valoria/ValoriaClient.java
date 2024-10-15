@@ -8,6 +8,7 @@ import com.idark.valoria.client.particle.*;
 import com.idark.valoria.client.render.entity.*;
 import com.idark.valoria.client.render.tile.*;
 import com.idark.valoria.client.sounds.*;
+import com.idark.valoria.core.shaders.ShaderRegistry;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.block.types.*;
 import com.idark.valoria.registries.entity.living.decoration.*;
@@ -16,7 +17,9 @@ import com.mojang.blaze3d.platform.*;
 import com.mojang.blaze3d.vertex.*;
 import mod.maxbogomol.fluffy_fur.*;
 import mod.maxbogomol.fluffy_fur.client.gui.screen.*;
+import mod.maxbogomol.fluffy_fur.client.render.entity.CustomBoatRenderer;
 import mod.maxbogomol.fluffy_fur.client.tooltip.*;
+import mod.maxbogomol.fluffy_fur.common.entity.CustomBoatEntity;
 import net.minecraft.client.*;
 import net.minecraft.client.model.*;
 import net.minecraft.client.model.geom.*;
@@ -58,17 +61,7 @@ public class ValoriaClient {
 
     public static TheFallenCollectorArmorModel THE_FALLEN_COLLECTOR_ARMOR = null;
 
-    public static ShaderInstance VALORIA_PORTAL;
-    public static ShaderInstance getValoriaPortal() {
-        return VALORIA_PORTAL;
-    }
-    public static final RenderStateShard.ShaderStateShard VALORIA_PORTAL_SHADER = new RenderStateShard.ShaderStateShard(ValoriaClient::getValoriaPortal);
-    public static final RenderType VALORIA_PORTAL_RENDER_TYPE = RenderType.create(Valoria.ID + ":valoria_portal", DefaultVertexFormat.POSITION, VertexFormat.Mode.QUADS, 256, false, false, RenderType.CompositeState.builder().setShaderState(VALORIA_PORTAL_SHADER).setWriteMaskState(COLOR_WRITE).setTransparencyState(NORMAL_TRANSPARENCY).setTextureState(RenderStateShard.MultiTextureStateShard.builder().add(ValoriaPortalRenderer.BACKGROUND_LOC, false, false).add(ValoriaPortalRenderer.LAYER_LOC, false, false).build()).createCompositeState(false));
-    public static RenderType valoriaPortal() {
-        return VALORIA_PORTAL_RENDER_TYPE;
-    }
-
-    public static CooldownSoundInstance COOLDOWN_SOUND = new CooldownSoundInstance(null);
+    public static CooldownSoundInstance COOLDOWN_SOUND;
     public static FluffyFurMod MOD_INSTANCE;
     public static FluffyFurPanorama ECOTONE_PANORAMA;
     public static void setupMenu() {
@@ -162,8 +155,10 @@ public class ValoriaClient {
                 Sheets.addWoodType(ModWoodTypes.SHADEWOOD);
             });
 
-            EntityRenderers.register(EntityTypeRegistry.BOAT.get(), m -> new CustomBoatRenderer(m, false));
-            EntityRenderers.register(EntityTypeRegistry.CHEST_BOAT.get(), m -> new CustomBoatRenderer(m, true));
+            EntityRenderers.register(EntityTypeRegistry.SHADEWOOD_BOAT.get(), m -> new CustomBoatRenderer(m, Valoria.ID, "shadewood", false, false));
+            EntityRenderers.register(EntityTypeRegistry.SHADEWOOD_CHEST_BOAT.get(), m -> new CustomBoatRenderer(m, Valoria.ID, "shadewood", true, false));
+            EntityRenderers.register(EntityTypeRegistry.ELDRITCH_BOAT.get(), m -> new CustomBoatRenderer(m, Valoria.ID, "eldritch", false, false));
+            EntityRenderers.register(EntityTypeRegistry.ELDRITCH_CHEST_BOAT.get(), m -> new CustomBoatRenderer(m, Valoria.ID, "eldritch", true, false));
 
             EntityRenderers.register(EntityTypeRegistry.HAUNTED_MERCHANT.get(), HauntedMerchantRenderer::new);
             EntityRenderers.register(EntityTypeRegistry.NECROMANCER.get(), NecromancerRenderer::new);
@@ -210,11 +205,6 @@ public class ValoriaClient {
             event.registerLayerDefinition(ValoriaClient.HANDS_LAYER, HandsModel::createBodyLayer);
             event.registerLayerDefinition(ValoriaClient.HANDS_LAYER_SLIM, HandsModelSlim::createBodyLayer);
             event.registerLayerDefinition(THE_FALLEN_COLLECTOR_ARMOR_LAYER, TheFallenCollectorArmorModel::createBodyLayer);
-
-            for (CustomBoatEntity.Type boatType : CustomBoatEntity.Type.values()) {
-                event.registerLayerDefinition(CustomBoatRenderer.createBoatModelName(boatType), BoatModel::createBodyModel);
-                event.registerLayerDefinition(CustomBoatRenderer.createChestBoatModelName(boatType), ChestBoatModel::createBodyModel);
-            }
         }
 
         @SubscribeEvent
@@ -234,15 +224,16 @@ public class ValoriaClient {
             ParticleRegistry.registerParticleFactory(event);
         }
 
+        @OnlyIn(Dist.CLIENT)
         @SubscribeEvent
         public static void registerRenderTypes(FMLClientSetupEvent event) {
-            addTranslucentRenderType(VALORIA_PORTAL_RENDER_TYPE);
+            ShaderRegistry.registerRenderTypes(event);
         }
 
         @OnlyIn(Dist.CLIENT)
         @SubscribeEvent
         public static void shaderRegistry(RegisterShadersEvent event) throws IOException{
-            event.registerShader(new ShaderInstance(event.getResourceProvider(), new ResourceLocation(Valoria.ID, "valoria_portal"), DefaultVertexFormat.POSITION), shader -> VALORIA_PORTAL = shader);
+            ShaderRegistry.shaderRegistry(event);
         }
     }
 }

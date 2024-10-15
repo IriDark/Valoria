@@ -2,6 +2,7 @@ package com.idark.valoria.client.render.tile;
 
 
 import com.idark.valoria.*;
+import com.idark.valoria.core.shaders.ShaderRegistry;
 import com.idark.valoria.registries.block.entity.*;
 import com.mojang.blaze3d.vertex.*;
 import net.minecraft.client.renderer.*;
@@ -51,6 +52,6 @@ public class ValoriaPortalRenderer<T extends ValoriaPortalBlockEntity> implement
     }
 
     protected RenderType renderType() {
-        return ValoriaClient.valoriaPortal();
+        return ShaderRegistry.valoriaPortal();
     }
 }

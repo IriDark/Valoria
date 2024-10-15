@@ -6,7 +6,6 @@ import com.idark.valoria.client.ui.screen.book.unlockable.*;
 import com.idark.valoria.core.enums.*;
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.particle.*;
-import com.idark.valoria.registries.entity.living.decoration.*;
 import com.idark.valoria.registries.item.armor.ArmorRegistry;
 import com.idark.valoria.registries.item.armor.tiers.*;
 import com.idark.valoria.registries.item.skins.*;
@@ -19,6 +18,8 @@ import com.idark.valoria.registries.item.types.ranged.*;
 import com.idark.valoria.registries.item.types.ranged.bows.*;
 import com.idark.valoria.util.*;
 import mod.maxbogomol.fluffy_fur.client.particle.data.*;
+import mod.maxbogomol.fluffy_fur.common.item.CustomBoatItem;
+import mod.maxbogomol.fluffy_fur.common.item.CustomChestBoatItem;
 import mod.maxbogomol.fluffy_fur.common.itemskin.*;
 import net.minecraft.*;
 import net.minecraft.core.particles.*;
@@ -149,12 +150,12 @@ public class ItemsRegistry {
     mannequin;
 
     public static void load(IEventBus eventBus){
-        shadewoodBoat = BLOCK_ITEMS.register("shadewood_boat", () -> new CustomBoatItem(false, CustomBoatEntity.Type.SHADEWOOD, new Item.Properties().stacksTo(1)));
-        shadewoodChestBoat = BLOCK_ITEMS.register("shadewood_chest_boat", () -> new CustomBoatItem(true, CustomBoatEntity.Type.SHADEWOOD, new Item.Properties().stacksTo(1)));
+        shadewoodBoat = BLOCK_ITEMS.register("shadewood_boat", () -> new CustomBoatItem(new Item.Properties().stacksTo(1), EntityTypeRegistry.SHADEWOOD_BOAT));
+        shadewoodChestBoat = BLOCK_ITEMS.register("shadewood_chest_boat", () -> new CustomChestBoatItem(new Item.Properties().stacksTo(1), EntityTypeRegistry.SHADEWOOD_CHEST_BOAT));
         shadewoodSign = BLOCK_ITEMS.register("shadewood_sign", () -> new SignItem(new Item.Properties().stacksTo(16), BlockRegistry.SHADEWOOD_SIGN.get(), BlockRegistry.SHADEWOOD_WALL_SIGN.get()));
         shadewoodHangingSign = BLOCK_ITEMS.register("shadewood_hanging_sign", () -> new HangingSignItem(BlockRegistry.SHADEWOOD_HANGING_SIGN.get(), BlockRegistry.SHADEWOOD_WALL_HANGING_SIGN.get(), new Item.Properties().stacksTo(16)));
-        eldritchBoat = BLOCK_ITEMS.register("eldritch_boat", () -> new CustomBoatItem(false, CustomBoatEntity.Type.ELDRITCH, new Properties().stacksTo(1)));
-        eldritchChestBoat = BLOCK_ITEMS.register("eldritch_chest_boat", () -> new CustomBoatItem(true, CustomBoatEntity.Type.ELDRITCH, new Item.Properties().stacksTo(1)));
+        eldritchBoat = BLOCK_ITEMS.register("eldritch_boat", () -> new CustomBoatItem(new Properties().stacksTo(1), EntityTypeRegistry.ELDRITCH_BOAT));
+        eldritchChestBoat = BLOCK_ITEMS.register("eldritch_chest_boat", () -> new CustomChestBoatItem(new Item.Properties().stacksTo(1), EntityTypeRegistry.ELDRITCH_CHEST_BOAT));
         eldritchSign = BLOCK_ITEMS.register("eldritch_sign", () -> new SignItem(new Item.Properties().stacksTo(16), BlockRegistry.ELDRITCH_SIGN.get(), BlockRegistry.ELDRITCH_WALL_SIGN.get()));
         eldritchHangingSign = BLOCK_ITEMS.register("eldritch_hanging_sign", () -> new HangingSignItem(BlockRegistry.ELDRITCH_HANGING_SIGN.get(), BlockRegistry.ELDRITCH_WALL_HANGING_SIGN.get(), new Item.Properties().stacksTo(16)));
 
@@ -302,7 +303,7 @@ public class ItemsRegistry {
         wraithKatana = registerItem("wraith_katana", () -> new KatanaItem.Builder(3, -2.2f, new Item.Properties().rarity(RarityRegistry.HALLOWEEN))
         .setTier(ModItemTier.HALLOWEEN)
         .setDashDistance(1.6f)
-        .setSound(SoundsRegistry.HALLOWEEN_SLICE.get())
+        .setDashSound(SoundsRegistry.HALLOWEEN_SLICE.get())
         .removeLargeModelCheck()
         .setOverlay(new ResourceLocation(Valoria.ID, "textures/gui/overlay/roots.png"))
         .usePacket(Pal.mandarin)
@@ -548,7 +549,7 @@ public class ItemsRegistry {
     private static KatanaItem murasamaProps(){
         return new KatanaItem(ModItemTier.SAMURAI, 14, -2.4f, new Item.Properties()){{
             chargeTime = 20;
-            chargedEvent = SoundsRegistry.RECHARGE.get();
+            chargedSound = SoundsRegistry.RECHARGE.get();
         }
 
             public void onUseTick(@NotNull Level worldIn, @NotNull LivingEntity livingEntityIn, @NotNull ItemStack stack, int count) {

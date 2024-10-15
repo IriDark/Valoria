@@ -26,6 +26,7 @@ import javax.annotation.Nonnull;
 import java.util.Collection;
 import java.util.List;
 
+// todo move to lib
 public final class LootUtil {
 
     public static final DeferredRegister<Codec<? extends IGlobalLootModifier>> LOOT_MODIFIER_SERIALIZERS = DeferredRegister.create(ForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, Valoria.ID);

@@ -12,6 +12,7 @@ import org.jetbrains.annotations.*;
 
 import java.awt.*;
 
+// todo move to lib
 public class LuminescentLayer<T extends LivingEntity, M extends EntityModel<T>> extends RenderLayer<T, M>{
     public final ResourceLocation location;
     private final float alpha;

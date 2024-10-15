@@ -12,8 +12,8 @@ public class CooldownHandler {
      * Some sounds taken from the CalamityMod (Terraria) in a <a href="https://calamitymod.wiki.gg/wiki/Category:Sound_effects">Calamity Mod Wiki.gg</a>
      */
     public static void onCooldownEnd(ServerPlayer player, Item item) {
-        if (item instanceof CooldownNotifyItem) {
-            PacketHandler.sendTo(player, new CooldownSoundPacket(player.getX(), player.getY() + (player.getBbHeight() / 2), player.getZ()));
+        if (item instanceof CooldownNotifyItem notifyItem) {
+            PacketHandler.sendTo(player, new CooldownSoundPacket(notifyItem.getSoundEvent(), player.getX(), player.getY() + (player.getBbHeight() / 2), player.getZ()));
         }
     }
 }

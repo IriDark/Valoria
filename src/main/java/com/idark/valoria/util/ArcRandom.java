@@ -13,6 +13,8 @@ import java.util.Random;
  * @author Inferno
  * @author davebaol
  */
+
+// todo move to lib
 public class ArcRandom extends Random {
     /**
      * Normalization constant for double.

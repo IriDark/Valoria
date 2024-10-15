@@ -4,6 +4,8 @@ import com.idark.valoria.*;
 import com.idark.valoria.registries.entity.living.*;
 import com.idark.valoria.registries.entity.living.decoration.*;
 import com.idark.valoria.registries.entity.projectile.*;
+import mod.maxbogomol.fluffy_fur.common.entity.CustomBoatEntity;
+import mod.maxbogomol.fluffy_fur.common.entity.CustomChestBoatEntity;
 import net.minecraft.resources.*;
 import net.minecraft.world.entity.*;
 import net.minecraftforge.eventbus.api.*;
@@ -143,15 +145,25 @@ public class EntityTypeRegistry {
                     .updateInterval(20)
                     .build(new ResourceLocation(Valoria.ID, "spectral_blade").toString()));
 
-    public static final RegistryObject<EntityType<CustomBoatEntity>> BOAT = ENTITY_TYPES.register("boat",
-            () -> EntityType.Builder.<CustomBoatEntity>of(CustomBoatEntity::new, MobCategory.MISC)
+    public static final RegistryObject<EntityType<CustomBoatEntity>> SHADEWOOD_BOAT = ENTITY_TYPES.register("shadewood_boat",
+            () -> EntityType.Builder.<CustomBoatEntity>of((t, l) -> (new CustomBoatEntity(t, l, ItemsRegistry.shadewoodBoat, false)), MobCategory.MISC)
                     .sized(1.375f, 0.5625f)
-                    .build(new ResourceLocation(Valoria.ID, "valoria_boat").toString()));
+                    .build(new ResourceLocation(Valoria.ID, "shadewood_boat").toString()));
 
-    public static final RegistryObject<EntityType<CustomChestBoatEntity>> CHEST_BOAT = ENTITY_TYPES.register("chest_boat",
-            () -> EntityType.Builder.<CustomChestBoatEntity>of(CustomChestBoatEntity::new, MobCategory.MISC)
+    public static final RegistryObject<EntityType<CustomChestBoatEntity>> SHADEWOOD_CHEST_BOAT = ENTITY_TYPES.register("shadewood_chest_boat",
+            () -> EntityType.Builder.<CustomChestBoatEntity>of((t, l) -> (new CustomChestBoatEntity(t, l, ItemsRegistry.shadewoodChestBoat, false)), MobCategory.MISC)
                     .sized(1.375f, 0.5625f)
-                    .build(new ResourceLocation(Valoria.ID, "valoria_chest_boat").toString()));
+                    .build(new ResourceLocation(Valoria.ID, "shadewood_chest_boat").toString()));
+
+    public static final RegistryObject<EntityType<CustomBoatEntity>> ELDRITCH_BOAT = ENTITY_TYPES.register("eldritch_boat",
+            () -> EntityType.Builder.<CustomBoatEntity>of((t, l) -> (new CustomBoatEntity(t, l, ItemsRegistry.eldritchBoat, false)), MobCategory.MISC)
+                    .sized(1.375f, 0.5625f)
+                    .build(new ResourceLocation(Valoria.ID, "eldritch_boat").toString()));
+
+    public static final RegistryObject<EntityType<CustomChestBoatEntity>> ELDRITCH_CHEST_BOAT = ENTITY_TYPES.register("eldritch_chest_boat",
+            () -> EntityType.Builder.<CustomChestBoatEntity>of((t, l) -> (new CustomChestBoatEntity(t, l, ItemsRegistry.eldritchChestBoat, false)), MobCategory.MISC)
+                    .sized(1.375f, 0.5625f)
+                    .build(new ResourceLocation(Valoria.ID, "eldritch_chest_boat").toString()));
 
 
     public static void register(IEventBus eventBus) {

@@ -5,6 +5,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 
+// todo move to lib
 public class LootConditionsRegistry {
     public static final LootItemConditionType MOB_CATEGORY_CONDITION = new LootItemConditionType(new MobCategoryCondition.Serializer());
     public static final LootItemConditionType LOCAL_DATE_CONDITION = new LootItemConditionType(new LocalDateCondition.Serializer());

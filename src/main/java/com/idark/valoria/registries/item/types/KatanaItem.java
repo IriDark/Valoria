@@ -39,6 +39,7 @@ import java.util.List;
 import static com.idark.valoria.Valoria.BASE_DASH_DISTANCE_UUID;
 import static com.idark.valoria.util.ValoriaUtils.addContributorTooltip;
 
+// todo move to lib
 public class KatanaItem extends SwordItem implements CooldownNotifyItem {
     public float chance = 1;
     public int overlayTime = 35;
@@ -53,8 +54,9 @@ public class KatanaItem extends SwordItem implements CooldownNotifyItem {
     private final AttributeModifier dashModifier;
     public ResourceLocation texture = new ResourceLocation(Valoria.ID, "textures/gui/overlay/speedlines.png");
     public ParticleOptions particleOptions = ParticleTypes.POOF;
-    public SoundEvent soundEvent = SoundsRegistry.SWIFTSLICE.get();
-    public SoundEvent chargedEvent;
+    public SoundEvent dashSound = SoundsRegistry.SWIFTSLICE.get();
+    public SoundEvent cooldownSound = SoundsRegistry.RECHARGE.get();
+    public SoundEvent chargedSound;
 
     public KatanaItem(Builder builderIn) {
         super(builderIn.tier, builderIn.attackDamageIn, builderIn.attackSpeedIn, builderIn.itemProperties);
@@ -63,8 +65,9 @@ public class KatanaItem extends SwordItem implements CooldownNotifyItem {
         this.overlayTime = builderIn.overlayTime;
         this.texture = builderIn.texture != null ? builderIn.texture : texture;
         this.particleOptions = builderIn.particleOptions;
-        this.soundEvent = builderIn.soundEvent;
-        this.chargedEvent = builderIn.chargedEvent;
+        this.dashSound = builderIn.dashSound;
+        this.cooldownSound = builderIn.cooldownSound;
+        this.chargedSound = builderIn.chargedSound;
         this.dashModifier = new AttributeModifier(BASE_DASH_DISTANCE_UUID, "Tool modifier", builderIn.dashDist, AttributeModifier.Operation.ADDITION);
         this.usePacket = builderIn.usePacket;
         this.hasLargeModel = builderIn.hasLargeModel;
@@ -117,8 +120,8 @@ public class KatanaItem extends SwordItem implements CooldownNotifyItem {
     public void onUseTick(@NotNull Level worldIn, @NotNull LivingEntity livingEntityIn, @NotNull ItemStack stack, int count) {
         Player player = (Player) livingEntityIn;
         if (player.getTicksUsingItem() == chargeTime) {
-            if(chargedEvent != null) {
-                player.playNotifySound(chargedEvent, SoundSource.PLAYERS, 0.25f, 1);
+            if(chargedSound != null) {
+                player.playNotifySound(chargedSound, SoundSource.PLAYERS, 0.25f, 1);
             }
         }
     }
@@ -132,12 +135,18 @@ public class KatanaItem extends SwordItem implements CooldownNotifyItem {
         return super.shouldCauseReequipAnimation(oldStack, newStack, true);
     }
 
+    @Override
+    public SoundEvent getSoundEvent() {
+        return cooldownSound;
+    }
+
     public static class Builder {
         public Tier tier = ModItemTier.NONE;
         public Item.Properties itemProperties;
         private ResourceLocation texture;
-        public SoundEvent soundEvent;
-        public SoundEvent chargedEvent;
+        public SoundEvent dashSound;
+        public SoundEvent cooldownSound;
+        public SoundEvent chargedSound;
         public Color dashColor;
         public boolean usePacket = false;
         public boolean hasLargeModel = true;
@@ -164,8 +173,16 @@ public class KatanaItem extends SwordItem implements CooldownNotifyItem {
         /**
          * @param event Sound that will be played when dash is performed
          */
-        public Builder setSound(SoundEvent event){
-            this.soundEvent = event;
+        public Builder setDashSound(SoundEvent event){
+            this.dashSound = event;
+            return this;
+        }
+
+        /**
+         * @param event Sound that will be played after cooldown ending
+         */
+        public Builder setCooldownSound(SoundEvent event){
+            this.cooldownSound = event;
             return this;
         }
 
@@ -174,7 +191,7 @@ public class KatanaItem extends SwordItem implements CooldownNotifyItem {
          * @param event Sound that will be played when Katana is ready to perform dash
          */
         public Builder setChargedSound(SoundEvent event){
-            this.chargedEvent = event;
+            this.chargedSound = event;
             return this;
         }
 
@@ -382,7 +399,7 @@ public class KatanaItem extends SwordItem implements CooldownNotifyItem {
             player.awardStat(Stats.ITEM_USED.get(this));
             applyCooldown(player);
             performDash(stack, level, player, pos, rand);
-            level.playSound(null, player.getOnPos(), soundEvent, SoundSource.PLAYERS, 1F, 1F);
+            level.playSound(null, player.getOnPos(), dashSound, SoundSource.PLAYERS, 1F, 1F);
             if (level.isClientSide) {
                 OverlayRender.setOverlayTexture(texture);
                 OverlayRender.showDashOverlay(overlayTime);

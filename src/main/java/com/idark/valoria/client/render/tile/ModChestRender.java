@@ -11,6 +11,7 @@ import net.minecraft.world.level.block.state.properties.ChestType;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 
+// todo move to lib
 public class ModChestRender extends ChestRenderer<ModChestBlockEntity> {
 
     public static final ResourceLocation CHEST_SHEET = new ResourceLocation("textures/atlas/chest.png");

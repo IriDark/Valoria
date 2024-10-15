@@ -98,7 +98,6 @@ public class SkinsRegistry{
         }
     }
 
-
     private static void bakeArmor(Map<ResourceLocation, BakedModel> map){
         for(RegistryObject<Item> item : ItemsRegistry.ITEMS.getEntries()){
             if(item.get() instanceof SkinableArmorItem){

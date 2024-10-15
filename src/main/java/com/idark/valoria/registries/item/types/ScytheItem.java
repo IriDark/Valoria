@@ -32,6 +32,7 @@ import java.util.*;
 import static com.idark.valoria.Valoria.BASE_ATTACK_RADIUS_UUID;
 import static com.idark.valoria.util.ValoriaUtils.addContributorTooltip;
 
+// todo move to lib
 public class ScytheItem extends SwordItem implements ICustomAnimationItem, CooldownNotifyItem, RadiusItem, SpinAttackItem {
     public float radius = 3;
     protected float chance = 1;
@@ -42,6 +43,7 @@ public class ScytheItem extends SwordItem implements ICustomAnimationItem, Coold
     public Easing screenShakeEasing = Easing.CIRC_IN_OUT;
     public ParticleOptions onAbilityParticles = ParticleTypes.POOF;
     public SoundEvent abilitySound = SoundsRegistry.SWIFTSLICE.get();
+    public SoundEvent cooldownSound = SoundsRegistry.RECHARGE.get();
     public ImmutableList<MobEffectInstance> effects;
     public SpinAttackAnimation animation = new SpinAttackAnimation();
 
@@ -77,6 +79,11 @@ public class ScytheItem extends SwordItem implements ICustomAnimationItem, Coold
         return InteractionResultHolder.pass(itemstack);
     }
 
+    @Override
+    public SoundEvent getSoundEvent() {
+        return cooldownSound;
+    }
+
     public UseAnim getUseAnimation(ItemStack pStack) {
         return UseAnim.CUSTOM;
     }
@@ -89,15 +96,6 @@ public class ScytheItem extends SwordItem implements ICustomAnimationItem, Coold
 
     public int getUseDuration(ItemStack stack) {
         return 7;
-    }
-
-    public SoundEvent getAttackSound() {
-        return abilitySound;
-    }
-
-    @Nullable
-    public ParticleOptions getAttackParticle() {
-        return onAbilityParticles;
     }
 
     public void applyCooldown(List<LivingEntity> hitEntities, Player playerIn) {
@@ -122,7 +120,7 @@ public class ScytheItem extends SwordItem implements ICustomAnimationItem, Coold
         float damage = (float) (player.getAttributeValue(Attributes.ATTACK_DAMAGE)) + EnchantmentHelper.getSweepingDamageRatio(player);
         float radius = (float) player.getAttributeValue(AttributeRegistry.ATTACK_RADIUS.get());
 
-        ValoriaUtils.radiusHit(level, stack, player, getAttackParticle(), hitEntities, pos, 0, player.getRotationVector().y, radius);
+        ValoriaUtils.radiusHit(level, stack, player, onAbilityParticles, hitEntities, pos, 0, player.getRotationVector().y, radius);
         applyCooldown(hitEntities, player);
         for (LivingEntity entity : hitEntities) {
             entity.hurt(level.damageSources().playerAttack(player), (damage + EnchantmentHelper.getDamageBonus(stack, entity.getMobType())) * 1.35f);
@@ -143,7 +141,7 @@ public class ScytheItem extends SwordItem implements ICustomAnimationItem, Coold
         Player player = (Player) entityLiving;
         performAttack(level, stack, player);
         player.awardStat(Stats.ITEM_USED.get(this));
-        level.playSound(null, player.getOnPos(), getAttackSound(), SoundSource.PLAYERS, 1.0F, 1F);
+        level.playSound(null, player.getOnPos(), abilitySound, SoundSource.PLAYERS, 1.0F, 1F);
         return stack;
     }
 

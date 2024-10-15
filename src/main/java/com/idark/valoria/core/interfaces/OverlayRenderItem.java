@@ -8,6 +8,7 @@ import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.client.event.*;
 import net.minecraftforge.fml.*;
 
+// todo move to lib
 public interface OverlayRenderItem {
     ResourceLocation getTexture();
 

@@ -13,6 +13,7 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nullable;
 import java.time.LocalDate;
 
+// todo move to lib
 public class LocalDateCondition implements LootItemCondition {
     public final IntRange dayOfMonth;
     public final IntRange month;
