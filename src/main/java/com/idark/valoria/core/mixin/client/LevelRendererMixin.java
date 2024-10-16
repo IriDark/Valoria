@@ -1,5 +1,7 @@
 package com.idark.valoria.core.mixin.client;
 
+import com.idark.valoria.Valoria;
+import com.idark.valoria.registries.level.LevelGen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.world.level.Level;
@@ -24,7 +26,8 @@ public class LevelRendererMixin {
     @Unique
     private static boolean valoria$isValoriaSky() {
         Level world = Minecraft.getInstance().level;
-        return world.dimension().toString().toLowerCase(Locale.ROOT).equals("resourcekey[minecraft:dimension / valoria:the_valoria]");
+        if(world == null) return false;
+        return world.dimension().equals(LevelGen.VALORIA_KEY);
     }
 
     @ModifyVariable(

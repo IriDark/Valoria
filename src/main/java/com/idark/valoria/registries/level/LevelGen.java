@@ -51,6 +51,7 @@ public class LevelGen {
 
     public static final ResourceKey<LevelStem> VALORIA = registerKey(Registries.LEVEL_STEM, "the_valoria");
     public static final ResourceKey<Level> VALORIA_KEY = registerKey(Registries.DIMENSION, "the_valoria");
+    public static final ResourceKey<DimensionType> VALORIA_TYPE = registerKey(Registries.DIMENSION_TYPE, "the_valoria");
     public static final ResourceKey<Biome> VOID_BARREN = registerKey(Registries.BIOME, "void_barren");
     public static final ResourceKey<Biome> BARREN_ECOTONE = registerKey(Registries.BIOME, "barren_ecotone");
     public static final ResourceKey<Biome> ECOTONE = registerKey(Registries.BIOME, "ecotone");
