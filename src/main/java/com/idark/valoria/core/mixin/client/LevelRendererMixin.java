@@ -12,6 +12,7 @@ import org.spongepowered.asm.mixin.injection.Slice;
 
 import java.util.Locale;
 
+//todo fix #13, custom sky rendering for Valoria
 @Mixin(LevelRenderer.class)
 public class LevelRendererMixin {
 

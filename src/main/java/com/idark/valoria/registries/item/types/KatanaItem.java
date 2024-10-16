@@ -144,8 +144,8 @@ public class KatanaItem extends SwordItem implements CooldownNotifyItem {
         public Tier tier = ModItemTier.NONE;
         public Item.Properties itemProperties;
         private ResourceLocation texture;
-        public SoundEvent dashSound;
-        public SoundEvent cooldownSound;
+        public SoundEvent dashSound = SoundsRegistry.SWIFTSLICE.get();
+        public SoundEvent cooldownSound = SoundsRegistry.RECHARGE.get();
         public SoundEvent chargedSound;
         public Color dashColor;
         public boolean usePacket = false;
