@@ -11,6 +11,7 @@
   "ambient_light": 0.1,
   "fixed_time": 16000,
   "logical_height": 384,
+  "effects": "valoria:valoria_sky",
   "infiniburn": "#minecraft:infiniburn_overworld",
   "min_y": -64,
   "height": 384,

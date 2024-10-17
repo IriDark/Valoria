@@ -3,7 +3,6 @@ package com.idark.valoria;
 import com.google.common.collect.*;
 import com.idark.valoria.client.event.*;
 import com.idark.valoria.client.particle.*;
-import com.idark.valoria.client.render.ValoriaEffects;
 import com.idark.valoria.client.render.curio.*;
 import com.idark.valoria.client.render.tile.*;
 import com.idark.valoria.client.ui.*;
@@ -239,11 +238,6 @@ public class Valoria {
 
     @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
     public static class RegistryEvents {
-
-        @SubscribeEvent
-        public static void RegisterDimensionEffects(RegisterDimensionSpecialEffectsEvent e) {
-            e.register(LevelGen.VALORIA_TYPE.registry(), new ValoriaEffects()); //todo
-        }
 
         @SubscribeEvent
         public static void registerCaps(RegisterCapabilitiesEvent event) {

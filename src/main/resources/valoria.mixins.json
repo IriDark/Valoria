@@ -15,7 +15,6 @@
   ],
   "client": [
     "client.AbstractClientPlayerMixin",
-    "client.LevelRendererMixin",
     "client.LivingEntityRendererMixin",
     "client.PlayerRendererMixin"
   ],

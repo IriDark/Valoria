@@ -5,23 +5,20 @@ import com.idark.valoria.client.model.*;
 import com.idark.valoria.client.model.armor.*;
 import com.idark.valoria.client.model.curio.*;
 import com.idark.valoria.client.particle.*;
+import com.idark.valoria.client.render.*;
 import com.idark.valoria.client.render.entity.*;
 import com.idark.valoria.client.render.tile.*;
 import com.idark.valoria.client.sounds.*;
-import com.idark.valoria.core.shaders.ShaderRegistry;
+import com.idark.valoria.core.shaders.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.block.types.*;
-import com.idark.valoria.registries.entity.living.decoration.*;
 import com.idark.valoria.util.*;
 import com.mojang.blaze3d.platform.*;
-import com.mojang.blaze3d.vertex.*;
 import mod.maxbogomol.fluffy_fur.*;
 import mod.maxbogomol.fluffy_fur.client.gui.screen.*;
-import mod.maxbogomol.fluffy_fur.client.render.entity.CustomBoatRenderer;
+import mod.maxbogomol.fluffy_fur.client.render.entity.*;
 import mod.maxbogomol.fluffy_fur.client.tooltip.*;
-import mod.maxbogomol.fluffy_fur.common.entity.CustomBoatEntity;
 import net.minecraft.client.*;
-import net.minecraft.client.model.*;
 import net.minecraft.client.model.geom.*;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.blockentity.*;
@@ -44,7 +41,6 @@ import java.io.*;
 
 import static com.idark.valoria.Valoria.*;
 import static mod.maxbogomol.fluffy_fur.registry.client.FluffyFurModels.addLayer;
-import static mod.maxbogomol.fluffy_fur.registry.client.FluffyFurRenderTypes.*;
 
 public class ValoriaClient {
     private static final String CATEGORY_KEY = "key.category.valoria.general";
@@ -84,6 +80,10 @@ public class ValoriaClient {
 
     @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     public static class RegistryEvents {
+        @SubscribeEvent
+        public static void RegisterDimensionEffects(RegisterDimensionSpecialEffectsEvent e) {
+            e.register(new ResourceLocation(Valoria.ID, "valoria_sky"), new ValoriaEffects()); //todo
+        }
 
         @SubscribeEvent
         public static void registerAttributeModifiers(FMLClientSetupEvent event){
