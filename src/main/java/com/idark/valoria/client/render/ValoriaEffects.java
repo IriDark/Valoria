@@ -1,5 +1,6 @@
 package com.idark.valoria.client.render;
 
+import com.idark.valoria.*;
 import com.mojang.blaze3d.platform.*;
 import com.mojang.blaze3d.systems.*;
 import com.mojang.blaze3d.vertex.*;
@@ -7,6 +8,7 @@ import com.mojang.math.*;
 import net.minecraft.client.*;
 import net.minecraft.client.multiplayer.*;
 import net.minecraft.client.renderer.*;
+import net.minecraft.resources.*;
 import net.minecraft.util.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
@@ -20,6 +22,10 @@ import java.lang.Math;
 
 @OnlyIn(Dist.CLIENT)
 public class ValoriaEffects extends DimensionSpecialEffects{
+    private static final ResourceLocation ARETHEA_LOCATION = new ResourceLocation(Valoria.ID,"textures/environment/arethea.png");
+    private static final ResourceLocation EARTH_LOCATION = new ResourceLocation(Valoria.ID, "textures/environment/earth.png");
+
+    private static final ResourceLocation MOON_LOCATION = new ResourceLocation("textures/environment/moon_phases.png");
     public ValoriaEffects(){
         super(192, true, SkyType.NORMAL, false, false);
     }
@@ -93,8 +99,46 @@ public class ValoriaEffects extends DimensionSpecialEffects{
                 float f11 = 1.0F - level.getRainLevel(pPartialTick);
                 RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, f11);
                 pPoseStack.mulPose(Axis.YP.rotationDegrees(-90.0F));
-                pPoseStack.mulPose(Axis.XP.rotationDegrees(level.getTimeOfDay(pPartialTick) * 360.0F));
+
+                long totalTicks = level.getDayTime();
+                float dayFraction = (totalTicks % 24000L + pPartialTick) / 24000.0F;
+                float rotation = dayFraction * 360.0F;
+
+                pPoseStack.mulPose(Axis.XP.rotationDegrees(rotation));
+                Matrix4f matrix4f1 = pPoseStack.last().pose();
+                float f12 = 19f;
                 RenderSystem.setShader(GameRenderer::getPositionTexShader);
+                RenderSystem.setShaderTexture(0, MOON_LOCATION);
+                int k = level.getMoonPhase();
+                int l = k % 4;
+                int i1 = k / 4 % 2;
+                float f13 = (float)(l) / 4.0F;
+                float f14 = (float)(i1) / 2.0F;
+                float f15 = (float)(l + 1) / 4.0F;
+                float f16 = (float)(i1 + 1) / 2.0F;
+                bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+                bufferbuilder.vertex(matrix4f1, -f12, -100.0F, f12).uv(f15, f16).endVertex();
+                bufferbuilder.vertex(matrix4f1, f12, -100.0F, f12).uv(f13, f16).endVertex();
+                bufferbuilder.vertex(matrix4f1, f12, -100.0F, -f12).uv(f13, f14).endVertex();
+                bufferbuilder.vertex(matrix4f1, -f12, -100.0F, -f12).uv(f15, f14).endVertex();
+                BufferUploader.drawWithShader(bufferbuilder.end());
+
+                RenderSystem.setShaderTexture(0, ARETHEA_LOCATION);
+                bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+                bufferbuilder.vertex(matrix4f1, -f12, 100.0F, -f12).uv(0.0F, 0.0F).endVertex();
+                bufferbuilder.vertex(matrix4f1, 4, 100.0F, -f12).uv(1.0F, 0.0F).endVertex();
+                bufferbuilder.vertex(matrix4f1, 4, 100.0F, 4).uv(1.0F, 1.0F).endVertex();
+                bufferbuilder.vertex(matrix4f1, -f12, 100.0F, 4).uv(0.0F, 1.0F).endVertex();
+                BufferUploader.drawWithShader(bufferbuilder.end());
+
+                RenderSystem.setShaderTexture(0, EARTH_LOCATION);
+                bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+                bufferbuilder.vertex(matrix4f1, -5, -100.0F, 45).uv(0, 0).endVertex();
+                bufferbuilder.vertex(matrix4f1, 45, -100.0F, 45).uv(1, 0).endVertex();
+                bufferbuilder.vertex(matrix4f1, 45, -100.0F, -5).uv(1, 1).endVertex();
+                bufferbuilder.vertex(matrix4f1, -5, -100.0F, -5).uv(0, 1).endVertex();
+                BufferUploader.drawWithShader(bufferbuilder.end());
+
                 float f10 = level.getStarBrightness(pPartialTick) * f11;
                 if(f10 > 0.0F){
                     RenderSystem.setShaderColor(f10, f10, f10, f10);

@@ -2,7 +2,7 @@ package com.idark.valoria.client.render.tile;
 
 
 import com.idark.valoria.*;
-import com.idark.valoria.core.shaders.ShaderRegistry;
+import com.idark.valoria.core.shaders.*;
 import com.idark.valoria.registries.block.entity.*;
 import com.mojang.blaze3d.vertex.*;
 import net.minecraft.client.renderer.*;
@@ -16,8 +16,8 @@ import static mod.maxbogomol.fluffy_fur.registry.client.FluffyFurRenderTypes.get
 
 @OnlyIn(Dist.CLIENT)
 public class ValoriaPortalRenderer<T extends ValoriaPortalBlockEntity> implements BlockEntityRenderer<T>{
-    public static final ResourceLocation BACKGROUND_LOC = new ResourceLocation(Valoria.ID, "textures/valoria_portal.png");
-    public static final ResourceLocation LAYER_LOC = new ResourceLocation(Valoria.ID, "textures/valoria_portal_layer2.png");
+    public static final ResourceLocation BACKGROUND_LOC = new ResourceLocation(Valoria.ID, "textures/environment/valoria_portal.png");
+    public static final ResourceLocation LAYER_LOC = new ResourceLocation(Valoria.ID, "textures/environment/valoria_portal_layer2.png");
 
     public ValoriaPortalRenderer(BlockEntityRendererProvider.Context pContext) {
     }

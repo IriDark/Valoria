@@ -48,7 +48,7 @@ public class BlockRegistry {
     public static final RegistryObject<Block> BRONZE_TRAPDOOR_GLASS = registerBlock("bronze_trapdoor_glass",
             () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_TRAPDOOR).noOcclusion().mapColor(MapColor.COLOR_BROWN), BlockSetType.IRON));
 
-    //todo, move this into quark compat
+    //todo, move this into quark compat (priority: low)
     public static final RegistryObject<Block> SHADEWOOD_CHEST = registerBlock("shadewood_chest",
             () -> new ModChestBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).instrument(NoteBlockInstrument.BASS).strength(2.5F).sound(SoundType.WOOD).ignitedByLava(), BlockEntitiesRegistry.CHEST_BLOCK_ENTITY::get));
     public static final RegistryObject<Block> TRAPPED_SHADEWOOD_CHEST = registerBlock("trapped_shadewood_chest",
@@ -114,6 +114,8 @@ public class BlockRegistry {
     public static final RegistryObject<Block> RAW_COBALT_ORE_BLOCK = registerBlock("raw_cobalt_ore",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.RAW_COPPER_BLOCK).mapColor(MapColor.COLOR_BLUE).requiresCorrectToolForDrops().strength(3f, 4f)));
     // Stone Types
+    public static final RegistryObject<Block> EYE_FLESH = registerBlock("eye_flesh",
+    () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_RED).requiresCorrectToolForDrops().strength(3f, 4f)));
     public static final RegistryObject<Block> EYE_MEAT = registerBlock("eye_meat",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_RED).requiresCorrectToolForDrops().strength(3f, 4f)));
     public static final RegistryObject<Block> EYE_STONE = registerBlock("eye_stone",
@@ -215,6 +217,8 @@ public class BlockRegistry {
     public static final RegistryObject<Block> POLISHED_EPHEMARITE_STAIRS = registerBlock("polished_ephemarite_stairs",
             () -> new StairBlock(() -> POLISHED_EPHEMARITE.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.TERRACOTTA_BROWN).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> MEAT_BLOCK = registerBlock("meat_block",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_RED).requiresCorrectToolForDrops()));
+    public static final RegistryObject<Block> FLESH_BLOCK = registerBlock("flesh_block",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_RED).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> AMBANE_STONE = registerBlock("ambane_stone",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.WARPED_WART_BLOCK).requiresCorrectToolForDrops()));

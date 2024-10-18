@@ -82,7 +82,7 @@ public class ValoriaClient {
     public static class RegistryEvents {
         @SubscribeEvent
         public static void RegisterDimensionEffects(RegisterDimensionSpecialEffectsEvent e) {
-            e.register(new ResourceLocation(Valoria.ID, "valoria_sky"), new ValoriaEffects()); //todo
+            e.register(new ResourceLocation(Valoria.ID, "valoria_sky"), new ValoriaEffects());
         }
 
         @SubscribeEvent
