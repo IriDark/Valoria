@@ -2,6 +2,7 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 
 import java.nio.charset.StandardCharsets
+
 buildscript {
     repositories {
         mavenLocal()
@@ -184,7 +185,6 @@ tasks.withType(GenerateModuleMetadata) {
 task sourcesJar(type: Jar) {
     archiveClassifier.set('sources')
     from sourceSets.main.allSource
-    from sourceSets.main.allJava
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
@@ -192,6 +192,10 @@ task javadocJar(type: Jar) {
     dependsOn javadoc
     from javadoc.destinationDir
     archiveClassifier.set('javadoc')
+}
+
+artifacts {
+    archives sourcesJar
 }
 
 processResources {
@@ -206,9 +210,13 @@ publishing {
         }
     }
 
-    repositories {
-        maven {
-            url "file://${project.projectDir}/mcmodsrepo"
+    repositories{
+        maven{
+            url "https://maven.komaru.ru/repository/maven-releases/"
+            credentials{
+                username "admin"
+                password System.getenv("maventoken")
+            }
         }
     }
 }
@@ -220,13 +228,15 @@ tasks.withType(JavaCompile).configureEach {
 modrinth {
     token = System.getenv("modrinthtoken") // Remember to have the MODRINTH_TOKEN environment variable set or else this will fail - just make sure it stays private!
     projectId = "valoriadev"
+    //debugMode = true
     versionNumber = "${dev_version}"
     versionType = "beta"
     versionName = "Dev Build - ${dev_version}"
     uploadFile = tasks.jar
-    additionalFiles = [sourcesJar]
+    additionalFiles = [sourcesJar, javadocJar]
     changelog = "Just a DevBuild to test things, its some sorta like minecraft snapshots to find bugs and report them"
     dependencies {
+        required.project "fluffy-fur"
         required.project "curios"
     }
 }
