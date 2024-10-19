@@ -3,11 +3,11 @@ package com.idark.valoria.registries.item.types;
 import com.google.common.collect.*;
 import com.idark.valoria.*;
 import com.idark.valoria.client.ui.*;
-import com.idark.valoria.core.enums.*;
 import com.idark.valoria.core.interfaces.*;
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.particle.*;
 import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.item.types.builders.*;
 import com.idark.valoria.util.*;
 import net.minecraft.*;
 import net.minecraft.core.*;
@@ -140,138 +140,6 @@ public class KatanaItem extends SwordItem implements CooldownNotifyItem {
         return cooldownSound;
     }
 
-    public static class Builder {
-        public Tier tier = ModItemTier.NONE;
-        public Item.Properties itemProperties;
-        private ResourceLocation texture;
-        public SoundEvent dashSound = SoundsRegistry.SWIFTSLICE.get();
-        public SoundEvent cooldownSound = SoundsRegistry.RECHARGE.get();
-        public SoundEvent chargedSound;
-        public Color dashColor;
-        public boolean usePacket = false;
-        public boolean hasLargeModel = true;
-        public int attackDamageIn;
-        public float attackSpeedIn;
-        public float chance = 1;
-        public int overlayTime = 35;
-        public int cooldownTime = 75;
-        public int chargeTime = 0;
-        public float dashDist = 0.8f;
-        public ImmutableList<MobEffectInstance> effects = ImmutableList.of();
-        public ParticleOptions particleOptions;
-        public Builder(int attackDamageIn, float attackSpeedIn, Properties itemProperties) {
-            this.attackDamageIn = attackDamageIn;
-            this.attackSpeedIn = attackSpeedIn;
-            this.itemProperties = itemProperties;
-        }
-
-        public Builder setTier(Tier tier){
-            this.tier = tier;
-            return this;
-        }
-
-        /**
-         * @param event Sound that will be played when dash is performed
-         */
-        public Builder setDashSound(SoundEvent event){
-            this.dashSound = event;
-            return this;
-        }
-
-        /**
-         * @param event Sound that will be played after cooldown ending
-         */
-        public Builder setCooldownSound(SoundEvent event){
-            this.cooldownSound = event;
-            return this;
-        }
-
-        /**
-         * Currently a bit buged, called two times instead of one, but anyway :d
-         * @param event Sound that will be played when Katana is ready to perform dash
-         */
-        public Builder setChargedSound(SoundEvent event){
-            this.chargedSound = event;
-            return this;
-        }
-
-        /**
-         * @param particleOptions Particle trail that will appear after dashing
-         */
-        public Builder setParticles(ParticleOptions particleOptions){
-            this.particleOptions = particleOptions;
-            return this;
-        }
-
-        /**
-         * Particle trail that will appear after dashing, but sent through a DashParticlePacket
-         * @param color Particle color
-         */
-        public Builder usePacket(Color color){
-            this.usePacket = true;
-            this.dashColor = color;
-            return this;
-        }
-
-        public Builder removeLargeModelCheck(){
-            this.hasLargeModel = false;
-            return this;
-        }
-
-        /**
-         * @param chance Chance of applying effects to target
-         * @param pEffects Effects that will be applied to target
-         */
-        public Builder setEffects(float chance, MobEffectInstance... pEffects){
-            this.chance = chance;
-            this.effects = ImmutableList.copyOf(pEffects);
-            return this;
-        }
-
-        /**
-         * @param pEffects Effects that will be applied to target
-         */
-        public Builder setEffects(MobEffectInstance... pEffects){
-            this.effects = ImmutableList.copyOf(pEffects);
-            return this;
-        }
-
-        public Builder setTimeToCharge(int useTime){
-            this.chargeTime = useTime;
-            return this;
-        }
-
-        public Builder setOverlayTime(int time){
-            this.overlayTime = time;
-            return this;
-        }
-
-        public Builder setCooldownTime(int cooldownTime){
-            this.cooldownTime = cooldownTime;
-            return this;
-        }
-
-        public Builder setDashDistance(float distance) {
-            this.dashDist = distance;
-            return this;
-        }
-
-        /**
-         * @param texture a ResourceLocation of texture that will be shown after dash is performed
-         */
-        public Builder setOverlay(ResourceLocation texture) {
-            this.texture = texture;
-            return this;
-        }
-
-        /**
-         * @return Build of KatanaItem with all the configurations you set :p
-         */
-        public KatanaItem build() {
-            return new KatanaItem(this);
-        }
-    }
-
     public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot pEquipmentSlot) {
         return pEquipmentSlot == EquipmentSlot.MAINHAND ? this.defaultModifiers : super.getDefaultAttributeModifiers(pEquipmentSlot);
     }
@@ -351,6 +219,7 @@ public class KatanaItem extends SwordItem implements CooldownNotifyItem {
         }
     }
 
+    //todo fix detectedEntities
     public void performDash(@NotNull ItemStack stack, @NotNull Level level, @NotNull Player player, Vector3d pos, RandomSource rand){
         double pitch = ((player.getRotationVector().x + 90) * Math.PI) / 180;
         double yaw = ((player.getRotationVector().y + 90) * Math.PI) / 180;
@@ -414,5 +283,18 @@ public class KatanaItem extends SwordItem implements CooldownNotifyItem {
         tooltip.add(Component.translatable("tooltip.valoria.katana").withStyle(ChatFormatting.GRAY));
         tooltip.add(Component.translatable("tooltip.valoria.rmb").withStyle(ChatFormatting.GREEN));
         ValoriaUtils.addEffectsTooltip(effects, tooltip, 1, chance);
+    }
+
+    public static class Builder extends AbstractKatanaBuilder<KatanaItem>{
+        public Builder(int attackDamageIn, float attackSpeedIn, Properties itemProperties){
+            super(attackDamageIn, attackSpeedIn, itemProperties);
+        }
+
+        /**
+         * @return Build of KatanaItem with all the configurations you set :p
+         */
+        public KatanaItem build() {
+            return new KatanaItem(this);
+        }
     }
 }

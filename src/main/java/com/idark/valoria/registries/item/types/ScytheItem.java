@@ -4,6 +4,7 @@ import com.google.common.collect.*;
 import com.idark.valoria.client.model.animations.*;
 import com.idark.valoria.core.interfaces.*;
 import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.item.types.builders.*;
 import com.idark.valoria.util.*;
 import mod.maxbogomol.fluffy_fur.client.animation.*;
 import mod.maxbogomol.fluffy_fur.client.screenshake.*;
@@ -26,7 +27,6 @@ import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.registries.*;
 import org.joml.*;
 
-import javax.annotation.*;
 import java.util.*;
 
 import static com.idark.valoria.Valoria.BASE_ATTACK_RADIUS_UUID;
@@ -46,9 +46,27 @@ public class ScytheItem extends SwordItem implements ICustomAnimationItem, Coold
     public SoundEvent cooldownSound = SoundsRegistry.RECHARGE.get();
     public ImmutableList<MobEffectInstance> effects;
     public SpinAttackAnimation animation = new SpinAttackAnimation();
-
     public final Multimap<Attribute, AttributeModifier> defaultModifiers;
     public final ArcRandom arcRandom = new ArcRandom();
+    public ScytheItem(AbstractScytheBuilder<? extends ScytheItem> builderIn) {
+        super(builderIn.tier, builderIn.attackDamageIn, builderIn.attackSpeedIn, builderIn.itemProperties);
+        this.effects = builderIn.effects;
+        this.chance = builderIn.chance;
+        this.minCooldown = builderIn.minCooldownTime;
+        this.maxCooldown = builderIn.cooldownTime;
+        this.abilitySound = builderIn.attackSound;
+        this.cooldownSound = builderIn.cooldownSound;
+        this.onAbilityParticles = builderIn.particleOptions;
+        this.screenShakeEasing = builderIn.screenShakeEasing;
+        this.screenShakeIntensity = builderIn.screenShakeIntensity;
+        this.screenShakeDuration = builderIn.screenShakeDuration;
+        ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
+        builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", builderIn.attackDamageIn, AttributeModifier.Operation.ADDITION));
+        builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Tool modifier", builderIn.attackSpeedIn, AttributeModifier.Operation.ADDITION));
+        builder.put(AttributeRegistry.ATTACK_RADIUS.get(), new AttributeModifier(BASE_ATTACK_RADIUS_UUID, "Tool modifier", builderIn.attackRadius, AttributeModifier.Operation.ADDITION));
+        this.defaultModifiers = builder.build();
+    }
+
     public ScytheItem(Tier tier, int attackDamageIn, float attackSpeedIn, Properties builderIn) {
         super(tier, attackDamageIn, attackSpeedIn, builderIn);
         this.effects = ImmutableList.of();
@@ -152,5 +170,16 @@ public class ScytheItem extends SwordItem implements ICustomAnimationItem, Coold
         tooltip.add(Component.translatable("tooltip.valoria.scythe").withStyle(ChatFormatting.GRAY));
         tooltip.add(Component.translatable("tooltip.valoria.rmb").withStyle(ChatFormatting.GREEN));
         ValoriaUtils.addEffectsTooltip(effects, tooltip, 1, chance);
+    }
+
+    public static class Builder extends AbstractScytheBuilder<ScytheItem>{
+        public Builder(int attackDamageIn, float attackSpeedIn, Properties itemProperties){
+            super(attackDamageIn, attackSpeedIn, itemProperties);
+        }
+
+        @Override
+        public ScytheItem build(){
+            return new ScytheItem(this);
+        }
     }
 }

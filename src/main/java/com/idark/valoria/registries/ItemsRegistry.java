@@ -6,7 +6,7 @@ import com.idark.valoria.client.ui.screen.book.unlockable.*;
 import com.idark.valoria.core.enums.*;
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.particle.*;
-import com.idark.valoria.registries.item.armor.ArmorRegistry;
+import com.idark.valoria.registries.item.armor.*;
 import com.idark.valoria.registries.item.armor.tiers.*;
 import com.idark.valoria.registries.item.skins.*;
 import com.idark.valoria.registries.item.types.*;
@@ -18,8 +18,7 @@ import com.idark.valoria.registries.item.types.ranged.*;
 import com.idark.valoria.registries.item.types.ranged.bows.*;
 import com.idark.valoria.util.*;
 import mod.maxbogomol.fluffy_fur.client.particle.data.*;
-import mod.maxbogomol.fluffy_fur.common.item.CustomBoatItem;
-import mod.maxbogomol.fluffy_fur.common.item.CustomChestBoatItem;
+import mod.maxbogomol.fluffy_fur.common.item.*;
 import mod.maxbogomol.fluffy_fur.common.itemskin.*;
 import net.minecraft.*;
 import net.minecraft.core.particles.*;
@@ -300,21 +299,8 @@ public class ItemsRegistry {
         // halloween
         candyCorn = registerItem("candy_corn", () -> new Item(new Item.Properties().rarity(RarityRegistry.HALLOWEEN).stacksTo(64).food(new FoodProperties.Builder().nutrition(1).saturationMod(0.2f).build())));
         pumpkinBomb = registerItem("pumpkin_bomb", () -> new ThrowableBombItem(new Item.Properties().rarity(RarityRegistry.HALLOWEEN).stacksTo(16)));
-        wraithKatana = registerItem("wraith_katana", () -> new KatanaItem.Builder(3, -2.2f, new Item.Properties().rarity(RarityRegistry.HALLOWEEN))
-        .setTier(ModItemTier.HALLOWEEN)
-        .setDashDistance(1.6f)
-        .setDashSound(SoundsRegistry.HALLOWEEN_SLICE.get())
-        .removeLargeModelCheck()
-        .setOverlay(new ResourceLocation(Valoria.ID, "textures/gui/overlay/roots.png"))
-        .usePacket(Pal.mandarin)
-        .build()
-        );
-
-        reaperScythe = registerItem("reaper_scythe", () -> new ScytheItem(ModItemTier.HALLOWEEN, 9, -3.0f, new Item.Properties().fireResistant().rarity(RarityRegistry.HALLOWEEN)){{
-            effects = addEffects(0.5f, new MobEffectInstance(MobEffects.DARKNESS, 90, 0));
-            abilitySound = SoundsRegistry.HALLOWEEN_SLICE.get();
-        }});
-
+        wraithKatana = registerItem("wraith_katana", () -> new KatanaItem.Builder(3, -2.2f, new Item.Properties().rarity(RarityRegistry.HALLOWEEN)).setTier(ModItemTier.HALLOWEEN).setDashDistance(1.6f).setDashSound(SoundsRegistry.HALLOWEEN_SLICE.get()).removeLargeModelCheck().setOverlay(new ResourceLocation(Valoria.ID, "textures/gui/overlay/roots.png")).usePacket(Pal.mandarin).build());
+        reaperScythe = registerItem("reaper_scythe", () -> new ScytheItem.Builder(9, -3.0f, new Properties().fireResistant().rarity(RarityRegistry.HALLOWEEN)).setEffects(0.5f, new MobEffectInstance(MobEffects.DARKNESS, 90, 0)).setAttackSound(SoundsRegistry.HALLOWEEN_SLICE.get()).setTier(ModItemTier.HALLOWEEN).build());
         dreadAxe = registerItem("dread_axe", () -> new AxeItem(ModItemTier.HALLOWEEN, 6.5f, -2.8f, new Item.Properties().rarity(RarityRegistry.HALLOWEEN)));
         soulReaver = registerItem("soul_reaver", () -> new HitEffectItem(ModItemTier.HALLOWEEN, 4, -2.8f, new Item.Properties().rarity(RarityRegistry.HALLOWEEN), 0.25f, new MobEffectInstance(MobEffects.DARKNESS, 40, 0), new MobEffectInstance(MobEffects.WEAKNESS, 60, 1)));
         spectralBladeThrown = registerItem("spectral_blade_thrown"); // for rendering
@@ -336,11 +322,7 @@ public class ItemsRegistry {
         goldenScythe = registerItem("golden_scythe", () -> new ScytheItem(Tiers.GOLD, 5, -3.1f, new Item.Properties()));
         diamondScythe = registerItem("diamond_scythe", () -> new ScytheItem(Tiers.DIAMOND, 8, -3.0f, new Item.Properties()));
         netheriteScythe = registerItem("netherite_scythe", () -> new ScytheItem(Tiers.NETHERITE, 10, -3.0f, new Item.Properties().fireResistant()));
-        beast = registerItem("beast", () -> new BeastScytheItem(ModItemTier.NONE, 13, -3.2f, new Item.Properties()) {{
-            minCooldown = 40;
-            maxCooldown = 150;
-        }});
-
+        beast = registerItem("beast", () -> new BeastScytheItem.Builder(13, -3.2f, new Item.Properties()).setTier(ModItemTier.NONE).setCooldownTime(40, 150).build());
         ironKatana = registerItem("iron_katana", () -> new KatanaItem(Tiers.IRON, 3, -2.2f, 1f, new Item.Properties()));
         goldenKatana = registerItem("golden_katana", () -> new KatanaItem(Tiers.GOLD, 2, -1.8f, 1.2f, new Item.Properties()));
         diamondKatana = registerItem("diamond_katana", () -> new KatanaItem(Tiers.DIAMOND, 4, -2f, 1.3f, new Item.Properties()));

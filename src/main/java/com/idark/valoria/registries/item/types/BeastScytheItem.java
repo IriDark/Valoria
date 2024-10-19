@@ -2,6 +2,7 @@ package com.idark.valoria.registries.item.types;
 
 import com.idark.valoria.client.particle.*;
 import com.idark.valoria.registries.entity.projectile.*;
+import com.idark.valoria.registries.item.types.builders.*;
 import com.idark.valoria.util.*;
 import mod.maxbogomol.fluffy_fur.client.particle.*;
 import mod.maxbogomol.fluffy_fur.client.particle.data.*;
@@ -24,9 +25,12 @@ import java.lang.Math;
 import java.util.*;
 
 public class BeastScytheItem extends ScytheItem {
-
     public BeastScytheItem(Tier tier, int attackDamageIn, float attackSpeedIn, Item.Properties builderIn) {
         super(tier, attackDamageIn, attackSpeedIn, builderIn);
+    }
+
+    public BeastScytheItem(Builder builderIn) {
+        super(builderIn);
     }
 
     public boolean hurtEnemy(ItemStack pStack, LivingEntity pTarget, LivingEntity pAttacker) {
@@ -118,5 +122,16 @@ public class BeastScytheItem extends ScytheItem {
         }
 
         level.playSound(null, player.blockPosition(), SoundEvents.EVOKER_FANGS_ATTACK, SoundSource.AMBIENT, 1f, 1f);
+    }
+
+    public static class Builder extends AbstractScytheBuilder<BeastScytheItem>{
+        public Builder(int attackDamageIn, float attackSpeedIn, Properties itemProperties){
+            super(attackDamageIn, attackSpeedIn, itemProperties);
+        }
+
+        @Override
+        public BeastScytheItem build(){
+            return new BeastScytheItem(this);
+        }
     }
 }

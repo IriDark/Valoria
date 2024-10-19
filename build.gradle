@@ -30,11 +30,12 @@ plugins {
 version = "${version}"
 group = 'com.github.IriDark'
 base {
-    archivesName = 'Valoria'
+    archivesName = project.name
 }
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
+sourceSets.main.resources { srcDir 'src/generated/resources' }
 minecraft {
     mappings channel: 'parchment', version: '2023.09.03-1.20.1'
     copyIdeResources = true
@@ -90,7 +91,6 @@ repositories {
     maven { url "https://maven.blamejared.com"}
 }
 
-sourceSets.main.resources { srcDir 'src/generated/resources' }
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
@@ -126,27 +126,13 @@ jar {
     manifest {
         attributes(["Specification-Title"     : project.name,
                     "Specification-Vendor"    : "IriDark",
-                    "Specification-Version"   : project.version,
+                    "Specification-Version"   : 1,
                     "Implementation-Title"    : project.name,
                     "Implementation-Version"  : project.version,
                     "Implementation-Vendor"   : "IriDark",
                     "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
-                    "MixinConfigs": "${project.name.toLowerCase()}.mixins.json"],)
+                    "MixinConfigs": "valoria.mixins.json"],)
     }
-}
-
-task sourcesJar(type: Jar) {
-    from sourceSets.main.allSource
-    archiveClassifier.set('sources')
-    duplicatesStrategy = DuplicatesStrategy.WARN
-}
-
-java {
-    withSourcesJar()
-}
-
-artifacts {
-    archives sourcesJar
 }
 
 static InputStreamReader createInput(File f) throws FileNotFoundException {
@@ -190,20 +176,39 @@ task updateResources {
     }
 }
 
+jar.finalizedBy('reobfJar')
+tasks.withType(GenerateModuleMetadata) {
+    enabled = false
+}
+
+task sourcesJar(type: Jar) {
+    archiveClassifier.set('sources')
+    from sourceSets.main.allSource
+    from sourceSets.main.allJava
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+task javadocJar(type: Jar) {
+    dependsOn javadoc
+    from javadoc.destinationDir
+    archiveClassifier.set('javadoc')
+}
+
 processResources {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
-jar.finalizedBy('reobfJar')
 publishing {
     publications {
-        mavenJava(MavenPublication) {
+        register('mavenJava', MavenPublication) {
             artifact jar
+            artifact sourcesJar
         }
     }
+
     repositories {
         maven {
-            url = "file:///${project.projectDir}/../mcmodsrepo"
+            url "file://${project.projectDir}/mcmodsrepo"
         }
     }
 }
