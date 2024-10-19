@@ -4,8 +4,7 @@ import com.idark.valoria.*;
 import com.idark.valoria.registries.entity.living.*;
 import com.idark.valoria.registries.entity.living.decoration.*;
 import com.idark.valoria.registries.entity.projectile.*;
-import mod.maxbogomol.fluffy_fur.common.entity.CustomBoatEntity;
-import mod.maxbogomol.fluffy_fur.common.entity.CustomChestBoatEntity;
+import mod.maxbogomol.fluffy_fur.common.entity.*;
 import net.minecraft.resources.*;
 import net.minecraft.world.entity.*;
 import net.minecraftforge.eventbus.api.*;
@@ -25,6 +24,12 @@ public class EntityTypeRegistry {
                     .sized(0.6f, 1.25f)
                     .clientTrackingRange(8)
                     .build(new ResourceLocation(Valoria.ID, "goblin").toString()));
+
+    public static final RegistryObject<EntityType<FleshSentinel>> FLESH_SENTINEL = ENTITY_TYPES.register("flesh_sentinel",
+            () -> EntityType.Builder.of(FleshSentinel::new, MobCategory.CREATURE)
+                    .sized(0.6f, 0.6f)
+                    .clientTrackingRange(8)
+                    .build(new ResourceLocation(Valoria.ID, "flesh_sentinel").toString()));
 
     public static final RegistryObject<EntityType<Succubus>> SUCCUBUS = ENTITY_TYPES.register("succubus",
             () -> EntityType.Builder.of(Succubus::new, MobCategory.MONSTER)

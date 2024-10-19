@@ -247,45 +247,18 @@ public class Valoria {
         @SubscribeEvent
         public static void commonSetup(FMLCommonSetupEvent event) {
             event.enqueueWork(() -> {
-                SpawnPlacements.register(EntityTypeRegistry.GOBLIN.get(),
-                        SpawnPlacements.Type.ON_GROUND,
-                        Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-                        Goblin::checkGoblinSpawnRules);
-
-                SpawnPlacements.register(EntityTypeRegistry.DRAUGR.get(),
-                        SpawnPlacements.Type.ON_GROUND,
-                        Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-                        DraugrEntity::checkMonsterSpawnRules);
-
-                SpawnPlacements.register(EntityTypeRegistry.SWAMP_WANDERER.get(),
-                        SpawnPlacements.Type.IN_WATER,
-                        Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-                        SwampWandererEntity::checkDrownedSpawnRules);
-
-                SpawnPlacements.register(EntityTypeRegistry.SHADEWOOD_SPIDER.get(),
-                        SpawnPlacements.Type.ON_GROUND,
-                        Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-                        ShadewoodSpider::checkMonsterSpawnRules);
-
-                SpawnPlacements.register(EntityTypeRegistry.SUCCUBUS.get(),
-                        SpawnPlacements.Type.ON_GROUND,
-                        Types.WORLD_SURFACE_WG,
-                        Succubus::checkMonsterSpawnRules);
-
-                SpawnPlacements.register(EntityTypeRegistry.HAUNTED_MERCHANT.get(),
-                        SpawnPlacements.Type.ON_GROUND,
-                        Types.WORLD_SURFACE_WG,
-                        HauntedMerchant::checkMonsterSpawnRules);
-
-                SpawnPlacements.register(EntityTypeRegistry.TROLL.get(),
-                        SpawnPlacements.Type.ON_GROUND,
-                        Types.WORLD_SURFACE_WG,
-                        Troll::checkMonsterSpawnRules);
+                SpawnPlacements.register(EntityTypeRegistry.GOBLIN.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Goblin::checkGoblinSpawnRules);
+                SpawnPlacements.register(EntityTypeRegistry.DRAUGR.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, DraugrEntity::checkMonsterSpawnRules);
+                SpawnPlacements.register(EntityTypeRegistry.SWAMP_WANDERER.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SwampWandererEntity::checkDrownedSpawnRules);
+                SpawnPlacements.register(EntityTypeRegistry.SHADEWOOD_SPIDER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ShadewoodSpider::checkMonsterSpawnRules);
+                SpawnPlacements.register(EntityTypeRegistry.SUCCUBUS.get(), SpawnPlacements.Type.ON_GROUND, Types.WORLD_SURFACE_WG, Succubus::checkMonsterSpawnRules);
+                SpawnPlacements.register(EntityTypeRegistry.HAUNTED_MERCHANT.get(), SpawnPlacements.Type.ON_GROUND, Types.WORLD_SURFACE_WG, HauntedMerchant::checkMonsterSpawnRules);
+                SpawnPlacements.register(EntityTypeRegistry.TROLL.get(), SpawnPlacements.Type.ON_GROUND, Types.WORLD_SURFACE_WG, Troll::checkMonsterSpawnRules);
             });
         }
 
         @SubscribeEvent
-        public static void registerAttributes(EntityAttributeCreationEvent event) {
+        public static void registerAttributes(EntityAttributeCreationEvent event){
             event.put(EntityTypeRegistry.MANNEQUIN.get(), MannequinEntity.createAttributes().build());
             event.put(EntityTypeRegistry.GOBLIN.get(), Goblin.createAttributes().build());
             event.put(EntityTypeRegistry.DRAUGR.get(), DraugrEntity.createAttributes().build());
@@ -296,6 +269,7 @@ public class Valoria {
             event.put(EntityTypeRegistry.SUCCUBUS.get(), Succubus.createAttributes().build());
             event.put(EntityTypeRegistry.TROLL.get(), Troll.createAttributes().build());
             event.put(EntityTypeRegistry.HAUNTED_MERCHANT.get(), HauntedMerchant.createAttributes().build());
+            event.put(EntityTypeRegistry.FLESH_SENTINEL.get(), FleshSentinel.createAttributes().build());
         }
 
         @SubscribeEvent
