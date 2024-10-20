@@ -182,6 +182,13 @@ tasks.withType(GenerateModuleMetadata) {
     enabled = false
 }
 
+task apiJar(type: Jar) {
+    archiveClassifier.set('api')
+    from sourceSets.main.allSource
+    from sourceSets.main.output
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
 task sourcesJar(type: Jar) {
     archiveClassifier.set('sources')
     from sourceSets.main.allSource
@@ -207,6 +214,7 @@ publishing {
         register('mavenJava', MavenPublication) {
             artifact jar
             artifact sourcesJar
+            artifact apiJar
         }
     }
 

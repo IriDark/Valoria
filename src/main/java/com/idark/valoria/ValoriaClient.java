@@ -53,6 +53,7 @@ public class ValoriaClient {
     public static ModelLayerLocation BAG_LAYER = new ModelLayerLocation(new ResourceLocation(Valoria.ID, "jewelry_bag"), "main");
     public static ModelResourceLocation KEG_MODEL = new ModelResourceLocation(Valoria.ID, "keg_barrel", "");
     public static ModelResourceLocation SPHERE = new ModelResourceLocation(Valoria.ID, "elemental_sphere", "");
+    public static ModelResourceLocation CYST = new ModelResourceLocation(Valoria.ID, "cyst", "");
     public static ModelLayerLocation THE_FALLEN_COLLECTOR_ARMOR_LAYER = addLayer(Valoria.ID, "the_fallen_collector_armor_layer");
 
     public static TheFallenCollectorArmorModel THE_FALLEN_COLLECTOR_ARMOR = null;
@@ -142,6 +143,7 @@ public class ValoriaClient {
         @SubscribeEvent
         public static void doClientStuff(FMLClientSetupEvent event) {
             event.enqueueWork(() -> {
+                BlockEntityRenderers.register(BlockEntitiesRegistry.FLESH_CYST.get(),  (trd) -> new FleshCystBlockEntityRenderer());
                 BlockEntityRenderers.register(BlockEntitiesRegistry.MANIPULATOR_BLOCK_ENTITY.get(), (trd) -> new ManipulatorBlockEntityRenderer());
                 BlockEntityRenderers.register(BlockEntitiesRegistry.JEWELRY_BLOCK_ENTITY.get(), (trd) -> new JewelryBlockEntityRender());
                 BlockEntityRenderers.register(BlockEntitiesRegistry.KEG_BLOCK_ENTITY.get(), (trd) -> new KegBlockEntityRenderer());
@@ -196,6 +198,7 @@ public class ValoriaClient {
         public static void onModelRegistryEvent(ModelEvent.RegisterAdditional event) {
             event.register(KEG_MODEL);
             event.register(SPHERE);
+            event.register(CYST);
         }
 
         @SubscribeEvent

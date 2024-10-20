@@ -220,6 +220,9 @@ public class BlockRegistry {
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_RED).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> FLESH_BLOCK = registerBlock("flesh_block",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_RED).requiresCorrectToolForDrops()));
+    public static final RegistryObject<Block> FLESH_CYST = registerBlock("flesh_cyst",
+            () -> new FleshCystBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_RED).requiresCorrectToolForDrops()));
+
     public static final RegistryObject<Block> AMBANE_STONE = registerBlock("ambane_stone",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.WARPED_WART_BLOCK).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> AMBANE_STONE_STAIRS = registerBlock("ambane_stone_stairs",
