@@ -2,7 +2,7 @@ package com.idark.valoria.client.render.entity;
 
 import com.idark.valoria.*;
 import com.idark.valoria.client.model.entity.*;
-import com.idark.valoria.registries.entity.living.*;
+import com.idark.valoria.registries.entity.living.minions.FleshSentinel;
 import com.mojang.blaze3d.vertex.*;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.entity.*;

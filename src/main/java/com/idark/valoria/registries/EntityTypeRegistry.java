@@ -3,6 +3,8 @@ package com.idark.valoria.registries;
 import com.idark.valoria.*;
 import com.idark.valoria.registries.entity.living.*;
 import com.idark.valoria.registries.entity.living.decoration.*;
+import com.idark.valoria.registries.entity.living.minions.FleshSentinel;
+import com.idark.valoria.registries.entity.living.minions.UndeadEntity;
 import com.idark.valoria.registries.entity.projectile.*;
 import mod.maxbogomol.fluffy_fur.common.entity.*;
 import net.minecraft.resources.*;

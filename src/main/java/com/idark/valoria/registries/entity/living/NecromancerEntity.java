@@ -4,6 +4,7 @@ import com.google.common.collect.*;
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.particle.*;
 import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.entity.living.minions.UndeadEntity;
 import com.idark.valoria.registries.entity.projectile.*;
 import com.idark.valoria.util.*;
 import net.minecraft.core.*;

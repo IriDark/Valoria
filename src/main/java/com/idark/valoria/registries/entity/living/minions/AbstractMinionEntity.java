@@ -1,4 +1,4 @@
-package com.idark.valoria.registries.entity.living;
+package com.idark.valoria.registries.entity.living.minions;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;

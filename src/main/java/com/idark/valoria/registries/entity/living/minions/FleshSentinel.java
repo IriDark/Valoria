@@ -1,8 +1,12 @@
-package com.idark.valoria.registries.entity.living;
+package com.idark.valoria.registries.entity.living.minions;
 
+import com.idark.valoria.core.network.PacketHandler;
+import com.idark.valoria.core.network.packets.particle.SmokeParticlePacket;
 import net.minecraft.core.*;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.*;
 import net.minecraft.network.syncher.*;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.*;
 import net.minecraft.util.*;
 import net.minecraft.world.*;
@@ -24,7 +28,7 @@ import net.minecraft.world.phys.*;
 import javax.annotation.*;
 import java.util.*;
 
-public class FleshSentinel extends Monster{
+public class FleshSentinel extends AbstractMinionEntity {
     public static final int TICKS_PER_FLAP = Mth.ceil(3.9269907F);
     protected static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(FleshSentinel.class, EntityDataSerializers.BYTE);
     @Nullable
@@ -45,6 +49,15 @@ public class FleshSentinel extends Monster{
 
     protected float getStandingEyeHeight(Pose pPose, EntityDimensions pDimensions) {
         return pDimensions.height - 0.28125F;
+    }
+
+    //todo meaty effect
+    @Override
+    public void spawnDisappearParticles(ServerLevel serverLevel) {
+        double posX = this.getOnPos().getCenter().x;
+        double posY = this.getOnPos().above().getCenter().y;
+        double posZ = this.getOnPos().getCenter().z;
+        PacketHandler.sendToTracking(serverLevel, this.getOnPos(), new SmokeParticlePacket(3, posX, posY - 0.5f, posZ, 0.005f, 0.025f, 0.005f, 255, 255, 255));
     }
 
     public boolean isFlapping() {
@@ -102,31 +115,6 @@ public class FleshSentinel extends Monster{
     }
 
     protected void checkFallDamage(double pY, boolean pOnGround, BlockState pState, BlockPos pPos) {
-    }
-
-    public void readAdditionalSaveData(CompoundTag pCompound) {
-        super.readAdditionalSaveData(pCompound);
-        if (pCompound.contains("BoundX")) {
-            this.boundOrigin = new BlockPos(pCompound.getInt("BoundX"), pCompound.getInt("BoundY"), pCompound.getInt("BoundZ"));
-        }
-    }
-
-    public void addAdditionalSaveData(CompoundTag pCompound) {
-        super.addAdditionalSaveData(pCompound);
-        if (this.boundOrigin != null) {
-            pCompound.putInt("BoundX", this.boundOrigin.getX());
-            pCompound.putInt("BoundY", this.boundOrigin.getY());
-            pCompound.putInt("BoundZ", this.boundOrigin.getZ());
-        }
-    }
-
-    @Nullable
-    public BlockPos getBoundOrigin() {
-        return this.boundOrigin;
-    }
-
-    public void setBoundOrigin(@Nullable BlockPos pBoundOrigin) {
-        this.boundOrigin = pBoundOrigin;
     }
 
     public void travel(Vec3 pTravelVector) {

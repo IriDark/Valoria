@@ -3,7 +3,7 @@ package com.idark.valoria.registries.block.types;
 import com.idark.valoria.client.render.tile.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.block.entity.*;
-import com.idark.valoria.registries.entity.living.*;
+import com.idark.valoria.registries.entity.living.minions.FleshSentinel;
 import net.minecraft.core.*;
 import net.minecraft.server.level.*;
 import net.minecraft.world.entity.*;

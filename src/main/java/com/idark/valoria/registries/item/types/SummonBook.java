@@ -4,7 +4,7 @@ import com.google.common.collect.*;
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.particle.*;
 import com.idark.valoria.registries.*;
-import com.idark.valoria.registries.entity.living.*;
+import com.idark.valoria.registries.entity.living.minions.AbstractMinionEntity;
 import net.minecraft.*;
 import net.minecraft.core.*;
 import net.minecraft.network.chat.*;

@@ -2,7 +2,7 @@ package com.idark.valoria.client.render.entity;
 
 import com.idark.valoria.*;
 import com.idark.valoria.client.model.entity.*;
-import com.idark.valoria.registries.entity.living.*;
+import com.idark.valoria.registries.entity.living.minions.UndeadEntity;
 import net.minecraft.client.model.geom.*;
 import net.minecraft.client.renderer.entity.*;
 import net.minecraft.client.renderer.entity.layers.*;

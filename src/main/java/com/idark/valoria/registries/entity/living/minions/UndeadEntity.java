@@ -1,4 +1,4 @@
-package com.idark.valoria.registries.entity.living;
+package com.idark.valoria.registries.entity.living.minions;
 
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.particle.*;

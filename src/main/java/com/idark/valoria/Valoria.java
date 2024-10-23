@@ -22,6 +22,8 @@ import com.idark.valoria.registries.block.types.*;
 import com.idark.valoria.registries.entity.ai.sensing.*;
 import com.idark.valoria.registries.entity.living.*;
 import com.idark.valoria.registries.entity.living.decoration.*;
+import com.idark.valoria.registries.entity.living.minions.FleshSentinel;
+import com.idark.valoria.registries.entity.living.minions.UndeadEntity;
 import com.idark.valoria.registries.item.recipe.*;
 import com.idark.valoria.registries.item.skins.*;
 import com.idark.valoria.registries.item.types.curio.charm.*;
