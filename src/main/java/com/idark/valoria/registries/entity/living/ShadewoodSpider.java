@@ -44,7 +44,11 @@ public class ShadewoodSpider extends Monster {
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Monster.createMonsterAttributes().add(Attributes.MAX_HEALTH, 32.0D).add(Attributes.MOVEMENT_SPEED, 0.4F);
+        return Monster.createMonsterAttributes()
+                .add(Attributes.MAX_HEALTH, 40.0D)
+                .add(Attributes.MOVEMENT_SPEED, 0.4D)
+                .add(Attributes.ATTACK_DAMAGE, 15.0D)
+                .add(Attributes.FOLLOW_RANGE, 20.0D);
     }
 
     protected void registerGoals() {

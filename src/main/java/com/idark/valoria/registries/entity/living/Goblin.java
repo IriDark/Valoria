@@ -45,7 +45,7 @@ public class Goblin extends AbstractGoblin {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 25.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.17D)
-                .add(Attributes.ATTACK_DAMAGE, 2.0D)
+                .add(Attributes.ATTACK_DAMAGE, 5.0D)
                 .add(Attributes.FOLLOW_RANGE, 20.0D);
     }
 

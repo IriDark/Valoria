@@ -42,8 +42,8 @@ public class UndeadEntity extends AbstractMinionEntity {
         return Monster.createMonsterAttributes()
                 .add(Attributes.FLYING_SPEED, 0.85)
                 .add(Attributes.FOLLOW_RANGE, 8)
-                .add(Attributes.MAX_HEALTH, 8)
-                .add(Attributes.ATTACK_DAMAGE, 3.25);
+                .add(Attributes.MAX_HEALTH, 12)
+                .add(Attributes.ATTACK_DAMAGE, 8.25);
     }
 
     protected float getStandingEyeHeight(Pose pPose, EntityDimensions pDimensions) {

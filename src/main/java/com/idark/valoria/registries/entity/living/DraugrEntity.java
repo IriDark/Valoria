@@ -58,10 +58,10 @@ public class DraugrEntity extends Monster implements RangedAttackMob {
     public static AttributeSupplier.Builder createAttributes() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MOVEMENT_SPEED, 0.25)
-                .add(Attributes.MAX_HEALTH, 32.0D)
+                .add(Attributes.MAX_HEALTH, 30.0D)
                 .add(Attributes.ARMOR, 5.0D)
                 .add(Attributes.ARMOR_TOUGHNESS, 2.0D)
-                .add(Attributes.ATTACK_DAMAGE, 2.0D)
+                .add(Attributes.ATTACK_DAMAGE, 15.0D)
                 .add(Attributes.FOLLOW_RANGE, 20.0D);
     }
 

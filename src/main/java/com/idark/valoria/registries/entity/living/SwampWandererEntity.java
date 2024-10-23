@@ -65,9 +65,9 @@ public class SwampWandererEntity extends Zombie {
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 32.0D)
+                .add(Attributes.MAX_HEALTH, 35.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.25D)
-                .add(Attributes.ATTACK_DAMAGE, 6.0D)
+                .add(Attributes.ATTACK_DAMAGE, 11.0D)
                 .add(Attributes.FOLLOW_RANGE, 25.0D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, new Random().nextDouble() * (double) 0.05F)
                 .add(Attributes.SPAWN_REINFORCEMENTS_CHANCE, new Random().nextDouble() * 0.25D + 0.5D);

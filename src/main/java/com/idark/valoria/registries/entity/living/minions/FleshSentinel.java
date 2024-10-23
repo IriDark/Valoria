@@ -43,8 +43,8 @@ public class FleshSentinel extends AbstractMinionEntity {
         return Monster.createMonsterAttributes()
         .add(Attributes.FLYING_SPEED, 0.85)
         .add(Attributes.FOLLOW_RANGE, 8)
-        .add(Attributes.MAX_HEALTH, 12)
-        .add(Attributes.ATTACK_DAMAGE, 4);
+        .add(Attributes.MAX_HEALTH, 20)
+        .add(Attributes.ATTACK_DAMAGE, 12.5);
     }
 
     protected float getStandingEyeHeight(Pose pPose, EntityDimensions pDimensions) {
