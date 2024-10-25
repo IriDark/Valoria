@@ -24,8 +24,13 @@ jobs:
         uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5 # v3.1.0
       - name: Change wrapper permissions
         run: chmod +x ./gradlew
+      - name: Read shouldPublish property
+        id: read_properties
+        run: |
+          shouldPublish=$(grep '^shouldPublish=' gradle.properties | cut -d'=' -f2)
+          echo "shouldPublish=${shouldPublish}" >> $GITHUB_ENV
       - name: Increment version
-        if: ${{ run.gradle.properties.get('shouldPublish') == 'true' && github.repository == 'IriDark/Valoria' }}
+        if: ${{ env.shouldPublish == 'true' && github.repository == 'IriDark/Valoria' }}
         run: |
           # Read the current version
           current_version=$(grep '^version=' gradle.properties | cut -d'=' -f2)
@@ -53,7 +58,7 @@ jobs:
           # Optionally, you can add a step to show the updated gradle.properties
           cat gradle.properties
       - name: Commit and Push Version Change
-        if: ${{ run.gradle.properties.get('shouldPublish') == 'true' && github.repository == 'IriDark/Valoria' }}
+        if: ${{ env.shouldPublish == 'true' && github.repository == 'IriDark/Valoria' }}
         run: |
           git config --global user.email "actions@github.com"
           git config --global user.name "GitHub Actions"
@@ -63,7 +68,7 @@ jobs:
       - name: Publish Maven Version
         env:
           maventoken: ${{ secrets.MAVEN_PASSWORD }}
-        if: ${{ run.gradle.properties.get('shouldPublish') == 'true' && github.repository == 'IriDark/Valoria' }}
+        if: ${{ env.shouldPublish == 'true' && github.repository == 'IriDark/Valoria' }}
         run: |    
           ./gradlew clean
           ./gradlew publish
