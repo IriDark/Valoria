@@ -59,8 +59,9 @@ jobs:
           git commit -m "Increment version to $new_version"
           git push
       - name: Publish Maven Version
+        env:
+          maventoken: ${{ secrets.MAVEN_PASSWORD }}
         if: ${{ github.repository == 'IriDark/Valoria' }}
-        run: |
-          echo "mavenPassword=${{ secrets.MAVEN_PASSWORD }}" >> gradle.properties
+        run: |    
           ./gradlew clean
           ./gradlew publish

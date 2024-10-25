@@ -223,7 +223,7 @@ publishing {
             url "https://maven.komaru.ru/repository/maven-releases/"
             credentials{
                 username "admin"
-                password project.findProperty('mavenPassword') ?: System.getenv("maventoken") ?: ''
+                password System.getenv("maventoken")
             }
         }
     }
