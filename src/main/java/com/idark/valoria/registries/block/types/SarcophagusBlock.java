@@ -87,7 +87,7 @@ public class SarcophagusBlock extends HorizontalDirectionalBlock {
                     entity.moveTo(x, y, z, 0.0F, 0.0F);
                     entity.setItemInHand(hand, spawnableWith.get(rand.nextInt(spawnableWith.size())).getDefaultInstance());
                     if (isHalloween()) {
-                        entity.setItemSlot(EquipmentSlot.HEAD, halloweenSpawnableWith.get(rand.nextInt(spawnableWith.size())).getDefaultInstance());
+                        entity.setItemSlot(EquipmentSlot.HEAD, halloweenSpawnableWith.get(rand.nextInt(halloweenSpawnableWith.size())).getDefaultInstance());
                     } else {
                         if (rand.nextFloat() <= 0.4) {
                             entity.setItemSlot(EquipmentSlot.HEAD, armor_head[rand.nextInt(armor_head.length)]);
@@ -118,7 +118,7 @@ public class SarcophagusBlock extends HorizontalDirectionalBlock {
                     entity.moveTo(x, y, z, 0.0F, 0.0F);
                     entity.setItemInHand(hand, spawnableWith.get(rand.nextInt(spawnableWith.size())).getDefaultInstance());
                     if (isHalloween()) {
-                        entity.setItemSlot(EquipmentSlot.HEAD, halloweenSpawnableWith.get(rand.nextInt(spawnableWith.size())).getDefaultInstance());
+                        entity.setItemSlot(EquipmentSlot.HEAD, halloweenSpawnableWith.get(rand.nextInt(halloweenSpawnableWith.size())).getDefaultInstance());
                     }
 
                     pLevel.addFreshEntity(entity);

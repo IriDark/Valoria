@@ -1,4 +1,4 @@
-package com.idark.valoria.registries.item.armor.tiers;
+package com.idark.valoria.registries.item.armor.item;
 
 import com.google.common.collect.*;
 import com.idark.valoria.registries.*;

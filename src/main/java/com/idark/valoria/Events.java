@@ -5,6 +5,7 @@ import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.*;
 import com.idark.valoria.core.network.packets.particle.*;
 import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.item.armor.item.*;
 import com.idark.valoria.registries.item.types.*;
 import com.idark.valoria.util.*;
 import net.minecraft.*;
@@ -35,40 +36,40 @@ import top.theillusivec4.curios.api.*;
 import java.util.stream.*;
 
 @SuppressWarnings("removal")
-public class Events {
+public class Events{
     public ArcRandom arcRandom = new ArcRandom();
 
     @SubscribeEvent
-    public void attachEntityCaps(AttachCapabilitiesEvent<Entity> event) {
-        if (event.getObject() instanceof Player) {
+    public void attachEntityCaps(AttachCapabilitiesEvent<Entity> event){
+        if(event.getObject() instanceof Player){
             event.addCapability(new ResourceLocation(Valoria.ID, "pages"), new UnloackbleCap());
         }
     }
 
     @SubscribeEvent
-    public void onTooltip(ItemTooltipEvent e) {
-        if (ValoriaUtils.isIDE) {
+    public void onTooltip(ItemTooltipEvent e){
+        if(ValoriaUtils.isIDE){
             ItemStack itemStack = e.getItemStack();
             Stream<ResourceLocation> itemTagStream = itemStack.getTags().map(TagKey::location);
-            if (Minecraft.getInstance().options.advancedItemTooltips) {
-                if (Screen.hasControlDown()) {
-                    if (!itemStack.getTags().toList().isEmpty()) {
+            if(Minecraft.getInstance().options.advancedItemTooltips){
+                if(Screen.hasControlDown()){
+                    if(!itemStack.getTags().toList().isEmpty()){
                         e.getToolTip().add(Component.empty());
                         e.getToolTip().add(Component.literal("ItemTags: " + itemTagStream.toList()).withStyle(ChatFormatting.DARK_GRAY));
                     }
 
-                    if (itemStack.getItem() instanceof BlockItem blockItem) {
+                    if(itemStack.getItem() instanceof BlockItem blockItem){
                         BlockState blockState = blockItem.getBlock().defaultBlockState();
                         Stream<ResourceLocation> blockTagStream = blockState.getTags().map(TagKey::location);
-                        if (!blockState.getTags().map(TagKey::location).toList().isEmpty()) {
-                            if (itemStack.getTags().toList().isEmpty()) {
+                        if(!blockState.getTags().map(TagKey::location).toList().isEmpty()){
+                            if(itemStack.getTags().toList().isEmpty()){
                                 e.getToolTip().add(Component.empty());
                             }
 
                             e.getToolTip().add(Component.literal("BlockTags: " + blockTagStream.toList()).withStyle(ChatFormatting.DARK_GRAY));
                         }
                     }
-                } else if (!itemStack.getTags().toList().isEmpty() || itemStack.getItem() instanceof BlockItem blockItem && !blockItem.getBlock().defaultBlockState().getTags().toList().isEmpty()) {
+                }else if(!itemStack.getTags().toList().isEmpty() || itemStack.getItem() instanceof BlockItem blockItem && !blockItem.getBlock().defaultBlockState().getTags().toList().isEmpty()){
                     e.getToolTip().add(Component.empty());
                     e.getToolTip().add(Component.literal("Press [Control] to get tags info").withStyle(ChatFormatting.GRAY));
                 }
@@ -77,62 +78,78 @@ public class Events {
     }
 
     @SubscribeEvent
-    public void disableBlock(ShieldBlockEvent event) {
-        if (event.getDamageSource().getDirectEntity() instanceof Player player) {
+    public void disableBlock(ShieldBlockEvent event){
+        if(event.getDamageSource().getDirectEntity() instanceof Player player){
             LivingEntity mob = event.getEntity();
             ItemStack weapon = player.getMainHandItem();
-            if (!weapon.isEmpty() && weapon.is(TagsRegistry.CAN_DISABLE_SHIELD) && mob instanceof Player attacked) {
+            if(!weapon.isEmpty() && weapon.is(TagsRegistry.CAN_DISABLE_SHIELD) && mob instanceof Player attacked){
                 attacked.disableShield(true);
             }
         }
     }
 
     @SubscribeEvent
-    public void onEntityInteract(PlayerInteractEvent.EntityInteract event) {
-        if (event.getEntity().hasEffect(EffectsRegistry.STUN.get())) {
+    public void onEntityInteract(PlayerInteractEvent.EntityInteract event){
+        if(event.getEntity().hasEffect(EffectsRegistry.STUN.get())){
             event.setCanceled(true);
         }
     }
 
     @SubscribeEvent
-    public void onLivingBlockDestroy(LivingDestroyBlockEvent event) {
-        if (event.getEntity().hasEffect(EffectsRegistry.STUN.get())) {
+    public void onLivingBlockDestroy(LivingDestroyBlockEvent event){
+        if(event.getEntity().hasEffect(EffectsRegistry.STUN.get())){
             event.setCanceled(true);
         }
     }
 
     @SubscribeEvent
-    public void onPlayerBlockDestroy(PlayerEvent.BreakSpeed event) {
-        if (event.getEntity().hasEffect(EffectsRegistry.STUN.get())) {
+    public void onPlayerBlockDestroy(PlayerEvent.BreakSpeed event){
+        if(event.getEntity().hasEffect(EffectsRegistry.STUN.get())){
             event.setNewSpeed(-1);
         }
     }
 
     @SubscribeEvent
-    public void onItemPickup(EntityItemPickupEvent event) {
-        if (event.getEntity().hasEffect(EffectsRegistry.STUN.get())) {
+    public void onItemPickup(EntityItemPickupEvent event){
+        if(event.getEntity().hasEffect(EffectsRegistry.STUN.get())){
             event.setCanceled(true);
         }
     }
 
     @SubscribeEvent
-    public void onUseItem(LivingEntityUseItemEvent event) {
-        if (event.getEntity().hasEffect(EffectsRegistry.STUN.get())) {
+    public void onUseItem(LivingEntityUseItemEvent event){
+        if(event.getEntity().hasEffect(EffectsRegistry.STUN.get())){
             event.setCanceled(true);
         }
     }
 
     @SubscribeEvent
-    public void onAttack(AttackEntityEvent event) {
-        if (event.getEntity().hasEffect(EffectsRegistry.STUN.get())) {
+    public void onAttack(AttackEntityEvent event){
+        if(event.getEntity().hasEffect(EffectsRegistry.STUN.get())){
             event.setCanceled(true);
         }
     }
 
     @SubscribeEvent
-    public void onLivingAttack(LivingAttackEvent event) {
-        if (event.getSource().getEntity() instanceof LivingEntity e) {
-            if (e.hasEffect(EffectsRegistry.STUN.get())) event.setCanceled(true);
+    public void onLivingAttack(LivingAttackEvent event){
+        if(event.getSource().getEntity() instanceof LivingEntity e){
+            if(e.hasEffect(EffectsRegistry.STUN.get())) event.setCanceled(true);
+        }
+    }
+
+    @SubscribeEvent
+    public void onLivingHurt(LivingHurtEvent event){
+        float incomingDamage = event.getAmount();
+        float totalDefense = 0;
+        for (ItemStack armorPiece : event.getEntity().getArmorSlots()) {
+            if (armorPiece.getItem() instanceof PercentageArmorItem percent) {
+                totalDefense += percent.getPercentDefense();
+            }
+        }
+
+        if (totalDefense > 0) {
+            float reducedDamage = Math.max(incomingDamage - (incomingDamage * totalDefense), 0);
+            event.setAmount(reducedDamage);
         }
     }
 

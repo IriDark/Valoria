@@ -2,6 +2,7 @@ package com.idark.valoria.registries.item.skins;
 
 import com.idark.valoria.*;
 import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.item.armor.item.*;
 import com.idark.valoria.registries.item.skins.categories.*;
 import com.idark.valoria.registries.item.types.*;
 import com.idark.valoria.registries.item.types.ranged.bows.*;

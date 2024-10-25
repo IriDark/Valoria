@@ -2,6 +2,7 @@ package com.idark.valoria.registries.item.skins.categories;
 
 import com.idark.valoria.*;
 import com.idark.valoria.core.interfaces.*;
+import com.idark.valoria.registries.item.armor.item.*;
 import com.idark.valoria.registries.item.types.*;
 import com.idark.valoria.util.*;
 import mod.maxbogomol.fluffy_fur.client.model.armor.*;

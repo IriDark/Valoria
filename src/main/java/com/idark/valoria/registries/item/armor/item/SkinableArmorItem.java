@@ -1,4 +1,4 @@
-package com.idark.valoria.registries.item.types;
+package com.idark.valoria.registries.item.armor.item;
 
 import mod.maxbogomol.fluffy_fur.client.model.armor.*;
 import mod.maxbogomol.fluffy_fur.common.itemskin.*;

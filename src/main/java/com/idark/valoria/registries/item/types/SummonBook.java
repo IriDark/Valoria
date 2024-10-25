@@ -62,11 +62,11 @@ public class SummonBook extends Item {
     }
 
     public static void setColor(ItemStack pStack, int pColor) {
-        pStack.getOrCreateTagElement("display").putInt("color", pColor);
+        pStack.getOrCreateTagElement("DisplayColor").putInt("color", pColor);
     }
 
     public static int getColor(ItemStack pStack) {
-        CompoundTag compoundtag = pStack.getTagElement("display");
+        CompoundTag compoundtag = pStack.getTagElement("DisplayColor");
         return compoundtag != null && compoundtag.contains("color", 99) ? compoundtag.getInt("color") : ColorUtil.colorToDecimal(Pal.lightViolet);
     }
 
@@ -142,8 +142,13 @@ public class SummonBook extends Item {
     }
 
     @Override
-    public Component getHighlightTip(ItemStack stack, Component displayName) {
-        return displayName.copy().append(Component.literal(getDefaultType(stack).getDescription().getString()).withStyle(ChatFormatting.GRAY));
+    @SuppressWarnings("unchecked")
+    public Component getHighlightTip(ItemStack stack, Component displayName){
+        if(getDefaultType(stack).is(TagsRegistry.MINIONS)){
+            return displayName.copy().append(Component.literal(" [" + getDefaultType(stack).getDescription().getString() + "]").withStyle(new Styles().create(AbstractMinionEntity.getColor((EntityType<? extends AbstractMinionEntity>)getDefaultType(stack)).brighter().brighter())));
+        }
+
+        return super.getHighlightTip(stack, displayName);
     }
 
     @Override

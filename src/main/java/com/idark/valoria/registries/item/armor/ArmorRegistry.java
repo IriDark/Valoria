@@ -2,7 +2,9 @@ package com.idark.valoria.registries.item.armor;
 
 import com.idark.valoria.*;
 import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.item.armor.item.*;
 import net.minecraft.sounds.*;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.item.ArmorItem.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.*;
@@ -106,6 +108,27 @@ public class ArmorRegistry implements ArmorMaterial{
     @Override
     public int getDurabilityForType(Type pType){
         return durability[pType.ordinal()] * this.durabilityMultiplier;
+    }
+
+    public int getTotalDefense(LivingEntity entity){
+        int armorValue = 0;
+        if(!entity.getItemBySlot(EquipmentSlot.HEAD).isEmpty() && entity.getItemBySlot(EquipmentSlot.HEAD).getItem() instanceof PercentageArmorItem armor) {
+            armorValue += armor.material.getDefenseForType(Type.HELMET);
+        }
+
+        if(!entity.getItemBySlot(EquipmentSlot.CHEST).isEmpty() && entity.getItemBySlot(EquipmentSlot.CHEST).getItem() instanceof PercentageArmorItem armor) {
+            armorValue += armor.material.getDefenseForType(Type.CHESTPLATE);
+        }
+
+        if(!entity.getItemBySlot(EquipmentSlot.LEGS).isEmpty() && entity.getItemBySlot(EquipmentSlot.LEGS).getItem() instanceof PercentageArmorItem armor) {
+            armorValue += armor.material.getDefenseForType(Type.LEGGINGS);
+        }
+
+        if(!entity.getItemBySlot(EquipmentSlot.FEET).isEmpty() && entity.getItemBySlot(EquipmentSlot.FEET).getItem() instanceof PercentageArmorItem armor) {
+            armorValue += armor.material.getDefenseForType(Type.BOOTS);
+        }
+
+        return armorValue;
     }
 
     @Override

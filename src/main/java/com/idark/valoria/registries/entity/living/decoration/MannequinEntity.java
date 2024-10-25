@@ -18,7 +18,6 @@ import org.jetbrains.annotations.*;
 
 public class MannequinEntity extends AbstractDecorationMob implements IForgeEntity {
     private static final EntityDataAccessor<Float> LAST_DAMAGE = SynchedEntityData.defineId(MannequinEntity.class, EntityDataSerializers.FLOAT);
-
     public float lastDamageOffset = 0;
     public float lastDamageOffsetPrev = 0;
 

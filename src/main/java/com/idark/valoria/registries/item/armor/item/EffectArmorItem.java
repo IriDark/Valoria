@@ -1,8 +1,8 @@
-package com.idark.valoria.registries.item.armor.tiers;
+package com.idark.valoria.registries.item.armor.item;
 
 import com.google.common.collect.*;
 import com.idark.valoria.registries.*;
-import com.idark.valoria.registries.item.armor.ArmorRegistry;
+import com.idark.valoria.registries.item.armor.*;
 import net.minecraft.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.world.effect.*;
