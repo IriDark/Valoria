@@ -24,11 +24,16 @@ jobs:
         uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5 # v3.1.0
       - name: Change wrapper permissions
         run: chmod +x ./gradlew
-      - name: Check commit message
-        id: check_commit
+      - name: Get last commit message
+        id: get_commit_message
         run: |
           echo "COMMIT_MESSAGE=$(git log -1 --pretty=%B)" >> $GITHUB_ENV
-          if [[ "${{ env.COMMIT_MESSAGE }}" == *"(MAVEN COMMIT)"* ]]; then
+          echo "Commit message: $COMMIT_MESSAGE" # Debugging line
+
+      - name: Check commit message for MAVEN COMMIT
+        id: check_commit
+        run: |
+          if [[ "${COMMIT_MESSAGE}" == *"(MAVEN COMMIT)"* ]]; then
             echo "should_publish=true" >> $GITHUB_ENV
           else
             echo "should_publish=false" >> $GITHUB_ENV
