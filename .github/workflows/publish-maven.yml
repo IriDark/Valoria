@@ -34,9 +34,9 @@ jobs:
         id: check_commit
         run: |
           if [[ "${COMMIT_MESSAGE}" == *"(MAVEN COMMIT)"* ]]; then
-            echo "should_publish=true" >> $GITHUB_ENV
+            echo "SHOULD_PUBLISH=true" >> $GITHUB_ENV
           else
-            echo "should_publish=false" >> $GITHUB_ENV
+            echo "SHOULD_PUBLISH=false" >> $GITHUB_ENV
           fi
       - name: Increment version
         if: ${{ env.should_publish == 'true' && github.repository == 'IriDark/Valoria' }}
