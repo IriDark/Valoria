@@ -27,16 +27,15 @@ jobs:
       - name: Get last commit message
         id: get_commit_message
         run: |
-          COMMIT_MESSAGE=$(git log -1 --pretty=%B | sed 's/^[[:space:]]*//;s/[[:space:]]*$//;s/\$/\\\$/g')
-          echo "Commit message: $COMMIT_MESSAGE" # Debugging line
-
+          COMMIT_MESSAGE=$(git log -1 --pretty=%B)
+          echo "Commit message: $COMMIT_MESSAGE"
       - name: Check commit message for MAVEN COMMIT
         id: check_commit
         run: |
           if [[ "${COMMIT_MESSAGE}" == *"(MAVEN COMMIT)"* ]]; then
-            echo "SHOULD_PUBLISH=true" >> $GITHUB_ENV
+            echo "should_publish=true" >> $GITHUB_ENV
           else
-            echo "SHOULD_PUBLISH=false" >> $GITHUB_ENV
+            echo "should_publish=false" >> $GITHUB_ENV
           fi
       - name: Increment version
         if: ${{ env.should_publish == 'true' && github.repository == 'IriDark/Valoria' }}
