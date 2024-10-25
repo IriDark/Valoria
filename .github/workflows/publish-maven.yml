@@ -27,7 +27,7 @@ jobs:
       - name: Get last commit message
         id: get_commit_message
         run: |
-          echo "COMMIT_MESSAGE=$(git log -1 --pretty=%B)" >> $GITHUB_ENV
+          COMMIT_MESSAGE=$(git log -1 --pretty=%B | sed 's/^[[:space:]]*//;s/[[:space:]]*$//;s/\$/\\\$/g')
           echo "Commit message: $COMMIT_MESSAGE" # Debugging line
 
       - name: Check commit message for MAVEN COMMIT
