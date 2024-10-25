@@ -24,7 +24,17 @@ jobs:
         uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5 # v3.1.0
       - name: Change wrapper permissions
         run: chmod +x ./gradlew
+      - name: Check commit message
+        id: check_commit
+        run: |
+          echo "COMMIT_MESSAGE=$(git log -1 --pretty=%B)" >> $GITHUB_ENV
+          if [[ "${{ env.COMMIT_MESSAGE }}" == *"(MAVEN COMMIT)"* ]]; then
+            echo "should_publish=true" >> $GITHUB_ENV
+          else
+            echo "should_publish=false" >> $GITHUB_ENV
+          fi
       - name: Increment version
+        if: ${{ env.should_publish == 'true' && github.repository == 'IriDark/Valoria' }}
         run: |
           # Read the current version
           current_version=$(grep '^version=' gradle.properties | cut -d'=' -f2)
@@ -51,15 +61,6 @@ jobs:
           
           # Optionally, you can add a step to show the updated gradle.properties
           cat gradle.properties
-      - name: Check commit message
-        id: check_commit
-        run: |
-          echo "COMMIT_MESSAGE=$(git log -1 --pretty=%B)" >> $GITHUB_ENV
-          if [[ "${{ env.COMMIT_MESSAGE }}" == *"(MAVEN COMMIT)"* ]]; then
-            echo "should_publish=true" >> $GITHUB_ENV
-          else
-            echo "should_publish=false" >> $GITHUB_ENV
-          fi
       - name: Commit and Push Version Change
         if: ${{ env.should_publish == 'true' && github.repository == 'IriDark/Valoria' }}
         run: |
