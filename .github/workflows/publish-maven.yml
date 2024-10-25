@@ -24,21 +24,8 @@ jobs:
         uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5 # v3.1.0
       - name: Change wrapper permissions
         run: chmod +x ./gradlew
-      - name: Get last commit message
-        id: get_commit_message
-        run: |
-          COMMIT_MESSAGE=$(git log -1 --pretty=%B)
-          echo "Commit message: $COMMIT_MESSAGE"
-      - name: Check commit message for MAVEN COMMIT
-        id: check_commit
-        run: |
-          if [[ "${COMMIT_MESSAGE}" == *"(MAVEN COMMIT)"* ]]; then
-            echo "should_publish=true" >> $GITHUB_ENV
-          else
-            echo "should_publish=false" >> $GITHUB_ENV
-          fi
       - name: Increment version
-        if: ${{ env.should_publish == 'true' && github.repository == 'IriDark/Valoria' }}
+        if: ${{ run.gradle.properties.get('shouldPublish') == 'true' && github.repository == 'IriDark/Valoria' }}
         run: |
           # Read the current version
           current_version=$(grep '^version=' gradle.properties | cut -d'=' -f2)
@@ -66,7 +53,7 @@ jobs:
           # Optionally, you can add a step to show the updated gradle.properties
           cat gradle.properties
       - name: Commit and Push Version Change
-        if: ${{ env.should_publish == 'true' && github.repository == 'IriDark/Valoria' }}
+        if: ${{ run.gradle.properties.get('shouldPublish') == 'true' && github.repository == 'IriDark/Valoria' }}
         run: |
           git config --global user.email "actions@github.com"
           git config --global user.name "GitHub Actions"
