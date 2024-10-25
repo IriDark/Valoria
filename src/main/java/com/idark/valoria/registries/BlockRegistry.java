@@ -388,15 +388,15 @@ public class BlockRegistry {
     public static final RegistryObject<Block> TOMBSTONE = registerBlock("tombstone",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops().sound(SoundsRegistry.TOMBSTONE)));
     public static final RegistryObject<Block> CUT_TOMBSTONE = registerBlock("cut_tombstone",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(3f, 4f).sound(SoundsRegistry.TOMBSTONE)));
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(3f, 4f).sound(SoundsRegistry.TOMBSTONE_BRICKS)));
     public static final RegistryObject<Block> TOMBSTONE_FIRECHARGE_TRAP = registerBlock("tombstone_firecharge_trap",
             () -> new FireTrapBlock(BlockRegistry.POLISHED_TOMBSTONE.get().defaultBlockState(), 6.0F, 8, ColorParticleData.create(255, 145, 45, 45, 0, 0).build(), BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops().sound(SoundsRegistry.TOMBSTONE)));
     public static final RegistryObject<Block> TOMBSTONE_SPIKES_TRAP = registerBlock("tombstone_spikes_trap",
             () -> new SpikeTrapBlock(BlockRegistry.POLISHED_TOMBSTONE.get().defaultBlockState(), BlockRegistry.SPIKES.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops().strength(3f, 4f)));
     public static final RegistryObject<Block> CUT_TOMBSTONE_PILLAR = registerBlock("cut_tombstone_pillar",
-            () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops().sound(SoundsRegistry.TOMBSTONE)));
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops().sound(SoundsRegistry.TOMBSTONE_BRICKS)));
     public static final RegistryObject<Block> WICKED_TOMBSTONE_PILLAR = registerBlock("wicked_tombstone_pillar",
-            () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops().sound(SoundsRegistry.TOMBSTONE)));
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops().sound(SoundsRegistry.TOMBSTONE_BRICKS)));
     public static final RegistryObject<Block> TOMBSTONE_PILLAR = registerBlock("tombstone_pillar",
             () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops().sound(SoundsRegistry.TOMBSTONE)));
     public static final RegistryObject<Block> TOMBSTONE_SLAB = registerBlock("tombstone_slab",

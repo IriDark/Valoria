@@ -31,7 +31,6 @@ import java.util.*;
 public class UndeadEntity extends AbstractMinionEntity {
     public static final int TICKS_PER_FLAP = Mth.ceil(3.9269907F);
     protected static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(UndeadEntity.class, EntityDataSerializers.BYTE);
-
     public UndeadEntity(EntityType<? extends UndeadEntity> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
         this.moveControl = new UndeadMoveControl(this);

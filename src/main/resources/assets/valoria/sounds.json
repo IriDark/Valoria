@@ -1,4 +1,10 @@
 {
+  "block.elemental_manipulator.loop": {
+    "subtitle": "subtitles.valoria.elemental_manipulator.loop",
+    "sounds": [
+      "valoria:elemental_manipulator/loop"
+    ]
+  },
   "block.tombstone.break": {
     "subtitle": "subtitles.block.generic.break",
     "sounds": [
@@ -75,9 +81,10 @@
   "block.tombstone_bricks.hit": {
     "subtitle": "subtitles.block.generic.hit",
     "sounds": [
-      "valoria:tombstone_bricks/hit1",
-      "valoria:tombstone_bricks/hit2",
-      "valoria:tombstone_bricks/hit3"
+      "valoria:tombstone/hit1",
+      "valoria:tombstone/hit2",
+      "valoria:tombstone/hit3",
+      "valoria:tombstone/hit4"
     ]
   },
   "block.tombstone_bricks.step": {
@@ -224,8 +231,7 @@
     "subtitle": "subtitles.valoria.goblin.death",
     "sounds": [
       "valoria:goblin/death1",
-      "valoria:goblin/death2",
-      "valoria:goblin/death3"
+      "valoria:goblin/death2"
     ]
   },
   "mob.troll.disappear": {
@@ -255,8 +261,7 @@
     "subtitle": "subtitles.valoria.spear.return",
     "sounds": [
       "valoria:spear/return1",
-      "valoria:spear/return2",
-      "valoria:spear/return3"
+      "valoria:spear/return2"
     ]
   },
   "item.spear.throw": {

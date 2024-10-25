@@ -12,6 +12,8 @@ import com.idark.valoria.client.sounds.*;
 import com.idark.valoria.core.shaders.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.block.types.*;
+import com.idark.valoria.registries.entity.living.minions.*;
+import com.idark.valoria.registries.item.types.*;
 import com.idark.valoria.util.*;
 import com.mojang.blaze3d.platform.*;
 import mod.maxbogomol.fluffy_fur.*;
@@ -58,6 +60,7 @@ public class ValoriaClient {
 
     public static TheFallenCollectorArmorModel THE_FALLEN_COLLECTOR_ARMOR = null;
 
+    public static ElementalManipulatorSoundInstance MANIPULATOR_LOOP;
     public static CooldownSoundInstance COOLDOWN_SOUND;
     public static FluffyFurMod MOD_INSTANCE;
     public static FluffyFurPanorama ECOTONE_PANORAMA;
@@ -133,6 +136,7 @@ public class ValoriaClient {
 
         @SubscribeEvent
         public static void ColorMappingItems(RegisterColorHandlersEvent.Item event) {
+            event.register((stack, tintIndex) -> tintIndex > 0 ? -1 : SummonBook.getColor(stack), ItemsRegistry.summonBook.get());
             event.register((stack, tintIndex) -> tintIndex > 0 ? -1 : 12487423, BlockRegistry.ELDRITCH_SAPLING.get(), BlockRegistry.ELDRITCH_LEAVES.get());
             event.register((stack, tintIndex) -> tintIndex > 0 ? -1 : 9100543, BlockRegistry.SHADEWOOD_BRANCH.get(), BlockRegistry.SHADEWOOD_SAPLING.get(), BlockRegistry.SHADEWOOD_LEAVES.get());
             event.register((stack, tintIndex) -> 11301619, BlockRegistry.VOID_GRASS.get(), BlockRegistry.VOID_TAINT.get(), BlockRegistry.VOID_ROOTS.get());
@@ -142,6 +146,8 @@ public class ValoriaClient {
 
         @SubscribeEvent
         public static void doClientStuff(FMLClientSetupEvent event) {
+            AbstractMinionEntity.minionColors.put(EntityTypeRegistry.UNDEAD.get(), Pal.darkishGray);
+            AbstractMinionEntity.minionColors.put(EntityTypeRegistry.FLESH_SENTINEL.get(), Pal.flesh);
             event.enqueueWork(() -> {
                 BlockEntityRenderers.register(BlockEntitiesRegistry.FLESH_CYST.get(),  (trd) -> new FleshCystBlockEntityRenderer());
                 BlockEntityRenderers.register(BlockEntitiesRegistry.MANIPULATOR_BLOCK_ENTITY.get(), (trd) -> new ManipulatorBlockEntityRenderer());

@@ -1,12 +1,15 @@
 package com.idark.valoria.registries;
 
 import com.idark.valoria.*;
+import com.idark.valoria.registries.entity.living.minions.*;
+import com.idark.valoria.registries.item.types.*;
 import com.idark.valoria.util.*;
 import net.minecraft.core.*;
 import net.minecraft.core.registries.*;
 import net.minecraft.nbt.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.resources.*;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.decoration.*;
 import net.minecraft.world.item.*;
 import net.minecraftforge.event.*;
@@ -60,10 +63,32 @@ public abstract class ItemTabRegistry {
         if(event.getTabKey() == ItemTabRegistry.VALORIA_TAB.getKey()){
             if (ValoriaUtils.isIDE) event.accept(ItemsRegistry.debugItem);
             for(RegistryObject<Item> item : ItemsRegistry.ITEMS.getEntries()){
-                if(!new ItemStack(item.get()).is(TagsRegistry.EXCLUDED_FROM_TAB)) event.accept(item.get().getDefaultInstance());
+                if(!new ItemStack(item.get()).is(TagsRegistry.EXCLUDED_FROM_TAB)) {
+                    if(item.get() instanceof SummonBook) {
+                        event.accept(item.get().getDefaultInstance());
+                        event.getParameters().holders().lookup(ForgeRegistries.ENTITY_TYPES.getRegistryKey()).ifPresent(entityLookup -> generateMinionItems(event, entityLookup, (holder) -> holder.is(TagsRegistry.MINIONS), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
+                    } else{
+                        event.accept(item.get().getDefaultInstance());
+                    }
+                }
             }
+
         }
     }
+
+    @SuppressWarnings("unchecked")
+    private static void generateMinionItems(CreativeModeTab.Output output, HolderLookup.RegistryLookup<EntityType<?>> entityLookup, Predicate<Holder<EntityType<?>>> predicate, CreativeModeTab.TabVisibility visibility) {
+        entityLookup.listElements()
+        .filter(predicate)
+        .forEach(holder -> {
+            ItemStack itemStack = new ItemStack(ItemsRegistry.summonBook.get());
+            CompoundTag tag = itemStack.getOrCreateTagElement("EntityTag");
+            SummonBook.storeVariant(tag, holder);
+            SummonBook.setColor(itemStack, ColorUtil.colorToDecimal(AbstractMinionEntity.getColor((EntityType<? extends AbstractMinionEntity>)holder.get())));
+            output.accept(itemStack, visibility);
+        });
+    }
+
 
     private static void generatePresetPaintings(CreativeModeTab.Output pOutput, HolderLookup.RegistryLookup<PaintingVariant> pPaintingVariants, Predicate<Holder<PaintingVariant>> pPredicate, CreativeModeTab.TabVisibility pTabVisibility) {
         pPaintingVariants.listElements().filter(pPredicate).sorted(PAINTING_COMPARATOR).forEach((p_269979_) -> {

@@ -27,6 +27,7 @@ public class Pal{
     mandarin = ColorUtil.valueOf("ea7e3f"),
     strongRed = ColorUtil.valueOf("d8401d"),
     darkRed = ColorUtil.valueOf("910000"),
+    flesh = ColorUtil.valueOf("82120f"),
     magmatic = ColorUtil.valueOf("2d0000"),
 
     roseEbony = ColorUtil.valueOf("624141"),

@@ -1,19 +1,18 @@
 package com.idark.valoria.registries.entity.living.minions;
 
-import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.PathfinderMob;
-import net.minecraft.world.entity.TraceableEntity;
-import net.minecraft.world.entity.ai.goal.target.TargetGoal;
-import net.minecraft.world.entity.ai.targeting.TargetingConditions;
-import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.scores.Team;
+import net.minecraft.core.*;
+import net.minecraft.nbt.*;
+import net.minecraft.server.level.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.goal.target.*;
+import net.minecraft.world.entity.ai.targeting.*;
+import net.minecraft.world.entity.monster.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.scores.*;
 
-import javax.annotation.Nullable;
+import javax.annotation.*;
+import java.awt.*;
+import java.util.*;
 
 public abstract class AbstractMinionEntity extends Monster implements TraceableEntity {
     @Nullable
@@ -22,6 +21,7 @@ public abstract class AbstractMinionEntity extends Monster implements TraceableE
     public BlockPos boundOrigin;
     public boolean hasLimitedLife;
     public int limitedLifeTicks;
+    public static final Map<EntityType<? extends AbstractMinionEntity>, Color> minionColors = new HashMap<>();
 
     protected AbstractMinionEntity(EntityType<? extends Monster> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
@@ -49,6 +49,10 @@ public abstract class AbstractMinionEntity extends Monster implements TraceableE
     }
 
     public void spawnParticlesTrail() {
+    }
+
+    public static Color getColor(EntityType<? extends AbstractMinionEntity> entityType) {
+        return minionColors.getOrDefault(entityType, Color.WHITE);
     }
 
     /**

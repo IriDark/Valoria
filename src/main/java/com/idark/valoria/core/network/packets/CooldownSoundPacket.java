@@ -1,21 +1,18 @@
 package com.idark.valoria.core.network.packets;
 
-import com.idark.valoria.ValoriaClient;
-import com.idark.valoria.client.sounds.CooldownSoundInstance;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.sounds.SoundManager;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.network.NetworkDirection;
-import net.minecraftforge.network.NetworkEvent;
-import net.minecraftforge.registries.ForgeRegistries;
+import com.idark.valoria.*;
+import com.idark.valoria.client.sounds.*;
+import net.minecraft.client.*;
+import net.minecraft.client.sounds.*;
+import net.minecraft.network.*;
+import net.minecraft.resources.*;
+import net.minecraft.sounds.*;
+import net.minecraftforge.api.distmarker.*;
+import net.minecraftforge.network.*;
+import net.minecraftforge.registries.*;
 
-import java.util.function.Supplier;
+import java.util.function.*;
 
-//todo somehow redo this
 public class CooldownSoundPacket {
     private final double posX;
     private final double posY;

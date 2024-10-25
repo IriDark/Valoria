@@ -5,6 +5,7 @@ import net.minecraft.core.registries.*;
 import net.minecraft.resources.*;
 import net.minecraft.tags.*;
 import net.minecraft.world.damagesource.*;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.decoration.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.*;
@@ -19,6 +20,10 @@ public class TagsRegistry {
         return TagKey.create(Registries.BLOCK, name);
     }
 
+    public static TagKey<EntityType<?>> entity(final ResourceLocation name) {
+        return TagKey.create(Registries.ENTITY_TYPE, name);
+    }
+
     private static TagKey<DamageType> damage(final ResourceLocation name) {
         return TagKey.create(Registries.DAMAGE_TYPE, name);
     }
@@ -28,6 +33,8 @@ public class TagsRegistry {
     }
 
     public static final TagKey<Item> EXCLUDED_FROM_TAB = item(new ResourceLocation(Valoria.ID, "excluded"));
+
+    public static final TagKey<EntityType<?>> MINIONS = entity(new ResourceLocation(Valoria.ID, "minions"));
 
     public static final TagKey<Block> UNPACK_LOOT = block(new ResourceLocation(Valoria.ID, "unpack_loot"));
     public static final TagKey<Block> KEY_BLOCKS = block(new ResourceLocation(Valoria.ID, "key_blocks"));

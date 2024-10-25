@@ -1,12 +1,11 @@
 package com.idark.valoria.registries.entity.living.minions;
 
-import com.idark.valoria.core.network.PacketHandler;
-import com.idark.valoria.core.network.packets.particle.SmokeParticlePacket;
+import com.idark.valoria.core.network.*;
+import com.idark.valoria.core.network.packets.particle.*;
 import net.minecraft.core.*;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.*;
 import net.minecraft.network.syncher.*;
-import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
 import net.minecraft.util.*;
 import net.minecraft.world.*;
@@ -31,8 +30,6 @@ import java.util.*;
 public class FleshSentinel extends AbstractMinionEntity {
     public static final int TICKS_PER_FLAP = Mth.ceil(3.9269907F);
     protected static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(FleshSentinel.class, EntityDataSerializers.BYTE);
-    @Nullable
-    public BlockPos boundOrigin;
     public FleshSentinel(EntityType<? extends FleshSentinel> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
         this.moveControl = new UndeadMoveControl(this);

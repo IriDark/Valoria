@@ -36,23 +36,27 @@ public class ColorUtil {
         return Integer.parseInt(hex, 16);
     }
 
-    public String getHex(int r, int g, int b) {
+    public static int colorToDecimal(Color color) {
+        return Integer.parseInt(getHex(color), 16);
+    }
+
+    public static String getHex(int r, int g, int b) {
         Color color = new Color(r, g, b);
         String hex = Integer.toHexString(color.getRGB() & 0xffffff);
         if (hex.length() < 6) {
             hex = "0" + hex;
         }
 
-        return "#" + hex;
+        return hex;
     }
 
-    public String getHex(Color color) {
+    public static String getHex(Color color) {
         String hex = Integer.toHexString(color.getRGB() & 0xffffff);
         if (hex.length() < 6) {
             hex = "0" + hex;
         }
 
-        return "#" + hex;
+        return hex;
     }
 
     public static Color valueOf(String hex) {

@@ -8,9 +8,11 @@ import net.minecraft.client.*;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.blockentity.*;
 import net.minecraft.client.resources.model.*;
+import net.minecraft.resources.*;
 import net.minecraft.world.item.*;
 
 public class FleshCystBlockEntityRenderer implements BlockEntityRenderer<FleshCystBlockEntity> {
+    public static final ModelResourceLocation CYST = new ModelResourceLocation(new ResourceLocation(Valoria.ID, "cyst"), "");
     public FleshCystBlockEntityRenderer() {
     }
 
@@ -26,7 +28,7 @@ public class FleshCystBlockEntityRenderer implements BlockEntityRenderer<FleshCy
         float scale = 2.15f + (float)(sinValue / 16);
         ms.translate(0.5f, 0.5f, 0.5f);
         ms.scale(scale, scale, scale);
-        renderCustomModel(ValoriaClient.CYST, ItemDisplayContext.FIXED, false, ms, buffers, light, overlay);
+        renderCustomModel(CYST, ItemDisplayContext.FIXED, false, ms, buffers, light, overlay);
         ms.popPose();
     }
 }

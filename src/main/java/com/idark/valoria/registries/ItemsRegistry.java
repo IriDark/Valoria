@@ -262,7 +262,7 @@ public class ItemsRegistry {
 
         // misc
         debugItem = registerItem("debug_item", () -> new DebugItem(new Item.Properties()));
-        summonBook = registerItem("summon_book", () -> new SummonBook(EntityTypeRegistry.UNDEAD, 30, 3, new Item.Properties().rarity(Rarity.EPIC)));
+        summonBook = registerItem("summon_book", () -> new SummonBook(30, 3, new Item.Properties().rarity(Rarity.EPIC)));
         soulCollectorEmpty = registerItem("soul_collector_empty", () -> new SoulCollectorItem(new Item.Properties().stacksTo(1).rarity(RarityRegistry.PHANTASM)));
         soulCollector = registerItem("soul_collector", () -> new SoulCollectorItem(50, 50, new Item.Properties().rarity(RarityRegistry.PHANTASM)));
         lexicon = registerItem("lexicon", () -> new LexiconItem(new Item.Properties().stacksTo(1)));

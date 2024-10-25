@@ -1,12 +1,16 @@
 package com.idark.valoria.registries.block.entity;
 
+import com.idark.valoria.*;
 import com.idark.valoria.client.render.tile.*;
+import com.idark.valoria.client.sounds.*;
 import com.idark.valoria.client.ui.menus.*;
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.particle.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.item.recipe.*;
 import com.idark.valoria.util.*;
+import net.minecraft.client.*;
+import net.minecraft.client.sounds.*;
 import net.minecraft.core.*;
 import net.minecraft.nbt.*;
 import net.minecraft.network.*;
@@ -18,6 +22,7 @@ import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.*;
+import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.common.capabilities.*;
 import net.minecraftforge.common.util.*;
 import net.minecraftforge.items.*;
@@ -29,7 +34,6 @@ import javax.annotation.*;
 import java.util.*;
 
 public class ManipulatorBlockEntity extends BlockEntity implements MenuProvider, TickableBlockEntity {
-
     public final ItemStackHandler itemHandler = createHandler(2);
     public final LazyOptional<IItemHandler> handler = LazyOptional.of(() -> itemHandler);
     public final ItemStackHandler itemOutputHandler = createHandler(1);
@@ -37,12 +41,10 @@ public class ManipulatorBlockEntity extends BlockEntity implements MenuProvider,
     public int progress = 0;
     public int progressMax = 0;
     public boolean startCraft = false;
-
     public int nature_core = 0;
     public int infernal_core = 0;
     public int aquarius_core = 0;
     public int void_core = 0;
-
     public ManipulatorBlockEntity(BlockEntityType<?> pType, BlockPos pPos, BlockState pBlockState) {
         super(pType, pPos, pBlockState);
     }
@@ -106,15 +108,14 @@ public class ManipulatorBlockEntity extends BlockEntity implements MenuProvider,
 
     @Override
     public void tick() {
+        Optional<ManipulatorRecipe> recipe = getCurrentRecipe();
         if (!level.isClientSide) {
-            Optional<ManipulatorRecipe> recipe = getCurrentRecipe();
             if (recipe.isPresent()) {
                 if (getCharge(recipe.get().getCore()) > 0 && itemOutputHandler.getStackInSlot(0).getCount() < itemOutputHandler.getStackInSlot(0).getMaxStackSize()) {
                     increaseCraftingProgress();
-                    startCraft = true;
                     setMaxProgress();
                     setChanged(level, getBlockPos(), getBlockState());
-                    PacketHandler.sendToTracking(this.level, this.getBlockPos(), new ManipulatorCraftParticlePacket(this.getBlockPos().getX(), this.getBlockPos().getY(), this.getBlockPos().getZ(), -0.2f, 0.2f, -0.2f, 255, 255, 255));
+                    PacketHandler.sendToTracking(level, this.getBlockPos(), new ManipulatorCraftParticlePacket(this.getBlockPos().getX(), this.getBlockPos().getY(), this.getBlockPos().getZ(), -0.2f, 0.2f, -0.2f, 255, 255, 255));
                     if (hasProgressFinished()) {
                         craftItem();
                         resetProgress();
@@ -123,7 +124,6 @@ public class ManipulatorBlockEntity extends BlockEntity implements MenuProvider,
                     ValoriaUtils.tileEntity.SUpdateTileEntityPacket(this);
                 } else if (recipe.get().getCore().equals("empty") && itemOutputHandler.getStackInSlot(0).getCount() < itemOutputHandler.getStackInSlot(0).getMaxStackSize()) {
                     increaseCraftingProgress();
-                    startCraft = true;
                     setMaxProgress();
                     setChanged(level, getBlockPos(), getBlockState());
                     if (hasProgressFinished()) {
@@ -131,10 +131,40 @@ public class ManipulatorBlockEntity extends BlockEntity implements MenuProvider,
                         resetProgress();
                     }
 
-                    PacketHandler.sendToTracking(this.level, this.getBlockPos(), new ManipulatorEmptyParticlePacket((float) this.getBlockPos().getX() + 0.5f, (float) this.getBlockPos().getY() + 0.75f, (float) this.getBlockPos().getZ() + 0.5f, (float) this.getBlockPos().getX() + 0.5f, (float) this.getBlockPos().getY() + 0.65f, ((float) this.getBlockPos().getZ() + 0.5f), 255, 255, 255));
+                    PacketHandler.sendToTracking(level, this.getBlockPos(), new ManipulatorEmptyParticlePacket((float) this.getBlockPos().getX() + 0.5f, (float) this.getBlockPos().getY() + 0.75f, (float) this.getBlockPos().getZ() + 0.5f, (float) this.getBlockPos().getX() + 0.5f, (float) this.getBlockPos().getY() + 0.65f, ((float) this.getBlockPos().getZ() + 0.5f), 255, 255, 255));
                     ValoriaUtils.tileEntity.SUpdateTileEntityPacket(this);
                 }
             }
+        }
+
+        if (recipe.isEmpty()){
+            resetProgress();
+        }
+
+        if(level.isClientSide) {
+            playSound();
+        }
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public void playSound(){
+        SoundManager soundManager = Minecraft.getInstance().getSoundManager();
+        if (getCurrentRecipe().isPresent() && ValoriaClient.MANIPULATOR_LOOP != null && soundManager.isActive(ValoriaClient.MANIPULATOR_LOOP)) {
+            return;
+        }
+
+        if(getCurrentRecipe().isPresent() && progress > 0){
+            ValoriaClient.MANIPULATOR_LOOP = ElementalManipulatorSoundInstance.getSound(this);
+            soundManager.play(ValoriaClient.MANIPULATOR_LOOP);
+            if (!soundManager.isActive(ValoriaClient.MANIPULATOR_LOOP)) {
+                ValoriaClient.MANIPULATOR_LOOP = null;
+            }
+        } else {
+            if (soundManager.isActive(ValoriaClient.MANIPULATOR_LOOP) && ValoriaClient.MANIPULATOR_LOOP != null) {
+                ValoriaClient.MANIPULATOR_LOOP.stopSound();
+            }
+
+            ValoriaClient.MANIPULATOR_LOOP = null;
         }
     }
 
@@ -148,6 +178,7 @@ public class ManipulatorBlockEntity extends BlockEntity implements MenuProvider,
     }
 
     private void craftItem() {
+        PacketHandler.sendToTracking(this.level, this.getBlockPos(), new CubeShapedParticlePacket((float) this.getBlockPos().getCenter().x, (float) this.getBlockPos().getCenter().y - 0.25f, (float) this.getBlockPos().getCenter().z, 0.62f, 0.15f, 255, 255, 255));
         Optional<ManipulatorRecipe> recipe = getCurrentRecipe();
         ItemStack result = recipe.get().getResultItem(RegistryAccess.EMPTY);
         if (!recipe.get().getCore().equals("empty")) {
@@ -165,6 +196,7 @@ public class ManipulatorBlockEntity extends BlockEntity implements MenuProvider,
     }
 
     private void increaseCraftingProgress() {
+        startCraft = true;
         Optional<ManipulatorRecipe> recipe = getCurrentRecipe();
         if (progress < recipe.get().getTime()) {
             progress++;
@@ -179,7 +211,6 @@ public class ManipulatorBlockEntity extends BlockEntity implements MenuProvider,
     }
 
     private void resetProgress() {
-        PacketHandler.sendToTracking(this.level, this.getBlockPos(), new CubeShapedParticlePacket((float) this.getBlockPos().getCenter().x, (float) this.getBlockPos().getCenter().y - 0.25f, (float) this.getBlockPos().getCenter().z, 0.62f, 0.15f, 255, 255, 255));
         progress = 0;
         startCraft = false;
     }

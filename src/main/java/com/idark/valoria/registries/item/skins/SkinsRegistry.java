@@ -82,6 +82,7 @@ public class SkinsRegistry{
         }
     }
 
+    @OnlyIn(Dist.CLIENT)
     private static void registerKatana(ModelEvent.RegisterAdditional event){
         for(RegistryObject<Item> item : ItemsRegistry.ITEMS.getEntries()){
             if(item.get() instanceof KatanaItem && ((KatanaItem) item.get()).hasLargeModel){
@@ -90,6 +91,7 @@ public class SkinsRegistry{
         }
     }
 
+    @OnlyIn(Dist.CLIENT)
     private static void bakeKatana(Map<ResourceLocation, BakedModel> map){
         for(RegistryObject<Item> item : ItemsRegistry.ITEMS.getEntries()){
             if(item.get() instanceof KatanaItem && ((KatanaItem) item.get()).hasLargeModel){
@@ -98,6 +100,7 @@ public class SkinsRegistry{
         }
     }
 
+    @OnlyIn(Dist.CLIENT)
     private static void bakeArmor(Map<ResourceLocation, BakedModel> map){
         for(RegistryObject<Item> item : ItemsRegistry.ITEMS.getEntries()){
             if(item.get() instanceof SkinableArmorItem){

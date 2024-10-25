@@ -107,6 +107,9 @@ public class ManipulatorScreen extends AbstractContainerScreen<ManipulatorMenu> 
         int j = this.topPos;
         gui.blit(GUI, i, j, 0, 0, this.imageWidth, this.imageHeight);
         if (menu.blockEntity instanceof ManipulatorBlockEntity elemental) {
+            int width = 24;
+            width /= ((double) elemental.progressMax / (double) elemental.progress);
+            gui.blit(GUI, i + 101, j + 53, 176, 0, width, 17, 256, 256);
             if (elemental.itemHandler.getStackInSlot(1).isEmpty()) {
                 gui.blit(GUI, i + 76, j + 53, 208, 0, 16, 16);
             }
@@ -125,12 +128,6 @@ public class ManipulatorScreen extends AbstractContainerScreen<ManipulatorMenu> 
 
             if (elemental.void_core != 0) {
                 gui.blit(GUI, i + 33, j + 42, 191, 27, 5, 5);
-            }
-
-            if (elemental.progress > 0) {
-                int width = 24;
-                width /= ((double) elemental.progressMax / (double) elemental.progress);
-                gui.blit(GUI, i + 101, j + 53, 176, 0, width, 17, 256, 256);
             }
         }
     }

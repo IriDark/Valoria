@@ -34,6 +34,7 @@ public class SoundsRegistry {
     public static final RegistryObject<SoundEvent> SOUL_COLLECT_FULL = registerSound("item.soul_collect.full");
     public static final RegistryObject<SoundEvent> SOUL_COLLECT = registerSound("item.soul_collect");
 
+    public static final RegistryObject<SoundEvent> MANIPULATOR_LOOP = registerSound("block.elemental_manipulator.loop");
     public static final RegistryObject<SoundEvent> KEG_BREW = registerSound("block.keg.brew");
     public static final RegistryObject<SoundEvent> KEG_AMBIENT = registerSound("block.keg.ambient");
     public static final RegistryObject<SoundEvent> VOID_STONE_PLACE = registerSound("block.void_stone.place");
