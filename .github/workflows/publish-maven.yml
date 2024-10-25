@@ -51,7 +51,17 @@ jobs:
           
           # Optionally, you can add a step to show the updated gradle.properties
           cat gradle.properties
+      - name: Check commit message
+        id: check_commit
+        run: |
+          echo "COMMIT_MESSAGE=$(git log -1 --pretty=%B)" >> $GITHUB_ENV
+          if [[ "${{ env.COMMIT_MESSAGE }}" == *"(MAVEN COMMIT)"* ]]; then
+            echo "should_publish=true" >> $GITHUB_ENV
+          else
+            echo "should_publish=false" >> $GITHUB_ENV
+          fi
       - name: Commit and Push Version Change
+        if: ${{ env.should_publish == 'true' && github.repository == 'IriDark/Valoria' }}
         run: |
           git config --global user.email "actions@github.com"
           git config --global user.name "GitHub Actions"
@@ -61,7 +71,7 @@ jobs:
       - name: Publish Maven Version
         env:
           maventoken: ${{ secrets.MAVEN_PASSWORD }}
-        if: ${{ github.repository == 'IriDark/Valoria' }}
+        if: ${{ env.should_publish == 'true' && github.repository == 'IriDark/Valoria' }}
         run: |    
           ./gradlew clean
           ./gradlew publish
