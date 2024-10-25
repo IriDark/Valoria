@@ -62,4 +62,5 @@ jobs:
         if: ${{ github.repository == 'IriDark/Valoria' }}
         run: |
           echo "mavenPassword=${{ secrets.MAVEN_PASSWORD }}" >> gradle.properties
+          ./gradlew clean
           ./gradlew publish
