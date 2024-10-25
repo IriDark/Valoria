@@ -5,8 +5,11 @@ on: [push, workflow_dispatch]
 permissions: {}
 jobs:
   runPush:
-    runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
+    runs-on: ubuntu-latest
+  
     steps:
       - uses: actions/checkout@v4
       - name: Set up JDK 17
