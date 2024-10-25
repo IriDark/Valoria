@@ -63,7 +63,7 @@ jobs:
       - name: Publish Maven Version
         env:
           maventoken: ${{ secrets.MAVEN_PASSWORD }}
-        if: ${{ env.should_publish == 'true' && github.repository == 'IriDark/Valoria' }}
+        if: ${{ run.gradle.properties.get('shouldPublish') == 'true' && github.repository == 'IriDark/Valoria' }}
         run: |    
           ./gradlew clean
           ./gradlew publish
