@@ -1,5 +1,5 @@
 {
-  "credit": "Made with Blockbench",
+  "render_type": "minecraft:cutout",
   "textures": {
     "1": "valoria:block/mead_bottle",
     "particle": "valoria:block/mead_bottle"

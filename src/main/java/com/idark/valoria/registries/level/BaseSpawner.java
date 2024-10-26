@@ -11,6 +11,7 @@ import net.minecraft.world.phys.*;
 
 import javax.annotation.*;
 
+//todo move to lib
 public abstract class BaseSpawner{
     public int spawnDelay = 20;
     public int minSpawnDelay = 200;
@@ -27,6 +28,10 @@ public abstract class BaseSpawner{
 
     public boolean isNearPlayer(Level pLevel, BlockPos pPos) {
         return pLevel.hasNearbyAlivePlayer((double)pPos.getX() + 0.5D, (double)pPos.getY() + 0.5D, (double)pPos.getZ() + 0.5D, this.requiredPlayerRange);
+    }
+
+    public void clientTick(Level pLevel, BlockPos pPos) {
+
     }
 
     public void serverTick(ServerLevel pServerLevel, BlockPos pPos) {
@@ -49,8 +54,9 @@ public abstract class BaseSpawner{
                         entity.moveTo(d0, d1, d2, 0, 0);
                         onEntityConfiguration(entity, pPos);
                         if(pServerLevel.noCollision(getEntityType().getAABB(d0, d1, d2))){
-                            if(pServerLevel.getDifficulty() == Difficulty.PEACEFUL){
-                                continue;
+                            if(skipSpawnReason(pServerLevel)){
+                                this.delay(pServerLevel, pPos);
+                                return;
                             }
 
                             int k = pServerLevel.getEntitiesOfClass(entity.getClass(), (new AABB(pPos.getX(), pPos.getY(), pPos.getZ(), pPos.getX() + 1, pPos.getY() + 1, pPos.getZ() + 1)).inflate(this.spawnRange)).size();
@@ -68,6 +74,10 @@ public abstract class BaseSpawner{
             }
         }
     }
+
+    public boolean skipSpawnReason(ServerLevel pServerLevel) {
+        return getEntityType().getCategory().isFriendly() && pServerLevel.getDifficulty() == Difficulty.PEACEFUL;
+    };
 
     /**
      * Called on configuration of the Entity

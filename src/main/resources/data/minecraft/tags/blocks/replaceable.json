@@ -1,0 +1,27 @@
+{
+  "replace": false,
+  "values": [
+    "valoria:aloe_small",
+    "valoria:dried_plant",
+    "valoria:dried_roots",
+    "valoria:crimson_magmaroot",
+    "valoria:crimson_goldy",
+    "valoria:crimson_rajush",
+    "valoria:crimson_soulroot",
+    "valoria:soulroot",
+    "valoria:soulflower",
+    "valoria:bloodroot",
+    "valoria:falseflower",
+    "valoria:falseflower_small",
+    "valoria:void_roots",
+    "valoria:voidvine",
+    "valoria:void_serpents",
+    "valoria:aloe",
+    "valoria:cattail",
+    "valoria:karusakan_roots",
+    "valoria:gaib_roots",
+    "valoria:double_crimson_soulroot",
+    "valoria:double_crimson_magmaroot",
+    "valoria:double_crimson_goldy"
+  ]
+}

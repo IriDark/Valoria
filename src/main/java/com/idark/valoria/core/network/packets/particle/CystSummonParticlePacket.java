@@ -49,9 +49,19 @@ public class CystSummonParticlePacket{
                     }
                 };
 
+                for(int i = 0; i < 25; i++){
+                    ParticleBuilder.create(FluffyFurParticles.WISP)
+                    .setRenderType(FluffyFurRenderTypes.TRANSLUCENT_PARTICLE)
+                    .setColorData(ColorParticleData.create(Pal.kiwi.darker(), Pal.mindaro).build())
+                    .setScaleData(GenericParticleData.create(0.045f, 0.075f, 0).setEasing(Easing.QUARTIC_OUT).build())
+                    .setLifetime(65)
+                    .setGravity(0.0125f)
+                    .flatRandomVelocity(0.025, new ArcRandom().randomValueUpTo(0.055), 0.025)
+                    .spawn(pLevel, msg.pos.getCenter().x, msg.pos.getCenter().y + 0.2, msg.pos.getCenter().z);
+                }
 
                 ParticleBuilder.create(FluffyFurParticles.WISP)
-                .setColorData(ColorParticleData.create(Pal.vividGreen, Pal.strongRed).build())
+                .setColorData(ColorParticleData.create(Pal.kiwi.darker(), Pal.mindaro).build())
                 .setTransparencyData(GenericParticleData.create(0.3f).setEasing(Easing.QUARTIC_OUT).build())
                 .setScaleData(GenericParticleData.create(0.045f, 0.075f, 0).setEasing(Easing.QUARTIC_OUT).build())
                 .addTickActor(blockTarget)

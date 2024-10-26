@@ -1,5 +1,5 @@
 {
-  "credit": "Made with Blockbench",
+  "render_type": "minecraft:cutout",
   "textures": {
     "2": "valoria:block/wooden_cup",
     "particle": "valoria:block/wooden_cup"

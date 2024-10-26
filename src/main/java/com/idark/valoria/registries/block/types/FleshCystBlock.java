@@ -38,9 +38,11 @@ public class FleshCystBlock extends BaseEntityBlock{
             double d0 = (double)pos.getX() + (randomsource.nextDouble() - randomsource.nextDouble()) * 6 + 0.5D;
             double d1 = pos.getY() + randomsource.nextInt(3) - 1;
             double d2 = (double)pos.getZ() + (randomsource.nextDouble() - randomsource.nextDouble()) * 6 + 0.5D;
-            sentinel.moveTo(d0, d1, d2, 0.0F, 0.0F);
-            sentinel.setBoundOrigin(pos);
-            world.addFreshEntity(sentinel);
+            if(world.noCollision(sentinel.getType().getAABB(d0, d1, d2))){
+                sentinel.moveTo(d0, d1, d2, 0.0F, 0.0F);
+                sentinel.setBoundOrigin(pos);
+                world.addFreshEntity(sentinel);
+            }
         }
     }
 

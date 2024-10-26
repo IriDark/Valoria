@@ -22,10 +22,13 @@ public class FleshCystBlockEntityRenderer implements BlockEntityRenderer<FleshCy
     }
 
     @Override
-    public void render(FleshCystBlockEntity keg, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay){
+    public void render(FleshCystBlockEntity cyst, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay){
         ms.pushPose();
-        double sinValue = Math.sin((ClientTickHandler.ticksInGame + Minecraft.getInstance().getPartialTick()) * 0.1);
+        int spawnDelay = cyst.getSpawner().spawnDelay;
+        double speedMultiplier = 2.0 + (1.0 - (spawnDelay / 20.0));
+        double sinValue = Math.sin((ClientTickHandler.ticksInGame + Minecraft.getInstance().getPartialTick()) * 0.1 * speedMultiplier);
         float scale = 2.15f + (float)(sinValue / 16);
+
         ms.translate(0.5f, 0.5f, 0.5f);
         ms.scale(scale, scale, scale);
         renderCustomModel(CYST, ItemDisplayContext.FIXED, false, ms, buffers, light, overlay);

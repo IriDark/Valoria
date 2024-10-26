@@ -35,6 +35,8 @@ public class Pal{
     temptress = ColorUtil.valueOf("331a28"),
     smokyBlack = ColorUtil.valueOf("10020d"),
 
+    mindaro = ColorUtil.valueOf("d0ff75"),
+    kiwi = ColorUtil.valueOf("8cdc2d"),
     vividGreen = ColorUtil.valueOf("91eb19"),
     seaGreen = ColorUtil.valueOf("308a3e"),
 

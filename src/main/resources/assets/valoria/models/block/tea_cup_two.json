@@ -1,4 +1,5 @@
 {
+  "render_type": "minecraft:cutout",
   "textures": {
     "7": "valoria:block/tea_cup",
     "particle": "valoria:block/tea_cup"

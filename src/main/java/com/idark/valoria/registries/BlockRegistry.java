@@ -31,7 +31,7 @@ import static com.idark.valoria.util.ValoriaUtils.*;
 public class BlockRegistry {
     public static final DeferredRegister<Block> BLOCK = DeferredRegister.create(ForgeRegistries.BLOCKS, Valoria.ID);
     public static final RegistryObject<Block> SPIKES = registerBlock("spikes",
-            () -> new SpikeBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_GRAY).strength(-1f, 3600000.8F).noLootTable().dynamicShape().noOcclusion()));
+            () -> new SpikeBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_GRAY).strength(-1f, 3600000.8F).noLootTable().noOcclusion()));
     // Door & Trapdoors
     public static final RegistryObject<Block> ELDRITCH_DOOR = registerBlock("eldritch_door",
             () -> new DoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_DOOR).mapColor(MapColor.COLOR_MAGENTA).noOcclusion(), BlockSetType.OAK));
@@ -217,11 +217,13 @@ public class BlockRegistry {
     public static final RegistryObject<Block> POLISHED_EPHEMARITE_STAIRS = registerBlock("polished_ephemarite_stairs",
             () -> new StairBlock(() -> POLISHED_EPHEMARITE.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.TERRACOTTA_BROWN).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> MEAT_BLOCK = registerBlock("meat_block",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).sound(SoundsRegistry.FLESH).mapColor(MapColor.COLOR_RED).requiresCorrectToolForDrops()));
+            () -> new FleshBlock(BlockBehaviour.Properties.copy(Blocks.STONE).sound(SoundsRegistry.FLESH).mapColor(MapColor.COLOR_RED).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> FLESH_BLOCK = registerBlock("flesh_block",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).sound(SoundsRegistry.FLESH).mapColor(MapColor.COLOR_RED).requiresCorrectToolForDrops()));
+            () -> new FleshBlock(BlockBehaviour.Properties.copy(Blocks.STONE).sound(SoundsRegistry.FLESH).mapColor(MapColor.COLOR_RED).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> FLESH_CYST = registerBlock("flesh_cyst",
             () -> new FleshCystBlock(BlockBehaviour.Properties.copy(Blocks.STONE).sound(SoundsRegistry.FLESH).mapColor(MapColor.COLOR_RED).requiresCorrectToolForDrops()));
+    public static final RegistryObject<Block> BLOOD_VEIN = registerBlock("blood_vein",
+            () -> new BloodVeinBlock(BlockBehaviour.Properties.copy(Blocks.STONE).sound(SoundsRegistry.FLESH).mapColor(MapColor.COLOR_RED).requiresCorrectToolForDrops().noOcclusion()));
 
     public static final RegistryObject<Block> AMBANE_STONE = registerBlock("ambane_stone",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.WARPED_WART_BLOCK).requiresCorrectToolForDrops()));
