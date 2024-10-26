@@ -235,11 +235,11 @@ tasks.withType(JavaCompile).configureEach {
 
 modrinth {
     token = System.getenv("modrinthtoken") // Remember to have the MODRINTH_TOKEN environment variable set or else this will fail - just make sure it stays private!
-    projectId = "valoriadev"
+    projectId = "valoria"
     //debugMode = true
-    versionNumber = "${dev_version}"
+    versionNumber = "${version}"
     versionType = "beta"
-    versionName = "Dev Build - ${dev_version}"
+    versionName = "Dev Build - ${version}"
     uploadFile = tasks.jar
     additionalFiles = [sourcesJar, javadocJar]
     changelog = "Just a DevBuild to test things, its some sorta like minecraft snapshots to find bugs and report them"

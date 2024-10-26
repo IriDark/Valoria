@@ -45,6 +45,12 @@ public class SoundsRegistry {
     public static final RegistryObject<SoundEvent> VALORIA_PORTAL_SPAWN = registerSound("block.valoria_portal.spawn");
     public static final RegistryObject<SoundEvent> SARCOPHAGUS_OPEN = registerSound("block.sarcophagus.open");
 
+    public static final RegistryObject<SoundEvent> FLESH_PLACE = registerSound("block.flesh.place");
+    public static final RegistryObject<SoundEvent> FLESH_BREAK = registerSound("block.flesh.break");
+    public static final RegistryObject<SoundEvent> FLESH_STEP = registerSound("block.flesh.step");
+    public static final RegistryObject<SoundEvent> FLESH_HIT = registerSound("block.flesh.hit");
+    public static final RegistryObject<SoundEvent> FLESH_FALL = registerSound("block.flesh.fall");
+
     public static final RegistryObject<SoundEvent> TOMBSTONE_BREAK = registerSound("block.tombstone.break");
     public static final RegistryObject<SoundEvent> TOMBSTONE_HIT = registerSound("block.tombstone.hit");
     public static final RegistryObject<SoundEvent> TOMBSTONE_BRICKS_BREAK = registerSound("block.tombstone_bricks.break");
@@ -76,6 +82,7 @@ public class SoundsRegistry {
     public static final RegistryObject<SoundEvent> HAUNTED_MERCHANT_RANGE = registerSound("mob.haunted_merchant.range_attack");
 
     //SoundType
+    public static final ForgeSoundType FLESH = new ForgeSoundType(0.5F, 0.85f, FLESH_BREAK, FLESH_STEP, FLESH_PLACE, FLESH_HIT, FLESH_FALL);
     public static final ForgeSoundType POT = new ForgeSoundType(1.0F, 1.0F, POT_BREAK, POT_STEP, POT_PLACE, () -> SoundEvents.STONE_HIT, () -> SoundEvents.STONE_FALL);
     public static final ForgeSoundType VOID_STONE = new ForgeSoundType(0.75F, 0.87F, VOID_STONE_BREAK, VOID_STONE_STEP, VOID_STONE_PLACE, () -> SoundEvents.NETHER_BRICKS_HIT, () -> SoundEvents.NETHER_BRICKS_FALL);
     public static final ForgeSoundType VOID_GRASS = new ForgeSoundType(0.75F, 0.87F, VOID_GRASS_BREAK, VOID_GRASS_STEP, VOID_STONE_PLACE, () -> SoundEvents.FROGLIGHT_HIT, () -> SoundEvents.FROGLIGHT_FALL);

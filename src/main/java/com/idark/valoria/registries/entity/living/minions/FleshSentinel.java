@@ -2,13 +2,12 @@ package com.idark.valoria.registries.entity.living.minions;
 
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.particle.*;
+import com.idark.valoria.registries.*;
 import net.minecraft.core.*;
-import net.minecraft.nbt.*;
 import net.minecraft.network.syncher.*;
 import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
 import net.minecraft.util.*;
-import net.minecraft.world.*;
 import net.minecraft.world.damagesource.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
@@ -19,17 +18,18 @@ import net.minecraft.world.entity.ai.navigation.*;
 import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.entity.raid.*;
-import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.phys.*;
 
-import javax.annotation.*;
 import java.util.*;
 
 public class FleshSentinel extends AbstractMinionEntity {
     public static final int TICKS_PER_FLAP = Mth.ceil(3.9269907F);
     protected static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(FleshSentinel.class, EntityDataSerializers.BYTE);
+    public AnimationState idleAnimationState = new AnimationState();
+    private int idleAnimationTimeout = 0;
+    public boolean cystSpawned;
     public FleshSentinel(EntityType<? extends FleshSentinel> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
         this.moveControl = new UndeadMoveControl(this);
@@ -90,17 +90,27 @@ public class FleshSentinel extends AbstractMinionEntity {
         return 1.0F;
     }
 
-    @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
-        RandomSource randomsource = pLevel.getRandom();
-        this.populateDefaultEquipmentSlots(randomsource, pDifficulty);
-        this.populateDefaultEquipmentEnchantments(randomsource, pDifficulty);
-        return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
+    @Override
+    public void tick() {
+        super.tick();
+        if(cystSpawned && this.getBoundOrigin() != null){
+            if(this.level().getBlockState(this.getBoundOrigin()).is(BlockRegistry.FLESH_CYST.get()) && !hasLimitedLife){
+                this.setLimitedLife(1750);
+            }
+        }
+
+        if (this.level().isClientSide()) {
+            setupAnimationStates();
+        }
     }
 
-    protected void populateDefaultEquipmentSlots(RandomSource pRandom, DifficultyInstance pDifficulty) {
-        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SWORD));
-        this.setDropChance(EquipmentSlot.MAINHAND, 0.0F);
+    private void setupAnimationStates() {
+        if (this.idleAnimationTimeout <= 0) {
+            this.idleAnimationTimeout = 80;
+            this.idleAnimationState.start(this.tickCount);
+        } else {
+            --this.idleAnimationTimeout;
+        }
     }
 
     protected PathNavigation createNavigation(Level pLevel) {
@@ -119,7 +129,7 @@ public class FleshSentinel extends AbstractMinionEntity {
             if (this.isInWater()) {
                 this.moveRelative(0.02F, pTravelVector);
                 this.move(MoverType.SELF, this.getDeltaMovement());
-                this.setDeltaMovement(this.getDeltaMovement().scale((double)0.8F));
+                this.setDeltaMovement(this.getDeltaMovement().scale(0.8F));
             } else if (this.isInLava()) {
                 this.moveRelative(0.02F, pTravelVector);
                 this.move(MoverType.SELF, this.getDeltaMovement());
@@ -139,7 +149,7 @@ public class FleshSentinel extends AbstractMinionEntity {
 
                 this.moveRelative(this.onGround() ? 0.1F * f1 : 0.02F, pTravelVector);
                 this.move(MoverType.SELF, this.getDeltaMovement());
-                this.setDeltaMovement(this.getDeltaMovement().scale((double)f));
+                this.setDeltaMovement(this.getDeltaMovement().scale(f));
             }
         }
 

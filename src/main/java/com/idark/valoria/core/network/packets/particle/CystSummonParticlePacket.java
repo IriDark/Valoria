@@ -31,21 +31,24 @@ public class CystSummonParticlePacket{
             ctx.get().enqueueWork(() -> {
                 Level pLevel = Valoria.proxy.getLevel();
                 final Consumer<GenericParticle> blockTarget = p -> {
-                    Vec3 entityPos = pLevel.getEntity(msg.id).getPosition(0);
                     Vec3 pPos = p.getPosition();
-                    double dX = entityPos.x - pPos.x();
-                    double dY = entityPos.y - pPos.y();
-                    double dZ = entityPos.z - pPos.z();
-                    double yaw = Math.atan2(dZ, dX);
-                    double pitch = Math.atan2(Math.sqrt(dZ * dZ + dX * dX), dY) + Math.PI;
+                    if(pLevel.getEntity(msg.id) != null){
+                        Vec3 entityPos = pLevel.getEntity(msg.id).getPosition(0);
+                        double dX = entityPos.x - pPos.x();
+                        double dY = entityPos.y - pPos.y();
+                        double dZ = entityPos.z - pPos.z();
+                        double yaw = Math.atan2(dZ, dX);
+                        double pitch = Math.atan2(Math.sqrt(dZ * dZ + dX * dX), dY) + Math.PI;
 
-                    float speed = 0.01f;
-                    double x = Math.sin(pitch) * Math.cos(yaw) * speed;
-                    double y = Math.cos(pitch) * speed;
-                    double z = Math.sin(pitch) * Math.sin(yaw) * speed;
+                        float speed = 0.01f;
+                        double x = Math.sin(pitch) * Math.cos(yaw) * speed;
+                        double y = Math.cos(pitch) * speed;
+                        double z = Math.sin(pitch) * Math.sin(yaw) * speed;
 
-                    p.setSpeed(p.getSpeed().subtract(x, y, z));
+                        p.setSpeed(p.getSpeed().subtract(x, y, z));
+                    }
                 };
+
 
                 ParticleBuilder.create(FluffyFurParticles.WISP)
                 .setColorData(ColorParticleData.create(Pal.vividGreen, Pal.strongRed).build())
@@ -56,6 +59,7 @@ public class CystSummonParticlePacket{
                 .randomVelocity(0.05f)
                 .disablePhysics()
                 .repeat(pLevel, msg.pos.getX(), msg.pos.getY(), msg.pos.getZ(), 6);
+
                 ctx.get().setPacketHandled(true);
             });
         }

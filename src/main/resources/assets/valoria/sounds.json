@@ -1,4 +1,46 @@
 {
+  "block.flesh.break": {
+    "subtitle": "subtitles.block.generic.break",
+    "sounds": [
+      "valoria:flesh/break1",
+      "valoria:flesh/break2",
+      "valoria:flesh/break3"
+    ]
+  },
+  "block.flesh.hit": {
+    "subtitle": "subtitles.block.generic.hit",
+    "sounds": [
+      "valoria:flesh/hit1",
+      "valoria:flesh/hit2",
+      "valoria:flesh/hit3"
+    ]
+  },
+  "block.flesh.step": {
+    "subtitle": "subtitles.block.generic.step",
+    "sounds": [
+      "valoria:flesh/step1",
+      "valoria:flesh/step2",
+      "valoria:flesh/step3",
+      "valoria:flesh/step4"
+    ]
+  },
+  "block.flesh.fall": {
+    "subtitle": "subtitles.block.generic.fall",
+    "sounds": [
+      "valoria:flesh/step1",
+      "valoria:flesh/step2",
+      "valoria:flesh/step3",
+      "valoria:flesh/step4"
+    ]
+  },
+  "block.flesh.place": {
+    "subtitle": "subtitles.block.generic.place",
+    "sounds": [
+      "valoria:flesh/place1",
+      "valoria:flesh/place2",
+      "valoria:flesh/place3"
+    ]
+  },
   "block.elemental_manipulator.loop": {
     "subtitle": "subtitles.valoria.elemental_manipulator.loop",
     "sounds": [

@@ -1,6 +1,6 @@
 package com.idark.valoria.client.model.entity;
 
-import com.idark.valoria.registries.entity.living.minions.FleshSentinel;
+import com.idark.valoria.registries.entity.living.minions.*;
 import net.minecraft.client.animation.*;
 import net.minecraft.client.model.*;
 import net.minecraft.client.model.geom.*;
@@ -44,19 +44,19 @@ public class FleshSentinelModel<T extends FleshSentinel> extends HierarchicalMod
     public void setupAnim(T pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch){
         this.root().getAllParts().forEach(ModelPart::resetPose);
         this.animateHeadLookTarget(pNetHeadYaw, pHeadPitch);
-        this.animateWalk(idle, pLimbSwing, pLimbSwingAmount, 4, pAgeInTicks);
+        this.animate(pEntity.idleAnimationState, idle, pAgeInTicks * 2);
     }
 
     public final AnimationDefinition idle = AnimationDefinition.Builder.withLength(1.0F).looping()
     .addAnimation("body", new AnimationChannel(AnimationChannel.Targets.POSITION,
-    new Keyframe(0.0F, KeyframeAnimations.posVec(0.0F, -0.5F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
-    new Keyframe(0.5F, KeyframeAnimations.posVec(0.0F, 0.5F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
-    new Keyframe(1.0F, KeyframeAnimations.posVec(0.0F, -0.5F, 0.0F), AnimationChannel.Interpolations.CATMULLROM)
+    new Keyframe(0.0F, KeyframeAnimations.posVec(0.0F, -0.25F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
+    new Keyframe(0.5F, KeyframeAnimations.posVec(0.0F, 0.25F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
+    new Keyframe(1.0F, KeyframeAnimations.posVec(0.0F, -0.25F, 0.0F), AnimationChannel.Interpolations.CATMULLROM)
     ))
     .addAnimation("left_wing", new AnimationChannel(AnimationChannel.Targets.ROTATION,
-    new Keyframe(0.0F, KeyframeAnimations.degreeVec(0.0F, 0.0F, -6.5F), AnimationChannel.Interpolations.CATMULLROM),
-    new Keyframe(0.5F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 6.5F), AnimationChannel.Interpolations.CATMULLROM),
-    new Keyframe(1.0F, KeyframeAnimations.degreeVec(0.0F, 0.0F, -6.5F), AnimationChannel.Interpolations.CATMULLROM)
+    new Keyframe(0.0F, KeyframeAnimations.degreeVec(0.0F, 0.0F, -8.0F), AnimationChannel.Interpolations.CATMULLROM),
+    new Keyframe(0.5F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 8.0F), AnimationChannel.Interpolations.CATMULLROM),
+    new Keyframe(1.0F, KeyframeAnimations.degreeVec(0.0F, 0.0F, -8.0F), AnimationChannel.Interpolations.CATMULLROM)
     ))
     .addAnimation("left_wing", new AnimationChannel(AnimationChannel.Targets.POSITION,
     new Keyframe(0.0F, KeyframeAnimations.posVec(-1.0F, 0.5F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
@@ -64,9 +64,9 @@ public class FleshSentinelModel<T extends FleshSentinel> extends HierarchicalMod
     new Keyframe(1.0F, KeyframeAnimations.posVec(-1.0F, 0.5F, 0.0F), AnimationChannel.Interpolations.CATMULLROM)
     ))
     .addAnimation("right_wing", new AnimationChannel(AnimationChannel.Targets.ROTATION,
-    new Keyframe(0.0F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 6.5F), AnimationChannel.Interpolations.CATMULLROM),
-    new Keyframe(0.5F, KeyframeAnimations.degreeVec(0.0F, 0.0F, -6.5F), AnimationChannel.Interpolations.CATMULLROM),
-    new Keyframe(1.0F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 6.5F), AnimationChannel.Interpolations.CATMULLROM)
+    new Keyframe(0.0F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 8.0F), AnimationChannel.Interpolations.CATMULLROM),
+    new Keyframe(0.5F, KeyframeAnimations.degreeVec(0.0F, 0.0F, -8.0F), AnimationChannel.Interpolations.CATMULLROM),
+    new Keyframe(1.0F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 8.0F), AnimationChannel.Interpolations.CATMULLROM)
     ))
     .addAnimation("right_wing", new AnimationChannel(AnimationChannel.Targets.POSITION,
     new Keyframe(0.0F, KeyframeAnimations.posVec(1.0F, 0.5F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),

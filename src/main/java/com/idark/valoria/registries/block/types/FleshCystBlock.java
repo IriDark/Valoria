@@ -3,9 +3,10 @@ package com.idark.valoria.registries.block.types;
 import com.idark.valoria.client.render.tile.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.block.entity.*;
-import com.idark.valoria.registries.entity.living.minions.FleshSentinel;
+import com.idark.valoria.registries.entity.living.minions.*;
 import net.minecraft.core.*;
 import net.minecraft.server.level.*;
+import net.minecraft.util.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.projectile.*;
 import net.minecraft.world.level.*;
@@ -33,7 +34,11 @@ public class FleshCystBlock extends BaseEntityBlock{
     private void spawnSentinels(ServerLevel world, BlockPos pos) {
         FleshSentinel sentinel = EntityTypeRegistry.FLESH_SENTINEL.get().create(world);
         if (sentinel != null) {
-            sentinel.moveTo((double) pos.getX() + 0.5D, pos.getY(), (double) pos.getZ() + 1, 0.0F, 0.0F);
+            RandomSource randomsource = world.getRandom();
+            double d0 = (double)pos.getX() + (randomsource.nextDouble() - randomsource.nextDouble()) * 6 + 0.5D;
+            double d1 = pos.getY() + randomsource.nextInt(3) - 1;
+            double d2 = (double)pos.getZ() + (randomsource.nextDouble() - randomsource.nextDouble()) * 6 + 0.5D;
+            sentinel.moveTo(d0, d1, d2, 0.0F, 0.0F);
             sentinel.setBoundOrigin(pos);
             world.addFreshEntity(sentinel);
         }
