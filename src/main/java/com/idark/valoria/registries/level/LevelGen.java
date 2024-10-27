@@ -43,6 +43,8 @@ public class LevelGen {
     public static final RegistryObject<Feature<TaintedRootsConfig>> TAINTED_ROOTS = FEATURES.register("tainted_roots", () -> new TaintedRootsFeature(TaintedRootsConfig.CODEC));
     public static final RegistryObject<Feature<SuspiciousStateConfiguration>> SUSPICIOUS_STATE = FEATURES.register("suspicious_state", () -> new SuspiciousStateFeature(SuspiciousStateConfiguration.CODEC));
     public static final RegistryObject<Feature<NoneFeatureConfiguration>> SUSPICIOUS_ICEBERG = FEATURES.register("suspicious_iceberg", () -> new SuspiciousIcebergFeature(NoneFeatureConfiguration.CODEC));
+    public static final RegistryObject<Feature<FleshConfiguration>> FLESH_FEATURE = FEATURES.register("flesh_corruption", () -> new FleshFeature(FleshConfiguration.CODEC));
+    public static final RegistryObject<Feature<NoneFeatureConfiguration>> VALORIA_MONSTER_ROOM = FEATURES.register("valoria_monster_room", () -> new ValoriaMonsterRoomFeature(NoneFeatureConfiguration.CODEC));
 
     public static ResourceKey<ConfiguredFeature<?, ?>> SHADEWOOD_TREE = registerKey(Registries.CONFIGURED_FEATURE, "shadewood_tree");
     public static ResourceKey<ConfiguredFeature<?, ?>> FANCY_SHADEWOOD_TREE = registerKey(Registries.CONFIGURED_FEATURE, "fancy_shadewood_tree");

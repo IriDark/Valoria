@@ -1,7 +1,7 @@
 {
   "temperature": 0.5,
   "downfall": 0.0,
-  "has_precipitation": false,
+  "has_precipitation": true,
   "effects": {
     "sky_color": 7842047,
     "fog_color": 16039423,
@@ -57,6 +57,10 @@
       "valoria:pyratite_ore",
       "valoria:blackstone",
       "valoria:deep_marble"
+    ],
+    [
+      "valoria:valoria_monster_room",
+      "valoria:valoria_monster_room_deep"
     ],
     [
       "valoria:void_roots",

@@ -4,6 +4,11 @@ import com.idark.valoria.client.render.tile.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.block.entity.*;
 import com.idark.valoria.registries.entity.living.minions.*;
+import com.idark.valoria.util.*;
+import mod.maxbogomol.fluffy_fur.client.particle.*;
+import mod.maxbogomol.fluffy_fur.client.particle.data.*;
+import mod.maxbogomol.fluffy_fur.common.easing.*;
+import mod.maxbogomol.fluffy_fur.registry.client.*;
 import net.minecraft.core.*;
 import net.minecraft.server.level.*;
 import net.minecraft.util.*;
@@ -13,14 +18,18 @@ import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.*;
+import net.minecraft.world.level.block.state.properties.*;
+import net.minecraft.world.level.material.*;
 import net.minecraft.world.phys.*;
 import net.minecraft.world.phys.shapes.*;
 
 import javax.annotation.*;
 
 public class FleshCystBlock extends BaseEntityBlock{
+    private static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public FleshCystBlock(Properties pProperties){
         super(pProperties);
+        this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, Boolean.FALSE));
     }
 
     public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
@@ -29,6 +38,23 @@ public class FleshCystBlock extends BaseEntityBlock{
 
     public RenderShape getRenderShape(BlockState pState) {
         return RenderShape.MODEL;
+    }
+
+    public BlockState updateShape(BlockState pState, Direction pDirection, BlockState pNeighborState, LevelAccessor pLevel, BlockPos pPos, BlockPos pNeighborPos) {
+        if (pState.getValue(WATERLOGGED)) {
+            pLevel.scheduleTick(pPos, Fluids.WATER, Fluids.WATER.getTickDelay(pLevel));
+        }
+
+        return super.updateShape(pState, pDirection, pNeighborState, pLevel, pPos, pNeighborPos);
+    }
+
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
+        super.createBlockStateDefinition(pBuilder);
+        pBuilder.add(WATERLOGGED);
+    }
+
+    public FluidState getFluidState(BlockState pState) {
+        return pState.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(pState);
     }
 
     private void spawnSentinels(ServerLevel world, BlockPos pos) {
@@ -63,44 +89,49 @@ public class FleshCystBlock extends BaseEntityBlock{
         return makeShape();
     }
 
+    public void onDestroy(Level pLevel, BlockPos pPos){
+        if(!pLevel.isClientSide()){
+            for(int i = 0; i < 4; i++){
+                this.spawnSentinels((ServerLevel)pLevel, pPos);
+            }
+        }
+
+        for(int i = 0; i < 25; i++){
+            ParticleBuilder.create(FluffyFurParticles.WISP)
+            .setRenderType(FluffyFurRenderTypes.TRANSLUCENT_PARTICLE)
+            .setColorData(ColorParticleData.create(Pal.kiwi.darker(), Pal.mindaro).build())
+            .setScaleData(GenericParticleData.create(0.425f, 0.075f, 0).setEasing(Easing.QUARTIC_OUT).build())
+            .setLifetime(65)
+            .setGravity(0.0125f)
+            .flatRandomVelocity(0.025, new ArcRandom().randomValueUpTo(0.055), 0.025)
+            .spawn(pLevel, pPos.getCenter().x, pPos.getCenter().y + 0.2, pPos.getCenter().z);
+        }
+    }
+
     @Override
     public void onProjectileHit(Level pLevel, BlockState pState, BlockHitResult pHit, Projectile pProjectile) {
         pLevel.destroyBlock(pHit.getBlockPos(), true);
-        if (!pLevel.isClientSide()) {
-            for(int i = 0; i < 4; i++){
-                this.spawnSentinels((ServerLevel)pLevel, pHit.getBlockPos());
-            }
-        }
+        onDestroy(pLevel, pHit.getBlockPos());
     }
 
     @Override
     public void fallOn(Level pLevel, BlockState pState, BlockPos pPos, Entity pEntity, float pFallDistance) {
         if (pFallDistance > 1f) {
             pLevel.destroyBlock(pPos, false);
-            if (!pLevel.isClientSide()) {
-                for(int i = 0; i < 4; i++){
-                    this.spawnSentinels((ServerLevel)pLevel, pPos);
-                }
-            }
+            onDestroy(pLevel, pPos);
         }
     }
 
     @Override
-    public void destroy(LevelAccessor pLevel, BlockPos pos, BlockState state) {
-        if (!pLevel.isClientSide()) {
-            for(int i = 0; i < 4; i++){
-                this.spawnSentinels((ServerLevel)pLevel, pos);
-            }
+    public void destroy(LevelAccessor pLevel, BlockPos pos, BlockState state){
+        if(pLevel instanceof Level) {
+            onDestroy((Level)pLevel, pos);
         }
     }
 
     @Override
     public void wasExploded(Level pLevel, BlockPos pos, Explosion explosionIn) {
-        if (!pLevel.isClientSide()) {
-            for(int i = 0; i < 4; i++){
-                this.spawnSentinels((ServerLevel)pLevel, pos);
-            }
-        }
+        onDestroy(pLevel, pos);
     }
 
     @Nullable

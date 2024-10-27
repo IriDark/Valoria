@@ -6,7 +6,7 @@
   ],
   "textures": {
     "10": "valoria:block/elemental_manipulator",
-    "particle": "valoria:block/elemental_manipulator"
+    "particle": "valoria:block/elemental_manipulator_bottom"
   },
   "elements": [
     {

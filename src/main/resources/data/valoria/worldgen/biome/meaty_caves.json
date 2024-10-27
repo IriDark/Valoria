@@ -1,35 +1,25 @@
 {
-  "temperature": 0.5,
-  "downfall": 0.0,
+  "temperature": 0.8,
+  "downfall": 0.4,
   "has_precipitation": true,
   "effects": {
-    "sky_color": 7842047,
-    "fog_color": 16039423,
-    "water_color": 7422321,
-    "water_fog_color": 2561575,
-    "grass_color": 9466092,
-    "foliage_color": 11301619,
+    "sky_color": 7907327,
+    "fog_color": 12386304,
+    "water_color": 12386304,
+    "water_fog_color": 12386304,
+    "grass_color": 12386304,
+    "foliage_color": 12386304,
     "mood_sound": {
       "sound": "minecraft:nether_wastet.mood",
-      "tick_delay": 6700,
+      "tick_delay": 6000,
       "block_search_extent": 8,
       "offset": 2
     },
-    "additions_sound": {
-      "sound": "minecraft:ambient.nether_wastes.additions",
-      "tick_chance": 0.0155
-    },
     "music": {
-      "sound": "minecraft:music.nether.nether_wastes",
-      "max_delay": 24000,
+      "sound": "minecraft:music.overworld.deep_dark",
       "min_delay": 12000,
-      "replace_current_music": true
-    },
-    "particle": {
-      "options": {
-        "type": "minecraft:mycelium"
-      },
-      "probability": 0.025
+      "max_delay": 24000,
+      "replace_current_music": false
     }
   },
   "spawners": {
@@ -51,6 +41,14 @@
     ]
   },
   "features": [
+    [],
+    [],
+    [
+      "valoria:valoria_monster_room",
+      "valoria:valoria_monster_room_deep"
+    ],
+    [],
+    [],
     [
       "valoria:wicked_amethyst_ore",
       "valoria:dormant_crystals",
@@ -63,14 +61,17 @@
       "valoria:soulflower",
       "valoria:falseflower",
       "valoria:falseflower_small",
-      "valoria:void_serpents",
       "valoria:void_taint",
-      "valoria:abyssal_glowfern",
-      "valoria:violet_sprout",
-      "valoria:glow_violet_sprout",
-      "valoria:void_taint_lantern",
       "valoria:patch_voidvine",
       "valoria:tainted_roots"
+    ],
+    [
+      "valoria:blood_vein",
+      "valoria:flesh_corruption"
+    ],
+    [],
+    [
+      "minecraft:glow_lichen"
     ]
   ]
 }

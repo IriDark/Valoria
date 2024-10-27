@@ -1,0 +1,12 @@
+{
+  "type": "valoria:flesh_corruption",
+  "config": {
+    "charge_count": 10,
+    "amount_per_charge": 32,
+    "spread_attempts": 64,
+    "growth_rounds": 0,
+    "spread_rounds": 1,
+    "extra_rare_growths": 0,
+    "catalyst_chance": 0.5
+  }
+}

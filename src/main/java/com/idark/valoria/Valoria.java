@@ -290,7 +290,6 @@ public class Valoria {
             generator.addProvider(event.includeServer(), LootTableGen.create(packOutput));
             generator.addProvider(event.includeServer(), new RecipeGen(packOutput));
             generator.addProvider(event.includeClient(), new BlockStateGen(packOutput, existingFileHelper));
-            generator.addProvider(event.includeServer(), new LootModifiersProvider(packOutput));
         }
     }
 }

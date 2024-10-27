@@ -6,22 +6,22 @@
       "bonus_rolls": 0,
       "entries": [
         {
+          "type": "minecraft:item",
+          "name": "minecraft:stick",
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance",
+              "chance": 0.4
+            }
+          ]
+        },
+        {
           "type": "minecraft:alternatives",
           "children": [
             {
               "type": "minecraft:item",
               "name": "valoria:shadewood_branch",
               "conditions": [
-                {
-                  "condition": "minecraft:match_tool",
-                  "predicate": {
-                    "enchantments": [
-                      {
-                        "enchantment": "minecraft:silk_touch"
-                      }
-                    ]
-                  }
-                },
                 {
                   "condition": "minecraft:match_tool",
                   "predicate": {

@@ -1,7 +1,7 @@
 {
   "temperature": 0.4,
   "downfall": 0.0,
-  "has_precipitation": false,
+  "has_precipitation": true,
   "effects": {
     "sky_color": 7842047,
     "fog_color": 12440575,
@@ -45,6 +45,12 @@
     "creature": [],
     "misc": [],
     "monster": [
+      {
+        "type": "minecraft:spider",
+        "weight": 100,
+        "minCount": 4,
+        "maxCount": 4
+      },
       {
         "type": "minecraft:skeleton",
         "weight": 5,

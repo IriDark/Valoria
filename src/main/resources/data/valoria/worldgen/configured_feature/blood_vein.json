@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:multiface_growth",
+  "config": {
+    "block": "valoria:blood_vein",
+    "search_range": 20,
+    "chance_of_spreading": 1,
+    "can_place_on_floor": true,
+    "can_place_on_ceiling": true,
+    "can_place_on_wall": true,
+    "can_be_placed_on": [
+      "valoria:void_stone",
+      "valoria:deep_marble",
+      "valoria:cobbled_shale",
+      "valoria:picrite"
+    ]
+  }
+}
