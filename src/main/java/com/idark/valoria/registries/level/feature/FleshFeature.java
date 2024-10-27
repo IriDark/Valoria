@@ -49,7 +49,7 @@ public class FleshFeature extends Feature<FleshConfiguration>{
             }
 
             BlockPos blockpos2 = blockpos.below();
-            if (randomsource.nextFloat() <= config.catalystChance() && worldgenlevel.getBlockState(blockpos2).isCollisionShapeFullBlock(worldgenlevel, blockpos2)) {
+            if (randomsource.nextFloat() <= config.catalystChance() && worldgenlevel.getBlockState(blockpos2).isCollisionShapeFullBlock(worldgenlevel, blockpos2) && worldgenlevel.getBlockState(blockpos.above()).isAir()) {
                 worldgenlevel.setBlock(blockpos, BlockRegistry.FLESH_CYST.get().defaultBlockState(), 3);
             }
 

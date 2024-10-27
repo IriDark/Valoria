@@ -25,7 +25,7 @@ import net.minecraft.world.phys.shapes.*;
 
 import javax.annotation.*;
 
-public class FleshCystBlock extends BaseEntityBlock{
+public class FleshCystBlock extends BaseEntityBlock implements SimpleWaterloggedBlock{
     private static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public FleshCystBlock(Properties pProperties){
         super(pProperties);
