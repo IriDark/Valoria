@@ -1,0 +1,26 @@
+{
+  "structures": [
+    {
+      "structure": "valoria:monstrosity_spine",
+      "weight": 2
+    },
+    {
+      "structure": "valoria:fractured_skull",
+      "weight": 3
+    },
+    {
+      "structure": "valoria:giant_ribs",
+      "weight": 4
+    },
+    {
+      "structure": "valoria:monstrosity_skull",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 829015412,
+    "spacing": 35,
+    "separation": 20
+  }
+}

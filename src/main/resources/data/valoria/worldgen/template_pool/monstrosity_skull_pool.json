@@ -6,7 +6,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "projection": "rigid",
-        "location": "valoria:fractured_skull",
+        "location": "valoria:monstrosity_skull",
         "processors": "valoria:meat_structures"
       }
     }
