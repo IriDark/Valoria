@@ -1,7 +1,7 @@
 package com.idark.valoria.registries.level.feature;
 
 import com.idark.valoria.registries.*;
-import com.idark.valoria.registries.block.types.*;
+import com.idark.valoria.registries.block.types.plants.*;
 import com.mojang.serialization.*;
 import net.minecraft.core.*;
 import net.minecraft.util.*;

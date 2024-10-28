@@ -36,6 +36,7 @@ public class TagsRegistry {
 
     public static final TagKey<EntityType<?>> MINIONS = entity(new ResourceLocation(Valoria.ID, "minions"));
 
+    public static final TagKey<Block> MEAT = block(new ResourceLocation(Valoria.ID, "meat"));
     public static final TagKey<Block> UNPACK_LOOT = block(new ResourceLocation(Valoria.ID, "unpack_loot"));
     public static final TagKey<Block> KEY_BLOCKS = block(new ResourceLocation(Valoria.ID, "key_blocks"));
     public static final TagKey<Item> ELDRITCH = item(new ResourceLocation(Valoria.ID, "logs/eldritch"));

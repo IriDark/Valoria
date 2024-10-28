@@ -4,7 +4,6 @@ import com.idark.valoria.registries.*;
 import net.minecraft.core.particles.*;
 import net.minecraft.network.protocol.*;
 import net.minecraft.network.protocol.game.*;
-import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.*;
@@ -31,15 +30,6 @@ public class KunaiEntity extends AbstractSupplierProjectile {
         this.setOwner(pShooter);
         if (pShooter instanceof Player) {
             this.pickup = AbstractArrow.Pickup.ALLOWED;
-        }
-    }
-
-    public boolean shouldReturnToThrower() {
-        Entity entity = this.getOwner();
-        if (entity != null && entity.isAlive()) {
-            return !(entity instanceof ServerPlayer) || !entity.isSpectator();
-        } else {
-            return false;
         }
     }
 

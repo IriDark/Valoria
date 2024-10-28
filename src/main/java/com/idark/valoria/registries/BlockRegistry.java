@@ -2,6 +2,7 @@ package com.idark.valoria.registries;
 
 import com.idark.valoria.*;
 import com.idark.valoria.registries.block.types.*;
+import com.idark.valoria.registries.block.types.plants.*;
 import com.idark.valoria.registries.item.types.*;
 import com.idark.valoria.registries.level.tree.*;
 import mod.maxbogomol.fluffy_fur.client.particle.data.*;
@@ -9,6 +10,7 @@ import net.minecraft.*;
 import net.minecraft.core.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.sounds.*;
+import net.minecraft.tags.*;
 import net.minecraft.util.valueproviders.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.item.*;
@@ -683,7 +685,11 @@ public class BlockRegistry {
     public static final RegistryObject<Block> POTTED_BLOODROOT = BLOCK.register("potted_bloodroot",
             () -> new FlowerPotBlock(BLOODROOT.get(), BlockBehaviour.Properties.copy(Blocks.POTTED_POPPY).instabreak().noOcclusion()));
     public static final RegistryObject<Block> RAJUSH = registerBlock("crimson_rajush",
-            () -> new RootsBlock(BlockBehaviour.Properties.copy(Blocks.CRIMSON_ROOTS)));
+            () -> new RootsBlock(BlockBehaviour.Properties.copy(Blocks.CRIMSON_ROOTS)) {
+                protected boolean mayPlaceOn(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
+                    return pState.is(TagsRegistry.MEAT) || pState.is(BlockTags.NYLIUM) || pState.is(Blocks.SOUL_SOIL) || super.mayPlaceOn(pState, pLevel, pPos);
+                }
+            });
     public static final RegistryObject<Block> POTTED_RAJUSH = BLOCK.register("potted_crimson_rajush",
             () -> new FlowerPotBlock(RAJUSH.get(), BlockBehaviour.Properties.copy(Blocks.POTTED_POPPY).instabreak().noOcclusion()));
     public static final RegistryObject<Block> FALSEFLOWER = registerBlock("falseflower",

@@ -55,7 +55,7 @@ public class CorpseCleaverItem extends SwordItem {
                     }
                 } else {
                     OverlayRender.setOverlayTexture(new ResourceLocation(Valoria.ID, "textures/gui/overlay/blood.png"));
-                    OverlayRender.showDashOverlay(35);
+                    OverlayRender.showOverlay(30);
                 }
 
                 playerEntity.awardStat(Stats.ITEM_USED.get(this));

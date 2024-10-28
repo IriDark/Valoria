@@ -1,4 +1,4 @@
-package com.idark.valoria.registries.block.types;
+package com.idark.valoria.registries.block.types.plants;
 
 import com.idark.valoria.registries.*;
 import net.minecraft.core.*;

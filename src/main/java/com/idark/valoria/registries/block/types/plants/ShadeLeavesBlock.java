@@ -1,4 +1,4 @@
-package com.idark.valoria.registries.block.types;
+package com.idark.valoria.registries.block.types.plants;
 
 import com.idark.valoria.client.particle.*;
 import mod.maxbogomol.fluffy_fur.client.particle.data.*;

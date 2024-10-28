@@ -106,9 +106,6 @@ dependencies {
     // RunTime
     runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}+${minecraft_version}")
-    //runtimeOnly fg.deobf("maven.modrinth:epic-fight:20.7.4") // compat, todo: render layers for curios... (someday will be done? no one knows)
-    //runtimeOnly fg.deobf("curse.maven:mutil-351914:4824501")
-    //runtimeOnly fg.deobf("curse.maven:tetra-289712:4857842")
 
     runtimeOnly fg.deobf("maven.modrinth:journeymap:1.20.1-5.10.2-forge")
     runtimeOnly fg.deobf("maven.modrinth:legendary-tooltips:1.4.5") //breaks nbt, fix will be released later by Grend

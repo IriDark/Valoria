@@ -17,7 +17,7 @@ public class OverlayRender {
     public static boolean isUsed = false;
     private static ResourceLocation TEXTURE;
 
-    public static void showDashOverlay(int showTime) {
+    public static void showOverlay(int showTime) {
         if (ClientConfig.ABILITY_OVERLAY.get()) {
             OverlayRender.isUsed = true;
             OverlayRender.showTime = showTime;

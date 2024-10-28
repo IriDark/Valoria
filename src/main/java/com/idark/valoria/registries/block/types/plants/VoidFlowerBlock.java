@@ -1,4 +1,4 @@
-package com.idark.valoria.registries.block.types;
+package com.idark.valoria.registries.block.types.plants;
 
 import com.idark.valoria.registries.*;
 import net.minecraft.core.*;
@@ -19,7 +19,7 @@ public class VoidFlowerBlock extends FlowerBlock {
 
     protected boolean mayPlaceOn(BlockState state, BlockGetter worldIn, BlockPos pos) {
         Block block = state.getBlock();
-        return block == BlockRegistry.VOID_TAINT.get() || block == BlockRegistry.VOID_GRASS.get() || block == BlockRegistry.MEAT_BLOCK.get() || block == BlockRegistry.FLESH_BLOCK.get();
+        return block == BlockRegistry.VOID_TAINT.get() || block == BlockRegistry.VOID_GRASS.get() || state.is(TagsRegistry.MEAT);
     }
 
     @OnlyIn(Dist.CLIENT)

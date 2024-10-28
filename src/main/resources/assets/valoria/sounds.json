@@ -464,7 +464,9 @@
   "item.bag_open.use": {
     "subtitle": "subtitles.valoria.lootbag.open",
     "sounds": [
-      "valoria:bag_open"
+      "valoria:bag/open1",
+      "valoria:bag/open2",
+      "valoria:bag/open3"
     ]
   }
 }

@@ -1,32 +1,21 @@
 package com.idark.valoria.registries.entity.projectile;
 
-import com.idark.valoria.registries.BlockRegistry;
-import com.idark.valoria.registries.DamageSourceRegistry;
-import com.idark.valoria.registries.EntityTypeRegistry;
-import com.idark.valoria.registries.SoundsRegistry;
-import net.minecraft.core.particles.BlockParticleOption;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.Mth;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.projectile.AbstractArrow;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.EntityHitResult;
-import net.minecraft.world.phys.HitResult;
-import net.minecraft.world.phys.Vec3;
+import com.idark.valoria.registries.*;
+import net.minecraft.core.particles.*;
+import net.minecraft.nbt.*;
+import net.minecraft.sounds.*;
+import net.minecraft.util.*;
+import net.minecraft.world.damagesource.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.entity.projectile.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.item.enchantment.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.state.*;
+import net.minecraft.world.phys.*;
 
-import javax.annotation.Nullable;
+import javax.annotation.*;
 
 public class MeatBlockEntity extends AbstractArrow {
     public boolean dealtDamage;
@@ -99,28 +88,26 @@ public class MeatBlockEntity extends AbstractArrow {
     public void onHitEntity(EntityHitResult result) {
         super.onHitEntity(result);
         Entity entity = result.getEntity();
-        int e = EnchantmentHelper.getTagEnchantmentLevel(Enchantments.SHARPNESS, this.thrownStack);
-        float f = 7.5f + (((float) e) - 1.5f);
-        if (entity instanceof LivingEntity livingentity) {
-            f += EnchantmentHelper.getDamageBonus(this.thrownStack, livingentity.getMobType());
-        }
-
         Entity shooter = this.getOwner();
-        DamageSource damagesource = new DamageSource(DamageSourceRegistry.source(level(), DamageSourceRegistry.BLEEDING).typeHolder(), this, (Entity) (shooter == null ? this : shooter));
-        this.dealtDamage = true;
-        if (entity.hurt(damagesource, f)) {
-            if (entity.getType() == EntityType.ENDERMAN) {
-                return;
+        if (shooter instanceof Player player){
+            float totalDamage = (float)(player.getAttributes().getValue(AttributeRegistry.PROJECTILE_DAMAGE.get()));
+            if (entity instanceof LivingEntity livingentity) {
+                totalDamage += EnchantmentHelper.getDamageBonus(this.thrownStack, livingentity.getMobType());
             }
 
-            if (entity instanceof LivingEntity living) {
-                if (shooter instanceof LivingEntity) {
-                    ((LivingEntity) shooter).heal(f * 0.1f);
-                    EnchantmentHelper.doPostHurtEffects(living, shooter);
-                    EnchantmentHelper.doPostDamageEffects((LivingEntity) shooter, living);
+            DamageSource damagesource = new DamageSource(DamageSourceRegistry.source(level(), DamageSourceRegistry.BLEEDING).typeHolder(), this, shooter);
+            player.heal(totalDamage * 0.75f);
+            this.dealtDamage = true;
+            if(entity.hurt(damagesource, totalDamage)){
+                if(entity.getType() == EntityType.ENDERMAN){
+                    return;
                 }
 
-                this.doPostHurtEffects(living);
+                if(entity instanceof LivingEntity living){
+                    EnchantmentHelper.doPostHurtEffects(living, shooter);
+                    EnchantmentHelper.doPostDamageEffects(player, living);
+                    this.doPostHurtEffects(living);
+                }
             }
         }
     }

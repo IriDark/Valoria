@@ -271,7 +271,7 @@ public class KatanaItem extends SwordItem implements CooldownNotifyItem {
             level.playSound(null, player.getOnPos(), dashSound, SoundSource.PLAYERS, 1F, 1F);
             if (level.isClientSide) {
                 OverlayRender.setOverlayTexture(texture);
-                OverlayRender.showDashOverlay(overlayTime);
+                OverlayRender.showOverlay(overlayTime);
             }
         }
     }
