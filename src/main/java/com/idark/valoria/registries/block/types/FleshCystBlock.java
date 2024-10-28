@@ -22,6 +22,7 @@ import net.minecraft.world.level.block.state.properties.*;
 import net.minecraft.world.level.material.*;
 import net.minecraft.world.phys.*;
 import net.minecraft.world.phys.shapes.*;
+import net.minecraftforge.api.distmarker.*;
 
 import javax.annotation.*;
 
@@ -96,6 +97,13 @@ public class FleshCystBlock extends BaseEntityBlock implements SimpleWaterlogged
             }
         }
 
+        if(pLevel.isClientSide()){
+            spawnDestroyParticles(pLevel, pPos);
+        }
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public void spawnDestroyParticles(Level pLevel, BlockPos pPos){
         for(int i = 0; i < 25; i++){
             ParticleBuilder.create(FluffyFurParticles.WISP)
             .setRenderType(FluffyFurRenderTypes.TRANSLUCENT_PARTICLE)
@@ -109,14 +117,14 @@ public class FleshCystBlock extends BaseEntityBlock implements SimpleWaterlogged
     }
 
     @Override
-    public void onProjectileHit(Level pLevel, BlockState pState, BlockHitResult pHit, Projectile pProjectile) {
+    public void onProjectileHit(Level pLevel, BlockState pState, BlockHitResult pHit, Projectile pProjectile){
         pLevel.destroyBlock(pHit.getBlockPos(), true);
         onDestroy(pLevel, pHit.getBlockPos());
     }
 
     @Override
-    public void fallOn(Level pLevel, BlockState pState, BlockPos pPos, Entity pEntity, float pFallDistance) {
-        if (pFallDistance > 1f) {
+    public void fallOn(Level pLevel, BlockState pState, BlockPos pPos, Entity pEntity, float pFallDistance){
+        if(pFallDistance > 1f){
             pLevel.destroyBlock(pPos, false);
             onDestroy(pLevel, pPos);
         }
@@ -124,8 +132,8 @@ public class FleshCystBlock extends BaseEntityBlock implements SimpleWaterlogged
 
     @Override
     public void destroy(LevelAccessor pLevel, BlockPos pos, BlockState state){
-        if(pLevel instanceof Level) {
-            onDestroy((Level)pLevel, pos);
+        if(pLevel instanceof Level level) {
+            onDestroy(level, pos);
         }
     }
 

@@ -2,7 +2,11 @@
   "structures": [
     {
       "structure": "valoria:crypt",
-      "weight": 1
+      "weight": 2
+    },
+    {
+      "structure": "valoria:fractured_skull",
+      "weight": 3
     },
     {
       "structure": "valoria:medium_crypt",
@@ -10,11 +14,11 @@
     },
     {
       "structure": "valoria:crystallized_deep_ruins",
-      "weight": 1
+      "weight": 2
     },
     {
       "structure": "valoria:small_ruin",
-      "weight": 1
+      "weight": 3
     }
   ],
   "placement": {

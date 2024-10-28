@@ -1,0 +1,33 @@
+{
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "valoria:fractured_skull",
+        "processors": [
+          {
+            "processor_type": "minecraft:rule",
+            "rules": [
+              {
+                "location_predicate": {
+                  "predicate_type": "minecraft:random_block_match",
+                  "block": "minecraft:bone_block",
+                  "probability": 0.26
+                },
+                "input_predicate": {
+                  "predicate_type": "minecraft:always_true"
+                },
+                "output_state": {
+                  "Name": "valoria:meat_block"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

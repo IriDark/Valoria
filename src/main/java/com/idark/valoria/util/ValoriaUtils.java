@@ -7,7 +7,6 @@ import com.idark.valoria.registries.entity.living.*;
 import com.idark.valoria.registries.item.types.*;
 import com.idark.valoria.registries.item.types.curio.charm.*;
 import com.idark.valoria.registries.item.types.ranged.*;
-import com.mojang.datafixers.util.*;
 import mod.maxbogomol.fluffy_fur.common.itemskin.*;
 import net.minecraft.*;
 import net.minecraft.core.*;
@@ -715,6 +714,7 @@ public class ValoriaUtils {
         }
     }
 
+    @SuppressWarnings("removal")
     public static boolean onePerTypeEquip(SlotContext slotContext, ItemStack stack) {
         List<ItemStack> items = new ArrayList<>();
         List<SlotResult> curioSlots = CuriosApi.getCuriosHelper().findCurios(slotContext.getWearer(), stack.getItem());

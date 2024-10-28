@@ -168,6 +168,7 @@ public class JewelryBagScreen extends Screen {
         return (float) Math.sqrt(Math.pow(width / 2 - X, 2) + Math.pow(height / 2 - Y, 2));
     }
 
+    @SuppressWarnings("removal")
     public ItemStack getOpenedBag() {
         Player player = minecraft.player;
         List<SlotResult> curioSlots = CuriosApi.getCuriosHelper().findCurios(player, (i) -> true);

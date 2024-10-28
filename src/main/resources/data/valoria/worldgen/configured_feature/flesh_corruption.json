@@ -7,6 +7,6 @@
     "growth_rounds": 0,
     "spread_rounds": 1,
     "extra_rare_growths": 0,
-    "catalyst_chance": 0.5
+    "catalyst_chance": 0.25
   }
 }

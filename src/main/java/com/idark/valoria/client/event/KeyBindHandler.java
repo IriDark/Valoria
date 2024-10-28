@@ -1,21 +1,18 @@
 package com.idark.valoria.client.event;
 
-import com.idark.valoria.ValoriaClient;
-import com.idark.valoria.client.ui.screen.JewelryBagScreen;
-import com.idark.valoria.registries.item.types.curio.JewelryBagItem;
-import net.minecraft.client.Minecraft;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.InputEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import top.theillusivec4.curios.api.CuriosApi;
-import top.theillusivec4.curios.api.SlotResult;
+import com.idark.valoria.*;
+import com.idark.valoria.client.ui.screen.*;
+import com.idark.valoria.registries.item.types.curio.*;
+import net.minecraft.client.*;
+import net.minecraft.network.chat.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.item.*;
+import net.minecraftforge.api.distmarker.*;
+import net.minecraftforge.client.event.*;
+import net.minecraftforge.eventbus.api.*;
+import top.theillusivec4.curios.api.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @OnlyIn(Dist.CLIENT)
 public class KeyBindHandler {
@@ -29,6 +26,7 @@ public class KeyBindHandler {
         }
     }
 
+    @SuppressWarnings("removal")
     public static void jewelryBagMenu() {
         Minecraft mc = Minecraft.getInstance();
         Player player = mc.player;

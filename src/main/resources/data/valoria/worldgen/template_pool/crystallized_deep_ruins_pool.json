@@ -7,7 +7,7 @@
         "element_type": "minecraft:single_pool_element",
         "projection": "rigid",
         "location": "valoria:crystallized_deep_ruins",
-        "processors": "minecraft:housing"
+        "processors": "minecraft:empty"
       }
     }
   ]
