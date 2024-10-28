@@ -1,14 +1,13 @@
 package com.idark.valoria.registries.item.types;
 
 import com.idark.valoria.client.particle.*;
+import com.idark.valoria.core.network.*;
+import com.idark.valoria.core.network.packets.particle.*;
 import com.idark.valoria.registries.entity.projectile.*;
 import com.idark.valoria.registries.item.types.builders.*;
 import com.idark.valoria.util.*;
-import mod.maxbogomol.fluffy_fur.client.particle.*;
-import mod.maxbogomol.fluffy_fur.client.particle.data.*;
-import mod.maxbogomol.fluffy_fur.common.easing.*;
-import mod.maxbogomol.fluffy_fur.registry.client.*;
 import net.minecraft.core.*;
+import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
 import net.minecraft.util.*;
 import net.minecraft.world.entity.*;
@@ -25,10 +24,6 @@ import java.lang.Math;
 import java.util.*;
 
 public class BeastScytheItem extends ScytheItem {
-    public BeastScytheItem(Tier tier, int attackDamageIn, float attackSpeedIn, Item.Properties builderIn) {
-        super(tier, attackDamageIn, attackSpeedIn, builderIn);
-    }
-
     public BeastScytheItem(Builder builderIn) {
         super(builderIn);
     }
@@ -83,16 +78,10 @@ public class BeastScytheItem extends ScytheItem {
             blockpos = blockpos.below();
         } while (blockpos.getY() >= Mth.floor(pMinY) - 1);
         if (flag) {
-            ParticleBuilder.create(ParticleRegistry.SMOKE)
-            .setRenderType(FluffyFurRenderTypes.TRANSLUCENT_PARTICLE)
-            .setColorData(ColorParticleData.create(ColorUtil.valueOf("66b4a3"), Pal.vividGreen).setEasing(Easing.BOUNCE_IN).build())
-            .setTransparencyData(GenericParticleData.create().setRandomValue(1, 0.0f).setEasing(Easing.CUBIC_OUT).build())
-            .setScaleData(GenericParticleData.create(0.7f, 0.4f, 0f).build())
-            .setLifetime(95 + level.random.nextInt(100))
-            .randomVelocity(0.05, 0.15, 0.05)
-            .randomOffset(0.025f)
-            .spawn(level, pX, (double) blockpos.getY() + d0, pZ);
-            level.addFreshEntity(new Devourer(level, pX, (double) blockpos.getY() + d0, pZ, pYRot, pWarmupDelay, null));
+            if (level instanceof ServerLevel server) {
+                PacketHandler.sendToTracking(server, blockpos, new BeastAttackParticlePacket(pX, (double) blockpos.getY() + d0, pZ, ColorUtil.valueOf("66b4a3")));
+                server.addFreshEntity(new Devourer(server, pX, (double) blockpos.getY() + d0, pZ, pYRot, pWarmupDelay, null));
+            }
         }
     }
 

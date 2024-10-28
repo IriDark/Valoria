@@ -44,6 +44,7 @@ public final class PacketHandler {
 
     public static void init() {
         int id = 0;
+        HANDLER.registerMessage(id++, BeastAttackParticlePacket.class, BeastAttackParticlePacket::encode, BeastAttackParticlePacket::decode, BeastAttackParticlePacket::handle);
         HANDLER.registerMessage(id++, CystSummonParticlePacket.class, CystSummonParticlePacket::encode, CystSummonParticlePacket::decode, CystSummonParticlePacket::handle);
         HANDLER.registerMessage(id++, MinionSummonParticlePacket.class, MinionSummonParticlePacket::encode, MinionSummonParticlePacket::decode, MinionSummonParticlePacket::handle);
         HANDLER.registerMessage(id++, SoulCollectParticlePacket.class, SoulCollectParticlePacket::encode, SoulCollectParticlePacket::decode, SoulCollectParticlePacket::handle);

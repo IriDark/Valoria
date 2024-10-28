@@ -123,8 +123,8 @@ public class MeatBlockEntity extends AbstractArrow {
 
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-        if (compound.contains("meat", 10)) {
-            this.thrownStack = ItemStack.of(compound.getCompound("meat"));
+        if (compound.contains("thrown", 10)) {
+            this.thrownStack = ItemStack.of(compound.getCompound("thrown"));
         }
 
         this.dealtDamage = compound.getBoolean("DealtDamage");
@@ -132,7 +132,7 @@ public class MeatBlockEntity extends AbstractArrow {
 
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
-        compound.put("meat", this.thrownStack.save(new CompoundTag()));
+        compound.put("thrown", this.thrownStack.save(new CompoundTag()));
     }
 
     public void tickDespawn() {

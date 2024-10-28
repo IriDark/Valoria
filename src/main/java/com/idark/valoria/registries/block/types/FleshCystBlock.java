@@ -149,7 +149,7 @@ public class FleshCystBlock extends BaseEntityBlock implements SimpleWaterlogged
 
     @Override
     public int getExpDrop(BlockState state, net.minecraft.world.level.LevelReader world, net.minecraft.util.RandomSource randomSource, BlockPos pos, int fortune, int silktouch) {
-        return 15 + randomSource.nextInt(15) + randomSource.nextInt(15);
+        return 15 + randomSource.nextInt(25);
     }
 }
 

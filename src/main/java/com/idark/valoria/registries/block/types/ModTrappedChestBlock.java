@@ -13,7 +13,6 @@ import net.minecraft.world.level.block.state.*;
 import javax.annotation.*;
 import java.util.function.*;
 
-@SuppressWarnings("deprecated")
 public class ModTrappedChestBlock extends ChestBlock {
 
     public ModTrappedChestBlock(BlockBehaviour.Properties pProperties, Supplier<BlockEntityType<? extends ChestBlockEntity>> pBlockEntityType) {
