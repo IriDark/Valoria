@@ -8,106 +8,33 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:spider_eye",
+          "weight": 6,
           "functions": [
             {
               "function": "minecraft:set_count",
-              "count": 1,
-              "conditions": [
-                {
-                  "condition": "minecraft:random_chance",
-                  "chance": 0.5
-                }
-              ]
-            },
-            {
-              "function": "minecraft:set_count",
-              "count": 3,
-              "conditions": [
-                {
-                  "condition": "minecraft:random_chance",
-                  "chance": 0.25
-                }
-              ]
-            }
-          ],
-          "conditions": [
-            {
-              "condition": "minecraft:random_chance",
-              "chance": 0.25
+              "count": 3
             }
           ]
         },
         {
           "type": "minecraft:item",
           "name": "minecraft:string",
+          "weight": 8,
           "functions": [
             {
               "function": "minecraft:set_count",
-              "count": 4,
-              "conditions": [
-                {
-                  "condition": "minecraft:random_chance",
-                  "chance": 0.25
-                }
-              ]
-            },
-            {
-              "function": "minecraft:set_count",
-              "count": 2,
-              "conditions": [
-                {
-                  "condition": "minecraft:random_chance",
-                  "chance": 0.5
-                }
-              ]
-            }
-          ],
-          "conditions": [
-            {
-              "condition": "minecraft:random_chance",
-              "chance": 0.35
+              "count": 4
             }
           ]
         },
         {
           "type": "minecraft:item",
           "name": "valoria:spider_fang",
+          "weight": 6,
           "functions": [
             {
               "function": "minecraft:set_count",
-              "count": 3,
-              "conditions": [
-                {
-                  "condition": "minecraft:random_chance",
-                  "chance": 0.2
-                }
-              ]
-            },
-            {
-              "function": "minecraft:set_count",
-              "count": 2,
-              "conditions": [
-                {
-                  "condition": "minecraft:random_chance",
-                  "chance": 0.32
-                }
-              ]
-            },
-            {
-              "function": "minecraft:set_count",
-              "count": 1,
-              "conditions": [
-                {
-                  "condition": "minecraft:random_chance",
-                  "chance": 0.5
-                }
-              ]
-            }
-          ],
-          "conditions": [
-            {
-              "condition": "minecraft:random_chance",
-              "chance": 0.25
+              "count": 4
             }
           ]
         }

@@ -7,20 +7,11 @@
         {
           "type": "minecraft:item",
           "name": "valoria:bone_fragment",
+          "weight": 5,
           "functions": [
             {
               "function": "minecraft:set_count",
-              "count": 1
-            },
-            {
-              "function": "minecraft:set_count",
-              "count": 3,
-              "conditions": [
-                {
-                  "condition": "minecraft:random_chance",
-                  "chance": 0.3
-                }
-              ]
+              "count": 3
             }
           ],
           "conditions": [
@@ -33,20 +24,11 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:rotten_flesh",
+          "weight": 6,
           "functions": [
             {
               "function": "minecraft:set_count",
-              "count": 1
-            },
-            {
-              "function": "minecraft:set_count",
-              "count": 3,
-              "conditions": [
-                {
-                  "condition": "minecraft:random_chance",
-                  "chance": 0.4
-                }
-              ]
+              "count": 4
             }
           ]
         }

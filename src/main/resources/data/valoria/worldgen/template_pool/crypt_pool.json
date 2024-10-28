@@ -7,7 +7,7 @@
         "element_type": "minecraft:single_pool_element",
         "projection": "rigid",
         "location": "valoria:crypt",
-        "processors": "minecraft:empty"
+        "processors": "valoria:crypt_archaeology"
       }
     }
   ]
