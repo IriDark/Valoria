@@ -10,12 +10,10 @@ import net.minecraft.sounds.*;
 import net.minecraft.util.*;
 import net.minecraft.world.damagesource.*;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.ai.control.*;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.*;
 import net.minecraft.world.entity.ai.navigation.*;
-import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.entity.raid.*;
 import net.minecraft.world.level.*;
@@ -34,14 +32,6 @@ public class FleshSentinel extends AbstractMinionEntity {
         super(pEntityType, pLevel);
         this.moveControl = new UndeadMoveControl(this);
         this.xpReward = 3;
-    }
-
-    public static AttributeSupplier.Builder createAttributes() {
-        return Monster.createMonsterAttributes()
-        .add(Attributes.FLYING_SPEED, 0.85)
-        .add(Attributes.FOLLOW_RANGE, 8)
-        .add(Attributes.MAX_HEALTH, 20)
-        .add(Attributes.ATTACK_DAMAGE, 12.5);
     }
 
     protected float getStandingEyeHeight(Pose pPose, EntityDimensions pDimensions) {

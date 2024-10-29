@@ -7,7 +7,6 @@ import net.minecraft.tags.*;
 import net.minecraft.world.*;
 import net.minecraft.world.damagesource.*;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.item.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.level.*;
@@ -24,12 +23,6 @@ public class MannequinEntity extends AbstractDecorationMob implements IForgeEnti
     public MannequinEntity(EntityType<? extends Mob> type, Level worldIn) {
         super(type, worldIn);
         this.setMaxUpStep(0.0F);
-    }
-
-    public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 1)
-                .add(Attributes.KNOCKBACK_RESISTANCE, 1.0D);
     }
 
     @Override

@@ -17,7 +17,6 @@ import net.minecraft.world.entity.ai.control.*;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.*;
 import net.minecraft.world.entity.ai.navigation.*;
-import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.entity.raid.*;
 import net.minecraft.world.item.*;
@@ -35,14 +34,6 @@ public class UndeadEntity extends AbstractMinionEntity {
         super(pEntityType, pLevel);
         this.moveControl = new UndeadMoveControl(this);
         this.xpReward = 3;
-    }
-
-    public static AttributeSupplier.Builder createAttributes() {
-        return Monster.createMonsterAttributes()
-                .add(Attributes.FLYING_SPEED, 0.85)
-                .add(Attributes.FOLLOW_RANGE, 8)
-                .add(Attributes.MAX_HEALTH, 12)
-                .add(Attributes.ATTACK_DAMAGE, 8.25);
     }
 
     protected float getStandingEyeHeight(Pose pPose, EntityDimensions pDimensions) {

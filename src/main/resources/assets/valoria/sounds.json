@@ -52,7 +52,7 @@
     ]
   },
   "block.flesh.step": {
-    "subtitle": "subtitles.block.generic.step",
+    "subtitle": "subtitles.block.generic.footsteps",
     "sounds": [
       "valoria:flesh/step1",
       "valoria:flesh/step2",
@@ -101,7 +101,7 @@
     ]
   },
   "block.tombstone.step": {
-    "subtitle": "subtitles.block.generic.step",
+    "subtitle": "subtitles.block.generic.footsteps",
     "sounds": [
       "valoria:tombstone/step1",
       "valoria:tombstone/step2",
@@ -133,7 +133,7 @@
     ]
   },
   "block.suspicious_tombstone.step": {
-    "subtitle": "subtitles.block.generic.step",
+    "subtitle": "subtitles.block.generic.footsteps",
     "sounds": [
       "valoria:suspicious_tombstone/step1",
       "valoria:suspicious_tombstone/step2",
@@ -166,7 +166,7 @@
     ]
   },
   "block.tombstone_bricks.step": {
-    "subtitle": "subtitles.block.generic.step",
+    "subtitle": "subtitles.block.generic.footsteps",
     "sounds": [
       "valoria:tombstone_bricks/step1",
       "valoria:tombstone_bricks/step2",

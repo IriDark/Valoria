@@ -1,52 +1,34 @@
 package com.idark.valoria.registries.entity.living;
 
-import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.tags.FluidTags;
-import net.minecraft.util.Mth;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.Difficulty;
-import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
+import net.minecraft.core.*;
+import net.minecraft.nbt.*;
+import net.minecraft.sounds.*;
+import net.minecraft.tags.*;
+import net.minecraft.util.*;
+import net.minecraft.world.*;
+import net.minecraft.world.damagesource.*;
+import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.control.MoveControl;
-import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.ai.goal.MoveToBlockGoal;
-import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
-import net.minecraft.world.entity.ai.goal.ZombieAttackGoal;
-import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
-import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
-import net.minecraft.world.entity.ai.util.DefaultRandomPos;
-import net.minecraft.world.entity.animal.IronGolem;
-import net.minecraft.world.entity.animal.Turtle;
-import net.minecraft.world.entity.animal.axolotl.Axolotl;
-import net.minecraft.world.entity.monster.Drowned;
-import net.minecraft.world.entity.monster.Zombie;
-import net.minecraft.world.entity.monster.ZombifiedPiglin;
-import net.minecraft.world.entity.npc.AbstractVillager;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
-import net.minecraft.world.level.pathfinder.Path;
-import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.entity.ai.attributes.*;
+import net.minecraft.world.entity.ai.control.*;
+import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.target.*;
+import net.minecraft.world.entity.ai.navigation.*;
+import net.minecraft.world.entity.ai.util.*;
+import net.minecraft.world.entity.animal.*;
+import net.minecraft.world.entity.animal.axolotl.*;
+import net.minecraft.world.entity.monster.*;
+import net.minecraft.world.entity.npc.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.*;
+import net.minecraft.world.level.pathfinder.*;
+import net.minecraft.world.phys.*;
 
-import javax.annotation.Nullable;
-import java.util.EnumSet;
-import java.util.Random;
+import javax.annotation.*;
+import java.util.*;
 
 public class SwampWandererEntity extends Zombie {
 
@@ -61,16 +43,6 @@ public class SwampWandererEntity extends Zombie {
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
         this.waterNavigation = new WaterBoundPathNavigation(this, pLevel);
         this.groundNavigation = new GroundPathNavigation(this, pLevel);
-    }
-
-    public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 35.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.25D)
-                .add(Attributes.ATTACK_DAMAGE, 11.0D)
-                .add(Attributes.FOLLOW_RANGE, 25.0D)
-                .add(Attributes.KNOCKBACK_RESISTANCE, new Random().nextDouble() * (double) 0.05F)
-                .add(Attributes.SPAWN_REINFORCEMENTS_CHANCE, new Random().nextDouble() * 0.25D + 0.5D);
     }
 
     public static boolean checkDrownedSpawnRules(EntityType<SwampWandererEntity> SwampWandererEntity, ServerLevelAccessor pServerLevel, MobSpawnType pMobSpawnType, BlockPos pPos, RandomSource pRandom) {

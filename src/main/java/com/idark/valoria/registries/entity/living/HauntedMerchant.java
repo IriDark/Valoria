@@ -4,7 +4,6 @@ import com.idark.valoria.registries.entity.ai.goals.*;
 import net.minecraft.core.particles.*;
 import net.minecraft.world.damagesource.*;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.*;
 import net.minecraft.world.entity.ai.navigation.*;
@@ -27,14 +26,6 @@ public class HauntedMerchant extends AbstractHauntedMerchant{
         this.setPathfindingMalus(BlockPathTypes.LAVA, 8.0F);
         this.setPathfindingMalus(BlockPathTypes.DANGER_FIRE, 16.0F);
         this.setPathfindingMalus(BlockPathTypes.DAMAGE_FIRE, -1.0F);
-    }
-
-    public static AttributeSupplier.Builder createAttributes(){
-        return Monster.createMonsterAttributes()
-        .add(Attributes.MOVEMENT_SPEED, 0.25)
-        .add(Attributes.MAX_HEALTH, 40.0D)
-        .add(Attributes.ATTACK_DAMAGE, 6.0D)
-        .add(Attributes.FOLLOW_RANGE, 12.0D);
     }
 
     public void handleEntityEvent(byte pId){

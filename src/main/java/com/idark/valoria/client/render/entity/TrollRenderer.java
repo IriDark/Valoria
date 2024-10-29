@@ -8,17 +8,18 @@ import net.minecraft.client.renderer.entity.*;
 import net.minecraft.resources.*;
 
 public class TrollRenderer extends MobRenderer<Troll, TrollModel<Troll>> {
-    protected static final ResourceLocation TEXTURE = new ResourceLocation(Valoria.ID, "textures/entity/troll.png");
+    protected ResourceLocation texture;
 
-    public TrollRenderer(EntityRendererProvider.Context context) {
+    public TrollRenderer(EntityRendererProvider.Context context, boolean corrupted) {
         super(context, new TrollModel<>(TrollModel.createBodyLayer().bakeRoot()), 0.8F);
+        this.texture = new ResourceLocation(Valoria.ID, corrupted ? "textures/entity/corrupted_troll.png" : "textures/entity/troll.png");
         this.addLayer(new LuminescentLayer.Builder<>(this)
-        .setTexture(new ResourceLocation(Valoria.ID, "textures/entity/troll_eyes_layer.png"))
+        .setTexture(new ResourceLocation(Valoria.ID, corrupted ? "textures/entity/corrupted_troll_eyes.png" : "textures/entity/troll_eyes_layer.png"))
         .build());
     }
 
     @Override
     public ResourceLocation getTextureLocation(Troll pEntity) {
-        return TEXTURE;
+        return texture;
     }
 }

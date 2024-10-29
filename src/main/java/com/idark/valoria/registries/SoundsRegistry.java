@@ -17,7 +17,6 @@ public class SoundsRegistry {
     public static final RegistryObject<SoundEvent> RECHARGE = registerSound("item.recharge.use");
     public static final RegistryObject<SoundEvent> BLAZECHARGE = registerSound("item.blazecharge.use");
     public static final RegistryObject<SoundEvent> ERUPTION = registerSound("item.eruption.use");
-    //public static final RegistryObject<SoundEvent> PIERCE = registerSound("item.pierce.ambient");
     public static final RegistryObject<SoundEvent> DISAPPEAR = registerSound("item.disappear.ambient");
     public static final RegistryObject<SoundEvent> EQUIP_CURSE = registerSound("item.curse.ambient");
     public static final RegistryObject<SoundEvent> REPAIR = registerSound("item.repair.ambient");

@@ -1,27 +1,21 @@
 package com.idark.valoria.registries.entity.living;
 
-import com.idark.valoria.registries.SoundsRegistry;
-import com.idark.valoria.registries.entity.ai.goals.TrollAttackGoal;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.damagesource.DamageSource;
+import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.entity.ai.goals.*;
+import net.minecraft.nbt.*;
+import net.minecraft.sounds.*;
+import net.minecraft.util.*;
+import net.minecraft.world.*;
+import net.minecraft.world.damagesource.*;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
-import net.minecraft.world.entity.ai.goal.RestrictSunGoal;
-import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.target.*;
+import net.minecraft.world.entity.monster.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.pathfinder.*;
 
-import javax.annotation.Nullable;
+import javax.annotation.*;
 
 public class Troll extends Monster {
     public final AnimationState idleAnimationState = new AnimationState();
@@ -33,14 +27,6 @@ public class Troll extends Monster {
         this.setPathfindingMalus(BlockPathTypes.LAVA, 2.0F);
         this.setPathfindingMalus(BlockPathTypes.DAMAGE_OTHER, 4.0F);
         this.setPathfindingMalus(BlockPathTypes.DAMAGE_CAUTIOUS, 4.0F);
-    }
-
-    public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 30.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.185D)
-                .add(Attributes.ATTACK_DAMAGE, 12.0D)
-                .add(Attributes.FOLLOW_RANGE, 20.0D);
     }
 
     @Override

@@ -4,7 +4,7 @@ import com.google.common.collect.*;
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.particle.*;
 import com.idark.valoria.registries.*;
-import com.idark.valoria.registries.entity.living.minions.UndeadEntity;
+import com.idark.valoria.registries.entity.living.minions.*;
 import com.idark.valoria.registries.entity.projectile.*;
 import com.idark.valoria.util.*;
 import net.minecraft.core.*;
@@ -17,7 +17,6 @@ import net.minecraft.world.*;
 import net.minecraft.world.damagesource.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.*;
 import net.minecraft.world.entity.ai.targeting.*;
@@ -52,17 +51,6 @@ public class NecromancerEntity extends AbstractNecromancer {
     public NecromancerEntity(EntityType<? extends NecromancerEntity> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
         this.xpReward = 8;
-    }
-
-    public static AttributeSupplier.Builder createAttributes() {
-        return Monster.createMonsterAttributes()
-                .add(Attributes.MOVEMENT_SPEED, 0.25)
-                .add(Attributes.MAX_HEALTH, 100.0)
-                .add(Attributes.ATTACK_DAMAGE, 10.0)
-                .add(Attributes.FOLLOW_RANGE, 18.0)
-                .add(Attributes.ARMOR, 10)
-                .add(Attributes.ARMOR_TOUGHNESS, 5);
-
     }
 
     protected void registerGoals() {

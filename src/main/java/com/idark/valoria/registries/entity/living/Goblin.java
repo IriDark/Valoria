@@ -1,34 +1,27 @@
 package com.idark.valoria.registries.entity.living;
 
-import com.idark.valoria.registries.SoundsRegistry;
+import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.entity.ai.goals.RemoveBlockGoal;
 import com.idark.valoria.registries.entity.ai.goals.*;
-import com.idark.valoria.util.ArcRandom;
-import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.damagesource.DamageSource;
+import com.idark.valoria.util.*;
+import net.minecraft.core.*;
+import net.minecraft.nbt.*;
+import net.minecraft.sounds.*;
+import net.minecraft.tags.*;
+import net.minecraft.util.*;
+import net.minecraft.world.*;
+import net.minecraft.world.damagesource.*;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
-import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.ai.goal.target.ResetUniversalAngerTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.*;
 import net.minecraft.world.entity.animal.*;
-import net.minecraft.world.entity.monster.Creeper;
-import net.minecraft.world.entity.npc.AbstractVillager;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.BlockAndTintGetter;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.entity.monster.*;
+import net.minecraft.world.entity.npc.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.*;
 
-import javax.annotation.Nullable;
+import javax.annotation.*;
 
 public class Goblin extends AbstractGoblin {
     public final AnimationState idleAnimationState = new AnimationState();
@@ -39,14 +32,6 @@ public class Goblin extends AbstractGoblin {
     public Goblin(EntityType<? extends PathfinderMob> type, Level worldIn) {
         super(type, worldIn);
         this.xpReward = 3;
-    }
-
-    public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 25.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.17D)
-                .add(Attributes.ATTACK_DAMAGE, 5.0D)
-                .add(Attributes.FOLLOW_RANGE, 20.0D);
     }
 
     public boolean doHurtTarget(Entity pEntity) {

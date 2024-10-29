@@ -1,38 +1,26 @@
 package com.idark.valoria.registries.entity.living;
 
-import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.Difficulty;
-import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.core.*;
+import net.minecraft.nbt.*;
+import net.minecraft.sounds.*;
+import net.minecraft.util.*;
+import net.minecraft.world.*;
+import net.minecraft.world.damagesource.*;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
-import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.animal.IronGolem;
-import net.minecraft.world.entity.animal.Turtle;
-import net.minecraft.world.entity.animal.Wolf;
-import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.monster.RangedAttackMob;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.AbstractArrow;
-import net.minecraft.world.entity.projectile.ProjectileUtil;
+import net.minecraft.world.entity.ai.goal.target.*;
+import net.minecraft.world.entity.animal.*;
+import net.minecraft.world.entity.monster.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.entity.projectile.*;
 import net.minecraft.world.item.*;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.*;
 
-import javax.annotation.Nullable;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import javax.annotation.*;
+import java.time.*;
+import java.util.*;
 
 public class DraugrEntity extends Monster implements RangedAttackMob {
     public static List<Item> draugrCanSpawnWith = new ArrayList<>();
@@ -53,16 +41,6 @@ public class DraugrEntity extends Monster implements RangedAttackMob {
         super(pEntityType, pLevel);
         this.reassessWeaponGoal();
         this.xpReward = 5;
-    }
-
-    public static AttributeSupplier.Builder createAttributes() {
-        return Monster.createMonsterAttributes()
-                .add(Attributes.MOVEMENT_SPEED, 0.25)
-                .add(Attributes.MAX_HEALTH, 30.0D)
-                .add(Attributes.ARMOR, 5.0D)
-                .add(Attributes.ARMOR_TOUGHNESS, 2.0D)
-                .add(Attributes.ATTACK_DAMAGE, 15.0D)
-                .add(Attributes.FOLLOW_RANGE, 20.0D);
     }
 
     protected void registerGoals() {

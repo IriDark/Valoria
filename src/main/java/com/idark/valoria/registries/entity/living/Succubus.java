@@ -1,31 +1,26 @@
 package com.idark.valoria.registries.entity.living;
 
-import com.idark.valoria.registries.EffectsRegistry;
-import com.idark.valoria.registries.entity.ai.behaviour.FireRay;
-import com.idark.valoria.registries.entity.ai.brains.SuccubusAI;
-import com.mojang.serialization.Dynamic;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.protocol.game.DebugPackets;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffectInstance;
+import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.entity.ai.behaviour.*;
+import com.idark.valoria.registries.entity.ai.brains.*;
+import com.mojang.serialization.*;
+import net.minecraft.nbt.*;
+import net.minecraft.network.protocol.game.*;
+import net.minecraft.network.syncher.*;
+import net.minecraft.server.level.*;
+import net.minecraft.sounds.*;
+import net.minecraft.world.*;
+import net.minecraft.world.damagesource.*;
+import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.Brain;
-import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.memory.MemoryModuleType;
-import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
-import net.minecraft.world.entity.ai.util.GoalUtils;
-import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
-import org.jetbrains.annotations.Contract;
+import net.minecraft.world.entity.ai.*;
+import net.minecraft.world.entity.ai.memory.*;
+import net.minecraft.world.entity.ai.navigation.*;
+import net.minecraft.world.entity.ai.util.*;
+import net.minecraft.world.entity.monster.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.pathfinder.*;
+import org.jetbrains.annotations.*;
 
 import javax.annotation.Nullable;
 
@@ -78,14 +73,6 @@ public class Succubus extends Monster {
 
     public boolean isAdult() {
         return !this.isBaby();
-    }
-
-    public static AttributeSupplier.Builder createAttributes() {
-        return Monster.createMonsterAttributes()
-                .add(Attributes.MOVEMENT_SPEED, 0.25)
-                .add(Attributes.MAX_HEALTH, 40.0D)
-                .add(Attributes.ATTACK_DAMAGE, 12.0D)
-                .add(Attributes.FOLLOW_RANGE, 12.0D);
     }
 
     @Override

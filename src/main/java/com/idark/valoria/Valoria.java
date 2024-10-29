@@ -21,8 +21,6 @@ import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.block.types.*;
 import com.idark.valoria.registries.entity.ai.sensing.*;
 import com.idark.valoria.registries.entity.living.*;
-import com.idark.valoria.registries.entity.living.decoration.*;
-import com.idark.valoria.registries.entity.living.minions.*;
 import com.idark.valoria.registries.item.recipe.*;
 import com.idark.valoria.registries.item.skins.*;
 import com.idark.valoria.registries.item.types.curio.charm.*;
@@ -56,6 +54,8 @@ import org.slf4j.*;
 import top.theillusivec4.curios.api.client.*;
 
 import java.util.*;
+
+import static com.idark.valoria.registries.EntityStatsRegistry.*;
 
 @Mod(Valoria.ID)
 public class Valoria {
@@ -260,19 +260,19 @@ public class Valoria {
 
         @SubscribeEvent
         public static void registerAttributes(EntityAttributeCreationEvent event){
-            event.put(EntityTypeRegistry.MANNEQUIN.get(), MannequinEntity.createAttributes().build());
-            event.put(EntityTypeRegistry.GOBLIN.get(), Goblin.createAttributes().build());
-            event.put(EntityTypeRegistry.DRAUGR.get(), DraugrEntity.createAttributes().build());
-            event.put(EntityTypeRegistry.NECROMANCER.get(), NecromancerEntity.createAttributes().build());
-            event.put(EntityTypeRegistry.SWAMP_WANDERER.get(), SwampWandererEntity.createAttributes().build());
-            event.put(EntityTypeRegistry.UNDEAD.get(), UndeadEntity.createAttributes().build());
-            event.put(EntityTypeRegistry.SHADEWOOD_SPIDER.get(), ShadewoodSpider.createAttributes().build());
-            event.put(EntityTypeRegistry.SUCCUBUS.get(), Succubus.createAttributes().build());
-            event.put(EntityTypeRegistry.TROLL.get(), Troll.createAttributes().build());
-            event.put(EntityTypeRegistry.CORRUPTED_TROLL.get(), Troll.createAttributes().build());
+            event.put(EntityTypeRegistry.MANNEQUIN.get(), MANNEQUIN);
+            event.put(EntityTypeRegistry.GOBLIN.get(), GOBLIN);
+            event.put(EntityTypeRegistry.DRAUGR.get(), DRAUGR);
+            event.put(EntityTypeRegistry.NECROMANCER.get(), NECROMANCER);
+            event.put(EntityTypeRegistry.SWAMP_WANDERER.get(), SWAMP_WANDERER);
+            event.put(EntityTypeRegistry.UNDEAD.get(), UNDEAD);
+            event.put(EntityTypeRegistry.SHADEWOOD_SPIDER.get(), SHADEWOOD_SPIDER);
+            event.put(EntityTypeRegistry.SUCCUBUS.get(), SUCCUBUS);
+            event.put(EntityTypeRegistry.TROLL.get(), TROLL);
+            event.put(EntityTypeRegistry.CORRUPTED_TROLL.get(), CORRUPTED_TROLL);
 
-            event.put(EntityTypeRegistry.HAUNTED_MERCHANT.get(), HauntedMerchant.createAttributes().build());
-            event.put(EntityTypeRegistry.FLESH_SENTINEL.get(), FleshSentinel.createAttributes().build());
+            event.put(EntityTypeRegistry.HAUNTED_MERCHANT.get(), HAUNTED_MERCHANT);
+            event.put(EntityTypeRegistry.FLESH_SENTINEL.get(), FLESH_SENTINEL);
         }
 
         @SubscribeEvent
