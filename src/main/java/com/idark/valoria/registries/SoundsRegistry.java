@@ -50,6 +50,10 @@ public class SoundsRegistry {
     public static final RegistryObject<SoundEvent> FLESH_STEP = registerSound("block.flesh.step");
     public static final RegistryObject<SoundEvent> FLESH_HIT = registerSound("block.flesh.hit");
     public static final RegistryObject<SoundEvent> FLESH_FALL = registerSound("block.flesh.fall");
+    public static final RegistryObject<SoundEvent> CYST_BREAK = registerSound("block.cyst.break");
+    public static final RegistryObject<SoundEvent> CYST_FALL = registerSound("block.cyst.fall");
+    public static final RegistryObject<SoundEvent> CYST_SPREAD = registerSound("block.cyst.spreads");
+    public static final RegistryObject<SoundEvent> CYST_SUMMON = registerSound("block.cyst.summon");
 
     public static final RegistryObject<SoundEvent> TOMBSTONE_BREAK = registerSound("block.tombstone.break");
     public static final RegistryObject<SoundEvent> TOMBSTONE_HIT = registerSound("block.tombstone.hit");
@@ -82,6 +86,7 @@ public class SoundsRegistry {
     public static final RegistryObject<SoundEvent> HAUNTED_MERCHANT_RANGE = registerSound("mob.haunted_merchant.range_attack");
 
     //SoundType
+    public static final ForgeSoundType CYST = new ForgeSoundType(0.5F, 0.85f, CYST_BREAK, FLESH_STEP, FLESH_PLACE, FLESH_HIT, CYST_FALL);
     public static final ForgeSoundType FLESH = new ForgeSoundType(0.5F, 0.85f, FLESH_BREAK, FLESH_STEP, FLESH_PLACE, FLESH_HIT, FLESH_FALL);
     public static final ForgeSoundType POT = new ForgeSoundType(1.0F, 1.0F, POT_BREAK, POT_STEP, POT_PLACE, () -> SoundEvents.STONE_HIT, () -> SoundEvents.STONE_FALL);
     public static final ForgeSoundType VOID_STONE = new ForgeSoundType(0.75F, 0.87F, VOID_STONE_BREAK, VOID_STONE_STEP, VOID_STONE_PLACE, () -> SoundEvents.NETHER_BRICKS_HIT, () -> SoundEvents.NETHER_BRICKS_FALL);

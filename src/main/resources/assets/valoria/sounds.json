@@ -7,12 +7,48 @@
       "valoria:flesh/break3"
     ]
   },
+  "block.cyst.break": {
+    "subtitle": "subtitles.block.generic.break",
+    "sounds": [
+      "valoria:cyst/break1",
+      "valoria:cyst/break2",
+      "valoria:cyst/break3"
+    ]
+  },
+  "block.cyst.summon": {
+    "subtitle": "subtitles.valoria.cyst.summon",
+    "sounds": [
+      "valoria:cyst/summon1",
+      "valoria:cyst/summon2",
+      "valoria:cyst/summon3"
+    ]
+  },
+  "block.cyst.fall": {
+    "subtitle": "subtitles.block.generic.fall",
+    "sounds": [
+      "valoria:cyst/break1",
+      "valoria:cyst/break2",
+      "valoria:cyst/break3"
+    ]
+  },
+  "block.cyst.spreads": {
+    "subtitle": "subtitles.valoria.cyst.spread",
+    "sounds": [
+      "valoria:cyst/spreads1",
+      "valoria:cyst/spreads2",
+      "valoria:cyst/spreads3",
+      "valoria:cyst/spreads4",
+      "valoria:cyst/spreads5"
+    ]
+  },
   "block.flesh.hit": {
     "subtitle": "subtitles.block.generic.hit",
     "sounds": [
       "valoria:flesh/hit1",
       "valoria:flesh/hit2",
-      "valoria:flesh/hit3"
+      "valoria:flesh/hit3",
+      "valoria:flesh/hit4",
+      "valoria:flesh/hit5"
     ]
   },
   "block.flesh.step": {

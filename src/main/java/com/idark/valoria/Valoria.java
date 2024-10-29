@@ -269,6 +269,8 @@ public class Valoria {
             event.put(EntityTypeRegistry.SHADEWOOD_SPIDER.get(), ShadewoodSpider.createAttributes().build());
             event.put(EntityTypeRegistry.SUCCUBUS.get(), Succubus.createAttributes().build());
             event.put(EntityTypeRegistry.TROLL.get(), Troll.createAttributes().build());
+            event.put(EntityTypeRegistry.CORRUPTED_TROLL.get(), Troll.createAttributes().build());
+
             event.put(EntityTypeRegistry.HAUNTED_MERCHANT.get(), HauntedMerchant.createAttributes().build());
             event.put(EntityTypeRegistry.FLESH_SENTINEL.get(), FleshSentinel.createAttributes().build());
         }

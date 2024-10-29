@@ -37,6 +37,7 @@ public class FleshCystBlockEntity extends BlockEntity implements TickableBlockEn
         }
 
         public void onEntitySpawn(ServerLevel pServerLevel, Entity entity, BlockPos pPos) {
+            pServerLevel.playSound(null, pPos, SoundsRegistry.CYST_SUMMON.get(), SoundSource.BLOCKS, 1, 1);
             PacketHandler.sendToTracking(pServerLevel, pPos, new CystSummonParticlePacket(entity.getId(), pPos));
         }
 

@@ -223,7 +223,7 @@ public class BlockRegistry {
     public static final RegistryObject<Block> FLESH_BLOCK = registerBlock("flesh_block",
             () -> new FleshBlock(BlockBehaviour.Properties.copy(Blocks.STONE).sound(SoundsRegistry.FLESH).mapColor(MapColor.COLOR_RED).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> FLESH_CYST = registerBlock("flesh_cyst",
-            () -> new FleshCystBlock(BlockBehaviour.Properties.copy(Blocks.STONE).sound(SoundsRegistry.FLESH).mapColor(MapColor.COLOR_RED).requiresCorrectToolForDrops()));
+            () -> new FleshCystBlock(BlockBehaviour.Properties.copy(Blocks.STONE).sound(SoundsRegistry.CYST).mapColor(MapColor.COLOR_RED).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> BLOOD_VEIN = registerBlock("blood_vein",
             () -> new BloodVeinBlock(BlockBehaviour.Properties.copy(Blocks.STONE).sound(SoundsRegistry.FLESH).mapColor(MapColor.COLOR_RED).requiresCorrectToolForDrops().noOcclusion()));
 

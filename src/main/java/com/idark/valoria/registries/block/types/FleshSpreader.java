@@ -3,6 +3,7 @@ package com.idark.valoria.registries.block.types;
 import com.google.common.annotations.*;
 import com.google.common.collect.*;
 import com.idark.valoria.core.interfaces.*;
+import com.idark.valoria.registries.*;
 import com.mojang.logging.*;
 import com.mojang.serialization.*;
 import com.mojang.serialization.codecs.*;
@@ -224,7 +225,7 @@ public class FleshSpreader {
                             fleshBehaviour = getBlockBehaviour(blockstate);
                         }
 
-                        pLevel.playSound(null, this.pos, SoundEvents.SCULK_BLOCK_SPREAD, SoundSource.BLOCKS, 1.0F, 1.0F);
+                        pLevel.playSound(null, this.pos, SoundsRegistry.CYST_SPREAD.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
                     }
 
                     this.charge = fleshBehaviour.attemptUseCharge(this, pLevel, pPos, pRandom, pSpreader, pShouldConvertBlocks);

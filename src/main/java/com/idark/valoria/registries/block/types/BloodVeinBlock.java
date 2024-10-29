@@ -95,7 +95,7 @@ public class BloodVeinBlock extends MultifaceBlock implements FleshSpreaderBehav
                     BlockState blockstate2 = new ArcRandom().fiftyFifty() ? BlockRegistry.FLESH_BLOCK.get().defaultBlockState() : BlockRegistry.MEAT_BLOCK.get().defaultBlockState();
                     pLevel.setBlock(blockpos, blockstate2, 3);
                     Block.pushEntitiesUp(blockstate1, blockstate2, pLevel, blockpos);
-                    pLevel.playSound(null, blockpos, SoundEvents.SCULK_BLOCK_SPREAD, SoundSource.BLOCKS, 1.0F, 1.0F);
+                    pLevel.playSound(null, blockpos, SoundsRegistry.CYST_SPREAD.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
                     this.veinSpreader.spreadAll(blockstate2, pLevel, blockpos, pSpreader.isWorldGeneration());
                     Direction direction1 = direction.getOpposite();
 
