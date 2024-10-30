@@ -98,6 +98,7 @@ public class Valoria {
             forgeBus.addListener(OverlayRender::tick);
             forgeBus.addListener(OverlayRender::onDrawScreenPost);
             forgeBus.addListener(OverlayRenderItem::onDrawScreenPost);
+//            forgeBus.addListener(EventPriority.NORMAL, false, CustomizeGuiOverlayEvent.BossEventProgress.class, BossbarRenderer::onBossInfoRender);
             return new Object();
         });
 
@@ -117,6 +118,7 @@ public class Valoria {
      */
     private void clientSetup(final FMLClientSetupEvent event) {
         ValoriaClient.setupMenu();
+        ValoriaClient.initializeBosses();
         event.enqueueWork(() -> {
             LexiconChapters.init();
             BlockEntityRenderers.register(BlockEntitiesRegistry.CHEST_BLOCK_ENTITY.get(), ModChestRender::new);
@@ -239,7 +241,6 @@ public class Valoria {
 
     @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
     public static class RegistryEvents {
-
         @SubscribeEvent
         public static void registerCaps(RegisterCapabilitiesEvent event) {
             event.register(IUnlockable.class);

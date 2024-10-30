@@ -15,6 +15,7 @@
   ],
   "client": [
     "client.AbstractClientPlayerMixin",
+    "client.BossHealthOverlayAccessor",
     "client.LivingEntityRendererMixin",
     "client.PlayerRendererMixin"
   ],

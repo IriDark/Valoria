@@ -34,7 +34,6 @@ public class TrollRenderer extends MobRenderer<Troll, TrollModel<Troll>> {
                 super.render(pEntity, pEntityYaw, pPartialTicks, pPoseStack, pBuffer, pPackedLight);
                 pPoseStack.popPose();
             }
-
         } else {
             super.render(pEntity, pEntityYaw, pPartialTicks, pPoseStack, pBuffer, pPackedLight);
         }

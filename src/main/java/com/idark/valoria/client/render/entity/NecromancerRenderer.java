@@ -5,7 +5,6 @@ import com.idark.valoria.client.event.*;
 import com.idark.valoria.client.model.entity.*;
 import com.idark.valoria.registries.entity.living.AbstractNecromancer.*;
 import com.idark.valoria.registries.entity.living.*;
-import com.idark.valoria.util.*;
 import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.*;
 import mod.maxbogomol.fluffy_fur.registry.client.*;
@@ -13,8 +12,6 @@ import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.entity.*;
 import net.minecraft.resources.*;
 import net.minecraftforge.api.distmarker.*;
-
-import java.awt.*;
 
 @OnlyIn(Dist.CLIENT)
 public class NecromancerRenderer extends HumanoidMobRenderer<NecromancerEntity, NecromancerModel<NecromancerEntity>> {
@@ -51,9 +48,9 @@ public class NecromancerRenderer extends HumanoidMobRenderer<NecromancerEntity, 
             int g = spell.spellColor[1];
             int b = spell.spellColor[2];
 
-            RenderUtils.renderAura(ms, builder, 1, 0.75f, 6, new Color(r, g, b), Color.WHITE, 0.15f * alpha, 0, true, true);
-            RenderUtils.renderAura(ms, builder, 2.5f, 1.25f, 6, new Color(r, g, b), Color.WHITE, 0.25f * alpha, 0, true, true);
-            RenderUtils.renderAura(ms, builder, 0.8f, 0f, 6, new Color(r, g, b), Color.WHITE, 0, alpha, false, true);
+//            RenderUtils.renderAura(ms, builder, 1, 0.75f, 6, new Color(r, g, b), Color.WHITE, 0.15f * alpha, 0, true, true);
+//            RenderUtils.renderAura(ms, builder, 2.5f, 1.25f, 6, new Color(r, g, b), Color.WHITE, 0.25f * alpha, 0, true, true);
+//            RenderUtils.renderAura(ms, builder, 0.8f, 0f, 6, new Color(r, g, b), Color.WHITE, 0, alpha, false, true);
             ms.popPose();
         }
 

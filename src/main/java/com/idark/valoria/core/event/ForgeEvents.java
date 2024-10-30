@@ -14,10 +14,10 @@ import net.minecraftforge.fml.common.*;
 
 import java.util.*;
 
-public class VillagerTrades {
-
+public class ForgeEvents{
     @Mod.EventBusSubscriber(modid = Valoria.ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
     public static class RegistryEvents {
+
 
         @SubscribeEvent
         public static void addTrades(VillagerTradesEvent event) {

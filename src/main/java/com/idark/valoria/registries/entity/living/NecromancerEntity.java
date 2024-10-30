@@ -1,6 +1,7 @@
 package com.idark.valoria.registries.entity.living;
 
 import com.google.common.collect.*;
+import com.idark.valoria.client.ui.bossbars.*;
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.particle.*;
 import com.idark.valoria.registries.*;
@@ -10,6 +11,7 @@ import com.idark.valoria.util.*;
 import net.minecraft.core.*;
 import net.minecraft.core.particles.*;
 import net.minecraft.nbt.*;
+import net.minecraft.network.chat.*;
 import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
 import net.minecraft.util.*;
@@ -41,6 +43,7 @@ import java.util.*;
 
 public class NecromancerEntity extends AbstractNecromancer {
     public ArcRandom arcRandom = new ArcRandom();
+    private final ServerBossBarEvent bossEvent = (ServerBossBarEvent)(new ServerBossBarEvent(this.getDisplayName(), this)).setDarkenScreen(true);
 
     @Nullable
     private Skeleton wololoTarget;
@@ -52,6 +55,30 @@ public class NecromancerEntity extends AbstractNecromancer {
         super(pEntityType, pLevel);
         this.xpReward = 8;
     }
+
+    public void readAdditionalSaveData(CompoundTag pCompound) {
+        super.readAdditionalSaveData(pCompound);
+        if (this.hasCustomName()) {
+            this.bossEvent.setName(this.getDisplayName());
+        }
+
+    }
+
+    public void setCustomName(@Nullable Component pName) {
+        super.setCustomName(pName);
+        this.bossEvent.setName(this.getDisplayName());
+    }
+
+    public void startSeenByPlayer(ServerPlayer pPlayer) {
+        super.startSeenByPlayer(pPlayer);
+        this.bossEvent.addPlayer(pPlayer);
+    }
+
+    public void stopSeenByPlayer(ServerPlayer pPlayer) {
+        super.stopSeenByPlayer(pPlayer);
+        this.bossEvent.removePlayer(pPlayer);
+    }
+
 
     protected void registerGoals() {
         //attack
@@ -84,6 +111,11 @@ public class NecromancerEntity extends AbstractNecromancer {
 
     public @NotNull MobType getMobType() {
         return MobType.UNDEAD;
+    }
+
+    protected void customServerAiStep(){
+        super.customServerAiStep();
+        this.bossEvent.setProgress(this.getHealth() / this.getMaxHealth());
     }
 
     public void rideTick() {

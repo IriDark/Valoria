@@ -14,7 +14,6 @@ import java.util.*;
 
 @OnlyIn(Dist.CLIENT)
 public class PageToast implements Toast {
-
     public static PageToast instance;
     public ResourceLocation TEXTURE = new ResourceLocation(Valoria.ID, "textures/gui/toast.png");
     public boolean pUnlock;

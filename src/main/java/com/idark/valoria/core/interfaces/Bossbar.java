@@ -2,7 +2,7 @@ package com.idark.valoria.core.interfaces;
 
 import net.minecraft.resources.*;
 
-@FunctionalInterface
-public interface TexturedArrow {
+public interface Bossbar{
+    String getName();
     ResourceLocation getTexture();
 }
