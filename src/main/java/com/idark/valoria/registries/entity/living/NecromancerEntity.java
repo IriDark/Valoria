@@ -29,7 +29,6 @@ import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.*;
 import net.minecraft.world.level.*;
-import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.phys.*;
 import net.minecraft.world.phys.shapes.*;
@@ -38,12 +37,11 @@ import org.joml.*;
 
 import javax.annotation.Nullable;
 import java.lang.Math;
-import java.time.*;
 import java.util.*;
 
 public class NecromancerEntity extends AbstractNecromancer {
     public ArcRandom arcRandom = new ArcRandom();
-    private final ServerBossBarEvent bossEvent = (ServerBossBarEvent)(new ServerBossBarEvent(this.getDisplayName(), this)).setDarkenScreen(true);
+    private final ServerBossBarEvent bossEvent = (ServerBossBarEvent)(new ServerBossBarEvent(this.getDisplayName(), "Necromancer")).setDarkenScreen(true);
 
     @Nullable
     private Skeleton wololoTarget;
@@ -133,16 +131,6 @@ public class NecromancerEntity extends AbstractNecromancer {
         this.populateDefaultEquipmentSlots(randomsource, pDifficulty);
         this.populateDefaultEquipmentEnchantments(randomsource, pDifficulty);
         this.setCanPickUpLoot(randomsource.nextFloat() < 0.55F * pDifficulty.getSpecialMultiplier());
-        if (this.getItemBySlot(EquipmentSlot.HEAD).isEmpty()) {
-            LocalDate localdate = LocalDate.now();
-            int i = localdate.getDayOfMonth();
-            int j = localdate.getMonth().getValue();
-            if (j == 10 && i == 31 && randomsource.nextFloat() < 0.25F) {
-                this.setItemSlot(EquipmentSlot.HEAD, new ItemStack(randomsource.nextFloat() < 0.1F ? Blocks.JACK_O_LANTERN : Blocks.CARVED_PUMPKIN));
-                this.armorDropChances[EquipmentSlot.HEAD.getIndex()] = 0.0F;
-            }
-        }
-
         return pSpawnData;
     }
 

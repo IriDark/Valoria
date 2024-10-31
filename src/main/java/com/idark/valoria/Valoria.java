@@ -14,6 +14,7 @@ import com.idark.valoria.core.command.arguments.*;
 import com.idark.valoria.core.conditions.*;
 import com.idark.valoria.core.config.*;
 import com.idark.valoria.core.datagen.*;
+import com.idark.valoria.core.event.*;
 import com.idark.valoria.core.interfaces.*;
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.proxy.*;
@@ -98,7 +99,6 @@ public class Valoria {
             forgeBus.addListener(OverlayRender::tick);
             forgeBus.addListener(OverlayRender::onDrawScreenPost);
             forgeBus.addListener(OverlayRenderItem::onDrawScreenPost);
-//            forgeBus.addListener(EventPriority.NORMAL, false, CustomizeGuiOverlayEvent.BossEventProgress.class, BossbarRenderer::onBossInfoRender);
             return new Object();
         });
 
@@ -109,6 +109,7 @@ public class Valoria {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new Events());
+        MinecraftForge.EVENT_BUS.register(new ForgeClientEvents());
     }
 
     /**
@@ -118,7 +119,6 @@ public class Valoria {
      */
     private void clientSetup(final FMLClientSetupEvent event) {
         ValoriaClient.setupMenu();
-        ValoriaClient.initializeBosses();
         event.enqueueWork(() -> {
             LexiconChapters.init();
             BlockEntityRenderers.register(BlockEntitiesRegistry.CHEST_BLOCK_ENTITY.get(), ModChestRender::new);

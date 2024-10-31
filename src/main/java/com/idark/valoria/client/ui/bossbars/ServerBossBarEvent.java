@@ -1,17 +1,31 @@
 package com.idark.valoria.client.ui.bossbars;
 
+import com.idark.valoria.core.network.*;
+import com.idark.valoria.core.network.packets.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.server.level.*;
-import net.minecraft.world.entity.*;
 
 public class ServerBossBarEvent extends ServerBossEvent {
-    public LivingEntity boss;
-    public ServerBossBarEvent(Component pName, LivingEntity boss) {
-        super(pName, BossBarColor.PURPLE, BossBarOverlay.PROGRESS);
-        this.boss = boss;
+    private String id;
+    public ServerBossBarEvent(Component component, String id) {
+        super(component, BossBarColor.PURPLE, BossBarOverlay.PROGRESS);
+        this.id = id;
     }
 
-    public LivingEntity getEntity(){
-        return boss;
+    public void setRenderType(String id) {
+        if (id != this.id) {
+            this.id = id;
+            PacketHandler.sendToAll(new UpdateBossbarPacket(this.getId(), id));
+        }
+    }
+
+    public void addPlayer(ServerPlayer serverPlayer) {
+        PacketHandler.sendNonLocal(new UpdateBossbarPacket(this.getId(), id), serverPlayer);
+        super.addPlayer(serverPlayer);
+    }
+
+    public void removePlayer(ServerPlayer serverPlayer) {
+        PacketHandler.sendNonLocal(new UpdateBossbarPacket(this.getId(), "empty"), serverPlayer);
+        super.removePlayer(serverPlayer);
     }
 }

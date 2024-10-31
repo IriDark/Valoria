@@ -146,6 +146,7 @@ public class DraugrEntity extends Monster implements RangedAttackMob {
     public void readAdditionalSaveData(CompoundTag pCompound) {
         super.readAdditionalSaveData(pCompound);
         this.reassessWeaponGoal();
+
     }
 
     public void setItemSlot(EquipmentSlot pSlot, ItemStack pStack) {

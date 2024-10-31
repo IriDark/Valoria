@@ -11,6 +11,7 @@ import net.minecraft.world.entity.player.*;
 import net.minecraft.world.level.*;
 import net.minecraftforge.network.*;
 import net.minecraftforge.network.simple.*;
+import net.minecraftforge.server.*;
 
 public final class PacketHandler {
     private static final String PROTOCOL = "10";
@@ -44,6 +45,7 @@ public final class PacketHandler {
 
     public static void init() {
         int id = 0;
+        HANDLER.registerMessage(id++, UpdateBossbarPacket.class, UpdateBossbarPacket::encode, UpdateBossbarPacket::decode, UpdateBossbarPacket::handle);
         HANDLER.registerMessage(id++, BeastAttackParticlePacket.class, BeastAttackParticlePacket::encode, BeastAttackParticlePacket::decode, BeastAttackParticlePacket::handle);
         HANDLER.registerMessage(id++, CystSummonParticlePacket.class, CystSummonParticlePacket::encode, CystSummonParticlePacket::decode, CystSummonParticlePacket::handle);
         HANDLER.registerMessage(id++, MinionSummonParticlePacket.class, MinionSummonParticlePacket::encode, MinionSummonParticlePacket::decode, MinionSummonParticlePacket::handle);
@@ -68,6 +70,16 @@ public final class PacketHandler {
 
     public static void sendTo(ServerPlayer playerMP, Object toSend) {
         HANDLER.sendTo(toSend, playerMP.connection.connection, NetworkDirection.PLAY_TO_CLIENT);
+    }
+
+    public static void sendToAll(Object message) {
+        for (ServerPlayer player : ServerLifecycleHooks.getCurrentServer().getPlayerList().getPlayers()) {
+            sendNonLocal(message, player);
+        }
+    }
+
+    public static void sendNonLocal(Object msg, ServerPlayer player) {
+        HANDLER.sendTo(msg, player.connection.connection, NetworkDirection.PLAY_TO_CLIENT);
     }
 
     public static void sendNonLocal(ServerPlayer playerMP, Object toSend) {
