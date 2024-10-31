@@ -31,7 +31,7 @@ public abstract class AbstractKatanaBuilder<T extends KatanaItem>{
     public int chargeTime = 0;
     public float dashDist = 0.8f;
     public ImmutableList<MobEffectInstance> effects = ImmutableList.of();
-    public ParticleOptions particleOptions;
+    public ParticleOptions particleOptions = ParticleTypes.POOF;
     public AbstractKatanaBuilder(int attackDamageIn, float attackSpeedIn, Properties itemProperties) {
         this.attackDamageIn = attackDamageIn;
         this.attackSpeedIn = attackSpeedIn;

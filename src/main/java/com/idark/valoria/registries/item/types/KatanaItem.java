@@ -48,10 +48,10 @@ public class KatanaItem extends SwordItem implements CooldownNotifyItem {
     public boolean usePacket = false;
     public boolean hasLargeModel = true;
     public Color color;
-    public final ImmutableList<MobEffectInstance> effects;
-    public final Multimap<Attribute, AttributeModifier> defaultModifiers;
+    public ImmutableList<MobEffectInstance> effects;
+    public Multimap<Attribute, AttributeModifier> defaultModifiers;
     public ArcRandom arcRandom = new ArcRandom();
-    private final AttributeModifier dashModifier;
+    public AttributeModifier dashModifier;
     public ResourceLocation texture = new ResourceLocation(Valoria.ID, "textures/gui/overlay/speedlines.png");
     public ParticleOptions particleOptions = ParticleTypes.POOF;
     public SoundEvent dashSound = SoundsRegistry.SWIFTSLICE.get();
