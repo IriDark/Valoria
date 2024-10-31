@@ -628,7 +628,7 @@ public class ValoriaUtils {
                 MutableComponent mutablecomponent = Component.translatable(mobeffectinstance.getDescriptionId());
                 MobEffect mobeffect = mobeffectinstance.getEffect();
                 if (mobeffectinstance.getAmplifier() > 0) {
-                    mutablecomponent = Component.literal(" ").append(Component.translatable("potion.withAmplifier", mutablecomponent, Component.translatable("potion.potency." + mobeffectinstance.getAmplifier())));
+                    mutablecomponent = Component.literal("").append(Component.translatable("potion.withAmplifier", mutablecomponent, Component.translatable("potion.potency." + mobeffectinstance.getAmplifier())));
                 }
 
                 if (!mobeffectinstance.endsWithin(20)) {
@@ -637,8 +637,6 @@ public class ValoriaUtils {
 
                 pTooltips.add(mutablecomponent.withStyle(mobeffect.getCategory().getTooltipFormatting()));
             }
-
-            pTooltips.add(CommonComponents.EMPTY);
         }
     }
 

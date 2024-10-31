@@ -1,6 +1,7 @@
 package com.idark.valoria.registries.item.types.builders;
 
 import com.google.common.collect.*;
+import com.idark.valoria.*;
 import com.idark.valoria.core.enums.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.item.types.*;
@@ -16,7 +17,7 @@ import java.awt.*;
 public abstract class AbstractKatanaBuilder<T extends KatanaItem>{
     public Tier tier = ModItemTier.NONE;
     public Item.Properties itemProperties;
-    public ResourceLocation texture;
+    public ResourceLocation texture = new ResourceLocation(Valoria.ID, "textures/gui/overlay/speedlines.png");;
     public SoundEvent dashSound = SoundsRegistry.SWIFTSLICE.get();
     public SoundEvent cooldownSound = SoundsRegistry.RECHARGE.get();
     public SoundEvent chargedSound;

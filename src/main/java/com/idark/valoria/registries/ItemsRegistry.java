@@ -319,7 +319,7 @@ public class ItemsRegistry {
         diamondRapier = registerItem("diamond_rapier", () -> new SwordItem(Tiers.DIAMOND, 2, -1.5f, new Item.Properties()));
         netheriteRapier = registerItem("netherite_rapier", () -> new SwordItem(Tiers.NETHERITE, 2, -1.5f, new Item.Properties()));
         ironScythe = registerItem("iron_scythe", () -> new ScytheItem(Tiers.IRON, 5, -3.2f, new Item.Properties()));
-        goldenScythe = registerItem("golden_scythe", () -> new ScytheItem(Tiers.GOLD, 5, -3.1f, new Item.Properties()));
+        goldenScythe = registerItem("golden_scythe", () -> new ScytheItem(Tiers.GOLD, 5, -2.9f, new Item.Properties()));
         diamondScythe = registerItem("diamond_scythe", () -> new ScytheItem(Tiers.DIAMOND, 8, -3.0f, new Item.Properties()));
         netheriteScythe = registerItem("netherite_scythe", () -> new ScytheItem(Tiers.NETHERITE, 10, -3.0f, new Item.Properties().fireResistant()));
         beast = registerItem("beast", () -> new BeastScytheItem.Builder(13, -3.2f, new Item.Properties()).setTier(ModItemTier.NONE).setCooldownTime(40, 150).build());
@@ -366,9 +366,7 @@ public class ItemsRegistry {
         infernalHoe = registerItem("infernal_hoe", () -> new HoeItem(ModItemTier.INFERNAL, 0, 0f, new Item.Properties().fireResistant().rarity(RarityRegistry.INFERNAL)));
         infernalBow = registerItem("infernal_bow", () -> new ConfigurableBowItem(EntityTypeRegistry.INFERNAL_ARROW, 4, 3, new Item.Properties().fireResistant().stacksTo(1).durability(1684).rarity(RarityRegistry.INFERNAL)));
         voidEdge = registerItem("void_edge", () -> new SwordItem(ModItemTier.NIHILITY, 10, -2.55f, new Item.Properties().rarity(RarityRegistry.VOID)));
-        voidScythe = registerItem("void_scythe", () -> new ScytheItem(ModItemTier.NIHILITY, 16, -3.0f, new Item.Properties().fireResistant().rarity(RarityRegistry.VOID)){{
-            effects = addEffects(0.5f, new MobEffectInstance(MobEffects.DARKNESS, 90, 0));
-        }});
+        voidScythe = registerItem("void_scythe", () -> new ScytheItem.Builder(16, -3.0f, new Item.Properties().fireResistant().rarity(RarityRegistry.VOID)).setTier(ModItemTier.NIHILITY).setEffects(0.5f, new MobEffectInstance(MobEffects.DARKNESS, 90, 0)).build());
 
         voidPickaxe = registerItem("void_pickaxe", () -> new PickaxeItem(ModItemTier.NIHILITY, 8, -2.8f, new Item.Properties().fireResistant().rarity(RarityRegistry.VOID)));
         voidAxe = registerItem("void_axe", () -> new AxeItem(ModItemTier.NIHILITY, 18f, -2.8f, new Item.Properties().fireResistant().rarity(RarityRegistry.VOID)));
@@ -531,8 +529,8 @@ public class ItemsRegistry {
 
     private static KatanaItem murasamaProps(){
         return new KatanaItem(ModItemTier.SAMURAI, 14, -2.4f, new Item.Properties()){{
-            chargeTime = 20;
-            chargedSound = SoundsRegistry.RECHARGE.get();
+            builder.chargeTime = 20;
+            builder.chargedSound = SoundsRegistry.RECHARGE.get();
         }
 
             public void onUseTick(@NotNull Level worldIn, @NotNull LivingEntity livingEntityIn, @NotNull ItemStack stack, int count) {
@@ -574,9 +572,9 @@ public class ItemsRegistry {
                         List<LivingEntity> detectedEntities = level.getEntitiesOfClass(LivingEntity.class, new AABB(pos.x + X - 0.5D, pos.y + Y - 0.5D, pos.z + Z - 0.5D, pos.x + X + 0.5D, pos.y + Y + 0.5D, pos.z + Z + 0.5D));
                         for(LivingEntity entity : detectedEntities){
                             if(!entity.equals(player)){
-                                entity.hurt(level.damageSources().playerAttack(player), (float)((player.getAttributeValue(Attributes.ATTACK_DAMAGE) * (double)ii) + EnchantmentHelper.getSweepingDamageRatio(player) + EnchantmentHelper.getDamageBonus(stack, entity.getMobType())) * 1.35f);
+                                entity.hurt(level.damageSources().playerAttack(player), (float)((player.getAttributeValue(Attributes.ATTACK_DAMAGE) * ii) + EnchantmentHelper.getSweepingDamageRatio(player) + EnchantmentHelper.getDamageBonus(stack, entity.getMobType())) * 1.35f);
                                 performEffects(entity, player);
-                                ValoriaUtils.chanceEffect(entity, effects, chance, arcRandom);
+                                ValoriaUtils.chanceEffect(entity, builder.effects, builder.chance, arcRandom);
                                 if(!player.isCreative()){
                                     stack.hurtAndBreak(getHurtAmount(detectedEntities), player, (plr) -> plr.broadcastBreakEvent(EquipmentSlot.MAINHAND));
                                 }

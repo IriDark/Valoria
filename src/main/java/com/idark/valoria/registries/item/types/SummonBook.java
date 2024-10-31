@@ -156,7 +156,6 @@ public class SummonBook extends Item {
         super.appendHoverText(stack, world, tooltip, flags);
         tooltip.add(Component.translatable("tooltip.valoria.necromancy").withStyle(ChatFormatting.GRAY));
         if(getDefaultType(stack).is(TagsRegistry.MINIONS)){
-            tooltip.add(Component.empty());
             tooltip.add(Component.translatable("tooltip.valoria.summons", getDefaultType(stack).getDescription()).withStyle(ChatFormatting.GRAY));
         }
     }

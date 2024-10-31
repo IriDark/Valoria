@@ -92,12 +92,12 @@ public class BeastScytheItem extends ScytheItem {
         List<LivingEntity> markEntities = new ArrayList<>();
         ValoriaUtils.radiusHit(level, stack, player, null, hitEntities, pos, 0, player.getRotationVector().y, 3);
         ValoriaUtils.spawnParticlesMark(level, player, markEntities, ParticleRegistry.CHOMP.get(), pos, 0, player.getRotationVector().y, 3);
-        applyCooldown(hitEntities, player);
+        applyCooldown(player, hitEntities.isEmpty() ? builder.minCooldownTime : builder.cooldownTime);
         performSpellCasting(level, player);
         for (LivingEntity entity : hitEntities) {
             entity.hurt(level.damageSources().playerAttack(player), (damage + EnchantmentHelper.getDamageBonus(stack, entity.getMobType())) * 1.35f);
             performEffects(entity, player);
-            ValoriaUtils.chanceEffect(entity, effects, chance, arcRandom);
+            ValoriaUtils.chanceEffect(entity, builder.effects, builder.chance, arcRandom);
             if (!player.isCreative()) {
                 stack.hurtAndBreak(hitEntities.size(), player, (p_220045_0_) -> p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
             }

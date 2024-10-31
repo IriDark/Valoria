@@ -44,11 +44,11 @@ public class InfernalScytheItem extends ScytheItem {
         float radius = (float) player.getAttributeValue(AttributeRegistry.ATTACK_RADIUS.get());
 
         ValoriaUtils.radiusHit(level, player, ParticleTypes.FLAME, hitEntities, pos, 0, player.getRotationVector().y, radius);
-        applyCooldown(hitEntities, player);
+        applyCooldown(player, hitEntities.isEmpty() ? builder.minCooldownTime : builder.cooldownTime);
         for (LivingEntity entity : hitEntities) {
             entity.hurt(level.damageSources().playerAttack(player), (damage + EnchantmentHelper.getDamageBonus(stack, entity.getMobType())) * 1.35f);
             performEffects(entity, player);
-            ValoriaUtils.chanceEffect(entity, effects, chance, arcRandom);
+            ValoriaUtils.chanceEffect(entity, builder.effects, builder.chance, arcRandom);
             if (!player.isCreative()) {
                 stack.hurtAndBreak(hitEntities.size(), player, (p_220045_0_) -> p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
             }
@@ -73,6 +73,6 @@ public class InfernalScytheItem extends ScytheItem {
     public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags) {
         super.appendHoverText(stack, world, tooltip, flags);
         tooltip.add(1, Component.translatable("tooltip.valoria.infernal_scythe", Component.literal(String.format("%.1f%%", 0.07f * 100))).withStyle(ChatFormatting.GRAY));
-        ValoriaUtils.addEffectsTooltip(effects, tooltip, 1, chance);
+        ValoriaUtils.addEffectsTooltip(builder.effects, tooltip, 1, builder.chance);
     }
 }
