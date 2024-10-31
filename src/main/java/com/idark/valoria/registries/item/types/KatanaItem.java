@@ -37,17 +37,15 @@ import static com.idark.valoria.util.ValoriaUtils.addContributorTooltip;
 // todo move to lib
 public class KatanaItem extends SwordItem implements CooldownNotifyItem {
     public AbstractKatanaBuilder<? extends KatanaItem> builder;
-    public AttributeModifier dashModifier;
     public Multimap<Attribute, AttributeModifier> defaultModifiers;
     public ArcRandom arcRandom = new ArcRandom();
     public KatanaItem(AbstractKatanaBuilder<? extends KatanaItem> builderIn) {
         super(builderIn.tier, builderIn.attackDamageIn, builderIn.attackSpeedIn, builderIn.itemProperties);
         this.builder = builderIn;
-        this.dashModifier = new AttributeModifier(BASE_DASH_DISTANCE_UUID, "Tool modifier", builderIn.dashDist, AttributeModifier.Operation.ADDITION);
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
         builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", builderIn.attackDamageIn, AttributeModifier.Operation.ADDITION));
         builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Tool modifier", builderIn.attackSpeedIn, AttributeModifier.Operation.ADDITION));
-        builder.put(AttributeRegistry.DASH_DISTANCE.get(), dashModifier);
+        builder.put(AttributeRegistry.DASH_DISTANCE.get(), new AttributeModifier(BASE_DASH_DISTANCE_UUID, "Tool modifier", builderIn.dashDist, AttributeModifier.Operation.ADDITION));
         this.defaultModifiers = builder.build();
     }
 
