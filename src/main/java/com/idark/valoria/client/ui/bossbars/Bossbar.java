@@ -2,10 +2,12 @@ package com.idark.valoria.client.ui.bossbars;
 
 import com.idark.valoria.*;
 import net.minecraft.resources.*;
+import net.minecraftforge.api.distmarker.*;
 
 import java.util.*;
 
 //todo move to lib
+@OnlyIn(Dist.CLIENT)
 public class Bossbar{
     public static Map<String, Bossbar> bossbars = new HashMap<>();
     static{

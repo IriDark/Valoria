@@ -19,8 +19,10 @@ import net.minecraftforge.fml.common.*;
 import java.util.*;
 
 @Mod.EventBusSubscriber(modid = Valoria.ID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public class ForgeClientEvents{
     private static final ResourceLocation VANILLA_LOC = new ResourceLocation("textures/gui/bars.png");
+
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public void onBossInfoRender(CustomizeGuiOverlayEvent.BossEventProgress ev){
         Minecraft mc = Minecraft.getInstance();
