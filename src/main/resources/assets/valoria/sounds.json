@@ -1,4 +1,20 @@
 {
+  "music.valoria.enduring": {
+     "sounds": [
+       {
+         "name": "valoria:music/enduring",
+         "stream": true
+       }
+     ]
+  },
+  "music.valoria.shaded_lands": {
+    "sounds": [
+      {
+        "name": "valoria:music/shaded_lands",
+        "stream": true
+      }
+    ]
+  },
   "block.flesh.break": {
     "subtitle": "subtitles.block.generic.break",
     "sounds": [

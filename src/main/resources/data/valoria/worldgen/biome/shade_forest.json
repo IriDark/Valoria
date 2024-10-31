@@ -20,7 +20,7 @@
       "tick_chance": 0.0155
     },
     "music": {
-      "sound": "minecraft:music.nether.warped_forest",
+      "sound": "valoria:music.valoria.shaded_lands",
       "max_delay": 24000,
       "min_delay": 12000,
       "replace_current_music": true

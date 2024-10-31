@@ -5,6 +5,7 @@ import net.minecraft.resources.*;
 
 import java.util.*;
 
+//todo move to lib
 public class Bossbar{
     public static Map<String, Bossbar> bossbars = new HashMap<>();
     static{

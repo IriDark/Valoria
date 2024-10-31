@@ -19,6 +19,7 @@ import com.mojang.blaze3d.platform.*;
 import mod.maxbogomol.fluffy_fur.*;
 import mod.maxbogomol.fluffy_fur.client.gui.screen.*;
 import mod.maxbogomol.fluffy_fur.client.render.entity.*;
+import mod.maxbogomol.fluffy_fur.client.sound.*;
 import mod.maxbogomol.fluffy_fur.client.tooltip.*;
 import net.minecraft.client.*;
 import net.minecraft.client.model.geom.*;
@@ -28,6 +29,7 @@ import net.minecraft.client.renderer.entity.*;
 import net.minecraft.client.resources.model.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.resources.*;
+import net.minecraft.sounds.*;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
@@ -57,6 +59,8 @@ public class ValoriaClient {
     public static ModelResourceLocation SPHERE = new ModelResourceLocation(Valoria.ID, "elemental_sphere", "");
     public static ModelResourceLocation CYST = new ModelResourceLocation(Valoria.ID, "cyst", "");
     public static ModelLayerLocation THE_FALLEN_COLLECTOR_ARMOR_LAYER = addLayer(Valoria.ID, "the_fallen_collector_armor_layer");
+    public static final Music ENDURING = new Music(SoundsRegistry.ENDURING.getHolder().get(), 20, 600, true);
+    public static final Music SHADED_LANDS = new Music(SoundsRegistry.SHADED_LANDS.getHolder().get(), 20, 600, true);
 
     public static TheFallenCollectorArmorModel THE_FALLEN_COLLECTOR_ARMOR = null;
 
@@ -206,6 +210,11 @@ public class ValoriaClient {
             event.register(KEG_MODEL);
             event.register(SPHERE);
             event.register(CYST);
+        }
+
+        @SubscribeEvent
+        public static void registerMusicModifiers(FMLClientSetupEvent event){
+            MusicHandler.register(new MusicModifier.Panorama(ENDURING, ValoriaClient.ECOTONE_PANORAMA));
         }
 
         @SubscribeEvent
