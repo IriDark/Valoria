@@ -319,7 +319,7 @@ public class ItemsRegistry {
         diamondRapier = registerItem("diamond_rapier", () -> new SwordItem(Tiers.DIAMOND, 2, -1.5f, new Item.Properties()));
         netheriteRapier = registerItem("netherite_rapier", () -> new SwordItem(Tiers.NETHERITE, 2, -1.5f, new Item.Properties()));
         ironScythe = registerItem("iron_scythe", () -> new ScytheItem(Tiers.IRON, 5, -3.2f, new Item.Properties()));
-        goldenScythe = registerItem("golden_scythe", () -> new ScytheItem(Tiers.GOLD, 5, -2.9f, new Item.Properties()));
+        goldenScythe = registerItem("golden_scythe", () -> new ScytheItem.Builder(5, -3f, new Item.Properties()).setTier(Tiers.GOLD).setAttackCount(2, 4).build());
         diamondScythe = registerItem("diamond_scythe", () -> new ScytheItem(Tiers.DIAMOND, 8, -3.0f, new Item.Properties()));
         netheriteScythe = registerItem("netherite_scythe", () -> new ScytheItem(Tiers.NETHERITE, 10, -3.0f, new Item.Properties().fireResistant()));
         beast = registerItem("beast", () -> new BeastScytheItem.Builder(13, -3.2f, new Item.Properties()).setTier(ModItemTier.NONE).setCooldownTime(40, 150).build());

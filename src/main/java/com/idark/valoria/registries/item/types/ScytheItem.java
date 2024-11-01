@@ -34,6 +34,7 @@ public class ScytheItem extends SwordItem implements ICustomAnimationItem, Coold
     public AbstractScytheBuilder<? extends ScytheItem> builder;
     public final Multimap<Attribute, AttributeModifier> defaultModifiers;
     public final ArcRandom arcRandom = new ArcRandom();
+    public int usageCount;
     public ScytheItem(AbstractScytheBuilder<? extends ScytheItem> builderIn) {
         super(builderIn.tier, builderIn.attackDamageIn, builderIn.attackSpeedIn, builderIn.itemProperties);
         this.builder = builderIn;
@@ -103,7 +104,7 @@ public class ScytheItem extends SwordItem implements ICustomAnimationItem, Coold
         float damage = (float) (player.getAttributeValue(Attributes.ATTACK_DAMAGE)) + EnchantmentHelper.getSweepingDamageRatio(player);
         float radius = (float) player.getAttributeValue(AttributeRegistry.ATTACK_RADIUS.get());
         CompoundTag tag = stack.getOrCreateTag();
-        int usageCount = tag.getInt("usageCount");
+        usageCount = tag.getInt("usageCount");
 
         usageCount++;
         tag.putInt("usageCount", usageCount);
@@ -141,10 +142,14 @@ public class ScytheItem extends SwordItem implements ICustomAnimationItem, Coold
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags) {
+    public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags){
         super.appendHoverText(stack, world, tooltip, flags);
         addContributorTooltip(stack, tooltip);
         tooltip.add(Component.translatable("tooltip.valoria.scythe").withStyle(ChatFormatting.GRAY));
+        if(builder.attackUsages > 1){
+            tooltip.add(Component.translatable("tooltip.valoria.usage_count", builder.attackUsages).withStyle(ChatFormatting.GRAY));
+        }
+
         tooltip.add(Component.translatable("tooltip.valoria.rmb").withStyle(ChatFormatting.GREEN));
         ValoriaUtils.addEffectsTooltip(builder.effects, tooltip, 1, builder.chance);
     }

@@ -848,5 +848,6 @@
   "trim_material.valoria.void": "Void Material",
   "upgrade.valoria.elemental_upgrade": "Elemental Upgrade",
   "valoria.jade.openable_with": "Openable with:",
-  "valoria.jade.progress": "Progress:"
+  "valoria.jade.progress": "Progress:",
+  "tooltip.valoria.usage_count": "The ability can be used %s times"
 }
