@@ -618,7 +618,7 @@ public class ValoriaUtils {
         if (!effects.isEmpty()) {
             if (chance > 0 && chance < 1) {
                 pTooltips.add(CommonComponents.EMPTY);
-                pTooltips.add(Component.translatable("tooltip.valoria.with_chance").withStyle(ChatFormatting.GRAY).append(Component.literal(String.format("%.1f%%", chance * 100))));
+                pTooltips.add(Component.translatable("tooltip.valoria.applies_with_chance", String.format("%.1f%%", chance * 100)).withStyle(ChatFormatting.GRAY));
             } else {
                 pTooltips.add(CommonComponents.EMPTY);
                 pTooltips.add(Component.translatable("tooltip.valoria.applies").withStyle(ChatFormatting.GRAY));

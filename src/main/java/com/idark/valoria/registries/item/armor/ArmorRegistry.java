@@ -33,6 +33,16 @@ public class ArmorRegistry implements ArmorMaterial{
         setProtection(6, 12, 10, 5);
     }};
 
+    public static final ArmorRegistry SPIDER = new ArmorRegistry("spider") {{
+        durabilityMultiplier = 68;
+        equipSound = SoundEvents.ARMOR_EQUIP_IRON;
+        toughness = 2.75f;
+        knockbackResistance = 0.12f;
+        enchantmentValue = 14;
+        repairIngredient = () -> Ingredient.of(ItemsRegistry.spiderFang.get());
+        setProtection(8, 14, 12, 6);
+    }};
+
     public static final ArmorRegistry NATURE = new ArmorRegistry("nature") {{
         durabilityMultiplier = 66;
         equipSound = SoundEvents.ARMOR_EQUIP_IRON;

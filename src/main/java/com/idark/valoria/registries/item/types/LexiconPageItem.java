@@ -1,23 +1,17 @@
 package com.idark.valoria.registries.item.types;
 
-import com.idark.valoria.api.unlockable.UnlockUtils;
-import com.idark.valoria.api.unlockable.Unlockable;
-import net.minecraft.ChatFormatting;
-import net.minecraft.network.chat.Component;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.stats.Stats;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.NotNull;
+import com.idark.valoria.api.unlockable.*;
+import net.minecraft.*;
+import net.minecraft.network.chat.*;
+import net.minecraft.sounds.*;
+import net.minecraft.stats.*;
+import net.minecraft.world.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.*;
+import org.jetbrains.annotations.*;
 
-import java.util.List;
+import java.util.*;
 
 public class LexiconPageItem extends Item {
     public Unlockable unlockable;
@@ -46,7 +40,7 @@ public class LexiconPageItem extends Item {
                 return new InteractionResultHolder<>(InteractionResult.SUCCESS, stack);
             } else {
                 world.playSound(null, player.getOnPos(), SoundEvents.PLAYER_BURP, SoundSource.AMBIENT, 0.7f, 0.2f);
-                player.displayClientMessage(Component.translatable("gui.valoria.obtained").withStyle(ChatFormatting.GRAY), true);
+                player.displayClientMessage(Component.translatable("lexicon.valoria.obtained").withStyle(ChatFormatting.GRAY), true);
                 return new InteractionResultHolder<>(InteractionResult.FAIL, stack);
             }
         }

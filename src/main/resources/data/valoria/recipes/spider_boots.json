@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "   ",
+    "/ /",
+    "/ /"
+  ],
+  "key": {
+    "/": {
+      "item": "valoria:spider_fang"
+    }
+  },
+  "result": {
+    "item": "valoria:spider_boots",
+    "count": 1
+  }
+}

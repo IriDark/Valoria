@@ -139,6 +139,14 @@ public class Events{
         if(event.getEntity().hasEffect(EffectsRegistry.STUN.get())){
             event.setCanceled(true);
         }
+
+        for (ItemStack armorPiece : event.getEntity().getArmorSlots()) {
+            if (armorPiece.getItem() instanceof HitEffectArmorItem hitEffect) {
+                if (!event.getEntity().level().isClientSide) {
+                    hitEffect.onAttack(event);
+                }
+            }
+        }
     }
 
     @SubscribeEvent

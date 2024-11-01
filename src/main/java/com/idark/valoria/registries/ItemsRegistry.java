@@ -62,6 +62,7 @@ public class ItemsRegistry {
     // armor
     cobaltHelmet, cobaltChestplate, cobaltLeggings, cobaltBoots,
     samuraiKabuto, samuraiChestplate, samuraiLeggings, samuraiBoots,
+    spiderHelmet, spiderChestplate, spiderLeggings, spiderBoots,
     natureHelmet, natureChestplate, natureLeggings, natureBoots,
     depthHelmet, depthChestplate, depthLeggings, depthBoots,
     infernalHelmet, infernalChestplate, infernalLeggings, infernalBoots,
@@ -166,6 +167,10 @@ public class ItemsRegistry {
         samuraiChestplate = registerItem("samurai_chestplate", () -> new SamuraiArmorItem(ArmorRegistry.SAMURAI, ArmorItem.Type.CHESTPLATE, new Item.Properties()));
         samuraiLeggings = registerItem("samurai_leggings", () -> new SamuraiArmorItem(ArmorRegistry.SAMURAI, ArmorItem.Type.LEGGINGS, new Item.Properties()));
         samuraiBoots = registerItem("samurai_boots", () -> new SamuraiArmorItem(ArmorRegistry.SAMURAI, ArmorItem.Type.BOOTS, new Item.Properties()));
+        spiderHelmet = registerItem("spider_helmet", () -> new HitEffectArmorItem(ArmorRegistry.SPIDER, ArmorItem.Type.HELMET, new Item.Properties(), 0.2f, new MobEffectInstance(MobEffects.WEAKNESS, 20)));
+        spiderChestplate = registerItem("spider_chestplate", () -> new HitEffectArmorItem(ArmorRegistry.SPIDER, ArmorItem.Type.CHESTPLATE, new Item.Properties(), 0.1f, new MobEffectInstance(MobEffects.BLINDNESS, 40)));
+        spiderLeggings = registerItem("spider_leggings", () -> new HitEffectArmorItem(ArmorRegistry.SPIDER, ArmorItem.Type.LEGGINGS, new Item.Properties(), 0.3f, new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 35)));
+        spiderBoots = registerItem("spider_boots", () -> new HitEffectArmorItem(ArmorRegistry.SPIDER, ArmorItem.Type.BOOTS, new Item.Properties(), 0.2f, new MobEffectInstance(MobEffects.CONFUSION, 30)));
 
         // elemental
         natureHelmet = registerEffectArmor("nature_helmet", Type.HELMET, ArmorRegistry.NATURE, new Item.Properties().rarity(RarityRegistry.NATURE));

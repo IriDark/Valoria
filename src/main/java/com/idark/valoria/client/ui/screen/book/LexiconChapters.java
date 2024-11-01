@@ -15,33 +15,33 @@ public class LexiconChapters {
 
     public static void init() {
         MAIN_CHAPTER = new Chapter(
-                "gui.valoria.main.name",
-                new MainPage("gui.valoria.main"),
-                new TextPage("gui.valoria.knowledge")
+                "lexicon.valoria.main.name",
+                new MainPage("lexicon.valoria.main"),
+                new TextPage("lexicon.valoria.knowledge")
                         .withCraftEntry(ItemsRegistry.lexicon.get().getDefaultInstance(), Items.PAPER.getDefaultInstance(), Items.BOOK.getDefaultInstance())
         );
 
         TREASURES_CHAPTER = new Chapter(
-                "gui.valoria.jewelry",
-                new TextPage("gui.valoria.treasures"),
-                new TextPage("gui.valoria.treasure.gems"),
-                new TextPage("gui.valoria.treasure.gems.about")
-                        .withCustomTitle("gui.valoria.treasure.gems.name")
+                "lexicon.valoria.jewelry",
+                new TextPage("lexicon.valoria.treasures"),
+                new TextPage("lexicon.valoria.treasure.gems"),
+                new TextPage("lexicon.valoria.treasure.gems.about")
+                        .withCustomTitle("lexicon.valoria.treasure.gems.name")
         );
 
         MEDICINE_CHAPTER = new Chapter(
-                "gui.valoria.medicine",
-                new TextPage("gui.valoria.medicine")
+                "lexicon.valoria.medicine",
+                new TextPage("lexicon.valoria.medicine")
         );
 
         CRYPT_CHAPTER = new Chapter(
-                "gui.valoria.crypt.name",
-                new TextPage("gui.valoria.crypt")
+                "lexicon.valoria.crypt.name",
+                new TextPage("lexicon.valoria.crypt")
         );
 
-        LEXICON = new Bookmark(0, ItemsRegistry.lexicon.get(), Component.translatable("gui.valoria.main.name"), MAIN_CHAPTER);
-        TREASURES = new Bookmark(1, ItemsRegistry.amethystGem.get(), Component.translatable("gui.valoria.jewelry"), TREASURES_CHAPTER);
-        MEDICINE = new Bookmark(2, ItemsRegistry.aloeBandage.get(), Component.translatable("gui.valoria.medicine.name"), MEDICINE_CHAPTER);
-        CRYPT = new Bookmark(3, ItemsRegistry.cryptPage.get(), Component.translatable("gui.valoria.crypt.name"), CRYPT_CHAPTER, RegisterUnlockables.CRYPT);
+        LEXICON = new Bookmark(0, ItemsRegistry.lexicon.get(), Component.translatable("lexicon.valoria.main.name"), MAIN_CHAPTER);
+        TREASURES = new Bookmark(1, ItemsRegistry.amethystGem.get(), Component.translatable("lexicon.valoria.jewelry"), TREASURES_CHAPTER);
+        MEDICINE = new Bookmark(2, ItemsRegistry.aloeBandage.get(), Component.translatable("lexicon.valoria.medicine.name"), MEDICINE_CHAPTER);
+        CRYPT = new Bookmark(3, ItemsRegistry.cryptPage.get(), Component.translatable("lexicon.valoria.crypt.name"), CRYPT_CHAPTER, RegisterUnlockables.CRYPT);
     }
 }

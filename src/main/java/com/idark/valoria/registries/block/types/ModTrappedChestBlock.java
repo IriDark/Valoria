@@ -29,6 +29,7 @@ public class ModTrappedChestBlock extends ChestBlock {
      * @deprecated call via {@link net.minecraft.world.level.block.state.BlockBehaviour.BlockStateBase#isSignalSource}
      * whenever possible. Implementing/overriding is fine.
      */
+    @Deprecated
     public boolean isSignalSource(BlockState pState) {
         return true;
     }
@@ -37,6 +38,7 @@ public class ModTrappedChestBlock extends ChestBlock {
      * @deprecated call via {@link net.minecraft.world.level.block.state.BlockBehaviour.BlockStateBase#getSignal}
      * whenever possible. Implementing/overriding is fine.
      */
+    @Deprecated
     public int getSignal(BlockState pBlockState, BlockGetter pBlockAccess, BlockPos pPos, Direction pSide) {
         return Mth.clamp(ChestBlockEntity.getOpenCount(pBlockAccess, pPos), 0, 15);
     }
@@ -45,6 +47,7 @@ public class ModTrappedChestBlock extends ChestBlock {
      * @deprecated call via {@link net.minecraft.world.level.block.state.BlockBehaviour.BlockStateBase#getDirectSignal}
      * whenever possible. Implementing/overriding is fine.
      */
+    @Deprecated
     public int getDirectSignal(BlockState pBlockState, BlockGetter pBlockAccess, BlockPos pPos, Direction pSide) {
         return pSide == Direction.UP ? pBlockState.getSignal(pBlockAccess, pPos, pSide) : 0;
     }

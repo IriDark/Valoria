@@ -1,20 +1,17 @@
 package com.idark.valoria.client.ui.screen.book;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.client.ui.screen.book.pages.TextPage;
-import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import org.lwjgl.glfw.GLFW;
+import com.idark.valoria.*;
+import com.idark.valoria.client.ui.screen.book.pages.*;
+import com.mojang.blaze3d.systems.*;
+import net.minecraft.client.*;
+import net.minecraft.client.gui.*;
+import net.minecraft.client.gui.screens.*;
+import net.minecraft.network.chat.*;
+import net.minecraft.resources.*;
+import net.minecraft.sounds.*;
+import net.minecraft.world.item.*;
+import net.minecraftforge.api.distmarker.*;
+import org.lwjgl.glfw.*;
 
 @OnlyIn(Dist.CLIENT)
 public class LexiconGui extends Screen {
@@ -24,7 +21,7 @@ public class LexiconGui extends Screen {
     public static int currentPage = 0;
 
     public LexiconGui() {
-        super(Component.translatable("gui.valoria.main"));
+        super(Component.translatable("lexicon.valoria.main"));
         if (currentChapter == null) {
             currentChapter = LexiconChapters.MAIN_CHAPTER;
         }
@@ -71,7 +68,7 @@ public class LexiconGui extends Screen {
         if (currentChapter.size() >= currentPage + 3) {
             if (mouseX >= guiLeft + 250 && mouseX < guiLeft + 250 + 9 && mouseY >= guiTop + 150 && mouseY < guiTop + 150 + 8) {
                 gui.blit(BACKGROUND, guiLeft + 250, guiTop + 150, 272, 104, 9, 8, 512, 512);
-                renderTooltip(gui, Component.translatable("gui.valoria.next"), guiLeft + 250, guiTop + 150);
+                renderTooltip(gui, Component.translatable("lexicon.valoria.next"), guiLeft + 250, guiTop + 150);
             } else {
                 gui.blit(BACKGROUND, guiLeft + 250, guiTop + 150, 272, 88, 9, 8, 512, 512);
             }
@@ -80,7 +77,7 @@ public class LexiconGui extends Screen {
         if (currentPage > 0) {
             if (mouseX >= guiLeft + 13 && mouseX < guiLeft + 13 + 9 && mouseY >= guiTop + 150 && mouseY < guiTop + 150 + 8) {
                 gui.blit(BACKGROUND, guiLeft + 13, guiTop + 150, 272, 96, 9, 8, 512, 512);
-                renderTooltip(gui, Component.translatable("gui.valoria.back"), guiLeft + 13, guiTop + 150);
+                renderTooltip(gui, Component.translatable("lexicon.valoria.back"), guiLeft + 13, guiTop + 150);
             } else {
                 gui.blit(BACKGROUND, guiLeft + 13, guiTop + 150, 272, 80, 9, 8, 512, 512);
             }

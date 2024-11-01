@@ -18,7 +18,6 @@ public class ForgeEvents{
     @Mod.EventBusSubscriber(modid = Valoria.ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
     public static class RegistryEvents {
 
-
         @SubscribeEvent
         public static void addTrades(VillagerTradesEvent event) {
             Int2ObjectMap<List<net.minecraft.world.entity.npc.VillagerTrades.ItemListing>> trades = event.getTrades();
