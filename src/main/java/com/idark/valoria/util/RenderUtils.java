@@ -3,7 +3,7 @@ package com.idark.valoria.util;
 import com.mojang.blaze3d.platform.*;
 import com.mojang.blaze3d.systems.*;
 import com.mojang.blaze3d.vertex.*;
-import com.mojang.math.*;
+import mod.maxbogomol.fluffy_fur.client.render.*;
 import net.minecraft.client.*;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.entity.*;
@@ -13,7 +13,6 @@ import net.minecraft.util.*;
 import net.minecraft.world.item.*;
 import org.joml.*;
 
-import java.awt.*;
 import java.lang.Math;
 
 public class RenderUtils {
@@ -22,14 +21,10 @@ public class RenderUtils {
      *
      * @author MaxBogomol
      */
-    public static void renderAura(PoseStack mStack, VertexConsumer builder, float radius, float size, int longs, Color color1, Color color2, float alpha1, float alpha2, boolean renderSide, boolean renderFloor) {
-        float r1 = color1.getRed() / 255f;
-        float g1 = color1.getGreen() / 255f;
-        float b1 = color1.getBlue() / 255f;
-
-        float r2 = color2.getRed() / 255f;
-        float g2 = color2.getGreen() / 255f;
-        float b2 = color2.getBlue() / 255f;
+    public static void renderAura(RenderBuilder builder, PoseStack poseStack, float radius, float size, int longs, boolean floor) {
+        Matrix4f last = poseStack.last().pose();
+        RenderBuilder.VertexConsumerActor supplier = builder.getSupplier();
+        VertexConsumer vertexConsumer = builder.getVertexConsumer();
 
         float startU = 0;
         float endU = Mth.PI * 2;
@@ -37,40 +32,43 @@ public class RenderUtils {
         for (int i = 0; i < longs; ++i) {
             float u = i * stepU + startU;
             float un = (i + 1 == longs) ? endU : (i + 1) * stepU + startU;
-            auraPiece(mStack, builder, radius, size, u, r2, g2, b2, alpha2);
-            auraPiece(mStack, builder, radius, 0, u, r1, g2, b1, alpha1);
-            auraPiece(mStack, builder, radius, 0, un, r1, g2, b1, alpha1);
-            auraPiece(mStack, builder, radius, size, un, r2, g2, b2, alpha2);
-            if (renderSide) {
-                auraPiece(mStack, builder, radius, 0, u, r1, g2, b1, alpha1);
-                auraPiece(mStack, builder, radius, size, u, r2, g2, b2, alpha2);
-                auraPiece(mStack, builder, radius, size, un, r2, g2, b2, alpha2);
-                auraPiece(mStack, builder, radius, 0, un, r1, g2, b1, alpha1);
+            Vector3f p0 = new Vector3f((float) Math.cos(u) * radius, 0, (float) Math.sin(u) * radius);
+            Vector3f p1 = new Vector3f((float) Math.cos(un) * radius, 0, (float) Math.sin(un) * radius);
+
+            float textureU = builder.u0;
+            float textureV = builder.v0;
+            float textureUN = builder.u1;
+            float textureVN = builder.v1;
+            if (builder.firstSide) {
+                supplier.placeVertex(vertexConsumer, last, builder, p0.x(), size, p0.z(), builder.r2, builder.g2, builder.b2, builder.a2, textureU, textureVN, builder.l2);
+                supplier.placeVertex(vertexConsumer, last, builder, p1.x(), size, p1.z(), builder.r2, builder.g2, builder.b2, builder.a2, textureUN, textureVN, builder.l2);
+                supplier.placeVertex(vertexConsumer, last, builder, p1.x(), 0, p1.z(), builder.r1, builder.g1, builder.b1, builder.a1, textureUN, textureV, builder.l1);
+                supplier.placeVertex(vertexConsumer, last, builder, p0.x(), 0, p0.z(), builder.r1, builder.g1, builder.b1, builder.a1, textureU, textureV, builder.l1);
             }
 
-            if (renderFloor) {
-                auraPiece(mStack, builder, 0, 0, u, r2, g2, b2, alpha2);
-                auraPiece(mStack, builder, 0, 0, un, r2, g2, b2, alpha2);
-                auraPiece(mStack, builder, radius, 0, u, r1, g1, b1, alpha1);
-                auraPiece(mStack, builder, radius, 0, un, r1, g1, b1, alpha1);
+            if (builder.secondSide) {
+                supplier.placeVertex(vertexConsumer, last, builder, p0.x(), 0, p0.z(), builder.r1, builder.g1, builder.b1, builder.a1, textureUN, textureV, builder.l1);
+                supplier.placeVertex(vertexConsumer, last, builder, p1.x(), 0, p1.z(), builder.r1, builder.g1, builder.b1, builder.a1, textureU, textureV, builder.l1);
+                supplier.placeVertex(vertexConsumer, last, builder, p1.x(), size, p1.z(), builder.r2, builder.g2, builder.b2, builder.a2, textureU, textureVN, builder.l2);
+                supplier.placeVertex(vertexConsumer, last, builder, p0.x(), size, p0.z(), builder.r2, builder.g2, builder.b2, builder.a2, textureUN, textureVN, builder.l2);
+            }
 
-                if (renderSide) {
-                    auraPiece(mStack, builder, 0, 0, un, r2, g2, b2, alpha2);
-                    auraPiece(mStack, builder, 0, 0, u, r2, g2, b2, alpha2);
-                    auraPiece(mStack, builder, radius, 0, un, r1, g1, b1, alpha1);
-                    auraPiece(mStack, builder, radius, 0, u, r1, g1, b1, alpha1);
+            if (floor) {
+                if (builder.firstSide) {
+                    supplier.placeVertex(vertexConsumer, last, builder, 0, 0, 0, builder.r2, builder.g2, builder.b2, builder.a2, textureU, textureVN, builder.l2);
+                    supplier.placeVertex(vertexConsumer, last, builder, 0, 0, 0, builder.r2, builder.g2, builder.b2, builder.a2, textureUN, textureVN, builder.l2);
+                    supplier.placeVertex(vertexConsumer, last, builder, p1.x(), 0, p1.z(), builder.r1, builder.g1, builder.b1, builder.a1, textureUN, textureV, builder.l1);
+                    supplier.placeVertex(vertexConsumer, last, builder, p0.x(), 0, p0.z(), builder.r1, builder.g1, builder.b1, builder.a1, textureU, textureV, builder.l1);
+                }
+
+                if (builder.secondSide) {
+                    supplier.placeVertex(vertexConsumer, last, builder, p0.x(), 0, p0.z(), builder.r1, builder.g1, builder.b1, builder.a1, textureUN, textureV, builder.l1);
+                    supplier.placeVertex(vertexConsumer, last, builder, p1.x(), 0, p1.z(), builder.r1, builder.g1, builder.b1, builder.a1, textureU, textureV, builder.l1);
+                    supplier.placeVertex(vertexConsumer, last, builder, 0, 0, 0, builder.r2, builder.g2, builder.b2, builder.a2, textureU, textureVN, builder.l2);
+                    supplier.placeVertex(vertexConsumer, last, builder, 0, 0, 0, builder.r2, builder.g2, builder.b2, builder.a2, textureUN, textureVN, builder.l2);
                 }
             }
         }
-    }
-
-    public static void auraPiece(PoseStack mStack, VertexConsumer builder, float radius, float size, float angle, float r, float g, float b, float alpha) {
-        mStack.pushPose();
-        mStack.mulPose(Axis.YP.rotationDegrees((float) Math.toDegrees(angle)));
-        mStack.translate(radius, 0, 0);
-        Matrix4f mat = mStack.last().pose();
-        builder.vertex(mat, 0, size, 0).color(r, g, b, alpha).endVertex();
-        mStack.popPose();
     }
 
     /**

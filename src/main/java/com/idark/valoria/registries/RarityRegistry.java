@@ -6,6 +6,7 @@ import static com.idark.valoria.util.Styles.*;
 
 public class RarityRegistry {
     public static final Rarity HALLOWEEN = Rarity.create("halloween", halloween);
+    public static final Rarity SPIDER = Rarity.create("spider", spider);
     public static final Rarity INFERNAL = Rarity.create("infernal", infernal);
     public static final Rarity AQUARIUS = Rarity.create("aquarius", aquarius);
     public static final Rarity NATURE = Rarity.create("nature", nature);

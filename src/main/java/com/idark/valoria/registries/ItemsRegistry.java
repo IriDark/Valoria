@@ -166,11 +166,11 @@ public class ItemsRegistry {
         samuraiKabuto = registerItem("samurai_kabuto", () -> new SamuraiArmorItem(ArmorRegistry.SAMURAI, ArmorItem.Type.HELMET, new Item.Properties()));
         samuraiChestplate = registerItem("samurai_chestplate", () -> new SamuraiArmorItem(ArmorRegistry.SAMURAI, ArmorItem.Type.CHESTPLATE, new Item.Properties()));
         samuraiLeggings = registerItem("samurai_leggings", () -> new SamuraiArmorItem(ArmorRegistry.SAMURAI, ArmorItem.Type.LEGGINGS, new Item.Properties()));
-        samuraiBoots = registerItem("samurai_boots", () -> new SamuraiArmorItem(ArmorRegistry.SAMURAI, ArmorItem.Type.BOOTS, new Item.Properties()));
-        spiderHelmet = registerItem("spider_helmet", () -> new HitEffectArmorItem(ArmorRegistry.SPIDER, ArmorItem.Type.HELMET, new Item.Properties(), 0.2f, new MobEffectInstance(MobEffects.WEAKNESS, 20)));
-        spiderChestplate = registerItem("spider_chestplate", () -> new HitEffectArmorItem(ArmorRegistry.SPIDER, ArmorItem.Type.CHESTPLATE, new Item.Properties(), 0.1f, new MobEffectInstance(MobEffects.BLINDNESS, 40)));
-        spiderLeggings = registerItem("spider_leggings", () -> new HitEffectArmorItem(ArmorRegistry.SPIDER, ArmorItem.Type.LEGGINGS, new Item.Properties(), 0.3f, new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 35)));
-        spiderBoots = registerItem("spider_boots", () -> new HitEffectArmorItem(ArmorRegistry.SPIDER, ArmorItem.Type.BOOTS, new Item.Properties(), 0.2f, new MobEffectInstance(MobEffects.CONFUSION, 30)));
+        samuraiBoots = registerItem("samurai_boots", () -> new SamuraiArmorItem(ArmorRegistry.SAMURAI, ArmorItem.Type.BOOTS, new Item.Properties().rarity(RarityRegistry.SPIDER)));
+        spiderHelmet = registerItem("spider_helmet", () -> new HitEffectArmorItem(ArmorRegistry.SPIDER, ArmorItem.Type.HELMET, new Item.Properties().rarity(RarityRegistry.SPIDER), 0.2f, new MobEffectInstance(MobEffects.WEAKNESS, 20)));
+        spiderChestplate = registerItem("spider_chestplate", () -> new HitEffectArmorItem(ArmorRegistry.SPIDER, ArmorItem.Type.CHESTPLATE, new Item.Properties().rarity(RarityRegistry.SPIDER), 0.1f, new MobEffectInstance(MobEffects.BLINDNESS, 40)));
+        spiderLeggings = registerItem("spider_leggings", () -> new HitEffectArmorItem(ArmorRegistry.SPIDER, ArmorItem.Type.LEGGINGS, new Item.Properties().rarity(RarityRegistry.SPIDER), 0.3f, new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 35)));
+        spiderBoots = registerItem("spider_boots", () -> new HitEffectArmorItem(ArmorRegistry.SPIDER, ArmorItem.Type.BOOTS, new Item.Properties().rarity(RarityRegistry.SPIDER), 0.2f, new MobEffectInstance(MobEffects.CONFUSION, 30)));
 
         // elemental
         natureHelmet = registerEffectArmor("nature_helmet", Type.HELMET, ArmorRegistry.NATURE, new Item.Properties().rarity(RarityRegistry.NATURE));
@@ -337,9 +337,9 @@ public class ItemsRegistry {
         samuraiPoisonedKunai = registerItem("samurai_poisoned_kunai", () -> new KunaiItem(3, -1.9F, new Item.Properties().durability(360), new MobEffectInstance(MobEffects.POISON, 170, 0)));
         samuraiKatana = registerItem("samurai_katana", () -> new KatanaItem(ModItemTier.SAMURAI, 7, -2f, new Item.Properties()));
         samuraiLongBow = registerItem("samurai_long_bow", () -> new ConfigurableBowItem(3, new Item.Properties().stacksTo(1).durability(684)));
-        silkenBlade = registerItem("silken_blade", () -> new HitEffectItem(ModItemTier.NONE, 5, -3.2f, new Item.Properties(), 0.25f, new MobEffectInstance(MobEffects.DARKNESS, 120, 0), new MobEffectInstance(MobEffects.POISON, 45, 0)));
-        silkenWakizashi = registerItem("silken_wakizashi", () -> new KatanaItem.Builder(11, -2.2f, new Item.Properties()).setDashDistance(3).setEffects(0.25f, new MobEffectInstance(MobEffects.DARKNESS, 120, 0), new MobEffectInstance(MobEffects.POISON, 45, 0)).removeLargeModelCheck().build());
-        silkenKunai = registerItem("silken_kunai", () -> new KunaiItem(0, -2.2f, new Item.Properties(), 0.25f, new MobEffectInstance(MobEffects.DARKNESS, 120, 0), new MobEffectInstance(MobEffects.POISON, 60, 1)));
+        silkenBlade = registerItem("silken_blade", () -> new HitEffectItem(ModItemTier.NONE, 5, -3.2f, new Item.Properties().rarity(RarityRegistry.SPIDER), 0.25f, new MobEffectInstance(MobEffects.DARKNESS, 120, 0), new MobEffectInstance(MobEffects.POISON, 45, 0)));
+        silkenWakizashi = registerItem("silken_wakizashi", () -> new KatanaItem.Builder(11, -2.2f, new Item.Properties().rarity(RarityRegistry.SPIDER)).setDashDistance(3).setEffects(0.25f, new MobEffectInstance(MobEffects.DARKNESS, 120, 0), new MobEffectInstance(MobEffects.POISON, 45, 0)).removeLargeModelCheck().build());
+        silkenKunai = registerItem("silken_kunai", () -> new KunaiItem(0, -2.2f, new Item.Properties().rarity(RarityRegistry.SPIDER), 0.25f, new MobEffectInstance(MobEffects.DARKNESS, 120, 0), new MobEffectInstance(MobEffects.POISON, 60, 1)));
 
         pearliumSword = registerItem("pearlium_sword", () -> new SwordItem(ModItemTier.PEARLIUM, 5, -2.6f, new Item.Properties()));
         pearliumPickaxe = registerItem("pearlium_pickaxe", () -> new PickaxeItem(ModItemTier.PEARLIUM, -1, -3f, new Item.Properties()));

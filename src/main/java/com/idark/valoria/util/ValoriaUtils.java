@@ -617,10 +617,8 @@ public class ValoriaUtils {
     public static void addEffectsTooltip(ImmutableList<MobEffectInstance> effects, List<Component> pTooltips, float pDurationFactor, float chance) {
         if (!effects.isEmpty()) {
             if (chance > 0 && chance < 1) {
-                pTooltips.add(CommonComponents.EMPTY);
                 pTooltips.add(Component.translatable("tooltip.valoria.applies_with_chance", String.format("%.1f%%", chance * 100)).withStyle(ChatFormatting.GRAY));
             } else {
-                pTooltips.add(CommonComponents.EMPTY);
                 pTooltips.add(Component.translatable("tooltip.valoria.applies").withStyle(ChatFormatting.GRAY));
             }
 
@@ -637,6 +635,8 @@ public class ValoriaUtils {
 
                 pTooltips.add(mutablecomponent.withStyle(mobeffect.getCategory().getTooltipFormatting()));
             }
+
+            pTooltips.add(CommonComponents.EMPTY);
         }
     }
 

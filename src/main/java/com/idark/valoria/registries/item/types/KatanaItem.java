@@ -35,7 +35,7 @@ import static com.idark.valoria.Valoria.BASE_DASH_DISTANCE_UUID;
 import static com.idark.valoria.util.ValoriaUtils.addContributorTooltip;
 
 // todo move to lib
-public class KatanaItem extends SwordItem implements CooldownNotifyItem {
+public class KatanaItem extends SwordItem implements CooldownNotifyItem, DashItem, CooldownReductionItem {
     public AbstractKatanaBuilder<? extends KatanaItem> builder;
     public Multimap<Attribute, AttributeModifier> defaultModifiers;
     public ArcRandom arcRandom = new ArcRandom();
@@ -124,7 +124,7 @@ public class KatanaItem extends SwordItem implements CooldownNotifyItem {
     public void applyCooldown(Player playerIn) {
         for (Item item : ForgeRegistries.ITEMS) {
             if (item instanceof KatanaItem) {
-                playerIn.getCooldowns().addCooldown(item, builder.cooldownTime);
+                playerIn.getCooldowns().addCooldown(item, builder.cooldownTime - getCooldownReduction(playerIn.getUseItem()));
             }
         }
     }
@@ -164,8 +164,7 @@ public class KatanaItem extends SwordItem implements CooldownNotifyItem {
         double pitch = ((player.getRotationVector().x + 90) * Math.PI) / 180;
         double yaw = ((player.getRotationVector().y + 90) * Math.PI) / 180;
         double dashDistance = getDashDistance(player);
-        Vec3 dir = (player.getViewVector(0.0f).scale(dashDistance));
-        player.push(dir.x, dir.y * 0.25, dir.z);
+        performDash(player, stack, dashDistance);
         double ii = 1D;
         if(level instanceof ServerLevel srv){
             if(!builder.usePacket){

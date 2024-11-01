@@ -8,8 +8,8 @@ import com.idark.valoria.client.particle.*;
 import com.idark.valoria.client.render.*;
 import com.idark.valoria.client.render.entity.*;
 import com.idark.valoria.client.render.tile.*;
+import com.idark.valoria.client.shaders.*;
 import com.idark.valoria.client.sounds.*;
-import com.idark.valoria.core.shaders.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.block.types.*;
 import com.idark.valoria.registries.entity.living.minions.*;
@@ -143,7 +143,7 @@ public class ValoriaClient {
         public static void ColorMappingItems(RegisterColorHandlersEvent.Item event) {
             event.register((stack, tintIndex) -> tintIndex > 0 ? -1 : SummonBook.getColor(stack), ItemsRegistry.summonBook.get());
             event.register((stack, tintIndex) -> tintIndex > 0 ? -1 : 12487423, BlockRegistry.ELDRITCH_SAPLING.get(), BlockRegistry.ELDRITCH_LEAVES.get());
-            event.register((stack, tintIndex) -> tintIndex > 0 ? -1 : 9100543, BlockRegistry.SHADEWOOD_BRANCH.get(), BlockRegistry.SHADEWOOD_SAPLING.get(), BlockRegistry.SHADEWOOD_LEAVES.get());
+            event.register((stack, tintIndex) -> tintIndex > 0 ? -1 : 6740479, BlockRegistry.SHADEWOOD_BRANCH.get(), BlockRegistry.SHADEWOOD_SAPLING.get(), BlockRegistry.SHADEWOOD_LEAVES.get());
             event.register((stack, tintIndex) -> 11301619, BlockRegistry.VOID_GRASS.get(), BlockRegistry.VOID_TAINT.get(), BlockRegistry.VOID_ROOTS.get());
             event.register((p_92708_, p_92709_) -> p_92709_ > 0 ? -1 : ((DyeableLeatherItem) p_92708_.getItem()).getColor(p_92708_), ItemsRegistry.leatherGloves.get());
             event.register((p_92708_, p_92709_) -> p_92709_ > 0 ? -1 : ((DyeableLeatherItem) p_92708_.getItem()).getColor(p_92708_), ItemsRegistry.jewelryBag.get());

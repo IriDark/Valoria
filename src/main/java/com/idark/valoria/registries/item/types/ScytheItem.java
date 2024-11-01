@@ -30,7 +30,7 @@ import static com.idark.valoria.Valoria.BASE_ATTACK_RADIUS_UUID;
 import static com.idark.valoria.util.ValoriaUtils.addContributorTooltip;
 
 // todo move to lib
-public class ScytheItem extends SwordItem implements ICustomAnimationItem, CooldownNotifyItem, RadiusItem, SpinAttackItem {
+public class ScytheItem extends SwordItem implements ICustomAnimationItem, CooldownNotifyItem, RadiusItem, SpinAttackItem, DashItem, CooldownReductionItem {
     public AbstractScytheBuilder<? extends ScytheItem> builder;
     public final Multimap<Attribute, AttributeModifier> defaultModifiers;
     public final ArcRandom arcRandom = new ArcRandom();
@@ -111,7 +111,8 @@ public class ScytheItem extends SwordItem implements ICustomAnimationItem, Coold
         stack.setTag(tag);
         ValoriaUtils.radiusHit(level, stack, player, builder.particleOptions, hitEntities, pos, 0, player.getRotationVector().y, radius);
         if(usageCount > builder.attackUsages - 1){
-            applyCooldown(player, hitEntities.isEmpty() ? builder.minCooldownTime : builder.cooldownTime);
+            int cooldown = hitEntities.isEmpty() ? builder.minCooldownTime : builder.cooldownTime;
+            applyCooldown(player, cooldown - getCooldownReduction(stack));
             tag.putInt("usageCount", 0);
             stack.setTag(tag);
         } else {
@@ -135,6 +136,7 @@ public class ScytheItem extends SwordItem implements ICustomAnimationItem, Coold
      */
     public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entityLiving) {
         Player player = (Player) entityLiving;
+        if(stack.getEnchantmentLevel(EnchantmentsRegistry.DASH.get()) > 0) performDash(player, stack);
         performAttack(level, stack, player);
         player.awardStat(Stats.ITEM_USED.get(this));
         level.playSound(null, player.getOnPos(), builder.attackSound, SoundSource.PLAYERS, 1.0F, 1F);

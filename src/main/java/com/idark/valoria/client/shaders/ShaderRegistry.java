@@ -1,19 +1,15 @@
-package com.idark.valoria.core.shaders;
+package com.idark.valoria.client.shaders;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.client.render.tile.ValoriaPortalRenderer;
-import com.mojang.blaze3d.vertex.DefaultVertexFormat;
-import com.mojang.blaze3d.vertex.VertexFormat;
-import net.minecraft.client.renderer.RenderStateShard;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.ShaderInstance;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.RegisterShadersEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import com.idark.valoria.*;
+import com.idark.valoria.client.render.tile.*;
+import com.mojang.blaze3d.vertex.*;
+import net.minecraft.client.renderer.*;
+import net.minecraft.resources.*;
+import net.minecraftforge.api.distmarker.*;
+import net.minecraftforge.client.event.*;
+import net.minecraftforge.fml.event.lifecycle.*;
 
-import java.io.IOException;
+import java.io.*;
 
 import static mod.maxbogomol.fluffy_fur.registry.client.FluffyFurRenderTypes.*;
 

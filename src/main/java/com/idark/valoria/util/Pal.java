@@ -22,6 +22,7 @@ public class Pal{
 
     vividCyan = ColorUtil.valueOf("1DEBB3"),
     cyan = ColorUtil.valueOf("00DBEB"),
+    crystalBlue = ColorUtil.valueOf("59a9ae"),
     softBlue = ColorUtil.valueOf("8269db"),
 
     mandarin = ColorUtil.valueOf("ea7e3f"),

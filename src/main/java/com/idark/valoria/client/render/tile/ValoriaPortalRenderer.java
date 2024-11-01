@@ -2,7 +2,7 @@ package com.idark.valoria.client.render.tile;
 
 
 import com.idark.valoria.*;
-import com.idark.valoria.core.shaders.*;
+import com.idark.valoria.client.shaders.*;
 import com.idark.valoria.registries.block.entity.*;
 import com.mojang.blaze3d.vertex.*;
 import net.minecraft.client.renderer.*;
