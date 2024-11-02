@@ -89,8 +89,11 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
     @Override
     public void onAddedToWorld() {
         super.onAddedToWorld();
-        initializeNearbyPlayers(this.level(), this);
-        applyHealthBoost(this);
+        CompoundTag data = this.getPersistentData();
+        if (!data.getBoolean("NearbyPlayerHealthBoost")){
+            initializeNearbyPlayers(this.level(), this);
+            applyHealthBoost(this);
+        }
     }
 
     @Override

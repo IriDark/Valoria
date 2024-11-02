@@ -19,8 +19,11 @@ import java.util.*;
  *    {@literal @}Override
  *     public void onAddedToWorld() {
  *         super.onAddedToWorld();
- *         initializeNearbyPlayers(this.level(), this);
- *         applyHealthBoost(this);
+ *         CompoundTag data = this.getPersistentData();
+ *         if (!data.getBoolean("NearbyPlayerHealthBoost")){
+ *             initializeNearbyPlayers(this.level(), this);
+ *             applyHealthBoost(this);
+ *         }
  *     }
  *
  *    {@literal @}Override
@@ -54,8 +57,8 @@ public interface BossEntity {
     /**
      * Health boost value
      */
-    default int getHealthScale() {
-        return (int)((getNearbyPlayers().size() - 1) * scalingFactor() * Math.log(getNearbyPlayers().size()));
+    default int getHealthScale(Mob mob) {
+        return (int)(mob.getMaxHealth() + (getNearbyPlayers().size() - 1) * scalingFactor() * Math.log(getNearbyPlayers().size()));
     }
 
     default double getRequiredDamage() {
@@ -69,7 +72,7 @@ public interface BossEntity {
                 level, pos.getX(), pos.getY() + offsetY, pos.getZ(), stack.copy()
                 );
                 itemEntity.setExtendedLifetime();
-                itemEntity.setInvisible(true);
+                itemEntity.setInvulnerable(true);
                 itemEntity.setDefaultPickUpDelay();
                 itemEntity.setTarget(playerUUID);
                 level.addFreshEntity(itemEntity);
@@ -86,15 +89,16 @@ public interface BossEntity {
 
     default void applyHealthBoost(Mob mob) {
         if (mob.getAttribute(Attributes.MAX_HEALTH) != null) {
-            UUID healthModifierId = UUID.randomUUID();
+            UUID healthModifierId = UUID.fromString("39ba0d18-24f3-4ea8-ba0d-1824f3fea88b");
             AttributeModifier existingModifier = mob.getAttribute(Attributes.MAX_HEALTH).getModifier(healthModifierId);
             if (existingModifier != null) {
                 mob.getAttribute(Attributes.MAX_HEALTH).removeModifier(existingModifier);
             }
 
-            AttributeModifier healthModifier = new AttributeModifier(healthModifierId, "nearby_player_boost", getHealthScale(), AttributeModifier.Operation.ADDITION);
+            AttributeModifier healthModifier = new AttributeModifier(healthModifierId, "nearby_player_boost", getHealthScale(mob), AttributeModifier.Operation.ADDITION);
             mob.getAttribute(Attributes.MAX_HEALTH).addPermanentModifier(healthModifier);
-            mob.setHealth((float) mob.getAttribute(Attributes.MAX_HEALTH).getValue());
+            mob.setHealth((float)mob.getAttribute(Attributes.MAX_HEALTH).getValue());
+            mob.getPersistentData().putBoolean("NearbyPlayerHealthBoost", true);
         }
     }
 }
