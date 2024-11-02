@@ -2,80 +2,12 @@
   "type": "minecraft:entity",
   "pools": [
     {
-      "rolls": 2,
-      "bonus_rolls": 2,
+      "rolls": 1,
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:enchanted_golden_apple",
-          "weight": 4,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": 3
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "valoria:bone_fragment",
-          "weight": 4,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": 4
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "valoria:ruby_golden_gazer",
-          "weight": 1
-        },
-        {
-          "type": "minecraft:item",
-          "name": "valoria:rune_of_curses",
-          "weight": 3
-        },
-        {
-          "type": "minecraft:item",
-          "name": "valoria:summon_book",
-          "weight": 2,
-          "functions": [
-            {
-              "function": "minecraft:set_nbt",
-              "tag": "{EntityTag:{}}"
-            },
-            {
-              "function": "minecraft:set_count",
-              "count": 1
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "valoria:iron_chain",
-          "weight": 3
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:golden_apple",
-          "weight": 2
-        },
-        {
-          "type": "minecraft:item",
-          "name": "valoria:broken_bloodsight_monocle",
-          "weight": 1
-        },
-        {
-          "type": "minecraft:item",
-          "name": "valoria:the_fallen_trim",
-          "weight": 3
-        },
-        {
-          "type": "minecraft:item",
-          "name": "valoria:beast",
-          "weight": 1
+          "name": "valoria:necromancer_treasure_bag",
+          "weight": 100
         }
       ]
     }

@@ -1,7 +1,5 @@
 package com.idark.valoria.registries.item.types;
 
-import com.idark.valoria.*;
-import com.idark.valoria.core.enums.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.util.*;
 import net.minecraft.*;
@@ -19,12 +17,11 @@ import net.minecraft.world.phys.*;
 
 import java.util.*;
 
-public class DropItemProperty extends Item {
-    public DropType type;
-
-    public DropItemProperty(DropType type, Properties properties) {
+public class LootItem extends Item {
+    public ResourceLocation loot;
+    public LootItem(ResourceLocation loot, Properties properties) {
         super(properties);
-        this.type = type;
+        this.loot = loot;
     }
 
     @Override
@@ -34,18 +31,12 @@ public class DropItemProperty extends Item {
         if (player instanceof ServerPlayer serverPlayer) {
             Vec3 playerPos = serverPlayer.position();
             serverPlayer.awardStat(Stats.ITEM_USED.get(this));
-            CriteriaTriggers.CONSUME_ITEM.trigger((ServerPlayer) player, heldStack);
+            CriteriaTriggers.CONSUME_ITEM.trigger(serverPlayer, heldStack);
             if (!serverPlayer.isCreative()) {
                 heldStack.shrink(1);
             }
 
-            switch (type) {
-                case MINERS ->
-                        LootUtil.DropLoot(serverPlayer, LootUtil.createLoot(new ResourceLocation(Valoria.ID, "items/miners_bag"), LootUtil.getGiftParameters((ServerLevel) worldIn, playerPos, serverPlayer)));
-                case GEM ->
-                        LootUtil.DropLoot(serverPlayer, LootUtil.createLoot(new ResourceLocation(Valoria.ID, "items/gem_bag"), LootUtil.getGiftParameters((ServerLevel) worldIn, playerPos, serverPlayer)));
-            }
-
+            LootUtil.giveLoot(serverPlayer, LootUtil.createLoot(loot, LootUtil.getGiftParameters((ServerLevel) worldIn, playerPos, serverPlayer)));
             return InteractionResultHolder.consume(heldStack);
         }
 

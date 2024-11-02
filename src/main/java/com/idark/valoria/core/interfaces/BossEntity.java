@@ -1,6 +1,7 @@
 package com.idark.valoria.core.interfaces;
 
 import net.minecraft.core.*;
+import net.minecraft.nbt.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.item.*;
@@ -16,7 +17,16 @@ import java.util.*;
  *     public final List<UUID> nearbyPlayers = new ArrayList<>();
  *     public final Map<UUID, Float> damageMap = new HashMap<>();
  *
- *    {@literal @}Override
+ *     public void readAdditionalSaveData(CompoundTag pCompound) {
+ *         super.readAdditionalSaveData(pCompound);
+ *         readBossData(pCompound);
+ *     }
+ *
+ *     public void addAdditionalSaveData(CompoundTag pCompound) {
+ *         super.addAdditionalSaveData(pCompound);
+ *         saveBossData(pCompound);
+ *     }
+ *
  *     public void onAddedToWorld() {
  *         super.onAddedToWorld();
  *         CompoundTag data = this.getPersistentData();
@@ -26,7 +36,6 @@ import java.util.*;
  *         }
  *     }
  *
- *    {@literal @}Override
  *     public boolean hurt(DamageSource source, float amount) {
  *         if (source.getDirectEntity() instanceof Player player) {
  *             UUID playerUUID = player.getUUID();
@@ -46,6 +55,44 @@ import java.util.*;
 public interface BossEntity {
     List<UUID> getNearbyPlayers();
     Map<UUID, Float> getDamageMap();
+
+    default void readBossData(CompoundTag pCompound){
+        ListTag nearbyPlayersList = pCompound.getList("NearbyPlayers", Tag.TAG_COMPOUND);
+        for (int i = 0; i < nearbyPlayersList.size(); i++) {
+            CompoundTag playerTag = nearbyPlayersList.getCompound(i);
+            UUID playerUUID = playerTag.getUUID("UUID");
+            getNearbyPlayers().add(playerUUID);
+        }
+
+        ListTag damageMapList = pCompound.getList("DamageMap", Tag.TAG_COMPOUND);
+        for (int i = 0; i < damageMapList.size(); i++) {
+            CompoundTag damageTag = damageMapList.getCompound(i);
+            UUID playerUUID = damageTag.getUUID("UUID");
+            float damage = damageTag.getFloat("Damage");
+            getDamageMap().put(playerUUID, damage);
+        }
+    }
+
+    default void saveBossData(CompoundTag pCompound){
+        ListTag nearbyPlayersList = new ListTag();
+        for (UUID playerUUID : getNearbyPlayers()) {
+            CompoundTag playerTag = new CompoundTag();
+            playerTag.putUUID("UUID", playerUUID);
+            nearbyPlayersList.add(playerTag);
+        }
+
+        pCompound.put("NearbyPlayers", nearbyPlayersList);
+        ListTag damageMapList = new ListTag();
+        for (Map.Entry<UUID, Float> entry : getDamageMap().entrySet()) {
+            CompoundTag damageTag = new CompoundTag();
+            damageTag.putUUID("UUID", entry.getKey());
+            damageTag.putFloat("Damage", entry.getValue());
+            damageMapList.add(damageTag);
+        }
+
+        pCompound.put("DamageMap", damageMapList);
+    }
+
     default int getRadius() {
         return 16;
     }
@@ -68,9 +115,7 @@ public interface BossEntity {
     default void initializeLoot(Level level, ItemStack stack, BlockPos pos, float offsetY){
         for(UUID playerUUID : getNearbyPlayers()){
             if(getDamageMap().getOrDefault(playerUUID, 0.0f) >= getRequiredDamage()){
-                ItemEntity itemEntity = new ItemEntity(
-                level, pos.getX(), pos.getY() + offsetY, pos.getZ(), stack.copy()
-                );
+                ItemEntity itemEntity = new ItemEntity(level, pos.getX(), pos.getY() + offsetY, pos.getZ(), stack.copy());
                 itemEntity.setExtendedLifetime();
                 itemEntity.setInvulnerable(true);
                 itemEntity.setDefaultPickUpDelay();

@@ -58,13 +58,18 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
         this.xpReward = 8;
     }
 
-
     public void readAdditionalSaveData(CompoundTag pCompound) {
         super.readAdditionalSaveData(pCompound);
+        readBossData(pCompound);
         if (this.hasCustomName()) {
             this.bossEvent.setName(this.getDisplayName());
         }
+    }
 
+    @Override
+    public void addAdditionalSaveData(CompoundTag pCompound) {
+        super.addAdditionalSaveData(pCompound);
+        saveBossData(pCompound);
     }
 
     public void setCustomName(@Nullable Component pName) {

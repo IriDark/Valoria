@@ -84,7 +84,7 @@ public class ItemsRegistry {
     pyratite,
 
     // loot bags
-    minersBag, gemBag, dirtGeode, stoneGeode,
+    minersBag, gemBag, necromancerTreasureBag, dirtGeode, stoneGeode,
 
     // misc
     debugItem, summonBook, soulCollectorEmpty, soulCollector,
@@ -262,8 +262,9 @@ public class ItemsRegistry {
             }
         });
 
-        minersBag = registerItem("miners_bag", () -> new DropItemProperty(DropType.MINERS, new Item.Properties().rarity(Rarity.EPIC)));
-        gemBag = registerItem("gem_bag", () -> new DropItemProperty(DropType.GEM, new Item.Properties().rarity(Rarity.EPIC)));
+        minersBag = registerItem("miners_bag", () -> new LootItem(new ResourceLocation(Valoria.ID, "items/miners_bag"), new Item.Properties().rarity(Rarity.EPIC)));
+        gemBag = registerItem("gem_bag", () -> new LootItem(new ResourceLocation(Valoria.ID, "items/gem_bag"), new Item.Properties().rarity(Rarity.EPIC)));
+        necromancerTreasureBag = registerItem("necromancer_treasure_bag", () -> new LootItem(new ResourceLocation(Valoria.ID, "items/necromancer_treasure_bag"), new Item.Properties().rarity(Rarity.EPIC)));
 
         // misc
         debugItem = registerItem("debug_item", () -> new DebugItem(new Item.Properties()));
