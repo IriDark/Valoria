@@ -13,6 +13,7 @@ import com.idark.valoria.registries.item.armor.item.*;
 import com.idark.valoria.registries.item.types.*;
 import com.idark.valoria.util.*;
 import com.mojang.blaze3d.systems.*;
+import mod.maxbogomol.fluffy_fur.util.ColorUtil;
 import net.minecraft.*;
 import net.minecraft.client.*;
 import net.minecraft.client.gui.*;
@@ -20,7 +21,7 @@ import net.minecraft.client.gui.components.*;
 import net.minecraft.client.gui.screens.*;
 import net.minecraft.core.*;
 import net.minecraft.nbt.*;
-import net.minecraft.network.chat.*;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.*;
 import net.minecraft.server.level.*;
 import net.minecraft.tags.*;
@@ -43,6 +44,7 @@ import net.minecraftforge.event.entity.player.*;
 import net.minecraftforge.eventbus.api.*;
 import top.theillusivec4.curios.api.*;
 
+import java.awt.*;
 import java.util.*;
 import java.util.stream.*;
 
@@ -253,8 +255,14 @@ public class Events{
                         if(i > 0){
                             if(event.getOverlay() == BossEvent.BossBarOverlay.PROGRESS){
                                 RenderSystem.enableBlend();
+                                if(Objects.equals(bossbar.getTexture(), new ResourceLocation(Valoria.ID, "textures/gui/bossbars/base.png"))){
+                                    Color color = bossbar.rainbow ? ColorUtil.rainbowColor(mc.level.getGameTime() / 1.5f) : bossbar.getColor();
+                                    pGuiGraphics.setColor((float)color.getRed() / 255, (float)color.getGreen() / 255, (float)color.getBlue() / 255, 1);
+                                }
+
                                 pGuiGraphics.blit(bossbar.getTexture(), xOffset + 3, yOffset + 14, 3, 30, i, 4, 256, 64);
                                 RenderSystem.disableBlend();
+                                pGuiGraphics.setColor(1, 1, 1, 1);
                             }
                         }
 
@@ -270,9 +278,15 @@ public class Events{
                         int i = (int)(event.getProgress() * 177.0F);
                         if(i > 0){
                             if(event.getOverlay() == BossEvent.BossBarOverlay.PROGRESS){
+                                if(Objects.equals(bossbar.getTexture(), new ResourceLocation(Valoria.ID, "textures/gui/bossbars/base.png"))){
+                                    Color color = bossbar.rainbow ? ColorUtil.rainbowColor(mc.level.getGameTime() / 1.5f) : bossbar.getColor();
+                                    pGuiGraphics.setColor((float)color.getRed() / 255, (float)color.getGreen() / 255, (float)color.getBlue() / 255, 1);
+                                }
+
                                 RenderSystem.enableBlend();
                                 pGuiGraphics.blit(bossbar.getTexture(), xOffset + 3, yOffset + 14, 3, 30, i, 4, 256, 64);
                                 RenderSystem.disableBlend();
+                                pGuiGraphics.setColor(1, 1, 1, 1);
                             }
                         }
                     }

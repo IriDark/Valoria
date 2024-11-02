@@ -55,8 +55,8 @@ public class RenderUtils {
 
             if (floor) {
                 if (builder.firstSide) {
-                    supplier.placeVertex(vertexConsumer, last, builder, 0, 0, 0, builder.r2, builder.g2, builder.b2, builder.a2, textureU, textureVN, builder.l2);
-                    supplier.placeVertex(vertexConsumer, last, builder, 0, 0, 0, builder.r2, builder.g2, builder.b2, builder.a2, textureUN, textureVN, builder.l2);
+                    supplier.placeVertex(vertexConsumer, last, builder, 0, 0.1f, 0, builder.r2, builder.g2, builder.b2, builder.a2, textureU, textureVN, builder.l2);
+                    supplier.placeVertex(vertexConsumer, last, builder, 0, 0.1f, 0, builder.r2, builder.g2, builder.b2, builder.a2, textureUN, textureVN, builder.l2);
                     supplier.placeVertex(vertexConsumer, last, builder, p1.x(), 0, p1.z(), builder.r1, builder.g1, builder.b1, builder.a1, textureUN, textureV, builder.l1);
                     supplier.placeVertex(vertexConsumer, last, builder, p0.x(), 0, p0.z(), builder.r1, builder.g1, builder.b1, builder.a1, textureU, textureV, builder.l1);
                 }

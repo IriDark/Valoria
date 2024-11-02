@@ -12,16 +12,19 @@ public interface DashItem{
 
     default void performDash(Player player, ItemStack stack) {
         Vec3 dir = (player.getViewVector(0.0f).scale(getEnchantmentBonus(stack)));
+        player.hurtMarked = true;
         player.push(dir.x, dir.y * 0.25, dir.z);
     }
 
     default void performDash(Player player, double dashDistance) {
         Vec3 dir = (player.getViewVector(0.0f).scale(dashDistance));
+        player.hurtMarked = true;
         player.push(dir.x, dir.y * 0.25, dir.z);
     }
 
     default void performDash(Player player, ItemStack stack, double dashDistance) {
         Vec3 dir = (player.getViewVector(0.0f).scale(dashDistance + getEnchantmentBonus(stack)));
+        player.hurtMarked = true;
         player.push(dir.x, dir.y * 0.25, dir.z);
     }
 }

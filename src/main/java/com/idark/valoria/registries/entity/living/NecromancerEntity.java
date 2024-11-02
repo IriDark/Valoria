@@ -2,6 +2,7 @@ package com.idark.valoria.registries.entity.living;
 
 import com.google.common.collect.*;
 import com.idark.valoria.client.ui.bossbars.*;
+import com.idark.valoria.core.interfaces.*;
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.particle.*;
 import com.idark.valoria.registries.*;
@@ -24,6 +25,7 @@ import net.minecraft.world.entity.ai.goal.target.*;
 import net.minecraft.world.entity.ai.targeting.*;
 import net.minecraft.world.entity.animal.*;
 import net.minecraft.world.entity.animal.horse.*;
+import net.minecraft.world.entity.item.*;
 import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
@@ -39,9 +41,11 @@ import javax.annotation.Nullable;
 import java.lang.Math;
 import java.util.*;
 
-public class NecromancerEntity extends AbstractNecromancer {
+public class NecromancerEntity extends AbstractNecromancer implements BossEntity{
+    public final List<UUID> nearbyPlayers = new ArrayList<>();
+    public final Map<UUID, Float> damageMap = new HashMap<>();
     public ArcRandom arcRandom = new ArcRandom();
-    private final ServerBossBarEvent bossEvent = (ServerBossBarEvent)(new ServerBossBarEvent(this.getDisplayName(), "Necromancer")).setDarkenScreen(true);
+    public final ServerBossBarEvent bossEvent = (ServerBossBarEvent)(new ServerBossBarEvent(this.getDisplayName(), "Necromancer")).setDarkenScreen(true);
 
     @Nullable
     private Skeleton wololoTarget;
@@ -49,10 +53,11 @@ public class NecromancerEntity extends AbstractNecromancer {
     @Nullable
     private Horse wololoTargetHorse;
 
-    public NecromancerEntity(EntityType<? extends NecromancerEntity> pEntityType, Level pLevel) {
+    public NecromancerEntity(EntityType<? extends NecromancerEntity> pEntityType, Level pLevel){
         super(pEntityType, pLevel);
         this.xpReward = 8;
     }
+
 
     public void readAdditionalSaveData(CompoundTag pCompound) {
         super.readAdditionalSaveData(pCompound);
@@ -77,6 +82,33 @@ public class NecromancerEntity extends AbstractNecromancer {
         this.bossEvent.removePlayer(pPlayer);
     }
 
+    public float getWalkTargetValue(BlockPos pPos, LevelReader pLevel) {
+        return 0.0F;
+    }
+
+    @Override
+    public void onAddedToWorld() {
+        super.onAddedToWorld();
+        initializeNearbyPlayers(this.level(), this);
+        applyHealthBoost(this);
+    }
+
+    @Override
+    public boolean hurt(DamageSource source, float amount) {
+        if (source.getDirectEntity() instanceof Player player) {
+            UUID playerUUID = player.getUUID();
+            getDamageMap().put(playerUUID, getDamageMap().getOrDefault(playerUUID, 0.0f) + amount);
+        }
+
+        return super.hurt(source, amount);
+    }
+
+    @Nullable
+    public ItemEntity spawnAtLocation(ItemStack stack, float offsetY) {
+        if (stack.isEmpty() || this.level().isClientSide) return null;
+        initializeLoot(this.level(), stack, this.getOnPos(), offsetY);
+        return null;
+    }
 
     protected void registerGoals() {
         //attack
@@ -109,6 +141,16 @@ public class NecromancerEntity extends AbstractNecromancer {
 
     public @NotNull MobType getMobType() {
         return MobType.UNDEAD;
+    }
+
+    public boolean isAlliedTo(Entity pEntity) {
+        if (super.isAlliedTo(pEntity)) {
+            return true;
+        } else if (pEntity instanceof LivingEntity && ((LivingEntity)pEntity).getMobType() == MobType.UNDEAD) {
+            return this.getTeam() == null && pEntity.getTeam() == null;
+        } else {
+            return false;
+        }
     }
 
     protected void customServerAiStep(){
@@ -182,6 +224,16 @@ public class NecromancerEntity extends AbstractNecromancer {
     @Nullable
     Horse getWololoHorseTarget() {
         return this.wololoTargetHorse;
+    }
+
+    @Override
+    public List<UUID> getNearbyPlayers(){
+        return nearbyPlayers;
+    }
+
+    @Override
+    public Map<UUID, Float> getDamageMap(){
+        return damageMap;
     }
 
     class AttackSpellGoal extends AbstractNecromancer.SpellcasterUseSpellGoal {
@@ -467,6 +519,10 @@ public class NecromancerEntity extends AbstractNecromancer {
             }
         }
 
+        public boolean isInterruptable() {
+            return false;
+        }
+
         public SoundEvent getSpellPrepareSound() {
             return SoundEvents.EVOKER_PREPARE_SUMMON;
         }
@@ -486,6 +542,10 @@ public class NecromancerEntity extends AbstractNecromancer {
                 List<Monster> targets = NecromancerEntity.this.level().getNearbyEntities(Monster.class, this.targeting, NecromancerEntity.this, NecromancerEntity.this.getBoundingBox().inflate(4.0D));
                 return !targets.isEmpty();
             }
+        }
+
+        public boolean isInterruptable() {
+            return false;
         }
 
         public int getCastingTime() {
@@ -560,6 +620,10 @@ public class NecromancerEntity extends AbstractNecromancer {
             } else {
                 return NecromancerEntity.this.getHealth() < NecromancerEntity.this.getMaxHealth();
             }
+        }
+
+        public boolean isInterruptable() {
+            return false;
         }
 
         public int getCastingTime() {
