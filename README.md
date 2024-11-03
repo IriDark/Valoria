@@ -10,7 +10,7 @@
 
 [![STARS](https://img.shields.io/github/stars/IriDark/Valoria?style=for-the-badge&label=%E2%AD%90%EF%B8%8FSTAR%20Valoria)](https://github.com/IriDark/Valoria)
 [![Discord](https://img.shields.io/discord/859843420603416618?style=for-the-badge&color=6aa84f&logo=discord&label=VALORIA)](https://discord.gg/wWdXpwuPmK)
-[![Curseforge](https://img.shields.io/curseforge/dt/698244?style=for-the-badge&color=6aa84f&logo=curseforge&label=VALORIA)](https://www.curseforge.com/minecraft/mc-mods/valoria-reborn)
+[![Curseforge](https://img.shields.io/curseforge/dt/698244?style=for-the-badge&color=6aa84f&logo=curseforge&label=VALORIA)](https://www.curseforge.com/minecraft/mc-mods/valoria)
 [![Modrinth](https://img.shields.io/modrinth/dt/valoria?style=for-the-badge&color=6aa84f&logo=modrinth&label=VALORIA)](https://modrinth.com/mod/valoria)
 [![Github](https://img.shields.io/github/issues-pr/IriDark/Valoria?color=6aa84f&include_prereleases&label=ISSUES%20|%20PR&logo=github&logoColor=white&style=for-the-badge)](https://github.com/IriDark/Valoria)
 [![Support me on Patreon](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fshieldsio-patreon.vercel.app%2Fapi%3Fusername%3DValoriaMod%26type%3Dpatrons&style=for-the-badge)](https://patreon.com/ValoriaMod)
