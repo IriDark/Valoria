@@ -174,28 +174,23 @@ public class BlazeReapItem extends PickaxeItem implements Vanishable, OverlayRen
     @Override
     public void render(CompoundTag tag, GuiGraphics gui, int offsetX, int offsetY){
         gui.pose().pushPose();
-        int xCord = ClientConfig.MAGMA_CHARGE_BAR_X.get();
-        int yCord = ClientConfig.MAGMA_CHARGE_BAR_Y.get();
-        gui.blit(BAR, xCord, yCord, 0, 0, 73, 19, 128, 64);
-        float x = 4;
-        float y = 15.5f;
-        List<ItemStack> ammunition = getAmmunition();
-        int itemCount = Math.min(ammunition.size(), 3);
-        for (int i = 0; i < itemCount; i++) {
-            ItemStack stack = ammunition.get(i);
-            RenderUtils.renderItemModelInGui(stack, x + (16 * i), y, 16, 16, 16);
+        Player plr = Minecraft.getInstance().player;
+        if(plr != null){
+            boolean flag = plr.getOffhandItem().getItem() instanceof OverlayRenderItem;
+            int xCord = ClientConfig.MAGMA_CHARGE_BAR_X.get();
+            int yCord = flag ? ClientConfig.MAGMA_CHARGE_BAR_Y.get() + 35 : ClientConfig.MAGMA_CHARGE_BAR_Y.get();
+            gui.blit(BAR, xCord, yCord, 0, 0, 73, 19, 128, 64);
+            float y = yCord + 10;
+            List<ItemStack> ammunition = getAmmunition();
+            int itemCount = Math.min(ammunition.size(), 3);
+            for(int i = 0; i < itemCount; i++){
+                ItemStack stack = ammunition.get(i);
+                RenderUtils.renderItemModelInGui(stack, xCord + (16 * i), y, 16, 16, 16);
+            }
         }
 
         gui.pose().popPose();
     }
-
-//    @OnlyIn(Dist.CLIENT)
-//    @Override
-//    public void spawnLateParticles(ScreenParticleHolder target, Level level, float partialTick, ItemStack stack, float x, float y) {
-//        if (NbtUtils.readNbt(stack, "charge") == 1){
-//            ScreenParticleRegistry.spawnFireParticles(target, ColorParticleData.create(Color.white, Pal.strongRed).build());
-//        }
-//    }
 
     @OnlyIn(Dist.CLIENT)
     @Override

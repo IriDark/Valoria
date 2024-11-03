@@ -513,7 +513,7 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
                         Vec3 vec31 = new Vec3(dX * 2, dY * 0.5f, dZ * 2);
                         if (this.strong) {
                             NecromancerEntity.this.heal(NecromancerEntity.this.getHealth() * 0.1f);
-                            entity.hurt(NecromancerEntity.this.level().damageSources().magic(), NecromancerEntity.this.getHealth() * 0.1f);
+                            entity.hurt(NecromancerEntity.this.level().damageSources().generic(), 15);
                         }
 
                         for (MobEffectInstance effectInstance : effects) {

@@ -81,7 +81,7 @@ public class ItemsRegistry {
     dunestoneBrick, tombstoneBrick, ambaneStoneBrick, limestoneBrick, crystalStoneBrick, voidStoneBrick,
     bronzeIngot, pearliumIngot, cobaltIngot, blackGold, ancientIngot,
     natureIngot, aquariusIngot, infernalIngot, voidIngot,
-    pyratite,
+    pyratite, relicGold,
 
     // loot bags
     minersBag, gemBag, necromancerTreasureBag, dirtGeode, stoneGeode,
@@ -224,6 +224,7 @@ public class ItemsRegistry {
         infernalIngot = registerItem("infernal_ingot", () -> new Item(new Item.Properties().fireResistant().rarity(RarityRegistry.INFERNAL)));
         voidIngot = registerItem("void_ingot", () -> new Item(new Item.Properties().fireResistant().rarity(RarityRegistry.VOID)));
         pyratite = registerItem("pyratite", () -> new Item(new Item.Properties().rarity(RarityRegistry.INFERNAL)));
+        relicGold = registerItem("relic_gold", () -> new Item(new Item.Properties().rarity(Rarity.EPIC)));
         natureGift = registerItem("nature_gift", () -> new ParticleMaterialItem(new Item.Properties().stacksTo(16).rarity(RarityRegistry.NATURE), 0.35f, ColorParticleData.create(Pal.nature, Pal.vividCyan).build(), ParticleRegistry.SPHERE.get()));
         boneFragment = registerItem("bone_fragment", () -> new ParticleMaterialItem(new Item.Properties().stacksTo(16).rarity(RarityRegistry.NATURE), 0.35f, ColorParticleData.create(Pal.vividGreen, Pal.cyan).build(), ParticleRegistry.SPHERE.get()));
         oceanicShell = registerItem("oceanic_shell", () -> new ParticleMaterialItem(new Item.Properties().stacksTo(16).rarity(RarityRegistry.AQUARIUS), 0.35f, ColorParticleData.create(Pal.oceanic, Pal.magmatic).build(), ParticleRegistry.SPHERE.get()));
@@ -437,18 +438,18 @@ public class ItemsRegistry {
         goldenGloves = registerItem("golden_gloves", () -> new GlovesItem(Tiers.GOLD, AccessoryGem.TOUGH, AccessoryMaterial.GOLD, new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.UNCOMMON)));
         diamondGloves = registerItem("diamond_gloves", () -> new GlovesItem(Tiers.DIAMOND, AccessoryGem.DIAMOND, AccessoryMaterial.DIAMOND, new Item.Properties().stacksTo(1).durability(240).rarity(Rarity.UNCOMMON)));
         netheriteGloves = registerItem("netherite_gloves", () -> new GlovesItem(Tiers.NETHERITE, AccessoryGem.TANK, AccessoryMaterial.NETHERITE, new Item.Properties().stacksTo(1).durability(300).rarity(Rarity.UNCOMMON)));
-        amberTotem = registerItem("amber_golden_totem", () -> new Item(new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.EPIC)));
-        amberWinglet = registerItem("amber_golden_winglet", () -> new Item(new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.EPIC)));
-        amberGazer = registerItem("amber_golden_gazer", () -> new ParticleMaterialItem(new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.EPIC), ColorParticleData.create(Pal.amber, Color.white).build()));
-        emeraldTotem = registerItem("emerald_golden_totem", () -> new Item(new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.EPIC)));
-        emeraldWinglet = registerItem("emerald_golden_winglet", () -> new Item(new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.EPIC)));
-        emeraldGazer = registerItem("emerald_golden_gazer", () -> new ParticleMaterialItem(new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.EPIC), ColorParticleData.create(Pal.emerald, Color.white).build()));
-        amethystTotem = registerItem("amethyst_golden_totem", () -> new Item(new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.EPIC)));
-        amethystWinglet = registerItem("amethyst_golden_winglet", () -> new Item(new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.EPIC)));
-        amethystGazer = registerItem("amethyst_golden_gazer", () -> new ParticleMaterialItem(new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.EPIC), ColorParticleData.create(Pal.amethyst, Color.white).build()));
-        rubyTotem = registerItem("ruby_golden_totem", () -> new Item(new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.EPIC)));
-        rubyWinglet = registerItem("ruby_golden_winglet", () -> new Item(new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.EPIC)));
-        rubyGazer = registerItem("ruby_golden_gazer", () -> new ParticleMaterialItem(new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.EPIC), ColorParticleData.create(Pal.ruby, Color.white).build()));
+        amberTotem = registerItem("amber_golden_totem", () -> new TalismanItem.Builder(new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.EPIC)).put(Attributes.MAX_HEALTH, 5).put(Attributes.ATTACK_DAMAGE, 1).put(Attributes.MOVEMENT_SPEED, -0.05).build());
+        amberWinglet = registerItem("amber_golden_winglet", () -> new TalismanItem.Builder(new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.EPIC)).put(Attributes.MOVEMENT_SPEED, 0.05).build());
+        amberGazer = registerItem("amber_golden_gazer", () -> new TalismanItem.Builder(new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.EPIC)).put(Attributes.ARMOR, 2).put(Attributes.ATTACK_SPEED, -0.25).build());
+        emeraldTotem = registerItem("emerald_golden_totem", () -> new TalismanItem.Builder(new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.EPIC)).put(Attributes.MAX_HEALTH, 5).put(Attributes.MOVEMENT_SPEED, -0.05).put(Attributes.ATTACK_DAMAGE, 1).build());
+        emeraldWinglet = registerItem("emerald_golden_winglet", () -> new TalismanItem.Builder(new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.EPIC)).put(Attributes.LUCK, 0.25).put(Attributes.MOVEMENT_SPEED, 0.05).build());
+        emeraldGazer = registerItem("emerald_golden_gazer", () -> new TalismanItem.Builder(new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.EPIC)).put(Attributes.LUCK, 2).put(Attributes.ATTACK_SPEED, -0.25).build());
+        amethystTotem = registerItem("amethyst_golden_totem", () -> new TalismanItem.Builder(new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.EPIC)).put(Attributes.MAX_HEALTH, 4).put(Attributes.MOVEMENT_SPEED, -0.15).build());
+        amethystWinglet = registerItem("amethyst_golden_winglet", () -> new TalismanItem.Builder(new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.EPIC)).put(Attributes.MOVEMENT_SPEED, 0.05).put(Attributes.ATTACK_DAMAGE, 0.05).build());
+        amethystGazer = registerItem("amethyst_golden_gazer", () -> new TalismanItem.Builder(new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.EPIC)).put(Attributes.ATTACK_DAMAGE, 2).put(Attributes.ATTACK_SPEED, -0.25).build());
+        rubyTotem = registerItem("ruby_golden_totem", () -> new TalismanItem.Builder(new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.EPIC)).put(Attributes.MAX_HEALTH, 3).build());
+        rubyWinglet = registerItem("ruby_golden_winglet", () -> new TalismanItem.Builder(new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.EPIC)).put(Attributes.ATTACK_SPEED, 0.35).put(Attributes.MOVEMENT_SPEED, 0.05).build());
+        rubyGazer = registerItem("ruby_golden_gazer", () -> new TalismanItem.Builder(new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.EPIC)).put(Attributes.MAX_HEALTH, 2).put(Attributes.ATTACK_SPEED, -0.25).build());
         brokenMonocle = registerItem("broken_bloodsight_monocle", () -> new BloodSight(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC).durability(300)));
         monocle = registerItem("bloodsight_monocle", () -> new BloodSight(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC).durability(300)));
         jewelryBag = registerItem("jewelry_bag", () -> new JewelryBagItem(new Item.Properties().stacksTo(1)));

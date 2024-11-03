@@ -744,11 +744,11 @@ public class ValoriaUtils {
     }
 
     public static ToIntFunction<BlockState> getLightValueLit() {
-        return (state) -> state.getValue(BlockStateProperties.LIT) ? 13 : 0;
+        return (state) -> state.getValue(BlockStateProperties.LIT) ? 14 : 0;
     }
 
     public static ToIntFunction<BlockState> getPlantLightValue() {
-        return (state) -> !state.isAir() ? 9 : 0;
+        return (state) -> !state.isAir() ? 12 : 0;
     }
 
     public static class tileEntity {
