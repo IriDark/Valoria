@@ -12,7 +12,7 @@ public class ServerBossBarEvent extends ServerBossEvent {
         this.id = id;
     }
 
-    public void setRenderType(String id) {
+    public void setId(String id) {
         if (id != this.id) {
             this.id = id;
             PacketHandler.sendToAll(new UpdateBossbarPacket(this.getId(), id));
