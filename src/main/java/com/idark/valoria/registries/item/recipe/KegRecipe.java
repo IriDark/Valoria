@@ -46,6 +46,10 @@ public class KegRecipe implements Recipe<Container> {
         return output.copy();
     }
 
+    public boolean isSpecial() {
+        return true;
+    }
+
     @Nonnull
     @Override
     public NonNullList<Ingredient> getIngredients() {

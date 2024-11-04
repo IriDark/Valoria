@@ -1,23 +1,19 @@
 package com.idark.valoria.registries.item.recipe;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.idark.valoria.Valoria;
-import net.minecraft.core.NonNullList;
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
-import net.minecraft.world.Container;
-import net.minecraft.world.item.ItemStack;
+import com.google.gson.*;
+import com.idark.valoria.*;
+import net.minecraft.core.*;
+import net.minecraft.network.*;
+import net.minecraft.resources.*;
+import net.minecraft.util.*;
+import net.minecraft.world.*;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.*;
-import net.minecraft.world.level.Level;
+import net.minecraft.world.level.*;
 import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.List;
+import javax.annotation.*;
+import java.util.*;
 
 public class JewelryRecipe implements Recipe<Container> {
     private final NonNullList<Ingredient> inputs;
@@ -42,6 +38,10 @@ public class JewelryRecipe implements Recipe<Container> {
         }
 
         return craft;
+    }
+
+    public boolean isSpecial() {
+        return true;
     }
 
     @Override

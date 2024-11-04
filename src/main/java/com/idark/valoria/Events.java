@@ -159,19 +159,18 @@ public class Events{
     }
 
     @SubscribeEvent
-    public void onLivingHurt(LivingHurtEvent event){
+    public void onLivingHurt(LivingHurtEvent event) {
         float incomingDamage = event.getAmount();
-        float totalDefense = 0;
+        float totalMultiplier = 1.0f;
         for (ItemStack armorPiece : event.getEntity().getArmorSlots()) {
             if (armorPiece.getItem() instanceof PercentageArmorItem percent) {
-                totalDefense += percent.getPercentDefense();
+                float percentDefense = percent.getPercentDefense();
+                totalMultiplier *= (1.0f - percentDefense);
             }
         }
 
-        if (totalDefense > 0) {
-            float reducedDamage = Math.max(incomingDamage - (incomingDamage * totalDefense), 0);
-            event.setAmount(reducedDamage);
-        }
+        float reducedDamage = incomingDamage * totalMultiplier;
+        event.setAmount(reducedDamage);
     }
 
     @SubscribeEvent

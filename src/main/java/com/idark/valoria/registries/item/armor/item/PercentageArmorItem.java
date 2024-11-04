@@ -19,7 +19,7 @@ import java.util.*;
 
 //todo move to lib
 public class PercentageArmorItem extends ArmorItem{
-    public ArmorRegistry material;
+    public ArmorMaterial material;
     private final float defense;
     private static final EnumMap<ArmorItem.Type, UUID> ARMOR_MODIFIER_UUID_PER_TYPE = Util.make(new EnumMap<>(ArmorItem.Type.class), (p_266744_) -> {
         p_266744_.put(ArmorItem.Type.BOOTS, UUID.fromString("845DB27C-C624-495F-8C9F-6020A9A58B6B"));
@@ -29,7 +29,7 @@ public class PercentageArmorItem extends ArmorItem{
     });
 
     private final Multimap<Attribute, AttributeModifier> defaultModifiers;
-    public PercentageArmorItem(ArmorRegistry pMaterial, Type pType, Properties pProperties){
+    public PercentageArmorItem(ArmorMaterial pMaterial, Type pType, Properties pProperties){
         super(pMaterial, pType, pProperties);
         this.material = pMaterial;
         this.defense = pMaterial.getDefenseForType(pType);

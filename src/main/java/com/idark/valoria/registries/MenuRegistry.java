@@ -18,6 +18,7 @@ public class MenuRegistry {
         })
     );
 
+    public static final RegistryObject<MenuType<ArchaeologyMenu>> ARCHAEOLOGY_MENU = MENUS.register("archaeology_menu", () -> IForgeMenuType.create((windowId, inv, data) -> new ArchaeologyMenu(windowId, inv)));
     public static final RegistryObject<MenuType<ManipulatorMenu>> MANIPULATOR_MENU = MENUS.register("manipulator_menu", () -> IForgeMenuType.create((windowId, inv, data) -> {
         BlockPos pos = data.readBlockPos();
         Level world = inv.player.getCommandSenderWorld();

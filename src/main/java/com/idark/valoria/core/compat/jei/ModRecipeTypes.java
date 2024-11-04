@@ -9,5 +9,5 @@ public class ModRecipeTypes {
     public static final RecipeType<JewelryRecipe> JEWELRY = RecipeType.create(Valoria.ID, "jewelry", JewelryRecipe.class);
     public static final RecipeType<CrusherRecipe> CRUSHER = RecipeType.create(Valoria.ID, "crusher", CrusherRecipe.class);
     public static final RecipeType<ManipulatorRecipe> MANIPULATOR = RecipeType.create(Valoria.ID, "manipulator", ManipulatorRecipe.class);
-
+    public static final RecipeType<ArchaeologyRecipe> ARCHAEOLOGY = RecipeType.create(Valoria.ID, "archaeology", ArchaeologyRecipe.class);
 }

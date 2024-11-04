@@ -1,33 +1,28 @@
 package com.idark.valoria.registries.block.types;
 
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.util.Mth;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.HorizontalDirectionalBlock;
-import net.minecraft.world.level.block.RenderShape;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.StateDefinition.Builder;
-import net.minecraft.world.level.block.state.properties.BedPart;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.EnumProperty;
-import net.minecraft.world.phys.shapes.BooleanOp;
-import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.Shapes;
-import net.minecraft.world.phys.shapes.VoxelShape;
+import com.idark.valoria.client.ui.menus.*;
+import net.minecraft.core.*;
+import net.minecraft.network.chat.*;
+import net.minecraft.util.*;
+import net.minecraft.world.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.inventory.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.item.context.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.*;
+import net.minecraft.world.level.block.state.StateDefinition.*;
+import net.minecraft.world.level.block.state.properties.*;
+import net.minecraft.world.phys.*;
+import net.minecraft.world.phys.shapes.*;
 
-import javax.annotation.Nullable;
+import javax.annotation.*;
 
 public class ArchaeologyTableBlock extends HorizontalDirectionalBlock {
     public static final EnumProperty<BedPart> PART = BlockStateProperties.BED_PART;
+    private static final Component CONTAINER_TITLE = Component.translatable("menu.valoria.archaeology_table");
 
     public VoxelShape makeShape(BlockState state) {
         //I hate voxel shapes, the worst thing ive seen...
@@ -102,6 +97,20 @@ public class ArchaeologyTableBlock extends HorizontalDirectionalBlock {
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
         return makeShape(state);
+    }
+
+    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+        if (pLevel.isClientSide) {
+            return InteractionResult.SUCCESS;
+        } else {
+            pPlayer.openMenu(pState.getMenuProvider(pLevel, pPos));
+            return InteractionResult.CONSUME;
+        }
+    }
+
+    @Nullable
+    public MenuProvider getMenuProvider(BlockState pState, Level pLevel, BlockPos pPos) {
+        return new SimpleMenuProvider((p_57074_, p_57075_, p_57076_) -> new ArchaeologyMenu(p_57074_, p_57075_, ContainerLevelAccess.create(pLevel, pPos)), CONTAINER_TITLE);
     }
 
     public ArchaeologyTableBlock(Properties pProperties) {
