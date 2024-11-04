@@ -17,7 +17,7 @@ import java.util.*;
 
 import static com.idark.valoria.util.ValoriaUtils.addContributorTooltip;
 
-public class SkinableArmorItem extends ArmorItem implements IForgeItem{
+public class SkinableArmorItem extends PercentageArmorItem implements IForgeItem{
     public SkinableArmorItem(ArmorMaterial pMaterial, Type pType, Properties pProperties){
         super(pMaterial, pType, pProperties);
     }

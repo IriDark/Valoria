@@ -81,7 +81,7 @@ public class ItemsRegistry {
     dunestoneBrick, tombstoneBrick, ambaneStoneBrick, limestoneBrick, crystalStoneBrick, voidStoneBrick,
     bronzeIngot, pearliumIngot, cobaltIngot, blackGold, ancientIngot,
     natureIngot, aquariusIngot, infernalIngot, voidIngot,
-    pyratite, relicGold,
+    pyratite, relicGold, emptyGazer, emptyWinglet, emptyTotem,
 
     // loot bags
     minersBag, gemBag, necromancerTreasureBag, dirtGeode, stoneGeode,
@@ -438,6 +438,9 @@ public class ItemsRegistry {
         goldenGloves = registerItem("golden_gloves", () -> new GlovesItem(Tiers.GOLD, AccessoryGem.TOUGH, AccessoryMaterial.GOLD, new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.UNCOMMON)));
         diamondGloves = registerItem("diamond_gloves", () -> new GlovesItem(Tiers.DIAMOND, AccessoryGem.DIAMOND, AccessoryMaterial.DIAMOND, new Item.Properties().stacksTo(1).durability(240).rarity(Rarity.UNCOMMON)));
         netheriteGloves = registerItem("netherite_gloves", () -> new GlovesItem(Tiers.NETHERITE, AccessoryGem.TANK, AccessoryMaterial.NETHERITE, new Item.Properties().stacksTo(1).durability(300).rarity(Rarity.UNCOMMON)));
+        emptyGazer = registerItem("empty_gazer", () -> new Item(new Item.Properties().rarity(Rarity.RARE)));
+        emptyTotem = registerItem("empty_totem", () -> new Item(new Item.Properties().rarity(Rarity.RARE)));
+        emptyWinglet = registerItem("empty_winglet", () -> new Item(new Item.Properties().rarity(Rarity.RARE)));
         amberTotem = registerItem("amber_golden_totem", () -> new TalismanItem.Builder(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC)).put(Attributes.MAX_HEALTH, 5).put(Attributes.ATTACK_DAMAGE, 1).put(Attributes.MOVEMENT_SPEED, -0.05).build());
         amberWinglet = registerItem("amber_golden_winglet", () -> new TalismanItem.Builder(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC)).put(Attributes.MOVEMENT_SPEED, 0.05).build());
         amberGazer = registerItem("amber_golden_gazer", () -> new TalismanItem.Builder(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC)).put(Attributes.ARMOR, 2).put(Attributes.ATTACK_SPEED, -0.25).build());

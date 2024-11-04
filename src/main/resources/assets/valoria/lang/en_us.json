@@ -446,6 +446,10 @@
   "item.valoria.aloe_bandage_upgraded": "Aloe Bandage",
   "item.valoria.aloe_piece": "Aloe Piece",
   "item.valoria.ambane_stone_brick": "Ambane Stone Brick",
+  "item.valoria.relic_gold": "Relic Gold",
+  "item.valoria.empty_gazer": "Empty Golden Gazer",
+  "item.valoria.empty_totem": "Empty Golden Totem",
+  "item.valoria.empty_winglet": "Empty Golden Winglet",
   "item.valoria.amber_gem": "Amber",
   "item.valoria.amber_golden_gazer": "Golden Gazer (Amber)",
   "item.valoria.amber_golden_totem": "Golden Totem (Amber)",
@@ -607,6 +611,10 @@
   "item.valoria.nature_scythe": "Nature Scythe",
   "item.valoria.nature_shovel": "Nature Shovel",
   "item.valoria.necromancer_spawn_egg": "Necromancer Spawn Egg",
+  "item.valoria.spider_helmet": "Spider Helmet",
+  "item.valoria.spider_chestplate": "Spider Chestplate",
+  "item.valoria.spider_leggings": "Spider Leggings",
+  "item.valoria.spider_boots": "Spider Boots",
   "item.valoria.netherite_chain": "Netherite Chain",
   "item.valoria.netherite_gloves": "Netherite Gloves",
   "item.valoria.netherite_katana": "Netherite Katana",
@@ -852,5 +860,6 @@
   "upgrade.valoria.elemental_upgrade": "Elemental Upgrade",
   "valoria.jade.openable_with": "Openable with:",
   "valoria.jade.progress": "Progress:",
-  "tooltip.valoria.usage_count": "The ability can be used %s times"
+  "tooltip.valoria.usage_count": "The ability can be used %s times",
+  "tooltip.valoria.required_amount": "Required amount:"
 }

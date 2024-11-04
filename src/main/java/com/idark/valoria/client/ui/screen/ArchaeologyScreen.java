@@ -3,18 +3,24 @@ package com.idark.valoria.client.ui.screen;
 import com.idark.valoria.*;
 import com.idark.valoria.client.ui.menus.*;
 import com.idark.valoria.registries.item.recipe.*;
+import com.idark.valoria.util.*;
+import com.mojang.blaze3d.vertex.*;
 import net.minecraft.client.*;
 import net.minecraft.client.gui.*;
 import net.minecraft.client.gui.screens.inventory.*;
+import net.minecraft.client.gui.screens.inventory.tooltip.*;
+import net.minecraft.client.resources.language.*;
 import net.minecraft.client.resources.sounds.*;
-import net.minecraft.network.chat.*;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.*;
 import net.minecraft.sounds.*;
 import net.minecraft.util.*;
 import net.minecraft.world.entity.player.*;
+import net.minecraft.world.item.*;
 import net.minecraftforge.api.distmarker.*;
 
-import java.util.*;
+import java.awt.*;
+import java.util.List;
 
 @OnlyIn(Dist.CLIENT)
 public class ArchaeologyScreen extends AbstractContainerScreen<ArchaeologyMenu> {
@@ -63,6 +69,15 @@ public class ArchaeologyScreen extends AbstractContainerScreen<ArchaeologyMenu> 
         this.renderRecipes(pGuiGraphics, l, i1, j1);
     }
 
+    private void renderFloatingItem(GuiGraphics pGuiGraphics, ItemStack pStack, int pX, int pY) {
+        pGuiGraphics.pose().pushPose();
+        pGuiGraphics.pose().translate(0.0F, 0.0F, 232.0F);
+        pGuiGraphics.renderItem(pStack, pX, pY);
+        var font = net.minecraftforge.client.extensions.common.IClientItemExtensions.of(pStack).getFont(pStack, net.minecraftforge.client.extensions.common.IClientItemExtensions.FontContext.ITEM_COUNT);
+        pGuiGraphics.renderItemDecorations(font == null ? this.font : font, pStack, pX, pY, String.valueOf(pStack.getCount()));
+        pGuiGraphics.pose().popPose();
+    }
+
     protected void renderTooltip(GuiGraphics pGuiGraphics, int pX, int pY) {
         super.renderTooltip(pGuiGraphics, pX, pY);
         if (this.displayRecipes) {
@@ -75,11 +90,21 @@ public class ArchaeologyScreen extends AbstractContainerScreen<ArchaeologyMenu> 
                 int j1 = i + i1 % 4 * 16;
                 int k1 = j + i1 / 4 * 18 + 2;
                 if (pX >= j1 && pX < j1 + 16 && pY >= k1 && pY < k1 + 18) {
+                    ItemStack stack = this.menu.container.getItem(0).copy();
+                    if (this.menu.getCurrentRecipe() != null && !this.menu.getCurrentRecipe().canCraft(this.menu.container)){
+                        String component = I18n.get("tooltip.valoria.required_amount");
+                        PoseStack ms = pGuiGraphics.pose();
+                        TooltipRenderUtil.renderTooltipBackground(pGuiGraphics, pX + 12, pY + 30, Minecraft.getInstance().font.width(component) + 20, 15, 300, Color.BLACK.getRGB(), Pal.darkerGray.getRGB(), Pal.darkishGray.getRGB(), Pal.lightishGray.darker().getRGB());
+                        ms.translate(pX, pY, 300);
+                        renderFloatingItem(pGuiGraphics, stack.copyWithCount(this.menu.getCurrentRecipe().getIngredientCount()), Minecraft.getInstance().font.width(component) + 12, 30);
+                        pGuiGraphics.drawString(this.font, component, 14, 34, Color.WHITE.getRGB());
+                        ms.popPose();
+                    }
+
                     pGuiGraphics.renderTooltip(this.font, list.get(l).getResultItem(this.minecraft.level.registryAccess()), pX, pY);
                 }
             }
         }
-
     }
 
     private void renderButtons(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY, int pX, int pY, int pLastVisibleElementIndex) {
@@ -101,7 +126,6 @@ public class ArchaeologyScreen extends AbstractContainerScreen<ArchaeologyMenu> 
         }
     }
 
-    //todo recipes itself
     private void renderRecipes(GuiGraphics pGuiGraphics, int pX, int pY, int pStartIndex) {
         List<ArchaeologyRecipe> list = this.menu.getRecipes();
         for(int i = this.startIndex; i < pStartIndex && i < this.menu.getNumRecipes(); ++i) {

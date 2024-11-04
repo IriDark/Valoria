@@ -1,14 +1,11 @@
 package com.idark.valoria.registries.item.armor.item;
 
 import com.google.common.collect.*;
-import com.idark.valoria.registries.item.armor.*;
 import net.minecraft.*;
-import net.minecraft.client.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier.*;
-import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.ItemStack.*;
 import net.minecraft.world.level.*;
@@ -51,18 +48,20 @@ public class PercentageArmorItem extends ArmorItem{
         return 0;
     }
 
+    public int getTotalDefense(ArmorMaterial material) {
+        return material.getDefenseForType(Type.HELMET) +
+        material.getDefenseForType(Type.CHESTPLATE) +
+        material.getDefenseForType(Type.LEGGINGS) +
+        material.getDefenseForType(Type.BOOTS);
+    }
+
     @Override
     @OnlyIn(Dist.CLIENT)
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced){
         super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
-        Player player = Minecraft.getInstance().player;
-        if(pStack.getItem() instanceof PercentageArmorItem armorItem){
-            pStack.hideTooltipPart(TooltipPart.MODIFIERS);
-            if(armorItem.getMaterial() instanceof ArmorRegistry reg){
-                pTooltipComponents.add(Component.translatable("tooltip.valoria.total_armor", reg.getTotalDefense(player) + "%").withStyle(ChatFormatting.GRAY));
-                pTooltipComponents.add(Component.translatable("attribute.modifier.plus.1", defense, Component.translatable("attribute.name.generic.armor")).withStyle(ChatFormatting.BLUE));
-            }
-        }
+        pStack.hideTooltipPart(TooltipPart.MODIFIERS);
+        pTooltipComponents.add(Component.translatable("tooltip.valoria.total_armor", getTotalDefense(((PercentageArmorItem)pStack.getItem()).getMaterial()) + "%").withStyle(ChatFormatting.GRAY));
+        pTooltipComponents.add(Component.translatable("attribute.modifier.plus.1", defense, Component.translatable("attribute.name.generic.armor")).withStyle(ChatFormatting.BLUE));
     }
 
     public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot pEquipmentSlot) {

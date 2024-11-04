@@ -1,0 +1,10 @@
+{
+  "type": "valoria:archaeology",
+  "ingredient": {
+    "item": "valoria:relic_gold"
+  },
+
+  "ingredient_count": 8,
+  "result": "valoria:empty_gazer",
+  "count": 1
+}

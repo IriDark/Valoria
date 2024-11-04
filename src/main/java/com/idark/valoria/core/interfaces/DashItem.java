@@ -7,7 +7,7 @@ import net.minecraft.world.phys.*;
 
 public interface DashItem{
     default double getEnchantmentBonus(ItemStack stack) {
-        return stack.getEnchantmentLevel(EnchantmentsRegistry.DASH.get()) * 0.25;
+        return stack.getEnchantmentLevel(EnchantmentsRegistry.DASH.get()) * 0.1;
     }
 
     default void performDash(Player player, ItemStack stack) {
