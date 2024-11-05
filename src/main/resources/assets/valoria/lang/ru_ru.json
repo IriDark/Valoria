@@ -869,6 +869,7 @@
   "tooltip.valoria.treasure": "Что же здесь может хранится?...",
   "tooltip.valoria.trinkets_bag": "Мешочек со всякой всячиной. Используется что бы быстро менять аксессуары на клавишу [%s]",
   "tooltip.valoria.usage_count": "The ability can be used %s times",
+  "tooltip.valoria.value": "%s",
   "tooltip.valoria.vision": "Даёт эффект ночного зрения на некоторое время",
   "tooltip.valoria.wealth": "Даёт дополнительный уровень удачи",
   "tooltip.valoria.wet": "Невозможно использовать способность, когда игрок мокрый!.",

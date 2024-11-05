@@ -848,6 +848,7 @@
   "tooltip.valoria.treasure": "What even could be stored here?...",
   "tooltip.valoria.trinkets_bag": "Trinkets bag, used to quickly equip your accessories with a keybind [%s]",
   "tooltip.valoria.usage_count": "The ability can be used %s times",
+  "tooltip.valoria.value": "%s",
   "tooltip.valoria.vision": "Grants night vision for a while",
   "tooltip.valoria.wealth": "Grants an additional luck",
   "tooltip.valoria.wet": "You can't use the ability when you're wet!.",
