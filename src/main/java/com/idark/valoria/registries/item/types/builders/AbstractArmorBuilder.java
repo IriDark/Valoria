@@ -9,6 +9,10 @@ import java.util.function.*;
 public abstract class AbstractArmorBuilder<T extends ArmorMaterial>{
     public String name;
     public int durabilityMultiplier;
+    public int headPercent = 20;
+    public int chestPercent = 35;
+    public int leggingsPercent = 25;
+    public int bootsPercent = 20;
     public int headProtectionAmount;
     public int chestplateProtectionAmount;
     public int leggingsProtectionAmount;
@@ -19,10 +23,16 @@ public abstract class AbstractArmorBuilder<T extends ArmorMaterial>{
     public float knockbackResistance;
     public Supplier<Ingredient> repairIngredient;
     public int[] durability = {11, 16, 16, 13};
+//    public ImmutableMultimap.Builder<Attribute, AttributeModifier> attributes = ImmutableMultimap.builder();
 
     public AbstractArmorBuilder(String name){
         this.name = name;
     }
+
+//    public AbstractArmorBuilder<T> put(Attribute attribute, UUID uuid, AttributeModifier.Operation operation, double value){
+//        this.attributes.put(attribute, new AttributeModifier(uuid, "Armor modifier", value, operation));
+//        return this;
+//    }
 
     public AbstractArmorBuilder<T> mul(int durabilityMul){
         this.durabilityMultiplier = durabilityMul;
@@ -34,6 +44,32 @@ public abstract class AbstractArmorBuilder<T extends ArmorMaterial>{
         return this;
     }
 
+    public AbstractArmorBuilder<T> protection(int percent) {
+        int head = (percent * headPercent) / 100;
+        int chest = (percent * chestPercent) / 100;
+        int leggings = (percent * leggingsPercent) / 100;
+        int boots = (percent * bootsPercent) / 100;
+        int remainder = percent - (head + chest + leggings + boots);
+        chest += remainder;
+
+        this.headProtectionAmount = head;
+        this.chestplateProtectionAmount = chest;
+        this.leggingsProtectionAmount = leggings;
+        this.bootsProtectionAmount = boots;
+        return this;
+    }
+
+    /**
+     * Armor percent distribution between parts
+     * @apiNote Default: 20, 35, 25, 20
+     */
+    public AbstractArmorBuilder<T> distribution(int head, int chest, int leggings, int boots) {
+        this.headPercent = head;
+        this.chestPercent = chest;
+        this.leggingsPercent = leggings;
+        this.bootsPercent = boots;
+        return this;
+    }
 
     public AbstractArmorBuilder<T> protection(int head, int chest, int leggings, int boots) {
         this.headProtectionAmount = head;
