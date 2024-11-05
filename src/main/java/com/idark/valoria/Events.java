@@ -13,18 +13,22 @@ import com.idark.valoria.registries.item.armor.item.*;
 import com.idark.valoria.registries.item.types.*;
 import com.idark.valoria.util.*;
 import com.mojang.blaze3d.systems.*;
+import com.mojang.blaze3d.vertex.*;
 import mod.maxbogomol.fluffy_fur.util.ColorUtil;
 import net.minecraft.*;
 import net.minecraft.client.*;
 import net.minecraft.client.gui.*;
 import net.minecraft.client.gui.components.*;
 import net.minecraft.client.gui.screens.*;
+import net.minecraft.client.renderer.*;
+import net.minecraft.client.resources.language.*;
 import net.minecraft.core.*;
 import net.minecraft.nbt.*;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.*;
 import net.minecraft.server.level.*;
 import net.minecraft.tags.*;
+import net.minecraft.util.*;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
@@ -35,6 +39,7 @@ import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.phys.*;
 import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.client.event.*;
+import net.minecraftforge.client.gui.overlay.*;
 import net.minecraftforge.common.capabilities.*;
 import net.minecraftforge.common.util.*;
 import net.minecraftforge.event.*;
@@ -50,8 +55,8 @@ import java.util.stream.*;
 
 @SuppressWarnings("removal")
 public class Events{
+    protected static final ResourceLocation GUI_ICONS_LOCATION = new ResourceLocation("textures/gui/icons.png");
     public ArcRandom arcRandom = new ArcRandom();
-
     @SubscribeEvent
     public void attachEntityCaps(AttachCapabilitiesEvent<Entity> event){
         if(event.getObject() instanceof Player){
@@ -170,7 +175,7 @@ public class Events{
             }
         }
 
-        totalMultiplier = Math.max(Math.min(1f - (armor),1),0);
+        totalMultiplier = Math.max(Math.min(1 - (armor), 1), 0);
         float reducedDamage = incomingDamage * totalMultiplier;
         event.setAmount(reducedDamage);
     }
@@ -220,6 +225,50 @@ public class Events{
             if (event.getEntity() instanceof Player) {
                 PacketHandler.sendTo((ServerPlayer) event.getEntity(), new UnlockableUpdatePacket((Player) event.getEntity()));
             }
+        }
+    }
+
+    // may be improved, not accurate
+    public static double calculateDamageReductionPercent(double defensePoints, double toughness) {
+        return Mth.clamp(defensePoints / 2, 0, 20) / 25 * 0.4;
+    }
+
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    @OnlyIn(Dist.CLIENT)
+    public void onArmorRender(RenderGuiOverlayEvent.Pre ev){
+        if(ev.isCanceled()) return;
+        Minecraft minecraft = Minecraft.getInstance();
+        GuiGraphics gui = ev.getGuiGraphics();
+        PoseStack ms = gui.pose();
+        if(minecraft.options.hideGui) return;
+
+        int width = minecraft.getWindow().getGuiScaledWidth();
+        int height = minecraft.getWindow().getGuiScaledHeight();
+        double armor = 0;
+        for (ItemStack armorPiece : minecraft.player.getArmorSlots()) {
+            if (armorPiece.getItem() instanceof PercentageArmorItem percent) {
+                int percentDefense = percent.getDefense();
+                armor += percentDefense;
+            }
+        }
+
+        armor += calculateDamageReductionPercent(minecraft.player.getAttributeValue(Attributes.ARMOR), minecraft.player.getAttributeValue(Attributes.ARMOR_TOUGHNESS)) * 100;
+        if(armor > 0 && ev.getOverlay() == VanillaGuiOverlay.ARMOR_LEVEL.type() && new ForgeGui(minecraft).shouldDrawSurvivalElements()){
+            ms.pushPose();
+            RenderSystem.enableBlend();
+            RenderSystem.defaultBlendFunc();
+            RenderSystem.disableDepthTest();
+            RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+            RenderSystem.setShader(GameRenderer::getPositionTexShader);
+            int left = width / 2 - 91;
+            int top = height - 49;
+
+            RenderSystem.disableBlend();
+            String component = I18n.get("tooltip.valoria.value", Math.round(armor) + "%");
+            gui.blit(GUI_ICONS_LOCATION, left, top - 2, 34, 9, 9, 9);
+            gui.drawString(minecraft.font, component, left + 12, top - 1, Color.WHITE.getRGB());
+            ms.popPose();
+            ev.setCanceled(true);
         }
     }
 

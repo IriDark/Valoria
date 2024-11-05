@@ -861,5 +861,6 @@
   "valoria.jade.openable_with": "Openable with:",
   "valoria.jade.progress": "Progress:",
   "tooltip.valoria.usage_count": "The ability can be used %s times",
-  "tooltip.valoria.required_amount": "Required amount:"
+  "tooltip.valoria.required_amount": "Required amount:",
+  "tooltip.valoria.value": "%s"
 }
