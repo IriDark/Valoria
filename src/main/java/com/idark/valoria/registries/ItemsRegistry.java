@@ -76,7 +76,7 @@ public class ItemsRegistry {
     boneFragment, painCrystal, nihilityShard, illusionStone,
     natureCore, aquariusCore, infernalCore, voidCore,
     natureUpgrade, aquariusUpgrade, infernalUpgrade, voidUpgrade,
-    arcaneTrim, muramasaTrim, cyberpunkTrim, theFallenTrim,
+    arcaneTrim, muramasaTrim, cyberpunkQunatumFragment, theFallenTrim,
     gaibRoot, karusakanRoot, shadeBlossomLeaf, aloePiece,
     dunestoneBrick, tombstoneBrick, ambaneStoneBrick, limestoneBrick, crystalStoneBrick, voidStoneBrick,
     bronzeIngot, pearliumIngot, cobaltIngot, blackGold, ancientIngot,
@@ -242,7 +242,7 @@ public class ItemsRegistry {
         infernalUpgrade = registerItem("infernal_upgrade_smithing_template", () -> ElementalSmithingTemplateItem.createUpgradeTemplate(infernalIngot));
         voidUpgrade = registerItem("void_upgrade_smithing_template", () -> ElementalSmithingTemplateItem.createUpgradeTemplate(voidIngot));
         arcaneTrim = registerItem("arcane_trim", () -> new SkinTrimItem(SkinsRegistry.ARCANE_GOLD, new Item.Properties()));
-        cyberpunkTrim = registerItem("cyberpunk_trim", () -> new SkinTrimItem(SkinsRegistry.CYBERPUNK, new Item.Properties()));
+        cyberpunkQunatumFragment = registerItem("cyberpunk_quantum_reaper_fragment", () -> new SkinFragmentItem(SkinsRegistry.CYBERPUNK, new Item.Properties(), () -> quantumReaper.get()));
         muramasaTrim = registerItem("muramasa_trim", () -> new SkinTrimItem(SkinsRegistry.MURAMASA, new Item.Properties()));
         theFallenTrim = registerItem("the_fallen_trim", () -> new SkinTrimItem(SkinsRegistry.THE_FALLEN_COLLECTOR, new Item.Properties()));
 

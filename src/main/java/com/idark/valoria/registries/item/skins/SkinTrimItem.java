@@ -31,6 +31,10 @@ public class SkinTrimItem extends Item{
         return List.of(EMPTY_SLOT_HELMET, EMPTY_SLOT_CHESTPLATE, EMPTY_SLOT_LEGGINGS, EMPTY_SLOT_BOOTS, EMPTY_SLOT_HOE, EMPTY_SLOT_AXE, EMPTY_SLOT_SWORD, EMPTY_SLOT_SHOVEL, EMPTY_SLOT_PICKAXE);
     }
 
+    public boolean canApply(ItemStack stack) {
+        return skin.canApplyOnItem(stack);
+    }
+
     public ItemSkin getSkin() {
         return skin;
     }

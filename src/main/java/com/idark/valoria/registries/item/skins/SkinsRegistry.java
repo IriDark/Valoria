@@ -26,7 +26,7 @@ import java.util.*;
 public class SkinsRegistry{
     public static ItemSkin THE_FALLEN_COLLECTOR = new TheFallenCollector(Valoria.ID + ":the_fallen_collector");
     public static ItemSkin ARCANE_GOLD = new ArcaneGold(Valoria.ID + ":arcane_gold");
-    public static ItemSkin CYBERPUNK = new Cyberpunk(Valoria.ID + ":cyberpunk");
+    public static ItemSkin CYBERPUNK = new Epic(Valoria.ID + ":cyberpunk");
     public static ItemSkin MURAMASA = new Muramasa(Valoria.ID + ":muramasa");
     public static void register(){
         ItemSkinHandler.register(ARCANE_GOLD);
@@ -43,7 +43,7 @@ public class SkinsRegistry{
     public static void registerModels(){
         ArcaneGold.registerModels();
         TheFallenCollector.registerModels();
-        Cyberpunk.registerModels();
+        Epic.registerModels();
         Muramasa.registerModels();
     }
 

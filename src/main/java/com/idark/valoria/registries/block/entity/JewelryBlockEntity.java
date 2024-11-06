@@ -233,7 +233,7 @@ public class JewelryBlockEntity extends BlockEntity implements MenuProvider, Tic
     public ItemSkin getSkin() {
         if (!itemHandler.getStackInSlot(0).isEmpty() && !itemHandler.getStackInSlot(1).isEmpty()) {
             if (itemHandler.getStackInSlot(1).getItem() instanceof SkinTrimItem trim) {
-                if (trim.getSkin().canApplyOnItem(itemHandler.getStackInSlot(0))) {
+                if (trim.canApply(itemHandler.getStackInSlot(0))) {
                     ItemSkin skin = ItemSkin.getSkinFromItem(itemHandler.getStackInSlot(0));
                     if (skin != null) {
                         if (skin == trim.getSkin()) return null;
