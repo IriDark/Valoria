@@ -32,9 +32,9 @@ public final class LootUtil {
     }
 
     /**
-     * Drops loot when using item
+     * Drops loot on using item
      */
-    public static void DropLoot(Player pPlayer, Collection<ItemStack> pItemStacks) {
+    public static void dropLoot(Player pPlayer, Collection<ItemStack> pItemStacks) {
         for (ItemStack stack : pItemStacks) {
             pPlayer.drop(stack, false);
         }
@@ -51,7 +51,7 @@ public final class LootUtil {
     /**
      * Spawns loot on a block position when using item
      */
-    public static void SpawnLoot(Level pLevel, BlockPos pPos, Collection<ItemStack> pItemStacks) {
+    public static void spawnLoot(Level pLevel, BlockPos pPos, Collection<ItemStack> pItemStacks) {
         if (!pLevel.isClientSide()) {
             for (ItemStack stack : pItemStacks) {
                 pLevel.addFreshEntity(new ItemEntity(pLevel, pPos.getX() + 0.5F, pPos.getY() + 0.5F, pPos.getZ() + 0.5F, stack));
