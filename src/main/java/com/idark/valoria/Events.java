@@ -252,7 +252,7 @@ public class Events{
             }
         }
 
-        armor += calculateDamageReductionPercent(minecraft.player.getAttributeValue(Attributes.ARMOR), minecraft.player.getAttributeValue(Attributes.ARMOR_TOUGHNESS)) * 100;
+        armor += calculateDamageReductionPercent(minecraft.player.getAttributeValue(Attributes.ARMOR), minecraft.player.getAttributeValue(Attributes.ARMOR_TOUGHNESS) * 100);
         if(armor > 0 && ev.getOverlay() == VanillaGuiOverlay.ARMOR_LEVEL.type() && new ForgeGui(minecraft).shouldDrawSurvivalElements()){
             ms.pushPose();
             RenderSystem.enableBlend();

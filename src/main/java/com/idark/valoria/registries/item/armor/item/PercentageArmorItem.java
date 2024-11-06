@@ -33,22 +33,6 @@ public class PercentageArmorItem extends ArmorItem{
     public final DecimalFormat ATTRIBUTE_MODIFIER_FORMAT = Util.make(new DecimalFormat("#.##"), (p_41704_) -> p_41704_.setDecimalFormatSymbols(DecimalFormatSymbols.getInstance(Locale.ROOT)));
     public final Multimap<Attribute, AttributeModifier> defaultModifiers;
 
-//    public PercentageArmorItem(ArmorRegistry pMaterial, Type pType, Properties pProperties){
-//        super(pMaterial, pType, pProperties);
-//        this.material = pMaterial;
-//        this.toughness = pMaterial.getToughness();
-//        this.defense = pMaterial.getDefenseForType(pType);
-//        this.knockbackResistance = pMaterial.getKnockbackResistance();
-//        UUID uuid = ARMOR_MODIFIER_UUID_PER_TYPE.get(pType);
-//        ArmorRegistry.Builder builder = pMaterial.builder;
-//        if(this.knockbackResistance > 0){
-//            builder.put(Attributes.KNOCKBACK_RESISTANCE, uuid, AttributeModifier.Operation.ADDITION, this.knockbackResistance);
-//        }
-//
-//        builder.put(Attributes.ARMOR_TOUGHNESS, uuid, AttributeModifier.Operation.ADDITION, this.toughness);
-//        this.defaultModifiers = builder.attributes.build();
-//    }
-
     public PercentageArmorItem(ArmorMaterial pMaterial, Type pType, Properties pProperties){
         super(pMaterial, pType, pProperties);
         this.material = pMaterial;

@@ -1,0 +1,16 @@
+{
+  "type": "valoria:jewelry",
+  "output": {
+    "count": 1,
+    "item": "valoria:emerald_golden_totem"
+  },
+  "time": 500,
+  "ingredients": [
+    {
+      "item": "valoria:empty_totem"
+    },
+    {
+      "item": "minecraft:emerald"
+    }
+  ]
+}

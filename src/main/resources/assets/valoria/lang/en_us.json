@@ -862,5 +862,6 @@
   "valoria.jade.progress": "Progress:",
   "tooltip.valoria.usage_count": "The ability can be used %s times",
   "tooltip.valoria.required_amount": "Required amount:",
-  "tooltip.valoria.value": "%s"
+  "tooltip.valoria.value": "%s",
+  "jei.valoria.archaeology_table": "Archaeology"
 }

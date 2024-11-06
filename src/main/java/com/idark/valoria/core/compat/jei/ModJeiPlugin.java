@@ -21,6 +21,7 @@ public class ModJeiPlugin implements IModPlugin {
     public void registerCategories(IRecipeCategoryRegistration registry) {
         registry.addRecipeCategories(new KegRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
         registry.addRecipeCategories(new JewelryRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
+        registry.addRecipeCategories(new ArchaeologyRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
         registry.addRecipeCategories(new ManipulatorRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
         //registry.addRecipeCategories(new CrusherRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
     }
@@ -30,12 +31,14 @@ public class ModJeiPlugin implements IModPlugin {
         ModJeiRecipes modRecipes = new ModJeiRecipes();
         registration.addRecipes(ModRecipeTypes.BREWERY, modRecipes.getBreweryRecipes());
         registration.addRecipes(ModRecipeTypes.JEWELRY, modRecipes.getJewelryRecipes());
+        registration.addRecipes(ModRecipeTypes.ARCHAEOLOGY, modRecipes.getArchaeologyRecipes());
         registration.addRecipes(ModRecipeTypes.MANIPULATOR, modRecipes.getManipulatorRecipes());
         //registration.addRecipes(ModRecipeTypes.CRUSHER, modRecipes.getCrusherRecipes());
     }
 
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
+        registration.addRecipeCatalyst(new ItemStack(BlockRegistry.ARCHAEOLOGY_TABLE.get()), ModRecipeTypes.ARCHAEOLOGY);
         registration.addRecipeCatalyst(new ItemStack(BlockRegistry.KEG.get()), ModRecipeTypes.BREWERY);
         registration.addRecipeCatalyst(new ItemStack(BlockRegistry.JEWELER_TABLE.get()), ModRecipeTypes.JEWELRY);
         registration.addRecipeCatalyst(new ItemStack(BlockRegistry.ELEMENTAL_MANIPULATOR.get()), ModRecipeTypes.MANIPULATOR);

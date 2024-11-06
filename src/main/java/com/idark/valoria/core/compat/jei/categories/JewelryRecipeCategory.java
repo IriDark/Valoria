@@ -5,12 +5,10 @@ import com.idark.valoria.client.event.*;
 import com.idark.valoria.core.compat.jei.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.item.recipe.*;
-import mezz.jei.api.constants.*;
 import mezz.jei.api.gui.builder.*;
 import mezz.jei.api.gui.drawable.*;
 import mezz.jei.api.gui.ingredient.*;
 import mezz.jei.api.helpers.*;
-import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.*;
 import mezz.jei.api.recipe.category.*;
 import net.minecraft.client.*;
@@ -23,37 +21,12 @@ import net.minecraft.world.item.crafting.*;
 
 import java.util.*;
 
-public class JewelryRecipeCategory implements IRecipeCategory<JewelryRecipe> {
-    private final Component title;
+public class JewelryRecipeCategory extends AbstractRecipeCategory<JewelryRecipe> {
     private final IDrawable background;
-    private final IDrawable icon;
-
     public JewelryRecipeCategory(IGuiHelper helper) {
-        title = Component.translatable("jei.valoria.jewelry");
+        super(ModRecipeTypes.JEWELRY, Component.translatable("jei.valoria.jewelry"), helper.createDrawableItemLike(BlockRegistry.JEWELER_TABLE.get()), 148, 48);
         ResourceLocation backgroundImage = new ResourceLocation(Valoria.ID, "textures/gui/jei/jewelry.png");
-
         background = helper.createDrawable(backgroundImage, 0, 0, 148, 48);
-        icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(BlockRegistry.JEWELER_TABLE.get()));
-    }
-
-    @Override
-    public RecipeType<JewelryRecipe> getRecipeType() {
-        return ModRecipeTypes.JEWELRY;
-    }
-
-    @Override
-    public Component getTitle() {
-        return this.title;
-    }
-
-    @Override
-    public IDrawable getBackground() {
-        return this.background;
-    }
-
-    @Override
-    public IDrawable getIcon() {
-        return this.icon;
     }
 
     @Override
@@ -68,6 +41,7 @@ public class JewelryRecipeCategory implements IRecipeCategory<JewelryRecipe> {
 
     @Override
     public void draw(JewelryRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics gui, double mouseX, double mouseY) {
+        background.draw(gui, 0, 1);
         Font font_renderer = Minecraft.getInstance().font;
         int ticks = recipe.getTime();
         int seconds = ticks / 20;

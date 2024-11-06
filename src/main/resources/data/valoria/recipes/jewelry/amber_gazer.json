@@ -1,0 +1,16 @@
+{
+  "type": "valoria:jewelry",
+  "output": {
+    "count": 1,
+    "item": "valoria:amber_golden_gazer"
+  },
+  "time": 500,
+  "ingredients": [
+    {
+      "item": "valoria:empty_gazer"
+    },
+    {
+      "item": "valoria:amber_gem"
+    }
+  ]
+}

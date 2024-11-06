@@ -64,9 +64,9 @@ public class ArmorRegistry implements ArmorMaterial{
     }
 
     // every level of Protection (added up across all pieces) reduces damage by 4%
-    // Leather - 3.6%
-    // Golden - 8.8%
-    // Chainmail - 9.6%
+    // Leather - 3.6% -> 4%
+    // Golden - 8.8% -> 9%
+    // Chainmail - 9.6% -> 10%
     // Iron - 12%
     // Diamond - 16%
     // Netherite - 16%

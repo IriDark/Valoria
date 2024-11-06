@@ -5,12 +5,10 @@ import com.idark.valoria.client.event.*;
 import com.idark.valoria.core.compat.jei.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.item.recipe.*;
-import mezz.jei.api.constants.*;
 import mezz.jei.api.gui.builder.*;
 import mezz.jei.api.gui.drawable.*;
 import mezz.jei.api.gui.ingredient.*;
 import mezz.jei.api.helpers.*;
-import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.*;
 import mezz.jei.api.recipe.category.*;
 import net.minecraft.client.*;
@@ -23,37 +21,12 @@ import net.minecraft.world.item.crafting.*;
 
 import java.util.*;
 
-public class ManipulatorRecipeCategory implements IRecipeCategory<ManipulatorRecipe> {
-    private final Component title;
+public class ManipulatorRecipeCategory extends AbstractRecipeCategory<ManipulatorRecipe> {
     private final IDrawable background;
-    private final IDrawable icon;
-
     public ManipulatorRecipeCategory(IGuiHelper helper) {
-        title = Component.translatable("jei.valoria.manipulator");
+        super(ModRecipeTypes.MANIPULATOR, Component.translatable("jei.valoria.manipulator"), helper.createDrawableItemLike(BlockRegistry.ELEMENTAL_MANIPULATOR.get()), 148, 48);
         ResourceLocation backgroundImage = new ResourceLocation(Valoria.ID, "textures/gui/jei/manipulator.png");
-
         background = helper.createDrawable(backgroundImage, 0, 0, 148, 48);
-        icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(BlockRegistry.ELEMENTAL_MANIPULATOR.get()));
-    }
-
-    @Override
-    public RecipeType<ManipulatorRecipe> getRecipeType() {
-        return ModRecipeTypes.MANIPULATOR;
-    }
-
-    @Override
-    public Component getTitle() {
-        return this.title;
-    }
-
-    @Override
-    public IDrawable getBackground() {
-        return this.background;
-    }
-
-    @Override
-    public IDrawable getIcon() {
-        return this.icon;
     }
 
     @Override
@@ -68,6 +41,7 @@ public class ManipulatorRecipeCategory implements IRecipeCategory<ManipulatorRec
 
     @Override
     public void draw(ManipulatorRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics gui, double mouseX, double mouseY) {
+        background.draw(gui);
         Font font_renderer = Minecraft.getInstance().font;
         int ticks = recipe.getTime();
         int seconds = ticks / 20;

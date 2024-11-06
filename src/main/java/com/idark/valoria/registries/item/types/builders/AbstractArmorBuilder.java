@@ -23,16 +23,10 @@ public abstract class AbstractArmorBuilder<T extends ArmorMaterial>{
     public float knockbackResistance;
     public Supplier<Ingredient> repairIngredient;
     public int[] durability = {11, 16, 16, 13};
-//    public ImmutableMultimap.Builder<Attribute, AttributeModifier> attributes = ImmutableMultimap.builder();
 
     public AbstractArmorBuilder(String name){
         this.name = name;
     }
-
-//    public AbstractArmorBuilder<T> put(Attribute attribute, UUID uuid, AttributeModifier.Operation operation, double value){
-//        this.attributes.put(attribute, new AttributeModifier(uuid, "Armor modifier", value, operation));
-//        return this;
-//    }
 
     public AbstractArmorBuilder<T> mul(int durabilityMul){
         this.durabilityMultiplier = durabilityMul;
