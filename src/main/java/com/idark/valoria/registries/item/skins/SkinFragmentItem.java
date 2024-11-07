@@ -15,13 +15,19 @@ import java.util.function.*;
 public class SkinFragmentItem extends SkinTrimItem{
     public ItemSkin skin;
     public Supplier<Item> item;
+    public Class<?> itemClass;
     public SkinFragmentItem(ItemSkin skin, Properties properties, Supplier<Item> item) {
         super(skin, properties);
         this.item = item;
     }
 
+    public SkinFragmentItem(ItemSkin skin, Properties properties, Class<?> item) {
+        super(skin, properties);
+        this.itemClass = item;
+    }
+
     public boolean canApply(ItemStack stack) {
-        return stack.is(item.get());
+        return itemClass != null ? this.itemClass.isInstance(stack.getItem()) : stack.is(item.get());
     }
 
     @OnlyIn(Dist.CLIENT)

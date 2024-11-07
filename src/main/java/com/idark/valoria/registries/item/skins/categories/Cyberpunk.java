@@ -11,30 +11,22 @@ import net.minecraft.network.chat.*;
 import net.minecraft.world.item.*;
 import net.minecraftforge.api.distmarker.*;
 
-public class Epic extends ItemSkin implements AuthoredItemSkin {
-    public Epic(String id){
+public class Cyberpunk extends ItemSkin implements AuthoredItemSkin {
+    public Cyberpunk(String id){
         super(id, Pal.majestyPurple);
     }
 
     public Component getContributorComponent(ItemStack stack) {
-        if (stack.is(ItemsRegistry.quantumReaper.get())) return stack.getHoverName().copy().withStyle(stack.getRarity().getStyleModifier()).append(Component.literal(" ༶ Auriny ༶").withStyle(Styles.nihility));
-        return stack.getHoverName();
+        return stack.getHoverName().copy().withStyle(stack.getRarity().getStyleModifier()).append(Component.literal(" ༶ Auriny ༶").withStyle(Styles.nihility));
     }
 
     @OnlyIn(Dist.CLIENT)
     public static void registerModels(){
         ItemSkinModels.addSkin(Valoria.ID + ":cyberpunk_quantum_reaper");
-        ItemSkinModels.addSkin(Valoria.ID + ":midnight_quantum_reaper");
-    }
-
-    @Override
-    public boolean canApplyOnItem(ItemStack itemStack){
-        return super.canApplyOnItem(itemStack);
     }
 
     @Override
     public void setupSkinEntries() {
         addSkinEntry(new ItemSupplierSkinEntry(() -> ItemsRegistry.quantumReaper.get(), Valoria.ID+":cyberpunk_quantum_reaper"));
-        addSkinEntry(new ItemSupplierSkinEntry(() -> ItemsRegistry.quantumReaper.get(), Valoria.ID+":midnight_quantum_reaper"));
     }
 }

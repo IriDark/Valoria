@@ -26,13 +26,17 @@ import java.util.*;
 public class SkinsRegistry{
     public static ItemSkin THE_FALLEN_COLLECTOR = new TheFallenCollector(Valoria.ID + ":the_fallen_collector");
     public static ItemSkin ARCANE_GOLD = new ArcaneGold(Valoria.ID + ":arcane_gold");
-    public static ItemSkin CYBERPUNK = new Epic(Valoria.ID + ":cyberpunk");
+    public static ItemSkin CYBERPUNK = new Cyberpunk(Valoria.ID + ":cyberpunk");
+    public static ItemSkin MIDNIGHT = new Midnight(Valoria.ID + ":midnight");
     public static ItemSkin MURAMASA = new Muramasa(Valoria.ID + ":muramasa");
+    public static ItemSkin FISH = new Fish(Valoria.ID + ":fish");
     public static void register(){
         ItemSkinHandler.register(ARCANE_GOLD);
         ItemSkinHandler.register(THE_FALLEN_COLLECTOR);
         ItemSkinHandler.register(CYBERPUNK);
+        ItemSkinHandler.register(MIDNIGHT);
         ItemSkinHandler.register(MURAMASA);
+        ItemSkinHandler.register(FISH);
         DistExecutor.unsafeCallWhenOn(Dist.CLIENT, () -> () -> {
             registerModels();
             return new Object();
@@ -43,7 +47,9 @@ public class SkinsRegistry{
     public static void registerModels(){
         ArcaneGold.registerModels();
         TheFallenCollector.registerModels();
-        Epic.registerModels();
+        Cyberpunk.registerModels();
+        Midnight.registerModels();
+        Fish.registerModels();
         Muramasa.registerModels();
     }
 
@@ -62,6 +68,7 @@ public class SkinsRegistry{
             event.register(LargeItemRenderer.getModelResourceLocation(Valoria.ID, "skin/arcane_gold_blaze_reap"));
             event.register(LargeItemRenderer.getModelResourceLocation(Valoria.ID, "skin/muramasa"));
             event.register(LargeItemRenderer.getModelResourceLocation(Valoria.ID, "skin/brand"));
+            event.register(LargeItemRenderer.getModelResourceLocation(Valoria.ID, "skin/swordfish"));
         }
 
         @SubscribeEvent
@@ -79,6 +86,7 @@ public class SkinsRegistry{
             FluffyFurItemSkins.addLargeModel(map, Valoria.ID, "muramasa");
             FluffyFurItemSkins.addLargeModel(map, Valoria.ID, "brand");
             FluffyFurItemSkins.addLargeModel(map, Valoria.ID, "arcane_gold_blaze_reap");
+            FluffyFurItemSkins.addLargeModel(map, Valoria.ID, "swordfish");
             LargeItemRenderer.bakeModel(map, Valoria.ID, "blaze_reap", new ItemSkinItemOverrides());
         }
     }
@@ -97,6 +105,8 @@ public class SkinsRegistry{
         for(RegistryObject<Item> item : ItemsRegistry.ITEMS.getEntries()){
             if(item.get() instanceof KatanaItem && ((KatanaItem) item.get()).builder.hasLargeModel){
                 LargeItemRenderer.bakeModel(map, Valoria.ID, item.getId().getPath(), new ItemSkinItemOverrides());
+            } else {
+                FluffyFurItemSkins.addSkinModel(map, item.getId());
             }
         }
     }

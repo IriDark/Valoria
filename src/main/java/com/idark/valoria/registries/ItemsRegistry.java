@@ -76,7 +76,7 @@ public class ItemsRegistry {
     boneFragment, painCrystal, nihilityShard, illusionStone,
     natureCore, aquariusCore, infernalCore, voidCore,
     natureUpgrade, aquariusUpgrade, infernalUpgrade, voidUpgrade,
-    arcaneTrim, muramasaTrim, cyberpunkQunatumFragment, theFallenTrim,
+    arcaneTrim, muramasaFragment, fishFragment, cyberpunkQunatumFragment, midnightQunatumFragment, theFallenTrim,
     gaibRoot, karusakanRoot, shadeBlossomLeaf, aloePiece,
     dunestoneBrick, tombstoneBrick, ambaneStoneBrick, limestoneBrick, crystalStoneBrick, voidStoneBrick,
     bronzeIngot, pearliumIngot, cobaltIngot, blackGold, ancientIngot,
@@ -241,10 +241,13 @@ public class ItemsRegistry {
         aquariusUpgrade = registerItem("aquarius_upgrade_smithing_template", () -> ElementalSmithingTemplateItem.createUpgradeTemplate(aquariusIngot));
         infernalUpgrade = registerItem("infernal_upgrade_smithing_template", () -> ElementalSmithingTemplateItem.createUpgradeTemplate(infernalIngot));
         voidUpgrade = registerItem("void_upgrade_smithing_template", () -> ElementalSmithingTemplateItem.createUpgradeTemplate(voidIngot));
-        arcaneTrim = registerItem("arcane_trim", () -> new SkinTrimItem(SkinsRegistry.ARCANE_GOLD, new Item.Properties()));
         cyberpunkQunatumFragment = registerItem("cyberpunk_quantum_reaper_fragment", () -> new SkinFragmentItem(SkinsRegistry.CYBERPUNK, new Item.Properties(), () -> quantumReaper.get()));
-        muramasaTrim = registerItem("muramasa_trim", () -> new SkinTrimItem(SkinsRegistry.MURAMASA, new Item.Properties()));
+        midnightQunatumFragment = registerItem("midnight_quantum_reaper_fragment", () -> new SkinFragmentItem(SkinsRegistry.MIDNIGHT, new Item.Properties(), () -> quantumReaper.get()));
+        muramasaFragment = registerItem("muramasa_fragment", () -> new SkinFragmentItem(SkinsRegistry.MURAMASA, new Item.Properties(), () -> murasama.get()));
+        fishFragment = registerItem("fish_fragment", () -> new SkinFragmentItem(SkinsRegistry.FISH, new Item.Properties(), KatanaItem.class));
+
         theFallenTrim = registerItem("the_fallen_trim", () -> new SkinTrimItem(SkinsRegistry.THE_FALLEN_COLLECTOR, new Item.Properties()));
+        arcaneTrim = registerItem("arcane_trim", () -> new SkinTrimItem(SkinsRegistry.ARCANE_GOLD, new Item.Properties()));
 
         // loot bags
         dirtGeode = registerItem("dirt_geode", () -> new Item(new Item.Properties().rarity(Rarity.RARE)) {
@@ -572,11 +575,15 @@ public class ItemsRegistry {
                         double Y = Math.cos(pitch) * locDistance;
                         double Z = Math.sin(pitch) * Math.sin(yaw) * locDistance;
                         level.addParticle(ParticleTypes.WAX_OFF, pos.x + X + (rand.nextDouble() - 0.5D), pos.y + Y, pos.z + Z + (rand.nextDouble() - 0.5D), 0d, 0.05d, 0d);
-
                         ItemSkin skin = ItemSkin.getSkinFromItem(stack);
-                        Color color = skin != null ? skin.getColor() : Color.RED;
-                        for(int count = 0; count < 1 + Mth.nextInt(RandomSource.create(), 0, 2); count += 1){
-                            PacketHandler.sendToTracking(srv, player.getOnPos(), new MurasamaParticlePacket(3F, (pos.x + X), (pos.y + Y), (pos.z + Z), color.getRed(), color.getGreen(), color.getBlue()));
+                        if(skin != null){
+                            if(skin == SkinsRegistry.FISH) {
+                                srv.sendParticles(ParticleTypes.BUBBLE_POP, (pos.x + X), (pos.y + Y), (pos.z + Z), 1 + Mth.nextInt(RandomSource.create(), 0, 2), 0, 0, 0, 1);
+                            } else {
+                                spawnParticles(player, pos, srv, X, Y, Z, skin.getColor());
+                            }
+                        } else {
+                            spawnParticles(player, pos, srv, X, Y, Z, Color.RED);
                         }
 
                         List<LivingEntity> detectedEntities = level.getEntitiesOfClass(LivingEntity.class, new AABB(pos.x + X - 0.5D, pos.y + Y - 0.5D, pos.z + Z - 0.5D, pos.x + X + 0.5D, pos.y + Y + 0.5D, pos.z + Z + 0.5D));
@@ -597,6 +604,12 @@ public class ItemsRegistry {
                             break;
                         }
                     }
+                }
+            }
+
+            private static void spawnParticles(@NotNull Player player, Vector3d pos, ServerLevel srv, double X, double Y, double Z, Color color){
+                for(int count = 0; count < 1 + Mth.nextInt(RandomSource.create(), 0, 2); count += 1){
+                    PacketHandler.sendToTracking(srv, player.getOnPos(), new MurasamaParticlePacket(3F, (pos.x + X), (pos.y + Y), (pos.z + Z), color.getRed(), color.getGreen(), color.getBlue()));
                 }
             }
         };

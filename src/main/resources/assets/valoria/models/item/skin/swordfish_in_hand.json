@@ -1,0 +1,6 @@
+{
+  "parent": "valoria:item/handheld_large",
+  "textures": {
+    "layer0": "valoria:item/swordfish_in_hand"
+  }
+}

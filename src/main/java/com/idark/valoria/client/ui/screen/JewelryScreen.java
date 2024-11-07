@@ -52,7 +52,6 @@ public class JewelryScreen extends AbstractContainerScreen<JewelryMenu> {
         return Optional.empty();
     }
 
-
     @Override
     public void render(GuiGraphics gui, int mouseX, int mouseY, float partialTicks) {
         this.renderBackground(gui);
