@@ -577,11 +577,7 @@ public class ItemsRegistry {
                         level.addParticle(ParticleTypes.WAX_OFF, pos.x + X + (rand.nextDouble() - 0.5D), pos.y + Y, pos.z + Z + (rand.nextDouble() - 0.5D), 0d, 0.05d, 0d);
                         ItemSkin skin = ItemSkin.getSkinFromItem(stack);
                         if(skin != null){
-                            if(skin == SkinsRegistry.FISH) {
-                                srv.sendParticles(ParticleTypes.BUBBLE_POP, (pos.x + X), (pos.y + Y), (pos.z + Z), 1 + Mth.nextInt(RandomSource.create(), 0, 2), 0, 0, 0, 1);
-                            } else {
-                                spawnParticles(player, pos, srv, X, Y, Z, skin.getColor());
-                            }
+                            spawnParticles(player, pos, srv, X, Y, Z, skin.getColor());
                         } else {
                             spawnParticles(player, pos, srv, X, Y, Z, Color.RED);
                         }

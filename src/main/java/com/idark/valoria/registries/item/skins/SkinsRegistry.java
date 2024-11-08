@@ -103,10 +103,12 @@ public class SkinsRegistry{
     @OnlyIn(Dist.CLIENT)
     private static void bakeKatana(Map<ResourceLocation, BakedModel> map){
         for(RegistryObject<Item> item : ItemsRegistry.ITEMS.getEntries()){
-            if(item.get() instanceof KatanaItem && ((KatanaItem) item.get()).builder.hasLargeModel){
-                LargeItemRenderer.bakeModel(map, Valoria.ID, item.getId().getPath(), new ItemSkinItemOverrides());
-            } else {
-                FluffyFurItemSkins.addSkinModel(map, item.getId());
+            if(item.get() instanceof KatanaItem katana){
+                if(katana.builder.hasLargeModel){
+                    LargeItemRenderer.bakeModel(map, Valoria.ID, item.getId().getPath(), new ItemSkinItemOverrides());
+                } else {
+                    FluffyFurItemSkins.addSkinModel(map, item.getId());
+                }
             }
         }
     }
