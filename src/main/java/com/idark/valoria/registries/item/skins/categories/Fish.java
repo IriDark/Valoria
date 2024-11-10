@@ -16,7 +16,7 @@ public class Fish extends ItemSkin implements AuthoredItemSkin{
     }
 
     public Component getContributorComponent(ItemStack stack) {
-        return stack.getHoverName().copy().withStyle(stack.getRarity().getStyleModifier()).append(Component.literal(" ༶ Skoow  ༶").withStyle(Styles.aquarius));
+        return stack.getHoverName().copy().withStyle(stack.getRarity().getStyleModifier()).append(Component.literal(" ༶ Skoow ༶").withStyle(Styles.aquarius));
     }
 
     @OnlyIn(Dist.CLIENT)

@@ -4,8 +4,11 @@ import com.idark.valoria.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.item.armor.item.*;
 import com.idark.valoria.registries.item.skins.categories.*;
+import com.idark.valoria.registries.item.skins.categories.TheFallenCollector.*;
 import com.idark.valoria.registries.item.types.*;
+import com.idark.valoria.registries.item.types.ranged.*;
 import com.idark.valoria.registries.item.types.ranged.bows.*;
+import com.idark.valoria.util.*;
 import mod.maxbogomol.fluffy_fur.client.model.item.*;
 import mod.maxbogomol.fluffy_fur.client.render.item.*;
 import mod.maxbogomol.fluffy_fur.common.itemskin.*;
@@ -13,6 +16,7 @@ import mod.maxbogomol.fluffy_fur.registry.client.*;
 import mod.maxbogomol.fluffy_fur.registry.common.item.*;
 import net.minecraft.client.resources.model.*;
 import net.minecraft.resources.*;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.item.*;
 import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.client.event.*;
@@ -23,14 +27,31 @@ import net.minecraftforge.registries.*;
 
 import java.util.*;
 
+//todo
 public class SkinsRegistry{
-    public static ItemSkin THE_FALLEN_COLLECTOR = new TheFallenCollector(Valoria.ID + ":the_fallen_collector");
-    public static ItemSkin ARCANE_GOLD = new ArcaneGold(Valoria.ID + ":arcane_gold");
-    public static ItemSkin CYBERPUNK = new Cyberpunk(Valoria.ID + ":cyberpunk");
-    public static ItemSkin MIDNIGHT = new Midnight(Valoria.ID + ":midnight");
-    public static ItemSkin MURAMASA = new Muramasa(Valoria.ID + ":muramasa");
-    public static ItemSkin FISH = new Fish(Valoria.ID + ":fish");
+    public static ItemSkin THE_FALLEN_COLLECTOR, ARCANE_GOLD, CYBERPUNK, MIDNIGHT, MURAMASA, FISH;
+    public static void init() {
+        THE_FALLEN_COLLECTOR = new SkinBuilder(":the_fallen_collector").setColor(Pal.seaGreen).setContributor("Kerdo").withStyle(Styles.nature)
+            .addEntry(new TheFallenCollectorSkinEntry(ArmorItem.class, Valoria.ID+":textures/models/armor/skin/the_fallen_collector")
+            .addArmorSkin(EquipmentSlot.HEAD, Valoria.ID + ":the_fallen_collector_crown")
+            .addArmorSkin(EquipmentSlot.CHEST, Valoria.ID + ":the_fallen_collector_coat"))
+            .addEntry(new ItemClassSkinEntry(KatanaItem.class, Valoria.ID+":brand"))
+            .build();
+        ARCANE_GOLD = new SkinBuilder(":arcane_gold").setColor(Pal.arcaneGold).setContributor("Kerdo").withStyle(Styles.arcaneGold)
+            .addEntry(new ItemClassSkinEntry(ConfigurableBowItem.class, Valoria.ID+":arcane_wood_bow"))
+            .addEntry(new ItemClassSkinEntry(BlazeReapItem.class, Valoria.ID+":arcane_gold_blaze_reap"))
+            .build();
+//        CYBERPUNK = new SkinBuilder("")
+    }
+
+//    public static ItemSkin THE_FALLEN_COLLECTOR = new TheFallenCollector(Valoria.ID + ":the_fallen_collector");
+//    public static ItemSkin ARCANE_GOLD = new ArcaneGold(Valoria.ID + ":arcane_gold");
+//    public static ItemSkin CYBERPUNK = new Cyberpunk(Valoria.ID + ":cyberpunk");
+//    public static ItemSkin MIDNIGHT = new Midnight(Valoria.ID + ":midnight");
+//    public static ItemSkin MURAMASA = new Muramasa(Valoria.ID + ":muramasa");
+//    public static ItemSkin FISH = new Fish(Valoria.ID + ":fish");
     public static void register(){
+//        init();
         ItemSkinHandler.register(ARCANE_GOLD);
         ItemSkinHandler.register(THE_FALLEN_COLLECTOR);
         ItemSkinHandler.register(CYBERPUNK);
