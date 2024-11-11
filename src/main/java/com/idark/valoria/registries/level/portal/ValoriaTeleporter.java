@@ -1,6 +1,8 @@
 package com.idark.valoria.registries.level.portal;
 
+import com.google.common.base.Predicates;
 import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.block.types.ValoriaPortalFrame;
 import net.minecraft.*;
 import net.minecraft.BlockUtil.*;
 import net.minecraft.core.*;
@@ -17,6 +19,8 @@ import net.minecraftforge.common.util.*;
 
 import java.util.*;
 import java.util.function.*;
+
+import static com.idark.valoria.registries.block.types.ValoriaPortalFrame.GENERATED;
 
 public class ValoriaTeleporter extends BaseTeleporter implements ITeleporter {
     protected final ServerLevel level;
@@ -54,7 +58,7 @@ public class ValoriaTeleporter extends BaseTeleporter implements ITeleporter {
     private FoundRectangle createPortal(ServerLevel level, Entity entity) {
         PoiManager poimanager = level.getPoiManager();
         poimanager.ensureLoadedAndValid(level, entity.blockPosition(), 256);
-        BlockUtil.FoundRectangle rectangle = createPortal(level, entity.blockPosition(), BlockRegistry.VALORIA_PORTAL.get().defaultBlockState(), BlockRegistry.VALORIA_PORTAL_FRAME.get().defaultBlockState()).get();
+        BlockUtil.FoundRectangle rectangle = createPortal(level, entity.blockPosition(), BlockRegistry.VALORIA_PORTAL.get().defaultBlockState(), BlockRegistry.VALORIA_PORTAL_FRAME.get().defaultBlockState().setValue(ValoriaPortalFrame.GENERATED, true)).get();
         BlockPos blockpos = rectangle.minCorner.offset(0, 0, 0);;
         level.getChunkSource().addRegionTicket(TicketType.PORTAL, new ChunkPos(blockpos), 3, blockpos);
         return new BlockUtil.FoundRectangle(blockpos, 3, 3);
