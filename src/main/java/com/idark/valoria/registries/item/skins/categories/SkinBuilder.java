@@ -62,7 +62,8 @@ public class SkinBuilder{
     }
 
     public ItemSkin build() {
-        ItemSkin skin = new ItemSkin(name, color);
+        ItemSkin skin;
+        skin = component != null ? new AuthoredItemSkin(this) : new ItemSkin(name, color);
         for(ItemSkinEntry entry : skinEntries){
             skin.addSkinEntry(entry);
         }

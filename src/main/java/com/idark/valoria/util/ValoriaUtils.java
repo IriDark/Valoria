@@ -1,9 +1,9 @@
 package com.idark.valoria.util;
 
 import com.google.common.collect.*;
-import com.idark.valoria.core.interfaces.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.entity.living.*;
+import com.idark.valoria.registries.item.skins.categories.*;
 import com.idark.valoria.registries.item.types.*;
 import com.idark.valoria.registries.item.types.curio.charm.*;
 import com.idark.valoria.registries.item.types.ranged.*;
@@ -606,7 +606,7 @@ public class ValoriaUtils {
         if (skin != null) {
             if(skin instanceof AuthoredItemSkin authored){
                 tooltip.remove(0);
-                tooltip.add(0, authored.getContributorComponent(stack));
+                tooltip.add(0, authored.getContributorComponent());
             }
 
             tooltip.add(1, skin.getSkinComponent());
