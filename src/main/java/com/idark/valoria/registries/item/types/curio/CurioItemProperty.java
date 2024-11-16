@@ -3,11 +3,13 @@ package com.idark.valoria.registries.item.types.curio;
 import com.google.common.collect.*;
 import com.idark.valoria.*;
 import com.idark.valoria.core.enums.*;
+import com.idark.valoria.registries.*;
 import net.minecraft.core.registries.*;
 import net.minecraft.resources.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier.*;
 import net.minecraft.world.item.*;
 import top.theillusivec4.curios.api.*;
 
@@ -22,10 +24,6 @@ public class CurioItemProperty extends AbstractTieredAccessory implements ICurio
         super(tier, type, gem, material, pProperties);
     }
 
-    private static ResourceLocation getNecklaceTexture(String material, String gem) {
-        return new ResourceLocation(Valoria.ID, "textures/entity/necklace/" + material + "_necklace_" + gem + ".png");
-    }
-
     public float getTierBonus() {
         if(tier == Tiers.IRON) {
             return 0.9f;
@@ -38,7 +36,8 @@ public class CurioItemProperty extends AbstractTieredAccessory implements ICurio
         return tier.getLevel();
     }
 
-    //todo redo
+
+    //todo redo, most likely will be done though accessory builder (priority: LOW)
     @Override
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(SlotContext slotContext, UUID uuid, ItemStack stack) {
         Multimap<Attribute, AttributeModifier> attribute = LinkedHashMultimap.create();
@@ -61,15 +60,14 @@ public class CurioItemProperty extends AbstractTieredAccessory implements ICurio
                 attribute.put(Attributes.MAX_HEALTH, new AttributeModifier(uuid, "bonus", 0.5 + (bonus * 0.25), AttributeModifier.Operation.ADDITION));
                 break;
             case SAPPHIRE:
-                attribute.put(Attributes.MOVEMENT_SPEED, new AttributeModifier(uuid, "bonus", 0.05 + (bonus * 0.025), AttributeModifier.Operation.MULTIPLY_TOTAL));
+                attribute.put(Attributes.MOVEMENT_SPEED, new AttributeModifier(uuid, "bonus", 0.05 + (bonus * 0.025), AttributeModifier.Operation.ADDITION));
                 break;
-
             case HEALTH:
                 attribute.put(Attributes.MAX_HEALTH, new AttributeModifier(uuid, "bonus", 1.5f + (bonus * 0.25), AttributeModifier.Operation.ADDITION));
                 break;
             case ARMOR:
                 if (material == AccessoryMaterial.IRON) {
-                    attribute.put(Attributes.ARMOR, new AttributeModifier(uuid, "bonus", 1.5f + (bonus * 0.05), AttributeModifier.Operation.ADDITION));
+                    attribute.put(Attributes.ARMOR, new AttributeModifier(uuid, "bonus", 1.6f + (bonus * 0.05), AttributeModifier.Operation.ADDITION));
                 } else {
                     attribute.put(Attributes.ARMOR, new AttributeModifier(uuid, "bonus", 3.6f + (bonus * 0.05), AttributeModifier.Operation.ADDITION));
                     attribute.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(uuid, "bonus", 1.2f, AttributeModifier.Operation.ADDITION));
@@ -87,8 +85,13 @@ public class CurioItemProperty extends AbstractTieredAccessory implements ICurio
                 attribute.put(Attributes.LUCK, new AttributeModifier(uuid, "bonus", 1.5 + (bonus * 0.25), AttributeModifier.Operation.ADDITION));
                 break;
             case BELT:
-                attribute.put(Attributes.ARMOR, new AttributeModifier(uuid, "bonus", 0.2 + (bonus * 0.05), AttributeModifier.Operation.ADDITION));
-                CuriosApi.addSlotModifier(attribute, "charm", uuid, 2.0, AttributeModifier.Operation.ADDITION);
+                if(stack.is(ItemsRegistry.samuraiBelt.get())) {
+                    attribute.put(Attributes.MOVEMENT_SPEED, new AttributeModifier(uuid, "bonus", 0.15 + (bonus * 0.05), Operation.MULTIPLY_TOTAL));
+                    attribute.put(Attributes.ATTACK_SPEED, new AttributeModifier(uuid, "bonus", 0.05 + (bonus * 0.05), Operation.MULTIPLY_TOTAL));
+                } else {
+                    attribute.put(Attributes.ARMOR, new AttributeModifier(uuid, "bonus", 0.2 + (bonus * 0.05), AttributeModifier.Operation.ADDITION));
+                    CuriosApi.addSlotModifier(attribute, "charm", uuid, 2.0, AttributeModifier.Operation.ADDITION);
+                }
                 break;
         }
 
@@ -98,27 +101,13 @@ public class CurioItemProperty extends AbstractTieredAccessory implements ICurio
     @Override
     public ResourceLocation getTexture(ItemStack stack, LivingEntity entity) {
         return switch (type) {
-            case NECKLACE -> getNecklaceTexture(material, gem);
-            case BELT -> getBeltTexture(stack);
+            case NECKLACE -> getTexture("textures/entity/necklace/", stack);
+            case BELT -> getTexture("textures/entity/", stack);
             default -> null;
         };
     }
 
-    private ResourceLocation getBeltTexture(ItemStack stack) {
-        return new ResourceLocation(Valoria.ID, "textures/entity/" + BuiltInRegistries.ITEM.getKey(stack.getItem()).getPath() + ".png");
-    }
-
-    private ResourceLocation getNecklaceTexture(AccessoryMaterial material, AccessoryGem gem) {
-        if (!gem.isTextureApplicable() || material.isInvalid()) {
-            return null;
-        }
-
-        String materialName = material.getName();
-        String gemName = gem.getGemName();
-        if (materialName == null || gemName == null) {
-            return null;
-        }
-
-        return getNecklaceTexture(materialName, gemName);
+    private ResourceLocation getTexture(String path, ItemStack stack) {
+        return new ResourceLocation(Valoria.ID, path + BuiltInRegistries.ITEM.getKey(stack.getItem()).getPath() + ".png");
     }
 }

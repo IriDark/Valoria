@@ -1,0 +1,10 @@
+{
+  "type": "valoria:archaeology",
+  "ingredient": {
+    "item": "valoria:ancient_shard"
+  },
+
+  "ingredient_count": 4,
+  "result": "valoria:ancient_ingot",
+  "count": 1
+}
