@@ -795,6 +795,8 @@
   "subtitles.valoria.spear.return": "Spear returns",
   "subtitles.valoria.spear.throw": "Spear clangs",
   "subtitles.valoria.spectral_blade.disappear": "Spectral Blade Disappeared",
+  "tooltip.talisman": "Talisman",
+  "tooltip.talisman.desc": "Gives effects while in the offhand",
   "tooltip.valoria.amber": "Grants a haste effect",
   "tooltip.valoria.applies": "Applies: ",
   "tooltip.valoria.applies_fullkit": "Applies on full Armor kit: ",
