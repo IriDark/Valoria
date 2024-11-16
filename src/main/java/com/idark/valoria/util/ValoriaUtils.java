@@ -606,7 +606,7 @@ public class ValoriaUtils {
         if (skin != null) {
             if(skin instanceof AuthoredItemSkin authored){
                 tooltip.remove(0);
-                tooltip.add(0, authored.getContributorComponent());
+                tooltip.add(0, Component.literal(stack.getHoverName().getString()).append(authored.getContributorComponent()));
             }
 
             tooltip.add(1, skin.getSkinComponent());

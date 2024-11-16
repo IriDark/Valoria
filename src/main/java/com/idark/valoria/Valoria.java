@@ -155,6 +155,7 @@ public class Valoria {
             CuriosRendererRegistry.register(ItemsRegistry.diamondGloves.get(), HandsRenderer::new);
             CuriosRendererRegistry.register(ItemsRegistry.netheriteGloves.get(), HandsRenderer::new);
 
+            CuriosRendererRegistry.register(ItemsRegistry.samuraiBelt.get(), BeltRenderer::new);
             CuriosRendererRegistry.register(ItemsRegistry.leatherBelt.get(), BeltRenderer::new);
             CuriosRendererRegistry.register(ItemsRegistry.jewelryBag.get(), JewelryBagRenderer::new);
             MenuScreens.register(MenuRegistry.ARCHAEOLOGY_MENU.get(), ArchaeologyScreen::new);

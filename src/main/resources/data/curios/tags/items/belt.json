@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "valoria:leather_belt"
+    "valoria:leather_belt",
+    "valoria:samurai_belt"
   ]
 }

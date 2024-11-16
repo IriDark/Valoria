@@ -3,6 +3,7 @@ package com.idark.valoria.registries.item.types.curio;
 import com.google.common.collect.*;
 import com.idark.valoria.*;
 import com.idark.valoria.core.enums.*;
+import net.minecraft.core.registries.*;
 import net.minecraft.resources.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
@@ -13,8 +14,6 @@ import top.theillusivec4.curios.api.*;
 import java.util.*;
 
 public class CurioItemProperty extends AbstractTieredAccessory implements ICurioTexture {
-    private static final ResourceLocation BELT_TEXTURE = new ResourceLocation(Valoria.ID, "textures/entity/leather_belt.png");
-
     public CurioItemProperty(Tier tier, AccessoryType type, AccessoryGem gem, AccessoryMaterial material, Properties pProperties, MobEffectInstance... pEffects) {
         super(tier, type, gem, material, pProperties, pEffects);
     }
@@ -39,6 +38,7 @@ public class CurioItemProperty extends AbstractTieredAccessory implements ICurio
         return tier.getLevel();
     }
 
+    //todo redo
     @Override
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(SlotContext slotContext, UUID uuid, ItemStack stack) {
         Multimap<Attribute, AttributeModifier> attribute = LinkedHashMultimap.create();
@@ -99,9 +99,13 @@ public class CurioItemProperty extends AbstractTieredAccessory implements ICurio
     public ResourceLocation getTexture(ItemStack stack, LivingEntity entity) {
         return switch (type) {
             case NECKLACE -> getNecklaceTexture(material, gem);
-            case BELT -> BELT_TEXTURE;
+            case BELT -> getBeltTexture(stack);
             default -> null;
         };
+    }
+
+    private ResourceLocation getBeltTexture(ItemStack stack) {
+        return new ResourceLocation(Valoria.ID, "textures/entity/" + BuiltInRegistries.ITEM.getKey(stack.getItem()).getPath() + ".png");
     }
 
     private ResourceLocation getNecklaceTexture(AccessoryMaterial material, AccessoryGem gem) {
