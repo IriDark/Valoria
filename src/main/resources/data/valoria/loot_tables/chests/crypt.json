@@ -11,6 +11,16 @@
       "entries": [
         {
           "type": "minecraft:item",
+          "name": "valoria:ancient_shard",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "valoria:relic_gold",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
           "name": "valoria:rune_of_curses",
           "weight": 2
         },

@@ -24,6 +24,11 @@
         },
         {
           "type": "minecraft:item",
+          "name": "valoria:relic_gold",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
           "name": "minecraft:golden_apple",
           "weight": 3
         },

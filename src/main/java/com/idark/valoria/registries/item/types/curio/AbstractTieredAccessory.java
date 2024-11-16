@@ -13,8 +13,7 @@ import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.*;
 import net.minecraft.world.level.*;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.api.distmarker.*;
 import top.theillusivec4.curios.api.*;
 import top.theillusivec4.curios.api.type.capability.*;
 
@@ -27,9 +26,11 @@ public abstract class AbstractTieredAccessory extends TieredItem implements ICur
     public AccessoryMaterial material;
     public Tier tier;
     public final ImmutableList<MobEffectInstance> effects;
+    public boolean rmbEquip;
     public AbstractTieredAccessory(Tier tier, Properties pProperties) {
         super(tier, pProperties);
         effects = gem == AccessoryGem.AMBER ? ImmutableList.of(new MobEffectInstance(MobEffects.DIG_SPEED, 600)) : ImmutableList.of();
+        rmbEquip = true;
     }
 
     public AbstractTieredAccessory(Tier tier, AccessoryType type, AccessoryGem gem, AccessoryMaterial material, Properties pProperties) {
@@ -39,6 +40,7 @@ public abstract class AbstractTieredAccessory extends TieredItem implements ICur
         this.gem = gem;
         this.material = material;
         effects = gem == AccessoryGem.AMBER ? ImmutableList.of(new MobEffectInstance(MobEffects.DIG_SPEED, 600)) : ImmutableList.of();
+        rmbEquip = true;
     }
 
     public AbstractTieredAccessory(Tier tier, AccessoryType type, AccessoryGem gem, AccessoryMaterial material, Properties pProperties, MobEffectInstance... pEffects) {
@@ -48,6 +50,7 @@ public abstract class AbstractTieredAccessory extends TieredItem implements ICur
         this.gem = gem;
         this.material = material;
         effects = ImmutableList.copyOf(pEffects);
+        rmbEquip = true;
     }
 
     @Nonnull
@@ -58,7 +61,7 @@ public abstract class AbstractTieredAccessory extends TieredItem implements ICur
 
     @Override
     public boolean canEquipFromUse(SlotContext slot, ItemStack stack) {
-        return true;
+        return rmbEquip;
     }
 
     @Override
@@ -112,6 +115,8 @@ public abstract class AbstractTieredAccessory extends TieredItem implements ICur
             tooltip.add(Component.translatable("tooltip.valoria.jewelry_bonus", ValoriaClient.JEWELRY_BONUSES_KEY.getKey().getDisplayName()).withStyle(ChatFormatting.GREEN));
         }
 
-        tooltip.add(Component.translatable("tooltip.valoria.rmb_equip").withStyle(ChatFormatting.GREEN));
+        if(rmbEquip){
+            tooltip.add(Component.translatable("tooltip.valoria.rmb_equip").withStyle(ChatFormatting.GREEN));
+        }
     }
 }
