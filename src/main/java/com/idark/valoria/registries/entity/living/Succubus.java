@@ -1,69 +1,27 @@
 package com.idark.valoria.registries.entity.living;
 
+import com.idark.valoria.*;
 import com.idark.valoria.registries.*;
-import com.idark.valoria.registries.entity.ai.behaviour.*;
-import com.idark.valoria.registries.entity.ai.brains.*;
-import com.mojang.serialization.*;
-import net.minecraft.nbt.*;
-import net.minecraft.network.protocol.game.*;
-import net.minecraft.network.syncher.*;
+import com.idark.valoria.registries.entity.ai.goals.*;
+import net.minecraft.core.particles.*;
 import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
-import net.minecraft.world.*;
-import net.minecraft.world.damagesource.*;
-import net.minecraft.world.effect.*;
+import net.minecraft.util.*;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.*;
-import net.minecraft.world.entity.ai.memory.*;
-import net.minecraft.world.entity.ai.navigation.*;
-import net.minecraft.world.entity.ai.util.*;
-import net.minecraft.world.entity.monster.*;
+import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.target.*;
+import net.minecraft.world.entity.player.*;
 import net.minecraft.world.level.*;
-import net.minecraft.world.level.pathfinder.*;
+import net.minecraft.world.phys.*;
 import org.jetbrains.annotations.*;
 
-import javax.annotation.Nullable;
-
-public class Succubus extends Monster {
-    private static final EntityDataAccessor<Boolean> DATA_BABY_ID = SynchedEntityData.defineId(Succubus.class, EntityDataSerializers.BOOLEAN);
+public class Succubus extends AbstractSuccubus {
+    public static final AttackRegistry FIRE_RAY = new AttackRegistry(Valoria.ID, "fire_ray");
     public final AnimationState idleAnimationState = new AnimationState();
     public AnimationState fireballAnimationState = new AnimationState();
     private int idleAnimationTimeout = 0;
-    public Succubus(EntityType<? extends Monster> pEntityType, Level pLevel) {
+    public Succubus(EntityType<? extends Succubus> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
-        this.xpReward = 5;
-        this.getNavigation().setCanFloat(false);
-        applyOpenDoorsAbility();
-
-        //todo
-        this.setPathfindingMalus(BlockPathTypes.LAVA, 8.0F);
-        this.setPathfindingMalus(BlockPathTypes.DAMAGE_OTHER, 8.0F);
-        this.setPathfindingMalus(BlockPathTypes.POWDER_SNOW, 8.0F);
-    }
-
-    private void applyOpenDoorsAbility() {
-        if (GoalUtils.hasGroundPathNavigation(this)) {
-            ((GroundPathNavigation) this.getNavigation()).setCanOpenDoors(true);
-        }
-    }
-
-    public void setAttackTarget(LivingEntity pAttackTarget) {
-        this.getBrain().setMemory(MemoryModuleType.ATTACK_TARGET, pAttackTarget);
-        this.getBrain().eraseMemory(MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
-        FireRay.setCooldown(this, 200);
-    }
-
-    public boolean doHurtTarget(Entity pEntity) {
-        this.level().broadcastEntityEvent(this, (byte) 4);
-
-        // placeholder
-        this.playSound(SoundEvents.WARDEN_ATTACK_IMPACT, 10.0F, this.getVoicePitch());
-        FireRay.setCooldown(this, 40);
-        if (pEntity instanceof LivingEntity) {
-            ((LivingEntity) pEntity).addEffect(new MobEffectInstance(EffectsRegistry.BLEEDING.get(), 200), this);
-        }
-
-        return super.doHurtTarget(pEntity);
     }
 
     public void handleEntityEvent(byte pId) {
@@ -71,11 +29,6 @@ public class Succubus extends Monster {
         super.handleEntityEvent(pId);
     }
 
-    public boolean isAdult() {
-        return !this.isBaby();
-    }
-
-    @Override
     public void tick() {
         super.tick();
         if (this.level().isClientSide()) {
@@ -92,132 +45,84 @@ public class Succubus extends Monster {
         }
     }
 
-    protected void customServerAiStep() {
-        ServerLevel serverlevel = (ServerLevel) this.level();
-        serverlevel.getProfiler().push("succubusBrain");
-        this.getBrain().tick(serverlevel, this);
-        this.level().getProfiler().pop();
-        super.customServerAiStep();
-        SuccubusAI.maybePlayActivitySound(this);
-        SuccubusAI.updateActivity(this);
-    }
-
-    public boolean hurt(DamageSource pSource, float pAmount) {
-        boolean flag = super.hurt(pSource, pAmount);
-        if (!this.level().isClientSide && !this.isNoAi()) {
-            Entity entity = pSource.getEntity();
-            if (flag && pSource.getEntity() instanceof LivingEntity) {
-                SuccubusAI.wasHurtBy(this, (LivingEntity) pSource.getEntity());
-            }
-
-            if (this.brain.getMemory(MemoryModuleType.ATTACK_TARGET).isEmpty() && entity instanceof LivingEntity livingentity) {
-                if (!pSource.isIndirect() || this.closerThan(livingentity, 5.0D)) {
-                    this.setAttackTarget(livingentity);
-                }
-            }
-        }
-
-        return flag;
-    }
-
-    protected Brain<?> makeBrain(Dynamic<?> pDynamic) {
-        return SuccubusAI.makeBrain(this, pDynamic);
-    }
-
-    public Brain<Succubus> getBrain() {
-        return (Brain<Succubus>) super.getBrain();
-    }
-
-    @Nullable
-    public LivingEntity getTarget() {
-        return this.brain.getMemory(MemoryModuleType.ATTACK_TARGET).orElse(null);
-    }
-
-    protected void sendDebugPackets() {
-        super.sendDebugPackets();
-        DebugPackets.sendEntityBrain(this);
-    }
-
-    public MobType getMobType() {
-        return MobType.UNDEAD;
-    }
-
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.getEntityData().define(DATA_BABY_ID, false);
-    }
-
-    public boolean isBaby() {
-        return this.getEntityData().get(DATA_BABY_ID);
-    }
-
-    public void setBaby(boolean child) {
-        this.getEntityData().set(DATA_BABY_ID, child);
-    }
-
-    public void onSyncedDataUpdated(EntityDataAccessor<?> pKey) {
-        if (DATA_BABY_ID.equals(pKey)) {
-            this.refreshDimensions();
-        }
-
-        super.onSyncedDataUpdated(pKey);
+    // panic reason
+    public final boolean isLowHP() {
+        return this.getHealth() < 10;
     }
 
     @Override
-    public float getScale() {
-        return this.isBaby() ? 1f : 1.45F;
+    protected void registerGoals(){
+        super.registerGoals();
+        this.goalSelector.addGoal(0, new MeleeAttackGoal(this, 1, false));
+        this.goalSelector.addGoal(0, new FireRayGoal());
+        this.goalSelector.addGoal(0, new ReasonableAvoidEntityGoal<>(this, Player.class, 15, 1.25, 2, isLowHP()));
+
+        this.goalSelector.addGoal(1, new MoveTowardsTargetGoal(this, 0.9D, 32.0F));
+        this.goalSelector.addGoal(2, new WaterAvoidingRandomStrollGoal(this, 1.2));
+        this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(4, new RandomStrollGoal(this, 1.2));
+
+        this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true));
     }
 
-    public int getExperienceReward() {
-        if (this.isBaby()) {
-            this.xpReward = this.xpReward / 2;
+    public class FireRayGoal extends AttackGoal {
+
+        @Override
+        public void start(){
+            super.start();
+            Succubus.this.getNavigation().stop();
         }
 
-        return super.getExperienceReward();
-    }
-
-    public void addAdditionalSaveData(CompoundTag pCompound) {
-        super.addAdditionalSaveData(pCompound);
-        pCompound.putBoolean("IsBaby", this.isBaby());
-    }
-
-    /**
-     * (abstract) Protected helper method to read subclass entity data from NBT.
-     */
-    public void readAdditionalSaveData(CompoundTag pCompound) {
-        super.readAdditionalSaveData(pCompound);
-        this.setBaby(pCompound.getBoolean("IsBaby"));
-    }
-
-    @Contract("null->false")
-    public boolean canTargetEntity(@Nullable Entity p_219386_) {
-        if (p_219386_ instanceof LivingEntity livingentity) {
-            return this.level() == p_219386_.level() && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(p_219386_) && !this.isAlliedTo(p_219386_) && livingentity.getType() != EntityType.ARMOR_STAND && livingentity.getType() != EntityType.WARDEN && !livingentity.isInvulnerable() && !livingentity.isDeadOrDying() && this.level().getWorldBorder().isWithinBounds(livingentity.getBoundingBox());
+        @Override
+        protected void performAttack(){
+            Succubus.this.level().broadcastEntityEvent(Succubus.this, (byte) 62);
+            Succubus.this.playSound(SoundEvents.WARDEN_SONIC_CHARGE, 3.0F, 1.0F);
         }
 
-        return false;
-    }
+        protected boolean checkExtraStartConditions(Succubus pOwner) {
+            return pOwner.hasTarget() && pOwner.closerThan(pOwner.getTarget(), 15.0D, 20.0D);
+        }
 
-    @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
-        SuccubusAI.initMemories(this);
-        return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
-    }
+        @Override
+        public void tick(){
+            Succubus pOwner = Succubus.this;
+            if(!checkExtraStartConditions(pOwner)) return;
+            super.tick();
+            pOwner.getLookControl().setLookAt(pOwner.getTarget().position());
+            if(this.attackWarmupDelay == 0 && pOwner.level() instanceof ServerLevel pLevel){
+                Vec3 vec3 = pOwner.position().add(0.0D, 1.6F, 0.0D);
+                Vec3 vec31 = pOwner.getTarget().getEyePosition().subtract(vec3);
+                Vec3 vec32 = vec31.normalize();
 
-    // was an experiment, todo sounds
-//    protected SoundEvent getAmbientSound() {
-//        if (this.level().isClientSide) {
-//            return null;
-//        } else {
-//            return this.brain.hasMemoryValue(MemoryModuleType.ATTACK_TARGET) ? SoundEvents.ZOGLIN_ANGRY : SoundEvents.ZOGLIN_AMBIENT;
-//        }
-//    }
+                for(int i = 1; i < Mth.floor(vec31.length()) + 7; ++i){
+                    Vec3 vec33 = vec3.add(vec32.scale(i));
+                    pLevel.sendParticles(ParticleTypes.FLAME, vec33.x, vec33.y, vec33.z, 1, 0.0D, 0.0D, 0.0D, 0.0D);
+                }
 
-//    public void playAngrySound() {
-//        this.playSound(SoundEvents.WARDEN_LISTENING_ANGRY, 1.0F, this.getVoicePitch());
-//    }
+                pOwner.playSound(SoundEvents.WARDEN_SONIC_BOOM, 3.0F, 1.0F);
+                pOwner.getTarget().hurt(pLevel.damageSources().generic(), 5F);
+            }
+        }
 
-    protected boolean canRide(Entity pVehicle) {
-        return false;
+        @Override
+        public int getPreparingTime(){
+            return 120;
+        }
+
+        @Override
+        public int getAttackInterval(){
+            return 400;
+        }
+
+        @Override
+        public @Nullable SoundEvent getPrepareSound(){
+            return null;
+        }
+
+        @Override
+        public AttackRegistry getAttack(){
+            return FIRE_RAY;
+        }
     }
 }

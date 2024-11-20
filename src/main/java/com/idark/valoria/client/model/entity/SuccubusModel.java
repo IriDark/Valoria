@@ -1,13 +1,12 @@
 package com.idark.valoria.client.model.entity;
 
-import com.idark.valoria.client.model.animations.SuccubusAnimation;
-import com.idark.valoria.registries.entity.living.Succubus;
-import net.minecraft.client.model.HierarchicalModel;
-import net.minecraft.client.model.geom.ModelPart;
-import net.minecraft.client.model.geom.PartPose;
+import com.idark.valoria.client.model.animations.*;
+import com.idark.valoria.registries.entity.living.*;
+import net.minecraft.client.model.*;
+import net.minecraft.client.model.geom.*;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.util.Mth;
+import net.minecraft.client.renderer.*;
+import net.minecraft.util.*;
 
 public class SuccubusModel<T extends Succubus> extends HierarchicalModel<T> {
     private final ModelPart root;
@@ -69,16 +68,10 @@ public class SuccubusModel<T extends Succubus> extends HierarchicalModel<T> {
 
     public void setupAnim(T pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
-        this.animateHeadLookTarget(pNetHeadYaw, pHeadPitch);
         this.animateWalk(pLimbSwing, pLimbSwingAmount);
         this.animateIdlePose(pAgeInTicks);
         this.animate(pEntity.idleAnimationState, SuccubusAnimation.IDLE, pAgeInTicks);
-        this.animate(pEntity.fireballAnimationState, SuccubusAnimation.ATTACK_RANGE, pAgeInTicks);
-    }
-
-    private void animateHeadLookTarget(float pYaw, float pPitch) {
-        this.head.xRot = pPitch * ((float) Math.PI / 180F);
-        this.head.yRot = pYaw * ((float) Math.PI / 180F);
+        this.animate(pEntity.fireballAnimationState, SuccubusAnimation.ATTACK_RANGE, pAgeInTicks); //todo
     }
 
     private void animateWalk(float pLimbSwing, float pLimbSwingAmount) {
@@ -125,5 +118,9 @@ public class SuccubusModel<T extends Succubus> extends HierarchicalModel<T> {
     @Override
     public ModelPart root() {
         return this.root;
+    }
+
+    public ModelPart getHead() {
+        return this.head;
     }
 }
