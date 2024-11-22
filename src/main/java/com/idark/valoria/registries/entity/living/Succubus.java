@@ -3,6 +3,10 @@ package com.idark.valoria.registries.entity.living;
 import com.idark.valoria.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.entity.ai.goals.*;
+import com.idark.valoria.util.*;
+import mod.maxbogomol.fluffy_fur.client.particle.*;
+import mod.maxbogomol.fluffy_fur.client.particle.data.*;
+import mod.maxbogomol.fluffy_fur.registry.client.*;
 import net.minecraft.core.particles.*;
 import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
@@ -13,7 +17,6 @@ import net.minecraft.world.entity.ai.goal.target.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
-import org.jetbrains.annotations.*;
 
 public class Succubus extends AbstractSuccubus {
     public static final AttackRegistry FIRE_RAY = new AttackRegistry(Valoria.ID, "fire_ray");
@@ -81,7 +84,18 @@ public class Succubus extends AbstractSuccubus {
         }
 
         protected boolean checkExtraStartConditions(Succubus pOwner) {
-            return pOwner.hasTarget() && pOwner.closerThan(pOwner.getTarget(), 15.0D, 20.0D);
+            if (!pOwner.hasTarget()) return false;
+            LivingEntity target = pOwner.getTarget();
+            double distance = pOwner.distanceTo(target);
+            if (distance > 15.0D) return false;
+            return (pOwner.getNavigation().getPath() != null && !pOwner.getNavigation().getPath().canReach());
+        }
+
+        public ParticleOptions getParticles() {
+            return ParticleBuilder.create(FluffyFurParticles.WISP)
+            .setColorData(ColorParticleData.create(Pal.amber).build())
+            .randomVelocity(0.5f)
+            .getParticleOptions();
         }
 
         @Override
@@ -94,10 +108,9 @@ public class Succubus extends AbstractSuccubus {
                 Vec3 vec3 = pOwner.position().add(0.0D, 1.6F, 0.0D);
                 Vec3 vec31 = pOwner.getTarget().getEyePosition().subtract(vec3);
                 Vec3 vec32 = vec31.normalize();
-
                 for(int i = 1; i < Mth.floor(vec31.length()) + 7; ++i){
                     Vec3 vec33 = vec3.add(vec32.scale(i));
-                    pLevel.sendParticles(ParticleTypes.FLAME, vec33.x, vec33.y, vec33.z, 1, 0.0D, 0.0D, 0.0D, 0.0D);
+                    pLevel.sendParticles(getParticles(), vec33.x, vec33.y, vec33.z, 1, 0.0D, 0.0D, 0.0D, 0.0D);
                 }
 
                 pOwner.playSound(SoundEvents.WARDEN_SONIC_BOOM, 3.0F, 1.0F);
@@ -116,7 +129,7 @@ public class Succubus extends AbstractSuccubus {
         }
 
         @Override
-        public @Nullable SoundEvent getPrepareSound(){
+        public SoundEvent getPrepareSound(){
             return null;
         }
 
