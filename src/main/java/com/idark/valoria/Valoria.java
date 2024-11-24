@@ -4,7 +4,6 @@ import com.google.common.collect.*;
 import com.idark.valoria.client.event.*;
 import com.idark.valoria.client.particle.*;
 import com.idark.valoria.client.render.curio.*;
-import com.idark.valoria.client.render.tile.*;
 import com.idark.valoria.client.ui.*;
 import com.idark.valoria.client.ui.screen.*;
 import com.idark.valoria.client.ui.screen.book.*;
@@ -28,7 +27,6 @@ import com.idark.valoria.registries.level.*;
 import com.idark.valoria.util.*;
 import com.mojang.logging.*;
 import net.minecraft.client.gui.screens.*;
-import net.minecraft.client.renderer.blockentity.*;
 import net.minecraft.data.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
@@ -119,8 +117,8 @@ public class Valoria {
         ValoriaClient.setupMenu();
         event.enqueueWork(() -> {
             LexiconChapters.init();
-            BlockEntityRenderers.register(BlockEntitiesRegistry.CHEST_BLOCK_ENTITY.get(), ModChestRender::new);
-            BlockEntityRenderers.register(BlockEntitiesRegistry.TRAPPED_CHEST_BLOCK_ENTITY.get(), ModTrappedChestRender::new);
+//            BlockEntityRenderers.register(BlockEntitiesRegistry.CHEST_BLOCK_ENTITY.get(), ModChestRender::new);
+//            BlockEntityRenderers.register(BlockEntitiesRegistry.TRAPPED_CHEST_BLOCK_ENTITY.get(), ModTrappedChestRender::new);
             CuriosRendererRegistry.register(ItemsRegistry.ironNecklaceAmber.get(), NecklaceRenderer::new);
             CuriosRendererRegistry.register(ItemsRegistry.ironNecklaceDiamond.get(), NecklaceRenderer::new);
             CuriosRendererRegistry.register(ItemsRegistry.ironNecklaceEmerald.get(), NecklaceRenderer::new);
