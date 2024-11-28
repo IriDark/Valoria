@@ -845,7 +845,7 @@
   "tooltip.valoria.special_arrow": "Convert Default arrow to ",
   "tooltip.valoria.strength": "Даёт игроку бонус к урону на некоторое время",
   "tooltip.valoria.summons": "Summons entity: [%s]",
-  "tooltip.valoria.total_armor": "Total Armor Percentage %s",
+  "tooltip.valoria.total_armor": "Общий процент защиты %s",
   "tooltip.valoria.toxins": "Хороший способ умереть!",
   "tooltip.valoria.treasure": "Что же здесь может хранится?...",
   "tooltip.valoria.trinkets_bag": "Мешочек со всякой всячиной. Используется что бы быстро менять аксессуары на клавишу [%s]",
