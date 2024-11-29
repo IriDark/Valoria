@@ -10,7 +10,7 @@
     "grass_color": 12386304,
     "foliage_color": 12386304,
     "mood_sound": {
-      "sound": "minecraft:nether_wastet.mood",
+      "sound": "minecraft:nether_wastes.mood",
       "tick_delay": 6000,
       "block_search_extent": 8,
       "offset": 2
