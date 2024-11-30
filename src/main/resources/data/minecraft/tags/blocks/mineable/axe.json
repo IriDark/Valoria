@@ -30,10 +30,6 @@
     "valoria:eldritch_sign",
     "valoria:eldritch_wall_sign",
     "valoria:eldritch_fence",
-    "valoria:eldritch_fence_gate",
-    "valoria:shadewood_chest",
-    "valoria:trapped_shadewood_chest",
-    "valoria:eldritch_chest",
-    "valoria:trapped_eldritch_chest"
+    "valoria:eldritch_fence_gate"
   ]
 }
