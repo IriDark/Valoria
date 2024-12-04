@@ -270,70 +270,39 @@ public class BlockRegistryRefactored{ //todo
         cutDunestone = registerBlock("cut_dunestone", () -> new Block(props(Blocks.STONE_BRICKS, MapColor.SAND).requiresCorrectToolForDrops()));
         polishedDunestone = registerBlock("polished_dunestone", () -> new Block(props(Blocks.STONE_BRICKS, MapColor.SAND).requiresCorrectToolForDrops()));
 
-        limestone = registerBlock("limestone",
-        () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops()));
-        limestoneStairs = registerBlock("limestone_stairs",
-        () -> new StairBlock(() -> limestone.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.STONE_STAIRS).mapColor(MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops()));
-        limestoneSlab = registerBlock("limestone_slab",
-        () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.STONE_SLAB).mapColor(MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops()));
-        limestoneWall = registerBlock("limestone_wall",
-        () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.STONE_BRICK_WALL).mapColor(MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops()));
-        cutLimestone = registerBlock("cut_limestone",
-        () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE_BRICKS).mapColor(MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops()));
-        cutLimestoneStairs = registerBlock("cut_limestone_stairs",
-        () -> new StairBlock(() -> cutLimestone.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.STONE_BRICK_STAIRS).mapColor(MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops()));
-        cutLimestoneSlab = registerBlock("cut_limestone_slab",
-        () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.STONE_BRICK_SLAB).mapColor(MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops()));
-        limestoneBricks = registerBlock("limestone_bricks",
-        () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE_BRICKS).mapColor(MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops()));
-        limestoneBricksStairs = registerBlock("limestone_bricks_stairs",
-        () -> new StairBlock(() -> limestoneBricks.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.STONE_BRICK_STAIRS).mapColor(MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops()));
-        limestoneBricksSlab = registerBlock("limestone_bricks_slab",
-        () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.STONE_BRICK_SLAB).mapColor(MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops()));
-        limestoneBricksWall = registerBlock("limestone_bricks_wall",
-        () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.STONE_BRICK_WALL).mapColor(MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops()));
-        polishedLimestone = registerBlock("polished_limestone",
-        () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops()));
-        polishedLimestoneStairs = registerBlock("polished_limestone_stairs",
-        () -> new StairBlock(() -> polishedLimestone.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.STONE_STAIRS).mapColor(MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops()));
-        polishedLimestoneSlab = registerBlock("polished_limestone_slab",
-        () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.STONE_SLAB).mapColor(MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops()));
-        crackedLimestoneBricks = registerBlock("cracked_limestone_bricks",
-        () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE_BRICKS).mapColor(MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops()));
-        crackedLimestoneBricksStairs = registerBlock("cracked_limestone_bricks_stairs",
-        () -> new StairBlock(() -> crackedLimestoneBricks.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.STONE_BRICK_STAIRS).mapColor(MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops()));
-        crackedLimestoneBricksSlab = registerBlock("cracked_limestone_bricks_slab",
-        () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.STONE_BRICK_SLAB).mapColor(MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops()));
-        crackedLimestoneBricksWall = registerBlock("cracked_limestone_bricks_wall",
-        () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.STONE_BRICK_WALL).mapColor(MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops()));
+        limestone = registerBlock("limestone", () -> new Block(props(Blocks.STONE, MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops()));
+        limestoneStairs = registerBlock("limestone_stairs", () -> new StairBlock(() -> limestone.get().defaultBlockState(), props(Blocks.STONE_STAIRS, MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops()));
+        limestoneSlab = registerBlock("limestone_slab", () -> new SlabBlock(props(Blocks.STONE_SLAB, MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops()));
+        limestoneWall = registerBlock("limestone_wall", () -> new WallBlock(props(Blocks.STONE_BRICK_WALL, MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops()));
+        cutLimestone = registerBlock("cut_limestone", () -> new Block(props(Blocks.STONE_BRICKS, MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops()));
+        cutLimestoneStairs = registerBlock("cut_limestone_stairs", () -> new StairBlock(() -> cutLimestone.get().defaultBlockState(), props(Blocks.STONE_BRICK_STAIRS, MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops()));
+        cutLimestoneSlab = registerBlock("cut_limestone_slab", () -> new SlabBlock(props(Blocks.STONE_BRICK_SLAB, MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops()));
+        limestoneBricks = registerBlock("limestone_bricks", () -> new Block(props(Blocks.STONE_BRICKS, MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops()));
+        limestoneBricksStairs = registerBlock("limestone_bricks_stairs", () -> new StairBlock(() -> limestoneBricks.get().defaultBlockState(), props(Blocks.STONE_BRICK_STAIRS, MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops()));
+        limestoneBricksSlab = registerBlock("limestone_bricks_slab", () -> new SlabBlock(props(Blocks.STONE_BRICK_SLAB, MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops()));
+        limestoneBricksWall = registerBlock("limestone_bricks_wall", () -> new WallBlock(props(Blocks.STONE_BRICK_WALL, MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops()));
+        polishedLimestone = registerBlock("polished_limestone", () -> new Block(props(Blocks.STONE, MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops()));
+        polishedLimestoneStairs = registerBlock("polished_limestone_stairs", () -> new StairBlock(() -> polishedLimestone.get().defaultBlockState(), props(Blocks.STONE_STAIRS, MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops()));
+        polishedLimestoneSlab = registerBlock("polished_limestone_slab", () -> new SlabBlock(props(Blocks.STONE_SLAB, MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops()));
+        crackedLimestoneBricks = registerBlock("cracked_limestone_bricks", () -> new Block(props(Blocks.STONE_BRICKS, MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops()));
+        crackedLimestoneBricksStairs = registerBlock("cracked_limestone_bricks_stairs", () -> new StairBlock(() -> crackedLimestoneBricks.get().defaultBlockState(), props(Blocks.STONE_BRICK_STAIRS, MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops()));
+        crackedLimestoneBricksSlab = registerBlock("cracked_limestone_bricks_slab", () -> new SlabBlock(props(Blocks.STONE_BRICK_SLAB, MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops()));
+        crackedLimestoneBricksWall = registerBlock("cracked_limestone_bricks_wall", () -> new WallBlock(props(Blocks.STONE_BRICK_WALL, MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops()));
 
-        crystalStone = registerBlock("crystal_stone",
-        () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.TERRACOTTA_BLUE).requiresCorrectToolForDrops()));
-        crystalStoneSlab = registerBlock("crystal_stone_slab",
-        () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.STONE_SLAB).mapColor(MapColor.TERRACOTTA_BLUE).requiresCorrectToolForDrops().sound(SoundType.NETHER_BRICKS)));
-        crystalStoneStairs = registerBlock("crystal_stone_stairs",
-        () -> new StairBlock(() -> crystalStone.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.STONE_STAIRS).mapColor(MapColor.TERRACOTTA_BLUE).requiresCorrectToolForDrops()));
-        crystalStoneWall = registerBlock("crystal_stone_wall",
-        () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.STONE_BRICK_WALL).mapColor(MapColor.TERRACOTTA_BLUE).requiresCorrectToolForDrops()));
-        crystalStonePillar = registerBlock("crystal_stone_pillar",
-        () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.TERRACOTTA_BLUE).requiresCorrectToolForDrops()));
-        cutCrystalStone = registerBlock("cut_crystal_stone",
-        () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE_BRICKS).mapColor(MapColor.TERRACOTTA_BLUE).requiresCorrectToolForDrops()));
-        cutPolishedCrystalStone = registerBlock("cut_polished_crystal_stone",
-        () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE_BRICKS).mapColor(MapColor.TERRACOTTA_BLUE).requiresCorrectToolForDrops()));
-        crystalStoneBricks = registerBlock("crystal_stone_bricks",
-        () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE_BRICKS).mapColor(MapColor.TERRACOTTA_BLUE).requiresCorrectToolForDrops()));
-        crystalStoneBricksSlab = registerBlock("crystal_stone_bricks_slab",
-        () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.STONE_BRICK_SLAB).mapColor(MapColor.TERRACOTTA_BLUE).requiresCorrectToolForDrops().sound(SoundType.NETHER_BRICKS)));
-        crystalStoneBricksStairs = registerBlock("crystal_stone_bricks_stairs",
-        () -> new StairBlock(() -> crystalStoneBricks.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.STONE_BRICK_STAIRS).mapColor(MapColor.TERRACOTTA_BLUE).requiresCorrectToolForDrops()));
-        crystalStoneBricksWall = registerBlock("crystal_stone_bricks_wall",
-        () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.STONE_BRICK_WALL).mapColor(MapColor.TERRACOTTA_BLUE).requiresCorrectToolForDrops()));
-        polishedCrystalStone = registerBlock("polished_crystal_stone",
-        () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.TERRACOTTA_BLUE).requiresCorrectToolForDrops()));
+        crystalStone = registerBlock("crystal_stone", () -> new Block(props(Blocks.STONE, MapColor.TERRACOTTA_BLUE).requiresCorrectToolForDrops()));
+        crystalStoneSlab = registerBlock("crystal_stone_slab", () -> new SlabBlock(props(Blocks.STONE_SLAB, MapColor.TERRACOTTA_BLUE).requiresCorrectToolForDrops().sound(SoundType.NETHER_BRICKS)));
+        crystalStoneStairs = registerBlock("crystal_stone_stairs", () -> new StairBlock(() -> crystalStone.get().defaultBlockState(), props(Blocks.STONE_STAIRS, MapColor.TERRACOTTA_BLUE).requiresCorrectToolForDrops()));
+        crystalStoneWall = registerBlock("crystal_stone_wall", () -> new WallBlock(props(Blocks.STONE_BRICK_WALL, MapColor.TERRACOTTA_BLUE).requiresCorrectToolForDrops()));
+        crystalStonePillar = registerBlock("crystal_stone_pillar", () -> new RotatedPillarBlock(props(Blocks.STONE, MapColor.TERRACOTTA_BLUE).requiresCorrectToolForDrops()));
+        cutCrystalStone = registerBlock("cut_crystal_stone", () -> new Block(props(Blocks.STONE_BRICKS, MapColor.TERRACOTTA_BLUE).requiresCorrectToolForDrops()));
+        cutPolishedCrystalStone = registerBlock("cut_polished_crystal_stone", () -> new Block(props(Blocks.STONE_BRICKS, MapColor.TERRACOTTA_BLUE).requiresCorrectToolForDrops()));
+        crystalStoneBricks = registerBlock("crystal_stone_bricks", () -> new Block(props(Blocks.STONE_BRICKS, MapColor.TERRACOTTA_BLUE).requiresCorrectToolForDrops()));
+        crystalStoneBricksSlab = registerBlock("crystal_stone_bricks_slab", () -> new SlabBlock(props(Blocks.STONE_BRICK_SLAB, MapColor.TERRACOTTA_BLUE).requiresCorrectToolForDrops().sound(SoundType.NETHER_BRICKS)));
+        crystalStoneBricksStairs = registerBlock("crystal_stone_bricks_stairs", () -> new StairBlock(() -> crystalStoneBricks.get().defaultBlockState(), props(Blocks.STONE_BRICK_STAIRS, MapColor.TERRACOTTA_BLUE).requiresCorrectToolForDrops()));
+        crystalStoneBricksWall = registerBlock("crystal_stone_bricks_wall", () -> new WallBlock(props(Blocks.STONE_BRICK_WALL, MapColor.TERRACOTTA_BLUE).requiresCorrectToolForDrops()));
+        polishedCrystalStone = registerBlock("polished_crystal_stone", () -> new Block(props(Blocks.STONE, MapColor.TERRACOTTA_BLUE).requiresCorrectToolForDrops()));
 
-        pearlium = registerBlock("pearlium",
-        () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops().sound(SoundType.NETHER_BRICKS)));
+        pearlium = registerBlock("pearlium", () -> new Block(props(Blocks.STONE, MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops().sound(SoundType.NETHER_BRICKS)));
 
         voidStone = registerBlock("void_stone",
         () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(3f, 6f).sound(SoundsRegistry.VOID_STONE)));
@@ -543,8 +512,7 @@ public class BlockRegistryRefactored{ //todo
         () -> new RedstoneLampBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).mapColor(MapColor.COLOR_BROWN).strength(3f, 4f).noOcclusion().sound(SoundType.GLASS).lightLevel(getLightValueLit())));
         bronzeLampBlock = registerBlock("bronze_lamp_block",
         () -> new RedstoneLampBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).mapColor(MapColor.COLOR_BROWN).strength(3f, 4f).noOcclusion().sound(SoundType.GLASS).lightLevel(getLightValueLit())));
-        spiderEgg = registerBlock("spider_egg",
-        () -> new SpiderBlock(BlockBehaviour.Properties.copy(Blocks.STONE).instabreak().noOcclusion().sound(SoundType.FROGSPAWN)));
+        spiderEgg = registerBlock("spider_egg", () -> new SpiderBlock(BlockBehaviour.Properties.copy(Blocks.STONE).instabreak().noOcclusion().sound(SoundType.FROGSPAWN)));
 
         // Cups
         woodenCup = BLOCK.register("wooden_cup", BlockRegistryRefactored::woodenCup);
@@ -575,18 +543,12 @@ public class BlockRegistryRefactored{ //todo
         cognacBottle = BLOCK.register("cognac_bottle", () -> cognacBottle(MapColor.COLOR_RED));
 
         // Pots
-        potSmall = registerBlock("pot_small",
-        () -> new PotBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).instabreak().noOcclusion().sound(SoundsRegistry.POT)));
-        potSmallHandles = registerBlock("pot_small_handles",
-        () -> new PotBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).lootFrom(BlockRegistry.POT_SMALL).instabreak().noOcclusion().sound(SoundsRegistry.POT)));
-        potLong = registerBlock("pot_long",
-        () -> new PotBlock(true, BlockBehaviour.Properties.copy(Blocks.GLASS).instabreak().noOcclusion().sound(SoundsRegistry.POT)));
-        potLongHandles = registerBlock("pot_long_handles",
-        () -> new PotBlock(true, BlockBehaviour.Properties.copy(Blocks.GLASS).lootFrom(BlockRegistry.POT_LONG).instabreak().noOcclusion().sound(SoundsRegistry.POT)));
-        potLongMossy = registerBlock("pot_long_mossy",
-        () -> new PotBlock(true, BlockBehaviour.Properties.copy(Blocks.GLASS).lootFrom(BlockRegistry.POT_LONG).instabreak().noOcclusion().sound(SoundsRegistry.POT)));
-        potLongMossyHandles = registerBlock("pot_long_mossy_handles",
-        () -> new PotBlock(true, BlockBehaviour.Properties.copy(Blocks.GLASS).lootFrom(BlockRegistry.POT_LONG).instabreak().noOcclusion().sound(SoundsRegistry.POT)));
+        potSmall = registerBlock("pot_small", () -> new PotBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).instabreak().noOcclusion().sound(SoundsRegistry.POT)));
+        potSmallHandles = registerBlock("pot_small_handles", () -> new PotBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).lootFrom(BlockRegistry.POT_SMALL).instabreak().noOcclusion().sound(SoundsRegistry.POT)));
+        potLong = registerBlock("pot_long", () -> new PotBlock(true, BlockBehaviour.Properties.copy(Blocks.GLASS).instabreak().noOcclusion().sound(SoundsRegistry.POT)));
+        potLongHandles = registerBlock("pot_long_handles", () -> new PotBlock(true, BlockBehaviour.Properties.copy(Blocks.GLASS).lootFrom(BlockRegistry.POT_LONG).instabreak().noOcclusion().sound(SoundsRegistry.POT)));
+        potLongMossy = registerBlock("pot_long_mossy", () -> new PotBlock(true, BlockBehaviour.Properties.copy(Blocks.GLASS).lootFrom(BlockRegistry.POT_LONG).instabreak().noOcclusion().sound(SoundsRegistry.POT)));
+        potLongMossyHandles = registerBlock("pot_long_mossy_handles", () -> new PotBlock(true, BlockBehaviour.Properties.copy(Blocks.GLASS).lootFrom(BlockRegistry.POT_LONG).instabreak().noOcclusion().sound(SoundsRegistry.POT)));
         cryptPot = registerBlock("crypt_pot", BlockRegistryRefactored::cryptPot);
         decoratedCryptPot = registerBlock("decorated_crypt_pot", BlockRegistryRefactored::cryptPot);
 
