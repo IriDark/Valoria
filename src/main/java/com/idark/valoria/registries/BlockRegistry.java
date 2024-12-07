@@ -164,7 +164,6 @@ public class BlockRegistry{ //todo
         cutUmbralBlock = registerBlock("cut_umbral_block", () -> new Block(propsUnbreakable(Blocks.IRON_BLOCK, MapColor.COLOR_PURPLE).sound(SoundType.NETHER_BRICKS).noLootTable()));
         umbralBlock = registerBlock("umbral_block", () -> new UmbralBlock(propsUnbreakable(Blocks.IRON_BLOCK, MapColor.COLOR_PURPLE).sound(SoundType.NETHER_BRICKS).noLootTable()));
         umbralBricks = registerBlock("umbral_bricks", () -> new UmbralBlock(propsUnbreakable(Blocks.IRON_BLOCK, MapColor.COLOR_PURPLE).sound(SoundType.NETHER_BRICKS).noLootTable()));
-
         pyratiteBlock = registerBlock("pyratite_block", () -> new Block(props(Blocks.AMETHYST_BLOCK, MapColor.COLOR_ORANGE).requiresCorrectToolForDrops().lightLevel(setLightValue(9))));
         pyratiteOre = registerBlock("pyratite_ore", () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE).requiresCorrectToolForDrops().strength(10f, 12f), UniformInt.of(2, 4)));
         pyratiteCrystal = registerBlock("pyratite_crystal", () -> new AmethystClusterBlock(7, 3, BlockBehaviour.Properties.copy(Blocks.LARGE_AMETHYST_BUD).strength(1f, 0f).sound(SoundType.GLASS).noOcclusion()));

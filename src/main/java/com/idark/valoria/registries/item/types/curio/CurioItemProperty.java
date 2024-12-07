@@ -60,7 +60,7 @@ public class CurioItemProperty extends AbstractTieredAccessory implements ICurio
                 attribute.put(Attributes.MAX_HEALTH, new AttributeModifier(uuid, "bonus", 0.5 + (bonus * 0.25), AttributeModifier.Operation.ADDITION));
                 break;
             case SAPPHIRE:
-                attribute.put(Attributes.MOVEMENT_SPEED, new AttributeModifier(uuid, "bonus", 0.05 + (bonus * 0.025), Operation.MULTIPLY_TOTAL));
+                attribute.put(Attributes.MOVEMENT_SPEED, new AttributeModifier(uuid, "bonus", 0.025 + (bonus * 0.015), Operation.MULTIPLY_TOTAL));
                 break;
             case HEALTH:
                 attribute.put(Attributes.MAX_HEALTH, new AttributeModifier(uuid, "bonus", 1.5f + (bonus * 0.25), AttributeModifier.Operation.ADDITION));
