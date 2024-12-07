@@ -44,7 +44,7 @@ import net.minecraftforge.event.entity.*;
 import net.minecraftforge.eventbus.api.*;
 import net.minecraftforge.fml.*;
 import net.minecraftforge.fml.common.*;
-import net.minecraftforge.fml.config.*;
+import net.minecraftforge.fml.config.ModConfig.*;
 import net.minecraftforge.fml.event.lifecycle.*;
 import net.minecraftforge.fml.javafmlmod.*;
 import org.slf4j.*;
@@ -88,7 +88,8 @@ public class Valoria {
         SkinsRegistry.register();
 
         IEventBus forgeBus = MinecraftForge.EVENT_BUS;
-        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ClientConfig.SPEC);
+        ModLoadingContext.get().registerConfig(Type.SERVER, ServerConfig.SPEC);
+        ModLoadingContext.get().registerConfig(Type.CLIENT, ClientConfig.SPEC);
         DistExecutor.unsafeCallWhenOn(Dist.CLIENT, () -> () -> {
             forgeBus.addListener(KeyBindHandler::onInput);
             forgeBus.addListener(ClientTickHandler::clientTickEnd);

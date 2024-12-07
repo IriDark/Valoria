@@ -300,7 +300,7 @@ public class ItemsRegistry {
         pyratiteCharge = registerItem("pyratite_charge", () -> new GunpowderCharge(6f, 40f, new Item.Properties().stacksTo(1)));
         spectralBlade = registerItem("spectral_blade", () -> new SpectralBladeItem(3, -2.3f, new Item.Properties().durability(852)));
         corpseCleaver = registerItem("corpsecleaver", () -> new CorpseCleaverItem(ModItemTier.BLOOD, 2, -2.4F, new Item.Properties().durability(1151)));
-        throwableBomb = registerItem("throwable_bomb", () -> new ThrowableBombItem(new Item.Properties().stacksTo(16)));
+        throwableBomb = registerItem("throwable_bomb", () -> new ThrowableBombItem(Level.ExplosionInteraction.NONE, 2.45f, 60, new Item.Properties().stacksTo(16)));
         dynamite = registerItem("dynamite", () -> new ThrowableBombItem(3f, 60, new Item.Properties().stacksTo(16)));
 
         // winter

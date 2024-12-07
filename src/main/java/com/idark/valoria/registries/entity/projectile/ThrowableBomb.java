@@ -9,6 +9,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.projectile.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
+import net.minecraft.world.level.Level.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.*;
@@ -19,6 +20,7 @@ public class ThrowableBomb extends ThrowableItemProjectile {
     private static final EntityDataAccessor<Integer> DATA_FUSE_ID = SynchedEntityData.defineId(ThrowableBomb.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Float> DATA_RADIUS_ID = SynchedEntityData.defineId(ThrowableBomb.class, EntityDataSerializers.FLOAT);
     private static final EntityDataAccessor<ItemStack> DATA_ITEM_STACK = SynchedEntityData.defineId(ThrowableBomb.class, EntityDataSerializers.ITEM_STACK);
+    private static Level.ExplosionInteraction bombInteraction = ExplosionInteraction.TNT;
 
     public ThrowableBomb(EntityType<? extends ThrowableItemProjectile> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
@@ -184,7 +186,11 @@ public class ThrowableBomb extends ThrowableItemProjectile {
     }
 
     protected void explode() {
-        this.level().explode(this, this.getX(), this.getY(0.0625D), this.getZ(), getRadius(), Level.ExplosionInteraction.TNT);
+        this.level().explode(this, this.getX(), this.getY(0.0625D), this.getZ(), getRadius(), bombInteraction);
+    }
+
+    public void setInteraction(Level.ExplosionInteraction intr) {
+        bombInteraction = intr;
     }
 
     public void setFuse(int pLife) {
