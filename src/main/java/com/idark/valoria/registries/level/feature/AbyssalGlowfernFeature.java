@@ -31,11 +31,11 @@ public class AbyssalGlowfernFeature extends Feature<TwistingVinesConfig> {
         for (int i = 1; i <= pLength; ++i) {
             if (pLevel.isEmptyBlock(pPos)) {
                 if (i == pLength || !pLevel.isEmptyBlock(pPos.above())) {
-                    pLevel.setBlock(pPos, BlockRegistry.ABYSSAL_GLOWFERN.get().defaultBlockState().setValue(GrowingPlantHeadBlock.AGE, Mth.nextInt(pRandom, pMinAge, pMaxAge)), 2);
+                    pLevel.setBlock(pPos, BlockRegistry.abyssalGlowfern.get().defaultBlockState().setValue(GrowingPlantHeadBlock.AGE, Mth.nextInt(pRandom, pMinAge, pMaxAge)), 2);
                     break;
                 }
 
-                pLevel.setBlock(pPos, BlockRegistry.ABYSSAL_GLOWFERN_PLANT.get().defaultBlockState(), 2);
+                pLevel.setBlock(pPos, BlockRegistry.abyssalGlowfernPlant.get().defaultBlockState(), 2);
             }
 
             pPos.move(Direction.UP);
@@ -47,7 +47,7 @@ public class AbyssalGlowfernFeature extends Feature<TwistingVinesConfig> {
             return true;
         } else {
             BlockState blockstate = pLevel.getBlockState(pPos.below());
-            return !blockstate.is(BlockRegistry.VOID_GRASS.get()) && !blockstate.is(BlockRegistry.VOID_TAINT.get());
+            return !blockstate.is(BlockRegistry.voidGrass.get()) && !blockstate.is(BlockRegistry.voidTaint.get());
         }
     }
 

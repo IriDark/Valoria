@@ -34,7 +34,7 @@ public class JewelryMenu extends ContainerMenuBase{
 
     @Override
     public boolean stillValid(Player playerIn) {
-        return stillValid(ContainerLevelAccess.create(blockEntity.getLevel(), blockEntity.getBlockPos()), playerIn, BlockRegistry.JEWELER_TABLE.get());
+        return stillValid(ContainerLevelAccess.create(blockEntity.getLevel(), blockEntity.getBlockPos()), playerIn, BlockRegistry.jewelerTable.get());
     }
 
     @Override

@@ -276,7 +276,7 @@ public class Events{
     @OnlyIn(Dist.CLIENT)
     public void onBossInfoRender(CustomizeGuiOverlayEvent.BossEventProgress ev){
         Minecraft mc = Minecraft.getInstance();
-        if(ev.isCanceled() || mc.level == null) return;
+        if(ev.isCanceled() || mc.level == null || ClientConfig.CUSTOM_BOSSBARS.get()) return;
         Map<UUID, LerpingBossEvent> events = ((BossHealthOverlayAccessor) mc.gui.getBossOverlay()).getEvents();
         if (events.isEmpty()) return;
         GuiGraphics pGuiGraphics = ev.getGuiGraphics();

@@ -24,7 +24,7 @@ import java.util.*;
 public class JewelryRecipeCategory extends AbstractRecipeCategory<JewelryRecipe> {
     private final IDrawable background;
     public JewelryRecipeCategory(IGuiHelper helper) {
-        super(ModRecipeTypes.JEWELRY, Component.translatable("jei.valoria.jewelry"), helper.createDrawableItemLike(BlockRegistry.JEWELER_TABLE.get()), 148, 48);
+        super(ModRecipeTypes.JEWELRY, Component.translatable("jei.valoria.jewelry"), helper.createDrawableItemLike(BlockRegistry.jewelerTable.get()), 148, 48);
         ResourceLocation backgroundImage = new ResourceLocation(Valoria.ID, "textures/gui/jei/jewelry.png");
         background = helper.createDrawable(backgroundImage, 0, 0, 148, 48);
     }

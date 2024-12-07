@@ -17,6 +17,7 @@ import net.minecraft.world.entity.ai.goal.target.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
+import net.minecraftforge.api.distmarker.*;
 
 public class Succubus extends AbstractSuccubus {
     public static final AttackRegistry FIRE_RAY = new AttackRegistry(Valoria.ID, "fire_ray");
@@ -91,6 +92,7 @@ public class Succubus extends AbstractSuccubus {
             return (pOwner.getNavigation().getPath() != null && !pOwner.getNavigation().getPath().canReach());
         }
 
+        @OnlyIn(Dist.CLIENT)
         public ParticleOptions getParticles() {
             return ParticleBuilder.create(FluffyFurParticles.WISP)
             .setColorData(ColorParticleData.create(Pal.amber).build())
@@ -104,17 +106,21 @@ public class Succubus extends AbstractSuccubus {
             if(!checkExtraStartConditions(pOwner)) return;
             super.tick();
             pOwner.getLookControl().setLookAt(pOwner.getTarget().position());
-            if(this.attackWarmupDelay == 0 && pOwner.level() instanceof ServerLevel pLevel){
+            if(this.attackWarmupDelay == 0){
                 Vec3 vec3 = pOwner.position().add(0.0D, 1.6F, 0.0D);
                 Vec3 vec31 = pOwner.getTarget().getEyePosition().subtract(vec3);
                 Vec3 vec32 = vec31.normalize();
-                for(int i = 1; i < Mth.floor(vec31.length()) + 7; ++i){
-                    Vec3 vec33 = vec3.add(vec32.scale(i));
-                    pLevel.sendParticles(getParticles(), vec33.x, vec33.y, vec33.z, 1, 0.0D, 0.0D, 0.0D, 0.0D);
+                if(pOwner.level().isClientSide()){
+                    for(int i = 1; i < Mth.floor(vec31.length()) + 7; ++i){
+                        Vec3 vec33 = vec3.add(vec32.scale(i));
+                        pOwner.level().addParticle(getParticles(), vec33.x, vec33.y, vec33.z, 0.0D, 0.0D, 0.0D);
+                    }
                 }
 
                 pOwner.playSound(SoundEvents.WARDEN_SONIC_BOOM, 3.0F, 1.0F);
-                pOwner.getTarget().hurt(pLevel.damageSources().generic(), 5F);
+                if(pOwner.level() instanceof ServerLevel pLevel) {
+                    pOwner.getTarget().hurt(pLevel.damageSources().generic(), 4F);
+                }
             }
         }
 

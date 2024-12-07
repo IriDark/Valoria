@@ -1,21 +1,18 @@
 package com.idark.valoria.client.render.tile;
 
-import com.idark.valoria.registries.BlockRegistry;
-import com.idark.valoria.registries.block.entity.CrushableBlockEntity;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Axis;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.LevelRenderer;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
-import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.core.Direction;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.item.ItemDisplayContext;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.block.entity.*;
+import com.mojang.blaze3d.vertex.*;
+import com.mojang.math.*;
+import net.minecraft.client.*;
+import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.blockentity.*;
+import net.minecraft.client.renderer.texture.*;
+import net.minecraft.core.*;
+import net.minecraft.util.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.block.state.properties.*;
+import net.minecraftforge.api.distmarker.*;
 
 @OnlyIn(Dist.CLIENT)
 public class CrushableBlockRenderer implements BlockEntityRenderer<CrushableBlockEntity> {
@@ -26,7 +23,7 @@ public class CrushableBlockRenderer implements BlockEntityRenderer<CrushableBloc
     public void render(CrushableBlockEntity pBlockEntity, float pPartialTick, PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight, int pPackedOverlay) {
         if (pBlockEntity.getLevel() != null) {
             int i = pBlockEntity.getBlockState().getValue(BlockStateProperties.DUSTED);
-            boolean isIce = pBlockEntity.getBlockState().is(BlockRegistry.SUSPICIOUS_ICE.get());
+            boolean isIce = pBlockEntity.getBlockState().is(BlockRegistry.suspiciousIce.get());
             if (i > 0 || isIce) {
                 Direction direction = pBlockEntity.getHitDirection();
                 ItemStack itemstack = pBlockEntity.getItem();

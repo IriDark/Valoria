@@ -51,9 +51,9 @@ public class FleshBlock extends Block implements FleshSpreaderBehaviour{
     private BlockState getRandomGrowthState(LevelAccessor pLevel, BlockPos pPos, RandomSource pRandom) {
         BlockState blockstate;
         if (new ArcRandom().chance(25)) {
-            blockstate = BlockRegistry.FLESH_CYST.get().defaultBlockState();
+            blockstate = BlockRegistry.fleshCyst.get().defaultBlockState();
         } else {
-            blockstate = BlockRegistry.BLOOD_VEIN.get().defaultBlockState();
+            blockstate = BlockRegistry.bloodVein.get().defaultBlockState();
         }
 
         return blockstate.hasProperty(BlockStateProperties.WATERLOGGED) && !pLevel.getFluidState(pPos).isEmpty() ? blockstate.setValue(BlockStateProperties.WATERLOGGED, Boolean.TRUE) : blockstate;
@@ -66,7 +66,7 @@ public class FleshBlock extends Block implements FleshSpreaderBehaviour{
 
             for(BlockPos blockpos : BlockPos.betweenClosed(pPos.offset(-4, 0, -4), pPos.offset(4, 2, 4))) {
                 BlockState blockstate1 = pLevel.getBlockState(blockpos);
-                if (!blockstate.is(BlockRegistry.FLESH_CYST.get()) || !blockstate1.is(BlockRegistry.BLOOD_VEIN.get())) {
+                if (!blockstate.is(BlockRegistry.fleshCyst.get()) || !blockstate1.is(BlockRegistry.bloodVein.get())) {
                     ++i;
                 }
 

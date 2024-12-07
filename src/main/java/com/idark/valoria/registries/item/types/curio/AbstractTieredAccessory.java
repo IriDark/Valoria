@@ -3,6 +3,7 @@ package com.idark.valoria.registries.item.types.curio;
 import com.google.common.collect.*;
 import com.idark.valoria.*;
 import com.idark.valoria.core.enums.*;
+import com.idark.valoria.registries.*;
 import com.idark.valoria.util.*;
 import net.minecraft.*;
 import net.minecraft.network.chat.*;
@@ -106,7 +107,7 @@ public abstract class AbstractTieredAccessory extends TieredItem implements ICur
             tooltip.add(Component.translatable("tooltip.valoria.amber").withStyle(ChatFormatting.GRAY));
         }
 
-        if (type == AccessoryType.BELT) {
+        if (type == AccessoryType.BELT && !stack.is(ItemsRegistry.samuraiBelt.get())) {
             tooltip.add(Component.translatable("tooltip.valoria.belt").withStyle(ChatFormatting.GRAY));
         }
 

@@ -12,7 +12,6 @@ import com.idark.valoria.core.capability.*;
 import com.idark.valoria.core.command.arguments.*;
 import com.idark.valoria.core.conditions.*;
 import com.idark.valoria.core.config.*;
-import com.idark.valoria.core.datagen.*;
 import com.idark.valoria.core.interfaces.*;
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.proxy.*;
@@ -76,7 +75,7 @@ public class Valoria {
         PotionBrewery.register(eventBus);
         EntityTypeRegistry.register(eventBus);
         ItemsRegistry.load(eventBus);
-        BlockRegistry.register(eventBus);
+        BlockRegistry.load(eventBus);
         LevelGen.init(eventBus);
 
         BlockEntitiesRegistry.register(eventBus);
@@ -170,22 +169,22 @@ public class Valoria {
         RegisterUnlockables.init();
         event.enqueueWork(() -> {
             FireBlock fireblock = (FireBlock) Blocks.FIRE;
-            fireblock.setFlammable(BlockRegistry.SHADELOG.get(), 5, 20);
-            fireblock.setFlammable(BlockRegistry.SHADEWOOD.get(), 5, 20);
-            fireblock.setFlammable(BlockRegistry.SHADEWOOD_LEAVES.get(), 30, 60);
-            fireblock.setFlammable(BlockRegistry.SHADEWOOD_PLANKS_SLAB.get(), 5, 40);
-            fireblock.setFlammable(BlockRegistry.SHADEWOOD_PLANKS_STAIRS.get(), 5, 40);
-            fireblock.setFlammable(BlockRegistry.SHADEWOOD_PLANKS.get(), 5, 25);
-            fireblock.setFlammable(BlockRegistry.STRIPPED_SHADELOG.get(), 5, 30);
-            fireblock.setFlammable(BlockRegistry.STRIPPED_SHADEWOOD.get(), 5, 30);
-            fireblock.setFlammable(BlockRegistry.ELDRITCH_LOG.get(), 5, 20);
-            fireblock.setFlammable(BlockRegistry.ELDRITCH_WOOD.get(), 5, 20);
-            fireblock.setFlammable(BlockRegistry.ELDRITCH_LEAVES.get(), 30, 60);
-            fireblock.setFlammable(BlockRegistry.ELDRITCH_PLANKS_SLAB.get(), 5, 40);
-            fireblock.setFlammable(BlockRegistry.ELDRITCH_PLANKS_STAIRS.get(), 5, 40);
-            fireblock.setFlammable(BlockRegistry.ELDRITCH_PLANKS.get(), 5, 25);
-            fireblock.setFlammable(BlockRegistry.STRIPPED_ELDRITCH_LOG.get(), 5, 30);
-            fireblock.setFlammable(BlockRegistry.STRIPPED_ELDRITCH_WOOD.get(), 5, 30);
+            fireblock.setFlammable(BlockRegistry.shadelog.get(), 5, 20);
+            fireblock.setFlammable(BlockRegistry.shadewood.get(), 5, 20);
+            fireblock.setFlammable(BlockRegistry.shadewoodLeaves.get(), 30, 60);
+            fireblock.setFlammable(BlockRegistry.shadewoodPlanksSlab.get(), 5, 40);
+            fireblock.setFlammable(BlockRegistry.shadewoodPlanksStairs.get(), 5, 40);
+            fireblock.setFlammable(BlockRegistry.shadewoodPlanks.get(), 5, 25);
+            fireblock.setFlammable(BlockRegistry.strippedShadelog.get(), 5, 30);
+            fireblock.setFlammable(BlockRegistry.strippedShadewood.get(), 5, 30);
+            fireblock.setFlammable(BlockRegistry.eldritchLog.get(), 5, 20);
+            fireblock.setFlammable(BlockRegistry.eldritchWood.get(), 5, 20);
+            fireblock.setFlammable(BlockRegistry.eldritchLeaves.get(), 30, 60);
+            fireblock.setFlammable(BlockRegistry.eldritchPlanksSlab.get(), 5, 40);
+            fireblock.setFlammable(BlockRegistry.eldritchPlanksStairs.get(), 5, 40);
+            fireblock.setFlammable(BlockRegistry.eldritchPlanks.get(), 5, 25);
+            fireblock.setFlammable(BlockRegistry.strippedEldritchLog.get(), 5, 30);
+            fireblock.setFlammable(BlockRegistry.strippedEldritchWood.get(), 5, 30);
             DraugrEntity.spawnable(
                     Items.BOW,
                     Items.WOODEN_AXE,
@@ -227,10 +226,10 @@ public class Valoria {
             );
 
             AxeItem.STRIPPABLES = new ImmutableMap.Builder<Block, Block>().putAll(AxeItem.STRIPPABLES)
-                    .put(BlockRegistry.SHADELOG.get(), BlockRegistry.STRIPPED_SHADELOG.get())
-                    .put(BlockRegistry.SHADEWOOD.get(), BlockRegistry.STRIPPED_SHADEWOOD.get())
-                    .put(BlockRegistry.ELDRITCH_LOG.get(), BlockRegistry.STRIPPED_ELDRITCH_LOG.get())
-                    .put(BlockRegistry.ELDRITCH_WOOD.get(), BlockRegistry.STRIPPED_ELDRITCH_WOOD.get()).build();
+                    .put(BlockRegistry.shadelog.get(), BlockRegistry.strippedShadelog.get())
+                    .put(BlockRegistry.shadewood.get(), BlockRegistry.strippedShadewood.get())
+                    .put(BlockRegistry.eldritchLog.get(), BlockRegistry.strippedEldritchLog.get())
+                    .put(BlockRegistry.eldritchWood.get(), BlockRegistry.strippedEldritchWood.get()).build();
 
             WoodType.register(ModWoodTypes.ELDRITCH);
             WoodType.register(ModWoodTypes.SHADEWOOD);
@@ -288,9 +287,9 @@ public class Valoria {
             DataGenerator generator = event.getGenerator();
             PackOutput packOutput = generator.getPackOutput();
             ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
-            generator.addProvider(event.includeServer(), LootTableGen.create(packOutput));
-            generator.addProvider(event.includeServer(), new RecipeGen(packOutput));
-            generator.addProvider(event.includeClient(), new BlockStateGen(packOutput, existingFileHelper));
+//            generator.addProvider(event.includeServer(), LootTableGen.create(packOutput));
+//            generator.addProvider(event.includeServer(), new RecipeGen(packOutput));
+//            generator.addProvider(event.includeClient(), new BlockStateGen(packOutput, existingFileHelper));
         }
     }
 }

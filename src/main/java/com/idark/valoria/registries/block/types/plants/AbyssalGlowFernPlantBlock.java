@@ -13,6 +13,6 @@ public class AbyssalGlowFernPlantBlock extends GrowingPlantBodyBlock {
 
     @Override
     protected GrowingPlantHeadBlock getHeadBlock() {
-        return (GrowingPlantHeadBlock) BlockRegistry.ABYSSAL_GLOWFERN.get();
+        return (GrowingPlantHeadBlock) BlockRegistry.abyssalGlowfern.get();
     }
 }

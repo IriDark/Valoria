@@ -18,6 +18,6 @@ public class ValoriaSaplingBlock extends SaplingBlock {
 
     protected boolean mayPlaceOn(BlockState state, BlockGetter worldIn, BlockPos pos) {
         Block block = state.getBlock();
-        return block == BlockRegistry.VOID_TAINT.get() || block == BlockRegistry.VOID_GRASS.get();
+        return block == BlockRegistry.voidTaint.get() || block == BlockRegistry.voidGrass.get();
     }
 }	

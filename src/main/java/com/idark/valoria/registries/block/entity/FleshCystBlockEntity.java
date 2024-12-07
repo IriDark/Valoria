@@ -42,7 +42,7 @@ public class FleshCystBlockEntity extends BlockEntity implements TickableBlockEn
         }
 
         public void broadcastEvent(Level p_155767_, BlockPos p_155768_, int p_155769_) {
-            p_155767_.blockEvent(p_155768_, BlockRegistry.FLESH_CYST.get(), p_155769_, 0);
+            p_155767_.blockEvent(p_155768_, BlockRegistry.fleshCyst.get(), p_155769_, 0);
         }
     };
 

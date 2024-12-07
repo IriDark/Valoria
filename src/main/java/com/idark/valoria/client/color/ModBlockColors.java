@@ -1,42 +1,39 @@
 package com.idark.valoria.client.color;
 
-import com.idark.valoria.registries.BlockRegistry;
-import net.minecraft.client.color.block.BlockColor;
-import net.minecraft.client.renderer.BiomeColors;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.BlockAndTintGetter;
-import net.minecraft.world.level.FoliageColor;
-import net.minecraft.world.level.GrassColor;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import org.jetbrains.annotations.Nullable;
+import com.idark.valoria.registries.*;
+import net.minecraft.client.color.block.*;
+import net.minecraft.client.renderer.*;
+import net.minecraft.core.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.*;
+import net.minecraftforge.api.distmarker.*;
+import org.jetbrains.annotations.*;
 
 @OnlyIn(Dist.CLIENT)
 public class ModBlockColors implements BlockColor {
     private static final ModBlockColors INSTANCE = new ModBlockColors();
 
     public static final Block[] MODDED_GRASS = {
-            BlockRegistry.CATTAIL.get(),
-            BlockRegistry.VOID_TAINT.get(),
-            BlockRegistry.VOID_GRASS.get(),
-            BlockRegistry.VOID_SERPENTS.get(),
-            BlockRegistry.VOID_ROOTS.get(),
-            BlockRegistry.SOULFLOWER.get(),
-            BlockRegistry.FALSEFLOWER.get(),
-            BlockRegistry.FALSEFLOWER_SMALL.get()
+            BlockRegistry.cattail.get(),
+            BlockRegistry.voidTaint.get(),
+            BlockRegistry.voidGrass.get(),
+            BlockRegistry.voidSerpents.get(),
+            BlockRegistry.voidRoots.get(),
+            BlockRegistry.soulFlower.get(),
+            BlockRegistry.falseFlower.get(),
+            BlockRegistry.falseFlowerSmall.get()
     };
 
     public static final Block[] MODDED_FOLIAGE = {
-            BlockRegistry.ELDRITCH_LEAVES.get(),
-            BlockRegistry.ELDRITCH_SAPLING.get(),
-            BlockRegistry.POTTED_SHADEWOOD_SAPLING.get(),
-            BlockRegistry.POTTED_ELDRITCH_SAPLING.get(),
+            BlockRegistry.eldritchLeaves.get(),
+            BlockRegistry.eldritchSapling.get(),
+            BlockRegistry.pottedEldritchSapling.get(),
 
-            BlockRegistry.SHADEWOOD_LEAVES.get(),
-            BlockRegistry.SHADEWOOD_BRANCH.get(),
-            BlockRegistry.SHADEWOOD_SAPLING.get()
+            BlockRegistry.shadewoodLeaves.get(),
+            BlockRegistry.shadewoodBranch.get(),
+            BlockRegistry.shadewoodSapling.get(),
+            BlockRegistry.pottedShadewoodSapling.get()
     };
 
     public static ModBlockColors getInstance() {

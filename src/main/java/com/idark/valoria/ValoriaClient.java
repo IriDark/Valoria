@@ -70,7 +70,7 @@ public class ValoriaClient {
     public static FluffyFurMod MOD_INSTANCE;
     public static FluffyFurPanorama ECOTONE_PANORAMA;
     public static void setupMenu() {
-        MOD_INSTANCE = new FluffyFurMod(Valoria.ID, "Valoria", "0.6.2b").setDev("Iri ♡").setItem(new ItemStack(BlockRegistry.SHADE_BLOSSOM.get()))
+        MOD_INSTANCE = new FluffyFurMod(Valoria.ID, "Valoria", "0.6.2b").setDev("Iri ♡").setItem(new ItemStack(BlockRegistry.shadeBlossom.get()))
         .setNameColor(Pal.verySoftPink).setVersionColor(Pal.cyan)
         .setDescription(Component.translatable("mod_description.valoria"))
         .addGithubLink("https://github.com/IriDark/Valoria")
@@ -79,7 +79,7 @@ public class ValoriaClient {
         .addDiscordLink("https://discord.gg/wWdXpwuPmK");
 
         ECOTONE_PANORAMA = new FluffyFurPanorama(Valoria.ID + ":ecotone", Component.translatable("panorama.valoria.ecotone"))
-        .setMod(MOD_INSTANCE).setItem(new ItemStack(BlockRegistry.SHADE_BLOSSOM.get())).setSort(0)
+        .setMod(MOD_INSTANCE).setItem(new ItemStack(BlockRegistry.shadeBlossom.get())).setSort(0)
         .setTexture(new ResourceLocation(Valoria.ID, "textures/gui/title/background/panorama"))
         .setLogo(new ResourceLocation(Valoria.ID, "textures/gui/title/valoria_logo.png"));
 
@@ -142,9 +142,9 @@ public class ValoriaClient {
         @SubscribeEvent
         public static void ColorMappingItems(RegisterColorHandlersEvent.Item event) {
             event.register((stack, tintIndex) -> tintIndex > 0 ? -1 : SummonBook.getColor(stack), ItemsRegistry.summonBook.get());
-            event.register((stack, tintIndex) -> tintIndex > 0 ? -1 : 12487423, BlockRegistry.ELDRITCH_SAPLING.get(), BlockRegistry.ELDRITCH_LEAVES.get());
-            event.register((stack, tintIndex) -> tintIndex > 0 ? -1 : 6740479, BlockRegistry.SHADEWOOD_BRANCH.get(), BlockRegistry.SHADEWOOD_SAPLING.get(), BlockRegistry.SHADEWOOD_LEAVES.get());
-            event.register((stack, tintIndex) -> 11301619, BlockRegistry.VOID_GRASS.get(), BlockRegistry.VOID_TAINT.get(), BlockRegistry.VOID_ROOTS.get());
+            event.register((stack, tintIndex) -> tintIndex > 0 ? -1 : 12487423, BlockRegistry.eldritchSapling.get(), BlockRegistry.eldritchLeaves.get());
+            event.register((stack, tintIndex) -> tintIndex > 0 ? -1 : 6740479, BlockRegistry.shadewoodSapling.get(), BlockRegistry.shadewoodLeaves.get(), BlockRegistry.shadewoodBranch.get());
+            event.register((stack, tintIndex) -> 11301619, BlockRegistry.voidGrass.get(), BlockRegistry.voidTaint.get(), BlockRegistry.voidRoots.get());
             event.register((p_92708_, p_92709_) -> p_92709_ > 0 ? -1 : ((DyeableLeatherItem) p_92708_.getItem()).getColor(p_92708_), ItemsRegistry.leatherGloves.get());
             event.register((p_92708_, p_92709_) -> p_92709_ > 0 ? -1 : ((DyeableLeatherItem) p_92708_.getItem()).getColor(p_92708_), ItemsRegistry.jewelryBag.get());
         }

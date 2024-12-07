@@ -18,7 +18,7 @@ public interface FleshSpreaderBehaviour{
         public boolean attemptSpreadVein(LevelAccessor p_222048_, BlockPos p_222049_, BlockState p_222050_, @Nullable Collection<Direction> p_222051_, boolean p_222052_) {
             if(new ArcRandom().chance(0.25f)){
                 if(p_222051_ == null){
-                    return ((BloodVeinBlock)BlockRegistry.BLOOD_VEIN.get()).getSameSpaceSpreader().spreadAll(p_222048_.getBlockState(p_222049_), p_222048_, p_222049_, p_222052_) > 0L;
+                    return ((BloodVeinBlock)BlockRegistry.bloodVein.get()).getSameSpaceSpreader().spreadAll(p_222048_.getBlockState(p_222049_), p_222048_, p_222049_, p_222052_) > 0L;
                 }else if(!p_222051_.isEmpty()){
                     return (p_222050_.isAir() || p_222050_.getFluidState().is(Fluids.WATER)) && BloodVeinBlock.regrow(p_222048_, p_222049_, p_222050_, p_222051_);
                 }
@@ -50,7 +50,7 @@ public interface FleshSpreaderBehaviour{
     }
 
     default boolean attemptSpreadVein(LevelAccessor pLevel, BlockPos pPos, BlockState pState, @Nullable Collection<Direction> pDirections, boolean pMarkForPostprocessing) {
-        return ((MultifaceBlock)BlockRegistry.BLOOD_VEIN.get()).getSpreader().spreadAll(pState, pLevel, pPos, pMarkForPostprocessing) > 0L;
+        return ((MultifaceBlock)BlockRegistry.bloodVein.get()).getSpreader().spreadAll(pState, pLevel, pPos, pMarkForPostprocessing) > 0L;
     }
 
     default boolean canChangeBlockStateOnSpread() {

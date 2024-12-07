@@ -8,7 +8,7 @@ public class ClientConfig {
             MAGMA_CHARGE_BAR_Y, MAGMA_CHARGE_BAR_X, MAGMA_CHARGE_BAR_TYPE,
             MISC_UI_X, MISC_UI_Y;
     public static ForgeConfigSpec.ConfigValue<Boolean>
-            ABILITY_OVERLAY, PHANTOM_ACTIVATION, OLD_GOBLIN_MODEL, BOSSBAR_TITLE;
+            ABILITY_OVERLAY, PHANTOM_ACTIVATION, OLD_GOBLIN_MODEL, BOSSBAR_TITLE, CUSTOM_BOSSBARS;
 
     static {
         final Pair<ClientConfig, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(ClientConfig::new);
@@ -29,5 +29,6 @@ public class ClientConfig {
         PHANTOM_ACTIVATION = builder.comment("Item activation on ability use").define("PhantomActivation", true);
         OLD_GOBLIN_MODEL = builder.comment("Changes goblin model to old one").comment("Reload Resourcepacks after turning this on (F3+T)").define("OldGoblinModel", false);
         BOSSBAR_TITLE = builder.comment("Bossbar boss titles").define("BossbarTitles", true);
+        CUSTOM_BOSSBARS = builder.comment("Custom bossbars").define("CustomBossbars", true);
     }
 }

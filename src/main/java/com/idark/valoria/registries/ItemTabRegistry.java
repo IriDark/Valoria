@@ -26,7 +26,7 @@ public abstract class ItemTabRegistry {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, Valoria.ID);
 
     public static final RegistryObject<CreativeModeTab> VALORIA_BLOCKS_TAB = CREATIVE_MODE_TABS.register("valoriablocksmodtab",
-            () -> CreativeModeTab.builder().icon(() -> new ItemStack(BlockRegistry.JEWELER_TABLE.get()))
+            () -> CreativeModeTab.builder().icon(() -> new ItemStack(BlockRegistry.jewelerTable.get()))
                     .hideTitle()
                     .title(Component.translatable("itemGroup.valoriaBlocksModTab"))
                     .withTabsImage(getTabsImage())

@@ -38,10 +38,10 @@ public class ModJeiPlugin implements IModPlugin {
 
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
-        registration.addRecipeCatalyst(new ItemStack(BlockRegistry.ARCHAEOLOGY_TABLE.get()), ModRecipeTypes.ARCHAEOLOGY);
-        registration.addRecipeCatalyst(new ItemStack(BlockRegistry.KEG.get()), ModRecipeTypes.BREWERY);
-        registration.addRecipeCatalyst(new ItemStack(BlockRegistry.JEWELER_TABLE.get()), ModRecipeTypes.JEWELRY);
-        registration.addRecipeCatalyst(new ItemStack(BlockRegistry.ELEMENTAL_MANIPULATOR.get()), ModRecipeTypes.MANIPULATOR);
+        registration.addRecipeCatalyst(new ItemStack(BlockRegistry.archaeologyTable.get()), ModRecipeTypes.ARCHAEOLOGY);
+        registration.addRecipeCatalyst(new ItemStack(BlockRegistry.keg.get()), ModRecipeTypes.BREWERY);
+        registration.addRecipeCatalyst(new ItemStack(BlockRegistry.jewelerTable.get()), ModRecipeTypes.JEWELRY);
+        registration.addRecipeCatalyst(new ItemStack(BlockRegistry.elementalManipulator.get()), ModRecipeTypes.MANIPULATOR);
         //registration.addRecipeCatalyst(new ItemStack(ModItems.STONE_CRUSHER.get()), ModRecipeTypes.CRUSHER);
     }
 }

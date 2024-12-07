@@ -35,8 +35,8 @@ public class MiscRegistry {
     public static final RegistryObject<PaintingVariant> EMERALD = PAINTING_TYPES.register("emerald", () -> new PaintingVariant(16, 16));
     public static final RegistryObject<PaintingVariant> THE_STARRY_NIGHT = PAINTING_TYPES.register("starry_night", () -> new PaintingVariant(32, 32));
 
-    public static final RegistryObject<PoiType> VALORIA_PORTAL = POI.register("valoria_portal", () -> register(getBlockStates(BlockRegistry.VALORIA_PORTAL.get()), 0, 1));
-    public static final RegistryObject<PoiType> JEWELER = POI.register("jeweler", () -> register(getBlockStates(BlockRegistry.JEWELER_TABLE.get()), 1, 1));
+    public static final RegistryObject<PoiType> VALORIA_PORTAL = POI.register("valoria_portal", () -> register(getBlockStates(BlockRegistry.valoriaPortal.get()), 0, 1));
+    public static final RegistryObject<PoiType> JEWELER = POI.register("jeweler", () -> register(getBlockStates(BlockRegistry.jewelerTable.get()), 1, 1));
 
     private static Set<BlockState> getBlockStates(Block pBlock) {
         return ImmutableSet.copyOf(pBlock.getStateDefinition().getPossibleStates());

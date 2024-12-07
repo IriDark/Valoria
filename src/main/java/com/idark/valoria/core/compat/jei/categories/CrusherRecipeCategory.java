@@ -29,7 +29,7 @@ public class CrusherRecipeCategory implements IRecipeCategory<CrusherRecipe> {
         title = Component.translatable("jei.valoria.crusher");
         ResourceLocation backgroundImage = new ResourceLocation(Valoria.ID, "textures/gui/jei/jewelry.png");
         background = helper.createDrawable(backgroundImage, 0, 0, 148, 48);
-        icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(BlockRegistry.STONE_CRUSHER.get()));
+        icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(BlockRegistry.stoneCrusher.get()));
     }
 
     @Override

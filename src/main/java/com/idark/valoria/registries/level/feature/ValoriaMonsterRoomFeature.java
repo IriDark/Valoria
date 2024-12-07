@@ -84,9 +84,9 @@ public class ValoriaMonsterRoomFeature extends Feature<NoneFeatureConfiguration>
                             worldgenlevel.setBlock(blockpos3, AIR, 2);
                         } else if (blockstate.isSolid() && !blockstate.is(Blocks.CHEST)) {
                             if (i4 == -1 && randomsource.nextInt(4) != 0) {
-                                this.safeSetBlock(worldgenlevel, blockpos3, BlockRegistry.VOID_CRACKED_BRICK.get().defaultBlockState(), predicate);
+                                this.safeSetBlock(worldgenlevel, blockpos3, BlockRegistry.voidCrackedBrick.get().defaultBlockState(), predicate);
                             } else {
-                                this.safeSetBlock(worldgenlevel, blockpos3, BlockRegistry.VOID_BRICK.get().defaultBlockState(), predicate);
+                                this.safeSetBlock(worldgenlevel, blockpos3, BlockRegistry.voidBrick.get().defaultBlockState(), predicate);
                             }
                         }
                     }

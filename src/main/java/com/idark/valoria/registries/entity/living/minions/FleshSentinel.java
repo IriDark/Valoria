@@ -84,7 +84,7 @@ public class FleshSentinel extends AbstractMinionEntity {
     public void tick() {
         super.tick();
         if(cystSpawned && this.getBoundOrigin() != null){
-            if(this.level().getBlockState(this.getBoundOrigin()).is(BlockRegistry.FLESH_CYST.get()) && !hasLimitedLife){
+            if(this.level().getBlockState(this.getBoundOrigin()).is(BlockRegistry.fleshCyst.get()) && !hasLimitedLife){
                 this.setLimitedLife(1750);
             }
         }

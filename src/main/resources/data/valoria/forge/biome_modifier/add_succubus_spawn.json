@@ -3,8 +3,8 @@
   "biomes": "#minecraft:is_nether",
   "spawners": {
     "type": "valoria:succubus",
-    "weight": 80,
-    "minCount": 1,
+    "weight": 40,
+    "minCount": 0,
     "maxCount": 2
   }
 }

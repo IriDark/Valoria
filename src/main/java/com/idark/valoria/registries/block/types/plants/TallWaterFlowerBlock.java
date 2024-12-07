@@ -37,7 +37,7 @@ public class TallWaterFlowerBlock extends DoublePlantBlock implements SimpleWate
         if (state.getValue(DoublePlantBlock.HALF) == DoubleBlockHalf.LOWER) {
             return super.canSurvive(state, level, pos) && this.mayPlaceOn(level.getBlockState(floorPos), level, floorPos) && fluid.is(FluidTags.WATER) && fluid.getAmount() == 8;
         }
-        return super.canSurvive(state, level, pos) && level.getBlockState(pos.below()).getBlock() == BlockRegistry.CATTAIL.get();
+        return super.canSurvive(state, level, pos) && level.getBlockState(pos.below()).getBlock() == BlockRegistry.cattail.get();
     }
 
 
@@ -49,7 +49,7 @@ public class TallWaterFlowerBlock extends DoublePlantBlock implements SimpleWate
 
     protected boolean mayPlaceOn(BlockState state, BlockGetter worldIn, BlockPos pos) {
         Block block = state.getBlock();
-        return block == BlockRegistry.VOID_TAINT.get() || block == BlockRegistry.VOID_GRASS.get() || block == Blocks.GRASS_BLOCK || block == Blocks.DIRT || block == Blocks.SAND || block == Blocks.GRAVEL || block == Blocks.PODZOL;
+        return block == BlockRegistry.voidTaint.get() || block == BlockRegistry.voidGrass.get() || block == Blocks.GRASS_BLOCK || block == Blocks.DIRT || block == Blocks.SAND || block == Blocks.GRAVEL || block == Blocks.PODZOL;
     }
 
     @Override

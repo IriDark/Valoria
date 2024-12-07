@@ -158,7 +158,7 @@ public class SuspiciousIcebergFeature extends Feature<NoneFeatureConfiguration> 
                 this.setBlock(pLevel, pPos, Blocks.SNOW_BLOCK.defaultBlockState());
             } else {
                 if (new ArcRandom().chance(0.025f)) {
-                    this.setBlock(pLevel, pPos, BlockRegistry.SUSPICIOUS_ICE.get().defaultBlockState());
+                    this.setBlock(pLevel, pPos, BlockRegistry.suspiciousIce.get().defaultBlockState());
                 } else {
                     this.setBlock(pLevel, pPos, pState);
                 }

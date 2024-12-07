@@ -39,6 +39,6 @@ public class ManipulatorMenu extends ContainerMenuBase{
 
     @Override
     public boolean stillValid(Player playerIn) {
-        return stillValid(ContainerLevelAccess.create(blockEntity.getLevel(), blockEntity.getBlockPos()), playerIn, BlockRegistry.ELEMENTAL_MANIPULATOR.get());
+        return stillValid(ContainerLevelAccess.create(blockEntity.getLevel(), blockEntity.getBlockPos()), playerIn, BlockRegistry.elementalManipulator.get());
     }
 }

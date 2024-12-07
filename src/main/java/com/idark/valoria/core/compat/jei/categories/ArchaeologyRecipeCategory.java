@@ -21,7 +21,7 @@ public class ArchaeologyRecipeCategory extends AbstractRecipeCategory<Archaeolog
     public static final int height = 34;
 
     public ArchaeologyRecipeCategory(IGuiHelper helper) {
-        super(ModRecipeTypes.ARCHAEOLOGY, Component.translatable("jei.valoria.archaeology_table"), helper.createDrawableItemLike(BlockRegistry.ARCHAEOLOGY_TABLE.get()), width, height);
+        super(ModRecipeTypes.ARCHAEOLOGY, Component.translatable("jei.valoria.archaeology_table"), helper.createDrawableItemLike(BlockRegistry.archaeologyTable.get()), width, height);
     }
 
     @Override

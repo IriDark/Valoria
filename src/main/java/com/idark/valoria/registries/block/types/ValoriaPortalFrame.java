@@ -4,23 +4,21 @@ import com.google.common.base.*;
 import com.idark.valoria.registries.*;
 import net.minecraft.core.*;
 import net.minecraft.network.protocol.game.*;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.*;
-import net.minecraft.stats.Stats;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.stats.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.context.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.level.block.state.pattern.*;
 import net.minecraft.world.level.block.state.predicate.*;
 import net.minecraft.world.level.block.state.properties.*;
 import net.minecraft.world.level.pathfinder.*;
 
-import javax.annotation.Nullable;
+import javax.annotation.*;
 
 public class ValoriaPortalFrame extends Block {
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
@@ -33,7 +31,7 @@ public class ValoriaPortalFrame extends Block {
 
     public static BlockPattern getOrCreatePortalShape() {
         if (portalShape == null) {
-            portalShape = BlockPatternBuilder.start().aisle("?vvv?", ">???<", ">???<", ">???<", "?^^^?").where('?', BlockInWorld.hasState(BlockStatePredicate.ANY)).where('^', BlockInWorld.hasState(BlockStatePredicate.forBlock(BlockRegistry.VALORIA_PORTAL_FRAME.get()).where(FACING, Predicates.equalTo(Direction.SOUTH)))).where('>', BlockInWorld.hasState(BlockStatePredicate.forBlock(BlockRegistry.VALORIA_PORTAL_FRAME.get()).where(FACING, Predicates.equalTo(Direction.WEST)))).where('v', BlockInWorld.hasState(BlockStatePredicate.forBlock(BlockRegistry.VALORIA_PORTAL_FRAME.get()).where(FACING, Predicates.equalTo(Direction.NORTH)))).where('<', BlockInWorld.hasState(BlockStatePredicate.forBlock(BlockRegistry.VALORIA_PORTAL_FRAME.get()).where(FACING, Predicates.equalTo(Direction.EAST)))).build();
+            portalShape = BlockPatternBuilder.start().aisle("?vvv?", ">???<", ">???<", ">???<", "?^^^?").where('?', BlockInWorld.hasState(BlockStatePredicate.ANY)).where('^', BlockInWorld.hasState(BlockStatePredicate.forBlock(BlockRegistry.valoriaPortalFrame.get()).where(FACING, Predicates.equalTo(Direction.SOUTH)))).where('>', BlockInWorld.hasState(BlockStatePredicate.forBlock(BlockRegistry.valoriaPortalFrame.get()).where(FACING, Predicates.equalTo(Direction.WEST)))).where('v', BlockInWorld.hasState(BlockStatePredicate.forBlock(BlockRegistry.valoriaPortalFrame.get()).where(FACING, Predicates.equalTo(Direction.NORTH)))).where('<', BlockInWorld.hasState(BlockStatePredicate.forBlock(BlockRegistry.valoriaPortalFrame.get()).where(FACING, Predicates.equalTo(Direction.EAST)))).build();
         }
 
         return portalShape;
@@ -69,13 +67,13 @@ public class ValoriaPortalFrame extends Block {
     @Override
     public void neighborChanged(BlockState state, Level world, BlockPos pos, Block block, BlockPos pos2, boolean unknown) {
         DebugPackets.sendNeighborsUpdatePacket(world, pos);
-        if (world.getBlockState(pos2).getBlock().defaultBlockState() == BlockRegistry.VALORIA_PORTAL.get().defaultBlockState() || world.getBlockState(pos2).getBlock().defaultBlockState() == BlockRegistry.VALORIA_PORTAL_FRAME.get().defaultBlockState()) {
+        if (world.getBlockState(pos2).getBlock().defaultBlockState() == BlockRegistry.valoriaPortal.get().defaultBlockState() || world.getBlockState(pos2).getBlock().defaultBlockState() == BlockRegistry.valoriaPortalFrame.get().defaultBlockState()) {
             BlockPattern.BlockPatternMatch frame = getOrCreatePortalShape().find(world, pos);
             if (frame != null) {
                 BlockPos blockpos1 = frame.getFrontTopLeft().offset(-3, 0, -3);
                 for (int i = 0; i < 3; ++i) {
                     for (int j = 0; j < 3; ++j) {
-                        world.setBlock(blockpos1.offset(i, 0, j), BlockRegistry.VALORIA_PORTAL.get().defaultBlockState(), 2);
+                        world.setBlock(blockpos1.offset(i, 0, j), BlockRegistry.valoriaPortal.get().defaultBlockState(), 2);
                     }
                 }
 

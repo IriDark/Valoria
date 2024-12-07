@@ -19,7 +19,7 @@ import javax.annotation.*;
 
 public class MeatBlockEntity extends AbstractArrow {
     public boolean dealtDamage;
-    public ItemStack thrownStack = new ItemStack(BlockRegistry.MEAT_BLOCK.get());
+    public ItemStack thrownStack = new ItemStack(BlockRegistry.meatBlock.get());
     public float rotationVelocity = -8;
     RandomSource rand = RandomSource.create();
 
@@ -37,7 +37,7 @@ public class MeatBlockEntity extends AbstractArrow {
             this.dealtDamage = true;
         }
 
-        BlockState state = BlockRegistry.MEAT_BLOCK.get().defaultBlockState();
+        BlockState state = BlockRegistry.meatBlock.get().defaultBlockState();
         for (int a = 0; a < 2; ++a) {
             this.level().addParticle(new BlockParticleOption(ParticleTypes.BLOCK, state), this.getX() + Mth.nextFloat(rand, 0.0F, 0.2F), this.getY() + 0.7D, this.getZ() + Mth.nextFloat(rand, 0.0F, 0.2F), 0d, 0.02d, 0d);
         }
@@ -62,7 +62,7 @@ public class MeatBlockEntity extends AbstractArrow {
     public void onHit(HitResult pResult) {
         if (pResult.getType() != HitResult.Type.ENTITY || !this.ownedBy(((EntityHitResult) pResult).getEntity())) {
             if (!this.level().isClientSide) {
-                BlockState state = BlockRegistry.CATTAIL.get().defaultBlockState();
+                BlockState state = BlockRegistry.cattail.get().defaultBlockState();
                 for (int a = 0; a < 10; ++a) {
                     this.level().addParticle(new BlockParticleOption(ParticleTypes.BLOCK, state), xo, yo + 4, zo, 0.2d, 0.04d, 0.2d);
                 }

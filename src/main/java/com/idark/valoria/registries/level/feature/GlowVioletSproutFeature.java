@@ -32,11 +32,11 @@ public class GlowVioletSproutFeature extends Feature<TwistingVinesConfig> {
         for (int i = 1; i <= pLength; ++i) {
             if (pLevel.isEmptyBlock(pPos)) {
                 if (i == pLength || !pLevel.isEmptyBlock(pPos.above())) {
-                    pLevel.setBlock(pPos, BlockRegistry.GLOW_VIOLET_SPROUT.get().defaultBlockState().setValue(GrowingPlantHeadBlock.AGE, Mth.nextInt(pRandom, pMinAge, pMaxAge)), 2);
+                    pLevel.setBlock(pPos, BlockRegistry.glowVioletSprout.get().defaultBlockState().setValue(GrowingPlantHeadBlock.AGE, Mth.nextInt(pRandom, pMinAge, pMaxAge)), 2);
                     break;
                 }
 
-                pLevel.setBlock(pPos, BlockRegistry.GLOW_VIOLET_SPROUT_PLANT.get().defaultBlockState(), 2);
+                pLevel.setBlock(pPos, BlockRegistry.glowVioletSproutPlant.get().defaultBlockState(), 2);
             }
 
             pPos.move(Direction.UP);
@@ -48,7 +48,7 @@ public class GlowVioletSproutFeature extends Feature<TwistingVinesConfig> {
             return true;
         } else {
             BlockState blockstate = pLevel.getBlockState(pPos.below());
-            return !blockstate.is(BlockRegistry.VOID_GRASS.get()) && !blockstate.is(BlockRegistry.VOID_TAINT.get());
+            return !blockstate.is(BlockRegistry.voidGrass.get()) && !blockstate.is(BlockRegistry.voidTaint.get());
         }
     }
 

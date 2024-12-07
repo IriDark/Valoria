@@ -28,6 +28,6 @@ public class VioletSproutBlock extends GrowingPlantHeadBlock {
 
     @Override
     protected Block getBodyBlock() {
-        return pGlow ? BlockRegistry.GLOW_VIOLET_SPROUT_PLANT.get() : BlockRegistry.VIOLET_SPROUT_PLANT.get();
+        return pGlow ? BlockRegistry.glowVioletSproutPlant.get() : BlockRegistry.violetSproutPlant.get();
     }
 }

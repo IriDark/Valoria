@@ -28,7 +28,7 @@ public class VoidGrassBlock extends Block {
     public void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
         if (canBeVein(pLevel, pPos)) {
             if (pLevel.isAreaLoaded(pPos, 1))
-                pLevel.setBlockAndUpdate(pPos, BlockRegistry.VOID_TAINT.get().defaultBlockState());
+                pLevel.setBlockAndUpdate(pPos, BlockRegistry.voidTaint.get().defaultBlockState());
         }
     }
 }

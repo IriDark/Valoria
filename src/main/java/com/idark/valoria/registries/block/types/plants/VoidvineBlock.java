@@ -22,7 +22,7 @@ public class VoidvineBlock extends BushBlock {
 
     protected boolean mayPlaceOn(BlockState state, BlockGetter worldIn, BlockPos pos) {
         Block block = state.getBlock();
-        return block == BlockRegistry.VOID_TAINT.get() || block == BlockRegistry.VOID_STONE.get();
+        return block == BlockRegistry.voidTaint.get() || block == BlockRegistry.voidStone.get();
     }
 
     public boolean canBeReplaced(BlockState state, BlockPlaceContext useContext) {

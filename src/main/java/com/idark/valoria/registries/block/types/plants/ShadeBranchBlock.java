@@ -25,7 +25,7 @@ public class ShadeBranchBlock extends BushBlock {
     }
 
     public boolean mayPlaceOn(BlockState state, BlockGetter worldIn, BlockPos pos) {
-        return worldIn.getBlockState(pos.above()).is(BlockRegistry.SHADEWOOD_LEAVES.get());
+        return worldIn.getBlockState(pos.above()).is(BlockRegistry.shadewoodLeaves.get());
     }
 
     public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pFacingPos) {
@@ -35,7 +35,7 @@ public class ShadeBranchBlock extends BushBlock {
     public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
         BlockPos blockpos = pPos.above();
         if (pState.getBlock() == this)
-            return pLevel.getBlockState(blockpos).is(BlockRegistry.SHADEWOOD_LEAVES.get());
+            return pLevel.getBlockState(blockpos).is(BlockRegistry.shadewoodLeaves.get());
         return this.mayPlaceOn(pLevel.getBlockState(blockpos), pLevel, blockpos);
     }
 }

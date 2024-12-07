@@ -174,14 +174,14 @@ public class SpearItem extends SwordItem implements Vanishable {
         BlockPos pos = context.getClickedPos();
         Player player = context.getPlayer();
         InteractionHand handIn = context.getHand();
-        if ((state.is(BlockRegistry.CHARGED_VOID_PILLAR.get())) || (state.is(BlockRegistry.VOID_PILLAR_AMETHYST.get()))) {
+        if ((state.is(BlockRegistry.chargedVoidPillar.get())) || (state.is(BlockRegistry.voidPillarAmethyst.get()))) {
             worldIn.playSound(player, player.blockPosition(), SoundEvents.RESPAWN_ANCHOR_AMBIENT, SoundSource.BLOCKS, 1, 1);
             worldIn.playSound(player, player.blockPosition(), SoundEvents.RESPAWN_ANCHOR_CHARGE, SoundSource.BLOCKS, 1, 1);
             for (int i = 0; i < 16; i++) {
                 worldIn.addParticle(ParticleTypes.POOF, pos.getX() + rand.nextDouble(), pos.getY() + 0.5F + rand.nextDouble() * 1.1, pos.getZ() + 0.5F + rand.nextDouble(), 0d, 0.05d, 0d);
             }
 
-            worldIn.setBlockAndUpdate(pos, BlockRegistry.VOID_PILLAR.get().defaultBlockState().setValue(RotatedPillarBlock.AXIS, state.getValue(RotatedPillarBlock.AXIS)));
+            worldIn.setBlockAndUpdate(pos, BlockRegistry.voidPillar.get().defaultBlockState().setValue(RotatedPillarBlock.AXIS, state.getValue(RotatedPillarBlock.AXIS)));
             if (!worldIn.isClientSide) {
                 if (!player.getAbilities().instabuild) {
                     worldIn.addFreshEntity(new ItemEntity(worldIn, player.getX(), player.getY(), player.getZ(), ItemsRegistry.unchargedShard.get().getDefaultInstance()));

@@ -24,7 +24,7 @@ import java.util.*;
 public class ManipulatorRecipeCategory extends AbstractRecipeCategory<ManipulatorRecipe> {
     private final IDrawable background;
     public ManipulatorRecipeCategory(IGuiHelper helper) {
-        super(ModRecipeTypes.MANIPULATOR, Component.translatable("jei.valoria.manipulator"), helper.createDrawableItemLike(BlockRegistry.ELEMENTAL_MANIPULATOR.get()), 148, 48);
+        super(ModRecipeTypes.MANIPULATOR, Component.translatable("jei.valoria.manipulator"), helper.createDrawableItemLike(BlockRegistry.elementalManipulator.get()), 148, 48);
         ResourceLocation backgroundImage = new ResourceLocation(Valoria.ID, "textures/gui/jei/manipulator.png");
         background = helper.createDrawable(backgroundImage, 0, 0, 148, 48);
     }

@@ -38,17 +38,17 @@ public class TransformShardItem extends Item implements ParticleItemEntity {
         BlockPos pos = context.getClickedPos();
         Player player = context.getPlayer();
         var rand = worldIn.random;
-        if (state.is(BlockRegistry.VOID_PILLAR.get())) {
+        if (state.is(BlockRegistry.voidPillar.get())) {
             worldIn.playSound(player, player.blockPosition(), SoundEvents.RESPAWN_ANCHOR_AMBIENT, SoundSource.BLOCKS, 10f, 1f);
             worldIn.playSound(player, player.blockPosition(), SoundEvents.RESPAWN_ANCHOR_CHARGE, SoundSource.BLOCKS, 1.0F, 1.0F);
             if (stack.is(ItemsRegistry.wickedAmethyst.get())) {
-                worldIn.setBlockAndUpdate(pos, BlockRegistry.VOID_PILLAR_AMETHYST.get().defaultBlockState().setValue(RotatedPillarBlock.AXIS, state.getValue(RotatedPillarBlock.AXIS)));
+                worldIn.setBlockAndUpdate(pos, BlockRegistry.voidPillarAmethyst.get().defaultBlockState().setValue(RotatedPillarBlock.AXIS, state.getValue(RotatedPillarBlock.AXIS)));
                 for (int i = 0; i < 26; i++) {
                     Vec3 position = new Vec3(pos.getX() + (rand.nextDouble() * 1.25), pos.getY() + 0.5F + ((rand.nextDouble() - 0.5D) * 1.25), pos.getZ() + 0.5F + ((rand.nextDouble() - 0.5D) * 1.25));
                     ParticleEffects.transformParticle(worldIn, position, ColorParticleData.create(Pal.moderatePink, Pal.verySoftPink).build());
                 }
             } else {
-                worldIn.setBlockAndUpdate(pos, BlockRegistry.CHARGED_VOID_PILLAR.get().defaultBlockState().setValue(RotatedPillarBlock.AXIS, state.getValue(RotatedPillarBlock.AXIS)));
+                worldIn.setBlockAndUpdate(pos, BlockRegistry.chargedVoidPillar.get().defaultBlockState().setValue(RotatedPillarBlock.AXIS, state.getValue(RotatedPillarBlock.AXIS)));
                 for (int i = 0; i < 10; i++) {
                     worldIn.addParticle(ParticleTypes.SOUL, pos.getX() + (rand.nextDouble() * 1.25), pos.getY() + 0.5F + ((rand.nextDouble() - 0.5D) * 1.25), pos.getZ() + 0.5F + ((rand.nextDouble() - 0.5D) * 1.25), 0d, 0.05d, 0d);
                 }

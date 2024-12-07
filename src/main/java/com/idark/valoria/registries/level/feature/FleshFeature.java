@@ -50,14 +50,14 @@ public class FleshFeature extends Feature<FleshConfiguration>{
 
             BlockPos blockpos2 = blockpos.below();
             if (randomsource.nextFloat() <= config.catalystChance() && worldgenlevel.getBlockState(blockpos2).isCollisionShapeFullBlock(worldgenlevel, blockpos2) && worldgenlevel.getBlockState(blockpos.above()).isAir()) {
-                worldgenlevel.setBlock(blockpos, BlockRegistry.FLESH_CYST.get().defaultBlockState(), 3);
+                worldgenlevel.setBlock(blockpos, BlockRegistry.fleshCyst.get().defaultBlockState(), 3);
             }
 
             int i1 = config.extraRareGrowths().sample(randomsource);
             for(int j1 = 0; j1 < i1; ++j1) {
                 BlockPos blockpos1 = blockpos.offset(randomsource.nextInt(5) - 2, 0, randomsource.nextInt(5) - 2);
                 if (worldgenlevel.getBlockState(blockpos1).isAir() && worldgenlevel.getBlockState(blockpos1.below()).isFaceSturdy(worldgenlevel, blockpos1.below(), Direction.UP)) {
-                    worldgenlevel.setBlock(blockpos1, BlockRegistry.FLESH_CYST.get().defaultBlockState(), 3);
+                    worldgenlevel.setBlock(blockpos1, BlockRegistry.fleshCyst.get().defaultBlockState(), 3);
                 }
             }
 

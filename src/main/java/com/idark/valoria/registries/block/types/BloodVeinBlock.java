@@ -36,7 +36,7 @@ public class BloodVeinBlock extends MultifaceBlock implements FleshSpreaderBehav
 
     public static boolean regrow(LevelAccessor pLevel, BlockPos pPos, BlockState pState, Collection<Direction> pDirections){
         boolean flag = false;
-        BlockState blockstate = BlockRegistry.BLOOD_VEIN.get().defaultBlockState();
+        BlockState blockstate = BlockRegistry.bloodVein.get().defaultBlockState();
         for(Direction direction : pDirections){
             BlockPos blockpos = pPos.relative(direction);
             if(canAttachTo(pLevel, direction, blockpos, pLevel.getBlockState(blockpos))){
@@ -92,7 +92,7 @@ public class BloodVeinBlock extends MultifaceBlock implements FleshSpreaderBehav
                 BlockPos blockpos = pPos.relative(direction);
                 BlockState blockstate1 = pLevel.getBlockState(blockpos);
                 if (blockstate1.is(tagkey)) {
-                    BlockState blockstate2 = new ArcRandom().fiftyFifty() ? BlockRegistry.FLESH_BLOCK.get().defaultBlockState() : BlockRegistry.MEAT_BLOCK.get().defaultBlockState();
+                    BlockState blockstate2 = new ArcRandom().fiftyFifty() ? BlockRegistry.fleshBlock.get().defaultBlockState() : BlockRegistry.meatBlock.get().defaultBlockState();
                     pLevel.setBlock(blockpos, blockstate2, 3);
                     Block.pushEntitiesUp(blockstate1, blockstate2, pLevel, blockpos);
                     pLevel.playSound(null, blockpos, SoundsRegistry.CYST_SPREAD.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
@@ -118,7 +118,7 @@ public class BloodVeinBlock extends MultifaceBlock implements FleshSpreaderBehav
     }
 
     public static boolean hasSubstrateAccess(LevelAccessor pLevel, BlockState pState, BlockPos pPos) {
-        if (!pState.is(BlockRegistry.BLOOD_VEIN.get())) {
+        if (!pState.is(BlockRegistry.bloodVein.get())) {
             return false;
         } else {
             for(Direction direction : DIRECTIONS) {
@@ -151,7 +151,7 @@ public class BloodVeinBlock extends MultifaceBlock implements FleshSpreaderBehav
     }
 
     public boolean canBeReplaced(BlockState pState, BlockPlaceContext pUseContext) {
-        return !pUseContext.getItemInHand().is(BlockRegistry.BLOOD_VEIN.get().asItem()) || super.canBeReplaced(pState, pUseContext);
+        return !pUseContext.getItemInHand().is(BlockRegistry.bloodVein.get().asItem()) || super.canBeReplaced(pState, pUseContext);
     }
 
     public FluidState getFluidState(BlockState pState) {
@@ -168,7 +168,7 @@ public class BloodVeinBlock extends MultifaceBlock implements FleshSpreaderBehav
 
         public boolean stateCanBeReplaced(BlockGetter pLevel, BlockPos pPos, BlockPos pSpreadPos, Direction pDirection, BlockState pState) {
             BlockState blockstate = pLevel.getBlockState(pSpreadPos.relative(pDirection));
-            if (!blockstate.is(BlockRegistry.FLESH_BLOCK.get()) && !blockstate.is(BlockRegistry.MEAT_BLOCK.get()) && !blockstate.is(BlockRegistry.FLESH_CYST.get()) && !blockstate.is(Blocks.MOVING_PISTON)) {
+            if (!blockstate.is(BlockRegistry.fleshBlock.get()) && !blockstate.is(BlockRegistry.meatBlock.get()) && !blockstate.is(BlockRegistry.fleshCyst.get()) && !blockstate.is(Blocks.MOVING_PISTON)) {
                 if (pPos.distManhattan(pSpreadPos) == 2) {
                     BlockPos blockpos = pPos.relative(pDirection.getOpposite());
                     if (pLevel.getBlockState(blockpos).isFaceSturdy(pLevel, blockpos, pDirection)) {
@@ -194,7 +194,7 @@ public class BloodVeinBlock extends MultifaceBlock implements FleshSpreaderBehav
         }
 
         public boolean isOtherBlockValidAsSource(BlockState pOtherBlock) {
-            return !pOtherBlock.is(BlockRegistry.BLOOD_VEIN.get());
+            return !pOtherBlock.is(BlockRegistry.bloodVein.get());
         }
     }
 }

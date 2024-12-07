@@ -19,7 +19,7 @@ public class VoidFlowerBlock extends FlowerBlock {
 
     protected boolean mayPlaceOn(BlockState state, BlockGetter worldIn, BlockPos pos) {
         Block block = state.getBlock();
-        return block == BlockRegistry.VOID_TAINT.get() || block == BlockRegistry.VOID_GRASS.get() || state.is(TagsRegistry.MEAT);
+        return block == BlockRegistry.voidTaint.get() || block == BlockRegistry.voidGrass.get() || state.is(TagsRegistry.MEAT);
     }
 
     @OnlyIn(Dist.CLIENT)

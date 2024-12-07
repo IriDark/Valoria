@@ -19,7 +19,7 @@ public class TallVoidFlowerBlock extends DoublePlantBlock {
 
     protected boolean mayPlaceOn(BlockState state, BlockGetter worldIn, BlockPos pos) {
         Block block = state.getBlock();
-        return block == BlockRegistry.VOID_STONE.get() || block == BlockRegistry.VOID_GRASS.get();
+        return block == BlockRegistry.voidStone.get() || block == BlockRegistry.voidGrass.get();
     }
 
     public boolean canBeReplaced(BlockState state, BlockPlaceContext useContext) {

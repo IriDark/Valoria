@@ -24,7 +24,7 @@ import java.util.*;
 public class KegRecipeCategory extends AbstractRecipeCategory<KegRecipe> {
     private final IDrawable background;
     public KegRecipeCategory(IGuiHelper helper) {
-        super(ModRecipeTypes.BREWERY, Component.translatable("jei.valoria.brewery"), helper.createDrawableItemLike(BlockRegistry.KEG.get()), 148, 48);
+        super(ModRecipeTypes.BREWERY, Component.translatable("jei.valoria.brewery"), helper.createDrawableItemLike(BlockRegistry.keg.get()), 148, 48);
         ResourceLocation backgroundImage = new ResourceLocation(Valoria.ID, "textures/gui/jei/keg_brewery.png");
         background = helper.createDrawable(backgroundImage, 0, 0, 148, 48);
     }

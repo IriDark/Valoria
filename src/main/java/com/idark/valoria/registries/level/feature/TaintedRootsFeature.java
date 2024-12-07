@@ -31,7 +31,7 @@ public class TaintedRootsFeature extends Feature<TaintedRootsConfig> {
 
     public static void placeRoot(LevelAccessor pLevel, RandomSource pRandom, BlockPos.MutableBlockPos pPos, int pMinAge, int pMaxAge) {
         if (!pLevel.isEmptyBlock(pPos.above())) {
-            pLevel.setBlock(pPos, BlockRegistry.TAINTED_ROOTS.get().defaultBlockState().setValue(TaintedRootsBlock.AGE, Mth.nextInt(pRandom, pMinAge, pMaxAge)), 2);
+            pLevel.setBlock(pPos, BlockRegistry.taintedRoots.get().defaultBlockState().setValue(TaintedRootsBlock.AGE, Mth.nextInt(pRandom, pMinAge, pMaxAge)), 2);
         }
 
         pPos.move(Direction.UP);
@@ -42,7 +42,7 @@ public class TaintedRootsFeature extends Feature<TaintedRootsConfig> {
             return true;
         } else {
             BlockState blockstate = pLevel.getBlockState(pPos.below());
-            return !blockstate.is(BlockRegistry.VOID_STONE.get()) && !blockstate.is(BlockRegistry.VOID_TAINT.get());
+            return !blockstate.is(BlockRegistry.voidStone.get()) && !blockstate.is(BlockRegistry.voidTaint.get());
         }
     }
 

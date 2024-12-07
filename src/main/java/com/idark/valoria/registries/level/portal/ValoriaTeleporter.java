@@ -1,8 +1,7 @@
 package com.idark.valoria.registries.level.portal;
 
-import com.google.common.base.Predicates;
 import com.idark.valoria.registries.*;
-import com.idark.valoria.registries.block.types.ValoriaPortalFrame;
+import com.idark.valoria.registries.block.types.*;
 import net.minecraft.*;
 import net.minecraft.BlockUtil.*;
 import net.minecraft.core.*;
@@ -19,8 +18,6 @@ import net.minecraftforge.common.util.*;
 
 import java.util.*;
 import java.util.function.*;
-
-import static com.idark.valoria.registries.block.types.ValoriaPortalFrame.GENERATED;
 
 public class ValoriaTeleporter extends BaseTeleporter implements ITeleporter {
     protected final ServerLevel level;
@@ -58,7 +55,7 @@ public class ValoriaTeleporter extends BaseTeleporter implements ITeleporter {
     private FoundRectangle createPortal(ServerLevel level, Entity entity) {
         PoiManager poimanager = level.getPoiManager();
         poimanager.ensureLoadedAndValid(level, entity.blockPosition(), 256);
-        BlockUtil.FoundRectangle rectangle = createPortal(level, entity.blockPosition(), BlockRegistry.VALORIA_PORTAL.get().defaultBlockState(), BlockRegistry.VALORIA_PORTAL_FRAME.get().defaultBlockState().setValue(ValoriaPortalFrame.GENERATED, true)).get();
+        BlockUtil.FoundRectangle rectangle = createPortal(level, entity.blockPosition(), BlockRegistry.valoriaPortal.get().defaultBlockState(), BlockRegistry.valoriaPortalFrame.get().defaultBlockState().setValue(ValoriaPortalFrame.GENERATED, true)).get();
         BlockPos blockpos = rectangle.minCorner.offset(0, 0, 0);;
         level.getChunkSource().addRegionTicket(TicketType.PORTAL, new ChunkPos(blockpos), 3, blockpos);
         return new BlockUtil.FoundRectangle(blockpos, 3, 3);
@@ -84,7 +81,7 @@ public class ValoriaTeleporter extends BaseTeleporter implements ITeleporter {
     }
 
     public Optional<BlockUtil.FoundRectangle> createPortal(ServerLevel world, BlockPos pos, BlockState portal, BlockState frame) {
-        pos = new BlockPos(pos.getX(), getHeight(world, 90, pos.getX(), pos.getZ(), BlockRegistry.VOID_GRASS.get()), pos.getZ());
+        pos = new BlockPos(pos.getX(), getHeight(world, 90, pos.getX(), pos.getZ(), BlockRegistry.voidGrass.get()), pos.getZ());
         for (int x = -2; x < 3; x++) {
             for (int z = -2; z < 3; z++) {
                 if (Math.abs(x) < 2 && Math.abs(z) < 2) {

@@ -214,6 +214,6 @@ public class ArchaeologyMenu extends ContainerMenuBase{
 
     @Override
     public boolean stillValid(Player playerIn){
-        return stillValid(this.access, playerIn, BlockRegistry.ARCHAEOLOGY_TABLE.get());
+        return stillValid(this.access, playerIn, BlockRegistry.archaeologyTable.get());
     }
 }
