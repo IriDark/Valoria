@@ -22,7 +22,7 @@ public class ManipulatorMenu extends ContainerMenuBase{
         if (blockEntity != null) {
             blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(h -> {
                 this.addSlot(new SlotItemHandler(h, 0, 27, 53));
-                this.addSlot(new SmithingTemplateSlot(h, 1, 76, 53));
+                this.addSlot(new SlotItemHandler(h, 1, 76, 53));
 
                 this.addSlot(new ResultSlot(h, 2, 134, 53));
             });
