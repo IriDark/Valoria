@@ -167,17 +167,19 @@ public class Events{
     public void onLivingHurt(LivingHurtEvent event) {
         float incomingDamage = event.getAmount();
         float totalMultiplier;
-        float armor = 0f;
-        for (ItemStack armorPiece : event.getEntity().getArmorSlots()) {
-            if (armorPiece.getItem() instanceof PercentageArmorItem percent) {
-                float percentDefense = percent.getPercentDefense();
-                armor += percentDefense;
+        if(ServerConfig.PERCENT_ARMOR.get()){
+            float armor = 0f;
+            for(ItemStack armorPiece : event.getEntity().getArmorSlots()){
+                if(armorPiece.getItem() instanceof PercentageArmorItem percent){
+                    float percentDefense = percent.getPercentDefense();
+                    armor += percentDefense;
+                }
             }
-        }
 
-        totalMultiplier = Math.max(Math.min(1 - (armor), 1), 0);
-        float reducedDamage = incomingDamage * totalMultiplier;
-        event.setAmount(reducedDamage);
+            totalMultiplier = Math.max(Math.min(1 - (armor), 1), 0);
+            float reducedDamage = incomingDamage * totalMultiplier;
+            event.setAmount(reducedDamage);
+        }
     }
 
     @SubscribeEvent
@@ -229,13 +231,13 @@ public class Events{
     }
 
     // may be improved, not accurate
-    public static double calculateDamageReductionPercent(double defensePoints, double toughness) {
+    public static double calculateDamageReductionPercent(double defensePoints) {
         return Mth.clamp(defensePoints / 2, 0, 20) / 25 * 0.4;
     }
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     @OnlyIn(Dist.CLIENT)
-    public void onArmorRender(RenderGuiOverlayEvent.Pre ev){
+    public void onOverlayRender(RenderGuiOverlayEvent.Pre ev){
         if(ev.isCanceled()) return;
         Minecraft minecraft = Minecraft.getInstance();
         GuiGraphics gui = ev.getGuiGraphics();
@@ -252,8 +254,8 @@ public class Events{
             }
         }
 
-        if(armor > 0 && ev.getOverlay() == VanillaGuiOverlay.ARMOR_LEVEL.type() && new ForgeGui(minecraft).shouldDrawSurvivalElements()){
-            armor += calculateDamageReductionPercent(minecraft.player.getAttributeValue(Attributes.ARMOR), minecraft.player.getAttributeValue(Attributes.ARMOR_TOUGHNESS) * 100);
+        if(armor > 0 && ev.getOverlay() == VanillaGuiOverlay.ARMOR_LEVEL.type() && ServerConfig.PERCENT_ARMOR.get() && new ForgeGui(minecraft).shouldDrawSurvivalElements()){
+            armor += calculateDamageReductionPercent(minecraft.player.getAttributeValue(Attributes.ARMOR));
             ms.pushPose();
             RenderSystem.enableBlend();
             RenderSystem.defaultBlendFunc();

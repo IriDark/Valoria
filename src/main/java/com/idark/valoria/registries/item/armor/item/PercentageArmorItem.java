@@ -1,6 +1,7 @@
 package com.idark.valoria.registries.item.armor.item;
 
 import com.google.common.collect.*;
+import com.idark.valoria.core.config.*;
 import net.minecraft.*;
 import net.minecraft.client.*;
 import net.minecraft.network.chat.*;
@@ -20,6 +21,7 @@ import java.util.*;
 //todo move to lib
 public class PercentageArmorItem extends ArmorItem{
     public ArmorMaterial material;
+    public UUID uuid;
     private final float defense;
     private final float toughness;
     protected final float knockbackResistance;
@@ -31,7 +33,7 @@ public class PercentageArmorItem extends ArmorItem{
     });
 
     public final DecimalFormat ATTRIBUTE_MODIFIER_FORMAT = Util.make(new DecimalFormat("#.##"), (p_41704_) -> p_41704_.setDecimalFormatSymbols(DecimalFormatSymbols.getInstance(Locale.ROOT)));
-    public final Multimap<Attribute, AttributeModifier> defaultModifiers;
+    public Multimap<Attribute, AttributeModifier> defaultModifiers;
 
     public PercentageArmorItem(ArmorMaterial pMaterial, Type pType, Properties pProperties){
         super(pMaterial, pType, pProperties);
@@ -39,7 +41,7 @@ public class PercentageArmorItem extends ArmorItem{
         this.toughness = pMaterial.getToughness();
         this.defense = pMaterial.getDefenseForType(pType);
         this.knockbackResistance = pMaterial.getKnockbackResistance();
-        UUID uuid = ARMOR_MODIFIER_UUID_PER_TYPE.get(pType);
+        this.uuid = ARMOR_MODIFIER_UUID_PER_TYPE.get(pType);
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
         if (this.knockbackResistance > 0) {
             builder.put(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(uuid, "Armor knockback resistance", this.knockbackResistance, AttributeModifier.Operation.ADDITION));
@@ -72,48 +74,50 @@ public class PercentageArmorItem extends ArmorItem{
     @OnlyIn(Dist.CLIENT)
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced){
         super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
-        pStack.hideTooltipPart(TooltipPart.MODIFIERS);
-        pTooltipComponents.add(Component.translatable("tooltip.valoria.total_armor", getTotalDefense(((PercentageArmorItem)pStack.getItem()).getMaterial()) + "%").withStyle(ChatFormatting.GRAY));
-        pTooltipComponents.add(Component.translatable("attribute.modifier.plus.1", defense, Component.translatable("attribute.name.generic.armor")).withStyle(ChatFormatting.BLUE));
-        Player pPlayer = Minecraft.getInstance().player;
-        for(EquipmentSlot equipmentslot : EquipmentSlot.values()){
-            Multimap<Attribute, AttributeModifier> multimap = this.getAttributeModifiers(equipmentslot, pStack);
-            if(!multimap.isEmpty()){
-                pTooltipComponents.add(CommonComponents.EMPTY);
-                pTooltipComponents.add(Component.translatable("item.modifiers." + equipmentslot.getName()).withStyle(ChatFormatting.GRAY));
-                for(Map.Entry<Attribute, AttributeModifier> entry : multimap.entries()){
-                    AttributeModifier attributemodifier = entry.getValue();
-                    double d0 = attributemodifier.getAmount();
-                    boolean flag = false;
-                    if(pPlayer != null){
-                        if(attributemodifier.getId() == Item.BASE_ATTACK_DAMAGE_UUID){
-                            d0 += pPlayer.getAttributeBaseValue(Attributes.ATTACK_DAMAGE);
-                            d0 += EnchantmentHelper.getDamageBonus(pStack, MobType.UNDEFINED);
-                            flag = true;
-                        }else if(attributemodifier.getId() == Item.BASE_ATTACK_SPEED_UUID){
-                            d0 += pPlayer.getAttributeBaseValue(Attributes.ATTACK_SPEED);
-                            flag = true;
+        if(ServerConfig.PERCENT_ARMOR.get()){
+            pStack.hideTooltipPart(TooltipPart.MODIFIERS);
+            pTooltipComponents.add(Component.translatable("tooltip.valoria.total_armor", getTotalDefense(((PercentageArmorItem)pStack.getItem()).getMaterial()) + "%").withStyle(ChatFormatting.GRAY));
+            pTooltipComponents.add(Component.translatable("attribute.modifier.plus.1", defense, Component.translatable("attribute.name.generic.armor")).withStyle(ChatFormatting.BLUE));
+            Player pPlayer = Minecraft.getInstance().player;
+            for(EquipmentSlot equipmentslot : EquipmentSlot.values()){
+                Multimap<Attribute, AttributeModifier> multimap = this.getAttributeModifiers(equipmentslot, pStack);
+                if(!multimap.isEmpty()){
+                    pTooltipComponents.add(CommonComponents.EMPTY);
+                    pTooltipComponents.add(Component.translatable("item.modifiers." + equipmentslot.getName()).withStyle(ChatFormatting.GRAY));
+                    for(Map.Entry<Attribute, AttributeModifier> entry : multimap.entries()){
+                        AttributeModifier attributemodifier = entry.getValue();
+                        double d0 = attributemodifier.getAmount();
+                        boolean flag = false;
+                        if(pPlayer != null){
+                            if(attributemodifier.getId() == Item.BASE_ATTACK_DAMAGE_UUID){
+                                d0 += pPlayer.getAttributeBaseValue(Attributes.ATTACK_DAMAGE);
+                                d0 += EnchantmentHelper.getDamageBonus(pStack, MobType.UNDEFINED);
+                                flag = true;
+                            }else if(attributemodifier.getId() == Item.BASE_ATTACK_SPEED_UUID){
+                                d0 += pPlayer.getAttributeBaseValue(Attributes.ATTACK_SPEED);
+                                flag = true;
+                            }
                         }
-                    }
 
-                    double d1;
-                    if(attributemodifier.getOperation() != AttributeModifier.Operation.MULTIPLY_BASE && attributemodifier.getOperation() != AttributeModifier.Operation.MULTIPLY_TOTAL){
-                        if(entry.getKey().equals(Attributes.KNOCKBACK_RESISTANCE)){
-                            d1 = d0 * 10.0D;
+                        double d1;
+                        if(attributemodifier.getOperation() != AttributeModifier.Operation.MULTIPLY_BASE && attributemodifier.getOperation() != AttributeModifier.Operation.MULTIPLY_TOTAL){
+                            if(entry.getKey().equals(Attributes.KNOCKBACK_RESISTANCE)){
+                                d1 = d0 * 10.0D;
+                            }else{
+                                d1 = d0;
+                            }
                         }else{
-                            d1 = d0;
+                            d1 = d0 * 100.0D;
                         }
-                    }else{
-                        d1 = d0 * 100.0D;
-                    }
 
-                    if(flag){
-                        pTooltipComponents.add(CommonComponents.space().append(Component.translatable("attribute.modifier.equals." + attributemodifier.getOperation().toValue(), ATTRIBUTE_MODIFIER_FORMAT.format(d1), Component.translatable(entry.getKey().getDescriptionId()))).withStyle(ChatFormatting.DARK_GREEN));
-                    }else if(d0 > 0.0D){
-                        pTooltipComponents.add(Component.translatable("attribute.modifier.plus." + attributemodifier.getOperation().toValue(), ATTRIBUTE_MODIFIER_FORMAT.format(d1), Component.translatable(entry.getKey().getDescriptionId())).withStyle(ChatFormatting.BLUE));
-                    }else if(d0 < 0.0D){
-                        d1 *= -1.0D;
-                        pTooltipComponents.add(Component.translatable("attribute.modifier.take." + attributemodifier.getOperation().toValue(), ATTRIBUTE_MODIFIER_FORMAT.format(d1), Component.translatable(entry.getKey().getDescriptionId())).withStyle(ChatFormatting.RED));
+                        if(flag){
+                            pTooltipComponents.add(CommonComponents.space().append(Component.translatable("attribute.modifier.equals." + attributemodifier.getOperation().toValue(), ATTRIBUTE_MODIFIER_FORMAT.format(d1), Component.translatable(entry.getKey().getDescriptionId()))).withStyle(ChatFormatting.DARK_GREEN));
+                        }else if(d0 > 0.0D){
+                            pTooltipComponents.add(Component.translatable("attribute.modifier.plus." + attributemodifier.getOperation().toValue(), ATTRIBUTE_MODIFIER_FORMAT.format(d1), Component.translatable(entry.getKey().getDescriptionId())).withStyle(ChatFormatting.BLUE));
+                        }else if(d0 < 0.0D){
+                            d1 *= -1.0D;
+                            pTooltipComponents.add(Component.translatable("attribute.modifier.take." + attributemodifier.getOperation().toValue(), ATTRIBUTE_MODIFIER_FORMAT.format(d1), Component.translatable(entry.getKey().getDescriptionId())).withStyle(ChatFormatting.RED));
+                        }
                     }
                 }
             }
@@ -121,6 +125,18 @@ public class PercentageArmorItem extends ArmorItem{
     }
 
     public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot pEquipmentSlot) {
-        return pEquipmentSlot == this.type.getSlot() ? this.defaultModifiers : super.getDefaultAttributeModifiers(pEquipmentSlot);
+        if(pEquipmentSlot != this.type.getSlot()) return super.getDefaultAttributeModifiers(pEquipmentSlot);
+        if(!ServerConfig.PERCENT_ARMOR.get()){
+            ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
+            if (this.knockbackResistance > 0) {
+                builder.put(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(uuid, "Armor knockback resistance", this.knockbackResistance, AttributeModifier.Operation.ADDITION));
+            }
+
+            builder.put(Attributes.ARMOR, new AttributeModifier(uuid, "Armor", this.defense, AttributeModifier.Operation.ADDITION));
+            builder.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(uuid, "Armor toughness", this.toughness, AttributeModifier.Operation.ADDITION));
+            return builder.build();
+        }
+
+        return this.defaultModifiers;
     }
 }
