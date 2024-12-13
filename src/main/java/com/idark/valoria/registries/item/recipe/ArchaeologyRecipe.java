@@ -39,7 +39,6 @@ public class ArchaeologyRecipe implements Recipe<Container> {
         return ingredientCount;
     }
 
-
     public ResourceLocation getId() {
         return this.id;
     }

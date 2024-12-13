@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PBA",
+    "XXX",
+    "XXX"
+  ],
+  "key": {
+    "P": {
+      "item": "valoria:prospectors_pick"
+    },
+    "X": {
+      "tag": "minecraft:planks"
+    },
+    "B": {
+      "item": "minecraft:writable_book"
+    },
+    "A": {
+      "item": "minecraft:paper"
+    }
+  },
+  "result": {
+    "item": "valoria:archaeology_table",
+    "count": 1
+  }
+}
