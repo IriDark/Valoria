@@ -28,7 +28,7 @@ import java.util.function.*;
 import static com.idark.valoria.registries.ItemsRegistry.BLOCK_ITEMS;
 import static com.idark.valoria.util.ValoriaUtils.*;
 
-public class BlockRegistry{ //todo
+public class BlockRegistry{
     public static final DeferredRegister<Block> BLOCK = DeferredRegister.create(ForgeRegistries.BLOCKS, Valoria.ID);
     public static RegistryObject<Block>
     //wood
