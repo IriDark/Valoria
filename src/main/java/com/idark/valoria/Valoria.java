@@ -12,6 +12,7 @@ import com.idark.valoria.core.capability.*;
 import com.idark.valoria.core.command.arguments.*;
 import com.idark.valoria.core.conditions.*;
 import com.idark.valoria.core.config.*;
+import com.idark.valoria.core.datagen.*;
 import com.idark.valoria.core.interfaces.*;
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.proxy.*;
@@ -288,9 +289,9 @@ public class Valoria {
             DataGenerator generator = event.getGenerator();
             PackOutput packOutput = generator.getPackOutput();
             ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
-//            generator.addProvider(event.includeServer(), LootTableGen.create(packOutput));
-//            generator.addProvider(event.includeServer(), new RecipeGen(packOutput));
-//            generator.addProvider(event.includeClient(), new BlockStateGen(packOutput, existingFileHelper));
+            generator.addProvider(event.includeServer(), LootTableGen.create(packOutput));
+            generator.addProvider(event.includeServer(), new RecipeGen(packOutput));
+            generator.addProvider(event.includeClient(), new BlockStateGen(packOutput, existingFileHelper));
         }
     }
 }
