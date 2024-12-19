@@ -18,7 +18,6 @@ import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.proxy.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.block.types.*;
-import com.idark.valoria.registries.entity.ai.sensing.*;
 import com.idark.valoria.registries.entity.living.*;
 import com.idark.valoria.registries.item.recipe.*;
 import com.idark.valoria.registries.item.skins.*;
@@ -84,7 +83,6 @@ public class Valoria {
         BlockEntitiesRegistry.register(eventBus);
         RecipesRegistry.register(eventBus);
         MenuRegistry.register(eventBus);
-        SensorTypes.register(eventBus);
         ParticleRegistry.register(eventBus);
         LootUtil.register(eventBus);
         ModArgumentTypes.register(eventBus);
