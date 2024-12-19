@@ -20,6 +20,7 @@ import mod.maxbogomol.fluffy_fur.*;
 import mod.maxbogomol.fluffy_fur.client.gui.screen.*;
 import mod.maxbogomol.fluffy_fur.client.render.entity.*;
 import mod.maxbogomol.fluffy_fur.client.sound.*;
+import mod.maxbogomol.fluffy_fur.client.splash.*;
 import mod.maxbogomol.fluffy_fur.client.tooltip.*;
 import net.minecraft.client.*;
 import net.minecraft.client.model.geom.*;
@@ -69,8 +70,15 @@ public class ValoriaClient {
     public static CooldownSoundInstance COOLDOWN_SOUND;
     public static FluffyFurMod MOD_INSTANCE;
     public static FluffyFurPanorama ECOTONE_PANORAMA;
+
+    public static void setupSplashes() {
+        SplashHandler.addSplash("Also try Wizards Reborn!");
+        SplashHandler.addSplash("Was known as DarkRPG");
+        SplashHandler.addSplash("Afraid of future");
+    }
+
     public static void setupMenu() {
-        MOD_INSTANCE = new FluffyFurMod(Valoria.ID, "Valoria", "0.6.2b").setDev("Iri ♡").setItem(new ItemStack(BlockRegistry.shadeBlossom.get()))
+        MOD_INSTANCE = new FluffyFurMod(Valoria.ID, NAME, VERSION).setDev("Iri ♡").setItem(new ItemStack(BlockRegistry.shadeBlossom.get()))
         .setNameColor(Pal.verySoftPink).setVersionColor(Pal.cyan)
         .setDescription(Component.translatable("mod_description.valoria"))
         .addGithubLink("https://github.com/IriDark/Valoria")

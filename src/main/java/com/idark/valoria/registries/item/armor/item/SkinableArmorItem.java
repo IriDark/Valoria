@@ -26,7 +26,7 @@ public class SkinableArmorItem extends PercentageArmorItem implements IForgeItem
     @Override
     public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
         ItemSkin skin = ItemSkin.getSkinFromItem(stack);
-        if (skin == null) return null;
+        if (skin == null) return super.getArmorTexture(stack, entity, slot, type);
         return skin.getArmorTexture(stack, entity, slot, type);
     }
 
@@ -49,16 +49,17 @@ public class SkinableArmorItem extends PercentageArmorItem implements IForgeItem
                 float netHeadYaw = f1 - f;
                 float netHeadPitch = Mth.lerp(partialTicks, entity.xRotO, entity.getXRot());
 
-                ArmorModel model = null;
+                ArmorModel model;
                 ItemSkin skin = ItemSkin.getSkinFromItem(itemStack);
                 if (skin != null){
                     model = skin.getArmorModel(entity, itemStack, armorSlot, original);
                     model.slot = type.getSlot();
                     model.copyFromDefault(original);
                     model.setupAnim(entity, entity.walkAnimation.position(partialTicks), entity.walkAnimation.speed(partialTicks), entity.tickCount + partialTicks, netHeadYaw, netHeadPitch);
+                    return model;
                 }
 
-                return model == null ? original : model;
+                return original;
             }
         });
     }

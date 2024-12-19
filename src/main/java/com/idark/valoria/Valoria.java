@@ -58,6 +58,8 @@ import static com.idark.valoria.registries.EntityStatsRegistry.*;
 @Mod(Valoria.ID)
 public class Valoria {
     public static final String ID = "valoria";
+    public static final String NAME = "Valoria";
+    public static final String VERSION = "0.6.4b";
     public static final Logger LOGGER = LogUtils.getLogger();
     public static final ISidedProxy proxy = DistExecutor.unsafeRunForDist(() -> ClientProxy::new, () -> ServerProxy::new);
     public static UUID BASE_ENTITY_REACH_UUID = UUID.fromString("c2e6b27c-fff1-4296-a6b2-7cfff13296cf");
@@ -116,6 +118,7 @@ public class Valoria {
      */
     private void clientSetup(final FMLClientSetupEvent event) {
         ValoriaClient.setupMenu();
+        ValoriaClient.setupSplashes();
         event.enqueueWork(() -> {
             LexiconChapters.init();
 //            BlockEntityRenderers.register(BlockEntitiesRegistry.CHEST_BLOCK_ENTITY.get(), ModChestRender::new);
