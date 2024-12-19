@@ -153,8 +153,8 @@ public class BlockRegistry{
         shadewoodDoor = registerBlock("shadewood_door", () -> new DoorBlock(propsDeco(Blocks.OAK_DOOR, MapColor.COLOR_PURPLE), BlockSetType.OAK));
         shadewoodTrapdoor = registerBlock("shadewood_trapdoor", () -> new TrapDoorBlock(propsDeco(Blocks.OAK_TRAPDOOR, MapColor.COLOR_PURPLE), BlockSetType.OAK));
         bronzeDoor = registerBlock("bronze_door", () -> new DoorBlock(propsDeco(Blocks.IRON_DOOR, MapColor.COLOR_BROWN), BlockSetType.IRON));
-        bronzeTrapdoor = registerBlock("bronze_trapdoor", () -> new DoorBlock(propsDeco(Blocks.IRON_TRAPDOOR, MapColor.COLOR_BROWN), BlockSetType.IRON));
-        bronzeTrapdoorGlass = registerBlock("bronze_trapdoor_glass", () -> new DoorBlock(propsDeco(Blocks.IRON_TRAPDOOR, MapColor.COLOR_BROWN), BlockSetType.IRON));
+        bronzeTrapdoor = registerBlock("bronze_trapdoor", () -> new TrapDoorBlock(propsDeco(Blocks.IRON_TRAPDOOR, MapColor.COLOR_BROWN), BlockSetType.IRON));
+        bronzeTrapdoorGlass = registerBlock("bronze_trapdoor_glass", () -> new TrapDoorBlock(propsDeco(Blocks.IRON_TRAPDOOR, MapColor.COLOR_BROWN), BlockSetType.IRON));
 
         valoriaPortalFrame = registerBlock("valoria_portal_frame", () -> new ValoriaPortalFrame(props(Blocks.IRON_BLOCK, MapColor.COLOR_PURPLE).strength(42f, 3600000.8F).sound(SoundType.DEEPSLATE_TILES)));
         valoriaPortal = BLOCK.register("valoria_portal", () -> new ValoriaPortalBlock(BlockBehaviour.Properties.copy(Blocks.NETHER_PORTAL).mapColor(MapColor.COLOR_PURPLE)));
