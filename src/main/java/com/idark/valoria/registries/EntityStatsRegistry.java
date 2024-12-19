@@ -21,7 +21,7 @@ public class EntityStatsRegistry{
     public static AttributeSupplier UNDEAD = registerFlying(12, 8.25, 0.85).add(Attributes.FOLLOW_RANGE, 8).build();
 
     //monsters - nether
-    public static AttributeSupplier SUCCUBUS = register(40, 12).add(Attributes.FOLLOW_RANGE, 12).build();
+    public static AttributeSupplier DEVIL = register(40, 12).add(Attributes.FOLLOW_RANGE, 12).build();
 
     //monsters - valoria
     public static AttributeSupplier SHADEWOOD_SPIDER = register(40, 15).add(Attributes.FOLLOW_RANGE, 20).add(Attributes.MOVEMENT_SPEED, 0.4).build();

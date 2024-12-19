@@ -255,7 +255,7 @@ public class Valoria {
                 SpawnPlacements.register(EntityTypeRegistry.DRAUGR.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, DraugrEntity::checkMonsterSpawnRules);
                 SpawnPlacements.register(EntityTypeRegistry.SWAMP_WANDERER.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SwampWandererEntity::checkDrownedSpawnRules);
                 SpawnPlacements.register(EntityTypeRegistry.SHADEWOOD_SPIDER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ShadewoodSpider::checkMonsterSpawnRules);
-                SpawnPlacements.register(EntityTypeRegistry.SUCCUBUS.get(), SpawnPlacements.Type.ON_GROUND, Types.WORLD_SURFACE_WG, Succubus::checkMonsterSpawnRules);
+                SpawnPlacements.register(EntityTypeRegistry.DEVIL.get(), SpawnPlacements.Type.ON_GROUND, Types.WORLD_SURFACE_WG, Devil::checkMonsterSpawnRules);
                 SpawnPlacements.register(EntityTypeRegistry.HAUNTED_MERCHANT.get(), SpawnPlacements.Type.ON_GROUND, Types.WORLD_SURFACE_WG, HauntedMerchant::checkMonsterSpawnRules);
                 SpawnPlacements.register(EntityTypeRegistry.TROLL.get(), SpawnPlacements.Type.ON_GROUND, Types.WORLD_SURFACE_WG, Troll::checkMonsterSpawnRules);
             });
@@ -270,7 +270,7 @@ public class Valoria {
             event.put(EntityTypeRegistry.SWAMP_WANDERER.get(), SWAMP_WANDERER);
             event.put(EntityTypeRegistry.UNDEAD.get(), UNDEAD);
             event.put(EntityTypeRegistry.SHADEWOOD_SPIDER.get(), SHADEWOOD_SPIDER);
-            event.put(EntityTypeRegistry.SUCCUBUS.get(), SUCCUBUS);
+            event.put(EntityTypeRegistry.DEVIL.get(), DEVIL);
             event.put(EntityTypeRegistry.TROLL.get(), TROLL);
             event.put(EntityTypeRegistry.CORRUPTED_TROLL.get(), CORRUPTED_TROLL);
 

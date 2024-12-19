@@ -19,12 +19,12 @@ import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
 import net.minecraftforge.api.distmarker.*;
 
-public class Succubus extends AbstractSuccubus {
+public class Devil extends AbstractDevil{
     public static final AttackRegistry FIRE_RAY = new AttackRegistry(Valoria.ID, "fire_ray");
     public final AnimationState idleAnimationState = new AnimationState();
     public AnimationState fireballAnimationState = new AnimationState();
     private int idleAnimationTimeout = 0;
-    public Succubus(EntityType<? extends Succubus> pEntityType, Level pLevel) {
+    public Devil(EntityType<? extends Devil> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }
 
@@ -75,16 +75,16 @@ public class Succubus extends AbstractSuccubus {
         @Override
         public void start(){
             super.start();
-            Succubus.this.getNavigation().stop();
+            Devil.this.getNavigation().stop();
         }
 
         @Override
         protected void performAttack(){
-            Succubus.this.level().broadcastEntityEvent(Succubus.this, (byte) 62);
-            Succubus.this.playSound(SoundEvents.WARDEN_SONIC_CHARGE, 3.0F, 1.0F);
+            Devil.this.level().broadcastEntityEvent(Devil.this, (byte) 62);
+            Devil.this.playSound(SoundEvents.WARDEN_SONIC_CHARGE, 3.0F, 1.0F);
         }
 
-        protected boolean checkExtraStartConditions(Succubus pOwner) {
+        protected boolean checkExtraStartConditions(Devil pOwner) {
             if (!pOwner.hasTarget()) return false;
             LivingEntity target = pOwner.getTarget();
             double distance = pOwner.distanceTo(target);
@@ -102,7 +102,7 @@ public class Succubus extends AbstractSuccubus {
 
         @Override
         public void tick(){
-            Succubus pOwner = Succubus.this;
+            Devil pOwner = Devil.this;
             if(!checkExtraStartConditions(pOwner)) return;
             super.tick();
             pOwner.getLookControl().setLookAt(pOwner.getTarget().position());

@@ -1,12 +1,9 @@
 package com.idark.valoria.client.model.animations;
 
-import net.minecraft.client.animation.AnimationChannel;
-import net.minecraft.client.animation.AnimationChannel.Interpolations;
-import net.minecraft.client.animation.AnimationDefinition;
-import net.minecraft.client.animation.Keyframe;
-import net.minecraft.client.animation.KeyframeAnimations;
+import net.minecraft.client.animation.*;
+import net.minecraft.client.animation.AnimationChannel.*;
 
-public class SuccubusAnimation {
+public class DevilAnimation{
     public static final AnimationDefinition IDLE = AnimationDefinition.Builder.withLength(1.75f).looping()
             .addAnimation("left_ear",
                     new AnimationChannel(AnimationChannel.Targets.ROTATION,

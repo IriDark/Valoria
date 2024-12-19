@@ -148,7 +148,7 @@ public class ItemsRegistry {
     // spawn eggs
     pumpkinContract, goblin, draugr,
     swampWanderer, necromancer, undead,
-    shadewoodSpider, succubus, troll, corruptedTroll,
+    shadewoodSpider, devil, troll, corruptedTroll,
     mannequin;
 
     public static void load(IEventBus eventBus){
@@ -524,7 +524,7 @@ public class ItemsRegistry {
         necromancer = registerItem("necromancer_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.NECROMANCER, ColorUtil.hexToDecimal("4b4857"), ColorUtil.hexToDecimal("958fb7"), new Item.Properties()));
         undead = registerItem("undead_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.UNDEAD, ColorUtil.hexToDecimal("625F71"), ColorUtil.hexToDecimal("ffffff"), new Item.Properties()));
         shadewoodSpider = registerItem("shadewood_spider_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.SHADEWOOD_SPIDER, ColorUtil.hexToDecimal("373C53"), ColorUtil.hexToDecimal("6EABB7"), new Item.Properties()));
-        succubus = registerItem("succubus_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.SUCCUBUS, ColorUtil.hexToDecimal("b64841"), ColorUtil.hexToDecimal("3a3b62"), new Item.Properties()));
+        devil = registerItem("devil_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.DEVIL, ColorUtil.hexToDecimal("b64841"), ColorUtil.hexToDecimal("3a3b62"), new Item.Properties()));
         troll = registerItem("troll_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.TROLL, ColorUtil.hexToDecimal("2d3a4a"), ColorUtil.hexToDecimal("847461"), new Item.Properties()));
         corruptedTroll = registerItem("corrupted_troll_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.CORRUPTED_TROLL, ColorUtil.hexToDecimal("754b67"), ColorUtil.hexToDecimal("7f5649"), new Item.Properties()));
 

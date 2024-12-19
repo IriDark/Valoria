@@ -16,8 +16,8 @@ import net.minecraft.world.level.pathfinder.*;
 
 import java.util.function.*;
 
-public class AbstractSuccubus extends MultiAttackMob implements Enemy{
-    public AbstractSuccubus(EntityType<? extends MultiAttackMob> pEntityType, Level pLevel) {
+public class AbstractDevil extends MultiAttackMob implements Enemy{
+    public AbstractDevil(EntityType<? extends MultiAttackMob> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
         this.xpReward = 5;
         this.getNavigation().setCanFloat(false);
@@ -95,7 +95,7 @@ public class AbstractSuccubus extends MultiAttackMob implements Enemy{
      * Static predicate for determining whether a monster can spawn at the provided location, incorporating a check of
      * the current light level at the location.
      */
-    public static boolean checkMonsterSpawnRules(EntityType<? extends Succubus> pType, ServerLevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, RandomSource pRandom) {
+    public static boolean checkMonsterSpawnRules(EntityType<? extends Devil> pType, ServerLevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, RandomSource pRandom) {
         return pLevel.getDifficulty() != Difficulty.PEACEFUL && isDarkEnoughToSpawn(pLevel, pPos, pRandom) && checkMobSpawnRules(pType, pLevel, pSpawnType, pPos, pRandom);
     }
 
