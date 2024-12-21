@@ -1,6 +1,5 @@
 package com.idark.valoria.registries.item.skins.categories;
 
-import com.idark.valoria.*;
 import mod.maxbogomol.fluffy_fur.common.itemskin.*;
 import net.minecraft.*;
 import net.minecraft.network.chat.Component;
@@ -12,13 +11,12 @@ import java.util.*;
 import java.util.function.*;
 
 public class SkinBuilder{
-    public String namespace = Valoria.ID;
     public String name;
     public List<ItemSkinEntry> skinEntries = new ArrayList<>();
     public Color color;
     public MutableComponent component;
-    public SkinBuilder(String name){
-        this.name = namespace + name;
+    public SkinBuilder(String id, String name){
+        this.name = id + ":" + name;
     }
 
     public SkinBuilder setColor(Color color){

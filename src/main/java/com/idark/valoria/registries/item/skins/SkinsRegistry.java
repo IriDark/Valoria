@@ -30,26 +30,26 @@ import java.util.*;
 public class SkinsRegistry{
     public static ItemSkin THE_FALLEN_COLLECTOR, ARCANE_GOLD, CYBERPUNK, MIDNIGHT, MURAMASA, FISH;
     public static void init() {
-        THE_FALLEN_COLLECTOR = new SkinBuilder(":the_fallen_collector").setColor(Pal.seaGreen).setContributor("Kerdo").withStyle(Styles.nature)
+        THE_FALLEN_COLLECTOR = new SkinBuilder(Valoria.ID, "the_fallen_collector").setColor(Pal.seaGreen).setContributor("Kerdo").withStyle(Styles.nature)
             .addEntry(new TheFallenCollectorSkinEntry(ArmorItem.class, Valoria.ID+":textures/models/armor/skin/the_fallen_collector")
-            .addArmorSkin(EquipmentSlot.HEAD, Valoria.ID + ":the_fallen_collector_crown")
-            .addArmorSkin(EquipmentSlot.CHEST, Valoria.ID + ":the_fallen_collector_coat"))
+            .addArmorSkin(EquipmentSlot.HEAD,Valoria.ID+":the_fallen_collector_crown")
+            .addArmorSkin(EquipmentSlot.CHEST,Valoria.ID+":the_fallen_collector_coat"))
             .addEntry(new ItemClassSkinEntry(KatanaItem.class, Valoria.ID+":brand"))
             .build();
-        ARCANE_GOLD = new SkinBuilder(":arcane_gold").setColor(Pal.arcaneGold).setContributor("MaxBogomol").withStyle(Styles.arcaneGold)
+        ARCANE_GOLD = new SkinBuilder(Valoria.ID, "arcane_gold").setColor(Pal.arcaneGold).setContributor("MaxBogomol").withStyle(Styles.arcaneGold)
             .addEntry(new ItemClassSkinEntry(ConfigurableBowItem.class, Valoria.ID+":arcane_wood_bow"))
             .addEntry(new ItemClassSkinEntry(BlazeReapItem.class, Valoria.ID+":arcane_gold_blaze_reap"))
             .build();
-        CYBERPUNK = new SkinBuilder(Valoria.ID + ":cyberpunk").setColor(Pal.majestyPurple).setContributor("Auriny").withStyle(Styles.nihility)
+        CYBERPUNK = new SkinBuilder(Valoria.ID, "cyberpunk").setColor(Pal.majestyPurple).setContributor("Auriny").withStyle(Styles.nihility)
             .addEntry(new ItemSupplierSkinEntry(() -> ItemsRegistry.quantumReaper.get(), Valoria.ID+":cyberpunk_quantum_reaper"))
             .build();
-        MIDNIGHT = new SkinBuilder(Valoria.ID + ":midnight").setColor(Pal.majestyPurple)
-            .addEntry(new ItemSupplierSkinEntry(() -> ItemsRegistry.quantumReaper.get(), Valoria.ID + ":midnight_quantum_reaper"))
+        MIDNIGHT = new SkinBuilder(Valoria.ID, "midnight").setColor(Pal.majestyPurple)
+            .addEntry(new ItemSupplierSkinEntry(() -> ItemsRegistry.quantumReaper.get(), Valoria.ID+":midnight_quantum_reaper"))
             .build();
-        MURAMASA = new SkinBuilder(Valoria.ID + ":muramasa").setColor(Pal.majestyPurple).setContributor("Auriny").withStyle(Styles.nihility)
+        MURAMASA = new SkinBuilder(Valoria.ID, "muramasa").setColor(Pal.majestyPurple).setContributor("Auriny").withStyle(Styles.nihility)
             .addEntry(new ItemSupplierSkinEntry(() -> ItemsRegistry.murasama.get(), Valoria.ID+":muramasa"))
             .build();
-        FISH = new SkinBuilder(Valoria.ID + ":swordfish").setColor(Pal.crystalBlue).setContributor("Skoow").withStyle(Styles.aquarius)
+        FISH = new SkinBuilder(Valoria.ID, "swordfish").setColor(Pal.crystalBlue).setContributor("Skoow").withStyle(Styles.aquarius)
             .addEntry(new ItemSupplierSkinEntry(() -> ItemsRegistry.murasama.get(), Valoria.ID+":swordfish"))
             .build();
     }

@@ -42,6 +42,7 @@ public class SkinTrimItem extends Item{
     @OnlyIn(Dist.CLIENT)
     @Override
     public void appendHoverText(ItemStack stack, Level level, List<Component> tooltip, TooltipFlag flags) {
+        super.appendHoverText(stack, level, tooltip, flags);
         tooltip.add(getSkin().getSkinComponent());
     }
 
