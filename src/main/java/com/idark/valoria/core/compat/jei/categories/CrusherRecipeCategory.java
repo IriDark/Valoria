@@ -20,6 +20,7 @@ import net.minecraft.world.item.crafting.*;
 import java.util.*;
 
 @Deprecated
+@SuppressWarnings("removal")
 public class CrusherRecipeCategory implements IRecipeCategory<CrusherRecipe> {
     private final Component title;
     private final IDrawable background;

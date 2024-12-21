@@ -192,10 +192,17 @@ public class RecipeGen extends RecipeProvider implements IConditionBuilder {
         cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.polishedEphemarite.get(), BlockRegistry.ephemarite.get(), 1);
         cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.polishedEphemariteSlab.get(), BlockRegistry.polishedEphemarite.get(), 2);
         cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.polishedEphemariteStairs.get(), BlockRegistry.polishedEphemarite.get(), 1);
+        cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.polishedEphemariteWall.get(), BlockRegistry.polishedEphemarite.get(), 1);
 
         cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.polishedEphemariteLow.get(), BlockRegistry.ephemariteLow.get(), 1);
         cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.polishedEphemariteLowSlab.get(), BlockRegistry.polishedEphemariteLow.get(), 2);
         cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.polishedEphemariteLowStairs.get(), BlockRegistry.polishedEphemariteLow.get(), 1);
+        cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.polishedEphemariteLowWall.get(), BlockRegistry.polishedEphemariteLow.get(), 1);
+
+        cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.picriteBricks.get(), BlockRegistry.picrite.get(), 1);
+        cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.picriteBricksSlab.get(), BlockRegistry.picriteBricks.get(), 2);
+        cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.picriteBricksStairs.get(), BlockRegistry.picriteBricks.get(), 1);
+        cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.picriteBricksWall.get(), BlockRegistry.picriteBricks.get(), 1);
 
         cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.polishedDunestone.get(), BlockRegistry.dunestone.get(), 1);
         cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.dunestoneStairs.get(), BlockRegistry.dunestone.get(), 1);

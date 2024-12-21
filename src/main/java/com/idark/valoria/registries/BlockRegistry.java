@@ -55,16 +55,16 @@ public class BlockRegistry{
     polishedDeepMarble, polishedDeepMarbleStairs, polishedDeepMarbleSlab, polishedDeepMarbleWall,
     picrite, picriteStairs, picriteSlab, picriteWall,
     polishedPicrite, polishedPicriteStairs, polishedPicriteSlab, polishedPicriteWall,
-    //todo Picrite Brickcs
+    picriteBricks, picriteBricksStairs, picriteBricksSlab, picriteBricksWall,
 
     ephemariteLow, ephemariteLowStairs, ephemariteLowSlab, ephemariteLowWall,
-    polishedEphemariteLow, polishedEphemariteLowStairs, polishedEphemariteLowSlab, polishedEphemariteLowWall, //todo
+    polishedEphemariteLow, polishedEphemariteLowStairs, polishedEphemariteLowSlab, polishedEphemariteLowWall,
     ephemarite, ephemariteStairs, ephemariteSlab, ephemariteWall,
-    polishedEphemarite, polishedEphemariteStairs, polishedEphemariteSlab, polishedEphemariteWall, //todo
+    polishedEphemarite, polishedEphemariteStairs, polishedEphemariteSlab, polishedEphemariteWall,
 
     ambaneStone, ambaneStoneStairs, ambaneStoneSlab, ambaneStoneWall,
     ambaneStoneBricks, ambaneStoneBricksStairs, ambaneStoneBricksSlab, ambaneStoneBricksWall,
-    polishedAmbaneStone, polishedAmbaneStoneStairs, polishedAmbaneStoneSlab, polishedAmbaneStoneWall, //todo
+    polishedAmbaneStone, polishedAmbaneStoneStairs, polishedAmbaneStoneSlab, polishedAmbaneStoneWall,
     cutAmbaneStone, chiseledAmbaneStoneBricks,
 
     dunestone, dunestoneStairs, dunestoneSlab, dunestoneWall,
@@ -232,6 +232,10 @@ public class BlockRegistry{
         polishedPicriteStairs = registerBlock("polished_picrite_stairs", () -> new StairBlock(() -> BlockRegistry.polishedPicrite.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.DEEPSLATE_BRICK_STAIRS).requiresCorrectToolForDrops()));
         polishedPicriteSlab = registerBlock("polished_picrite_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE_BRICK_SLAB).requiresCorrectToolForDrops()));
         polishedPicriteWall = registerBlock("polished_picrite_wall", () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE_BRICK_WALL).requiresCorrectToolForDrops()));
+        picriteBricks = registerBlock("picrite_bricks", () -> new Block(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE).requiresCorrectToolForDrops()));
+        picriteBricksStairs = registerBlock("picrite_bricks_stairs", () -> new StairBlock(() -> BlockRegistry.polishedPicrite.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.DEEPSLATE_BRICK_STAIRS).requiresCorrectToolForDrops()));
+        picriteBricksSlab = registerBlock("picrite_bricks_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE_BRICK_SLAB).requiresCorrectToolForDrops()));
+        picriteBricksWall = registerBlock("picrite_bricks_wall", () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE_BRICK_WALL).requiresCorrectToolForDrops()));
 
         ephemariteLow = registerBlock("ephemarite_low", () -> new DescriptionBlock(Component.translatable("tooltip.valoria.geode").withStyle(ChatFormatting.GRAY), props(Blocks.STONE, MapColor.TERRACOTTA_BROWN).requiresCorrectToolForDrops()));
         ephemariteLowStairs = registerBlock("ephemarite_low_stairs", () -> new StairBlock(() -> BlockRegistry.ephemariteLow.get().defaultBlockState(), props(Blocks.STONE_STAIRS, MapColor.TERRACOTTA_BROWN).requiresCorrectToolForDrops()));
@@ -240,6 +244,7 @@ public class BlockRegistry{
         polishedEphemariteLow = registerBlock("polished_ephemarite_low", () -> new Block(props(Blocks.STONE, MapColor.TERRACOTTA_BROWN).requiresCorrectToolForDrops()));
         polishedEphemariteLowStairs = registerBlock("polished_ephemarite_low_stairs", () -> new StairBlock(() -> BlockRegistry.polishedEphemariteLow.get().defaultBlockState(), props(Blocks.STONE_STAIRS, MapColor.TERRACOTTA_BROWN).requiresCorrectToolForDrops()));
         polishedEphemariteLowSlab = registerBlock("polished_ephemarite_low_slab", () -> new SlabBlock(props(Blocks.STONE, MapColor.TERRACOTTA_BROWN).requiresCorrectToolForDrops().sound(SoundType.STONE)));
+        polishedEphemariteLowWall = registerBlock("polished_ephemarite_low_wall", () -> new WallBlock(props(Blocks.STONE_BRICK_WALL, MapColor.TERRACOTTA_BROWN).requiresCorrectToolForDrops()));
 
         ephemarite = registerBlock("ephemarite", () -> new DescriptionBlock(Component.translatable("tooltip.valoria.geode").withStyle(ChatFormatting.GRAY), props(Blocks.STONE, MapColor.TERRACOTTA_BROWN).requiresCorrectToolForDrops()));
         ephemariteStairs = registerBlock("ephemarite_stairs", () -> new StairBlock(() -> BlockRegistry.ephemarite.get().defaultBlockState(), props(Blocks.STONE_STAIRS, MapColor.TERRACOTTA_BROWN).requiresCorrectToolForDrops()));
@@ -248,6 +253,7 @@ public class BlockRegistry{
         polishedEphemarite = registerBlock("polished_ephemarite", () -> new Block(props(Blocks.STONE, MapColor.TERRACOTTA_BROWN).requiresCorrectToolForDrops()));
         polishedEphemariteStairs = registerBlock("polished_ephemarite_stairs", () -> new StairBlock(() -> BlockRegistry.polishedEphemarite.get().defaultBlockState(), props(Blocks.STONE, MapColor.TERRACOTTA_BROWN).requiresCorrectToolForDrops()));
         polishedEphemariteSlab = registerBlock("polished_ephemarite_slab", () -> new SlabBlock(props(Blocks.STONE_SLAB, MapColor.TERRACOTTA_BROWN).requiresCorrectToolForDrops().sound(SoundType.STONE)));
+        polishedEphemariteWall = registerBlock("polished_ephemarite_wall", () -> new WallBlock(props(Blocks.STONE_BRICK_WALL, MapColor.TERRACOTTA_BROWN).requiresCorrectToolForDrops()));
 
         meatBlock = registerBlock("meat_block", () -> new FleshBlock(props(Blocks.STONE, MapColor.COLOR_RED).sound(SoundsRegistry.FLESH).requiresCorrectToolForDrops()));
         fleshBlock = registerBlock("flesh_block", () -> new FleshBlock(props(Blocks.STONE, MapColor.COLOR_RED).sound(SoundsRegistry.FLESH).requiresCorrectToolForDrops()));
