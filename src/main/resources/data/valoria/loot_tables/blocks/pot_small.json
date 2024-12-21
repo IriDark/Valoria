@@ -97,17 +97,6 @@
         {
           "type": "minecraft:item",
           "weight": 1,
-          "name": "minecraft:diamond",
-          "conditions": [
-            {
-              "condition": "minecraft:random_chance",
-              "chance": 0.1
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 1,
           "name": "minecraft:emerald",
           "functions": [
             {

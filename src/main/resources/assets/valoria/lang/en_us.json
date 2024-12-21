@@ -68,6 +68,9 @@
   "block.valoria.archaeology_table": "Archaeology Table",
   "block.valoria.awakened_void_block": "Awakened Void Block",
   "block.valoria.beer_cup": "Cup Of Beer",
+  "block.valoria.blood_vine": "Blood Vine",
+  "block.valoria.blood_vine_plant": "Blood Vine",
+  "item.valoria.blood_vine": "Blood Vine",
   "block.valoria.bloodroot": "Bloodroot",
   "block.valoria.bronze_block": "Bronze Block",
   "block.valoria.bronze_block_slab": "Bronze Block Slab",
@@ -881,5 +884,6 @@
   "tooltip.valoria.usage_count": "The ability can be used %s times",
   "tooltip.valoria.required_amount": "Required amount:",
   "tooltip.valoria.value": "%s",
-  "jei.valoria.archaeology_table": "Archaeology"
+  "jei.valoria.archaeology_table": "Archaeology",
+  "tooltip.valoria.katana_charge": "Time to charge %s ticks"
 }

@@ -133,7 +133,7 @@ public class BlockRegistry{
     glassBottle, rumBottle,  cokeBottle, akvavitBottle, liquorBottle, wineBottle, meadBottle, sakeBottle,
     kvassBottle, whiskeyBottle, cognacBottle,
 
-    taintedRoots, violetSprout, violetSproutPlant, glowVioletSprout, glowVioletSproutPlant,
+    taintedRoots, bloodVine, bloodVinePlant, violetSprout, violetSproutPlant, glowVioletSprout, glowVioletSproutPlant,
     abyssalGlowfern, abyssalGlowfernPlant, aloeSmall, aloe, pottedAloeSmall,
     driedPlant, pottedDriedPlant, driedRoots, pottedDriedRoots, cattail,
     soulroot, pottedSoulroot, soulFlower, pottedSoulFlower,
@@ -541,6 +541,12 @@ public class BlockRegistry{
         decoratedCryptPot = registerBlock("decorated_crypt_pot", BlockRegistry::cryptPot);
 
         taintedRoots = BLOCK.register("tainted_roots", () -> new TaintedRootsBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).mapColor(MapColor.COLOR_MAGENTA).randomTicks().noCollission().instabreak().sound(SoundType.CAVE_VINES).pushReaction(PushReaction.DESTROY)));
+        bloodVinePlant = BLOCK.register("blood_vine_plant", () -> new BloodVinePlantBlock(BlockBehaviour.Properties.copy(Blocks.KELP_PLANT).mapColor(MapColor.COLOR_RED)));
+        bloodVine = registerBlock("blood_vine",
+            () -> new BloodVineBlock(BlockBehaviour.Properties.copy(Blocks.KELP).mapColor(MapColor.COLOR_RED)),
+            () -> new BlockItem(BlockRegistry.bloodVine.get(), new Item.Properties())
+        );
+
         violetSproutPlant = BLOCK.register("violet_sprout_plant", () -> new VioletSproutPlantBlock(BlockBehaviour.Properties.copy(Blocks.KELP_PLANT).mapColor(MapColor.COLOR_MAGENTA), false));
         violetSprout = registerBlock("violet_sprout",
             () -> new VioletSproutBlock(BlockBehaviour.Properties.copy(Blocks.KELP).mapColor(MapColor.COLOR_MAGENTA), false),

@@ -220,6 +220,10 @@ public class KatanaItem extends SwordItem implements CooldownNotifyItem, DashIte
         super.appendHoverText(stack, world, tooltip, flags);
         addContributorTooltip(stack, tooltip);
         tooltip.add(Component.translatable("tooltip.valoria.katana").withStyle(ChatFormatting.GRAY));
+        if(builder.chargeTime > 0 && flags.isAdvanced()) {
+            tooltip.add(Component.translatable("tooltip.valoria.katana_charge", builder.chargeTime).withStyle(ChatFormatting.GRAY));
+        }
+
         tooltip.add(Component.translatable("tooltip.valoria.rmb").withStyle(ChatFormatting.GREEN));
         ValoriaUtils.addEffectsTooltip(builder.effects, tooltip, 1, builder.chance);
     }
