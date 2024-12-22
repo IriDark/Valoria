@@ -14,6 +14,10 @@
     "valoria:void_stone_wall",
     "valoria:void_brick_wall",
     "valoria:void_cracked_brick_wall",
+    "valoria:ephemarite_low_wall",
+    "valoria:ephemarite_wall",
+    "valoria:polished_ephemarite_low_wall",
+    "valoria:polished_ephemarite_wall",
     "valoria:tombstone_wall",
     "valoria:tombstone_bricks_wall",
     "valoria:crystal_stone_wall",
@@ -21,6 +25,7 @@
     "valoria:cracked_tombstone_bricks_wall",
     "valoria:cracked_limestone_bricks_wall",
     "valoria:polished_picrite_wall",
-    "valoria:picrite_wall"
+    "valoria:picrite_wall",
+    "valoria:picrite_bricks_wall"
   ]
 }
