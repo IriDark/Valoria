@@ -8,6 +8,8 @@
     "valoria:rum_bottle",
     "valoria:cognac_bottle",
     "valoria:whiskey_bottle",
-    "valoria:mead_bottle"
+    "valoria:mead_bottle",
+    "valoria:sake_bottle",
+    "valoria:coke_bottle"
   ]
 }
