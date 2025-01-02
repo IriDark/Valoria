@@ -204,6 +204,17 @@ public abstract class AbstractSupplierProjectile extends AbstractValoriaArrow im
         this.wasInGround = true;
     }
 
+    public void processVelocityDamage(LivingEntity thrower, Entity entity, DamageSource damagesource) {
+        double velocity = this.getDeltaMovement().length();
+        int damage = Mth.ceil(Mth.clamp(velocity * this.baseDamage, 0, Integer.MAX_VALUE));
+        if (this.isCritArrow()) {
+            long j = this.random.nextInt(damage / 2 + 2);
+            damage = (int) Math.min(j + (long) damage, 2147483647L);
+        }
+
+        hurt(thrower, entity, damagesource, damage);
+    }
+
     @Override
     public void onHitEntity(EntityHitResult result){
         Entity entity = result.getEntity();
@@ -242,14 +253,7 @@ public abstract class AbstractSupplierProjectile extends AbstractValoriaArrow im
             }
 
             if(isVelocityBased()){
-                double velocity = this.getDeltaMovement().length();
-                int damage = Mth.ceil(Mth.clamp(velocity * this.baseDamage, 0, Integer.MAX_VALUE));
-                if (this.isCritArrow()) {
-                    long j = this.random.nextInt(damage / 2 + 2);
-                    damage = (int) Math.min(j + (long) damage, 2147483647L);
-                }
-
-                hurt(thrower, entity, damagesource, damage);
+                processVelocityDamage(thrower, entity, damagesource);
             }else{
                 int e = (int)EnchantmentHelper.getDamageBonus(this.getItem(), MobType.UNDEFINED);
                 float f = 0;
@@ -258,12 +262,7 @@ public abstract class AbstractSupplierProjectile extends AbstractValoriaArrow im
                 } else {
                     //prevents crashing, grants ability to be thrown be mobs, keep in mind that base damage needs to be set
                     //YourProjectile.setBaseDamage()
-                    double velocity = this.getDeltaMovement().length();
-                    f = Mth.ceil(Mth.clamp(velocity * this.baseDamage, 0, Integer.MAX_VALUE));
-                    if (this.isCritArrow()) {
-                        long j = this.random.nextInt((int)f / 2 + 2);
-                        f += (int) Math.min(j + (long) f, 2147483647L);
-                    }
+                    processVelocityDamage(thrower, entity, damagesource);
                 }
 
                 if(entity instanceof LivingEntity livingentity){

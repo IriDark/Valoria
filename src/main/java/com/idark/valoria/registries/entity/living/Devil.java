@@ -77,7 +77,7 @@ public class Devil extends AbstractDevil implements RangedAttackMob{
     protected void registerGoals(){
         super.registerGoals();
         this.goalSelector.addGoal(0, new MeleeAttackGoal(this, 1, false));
-        this.goalSelector.addGoal(0, new FireRayGoal(this, 1.0D, 10.0F));
+        this.goalSelector.addGoal(0, new ThrowSpearGoal(this, 1.0D, 10.0F));
         this.goalSelector.addGoal(0, new ReasonableAvoidEntityGoal<>(this, Player.class, 15, 1.25, 2, isLowHP()));
 
         this.goalSelector.addGoal(1, new MoveTowardsTargetGoal(this, 0.9D, 32.0F));
@@ -102,7 +102,7 @@ public class Devil extends AbstractDevil implements RangedAttackMob{
         this.level().addFreshEntity(spear);
     }
 
-    public class FireRayGoal extends AttackGoal {
+    public class ThrowSpearGoal extends AttackGoal {
         private final Mob mob;
         private final RangedAttackMob rangedAttackMob;
         private LivingEntity target;
@@ -111,7 +111,7 @@ public class Devil extends AbstractDevil implements RangedAttackMob{
         private final float attackRadius;
         private final float attackRadiusSqr;
 
-        public FireRayGoal(RangedAttackMob pRangedAttackMob, double pSpeedModifier, float pAttackRadius){
+        public ThrowSpearGoal(RangedAttackMob pRangedAttackMob, double pSpeedModifier, float pAttackRadius){
             this.rangedAttackMob = pRangedAttackMob;
             this.mob = (Mob)pRangedAttackMob;
             this.speedModifier = pSpeedModifier;
