@@ -16,6 +16,7 @@ public class ThrownSpearEntity extends AbstractSupplierProjectile {
     private Level.ExplosionInteraction interaction;
     public ThrownSpearEntity(Level worldIn, LivingEntity thrower, ItemStack thrownStackIn) {
         super(EntityTypeRegistry.SPEAR.get(), worldIn, thrower, thrownStackIn);
+        this.setItem(thrownStackIn);
     }
 
     public ThrownSpearEntity(EntityType<? extends ThrownSpearEntity> type, Level worldIn) {

@@ -13,6 +13,7 @@ import net.minecraftforge.registries.*;
 
 public class EntityTypeRegistry{
     public static DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, Valoria.ID);
+    public static final RegistryObject<EntityType<ScourgeEntity>> SCOURGE = register("scourge", EntityType.Builder.of(ScourgeEntity::new, MobCategory.MONSTER).sized(0.6f, 1.95f).clientTrackingRange(8));
     public static final RegistryObject<EntityType<SwampWandererEntity>> SWAMP_WANDERER = register("swamp_wanderer", EntityType.Builder.of(SwampWandererEntity::new, MobCategory.MONSTER).sized(0.6f, 1.95f).clientTrackingRange(8));
     public static final RegistryObject<EntityType<Goblin>> GOBLIN = register("goblin", EntityType.Builder.of(Goblin::new, MobCategory.CREATURE).sized(0.6f, 1.25f).clientTrackingRange(8));
     public static final RegistryObject<EntityType<FleshSentinel>> FLESH_SENTINEL = register("flesh_sentinel", EntityType.Builder.of(FleshSentinel::new, MobCategory.MONSTER).sized(0.6f, 0.6f).clientTrackingRange(8));

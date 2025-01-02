@@ -235,7 +235,7 @@ public abstract class AbstractSupplierProjectile extends AbstractValoriaArrow im
             }
         }
 
-        if(shooter instanceof Player player && !this.returnToPlayer){
+        if(shooter instanceof LivingEntity thrower && !this.returnToPlayer){
             boolean flag = entity.getType() == EntityType.ENDERMAN;
             if (this.isOnFire() && !flag) {
                 entity.setSecondsOnFire(5);
@@ -249,20 +249,36 @@ public abstract class AbstractSupplierProjectile extends AbstractValoriaArrow im
                     damage = (int) Math.min(j + (long) damage, 2147483647L);
                 }
 
-                hurt(player, entity, damagesource, damage);
+                hurt(thrower, entity, damagesource, damage);
             }else{
                 int e = (int)EnchantmentHelper.getDamageBonus(this.getItem(), MobType.UNDEFINED);
-                float f = (float)(player.getAttributes().getValue(AttributeRegistry.PROJECTILE_DAMAGE.get()) + Math.max(0, e - 2));
+                float f = 0;
+                if(thrower instanceof Player plr){
+                    f += (float)(plr.getAttributes().getValue(AttributeRegistry.PROJECTILE_DAMAGE.get()) + Math.max(0, e - 2));
+                } else {
+                    //prevents crashing, grants ability to be thrown be mobs, keep in mind that base damage needs to be set
+                    //YourProjectile.setBaseDamage()
+                    double velocity = this.getDeltaMovement().length();
+                    f = Mth.ceil(Mth.clamp(velocity * this.baseDamage, 0, Integer.MAX_VALUE));
+                    if (this.isCritArrow()) {
+                        long j = this.random.nextInt((int)f / 2 + 2);
+                        f += (int) Math.min(j + (long) f, 2147483647L);
+                    }
+                }
+
                 if(entity instanceof LivingEntity livingentity){
                     f += EnchantmentHelper.getDamageBonus(this.getItem(), livingentity.getMobType());
                 }
 
-                hurt(player, entity, damagesource, f);
+                hurt(thrower, entity, damagesource, f);
             }
         }
     }
 
-    public void hurt(Player player, Entity entity, DamageSource source, float damage) {
+    /**
+     * Custom damage processing here
+     */
+    public void hurt(LivingEntity thrower, Entity entity, DamageSource source, float damage) {
         int k = entity.getRemainingFireTicks();
         if(entity.hurt(source, damage)){
             boolean flag = entity.getType() == EntityType.ENDERMAN;
@@ -270,13 +286,10 @@ public abstract class AbstractSupplierProjectile extends AbstractValoriaArrow im
                 return;
             }
 
-            if(entity instanceof LivingEntity living){
-                EnchantmentHelper.doPostHurtEffects(living, player);
-                EnchantmentHelper.doPostDamageEffects(player, living);
-                this.doPostHurtEffects(living);
-            }
-
             if(entity instanceof LivingEntity livingentity){
+                EnchantmentHelper.doPostHurtEffects(livingentity, thrower);
+                EnchantmentHelper.doPostDamageEffects(thrower, livingentity);
+                this.doPostHurtEffects(livingentity);
                 if(this.knockback > 0){
                     double d0 = Math.max(0.0D, 1.0D - livingentity.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE));
                     Vec3 vec3 = this.getDeltaMovement().multiply(1.0D, 0.0D, 1.0D).normalize().scale((double)this.knockback * 0.6D * d0);
@@ -285,7 +298,7 @@ public abstract class AbstractSupplierProjectile extends AbstractValoriaArrow im
                     }
                 }
 
-                if (livingentity != player && livingentity instanceof Player && player instanceof ServerPlayer serv && !this.isSilent()) {
+                if (livingentity != thrower && livingentity instanceof Player && thrower instanceof ServerPlayer serv && !this.isSilent()) {
                     serv.connection.send(new ClientboundGameEventPacket(ClientboundGameEventPacket.ARROW_HIT_PLAYER, 0.0F));
                 }
 
@@ -293,7 +306,7 @@ public abstract class AbstractSupplierProjectile extends AbstractValoriaArrow im
                     this.piercedAndKilledEntities.add(livingentity);
                 }
 
-                if (!this.level().isClientSide && player instanceof ServerPlayer serverplayer) {
+                if (!this.level().isClientSide && thrower instanceof ServerPlayer serverplayer) {
                     if (this.piercedAndKilledEntities != null && this.shotFromCrossbow()) {
                         CriteriaTriggers.KILLED_BY_CROSSBOW.trigger(serverplayer, this.piercedAndKilledEntities);
                     } else if (!entity.isAlive() && this.shotFromCrossbow()) {
@@ -318,10 +331,6 @@ public abstract class AbstractSupplierProjectile extends AbstractValoriaArrow im
         if(EnchantmentHelper.getTagEnchantmentLevel(Enchantments.PIERCING, this.getItem()) == 0){
             this.returnToPlayer = true;
         }
-    }
-
-    public void setHurt() {
-        this.returnToPlayer = true;
     }
 
     public void setEffectsFromList(ImmutableList<MobEffectInstance> effects) {

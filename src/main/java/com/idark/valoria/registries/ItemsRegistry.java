@@ -109,7 +109,7 @@ public class ItemsRegistry {
     cobaltSword, cobaltPickaxe, cobaltAxe, cobaltShovel, cobaltHoe,
     ent, natureScythe, naturePickaxe, natureAxe, natureShovel, natureHoe, natureBow,
     coralReef, aquariusScythe, aquariusPickaxe, aquariusAxe, aquariusShovel, aquariusHoe, aquariusBow,
-    infernalSword, infernalScythe, infernalPickaxe, infernalAxe, infernalShovel, infernalHoe, infernalBow,
+    infernalSword, infernalScythe, infernalPickaxe, infernalAxe, infernalShovel, infernalHoe, infernalBow, infernalSpear,
     voidEdge, voidScythe, voidPickaxe, voidAxe, voidShovel, voidHoe, voidBow,
     phantom, phantasmBow, eternity,
     wickedArrow, soulArrow,
@@ -147,7 +147,7 @@ public class ItemsRegistry {
     whiskeyBottle, cokeBottle, toxinsBottle,
     // spawn eggs
     pumpkinContract, goblin, draugr,
-    swampWanderer, necromancer, undead,
+    swampWanderer, scourge, necromancer, undead,
     shadewoodSpider, devil, troll, corruptedTroll,
     mannequin;
 
@@ -378,6 +378,8 @@ public class ItemsRegistry {
         infernalShovel = registerItem("infernal_shovel", () -> new ShovelItem(ModItemTier.INFERNAL, 7.5f, -2.9f, new Item.Properties().fireResistant().rarity(RarityRegistry.INFERNAL)));
         infernalHoe = registerItem("infernal_hoe", () -> new HoeItem(ModItemTier.INFERNAL, 0, 0f, new Item.Properties().fireResistant().rarity(RarityRegistry.INFERNAL)));
         infernalBow = registerItem("infernal_bow", () -> new ConfigurableBowItem(EntityTypeRegistry.INFERNAL_ARROW, 4, 3, new Item.Properties().fireResistant().stacksTo(1).durability(1684).rarity(RarityRegistry.INFERNAL)));
+        infernalSpear = registerItem("infernal_spear", () -> new SpearItem(ModItemTier.INFERNAL, 8, -3f, 11f, new Item.Properties().fireResistant().stacksTo(1).durability(1684).rarity(RarityRegistry.INFERNAL)));
+
         voidEdge = registerItem("void_edge", () -> new SwordItem(ModItemTier.NIHILITY, 10, -2.55f, new Item.Properties().rarity(RarityRegistry.VOID)));
         voidScythe = registerItem("void_scythe", () -> new ScytheItem.Builder(16, -3.0f, new Item.Properties().fireResistant().rarity(RarityRegistry.VOID)).setTier(ModItemTier.NIHILITY).setEffects(0.5f, new MobEffectInstance(MobEffects.DARKNESS, 90, 0)).build());
 
@@ -521,6 +523,7 @@ public class ItemsRegistry {
         goblin = registerItem("goblin_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.GOBLIN, ColorUtil.hexToDecimal("185b36"), ColorUtil.hexToDecimal("6BB447"), new Item.Properties()));
         draugr = registerItem("draugr_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.DRAUGR, ColorUtil.hexToDecimal("76695C"), ColorUtil.hexToDecimal("d6d0c9"), new Item.Properties()));
         swampWanderer = registerItem("swamp_wanderer_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.SWAMP_WANDERER, ColorUtil.hexToDecimal("606239"), ColorUtil.hexToDecimal("b8b377"), new Item.Properties()));
+        scourge = registerItem("scourge_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.SCOURGE, ColorUtil.hexToDecimal("898755"), ColorUtil.hexToDecimal("bdae86"), new Item.Properties()));
         necromancer = registerItem("necromancer_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.NECROMANCER, ColorUtil.hexToDecimal("4b4857"), ColorUtil.hexToDecimal("958fb7"), new Item.Properties()));
         undead = registerItem("undead_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.UNDEAD, ColorUtil.hexToDecimal("625F71"), ColorUtil.hexToDecimal("ffffff"), new Item.Properties()));
         shadewoodSpider = registerItem("shadewood_spider_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.SHADEWOOD_SPIDER, ColorUtil.hexToDecimal("373C53"), ColorUtil.hexToDecimal("6EABB7"), new Item.Properties()));

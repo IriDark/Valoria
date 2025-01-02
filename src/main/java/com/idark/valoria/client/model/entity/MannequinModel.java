@@ -15,7 +15,6 @@ public class MannequinModel<T extends Entity> extends EntityModel<T> {
     private final ModelPart LeftArm;
     private final ModelPart RightLeg;
     private final ModelPart LeftLeg;
-    private T entit;
 
     public MannequinModel(ModelPart root) {
         this.Head = root.getChild("Head");

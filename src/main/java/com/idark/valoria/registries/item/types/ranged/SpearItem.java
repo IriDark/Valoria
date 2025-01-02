@@ -143,7 +143,6 @@ public class SpearItem extends SwordItem implements Vanishable {
 
     private @NotNull ThrownSpearEntity shootProjectile(ItemStack stack, Level worldIn, Player playerEntity){
         ThrownSpearEntity spear = new ThrownSpearEntity(worldIn, playerEntity, stack);
-        spear.setItem(stack);
         int pierceLevel = EnchantmentHelper.getTagEnchantmentLevel(Enchantments.PIERCING, stack);
         if (pierceLevel > 0) {
             spear.setPierceLevel((byte)pierceLevel);

@@ -45,7 +45,7 @@ public class SwampWandererEntity extends Zombie {
         this.groundNavigation = new GroundPathNavigation(this, pLevel);
     }
 
-    public static boolean checkDrownedSpawnRules(EntityType<SwampWandererEntity> SwampWandererEntity, ServerLevelAccessor pServerLevel, MobSpawnType pMobSpawnType, BlockPos pPos, RandomSource pRandom) {
+    public static boolean checkDrownedSpawnRules(EntityType<? extends SwampWandererEntity> SwampWandererEntity, ServerLevelAccessor pServerLevel, MobSpawnType pMobSpawnType, BlockPos pPos, RandomSource pRandom) {
         if (!pServerLevel.getFluidState(pPos.below()).is(FluidTags.WATER)) {
             return false;
         } else {
@@ -60,7 +60,7 @@ public class SwampWandererEntity extends Zombie {
         this.goalSelector.addGoal(2, new SwampWandererEntity.DrownedGoToBeachGoal(this, 1.0D));
         this.goalSelector.addGoal(3, new SwampWandererEntity.DrownedSwimUpGoal(this, 1.2D, this.level().getSeaLevel()));
         this.goalSelector.addGoal(7, new RandomStrollGoal(this, 1.0D));
-        this.targetSelector.addGoal(1, (new HurtByTargetGoal(this, Drowned.class)).setAlertOthers(ZombifiedPiglin.class));
+        this.targetSelector.addGoal(1, new HurtByTargetGoal(this).setAlertOthers(SwampWandererEntity.class));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, 10, true, false, this::okTarget));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, AbstractVillager.class, false));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolem.class, true));

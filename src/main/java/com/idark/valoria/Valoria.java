@@ -252,6 +252,7 @@ public class Valoria {
                 SpawnPlacements.register(EntityTypeRegistry.GOBLIN.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Goblin::checkGoblinSpawnRules);
                 SpawnPlacements.register(EntityTypeRegistry.DRAUGR.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, DraugrEntity::checkMonsterSpawnRules);
                 SpawnPlacements.register(EntityTypeRegistry.SWAMP_WANDERER.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SwampWandererEntity::checkDrownedSpawnRules);
+                SpawnPlacements.register(EntityTypeRegistry.SCOURGE.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ScourgeEntity::checkDrownedSpawnRules);
                 SpawnPlacements.register(EntityTypeRegistry.SHADEWOOD_SPIDER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ShadewoodSpider::checkMonsterSpawnRules);
                 SpawnPlacements.register(EntityTypeRegistry.DEVIL.get(), SpawnPlacements.Type.ON_GROUND, Types.WORLD_SURFACE_WG, Devil::checkMonsterSpawnRules);
                 SpawnPlacements.register(EntityTypeRegistry.HAUNTED_MERCHANT.get(), SpawnPlacements.Type.ON_GROUND, Types.WORLD_SURFACE_WG, HauntedMerchant::checkMonsterSpawnRules);
@@ -265,6 +266,7 @@ public class Valoria {
             event.put(EntityTypeRegistry.GOBLIN.get(), GOBLIN);
             event.put(EntityTypeRegistry.DRAUGR.get(), DRAUGR);
             event.put(EntityTypeRegistry.NECROMANCER.get(), NECROMANCER);
+            event.put(EntityTypeRegistry.SCOURGE.get(), SCOURGE);
             event.put(EntityTypeRegistry.SWAMP_WANDERER.get(), SWAMP_WANDERER);
             event.put(EntityTypeRegistry.UNDEAD.get(), UNDEAD);
             event.put(EntityTypeRegistry.SHADEWOOD_SPIDER.get(), SHADEWOOD_SPIDER);

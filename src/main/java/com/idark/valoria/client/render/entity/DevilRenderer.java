@@ -6,6 +6,7 @@ import com.idark.valoria.registries.entity.living.*;
 import com.mojang.blaze3d.vertex.*;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.entity.*;
+import net.minecraft.client.renderer.entity.layers.*;
 import net.minecraft.resources.*;
 
 public class DevilRenderer extends MobRenderer<Devil, DevilModel<Devil>> {
@@ -14,6 +15,7 @@ public class DevilRenderer extends MobRenderer<Devil, DevilModel<Devil>> {
 
     public DevilRenderer(EntityRendererProvider.Context context) {
         super(context, new DevilModel<>(DevilModel.createBodyLayer().bakeRoot()), 0.4F);
+        this.addLayer(new ItemInHandLayer<>(this, context.getItemInHandRenderer()));
     }
 
     @Override

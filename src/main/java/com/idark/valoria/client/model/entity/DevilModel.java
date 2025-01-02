@@ -2,13 +2,15 @@ package com.idark.valoria.client.model.entity;
 
 import com.idark.valoria.client.model.animations.*;
 import com.idark.valoria.registries.entity.living.*;
+import com.mojang.blaze3d.vertex.*;
 import net.minecraft.client.model.*;
 import net.minecraft.client.model.geom.*;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.client.renderer.*;
 import net.minecraft.util.*;
+import net.minecraft.world.entity.*;
 
-public class DevilModel<T extends Devil> extends HierarchicalModel<T> {
+public class DevilModel<T extends Devil> extends HierarchicalModel<T> implements ArmedModel, HeadedModel {
     private final ModelPart root;
     private final ModelPart head;
     private final ModelPart body;
@@ -57,7 +59,7 @@ public class DevilModel<T extends Devil> extends HierarchicalModel<T> {
         this.animateWalk(pLimbSwing, pLimbSwingAmount);
         this.animateIdlePose(pAgeInTicks);
         this.animate(pEntity.idleAnimationState, DevilAnimation.IDLE, pAgeInTicks);
-        this.animate(pEntity.fireballAnimationState, DevilAnimation.ATTACK_RANGE, pAgeInTicks); //todo
+        //this.animate(pEntity.fireballAnimationState, DevilAnimation.ATTACK_RANGE, pAgeInTicks); //todo
     }
 
     private void animateWalk(float pLimbSwing, float pLimbSwingAmount) {
@@ -108,5 +110,14 @@ public class DevilModel<T extends Devil> extends HierarchicalModel<T> {
 
     public ModelPart getHead() {
         return this.head;
+    }
+
+    protected ModelPart getArm(HumanoidArm pSide) {
+        return pSide == HumanoidArm.LEFT ? this.leftArm : this.rightArm;
+    }
+
+    @Override
+    public void translateToHand(HumanoidArm pSide, PoseStack pPoseStack){
+        this.getArm(pSide).translateAndRotate(pPoseStack);
     }
 }

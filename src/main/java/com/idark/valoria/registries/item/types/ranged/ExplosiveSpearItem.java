@@ -46,7 +46,6 @@ public class ExplosiveSpearItem extends SpearItem implements Vanishable {
                 if (!worldIn.isClientSide) {
                     stack.hurtAndBreak(1, playerEntity, (player) -> player.broadcastBreakEvent(entityLiving.getUsedItemHand()));
                     ThrownSpearEntity spear = new ThrownSpearEntity(worldIn, playerEntity, stack);
-                    spear.setItem(stack);
                     spear.shootFromRotation(playerEntity, playerEntity.getXRot(), playerEntity.getYRot(), 0.0F, 2.5F + (float) 0 * 0.5F, 1.0F);
                     spear.setExplode(interaction, explosive_radius);
                     if (playerEntity.getAbilities().instabuild) {
