@@ -4,13 +4,13 @@
     "firstperson_righthand": {
       "rotation": [
         180,
-        90,
-        45
+        -90,
+        25
       ],
       "translation": [
-        1.13,
+        1.25,
         3.2,
-        1.13
+        1.25
       ],
       "scale": [
         1.36,
@@ -21,13 +21,13 @@
     "firstperson_lefthand": {
       "rotation": [
         180,
-        -90,
-        -45
+        90,
+        -25
       ],
       "translation": [
-        1.13,
+        1.25,
         3.2,
-        1.13
+        1.25
       ],
       "scale": [
         1.36,
