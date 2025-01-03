@@ -42,38 +42,44 @@ public class DevilModel<T extends Devil> extends HierarchicalModel<T> implements
         .texOffs(60, 27).addBox(-3.0F, 3.75F, -3.25F, 6.0F, 5.0F, 2.0F, new CubeDeformation(0.0F))
         .texOffs(0, 16).addBox(-4.0F, -4.25F, -3.25F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.25F))
         .texOffs(0, 43).addBox(-7.0F, -9.25F, 0.75F, 14.0F, 7.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -3.75F, -0.75F));
-        PartDefinition leftEar = Head.addOrReplaceChild("left_ear", CubeListBuilder.create().texOffs(16, 50).addBox(-1.5F, -0.5F, 0.0F, 3.0F, 3.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(5.5F, -4.5F, 0.0F));
-        PartDefinition rightEar = Head.addOrReplaceChild("right_ear", CubeListBuilder.create().texOffs(22, 50).addBox(-1.5F, -0.5F, 0.0F, 3.0F, 3.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(-5.5F, -4.5F, 0.0F));
-        PartDefinition body = partdefinition.addOrReplaceChild("body", CubeListBuilder.create().texOffs(32, 11).addBox(-8.0F, -12.0F, 1.0F, 8.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)).texOffs(36, 27).addBox(-8.0F, -12.0F, 1.0F, 8.0F, 12.0F, 4.0F, new CubeDeformation(0.25F)), PartPose.offset(4.0F, 12.0F, -3.0F));
-        PartDefinition leftArm = partdefinition.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(16, 59).addBox(0.0F, -1.0F, -2.0F, 3.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)).texOffs(30, 59).addBox(0.0F, -1.0F, -2.0F, 3.0F, 12.0F, 4.0F, new CubeDeformation(0.25F)), PartPose.offset(4.0F, 1.0F, 0.0F));
-        PartDefinition rightArm = partdefinition.addOrReplaceChild("right_arm", CubeListBuilder.create().texOffs(44, 59).addBox(-3.0F, -1.0F, -2.0F, 3.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)).texOffs(58, 59).addBox(-3.0F, -1.0F, -2.0F, 3.0F, 12.0F, 4.0F, new CubeDeformation(0.25F)), PartPose.offset(-4.0F, 1.0F, 0.0F));
-        PartDefinition leftLeg = partdefinition.addOrReplaceChild("left_leg", CubeListBuilder.create().texOffs(28, 43).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)).texOffs(44, 43).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.25F)), PartPose.offset(2.0F, 12.0F, 0.0F));
-        PartDefinition rightLeg = partdefinition.addOrReplaceChild("right_leg", CubeListBuilder.create().texOffs(0, 50).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)).texOffs(56, 11).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.25F)), PartPose.offset(-2.0F, 12.0F, 0.0F));
-        PartDefinition leftWing = partdefinition.addOrReplaceChild("left_wing", CubeListBuilder.create().texOffs(0, 32).addBox(0.0F, -4.0F, -1.0F, 18.0F, 11.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 2.0F, 3.0F, 0.0F, -0.0873F, 0.0F));
-        PartDefinition rightWing = partdefinition.addOrReplaceChild("right_wing", CubeListBuilder.create().texOffs(32, 0).addBox(-18.0F, -4.0F, -1.0F, 18.0F, 11.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 2.0F, 3.0F, 0.0F, 0.0873F, 0.0F));
+
+        PartDefinition Left_ear = partdefinition.addOrReplaceChild("left_ear", CubeListBuilder.create().texOffs(16, 50).addBox(-1.5F, -0.5F, 0.0F, 3.0F, 3.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(5.5F, -4.5F, 0.0F));
+
+        PartDefinition Right_ear = partdefinition.addOrReplaceChild("right_ear", CubeListBuilder.create().texOffs(22, 50).addBox(-1.5F, -0.5F, 0.0F, 3.0F, 3.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(-5.5F, -4.5F, 0.0F));
+
+        PartDefinition Body = partdefinition.addOrReplaceChild("body", CubeListBuilder.create().texOffs(32, 11).addBox(-4.0F, -6.0F, -2.0F, 8.0F, 12.0F, 4.0F, new CubeDeformation(0.0F))
+        .texOffs(36, 27).addBox(-4.0F, -6.0F, -2.0F, 8.0F, 12.0F, 4.0F, new CubeDeformation(0.25F)), PartPose.offset(0.0F, 6.0F, 0.0F));
+
+        PartDefinition Left_arm = partdefinition.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(16, 59).addBox(0.0F, -1.0F, -2.0F, 3.0F, 12.0F, 4.0F, new CubeDeformation(0.0F))
+        .texOffs(30, 59).addBox(0.0F, -1.0F, -2.0F, 3.0F, 12.0F, 4.0F, new CubeDeformation(0.25F)), PartPose.offset(4.0F, 1.0F, 0.0F));
+
+        PartDefinition Right_arm = partdefinition.addOrReplaceChild("right_arm", CubeListBuilder.create().texOffs(44, 59).addBox(-3.0F, -1.0F, -2.0F, 3.0F, 12.0F, 4.0F, new CubeDeformation(0.0F))
+        .texOffs(58, 59).addBox(-3.0F, -1.0F, -2.0F, 3.0F, 12.0F, 4.0F, new CubeDeformation(0.25F)), PartPose.offset(-4.0F, 1.0F, 0.0F));
+
+        PartDefinition Left_leg = partdefinition.addOrReplaceChild("left_leg", CubeListBuilder.create().texOffs(28, 43).addBox(-2.0F, 0.0132F, 0.0521F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.0F))
+        .texOffs(44, 43).addBox(-2.0F, -0.3618F, 0.0521F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.25F)), PartPose.offset(2.0F, 12.0F, -2.0F));
+
+        PartDefinition Right_leg = partdefinition.addOrReplaceChild("right_leg", CubeListBuilder.create().texOffs(0, 50).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.0F))
+        .texOffs(56, 11).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.25F)), PartPose.offset(-2.0F, 12.0F, 0.0F));
+
+        PartDefinition Left_wing = partdefinition.addOrReplaceChild("left_wing", CubeListBuilder.create().texOffs(0, 32).addBox(-9.0F, -5.5F, 0.0F, 18.0F, 11.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(8.9658F, 4.5F, 2.7844F, 0.0F, -0.0873F, 0.0F));
+
+        PartDefinition Right_wing = partdefinition.addOrReplaceChild("right_wing", CubeListBuilder.create().texOffs(32, 0).addBox(-9.0275F, -5.5F, 0.0F, 18.0F, 11.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-8.8786F, 4.5F, 2.7806F, 0.0F, 0.0873F, 0.0F));
         return LayerDefinition.create(meshdefinition, 128, 128);
     }
 
     public void setupAnim(T pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
         this.animateWalk(pLimbSwing, pLimbSwingAmount);
+        this.animateWalk(DevilAnimation.WALK, pLimbSwing, pLimbSwingAmount, pEntity.getSpeed(), pAgeInTicks);
         this.animateIdlePose(pAgeInTicks);
         this.animate(pEntity.idleAnimationState, DevilAnimation.IDLE, pAgeInTicks);
-        //this.animate(pEntity.fireballAnimationState, DevilAnimation.ATTACK_RANGE, pAgeInTicks); //todo
+        this.animate(pEntity.throwAnimationState, DevilAnimation.ATTACK_RANGE, pAgeInTicks);
     }
 
     private void animateWalk(float pLimbSwing, float pLimbSwingAmount) {
         float f = Math.min(0.5F, 3.0F * pLimbSwingAmount);
         float f1 = pLimbSwing * 0.8662F;
-        float f2 = Mth.cos(f1);
-        float f3 = Mth.sin(f1);
-        this.leftLeg.xRot = pLimbSwingAmount * f2 * f;
-        this.rightLeg.xRot = pLimbSwingAmount * Mth.cos(f1 + (float) Math.PI) * f;
-        this.leftArm.xRot = -(0.6F * f2 * f);
-        this.leftArm.zRot = 0.0F;
-        this.rightArm.xRot = -(0.6F * f3 * f);
-        this.rightArm.zRot = 0.0F;
-
         this.leftWing.yRot = -0.45f;
         this.rightWing.yRot = 0.45f;
         this.leftWing.yRot -= (0.65F * Mth.cos(f1 + (float) Math.PI) * f);

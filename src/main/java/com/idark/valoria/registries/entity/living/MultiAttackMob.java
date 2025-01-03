@@ -149,6 +149,7 @@ public abstract class MultiAttackMob extends PathfinderMob{
             MultiAttackMob.this.preparingTickCount = this.getPreparingTime();
             this.nextAttackTickCount = MultiAttackMob.this.tickCount + this.getAttackInterval();
             SoundEvent soundevent = this.getPrepareSound();
+            this.onPrepare();
             if (soundevent != null) {
                 MultiAttackMob.this.playSound(soundevent, 1.0F, 1.0F);
             }
@@ -164,6 +165,8 @@ public abstract class MultiAttackMob extends PathfinderMob{
                 MultiAttackMob.this.playSound(MultiAttackMob.this.getPreparingSound(), 1.0F, 1.0F);
             }
         }
+
+        public abstract void onPrepare();
 
         protected abstract void performAttack();
 

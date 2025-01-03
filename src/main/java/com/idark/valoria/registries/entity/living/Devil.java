@@ -4,11 +4,6 @@ import com.idark.valoria.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.entity.ai.goals.*;
 import com.idark.valoria.registries.entity.projectile.*;
-import com.idark.valoria.util.*;
-import mod.maxbogomol.fluffy_fur.client.particle.*;
-import mod.maxbogomol.fluffy_fur.client.particle.data.*;
-import mod.maxbogomol.fluffy_fur.registry.client.*;
-import net.minecraft.core.particles.*;
 import net.minecraft.nbt.*;
 import net.minecraft.sounds.*;
 import net.minecraft.util.*;
@@ -20,23 +15,27 @@ import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
-import net.minecraft.world.phys.*;
-import net.minecraftforge.api.distmarker.*;
 
 import javax.annotation.*;
 import java.util.*;
 
 public class Devil extends AbstractDevil implements RangedAttackMob{
-    public static final AttackRegistry FIRE_RAY = new AttackRegistry(Valoria.ID, "fire_ray");
+    public static final AttackRegistry THROW = new AttackRegistry(Valoria.ID, "throw");
     public final AnimationState idleAnimationState = new AnimationState();
-    public AnimationState fireballAnimationState = new AnimationState();
-    private int idleAnimationTimeout = 0;
+    public AnimationState throwAnimationState = new AnimationState();
+    public int idleAnimationTimeout = 0;
+    public int throwAnimationTimeout = 0;
     public Devil(EntityType<? extends Devil> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }
 
     public void handleEntityEvent(byte pId) {
-        if (pId == 62) this.fireballAnimationState.start(this.tickCount);
+        if (pId == 62 && throwAnimationTimeout <= 0) {
+            this.throwAnimationTimeout = 40;
+            this.idleAnimationState.stop();
+            this.throwAnimationState.start(this.tickCount);
+        }
+
         super.handleEntityEvent(pId);
     }
 
@@ -52,6 +51,7 @@ public class Devil extends AbstractDevil implements RangedAttackMob{
             this.idleAnimationTimeout = 120;
             this.idleAnimationState.start(this.tickCount);
         } else {
+            --this.throwAnimationTimeout;
             --this.idleAnimationTimeout;
         }
     }
@@ -77,7 +77,7 @@ public class Devil extends AbstractDevil implements RangedAttackMob{
     protected void registerGoals(){
         super.registerGoals();
         this.goalSelector.addGoal(0, new MeleeAttackGoal(this, 1, false));
-        this.goalSelector.addGoal(0, new ThrowSpearGoal(this, 1.0D, 10.0F));
+        this.goalSelector.addGoal(0, new ThrowSpearGoal(this, 1.0D, 15.0F));
         this.goalSelector.addGoal(0, new ReasonableAvoidEntityGoal<>(this, Player.class, 15, 1.25, 2, isLowHP()));
 
         this.goalSelector.addGoal(1, new MoveTowardsTargetGoal(this, 0.9D, 32.0F));
@@ -126,26 +126,22 @@ public class Devil extends AbstractDevil implements RangedAttackMob{
          */
         public boolean canUse() {
             LivingEntity livingentity = this.mob.getTarget();
-            if (livingentity != null && livingentity.isAlive()) {
+            if (livingentity == null) return false;
+            if (livingentity.isAlive()) {
                 this.target = livingentity;
-                return true;
-            } else {
-                return false;
+                return this.mob.distanceToSqr(this.target.getX(), this.target.getY(), this.target.getZ()) > 7.5;
             }
-        }
-        @Override
-        public void start(){
-            super.start();
-            Devil.this.getNavigation().stop();
+
+            return false;
         }
 
         @Override
         protected void performAttack(){
             double d0 = this.mob.distanceToSqr(this.target.getX(), this.target.getY(), this.target.getZ());
             boolean flag = this.mob.getSensing().hasLineOfSight(this.target);
-            if (flag) {
+            if(flag){
                 ++this.seeTime;
-            } else {
+            }else{
                 this.seeTime = 0;
             }
 
@@ -153,14 +149,6 @@ public class Devil extends AbstractDevil implements RangedAttackMob{
             float f1 = Mth.clamp(f, 0.1F, 1.0F);
             this.rangedAttackMob.performRangedAttack(this.target, f1);
             this.mob.getLookControl().setLookAt(this.target, 30.0F, 30.0F);
-        }
-
-        @OnlyIn(Dist.CLIENT)
-        public ParticleOptions getParticles() {
-            return ParticleBuilder.create(FluffyFurParticles.WISP)
-            .setColorData(ColorParticleData.create(Pal.amber).build())
-            .randomVelocity(0.5f)
-            .getParticleOptions();
         }
 
         @Override
@@ -174,29 +162,21 @@ public class Devil extends AbstractDevil implements RangedAttackMob{
 
             super.tick();
             this.mob.getLookControl().setLookAt(this.target.position());
-            if(this.attackWarmupDelay == 0){
-                Vec3 vec3 = this.mob.position().add(0.0D, 1.6F, 0.0D);
-                Vec3 vec31 = this.mob.getTarget().getEyePosition().subtract(vec3);
-                Vec3 vec32 = vec31.normalize();
-                if(this.mob.level().isClientSide()){
-                    for(int i = 1; i < Mth.floor(vec31.length()) + 7; ++i){
-                        Vec3 vec33 = vec3.add(vec32.scale(i));
-                        this.mob.level().addParticle(getParticles(), vec33.x, vec33.y, vec33.z, 0.0D, 0.0D, 0.0D);
-                    }
-                }
+        }
 
-                Devil.this.level().broadcastEntityEvent(Devil.this, (byte) 62);
-            }
+        @Override
+        public void onPrepare(){
+            Devil.this.level().broadcastEntityEvent(Devil.this, (byte) 62);
         }
 
         @Override
         public int getPreparingTime(){
-            return 120;
+            return 25;
         }
 
         @Override
         public int getAttackInterval(){
-            return 400;
+            return 350;
         }
 
         @Override
@@ -206,7 +186,7 @@ public class Devil extends AbstractDevil implements RangedAttackMob{
 
         @Override
         public AttackRegistry getAttack(){
-            return FIRE_RAY;
+            return THROW;
         }
     }
 }
