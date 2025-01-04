@@ -7,6 +7,7 @@ import net.minecraft.sounds.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.level.*;
+import net.minecraft.world.level.pathfinder.*;
 
 import javax.annotation.*;
 import java.util.*;
@@ -70,6 +71,11 @@ public abstract class MultiAttackMob extends PathfinderMob{
     public void setCurrentAttack(AttackRegistry pCurrentAttack) {
         this.currentAttack = pCurrentAttack;
         this.entityData.set(DATA_ID, pCurrentAttack.getId());
+    }
+
+    public boolean cantReachTarget(LivingEntity target) {
+        Path path = navigation.createPath(target, 1);
+        return path == null || navigation.isDone();
     }
 
     public class PrepareGoal extends Goal{
@@ -144,6 +150,7 @@ public abstract class MultiAttackMob extends PathfinderMob{
          * Execute a one shot task or start executing a continuous task
          */
         public void start() {
+            MultiAttackMob.this.setAggressive(true);
             MultiAttackMob.this.setCurrentAttack(this.getAttack());
             this.attackWarmupDelay = this.adjustedTickDelay(this.getPreparingTime());
             MultiAttackMob.this.preparingTickCount = this.getPreparingTime();
@@ -153,6 +160,12 @@ public abstract class MultiAttackMob extends PathfinderMob{
             if (soundevent != null) {
                 MultiAttackMob.this.playSound(soundevent, 1.0F, 1.0F);
             }
+        }
+
+        @Override
+        public void stop(){
+            MultiAttackMob.this.setAggressive(false);
+            super.stop();
         }
 
         /**

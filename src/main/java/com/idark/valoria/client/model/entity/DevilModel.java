@@ -75,6 +75,7 @@ public class DevilModel<T extends Devil> extends HierarchicalModel<T> implements
         this.animateIdlePose(pAgeInTicks);
         this.animate(pEntity.idleAnimationState, DevilAnimation.IDLE, pAgeInTicks);
         this.animate(pEntity.throwAnimationState, DevilAnimation.ATTACK_RANGE, pAgeInTicks);
+        this.animate(pEntity.magicAnimationState, DevilAnimation.ATTACK_MAGIC, pAgeInTicks);
     }
 
     private void animateWalk(float pLimbSwing, float pLimbSwingAmount) {

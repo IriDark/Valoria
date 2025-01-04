@@ -4,27 +4,38 @@ import com.idark.valoria.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.entity.ai.goals.*;
 import com.idark.valoria.registries.entity.projectile.*;
+import com.idark.valoria.util.*;
 import net.minecraft.nbt.*;
 import net.minecraft.sounds.*;
 import net.minecraft.util.*;
 import net.minecraft.world.*;
+import net.minecraft.world.damagesource.*;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.*;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier.*;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.*;
 import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.player.*;
+import net.minecraft.world.entity.projectile.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
+import net.minecraft.world.phys.*;
 
 import javax.annotation.*;
 import java.util.*;
 
 public class Devil extends AbstractDevil implements RangedAttackMob{
+    public static final AttackRegistry MAGIC = new AttackRegistry(Valoria.ID, "magic");
     public static final AttackRegistry THROW = new AttackRegistry(Valoria.ID, "throw");
     public final AnimationState idleAnimationState = new AnimationState();
     public AnimationState throwAnimationState = new AnimationState();
+    public AnimationState magicAnimationState = new AnimationState();
     public int idleAnimationTimeout = 0;
     public int throwAnimationTimeout = 0;
+    public int magicAnimationTimeout = 0;
+    public int hits = 0;
+
     public Devil(EntityType<? extends Devil> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }
@@ -34,6 +45,12 @@ public class Devil extends AbstractDevil implements RangedAttackMob{
             this.throwAnimationTimeout = 40;
             this.idleAnimationState.stop();
             this.throwAnimationState.start(this.tickCount);
+        }
+
+        if (pId == 61 && magicAnimationTimeout <= 0) {
+            this.magicAnimationTimeout = 80;
+            this.idleAnimationState.stop();
+            this.magicAnimationState.start(this.tickCount);
         }
 
         super.handleEntityEvent(pId);
@@ -48,17 +65,33 @@ public class Devil extends AbstractDevil implements RangedAttackMob{
 
     private void setupAnimationStates() {
         if (this.idleAnimationTimeout <= 0) {
-            this.idleAnimationTimeout = 120;
+            this.idleAnimationTimeout = 60;
             this.idleAnimationState.start(this.tickCount);
         } else {
             --this.throwAnimationTimeout;
             --this.idleAnimationTimeout;
+            //--this.magicAnimationTimeout;
         }
     }
 
     // panic reason
     public final boolean isLowHP() {
         return this.getHealth() < 10;
+    }
+
+    @Override
+    public boolean hurt(DamageSource pSource, float pAmount){
+        if (!this.level().isClientSide() && hits < 4){
+            hits++;
+            amplifyStats();
+        }
+
+        return super.hurt(pSource, pAmount);
+    }
+
+    private void amplifyStats() {
+        this.getAttribute(Attributes.ATTACK_DAMAGE).addTransientModifier(new AttributeModifier("modifier", this.level().getDifficulty().getId() * 0.5f, Operation.ADDITION));
+        this.getAttribute(Attributes.MOVEMENT_SPEED).addTransientModifier(new AttributeModifier("modifier", 0.025f, Operation.MULTIPLY_TOTAL));
     }
 
     protected void populateDefaultEquipmentSlots(RandomSource pRandom, DifficultyInstance pDifficulty) {
@@ -77,15 +110,16 @@ public class Devil extends AbstractDevil implements RangedAttackMob{
     protected void registerGoals(){
         super.registerGoals();
         this.goalSelector.addGoal(0, new MeleeAttackGoal(this, 1, false));
-        this.goalSelector.addGoal(0, new ThrowSpearGoal(this, 1.0D, 15.0F));
-        this.goalSelector.addGoal(0, new ReasonableAvoidEntityGoal<>(this, Player.class, 15, 1.25, 2, isLowHP()));
+//        this.goalSelector.addGoal(0, new MagicAttackGoal(this, 1.0D));
+        this.goalSelector.addGoal(0, new ThrowSpearGoal(this, 1.0D, 12.0F));
+        this.goalSelector.addGoal(0, new ReasonableAvoidEntityGoal<>(this, Player.class, 16, 1.25, 2, isLowHP()));
 
-        this.goalSelector.addGoal(1, new MoveTowardsTargetGoal(this, 0.9D, 32.0F));
+        this.goalSelector.addGoal(1, new MoveTowardsTargetGoal(this, 0.9D, 12.0F));
         this.goalSelector.addGoal(2, new WaterAvoidingRandomStrollGoal(this, 1.2));
         this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(4, new RandomStrollGoal(this, 1.2));
+        this.goalSelector.addGoal(0, new LookAtPlayerGoal(this, Player.class, 8.0F));
 
-        this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
+        this.targetSelector.addGoal(0, new HurtByTargetGoal(this).setAlertOthers(Devil.class));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true));
     }
 
@@ -102,12 +136,100 @@ public class Devil extends AbstractDevil implements RangedAttackMob{
         this.level().addFreshEntity(spear);
     }
 
+//    public class MagicAttackGoal extends AttackGoal{
+//        private final Devil mob;
+//        private LivingEntity target;
+//        private final double speedModifier;
+//        private int seeTime;
+//
+//        public MagicAttackGoal(Devil mob, double pSpeedModifier){
+//            this.mob = mob;
+//            this.speedModifier = pSpeedModifier;
+//            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
+//        }
+//
+//        /**
+//         * Returns whether execution should begin. You can also read and cache any state necessary for execution in this
+//         * method as well.
+//         */
+//        public boolean canUse() {
+//            LivingEntity livingentity = this.mob.getTarget();
+//            if (livingentity == null) return false;
+//            if (livingentity.isAlive()) {
+//                this.target = livingentity;
+//                return this.mob.distanceToSqr(this.target.getX(), this.target.getY(), this.target.getZ()) > 5;
+//            }
+//
+//            return false;
+//        }
+//
+//        @Override
+//        public void onPrepare(){
+//            mob.level().broadcastEntityEvent(Devil.this, (byte) 61);
+//        }
+//
+//        @Override
+//        protected void performAttack(){
+//            boolean flag = this.mob.getSensing().hasLineOfSight(this.target);
+//            if(flag){
+//                ++this.seeTime;
+//            }else{
+//                this.seeTime = 0;
+//            }
+//
+//            Level level = mob.level();
+//            for(BlockPos pos : BlockPos.randomInCube(mob.random, 16, target.getOnPos().above(), 8)) {
+//                Block block = level.getBlockState(pos.below()).getBlock();
+//                if(block != Blocks.AIR){
+//                    if(level instanceof ServerLevel server){
+//                        PacketHandler.sendToTracking(server, pos, new BeastAttackParticlePacket(pos.getX(), pos.getY(), pos.getZ(), Pal.infernal));
+//                        level.setBlock(pos, Blocks.FIRE.defaultBlockState(), 2);
+//                    }
+//                }
+//            }
+//
+//            this.mob.getLookControl().setLookAt(this.target, 30.0F, 30.0F);
+//        }
+//
+//        @Override
+//        public void tick(){
+//            double d0 = this.mob.distanceToSqr(this.target.getX(), this.target.getY(), this.target.getZ());
+//            if (d0 > 7.5f && this.seeTime >= 5) {
+//                this.mob.getNavigation().stop();
+//            } else {
+//                this.mob.getNavigation().moveTo(this.target, this.speedModifier);
+//            }
+//
+//            super.tick();
+//            this.mob.getLookControl().setLookAt(this.target.position());
+//        }
+//
+//        @Override
+//        public int getPreparingTime(){
+//            return 60;
+//        }
+//
+//        @Override
+//        public int getAttackInterval(){
+//            return 500;
+//        }
+//
+//        @Override
+//        public SoundEvent getPrepareSound(){
+//            return SoundsRegistry.BLAZECHARGE.get();
+//        }
+//
+//        @Override
+//        public AttackRegistry getAttack(){
+//            return MAGIC;
+//        }
+//    }
+
     public class ThrowSpearGoal extends AttackGoal {
         private final Mob mob;
         private final RangedAttackMob rangedAttackMob;
         private LivingEntity target;
         private final double speedModifier;
-        private int seeTime;
         private final float attackRadius;
         private final float attackRadiusSqr;
 
@@ -120,6 +242,10 @@ public class Devil extends AbstractDevil implements RangedAttackMob{
             this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
         }
 
+        public boolean requiresUpdateEveryTick() {
+            return true;
+        }
+
         /**
          * Returns whether execution should begin. You can also read and cache any state necessary for execution in this
          * method as well.
@@ -127,9 +253,9 @@ public class Devil extends AbstractDevil implements RangedAttackMob{
         public boolean canUse() {
             LivingEntity livingentity = this.mob.getTarget();
             if (livingentity == null) return false;
-            if (livingentity.isAlive()) {
+            if (livingentity.isAlive() && super.canUse()) {
                 this.target = livingentity;
-                return this.mob.distanceToSqr(this.target.getX(), this.target.getY(), this.target.getZ()) > 7.5;
+                return cantReachTarget(target) || this.mob.distanceToSqr(this.target.getX(), this.target.getY(), this.target.getZ()) > 7.5;
             }
 
             return false;
@@ -138,30 +264,71 @@ public class Devil extends AbstractDevil implements RangedAttackMob{
         @Override
         protected void performAttack(){
             double d0 = this.mob.distanceToSqr(this.target.getX(), this.target.getY(), this.target.getZ());
-            boolean flag = this.mob.getSensing().hasLineOfSight(this.target);
-            if(flag){
-                ++this.seeTime;
-            }else{
-                this.seeTime = 0;
-            }
-
             float f = (float)Math.sqrt(d0) / this.attackRadius;
             float f1 = Mth.clamp(f, 0.1F, 1.0F);
             this.rangedAttackMob.performRangedAttack(this.target, f1);
-            this.mob.getLookControl().setLookAt(this.target, 30.0F, 30.0F);
+        }
+
+        public boolean raytrace(Mob mob, Vec3 EndPos){
+            Vec3 pos = new Vec3(mob.getX(), mob.getY() + mob.getEyeHeight(), mob.getZ());
+            double pitch = ((mob.getRotationVector().x + 90) * Math.PI) / 180;
+            double yaw = ((mob.getRotationVector().y + 90) * Math.PI) / 180;
+            double X = Math.sin(pitch) * Math.cos(yaw) * 15;
+            double Y = Math.cos(pitch) * 15;
+            double Z = Math.sin(pitch) * Math.sin(yaw) * 15;
+            Vec3 playerPos = mob.getEyePosition();
+            if(ProjectileUtil.getEntityHitResult(mob, playerPos, EndPos, new AABB(pos.x + X - 3D, pos.y + Y - 3D, pos.z + Z - 3D, pos.x + X + 3D, pos.y + Y + 3D, pos.z + Z + 3D), (e) -> true, 15) == null){
+                HitResult hitresult = ValoriaUtils.getHitResult(playerPos, mob, (e) -> true, EndPos, mob.level());
+                if(hitresult != null){
+                    return switch(hitresult.getType()){
+                        case BLOCK, MISS -> false;
+                        case ENTITY -> true;
+                    };
+                }
+            }
+
+            return false;
+        }
+
+        private Vec3 getRandomPositionWithLineOfSight(Mob mob, LivingEntity target, int radius, int attempts) {
+            var random = mob.getRandom();
+            for (int i = 0; i < attempts; i++) {
+                double randomX = target.getX() + (random.nextDouble() - 0.5) * radius * 2;
+                double randomY = target.getY();
+                double randomZ = target.getZ() + (random.nextDouble() - 0.5) * radius * 2;
+
+                Vec3 randomPos = new Vec3(randomX, randomY, randomZ);
+                if (raytrace(mob, randomPos)) {
+                    return randomPos;
+                }
+            }
+
+            return null;
         }
 
         @Override
         public void tick(){
-            double d0 = this.mob.distanceToSqr(this.target.getX(), this.target.getY(), this.target.getZ());
-            if (!(d0 > (double)this.attackRadiusSqr) && this.seeTime >= 5) {
-                this.mob.getNavigation().stop();
-            } else {
-                this.mob.getNavigation().moveTo(this.target, this.speedModifier);
+            super.tick();
+            this.mob.getLookControl().setLookAt(this.target, 30.0F, 30.0F);
+            if(!canUse()) return;
+            if(cantReachTarget(target)) {
+                this.mob.getMoveControl().strafe(-0.5F, new ArcRandom().nextBoolean() ? 0.5F : -0.5F);
+                return;
             }
 
-            super.tick();
-            this.mob.getLookControl().setLookAt(this.target.position());
+            double d0 = this.mob.distanceToSqr(this.target.getX(), this.target.getY(), this.target.getZ());
+            if (!(d0 > (double)this.attackRadiusSqr) && this.mob.getSensing().hasLineOfSight(this.target)) {
+                this.mob.getNavigation().stop();
+                return;
+            } else if (!this.mob.getSensing().hasLineOfSight(this.target)){
+                Vec3 randomPos = getRandomPositionWithLineOfSight(this.mob, this.target, 12, 8);
+                if(randomPos != null){
+                    this.mob.getNavigation().moveTo(randomPos.x, randomPos.y, randomPos.z, this.speedModifier);
+                    return;
+                }
+            }
+
+            this.mob.getNavigation().moveTo(target, this.speedModifier);
         }
 
         @Override
@@ -176,7 +343,7 @@ public class Devil extends AbstractDevil implements RangedAttackMob{
 
         @Override
         public int getAttackInterval(){
-            return 350;
+            return 85;
         }
 
         @Override

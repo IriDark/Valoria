@@ -14,6 +14,7 @@ public class SoundsRegistry {
     public static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, Valoria.ID);
     public static final RegistryObject<SoundEvent> ENDURING = registerSound("music.valoria.enduring");
     public static final RegistryObject<SoundEvent> SHADED_LANDS = registerSound("music.valoria.shaded_lands");
+    public static final RegistryObject<SoundEvent> RISING = registerSound("music.valoria.rising");
 
     public static final RegistryObject<SoundEvent> HALLOWEEN_SLICE = registerSound("item.halloween_slice.use");
     public static final RegistryObject<SoundEvent> SWIFTSLICE = registerSound("item.swiftslice.use");

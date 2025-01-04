@@ -1,8 +1,20 @@
 {
+  "music.valoria.rising": {
+    "sounds": [
+      {
+        "name": "valoria:music/rising",
+        "stream": true
+      }
+    ]
+  },
   "music.valoria.enduring": {
      "sounds": [
        {
          "name": "valoria:music/enduring",
+         "stream": true
+       },
+       {
+         "name": "valoria:music/rising",
          "stream": true
        }
      ]
@@ -11,6 +23,10 @@
     "sounds": [
       {
         "name": "valoria:music/shaded_lands",
+        "stream": true
+      },
+      {
+        "name": "valoria:music/rising",
         "stream": true
       }
     ]

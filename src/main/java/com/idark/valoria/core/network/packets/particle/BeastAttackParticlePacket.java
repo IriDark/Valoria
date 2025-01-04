@@ -2,7 +2,6 @@ package com.idark.valoria.core.network.packets.particle;
 
 import com.idark.valoria.*;
 import com.idark.valoria.client.particle.*;
-import com.idark.valoria.util.*;
 import mod.maxbogomol.fluffy_fur.client.particle.*;
 import mod.maxbogomol.fluffy_fur.client.particle.data.*;
 import mod.maxbogomol.fluffy_fur.common.easing.*;
@@ -38,7 +37,7 @@ public class BeastAttackParticlePacket{
                 Level level = Valoria.proxy.getLevel();
                 ParticleBuilder.create(ParticleRegistry.SMOKE)
                 .setRenderType(FluffyFurRenderTypes.TRANSLUCENT_PARTICLE)
-                .setColorData(ColorParticleData.create(ColorUtil.valueOf("66b4a3"), Pal.vividGreen).setEasing(Easing.BOUNCE_IN).build())
+                .setColorData(ColorParticleData.create(new Color(msg.colorR, msg.colorG, msg.colorB), new Color(msg.colorR, msg.colorG, msg.colorB).darker()).setEasing(Easing.BOUNCE_IN).build())
                 .setTransparencyData(GenericParticleData.create().setRandomValue(1, 0.0f).setEasing(Easing.CUBIC_OUT).build())
                 .setScaleData(GenericParticleData.create(0.7f, 0.4f, 0f).build())
                 .setLifetime(95 + level.random.nextInt(100))
