@@ -52,7 +52,7 @@ public class PhantomItem extends SwordItem implements RadiusItem {
         RandomSource rand = level.getRandom();
         Player player = (Player) entityLiving;
         player.awardStat(Stats.ITEM_USED.get(this));
-        player.getCooldowns().addCooldown(this, 450);
+        player.getCooldowns().addCooldown(this, 0);
         float damage = (float) (player.getAttributeValue(Attributes.ATTACK_DAMAGE)) + EnchantmentHelper.getSweepingDamageRatio(player);
 
         Vector3d pos = new Vector3d(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());
@@ -80,8 +80,7 @@ public class PhantomItem extends SwordItem implements RadiusItem {
             }
 
             entityInRadius.hurt(level.damageSources().playerAttack(player), (damage + EnchantmentHelper.getDamageBonus(stack, entityInRadius.getMobType())) * 1.35f);
-            entityInRadius.moveTo(player.getX(), player.getY(), player.getZ(), player.getYRot(), player.getXRot());
-            entityInRadius.knockback(1f, entityInRadius.getX() + 2f, entityInRadius.getZ() + 2f);
+            entityInRadius.setDeltaMovement((player.getX() - entityInRadius.getX()) * 0.06, 0.1D, (player.getZ() - entityInRadius.getZ()) * 0.06);
             if (EnchantmentHelper.getTagEnchantmentLevel(Enchantments.FIRE_ASPECT, stack) > 0) {
                 int e = EnchantmentHelper.getFireAspect(player);
                 entityInRadius.setSecondsOnFire(e * 4);
