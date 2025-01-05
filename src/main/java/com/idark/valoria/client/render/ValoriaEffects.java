@@ -18,21 +18,45 @@ import net.minecraftforge.api.distmarker.*;
 import org.jetbrains.annotations.*;
 import org.joml.*;
 
+import javax.annotation.Nullable;
 import java.lang.Math;
 
 @OnlyIn(Dist.CLIENT)
 public class ValoriaEffects extends DimensionSpecialEffects{
-    private static final ResourceLocation ARETHEA_LOCATION = new ResourceLocation(Valoria.ID,"textures/environment/arethea.png");
+    private final float[] sunriseCol = new float[4];
+    private static final ResourceLocation ARETHEA_LOCATION = new ResourceLocation(Valoria.ID, "textures/environment/arethea.png");
     private static final ResourceLocation EARTH_LOCATION = new ResourceLocation(Valoria.ID, "textures/environment/earth.png");
 
     private static final ResourceLocation MOON_LOCATION = new ResourceLocation("textures/environment/moon_phases.png");
+
     public ValoriaEffects(){
         super(192, true, SkyType.NORMAL, false, false);
     }
 
+    public boolean renderClouds(ClientLevel level, int ticks, float partialTick, PoseStack poseStack, double camX, double camY, double camZ, Matrix4f projectionMatrix){
+        return true;
+    }
+
+    @Nullable
+    public float[] getSunriseColor(float pTimeOfDay, float pPartialTicks){
+        float f1 = Mth.cos(pTimeOfDay * ((float)Math.PI * 2F)) - 0.0F;
+        if(f1 >= -0.4F && f1 <= 0.4F){
+            float f3 = (f1 - -0.0F) / 0.4F * 0.5F + 0.5F;
+            float f4 = 1.0F - (1.0F - Mth.sin((f3 * 0.25f) * (float)Math.PI)) * 0.8F;
+            f4 *= f4;
+            this.sunriseCol[0] = f3 * 0.2F + 0.35F;
+            this.sunriseCol[1] = f3;
+            this.sunriseCol[2] = 0.75f;
+            this.sunriseCol[3] = f4;
+            return this.sunriseCol;
+        }
+
+        return null;
+    }
+
     @NotNull
     public Vec3 getBrightnessDependentFogColor(Vec3 p_108908_, float p_108909_){
-        return p_108908_.multiply(p_108909_ * 0.94F + 0.06F, p_108909_ * 0.94F + 0.06F, p_108909_ * 0.91F + 0.09F);
+        return p_108908_.multiply(p_108909_ * 0.155F, p_108909_ * 0.05F, p_108909_ * 0.065F);
     }
 
     public boolean isFoggyAt(int p_108905_, int p_108906_){
@@ -68,7 +92,7 @@ public class ValoriaEffects extends DimensionSpecialEffects{
                 renderer.skyBuffer.drawWithShader(pPoseStack.last().pose(), pProjectionMatrix, shaderinstance);
                 VertexBuffer.unbind();
                 RenderSystem.enableBlend();
-                float[] afloat = level.effects().getSunriseColor(level.getTimeOfDay(pPartialTick), pPartialTick);
+                float[] afloat = getSunriseColor(level.getTimeOfDay(pPartialTick), pPartialTick);
                 if(afloat != null){
                     RenderSystem.setShader(GameRenderer::getPositionColorShader);
                     RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);

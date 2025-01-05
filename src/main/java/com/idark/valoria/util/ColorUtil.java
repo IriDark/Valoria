@@ -1,5 +1,7 @@
 package com.idark.valoria.util;
 
+import net.minecraft.world.phys.*;
+
 import java.awt.*;
 
 // todo move to lib
@@ -38,6 +40,10 @@ public class ColorUtil {
 
     public static int colorToDecimal(Color color) {
         return Integer.parseInt(getHex(color), 16);
+    }
+
+    public static Vec3 toVec3(Color color) {
+        return new Vec3((double)color.getRed() / 255, (double)color.getGreen() / 255, (double)color.getBlue() / 255);
     }
 
     public static String getHex(int r, int g, int b) {

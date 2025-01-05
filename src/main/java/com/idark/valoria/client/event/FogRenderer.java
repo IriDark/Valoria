@@ -18,6 +18,8 @@ public class FogRenderer {
         @SubscribeEvent
         public static void onFogRender(ViewportEvent.RenderFog e) {
             Entity entity = e.getCamera().getEntity();
+
+            //was planned as day night cycle, however day was planned a bit lighter than overall Valoria env without fog, while night's will be dark and foggy (dredge reference omg)
             if (entity.level().dimension() == LevelGen.VALORIA_KEY) {
                 long time = entity.level().getDayTime() % 24000;
                 float startFadeTime = 8000;

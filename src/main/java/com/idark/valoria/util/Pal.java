@@ -35,6 +35,7 @@ public class Pal{
     darkPuce = ColorUtil.valueOf("4e293c"),
     temptress = ColorUtil.valueOf("331a28"),
     smokyBlack = ColorUtil.valueOf("10020d"),
+    valoriaSky = ColorUtil.valueOf("020102"),
 
     mindaro = ColorUtil.valueOf("d0ff75"),
     kiwi = ColorUtil.valueOf("8cdc2d"),

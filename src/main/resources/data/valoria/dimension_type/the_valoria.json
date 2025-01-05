@@ -9,7 +9,6 @@
   "has_ceiling": false,
   "coordinate_scale": 1,
   "ambient_light": 0.2,
-  "fixed_time": 16000,
   "logical_height": 384,
   "effects": "valoria:valoria_sky",
   "infiniburn": "#minecraft:infiniburn_overworld",
