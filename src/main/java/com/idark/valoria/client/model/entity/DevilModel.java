@@ -76,6 +76,9 @@ public class DevilModel<T extends Devil> extends HierarchicalModel<T> implements
         this.animate(pEntity.idleAnimationState, DevilAnimation.IDLE, pAgeInTicks);
         this.animate(pEntity.throwAnimationState, DevilAnimation.ATTACK_RANGE, pAgeInTicks);
         this.animate(pEntity.magicAnimationState, DevilAnimation.ATTACK_MAGIC, pAgeInTicks);
+        if (this.attackTime > 0) {
+            AnimationUtils.swingWeaponDown(rightArm, leftArm, pEntity, this.attackTime * 0.75f, pAgeInTicks);
+        }
     }
 
     private void animateWalk(float pLimbSwing, float pLimbSwingAmount) {

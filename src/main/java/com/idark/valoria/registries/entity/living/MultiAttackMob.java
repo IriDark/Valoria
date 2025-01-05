@@ -73,9 +73,13 @@ public abstract class MultiAttackMob extends PathfinderMob{
         this.entityData.set(DATA_ID, pCurrentAttack.getId());
     }
 
+    public boolean isFleeing(Mob mob, float dist) {
+        return mob.getNavigation().getPath() != null && mob.getNavigation().getPath().getDistToTarget() > dist;
+    }
+
     public boolean cantReachTarget(LivingEntity target) {
         Path path = navigation.createPath(target, 1);
-        return path == null || navigation.isDone();
+        return path == null;
     }
 
     public class PrepareGoal extends Goal{

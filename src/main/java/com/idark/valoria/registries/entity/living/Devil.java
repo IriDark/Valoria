@@ -255,7 +255,7 @@ public class Devil extends AbstractDevil implements RangedAttackMob{
             if (livingentity == null) return false;
             if (livingentity.isAlive() && super.canUse()) {
                 this.target = livingentity;
-                return cantReachTarget(target) || this.mob.distanceToSqr(this.target.getX(), this.target.getY(), this.target.getZ()) > 7.5;
+                return cantReachTarget(target) || isFleeing(mob, 5);
             }
 
             return false;
