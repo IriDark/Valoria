@@ -18,7 +18,9 @@ public class ClientLevelMixin{
         Level level = Minecraft.getInstance().player.level();
         if(level.dimension() == LevelGen.VALORIA_KEY) {
             float f = level.getTimeOfDay(pPartialTick) % 24000;
-            cir.setReturnValue(ColorUtil.toVec3(f > 9000 ? Pal.smokyBlack: Pal.valoriaSky));
+            if (f > 9000){
+                cir.setReturnValue(ColorUtil.toVec3(Pal.valoriaSky));
+            }
         }
     }
 }

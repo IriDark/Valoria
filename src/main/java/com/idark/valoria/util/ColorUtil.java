@@ -34,6 +34,10 @@ public class ColorUtil {
         return ((int) (alpha * 255.0F) & 255) << 24 | ((int) (red * 255.0F) & 255) << 16 | ((int) (green * 255.0F) & 255) << 8 | (int) (blue * 255.0F) & 255;
     }
 
+    public static int packColor(Color color) {
+        return (color.getRed() << 16) | (color.getGreen() << 8) | color.getBlue();
+    }
+
     public static int hexToDecimal(String hex) {
         return Integer.parseInt(hex, 16);
     }
