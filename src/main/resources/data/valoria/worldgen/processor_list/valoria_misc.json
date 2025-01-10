@@ -1,0 +1,74 @@
+{
+  "processors": [
+    {
+      "processor_type": "minecraft:rule",
+      "rules": [
+        {
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "input_predicate": {
+            "predicate_type": "minecraft:random_block_match",
+            "block": "valoria:void_brick",
+            "probability": 0.2
+          },
+          "output_state": {
+            "Name": "minecraft:void_stone_wall"
+          }
+        },
+        {
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "input_predicate": {
+            "predicate_type": "minecraft:random_block_match",
+            "block": "valoria:void_brick",
+            "probability": 0.1
+          },
+          "output_state": {
+            "Name": "minecraft:void_stone"
+          }
+        },
+        {
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "input_predicate": {
+            "predicate_type": "minecraft:random_block_match",
+            "block": "valoria:void_brick",
+            "probability": 0.1
+          },
+          "output_state": {
+            "Name": "minecraft:void_taint"
+          }
+        },
+        {
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "input_predicate": {
+            "predicate_type": "minecraft:random_block_match",
+            "block": "minecraft:void_brick",
+            "probability": 0.005
+          },
+          "output_state": {
+            "Name": "minecraft:air"
+          }
+        },
+        {
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "input_predicate": {
+            "predicate_type": "minecraft:random_block_match",
+            "block": "valoria:void_brick",
+            "probability": 0.25
+          },
+          "output_state": {
+            "Name": "valoria:void_cracked_brick"
+          }
+        }
+      ]
+    }
+  ]
+}

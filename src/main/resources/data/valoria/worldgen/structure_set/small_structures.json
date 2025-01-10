@@ -5,6 +5,10 @@
       "weight": 2
     },
     {
+      "structure": "valoria:tower",
+      "weight": 1
+    },
+    {
       "structure": "valoria:medium_crypt",
       "weight": 1
     },

@@ -1,8 +1,36 @@
 {
+  "music.valoria.arriving": {
+    "sounds": [
+      {
+        "name": "valoria:music/arriving",
+        "stream": true
+      }
+    ]
+  },
+  "music.valoria.blood_pole": {
+    "sounds": [
+      {
+        "name": "valoria:music/rising",
+        "stream": true
+      },
+      {
+        "name": "valoria:music/arriving",
+        "stream": true
+      },
+      {
+        "name": "valoria:music/blood_pole",
+        "stream": true
+      }
+    ]
+  },
   "music.valoria.rising": {
     "sounds": [
       {
         "name": "valoria:music/rising",
+        "stream": true
+      },
+      {
+        "name": "valoria:music/arriving",
         "stream": true
       }
     ]
@@ -16,6 +44,10 @@
        {
          "name": "valoria:music/rising",
          "stream": true
+       },
+       {
+         "name": "valoria:music/arriving",
+         "stream": true
        }
      ]
   },
@@ -27,6 +59,10 @@
       },
       {
         "name": "valoria:music/rising",
+        "stream": true
+      },
+      {
+        "name": "valoria:music/arriving",
         "stream": true
       }
     ]

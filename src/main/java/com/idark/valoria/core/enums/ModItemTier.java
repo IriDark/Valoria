@@ -10,9 +10,11 @@ import java.util.function.*;
 public enum ModItemTier implements Tier {
 
     NONE(0, 2031, 9.0F, 4.0F, 15, Ingredient::of),
+    BRONZE(2, 1048, 4.5F, 0f, 12,
+    () -> Ingredient.of(ItemsRegistry.cobaltIngot.get())),
     COBALT(4, 2048, 8.5F, 0f, 16,
             () -> Ingredient.of(ItemsRegistry.cobaltIngot.get())),
-    PEARLIUM(2, 325, 6.0F, 2.0F, 15,
+    PEARLIUM(3, 325, 6.0F, 2.0F, 15,
             () -> Ingredient.of(ItemsRegistry.pearliumIngot.get())),
     HOLIDAY(2, 740, 6.0F, 2.0F, 12,
             () -> Ingredient.of(ItemsRegistry.holidayCandy.get())),

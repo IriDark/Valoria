@@ -63,6 +63,7 @@ public class ValoriaClient {
     public static ModelLayerLocation THE_FALLEN_COLLECTOR_ARMOR_LAYER = addLayer(Valoria.ID, "the_fallen_collector_armor_layer");
     public static final Music ENDURING = new Music(SoundsRegistry.ENDURING.getHolder().get(), 20, 600, true);
     public static final Music SHADED_LANDS = new Music(SoundsRegistry.SHADED_LANDS.getHolder().get(), 20, 600, true);
+    public static final Music ARRIVING = new Music(SoundsRegistry.ARRIVING.getHolder().get(), 20, 600, true);
 
     public static TheFallenCollectorArmorModel THE_FALLEN_COLLECTOR_ARMOR = null;
 
@@ -97,6 +98,12 @@ public class ValoriaClient {
 
     @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     public static class RegistryEvents {
+
+        @SubscribeEvent
+        public static void registerMusicModifiers(FMLClientSetupEvent event) {
+            MusicHandler.register(new MusicModifier.Panorama(ARRIVING, ECOTONE_PANORAMA));
+        }
+
         @SubscribeEvent
         public static void RegisterDimensionEffects(RegisterDimensionSpecialEffectsEvent e) {
             e.register(new ResourceLocation(Valoria.ID, "valoria_sky"), new ValoriaEffects());
@@ -221,12 +228,7 @@ public class ValoriaClient {
             event.register(SPHERE);
             event.register(CYST);
         }
-
-        @SubscribeEvent
-        public static void registerMusicModifiers(FMLClientSetupEvent event){
-            MusicHandler.register(new MusicModifier.Panorama(ENDURING, ValoriaClient.ECOTONE_PANORAMA));
-        }
-
+        
         @SubscribeEvent
         public static void onRegisterLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
             event.registerLayerDefinition(ValoriaClient.NECKLACE_LAYER, NecklaceModel::createBodyLayer);

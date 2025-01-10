@@ -15,6 +15,8 @@ public class SoundsRegistry {
     public static final RegistryObject<SoundEvent> ENDURING = registerSound("music.valoria.enduring");
     public static final RegistryObject<SoundEvent> SHADED_LANDS = registerSound("music.valoria.shaded_lands");
     public static final RegistryObject<SoundEvent> RISING = registerSound("music.valoria.rising");
+    public static final RegistryObject<SoundEvent> ARRIVING = registerSound("music.valoria.arriving");
+    public static final RegistryObject<SoundEvent> BLOOD_POLE = registerSound("music.valoria.blood_pole");
 
     public static final RegistryObject<SoundEvent> HALLOWEEN_SLICE = registerSound("item.halloween_slice.use");
     public static final RegistryObject<SoundEvent> SWIFTSLICE = registerSound("item.swiftslice.use");
