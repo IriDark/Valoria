@@ -5,6 +5,7 @@ import net.minecraft.core.*;
 import net.minecraft.core.particles.*;
 import net.minecraft.sounds.*;
 import net.minecraft.util.*;
+import net.minecraft.world.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.item.context.*;
 import net.minecraft.world.level.*;
@@ -28,19 +29,21 @@ public class SpikeTrapBlock extends DirectionalBlock {
     }
 
     @Override
-    public void stepOn(Level level, BlockPos pos, BlockState state, Entity entityIn) {
-        RandomSource rand = level.getRandom();
-        Direction direction = state.getValue(DirectionalBlock.FACING);
-        BlockPos newPos = pos.offset(direction.getNormal());
-        BlockState spikeBlock = BlockRegistry.spikes.get().defaultBlockState().setValue(DirectionalBlock.FACING, direction);
-        if (!level.getBlockState(newPos).isSolid()) {
-            level.setBlockAndUpdate(newPos, spikeBlock);
-            level.scheduleTick(newPos, BlockRegistry.spikes.get(), 1);
-            level.setBlockAndUpdate(pos, this.state);
-            level.playSound(null, pos, SoundEvents.PISTON_EXTEND, SoundSource.BLOCKS, 0.3F, level.random.nextFloat() * 0.25F + 0.6F);
-            if (level.isClientSide()) {
-                for (int i = 0; i < 10; i++) {
-                    level.addParticle(ParticleTypes.POOF, pos.getX() + rand.nextDouble(), pos.getY() + 0.5D, pos.getZ() + rand.nextDouble(), 0d, 0.05d, 0d);
+    public void stepOn(Level level, BlockPos pos, BlockState state, Entity entityIn){
+        if(level.getDifficulty() != Difficulty.PEACEFUL){
+            RandomSource rand = level.getRandom();
+            Direction direction = state.getValue(DirectionalBlock.FACING);
+            BlockPos newPos = pos.offset(direction.getNormal());
+            BlockState spikeBlock = BlockRegistry.spikes.get().defaultBlockState().setValue(DirectionalBlock.FACING, direction);
+            if(!level.getBlockState(newPos).isSolid()){
+                level.setBlockAndUpdate(newPos, spikeBlock);
+                level.scheduleTick(newPos, BlockRegistry.spikes.get(), 1);
+                level.setBlockAndUpdate(pos, this.state);
+                level.playSound(null, pos, SoundEvents.PISTON_EXTEND, SoundSource.BLOCKS, 0.3F, level.random.nextFloat() * 0.25F + 0.6F);
+                if(level.isClientSide()){
+                    for(int i = 0; i < 10; i++){
+                        level.addParticle(ParticleTypes.POOF, pos.getX() + rand.nextDouble(), pos.getY() + 0.5D, pos.getZ() + rand.nextDouble(), 0d, 0.05d, 0d);
+                    }
                 }
             }
         }
