@@ -1,0 +1,32 @@
+{
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 80,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "valoria:necromancer_crypt/room1",
+        "processors": "valoria:crypt_archaeology"
+      }
+    },
+    {
+      "weight": 60,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "valoria:necromancer_crypt/room2",
+        "processors": "valoria:crypt_archaeology"
+      }
+    },
+    {
+      "weight": 40,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "valoria:necromancer_crypt/room_big",
+        "processors": "valoria:crypt_archaeology"
+      }
+    }
+  ]
+}

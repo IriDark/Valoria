@@ -1,0 +1,41 @@
+{
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 30,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "valoria:necromancer_crypt/walkside_connector",
+        "processors": "valoria:crypt_archaeology"
+      }
+    },
+    {
+      "weight": 80,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "valoria:necromancer_crypt/walkside1",
+        "processors": "valoria:crypt_archaeology"
+      }
+    },
+    {
+      "weight": 90,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "valoria:necromancer_crypt/walkside2",
+        "processors": "valoria:crypt_archaeology"
+      }
+    },
+    {
+      "weight": 75,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "valoria:necromancer_crypt/walkside3",
+        "processors": "valoria:crypt_archaeology"
+      }
+    }
+  ]
+}

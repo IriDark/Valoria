@@ -1,0 +1,22 @@
+{
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 20083232,
+    "separation": 8,
+    "spacing": 24
+  },
+  "structures": [
+    {
+      "structure": "valoria:crypt",
+      "weight": 30
+    },
+    {
+      "structure": "valoria:medium_crypt",
+      "weight": 15
+    },
+    {
+      "structure": "valoria:necromancer_crypt",
+      "weight": 5
+    }
+  ]
+}

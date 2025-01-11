@@ -71,7 +71,7 @@ public class FireTrapBlock extends Block {
             } else {
                 level.playSound(null, pos, SoundEvents.FIREWORK_ROCKET_BLAST, SoundSource.BLOCKS, 0.3F, level.getRandom().nextFloat() * 0.25F + 0.6F);
                 if (level instanceof ServerLevel serverLevel) {
-                    PacketHandler.sendToTracking(serverLevel, pos, new FireTrapParticlePacket(pos.getCenter().x, pos.getY(), pos.getCenter().z, color.r1, color.g1, color.b1, color.r2, color.g2, color.b2));
+                    PacketHandler.sendToTracking(serverLevel, pos, new FireTrapParticlePacket(pos.getCenter().x, pos.getY(), pos.getCenter().z, (int)color.r1, (int)color.g1, (int)color.b1, (int)color.r2, (int)color.g2, (int)color.b2));
                     living.hurt(living.damageSources().inFire(), damage);
                     living.setSecondsOnFire(secondsOnFire);
                     if (!effects.isEmpty()) {
