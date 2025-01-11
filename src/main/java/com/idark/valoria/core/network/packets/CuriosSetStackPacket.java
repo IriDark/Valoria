@@ -23,53 +23,60 @@ public class CuriosSetStackPacket {
         return new CuriosSetStackPacket(buf.readItem());
     }
 
+    //todo maybe improve this, to find an empty slot first?
     public static void handle(CuriosSetStackPacket msg, Supplier<Context> ctx) {
         if (ctx.get().getDirection().getReceptionSide().isServer()) {
             ctx.get().enqueueWork(() -> {
                 ServerPlayer player = ctx.get().getSender();
                 if (player != null) {
-                    CuriosApi.getCurio(msg.stack).ifPresent(
-                            curio -> CuriosApi.getCuriosInventory(player).ifPresent(handler -> {
-                                Map<String, ICurioStacksHandler> curios = handler.getCurios();
-                                for (Map.Entry<String, ICurioStacksHandler> entry : curios.entrySet()) {
-                                    IDynamicStackHandler stackHandler = entry.getValue().getStacks();
-                                    for (int i = 0; i < stackHandler.getSlots(); i++) {
-                                        NonNullList<Boolean> renderStates = entry.getValue().getRenders();
-                                        SlotContext slotContext = new SlotContext(entry.getKey(), player, i, false, renderStates.size() > i && renderStates.get(i));
-
-                                        if (stackHandler.isItemValid(i, msg.stack) && curio.canEquipFromUse(slotContext)) {
-                                            ItemStack previous = stackHandler.getStackInSlot(i);
-                                            if (previous.getItem() != ItemsRegistry.jewelryBag.get()) {
-                                                List<ItemStack> items = player.getInventory().items;
-                                                for (ItemStack item : items) {
-                                                    if (item.equals(msg.stack, false)) {
-                                                        if (item.getOrCreateTag().toString().equals(msg.stack.getOrCreateTag().toString())) {
-                                                            if (!previous.isEmpty()) {
-                                                                ICurioItem previousCurio = (ICurioItem) previous.getItem();
-                                                                player.getInventory().setItem(player.getInventory().findSlotMatchingItem(item), previous);
-                                                                previousCurio.onUnequip(slotContext, item, previous);
-                                                                stackHandler.extractItem(i, previous.getCount(), false);
-                                                            }
-
-                                                            stackHandler.insertItem(i, item, false);
-                                                            curio.onEquipFromUse(slotContext);
-                                                            player.getInventory().removeItem(item);
+                    CuriosApi.getCurio(msg.stack).ifPresent(curio -> CuriosApi.getCuriosInventory(player).ifPresent(handler -> {
+                        Map<String, ICurioStacksHandler> curios = handler.getCurios();
+                        for(Map.Entry<String, ICurioStacksHandler> entry : curios.entrySet()){
+                            IDynamicStackHandler stackHandler = entry.getValue().getStacks();
+                            for(int i = 0; i < stackHandler.getSlots(); i++){
+                                NonNullList<Boolean> renderStates = entry.getValue().getRenders();
+                                SlotContext slotContext = new SlotContext(entry.getKey(), player, i, false, renderStates.size() > i && renderStates.get(i));
+                                if(stackHandler.isItemValid(i, msg.stack) && curio.canEquip(slotContext)){
+                                    ItemStack previous = stackHandler.getStackInSlot(i);
+                                    if(previous.getItem() != ItemsRegistry.jewelryBag.get()){
+                                        List<ItemStack> items = player.getInventory().items;
+                                        for(ItemStack item : items){
+                                            if(item.equals(msg.stack, false)){
+                                                if(item.getOrCreateTag().toString().equals(msg.stack.getOrCreateTag().toString())){
+                                                    if(!previous.isEmpty()){
+                                                        ICurioItem previousCurio = (ICurioItem)previous.getItem();
+                                                        if(previousCurio.canUnequip(slotContext, previous)){
+                                                            player.getInventory().setItem(player.getInventory().findSlotMatchingItem(item), previous);
+                                                            previousCurio.onUnequip(slotContext, item, previous);
+                                                            stackHandler.extractItem(i, previous.getCount(), false);
+                                                            equipCurio(curio, item, stackHandler, i, slotContext, player);
                                                             break;
                                                         }
+                                                    } else {
+                                                        equipCurio(curio, item, stackHandler, i, slotContext, player);
+                                                        break;
                                                     }
                                                 }
-
-                                                break;
                                             }
                                         }
+
+                                        break;
                                     }
                                 }
-                            }));
+                            }
+                        }
+                    }));
                 }
             });
 
             ctx.get().setPacketHandled(true);
         }
+    }
+
+    private static void equipCurio(ICurio curio, ItemStack item, IDynamicStackHandler stackHandler, int i, SlotContext slotContext, ServerPlayer player){
+        stackHandler.insertItem(i, item, false);
+        curio.onEquipFromUse(slotContext);
+        player.getInventory().removeItem(item);
     }
 
     public static void encode(CuriosSetStackPacket msg, FriendlyByteBuf buffer) {
