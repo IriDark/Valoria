@@ -2,6 +2,7 @@
   "type": "minecraft:jigsaw",
   "biomes": "#valoria:crypt_gen",
   "step": "surface_structures",
+  "terrain_adaptation": "beard_thin",
   "spawn_overrides": {
     "ambient": {
       "bounding_box": "full",
@@ -21,11 +22,12 @@
       ]
     }
   },
-  "start_pool": "valoria:crypt_pool",
-  "size": 1,
+  "start_pool": "valoria:crypt/entrance",
+  "size": 2,
   "start_height": {
-    "absolute": -7
+    "absolute": 0
   },
+
   "project_start_to_heightmap": "WORLD_SURFACE_WG",
   "max_distance_from_center": 80,
   "use_expansion_hack": false
