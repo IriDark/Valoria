@@ -19,7 +19,7 @@ public class EntityStatsRegistry{
     public static AttributeSupplier ENT = register(40, 9).build();
 
     //minions - overworld
-    public static AttributeSupplier UNDEAD = registerFlying(12, 8.25, 0.85).add(Attributes.FOLLOW_RANGE, 8).build();
+    public static AttributeSupplier UNDEAD = registerFlying(8, 2.5, 0.85).add(Attributes.FOLLOW_RANGE, 8).build();
 
     //monsters - nether
     public static AttributeSupplier DEVIL = register(40, 4).add(Attributes.FOLLOW_RANGE, 12).build();

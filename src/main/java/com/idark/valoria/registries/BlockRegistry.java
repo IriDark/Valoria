@@ -5,6 +5,7 @@ import com.idark.valoria.registries.block.types.*;
 import com.idark.valoria.registries.block.types.plants.*;
 import com.idark.valoria.registries.item.types.*;
 import com.idark.valoria.registries.level.tree.*;
+import com.idark.valoria.util.*;
 import mod.maxbogomol.fluffy_fur.client.particle.data.*;
 import net.minecraft.*;
 import net.minecraft.core.*;
@@ -97,7 +98,7 @@ public class BlockRegistry{
     cutTombstone, polishedTombstone,
     tombstoneFirechargeTrap, tombstoneSpikesTrap,
     tombstonePillar, cutTombstonePillar, wickedTombstonePillar,
-    cryptLantern,
+    cryptLantern, crypticAltar,
 
     //wood
     shadewoodPressurePlate, shadewoodButton,
@@ -401,13 +402,11 @@ public class BlockRegistry{
         () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops().sound(SoundsRegistry.TOMBSTONE_BRICKS)));
         tombstoneBricksStairs = registerBlock("tombstone_bricks_stairs",
         () -> new StairBlock(() -> BlockRegistry.tombstoneBricks.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops().sound(SoundsRegistry.TOMBSTONE_BRICKS)));
-        tombstoneBricksWall = registerBlock("tombstone_bricks_wall",
-        () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops().sound(SoundsRegistry.TOMBSTONE_BRICKS)));
-        crackedTombstoneBricks = registerBlock("cracked_tombstone_bricks",
-        () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE_BRICKS).mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops().sound(SoundsRegistry.TOMBSTONE_BRICKS)));
-        crackedTombstoneBricksWall = registerBlock("cracked_tombstone_bricks_wall",
-        () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.STONE_BRICK_WALL).mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops()));
-        cryptLantern = registerBlock("crypt_lantern", () -> new CryptLantern(BlockBehaviour.Properties.copy(Blocks.LANTERN)));
+        tombstoneBricksWall = registerBlock("tombstone_bricks_wall", () -> new WallBlock(props(Blocks.STONE, MapColor.COLOR_BLACK).requiresCorrectToolForDrops().sound(SoundsRegistry.TOMBSTONE_BRICKS)));
+        crackedTombstoneBricks = registerBlock("cracked_tombstone_bricks", () -> new Block(props(Blocks.STONE_BRICKS, MapColor.COLOR_BLACK).requiresCorrectToolForDrops().sound(SoundsRegistry.TOMBSTONE_BRICKS)));
+        crackedTombstoneBricksWall = registerBlock("cracked_tombstone_bricks_wall", () -> new WallBlock(props(Blocks.STONE_BRICK_WALL, MapColor.COLOR_BLACK).requiresCorrectToolForDrops()));
+        cryptLantern = registerBlock("crypt_lantern", () -> new CryptLantern(BlockBehaviour.Properties.copy(Blocks.LANTERN).lightLevel(ValoriaUtils.setLightValue(10))));
+        crypticAltar = registerBlock("cryptic_altar", () -> new CrypticAltar(BlockBehaviour.Properties.copy(BlockRegistry.tombstone.get()).strength(-1f, -1f).lightLevel(ValoriaUtils.setLightValue(10))));
 
         //wood
         shadewoodPressurePlate = registerBlock("shadewood_pressure_plate",

@@ -743,6 +743,10 @@ public class ValoriaUtils {
         return (state) -> !state.isAir() ? pValue : 0;
     }
 
+    public static ToIntFunction<BlockState> setLightValueLit(int pValue) {
+        return (state) -> state.getValue(BlockStateProperties.LIT) ? pValue : 0;
+    }
+
     public static ToIntFunction<BlockState> getLightValueLit() {
         return (state) -> state.getValue(BlockStateProperties.LIT) ? 14 : 0;
     }

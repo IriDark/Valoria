@@ -215,6 +215,7 @@
   "block.valoria.nature_block": "Nature Block",
   "block.valoria.pearlium": "Pearlium",
   "block.valoria.pearlium_ore": "Pearlium Ore",
+  "block.valoria.cryptic_altar": "Cryptic Altar",
   "block.valoria.picrite": "Picrite",
   "block.valoria.picrite_slab": "Picrite Slab",
   "block.valoria.picrite_stairs": "Picrite Stairs",
@@ -496,6 +497,7 @@
   "item.valoria.awakened_void_helmet": "Awakened Void Helmet",
   "item.valoria.awakened_void_leggings": "Awakened Void Leggings",
   "item.valoria.beast": "Beast",
+  "item.valoria.necromancer_grimoire": "Necromancer Grimoire",
   "item.valoria.blaze_reap": "Blaze Reap",
   "item.valoria.bloodhound": "Bloodhound",
   "item.valoria.bloodsight_monocle": "Bloodsight Monocle",
@@ -892,5 +894,6 @@
   "tooltip.valoria.required_amount": "Required amount:",
   "tooltip.valoria.value": "%s",
   "jei.valoria.archaeology_table": "Archaeology",
+  "tooltip.valoria.boss_summonable": "Used to summon Boss %s",
   "tooltip.valoria.katana_charge": "Time to charge %s ticks"
 }

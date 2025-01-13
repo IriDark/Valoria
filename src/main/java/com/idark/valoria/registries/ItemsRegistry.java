@@ -87,6 +87,9 @@ public class ItemsRegistry {
     // loot bags
     minersBag, gemBag, necromancerTreasureBag, dirtGeode, stoneGeode,
 
+    // boss summonables
+    necromancerGrimoire,
+
     // misc
     debugItem, summonBook, soulCollectorEmpty, soulCollector,
     lexicon, cryptPage, voidKey, spectralBladeThrown,
@@ -272,6 +275,15 @@ public class ItemsRegistry {
         minersBag = registerItem("miners_bag", () -> new LootItem(new ResourceLocation(Valoria.ID, "items/miners_bag"), new Item.Properties().rarity(Rarity.EPIC)));
         gemBag = registerItem("gem_bag", () -> new LootItem(new ResourceLocation(Valoria.ID, "items/gem_bag"), new Item.Properties().rarity(Rarity.EPIC)));
         necromancerTreasureBag = registerItem("necromancer_treasure_bag", () -> new LootItem(new ResourceLocation(Valoria.ID, "items/necromancer_treasure_bag"), new Item.Properties().rarity(Rarity.EPIC)));
+
+        // boss summonables
+        necromancerGrimoire = registerItem("necromancer_grimoire", () -> new Item(new Item.Properties()) {
+            @Override
+            public void appendHoverText(@NotNull ItemStack stack, Level world, @NotNull List<Component> tooltip, @NotNull TooltipFlag flags) {
+                super.appendHoverText(stack, world, tooltip, flags);
+                tooltip.add(Component.translatable("tooltip.valoria.boss_summonable", EntityTypeRegistry.NECROMANCER.get().getDescription()).withStyle(ChatFormatting.GRAY));
+            }
+        });
 
         // misc
         debugItem = registerItem("debug_item", () -> new DebugItem(new Item.Properties()));

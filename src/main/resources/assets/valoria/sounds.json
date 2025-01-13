@@ -298,6 +298,12 @@
       "valoria:haunted_merchant/hurt3"
     ]
   },
+  "mob.necromancer_summon": {
+    "subtitle": "subtitles.valoria.necromancer_summon.ground",
+    "sounds": [
+      "valoria:necromancer_summon"
+    ]
+  },
   "mob.necromancer_summon.air": {
     "subtitle": "subtitles.valoria.necromancer_summon.air",
     "sounds": [
