@@ -119,7 +119,7 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
         CompoundTag data = this.getPersistentData();
         if (!data.getBoolean("NearbyPlayerHealthBoost")){
             initializeNearbyPlayers(this.level(), this);
-            applyHealthBoost(this);
+            applyBonusHealth(this);
         }
     }
 

@@ -133,7 +133,7 @@ public interface BossEntity {
         }
     }
 
-    default void applyHealthBoost(Mob mob) {
+    default void applyBonusHealth(Mob mob) {
         if (mob.getAttribute(Attributes.MAX_HEALTH) != null) {
             UUID healthModifierId = UUID.fromString("39ba0d18-24f3-4ea8-ba0d-1824f3fea88b");
             AttributeModifier existingModifier = mob.getAttribute(Attributes.MAX_HEALTH).getModifier(healthModifierId);
@@ -141,10 +141,10 @@ public interface BossEntity {
                 mob.getAttribute(Attributes.MAX_HEALTH).removeModifier(existingModifier);
             }
 
-            AttributeModifier healthModifier = new AttributeModifier(healthModifierId, "nearby_player_boost", getHealthScale(mob), AttributeModifier.Operation.ADDITION);
+            AttributeModifier healthModifier = new AttributeModifier(healthModifierId, "nearby_player_bonus", getHealthScale(mob), AttributeModifier.Operation.ADDITION);
             mob.getAttribute(Attributes.MAX_HEALTH).addPermanentModifier(healthModifier);
             mob.setHealth((float)mob.getAttribute(Attributes.MAX_HEALTH).getValue());
-            mob.getPersistentData().putBoolean("NearbyPlayerHealthBoost", true);
+            mob.getPersistentData().putBoolean("NearbyPlayerHealthBonus", true);
         }
     }
 }
