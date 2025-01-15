@@ -85,11 +85,14 @@ public class EffectArmorItem extends SuitArmorItem {
     }
 
     private boolean hasCorrectArmorOn(ArmorMaterial material, Player player) {
-        ArmorItem boots = ((ArmorItem) player.getInventory().getArmor(0).getItem());
-        ArmorItem leggings = ((ArmorItem) player.getInventory().getArmor(1).getItem());
-        ArmorItem chestplate = ((ArmorItem) player.getInventory().getArmor(2).getItem());
-        ArmorItem helmet = ((ArmorItem) player.getInventory().getArmor(3).getItem());
+        ItemStack bootsStack = player.getInventory().getArmor(0);
+        ItemStack leggingsStack = player.getInventory().getArmor(1);
+        ItemStack chestplateStack = player.getInventory().getArmor(2);
+        ItemStack helmetStack = player.getInventory().getArmor(3);
+        if(bootsStack.getItem() instanceof ArmorItem boots && leggingsStack.getItem() instanceof ArmorItem leggings && chestplateStack.getItem() instanceof ArmorItem chestplate && helmetStack.getItem() instanceof ArmorItem helmet) {
+            return helmet.getMaterial() == material && chestplate.getMaterial() == material && leggings.getMaterial() == material && boots.getMaterial() == material;
+        }
 
-        return helmet.getMaterial() == material && chestplate.getMaterial() == material && leggings.getMaterial() == material && boots.getMaterial() == material;
+        return false;
     }
 }
