@@ -32,7 +32,6 @@ public class NecromancerRenderer extends HumanoidMobRenderer<NecromancerEntity, 
 
     @Deprecated
     public void render(NecromancerEntity entityIn, float entityYaw, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light) {
-
         if (entityIn.getCurrentSpell().hasAura) {
             float alpha = 1;
             if (entityIn.isCastingSpell()) {
@@ -55,6 +54,13 @@ public class NecromancerRenderer extends HumanoidMobRenderer<NecromancerEntity, 
             RenderUtils.renderAura(RenderBuilder.create().setRenderType(FluffyFurRenderTypes.ADDITIVE).enableSided().setFirstColor(color).setSecondColor(Color.WHITE).setFirstAlpha(0.25f * alpha).setSecondAlpha(0), ms, 2.5f, 1.25f, 6, true);
             RenderUtils.renderAura(RenderBuilder.create().setRenderType(FluffyFurRenderTypes.ADDITIVE).enableSided().setFirstColor(color).setSecondColor(Color.WHITE).setFirstAlpha(alpha).setSecondAlpha(0), ms, 0.8f, 0f, 6, false);
             ms.popPose();
+        }
+
+        if(entityIn.playSpawnAnimation()){
+            float spawnProgress = entityIn.getSpawnProgress(partialTicks);
+            float scale = 0.5f + 0.5f * spawnProgress;
+            ms.translate(0, 0.01f, 0);
+            ms.scale(scale, scale, scale);
         }
 
         super.render(entityIn, entityYaw, partialTicks, ms, buffers, light);

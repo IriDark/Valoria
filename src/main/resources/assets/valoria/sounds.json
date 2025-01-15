@@ -299,7 +299,7 @@
     ]
   },
   "mob.necromancer_summon": {
-    "subtitle": "subtitles.valoria.necromancer_summon.ground",
+    "subtitle": "subtitles.valoria.necromancer_summon",
     "sounds": [
       "valoria:necromancer_summon"
     ]

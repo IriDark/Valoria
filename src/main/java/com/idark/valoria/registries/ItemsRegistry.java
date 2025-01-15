@@ -80,7 +80,7 @@ public class ItemsRegistry {
     arcaneTrim, muramasaFragment, fishFragment, cyberpunkQunatumFragment, midnightQunatumFragment, theFallenTrim,
     gaibRoot, karusakanRoot, shadeBlossomLeaf, aloePiece,
     dunestoneBrick, tombstoneBrick, ambaneStoneBrick, limestoneBrick, crystalStoneBrick, voidStoneBrick,
-    bronzeIngot, pearliumIngot, cobaltIngot, blackGold, ancientIngot,
+    bronzeIngot, pearliumIngot, cobaltIngot, etherealShard, blackGold, ancientIngot,
     natureIngot, aquariusIngot, infernalIngot, voidIngot,
     pyratite, relicGold, ancientShard, emptyGazer, emptyWinglet, emptyTotem,
 
@@ -110,6 +110,7 @@ public class ItemsRegistry {
     // tools
     pearliumSword, pearliumPickaxe, pearliumAxe,
     cobaltSword, cobaltPickaxe, cobaltAxe, cobaltShovel, cobaltHoe,
+    etherealSword, etherealSpear, etherealPickaxe, etherealAxe,
     ent, natureScythe, naturePickaxe, natureAxe, natureShovel, natureHoe, natureBow,
     coralReef, aquariusScythe, aquariusPickaxe, aquariusAxe, aquariusShovel, aquariusHoe, aquariusBow,
     infernalSword, infernalScythe, infernalPickaxe, infernalAxe, infernalShovel, infernalHoe, infernalBow, infernalSpear,
@@ -222,6 +223,7 @@ public class ItemsRegistry {
         bronzeIngot = registerItem("bronze_ingot");
         pearliumIngot = registerItem("pearlium_ingot");
         cobaltIngot = registerItem("cobalt_ingot");
+        etherealShard = registerItem("ethereal_shard", () -> new Item(new Item.Properties().rarity(RarityRegistry.ETHEREAL)));
         blackGold = registerItem("black_gold_ingot");
         ancientIngot = registerItem("ancient_ingot");
         natureIngot = registerItem("nature_ingot", () -> new Item(new Item.Properties().rarity(RarityRegistry.NATURE)));
@@ -369,28 +371,32 @@ public class ItemsRegistry {
         cobaltAxe = registerItem("cobalt_axe", () -> new AxeItem(ModItemTier.COBALT, 10.5f, -2.8f, new Item.Properties()));
         cobaltShovel = registerItem("cobalt_shovel", () -> new ShovelItem(ModItemTier.COBALT, 5.25f, -3f, new Item.Properties()));
         cobaltHoe = registerItem("cobalt_hoe", () -> new HoeItem(ModItemTier.COBALT, 0, 0f, new Item.Properties()));
-        ent = registerItem("ent", () -> new SwordItem(ModItemTier.NATURE, 11, -2.4f, new Item.Properties().rarity(RarityRegistry.NATURE)));
-        naturePickaxe = registerItem("nature_pickaxe", () -> new PickaxeItem(ModItemTier.NATURE, 5, -3f, new Item.Properties().rarity(RarityRegistry.NATURE)));
-        natureScythe = registerItem("nature_scythe", () -> new ScytheItem(ModItemTier.NATURE, 11, -3.0f, new Item.Properties().rarity(RarityRegistry.NATURE)));
-        natureAxe = registerItem("nature_axe", () -> new AxeItem(ModItemTier.NATURE, 12f, -2.8f, new Item.Properties().rarity(RarityRegistry.NATURE)));
+        etherealSword = registerItem("ethereal_sword", () -> new SwordItem(ModItemTier.ETHEREAL, 11, -2.4f, new Item.Properties().rarity(RarityRegistry.ETHEREAL)));
+        etherealSpear = registerItem("ethereal_spear", () -> new SpearItem(ModItemTier.ETHEREAL, 7, -3.0f, 6, new Item.Properties().rarity(RarityRegistry.ETHEREAL)));
+        etherealPickaxe = registerItem("ethereal_pickaxe", () -> new PickaxeItem(ModItemTier.ETHEREAL, 5, -3f, new Item.Properties().rarity(RarityRegistry.ETHEREAL)));
+        etherealAxe = registerItem("ethereal_axe", () -> new AxeItem(ModItemTier.ETHEREAL, 13f, -2.8f, new Item.Properties().rarity(RarityRegistry.ETHEREAL)));
+        ent = registerItem("ent", () -> new SwordItem(ModItemTier.NATURE, 14, -2.4f, new Item.Properties().rarity(RarityRegistry.NATURE)));
+        naturePickaxe = registerItem("nature_pickaxe", () -> new PickaxeItem(ModItemTier.NATURE, 6, -3f, new Item.Properties().rarity(RarityRegistry.NATURE)));
+        natureScythe = registerItem("nature_scythe", () -> new ScytheItem(ModItemTier.NATURE, 12, -3.0f, new Item.Properties().rarity(RarityRegistry.NATURE)));
+        natureAxe = registerItem("nature_axe", () -> new AxeItem(ModItemTier.NATURE, 16f, -2.8f, new Item.Properties().rarity(RarityRegistry.NATURE)));
         natureShovel = registerItem("nature_shovel", () -> new ShovelItem(ModItemTier.NATURE, 6, -3f, new Item.Properties().rarity(RarityRegistry.NATURE)));
         natureHoe = registerItem("nature_hoe", () -> new HoeItem(ModItemTier.NATURE, 0, 0f, new Item.Properties().rarity(RarityRegistry.NATURE)));
         natureBow = registerItem("nature_bow", () -> new ConfigurableBowItem(2, new Item.Properties().stacksTo(1).durability(1024).rarity(RarityRegistry.NATURE)));
-        coralReef = registerItem("coral_reef", () -> new CoralReefItem(ModItemTier.AQUARIUS, 12, -2.4f, new Item.Properties().rarity(RarityRegistry.AQUARIUS)));
-        aquariusScythe = registerItem("aquarius_scythe", () -> new AquariusScytheItem(ModItemTier.AQUARIUS, 12, -3.0f, new Item.Properties().rarity(RarityRegistry.AQUARIUS)));
+        coralReef = registerItem("coral_reef", () -> new CoralReefItem(ModItemTier.AQUARIUS, 16, -2.4f, new Item.Properties().rarity(RarityRegistry.AQUARIUS)));
+        aquariusScythe = registerItem("aquarius_scythe", () -> new AquariusScytheItem(ModItemTier.AQUARIUS, 14, -3.0f, new Item.Properties().rarity(RarityRegistry.AQUARIUS)));
         aquariusPickaxe = registerItem("aquarius_pickaxe", () -> new PickaxeItem(ModItemTier.AQUARIUS, 6, -3f, new Item.Properties().rarity(RarityRegistry.AQUARIUS)));
-        aquariusAxe = registerItem("aquarius_axe", () -> new AxeItem(ModItemTier.AQUARIUS, 13f, -2.8f, new Item.Properties().rarity(RarityRegistry.AQUARIUS)));
+        aquariusAxe = registerItem("aquarius_axe", () -> new AxeItem(ModItemTier.AQUARIUS, 18f, -2.8f, new Item.Properties().rarity(RarityRegistry.AQUARIUS)));
         aquariusShovel = registerItem("aquarius_shovel", () -> new ShovelItem(ModItemTier.AQUARIUS, 6.25f, -3f, new Item.Properties().rarity(RarityRegistry.AQUARIUS)));
         aquariusHoe = registerItem("aquarius_hoe", () -> new HoeItem(ModItemTier.AQUARIUS, 0, 0f, new Item.Properties().rarity(RarityRegistry.AQUARIUS)));
         aquariusBow = registerItem("aquarius_bow", () -> new ConfigurableBowItem(3, new Item.Properties().stacksTo(1).durability(1324).fireResistant().rarity(RarityRegistry.AQUARIUS)));
-        infernalSword = registerItem("infernal_sword", () -> new MagmaSwordItem(ModItemTier.INFERNAL, 15, -2.6f, new Item.Properties().fireResistant().rarity(RarityRegistry.INFERNAL)));
-        infernalScythe = registerItem("infernal_scythe", () -> new InfernalScytheItem(ModItemTier.INFERNAL, 14, -3.0f, new Item.Properties().fireResistant().rarity(RarityRegistry.INFERNAL)));
+        infernalSword = registerItem("infernal_sword", () -> new MagmaSwordItem(ModItemTier.INFERNAL, 18, -2.6f, new Item.Properties().fireResistant().rarity(RarityRegistry.INFERNAL)));
+        infernalScythe = registerItem("infernal_scythe", () -> new InfernalScytheItem(ModItemTier.INFERNAL, 16, -3.0f, new Item.Properties().fireResistant().rarity(RarityRegistry.INFERNAL)));
         infernalPickaxe = registerItem("infernal_pickaxe", () -> new PickaxeItem(ModItemTier.INFERNAL, 7, -2.8f, new Item.Properties().fireResistant().rarity(RarityRegistry.INFERNAL)));
-        infernalAxe = registerItem("infernal_axe", () -> new AxeItem(ModItemTier.INFERNAL, 16.25f, -2.8f, new Item.Properties().fireResistant().rarity(RarityRegistry.INFERNAL)));
+        infernalAxe = registerItem("infernal_axe", () -> new AxeItem(ModItemTier.INFERNAL, 19.25f, -2.8f, new Item.Properties().fireResistant().rarity(RarityRegistry.INFERNAL)));
         infernalShovel = registerItem("infernal_shovel", () -> new ShovelItem(ModItemTier.INFERNAL, 7.5f, -2.9f, new Item.Properties().fireResistant().rarity(RarityRegistry.INFERNAL)));
         infernalHoe = registerItem("infernal_hoe", () -> new HoeItem(ModItemTier.INFERNAL, 0, 0f, new Item.Properties().fireResistant().rarity(RarityRegistry.INFERNAL)));
         infernalBow = registerItem("infernal_bow", () -> new ConfigurableBowItem(EntityTypeRegistry.INFERNAL_ARROW, 4, 3, new Item.Properties().fireResistant().stacksTo(1).durability(1684).rarity(RarityRegistry.INFERNAL)));
-        infernalSpear = registerItem("infernal_spear", () -> new SpearItem(ModItemTier.INFERNAL, 8, -3f, 11f, new Item.Properties().fireResistant().stacksTo(1).durability(1684).rarity(RarityRegistry.INFERNAL)));
+        infernalSpear = registerItem("infernal_spear", () -> new SpearItem(ModItemTier.INFERNAL, 16, -3f, 12f, new Item.Properties().fireResistant().stacksTo(1).durability(1684).rarity(RarityRegistry.INFERNAL)));
 
         voidEdge = registerItem("void_edge", () -> new SwordItem(ModItemTier.NIHILITY, 10, -2.55f, new Item.Properties().rarity(RarityRegistry.VOID)));
         voidScythe = registerItem("void_scythe", () -> new ScytheItem.Builder(16, -3.0f, new Item.Properties().fireResistant().rarity(RarityRegistry.VOID)).setTier(ModItemTier.NIHILITY).setEffects(0.5f, new MobEffectInstance(MobEffects.DARKNESS, 90, 0)).build());

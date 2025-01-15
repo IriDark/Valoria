@@ -124,6 +124,7 @@ public interface BossEntity {
             }
         }
     }
+
     default void initializeNearbyPlayers(Level level, Entity entity) {
         List<Player> players = level.getEntitiesOfClass(Player.class, entity.getBoundingBox().inflate(getRadius()));
         for (Player player : players) {

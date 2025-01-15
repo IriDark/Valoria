@@ -21,6 +21,7 @@ public class Styles{
     public static UnaryOperator<Style> infernal = create(Pal.infernal);
     public static UnaryOperator<Style> aquarius = create(Pal.oceanic);
     public static UnaryOperator<Style> nature = create(Pal.nature);
+    public static UnaryOperator<Style> ethereal = create(Pal.ethereal);
     public static UnaryOperator<Style> nihility = create(Pal.softMagenta);
     public static UnaryOperator<Style> halloween = create(Pal.mandarin);
     public static UnaryOperator<Style> phantasm = create(Pal.softBlue);

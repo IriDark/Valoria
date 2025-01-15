@@ -91,10 +91,10 @@ public class CrypticAltarBlockEntity extends BlockSimpleInventory implements Tic
                 for (int i = 0; i < 4; i++){
                     level.addParticle(ParticleTypes.POOF, this.worldPosition.getX() + 0.5, this.worldPosition.getY() + 2.85, this.worldPosition.getZ() + 0.5, (Math.random() - 0.5) * 0.1, Math.random() * 0.1, (Math.random() - 0.5) * 0.1);
                 }
-
             } else {
                 NecromancerEntity boss = new NecromancerEntity(EntityTypeRegistry.NECROMANCER.get(), level);
                 boss.moveTo(this.worldPosition.getX() + 0.5, this.worldPosition.getY() + 1.85, this.worldPosition.getZ() + 0.5, 0.0F, 0.0F);
+                boss.setPlayAnim(true);
                 level.addFreshEntity(boss);
             }
 
