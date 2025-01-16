@@ -1,6 +1,7 @@
 package com.idark.valoria.registries.item.skins;
 
 import com.idark.valoria.*;
+import com.idark.valoria.client.model.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.item.armor.item.*;
 import com.idark.valoria.registries.item.skins.categories.*;
@@ -104,12 +105,11 @@ public class SkinsRegistry{
             Map<ResourceLocation, BakedModel> map = event.getModels();
             bakeArmor(map);
             bakeKatana(map);
-            //todo
-//            for(RegistryObject<Item> item : ItemsRegistry.ITEMS.getEntries()){
-//                if(item.get() instanceof ConfigurableBowItem){
-//                    FluffyFurModels.addBowItemModel(map, item.getId(), new BowSkinItemOverrides());
-//                }
-//            }
+            for(RegistryObject<Item> item : ItemsRegistry.ITEMS.getEntries()){
+                if(item.get() instanceof ConfigurableBowItem){
+                    FluffyFurModels.addBowItemModel(map, item.getId(), new ModItemModelProperties());
+                }
+            }
 
             FluffyFurItemSkins.addSkinModel(map, ItemsRegistry.quantumReaper.getId());
             FluffyFurItemSkins.addLargeModel(map, Valoria.ID, "muramasa");

@@ -213,12 +213,6 @@ public class ValoriaClient {
             EntityRenderers.register(EntityTypeRegistry.TROLL.get(), m -> new TrollRenderer(m, false));
             EntityRenderers.register(EntityTypeRegistry.CORRUPTED_TROLL.get(), m -> new TrollRenderer(m, true));
 
-            ModItemModelProperties.makeBow(ItemsRegistry.samuraiLongBow.get());
-            ModItemModelProperties.makeBow(ItemsRegistry.natureBow.get());
-            ModItemModelProperties.makeBow(ItemsRegistry.aquariusBow.get());
-            ModItemModelProperties.makeBow(ItemsRegistry.infernalBow.get());
-            ModItemModelProperties.makeBow(ItemsRegistry.voidBow.get());
-            ModItemModelProperties.makeBow(ItemsRegistry.phantasmBow.get());
             ModItemModelProperties.makeSize(ItemsRegistry.soulCollector.get());
             ModItemModelProperties.makeCooldown(ItemsRegistry.spectralBlade.get());
         }
