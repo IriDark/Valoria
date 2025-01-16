@@ -56,13 +56,10 @@ public class NecromancerRenderer extends HumanoidMobRenderer<NecromancerEntity, 
             ms.popPose();
         }
 
-        if(entityIn.playSpawnAnimation()){
-            float spawnProgress = entityIn.getSpawnProgress(partialTicks);
-            float scale = 0.5f + 0.5f * spawnProgress;
-            ms.translate(0, 0.01f, 0);
-            ms.scale(scale, scale, scale);
-        }
-
+        float spawnProgress = entityIn.getSpawnProgress(partialTicks);
+        float scale = 0.5f + 0.5f * spawnProgress;
+        ms.translate(0, 0.01f, 0);
+        ms.scale(scale, scale, scale);
         super.render(entityIn, entityYaw, partialTicks, ms, buffers, light);
     }
 }

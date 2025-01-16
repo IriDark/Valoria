@@ -47,26 +47,17 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
     public ArcRandom arcRandom = new ArcRandom();
     public final ServerBossBarEvent bossEvent = (ServerBossBarEvent)(new ServerBossBarEvent(this.getDisplayName(), "Necromancer", SoundsRegistry.MUSIC_NECROMANCER.get())).setDarkenScreen(true);
     private int spawnTime = 0;
-    private boolean playAnim;
 
     @Override
     public void tick() {
         super.tick();
-        if (playAnim && this.spawnTime < 10) {
+        if (this.spawnTime < 10) {
             this.spawnTime++;
         }
     }
 
     public float getSpawnProgress(float partialTicks) {
         return Math.min(1.0f, (this.spawnTime + partialTicks) / 10f);
-    }
-
-    public void setPlayAnim(boolean pPlay) {
-        playAnim = pPlay;
-    }
-
-    public boolean playSpawnAnimation() {
-        return playAnim;
     }
 
     @Nullable
