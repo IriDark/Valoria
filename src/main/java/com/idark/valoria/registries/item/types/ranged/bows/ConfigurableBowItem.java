@@ -23,6 +23,7 @@ import static com.idark.valoria.util.ValoriaUtils.addContributorTooltip;
 public class ConfigurableBowItem extends BowItem {
     public double baseDamage;
     public int arrowBaseDamage;
+    public float time = 20;
     public Supplier<? extends EntityType<? extends AbstractArrow>> arrow;
     public ConfigurableBowItem(double pBaseDamage, Properties pProperties) {
         super(pProperties);
@@ -38,8 +39,30 @@ public class ConfigurableBowItem extends BowItem {
         this.arrow = arrow;
     }
 
+    public ConfigurableBowItem(Supplier<? extends EntityType<? extends AbstractArrow>> arrow, double pBaseDamage, int pArrowBaseDamage, float pTime, Properties pProperties) {
+        super(pProperties);
+        this.baseDamage = pBaseDamage;
+        this.arrowBaseDamage = pArrowBaseDamage;
+        this.arrow = arrow;
+        time = pTime;
+    }
+
+
     public @NotNull EntityType<? extends AbstractArrow> getDefaultType() {
         return arrow.get();
+    }
+
+    /**
+     * Gets the velocity of the arrow entity from the bow's charge
+     */
+    public static float getPowerForTime(int pCharge, float time) {
+        float f = (float)pCharge / time;
+        f = (f * f + f * 2.0F) / 3.0F;
+        if (f > 1.0F) {
+            f = 1.0F;
+        }
+
+        return f;
     }
 
     @Override
@@ -56,7 +79,7 @@ public class ConfigurableBowItem extends BowItem {
                     itemstack = new ItemStack(Items.ARROW);
                 }
 
-                float power = getPowerForTime(i);
+                float power = getPowerForTime(i, time);
                 if (!((double) power < 0.1D)) {
                     boolean infiniteArrows = player.getAbilities().instabuild || (itemstack.getItem() instanceof ArrowItem && ((ArrowItem) itemstack.getItem()).isInfinite(itemstack, pStack, player));
                     if (pLevel instanceof ServerLevel server) {

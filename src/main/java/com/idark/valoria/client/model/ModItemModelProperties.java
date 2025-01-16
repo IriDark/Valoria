@@ -1,5 +1,6 @@
 package com.idark.valoria.client.model;
 
+import com.idark.valoria.registries.item.types.ranged.bows.*;
 import net.minecraft.client.renderer.item.*;
 import net.minecraft.resources.*;
 import net.minecraft.world.entity.player.*;
@@ -8,11 +9,20 @@ import net.minecraft.world.item.*;
 public class ModItemModelProperties {
 
     public static void makeBow(Item item) {
-        ItemProperties.register(item, new ResourceLocation("pull"), (p_174635_, p_174636_, p_174637_, p_174638_) -> {
-            if (p_174637_ == null) {
+        animateBow(item);
+    }
+
+    public static void makeBow(Item... item) {
+        for(Item bow : item) animateBow(bow);
+    }
+
+    private static void animateBow(Item item) {
+        ItemProperties.register(item, new ResourceLocation("pull"), (stack, clientLvl, living, p_174638_) -> {
+            if (living == null) {
                 return 0.0F;
             } else {
-                return p_174637_.getUseItem() != p_174635_ ? 0.0F : (float) (p_174635_.getUseDuration() - p_174637_.getUseItemRemainingTicks()) / 20.0F;
+                float time = item instanceof ConfigurableBowItem bow ? bow.time : 20.0F;
+                return living.getUseItem() != stack ? 0.0F : (float) (stack.getUseDuration() - living.getUseItemRemainingTicks()) / time;
             }
         });
 

@@ -104,11 +104,12 @@ public class SkinsRegistry{
             Map<ResourceLocation, BakedModel> map = event.getModels();
             bakeArmor(map);
             bakeKatana(map);
-            for(RegistryObject<Item> item : ItemsRegistry.ITEMS.getEntries()){
-                if(item.get() instanceof ConfigurableBowItem){
-                    FluffyFurModels.addBowItemModel(map, item.getId(), new BowSkinItemOverrides());
-                }
-            }
+            //todo
+//            for(RegistryObject<Item> item : ItemsRegistry.ITEMS.getEntries()){
+//                if(item.get() instanceof ConfigurableBowItem){
+//                    FluffyFurModels.addBowItemModel(map, item.getId(), new BowSkinItemOverrides());
+//                }
+//            }
 
             FluffyFurItemSkins.addSkinModel(map, ItemsRegistry.quantumReaper.getId());
             FluffyFurItemSkins.addLargeModel(map, Valoria.ID, "muramasa");
