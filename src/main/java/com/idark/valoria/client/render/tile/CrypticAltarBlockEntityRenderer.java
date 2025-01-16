@@ -14,6 +14,10 @@ public class CrypticAltarBlockEntityRenderer implements BlockEntityRenderer<Cryp
     public CrypticAltarBlockEntityRenderer() {
     }
 
+    public boolean shouldRenderOffScreen(CrypticAltarBlockEntity pBlockEntity) {
+        return true;
+    }
+
     @Override
     public void render(CrypticAltarBlockEntity altar, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay){
         if (!altar.isSummoning) return;
