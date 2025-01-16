@@ -47,7 +47,6 @@ public class ConfigurableBowItem extends BowItem {
         time = pTime;
     }
 
-
     public @NotNull EntityType<? extends AbstractArrow> getDefaultType() {
         return arrow.get();
     }

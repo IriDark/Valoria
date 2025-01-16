@@ -91,6 +91,8 @@ public class SoundsRegistry {
     public static final RegistryObject<SoundEvent> HAUNTED_MERCHANT_MELEE = registerSound("mob.haunted_merchant.melee_attack");
     public static final RegistryObject<SoundEvent> HAUNTED_MERCHANT_RANGE = registerSound("mob.haunted_merchant.range_attack");
 
+    public static final RegistryObject<SoundEvent> MUSIC_NECROMANCER = registerSound("boss.necromancer.music");
+
     //SoundType
     public static final ForgeSoundType CYST = new ForgeSoundType(0.5F, 0.85f, CYST_BREAK, FLESH_STEP, FLESH_PLACE, FLESH_HIT, CYST_FALL);
     public static final ForgeSoundType FLESH = new ForgeSoundType(0.5F, 0.85f, FLESH_BREAK, FLESH_STEP, FLESH_PLACE, FLESH_HIT, FLESH_FALL);

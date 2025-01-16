@@ -1,4 +1,12 @@
 {
+  "boss.necromancer.music": {
+    "sounds": [
+      {
+        "name": "valoria:music/necromancer",
+        "stream": true
+      }
+    ]
+  },
   "music.valoria.arriving": {
     "sounds": [
       {

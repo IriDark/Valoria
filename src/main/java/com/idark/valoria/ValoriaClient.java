@@ -67,6 +67,7 @@ public class ValoriaClient {
 
     public static TheFallenCollectorArmorModel THE_FALLEN_COLLECTOR_ARMOR = null;
 
+    public static BossSoundInstance BOSS_MUSIC;
     public static ElementalManipulatorSoundInstance MANIPULATOR_LOOP;
     public static CooldownSoundInstance COOLDOWN_SOUND;
     public static FluffyFurMod MOD_INSTANCE;
