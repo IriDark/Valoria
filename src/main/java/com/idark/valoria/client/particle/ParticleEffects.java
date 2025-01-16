@@ -93,8 +93,8 @@ public class ParticleEffects{
             RandomSource rand = level.getRandom();
             ParticleBuilder.create(FluffyFurParticles.TINY_WISP)
             .setTransparencyData(GenericParticleData.create(1f, 0f).build())
-            .setScaleData(GenericParticleData.create(0.15f, randomBetween(rand, 0.1f, 0.2f), 0).build())
-            .setLifetime(9)
+            .setScaleData(GenericParticleData.create(0.125f, randomBetween(rand, 0.1f, 0.2f), 0).build())
+            .setLifetime(15)
             .setVelocity((rand.nextDouble() / 32), 0.02f, (rand.nextDouble() / 32))
             .setColorData(data)
             .spawn(level, pos.x, pos.y, pos.z);

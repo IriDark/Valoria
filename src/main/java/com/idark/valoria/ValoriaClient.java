@@ -74,8 +74,13 @@ public class ValoriaClient {
 
     public static void setupSplashes() {
         SplashHandler.addSplash("Also try Wizards Reborn!");
-        SplashHandler.addSplash("Was known as DarkRPG");
+        SplashHandler.addSplash("Also try Starbound!");
+        SplashHandler.addSplash("Also try Mindustry!");
+        SplashHandler.addSplash("Valoria was known as DarkRPG");
         SplashHandler.addSplash("Afraid of future");
+        SplashHandler.addSplash("Valoria, animated by Kerdo!");
+        SplashHandler.addSplash("Valoria music by DuUaader!");
+        SplashHandler.addSplash("Привіт, Україно!");
     }
 
     public static void setupMenu() {
