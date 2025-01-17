@@ -1,13 +1,19 @@
 package com.idark.valoria.core.event;
 
 import com.idark.valoria.*;
+import com.idark.valoria.core.network.*;
+import com.idark.valoria.core.network.packets.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.entity.npc.*;
+import com.idark.valoria.registries.level.*;
 import it.unimi.dsi.fastutil.ints.*;
+import net.minecraft.server.level.*;
 import net.minecraft.world.entity.npc.*;
+import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraftforge.common.*;
+import net.minecraftforge.event.*;
 import net.minecraftforge.event.village.*;
 import net.minecraftforge.eventbus.api.*;
 import net.minecraftforge.fml.common.*;
@@ -17,6 +23,21 @@ import java.util.*;
 public class ForgeEvents{
     @Mod.EventBusSubscriber(modid = Valoria.ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
     public static class RegistryEvents {
+
+        @SubscribeEvent
+        public static void onPlayerTick(TickEvent.PlayerTickEvent event){
+            Player player = event.player;
+            if(player.level() instanceof ServerLevel serv){
+                if(serv.getServer().getTickCount() % 20 == 0){
+                    if(isStructure(player, serv) && ValoriaClient.DUNGEON_MUSIC_INSTANCE == null) PacketHandler.sendTo(player, new DungeonSoundPacket(SoundsRegistry.MUSIC_NECROMANCER_DUNGEON.get(), player.getX(), player.getY() + (player.getBbHeight() / 2), player.getZ()));
+                }
+            }
+        }
+
+        public static boolean isStructure(Player player, ServerLevel serverLevel) {
+            var structure = serverLevel.structureManager().getStructureWithPieceAt(player.blockPosition(), LevelGen.NECROMANCER_CRYPT);
+            return structure.getStructure() != null && structure.getBoundingBox().isInside(player.getBlockX(), player.getBlockY(), player.getBlockZ());
+        }
 
         @SubscribeEvent
         public static void addTrades(VillagerTradesEvent event) {

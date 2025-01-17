@@ -13,39 +13,39 @@ import net.minecraftforge.registries.*;
 
 import java.util.function.*;
 
-public class CooldownSoundPacket {
+public class DungeonSoundPacket{
     private final double posX;
     private final double posY;
     private final double posZ;
     private final SoundEvent event;
-    public CooldownSoundPacket(SoundEvent event, double posX, double posY, double posZ) {
+    public DungeonSoundPacket(SoundEvent event, double posX, double posY, double posZ) {
         this.event = event;
         this.posX = posX;
         this.posY = posY;
         this.posZ = posZ;
     }
 
-    public static CooldownSoundPacket decode(FriendlyByteBuf buf) {
+    public static DungeonSoundPacket decode(FriendlyByteBuf buf) {
         ResourceLocation soundID = buf.readResourceLocation();
         SoundEvent event = ForgeRegistries.SOUND_EVENTS.getValue(soundID);
-        return new CooldownSoundPacket(event, buf.readDouble(), buf.readDouble(), buf.readDouble());
+        return new DungeonSoundPacket(event, buf.readDouble(), buf.readDouble(), buf.readDouble());
     }
 
     @OnlyIn(Dist.CLIENT)
     public static void playSound(SoundEvent event) {
         SoundManager soundManager = Minecraft.getInstance().getSoundManager();
-        if (ValoriaClient.COOLDOWN_SOUND != null && soundManager.isActive(ValoriaClient.COOLDOWN_SOUND)) {
+        if(ValoriaClient.DUNGEON_MUSIC_INSTANCE != null && soundManager.isActive(ValoriaClient.DUNGEON_MUSIC_INSTANCE)){
             return;
         }
 
-        ValoriaClient.COOLDOWN_SOUND = new ValoriaSoundInstance(event, Minecraft.getInstance().player);
-        soundManager.play(ValoriaClient.COOLDOWN_SOUND);
-        if (!soundManager.isActive(ValoriaClient.COOLDOWN_SOUND)) {
-            ValoriaClient.COOLDOWN_SOUND = null;
+        ValoriaClient.DUNGEON_MUSIC_INSTANCE = new ValoriaSoundInstance(event, SoundSource.AMBIENT, Minecraft.getInstance().player);
+        soundManager.play(ValoriaClient.DUNGEON_MUSIC_INSTANCE);
+        if(!soundManager.isActive(ValoriaClient.DUNGEON_MUSIC_INSTANCE)){
+            ValoriaClient.DUNGEON_MUSIC_INSTANCE = null;
         }
     }
 
-    public static void handle(CooldownSoundPacket msg, Supplier<NetworkEvent.Context> ctx) {
+    public static void handle(DungeonSoundPacket msg, Supplier<NetworkEvent.Context> ctx) {
         ctx.get().enqueueWork(() -> {
             assert ctx.get().getDirection() == NetworkDirection.PLAY_TO_CLIENT;
             playSound(msg.event);

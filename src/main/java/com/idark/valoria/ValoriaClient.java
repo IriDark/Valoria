@@ -64,12 +64,14 @@ public class ValoriaClient {
     public static final Music ENDURING = new Music(SoundsRegistry.ENDURING.getHolder().get(), 20, 600, true);
     public static final Music SHADED_LANDS = new Music(SoundsRegistry.SHADED_LANDS.getHolder().get(), 20, 600, true);
     public static final Music ARRIVING = new Music(SoundsRegistry.ARRIVING.getHolder().get(), 20, 600, true);
+    public static final Music NECROMANCER_DUNGEON_MUSIC = new Music(SoundsRegistry.MUSIC_NECROMANCER_DUNGEON.getHolder().get(), 20, 600, true);
 
     public static TheFallenCollectorArmorModel THE_FALLEN_COLLECTOR_ARMOR = null;
 
-    public static BossSoundInstance BOSS_MUSIC;
+    public static LoopedSoundInstance BOSS_MUSIC;
     public static ElementalManipulatorSoundInstance MANIPULATOR_LOOP;
-    public static CooldownSoundInstance COOLDOWN_SOUND;
+    public static ValoriaSoundInstance COOLDOWN_SOUND;
+    public static ValoriaSoundInstance DUNGEON_MUSIC_INSTANCE;
     public static FluffyFurMod MOD_INSTANCE;
     public static FluffyFurPanorama ECOTONE_PANORAMA;
 
@@ -108,6 +110,21 @@ public class ValoriaClient {
         @SubscribeEvent
         public static void registerMusicModifiers(FMLClientSetupEvent event) {
             MusicHandler.register(new MusicModifier.Panorama(ARRIVING, ECOTONE_PANORAMA));
+//            MusicHandler.register(new MusicModifier() {
+//                public boolean isCanPlay(Music defaultMisic, Minecraft minecraft) {
+//                    if (minecraft.player == null) return false;
+//                    if(minecraft.player.level() instanceof ServerLevel serverLevel) {
+//                        var structure = serverLevel.structureManager().getStructureWithPieceAt(minecraft.player.blockPosition(), LevelGen.NECROMANCER_CRYPT);
+//                        return structure.getBoundingBox().isInside((int)minecraft.player.getX(), (int)minecraft.player.getY(), (int)minecraft.player.getZ());
+//                    } else {
+//                        return false;
+//                    }
+//                }
+//
+//                public Music play(Music defaultMisic, Minecraft minecraft) {
+//                    return NECROMANCER_DUNGEON_MUSIC;
+//                }
+//            });
         }
 
         @SubscribeEvent

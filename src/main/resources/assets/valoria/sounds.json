@@ -7,6 +7,14 @@
       }
     ]
   },
+  "dungeon.necromancer.music": {
+    "sounds": [
+      {
+        "name": "valoria:music/necromancer_dungeon",
+        "stream": true
+      }
+    ]
+  },
   "music.valoria.arriving": {
     "sounds": [
       {

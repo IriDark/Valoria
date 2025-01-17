@@ -12,6 +12,12 @@
         },
         {
           "type": "minecraft:item",
+          "name": "valoria:music_disc_necromancer",
+          "weight": 1,
+          "functions": []
+        },
+        {
+          "type": "minecraft:item",
           "name": "valoria:arcane_trim",
           "weight": 1,
           "functions": []

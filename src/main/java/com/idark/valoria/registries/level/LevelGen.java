@@ -16,6 +16,7 @@ import net.minecraft.world.level.levelgen.*;
 import net.minecraft.world.level.levelgen.feature.*;
 import net.minecraft.world.level.levelgen.feature.configurations.*;
 import net.minecraft.world.level.levelgen.placement.*;
+import net.minecraft.world.level.levelgen.structure.*;
 import net.minecraftforge.common.world.*;
 import net.minecraftforge.eventbus.api.*;
 import net.minecraftforge.registries.*;
@@ -62,6 +63,7 @@ public class LevelGen {
     public static final ResourceKey<Biome> SHADED_BARRENS = registerKey(Registries.BIOME, "shaded_barrens");
     public static final ResourceKey<Biome> SHADED_ECOTONE = registerKey(Registries.BIOME, "shaded_ecotone");
     public static final ResourceKey<Biome> SHADE_FOREST = registerKey(Registries.BIOME, "shade_forest");
+    public static final ResourceKey<Structure> NECROMANCER_CRYPT = registerKey(Registries.STRUCTURE, "necromancer_crypt");
 
     public static RegistryObject<Codec<AddFeaturesByFilterBiomeModifier>> ADD_FEATURES_BY_FILTER = BIOME_MODIFIER_SERIALIZERS.register("add_features_by_filter", () ->
             RecordCodecBuilder.create(builder -> builder.group(

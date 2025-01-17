@@ -45,6 +45,7 @@ public final class PacketHandler {
 
     public static void init() {
         int id = 0;
+        HANDLER.registerMessage(id++, DungeonSoundPacket.class, DungeonSoundPacket::encode, DungeonSoundPacket::decode, DungeonSoundPacket::handle);
         HANDLER.registerMessage(id++, UpdateBossbarPacket.class, UpdateBossbarPacket::encode, UpdateBossbarPacket::decode, UpdateBossbarPacket::handle);
         HANDLER.registerMessage(id++, BeastAttackParticlePacket.class, BeastAttackParticlePacket::encode, BeastAttackParticlePacket::decode, BeastAttackParticlePacket::handle);
         HANDLER.registerMessage(id++, CystSummonParticlePacket.class, CystSummonParticlePacket::encode, CystSummonParticlePacket::decode, CystSummonParticlePacket::handle);
