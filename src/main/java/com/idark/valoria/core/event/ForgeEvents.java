@@ -41,7 +41,7 @@ public class ForgeEvents {
     public static boolean isPlayerInStructure(Player player, ServerLevel serverLevel) {
         var structure = serverLevel.structureManager().getStructureWithPieceAt(
                 player.blockPosition(), LevelGen.NECROMANCER_CRYPT);
-        return structure.getBoundingBox().isInside(
+        return structure.getStructure() != null && structure.getBoundingBox().isInside(
                 player.getBlockX(), player.getBlockY(), player.getBlockZ()
         );
     }
