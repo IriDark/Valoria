@@ -34,7 +34,7 @@ import java.util.*;
 import static com.idark.valoria.Valoria.BASE_DASH_DISTANCE_UUID;
 import static com.idark.valoria.util.ValoriaUtils.addContributorTooltip;
 
-// todo move to lib
+// todo delete
 public class KatanaItem extends SwordItem implements CooldownNotifyItem, DashItem, CooldownReductionItem {
     public AbstractKatanaBuilder<? extends KatanaItem> builder;
     public Multimap<Attribute, AttributeModifier> defaultModifiers;
@@ -159,7 +159,6 @@ public class KatanaItem extends SwordItem implements CooldownNotifyItem, DashIte
         }
     }
 
-    //todo fix detectedEntities
     public void performDash(@NotNull ItemStack stack, @NotNull Level level, @NotNull Player player, Vector3d pos, RandomSource rand){
         double pitch = ((player.getRotationVector().x + 90) * Math.PI) / 180;
         double yaw = ((player.getRotationVector().y + 90) * Math.PI) / 180;

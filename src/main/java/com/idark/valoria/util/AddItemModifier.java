@@ -1,21 +1,19 @@
 package com.idark.valoria.util;
 
-import com.google.common.base.Suppliers;
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
-import it.unimi.dsi.fastutil.objects.ObjectArrayList;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.storage.loot.LootContext;
-import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
-import net.minecraftforge.common.loot.IGlobalLootModifier;
-import net.minecraftforge.common.loot.LootModifier;
-import net.minecraftforge.registries.ForgeRegistries;
+import com.google.common.base.*;
+import com.mojang.serialization.*;
+import com.mojang.serialization.codecs.*;
+import it.unimi.dsi.fastutil.objects.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.storage.loot.*;
+import net.minecraft.world.level.storage.loot.predicates.*;
+import net.minecraftforge.common.loot.*;
+import net.minecraftforge.registries.*;
 
-import javax.annotation.Nonnull;
+import javax.annotation.*;
 import java.util.function.Supplier;
 
-// todo move to lib
+// todo delete
 public class AddItemModifier extends LootModifier {
 
     public static final Supplier<Codec<AddItemModifier>> CODEC = Suppliers.memoize(() ->

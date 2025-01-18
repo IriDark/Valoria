@@ -29,7 +29,7 @@ import java.util.*;
 import static com.idark.valoria.Valoria.BASE_ATTACK_RADIUS_UUID;
 import static com.idark.valoria.util.ValoriaUtils.addContributorTooltip;
 
-// todo move to lib
+// todo delete
 public class ScytheItem extends SwordItem implements ICustomAnimationItem, CooldownNotifyItem, RadiusItem, SpinAttackItem, DashItem, CooldownReductionItem {
     public AbstractScytheBuilder<? extends ScytheItem> builder;
     public final Multimap<Attribute, AttributeModifier> defaultModifiers;

@@ -257,6 +257,7 @@ public class Valoria {
                 SpawnPlacements.register(EntityTypeRegistry.DEVIL.get(), SpawnPlacements.Type.ON_GROUND, Types.WORLD_SURFACE_WG, Devil::checkMonsterSpawnRules);
                 SpawnPlacements.register(EntityTypeRegistry.HAUNTED_MERCHANT.get(), SpawnPlacements.Type.ON_GROUND, Types.WORLD_SURFACE_WG, HauntedMerchant::checkMonsterSpawnRules);
                 SpawnPlacements.register(EntityTypeRegistry.TROLL.get(), SpawnPlacements.Type.ON_GROUND, Types.WORLD_SURFACE_WG, Troll::checkMonsterSpawnRules);
+                SpawnPlacements.register(EntityTypeRegistry.SORCERER.get(), SpawnPlacements.Type.ON_GROUND, Types.WORLD_SURFACE_WG, SorcererEntity::checkMonsterSpawnRules);
             });
         }
 
@@ -273,6 +274,7 @@ public class Valoria {
             event.put(EntityTypeRegistry.DEVIL.get(), DEVIL);
             event.put(EntityTypeRegistry.TROLL.get(), TROLL);
             event.put(EntityTypeRegistry.CORRUPTED_TROLL.get(), CORRUPTED_TROLL);
+            event.put(EntityTypeRegistry.SORCERER.get(), SORCERER);
 
             event.put(EntityTypeRegistry.HAUNTED_MERCHANT.get(), HAUNTED_MERCHANT);
             event.put(EntityTypeRegistry.FLESH_SENTINEL.get(), FLESH_SENTINEL);

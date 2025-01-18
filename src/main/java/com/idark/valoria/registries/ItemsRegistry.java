@@ -154,7 +154,7 @@ public class ItemsRegistry {
 
     // spawn eggs
     pumpkinContract, goblin, draugr,
-    swampWanderer, scourge, necromancer, undead,
+    swampWanderer, scourge, sorcerer, necromancer, undead,
     shadewoodSpider, devil, troll, corruptedTroll,
     mannequin;
 
@@ -546,6 +546,7 @@ public class ItemsRegistry {
         draugr = registerItem("draugr_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.DRAUGR, ColorUtil.hexToDecimal("76695C"), ColorUtil.hexToDecimal("d6d0c9"), new Item.Properties()));
         swampWanderer = registerItem("swamp_wanderer_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.SWAMP_WANDERER, ColorUtil.hexToDecimal("606239"), ColorUtil.hexToDecimal("b8b377"), new Item.Properties()));
         scourge = registerItem("scourge_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.SCOURGE, ColorUtil.hexToDecimal("898755"), ColorUtil.hexToDecimal("bdae86"), new Item.Properties()));
+        sorcerer = registerItem("sorcerer_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.SORCERER, ColorUtil.hexToDecimal("6e4e3f"), ColorUtil.hexToDecimal("e09f59"), new Item.Properties()));
         necromancer = registerItem("necromancer_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.NECROMANCER, ColorUtil.hexToDecimal("4b4857"), ColorUtil.hexToDecimal("958fb7"), new Item.Properties()));
         undead = registerItem("undead_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.UNDEAD, ColorUtil.hexToDecimal("625F71"), ColorUtil.hexToDecimal("ffffff"), new Item.Properties()));
         shadewoodSpider = registerItem("shadewood_spider_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.SHADEWOOD_SPIDER, ColorUtil.hexToDecimal("373C53"), ColorUtil.hexToDecimal("6EABB7"), new Item.Properties()));

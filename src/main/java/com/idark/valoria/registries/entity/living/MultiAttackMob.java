@@ -12,7 +12,7 @@ import net.minecraft.world.level.pathfinder.*;
 import javax.annotation.*;
 import java.util.*;
 
-//todo move to lib...
+//todo delete
 public abstract class MultiAttackMob extends PathfinderMob{
     private static final EntityDataAccessor<String> DATA_ID = SynchedEntityData.defineId(MultiAttackMob.class, EntityDataSerializers.STRING);
     protected int preparingTickCount;

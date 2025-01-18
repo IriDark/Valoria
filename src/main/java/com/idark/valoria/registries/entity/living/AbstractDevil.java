@@ -33,15 +33,7 @@ public class AbstractDevil extends MultiAttackMob implements Enemy{
 
     public void aiStep() {
         this.updateSwingTime();
-        this.updateNoActionTime();
         super.aiStep();
-    }
-
-    protected void updateNoActionTime() {
-        float f = this.getLightLevelDependentMagicValue();
-        if (f > 0.5F) {
-            this.noActionTime += 2;
-        }
     }
 
     protected boolean shouldDespawnInPeaceful() {

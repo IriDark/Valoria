@@ -1,6 +1,25 @@
-# Contributing
+## Contributors
+MaxBogomol `| Code |`
+AstemirDev `| Code |`
+Ruthenium `| Russian Translate |`
+Auriny `| Code | Testing |`
+Skoow `| Code |`
+Sunday `| Models |`
+Rofoo
+KoteykaTheCat
+Kerdo `| Ideas | Contributions |`
+TerraPrime
+GraFik
+Wosaj
+FoxPlane
+Rainach
+.sweetberries
+Feimos
+Avacuoss
 
-### Always test your changes.
+---
+
+## Always test your changes.
 Do not submit something without at least running the game to see if it compiles.
 If you are submitting a new block, make sure it has a translated name, and that it works correctly in-game. If you are changing existing block mechanics, test them out first.
 

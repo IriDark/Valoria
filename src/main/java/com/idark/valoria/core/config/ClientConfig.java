@@ -8,7 +8,7 @@ public class ClientConfig {
             MAGMA_CHARGE_BAR_Y, MAGMA_CHARGE_BAR_X, MAGMA_CHARGE_BAR_TYPE,
             MISC_UI_X, MISC_UI_Y;
     public static ForgeConfigSpec.ConfigValue<Boolean>
-            ABILITY_OVERLAY, PHANTOM_ACTIVATION, OLD_GOBLIN_MODEL, BOSSBAR_TITLE, CUSTOM_BOSSBARS;
+                ABILITY_OVERLAY, PHANTOM_ACTIVATION, OLD_GOBLIN_MODEL, BOSSBAR_TITLE, CUSTOM_BOSSBARS;
 
     static {
         final Pair<ClientConfig, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(ClientConfig::new);

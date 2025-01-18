@@ -7,7 +7,7 @@ import net.minecraft.world.level.storage.loot.*;
 import net.minecraft.world.level.storage.loot.parameters.*;
 import net.minecraft.world.level.storage.loot.predicates.*;
 
-// todo move to lib
+// todo delete
 public class MobCategoryCondition implements LootItemCondition {
     private final MobCategory category;
 

@@ -76,7 +76,6 @@ public class ValoriaClient {
     public static FluffyFurPanorama ECOTONE_PANORAMA;
 
     public static void setupSplashes() {
-        SplashHandler.addSplash("Also try Wizards Reborn!");
         SplashHandler.addSplash("Also try Starbound!");
         SplashHandler.addSplash("Also try Mindustry!");
         SplashHandler.addSplash("Valoria was known as DarkRPG");
@@ -110,21 +109,6 @@ public class ValoriaClient {
         @SubscribeEvent
         public static void registerMusicModifiers(FMLClientSetupEvent event) {
             MusicHandler.register(new MusicModifier.Panorama(ARRIVING, ECOTONE_PANORAMA));
-//            MusicHandler.register(new MusicModifier() {
-//                public boolean isCanPlay(Music defaultMisic, Minecraft minecraft) {
-//                    if (minecraft.player == null) return false;
-//                    if(minecraft.player.level() instanceof ServerLevel serverLevel) {
-//                        var structure = serverLevel.structureManager().getStructureWithPieceAt(minecraft.player.blockPosition(), LevelGen.NECROMANCER_CRYPT);
-//                        return structure.getBoundingBox().isInside((int)minecraft.player.getX(), (int)minecraft.player.getY(), (int)minecraft.player.getZ());
-//                    } else {
-//                        return false;
-//                    }
-//                }
-//
-//                public Music play(Music defaultMisic, Minecraft minecraft) {
-//                    return NECROMANCER_DUNGEON_MUSIC;
-//                }
-//            });
         }
 
         @SubscribeEvent
@@ -235,6 +219,7 @@ public class ValoriaClient {
             EntityRenderers.register(EntityTypeRegistry.DEVIL.get(), DevilRenderer::new);
             EntityRenderers.register(EntityTypeRegistry.TROLL.get(), m -> new TrollRenderer(m, false));
             EntityRenderers.register(EntityTypeRegistry.CORRUPTED_TROLL.get(), m -> new TrollRenderer(m, true));
+            EntityRenderers.register(EntityTypeRegistry.SORCERER.get(), SorcererRenderer::new);
 
             ModItemModelProperties.makeSize(ItemsRegistry.soulCollector.get());
             ModItemModelProperties.makeCooldown(ItemsRegistry.spectralBlade.get());

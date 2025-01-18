@@ -11,7 +11,7 @@ import net.minecraft.world.phys.*;
 
 import javax.annotation.*;
 
-//todo move to lib
+//todo delete
 public abstract class BaseSpawner{
     public int spawnDelay = 20;
     public int minSpawnDelay = 200;

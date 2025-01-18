@@ -1,11 +1,11 @@
 package com.idark.valoria.core.conditions;
 
-import net.minecraft.core.Registry;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
+import net.minecraft.core.*;
+import net.minecraft.core.registries.*;
+import net.minecraft.resources.*;
+import net.minecraft.world.level.storage.loot.predicates.*;
 
-// todo move to lib
+// todo delete
 public class LootConditionsRegistry {
     public static final LootItemConditionType MOB_CATEGORY_CONDITION = new LootItemConditionType(new MobCategoryCondition.Serializer());
     public static final LootItemConditionType LOCAL_DATE_CONDITION = new LootItemConditionType(new LocalDateCondition.Serializer());

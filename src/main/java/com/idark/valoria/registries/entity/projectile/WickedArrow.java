@@ -8,14 +8,13 @@ import com.idark.valoria.util.*;
 import mod.maxbogomol.fluffy_fur.client.particle.data.*;
 import net.minecraft.resources.*;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.projectile.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
 
 public class WickedArrow extends AbstractValoriaArrow implements TexturedArrow {
 
-    public WickedArrow(EntityType<? extends AbstractArrow> pEntityType, Level pLevel) {
+    public WickedArrow(EntityType<? extends AbstractValoriaArrow> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }
 

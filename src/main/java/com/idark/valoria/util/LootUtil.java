@@ -21,7 +21,7 @@ import net.minecraftforge.registries.*;
 import javax.annotation.*;
 import java.util.*;
 
-// todo move to lib
+// todo delete
 public final class LootUtil {
 
     public static final DeferredRegister<Codec<? extends IGlobalLootModifier>> LOOT_MODIFIER_SERIALIZERS = DeferredRegister.create(ForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, Valoria.ID);

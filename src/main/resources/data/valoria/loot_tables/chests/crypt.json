@@ -132,7 +132,7 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:diamond",
-          "weight": 6,
+          "weight": 2,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -268,7 +268,7 @@
         {
           "type": "minecraft:item",
           "name": "valoria:cobalt_ingot",
-          "weight": 2
+          "weight": 1
         },
         {
           "type": "minecraft:item",

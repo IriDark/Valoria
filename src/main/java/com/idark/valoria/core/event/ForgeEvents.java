@@ -7,7 +7,7 @@ import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.entity.npc.*;
 import com.idark.valoria.registries.level.*;
 import it.unimi.dsi.fastutil.ints.*;
-import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.*;
 import net.minecraft.server.level.*;
 import net.minecraft.world.entity.npc.*;
 import net.minecraft.world.entity.player.*;
@@ -27,7 +27,6 @@ public class ForgeEvents {
     public static void onServerTick(TickEvent.ServerTickEvent event) {
         MinecraftServer server = event.getServer();
         if (server.getTickCount() % 100 == 0) {
-            Valoria.LOGGER.info("Enabling the crypt music");
             for (Player player : server.getPlayerList().getPlayers()) {
                 if (isPlayerInStructure(player, (ServerLevel) player.level()) && ValoriaClient.DUNGEON_MUSIC_INSTANCE == null) {
                     PacketHandler.sendTo(player, new DungeonSoundPacket(
