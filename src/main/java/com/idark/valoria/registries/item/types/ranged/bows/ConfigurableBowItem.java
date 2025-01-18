@@ -32,13 +32,18 @@ public class ConfigurableBowItem extends BowItem {
         this.arrow = () -> EntityType.ARROW;
     }
 
+     public ConfigurableBowItem(double pBaseDamage, float pTime, Properties pProperties) {
+        this(pBaseDamage, pProperties);
+        time = pTime;
+    }
+
     public ConfigurableBowItem(Supplier<? extends EntityType<? extends AbstractArrow>> arrow, double pBaseDamage, int pArrowBaseDamage, Properties pProperties) {
         super(pProperties);
         this.baseDamage = pBaseDamage;
         this.arrowBaseDamage = pArrowBaseDamage;
         this.arrow = arrow;
     }
-
+    
     public ConfigurableBowItem(Supplier<? extends EntityType<? extends AbstractArrow>> arrow, double pBaseDamage, int pArrowBaseDamage, float pTime, Properties pProperties) {
         super(pProperties);
         this.baseDamage = pBaseDamage;
