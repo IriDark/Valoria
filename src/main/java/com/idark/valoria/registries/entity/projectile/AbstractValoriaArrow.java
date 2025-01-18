@@ -25,9 +25,16 @@ public class AbstractValoriaArrow extends AbstractArrow {
         this.baseDamage = baseDamage;
     }
 
-    public void tick() {
+    /**
+     * Called when arrow is being spawned
+     */
+    public AbstractValoriaArrow doPostSpawn() {
+        return this;
+    }
+
+    public void tick(){
         super.tick();
-        if (this.level().isClientSide) {
+        if(this.level().isClientSide){
             this.spawnParticlesTrail();
         }
     }

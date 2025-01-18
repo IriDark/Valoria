@@ -64,6 +64,19 @@ public class ConfigurableBowItem extends BowItem {
         return f;
     }
 
+    public void doPostSpawn(AbstractArrow abstractarrow, Player player, ItemStack itemstack, float power, boolean infiniteArrows) {
+        abstractarrow = customArrow(abstractarrow);
+        abstractarrow.setBaseDamage(abstractarrow.getBaseDamage() + baseDamage);
+        abstractarrow.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, power * 3.0F, 1.0F);
+        if(power == 1.0F){
+            abstractarrow.setCritArrow(true);
+        }
+
+        if(infiniteArrows || player.getAbilities().instabuild && (itemstack.is(Items.SPECTRAL_ARROW) || itemstack.is(Items.TIPPED_ARROW))){
+            abstractarrow.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
+        }
+    }
+
     @Override
     public void releaseUsing(ItemStack pStack, Level pLevel, LivingEntity pEntityLiving, int pTimeLeft) {
         if (pEntityLiving instanceof Player player) {
@@ -83,15 +96,9 @@ public class ConfigurableBowItem extends BowItem {
                     boolean infiniteArrows = player.getAbilities().instabuild || (itemstack.getItem() instanceof ArrowItem && ((ArrowItem) itemstack.getItem()).isInfinite(itemstack, pStack, player));
                     if (pLevel instanceof ServerLevel server) {
                         ArrowItem arrowitem = (ArrowItem) (itemstack.getItem() instanceof ArrowItem ? itemstack.getItem() : Items.ARROW);
-                        AbstractValoriaArrow customArrow = new AbstractValoriaArrow(arrow.get(), server, player, itemstack, arrowBaseDamage);
+                        AbstractValoriaArrow customArrow = new AbstractValoriaArrow(arrow.get(), server, player, itemstack, arrowBaseDamage).doPostSpawn();
                         AbstractArrow abstractarrow = arrowitem == Items.ARROW ? customArrow : arrowitem.createArrow(pLevel, itemstack, player);
-                        abstractarrow = customArrow(abstractarrow);
-                        abstractarrow.setBaseDamage(abstractarrow.getBaseDamage() + baseDamage);
-                        abstractarrow.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, power * 3.0F, 1.0F);
-                        if(power == 1.0F){
-                            abstractarrow.setCritArrow(true);
-                        }
-
+                        doPostSpawn(abstractarrow, player, itemstack, power, infiniteArrows);
                         int enchantmentPower = EnchantmentHelper.getTagEnchantmentLevel(Enchantments.POWER_ARROWS, pStack);
                         if(enchantmentPower > 0){
                             abstractarrow.setBaseDamage(abstractarrow.getBaseDamage() + (double)enchantmentPower * 0.5D + 0.5D);
@@ -107,10 +114,6 @@ public class ConfigurableBowItem extends BowItem {
                         }
 
                         pStack.hurtAndBreak(1, player, (p_289501_) -> p_289501_.broadcastBreakEvent(player.getUsedItemHand()));
-                        if(infiniteArrows || player.getAbilities().instabuild && (itemstack.is(Items.SPECTRAL_ARROW) || itemstack.is(Items.TIPPED_ARROW))){
-                            abstractarrow.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
-                        }
-
                         server.addFreshEntity(abstractarrow);
                     }
 

@@ -3,13 +3,11 @@ package com.idark.valoria.registries.entity.projectile;
 import com.idark.valoria.*;
 import com.idark.valoria.client.particle.*;
 import com.idark.valoria.core.interfaces.*;
-import com.idark.valoria.registries.*;
 import com.idark.valoria.util.*;
 import mod.maxbogomol.fluffy_fur.client.particle.data.*;
 import net.minecraft.resources.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.projectile.*;
-import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
 
@@ -17,10 +15,6 @@ public class InfernalArrow extends AbstractValoriaArrow implements TexturedArrow
 
     public InfernalArrow(EntityType<? extends AbstractArrow> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
-    }
-
-    public InfernalArrow(Level pLevel, LivingEntity pShooter, ItemStack thrown) {
-        super(EntityTypeRegistry.INFERNAL_ARROW.get(), pLevel, pShooter, thrown, 1);
     }
 
     @Override
