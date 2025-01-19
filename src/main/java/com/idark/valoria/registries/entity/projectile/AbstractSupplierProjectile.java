@@ -32,7 +32,7 @@ import java.util.*;
 public abstract class AbstractSupplierProjectile extends AbstractValoriaArrow implements ItemSupplier{
     public static final EntityDataAccessor<Byte> LOYALTY_LEVEL = SynchedEntityData.defineId(AbstractSupplierProjectile.class, EntityDataSerializers.BYTE);
     private static final EntityDataAccessor<ItemStack> DATA_ITEM_STACK = SynchedEntityData.defineId(AbstractSupplierProjectile.class, EntityDataSerializers.ITEM_STACK);
-    private final Set<MobEffectInstance> effects = Sets.newHashSet();
+    public final Set<MobEffectInstance> effects = Sets.newHashSet();
     public int returningTicks;
     public boolean returnToPlayer;
     public boolean wasInGround;
@@ -333,9 +333,7 @@ public abstract class AbstractSupplierProjectile extends AbstractValoriaArrow im
     }
 
     public void setEffectsFromList(ImmutableList<MobEffectInstance> effects) {
-        for (MobEffectInstance mobeffectinstance : effects) {
-            this.effects.add(new MobEffectInstance(mobeffectinstance));
-        }
+        this.effects.addAll(effects);
     }
 
     protected Item getDefaultItem() {

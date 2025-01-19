@@ -1,7 +1,12 @@
 package com.idark.valoria.registries.entity.projectile;
 
 import com.idark.valoria.registries.*;
-import net.minecraft.core.particles.*;
+import com.idark.valoria.util.*;
+import mod.maxbogomol.fluffy_fur.client.particle.*;
+import mod.maxbogomol.fluffy_fur.client.particle.behavior.*;
+import mod.maxbogomol.fluffy_fur.client.particle.data.*;
+import mod.maxbogomol.fluffy_fur.common.easing.*;
+import mod.maxbogomol.fluffy_fur.registry.client.*;
 import net.minecraft.network.protocol.*;
 import net.minecraft.network.protocol.game.*;
 import net.minecraft.sounds.*;
@@ -16,6 +21,7 @@ import net.minecraftforge.network.*;
 import org.jetbrains.annotations.*;
 
 import javax.annotation.Nullable;
+import java.util.function.*;
 
 public class KunaiEntity extends AbstractSupplierProjectile {
     public float rotationVelocity = 0;
@@ -54,13 +60,29 @@ public class KunaiEntity extends AbstractSupplierProjectile {
 
     public void spawnParticlesTrail(){
         if(this.shouldRender(this.getX(), this.getY(), this.getZ()) && !this.inGround){
-            Vec3 vector3d = this.getDeltaMovement();
-            double a3 = vector3d.x;
-            double a4 = vector3d.y;
-            double a0 = vector3d.z;
-            for(int a = 0; a < 3; ++a){
-                this.level().addParticle(ParticleTypes.WHITE_ASH, this.getX() + a3 * (double)a / 4.0D, this.getY() + a4 * (double)a / 4.0D, this.getZ() + a0 * (double)a / 4.0D, -a3, -a4 + 0.2D, -a0);
-            }
+            Vec3 delta = this.getDeltaMovement().normalize();
+            Vec3 pos = new Vec3(this.getX() + delta.x() * 0.00015, this.getY() + delta.y() * 0.00015, this.getZ() + delta.z() * 0.00015);
+            final Vec3[] cachePos = {new Vec3(pos.x, pos.y, pos.z)};
+            final Consumer<GenericParticle> target = p -> {
+                Vec3 arrowPos = new Vec3(getX(),getY(),getZ());
+                float lenBetweenArrowAndParticle = (float)(arrowPos.subtract(cachePos[0])).length();
+                Vec3 vector = (arrowPos.subtract(cachePos[0]));
+                if (lenBetweenArrowAndParticle > 0) {
+                    cachePos[0] = cachePos[0].add(vector);
+                    p.setPosition(cachePos[0]);
+                }
+            };
+
+            ParticleBuilder.create(FluffyFurParticles.TRAIL)
+            .setRenderType(FluffyFurRenderTypes.ADDITIVE_PARTICLE_TEXTURE)
+            .setBehavior(TrailParticleBehavior.create().build())
+            .setColorData(ColorParticleData.create(Pal.darkerGray.brighter()).build())
+            .setTransparencyData(GenericParticleData.create(0.5f, 0).setEasing(Easing.QUARTIC_OUT).build())
+            .setScaleData(GenericParticleData.create(0.5f).setEasing(Easing.EXPO_IN).build())
+            .addTickActor(target)
+            .setGravity(0)
+            .setLifetime(20)
+            .repeat(this.level(), pos.x, pos.y, pos.z, 5);
         }
     }
 

@@ -46,7 +46,6 @@ public class CrypticAltarBlockEntity extends BlockSimpleInventory implements Tic
                     double radius = 0.5 * (1 - ((double)progress / progressMax)) * (1 - ((double)a * 2.5f));
                     double x = Math.cos(angle) * radius;
                     double z = Math.sin(angle) * radius;
-
                     ParticleBuilder.create(FluffyFurParticles.WISP)
                     .setColorData(ColorParticleData.create(Pal.vividGreen, Color.darkGray).build())
                     .setTransparencyData(GenericParticleData.create(0.125f, 0f).build())

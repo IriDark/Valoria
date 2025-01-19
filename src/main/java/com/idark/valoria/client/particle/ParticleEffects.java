@@ -3,6 +3,7 @@ package com.idark.valoria.client.particle;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.util.*;
 import mod.maxbogomol.fluffy_fur.client.particle.*;
+import mod.maxbogomol.fluffy_fur.client.particle.behavior.*;
 import mod.maxbogomol.fluffy_fur.client.particle.data.*;
 import mod.maxbogomol.fluffy_fur.common.easing.*;
 import mod.maxbogomol.fluffy_fur.registry.client.*;
@@ -15,6 +16,7 @@ import net.minecraft.world.phys.*;
 
 import javax.annotation.*;
 import java.awt.*;
+import java.util.function.*;
 
 import static net.minecraft.util.Mth.randomBetween;
 
@@ -101,6 +103,38 @@ public class ParticleEffects{
         }
     }
 
+    public static void fancyTrail(Level level, Vec3 vec3, Vec3 pos) {
+        final Consumer<GenericParticle> target = p -> {
+            double dX = vec3.x();
+            double dY = vec3.y();
+            double dZ = vec3.z();
+
+            double yaw = Math.atan2(dZ, dX);
+            double pitch = Math.atan2(Math.sqrt(dZ * dZ + dX * dX), dY) + Math.PI;
+
+            float speed = 0.1f + (p.getAge() * 0.001f);
+            double x = Math.sin(pitch) * Math.cos(yaw) * speed;
+            double y = Math.cos(pitch) * speed;
+            double z = Math.sin(pitch) * Math.sin(yaw) * speed;
+
+            p.setSpeed(p.getSpeed().add(-x, -y, -z));
+        };
+
+        ParticleBuilder.create(FluffyFurParticles.TRAIL)
+        .setRenderType(FluffyFurRenderTypes.ADDITIVE_PARTICLE_TEXTURE)
+        .setBehavior(TrailParticleBehavior.create().build())
+        .setColorData(ColorParticleData.create(Pal.infernal, Pal.darkMagenta).build())
+        .setTransparencyData(GenericParticleData.create(0.6f, 0).setEasing(Easing.QUARTIC_OUT).build())
+        .setScaleData(GenericParticleData.create(0.5f).setEasing(Easing.QUARTIC_OUT).build())
+        .addTickActor(target)
+        .setLifetime(20)
+        .randomVelocity(0.25, 0.02f, 0.25)
+        .randomOffset(0.15f)
+        .setVelocity(vec3.x, vec3.y, vec3.z)
+        .setFriction(0.8f)
+        .repeat(level, pos.x, pos.y, pos.z, 15);
+    }
+
     public static void itemParticles(Level level, Vec3 pos, ColorParticleData data){
         if(level.isClientSide()){
             RandomSource random = level.getRandom();
@@ -113,6 +147,19 @@ public class ParticleEffects{
             .setVelocity((random.nextDouble() / 30), 0.05f, (random.nextDouble() / 30))
             .spawn(level, pos.x, pos.y, pos.z);
         }
+    }
+
+    public static  void smoothTrail(Level level, Consumer<GenericParticle> target, Vec3 pos, ColorParticleData data){
+        ParticleBuilder.create(FluffyFurParticles.TRAIL)
+        .setRenderType(FluffyFurRenderTypes.ADDITIVE_PARTICLE_TEXTURE)
+        .setBehavior(TrailParticleBehavior.create().build())
+        .setColorData(data)
+        .setTransparencyData(GenericParticleData.create(1, 0).setEasing(Easing.QUARTIC_OUT).build())
+        .setScaleData(GenericParticleData.create(0.5f).setEasing(Easing.EXPO_IN).build())
+        .addTickActor(target)
+        .setGravity(0)
+        .setLifetime(30)
+        .repeat(level, pos.x, pos.y, pos.z, 5);
     }
 
     public static void spawnItemParticles(Level level, ItemEntity entity, @Nullable ParticleType<?> particle, ColorParticleData color){
