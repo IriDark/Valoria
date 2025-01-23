@@ -69,7 +69,7 @@ public class ConfigurableBowItem extends BowItem {
         return f;
     }
 
-    public void doPostSpawn(AbstractArrow abstractarrow, Player player, ItemStack itemstack, float power, boolean infiniteArrows) {
+    public void doPreSpawn(AbstractArrow abstractarrow, Player player, ItemStack itemstack, float power, boolean infiniteArrows) {
         abstractarrow = customArrow(abstractarrow);
         abstractarrow.setBaseDamage(abstractarrow.getBaseDamage() + baseDamage);
         abstractarrow.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, power * 3.0F, 1.0F);
@@ -109,7 +109,7 @@ public class ConfigurableBowItem extends BowItem {
                     if (!pLevel.isClientSide()) {
                         ArrowItem arrowitem = (ArrowItem) (itemstack.getItem() instanceof ArrowItem ? itemstack.getItem() : Items.ARROW);
                         AbstractArrow abstractarrow = arrowitem == Items.ARROW && arrow.get() != EntityType.ARROW ? createArrow(pLevel, player) : arrowitem.createArrow(pLevel, itemstack, player);
-                        doPostSpawn(abstractarrow, player, itemstack, power, infiniteArrows);
+                        doPreSpawn(abstractarrow, player, itemstack, power, infiniteArrows);
                         int enchantmentPower = EnchantmentHelper.getTagEnchantmentLevel(Enchantments.POWER_ARROWS, pStack);
                         if(enchantmentPower > 0){
                             abstractarrow.setBaseDamage(abstractarrow.getBaseDamage() + (double)enchantmentPower * 0.5D + 0.5D);
