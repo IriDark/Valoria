@@ -3,7 +3,6 @@ package com.idark.valoria.registries.item.types.ranged.bows;
 import com.idark.valoria.registries.entity.projectile.*;
 import net.minecraft.*;
 import net.minecraft.network.chat.*;
-import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
 import net.minecraft.stats.*;
 import net.minecraft.world.entity.*;
@@ -12,6 +11,7 @@ import net.minecraft.world.entity.projectile.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.*;
 import net.minecraft.world.level.*;
+import net.minecraft.world.phys.*;
 import net.minecraftforge.event.*;
 import org.jetbrains.annotations.*;
 
@@ -82,6 +82,13 @@ public class ConfigurableBowItem extends BowItem {
         }
     }
 
+    public AbstractArrow createArrow(Level pLevel, Player player) {
+        AbstractArrow customArrow = arrow.get().create(pLevel);
+        customArrow.moveTo(new Vec3(player.getEyePosition().x, player.getEyePosition().y - 0.1f, player.getEyePosition().z));
+        if (customArrow instanceof AbstractValoriaArrow valor) valor.doPostSpawn();
+        return customArrow;
+    }
+
     @Override
     public void releaseUsing(ItemStack pStack, Level pLevel, LivingEntity pEntityLiving, int pTimeLeft) {
         if (pEntityLiving instanceof Player player) {
@@ -99,10 +106,9 @@ public class ConfigurableBowItem extends BowItem {
                 float power = getPowerForTime(i, time);
                 if (!((double) power < 0.1D)) {
                     boolean infiniteArrows = player.getAbilities().instabuild || (itemstack.getItem() instanceof ArrowItem && ((ArrowItem) itemstack.getItem()).isInfinite(itemstack, pStack, player));
-                    if (pLevel instanceof ServerLevel server) {
+                    if (!pLevel.isClientSide()) {
                         ArrowItem arrowitem = (ArrowItem) (itemstack.getItem() instanceof ArrowItem ? itemstack.getItem() : Items.ARROW);
-                        AbstractValoriaArrow customArrow = new AbstractValoriaArrow(arrow.get(), server, player, itemstack, arrowBaseDamage).doPostSpawn();
-                        AbstractArrow abstractarrow = arrowitem == Items.ARROW ? customArrow : arrowitem.createArrow(pLevel, itemstack, player);
+                        AbstractArrow abstractarrow = arrowitem == Items.ARROW && arrow.get() != EntityType.ARROW ? createArrow(pLevel, player) : arrowitem.createArrow(pLevel, itemstack, player);
                         doPostSpawn(abstractarrow, player, itemstack, power, infiniteArrows);
                         int enchantmentPower = EnchantmentHelper.getTagEnchantmentLevel(Enchantments.POWER_ARROWS, pStack);
                         if(enchantmentPower > 0){
@@ -119,7 +125,7 @@ public class ConfigurableBowItem extends BowItem {
                         }
 
                         pStack.hurtAndBreak(1, player, (p_289501_) -> p_289501_.broadcastBreakEvent(player.getUsedItemHand()));
-                        server.addFreshEntity(abstractarrow);
+                        pLevel.addFreshEntity(abstractarrow);
                     }
 
                     pLevel.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ARROW_SHOOT, SoundSource.PLAYERS, 1.0F, 1.0F / (pLevel.getRandom().nextFloat() * 0.4F + 1.2F) + power * 0.5F);

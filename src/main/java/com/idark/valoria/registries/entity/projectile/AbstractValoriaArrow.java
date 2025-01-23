@@ -2,17 +2,20 @@ package com.idark.valoria.registries.entity.projectile;
 
 import com.google.common.collect.*;
 import net.minecraft.nbt.*;
+import net.minecraft.network.protocol.*;
+import net.minecraft.network.protocol.game.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.projectile.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.alchemy.*;
 import net.minecraft.world.level.*;
+import net.minecraftforge.network.*;
 import org.jetbrains.annotations.*;
 
 import java.util.*;
 
-public class AbstractValoriaArrow extends AbstractArrow {
+public abstract class AbstractValoriaArrow extends AbstractArrow {
     public ItemStack arrowItem = ItemStack.EMPTY;
     private final Set<MobEffectInstance> effects = Sets.newHashSet();
     public AbstractValoriaArrow(EntityType<? extends AbstractArrow> pEntityType, Level pLevel) {
@@ -25,18 +28,19 @@ public class AbstractValoriaArrow extends AbstractArrow {
         this.baseDamage = baseDamage;
     }
 
-    /**
-     * Called when arrow is being spawned
-     */
-    public AbstractValoriaArrow doPostSpawn() {
-        return this;
+    public void doPostSpawn(){
     }
 
     public void tick(){
         super.tick();
-        if(this.level().isClientSide){
+        if(this.level().isClientSide()){
             this.spawnParticlesTrail();
         }
+    }
+
+    @Override
+    public Packet<ClientGamePacketListener> getAddEntityPacket() {
+        return NetworkHooks.getEntitySpawningPacket(this);
     }
 
     public void addEffect(MobEffectInstance pEffectInstance) {

@@ -41,7 +41,6 @@ public class InfernalArrow extends AbstractValoriaArrow implements TexturedArrow
         }
     }
 
-
     @Override
     public ResourceLocation getTexture() {
         return new ResourceLocation(Valoria.ID, "textures/entity/projectile/arrow/infernal_arrow.png");
