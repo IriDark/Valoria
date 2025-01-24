@@ -49,13 +49,10 @@ jobs:
           new_last_version="${last_parts[*]}"
           new_last_version="${new_last_version// /.}"
           new_version="$base_version-$new_last_version"
-
           echo "New version: $new_version"
-
+          
           # Update the version line in gradle.properties
           sed -i "s/^version=.*/version=$new_version/" gradle.properties
-          
-          # Optionally, you can add a step to show the updated gradle.properties
           cat gradle.properties
       - name: Commit and Push Version Change
         if: ${{ env.shouldPublish == 'true' && github.repository == 'IriDark/Valoria' }}
