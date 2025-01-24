@@ -1,33 +1,34 @@
 package com.idark.valoria.registries.block.types.plants;
 
-import com.idark.valoria.client.particle.*;
-import mod.maxbogomol.fluffy_fur.client.particle.data.*;
-import net.minecraft.client.*;
-import net.minecraft.core.*;
-import net.minecraft.util.*;
-import net.minecraft.world.level.*;
-import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.state.*;
-import net.minecraft.world.phys.*;
-import net.minecraftforge.api.distmarker.*;
+import com.idark.valoria.client.particle.ParticleEffects;
+import mod.maxbogomol.fluffy_fur.client.particle.data.ColorParticleData;
+import net.minecraft.client.Minecraft;
+import net.minecraft.core.BlockPos;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.LeavesBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.awt.*;
 
-public class ShadeLeavesBlock extends LeavesBlock {
+public class ShadeLeavesBlock extends LeavesBlock{
 
-    public ShadeLeavesBlock(Properties properties) {
+    public ShadeLeavesBlock(Properties properties){
         super(properties);
     }
 
     @OnlyIn(Dist.CLIENT)
-    public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource random) {
+    public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource random){
         super.animateTick(state, world, pos, random);
         int i = Minecraft.getInstance().getBlockColors().getColor(state, world, pos, 0);
-        if (world.getBlockState(new BlockPos(pos.getX(), pos.getY() - 1, pos.getZ())).isAir()) {
-            if (random.nextFloat() < 0.015) {
-                double x = (double) pos.getX() + random.nextDouble();
-                double y = (double) pos.getY() - 0.05D;
-                double z = (double) pos.getZ() + random.nextDouble();
+        if(world.getBlockState(new BlockPos(pos.getX(), pos.getY() - 1, pos.getZ())).isAir()){
+            if(random.nextFloat() < 0.015){
+                double x = (double)pos.getX() + random.nextDouble();
+                double y = (double)pos.getY() - 0.05D;
+                double z = (double)pos.getZ() + random.nextDouble();
 
                 Color color = new Color((i >> 16 & 255) / 255.0F, (i >> 8 & 255) / 255.0F, (i & 255) / 255.0F);
                 Vec3 position = new Vec3(x, y, z);

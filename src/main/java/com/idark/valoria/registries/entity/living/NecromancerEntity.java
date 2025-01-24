@@ -1,44 +1,62 @@
 package com.idark.valoria.registries.entity.living;
 
-import com.google.common.collect.*;
-import com.idark.valoria.client.ui.bossbars.*;
-import com.idark.valoria.core.interfaces.*;
-import com.idark.valoria.core.network.*;
-import com.idark.valoria.core.network.packets.particle.*;
-import com.idark.valoria.registries.*;
-import com.idark.valoria.registries.entity.living.minions.*;
-import com.idark.valoria.registries.entity.projectile.*;
-import com.idark.valoria.util.*;
-import net.minecraft.core.*;
-import net.minecraft.core.particles.*;
-import net.minecraft.nbt.*;
-import net.minecraft.network.chat.*;
-import net.minecraft.server.level.*;
-import net.minecraft.sounds.*;
-import net.minecraft.util.*;
-import net.minecraft.world.*;
-import net.minecraft.world.damagesource.*;
-import net.minecraft.world.effect.*;
+import com.google.common.collect.ImmutableList;
+import com.idark.valoria.client.ui.bossbars.ServerBossBarEvent;
+import com.idark.valoria.core.interfaces.BossEntity;
+import com.idark.valoria.core.network.PacketHandler;
+import com.idark.valoria.core.network.packets.particle.CircleShapedParticlePacket;
+import com.idark.valoria.core.network.packets.particle.SmokeParticlePacket;
+import com.idark.valoria.registries.EffectsRegistry;
+import com.idark.valoria.registries.EntityTypeRegistry;
+import com.idark.valoria.registries.SoundsRegistry;
+import com.idark.valoria.registries.entity.living.minions.UndeadEntity;
+import com.idark.valoria.registries.entity.projectile.Devourer;
+import com.idark.valoria.util.ArcRandom;
+import com.idark.valoria.util.ValoriaUtils;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.*;
-import net.minecraft.world.entity.ai.goal.target.*;
-import net.minecraft.world.entity.ai.targeting.*;
-import net.minecraft.world.entity.animal.*;
-import net.minecraft.world.entity.animal.horse.*;
-import net.minecraft.world.entity.item.*;
-import net.minecraft.world.entity.monster.*;
-import net.minecraft.world.entity.player.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.item.enchantment.*;
-import net.minecraft.world.level.*;
-import net.minecraft.world.level.block.state.*;
-import net.minecraft.world.phys.*;
-import net.minecraft.world.phys.shapes.*;
-import org.jetbrains.annotations.*;
-import org.joml.*;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
+import net.minecraft.world.entity.animal.IronGolem;
+import net.minecraft.world.entity.animal.Wolf;
+import net.minecraft.world.entity.animal.horse.Horse;
+import net.minecraft.world.entity.animal.horse.SkeletonHorse;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.monster.Skeleton;
+import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.ProtectionEnchantment;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.NotNull;
+import org.joml.Vector3d;
 
 import javax.annotation.Nullable;
-import java.lang.Math;
 import java.util.*;
 
 public class NecromancerEntity extends AbstractNecromancer implements BossEntity{
@@ -49,14 +67,14 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
     private int spawnTime = 0;
 
     @Override
-    public void tick() {
+    public void tick(){
         super.tick();
-        if (this.spawnTime < 10) {
+        if(this.spawnTime < 10){
             this.spawnTime++;
         }
     }
 
-    public float getSpawnProgress(float partialTicks) {
+    public float getSpawnProgress(float partialTicks){
         return Math.min(1.0f, (this.spawnTime + partialTicks) / 10f);
     }
 
@@ -71,52 +89,52 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
         this.xpReward = 8;
     }
 
-    public void readAdditionalSaveData(CompoundTag pCompound) {
+    public void readAdditionalSaveData(CompoundTag pCompound){
         super.readAdditionalSaveData(pCompound);
         readBossData(pCompound);
-        if (this.hasCustomName()) {
+        if(this.hasCustomName()){
             this.bossEvent.setName(this.getDisplayName());
         }
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag pCompound) {
+    public void addAdditionalSaveData(CompoundTag pCompound){
         super.addAdditionalSaveData(pCompound);
         saveBossData(pCompound);
     }
 
-    public void setCustomName(@Nullable Component pName) {
+    public void setCustomName(@Nullable Component pName){
         super.setCustomName(pName);
         this.bossEvent.setName(this.getDisplayName());
     }
 
-    public void startSeenByPlayer(ServerPlayer pPlayer) {
+    public void startSeenByPlayer(ServerPlayer pPlayer){
         super.startSeenByPlayer(pPlayer);
         this.bossEvent.addPlayer(pPlayer);
     }
 
-    public void stopSeenByPlayer(ServerPlayer pPlayer) {
+    public void stopSeenByPlayer(ServerPlayer pPlayer){
         super.stopSeenByPlayer(pPlayer);
         this.bossEvent.removePlayer(pPlayer);
     }
 
-    public float getWalkTargetValue(BlockPos pPos, LevelReader pLevel) {
+    public float getWalkTargetValue(BlockPos pPos, LevelReader pLevel){
         return 0.0F;
     }
 
     @Override
-    public void onAddedToWorld() {
+    public void onAddedToWorld(){
         super.onAddedToWorld();
         CompoundTag data = this.getPersistentData();
-        if (!data.getBoolean("NearbyPlayerHealthBoost")){
+        if(!data.getBoolean("NearbyPlayerHealthBoost")){
             initializeNearbyPlayers(this.level(), this);
             applyBonusHealth(this);
         }
     }
 
     @Override
-    public boolean hurt(DamageSource source, float amount) {
-        if (source.getDirectEntity() instanceof Player player) {
+    public boolean hurt(DamageSource source, float amount){
+        if(source.getDirectEntity() instanceof Player player){
             UUID playerUUID = player.getUUID();
             getDamageMap().put(playerUUID, getDamageMap().getOrDefault(playerUUID, 0.0f) + amount);
         }
@@ -125,13 +143,13 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
     }
 
     @Nullable
-    public ItemEntity spawnAtLocation(ItemStack stack, float offsetY) {
-        if (stack.isEmpty() || this.level().isClientSide) return null;
+    public ItemEntity spawnAtLocation(ItemStack stack, float offsetY){
+        if(stack.isEmpty() || this.level().isClientSide) return null;
         initializeLoot(this.level(), stack, this.getOnPos(), offsetY);
         return null;
     }
 
-    protected void registerGoals() {
+    protected void registerGoals(){
         //attack
         this.goalSelector.addGoal(0, new NecromancerEntity.AttackSpellGoal());
         this.goalSelector.addGoal(1, new NecromancerEntity.SummonMobsSpellGoal());
@@ -160,16 +178,16 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolem.class, true));
     }
 
-    public @NotNull MobType getMobType() {
+    public @NotNull MobType getMobType(){
         return MobType.UNDEAD;
     }
 
-    public boolean isAlliedTo(Entity pEntity) {
-        if (super.isAlliedTo(pEntity)) {
+    public boolean isAlliedTo(Entity pEntity){
+        if(super.isAlliedTo(pEntity)){
             return true;
-        } else if (pEntity instanceof LivingEntity && ((LivingEntity)pEntity).getMobType() == MobType.UNDEAD) {
+        }else if(pEntity instanceof LivingEntity && ((LivingEntity)pEntity).getMobType() == MobType.UNDEAD){
             return this.getTeam() == null && pEntity.getTeam() == null;
-        } else {
+        }else{
             return false;
         }
     }
@@ -179,16 +197,16 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
         this.bossEvent.setProgress(this.getHealth() / this.getMaxHealth());
     }
 
-    public void rideTick() {
+    public void rideTick(){
         super.rideTick();
         Entity entity = this.getControlledVehicle();
-        if (entity instanceof PathfinderMob pathfindermob) {
+        if(entity instanceof PathfinderMob pathfindermob){
             this.yBodyRot = pathfindermob.yBodyRot;
         }
     }
 
     @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag){
         pSpawnData = super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
         RandomSource randomsource = pLevel.getRandom();
         this.populateDefaultEquipmentSlots(randomsource, pDifficulty);
@@ -197,53 +215,53 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
         return pSpawnData;
     }
 
-    public void setItemSlot(EquipmentSlot pSlot, ItemStack pStack) {
+    public void setItemSlot(EquipmentSlot pSlot, ItemStack pStack){
         super.setItemSlot(pSlot, pStack);
     }
 
-    protected void playStepSound(BlockPos pPos, BlockState pBlock) {
+    protected void playStepSound(BlockPos pPos, BlockState pBlock){
         this.playSound(this.getStepSound(), 0.15F, 1.0F);
     }
 
-    protected SoundEvent getAmbientSound() {
+    protected SoundEvent getAmbientSound(){
         return SoundEvents.SKELETON_AMBIENT;
     }
 
-    protected SoundEvent getHurtSound(DamageSource pDamageSource) {
+    protected SoundEvent getHurtSound(DamageSource pDamageSource){
         return SoundEvents.SKELETON_HURT;
     }
 
-    protected SoundEvent getDeathSound() {
+    protected SoundEvent getDeathSound(){
         return SoundEvents.SKELETON_DEATH;
     }
 
-    protected SoundEvent getStepSound() {
+    protected SoundEvent getStepSound(){
         return SoundEvents.SKELETON_STEP;
     }
 
-    protected float getStandingEyeHeight(Pose pPose, EntityDimensions pSize) {
+    protected float getStandingEyeHeight(Pose pPose, EntityDimensions pSize){
         return 1.74F;
     }
 
-    public double getMyRidingOffset() {
+    public double getMyRidingOffset(){
         return -0.6;
     }
 
-    void setWololoTarget(@Nullable Skeleton pWololoTarget) {
+    void setWololoTarget(@Nullable Skeleton pWololoTarget){
         this.wololoTarget = pWololoTarget;
     }
 
-    void setHorseWololoTarget(@Nullable Horse pWololoTarget) {
+    void setHorseWololoTarget(@Nullable Horse pWololoTarget){
         this.wololoTargetHorse = pWololoTarget;
     }
 
     @Nullable
-    Skeleton getWololoTarget() {
+    Skeleton getWololoTarget(){
         return this.wololoTarget;
     }
 
     @Nullable
-    Horse getWololoHorseTarget() {
+    Horse getWololoHorseTarget(){
         return this.wololoTargetHorse;
     }
 
@@ -257,52 +275,52 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
         return damageMap;
     }
 
-    class AttackSpellGoal extends AbstractNecromancer.SpellcasterUseSpellGoal {
-        public int getCastingTime() {
+    class AttackSpellGoal extends AbstractNecromancer.SpellcasterUseSpellGoal{
+        public int getCastingTime(){
             return 45;
         }
 
-        public int getCastingInterval() {
+        public int getCastingInterval(){
             return 60;
         }
 
-        protected void performSpellCasting() {
+        protected void performSpellCasting(){
             LivingEntity livingentity = NecromancerEntity.this.getTarget();
-            if (livingentity != null) {
+            if(livingentity != null){
                 double d0 = Math.min(livingentity.getY(), NecromancerEntity.this.getY());
                 double d1 = Math.max(livingentity.getY(), NecromancerEntity.this.getY()) + 1.0D;
-                float f = (float) Mth.atan2(livingentity.getZ() - NecromancerEntity.this.getZ(), livingentity.getX() - NecromancerEntity.this.getX());
-                if (NecromancerEntity.this.distanceToSqr(livingentity) < 9.0D) {
-                    for (int i = 0; i < 5; ++i) {
-                        float f1 = f + (float) i * (float) Math.PI * 0.4F;
-                        this.createSpellEntity(NecromancerEntity.this.getX() + (double) Mth.cos(f1) * 1.5D, NecromancerEntity.this.getZ() + (double) Mth.sin(f1) * 1.5D, d0, d1, f1, 0);
+                float f = (float)Mth.atan2(livingentity.getZ() - NecromancerEntity.this.getZ(), livingentity.getX() - NecromancerEntity.this.getX());
+                if(NecromancerEntity.this.distanceToSqr(livingentity) < 9.0D){
+                    for(int i = 0; i < 5; ++i){
+                        float f1 = f + (float)i * (float)Math.PI * 0.4F;
+                        this.createSpellEntity(NecromancerEntity.this.getX() + (double)Mth.cos(f1) * 1.5D, NecromancerEntity.this.getZ() + (double)Mth.sin(f1) * 1.5D, d0, d1, f1, 0);
                     }
 
-                    for (int k = 0; k < 8; ++k) {
-                        float f2 = f + (float) k * (float) Math.PI * 2.0F / 8.0F + 1.2566371F;
-                        this.createSpellEntity(NecromancerEntity.this.getX() + (double) Mth.cos(f2) * 2.5D, NecromancerEntity.this.getZ() + (double) Mth.sin(f2) * 2.5D, d0, d1, f2, 3);
+                    for(int k = 0; k < 8; ++k){
+                        float f2 = f + (float)k * (float)Math.PI * 2.0F / 8.0F + 1.2566371F;
+                        this.createSpellEntity(NecromancerEntity.this.getX() + (double)Mth.cos(f2) * 2.5D, NecromancerEntity.this.getZ() + (double)Mth.sin(f2) * 2.5D, d0, d1, f2, 3);
                     }
-                } else {
-                    for (int l = 0; l < 16; ++l) {
-                        double d2 = 1.25D * (double) (l + 1);
-                        this.createSpellEntity(NecromancerEntity.this.getX() + (double) Mth.cos(f) * d2, NecromancerEntity.this.getZ() + (double) Mth.sin(f) * d2, d0, d1, f, l);
+                }else{
+                    for(int l = 0; l < 16; ++l){
+                        double d2 = 1.25D * (double)(l + 1);
+                        this.createSpellEntity(NecromancerEntity.this.getX() + (double)Mth.cos(f) * d2, NecromancerEntity.this.getZ() + (double)Mth.sin(f) * d2, d0, d1, f, l);
                     }
                 }
             }
         }
 
-        private void createSpellEntity(double pX, double pZ, double pMinY, double pMaxY, float pYRot, int pWarmupDelay) {
+        private void createSpellEntity(double pX, double pZ, double pMinY, double pMaxY, float pYRot, int pWarmupDelay){
             BlockPos blockpos = BlockPos.containing(pX, pMaxY, pZ);
             boolean flag = false;
             double d0 = 0.0D;
-            do {
+            do{
                 BlockPos blockpos1 = blockpos.below();
                 BlockState blockstate = NecromancerEntity.this.level().getBlockState(blockpos1);
-                if (blockstate.isFaceSturdy(NecromancerEntity.this.level(), blockpos1, Direction.UP)) {
-                    if (!NecromancerEntity.this.level().isEmptyBlock(blockpos)) {
+                if(blockstate.isFaceSturdy(NecromancerEntity.this.level(), blockpos1, Direction.UP)){
+                    if(!NecromancerEntity.this.level().isEmptyBlock(blockpos)){
                         BlockState blockstate1 = NecromancerEntity.this.level().getBlockState(blockpos);
                         VoxelShape voxelshape = blockstate1.getCollisionShape(NecromancerEntity.this.level(), blockpos);
-                        if (!voxelshape.isEmpty()) {
+                        if(!voxelshape.isEmpty()){
                             d0 = voxelshape.max(Direction.Axis.Y);
                         }
                     }
@@ -312,39 +330,39 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
                 }
 
                 blockpos = blockpos.below();
-            } while (blockpos.getY() >= Mth.floor(pMinY) - 1);
-            if (flag) {
-                NecromancerEntity.this.level().addFreshEntity(new Devourer(NecromancerEntity.this.level(), pX, (double) blockpos.getY() + d0, pZ, pYRot, pWarmupDelay, NecromancerEntity.this));
+            }while(blockpos.getY() >= Mth.floor(pMinY) - 1);
+            if(flag){
+                NecromancerEntity.this.level().addFreshEntity(new Devourer(NecromancerEntity.this.level(), pX, (double)blockpos.getY() + d0, pZ, pYRot, pWarmupDelay, NecromancerEntity.this));
             }
         }
 
-        public SoundEvent getSpellPrepareSound() {
+        public SoundEvent getSpellPrepareSound(){
             return SoundEvents.EVOKER_PREPARE_ATTACK;
         }
 
-        public NecromancerSpells getSpell() {
+        public NecromancerSpells getSpell(){
             return NecromancerSpells.FANGS;
         }
     }
 
-    class CastingSpellGoal extends AbstractNecromancer.SpellcasterCastingSpellGoal {
+    class CastingSpellGoal extends AbstractNecromancer.SpellcasterCastingSpellGoal{
 
         /**
          * Keep ticking a continuous task that has already been started
          */
-        public void tick() {
-            if (NecromancerEntity.this.hasTarget()) {
-                NecromancerEntity.this.getLookControl().setLookAt(NecromancerEntity.this.getTarget(), (float) NecromancerEntity.this.getMaxHeadYRot(), (float) NecromancerEntity.this.getMaxHeadXRot());
-            } else if (NecromancerEntity.this.getWololoTarget() != null) {
-                NecromancerEntity.this.getLookControl().setLookAt(NecromancerEntity.this.getWololoTarget(), (float) NecromancerEntity.this.getMaxHeadYRot(), (float) NecromancerEntity.this.getMaxHeadXRot());
+        public void tick(){
+            if(NecromancerEntity.this.hasTarget()){
+                NecromancerEntity.this.getLookControl().setLookAt(NecromancerEntity.this.getTarget(), (float)NecromancerEntity.this.getMaxHeadYRot(), (float)NecromancerEntity.this.getMaxHeadXRot());
+            }else if(NecromancerEntity.this.getWololoTarget() != null){
+                NecromancerEntity.this.getLookControl().setLookAt(NecromancerEntity.this.getWololoTarget(), (float)NecromancerEntity.this.getMaxHeadYRot(), (float)NecromancerEntity.this.getMaxHeadXRot());
             }
         }
     }
 
-    class SummonMobsSpellGoal extends AbstractNecromancer.SpellcasterUseSpellGoal {
+    class SummonMobsSpellGoal extends AbstractNecromancer.SpellcasterUseSpellGoal{
         private final TargetingConditions vexCountTargeting = TargetingConditions.forNonCombat().range(16.0D).ignoreLineOfSight().ignoreInvisibilityTesting();
 
-        public void start() {
+        public void start(){
             NecromancerEntity.this.setIsCastingSpell(this.getSpell());
             this.attackWarmupDelay = this.adjustedTickDelay(this.getCastingTime());
             NecromancerEntity.this.spellCastingTickCount = this.getCastingTime();
@@ -355,16 +373,16 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
          * Returns whether execution should begin. You can also read and cache any state necessary for execution in this
          * method as well.
          */
-        public boolean canUse() {
+        public boolean canUse(){
             int i = NecromancerEntity.this.level().getNearbyEntities(Zombie.class, this.vexCountTargeting, NecromancerEntity.this, NecromancerEntity.this.getBoundingBox().inflate(16.0D)).size();
             return super.canUse() && NecromancerEntity.this.random.nextInt(8) + 1 > i;
         }
 
-        public int getCastingTime() {
+        public int getCastingTime(){
             return 50;
         }
 
-        public int getCastingInterval() {
+        public int getCastingInterval(){
             return 125;
         }
 
@@ -373,35 +391,35 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
             return null;
         }
 
-        private void spawnZombie(ServerLevel serverLevel, BlockPos blockpos) {
+        private void spawnZombie(ServerLevel serverLevel, BlockPos blockpos){
             Zombie zombie = EntityType.ZOMBIE.create(NecromancerEntity.this.level());
-            if (zombie != null && serverLevel.isEmptyBlock(blockpos) && serverLevel.isEmptyBlock(blockpos.above())) {
+            if(zombie != null && serverLevel.isEmptyBlock(blockpos) && serverLevel.isEmptyBlock(blockpos.above())){
                 zombie.moveTo(blockpos, 0.0F, 0.0F);
                 zombie.finalizeSpawn(serverLevel, NecromancerEntity.this.level().getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, null, null);
                 zombie.setHealth(zombie.getMaxHealth() / 2);
                 zombie.setTarget(NecromancerEntity.this.getTarget());
                 serverLevel.addFreshEntityWithPassengers(zombie);
-            } else {
+            }else{
                 spawnUndead(serverLevel, blockpos.above());
             }
         }
 
-        private void spawnSkeletons(ServerLevel serverLevel, BlockPos blockpos) {
+        private void spawnSkeletons(ServerLevel serverLevel, BlockPos blockpos){
             Skeleton skeleton = EntityType.SKELETON.create(NecromancerEntity.this.level());
-            if (skeleton != null && serverLevel.isEmptyBlock(blockpos) && serverLevel.isEmptyBlock(blockpos.above())) {
+            if(skeleton != null && serverLevel.isEmptyBlock(blockpos) && serverLevel.isEmptyBlock(blockpos.above())){
                 skeleton.moveTo(blockpos, 0.0F, 0.0F);
                 skeleton.finalizeSpawn(serverLevel, NecromancerEntity.this.level().getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, null, null);
                 skeleton.setHealth(skeleton.getMaxHealth() / 2);
                 skeleton.setTarget(NecromancerEntity.this.getTarget());
                 serverLevel.addFreshEntityWithPassengers(skeleton);
-            } else {
+            }else{
                 spawnUndead(serverLevel, blockpos.above());
             }
         }
 
-        private void spawnUndead(ServerLevel serverLevel, BlockPos blockpos) {
+        private void spawnUndead(ServerLevel serverLevel, BlockPos blockpos){
             UndeadEntity undead = EntityTypeRegistry.UNDEAD.get().create(NecromancerEntity.this.level());
-            if (undead != null && serverLevel.isEmptyBlock(blockpos)) {
+            if(undead != null && serverLevel.isEmptyBlock(blockpos)){
                 undead.moveTo(blockpos, 0.0F, 0.0F);
                 undead.finalizeSpawn(serverLevel, NecromancerEntity.this.level().getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, null, null);
                 undead.setOwner(NecromancerEntity.this);
@@ -411,45 +429,45 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
             }
         }
 
-        public void spawnUndead(ServerLevel serv) {
-            for (int i = 0; i < 3; ++i) {
+        public void spawnUndead(ServerLevel serv){
+            for(int i = 0; i < 3; ++i){
                 BlockPos undeadSpawnPos = NecromancerEntity.this.blockPosition().offset(-2 + NecromancerEntity.this.random.nextInt(5), 1, -2 + NecromancerEntity.this.random.nextInt(5));
                 spawnUndead(serv, undeadSpawnPos);
             }
         }
 
-        public void spawnMobs(ServerLevel serv) {
+        public void spawnMobs(ServerLevel serv){
             boolean flag = serv.isDay() && !serv.isRaining(); // Prevents sun avoiding mobs from spawning
-            if (flag) {
+            if(flag){
                 spawnUndead(serv);
                 serv.playSound(null, NecromancerEntity.this.blockPosition(), getSpellPrepareSound(true), SoundSource.HOSTILE);
                 return;
             }
 
-            for (int i = 0; i < 3; ++i) {
+            for(int i = 0; i < 3; ++i){
                 BlockPos blockpos = NecromancerEntity.this.blockPosition().offset(-2 + NecromancerEntity.this.random.nextInt(5), 0, -2 + NecromancerEntity.this.random.nextInt(5));
-                if (arcRandom.fiftyFifty()) {
+                if(arcRandom.fiftyFifty()){
                     spawnSkeletons(serv, blockpos);
-                } else {
+                }else{
                     spawnZombie(serv, blockpos);
                 }
             }
 
-            if (arcRandom.chance(5)) {
+            if(arcRandom.chance(5)){
                 spawnUndead(serv);
             }
 
             serv.playSound(null, NecromancerEntity.this.blockPosition(), getSpellPrepareSound(false), SoundSource.HOSTILE);
         }
 
-        protected void performSpellCasting() {
+        protected void performSpellCasting(){
             NecromancerEntity entity = NecromancerEntity.this;
             boolean flag = entity.level().isClientSide || !entity.hasTarget();
-            if (flag) {
+            if(flag){
                 return;
             }
 
-            if (entity.level() instanceof ServerLevel serv) {
+            if(entity.level() instanceof ServerLevel serv){
                 spawnMobs(serv);
                 double posX = entity.getOnPos().getCenter().x;
                 double posY = entity.getOnPos().above().getCenter().y;
@@ -459,28 +477,28 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
             }
         }
 
-        public SoundEvent getSpellPrepareSound(boolean isAir) {
+        public SoundEvent getSpellPrepareSound(boolean isAir){
             return isAir ? SoundsRegistry.NECROMANCER_SUMMON_AIR.get() : SoundsRegistry.NECROMANCER_SUMMON_GROUND.get();
         }
 
-        public NecromancerSpells getSpell() {
+        public NecromancerSpells getSpell(){
             return NecromancerSpells.SUMMON_MOBS;
         }
     }
 
-    class KnockbackEntitiesGoal extends AbstractNecromancer.SpellcasterUseSpellGoal {
+    class KnockbackEntitiesGoal extends AbstractNecromancer.SpellcasterUseSpellGoal{
         private float range;
         private final TargetingConditions targeting = TargetingConditions.forCombat().range(range).ignoreLineOfSight().ignoreInvisibilityTesting();
         private final boolean strong;
         public final ImmutableList<MobEffectInstance> effects;
 
-        public KnockbackEntitiesGoal(boolean strong, float range, MobEffectInstance... pEffect) {
+        public KnockbackEntitiesGoal(boolean strong, float range, MobEffectInstance... pEffect){
             this.range = range;
             this.effects = ImmutableList.copyOf(pEffect);
             this.strong = strong;
         }
 
-        public KnockbackEntitiesGoal(boolean strong, MobEffectInstance... pEffect) {
+        public KnockbackEntitiesGoal(boolean strong, MobEffectInstance... pEffect){
             this.range = NecromancerEntity.this.getHealth() < 25 ? 6 : 3;
             this.effects = ImmutableList.copyOf(pEffect);
             this.strong = strong;
@@ -490,30 +508,30 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
          * Returns whether execution should begin. You can also read and cache any state necessary for execution in this
          * method as well.
          */
-        public boolean canUse() {
+        public boolean canUse(){
             List<LivingEntity> entities = NecromancerEntity.this.level().getNearbyEntities(LivingEntity.class, this.targeting, NecromancerEntity.this, NecromancerEntity.this.getBoundingBox().inflate(range));
             return super.canUse() && NecromancerEntity.this.getTarget() != null && !NecromancerEntity.this.isCastingSpell() && !entities.isEmpty();
         }
 
-        public int getCastingTime() {
+        public int getCastingTime(){
             return 45;
         }
 
-        public int getCastingInterval() {
+        public int getCastingInterval(){
             return 45;
         }
 
-        protected void performSpellCasting() {
-            if (NecromancerEntity.this.hasTarget()) {
+        protected void performSpellCasting(){
+            if(NecromancerEntity.this.hasTarget()){
                 Vec3 vec3 = new Vec3(NecromancerEntity.this.getX(), NecromancerEntity.this.getY(), NecromancerEntity.this.getZ());
                 List<LivingEntity> entities = NecromancerEntity.this.level().getNearbyEntities(LivingEntity.class, this.targeting, NecromancerEntity.this, NecromancerEntity.this.getBoundingBox().inflate(range));
-                for (LivingEntity entity : entities) {
+                for(LivingEntity entity : entities){
                     double distance = Math.sqrt(entity.distanceToSqr(vec3)) / range;
                     double dX = entity.getX() - NecromancerEntity.this.getX();
                     double dY = entity.getEyeY() - NecromancerEntity.this.getY();
                     double dZ = entity.getZ() - NecromancerEntity.this.getZ();
                     double sqrt = Math.sqrt(dX * dX + dY * dY + dZ * dZ);
-                    if (sqrt != 0.0D) {
+                    if(sqrt != 0.0D){
                         dX /= sqrt;
                         dY /= sqrt;
                         dZ /= sqrt;
@@ -524,12 +542,12 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
                         dY *= powerAfterDamp;
                         dZ *= powerAfterDamp;
                         Vec3 vec31 = new Vec3(dX * 2, dY * 0.5f, dZ * 2);
-                        if (this.strong) {
+                        if(this.strong){
                             NecromancerEntity.this.heal(NecromancerEntity.this.getHealth() * 0.1f);
                             entity.hurt(NecromancerEntity.this.level().damageSources().generic(), 15);
                         }
 
-                        for (MobEffectInstance effectInstance : effects) {
+                        for(MobEffectInstance effectInstance : effects){
                             NecromancerEntity.this.getTarget().addEffect(effectInstance);
                         }
 
@@ -540,49 +558,49 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
             }
         }
 
-        public boolean isInterruptable() {
+        public boolean isInterruptable(){
             return false;
         }
 
-        public SoundEvent getSpellPrepareSound() {
+        public SoundEvent getSpellPrepareSound(){
             return SoundEvents.EVOKER_PREPARE_SUMMON;
         }
 
-        public NecromancerSpells getSpell() {
+        public NecromancerSpells getSpell(){
             return NecromancerSpells.KNOCKBACK;
         }
     }
 
-    public class HealTargetSpellGoal extends AbstractNecromancer.SpellcasterUseSpellGoal {
+    public class HealTargetSpellGoal extends AbstractNecromancer.SpellcasterUseSpellGoal{
         private final TargetingConditions targeting = TargetingConditions.forCombat().range(4.0D);
 
-        public boolean canUse() {
-            if (!super.canUse()) {
+        public boolean canUse(){
+            if(!super.canUse()){
                 return false;
-            } else {
+            }else{
                 List<Monster> targets = NecromancerEntity.this.level().getNearbyEntities(Monster.class, this.targeting, NecromancerEntity.this, NecromancerEntity.this.getBoundingBox().inflate(4.0D));
                 return !targets.isEmpty();
             }
         }
 
-        public boolean isInterruptable() {
+        public boolean isInterruptable(){
             return false;
         }
 
-        public int getCastingTime() {
+        public int getCastingTime(){
             return 55;
         }
 
-        public int getCastingInterval() {
+        public int getCastingInterval(){
             return 120;
         }
 
-        protected void performSpellCasting() {
-            ServerLevel serverLevel = (ServerLevel) NecromancerEntity.this.level();
+        protected void performSpellCasting(){
+            ServerLevel serverLevel = (ServerLevel)NecromancerEntity.this.level();
             List<Monster> targets = serverLevel.getNearbyEntities(Monster.class, this.targeting, NecromancerEntity.this, NecromancerEntity.this.getBoundingBox().inflate(4.0D));
             List<LivingEntity> toHeal = new ArrayList<>();
-            for (Monster target : targets) {
-                if (!(target instanceof NecromancerEntity) && target.getHealth() < target.getMaxHealth()) {
+            for(Monster target : targets){
+                if(!(target instanceof NecromancerEntity) && target.getHealth() < target.getMaxHealth()){
                     Vector3d pos = new Vector3d(NecromancerEntity.this.getX(), NecromancerEntity.this.getY(), NecromancerEntity.this.getZ());
                     ValoriaUtils.spawnParticlesInRadius(serverLevel, null, ParticleTypes.HAPPY_VILLAGER, pos, 0, NecromancerEntity.this.getRotationVector().y, 4);
                     ValoriaUtils.healNearbyTypedMobs(MobCategory.MONSTER, 12.0F, serverLevel, NecromancerEntity.this, toHeal, pos, 0, NecromancerEntity.this.getRotationVector().y, 4);
@@ -592,72 +610,72 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
             }
         }
 
-        public SoundEvent getSpellPrepareSound() {
+        public SoundEvent getSpellPrepareSound(){
             return SoundEvents.EVOKER_PREPARE_SUMMON;
         }
 
-        public NecromancerSpells getSpell() {
+        public NecromancerSpells getSpell(){
             return NecromancerSpells.HEAL;
         }
     }
 
-    public class ApplyEffectSpellGoal extends AbstractNecromancer.SpellcasterUseSpellGoal {
+    public class ApplyEffectSpellGoal extends AbstractNecromancer.SpellcasterUseSpellGoal{
 
         public final ImmutableList<MobEffectInstance> effects;
 
-        public ApplyEffectSpellGoal(MobEffectInstance... pEffect) {
+        public ApplyEffectSpellGoal(MobEffectInstance... pEffect){
             this.effects = ImmutableList.copyOf(pEffect);
         }
 
-        public int getCastingTime() {
+        public int getCastingTime(){
             return 35;
         }
 
-        public int getCastingInterval() {
+        public int getCastingInterval(){
             return 80;
         }
 
-        protected void performSpellCasting() {
-            if (NecromancerEntity.this.hasTarget()) {
-                for (MobEffectInstance effectInstance : effects) {
+        protected void performSpellCasting(){
+            if(NecromancerEntity.this.hasTarget()){
+                for(MobEffectInstance effectInstance : effects){
                     NecromancerEntity.this.getTarget().addEffect(effectInstance);
                 }
             }
         }
 
-        public SoundEvent getSpellPrepareSound() {
+        public SoundEvent getSpellPrepareSound(){
             return SoundEvents.EVOKER_PREPARE_SUMMON;
         }
 
-        public NecromancerSpells getSpell() {
+        public NecromancerSpells getSpell(){
             return NecromancerSpells.EFFECT;
         }
     }
 
-    public class HealSelfSpellGoal extends AbstractNecromancer.SpellcasterUseSpellGoal {
-        public boolean canUse() {
-            if (!super.canUse()) {
+    public class HealSelfSpellGoal extends AbstractNecromancer.SpellcasterUseSpellGoal{
+        public boolean canUse(){
+            if(!super.canUse()){
                 return false;
-            } else {
+            }else{
                 return NecromancerEntity.this.getHealth() < NecromancerEntity.this.getMaxHealth();
             }
         }
 
-        public boolean isInterruptable() {
+        public boolean isInterruptable(){
             return false;
         }
 
-        public int getCastingTime() {
+        public int getCastingTime(){
             return 75;
         }
 
-        public int getCastingInterval() {
+        public int getCastingInterval(){
             return 120;
         }
 
-        protected void performSpellCasting() {
-            ServerLevel serverLevel = (ServerLevel) NecromancerEntity.this.level();
-            if (NecromancerEntity.this.getHealth() < NecromancerEntity.this.getMaxHealth()) {
+        protected void performSpellCasting(){
+            ServerLevel serverLevel = (ServerLevel)NecromancerEntity.this.level();
+            if(NecromancerEntity.this.getHealth() < NecromancerEntity.this.getMaxHealth()){
                 Vector3d pos = new Vector3d(NecromancerEntity.this.getX(), NecromancerEntity.this.getY(), NecromancerEntity.this.getZ());
                 ValoriaUtils.spawnParticlesAroundPosition(pos, 2, 1, serverLevel, ParticleTypes.HAPPY_VILLAGER);
                 NecromancerEntity.this.heal(25);
@@ -665,34 +683,34 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
             }
         }
 
-        public SoundEvent getSpellPrepareSound() {
+        public SoundEvent getSpellPrepareSound(){
             return SoundEvents.EVOKER_PREPARE_SUMMON;
         }
 
-        public NecromancerSpells getSpell() {
+        public NecromancerSpells getSpell(){
             return NecromancerSpells.HEAL;
         }
     }
 
-    public class WololoSpellGoal extends AbstractNecromancer.SpellcasterUseSpellGoal {
+    public class WololoSpellGoal extends AbstractNecromancer.SpellcasterUseSpellGoal{
         private final TargetingConditions wololoTargeting = TargetingConditions.forCombat().range(8.0D);
 
         /**
          * Returns whether execution should begin. You can also read and cache any state necessary for execution in this
          * method as well.
          */
-        public boolean canUse() {
-            if (NecromancerEntity.this.hasTarget()) {
+        public boolean canUse(){
+            if(NecromancerEntity.this.hasTarget()){
                 return false;
-            } else if (NecromancerEntity.this.isCastingSpell()) {
+            }else if(NecromancerEntity.this.isCastingSpell()){
                 return false;
-            } else if (NecromancerEntity.this.tickCount < this.nextAttackTickCount) {
+            }else if(NecromancerEntity.this.tickCount < this.nextAttackTickCount){
                 return false;
-            } else {
+            }else{
                 List<Skeleton> list = NecromancerEntity.this.level().getNearbyEntities(Skeleton.class, this.wololoTargeting, NecromancerEntity.this, NecromancerEntity.this.getBoundingBox().inflate(16.0D, 4.0D, 16.0D));
-                if (list.isEmpty()) {
+                if(list.isEmpty()){
                     return false;
-                } else {
+                }else{
                     NecromancerEntity.this.setWololoTarget(list.get(NecromancerEntity.this.random.nextInt(list.size())));
                     return true;
                 }
@@ -702,30 +720,30 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
         /**
          * Returns whether an in-progress EntityAIBase should continue executing
          */
-        public boolean canContinueToUse() {
+        public boolean canContinueToUse(){
             return NecromancerEntity.this.getWololoTarget() != null && this.attackWarmupDelay > 0;
         }
 
         /**
          * Reset the task's internal state. Called when this task is interrupted by another one
          */
-        public void stop() {
+        public void stop(){
             super.stop();
             NecromancerEntity.this.setWololoTarget(null);
         }
 
-        protected void performSpellCasting() {
+        protected void performSpellCasting(){
             Skeleton target = NecromancerEntity.this.getWololoTarget();
-            ServerLevel serverlevel = (ServerLevel) NecromancerEntity.this.level();
-            if (target != null && target.isAlive()) {
+            ServerLevel serverlevel = (ServerLevel)NecromancerEntity.this.level();
+            if(target != null && target.isAlive()){
                 DraugrEntity mob = EntityTypeRegistry.DRAUGR.get().create(serverlevel);
-                if (mob != null) {
+                if(mob != null){
                     serverlevel.addFreshEntity(mob);
                     BlockPos pos = new BlockPos(target.getBlockX(), target.getBlockY(), target.getBlockZ());
                     PacketHandler.sendToTracking(serverlevel, target.getOnPos(), new CircleShapedParticlePacket(target.getBlockX() + 0.5f, target.getBlockY(), target.getBlockZ() + 0.5f, target.getRotationVector().y, 46, 51, 60));
-                    if (!target.getMainHandItem().isEmpty()) {
+                    if(!target.getMainHandItem().isEmpty()){
                         mob.setItemInHand(InteractionHand.MAIN_HAND, Items.BOW.getDefaultInstance());
-                    } else if (!target.getOffhandItem().isEmpty()) {
+                    }else if(!target.getOffhandItem().isEmpty()){
                         mob.setItemInHand(InteractionHand.OFF_HAND, Items.BOW.getDefaultInstance());
                     }
 
@@ -737,42 +755,42 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
             }
         }
 
-        public int getCastingTime() {
+        public int getCastingTime(){
             return 60;
         }
 
-        public int getCastingInterval() {
+        public int getCastingInterval(){
             return 140;
         }
 
-        public SoundEvent getSpellPrepareSound() {
+        public SoundEvent getSpellPrepareSound(){
             return SoundEvents.WARDEN_SONIC_CHARGE;
         }
 
-        public NecromancerSpells getSpell() {
+        public NecromancerSpells getSpell(){
             return NecromancerSpells.WOLOLO;
         }
     }
 
-    public class WololoHorseSpellGoal extends AbstractNecromancer.SpellcasterUseSpellGoal {
+    public class WololoHorseSpellGoal extends AbstractNecromancer.SpellcasterUseSpellGoal{
         private final TargetingConditions wololoTargeting = TargetingConditions.forNonCombat().range(8.0D);
 
         /**
          * Returns whether execution should begin. You can also read and cache any state necessary for execution in this
          * method as well.
          */
-        public boolean canUse() {
-            if (NecromancerEntity.this.hasTarget()) {
+        public boolean canUse(){
+            if(NecromancerEntity.this.hasTarget()){
                 return false;
-            } else if (NecromancerEntity.this.isCastingSpell()) {
+            }else if(NecromancerEntity.this.isCastingSpell()){
                 return false;
-            } else if (NecromancerEntity.this.tickCount < this.nextAttackTickCount) {
+            }else if(NecromancerEntity.this.tickCount < this.nextAttackTickCount){
                 return false;
-            } else {
+            }else{
                 List<Horse> list = NecromancerEntity.this.level().getNearbyEntities(Horse.class, this.wololoTargeting, NecromancerEntity.this, NecromancerEntity.this.getBoundingBox().inflate(16.0D, 4.0D, 16.0D));
-                if (list.isEmpty()) {
+                if(list.isEmpty()){
                     return false;
-                } else {
+                }else{
                     NecromancerEntity.this.setHorseWololoTarget(list.get(NecromancerEntity.this.random.nextInt(list.size())));
                     return true;
                 }
@@ -782,24 +800,24 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
         /**
          * Returns whether an in-progress EntityAIBase should continue executing
          */
-        public boolean canContinueToUse() {
+        public boolean canContinueToUse(){
             return NecromancerEntity.this.getWololoHorseTarget() != null && this.attackWarmupDelay > 0;
         }
 
         /**
          * Reset the task's internal state. Called when this task is interrupted by another one
          */
-        public void stop() {
+        public void stop(){
             super.stop();
             NecromancerEntity.this.setHorseWololoTarget(null);
         }
 
-        protected void performSpellCasting() {
+        protected void performSpellCasting(){
             Horse target = NecromancerEntity.this.getWololoHorseTarget();
-            ServerLevel serverlevel = (ServerLevel) NecromancerEntity.this.level();
-            if (target != null && target.isAlive()) {
+            ServerLevel serverlevel = (ServerLevel)NecromancerEntity.this.level();
+            if(target != null && target.isAlive()){
                 SkeletonHorse mob = EntityType.SKELETON_HORSE.create(serverlevel);
-                if (mob != null) {
+                if(mob != null){
                     serverlevel.addFreshEntity(mob);
                     BlockPos pos = new BlockPos(target.getBlockX(), target.getBlockY(), target.getBlockZ());
                     mob.setItemInHand(InteractionHand.MAIN_HAND, Items.BOW.getDefaultInstance());
@@ -810,19 +828,19 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
             }
         }
 
-        public int getCastingTime() {
+        public int getCastingTime(){
             return 60;
         }
 
-        public int getCastingInterval() {
+        public int getCastingInterval(){
             return 140;
         }
 
-        public SoundEvent getSpellPrepareSound() {
+        public SoundEvent getSpellPrepareSound(){
             return SoundEvents.WARDEN_SONIC_CHARGE;
         }
 
-        public NecromancerSpells getSpell() {
+        public NecromancerSpells getSpell(){
             return NecromancerSpells.WOLOLO;
         }
     }

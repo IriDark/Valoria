@@ -1,7 +1,7 @@
 package com.idark.valoria.client.particle;
 
-public class ScreenParticleRegistry {
-    public ScreenParticleRegistry() {
+public class ScreenParticleRegistry{
+    public ScreenParticleRegistry(){
     }
 //    public static void spawnLightParticles(ScreenParticleHolder target, ColorParticleData data) {
 //        var rand = Minecraft.getInstance().level.getRandom();

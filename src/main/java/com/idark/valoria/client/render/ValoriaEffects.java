@@ -1,25 +1,27 @@
 package com.idark.valoria.client.render;
 
-import com.idark.valoria.*;
-import com.mojang.blaze3d.platform.*;
-import com.mojang.blaze3d.systems.*;
+import com.idark.valoria.Valoria;
+import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
-import com.mojang.math.*;
-import net.minecraft.client.*;
-import net.minecraft.client.multiplayer.*;
+import com.mojang.math.Axis;
+import net.minecraft.client.Camera;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.*;
-import net.minecraft.resources.*;
-import net.minecraft.util.*;
-import net.minecraft.world.effect.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.level.material.*;
-import net.minecraft.world.phys.*;
-import net.minecraftforge.api.distmarker.*;
-import org.jetbrains.annotations.*;
-import org.joml.*;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.material.FogType;
+import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.NotNull;
+import org.joml.Matrix4f;
 
 import javax.annotation.Nullable;
-import java.lang.Math;
 
 @OnlyIn(Dist.CLIENT)
 public class ValoriaEffects extends DimensionSpecialEffects{

@@ -12,14 +12,14 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin({ServerItemCooldowns.class})
-public abstract class MixinCooldownTracker {
+public abstract class MixinCooldownTracker{
 
     @Shadow
     @Final
     private ServerPlayer player;
 
     @Inject(method = "onCooldownEnded", at = @At("HEAD"))
-    public void onRemove(Item itemIn, CallbackInfo ci) {
+    public void onRemove(Item itemIn, CallbackInfo ci){
         CooldownHandler.onCooldownEnd(player, itemIn);
     }
 }

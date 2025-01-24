@@ -1,50 +1,55 @@
 package com.idark.valoria.registries.item.types.ranged.bows;
 
-import com.idark.valoria.registries.entity.projectile.*;
-import net.minecraft.*;
-import net.minecraft.network.chat.*;
-import net.minecraft.sounds.*;
-import net.minecraft.stats.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.player.*;
-import net.minecraft.world.entity.projectile.*;
+import com.idark.valoria.registries.entity.projectile.AbstractValoriaArrow;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.enchantment.*;
-import net.minecraft.world.level.*;
-import net.minecraft.world.phys.*;
-import net.minecraftforge.event.*;
-import org.jetbrains.annotations.*;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.event.ForgeEventFactory;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-import java.util.*;
-import java.util.function.*;
+import java.util.List;
+import java.util.function.Supplier;
 
 import static com.idark.valoria.util.ValoriaUtils.addContributorTooltip;
 
-public class ConfigurableBowItem extends BowItem {
+public class ConfigurableBowItem extends BowItem{
     public double baseDamage;
     public int arrowBaseDamage;
     public float time = 20;
     public Supplier<? extends EntityType<? extends AbstractArrow>> arrow;
-    public ConfigurableBowItem(double pBaseDamage, Properties pProperties) {
+
+    public ConfigurableBowItem(double pBaseDamage, Properties pProperties){
         super(pProperties);
         this.baseDamage = pBaseDamage;
         this.arrowBaseDamage = 2;
         this.arrow = () -> EntityType.ARROW;
     }
 
-     public ConfigurableBowItem(double pBaseDamage, float pTime, Properties pProperties) {
+    public ConfigurableBowItem(double pBaseDamage, float pTime, Properties pProperties){
         this(pBaseDamage, pProperties);
         time = pTime;
     }
 
-    public ConfigurableBowItem(Supplier<? extends EntityType<? extends AbstractArrow>> arrow, double pBaseDamage, int pArrowBaseDamage, Properties pProperties) {
+    public ConfigurableBowItem(Supplier<? extends EntityType<? extends AbstractArrow>> arrow, double pBaseDamage, int pArrowBaseDamage, Properties pProperties){
         super(pProperties);
         this.baseDamage = pBaseDamage;
         this.arrowBaseDamage = pArrowBaseDamage;
         this.arrow = arrow;
     }
-    
-    public ConfigurableBowItem(Supplier<? extends EntityType<? extends AbstractArrow>> arrow, double pBaseDamage, int pArrowBaseDamage, float pTime, Properties pProperties) {
+
+    public ConfigurableBowItem(Supplier<? extends EntityType<? extends AbstractArrow>> arrow, double pBaseDamage, int pArrowBaseDamage, float pTime, Properties pProperties){
         super(pProperties);
         this.baseDamage = pBaseDamage;
         this.arrowBaseDamage = pArrowBaseDamage;
@@ -52,24 +57,24 @@ public class ConfigurableBowItem extends BowItem {
         time = pTime;
     }
 
-    public @NotNull EntityType<? extends AbstractArrow> getDefaultType() {
+    public @NotNull EntityType<? extends AbstractArrow> getDefaultType(){
         return arrow.get();
     }
 
     /**
      * Gets the velocity of the arrow entity from the bow's charge
      */
-    public static float getPowerForTime(int pCharge, float time) {
+    public static float getPowerForTime(int pCharge, float time){
         float f = (float)pCharge / time;
         f = (f * f + f * 2.0F) / 3.0F;
-        if (f > 1.0F) {
+        if(f > 1.0F){
             f = 1.0F;
         }
 
         return f;
     }
 
-    public void doPreSpawn(AbstractArrow abstractarrow, Player player, ItemStack itemstack, float power, boolean infiniteArrows) {
+    public void doPreSpawn(AbstractArrow abstractarrow, Player player, ItemStack itemstack, float power, boolean infiniteArrows){
         abstractarrow = customArrow(abstractarrow);
         abstractarrow.setBaseDamage(abstractarrow.getBaseDamage() + baseDamage);
         abstractarrow.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, power * 3.0F, 1.0F);
@@ -83,32 +88,32 @@ public class ConfigurableBowItem extends BowItem {
         }
     }
 
-    public AbstractArrow createArrow(Level pLevel, Player player) {
+    public AbstractArrow createArrow(Level pLevel, Player player){
         AbstractArrow customArrow = arrow.get().create(pLevel);
         customArrow.moveTo(new Vec3(player.getEyePosition().x, player.getEyePosition().y - 0.1f, player.getEyePosition().z));
-        if (customArrow instanceof AbstractValoriaArrow valor) valor.doPostSpawn();
+        if(customArrow instanceof AbstractValoriaArrow valor) valor.doPostSpawn();
         return customArrow;
     }
 
     @Override
-    public void releaseUsing(ItemStack pStack, Level pLevel, LivingEntity pEntityLiving, int pTimeLeft) {
-        if (pEntityLiving instanceof Player player) {
+    public void releaseUsing(ItemStack pStack, Level pLevel, LivingEntity pEntityLiving, int pTimeLeft){
+        if(pEntityLiving instanceof Player player){
             boolean flag = player.getAbilities().instabuild || EnchantmentHelper.getTagEnchantmentLevel(Enchantments.INFINITY_ARROWS, pStack) > 0;
             ItemStack itemstack = player.getProjectile(pStack);
             int i = this.getUseDuration(pStack) - pTimeLeft;
             i = ForgeEventFactory.onArrowLoose(pStack, pLevel, player, i, !itemstack.isEmpty() || flag);
-            if (i < 0) return;
+            if(i < 0) return;
 
-            if (!itemstack.isEmpty() || flag) {
-                if (itemstack.isEmpty()) {
+            if(!itemstack.isEmpty() || flag){
+                if(itemstack.isEmpty()){
                     itemstack = new ItemStack(Items.ARROW);
                 }
 
                 float power = getPowerForTime(i, time);
-                if (!((double) power < 0.1D)) {
-                    boolean infiniteArrows = player.getAbilities().instabuild || (itemstack.getItem() instanceof ArrowItem && ((ArrowItem) itemstack.getItem()).isInfinite(itemstack, pStack, player));
-                    if (!pLevel.isClientSide()) {
-                        ArrowItem arrowitem = (ArrowItem) (itemstack.getItem() instanceof ArrowItem ? itemstack.getItem() : Items.ARROW);
+                if(!((double)power < 0.1D)){
+                    boolean infiniteArrows = player.getAbilities().instabuild || (itemstack.getItem() instanceof ArrowItem && ((ArrowItem)itemstack.getItem()).isInfinite(itemstack, pStack, player));
+                    if(!pLevel.isClientSide()){
+                        ArrowItem arrowitem = (ArrowItem)(itemstack.getItem() instanceof ArrowItem ? itemstack.getItem() : Items.ARROW);
                         AbstractArrow abstractarrow = arrowitem == Items.ARROW && arrow.get() != EntityType.ARROW ? createArrow(pLevel, player) : arrowitem.createArrow(pLevel, itemstack, player);
                         doPreSpawn(abstractarrow, player, itemstack, power, infiniteArrows);
                         int enchantmentPower = EnchantmentHelper.getTagEnchantmentLevel(Enchantments.POWER_ARROWS, pStack);
@@ -143,7 +148,7 @@ public class ConfigurableBowItem extends BowItem {
         }
     }
 
-    private double calculateAverageDamage(ItemStack pStack) {
+    private double calculateAverageDamage(ItemStack pStack){
         double baseArrowDamage = this.baseDamage + 2;
         int powerLevel = EnchantmentHelper.getTagEnchantmentLevel(Enchantments.POWER_ARROWS, pStack);
         double powerBonus = powerLevel > 0 ? (powerLevel * 0.5D + 0.5D) : 0.0D;
@@ -155,9 +160,9 @@ public class ConfigurableBowItem extends BowItem {
         super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
         addContributorTooltip(pStack, pTooltipComponents);
         double damage = calculateAverageDamage(pStack);
-        if(arrow.get() != EntityType.ARROW) {
+        if(arrow.get() != EntityType.ARROW){
             pTooltipComponents.add(Component.translatable("tooltip.valoria.special_arrow").withStyle(ChatFormatting.GRAY)
-            .append(Component.literal(getDefaultType().getDescription().getString()).withStyle(pStack.getRarity().getStyleModifier())));
+                    .append(Component.literal(getDefaultType().getDescription().getString()).withStyle(pStack.getRarity().getStyleModifier())));
         }
 
         pTooltipComponents.add(Component.translatable("tooltip.valoria.bow_damage", damage).withStyle(ChatFormatting.GRAY));

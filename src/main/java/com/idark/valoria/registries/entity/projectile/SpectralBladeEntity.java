@@ -1,40 +1,50 @@
 package com.idark.valoria.registries.entity.projectile;
 
-import com.idark.valoria.registries.*;
-import com.idark.valoria.util.*;
-import mod.maxbogomol.fluffy_fur.client.particle.*;
-import mod.maxbogomol.fluffy_fur.client.particle.data.*;
-import mod.maxbogomol.fluffy_fur.common.easing.*;
-import mod.maxbogomol.fluffy_fur.registry.client.*;
-import net.minecraft.core.particles.*;
-import net.minecraft.nbt.*;
-import net.minecraft.sounds.*;
-import net.minecraft.util.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.projectile.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.level.*;
-import net.minecraft.world.phys.*;
-import net.minecraftforge.api.distmarker.*;
+import com.idark.valoria.registries.EntityTypeRegistry;
+import com.idark.valoria.registries.ItemsRegistry;
+import com.idark.valoria.registries.SoundsRegistry;
+import com.idark.valoria.util.Pal;
+import mod.maxbogomol.fluffy_fur.client.particle.GenericParticle;
+import mod.maxbogomol.fluffy_fur.client.particle.ParticleBuilder;
+import mod.maxbogomol.fluffy_fur.client.particle.data.ColorParticleData;
+import mod.maxbogomol.fluffy_fur.client.particle.data.GenericParticleData;
+import mod.maxbogomol.fluffy_fur.common.easing.Easing;
+import mod.maxbogomol.fluffy_fur.registry.client.FluffyFurParticles;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
-import javax.annotation.*;
+import javax.annotation.Nullable;
 import java.awt.*;
-import java.util.function.*;
+import java.util.function.Consumer;
 
-public class SpectralBladeEntity extends AbstractValoriaArrow {
+public class SpectralBladeEntity extends AbstractValoriaArrow{
     public boolean dealtDamage;
     public ItemStack thrownStack = new ItemStack(ItemsRegistry.spectralBlade.get());
     RandomSource rand = RandomSource.create();
-    public SpectralBladeEntity(EntityType<? extends SpectralBladeEntity> type, Level worldIn) {
+
+    public SpectralBladeEntity(EntityType<? extends SpectralBladeEntity> type, Level worldIn){
         super(type, worldIn);
     }
 
-    public SpectralBladeEntity(Level worldIn, LivingEntity thrower, ItemStack thrownStackIn) {
+    public SpectralBladeEntity(Level worldIn, LivingEntity thrower, ItemStack thrownStackIn){
         super(EntityTypeRegistry.SPECTRAL_BLADE.get(), worldIn, thrower, thrownStackIn, 2);
     }
 
-    public void tick() {
-        if (this.inGroundTime > 4) {
+    public void tick(){
+        if(this.inGroundTime > 4){
             this.dealtDamage = true;
         }
 
@@ -44,12 +54,12 @@ public class SpectralBladeEntity extends AbstractValoriaArrow {
         double a0 = vector3d.z;
         this.setDeltaMovement(a3, 0, a0);
         spawnParticleTrail(level(), this, new Vec3(this.getX() + a3 / 4.0D, this.getY() + a4 / 4.0D, this.getZ() + a0 / 2.0D));
-        if (isInWater()) {
-            if (!this.level().isClientSide()) {
+        if(isInWater()){
+            if(!this.level().isClientSide()){
                 this.removeAfterChangingDimensions();
-            } else {
+            }else{
                 this.level().playSound(this, this.getOnPos(), SoundsRegistry.DISAPPEAR.get(), SoundSource.AMBIENT, 0.4f, 1f);
-                for (int a = 0; a < 6; ++a) {
+                for(int a = 0; a < 6; ++a){
                     double d0 = rand.nextGaussian() * 0.02D;
                     double d1 = rand.nextGaussian() * 0.02D;
                     double d2 = rand.nextGaussian() * 0.02D;
@@ -80,68 +90,68 @@ public class SpectralBladeEntity extends AbstractValoriaArrow {
             };
 
             ParticleBuilder.create(FluffyFurParticles.SPARKLE)
-            .setColorData(ColorParticleData.create(Pal.cyan, Color.white).build())
-            .setTransparencyData(GenericParticleData.create(0.3f).setEasing(Easing.QUARTIC_OUT).build())
-            .setScaleData(GenericParticleData.create(0.06f, 0.15f, 0).setEasing(Easing.QUARTIC_OUT).build())
-            .addTickActor(blockTarget)
-            .setLifetime(16)
-            .randomVelocity(0.25f)
-            .disablePhysics()
-            .repeat(level, spawnPos.x(), spawnPos.y(), spawnPos.z(), 4);
+                    .setColorData(ColorParticleData.create(Pal.cyan, Color.white).build())
+                    .setTransparencyData(GenericParticleData.create(0.3f).setEasing(Easing.QUARTIC_OUT).build())
+                    .setScaleData(GenericParticleData.create(0.06f, 0.15f, 0).setEasing(Easing.QUARTIC_OUT).build())
+                    .addTickActor(blockTarget)
+                    .setLifetime(16)
+                    .randomVelocity(0.25f)
+                    .disablePhysics()
+                    .repeat(level, spawnPos.x(), spawnPos.y(), spawnPos.z(), 4);
         }
     }
 
-    public void onHit(HitResult pResult) {
+    public void onHit(HitResult pResult){
         super.onHit(pResult);
-        if (!this.level().isClientSide) {
+        if(!this.level().isClientSide){
             this.discard();
         }
     }
 
-    public ItemStack getPickupItem() {
+    public ItemStack getPickupItem(){
         return null;
     }
 
     @Nullable
-    public EntityHitResult findHitEntity(Vec3 startVec, Vec3 endVec) {
+    public EntityHitResult findHitEntity(Vec3 startVec, Vec3 endVec){
         return this.dealtDamage ? null : super.findHitEntity(startVec, endVec);
     }
 
-    public SoundEvent getDefaultHitGroundSoundEvent() {
+    public SoundEvent getDefaultHitGroundSoundEvent(){
         return SoundsRegistry.DISAPPEAR.get();
     }
 
     @Override
-    public SoundEvent getHitGroundSoundEvent() {
+    public SoundEvent getHitGroundSoundEvent(){
         return SoundsRegistry.DISAPPEAR.get();
     }
 
-    public void readAdditionalSaveData(CompoundTag compound) {
+    public void readAdditionalSaveData(CompoundTag compound){
         super.readAdditionalSaveData(compound);
-        if (compound.contains("spectral_blade", 10)) {
+        if(compound.contains("spectral_blade", 10)){
             this.thrownStack = ItemStack.of(compound.getCompound("spectral_blade"));
         }
 
         this.dealtDamage = compound.getBoolean("DealtDamage");
     }
 
-    public void addAdditionalSaveData(CompoundTag compound) {
+    public void addAdditionalSaveData(CompoundTag compound){
         super.addAdditionalSaveData(compound);
         compound.put("spectral_blade", this.thrownStack.save(new CompoundTag()));
     }
 
-    public void tickDespawn() {
-        if (this.pickup != Pickup.DISALLOWED) {
+    public void tickDespawn(){
+        if(this.pickup != Pickup.DISALLOWED){
             super.tickDespawn();
         }
     }
 
-    public float getWaterInertia() {
+    public float getWaterInertia(){
         return 0.0F;
     }
 
     @OnlyIn(Dist.CLIENT)
-    public boolean shouldRender(double x, double y, double z) {
+    public boolean shouldRender(double x, double y, double z){
         return true;
     }
 }

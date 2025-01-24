@@ -1,12 +1,12 @@
 package com.idark.valoria.core.proxy;
 
-import net.minecraft.sounds.*;
-import net.minecraft.world.entity.player.*;
-import net.minecraft.world.level.*;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 
-import java.util.*;
+import java.util.UUID;
 
-public interface ISidedProxy {
+public interface ISidedProxy{
     Player getPlayer();
 
     Level getLevel();

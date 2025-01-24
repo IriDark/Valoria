@@ -1,53 +1,61 @@
 package com.idark.valoria.registries.entity.projectile;
 
 import com.idark.valoria.registries.*;
-import net.minecraft.core.particles.*;
-import net.minecraft.nbt.*;
-import net.minecraft.sounds.*;
-import net.minecraft.util.*;
-import net.minecraft.world.damagesource.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.player.*;
-import net.minecraft.world.entity.projectile.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.item.enchantment.*;
-import net.minecraft.world.level.*;
-import net.minecraft.world.level.block.state.*;
-import net.minecraft.world.phys.*;
+import net.minecraft.core.particles.BlockParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
 
-import javax.annotation.*;
+import javax.annotation.Nullable;
 
-public class MeatBlockEntity extends AbstractArrow {
+public class MeatBlockEntity extends AbstractArrow{
     public boolean dealtDamage;
     public ItemStack thrownStack = new ItemStack(BlockRegistry.meatBlock.get());
     public float rotationVelocity = -8;
     RandomSource rand = RandomSource.create();
 
-    public MeatBlockEntity(EntityType<? extends MeatBlockEntity> type, Level worldIn) {
+    public MeatBlockEntity(EntityType<? extends MeatBlockEntity> type, Level worldIn){
         super(type, worldIn);
     }
 
-    public MeatBlockEntity(Level worldIn, LivingEntity thrower, ItemStack thrownStackIn) {
+    public MeatBlockEntity(Level worldIn, LivingEntity thrower, ItemStack thrownStackIn){
         super(EntityTypeRegistry.MEAT.get(), thrower, worldIn);
         this.thrownStack = thrownStackIn.copy();
     }
 
-    public void tick() {
-        if (this.inGroundTime > 4) {
+    public void tick(){
+        if(this.inGroundTime > 4){
             this.dealtDamage = true;
         }
 
         BlockState state = BlockRegistry.meatBlock.get().defaultBlockState();
-        for (int a = 0; a < 2; ++a) {
+        for(int a = 0; a < 2; ++a){
             this.level().addParticle(new BlockParticleOption(ParticleTypes.BLOCK, state), this.getX() + Mth.nextFloat(rand, 0.0F, 0.2F), this.getY() + 0.7D, this.getZ() + Mth.nextFloat(rand, 0.0F, 0.2F), 0d, 0.02d, 0d);
         }
 
-        if (isInWater()) {
-            if (!this.level().isClientSide()) {
+        if(isInWater()){
+            if(!this.level().isClientSide()){
                 this.removeAfterChangingDimensions();
-            } else {
+            }else{
                 this.level().playSound(this, this.getOnPos(), SoundsRegistry.DISAPPEAR.get(), SoundSource.AMBIENT, 0.4f, 1f);
-                for (int a = 0; a < 6; ++a) {
+                for(int a = 0; a < 6; ++a){
                     double d0 = rand.nextGaussian() * 0.02D;
                     double d1 = rand.nextGaussian() * 0.02D;
                     double d2 = rand.nextGaussian() * 0.02D;
@@ -59,11 +67,11 @@ public class MeatBlockEntity extends AbstractArrow {
         super.tick();
     }
 
-    public void onHit(HitResult pResult) {
-        if (pResult.getType() != HitResult.Type.ENTITY || !this.ownedBy(((EntityHitResult) pResult).getEntity())) {
-            if (!this.level().isClientSide) {
+    public void onHit(HitResult pResult){
+        if(pResult.getType() != HitResult.Type.ENTITY || !this.ownedBy(((EntityHitResult)pResult).getEntity())){
+            if(!this.level().isClientSide){
                 BlockState state = BlockRegistry.cattail.get().defaultBlockState();
-                for (int a = 0; a < 10; ++a) {
+                for(int a = 0; a < 10; ++a){
                     this.level().addParticle(new BlockParticleOption(ParticleTypes.BLOCK, state), xo, yo + 4, zo, 0.2d, 0.04d, 0.2d);
                 }
 
@@ -75,23 +83,23 @@ public class MeatBlockEntity extends AbstractArrow {
         super.onHit(pResult);
     }
 
-    public ItemStack getPickupItem() {
+    public ItemStack getPickupItem(){
         return ItemStack.EMPTY;
     }
 
     @Nullable
-    public EntityHitResult findHitEntity(Vec3 startVec, Vec3 endVec) {
+    public EntityHitResult findHitEntity(Vec3 startVec, Vec3 endVec){
         return this.dealtDamage ? null : super.findHitEntity(startVec, endVec);
     }
 
     @Override
-    public void onHitEntity(EntityHitResult result) {
+    public void onHitEntity(EntityHitResult result){
         super.onHitEntity(result);
         Entity entity = result.getEntity();
         Entity shooter = this.getOwner();
-        if (shooter instanceof Player player){
+        if(shooter instanceof Player player){
             float totalDamage = (float)(player.getAttributes().getValue(AttributeRegistry.PROJECTILE_DAMAGE.get()));
-            if (entity instanceof LivingEntity livingentity) {
+            if(entity instanceof LivingEntity livingentity){
                 totalDamage += EnchantmentHelper.getDamageBonus(this.thrownStack, livingentity.getMobType());
             }
 
@@ -112,31 +120,31 @@ public class MeatBlockEntity extends AbstractArrow {
         }
     }
 
-    public SoundEvent getDefaultHitGroundSoundEvent() {
+    public SoundEvent getDefaultHitGroundSoundEvent(){
         return SoundEvents.FROGSPAWN_BREAK;
     }
 
     @Override
-    public SoundEvent getHitGroundSoundEvent() {
+    public SoundEvent getHitGroundSoundEvent(){
         return SoundEvents.FROGSPAWN_BREAK;
     }
 
-    public void readAdditionalSaveData(CompoundTag compound) {
+    public void readAdditionalSaveData(CompoundTag compound){
         super.readAdditionalSaveData(compound);
-        if (compound.contains("thrown", 10)) {
+        if(compound.contains("thrown", 10)){
             this.thrownStack = ItemStack.of(compound.getCompound("thrown"));
         }
 
         this.dealtDamage = compound.getBoolean("DealtDamage");
     }
 
-    public void addAdditionalSaveData(CompoundTag compound) {
+    public void addAdditionalSaveData(CompoundTag compound){
         super.addAdditionalSaveData(compound);
         compound.put("thrown", this.thrownStack.save(new CompoundTag()));
     }
 
-    public void tickDespawn() {
-        if (this.pickup != Pickup.DISALLOWED) {
+    public void tickDespawn(){
+        if(this.pickup != Pickup.DISALLOWED){
             super.tickDespawn();
         }
     }

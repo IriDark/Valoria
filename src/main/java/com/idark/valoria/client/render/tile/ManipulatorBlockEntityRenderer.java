@@ -15,22 +15,22 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
-public class ManipulatorBlockEntityRenderer implements BlockEntityRenderer<ManipulatorBlockEntity> {
+public class ManipulatorBlockEntityRenderer implements BlockEntityRenderer<ManipulatorBlockEntity>{
     public static final ModelResourceLocation SPHERE = new ModelResourceLocation(new ResourceLocation(Valoria.ID, "elemental_sphere"), "");
 
-    public ManipulatorBlockEntityRenderer() {
+    public ManipulatorBlockEntityRenderer(){
     }
 
-    public static void renderCustomModel(ModelResourceLocation model, ItemDisplayContext displayContext, boolean leftHand, PoseStack poseStack, MultiBufferSource buffer, int combinedLight, int combinedOverlay) {
+    public static void renderCustomModel(ModelResourceLocation model, ItemDisplayContext displayContext, boolean leftHand, PoseStack poseStack, MultiBufferSource buffer, int combinedLight, int combinedOverlay){
         BakedModel bakedmodel = Minecraft.getInstance().getItemRenderer().getItemModelShaper().getModelManager().getModel(model);
         Minecraft.getInstance().getItemRenderer().render(new ItemStack(Items.DIRT), displayContext, leftHand, poseStack, buffer, combinedLight, combinedOverlay, bakedmodel);
     }
 
     @Override
-    public void render(ManipulatorBlockEntity manipulatorBlockEntity, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+    public void render(ManipulatorBlockEntity manipulatorBlockEntity, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay){
         ms.pushPose();
         double sinValue = Math.sin((ClientTickHandler.ticksInGame + Minecraft.getInstance().getPartialTick()) * 0.1);
-        float y = 0.6f + (float) (sinValue / 20);
+        float y = 0.6f + (float)(sinValue / 20);
         float rot = ClientTickHandler.ticksInGame * 0.5f;
 
         ms.translate(0.5f, y, 0.5f);

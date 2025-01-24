@@ -1,58 +1,66 @@
 package com.idark.valoria.registries.item.skins;
 
-import com.idark.valoria.*;
-import com.idark.valoria.client.model.*;
-import com.idark.valoria.registries.*;
-import com.idark.valoria.registries.item.armor.item.*;
-import com.idark.valoria.registries.item.skins.categories.*;
-import com.idark.valoria.registries.item.skins.entries.*;
-import com.idark.valoria.registries.item.types.*;
-import com.idark.valoria.registries.item.types.ranged.*;
-import com.idark.valoria.registries.item.types.ranged.bows.*;
-import com.idark.valoria.util.*;
-import mod.maxbogomol.fluffy_fur.client.model.item.*;
-import mod.maxbogomol.fluffy_fur.client.render.item.*;
-import mod.maxbogomol.fluffy_fur.common.itemskin.*;
-import mod.maxbogomol.fluffy_fur.registry.client.*;
-import mod.maxbogomol.fluffy_fur.registry.common.item.*;
-import net.minecraft.client.resources.model.*;
-import net.minecraft.resources.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.item.*;
-import net.minecraftforge.api.distmarker.*;
-import net.minecraftforge.client.event.*;
-import net.minecraftforge.eventbus.api.*;
-import net.minecraftforge.fml.*;
-import net.minecraftforge.fml.common.*;
-import net.minecraftforge.registries.*;
+import com.idark.valoria.Valoria;
+import com.idark.valoria.client.model.ModItemModelProperties;
+import com.idark.valoria.registries.ItemsRegistry;
+import com.idark.valoria.registries.item.armor.item.SkinableArmorItem;
+import com.idark.valoria.registries.item.skins.categories.SkinBuilder;
+import com.idark.valoria.registries.item.skins.entries.ItemSupplierSkinEntry;
+import com.idark.valoria.registries.item.skins.entries.TheFallenCollectorSkinEntry;
+import com.idark.valoria.registries.item.types.KatanaItem;
+import com.idark.valoria.registries.item.types.ranged.BlazeReapItem;
+import com.idark.valoria.registries.item.types.ranged.bows.ConfigurableBowItem;
+import com.idark.valoria.util.Pal;
+import com.idark.valoria.util.Styles;
+import mod.maxbogomol.fluffy_fur.client.model.item.ItemSkinItemOverrides;
+import mod.maxbogomol.fluffy_fur.client.model.item.ItemSkinModels;
+import mod.maxbogomol.fluffy_fur.client.render.item.LargeItemRenderer;
+import mod.maxbogomol.fluffy_fur.common.itemskin.ItemClassSkinEntry;
+import mod.maxbogomol.fluffy_fur.common.itemskin.ItemSkin;
+import mod.maxbogomol.fluffy_fur.common.itemskin.ItemSkinHandler;
+import mod.maxbogomol.fluffy_fur.registry.client.FluffyFurModels;
+import mod.maxbogomol.fluffy_fur.registry.common.item.FluffyFurItemSkins;
+import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.Item;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.event.ModelEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.registries.RegistryObject;
 
-import java.util.*;
+import java.util.Map;
 
 public class SkinsRegistry{
     public static ItemSkin THE_FALLEN_COLLECTOR, ARCANE_GOLD, CYBERPUNK, MIDNIGHT, MURAMASA, FISH;
-    public static void init() {
+
+    public static void init(){
         THE_FALLEN_COLLECTOR = new SkinBuilder(Valoria.ID, "the_fallen_collector").setColor(Pal.seaGreen).setContributor("Kerdo").withStyle(Styles.nature)
-            .addEntry(new TheFallenCollectorSkinEntry(ArmorItem.class, Valoria.ID+":textures/models/armor/skin/the_fallen_collector")
-            .addArmorSkin(EquipmentSlot.HEAD,Valoria.ID+":the_fallen_collector_crown")
-            .addArmorSkin(EquipmentSlot.CHEST,Valoria.ID+":the_fallen_collector_coat"))
-            .addEntry(new ItemClassSkinEntry(KatanaItem.class, Valoria.ID+":brand"))
-            .build();
+                .addEntry(new TheFallenCollectorSkinEntry(ArmorItem.class, Valoria.ID + ":textures/models/armor/skin/the_fallen_collector")
+                        .addArmorSkin(EquipmentSlot.HEAD, Valoria.ID + ":the_fallen_collector_crown")
+                        .addArmorSkin(EquipmentSlot.CHEST, Valoria.ID + ":the_fallen_collector_coat"))
+                .addEntry(new ItemClassSkinEntry(KatanaItem.class, Valoria.ID + ":brand"))
+                .build();
         ARCANE_GOLD = new SkinBuilder(Valoria.ID, "arcane_gold").setColor(Pal.arcaneGold).setContributor("MaxBogomol").withStyle(Styles.arcaneGold)
-            .addEntry(new ItemClassSkinEntry(ConfigurableBowItem.class, Valoria.ID+":arcane_wood_bow"))
-            .addEntry(new ItemClassSkinEntry(BlazeReapItem.class, Valoria.ID+":arcane_gold_blaze_reap"))
-            .build();
+                .addEntry(new ItemClassSkinEntry(ConfigurableBowItem.class, Valoria.ID + ":arcane_wood_bow"))
+                .addEntry(new ItemClassSkinEntry(BlazeReapItem.class, Valoria.ID + ":arcane_gold_blaze_reap"))
+                .build();
         CYBERPUNK = new SkinBuilder(Valoria.ID, "cyberpunk").setColor(Pal.majestyPurple).setContributor("Auriny").withStyle(Styles.nihility)
-            .addEntry(new ItemSupplierSkinEntry(() -> ItemsRegistry.quantumReaper.get(), Valoria.ID+":cyberpunk_quantum_reaper"))
-            .build();
+                .addEntry(new ItemSupplierSkinEntry(() -> ItemsRegistry.quantumReaper.get(), Valoria.ID + ":cyberpunk_quantum_reaper"))
+                .build();
         MIDNIGHT = new SkinBuilder(Valoria.ID, "midnight").setColor(Pal.majestyPurple)
-            .addEntry(new ItemSupplierSkinEntry(() -> ItemsRegistry.quantumReaper.get(), Valoria.ID+":midnight_quantum_reaper"))
-            .build();
+                .addEntry(new ItemSupplierSkinEntry(() -> ItemsRegistry.quantumReaper.get(), Valoria.ID + ":midnight_quantum_reaper"))
+                .build();
         MURAMASA = new SkinBuilder(Valoria.ID, "muramasa").setColor(Pal.majestyPurple).setContributor("Auriny").withStyle(Styles.nihility)
-            .addEntry(new ItemSupplierSkinEntry(() -> ItemsRegistry.murasama.get(), Valoria.ID+":muramasa"))
-            .build();
+                .addEntry(new ItemSupplierSkinEntry(() -> ItemsRegistry.murasama.get(), Valoria.ID + ":muramasa"))
+                .build();
         FISH = new SkinBuilder(Valoria.ID, "swordfish").setColor(Pal.crystalBlue).setContributor("Skoow").withStyle(Styles.aquarius)
-            .addEntry(new ItemSupplierSkinEntry(() -> ItemsRegistry.murasama.get(), Valoria.ID+":swordfish"))
-            .build();
+                .addEntry(new ItemSupplierSkinEntry(() -> ItemsRegistry.murasama.get(), Valoria.ID + ":swordfish"))
+                .build();
     }
 
     public static void register(){
@@ -85,7 +93,7 @@ public class SkinsRegistry{
     @Mod.EventBusSubscriber(modid = Valoria.ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     public static class ClientRegistryEvents{
         @SubscribeEvent
-        public static void modelRegistrySkins(ModelEvent.RegisterAdditional event) {
+        public static void modelRegistrySkins(ModelEvent.RegisterAdditional event){
             registerKatana(event);
             for(RegistryObject<Item> item : ItemsRegistry.ITEMS.getEntries()){
                 if(item.get() instanceof ConfigurableBowItem){
@@ -123,7 +131,7 @@ public class SkinsRegistry{
     @OnlyIn(Dist.CLIENT)
     private static void registerKatana(ModelEvent.RegisterAdditional event){
         for(RegistryObject<Item> item : ItemsRegistry.ITEMS.getEntries()){
-            if(item.get() instanceof KatanaItem && ((KatanaItem) item.get()).builder.hasLargeModel){
+            if(item.get() instanceof KatanaItem && ((KatanaItem)item.get()).builder.hasLargeModel){
                 event.register(LargeItemRenderer.getModelResourceLocation(Valoria.ID, item.getId().getPath()));
             }
         }
@@ -135,7 +143,7 @@ public class SkinsRegistry{
             if(item.get() instanceof KatanaItem katana){
                 if(katana.builder.hasLargeModel){
                     LargeItemRenderer.bakeModel(map, Valoria.ID, item.getId().getPath(), new ItemSkinItemOverrides());
-                } else {
+                }else{
                     FluffyFurItemSkins.addSkinModel(map, item.getId());
                 }
             }

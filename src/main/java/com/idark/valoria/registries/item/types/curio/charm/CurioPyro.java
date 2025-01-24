@@ -14,20 +14,20 @@ import top.theillusivec4.curios.api.SlotContext;
 
 import java.util.List;
 
-public class CurioPyro extends CurioRune {
+public class CurioPyro extends CurioRune{
     public ArcRandom arcRandom = new ArcRandom();
 
-    public CurioPyro(Properties properties) {
+    public CurioPyro(Properties properties){
         super(properties);
     }
 
     @Override
-    public void curioTick(SlotContext slotContext, ItemStack stack) {
-        Player player = (Player) slotContext.entity();
-        if (!player.level().isClientSide() && !player.hasEffect(MobEffects.FIRE_RESISTANCE)) {
-            if (player.isInLava() || player.isOnFire()) {
+    public void curioTick(SlotContext slotContext, ItemStack stack){
+        Player player = (Player)slotContext.entity();
+        if(!player.level().isClientSide() && !player.hasEffect(MobEffects.FIRE_RESISTANCE)){
+            if(player.isInLava() || player.isOnFire()){
                 player.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 200));
-                if (arcRandom.fiftyFifty()) {
+                if(arcRandom.fiftyFifty()){
                     stack.hurtAndBreak(1, player, (p_220045_0_) -> p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
                 }
             }
@@ -35,7 +35,7 @@ public class CurioPyro extends CurioRune {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags) {
+    public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags){
         super.appendHoverText(stack, world, tooltip, flags);
         tooltip.add(Component.translatable("tooltip.valoria.pyro").withStyle(ChatFormatting.GRAY));
     }

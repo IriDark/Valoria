@@ -1,22 +1,26 @@
 package com.idark.valoria.client.render.tile;
 
-import com.idark.valoria.*;
-import com.idark.valoria.client.event.*;
-import com.idark.valoria.registries.block.entity.*;
-import com.mojang.blaze3d.vertex.*;
-import net.minecraft.client.*;
-import net.minecraft.client.renderer.*;
-import net.minecraft.client.renderer.blockentity.*;
-import net.minecraft.client.resources.model.*;
-import net.minecraft.resources.*;
-import net.minecraft.world.item.*;
+import com.idark.valoria.Valoria;
+import com.idark.valoria.client.event.ClientTickHandler;
+import com.idark.valoria.registries.block.entity.FleshCystBlockEntity;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 
-public class FleshCystBlockEntityRenderer implements BlockEntityRenderer<FleshCystBlockEntity> {
+public class FleshCystBlockEntityRenderer implements BlockEntityRenderer<FleshCystBlockEntity>{
     public static final ModelResourceLocation CYST = new ModelResourceLocation(new ResourceLocation(Valoria.ID, "cyst"), "");
-    public FleshCystBlockEntityRenderer() {
+
+    public FleshCystBlockEntityRenderer(){
     }
 
-    public static void renderCustomModel(ModelResourceLocation model, ItemDisplayContext displayContext, boolean leftHand, PoseStack poseStack, MultiBufferSource buffer, int combinedLight, int combinedOverlay) {
+    public static void renderCustomModel(ModelResourceLocation model, ItemDisplayContext displayContext, boolean leftHand, PoseStack poseStack, MultiBufferSource buffer, int combinedLight, int combinedOverlay){
         BakedModel bakedmodel = Minecraft.getInstance().getItemRenderer().getItemModelShaper().getModelManager().getModel(model);
         Minecraft.getInstance().getItemRenderer().render(new ItemStack(Items.DIRT), displayContext, leftHand, poseStack, buffer, combinedLight, combinedOverlay, bakedmodel);
     }

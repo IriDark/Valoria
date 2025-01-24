@@ -1,15 +1,16 @@
 package com.idark.valoria.registries.level;
 
-import net.minecraft.core.*;
-import net.minecraft.nbt.*;
-import net.minecraft.server.level.*;
-import net.minecraft.util.*;
-import net.minecraft.world.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.level.*;
-import net.minecraft.world.phys.*;
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.Difficulty;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
 
-import javax.annotation.*;
+import javax.annotation.Nullable;
 
 //todo delete
 public abstract class BaseSpawner{
@@ -26,23 +27,23 @@ public abstract class BaseSpawner{
         return entityType;
     }
 
-    public boolean isNearPlayer(Level pLevel, BlockPos pPos) {
+    public boolean isNearPlayer(Level pLevel, BlockPos pPos){
         return pLevel.hasNearbyAlivePlayer((double)pPos.getX() + 0.5D, (double)pPos.getY() + 0.5D, (double)pPos.getZ() + 0.5D, this.requiredPlayerRange);
     }
 
-    public void clientTick(Level pLevel, BlockPos pPos) {
+    public void clientTick(Level pLevel, BlockPos pPos){
 
     }
 
-    public void serverTick(ServerLevel pServerLevel, BlockPos pPos) {
-        if (this.isNearPlayer(pServerLevel, pPos)) {
-            if (this.spawnDelay == -1) {
+    public void serverTick(ServerLevel pServerLevel, BlockPos pPos){
+        if(this.isNearPlayer(pServerLevel, pPos)){
+            if(this.spawnDelay == -1){
                 this.delay(pServerLevel, pPos);
             }
 
-            if (this.spawnDelay > 0) {
+            if(this.spawnDelay > 0){
                 --this.spawnDelay;
-            } else {
+            }else{
                 RandomSource randomsource = pServerLevel.getRandom();
                 for(int i = 0; i < this.spawnCount; ++i){
                     var entity = getEntityType().create(pServerLevel);
@@ -75,9 +76,11 @@ public abstract class BaseSpawner{
         }
     }
 
-    public boolean skipSpawnReason(ServerLevel pServerLevel) {
+    public boolean skipSpawnReason(ServerLevel pServerLevel){
         return getEntityType().getCategory().isFriendly() && pServerLevel.getDifficulty() == Difficulty.PEACEFUL;
-    };
+    }
+
+    ;
 
     /**
      * Called on configuration of the Entity
@@ -89,36 +92,36 @@ public abstract class BaseSpawner{
      */
     public abstract void onEntitySpawn(ServerLevel pServerLevel, Entity entity, BlockPos pPos);
 
-    private void delay(Level pLevel, BlockPos pPos) {
+    private void delay(Level pLevel, BlockPos pPos){
         RandomSource randomsource = pLevel.random;
-        if (this.maxSpawnDelay <= this.minSpawnDelay) {
+        if(this.maxSpawnDelay <= this.minSpawnDelay){
             this.spawnDelay = this.minSpawnDelay;
-        } else {
+        }else{
             this.spawnDelay = this.minSpawnDelay + randomsource.nextInt(this.maxSpawnDelay - this.minSpawnDelay);
         }
 
         this.broadcastEvent(pLevel, pPos, 1);
     }
 
-    public void load(@Nullable Level pLevel, BlockPos pPos, CompoundTag pTag) {
+    public void load(@Nullable Level pLevel, BlockPos pPos, CompoundTag pTag){
         this.spawnDelay = pTag.getShort("Delay");
-        if (pTag.contains("MinSpawnDelay", 99)) {
+        if(pTag.contains("MinSpawnDelay", 99)){
             this.minSpawnDelay = pTag.getShort("MinSpawnDelay");
             this.maxSpawnDelay = pTag.getShort("MaxSpawnDelay");
             this.spawnCount = pTag.getShort("SpawnCount");
         }
 
-        if (pTag.contains("MaxNearbyEntities", 99)) {
+        if(pTag.contains("MaxNearbyEntities", 99)){
             this.maxNearbyEntities = pTag.getShort("MaxNearbyEntities");
             this.requiredPlayerRange = pTag.getShort("RequiredPlayerRange");
         }
 
-        if (pTag.contains("SpawnRange", 99)) {
+        if(pTag.contains("SpawnRange", 99)){
             this.spawnRange = pTag.getShort("SpawnRange");
         }
     }
 
-    public CompoundTag save(CompoundTag pTag) {
+    public CompoundTag save(CompoundTag pTag){
         pTag.putShort("Delay", (short)this.spawnDelay);
         pTag.putShort("MinSpawnDelay", (short)this.minSpawnDelay);
         pTag.putShort("MaxSpawnDelay", (short)this.maxSpawnDelay);
@@ -129,14 +132,14 @@ public abstract class BaseSpawner{
         return pTag;
     }
 
-    public boolean onEventTriggered(Level pLevel, int pId) {
-        if (pId == 1) {
-            if (pLevel.isClientSide) {
+    public boolean onEventTriggered(Level pLevel, int pId){
+        if(pId == 1){
+            if(pLevel.isClientSide){
                 this.spawnDelay = this.minSpawnDelay;
             }
 
             return true;
-        } else {
+        }else{
             return false;
         }
     }

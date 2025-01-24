@@ -1,14 +1,14 @@
 package com.idark.valoria.core.enums;
 
-import com.idark.valoria.registries.*;
-import net.minecraft.util.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.item.crafting.*;
+import com.idark.valoria.registries.ItemsRegistry;
+import net.minecraft.util.LazyLoadedValue;
+import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.crafting.Ingredient;
 
-import java.util.function.*;
+import java.util.function.Supplier;
 
-public enum ModItemTier implements Tier {
-//    WOOD(0, 59, 2.0F, 0.0F, 15, () -> Ingredient.of(ItemTags.PLANKS)),
+public enum ModItemTier implements Tier{
+    //    WOOD(0, 59, 2.0F, 0.0F, 15, () -> Ingredient.of(ItemTags.PLANKS)),
 //    STONE(1, 131, 4.0F, 1.0F, 5, () -> Ingredient.of(ItemTags.STONE_TOOL_MATERIALS)),
 //    IRON(2, 250, 6.0F, 2.0F, 14, () -> Ingredient.of(Items.IRON_INGOT)),
 //    DIAMOND(3, 1561, 8.0F, 3.0F, 10, () -> Ingredient.of(Items.DIAMOND)),
@@ -38,7 +38,7 @@ public enum ModItemTier implements Tier {
     @Deprecated
     private final LazyLoadedValue<Ingredient> repairMaterial;
 
-    ModItemTier(int harvestLevel, int maxUses, float efficiency, float attackDamage, int enchantability, Supplier<Ingredient> repairMaterial) {
+    ModItemTier(int harvestLevel, int maxUses, float efficiency, float attackDamage, int enchantability, Supplier<Ingredient> repairMaterial){
         this.harvestLevel = harvestLevel;
         this.maxUses = maxUses;
         this.efficiency = efficiency;
@@ -47,7 +47,7 @@ public enum ModItemTier implements Tier {
         this.repairMaterial = new LazyLoadedValue<>(repairMaterial);
     }
 
-    ModItemTier(int harvestLevel, int maxUses, float efficiency, int enchantability, Supplier<Ingredient> repairMaterial) {
+    ModItemTier(int harvestLevel, int maxUses, float efficiency, int enchantability, Supplier<Ingredient> repairMaterial){
         this.harvestLevel = harvestLevel;
         this.maxUses = maxUses;
         this.efficiency = efficiency;
@@ -57,32 +57,32 @@ public enum ModItemTier implements Tier {
     }
 
     @Override
-    public int getUses() {
+    public int getUses(){
         return maxUses;
     }
 
     @Override
-    public float getSpeed() {
+    public float getSpeed(){
         return efficiency;
     }
 
     @Override
-    public float getAttackDamageBonus() {
+    public float getAttackDamageBonus(){
         return attackDamage;
     }
 
     @Override
-    public int getLevel() {
+    public int getLevel(){
         return harvestLevel;
     }
 
     @Override
-    public int getEnchantmentValue() {
+    public int getEnchantmentValue(){
         return enchantability;
     }
 
     @Override
-    public Ingredient getRepairIngredient() {
+    public Ingredient getRepairIngredient(){
         return repairMaterial.get();
     }
 }

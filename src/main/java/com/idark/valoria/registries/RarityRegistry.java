@@ -1,10 +1,10 @@
 package com.idark.valoria.registries;
 
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.Rarity;
 
 import static com.idark.valoria.util.Styles.*;
 
-public class RarityRegistry {
+public class RarityRegistry{
     public static final Rarity HALLOWEEN = Rarity.create("halloween", halloween);
     public static final Rarity SPIDER = Rarity.create("spider", spider);
     public static final Rarity INFERNAL = Rarity.create("infernal", infernal);

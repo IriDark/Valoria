@@ -6,7 +6,7 @@ import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
 @Mixin(RangedAttribute.class)
-public interface RangedAttributeMixin {
+public interface RangedAttributeMixin{
 
     @Accessor("maxValue")
     @Mutable

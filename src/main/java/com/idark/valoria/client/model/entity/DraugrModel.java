@@ -1,21 +1,26 @@
 package com.idark.valoria.client.model.entity;
 
-import com.mojang.blaze3d.vertex.*;
-import net.minecraft.client.model.*;
-import net.minecraft.client.model.geom.*;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.minecraft.client.model.AnimationUtils;
+import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.util.*;
-import net.minecraft.world.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.monster.*;
-import net.minecraft.world.item.*;
+import net.minecraft.util.Mth;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.HumanoidArm;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.monster.RangedAttackMob;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 
-public class DraugrModel<T extends Mob & RangedAttackMob> extends HumanoidModel<T> {
-    public DraugrModel(ModelPart root) {
+public class DraugrModel<T extends Mob & RangedAttackMob> extends HumanoidModel<T>{
+    public DraugrModel(ModelPart root){
         super(root);
     }
 
-    public static LayerDefinition createBodyLayer() {
+    public static LayerDefinition createBodyLayer(){
         MeshDefinition meshdefinition = HumanoidModel.createMesh(CubeDeformation.NONE, 0.0F);
         PartDefinition partdefinition = meshdefinition.getRoot();
 
@@ -46,14 +51,14 @@ public class DraugrModel<T extends Mob & RangedAttackMob> extends HumanoidModel<
         return LayerDefinition.create(meshdefinition, 128, 128);
     }
 
-    public void prepareMobModel(T pEntity, float pLimbSwing, float pLimbSwingAmount, float pPartialTick) {
+    public void prepareMobModel(T pEntity, float pLimbSwing, float pLimbSwingAmount, float pPartialTick){
         this.rightArmPose = ArmPose.EMPTY;
         this.leftArmPose = ArmPose.EMPTY;
         ItemStack $$4 = pEntity.getItemInHand(InteractionHand.MAIN_HAND);
-        if ($$4.is(Items.BOW) && pEntity.isAggressive()) {
-            if (pEntity.getMainArm() == HumanoidArm.RIGHT) {
+        if($$4.is(Items.BOW) && pEntity.isAggressive()){
+            if(pEntity.getMainArm() == HumanoidArm.RIGHT){
                 this.rightArmPose = ArmPose.BOW_AND_ARROW;
-            } else {
+            }else{
                 this.leftArmPose = ArmPose.BOW_AND_ARROW;
             }
         }
@@ -61,11 +66,11 @@ public class DraugrModel<T extends Mob & RangedAttackMob> extends HumanoidModel<
         super.prepareMobModel(pEntity, pLimbSwing, pLimbSwingAmount, pPartialTick);
     }
 
-    public void setupAnim(T pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch) {
+    public void setupAnim(T pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch){
         super.setupAnim(pEntity, pLimbSwing, pLimbSwingAmount, pAgeInTicks, pNetHeadYaw, pHeadPitch);
         ItemStack $$6 = pEntity.getMainHandItem();
 
-        if (pEntity.isAggressive() && ($$6.isEmpty() || !$$6.is(Items.BOW))) {
+        if(pEntity.isAggressive() && ($$6.isEmpty() || !$$6.is(Items.BOW))){
             float $$7 = Mth.sin(this.attackTime * 3.1415927F);
             float $$8 = Mth.sin((1.0F - (1.0F - this.attackTime) * (1.0F - this.attackTime)) * 3.1415927F);
             this.rightArm.zRot = 0.0F;
@@ -82,7 +87,7 @@ public class DraugrModel<T extends Mob & RangedAttackMob> extends HumanoidModel<
         }
     }
 
-    public void translateToHand(HumanoidArm pSide, PoseStack pPoseStack) {
+    public void translateToHand(HumanoidArm pSide, PoseStack pPoseStack){
         float $$2 = pSide == HumanoidArm.RIGHT ? 1.0F : -1.0F;
         ModelPart $$3 = this.getArm(pSide);
         $$3.x += $$2;
@@ -91,7 +96,7 @@ public class DraugrModel<T extends Mob & RangedAttackMob> extends HumanoidModel<
     }
 
     @Override
-    public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+    public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha){
         head.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
         body.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
         rightArm.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);

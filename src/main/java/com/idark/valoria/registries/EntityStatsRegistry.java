@@ -1,9 +1,10 @@
 package com.idark.valoria.registries;
 
-import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.*;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 
-import java.util.*;
+import java.util.Random;
 
 public class EntityStatsRegistry{
     public static AttributeSupplier HAUNTED_MERCHANT = register(40, 6).add(Attributes.FOLLOW_RANGE, 12).build();
@@ -32,19 +33,19 @@ public class EntityStatsRegistry{
     //minions - valoria
     public static AttributeSupplier FLESH_SENTINEL = registerFlying(20, 12.5, 0.85).add(Attributes.FOLLOW_RANGE, 8).build();
 
-    public static AttributeSupplier.Builder register() {
+    public static AttributeSupplier.Builder register(){
         return Mob.createMobAttributes();
     }
 
-    public static AttributeSupplier.Builder register(double health, double damage) {
+    public static AttributeSupplier.Builder register(double health, double damage){
         return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, health).add(Attributes.ATTACK_DAMAGE, damage).add(Attributes.MOVEMENT_SPEED, 0.25);
     }
 
-    public static AttributeSupplier.Builder register(double health, double damage, double speed) {
+    public static AttributeSupplier.Builder register(double health, double damage, double speed){
         return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, health).add(Attributes.ATTACK_DAMAGE, damage).add(Attributes.MOVEMENT_SPEED, speed);
     }
 
-    public static AttributeSupplier.Builder registerFlying(double health, double damage, double speed) {
+    public static AttributeSupplier.Builder registerFlying(double health, double damage, double speed){
         return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, health).add(Attributes.ATTACK_DAMAGE, damage).add(Attributes.FLYING_SPEED, speed);
     }
 }

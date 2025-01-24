@@ -1,27 +1,29 @@
 package com.idark.valoria.core.network.packets.particle;
 
-import com.idark.valoria.*;
-import com.idark.valoria.util.*;
-import mod.maxbogomol.fluffy_fur.client.particle.*;
-import mod.maxbogomol.fluffy_fur.client.particle.data.*;
-import mod.maxbogomol.fluffy_fur.registry.client.*;
-import net.minecraft.network.*;
-import net.minecraft.util.*;
-import net.minecraft.world.level.*;
-import net.minecraft.world.phys.*;
-import net.minecraftforge.network.*;
+import com.idark.valoria.Valoria;
+import com.idark.valoria.util.Pal;
+import mod.maxbogomol.fluffy_fur.client.particle.ParticleBuilder;
+import mod.maxbogomol.fluffy_fur.client.particle.data.ColorParticleData;
+import mod.maxbogomol.fluffy_fur.client.particle.data.GenericParticleData;
+import mod.maxbogomol.fluffy_fur.registry.client.FluffyFurParticles;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.network.NetworkEvent;
 
 import java.awt.*;
-import java.util.*;
-import java.util.function.*;
+import java.util.Random;
+import java.util.function.Supplier;
 
-public class MurasamaParticlePacket {
+public class MurasamaParticlePacket{
 
     private final float distance;
     private final double posX, posY, posZ;
     private final int colorR, colorG, colorB;
 
-    public MurasamaParticlePacket(float distance, double posX, double posY, double posZ, int colorR, int colorG, int colorB) {
+    public MurasamaParticlePacket(float distance, double posX, double posY, double posZ, int colorR, int colorG, int colorB){
         this.distance = distance;
         this.posX = posX;
         this.posY = posY;
@@ -32,12 +34,12 @@ public class MurasamaParticlePacket {
         this.colorB = colorB;
     }
 
-    public static MurasamaParticlePacket decode(FriendlyByteBuf buf) {
+    public static MurasamaParticlePacket decode(FriendlyByteBuf buf){
         return new MurasamaParticlePacket(buf.readFloat(), buf.readDouble(), buf.readDouble(), buf.readDouble(), buf.readInt(), buf.readInt(), buf.readInt());
     }
 
-    public static void handle(MurasamaParticlePacket msg, Supplier<NetworkEvent.Context> ctx) {
-        if (ctx.get().getDirection().getReceptionSide().isClient()) {
+    public static void handle(MurasamaParticlePacket msg, Supplier<NetworkEvent.Context> ctx){
+        if(ctx.get().getDirection().getReceptionSide().isClient()){
             ctx.get().enqueueWork(() -> {
                 Level pLevel = Valoria.proxy.getLevel();
                 Random rand = new Random();
@@ -51,21 +53,21 @@ public class MurasamaParticlePacket {
                         dZ = -Z;
 
                 int count = 1 + Mth.nextInt(source, 0, 2);
-                for (int ii = 0; ii < count; ii += 1) {
+                for(int ii = 0; ii < count; ii += 1){
                     double yaw = Math.atan2(dZ, dX);
                     double pitch = Math.atan2(Math.sqrt(dZ * dZ + dX * dX), dY) + Math.PI;
-                    double XX = Math.sin(pitch) * Math.cos(yaw) * (float) (rand.nextDouble() * 0.05F) / (ii + 1);
-                    double YY = Math.sin(pitch) * Math.sin(yaw) * (float) (rand.nextDouble() * 0.05F) / (ii + 1);
-                    double ZZ = Math.cos(pitch) * (float) (rand.nextDouble() * 0.05F) / (ii + 1);
+                    double XX = Math.sin(pitch) * Math.cos(yaw) * (float)(rand.nextDouble() * 0.05F) / (ii + 1);
+                    double YY = Math.sin(pitch) * Math.sin(yaw) * (float)(rand.nextDouble() * 0.05F) / (ii + 1);
+                    double ZZ = Math.cos(pitch) * (float)(rand.nextDouble() * 0.05F) / (ii + 1);
                     Color color = new Color(msg.colorR, msg.colorG, msg.colorB);
                     Vec3 particlePos = new Vec3(msg.posX + X, msg.posY + Y, msg.posZ + Z);
                     ParticleBuilder.create(FluffyFurParticles.WISP)
-                    .setColorData(ColorParticleData.create(color, Pal.lightViolet).build())
-                    .setTransparencyData(GenericParticleData.create(0.4f).build())
-                    .setScaleData(GenericParticleData.create(0.2f, 0.1f, 0).build())
-                    .setLifetime(6)
-                    .setVelocity(XX, YY, ZZ)
-                    .spawn(pLevel, particlePos.x, particlePos.y, particlePos.z);
+                            .setColorData(ColorParticleData.create(color, Pal.lightViolet).build())
+                            .setTransparencyData(GenericParticleData.create(0.4f).build())
+                            .setScaleData(GenericParticleData.create(0.2f, 0.1f, 0).build())
+                            .setLifetime(6)
+                            .setVelocity(XX, YY, ZZ)
+                            .spawn(pLevel, particlePos.x, particlePos.y, particlePos.z);
                 }
 
                 ctx.get().setPacketHandled(true);
@@ -73,7 +75,7 @@ public class MurasamaParticlePacket {
         }
     }
 
-    public void encode(FriendlyByteBuf buf) {
+    public void encode(FriendlyByteBuf buf){
         buf.writeFloat(distance);
         buf.writeDouble(posX);
         buf.writeDouble(posY);

@@ -1,15 +1,21 @@
 package com.idark.valoria.registries;
 
-import com.idark.valoria.*;
+import com.idark.valoria.Valoria;
 import com.idark.valoria.registries.entity.living.*;
-import com.idark.valoria.registries.entity.living.decoration.*;
-import com.idark.valoria.registries.entity.living.minions.*;
+import com.idark.valoria.registries.entity.living.decoration.MannequinEntity;
+import com.idark.valoria.registries.entity.living.minions.FleshSentinel;
+import com.idark.valoria.registries.entity.living.minions.UndeadEntity;
 import com.idark.valoria.registries.entity.projectile.*;
-import mod.maxbogomol.fluffy_fur.common.entity.*;
-import net.minecraft.resources.*;
-import net.minecraft.world.entity.*;
-import net.minecraftforge.eventbus.api.*;
-import net.minecraftforge.registries.*;
+import mod.maxbogomol.fluffy_fur.common.entity.CustomBoatEntity;
+import mod.maxbogomol.fluffy_fur.common.entity.CustomChestBoatEntity;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
 public class EntityTypeRegistry{
     public static DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, Valoria.ID);

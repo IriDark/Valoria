@@ -11,16 +11,16 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
 
-public class JewelryBagModel extends HumanoidModel<LivingEntity> {
+public class JewelryBagModel extends HumanoidModel<LivingEntity>{
     public ModelPart root, model;
 
-    public JewelryBagModel(ModelPart pRoot) {
+    public JewelryBagModel(ModelPart pRoot){
         super(pRoot);
         this.root = pRoot;
         this.model = root.getChild("body").getChild("model");
     }
 
-    public static LayerDefinition createBodyLayer() {
+    public static LayerDefinition createBodyLayer(){
         MeshDefinition meshdefinition = new MeshDefinition();
         PartDefinition partdefinition = meshdefinition.getRoot();
 
@@ -41,19 +41,19 @@ public class JewelryBagModel extends HumanoidModel<LivingEntity> {
     }
 
     @Override
-    public void setupAnim(LivingEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void setupAnim(LivingEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch){
         ItemStack chestplate = entity.getItemBySlot(EquipmentSlot.LEGS);
-        if (!chestplate.isEmpty() && chestplate.getItem() instanceof ArmorItem) {
+        if(!chestplate.isEmpty() && chestplate.getItem() instanceof ArmorItem){
             this.model.xScale = 1.05f;
             this.model.yScale = 1.0f;
             this.model.zScale = 1.5f;
-        } else {
+        }else{
             this.model.xScale = 1.0f;
             this.model.yScale = 1.0f;
             this.model.zScale = 1.0f;
         }
 
-        if (entity instanceof LivingEntity) {
+        if(entity instanceof LivingEntity){
             model.copyFrom(this.body);
             model.y += 20;
         } // hmmmm
@@ -64,12 +64,12 @@ public class JewelryBagModel extends HumanoidModel<LivingEntity> {
     }
 
     @Override
-    protected Iterable<ModelPart> headParts() {
+    protected Iterable<ModelPart> headParts(){
         return ImmutableList.of(root.getChild("head"));
     }
 
     @Override
-    protected Iterable<ModelPart> bodyParts() {
+    protected Iterable<ModelPart> bodyParts(){
         return ImmutableList.of(root.getChild("body"));
     }
 }

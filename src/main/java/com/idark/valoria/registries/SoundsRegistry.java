@@ -1,16 +1,19 @@
 package com.idark.valoria.registries;
 
-import com.idark.valoria.*;
-import net.minecraft.resources.*;
-import net.minecraft.sounds.*;
-import net.minecraftforge.common.util.*;
-import net.minecraftforge.eventbus.api.*;
-import net.minecraftforge.registries.*;
+import com.idark.valoria.Valoria;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraftforge.common.util.ForgeSoundType;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
 /**
  * Some sounds taken from the CalamityMod (Terraria) in a <a href="https://calamitymod.wiki.gg/wiki/Category:Sound_effects">Calamity Mod Wiki.gg</a>
  */
-public class SoundsRegistry {
+public class SoundsRegistry{
     public static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, Valoria.ID);
     public static final RegistryObject<SoundEvent> ENDURING = registerSound("music.valoria.enduring");
     public static final RegistryObject<SoundEvent> SHADED_LANDS = registerSound("music.valoria.shaded_lands");
@@ -104,19 +107,20 @@ public class SoundsRegistry {
     public static final ForgeSoundType TOMBSTONE_BRICKS = new ForgeSoundType(1.0F, normalizedPitch(1.0f), TOMBSTONE_BRICKS_BREAK, TOMBSTONE_BRICKS_STEP, TOMBSTONE_BRICKS_PLACE, TOMBSTONE_BRICKS_HIT, TOMBSTONE_BRICKS_FALL);
     public static final ForgeSoundType SUSPICIOUS_TOMBSTONE = new ForgeSoundType(1.0F, normalizedPitch(1.0f), SUSPICIOUS_TOMBSTONE_BREAK, SUSPICIOUS_TOMBSTONE_STEP, TOMBSTONE_BRICKS_PLACE, TOMBSTONE_HIT, TOMBSTONE_HIT);
 
-        /**
+    /**
      * Used in blocks to normalize pitch, because mojang did weird thing: pitch value * 0.8f
+     *
      * @return Normalized pitch
      */
-    public static float normalizedPitch(float pitch) {
+    public static float normalizedPitch(float pitch){
         return pitch / 0.8f;
     }
 
-    public static RegistryObject<SoundEvent> registerSound(String name) {
+    public static RegistryObject<SoundEvent> registerSound(String name){
         return SOUNDS.register(name, () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(Valoria.ID, name)));
     }
 
-    public static void register(IEventBus eventBus) {
+    public static void register(IEventBus eventBus){
         SOUNDS.register(eventBus);
     }
 }

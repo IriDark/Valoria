@@ -1,33 +1,34 @@
 package com.idark.valoria.core.interfaces;
 
-import net.minecraft.client.*;
-import net.minecraft.client.gui.*;
-import net.minecraft.nbt.*;
-import net.minecraft.resources.*;
-import net.minecraftforge.api.distmarker.*;
-import net.minecraftforge.client.event.*;
-import net.minecraftforge.fml.*;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.event.RenderGuiOverlayEvent;
+import net.minecraftforge.fml.ModList;
 
 // todo delete
-public interface OverlayRenderItem {
+public interface OverlayRenderItem{
     ResourceLocation getTexture();
 
     @OnlyIn(Dist.CLIENT)
     void render(CompoundTag tag, GuiGraphics gui, int offsetX, int offsetY);
 
-    default boolean toRender() {
-       return !Minecraft.getInstance().player.isSpectator();
+    default boolean toRender(){
+        return !Minecraft.getInstance().player.isSpectator();
     }
 
-    default int mainHandOffset() {
+    default int mainHandOffset(){
         return 0;
     }
 
-    default int offhandOffset() {
+    default int offhandOffset(){
         return 25;
     }
 
-    static boolean isEmbeddiumPlusLoaded() {
+    static boolean isEmbeddiumPlusLoaded(){
         return ModList.get().isLoaded("embeddiumplus");
     }
 

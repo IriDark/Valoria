@@ -1,28 +1,36 @@
 package com.idark.valoria.registries.block.types;
 
-import com.idark.valoria.registries.*;
-import net.minecraft.core.*;
-import net.minecraft.core.particles.*;
-import net.minecraft.sounds.*;
-import net.minecraft.util.*;
-import net.minecraft.world.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.item.context.*;
-import net.minecraft.world.level.*;
-import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.state.*;
-import net.minecraft.world.level.block.state.properties.*;
-import net.minecraft.world.level.gameevent.*;
+import com.idark.valoria.registries.BlockRegistry;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.Difficulty;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.DirectionalBlock;
+import net.minecraft.world.level.block.RedstoneTorchBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.gameevent.GameEvent;
 
-import javax.annotation.*;
+import javax.annotation.Nullable;
 
-public class SpikeTrapBlock extends DirectionalBlock {
+public class SpikeTrapBlock extends DirectionalBlock{
     public static final BooleanProperty LIT = RedstoneTorchBlock.LIT;
     public static final DirectionProperty FACING = BlockStateProperties.FACING;
     public BlockState state;
     public BlockState spike;
 
-    public SpikeTrapBlock(BlockState pState, BlockState pSpikes, BlockBehaviour.Properties properties) {
+    public SpikeTrapBlock(BlockState pState, BlockState pSpikes, BlockBehaviour.Properties properties){
         super(properties);
         this.state = pState;
         this.spike = pSpikes;
@@ -50,17 +58,17 @@ public class SpikeTrapBlock extends DirectionalBlock {
     }
 
     @Override
-    public void neighborChanged(BlockState state, Level level, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
+    public void neighborChanged(BlockState state, Level level, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving){
         RandomSource rand = level.getRandom();
         Direction direction = state.getValue(DirectionalBlock.FACING);
         BlockPos newPos = pos.offset(direction.getNormal());
-        if (level.hasNeighborSignal(pos)) {
-            if (!level.getBlockState(newPos).isSolid()) {
+        if(level.hasNeighborSignal(pos)){
+            if(!level.getBlockState(newPos).isSolid()){
                 level.setBlockAndUpdate(newPos, this.spike);
                 level.scheduleTick(newPos, BlockRegistry.spikes.get(), 1);
                 level.playSound(null, pos, SoundEvents.PISTON_EXTEND, SoundSource.BLOCKS, 0.3F, level.random.nextFloat() * 0.25F + 0.6F);
-                if (level.isClientSide()) {
-                    for (int i = 0; i < 10; i++) {
+                if(level.isClientSide()){
+                    for(int i = 0; i < 10; i++){
                         level.addParticle(ParticleTypes.POOF, pos.getX() + rand.nextDouble(), pos.getY() + 0.5D, pos.getZ() + rand.nextDouble(), 0d, 0.05d, 0d);
                     }
                 }
@@ -71,14 +79,14 @@ public class SpikeTrapBlock extends DirectionalBlock {
     }
 
     @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder){
         builder.add(FACING);
         builder.add(LIT);
     }
 
     @Nullable
     @Override
-    public BlockState getStateForPlacement(BlockPlaceContext context) {
+    public BlockState getStateForPlacement(BlockPlaceContext context){
         return this.defaultBlockState().setValue(FACING, context.getNearestLookingDirection().getOpposite()).setValue(LIT, Boolean.valueOf(context.getLevel().hasNeighborSignal(context.getClickedPos())));
     }
 }

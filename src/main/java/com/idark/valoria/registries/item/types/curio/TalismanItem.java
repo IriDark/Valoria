@@ -1,25 +1,29 @@
 package com.idark.valoria.registries.item.types.curio;
 
-import com.google.common.collect.*;
-import com.idark.valoria.registries.item.types.builders.*;
-import net.minecraft.*;
-import net.minecraft.network.chat.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.level.*;
+import com.google.common.collect.Multimap;
+import com.idark.valoria.registries.item.types.builders.AbstractTalismanBuilder;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Tiers;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
 
-import java.util.*;
+import java.util.List;
 
 public class TalismanItem extends AbstractTieredAccessory{
     public Builder builder;
+
     public TalismanItem(Builder builder){
         super(Tiers.GOLD, builder.properties);
         this.builder = builder;
         rmbEquip = false;
     }
 
-    public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot pEquipmentSlot) {
+    public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot pEquipmentSlot){
         return pEquipmentSlot == EquipmentSlot.OFFHAND ? builder.attributes : super.getDefaultAttributeModifiers(pEquipmentSlot);
     }
 
@@ -39,7 +43,7 @@ public class TalismanItem extends AbstractTieredAccessory{
         /**
          * @return Build of KatanaItem with all the configurations you set :p
          */
-        public TalismanItem build() {
+        public TalismanItem build(){
             return new TalismanItem(this);
         }
     }

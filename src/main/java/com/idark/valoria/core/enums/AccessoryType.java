@@ -1,6 +1,6 @@
 package com.idark.valoria.core.enums;
 
-public enum AccessoryType {
+public enum AccessoryType{
     GLOVES,
     CHARM,
     RING,

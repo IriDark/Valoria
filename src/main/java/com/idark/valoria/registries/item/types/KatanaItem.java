@@ -1,45 +1,58 @@
 package com.idark.valoria.registries.item.types;
 
-import com.google.common.collect.*;
-import com.idark.valoria.client.ui.*;
-import com.idark.valoria.core.interfaces.*;
-import com.idark.valoria.core.network.*;
-import com.idark.valoria.core.network.packets.particle.*;
-import com.idark.valoria.registries.*;
-import com.idark.valoria.registries.item.types.builders.*;
-import com.idark.valoria.util.*;
-import net.minecraft.*;
-import net.minecraft.core.*;
-import net.minecraft.network.chat.*;
-import net.minecraft.server.level.*;
-import net.minecraft.sounds.*;
-import net.minecraft.stats.*;
-import net.minecraft.util.*;
-import net.minecraft.world.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.*;
-import net.minecraft.world.entity.player.*;
+import com.google.common.collect.ImmutableMultimap;
+import com.google.common.collect.Multimap;
+import com.idark.valoria.client.ui.OverlayRender;
+import com.idark.valoria.core.interfaces.CooldownNotifyItem;
+import com.idark.valoria.core.interfaces.CooldownReductionItem;
+import com.idark.valoria.core.interfaces.DashItem;
+import com.idark.valoria.core.network.PacketHandler;
+import com.idark.valoria.core.network.packets.particle.DashParticlePacket;
+import com.idark.valoria.registries.AttributeRegistry;
+import com.idark.valoria.registries.item.types.builders.AbstractKatanaBuilder;
+import com.idark.valoria.util.ArcRandom;
+import com.idark.valoria.util.ValoriaUtils;
+import net.minecraft.ChatFormatting;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.enchantment.*;
-import net.minecraft.world.level.*;
-import net.minecraft.world.level.block.state.*;
-import net.minecraft.world.phys.*;
-import net.minecraftforge.registries.*;
-import org.jetbrains.annotations.*;
-import org.joml.*;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.registries.ForgeRegistries;
+import org.jetbrains.annotations.NotNull;
+import org.joml.Vector3d;
 
-import java.lang.Math;
-import java.util.*;
+import java.util.List;
 
 import static com.idark.valoria.Valoria.BASE_DASH_DISTANCE_UUID;
 import static com.idark.valoria.util.ValoriaUtils.addContributorTooltip;
 
 // todo delete
-public class KatanaItem extends SwordItem implements CooldownNotifyItem, DashItem, CooldownReductionItem {
+public class KatanaItem extends SwordItem implements CooldownNotifyItem, DashItem, CooldownReductionItem{
     public AbstractKatanaBuilder<? extends KatanaItem> builder;
     public Multimap<Attribute, AttributeModifier> defaultModifiers;
     public ArcRandom arcRandom = new ArcRandom();
-    public KatanaItem(AbstractKatanaBuilder<? extends KatanaItem> builderIn) {
+
+    public KatanaItem(AbstractKatanaBuilder<? extends KatanaItem> builderIn){
         super(builderIn.tier, builderIn.attackDamageIn, builderIn.attackSpeedIn, builderIn.itemProperties);
         this.builder = builderIn;
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
@@ -49,26 +62,26 @@ public class KatanaItem extends SwordItem implements CooldownNotifyItem, DashIte
         this.defaultModifiers = builder.build();
     }
 
-    public KatanaItem(Tier tier, int attackDamageIn, float attackSpeedIn, Item.Properties builderIn) {
+    public KatanaItem(Tier tier, int attackDamageIn, float attackSpeedIn, Item.Properties builderIn){
         this(new Builder(attackDamageIn, attackSpeedIn, builderIn).setTier(tier));
     }
 
-    public KatanaItem(Tier tier, int attackDamageIn, float attackSpeedIn, float dashDistance, Item.Properties builderIn) {
+    public KatanaItem(Tier tier, int attackDamageIn, float attackSpeedIn, float dashDistance, Item.Properties builderIn){
         this(new Builder(attackDamageIn, attackSpeedIn, builderIn).setTier(tier).setDashDistance(dashDistance));
     }
 
-    public void onUseTick(@NotNull Level worldIn, @NotNull LivingEntity livingEntityIn, @NotNull ItemStack stack, int count) {
-        Player player = (Player) livingEntityIn;
-        if (player.getTicksUsingItem() == builder.chargeTime) {
-            if(builder.chargedSound != null) {
+    public void onUseTick(@NotNull Level worldIn, @NotNull LivingEntity livingEntityIn, @NotNull ItemStack stack, int count){
+        Player player = (Player)livingEntityIn;
+        if(player.getTicksUsingItem() == builder.chargeTime){
+            if(builder.chargedSound != null){
                 player.playNotifySound(builder.chargedSound, SoundSource.PLAYERS, 0.25f, 1);
             }
         }
     }
 
     @Override
-    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
-        if (!slotChanged) {
+    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged){
+        if(!slotChanged){
             return false;
         }
 
@@ -76,15 +89,15 @@ public class KatanaItem extends SwordItem implements CooldownNotifyItem, DashIte
     }
 
     @Override
-    public SoundEvent getSoundEvent() {
+    public SoundEvent getSoundEvent(){
         return builder.cooldownSound;
     }
 
-    public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot pEquipmentSlot) {
+    public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot pEquipmentSlot){
         return pEquipmentSlot == EquipmentSlot.MAINHAND ? this.defaultModifiers : super.getDefaultAttributeModifiers(pEquipmentSlot);
     }
 
-    public static double distance(double distance, Level level, Player player) {
+    public static double distance(double distance, Level level, Player player){
         double pitch = ((player.getRotationVector().x + 90) * Math.PI) / 180;
         double yaw = ((player.getRotationVector().y + 90) * Math.PI) / 180;
         double X = Math.sin(pitch) * Math.cos(yaw) * distance;
@@ -94,15 +107,15 @@ public class KatanaItem extends SwordItem implements CooldownNotifyItem, DashIte
         Vec3 pos = new Vec3(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());
         Vec3 EndPos = (player.getViewVector(0.0f).scale(2.0d));
         HitResult hitresult = ValoriaUtils.getHitResult(player.getEyePosition(), player, (e) -> true, EndPos, level);
-        if (hitresult != null) {
-            switch (hitresult.getType()) {
+        if(hitresult != null){
+            switch(hitresult.getType()){
                 case BLOCK, MISS:
                     X = hitresult.getLocation().x();
                     Y = hitresult.getLocation().y();
                     Z = hitresult.getLocation().z();
                     break;
                 case ENTITY:
-                    Entity entity = ((EntityHitResult) hitresult).getEntity();
+                    Entity entity = ((EntityHitResult)hitresult).getEntity();
                     X = entity.getX();
                     Y = entity.getY();
                     Z = entity.getZ();
@@ -113,25 +126,25 @@ public class KatanaItem extends SwordItem implements CooldownNotifyItem, DashIte
         return Math.sqrt((X - pos.x) * (X - pos.x) + (Y - pos.y) * (Y - pos.y) + (Z - pos.z) * (Z - pos.z));
     }
 
-    public boolean mineBlock(@NotNull ItemStack stack, @NotNull Level worldIn, BlockState state, @NotNull BlockPos pos, LivingEntity entityLiving) {
-        if (state.getDestroySpeed(worldIn, pos) != 0.0F) {
+    public boolean mineBlock(@NotNull ItemStack stack, @NotNull Level worldIn, BlockState state, @NotNull BlockPos pos, LivingEntity entityLiving){
+        if(state.getDestroySpeed(worldIn, pos) != 0.0F){
             stack.hurtAndBreak(5, entityLiving, (entity) -> entity.broadcastBreakEvent(EquipmentSlot.MAINHAND));
         }
 
         return true;
     }
 
-    public void applyCooldown(Player playerIn) {
-        for (Item item : ForgeRegistries.ITEMS) {
-            if (item instanceof KatanaItem) {
+    public void applyCooldown(Player playerIn){
+        for(Item item : ForgeRegistries.ITEMS){
+            if(item instanceof KatanaItem){
                 playerIn.getCooldowns().addCooldown(item, builder.cooldownTime - getCooldownReduction(playerIn.getUseItem()));
             }
         }
     }
 
-    public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level worldIn, Player playerIn, @NotNull InteractionHand handIn) {
+    public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level worldIn, Player playerIn, @NotNull InteractionHand handIn){
         ItemStack itemstack = playerIn.getItemInHand(handIn);
-        if (!playerIn.isShiftKeyDown() && handIn != InteractionHand.OFF_HAND) {
+        if(!playerIn.isShiftKeyDown() && handIn != InteractionHand.OFF_HAND){
             playerIn.startUsingItem(handIn);
             return InteractionResultHolder.consume(itemstack);
         }
@@ -139,21 +152,21 @@ public class KatanaItem extends SwordItem implements CooldownNotifyItem, DashIte
         return InteractionResultHolder.pass(itemstack);
     }
 
-    public int getUseDuration(@NotNull ItemStack stack) {
+    public int getUseDuration(@NotNull ItemStack stack){
         return 72000;
     }
 
-    public double getDashDistance(Player player) {
+    public double getDashDistance(Player player){
         return player.getAttributeValue(AttributeRegistry.DASH_DISTANCE.get());
     }
 
-    public int getHurtAmount(List<LivingEntity> detectedEntities) {
+    public int getHurtAmount(List<LivingEntity> detectedEntities){
         return 5 + detectedEntities.size();
     }
 
-    public void performEffects(LivingEntity targets, Player player) {
+    public void performEffects(LivingEntity targets, Player player){
         targets.knockback(0.4F, player.getX() - targets.getX(), player.getZ() - targets.getZ());
-        if (EnchantmentHelper.getFireAspect(player) > 0) {
+        if(EnchantmentHelper.getFireAspect(player) > 0){
             int i = EnchantmentHelper.getFireAspect(player);
             targets.setSecondsOnFire(i * 4);
         }
@@ -198,16 +211,16 @@ public class KatanaItem extends SwordItem implements CooldownNotifyItem, DashIte
         }
     }
 
-    public void releaseUsing(@NotNull ItemStack stack, @NotNull Level level, @NotNull LivingEntity entityLiving, int timeLeft) {
+    public void releaseUsing(@NotNull ItemStack stack, @NotNull Level level, @NotNull LivingEntity entityLiving, int timeLeft){
         RandomSource rand = level.getRandom();
-        Player player = (Player) entityLiving;
+        Player player = (Player)entityLiving;
         Vector3d pos = new Vector3d(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());
-        if (!player.isFallFlying() && player.getTicksUsingItem() >= builder.chargeTime) {
+        if(!player.isFallFlying() && player.getTicksUsingItem() >= builder.chargeTime){
             player.awardStat(Stats.ITEM_USED.get(this));
             applyCooldown(player);
             performDash(stack, level, player, pos, rand);
             level.playSound(null, player.getOnPos(), builder.dashSound, SoundSource.PLAYERS, 1F, 1F);
-            if (level.isClientSide) {
+            if(level.isClientSide){
                 OverlayRender.setOverlayTexture(builder.texture);
                 OverlayRender.showOverlay(builder.overlayTime);
             }
@@ -215,11 +228,11 @@ public class KatanaItem extends SwordItem implements CooldownNotifyItem, DashIte
     }
 
     @Override
-    public void appendHoverText(@NotNull ItemStack stack, Level world, @NotNull List<Component> tooltip, @NotNull TooltipFlag flags) {
+    public void appendHoverText(@NotNull ItemStack stack, Level world, @NotNull List<Component> tooltip, @NotNull TooltipFlag flags){
         super.appendHoverText(stack, world, tooltip, flags);
         addContributorTooltip(stack, tooltip);
         tooltip.add(Component.translatable("tooltip.valoria.katana").withStyle(ChatFormatting.GRAY));
-        if(builder.chargeTime > 0 && flags.isAdvanced()) {
+        if(builder.chargeTime > 0 && flags.isAdvanced()){
             tooltip.add(Component.translatable("tooltip.valoria.katana_charge", builder.chargeTime).withStyle(ChatFormatting.GRAY));
         }
 
@@ -235,7 +248,7 @@ public class KatanaItem extends SwordItem implements CooldownNotifyItem, DashIte
         /**
          * @return Build of KatanaItem with all the configurations you set :p
          */
-        public KatanaItem build() {
+        public KatanaItem build(){
             return new KatanaItem(this);
         }
     }

@@ -1,10 +1,11 @@
 package com.idark.valoria.registries.item.types.builders;
 
-import net.minecraft.sounds.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.item.crafting.*;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.crafting.Ingredient;
 
-import java.util.function.*;
+import java.util.function.Supplier;
 
 public abstract class AbstractArmorBuilder<T extends ArmorMaterial>{
     public String name;
@@ -33,12 +34,12 @@ public abstract class AbstractArmorBuilder<T extends ArmorMaterial>{
         return this;
     }
 
-    public AbstractArmorBuilder<T> durability(int head, int chest, int leggings, int boots) {
+    public AbstractArmorBuilder<T> durability(int head, int chest, int leggings, int boots){
         this.durability = new int[]{head, chest, leggings, boots};
         return this;
     }
 
-    public AbstractArmorBuilder<T> protection(int percent) {
+    public AbstractArmorBuilder<T> protection(int percent){
         int head = (percent * headPercent) / 100;
         int chest = (percent * chestPercent) / 100;
         int leggings = (percent * leggingsPercent) / 100;
@@ -55,9 +56,10 @@ public abstract class AbstractArmorBuilder<T extends ArmorMaterial>{
 
     /**
      * Armor percent distribution between parts
+     *
      * @apiNote Default: 20, 35, 25, 20
      */
-    public AbstractArmorBuilder<T> distribution(int head, int chest, int leggings, int boots) {
+    public AbstractArmorBuilder<T> distribution(int head, int chest, int leggings, int boots){
         this.headPercent = head;
         this.chestPercent = chest;
         this.leggingsPercent = leggings;
@@ -65,7 +67,7 @@ public abstract class AbstractArmorBuilder<T extends ArmorMaterial>{
         return this;
     }
 
-    public AbstractArmorBuilder<T> protection(int head, int chest, int leggings, int boots) {
+    public AbstractArmorBuilder<T> protection(int head, int chest, int leggings, int boots){
         this.headProtectionAmount = head;
         this.chestplateProtectionAmount = chest;
         this.leggingsProtectionAmount = leggings;

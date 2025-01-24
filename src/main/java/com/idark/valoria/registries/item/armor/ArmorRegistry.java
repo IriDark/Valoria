@@ -1,17 +1,18 @@
 package com.idark.valoria.registries.item.armor;
 
-import com.idark.valoria.*;
-import com.idark.valoria.registries.*;
-import com.idark.valoria.registries.item.types.builders.*;
-import net.minecraft.sounds.*;
-import net.minecraft.world.item.ArmorItem.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.item.crafting.*;
-import org.jetbrains.annotations.*;
+import com.idark.valoria.Valoria;
+import com.idark.valoria.registries.ItemsRegistry;
+import com.idark.valoria.registries.item.types.builders.AbstractArmorBuilder;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.item.ArmorItem.Type;
+import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.crafting.Ingredient;
+import org.jetbrains.annotations.NotNull;
 
 public class ArmorRegistry implements ArmorMaterial{
     public Builder builder;
-    public ArmorRegistry(Builder builder) {
+
+    public ArmorRegistry(Builder builder){
         this.builder = builder;
     }
 
@@ -22,7 +23,7 @@ public class ArmorRegistry implements ArmorMaterial{
 
     @Override
     public int getDefenseForType(Type pType){
-        return switch(pType) {
+        return switch(pType){
             case HELMET -> builder.headProtectionAmount;
             case CHESTPLATE -> builder.chestplateProtectionAmount;
             case LEGGINGS -> builder.leggingsProtectionAmount;
@@ -78,7 +79,8 @@ public class ArmorRegistry implements ArmorMaterial{
     public static final ArmorRegistry INFERNAL = new ArmorRegistry.Builder("infernal").protection(28).mul(76).enchantValue(14).knockbackRes(0.12f).ingredient(() -> Ingredient.of(ItemsRegistry.infernalIngot.get())).build();
     public static final ArmorRegistry VOID = new ArmorRegistry.Builder("awakened_void").protection(30).mul(76).enchantValue(10).knockbackRes(0.15f).ingredient(() -> Ingredient.of(ItemsRegistry.voidIngot.get())).build();
     public static final ArmorRegistry PHANTASM = new ArmorRegistry.Builder("phantasm").protection(35).mul(82).enchantValue(12).knockbackRes(0.25f).ingredient(() -> Ingredient.of(ItemsRegistry.illusionStone.get())).build();
-    public static class Builder extends AbstractArmorBuilder<ArmorRegistry> {
+
+    public static class Builder extends AbstractArmorBuilder<ArmorRegistry>{
         public Builder(String name){
             super(name);
         }

@@ -13,13 +13,13 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
-public class KunaiRenderer<T extends KunaiEntity> extends EntityRenderer<T> {
-    public KunaiRenderer(EntityRendererProvider.Context context) {
+public class KunaiRenderer<T extends KunaiEntity> extends EntityRenderer<T>{
+    public KunaiRenderer(EntityRendererProvider.Context context){
         super(context);
     }
 
-    public void render(KunaiEntity entityIn, float entityYaw, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light) {
-        if (!Minecraft.getInstance().isPaused() && !(entityIn.inGround || entityIn.onGround())) {
+    public void render(KunaiEntity entityIn, float entityYaw, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light){
+        if(!Minecraft.getInstance().isPaused() && !(entityIn.inGround || entityIn.onGround())){
             entityIn.rotationVelocity = Mth.lerp(partialTicks, entityIn.rotationVelocity, entityIn.rotationVelocity + 10);
         }
 
@@ -31,7 +31,7 @@ public class KunaiRenderer<T extends KunaiEntity> extends EntityRenderer<T> {
         ms.popPose();
     }
 
-    public ResourceLocation getTextureLocation(KunaiEntity entity) {
+    public ResourceLocation getTextureLocation(KunaiEntity entity){
         return null;
     }
 }

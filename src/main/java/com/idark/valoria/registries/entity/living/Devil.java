@@ -1,29 +1,38 @@
 package com.idark.valoria.registries.entity.living;
 
-import com.idark.valoria.*;
-import com.idark.valoria.registries.*;
-import com.idark.valoria.registries.entity.ai.goals.*;
-import com.idark.valoria.registries.entity.projectile.*;
-import com.idark.valoria.util.*;
-import net.minecraft.nbt.*;
-import net.minecraft.sounds.*;
-import net.minecraft.util.*;
-import net.minecraft.world.*;
-import net.minecraft.world.damagesource.*;
+import com.idark.valoria.Valoria;
+import com.idark.valoria.registries.AttackRegistry;
+import com.idark.valoria.registries.ItemsRegistry;
+import com.idark.valoria.registries.entity.ai.goals.ReasonableAvoidEntityGoal;
+import com.idark.valoria.registries.entity.projectile.ThrownSpearEntity;
+import com.idark.valoria.util.ArcRandom;
+import com.idark.valoria.util.ValoriaUtils;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.*;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier.*;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
-import net.minecraft.world.entity.ai.goal.target.*;
-import net.minecraft.world.entity.monster.*;
-import net.minecraft.world.entity.player.*;
-import net.minecraft.world.entity.projectile.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.level.*;
-import net.minecraft.world.phys.*;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.monster.RangedAttackMob;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.ProjectileUtil;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
 
-import javax.annotation.*;
-import java.util.*;
+import javax.annotation.Nullable;
+import java.util.EnumSet;
 
 public class Devil extends AbstractDevil implements RangedAttackMob{
     public static final AttackRegistry MAGIC = new AttackRegistry(Valoria.ID, "magic");
@@ -36,18 +45,18 @@ public class Devil extends AbstractDevil implements RangedAttackMob{
     public int magicAnimationTimeout = 0;
     public int hits = 0;
 
-    public Devil(EntityType<? extends Devil> pEntityType, Level pLevel) {
+    public Devil(EntityType<? extends Devil> pEntityType, Level pLevel){
         super(pEntityType, pLevel);
     }
 
-    public void handleEntityEvent(byte pId) {
-        if (pId == 62 && throwAnimationTimeout <= 0) {
+    public void handleEntityEvent(byte pId){
+        if(pId == 62 && throwAnimationTimeout <= 0){
             this.throwAnimationTimeout = 40;
             this.idleAnimationState.stop();
             this.throwAnimationState.start(this.tickCount);
         }
 
-        if (pId == 61 && magicAnimationTimeout <= 0) {
+        if(pId == 61 && magicAnimationTimeout <= 0){
             this.magicAnimationTimeout = 80;
             this.idleAnimationState.stop();
             this.magicAnimationState.start(this.tickCount);
@@ -56,18 +65,18 @@ public class Devil extends AbstractDevil implements RangedAttackMob{
         super.handleEntityEvent(pId);
     }
 
-    public void tick() {
+    public void tick(){
         super.tick();
-        if (this.level().isClientSide()) {
+        if(this.level().isClientSide()){
             setupAnimationStates();
         }
     }
 
-    private void setupAnimationStates() {
-        if (this.idleAnimationTimeout <= 0) {
+    private void setupAnimationStates(){
+        if(this.idleAnimationTimeout <= 0){
             this.idleAnimationTimeout = 60;
             this.idleAnimationState.start(this.tickCount);
-        } else {
+        }else{
             --this.throwAnimationTimeout;
             --this.idleAnimationTimeout;
             //--this.magicAnimationTimeout;
@@ -75,13 +84,13 @@ public class Devil extends AbstractDevil implements RangedAttackMob{
     }
 
     // panic reason
-    public final boolean isLowHP() {
+    public final boolean isLowHP(){
         return this.getHealth() < 10;
     }
 
     @Override
     public boolean hurt(DamageSource pSource, float pAmount){
-        if (!this.level().isClientSide() && hits < 4){
+        if(!this.level().isClientSide() && hits < 4){
             hits++;
             amplifyStats();
         }
@@ -89,18 +98,18 @@ public class Devil extends AbstractDevil implements RangedAttackMob{
         return super.hurt(pSource, pAmount);
     }
 
-    private void amplifyStats() {
+    private void amplifyStats(){
         this.getAttribute(Attributes.ATTACK_DAMAGE).addTransientModifier(new AttributeModifier("modifier", this.level().getDifficulty().getId() * 0.5f, Operation.ADDITION));
         this.getAttribute(Attributes.MOVEMENT_SPEED).addTransientModifier(new AttributeModifier("modifier", 0.025f, Operation.MULTIPLY_TOTAL));
     }
 
-    protected void populateDefaultEquipmentSlots(RandomSource pRandom, DifficultyInstance pDifficulty) {
+    protected void populateDefaultEquipmentSlots(RandomSource pRandom, DifficultyInstance pDifficulty){
         super.populateDefaultEquipmentSlots(pRandom, pDifficulty);
         this.setItemSlot(EquipmentSlot.MAINHAND, ItemsRegistry.infernalSpear.get().getDefaultInstance());
     }
 
     @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag){
         RandomSource randomsource = pLevel.getRandom();
         this.populateDefaultEquipmentSlots(randomsource, pDifficulty);
         return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
@@ -225,7 +234,7 @@ public class Devil extends AbstractDevil implements RangedAttackMob{
 //        }
 //    }
 
-    public class ThrowSpearGoal extends AttackGoal {
+    public class ThrowSpearGoal extends AttackGoal{
         private final Mob mob;
         private final RangedAttackMob rangedAttackMob;
         private LivingEntity target;
@@ -242,7 +251,7 @@ public class Devil extends AbstractDevil implements RangedAttackMob{
             this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
         }
 
-        public boolean requiresUpdateEveryTick() {
+        public boolean requiresUpdateEveryTick(){
             return true;
         }
 
@@ -250,10 +259,10 @@ public class Devil extends AbstractDevil implements RangedAttackMob{
          * Returns whether execution should begin. You can also read and cache any state necessary for execution in this
          * method as well.
          */
-        public boolean canUse() {
+        public boolean canUse(){
             LivingEntity livingentity = this.mob.getTarget();
-            if (livingentity == null) return false;
-            if (livingentity.isAlive() && super.canUse()) {
+            if(livingentity == null) return false;
+            if(livingentity.isAlive() && super.canUse()){
                 this.target = livingentity;
                 return cantReachTarget(target) || isFleeing(mob, 5);
             }
@@ -290,15 +299,15 @@ public class Devil extends AbstractDevil implements RangedAttackMob{
             return false;
         }
 
-        private Vec3 getRandomPositionWithLineOfSight(Mob mob, LivingEntity target, int radius, int attempts) {
+        private Vec3 getRandomPositionWithLineOfSight(Mob mob, LivingEntity target, int radius, int attempts){
             var random = mob.getRandom();
-            for (int i = 0; i < attempts; i++) {
+            for(int i = 0; i < attempts; i++){
                 double randomX = target.getX() + (random.nextDouble() - 0.5) * radius * 2;
                 double randomY = target.getY();
                 double randomZ = target.getZ() + (random.nextDouble() - 0.5) * radius * 2;
 
                 Vec3 randomPos = new Vec3(randomX, randomY, randomZ);
-                if (raytrace(mob, randomPos)) {
+                if(raytrace(mob, randomPos)){
                     return randomPos;
                 }
             }
@@ -311,16 +320,16 @@ public class Devil extends AbstractDevil implements RangedAttackMob{
             super.tick();
             this.mob.getLookControl().setLookAt(this.target, 30.0F, 30.0F);
             if(!canUse()) return;
-            if(cantReachTarget(target)) {
+            if(cantReachTarget(target)){
                 this.mob.getMoveControl().strafe(-0.5F, new ArcRandom().nextBoolean() ? 0.5F : -0.5F);
                 return;
             }
 
             double d0 = this.mob.distanceToSqr(this.target.getX(), this.target.getY(), this.target.getZ());
-            if (!(d0 > (double)this.attackRadiusSqr) && this.mob.getSensing().hasLineOfSight(this.target)) {
+            if(!(d0 > (double)this.attackRadiusSqr) && this.mob.getSensing().hasLineOfSight(this.target)){
                 this.mob.getNavigation().stop();
                 return;
-            } else if (!this.mob.getSensing().hasLineOfSight(this.target)){
+            }else if(!this.mob.getSensing().hasLineOfSight(this.target)){
                 Vec3 randomPos = getRandomPositionWithLineOfSight(this.mob, this.target, 12, 8);
                 if(randomPos != null){
                     this.mob.getNavigation().moveTo(randomPos.x, randomPos.y, randomPos.z, this.speedModifier);
@@ -333,7 +342,7 @@ public class Devil extends AbstractDevil implements RangedAttackMob{
 
         @Override
         public void onPrepare(){
-            Devil.this.level().broadcastEntityEvent(Devil.this, (byte) 62);
+            Devil.this.level().broadcastEntityEvent(Devil.this, (byte)62);
         }
 
         @Override

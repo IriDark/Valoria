@@ -20,13 +20,13 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import org.jetbrains.annotations.Nullable;
 
-public class CrushableBlock extends BaseEntityBlock {
+public class CrushableBlock extends BaseEntityBlock{
     public static final IntegerProperty DUSTED = BlockStateProperties.DUSTED;
     private final Block turnsInto;
     private final SoundEvent crushSound;
     private final boolean isIce;
 
-    public CrushableBlock(boolean isIce, Block pTurnsInto, BlockBehaviour.Properties pProperties, SoundEvent pCrushSound) {
+    public CrushableBlock(boolean isIce, Block pTurnsInto, BlockBehaviour.Properties pProperties, SoundEvent pCrushSound){
         super(pProperties);
         this.isIce = isIce;
         this.turnsInto = pTurnsInto;
@@ -34,7 +34,7 @@ public class CrushableBlock extends BaseEntityBlock {
         this.registerDefaultState(this.stateDefinition.any().setValue(DUSTED, 0));
     }
 
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder){
         pBuilder.add(DUSTED);
     }
 
@@ -46,15 +46,15 @@ public class CrushableBlock extends BaseEntityBlock {
      * whenever possible. Implementing/overriding is fine.
      */
     @Deprecated
-    public RenderShape getRenderShape(BlockState pState) {
+    public RenderShape getRenderShape(BlockState pState){
         return RenderShape.MODEL;
     }
 
-    public void onPlace(BlockState pState, Level pLevel, BlockPos pPos, BlockState pOldState, boolean pIsMoving) {
+    public void onPlace(BlockState pState, Level pLevel, BlockPos pPos, BlockState pOldState, boolean pIsMoving){
         pLevel.scheduleTick(pPos, this, 2);
     }
 
-    public boolean skipRendering(BlockState pState, BlockState pAdjacentBlockState, Direction pSide) {
+    public boolean skipRendering(BlockState pState, BlockState pAdjacentBlockState, Direction pSide){
         return this.isIce && (pAdjacentBlockState.is(this) || pAdjacentBlockState.is(Blocks.ICE));
     }
 
@@ -64,27 +64,27 @@ public class CrushableBlock extends BaseEntityBlock {
      * returns its solidified counterpart.
      * Note that this method should ideally consider only the specific direction passed in.
      */
-    public BlockState updateShape(BlockState pState, Direction pDirection, BlockState pNeighborState, LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pNeighborPos) {
+    public BlockState updateShape(BlockState pState, Direction pDirection, BlockState pNeighborState, LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pNeighborPos){
         pLevel.scheduleTick(pCurrentPos, this, 2);
         return super.updateShape(pState, pDirection, pNeighborState, pLevel, pCurrentPos, pNeighborPos);
     }
 
-    public void tick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
+    public void tick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom){
         BlockEntity blockentity = pLevel.getBlockEntity(pPos);
-        if (blockentity instanceof CrushableBlockEntity pBlockEntity) {
+        if(blockentity instanceof CrushableBlockEntity pBlockEntity){
             pBlockEntity.checkReset();
         }
     }
 
-    public @Nullable BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
+    public @Nullable BlockEntity newBlockEntity(BlockPos pPos, BlockState pState){
         return new CrushableBlockEntity(pPos, pState);
     }
 
-    public Block getTurnsInto() {
+    public Block getTurnsInto(){
         return this.turnsInto;
     }
 
-    public SoundEvent getCrushSound() {
+    public SoundEvent getCrushSound(){
         return this.crushSound;
     }
 }

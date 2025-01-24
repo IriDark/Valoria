@@ -1,31 +1,37 @@
 package com.idark.valoria.registries.block.entity;
 
-import com.idark.valoria.client.render.tile.*;
-import com.idark.valoria.client.ui.menus.*;
-import com.idark.valoria.registries.*;
-import com.idark.valoria.registries.item.recipe.*;
-import com.idark.valoria.registries.item.skins.*;
-import com.idark.valoria.util.*;
-import mod.maxbogomol.fluffy_fur.common.itemskin.*;
-import net.minecraft.core.*;
-import net.minecraft.nbt.*;
-import net.minecraft.network.*;
-import net.minecraft.network.chat.*;
-import net.minecraft.network.protocol.game.*;
-import net.minecraft.world.*;
-import net.minecraft.world.entity.player.*;
-import net.minecraft.world.inventory.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.level.block.entity.*;
-import net.minecraft.world.level.block.state.*;
-import net.minecraftforge.common.capabilities.*;
-import net.minecraftforge.common.util.*;
-import net.minecraftforge.items.*;
-import net.minecraftforge.items.wrapper.*;
+import com.idark.valoria.client.render.tile.TickableBlockEntity;
+import com.idark.valoria.client.ui.menus.JewelryMenu;
+import com.idark.valoria.registries.BlockEntitiesRegistry;
+import com.idark.valoria.registries.item.recipe.JewelryRecipe;
+import com.idark.valoria.registries.item.skins.SkinTrimItem;
+import com.idark.valoria.util.ValoriaUtils;
+import mod.maxbogomol.fluffy_fur.common.itemskin.ItemSkin;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.Connection;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemStackHandler;
+import net.minecraftforge.items.wrapper.CombinedInvWrapper;
 import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.*;
-import java.util.*;
+import javax.annotation.Nonnull;
+import java.util.Optional;
 
 public class JewelryBlockEntity extends BlockEntity implements MenuProvider, TickableBlockEntity{
     public final ItemStackHandler itemHandler = createHandler(2);
@@ -230,13 +236,13 @@ public class JewelryBlockEntity extends BlockEntity implements MenuProvider, Tic
         }
     }
 
-    public ItemSkin getSkin() {
-        if (!itemHandler.getStackInSlot(0).isEmpty() && !itemHandler.getStackInSlot(1).isEmpty()) {
-            if (itemHandler.getStackInSlot(1).getItem() instanceof SkinTrimItem trim) {
-                if (trim.canApply(itemHandler.getStackInSlot(0))) {
+    public ItemSkin getSkin(){
+        if(!itemHandler.getStackInSlot(0).isEmpty() && !itemHandler.getStackInSlot(1).isEmpty()){
+            if(itemHandler.getStackInSlot(1).getItem() instanceof SkinTrimItem trim){
+                if(trim.canApply(itemHandler.getStackInSlot(0))){
                     ItemSkin skin = ItemSkin.getSkinFromItem(itemHandler.getStackInSlot(0));
-                    if (skin != null) {
-                        if (skin == trim.getSkin()) return null;
+                    if(skin != null){
+                        if(skin == trim.getSkin()) return null;
                     }
 
                     return trim.getSkin();
@@ -246,9 +252,9 @@ public class JewelryBlockEntity extends BlockEntity implements MenuProvider, Tic
         return null;
     }
 
-    private Optional<JewelryRecipe> getCurrentRecipe() {
+    private Optional<JewelryRecipe> getCurrentRecipe(){
         SimpleContainer inv = new SimpleContainer(3);
-        for (int i = 0; i < itemHandler.getSlots(); i++) {
+        for(int i = 0; i < itemHandler.getSlots(); i++){
             inv.setItem(i, itemHandler.getStackInSlot(i));
         }
 

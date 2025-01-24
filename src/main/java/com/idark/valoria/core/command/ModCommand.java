@@ -1,23 +1,27 @@
 package com.idark.valoria.core.command;
 
-import com.idark.valoria.api.unlockable.*;
-import com.idark.valoria.core.capability.*;
-import com.idark.valoria.core.command.parts.*;
-import com.idark.valoria.core.network.*;
-import com.idark.valoria.core.network.packets.*;
-import com.mojang.brigadier.*;
-import com.mojang.brigadier.context.*;
-import com.mojang.brigadier.exceptions.*;
-import net.minecraft.commands.*;
-import net.minecraft.nbt.*;
-import net.minecraft.network.chat.*;
-import net.minecraft.server.level.*;
-import net.minecraft.world.item.*;
+import com.idark.valoria.api.unlockable.Unlockable;
+import com.idark.valoria.core.capability.IUnlockable;
+import com.idark.valoria.core.command.parts.CommandArgument;
+import com.idark.valoria.core.command.parts.CommandBuilder;
+import com.idark.valoria.core.command.parts.CommandPart;
+import com.idark.valoria.core.command.parts.CommandVariant;
+import com.idark.valoria.core.network.PacketHandler;
+import com.idark.valoria.core.network.packets.PageToastPacket;
+import com.idark.valoria.core.network.packets.UnlockableUpdatePacket;
+import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.context.CommandContext;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.ItemStack;
 
-import java.util.*;
+import java.util.Collection;
 
-public class ModCommand {
-    public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
+public class ModCommand{
+    public static void register(CommandDispatcher<CommandSourceStack> dispatcher){
         CommandArgument targets = CommandArgument.entities("targets");
         CommandArgument pages = CommandArgument.pages("pages");
         CommandArgument charges = CommandArgument.integer("charges", 0, 2);
@@ -55,11 +59,11 @@ public class ModCommand {
         dispatcher.register(builder.permission((p) -> p.hasPermission(2)).build());
     }
 
-    private static void giveAllPages(CommandSourceStack command, Collection<? extends ServerPlayer> targetPlayers) throws CommandSyntaxException {
-        for (ServerPlayer player : targetPlayers) {
-            if (targetPlayers.size() == 1) {
+    private static void giveAllPages(CommandSourceStack command, Collection<? extends ServerPlayer> targetPlayers) throws CommandSyntaxException{
+        for(ServerPlayer player : targetPlayers){
+            if(targetPlayers.size() == 1){
                 command.sendSuccess(() -> Component.translatable("commands.valoria.page.give.single", targetPlayers.iterator().next().getDisplayName()), true);
-            } else {
+            }else{
                 command.sendSuccess(() -> Component.translatable("commands.valoria.page.give.multiple", targetPlayers.size()), true);
             }
 
@@ -69,11 +73,11 @@ public class ModCommand {
         }
     }
 
-    private static void removeAllPages(CommandSourceStack command, Collection<? extends ServerPlayer> targetPlayers) throws CommandSyntaxException {
-        for (ServerPlayer player : targetPlayers) {
-            if (targetPlayers.size() == 1) {
+    private static void removeAllPages(CommandSourceStack command, Collection<? extends ServerPlayer> targetPlayers) throws CommandSyntaxException{
+        for(ServerPlayer player : targetPlayers){
+            if(targetPlayers.size() == 1){
                 command.sendSuccess(() -> Component.translatable("commands.valoria.page.remove.single", targetPlayers.iterator().next().getDisplayName()), true);
-            } else {
+            }else{
                 command.sendSuccess(() -> Component.translatable("commands.valoria.page.remove.multiple", targetPlayers.size()), true);
             }
 
@@ -83,11 +87,11 @@ public class ModCommand {
         }
     }
 
-    private static void givePage(CommandSourceStack command, Collection<? extends ServerPlayer> targetPlayers, Unlockable pages) throws CommandSyntaxException {
-        for (ServerPlayer player : targetPlayers) {
-            if (targetPlayers.size() == 1) {
+    private static void givePage(CommandSourceStack command, Collection<? extends ServerPlayer> targetPlayers, Unlockable pages) throws CommandSyntaxException{
+        for(ServerPlayer player : targetPlayers){
+            if(targetPlayers.size() == 1){
                 command.sendSuccess(() -> Component.translatable("commands.valoria.page.give.single", targetPlayers.iterator().next().getDisplayName()), true);
-            } else {
+            }else{
                 command.sendSuccess(() -> Component.translatable("commands.valoria.page.give.multiple", targetPlayers.size()), true);
             }
 
@@ -97,11 +101,11 @@ public class ModCommand {
         }
     }
 
-    private static void removePage(CommandSourceStack command, Collection<? extends ServerPlayer> targetPlayers, Unlockable pages) throws CommandSyntaxException {
-        for (ServerPlayer player : targetPlayers) {
-            if (targetPlayers.size() == 1) {
+    private static void removePage(CommandSourceStack command, Collection<? extends ServerPlayer> targetPlayers, Unlockable pages) throws CommandSyntaxException{
+        for(ServerPlayer player : targetPlayers){
+            if(targetPlayers.size() == 1){
                 command.sendSuccess(() -> Component.translatable("commands.valoria.page.remove.single", targetPlayers.iterator().next().getDisplayName()), true);
-            } else {
+            }else{
                 command.sendSuccess(() -> Component.translatable("commands.valoria.page.remove.multiple", targetPlayers.size()), true);
             }
 
@@ -111,13 +115,13 @@ public class ModCommand {
         }
     }
 
-    public static void setCharges(ItemStack stack, int value) {
+    public static void setCharges(ItemStack stack, int value){
         CompoundTag nbt = stack.getOrCreateTag();
         nbt.putInt("charge", value);
     }
 
-    private static void setCharge(CommandSourceStack command, Collection<? extends ServerPlayer> targetPlayers, int pCharge, CommandContext p) throws CommandSyntaxException {
-        for (ServerPlayer player : targetPlayers) {
+    private static void setCharge(CommandSourceStack command, Collection<? extends ServerPlayer> targetPlayers, int pCharge, CommandContext p) throws CommandSyntaxException{
+        for(ServerPlayer player : targetPlayers){
             setCharges(player.getOffhandItem(), pCharge);
             setCharges(player.getMainHandItem(), pCharge);
             command.sendSuccess(() -> Component.translatable("commands.valoria.charges.set.add", pCharge).append(" to " + player.getName().getString()), true);

@@ -13,12 +13,12 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class SwampWandererModel<T extends Zombie> extends HumanoidModel<T> {
-    public SwampWandererModel(ModelPart pRoot) {
+public class SwampWandererModel<T extends Zombie> extends HumanoidModel<T>{
+    public SwampWandererModel(ModelPart pRoot){
         super(pRoot);
     }
 
-    public static LayerDefinition createBodyLayer() {
+    public static LayerDefinition createBodyLayer(){
         MeshDefinition meshdefinition = new MeshDefinition();
         PartDefinition partdefinition = meshdefinition.getRoot();
 
@@ -44,7 +44,7 @@ public class SwampWandererModel<T extends Zombie> extends HumanoidModel<T> {
         return LayerDefinition.create(meshdefinition, 64, 64);
     }
 
-    public void prepareMobModel(T pEntity, float pLimbSwing, float pLimbSwingAmount, float pPartialTick) {
+    public void prepareMobModel(T pEntity, float pLimbSwing, float pLimbSwingAmount, float pPartialTick){
         this.rightArmPose = HumanoidModel.ArmPose.EMPTY;
         this.leftArmPose = HumanoidModel.ArmPose.EMPTY;
         super.prepareMobModel(pEntity, pLimbSwing, pLimbSwingAmount, pPartialTick);
@@ -53,20 +53,20 @@ public class SwampWandererModel<T extends Zombie> extends HumanoidModel<T> {
     /**
      * Sets this entity's model rotation angles
      */
-    public void setupAnim(T pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch) {
+    public void setupAnim(T pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch){
         super.setupAnim(pEntity, pLimbSwing, pLimbSwingAmount, pAgeInTicks, pNetHeadYaw, pHeadPitch);
         AnimationUtils.animateZombieArms(this.leftArm, this.rightArm, pEntity.isAggressive(), this.attackTime, pAgeInTicks);
-        if (this.leftArmPose == HumanoidModel.ArmPose.THROW_SPEAR) {
-            this.leftArm.xRot = this.leftArm.xRot * 0.5F - (float) Math.PI;
+        if(this.leftArmPose == HumanoidModel.ArmPose.THROW_SPEAR){
+            this.leftArm.xRot = this.leftArm.xRot * 0.5F - (float)Math.PI;
             this.leftArm.yRot = 0.0F;
         }
 
-        if (this.rightArmPose == HumanoidModel.ArmPose.THROW_SPEAR) {
-            this.rightArm.xRot = this.rightArm.xRot * 0.5F - (float) Math.PI;
+        if(this.rightArmPose == HumanoidModel.ArmPose.THROW_SPEAR){
+            this.rightArm.xRot = this.rightArm.xRot * 0.5F - (float)Math.PI;
             this.rightArm.yRot = 0.0F;
         }
 
-        if (this.swimAmount > 0.0F) {
+        if(this.swimAmount > 0.0F){
             this.rightArm.xRot = this.rotlerpRad(this.swimAmount, this.rightArm.xRot, -2.5132742F) + this.swimAmount * 0.35F * Mth.sin(0.1F * pAgeInTicks);
             this.leftArm.xRot = this.rotlerpRad(this.swimAmount, this.leftArm.xRot, -2.5132742F) - this.swimAmount * 0.35F * Mth.sin(0.1F * pAgeInTicks);
             this.rightArm.zRot = this.rotlerpRad(this.swimAmount, this.rightArm.zRot, -0.15F);
@@ -78,7 +78,7 @@ public class SwampWandererModel<T extends Zombie> extends HumanoidModel<T> {
     }
 
     @Override
-    public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+    public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha){
         head.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
         body.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
         rightArm.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);

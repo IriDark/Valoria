@@ -1,26 +1,28 @@
 package com.idark.valoria.core.network.packets.particle;
 
-import com.idark.valoria.*;
-import com.idark.valoria.client.particle.*;
-import mod.maxbogomol.fluffy_fur.client.particle.data.*;
-import net.minecraft.network.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.level.*;
-import net.minecraft.world.phys.*;
-import net.minecraftforge.network.*;
+import com.idark.valoria.Valoria;
+import com.idark.valoria.client.particle.ParticleEffects;
+import mod.maxbogomol.fluffy_fur.client.particle.data.ColorParticleData;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.network.NetworkEvent;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.*;
-import java.util.function.*;
+import java.util.function.Supplier;
 
-public class LineToNearbyMobsParticlePacket {
+public class LineToNearbyMobsParticlePacket{
     private final double posX, posY, posZ;
     private final float yawRaw;
     private final float rad;
     private final int colorR, colorG, colorB;
 
-    public LineToNearbyMobsParticlePacket(double posX, double posY, double posZ, float yawRaw, float radius, int colorR, int colorG, int colorB) {
+    public LineToNearbyMobsParticlePacket(double posX, double posY, double posZ, float yawRaw, float radius, int colorR, int colorG, int colorB){
         this.posX = posX;
         this.posY = posY;
         this.posZ = posZ;
@@ -33,12 +35,12 @@ public class LineToNearbyMobsParticlePacket {
         this.colorB = colorB;
     }
 
-    public static LineToNearbyMobsParticlePacket decode(FriendlyByteBuf buf) {
+    public static LineToNearbyMobsParticlePacket decode(FriendlyByteBuf buf){
         return new LineToNearbyMobsParticlePacket(buf.readDouble(), buf.readDouble(), buf.readDouble(), buf.readFloat(), buf.readFloat(), buf.readInt(), buf.readInt(), buf.readInt());
     }
 
-    public static void handle(LineToNearbyMobsParticlePacket msg, Supplier<NetworkEvent.Context> ctx) {
-        if (ctx.get().getDirection().getReceptionSide().isClient()) {
+    public static void handle(LineToNearbyMobsParticlePacket msg, Supplier<NetworkEvent.Context> ctx){
+        if(ctx.get().getDirection().getReceptionSide().isClient()){
             ctx.get().enqueueWork(() -> {
                 Level pLevel = Valoria.proxy.getLevel();
                 double pitch = (90 * Math.PI) / 180;
@@ -53,10 +55,10 @@ public class LineToNearbyMobsParticlePacket {
 
                 AABB boundingBox = new AABB(msg.posX, msg.posY - 8 + ((Math.random() - 0.5D) * 0.2F), msg.posZ, msg.posX + X, msg.posY + Y + ((Math.random() - 0.5D) * 0.2F), msg.posZ + Z);
                 List<Entity> entities = pLevel.getEntitiesOfClass(Entity.class, boundingBox);
-                for (Entity entity : entities) {
-                    if (entity instanceof LivingEntity livingEntity && !hitEntities.contains(livingEntity)) {
+                for(Entity entity : entities){
+                    if(entity instanceof LivingEntity livingEntity && !hitEntities.contains(livingEntity)){
                         hitEntities.add(livingEntity);
-                        if (!livingEntity.isAlive()) {
+                        if(!livingEntity.isAlive()){
                             continue;
                         }
 
@@ -66,13 +68,13 @@ public class LineToNearbyMobsParticlePacket {
 
                         double distance = pos.distanceTo(pTo);
                         double distanceInBlocks = Math.floor(distance);
-                        for (int i = 0; i < distanceInBlocks; i++) {
+                        for(int i = 0; i < distanceInBlocks; i++){
                             double dX = msg.posX - pTo.x;
                             double dY = msg.posY - pTo.y;
                             double dZ = msg.posZ - pTo.z;
-                            float x = (float) (dX / distanceInBlocks);
-                            float y = (float) (dY / distanceInBlocks);
-                            float z = (float) (dZ / distanceInBlocks);
+                            float x = (float)(dX / distanceInBlocks);
+                            float y = (float)(dY / distanceInBlocks);
+                            float z = (float)(dZ / distanceInBlocks);
 
                             Vec3 particlePos = new Vec3(pos.x - (x * i), pos.y + 0.2f - (y * i), pos.z - (z * i));
                             ParticleEffects.particles(pLevel, particlePos, ColorParticleData.create(color, Color.white).build());
@@ -85,7 +87,7 @@ public class LineToNearbyMobsParticlePacket {
         }
     }
 
-    public void encode(FriendlyByteBuf buf) {
+    public void encode(FriendlyByteBuf buf){
         buf.writeDouble(posX);
         buf.writeDouble(posY);
         buf.writeDouble(posZ);

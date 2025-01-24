@@ -1,18 +1,20 @@
 package com.idark.valoria.registries;
 
-import com.google.common.collect.*;
-import com.idark.valoria.*;
-import com.idark.valoria.registries.entity.npc.*;
-import net.minecraft.world.entity.ai.village.poi.*;
-import net.minecraft.world.entity.decoration.*;
-import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.state.*;
-import net.minecraftforge.eventbus.api.*;
-import net.minecraftforge.registries.*;
+import com.google.common.collect.ImmutableSet;
+import com.idark.valoria.Valoria;
+import com.idark.valoria.registries.entity.npc.VillagerProfessionRegistry;
+import net.minecraft.world.entity.ai.village.poi.PoiType;
+import net.minecraft.world.entity.decoration.PaintingVariant;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
-import java.util.*;
+import java.util.Set;
 
-public class MiscRegistry {
+public class MiscRegistry{
     public static final DeferredRegister<PaintingVariant> PAINTING_TYPES = DeferredRegister.create(ForgeRegistries.PAINTING_VARIANTS, Valoria.ID);
     public static final DeferredRegister<PoiType> POI = DeferredRegister.create(ForgeRegistries.POI_TYPES, Valoria.ID);
 
@@ -38,15 +40,15 @@ public class MiscRegistry {
     public static final RegistryObject<PoiType> VALORIA_PORTAL = POI.register("valoria_portal", () -> register(getBlockStates(BlockRegistry.valoriaPortal.get()), 0, 1));
     public static final RegistryObject<PoiType> JEWELER = POI.register("jeweler", () -> register(getBlockStates(BlockRegistry.jewelerTable.get()), 1, 1));
 
-    private static Set<BlockState> getBlockStates(Block pBlock) {
+    private static Set<BlockState> getBlockStates(Block pBlock){
         return ImmutableSet.copyOf(pBlock.getStateDefinition().getPossibleStates());
     }
 
-    private static PoiType register(Set<BlockState> pMatchingStates, int pMaxTickets, int pValidRange) {
+    private static PoiType register(Set<BlockState> pMatchingStates, int pMaxTickets, int pValidRange){
         return new PoiType(pMatchingStates, pMaxTickets, pValidRange);
     }
 
-    public static void init(IEventBus eventBus) {
+    public static void init(IEventBus eventBus){
         PAINTING_TYPES.register(eventBus);
         POI.register(eventBus);
         VillagerProfessionRegistry.register(eventBus);

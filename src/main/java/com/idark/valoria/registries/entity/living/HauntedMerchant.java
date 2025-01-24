@@ -1,15 +1,21 @@
 package com.idark.valoria.registries.entity.living;
 
-import com.idark.valoria.registries.entity.ai.goals.*;
-import net.minecraft.core.particles.*;
-import net.minecraft.world.damagesource.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.goal.*;
-import net.minecraft.world.entity.ai.goal.target.*;
-import net.minecraft.world.entity.ai.navigation.*;
-import net.minecraft.world.entity.monster.*;
-import net.minecraft.world.level.*;
-import net.minecraft.world.level.pathfinder.*;
+import com.idark.valoria.registries.entity.ai.goals.DelayedMeleeAttackGoal;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.AnimationState;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.OpenDoorGoal;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.ResetUniversalAngerTargetGoal;
+import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.pathfinder.BlockPathTypes;
 
 public class HauntedMerchant extends AbstractHauntedMerchant{
     public final AnimationState idleAnimationState = new AnimationState();

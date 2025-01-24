@@ -1,30 +1,40 @@
 package com.idark.valoria.registries.level;
 
-import com.idark.valoria.*;
-import com.idark.valoria.registries.level.configurations.*;
+import com.idark.valoria.Valoria;
+import com.idark.valoria.registries.level.configurations.FleshConfiguration;
+import com.idark.valoria.registries.level.configurations.SuspiciousStateConfiguration;
+import com.idark.valoria.registries.level.configurations.TaintedRootsConfig;
 import com.idark.valoria.registries.level.feature.*;
-import com.idark.valoria.registries.level.modifier.*;
-import com.mojang.serialization.*;
-import com.mojang.serialization.codecs.*;
-import net.minecraft.core.*;
-import net.minecraft.core.registries.*;
-import net.minecraft.resources.*;
-import net.minecraft.world.level.*;
-import net.minecraft.world.level.biome.*;
-import net.minecraft.world.level.dimension.*;
-import net.minecraft.world.level.levelgen.*;
-import net.minecraft.world.level.levelgen.feature.*;
+import com.idark.valoria.registries.level.modifier.AddFeaturesByFilterBiomeModifier;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.dimension.DimensionType;
+import net.minecraft.world.level.dimension.LevelStem;
+import net.minecraft.world.level.levelgen.GenerationStep;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.*;
-import net.minecraft.world.level.levelgen.placement.*;
-import net.minecraft.world.level.levelgen.structure.*;
-import net.minecraftforge.common.world.*;
-import net.minecraftforge.eventbus.api.*;
-import net.minecraftforge.registries.*;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import net.minecraft.world.level.levelgen.placement.PlacementModifier;
+import net.minecraft.world.level.levelgen.placement.PlacementModifierType;
+import net.minecraft.world.level.levelgen.structure.Structure;
+import net.minecraftforge.common.world.BiomeModifier;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
-import java.util.*;
+import java.util.Optional;
 
-public class LevelGen {
-    public static void init(IEventBus eventBus) {
+public class LevelGen{
+    public static void init(IEventBus eventBus){
         FEATURES.register(eventBus);
         BIOME_MODIFIER_SERIALIZERS.register(eventBus);
         PLACEMENT_MODIFIERS.register(eventBus);
@@ -75,11 +85,11 @@ public class LevelGen {
                     GenerationStep.Decoration.CODEC.fieldOf("step").forGetter(AddFeaturesByFilterBiomeModifier::step)
             ).apply(builder, AddFeaturesByFilterBiomeModifier::new)));
 
-    public static <T> ResourceKey<T> registerKey(ResourceKey<? extends Registry<T>> pRegistryKey, String name) {
+    public static <T> ResourceKey<T> registerKey(ResourceKey<? extends Registry<T>> pRegistryKey, String name){
         return ResourceKey.create(pRegistryKey, new ResourceLocation(Valoria.ID, name));
     }
 
-    private static <P extends PlacementModifier> PlacementModifierType<P> typeConvert(Codec<P> codec) {
+    private static <P extends PlacementModifier> PlacementModifierType<P> typeConvert(Codec<P> codec){
         return () -> codec;
     }
 }

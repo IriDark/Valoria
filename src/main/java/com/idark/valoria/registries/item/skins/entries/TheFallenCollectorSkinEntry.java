@@ -9,20 +9,20 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.item.*;
 import net.minecraftforge.api.distmarker.*;
 
-public class TheFallenCollectorSkinEntry extends ArmorClassSkinEntry {
-    public TheFallenCollectorSkinEntry(Class item, String skin) {
+public class TheFallenCollectorSkinEntry extends ArmorClassSkinEntry{
+    public TheFallenCollectorSkinEntry(Class item, String skin){
         super(item, skin);
     }
 
-    public TheFallenCollectorSkinEntry addArmorSkin(EquipmentSlot armorSlot, String skin) {
+    public TheFallenCollectorSkinEntry addArmorSkin(EquipmentSlot armorSlot, String skin){
         skins.put(armorSlot, skin);
         return this;
     }
 
     @Override
-    public boolean canApplyOnItem(ItemStack itemStack) {
-        if (item.isInstance(itemStack.getItem())) {
-            if (itemStack.getItem() instanceof SkinableArmorItem armor) {
+    public boolean canApplyOnItem(ItemStack itemStack){
+        if(item.isInstance(itemStack.getItem())){
+            if(itemStack.getItem() instanceof SkinableArmorItem armor){
                 return skins.containsKey(armor.getEquipmentSlot());
             }
         }
@@ -31,8 +31,8 @@ public class TheFallenCollectorSkinEntry extends ArmorClassSkinEntry {
     }
 
     @OnlyIn(Dist.CLIENT)
-    public String getItemModelName(ItemStack stack) {
-        if (stack.getItem() instanceof SkinableArmorItem armor) {
+    public String getItemModelName(ItemStack stack){
+        if(stack.getItem() instanceof SkinableArmorItem armor){
             return skins.get(armor.getEquipmentSlot());
         }
 
@@ -41,13 +41,13 @@ public class TheFallenCollectorSkinEntry extends ArmorClassSkinEntry {
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public ArmorModel getArmorModel(LivingEntity entity, ItemStack itemStack, EquipmentSlot armorSlot, HumanoidModel _default) {
+    public ArmorModel getArmorModel(LivingEntity entity, ItemStack itemStack, EquipmentSlot armorSlot, HumanoidModel _default){
         return ValoriaClient.THE_FALLEN_COLLECTOR_ARMOR;
     }
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
+    public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type){
         return skin + ".png";
     }
 }

@@ -1,61 +1,84 @@
 package com.idark.valoria;
 
-import com.google.common.collect.*;
-import com.idark.valoria.client.event.*;
-import com.idark.valoria.client.particle.*;
-import com.idark.valoria.client.render.curio.*;
-import com.idark.valoria.client.ui.*;
-import com.idark.valoria.client.ui.screen.*;
-import com.idark.valoria.client.ui.screen.book.*;
-import com.idark.valoria.client.ui.screen.book.unlockable.*;
-import com.idark.valoria.core.capability.*;
-import com.idark.valoria.core.command.arguments.*;
-import com.idark.valoria.core.conditions.*;
-import com.idark.valoria.core.config.*;
-import com.idark.valoria.core.datagen.*;
-import com.idark.valoria.core.interfaces.*;
-import com.idark.valoria.core.network.*;
-import com.idark.valoria.core.proxy.*;
+import com.google.common.collect.ImmutableMap;
+import com.idark.valoria.client.event.ClientTickHandler;
+import com.idark.valoria.client.event.KeyBindHandler;
+import com.idark.valoria.client.particle.ParticleRegistry;
+import com.idark.valoria.client.render.curio.BeltRenderer;
+import com.idark.valoria.client.render.curio.HandsRenderer;
+import com.idark.valoria.client.render.curio.JewelryBagRenderer;
+import com.idark.valoria.client.render.curio.NecklaceRenderer;
+import com.idark.valoria.client.ui.OverlayRender;
+import com.idark.valoria.client.ui.screen.ArchaeologyScreen;
+import com.idark.valoria.client.ui.screen.JewelryScreen;
+import com.idark.valoria.client.ui.screen.KegScreen;
+import com.idark.valoria.client.ui.screen.ManipulatorScreen;
+import com.idark.valoria.client.ui.screen.book.LexiconChapters;
+import com.idark.valoria.client.ui.screen.book.unlockable.RegisterUnlockables;
+import com.idark.valoria.core.capability.IUnlockable;
+import com.idark.valoria.core.command.arguments.ModArgumentTypes;
+import com.idark.valoria.core.conditions.LootConditionsRegistry;
+import com.idark.valoria.core.config.ClientConfig;
+import com.idark.valoria.core.config.ServerConfig;
+import com.idark.valoria.core.datagen.BlockStateGen;
+import com.idark.valoria.core.datagen.LootTableGen;
+import com.idark.valoria.core.datagen.RecipeGen;
+import com.idark.valoria.core.interfaces.OverlayRenderItem;
+import com.idark.valoria.core.network.PacketHandler;
+import com.idark.valoria.core.proxy.ClientProxy;
+import com.idark.valoria.core.proxy.ISidedProxy;
+import com.idark.valoria.core.proxy.ServerProxy;
 import com.idark.valoria.registries.*;
-import com.idark.valoria.registries.block.types.*;
+import com.idark.valoria.registries.block.types.ModWoodTypes;
+import com.idark.valoria.registries.block.types.SarcophagusBlock;
 import com.idark.valoria.registries.entity.living.*;
-import com.idark.valoria.registries.item.recipe.*;
-import com.idark.valoria.registries.item.skins.*;
-import com.idark.valoria.registries.item.types.curio.charm.*;
-import com.idark.valoria.registries.level.*;
-import com.idark.valoria.util.*;
-import com.mojang.logging.*;
-import net.minecraft.client.gui.screens.*;
-import net.minecraft.data.*;
-import net.minecraft.world.effect.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.state.properties.*;
-import net.minecraft.world.level.levelgen.*;
-import net.minecraft.world.level.levelgen.Heightmap.*;
-import net.minecraftforge.api.distmarker.*;
-import net.minecraftforge.client.event.*;
-import net.minecraftforge.common.*;
-import net.minecraftforge.common.capabilities.*;
-import net.minecraftforge.common.data.*;
-import net.minecraftforge.data.event.*;
-import net.minecraftforge.event.entity.*;
-import net.minecraftforge.eventbus.api.*;
-import net.minecraftforge.fml.*;
-import net.minecraftforge.fml.common.*;
-import net.minecraftforge.fml.config.ModConfig.*;
-import net.minecraftforge.fml.event.lifecycle.*;
-import net.minecraftforge.fml.javafmlmod.*;
-import org.slf4j.*;
-import top.theillusivec4.curios.api.client.*;
+import com.idark.valoria.registries.item.recipe.PotionBrewery;
+import com.idark.valoria.registries.item.skins.SkinsRegistry;
+import com.idark.valoria.registries.item.types.curio.charm.CurioCurses;
+import com.idark.valoria.registries.level.LevelGen;
+import com.idark.valoria.util.LootUtil;
+import com.idark.valoria.util.ValoriaUtils;
+import com.mojang.logging.LogUtils;
+import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.SpawnPlacements;
+import net.minecraft.world.item.AxeItem;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.FireBlock;
+import net.minecraft.world.level.block.state.properties.WoodType;
+import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.level.levelgen.Heightmap.Types;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.ModelEvent;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
+import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.data.event.GatherDataEvent;
+import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
+import net.minecraftforge.event.entity.EntityAttributeModificationEvent;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig.Type;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import org.slf4j.Logger;
+import top.theillusivec4.curios.api.client.CuriosRendererRegistry;
 
-import java.util.*;
+import java.util.UUID;
 
 import static com.idark.valoria.registries.EntityStatsRegistry.*;
 
 @Mod(Valoria.ID)
-public class Valoria {
+public class Valoria{
     public static final String ID = "valoria";
     public static final String NAME = "Valoria";
     public static final String VERSION = "0.6.4b";
@@ -68,7 +91,7 @@ public class Valoria {
     public static UUID BASE_NECROMANCY_LIFETIME_UUID = UUID.fromString("09a12525-61a5-4d57-a125-2561a56d578e");
     public static UUID BASE_NECROMANCY_COUNT_UUID = UUID.fromString("ed80691e-f153-4b5e-8069-1ef153bb5eed");
 
-    public Valoria() {
+    public Valoria(){
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
         EffectsRegistry.register(eventBus);
         EnchantmentsRegistry.register(eventBus);
@@ -114,7 +137,7 @@ public class Valoria {
      *
      * @see ValoriaClient.RegistryEvents#onModelRegistryEvent(ModelEvent.RegisterAdditional)
      */
-    private void clientSetup(final FMLClientSetupEvent event) {
+    private void clientSetup(final FMLClientSetupEvent event){
         ValoriaClient.setupMenu();
         ValoriaClient.setupSplashes();
         event.enqueueWork(() -> {
@@ -165,13 +188,13 @@ public class Valoria {
         });
     }
 
-    private void setup(final FMLCommonSetupEvent event) {
+    private void setup(final FMLCommonSetupEvent event){
         PacketHandler.init();
         PotionBrewery.bootStrap();
         LootConditionsRegistry.register();
         RegisterUnlockables.init();
         event.enqueueWork(() -> {
-            FireBlock fireblock = (FireBlock) Blocks.FIRE;
+            FireBlock fireblock = (FireBlock)Blocks.FIRE;
             fireblock.setFlammable(BlockRegistry.shadelog.get(), 5, 20);
             fireblock.setFlammable(BlockRegistry.shadewood.get(), 5, 20);
             fireblock.setFlammable(BlockRegistry.shadewoodLeaves.get(), 30, 60);
@@ -240,14 +263,14 @@ public class Valoria {
     }
 
     @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
-    public static class RegistryEvents {
+    public static class RegistryEvents{
         @SubscribeEvent
-        public static void registerCaps(RegisterCapabilitiesEvent event) {
+        public static void registerCaps(RegisterCapabilitiesEvent event){
             event.register(IUnlockable.class);
         }
 
         @SubscribeEvent
-        public static void commonSetup(FMLCommonSetupEvent event) {
+        public static void commonSetup(FMLCommonSetupEvent event){
             event.enqueueWork(() -> {
                 SpawnPlacements.register(EntityTypeRegistry.GOBLIN.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Goblin::checkGoblinSpawnRules);
                 SpawnPlacements.register(EntityTypeRegistry.DRAUGR.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, DraugrEntity::checkMonsterSpawnRules);
@@ -281,7 +304,7 @@ public class Valoria {
         }
 
         @SubscribeEvent
-        public static void attachAttribute(EntityAttributeModificationEvent event) {
+        public static void attachAttribute(EntityAttributeModificationEvent event){
             event.add(EntityType.PLAYER, AttributeRegistry.DASH_DISTANCE.get());
             event.add(EntityType.PLAYER, AttributeRegistry.ATTACK_RADIUS.get());
             event.add(EntityType.PLAYER, AttributeRegistry.PROJECTILE_DAMAGE.get());
@@ -290,7 +313,7 @@ public class Valoria {
         }
 
         @SubscribeEvent
-        public static void gatherData(GatherDataEvent event) {
+        public static void gatherData(GatherDataEvent event){
             DataGenerator generator = event.getGenerator();
             PackOutput packOutput = generator.getPackOutput();
             ExistingFileHelper existingFileHelper = event.getExistingFileHelper();

@@ -1,26 +1,29 @@
 package com.idark.valoria.client.model.entity;
 
-import com.idark.valoria.client.model.animations.*;
-import com.idark.valoria.registries.entity.projectile.*;
-import net.minecraft.client.model.*;
-import net.minecraft.client.model.geom.*;
+import com.idark.valoria.client.model.animations.DevourerAnimations;
+import com.idark.valoria.registries.entity.projectile.Devourer;
+import net.minecraft.client.model.HierarchicalModel;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraftforge.api.distmarker.*;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class DevourerModel <T extends Devourer> extends HierarchicalModel<T>{
+public class DevourerModel<T extends Devourer> extends HierarchicalModel<T>{
     private final ModelPart root;
     private final ModelPart skull;
     private final ModelPart mouth_top;
     private final ModelPart mouth_bottom;
-    public DevourerModel(ModelPart pRoot) {
+
+    public DevourerModel(ModelPart pRoot){
         this.root = pRoot;
         this.skull = pRoot.getChild("skull");
         this.mouth_top = skull.getChild("mouth_top");
         this.mouth_bottom = skull.getChild("mouth_bottom");
     }
 
-    public static LayerDefinition createBodyLayer() {
+    public static LayerDefinition createBodyLayer(){
         MeshDefinition meshdefinition = new MeshDefinition();
         PartDefinition partdefinition = meshdefinition.getRoot();
 

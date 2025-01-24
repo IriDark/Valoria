@@ -2,13 +2,14 @@ package com.idark.valoria.client.model.entity;
 
 import com.idark.valoria.client.model.animations.GoblinAnimations;
 import com.idark.valoria.client.model.animations.TrollAnimations;
-import com.idark.valoria.registries.entity.living.*;
-import net.minecraft.client.model.*;
-import net.minecraft.client.model.geom.*;
+import com.idark.valoria.registries.entity.living.Troll;
+import net.minecraft.client.model.HierarchicalModel;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.util.*;
+import net.minecraft.util.Mth;
 
-public class TrollModel<T extends Troll> extends HierarchicalModel<T> {
+public class TrollModel<T extends Troll> extends HierarchicalModel<T>{
     private final ModelPart root;
     private final ModelPart head;
     private final ModelPart leftEar;
@@ -19,7 +20,7 @@ public class TrollModel<T extends Troll> extends HierarchicalModel<T> {
     private final ModelPart leftLeg;
     private final ModelPart rightLeg;
 
-    public TrollModel(ModelPart root) {
+    public TrollModel(ModelPart root){
         this.root = root;
         this.head = root.getChild("head");
         this.leftEar = this.head.getChild("left_ear");
@@ -31,7 +32,7 @@ public class TrollModel<T extends Troll> extends HierarchicalModel<T> {
         this.rightLeg = root.getChild("right_leg");
     }
 
-    public static LayerDefinition createBodyLayer() {
+    public static LayerDefinition createBodyLayer(){
         MeshDefinition meshdefinition = new MeshDefinition();
         PartDefinition partdefinition = meshdefinition.getRoot();
 
@@ -66,7 +67,7 @@ public class TrollModel<T extends Troll> extends HierarchicalModel<T> {
     }
 
     @Override
-    public void setupAnim(T pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch) {
+    public void setupAnim(T pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch){
         this.root().getAllParts().forEach(ModelPart::resetPose);
         this.head.getChild("right_ear").yRot = Mth.sin(pAgeInTicks * 0.25F) * 0.06F;
         this.head.getChild("left_ear").yRot = Mth.sin(pAgeInTicks * -0.25F) * 0.06F;
@@ -78,12 +79,12 @@ public class TrollModel<T extends Troll> extends HierarchicalModel<T> {
         this.animate(pEntity.idleAnimationState, TrollAnimations.IDLE, pAgeInTicks, 0.5f);
     }
 
-    private void animateHeadLookTarget(float pYaw, float pPitch) {
-        this.head.xRot = pPitch * ((float) Math.PI / 180F);
-        this.head.yRot = pYaw * ((float) Math.PI / 180F);
+    private void animateHeadLookTarget(float pYaw, float pPitch){
+        this.head.xRot = pPitch * ((float)Math.PI / 180F);
+        this.head.yRot = pYaw * ((float)Math.PI / 180F);
     }
 
-    private void animateIdlePose(float pAgeInTicks) {
+    private void animateIdlePose(float pAgeInTicks){
         float f = pAgeInTicks * 0.1F;
         float f1 = Mth.cos(f);
         float f2 = Mth.sin(f);
@@ -94,7 +95,7 @@ public class TrollModel<T extends Troll> extends HierarchicalModel<T> {
     }
 
     @Override
-    public ModelPart root() {
+    public ModelPart root(){
         return this.root;
     }
 }

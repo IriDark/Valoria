@@ -1,25 +1,26 @@
 package com.idark.valoria.core.network.packets.particle;
 
-import com.idark.valoria.*;
-import com.idark.valoria.client.particle.*;
-import com.idark.valoria.util.*;
-import mod.maxbogomol.fluffy_fur.client.particle.*;
-import mod.maxbogomol.fluffy_fur.client.particle.data.*;
-import mod.maxbogomol.fluffy_fur.registry.client.*;
-import net.minecraft.network.*;
-import net.minecraft.world.level.*;
-import net.minecraftforge.network.*;
+import com.idark.valoria.Valoria;
+import com.idark.valoria.client.particle.ParticleRegistry;
+import com.idark.valoria.util.Pal;
+import mod.maxbogomol.fluffy_fur.client.particle.ParticleBuilder;
+import mod.maxbogomol.fluffy_fur.client.particle.data.ColorParticleData;
+import mod.maxbogomol.fluffy_fur.client.particle.data.GenericParticleData;
+import mod.maxbogomol.fluffy_fur.registry.client.FluffyFurRenderTypes;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.level.Level;
+import net.minecraftforge.network.NetworkEvent;
 
 import java.awt.*;
-import java.util.*;
-import java.util.function.*;
+import java.util.Random;
+import java.util.function.Supplier;
 
-public class SmokeParticlePacket {
+public class SmokeParticlePacket{
     private final double posX, posY, posZ;
     private final float velX, velY, velZ;
     private final int count, colorR, colorG, colorB;
 
-    public SmokeParticlePacket(int count, double posX, double posY, double posZ, float velX, float velY, float velZ, int colorR, int colorG, int colorB) {
+    public SmokeParticlePacket(int count, double posX, double posY, double posZ, float velX, float velY, float velZ, int colorR, int colorG, int colorB){
         this.count = count;
         this.posX = posX;
         this.posY = posY;
@@ -34,9 +35,9 @@ public class SmokeParticlePacket {
         this.colorB = colorB;
     }
 
-    public static void packetSmokeParticles(SmokeParticlePacket msg, Level level, ColorParticleData color) {
+    public static void packetSmokeParticles(SmokeParticlePacket msg, Level level, ColorParticleData color){
         Random random = new Random();
-                ParticleBuilder.create(ParticleRegistry.SMOKE)
+        ParticleBuilder.create(ParticleRegistry.SMOKE)
                 .setRenderType(FluffyFurRenderTypes.TRANSLUCENT_PARTICLE)
                 .setColorData(color)
                 .setTransparencyData(GenericParticleData.create().setRandomValue(0, 0.6f, 0, 0).build())
@@ -48,16 +49,16 @@ public class SmokeParticlePacket {
     }
 
 
-    public static SmokeParticlePacket decode(FriendlyByteBuf buf) {
+    public static SmokeParticlePacket decode(FriendlyByteBuf buf){
         return new SmokeParticlePacket(buf.readInt(), buf.readDouble(), buf.readDouble(), buf.readDouble(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readInt(), buf.readInt(), buf.readInt());
     }
 
-    public static void handle(SmokeParticlePacket msg, Supplier<NetworkEvent.Context> ctx) {
-        if (ctx.get().getDirection().getReceptionSide().isClient()) {
+    public static void handle(SmokeParticlePacket msg, Supplier<NetworkEvent.Context> ctx){
+        if(ctx.get().getDirection().getReceptionSide().isClient()){
             ctx.get().enqueueWork(() -> {
                 Level level = Valoria.proxy.getLevel();
                 Color color = new Color(msg.colorR, msg.colorG, msg.colorB);
-                for (int i = 0; i < msg.count; i++) {
+                for(int i = 0; i < msg.count; i++){
                     packetSmokeParticles(msg, level, ColorParticleData.create(color, Pal.darkestGray).build());
                 }
 
@@ -66,7 +67,7 @@ public class SmokeParticlePacket {
         }
     }
 
-    public void encode(FriendlyByteBuf buf) {
+    public void encode(FriendlyByteBuf buf){
         buf.writeInt(count);
         buf.writeDouble(posX);
         buf.writeDouble(posY);

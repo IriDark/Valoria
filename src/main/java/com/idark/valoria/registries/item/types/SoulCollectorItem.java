@@ -1,27 +1,33 @@
 package com.idark.valoria.registries.item.types;
 
-import com.idark.valoria.*;
-import com.idark.valoria.core.config.*;
-import com.idark.valoria.core.interfaces.*;
-import com.idark.valoria.registries.*;
-import com.idark.valoria.util.*;
-import net.minecraft.*;
-import net.minecraft.client.gui.*;
-import net.minecraft.nbt.*;
-import net.minecraft.network.chat.*;
-import net.minecraft.resources.*;
-import net.minecraft.sounds.*;
-import net.minecraft.world.entity.player.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.level.*;
-import net.minecraftforge.api.distmarker.*;
+import com.idark.valoria.Valoria;
+import com.idark.valoria.core.config.ClientConfig;
+import com.idark.valoria.core.interfaces.OverlayRenderItem;
+import com.idark.valoria.registries.ItemsRegistry;
+import com.idark.valoria.registries.SoundsRegistry;
+import com.idark.valoria.util.Pal;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
-import java.util.*;
+import java.util.List;
 
-public class SoulCollectorItem extends Item implements OverlayRenderItem {
+public class SoulCollectorItem extends Item implements OverlayRenderItem{
     public int max;
     public int current;
     public static final ResourceLocation BAR = new ResourceLocation(Valoria.ID, "textures/gui/overlay/soul_collector.png");
+
     public SoulCollectorItem(Properties pProperties){
         super(pProperties);
         this.max = 50;
@@ -40,34 +46,34 @@ public class SoulCollectorItem extends Item implements OverlayRenderItem {
         this.current = current;
     }
 
-    public ItemStack getDefaultInstance() {
+    public ItemStack getDefaultInstance(){
         return setCollector(super.getDefaultInstance());
     }
 
-    public ItemStack setCollector(ItemStack pStack) {
+    public ItemStack setCollector(ItemStack pStack){
         pStack.getOrCreateTag().putInt("Souls", this.current);
         return pStack;
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags) {
+    public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags){
         super.appendHoverText(stack, world, tooltip, flags);
         tooltip.add(Component.translatable("tooltip.valoria.souls", getCurrentSouls(stack))
-        .append(" / ")
-        .append(String.valueOf(getMaxSouls()))
-        .withStyle(ChatFormatting.GRAY)
+                .append(" / ")
+                .append(String.valueOf(getMaxSouls()))
+                .withStyle(ChatFormatting.GRAY)
         );
     }
 
-    public boolean isBarVisible(ItemStack pStack) {
+    public boolean isBarVisible(ItemStack pStack){
         return getCurrentSouls(pStack) > 0 && getCurrentSouls(pStack) < getMaxSouls();
     }
 
-    public int getBarWidth(ItemStack pStack) {
+    public int getBarWidth(ItemStack pStack){
         return Math.round((float)getCurrentSouls(pStack) * 13.0F / (float)getMaxSouls());
     }
 
-    public int getBarColor(ItemStack pStack) {
+    public int getBarColor(ItemStack pStack){
         return Pal.oceanic.getRGB();
     }
 
@@ -76,35 +82,35 @@ public class SoulCollectorItem extends Item implements OverlayRenderItem {
         return BAR;
     }
 
-    public int getMaxSouls() {
+    public int getMaxSouls(){
         return max;
     }
 
-    public int getCurrentSouls(ItemStack pStack) {
+    public int getCurrentSouls(ItemStack pStack){
         return pStack.getOrCreateTag().getInt("Souls");
     }
 
-    public void setCount(int count, ItemStack pStack) {
+    public void setCount(int count, ItemStack pStack){
         pStack.removeTagKey("Souls");
         pStack.getOrCreateTag().putInt("Souls", count);
     }
 
-    public void addCount(int count, ItemStack pStack, Player player) {
-        if(pStack.getOrCreateTag().getInt("Souls") >= getMaxSouls() - 1) {
+    public void addCount(int count, ItemStack pStack, Player player){
+        if(pStack.getOrCreateTag().getInt("Souls") >= getMaxSouls() - 1){
             player.getInventory().removeItem(pStack);
             player.addItem(ItemsRegistry.soulCollector.get().getDefaultInstance());
             player.level().playSound(null, player.getOnPos(), getTransformSound(), SoundSource.PLAYERS, 1, player.level().random.nextFloat());
-        } else{
+        }else{
             pStack.getOrCreateTag().putInt("Souls", getCurrentSouls(pStack) + count);
             player.level().playSound(null, player.getOnPos(), getCollectSound(), SoundSource.PLAYERS, 1, player.level().random.nextFloat());
         }
     }
 
-    public SoundEvent getTransformSound() {
+    public SoundEvent getTransformSound(){
         return SoundsRegistry.SOUL_COLLECT_FULL.get();
     }
 
-    public SoundEvent getCollectSound() {
+    public SoundEvent getCollectSound(){
         return SoundsRegistry.SOUL_COLLECT.get();
     }
 
@@ -114,7 +120,7 @@ public class SoulCollectorItem extends Item implements OverlayRenderItem {
         int xCord = ClientConfig.MISC_UI_X.get() + offsetX;
         int yCord = ClientConfig.MISC_UI_Y.get() + offsetY;
         int progress = 22;
-        progress /= (double) getMaxSouls() / (double) tag.getInt("Souls");
+        progress /= (double)getMaxSouls() / (double)tag.getInt("Souls");
         gui.blit(BAR, xCord, yCord, 0, 0, 16, 32, 32, 32);
         gui.blit(BAR, xCord + 4, yCord + 26 - progress, 24, 22 - progress, 8, progress, 32, 32);
     }

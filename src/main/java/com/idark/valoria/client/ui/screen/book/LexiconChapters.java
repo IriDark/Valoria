@@ -1,19 +1,21 @@
 package com.idark.valoria.client.ui.screen.book;
 
-import com.idark.valoria.client.ui.screen.book.pages.*;
-import com.idark.valoria.client.ui.screen.book.unlockable.*;
-import com.idark.valoria.registries.*;
-import net.minecraft.network.chat.*;
-import net.minecraft.world.item.*;
+import com.idark.valoria.client.ui.screen.book.pages.MainPage;
+import com.idark.valoria.client.ui.screen.book.pages.TextPage;
+import com.idark.valoria.client.ui.screen.book.unlockable.RegisterUnlockables;
+import com.idark.valoria.registries.ItemsRegistry;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.Items;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
-public class LexiconChapters {
+public class LexiconChapters{
     public static List<Bookmark> categories = new ArrayList<>();
     public static Bookmark LEXICON, TREASURES, MEDICINE, CRYPT;
     public static Chapter MAIN_CHAPTER, TREASURES_CHAPTER, MEDICINE_CHAPTER, CRYPT_CHAPTER;
 
-    public static void init() {
+    public static void init(){
         MAIN_CHAPTER = new Chapter(
                 "lexicon.valoria.main.name",
                 new MainPage("lexicon.valoria.main"),

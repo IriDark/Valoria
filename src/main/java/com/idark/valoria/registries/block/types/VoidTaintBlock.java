@@ -6,17 +6,17 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 
-public class VoidTaintBlock extends Block {
+public class VoidTaintBlock extends Block{
 
     public static final IntegerProperty TAINT = IntegerProperty.create("taint", 0, 1);
 
-    public VoidTaintBlock(BlockBehaviour.Properties properties) {
+    public VoidTaintBlock(BlockBehaviour.Properties properties){
         super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(TAINT, 0));
     }
 
     @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder){
         builder.add(TAINT);
         super.createBlockStateDefinition(builder);
     }

@@ -16,17 +16,17 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
 
-public class NecklaceModel extends HumanoidModel<LivingEntity> {
+public class NecklaceModel extends HumanoidModel<LivingEntity>{
     public ModelPart root, model;
     public static ModelLayerLocation NECKLACE_LAYER = new ModelLayerLocation(new ResourceLocation(Valoria.ID, "amulet"), "main");
 
-    public NecklaceModel(ModelPart root) {
+    public NecklaceModel(ModelPart root){
         super(root);
         this.root = root;
         this.model = root.getChild("body").getChild("model");
     }
 
-    public static LayerDefinition createBodyLayer() {
+    public static LayerDefinition createBodyLayer(){
         MeshDefinition mesh = new MeshDefinition();
         PartDefinition root = mesh.getRoot();
         PartDefinition head = root.addOrReplaceChild("head", new CubeListBuilder(), PartPose.ZERO);
@@ -43,13 +43,13 @@ public class NecklaceModel extends HumanoidModel<LivingEntity> {
     }
 
     @Override
-    public void setupAnim(LivingEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void setupAnim(LivingEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch){
         ItemStack chestplate = entity.getItemBySlot(EquipmentSlot.CHEST);
-        if (!chestplate.isEmpty() && chestplate.getItem() instanceof ArmorItem) {
+        if(!chestplate.isEmpty() && chestplate.getItem() instanceof ArmorItem){
             this.body.xScale = 1.1f;
             this.body.yScale = 1.0f;
             this.body.zScale = 1.42f;
-        } else {
+        }else{
             this.body.xScale = 1.0f;
             this.body.yScale = 1.0f;
             this.body.zScale = 1.05f;
@@ -61,17 +61,17 @@ public class NecklaceModel extends HumanoidModel<LivingEntity> {
     }
 
     @Override
-    protected Iterable<ModelPart> headParts() {
+    protected Iterable<ModelPart> headParts(){
         return ImmutableList.of(root.getChild("head"));
     }
 
     @Override
-    protected Iterable<ModelPart> bodyParts() {
+    protected Iterable<ModelPart> bodyParts(){
         return ImmutableList.of(root.getChild("body"));
     }
 
     @Override
-    public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+    public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha){
         super.renderToBuffer(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
     }
 }

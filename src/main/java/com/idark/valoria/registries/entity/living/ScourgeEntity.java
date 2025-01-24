@@ -1,31 +1,39 @@
 package com.idark.valoria.registries.entity.living;
 
-import net.minecraft.core.*;
-import net.minecraft.nbt.*;
-import net.minecraft.sounds.*;
-import net.minecraft.util.*;
-import net.minecraft.world.*;
-import net.minecraft.world.damagesource.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.goal.*;
-import net.minecraft.world.entity.ai.goal.target.*;
-import net.minecraft.world.entity.animal.*;
-import net.minecraft.world.entity.animal.axolotl.*;
-import net.minecraft.world.entity.npc.*;
-import net.minecraft.world.entity.player.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.level.*;
-import net.minecraft.world.level.block.state.*;
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.animal.IronGolem;
+import net.minecraft.world.entity.animal.Turtle;
+import net.minecraft.world.entity.animal.axolotl.Axolotl;
+import net.minecraft.world.entity.npc.AbstractVillager;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.state.BlockState;
 
-import javax.annotation.*;
+import javax.annotation.Nullable;
 
-public class ScourgeEntity extends SwampWandererEntity {
+public class ScourgeEntity extends SwampWandererEntity{
 
-    public ScourgeEntity(EntityType<? extends ScourgeEntity> type, Level pLevel) {
+    public ScourgeEntity(EntityType<? extends ScourgeEntity> type, Level pLevel){
         super(type, pLevel);
     }
 
-    protected void addBehaviourGoals() {
+    protected void addBehaviourGoals(){
         this.goalSelector.addGoal(1, new SwampWandererEntity.DrownedAttackGoal(this, 1.0D, false)); // todo dash attack
         this.goalSelector.addGoal(2, new SwampWandererEntity.DrownedGoToBeachGoal(this, 1.0D));
         this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 1.0D));
@@ -38,33 +46,33 @@ public class ScourgeEntity extends SwampWandererEntity {
     }
 
     @Override
-    protected SoundEvent getAmbientSound() {
+    protected SoundEvent getAmbientSound(){
         return SoundEvents.DROWNED_AMBIENT;
     }
 
     @Override
-    protected SoundEvent getDeathSound() {
+    protected SoundEvent getDeathSound(){
         return SoundEvents.DROWNED_DEATH;
     }
 
     @Override
-    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn){
         return SoundEvents.DROWNED_HURT;
     }
 
     @Override
-    protected void playStepSound(BlockPos pos, BlockState blockIn) {
+    protected void playStepSound(BlockPos pos, BlockState blockIn){
         this.playSound(SoundEvents.DROWNED_STEP, 0.20F, 0.5F);
     }
 
-    protected void populateDefaultEquipmentSlots(RandomSource pRandom, DifficultyInstance pDifficulty) {
-        if ((double) pRandom.nextFloat() > 0.9D) {
+    protected void populateDefaultEquipmentSlots(RandomSource pRandom, DifficultyInstance pDifficulty){
+        if((double)pRandom.nextFloat() > 0.9D){
             this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.FISHING_ROD));
         }
     }
 
     @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag){
         RandomSource randomsource = pLevel.getRandom();
         this.populateDefaultEquipmentSlots(randomsource, pDifficulty);
         return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);

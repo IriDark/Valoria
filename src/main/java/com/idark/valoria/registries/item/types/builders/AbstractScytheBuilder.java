@@ -1,19 +1,21 @@
 package com.idark.valoria.registries.item.types.builders;
 
-import com.google.common.collect.*;
-import com.idark.valoria.client.model.animations.*;
-import com.idark.valoria.core.enums.*;
-import com.idark.valoria.registries.*;
-import com.idark.valoria.registries.item.types.*;
-import mod.maxbogomol.fluffy_fur.client.animation.*;
-import mod.maxbogomol.fluffy_fur.common.easing.*;
-import net.minecraft.core.particles.*;
-import net.minecraft.sounds.*;
-import net.minecraft.world.effect.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.item.Item.*;
+import com.google.common.collect.ImmutableList;
+import com.idark.valoria.client.model.animations.SpinAttackAnimation;
+import com.idark.valoria.core.enums.ModItemTier;
+import com.idark.valoria.registries.SoundsRegistry;
+import com.idark.valoria.registries.item.types.ScytheItem;
+import mod.maxbogomol.fluffy_fur.client.animation.ItemAnimation;
+import mod.maxbogomol.fluffy_fur.common.easing.Easing;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Item.Properties;
+import net.minecraft.world.item.Tier;
 
-public abstract class AbstractScytheBuilder<T extends ScytheItem> {
+public abstract class AbstractScytheBuilder<T extends ScytheItem>{
     public Tier tier = ModItemTier.NONE;
     public Item.Properties itemProperties;
     public SoundEvent attackSound = SoundsRegistry.SWIFTSLICE.get();
@@ -34,7 +36,7 @@ public abstract class AbstractScytheBuilder<T extends ScytheItem> {
     public ImmutableList<MobEffectInstance> effects = ImmutableList.of();
     public ParticleOptions particleOptions = ParticleTypes.POOF;
 
-    public AbstractScytheBuilder(int attackDamageIn, float attackSpeedIn, Properties itemProperties) {
+    public AbstractScytheBuilder(int attackDamageIn, float attackSpeedIn, Properties itemProperties){
         this.attackDamageIn = attackDamageIn;
         this.attackSpeedIn = attackSpeedIn;
         this.itemProperties = itemProperties;
@@ -71,8 +73,8 @@ public abstract class AbstractScytheBuilder<T extends ScytheItem> {
 
     /**
      * @param attackUsages Maximum attacks a scythe can perform before entering cooldown
-     * @param attackDelay Delay between multi-attacks
-     * */
+     * @param attackDelay  Delay between multi-attacks
+     */
     public AbstractScytheBuilder<T> setAttackCount(int attackUsages, int attackDelay){
         this.attackUsages = attackUsages;
         this.attackDelay = attackDelay;
@@ -104,7 +106,7 @@ public abstract class AbstractScytheBuilder<T extends ScytheItem> {
     }
 
     /**
-     * @param chance Chance of applying effects to target
+     * @param chance   Chance of applying effects to target
      * @param pEffects Effects that will be applied to target
      */
     public AbstractScytheBuilder<T> setEffects(float chance, MobEffectInstance... pEffects){
@@ -123,7 +125,7 @@ public abstract class AbstractScytheBuilder<T extends ScytheItem> {
 
     /**
      * @param minCooldownTime Applied when no one was hit
-     * @param cooldownTime Applied when someone was hit
+     * @param cooldownTime    Applied when someone was hit
      */
     public AbstractScytheBuilder<T> setCooldownTime(int minCooldownTime, int cooldownTime){
         this.minCooldownTime = minCooldownTime;
@@ -133,8 +135,8 @@ public abstract class AbstractScytheBuilder<T extends ScytheItem> {
 
     /**
      * Radius of the ability, specified in blocks
-     * */
-    public AbstractScytheBuilder<T> setAttackRadius(float distance) {
+     */
+    public AbstractScytheBuilder<T> setAttackRadius(float distance){
         this.attackRadius = distance;
         return this;
     }

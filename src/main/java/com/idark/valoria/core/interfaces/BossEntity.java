@@ -1,15 +1,21 @@
 package com.idark.valoria.core.interfaces;
 
-import net.minecraft.core.*;
-import net.minecraft.nbt.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.*;
-import net.minecraft.world.entity.item.*;
-import net.minecraft.world.entity.player.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.level.*;
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 /**
  * Should be added to your BossEntity implementing class
@@ -52,20 +58,21 @@ import java.util.*;
  *         return null;
  *     }</code></pre>
  */
-public interface BossEntity {
+public interface BossEntity{
     List<UUID> getNearbyPlayers();
+
     Map<UUID, Float> getDamageMap();
 
     default void readBossData(CompoundTag pCompound){
         ListTag nearbyPlayersList = pCompound.getList("NearbyPlayers", Tag.TAG_COMPOUND);
-        for (int i = 0; i < nearbyPlayersList.size(); i++) {
+        for(int i = 0; i < nearbyPlayersList.size(); i++){
             CompoundTag playerTag = nearbyPlayersList.getCompound(i);
             UUID playerUUID = playerTag.getUUID("UUID");
             getNearbyPlayers().add(playerUUID);
         }
 
         ListTag damageMapList = pCompound.getList("DamageMap", Tag.TAG_COMPOUND);
-        for (int i = 0; i < damageMapList.size(); i++) {
+        for(int i = 0; i < damageMapList.size(); i++){
             CompoundTag damageTag = damageMapList.getCompound(i);
             UUID playerUUID = damageTag.getUUID("UUID");
             float damage = damageTag.getFloat("Damage");
@@ -75,7 +82,7 @@ public interface BossEntity {
 
     default void saveBossData(CompoundTag pCompound){
         ListTag nearbyPlayersList = new ListTag();
-        for (UUID playerUUID : getNearbyPlayers()) {
+        for(UUID playerUUID : getNearbyPlayers()){
             CompoundTag playerTag = new CompoundTag();
             playerTag.putUUID("UUID", playerUUID);
             nearbyPlayersList.add(playerTag);
@@ -83,7 +90,7 @@ public interface BossEntity {
 
         pCompound.put("NearbyPlayers", nearbyPlayersList);
         ListTag damageMapList = new ListTag();
-        for (Map.Entry<UUID, Float> entry : getDamageMap().entrySet()) {
+        for(Map.Entry<UUID, Float> entry : getDamageMap().entrySet()){
             CompoundTag damageTag = new CompoundTag();
             damageTag.putUUID("UUID", entry.getKey());
             damageTag.putFloat("Damage", entry.getValue());
@@ -93,22 +100,22 @@ public interface BossEntity {
         pCompound.put("DamageMap", damageMapList);
     }
 
-    default int getRadius() {
+    default int getRadius(){
         return 16;
     }
 
-    default int scalingFactor() {
+    default int scalingFactor(){
         return 200;
     }
 
     /**
      * Health boost value
      */
-    default int getHealthScale(Mob mob) {
+    default int getHealthScale(Mob mob){
         return (int)(mob.getMaxHealth() + (getNearbyPlayers().size() - 1) * scalingFactor() * Math.log(getNearbyPlayers().size()));
     }
 
-    default double getRequiredDamage() {
+    default double getRequiredDamage(){
         return 50;
     }
 
@@ -125,19 +132,19 @@ public interface BossEntity {
         }
     }
 
-    default void initializeNearbyPlayers(Level level, Entity entity) {
+    default void initializeNearbyPlayers(Level level, Entity entity){
         List<Player> players = level.getEntitiesOfClass(Player.class, entity.getBoundingBox().inflate(getRadius()));
-        for (Player player : players) {
+        for(Player player : players){
             getNearbyPlayers().add(player.getUUID());
             getDamageMap().put(player.getUUID(), 0.0f);
         }
     }
 
-    default void applyBonusHealth(Mob mob) {
-        if (mob.getAttribute(Attributes.MAX_HEALTH) != null) {
+    default void applyBonusHealth(Mob mob){
+        if(mob.getAttribute(Attributes.MAX_HEALTH) != null){
             UUID healthModifierId = UUID.fromString("39ba0d18-24f3-4ea8-ba0d-1824f3fea88b");
             AttributeModifier existingModifier = mob.getAttribute(Attributes.MAX_HEALTH).getModifier(healthModifierId);
-            if (existingModifier != null) {
+            if(existingModifier != null){
                 mob.getAttribute(Attributes.MAX_HEALTH).removeModifier(existingModifier);
             }
 

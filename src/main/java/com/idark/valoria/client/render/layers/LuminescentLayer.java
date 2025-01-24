@@ -1,14 +1,16 @@
 package com.idark.valoria.client.render.layers;
 
-import com.mojang.blaze3d.vertex.*;
-import net.minecraft.client.model.*;
-import net.minecraft.client.renderer.*;
-import net.minecraft.client.renderer.entity.*;
-import net.minecraft.client.renderer.entity.layers.*;
-import net.minecraft.client.renderer.texture.*;
-import net.minecraft.resources.*;
-import net.minecraft.world.entity.*;
-import org.jetbrains.annotations.*;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.entity.RenderLayerParent;
+import net.minecraft.client.renderer.entity.layers.RenderLayer;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.LivingEntity;
+import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 
@@ -19,7 +21,8 @@ public class LuminescentLayer<T extends LivingEntity, M extends EntityModel<T>> 
     private final float r;
     private final float g;
     private final float b;
-    LuminescentLayer(ResourceLocation texture, float alpha, float r, float g, float b, RenderLayerParent<T, M> parent) {
+
+    LuminescentLayer(ResourceLocation texture, float alpha, float r, float g, float b, RenderLayerParent<T, M> parent){
         super(parent);
         this.location = texture;
         this.alpha = alpha;
@@ -28,17 +31,17 @@ public class LuminescentLayer<T extends LivingEntity, M extends EntityModel<T>> 
         this.b = b;
     }
 
-    public void render(PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight, T pLivingEntity, float pLimbSwing, float pLimbSwingAmount, float pPartialTicks, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch) {
+    public void render(PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight, T pLivingEntity, float pLimbSwing, float pLimbSwingAmount, float pPartialTicks, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch){
         VertexConsumer vertexconsumer = pBuffer.getBuffer(this.renderType());
         this.getParentModel().renderToBuffer(pPoseStack, vertexconsumer, 15728640, OverlayTexture.NO_OVERLAY, r, g, b, alpha);
     }
 
     @NotNull
-    public RenderType renderType() {
+    public RenderType renderType(){
         return RenderType.entityTranslucentEmissive(location);
     }
 
-    public static class Builder<T extends LivingEntity, M extends EntityModel<T>> {
+    public static class Builder<T extends LivingEntity, M extends EntityModel<T>>{
         private ResourceLocation texture;
         private final RenderLayerParent<T, M> parent;
         private float alpha = 1;
@@ -46,16 +49,16 @@ public class LuminescentLayer<T extends LivingEntity, M extends EntityModel<T>> 
         private float g = 1;
         private float b = 1;
 
-        public Builder(RenderLayerParent<T, M> parent) {
+        public Builder(RenderLayerParent<T, M> parent){
             this.parent = parent;
         }
 
-        public Builder<T, M> setTexture(ResourceLocation texture) {
+        public Builder<T, M> setTexture(ResourceLocation texture){
             this.texture = texture;
             return this;
         }
 
-        public Builder<T, M> setColor(Color color) {
+        public Builder<T, M> setColor(Color color){
             this.r = color.getRed() / 255.0F;
             this.g = color.getGreen() / 255.0F;
             this.b = color.getBlue() / 255.0F;
@@ -66,7 +69,7 @@ public class LuminescentLayer<T extends LivingEntity, M extends EntityModel<T>> 
         /**
          * @param alpha 0f - 1f
          */
-        public Builder<T, M> setAlpha(float alpha) {
+        public Builder<T, M> setAlpha(float alpha){
             this.alpha = alpha;
             return this;
         }
@@ -74,7 +77,7 @@ public class LuminescentLayer<T extends LivingEntity, M extends EntityModel<T>> 
         /**
          * @param red 0f - 1f
          */
-        public Builder<T, M> setRed(float red) {
+        public Builder<T, M> setRed(float red){
             this.r = red;
             return this;
         }
@@ -82,7 +85,7 @@ public class LuminescentLayer<T extends LivingEntity, M extends EntityModel<T>> 
         /**
          * @param green 0f - 1f
          */
-        public Builder<T, M> setGreen(float green) {
+        public Builder<T, M> setGreen(float green){
             this.g = green;
             return this;
         }
@@ -90,12 +93,12 @@ public class LuminescentLayer<T extends LivingEntity, M extends EntityModel<T>> 
         /**
          * @param blue 0f - 1f
          */
-        public Builder<T, M> setBlue(float blue) {
+        public Builder<T, M> setBlue(float blue){
             this.b = blue;
             return this;
         }
 
-        public LuminescentLayer<T, M> build() {
+        public LuminescentLayer<T, M> build(){
             return new LuminescentLayer<>(texture, r, g, b, alpha, parent);
         }
     }

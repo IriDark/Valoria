@@ -11,12 +11,12 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.Mob;
 
-public class NecromancerModel<T extends Mob> extends HumanoidModel<T> {
-    public NecromancerModel(ModelPart root) {
+public class NecromancerModel<T extends Mob> extends HumanoidModel<T>{
+    public NecromancerModel(ModelPart root){
         super(root);
     }
 
-    public static LayerDefinition createBodyLayer() {
+    public static LayerDefinition createBodyLayer(){
         MeshDefinition meshdefinition = new MeshDefinition();
         PartDefinition partdefinition = meshdefinition.getRoot();
 
@@ -55,16 +55,16 @@ public class NecromancerModel<T extends Mob> extends HumanoidModel<T> {
         return LayerDefinition.create(meshdefinition, 128, 128);
     }
 
-    public void prepareMobModel(T pEntity, float pLimbSwing, float pLimbSwingAmount, float pPartialTick) {
+    public void prepareMobModel(T pEntity, float pLimbSwing, float pLimbSwingAmount, float pPartialTick){
         this.rightArmPose = ArmPose.EMPTY;
         this.leftArmPose = ArmPose.EMPTY;
         super.prepareMobModel(pEntity, pLimbSwing, pLimbSwingAmount, pPartialTick);
     }
 
-    public void setupAnim(T pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch) {
+    public void setupAnim(T pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch){
         super.setupAnim(pEntity, pLimbSwing, pLimbSwingAmount, pAgeInTicks, pNetHeadYaw, pHeadPitch);
-        if (pEntity instanceof NecromancerEntity caster) {
-            if (caster.isCastingSpell()) {
+        if(pEntity instanceof NecromancerEntity caster){
+            if(caster.isCastingSpell()){
                 this.rightArm.z = 0.0F;
                 this.rightArm.x = -5.0F;
                 this.leftArm.z = 0.0F;
@@ -79,7 +79,7 @@ public class NecromancerModel<T extends Mob> extends HumanoidModel<T> {
         }
     }
 
-    public void translateToHand(HumanoidArm pSide, PoseStack pPoseStack) {
+    public void translateToHand(HumanoidArm pSide, PoseStack pPoseStack){
         float $$2 = pSide == HumanoidArm.RIGHT ? 1.0F : -1.0F;
         ModelPart $$3 = this.getArm(pSide);
         $$3.x += $$2;
@@ -88,7 +88,7 @@ public class NecromancerModel<T extends Mob> extends HumanoidModel<T> {
     }
 
     @Override
-    public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+    public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha){
         head.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
         hat.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
         body.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);

@@ -10,30 +10,30 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.minecraft.world.item.enchantment.Enchantments;
 
-public class BleedingEnchantment extends Enchantment {
+public class BleedingEnchantment extends Enchantment{
     public ArcRandom arcRandom = new ArcRandom();
 
-    public BleedingEnchantment() {
+    public BleedingEnchantment(){
         super(Rarity.RARE, EnchantmentCategory.WEAPON, new EquipmentSlot[]{EquipmentSlot.MAINHAND});
     }
 
     @Override
-    public int getMaxLevel() {
+    public int getMaxLevel(){
         return 3;
     }
 
-    public int getMinCost(int pEnchantmentLevel) {
+    public int getMinCost(int pEnchantmentLevel){
         return 10 + 20 * (pEnchantmentLevel - 1);
     }
 
-    public int getMaxCost(int pEnchantmentLevel) {
+    public int getMaxCost(int pEnchantmentLevel){
         return super.getMinCost(pEnchantmentLevel) + 50;
     }
 
-    public void doPostAttack(LivingEntity pUser, Entity pTarget, int pLevel) {
-        if (arcRandom.chance(0.05f * pLevel) || pUser.getUseItem().getEnchantmentLevel(Enchantments.PIERCING) > 0) {
-            if (pTarget instanceof LivingEntity livingentity) {
-                if (pLevel > 0) {
+    public void doPostAttack(LivingEntity pUser, Entity pTarget, int pLevel){
+        if(arcRandom.chance(0.05f * pLevel) || pUser.getUseItem().getEnchantmentLevel(Enchantments.PIERCING) > 0){
+            if(pTarget instanceof LivingEntity livingentity){
+                if(pLevel > 0){
                     int i = 40 + pUser.getRandom().nextInt(85 * pLevel);
                     livingentity.addEffect(new MobEffectInstance(EffectsRegistry.BLEEDING.get(), i, pLevel - 1, false, false));
                 }
@@ -41,7 +41,7 @@ public class BleedingEnchantment extends Enchantment {
         }
     }
 
-    public boolean checkCompatibility(Enchantment pEnchantment) {
+    public boolean checkCompatibility(Enchantment pEnchantment){
         return super.checkCompatibility(pEnchantment) && pEnchantment != Enchantments.SHARPNESS;
     }
 }

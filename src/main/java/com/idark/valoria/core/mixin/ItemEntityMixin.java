@@ -11,16 +11,16 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ItemEntity.class)
-public abstract class ItemEntityMixin {
+public abstract class ItemEntityMixin{
 
     @Shadow
     public abstract ItemStack getItem();
 
     @Inject(at = @At("RETURN"), method = "tick")
-    public void addParticles(CallbackInfo ci) {
-        ItemEntity self = (ItemEntity) ((Object) this);
-        if (self.level().isClientSide) {
-            if (self.getItem().getItem() instanceof ParticleItemEntity item) {
+    public void addParticles(CallbackInfo ci){
+        ItemEntity self = (ItemEntity)((Object)this);
+        if(self.level().isClientSide){
+            if(self.getItem().getItem() instanceof ParticleItemEntity item){
                 item.spawnParticles(Valoria.proxy.getLevel(), self);
             }
         }

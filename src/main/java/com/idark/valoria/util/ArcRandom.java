@@ -15,7 +15,7 @@ import java.util.Random;
  */
 
 // todo move to lib
-public class ArcRandom extends Random {
+public class ArcRandom extends Random{
     /**
      * Normalization constant for double.
      */
@@ -39,7 +39,7 @@ public class ArcRandom extends Random {
      * <p>
      * This implementation creates a {@link Random} instance to generate the initial seed.
      */
-    public ArcRandom() {
+    public ArcRandom(){
         setSeed(new Random().nextLong());
     }
 
@@ -48,7 +48,7 @@ public class ArcRandom extends Random {
      *
      * @param seed the initial seed
      */
-    public ArcRandom(long seed) {
+    public ArcRandom(long seed){
         setSeed(seed);
     }
 
@@ -58,11 +58,11 @@ public class ArcRandom extends Random {
      * @param seed0 the first part of the initial seed
      * @param seed1 the second part of the initial seed
      */
-    public ArcRandom(long seed0, long seed1) {
+    public ArcRandom(long seed0, long seed1){
         setState(seed0, seed1);
     }
 
-    private static long murmurHash3(long x) {
+    private static long murmurHash3(long x){
         x ^= x >>> 33;
         x *= 0xff51afd7ed558ccdL;
         x ^= x >>> 33;
@@ -78,7 +78,7 @@ public class ArcRandom extends Random {
      * Subclasses should override this, as this is used by all other methods.
      */
     @Override
-    public long nextLong() {
+    public long nextLong(){
         long s1 = this.seed0;
         final long s0 = this.seed1;
         this.seed0 = s0;
@@ -90,8 +90,8 @@ public class ArcRandom extends Random {
      * This protected method is final because, contrary to the superclass, it's not used anymore by the other methods.
      */
     @Override
-    protected final int next(int bits) {
-        return (int) (nextLong() & ((1L << bits) - 1));
+    protected final int next(int bits){
+        return (int)(nextLong() & ((1L << bits) - 1));
     }
 
     /**
@@ -100,8 +100,8 @@ public class ArcRandom extends Random {
      * This implementation uses {@link #nextLong()} internally.
      */
     @Override
-    public int nextInt() {
-        return (int) nextLong();
+    public int nextInt(){
+        return (int)nextLong();
     }
 
     /**
@@ -114,8 +114,8 @@ public class ArcRandom extends Random {
      * @return the next pseudo-random {@code int} value between {@code 0} (inclusive) and {@code n} (exclusive).
      */
     @Override
-    public int nextInt(final int n) {
-        return (int) nextLong(n);
+    public int nextInt(final int n){
+        return (int)nextLong(n);
     }
 
     /**
@@ -128,12 +128,12 @@ public class ArcRandom extends Random {
      * @param n the positive bound on the random number to be returned.
      * @return the next pseudo-random {@code long} value between {@code 0} (inclusive) and {@code n} (exclusive).
      */
-    public long nextLong(final long n) {
-        if (n <= 0) throw new IllegalArgumentException("n must be positive");
-        for (; ; ) {
+    public long nextLong(final long n){
+        if(n <= 0) throw new IllegalArgumentException("n must be positive");
+        for(; ; ){
             final long bits = nextLong() >>> 1;
             final long value = bits % n;
-            if (bits - value + (n - 1) >= 0) return value;
+            if(bits - value + (n - 1) >= 0) return value;
         }
     }
 
@@ -144,7 +144,7 @@ public class ArcRandom extends Random {
      * This implementation uses {@link #nextLong()} internally.
      */
     @Override
-    public double nextDouble() {
+    public double nextDouble(){
         return (nextLong() >>> 11) * NORM_DOUBLE;
     }
 
@@ -155,8 +155,8 @@ public class ArcRandom extends Random {
      * This implementation uses {@link #nextLong()} internally.
      */
     @Override
-    public float nextFloat() {
-        return (float) ((nextLong() >>> 40) * NORM_FLOAT);
+    public float nextFloat(){
+        return (float)((nextLong() >>> 40) * NORM_FLOAT);
     }
 
     /**
@@ -165,7 +165,7 @@ public class ArcRandom extends Random {
      * This implementation uses {@link #nextLong()} internally.
      */
     @Override
-    public boolean nextBoolean() {
+    public boolean nextBoolean(){
         return (nextLong() & 1) != 0;
     }
 
@@ -176,13 +176,13 @@ public class ArcRandom extends Random {
      * This implementation uses {@link #nextLong()} internally.
      */
     @Override
-    public void nextBytes(final byte[] bytes) {
+    public void nextBytes(final byte[] bytes){
         int n;
         int i = bytes.length;
-        while (i != 0) {
+        while(i != 0){
             n = i < 8 ? i : 8; // min(i, 8);
-            for (long bits = nextLong(); n-- != 0; bits >>= 8)
-                bytes[--i] = (byte) bits;
+            for(long bits = nextLong(); n-- != 0; bits >>= 8)
+                bytes[--i] = (byte)bits;
         }
     }
 
@@ -195,65 +195,65 @@ public class ArcRandom extends Random {
      * @param seed a nonzero seed for this generator (if zero, the generator will be seeded with {@link Long#MIN_VALUE}).
      */
     @Override
-    public void setSeed(final long seed) {
+    public void setSeed(final long seed){
         long seed0 = murmurHash3(seed == 0 ? Long.MIN_VALUE : seed);
         setState(seed0, murmurHash3(seed0));
     }
 
-    public boolean fiftyFifty() {
+    public boolean fiftyFifty(){
         return nextBoolean();
     }
 
-    public boolean chance(int chance) {
+    public boolean chance(int chance){
         return nextInt() < chance;
     }
 
-    public boolean chance(double chance) {
+    public boolean chance(double chance){
         return nextDouble() < chance;
     }
 
-    public boolean chance(float chance) {
+    public boolean chance(float chance){
         return nextFloat() < chance;
     }
 
 
-    public float range(float amount) {
+    public float range(float amount){
         return nextFloat() * amount * 2 - amount;
     }
 
-    public float random(float max) {
+    public float random(float max){
         return nextFloat() * max;
     }
 
     /**
      * Inclusive.
      */
-    public int random(int max) {
+    public int random(int max){
         return nextInt(max + 1);
     }
 
-    public float random(float min, float max) {
+    public float random(float min, float max){
         return min + (max - min) * nextFloat();
     }
 
-    public int range(int amount) {
+    public int range(int amount){
         return nextInt(amount * 2 + 1) - amount;
     }
 
-    public int random(int min, int max) {
-        if (min >= max) return min;
+    public int random(int min, int max){
+        if(min >= max) return min;
         return min + nextInt(max - min + 1);
     }
 
-    public int randomNumberUpTo(int upperBound) {
+    public int randomNumberUpTo(int upperBound){
         return nextInt(upperBound);
     }
 
-    public float randomValueUpTo(float upperBound) {
+    public float randomValueUpTo(float upperBound){
         return nextFloat() * upperBound;
     }
 
-    public double randomValueUpTo(double upperBound) {
+    public double randomValueUpTo(double upperBound){
         return nextDouble() * upperBound;
     }
 
@@ -263,7 +263,7 @@ public class ArcRandom extends Random {
      * @param seed0 the first part of the internal state
      * @param seed1 the second part of the internal state
      */
-    public void setState(final long seed0, final long seed1) {
+    public void setState(final long seed0, final long seed1){
         this.seed0 = seed0;
         this.seed1 = seed1;
     }
@@ -274,7 +274,7 @@ public class ArcRandom extends Random {
      * @param seed must be 0 or 1, designating which of the 2 long seeds to return
      * @return the internal seed that can be used in setState
      */
-    public long getState(int seed) {
+    public long getState(int seed){
         return seed == 0 ? seed0 : seed1;
     }
 }

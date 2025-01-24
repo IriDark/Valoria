@@ -1,9 +1,13 @@
 package com.idark.valoria.client.model.entity;
 
-import com.idark.valoria.registries.entity.living.minions.*;
-import net.minecraft.client.animation.*;
-import net.minecraft.client.model.*;
-import net.minecraft.client.model.geom.*;
+import com.idark.valoria.registries.entity.living.minions.FleshSentinel;
+import net.minecraft.client.animation.AnimationChannel;
+import net.minecraft.client.animation.AnimationDefinition;
+import net.minecraft.client.animation.Keyframe;
+import net.minecraft.client.animation.KeyframeAnimations;
+import net.minecraft.client.model.HierarchicalModel;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 
 public class FleshSentinelModel<T extends FleshSentinel> extends HierarchicalModel<T>{
@@ -12,7 +16,7 @@ public class FleshSentinelModel<T extends FleshSentinel> extends HierarchicalMod
     private final ModelPart rightWing;
     private final ModelPart leftWing;
 
-    public FleshSentinelModel(ModelPart root) {
+    public FleshSentinelModel(ModelPart root){
         this.root = root;
         this.body = root.getChild("body");
         this.rightWing = body.getChild("right_wing");
@@ -20,7 +24,7 @@ public class FleshSentinelModel<T extends FleshSentinel> extends HierarchicalMod
 
     }
 
-    public static LayerDefinition createBodyLayer() {
+    public static LayerDefinition createBodyLayer(){
         MeshDefinition meshdefinition = new MeshDefinition();
         PartDefinition partdefinition = meshdefinition.getRoot();
 
@@ -35,9 +39,9 @@ public class FleshSentinelModel<T extends FleshSentinel> extends HierarchicalMod
         return root;
     }
 
-    private void animateHeadLookTarget(float pYaw, float pPitch) {
-        this.body.xRot = pPitch * ((float) Math.PI / 180F);
-        this.body.yRot = pYaw * ((float) Math.PI / 180F);
+    private void animateHeadLookTarget(float pYaw, float pPitch){
+        this.body.xRot = pPitch * ((float)Math.PI / 180F);
+        this.body.yRot = pYaw * ((float)Math.PI / 180F);
     }
 
     @Override
@@ -48,29 +52,29 @@ public class FleshSentinelModel<T extends FleshSentinel> extends HierarchicalMod
     }
 
     public final AnimationDefinition idle = AnimationDefinition.Builder.withLength(1.0F).looping()
-    .addAnimation("body", new AnimationChannel(AnimationChannel.Targets.POSITION,
-    new Keyframe(0.0F, KeyframeAnimations.posVec(0.0F, -0.25F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
-    new Keyframe(0.5F, KeyframeAnimations.posVec(0.0F, 0.25F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
-    new Keyframe(1.0F, KeyframeAnimations.posVec(0.0F, -0.25F, 0.0F), AnimationChannel.Interpolations.CATMULLROM)
-    ))
-    .addAnimation("left_wing", new AnimationChannel(AnimationChannel.Targets.ROTATION,
-    new Keyframe(0.0F, KeyframeAnimations.degreeVec(0.0F, 0.0F, -8.0F), AnimationChannel.Interpolations.CATMULLROM),
-    new Keyframe(0.5F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 8.0F), AnimationChannel.Interpolations.CATMULLROM),
-    new Keyframe(1.0F, KeyframeAnimations.degreeVec(0.0F, 0.0F, -8.0F), AnimationChannel.Interpolations.CATMULLROM)
-    ))
-    .addAnimation("left_wing", new AnimationChannel(AnimationChannel.Targets.POSITION,
-    new Keyframe(0.0F, KeyframeAnimations.posVec(-1.0F, 0.5F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
-    new Keyframe(0.5F, KeyframeAnimations.posVec(-0.5F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
-    new Keyframe(1.0F, KeyframeAnimations.posVec(-1.0F, 0.5F, 0.0F), AnimationChannel.Interpolations.CATMULLROM)
-    ))
-    .addAnimation("right_wing", new AnimationChannel(AnimationChannel.Targets.ROTATION,
-    new Keyframe(0.0F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 8.0F), AnimationChannel.Interpolations.CATMULLROM),
-    new Keyframe(0.5F, KeyframeAnimations.degreeVec(0.0F, 0.0F, -8.0F), AnimationChannel.Interpolations.CATMULLROM),
-    new Keyframe(1.0F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 8.0F), AnimationChannel.Interpolations.CATMULLROM)
-    ))
-    .addAnimation("right_wing", new AnimationChannel(AnimationChannel.Targets.POSITION,
-    new Keyframe(0.0F, KeyframeAnimations.posVec(1.0F, 0.5F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
-    new Keyframe(0.5F, KeyframeAnimations.posVec(0.5F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
-    new Keyframe(1.0F, KeyframeAnimations.posVec(1.0F, 0.5F, 0.0F), AnimationChannel.Interpolations.CATMULLROM)
-    )).build();
+            .addAnimation("body", new AnimationChannel(AnimationChannel.Targets.POSITION,
+                    new Keyframe(0.0F, KeyframeAnimations.posVec(0.0F, -0.25F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
+                    new Keyframe(0.5F, KeyframeAnimations.posVec(0.0F, 0.25F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
+                    new Keyframe(1.0F, KeyframeAnimations.posVec(0.0F, -0.25F, 0.0F), AnimationChannel.Interpolations.CATMULLROM)
+            ))
+            .addAnimation("left_wing", new AnimationChannel(AnimationChannel.Targets.ROTATION,
+                    new Keyframe(0.0F, KeyframeAnimations.degreeVec(0.0F, 0.0F, -8.0F), AnimationChannel.Interpolations.CATMULLROM),
+                    new Keyframe(0.5F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 8.0F), AnimationChannel.Interpolations.CATMULLROM),
+                    new Keyframe(1.0F, KeyframeAnimations.degreeVec(0.0F, 0.0F, -8.0F), AnimationChannel.Interpolations.CATMULLROM)
+            ))
+            .addAnimation("left_wing", new AnimationChannel(AnimationChannel.Targets.POSITION,
+                    new Keyframe(0.0F, KeyframeAnimations.posVec(-1.0F, 0.5F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
+                    new Keyframe(0.5F, KeyframeAnimations.posVec(-0.5F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
+                    new Keyframe(1.0F, KeyframeAnimations.posVec(-1.0F, 0.5F, 0.0F), AnimationChannel.Interpolations.CATMULLROM)
+            ))
+            .addAnimation("right_wing", new AnimationChannel(AnimationChannel.Targets.ROTATION,
+                    new Keyframe(0.0F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 8.0F), AnimationChannel.Interpolations.CATMULLROM),
+                    new Keyframe(0.5F, KeyframeAnimations.degreeVec(0.0F, 0.0F, -8.0F), AnimationChannel.Interpolations.CATMULLROM),
+                    new Keyframe(1.0F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 8.0F), AnimationChannel.Interpolations.CATMULLROM)
+            ))
+            .addAnimation("right_wing", new AnimationChannel(AnimationChannel.Targets.POSITION,
+                    new Keyframe(0.0F, KeyframeAnimations.posVec(1.0F, 0.5F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
+                    new Keyframe(0.5F, KeyframeAnimations.posVec(0.5F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
+                    new Keyframe(1.0F, KeyframeAnimations.posVec(1.0F, 0.5F, 0.0F), AnimationChannel.Interpolations.CATMULLROM)
+            )).build();
 }

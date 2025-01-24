@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Inventory.class)
-public class InventoryMixin {
+public class InventoryMixin{
 
     @Final
     @Shadow
@@ -24,22 +24,22 @@ public class InventoryMixin {
     public NonNullList<ItemStack> items;
 
     @Inject(method = "setPickedItem(Lnet/minecraft/world/item/ItemStack;)V", at = @At("HEAD"), cancellable = true)
-    private void setPickedItem(CallbackInfo info) {
-        if (player.hasEffect(EffectsRegistry.STUN.get())) {
+    private void setPickedItem(CallbackInfo info){
+        if(player.hasEffect(EffectsRegistry.STUN.get())){
             info.cancel();
         }
     }
 
     @Inject(method = "pickSlot(I)V", at = @At("HEAD"), cancellable = true)
-    private void onPickSlot(int slot, CallbackInfo info) {
-        if (player.hasEffect(EffectsRegistry.STUN.get())) {
+    private void onPickSlot(int slot, CallbackInfo info){
+        if(player.hasEffect(EffectsRegistry.STUN.get())){
             info.cancel();
         }
     }
 
     @Inject(method = "swapPaint(D)V", at = @At("HEAD"), cancellable = true)
-    private void onSwapPaint(double direction, CallbackInfo info) {
-        if (player.hasEffect(EffectsRegistry.STUN.get())) {
+    private void onSwapPaint(double direction, CallbackInfo info){
+        if(player.hasEffect(EffectsRegistry.STUN.get())){
             info.cancel();
         }
     }

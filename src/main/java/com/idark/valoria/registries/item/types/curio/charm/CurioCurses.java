@@ -28,33 +28,33 @@ import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
-public class CurioCurses extends CurioRune {
+public class CurioCurses extends CurioRune{
     private static List<MobEffect> effects = new ArrayList<>();
 
-    public CurioCurses(Properties properties) {
+    public CurioCurses(Properties properties){
         super(properties);
     }
 
-    public static void effects(MobEffect... T) {
+    public static void effects(MobEffect... T){
         Collections.addAll(effects, T);
     }
 
-    public static void setEffects(List<MobEffect> effects) {
+    public static void setEffects(List<MobEffect> effects){
         CurioCurses.effects = effects;
     }
 
     @Nonnull
     @Override
-    public ICurio.SoundInfo getEquipSound(SlotContext slotContext, ItemStack stack) {
+    public ICurio.SoundInfo getEquipSound(SlotContext slotContext, ItemStack stack){
         return new ICurio.SoundInfo(SoundEvents.CALCITE_PLACE, 1.0f, 1.0f);
     }
 
     // Calamity sounds used
     @Override
-    public void curioTick(SlotContext slotContext, ItemStack stack) {
-        Player player = (Player) slotContext.entity();
-        if (!player.level().isClientSide() && player instanceof ServerPlayer pServer) {
-            if (pServer.getActiveEffects().isEmpty() && !pServer.getCooldowns().isOnCooldown(this)) {
+    public void curioTick(SlotContext slotContext, ItemStack stack){
+        Player player = (Player)slotContext.entity();
+        if(!player.level().isClientSide() && player instanceof ServerPlayer pServer){
+            if(pServer.getActiveEffects().isEmpty() && !pServer.getCooldowns().isOnCooldown(this)){
                 MobEffect[] effectsArray = effects.toArray(new MobEffect[0]);
                 pServer.addEffect(new MobEffectInstance(effectsArray[Mth.nextInt(RandomSource.create(), 0, 5)], 60, 0, false, true));
                 pServer.getCooldowns().addCooldown(this, 300);
@@ -64,14 +64,14 @@ public class CurioCurses extends CurioRune {
     }
 
     @Override
-    public Multimap<Attribute, AttributeModifier> getAttributeModifiers(SlotContext slotContext, UUID uuid, ItemStack stack) {
+    public Multimap<Attribute, AttributeModifier> getAttributeModifiers(SlotContext slotContext, UUID uuid, ItemStack stack){
         Multimap<Attribute, AttributeModifier> atts = LinkedHashMultimap.create();
         atts.put(Attributes.MAX_HEALTH, new AttributeModifier(uuid, "bonus", 3, AttributeModifier.Operation.ADDITION));
         return atts;
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags) {
+    public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags){
         super.appendHoverText(stack, world, tooltip, flags);
         tooltip.add(Component.translatable("tooltip.valoria.curses").withStyle(ChatFormatting.GRAY));
     }

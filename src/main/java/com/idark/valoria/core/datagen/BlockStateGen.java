@@ -1,20 +1,20 @@
 package com.idark.valoria.core.datagen;
 
-import com.idark.valoria.*;
-import com.idark.valoria.registries.*;
-import net.minecraft.data.*;
-import net.minecraft.resources.*;
+import com.idark.valoria.Valoria;
+import com.idark.valoria.registries.BlockRegistry;
+import net.minecraft.data.PackOutput;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.*;
-import net.minecraftforge.client.model.generators.*;
-import net.minecraftforge.common.data.*;
+import net.minecraftforge.client.model.generators.ModelProvider;
+import net.minecraftforge.common.data.ExistingFileHelper;
 
-public class BlockStateGen extends CoreStateGen {
+public class BlockStateGen extends CoreStateGen{
 
-    public BlockStateGen(PackOutput output, ExistingFileHelper exFileHelper) {
+    public BlockStateGen(PackOutput output, ExistingFileHelper exFileHelper){
         super(output, Valoria.ID, exFileHelper);
     }
 
-    public void registerKits() {
+    public void registerKits(){
         registerKit(BlockRegistry.picrite.get(), BlockRegistry.picriteStairs.get(), BlockRegistry.picriteSlab.get(), BlockRegistry.picriteWall.get());
         registerKit(BlockRegistry.polishedPicrite.get(), BlockRegistry.polishedPicriteStairs.get(), BlockRegistry.polishedPicriteSlab.get(), BlockRegistry.polishedPicriteWall.get());
         registerKit(BlockRegistry.picriteBricks.get(), BlockRegistry.picriteBricksStairs.get(), BlockRegistry.picriteBricksSlab.get(), BlockRegistry.picriteBricksWall.get());
@@ -29,33 +29,33 @@ public class BlockStateGen extends CoreStateGen {
     }
 
     @Override
-    protected void registerStatesAndModels() {
+    protected void registerStatesAndModels(){
         registerKits();
         blockWithItem(BlockRegistry.eyeStone);
         blockWithItem(BlockRegistry.pyratiteOre);
 
-        paneBlockWithRenderType((IronBarsBlock) BlockRegistry.bronzeGlassPane.get(), blockTexture(BlockRegistry.bronzeGlass.get()), blockTexture(BlockRegistry.bronzeBlock.get()), "cutout");
+        paneBlockWithRenderType((IronBarsBlock)BlockRegistry.bronzeGlassPane.get(), blockTexture(BlockRegistry.bronzeGlass.get()), blockTexture(BlockRegistry.bronzeBlock.get()), "cutout");
 
         blockWithItem(BlockRegistry.eldritchLog);
         blockWithItem(BlockRegistry.strippedEldritchLog);
         blockWithItem(BlockRegistry.eldritchPlanks);
         blockWithItem(BlockRegistry.eldritchLeaves);
-        doorBlock((DoorBlock) BlockRegistry.eldritchDoor.get(), new ResourceLocation(Valoria.ID, ModelProvider.BLOCK_FOLDER + "/eldritch_door_bottom"), new ResourceLocation(Valoria.ID, ModelProvider.BLOCK_FOLDER + "/eldritch_door_top"));
-        trapdoorBlock((TrapDoorBlock) BlockRegistry.eldritchTrapdoor.get(), blockTexture(BlockRegistry.eldritchTrapdoor.get()), true);
+        doorBlock((DoorBlock)BlockRegistry.eldritchDoor.get(), new ResourceLocation(Valoria.ID, ModelProvider.BLOCK_FOLDER + "/eldritch_door_bottom"), new ResourceLocation(Valoria.ID, ModelProvider.BLOCK_FOLDER + "/eldritch_door_top"));
+        trapdoorBlock((TrapDoorBlock)BlockRegistry.eldritchTrapdoor.get(), blockTexture(BlockRegistry.eldritchTrapdoor.get()), true);
 
-        signBlock((StandingSignBlock) BlockRegistry.eldritchSign.get(), (WallSignBlock) BlockRegistry.eldritchWallSign.get(), blockTexture(BlockRegistry.eldritchPlanks.get()));
+        signBlock((StandingSignBlock)BlockRegistry.eldritchSign.get(), (WallSignBlock)BlockRegistry.eldritchWallSign.get(), blockTexture(BlockRegistry.eldritchPlanks.get()));
         hangingSignBlock(BlockRegistry.eldritchHangingSign.get(), BlockRegistry.eldritchWallHangingSign.get(), blockTexture(BlockRegistry.eldritchPlanks.get()));
 
-        buttonBlock((ButtonBlock) BlockRegistry.eldritchButton.get(), blockTexture(BlockRegistry.eldritchPlanks.get()));
+        buttonBlock((ButtonBlock)BlockRegistry.eldritchButton.get(), blockTexture(BlockRegistry.eldritchPlanks.get()));
 
-        pressurePlateBlock((PressurePlateBlock) BlockRegistry.eldritchPressurePlate.get(), blockTexture(BlockRegistry.eldritchPlanks.get()));
+        pressurePlateBlock((PressurePlateBlock)BlockRegistry.eldritchPressurePlate.get(), blockTexture(BlockRegistry.eldritchPlanks.get()));
 
-        stairsBlock((StairBlock) BlockRegistry.eldritchPlanksStairs.get(), blockTexture(BlockRegistry.eldritchPlanks.get()));
-        slabBlock((SlabBlock) BlockRegistry.eldritchPlanksSlab.get(), blockTexture(BlockRegistry.eldritchPlanks.get()), blockTexture(BlockRegistry.eldritchPlanks.get()));
+        stairsBlock((StairBlock)BlockRegistry.eldritchPlanksStairs.get(), blockTexture(BlockRegistry.eldritchPlanks.get()));
+        slabBlock((SlabBlock)BlockRegistry.eldritchPlanksSlab.get(), blockTexture(BlockRegistry.eldritchPlanks.get()), blockTexture(BlockRegistry.eldritchPlanks.get()));
 
-        fenceBlock((FenceBlock) BlockRegistry.shadewoodFence.get(), blockTexture(BlockRegistry.shadewoodPlanks.get()));
-        fenceGateBlock((FenceGateBlock) BlockRegistry.shadewoodFenceGate.get(), blockTexture(BlockRegistry.shadewoodPlanks.get()));
-        fenceBlock((FenceBlock) BlockRegistry.eldritchFence.get(), blockTexture(BlockRegistry.eldritchPlanks.get()));
-        fenceGateBlock((FenceGateBlock) BlockRegistry.eldritchFenceGate.get(), blockTexture(BlockRegistry.eldritchPlanks.get()));
+        fenceBlock((FenceBlock)BlockRegistry.shadewoodFence.get(), blockTexture(BlockRegistry.shadewoodPlanks.get()));
+        fenceGateBlock((FenceGateBlock)BlockRegistry.shadewoodFenceGate.get(), blockTexture(BlockRegistry.shadewoodPlanks.get()));
+        fenceBlock((FenceBlock)BlockRegistry.eldritchFence.get(), blockTexture(BlockRegistry.eldritchPlanks.get()));
+        fenceGateBlock((FenceGateBlock)BlockRegistry.eldritchFenceGate.get(), blockTexture(BlockRegistry.eldritchPlanks.get()));
     }
 }

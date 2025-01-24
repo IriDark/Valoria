@@ -1,26 +1,27 @@
 package com.idark.valoria.client.render.tile;
 
-import com.idark.valoria.client.event.*;
-import com.idark.valoria.registries.block.entity.*;
-import com.mojang.blaze3d.vertex.*;
-import com.mojang.math.*;
-import net.minecraft.client.*;
-import net.minecraft.client.renderer.*;
-import net.minecraft.client.renderer.blockentity.*;
-import net.minecraft.world.item.*;
+import com.idark.valoria.client.event.ClientTickHandler;
+import com.idark.valoria.registries.block.entity.CrypticAltarBlockEntity;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.world.item.ItemStack;
 
-public class CrypticAltarBlockEntityRenderer implements BlockEntityRenderer<CrypticAltarBlockEntity> {
+public class CrypticAltarBlockEntityRenderer implements BlockEntityRenderer<CrypticAltarBlockEntity>{
 
-    public CrypticAltarBlockEntityRenderer() {
+    public CrypticAltarBlockEntityRenderer(){
     }
 
-    public boolean shouldRenderOffScreen(CrypticAltarBlockEntity pBlockEntity) {
+    public boolean shouldRenderOffScreen(CrypticAltarBlockEntity pBlockEntity){
         return true;
     }
 
     @Override
     public void render(CrypticAltarBlockEntity altar, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay){
-        if (!altar.isSummoning) return;
+        if(!altar.isSummoning) return;
         double progress = 1.5f;
         progress /= (double)altar.progressMax / altar.progress;
 
@@ -28,7 +29,7 @@ public class CrypticAltarBlockEntityRenderer implements BlockEntityRenderer<Cryp
 
         ms.pushPose();
         ms.translate(0.5F, 1.75F + progress, 0.5F);
-        ms.mulPose(Axis.YP.rotationDegrees((float) ticks * 6));
+        ms.mulPose(Axis.YP.rotationDegrees((float)ticks * 6));
         ms.scale(0.5F, 0.5F, 0.5F);
 
         ItemStack stack = altar.getItemHandler().getItem(0);

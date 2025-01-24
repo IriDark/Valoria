@@ -1,16 +1,21 @@
 package com.idark.valoria.client.particle;
 
-import com.idark.valoria.*;
-import com.idark.valoria.client.particle.types.*;
-import mod.maxbogomol.fluffy_fur.client.particle.type.*;
-import net.minecraft.client.*;
-import net.minecraft.client.particle.*;
-import net.minecraft.core.particles.*;
-import net.minecraftforge.client.event.*;
-import net.minecraftforge.eventbus.api.*;
-import net.minecraftforge.registries.*;
+import com.idark.valoria.Valoria;
+import com.idark.valoria.client.particle.types.ChompParticle;
+import com.idark.valoria.client.particle.types.FireflyParticle;
+import mod.maxbogomol.fluffy_fur.client.particle.type.GenericParticleType;
+import mod.maxbogomol.fluffy_fur.client.particle.type.LeavesParticleType;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.particle.EndRodParticle;
+import net.minecraft.core.particles.ParticleType;
+import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
-public class ParticleRegistry {
+public class ParticleRegistry{
 
     public static final DeferredRegister<ParticleType<?>> PARTICLES = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, Valoria.ID);
 
@@ -27,7 +32,7 @@ public class ParticleRegistry {
     public static RegistryObject<SimpleParticleType> VOID_GLITTER = PARTICLES.register("void_glitter", () -> new SimpleParticleType(false));
     public static final RegistryObject<SimpleParticleType> CHOMP = PARTICLES.register("chomp", () -> new SimpleParticleType(true));
 
-    public static void registerParticleFactory(RegisterParticleProvidersEvent event) {
+    public static void registerParticleFactory(RegisterParticleProvidersEvent event){
         Minecraft.getInstance().particleEngine.register(ParticleRegistry.SMOKE.get(), GenericParticleType.Factory::new);
         Minecraft.getInstance().particleEngine.register(ParticleRegistry.SPHERE.get(), GenericParticleType.Factory::new);
         Minecraft.getInstance().particleEngine.register(ParticleRegistry.TRANSFORM_PARTICLE.get(), GenericParticleType.Factory::new);
@@ -41,7 +46,7 @@ public class ParticleRegistry {
         Minecraft.getInstance().particleEngine.register(ParticleRegistry.SKULL.get(), GenericParticleType.Factory::new);
     }
 
-    public static void register(IEventBus eventBus) {
+    public static void register(IEventBus eventBus){
         PARTICLES.register(eventBus);
     }
 }

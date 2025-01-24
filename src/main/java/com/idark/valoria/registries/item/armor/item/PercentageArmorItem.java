@@ -1,21 +1,29 @@
 package com.idark.valoria.registries.item.armor.item;
 
-import com.google.common.collect.*;
-import com.idark.valoria.core.config.*;
-import net.minecraft.*;
-import net.minecraft.client.*;
-import net.minecraft.network.chat.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.*;
-import net.minecraft.world.entity.player.*;
+import com.google.common.collect.ImmutableMultimap;
+import com.google.common.collect.Multimap;
+import com.idark.valoria.core.config.ServerConfig;
+import net.minecraft.ChatFormatting;
+import net.minecraft.Util;
+import net.minecraft.client.Minecraft;
+import net.minecraft.network.chat.CommonComponents;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.MobType;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.ItemStack.*;
-import net.minecraft.world.item.enchantment.*;
-import net.minecraft.world.level.*;
-import net.minecraftforge.api.distmarker.*;
-import org.jetbrains.annotations.*;
+import net.minecraft.world.item.ItemStack.TooltipPart;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.level.Level;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.Nullable;
 
-import java.text.*;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.*;
 
 //todo move to lib
@@ -43,7 +51,7 @@ public class PercentageArmorItem extends ArmorItem{
         this.knockbackResistance = pMaterial.getKnockbackResistance();
         this.uuid = ARMOR_MODIFIER_UUID_PER_TYPE.get(pType);
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
-        if (this.knockbackResistance > 0) {
+        if(this.knockbackResistance > 0){
             builder.put(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(uuid, "Armor knockback resistance", this.knockbackResistance, AttributeModifier.Operation.ADDITION));
         }
 
@@ -51,23 +59,23 @@ public class PercentageArmorItem extends ArmorItem{
         this.defaultModifiers = builder.build();
     }
 
-    public int getDefense() {
+    public int getDefense(){
         return Math.round(this.defense);
     }
 
-    public float getPercentDefense() {
+    public float getPercentDefense(){
         return this.defense / 100;
     }
 
-    public float getToughness() {
+    public float getToughness(){
         return toughness;
     }
 
-    public int getTotalDefense(ArmorMaterial material) {
+    public int getTotalDefense(ArmorMaterial material){
         return material.getDefenseForType(Type.HELMET) +
-        material.getDefenseForType(Type.CHESTPLATE) +
-        material.getDefenseForType(Type.LEGGINGS) +
-        material.getDefenseForType(Type.BOOTS);
+                material.getDefenseForType(Type.CHESTPLATE) +
+                material.getDefenseForType(Type.LEGGINGS) +
+                material.getDefenseForType(Type.BOOTS);
     }
 
     @Override
@@ -124,11 +132,11 @@ public class PercentageArmorItem extends ArmorItem{
         }
     }
 
-    public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot pEquipmentSlot) {
+    public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot pEquipmentSlot){
         if(pEquipmentSlot != this.type.getSlot()) return super.getDefaultAttributeModifiers(pEquipmentSlot);
         if(!ServerConfig.PERCENT_ARMOR.get()){
             ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
-            if (this.knockbackResistance > 0) {
+            if(this.knockbackResistance > 0){
                 builder.put(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(uuid, "Armor knockback resistance", this.knockbackResistance, AttributeModifier.Operation.ADDITION));
             }
 

@@ -1,6 +1,6 @@
 package com.idark.valoria.core.enums;
 
-public enum AccessoryMaterial {
+public enum AccessoryMaterial{
     LEATHER("leather"),
     IRON("iron"),
     GOLD("golden"),
@@ -10,15 +10,15 @@ public enum AccessoryMaterial {
 
     private final String name;
 
-    AccessoryMaterial(String name) {
+    AccessoryMaterial(String name){
         this.name = name;
     }
 
-    public String getName() {
+    public String getName(){
         return name;
     }
 
-    public boolean isInvalid() {
+    public boolean isInvalid(){
         return this.equals(NONE);
     }
 }

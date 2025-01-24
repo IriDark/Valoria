@@ -1,53 +1,64 @@
 package com.idark.valoria;
 
-import com.idark.valoria.client.color.*;
-import com.idark.valoria.client.model.*;
-import com.idark.valoria.client.model.armor.*;
+import com.idark.valoria.client.color.ModBlockColors;
+import com.idark.valoria.client.model.ModItemModelProperties;
+import com.idark.valoria.client.model.armor.TheFallenCollectorArmorModel;
 import com.idark.valoria.client.model.curio.*;
-import com.idark.valoria.client.particle.*;
-import com.idark.valoria.client.render.*;
+import com.idark.valoria.client.particle.ParticleRegistry;
+import com.idark.valoria.client.render.ValoriaEffects;
 import com.idark.valoria.client.render.entity.*;
 import com.idark.valoria.client.render.tile.*;
-import com.idark.valoria.client.shaders.*;
-import com.idark.valoria.client.sounds.*;
+import com.idark.valoria.client.shaders.ShaderRegistry;
+import com.idark.valoria.client.sounds.ElementalManipulatorSoundInstance;
+import com.idark.valoria.client.sounds.LoopedSoundInstance;
+import com.idark.valoria.client.sounds.ValoriaSoundInstance;
 import com.idark.valoria.registries.*;
-import com.idark.valoria.registries.block.types.*;
-import com.idark.valoria.registries.entity.living.minions.*;
-import com.idark.valoria.registries.item.types.*;
-import com.idark.valoria.util.*;
-import com.mojang.blaze3d.platform.*;
-import mod.maxbogomol.fluffy_fur.*;
-import mod.maxbogomol.fluffy_fur.client.gui.screen.*;
-import mod.maxbogomol.fluffy_fur.client.render.entity.*;
-import mod.maxbogomol.fluffy_fur.client.sound.*;
-import mod.maxbogomol.fluffy_fur.client.splash.*;
-import mod.maxbogomol.fluffy_fur.client.tooltip.*;
-import net.minecraft.client.*;
-import net.minecraft.client.model.geom.*;
-import net.minecraft.client.renderer.*;
-import net.minecraft.client.renderer.blockentity.*;
-import net.minecraft.client.renderer.entity.*;
-import net.minecraft.client.resources.model.*;
-import net.minecraft.network.chat.*;
-import net.minecraft.resources.*;
-import net.minecraft.sounds.*;
-import net.minecraft.world.entity.ai.attributes.*;
-import net.minecraft.world.entity.player.*;
-import net.minecraft.world.item.*;
-import net.minecraftforge.api.distmarker.*;
+import com.idark.valoria.registries.block.types.ModWoodTypes;
+import com.idark.valoria.registries.entity.living.minions.AbstractMinionEntity;
+import com.idark.valoria.registries.item.types.SummonBook;
+import com.idark.valoria.util.Pal;
+import com.mojang.blaze3d.platform.InputConstants;
+import mod.maxbogomol.fluffy_fur.FluffyFurClient;
+import mod.maxbogomol.fluffy_fur.client.gui.screen.FluffyFurMod;
+import mod.maxbogomol.fluffy_fur.client.gui.screen.FluffyFurPanorama;
+import mod.maxbogomol.fluffy_fur.client.render.entity.CustomBoatRenderer;
+import mod.maxbogomol.fluffy_fur.client.sound.MusicHandler;
+import mod.maxbogomol.fluffy_fur.client.sound.MusicModifier;
+import mod.maxbogomol.fluffy_fur.client.splash.SplashHandler;
+import mod.maxbogomol.fluffy_fur.client.tooltip.AttributeTooltipModifier;
+import mod.maxbogomol.fluffy_fur.client.tooltip.TooltipModifierHandler;
+import net.minecraft.client.KeyMapping;
+import net.minecraft.client.model.geom.ModelLayerLocation;
+import net.minecraft.client.renderer.Sheets;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
+import net.minecraft.client.renderer.blockentity.HangingSignRenderer;
+import net.minecraft.client.renderer.blockentity.SignRenderer;
+import net.minecraft.client.renderer.entity.EntityRenderers;
+import net.minecraft.client.renderer.entity.ThrownItemRenderer;
+import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.Music;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.DyeableLeatherItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.*;
-import net.minecraftforge.client.settings.*;
-import net.minecraftforge.eventbus.api.*;
-import net.minecraftforge.fml.common.*;
-import net.minecraftforge.fml.event.lifecycle.*;
-import org.lwjgl.glfw.*;
+import net.minecraftforge.client.settings.KeyConflictContext;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import org.lwjgl.glfw.GLFW;
 
-import java.io.*;
+import java.io.IOException;
 
 import static com.idark.valoria.Valoria.*;
 import static mod.maxbogomol.fluffy_fur.registry.client.FluffyFurModels.addLayer;
 
-public class ValoriaClient {
+public class ValoriaClient{
     private static final String CATEGORY_KEY = "key.category.valoria.general";
     public static final KeyMapping BAG_MENU_KEY = new KeyMapping("key.valoria.bag_menu", KeyConflictContext.IN_GAME, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, CATEGORY_KEY);
     public static final KeyMapping JEWELRY_BONUSES_KEY = new KeyMapping("key.valoria.jewelry", KeyConflictContext.IN_GAME, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, CATEGORY_KEY);
@@ -75,7 +86,7 @@ public class ValoriaClient {
     public static FluffyFurMod MOD_INSTANCE;
     public static FluffyFurPanorama ECOTONE_PANORAMA;
 
-    public static void setupSplashes() {
+    public static void setupSplashes(){
         SplashHandler.addSplash("Also try Starbound!");
         SplashHandler.addSplash("Also try Mindustry!");
         SplashHandler.addSplash("Valoria was known as DarkRPG");
@@ -85,34 +96,34 @@ public class ValoriaClient {
         SplashHandler.addSplash("Привіт, Україно!");
     }
 
-    public static void setupMenu() {
+    public static void setupMenu(){
         MOD_INSTANCE = new FluffyFurMod(Valoria.ID, NAME, VERSION).setDev("Iri ♡").setItem(new ItemStack(BlockRegistry.shadeBlossom.get()))
-        .setNameColor(Pal.verySoftPink).setVersionColor(Pal.cyan)
-        .setDescription(Component.translatable("mod_description.valoria"))
-        .addGithubLink("https://github.com/IriDark/Valoria")
-        .addCurseForgeLink("https://www.curseforge.com/minecraft/mc-mods/valoria")
-        .addModrinthLink("https://modrinth.com/mod/valoria")
-        .addDiscordLink("https://discord.gg/wWdXpwuPmK");
+                .setNameColor(Pal.verySoftPink).setVersionColor(Pal.cyan)
+                .setDescription(Component.translatable("mod_description.valoria"))
+                .addGithubLink("https://github.com/IriDark/Valoria")
+                .addCurseForgeLink("https://www.curseforge.com/minecraft/mc-mods/valoria")
+                .addModrinthLink("https://modrinth.com/mod/valoria")
+                .addDiscordLink("https://discord.gg/wWdXpwuPmK");
 
         ECOTONE_PANORAMA = new FluffyFurPanorama(Valoria.ID + ":ecotone", Component.translatable("panorama.valoria.ecotone"))
-        .setMod(MOD_INSTANCE).setItem(new ItemStack(BlockRegistry.shadeBlossom.get())).setSort(0)
-        .setTexture(new ResourceLocation(Valoria.ID, "textures/gui/title/background/panorama"))
-        .setLogo(new ResourceLocation(Valoria.ID, "textures/gui/title/valoria_logo.png"));
+                .setMod(MOD_INSTANCE).setItem(new ItemStack(BlockRegistry.shadeBlossom.get())).setSort(0)
+                .setTexture(new ResourceLocation(Valoria.ID, "textures/gui/title/background/panorama"))
+                .setLogo(new ResourceLocation(Valoria.ID, "textures/gui/title/valoria_logo.png"));
 
         FluffyFurClient.registerMod(MOD_INSTANCE);
         FluffyFurClient.registerPanorama(ECOTONE_PANORAMA);
     }
 
     @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
-    public static class RegistryEvents {
+    public static class RegistryEvents{
 
         @SubscribeEvent
-        public static void registerMusicModifiers(FMLClientSetupEvent event) {
+        public static void registerMusicModifiers(FMLClientSetupEvent event){
             MusicHandler.register(new MusicModifier.Panorama(ARRIVING, ECOTONE_PANORAMA));
         }
 
         @SubscribeEvent
-        public static void RegisterDimensionEffects(RegisterDimensionSpecialEffectsEvent e) {
+        public static void RegisterDimensionEffects(RegisterDimensionSpecialEffectsEvent e){
             e.register(new ResourceLocation(Valoria.ID, "valoria_sky"), new ValoriaEffects());
         }
 
@@ -156,28 +167,28 @@ public class ValoriaClient {
         }
 
         @SubscribeEvent
-        public static void ColorMappingBlocks(RegisterColorHandlersEvent.Block event) {
+        public static void ColorMappingBlocks(RegisterColorHandlersEvent.Block event){
             event.register((state, world, pos, tintIndex) -> ModBlockColors.getInstance().getGrassColor(state, world, pos, tintIndex), ModBlockColors.MODDED_GRASS);
             event.register((state, world, pos, tintIndex) -> ModBlockColors.getInstance().getFoliageColor(state, world, pos, tintIndex), ModBlockColors.MODDED_FOLIAGE);
         }
 
         @SubscribeEvent
-        public static void ColorMappingItems(RegisterColorHandlersEvent.Item event) {
+        public static void ColorMappingItems(RegisterColorHandlersEvent.Item event){
             event.register((stack, tintIndex) -> tintIndex > 0 ? -1 : SummonBook.getColor(stack), ItemsRegistry.summonBook.get());
             event.register((stack, tintIndex) -> tintIndex > 0 ? -1 : 12487423, BlockRegistry.eldritchSapling.get(), BlockRegistry.eldritchLeaves.get());
             event.register((stack, tintIndex) -> tintIndex > 0 ? -1 : 6740479, BlockRegistry.shadewoodSapling.get(), BlockRegistry.shadewoodLeaves.get(), BlockRegistry.shadewoodBranch.get());
             event.register((stack, tintIndex) -> 11301619, BlockRegistry.voidGrass.get(), BlockRegistry.voidTaint.get(), BlockRegistry.voidRoots.get());
-            event.register((p_92708_, p_92709_) -> p_92709_ > 0 ? -1 : ((DyeableLeatherItem) p_92708_.getItem()).getColor(p_92708_), ItemsRegistry.leatherGloves.get());
-            event.register((p_92708_, p_92709_) -> p_92709_ > 0 ? -1 : ((DyeableLeatherItem) p_92708_.getItem()).getColor(p_92708_), ItemsRegistry.jewelryBag.get());
+            event.register((p_92708_, p_92709_) -> p_92709_ > 0 ? -1 : ((DyeableLeatherItem)p_92708_.getItem()).getColor(p_92708_), ItemsRegistry.leatherGloves.get());
+            event.register((p_92708_, p_92709_) -> p_92709_ > 0 ? -1 : ((DyeableLeatherItem)p_92708_.getItem()).getColor(p_92708_), ItemsRegistry.jewelryBag.get());
         }
 
         @SubscribeEvent
-        public static void doClientStuff(FMLClientSetupEvent event) {
+        public static void doClientStuff(FMLClientSetupEvent event){
             AbstractMinionEntity.minionColors.put(EntityTypeRegistry.UNDEAD.get(), Pal.darkishGray);
             AbstractMinionEntity.minionColors.put(EntityTypeRegistry.FLESH_SENTINEL.get(), Pal.flesh);
             event.enqueueWork(() -> {
-                BlockEntityRenderers.register(BlockEntitiesRegistry.CRYPTIC_ALTAR.get(),  (trd) -> new CrypticAltarBlockEntityRenderer());
-                BlockEntityRenderers.register(BlockEntitiesRegistry.FLESH_CYST.get(),  (trd) -> new FleshCystBlockEntityRenderer());
+                BlockEntityRenderers.register(BlockEntitiesRegistry.CRYPTIC_ALTAR.get(), (trd) -> new CrypticAltarBlockEntityRenderer());
+                BlockEntityRenderers.register(BlockEntitiesRegistry.FLESH_CYST.get(), (trd) -> new FleshCystBlockEntityRenderer());
                 BlockEntityRenderers.register(BlockEntitiesRegistry.MANIPULATOR_BLOCK_ENTITY.get(), (trd) -> new ManipulatorBlockEntityRenderer());
                 BlockEntityRenderers.register(BlockEntitiesRegistry.JEWELRY_BLOCK_ENTITY.get(), (trd) -> new JewelryBlockEntityRender());
                 BlockEntityRenderers.register(BlockEntitiesRegistry.KEG_BLOCK_ENTITY.get(), (trd) -> new KegBlockEntityRenderer());
@@ -227,14 +238,14 @@ public class ValoriaClient {
         }
 
         @SubscribeEvent
-        public static void onModelRegistryEvent(ModelEvent.RegisterAdditional event) {
+        public static void onModelRegistryEvent(ModelEvent.RegisterAdditional event){
             event.register(KEG_MODEL);
             event.register(SPHERE);
             event.register(CYST);
         }
-        
+
         @SubscribeEvent
-        public static void onRegisterLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
+        public static void onRegisterLayers(EntityRenderersEvent.RegisterLayerDefinitions event){
             event.registerLayerDefinition(ValoriaClient.NECKLACE_LAYER, NecklaceModel::createBodyLayer);
             event.registerLayerDefinition(ValoriaClient.BELT_LAYER, BeltModel::createBodyLayer);
             event.registerLayerDefinition(ValoriaClient.BAG_LAYER, JewelryBagModel::createBodyLayer);
@@ -244,25 +255,25 @@ public class ValoriaClient {
         }
 
         @SubscribeEvent
-        public static void addLayers(EntityRenderersEvent.AddLayers event) {
+        public static void addLayers(EntityRenderersEvent.AddLayers event){
             THE_FALLEN_COLLECTOR_ARMOR = new TheFallenCollectorArmorModel(event.getEntityModels().bakeLayer(THE_FALLEN_COLLECTOR_ARMOR_LAYER));
         }
 
         @SubscribeEvent
-        public static void registerKeyBindings(RegisterKeyMappingsEvent event) {
+        public static void registerKeyBindings(RegisterKeyMappingsEvent event){
             event.register(ValoriaClient.BAG_MENU_KEY);
             event.register(ValoriaClient.JEWELRY_BONUSES_KEY);
         }
 
         @OnlyIn(Dist.CLIENT)
         @SubscribeEvent
-        public static void registerFactories(RegisterParticleProvidersEvent event) {
+        public static void registerFactories(RegisterParticleProvidersEvent event){
             ParticleRegistry.registerParticleFactory(event);
         }
 
         @OnlyIn(Dist.CLIENT)
         @SubscribeEvent
-        public static void registerRenderTypes(FMLClientSetupEvent event) {
+        public static void registerRenderTypes(FMLClientSetupEvent event){
             ShaderRegistry.registerRenderTypes(event);
         }
 

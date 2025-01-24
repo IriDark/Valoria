@@ -1,30 +1,32 @@
 package com.idark.valoria.registries.block.types;
 
-import com.idark.valoria.core.interfaces.*;
-import com.idark.valoria.registries.*;
-import com.idark.valoria.util.*;
-import net.minecraft.core.*;
-import net.minecraft.sounds.*;
-import net.minecraft.util.*;
-import net.minecraft.world.level.*;
-import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.state.*;
-import net.minecraft.world.level.block.state.properties.*;
-import net.minecraft.world.level.material.*;
+import com.idark.valoria.core.interfaces.FleshSpreaderBehaviour;
+import com.idark.valoria.registries.BlockRegistry;
+import com.idark.valoria.util.ArcRandom;
+import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.material.Fluids;
 
 public class FleshBlock extends Block implements FleshSpreaderBehaviour{
     public FleshBlock(Properties pProperties){
         super(pProperties);
     }
 
-    public int attemptUseCharge(FleshSpreader.ChargeCursor pCursor, LevelAccessor pLevel, BlockPos pPos, RandomSource pRandom, FleshSpreader pSpreader, boolean pShouldConvertBlocks) {
+    public int attemptUseCharge(FleshSpreader.ChargeCursor pCursor, LevelAccessor pLevel, BlockPos pPos, RandomSource pRandom, FleshSpreader pSpreader, boolean pShouldConvertBlocks){
         int i = pCursor.getCharge();
-        if (i != 0 && pRandom.nextInt(pSpreader.chargeDecayRate()) == 0) {
+        if(i != 0 && pRandom.nextInt(pSpreader.chargeDecayRate()) == 0){
             BlockPos blockpos = pCursor.getPos();
             boolean flag = blockpos.closerThan(pPos, pSpreader.noGrowthRadius());
-            if (!flag && canPlaceGrowth(pLevel, blockpos)) {
+            if(!flag && canPlaceGrowth(pLevel, blockpos)){
                 int j = pSpreader.growthSpawnCost();
-                if (pRandom.nextInt(j) < i) {
+                if(pRandom.nextInt(j) < i){
                     BlockPos blockpos1 = blockpos.above();
                     BlockState blockstate = this.getRandomGrowthState(pLevel, blockpos1, pRandom);
                     pLevel.setBlock(blockpos1, blockstate, 3);
@@ -32,15 +34,15 @@ public class FleshBlock extends Block implements FleshSpreaderBehaviour{
                 }
 
                 return Math.max(0, i - j);
-            } else {
+            }else{
                 return pRandom.nextInt(pSpreader.additionalDecayRate()) != 0 ? i : i - (flag ? 1 : getDecayPenalty(pSpreader, blockpos, pPos, i));
             }
-        } else {
+        }else{
             return i;
         }
     }
 
-    private static int getDecayPenalty(FleshSpreader pSpreader, BlockPos pCursorPos, BlockPos pRootPos, int pCharge) {
+    private static int getDecayPenalty(FleshSpreader pSpreader, BlockPos pCursorPos, BlockPos pRootPos, int pCharge){
         int i = pSpreader.noGrowthRadius();
         float f = Mth.square((float)Math.sqrt(pCursorPos.distSqr(pRootPos)) - (float)i);
         int j = Mth.square(24 - i);
@@ -48,40 +50,40 @@ public class FleshBlock extends Block implements FleshSpreaderBehaviour{
         return Math.max(1, (int)((float)pCharge * f1 * 0.5F));
     }
 
-    private BlockState getRandomGrowthState(LevelAccessor pLevel, BlockPos pPos, RandomSource pRandom) {
+    private BlockState getRandomGrowthState(LevelAccessor pLevel, BlockPos pPos, RandomSource pRandom){
         BlockState blockstate;
-        if (new ArcRandom().chance(25)) {
+        if(new ArcRandom().chance(25)){
             blockstate = BlockRegistry.fleshCyst.get().defaultBlockState();
-        } else {
+        }else{
             blockstate = BlockRegistry.bloodVein.get().defaultBlockState();
         }
 
         return blockstate.hasProperty(BlockStateProperties.WATERLOGGED) && !pLevel.getFluidState(pPos).isEmpty() ? blockstate.setValue(BlockStateProperties.WATERLOGGED, Boolean.TRUE) : blockstate;
     }
 
-    private static boolean canPlaceGrowth(LevelAccessor pLevel, BlockPos pPos) {
+    private static boolean canPlaceGrowth(LevelAccessor pLevel, BlockPos pPos){
         BlockState blockstate = pLevel.getBlockState(pPos.above());
-        if (blockstate.isAir() || blockstate.is(Blocks.WATER) && blockstate.getFluidState().is(Fluids.WATER)) {
+        if(blockstate.isAir() || blockstate.is(Blocks.WATER) && blockstate.getFluidState().is(Fluids.WATER)){
             int i = 0;
 
-            for(BlockPos blockpos : BlockPos.betweenClosed(pPos.offset(-4, 0, -4), pPos.offset(4, 2, 4))) {
+            for(BlockPos blockpos : BlockPos.betweenClosed(pPos.offset(-4, 0, -4), pPos.offset(4, 2, 4))){
                 BlockState blockstate1 = pLevel.getBlockState(blockpos);
-                if (!blockstate.is(BlockRegistry.fleshCyst.get()) || !blockstate1.is(BlockRegistry.bloodVein.get())) {
+                if(!blockstate.is(BlockRegistry.fleshCyst.get()) || !blockstate1.is(BlockRegistry.bloodVein.get())){
                     ++i;
                 }
 
-                if (i > 2) {
+                if(i > 2){
                     return false;
                 }
             }
 
             return true;
-        } else {
+        }else{
             return false;
         }
     }
 
-    public boolean canChangeBlockStateOnSpread() {
+    public boolean canChangeBlockStateOnSpread(){
         return false;
     }
 }

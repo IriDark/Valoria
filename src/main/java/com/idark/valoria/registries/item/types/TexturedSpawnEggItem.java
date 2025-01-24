@@ -21,7 +21,7 @@ public class TexturedSpawnEggItem extends SpawnEggItem{
     private final Supplier<? extends EntityType<? extends Mob>> typeSupplier;
 
     public TexturedSpawnEggItem(Supplier<? extends EntityType<? extends Mob>> type, Properties props){
-        super((EntityType<? extends Mob>) null, 0, 0, props);
+        super((EntityType<? extends Mob>)null, 0, 0, props);
         this.typeSupplier = type;
         MOD_EGGS.add(this);
     }
@@ -33,8 +33,7 @@ public class TexturedSpawnEggItem extends SpawnEggItem{
     }
 
     @Nullable
-    protected DispenseItemBehavior createDispenseBehavior()
-    {
+    protected DispenseItemBehavior createDispenseBehavior(){
         return DEFAULT_DISPENSE_BEHAVIOR;
     }
 
@@ -45,7 +44,7 @@ public class TexturedSpawnEggItem extends SpawnEggItem{
     }
 
     @Override
-    protected EntityType<?> getDefaultType() {
+    protected EntityType<?> getDefaultType(){
         return this.typeSupplier.get();
     }
 
@@ -55,8 +54,7 @@ public class TexturedSpawnEggItem extends SpawnEggItem{
 
         try{
             type.spawn(source.getLevel(), stack, null, source.getPos().relative(face), MobSpawnType.DISPENSER, face != Direction.UP, false);
-        }
-        catch (Exception exception){
+        }catch(Exception exception){
             DispenseItemBehavior.LOGGER.error("Error while dispensing spawn egg from dispenser at {}", source.getPos(), exception);
             return ItemStack.EMPTY;
         }
@@ -73,7 +71,7 @@ public class TexturedSpawnEggItem extends SpawnEggItem{
             MOD_EGGS.forEach(egg ->
             {
                 DispenseItemBehavior dispenseBehavior = egg.createDispenseBehavior();
-                if (dispenseBehavior != null){
+                if(dispenseBehavior != null){
                     DispenserBlock.registerBehavior(egg, dispenseBehavior);
                 }
 

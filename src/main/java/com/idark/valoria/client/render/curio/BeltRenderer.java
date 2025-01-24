@@ -17,19 +17,19 @@ import net.minecraft.world.item.ItemStack;
 import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.client.ICurioRenderer;
 
-public class BeltRenderer implements ICurioRenderer {
+public class BeltRenderer implements ICurioRenderer{
     public static ResourceLocation TEXTURE = new ResourceLocation(Valoria.ID, "textures/entity/necklace/empty.png");
 
     BeltModel model = null;
 
     @Override
-    public <T extends LivingEntity, M extends EntityModel<T>> void render(ItemStack stack, SlotContext slotContext, PoseStack matrixStack, RenderLayerParent<T, M> renderLayerParent, MultiBufferSource renderTypeBuffer, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-        if (model == null) {
+    public <T extends LivingEntity, M extends EntityModel<T>> void render(ItemStack stack, SlotContext slotContext, PoseStack matrixStack, RenderLayerParent<T, M> renderLayerParent, MultiBufferSource renderTypeBuffer, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch){
+        if(model == null){
             model = new BeltModel(Minecraft.getInstance().getEntityModels().bakeLayer(ValoriaClient.BELT_LAYER));
         }
 
         LivingEntity entity = slotContext.entity();
-        if (stack.getItem() instanceof ICurioTexture curio) {
+        if(stack.getItem() instanceof ICurioTexture curio){
             TEXTURE = curio.getTexture(stack, entity);
         }
 

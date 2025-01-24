@@ -7,13 +7,13 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 // TODO
 @OnlyIn(Dist.CLIENT)
-public class CraftPage extends Page {
+public class CraftPage extends Page{
 
-    public CraftPage() {
+    public CraftPage(){
     }
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void render(GuiGraphics gui, int x, int y, int mouseX, int mouseY) {
+    public void render(GuiGraphics gui, int x, int y, int mouseX, int mouseY){
     }
 }

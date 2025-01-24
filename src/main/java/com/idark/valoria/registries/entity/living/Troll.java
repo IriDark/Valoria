@@ -18,11 +18,12 @@ import net.minecraft.world.phys.*;
 
 import javax.annotation.*;
 
-public class Troll extends Monster {
+public class Troll extends Monster{
     public final AnimationState idleAnimationState = new AnimationState();
     private int idleAnimationTimeout = 0;
     public final Vec3[][] clientSideIllusionOffsets;
-    public Troll(EntityType<? extends Monster> pEntityType, Level pLevel) {
+
+    public Troll(EntityType<? extends Monster> pEntityType, Level pLevel){
         super(pEntityType, pLevel);
         this.xpReward = 3;
         this.setPathfindingMalus(BlockPathTypes.LAVA, 2.0F);
@@ -30,39 +31,39 @@ public class Troll extends Monster {
         this.setPathfindingMalus(BlockPathTypes.DAMAGE_CAUTIOUS, 4.0F);
         this.clientSideIllusionOffsets = new Vec3[2][4];
 
-        for(int i = 0; i < 4; ++i) {
+        for(int i = 0; i < 4; ++i){
             this.clientSideIllusionOffsets[0][i] = Vec3.ZERO;
             this.clientSideIllusionOffsets[1][i] = Vec3.ZERO;
         }
     }
 
     @Override
-    public void tick() {
+    public void tick(){
         super.tick();
-        if (this.level().isClientSide()) {
+        if(this.level().isClientSide()){
             setupAnimationStates();
         }
     }
 
-    public Vec3[] getOffsets() {
+    public Vec3[] getOffsets(){
         return this.clientSideIllusionOffsets[1];
     }
 
-    private void setupAnimationStates() {
-        if (this.idleAnimationTimeout <= 0) {
+    private void setupAnimationStates(){
+        if(this.idleAnimationTimeout <= 0){
             this.idleAnimationTimeout = 60;
             this.idleAnimationState.start(this.tickCount);
-        } else {
+        }else{
             --this.idleAnimationTimeout;
         }
     }
 
-    public boolean doHurtTarget(Entity pEntity) {
-        this.level().broadcastEntityEvent(this, (byte) 4);
+    public boolean doHurtTarget(Entity pEntity){
+        this.level().broadcastEntityEvent(this, (byte)4);
         return super.doHurtTarget(pEntity);
     }
 
-    public float getVoicePitch() {
+    public float getVoicePitch(){
         return this.isBaby() ? (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.5F : (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.25F;
     }
 
@@ -70,7 +71,7 @@ public class Troll extends Monster {
 //        return SoundsRegistry.TROLL_IDLE.get();
 //    }
 
-    protected SoundEvent getHurtSound(DamageSource pDamageSource) {
+    protected SoundEvent getHurtSound(DamageSource pDamageSource){
         return SoundsRegistry.TROLL_HURT.get();
     }
 
@@ -79,7 +80,7 @@ public class Troll extends Monster {
 //    }
 
     @Override
-    protected void registerGoals() {
+    protected void registerGoals(){
         super.registerGoals();
         // attack
         this.targetSelector.addGoal(0, new TrollAttackGoal(this, 1, false));
@@ -93,7 +94,7 @@ public class Troll extends Monster {
     }
 
     @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag){
         RandomSource randomsource = pLevel.getRandom();
         this.populateDefaultEquipmentSlots(randomsource, pDifficulty);
         return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);

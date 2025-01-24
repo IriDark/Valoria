@@ -1,23 +1,25 @@
 package com.idark.valoria.core.trades;
 
-import com.google.common.collect.*;
-import com.idark.valoria.registries.*;
-import it.unimi.dsi.fastutil.ints.*;
-import net.minecraft.util.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.npc.VillagerTrades.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.item.trading.*;
-import net.minecraft.world.level.block.*;
+import com.google.common.collect.ImmutableMap;
+import com.idark.valoria.registries.ItemsRegistry;
+import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.npc.VillagerTrades.ItemListing;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.trading.MerchantOffer;
+import net.minecraft.world.level.block.Block;
 
-public class MerchantTrades {
+public class MerchantTrades{
     public static final Int2ObjectMap<ItemListing[]> HAUNTED_MERCHANT_TRADES = toIntMap(ImmutableMap.of(1, getHauntedTrader()));
 
-    private static Int2ObjectMap<ItemListing[]> toIntMap(ImmutableMap<Integer, ItemListing[]> pMap) {
+    private static Int2ObjectMap<ItemListing[]> toIntMap(ImmutableMap<Integer, ItemListing[]> pMap){
         return new Int2ObjectOpenHashMap<>(pMap);
     }
 
-    public static ItemListing[] getHauntedTrader() {
+    public static ItemListing[] getHauntedTrader(){
         return new ItemListing[]{
                 new ItemsForItem(ItemsRegistry.wraithKatana.get(), ItemsRegistry.candyCorn.get(), 36, 1, 4),
                 new ItemsForItem(ItemsRegistry.dreadAxe.get(), ItemsRegistry.candyCorn.get(), 26, 1, 2),
@@ -27,7 +29,7 @@ public class MerchantTrades {
         };
     }
 
-    static class ItemsForItem implements ItemListing {
+    static class ItemsForItem implements ItemListing{
         private final ItemStack soldStack;
         private final ItemStack currencyStack;
         private final int currencyCount;
@@ -36,23 +38,23 @@ public class MerchantTrades {
         private final int experience;
         private final float priceMultiplier;
 
-        public ItemsForItem(Block pBlock, ItemStack pCurrency, int pCost, int pNumberOfItems, int pMaxUses, int pExp) {
+        public ItemsForItem(Block pBlock, ItemStack pCurrency, int pCost, int pNumberOfItems, int pMaxUses, int pExp){
             this(new ItemStack(pBlock), pCurrency, pCost, pNumberOfItems, pMaxUses, pExp);
         }
 
-        public ItemsForItem(Item pItem, Item pCurrency, int pCost, int pNumberOfItems, int pExp) {
+        public ItemsForItem(Item pItem, Item pCurrency, int pCost, int pNumberOfItems, int pExp){
             this(new ItemStack(pItem), new ItemStack(pCurrency), pCost, pNumberOfItems, 12, pExp);
         }
 
-        public ItemsForItem(Item pItem, Item pCurrency, int pCost, int pNumberOfItems, int pMaxUses, int pExp) {
+        public ItemsForItem(Item pItem, Item pCurrency, int pCost, int pNumberOfItems, int pMaxUses, int pExp){
             this(new ItemStack(pItem), new ItemStack(pCurrency), pCost, pNumberOfItems, pMaxUses, pExp);
         }
 
-        public ItemsForItem(ItemStack pSold, ItemStack pCurrency, int pCost, int pNumberOfItems, int pMaxUses, int pExp) {
+        public ItemsForItem(ItemStack pSold, ItemStack pCurrency, int pCost, int pNumberOfItems, int pMaxUses, int pExp){
             this(pSold, pCurrency, pCost, pNumberOfItems, pMaxUses, pExp, 0.05F);
         }
 
-        public ItemsForItem(ItemStack pSold, ItemStack pCurrency, int pCost, int pNumberOfItems, int pMaxUses, int pExp, float pPriceMultiplier) {
+        public ItemsForItem(ItemStack pSold, ItemStack pCurrency, int pCost, int pNumberOfItems, int pMaxUses, int pExp, float pPriceMultiplier){
             this.soldStack = pSold;
             this.currencyStack = pCurrency;
             this.currencyCount = pCost;
@@ -62,7 +64,7 @@ public class MerchantTrades {
             this.priceMultiplier = pPriceMultiplier;
         }
 
-        public MerchantOffer getOffer(Entity pTrader, RandomSource pRandom) {
+        public MerchantOffer getOffer(Entity pTrader, RandomSource pRandom){
             return new MerchantOffer(new ItemStack(this.currencyStack.getItem(), this.currencyCount), new ItemStack(this.soldStack.getItem(), this.numberOfItems), this.maxUses, this.experience, this.priceMultiplier);
         }
     }

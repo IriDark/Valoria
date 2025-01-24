@@ -1,19 +1,23 @@
 package com.idark.valoria.core.network;
 
-import com.idark.valoria.*;
+import com.idark.valoria.Valoria;
 import com.idark.valoria.core.network.packets.*;
 import com.idark.valoria.core.network.packets.particle.*;
-import com.mojang.datafixers.util.*;
-import net.minecraft.core.*;
-import net.minecraft.resources.*;
-import net.minecraft.server.level.*;
-import net.minecraft.world.entity.player.*;
-import net.minecraft.world.level.*;
-import net.minecraftforge.network.*;
-import net.minecraftforge.network.simple.*;
-import net.minecraftforge.server.*;
+import com.mojang.datafixers.util.Pair;
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerChunkCache;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.level.Level;
+import net.minecraftforge.network.NetworkDirection;
+import net.minecraftforge.network.NetworkRegistry;
+import net.minecraftforge.network.PacketDistributor;
+import net.minecraftforge.network.simple.SimpleChannel;
+import net.minecraftforge.server.ServerLifecycleHooks;
 
-public final class PacketHandler {
+public final class PacketHandler{
     private static final String PROTOCOL = "10";
     public static final SimpleChannel HANDLER = NetworkRegistry.newSimpleChannel(
             new ResourceLocation(Valoria.ID, "network"),
@@ -28,10 +32,10 @@ public final class PacketHandler {
                 var blockpos = pair.getSecond();
                 var chunkpos = new ChunkPos(blockpos);
                 return packet -> {
-                    var players = ((ServerChunkCache) level.getChunkSource()).chunkMap
+                    var players = ((ServerChunkCache)level.getChunkSource()).chunkMap
                             .getPlayers(chunkpos, false);
-                    for (var player : players) {
-                        if (player.distanceToSqr(blockpos.getX(), blockpos.getY(), blockpos.getZ()) < 64 * 64) {
+                    for(var player : players){
+                        if(player.distanceToSqr(blockpos.getX(), blockpos.getY(), blockpos.getZ()) < 64 * 64){
                             player.connection.send(packet);
                         }
                     }
@@ -40,10 +44,10 @@ public final class PacketHandler {
             NetworkDirection.PLAY_TO_CLIENT
     );
 
-    private PacketHandler() {
+    private PacketHandler(){
     }
 
-    public static void init() {
+    public static void init(){
         int id = 0;
         HANDLER.registerMessage(id++, DungeonSoundPacket.class, DungeonSoundPacket::encode, DungeonSoundPacket::decode, DungeonSoundPacket::handle);
         HANDLER.registerMessage(id++, UpdateBossbarPacket.class, UpdateBossbarPacket::encode, UpdateBossbarPacket::decode, UpdateBossbarPacket::handle);
@@ -69,39 +73,39 @@ public final class PacketHandler {
         HANDLER.registerMessage(id++, DashParticlePacket.class, DashParticlePacket::encode, DashParticlePacket::decode, DashParticlePacket::handle);
     }
 
-    public static void sendTo(ServerPlayer playerMP, Object toSend) {
+    public static void sendTo(ServerPlayer playerMP, Object toSend){
         HANDLER.sendTo(toSend, playerMP.connection.connection, NetworkDirection.PLAY_TO_CLIENT);
     }
 
-    public static void sendToAll(Object message) {
-        for (ServerPlayer player : ServerLifecycleHooks.getCurrentServer().getPlayerList().getPlayers()) {
+    public static void sendToAll(Object message){
+        for(ServerPlayer player : ServerLifecycleHooks.getCurrentServer().getPlayerList().getPlayers()){
             sendNonLocal(message, player);
         }
     }
 
-    public static void sendNonLocal(Object msg, ServerPlayer player) {
+    public static void sendNonLocal(Object msg, ServerPlayer player){
         HANDLER.sendTo(msg, player.connection.connection, NetworkDirection.PLAY_TO_CLIENT);
     }
 
-    public static void sendNonLocal(ServerPlayer playerMP, Object toSend) {
-        if (playerMP.server.isDedicatedServer() || !playerMP.getGameProfile().getName().equals(playerMP.server.getLocalIp())) {
+    public static void sendNonLocal(ServerPlayer playerMP, Object toSend){
+        if(playerMP.server.isDedicatedServer() || !playerMP.getGameProfile().getName().equals(playerMP.server.getLocalIp())){
             sendTo(playerMP, toSend);
         }
     }
 
-    public static void sendToTracking(Level world, BlockPos pos, Object msg) {
+    public static void sendToTracking(Level world, BlockPos pos, Object msg){
         HANDLER.send(TRACKING_CHUNK_AND_NEAR.with(() -> Pair.of(world, pos)), msg);
     }
 
-    public static void sendTo(Player entity, Object msg) {
-        HANDLER.send(PacketDistributor.PLAYER.with(() -> (ServerPlayer) entity), msg);
+    public static void sendTo(Player entity, Object msg){
+        HANDLER.send(PacketDistributor.PLAYER.with(() -> (ServerPlayer)entity), msg);
     }
 
-    public static void sendEntity(Player entity, Object msg) {
+    public static void sendEntity(Player entity, Object msg){
         HANDLER.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> entity), msg);
     }
 
-    public static void sendToServer(Object msg) {
+    public static void sendToServer(Object msg){
         HANDLER.sendToServer(msg);
     }
 }

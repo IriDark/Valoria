@@ -1,12 +1,13 @@
 package com.idark.valoria.client.model.entity;
 
-import com.idark.valoria.client.model.animations.*;
-import com.idark.valoria.registries.entity.living.*;
-import net.minecraft.client.model.*;
-import net.minecraft.client.model.geom.*;
+import com.idark.valoria.client.model.animations.HauntedMerchantAnimations;
+import com.idark.valoria.registries.entity.living.HauntedMerchant;
+import net.minecraft.client.model.HierarchicalModel;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 
-public class HauntedMerchantModel<T extends HauntedMerchant> extends HierarchicalModel<T> {
+public class HauntedMerchantModel<T extends HauntedMerchant> extends HierarchicalModel<T>{
     private final ModelPart root;
     private final ModelPart head;
     private final ModelPart body;
@@ -17,7 +18,7 @@ public class HauntedMerchantModel<T extends HauntedMerchant> extends Hierarchica
     private final ModelPart candle3;
     private final ModelPart candle4;
 
-    public HauntedMerchantModel(ModelPart root) {
+    public HauntedMerchantModel(ModelPart root){
         this.root = root;
         this.head = root.getChild("head");
         this.body = root.getChild("body");
@@ -29,7 +30,7 @@ public class HauntedMerchantModel<T extends HauntedMerchant> extends Hierarchica
         this.candle4 = root.getChild("candle4");
     }
 
-    public static LayerDefinition createBodyLayer() {
+    public static LayerDefinition createBodyLayer(){
         MeshDefinition meshdefinition = new MeshDefinition();
         PartDefinition partdefinition = meshdefinition.getRoot();
 
@@ -65,7 +66,7 @@ public class HauntedMerchantModel<T extends HauntedMerchant> extends Hierarchica
     }
 
     @Override
-    public void setupAnim(T pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch) {
+    public void setupAnim(T pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch){
         this.root().getAllParts().forEach(ModelPart::resetPose);
         this.animateWalk(HauntedMerchantAnimations.WALK, pLimbSwing, pLimbSwingAmount, 3f, pAgeInTicks);
         this.animate(pEntity.idleAnimationState, HauntedMerchantAnimations.IDLE, pAgeInTicks, 1f);
@@ -73,12 +74,12 @@ public class HauntedMerchantModel<T extends HauntedMerchant> extends Hierarchica
         this.animate(pEntity.rangedAttackAnimationState, HauntedMerchantAnimations.RANGED_ATTACK, pAgeInTicks, 3f);
     }
 
-    public ModelPart getHead() {
+    public ModelPart getHead(){
         return this.head;
     }
 
     @Override
-    public ModelPart root() {
+    public ModelPart root(){
         return this.root;
     }
 }

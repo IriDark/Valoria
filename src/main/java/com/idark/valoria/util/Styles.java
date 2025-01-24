@@ -1,21 +1,22 @@
 package com.idark.valoria.util;
 
-import net.minecraft.network.chat.*;
-import net.minecraft.resources.*;
+import net.minecraft.network.chat.Style;
+import net.minecraft.network.chat.TextColor;
+import net.minecraft.resources.ResourceLocation;
 
 import java.awt.*;
-import java.util.function.*;
+import java.util.function.UnaryOperator;
 
 public class Styles{
-    public static UnaryOperator<Style> create(Color color) {
+    public static UnaryOperator<Style> create(Color color){
         return style -> style
-        .withColor(TextColor.fromRgb(color.getRGB()))
-        .withBold(false)
-        .withItalic(false)
-        .withUnderlined(false)
-        .withStrikethrough(false)
-        .withObfuscated(false)
-        .withFont(new ResourceLocation("minecraft", "default"));
+                .withColor(TextColor.fromRgb(color.getRGB()))
+                .withBold(false)
+                .withItalic(false)
+                .withUnderlined(false)
+                .withStrikethrough(false)
+                .withObfuscated(false)
+                .withFont(new ResourceLocation("minecraft", "default"));
     }
 
     public static UnaryOperator<Style> infernal = create(Pal.infernal);

@@ -9,14 +9,14 @@ import net.minecraft.world.level.block.state.properties.WoodType;
 
 import javax.annotation.Nullable;
 
-public class ModWallHangingSignBlock extends WallHangingSignBlock {
-    public ModWallHangingSignBlock(Properties properties, WoodType type) {
+public class ModWallHangingSignBlock extends WallHangingSignBlock{
+    public ModWallHangingSignBlock(Properties properties, WoodType type){
         super(properties, type);
     }
 
     @Nullable
     @Override
-    public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
+    public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState){
         return new ModHangingSignBlockEntity(pPos, pState);
     }
 }

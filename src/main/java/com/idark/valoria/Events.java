@@ -1,62 +1,78 @@
 package com.idark.valoria;
 
-import com.idark.valoria.client.ui.bossbars.*;
-import com.idark.valoria.core.capability.*;
-import com.idark.valoria.core.config.*;
-import com.idark.valoria.core.mixin.client.*;
-import com.idark.valoria.core.network.*;
-import com.idark.valoria.core.network.packets.*;
-import com.idark.valoria.core.network.packets.particle.*;
-import com.idark.valoria.core.proxy.*;
-import com.idark.valoria.registries.*;
-import com.idark.valoria.registries.item.armor.item.*;
-import com.idark.valoria.registries.item.types.*;
-import com.idark.valoria.util.*;
-import com.mojang.blaze3d.systems.*;
-import com.mojang.blaze3d.vertex.*;
+import com.idark.valoria.client.ui.bossbars.Bossbar;
+import com.idark.valoria.core.capability.IUnlockable;
+import com.idark.valoria.core.capability.UnloackbleCap;
+import com.idark.valoria.core.config.ClientConfig;
+import com.idark.valoria.core.config.ServerConfig;
+import com.idark.valoria.core.mixin.client.BossHealthOverlayAccessor;
+import com.idark.valoria.core.network.PacketHandler;
+import com.idark.valoria.core.network.packets.UnlockableUpdatePacket;
+import com.idark.valoria.core.network.packets.particle.SoulCollectParticlePacket;
+import com.idark.valoria.core.proxy.ClientProxy;
+import com.idark.valoria.registries.EffectsRegistry;
+import com.idark.valoria.registries.ItemsRegistry;
+import com.idark.valoria.registries.TagsRegistry;
+import com.idark.valoria.registries.item.armor.item.HitEffectArmorItem;
+import com.idark.valoria.registries.item.armor.item.PercentageArmorItem;
+import com.idark.valoria.registries.item.types.SoulCollectorItem;
+import com.idark.valoria.util.ArcRandom;
+import com.idark.valoria.util.ValoriaUtils;
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 import mod.maxbogomol.fluffy_fur.util.ColorUtil;
-import net.minecraft.*;
-import net.minecraft.client.*;
-import net.minecraft.client.gui.*;
-import net.minecraft.client.gui.components.*;
-import net.minecraft.client.gui.screens.*;
-import net.minecraft.client.renderer.*;
-import net.minecraft.client.resources.language.*;
-import net.minecraft.core.*;
-import net.minecraft.nbt.*;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.LerpingBossEvent;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.client.resources.language.I18n;
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.*;
-import net.minecraft.server.level.*;
-import net.minecraft.tags.*;
-import net.minecraft.util.*;
-import net.minecraft.world.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.*;
-import net.minecraft.world.entity.player.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.level.*;
-import net.minecraft.world.level.block.state.*;
-import net.minecraft.world.phys.*;
-import net.minecraftforge.api.distmarker.*;
-import net.minecraftforge.client.event.*;
-import net.minecraftforge.client.gui.overlay.*;
-import net.minecraftforge.common.capabilities.*;
-import net.minecraftforge.common.util.*;
-import net.minecraftforge.event.*;
-import net.minecraftforge.event.entity.*;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.tags.TagKey;
+import net.minecraft.util.Mth;
+import net.minecraft.world.BossEvent;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.event.CustomizeGuiOverlayEvent;
+import net.minecraftforge.client.event.RenderGuiOverlayEvent;
+import net.minecraftforge.client.gui.overlay.ForgeGui;
+import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.util.INBTSerializable;
+import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.*;
-import net.minecraftforge.eventbus.api.*;
-import top.theillusivec4.curios.api.*;
+import net.minecraftforge.eventbus.api.EventPriority;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import top.theillusivec4.curios.api.CuriosApi;
 
 import java.awt.*;
-import java.util.*;
-import java.util.stream.*;
+import java.util.Map;
+import java.util.Objects;
+import java.util.UUID;
+import java.util.stream.Stream;
 
 @SuppressWarnings("removal")
 public class Events{
     protected static final ResourceLocation GUI_ICONS_LOCATION = new ResourceLocation("textures/gui/icons.png");
     public ArcRandom arcRandom = new ArcRandom();
+
     @SubscribeEvent
     public void attachEntityCaps(AttachCapabilitiesEvent<Entity> event){
         if(event.getObject() instanceof Player){
@@ -147,9 +163,9 @@ public class Events{
             event.setCanceled(true);
         }
 
-        for (ItemStack armorPiece : event.getEntity().getArmorSlots()) {
-            if (armorPiece.getItem() instanceof HitEffectArmorItem hitEffect) {
-                if (!event.getEntity().level().isClientSide) {
+        for(ItemStack armorPiece : event.getEntity().getArmorSlots()){
+            if(armorPiece.getItem() instanceof HitEffectArmorItem hitEffect){
+                if(!event.getEntity().level().isClientSide){
                     hitEffect.onAttack(event);
                 }
             }
@@ -164,7 +180,7 @@ public class Events{
     }
 
     @SubscribeEvent
-    public void onLivingHurt(LivingHurtEvent event) {
+    public void onLivingHurt(LivingHurtEvent event){
         float incomingDamage = event.getAmount();
         float totalMultiplier;
         if(ServerConfig.PERCENT_ARMOR.get()){
@@ -183,7 +199,7 @@ public class Events{
     }
 
     @SubscribeEvent
-    public void onPlayerKill(LivingDeathEvent deathEvent) {
+    public void onPlayerKill(LivingDeathEvent deathEvent){
         Level level = deathEvent.getEntity().level();
         if(level instanceof ServerLevel serverLevel){
             Entity attacker = deathEvent.getSource().getEntity();
@@ -201,37 +217,37 @@ public class Events{
     }
 
     @SubscribeEvent
-    public void critDamage(CriticalHitEvent event) {
-        if (CuriosApi.getCuriosHelper().findEquippedCurio(ItemsRegistry.runeAccuracy.get(), event.getEntity()).isPresent()) {
-            if (arcRandom.chance(0.1f)) {
-                event.getTarget().hurt(event.getEntity().level().damageSources().playerAttack(event.getEntity()), (float) (event.getEntity().getAttributeValue(Attributes.ATTACK_DAMAGE) * 1.5f));
+    public void critDamage(CriticalHitEvent event){
+        if(CuriosApi.getCuriosHelper().findEquippedCurio(ItemsRegistry.runeAccuracy.get(), event.getEntity()).isPresent()){
+            if(arcRandom.chance(0.1f)){
+                event.getTarget().hurt(event.getEntity().level().damageSources().playerAttack(event.getEntity()), (float)(event.getEntity().getAttributeValue(Attributes.ATTACK_DAMAGE) * 1.5f));
             }
         }
     }
 
     @SubscribeEvent
-    public void onClone(PlayerEvent.Clone event) {
+    public void onClone(PlayerEvent.Clone event){
         Capability<IUnlockable> PAGE = IUnlockable.INSTANCE;
 
         event.getOriginal().reviveCaps();
         event.getEntity().getCapability(PAGE).ifPresent((k) -> event.getOriginal().getCapability(PAGE).ifPresent((o) ->
-                ((INBTSerializable<CompoundTag>) k).deserializeNBT(((INBTSerializable<CompoundTag>) o).serializeNBT())));
-        if (!event.getEntity().level().isClientSide) {
-            PacketHandler.sendTo((ServerPlayer) event.getEntity(), new UnlockableUpdatePacket(event.getEntity()));
+                ((INBTSerializable<CompoundTag>)k).deserializeNBT(((INBTSerializable<CompoundTag>)o).serializeNBT())));
+        if(!event.getEntity().level().isClientSide){
+            PacketHandler.sendTo((ServerPlayer)event.getEntity(), new UnlockableUpdatePacket(event.getEntity()));
         }
     }
 
     @SubscribeEvent
-    public void registerCustomAI(EntityJoinLevelEvent event) {
-        if (event.getEntity() instanceof LivingEntity && !event.getLevel().isClientSide) {
-            if (event.getEntity() instanceof Player) {
-                PacketHandler.sendTo((ServerPlayer) event.getEntity(), new UnlockableUpdatePacket((Player) event.getEntity()));
+    public void registerCustomAI(EntityJoinLevelEvent event){
+        if(event.getEntity() instanceof LivingEntity && !event.getLevel().isClientSide){
+            if(event.getEntity() instanceof Player){
+                PacketHandler.sendTo((ServerPlayer)event.getEntity(), new UnlockableUpdatePacket((Player)event.getEntity()));
             }
         }
     }
 
     // may be improved, not accurate
-    public static double calculateDamageReductionPercent(double defensePoints) {
+    public static double calculateDamageReductionPercent(double defensePoints){
         return Mth.clamp(defensePoints / 2, 0, 20) / 25 * 0.4;
     }
 
@@ -247,8 +263,8 @@ public class Events{
         int width = minecraft.getWindow().getGuiScaledWidth();
         int height = minecraft.getWindow().getGuiScaledHeight();
         double armor = 0;
-        for (ItemStack armorPiece : minecraft.player.getArmorSlots()) {
-            if (armorPiece.getItem() instanceof PercentageArmorItem percent) {
+        for(ItemStack armorPiece : minecraft.player.getArmorSlots()){
+            if(armorPiece.getItem() instanceof PercentageArmorItem percent){
                 int percentDefense = percent.getDefense();
                 armor += percentDefense;
             }
@@ -279,12 +295,12 @@ public class Events{
     public void onBossInfoRender(CustomizeGuiOverlayEvent.BossEventProgress ev){
         Minecraft mc = Minecraft.getInstance();
         if(ev.isCanceled() || mc.level == null || !ClientConfig.CUSTOM_BOSSBARS.get()) return;
-        Map<UUID, LerpingBossEvent> events = ((BossHealthOverlayAccessor) mc.gui.getBossOverlay()).getEvents();
-        if (events.isEmpty()) return;
+        Map<UUID, LerpingBossEvent> events = ((BossHealthOverlayAccessor)mc.gui.getBossOverlay()).getEvents();
+        if(events.isEmpty()) return;
         GuiGraphics pGuiGraphics = ev.getGuiGraphics();
         int screenWidth = pGuiGraphics.guiWidth();
         int offset = 0;
-        for (LerpingBossEvent event : events.values()){
+        for(LerpingBossEvent event : events.values()){
             if(ClientProxy.bossbars.containsKey(ev.getBossEvent().getId())){
                 String id = ClientProxy.bossbars.get(event.getId());
                 Bossbar bossbar = Bossbar.bossbars.getOrDefault(id, null);
@@ -296,7 +312,7 @@ public class Events{
                     pGuiGraphics.drawString(mc.font, event.getName(), nameX, nameY, 16777215);
                 }
 
-                if (bossbar != null){
+                if(bossbar != null){
                     if(ClientConfig.BOSSBAR_TITLE.get()){
                         ev.setIncrement(32);
                         int yOffset = offset + 6;

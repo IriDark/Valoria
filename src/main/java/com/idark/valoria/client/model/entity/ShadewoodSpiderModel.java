@@ -9,7 +9,7 @@ import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 
-public class ShadewoodSpiderModel<T extends Entity> extends HierarchicalModel<T> {
+public class ShadewoodSpiderModel<T extends Entity> extends HierarchicalModel<T>{
     private final ModelPart root;
     private final ModelPart body0;
     private final ModelPart body1;
@@ -25,7 +25,7 @@ public class ShadewoodSpiderModel<T extends Entity> extends HierarchicalModel<T>
     private final ModelPart right_chelicer;
     private final ModelPart left_chelicer;
 
-    public ShadewoodSpiderModel(ModelPart root) {
+    public ShadewoodSpiderModel(ModelPart root){
         this.root = root;
         this.body0 = root.getChild("body0");
         this.body1 = root.getChild("body1");
@@ -42,7 +42,7 @@ public class ShadewoodSpiderModel<T extends Entity> extends HierarchicalModel<T>
         this.left_chelicer = head.getChild("left_chelicer");
     }
 
-    public static LayerDefinition createBodyLayer() {
+    public static LayerDefinition createBodyLayer(){
         MeshDefinition meshdefinition = new MeshDefinition();
         PartDefinition partdefinition = meshdefinition.getRoot();
         PartDefinition body0 = partdefinition.addOrReplaceChild("body0", CubeListBuilder.create().texOffs(0, 40).addBox(-3.0F, -12.0F, -3.0F, 6.0F, 6.0F, 7.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 24.0F, 0.0F));
@@ -67,36 +67,36 @@ public class ShadewoodSpiderModel<T extends Entity> extends HierarchicalModel<T>
         return LayerDefinition.create(meshdefinition, 128, 128);
     }
 
-    public void setupAnim(T pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch) {
-        this.head.yRot = pNetHeadYaw * ((float) Math.PI / 180F);
-        this.head.xRot = pHeadPitch * ((float) Math.PI / 360F);
+    public void setupAnim(T pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch){
+        this.head.yRot = pNetHeadYaw * ((float)Math.PI / 180F);
+        this.head.xRot = pHeadPitch * ((float)Math.PI / 360F);
         this.body1.xRot = -(Mth.cos(pLimbSwing * 0.6662F * 2.0F) * 0.2F) * pLimbSwingAmount;
-        this.rightHindLeg.zRot = (-(float) Math.PI / 4F);
-        this.leftHindLeg.zRot = ((float) Math.PI / 4F);
+        this.rightHindLeg.zRot = (-(float)Math.PI / 4F);
+        this.leftHindLeg.zRot = ((float)Math.PI / 4F);
         this.rightMiddleHindLeg.zRot = -0.58119464F;
         this.leftMiddleHindLeg.zRot = 0.58119464F;
         this.rightMiddleFrontLeg.zRot = -0.58119464F;
         this.leftMiddleFrontLeg.zRot = 0.58119464F;
-        this.rightFrontLeg.zRot = (-(float) Math.PI / 4F);
-        this.leftFrontLeg.zRot = ((float) Math.PI / 4F);
-        this.rightHindLeg.yRot = ((float) Math.PI / 4F);
-        this.leftHindLeg.yRot = (-(float) Math.PI / 4F);
-        this.rightMiddleHindLeg.yRot = ((float) Math.PI / 8F);
-        this.leftMiddleHindLeg.yRot = (-(float) Math.PI / 8F);
-        this.rightMiddleFrontLeg.yRot = (-(float) Math.PI / 8F);
-        this.leftMiddleFrontLeg.yRot = ((float) Math.PI / 8F);
-        this.rightFrontLeg.yRot = (-(float) Math.PI / 4F);
-        this.leftFrontLeg.yRot = ((float) Math.PI / 4F);
+        this.rightFrontLeg.zRot = (-(float)Math.PI / 4F);
+        this.leftFrontLeg.zRot = ((float)Math.PI / 4F);
+        this.rightHindLeg.yRot = ((float)Math.PI / 4F);
+        this.leftHindLeg.yRot = (-(float)Math.PI / 4F);
+        this.rightMiddleHindLeg.yRot = ((float)Math.PI / 8F);
+        this.leftMiddleHindLeg.yRot = (-(float)Math.PI / 8F);
+        this.rightMiddleFrontLeg.yRot = (-(float)Math.PI / 8F);
+        this.leftMiddleFrontLeg.yRot = ((float)Math.PI / 8F);
+        this.rightFrontLeg.yRot = (-(float)Math.PI / 4F);
+        this.leftFrontLeg.yRot = ((float)Math.PI / 4F);
 
         float pHindLegY = -(Mth.cos(pLimbSwing * 0.6662F * 2.0F + 0.0F) * 0.4F) * pLimbSwingAmount;
-        float pMiddleHindLegY = -(Mth.cos(pLimbSwing * 0.6662F * 2.0F + (float) Math.PI) * 0.4F) * pLimbSwingAmount;
-        float pMiddleFrontLegY = -(Mth.cos(pLimbSwing * 0.6662F * 2.0F + ((float) Math.PI / 2F)) * 0.4F) * pLimbSwingAmount;
-        float pFrontLegY = -(Mth.cos(pLimbSwing * 0.6662F * 2.0F + ((float) Math.PI * 1.5F)) * 0.4F) * pLimbSwingAmount;
+        float pMiddleHindLegY = -(Mth.cos(pLimbSwing * 0.6662F * 2.0F + (float)Math.PI) * 0.4F) * pLimbSwingAmount;
+        float pMiddleFrontLegY = -(Mth.cos(pLimbSwing * 0.6662F * 2.0F + ((float)Math.PI / 2F)) * 0.4F) * pLimbSwingAmount;
+        float pFrontLegY = -(Mth.cos(pLimbSwing * 0.6662F * 2.0F + ((float)Math.PI * 1.5F)) * 0.4F) * pLimbSwingAmount;
 
         float pHindLegZ = Math.abs(Mth.sin(pLimbSwing * 0.6662F + 0.0F) * 0.4F) * pLimbSwingAmount;
-        float pMiddleHindLegZ = Math.abs(Mth.sin(pLimbSwing * 0.6662F + (float) Math.PI) * 0.4F) * pLimbSwingAmount;
-        float pMiddleFrontLegZ = Math.abs(Mth.sin(pLimbSwing * 0.6662F + ((float) Math.PI / 2F)) * 0.4F) * pLimbSwingAmount;
-        float pFrontLegZ = Math.abs(Mth.sin(pLimbSwing * 0.6662F + ((float) Math.PI * 1.5F)) * 0.4F) * pLimbSwingAmount;
+        float pMiddleHindLegZ = Math.abs(Mth.sin(pLimbSwing * 0.6662F + (float)Math.PI) * 0.4F) * pLimbSwingAmount;
+        float pMiddleFrontLegZ = Math.abs(Mth.sin(pLimbSwing * 0.6662F + ((float)Math.PI / 2F)) * 0.4F) * pLimbSwingAmount;
+        float pFrontLegZ = Math.abs(Mth.sin(pLimbSwing * 0.6662F + ((float)Math.PI * 1.5F)) * 0.4F) * pLimbSwingAmount;
 
         this.rightHindLeg.yRot += pHindLegY;
         this.leftHindLeg.yRot -= pHindLegY;
@@ -117,7 +117,7 @@ public class ShadewoodSpiderModel<T extends Entity> extends HierarchicalModel<T>
     }
 
     @Override
-    public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+    public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha){
         body0.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
         body1.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
         head.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
@@ -131,7 +131,7 @@ public class ShadewoodSpiderModel<T extends Entity> extends HierarchicalModel<T>
         leftFrontLeg.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
     }
 
-    public ModelPart root() {
+    public ModelPart root(){
         return this.root;
     }
 }

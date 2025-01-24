@@ -1,23 +1,29 @@
 package com.idark.valoria.registries.entity.living;
 
-import com.idark.valoria.*;
-import com.idark.valoria.registries.*;
-import com.idark.valoria.registries.entity.projectile.*;
-import net.minecraft.core.*;
-import net.minecraft.sounds.*;
-import net.minecraft.util.*;
-import net.minecraft.world.*;
+import com.idark.valoria.Valoria;
+import com.idark.valoria.registries.AttackRegistry;
+import com.idark.valoria.registries.EntityTypeRegistry;
+import com.idark.valoria.registries.entity.projectile.SpellProjectile;
+import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.*;
-import net.minecraft.world.entity.ai.goal.target.*;
-import net.minecraft.world.entity.animal.*;
-import net.minecraft.world.entity.monster.*;
-import net.minecraft.world.entity.player.*;
-import net.minecraft.world.level.*;
-import net.minecraft.world.level.dimension.*;
-import net.minecraft.world.level.pathfinder.*;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.animal.Wolf;
+import net.minecraft.world.entity.monster.Enemy;
+import net.minecraft.world.entity.monster.RangedAttackMob;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LightLayer;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.dimension.DimensionType;
+import net.minecraft.world.level.pathfinder.BlockPathTypes;
 
-import java.util.*;
+import java.util.EnumSet;
 
 public class SorcererEntity extends MultiAttackMob implements Enemy, RangedAttackMob{
     public final AnimationState idleAnimationState = new AnimationState();
@@ -29,7 +35,7 @@ public class SorcererEntity extends MultiAttackMob implements Enemy, RangedAttac
     private boolean strafingBackwards;
     private int strafingTime = -1;
 
-    public SorcererEntity(EntityType<? extends PathfinderMob> pEntityType, Level pLevel) {
+    public SorcererEntity(EntityType<? extends PathfinderMob> pEntityType, Level pLevel){
         super(pEntityType, pLevel);
         this.setPathfindingMalus(BlockPathTypes.POWDER_SNOW, -1.0F);
         this.setPathfindingMalus(BlockPathTypes.DANGER_POWDER_SNOW, -1.0F);
@@ -40,14 +46,14 @@ public class SorcererEntity extends MultiAttackMob implements Enemy, RangedAttac
     }
 
     @Override
-    public void tick() {
+    public void tick(){
         super.tick();
-        if (this.level().isClientSide()) {
+        if(this.level().isClientSide()){
             setupAnimationStates();
         }
 
         LivingEntity livingentity = this.getTarget();
-        if (livingentity != null){
+        if(livingentity != null){
             double d0 = this.distanceToSqr(livingentity.getX(), livingentity.getY(), livingentity.getZ());
             boolean flag = this.getSensing().hasLineOfSight(livingentity);
             boolean flag1 = this.seeTime > 0;
@@ -102,11 +108,11 @@ public class SorcererEntity extends MultiAttackMob implements Enemy, RangedAttac
         }
     }
 
-    private void setupAnimationStates() {
-        if (this.idleAnimationTimeout <= 0) {
+    private void setupAnimationStates(){
+        if(this.idleAnimationTimeout <= 0){
             this.idleAnimationTimeout = 60;
             this.idleAnimationState.start(this.tickCount);
-        } else {
+        }else{
             --this.idleAnimationTimeout;
         }
     }
@@ -127,10 +133,10 @@ public class SorcererEntity extends MultiAttackMob implements Enemy, RangedAttac
     }
 
     @Override
-    public void handleEntityEvent(byte pId) {
-        if (pId == 62) {
+    public void handleEntityEvent(byte pId){
+        if(pId == 62){
             this.attackAnimationState.start(this.tickCount);
-        } else {
+        }else{
             super.handleEntityEvent(pId);
         }
     }
@@ -146,7 +152,7 @@ public class SorcererEntity extends MultiAttackMob implements Enemy, RangedAttac
         this.level().addFreshEntity(spell);
     }
 
-    public class CastSpellGoal extends AttackGoal {
+    public class CastSpellGoal extends AttackGoal{
         private final Mob mob;
         private final RangedAttackMob rangedAttackMob;
         private final float attackRadius;
@@ -158,7 +164,7 @@ public class SorcererEntity extends MultiAttackMob implements Enemy, RangedAttac
             this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
         }
 
-        public boolean requiresUpdateEveryTick() {
+        public boolean requiresUpdateEveryTick(){
             return true;
         }
 
@@ -166,7 +172,7 @@ public class SorcererEntity extends MultiAttackMob implements Enemy, RangedAttac
          * Returns whether execution should begin. You can also read and cache any state necessary for execution in this
          * method as well.
          */
-        public boolean canUse() {
+        public boolean canUse(){
             LivingEntity livingentity = this.mob.getTarget();
             return super.canUse() && livingentity != null;
         }
@@ -181,7 +187,7 @@ public class SorcererEntity extends MultiAttackMob implements Enemy, RangedAttac
 
         @Override
         public void onPrepare(){
-            SorcererEntity.this.level().broadcastEntityEvent(SorcererEntity.this, (byte) 62);
+            SorcererEntity.this.level().broadcastEntityEvent(SorcererEntity.this, (byte)62);
         }
 
         @Override
@@ -209,7 +215,7 @@ public class SorcererEntity extends MultiAttackMob implements Enemy, RangedAttac
      * Static predicate for determining whether a monster can spawn at the provided location, incorporating a check of
      * the current light level at the location.
      */
-    public static boolean checkMonsterSpawnRules(EntityType<? extends SorcererEntity> pType, ServerLevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, RandomSource pRandom) {
+    public static boolean checkMonsterSpawnRules(EntityType<? extends SorcererEntity> pType, ServerLevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, RandomSource pRandom){
         return pLevel.getDifficulty() != Difficulty.PEACEFUL && isDarkEnoughToSpawn(pLevel, pPos, pRandom) && checkMobSpawnRules(pType, pLevel, pSpawnType, pPos, pRandom);
     }
 
@@ -217,15 +223,15 @@ public class SorcererEntity extends MultiAttackMob implements Enemy, RangedAttac
      * Static predicate for determining if the current light level and environmental conditions allow for a monster to
      * spawn.
      */
-    public static boolean isDarkEnoughToSpawn(ServerLevelAccessor pLevel, BlockPos pPos, RandomSource pRandom) {
-        if (pLevel.getBrightness(LightLayer.SKY, pPos) > pRandom.nextInt(32)) {
+    public static boolean isDarkEnoughToSpawn(ServerLevelAccessor pLevel, BlockPos pPos, RandomSource pRandom){
+        if(pLevel.getBrightness(LightLayer.SKY, pPos) > pRandom.nextInt(32)){
             return false;
-        } else {
+        }else{
             DimensionType dimensiontype = pLevel.dimensionType();
             int i = dimensiontype.monsterSpawnBlockLightLimit();
-            if (i < 15 && pLevel.getBrightness(LightLayer.BLOCK, pPos) > i) {
+            if(i < 15 && pLevel.getBrightness(LightLayer.BLOCK, pPos) > i){
                 return false;
-            } else {
+            }else{
                 int j = pLevel.getLevel().isThundering() ? pLevel.getMaxLocalRawBrightness(pPos, 10) : pLevel.getMaxLocalRawBrightness(pPos);
                 return j <= dimensiontype.monsterSpawnLightTest().sample(pRandom);
             }

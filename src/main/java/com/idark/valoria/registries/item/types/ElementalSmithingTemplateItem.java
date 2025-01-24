@@ -1,12 +1,14 @@
 package com.idark.valoria.registries.item.types;
 
-import net.minecraft.*;
-import net.minecraft.network.chat.*;
-import net.minecraft.resources.*;
-import net.minecraft.world.item.*;
+import net.minecraft.ChatFormatting;
+import net.minecraft.Util;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.SmithingTemplateItem;
 
-import java.util.*;
-import java.util.function.*;
+import java.util.List;
+import java.util.function.Supplier;
 
 public class ElementalSmithingTemplateItem extends SmithingTemplateItem{
     private static final ChatFormatting TITLE_FORMAT = ChatFormatting.GRAY;
@@ -24,37 +26,38 @@ public class ElementalSmithingTemplateItem extends SmithingTemplateItem{
     private static final ResourceLocation EMPTY_SLOT_SHOVEL = new ResourceLocation("item/empty_slot_shovel");
     private static final ResourceLocation EMPTY_SLOT_PICKAXE = new ResourceLocation("item/empty_slot_pickaxe");
     private static final ResourceLocation EMPTY_SLOT_INGOT = new ResourceLocation("item/empty_slot_ingot");
+
     public ElementalSmithingTemplateItem(Component pAppliesTo, Component pIngredients, Component pUpdradeDescription, Component pBaseSlotDescription, Component pAdditionsSlotDescription, List<ResourceLocation> pBaseSlotEmptyIcons, List<ResourceLocation> pAdditonalSlotEmptyIcons){
         super(pAppliesTo, pIngredients, pUpdradeDescription, pBaseSlotDescription, pAdditionsSlotDescription, pBaseSlotEmptyIcons, pAdditonalSlotEmptyIcons);
     }
 
-    private static List<ResourceLocation> createUpgradeIconList() {
+    private static List<ResourceLocation> createUpgradeIconList(){
         return List.of(EMPTY_SLOT_HELMET, EMPTY_SLOT_SWORD, EMPTY_SLOT_CHESTPLATE, EMPTY_SLOT_PICKAXE, EMPTY_SLOT_LEGGINGS, EMPTY_SLOT_AXE, EMPTY_SLOT_BOOTS, EMPTY_SLOT_HOE, EMPTY_SLOT_SHOVEL);
     }
 
-    private static List<ResourceLocation> createUpgradeMaterialList() {
+    private static List<ResourceLocation> createUpgradeMaterialList(){
         return List.of(EMPTY_SLOT_INGOT);
     }
 
-    public static SmithingTemplateItem createUpgradeTemplate(String appliesTo, Supplier<? extends Item> ingredient) {
+    public static SmithingTemplateItem createUpgradeTemplate(String appliesTo, Supplier<? extends Item> ingredient){
         return new SmithingTemplateItem(
-        Component.translatable(appliesTo).withStyle(DESCRIPTION_FORMAT),
-        ingredient.get().getDescription().copy().withStyle(DESCRIPTION_FORMAT),
-        Component.translatable("upgrade.valoria.elemental_upgrade").withStyle(TITLE_FORMAT),
-        NETHERITE_UPGRADE_BASE_SLOT_DESCRIPTION,
-        NETHERITE_UPGRADE_ADDITIONS_SLOT_DESCRIPTION,
-        createUpgradeIconList(), createUpgradeMaterialList()
+                Component.translatable(appliesTo).withStyle(DESCRIPTION_FORMAT),
+                ingredient.get().getDescription().copy().withStyle(DESCRIPTION_FORMAT),
+                Component.translatable("upgrade.valoria.elemental_upgrade").withStyle(TITLE_FORMAT),
+                NETHERITE_UPGRADE_BASE_SLOT_DESCRIPTION,
+                NETHERITE_UPGRADE_ADDITIONS_SLOT_DESCRIPTION,
+                createUpgradeIconList(), createUpgradeMaterialList()
         );
     }
 
-    public static SmithingTemplateItem createUpgradeTemplate(Supplier<? extends Item> ingredient) {
+    public static SmithingTemplateItem createUpgradeTemplate(Supplier<? extends Item> ingredient){
         return new SmithingTemplateItem(
-        UPGRADE_APPLIES_TO,
-        ingredient.get().getDescription().copy().withStyle(DESCRIPTION_FORMAT),
-        Component.translatable("upgrade.valoria.elemental_upgrade").withStyle(TITLE_FORMAT),
-        NETHERITE_UPGRADE_BASE_SLOT_DESCRIPTION,
-        NETHERITE_UPGRADE_ADDITIONS_SLOT_DESCRIPTION,
-        createUpgradeIconList(), createUpgradeMaterialList()
+                UPGRADE_APPLIES_TO,
+                ingredient.get().getDescription().copy().withStyle(DESCRIPTION_FORMAT),
+                Component.translatable("upgrade.valoria.elemental_upgrade").withStyle(TITLE_FORMAT),
+                NETHERITE_UPGRADE_BASE_SLOT_DESCRIPTION,
+                NETHERITE_UPGRADE_ADDITIONS_SLOT_DESCRIPTION,
+                createUpgradeIconList(), createUpgradeMaterialList()
         );
     }
 }

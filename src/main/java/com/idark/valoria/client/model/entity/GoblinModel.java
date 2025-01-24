@@ -1,15 +1,19 @@
 package com.idark.valoria.client.model.entity;
 
-import com.idark.valoria.client.model.animations.*;
-import com.idark.valoria.registries.entity.living.*;
-import com.mojang.blaze3d.vertex.*;
-import net.minecraft.client.model.*;
-import net.minecraft.client.model.geom.*;
+import com.idark.valoria.client.model.animations.GoblinAnimations;
+import com.idark.valoria.registries.entity.living.Goblin;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.model.AnimationUtils;
+import net.minecraft.client.model.ArmedModel;
+import net.minecraft.client.model.HeadedModel;
+import net.minecraft.client.model.HierarchicalModel;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.util.*;
-import net.minecraft.world.entity.*;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.HumanoidArm;
 
-public class GoblinModel<T extends Goblin> extends HierarchicalModel<T> implements ArmedModel, HeadedModel {
+public class GoblinModel<T extends Goblin> extends HierarchicalModel<T> implements ArmedModel, HeadedModel{
     private final ModelPart root;
     private final ModelPart head;
     private final ModelPart body;
@@ -18,7 +22,7 @@ public class GoblinModel<T extends Goblin> extends HierarchicalModel<T> implemen
     private final ModelPart right_arm;
     private final ModelPart left_arm;
 
-    public GoblinModel(ModelPart pRoot) {
+    public GoblinModel(ModelPart pRoot){
         this.root = pRoot;
         this.head = pRoot.getChild("head");
         this.body = pRoot.getChild("body");
@@ -28,7 +32,7 @@ public class GoblinModel<T extends Goblin> extends HierarchicalModel<T> implemen
         this.right_arm = pRoot.getChild("right_arm");
     }
 
-    public static LayerDefinition createBodyLayer() {
+    public static LayerDefinition createBodyLayer(){
         MeshDefinition meshdefinition = new MeshDefinition();
         PartDefinition partdefinition = meshdefinition.getRoot();
 
@@ -55,7 +59,7 @@ public class GoblinModel<T extends Goblin> extends HierarchicalModel<T> implemen
         return LayerDefinition.create(meshdefinition, 64, 64);
     }
 
-    public static LayerDefinition createOldBodyLayer() {
+    public static LayerDefinition createOldBodyLayer(){
         MeshDefinition meshdefinition = new MeshDefinition();
         PartDefinition partdefinition = meshdefinition.getRoot();
 
@@ -85,16 +89,16 @@ public class GoblinModel<T extends Goblin> extends HierarchicalModel<T> implemen
     }
 
     @Override
-    public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch){
         this.root().getAllParts().forEach(ModelPart::resetPose);
         this.head.getChild("right_ear").yRot = Mth.sin(ageInTicks * 0.06F) * 0.06F;
         this.head.getChild("left_ear").yRot = Mth.sin(ageInTicks * -0.06F) * 0.06F;
         this.head.getChild("right_ear").xRot = Mth.sin(ageInTicks * 0.01F) * 0.01F;
         this.head.getChild("left_ear").xRot = Mth.sin(ageInTicks * -0.01F) * 0.01F;
-        if (entity.isAggressive()) {
-            if (!entity.getMainHandItem().isEmpty()) {
+        if(entity.isAggressive()){
+            if(!entity.getMainHandItem().isEmpty()){
                 this.animate(entity.attackAnimationState, GoblinAnimations.ATTACK_WEAPON, ageInTicks, 2f);
-            } else {
+            }else{
                 this.animate(entity.attackAnimationState, GoblinAnimations.ATTACK, ageInTicks, 1f);
             }
 
@@ -102,20 +106,20 @@ public class GoblinModel<T extends Goblin> extends HierarchicalModel<T> implemen
         }
 
 
-        if (entity.isLowHP() || entity.isSprinting()) {
+        if(entity.isLowHP() || entity.isSprinting()){
             this.animateWalk(GoblinAnimations.RUN, limbSwing, limbSwingAmount, 4f, ageInTicks);
-        } else {
+        }else{
             this.animateWalk(GoblinAnimations.WALK, limbSwing, limbSwingAmount, 2f, ageInTicks);
         }
 
         this.animate(entity.idleAnimationState, GoblinAnimations.IDLE, ageInTicks, 0.5f);
     }
 
-    protected ModelPart getArm(HumanoidArm pSide) {
+    protected ModelPart getArm(HumanoidArm pSide){
         return pSide == HumanoidArm.LEFT ? this.left_arm : this.right_arm;
     }
 
-    public void translateToHand(HumanoidArm pSide, PoseStack pPoseStack) {
+    public void translateToHand(HumanoidArm pSide, PoseStack pPoseStack){
         ModelPart arm = this.getArm(pSide);
         arm.translateAndRotate(pPoseStack);
 
@@ -124,12 +128,12 @@ public class GoblinModel<T extends Goblin> extends HierarchicalModel<T> implemen
         pPoseStack.translate(-0.1F, -0.32F, 0.065F);
     }
 
-    public ModelPart getHead() {
+    public ModelPart getHead(){
         return this.head;
     }
 
     @Override
-    public ModelPart root() {
+    public ModelPart root(){
         return this.root;
     }
 }

@@ -15,16 +15,16 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-public class LexiconItem extends Item {
-    public LexiconItem(Properties props) {
+public class LexiconItem extends Item{
+    public LexiconItem(Properties props){
         super(props);
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
+    public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand){
         ItemStack stack = player.getItemInHand(hand);
         player.awardStat(Stats.ITEM_USED.get(this));
-        if (world.isClientSide) {
+        if(world.isClientSide){
             openGui();
         }
 
@@ -32,7 +32,7 @@ public class LexiconItem extends Item {
     }
 
     @OnlyIn(Dist.CLIENT)
-    public void openGui() {
+    public void openGui(){
         Minecraft.getInstance().player.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundSource.NEUTRAL, 1.0f, 1.0f);
         Minecraft.getInstance().setScreen(new LexiconGui());
     }

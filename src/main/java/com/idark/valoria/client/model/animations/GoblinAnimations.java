@@ -6,7 +6,7 @@ import net.minecraft.client.animation.AnimationDefinition;
 import net.minecraft.client.animation.Keyframe;
 import net.minecraft.client.animation.KeyframeAnimations;
 
-public class GoblinAnimations {
+public class GoblinAnimations{
     public static final AnimationDefinition IDLE = AnimationDefinition.Builder.withLength(2.00f).looping()
             .addAnimation("head",
                     new AnimationChannel(AnimationChannel.Targets.POSITION,

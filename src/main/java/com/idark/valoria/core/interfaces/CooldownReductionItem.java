@@ -1,10 +1,10 @@
 package com.idark.valoria.core.interfaces;
 
-import com.idark.valoria.registries.*;
-import net.minecraft.world.item.*;
+import com.idark.valoria.registries.EnchantmentsRegistry;
+import net.minecraft.world.item.ItemStack;
 
 public interface CooldownReductionItem{
-    default int getCooldownReduction(ItemStack stack) {
+    default int getCooldownReduction(ItemStack stack){
         return stack.getEnchantmentLevel(EnchantmentsRegistry.OVERDRIVE.get()) * 5;
     }
 }

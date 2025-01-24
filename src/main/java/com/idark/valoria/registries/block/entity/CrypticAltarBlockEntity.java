@@ -1,23 +1,27 @@
 package com.idark.valoria.registries.block.entity;
 
-import com.idark.valoria.client.render.tile.*;
-import com.idark.valoria.registries.*;
-import com.idark.valoria.registries.entity.living.*;
-import com.idark.valoria.util.*;
-import mod.maxbogomol.fluffy_fur.client.particle.*;
-import mod.maxbogomol.fluffy_fur.client.particle.data.*;
-import mod.maxbogomol.fluffy_fur.registry.client.*;
-import net.minecraft.core.*;
-import net.minecraft.core.particles.*;
-import net.minecraft.nbt.*;
-import net.minecraft.network.*;
-import net.minecraft.network.protocol.game.*;
-import net.minecraft.sounds.*;
-import net.minecraft.world.*;
-import net.minecraft.world.level.*;
-import net.minecraft.world.level.block.entity.*;
-import net.minecraft.world.level.block.state.*;
-import org.jetbrains.annotations.*;
+import com.idark.valoria.client.render.tile.TickableBlockEntity;
+import com.idark.valoria.registries.BlockEntitiesRegistry;
+import com.idark.valoria.registries.EntityTypeRegistry;
+import com.idark.valoria.registries.SoundsRegistry;
+import com.idark.valoria.registries.entity.living.NecromancerEntity;
+import com.idark.valoria.util.Pal;
+import com.idark.valoria.util.ValoriaUtils;
+import mod.maxbogomol.fluffy_fur.client.particle.ParticleBuilder;
+import mod.maxbogomol.fluffy_fur.client.particle.data.ColorParticleData;
+import mod.maxbogomol.fluffy_fur.client.particle.data.GenericParticleData;
+import mod.maxbogomol.fluffy_fur.registry.client.FluffyFurParticles;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.Connection;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 
@@ -26,16 +30,16 @@ public class CrypticAltarBlockEntity extends BlockSimpleInventory implements Tic
     public int progressMax = 0;
     public boolean isSummoning = false;
 
-    public CrypticAltarBlockEntity(BlockPos pos, BlockState state) {
+    public CrypticAltarBlockEntity(BlockPos pos, BlockState state){
         super(BlockEntitiesRegistry.CRYPTIC_ALTAR.get(), pos, state);
     }
 
-    public void startSummoning() {
+    public void startSummoning(){
         this.isSummoning = true;
         this.progress = 0;
     }
 
-    public void tick() {
+    public void tick(){
         int tick = 0;
         tick++;
         if(isSummoning){
@@ -47,11 +51,11 @@ public class CrypticAltarBlockEntity extends BlockSimpleInventory implements Tic
                     double x = Math.cos(angle) * radius;
                     double z = Math.sin(angle) * radius;
                     ParticleBuilder.create(FluffyFurParticles.WISP)
-                    .setColorData(ColorParticleData.create(Pal.vividGreen, Color.darkGray).build())
-                    .setTransparencyData(GenericParticleData.create(0.125f, 0f).build())
-                    .setScaleData(GenericParticleData.create((((float)a * 0.125f)), 0.1f, 0).build())
-                    .setLifetime(35)
-                    .spawn(this.level, (this.worldPosition.getX() + 0.5f) + x, this.worldPosition.getY() + (1 - ((double)a / 1.25)) + y, (this.worldPosition.getZ() + 0.5f) + z);
+                            .setColorData(ColorParticleData.create(Pal.vividGreen, Color.darkGray).build())
+                            .setTransparencyData(GenericParticleData.create(0.125f, 0f).build())
+                            .setScaleData(GenericParticleData.create((((float)a * 0.125f)), 0.1f, 0).build())
+                            .setLifetime(35)
+                            .spawn(this.level, (this.worldPosition.getX() + 0.5f) + x, this.worldPosition.getY() + (1 - ((double)a / 1.25)) + y, (this.worldPosition.getZ() + 0.5f) + z);
                 }
 
                 level.addParticle(ParticleTypes.ENCHANT, this.worldPosition.getX() + level.random.nextFloat(), this.worldPosition.getY() + 1.85 + y, this.worldPosition.getZ() + level.random.nextFloat(), (Math.random() - 0.5) * 0.1, Math.random() * 0.1, (Math.random() - 0.5) * 0.1);
@@ -79,18 +83,18 @@ public class CrypticAltarBlockEntity extends BlockSimpleInventory implements Tic
         progress = 0;
     }
 
-    private void finishSummoning() {
+    private void finishSummoning(){
         this.isSummoning = false;
         this.progress = 0;
-        if (!this.getItemHandler().getItem(0).isEmpty()) {
+        if(!this.getItemHandler().getItem(0).isEmpty()){
             this.getItemHandler().removeItem(0, 1);
             Level level = this.getLevel();
             if(level == null) return;
-            if (level.isClientSide()) {
-                for (int i = 0; i < 4; i++){
+            if(level.isClientSide()){
+                for(int i = 0; i < 4; i++){
                     level.addParticle(ParticleTypes.POOF, this.worldPosition.getX() + 0.5, this.worldPosition.getY() + 2.85, this.worldPosition.getZ() + 0.5, (Math.random() - 0.5) * 0.1, Math.random() * 0.1, (Math.random() - 0.5) * 0.1);
                 }
-            } else {
+            }else{
                 NecromancerEntity boss = new NecromancerEntity(EntityTypeRegistry.NECROMANCER.get(), level);
                 boss.moveTo(this.worldPosition.getX() + 0.5, this.worldPosition.getY() + 1.85, this.worldPosition.getZ() + 0.5, 0.0F, 0.0F);
                 level.addFreshEntity(boss);
@@ -117,10 +121,10 @@ public class CrypticAltarBlockEntity extends BlockSimpleInventory implements Tic
     }
 
     @Override
-    protected SimpleContainer createItemHandler() {
-        return new SimpleContainer(1) {
+    protected SimpleContainer createItemHandler(){
+        return new SimpleContainer(1){
             @Override
-            public int getMaxStackSize() {
+            public int getMaxStackSize(){
                 return 1;
             }
         };
@@ -132,23 +136,23 @@ public class CrypticAltarBlockEntity extends BlockSimpleInventory implements Tic
     }
 
     @Override
-    public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt) {
+    public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt){
         super.onDataPacket(net, pkt);
         handleUpdateTag(pkt.getTag());
     }
 
     @NotNull
     @Override
-    public final CompoundTag getUpdateTag() {
+    public final CompoundTag getUpdateTag(){
         var tag = new CompoundTag();
         saveAdditional(tag);
         return tag;
     }
 
     @Override
-    public void setChanged() {
+    public void setChanged(){
         super.setChanged();
-        if (level != null && !level.isClientSide) {
+        if(level != null && !level.isClientSide){
             ValoriaUtils.tileEntity.SUpdateTileEntityPacket(this);
         }
     }

@@ -1,41 +1,53 @@
 package com.idark.valoria.registries.item.types;
 
-import com.google.common.collect.*;
+import com.google.common.collect.ImmutableMultimap;
+import com.google.common.collect.Multimap;
 import com.idark.valoria.core.interfaces.*;
-import com.idark.valoria.registries.*;
-import com.idark.valoria.registries.item.types.builders.*;
-import com.idark.valoria.util.*;
-import mod.maxbogomol.fluffy_fur.client.animation.*;
-import mod.maxbogomol.fluffy_fur.client.screenshake.*;
-import mod.maxbogomol.fluffy_fur.common.item.*;
-import net.minecraft.*;
-import net.minecraft.nbt.*;
-import net.minecraft.network.chat.*;
-import net.minecraft.sounds.*;
-import net.minecraft.stats.*;
-import net.minecraft.world.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.*;
-import net.minecraft.world.entity.player.*;
+import com.idark.valoria.registries.AttributeRegistry;
+import com.idark.valoria.registries.EnchantmentsRegistry;
+import com.idark.valoria.registries.item.types.builders.AbstractScytheBuilder;
+import com.idark.valoria.util.ArcRandom;
+import com.idark.valoria.util.ValoriaUtils;
+import mod.maxbogomol.fluffy_fur.client.animation.ItemAnimation;
+import mod.maxbogomol.fluffy_fur.client.screenshake.ScreenshakeHandler;
+import mod.maxbogomol.fluffy_fur.client.screenshake.ScreenshakeInstance;
+import mod.maxbogomol.fluffy_fur.common.item.ICustomAnimationItem;
+import net.minecraft.ChatFormatting;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.enchantment.*;
-import net.minecraft.world.level.*;
-import net.minecraftforge.api.distmarker.*;
-import net.minecraftforge.registries.*;
-import org.joml.*;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.level.Level;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.registries.ForgeRegistries;
+import org.joml.Vector3d;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.idark.valoria.Valoria.BASE_ATTACK_RADIUS_UUID;
 import static com.idark.valoria.util.ValoriaUtils.addContributorTooltip;
 
 // todo delete
-public class ScytheItem extends SwordItem implements ICustomAnimationItem, CooldownNotifyItem, RadiusItem, SpinAttackItem, DashItem, CooldownReductionItem {
+public class ScytheItem extends SwordItem implements ICustomAnimationItem, CooldownNotifyItem, RadiusItem, SpinAttackItem, DashItem, CooldownReductionItem{
     public AbstractScytheBuilder<? extends ScytheItem> builder;
     public final Multimap<Attribute, AttributeModifier> defaultModifiers;
     public final ArcRandom arcRandom = new ArcRandom();
     public int usageCount;
-    public ScytheItem(AbstractScytheBuilder<? extends ScytheItem> builderIn) {
+
+    public ScytheItem(AbstractScytheBuilder<? extends ScytheItem> builderIn){
         super(builderIn.tier, builderIn.attackDamageIn, builderIn.attackSpeedIn, builderIn.itemProperties);
         this.builder = builderIn;
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
@@ -45,17 +57,17 @@ public class ScytheItem extends SwordItem implements ICustomAnimationItem, Coold
         this.defaultModifiers = builder.build();
     }
 
-    public ScytheItem(Tier tier, int attackDamageIn, float attackSpeedIn, Properties builderIn) {
+    public ScytheItem(Tier tier, int attackDamageIn, float attackSpeedIn, Properties builderIn){
         this(new Builder(attackDamageIn, attackSpeedIn, builderIn).setTier(tier));
     }
 
-    public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot pEquipmentSlot) {
+    public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot pEquipmentSlot){
         return pEquipmentSlot == EquipmentSlot.MAINHAND ? this.defaultModifiers : super.getDefaultAttributeModifiers(pEquipmentSlot);
     }
 
-    public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
+    public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn){
         ItemStack itemstack = playerIn.getItemInHand(handIn);
-        if (!playerIn.isShiftKeyDown() && handIn != InteractionHand.OFF_HAND) {
+        if(!playerIn.isShiftKeyDown() && handIn != InteractionHand.OFF_HAND){
             playerIn.startUsingItem(handIn);
             return InteractionResultHolder.consume(itemstack);
         }
@@ -64,45 +76,45 @@ public class ScytheItem extends SwordItem implements ICustomAnimationItem, Coold
     }
 
     @Override
-    public SoundEvent getSoundEvent() {
+    public SoundEvent getSoundEvent(){
         return builder.cooldownSound;
     }
 
-    public UseAnim getUseAnimation(ItemStack pStack) {
+    public UseAnim getUseAnimation(ItemStack pStack){
         return UseAnim.CUSTOM;
     }
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public ItemAnimation getAnimation(ItemStack stack) {
+    public ItemAnimation getAnimation(ItemStack stack){
         return builder.animation;
     }
 
-    public int getUseDuration(ItemStack stack) {
+    public int getUseDuration(ItemStack stack){
         return builder.useTime;
     }
 
-    public void applyCooldown(Player playerIn, int time) {
-        for (Item item : ForgeRegistries.ITEMS) {
-            if (item instanceof ScytheItem) {
+    public void applyCooldown(Player playerIn, int time){
+        for(Item item : ForgeRegistries.ITEMS){
+            if(item instanceof ScytheItem){
                 playerIn.getCooldowns().addCooldown(item, time);
             }
         }
     }
 
-    public void performEffects(LivingEntity targets, Player player) {
+    public void performEffects(LivingEntity targets, Player player){
         targets.knockback(0.4F, player.getX() - targets.getX(), player.getZ() - targets.getZ());
-        if (EnchantmentHelper.getFireAspect(player) > 0) {
+        if(EnchantmentHelper.getFireAspect(player) > 0){
             int i = EnchantmentHelper.getFireAspect(player);
             targets.setSecondsOnFire(i * 4);
         }
     }
 
-    public void performAttack(Level level, ItemStack stack, Player player) {
+    public void performAttack(Level level, ItemStack stack, Player player){
         List<LivingEntity> hitEntities = new ArrayList<>();
         Vector3d pos = new Vector3d(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());
-        float damage = (float) (player.getAttributeValue(Attributes.ATTACK_DAMAGE)) + EnchantmentHelper.getSweepingDamageRatio(player);
-        float radius = (float) player.getAttributeValue(AttributeRegistry.ATTACK_RADIUS.get());
+        float damage = (float)(player.getAttributeValue(Attributes.ATTACK_DAMAGE)) + EnchantmentHelper.getSweepingDamageRatio(player);
+        float radius = (float)player.getAttributeValue(AttributeRegistry.ATTACK_RADIUS.get());
         CompoundTag tag = stack.getOrCreateTag();
         usageCount = tag.getInt("usageCount");
 
@@ -115,15 +127,15 @@ public class ScytheItem extends SwordItem implements ICustomAnimationItem, Coold
             applyCooldown(player, cooldown - getCooldownReduction(stack));
             tag.putInt("usageCount", 0);
             stack.setTag(tag);
-        } else {
+        }else{
             applyCooldown(player, builder.attackDelay);
         }
 
-        for (LivingEntity entity : hitEntities) {
+        for(LivingEntity entity : hitEntities){
             entity.hurt(level.damageSources().playerAttack(player), (damage + EnchantmentHelper.getDamageBonus(stack, entity.getMobType())) * 1.35f);
             performEffects(entity, player);
             ValoriaUtils.chanceEffect(entity, builder.effects, builder.chance, arcRandom);
-            if (!player.isCreative()) {
+            if(!player.isCreative()){
                 stack.hurtAndBreak(hitEntities.size(), player, (p_220045_0_) -> p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
             }
         }
@@ -134,8 +146,8 @@ public class ScytheItem extends SwordItem implements ICustomAnimationItem, Coold
     /**
      * Some sounds taken from the CalamityMod (Terraria) in a <a href="https://calamitymod.wiki.gg/wiki/Category:Sound_effects">Calamity Mod Wiki.gg</a>
      */
-    public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entityLiving) {
-        Player player = (Player) entityLiving;
+    public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entityLiving){
+        Player player = (Player)entityLiving;
         if(stack.getEnchantmentLevel(EnchantmentsRegistry.DASH.get()) > 0) performDash(player, stack);
         performAttack(level, stack, player);
         player.awardStat(Stats.ITEM_USED.get(this));

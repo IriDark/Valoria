@@ -1,70 +1,81 @@
 package com.idark.valoria.registries.entity.living.minions;
 
-import com.idark.valoria.core.network.*;
-import com.idark.valoria.core.network.packets.particle.*;
-import net.minecraft.core.*;
-import net.minecraft.core.particles.*;
-import net.minecraft.nbt.*;
-import net.minecraft.network.syncher.*;
-import net.minecraft.server.level.*;
-import net.minecraft.sounds.*;
-import net.minecraft.util.*;
-import net.minecraft.world.*;
-import net.minecraft.world.damagesource.*;
+import com.idark.valoria.core.network.PacketHandler;
+import com.idark.valoria.core.network.packets.particle.SmokeParticlePacket;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.*;
-import net.minecraft.world.entity.ai.control.*;
-import net.minecraft.world.entity.ai.goal.*;
-import net.minecraft.world.entity.ai.goal.target.*;
-import net.minecraft.world.entity.ai.navigation.*;
-import net.minecraft.world.entity.player.*;
-import net.minecraft.world.entity.raid.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.level.*;
-import net.minecraft.world.level.block.state.*;
-import net.minecraft.world.phys.*;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.MoveControl;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.raid.Raider;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 
-import javax.annotation.*;
-import java.util.*;
+import javax.annotation.Nullable;
+import java.util.EnumSet;
 
-public class UndeadEntity extends AbstractMinionEntity {
+public class UndeadEntity extends AbstractMinionEntity{
     public static final int TICKS_PER_FLAP = Mth.ceil(3.9269907F);
     protected static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(UndeadEntity.class, EntityDataSerializers.BYTE);
-    public UndeadEntity(EntityType<? extends UndeadEntity> pEntityType, Level pLevel) {
+
+    public UndeadEntity(EntityType<? extends UndeadEntity> pEntityType, Level pLevel){
         super(pEntityType, pLevel);
         this.moveControl = new UndeadMoveControl(this);
         this.xpReward = 3;
     }
 
-    protected float getStandingEyeHeight(Pose pPose, EntityDimensions pDimensions) {
+    protected float getStandingEyeHeight(Pose pPose, EntityDimensions pDimensions){
         return pDimensions.height - 0.28125F;
     }
 
-    public boolean isFlapping() {
+    public boolean isFlapping(){
         return this.tickCount % TICKS_PER_FLAP == 0;
     }
 
     @Override
-    public void spawnDisappearParticles(ServerLevel serverLevel) {
+    public void spawnDisappearParticles(ServerLevel serverLevel){
         double posX = this.getOnPos().getCenter().x;
         double posY = this.getOnPos().above().getCenter().y;
         double posZ = this.getOnPos().getCenter().z;
         PacketHandler.sendToTracking(serverLevel, this.getOnPos(), new SmokeParticlePacket(3, posX, posY - 0.5f, posZ, 0.005f, 0.025f, 0.005f, 255, 255, 255));
     }
 
-    public void spawnParticlesTrail() {
-        if (this.isCharging()) {
+    public void spawnParticlesTrail(){
+        if(this.isCharging()){
             Vec3 vector3d = this.getDeltaMovement();
             double a3 = vector3d.x;
             double a4 = vector3d.y;
             double a0 = vector3d.z;
-            for (int a = 0; a < 0.05f; ++a) {
-                this.level().addParticle(ParticleTypes.SCRAPE, this.getX() + a3 * (double) a / 4.0D, this.getY() + a4 * (double) a / 4.0D, this.getZ() + a0 * (double) a / 4.0D, -a3, -a4 + 0.2D, -a0);
+            for(int a = 0; a < 0.05f; ++a){
+                this.level().addParticle(ParticleTypes.SCRAPE, this.getX() + a3 * (double)a / 4.0D, this.getY() + a4 * (double)a / 4.0D, this.getZ() + a0 * (double)a / 4.0D, -a3, -a4 + 0.2D, -a0);
             }
         }
     }
 
-    protected void registerGoals() {
+    protected void registerGoals(){
         super.registerGoals();
         this.targetSelector.addGoal(0, new CopyOwnerTargetGoal(this));
         this.targetSelector.addGoal(0, new NearestAttackableTargetGoal<>(this, Player.class, true));
@@ -74,65 +85,65 @@ public class UndeadEntity extends AbstractMinionEntity {
         this.targetSelector.addGoal(1, (new HurtByTargetGoal(this, Raider.class)).setAlertOthers());
     }
 
-    protected void defineSynchedData() {
+    protected void defineSynchedData(){
         super.defineSynchedData();
-        this.entityData.define(DATA_FLAGS_ID, (byte) 0);
+        this.entityData.define(DATA_FLAGS_ID, (byte)0);
     }
 
-    private boolean getUndeadFlag(int pMask) {
+    private boolean getUndeadFlag(int pMask){
         int i = this.entityData.get(DATA_FLAGS_ID);
         return (i & pMask) != 0;
     }
 
-    private void setUndeadFlag(int pMask, boolean pValue) {
+    private void setUndeadFlag(int pMask, boolean pValue){
         int i = this.entityData.get(DATA_FLAGS_ID);
-        if (pValue) {
+        if(pValue){
             i |= pMask;
-        } else {
+        }else{
             i &= ~pMask;
         }
 
-        this.entityData.set(DATA_FLAGS_ID, (byte) (i & 255));
+        this.entityData.set(DATA_FLAGS_ID, (byte)(i & 255));
     }
 
-    public boolean isCharging() {
+    public boolean isCharging(){
         return this.getUndeadFlag(1);
     }
 
-    public void setIsCharging(boolean pCharging) {
+    public void setIsCharging(boolean pCharging){
         this.setUndeadFlag(1, pCharging);
     }
 
-    protected SoundEvent getAmbientSound() {
+    protected SoundEvent getAmbientSound(){
         return SoundEvents.SKELETON_AMBIENT;
     }
 
-    protected SoundEvent getDeathSound() {
+    protected SoundEvent getDeathSound(){
         return SoundEvents.SKELETON_DEATH;
     }
 
-    protected SoundEvent getHurtSound(DamageSource pDamageSource) {
+    protected SoundEvent getHurtSound(DamageSource pDamageSource){
         return SoundEvents.SKELETON_HURT;
     }
 
-    public float getLightLevelDependentMagicValue() {
+    public float getLightLevelDependentMagicValue(){
         return 1.0F;
     }
 
     @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag){
         RandomSource randomsource = pLevel.getRandom();
         this.populateDefaultEquipmentSlots(randomsource, pDifficulty);
         this.populateDefaultEquipmentEnchantments(randomsource, pDifficulty);
         return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
     }
 
-    protected void populateDefaultEquipmentSlots(RandomSource pRandom, DifficultyInstance pDifficulty) {
+    protected void populateDefaultEquipmentSlots(RandomSource pRandom, DifficultyInstance pDifficulty){
         this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SWORD));
         this.setDropChance(EquipmentSlot.MAINHAND, 0.0F);
     }
 
-    protected PathNavigation createNavigation(Level pLevel) {
+    protected PathNavigation createNavigation(Level pLevel){
         FlyingPathNavigation flyingpathnavigation = new FlyingPathNavigation(this, pLevel);
         flyingpathnavigation.setCanOpenDoors(false);
         flyingpathnavigation.setCanFloat(true);
@@ -140,29 +151,29 @@ public class UndeadEntity extends AbstractMinionEntity {
         return flyingpathnavigation;
     }
 
-    protected void checkFallDamage(double pY, boolean pOnGround, BlockState pState, BlockPos pPos) {
+    protected void checkFallDamage(double pY, boolean pOnGround, BlockState pState, BlockPos pPos){
     }
 
-    public void travel(Vec3 pTravelVector) {
-        if (this.isControlledByLocalInstance()) {
-            if (this.isInWater()) {
+    public void travel(Vec3 pTravelVector){
+        if(this.isControlledByLocalInstance()){
+            if(this.isInWater()){
                 this.moveRelative(0.02F, pTravelVector);
                 this.move(MoverType.SELF, this.getDeltaMovement());
                 this.setDeltaMovement(this.getDeltaMovement().scale((double)0.8F));
-            } else if (this.isInLava()) {
+            }else if(this.isInLava()){
                 this.moveRelative(0.02F, pTravelVector);
                 this.move(MoverType.SELF, this.getDeltaMovement());
                 this.setDeltaMovement(this.getDeltaMovement().scale(0.5D));
-            } else {
+            }else{
                 BlockPos ground = getBlockPosBelowThatAffectsMyMovement();
                 float f = 0.91F;
-                if (this.onGround()) {
+                if(this.onGround()){
                     f = this.level().getBlockState(ground).getFriction(this.level(), ground, this) * 0.91F;
                 }
 
                 float f1 = 0.16277137F / (f * f * f);
                 f = 0.91F;
-                if (this.onGround()) {
+                if(this.onGround()){
                     f = this.level().getBlockState(ground).getFriction(this.level(), ground, this) * 0.91F;
                 }
 
@@ -179,7 +190,7 @@ public class UndeadEntity extends AbstractMinionEntity {
      * Returns {@code true} if this entity should move as if it were on a ladder (either because it's actually on a
      * ladder, or for AI reasons)
      */
-    public boolean onClimbable() {
+    public boolean onClimbable(){
         return false;
     }
 
@@ -187,7 +198,7 @@ public class UndeadEntity extends AbstractMinionEntity {
     /**
      * Returns the Y Offset of this entity.
      */
-    public double getMyRidingOffset() {
+    public double getMyRidingOffset(){
         return 0.4D;
     }
 
@@ -231,23 +242,23 @@ public class UndeadEntity extends AbstractMinionEntity {
     }
 
     class UndeadMoveControl extends MoveControl{
-        public UndeadMoveControl(UndeadEntity pUndeadEntity) {
+        public UndeadMoveControl(UndeadEntity pUndeadEntity){
             super(pUndeadEntity);
         }
 
-        public void tick() {
-            if (this.operation == MoveControl.Operation.MOVE_TO) {
+        public void tick(){
+            if(this.operation == MoveControl.Operation.MOVE_TO){
                 Vec3 vec3 = new Vec3(this.wantedX - UndeadEntity.this.getX(), this.wantedY - UndeadEntity.this.getY(), this.wantedZ - UndeadEntity.this.getZ());
                 double d0 = vec3.length();
-                if (d0 < UndeadEntity.this.getBoundingBox().getSize()) {
+                if(d0 < UndeadEntity.this.getBoundingBox().getSize()){
                     this.operation = MoveControl.Operation.WAIT;
                     UndeadEntity.this.setDeltaMovement(UndeadEntity.this.getDeltaMovement().scale(0.5D));
-                } else {
+                }else{
                     UndeadEntity.this.setDeltaMovement(UndeadEntity.this.getDeltaMovement().add(vec3.scale(this.speedModifier * 0.05D / d0)));
-                    if (UndeadEntity.this.getTarget() == null) {
+                    if(UndeadEntity.this.getTarget() == null){
                         Vec3 vec31 = UndeadEntity.this.getDeltaMovement();
                         UndeadEntity.this.setYRot(-((float)Mth.atan2(vec31.x, vec31.z)) * (180F / (float)Math.PI));
-                    } else {
+                    }else{
                         double d2 = UndeadEntity.this.getTarget().getX() - UndeadEntity.this.getX();
                         double d1 = UndeadEntity.this.getTarget().getZ() - UndeadEntity.this.getZ();
                         UndeadEntity.this.setYRot(-((float)Mth.atan2(d2, d1)) * (180F / (float)Math.PI));
@@ -259,30 +270,30 @@ public class UndeadEntity extends AbstractMinionEntity {
         }
     }
 
-    class UndeadChargeAttackGoal extends MeleeAttackGoal {
-        public UndeadChargeAttackGoal() {
+    class UndeadChargeAttackGoal extends MeleeAttackGoal{
+        public UndeadChargeAttackGoal(){
             super(UndeadEntity.this, 1, true);
             this.setFlags(EnumSet.of(Goal.Flag.MOVE));
         }
 
-        protected int getAttackInterval() {
+        protected int getAttackInterval(){
             return this.adjustedTickDelay(60);
         }
 
         /**
          * Returns whether an in-progress EntityAIBase should continue executing
          */
-        public boolean canContinueToUse() {
+        public boolean canContinueToUse(){
             return UndeadEntity.this.getMoveControl().hasWanted() && UndeadEntity.this.getTarget() != null && UndeadEntity.this.getTarget().isAlive();
         }
 
         /**
          * Execute a one shot task or start executing a continuous task
          */
-        public void start() {
+        public void start(){
             super.start();
             LivingEntity livingentity = UndeadEntity.this.getTarget();
-            if (livingentity != null) {
+            if(livingentity != null){
                 Vec3 vec3 = livingentity.getEyePosition();
                 UndeadEntity.this.moveControl.setWantedPosition(vec3.x, vec3.y, vec3.z, 1.0D);
             }
@@ -294,7 +305,7 @@ public class UndeadEntity extends AbstractMinionEntity {
         /**
          * Reset the task's internal state. Called when this task is interrupted by another one
          */
-        public void stop() {
+        public void stop(){
             super.stop();
             UndeadEntity.this.setIsCharging(false);
         }
@@ -302,17 +313,17 @@ public class UndeadEntity extends AbstractMinionEntity {
         /**
          * Keep ticking a continuous task that has already been started
          */
-        public void tick() {
+        public void tick(){
             super.tick();
             LivingEntity livingentity = UndeadEntity.this.getTarget();
-            if (livingentity != null) {
-                if (UndeadEntity.this.getBoundingBox().intersects(livingentity.getBoundingBox())) {
+            if(livingentity != null){
+                if(UndeadEntity.this.getBoundingBox().intersects(livingentity.getBoundingBox())){
                     UndeadEntity.this.doHurtTarget(livingentity);
                     UndeadEntity.this.setIsCharging(false);
                     UndeadEntity.this.setDeltaMovement((UndeadEntity.this.getX() - UndeadEntity.this.getTarget().getX()) * 3, (UndeadEntity.this.getY() - UndeadEntity.this.getTarget().getY()) * 0.5, (UndeadEntity.this.getTarget().getZ() - UndeadEntity.this.getZ()) * 3);
-                } else {
+                }else{
                     double d0 = UndeadEntity.this.distanceToSqr(livingentity);
-                    if (d0 < UndeadEntity.this.getAttributeValue(Attributes.FOLLOW_RANGE)) {
+                    if(d0 < UndeadEntity.this.getAttributeValue(Attributes.FOLLOW_RANGE)){
                         Vec3 vec3 = livingentity.getEyePosition();
                         UndeadEntity.this.moveControl.setWantedPosition(vec3.x, vec3.y, vec3.z, 1.0D);
                     }

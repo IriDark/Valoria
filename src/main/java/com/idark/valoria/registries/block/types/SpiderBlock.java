@@ -15,60 +15,60 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class SpiderBlock extends Block {
-    public SpiderBlock(BlockBehaviour.Properties properties) {
+public class SpiderBlock extends Block{
+    public SpiderBlock(BlockBehaviour.Properties properties){
         super(properties);
     }
 
     private static final VoxelShape shape = Block.box(1, 0, 0, 15, 13, 15);
 
-    private void spawnSpider(ServerLevel world, BlockPos pos) {
+    private void spawnSpider(ServerLevel world, BlockPos pos){
         CaveSpider spider = EntityType.CAVE_SPIDER.create(world);
-        if (spider != null) {
-            spider.moveTo((double) pos.getX() + 0.5D, pos.getY(), (double) pos.getZ() + 0.5D, 0.0F, 0.0F);
+        if(spider != null){
+            spider.moveTo((double)pos.getX() + 0.5D, pos.getY(), (double)pos.getZ() + 0.5D, 0.0F, 0.0F);
             world.addFreshEntity(spider);
         }
     }
 
     @Override
-    public void wasExploded(Level worldIn, BlockPos pos, Explosion explosionIn) {
-        if (!worldIn.isClientSide()) {
-            this.spawnSpider((ServerLevel) worldIn, pos);
+    public void wasExploded(Level worldIn, BlockPos pos, Explosion explosionIn){
+        if(!worldIn.isClientSide()){
+            this.spawnSpider((ServerLevel)worldIn, pos);
         }
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
+    public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context){
         return shape;
     }
 
     @Override
-    public void destroy(LevelAccessor worldIn, BlockPos pos, BlockState state) {
-        if (!worldIn.isClientSide()) {
-            this.spawnSpider((ServerLevel) worldIn, pos);
+    public void destroy(LevelAccessor worldIn, BlockPos pos, BlockState state){
+        if(!worldIn.isClientSide()){
+            this.spawnSpider((ServerLevel)worldIn, pos);
         }
     }
 
     @Override
-    public void fallOn(Level pLevel, BlockState pState, BlockPos pPos, Entity pEntity, float pFallDistance) {
-        if (pFallDistance > 1f) {
+    public void fallOn(Level pLevel, BlockState pState, BlockPos pPos, Entity pEntity, float pFallDistance){
+        if(pFallDistance > 1f){
             pLevel.destroyBlock(pPos, false);
-            if (!pLevel.isClientSide()) {
-                this.spawnSpider((ServerLevel) pLevel, pPos);
+            if(!pLevel.isClientSide()){
+                this.spawnSpider((ServerLevel)pLevel, pPos);
             }
         }
     }
 
     @Override
-    public void onProjectileHit(Level pLevel, BlockState pState, BlockHitResult pHit, Projectile pProjectile) {
+    public void onProjectileHit(Level pLevel, BlockState pState, BlockHitResult pHit, Projectile pProjectile){
         pLevel.destroyBlock(pHit.getBlockPos(), true);
-        if (!pLevel.isClientSide()) {
-            this.spawnSpider((ServerLevel) pLevel, pHit.getBlockPos());
+        if(!pLevel.isClientSide()){
+            this.spawnSpider((ServerLevel)pLevel, pHit.getBlockPos());
         }
     }
 
     @Override
-    public int getExpDrop(BlockState state, LevelReader level, RandomSource randomSource, BlockPos pos, int fortuneLevel, int silkTouchLevel) {
+    public int getExpDrop(BlockState state, LevelReader level, RandomSource randomSource, BlockPos pos, int fortuneLevel, int silkTouchLevel){
         return 5 + randomSource.nextInt(5) + randomSource.nextInt(5);
     }
 }

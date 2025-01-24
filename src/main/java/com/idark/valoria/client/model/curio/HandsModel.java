@@ -7,17 +7,17 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.world.entity.LivingEntity;
 
-public class HandsModel extends HumanoidModel<LivingEntity> {
+public class HandsModel extends HumanoidModel<LivingEntity>{
     public ModelPart root, right_glove, left_glove;
 
-    public HandsModel(ModelPart root) {
+    public HandsModel(ModelPart root){
         super(root);
         this.root = root;
         this.right_glove = root.getChild("right_glove");
         this.left_glove = root.getChild("left_glove");
     }
 
-    public static LayerDefinition createBodyLayer() {
+    public static LayerDefinition createBodyLayer(){
         MeshDefinition mesh = new MeshDefinition();
         PartDefinition root = mesh.getRoot();
 
@@ -36,20 +36,20 @@ public class HandsModel extends HumanoidModel<LivingEntity> {
     }
 
     @Override
-    public void setupAnim(LivingEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        if (entity instanceof LivingEntity) {
+    public void setupAnim(LivingEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch){
+        if(entity instanceof LivingEntity){
             right_glove.copyFrom(this.rightArm);
             left_glove.copyFrom(this.leftArm);
         }
     }
 
     @Override
-    protected Iterable<ModelPart> headParts() {
+    protected Iterable<ModelPart> headParts(){
         return ImmutableList.of();
     }
 
     @Override
-    protected Iterable<ModelPart> bodyParts() {
+    protected Iterable<ModelPart> bodyParts(){
         return ImmutableList.of(this.right_glove, this.left_glove);
     }
 }
