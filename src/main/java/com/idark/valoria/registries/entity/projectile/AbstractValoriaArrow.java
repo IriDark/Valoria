@@ -22,6 +22,11 @@ public abstract class AbstractValoriaArrow extends AbstractArrow {
         super(pEntityType, pLevel);
     }
 
+    public AbstractValoriaArrow(EntityType<? extends AbstractArrow> pEntityType, Level worldIn, LivingEntity thrower, int baseDamage) {
+        super(pEntityType, thrower, worldIn);
+        this.baseDamage = baseDamage;
+    }
+
     public AbstractValoriaArrow(EntityType<? extends AbstractArrow> pEntityType, Level worldIn, LivingEntity thrower, ItemStack thrownStackIn, int baseDamage) {
         super(pEntityType, thrower, worldIn);
         arrowItem = new ItemStack(thrownStackIn.getItem());

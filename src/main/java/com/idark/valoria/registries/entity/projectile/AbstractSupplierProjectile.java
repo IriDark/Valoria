@@ -3,19 +3,14 @@ package com.idark.valoria.registries.entity.projectile;
 import com.google.common.collect.*;
 import com.idark.valoria.registries.*;
 import it.unimi.dsi.fastutil.ints.*;
-import net.minecraft.advancements.*;
 import net.minecraft.core.particles.*;
 import net.minecraft.nbt.*;
-import net.minecraft.network.protocol.*;
-import net.minecraft.network.protocol.game.*;
 import net.minecraft.network.syncher.*;
 import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
-import net.minecraft.util.*;
 import net.minecraft.world.damagesource.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.entity.projectile.*;
 import net.minecraft.world.item.*;
@@ -23,13 +18,12 @@ import net.minecraft.world.item.alchemy.*;
 import net.minecraft.world.item.enchantment.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.network.*;
 import org.jetbrains.annotations.*;
 
 import javax.annotation.Nullable;
 import java.util.*;
 
-public abstract class AbstractSupplierProjectile extends AbstractValoriaArrow implements ItemSupplier{
+public abstract class AbstractSupplierProjectile extends AbstractProjectile implements ItemSupplier{
     public static final EntityDataAccessor<Byte> LOYALTY_LEVEL = SynchedEntityData.defineId(AbstractSupplierProjectile.class, EntityDataSerializers.BYTE);
     private static final EntityDataAccessor<ItemStack> DATA_ITEM_STACK = SynchedEntityData.defineId(AbstractSupplierProjectile.class, EntityDataSerializers.ITEM_STACK);
     public final Set<MobEffectInstance> effects = Sets.newHashSet();
@@ -140,11 +134,6 @@ public abstract class AbstractSupplierProjectile extends AbstractValoriaArrow im
         }
     }
 
-    @Override
-    public Packet<ClientGamePacketListener> getAddEntityPacket() {
-        return NetworkHooks.getEntitySpawningPacket(this);
-    }
-
     public void tick() {
         super.tick();
         if (this.inGroundTime > 4) {
@@ -202,17 +191,6 @@ public abstract class AbstractSupplierProjectile extends AbstractValoriaArrow im
     protected void onHitBlock(BlockHitResult pResult) {
         super.onHitBlock(pResult);
         this.wasInGround = true;
-    }
-
-    public void processVelocityDamage(LivingEntity thrower, Entity entity, DamageSource damagesource) {
-        double velocity = this.getDeltaMovement().length();
-        int damage = Mth.ceil(Mth.clamp(velocity * this.baseDamage, 0, Integer.MAX_VALUE));
-        if (this.isCritArrow()) {
-            long j = this.random.nextInt(damage / 2 + 2);
-            damage = (int) Math.min(j + (long) damage, 2147483647L);
-        }
-
-        hurt(thrower, entity, damagesource, damage);
     }
 
     @Override
@@ -278,55 +256,7 @@ public abstract class AbstractSupplierProjectile extends AbstractValoriaArrow im
      * Custom damage processing here
      */
     public void hurt(LivingEntity thrower, Entity entity, DamageSource source, float damage) {
-        int k = entity.getRemainingFireTicks();
-        if(entity.hurt(source, damage)){
-            boolean flag = entity.getType() == EntityType.ENDERMAN;
-            if(flag){
-                return;
-            }
-
-            if(entity instanceof LivingEntity livingentity){
-                EnchantmentHelper.doPostHurtEffects(livingentity, thrower);
-                EnchantmentHelper.doPostDamageEffects(thrower, livingentity);
-                this.doPostHurtEffects(livingentity);
-                if(this.knockback > 0){
-                    double d0 = Math.max(0.0D, 1.0D - livingentity.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE));
-                    Vec3 vec3 = this.getDeltaMovement().multiply(1.0D, 0.0D, 1.0D).normalize().scale((double)this.knockback * 0.6D * d0);
-                    if(vec3.lengthSqr() > 0.0D){
-                        livingentity.push(vec3.x, 0.1D, vec3.z);
-                    }
-                }
-
-                if (livingentity != thrower && livingentity instanceof Player && thrower instanceof ServerPlayer serv && !this.isSilent()) {
-                    serv.connection.send(new ClientboundGameEventPacket(ClientboundGameEventPacket.ARROW_HIT_PLAYER, 0.0F));
-                }
-
-                if (!entity.isAlive() && this.piercedAndKilledEntities != null) {
-                    this.piercedAndKilledEntities.add(livingentity);
-                }
-
-                if (!this.level().isClientSide && thrower instanceof ServerPlayer serverplayer) {
-                    if (this.piercedAndKilledEntities != null && this.shotFromCrossbow()) {
-                        CriteriaTriggers.KILLED_BY_CROSSBOW.trigger(serverplayer, this.piercedAndKilledEntities);
-                    } else if (!entity.isAlive() && this.shotFromCrossbow()) {
-                        CriteriaTriggers.KILLED_BY_CROSSBOW.trigger(serverplayer, List.of(entity));
-                    }
-                }
-            }
-        } else {
-            entity.setRemainingFireTicks(k);
-            this.setDeltaMovement(this.getDeltaMovement().scale(-0.1D));
-            this.setYRot(this.getYRot() + 180.0F);
-            this.yRotO += 180.0F;
-            if (!this.level().isClientSide && this.getDeltaMovement().lengthSqr() < 1.0E-7D) {
-                if (this.pickup == AbstractArrow.Pickup.ALLOWED) {
-                    this.spawnAtLocation(this.getPickupItem(), 0.1F);
-                }
-
-                this.discard();
-            }
-        }
-
+        super.hurt(thrower, entity, source, damage);
         if(EnchantmentHelper.getTagEnchantmentLevel(Enchantments.PIERCING, this.getItem()) == 0){
             this.returnToPlayer = true;
         }

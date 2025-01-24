@@ -7,8 +7,6 @@ import mod.maxbogomol.fluffy_fur.client.particle.behavior.*;
 import mod.maxbogomol.fluffy_fur.client.particle.data.*;
 import mod.maxbogomol.fluffy_fur.common.easing.*;
 import mod.maxbogomol.fluffy_fur.registry.client.*;
-import net.minecraft.network.protocol.*;
-import net.minecraft.network.protocol.game.*;
 import net.minecraft.sounds.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.*;
@@ -17,7 +15,6 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
 import net.minecraftforge.api.distmarker.*;
-import net.minecraftforge.network.*;
 import org.jetbrains.annotations.*;
 
 import javax.annotation.Nullable;
@@ -90,11 +87,6 @@ public class KunaiEntity extends AbstractSupplierProjectile {
         if (this.ownedBy(pEntity) || this.getOwner() == null) {
             super.playerTouch(pEntity);
         }
-    }
-
-    @Override
-    public @NotNull Packet<ClientGamePacketListener> getAddEntityPacket() {
-        return NetworkHooks.getEntitySpawningPacket(this);
     }
 
     public float getWaterInertia() {

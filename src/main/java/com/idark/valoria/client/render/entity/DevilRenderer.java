@@ -2,7 +2,9 @@ package com.idark.valoria.client.render.entity;
 
 import com.idark.valoria.*;
 import com.idark.valoria.client.model.entity.*;
+import com.idark.valoria.client.render.layers.*;
 import com.idark.valoria.registries.entity.living.*;
+import com.idark.valoria.util.*;
 import com.mojang.blaze3d.vertex.*;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.entity.*;
@@ -16,6 +18,11 @@ public class DevilRenderer extends MobRenderer<Devil, DevilModel<Devil>> {
     public DevilRenderer(EntityRendererProvider.Context context) {
         super(context, new DevilModel<>(DevilModel.createBodyLayer().bakeRoot()), 0.4F);
         this.addLayer(new ItemInHandLayer<>(this, context.getItemInHandRenderer()));
+        this.addLayer(new LuminescentLayer.Builder<>(this)
+        .setTexture(new ResourceLocation(Valoria.ID, "textures/entity/devil_eyes.png"))
+        .setColor(Pal.diamond)
+        .setAlpha(0.8f)
+        .build());
     }
 
     @Override

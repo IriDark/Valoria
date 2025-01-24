@@ -8,8 +8,6 @@ import mod.maxbogomol.fluffy_fur.common.easing.*;
 import mod.maxbogomol.fluffy_fur.registry.client.*;
 import net.minecraft.core.particles.*;
 import net.minecraft.nbt.*;
-import net.minecraft.network.protocol.*;
-import net.minecraft.network.protocol.game.*;
 import net.minecraft.sounds.*;
 import net.minecraft.util.*;
 import net.minecraft.world.entity.*;
@@ -18,7 +16,6 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
 import net.minecraftforge.api.distmarker.*;
-import net.minecraftforge.network.*;
 
 import javax.annotation.*;
 import java.awt.*;
@@ -117,11 +114,6 @@ public class SpectralBladeEntity extends AbstractValoriaArrow {
     @Override
     public SoundEvent getHitGroundSoundEvent() {
         return SoundsRegistry.DISAPPEAR.get();
-    }
-
-    @Override
-    public Packet<ClientGamePacketListener> getAddEntityPacket() {
-        return NetworkHooks.getEntitySpawningPacket(this);
     }
 
     public void readAdditionalSaveData(CompoundTag compound) {

@@ -1,11 +1,13 @@
 package com.idark.valoria.client.model.entity;
 
+import com.idark.valoria.client.model.animations.*;
+import com.idark.valoria.registries.entity.living.*;
 import net.minecraft.client.model.*;
 import net.minecraft.client.model.geom.*;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.world.entity.*;
 
-public class SorcererModel<T extends LivingEntity> extends HierarchicalModel<T>{
+public class SorcererModel<T extends SorcererEntity> extends HierarchicalModel<T>{
     private final ModelPart root;
     private final ModelPart head;
     private final ModelPart body;
@@ -30,7 +32,7 @@ public class SorcererModel<T extends LivingEntity> extends HierarchicalModel<T>{
         PartDefinition head = partdefinition.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 12).addBox(-4.0F, -4.0F, -4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.0F))
         .texOffs(0, 28).addBox(-4.0F, -4.0F, -4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.4F)), PartPose.offset(0.0F, -5.0F, 0.0F));
 
-        PartDefinition hat = partdefinition.addOrReplaceChild("hat", CubeListBuilder.create().texOffs(0, 0).addBox(-5.0F, 2.375F, -5.0F, 10.0F, 2.0F, 10.0F, new CubeDeformation(0.0F))
+        PartDefinition hat = head.addOrReplaceChild("hat", CubeListBuilder.create().texOffs(0, 0).addBox(-5.0F, 2.375F, -5.0F, 10.0F, 2.0F, 10.0F, new CubeDeformation(0.0F))
         .texOffs(0, 44).addBox(-3.0F, 0.375F, -3.0F, 6.0F, 2.0F, 6.0F, new CubeDeformation(0.0F))
         .texOffs(0, 52).addBox(-2.0F, -2.625F, -2.0F, 4.0F, 3.0F, 4.0F, new CubeDeformation(0.0F))
         .texOffs(40, 8).addBox(-1.0F, -4.625F, -1.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -6.625F, 0.0F));
@@ -67,8 +69,17 @@ public class SorcererModel<T extends LivingEntity> extends HierarchicalModel<T>{
         return root;
     }
 
+    private void animateHeadLookTarget(float pYaw, float pPitch) {
+        this.head.xRot = pPitch * ((float) Math.PI / 180F);
+        this.head.yRot = pYaw * ((float) Math.PI / 180F);
+    }
+
     @Override
     public void setupAnim(T pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch){
-
+        this.root().getAllParts().forEach(ModelPart::resetPose);
+        this.animateHeadLookTarget(pNetHeadYaw, pHeadPitch);
+        this.animateWalk(SorcererAnimations.WALK, pLimbSwing, pLimbSwingAmount, 5f, pAgeInTicks);
+        this.animate(pEntity.idleAnimationState, SorcererAnimations.IDLE, pAgeInTicks, 1f);
+        this.animate(pEntity.attackAnimationState, SorcererAnimations.ATTACK_MAGIC, pAgeInTicks, 1f);
     }
 }
