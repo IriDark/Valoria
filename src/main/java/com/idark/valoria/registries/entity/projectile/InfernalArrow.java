@@ -37,6 +37,7 @@ public class InfernalArrow extends AbstractValoriaArrow implements TexturedArrow
             };
 
 
+            ParticleEffects.fancyTrail(this.level(), Vec3.ZERO, pos);
             ParticleEffects.smoothTrail(this.level(), target, pos, ColorParticleData.create(Pal.infernal, Pal.darkMagenta).build());
         }
     }

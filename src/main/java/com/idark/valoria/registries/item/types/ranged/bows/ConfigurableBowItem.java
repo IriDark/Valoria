@@ -77,6 +77,7 @@ public class ConfigurableBowItem extends BowItem {
             abstractarrow.setCritArrow(true);
         }
 
+        abstractarrow.setOwner(player);
         if(infiniteArrows || player.getAbilities().instabuild && (itemstack.is(Items.SPECTRAL_ARROW) || itemstack.is(Items.TIPPED_ARROW))){
             abstractarrow.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
         }
