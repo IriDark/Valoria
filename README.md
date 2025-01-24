@@ -1,4 +1,4 @@
-![Valoria](https://github.com/IriDark/Valoria/blob/main/icons/valoria_logo.png?raw=true)
+![Valoria](https://raw.githubusercontent.com/IriDark/Valoria-Wiki/refs/heads/master/static/img/assets/valoria_title.png)
 
 [![STARS](https://img.shields.io/github/stars/IriDark/Valoria?style=for-the-badge&label=%E2%AD%90%EF%B8%8FSTAR%20Valoria)](https://github.com/IriDark/Valoria)
 [![Discord](https://img.shields.io/discord/859843420603416618?style=for-the-badge&color=6aa84f&logo=discord&label=VALORIA)](https://discord.gg/wWdXpwuPmK)
@@ -20,8 +20,10 @@
 - Dimension
 - Huge weaponry! with a special abilities!
 - Dungeons
-- Lush Flora:
-Explore the enriched landscapes with an exotic plants <p> Valoria introduces a rich collection of flora, adding both beauty and danger to the dimensions
+- Lush Flora
+- Bosses
 
-![Valoria Ecotone](https://github.com/IriDark/Valoria/blob/main/icons/valoria_ecotone_biome.png?raw=true)
-![Valoria Small Ruin](https://github.com/IriDark/Valoria/blob/main/icons/valoria_small_ruin.png?raw=true)
+![Accessories](https://raw.githubusercontent.com/IriDark/Valoria-Wiki/refs/heads/master/static/img/assets/accessories.jpg)
+![Scavenge](https://raw.githubusercontent.com/IriDark/Valoria-Wiki/refs/heads/master/static/img/assets/scavenge.png)
+![Valoria](https://raw.githubusercontent.com/IriDark/Valoria-Wiki/refs/heads/master/static/img/assets/valoria.jpg)
+![Necromancer](https://raw.githubusercontent.com/IriDark/Valoria-Wiki/refs/heads/master/static/img/assets/necromancer.jpg)
