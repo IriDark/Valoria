@@ -417,6 +417,17 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
             }
         }
 
+        private void spawnSorcerers(ServerLevel serverLevel, BlockPos blockpos){
+            SorcererEntity sorcerer = EntityTypeRegistry.SORCERER.get().create(NecromancerEntity.this.level());
+            if(sorcerer != null && serverLevel.isEmptyBlock(blockpos) && serverLevel.isEmptyBlock(blockpos.above())){
+                sorcerer.moveTo(blockpos, 0.0F, 0.0F);
+                sorcerer.finalizeSpawn(serverLevel, NecromancerEntity.this.level().getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, null, null);
+                serverLevel.addFreshEntityWithPassengers(sorcerer);
+            }else{
+                spawnUndead(serverLevel, blockpos.above());
+            }
+        }
+
         private void spawnUndead(ServerLevel serverLevel, BlockPos blockpos){
             UndeadEntity undead = EntityTypeRegistry.UNDEAD.get().create(NecromancerEntity.this.level());
             if(undead != null && serverLevel.isEmptyBlock(blockpos)){
@@ -451,6 +462,11 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
                 }else{
                     spawnZombie(serv, blockpos);
                 }
+            }
+
+            if(arcRandom.chance(45)){
+                BlockPos blockpos = NecromancerEntity.this.blockPosition().offset(-2 + NecromancerEntity.this.random.nextInt(5), 0, -2 + NecromancerEntity.this.random.nextInt(5));
+                spawnSorcerers(serv, blockpos);
             }
 
             if(arcRandom.chance(5)){
