@@ -2,5 +2,41 @@
   "parent": "valoria:item/spear_large",
   "textures": {
     "layer0": "valoria:item/infernal_spear_in_hand"
+  },
+  "display": {
+    "firstperson_righthand": {
+      "rotation": [
+        0,
+        -90,
+        25
+      ],
+      "translation": [
+        1,
+        3,
+        1
+      ],
+      "scale": [
+        1.36,
+        1.36,
+        0.68
+      ]
+    },
+    "firstperson_lefthand": {
+      "rotation": [
+        0,
+        90,
+        -25
+      ],
+      "translation": [
+        1,
+        3,
+        1
+      ],
+      "scale": [
+        1.36,
+        1.36,
+        0.68
+      ]
+    }
   }
 }

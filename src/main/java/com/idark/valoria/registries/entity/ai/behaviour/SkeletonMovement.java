@@ -16,9 +16,9 @@ public class SkeletonMovement{
         this.mob = mob;
     }
 
-    public SkeletonMovement(Mob mob, double radius){
+    public SkeletonMovement(Mob mob, double radiusSqr){
         this.mob = mob;
-        this.radius = radius;
+        this.radius = radiusSqr;
     }
 
     public void setupMovement(){
