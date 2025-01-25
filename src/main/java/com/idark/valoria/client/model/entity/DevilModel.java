@@ -66,9 +66,9 @@ public class DevilModel<T extends Devil> extends HierarchicalModel<T> implements
         PartDefinition Right_leg = partdefinition.addOrReplaceChild("right_leg", CubeListBuilder.create().texOffs(0, 50).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.0F))
                 .texOffs(56, 11).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.25F)), PartPose.offset(-2.0F, 12.0F, 0.0F));
 
-        PartDefinition Left_wing = partdefinition.addOrReplaceChild("left_wing", CubeListBuilder.create().texOffs(0, 32).addBox(-9.0F, -5.5F, 0.0F, 18.0F, 11.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(8.9658F, 4.5F, 2.7844F, 0.0F, -0.0873F, 0.0F));
+        PartDefinition Left_wing = partdefinition.addOrReplaceChild("left_wing", CubeListBuilder.create().texOffs(0, 32).addBox(-8F, -5.5F, 2F, 18.0F, 11.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(8.9658F, 4.5F, 2.7844F, 0.0F, -0.0873F, 0.0F));
 
-        PartDefinition Right_wing = partdefinition.addOrReplaceChild("right_wing", CubeListBuilder.create().texOffs(32, 0).addBox(-9.0275F, -5.5F, 0.0F, 18.0F, 11.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-8.8786F, 4.5F, 2.7806F, 0.0F, 0.0873F, 0.0F));
+        PartDefinition Right_wing = partdefinition.addOrReplaceChild("right_wing", CubeListBuilder.create().texOffs(32, 0).addBox(-10F, -5.5F, 2F, 18.0F, 11.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-8.8786F, 4.5F, 2.7806F, 0.0F, 0.0873F, 0.0F));
         return LayerDefinition.create(meshdefinition, 128, 128);
     }
 

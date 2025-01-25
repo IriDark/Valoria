@@ -32,8 +32,6 @@ public class ScourgeModel<T extends ScourgeEntity> extends HierarchicalModel<T>{
         PartDefinition Head = partdefinition.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -4.6667F, -3.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.0F))
                 .texOffs(32, 8).addBox(-5.0F, -0.6667F, -4.0F, 10.0F, 4.0F, 4.0F, new CubeDeformation(0.0F))
                 .texOffs(60, 0).addBox(-4.0F, -4.6667F, -3.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.5F)), PartPose.offset(0.0F, -3.3333F, -1.0F));
-        PartDefinition hat = partdefinition.addOrReplaceChild("hat", CubeListBuilder.create()
-                .texOffs(65, 0).addBox(-5.0F, -10.0F, -5.0F, 10.0F, 7.0F, 8.0F, new CubeDeformation(0.41F)), PartPose.offset(0.0F, 24.0F, 0.0F));
 
         PartDefinition Body = partdefinition.addOrReplaceChild("body", CubeListBuilder.create().texOffs(30, 18).addBox(-5.0F, -6.8333F, -2.0F, 10.0F, 12.0F, 4.0F, new CubeDeformation(0.0F))
                 .texOffs(30, 34).addBox(-5.0F, -1.8333F, -3.0F, 10.0F, 7.0F, 6.0F, new CubeDeformation(0.1F))

@@ -1,8 +1,10 @@
 package com.idark.valoria.registries.entity.living;
 
+import com.idark.valoria.Valoria;
 import com.idark.valoria.registries.AttackRegistry;
 import com.idark.valoria.registries.EntityStatsRegistry;
 import com.idark.valoria.registries.ItemsRegistry;
+import com.idark.valoria.registries.entity.ai.behaviour.SkeletonMovement;
 import com.idark.valoria.registries.entity.ai.goals.ReasonableAvoidEntityGoal;
 import com.idark.valoria.registries.entity.projectile.ThrownSpearEntity;
 import com.idark.valoria.util.ArcRandom;
@@ -42,6 +44,7 @@ public class Devil extends AbstractDevil implements RangedAttackMob{
     public int throwAnimationTimeout = 0;
     public int magicAnimationTimeout = 0;
     public int hits = 0;
+    public boolean ranged;
 
     public Devil(EntityType<? extends Devil> pEntityType, Level pLevel){
         super(pEntityType, pLevel);
@@ -65,6 +68,10 @@ public class Devil extends AbstractDevil implements RangedAttackMob{
 
     public void tick(){
         super.tick();
+        if(ranged) {
+            new SkeletonMovement(this).setupMovement();
+        }
+
         if(this.level().isClientSide()){
             setupAnimationStates();
         }
@@ -110,6 +117,8 @@ public class Devil extends AbstractDevil implements RangedAttackMob{
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag){
         RandomSource randomsource = pLevel.getRandom();
         this.populateDefaultEquipmentSlots(randomsource, pDifficulty);
+        this.ranged = new ArcRandom().chance(0.25f);
+        Valoria.LOGGER.info(String.valueOf(ranged));
         return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
     }
 
@@ -121,7 +130,7 @@ public class Devil extends AbstractDevil implements RangedAttackMob{
         this.goalSelector.addGoal(0, new ThrowSpearGoal(this, 1.0D, 12.0F));
         this.goalSelector.addGoal(0, new ReasonableAvoidEntityGoal<>(this, Player.class, 16, 1.25, 2, isLowHP()));
 
-        this.goalSelector.addGoal(1, new MoveTowardsTargetGoal(this, 0.9D, 12.0F));
+        if(!ranged) this.goalSelector.addGoal(1, new MoveTowardsTargetGoal(this, 0.9D, 12.0F));
         this.goalSelector.addGoal(2, new WaterAvoidingRandomStrollGoal(this, 1.2));
         this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(0, new LookAtPlayerGoal(this, Player.class, 8.0F));
@@ -262,7 +271,7 @@ public class Devil extends AbstractDevil implements RangedAttackMob{
             if(livingentity == null) return false;
             if(livingentity.isAlive() && super.canUse()){
                 this.target = livingentity;
-                return cantReachTarget(target) || isFleeing(mob, 5);
+                return cantReachTarget(target) || isFleeing(mob, 5) || ranged;
             }
 
             return false;

@@ -3,6 +3,7 @@ package com.idark.valoria.registries.entity.living;
 import com.idark.valoria.registries.AttackRegistry;
 import com.idark.valoria.registries.EntityStatsRegistry;
 import com.idark.valoria.registries.EntityTypeRegistry;
+import com.idark.valoria.registries.entity.ai.behaviour.SkeletonMovement;
 import com.idark.valoria.registries.entity.projectile.SpellProjectile;
 import com.idark.valoria.util.ValoriaUtils;
 import net.minecraft.core.BlockPos;
@@ -33,15 +34,14 @@ import org.joml.Vector3d;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.Random;
 
 public class SorcererEntity extends MultiAttackMob implements Enemy, RangedAttackMob{
     public final AnimationState idleAnimationState = new AnimationState();
+    public final AnimationState attackHatAnimationState = new AnimationState();
     public final AnimationState attackAnimationState = new AnimationState();
+    public final AnimationState healAnimationState = new AnimationState();
     private int idleAnimationTimeout = 0;
-    private int seeTime;
-    private boolean strafingClockwise;
-    private boolean strafingBackwards;
-    private int strafingTime = -1;
 
     public SorcererEntity(EntityType<? extends PathfinderMob> pEntityType, Level pLevel){
         super(pEntityType, pLevel);
@@ -60,60 +60,7 @@ public class SorcererEntity extends MultiAttackMob implements Enemy, RangedAttac
             setupAnimationStates();
         }
 
-        LivingEntity livingentity = this.getTarget();
-        if(livingentity != null){
-            double d0 = this.distanceToSqr(livingentity.getX(), livingentity.getY(), livingentity.getZ());
-            boolean flag = this.getSensing().hasLineOfSight(livingentity);
-            boolean flag1 = this.seeTime > 0;
-            if(flag != flag1){
-                this.seeTime = 0;
-            }
-
-            if(flag){
-                ++this.seeTime;
-            }else{
-                --this.seeTime;
-            }
-
-            if(!(d0 > (double)32) && this.seeTime >= 20){
-                this.getNavigation().stop();
-                ++this.strafingTime;
-            }else{
-                this.getNavigation().moveTo(livingentity, 0.75f);
-                this.strafingTime = -1;
-            }
-
-            if(this.strafingTime >= 20){
-                if((double)this.getRandom().nextFloat() < 0.3D){
-                    this.strafingClockwise = !this.strafingClockwise;
-                }
-
-                if((double)this.getRandom().nextFloat() < 0.3D){
-                    this.strafingBackwards = !this.strafingBackwards;
-                }
-
-                this.strafingTime = 0;
-            }
-
-            if(this.strafingTime > -1){
-                if(d0 > (double)(32 * 0.75F)){
-                    this.strafingBackwards = false;
-                }else if(d0 < (double)(32 * 0.25F)){
-                    this.strafingBackwards = true;
-                }
-
-                this.getMoveControl().strafe(this.strafingBackwards ? -0.5F : 0.5F, this.strafingClockwise ? 0.5F : -0.5F);
-                Entity entity = this.getControlledVehicle();
-                if(entity instanceof Mob){
-                    Mob mob = (Mob)entity;
-                    mob.lookAt(livingentity, 30.0F, 30.0F);
-                }
-
-                this.lookAt(livingentity, 30.0F, 30.0F);
-            }else{
-                this.getLookControl().setLookAt(livingentity, 30.0F, 30.0F);
-            }
-        }
+        new SkeletonMovement(this).setupMovement();
     }
 
     private void setupAnimationStates(){
@@ -144,7 +91,13 @@ public class SorcererEntity extends MultiAttackMob implements Enemy, RangedAttac
     @Override
     public void handleEntityEvent(byte pId){
         if(pId == 62){
-            this.attackAnimationState.start(this.tickCount);
+            if(new Random().nextBoolean()){
+                this.attackAnimationState.start(this.tickCount);
+            }else{
+                this.attackHatAnimationState.start(this.tickCount);
+            }
+        }else if(pId == 63){
+            this.healAnimationState.start(this.tickCount);
         }else{
             super.handleEntityEvent(pId);
         }
@@ -201,19 +154,23 @@ public class SorcererEntity extends MultiAttackMob implements Enemy, RangedAttac
             }
         }
 
+        public boolean isInterruptable(){
+            return false;
+        }
+
         @Override
         public void onPrepare(){
-            SorcererEntity.this.level().broadcastEntityEvent(SorcererEntity.this, (byte)62);
+            SorcererEntity.this.level().broadcastEntityEvent(SorcererEntity.this, (byte)63);
         }
 
         @Override
         public int getPreparingTime(){
-            return 40;
+            return 80;
         }
 
         @Override
         public int getAttackInterval(){
-            return 120;
+            return 160;
         }
 
         @Override
@@ -237,6 +194,10 @@ public class SorcererEntity extends MultiAttackMob implements Enemy, RangedAttac
             this.mob = (Mob)pRangedAttackMob;
             this.attackRadius = pAttackRadius;
             this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
+        }
+
+        public boolean isInterruptable(){
+            return false;
         }
 
         public boolean requiresUpdateEveryTick(){

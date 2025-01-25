@@ -81,6 +81,8 @@ public class SorcererModel<T extends SorcererEntity> extends HierarchicalModel<T
         this.animateHeadLookTarget(pNetHeadYaw, pHeadPitch);
         this.animateWalk(SorcererAnimations.WALK, pLimbSwing, pLimbSwingAmount, 5f, pAgeInTicks);
         this.animate(pEntity.idleAnimationState, SorcererAnimations.IDLE, pAgeInTicks, 1f);
+        this.animate(pEntity.healAnimationState, SorcererAnimations.HEAL, pAgeInTicks, 1f);
+        this.animate(pEntity.attackHatAnimationState, SorcererAnimations.ATTACK_MAGIC_HAT, pAgeInTicks, 1f);
         this.animate(pEntity.attackAnimationState, SorcererAnimations.ATTACK_MAGIC, pAgeInTicks, 1f);
     }
 }
