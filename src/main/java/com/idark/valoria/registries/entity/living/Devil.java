@@ -1,7 +1,7 @@
 package com.idark.valoria.registries.entity.living;
 
-import com.idark.valoria.Valoria;
 import com.idark.valoria.registries.AttackRegistry;
+import com.idark.valoria.registries.EntityStatsRegistry;
 import com.idark.valoria.registries.ItemsRegistry;
 import com.idark.valoria.registries.entity.ai.goals.ReasonableAvoidEntityGoal;
 import com.idark.valoria.registries.entity.projectile.ThrownSpearEntity;
@@ -35,8 +35,6 @@ import javax.annotation.Nullable;
 import java.util.EnumSet;
 
 public class Devil extends AbstractDevil implements RangedAttackMob{
-    public static final AttackRegistry MAGIC = new AttackRegistry(Valoria.ID, "magic");
-    public static final AttackRegistry THROW = new AttackRegistry(Valoria.ID, "throw");
     public final AnimationState idleAnimationState = new AnimationState();
     public AnimationState throwAnimationState = new AnimationState();
     public AnimationState magicAnimationState = new AnimationState();
@@ -362,7 +360,7 @@ public class Devil extends AbstractDevil implements RangedAttackMob{
 
         @Override
         public AttackRegistry getAttack(){
-            return THROW;
+            return EntityStatsRegistry.THROW;
         }
     }
 }

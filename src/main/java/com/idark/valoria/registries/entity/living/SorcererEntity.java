@@ -1,11 +1,15 @@
 package com.idark.valoria.registries.entity.living;
 
-import com.idark.valoria.Valoria;
 import com.idark.valoria.registries.AttackRegistry;
+import com.idark.valoria.registries.EntityStatsRegistry;
 import com.idark.valoria.registries.EntityTypeRegistry;
 import com.idark.valoria.registries.entity.projectile.SpellProjectile;
+import com.idark.valoria.util.ValoriaUtils;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
@@ -13,8 +17,10 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.Wolf;
 import net.minecraft.world.entity.monster.Enemy;
+import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -22,14 +28,16 @@ import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import org.joml.Vector3d;
 
+import java.util.ArrayList;
 import java.util.EnumSet;
+import java.util.List;
 
 public class SorcererEntity extends MultiAttackMob implements Enemy, RangedAttackMob{
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState attackAnimationState = new AnimationState();
     private int idleAnimationTimeout = 0;
-    public static final AttackRegistry SPELL = new AttackRegistry(Valoria.ID, "sorcerer_spell");
     private int seeTime;
     private boolean strafingClockwise;
     private boolean strafingBackwards;
@@ -123,9 +131,10 @@ public class SorcererEntity extends MultiAttackMob implements Enemy, RangedAttac
         this.goalSelector.addGoal(0, new RestrictSunGoal(this));
         this.goalSelector.addGoal(3, new FleeSunGoal(this, 1.0D));
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this).setAlertOthers());
-        this.goalSelector.addGoal(0, new CastSpellGoal(this, 16));
         this.targetSelector.addGoal(0, new NearestAttackableTargetGoal<>(this, Player.class, true));
         this.goalSelector.addGoal(0, new LookAtPlayerGoal(this, Player.class, 8.0F));
+        this.goalSelector.addGoal(0, new CastSpellGoal(this, 16));
+        this.goalSelector.addGoal(0, new HealTargetSpell());
 
         this.goalSelector.addGoal(2, new WaterAvoidingRandomStrollGoal(this, 1.2));
         this.goalSelector.addGoal(0, new AvoidEntityGoal<>(this, Wolf.class, 8, 1.5, 1.5));
@@ -150,6 +159,72 @@ public class SorcererEntity extends MultiAttackMob implements Enemy, RangedAttac
         double d3 = Math.sqrt(d0 * d0 + d2 * d2);
         spell.shoot(d0, d1 + d3 * (double)0.2F, d2, 1.6F, (float)(14 - this.level().getDifficulty().getId() * 4));
         this.level().addFreshEntity(spell);
+    }
+
+    public class HealTargetSpell extends AttackGoal{
+        private final TargetingConditions targeting = TargetingConditions.forCombat().range(6.0D);
+
+        public HealTargetSpell(){
+            this.setFlags(EnumSet.of(Flag.TARGET, Goal.Flag.LOOK));
+        }
+
+        public boolean requiresUpdateEveryTick(){
+            return true;
+        }
+
+        /**
+         * Returns whether execution should begin. You can also read and cache any state necessary for execution in this
+         * method as well.
+         */
+        public boolean canUse(){
+            if(!super.canUse()){
+                return false;
+            }else{
+                List<Monster> targets = SorcererEntity.this.level().getNearbyEntities(Monster.class, this.targeting, SorcererEntity.this, SorcererEntity.this.getBoundingBox().inflate(6.0D));
+                return !targets.isEmpty();
+            }
+        }
+
+        @Override
+        protected void performAttack(){
+            ServerLevel serverLevel = (ServerLevel)SorcererEntity.this.level();
+            List<Monster> targets = serverLevel.getNearbyEntities(Monster.class, this.targeting, SorcererEntity.this, SorcererEntity.this.getBoundingBox().inflate(6.0D));
+            List<LivingEntity> toHeal = new ArrayList<>();
+            for(Monster target : targets){
+                if(target.getHealth() < target.getMaxHealth()){
+                    Vector3d pos = new Vector3d(SorcererEntity.this.getX(), SorcererEntity.this.getY(), SorcererEntity.this.getZ());
+                    ValoriaUtils.spawnParticlesInRadius(serverLevel, null, ParticleTypes.HAPPY_VILLAGER, pos, 0, SorcererEntity.this.getRotationVector().y, 6);
+                    ValoriaUtils.healNearbyTypedMobs(MobCategory.MONSTER, 4.0F, serverLevel, SorcererEntity.this, toHeal, pos, 0, SorcererEntity.this.getRotationVector().y, 6);
+                    serverLevel.playSound(null, target.getX(), target.getY(), target.getZ(), SoundEvents.EVOKER_CAST_SPELL, target.getSoundSource(), 0.42F, 1.23F);
+                    break;
+                }
+            }
+        }
+
+        @Override
+        public void onPrepare(){
+            SorcererEntity.this.level().broadcastEntityEvent(SorcererEntity.this, (byte)62);
+        }
+
+        @Override
+        public int getPreparingTime(){
+            return 40;
+        }
+
+        @Override
+        public int getAttackInterval(){
+            return 120;
+        }
+
+        @Override
+        public SoundEvent getPrepareSound(){
+            return null;
+        }
+
+        @Override
+        public AttackRegistry getAttack(){
+            return EntityStatsRegistry.HEAL;
+        }
     }
 
     public class CastSpellGoal extends AttackGoal{
@@ -207,7 +282,7 @@ public class SorcererEntity extends MultiAttackMob implements Enemy, RangedAttac
 
         @Override
         public AttackRegistry getAttack(){
-            return SPELL;
+            return EntityStatsRegistry.MAGIC;
         }
     }
 

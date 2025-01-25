@@ -1,5 +1,6 @@
 package com.idark.valoria.registries;
 
+import com.idark.valoria.Valoria;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -7,6 +8,10 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import java.util.Random;
 
 public class EntityStatsRegistry{
+    public static final AttackRegistry MAGIC = new AttackRegistry(Valoria.ID, "magic");
+    public static final AttackRegistry THROW = new AttackRegistry(Valoria.ID, "throw");
+    public static final AttackRegistry HEAL = new AttackRegistry(Valoria.ID, "heal");
+
     public static AttributeSupplier HAUNTED_MERCHANT = register(40, 6).add(Attributes.FOLLOW_RANGE, 12).build();
     public static AttributeSupplier MANNEQUIN = register().add(Attributes.MAX_HEALTH, 1).add(Attributes.KNOCKBACK_RESISTANCE, 1).build();
 
