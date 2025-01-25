@@ -45,6 +45,7 @@ public class Devil extends AbstractDevil implements RangedAttackMob{
     public int magicAnimationTimeout = 0;
     public int hits = 0;
     public boolean ranged;
+    public SkeletonMovement movement = new SkeletonMovement(this, 64);
 
     public Devil(EntityType<? extends Devil> pEntityType, Level pLevel){
         super(pEntityType, pLevel);
@@ -68,10 +69,7 @@ public class Devil extends AbstractDevil implements RangedAttackMob{
 
     public void tick(){
         super.tick();
-        if(ranged) {
-            new SkeletonMovement(this).setupMovement();
-        }
-
+        if(ranged) movement.setupMovement();
         if(this.level().isClientSide()){
             setupAnimationStates();
         }

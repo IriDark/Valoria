@@ -10,9 +10,15 @@ public class SkeletonMovement{
     private boolean strafingClockwise;
     private boolean strafingBackwards;
     private int strafingTime = -1;
+    private double radius = 32;
 
     public SkeletonMovement(Mob mob) {
         this.mob = mob;
+    }
+
+    public SkeletonMovement(Mob mob, double radius){
+        this.mob = mob;
+        this.radius = radius;
     }
 
     public void setupMovement(){
@@ -31,7 +37,7 @@ public class SkeletonMovement{
                 --this.seeTime;
             }
 
-            if(!(d0 > (double)32) && this.seeTime >= 20){
+            if(!(d0 > radius) && this.seeTime >= 20){
                 mob.getNavigation().stop();
                 ++this.strafingTime;
             }else{
@@ -52,9 +58,9 @@ public class SkeletonMovement{
             }
 
             if(this.strafingTime > -1){
-                if(d0 > (double)(32 * 0.75F)){
+                if(d0 > (radius * 0.75F)){
                     this.strafingBackwards = false;
-                }else if(d0 < (double)(32 * 0.25F)){
+                }else if(d0 < (radius * 0.25F)){
                     this.strafingBackwards = true;
                 }
 

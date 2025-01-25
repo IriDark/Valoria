@@ -42,6 +42,7 @@ public class SorcererEntity extends MultiAttackMob implements Enemy, RangedAttac
     public final AnimationState attackAnimationState = new AnimationState();
     public final AnimationState healAnimationState = new AnimationState();
     private int idleAnimationTimeout = 0;
+    public SkeletonMovement movement = new SkeletonMovement(this);
 
     public SorcererEntity(EntityType<? extends PathfinderMob> pEntityType, Level pLevel){
         super(pEntityType, pLevel);
@@ -60,7 +61,7 @@ public class SorcererEntity extends MultiAttackMob implements Enemy, RangedAttac
             setupAnimationStates();
         }
 
-        new SkeletonMovement(this).setupMovement();
+        movement.setupMovement();
     }
 
     private void setupAnimationStates(){
