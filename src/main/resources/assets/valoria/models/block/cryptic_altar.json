@@ -1,5 +1,6 @@
 {
-	"texture_size": [128, 128],
+  "render_type": "minecraft:cutout",
+  "texture_size": [128, 128],
 	"textures": {
 		"0": "valoria:block/cryptic_altar",
 		"particle": "valoria:block/tombstone"

@@ -1,19 +1,16 @@
 package com.idark.valoria.client.sounds;
 
-import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
-import net.minecraft.client.resources.sounds.SoundInstance;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundSource;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraft.client.player.*;
+import net.minecraft.client.resources.sounds.*;
+import net.minecraft.sounds.*;
+import net.minecraftforge.api.distmarker.*;
 
 @OnlyIn(Dist.CLIENT)
 public class LoopedSoundInstance extends AbstractTickableSoundInstance{
     public final LocalPlayer player;
 
     public LoopedSoundInstance(SoundEvent sound, LocalPlayer pPlayer){
-        super(sound, SoundSource.HOSTILE, SoundInstance.createUnseededRandom());
+        super(sound, SoundSource.MUSIC, SoundInstance.createUnseededRandom());
         this.player = pPlayer;
         this.looping = true;
         this.delay = 0;

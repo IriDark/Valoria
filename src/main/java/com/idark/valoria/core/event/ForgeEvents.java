@@ -1,34 +1,29 @@
 package com.idark.valoria.core.event;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.ValoriaClient;
-import com.idark.valoria.core.compat.jei.jer.JerCompat;
-import com.idark.valoria.core.network.PacketHandler;
-import com.idark.valoria.core.network.packets.DungeonSoundPacket;
-import com.idark.valoria.registries.ItemsRegistry;
-import com.idark.valoria.registries.SoundsRegistry;
-import com.idark.valoria.registries.entity.npc.VillagerProfessionRegistry;
-import com.idark.valoria.registries.level.LevelGen;
-import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.npc.VillagerProfession;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.level.ItemLike;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
-import net.minecraftforge.common.BasicItemListing;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.village.VillagerTradesEvent;
-import net.minecraftforge.event.village.WandererTradesEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.ModList;
-import net.minecraftforge.fml.common.Mod;
+import com.idark.valoria.*;
+import com.idark.valoria.core.compat.jei.jer.*;
+import com.idark.valoria.core.network.*;
+import com.idark.valoria.core.network.packets.*;
+import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.entity.npc.*;
+import com.idark.valoria.registries.level.*;
+import it.unimi.dsi.fastutil.ints.*;
+import net.minecraft.server.*;
+import net.minecraft.server.level.*;
+import net.minecraft.world.entity.npc.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.*;
+import net.minecraftforge.api.distmarker.*;
+import net.minecraftforge.client.event.*;
+import net.minecraftforge.common.*;
+import net.minecraftforge.event.*;
+import net.minecraftforge.event.village.*;
+import net.minecraftforge.eventbus.api.*;
+import net.minecraftforge.fml.*;
+import net.minecraftforge.fml.common.*;
 
-import java.util.List;
+import java.util.*;
 
 @Mod.EventBusSubscriber(modid = Valoria.ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ForgeEvents{
@@ -38,9 +33,7 @@ public class ForgeEvents{
         if(server.getTickCount() % 100 == 0){
             for(Player player : server.getPlayerList().getPlayers()){
                 if(isPlayerInStructure(player, (ServerLevel)player.level()) && ValoriaClient.DUNGEON_MUSIC_INSTANCE == null){
-                    PacketHandler.sendTo(player, new DungeonSoundPacket(
-                            SoundsRegistry.MUSIC_NECROMANCER_DUNGEON.get(), player.getX(), player.getY() + (player.getBbHeight() / 2), player.getZ()
-                    ));
+                    PacketHandler.sendTo(player, new DungeonSoundPacket(SoundsRegistry.MUSIC_NECROMANCER_DUNGEON.get(), player.getX(), player.getY() + (player.getBbHeight() / 2), player.getZ()));
                 }
             }
         }

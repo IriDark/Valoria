@@ -1,20 +1,17 @@
 package com.idark.valoria.core.network.packets;
 
-import com.idark.valoria.ValoriaClient;
-import com.idark.valoria.client.sounds.ValoriaSoundInstance;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.sounds.SoundManager;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundSource;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.network.NetworkDirection;
-import net.minecraftforge.network.NetworkEvent;
-import net.minecraftforge.registries.ForgeRegistries;
+import com.idark.valoria.*;
+import com.idark.valoria.client.sounds.*;
+import net.minecraft.client.*;
+import net.minecraft.client.sounds.*;
+import net.minecraft.network.*;
+import net.minecraft.resources.*;
+import net.minecraft.sounds.*;
+import net.minecraftforge.api.distmarker.*;
+import net.minecraftforge.network.*;
+import net.minecraftforge.registries.*;
 
-import java.util.function.Supplier;
+import java.util.function.*;
 
 public class DungeonSoundPacket{
     private final double posX;
@@ -42,7 +39,7 @@ public class DungeonSoundPacket{
             return;
         }
 
-        ValoriaClient.DUNGEON_MUSIC_INSTANCE = new ValoriaSoundInstance(event, SoundSource.AMBIENT, Minecraft.getInstance().player);
+        ValoriaClient.DUNGEON_MUSIC_INSTANCE = new ValoriaSoundInstance(event, SoundSource.MUSIC, Minecraft.getInstance().player);
         soundManager.play(ValoriaClient.DUNGEON_MUSIC_INSTANCE);
         if(!soundManager.isActive(ValoriaClient.DUNGEON_MUSIC_INSTANCE)){
             ValoriaClient.DUNGEON_MUSIC_INSTANCE = null;

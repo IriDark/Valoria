@@ -1,73 +1,54 @@
 package com.idark.valoria.registries;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.client.particle.ParticleRegistry;
-import com.idark.valoria.client.ui.screen.book.unlockable.RegisterUnlockables;
-import com.idark.valoria.core.enums.AccessoryGem;
-import com.idark.valoria.core.enums.AccessoryMaterial;
-import com.idark.valoria.core.enums.AccessoryType;
-import com.idark.valoria.core.enums.ModItemTier;
-import com.idark.valoria.core.network.PacketHandler;
-import com.idark.valoria.core.network.packets.particle.MurasamaParticlePacket;
-import com.idark.valoria.registries.item.armor.ArmorRegistry;
-import com.idark.valoria.registries.item.armor.item.EffectArmorItem;
-import com.idark.valoria.registries.item.armor.item.HitEffectArmorItem;
-import com.idark.valoria.registries.item.armor.item.PercentageArmorItem;
-import com.idark.valoria.registries.item.armor.item.SamuraiArmorItem;
-import com.idark.valoria.registries.item.skins.SkinFragmentItem;
-import com.idark.valoria.registries.item.skins.SkinTrimItem;
-import com.idark.valoria.registries.item.skins.SkinsRegistry;
+import com.idark.valoria.*;
+import com.idark.valoria.client.particle.*;
+import com.idark.valoria.client.ui.screen.book.unlockable.*;
+import com.idark.valoria.core.enums.*;
+import com.idark.valoria.core.network.*;
+import com.idark.valoria.core.network.packets.particle.*;
+import com.idark.valoria.registries.item.armor.*;
+import com.idark.valoria.registries.item.armor.item.*;
+import com.idark.valoria.registries.item.skins.*;
 import com.idark.valoria.registries.item.types.*;
 import com.idark.valoria.registries.item.types.curio.*;
 import com.idark.valoria.registries.item.types.curio.charm.*;
-import com.idark.valoria.registries.item.types.curio.necklace.PickNecklace;
-import com.idark.valoria.registries.item.types.food.BandageItem;
-import com.idark.valoria.registries.item.types.food.PlaceableDrinkItem;
+import com.idark.valoria.registries.item.types.curio.necklace.*;
+import com.idark.valoria.registries.item.types.food.*;
 import com.idark.valoria.registries.item.types.ranged.*;
-import com.idark.valoria.registries.item.types.ranged.bows.ConfigurableBowItem;
-import com.idark.valoria.registries.item.types.ranged.bows.SoulArrowItem;
-import com.idark.valoria.registries.item.types.ranged.bows.WickedArrowItem;
-import com.idark.valoria.util.ColorUtil;
-import com.idark.valoria.util.Pal;
-import com.idark.valoria.util.ValoriaUtils;
-import mod.maxbogomol.fluffy_fur.client.particle.data.ColorParticleData;
-import mod.maxbogomol.fluffy_fur.common.item.CustomBoatItem;
-import mod.maxbogomol.fluffy_fur.common.item.CustomChestBoatItem;
-import mod.maxbogomol.fluffy_fur.common.itemskin.ItemSkin;
-import net.minecraft.ChatFormatting;
-import net.minecraft.core.particles.ParticleTypes;
+import com.idark.valoria.registries.item.types.ranged.bows.*;
+import com.idark.valoria.util.*;
+import mod.maxbogomol.fluffy_fur.client.particle.data.*;
+import mod.maxbogomol.fluffy_fur.common.item.*;
+import mod.maxbogomol.fluffy_fur.common.itemskin.*;
+import net.minecraft.*;
+import net.minecraft.core.particles.*;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.Mth;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.food.FoodProperties;
+import net.minecraft.resources.*;
+import net.minecraft.server.level.*;
+import net.minecraft.sounds.*;
+import net.minecraft.util.*;
+import net.minecraft.world.effect.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier.*;
+import net.minecraft.world.entity.ai.attributes.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.food.*;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.ArmorItem.Type;
+import net.minecraft.world.item.ArmorItem.*;
 import net.minecraft.world.item.Item.Properties;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.ForgeSpawnEggItem;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
-import org.jetbrains.annotations.NotNull;
-import org.joml.Vector3d;
+import net.minecraft.world.item.enchantment.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.phys.*;
+import net.minecraftforge.common.*;
+import net.minecraftforge.eventbus.api.*;
+import net.minecraftforge.registries.*;
+import org.jetbrains.annotations.*;
+import org.joml.*;
 
 import java.awt.*;
+import java.lang.Math;
 import java.util.List;
-import java.util.function.Supplier;
+import java.util.function.*;
 
 import static com.idark.valoria.util.ValoriaUtils.addContributorTooltip;
 
@@ -75,33 +56,14 @@ public class ItemsRegistry{
     public static final DeferredRegister<Item> BLOCK_ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Valoria.ID);
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Valoria.ID);
     public static RegistryObject<Item>
-            // Block items
-            shadewoodBoat, shadewoodChestBoat, shadewoodSign, shadewoodHangingSign,
-            eldritchBoat, eldritchChestBoat, eldritchSign, eldritchHangingSign,
+    // Block items
+    shadewoodBoat, shadewoodChestBoat, shadewoodSign, shadewoodHangingSign, eldritchBoat, eldritchChestBoat, eldritchSign, eldritchHangingSign,
 
     // armor
-    cobaltHelmet, cobaltChestplate, cobaltLeggings, cobaltBoots,
-            samuraiKabuto, samuraiChestplate, samuraiLeggings, samuraiBoots,
-            spiderHelmet, spiderChestplate, spiderLeggings, spiderBoots,
-            natureHelmet, natureChestplate, natureLeggings, natureBoots,
-            depthHelmet, depthChestplate, depthLeggings, depthBoots,
-            infernalHelmet, infernalChestplate, infernalLeggings, infernalBoots,
-            awakenedVoidHelmet, awakenedVoidChestplate, awakenedVoidLeggings, awakenedVoidBoots,
-            phantasmHelmet, phantasmChestplate, phantasmLeggings, phantasmBoots,
+    cobaltHelmet, cobaltChestplate, cobaltLeggings, cobaltBoots, samuraiKabuto, samuraiChestplate, samuraiLeggings, samuraiBoots, spiderHelmet, spiderChestplate, spiderLeggings, spiderBoots, natureHelmet, natureChestplate, natureLeggings, natureBoots, depthHelmet, depthChestplate, depthLeggings, depthBoots, infernalHelmet, infernalChestplate, infernalLeggings, infernalBoots, awakenedVoidHelmet, awakenedVoidChestplate, awakenedVoidLeggings, awakenedVoidBoots, phantasmHelmet, phantasmChestplate, phantasmLeggings, phantasmBoots,
 
     // materials
-    rawCobalt, amberGem, amethystGem, rubyGem, sapphireGem,
-            wickedAmethyst, soulShard, unchargedShard,
-            spiderFang, natureGift, oceanicShell, infernalStone,
-            boneFragment, painCrystal, nihilityShard, illusionStone,
-            natureCore, aquariusCore, infernalCore, voidCore,
-            natureUpgrade, aquariusUpgrade, infernalUpgrade, voidUpgrade,
-            arcaneTrim, muramasaFragment, fishFragment, cyberpunkQunatumFragment, midnightQunatumFragment, theFallenTrim,
-            gaibRoot, karusakanRoot, shadeBlossomLeaf, aloePiece,
-            dunestoneBrick, tombstoneBrick, ambaneStoneBrick, limestoneBrick, crystalStoneBrick, voidStoneBrick,
-            bronzeIngot, pearliumIngot, cobaltIngot, etherealShard, blackGold, ancientIngot,
-            natureIngot, aquariusIngot, infernalIngot, voidIngot,
-            pyratite, relicGold, ancientShard, emptyGazer, emptyWinglet, emptyTotem,
+    rawCobalt, amberGem, amethystGem, rubyGem, sapphireGem, wickedAmethyst, soulShard, unchargedShard, spiderFang, natureGift, oceanicShell, infernalStone, boneFragment, painCrystal, nihilityShard, illusionStone, natureCore, aquariusCore, infernalCore, voidCore, natureUpgrade, aquariusUpgrade, infernalUpgrade, voidUpgrade, arcaneTrim, muramasaFragment, fishFragment, cyberpunkQunatumFragment, midnightQunatumFragment, theFallenTrim, gaibRoot, karusakanRoot, shadeBlossomLeaf, aloePiece, dunestoneBrick, tombstoneBrick, ambaneStoneBrick, limestoneBrick, crystalStoneBrick, voidStoneBrick, bronzeIngot, pearliumIngot, cobaltIngot, etherealShard, blackGold, ancientIngot, natureIngot, aquariusIngot, infernalIngot, voidIngot, pyratite, relicGold, ancientShard, emptyGazer, emptyWinglet, emptyTotem,
 
     // loot bags
     minersBag, gemBag, necromancerTreasureBag, dirtGeode, stoneGeode,
@@ -110,72 +72,53 @@ public class ItemsRegistry{
     necromancerGrimoire,
 
     // misc
-    debugItem, summonBook, soulCollectorEmpty, soulCollector,
-            lexicon, cryptPage, voidKey, spectralBladeThrown,
-            pick,
+    debugItem, summonBook, soulCollectorEmpty, soulCollector, lexicon, cryptPage, voidKey, spectralBladeThrown, pick,
 
     // weapons
     club, bronzeSword, spectralBlade, corpseCleaver,
-            samuraiKunai, samuraiPoisonedKunai, samuraiKatana, samuraiLongBow,
-            silkenBlade, silkenKunai, silkenWakizashi,
-            quantumReaper, bloodHound,
-            blazeReap, gunpowderCharge, pyratiteCharge,
-            ironKatana, goldenKatana, diamondKatana, netheriteKatana, murasama,
-            ironScythe, goldenScythe, diamondScythe, netheriteScythe, beast,
-            woodenSpear, stoneSpear, ironSpear, goldenSpear, diamondSpear, netheriteSpear, pyratiteSpear, glaive,
-            woodenRapier, stoneRapier, ironRapier, goldenRapier, diamondRapier, netheriteRapier,
-            throwableBomb, dynamite,
+    samuraiKunai, samuraiPoisonedKunai, samuraiKatana, samuraiLongBow,
+    silkenBlade, silkenKunai, silkenWakizashi, quantumReaper, bloodHound,
+    blazeReap, gunpowderCharge, pyratiteCharge,
+    ironKatana, goldenKatana, diamondKatana, netheriteKatana, murasama,
+    ironScythe, goldenScythe, diamondScythe, netheriteScythe, beast,
+    woodenSpear, stoneSpear, ironSpear, goldenSpear, diamondSpear, netheriteSpear, pyratiteSpear, glaive,
+    woodenRapier, stoneRapier, ironRapier, goldenRapier, diamondRapier, netheriteRapier,
+    throwableBomb, dynamite,
 
     // tools
     pearliumSword, pearliumPickaxe, pearliumAxe,
-            cobaltSword, cobaltPickaxe, cobaltAxe, cobaltShovel, cobaltHoe,
-            etherealSword, etherealSpear, etherealPickaxe, etherealAxe,
-            ent, natureScythe, naturePickaxe, natureAxe, natureShovel, natureHoe, natureBow,
-            coralReef, aquariusScythe, aquariusPickaxe, aquariusAxe, aquariusShovel, aquariusHoe, aquariusBow,
-            infernalSword, infernalScythe, infernalPickaxe, infernalAxe, infernalShovel, infernalHoe, infernalBow, infernalSpear,
-            voidEdge, voidScythe, voidPickaxe, voidAxe, voidShovel, voidHoe, voidBow,
-            phantom, phantasmBow, eternity,
-            wickedArrow, soulArrow,
+    cobaltSword, cobaltPickaxe, cobaltAxe, cobaltShovel, cobaltHoe,
+    etherealSword, etherealSpear, etherealPickaxe, etherealAxe,
+    ent, natureScythe, naturePickaxe, natureAxe, natureShovel, natureHoe, natureBow,
+    coralReef, aquariusScythe, aquariusPickaxe, aquariusAxe, aquariusShovel, aquariusHoe, aquariusBow,
+    infernalSword, infernalScythe, infernalPickaxe, infernalAxe, infernalShovel, infernalHoe, infernalBow, infernalSpear,
+    voidEdge, voidScythe, voidPickaxe, voidAxe, voidShovel, voidHoe, voidBow,
+    phantom, phantasmBow, eternity, wickedArrow, soulArrow,
 
     // event
-    holidayCandy, holidayKatana, holidayPickaxe, holidayAxe,
-            candyCorn, pumpkinBomb, wraithKatana, reaperScythe, dreadAxe, soulReaver,
+    holidayCandy, holidayKatana, holidayPickaxe, holidayAxe, candyCorn, pumpkinBomb, wraithKatana, reaperScythe, dreadAxe, soulReaver,
 
     // accessories
     ironChain, ironNecklaceAmber, ironNecklaceDiamond, ironNecklaceEmerald, ironNecklaceRuby, ironNecklaceSapphire, ironNecklaceHealth, ironNecklaceArmor, ironNecklaceWealth,
-            goldenChain, goldenNecklaceAmber, goldenNecklaceDiamond, goldenNecklaceEmerald, goldenNecklaceRuby, goldenNecklaceSapphire, goldenNecklaceHealth, goldenNecklaceArmor, goldenNecklaceWealth,
-            netheriteChain, netheriteNecklaceAmber, netheriteNecklaceDiamond, netheriteNecklaceEmerald, netheriteNecklaceRuby, netheriteNecklaceSapphire, netheriteNecklaceHealth, netheriteNecklaceArmor, netheriteNecklaceWealth,
-            leatherBelt, samuraiBelt,
-            ironRing, ironRingAmber, ironRingDiamond, ironRingRuby, ironRingEmerald, ironRingSapphire,
-            goldenRing, goldenRingAmber, goldenRingDiamond, goldenRingRuby, goldenRingEmerald, goldenRingSapphire,
-            netheriteRing, netheriteRingAmber, netheriteRingDiamond, netheriteRingRuby, netheriteRingEmerald, netheriteRingSapphire,
-            leatherGloves, ironGloves, goldenGloves, diamondGloves, netheriteGloves,
-            amberTotem, amberWinglet, amberGazer,
-            emeraldTotem, emeraldWinglet, emeraldGazer,
-            amethystTotem, amethystWinglet, amethystGazer,
-            rubyTotem, rubyWinglet, rubyGazer,
-            brokenMonocle, monocle, jewelryBag,
-            pickNecklace,
+    goldenChain, goldenNecklaceAmber, goldenNecklaceDiamond, goldenNecklaceEmerald, goldenNecklaceRuby, goldenNecklaceSapphire, goldenNecklaceHealth, goldenNecklaceArmor, goldenNecklaceWealth,
+    netheriteChain, netheriteNecklaceAmber, netheriteNecklaceDiamond, netheriteNecklaceEmerald, netheriteNecklaceRuby, netheriteNecklaceSapphire, netheriteNecklaceHealth, netheriteNecklaceArmor, netheriteNecklaceWealth,
+    leatherBelt, samuraiBelt,
+    ironRing, ironRingAmber, ironRingDiamond, ironRingRuby, ironRingEmerald, ironRingSapphire,
+    goldenRing, goldenRingAmber, goldenRingDiamond, goldenRingRuby, goldenRingEmerald, goldenRingSapphire,
+    netheriteRing, netheriteRingAmber, netheriteRingDiamond, netheriteRingRuby, netheriteRingEmerald, netheriteRingSapphire,
+    leatherGloves, ironGloves, goldenGloves, diamondGloves, netheriteGloves,
+    amberTotem, amberWinglet, amberGazer, emeraldTotem, emeraldWinglet, emeraldGazer, amethystTotem, amethystWinglet, amethystGazer, rubyTotem, rubyWinglet, rubyGazer,
+    brokenMonocle, monocle, jewelryBag, pickNecklace,
+
     // runes
-    rune, runeVision, runeWealth, runeCurses, runeStrength, runeAccuracy, runeDeep, runePyro, runeCold,
-    // medicine
-    aloeBandage, aloeBandageUpgraded, shadeBlossomBandage,
-    // food
-    applePie, eyeChunk, taintedBerries, cookedGlowVioletSprout,
-            cookedAbyssalGlowfern, goblinMeat, cookedGoblinMeat,
-            cup, cacaoCup, coffeeCup, teaCup, greenTeaCup,
-            woodenCup, beerCup, rumCup,
-            bottle, kvassBottle, wineBottle, akvavitBottle, sakeBottle,
-            liquorBottle, rumBottle, meadBottle, cognacBottle,
-            whiskeyBottle, cokeBottle, toxinsBottle,
+    rune, runeVision, runeWealth, runeCurses, runeStrength, runeAccuracy, runeDeep, runePyro, runeCold, // medicine
+    aloeBandage, aloeBandageUpgraded, shadeBlossomBandage, // food
+    applePie, eyeChunk, taintedBerries, cookedGlowVioletSprout, cookedAbyssalGlowfern, goblinMeat, cookedGoblinMeat, cup, cacaoCup, coffeeCup, teaCup, greenTeaCup, woodenCup, beerCup, rumCup, bottle, kvassBottle, wineBottle, akvavitBottle, sakeBottle, liquorBottle, rumBottle, meadBottle, cognacBottle, whiskeyBottle, cokeBottle, toxinsBottle,
 
     necromancerMusicDisc,
 
     // spawn eggs
-    pumpkinContract, goblin, draugr,
-            swampWanderer, scourge, wickedCrystal, sorcerer, necromancer, undead,
-            shadewoodSpider, devil, troll, corruptedTroll,
-            mannequin;
+    pumpkinContract, goblin, draugr, swampWanderer, scourge, wickedCrystal, sorcerer, necromancer, undead, shadewoodSpider, devil, troll, corruptedTroll, mannequin;
 
     public static void load(IEventBus eventBus){
         shadewoodBoat = BLOCK_ITEMS.register("shadewood_boat", () -> new CustomBoatItem(new Item.Properties().stacksTo(1), EntityTypeRegistry.SHADEWOOD_BOAT));
@@ -412,13 +355,13 @@ public class ItemsRegistry{
         aquariusHoe = registerItem("aquarius_hoe", () -> new HoeItem(ModItemTier.AQUARIUS, 0, 0f, new Item.Properties().rarity(RarityRegistry.AQUARIUS)));
         aquariusBow = registerItem("aquarius_bow", () -> new ConfigurableBowItem(3, new Item.Properties().stacksTo(1).durability(1324).fireResistant().rarity(RarityRegistry.AQUARIUS)));
         infernalSword = registerItem("infernal_sword", () -> new MagmaSwordItem(ModItemTier.INFERNAL, 18, -2.6f, new Item.Properties().fireResistant().rarity(RarityRegistry.INFERNAL)));
+        infernalSpear = registerItem("infernal_spear", () -> new SpearItem(ModItemTier.INFERNAL, 16, -3f, 12f, new Item.Properties().fireResistant().stacksTo(1).durability(1684).rarity(RarityRegistry.INFERNAL)));
         infernalScythe = registerItem("infernal_scythe", () -> new InfernalScytheItem(ModItemTier.INFERNAL, 16, -3.0f, new Item.Properties().fireResistant().rarity(RarityRegistry.INFERNAL)));
         infernalPickaxe = registerItem("infernal_pickaxe", () -> new PickaxeItem(ModItemTier.INFERNAL, 7, -2.8f, new Item.Properties().fireResistant().rarity(RarityRegistry.INFERNAL)));
         infernalAxe = registerItem("infernal_axe", () -> new AxeItem(ModItemTier.INFERNAL, 19.25f, -2.8f, new Item.Properties().fireResistant().rarity(RarityRegistry.INFERNAL)));
         infernalShovel = registerItem("infernal_shovel", () -> new ShovelItem(ModItemTier.INFERNAL, 7.5f, -2.9f, new Item.Properties().fireResistant().rarity(RarityRegistry.INFERNAL)));
         infernalHoe = registerItem("infernal_hoe", () -> new HoeItem(ModItemTier.INFERNAL, 0, 0f, new Item.Properties().fireResistant().rarity(RarityRegistry.INFERNAL)));
         infernalBow = registerItem("infernal_bow", () -> new ConfigurableBowItem(EntityTypeRegistry.INFERNAL_ARROW, 4, 3, new Item.Properties().fireResistant().stacksTo(1).durability(1684).rarity(RarityRegistry.INFERNAL)));
-        infernalSpear = registerItem("infernal_spear", () -> new SpearItem(ModItemTier.INFERNAL, 16, -3f, 12f, new Item.Properties().fireResistant().stacksTo(1).durability(1684).rarity(RarityRegistry.INFERNAL)));
 
         voidEdge = registerItem("void_edge", () -> new SwordItem(ModItemTier.NIHILITY, 10, -2.55f, new Item.Properties().rarity(RarityRegistry.VOID)));
         voidScythe = registerItem("void_scythe", () -> new ScytheItem.Builder(16, -3.0f, new Item.Properties().fireResistant().rarity(RarityRegistry.VOID)).setTier(ModItemTier.NIHILITY).setEffects(0.5f, new MobEffectInstance(MobEffects.DARKNESS, 90, 0)).build());
@@ -597,6 +540,12 @@ public class ItemsRegistry{
                 builder.chargedSound = SoundsRegistry.RECHARGE.get();
             }
 
+            private static void spawnParticles(@NotNull Player player, Vector3d pos, ServerLevel srv, double X, double Y, double Z, Color color){
+                for(int count = 0; count < 1 + Mth.nextInt(RandomSource.create(), 0, 2); count += 1){
+                    PacketHandler.sendToTracking(srv, player.getOnPos(), new MurasamaParticlePacket(3F, (pos.x + X), (pos.y + Y), (pos.z + Z), color.getRed(), color.getGreen(), color.getBlue()));
+                }
+            }
+
             public void onUseTick(@NotNull Level worldIn, @NotNull LivingEntity livingEntityIn, @NotNull ItemStack stack, int count){
                 Player player = (Player)livingEntityIn;
                 if(worldIn instanceof ServerLevel srv){
@@ -651,12 +600,6 @@ public class ItemsRegistry{
                             break;
                         }
                     }
-                }
-            }
-
-            private static void spawnParticles(@NotNull Player player, Vector3d pos, ServerLevel srv, double X, double Y, double Z, Color color){
-                for(int count = 0; count < 1 + Mth.nextInt(RandomSource.create(), 0, 2); count += 1){
-                    PacketHandler.sendToTracking(srv, player.getOnPos(), new MurasamaParticlePacket(3F, (pos.x + X), (pos.y + Y), (pos.z + Z), color.getRed(), color.getGreen(), color.getBlue()));
                 }
             }
         };

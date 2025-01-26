@@ -1,76 +1,60 @@
 package com.idark.valoria.registries.entity.living.boss;
 
-import com.google.common.collect.ImmutableList;
-import com.idark.valoria.client.ui.bossbars.ServerBossBarEvent;
-import com.idark.valoria.core.interfaces.BossEntity;
-import com.idark.valoria.core.network.PacketHandler;
-import com.idark.valoria.core.network.packets.particle.CircleShapedParticlePacket;
-import com.idark.valoria.core.network.packets.particle.SmokeParticlePacket;
-import com.idark.valoria.registries.EffectsRegistry;
-import com.idark.valoria.registries.EntityTypeRegistry;
-import com.idark.valoria.registries.SoundsRegistry;
-import com.idark.valoria.registries.entity.living.DraugrEntity;
-import com.idark.valoria.registries.entity.living.SorcererEntity;
-import com.idark.valoria.registries.entity.living.minions.UndeadEntity;
-import com.idark.valoria.registries.entity.projectile.Devourer;
-import com.idark.valoria.util.ArcRandom;
-import com.idark.valoria.util.ValoriaUtils;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.Mth;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
+import com.google.common.collect.*;
+import com.idark.valoria.client.ui.bossbars.*;
+import com.idark.valoria.core.interfaces.*;
+import com.idark.valoria.core.network.*;
+import com.idark.valoria.core.network.packets.particle.*;
+import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.entity.ai.behaviour.*;
+import com.idark.valoria.registries.entity.living.*;
+import com.idark.valoria.registries.entity.living.minions.*;
+import com.idark.valoria.registries.entity.projectile.*;
+import com.idark.valoria.util.*;
+import net.minecraft.core.*;
+import net.minecraft.core.particles.*;
+import net.minecraft.nbt.*;
+import net.minecraft.network.chat.*;
+import net.minecraft.server.level.*;
+import net.minecraft.sounds.*;
+import net.minecraft.util.*;
+import net.minecraft.world.*;
+import net.minecraft.world.damagesource.*;
+import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.*;
-import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.ai.targeting.TargetingConditions;
-import net.minecraft.world.entity.animal.IronGolem;
-import net.minecraft.world.entity.animal.Wolf;
-import net.minecraft.world.entity.animal.horse.Horse;
-import net.minecraft.world.entity.animal.horse.SkeletonHorse;
-import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.monster.Skeleton;
-import net.minecraft.world.entity.monster.Zombie;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.enchantment.ProtectionEnchantment;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.Vec3;
-import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jetbrains.annotations.NotNull;
-import org.joml.Vector3d;
+import net.minecraft.world.entity.ai.goal.target.*;
+import net.minecraft.world.entity.ai.targeting.*;
+import net.minecraft.world.entity.animal.*;
+import net.minecraft.world.entity.animal.horse.*;
+import net.minecraft.world.entity.item.*;
+import net.minecraft.world.entity.monster.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.item.enchantment.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.state.*;
+import net.minecraft.world.phys.*;
+import net.minecraft.world.phys.shapes.*;
+import org.jetbrains.annotations.*;
+import org.joml.*;
 
 import javax.annotation.Nullable;
+import java.lang.Math;
 import java.util.*;
 
 public class NecromancerEntity extends AbstractNecromancer implements BossEntity{
     public final List<UUID> nearbyPlayers = new ArrayList<>();
     public final Map<UUID, Float> damageMap = new HashMap<>();
     public ArcRandom arcRandom = new ArcRandom();
+    public SkeletonMovement movement = new SkeletonMovement(this);
     public final ServerBossBarEvent bossEvent = (ServerBossBarEvent)(new ServerBossBarEvent(this.getDisplayName(), "Necromancer", SoundsRegistry.MUSIC_NECROMANCER.get())).setDarkenScreen(true);
     private int spawnTime = 0;
 
     @Override
     public void tick(){
         super.tick();
+        movement.setupMovement();
         if(this.spawnTime < 10){
             this.spawnTime++;
         }
@@ -147,7 +131,7 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
     @Nullable
     public ItemEntity spawnAtLocation(ItemStack stack, float offsetY){
         if(stack.isEmpty() || this.level().isClientSide) return null;
-        initializeLoot(this.level(), stack, this.getOnPos(), offsetY);
+        initializeLoot(this.level(), stack, this.getOnPos().above(), offsetY);
         return null;
     }
 
@@ -170,7 +154,6 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
         // ai
         this.goalSelector.addGoal(0, new NecromancerEntity.CastingSpellGoal());
         this.goalSelector.addGoal(1, new RestrictSunGoal(this));
-        this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, Player.class, 16.0F, 1.2, 1.4));
         this.goalSelector.addGoal(2, new WaterAvoidingRandomStrollGoal(this, 1.0));
         this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
@@ -562,7 +545,7 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
                         Vec3 vec31 = new Vec3(dX * 2, dY * 0.5f, dZ * 2);
                         if(this.strong){
                             NecromancerEntity.this.heal(NecromancerEntity.this.getHealth() * 0.1f);
-                            entity.hurt(NecromancerEntity.this.level().damageSources().generic(), 15);
+                            entity.hurt(NecromancerEntity.this.level().damageSources().generic(), entity.getHealth() * 0.5f);
                         }
 
                         for(MobEffectInstance effectInstance : effects){

@@ -1,21 +1,20 @@
 package com.idark.valoria.registries.entity.living.boss;
 
-import com.idark.valoria.client.ui.bossbars.ServerBossBarEvent;
-import com.idark.valoria.core.interfaces.BossEntity;
-import com.idark.valoria.registries.entity.living.MultiAttackMob;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.PathfinderMob;
-import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.monster.Enemy;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
+import com.idark.valoria.client.ui.bossbars.*;
+import com.idark.valoria.core.interfaces.*;
+import com.idark.valoria.registries.entity.living.*;
+import net.minecraft.nbt.*;
+import net.minecraft.network.chat.*;
+import net.minecraft.server.level.*;
+import net.minecraft.world.damagesource.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.item.*;
+import net.minecraft.world.entity.monster.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.*;
 
-import javax.annotation.Nullable;
+import javax.annotation.*;
 import java.util.*;
 
 public abstract class AbstractBoss extends MultiAttackMob implements Enemy, BossEntity{
@@ -90,7 +89,7 @@ public abstract class AbstractBoss extends MultiAttackMob implements Enemy, Boss
     @Nullable
     public ItemEntity spawnAtLocation(ItemStack stack, float offsetY){
         if(stack.isEmpty() || this.level().isClientSide) return null;
-        initializeLoot(this.level(), stack, this.getOnPos(), offsetY);
+        initializeLoot(this.level(), stack, this.getOnPos().above(), offsetY);
         return null;
     }
 }
