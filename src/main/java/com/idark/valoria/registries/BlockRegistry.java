@@ -34,10 +34,14 @@ public class BlockRegistry{
     public static RegistryObject<Block>
     eldritchDoor, eldritchTrapdoor, shadewoodDoor, shadewoodTrapdoor, bronzeDoor, bronzeTrapdoor, bronzeTrapdoorGlass,
     pyratiteBlock, pyratiteOre, pyratiteCrystal, amberBlock, amberOre, deepslateAmberOre, amberCrystal, sapphireBlock, sapphireOre, deepslateSapphireOre, sapphireCrystal, amethystBlock, amethystCrystal, rubyBlock, rubyOre, deepslateRubyOre, rubyCrystal, cobaltBlock, rawCobaltOreBlock, cobaltOre, deepslateCobaltOre, wickedAmethystOre, dormantCrystals, pearliumOre,
-    natureBlock, aquariusBlock, infernalBlock, awakenedVoidBlock, bronzeBlock, bronzeBlockStairs, bronzeBlockSlab, bronzeVent, cutBronze, cutBronzeStairs, cutBronzeSlab, bronzeGlass, bronzeGlassPane,
+    natureBlock, aquariusBlock, infernalBlock, awakenedVoidBlock, unchargedShardBlock, soulShardBlock, wickedAmethystBlock,
+    bronzeBlock, bronzeBlockStairs, bronzeBlockSlab, bronzeVent, cutBronze, cutBronzeStairs, cutBronzeSlab, bronzeGlass, bronzeGlassPane,
     eyeFlesh, eyeMeat, eyeStone, meatBlock, fleshBlock, fleshCyst, bloodVein,
-    cobbledShale, cobbledShaleStairs, cobbledShaleSlab, cobbledShaleWall, polishedCobbledShale, polishedCobbledShaleStairs, polishedCobbledShaleSlab, polishedCobbledShaleWall, deepMarble, deepMarbleStairs, deepMarbleSlab, deepMarbleWall, polishedDeepMarble, polishedDeepMarbleStairs, polishedDeepMarbleSlab, polishedDeepMarbleWall, picrite, picriteStairs, picriteSlab, picriteWall, polishedPicrite, polishedPicriteStairs, polishedPicriteSlab, polishedPicriteWall, picriteBricks, picriteBricksStairs, picriteBricksSlab, picriteBricksWall,
-    ephemariteLow, ephemariteLowStairs, ephemariteLowSlab, ephemariteLowWall, polishedEphemariteLow, polishedEphemariteLowStairs, polishedEphemariteLowSlab, polishedEphemariteLowWall, ephemarite, ephemariteStairs, ephemariteSlab, ephemariteWall, polishedEphemarite, polishedEphemariteStairs, polishedEphemariteSlab, polishedEphemariteWall,
+    cobbledShale, cobbledShaleStairs, cobbledShaleSlab, cobbledShaleWall, polishedCobbledShale, polishedCobbledShaleStairs, polishedCobbledShaleSlab, polishedCobbledShaleWall,
+    deepMarble, deepMarbleStairs, deepMarbleSlab, deepMarbleWall, polishedDeepMarble, polishedDeepMarbleStairs, polishedDeepMarbleSlab, polishedDeepMarbleWall,
+    picrite, picriteStairs, picriteSlab, picriteWall, polishedPicrite, polishedPicriteStairs, polishedPicriteSlab, polishedPicriteWall, picriteBricks, picriteBricksStairs, picriteBricksSlab, picriteBricksWall,
+    ephemariteLow, ephemariteLowStairs, ephemariteLowSlab, ephemariteLowWall, polishedEphemariteLow, polishedEphemariteLowStairs, polishedEphemariteLowSlab, polishedEphemariteLowWall,
+    ephemarite, ephemariteStairs, ephemariteSlab, ephemariteWall, polishedEphemarite, polishedEphemariteStairs, polishedEphemariteSlab, polishedEphemariteWall,
     ambaneStone, ambaneStoneStairs, ambaneStoneSlab, ambaneStoneWall, ambaneStoneBricks, ambaneStoneBricksStairs, ambaneStoneBricksSlab, ambaneStoneBricksWall, polishedAmbaneStone, polishedAmbaneStoneStairs, polishedAmbaneStoneSlab, polishedAmbaneStoneWall, cutAmbaneStone, chiseledAmbaneStoneBricks,
     dunestone, dunestoneStairs, dunestoneSlab, dunestoneWall, dunestoneBricks, dunestoneBricksStairs, dunestoneBricksSlab, dunestoneBricksWall, cutDunestone, polishedDunestone, //other varities?
     limestone, limestoneStairs, limestoneSlab, limestoneWall, cutLimestone, cutLimestoneStairs, cutLimestoneSlab, limestoneBricks, limestoneBricksStairs, limestoneBricksSlab, limestoneBricksWall, crackedLimestoneBricks, crackedLimestoneBricksStairs, crackedLimestoneBricksSlab, crackedLimestoneBricksWall, polishedLimestone, polishedLimestoneStairs, polishedLimestoneSlab, polishedLimestoneWall, //todo
@@ -108,6 +112,9 @@ public class BlockRegistry{
         aquariusBlock = registerBlock("aquarius_block", () -> new Block(props(Blocks.IRON_BLOCK, MapColor.COLOR_BLUE).requiresCorrectToolForDrops().strength(3f, 4f).sound(SoundType.NETHERITE_BLOCK)));
         infernalBlock = registerBlock("infernal_block", () -> new InfernalBlock(props(Blocks.IRON_BLOCK, MapColor.COLOR_RED).requiresCorrectToolForDrops().strength(3f, 4f).sound(SoundType.NETHERITE_BLOCK)));
         awakenedVoidBlock = registerBlock("awakened_void_block", () -> new Block(props(Blocks.IRON_BLOCK, MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(3f, 4f).sound(SoundType.NETHERITE_BLOCK)));
+        unchargedShardBlock = registerBlock("uncharged_shard_block", () -> new Block(props(Blocks.IRON_BLOCK, MapColor.COLOR_GRAY).requiresCorrectToolForDrops().strength(3f, 4f).sound(SoundType.AMETHYST)));
+        soulShardBlock = registerBlock("soul_shard_block", () -> new Block(props(Blocks.IRON_BLOCK, MapColor.COLOR_BLUE).requiresCorrectToolForDrops().strength(3f, 4f).sound(SoundType.AMETHYST)));
+        wickedAmethystBlock = registerBlock("wicked_amethyst_block", () -> new Block(props(Blocks.IRON_BLOCK, MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(3f, 4f).sound(SoundType.AMETHYST)));
         bronzeBlock = registerBlock("bronze_block", () -> new Block(props(Blocks.IRON_BLOCK, MapColor.COLOR_BROWN).requiresCorrectToolForDrops().strength(3f, 4f).sound(SoundType.NETHERITE_BLOCK)));
         bronzeBlockStairs = registerBlock("bronze_block_stairs", () -> new StairBlock(() -> BlockRegistry.bronzeBlock.get().defaultBlockState(), props(Blocks.IRON_BLOCK, MapColor.COLOR_BROWN).strength(2f, 4f).requiresCorrectToolForDrops().sound(SoundType.NETHERITE_BLOCK)));
         bronzeBlockSlab = registerBlock("bronze_block_slab", () -> new SlabBlock(props(Blocks.IRON_BLOCK, MapColor.COLOR_BROWN).requiresCorrectToolForDrops().sound(SoundType.NETHERITE_BLOCK).strength(6f, 4f)));
@@ -265,8 +272,7 @@ public class BlockRegistry{
         voidTaintLantern = registerBlock("void_taint_lantern", () -> new Block(BlockBehaviour.Properties.copy(Blocks.SEA_LANTERN).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(2f, 4f).sound(SoundType.FROGLIGHT).lightLevel((p_152688_) -> 9)));
         abyssalLantern = registerBlock("abyssal_lantern", () -> new Block(BlockBehaviour.Properties.copy(Blocks.SEA_LANTERN).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(2f, 4f).sound(SoundType.FROGLIGHT).lightLevel((p_152688_) -> 15)));
 
-        tombstone = registerBlock("tombstone", //todo sort
-                () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops().sound(SoundsRegistry.TOMBSTONE)));
+        tombstone = registerBlock("tombstone", () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops().sound(SoundsRegistry.TOMBSTONE)));
         cutTombstone = registerBlock("cut_tombstone", () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(3f, 4f).sound(SoundsRegistry.TOMBSTONE_BRICKS)));
         polishedTombstone = registerBlock("polished_tombstone", () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops().strength(3f, 6f)));
         tombstoneFirechargeTrap = registerBlock("tombstone_firecharge_trap", () -> new FireTrapBlock(BlockRegistry.polishedTombstone.get().defaultBlockState(), 6.0F, 8, ColorParticleData.create(255, 145, 45, 45, 0, 0).build(), BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_BLACK).requiresCorrectToolForDrops().sound(SoundsRegistry.TOMBSTONE)));

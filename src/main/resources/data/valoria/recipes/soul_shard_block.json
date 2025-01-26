@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "///",
+    "///",
+    "///"
+  ],
+  "key": {
+    "/": {
+      "item": "valoria:soul_shard"
+    }
+  },
+  "result": {
+    "item": "valoria:soul_shard_block",
+    "count": 1
+  }
+}

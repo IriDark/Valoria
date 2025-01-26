@@ -1,40 +1,32 @@
 package com.idark.valoria.registries.entity.living;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.registries.AttackRegistry;
-import com.idark.valoria.registries.EntityStatsRegistry;
-import com.idark.valoria.registries.ItemsRegistry;
-import com.idark.valoria.registries.entity.ai.behaviour.SkeletonMovement;
-import com.idark.valoria.registries.entity.ai.goals.ReasonableAvoidEntityGoal;
-import com.idark.valoria.registries.entity.projectile.ThrownSpearEntity;
-import com.idark.valoria.util.ArcRandom;
-import com.idark.valoria.util.ValoriaUtils;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.Mth;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.damagesource.DamageSource;
+import com.idark.valoria.*;
+import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.entity.ai.behaviour.*;
+import com.idark.valoria.registries.entity.ai.goals.*;
+import com.idark.valoria.registries.entity.projectile.*;
+import com.idark.valoria.util.*;
+import net.minecraft.core.*;
+import net.minecraft.nbt.*;
+import net.minecraft.sounds.*;
+import net.minecraft.util.*;
+import net.minecraft.world.*;
+import net.minecraft.world.damagesource.*;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
-import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.attributes.*;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier.*;
 import net.minecraft.world.entity.ai.goal.*;
-import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.monster.RangedAttackMob;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.ProjectileUtil;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.HitResult;
-import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.entity.ai.goal.target.*;
+import net.minecraft.world.entity.monster.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.entity.projectile.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.state.*;
+import net.minecraft.world.phys.*;
 
-import javax.annotation.Nullable;
-import java.util.EnumSet;
+import javax.annotation.*;
+import java.util.*;
 
 public class Devil extends AbstractDevil implements RangedAttackMob{
     public final AnimationState idleAnimationState = new AnimationState();
@@ -73,6 +65,15 @@ public class Devil extends AbstractDevil implements RangedAttackMob{
         if(this.level().isClientSide()){
             setupAnimationStates();
         }
+    }
+
+    @Override
+    public boolean causeFallDamage(float fallDistance, float multiplier, DamageSource damageSource){
+        return false;
+    }
+
+    @Override
+    protected void checkFallDamage(double y, boolean onGroundIn, BlockState state, BlockPos pos){
     }
 
     private void setupAnimationStates(){

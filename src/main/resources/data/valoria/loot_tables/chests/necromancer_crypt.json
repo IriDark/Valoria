@@ -328,7 +328,7 @@
               "function": "minecraft:set_count",
               "count": {
                 "min": 1,
-                "max": 6
+                "max": 4
               }
             }
           ]
@@ -357,8 +357,8 @@
             {
               "function": "minecraft:set_count",
               "count": {
-                "min": 2,
-                "max": 6
+                "min": 0,
+                "max": 3
               }
             }
           ]
@@ -468,34 +468,6 @@
                   "chance": 0.25
                 }
               ]
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "valoria:cognac_bottle",
-          "weight": 3,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1,
-                "max": 2
-              }
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "valoria:wine_bottle",
-          "weight": 3,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1,
-                "max": 2
-              }
             }
           ]
         }

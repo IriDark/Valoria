@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "///",
+    "///",
+    "///"
+  ],
+  "key": {
+    "/": {
+      "item": "valoria:uncharged_shard"
+    }
+  },
+  "result": {
+    "item": "valoria:uncharged_shard_block",
+    "count": 1
+  }
+}

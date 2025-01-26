@@ -1,23 +1,16 @@
 package com.idark.valoria.registries;
 
-import com.idark.valoria.Valoria;
+import com.idark.valoria.*;
 import com.idark.valoria.registries.entity.living.*;
-import com.idark.valoria.registries.entity.living.boss.NecromancerEntity;
-import com.idark.valoria.registries.entity.living.boss.WickedCrystal;
-import com.idark.valoria.registries.entity.living.decoration.MannequinEntity;
-import com.idark.valoria.registries.entity.living.minions.FleshSentinel;
-import com.idark.valoria.registries.entity.living.minions.UndeadEntity;
+import com.idark.valoria.registries.entity.living.boss.*;
+import com.idark.valoria.registries.entity.living.decoration.*;
+import com.idark.valoria.registries.entity.living.minions.*;
 import com.idark.valoria.registries.entity.projectile.*;
-import mod.maxbogomol.fluffy_fur.common.entity.CustomBoatEntity;
-import mod.maxbogomol.fluffy_fur.common.entity.CustomChestBoatEntity;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobCategory;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import mod.maxbogomol.fluffy_fur.common.entity.*;
+import net.minecraft.resources.*;
+import net.minecraft.world.entity.*;
+import net.minecraftforge.eventbus.api.*;
+import net.minecraftforge.registries.*;
 
 public class EntityTypeRegistry{
     public static DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, Valoria.ID);
@@ -50,7 +43,7 @@ public class EntityTypeRegistry{
 
     // Boss
     public static final RegistryObject<EntityType<NecromancerEntity>> NECROMANCER = register("necromancer", EntityType.Builder.of(NecromancerEntity::new, MobCategory.MONSTER).sized(0.6f, 2.0f).clientTrackingRange(8));
-    public static final RegistryObject<EntityType<WickedCrystal>> WICKED_CRYSTAL = register("wicked_crystal", EntityType.Builder.of(WickedCrystal::new, MobCategory.MONSTER).sized(1.4f, 6.0f).clientTrackingRange(8));
+    public static final RegistryObject<EntityType<WickedCrystal>> WICKED_CRYSTAL = register("wicked_crystal", EntityType.Builder.of(WickedCrystal::new, MobCategory.MONSTER).sized(1.4f, 5.0f).clientTrackingRange(8));
 
     public static final RegistryObject<EntityType<CustomBoatEntity>> SHADEWOOD_BOAT = register("shadewood_boat", EntityType.Builder.<CustomBoatEntity>of((t, l) -> (new CustomBoatEntity(t, l, ItemsRegistry.shadewoodBoat, false)), MobCategory.MISC).sized(1.375f, 0.5625f));
     public static final RegistryObject<EntityType<CustomChestBoatEntity>> SHADEWOOD_CHEST_BOAT = register("shadewood_chest_boat", EntityType.Builder.<CustomChestBoatEntity>of((t, l) -> (new CustomChestBoatEntity(t, l, ItemsRegistry.shadewoodChestBoat, false)), MobCategory.MISC).sized(1.375f, 0.5625f));

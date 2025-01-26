@@ -69,7 +69,7 @@ public class ItemsRegistry{
     minersBag, gemBag, necromancerTreasureBag, dirtGeode, stoneGeode,
 
     // boss summonables
-    necromancerGrimoire,
+    necromancerGrimoire, suspciousGem,
 
     // misc
     debugItem, summonBook, soulCollectorEmpty, soulCollector, lexicon, cryptPage, voidKey, spectralBladeThrown, pick,
@@ -251,6 +251,15 @@ public class ItemsRegistry{
                 tooltip.add(Component.translatable("tooltip.valoria.boss_summonable", EntityTypeRegistry.NECROMANCER.get().getDescription()).withStyle(ChatFormatting.GRAY));
             }
         });
+
+        suspciousGem = registerItem("suspicious_gem", () -> new Item(new Item.Properties()){
+            @Override
+            public void appendHoverText(@NotNull ItemStack stack, Level world, @NotNull List<Component> tooltip, @NotNull TooltipFlag flags){
+                super.appendHoverText(stack, world, tooltip, flags);
+                tooltip.add(Component.translatable("tooltip.valoria.boss_summonable", EntityTypeRegistry.WICKED_CRYSTAL.get().getDescription()).withStyle(ChatFormatting.GRAY));
+            }
+        });
+
 
         // misc
         debugItem = registerItem("debug_item", () -> new DebugItem(new Item.Properties()));

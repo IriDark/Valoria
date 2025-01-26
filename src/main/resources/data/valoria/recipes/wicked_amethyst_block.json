@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "///",
+    "///",
+    "///"
+  ],
+  "key": {
+    "/": {
+      "item": "valoria:wicked_amethyst"
+    }
+  },
+  "result": {
+    "item": "valoria:wicked_amethyst_block",
+    "count": 1
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "XDX",
+    "DOD",
+    "XDX"
+  ],
+  "key": {
+    "O": {
+      "item": "valoria:uncharged_shard_block"
+    },
+    "X": {
+      "item": "valoria:wicked_amethyst_block"
+    },
+    "D": {
+      "item": "valoria:soul_shard_block"
+    }
+  },
+  "result": {
+    "item": "valoria:suspicious_gem",
+    "count": 1
+  }
+}
