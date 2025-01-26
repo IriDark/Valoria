@@ -2,6 +2,7 @@ package com.idark.valoria.core.event;
 
 import com.idark.valoria.Valoria;
 import com.idark.valoria.ValoriaClient;
+import com.idark.valoria.core.compat.jei.jer.JerCompat;
 import com.idark.valoria.core.network.PacketHandler;
 import com.idark.valoria.core.network.packets.DungeonSoundPacket;
 import com.idark.valoria.registries.ItemsRegistry;
@@ -16,11 +17,15 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
 import net.minecraftforge.common.BasicItemListing;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.village.VillagerTradesEvent;
 import net.minecraftforge.event.village.WandererTradesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 
 import java.util.List;
@@ -47,6 +52,14 @@ public class ForgeEvents{
         return structure.getStructure() != null && structure.getBoundingBox().isInside(
                 player.getBlockX(), player.getBlockY(), player.getBlockZ()
         );
+    }
+
+    @SubscribeEvent
+    @OnlyIn(Dist.CLIENT)
+    public static void onClientPlayerLogin(ClientPlayerNetworkEvent.LoggingIn event) {
+        if(ModList.get().isLoaded("jeresources")){
+            JerCompat.onClientPlayerLogin(event);
+        }
     }
 
     @SubscribeEvent

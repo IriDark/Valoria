@@ -232,6 +232,7 @@ public class ValoriaClient{
             EntityRenderers.register(EntityTypeRegistry.CORRUPTED_TROLL.get(), m -> new TrollRenderer(m, true));
             EntityRenderers.register(EntityTypeRegistry.SORCERER.get(), SorcererRenderer::new);
             EntityRenderers.register(EntityTypeRegistry.SPELL.get(), SpellProjectileRenderer::new);
+            EntityRenderers.register(EntityTypeRegistry.WICKED_CRYSTAL.get(), WickedCrystalRenderer::new);
 
             ModItemModelProperties.makeSize(ItemsRegistry.soulCollector.get());
             ModItemModelProperties.makeCooldown(ItemsRegistry.spectralBlade.get());

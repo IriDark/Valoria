@@ -3,7 +3,7 @@ package com.idark.valoria.util;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.ImmutableList;
 import com.idark.valoria.registries.EnchantmentsRegistry;
-import com.idark.valoria.registries.entity.living.NecromancerEntity;
+import com.idark.valoria.registries.entity.living.boss.NecromancerEntity;
 import com.idark.valoria.registries.item.skins.categories.AuthoredItemSkin;
 import com.idark.valoria.registries.item.types.BeastScytheItem;
 import com.idark.valoria.registries.item.types.CoralReefItem;

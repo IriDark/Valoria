@@ -4,7 +4,7 @@ import com.idark.valoria.client.render.tile.TickableBlockEntity;
 import com.idark.valoria.registries.BlockEntitiesRegistry;
 import com.idark.valoria.registries.EntityTypeRegistry;
 import com.idark.valoria.registries.SoundsRegistry;
-import com.idark.valoria.registries.entity.living.NecromancerEntity;
+import com.idark.valoria.registries.entity.living.boss.NecromancerEntity;
 import com.idark.valoria.util.Pal;
 import com.idark.valoria.util.ValoriaUtils;
 import mod.maxbogomol.fluffy_fur.client.particle.ParticleBuilder;

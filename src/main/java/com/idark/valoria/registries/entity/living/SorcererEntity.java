@@ -64,6 +64,16 @@ public class SorcererEntity extends MultiAttackMob implements Enemy, RangedAttac
         movement.setupMovement();
     }
 
+    public boolean isAlliedTo(Entity pEntity){
+        if(super.isAlliedTo(pEntity)){
+            return true;
+        }else if(pEntity instanceof LivingEntity && ((LivingEntity)pEntity).getMobType() == MobType.UNDEAD){
+            return this.getTeam() == null && pEntity.getTeam() == null;
+        }else{
+            return false;
+        }
+    }
+
     private void setupAnimationStates(){
         if(this.idleAnimationTimeout <= 0){
             this.idleAnimationTimeout = 60;

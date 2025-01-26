@@ -1,6 +1,6 @@
 package com.idark.valoria.client.model.entity;
 
-import com.idark.valoria.registries.entity.living.NecromancerEntity;
+import com.idark.valoria.registries.entity.living.boss.NecromancerEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.HumanoidModel;

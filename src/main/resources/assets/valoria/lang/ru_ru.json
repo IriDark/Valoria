@@ -412,7 +412,7 @@
   "enchantment.valoria.overdrive.desc": "Уменьшение перезарядки способности",
   "enchantment.valoria.radius": "Радиус",
   "enchantment.valoria.radius.desc": "Увеличивает радиус для способностей атаки по радиусу.",
-  "entity.minecraft.villager.valoria.jeweler": "Ювелир",
+  "entity.minecraft.villager.jeweler": "Ювелир",
   "entity.valoria.devil": "Демон",
   "entity.valoria.devourer": "Пожиратель",
   "entity.valoria.draugr": "Драугр",

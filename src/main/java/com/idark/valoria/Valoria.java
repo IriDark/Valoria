@@ -17,6 +17,7 @@ import com.idark.valoria.client.ui.screen.book.LexiconChapters;
 import com.idark.valoria.client.ui.screen.book.unlockable.RegisterUnlockables;
 import com.idark.valoria.core.capability.IUnlockable;
 import com.idark.valoria.core.command.arguments.ModArgumentTypes;
+import com.idark.valoria.core.compat.ModCompats;
 import com.idark.valoria.core.conditions.LootConditionsRegistry;
 import com.idark.valoria.core.config.ClientConfig;
 import com.idark.valoria.core.config.ServerConfig;
@@ -194,6 +195,7 @@ public class Valoria{
         LootConditionsRegistry.register();
         RegisterUnlockables.init();
         event.enqueueWork(() -> {
+            ModCompats.init();
             FireBlock fireblock = (FireBlock)Blocks.FIRE;
             fireblock.setFlammable(BlockRegistry.shadelog.get(), 5, 20);
             fireblock.setFlammable(BlockRegistry.shadewood.get(), 5, 20);
@@ -298,6 +300,7 @@ public class Valoria{
             event.put(EntityTypeRegistry.TROLL.get(), TROLL);
             event.put(EntityTypeRegistry.CORRUPTED_TROLL.get(), CORRUPTED_TROLL);
             event.put(EntityTypeRegistry.SORCERER.get(), SORCERER);
+            event.put(EntityTypeRegistry.WICKED_CRYSTAL.get(), WICKED_CRYSTAL);
 
             event.put(EntityTypeRegistry.HAUNTED_MERCHANT.get(), HAUNTED_MERCHANT);
             event.put(EntityTypeRegistry.FLESH_SENTINEL.get(), FLESH_SENTINEL);

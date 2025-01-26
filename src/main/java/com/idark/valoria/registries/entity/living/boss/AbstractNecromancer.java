@@ -1,4 +1,4 @@
-package com.idark.valoria.registries.entity.living;
+package com.idark.valoria.registries.entity.living.boss;
 
 import com.idark.valoria.client.particle.ParticleRegistry;
 import mod.maxbogomol.fluffy_fur.client.particle.ParticleBuilder;

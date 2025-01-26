@@ -102,6 +102,7 @@ dependencies {
     //implementation fg.deobf("curse.maven:farmers-delight-398521:4679319")
     implementation fg.deobf("curse.maven:jade-324717:4986594")
     implementation fg.deobf("maven.modrinth:fluffy-fur:${minecraft_version}-${fluffy_fur_version}")
+    implementation fg.deobf("curse.maven:just-enough-resources-jer-240630:5057220")
 
     // RunTime
     runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")

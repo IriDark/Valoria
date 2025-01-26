@@ -1,4 +1,4 @@
-package com.idark.valoria.registries.entity.living;
+package com.idark.valoria.registries.entity.living.boss;
 
 import com.google.common.collect.ImmutableList;
 import com.idark.valoria.client.ui.bossbars.ServerBossBarEvent;
@@ -9,6 +9,8 @@ import com.idark.valoria.core.network.packets.particle.SmokeParticlePacket;
 import com.idark.valoria.registries.EffectsRegistry;
 import com.idark.valoria.registries.EntityTypeRegistry;
 import com.idark.valoria.registries.SoundsRegistry;
+import com.idark.valoria.registries.entity.living.DraugrEntity;
+import com.idark.valoria.registries.entity.living.SorcererEntity;
 import com.idark.valoria.registries.entity.living.minions.UndeadEntity;
 import com.idark.valoria.registries.entity.projectile.Devourer;
 import com.idark.valoria.util.ArcRandom;

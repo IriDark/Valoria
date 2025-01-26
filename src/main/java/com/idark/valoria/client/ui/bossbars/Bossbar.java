@@ -15,6 +15,7 @@ public class Bossbar{
     public static Map<String, Bossbar> bossbars = new HashMap<>();
 
     static{
+        bossbars.put("Wicked Crystal", new Bossbar(new ResourceLocation(Valoria.ID, "textures/gui/bossbars/wicked_crystal.png")));
         bossbars.put("Necromancer", new Bossbar(new ResourceLocation(Valoria.ID, "textures/gui/bossbars/necromancer.png")));
     }
 
