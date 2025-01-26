@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "XXX",
+    " / ",
+    " / "
+  ],
+  "key": {
+    "X": {
+      "item": "valoria:ethereal_shard"
+    },
+    "/": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "valoria:ethereal_pickaxe",
+    "count": 1
+  }
+}
