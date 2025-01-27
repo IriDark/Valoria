@@ -1,16 +1,16 @@
 package com.idark.valoria.registries;
 
-import com.idark.valoria.Valoria;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
+import com.idark.valoria.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.*;
 
-import java.util.Random;
+import java.util.*;
 
 public class EntityStatsRegistry{
     public static final AttackRegistry MAGIC = new AttackRegistry(Valoria.ID, "magic");
     public static final AttackRegistry THROW = new AttackRegistry(Valoria.ID, "throw");
     public static final AttackRegistry HEAL = new AttackRegistry(Valoria.ID, "heal");
+    public static final AttackRegistry SUMMON = new AttackRegistry(Valoria.ID, "summon");
 
     public static AttributeSupplier HAUNTED_MERCHANT = register(40, 6).add(Attributes.FOLLOW_RANGE, 12).build();
     public static AttributeSupplier MANNEQUIN = register().add(Attributes.MAX_HEALTH, 1).add(Attributes.KNOCKBACK_RESISTANCE, 1).build();
@@ -18,7 +18,6 @@ public class EntityStatsRegistry{
     //bosses
     public static AttributeSupplier NECROMANCER = register(250, 5).build();
     public static AttributeSupplier WICKED_CRYSTAL = register(1000, 0).build();
-
 
     //monsters - overworld
     public static AttributeSupplier GOBLIN = register(25, 5, 0.17).build();
@@ -41,6 +40,7 @@ public class EntityStatsRegistry{
 
     //minions - valoria
     public static AttributeSupplier FLESH_SENTINEL = registerFlying(20, 12.5, 0.85).add(Attributes.FOLLOW_RANGE, 8).build();
+    public static AttributeSupplier WICKED_SHIELD = registerFlying(25, 0, 0.85).build();
 
     public static AttributeSupplier.Builder register(){
         return Mob.createMobAttributes();

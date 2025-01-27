@@ -1,11 +1,8 @@
 package com.idark.valoria.registries.entity.living.boss;
 
-import com.idark.valoria.client.ui.bossbars.*;
 import com.idark.valoria.core.interfaces.*;
 import com.idark.valoria.registries.entity.living.*;
 import net.minecraft.nbt.*;
-import net.minecraft.network.chat.*;
-import net.minecraft.server.level.*;
 import net.minecraft.world.damagesource.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.item.*;
@@ -18,12 +15,10 @@ import javax.annotation.*;
 import java.util.*;
 
 public abstract class AbstractBoss extends MultiAttackMob implements Enemy, BossEntity{
-    public final ServerBossBarEvent bossEvent;
     public final List<UUID> nearbyPlayers = new ArrayList<>();
     public final Map<UUID, Float> damageMap = new HashMap<>();
-    public AbstractBoss(EntityType<? extends PathfinderMob> pEntityType, Level pLevel, ServerBossBarEvent bossEvent){
+    public AbstractBoss(EntityType<? extends PathfinderMob> pEntityType, Level pLevel){
         super(pEntityType, pLevel);
-        this.bossEvent = bossEvent;
     }
 
     public void readAdditionalSaveData(CompoundTag pCompound) {
@@ -61,29 +56,13 @@ public abstract class AbstractBoss extends MultiAttackMob implements Enemy, Boss
         return nearbyPlayers;
     }
 
+    public boolean isPushable(){
+        return false;
+    }
+
     @Override
     public Map<UUID, Float> getDamageMap(){
         return damageMap;
-    }
-
-    public void setCustomName(@Nullable Component pName){
-        super.setCustomName(pName);
-        this.bossEvent.setName(this.getDisplayName());
-    }
-
-    public void startSeenByPlayer(ServerPlayer pPlayer){
-        super.startSeenByPlayer(pPlayer);
-        this.bossEvent.addPlayer(pPlayer);
-    }
-
-    public void stopSeenByPlayer(ServerPlayer pPlayer){
-        super.stopSeenByPlayer(pPlayer);
-        this.bossEvent.removePlayer(pPlayer);
-    }
-
-    protected void customServerAiStep(){
-        super.customServerAiStep();
-        this.bossEvent.setProgress(this.getHealth() / this.getMaxHealth());
     }
 
     @Nullable

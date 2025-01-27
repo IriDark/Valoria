@@ -1,30 +1,20 @@
 package com.idark.valoria.registries.entity.living;
 
-import net.minecraft.core.BlockPos;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.Difficulty;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.MobType;
-import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
-import net.minecraft.world.entity.ai.util.GoalUtils;
-import net.minecraft.world.entity.monster.Enemy;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.ProjectileWeaponItem;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.LightLayer;
-import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.dimension.DimensionType;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.core.*;
+import net.minecraft.sounds.*;
+import net.minecraft.util.*;
+import net.minecraft.world.*;
+import net.minecraft.world.damagesource.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.navigation.*;
+import net.minecraft.world.entity.ai.util.*;
+import net.minecraft.world.entity.monster.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.dimension.*;
+import net.minecraft.world.level.pathfinder.*;
 
-import java.util.function.Predicate;
+import java.util.function.*;
 
 public class AbstractDevil extends MultiAttackMob implements Enemy{
     public AbstractDevil(EntityType<? extends MultiAttackMob> pEntityType, Level pLevel){
@@ -35,6 +25,33 @@ public class AbstractDevil extends MultiAttackMob implements Enemy{
         this.setPathfindingMalus(BlockPathTypes.LAVA, 8.0F);
         this.setPathfindingMalus(BlockPathTypes.DAMAGE_OTHER, 8.0F);
         this.setPathfindingMalus(BlockPathTypes.POWDER_SNOW, 8.0F);
+    }
+
+    /**
+     * Static predicate for determining if the current light level and environmental conditions allow for a monster to
+     * spawn.
+     */
+    public static boolean isDarkEnoughToSpawn(ServerLevelAccessor pLevel, BlockPos pPos, RandomSource pRandom){
+        if(pLevel.getBrightness(LightLayer.SKY, pPos) > pRandom.nextInt(32)){
+            return false;
+        }else{
+            DimensionType dimensiontype = pLevel.dimensionType();
+            int i = dimensiontype.monsterSpawnBlockLightLimit();
+            if(i < 15 && pLevel.getBrightness(LightLayer.BLOCK, pPos) > i){
+                return false;
+            }else{
+                int j = pLevel.getLevel().isThundering() ? pLevel.getMaxLocalRawBrightness(pPos, 10) : pLevel.getMaxLocalRawBrightness(pPos);
+                return j <= dimensiontype.monsterSpawnLightTest().sample(pRandom);
+            }
+        }
+    }
+
+    /**
+     * Static predicate for determining whether a monster can spawn at the provided location, incorporating a check of
+     * the current light level at the location.
+     */
+    public static boolean checkMonsterSpawnRules(EntityType<? extends Devil> pType, ServerLevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, RandomSource pRandom){
+        return pLevel.getDifficulty() != Difficulty.PEACEFUL && isDarkEnoughToSpawn(pLevel, pPos, pRandom) && checkMobSpawnRules(pType, pLevel, pSpawnType, pPos, pRandom);
     }
 
     public SoundSource getSoundSource(){
@@ -72,33 +89,6 @@ public class AbstractDevil extends MultiAttackMob implements Enemy{
 
     public float getWalkTargetValue(BlockPos pPos, LevelReader pLevel){
         return -pLevel.getPathfindingCostFromLightLevels(pPos);
-    }
-
-    /**
-     * Static predicate for determining if the current light level and environmental conditions allow for a monster to
-     * spawn.
-     */
-    public static boolean isDarkEnoughToSpawn(ServerLevelAccessor pLevel, BlockPos pPos, RandomSource pRandom){
-        if(pLevel.getBrightness(LightLayer.SKY, pPos) > pRandom.nextInt(32)){
-            return false;
-        }else{
-            DimensionType dimensiontype = pLevel.dimensionType();
-            int i = dimensiontype.monsterSpawnBlockLightLimit();
-            if(i < 15 && pLevel.getBrightness(LightLayer.BLOCK, pPos) > i){
-                return false;
-            }else{
-                int j = pLevel.getLevel().isThundering() ? pLevel.getMaxLocalRawBrightness(pPos, 10) : pLevel.getMaxLocalRawBrightness(pPos);
-                return j <= dimensiontype.monsterSpawnLightTest().sample(pRandom);
-            }
-        }
-    }
-
-    /**
-     * Static predicate for determining whether a monster can spawn at the provided location, incorporating a check of
-     * the current light level at the location.
-     */
-    public static boolean checkMonsterSpawnRules(EntityType<? extends Devil> pType, ServerLevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, RandomSource pRandom){
-        return pLevel.getDifficulty() != Difficulty.PEACEFUL && isDarkEnoughToSpawn(pLevel, pPos, pRandom) && checkMobSpawnRules(pType, pLevel, pSpawnType, pPos, pRandom);
     }
 
     /**

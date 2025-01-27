@@ -433,13 +433,6 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
         }
 
         public void spawnMobs(ServerLevel serv){
-            boolean flag = serv.isDay() && !serv.isRaining(); // Prevents sun avoiding mobs from spawning
-            if(flag){
-                spawnUndead(serv);
-                serv.playSound(null, NecromancerEntity.this.blockPosition(), getSpellPrepareSound(true), SoundSource.HOSTILE);
-                return;
-            }
-
             for(int i = 0; i < 3; ++i){
                 BlockPos blockpos = NecromancerEntity.this.blockPosition().offset(-2 + NecromancerEntity.this.random.nextInt(5), 0, -2 + NecromancerEntity.this.random.nextInt(5));
                 if(arcRandom.fiftyFifty()){
