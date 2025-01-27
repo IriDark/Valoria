@@ -16,6 +16,7 @@ import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.*;
 import net.minecraft.world.level.*;
+import net.minecraftforge.common.Tags.*;
 import org.joml.*;
 
 import java.util.*;
@@ -75,7 +76,7 @@ public class PhantomItem extends SwordItem implements RadiusItem{
         }
 
         for(LivingEntity entityInRadius : hitEntities){
-            if(entityInRadius instanceof Player && ((Player)entityInRadius).isCreative()){
+            if(entityInRadius instanceof Player && ((Player)entityInRadius).isCreative() || entityInRadius instanceof BossEntity || entityInRadius.getType().is(EntityTypes.BOSSES)){
                 continue;
             }
 

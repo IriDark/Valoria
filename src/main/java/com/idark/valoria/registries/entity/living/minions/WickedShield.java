@@ -1,14 +1,15 @@
 package com.idark.valoria.registries.entity.living.minions;
 
-import com.idark.valoria.*;
+import com.idark.valoria.core.network.*;
+import com.idark.valoria.core.network.packets.particle.*;
 import com.idark.valoria.registries.*;
 import net.minecraft.commands.arguments.*;
+import net.minecraft.nbt.*;
 import net.minecraft.server.level.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.level.*;
 
 import javax.annotation.*;
-import java.util.*;
 
 public class WickedShield extends FlyingMob implements TraceableEntity{
     @Nullable
@@ -17,6 +18,8 @@ public class WickedShield extends FlyingMob implements TraceableEntity{
     private float radius = 5.0F;
     private float heightOffset = 2.0F;
     private float angularVelocity = 2.0F;
+    public int limitedLifeTicks = 60;
+
     public WickedShield(EntityType<? extends FlyingMob> pEntityType, Level pLevel){
         super(pEntityType, pLevel);
     }
@@ -44,6 +47,38 @@ public class WickedShield extends FlyingMob implements TraceableEntity{
             this.setPos(targetX, targetY, targetZ);
             this.lookAt(EntityAnchorArgument.Anchor.EYES, owner.position());
         }
+
+        if(owner == null && --this.limitedLifeTicks <= 0){
+            if(this.level() instanceof ServerLevel serv){
+                spawnDisappearParticles(serv);
+                this.remove(RemovalReason.KILLED);
+            }
+        }
+    }
+
+    public void spawnDisappearParticles(ServerLevel serverLevel){
+        double posX = this.getOnPos().getCenter().x;
+        double posY = this.getOnPos().above().getCenter().y;
+        double posZ = this.getOnPos().getCenter().z;
+        PacketHandler.sendToTracking(serverLevel, this.getOnPos(), new SmokeParticlePacket(3, posX, posY - 0.5f, posZ, 0.005f, 0.025f, 0.005f, 255, 255, 255));
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag pCompound){
+        super.addAdditionalSaveData(pCompound);
+        pCompound.putInt("LifeTicks", this.limitedLifeTicks);
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag pCompound){
+        super.readAdditionalSaveData(pCompound);
+        if(pCompound.contains("LifeTicks")){
+            this.setLimitedLife(pCompound.getInt("LifeTicks"));
+        }
+    }
+
+    public void setLimitedLife(int pLimitedLifeTicks){
+        this.limitedLifeTicks = pLimitedLifeTicks;
     }
 
     public void setAngularVelocity(float angularVelocity){
@@ -65,12 +100,6 @@ public class WickedShield extends FlyingMob implements TraceableEntity{
     @Nullable
     public Entity getOwner(){
         return this.owner;
-    }
-
-    public void setOwner(UUID id){
-        Entity entity = ((ServerLevel)this.level()).getEntity(id);
-        setOwner(entity);
-        Valoria.LOGGER.info("Owner {}", entity);
     }
 
     public void setOwner(Entity pOwner){
