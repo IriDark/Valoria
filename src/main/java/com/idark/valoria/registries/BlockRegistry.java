@@ -2,6 +2,7 @@ package com.idark.valoria.registries;
 
 import com.idark.valoria.*;
 import com.idark.valoria.registries.block.types.*;
+import com.idark.valoria.registries.block.types.altars.*;
 import com.idark.valoria.registries.block.types.plants.*;
 import com.idark.valoria.registries.item.types.*;
 import com.idark.valoria.registries.level.tree.*;
@@ -47,10 +48,13 @@ public class BlockRegistry{
     limestone, limestoneStairs, limestoneSlab, limestoneWall, cutLimestone, cutLimestoneStairs, cutLimestoneSlab, limestoneBricks, limestoneBricksStairs, limestoneBricksSlab, limestoneBricksWall, crackedLimestoneBricks, crackedLimestoneBricksStairs, crackedLimestoneBricksSlab, crackedLimestoneBricksWall, polishedLimestone, polishedLimestoneStairs, polishedLimestoneSlab, polishedLimestoneWall, //todo
     crystalStone, crystalStoneStairs, crystalStoneSlab, crystalStoneWall, crystalStonePillar, cutCrystalStone, cutPolishedCrystalStone, crystalStoneBricks, crystalStoneBricksStairs, crystalStoneBricksSlab, crystalStoneBricksWall, polishedCrystalStone, //other varities
 
+    // boss summon altars
+    crypticAltar, wickedAltar,
+
     pearlium,
     voidStone, voidStoneStairs, voidStoneSlab, voidStoneWall, voidPillar, voidPillarAmethyst, chargedVoidPillar, voidBrick, voidBrickStairs, voidBrickSlab, voidBrickWall, voidCrackedBrick, voidCrackedBrickStairs, voidCrackedBrickSlab, voidCrackedBrickWall, polishedVoidStone, voidFirechargeTrap, voidSpikesTrap, voidChiseledBrick, voidChiseledBricks, voidChiseledBricksStairs, voidChiseledBricksSlab, voidGrass, voidTaint, voidTaintLantern, abyssalLantern,
     tombstone, tombstoneStairs, tombstoneSlab, tombstoneWall, tombstoneBricks, tombstoneBricksStairs, tombstoneBricksSlab, tombstoneBricksWall, crackedTombstoneBricks, crackedTombstoneBricksWall, //other varities?
-    cutTombstone, polishedTombstone, tombstoneFirechargeTrap, tombstoneSpikesTrap, tombstonePillar, cutTombstonePillar, wickedTombstonePillar, cryptLantern, crypticAltar,
+    cutTombstone, polishedTombstone, tombstoneFirechargeTrap, tombstoneSpikesTrap, tombstonePillar, cutTombstonePillar, wickedTombstonePillar, cryptLantern,
 
     //wood
     shadewoodPressurePlate, shadewoodButton, shadelog, strippedShadelog, shadewood, strippedShadewood, shadewoodPlanks, shadewoodPlanksStairs, shadewoodPlanksSlab, shadewoodLeaves, shadewoodBranch, shadewoodSapling, pottedShadewoodSapling, shadewoodFence, shadewoodFenceGate, shadewoodSign, shadewoodWallSign, shadewoodHangingSign, shadewoodWallHangingSign,
@@ -290,7 +294,8 @@ public class BlockRegistry{
         crackedTombstoneBricks = registerBlock("cracked_tombstone_bricks", () -> new Block(props(Blocks.STONE_BRICKS, MapColor.COLOR_BLACK).requiresCorrectToolForDrops().sound(SoundsRegistry.TOMBSTONE_BRICKS)));
         crackedTombstoneBricksWall = registerBlock("cracked_tombstone_bricks_wall", () -> new WallBlock(props(Blocks.STONE_BRICK_WALL, MapColor.COLOR_BLACK).requiresCorrectToolForDrops()));
         cryptLantern = registerBlock("crypt_lantern", () -> new CryptLantern(BlockBehaviour.Properties.copy(Blocks.LANTERN).lightLevel(ValoriaUtils.setLightValue(10))));
-        crypticAltar = registerBlock("cryptic_altar", () -> new CrypticAltar(BlockBehaviour.Properties.copy(BlockRegistry.tombstone.get()).strength(-1f, 3600000.0F).lightLevel(ValoriaUtils.setLightValue(10))));
+        crypticAltar = registerBlock("cryptic_altar", () -> new CrypticAltar(BlockBehaviour.Properties.copy(BlockRegistry.tombstone.get()).noOcclusion().strength(-1f, 3600000.0F).lightLevel(ValoriaUtils.setLightValue(10))));
+        wickedAltar = registerBlock("wicked_altar", () -> new WickedAltar(BlockBehaviour.Properties.copy(BlockRegistry.picrite.get()).noOcclusion().strength(-1f, 3600000.0F).lightLevel(ValoriaUtils.setLightValue(10))));
 
         //wood
         shadewoodPressurePlate = registerBlock("shadewood_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_PURPLE).noOcclusion().noCollission(), BlockSetType.OAK));

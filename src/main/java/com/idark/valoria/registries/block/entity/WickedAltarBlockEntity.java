@@ -7,16 +7,15 @@ import mod.maxbogomol.fluffy_fur.client.particle.*;
 import mod.maxbogomol.fluffy_fur.client.particle.data.*;
 import mod.maxbogomol.fluffy_fur.registry.client.*;
 import net.minecraft.core.*;
-import net.minecraft.core.particles.*;
 import net.minecraft.sounds.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.state.*;
 
 import java.awt.*;
 
-public class CrypticAltarBlockEntity extends AbstractAltarBlockEntity{
-    public CrypticAltarBlockEntity(BlockPos pos, BlockState state){
-        super(BlockEntitiesRegistry.CRYPTIC_ALTAR.get(), pos, state);
+public class WickedAltarBlockEntity extends AbstractAltarBlockEntity{
+    public WickedAltarBlockEntity(BlockPos pos, BlockState state){
+        super(BlockEntitiesRegistry.WICKED_ALTAR.get(), pos, state);
     }
 
     @Override
@@ -27,26 +26,31 @@ public class CrypticAltarBlockEntity extends AbstractAltarBlockEntity{
             double radius = 0.5 * (1 - ((double)progress / progressMax)) * (1 - ((double)a * 2.5f));
             double x = Math.cos(angle) * radius;
             double z = Math.sin(angle) * radius;
-            ParticleBuilder.create(FluffyFurParticles.WISP)
-            .setColorData(ColorParticleData.create(Pal.vividGreen, Color.darkGray).build())
-            .setTransparencyData(GenericParticleData.create(0.125f, 0f).build())
+            ParticleBuilder.create(FluffyFurParticles.SMOKE)
+            .setColorData(ColorParticleData.create(Pal.softMagenta, Color.magenta).build())
+            .setTransparencyData(GenericParticleData.create(0.425f, 0f).build())
             .setScaleData(GenericParticleData.create((((float)a * 0.125f)), 0.1f, 0).build())
             .setLifetime(35)
             .spawn(this.level, (this.worldPosition.getX() + 0.5f) + x, this.worldPosition.getY() + (1 - ((double)a / 1.25)) + y, (this.worldPosition.getZ() + 0.5f) + z);
         }
 
-        level.addParticle(ParticleTypes.ENCHANT, this.worldPosition.getX() + level.random.nextFloat(), this.worldPosition.getY() + 1.85 + y, this.worldPosition.getZ() + level.random.nextFloat(), (Math.random() - 0.5) * 0.1, Math.random() * 0.1, (Math.random() - 0.5) * 0.1);
+        ParticleBuilder.create(FluffyFurParticles.WISP)
+        .setColorData(ColorParticleData.create(Pal.softMagenta, Color.magenta).build())
+        .setTransparencyData(GenericParticleData.create(0.125f, 0f).build())
+        .setScaleData(GenericParticleData.create(((0.125f)), 0.1f, 0).build())
+        .setLifetime(60)
+        .spawn(this.level, (this.worldPosition.getX() + 0.5f), (this.worldPosition.getY() + 1.5f) + y, (this.worldPosition.getZ() + 0.5f));
     }
 
     @Override
     public SoundEvent getSummonSound(){
-        return SoundsRegistry.NECROMANCER_SUMMON.get();
+        return SoundEvents.WARDEN_SONIC_BOOM;
     }
 
     @Override
     public void summonBoss(Level level){
-        NecromancerEntity boss = new NecromancerEntity(EntityTypeRegistry.NECROMANCER.get(), level);
-        boss.moveTo(this.worldPosition.getX() + 0.5, this.worldPosition.getY() + 1.85f, this.worldPosition.getZ() + 0.5, 0.0F, 0.0F);
+        WickedCrystal boss = new WickedCrystal(EntityTypeRegistry.WICKED_CRYSTAL.get(), level);
+        boss.moveTo(this.worldPosition.getX() + 0.5, this.worldPosition.getY() + 2.75f, this.worldPosition.getZ() + 0.5, 0.0F, 0.0F);
         level.addFreshEntity(boss);
     }
 }

@@ -1,13 +1,11 @@
 package com.idark.valoria.registries;
 
-import com.idark.valoria.Valoria;
+import com.idark.valoria.*;
 import com.idark.valoria.registries.block.entity.*;
-import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.entity.BlockEntityType.Builder;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.minecraft.world.level.block.entity.*;
+import net.minecraft.world.level.block.entity.BlockEntityType.*;
+import net.minecraftforge.eventbus.api.*;
+import net.minecraftforge.registries.*;
 
 public class BlockEntitiesRegistry{
     public static DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, Valoria.ID);
@@ -15,6 +13,7 @@ public class BlockEntitiesRegistry{
     public static final RegistryObject<BlockEntityType<ModHangingSignBlockEntity>> HANGING_SIGN_BLOCK_ENTITIES = BLOCK_ENTITIES.register("hanging_sign", () -> BlockEntityType.Builder.of(ModHangingSignBlockEntity::new, BlockRegistry.shadewoodHangingSign.get(), BlockRegistry.shadewoodWallHangingSign.get(), BlockRegistry.eldritchHangingSign.get(), BlockRegistry.eldritchWallHangingSign.get()).build(null));
     public static final RegistryObject<BlockEntityType<PedestalBlockEntity>> PEDESTAL_BLOCK_ENTITY = BLOCK_ENTITIES.register("pedestal_entity", () -> BlockEntityType.Builder.of(PedestalBlockEntity::new, BlockRegistry.elegantPedestal.get()).build(null));
     public static final RegistryObject<BlockEntityType<CrypticAltarBlockEntity>> CRYPTIC_ALTAR = BLOCK_ENTITIES.register("cryptic_altar", () -> BlockEntityType.Builder.of(CrypticAltarBlockEntity::new, BlockRegistry.crypticAltar.get()).build(null));
+    public static final RegistryObject<BlockEntityType<WickedAltarBlockEntity>> WICKED_ALTAR = BLOCK_ENTITIES.register("wicked_altar", () -> BlockEntityType.Builder.of(WickedAltarBlockEntity::new, BlockRegistry.wickedAltar.get()).build(null));
     public static final RegistryObject<BlockEntityType<CrusherBlockEntity>> CRUSHER_BLOCK_ENTITY = BLOCK_ENTITIES.register("crusher_entity", () -> BlockEntityType.Builder.of(CrusherBlockEntity::new, BlockRegistry.stoneCrusher.get()).build(null));
     public static final RegistryObject<BlockEntityType<CrushableBlockEntity>> CRUSHABLE_BLOCK_ENTITY = BLOCK_ENTITIES.register("crushable_entity", () -> BlockEntityType.Builder.of(CrushableBlockEntity::new, BlockRegistry.suspiciousTombstone.get(), BlockRegistry.suspiciousIce.get()).build(null));
     public static final RegistryObject<BlockEntityType<KegBlockEntity>> KEG_BLOCK_ENTITY = BLOCK_ENTITIES.register("keg_entity", () -> BlockEntityType.Builder.of(KegBlockEntity::new, BlockRegistry.keg.get()).build(null));

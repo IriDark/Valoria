@@ -1,0 +1,8 @@
+{
+  "parent": "valoria:block/cryptic_altar",
+  "texture_size": [128, 128],
+	"textures": {
+		"0": "valoria:block/wicked_altar",
+		"particle": "valoria:block/picrite"
+	}
+}
