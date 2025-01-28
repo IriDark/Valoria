@@ -6,12 +6,16 @@ import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.entity.living.*;
 import com.idark.valoria.registries.entity.projectile.*;
 import com.idark.valoria.util.*;
+import mod.maxbogomol.fluffy_fur.client.particle.*;
+import mod.maxbogomol.fluffy_fur.client.particle.data.*;
+import mod.maxbogomol.fluffy_fur.registry.client.*;
 import net.minecraft.core.*;
 import net.minecraft.nbt.*;
 import net.minecraft.network.syncher.*;
 import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
 import net.minecraft.util.*;
+import net.minecraft.util.ByIdMap.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.*;
@@ -20,6 +24,7 @@ import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.state.*;
+import org.jetbrains.annotations.*;
 
 import java.awt.*;
 import java.util.*;
@@ -54,7 +59,7 @@ public class CrystalEntity extends AbstractFlyingAroundMinion implements RangedA
     public enum Variant{
         ICE(0, "Ice", Pal.diamond), FIRE(1, "Fire", Pal.magmatic), POISON(2, "Poison", Pal.nature);
 
-        private static final IntFunction<Variant> BY_ID = ByIdMap.continuous((p_263091_) -> p_263091_.id, values(), ByIdMap.OutOfBoundsStrategy.ZERO);
+        private static final IntFunction<Variant> BY_ID = ByIdMap.continuous((p_263091_) -> p_263091_.id, values(), OutOfBoundsStrategy.ZERO);
         public String type;
         public final int id;
         public final Color color;
@@ -113,6 +118,48 @@ public class CrystalEntity extends AbstractFlyingAroundMinion implements RangedA
     }
 
     @Override
+    public void handleEntityEvent(byte pId){
+        if(pId == 62) {
+            switch(CrystalEntity.this.getVariant()) {
+                case ICE -> {
+                    for(int a = 0; a < 6; a++){
+                        ParticleBuilder.create(FluffyFurParticles.SMOKE)
+                        .setColorData(ColorParticleData.create(Pal.cyan, Color.white).build())
+                        .setTransparencyData(GenericParticleData.create(0.425f, 0f).build())
+                        .setScaleData(GenericParticleData.create((((float)a * 0.125f)), 0.1f, 0).build())
+                        .setLifetime(15)
+                        .spawn(this.level(), this.blockPosition().getCenter().x, this.position().y + 0.5f, this.blockPosition().getCenter().z);
+                    }
+                }
+
+                case FIRE -> {
+                    for(int a = 0; a < 6; a++){
+                        ParticleBuilder.create(FluffyFurParticles.WISP)
+                        .setColorData(ColorParticleData.create(Pal.mandarin, Color.white).build())
+                        .setTransparencyData(GenericParticleData.create(0.425f, 0f).build())
+                        .setScaleData(GenericParticleData.create((((float)a * 0.125f)), 0.1f, 0).build())
+                        .setLifetime(15)
+                        .spawn(this.level(), this.blockPosition().getCenter().x, this.position().y + 0.5f, this.blockPosition().getCenter().z);
+                    }
+                }
+
+                case POISON -> {
+                    for(int a = 0; a < 6; a++){
+                        ParticleBuilder.create(FluffyFurParticles.SMOKE)
+                        .setColorData(ColorParticleData.create(Pal.nature, Color.white).build())
+                        .setTransparencyData(GenericParticleData.create(0.425f, 0f).build())
+                        .setScaleData(GenericParticleData.create((((float)a * 0.125f)), 0.1f, 0).build())
+                        .setLifetime(15)
+                        .spawn(this.level(), this.blockPosition().getCenter().x, this.position().y + 0.5f, this.blockPosition().getCenter().z);
+                    }
+                }
+            }
+        } else{
+            super.handleEntityEvent(pId);
+        }
+    }
+
+    @Override
     public void performRangedAttack(LivingEntity pTarget, float pVelocity){
         SpellProjectile spell = new SpellProjectile(this.level(), this, 8);
         double d0 = pTarget.getX() - this.getX();
@@ -139,7 +186,7 @@ public class CrystalEntity extends AbstractFlyingAroundMinion implements RangedA
             this.rangedAttackMob = pRangedAttackMob;
             this.mob = (Mob)pRangedAttackMob;
             this.attackRadius = pAttackRadius;
-            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
+            this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
         }
 
         public boolean isInterruptable(){
@@ -174,17 +221,30 @@ public class CrystalEntity extends AbstractFlyingAroundMinion implements RangedA
 
         @Override
         public int getPreparingTime(){
-            return 20;
+            return 30;
         }
 
         @Override
         public int getAttackInterval(){
-            return 70;
+            return 80;
         }
 
         @Override
-        public SoundEvent getPrepareSound(){
-            return null;
+        public @Nullable SoundEvent getPrepareSound(){
+            return switch(CrystalEntity.this.getVariant()) {
+                case ICE -> SoundsRegistry.CRYSTAL_FROST_PREPARE.get();
+                case FIRE -> SoundsRegistry.CRYSTAL_FIRE_PREPARE.get();
+                case POISON -> SoundsRegistry.CRYSTAL_ACID_PREPARE.get();
+            };
+        }
+
+        @Override
+        public SoundEvent getAttackSound(){
+            return switch(CrystalEntity.this.getVariant()) {
+                case ICE -> SoundsRegistry.CRYSTAL_FROST.get();
+                case FIRE -> SoundsRegistry.CRYSTAL_FIRE.get();
+                case POISON -> SoundsRegistry.CRYSTAL_ACID.get();
+            };
         }
 
         @Override

@@ -18,6 +18,7 @@ public class WickedAltarBlockEntity extends AbstractAltarBlockEntity{
         super(BlockEntitiesRegistry.WICKED_ALTAR.get(), pos, state);
     }
 
+
     @Override
     public void summonParticles(int tick){
         double angle = (tick + progress * Math.PI) * 0.925;
@@ -44,7 +45,7 @@ public class WickedAltarBlockEntity extends AbstractAltarBlockEntity{
 
     @Override
     public SoundEvent getSummonSound(){
-        return SoundEvents.WARDEN_SONIC_BOOM;
+        return SoundEvents.EMPTY;
     }
 
     @Override

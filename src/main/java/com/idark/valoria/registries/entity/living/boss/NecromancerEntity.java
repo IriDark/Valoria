@@ -266,7 +266,7 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
         }
 
         public int getCastingInterval(){
-            return 60;
+            return 80;
         }
 
         protected void performSpellCasting(){
@@ -364,11 +364,11 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
         }
 
         public int getCastingTime(){
-            return 50;
+            return 40;
         }
 
         public int getCastingInterval(){
-            return 125;
+            return 145;
         }
 
         @Override
@@ -420,7 +420,7 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
                 undead.finalizeSpawn(serverLevel, NecromancerEntity.this.level().getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, null, null);
                 undead.setOwner(NecromancerEntity.this);
                 undead.setBoundOrigin(blockpos);
-                undead.setLimitedLife(20 + NecromancerEntity.this.random.nextInt(160));
+                undead.setLimitedLife(20 + NecromancerEntity.this.random.nextInt(140));
                 serverLevel.addFreshEntityWithPassengers(undead);
             }
         }
@@ -582,11 +582,11 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
         }
 
         public int getCastingTime(){
-            return 55;
+            return 60;
         }
 
         public int getCastingInterval(){
-            return 120;
+            return 100;
         }
 
         protected void performSpellCasting(){
@@ -622,7 +622,7 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
         }
 
         public int getCastingTime(){
-            return 35;
+            return 20;
         }
 
         public int getCastingInterval(){
@@ -660,7 +660,7 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
         }
 
         public int getCastingTime(){
-            return 75;
+            return 70;
         }
 
         public int getCastingInterval(){

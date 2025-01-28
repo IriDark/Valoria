@@ -1,22 +1,16 @@
 package com.idark.valoria.registries.entity.living;
 
-import com.idark.valoria.registries.AttackRegistry;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.PathfinderMob;
-import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.pathfinder.Path;
+import com.idark.valoria.registries.*;
+import net.minecraft.nbt.*;
+import net.minecraft.network.syncher.*;
+import net.minecraft.sounds.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.pathfinder.*;
 
-import javax.annotation.Nullable;
-import java.util.EnumSet;
+import javax.annotation.*;
+import java.util.*;
 
 //todo delete
 public abstract class MultiAttackMob extends PathfinderMob{
@@ -57,10 +51,6 @@ public abstract class MultiAttackMob extends PathfinderMob{
 
     public int getPreparingTime(){
         return this.preparingTickCount;
-    }
-
-    public SoundEvent getPreparingSound(){
-        return SoundEvents.EVOKER_CAST_SPELL;
     }
 
     public AttackRegistry getCurrentAttack(){
@@ -185,7 +175,7 @@ public abstract class MultiAttackMob extends PathfinderMob{
             --this.attackWarmupDelay;
             if(this.attackWarmupDelay == 0){
                 this.performAttack();
-                MultiAttackMob.this.playSound(MultiAttackMob.this.getPreparingSound(), 1.0F, 1.0F);
+                MultiAttackMob.this.playSound(this.getAttackSound(), 1.0F, 1.0F);
             }
         }
 
@@ -205,6 +195,10 @@ public abstract class MultiAttackMob extends PathfinderMob{
 
         @Nullable
         public abstract SoundEvent getPrepareSound();
+
+        public SoundEvent getAttackSound(){
+            return SoundEvents.EVOKER_CAST_SPELL;
+        }
 
         /**
          * Used to indicate which attack is used to delay it

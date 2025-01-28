@@ -306,6 +306,49 @@
       "valoria:soul_collect_1"
     ]
   },
+  "mob.crystal_frost.prepare": {
+    "subtitle": "subtitles.valoria.minion.prepare",
+    "sounds": [
+      "valoria:wicked_crystal/frost_crystal_prepare"
+    ]
+  },
+  "mob.crystal_acid.prepare": {
+    "subtitle": "subtitles.valoria.minion.prepare",
+    "sounds": [
+      "valoria:wicked_crystal/acid_crystal_prepare"
+    ]
+  },
+  "mob.crystal_fire.prepare": {
+    "subtitle": "subtitles.valoria.minion.prepare",
+    "sounds": [
+      "valoria:wicked_crystal/fire_crystal_prepare"
+    ]
+  },
+
+  "mob.crystal_frost.attack": {
+    "subtitle": "subtitles.valoria.minion.attack",
+    "sounds": [
+      "valoria:wicked_crystal/frost_crystal"
+    ]
+  },
+  "mob.crystal_acid.attack": {
+    "subtitle": "subtitles.valoria.minion.attack",
+    "sounds": [
+      "valoria:wicked_crystal/acid_crystal"
+    ]
+  },
+  "mob.crystal_fire.attack": {
+    "subtitle": "subtitles.valoria.minion.attack",
+    "sounds": [
+      "valoria:wicked_crystal/fire_crystal"
+    ]
+  },
+  "mob.wicked_crystal.summon": {
+    "subtitle": "subtitles.valoria.boss.summon",
+    "sounds": [
+      "valoria:wicked_crystal/summon"
+    ]
+  },
   "mob.wicked_crystal.hurt": {
     "subtitle": "subtitles.valoria.boss.hurt",
     "sounds": [
