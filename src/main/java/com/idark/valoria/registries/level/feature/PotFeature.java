@@ -1,20 +1,19 @@
 package com.idark.valoria.registries.level.feature;
 
-import com.idark.valoria.util.ArcRandom;
-import com.mojang.serialization.Codec;
-import it.unimi.dsi.fastutil.ints.IntArrayList;
-import net.minecraft.Util;
-import net.minecraft.core.BlockPos;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.ChunkPos;
-import net.minecraft.world.level.WorldGenLevel;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.Heightmap.Types;
-import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
-import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
+import com.idark.valoria.core.config.*;
+import com.idark.valoria.util.*;
+import com.mojang.serialization.*;
+import it.unimi.dsi.fastutil.ints.*;
+import net.minecraft.*;
+import net.minecraft.core.*;
+import net.minecraft.util.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.state.*;
+import net.minecraft.world.level.levelgen.Heightmap.*;
+import net.minecraft.world.level.levelgen.feature.*;
+import net.minecraft.world.level.levelgen.feature.configurations.*;
 
-import java.util.stream.IntStream;
+import java.util.stream.*;
 
 public class PotFeature extends Feature<SimpleBlockConfiguration>{
     public PotFeature(Codec<SimpleBlockConfiguration> p_65299_){
@@ -36,7 +35,7 @@ public class PotFeature extends Feature<SimpleBlockConfiguration>{
                 if(worldgenlevel.isEmptyBlock(blockpos) || worldgenlevel.getBlockState(blockpos).getCollisionShape(worldgenlevel, blockpos).isEmpty()){
                     BlockState blockstate = simpleblockconfiguration.toPlace().getState(p_159477_.random(), blockpos);
                     if(blockstate.canSurvive(worldgenlevel, blockpos) && worldgenlevel.getBlockState(blockpos.below()).isSolid()){
-                        if(new ArcRandom().chance(0.05f)) worldgenlevel.setBlock(blockpos, blockstate, 2);
+                        if(new ArcRandom().chance(ServerConfig.POT_SPAWN_CHANCE.get())) worldgenlevel.setBlock(blockpos, blockstate, 2);
                     }
 
                     return true;
