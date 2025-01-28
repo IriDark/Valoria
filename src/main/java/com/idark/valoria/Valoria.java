@@ -278,6 +278,7 @@ public class Valoria{
             event.put(EntityTypeRegistry.SORCERER.get(), SORCERER);
             event.put(EntityTypeRegistry.WICKED_CRYSTAL.get(), WICKED_CRYSTAL);
             event.put(EntityTypeRegistry.WICKED_SHIELD.get(), WICKED_SHIELD);
+            event.put(EntityTypeRegistry.CRYSTAL.get(), CRYSTAL);
 
             event.put(EntityTypeRegistry.HAUNTED_MERCHANT.get(), HAUNTED_MERCHANT);
             event.put(EntityTypeRegistry.FLESH_SENTINEL.get(), FLESH_SENTINEL);

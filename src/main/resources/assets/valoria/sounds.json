@@ -306,6 +306,21 @@
       "valoria:soul_collect_1"
     ]
   },
+  "mob.wicked_crystal.hurt": {
+    "subtitle": "subtitles.valoria.boss.hurt",
+    "sounds": [
+      "valoria:wicked_crystal/hurt1",
+      "valoria:wicked_crystal/hurt2",
+      "valoria:wicked_crystal/hurt3",
+      "valoria:wicked_crystal/hurt4"
+    ]
+  },
+  "mob.wicked_crystal.death": {
+    "subtitle": "subtitles.valoria.boss.death",
+    "sounds": [
+      "valoria:wicked_crystal/death"
+    ]
+  },
   "mob.haunted_merchant.hurt": {
     "subtitle": "subtitles.valoria.haunted_merchant.hurt",
     "sounds": [

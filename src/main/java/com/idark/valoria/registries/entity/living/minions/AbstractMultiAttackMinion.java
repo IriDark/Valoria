@@ -1,6 +1,7 @@
 package com.idark.valoria.registries.entity.living.minions;
 
 import com.idark.valoria.core.interfaces.*;
+import com.idark.valoria.registries.entity.living.*;
 import net.minecraft.core.*;
 import net.minecraft.nbt.*;
 import net.minecraft.server.level.*;
@@ -8,7 +9,6 @@ import net.minecraft.world.damagesource.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.target.*;
 import net.minecraft.world.entity.ai.targeting.*;
-import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.scores.*;
@@ -17,7 +17,7 @@ import javax.annotation.*;
 import java.awt.*;
 import java.util.*;
 
-public abstract class AbstractMinionEntity extends Monster implements TraceableEntity, Allied{
+public abstract class AbstractMultiAttackMinion extends MultiAttackMob implements TraceableEntity, Allied{
     @Nullable
     public LivingEntity owner;
     @Nullable
@@ -26,7 +26,7 @@ public abstract class AbstractMinionEntity extends Monster implements TraceableE
     public int limitedLifeTicks;
     public static final Map<EntityType<? extends AbstractMinionEntity>, Color> minionColors = new HashMap<>();
 
-    protected AbstractMinionEntity(EntityType<? extends Monster> pEntityType, Level pLevel){
+    protected AbstractMultiAttackMinion(EntityType<? extends MultiAttackMob> pEntityType, Level pLevel){
         super(pEntityType, pLevel);
     }
 
@@ -43,6 +43,21 @@ public abstract class AbstractMinionEntity extends Monster implements TraceableE
         if(this.shouldRenderAtSqrDistance(4)){
             spawnParticlesTrail();
         }
+    }
+
+    @Override
+    public boolean hurt(DamageSource pSource, float pAmount){
+        if(pSource.getDirectEntity() instanceof Allied  && !(this.owner instanceof Player)) return false;
+        return super.hurt(pSource, pAmount);
+    }
+
+    @Override
+    public boolean isAlliedTo(Entity pEntity){
+        return super.isAlliedTo(pEntity) || (pEntity instanceof Allied && !(this.owner instanceof Player));
+    }
+
+    public boolean canAttack(LivingEntity pTarget){
+        return !this.isOwnedBy(pTarget) && super.canAttack(pTarget) && !isAlliedTo(pTarget);
     }
 
     /**
@@ -103,21 +118,6 @@ public abstract class AbstractMinionEntity extends Monster implements TraceableE
         return super.getTeam();
     }
 
-    @Override
-    public boolean hurt(DamageSource pSource, float pAmount){
-        if(pSource.getDirectEntity() instanceof Allied  && !(this.owner instanceof Player)) return false;
-        return super.hurt(pSource, pAmount);
-    }
-
-    @Override
-    public boolean isAlliedTo(Entity pEntity){
-        return super.isAlliedTo(pEntity) || (pEntity instanceof Allied && !(this.owner instanceof Player));
-    }
-
-    public boolean canAttack(LivingEntity pTarget){
-        return !this.isOwnedBy(pTarget) && super.canAttack(pTarget) && !isAlliedTo(pTarget);
-    }
-
     public boolean isOwnedBy(LivingEntity pEntity){
         return pEntity == this.getOwner();
     }
@@ -144,20 +144,20 @@ public abstract class AbstractMinionEntity extends Monster implements TraceableE
         }
 
         private LivingEntity getOwnerTarget(){
-            LivingEntity lastHurt = AbstractMinionEntity.this.owner.getLastHurtByMob();
+            LivingEntity lastHurt = AbstractMultiAttackMinion.this.owner.getLastHurtByMob();
             if(lastHurt != null){
                 return lastHurt;
             }
 
-            return AbstractMinionEntity.this.owner.getLastHurtMob();
+            return AbstractMultiAttackMinion.this.owner.getLastHurtMob();
         }
 
         public boolean canUse(){
-            return AbstractMinionEntity.this.owner != null && getOwnerTarget() != null && this.canAttack(getOwnerTarget(), this.copyOwnerTargeting);
+            return AbstractMultiAttackMinion.this.owner != null && getOwnerTarget() != null && this.canAttack(getOwnerTarget(), this.copyOwnerTargeting);
         }
 
         public void start(){
-            AbstractMinionEntity.this.setTarget(getOwnerTarget());
+            AbstractMultiAttackMinion.this.setTarget(getOwnerTarget());
             super.start();
         }
     }

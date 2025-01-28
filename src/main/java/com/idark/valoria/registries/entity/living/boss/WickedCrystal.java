@@ -4,6 +4,7 @@ import com.idark.valoria.client.ui.bossbars.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.entity.living.minions.*;
 import net.minecraft.core.*;
+import net.minecraft.core.particles.*;
 import net.minecraft.nbt.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.server.level.*;
@@ -22,6 +23,14 @@ public class WickedCrystal extends AbstractBoss{
     public final ServerBossBarEvent bossEvent = (ServerBossBarEvent)(new ServerBossBarEvent(this.getName(), "Wicked Crystal")).setDarkenScreen(true);
     public WickedCrystal(EntityType<? extends PathfinderMob> pEntityType, Level pLevel){
         super(pEntityType, pLevel);
+    }
+
+    public void checkPhaseTransition() {
+        if (this.getHealth() <= 1000 && phase == 1) {
+            this.phase = 2;
+            ((ServerLevel)this.level()).sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, BlockRegistry.wickedAmethystBlock.get().defaultBlockState()), this.getX(), this.getY() + 5d, this.getZ(), 25, 0, 0, 0, 0);
+            this.playSound(SoundEvents.ENDER_DRAGON_GROWL, 1.0F, 1.0F);
+        }
     }
 
     @Override
@@ -81,12 +90,76 @@ public class WickedCrystal extends AbstractBoss{
     }
 
     @Override
+    protected @Nullable SoundEvent getHurtSound(DamageSource pDamageSource){
+        return SoundsRegistry.WICKED_CRYSTAL_HURT.get();
+    }
+
+    @Override
+    protected @Nullable SoundEvent getDeathSound(){
+        return SoundsRegistry.WICKED_CRYSTAL_DEATH.get();
+    }
+
+    @Override
     protected void registerGoals(){
         super.registerGoals();
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true));
 
         this.goalSelector.addGoal(1, new SummonShieldsGoal());
+        this.goalSelector.addGoal(1, new SummonSpellGoal());
+    }
+
+    public class SummonSpellGoal extends AttackGoal{
+        @Override
+        public void onPrepare(){
+
+        }
+
+        @Override
+        protected void performAttack(){
+            if(WickedCrystal.this.level() instanceof ServerLevel serv) spawn(serv);
+        }
+
+        @Override
+        public int getPreparingTime(){
+            return 20;
+        }
+
+        @Override
+        public int getAttackInterval(){
+            return 300;
+        }
+
+        @Override
+        public @Nullable SoundEvent getPrepareSound(){
+            return SoundEvents.EVOKER_PREPARE_ATTACK;
+        }
+
+        @Override
+        public AttackRegistry getAttack(){
+            return EntityStatsRegistry.SUMMON;
+        }
+
+        private void spawn(ServerLevel serverLevel, BlockPos blockpos, float angle){
+            CrystalEntity crystal = EntityTypeRegistry.CRYSTAL.get().create(WickedCrystal.this.level());
+            if(crystal != null && serverLevel.isEmptyBlock(blockpos)){
+                crystal.moveTo(blockpos, 0.0F, 0.0F);
+                crystal.finalizeSpawn(serverLevel, WickedCrystal.this.level().getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, null, null);
+                crystal.setOwner(WickedCrystal.this);
+                crystal.setRadius(4f);
+                crystal.setAngle(angle);
+                crystal.setBoundOrigin(blockpos);
+                crystal.setLimitedLife(325);
+                serverLevel.addFreshEntityWithPassengers(crystal);
+            }
+        }
+
+        public void spawn(ServerLevel serv){
+            for(int i = 0; i < 4; ++i){
+                float initialAngle = (float)((2 * Math.PI / 4) * i);
+                spawn(serv, WickedCrystal.this.blockPosition().above(), initialAngle);
+            }
+        }
     }
 
     public class SummonShieldsGoal extends AttackGoal {
@@ -107,9 +180,9 @@ public class WickedCrystal extends AbstractBoss{
                 shield.moveTo(blockpos, 0.0F, 0.0F);
                 shield.finalizeSpawn(serverLevel, WickedCrystal.this.level().getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, null, null);
                 shield.setOwner(WickedCrystal.this);
-                shield.setRadius(2.5f);
+                shield.setRadius(2f);
                 shield.setAngle(angle);
-                serverLevel.addFreshEntityWithPassengers(shield);
+                serverLevel.addFreshEntity(shield);
             }
         }
 
@@ -155,7 +228,7 @@ public class WickedCrystal extends AbstractBoss{
 
         @Override
         public AttackRegistry getAttack(){
-            return EntityStatsRegistry.SUMMON;
+            return EntityStatsRegistry.BLOCK;
         }
     }
 }

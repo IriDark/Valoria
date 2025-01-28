@@ -1,40 +1,30 @@
 package com.idark.valoria.registries.entity.living;
 
-import com.idark.valoria.registries.AttackRegistry;
-import com.idark.valoria.registries.EntityStatsRegistry;
-import com.idark.valoria.registries.EntityTypeRegistry;
-import com.idark.valoria.registries.entity.ai.behaviour.SkeletonMovement;
-import com.idark.valoria.registries.entity.projectile.SpellProjectile;
-import com.idark.valoria.util.ValoriaUtils;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.Mth;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.Difficulty;
+import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.entity.ai.behaviour.*;
+import com.idark.valoria.registries.entity.projectile.*;
+import com.idark.valoria.util.*;
+import net.minecraft.core.*;
+import net.minecraft.core.particles.*;
+import net.minecraft.server.level.*;
+import net.minecraft.sounds.*;
+import net.minecraft.util.*;
+import net.minecraft.world.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.*;
-import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.ai.targeting.TargetingConditions;
-import net.minecraft.world.entity.animal.Wolf;
-import net.minecraft.world.entity.monster.Enemy;
-import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.monster.RangedAttackMob;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LightLayer;
-import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.dimension.DimensionType;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
-import org.joml.Vector3d;
+import net.minecraft.world.entity.ai.goal.target.*;
+import net.minecraft.world.entity.ai.targeting.*;
+import net.minecraft.world.entity.animal.*;
+import net.minecraft.world.entity.monster.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.dimension.*;
+import net.minecraft.world.level.pathfinder.*;
+import org.joml.*;
 
-import java.util.ArrayList;
-import java.util.EnumSet;
-import java.util.List;
+import java.lang.Math;
 import java.util.Random;
+import java.util.*;
 
 public class SorcererEntity extends MultiAttackMob implements Enemy, RangedAttackMob{
     public final AnimationState idleAnimationState = new AnimationState();
@@ -121,6 +111,7 @@ public class SorcererEntity extends MultiAttackMob implements Enemy, RangedAttac
         double d1 = pTarget.getY(0.3333333333333333D) - spell.getY();
         double d2 = pTarget.getZ() - this.getZ();
         double d3 = Math.sqrt(d0 * d0 + d2 * d2);
+        spell.setColor(Pal.nature);
         spell.shoot(d0, d1 + d3 * (double)0.2F, d2, 1.6F, (float)(14 - this.level().getDifficulty().getId() * 4));
         this.level().addFreshEntity(spell);
     }

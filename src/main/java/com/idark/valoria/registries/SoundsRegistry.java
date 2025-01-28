@@ -1,14 +1,11 @@
 package com.idark.valoria.registries;
 
-import com.idark.valoria.Valoria;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraftforge.common.util.ForgeSoundType;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import com.idark.valoria.*;
+import net.minecraft.resources.*;
+import net.minecraft.sounds.*;
+import net.minecraftforge.common.util.*;
+import net.minecraftforge.eventbus.api.*;
+import net.minecraftforge.registries.*;
 
 /**
  * Some sounds taken from the CalamityMod (Terraria) in a <a href="https://calamitymod.wiki.gg/wiki/Category:Sound_effects">Calamity Mod Wiki.gg</a>
@@ -86,6 +83,10 @@ public class SoundsRegistry{
     public static final RegistryObject<SoundEvent> NECROMANCER_SUMMON = registerSound("mob.necromancer_summon");
     public static final RegistryObject<SoundEvent> NECROMANCER_SUMMON_GROUND = registerSound("mob.necromancer_summon.ground");
     public static final RegistryObject<SoundEvent> NECROMANCER_SUMMON_AIR = registerSound("mob.necromancer_summon.air");
+
+    public static final RegistryObject<SoundEvent> WICKED_CRYSTAL_HURT = registerSound("mob.wicked_crystal.hurt");
+    public static final RegistryObject<SoundEvent> WICKED_CRYSTAL_DEATH = registerSound("mob.wicked_crystal.death");
+
     public static final RegistryObject<SoundEvent> HAUNTED_MERCHANT_DEATH = registerSound("mob.haunted_merchant.death");
     public static final RegistryObject<SoundEvent> HAUNTED_MERCHANT_HURT = registerSound("mob.haunted_merchant.hurt");
     public static final RegistryObject<SoundEvent> HAUNTED_MERCHANT_IDLE = registerSound("mob.haunted_merchant.idle");

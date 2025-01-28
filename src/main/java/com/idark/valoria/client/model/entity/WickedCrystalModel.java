@@ -1,16 +1,16 @@
 package com.idark.valoria.client.model.entity;
 
-import com.idark.valoria.registries.entity.living.boss.WickedCrystal;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.model.EntityModel;
-import net.minecraft.client.model.geom.ModelPart;
-import net.minecraft.client.model.geom.PartPose;
+import com.idark.valoria.registries.entity.living.boss.*;
+import com.mojang.blaze3d.vertex.*;
+import net.minecraft.client.model.*;
+import net.minecraft.client.model.geom.*;
 import net.minecraft.client.model.geom.builders.*;
 
-public class WickedCrystalModel<T extends WickedCrystal> extends EntityModel<T>{
+public class WickedCrystalModel<T extends WickedCrystal> extends HierarchicalModel<T>{
     private final ModelPart crystal;
+    private final ModelPart root;
     public WickedCrystalModel(ModelPart root) {
+        this.root = root;
         this.crystal = root.getChild("crystal");
     }
 
@@ -34,5 +34,10 @@ public class WickedCrystalModel<T extends WickedCrystal> extends EntityModel<T>{
     @Override
     public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         crystal.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+    }
+
+    @Override
+    public ModelPart root(){
+        return root;
     }
 }

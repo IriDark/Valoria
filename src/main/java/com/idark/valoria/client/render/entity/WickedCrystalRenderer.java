@@ -21,11 +21,11 @@ public class WickedCrystalRenderer extends MobRenderer<WickedCrystal, WickedCrys
     @Override
     public void render(WickedCrystal pEntity, float pEntityYaw, float pPartialTicks, PoseStack pMatrixStack, MultiBufferSource pBuffer, int pPackedLight){
         double ticks = (ClientTickHandler.ticksInGame + pPartialTicks);
-        double ticksUp = (ClientTickHandler.ticksInGame + pPartialTicks) / 2;
+        double ticksUp = (ClientTickHandler.ticksInGame + pPartialTicks) * 4;
         ticksUp = (ticksUp) % 360;
 
         pMatrixStack.pushPose();
-        pMatrixStack.translate(0F, (float)(Math.sin(Math.toRadians(ticksUp)) * 0.03125F), 0F);
+        pMatrixStack.translate(0F, (float)(Math.sin(Math.toRadians(ticksUp)) * 0.12125F), 0F);
         pMatrixStack.mulPose(Axis.YP.rotationDegrees((float)ticks));
         super.render(pEntity, pEntityYaw, pPartialTicks, pMatrixStack, pBuffer, pPackedLight);
         pMatrixStack.popPose();

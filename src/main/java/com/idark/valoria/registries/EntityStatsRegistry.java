@@ -11,6 +11,8 @@ public class EntityStatsRegistry{
     public static final AttackRegistry THROW = new AttackRegistry(Valoria.ID, "throw");
     public static final AttackRegistry HEAL = new AttackRegistry(Valoria.ID, "heal");
     public static final AttackRegistry SUMMON = new AttackRegistry(Valoria.ID, "summon");
+    public static final AttackRegistry BLOCK = new AttackRegistry(Valoria.ID, "block");
+    public static final AttackRegistry LASER = new AttackRegistry(Valoria.ID, "laser");
 
     public static AttributeSupplier HAUNTED_MERCHANT = register(40, 6).add(Attributes.FOLLOW_RANGE, 12).build();
     public static AttributeSupplier MANNEQUIN = register().add(Attributes.MAX_HEALTH, 1).add(Attributes.KNOCKBACK_RESISTANCE, 1).build();
@@ -41,6 +43,7 @@ public class EntityStatsRegistry{
     //minions - valoria
     public static AttributeSupplier FLESH_SENTINEL = registerFlying(20, 12.5, 0.85).add(Attributes.FOLLOW_RANGE, 8).build();
     public static AttributeSupplier WICKED_SHIELD = registerFlying(25, 0, 0.85).build();
+    public static AttributeSupplier CRYSTAL = registerFlying(35, 0, 0.85).build();
 
     public static AttributeSupplier.Builder register(){
         return Mob.createMobAttributes();

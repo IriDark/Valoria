@@ -14,11 +14,24 @@ import net.minecraft.world.level.*;
 import javax.annotation.*;
 import java.util.*;
 
-public abstract class AbstractBoss extends MultiAttackMob implements Enemy, BossEntity{
+public abstract class AbstractBoss extends MultiAttackMob implements Enemy, BossEntity, Allied{
     public final List<UUID> nearbyPlayers = new ArrayList<>();
     public final Map<UUID, Float> damageMap = new HashMap<>();
+    public int phase = 1;
+
     public AbstractBoss(EntityType<? extends PathfinderMob> pEntityType, Level pLevel){
         super(pEntityType, pLevel);
+    }
+
+    public abstract void checkPhaseTransition();
+
+    @Override
+    public boolean isAlliedTo(Entity pEntity){
+        return super.isAlliedTo(pEntity) || pEntity instanceof Allied;
+    }
+
+    public boolean canAttack(LivingEntity pTarget){
+        return super.canAttack(pTarget) && !isAlliedTo(pTarget);
     }
 
     public void readAdditionalSaveData(CompoundTag pCompound) {
@@ -33,9 +46,14 @@ public abstract class AbstractBoss extends MultiAttackMob implements Enemy, Boss
 
     @Override
     public boolean hurt(DamageSource source, float amount){
+        if(source.getDirectEntity() instanceof Allied) return false;
         if(source.getDirectEntity() instanceof Player player){
             UUID playerUUID = player.getUUID();
             getDamageMap().put(playerUUID, getDamageMap().getOrDefault(playerUUID, 0.0f) + amount);
+        }
+
+        if (!this.level().isClientSide) {
+            checkPhaseTransition();
         }
 
         return super.hurt(source, amount);

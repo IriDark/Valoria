@@ -57,6 +57,7 @@ import java.util.stream.*;
 public class Events{
     protected static final ResourceLocation GUI_ICONS_LOCATION = new ResourceLocation("textures/gui/icons.png");
     public ArcRandom arcRandom = new ArcRandom();
+    public boolean customBossBarActive = false;
 
     @SubscribeEvent
     public void attachEntityCaps(AttachCapabilitiesEvent<Entity> event){
@@ -285,71 +286,72 @@ public class Events{
         int screenWidth = pGuiGraphics.guiWidth();
         int offset = 0;
         for(LerpingBossEvent event : events.values()){
-            if(ClientProxy.bossbars.containsKey(ev.getBossEvent().getId())){
-                String id = ClientProxy.bossbars.get(event.getId());
-                Bossbar bossbar = Bossbar.bossbars.getOrDefault(id, null);
-                if(bossbar == null){
-                    ev.setIncrement(18);
-                    drawVanillaBar(pGuiGraphics, screenWidth / 2 - 91, offset, event);
-                    int nameX = screenWidth / 2 - mc.font.width(event.getName()) / 2;
-                    int nameY = offset + 16 - 9;
-                    pGuiGraphics.drawString(mc.font, event.getName(), nameX, nameY, 16777215);
-                }
+            String id = ClientProxy.bossbars.get(event.getId());
+            Bossbar bossbar = Bossbar.bossbars.getOrDefault(id, null);
+            if(bossbar == null && customBossBarActive) {
+                ev.setIncrement(18);
+                drawVanillaBar(pGuiGraphics, screenWidth / 2 - 91, offset, event);
+                int nameX = screenWidth / 2 - mc.font.width(event.getName()) / 2;
+                int nameY = offset + 16 - 9;
+                pGuiGraphics.drawString(mc.font, event.getName(), nameX, nameY, 16777215);
+            }
 
-                if(bossbar != null){
-                    if(ClientConfig.BOSSBAR_TITLE.get()){
-                        ev.setIncrement(32);
-                        int yOffset = offset + 6;
-                        int xOffset = screenWidth / 2 - 91;
-                        Minecraft.getInstance().getProfiler().push("BossBar");
-                        pGuiGraphics.blit(bossbar.getTexture(), xOffset, yOffset, 0, 0, 183, 24, 256, 64);
-                        int i = (int)(event.getProgress() * 177.0F);
-                        if(i > 0){
-                            if(event.getOverlay() == BossEvent.BossBarOverlay.PROGRESS){
-                                RenderSystem.enableBlend();
-                                if(Objects.equals(bossbar.getTexture(), new ResourceLocation(Valoria.ID, "textures/gui/bossbars/base.png"))){
-                                    Color color = bossbar.rainbow ? ColorUtil.rainbowColor(mc.level.getGameTime() / 1.5f) : bossbar.getColor();
-                                    pGuiGraphics.setColor((float)color.getRed() / 255, (float)color.getGreen() / 255, (float)color.getBlue() / 255, 1);
-                                }
-
-                                pGuiGraphics.blit(bossbar.getTexture(), xOffset + 3, yOffset + 14, 3, 30, i, 4, 256, 64);
-                                RenderSystem.disableBlend();
-                                pGuiGraphics.setColor(1, 1, 1, 1);
+            if(bossbar != null){
+                customBossBarActive = true;
+                if(ClientConfig.BOSSBAR_TITLE.get()){
+                    ev.setIncrement(32);
+                    int yOffset = offset + 6;
+                    int xOffset = screenWidth / 2 - 91;
+                    Minecraft.getInstance().getProfiler().push("BossBar");
+                    pGuiGraphics.blit(bossbar.getTexture(), xOffset, yOffset, 0, 0, 183, 24, 256, 64);
+                    int i = (int)(event.getProgress() * 177.0F);
+                    if(i > 0){
+                        if(event.getOverlay() == BossEvent.BossBarOverlay.PROGRESS){
+                            RenderSystem.enableBlend();
+                            if(Objects.equals(bossbar.getTexture(), new ResourceLocation(Valoria.ID, "textures/gui/bossbars/base.png"))){
+                                Color color = bossbar.rainbow ? ColorUtil.rainbowColor(mc.level.getGameTime() / 1.5f) : bossbar.getColor();
+                                pGuiGraphics.setColor((float)color.getRed() / 255, (float)color.getGreen() / 255, (float)color.getBlue() / 255, 1);
                             }
+
+                            pGuiGraphics.blit(bossbar.getTexture(), xOffset + 3, yOffset + 14, 3, 30, i, 4, 256, 64);
+                            RenderSystem.disableBlend();
+                            pGuiGraphics.setColor(1, 1, 1, 1);
                         }
+                    }
 
-                        int nameX = screenWidth / 2 - mc.font.width(event.getName()) / 2;
-                        int nameY = offset + 30;
-                        pGuiGraphics.drawString(mc.font, event.getName(), nameX, nameY, 16777215);
-                    }else{
-                        ev.setIncrement(26);
-                        int yOffset = offset + 6;
-                        int xOffset = screenWidth / 2 - 91;
-                        Minecraft.getInstance().getProfiler().push("BossBar");
-                        pGuiGraphics.blit(bossbar.getTexture(), xOffset, yOffset, 0, 0, 183, 24, 256, 64);
-                        int i = (int)(event.getProgress() * 177.0F);
-                        if(i > 0){
-                            if(event.getOverlay() == BossEvent.BossBarOverlay.PROGRESS){
-                                if(Objects.equals(bossbar.getTexture(), new ResourceLocation(Valoria.ID, "textures/gui/bossbars/base.png"))){
-                                    Color color = bossbar.rainbow ? ColorUtil.rainbowColor(mc.level.getGameTime() / 1.5f) : bossbar.getColor();
-                                    pGuiGraphics.setColor((float)color.getRed() / 255, (float)color.getGreen() / 255, (float)color.getBlue() / 255, 1);
-                                }
-
-                                RenderSystem.enableBlend();
-                                pGuiGraphics.blit(bossbar.getTexture(), xOffset + 3, yOffset + 14, 3, 30, i, 4, 256, 64);
-                                RenderSystem.disableBlend();
-                                pGuiGraphics.setColor(1, 1, 1, 1);
+                    int nameX = screenWidth / 2 - mc.font.width(event.getName()) / 2;
+                    int nameY = offset + 30;
+                    pGuiGraphics.drawString(mc.font, event.getName(), nameX, nameY, 16777215);
+                }else{
+                    ev.setIncrement(26);
+                    int yOffset = offset + 6;
+                    int xOffset = screenWidth / 2 - 91;
+                    Minecraft.getInstance().getProfiler().push("BossBar");
+                    pGuiGraphics.blit(bossbar.getTexture(), xOffset, yOffset, 0, 0, 183, 24, 256, 64);
+                    int i = (int)(event.getProgress() * 177.0F);
+                    if(i > 0){
+                        if(event.getOverlay() == BossEvent.BossBarOverlay.PROGRESS){
+                            if(Objects.equals(bossbar.getTexture(), new ResourceLocation(Valoria.ID, "textures/gui/bossbars/base.png"))){
+                                Color color = bossbar.rainbow ? ColorUtil.rainbowColor(mc.level.getGameTime() / 1.5f) : bossbar.getColor();
+                                pGuiGraphics.setColor((float)color.getRed() / 255, (float)color.getGreen() / 255, (float)color.getBlue() / 255, 1);
                             }
+
+                            RenderSystem.enableBlend();
+                            pGuiGraphics.blit(bossbar.getTexture(), xOffset + 3, yOffset + 14, 3, 30, i, 4, 256, 64);
+                            RenderSystem.disableBlend();
+                            pGuiGraphics.setColor(1, 1, 1, 1);
                         }
                     }
                 }
-
-                offset += ev.getIncrement();
-                if(offset >= pGuiGraphics.guiHeight() / 4) break;
             }
+
+            offset += ev.getIncrement();
+            if(offset >= pGuiGraphics.guiHeight() / 4) break;
         }
 
-        ev.setCanceled(true);
+        if (customBossBarActive) {
+            ev.setCanceled(true);
+        }
     }
 
     @OnlyIn(Dist.CLIENT)
