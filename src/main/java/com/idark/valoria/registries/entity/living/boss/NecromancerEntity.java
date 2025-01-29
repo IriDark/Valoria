@@ -6,7 +6,7 @@ import com.idark.valoria.core.interfaces.*;
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.particle.*;
 import com.idark.valoria.registries.*;
-import com.idark.valoria.registries.entity.ai.behaviour.*;
+import com.idark.valoria.registries.entity.ai.movements.*;
 import com.idark.valoria.registries.entity.living.*;
 import com.idark.valoria.registries.entity.living.minions.*;
 import com.idark.valoria.registries.entity.projectile.*;

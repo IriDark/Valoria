@@ -3,6 +3,7 @@ package com.idark.valoria.registries.entity.living.minions;
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.particle.*;
 import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.entity.ai.movements.*;
 import com.idark.valoria.registries.entity.living.*;
 import com.idark.valoria.registries.entity.projectile.*;
 import com.idark.valoria.util.*;
@@ -30,8 +31,9 @@ import java.awt.*;
 import java.util.*;
 import java.util.function.*;
 
-public class CrystalEntity extends AbstractFlyingAroundMinion implements RangedAttackMob{
+public class CrystalEntity extends AbstractMultiAttackMinion implements RangedAttackMob{
     public Variant variant;
+    public FlyingAroundMovement movement = new FlyingAroundMovement(this, null);
     private static final EntityDataAccessor<Integer> TYPE = SynchedEntityData.defineId(CrystalEntity.class, EntityDataSerializers.INT);
     public CrystalEntity(EntityType<? extends MultiAttackMob> pEntityType, Level pLevel){
         super(pEntityType, pLevel);
@@ -39,6 +41,12 @@ public class CrystalEntity extends AbstractFlyingAroundMinion implements RangedA
             this.setType(Variant.byId(this.random.nextInt(Variant.values().length)));
             this.setNoGravity(true);
         }
+    }
+
+    @Override
+    public void tick(){
+        super.tick();
+        this.movement.setupMovement();
     }
 
     @Override

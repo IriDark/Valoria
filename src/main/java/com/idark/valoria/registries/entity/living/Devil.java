@@ -2,8 +2,8 @@ package com.idark.valoria.registries.entity.living;
 
 import com.idark.valoria.*;
 import com.idark.valoria.registries.*;
-import com.idark.valoria.registries.entity.ai.behaviour.*;
 import com.idark.valoria.registries.entity.ai.goals.*;
+import com.idark.valoria.registries.entity.ai.movements.*;
 import com.idark.valoria.registries.entity.projectile.*;
 import com.idark.valoria.util.*;
 import net.minecraft.core.*;

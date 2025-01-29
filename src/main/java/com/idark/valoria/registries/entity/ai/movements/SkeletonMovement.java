@@ -1,8 +1,6 @@
-package com.idark.valoria.registries.entity.ai.behaviour;
+package com.idark.valoria.registries.entity.ai.movements;
 
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.*;
 
 public class SkeletonMovement{
     private final Mob mob;

@@ -2,6 +2,7 @@ package com.idark.valoria.registries.entity.living.boss;
 
 import com.idark.valoria.client.ui.bossbars.*;
 import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.entity.ai.movements.*;
 import com.idark.valoria.registries.entity.living.minions.*;
 import net.minecraft.core.*;
 import net.minecraft.core.particles.*;
@@ -146,8 +147,9 @@ public class WickedCrystal extends AbstractBoss{
                 crystal.moveTo(blockpos, 0.0F, 0.0F);
                 crystal.finalizeSpawn(serverLevel, WickedCrystal.this.level().getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, null, null);
                 crystal.setOwner(WickedCrystal.this);
-                crystal.setRadius(4f);
-                crystal.setAngle(angle);
+                crystal.movement = new FlyingAroundMovement(crystal, WickedCrystal.this);
+                crystal.movement.setRadius(4f);
+                crystal.movement.setAngle(angle);
                 crystal.setBoundOrigin(blockpos);
                 crystal.setLimitedLife(325);
                 serverLevel.addFreshEntityWithPassengers(crystal);
@@ -180,8 +182,9 @@ public class WickedCrystal extends AbstractBoss{
                 shield.moveTo(blockpos, 0.0F, 0.0F);
                 shield.finalizeSpawn(serverLevel, WickedCrystal.this.level().getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, null, null);
                 shield.setOwner(WickedCrystal.this);
-                shield.setRadius(2f);
-                shield.setAngle(angle);
+                shield.movement = new FlyingAroundMovement(shield, WickedCrystal.this);
+                shield.movement.setRadius(2f);
+                shield.movement.setAngle(angle);
                 serverLevel.addFreshEntity(shield);
             }
         }

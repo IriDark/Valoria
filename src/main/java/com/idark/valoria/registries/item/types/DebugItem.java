@@ -1,6 +1,7 @@
 package com.idark.valoria.registries.item.types;
 
 import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.entity.ai.movements.*;
 import com.idark.valoria.registries.entity.living.minions.*;
 import net.minecraft.core.*;
 import net.minecraft.server.level.*;
@@ -30,8 +31,9 @@ public class DebugItem extends Item{
             crystal.moveTo(blockpos, 0.0F, 0.0F);
             crystal.finalizeSpawn(level, player.level().getCurrentDifficultyAt(blockpos), MobSpawnType.MOB_SUMMONED, null, null);
             crystal.setOwner(player);
-            crystal.setRadius(3f);
-            crystal.setAngle(angle);
+            crystal.movement = new FlyingAroundMovement(crystal, player);
+            crystal.movement.setRadius(3f);
+            crystal.movement.setAngle(angle);
             crystal.setBoundOrigin(blockpos);
             crystal.setLimitedLife(325);
             level.addFreshEntity(crystal);
