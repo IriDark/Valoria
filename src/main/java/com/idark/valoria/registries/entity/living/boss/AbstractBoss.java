@@ -63,7 +63,7 @@ public abstract class AbstractBoss extends MultiAttackMob implements Enemy, Boss
     public void onAddedToWorld(){
         super.onAddedToWorld();
         CompoundTag data = this.getPersistentData();
-        if(!data.getBoolean("NearbyPlayerHealthBoost")){
+        if(!data.getBoolean("NearbyPlayerHealthBonus")){
             initializeNearbyPlayers(this.level(), this);
             applyBonusHealth(this);
         }
