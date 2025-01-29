@@ -28,10 +28,10 @@ public class EntityStatsRegistry{
     public static AttributeSupplier SWAMP_WANDERER = register(35, 11).add(Attributes.KNOCKBACK_RESISTANCE, new Random().nextDouble() * 0.05F).add(Attributes.SPAWN_REINFORCEMENTS_CHANCE, new Random().nextDouble() * 0.25D + 0.5D).build();
     public static AttributeSupplier SCOURGE = register(50, 5, 0.125).add(Attributes.KNOCKBACK_RESISTANCE, new Random().nextDouble() * 0.05F).add(Attributes.SPAWN_REINFORCEMENTS_CHANCE, new Random().nextDouble() * 0.25D + 0.5D).build();
     public static AttributeSupplier ENT = register(40, 9).build();
-    public static AttributeSupplier SORCERER = register(25, 2.5).build();
+    public static AttributeSupplier SORCERER = register(15, 2.5).build();
 
     //minions - overworld
-    public static AttributeSupplier UNDEAD = registerFlying(8, 2.5, 0.85).add(Attributes.FOLLOW_RANGE, 8).build();
+    public static AttributeSupplier UNDEAD = registerFlying(8, 1, 0.85).add(Attributes.FOLLOW_RANGE, 8).build();
 
     //monsters - nether
     public static AttributeSupplier DEVIL = register(30, 1).add(Attributes.FOLLOW_RANGE, 12).build();

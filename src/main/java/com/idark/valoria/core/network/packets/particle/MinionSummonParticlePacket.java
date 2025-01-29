@@ -1,21 +1,18 @@
 package com.idark.valoria.core.network.packets.particle;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.util.Pal;
-import mod.maxbogomol.fluffy_fur.client.particle.GenericParticle;
-import mod.maxbogomol.fluffy_fur.client.particle.ParticleBuilder;
-import mod.maxbogomol.fluffy_fur.client.particle.data.ColorParticleData;
-import mod.maxbogomol.fluffy_fur.client.particle.data.GenericParticleData;
-import mod.maxbogomol.fluffy_fur.common.easing.Easing;
-import mod.maxbogomol.fluffy_fur.registry.client.FluffyFurParticles;
-import net.minecraft.core.BlockPos;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.network.NetworkEvent;
+import com.idark.valoria.*;
+import com.idark.valoria.util.*;
+import mod.maxbogomol.fluffy_fur.client.particle.*;
+import mod.maxbogomol.fluffy_fur.client.particle.data.*;
+import mod.maxbogomol.fluffy_fur.common.easing.*;
+import mod.maxbogomol.fluffy_fur.registry.client.*;
+import net.minecraft.core.*;
+import net.minecraft.network.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.phys.*;
+import net.minecraftforge.network.*;
 
-import java.util.function.Consumer;
-import java.util.function.Supplier;
+import java.util.function.*;
 
 public class MinionSummonParticlePacket{
     private final int id;
@@ -35,7 +32,8 @@ public class MinionSummonParticlePacket{
             ctx.get().enqueueWork(() -> {
                 Level pLevel = Valoria.proxy.getLevel();
                 final Consumer<GenericParticle> blockTarget = p -> {
-                    Vec3 entityPos = pLevel.getEntity(msg.id).getPosition(0);
+                    Vec3 entityPos = pLevel.getEntity(msg.id).position();
+                    if(entityPos == null) return;
                     Vec3 pPos = p.getPosition();
                     double dX = entityPos.x - pPos.x();
                     double dY = entityPos.y - pPos.y();

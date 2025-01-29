@@ -26,7 +26,6 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.*;
 import net.minecraft.world.entity.ai.targeting.*;
 import net.minecraft.world.entity.animal.*;
-import net.minecraft.world.entity.animal.horse.*;
 import net.minecraft.world.entity.item.*;
 import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.player.*;
@@ -66,9 +65,6 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
 
     @Nullable
     private Skeleton wololoTarget;
-
-    @Nullable
-    private Horse wololoTargetHorse;
 
     public NecromancerEntity(EntityType<? extends NecromancerEntity> pEntityType, Level pLevel){
         super(pEntityType, pLevel);
@@ -112,7 +108,7 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
     public void onAddedToWorld(){
         super.onAddedToWorld();
         CompoundTag data = this.getPersistentData();
-        if(!data.getBoolean("NearbyPlayerHealthBoost")){
+        if(!data.getBoolean("NearbyPlayerHealthBonus")){
             initializeNearbyPlayers(this.level(), this);
             applyBonusHealth(this);
         }
@@ -149,7 +145,6 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
         this.goalSelector.addGoal(2, new NecromancerEntity.ApplyEffectSpellGoal(new MobEffectInstance(MobEffects.WEAKNESS, 145, 0)));
         this.goalSelector.addGoal(2, new NecromancerEntity.ApplyEffectSpellGoal(new MobEffectInstance(MobEffects.WEAKNESS, 165, 1)));
         this.goalSelector.addGoal(3, new NecromancerEntity.WololoSpellGoal());
-        this.goalSelector.addGoal(3, new NecromancerEntity.WololoHorseSpellGoal());
 
         // ai
         this.goalSelector.addGoal(0, new NecromancerEntity.CastingSpellGoal());
@@ -236,18 +231,9 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
         this.wololoTarget = pWololoTarget;
     }
 
-    void setHorseWololoTarget(@Nullable Horse pWololoTarget){
-        this.wololoTargetHorse = pWololoTarget;
-    }
-
     @Nullable
     Skeleton getWololoTarget(){
         return this.wololoTarget;
-    }
-
-    @Nullable
-    Horse getWololoHorseTarget(){
-        return this.wololoTargetHorse;
     }
 
     @Override
@@ -262,11 +248,11 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
 
     class AttackSpellGoal extends AbstractNecromancer.SpellcasterUseSpellGoal{
         public int getCastingTime(){
-            return 45;
+            return 40;
         }
 
         public int getCastingInterval(){
-            return 80;
+            return 100;
         }
 
         protected void performSpellCasting(){
@@ -368,7 +354,7 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
         }
 
         public int getCastingInterval(){
-            return 145;
+            return 165;
         }
 
         @Override
@@ -493,7 +479,7 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
         }
 
         public KnockbackEntitiesGoal(boolean strong, MobEffectInstance... pEffect){
-            this.range = NecromancerEntity.this.getHealth() < 25 ? 6 : 3;
+            this.range = NecromancerEntity.this.getHealth() < 100 ? 6 : 3;
             this.effects = ImmutableList.copyOf(pEffect);
             this.strong = strong;
         }
@@ -508,11 +494,11 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
         }
 
         public int getCastingTime(){
-            return 45;
+            return 20;
         }
 
         public int getCastingInterval(){
-            return 45;
+            return 65;
         }
 
         protected void performSpellCasting(){
@@ -537,7 +523,7 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
                         dZ *= powerAfterDamp;
                         Vec3 vec31 = new Vec3(dX * 2, dY * 0.5f, dZ * 2);
                         if(this.strong){
-                            NecromancerEntity.this.heal(NecromancerEntity.this.getHealth() * 0.1f);
+                            NecromancerEntity.this.heal(NecromancerEntity.this.getHealth() * 0.05f);
                             entity.hurt(NecromancerEntity.this.level().damageSources().generic(), entity.getHealth() * 0.5f);
                         }
 
@@ -626,7 +612,7 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
         }
 
         public int getCastingInterval(){
-            return 80;
+            return 120;
         }
 
         protected void performSpellCasting(){
@@ -660,11 +646,11 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
         }
 
         public int getCastingTime(){
-            return 70;
+            return 60;
         }
 
         public int getCastingInterval(){
-            return 120;
+            return 240;
         }
 
         protected void performSpellCasting(){
@@ -744,79 +730,6 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
                     mob.moveTo(pos, target.getYRot(), target.getXRot());
                     mob.getLookControl().setLookAt(target.getLookControl().getWantedX(), target.getLookControl().getWantedY(), target.getLookControl().getWantedZ());
                     mob.setHealth(target.getHealth());
-                    target.discard();
-                }
-            }
-        }
-
-        public int getCastingTime(){
-            return 60;
-        }
-
-        public int getCastingInterval(){
-            return 140;
-        }
-
-        public SoundEvent getSpellPrepareSound(){
-            return SoundEvents.WARDEN_SONIC_CHARGE;
-        }
-
-        public NecromancerSpells getSpell(){
-            return NecromancerSpells.WOLOLO;
-        }
-    }
-
-    public class WololoHorseSpellGoal extends AbstractNecromancer.SpellcasterUseSpellGoal{
-        private final TargetingConditions wololoTargeting = TargetingConditions.forNonCombat().range(8.0D);
-
-        /**
-         * Returns whether execution should begin. You can also read and cache any state necessary for execution in this
-         * method as well.
-         */
-        public boolean canUse(){
-            if(NecromancerEntity.this.hasTarget()){
-                return false;
-            }else if(NecromancerEntity.this.isCastingSpell()){
-                return false;
-            }else if(NecromancerEntity.this.tickCount < this.nextAttackTickCount){
-                return false;
-            }else{
-                List<Horse> list = NecromancerEntity.this.level().getNearbyEntities(Horse.class, this.wololoTargeting, NecromancerEntity.this, NecromancerEntity.this.getBoundingBox().inflate(16.0D, 4.0D, 16.0D));
-                if(list.isEmpty()){
-                    return false;
-                }else{
-                    NecromancerEntity.this.setHorseWololoTarget(list.get(NecromancerEntity.this.random.nextInt(list.size())));
-                    return true;
-                }
-            }
-        }
-
-        /**
-         * Returns whether an in-progress EntityAIBase should continue executing
-         */
-        public boolean canContinueToUse(){
-            return NecromancerEntity.this.getWololoHorseTarget() != null && this.attackWarmupDelay > 0;
-        }
-
-        /**
-         * Reset the task's internal state. Called when this task is interrupted by another one
-         */
-        public void stop(){
-            super.stop();
-            NecromancerEntity.this.setHorseWololoTarget(null);
-        }
-
-        protected void performSpellCasting(){
-            Horse target = NecromancerEntity.this.getWololoHorseTarget();
-            ServerLevel serverlevel = (ServerLevel)NecromancerEntity.this.level();
-            if(target != null && target.isAlive()){
-                SkeletonHorse mob = EntityType.SKELETON_HORSE.create(serverlevel);
-                if(mob != null){
-                    serverlevel.addFreshEntity(mob);
-                    BlockPos pos = new BlockPos(target.getBlockX(), target.getBlockY(), target.getBlockZ());
-                    mob.setItemInHand(InteractionHand.MAIN_HAND, Items.BOW.getDefaultInstance());
-                    mob.moveTo(pos, 0.0F, 0.0F);
-                    PacketHandler.sendToTracking(serverlevel, target.getOnPos(), new SmokeParticlePacket(60, target.getOnPos().getX(), target.getOnPos().getY() + 1.2f, target.getOnPos().getZ(), 0.125f, 0, 0.125f, 30, 35, 75));
                     target.discard();
                 }
             }
