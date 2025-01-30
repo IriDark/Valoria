@@ -84,6 +84,7 @@ public class SoundsRegistry{
     public static final RegistryObject<SoundEvent> NECROMANCER_SUMMON_GROUND = registerSound("mob.necromancer_summon.ground");
     public static final RegistryObject<SoundEvent> NECROMANCER_SUMMON_AIR = registerSound("mob.necromancer_summon.air");
 
+    public static final RegistryObject<SoundEvent> WICKED_CRYSTAL_TRANSFORM = registerSound("mob.wicked_crystal.transform");
     public static final RegistryObject<SoundEvent> WICKED_CRYSTAL_HURT = registerSound("mob.wicked_crystal.hurt");
     public static final RegistryObject<SoundEvent> WICKED_CRYSTAL_DEATH = registerSound("mob.wicked_crystal.death");
     public static final RegistryObject<SoundEvent> WICKED_CRYSTAL_SUMMON = registerSound("mob.wicked_crystal.summon");
@@ -93,6 +94,8 @@ public class SoundsRegistry{
     public static final RegistryObject<SoundEvent> CRYSTAL_FROST_PREPARE = registerSound("mob.crystal_frost.prepare");
     public static final RegistryObject<SoundEvent> CRYSTAL_FIRE_PREPARE = registerSound("mob.crystal_fire.prepare");
     public static final RegistryObject<SoundEvent> CRYSTAL_ACID_PREPARE = registerSound("mob.crystal_acid.prepare");
+    public static final RegistryObject<SoundEvent> CRYSTAL_STORM = registerSound("mob.crystal.storm");
+    public static final RegistryObject<SoundEvent> CRYSTAL_FALL = registerSound("mob.crystal.fall");
 
     public static final RegistryObject<SoundEvent> HAUNTED_MERCHANT_DEATH = registerSound("mob.haunted_merchant.death");
     public static final RegistryObject<SoundEvent> HAUNTED_MERCHANT_HURT = registerSound("mob.haunted_merchant.hurt");

@@ -343,6 +343,24 @@
       "valoria:wicked_crystal/fire_crystal"
     ]
   },
+  "mob.wicked_crystal.transform": {
+    "subtitle": "subtitles.valoria.boss.transform",
+    "sounds": [
+      "valoria:wicked_crystal/transform"
+    ]
+  },
+  "mob.crystal.storm": {
+    "sounds": [
+      "valoria:wicked_crystal/crystal_storm"
+    ]
+  },
+  "mob.crystal.fall": {
+    "sounds": [
+      "valoria:wicked_crystal/crystal_fall1",
+      "valoria:wicked_crystal/crystal_fall2",
+      "valoria:wicked_crystal/crystal_fall3"
+    ]
+  },
   "mob.wicked_crystal.summon": {
     "subtitle": "subtitles.valoria.boss.summon",
     "sounds": [

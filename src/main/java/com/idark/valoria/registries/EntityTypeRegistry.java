@@ -43,6 +43,7 @@ public class EntityTypeRegistry{
     public static final RegistryObject<EntityType<ThrownSpearEntity>> SPEAR = register("spear", EntityType.Builder.<ThrownSpearEntity>of(ThrownSpearEntity::new, MobCategory.MISC).sized(0.5f, 0.35f).clientTrackingRange(4).updateInterval(20));
     public static final RegistryObject<EntityType<KunaiEntity>> KUNAI = register("kunai", EntityType.Builder.<KunaiEntity>of(KunaiEntity::new, MobCategory.MISC).sized(0.35f, 0.35f).clientTrackingRange(4).updateInterval(20));
     public static final RegistryObject<EntityType<SpellProjectile>> SPELL = register("spell", EntityType.Builder.<SpellProjectile>of(SpellProjectile::new, MobCategory.MISC).sized(0.4f, 0.4f).clientTrackingRange(4).updateInterval(20));
+    public static final RegistryObject<EntityType<CrystalShard>> CRYSTAL_SHARD = register("crystal_shard", EntityType.Builder.<CrystalShard>of(CrystalShard::new, MobCategory.MISC).sized(0.4f, 0.4f).clientTrackingRange(4).updateInterval(20));
 
     public static final RegistryObject<EntityType<Devourer>> DEVOURER = register("devourer", EntityType.Builder.<Devourer>of(Devourer::new, MobCategory.MISC).sized(1, 1f).clientTrackingRange(6).updateInterval(2));
     public static final RegistryObject<EntityType<CrystalSpikes>> CRYSTAL_SPIKES = register("crystal_spikes", EntityType.Builder.<CrystalSpikes>of(CrystalSpikes::new, MobCategory.MISC).sized(1, 1f).clientTrackingRange(6).updateInterval(2));

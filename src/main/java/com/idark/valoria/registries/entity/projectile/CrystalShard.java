@@ -1,76 +1,34 @@
 package com.idark.valoria.registries.entity.projectile;
 
 import com.idark.valoria.registries.*;
+import com.idark.valoria.util.*;
 import mod.maxbogomol.fluffy_fur.client.particle.*;
 import mod.maxbogomol.fluffy_fur.client.particle.behavior.*;
 import mod.maxbogomol.fluffy_fur.client.particle.data.*;
 import mod.maxbogomol.fluffy_fur.common.easing.*;
 import mod.maxbogomol.fluffy_fur.registry.client.*;
-import net.minecraft.nbt.*;
-import net.minecraft.network.syncher.*;
+import net.minecraft.sounds.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.projectile.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
 
-import java.awt.*;
 import java.util.function.*;
 
-public class SpellProjectile extends AbstractProjectile{
-    private static final EntityDataAccessor<Integer> TYPE = SynchedEntityData.defineId(SpellProjectile.class, EntityDataSerializers.INT);
-    public Color color;
-    private boolean ignite;
-    private int fireSeconds;
-    public SpellProjectile(EntityType<? extends AbstractArrow> pEntityType, Level pLevel){
+public class CrystalShard extends AbstractProjectile{
+    public CrystalShard(EntityType<? extends AbstractArrow> pEntityType, Level pLevel){
         super(pEntityType, pLevel);
         discardOnHit = true;
     }
 
-    public void setColor(Color variant) {
-        this.color = variant;
-        this.entityData.set(TYPE, variant.getRGB());
-    }
-
-    public Color getColor() {
-        return new Color(this.entityData.get(TYPE));
-    }
-
-    @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(TYPE, Color.WHITE.getRGB());
-    }
-
-    @Override
-    public void addAdditionalSaveData(CompoundTag pCompound){
-        super.addAdditionalSaveData(pCompound);
-        pCompound.putInt("Color", color.getRGB());
-    }
-
-    @Override
-    public void readAdditionalSaveData(CompoundTag pCompound){
-        super.readAdditionalSaveData(pCompound);
-        this.color = new Color(pCompound.getInt("Color"));
-    }
-
-    public SpellProjectile(Level pLevel, LivingEntity thrower, int damage){
-        super(EntityTypeRegistry.SPELL.get(), pLevel, thrower, damage);
+    public CrystalShard(Level pLevel, LivingEntity thrower, int damage){
+        super(EntityTypeRegistry.CRYSTAL_SHARD.get(), pLevel, thrower, damage);
         discardOnHit = true;
     }
 
-    public void igniteOnHit(int seconds) {
-        this.ignite = true;
-        this.fireSeconds = seconds;
-    }
-
     @Override
-    public void onHitEntity(EntityHitResult result){
-        if(this.ignite){
-            Entity entity = result.getEntity();
-            entity.setSecondsOnFire(this.fireSeconds);
-        }
-
-        super.onHitEntity(result);
+    protected SoundEvent getDefaultHitGroundSoundEvent(){
+        return SoundsRegistry.CRYSTAL_FALL.get();
     }
 
     @Override
@@ -92,12 +50,12 @@ public class SpellProjectile extends AbstractProjectile{
             ParticleBuilder.create(FluffyFurParticles.TRAIL)
             .setRenderType(FluffyFurRenderTypes.ADDITIVE_PARTICLE_TEXTURE)
             .setBehavior(TrailParticleBehavior.create().build())
-            .setColorData(ColorParticleData.create(getColor()).build())
+            .setColorData(ColorParticleData.create(Pal.verySoftPink, Pal.darkMagenta).build())
             .setTransparencyData(GenericParticleData.create(1, 0).setEasing(Easing.QUARTIC_OUT).build())
             .setScaleData(GenericParticleData.create(0.5f).setEasing(Easing.EXPO_IN).build())
             .addTickActor(target)
             .setGravity(0)
-            .setLifetime(20)
+            .setLifetime(12)
             .repeat(this.level(), pos.x, pos.y, pos.z, 1);
         }
     }

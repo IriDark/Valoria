@@ -8,6 +8,7 @@ import com.idark.valoria.registries.entity.ai.movements.*;
 import com.idark.valoria.registries.entity.living.minions.*;
 import com.idark.valoria.registries.entity.projectile.*;
 import com.idark.valoria.util.*;
+import com.mojang.logging.*;
 import net.minecraft.core.*;
 import net.minecraft.core.particles.*;
 import net.minecraft.nbt.*;
@@ -22,6 +23,7 @@ import net.minecraft.world.entity.ai.targeting.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.state.*;
+import net.minecraft.world.level.gameevent.*;
 import net.minecraft.world.phys.shapes.*;
 import org.jetbrains.annotations.*;
 
@@ -29,15 +31,62 @@ import java.util.*;
 
 public class WickedCrystal extends AbstractBoss{
     public final ServerBossBarEvent bossEvent = (ServerBossBarEvent)(new ServerBossBarEvent(this.getName(), "Wicked Crystal")).setDarkenScreen(true);
+    private int spawnTime = 0;
+    public AnimationState spawnAnimationState = new AnimationState();
+    public AnimationState deathAnimationState = new AnimationState();
+
     public WickedCrystal(EntityType<? extends PathfinderMob> pEntityType, Level pLevel){
         super(pEntityType, pLevel);
+    }
+
+    @Override
+    public void tick(){
+        super.tick();
+        if(this.spawnTime < 10){
+            this.spawnTime++;
+            this.spawnAnimationState.start(tickCount);
+        }
+    }
+
+    @Override
+    public void die(DamageSource pDamageSource){
+        if(net.minecraftforge.common.ForgeHooks.onLivingDeath(this, pDamageSource)) return;
+        if(!this.isRemoved() && !this.dead){
+            Entity entity = pDamageSource.getEntity();
+            LivingEntity livingentity = this.getKillCredit();
+            if(this.deathScore >= 0 && livingentity != null){
+                livingentity.awardKillScore(this, this.deathScore, pDamageSource);
+            }
+
+            if(this.isSleeping()){
+                this.stopSleeping();
+            }
+
+            if(!this.level().isClientSide && this.hasCustomName()){
+                LogUtils.getLogger().info("Named entity {} died: {}", this, this.getCombatTracker().getDeathMessage().getString());
+            }
+
+            this.dead = true;
+            this.getCombatTracker().recheckStatus();
+            Level level = this.level();
+            if(level instanceof ServerLevel serverlevel){
+                if(entity == null || entity.killedEntity(serverlevel, this)){
+                    this.gameEvent(GameEvent.ENTITY_DIE);
+                    this.dropAllDeathLoot(pDamageSource);
+                }
+
+                this.level().broadcastEntityEvent(this, (byte)3);
+            }
+        }
+
+        this.deathAnimationState.start(tickCount);
     }
 
     public void checkPhaseTransition() {
         if (this.getHealth() <= 1000 && phase == 1) {
             this.phase = 2;
             ((ServerLevel)this.level()).sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, BlockRegistry.wickedAmethystBlock.get().defaultBlockState()), this.getX(), this.getY() + 5d, this.getZ(), 25, 0, 0, 0, 0);
-            this.playSound(SoundEvents.ENDER_DRAGON_GROWL, 1.0F, 1.0F);
+            this.playSound(SoundsRegistry.WICKED_CRYSTAL_TRANSFORM.get(), 1.0F, 1.0F);
         }
     }
 
@@ -116,6 +165,7 @@ public class WickedCrystal extends AbstractBoss{
         this.goalSelector.addGoal(1, new SummonShieldsGoal());
         this.goalSelector.addGoal(1, new SummonSpellGoal());
         this.goalSelector.addGoal(1, new RadialAttack());
+        this.goalSelector.addGoal(1, new CrystalStorm());
     }
 
     public class SummonSpellGoal extends AttackGoal{
@@ -261,6 +311,93 @@ public class WickedCrystal extends AbstractBoss{
         }
     }
 
+    public class CrystalStorm extends AttackGoal {
+
+        /**
+         * Returns whether execution should begin. You can also read and cache any state necessary for execution in this
+         * method as well.
+         */
+        public boolean canUse(){
+            return super.canUse() && WickedCrystal.this.phase > 1;
+        }
+
+        private void summonRainCrystal(ServerLevel serverLevel, BlockPos center) {
+            CrystalShard crystalShard = EntityTypeRegistry.CRYSTAL_SHARD.get().create(WickedCrystal.this.level());
+            if (crystalShard != null) {
+                double spread = 4.0;
+                double offsetX = (random.nextDouble() * spread * 2) - spread;
+                double offsetZ = (random.nextDouble() * spread * 2) - spread;
+                crystalShard.moveTo(center.getX() + 0.5 + offsetX, center.getY() + 1, center.getZ() + 0.5 + offsetZ, 0.0F, 0.0F);
+                crystalShard.setOwner(WickedCrystal.this);
+                double upSpeed = 1.0 + random.nextDouble() * 0.5;
+                crystalShard.setDeltaMovement(0, upSpeed, 0);
+                serverLevel.addFreshEntity(crystalShard);
+            }
+        }
+
+        private void summonStormCrystal(ServerLevel serverLevel, BlockPos spawnPos, float angle, double speed) {
+            CrystalShard crystalShard = EntityTypeRegistry.CRYSTAL_SHARD.get().create(WickedCrystal.this.level());
+            if (crystalShard != null) {
+                crystalShard.moveTo(spawnPos.getX() + 0.5, spawnPos.getY() + 2, spawnPos.getZ() + 0.5, 0.0F, 0.0F);
+                crystalShard.setOwner(WickedCrystal.this);
+                double vx = Math.cos(angle) * speed;
+                double vz = Math.sin(angle) * speed;
+                crystalShard.setDeltaMovement(vx, 0.4, vz);
+                serverLevel.addFreshEntity(crystalShard);
+            }
+        }
+
+        @Override
+        protected void performAttack() {
+            if (level().isClientSide()) return;
+            ServerLevel serv = (ServerLevel) level();
+            BlockPos center = WickedCrystal.this.blockPosition();
+            for(int i = 0; i < 12; i++){
+                float angle = (float)((2 * Math.PI / 12) * i);
+                summonStormCrystal(serv, center.above(2), angle, 0.35);
+            }
+
+            if(new ArcRandom().fiftyFifty()){
+                for (int i = 0; i < 6; i++) {
+                    float angle = (float) ((2 * Math.PI / 6) * i);
+                    summonStormCrystal(serv, center.above(4), angle,0.35 + random.nextDouble() * 0.3);
+                }
+            } else{
+                for(int i = 0; i < 32; i++){
+                    summonRainCrystal(serv, center);
+                }
+            }
+        }
+
+        @Override
+        public void onPrepare(){
+        }
+
+        public boolean requiresUpdateEveryTick(){
+            return true;
+        }
+
+        @Override
+        public int getPreparingTime(){
+            return 25;
+        }
+
+        @Override
+        public int getAttackInterval(){
+            return 400;
+        }
+
+        @Override
+        public @Nullable SoundEvent getPrepareSound(){
+            return SoundsRegistry.CRYSTAL_FALL.get();
+        }
+
+        @Override
+        public AttackRegistry getAttack(){
+            return EntityStatsRegistry.THROW;
+        }
+    }
+
     public class SummonShieldsGoal extends AttackGoal {
         private final TargetingConditions shieldCount = TargetingConditions.forNonCombat().range(8.0D).ignoreLineOfSight().ignoreInvisibilityTesting();
 
@@ -301,7 +438,7 @@ public class WickedCrystal extends AbstractBoss{
 
             if(entity.level() instanceof ServerLevel serv){
                 for (int i = 0; i < (WickedCrystal.this.phase == 1 ? 2 : 4); i++) {
-                    float initialAngle = (float)((2 * Math.PI / 4) * i);
+                    float initialAngle = (float)((2 * Math.PI / (WickedCrystal.this.phase == 1 ? 2 : 4)) * i);
                     summonShield(serv, WickedCrystal.this.blockPosition().above(), initialAngle);
                 }
             }

@@ -16,7 +16,7 @@ import javax.annotation.*;
 public class WickedShield extends FlyingMob implements TraceableEntity, Allied{
     @Nullable
     public Entity owner;
-    public int limitedLifeTicks = 60;
+    public int limitedLifeTicks = 20;
     public FlyingAroundMovement movement = new FlyingAroundMovement(this, null);
 
     public WickedShield(EntityType<? extends FlyingMob> pEntityType, Level pLevel){
@@ -43,7 +43,7 @@ public class WickedShield extends FlyingMob implements TraceableEntity, Allied{
     public void tick(){
         super.tick();
         movement.setupMovement();
-        if(owner == null && --this.limitedLifeTicks <= 0){
+        if(owner == null || !owner.isAlive()  && --this.limitedLifeTicks <= 0){
             if(this.level() instanceof ServerLevel serv){
                 spawnDisappearParticles(serv);
                 this.remove(RemovalReason.KILLED);
