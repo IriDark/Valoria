@@ -329,8 +329,7 @@ public class WickedCrystal extends AbstractBoss{
                 double offsetZ = (random.nextDouble() * spread * 2) - spread;
                 crystalShard.moveTo(center.getX() + 0.5 + offsetX, center.getY() + 1, center.getZ() + 0.5 + offsetZ, 0.0F, 0.0F);
                 crystalShard.setOwner(WickedCrystal.this);
-                double upSpeed = 1.0 + random.nextDouble() * 0.5;
-                crystalShard.setDeltaMovement(0, upSpeed, 0);
+                crystalShard.setDeltaMovement(0, 1.0 + random.nextDouble() * 0.5, 0);
                 serverLevel.addFreshEntity(crystalShard);
             }
         }
@@ -354,13 +353,13 @@ public class WickedCrystal extends AbstractBoss{
             BlockPos center = WickedCrystal.this.blockPosition();
             for(int i = 0; i < 12; i++){
                 float angle = (float)((2 * Math.PI / 12) * i);
-                summonStormCrystal(serv, center.above(2), angle, 0.35);
+                summonStormCrystal(serv, center.above(2), angle, 0.25);
             }
 
             if(new ArcRandom().fiftyFifty()){
                 for (int i = 0; i < 6; i++) {
                     float angle = (float) ((2 * Math.PI / 6) * i);
-                    summonStormCrystal(serv, center.above(4), angle,0.35 + random.nextDouble() * 0.3);
+                    summonStormCrystal(serv, center.above(4), angle, 0.35 + random.nextDouble() * 0.3);
                 }
             } else{
                 for(int i = 0; i < 32; i++){
