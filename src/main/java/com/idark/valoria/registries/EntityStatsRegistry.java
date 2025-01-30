@@ -12,7 +12,7 @@ public class EntityStatsRegistry{
     public static final AttackRegistry HEAL = new AttackRegistry(Valoria.ID, "heal");
     public static final AttackRegistry SUMMON = new AttackRegistry(Valoria.ID, "summon");
     public static final AttackRegistry BLOCK = new AttackRegistry(Valoria.ID, "block");
-    public static final AttackRegistry LASER = new AttackRegistry(Valoria.ID, "laser");
+    public static final AttackRegistry RADIAL = new AttackRegistry(Valoria.ID, "radial");
 
     public static AttributeSupplier HAUNTED_MERCHANT = register(40, 6).add(Attributes.FOLLOW_RANGE, 12).build();
     public static AttributeSupplier MANNEQUIN = register().add(Attributes.MAX_HEALTH, 1).add(Attributes.KNOCKBACK_RESISTANCE, 1).build();
