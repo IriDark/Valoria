@@ -22,7 +22,7 @@ public class WickedAltar extends AbstractBossAltar{
 
     @Override
     public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit){
-        world.playSound(null, pos, SoundsRegistry.WICKED_CRYSTAL_SUMMON.get(), SoundSource.BLOCKS, 1, 1);
+        world.playSound(null, pos, SoundEvents.EMPTY, SoundSource.BLOCKS, 1, 1); //todo
         return super.use(state, world, pos, player, hand, hit);
     }
 

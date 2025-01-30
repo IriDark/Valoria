@@ -3,7 +3,7 @@ package com.idark.valoria.client.model.animations;
 import net.minecraft.client.animation.*;
 
 public class CrystalAnimation {
-    public static final AnimationDefinition DEATH = AnimationDefinition.Builder.withLength(1.5F)
+    public static final AnimationDefinition DEATH = AnimationDefinition.Builder.withLength(2.0F)
     .addAnimation("bone3", new AnimationChannel(AnimationChannel.Targets.ROTATION,
     new Keyframe(0.0F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
     new Keyframe(0.125F, KeyframeAnimations.degreeVec(0.0F, 0.0F, -40.0F), AnimationChannel.Interpolations.CATMULLROM),
@@ -22,17 +22,19 @@ public class CrystalAnimation {
     new Keyframe(0.0F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
     new Keyframe(0.2083F, KeyframeAnimations.degreeVec(-12.5F, 0.0F, 15.0F), AnimationChannel.Interpolations.CATMULLROM),
     new Keyframe(0.8333F, KeyframeAnimations.degreeVec(-8.0455F, -4.6198F, -18.5549F), AnimationChannel.Interpolations.CATMULLROM),
-    new Keyframe(1.1667F, KeyframeAnimations.degreeVec(89.4545F, -4.6198F, -18.5549F), AnimationChannel.Interpolations.CATMULLROM)
+    new Keyframe(1.4583F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM)
     ))
     .addAnimation("bone", new AnimationChannel(AnimationChannel.Targets.POSITION,
     new Keyframe(0.0F, KeyframeAnimations.posVec(0.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
     new Keyframe(0.2083F, KeyframeAnimations.posVec(12.0F, 0.0F, 19.0F), AnimationChannel.Interpolations.CATMULLROM),
-    new Keyframe(1.0F, KeyframeAnimations.posVec(5.62F, 0.0F, -4.25F), AnimationChannel.Interpolations.CATMULLROM)
+    new Keyframe(1.0F, KeyframeAnimations.posVec(5.62F, 0.0F, -4.25F), AnimationChannel.Interpolations.CATMULLROM),
+    new Keyframe(1.4583F, KeyframeAnimations.posVec(0.82F, -6.0F, -1.69F), AnimationChannel.Interpolations.CATMULLROM)
     ))
     .addAnimation("bone", new AnimationChannel(AnimationChannel.Targets.SCALE,
     new Keyframe(0.0F, KeyframeAnimations.scaleVec(1.0F, 1.0F, 1.0F), AnimationChannel.Interpolations.CATMULLROM),
     new Keyframe(0.2083F, KeyframeAnimations.scaleVec(1.4993F, 1.0F, 1.9995F), AnimationChannel.Interpolations.CATMULLROM),
-    new Keyframe(0.5F, KeyframeAnimations.scaleVec(1.0F, 1.0F, 1.0F), AnimationChannel.Interpolations.CATMULLROM)
+    new Keyframe(0.5F, KeyframeAnimations.scaleVec(1.0F, 1.0F, 1.0F), AnimationChannel.Interpolations.CATMULLROM),
+    new Keyframe(1.4583F, KeyframeAnimations.scaleVec(1.0F, 1.0F, 1.0F), AnimationChannel.Interpolations.CATMULLROM)
     ))
     .addAnimation("bone2", new AnimationChannel(AnimationChannel.Targets.ROTATION,
     new Keyframe(0.0F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),

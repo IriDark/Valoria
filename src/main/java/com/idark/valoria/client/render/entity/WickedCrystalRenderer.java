@@ -27,6 +27,11 @@ public class WickedCrystalRenderer extends MobRenderer<WickedCrystal, WickedCrys
         pMatrixStack.pushPose();
         pMatrixStack.translate(0F, (float)(Math.sin(Math.toRadians(ticksUp)) * 0.12125F), 0F);
         pMatrixStack.mulPose(Axis.YP.rotationDegrees((float)ticks));
+        if(pEntity.deathTime > 0) {
+            float size = 1.0F - (pEntity.deathTime / 60.0F);
+            pMatrixStack.scale(-size, -size, -size);
+        }
+
         super.render(pEntity, pEntityYaw, pPartialTicks, pMatrixStack, pBuffer, pPackedLight);
         pMatrixStack.popPose();
     }

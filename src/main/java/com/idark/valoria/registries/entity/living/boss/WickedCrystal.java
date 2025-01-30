@@ -34,6 +34,7 @@ public class WickedCrystal extends AbstractBoss{
     private int spawnTime = 0;
     public AnimationState spawnAnimationState = new AnimationState();
     public AnimationState deathAnimationState = new AnimationState();
+    public int deathTime = 0;
 
     public WickedCrystal(EntityType<? extends PathfinderMob> pEntityType, Level pLevel){
         super(pEntityType, pLevel);
@@ -42,9 +43,31 @@ public class WickedCrystal extends AbstractBoss{
     @Override
     public void tick(){
         super.tick();
+        if (this.deathTime > 0) {
+            if (this.level() instanceof ServerLevel serverLevel) {
+                for (int i = 0; i < 2; i++) {
+                    double offsetX = (random.nextDouble() - 0.5) * 0.6;
+                    double offsetY = random.nextDouble() * 0.4;
+                    double offsetZ = (random.nextDouble() - 0.5) * 0.6;
+
+                    serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, BlockRegistry.wickedAmethystBlock.get().defaultBlockState()), this.getX() + offsetX, this.getY() + 0.5 + offsetY, this.getZ() + offsetZ,
+                    1, 0, 0.5, 0, 0.05);
+                }
+            }
+        }
+
+
         if(this.spawnTime < 10){
             this.spawnTime++;
             this.spawnAnimationState.start(tickCount);
+        }
+    }
+
+    @Override
+    protected void tickDeath(){
+        ++this.deathTime;
+        if (this.deathTime >= 60 && !this.level().isClientSide() && !this.isRemoved()) {
+            this.remove(Entity.RemovalReason.KILLED);
         }
     }
 

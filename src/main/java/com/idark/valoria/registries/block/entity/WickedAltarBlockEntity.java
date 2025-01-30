@@ -45,7 +45,7 @@ public class WickedAltarBlockEntity extends AbstractAltarBlockEntity{
 
     @Override
     public SoundEvent getSummonSound(){
-        return SoundEvents.EMPTY;
+        return SoundsRegistry.WICKED_CRYSTAL_SUMMON.get();
     }
 
     @Override
