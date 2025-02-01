@@ -68,7 +68,7 @@ public class CrusherBlockEntity extends BlockSimpleInventory{
     public void setChanged(){
         super.setChanged();
         if(level != null && !level.isClientSide){
-            ValoriaUtils.tileEntity.SUpdateTileEntityPacket(this);
+            ValoriaUtils.SUpdateTileEntityPacket(this);
         }
     }
 }

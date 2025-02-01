@@ -8,7 +8,6 @@ import com.idark.valoria.registries.entity.ai.movements.*;
 import com.idark.valoria.registries.entity.living.*;
 import com.idark.valoria.registries.entity.living.minions.*;
 import com.idark.valoria.registries.entity.projectile.*;
-import com.idark.valoria.util.*;
 import net.minecraft.core.*;
 import net.minecraft.core.particles.*;
 import net.minecraft.nbt.*;
@@ -38,6 +37,7 @@ import org.joml.*;
 import pro.komaru.tridot.client.graphics.gui.bossbars.*;
 import pro.komaru.tridot.core.interfaces.*;
 import pro.komaru.tridot.core.math.*;
+import pro.komaru.tridot.utilities.*;
 
 import javax.annotation.Nullable;
 import java.lang.Math;
@@ -516,7 +516,7 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
                         dX /= sqrt;
                         dY /= sqrt;
                         dZ /= sqrt;
-                        double seenPercent = ValoriaUtils.getSeenPercent(vec3, entity, 2);
+                        double seenPercent = Utils.Hit.seenPercent(vec3, entity, 2);
                         double power = (1.0D - distance) * seenPercent;
                         double powerAfterDamp = ProtectionEnchantment.getExplosionKnockbackAfterDampener(entity, power);
                         dX *= powerAfterDamp;
@@ -583,8 +583,8 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
             for(Monster target : targets){
                 if(!(target instanceof NecromancerEntity) && target.getHealth() < target.getMaxHealth()){
                     Vector3d pos = new Vector3d(NecromancerEntity.this.getX(), NecromancerEntity.this.getY(), NecromancerEntity.this.getZ());
-                    ValoriaUtils.spawnParticlesInRadius(serverLevel, null, ParticleTypes.HAPPY_VILLAGER, pos, 0, NecromancerEntity.this.getRotationVector().y, 4);
-                    ValoriaUtils.healNearbyTypedMobs(MobCategory.MONSTER, 12.0F, serverLevel, NecromancerEntity.this, toHeal, pos, 0, NecromancerEntity.this.getRotationVector().y, 4);
+                    Utils.Particles.inRadius(serverLevel, null, ParticleTypes.HAPPY_VILLAGER, pos, 0, NecromancerEntity.this.getRotationVector().y, 4);
+                    Utils.Hit.healNearbyMobs(MobCategory.MONSTER, 12.0F, serverLevel, NecromancerEntity.this, toHeal, pos, 0, NecromancerEntity.this.getRotationVector().y, 4);
                     serverLevel.playSound(null, target.getX(), target.getY(), target.getZ(), SoundEvents.EVOKER_CAST_SPELL, target.getSoundSource(), 0.42F, 1.23F);
                     break;
                 }
@@ -658,7 +658,7 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
             ServerLevel serverLevel = (ServerLevel)NecromancerEntity.this.level();
             if(NecromancerEntity.this.getHealth() < NecromancerEntity.this.getMaxHealth()){
                 Vector3d pos = new Vector3d(NecromancerEntity.this.getX(), NecromancerEntity.this.getY(), NecromancerEntity.this.getZ());
-                ValoriaUtils.spawnParticlesAroundPosition(pos, 2, 1, serverLevel, ParticleTypes.HAPPY_VILLAGER);
+                Utils.Particles.around(pos, 2, 1, serverLevel, ParticleTypes.HAPPY_VILLAGER);
                 NecromancerEntity.this.heal(25);
                 serverLevel.playSound(null, NecromancerEntity.this.getX(), NecromancerEntity.this.getY(), NecromancerEntity.this.getZ(), SoundEvents.EVOKER_CAST_SPELL, NecromancerEntity.this.getSoundSource(), 0.42F, 1.23F);
             }

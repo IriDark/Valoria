@@ -31,8 +31,6 @@ import pro.komaru.tridot.utilities.*;
 
 import java.util.*;
 
-import static com.idark.valoria.util.ValoriaUtils.addContributorTooltip;
-
 public class BlazeReapItem extends PickaxeItem implements Vanishable, OverlayRenderItem{
     private static final ResourceLocation BAR = new ResourceLocation(Valoria.ID, "textures/gui/overlay/blazecharge_bar.png");
 
@@ -107,7 +105,7 @@ public class BlazeReapItem extends PickaxeItem implements Vanishable, OverlayRen
             Vec3 playerPos = player.getEyePosition();
             Vec3 EndPos = (player.getViewVector(0.0f).scale(20.0d));
             if(ProjectileUtil.getEntityHitResult(player, playerPos, EndPos, new AABB(pos.x + X - 3D, pos.y + Y - 3D, pos.z + Z - 3D, pos.x + X + 3D, pos.y + Y + 3D, pos.z + Z + 3D), (e) -> true, 15) == null){
-                HitResult hitresult = ValoriaUtils.getHitResult(playerPos, player, (e) -> true, EndPos, level);
+                HitResult hitresult = Utils.Hit.hitResult(playerPos, player, (e) -> true, EndPos, level);
                 if(hitresult != null){
                     switch(hitresult.getType()){
                         case BLOCK:
@@ -135,7 +133,7 @@ public class BlazeReapItem extends PickaxeItem implements Vanishable, OverlayRen
                 if(EnchantmentHelper.getTagEnchantmentLevel(EnchantmentsRegistry.EXPLOSIVE_FLAME.get(), weapon) > 0){
                     level.explode(player, pos.x + X, pos.y + Y, pos.z + Z, radius, Level.ExplosionInteraction.TNT);
                 }else{
-                    ValoriaUtils.configExplode(player, weapon, pos, new Vec3(X, Y, Z), radius, damage, knockback);
+                    Utils.Hit.explosion(player, weapon, pos, new Vec3(X, Y, Z), radius, damage, knockback);
                 }
 
                 ScreenshakeHandler.addScreenshake(new ScreenshakeInstance(5).setIntensity(radius * 0.85f).setEasing(Interp.bounce));
@@ -198,7 +196,7 @@ public class BlazeReapItem extends PickaxeItem implements Vanishable, OverlayRen
     @Override
     public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags){
         super.appendHoverText(stack, world, tooltip, flags);
-        addContributorTooltip(stack, tooltip);
+        Utils.Items.addContributorTooltip(stack, tooltip);
         tooltip.add(Component.translatable("tooltip.valoria.familiar").withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
         tooltip.add(Component.translatable("tooltip.valoria.blazereap").withStyle(ChatFormatting.GRAY));
         tooltip.add(Component.translatable(getModeString(stack)).withStyle(ChatFormatting.GREEN));

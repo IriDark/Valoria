@@ -8,14 +8,12 @@
     "AttributeMixin",
     "HalfTransparentBlockMixin",
     "InventoryMixin",
-    "ItemEntityMixin",
     "LivingEntityMixin",
     "RangedAttributeMixin"
   ],
   "client": [
     "client.AbstractClientPlayerMixin",
     "client.ClientLevelMixin",
-    "client.LivingEntityRendererMixin",
     "client.PlayerRendererMixin"
   ],
   "injectors": {

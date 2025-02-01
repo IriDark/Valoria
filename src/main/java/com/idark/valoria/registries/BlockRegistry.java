@@ -6,7 +6,6 @@ import com.idark.valoria.registries.block.types.altars.*;
 import com.idark.valoria.registries.block.types.plants.*;
 import com.idark.valoria.registries.item.types.*;
 import com.idark.valoria.registries.level.tree.*;
-import com.idark.valoria.util.*;
 import net.minecraft.*;
 import net.minecraft.core.*;
 import net.minecraft.network.chat.*;
@@ -24,11 +23,11 @@ import net.minecraft.world.phys.shapes.*;
 import net.minecraftforge.eventbus.api.*;
 import net.minecraftforge.registries.*;
 import pro.komaru.tridot.client.graphics.particle.data.*;
+import pro.komaru.tridot.utilities.*;
 
 import java.util.function.*;
 
 import static com.idark.valoria.registries.ItemsRegistry.BLOCK_ITEMS;
-import static com.idark.valoria.util.ValoriaUtils.*;
 
 public class BlockRegistry{
     public static final DeferredRegister<Block> BLOCK = DeferredRegister.create(ForgeRegistries.BLOCKS, Valoria.ID);
@@ -88,7 +87,7 @@ public class BlockRegistry{
         cutUmbralBlock = registerBlock("cut_umbral_block", () -> new Block(propsUnbreakable(Blocks.IRON_BLOCK, MapColor.COLOR_PURPLE).sound(SoundType.NETHER_BRICKS).noLootTable()));
         umbralBlock = registerBlock("umbral_block", () -> new UmbralBlock(propsUnbreakable(Blocks.IRON_BLOCK, MapColor.COLOR_PURPLE).sound(SoundType.NETHER_BRICKS).noLootTable()));
         umbralBricks = registerBlock("umbral_bricks", () -> new UmbralBlock(propsUnbreakable(Blocks.IRON_BLOCK, MapColor.COLOR_PURPLE).sound(SoundType.NETHER_BRICKS).noLootTable()));
-        pyratiteBlock = registerBlock("pyratite_block", () -> new Block(props(Blocks.AMETHYST_BLOCK, MapColor.COLOR_ORANGE).requiresCorrectToolForDrops().lightLevel(setLightValue(9))));
+        pyratiteBlock = registerBlock("pyratite_block", () -> new Block(props(Blocks.AMETHYST_BLOCK, MapColor.COLOR_ORANGE).requiresCorrectToolForDrops().lightLevel(Utils.Blocks.light(9))));
         pyratiteOre = registerBlock("pyratite_ore", () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE).requiresCorrectToolForDrops().strength(10f, 12f), UniformInt.of(2, 4)));
         pyratiteCrystal = registerBlock("pyratite_crystal", () -> new AmethystClusterBlock(7, 3, BlockBehaviour.Properties.copy(Blocks.LARGE_AMETHYST_BUD).strength(1f, 0f).sound(SoundType.GLASS).noOcclusion()));
         amberBlock = registerBlock("amber_block", () -> new Block(props(Blocks.IRON_BLOCK, MapColor.COLOR_ORANGE).requiresCorrectToolForDrops().strength(3f, 4f).sound(SoundType.AMETHYST)));
@@ -250,8 +249,8 @@ public class BlockRegistry{
         voidStoneStairs = registerBlock("void_stone_stairs", () -> new StairBlock(() -> BlockRegistry.voidStone.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).strength(3f, 6f).sound(SoundsRegistry.VOID_STONE).requiresCorrectToolForDrops()));
         voidStoneSlab = registerBlock("void_stone_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(3f, 6f).sound(SoundsRegistry.VOID_STONE)));
         voidStoneWall = registerBlock("void_stone_wall", () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(3f, 6f).sound(SoundsRegistry.VOID_STONE)));
-        voidPillarAmethyst = registerBlock("void_pillar_amethyst", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(3f, 6f).sound(SoundsRegistry.VOID_STONE).lightLevel(setLightValue(4))));
-        chargedVoidPillar = registerBlock("charged_void_pillar", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().sound(SoundType.NETHER_BRICKS).lightLevel(setLightValue(4))));
+        voidPillarAmethyst = registerBlock("void_pillar_amethyst", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(3f, 6f).sound(SoundsRegistry.VOID_STONE).lightLevel(Utils.Blocks.light(4))));
+        chargedVoidPillar = registerBlock("charged_void_pillar", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().sound(SoundType.NETHER_BRICKS).lightLevel(Utils.Blocks.light(4))));
         voidPillar = registerBlock("void_pillar", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(3f, 6f).sound(SoundsRegistry.VOID_STONE)));
         voidBrick = registerBlock("void_brick", () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(3f, 6f).sound(SoundsRegistry.VOID_STONE)));
         voidBrickStairs = registerBlock("void_brick_stairs", () -> new StairBlock(() -> BlockRegistry.voidBrick.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).strength(3f, 6f).requiresCorrectToolForDrops().sound(SoundsRegistry.VOID_STONE)));
@@ -293,9 +292,9 @@ public class BlockRegistry{
         tombstoneBricksWall = registerBlock("tombstone_bricks_wall", () -> new WallBlock(props(Blocks.STONE, MapColor.COLOR_BLACK).requiresCorrectToolForDrops().sound(SoundsRegistry.TOMBSTONE_BRICKS)));
         crackedTombstoneBricks = registerBlock("cracked_tombstone_bricks", () -> new Block(props(Blocks.STONE_BRICKS, MapColor.COLOR_BLACK).requiresCorrectToolForDrops().sound(SoundsRegistry.TOMBSTONE_BRICKS)));
         crackedTombstoneBricksWall = registerBlock("cracked_tombstone_bricks_wall", () -> new WallBlock(props(Blocks.STONE_BRICK_WALL, MapColor.COLOR_BLACK).requiresCorrectToolForDrops()));
-        cryptLantern = registerBlock("crypt_lantern", () -> new CryptLantern(BlockBehaviour.Properties.copy(Blocks.LANTERN).lightLevel(ValoriaUtils.setLightValue(10))));
-        crypticAltar = registerBlock("cryptic_altar", () -> new CrypticAltar(BlockBehaviour.Properties.copy(BlockRegistry.tombstone.get()).noOcclusion().strength(-1f, 3600000.0F).lightLevel(ValoriaUtils.setLightValue(10))));
-        wickedAltar = registerBlock("wicked_altar", () -> new WickedAltar(BlockBehaviour.Properties.copy(BlockRegistry.picrite.get()).noOcclusion().strength(-1f, 3600000.0F).lightLevel(ValoriaUtils.setLightValue(10))));
+        cryptLantern = registerBlock("crypt_lantern", () -> new CryptLantern(BlockBehaviour.Properties.copy(Blocks.LANTERN).lightLevel(Utils.Blocks.light(10))));
+        crypticAltar = registerBlock("cryptic_altar", () -> new CrypticAltar(BlockBehaviour.Properties.copy(BlockRegistry.tombstone.get()).noOcclusion().strength(-1f, 3600000.0F).lightLevel(Utils.Blocks.light(10))));
+        wickedAltar = registerBlock("wicked_altar", () -> new WickedAltar(BlockBehaviour.Properties.copy(BlockRegistry.picrite.get()).noOcclusion().strength(-1f, 3600000.0F).lightLevel(Utils.Blocks.light(10))));
 
         //wood
         shadewoodPressurePlate = registerBlock("shadewood_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_PURPLE).noOcclusion().noCollission(), BlockSetType.OAK));
@@ -354,9 +353,9 @@ public class BlockRegistry{
         quicksand = registerBlock("quicksand", () -> new QuickSandBlock(BlockBehaviour.Properties.copy(Blocks.SAND).dynamicShape().requiresCorrectToolForDrops().strength(0.5f, 0.5f).sound(SoundType.SAND)));
         elementalManipulator = registerBlock("elemental_manipulator", () -> new ManipulatorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).mapColor(MapColor.COLOR_GREEN).requiresCorrectToolForDrops().strength(3f, 1f).lightLevel(s -> 4).noOcclusion()));
         elegantPedestal = registerBlock("elegant_pedestal", () -> new PedestalBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_RED).requiresCorrectToolForDrops().strength(3f, 1f).noOcclusion()));
-        bronzeLamp = registerBlock("bronze_lamp", () -> new RedstoneLampBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).mapColor(MapColor.COLOR_BROWN).strength(3f, 4f).noOcclusion().sound(SoundType.GLASS).lightLevel(getLightValueLit())));
-        decoratedBronzeLamp = registerBlock("decorated_bronze_lamp", () -> new RedstoneLampBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).mapColor(MapColor.COLOR_BROWN).strength(3f, 4f).noOcclusion().sound(SoundType.GLASS).lightLevel(getLightValueLit())));
-        bronzeLampBlock = registerBlock("bronze_lamp_block", () -> new RedstoneLampBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).mapColor(MapColor.COLOR_BROWN).strength(3f, 4f).noOcclusion().sound(SoundType.GLASS).lightLevel(getLightValueLit())));
+        bronzeLamp = registerBlock("bronze_lamp", () -> new RedstoneLampBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).mapColor(MapColor.COLOR_BROWN).strength(3f, 4f).noOcclusion().sound(SoundType.GLASS).lightLevel(Utils.Blocks.lightIfLit())));
+        decoratedBronzeLamp = registerBlock("decorated_bronze_lamp", () -> new RedstoneLampBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).mapColor(MapColor.COLOR_BROWN).strength(3f, 4f).noOcclusion().sound(SoundType.GLASS).lightLevel(Utils.Blocks.lightIfLit())));
+        bronzeLampBlock = registerBlock("bronze_lamp_block", () -> new RedstoneLampBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).mapColor(MapColor.COLOR_BROWN).strength(3f, 4f).noOcclusion().sound(SoundType.GLASS).lightLevel(Utils.Blocks.lightIfLit())));
         spiderEgg = registerBlock("spider_egg", () -> new SpiderBlock(BlockBehaviour.Properties.copy(Blocks.STONE).instabreak().noOcclusion().sound(SoundType.FROGSPAWN)));
 
         // Cups
@@ -404,11 +403,11 @@ public class BlockRegistry{
         violetSproutPlant = BLOCK.register("violet_sprout_plant", () -> new VioletSproutPlantBlock(BlockBehaviour.Properties.copy(Blocks.KELP_PLANT).mapColor(MapColor.COLOR_MAGENTA), false));
         violetSprout = registerBlock("violet_sprout", () -> new VioletSproutBlock(BlockBehaviour.Properties.copy(Blocks.KELP).mapColor(MapColor.COLOR_MAGENTA), false), () -> new TaintTransformBlockItem(BlockRegistry.violetSproutPlant.get(), new Item.Properties()));
 
-        glowVioletSproutPlant = BLOCK.register("glow_violet_sprout_plant", () -> new VioletSproutPlantBlock(BlockBehaviour.Properties.copy(Blocks.KELP_PLANT).mapColor(MapColor.COLOR_MAGENTA).lightLevel(getPlantLightValue()), true));
-        glowVioletSprout = registerBlock("glow_violet_sprout", () -> new VioletSproutBlock(BlockBehaviour.Properties.copy(Blocks.KELP).lightLevel(getPlantLightValue()), true), () -> new TaintTransformBlockItem(BlockRegistry.glowVioletSprout.get(), new Item.Properties()));
+        glowVioletSproutPlant = BLOCK.register("glow_violet_sprout_plant", () -> new VioletSproutPlantBlock(BlockBehaviour.Properties.copy(Blocks.KELP_PLANT).mapColor(MapColor.COLOR_MAGENTA).lightLevel(Utils.Blocks.plantLight()), true));
+        glowVioletSprout = registerBlock("glow_violet_sprout", () -> new VioletSproutBlock(BlockBehaviour.Properties.copy(Blocks.KELP).lightLevel(Utils.Blocks.plantLight()), true), () -> new TaintTransformBlockItem(BlockRegistry.glowVioletSprout.get(), new Item.Properties()));
 
         abyssalGlowfernPlant = BLOCK.register("abyssal_glowfern_plant", () -> new AbyssalGlowFernPlantBlock(BlockBehaviour.Properties.copy(Blocks.KELP_PLANT).mapColor(MapColor.COLOR_MAGENTA)));
-        abyssalGlowfern = registerBlock("abyssal_glowfern", () -> new AbyssalGlowFernBlock(BlockBehaviour.Properties.copy(Blocks.KELP).mapColor(MapColor.COLOR_MAGENTA).lightLevel(getPlantLightValue())), () -> new TaintTransformBlockItem(BlockRegistry.abyssalGlowfern.get(), new Item.Properties()));
+        abyssalGlowfern = registerBlock("abyssal_glowfern", () -> new AbyssalGlowFernBlock(BlockBehaviour.Properties.copy(Blocks.KELP).mapColor(MapColor.COLOR_MAGENTA).lightLevel(Utils.Blocks.plantLight())), () -> new TaintTransformBlockItem(BlockRegistry.abyssalGlowfern.get(), new Item.Properties()));
 
         aloeSmall = registerBlock("aloe_small", () -> new DeadBushBlock(BlockBehaviour.Properties.copy(Blocks.SUNFLOWER)));
         pottedAloeSmall = BLOCK.register("potted_aloe_small", () -> new FlowerPotBlock(BlockRegistry.aloeSmall.get(), BlockBehaviour.Properties.copy(Blocks.POTTED_POPPY).instabreak().noOcclusion()));

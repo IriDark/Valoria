@@ -1,23 +1,18 @@
 package com.idark.valoria.registries.block.types;
 
-import com.idark.valoria.core.network.PacketHandler;
-import com.idark.valoria.core.network.packets.particle.KeypadParticlePacket;
-import com.idark.valoria.util.ValoriaUtils;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.Shapes;
-import net.minecraft.world.phys.shapes.VoxelShape;
+import com.idark.valoria.core.network.*;
+import com.idark.valoria.core.network.packets.particle.*;
+import net.minecraft.core.*;
+import net.minecraft.server.level.*;
+import net.minecraft.util.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.*;
+import net.minecraft.world.level.block.state.properties.*;
+import net.minecraft.world.phys.shapes.*;
+import pro.komaru.tridot.utilities.*;
 
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 //TODO: FIX
 public class UmbralBlock extends Block{
@@ -93,7 +88,7 @@ public class UmbralBlock extends Block{
         }
 
         if(pState.getValue(ACTIVE) && pState.getValue(RETURN)){
-            ValoriaUtils.scheduler.scheduleAsyncTask(() -> deactivateDoor(pLevel, pPos), 30, TimeUnit.SECONDS);
+            Utils.Schedule.scheduleAsyncTask(() -> deactivateDoor(pLevel, pPos), 30, TimeUnit.SECONDS);
         }
     }
 }

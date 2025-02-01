@@ -306,6 +306,11 @@
       "valoria:soul_collect_1"
     ]
   },
+  "mob.wicked_crystal.altar": {
+    "sounds": [
+      "valoria:wicked_crystal/wicked_crystal_altar"
+    ]
+  },
   "mob.crystal_frost.prepare": {
     "subtitle": "subtitles.valoria.minion.prepare",
     "sounds": [

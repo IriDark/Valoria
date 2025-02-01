@@ -48,7 +48,7 @@ public abstract class AbstractAltarBlockEntity extends BlockSimpleInventory impl
                 resetProgress();
             }
 
-            ValoriaUtils.tileEntity.SUpdateTileEntityPacket(this);
+            ValoriaUtils.SUpdateTileEntityPacket(this);
         }
     }
 
@@ -131,7 +131,7 @@ public abstract class AbstractAltarBlockEntity extends BlockSimpleInventory impl
     public void setChanged(){
         super.setChanged();
         if(level != null && !level.isClientSide){
-            ValoriaUtils.tileEntity.SUpdateTileEntityPacket(this);
+            ValoriaUtils.SUpdateTileEntityPacket(this);
         }
     }
 }

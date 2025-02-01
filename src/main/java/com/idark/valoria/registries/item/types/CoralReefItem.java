@@ -14,6 +14,7 @@ import net.minecraft.world.item.enchantment.*;
 import net.minecraft.world.level.*;
 import org.joml.*;
 import pro.komaru.tridot.core.math.*;
+import pro.komaru.tridot.utilities.*;
 
 import java.util.*;
 
@@ -65,7 +66,7 @@ public class CoralReefItem extends SwordItem{
         List<LivingEntity> hitEntities = new ArrayList<>();
 
         ValoriaUtils.radiusHit(worldIn, stack, player, ParticleTypes.BUBBLE_POP, hitEntities, pos, 0, player.getRotationVector().y, 3);
-        ValoriaUtils.spawnParticlesInRadius(worldIn, stack, ParticleTypes.UNDERWATER, pos, 0, player.getRotationVector().y, 3);
+        Utils.Particles.inRadius(worldIn, stack, ParticleTypes.UNDERWATER, pos, 0, player.getRotationVector().y, 3);
         for(LivingEntity damagedEntity : hitEntities){
             damagedEntity.hurt(worldIn.damageSources().playerAttack(player), (damage + EnchantmentHelper.getDamageBonus(stack, damagedEntity.getMobType())) * 1.35f);
             damagedEntity.knockback(0.4F, player.getX() - entityLiving.getX(), player.getZ() - entityLiving.getZ());

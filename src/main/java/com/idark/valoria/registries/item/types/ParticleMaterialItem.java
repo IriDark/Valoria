@@ -1,12 +1,12 @@
 package com.idark.valoria.registries.item.types;
 
-import com.idark.valoria.core.interfaces.*;
 import net.minecraft.core.particles.*;
 import net.minecraft.world.entity.item.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraftforge.api.distmarker.*;
 import pro.komaru.tridot.client.graphics.particle.data.*;
+import pro.komaru.tridot.core.interfaces.*;
 
 import static com.idark.valoria.client.particle.ParticleEffects.spawnItemParticles;
 

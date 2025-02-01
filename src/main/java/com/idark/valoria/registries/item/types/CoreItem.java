@@ -1,6 +1,5 @@
 package com.idark.valoria.registries.item.types;
 
-import com.idark.valoria.core.interfaces.*;
 import net.minecraft.*;
 import net.minecraft.core.particles.*;
 import net.minecraft.network.chat.Component;
@@ -11,6 +10,7 @@ import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.registries.*;
 import org.jetbrains.annotations.*;
 import pro.komaru.tridot.client.graphics.particle.data.*;
+import pro.komaru.tridot.core.interfaces.*;
 
 import java.awt.*;
 import java.util.List;

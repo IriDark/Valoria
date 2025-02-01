@@ -2,9 +2,7 @@ package com.idark.valoria.registries.entity.projectile;
 
 import com.idark.valoria.*;
 import com.idark.valoria.client.particle.*;
-import com.idark.valoria.core.interfaces.*;
 import com.idark.valoria.registries.*;
-import com.idark.valoria.util.*;
 import net.minecraft.resources.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.projectile.*;
@@ -14,6 +12,8 @@ import net.minecraft.world.phys.*;
 import pro.komaru.tridot.client.graphics.*;
 import pro.komaru.tridot.client.graphics.particle.*;
 import pro.komaru.tridot.client.graphics.particle.data.*;
+import pro.komaru.tridot.core.interfaces.*;
+import pro.komaru.tridot.utilities.*;
 
 import java.util.function.*;
 
@@ -30,7 +30,7 @@ public class SoulArrow extends AbstractValoriaArrow implements TexturedArrow{
     @Override
     public void tick(){
         super.tick();
-        ValoriaUtils.inaccurateHomingMovement(0.05f, this, this.level(), this.getOwner(), new AABB(this.getX() - 4.5f, this.getY() - 4.5f, this.getZ() - 4.5f, this.getX() + 4.5f, this.getY() + 4.5f, this.getZ() + 4.5f));
+        Utils.Physics.homingTo(0.05f, this, this.level(), this.getOwner(), new AABB(this.getX() - 4.5f, this.getY() - 4.5f, this.getZ() - 4.5f, this.getX() + 4.5f, this.getY() + 4.5f, this.getZ() + 4.5f));
     }
 
     @Override

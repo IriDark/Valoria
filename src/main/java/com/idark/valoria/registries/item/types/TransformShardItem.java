@@ -1,7 +1,6 @@
 package com.idark.valoria.registries.item.types;
 
 import com.idark.valoria.client.particle.*;
-import com.idark.valoria.core.interfaces.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.util.*;
 import net.minecraft.core.*;
@@ -18,6 +17,7 @@ import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.phys.*;
 import net.minecraftforge.api.distmarker.*;
 import pro.komaru.tridot.client.graphics.particle.data.*;
+import pro.komaru.tridot.core.interfaces.*;
 
 //TODO: probably rework (maybe?)
 public class TransformShardItem extends Item implements ParticleItemEntity{

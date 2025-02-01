@@ -1,8 +1,6 @@
 package com.idark.valoria.registries.item.types.curio.charm;
 
-import com.idark.valoria.core.interfaces.*;
 import com.idark.valoria.registries.*;
-import com.idark.valoria.util.*;
 import net.minecraft.*;
 import net.minecraft.core.particles.*;
 import net.minecraft.network.chat.*;
@@ -15,7 +13,9 @@ import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
+import pro.komaru.tridot.core.interfaces.*;
 import pro.komaru.tridot.core.math.*;
+import pro.komaru.tridot.utilities.*;
 import top.theillusivec4.curios.api.*;
 import top.theillusivec4.curios.api.type.capability.*;
 
@@ -54,7 +54,7 @@ public class BloodSight extends Item implements ICurioItem, Vanishable, Particle
         int damageAmount = flag ? new Random().nextInt(2, 6) : new Random().nextInt(2, 8);
         if(!pLevel.isClientSide() && pLevel instanceof ServerLevel serverLevel){
             if(lastHurtMob != null && !player.getCooldowns().isOnCooldown(stack.getItem())){
-                ValoriaUtils.damageLastAttackedMob(serverLevel, player, this.getDamage(0, RandomSource.create()));
+                Utils.Hit.hitLast(serverLevel, player, this.getDamage(0, RandomSource.create()));
                 if(flag){
                     if(arcRandom.chance(0.25f)){
                         player.hurt(pLevel.damageSources().magic(), 0.5f);
@@ -65,7 +65,7 @@ public class BloodSight extends Item implements ICurioItem, Vanishable, Particle
                     hits++;
                 }
 
-                ValoriaUtils.spawnParticlesLineToAttackedMobWithCooldown(serverLevel, player, new BlockParticleOption(ParticleTypes.BLOCK, Blocks.REDSTONE_BLOCK.defaultBlockState()), duration);
+                Utils.Particles.lineToAttacked(serverLevel, player, new BlockParticleOption(ParticleTypes.BLOCK, Blocks.REDSTONE_BLOCK.defaultBlockState()), duration);
                 if(player.hurtMarked){
                     stack.hurtAndBreak(damageAmount, player, (p0) -> p0.broadcastBreakEvent(EquipmentSlot.MAINHAND));
                 }

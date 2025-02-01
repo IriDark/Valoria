@@ -23,6 +23,7 @@ import net.minecraft.world.level.pathfinder.*;
 import org.joml.*;
 import pro.komaru.tridot.registry.entity.*;
 import pro.komaru.tridot.registry.entity.ai.*;
+import pro.komaru.tridot.utilities.*;
 
 import java.lang.Math;
 import java.util.Random;
@@ -150,8 +151,8 @@ public class SorcererEntity extends MultiAttackMob implements Enemy, RangedAttac
             for(Monster target : targets){
                 if(target.getHealth() < target.getMaxHealth()){
                     Vector3d pos = new Vector3d(SorcererEntity.this.getX(), SorcererEntity.this.getY(), SorcererEntity.this.getZ());
-                    ValoriaUtils.spawnParticlesInRadius(serverLevel, null, ParticleTypes.HAPPY_VILLAGER, pos, 0, SorcererEntity.this.getRotationVector().y, 6);
-                    ValoriaUtils.healNearbyTypedMobs(MobCategory.MONSTER, 4.0F, serverLevel, SorcererEntity.this, toHeal, pos, 0, SorcererEntity.this.getRotationVector().y, 6);
+                    Utils.Particles.inRadius(serverLevel, null, ParticleTypes.HAPPY_VILLAGER, pos, 0, SorcererEntity.this.getRotationVector().y, 6);
+                    Utils.Hit.healNearbyMobs(MobCategory.MONSTER, 4.0F, serverLevel, SorcererEntity.this, toHeal, pos, 0, SorcererEntity.this.getRotationVector().y, 6);
                     serverLevel.playSound(null, target.getX(), target.getY(), target.getZ(), SoundEvents.EVOKER_CAST_SPELL, target.getSoundSource(), 0.42F, 1.23F);
                     break;
                 }

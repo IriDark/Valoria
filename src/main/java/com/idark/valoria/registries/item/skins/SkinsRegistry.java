@@ -1,14 +1,12 @@
 package com.idark.valoria.registries.item.skins;
 
 import com.idark.valoria.*;
-import com.idark.valoria.client.model.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.item.armor.item.*;
 import com.idark.valoria.registries.item.skins.entries.ItemSupplierSkinEntry;
 import com.idark.valoria.registries.item.skins.entries.*;
 import com.idark.valoria.registries.item.types.*;
 import com.idark.valoria.registries.item.types.ranged.*;
-import com.idark.valoria.registries.item.types.ranged.bows.*;
 import com.idark.valoria.util.*;
 import net.minecraft.client.resources.model.*;
 import net.minecraft.resources.*;
@@ -26,6 +24,7 @@ import pro.komaru.tridot.client.model.item.*;
 import pro.komaru.tridot.registry.item.*;
 import pro.komaru.tridot.registry.item.builders.*;
 import pro.komaru.tridot.registry.item.skins.*;
+import pro.komaru.tridot.registry.item.types.*;
 
 import java.util.*;
 
@@ -109,7 +108,7 @@ public class SkinsRegistry{
             bakeKatana(map);
             for(RegistryObject<Item> item : ItemsRegistry.ITEMS.getEntries()){
                 if(item.get() instanceof ConfigurableBowItem){
-                    TridotModels.addBowItemModel(map, item.getId(), new ModItemModelProperties());
+                    TridotModels.addBowItemModel(map, item.getId());
                 }
             }
 

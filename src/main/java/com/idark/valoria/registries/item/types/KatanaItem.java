@@ -1,13 +1,10 @@
 package com.idark.valoria.registries.item.types;
 
 import com.google.common.collect.*;
-import com.idark.valoria.core.interfaces.CooldownReductionItem;
-import com.idark.valoria.core.interfaces.DashItem;
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.particle.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.item.types.builders.*;
-import com.idark.valoria.util.*;
 import net.minecraft.*;
 import net.minecraft.core.*;
 import net.minecraft.network.chat.*;
@@ -31,12 +28,12 @@ import org.joml.*;
 import pro.komaru.tridot.client.graphics.gui.*;
 import pro.komaru.tridot.core.interfaces.*;
 import pro.komaru.tridot.core.math.*;
+import pro.komaru.tridot.utilities.*;
 
 import java.lang.Math;
 import java.util.*;
 
 import static com.idark.valoria.Valoria.BASE_DASH_DISTANCE_UUID;
-import static com.idark.valoria.util.ValoriaUtils.addContributorTooltip;
 
 public class KatanaItem extends SwordItem implements CooldownNotifyItem, DashItem, CooldownReductionItem{
     public AbstractKatanaBuilder<? extends KatanaItem> builder;
@@ -97,7 +94,7 @@ public class KatanaItem extends SwordItem implements CooldownNotifyItem, DashIte
 
         Vec3 pos = new Vec3(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());
         Vec3 EndPos = (player.getViewVector(0.0f).scale(2.0d));
-        HitResult hitresult = ValoriaUtils.getHitResult(player.getEyePosition(), player, (e) -> true, EndPos, level);
+        HitResult hitresult = Utils.Hit.hitResult(player.getEyePosition(), player, (e) -> true, EndPos, level);
         if(hitresult != null){
             switch(hitresult.getType()){
                 case BLOCK, MISS:
@@ -183,7 +180,7 @@ public class KatanaItem extends SwordItem implements CooldownNotifyItem, DashIte
                         if(!entity.equals(player)){
                             entity.hurt(level.damageSources().playerAttack(player), (float)((player.getAttributeValue(Attributes.ATTACK_DAMAGE) * ii) + EnchantmentHelper.getSweepingDamageRatio(player) + EnchantmentHelper.getDamageBonus(stack, entity.getMobType())) * 1.35f);
                             performEffects(entity, player);
-                            ValoriaUtils.chanceEffect(entity, builder.effects, builder.chance, arcRandom);
+                            Utils.Entities.applyWithChance(entity, builder.effects, builder.chance, arcRandom);
                             if(!player.isCreative()){
                                 stack.hurtAndBreak(getHurtAmount(detectedEntities), player, (plr) -> plr.broadcastBreakEvent(EquipmentSlot.MAINHAND));
                             }
@@ -221,14 +218,14 @@ public class KatanaItem extends SwordItem implements CooldownNotifyItem, DashIte
     @Override
     public void appendHoverText(@NotNull ItemStack stack, Level world, @NotNull List<Component> tooltip, @NotNull TooltipFlag flags){
         super.appendHoverText(stack, world, tooltip, flags);
-        addContributorTooltip(stack, tooltip);
+        Utils.Items.addContributorTooltip(stack, tooltip);
         tooltip.add(Component.translatable("tooltip.valoria.katana").withStyle(ChatFormatting.GRAY));
         if(builder.chargeTime > 0 && flags.isAdvanced()){
             tooltip.add(Component.translatable("tooltip.valoria.katana_charge", builder.chargeTime).withStyle(ChatFormatting.GRAY));
         }
 
         tooltip.add(Component.translatable("tooltip.valoria.rmb").withStyle(ChatFormatting.GREEN));
-        ValoriaUtils.addEffectsTooltip(builder.effects, tooltip, 1, builder.chance);
+        Utils.Items.addContributorTooltip(stack, tooltip);
     }
 
     public static class Builder extends AbstractKatanaBuilder<KatanaItem>{

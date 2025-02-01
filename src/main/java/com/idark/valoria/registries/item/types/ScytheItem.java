@@ -1,10 +1,6 @@
 package com.idark.valoria.registries.item.types;
 
 import com.google.common.collect.*;
-import com.idark.valoria.core.interfaces.CooldownReductionItem;
-import com.idark.valoria.core.interfaces.DashItem;
-import com.idark.valoria.core.interfaces.RadiusItem;
-import com.idark.valoria.core.interfaces.SpinAttackItem;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.item.types.builders.*;
 import com.idark.valoria.util.*;
@@ -27,11 +23,12 @@ import pro.komaru.tridot.client.graphics.gui.screenshake.*;
 import pro.komaru.tridot.client.graphics.render.animation.*;
 import pro.komaru.tridot.core.interfaces.*;
 import pro.komaru.tridot.core.math.*;
+import pro.komaru.tridot.registry.EnchantmentsRegistry;
+import pro.komaru.tridot.utilities.*;
 
 import java.util.*;
 
 import static com.idark.valoria.Valoria.BASE_ATTACK_RADIUS_UUID;
-import static com.idark.valoria.util.ValoriaUtils.addContributorTooltip;
 
 public class ScytheItem extends SwordItem implements ICustomAnimationItem, CooldownNotifyItem, RadiusItem, SpinAttackItem, DashItem, CooldownReductionItem{
     public AbstractScytheBuilder<? extends ScytheItem> builder;
@@ -126,7 +123,7 @@ public class ScytheItem extends SwordItem implements ICustomAnimationItem, Coold
         for(LivingEntity entity : hitEntities){
             entity.hurt(level.damageSources().playerAttack(player), (damage + EnchantmentHelper.getDamageBonus(stack, entity.getMobType())) * 1.35f);
             performEffects(entity, player);
-            ValoriaUtils.chanceEffect(entity, builder.effects, builder.chance, arcRandom);
+            Utils.Entities.applyWithChance(entity, builder.effects, builder.chance, arcRandom);
             if(!player.isCreative()){
                 stack.hurtAndBreak(hitEntities.size(), player, (p_220045_0_) -> p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
             }
@@ -150,14 +147,14 @@ public class ScytheItem extends SwordItem implements ICustomAnimationItem, Coold
     @Override
     public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags){
         super.appendHoverText(stack, world, tooltip, flags);
-        addContributorTooltip(stack, tooltip);
+        Utils.Items.addContributorTooltip(stack, tooltip);
         tooltip.add(Component.translatable("tooltip.valoria.scythe").withStyle(ChatFormatting.GRAY));
         if(builder.attackUsages > 1){
             tooltip.add(Component.translatable("tooltip.valoria.usage_count", builder.attackUsages).withStyle(ChatFormatting.GRAY));
         }
 
         tooltip.add(Component.translatable("tooltip.valoria.rmb").withStyle(ChatFormatting.GREEN));
-        ValoriaUtils.addEffectsTooltip(builder.effects, tooltip, 1, builder.chance);
+        Utils.Items.effectTooltip(builder.effects, tooltip, 1, builder.chance);
     }
 
     public static class Builder extends AbstractScytheBuilder<ScytheItem>{

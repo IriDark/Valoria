@@ -4,7 +4,6 @@ import com.google.common.base.*;
 import com.google.common.collect.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.entity.projectile.*;
-import com.idark.valoria.util.*;
 import net.minecraft.*;
 import net.minecraft.core.*;
 import net.minecraft.core.particles.*;
@@ -29,13 +28,13 @@ import net.minecraftforge.common.*;
 import org.jetbrains.annotations.*;
 import pro.komaru.tridot.core.math.*;
 import pro.komaru.tridot.registry.item.*;
+import pro.komaru.tridot.utilities.*;
 
 import java.util.*;
 import java.util.function.Supplier;
 import java.util.stream.*;
 
 import static com.idark.valoria.Valoria.BASE_ENTITY_REACH_UUID;
-import static com.idark.valoria.util.ValoriaUtils.chanceEffect;
 import static pro.komaru.tridot.TridotLib.BASE_PROJECTILE_DAMAGE_UUID;
 
 public class SpearItem extends SwordItem implements Vanishable{
@@ -121,7 +120,7 @@ public class SpearItem extends SwordItem implements Vanishable{
     }
 
     public boolean hurtEnemy(ItemStack pStack, LivingEntity pTarget, LivingEntity pAttacker){
-        chanceEffect(pTarget, effects, chance, arcRandom);
+        Utils.Entities.applyWithChance(pTarget, effects, chance, arcRandom);
         return super.hurtEnemy(pStack, pTarget, pAttacker);
     }
 
@@ -204,7 +203,7 @@ public class SpearItem extends SwordItem implements Vanishable{
         super.appendHoverText(stack, world, tooltip, flags);
         tooltip.add(Component.translatable("tooltip.valoria.spear").withStyle(ChatFormatting.GRAY));
         tooltip.add(Component.translatable("tooltip.valoria.spear_pillars").withStyle(ChatFormatting.GRAY));
-        ValoriaUtils.addEffectsTooltip(effects, tooltip, 1, chance);
+        Utils.Items.effectTooltip(effects, tooltip, 1, chance);
     }
 
     @Override

@@ -1,13 +1,13 @@
 package com.idark.valoria.client.render.entity;
 
 import com.idark.valoria.*;
-import com.idark.valoria.client.event.*;
 import com.idark.valoria.client.model.entity.*;
 import com.idark.valoria.registries.entity.living.minions.*;
 import com.mojang.blaze3d.vertex.*;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.entity.*;
 import net.minecraft.resources.*;
+import pro.komaru.tridot.client.event.*;
 
 public class CrystalRenderer extends MobRenderer<CrystalEntity, CrystalModel<CrystalEntity>>{
     protected static final ResourceLocation TEXTURE_ICE = new ResourceLocation(Valoria.ID, "textures/entity/crystal_ice.png");

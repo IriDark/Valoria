@@ -4,7 +4,6 @@ import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.entity.ai.goals.*;
 import com.idark.valoria.registries.entity.ai.movements.*;
 import com.idark.valoria.registries.entity.projectile.*;
-import com.idark.valoria.util.*;
 import net.minecraft.core.*;
 import net.minecraft.nbt.*;
 import net.minecraft.sounds.*;
@@ -26,6 +25,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.*;
 import pro.komaru.tridot.core.math.*;
 import pro.komaru.tridot.registry.entity.ai.*;
+import pro.komaru.tridot.utilities.*;
 
 import javax.annotation.*;
 import java.util.*;
@@ -294,7 +294,7 @@ public class Devil extends AbstractDevil implements RangedAttackMob{
             double Z = Math.sin(pitch) * Math.sin(yaw) * 15;
             Vec3 playerPos = mob.getEyePosition();
             if(ProjectileUtil.getEntityHitResult(mob, playerPos, EndPos, new AABB(pos.x + X - 3D, pos.y + Y - 3D, pos.z + Z - 3D, pos.x + X + 3D, pos.y + Y + 3D, pos.z + Z + 3D), (e) -> true, 15) == null){
-                HitResult hitresult = ValoriaUtils.getHitResult(playerPos, mob, (e) -> true, EndPos, mob.level());
+                HitResult hitresult = Utils.Hit.hitResult(playerPos, mob, (e) -> true, EndPos, mob.level());
                 if(hitresult != null){
                     return switch(hitresult.getType()){
                         case BLOCK, MISS -> false;

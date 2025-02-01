@@ -20,6 +20,7 @@ import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.phys.shapes.*;
 import org.joml.*;
 import pro.komaru.tridot.client.graphics.*;
+import pro.komaru.tridot.utilities.*;
 
 import java.lang.Math;
 import java.util.*;
@@ -92,13 +93,13 @@ public class BeastScytheItem extends ScytheItem{
         List<LivingEntity> hitEntities = new ArrayList<>();
         List<LivingEntity> markEntities = new ArrayList<>();
         ValoriaUtils.radiusHit(level, stack, player, null, hitEntities, pos, 0, player.getRotationVector().y, 3);
-        ValoriaUtils.spawnParticlesMark(level, player, markEntities, ParticleRegistry.CHOMP.get(), pos, 0, player.getRotationVector().y, 3);
+        Utils.Particles.mark(level, player, markEntities, ParticleRegistry.CHOMP.get(), pos, 0, player.getRotationVector().y, 3);
         applyCooldown(player, hitEntities.isEmpty() ? builder.minCooldownTime : builder.cooldownTime);
         performSpellCasting(level, player);
         for(LivingEntity entity : hitEntities){
             entity.hurt(level.damageSources().playerAttack(player), (damage + EnchantmentHelper.getDamageBonus(stack, entity.getMobType())) * 1.35f);
             performEffects(entity, player);
-            ValoriaUtils.chanceEffect(entity, builder.effects, builder.chance, arcRandom);
+            Utils.Entities.applyWithChance(entity, builder.effects, builder.chance, arcRandom);
             if(!player.isCreative()){
                 stack.hurtAndBreak(hitEntities.size(), player, (p_220045_0_) -> p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
             }

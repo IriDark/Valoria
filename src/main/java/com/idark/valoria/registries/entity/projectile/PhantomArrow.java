@@ -2,7 +2,6 @@ package com.idark.valoria.registries.entity.projectile;
 
 import com.idark.valoria.*;
 import com.idark.valoria.client.particle.*;
-import com.idark.valoria.core.interfaces.*;
 import com.idark.valoria.registries.*;
 import net.minecraft.resources.*;
 import net.minecraft.world.entity.*;
@@ -13,6 +12,7 @@ import net.minecraft.world.phys.*;
 import pro.komaru.tridot.client.graphics.*;
 import pro.komaru.tridot.client.graphics.particle.*;
 import pro.komaru.tridot.client.graphics.particle.data.*;
+import pro.komaru.tridot.core.interfaces.*;
 
 import java.util.function.*;
 

@@ -1,7 +1,6 @@
 package com.idark.valoria.client.render.entity;
 
 import com.idark.valoria.*;
-import com.idark.valoria.client.event.*;
 import com.idark.valoria.client.model.entity.*;
 import com.idark.valoria.registries.entity.living.minions.*;
 import com.mojang.blaze3d.vertex.*;
@@ -9,6 +8,7 @@ import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.entity.*;
 import net.minecraft.resources.*;
 import net.minecraftforge.api.distmarker.*;
+import pro.komaru.tridot.client.event.*;
 
 @OnlyIn(Dist.CLIENT)
 public class WickedShieldRenderer extends MobRenderer<WickedShield, WickedShieldModel<WickedShield>>{

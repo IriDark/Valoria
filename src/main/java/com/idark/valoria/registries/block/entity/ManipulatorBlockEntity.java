@@ -1,47 +1,37 @@
 package com.idark.valoria.registries.block.entity;
 
-import com.idark.valoria.ValoriaClient;
-import com.idark.valoria.client.render.tile.TickableBlockEntity;
-import com.idark.valoria.client.sounds.ElementalManipulatorSoundInstance;
-import com.idark.valoria.client.ui.menus.ManipulatorMenu;
-import com.idark.valoria.core.network.PacketHandler;
-import com.idark.valoria.core.network.packets.particle.CubeShapedParticlePacket;
-import com.idark.valoria.core.network.packets.particle.ManipulatorCraftParticlePacket;
-import com.idark.valoria.core.network.packets.particle.ManipulatorEmptyParticlePacket;
-import com.idark.valoria.registries.BlockEntitiesRegistry;
-import com.idark.valoria.registries.item.recipe.ManipulatorRecipe;
-import com.idark.valoria.util.ValoriaUtils;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.sounds.SoundManager;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.Connection;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
-import net.minecraft.world.MenuProvider;
-import net.minecraft.world.SimpleContainer;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
-import net.minecraftforge.items.wrapper.CombinedInvWrapper;
-import org.jetbrains.annotations.NotNull;
+import com.idark.valoria.*;
+import com.idark.valoria.client.render.tile.*;
+import com.idark.valoria.client.sounds.*;
+import com.idark.valoria.client.ui.menus.*;
+import com.idark.valoria.core.network.*;
+import com.idark.valoria.core.network.packets.particle.*;
+import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.item.recipe.*;
+import com.idark.valoria.util.*;
+import net.minecraft.client.*;
+import net.minecraft.client.sounds.*;
+import net.minecraft.core.*;
+import net.minecraft.nbt.*;
+import net.minecraft.network.*;
+import net.minecraft.network.chat.*;
+import net.minecraft.network.protocol.game.*;
+import net.minecraft.world.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.inventory.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.block.entity.*;
+import net.minecraft.world.level.block.state.*;
+import net.minecraftforge.api.distmarker.*;
+import net.minecraftforge.common.capabilities.*;
+import net.minecraftforge.common.util.*;
+import net.minecraftforge.items.*;
+import net.minecraftforge.items.wrapper.*;
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.*;
 
-import javax.annotation.Nonnull;
-import java.util.Optional;
+import javax.annotation.*;
+import java.util.*;
 
 public class ManipulatorBlockEntity extends BlockEntity implements MenuProvider, TickableBlockEntity{
     public final ItemStackHandler itemHandler = createHandler(2);
@@ -132,7 +122,7 @@ public class ManipulatorBlockEntity extends BlockEntity implements MenuProvider,
                         resetProgress();
                     }
 
-                    ValoriaUtils.tileEntity.SUpdateTileEntityPacket(this);
+                    ValoriaUtils.SUpdateTileEntityPacket(this);
                 }else if(recipe.get().getCore().equals("empty") && itemOutputHandler.getStackInSlot(0).getCount() < itemOutputHandler.getStackInSlot(0).getMaxStackSize()){
                     increaseCraftingProgress();
                     setMaxProgress();
@@ -143,7 +133,7 @@ public class ManipulatorBlockEntity extends BlockEntity implements MenuProvider,
                     }
 
                     PacketHandler.sendToTracking(level, this.getBlockPos(), new ManipulatorEmptyParticlePacket((float)this.getBlockPos().getX() + 0.5f, (float)this.getBlockPos().getY() + 0.75f, (float)this.getBlockPos().getZ() + 0.5f, (float)this.getBlockPos().getX() + 0.5f, (float)this.getBlockPos().getY() + 0.65f, ((float)this.getBlockPos().getZ() + 0.5f), 255, 255, 255));
-                    ValoriaUtils.tileEntity.SUpdateTileEntityPacket(this);
+                    ValoriaUtils.SUpdateTileEntityPacket(this);
                 }
             }
         }
@@ -314,7 +304,7 @@ public class ManipulatorBlockEntity extends BlockEntity implements MenuProvider,
     public void setChanged(){
         super.setChanged();
         if(level != null && !level.isClientSide){
-            ValoriaUtils.tileEntity.SUpdateTileEntityPacket(this);
+            ValoriaUtils.SUpdateTileEntityPacket(this);
         }
     }
 

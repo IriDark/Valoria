@@ -1,36 +1,23 @@
 package com.idark.valoria.registries.block.types;
 
-import com.idark.valoria.registries.block.entity.BlockSimpleInventory;
-import com.idark.valoria.registries.block.entity.PedestalBlockEntity;
-import com.idark.valoria.util.ValoriaUtils;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.world.Containers;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.EntityBlock;
-import net.minecraft.world.level.block.SimpleWaterloggedBlock;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.material.FluidState;
-import net.minecraft.world.level.material.Fluids;
-import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.VoxelShape;
+import com.idark.valoria.registries.block.entity.*;
+import com.idark.valoria.util.*;
+import net.minecraft.core.*;
+import net.minecraft.world.*;
+import net.minecraft.world.entity.item.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.item.context.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.*;
+import net.minecraft.world.level.block.state.*;
+import net.minecraft.world.level.block.state.properties.*;
+import net.minecraft.world.level.material.*;
+import net.minecraft.world.phys.*;
+import net.minecraft.world.phys.shapes.*;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import javax.annotation.*;
 
 public class PedestalBlock extends Block implements EntityBlock, SimpleWaterloggedBlock{
 
@@ -90,7 +77,7 @@ public class PedestalBlock extends Block implements EntityBlock, SimpleWaterlogg
 
             }
 
-            ValoriaUtils.tileEntity.SUpdateTileEntityPacket(tile);
+            ValoriaUtils.SUpdateTileEntityPacket(tile);
             return InteractionResult.SUCCESS;
         }
 
@@ -100,7 +87,7 @@ public class PedestalBlock extends Block implements EntityBlock, SimpleWaterlogg
             }
 
             tile.getItemHandler().removeItemNoUpdate(0);
-            ValoriaUtils.tileEntity.SUpdateTileEntityPacket(tile);
+            ValoriaUtils.SUpdateTileEntityPacket(tile);
             return InteractionResult.SUCCESS;
         }
 

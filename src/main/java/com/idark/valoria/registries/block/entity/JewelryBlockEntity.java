@@ -109,7 +109,7 @@ public class JewelryBlockEntity extends BlockEntity implements MenuProvider, Tic
     public void setChanged(){
         super.setChanged();
         if(level != null && !level.isClientSide){
-            ValoriaUtils.tileEntity.SUpdateTileEntityPacket(this);
+            ValoriaUtils.SUpdateTileEntityPacket(this);
         }
     }
 
@@ -159,7 +159,7 @@ public class JewelryBlockEntity extends BlockEntity implements MenuProvider, Tic
                         resetProgress();
                     }
 
-                    ValoriaUtils.tileEntity.SUpdateTileEntityPacket(this);
+                    ValoriaUtils.SUpdateTileEntityPacket(this);
                 }
             }else{
                 resetProgress();
@@ -176,7 +176,7 @@ public class JewelryBlockEntity extends BlockEntity implements MenuProvider, Tic
             resetProgress();
         }
 
-        ValoriaUtils.tileEntity.SUpdateTileEntityPacket(this);
+        ValoriaUtils.SUpdateTileEntityPacket(this);
     }
 
     private void resetProgress(){

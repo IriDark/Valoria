@@ -1,7 +1,6 @@
 package com.idark.valoria.client.render.entity;
 
 import com.idark.valoria.*;
-import com.idark.valoria.client.event.*;
 import com.idark.valoria.client.model.entity.*;
 import com.idark.valoria.registries.entity.living.boss.*;
 import com.mojang.blaze3d.vertex.*;
@@ -9,6 +8,7 @@ import com.mojang.math.*;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.entity.*;
 import net.minecraft.resources.*;
+import pro.komaru.tridot.client.event.*;
 
 public class WickedCrystalRenderer extends MobRenderer<WickedCrystal, WickedCrystalModel<WickedCrystal>>{
     protected static final ResourceLocation TEXTURE = new ResourceLocation(Valoria.ID, "textures/entity/wicked_crystal_phase1.png");

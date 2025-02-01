@@ -2,7 +2,6 @@ package com.idark.valoria.registries.item.types;
 
 import com.idark.valoria.*;
 import com.idark.valoria.core.config.*;
-import com.idark.valoria.core.interfaces.RadiusItem;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.util.*;
 import net.minecraft.*;
@@ -26,10 +25,9 @@ import net.minecraftforge.api.distmarker.*;
 import org.joml.*;
 import pro.komaru.tridot.core.interfaces.*;
 import pro.komaru.tridot.core.math.*;
+import pro.komaru.tridot.utilities.*;
 
 import java.util.*;
-
-import static com.idark.valoria.util.ValoriaUtils.addContributorTooltip;
 
 public class MagmaSwordItem extends SwordItem implements RadiusItem, OverlayRenderItem{
     private static final ResourceLocation BAR = new ResourceLocation(Valoria.ID, "textures/gui/overlay/magma_charge.png");
@@ -129,8 +127,8 @@ public class MagmaSwordItem extends SwordItem implements RadiusItem, OverlayRend
                 List<LivingEntity> hitEntities = new ArrayList<>();
                 nbt.putInt("charge", 0);
                 player.getCooldowns().addCooldown(this, 300);
-                ValoriaUtils.spawnParticlesInRadius(worldIn, stack, ParticleTypes.LARGE_SMOKE, pos, 0, player.getRotationVector().y, 1);
-                ValoriaUtils.spawnParticlesInRadius(worldIn, stack, ParticleTypes.LARGE_SMOKE, pos, 0, player.getRotationVector().y, 4);
+                Utils.Particles.inRadius(worldIn, stack, ParticleTypes.LARGE_SMOKE, pos, 0, player.getRotationVector().y, 1);
+                Utils.Particles.inRadius(worldIn, stack, ParticleTypes.LARGE_SMOKE, pos, 0, player.getRotationVector().y, 4);
                 ValoriaUtils.radiusHit(worldIn, stack, player, ParticleTypes.FLAME, hitEntities, pos, 0, player.getRotationVector().y, 4);
                 for(LivingEntity damagedEntity : hitEntities){
                     damagedEntity.hurt(worldIn.damageSources().playerAttack(player), (damage + EnchantmentHelper.getDamageBonus(stack, damagedEntity.getMobType())) * 1.35f);
@@ -151,7 +149,7 @@ public class MagmaSwordItem extends SwordItem implements RadiusItem, OverlayRend
     @Override
     public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags){
         super.appendHoverText(stack, world, tooltip, flags);
-        addContributorTooltip(stack, tooltip);
+        Utils.Items.addContributorTooltip(stack, tooltip);
         tooltip.add(Component.translatable("tooltip.valoria.infernal_sword").withStyle(ChatFormatting.GRAY));
         tooltip.add(Component.translatable(getModeString(stack)).withStyle(ChatFormatting.YELLOW));
         tooltip.add(Component.empty());

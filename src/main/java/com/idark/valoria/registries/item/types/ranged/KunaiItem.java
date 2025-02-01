@@ -3,7 +3,6 @@ package com.idark.valoria.registries.item.types.ranged;
 import com.google.common.collect.*;
 import com.idark.valoria.core.enums.*;
 import com.idark.valoria.registries.entity.projectile.*;
-import com.idark.valoria.util.*;
 import net.minecraft.*;
 import net.minecraft.core.*;
 import net.minecraft.network.chat.*;
@@ -22,6 +21,7 @@ import net.minecraft.world.level.block.state.*;
 import org.jetbrains.annotations.*;
 import pro.komaru.tridot.core.math.*;
 import pro.komaru.tridot.registry.item.*;
+import pro.komaru.tridot.utilities.*;
 
 import java.util.*;
 
@@ -121,7 +121,7 @@ public class KunaiItem extends SwordItem{
     }
 
     public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker){
-        ValoriaUtils.chanceEffect(target, effects, chance, arc);
+        Utils.Entities.applyWithChance(target, effects, chance, arc);
         return super.hurtEnemy(stack, target, attacker);
     }
 
@@ -133,6 +133,6 @@ public class KunaiItem extends SwordItem{
     public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags){
         super.appendHoverText(stack, world, tooltip, flags);
         tooltip.add(Component.translatable("tooltip.valoria.kunai").withStyle(ChatFormatting.GRAY));
-        ValoriaUtils.addEffectsTooltip(effects, tooltip, 1, chance);
+        Utils.Items.effectTooltip(effects, tooltip, 1, chance);
     }
 }

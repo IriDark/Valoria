@@ -1,32 +1,25 @@
 package com.idark.valoria.registries.item.types.curio;
 
-import com.google.common.collect.ImmutableList;
-import com.idark.valoria.ValoriaClient;
-import com.idark.valoria.core.enums.AccessoryGem;
-import com.idark.valoria.core.enums.AccessoryMaterial;
-import com.idark.valoria.core.enums.AccessoryType;
-import com.idark.valoria.registries.ItemsRegistry;
-import com.idark.valoria.util.ValoriaUtils;
-import net.minecraft.ChatFormatting;
-import net.minecraft.network.chat.Component;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.player.Player;
+import com.google.common.collect.*;
+import com.idark.valoria.*;
+import com.idark.valoria.core.enums.*;
+import com.idark.valoria.registries.*;
+import net.minecraft.*;
+import net.minecraft.network.chat.*;
+import net.minecraft.sounds.*;
+import net.minecraft.world.effect.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraft.world.level.Level;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import top.theillusivec4.curios.api.SlotContext;
-import top.theillusivec4.curios.api.type.capability.ICurio;
-import top.theillusivec4.curios.api.type.capability.ICurioItem;
+import net.minecraft.world.item.enchantment.*;
+import net.minecraft.world.level.*;
+import net.minecraftforge.api.distmarker.*;
+import pro.komaru.tridot.utilities.*;
+import top.theillusivec4.curios.api.*;
+import top.theillusivec4.curios.api.type.capability.*;
 
-import javax.annotation.Nonnull;
-import java.util.List;
-import java.util.Random;
+import javax.annotation.*;
+import java.util.*;
 
 public abstract class AbstractTieredAccessory extends TieredItem implements ICurioItem, Vanishable{
     public AccessoryType type;
@@ -120,7 +113,7 @@ public abstract class AbstractTieredAccessory extends TieredItem implements ICur
         }
 
         if(!effects.isEmpty()){
-            ValoriaUtils.addEffectsTooltip(effects, tooltip, 1, 1);
+            Utils.Items.effectTooltip(effects, tooltip, 1, 1);
             tooltip.add(Component.translatable("tooltip.valoria.jewelry_bonus", ValoriaClient.JEWELRY_BONUSES_KEY.getKey().getDisplayName()).withStyle(ChatFormatting.GREEN));
         }
 

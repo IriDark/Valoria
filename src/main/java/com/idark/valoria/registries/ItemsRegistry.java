@@ -15,10 +15,8 @@ import com.idark.valoria.registries.item.types.curio.charm.*;
 import com.idark.valoria.registries.item.types.curio.necklace.*;
 import com.idark.valoria.registries.item.types.food.*;
 import com.idark.valoria.registries.item.types.ranged.*;
-import com.idark.valoria.registries.item.types.ranged.bows.ConfigurableBowItem;
 import com.idark.valoria.registries.item.types.ranged.bows.*;
 import com.idark.valoria.util.Pal;
-import com.idark.valoria.util.*;
 import net.minecraft.*;
 import net.minecraft.core.particles.*;
 import net.minecraft.network.chat.Component;
@@ -48,13 +46,12 @@ import pro.komaru.tridot.client.graphics.particle.data.*;
 import pro.komaru.tridot.registry.item.*;
 import pro.komaru.tridot.registry.item.skins.*;
 import pro.komaru.tridot.registry.item.types.*;
+import pro.komaru.tridot.utilities.*;
 
 import java.awt.*;
 import java.lang.Math;
 import java.util.List;
 import java.util.function.*;
-
-import static com.idark.valoria.util.ValoriaUtils.addContributorTooltip;
 
 public class ItemsRegistry{
     public static final DeferredRegister<Item> BLOCK_ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Valoria.ID);
@@ -283,7 +280,7 @@ public class ItemsRegistry{
             @Override
             public void appendHoverText(@NotNull ItemStack stack, Level world, @NotNull List<Component> tooltip, @NotNull TooltipFlag flags){
                 super.appendHoverText(stack, world, tooltip, flags);
-                addContributorTooltip(stack, tooltip);
+                Utils.Items.addContributorTooltip(stack, tooltip);
             }
         });
 
@@ -605,7 +602,7 @@ public class ItemsRegistry{
                             if(!entity.equals(player)){
                                 entity.hurt(level.damageSources().playerAttack(player), (float)((player.getAttributeValue(Attributes.ATTACK_DAMAGE) * ii) + EnchantmentHelper.getSweepingDamageRatio(player) + EnchantmentHelper.getDamageBonus(stack, entity.getMobType())) * 1.35f);
                                 performEffects(entity, player);
-                                ValoriaUtils.chanceEffect(entity, builder.effects, builder.chance, arcRandom);
+                                Utils.Entities.applyWithChance(entity, builder.effects, builder.chance, arcRandom);
                                 if(!player.isCreative()){
                                     stack.hurtAndBreak(getHurtAmount(detectedEntities), player, (plr) -> plr.broadcastBreakEvent(EquipmentSlot.MAINHAND));
                                 }

@@ -1,7 +1,6 @@
 package com.idark.valoria.client.render.entity;
 
 import com.idark.valoria.*;
-import com.idark.valoria.client.event.*;
 import com.idark.valoria.client.model.entity.*;
 import com.idark.valoria.registries.entity.living.boss.AbstractNecromancer.*;
 import com.idark.valoria.registries.entity.living.boss.*;
@@ -12,6 +11,7 @@ import net.minecraft.client.renderer.entity.*;
 import net.minecraft.resources.*;
 import net.minecraftforge.api.distmarker.*;
 import pro.komaru.tridot.client.*;
+import pro.komaru.tridot.client.event.*;
 import pro.komaru.tridot.client.graphics.render.*;
 import pro.komaru.tridot.utilities.*;
 

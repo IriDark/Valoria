@@ -30,7 +30,7 @@ public class HitEffectArmorItem extends SuitArmorItem{
         super.appendHoverText(stack, world, list, flags);
         for(MobEffectInstance entry : effects){
             String effect = entry.getEffect().getDisplayName().getString();
-            list.add(1, Component.translatable("tooltip.valoria.applies").withStyle(ChatFormatting.GRAY)
+            list.add(1, Component.translatable("tooltip.tridot.applies").withStyle(ChatFormatting.GRAY)
                     .append(Component.literal(effect).withStyle(stack.getRarity().getStyleModifier()))
                     .append(Component.literal(" "))
                     .append(Component.translatable("tooltip.valoria.with_chance", String.format("%.1f%%", chance * 100)).withStyle(ChatFormatting.GRAY))

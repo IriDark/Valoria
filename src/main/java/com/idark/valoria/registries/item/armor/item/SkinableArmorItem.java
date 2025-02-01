@@ -13,10 +13,9 @@ import net.minecraftforge.common.extensions.*;
 import pro.komaru.tridot.client.model.armor.*;
 import pro.komaru.tridot.registry.item.*;
 import pro.komaru.tridot.registry.item.skins.*;
+import pro.komaru.tridot.utilities.*;
 
 import java.util.*;
-
-import static com.idark.valoria.util.ValoriaUtils.addContributorTooltip;
 
 public class SkinableArmorItem extends PercentageArmorItem implements IForgeItem{
     public SkinableArmorItem(ArmorMaterial pMaterial, Type pType, Properties pProperties){
@@ -35,7 +34,7 @@ public class SkinableArmorItem extends PercentageArmorItem implements IForgeItem
     @Override
     public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags){
         super.appendHoverText(stack, world, tooltip, flags);
-        addContributorTooltip(stack, tooltip);
+        Utils.Items.addContributorTooltip(stack, tooltip);
     }
 
     @OnlyIn(Dist.CLIENT)

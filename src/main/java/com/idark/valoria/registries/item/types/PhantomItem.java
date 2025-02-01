@@ -1,7 +1,6 @@
 package com.idark.valoria.registries.item.types;
 
 import com.idark.valoria.core.config.*;
-import com.idark.valoria.core.interfaces.RadiusItem;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.util.*;
 import net.minecraft.client.*;

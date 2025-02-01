@@ -84,6 +84,7 @@ public class SoundsRegistry{
     public static final RegistryObject<SoundEvent> NECROMANCER_SUMMON_GROUND = registerSound("mob.necromancer_summon.ground");
     public static final RegistryObject<SoundEvent> NECROMANCER_SUMMON_AIR = registerSound("mob.necromancer_summon.air");
 
+    public static final RegistryObject<SoundEvent> WICKED_CRYSTAL_ALTAR = registerSound("mob.wicked_crystal.altar");
     public static final RegistryObject<SoundEvent> WICKED_CRYSTAL_TRANSFORM = registerSound("mob.wicked_crystal.transform");
     public static final RegistryObject<SoundEvent> WICKED_CRYSTAL_HURT = registerSound("mob.wicked_crystal.hurt");
     public static final RegistryObject<SoundEvent> WICKED_CRYSTAL_DEATH = registerSound("mob.wicked_crystal.death");

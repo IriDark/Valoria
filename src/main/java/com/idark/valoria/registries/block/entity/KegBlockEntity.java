@@ -185,7 +185,7 @@ public class KegBlockEntity extends BlockEntity implements MenuProvider, Tickabl
                     resetProgress();
                 }
 
-                ValoriaUtils.tileEntity.SUpdateTileEntityPacket(this);
+                ValoriaUtils.SUpdateTileEntityPacket(this);
             }else{
                 resetProgress();
             }
@@ -266,7 +266,7 @@ public class KegBlockEntity extends BlockEntity implements MenuProvider, Tickabl
     public void setChanged(){
         super.setChanged();
         if(level != null && !level.isClientSide){
-            ValoriaUtils.tileEntity.SUpdateTileEntityPacket(this);
+            ValoriaUtils.SUpdateTileEntityPacket(this);
         }
     }
 }

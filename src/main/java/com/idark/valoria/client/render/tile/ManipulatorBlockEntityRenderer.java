@@ -1,19 +1,16 @@
 package com.idark.valoria.client.render.tile;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.client.event.ClientTickHandler;
-import com.idark.valoria.registries.block.entity.ManipulatorBlockEntity;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Axis;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
-import net.minecraft.client.resources.model.BakedModel;
-import net.minecraft.client.resources.model.ModelResourceLocation;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.ItemDisplayContext;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
+import com.idark.valoria.*;
+import com.idark.valoria.registries.block.entity.*;
+import com.mojang.blaze3d.vertex.*;
+import com.mojang.math.*;
+import net.minecraft.client.*;
+import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.blockentity.*;
+import net.minecraft.client.resources.model.*;
+import net.minecraft.resources.*;
+import net.minecraft.world.item.*;
+import pro.komaru.tridot.client.event.*;
 
 public class ManipulatorBlockEntityRenderer implements BlockEntityRenderer<ManipulatorBlockEntity>{
     public static final ModelResourceLocation SPHERE = new ModelResourceLocation(new ResourceLocation(Valoria.ID, "elemental_sphere"), "");

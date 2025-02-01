@@ -1,7 +1,6 @@
 package com.idark.valoria.registries.item.types;
 
 import com.google.common.collect.*;
-import com.idark.valoria.util.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
@@ -9,6 +8,7 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import org.jetbrains.annotations.*;
 import pro.komaru.tridot.core.math.*;
+import pro.komaru.tridot.utilities.*;
 
 import java.util.*;
 
@@ -30,13 +30,13 @@ public class HitEffectItem extends SwordItem{
 
     public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker){
         stack.hurtAndBreak(2, attacker, (entity) -> entity.broadcastBreakEvent(EquipmentSlot.MAINHAND));
-        ValoriaUtils.chanceEffect(target, effects, chance, arcRandom);
+        Utils.Entities.applyWithChance(target, effects, chance, arcRandom);
         return true;
     }
 
     @Override
     public void appendHoverText(@NotNull ItemStack stack, Level world, @NotNull List<Component> tooltip, @NotNull TooltipFlag flags){
         super.appendHoverText(stack, world, tooltip, flags);
-        ValoriaUtils.addEffectsTooltip(effects, tooltip, 1, chance);
+        Utils.Items.effectTooltip(effects, tooltip, 1, chance);
     }
 }

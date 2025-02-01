@@ -14,6 +14,7 @@ import net.minecraft.world.level.*;
 import net.minecraftforge.registries.*;
 import org.joml.*;
 import pro.komaru.tridot.core.math.*;
+import pro.komaru.tridot.utilities.*;
 
 import java.util.*;
 
@@ -54,7 +55,7 @@ public class AquariusScytheItem extends ScytheItem{
         Vector3d pos = new Vector3d(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());
         List<LivingEntity> hitEntities = new ArrayList<>();
         ValoriaUtils.radiusHit(level, stack, player, ParticleTypes.BUBBLE_POP, hitEntities, pos, 0, player.getRotationVector().y, 3);
-        ValoriaUtils.spawnParticlesInRadius(level, stack, ParticleTypes.UNDERWATER, pos, 0, player.getRotationVector().y, 3);
+        Utils.Particles.inRadius(level, stack, ParticleTypes.UNDERWATER, pos, 0, player.getRotationVector().y, 3);
         for(LivingEntity entity : hitEntities){
             entity.hurt(level.damageSources().playerAttack(player), (damage + EnchantmentHelper.getDamageBonus(stack, entity.getMobType())) * 1.35f);
             entity.knockback(0.4F, player.getX() - entity.getX(), player.getZ() - entity.getZ());

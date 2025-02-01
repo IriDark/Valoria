@@ -1,6 +1,5 @@
 package com.idark.valoria.client.model.animations;
 
-import com.idark.valoria.client.event.*;
 import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.*;
 import net.minecraft.client.*;
@@ -11,6 +10,7 @@ import net.minecraft.world.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.item.*;
 import net.minecraftforge.api.distmarker.*;
+import pro.komaru.tridot.client.event.*;
 import pro.komaru.tridot.client.graphics.render.animation.*;
 
 public class CrushingAnimation extends ItemAnimation{

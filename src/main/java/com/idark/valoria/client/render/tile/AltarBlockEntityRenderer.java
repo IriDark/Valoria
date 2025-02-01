@@ -1,6 +1,5 @@
 package com.idark.valoria.client.render.tile;
 
-import com.idark.valoria.client.event.*;
 import com.idark.valoria.registries.block.entity.*;
 import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.*;
@@ -8,6 +7,7 @@ import net.minecraft.client.*;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.blockentity.*;
 import net.minecraft.world.item.*;
+import pro.komaru.tridot.client.event.*;
 
 public class AltarBlockEntityRenderer implements BlockEntityRenderer<AbstractAltarBlockEntity>{
 

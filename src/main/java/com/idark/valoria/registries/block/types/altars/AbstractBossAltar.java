@@ -69,7 +69,7 @@ public abstract class AbstractBossAltar extends Block implements EntityBlock, Si
                 player.getItemInHand(hand).shrink(1);
             }
 
-            ValoriaUtils.tileEntity.SUpdateTileEntityPacket(tile);
+            ValoriaUtils.SUpdateTileEntityPacket(tile);
             return InteractionResult.SUCCESS;
         }
 
