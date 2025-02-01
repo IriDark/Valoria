@@ -1,13 +1,12 @@
 package com.idark.valoria.registries.effect;
 
-import com.idark.valoria.util.ColorUtil;
-import net.minecraft.world.effect.MobEffect;
-import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.effect.*;
+import pro.komaru.tridot.client.graphics.*;
 
 public class StunEffect extends MobEffect{
 
     public StunEffect(){
-        super(MobEffectCategory.HARMFUL, ColorUtil.hexToDecimal("F6F1C5"));
+        super(MobEffectCategory.HARMFUL, Clr.hexToDecimal("F6F1C5"));
     }
 
     @Override

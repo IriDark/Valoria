@@ -1,12 +1,12 @@
 package com.idark.valoria.registries.effect;
 
-import com.idark.valoria.util.ColorUtil;
-import net.minecraft.world.effect.MobEffect;
-import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.effect.*;
+import pro.komaru.tridot.client.graphics.*;
 
+//todo
 public class SinisterPredictionEffect extends MobEffect{
     public SinisterPredictionEffect(){
-        super(MobEffectCategory.NEUTRAL, ColorUtil.hexToDecimal("ea7e3f"));
+        super(MobEffectCategory.NEUTRAL, Clr.hexToDecimal("ea7e3f"));
     }
 
     @Override

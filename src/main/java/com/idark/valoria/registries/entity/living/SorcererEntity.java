@@ -21,6 +21,8 @@ import net.minecraft.world.level.*;
 import net.minecraft.world.level.dimension.*;
 import net.minecraft.world.level.pathfinder.*;
 import org.joml.*;
+import pro.komaru.tridot.registry.entity.*;
+import pro.komaru.tridot.registry.entity.ai.*;
 
 import java.lang.Math;
 import java.util.Random;

@@ -1,19 +1,17 @@
 package com.idark.valoria.registries.item.types.builders;
 
-import com.google.common.collect.ImmutableList;
-import com.idark.valoria.client.model.animations.SpinAttackAnimation;
-import com.idark.valoria.core.enums.ModItemTier;
-import com.idark.valoria.registries.SoundsRegistry;
-import com.idark.valoria.registries.item.types.ScytheItem;
-import mod.maxbogomol.fluffy_fur.client.animation.ItemAnimation;
-import mod.maxbogomol.fluffy_fur.common.easing.Easing;
-import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Item.Properties;
-import net.minecraft.world.item.Tier;
+import com.google.common.collect.*;
+import com.idark.valoria.client.model.animations.*;
+import com.idark.valoria.core.enums.*;
+import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.item.types.*;
+import net.minecraft.core.particles.*;
+import net.minecraft.sounds.*;
+import net.minecraft.world.effect.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.item.Item.*;
+import pro.komaru.tridot.client.graphics.render.animation.*;
+import pro.komaru.tridot.core.math.*;
 
 public abstract class AbstractScytheBuilder<T extends ScytheItem>{
     public Tier tier = ModItemTier.NONE;
@@ -32,7 +30,7 @@ public abstract class AbstractScytheBuilder<T extends ScytheItem>{
     public float screenShakeIntensity = 0.35f;
     public int screenShakeDuration = 4;
     public ItemAnimation animation = new SpinAttackAnimation();
-    public Easing screenShakeEasing = Easing.CIRC_IN_OUT;
+    public Interp screenShakeEasing = Interp.circleOut;
     public ImmutableList<MobEffectInstance> effects = ImmutableList.of();
     public ParticleOptions particleOptions = ParticleTypes.POOF;
 
@@ -66,7 +64,7 @@ public abstract class AbstractScytheBuilder<T extends ScytheItem>{
         return this;
     }
 
-    public AbstractScytheBuilder<T> setScreenShakeEasing(Easing easing){
+    public AbstractScytheBuilder<T> setScreenShakeEasing(Interp easing){
         this.screenShakeEasing = easing;
         return this;
     }

@@ -1,18 +1,16 @@
 package com.idark.valoria.registries.item.types.curio.charm;
 
-import com.idark.valoria.util.ArcRandom;
-import net.minecraft.ChatFormatting;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.Level;
-import top.theillusivec4.curios.api.SlotContext;
+import net.minecraft.*;
+import net.minecraft.network.chat.*;
+import net.minecraft.world.effect.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.*;
+import pro.komaru.tridot.core.math.*;
+import top.theillusivec4.curios.api.*;
 
-import java.util.List;
+import java.util.*;
 
 public class CurioPyro extends CurioRune{
     public ArcRandom arcRandom = new ArcRandom();

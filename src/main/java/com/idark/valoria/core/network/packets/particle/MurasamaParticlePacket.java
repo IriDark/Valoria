@@ -1,21 +1,19 @@
 package com.idark.valoria.core.network.packets.particle;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.util.Pal;
-import mod.maxbogomol.fluffy_fur.client.particle.ParticleBuilder;
-import mod.maxbogomol.fluffy_fur.client.particle.data.ColorParticleData;
-import mod.maxbogomol.fluffy_fur.client.particle.data.GenericParticleData;
-import mod.maxbogomol.fluffy_fur.registry.client.FluffyFurParticles;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.util.Mth;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.network.NetworkEvent;
+import com.idark.valoria.*;
+import com.idark.valoria.util.*;
+import net.minecraft.network.*;
+import net.minecraft.util.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.phys.*;
+import net.minecraftforge.network.*;
+import pro.komaru.tridot.client.*;
+import pro.komaru.tridot.client.graphics.particle.*;
+import pro.komaru.tridot.client.graphics.particle.data.*;
 
 import java.awt.*;
-import java.util.Random;
-import java.util.function.Supplier;
+import java.util.*;
+import java.util.function.*;
 
 public class MurasamaParticlePacket{
 
@@ -61,7 +59,7 @@ public class MurasamaParticlePacket{
                     double ZZ = Math.cos(pitch) * (float)(rand.nextDouble() * 0.05F) / (ii + 1);
                     Color color = new Color(msg.colorR, msg.colorG, msg.colorB);
                     Vec3 particlePos = new Vec3(msg.posX + X, msg.posY + Y, msg.posZ + Z);
-                    ParticleBuilder.create(FluffyFurParticles.WISP)
+                    ParticleBuilder.create(TridotParticles.WISP)
                             .setColorData(ColorParticleData.create(color, Pal.lightViolet).build())
                             .setTransparencyData(GenericParticleData.create(0.4f).build())
                             .setScaleData(GenericParticleData.create(0.2f, 0.1f, 0).build())

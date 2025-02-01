@@ -45,14 +45,11 @@ public final class PacketHandler{
 
     public static void init(){
         int id = 0;
-        HANDLER.registerMessage(id++, DungeonSoundPacket.class, DungeonSoundPacket::encode, DungeonSoundPacket::decode, DungeonSoundPacket::handle);
-        HANDLER.registerMessage(id++, UpdateBossbarPacket.class, UpdateBossbarPacket::encode, UpdateBossbarPacket::decode, UpdateBossbarPacket::handle);
         HANDLER.registerMessage(id++, BeastAttackParticlePacket.class, BeastAttackParticlePacket::encode, BeastAttackParticlePacket::decode, BeastAttackParticlePacket::handle);
         HANDLER.registerMessage(id++, CystSummonParticlePacket.class, CystSummonParticlePacket::encode, CystSummonParticlePacket::decode, CystSummonParticlePacket::handle);
         HANDLER.registerMessage(id++, MinionSummonParticlePacket.class, MinionSummonParticlePacket::encode, MinionSummonParticlePacket::decode, MinionSummonParticlePacket::handle);
         HANDLER.registerMessage(id++, SoulCollectParticlePacket.class, SoulCollectParticlePacket::encode, SoulCollectParticlePacket::decode, SoulCollectParticlePacket::handle);
         HANDLER.registerMessage(id++, UnlockableUpdatePacket.class, UnlockableUpdatePacket::encode, UnlockableUpdatePacket::decode, UnlockableUpdatePacket::handle);
-        HANDLER.registerMessage(id++, CooldownSoundPacket.class, CooldownSoundPacket::encode, CooldownSoundPacket::decode, CooldownSoundPacket::handle);
         HANDLER.registerMessage(id++, PageToastPacket.class, PageToastPacket::encode, PageToastPacket::decode, PageToastPacket::handle);
         HANDLER.registerMessage(id++, LineToNearbyMobsParticlePacket.class, LineToNearbyMobsParticlePacket::encode, LineToNearbyMobsParticlePacket::decode, LineToNearbyMobsParticlePacket::handle);
         HANDLER.registerMessage(id++, CircleShapedParticlePacket.class, CircleShapedParticlePacket::encode, CircleShapedParticlePacket::decode, CircleShapedParticlePacket::handle);

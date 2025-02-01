@@ -1,49 +1,30 @@
 package com.idark.valoria.registries.block.types;
 
-import com.idark.valoria.client.render.tile.TickableBlockEntity;
-import com.idark.valoria.registries.EntityTypeRegistry;
-import com.idark.valoria.registries.block.entity.FleshCystBlockEntity;
-import com.idark.valoria.registries.entity.living.minions.FleshSentinel;
-import com.idark.valoria.util.ArcRandom;
-import com.idark.valoria.util.Pal;
-import mod.maxbogomol.fluffy_fur.client.particle.ParticleBuilder;
-import mod.maxbogomol.fluffy_fur.client.particle.data.ColorParticleData;
-import mod.maxbogomol.fluffy_fur.client.particle.data.GenericParticleData;
-import mod.maxbogomol.fluffy_fur.common.easing.Easing;
-import mod.maxbogomol.fluffy_fur.registry.client.FluffyFurParticles;
-import mod.maxbogomol.fluffy_fur.registry.client.FluffyFurRenderTypes;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.projectile.Projectile;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Explosion;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.BaseEntityBlock;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.RenderShape;
-import net.minecraft.world.level.block.SimpleWaterloggedBlock;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityTicker;
-import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.material.FluidState;
-import net.minecraft.world.level.material.Fluids;
-import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.shapes.BooleanOp;
-import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.Shapes;
-import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import com.idark.valoria.client.render.tile.*;
+import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.block.entity.*;
+import com.idark.valoria.registries.entity.living.minions.*;
+import com.idark.valoria.util.*;
+import net.minecraft.core.*;
+import net.minecraft.server.level.*;
+import net.minecraft.util.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.projectile.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.*;
+import net.minecraft.world.level.block.state.*;
+import net.minecraft.world.level.block.state.properties.*;
+import net.minecraft.world.level.material.*;
+import net.minecraft.world.phys.*;
+import net.minecraft.world.phys.shapes.*;
+import net.minecraftforge.api.distmarker.*;
+import pro.komaru.tridot.client.*;
+import pro.komaru.tridot.client.graphics.particle.*;
+import pro.komaru.tridot.client.graphics.particle.data.*;
+import pro.komaru.tridot.core.math.*;
 
-import javax.annotation.Nullable;
+import javax.annotation.*;
 
 public class FleshCystBlock extends BaseEntityBlock implements SimpleWaterloggedBlock{
     private static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
@@ -125,10 +106,10 @@ public class FleshCystBlock extends BaseEntityBlock implements SimpleWaterlogged
     @OnlyIn(Dist.CLIENT)
     public void spawnDestroyParticles(Level pLevel, BlockPos pPos){
         for(int i = 0; i < 25; i++){
-            ParticleBuilder.create(FluffyFurParticles.WISP)
-                    .setRenderType(FluffyFurRenderTypes.TRANSLUCENT_PARTICLE)
+            ParticleBuilder.create(TridotParticles.WISP)
+                    .setRenderType(TridotRenderTypes.TRANSLUCENT_PARTICLE)
                     .setColorData(ColorParticleData.create(Pal.kiwi.darker(), Pal.mindaro).build())
-                    .setScaleData(GenericParticleData.create(0.425f, 0.075f, 0).setEasing(Easing.QUARTIC_OUT).build())
+                    .setScaleData(GenericParticleData.create(0.425f, 0.075f, 0).setEasing(Interp.bounceOut).build())
                     .setLifetime(65)
                     .setGravity(0.0125f)
                     .flatRandomVelocity(0.025, new ArcRandom().randomValueUpTo(0.055), 0.025)

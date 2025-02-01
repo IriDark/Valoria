@@ -15,11 +15,10 @@ import com.idark.valoria.registries.item.types.curio.charm.*;
 import com.idark.valoria.registries.item.types.curio.necklace.*;
 import com.idark.valoria.registries.item.types.food.*;
 import com.idark.valoria.registries.item.types.ranged.*;
+import com.idark.valoria.registries.item.types.ranged.bows.ConfigurableBowItem;
 import com.idark.valoria.registries.item.types.ranged.bows.*;
+import com.idark.valoria.util.Pal;
 import com.idark.valoria.util.*;
-import mod.maxbogomol.fluffy_fur.client.particle.data.*;
-import mod.maxbogomol.fluffy_fur.common.item.*;
-import mod.maxbogomol.fluffy_fur.common.itemskin.*;
 import net.minecraft.*;
 import net.minecraft.core.particles.*;
 import net.minecraft.network.chat.Component;
@@ -44,6 +43,11 @@ import net.minecraftforge.eventbus.api.*;
 import net.minecraftforge.registries.*;
 import org.jetbrains.annotations.*;
 import org.joml.*;
+import pro.komaru.tridot.client.graphics.*;
+import pro.komaru.tridot.client.graphics.particle.data.*;
+import pro.komaru.tridot.registry.item.*;
+import pro.komaru.tridot.registry.item.skins.*;
+import pro.komaru.tridot.registry.item.types.*;
 
 import java.awt.*;
 import java.lang.Math;
@@ -240,9 +244,9 @@ public class ItemsRegistry{
             }
         });
 
-        minersBag = registerItem("miners_bag", () -> new LootItem(new ResourceLocation(Valoria.ID, "items/miners_bag"), new Item.Properties().rarity(Rarity.EPIC)));
-        gemBag = registerItem("gem_bag", () -> new LootItem(new ResourceLocation(Valoria.ID, "items/gem_bag"), new Item.Properties().rarity(Rarity.EPIC)));
-        necromancerTreasureBag = registerItem("necromancer_treasure_bag", () -> new LootItem(new ResourceLocation(Valoria.ID, "items/necromancer_treasure_bag"), new Item.Properties().rarity(Rarity.EPIC)));
+        minersBag = registerItem("miners_bag", () -> new TreasureBag(new ResourceLocation(Valoria.ID, "items/miners_bag"), new Item.Properties().rarity(Rarity.EPIC)));
+        gemBag = registerItem("gem_bag", () -> new TreasureBag(new ResourceLocation(Valoria.ID, "items/gem_bag"), new Item.Properties().rarity(Rarity.EPIC)));
+        necromancerTreasureBag = registerItem("necromancer_treasure_bag", () -> new TreasureBag(new ResourceLocation(Valoria.ID, "items/necromancer_treasure_bag"), new Item.Properties().rarity(Rarity.EPIC)));
 
         // boss summonables
         necromancerGrimoire = registerItem("necromancer_grimoire", () -> new Item(new Item.Properties()){
@@ -516,20 +520,20 @@ public class ItemsRegistry{
         // spawn eggs
         pumpkinContract = registerItem("pumpkin_contract", () -> new TexturedSpawnEggItem(EntityTypeRegistry.HAUNTED_MERCHANT, new Item.Properties()));
         mannequin = registerItem("mannequin_spawn_egg", () -> new MannequinSpawnItem(new Item.Properties()));
-        entMob = registerItem("ent_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.ENT, ColorUtil.hexToDecimal("52392e"), ColorUtil.colorToDecimal(Pal.nature), new Item.Properties()));
-        goblin = registerItem("goblin_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.GOBLIN, ColorUtil.hexToDecimal("185b36"), ColorUtil.hexToDecimal("6BB447"), new Item.Properties()));
-        draugr = registerItem("draugr_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.DRAUGR, ColorUtil.hexToDecimal("76695C"), ColorUtil.hexToDecimal("d6d0c9"), new Item.Properties()));
-        swampWanderer = registerItem("swamp_wanderer_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.SWAMP_WANDERER, ColorUtil.hexToDecimal("606239"), ColorUtil.hexToDecimal("b8b377"), new Item.Properties()));
-        scourge = registerItem("scourge_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.SCOURGE, ColorUtil.hexToDecimal("898755"), ColorUtil.hexToDecimal("bdae86"), new Item.Properties()));
-        wickedCrystal = registerItem("wicked_crystal_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.WICKED_CRYSTAL, ColorUtil.hexToDecimal("562a8a"), ColorUtil.hexToDecimal("ff62f8"), new Item.Properties()));
+        entMob = registerItem("ent_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.ENT, Clr.hexToDecimal("52392e"), Clr.colorToDecimal(Pal.nature), new Item.Properties()));
+        goblin = registerItem("goblin_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.GOBLIN, Clr.hexToDecimal("185b36"), Clr.hexToDecimal("6BB447"), new Item.Properties()));
+        draugr = registerItem("draugr_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.DRAUGR, Clr.hexToDecimal("76695C"), Clr.hexToDecimal("d6d0c9"), new Item.Properties()));
+        swampWanderer = registerItem("swamp_wanderer_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.SWAMP_WANDERER, Clr.hexToDecimal("606239"), Clr.hexToDecimal("b8b377"), new Item.Properties()));
+        scourge = registerItem("scourge_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.SCOURGE, Clr.hexToDecimal("898755"), Clr.hexToDecimal("bdae86"), new Item.Properties()));
+        wickedCrystal = registerItem("wicked_crystal_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.WICKED_CRYSTAL, Clr.hexToDecimal("562a8a"), Clr.hexToDecimal("ff62f8"), new Item.Properties()));
         crystal = registerItem("crystal_spawn_egg", () -> new TexturedSpawnEggItem(EntityTypeRegistry.CRYSTAL, new Item.Properties()));
-        sorcerer = registerItem("sorcerer_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.SORCERER, ColorUtil.hexToDecimal("6e4e3f"), ColorUtil.hexToDecimal("e09f59"), new Item.Properties()));
-        necromancer = registerItem("necromancer_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.NECROMANCER, ColorUtil.hexToDecimal("4b4857"), ColorUtil.hexToDecimal("958fb7"), new Item.Properties()));
-        undead = registerItem("undead_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.UNDEAD, ColorUtil.hexToDecimal("625F71"), ColorUtil.hexToDecimal("ffffff"), new Item.Properties()));
-        shadewoodSpider = registerItem("shadewood_spider_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.SHADEWOOD_SPIDER, ColorUtil.hexToDecimal("373C53"), ColorUtil.hexToDecimal("6EABB7"), new Item.Properties()));
-        devil = registerItem("devil_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.DEVIL, ColorUtil.hexToDecimal("b64841"), ColorUtil.hexToDecimal("3a3b62"), new Item.Properties()));
-        troll = registerItem("troll_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.TROLL, ColorUtil.hexToDecimal("2d3a4a"), ColorUtil.hexToDecimal("847461"), new Item.Properties()));
-        corruptedTroll = registerItem("corrupted_troll_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.CORRUPTED_TROLL, ColorUtil.hexToDecimal("754b67"), ColorUtil.hexToDecimal("7f5649"), new Item.Properties()));
+        sorcerer = registerItem("sorcerer_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.SORCERER, Clr.hexToDecimal("6e4e3f"), Clr.hexToDecimal("e09f59"), new Item.Properties()));
+        necromancer = registerItem("necromancer_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.NECROMANCER, Clr.hexToDecimal("4b4857"), Clr.hexToDecimal("958fb7"), new Item.Properties()));
+        undead = registerItem("undead_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.UNDEAD, Clr.hexToDecimal("625F71"), Clr.hexToDecimal("ffffff"), new Item.Properties()));
+        shadewoodSpider = registerItem("shadewood_spider_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.SHADEWOOD_SPIDER, Clr.hexToDecimal("373C53"), Clr.hexToDecimal("6EABB7"), new Item.Properties()));
+        devil = registerItem("devil_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.DEVIL, Clr.hexToDecimal("b64841"), Clr.hexToDecimal("3a3b62"), new Item.Properties()));
+        troll = registerItem("troll_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.TROLL, Clr.hexToDecimal("2d3a4a"), Clr.hexToDecimal("847461"), new Item.Properties()));
+        corruptedTroll = registerItem("corrupted_troll_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.CORRUPTED_TROLL, Clr.hexToDecimal("754b67"), Clr.hexToDecimal("7f5649"), new Item.Properties()));
 
         ITEMS.register(eventBus);
         BLOCK_ITEMS.register(eventBus);

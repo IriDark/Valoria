@@ -1,7 +1,8 @@
 package com.idark.valoria.registries.item.skins.categories;
 
-import mod.maxbogomol.fluffy_fur.common.itemskin.ItemSkin;
-import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.*;
+import pro.komaru.tridot.registry.item.builders.*;
+import pro.komaru.tridot.registry.item.skins.*;
 
 public class AuthoredItemSkin extends ItemSkin{
     public SkinBuilder skinBuilder;

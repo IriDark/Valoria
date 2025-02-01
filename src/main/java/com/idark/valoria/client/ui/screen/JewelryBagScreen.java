@@ -1,26 +1,23 @@
 package com.idark.valoria.client.ui.screen;
 
-import com.idark.valoria.core.network.PacketHandler;
-import com.idark.valoria.core.network.packets.CuriosSetStackPacket;
-import com.idark.valoria.registries.ItemsRegistry;
-import com.idark.valoria.registries.item.types.curio.JewelryBagItem;
-import com.idark.valoria.util.RenderUtils;
-import com.mojang.math.Axis;
-import mod.maxbogomol.fluffy_fur.client.render.RenderBuilder;
-import mod.maxbogomol.fluffy_fur.registry.client.FluffyFurRenderTypes;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.DyeableLeatherItem;
-import net.minecraft.world.item.ItemStack;
-import top.theillusivec4.curios.api.CuriosApi;
-import top.theillusivec4.curios.api.SlotResult;
-import top.theillusivec4.curios.api.type.capability.ICurioItem;
+import com.idark.valoria.core.network.*;
+import com.idark.valoria.core.network.packets.*;
+import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.item.types.curio.*;
+import com.mojang.math.*;
+import net.minecraft.client.*;
+import net.minecraft.client.gui.*;
+import net.minecraft.client.gui.screens.*;
+import net.minecraft.network.chat.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.item.*;
+import pro.komaru.tridot.client.*;
+import pro.komaru.tridot.client.graphics.render.*;
+import pro.komaru.tridot.utilities.*;
+import top.theillusivec4.curios.api.*;
+import top.theillusivec4.curios.api.type.capability.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class JewelryBagScreen extends Screen{
     public List<ItemStack> trinkets = new ArrayList<>();
@@ -131,16 +128,16 @@ public class JewelryBagScreen extends Screen{
         float trinketSizeHover = 48 * hoverAmount;
         float trinketOffset = trinketSize / 2;
         float trinketOffsetHover = trinketSizeHover / 2;
-        RenderUtils.renderItemModelInGui(getOpenedBag(), x - bagOffset, y - bagOffset, bagSize, bagSize, bagSize);
+        Utils.Render.renderItemModelInGui(getOpenedBag(), x - bagOffset, y - bagOffset, bagSize, bagSize, bagSize);
         mouseAngleI = mouseDistance;
         for(ItemStack stack : trinkets){
             double dst = Math.toRadians((i * step) + (step / 2));
             int X = (int)(Math.cos(dst) * (offset * Math.sin(Math.toRadians(90 * hoverAmount))));
             int Y = (int)(Math.sin(dst) * (offset * Math.sin(Math.toRadians(90 * hoverAmount))));
             if(stack == selectedItem && mouseDistance > 45){
-                RenderUtils.renderItemModelInGui(stack, x + X - trinketOffsetHover, y + Y - trinketOffsetHover, trinketSizeHover, trinketSizeHover, trinketSizeHover);
+                Utils.Render.renderItemModelInGui(stack, x + X - trinketOffsetHover, y + Y - trinketOffsetHover, trinketSizeHover, trinketSizeHover, trinketSizeHover);
             }else{
-                RenderUtils.renderItemModelInGui(stack, x + X - trinketOffset, y + Y - trinketOffset, trinketSize, trinketSize, trinketSize);
+                Utils.Render.renderItemModelInGui(stack, x + X - trinketOffset, y + Y - trinketOffset, trinketSize, trinketSize, trinketSize);
             }
 
             i = i + hoverAmount;
@@ -158,7 +155,7 @@ public class JewelryBagScreen extends Screen{
         gui.pose().pushPose();
         gui.pose().translate(x, y, 0);
         gui.pose().mulPose(Axis.ZP.rotationDegrees((float)Math.toDegrees(Math.atan2(mouseY - y, mouseX - x) - 360) + 20));
-        RenderBuilder.create().setRenderType(FluffyFurRenderTypes.ADDITIVE)
+        RenderBuilder.create().setRenderType(TridotRenderTypes.ADDITIVE)
                 .setColorRaw(r, g, b).setAlpha(1f)
                 .setSecondAlpha(0)
                 .renderRay(gui.pose(), 1f, (height / 2 * 0.7f * hoverAmount), 50f)

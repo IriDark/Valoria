@@ -1,27 +1,22 @@
 package com.idark.valoria.registries.item.types;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.core.config.ClientConfig;
-import com.idark.valoria.core.interfaces.OverlayRenderItem;
-import com.idark.valoria.registries.ItemsRegistry;
-import com.idark.valoria.registries.SoundsRegistry;
-import com.idark.valoria.util.Pal;
-import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.Level;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import com.idark.valoria.*;
+import com.idark.valoria.core.config.*;
+import com.idark.valoria.registries.*;
+import com.idark.valoria.util.*;
+import net.minecraft.*;
+import net.minecraft.client.gui.*;
+import net.minecraft.nbt.*;
+import net.minecraft.network.chat.*;
+import net.minecraft.resources.*;
+import net.minecraft.sounds.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.*;
+import net.minecraftforge.api.distmarker.*;
+import pro.komaru.tridot.core.interfaces.*;
 
-import java.util.List;
+import java.util.*;
 
 public class SoulCollectorItem extends Item implements OverlayRenderItem{
     public int max;

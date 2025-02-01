@@ -1,19 +1,14 @@
 package com.idark.valoria.client.particle;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.client.particle.types.ChompParticle;
-import com.idark.valoria.client.particle.types.FireflyParticle;
-import mod.maxbogomol.fluffy_fur.client.particle.type.GenericParticleType;
-import mod.maxbogomol.fluffy_fur.client.particle.type.LeavesParticleType;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.particle.EndRodParticle;
-import net.minecraft.core.particles.ParticleType;
-import net.minecraft.core.particles.SimpleParticleType;
-import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import com.idark.valoria.*;
+import com.idark.valoria.client.particle.types.*;
+import net.minecraft.client.*;
+import net.minecraft.client.particle.*;
+import net.minecraft.core.particles.*;
+import net.minecraftforge.client.event.*;
+import net.minecraftforge.eventbus.api.*;
+import net.minecraftforge.registries.*;
+import pro.komaru.tridot.client.graphics.particle.type.*;
 
 public class ParticleRegistry{
 

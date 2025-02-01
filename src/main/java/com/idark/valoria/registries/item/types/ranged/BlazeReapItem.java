@@ -1,44 +1,35 @@
 package com.idark.valoria.registries.item.types.ranged;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.core.config.ClientConfig;
-import com.idark.valoria.core.interfaces.OverlayRenderItem;
-import com.idark.valoria.registries.EnchantmentsRegistry;
-import com.idark.valoria.registries.SoundsRegistry;
-import com.idark.valoria.util.RenderUtils;
-import com.idark.valoria.util.ValoriaUtils;
-import mod.maxbogomol.fluffy_fur.client.screenshake.ScreenshakeHandler;
-import mod.maxbogomol.fluffy_fur.client.screenshake.ScreenshakeInstance;
-import mod.maxbogomol.fluffy_fur.common.easing.Easing;
-import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.stats.Stats;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.ProjectileUtil;
+import com.idark.valoria.*;
+import com.idark.valoria.core.config.*;
+import com.idark.valoria.registries.*;
+import com.idark.valoria.util.*;
+import net.minecraft.*;
+import net.minecraft.client.*;
+import net.minecraft.client.gui.*;
+import net.minecraft.core.particles.*;
+import net.minecraft.nbt.*;
+import net.minecraft.network.chat.*;
+import net.minecraft.resources.*;
+import net.minecraft.sounds.*;
+import net.minecraft.stats.*;
+import net.minecraft.util.*;
+import net.minecraft.world.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.entity.projectile.*;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentCategory;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.EntityHitResult;
-import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.item.enchantment.*;
+import net.minecraft.world.level.*;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraft.world.phys.*;
+import net.minecraftforge.api.distmarker.*;
+import pro.komaru.tridot.client.graphics.gui.screenshake.*;
+import pro.komaru.tridot.core.interfaces.*;
+import pro.komaru.tridot.core.math.*;
+import pro.komaru.tridot.utilities.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import static com.idark.valoria.util.ValoriaUtils.addContributorTooltip;
 
@@ -147,7 +138,7 @@ public class BlazeReapItem extends PickaxeItem implements Vanishable, OverlayRen
                     ValoriaUtils.configExplode(player, weapon, pos, new Vec3(X, Y, Z), radius, damage, knockback);
                 }
 
-                ScreenshakeHandler.addScreenshake(new ScreenshakeInstance(5).setIntensity(radius * 0.85f).setEasing(Easing.ELASTIC_IN_OUT));
+                ScreenshakeHandler.addScreenshake(new ScreenshakeInstance(5).setIntensity(radius * 0.85f).setEasing(Interp.bounce));
             }
 
             for(int i = 0; i < 12; i++){
@@ -196,7 +187,7 @@ public class BlazeReapItem extends PickaxeItem implements Vanishable, OverlayRen
             int itemCount = Math.min(ammunition.size(), 3);
             for(int i = 0; i < itemCount; i++){
                 ItemStack stack = ammunition.get(i);
-                RenderUtils.renderItemModelInGui(stack, xCord + (16 * i), y, 16, 16, 16);
+                Utils.Render.renderItemModelInGui(stack, xCord + (16 * i), y, 16, 16, 16);
             }
         }
 

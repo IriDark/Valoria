@@ -1,8 +1,6 @@
 package com.idark.valoria.registries.entity.living.boss;
 
 import com.google.common.collect.*;
-import com.idark.valoria.client.ui.bossbars.*;
-import com.idark.valoria.core.interfaces.*;
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.particle.*;
 import com.idark.valoria.registries.*;
@@ -33,10 +31,13 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.state.*;
-import net.minecraft.world.phys.*;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.*;
 import org.jetbrains.annotations.*;
 import org.joml.*;
+import pro.komaru.tridot.client.graphics.gui.bossbars.*;
+import pro.komaru.tridot.core.interfaces.*;
+import pro.komaru.tridot.core.math.*;
 
 import javax.annotation.Nullable;
 import java.lang.Math;

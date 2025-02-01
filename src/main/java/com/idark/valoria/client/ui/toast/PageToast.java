@@ -1,20 +1,16 @@
 package com.idark.valoria.client.ui.toast;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.registries.ItemsRegistry;
-import com.idark.valoria.util.ColorUtil;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.components.toasts.Toast;
-import net.minecraft.client.gui.components.toasts.ToastComponent;
-import net.minecraft.client.resources.language.I18n;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import com.idark.valoria.*;
+import com.idark.valoria.registries.*;
+import net.minecraft.client.*;
+import net.minecraft.client.gui.*;
+import net.minecraft.client.gui.components.toasts.*;
+import net.minecraft.client.resources.language.*;
+import net.minecraft.resources.*;
+import net.minecraftforge.api.distmarker.*;
+import pro.komaru.tridot.client.graphics.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @OnlyIn(Dist.CLIENT)
 public class PageToast implements Toast{
@@ -30,9 +26,9 @@ public class PageToast implements Toast{
     public static void drawText(GuiGraphics gui, String text, int x, int y, boolean Centered){
         Font font = Minecraft.getInstance().font;
         if(!Centered){
-            gui.drawString(font, I18n.get(text), x, y, ColorUtil.packColor(255, 220, 200, 180), true);
+            gui.drawString(font, I18n.get(text), x, y, Clr.packColor(255, 220, 200, 180), true);
         }else{
-            gui.drawCenteredString(font, I18n.get(text), x, y, ColorUtil.packColor(255, 220, 200, 180));
+            gui.drawCenteredString(font, I18n.get(text), x, y, Clr.packColor(255, 220, 200, 180));
         }
     }
 

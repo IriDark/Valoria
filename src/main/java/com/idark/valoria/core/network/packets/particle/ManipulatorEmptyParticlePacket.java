@@ -1,17 +1,16 @@
 package com.idark.valoria.core.network.packets.particle;
 
-import com.idark.valoria.Valoria;
-import mod.maxbogomol.fluffy_fur.client.particle.ParticleBuilder;
-import mod.maxbogomol.fluffy_fur.client.particle.data.ColorParticleData;
-import mod.maxbogomol.fluffy_fur.client.particle.data.GenericParticleData;
-import mod.maxbogomol.fluffy_fur.registry.client.FluffyFurParticles;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.network.NetworkEvent;
+import com.idark.valoria.*;
+import net.minecraft.network.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.phys.*;
+import net.minecraftforge.network.*;
+import pro.komaru.tridot.client.*;
+import pro.komaru.tridot.client.graphics.particle.*;
+import pro.komaru.tridot.client.graphics.particle.data.*;
 
 import java.awt.*;
-import java.util.function.Supplier;
+import java.util.function.*;
 
 public class ManipulatorEmptyParticlePacket{
 
@@ -53,7 +52,7 @@ public class ManipulatorEmptyParticlePacket{
                     double X = Math.sin(pitch) * Math.cos(yaw) * pRadius * 0.75F, Y = Math.cos(pitch) * pRadius * 0.75F, Z = Math.sin(pitch) * Math.sin(yaw) * pRadius * 0.75F;
                     Vec3 particlePos = new Vec3(msg.posX + X, msg.posY + Y + ((Math.random() - 0.5D) * 0.2F), msg.posZ + Z);
                     Color color = new Color(msg.colorR, msg.colorG, msg.colorB);
-                    ParticleBuilder.create(FluffyFurParticles.WISP)
+                    ParticleBuilder.create(TridotParticles.WISP)
                             .setColorData(ColorParticleData.create(color, Color.black).build())
                             .setTransparencyData(GenericParticleData.create(1.25f, 0f).build())
                             .setScaleData(GenericParticleData.create(0.025f, 0).build())

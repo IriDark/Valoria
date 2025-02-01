@@ -1,19 +1,17 @@
 package com.idark.valoria.client.ui.menus;
 
-import com.idark.valoria.client.ui.menus.slots.KegResultSlot;
-import com.idark.valoria.registries.BlockRegistry;
-import com.idark.valoria.registries.MenuRegistry;
-import com.idark.valoria.registries.block.entity.KegBlockEntity;
-import mod.maxbogomol.fluffy_fur.client.gui.screen.ContainerMenuBase;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.ContainerLevelAccess;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.items.SlotItemHandler;
-import net.minecraftforge.items.wrapper.InvWrapper;
+import com.idark.valoria.client.ui.menus.slots.*;
+import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.block.entity.*;
+import net.minecraft.core.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.inventory.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.entity.*;
+import net.minecraftforge.common.capabilities.*;
+import net.minecraftforge.items.*;
+import net.minecraftforge.items.wrapper.*;
+import pro.komaru.tridot.client.graphics.gui.screen.*;
 
 public class KegMenu extends ContainerMenuBase{
     public BlockEntity blockEntity;

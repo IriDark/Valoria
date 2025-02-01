@@ -1,32 +1,27 @@
 package com.idark.valoria.registries.entity.living.minions;
 
-import com.idark.valoria.core.network.PacketHandler;
-import com.idark.valoria.core.network.packets.particle.SmokeParticlePacket;
-import com.idark.valoria.registries.BlockRegistry;
-import net.minecraft.core.BlockPos;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.Mth;
-import net.minecraft.world.damagesource.DamageSource;
+import com.idark.valoria.core.network.*;
+import com.idark.valoria.core.network.packets.particle.*;
+import com.idark.valoria.registries.*;
+import net.minecraft.core.*;
+import net.minecraft.network.syncher.*;
+import net.minecraft.server.level.*;
+import net.minecraft.sounds.*;
+import net.minecraft.util.*;
+import net.minecraft.world.damagesource.*;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.control.MoveControl;
-import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
-import net.minecraft.world.entity.ai.navigation.PathNavigation;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.raid.Raider;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.entity.ai.control.*;
+import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.target.*;
+import net.minecraft.world.entity.ai.navigation.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.entity.raid.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.state.*;
+import net.minecraft.world.phys.*;
+import pro.komaru.tridot.registry.entity.*;
 
-import java.util.EnumSet;
+import java.util.*;
 
 public class FleshSentinel extends AbstractMinionEntity{
     public static final int TICKS_PER_FLAP = Mth.ceil(3.9269907F);

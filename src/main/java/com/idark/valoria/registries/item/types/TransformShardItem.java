@@ -4,7 +4,6 @@ import com.idark.valoria.client.particle.*;
 import com.idark.valoria.core.interfaces.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.util.*;
-import mod.maxbogomol.fluffy_fur.client.particle.data.*;
 import net.minecraft.core.*;
 import net.minecraft.core.particles.*;
 import net.minecraft.sounds.*;
@@ -18,6 +17,7 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.phys.*;
 import net.minecraftforge.api.distmarker.*;
+import pro.komaru.tridot.client.graphics.particle.data.*;
 
 //TODO: probably rework (maybe?)
 public class TransformShardItem extends Item implements ParticleItemEntity{

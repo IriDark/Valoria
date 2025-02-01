@@ -1,46 +1,38 @@
 package com.idark.valoria.registries.item.types;
 
-import com.google.common.collect.ImmutableMultimap;
-import com.google.common.collect.Multimap;
-import com.idark.valoria.core.interfaces.*;
-import com.idark.valoria.registries.AttributeRegistry;
-import com.idark.valoria.registries.EnchantmentsRegistry;
-import com.idark.valoria.registries.item.types.builders.AbstractScytheBuilder;
-import com.idark.valoria.util.ArcRandom;
-import com.idark.valoria.util.ValoriaUtils;
-import mod.maxbogomol.fluffy_fur.client.animation.ItemAnimation;
-import mod.maxbogomol.fluffy_fur.client.screenshake.ScreenshakeHandler;
-import mod.maxbogomol.fluffy_fur.client.screenshake.ScreenshakeInstance;
-import mod.maxbogomol.fluffy_fur.common.item.ICustomAnimationItem;
-import net.minecraft.ChatFormatting;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.stats.Stats;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attribute;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.player.Player;
+import com.google.common.collect.*;
+import com.idark.valoria.core.interfaces.CooldownReductionItem;
+import com.idark.valoria.core.interfaces.DashItem;
+import com.idark.valoria.core.interfaces.RadiusItem;
+import com.idark.valoria.core.interfaces.SpinAttackItem;
+import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.item.types.builders.*;
+import com.idark.valoria.util.*;
+import net.minecraft.*;
+import net.minecraft.nbt.*;
+import net.minecraft.network.chat.*;
+import net.minecraft.sounds.*;
+import net.minecraft.stats.*;
+import net.minecraft.world.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.*;
+import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.level.Level;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.registries.ForgeRegistries;
-import org.joml.Vector3d;
+import net.minecraft.world.item.enchantment.*;
+import net.minecraft.world.level.*;
+import net.minecraftforge.api.distmarker.*;
+import net.minecraftforge.registries.*;
+import org.joml.*;
+import pro.komaru.tridot.client.graphics.gui.screenshake.*;
+import pro.komaru.tridot.client.graphics.render.animation.*;
+import pro.komaru.tridot.core.interfaces.*;
+import pro.komaru.tridot.core.math.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import static com.idark.valoria.Valoria.BASE_ATTACK_RADIUS_UUID;
 import static com.idark.valoria.util.ValoriaUtils.addContributorTooltip;
 
-// todo delete
 public class ScytheItem extends SwordItem implements ICustomAnimationItem, CooldownNotifyItem, RadiusItem, SpinAttackItem, DashItem, CooldownReductionItem{
     public AbstractScytheBuilder<? extends ScytheItem> builder;
     public final Multimap<Attribute, AttributeModifier> defaultModifiers;
@@ -53,7 +45,7 @@ public class ScytheItem extends SwordItem implements ICustomAnimationItem, Coold
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
         builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", builderIn.attackDamageIn, AttributeModifier.Operation.ADDITION));
         builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Tool modifier", builderIn.attackSpeedIn, AttributeModifier.Operation.ADDITION));
-        builder.put(AttributeRegistry.ATTACK_RADIUS.get(), new AttributeModifier(BASE_ATTACK_RADIUS_UUID, "Tool modifier", builderIn.attackRadius, AttributeModifier.Operation.ADDITION));
+        builder.put(AttributeReg.ATTACK_RADIUS.get(), new AttributeModifier(BASE_ATTACK_RADIUS_UUID, "Tool modifier", builderIn.attackRadius, AttributeModifier.Operation.ADDITION));
         this.defaultModifiers = builder.build();
     }
 
@@ -114,7 +106,7 @@ public class ScytheItem extends SwordItem implements ICustomAnimationItem, Coold
         List<LivingEntity> hitEntities = new ArrayList<>();
         Vector3d pos = new Vector3d(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());
         float damage = (float)(player.getAttributeValue(Attributes.ATTACK_DAMAGE)) + EnchantmentHelper.getSweepingDamageRatio(player);
-        float radius = (float)player.getAttributeValue(AttributeRegistry.ATTACK_RADIUS.get());
+        float radius = (float)player.getAttributeValue(AttributeReg.ATTACK_RADIUS.get());
         CompoundTag tag = stack.getOrCreateTag();
         usageCount = tag.getInt("usageCount");
 

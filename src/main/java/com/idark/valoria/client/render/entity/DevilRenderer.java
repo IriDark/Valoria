@@ -2,7 +2,6 @@ package com.idark.valoria.client.render.entity;
 
 import com.idark.valoria.*;
 import com.idark.valoria.client.model.entity.*;
-import com.idark.valoria.client.render.layers.*;
 import com.idark.valoria.registries.entity.living.elemental.*;
 import com.idark.valoria.util.*;
 import com.mojang.blaze3d.vertex.*;
@@ -10,6 +9,7 @@ import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.entity.*;
 import net.minecraft.client.renderer.entity.layers.*;
 import net.minecraft.resources.*;
+import pro.komaru.tridot.client.graphics.render.entity.*;
 
 public class DevilRenderer extends MobRenderer<Devil, DevilModel<Devil>>{
     protected static final ResourceLocation TEXTURE = new ResourceLocation(Valoria.ID, "textures/entity/devil.png");

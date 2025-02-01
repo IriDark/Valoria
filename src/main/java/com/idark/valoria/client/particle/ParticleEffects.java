@@ -1,28 +1,22 @@
 package com.idark.valoria.client.particle;
 
-import com.idark.valoria.registries.TagsRegistry;
-import com.idark.valoria.util.ArcRandom;
-import com.idark.valoria.util.Pal;
-import mod.maxbogomol.fluffy_fur.client.particle.GenericParticle;
-import mod.maxbogomol.fluffy_fur.client.particle.ParticleBuilder;
-import mod.maxbogomol.fluffy_fur.client.particle.behavior.TrailParticleBehavior;
-import mod.maxbogomol.fluffy_fur.client.particle.data.ColorParticleData;
-import mod.maxbogomol.fluffy_fur.client.particle.data.GenericParticleData;
-import mod.maxbogomol.fluffy_fur.client.particle.data.LightParticleData;
-import mod.maxbogomol.fluffy_fur.client.particle.data.SpinParticleData;
-import mod.maxbogomol.fluffy_fur.common.easing.Easing;
-import mod.maxbogomol.fluffy_fur.registry.client.FluffyFurParticles;
-import mod.maxbogomol.fluffy_fur.registry.client.FluffyFurRenderTypes;
-import net.minecraft.client.particle.ParticleRenderType;
-import net.minecraft.core.particles.ParticleType;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.level.Level;
+import com.idark.valoria.registries.*;
+import com.idark.valoria.util.*;
+import net.minecraft.client.particle.*;
+import net.minecraft.core.particles.*;
+import net.minecraft.util.*;
+import net.minecraft.world.entity.item.*;
+import net.minecraft.world.level.*;
 import net.minecraft.world.phys.Vec3;
+import pro.komaru.tridot.client.*;
+import pro.komaru.tridot.client.graphics.particle.*;
+import pro.komaru.tridot.client.graphics.particle.behavior.*;
+import pro.komaru.tridot.client.graphics.particle.data.*;
+import pro.komaru.tridot.core.math.*;
 
-import javax.annotation.Nullable;
+import javax.annotation.*;
 import java.awt.*;
-import java.util.function.Consumer;
+import java.util.function.*;
 
 import static net.minecraft.util.Mth.randomBetween;
 
@@ -31,7 +25,7 @@ public class ParticleEffects{
 
     public static void particles(Level level, Vec3 pos, ColorParticleData data){
         if(level.isClientSide()){
-            ParticleBuilder.create(FluffyFurParticles.WISP)
+            ParticleBuilder.create(TridotParticles.WISP)
                     .setColorData(data)
                     .setTransparencyData(GenericParticleData.create(1.25f, 0f).build())
                     .setScaleData(GenericParticleData.create(0.2f, 0.1f, 0).build())
@@ -44,7 +38,7 @@ public class ParticleEffects{
     public static void fireParticles(Level level, Vec3 pos, ColorParticleData data){
         if(level.isClientSide()){
             RandomSource random = level.getRandom();
-            ParticleBuilder.create(FluffyFurParticles.WISP)
+            ParticleBuilder.create(TridotParticles.WISP)
                     .setTransparencyData(GenericParticleData.create(0.25f, 0f).build())
                     .setScaleData(GenericParticleData.create(0.32f + arcRandom.randomValueUpTo(0.2f), arcRandom.randomValueUpTo(0.2f)).build())
                     .setLifetime(21)
@@ -63,13 +57,12 @@ public class ParticleEffects{
                     .setScaleData(GenericParticleData.create(0.25f + arcRandom.randomValueUpTo(0.25f), arcRandom.randomValueUpTo(0.2f)).build())
                     .setLifetime(32)
                     .setColorData(data)
-                    .setRenderType(FluffyFurRenderTypes.TRANSLUCENT_PARTICLE)
+                    .setRenderType(TridotRenderTypes.TRANSLUCENT_PARTICLE)
                     .setSpinData(SpinParticleData.create(0.75f, 0).build())
                     .setVelocity((random.nextDouble() - 0.2D) / 30, (random.nextDouble() + 0.2D) / 4, (random.nextDouble() - 0.2D) / 30)
                     .spawn(level, pos.x, pos.y, pos.z);
         }
     }
-
 
     public static void transformParticle(Level level, Vec3 pos, ColorParticleData data){
         if(level.isClientSide()){
@@ -78,7 +71,7 @@ public class ParticleEffects{
                     .randomVelocity(0.025f)
                     .setColorData(data)
                     .setTransparencyData(GenericParticleData.create(0.45f, 0f).build())
-                    .setScaleData(GenericParticleData.create(0.35f, 0).setEasing(Easing.EXPO_IN, Easing.EXPO_IN_OUT).build())
+                    .setScaleData(GenericParticleData.create(0.35f, 0).setEasing(Interp.sineIn, Interp.sineOut).build())
                     .setLifetime(16)
                     .setSpinData(SpinParticleData.create(0.5f * (float)((rand.nextDouble() - 0.5D) * 2)).build())
                     .spawn(level, pos.x, pos.y, pos.z);
@@ -99,7 +92,7 @@ public class ParticleEffects{
     public static void trailMotionSparks(Level level, Vec3 pos, ColorParticleData data){
         if(level.isClientSide()){
             RandomSource rand = level.getRandom();
-            ParticleBuilder.create(FluffyFurParticles.TINY_WISP)
+            ParticleBuilder.create(TridotParticles.TINY_WISP)
                     .setTransparencyData(GenericParticleData.create(1f, 0f).build())
                     .setScaleData(GenericParticleData.create(0.125f, randomBetween(rand, 0.1f, 0.2f), 0).build())
                     .setLifetime(15)
@@ -126,12 +119,12 @@ public class ParticleEffects{
             p.setSpeed(p.getSpeed().add(-x, -y, -z));
         };
 
-        ParticleBuilder.create(FluffyFurParticles.TRAIL)
-                .setRenderType(FluffyFurRenderTypes.ADDITIVE_PARTICLE_TEXTURE)
+        ParticleBuilder.create(TridotParticles.TRAIL)
+                .setRenderType(TridotRenderTypes.ADDITIVE_PARTICLE_TEXTURE)
                 .setBehavior(TrailParticleBehavior.create().build())
                 .setColorData(ColorParticleData.create(Pal.infernal, Pal.darkMagenta).build())
-                .setTransparencyData(GenericParticleData.create(0.6f, 0).setEasing(Easing.QUARTIC_OUT).build())
-                .setScaleData(GenericParticleData.create(0.5f).setEasing(Easing.QUARTIC_OUT).build())
+                .setTransparencyData(GenericParticleData.create(0.6f, 0).setEasing(Interp.sineOut).build())
+                .setScaleData(GenericParticleData.create(0.5f).setEasing(Interp.sineIn).build())
                 .addTickActor(target)
                 .setLifetime(20)
                 .randomVelocity(0.25, 0.02f, 0.25)
@@ -144,7 +137,7 @@ public class ParticleEffects{
     public static void itemParticles(Level level, Vec3 pos, ColorParticleData data){
         if(level.isClientSide()){
             RandomSource random = level.getRandom();
-            ParticleBuilder.create(FluffyFurParticles.TINY_WISP)
+            ParticleBuilder.create(TridotParticles.TINY_WISP)
                     .setTransparencyData(GenericParticleData.create(0.15f, 0f).build())
                     .setScaleData(GenericParticleData.create(0.05f + arcRandom.randomValueUpTo(0.25f), arcRandom.randomValueUpTo(0.2f)).build())
                     .setLifetime(6)
@@ -156,12 +149,12 @@ public class ParticleEffects{
     }
 
     public static void smoothTrail(Level level, Consumer<GenericParticle> target, Vec3 pos, ColorParticleData data){
-        ParticleBuilder.create(FluffyFurParticles.TRAIL)
-                .setRenderType(FluffyFurRenderTypes.ADDITIVE_PARTICLE_TEXTURE)
+        ParticleBuilder.create(TridotParticles.TRAIL)
+                .setRenderType(TridotRenderTypes.ADDITIVE_PARTICLE_TEXTURE)
                 .setBehavior(TrailParticleBehavior.create().build())
                 .setColorData(data)
-                .setTransparencyData(GenericParticleData.create(1, 0).setEasing(Easing.QUARTIC_OUT).build())
-                .setScaleData(GenericParticleData.create(0.5f).setEasing(Easing.EXPO_IN).build())
+                .setTransparencyData(GenericParticleData.create(1, 0).setEasing(Interp.bounceOut).build())
+                .setScaleData(GenericParticleData.create(0.5f).setEasing(Interp.sineIn).build())
                 .addTickActor(target)
                 .setGravity(0)
                 .setLifetime(30)
@@ -178,7 +171,7 @@ public class ParticleEffects{
                     Color particleColorTo = new Color(color.r2, color.g2, color.b2);
                     if(level.isClientSide()){
                         RandomSource random = level.getRandom();
-                        ParticleBuilder.create(particle != null ? particle : FluffyFurParticles.TINY_WISP.get())
+                        ParticleBuilder.create(particle != null ? particle : TridotParticles.TINY_WISP.get())
                                 .setTransparencyData(GenericParticleData.create(0.15f, 0f).build())
                                 .setScaleData(GenericParticleData.create(0.05f + arcRandom.randomValueUpTo(0.15f), arcRandom.randomValueUpTo(0.2f)).build())
                                 .setLifetime(6)
@@ -190,11 +183,11 @@ public class ParticleEffects{
                 }
 
                 if(entity.getItem().is(TagsRegistry.SMOKE_PARTICLE)){
-                    ParticleBuilder.create(FluffyFurParticles.TINY_WISP)
+                    ParticleBuilder.create(TridotParticles.TINY_WISP)
                             .setTransparencyData(GenericParticleData.create(0.25f, 0f).build())
                             .setScaleData(GenericParticleData.create(0.05f + arcRandom.randomValueUpTo(0.25f), arcRandom.randomValueUpTo(0.2f)).build())
                             .setLifetime(16)
-                            .setRenderType(FluffyFurRenderTypes.TRANSLUCENT_PARTICLE)
+                            .setRenderType(TridotRenderTypes.TRANSLUCENT_PARTICLE)
                             .setColorData(ColorParticleData.create(Color.black, Pal.smoke).build())
                             .setSpinData(SpinParticleData.create(0.5f * (float)((rand.nextDouble() - 0.5D) * 2), 0).build())
                             .setVelocity((rand.nextDouble() / 30), 0.05f, (rand.nextDouble() / 30))

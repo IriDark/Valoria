@@ -1,31 +1,25 @@
 package com.idark.valoria.registries.entity.living.boss;
 
-import com.idark.valoria.client.particle.ParticleRegistry;
-import mod.maxbogomol.fluffy_fur.client.particle.ParticleBuilder;
-import mod.maxbogomol.fluffy_fur.client.particle.data.ColorParticleData;
-import mod.maxbogomol.fluffy_fur.client.particle.data.GenericParticleData;
-import mod.maxbogomol.fluffy_fur.client.particle.data.SpinParticleData;
-import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.ByIdMap;
-import net.minecraft.util.Mth;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.level.Level;
-import org.joml.Vector3d;
+import com.idark.valoria.client.particle.*;
+import net.minecraft.core.*;
+import net.minecraft.nbt.*;
+import net.minecraft.network.syncher.*;
+import net.minecraft.sounds.*;
+import net.minecraft.util.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.monster.*;
+import net.minecraft.world.level.*;
+import org.joml.*;
+import pro.komaru.tridot.client.graphics.particle.*;
+import pro.komaru.tridot.client.graphics.particle.data.*;
 
-import javax.annotation.Nullable;
+import javax.annotation.*;
 import java.awt.*;
-import java.util.EnumSet;
+import java.lang.Math;
 import java.util.Random;
-import java.util.function.IntFunction;
+import java.util.*;
+import java.util.function.*;
 
 public abstract class AbstractNecromancer extends Monster{
     private static final EntityDataAccessor<Byte> DATA_SPELL_CASTING_ID = SynchedEntityData.defineId(AbstractNecromancer.class, EntityDataSerializers.BYTE);

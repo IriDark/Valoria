@@ -1,7 +1,7 @@
 package com.idark.valoria.registries.item.types;
 
 import com.idark.valoria.core.config.*;
-import com.idark.valoria.core.interfaces.*;
+import com.idark.valoria.core.interfaces.RadiusItem;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.util.*;
 import net.minecraft.client.*;
@@ -18,6 +18,7 @@ import net.minecraft.world.item.enchantment.*;
 import net.minecraft.world.level.*;
 import net.minecraftforge.common.Tags.*;
 import org.joml.*;
+import pro.komaru.tridot.core.interfaces.*;
 
 import java.util.*;
 

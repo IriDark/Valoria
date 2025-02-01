@@ -1,31 +1,28 @@
 package com.idark.valoria.registries.item.types;
 
-import com.idark.valoria.client.particle.ParticleRegistry;
-import com.idark.valoria.core.network.PacketHandler;
-import com.idark.valoria.core.network.packets.particle.BeastAttackParticlePacket;
-import com.idark.valoria.registries.entity.projectile.Devourer;
-import com.idark.valoria.registries.item.types.builders.AbstractScytheBuilder;
-import com.idark.valoria.util.ColorUtil;
-import com.idark.valoria.util.ValoriaUtils;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.Mth;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.shapes.VoxelShape;
-import org.joml.Vector3d;
+import com.idark.valoria.client.particle.*;
+import com.idark.valoria.core.network.*;
+import com.idark.valoria.core.network.packets.particle.*;
+import com.idark.valoria.registries.entity.projectile.*;
+import com.idark.valoria.registries.item.types.builders.*;
+import com.idark.valoria.util.*;
+import net.minecraft.core.*;
+import net.minecraft.server.level.*;
+import net.minecraft.sounds.*;
+import net.minecraft.util.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.item.enchantment.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.state.*;
+import net.minecraft.world.phys.shapes.*;
+import org.joml.*;
+import pro.komaru.tridot.client.graphics.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.lang.Math;
+import java.util.*;
 
 public class BeastScytheItem extends ScytheItem{
     public BeastScytheItem(Builder builderIn){
@@ -83,7 +80,7 @@ public class BeastScytheItem extends ScytheItem{
         }while(blockpos.getY() >= Mth.floor(pMinY) - 1);
         if(flag){
             if(level instanceof ServerLevel server){
-                PacketHandler.sendToTracking(server, blockpos, new BeastAttackParticlePacket(pX, (double)blockpos.getY() + d0, pZ, ColorUtil.valueOf("66b4a3")));
+                PacketHandler.sendToTracking(server, blockpos, new BeastAttackParticlePacket(pX, (double)blockpos.getY() + d0, pZ, Clr.valueOf("66b4a3")));
                 server.addFreshEntity(new Devourer(server, pX, (double)blockpos.getY() + d0, pZ, pYRot, pWarmupDelay, null));
             }
         }

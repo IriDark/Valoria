@@ -1,19 +1,18 @@
 package com.idark.valoria.core.network.packets.particle;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.client.particle.ParticleRegistry;
-import com.idark.valoria.util.Pal;
-import mod.maxbogomol.fluffy_fur.client.particle.ParticleBuilder;
-import mod.maxbogomol.fluffy_fur.client.particle.data.ColorParticleData;
-import mod.maxbogomol.fluffy_fur.client.particle.data.GenericParticleData;
-import mod.maxbogomol.fluffy_fur.registry.client.FluffyFurRenderTypes;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.world.level.Level;
-import net.minecraftforge.network.NetworkEvent;
+import com.idark.valoria.*;
+import com.idark.valoria.client.particle.*;
+import com.idark.valoria.util.*;
+import net.minecraft.network.*;
+import net.minecraft.world.level.*;
+import net.minecraftforge.network.*;
+import pro.komaru.tridot.client.*;
+import pro.komaru.tridot.client.graphics.particle.*;
+import pro.komaru.tridot.client.graphics.particle.data.*;
 
 import java.awt.*;
-import java.util.Random;
-import java.util.function.Supplier;
+import java.util.*;
+import java.util.function.*;
 
 public class SmokeParticlePacket{
     private final double posX, posY, posZ;
@@ -38,7 +37,7 @@ public class SmokeParticlePacket{
     public static void packetSmokeParticles(SmokeParticlePacket msg, Level level, ColorParticleData color){
         Random random = new Random();
         ParticleBuilder.create(ParticleRegistry.SMOKE)
-                .setRenderType(FluffyFurRenderTypes.TRANSLUCENT_PARTICLE)
+                .setRenderType(TridotRenderTypes.TRANSLUCENT_PARTICLE)
                 .setColorData(color)
                 .setTransparencyData(GenericParticleData.create().setRandomValue(0, 0.6f, 0, 0).build())
                 .setScaleData(GenericParticleData.create(0.92f, 0f).build())

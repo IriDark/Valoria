@@ -1,34 +1,26 @@
 package com.idark.valoria.registries.entity.projectile;
 
-import com.idark.valoria.registries.EntityTypeRegistry;
-import com.idark.valoria.registries.ItemsRegistry;
-import com.idark.valoria.registries.SoundsRegistry;
-import com.idark.valoria.util.Pal;
-import mod.maxbogomol.fluffy_fur.client.particle.GenericParticle;
-import mod.maxbogomol.fluffy_fur.client.particle.ParticleBuilder;
-import mod.maxbogomol.fluffy_fur.client.particle.data.ColorParticleData;
-import mod.maxbogomol.fluffy_fur.client.particle.data.GenericParticleData;
-import mod.maxbogomol.fluffy_fur.common.easing.Easing;
-import mod.maxbogomol.fluffy_fur.registry.client.FluffyFurParticles;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.projectile.Projectile;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.EntityHitResult;
-import net.minecraft.world.phys.HitResult;
+import com.idark.valoria.registries.*;
+import com.idark.valoria.util.*;
+import net.minecraft.core.particles.*;
+import net.minecraft.nbt.*;
+import net.minecraft.sounds.*;
+import net.minecraft.util.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.projectile.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.*;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraft.world.phys.*;
+import net.minecraftforge.api.distmarker.*;
+import pro.komaru.tridot.client.*;
+import pro.komaru.tridot.client.graphics.particle.*;
+import pro.komaru.tridot.client.graphics.particle.data.*;
+import pro.komaru.tridot.core.math.*;
 
-import javax.annotation.Nullable;
+import javax.annotation.*;
 import java.awt.*;
-import java.util.function.Consumer;
+import java.util.function.*;
 
 public class SpectralBladeEntity extends AbstractValoriaArrow{
     public boolean dealtDamage;
@@ -89,10 +81,10 @@ public class SpectralBladeEntity extends AbstractValoriaArrow{
                 p.setSpeed(p.getSpeed().subtract(x, y, z));
             };
 
-            ParticleBuilder.create(FluffyFurParticles.SPARKLE)
+            ParticleBuilder.create(TridotParticles.SPARKLE)
                     .setColorData(ColorParticleData.create(Pal.cyan, Color.white).build())
-                    .setTransparencyData(GenericParticleData.create(0.3f).setEasing(Easing.QUARTIC_OUT).build())
-                    .setScaleData(GenericParticleData.create(0.06f, 0.15f, 0).setEasing(Easing.QUARTIC_OUT).build())
+                    .setTransparencyData(GenericParticleData.create(0.3f).setEasing(Interp.sineIn).build())
+                    .setScaleData(GenericParticleData.create(0.06f, 0.15f, 0).setEasing(Interp.sineOut).build())
                     .addTickActor(blockTarget)
                     .setLifetime(16)
                     .randomVelocity(0.25f)

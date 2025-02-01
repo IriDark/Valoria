@@ -1,28 +1,22 @@
 package com.idark.valoria.registries.entity.projectile;
 
-import com.idark.valoria.registries.EntityTypeRegistry;
-import com.idark.valoria.registries.SoundsRegistry;
-import com.idark.valoria.util.Pal;
-import mod.maxbogomol.fluffy_fur.client.particle.GenericParticle;
-import mod.maxbogomol.fluffy_fur.client.particle.ParticleBuilder;
-import mod.maxbogomol.fluffy_fur.client.particle.behavior.TrailParticleBehavior;
-import mod.maxbogomol.fluffy_fur.client.particle.data.ColorParticleData;
-import mod.maxbogomol.fluffy_fur.client.particle.data.GenericParticleData;
-import mod.maxbogomol.fluffy_fur.client.screenshake.ScreenshakeHandler;
-import mod.maxbogomol.fluffy_fur.client.screenshake.ScreenshakeInstance;
-import mod.maxbogomol.fluffy_fur.common.easing.Easing;
-import mod.maxbogomol.fluffy_fur.registry.client.FluffyFurParticles;
-import mod.maxbogomol.fluffy_fur.registry.client.FluffyFurRenderTypes;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.HitResult;
+import com.idark.valoria.registries.*;
+import com.idark.valoria.util.*;
+import net.minecraft.sounds.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.*;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
+import net.minecraft.world.phys.*;
+import org.jetbrains.annotations.*;
+import pro.komaru.tridot.client.*;
+import pro.komaru.tridot.client.graphics.gui.screenshake.*;
+import pro.komaru.tridot.client.graphics.particle.*;
+import pro.komaru.tridot.client.graphics.particle.behavior.*;
+import pro.komaru.tridot.client.graphics.particle.data.*;
+import pro.komaru.tridot.core.math.*;
 
-import java.util.function.Consumer;
+import java.util.function.*;
 
 public class ThrownSpearEntity extends AbstractSupplierProjectile{
     private float explosive_radius;
@@ -55,12 +49,12 @@ public class ThrownSpearEntity extends AbstractSupplierProjectile{
                 }
             };
 
-            ParticleBuilder.create(FluffyFurParticles.TRAIL)
-                    .setRenderType(FluffyFurRenderTypes.ADDITIVE_PARTICLE_TEXTURE)
+            ParticleBuilder.create(TridotParticles.TRAIL)
+                    .setRenderType(TridotRenderTypes.ADDITIVE_PARTICLE_TEXTURE)
                     .setBehavior(TrailParticleBehavior.create().build())
                     .setColorData(ColorParticleData.create(Pal.darkerGray.brighter()).build())
-                    .setTransparencyData(GenericParticleData.create(0.65f, 0).setEasing(Easing.QUARTIC_OUT).build())
-                    .setScaleData(GenericParticleData.create(0.5f).setEasing(Easing.EXPO_IN).build())
+                    .setTransparencyData(GenericParticleData.create(0.65f, 0).setEasing(Interp.elasticOut).build())
+                    .setScaleData(GenericParticleData.create(0.5f).setEasing(Interp.exp5In).build())
                     .addTickActor(target)
                     .setGravity(0)
                     .setLifetime(20)

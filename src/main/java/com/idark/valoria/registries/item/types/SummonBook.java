@@ -1,45 +1,34 @@
 package com.idark.valoria.registries.item.types;
 
-import com.google.common.collect.ImmutableMultimap;
-import com.google.common.collect.Multimap;
-import com.idark.valoria.Valoria;
-import com.idark.valoria.core.network.PacketHandler;
-import com.idark.valoria.core.network.packets.particle.MinionSummonParticlePacket;
-import com.idark.valoria.registries.AttributeRegistry;
-import com.idark.valoria.registries.SoundsRegistry;
-import com.idark.valoria.registries.TagsRegistry;
-import com.idark.valoria.registries.entity.living.minions.AbstractMinionEntity;
-import com.idark.valoria.util.ColorUtil;
+import com.google.common.collect.*;
+import com.idark.valoria.*;
+import com.idark.valoria.core.network.*;
+import com.idark.valoria.core.network.packets.particle.*;
+import com.idark.valoria.registries.*;
 import com.idark.valoria.util.Pal;
 import com.idark.valoria.util.Styles;
-import net.minecraft.ChatFormatting;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.*;
+import net.minecraft.core.*;
+import net.minecraft.nbt.*;
+import net.minecraft.network.chat.*;
+import net.minecraft.resources.*;
+import net.minecraft.server.level.*;
+import net.minecraft.sounds.*;
+import net.minecraft.world.*;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.Attribute;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.registries.ForgeRegistries;
-import org.jetbrains.annotations.NotNull;
+import net.minecraft.world.entity.ai.attributes.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.phys.*;
+import net.minecraftforge.registries.*;
+import org.jetbrains.annotations.*;
+import pro.komaru.tridot.client.graphics.*;
+import pro.komaru.tridot.registry.entity.*;
 
-import java.util.List;
+import java.util.*;
 
-import static com.idark.valoria.Valoria.BASE_NECROMANCY_COUNT_UUID;
-import static com.idark.valoria.Valoria.BASE_NECROMANCY_LIFETIME_UUID;
+import static com.idark.valoria.Valoria.*;
 import static net.minecraftforge.registries.ForgeRegistries.Keys.ENTITY_TYPES;
 
 public class SummonBook extends Item{
@@ -55,8 +44,8 @@ public class SummonBook extends Item{
         super(pProperties);
         this.hasLimitedLife = true;
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
-        builder.put(AttributeRegistry.NECROMANCY_LIFETIME.get(), new AttributeModifier(BASE_NECROMANCY_LIFETIME_UUID, "Tool modifier", lifetime, AttributeModifier.Operation.ADDITION));
-        builder.put(AttributeRegistry.NECROMANCY_COUNT.get(), new AttributeModifier(BASE_NECROMANCY_COUNT_UUID, "Tool modifier", count, AttributeModifier.Operation.ADDITION));
+        builder.put(AttributeReg.NECROMANCY_LIFETIME.get(), new AttributeModifier(BASE_NECROMANCY_LIFETIME_UUID, "Tool modifier", lifetime, AttributeModifier.Operation.ADDITION));
+        builder.put(AttributeReg.NECROMANCY_COUNT.get(), new AttributeModifier(BASE_NECROMANCY_COUNT_UUID, "Tool modifier", count, AttributeModifier.Operation.ADDITION));
         this.defaultModifiers = builder.build();
     }
 
@@ -80,11 +69,11 @@ public class SummonBook extends Item{
 
     public static int getColor(ItemStack pStack){
         CompoundTag compoundtag = pStack.getTagElement("DisplayColor");
-        return compoundtag != null && compoundtag.contains("color", 99) ? compoundtag.getInt("color") : ColorUtil.colorToDecimal(Pal.lightViolet);
+        return compoundtag != null && compoundtag.contains("color", 99) ? compoundtag.getInt("color") : Clr.colorToDecimal(Pal.lightViolet);
     }
 
     public int getLifetime(Player player){
-        return (int)(player.getAttributeValue(AttributeRegistry.NECROMANCY_LIFETIME.get()) * 20);
+        return (int)(player.getAttributeValue(AttributeReg.NECROMANCY_LIFETIME.get()) * 20);
     }
 
     public void applyCooldown(Player playerIn){
@@ -139,7 +128,7 @@ public class SummonBook extends Item{
     public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entityLiving){
         Player player = (Player)entityLiving;
         if(level instanceof ServerLevel server){
-            for(int i = 0; i < (int)(player.getAttributeValue(AttributeRegistry.NECROMANCY_COUNT.get())); ++i){
+            for(int i = 0; i < (int)(player.getAttributeValue(AttributeReg.NECROMANCY_COUNT.get())); ++i){
                 spawnMinions(server, player, stack);
             }
 

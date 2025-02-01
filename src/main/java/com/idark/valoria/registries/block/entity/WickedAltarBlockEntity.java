@@ -3,13 +3,13 @@ package com.idark.valoria.registries.block.entity;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.entity.living.boss.*;
 import com.idark.valoria.util.*;
-import mod.maxbogomol.fluffy_fur.client.particle.*;
-import mod.maxbogomol.fluffy_fur.client.particle.data.*;
-import mod.maxbogomol.fluffy_fur.registry.client.*;
 import net.minecraft.core.*;
 import net.minecraft.sounds.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.state.*;
+import pro.komaru.tridot.client.*;
+import pro.komaru.tridot.client.graphics.particle.*;
+import pro.komaru.tridot.client.graphics.particle.data.*;
 
 import java.awt.*;
 
@@ -27,7 +27,7 @@ public class WickedAltarBlockEntity extends AbstractAltarBlockEntity{
             double radius = 0.5 * (1 - ((double)progress / progressMax)) * (1 - ((double)a * 2.5f));
             double x = Math.cos(angle) * radius;
             double z = Math.sin(angle) * radius;
-            ParticleBuilder.create(FluffyFurParticles.SMOKE)
+            ParticleBuilder.create(TridotParticles.SMOKE)
             .setColorData(ColorParticleData.create(Pal.softMagenta, Color.magenta).build())
             .setTransparencyData(GenericParticleData.create(0.425f, 0f).build())
             .setScaleData(GenericParticleData.create((((float)a * 0.125f)), 0.1f, 0).build())
@@ -35,7 +35,7 @@ public class WickedAltarBlockEntity extends AbstractAltarBlockEntity{
             .spawn(this.level, (this.worldPosition.getX() + 0.5f) + x, this.worldPosition.getY() + (1 - ((double)a / 1.25)) + y, (this.worldPosition.getZ() + 0.5f) + z);
         }
 
-        ParticleBuilder.create(FluffyFurParticles.WISP)
+        ParticleBuilder.create(TridotParticles.WISP)
         .setColorData(ColorParticleData.create(Pal.softMagenta, Color.magenta).build())
         .setTransparencyData(GenericParticleData.create(0.125f, 0f).build())
         .setScaleData(GenericParticleData.create(((0.125f)), 0.1f, 0).build())

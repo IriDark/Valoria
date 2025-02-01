@@ -1,18 +1,17 @@
 package com.idark.valoria.core.network.packets.particle;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.util.Pal;
-import mod.maxbogomol.fluffy_fur.client.particle.ParticleBuilder;
-import mod.maxbogomol.fluffy_fur.client.particle.data.ColorParticleData;
-import mod.maxbogomol.fluffy_fur.client.particle.data.GenericParticleData;
-import mod.maxbogomol.fluffy_fur.registry.client.FluffyFurParticles;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.network.NetworkEvent;
+import com.idark.valoria.*;
+import com.idark.valoria.util.*;
+import net.minecraft.network.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.phys.*;
+import net.minecraftforge.network.*;
+import pro.komaru.tridot.client.*;
+import pro.komaru.tridot.client.graphics.particle.*;
+import pro.komaru.tridot.client.graphics.particle.data.*;
 
 import java.awt.*;
-import java.util.function.Supplier;
+import java.util.function.*;
 
 public class ManipulatorCraftParticlePacket{
 
@@ -48,7 +47,7 @@ public class ManipulatorCraftParticlePacket{
             ctx.get().enqueueWork(() -> {
                 Level pLevel = Valoria.proxy.getLevel();
                 Vec3 particlePos = new Vec3(msg.posX + 0.85f, msg.posY + 1.10f, msg.posZ + 0.85f);
-                ParticleBuilder.create(FluffyFurParticles.WISP)
+                ParticleBuilder.create(TridotParticles.WISP)
                         .setColorData(ColorParticleData.create(Pal.infernalBright, Color.black).build())
                         .setTransparencyData(GenericParticleData.create(1.25f, 0f).build())
                         .setScaleData(GenericParticleData.create(0.025f, 0.1f).build())
@@ -57,7 +56,7 @@ public class ManipulatorCraftParticlePacket{
                         .spawn(pLevel, particlePos.x, particlePos.y, particlePos.z);
 
                 Vec3 particlePos1 = new Vec3(msg.posX + 0.15f, msg.posY + 1.10f, msg.posZ + 0.15f);
-                ParticleBuilder.create(FluffyFurParticles.WISP)
+                ParticleBuilder.create(TridotParticles.WISP)
                         .setColorData(ColorParticleData.create(Pal.nature, Color.black).build())
                         .setTransparencyData(GenericParticleData.create(1.25f, 0f).build())
                         .setScaleData(GenericParticleData.create(0.025f, 0.1f).build())
@@ -66,7 +65,7 @@ public class ManipulatorCraftParticlePacket{
                         .spawn(pLevel, particlePos1.x, particlePos1.y, particlePos1.z);
 
                 Vec3 particlePos2 = new Vec3(msg.posX + 0.85f, msg.posY + 1.10f, msg.posZ + 0.15f);
-                ParticleBuilder.create(FluffyFurParticles.WISP)
+                ParticleBuilder.create(TridotParticles.WISP)
                         .setColorData(ColorParticleData.create(Pal.oceanic, Color.black).build())
                         .setTransparencyData(GenericParticleData.create(1.25f, 0f).build())
                         .setScaleData(GenericParticleData.create(0.025f, 0.1f).build())
@@ -75,7 +74,7 @@ public class ManipulatorCraftParticlePacket{
                         .spawn(pLevel, particlePos2.x, particlePos2.y, particlePos2.z);
 
                 Vec3 particlePos3 = new Vec3(msg.posX + 0.15f, msg.posY + 1.10f, msg.posZ + 0.85f);
-                ParticleBuilder.create(FluffyFurParticles.WISP)
+                ParticleBuilder.create(TridotParticles.WISP)
                         .setColorData(ColorParticleData.create(Pal.vividCyan, Color.black).build())
                         .setTransparencyData(GenericParticleData.create(1.25f, 0f).build())
                         .setScaleData(GenericParticleData.create(0.025f, 0.1f).build())
@@ -84,7 +83,7 @@ public class ManipulatorCraftParticlePacket{
                         .spawn(pLevel, particlePos3.x, particlePos3.y, particlePos3.z);
 
                 Vec3 particlePos4 = new Vec3(msg.posX + 0.5f, msg.posY + 1, msg.posZ + 0.5f);
-                ParticleBuilder.create(FluffyFurParticles.WISP)
+                ParticleBuilder.create(TridotParticles.WISP)
                         .setColorData(ColorParticleData.create(Color.white, Color.black).build())
                         .setTransparencyData(GenericParticleData.create(1.25f, 0f).build())
                         .setScaleData(GenericParticleData.create(0.025f, 0.1f).build())

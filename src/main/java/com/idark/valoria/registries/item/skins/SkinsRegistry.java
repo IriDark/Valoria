@@ -1,39 +1,33 @@
 package com.idark.valoria.registries.item.skins;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.client.model.ModItemModelProperties;
-import com.idark.valoria.registries.ItemsRegistry;
-import com.idark.valoria.registries.item.armor.item.SkinableArmorItem;
-import com.idark.valoria.registries.item.skins.categories.SkinBuilder;
+import com.idark.valoria.*;
+import com.idark.valoria.client.model.*;
+import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.item.armor.item.*;
 import com.idark.valoria.registries.item.skins.entries.ItemSupplierSkinEntry;
-import com.idark.valoria.registries.item.skins.entries.TheFallenCollectorSkinEntry;
-import com.idark.valoria.registries.item.types.KatanaItem;
-import com.idark.valoria.registries.item.types.ranged.BlazeReapItem;
-import com.idark.valoria.registries.item.types.ranged.bows.ConfigurableBowItem;
-import com.idark.valoria.util.Pal;
-import com.idark.valoria.util.Styles;
-import mod.maxbogomol.fluffy_fur.client.model.item.ItemSkinItemOverrides;
-import mod.maxbogomol.fluffy_fur.client.model.item.ItemSkinModels;
-import mod.maxbogomol.fluffy_fur.client.render.item.LargeItemRenderer;
-import mod.maxbogomol.fluffy_fur.common.itemskin.ItemClassSkinEntry;
-import mod.maxbogomol.fluffy_fur.common.itemskin.ItemSkin;
-import mod.maxbogomol.fluffy_fur.common.itemskin.ItemSkinHandler;
-import mod.maxbogomol.fluffy_fur.registry.client.FluffyFurModels;
-import mod.maxbogomol.fluffy_fur.registry.common.item.FluffyFurItemSkins;
-import net.minecraft.client.resources.model.BakedModel;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.Item;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.ModelEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.RegistryObject;
+import com.idark.valoria.registries.item.skins.entries.*;
+import com.idark.valoria.registries.item.types.*;
+import com.idark.valoria.registries.item.types.ranged.*;
+import com.idark.valoria.registries.item.types.ranged.bows.*;
+import com.idark.valoria.util.*;
+import net.minecraft.client.resources.model.*;
+import net.minecraft.resources.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.item.*;
+import net.minecraftforge.api.distmarker.*;
+import net.minecraftforge.client.event.*;
+import net.minecraftforge.eventbus.api.*;
+import net.minecraftforge.fml.*;
+import net.minecraftforge.fml.common.*;
+import net.minecraftforge.registries.*;
+import pro.komaru.tridot.client.*;
+import pro.komaru.tridot.client.graphics.render.item.*;
+import pro.komaru.tridot.client.model.item.*;
+import pro.komaru.tridot.registry.item.*;
+import pro.komaru.tridot.registry.item.builders.*;
+import pro.komaru.tridot.registry.item.skins.*;
 
-import java.util.Map;
+import java.util.*;
 
 public class SkinsRegistry{
     public static ItemSkin THE_FALLEN_COLLECTOR, ARCANE_GOLD, CYBERPUNK, MIDNIGHT, MURAMASA, FISH;
@@ -97,7 +91,7 @@ public class SkinsRegistry{
             registerKatana(event);
             for(RegistryObject<Item> item : ItemsRegistry.ITEMS.getEntries()){
                 if(item.get() instanceof ConfigurableBowItem){
-                    FluffyFurModels.addBowItemModel(event, Valoria.ID, item.getId().getPath());
+                    TridotModels.addBowItemModel(event, Valoria.ID, item.getId().getPath());
                 }
             }
 
@@ -115,15 +109,15 @@ public class SkinsRegistry{
             bakeKatana(map);
             for(RegistryObject<Item> item : ItemsRegistry.ITEMS.getEntries()){
                 if(item.get() instanceof ConfigurableBowItem){
-                    FluffyFurModels.addBowItemModel(map, item.getId(), new ModItemModelProperties());
+                    TridotModels.addBowItemModel(map, item.getId(), new ModItemModelProperties());
                 }
             }
 
-            FluffyFurItemSkins.addSkinModel(map, ItemsRegistry.quantumReaper.getId());
-            FluffyFurItemSkins.addLargeModel(map, Valoria.ID, "muramasa");
-            FluffyFurItemSkins.addLargeModel(map, Valoria.ID, "brand");
-            FluffyFurItemSkins.addLargeModel(map, Valoria.ID, "arcane_gold_blaze_reap");
-            FluffyFurItemSkins.addLargeModel(map, Valoria.ID, "swordfish");
+            TridotItemSkins.addSkinModel(map, ItemsRegistry.quantumReaper.getId());
+            TridotItemSkins.addLargeModel(map, Valoria.ID, "muramasa");
+            TridotItemSkins.addLargeModel(map, Valoria.ID, "brand");
+            TridotItemSkins.addLargeModel(map, Valoria.ID, "arcane_gold_blaze_reap");
+            TridotItemSkins.addLargeModel(map, Valoria.ID, "swordfish");
             LargeItemRenderer.bakeModel(map, Valoria.ID, "blaze_reap", new ItemSkinItemOverrides());
         }
     }
@@ -144,7 +138,7 @@ public class SkinsRegistry{
                 if(katana.builder.hasLargeModel){
                     LargeItemRenderer.bakeModel(map, Valoria.ID, item.getId().getPath(), new ItemSkinItemOverrides());
                 }else{
-                    FluffyFurItemSkins.addSkinModel(map, item.getId());
+                    TridotItemSkins.addSkinModel(map, item.getId());
                 }
             }
         }
@@ -154,7 +148,7 @@ public class SkinsRegistry{
     private static void bakeArmor(Map<ResourceLocation, BakedModel> map){
         for(RegistryObject<Item> item : ItemsRegistry.ITEMS.getEntries()){
             if(item.get() instanceof SkinableArmorItem){
-                FluffyFurItemSkins.addSkinModel(map, item.getId());
+                TridotItemSkins.addSkinModel(map, item.getId());
             }
         }
     }

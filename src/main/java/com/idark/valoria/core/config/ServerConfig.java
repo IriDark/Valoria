@@ -4,7 +4,6 @@ import net.minecraftforge.common.*;
 import org.apache.commons.lang3.tuple.*;
 
 public class ServerConfig{ //todo
-    public static ForgeConfigSpec.ConfigValue<Boolean> PERCENT_ARMOR;
     public static ForgeConfigSpec.ConfigValue<Double> POT_SPAWN_CHANCE;
 
     static{
@@ -17,7 +16,6 @@ public class ServerConfig{ //todo
     public static final ForgeConfigSpec SPEC;
 
     public ServerConfig(ForgeConfigSpec.Builder builder){
-        PERCENT_ARMOR = builder.comment("When enabled armor is defined as percent (Default: false)").comment("keep in mind that Minecraft attributes are limited, so you'll need to download some mod that removes the limits, otherwise high tier armor will be a nonsense thanks to Mojang... that's the reason why percentage armor is implemented").define("PercentArmor", false);
         POT_SPAWN_CHANCE = builder.comment("Pots spawn chance (Default: 5%)").defineInRange("PotSpawnChance", 0.05d, 0.0d, 1.0d);
     }
 }

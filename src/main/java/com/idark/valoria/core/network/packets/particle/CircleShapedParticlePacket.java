@@ -1,15 +1,15 @@
 package com.idark.valoria.core.network.packets.particle;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.client.particle.ParticleEffects;
-import mod.maxbogomol.fluffy_fur.client.particle.data.ColorParticleData;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.network.NetworkEvent;
+import com.idark.valoria.*;
+import com.idark.valoria.client.particle.*;
+import net.minecraft.network.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.phys.*;
+import net.minecraftforge.network.*;
+import pro.komaru.tridot.client.graphics.particle.data.*;
 
 import java.awt.*;
-import java.util.function.Supplier;
+import java.util.function.*;
 
 public class CircleShapedParticlePacket{
     private final double posX, posY, posZ;

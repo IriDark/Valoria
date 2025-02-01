@@ -22,7 +22,10 @@ import net.minecraft.world.entity.projectile.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.state.*;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.*;
+import pro.komaru.tridot.core.math.*;
+import pro.komaru.tridot.registry.entity.ai.*;
 
 import javax.annotation.*;
 import java.util.*;

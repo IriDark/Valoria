@@ -1,17 +1,18 @@
 package com.idark.valoria.registries.entity.projectile;
 
 import com.idark.valoria.registries.*;
-import mod.maxbogomol.fluffy_fur.client.particle.*;
-import mod.maxbogomol.fluffy_fur.client.particle.behavior.*;
-import mod.maxbogomol.fluffy_fur.client.particle.data.*;
-import mod.maxbogomol.fluffy_fur.common.easing.*;
-import mod.maxbogomol.fluffy_fur.registry.client.*;
 import net.minecraft.nbt.*;
 import net.minecraft.network.syncher.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.projectile.*;
 import net.minecraft.world.level.*;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.*;
+import pro.komaru.tridot.client.*;
+import pro.komaru.tridot.client.graphics.particle.*;
+import pro.komaru.tridot.client.graphics.particle.behavior.*;
+import pro.komaru.tridot.client.graphics.particle.data.*;
+import pro.komaru.tridot.core.math.*;
 
 import java.awt.*;
 import java.util.function.*;
@@ -89,12 +90,12 @@ public class SpellProjectile extends AbstractProjectile{
                 }
             };
 
-            ParticleBuilder.create(FluffyFurParticles.TRAIL)
-            .setRenderType(FluffyFurRenderTypes.ADDITIVE_PARTICLE_TEXTURE)
+            ParticleBuilder.create(TridotParticles.TRAIL)
+            .setRenderType(TridotRenderTypes.ADDITIVE_PARTICLE_TEXTURE)
             .setBehavior(TrailParticleBehavior.create().build())
             .setColorData(ColorParticleData.create(getColor()).build())
-            .setTransparencyData(GenericParticleData.create(1, 0).setEasing(Easing.QUARTIC_OUT).build())
-            .setScaleData(GenericParticleData.create(0.5f).setEasing(Easing.EXPO_IN).build())
+            .setTransparencyData(GenericParticleData.create(1, 0).setEasing(Interp.sineOut).build())
+            .setScaleData(GenericParticleData.create(0.5f).setEasing(Interp.exp5In).build())
             .addTickActor(target)
             .setGravity(0)
             .setLifetime(20)

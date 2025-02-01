@@ -1,26 +1,22 @@
 package com.idark.valoria.registries.block.types;
 
-import com.google.common.collect.ImmutableList;
-import com.idark.valoria.core.network.PacketHandler;
-import com.idark.valoria.core.network.packets.particle.FireTrapParticlePacket;
-import mod.maxbogomol.fluffy_fur.client.particle.data.ColorParticleData;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.Difficulty;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.level.material.FluidState;
-import net.minecraft.world.level.material.Fluids;
+import com.google.common.collect.*;
+import com.idark.valoria.core.network.*;
+import com.idark.valoria.core.network.packets.particle.*;
+import net.minecraft.core.*;
+import net.minecraft.core.particles.*;
+import net.minecraft.server.level.*;
+import net.minecraft.sounds.*;
+import net.minecraft.world.*;
+import net.minecraft.world.effect.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.item.enchantment.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.*;
+import net.minecraft.world.level.gameevent.*;
+import net.minecraft.world.level.material.*;
+import pro.komaru.tridot.client.graphics.particle.data.*;
 
 public class FireTrapBlock extends Block{
     public float damage;

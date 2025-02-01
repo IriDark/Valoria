@@ -1,8 +1,8 @@
 package com.idark.valoria.registries.item.skins.entries;
 
-import mod.maxbogomol.fluffy_fur.common.itemskin.*;
 import net.minecraft.world.item.*;
 import net.minecraftforge.api.distmarker.*;
+import pro.komaru.tridot.registry.item.skins.*;
 
 import java.util.function.*;
 

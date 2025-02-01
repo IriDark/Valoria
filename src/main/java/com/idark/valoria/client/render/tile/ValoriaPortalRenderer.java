@@ -1,22 +1,18 @@
 package com.idark.valoria.client.render.tile;
 
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.client.shaders.ShaderRegistry;
-import com.idark.valoria.registries.block.entity.ValoriaPortalBlockEntity;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
-import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
-import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import org.joml.Matrix4f;
+import com.idark.valoria.*;
+import com.idark.valoria.client.shaders.*;
+import com.idark.valoria.registries.block.entity.*;
+import com.mojang.blaze3d.vertex.*;
+import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.blockentity.*;
+import net.minecraft.core.*;
+import net.minecraft.resources.*;
+import net.minecraftforge.api.distmarker.*;
+import org.joml.*;
 
-import static mod.maxbogomol.fluffy_fur.registry.client.FluffyFurRenderTypes.getDelayedRender;
+import static pro.komaru.tridot.client.TridotRenderTypes.getDelayedRender;
 
 @OnlyIn(Dist.CLIENT)
 public class ValoriaPortalRenderer<T extends ValoriaPortalBlockEntity> implements BlockEntityRenderer<T>{

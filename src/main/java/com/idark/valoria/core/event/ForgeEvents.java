@@ -2,13 +2,10 @@ package com.idark.valoria.core.event;
 
 import com.idark.valoria.*;
 import com.idark.valoria.core.compat.jei.jer.*;
-import com.idark.valoria.core.network.*;
-import com.idark.valoria.core.network.packets.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.entity.npc.*;
 import com.idark.valoria.registries.level.*;
 import it.unimi.dsi.fastutil.ints.*;
-import net.minecraft.server.*;
 import net.minecraft.server.level.*;
 import net.minecraft.world.entity.npc.*;
 import net.minecraft.world.entity.player.*;
@@ -17,7 +14,6 @@ import net.minecraft.world.level.*;
 import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.client.event.*;
 import net.minecraftforge.common.*;
-import net.minecraftforge.event.*;
 import net.minecraftforge.event.village.*;
 import net.minecraftforge.eventbus.api.*;
 import net.minecraftforge.fml.*;
@@ -27,17 +23,17 @@ import java.util.*;
 
 @Mod.EventBusSubscriber(modid = Valoria.ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ForgeEvents{
-    @SubscribeEvent
-    public static void onServerTick(TickEvent.ServerTickEvent event){
-        MinecraftServer server = event.getServer();
-        if(server.getTickCount() % 100 == 0){
-            for(Player player : server.getPlayerList().getPlayers()){
-                if(isPlayerInStructure(player, (ServerLevel)player.level()) && ValoriaClient.DUNGEON_MUSIC_INSTANCE == null){
-                    PacketHandler.sendTo(player, new DungeonSoundPacket(SoundsRegistry.MUSIC_NECROMANCER_DUNGEON.get(), player.getX(), player.getY() + (player.getBbHeight() / 2), player.getZ()));
-                }
-            }
-        }
-    }
+//    @SubscribeEvent
+//    public static void onServerTick(TickEvent.ServerTickEvent event){
+//        MinecraftServer server = event.getServer();
+//        if(server.getTickCount() % 100 == 0){
+//            for(Player player : server.getPlayerList().getPlayers()){
+//                if(isPlayerInStructure(player, (ServerLevel)player.level()) && ValoriaClient.DUNGEON_MUSIC_INSTANCE == null){
+//                    PacketHandler.sendTo(player, new DungeonSoundPacket(SoundsRegistry.MUSIC_NECROMANCER_DUNGEON.get(), player.getX(), player.getY() + (player.getBbHeight() / 2), player.getZ()));
+//                }
+//            }
+//        }
+//    }
 
     public static boolean isPlayerInStructure(Player player, ServerLevel serverLevel){
         var structure = serverLevel.structureManager().getStructureWithPieceAt(

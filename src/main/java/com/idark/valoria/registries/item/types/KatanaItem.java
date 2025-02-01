@@ -1,52 +1,43 @@
 package com.idark.valoria.registries.item.types;
 
-import com.google.common.collect.ImmutableMultimap;
-import com.google.common.collect.Multimap;
-import com.idark.valoria.client.ui.OverlayRender;
-import com.idark.valoria.core.interfaces.CooldownNotifyItem;
+import com.google.common.collect.*;
 import com.idark.valoria.core.interfaces.CooldownReductionItem;
 import com.idark.valoria.core.interfaces.DashItem;
-import com.idark.valoria.core.network.PacketHandler;
-import com.idark.valoria.core.network.packets.particle.DashParticlePacket;
-import com.idark.valoria.registries.AttributeRegistry;
-import com.idark.valoria.registries.item.types.builders.AbstractKatanaBuilder;
-import com.idark.valoria.util.ArcRandom;
-import com.idark.valoria.util.ValoriaUtils;
-import net.minecraft.ChatFormatting;
-import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.stats.Stats;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attribute;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.player.Player;
+import com.idark.valoria.core.network.*;
+import com.idark.valoria.core.network.packets.particle.*;
+import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.item.types.builders.*;
+import com.idark.valoria.util.*;
+import net.minecraft.*;
+import net.minecraft.core.*;
+import net.minecraft.network.chat.*;
+import net.minecraft.server.level.*;
+import net.minecraft.sounds.*;
+import net.minecraft.stats.*;
+import net.minecraft.util.*;
+import net.minecraft.world.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.*;
+import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.EntityHitResult;
-import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.item.enchantment.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.registries.ForgeRegistries;
-import org.jetbrains.annotations.NotNull;
-import org.joml.Vector3d;
+import net.minecraft.world.phys.*;
+import net.minecraftforge.registries.*;
+import org.jetbrains.annotations.*;
+import org.joml.*;
+import pro.komaru.tridot.client.graphics.gui.*;
+import pro.komaru.tridot.core.interfaces.*;
+import pro.komaru.tridot.core.math.*;
 
-import java.util.List;
+import java.lang.Math;
+import java.util.*;
 
 import static com.idark.valoria.Valoria.BASE_DASH_DISTANCE_UUID;
 import static com.idark.valoria.util.ValoriaUtils.addContributorTooltip;
 
-// todo delete
 public class KatanaItem extends SwordItem implements CooldownNotifyItem, DashItem, CooldownReductionItem{
     public AbstractKatanaBuilder<? extends KatanaItem> builder;
     public Multimap<Attribute, AttributeModifier> defaultModifiers;
@@ -58,7 +49,7 @@ public class KatanaItem extends SwordItem implements CooldownNotifyItem, DashIte
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
         builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", builderIn.attackDamageIn, AttributeModifier.Operation.ADDITION));
         builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Tool modifier", builderIn.attackSpeedIn, AttributeModifier.Operation.ADDITION));
-        builder.put(AttributeRegistry.DASH_DISTANCE.get(), new AttributeModifier(BASE_DASH_DISTANCE_UUID, "Tool modifier", builderIn.dashDist, AttributeModifier.Operation.ADDITION));
+        builder.put(AttributeReg.DASH_DISTANCE.get(), new AttributeModifier(BASE_DASH_DISTANCE_UUID, "Tool modifier", builderIn.dashDist, AttributeModifier.Operation.ADDITION));
         this.defaultModifiers = builder.build();
     }
 
@@ -157,7 +148,7 @@ public class KatanaItem extends SwordItem implements CooldownNotifyItem, DashIte
     }
 
     public double getDashDistance(Player player){
-        return player.getAttributeValue(AttributeRegistry.DASH_DISTANCE.get());
+        return player.getAttributeValue(AttributeReg.DASH_DISTANCE.get());
     }
 
     public int getHurtAmount(List<LivingEntity> detectedEntities){

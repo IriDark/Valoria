@@ -1,13 +1,12 @@
 package com.idark.valoria.registries.item.skins;
 
-import com.idark.valoria.Valoria;
-import mod.maxbogomol.fluffy_fur.common.itemskin.ItemSkin;
-import net.minecraft.Util;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
+import com.idark.valoria.*;
+import net.minecraft.*;
+import net.minecraft.resources.*;
+import net.minecraft.world.item.*;
+import pro.komaru.tridot.registry.item.skins.*;
 
-import java.util.function.Supplier;
+import java.util.function.*;
 
 public class SkinFragmentItem extends SkinTrimItem{
     public ItemSkin skin;

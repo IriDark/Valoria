@@ -1,14 +1,14 @@
 package com.idark.valoria.registries;
 
-import com.idark.valoria.Valoria;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.TagKey;
-import net.minecraft.world.damagesource.DamageType;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.decoration.PaintingVariant;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
+import com.idark.valoria.*;
+import net.minecraft.core.registries.*;
+import net.minecraft.resources.*;
+import net.minecraft.tags.*;
+import net.minecraft.world.damagesource.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.decoration.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.block.*;
 
 public class TagsRegistry{
 
@@ -42,7 +42,6 @@ public class TagsRegistry{
     public static final TagKey<Item> ELDRITCH = item(new ResourceLocation(Valoria.ID, "logs/eldritch"));
     public static final TagKey<Item> SHADEWOOD = item(new ResourceLocation(Valoria.ID, "logs/shadewood"));
     public static final TagKey<Item> BOWS = item(new ResourceLocation(Valoria.ID, "bows"));
-    public static final TagKey<Item> CAN_DISABLE_SHIELD = item(new ResourceLocation(Valoria.ID, "can_disable_shield"));
     public static final TagKey<Item> CUP_DRINKS = item(new ResourceLocation(Valoria.ID, "wooden_cup_drinks"));
     public static final TagKey<Item> BOTTLE_DRINKS = item(new ResourceLocation(Valoria.ID, "bottle_drinks"));
     public static final TagKey<Item> TRINKETS = item(new ResourceLocation(Valoria.ID, "trinkets"));

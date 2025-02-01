@@ -1,17 +1,16 @@
 package com.idark.valoria.core.network.packets.particle;
 
-import com.idark.valoria.Valoria;
-import mod.maxbogomol.fluffy_fur.client.particle.ParticleBuilder;
-import mod.maxbogomol.fluffy_fur.client.particle.data.ColorParticleData;
-import mod.maxbogomol.fluffy_fur.client.particle.data.GenericParticleData;
-import mod.maxbogomol.fluffy_fur.registry.client.FluffyFurParticles;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.network.NetworkEvent;
+import com.idark.valoria.*;
+import net.minecraft.network.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.phys.*;
+import net.minecraftforge.network.*;
+import pro.komaru.tridot.client.*;
+import pro.komaru.tridot.client.graphics.particle.*;
+import pro.komaru.tridot.client.graphics.particle.data.*;
 
 import java.awt.*;
-import java.util.function.Supplier;
+import java.util.function.*;
 
 public class CubeShapedParticlePacket{
 
@@ -51,7 +50,7 @@ public class CubeShapedParticlePacket{
                     Vec3 pos2 = new Vec3(msg.posX + pOffset, msg.posY, msg.posZ - size);
                     Vec3 pos3 = new Vec3(msg.posX - pOffset, msg.posY, msg.posZ + size);
 
-                    ParticleBuilder.create(FluffyFurParticles.WISP)
+                    ParticleBuilder.create(TridotParticles.WISP)
                             .setColorData(ColorParticleData.create(color, Color.black).build())
                             .setTransparencyData(GenericParticleData.create(1.25f, 0f).build())
                             .setScaleData(GenericParticleData.create(0.2f, 0.1f, 0).build())
@@ -59,7 +58,7 @@ public class CubeShapedParticlePacket{
                             .addVelocity(0, msg.speedY, 0)
                             .spawn(level, pos0.x, pos0.y, pos0.z);
 
-                    ParticleBuilder.create(FluffyFurParticles.WISP)
+                    ParticleBuilder.create(TridotParticles.WISP)
                             .setColorData(ColorParticleData.create(color, Color.black).build())
                             .setTransparencyData(GenericParticleData.create(1.25f, 0f).build())
                             .setScaleData(GenericParticleData.create(0.2f, 0.1f, 0).build())
@@ -67,7 +66,7 @@ public class CubeShapedParticlePacket{
                             .addVelocity(0, msg.speedY, 0)
                             .spawn(level, pos1.x, pos1.y, pos1.z);
 
-                    ParticleBuilder.create(FluffyFurParticles.WISP)
+                    ParticleBuilder.create(TridotParticles.WISP)
                             .setColorData(ColorParticleData.create(color, Color.black).build())
                             .setTransparencyData(GenericParticleData.create(1.25f, 0f).build())
                             .setScaleData(GenericParticleData.create(0.2f, 0.1f, 0).build())
@@ -75,7 +74,7 @@ public class CubeShapedParticlePacket{
                             .addVelocity(0, msg.speedY, 0)
                             .spawn(level, pos2.x, pos2.y, pos2.z);
 
-                    ParticleBuilder.create(FluffyFurParticles.WISP)
+                    ParticleBuilder.create(TridotParticles.WISP)
                             .setColorData(ColorParticleData.create(color, Color.black).build())
                             .setTransparencyData(GenericParticleData.create(1.25f, 0f).build())
                             .setScaleData(GenericParticleData.create(0.2f, 0.1f, 0).build())

@@ -1,26 +1,21 @@
 package com.idark.valoria.registries.item.types;
 
-import com.idark.valoria.registries.SoundsRegistry;
-import com.idark.valoria.util.ArcRandom;
-import com.idark.valoria.util.ValoriaUtils;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.stats.Stats;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Tier;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.level.Level;
-import net.minecraftforge.registries.ForgeRegistries;
-import org.joml.Vector3d;
+import com.idark.valoria.registries.*;
+import com.idark.valoria.util.*;
+import net.minecraft.core.particles.*;
+import net.minecraft.sounds.*;
+import net.minecraft.stats.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.item.enchantment.*;
+import net.minecraft.world.level.*;
+import net.minecraftforge.registries.*;
+import org.joml.*;
+import pro.komaru.tridot.core.math.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class AquariusScytheItem extends ScytheItem{
     public ArcRandom arcRandom = new ArcRandom();

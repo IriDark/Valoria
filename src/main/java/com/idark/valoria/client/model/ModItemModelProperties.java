@@ -1,13 +1,13 @@
 package com.idark.valoria.client.model;
 
 import com.idark.valoria.registries.item.types.ranged.bows.*;
-import mod.maxbogomol.fluffy_fur.client.model.item.*;
 import net.minecraft.client.multiplayer.*;
 import net.minecraft.client.renderer.item.*;
 import net.minecraft.resources.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
+import pro.komaru.tridot.client.model.item.*;
 
 public class ModItemModelProperties extends BowItemOverrides{
 

@@ -4,12 +4,8 @@ import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.particle.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.entity.ai.movements.*;
-import com.idark.valoria.registries.entity.living.*;
 import com.idark.valoria.registries.entity.projectile.*;
 import com.idark.valoria.util.*;
-import mod.maxbogomol.fluffy_fur.client.particle.*;
-import mod.maxbogomol.fluffy_fur.client.particle.data.*;
-import mod.maxbogomol.fluffy_fur.registry.client.*;
 import net.minecraft.core.*;
 import net.minecraft.nbt.*;
 import net.minecraft.network.syncher.*;
@@ -26,6 +22,11 @@ import net.minecraft.world.entity.player.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.state.*;
 import org.jetbrains.annotations.*;
+import pro.komaru.tridot.client.*;
+import pro.komaru.tridot.client.graphics.particle.*;
+import pro.komaru.tridot.client.graphics.particle.data.*;
+import pro.komaru.tridot.registry.entity.*;
+import pro.komaru.tridot.registry.entity.ai.*;
 
 import java.awt.*;
 import java.util.*;
@@ -131,7 +132,7 @@ public class CrystalEntity extends AbstractMultiAttackMinion implements RangedAt
             switch(CrystalEntity.this.getVariant()) {
                 case ICE -> {
                     for(int a = 0; a < 6; a++){
-                        ParticleBuilder.create(FluffyFurParticles.SMOKE)
+                        ParticleBuilder.create(TridotParticles.SMOKE)
                         .setColorData(ColorParticleData.create(Pal.cyan, Color.white).build())
                         .setTransparencyData(GenericParticleData.create(0.425f, 0f).build())
                         .setScaleData(GenericParticleData.create((((float)a * 0.125f)), 0.1f, 0).build())
@@ -142,7 +143,7 @@ public class CrystalEntity extends AbstractMultiAttackMinion implements RangedAt
 
                 case FIRE -> {
                     for(int a = 0; a < 6; a++){
-                        ParticleBuilder.create(FluffyFurParticles.WISP)
+                        ParticleBuilder.create(TridotParticles.WISP)
                         .setColorData(ColorParticleData.create(Pal.mandarin, Color.white).build())
                         .setTransparencyData(GenericParticleData.create(0.425f, 0f).build())
                         .setScaleData(GenericParticleData.create((((float)a * 0.125f)), 0.1f, 0).build())
@@ -153,7 +154,7 @@ public class CrystalEntity extends AbstractMultiAttackMinion implements RangedAt
 
                 case POISON -> {
                     for(int a = 0; a < 6; a++){
-                        ParticleBuilder.create(FluffyFurParticles.SMOKE)
+                        ParticleBuilder.create(TridotParticles.SMOKE)
                         .setColorData(ColorParticleData.create(Pal.nature, Color.white).build())
                         .setTransparencyData(GenericParticleData.create(0.425f, 0f).build())
                         .setScaleData(GenericParticleData.create((((float)a * 0.125f)), 0.1f, 0).build())

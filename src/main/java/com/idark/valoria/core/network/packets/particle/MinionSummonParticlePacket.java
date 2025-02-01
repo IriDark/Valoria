@@ -2,15 +2,15 @@ package com.idark.valoria.core.network.packets.particle;
 
 import com.idark.valoria.*;
 import com.idark.valoria.util.*;
-import mod.maxbogomol.fluffy_fur.client.particle.*;
-import mod.maxbogomol.fluffy_fur.client.particle.data.*;
-import mod.maxbogomol.fluffy_fur.common.easing.*;
-import mod.maxbogomol.fluffy_fur.registry.client.*;
 import net.minecraft.core.*;
 import net.minecraft.network.*;
 import net.minecraft.world.level.*;
-import net.minecraft.world.phys.*;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.*;
+import pro.komaru.tridot.client.*;
+import pro.komaru.tridot.client.graphics.particle.*;
+import pro.komaru.tridot.client.graphics.particle.data.*;
+import pro.komaru.tridot.core.math.*;
 
 import java.util.function.*;
 
@@ -49,10 +49,10 @@ public class MinionSummonParticlePacket{
                     p.setSpeed(p.getSpeed().subtract(x, y, z));
                 };
 
-                ParticleBuilder.create(FluffyFurParticles.DOT)
+                ParticleBuilder.create(TridotParticles.DOT)
                         .setColorData(ColorParticleData.create(Pal.vividGreen, Pal.amethyst).build())
-                        .setTransparencyData(GenericParticleData.create(0.3f).setEasing(Easing.QUARTIC_OUT).build())
-                        .setScaleData(GenericParticleData.create(0.045f, 0.075f, 0).setEasing(Easing.QUARTIC_OUT).build())
+                        .setTransparencyData(GenericParticleData.create(0.3f).setEasing(Interp.bounce).build())
+                        .setScaleData(GenericParticleData.create(0.045f, 0.075f, 0).setEasing(Interp.circleOut).build())
                         .addTickActor(blockTarget)
                         .setLifetime(85)
                         .randomVelocity(0.15f)

@@ -1,17 +1,16 @@
 package com.idark.valoria.registries.item.types;
 
-import com.google.common.collect.ImmutableList;
-import com.idark.valoria.util.ArcRandom;
-import com.idark.valoria.util.ValoriaUtils;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
+import com.google.common.collect.*;
+import com.idark.valoria.util.*;
+import net.minecraft.network.chat.*;
+import net.minecraft.world.effect.*;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.item.*;
-import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.NotNull;
+import net.minecraft.world.level.*;
+import org.jetbrains.annotations.*;
+import pro.komaru.tridot.core.math.*;
 
-import java.util.List;
+import java.util.*;
 
 public class HitEffectItem extends SwordItem{
     public float chance = 1;

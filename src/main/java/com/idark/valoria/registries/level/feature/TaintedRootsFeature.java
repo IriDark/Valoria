@@ -1,19 +1,15 @@
 package com.idark.valoria.registries.level.feature;
 
-import com.idark.valoria.registries.BlockRegistry;
-import com.idark.valoria.registries.block.types.plants.TaintedRootsBlock;
-import com.idark.valoria.registries.level.configurations.TaintedRootsConfig;
-import com.idark.valoria.util.ArcRandom;
-import com.mojang.serialization.Codec;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.util.Mth;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.WorldGenLevel;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
+import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.block.types.plants.*;
+import com.idark.valoria.registries.level.configurations.*;
+import com.mojang.serialization.*;
+import net.minecraft.core.*;
+import net.minecraft.util.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.state.*;
+import net.minecraft.world.level.levelgen.feature.*;
+import pro.komaru.tridot.core.math.*;
 
 public class TaintedRootsFeature extends Feature<TaintedRootsConfig>{
 

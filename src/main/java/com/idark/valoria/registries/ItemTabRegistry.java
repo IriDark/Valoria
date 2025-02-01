@@ -1,32 +1,25 @@
 package com.idark.valoria.registries;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.registries.entity.living.minions.AbstractMinionEntity;
-import com.idark.valoria.registries.item.types.SummonBook;
-import com.idark.valoria.util.ColorUtil;
-import com.idark.valoria.util.ValoriaUtils;
-import net.minecraft.core.Holder;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.decoration.Painting;
-import net.minecraft.world.entity.decoration.PaintingVariant;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import com.idark.valoria.*;
+import com.idark.valoria.registries.item.types.*;
+import net.minecraft.core.*;
+import net.minecraft.core.registries.*;
+import net.minecraft.nbt.*;
+import net.minecraft.network.chat.*;
+import net.minecraft.resources.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.decoration.*;
+import net.minecraft.world.item.*;
+import net.minecraftforge.event.*;
+import net.minecraftforge.eventbus.api.*;
+import net.minecraftforge.fml.common.*;
+import net.minecraftforge.registries.*;
+import pro.komaru.tridot.client.graphics.*;
+import pro.komaru.tridot.registry.entity.*;
+import pro.komaru.tridot.utilities.*;
 
-import java.util.Comparator;
-import java.util.function.Predicate;
+import java.util.*;
+import java.util.function.*;
 
 @Mod.EventBusSubscriber(modid = Valoria.ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public abstract class ItemTabRegistry{
@@ -69,7 +62,7 @@ public abstract class ItemTabRegistry{
         }
 
         if(event.getTabKey() == ItemTabRegistry.VALORIA_TAB.getKey()){
-            if(ValoriaUtils.isIDE) event.accept(ItemsRegistry.debugItem);
+            if(Utils.isDevelopment) event.accept(ItemsRegistry.debugItem);
             for(RegistryObject<Item> item : ItemsRegistry.ITEMS.getEntries()){
                 if(!new ItemStack(item.get()).is(TagsRegistry.EXCLUDED_FROM_TAB)){
                     if(item.get() instanceof SummonBook){
@@ -92,7 +85,7 @@ public abstract class ItemTabRegistry{
                     ItemStack itemStack = new ItemStack(ItemsRegistry.summonBook.get());
                     CompoundTag tag = itemStack.getOrCreateTagElement("EntityTag");
                     SummonBook.storeVariant(tag, holder);
-                    SummonBook.setColor(itemStack, ColorUtil.colorToDecimal(AbstractMinionEntity.getColor((EntityType<? extends AbstractMinionEntity>)holder.get())));
+                    SummonBook.setColor(itemStack, Clr.colorToDecimal(AbstractMinionEntity.getColor((EntityType<? extends AbstractMinionEntity>)holder.get())));
                     output.accept(itemStack, visibility);
                 });
     }

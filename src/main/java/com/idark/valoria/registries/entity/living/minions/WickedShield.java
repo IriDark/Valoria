@@ -1,6 +1,5 @@
 package com.idark.valoria.registries.entity.living.minions;
 
-import com.idark.valoria.core.interfaces.*;
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.particle.*;
 import com.idark.valoria.registries.entity.ai.movements.*;
@@ -10,6 +9,7 @@ import net.minecraft.world.damagesource.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.level.*;
+import pro.komaru.tridot.core.interfaces.*;
 
 import javax.annotation.*;
 

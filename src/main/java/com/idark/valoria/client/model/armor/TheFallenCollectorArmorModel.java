@@ -1,12 +1,11 @@
 package com.idark.valoria.client.model.armor;
 
-import com.google.common.collect.ImmutableList;
-import mod.maxbogomol.fluffy_fur.client.model.armor.ArmorModel;
-import net.minecraft.client.model.HumanoidModel;
-import net.minecraft.client.model.geom.ModelPart;
-import net.minecraft.client.model.geom.PartPose;
+import com.google.common.collect.*;
+import net.minecraft.client.model.*;
+import net.minecraft.client.model.geom.*;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.*;
+import pro.komaru.tridot.client.model.armor.*;
 
 public class TheFallenCollectorArmorModel extends ArmorModel{
     public final ModelPart right_body_side;

@@ -1,34 +1,26 @@
 package com.idark.valoria.registries.item.types.curio.charm;
 
-import com.idark.valoria.core.interfaces.ParticleItemEntity;
-import com.idark.valoria.registries.ItemsRegistry;
-import com.idark.valoria.registries.SoundsRegistry;
-import com.idark.valoria.util.ArcRandom;
-import com.idark.valoria.util.ValoriaUtils;
-import net.minecraft.ChatFormatting;
-import net.minecraft.core.particles.BlockParticleOption;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.Vanishable;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
-import top.theillusivec4.curios.api.SlotContext;
-import top.theillusivec4.curios.api.type.capability.ICurio;
-import top.theillusivec4.curios.api.type.capability.ICurioItem;
+import com.idark.valoria.core.interfaces.*;
+import com.idark.valoria.registries.*;
+import com.idark.valoria.util.*;
+import net.minecraft.*;
+import net.minecraft.core.particles.*;
+import net.minecraft.network.chat.*;
+import net.minecraft.server.level.*;
+import net.minecraft.sounds.*;
+import net.minecraft.util.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.item.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.*;
+import pro.komaru.tridot.core.math.*;
+import top.theillusivec4.curios.api.*;
+import top.theillusivec4.curios.api.type.capability.*;
 
-import javax.annotation.Nonnull;
-import java.util.List;
-import java.util.Random;
+import javax.annotation.*;
+import java.util.*;
 
 public class BloodSight extends Item implements ICurioItem, Vanishable, ParticleItemEntity{
     private int hits = 0;

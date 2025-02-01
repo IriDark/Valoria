@@ -4,17 +4,14 @@ import com.google.common.collect.*;
 import com.idark.valoria.client.event.*;
 import com.idark.valoria.client.particle.*;
 import com.idark.valoria.client.render.curio.*;
-import com.idark.valoria.client.ui.*;
 import com.idark.valoria.client.ui.screen.*;
 import com.idark.valoria.client.ui.screen.book.*;
 import com.idark.valoria.client.ui.screen.book.unlockable.*;
 import com.idark.valoria.core.capability.*;
 import com.idark.valoria.core.command.arguments.*;
 import com.idark.valoria.core.compat.*;
-import com.idark.valoria.core.conditions.*;
 import com.idark.valoria.core.config.*;
 import com.idark.valoria.core.datagen.*;
-import com.idark.valoria.core.interfaces.*;
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.proxy.*;
 import com.idark.valoria.registries.*;
@@ -29,6 +26,7 @@ import com.idark.valoria.util.*;
 import com.mojang.logging.*;
 import net.minecraft.client.gui.screens.*;
 import net.minecraft.data.*;
+import net.minecraft.resources.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.item.*;
@@ -49,6 +47,8 @@ import net.minecraftforge.fml.config.ModConfig.*;
 import net.minecraftforge.fml.event.lifecycle.*;
 import net.minecraftforge.fml.javafmlmod.*;
 import org.slf4j.*;
+import pro.komaru.tridot.client.graphics.gui.bossbars.*;
+import pro.komaru.tridot.registry.item.*;
 import top.theillusivec4.curios.api.client.*;
 
 import java.util.*;
@@ -58,12 +58,9 @@ import static com.idark.valoria.registries.EntityStatsRegistry.*;
 @Mod(Valoria.ID)
 public class Valoria{
     public static final String ID = "valoria";
-    public static final String NAME = "Valoria";
-    public static final String VERSION = "0.6.4b";
     public static final Logger LOGGER = LogUtils.getLogger();
     public static final ISidedProxy proxy = DistExecutor.unsafeRunForDist(() -> ClientProxy::new, () -> ServerProxy::new);
     public static UUID BASE_ENTITY_REACH_UUID = UUID.fromString("c2e6b27c-fff1-4296-a6b2-7cfff13296cf");
-    public static UUID BASE_PROJECTILE_DAMAGE_UUID = UUID.fromString("5334b818-69d4-417e-b4b8-1869d4917e29");
     public static UUID BASE_DASH_DISTANCE_UUID = UUID.fromString("b0e5853a-d071-40db-a585-3ad07100db82");
     public static UUID BASE_ATTACK_RADIUS_UUID = UUID.fromString("49438567-6ad2-41bd-8385-676ad2a1bd5e");
     public static UUID BASE_NECROMANCY_LIFETIME_UUID = UUID.fromString("09a12525-61a5-4d57-a125-2561a56d578e");
@@ -74,7 +71,7 @@ public class Valoria{
         EffectsRegistry.register(eventBus);
         EnchantmentsRegistry.register(eventBus);
         MiscRegistry.init(eventBus);
-        AttributeRegistry.register(eventBus);
+        AttributeReg.register(eventBus);
         PotionBrewery.register(eventBus);
         EntityTypeRegistry.register(eventBus);
         ItemsRegistry.load(eventBus);
@@ -85,7 +82,6 @@ public class Valoria{
         RecipesRegistry.register(eventBus);
         MenuRegistry.register(eventBus);
         ParticleRegistry.register(eventBus);
-        LootUtil.register(eventBus);
         ModArgumentTypes.register(eventBus);
         SkinsRegistry.register();
 
@@ -95,9 +91,6 @@ public class Valoria{
         DistExecutor.unsafeCallWhenOn(Dist.CLIENT, () -> () -> {
             forgeBus.addListener(KeyBindHandler::onInput);
             forgeBus.addListener(ClientTickHandler::clientTickEnd);
-            forgeBus.addListener(OverlayRender::tick);
-            forgeBus.addListener(OverlayRender::onDrawScreenPost);
-            forgeBus.addListener(OverlayRenderItem::onDrawScreenPost);
             return new Object();
         });
 
@@ -115,8 +108,9 @@ public class Valoria{
      * @see ValoriaClient.RegistryEvents#onModelRegistryEvent(ModelEvent.RegisterAdditional)
      */
     private void clientSetup(final FMLClientSetupEvent event){
-        ValoriaClient.setupMenu();
         ValoriaClient.setupSplashes();
+        Bossbar.bossbars.put("Wicked Crystal", new Bossbar(new ResourceLocation(Valoria.ID, "textures/gui/bossbars/wicked_crystal.png")));
+        Bossbar.bossbars.put("Necromancer", new Bossbar(new ResourceLocation(Valoria.ID, "textures/gui/bossbars/necromancer.png")));
         event.enqueueWork(() -> {
             LexiconChapters.init();
 //            BlockEntityRenderers.register(BlockEntitiesRegistry.CHEST_BLOCK_ENTITY.get(), ModChestRender::new);
@@ -168,7 +162,6 @@ public class Valoria{
     private void setup(final FMLCommonSetupEvent event){
         PacketHandler.init();
         PotionBrewery.bootStrap();
-        LootConditionsRegistry.register();
         RegisterUnlockables.init();
         event.enqueueWork(() -> {
             ModCompats.init();
@@ -288,11 +281,11 @@ public class Valoria{
 
         @SubscribeEvent
         public static void attachAttribute(EntityAttributeModificationEvent event){
-            event.add(EntityType.PLAYER, AttributeRegistry.DASH_DISTANCE.get());
-            event.add(EntityType.PLAYER, AttributeRegistry.ATTACK_RADIUS.get());
+            event.add(EntityType.PLAYER, AttributeReg.DASH_DISTANCE.get());
+            event.add(EntityType.PLAYER, AttributeReg.ATTACK_RADIUS.get());
             event.add(EntityType.PLAYER, AttributeRegistry.PROJECTILE_DAMAGE.get());
-            event.add(EntityType.PLAYER, AttributeRegistry.NECROMANCY_LIFETIME.get());
-            event.add(EntityType.PLAYER, AttributeRegistry.NECROMANCY_COUNT.get());
+            event.add(EntityType.PLAYER, AttributeReg.NECROMANCY_LIFETIME.get());
+            event.add(EntityType.PLAYER, AttributeReg.NECROMANCY_COUNT.get());
         }
 
         @SubscribeEvent

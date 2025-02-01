@@ -1,41 +1,29 @@
 package com.idark.valoria.registries.block.types;
 
-import com.idark.valoria.registries.block.entity.ValoriaPortalBlockEntity;
-import com.idark.valoria.registries.level.LevelGen;
-import com.idark.valoria.registries.level.portal.ValoriaTeleporter;
-import com.idark.valoria.util.Pal;
-import mod.maxbogomol.fluffy_fur.client.particle.ParticleBuilder;
-import mod.maxbogomol.fluffy_fur.client.particle.behavior.SparkParticleBehavior;
-import mod.maxbogomol.fluffy_fur.client.particle.data.ColorParticleData;
-import mod.maxbogomol.fluffy_fur.client.particle.data.GenericParticleData;
-import mod.maxbogomol.fluffy_fur.common.easing.Easing;
-import mod.maxbogomol.fluffy_fur.registry.client.FluffyFurParticles;
-import mod.maxbogomol.fluffy_fur.registry.client.FluffyFurRenderTypes;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.EntityBlock;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.pattern.BlockPattern;
-import net.minecraft.world.phys.shapes.BooleanOp;
-import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.Shapes;
-import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import org.jetbrains.annotations.Nullable;
+import com.idark.valoria.registries.block.entity.*;
+import com.idark.valoria.registries.level.*;
+import com.idark.valoria.registries.level.portal.*;
+import com.idark.valoria.util.*;
+import net.minecraft.core.*;
+import net.minecraft.resources.*;
+import net.minecraft.server.*;
+import net.minecraft.server.level.*;
+import net.minecraft.sounds.*;
+import net.minecraft.util.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.*;
+import net.minecraft.world.level.block.state.*;
+import net.minecraft.world.level.block.state.pattern.*;
+import net.minecraft.world.phys.shapes.*;
+import net.minecraftforge.api.distmarker.*;
+import org.jetbrains.annotations.*;
+import pro.komaru.tridot.client.*;
+import pro.komaru.tridot.client.graphics.particle.*;
+import pro.komaru.tridot.client.graphics.particle.behavior.*;
+import pro.komaru.tridot.client.graphics.particle.data.*;
+import pro.komaru.tridot.core.math.*;
 
 import java.awt.*;
 
@@ -64,24 +52,24 @@ public class ValoriaPortalBlock extends Block implements EntityBlock{
         }
 
         RandomSource random = pLevel.getRandom();
-        ParticleBuilder.create(FluffyFurParticles.SQUARE)
+        ParticleBuilder.create(TridotParticles.SQUARE)
                 .setBehavior(SparkParticleBehavior.create().build())
-                .setRenderType(FluffyFurRenderTypes.TRANSLUCENT_PARTICLE)
+                .setRenderType(TridotRenderTypes.TRANSLUCENT_PARTICLE)
                 .setTransparencyData(GenericParticleData.create(0.25f, 0f).build())
-                .setScaleData(GenericParticleData.create(0.01f, 0.06f, 0).setEasing(Easing.QUINTIC_IN_OUT).build())
+                .setScaleData(GenericParticleData.create(0.01f, 0.06f, 0).setEasing(Interp.bounce).build())
                 .flatRandomOffset(0.25f, 0f, 0.25f)
                 .setLifetime(24)
-                .setColorData(ColorParticleData.create(Color.black).setEasing(Easing.QUINTIC_IN_OUT).build())
+                .setColorData(ColorParticleData.create(Color.black).setEasing(Interp.bounce).build())
                 .setVelocity(0, (random.nextDouble() + 0.2D) / 6, 0)
                 .spawn(pLevel, pPos.getX() + pRandom.nextDouble(), pPos.getY() + pRandom.nextDouble(), pPos.getZ() + pRandom.nextDouble());
 
-        ParticleBuilder.create(FluffyFurParticles.SQUARE)
+        ParticleBuilder.create(TridotParticles.SQUARE)
                 .setBehavior(SparkParticleBehavior.create().build())
                 .setTransparencyData(GenericParticleData.create(0.25f, 0f).build())
-                .setScaleData(GenericParticleData.create(0.01f, 0.03f, 0).setEasing(Easing.QUINTIC_IN_OUT).build())
+                .setScaleData(GenericParticleData.create(0.01f, 0.03f, 0).setEasing(Interp.bounce).build())
                 .flatRandomOffset(0.45f, 0f, 0.45f)
                 .setLifetime(24)
-                .setColorData(ColorParticleData.create(Pal.moderatePink).setEasing(Easing.QUINTIC_IN_OUT).build())
+                .setColorData(ColorParticleData.create(Pal.moderatePink).setEasing(Interp.bounce).build())
                 .setVelocity(0, (random.nextDouble() + 0.2D) / 6, 0)
                 .spawn(pLevel, pPos.getX() + pRandom.nextDouble(), pPos.getY() + pRandom.nextDouble(), pPos.getZ() + pRandom.nextDouble());
     }

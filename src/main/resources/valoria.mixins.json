@@ -10,12 +10,10 @@
     "InventoryMixin",
     "ItemEntityMixin",
     "LivingEntityMixin",
-    "MixinCooldownTracker",
     "RangedAttributeMixin"
   ],
   "client": [
     "client.AbstractClientPlayerMixin",
-    "client.BossHealthOverlayAccessor",
     "client.ClientLevelMixin",
     "client.LivingEntityRendererMixin",
     "client.PlayerRendererMixin"

@@ -1,20 +1,19 @@
 package com.idark.valoria.registries.entity.projectile;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.client.particle.ParticleEffects;
-import com.idark.valoria.core.interfaces.TexturedArrow;
-import com.idark.valoria.registries.EntityTypeRegistry;
-import com.idark.valoria.util.Pal;
-import mod.maxbogomol.fluffy_fur.client.particle.GenericParticle;
-import mod.maxbogomol.fluffy_fur.client.particle.data.ColorParticleData;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.Vec3;
+import com.idark.valoria.*;
+import com.idark.valoria.client.particle.*;
+import com.idark.valoria.core.interfaces.*;
+import com.idark.valoria.registries.*;
+import com.idark.valoria.util.*;
+import net.minecraft.resources.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.phys.*;
+import pro.komaru.tridot.client.graphics.particle.*;
+import pro.komaru.tridot.client.graphics.particle.data.*;
 
-import java.util.function.Consumer;
+import java.util.function.*;
 
 public class WickedArrow extends AbstractValoriaArrow implements TexturedArrow{
 

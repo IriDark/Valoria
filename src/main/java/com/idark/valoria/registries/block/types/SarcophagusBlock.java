@@ -1,58 +1,37 @@
 package com.idark.valoria.registries.block.types;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.core.network.PacketHandler;
-import com.idark.valoria.core.network.packets.particle.SmokeParticlePacket;
-import com.idark.valoria.registries.EntityTypeRegistry;
-import com.idark.valoria.registries.SoundsRegistry;
-import com.idark.valoria.registries.entity.living.DraugrEntity;
-import com.idark.valoria.util.ArcRandom;
-import com.idark.valoria.util.LootUtil;
-import net.minecraft.ChatFormatting;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.Mth;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.monster.Skeleton;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.HorizontalDirectionalBlock;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BedPart;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.EnumProperty;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.BlockHitResult;
+import com.idark.valoria.*;
+import com.idark.valoria.core.network.*;
+import com.idark.valoria.core.network.packets.particle.*;
+import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.entity.living.*;
+import net.minecraft.*;
+import net.minecraft.core.*;
+import net.minecraft.core.particles.*;
+import net.minecraft.network.chat.*;
+import net.minecraft.resources.*;
+import net.minecraft.server.level.*;
+import net.minecraft.sounds.*;
+import net.minecraft.util.*;
+import net.minecraft.world.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.monster.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.item.context.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.*;
+import net.minecraft.world.level.block.state.properties.*;
 import net.minecraft.world.phys.Vec3;
-import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraft.world.phys.*;
+import net.minecraft.world.phys.shapes.*;
+import pro.komaru.tridot.core.math.*;
+import pro.komaru.tridot.utilities.*;
 
-import javax.annotation.Nullable;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import javax.annotation.*;
+import java.time.*;
+import java.util.*;
 
 public class SarcophagusBlock extends HorizontalDirectionalBlock{
     public ArcRandom arcRandom = new ArcRandom();
@@ -194,7 +173,7 @@ public class SarcophagusBlock extends HorizontalDirectionalBlock{
         if(pState.getValue(OPEN) && !pState.getValue(LOOTED)){
             if(pPlayer instanceof ServerPlayer serverPlayer){
                 Vec3 block = new Vec3(pPos.getX() - 0.5f, pPos.getY(), pPos.getZ() - 0.5f);
-                LootUtil.spawnLoot(pLevel, pPos.above(), LootUtil.createLoot(new ResourceLocation(Valoria.ID, "items/sarcophagus"), LootUtil.getGiftParameters((ServerLevel)pLevel, block, serverPlayer)));
+                Utils.Items.spawnLoot(pLevel, pPos.above(), Utils.Items.createLoot(new ResourceLocation(Valoria.ID, "items/sarcophagus"), Utils.Items.getGiftParameters((ServerLevel)pLevel, block, serverPlayer)));
                 pLevel.setBlockAndUpdate(pPos, pState.setValue(OPEN, true).setValue(LOOTED, true));
                 BlockState oppositeState = pLevel.getBlockState(oppositePos);
                 if(oppositeState.getBlock() == this){

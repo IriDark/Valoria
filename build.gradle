@@ -87,6 +87,7 @@ repositories {
         name = "Modrinth"
         url = "https://api.modrinth.com/maven"
     }
+    maven { url = "https://maven.komaru.ru/repository/maven-releases" }
     maven { url "https://maven.theillusivec4.top/"}
     maven { url "https://cursemaven.com"}
     maven { url "https://maven.blamejared.com"}
@@ -101,8 +102,9 @@ dependencies {
     compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
     //implementation fg.deobf("curse.maven:farmers-delight-398521:4679319")
     implementation fg.deobf("curse.maven:jade-324717:4986594")
-    implementation fg.deobf("maven.modrinth:fluffy-fur:${minecraft_version}-${fluffy_fur_version}")
     implementation fg.deobf("curse.maven:just-enough-resources-jer-240630:5057220")
+    runtimeOnly fg.deobf("pro.komaru:Tridot:${minecraft_version}-${tridot_version}")
+    compileOnly fg.deobf("pro.komaru:Tridot:${minecraft_version}-${tridot_version}:api")
 
     // RunTime
     runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
@@ -119,6 +121,7 @@ dependencies {
     runtimeOnly fg.deobf("maven.modrinth:embeddium:0.3.31+mc1.20.1")
     runtimeOnly fg.deobf("maven.modrinth:embeddiumplus:1.20.1-v1.2.13")
     runtimeOnly fg.deobf("maven.modrinth:oculus:1.20.1-1.7.0")
+
 }
 
 jar {

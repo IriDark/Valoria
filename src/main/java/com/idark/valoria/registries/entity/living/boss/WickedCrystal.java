@@ -1,6 +1,5 @@
 package com.idark.valoria.registries.entity.living.boss;
 
-import com.idark.valoria.client.ui.bossbars.*;
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.particle.*;
 import com.idark.valoria.registries.*;
@@ -26,6 +25,10 @@ import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.level.gameevent.*;
 import net.minecraft.world.phys.shapes.*;
 import org.jetbrains.annotations.*;
+import pro.komaru.tridot.client.graphics.gui.bossbars.*;
+import pro.komaru.tridot.core.math.*;
+import pro.komaru.tridot.registry.entity.*;
+import pro.komaru.tridot.registry.entity.ai.*;
 
 import java.util.*;
 

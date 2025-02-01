@@ -1,9 +1,9 @@
 package com.idark.valoria.client.sounds;
 
-import com.idark.valoria.registries.SoundsRegistry;
-import com.idark.valoria.registries.block.entity.ManipulatorBlockEntity;
-import mod.maxbogomol.fluffy_fur.client.sound.BlockEntitySoundInstance;
-import net.minecraft.client.Minecraft;
+import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.block.entity.*;
+import net.minecraft.client.*;
+import pro.komaru.tridot.client.sound.*;
 
 public class ElementalManipulatorSoundInstance extends BlockEntitySoundInstance<ManipulatorBlockEntity>{
     public ElementalManipulatorSoundInstance(ManipulatorBlockEntity blockEntity, float volume, float pitch){

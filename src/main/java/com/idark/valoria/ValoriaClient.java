@@ -9,28 +9,21 @@ import com.idark.valoria.client.render.*;
 import com.idark.valoria.client.render.entity.*;
 import com.idark.valoria.client.render.tile.*;
 import com.idark.valoria.client.shaders.*;
+import com.idark.valoria.client.sounds.LoopedSoundInstance;
 import com.idark.valoria.client.sounds.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.block.types.*;
-import com.idark.valoria.registries.entity.living.minions.*;
 import com.idark.valoria.registries.item.types.*;
+import com.idark.valoria.registries.level.*;
 import com.idark.valoria.util.*;
 import com.mojang.blaze3d.platform.*;
-import mod.maxbogomol.fluffy_fur.*;
-import mod.maxbogomol.fluffy_fur.client.gui.screen.*;
-import mod.maxbogomol.fluffy_fur.client.render.entity.*;
-import mod.maxbogomol.fluffy_fur.client.sound.*;
-import mod.maxbogomol.fluffy_fur.client.splash.*;
-import mod.maxbogomol.fluffy_fur.client.tooltip.*;
 import net.minecraft.client.*;
 import net.minecraft.client.model.geom.*;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.blockentity.*;
 import net.minecraft.client.renderer.entity.*;
 import net.minecraft.client.resources.model.*;
-import net.minecraft.network.chat.*;
 import net.minecraft.resources.*;
-import net.minecraft.sounds.*;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
@@ -41,17 +34,22 @@ import net.minecraftforge.eventbus.api.*;
 import net.minecraftforge.fml.common.*;
 import net.minecraftforge.fml.event.lifecycle.*;
 import org.lwjgl.glfw.*;
+import pro.komaru.tridot.client.graphics.gui.splash.*;
+import pro.komaru.tridot.client.graphics.render.entity.*;
+import pro.komaru.tridot.client.graphics.tooltip.*;
+import pro.komaru.tridot.client.sound.*;
+import pro.komaru.tridot.client.sound.MusicModifier.*;
+import pro.komaru.tridot.registry.entity.*;
 
 import java.io.*;
 
 import static com.idark.valoria.Valoria.*;
-import static mod.maxbogomol.fluffy_fur.registry.client.FluffyFurModels.addLayer;
+import static pro.komaru.tridot.client.TridotModels.addLayer;
 
 public class ValoriaClient{
     private static final String CATEGORY_KEY = "key.category.valoria.general";
     public static final KeyMapping BAG_MENU_KEY = new KeyMapping("key.valoria.bag_menu", KeyConflictContext.IN_GAME, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, CATEGORY_KEY);
     public static final KeyMapping JEWELRY_BONUSES_KEY = new KeyMapping("key.valoria.jewelry", KeyConflictContext.IN_GAME, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, CATEGORY_KEY);
-    public static final ResourceLocation VANILLA_LOC = new ResourceLocation("textures/gui/bars.png");
     public static ModelLayerLocation NECKLACE_LAYER = new ModelLayerLocation(new ResourceLocation(Valoria.ID, "necklace"), "main");
     public static ModelLayerLocation HANDS_LAYER = new ModelLayerLocation(new ResourceLocation(Valoria.ID, "hands"), "main");
     public static ModelLayerLocation HANDS_LAYER_SLIM = new ModelLayerLocation(new ResourceLocation(Valoria.ID, "hands_slim"), "main");
@@ -61,19 +59,11 @@ public class ValoriaClient{
     public static ModelResourceLocation SPHERE = new ModelResourceLocation(Valoria.ID, "elemental_sphere", "");
     public static ModelResourceLocation CYST = new ModelResourceLocation(Valoria.ID, "cyst", "");
     public static ModelLayerLocation THE_FALLEN_COLLECTOR_ARMOR_LAYER = addLayer(Valoria.ID, "the_fallen_collector_armor_layer");
-    public static final Music ENDURING = new Music(SoundsRegistry.ENDURING.getHolder().get(), 20, 600, true);
-    public static final Music SHADED_LANDS = new Music(SoundsRegistry.SHADED_LANDS.getHolder().get(), 20, 600, true);
-    public static final Music ARRIVING = new Music(SoundsRegistry.ARRIVING.getHolder().get(), 20, 600, true);
-    public static final Music NECROMANCER_DUNGEON_MUSIC = new Music(SoundsRegistry.MUSIC_NECROMANCER_DUNGEON.getHolder().get(), 20, 600, true);
 
     public static TheFallenCollectorArmorModel THE_FALLEN_COLLECTOR_ARMOR = null;
 
     public static LoopedSoundInstance BOSS_MUSIC;
     public static ElementalManipulatorSoundInstance MANIPULATOR_LOOP;
-    public static ValoriaSoundInstance COOLDOWN_SOUND;
-    public static ValoriaSoundInstance DUNGEON_MUSIC_INSTANCE;
-    public static FluffyFurMod MOD_INSTANCE;
-    public static FluffyFurPanorama ECOTONE_PANORAMA;
 
     public static void setupSplashes(){
         SplashHandler.addSplash("Also try Starbound!");
@@ -85,30 +75,12 @@ public class ValoriaClient{
         SplashHandler.addSplash("Привіт, Україно!");
     }
 
-    public static void setupMenu(){
-        MOD_INSTANCE = new FluffyFurMod(Valoria.ID, NAME, VERSION).setDev("Iri ♡").setItem(new ItemStack(BlockRegistry.shadeBlossom.get()))
-                .setNameColor(Pal.verySoftPink).setVersionColor(Pal.cyan)
-                .setDescription(Component.translatable("mod_description.valoria"))
-                .addGithubLink("https://github.com/IriDark/Valoria")
-                .addCurseForgeLink("https://www.curseforge.com/minecraft/mc-mods/valoria")
-                .addModrinthLink("https://modrinth.com/mod/valoria")
-                .addDiscordLink("https://discord.gg/wWdXpwuPmK");
-
-        ECOTONE_PANORAMA = new FluffyFurPanorama(Valoria.ID + ":ecotone", Component.translatable("panorama.valoria.ecotone"))
-                .setMod(MOD_INSTANCE).setItem(new ItemStack(BlockRegistry.shadeBlossom.get())).setSort(0)
-                .setTexture(new ResourceLocation(Valoria.ID, "textures/gui/title/background/panorama"))
-                .setLogo(new ResourceLocation(Valoria.ID, "textures/gui/title/valoria_logo.png"));
-
-        FluffyFurClient.registerMod(MOD_INSTANCE);
-        FluffyFurClient.registerPanorama(ECOTONE_PANORAMA);
-    }
-
     @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     public static class RegistryEvents{
 
         @SubscribeEvent
         public static void registerMusicModifiers(FMLClientSetupEvent event){
-            MusicHandler.register(new MusicModifier.Panorama(ARRIVING, ECOTONE_PANORAMA));
+            MusicHandler.register(new Dungeon(SoundsRegistry.MUSIC_NECROMANCER_DUNGEON.get(), LevelGen.NECROMANCER_CRYPT));
         }
 
         @SubscribeEvent
@@ -121,12 +93,6 @@ public class ValoriaClient{
             TooltipModifierHandler.register(new AttributeTooltipModifier(){
                 public boolean isToolBase(AttributeModifier modifier, Player player, TooltipFlag flag){
                     return modifier.getId().equals(BASE_ENTITY_REACH_UUID);
-                }
-            });
-
-            TooltipModifierHandler.register(new AttributeTooltipModifier(){
-                public boolean isToolBase(AttributeModifier modifier, Player player, TooltipFlag flag){
-                    return modifier.getId().equals(BASE_PROJECTILE_DAMAGE_UUID);
                 }
             });
 

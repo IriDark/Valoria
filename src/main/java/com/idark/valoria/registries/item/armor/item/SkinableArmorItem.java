@@ -1,24 +1,20 @@
 package com.idark.valoria.registries.item.armor.item;
 
-import mod.maxbogomol.fluffy_fur.client.model.armor.ArmorModel;
-import mod.maxbogomol.fluffy_fur.common.itemskin.ItemSkin;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.HumanoidModel;
-import net.minecraft.network.chat.Component;
-import net.minecraft.util.Mth;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.ArmorMaterial;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.Level;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.extensions.common.IClientItemExtensions;
-import net.minecraftforge.common.extensions.IForgeItem;
+import net.minecraft.client.*;
+import net.minecraft.client.model.*;
+import net.minecraft.network.chat.*;
+import net.minecraft.util.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.*;
+import net.minecraftforge.api.distmarker.*;
+import net.minecraftforge.client.extensions.common.*;
+import net.minecraftforge.common.extensions.*;
+import pro.komaru.tridot.client.model.armor.*;
+import pro.komaru.tridot.registry.item.*;
+import pro.komaru.tridot.registry.item.skins.*;
 
-import java.util.List;
+import java.util.*;
 
 import static com.idark.valoria.util.ValoriaUtils.addContributorTooltip;
 

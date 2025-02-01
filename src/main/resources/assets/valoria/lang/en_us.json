@@ -904,7 +904,6 @@
   "tooltip.valoria.wip": "This is an WIP item that can be buggy or even don't work. Use at your own risk!",
   "tooltip.valoria.with_chance": "with chance: %s",
   "tooltip.valoria.applies_with_chance": "Applies with chance: %s",
-  "tooltip.valoria.total_armor": "Total Armor Percentage %s",
   "trim_material.valoria.ancient": "Ancient Material",
   "trim_material.valoria.aquarius": "Aquarius Material",
   "trim_material.valoria.bronze": "Bronze Material",
@@ -919,7 +918,6 @@
   "valoria.jade.progress": "Progress:",
   "tooltip.valoria.usage_count": "The ability can be used %s times",
   "tooltip.valoria.required_amount": "Required amount:",
-  "tooltip.valoria.value": "%s",
   "jei.valoria.archaeology_table": "Archaeology",
   "tooltip.valoria.boss_summonable": "Used to summon Boss %s",
   "tooltip.valoria.katana_charge": "Time to charge %s ticks"

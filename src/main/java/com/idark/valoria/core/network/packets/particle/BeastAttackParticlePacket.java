@@ -1,18 +1,17 @@
 package com.idark.valoria.core.network.packets.particle;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.client.particle.ParticleRegistry;
-import mod.maxbogomol.fluffy_fur.client.particle.ParticleBuilder;
-import mod.maxbogomol.fluffy_fur.client.particle.data.ColorParticleData;
-import mod.maxbogomol.fluffy_fur.client.particle.data.GenericParticleData;
-import mod.maxbogomol.fluffy_fur.common.easing.Easing;
-import mod.maxbogomol.fluffy_fur.registry.client.FluffyFurRenderTypes;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.world.level.Level;
-import net.minecraftforge.network.NetworkEvent.Context;
+import com.idark.valoria.*;
+import com.idark.valoria.client.particle.*;
+import net.minecraft.network.*;
+import net.minecraft.world.level.*;
+import net.minecraftforge.network.NetworkEvent.*;
+import pro.komaru.tridot.client.*;
+import pro.komaru.tridot.client.graphics.particle.*;
+import pro.komaru.tridot.client.graphics.particle.data.*;
+import pro.komaru.tridot.core.math.*;
 
 import java.awt.*;
-import java.util.function.Supplier;
+import java.util.function.*;
 
 public class BeastAttackParticlePacket{
     private final double posX, posY, posZ;
@@ -36,10 +35,11 @@ public class BeastAttackParticlePacket{
         if(ctx.get().getDirection().getReceptionSide().isClient()){
             ctx.get().enqueueWork(() -> {
                 Level level = Valoria.proxy.getLevel();
+                Color color = new Color(msg.colorR, msg.colorG, msg.colorB);
                 ParticleBuilder.create(ParticleRegistry.SMOKE)
-                        .setRenderType(FluffyFurRenderTypes.TRANSLUCENT_PARTICLE)
-                        .setColorData(ColorParticleData.create(new Color(msg.colorR, msg.colorG, msg.colorB), new Color(msg.colorR, msg.colorG, msg.colorB).darker()).setEasing(Easing.BOUNCE_IN).build())
-                        .setTransparencyData(GenericParticleData.create().setRandomValue(1, 0.0f).setEasing(Easing.CUBIC_OUT).build())
+                        .setRenderType(TridotRenderTypes.TRANSLUCENT_PARTICLE)
+                        .setColorData(ColorParticleData.create(color, color.darker()).setEasing(Interp.bounceIn).build())
+                        .setTransparencyData(GenericParticleData.create().setRandomValue(1, 0.0f).setEasing(Interp.sineOut).build())
                         .setScaleData(GenericParticleData.create(0.7f, 0.4f, 0f).build())
                         .setLifetime(95 + level.random.nextInt(100))
                         .randomVelocity(0.05, 0.15, 0.05)

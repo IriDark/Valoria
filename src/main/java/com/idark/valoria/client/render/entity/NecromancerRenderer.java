@@ -1,21 +1,19 @@
 package com.idark.valoria.client.render.entity;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.client.event.ClientTickHandler;
-import com.idark.valoria.client.model.entity.NecromancerModel;
-import com.idark.valoria.registries.entity.living.boss.AbstractNecromancer.NecromancerSpells;
-import com.idark.valoria.registries.entity.living.boss.NecromancerEntity;
-import com.idark.valoria.util.RenderUtils;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Axis;
-import mod.maxbogomol.fluffy_fur.client.render.RenderBuilder;
-import mod.maxbogomol.fluffy_fur.registry.client.FluffyFurRenderTypes;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.HumanoidMobRenderer;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import com.idark.valoria.*;
+import com.idark.valoria.client.event.*;
+import com.idark.valoria.client.model.entity.*;
+import com.idark.valoria.registries.entity.living.boss.AbstractNecromancer.*;
+import com.idark.valoria.registries.entity.living.boss.*;
+import com.mojang.blaze3d.vertex.*;
+import com.mojang.math.*;
+import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.entity.*;
+import net.minecraft.resources.*;
+import net.minecraftforge.api.distmarker.*;
+import pro.komaru.tridot.client.*;
+import pro.komaru.tridot.client.graphics.render.*;
+import pro.komaru.tridot.utilities.*;
 
 import java.awt.*;
 
@@ -52,9 +50,9 @@ public class NecromancerRenderer extends HumanoidMobRenderer<NecromancerEntity, 
             int g = spell.spellColor[1];
             int b = spell.spellColor[2];
             Color color = new Color(r, g, b);
-            RenderUtils.renderAura(RenderBuilder.create().setRenderType(FluffyFurRenderTypes.ADDITIVE).enableSided().setFirstColor(color).setSecondColor(Color.WHITE).setFirstAlpha(0.15f * alpha).setSecondAlpha(0), ms, 1, 0.75f, 6, true);
-            RenderUtils.renderAura(RenderBuilder.create().setRenderType(FluffyFurRenderTypes.ADDITIVE).enableSided().setFirstColor(color).setSecondColor(Color.WHITE).setFirstAlpha(0.25f * alpha).setSecondAlpha(0), ms, 2.5f, 1.25f, 6, true);
-            RenderUtils.renderAura(RenderBuilder.create().setRenderType(FluffyFurRenderTypes.ADDITIVE).enableSided().setFirstColor(color).setSecondColor(Color.WHITE).setFirstAlpha(alpha).setSecondAlpha(0), ms, 0.8f, 0f, 6, false);
+            Utils.Render.renderAura(RenderBuilder.create().setRenderType(TridotRenderTypes.ADDITIVE).enableSided().setFirstColor(color).setSecondColor(Color.WHITE).setFirstAlpha(0.15f * alpha).setSecondAlpha(0), ms, 1, 0.75f, 6, true);
+            Utils.Render.renderAura(RenderBuilder.create().setRenderType(TridotRenderTypes.ADDITIVE).enableSided().setFirstColor(color).setSecondColor(Color.WHITE).setFirstAlpha(0.25f * alpha).setSecondAlpha(0), ms, 2.5f, 1.25f, 6, true);
+            Utils.Render.renderAura(RenderBuilder.create().setRenderType(TridotRenderTypes.ADDITIVE).enableSided().setFirstColor(color).setSecondColor(Color.WHITE).setFirstAlpha(alpha).setSecondAlpha(0), ms, 0.8f, 0f, 6, false);
             ms.popPose();
         }
 

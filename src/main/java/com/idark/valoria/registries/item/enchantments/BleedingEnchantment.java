@@ -1,14 +1,10 @@
 package com.idark.valoria.registries.item.enchantments;
 
-import com.idark.valoria.registries.EffectsRegistry;
-import com.idark.valoria.util.ArcRandom;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentCategory;
-import net.minecraft.world.item.enchantment.Enchantments;
+import com.idark.valoria.registries.*;
+import net.minecraft.world.effect.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.item.enchantment.*;
+import pro.komaru.tridot.core.math.*;
 
 public class BleedingEnchantment extends Enchantment{
     public ArcRandom arcRandom = new ArcRandom();

@@ -7,7 +7,6 @@ import com.idark.valoria.registries.block.types.plants.*;
 import com.idark.valoria.registries.item.types.*;
 import com.idark.valoria.registries.level.tree.*;
 import com.idark.valoria.util.*;
-import mod.maxbogomol.fluffy_fur.client.particle.data.*;
 import net.minecraft.*;
 import net.minecraft.core.*;
 import net.minecraft.network.chat.*;
@@ -24,6 +23,7 @@ import net.minecraft.world.level.material.*;
 import net.minecraft.world.phys.shapes.*;
 import net.minecraftforge.eventbus.api.*;
 import net.minecraftforge.registries.*;
+import pro.komaru.tridot.client.graphics.particle.data.*;
 
 import java.util.function.*;
 

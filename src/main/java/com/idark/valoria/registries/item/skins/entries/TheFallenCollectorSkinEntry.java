@@ -2,12 +2,12 @@ package com.idark.valoria.registries.item.skins.entries;
 
 import com.idark.valoria.*;
 import com.idark.valoria.registries.item.armor.item.*;
-import mod.maxbogomol.fluffy_fur.client.model.armor.*;
-import mod.maxbogomol.fluffy_fur.common.itemskin.*;
 import net.minecraft.client.model.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.item.*;
 import net.minecraftforge.api.distmarker.*;
+import pro.komaru.tridot.client.model.armor.*;
+import pro.komaru.tridot.registry.item.skins.*;
 
 public class TheFallenCollectorSkinEntry extends ArmorClassSkinEntry{
     public TheFallenCollectorSkinEntry(Class item, String skin){

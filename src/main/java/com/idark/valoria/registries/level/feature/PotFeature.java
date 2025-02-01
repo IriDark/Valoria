@@ -1,7 +1,6 @@
 package com.idark.valoria.registries.level.feature;
 
 import com.idark.valoria.core.config.*;
-import com.idark.valoria.util.*;
 import com.mojang.serialization.*;
 import it.unimi.dsi.fastutil.ints.*;
 import net.minecraft.*;
@@ -12,6 +11,7 @@ import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.level.levelgen.Heightmap.*;
 import net.minecraft.world.level.levelgen.feature.*;
 import net.minecraft.world.level.levelgen.feature.configurations.*;
+import pro.komaru.tridot.core.math.*;
 
 import java.util.stream.*;
 

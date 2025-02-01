@@ -1,15 +1,12 @@
 package com.idark.valoria.client.ui.screen.book;
 
-import com.idark.valoria.util.ColorUtil;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.resources.language.I18n;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraft.client.*;
+import net.minecraft.client.gui.*;
+import net.minecraft.client.resources.language.*;
+import net.minecraftforge.api.distmarker.*;
+import pro.komaru.tridot.client.graphics.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @OnlyIn(Dist.CLIENT)
 public abstract class Page{
@@ -21,9 +18,9 @@ public abstract class Page{
     public static void drawText(GuiGraphics gui, String text, int x, int y, boolean Centered){
         Font font = Minecraft.getInstance().font;
         if(!Centered){
-            gui.drawString(font, I18n.get(text), x, y, ColorUtil.packColor(255, 220, 200, 180), true);
+            gui.drawString(font, I18n.get(text), x, y, Clr.packColor(255, 220, 200, 180), true);
         }else{
-            gui.drawCenteredString(font, I18n.get(text), x, y, ColorUtil.packColor(255, 220, 200, 180));
+            gui.drawCenteredString(font, I18n.get(text), x, y, Clr.packColor(255, 220, 200, 180));
         }
     }
 

@@ -1,30 +1,22 @@
 package com.idark.valoria.registries.item.types;
 
-import com.idark.valoria.registries.AttributeRegistry;
-import com.idark.valoria.util.ArcRandom;
-import com.idark.valoria.util.ValoriaUtils;
-import mod.maxbogomol.fluffy_fur.client.screenshake.ScreenshakeHandler;
-import mod.maxbogomol.fluffy_fur.client.screenshake.ScreenshakeInstance;
-import mod.maxbogomol.fluffy_fur.common.easing.Easing;
-import net.minecraft.ChatFormatting;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.chat.Component;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Tier;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.level.Level;
-import org.joml.Vector3d;
+import com.idark.valoria.registries.*;
+import com.idark.valoria.util.*;
+import net.minecraft.*;
+import net.minecraft.core.particles.*;
+import net.minecraft.network.chat.*;
+import net.minecraft.sounds.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.item.enchantment.*;
+import net.minecraft.world.level.*;
+import org.joml.*;
+import pro.komaru.tridot.client.graphics.gui.screenshake.*;
+import pro.komaru.tridot.core.math.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class InfernalScytheItem extends ScytheItem{
     public ArcRandom arcRandom = new ArcRandom();
@@ -49,7 +41,7 @@ public class InfernalScytheItem extends ScytheItem{
         List<LivingEntity> hitEntities = new ArrayList<>();
         Vector3d pos = new Vector3d(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());
         float damage = (float)(player.getAttributeValue(Attributes.ATTACK_DAMAGE)) + EnchantmentHelper.getSweepingDamageRatio(player);
-        float radius = (float)player.getAttributeValue(AttributeRegistry.ATTACK_RADIUS.get());
+        float radius = (float)player.getAttributeValue(AttributeReg.ATTACK_RADIUS.get());
 
         ValoriaUtils.radiusHit(level, player, ParticleTypes.FLAME, hitEntities, pos, 0, player.getRotationVector().y, radius);
         applyCooldown(player, hitEntities.isEmpty() ? builder.minCooldownTime : builder.cooldownTime);
@@ -62,7 +54,7 @@ public class InfernalScytheItem extends ScytheItem{
             }
         }
 
-        ScreenshakeHandler.addScreenshake(new ScreenshakeInstance(4).setIntensity(0.35f).setEasing(Easing.CIRC_IN_OUT));
+        ScreenshakeHandler.addScreenshake(new ScreenshakeInstance(4).setIntensity(0.35f).setEasing(Interp.circleOut));
     }
 
     public void performEffects(LivingEntity targets, Player player){

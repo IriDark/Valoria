@@ -1,19 +1,17 @@
 package com.idark.valoria.core.interfaces;
 
-import com.idark.valoria.registries.BlockRegistry;
-import com.idark.valoria.registries.block.types.BloodVeinBlock;
-import com.idark.valoria.registries.block.types.FleshSpreader;
-import com.idark.valoria.util.ArcRandom;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.MultifaceBlock;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Fluids;
+import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.block.types.*;
+import net.minecraft.core.*;
+import net.minecraft.util.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.*;
+import net.minecraft.world.level.material.*;
+import pro.komaru.tridot.core.math.*;
 
-import javax.annotation.Nullable;
-import java.util.Collection;
+import javax.annotation.*;
+import java.util.*;
 
 public interface FleshSpreaderBehaviour{
     FleshSpreaderBehaviour DEFAULT = new FleshSpreaderBehaviour(){

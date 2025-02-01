@@ -1,7 +1,6 @@
 package com.idark.valoria.registries.entity.living.elemental;
 
 import com.idark.valoria.registries.*;
-import com.idark.valoria.registries.entity.living.*;
 import net.minecraft.core.*;
 import net.minecraft.sounds.*;
 import net.minecraft.tags.*;
@@ -16,6 +15,8 @@ import net.minecraft.world.entity.player.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.pathfinder.*;
 import org.jetbrains.annotations.*;
+import pro.komaru.tridot.registry.entity.*;
+import pro.komaru.tridot.registry.entity.ai.*;
 
 import java.util.*;
 

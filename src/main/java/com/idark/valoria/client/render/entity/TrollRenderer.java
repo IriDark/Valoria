@@ -1,16 +1,15 @@
 package com.idark.valoria.client.render.entity;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.client.model.entity.TrollModel;
-import com.idark.valoria.client.render.layers.LuminescentLayer;
-import com.idark.valoria.registries.entity.living.Troll;
-import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Mth;
-import net.minecraft.world.phys.Vec3;
+import com.idark.valoria.*;
+import com.idark.valoria.client.model.entity.*;
+import com.idark.valoria.registries.entity.living.*;
+import com.mojang.blaze3d.vertex.*;
+import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.entity.*;
+import net.minecraft.resources.*;
+import net.minecraft.util.*;
+import net.minecraft.world.phys.*;
+import pro.komaru.tridot.client.graphics.render.entity.*;
 
 public class TrollRenderer extends MobRenderer<Troll, TrollModel<Troll>>{
     protected ResourceLocation texture;

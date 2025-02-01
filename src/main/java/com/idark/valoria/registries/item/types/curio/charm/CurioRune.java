@@ -1,15 +1,13 @@
 package com.idark.valoria.registries.item.types.curio.charm;
 
-import com.idark.valoria.util.ArcRandom;
-import com.idark.valoria.util.ValoriaUtils;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import top.theillusivec4.curios.api.SlotContext;
-import top.theillusivec4.curios.api.type.capability.ICurio;
-import top.theillusivec4.curios.api.type.capability.ICurioItem;
+import com.idark.valoria.util.*;
+import net.minecraft.sounds.*;
+import net.minecraft.world.item.*;
+import pro.komaru.tridot.core.math.*;
+import top.theillusivec4.curios.api.*;
+import top.theillusivec4.curios.api.type.capability.*;
 
-import javax.annotation.Nonnull;
+import javax.annotation.*;
 
 public class CurioRune extends Item implements ICurioItem{
     public ArcRandom arcRandom = new ArcRandom();

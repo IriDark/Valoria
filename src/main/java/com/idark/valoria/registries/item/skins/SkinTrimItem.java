@@ -1,18 +1,15 @@
 package com.idark.valoria.registries.item.skins;
 
-import com.idark.valoria.Valoria;
-import mod.maxbogomol.fluffy_fur.common.itemskin.ItemSkin;
-import net.minecraft.Util;
-import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.Level;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import com.idark.valoria.*;
+import net.minecraft.*;
+import net.minecraft.network.chat.*;
+import net.minecraft.resources.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.*;
+import net.minecraftforge.api.distmarker.*;
+import pro.komaru.tridot.registry.item.skins.*;
 
-import java.util.List;
+import java.util.*;
 
 public class SkinTrimItem extends Item{
     public ItemSkin skin;

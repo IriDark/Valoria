@@ -7,11 +7,11 @@ import com.idark.valoria.registries.entity.living.decoration.*;
 import com.idark.valoria.registries.entity.living.elemental.*;
 import com.idark.valoria.registries.entity.living.minions.*;
 import com.idark.valoria.registries.entity.projectile.*;
-import mod.maxbogomol.fluffy_fur.common.entity.*;
 import net.minecraft.resources.*;
 import net.minecraft.world.entity.*;
 import net.minecraftforge.eventbus.api.*;
 import net.minecraftforge.registries.*;
+import pro.komaru.tridot.registry.entity.misc.*;
 
 public class EntityTypeRegistry{
     public static DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, Valoria.ID);
