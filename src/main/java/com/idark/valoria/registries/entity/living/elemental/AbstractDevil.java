@@ -1,5 +1,6 @@
-package com.idark.valoria.registries.entity.living;
+package com.idark.valoria.registries.entity.living.elemental;
 
+import com.idark.valoria.registries.entity.living.*;
 import net.minecraft.core.*;
 import net.minecraft.sounds.*;
 import net.minecraft.util.*;

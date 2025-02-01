@@ -4,6 +4,7 @@ import com.idark.valoria.*;
 import com.idark.valoria.registries.entity.living.*;
 import com.idark.valoria.registries.entity.living.boss.*;
 import com.idark.valoria.registries.entity.living.decoration.*;
+import com.idark.valoria.registries.entity.living.elemental.*;
 import com.idark.valoria.registries.entity.living.minions.*;
 import com.idark.valoria.registries.entity.projectile.*;
 import mod.maxbogomol.fluffy_fur.common.entity.*;
@@ -25,6 +26,7 @@ public class EntityTypeRegistry{
     public static final RegistryObject<EntityType<ShadewoodSpider>> SHADEWOOD_SPIDER = register("shadewood_spider", EntityType.Builder.of(ShadewoodSpider::new, MobCategory.MONSTER).sized(1.4f, 0.9f).clientTrackingRange(8));
     public static final RegistryObject<EntityType<MannequinEntity>> MANNEQUIN = register("mannequin", EntityType.Builder.of(MannequinEntity::new, MobCategory.MISC).sized(0.6f, 1.95f).clientTrackingRange(4).updateInterval(4));
     public static final RegistryObject<EntityType<SorcererEntity>> SORCERER = register("sorcerer", EntityType.Builder.<SorcererEntity>of(SorcererEntity::new, MobCategory.MONSTER).sized(0.6f, 2.0f).clientTrackingRange(8));
+    public static final RegistryObject<EntityType<Ent>> ENT = register("ent", EntityType.Builder.of(Ent::new, MobCategory.MONSTER).sized(0.8f, 2.0f).clientTrackingRange(8));
 
     // Minions
     public static final RegistryObject<EntityType<UndeadEntity>> UNDEAD = register("undead", EntityType.Builder.of(UndeadEntity::new, MobCategory.MONSTER).sized(0.4f, 0.8f).clientTrackingRange(8));

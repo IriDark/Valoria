@@ -56,7 +56,6 @@ public class WickedCrystal extends AbstractBoss{
             }
         }
 
-
         if(this.spawnTime < 10){
             this.spawnTime++;
             this.spawnAnimationState.start(tickCount);
@@ -106,10 +105,12 @@ public class WickedCrystal extends AbstractBoss{
     }
 
     public void checkPhaseTransition() {
-        if (this.getHealth() <= 1000 && phase == 1) {
-            this.phase = 2;
-            ((ServerLevel)this.level()).sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, BlockRegistry.wickedAmethystBlock.get().defaultBlockState()), this.getX(), this.getY() + 5d, this.getZ(), 25, 0, 0, 0, 0);
-            this.playSound(SoundsRegistry.WICKED_CRYSTAL_TRANSFORM.get(), 1.0F, 1.0F);
+        if(this.getHealth() <= 1000 && phase == 1){
+            if(!level().isClientSide()){
+                this.phase = 2;
+                ((ServerLevel)this.level()).sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, BlockRegistry.wickedAmethystBlock.get().defaultBlockState()), this.getX(), this.getY() + 5d, this.getZ(), 25, 0, 0, 0, 0);
+                this.playSound(SoundsRegistry.WICKED_CRYSTAL_TRANSFORM.get(), 1.0F, 1.0F);
+            }
         }
     }
 

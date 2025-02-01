@@ -119,7 +119,7 @@ public class ItemsRegistry{
     wickedShield,
 
     // spawn eggs
-    pumpkinContract, goblin, draugr, swampWanderer, scourge, wickedCrystal, crystal, sorcerer, necromancer, undead, shadewoodSpider, devil, troll, corruptedTroll, mannequin;
+    pumpkinContract, goblin, entMob, draugr, swampWanderer, scourge, wickedCrystal, crystal, sorcerer, necromancer, undead, shadewoodSpider, devil, troll, corruptedTroll, mannequin;
 
     public static void load(IEventBus eventBus){
         shadewoodBoat = BLOCK_ITEMS.register("shadewood_boat", () -> new CustomBoatItem(new Item.Properties().stacksTo(1), EntityTypeRegistry.SHADEWOOD_BOAT));
@@ -516,6 +516,7 @@ public class ItemsRegistry{
         // spawn eggs
         pumpkinContract = registerItem("pumpkin_contract", () -> new TexturedSpawnEggItem(EntityTypeRegistry.HAUNTED_MERCHANT, new Item.Properties()));
         mannequin = registerItem("mannequin_spawn_egg", () -> new MannequinSpawnItem(new Item.Properties()));
+        entMob = registerItem("ent_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.ENT, ColorUtil.hexToDecimal("52392e"), ColorUtil.colorToDecimal(Pal.nature), new Item.Properties()));
         goblin = registerItem("goblin_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.GOBLIN, ColorUtil.hexToDecimal("185b36"), ColorUtil.hexToDecimal("6BB447"), new Item.Properties()));
         draugr = registerItem("draugr_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.DRAUGR, ColorUtil.hexToDecimal("76695C"), ColorUtil.hexToDecimal("d6d0c9"), new Item.Properties()));
         swampWanderer = registerItem("swamp_wanderer_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.SWAMP_WANDERER, ColorUtil.hexToDecimal("606239"), ColorUtil.hexToDecimal("b8b377"), new Item.Properties()));

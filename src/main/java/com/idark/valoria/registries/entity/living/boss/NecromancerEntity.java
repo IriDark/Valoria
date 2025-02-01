@@ -252,7 +252,7 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
         }
 
         public int getCastingInterval(){
-            return 100;
+            return 150;
         }
 
         protected void performSpellCasting(){
@@ -354,7 +354,7 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
         }
 
         public int getCastingInterval(){
-            return 165;
+            return 200;
         }
 
         @Override
@@ -572,7 +572,7 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
         }
 
         public int getCastingInterval(){
-            return 100;
+            return 200;
         }
 
         protected void performSpellCasting(){
@@ -612,7 +612,7 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
         }
 
         public int getCastingInterval(){
-            return 120;
+            return 150;
         }
 
         protected void performSpellCasting(){
@@ -650,7 +650,7 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
         }
 
         public int getCastingInterval(){
-            return 240;
+            return 300;
         }
 
         protected void performSpellCasting(){
@@ -740,7 +740,7 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
         }
 
         public int getCastingInterval(){
-            return 140;
+            return 180;
         }
 
         public SoundEvent getSpellPrepareSound(){

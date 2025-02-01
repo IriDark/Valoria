@@ -1,16 +1,15 @@
 package com.idark.valoria.client.render.entity;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.client.model.entity.DevilModel;
-import com.idark.valoria.client.render.layers.LuminescentLayer;
-import com.idark.valoria.registries.entity.living.Devil;
-import com.idark.valoria.util.Pal;
-import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
-import net.minecraft.resources.ResourceLocation;
+import com.idark.valoria.*;
+import com.idark.valoria.client.model.entity.*;
+import com.idark.valoria.client.render.layers.*;
+import com.idark.valoria.registries.entity.living.elemental.*;
+import com.idark.valoria.util.*;
+import com.mojang.blaze3d.vertex.*;
+import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.entity.*;
+import net.minecraft.client.renderer.entity.layers.*;
+import net.minecraft.resources.*;
 
 public class DevilRenderer extends MobRenderer<Devil, DevilModel<Devil>>{
     protected static final ResourceLocation TEXTURE = new ResourceLocation(Valoria.ID, "textures/entity/devil.png");

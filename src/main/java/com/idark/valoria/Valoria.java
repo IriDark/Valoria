@@ -20,6 +20,7 @@ import com.idark.valoria.core.proxy.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.block.types.*;
 import com.idark.valoria.registries.entity.living.*;
+import com.idark.valoria.registries.entity.living.elemental.*;
 import com.idark.valoria.registries.item.recipe.*;
 import com.idark.valoria.registries.item.skins.*;
 import com.idark.valoria.registries.item.types.curio.charm.*;
@@ -33,7 +34,6 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.properties.*;
-import net.minecraft.world.level.levelgen.*;
 import net.minecraft.world.level.levelgen.Heightmap.*;
 import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.client.event.*;
@@ -250,15 +250,16 @@ public class Valoria{
         @SubscribeEvent
         public static void commonSetup(FMLCommonSetupEvent event){
             event.enqueueWork(() -> {
-                SpawnPlacements.register(EntityTypeRegistry.GOBLIN.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Goblin::checkGoblinSpawnRules);
-                SpawnPlacements.register(EntityTypeRegistry.DRAUGR.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, DraugrEntity::checkMonsterSpawnRules);
-                SpawnPlacements.register(EntityTypeRegistry.SWAMP_WANDERER.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SwampWandererEntity::checkDrownedSpawnRules);
-                SpawnPlacements.register(EntityTypeRegistry.SCOURGE.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ScourgeEntity::checkDrownedSpawnRules);
-                SpawnPlacements.register(EntityTypeRegistry.SHADEWOOD_SPIDER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ShadewoodSpider::checkMonsterSpawnRules);
+                SpawnPlacements.register(EntityTypeRegistry.GOBLIN.get(), SpawnPlacements.Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, Goblin::checkGoblinSpawnRules);
+                SpawnPlacements.register(EntityTypeRegistry.DRAUGR.get(), SpawnPlacements.Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, DraugrEntity::checkMonsterSpawnRules);
+                SpawnPlacements.register(EntityTypeRegistry.SWAMP_WANDERER.get(), SpawnPlacements.Type.IN_WATER, Types.MOTION_BLOCKING_NO_LEAVES, SwampWandererEntity::checkDrownedSpawnRules);
+                SpawnPlacements.register(EntityTypeRegistry.SCOURGE.get(), SpawnPlacements.Type.IN_WATER, Types.MOTION_BLOCKING_NO_LEAVES, ScourgeEntity::checkDrownedSpawnRules);
+                SpawnPlacements.register(EntityTypeRegistry.SHADEWOOD_SPIDER.get(), SpawnPlacements.Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, ShadewoodSpider::checkMonsterSpawnRules);
                 SpawnPlacements.register(EntityTypeRegistry.DEVIL.get(), SpawnPlacements.Type.ON_GROUND, Types.WORLD_SURFACE_WG, Devil::checkMonsterSpawnRules);
-                SpawnPlacements.register(EntityTypeRegistry.HAUNTED_MERCHANT.get(), SpawnPlacements.Type.ON_GROUND, Types.WORLD_SURFACE_WG, HauntedMerchant::checkMonsterSpawnRules);
-                SpawnPlacements.register(EntityTypeRegistry.TROLL.get(), SpawnPlacements.Type.ON_GROUND, Types.WORLD_SURFACE_WG, Troll::checkMonsterSpawnRules);
-                SpawnPlacements.register(EntityTypeRegistry.SORCERER.get(), SpawnPlacements.Type.ON_GROUND, Types.WORLD_SURFACE_WG, SorcererEntity::checkMonsterSpawnRules);
+                SpawnPlacements.register(EntityTypeRegistry.HAUNTED_MERCHANT.get(), SpawnPlacements.Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, HauntedMerchant::checkMonsterSpawnRules);
+                SpawnPlacements.register(EntityTypeRegistry.TROLL.get(), SpawnPlacements.Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, Troll::checkMonsterSpawnRules);
+                SpawnPlacements.register(EntityTypeRegistry.SORCERER.get(), SpawnPlacements.Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, SorcererEntity::checkMonsterSpawnRules);
+                SpawnPlacements.register(EntityTypeRegistry.ENT.get(), SpawnPlacements.Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, Ent::checkEntSpawnRules);
             });
         }
 
@@ -279,6 +280,7 @@ public class Valoria{
             event.put(EntityTypeRegistry.WICKED_CRYSTAL.get(), WICKED_CRYSTAL);
             event.put(EntityTypeRegistry.WICKED_SHIELD.get(), WICKED_SHIELD);
             event.put(EntityTypeRegistry.CRYSTAL.get(), CRYSTAL);
+            event.put(EntityTypeRegistry.ENT.get(), ENT);
 
             event.put(EntityTypeRegistry.HAUNTED_MERCHANT.get(), HAUNTED_MERCHANT);
             event.put(EntityTypeRegistry.FLESH_SENTINEL.get(), FLESH_SENTINEL);

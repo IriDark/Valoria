@@ -1,21 +1,17 @@
 package com.idark.valoria.core.network;
 
-import com.idark.valoria.Valoria;
+import com.idark.valoria.*;
 import com.idark.valoria.core.network.packets.*;
 import com.idark.valoria.core.network.packets.particle.*;
-import com.mojang.datafixers.util.Pair;
-import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerChunkCache;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.ChunkPos;
-import net.minecraft.world.level.Level;
-import net.minecraftforge.network.NetworkDirection;
-import net.minecraftforge.network.NetworkRegistry;
-import net.minecraftforge.network.PacketDistributor;
-import net.minecraftforge.network.simple.SimpleChannel;
-import net.minecraftforge.server.ServerLifecycleHooks;
+import com.mojang.datafixers.util.*;
+import net.minecraft.core.*;
+import net.minecraft.resources.*;
+import net.minecraft.server.level.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.level.*;
+import net.minecraftforge.network.*;
+import net.minecraftforge.network.simple.*;
+import net.minecraftforge.server.*;
 
 public final class PacketHandler{
     private static final String PROTOCOL = "10";
@@ -71,6 +67,8 @@ public final class PacketHandler{
         HANDLER.registerMessage(id++, ParticleLinePacket.class, ParticleLinePacket::encode, ParticleLinePacket::decode, ParticleLinePacket::handle);
         HANDLER.registerMessage(id++, CuriosSetStackPacket.class, CuriosSetStackPacket::encode, CuriosSetStackPacket::decode, CuriosSetStackPacket::handle);
         HANDLER.registerMessage(id++, DashParticlePacket.class, DashParticlePacket::encode, DashParticlePacket::decode, DashParticlePacket::handle);
+        HANDLER.registerMessage(id++, BossMusicPacket.PlayBossMusicPacket.class, BossMusicPacket.PlayBossMusicPacket::encode, BossMusicPacket.PlayBossMusicPacket::decode, BossMusicPacket.PlayBossMusicPacket::handle);
+        HANDLER.registerMessage(id++, BossMusicPacket.StopBossMusicPacket.class, BossMusicPacket.StopBossMusicPacket::encode, BossMusicPacket.StopBossMusicPacket::decode, BossMusicPacket.StopBossMusicPacket::handle);
     }
 
     public static void sendTo(ServerPlayer playerMP, Object toSend){

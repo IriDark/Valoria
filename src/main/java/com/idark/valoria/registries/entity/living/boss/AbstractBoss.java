@@ -26,11 +26,12 @@ public abstract class AbstractBoss extends MultiAttackMob implements Enemy, Boss
     @Override
     public void tick(){
         super.tick();
-        if (!this.level().isClientSide) {
-            checkPhaseTransition();
-        }
+        checkPhaseTransition();
     }
 
+    /**
+     * Both sided
+     */
     public abstract void checkPhaseTransition();
 
     @Override

@@ -1,6 +1,5 @@
-package com.idark.valoria.registries.entity.living;
+package com.idark.valoria.registries.entity.living.elemental;
 
-import com.idark.valoria.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.entity.ai.goals.*;
 import com.idark.valoria.registries.entity.ai.movements.*;
@@ -117,7 +116,6 @@ public class Devil extends AbstractDevil implements RangedAttackMob{
         RandomSource randomsource = pLevel.getRandom();
         this.populateDefaultEquipmentSlots(randomsource, pDifficulty);
         this.ranged = new ArcRandom().chance(0.25f);
-        Valoria.LOGGER.info(String.valueOf(ranged));
         return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
     }
 

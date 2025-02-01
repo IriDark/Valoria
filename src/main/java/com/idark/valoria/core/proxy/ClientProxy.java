@@ -1,18 +1,15 @@
 package com.idark.valoria.core.proxy;
 
-import com.idark.valoria.ValoriaClient;
-import com.idark.valoria.client.sounds.LoopedSoundInstance;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.sounds.SoundManager;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import com.idark.valoria.*;
+import com.idark.valoria.client.sounds.*;
+import net.minecraft.client.*;
+import net.minecraft.client.sounds.*;
+import net.minecraft.sounds.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.level.*;
+import net.minecraftforge.api.distmarker.*;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 public class ClientProxy implements ISidedProxy{
     public static Map<UUID, String> bossbars = new HashMap<>();

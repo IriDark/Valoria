@@ -1,10 +1,10 @@
 package com.idark.valoria.core.proxy;
 
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
+import net.minecraft.sounds.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.level.*;
 
-import java.util.UUID;
+import java.util.*;
 
 public class ServerProxy implements ISidedProxy{
     @Override
@@ -23,7 +23,17 @@ public class ServerProxy implements ISidedProxy{
     }
 
     @Override
-    public void setBossBarRender(UUID bossBar, String id, SoundEvent bossMusic){
+    public void setBossBarRender(UUID bossBar, String id){
+
+    }
+
+    @Override
+    public void stopBossMusic(){
+
+    }
+
+    @Override
+    public void setBossMusic(SoundEvent bossMusic){
 
     }
 }

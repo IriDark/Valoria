@@ -1,18 +1,14 @@
 package com.idark.valoria.client.model.entity;
 
-import com.idark.valoria.client.model.animations.DevilAnimation;
-import com.idark.valoria.registries.entity.living.Devil;
-import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.model.AnimationUtils;
-import net.minecraft.client.model.ArmedModel;
-import net.minecraft.client.model.HeadedModel;
-import net.minecraft.client.model.HierarchicalModel;
-import net.minecraft.client.model.geom.ModelPart;
-import net.minecraft.client.model.geom.PartPose;
+import com.idark.valoria.client.model.animations.*;
+import com.idark.valoria.registries.entity.living.elemental.*;
+import com.mojang.blaze3d.vertex.*;
+import net.minecraft.client.model.*;
+import net.minecraft.client.model.geom.*;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.util.Mth;
-import net.minecraft.world.entity.HumanoidArm;
+import net.minecraft.client.renderer.*;
+import net.minecraft.util.*;
+import net.minecraft.world.entity.*;
 
 public class DevilModel<T extends Devil> extends HierarchicalModel<T> implements ArmedModel, HeadedModel{
     private final ModelPart root;

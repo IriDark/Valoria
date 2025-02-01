@@ -227,6 +227,7 @@ public class ValoriaClient{
             EntityRenderers.register(EntityTypeRegistry.CRYSTAL.get(), CrystalRenderer::new);
             EntityRenderers.register(EntityTypeRegistry.CRYSTAL_SPIKES.get(), CrystalSpikesRenderer::new);
             EntityRenderers.register(EntityTypeRegistry.CRYSTAL_SHARD.get(), CrystalShardRenderer::new);
+            EntityRenderers.register(EntityTypeRegistry.ENT.get(), EntRenderer::new);
 
             ModItemModelProperties.makeShield(ItemsRegistry.wickedShield.get());
             ModItemModelProperties.makeSize(ItemsRegistry.soulCollector.get());
