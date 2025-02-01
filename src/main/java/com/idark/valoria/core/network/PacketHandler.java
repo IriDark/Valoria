@@ -67,8 +67,6 @@ public final class PacketHandler{
         HANDLER.registerMessage(id++, ParticleLinePacket.class, ParticleLinePacket::encode, ParticleLinePacket::decode, ParticleLinePacket::handle);
         HANDLER.registerMessage(id++, CuriosSetStackPacket.class, CuriosSetStackPacket::encode, CuriosSetStackPacket::decode, CuriosSetStackPacket::handle);
         HANDLER.registerMessage(id++, DashParticlePacket.class, DashParticlePacket::encode, DashParticlePacket::decode, DashParticlePacket::handle);
-        HANDLER.registerMessage(id++, BossMusicPacket.PlayBossMusicPacket.class, BossMusicPacket.PlayBossMusicPacket::encode, BossMusicPacket.PlayBossMusicPacket::decode, BossMusicPacket.PlayBossMusicPacket::handle);
-        HANDLER.registerMessage(id++, BossMusicPacket.StopBossMusicPacket.class, BossMusicPacket.StopBossMusicPacket::encode, BossMusicPacket.StopBossMusicPacket::decode, BossMusicPacket.StopBossMusicPacket::handle);
     }
 
     public static void sendTo(ServerPlayer playerMP, Object toSend){

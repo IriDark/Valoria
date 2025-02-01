@@ -23,17 +23,7 @@ public class ServerProxy implements ISidedProxy{
     }
 
     @Override
-    public void setBossBarRender(UUID bossBar, String id){
-
-    }
-
-    @Override
-    public void stopBossMusic(){
-
-    }
-
-    @Override
-    public void setBossMusic(SoundEvent bossMusic){
+    public void setBossBarRender(UUID bossBar, String id, SoundEvent bossMusic){
 
     }
 }
