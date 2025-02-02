@@ -5,10 +5,10 @@ import org.apache.commons.lang3.tuple.*;
 
 public class ClientConfig{
     public static ForgeConfigSpec.ConfigValue<Integer>
-            MAGMA_CHARGE_BAR_Y, MAGMA_CHARGE_BAR_X, MAGMA_CHARGE_BAR_TYPE,
-            MISC_UI_X, MISC_UI_Y;
+    MAGMA_CHARGE_BAR_Y, MAGMA_CHARGE_BAR_X, MAGMA_CHARGE_BAR_TYPE,
+    MISC_UI_X, MISC_UI_Y;
     public static ForgeConfigSpec.ConfigValue<Boolean>
-        PHANTOM_ACTIVATION, OLD_GOBLIN_MODEL;
+    RENDER_PHANTOM_ACTIVATION, OLD_GOBLIN_MODEL;
 
     static{
         final Pair<ClientConfig, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(ClientConfig::new);
@@ -20,12 +20,14 @@ public class ClientConfig{
     public static final ForgeConfigSpec SPEC;
 
     public ClientConfig(ForgeConfigSpec.Builder builder){
-        MISC_UI_Y = builder.comment("(Y) Coordinate for Misc UI").comment("Can be edited in-game without reloading packs (If nothing changed reload packs with [F3+T] keybind)").define("MiscY", 5);
-        MISC_UI_X = builder.comment("(X) Coordinate for Misc UI").comment("Can be edited in-game without reloading packs (If nothing changed reload packs with [F3+T] keybind)").define("MiscX", 4);
-        MAGMA_CHARGE_BAR_Y = builder.comment("(Y) Coordinate for Magma Bar").comment("Can be edited in-game without reloading packs (If nothing changed reload packs with [F3+T] keybind)").define("MagmaBarY", 5);
-        MAGMA_CHARGE_BAR_X = builder.comment("(X) Coordinate for Magma Bar").comment("Can be edited in-game without reloading packs (If nothing changed reload packs with [F3+T] keybind)").define("MagmaBarX", 4);
-        MAGMA_CHARGE_BAR_TYPE = builder.comment("Type of Magma Bar").comment("Can be edited in-game without reloading packs (If nothing changed reload packs with [F3+T] keybind)").defineInRange("MagmaBarType", 1, 1, 3);
-        PHANTOM_ACTIVATION = builder.comment("Item activation on ability use").define("PhantomActivation", true);
-        OLD_GOBLIN_MODEL = builder.comment("Changes goblin model to old one").comment("Reload Resourcepacks after turning this on (F3+T)").define("OldGoblinModel", false);
+        builder.comment("Graphics").push("graphics");
+            MISC_UI_Y = builder.comment("(Y) Coordinate for Misc UI").define("miscY", 5);
+            MISC_UI_X = builder.comment("(X) Coordinate for Misc UI").define("miscX", 4);
+            MAGMA_CHARGE_BAR_Y = builder.comment("(Y) Coordinate for Magma Bar").define("magmaBarY", 5);
+            MAGMA_CHARGE_BAR_X = builder.comment("(X) Coordinate for Magma Bar").define("magmaBarX", 4);
+            MAGMA_CHARGE_BAR_TYPE = builder.comment("Type of Magma Bar").defineInRange("magmaBarType", 1, 1, 3);
+            RENDER_PHANTOM_ACTIVATION = builder.comment("Item activation on ability use").define("phantomActivationRendering", true);
+            OLD_GOBLIN_MODEL = builder.comment("Changes goblin model to old one").comment("You will need to reload your resources to see results").define("goblinModel", false);
+        builder.pop();
     }
 }

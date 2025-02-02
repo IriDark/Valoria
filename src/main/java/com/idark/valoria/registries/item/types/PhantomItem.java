@@ -67,7 +67,7 @@ public class PhantomItem extends SwordItem implements RadiusItem{
         }
 
         level.playSound(null, player.blockPosition(), SoundsRegistry.PHANTASM_ABILITY.get(), SoundSource.AMBIENT, 1.0F, 1.0F);
-        if(ClientConfig.PHANTOM_ACTIVATION.get()){
+        if(ClientConfig.RENDER_PHANTOM_ACTIVATION.get()){
             Minecraft.getInstance().gameRenderer.displayItemActivation(ItemsRegistry.eternity.get().getDefaultInstance());
         }
 
