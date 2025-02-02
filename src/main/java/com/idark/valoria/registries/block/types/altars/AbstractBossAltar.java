@@ -4,6 +4,7 @@ import com.idark.valoria.client.render.tile.*;
 import com.idark.valoria.registries.block.entity.*;
 import com.idark.valoria.util.*;
 import net.minecraft.core.*;
+import net.minecraft.sounds.*;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
@@ -51,6 +52,8 @@ public abstract class AbstractBossAltar extends Block implements EntityBlock, Si
         return super.updateShape(pState, pDirection, pNeighborState, pLevel, pCurrentPos, pNeighborPos);
     }
 
+    public abstract SoundEvent getSummonSound();
+
     @Override
     public boolean triggerEvent(BlockState state, Level world, BlockPos pos, int id, int param){
         super.triggerEvent(state, world, pos, id, param);
@@ -65,6 +68,7 @@ public abstract class AbstractBossAltar extends Block implements EntityBlock, Si
         if(!stack.isEmpty() && tile.getItemHandler().getItem(0).isEmpty() && stack.is(this.getSummonItem())){
             tile.getItemHandler().setItem(0, stack);
             tile.startSummoning();
+            world.playSound(null, pos, getSummonSound(), SoundSource.PLAYERS, 10, 1);
             if(!player.isCreative()){
                 player.getItemInHand(hand).shrink(1);
             }

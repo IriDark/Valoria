@@ -1,24 +1,23 @@
 package com.idark.valoria.client.ui.screen;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.client.ui.menus.ArchaeologyMenu;
-import com.idark.valoria.registries.item.recipe.ArchaeologyRecipe;
-import com.idark.valoria.util.Pal;
-import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.gui.screens.inventory.tooltip.TooltipRenderUtil;
-import net.minecraft.client.resources.language.I18n;
-import net.minecraft.client.resources.sounds.SimpleSoundInstance;
+import com.idark.valoria.*;
+import com.idark.valoria.client.ui.menus.*;
+import com.idark.valoria.registries.item.recipe.*;
+import com.idark.valoria.util.*;
+import com.mojang.blaze3d.vertex.*;
+import net.minecraft.client.*;
+import net.minecraft.client.gui.*;
+import net.minecraft.client.gui.screens.inventory.*;
+import net.minecraft.client.gui.screens.inventory.tooltip.*;
+import net.minecraft.client.resources.language.*;
+import net.minecraft.client.resources.sounds.*;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.Mth;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraft.resources.*;
+import net.minecraft.sounds.*;
+import net.minecraft.util.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.item.*;
+import net.minecraftforge.api.distmarker.*;
 
 import java.awt.*;
 import java.util.List;
@@ -118,7 +117,7 @@ public class ArchaeologyScreen extends AbstractContainerScreen<ArchaeologyMenu>{
             int k = pX + j % 4 * 16;
             int l = j / 4;
             int i1 = pY + l * 18 + 2;
-            int j1 = this.imageHeight;
+            int j1 = 166;
             if(this.menu.getCurrentRecipe() != null && !this.menu.getCurrentRecipe().canCraft(this.menu.container)) pGuiGraphics.setColor(1, 0, 0, 1);
             if(i == this.menu.getSelectedRecipeIndex()){
                 j1 += 18;

@@ -3,6 +3,6 @@
   "texture_size": [128, 128],
 	"textures": {
 		"0": "valoria:block/wicked_altar",
-		"particle": "valoria:block/picrite"
+		"particle": "valoria:block/cobbled_shale"
 	}
 }

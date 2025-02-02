@@ -4,14 +4,10 @@ import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.block.entity.*;
 import net.minecraft.core.*;
 import net.minecraft.sounds.*;
-import net.minecraft.world.*;
-import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
-import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.level.block.state.properties.*;
-import net.minecraft.world.phys.*;
 import org.jetbrains.annotations.*;
 
 public class WickedAltar extends AbstractBossAltar{
@@ -21,9 +17,8 @@ public class WickedAltar extends AbstractBossAltar{
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit){
-        world.playSound(null, pos, SoundsRegistry.WICKED_CRYSTAL_ALTAR.get(), SoundSource.PLAYERS, 10, 1);
-        return super.use(state, world, pos, player, hand, hit);
+    public SoundEvent getSummonSound(){
+        return SoundsRegistry.WICKED_CRYSTAL_ALTAR.get();
     }
 
     @Override
