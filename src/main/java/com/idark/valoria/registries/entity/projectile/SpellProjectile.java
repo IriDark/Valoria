@@ -3,6 +3,7 @@ package com.idark.valoria.registries.entity.projectile;
 import com.idark.valoria.registries.*;
 import net.minecraft.nbt.*;
 import net.minecraft.network.syncher.*;
+import net.minecraft.sounds.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.projectile.*;
 import net.minecraft.world.level.*;
@@ -34,6 +35,16 @@ public class SpellProjectile extends AbstractProjectile{
 
     public Color getColor() {
         return new Color(this.entityData.get(TYPE));
+    }
+
+    @Override
+    public SoundEvent getHitGroundSoundEvent(){
+        return SoundsRegistry.MAGIC_HIT.get();
+    }
+
+    @Override
+    protected SoundEvent getDefaultHitGroundSoundEvent(){
+        return SoundsRegistry.MAGIC_HIT.get();
     }
 
     @Override

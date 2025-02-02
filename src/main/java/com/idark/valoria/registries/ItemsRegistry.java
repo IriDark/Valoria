@@ -84,7 +84,7 @@ public class ItemsRegistry{
     ironScythe, goldenScythe, diamondScythe, netheriteScythe, beast,
     woodenSpear, stoneSpear, ironSpear, goldenSpear, diamondSpear, netheriteSpear, pyratiteSpear, glaive,
     woodenRapier, stoneRapier, ironRapier, goldenRapier, diamondRapier, netheriteRapier,
-    throwableBomb, dynamite,
+    throwableBomb, dynamite, crystalShard,
 
     // tools
     pearliumSword, pearliumPickaxe, pearliumAxe,
@@ -292,6 +292,7 @@ public class ItemsRegistry{
         corpseCleaver = registerItem("corpsecleaver", () -> new CorpseCleaverItem(ModItemTier.BLOOD, 2, -2.4F, new Item.Properties().durability(1151)));
         throwableBomb = registerItem("throwable_bomb", () -> new ThrowableBombItem(Level.ExplosionInteraction.NONE, 2.45f, 60, new Item.Properties().stacksTo(16)));
         dynamite = registerItem("dynamite", () -> new ThrowableBombItem(3f, 60, new Item.Properties().stacksTo(16)));
+        crystalShard = registerItem("crystal_shard", () -> new CrystalShardItem(6d, new Item.Properties().stacksTo(16), new MobEffectInstance(MobEffects.WITHER, 120), new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60)));
 
         // winter
         holidayCandy = registerItem("holiday_candy", () -> new Item(new Item.Properties().stacksTo(64).food(new FoodProperties.Builder().nutrition(1).saturationMod(0.2f).build())));

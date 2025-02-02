@@ -117,15 +117,6 @@ public abstract class AbstractSupplierProjectile extends AbstractProjectile impl
         return null;
     }
 
-    public void setVelocityBasedDamage(double baseDamage){
-        this.baseDamage = baseDamage;
-        this.velocityBased = true;
-    }
-
-    public boolean isVelocityBased(){
-        return velocityBased;
-    }
-
     public void spawnParticlesTrail(){
         if(this.shouldRender(this.getX(), this.getY(), this.getZ()) && !this.inGround && !wasInGround){
             Vec3 vector3d = this.getDeltaMovement();

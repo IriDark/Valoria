@@ -1,26 +1,23 @@
 package com.idark.valoria.registries.entity.projectile;
 
-import com.google.common.collect.Lists;
-import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
-import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.network.protocol.game.ClientboundGameEventPacket;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.util.Mth;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.AbstractArrow;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.EntityHitResult;
-import net.minecraft.world.phys.HitResult;
-import net.minecraft.world.phys.Vec3;
+import com.google.common.collect.*;
+import it.unimi.dsi.fastutil.ints.*;
+import net.minecraft.advancements.*;
+import net.minecraft.network.protocol.game.*;
+import net.minecraft.server.level.*;
+import net.minecraft.util.*;
+import net.minecraft.world.damagesource.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.entity.projectile.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.item.enchantment.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.phys.*;
+import pro.komaru.tridot.registry.item.*;
 
-import java.util.List;
+import java.util.*;
 
 public abstract class AbstractProjectile extends AbstractValoriaArrow{
     public boolean velocityBased;
@@ -30,11 +27,11 @@ public abstract class AbstractProjectile extends AbstractValoriaArrow{
         super(pEntityType, pLevel);
     }
 
-    public AbstractProjectile(EntityType<? extends AbstractArrow> pEntityType, Level worldIn, LivingEntity thrower, int baseDamage){
+    public AbstractProjectile(EntityType<? extends AbstractArrow> pEntityType, Level worldIn, LivingEntity thrower, double baseDamage){
         super(pEntityType, worldIn, thrower, baseDamage);
     }
 
-    public AbstractProjectile(EntityType<? extends AbstractArrow> pEntityType, Level worldIn, LivingEntity thrower, ItemStack thrownStackIn, int baseDamage){
+    public AbstractProjectile(EntityType<? extends AbstractArrow> pEntityType, Level worldIn, LivingEntity thrower, ItemStack thrownStackIn, double baseDamage){
         super(pEntityType, worldIn, thrower, thrownStackIn, baseDamage);
     }
 
@@ -103,7 +100,18 @@ public abstract class AbstractProjectile extends AbstractValoriaArrow{
                 entity.setSecondsOnFire(5);
             }
 
-            processVelocityDamage(thrower, entity, damagesource);
+            if(isVelocityBased()){
+                processVelocityDamage(thrower, entity, damagesource);
+            }else{
+                float f = 0;
+                if(thrower instanceof Player plr){
+                    f += (float)(plr.getAttributes().getValue(AttributeRegistry.PROJECTILE_DAMAGE.get()));
+                }else{
+                    processVelocityDamage(thrower, entity, damagesource);
+                }
+
+                hurt(thrower, entity, damagesource, f);
+            }
         }
     }
 

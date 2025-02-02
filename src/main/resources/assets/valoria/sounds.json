@@ -306,6 +306,18 @@
       "valoria:soul_collect_1"
     ]
   },
+  "mob.magic.shoot": {
+    "sounds": [
+      "valoria:magic_projectile/shoot1",
+      "valoria:magic_projectile/shoot2"
+    ]
+  },
+  "mob.magic.hit": {
+    "sounds": [
+      "valoria:magic_projectile/hit1",
+      "valoria:magic_projectile/hit2"
+    ]
+  },
   "mob.wicked_crystal.altar": {
     "sounds": [
       "valoria:wicked_crystal/wicked_crystal_altar"

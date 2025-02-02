@@ -21,7 +21,7 @@ public class CrystalShard extends AbstractProjectile{
         discardOnHit = true;
     }
 
-    public CrystalShard(Level pLevel, LivingEntity thrower, int damage){
+    public CrystalShard(Level pLevel, LivingEntity thrower, double damage){
         super(EntityTypeRegistry.CRYSTAL_SHARD.get(), pLevel, thrower, damage);
         discardOnHit = true;
     }

@@ -1,23 +1,19 @@
 package com.idark.valoria.registries.entity.projectile;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Sets;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.projectile.AbstractArrow;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.alchemy.PotionUtils;
-import net.minecraft.world.level.Level;
-import net.minecraftforge.network.NetworkHooks;
-import org.jetbrains.annotations.NotNull;
+import com.google.common.collect.*;
+import net.minecraft.nbt.*;
+import net.minecraft.network.protocol.*;
+import net.minecraft.network.protocol.game.*;
+import net.minecraft.world.effect.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.projectile.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.item.alchemy.*;
+import net.minecraft.world.level.*;
+import net.minecraftforge.network.*;
+import org.jetbrains.annotations.*;
 
-import java.util.Set;
+import java.util.*;
 
 public abstract class AbstractValoriaArrow extends AbstractArrow{
     public ItemStack arrowItem = ItemStack.EMPTY;
@@ -27,12 +23,12 @@ public abstract class AbstractValoriaArrow extends AbstractArrow{
         super(pEntityType, pLevel);
     }
 
-    public AbstractValoriaArrow(EntityType<? extends AbstractArrow> pEntityType, Level worldIn, LivingEntity thrower, int baseDamage){
+    public AbstractValoriaArrow(EntityType<? extends AbstractArrow> pEntityType, Level worldIn, LivingEntity thrower, double baseDamage){
         super(pEntityType, thrower, worldIn);
         this.baseDamage = baseDamage;
     }
 
-    public AbstractValoriaArrow(EntityType<? extends AbstractArrow> pEntityType, Level worldIn, LivingEntity thrower, ItemStack thrownStackIn, int baseDamage){
+    public AbstractValoriaArrow(EntityType<? extends AbstractArrow> pEntityType, Level worldIn, LivingEntity thrower, ItemStack thrownStackIn, double baseDamage){
         super(pEntityType, thrower, worldIn);
         arrowItem = new ItemStack(thrownStackIn.getItem());
         this.baseDamage = baseDamage;
