@@ -54,7 +54,6 @@ public final class PacketHandler{
         HANDLER.registerMessage(id++, LineToNearbyMobsParticlePacket.class, LineToNearbyMobsParticlePacket::encode, LineToNearbyMobsParticlePacket::decode, LineToNearbyMobsParticlePacket::handle);
         HANDLER.registerMessage(id++, CircleShapedParticlePacket.class, CircleShapedParticlePacket::encode, CircleShapedParticlePacket::decode, CircleShapedParticlePacket::handle);
         HANDLER.registerMessage(id++, CubeShapedParticlePacket.class, CubeShapedParticlePacket::encode, CubeShapedParticlePacket::decode, CubeShapedParticlePacket::handle);
-        HANDLER.registerMessage(id++, ManipulatorParticlePacket.class, ManipulatorParticlePacket::encode, ManipulatorParticlePacket::decode, ManipulatorParticlePacket::handle);
         HANDLER.registerMessage(id++, ManipulatorCraftParticlePacket.class, ManipulatorCraftParticlePacket::encode, ManipulatorCraftParticlePacket::decode, ManipulatorCraftParticlePacket::handle);
         HANDLER.registerMessage(id++, ManipulatorEmptyParticlePacket.class, ManipulatorEmptyParticlePacket::encode, ManipulatorEmptyParticlePacket::decode, ManipulatorEmptyParticlePacket::handle);
         HANDLER.registerMessage(id++, MurasamaParticlePacket.class, MurasamaParticlePacket::encode, MurasamaParticlePacket::decode, MurasamaParticlePacket::handle);

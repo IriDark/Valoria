@@ -6,10 +6,10 @@
     " / "
   ],
   "key": {
-    "#": {
+    "/": {
       "item": "valoria:sapphire_gem"
     },
-    "/": {
+    "#": {
       "item": "valoria:oceanic_shell"
     }
   },

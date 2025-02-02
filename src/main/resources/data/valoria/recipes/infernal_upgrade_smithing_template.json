@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "/N/",
+    "NON",
+    "/N/"
+  ],
+  "key": {
+    "O": {
+      "item": "minecraft:netherite_upgrade_smithing_template"
+    },
+    "N": {
+      "item": "valoria:infernal_ingot"
+    },
+    "/": {
+      "item": "valoria:infernal_stone"
+    }
+  },
+  "result": {
+    "item": "valoria:infernal_upgrade_smithing_template",
+    "count": 2
+  }
+}

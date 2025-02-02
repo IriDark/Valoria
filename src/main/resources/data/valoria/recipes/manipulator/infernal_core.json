@@ -6,10 +6,10 @@
     " / "
   ],
   "key": {
-    "#": {
+    "/": {
       "item": "valoria:amber_gem"
     },
-    "/": {
+    "#": {
       "item": "valoria:infernal_stone"
     }
   },

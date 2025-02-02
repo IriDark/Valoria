@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "/N/",
+    "NON",
+    "/N/"
+  ],
+  "key": {
+    "O": {
+      "item": "minecraft:netherite_upgrade_smithing_template"
+    },
+    "N": {
+      "item": "valoria:aquarius_ingot"
+    },
+    "/": {
+      "item": "valoria:oceanic_shell"
+    }
+  },
+  "result": {
+    "item": "valoria:aquarius_upgrade_smithing_template",
+    "count": 2
+  }
+}

@@ -207,10 +207,10 @@ public class ItemsRegistry{
         painCrystal = registerItem("pain_crystal", () -> new ParticleMaterialItem(new Item.Properties().stacksTo(16).rarity(RarityRegistry.NATURE), 0.35f, ColorParticleData.create(Pal.strongRed, Pal.moderateViolet).build(), ParticleRegistry.SPHERE.get()));
         nihilityShard = registerItem("nihility_shard", () -> new ParticleMaterialItem(new Item.Properties().stacksTo(16).rarity(RarityRegistry.VOID), 0.35f, ColorParticleData.create(Pal.softMagenta).build(), ParticleRegistry.SPHERE.get()));
         illusionStone = registerItem("illusion_stone", () -> new ParticleMaterialItem(new Item.Properties().stacksTo(16).rarity(RarityRegistry.PHANTASM), 0.35f, ColorParticleData.create(Pal.softBlue, Color.white).build(), ParticleRegistry.SPHERE.get()));
-        natureCore = registerItem("nature_core", () -> new CoreItem(ParticleRegistry.SPHERE.get(), new Item.Properties().fireResistant().rarity(RarityRegistry.NATURE), 8, Pal.nature, Pal.vividCyan, "nature_core"));
-        aquariusCore = registerItem("aquarius_core", () -> new CoreItem(ParticleRegistry.SPHERE.get(), new Item.Properties().fireResistant().rarity(RarityRegistry.AQUARIUS), 8, Pal.oceanic, Pal.magmatic, "aquarius_core"));
-        infernalCore = registerItem("infernal_core", () -> new CoreItem(ParticleRegistry.SPHERE.get(), new Item.Properties().fireResistant().rarity(RarityRegistry.INFERNAL), 8, Pal.infernalBright, Pal.magmatic, "infernal_core"));
-        voidCore = registerItem("void_core", () -> new CoreItem(ParticleRegistry.SPHERE.get(), new Item.Properties().fireResistant().rarity(RarityRegistry.VOID), 8, Pal.softMagenta, Pal.softMagenta, "void_core"));
+        natureCore = registerItem("nature_core", () -> new CoreItem(ParticleRegistry.SPHERE.get(), new Item.Properties().fireResistant().rarity(RarityRegistry.NATURE), 1, Pal.nature, Pal.vividCyan, "nature_core"));
+        aquariusCore = registerItem("aquarius_core", () -> new CoreItem(ParticleRegistry.SPHERE.get(), new Item.Properties().fireResistant().rarity(RarityRegistry.AQUARIUS), 1, Pal.oceanic, Pal.magmatic, "aquarius_core"));
+        infernalCore = registerItem("infernal_core", () -> new CoreItem(ParticleRegistry.SPHERE.get(), new Item.Properties().fireResistant().rarity(RarityRegistry.INFERNAL), 1, Pal.infernalBright, Pal.magmatic, "infernal_core"));
+        voidCore = registerItem("void_core", () -> new CoreItem(ParticleRegistry.SPHERE.get(), new Item.Properties().fireResistant().rarity(RarityRegistry.VOID), 1, Pal.softMagenta, Pal.softMagenta, "void_core"));
 
         natureUpgrade = registerItem("nature_upgrade_smithing_template", () -> ElementalSmithingTemplateItem.createUpgradeTemplate(natureIngot));
         aquariusUpgrade = registerItem("aquarius_upgrade_smithing_template", () -> ElementalSmithingTemplateItem.createUpgradeTemplate(aquariusIngot));

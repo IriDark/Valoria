@@ -6,10 +6,10 @@
     " / "
   ],
   "key": {
-    "#": {
+    "/": {
       "item": "valoria:amethyst_gem"
     },
-    "/": {
+    "#": {
       "item": "valoria:nihility_shard"
     }
   },

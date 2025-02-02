@@ -2,8 +2,6 @@ package com.idark.valoria.registries.block.types;
 
 import com.idark.valoria.client.render.tile.*;
 import com.idark.valoria.client.ui.menus.*;
-import com.idark.valoria.core.network.*;
-import com.idark.valoria.core.network.packets.particle.*;
 import com.idark.valoria.registries.block.entity.*;
 import com.idark.valoria.registries.item.types.*;
 import com.idark.valoria.util.*;
@@ -109,11 +107,7 @@ public class ManipulatorBlock extends Block implements EntityBlock{
                 core.shrink(1);
             }
 
-            for(int i = 0; i < 360; i += 10){
-                PacketHandler.sendToTracking(world, pos, new ManipulatorParticlePacket(pos.getX() + 0.5f, pos.getY(), pos.getZ() + 0.5f, pos.getX() + 0.5f, pos.getY() - 0.25F, pos.getZ() + 0.5f, player.getRotationVector().y + i, builder.getCoreColor().getRed(), builder.getCoreColor().getGreen(), builder.getCoreColor().getBlue()));
-            }
-
-            coreBlock.setCharge(builder.getCoreName(), builder.getGivenCores());
+            coreBlock.addCharge(builder.getCoreName(), builder.getGivenCores());
             coreUpdated = true;
         }
 

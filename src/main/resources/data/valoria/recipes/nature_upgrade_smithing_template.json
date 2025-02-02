@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "/N/",
+    "NON",
+    "/N/"
+  ],
+  "key": {
+    "O": {
+      "item": "minecraft:netherite_upgrade_smithing_template"
+    },
+    "N": {
+      "item": "valoria:nature_ingot"
+    },
+    "/": {
+      "item": "valoria:nature_gift"
+    }
+  },
+  "result": {
+    "item": "valoria:nature_upgrade_smithing_template",
+    "count": 2
+  }
+}

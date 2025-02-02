@@ -226,6 +226,17 @@ public class ManipulatorBlockEntity extends BlockEntity implements MenuProvider,
         return nbt.getInt(name);
     }
 
+    public void addCharge(String name, int charge){
+        CompoundTag nbt = this.serializeNBT();
+        if(nbt == null){
+            nbt = new CompoundTag();
+            this.deserializeNBT(nbt);
+        }
+
+        nbt.putInt(name, nbt.getInt(name) + charge);
+        this.deserializeNBT(nbt);
+    }
+
     public void setCharge(String name, int charge){
         CompoundTag nbt = this.serializeNBT();
         if(nbt == null){

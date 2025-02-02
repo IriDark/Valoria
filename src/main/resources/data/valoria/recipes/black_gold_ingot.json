@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "X/"
+  ],
+  "key": {
+    "X": {
+      "tag": "minecraft:gold_ingot"
+    },
+    "/": {
+      "item": "valoria:cobalt_ingot"
+    }
+  },
+  "result": {
+    "item": "valoria:black_gold_ingot",
+    "count": 1
+  }
+}
