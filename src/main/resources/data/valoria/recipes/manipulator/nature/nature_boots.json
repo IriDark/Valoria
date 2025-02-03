@@ -10,7 +10,7 @@
   "time": 1500,
   "ingredients": [
     {
-      "item": "minecraft:diamond_boots"
+      "item": "valoria:black_gold_boots"
     },
     {
       "item": "valoria:nature_upgrade_smithing_template"

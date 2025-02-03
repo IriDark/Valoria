@@ -10,7 +10,7 @@
   "time": 3500,
   "ingredients": [
     {
-      "item": "minecraft:diamond_chestplate"
+      "item": "valoria:infernal_chestplate"
     },
     {
       "item": "valoria:void_upgrade_smithing_template"

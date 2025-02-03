@@ -10,7 +10,7 @@
   "time": 3400,
   "ingredients": [
     {
-      "item": "minecraft:diamond_helmet"
+      "item": "valoria:infernal_helmet"
     },
     {
       "item": "valoria:void_upgrade_smithing_template"

@@ -10,7 +10,7 @@
   "time": 1200,
   "ingredients": [
     {
-      "item": "minecraft:diamond_helmet"
+      "item": "valoria:black_gold_helmet"
     },
     {
       "item": "valoria:nature_upgrade_smithing_template"

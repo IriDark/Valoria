@@ -1,16 +1,17 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
+    "/ /",
     "///",
-    "/ /"
+    "///"
   ],
   "key": {
     "/": {
-      "item": "valoria:cobalt_ingot"
+      "item": "valoria:black_gold_ingot"
     }
   },
   "result": {
-    "item": "valoria:cobalt_helmet",
+    "item": "valoria:black_gold_chestplate",
     "count": 1
   }
 }

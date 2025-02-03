@@ -10,7 +10,7 @@
   "time": 2200,
   "ingredients": [
     {
-      "item": "minecraft:diamond_leggings"
+      "item": "valoria:nature_leggings"
     },
     {
       "item": "valoria:aquarius_upgrade_smithing_template"

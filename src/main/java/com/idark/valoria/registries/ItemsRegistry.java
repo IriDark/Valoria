@@ -61,7 +61,15 @@ public class ItemsRegistry{
     shadewoodBoat, shadewoodChestBoat, shadewoodSign, shadewoodHangingSign, eldritchBoat, eldritchChestBoat, eldritchSign, eldritchHangingSign,
 
     // armor
-    cobaltHelmet, cobaltChestplate, cobaltLeggings, cobaltBoots, samuraiKabuto, samuraiChestplate, samuraiLeggings, samuraiBoots, spiderHelmet, spiderChestplate, spiderLeggings, spiderBoots, natureHelmet, natureChestplate, natureLeggings, natureBoots, depthHelmet, depthChestplate, depthLeggings, depthBoots, infernalHelmet, infernalChestplate, infernalLeggings, infernalBoots, awakenedVoidHelmet, awakenedVoidChestplate, awakenedVoidLeggings, awakenedVoidBoots, phantasmHelmet, phantasmChestplate, phantasmLeggings, phantasmBoots,
+    blackGoldHelmet, blackGoldChestplate, blackGoldLeggings, blackGoldBoots,
+    cobaltHelmet, cobaltChestplate, cobaltLeggings, cobaltBoots,
+    samuraiKabuto, samuraiChestplate, samuraiLeggings, samuraiBoots,
+    spiderHelmet, spiderChestplate, spiderLeggings, spiderBoots,
+    natureHelmet, natureChestplate, natureLeggings, natureBoots,
+    depthHelmet, depthChestplate, depthLeggings, depthBoots,
+    infernalHelmet, infernalChestplate, infernalLeggings, infernalBoots,
+    awakenedVoidHelmet, awakenedVoidChestplate, awakenedVoidLeggings, awakenedVoidBoots,
+    phantasmHelmet, phantasmChestplate, phantasmLeggings, phantasmBoots,
 
     // materials
     rawCobalt, amberGem, amethystGem, rubyGem, sapphireGem, wickedAmethyst, soulShard, unchargedShard, spiderFang,
@@ -154,6 +162,10 @@ public class ItemsRegistry{
         spiderBoots = registerItem("spider_boots", () -> new HitEffectArmorItem(ArmorRegistry.SPIDER, ArmorItem.Type.BOOTS, new Item.Properties().rarity(RarityRegistry.SPIDER), 0.2f, new MobEffectInstance(MobEffects.CONFUSION, 30)));
 
         // elemental
+        blackGoldHelmet = registerItem("black_gold_helmet", () -> new ArmorTemplateItem(new Properties()));
+        blackGoldChestplate = registerItem("black_gold_chestplate", () -> new ArmorTemplateItem(new Properties()));
+        blackGoldLeggings = registerItem("black_gold_leggings", () -> new ArmorTemplateItem(new Properties()));
+        blackGoldBoots = registerItem("black_gold_boots", () -> new ArmorTemplateItem(new Properties()));
         natureHelmet = registerEffectArmor("nature_helmet", Type.HELMET, ArmorRegistry.NATURE, new Item.Properties().rarity(RarityRegistry.NATURE));
         natureChestplate = registerEffectArmor("nature_chestplate", Type.CHESTPLATE, ArmorRegistry.NATURE, new Item.Properties().rarity(RarityRegistry.NATURE));
         natureLeggings = registerEffectArmor("nature_leggings", Type.LEGGINGS, ArmorRegistry.NATURE, new Item.Properties().rarity(RarityRegistry.NATURE));
@@ -221,15 +233,11 @@ public class ItemsRegistry{
         infernalCore = registerItem("infernal_core", () -> new CoreItem(ParticleRegistry.SPHERE.get(), new Item.Properties().fireResistant().rarity(RarityRegistry.INFERNAL), 1, Pal.infernalBright, Pal.magmatic, "infernal_core"));
         voidCore = registerItem("void_core", () -> new CoreItem(ParticleRegistry.SPHERE.get(), new Item.Properties().fireResistant().rarity(RarityRegistry.VOID), 1, Pal.softMagenta, Pal.softMagenta, "void_core"));
 
-        blackGoldUpgrade = registerItem("black_gold_upgrade_smithing_template", () -> new Item(new Item.Properties()) {
-            public String getDescriptionId() {
-                return Util.makeDescriptionId("item", new ResourceLocation("smithing_template"));
-            }
-        });
-        natureUpgrade = registerItem("nature_upgrade_smithing_template", () -> ElementalSmithingTemplateItem.createUpgradeTemplate(natureIngot));
-        aquariusUpgrade = registerItem("aquarius_upgrade_smithing_template", () -> ElementalSmithingTemplateItem.createUpgradeTemplate(aquariusIngot));
-        infernalUpgrade = registerItem("infernal_upgrade_smithing_template", () -> ElementalSmithingTemplateItem.createUpgradeTemplate(infernalIngot));
-        voidUpgrade = registerItem("void_upgrade_smithing_template", () -> ElementalSmithingTemplateItem.createUpgradeTemplate(voidIngot));
+        blackGoldUpgrade = registerItem("black_gold_upgrade_smithing_template", () -> new ElementalSmithingTemplateItem(new Item.Properties()));
+        natureUpgrade = registerItem("nature_upgrade_smithing_template", () -> new ElementalSmithingTemplateItem(new Item.Properties()));
+        aquariusUpgrade = registerItem("aquarius_upgrade_smithing_template", () -> new ElementalSmithingTemplateItem(new Item.Properties()));
+        infernalUpgrade = registerItem("infernal_upgrade_smithing_template", () -> new ElementalSmithingTemplateItem(new Item.Properties()));
+        voidUpgrade = registerItem("void_upgrade_smithing_template", () -> new ElementalSmithingTemplateItem(new Item.Properties()));
         cyberpunkQunatumFragment = registerItem("cyberpunk_quantum_reaper_fragment", () -> new SkinFragmentItem(SkinsRegistry.CYBERPUNK, new Item.Properties(), () -> quantumReaper.get()));
         midnightQunatumFragment = registerItem("midnight_quantum_reaper_fragment", () -> new SkinFragmentItem(SkinsRegistry.MIDNIGHT, new Item.Properties(), () -> quantumReaper.get()));
         muramasaFragment = registerItem("muramasa_fragment", () -> new SkinFragmentItem(SkinsRegistry.MURAMASA, new Item.Properties(), () -> murasama.get()));

@@ -10,7 +10,7 @@
   "time": 2900,
   "ingredients": [
     {
-      "item": "minecraft:diamond_boots"
+      "item": "valoria:depth_boots"
     },
     {
       "item": "valoria:infernal_upgrade_smithing_template"

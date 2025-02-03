@@ -10,7 +10,7 @@
   "time": 2300,
   "ingredients": [
     {
-      "item": "minecraft:diamond_boots"
+      "item": "valoria:nature_boots"
     },
     {
       "item": "valoria:aquarius_upgrade_smithing_template"

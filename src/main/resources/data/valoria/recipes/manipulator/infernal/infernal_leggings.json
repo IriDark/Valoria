@@ -9,7 +9,7 @@
   "time": 2800,
   "ingredients": [
     {
-      "item": "minecraft:diamond_leggings"
+      "item": "valoria:depth_leggings"
     },
     {
       "item": "valoria:infernal_upgrade_smithing_template"
