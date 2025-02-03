@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "///",
+    "/O/",
+    "///"
+  ],
+  "key": {
+    "/": {
+      "item": "valoria:black_gold_ingot"
+    },
+    "O": {
+      "item": "valoria:elemental_crystal"
+    }
+  },
+  "result": {
+    "item": "valoria:elemental_manipulator",
+    "count": 1
+  }
+}

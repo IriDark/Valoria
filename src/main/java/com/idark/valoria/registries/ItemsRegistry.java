@@ -64,7 +64,15 @@ public class ItemsRegistry{
     cobaltHelmet, cobaltChestplate, cobaltLeggings, cobaltBoots, samuraiKabuto, samuraiChestplate, samuraiLeggings, samuraiBoots, spiderHelmet, spiderChestplate, spiderLeggings, spiderBoots, natureHelmet, natureChestplate, natureLeggings, natureBoots, depthHelmet, depthChestplate, depthLeggings, depthBoots, infernalHelmet, infernalChestplate, infernalLeggings, infernalBoots, awakenedVoidHelmet, awakenedVoidChestplate, awakenedVoidLeggings, awakenedVoidBoots, phantasmHelmet, phantasmChestplate, phantasmLeggings, phantasmBoots,
 
     // materials
-    rawCobalt, amberGem, amethystGem, rubyGem, sapphireGem, wickedAmethyst, soulShard, unchargedShard, spiderFang, natureGift, oceanicShell, infernalStone, boneFragment, painCrystal, nihilityShard, illusionStone, natureCore, aquariusCore, infernalCore, voidCore, natureUpgrade, aquariusUpgrade, infernalUpgrade, voidUpgrade, arcaneTrim, muramasaFragment, fishFragment, cyberpunkQunatumFragment, midnightQunatumFragment, theFallenTrim, gaibRoot, karusakanRoot, shadeBlossomLeaf, aloePiece, dunestoneBrick, tombstoneBrick, ambaneStoneBrick, limestoneBrick, crystalStoneBrick, voidStoneBrick, bronzeIngot, pearliumIngot, cobaltIngot, etherealShard, blackGold, ancientIngot, natureIngot, aquariusIngot, infernalIngot, voidIngot, pyratite, relicGold, ancientShard, emptyGazer, emptyWinglet, emptyTotem,
+    rawCobalt, amberGem, amethystGem, rubyGem, sapphireGem, wickedAmethyst, soulShard, unchargedShard, spiderFang,
+    natureGift, oceanicShell, infernalStone, boneFragment, painCrystal, nihilityShard, illusionStone, elementalCrystal,
+    natureCore, aquariusCore, infernalCore, voidCore,
+    blackGoldUpgrade, natureUpgrade, aquariusUpgrade, infernalUpgrade, voidUpgrade,
+    arcaneTrim, muramasaFragment, fishFragment, cyberpunkQunatumFragment, midnightQunatumFragment, theFallenTrim,
+    gaibRoot, karusakanRoot, shadeBlossomLeaf, aloePiece,
+    dunestoneBrick, tombstoneBrick, ambaneStoneBrick, limestoneBrick, crystalStoneBrick, voidStoneBrick,
+    bronzeIngot, pearliumIngot, cobaltIngot, etherealShard, blackGold, ancientIngot, natureIngot, aquariusIngot, infernalIngot, voidIngot, pyratite, relicGold, ancientShard,
+    emptyGazer, emptyWinglet, emptyTotem,
 
     // loot bags
     minersBag, gemBag, necromancerTreasureBag, dirtGeode, stoneGeode,
@@ -200,18 +208,24 @@ public class ItemsRegistry{
         pyratite = registerItem("pyratite", () -> new Item(new Item.Properties().rarity(RarityRegistry.INFERNAL)));
         relicGold = registerItem("relic_gold", () -> new Item(new Item.Properties().rarity(Rarity.EPIC)));
         ancientShard = registerItem("ancient_shard", () -> new Item(new Item.Properties().rarity(Rarity.EPIC)));
-        natureGift = registerItem("nature_gift", () -> new ParticleMaterialItem(new Item.Properties().stacksTo(16).rarity(RarityRegistry.NATURE), 0.35f, ColorParticleData.create(Pal.nature, Pal.vividCyan).build(), ParticleRegistry.SPHERE.get()));
-        boneFragment = registerItem("bone_fragment", () -> new ParticleMaterialItem(new Item.Properties().stacksTo(16).rarity(RarityRegistry.NATURE), 0.35f, ColorParticleData.create(Pal.vividGreen, Pal.cyan).build(), ParticleRegistry.SPHERE.get()));
-        oceanicShell = registerItem("oceanic_shell", () -> new ParticleMaterialItem(new Item.Properties().stacksTo(16).rarity(RarityRegistry.AQUARIUS), 0.35f, ColorParticleData.create(Pal.oceanic, Pal.magmatic).build(), ParticleRegistry.SPHERE.get()));
-        infernalStone = registerItem("infernal_stone", () -> new ParticleMaterialItem(new Item.Properties().stacksTo(16).rarity(RarityRegistry.INFERNAL), 0.35f, ColorParticleData.create(Pal.infernalBright, Pal.magmatic).build(), ParticleRegistry.SPHERE.get()));
-        painCrystal = registerItem("pain_crystal", () -> new ParticleMaterialItem(new Item.Properties().stacksTo(16).rarity(RarityRegistry.NATURE), 0.35f, ColorParticleData.create(Pal.strongRed, Pal.moderateViolet).build(), ParticleRegistry.SPHERE.get()));
-        nihilityShard = registerItem("nihility_shard", () -> new ParticleMaterialItem(new Item.Properties().stacksTo(16).rarity(RarityRegistry.VOID), 0.35f, ColorParticleData.create(Pal.softMagenta).build(), ParticleRegistry.SPHERE.get()));
-        illusionStone = registerItem("illusion_stone", () -> new ParticleMaterialItem(new Item.Properties().stacksTo(16).rarity(RarityRegistry.PHANTASM), 0.35f, ColorParticleData.create(Pal.softBlue, Color.white).build(), ParticleRegistry.SPHERE.get()));
+        natureGift = registerItem("nature_gift", () -> new ParticleMaterialItem(new Item.Properties().rarity(RarityRegistry.NATURE), 0.35f, ColorParticleData.create(Pal.nature, Pal.vividCyan).build(), ParticleRegistry.SPHERE.get()));
+        boneFragment = registerItem("bone_fragment", () -> new ParticleMaterialItem(new Item.Properties().rarity(RarityRegistry.NATURE), 0.35f, ColorParticleData.create(Pal.vividGreen, Pal.cyan).build(), ParticleRegistry.SPHERE.get()));
+        oceanicShell = registerItem("oceanic_shell", () -> new ParticleMaterialItem(new Item.Properties().rarity(RarityRegistry.AQUARIUS), 0.35f, ColorParticleData.create(Pal.oceanic, Pal.magmatic).build(), ParticleRegistry.SPHERE.get()));
+        infernalStone = registerItem("infernal_stone", () -> new ParticleMaterialItem(new Item.Properties().rarity(RarityRegistry.INFERNAL), 0.35f, ColorParticleData.create(Pal.infernalBright, Pal.magmatic).build(), ParticleRegistry.SPHERE.get()));
+        painCrystal = registerItem("pain_crystal", () -> new ParticleMaterialItem(new Item.Properties().rarity(RarityRegistry.NATURE), 0.35f, ColorParticleData.create(Pal.strongRed, Pal.moderateViolet).build(), ParticleRegistry.SPHERE.get()));
+        nihilityShard = registerItem("nihility_shard", () -> new ParticleMaterialItem(new Item.Properties().rarity(RarityRegistry.VOID), 0.35f, ColorParticleData.create(Pal.softMagenta).build(), ParticleRegistry.SPHERE.get()));
+        illusionStone = registerItem("illusion_stone", () -> new ParticleMaterialItem(new Item.Properties().rarity(RarityRegistry.PHANTASM), 0.35f, ColorParticleData.create(Pal.softBlue, Color.white).build(), ParticleRegistry.SPHERE.get()));
+        elementalCrystal = registerItem("elemental_crystal", () -> new ParticleMaterialItem(new Item.Properties().rarity(RarityRegistry.NATURE), 0.35f, ColorParticleData.create(Pal.nature, Pal.strongRed).build(), ParticleRegistry.SPHERE.get()));
         natureCore = registerItem("nature_core", () -> new CoreItem(ParticleRegistry.SPHERE.get(), new Item.Properties().fireResistant().rarity(RarityRegistry.NATURE), 1, Pal.nature, Pal.vividCyan, "nature_core"));
         aquariusCore = registerItem("aquarius_core", () -> new CoreItem(ParticleRegistry.SPHERE.get(), new Item.Properties().fireResistant().rarity(RarityRegistry.AQUARIUS), 1, Pal.oceanic, Pal.magmatic, "aquarius_core"));
         infernalCore = registerItem("infernal_core", () -> new CoreItem(ParticleRegistry.SPHERE.get(), new Item.Properties().fireResistant().rarity(RarityRegistry.INFERNAL), 1, Pal.infernalBright, Pal.magmatic, "infernal_core"));
         voidCore = registerItem("void_core", () -> new CoreItem(ParticleRegistry.SPHERE.get(), new Item.Properties().fireResistant().rarity(RarityRegistry.VOID), 1, Pal.softMagenta, Pal.softMagenta, "void_core"));
 
+        blackGoldUpgrade = registerItem("black_gold_upgrade_smithing_template", () -> new Item(new Item.Properties()) {
+            public String getDescriptionId() {
+                return Util.makeDescriptionId("item", new ResourceLocation("smithing_template"));
+            }
+        });
         natureUpgrade = registerItem("nature_upgrade_smithing_template", () -> ElementalSmithingTemplateItem.createUpgradeTemplate(natureIngot));
         aquariusUpgrade = registerItem("aquarius_upgrade_smithing_template", () -> ElementalSmithingTemplateItem.createUpgradeTemplate(aquariusIngot));
         infernalUpgrade = registerItem("infernal_upgrade_smithing_template", () -> ElementalSmithingTemplateItem.createUpgradeTemplate(infernalIngot));

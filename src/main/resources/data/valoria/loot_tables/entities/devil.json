@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "valoria:nature_gift",
+          "name": "valoria:infernal_stone",
           "weight": 32,
           "functions": [
             {
