@@ -284,7 +284,6 @@ public class ItemsRegistry{
             }
         });
 
-
         // misc
         debugItem = registerItem("debug_item", () -> new DebugItem(new Item.Properties()));
         summonBook = registerItem("summon_book", () -> new SummonBook(30, 3, new Item.Properties().rarity(Rarity.EPIC)));

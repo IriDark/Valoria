@@ -16,6 +16,6 @@ public class ServerConfig{ //todo
     public static final ForgeConfigSpec SPEC;
 
     public ServerConfig(ForgeConfigSpec.Builder builder){
-        POT_SPAWN_CHANCE = builder.comment("Pots spawn chance (Default: 5%)").defineInRange("PotSpawnChance", 0.05d, 0.0d, 1.0d);
+        POT_SPAWN_CHANCE = builder.comment("Pots spawn chance (Default: 5%)").defineInRange("PotSpawnChance", 0.025d, 0.0d, 1.0d);
     }
 }

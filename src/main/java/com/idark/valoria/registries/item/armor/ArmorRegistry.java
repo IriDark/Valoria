@@ -70,14 +70,14 @@ public class ArmorRegistry implements ArmorMaterial{
     // Iron - 12%
     // Diamond - 16%
     // Netherite - 16%
-    public static final ArmorRegistry COBALT = new ArmorRegistry.Builder("cobalt").protection(18).mul(46).enchantValue(18).knockbackRes(0.05f).ingredient(() -> Ingredient.of(ItemsRegistry.cobaltIngot.get())).build();
-    public static final ArmorRegistry SAMURAI = new ArmorRegistry.Builder("samurai").protection(20).mul(55).enchantValue(16).knockbackRes(0.15f).ingredient(() -> Ingredient.of(ItemsRegistry.ancientIngot.get())).build();
-    public static final ArmorRegistry SPIDER = new ArmorRegistry.Builder("spider").protection(22).mul(68).enchantValue(14).knockbackRes(0.10f).ingredient(() -> Ingredient.of(ItemsRegistry.spiderFang.get())).build();
+    public static final ArmorRegistry COBALT = new ArmorRegistry.Builder("cobalt").protection(20).mul(46).enchantValue(18).knockbackRes(0.05f).ingredient(() -> Ingredient.of(ItemsRegistry.cobaltIngot.get())).build();
+    public static final ArmorRegistry SAMURAI = new ArmorRegistry.Builder("samurai").protection(22).mul(55).enchantValue(16).knockbackRes(0.15f).ingredient(() -> Ingredient.of(ItemsRegistry.ancientIngot.get())).build();
     public static final ArmorRegistry NATURE = new ArmorRegistry.Builder("nature").protection(24).mul(66).enchantValue(16).knockbackRes(0.10f).ingredient(() -> Ingredient.of(ItemsRegistry.natureIngot.get())).build();
     public static final ArmorRegistry DEPTH = new ArmorRegistry.Builder("depth").protection(26).mul(72).enchantValue(16).knockbackRes(0.10f).ingredient(() -> Ingredient.of(ItemsRegistry.aquariusIngot.get())).build();
     public static final ArmorRegistry INFERNAL = new ArmorRegistry.Builder("infernal").protection(28).mul(76).enchantValue(14).knockbackRes(0.12f).ingredient(() -> Ingredient.of(ItemsRegistry.infernalIngot.get())).build();
-    public static final ArmorRegistry VOID = new ArmorRegistry.Builder("awakened_void").protection(30).mul(76).enchantValue(10).knockbackRes(0.15f).ingredient(() -> Ingredient.of(ItemsRegistry.voidIngot.get())).build();
-    public static final ArmorRegistry PHANTASM = new ArmorRegistry.Builder("phantasm").protection(35).mul(82).enchantValue(12).knockbackRes(0.25f).ingredient(() -> Ingredient.of(ItemsRegistry.illusionStone.get())).build();
+    public static final ArmorRegistry SPIDER = new ArmorRegistry.Builder("spider").protection(30).mul(68).enchantValue(14).knockbackRes(0.10f).ingredient(() -> Ingredient.of(ItemsRegistry.spiderFang.get())).build();
+    public static final ArmorRegistry VOID = new ArmorRegistry.Builder("awakened_void").protection(35).mul(76).enchantValue(10).knockbackRes(0.15f).ingredient(() -> Ingredient.of(ItemsRegistry.voidIngot.get())).build();
+    public static final ArmorRegistry PHANTASM = new ArmorRegistry.Builder("phantasm").protection(40).mul(82).enchantValue(12).knockbackRes(0.25f).ingredient(() -> Ingredient.of(ItemsRegistry.illusionStone.get())).build();
 
     public static class Builder extends pro.komaru.tridot.registry.item.builders.AbstractArmorBuilder<ArmorRegistry>{
         public Builder(String name){
