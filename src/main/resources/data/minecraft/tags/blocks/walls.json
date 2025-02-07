@@ -26,6 +26,8 @@
     "valoria:cracked_limestone_bricks_wall",
     "valoria:polished_picrite_wall",
     "valoria:picrite_wall",
-    "valoria:picrite_bricks_wall"
+    "valoria:picrite_bricks_wall",
+    "valoria:ancient_stone_wall",
+    "valoria:polished_ancient_stone_wall"
   ]
 }

@@ -1,23 +1,20 @@
 package com.idark.valoria.core.datagen;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.registries.BlockRegistry;
-import com.idark.valoria.registries.ItemsRegistry;
-import net.minecraft.data.PackOutput;
+import com.idark.valoria.*;
+import com.idark.valoria.registries.*;
+import net.minecraft.data.*;
 import net.minecraft.data.recipes.*;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.TagKey;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.block.Block;
-import net.minecraftforge.common.crafting.ConditionalRecipe;
-import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
-import net.minecraftforge.common.crafting.conditions.ModLoadedCondition;
-import org.jetbrains.annotations.NotNull;
+import net.minecraft.resources.*;
+import net.minecraft.tags.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.*;
+import net.minecraftforge.common.crafting.*;
+import net.minecraftforge.common.crafting.conditions.*;
+import org.jetbrains.annotations.*;
 
-import java.util.function.Consumer;
+import java.util.function.*;
 
 public class RecipeGen extends RecipeProvider implements IConditionBuilder{
 
@@ -252,6 +249,14 @@ public class RecipeGen extends RecipeProvider implements IConditionBuilder{
         cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.crystalStoneBricksStairs.get(), BlockRegistry.crystalStoneBricks.get(), 1);
         cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.crystalStoneBricksSlab.get(), BlockRegistry.crystalStoneBricks.get(), 2);
         cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.crystalStoneBricksWall.get(), BlockRegistry.crystalStoneBricks.get(), 1);
+
+        cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.polishedAncientStone.get(), BlockRegistry.ancientStone.get(), 1);
+        cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.ancientStoneStairs.get(), BlockRegistry.ancientStone.get(), 1);
+        cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.ancientStoneSlab.get(), BlockRegistry.ancientStone.get(), 2);
+        cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.ancientStoneWall.get(), BlockRegistry.ancientStone.get(), 1);
+        cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.polishedAncientStoneStairs.get(), BlockRegistry.polishedAncientStone.get(), 1);
+        cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.polishedAncientStoneSlab.get(), BlockRegistry.polishedAncientStone.get(), 2);
+        cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.polishedAncientStoneWall.get(), BlockRegistry.polishedAncientStone.get(), 1);
 
         cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.polishedTombstone.get(), BlockRegistry.tombstone.get(), 1);
         cutterResultFromBase(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.tombstoneStairs.get(), BlockRegistry.tombstone.get(), 1);

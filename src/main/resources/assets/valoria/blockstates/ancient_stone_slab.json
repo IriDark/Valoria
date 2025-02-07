@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "valoria:block/ancient_stone_slab"
+    },
+    "type=double": {
+      "model": "valoria:block/ancient_stone"
+    },
+    "type=top": {
+      "model": "valoria:block/ancient_stone_slab_top"
+    }
+  }
+}

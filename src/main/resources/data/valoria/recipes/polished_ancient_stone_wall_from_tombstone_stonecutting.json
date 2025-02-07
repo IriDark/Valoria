@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 1,
+  "ingredient": {
+    "item": "valoria:polished_ancient_stone"
+  },
+  "result": "valoria:polished_ancient_stone_wall"
+}

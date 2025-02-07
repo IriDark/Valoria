@@ -46,6 +46,7 @@ public class BlockRegistry{
     dunestone, dunestoneStairs, dunestoneSlab, dunestoneWall, dunestoneBricks, dunestoneBricksStairs, dunestoneBricksSlab, dunestoneBricksWall, cutDunestone, polishedDunestone, //other varities?
     limestone, limestoneStairs, limestoneSlab, limestoneWall, cutLimestone, cutLimestoneStairs, cutLimestoneSlab, limestoneBricks, limestoneBricksStairs, limestoneBricksSlab, limestoneBricksWall, crackedLimestoneBricks, crackedLimestoneBricksStairs, crackedLimestoneBricksSlab, crackedLimestoneBricksWall, polishedLimestone, polishedLimestoneStairs, polishedLimestoneSlab, polishedLimestoneWall, //todo
     crystalStone, crystalStoneStairs, crystalStoneSlab, crystalStoneWall, crystalStonePillar, cutCrystalStone, cutPolishedCrystalStone, crystalStoneBricks, crystalStoneBricksStairs, crystalStoneBricksSlab, crystalStoneBricksWall, polishedCrystalStone, //other varities
+    ancientStone, ancientStoneSlab, ancientStoneStairs, ancientStoneWall, polishedAncientStone, polishedAncientStoneSlab, polishedAncientStoneStairs, polishedAncientStoneWall,
 
     // crafting stations
     stoneCrusher, jewelerTable, keg, archaeologyTable, elementalManipulator, kiln,
@@ -298,6 +299,15 @@ public class BlockRegistry{
         cryptLantern = registerBlock("crypt_lantern", () -> new CryptLantern(BlockBehaviour.Properties.copy(Blocks.LANTERN).lightLevel(Utils.Blocks.light(10))));
         crypticAltar = registerBlock("cryptic_altar", () -> new CrypticAltar(BlockBehaviour.Properties.copy(BlockRegistry.tombstone.get()).noOcclusion().strength(-1f, 3600000.0F).lightLevel(Utils.Blocks.light(10))));
         wickedAltar = registerBlock("wicked_altar", () -> new WickedAltar(BlockBehaviour.Properties.copy(BlockRegistry.picrite.get()).noOcclusion().strength(-1f, 3600000.0F).lightLevel(Utils.Blocks.light(10))));
+
+        ancientStone = registerBlock("ancient_stone", () -> new Block(props(Blocks.STONE, MapColor.TERRACOTTA_BLUE).requiresCorrectToolForDrops()));
+        ancientStoneSlab = registerBlock("ancient_stone_slab", () -> new SlabBlock(props(Blocks.STONE_SLAB, MapColor.TERRACOTTA_BLUE).requiresCorrectToolForDrops().sound(SoundType.NETHER_BRICKS)));
+        ancientStoneStairs = registerBlock("ancient_stone_stairs", () -> new StairBlock(() -> BlockRegistry.crystalStone.get().defaultBlockState(), props(Blocks.STONE_STAIRS, MapColor.TERRACOTTA_BLUE).requiresCorrectToolForDrops()));
+        ancientStoneWall = registerBlock("ancient_stone_wall", () -> new WallBlock(props(Blocks.STONE_BRICK_WALL, MapColor.TERRACOTTA_BLUE).requiresCorrectToolForDrops()));
+        polishedAncientStone = registerBlock("polished_ancient_stone", () -> new Block(props(Blocks.STONE, MapColor.TERRACOTTA_BLUE).requiresCorrectToolForDrops()));
+        polishedAncientStoneSlab = registerBlock("polished_ancient_stone_slab", () -> new SlabBlock(props(Blocks.STONE_SLAB, MapColor.TERRACOTTA_BLUE).requiresCorrectToolForDrops().sound(SoundType.NETHER_BRICKS)));
+        polishedAncientStoneStairs = registerBlock("polished_ancient_stone_stairs", () -> new StairBlock(() -> BlockRegistry.crystalStone.get().defaultBlockState(), props(Blocks.STONE_STAIRS, MapColor.TERRACOTTA_BLUE).requiresCorrectToolForDrops()));
+        polishedAncientStoneWall = registerBlock("polished_ancient_stone_wall", () -> new WallBlock(props(Blocks.STONE_BRICK_WALL, MapColor.TERRACOTTA_BLUE).requiresCorrectToolForDrops()));
 
         //wood
         shadewoodPressurePlate = registerBlock("shadewood_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_PURPLE).noOcclusion().noCollission(), BlockSetType.OAK));

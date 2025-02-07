@@ -1,12 +1,12 @@
 package com.idark.valoria.core.datagen;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.registries.BlockRegistry;
-import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceLocation;
+import com.idark.valoria.*;
+import com.idark.valoria.registries.*;
+import net.minecraft.data.*;
+import net.minecraft.resources.*;
 import net.minecraft.world.level.block.*;
-import net.minecraftforge.client.model.generators.ModelProvider;
-import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.client.model.generators.*;
+import net.minecraftforge.common.data.*;
 
 public class BlockStateGen extends CoreStateGen{
 
@@ -15,6 +15,8 @@ public class BlockStateGen extends CoreStateGen{
     }
 
     public void registerKits(){
+        registerKit(BlockRegistry.ancientStone.get(), BlockRegistry.ancientStoneStairs.get(), BlockRegistry.ancientStoneSlab.get(), BlockRegistry.ancientStoneWall.get());
+        registerKit(BlockRegistry.polishedAncientStone.get(), BlockRegistry.polishedAncientStoneStairs.get(), BlockRegistry.polishedAncientStoneSlab.get(), BlockRegistry.polishedAncientStoneWall.get());
         registerKit(BlockRegistry.picrite.get(), BlockRegistry.picriteStairs.get(), BlockRegistry.picriteSlab.get(), BlockRegistry.picriteWall.get());
         registerKit(BlockRegistry.polishedPicrite.get(), BlockRegistry.polishedPicriteStairs.get(), BlockRegistry.polishedPicriteSlab.get(), BlockRegistry.polishedPicriteWall.get());
         registerKit(BlockRegistry.picriteBricks.get(), BlockRegistry.picriteBricksStairs.get(), BlockRegistry.picriteBricksSlab.get(), BlockRegistry.picriteBricksWall.get());
