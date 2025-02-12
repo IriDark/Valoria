@@ -11,6 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
+          "name": "valoria:leather_belt",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
           "name": "valoria:ancient_shard",
           "weight": 6
         },

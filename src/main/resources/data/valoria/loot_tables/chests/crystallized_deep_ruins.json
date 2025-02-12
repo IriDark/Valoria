@@ -24,6 +24,11 @@
         },
         {
           "type": "minecraft:item",
+          "name": "valoria:leather_belt",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
           "name": "valoria:relic_gold",
           "weight": 6
         },

@@ -113,6 +113,7 @@
   "block.valoria.crimson_magmaroot": "Crimson Magmaroot",
   "block.valoria.crimson_rajush": "Crimson Rajush",
   "block.valoria.crimson_soulroot": "Crimson Soulroot",
+  "block.valoria.kiln": "Kiln",
   "block.valoria.crypt_lantern": "Crypt Lantern",
   "block.valoria.crypt_pot": "Crypt Pot",
   "block.valoria.ancient_stone": "Ancient Stone",
@@ -798,6 +799,7 @@
   "key.valoria.bag_menu": "Jewelry Bag Menu",
   "key.valoria.jewelry": "Jewelry Bonuses Key",
   "menu.valoria.archaeology_table": "Archaeology Table",
+  "menu.valoria.kiln": "Kiln",
   "menu.valoria.jewelry": "Jewelry Table",
   "menu.valoria.keg": "Keg Brewery",
   "menu.valoria.manipulator": "Elemental Manipulator",
@@ -935,5 +937,6 @@
   "tooltip.valoria.required_amount": "Required amount:",
   "jei.valoria.archaeology_table": "Archaeology",
   "tooltip.valoria.boss_summonable": "Used to summon Boss %s",
-  "tooltip.valoria.katana_charge": "Time to charge %s ticks"
+  "tooltip.valoria.katana_charge": "Time to charge %s ticks",
+  "jei.valoria.kiln": "Kiln"
 }

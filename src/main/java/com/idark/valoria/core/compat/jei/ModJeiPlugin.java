@@ -1,18 +1,12 @@
 package com.idark.valoria.core.compat.jei;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.core.compat.jei.categories.ArchaeologyRecipeCategory;
-import com.idark.valoria.core.compat.jei.categories.JewelryRecipeCategory;
-import com.idark.valoria.core.compat.jei.categories.KegRecipeCategory;
-import com.idark.valoria.core.compat.jei.categories.ManipulatorRecipeCategory;
-import com.idark.valoria.registries.BlockRegistry;
-import mezz.jei.api.IModPlugin;
-import mezz.jei.api.JeiPlugin;
-import mezz.jei.api.registration.IRecipeCatalystRegistration;
-import mezz.jei.api.registration.IRecipeCategoryRegistration;
-import mezz.jei.api.registration.IRecipeRegistration;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.ItemStack;
+import com.idark.valoria.*;
+import com.idark.valoria.core.compat.jei.categories.*;
+import com.idark.valoria.registries.*;
+import mezz.jei.api.*;
+import mezz.jei.api.registration.*;
+import net.minecraft.resources.*;
+import net.minecraft.world.item.*;
 
 @JeiPlugin
 public class ModJeiPlugin implements IModPlugin{
@@ -25,6 +19,7 @@ public class ModJeiPlugin implements IModPlugin{
 
     @Override
     public void registerCategories(IRecipeCategoryRegistration registry){
+        registry.addRecipeCategories(new KilnRecipeCategory(registry.getJeiHelpers().getGuiHelper(), 120));
         registry.addRecipeCategories(new KegRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
         registry.addRecipeCategories(new JewelryRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
         registry.addRecipeCategories(new ArchaeologyRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
@@ -37,6 +32,7 @@ public class ModJeiPlugin implements IModPlugin{
         ModJeiRecipes modRecipes = new ModJeiRecipes();
         registration.addRecipes(ModRecipeTypes.BREWERY, modRecipes.getBreweryRecipes());
         registration.addRecipes(ModRecipeTypes.JEWELRY, modRecipes.getJewelryRecipes());
+        registration.addRecipes(ModRecipeTypes.KILN, modRecipes.getKilnRecipes());
         registration.addRecipes(ModRecipeTypes.ARCHAEOLOGY, modRecipes.getArchaeologyRecipes());
         registration.addRecipes(ModRecipeTypes.MANIPULATOR, modRecipes.getManipulatorRecipes());
         //registration.addRecipes(ModRecipeTypes.CRUSHER, modRecipes.getCrusherRecipes());
@@ -46,6 +42,7 @@ public class ModJeiPlugin implements IModPlugin{
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration){
         registration.addRecipeCatalyst(new ItemStack(BlockRegistry.archaeologyTable.get()), ModRecipeTypes.ARCHAEOLOGY);
         registration.addRecipeCatalyst(new ItemStack(BlockRegistry.keg.get()), ModRecipeTypes.BREWERY);
+        registration.addRecipeCatalyst(new ItemStack(BlockRegistry.kiln.get()), ModRecipeTypes.KILN);
         registration.addRecipeCatalyst(new ItemStack(BlockRegistry.jewelerTable.get()), ModRecipeTypes.JEWELRY);
         registration.addRecipeCatalyst(new ItemStack(BlockRegistry.elementalManipulator.get()), ModRecipeTypes.MANIPULATOR);
         //registration.addRecipeCatalyst(new ItemStack(ModItems.STONE_CRUSHER.get()), ModRecipeTypes.CRUSHER);

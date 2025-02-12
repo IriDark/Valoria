@@ -1,18 +1,13 @@
 package com.idark.valoria.registries;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.client.ui.menus.ArchaeologyMenu;
-import com.idark.valoria.client.ui.menus.JewelryMenu;
-import com.idark.valoria.client.ui.menus.KegMenu;
-import com.idark.valoria.client.ui.menus.ManipulatorMenu;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.inventory.MenuType;
-import net.minecraft.world.level.Level;
-import net.minecraftforge.common.extensions.IForgeMenuType;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import com.idark.valoria.*;
+import com.idark.valoria.client.ui.menus.*;
+import net.minecraft.core.*;
+import net.minecraft.world.inventory.*;
+import net.minecraft.world.level.*;
+import net.minecraftforge.common.extensions.*;
+import net.minecraftforge.eventbus.api.*;
+import net.minecraftforge.registries.*;
 
 public class MenuRegistry{
     public static final DeferredRegister<MenuType<?>> MENUS = DeferredRegister.create(ForgeRegistries.MENU_TYPES, Valoria.ID);
@@ -23,6 +18,7 @@ public class MenuRegistry{
             })
     );
 
+    public static final RegistryObject<MenuType<KilnMenu>> KILN_MENU = MENUS.register("kiln_menu", () -> IForgeMenuType.create((windowId, inv, data) -> new KilnMenu(windowId, inv)));
     public static final RegistryObject<MenuType<ArchaeologyMenu>> ARCHAEOLOGY_MENU = MENUS.register("archaeology_menu", () -> IForgeMenuType.create((windowId, inv, data) -> new ArchaeologyMenu(windowId, inv)));
     public static final RegistryObject<MenuType<ManipulatorMenu>> MANIPULATOR_MENU = MENUS.register("manipulator_menu", () -> IForgeMenuType.create((windowId, inv, data) -> {
                 BlockPos pos = data.readBlockPos();

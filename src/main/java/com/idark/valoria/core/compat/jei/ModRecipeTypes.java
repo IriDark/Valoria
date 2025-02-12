@@ -1,8 +1,8 @@
 package com.idark.valoria.core.compat.jei;
 
-import com.idark.valoria.Valoria;
+import com.idark.valoria.*;
 import com.idark.valoria.registries.item.recipe.*;
-import mezz.jei.api.recipe.RecipeType;
+import mezz.jei.api.recipe.*;
 
 public class ModRecipeTypes{
     public static final RecipeType<KegRecipe> BREWERY = RecipeType.create(Valoria.ID, "brewery", KegRecipe.class);
@@ -10,4 +10,5 @@ public class ModRecipeTypes{
     public static final RecipeType<CrusherRecipe> CRUSHER = RecipeType.create(Valoria.ID, "crusher", CrusherRecipe.class);
     public static final RecipeType<ManipulatorRecipe> MANIPULATOR = RecipeType.create(Valoria.ID, "manipulator", ManipulatorRecipe.class);
     public static final RecipeType<ArchaeologyRecipe> ARCHAEOLOGY = RecipeType.create(Valoria.ID, "archaeology", ArchaeologyRecipe.class);
+    public static final RecipeType<KilnRecipe> KILN = RecipeType.create(Valoria.ID, "kiln", KilnRecipe.class);
 }

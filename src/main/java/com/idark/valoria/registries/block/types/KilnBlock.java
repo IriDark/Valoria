@@ -1,26 +1,73 @@
 package com.idark.valoria.registries.block.types;
 
+import com.idark.valoria.client.render.tile.*;
+import com.idark.valoria.registries.block.entity.*;
 import net.minecraft.core.*;
 import net.minecraft.core.particles.*;
+import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
+import net.minecraft.stats.*;
 import net.minecraft.util.*;
+import net.minecraft.world.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.player.*;
 import net.minecraft.world.inventory.*;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.context.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.level.block.state.properties.*;
 import net.minecraft.world.level.material.*;
+import net.minecraft.world.phys.*;
 import net.minecraft.world.phys.shapes.*;
 
 import javax.annotation.*;
 
-//todo
-public class KilnBlock extends HorizontalDirectionalBlock implements SimpleWaterloggedBlock{
+public class KilnBlock extends BaseEntityBlock implements SimpleWaterloggedBlock{
     private static final BooleanProperty LIT = BlockStateProperties.LIT;
+    public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public KilnBlock(Properties pProperties){
         super(pProperties);
         registerDefaultState(defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, false).setValue(LIT, false));
+    }
+
+    /**
+     * Returns the blockstate with the given rotation from the passed blockstate. If inapplicable, returns the passed
+     * blockstate.
+     * @deprecated call via {@link net.minecraft.world.level.block.state.BlockBehaviour.BlockStateBase#rotate} whenever
+     * possible. Implementing/overriding is fine.
+     */
+    public BlockState rotate(BlockState pState, Rotation pRot) {
+        return pState.setValue(FACING, pRot.rotate(pState.getValue(FACING)));
+    }
+
+    /**
+     * Returns the blockstate with the given mirror of the passed blockstate. If inapplicable, returns the passed
+     * blockstate.
+     * @deprecated call via {@link net.minecraft.world.level.block.state.BlockBehaviour.BlockStateBase#mirror} whenever
+     * possible. Implementing/overriding is fine.
+     */
+    public BlockState mirror(BlockState pState, Mirror pMirror) {
+        return pState.rotate(pMirror.getRotation(pState.getValue(FACING)));
+    }
+
+    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+        if (pLevel.isClientSide) {
+            return InteractionResult.SUCCESS;
+        } else {
+            this.openContainer(pLevel, pPos, pPlayer);
+            return InteractionResult.CONSUME;
+        }
+    }
+
+    protected void openContainer(Level pLevel, BlockPos pPos, Player pPlayer){
+        BlockEntity blockentity = pLevel.getBlockEntity(pPos);
+        if(blockentity instanceof KilnBlockEntity){
+            pPlayer.openMenu((MenuProvider)blockentity);
+            pPlayer.awardStat(Stats.INTERACT_WITH_FURNACE);
+        }
     }
 
     @Override
@@ -28,6 +75,63 @@ public class KilnBlock extends HorizontalDirectionalBlock implements SimpleWater
         builder.add(BlockStateProperties.WATERLOGGED);
         builder.add(LIT);
         builder.add(FACING);
+    }
+
+    @Nullable
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType){
+        return TickableBlockEntity.getTickerHelper();
+    }
+
+    public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
+        return new KilnBlockEntity(pPos, pState);
+    }
+
+    /**
+     * Called by BlockItem after this block has been placed.
+     */
+    public void setPlacedBy(Level pLevel, BlockPos pPos, BlockState pState, LivingEntity pPlacer, ItemStack pStack) {
+        if (pStack.hasCustomHoverName()) {
+            BlockEntity blockentity = pLevel.getBlockEntity(pPos);
+            if (blockentity instanceof KilnBlockEntity) {
+                ((KilnBlockEntity)blockentity).setCustomName(pStack.getHoverName());
+            }
+        }
+    }
+
+    public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
+        if (!pState.is(pNewState.getBlock())) {
+            BlockEntity blockentity = pLevel.getBlockEntity(pPos);
+            if (blockentity instanceof KilnBlockEntity) {
+                if (pLevel instanceof ServerLevel) {
+                    Containers.dropContents(pLevel, pPos, (KilnBlockEntity)blockentity);
+                    ((KilnBlockEntity)blockentity).getRecipesToAwardAndPopExperience((ServerLevel)pLevel, Vec3.atCenterOf(pPos));
+                }
+
+                pLevel.updateNeighbourForOutputSignal(pPos, this);
+            }
+
+            super.onRemove(pState, pLevel, pPos, pNewState, pIsMoving);
+        }
+    }
+
+    /**
+     * Called on server when {@link net.minecraft.world.level.Level#blockEvent} is called. If server returns true, then
+     * also called on the client. On the Server, this may perform additional changes to the world, like pistons replacing
+     * the block with an extended base. On the client, the update may involve replacing block entities or effects such as
+     * sounds or particles
+     * @deprecated call via {@link net.minecraft.world.level.block.state.BlockBehaviour.BlockStateBase#triggerEvent}
+     * whenever possible. Implementing/overriding is fine.
+     */
+    public boolean triggerEvent(BlockState pState, Level pLevel, BlockPos pPos, int pId, int pParam) {
+        super.triggerEvent(pState, pLevel, pPos, pId, pParam);
+        BlockEntity blockentity = pLevel.getBlockEntity(pPos);
+        return blockentity == null ? false : blockentity.triggerEvent(pId, pParam);
+    }
+
+    @Nullable
+    public MenuProvider getMenuProvider(BlockState pState, Level pLevel, BlockPos pPos) {
+        BlockEntity blockentity = pLevel.getBlockEntity(pPos);
+        return blockentity instanceof MenuProvider ? (MenuProvider)blockentity : null;
     }
 
     @Nullable

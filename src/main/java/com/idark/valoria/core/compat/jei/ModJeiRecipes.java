@@ -1,12 +1,11 @@
 package com.idark.valoria.core.compat.jei;
 
 import com.idark.valoria.registries.item.recipe.*;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.world.item.crafting.RecipeManager;
+import net.minecraft.client.*;
+import net.minecraft.client.multiplayer.*;
+import net.minecraft.world.item.crafting.*;
 
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 public class ModJeiRecipes{
     private final RecipeManager recipeManager;
@@ -20,6 +19,10 @@ public class ModJeiRecipes{
         }else{
             throw new NullPointerException("minecraft world must not be null.");
         }
+    }
+
+    public List<KilnRecipe> getKilnRecipes(){
+        return recipeManager.getAllRecipesFor(KilnRecipe.Type.INSTANCE).stream().sorted(Comparator.comparing(KilnRecipe::getCookingTime)).toList();
     }
 
     public List<KegRecipe> getBreweryRecipes(){

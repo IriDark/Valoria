@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " / ",
+    "/#/",
+    " / "
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:gold_ingot"
+    },
+    "/": {
+      "item": "minecraft:leather"
+    }
+  },
+  "result": {
+    "item": "valoria:leather_belt",
+    "count": 1
+  }
+}

@@ -108,8 +108,8 @@ public class Valoria{
      */
     private void clientSetup(final FMLClientSetupEvent event){
         ValoriaClient.setupSplashes();
-        Bossbar.bossbars.put("Wicked Crystal", new Bossbar(new ResourceLocation(Valoria.ID, "textures/gui/bossbars/wicked_crystal.png")));
-        Bossbar.bossbars.put("Necromancer", new Bossbar(new ResourceLocation(Valoria.ID, "textures/gui/bossbars/necromancer.png")));
+        AbstractBossbar.bossbars.put("Wicked Crystal", new BaseBar(new ResourceLocation(Valoria.ID, "textures/gui/bossbars/wicked_crystal.png")));
+        AbstractBossbar.bossbars.put("Necromancer", new BaseBar(new ResourceLocation(Valoria.ID, "textures/gui/bossbars/necromancer.png")));
         event.enqueueWork(() -> {
             LexiconChapters.init();
 //            BlockEntityRenderers.register(BlockEntitiesRegistry.CHEST_BLOCK_ENTITY.get(), ModChestRender::new);
@@ -155,6 +155,7 @@ public class Valoria{
             MenuScreens.register(MenuRegistry.KEG_MENU.get(), KegScreen::new);
             MenuScreens.register(MenuRegistry.JEWELRY_MENU.get(), JewelryScreen::new);
             MenuScreens.register(MenuRegistry.MANIPULATOR_MENU.get(), ManipulatorScreen::new);
+            MenuScreens.register(MenuRegistry.KILN_MENU.get(), KilnScreen::new);
         });
     }
 

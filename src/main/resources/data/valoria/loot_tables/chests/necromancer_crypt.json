@@ -34,6 +34,11 @@
         },
         {
           "type": "minecraft:item",
+          "name": "valoria:leather_belt",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
           "name": "valoria:iron_scythe",
           "weight": 5,
           "functions": [
