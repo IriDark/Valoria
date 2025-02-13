@@ -1,37 +1,27 @@
 package com.idark.valoria.registries.level;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.registries.level.configurations.FleshConfiguration;
-import com.idark.valoria.registries.level.configurations.SuspiciousStateConfiguration;
-import com.idark.valoria.registries.level.configurations.TaintedRootsConfig;
+import com.idark.valoria.*;
+import com.idark.valoria.registries.level.configurations.*;
 import com.idark.valoria.registries.level.feature.*;
-import com.idark.valoria.registries.level.modifier.AddFeaturesByFilterBiomeModifier;
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.core.Registry;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.dimension.DimensionType;
-import net.minecraft.world.level.dimension.LevelStem;
-import net.minecraft.world.level.levelgen.GenerationStep;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
-import net.minecraft.world.level.levelgen.feature.Feature;
+import com.idark.valoria.registries.level.modifier.*;
+import com.mojang.serialization.*;
+import com.mojang.serialization.codecs.*;
+import net.minecraft.core.*;
+import net.minecraft.core.registries.*;
+import net.minecraft.resources.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.biome.*;
+import net.minecraft.world.level.dimension.*;
+import net.minecraft.world.level.levelgen.*;
+import net.minecraft.world.level.levelgen.feature.*;
 import net.minecraft.world.level.levelgen.feature.configurations.*;
-import net.minecraft.world.level.levelgen.placement.PlacedFeature;
-import net.minecraft.world.level.levelgen.placement.PlacementModifier;
-import net.minecraft.world.level.levelgen.placement.PlacementModifierType;
-import net.minecraft.world.level.levelgen.structure.Structure;
-import net.minecraftforge.common.world.BiomeModifier;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.minecraft.world.level.levelgen.placement.*;
+import net.minecraft.world.level.levelgen.structure.*;
+import net.minecraftforge.common.world.*;
+import net.minecraftforge.eventbus.api.*;
+import net.minecraftforge.registries.*;
 
-import java.util.Optional;
+import java.util.*;
 
 public class LevelGen{
     public static void init(IEventBus eventBus){
@@ -56,6 +46,7 @@ public class LevelGen{
     public static final RegistryObject<Feature<NoneFeatureConfiguration>> SUSPICIOUS_ICEBERG = FEATURES.register("suspicious_iceberg", () -> new SuspiciousIcebergFeature(NoneFeatureConfiguration.CODEC));
     public static final RegistryObject<Feature<FleshConfiguration>> FLESH_FEATURE = FEATURES.register("flesh_corruption", () -> new FleshFeature(FleshConfiguration.CODEC));
     public static final RegistryObject<Feature<NoneFeatureConfiguration>> VALORIA_MONSTER_ROOM = FEATURES.register("valoria_monster_room", () -> new ValoriaMonsterRoomFeature(NoneFeatureConfiguration.CODEC));
+    public static final RegistryObject<Feature<GradientOreConfiguration>> GRADIENT_ORE = FEATURES.register("gradient_ore", () -> new GradientOreFeature(GradientOreConfiguration.CODEC));
 
     public static ResourceKey<ConfiguredFeature<?, ?>> SHADEWOOD_TREE = registerKey(Registries.CONFIGURED_FEATURE, "shadewood_tree");
     public static ResourceKey<ConfiguredFeature<?, ?>> FANCY_SHADEWOOD_TREE = registerKey(Registries.CONFIGURED_FEATURE, "fancy_shadewood_tree");

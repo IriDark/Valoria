@@ -1,0 +1,13 @@
+{
+  "type": "valoria:gradient_ore",
+  "config": {
+    "radius": 16,
+    "target_block": { "Name": "minecraft:stone" },
+    "gradient_blocks": [
+      { "Name": "valoria:ancient_stone" },
+      { "Name": "valoria:ephemarite" },
+      { "Name": "valoria:ephemarite_low" },
+      { "Name": "minecraft:stone" }
+    ]
+  }
+}

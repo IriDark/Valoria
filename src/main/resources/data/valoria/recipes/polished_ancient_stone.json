@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "//",
+    "//"
+  ],
+  "key": {
+    "/": {
+      "item": "valoria:ancient_stone"
+    }
+  },
+  "result": {
+    "item": "valoria:polished_ancient_stone",
+    "count": 4
+  }
+}

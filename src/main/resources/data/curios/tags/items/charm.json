@@ -1,6 +1,12 @@
 {
   "replace": false,
   "values": [
+    "valoria:lesser_rune_of_vision",
+    "valoria:lesser_rune_of_wealth",
+    "valoria:lesser_rune_of_curses",
+    "valoria:lesser_rune_of_strength",
+    "valoria:lesser_rune_of_accuracy",
+    "valoria:lesser_rune_of_deep",
     "valoria:rune_of_vision",
     "valoria:rune_of_wealth",
     "valoria:rune_of_curses",

@@ -1,0 +1,31 @@
+{
+  "feature": "valoria:ancient_stone",
+  "placement": [
+    {
+      "type": "minecraft:count",
+      "count": 6
+    },
+    {
+      "type": "minecraft:rarity_filter",
+      "chance": 12
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:height_range",
+      "height": {
+        "type": "minecraft:uniform",
+        "min_inclusive": {
+          "above_bottom": -64
+        },
+        "max_inclusive": {
+          "absolute": 120
+        }
+      }
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}
