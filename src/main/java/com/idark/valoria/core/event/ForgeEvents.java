@@ -64,7 +64,6 @@ public class ForgeEvents{
             trades.get(3).add(itemSell(18, ItemsRegistry.ironRingEmerald.get(), 1, 1));
         }
 
-
         if(event.getType() == VillagerProfession.WEAPONSMITH){
             trades.get(2).add(itemSell(14, ItemsRegistry.ironKatana.get(), 1, 1));
             trades.get(1).add(itemSell(6, ItemsRegistry.ironRapier.get(), 1, 1));
@@ -73,7 +72,6 @@ public class ForgeEvents{
         }
 
         if(event.getType() == VillagerProfession.CARTOGRAPHER){
-            trades.get(1).add(itemSell(1, ItemsRegistry.lexicon.get(), 1, 2));
             trades.get(2).add(new TreasureMapItemListing(8, TagsRegistry.ON_CRYPT_EXPLORER_MAPS, "filled_map.valoria.crypt", Type.RED_X,12, 2));
             trades.get(3).add(new TreasureMapItemListing(16, TagsRegistry.ON_NECROMANCER_CRYPT_EXPLORER_MAPS, "filled_map.valoria.necromancer_crypt", Type.BANNER_BLACK,1, 12));
         }
