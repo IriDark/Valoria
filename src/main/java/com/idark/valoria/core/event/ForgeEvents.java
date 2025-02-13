@@ -3,11 +3,13 @@ package com.idark.valoria.core.event;
 import com.idark.valoria.*;
 import com.idark.valoria.core.compat.jei.jer.*;
 import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.entity.ai.trades.*;
 import com.idark.valoria.registries.entity.npc.*;
 import it.unimi.dsi.fastutil.ints.*;
 import net.minecraft.world.entity.npc.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
+import net.minecraft.world.level.saveddata.maps.MapDecoration.*;
 import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.client.event.*;
 import net.minecraftforge.common.*;
@@ -23,7 +25,7 @@ public class ForgeEvents{
 
     @SubscribeEvent
     @OnlyIn(Dist.CLIENT)
-    public static void onClientPlayerLogin(ClientPlayerNetworkEvent.LoggingIn event) {
+    public static void onClientPlayerLogin(ClientPlayerNetworkEvent.LoggingIn event){
         if(ModList.get().isLoaded("jeresources")){
             JerCompat.onClientPlayerLogin(event);
         }
@@ -70,6 +72,12 @@ public class ForgeEvents{
             trades.get(2).add(itemSell(22, ItemsRegistry.ironScythe.get(), 1, 1));
         }
 
+        if(event.getType() == VillagerProfession.CARTOGRAPHER){
+            trades.get(1).add(itemSell(1, ItemsRegistry.lexicon.get(), 1, 2));
+            trades.get(2).add(new TreasureMapItemListing(8, TagsRegistry.ON_CRYPT_EXPLORER_MAPS, "filled_map.valoria.crypt", Type.RED_X,12, 2));
+            trades.get(3).add(new TreasureMapItemListing(16, TagsRegistry.ON_NECROMANCER_CRYPT_EXPLORER_MAPS, "filled_map.valoria.necromancer_crypt", Type.BANNER_BLACK,1, 12));
+        }
+
         if(event.getType() == VillagerProfession.LIBRARIAN){
             trades.get(1).add(itemSell(1, ItemsRegistry.lexicon.get(), 1, 2));
         }
@@ -78,7 +86,6 @@ public class ForgeEvents{
     @SubscribeEvent
     public static void addWanderingTrades(WandererTradesEvent event){
         List<net.minecraft.world.entity.npc.VillagerTrades.ItemListing> trades = event.getGenericTrades();
-        System.out.print(trades.get(1));
         trades.add(itemSell(4, ItemsRegistry.ironRing.get(), 1, 12));
         trades.add(itemSell(6, ItemsRegistry.karusakanRoot.get(), 1, 2));
         trades.add(itemSell(6, ItemsRegistry.gaibRoot.get(), 1, 2));

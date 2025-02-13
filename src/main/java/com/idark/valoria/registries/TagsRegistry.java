@@ -9,6 +9,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.decoration.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.levelgen.structure.*;
 
 public class TagsRegistry{
 
@@ -32,10 +33,16 @@ public class TagsRegistry{
         return TagKey.create(Registries.PAINTING_VARIANT, name);
     }
 
+    public static TagKey<Structure> dungeon(final ResourceLocation name){
+        return TagKey.create(Registries.STRUCTURE, name);
+    }
+
     public static final TagKey<Item> EXCLUDED_FROM_TAB = item(new ResourceLocation(Valoria.ID, "excluded"));
 
     public static final TagKey<EntityType<?>> MINIONS = entity(new ResourceLocation(Valoria.ID, "minions"));
 
+    public static final TagKey<Structure> ON_NECROMANCER_CRYPT_EXPLORER_MAPS = dungeon(new ResourceLocation(Valoria.ID, "on_necromancer_crypt_explorer_maps"));
+    public static final TagKey<Structure> ON_CRYPT_EXPLORER_MAPS = dungeon(new ResourceLocation(Valoria.ID, "on_crypt_explorer_maps"));
     public static final TagKey<Block> MEAT = block(new ResourceLocation(Valoria.ID, "meat"));
     public static final TagKey<Block> UNPACK_LOOT = block(new ResourceLocation(Valoria.ID, "unpack_loot"));
     public static final TagKey<Block> KEY_BLOCKS = block(new ResourceLocation(Valoria.ID, "key_blocks"));
