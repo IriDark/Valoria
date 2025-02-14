@@ -3,9 +3,7 @@ package com.idark.valoria.core.event;
 import com.idark.valoria.*;
 import com.idark.valoria.core.compat.jei.jer.*;
 import com.idark.valoria.registries.*;
-import com.idark.valoria.registries.entity.ai.trades.*;
 import com.idark.valoria.registries.entity.npc.*;
-import it.unimi.dsi.fastutil.ints.*;
 import net.minecraft.world.entity.npc.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
@@ -17,6 +15,8 @@ import net.minecraftforge.event.village.*;
 import net.minecraftforge.eventbus.api.*;
 import net.minecraftforge.fml.*;
 import net.minecraftforge.fml.common.*;
+import pro.komaru.tridot.core.entity.trades.*;
+import pro.komaru.tridot.core.entity.trades.Trade.*;
 
 import java.util.*;
 
@@ -33,51 +33,51 @@ public class ForgeEvents{
 
     @SubscribeEvent
     public static void addTrades(VillagerTradesEvent event){
-        Int2ObjectMap<List<net.minecraft.world.entity.npc.VillagerTrades.ItemListing>> trades = event.getTrades();
+        Trade trade = new Trade(event.getTrades());
         if(event.getType() == VillagerProfessionRegistry.JEWELER.get()){
-            trades.get(1).add(itemSell(2, ItemsRegistry.amberGem.get(), 16, 1));
-            trades.get(1).add(itemSell(2, Items.AMETHYST_SHARD, 16, 1));
-            trades.get(1).add(itemSell(3, ItemsRegistry.sapphireGem.get(), 16, 1));
-            trades.get(1).add(itemSell(4, ItemsRegistry.rubyGem.get(), 16, 1));
-            trades.get(1).add(itemSell(6, ItemsRegistry.ironRing.get(), 4, 2));
-            trades.get(1).add(itemSell(4, ItemsRegistry.ironChain.get(), 4, 2));
-            trades.get(2).add(itemSell(8, ItemsRegistry.ironRingRuby.get(), 2, 1));
-            trades.get(2).add(itemSell(8, ItemsRegistry.ironGloves.get(), 2, 1));
-            trades.get(3).add(itemSell(10, ItemsRegistry.goldenRingAmber.get(), 1, 2));
-            trades.get(3).add(itemSell(16, ItemsRegistry.goldenNecklaceHealth.get(), 1, 4));
-            trades.get(4).add(itemSell(18, ItemsRegistry.diamondGloves.get(), 1, 6));
-            trades.get(4).add(itemSell(8, ItemsRegistry.goldenRing.get(), ItemsRegistry.goldenRingDiamond.get(), 1, 12));
-            trades.get(4).add(itemSell(8, ItemsRegistry.goldenRing.get(), ItemsRegistry.goldenRingRuby.get(), 1, 12));
-            trades.get(4).add(itemSell(8, ItemsRegistry.goldenRing.get(), ItemsRegistry.goldenRingSapphire.get(), 1, 12));
-            trades.get(4).add(itemSell(8, ItemsRegistry.goldenRing.get(), ItemsRegistry.goldenRingAmber.get(), 1, 12));
-            trades.get(4).add(itemSell(8, ItemsRegistry.goldenChain.get(), ItemsRegistry.goldenNecklaceAmber.get(), 1, 12));
-            trades.get(4).add(itemSell(8, ItemsRegistry.goldenChain.get(), ItemsRegistry.goldenNecklaceRuby.get(), 1, 12));
-            trades.get(4).add(itemSell(8, ItemsRegistry.goldenChain.get(), ItemsRegistry.goldenNecklaceSapphire.get(), 1, 12));
-            trades.get(4).add(itemSell(14, ItemsRegistry.goldenChain.get(), ItemsRegistry.goldenNecklaceHealth.get(), 1, 12));
-            trades.get(4).add(itemSell(16, ItemsRegistry.goldenChain.get(), ItemsRegistry.goldenNecklaceWealth.get(), 1, 12));
+            trade.trades(16).createSale(2, ItemsRegistry.amberGem.get());
+            trade.trades(16).createOffer(2, Items.AMETHYST_SHARD);
+            trade.trades(16).createOffer(3, ItemsRegistry.sapphireGem.get());
+            trade.trades(16).createOffer(4, ItemsRegistry.rubyGem.get());
+            trade.trades(4).xp(2).createOffer(4, ItemsRegistry.ironRing.get());
+            trade.trades(4).xp(2).createOffer(4, ItemsRegistry.ironChain.get());
+            trade.tier(TradeTier.APPRENTICE).trades(2).createOffer(8, ItemsRegistry.ironRingRuby.get());
+            trade.tier(TradeTier.APPRENTICE).trades(2).createOffer(8, ItemsRegistry.ironGloves.get());
+            trade.tier(TradeTier.EXPERT).trades(1).xp(2).createOffer(10, ItemsRegistry.goldenRingAmber.get());
+            trade.tier(TradeTier.EXPERT).trades(1).xp(4).createOffer(16, ItemsRegistry.goldenNecklaceHealth.get());
+            trade.tier(TradeTier.MASTER).trades(1).xp(6).createOffer(18, ItemsRegistry.diamondGloves.get());
+            trade.tier(TradeTier.MASTER).trades(1).xp(12).createOffer(8, ItemsRegistry.goldenRing.get(), ItemsRegistry.goldenRingDiamond.get());
+            trade.tier(TradeTier.MASTER).trades(1).xp(12).createOffer(8, ItemsRegistry.goldenRing.get(), ItemsRegistry.goldenRingRuby.get());
+            trade.tier(TradeTier.MASTER).trades(1).xp(12).createOffer(8, ItemsRegistry.goldenRing.get(), ItemsRegistry.goldenRingSapphire.get());
+            trade.tier(TradeTier.MASTER).trades(1).xp(12).createOffer(8, ItemsRegistry.goldenRing.get(), ItemsRegistry.goldenRingAmber.get());
+            trade.tier(TradeTier.MASTER).trades(1).xp(12).createOffer(8, ItemsRegistry.goldenRing.get(), ItemsRegistry.goldenNecklaceAmber.get());
+            trade.tier(TradeTier.MASTER).trades(1).xp(12).createOffer(8, ItemsRegistry.goldenRing.get(), ItemsRegistry.goldenNecklaceRuby.get());
+            trade.tier(TradeTier.MASTER).trades(1).xp(12).createOffer(8, ItemsRegistry.goldenRing.get(), ItemsRegistry.goldenNecklaceSapphire.get());
+            trade.tier(TradeTier.MASTER).trades(1).xp(12).createOffer(14, ItemsRegistry.goldenRing.get(), ItemsRegistry.goldenNecklaceHealth.get());
+            trade.tier(TradeTier.MASTER).trades(1).xp(12).createOffer(16, ItemsRegistry.goldenRing.get(), ItemsRegistry.goldenNecklaceWealth.get());
         }
 
         if(event.getType() == VillagerProfession.TOOLSMITH){
-            trades.get(1).add(itemSell(6, ItemsRegistry.ironRing.get(), 1, 4));
-            trades.get(2).add(itemSell(16, ItemsRegistry.ironGloves.get(), 1, 1));
-            trades.get(1).add(itemSell(4, ItemsRegistry.ironChain.get(), 1, 2));
-            trades.get(3).add(itemSell(18, ItemsRegistry.ironRingEmerald.get(), 1, 1));
+            trade.trades(1).createOffer(6, ItemsRegistry.ironRing.get());
+            trade.trades(1).xp(2).createOffer(12, ItemsRegistry.ironGloves.get());
+            trade.trades(1).createOffer(4, ItemsRegistry.ironChain.get());
+            trade.trades(1).xp(2).createOffer(16, ItemsRegistry.ironRingEmerald.get());
         }
 
         if(event.getType() == VillagerProfession.WEAPONSMITH){
-            trades.get(2).add(itemSell(14, ItemsRegistry.ironKatana.get(), 1, 1));
-            trades.get(1).add(itemSell(6, ItemsRegistry.ironRapier.get(), 1, 1));
-            trades.get(1).add(itemSell(2, ItemsRegistry.club.get(), 1, 2));
-            trades.get(2).add(itemSell(22, ItemsRegistry.ironScythe.get(), 1, 1));
+            trade.tier(TradeTier.APPRENTICE).trades(1).createOffer(12, ItemsRegistry.ironKatana.get());
+            trade.trades(1).createOffer(6, ItemsRegistry.ironRapier.get());
+            trade.trades(1).createOffer(2, ItemsRegistry.club.get());
+            trade.tier(TradeTier.APPRENTICE).trades(1).createOffer(16, ItemsRegistry.ironScythe.get());
         }
 
         if(event.getType() == VillagerProfession.CARTOGRAPHER){
-            trades.get(2).add(new TreasureMapItemListing(8, TagsRegistry.ON_CRYPT_EXPLORER_MAPS, "filled_map.valoria.crypt", Type.RED_X,12, 2));
-            trades.get(3).add(new TreasureMapItemListing(16, TagsRegistry.ON_NECROMANCER_CRYPT_EXPLORER_MAPS, "filled_map.valoria.necromancer_crypt", Type.BANNER_BLACK,1, 12));
+            trade.tier(TradeTier.APPRENTICE).trades(1).xp(4).createListing(new TreasureMapItemListing(trade, 8, TagsRegistry.ON_CRYPT_EXPLORER_MAPS, "filled_map.valoria.crypt", Type.RED_X));
+            trade.tier(TradeTier.APPRENTICE).trades(1).xp(6).createListing(new TreasureMapItemListing(trade, 16, TagsRegistry.ON_NECROMANCER_CRYPT_EXPLORER_MAPS, "filled_map.valoria.necromancer_crypt", Type.BANNER_BLACK));
         }
 
         if(event.getType() == VillagerProfession.LIBRARIAN){
-            trades.get(1).add(itemSell(1, ItemsRegistry.lexicon.get(), 1, 2));
+            trade.trades(1).createOffer(1, ItemsRegistry.lexicon.get());
         }
     }
 
