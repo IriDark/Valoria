@@ -29,7 +29,7 @@ import pro.komaru.tridot.registry.item.types.*;
 import java.util.*;
 
 public class SkinsRegistry{
-    public static ItemSkin THE_FALLEN_COLLECTOR, ARCANE_GOLD, CYBERPUNK, MIDNIGHT, MURAMASA, FISH;
+    public static ItemSkin THE_FALLEN_COLLECTOR, ARCANE_GOLD, CYBERPUNK, MIDNIGHT, MURAMASA, FISH, STAR_DIVIDER;
 
     public static void init(){
         THE_FALLEN_COLLECTOR = new SkinBuilder(Valoria.ID, "the_fallen_collector").setColor(Pal.seaGreen).setContributor("Kerdo").withStyle(Styles.nature)
@@ -54,6 +54,10 @@ public class SkinsRegistry{
         FISH = new SkinBuilder(Valoria.ID, "swordfish").setColor(Pal.crystalBlue).setContributor("Skoow").withStyle(Styles.aquarius)
                 .addEntry(new ItemSupplierSkinEntry(() -> ItemsRegistry.murasama.get(), Valoria.ID + ":swordfish"))
                 .build();
+        STAR_DIVIDER = new SkinBuilder(Valoria.ID, "star_divider").setColor(Pal.verySoftPink).setContributor("Rainach").withStyle(Styles.nihility)
+            .addEntry(new ItemSupplierSkinEntry(() -> ItemsRegistry.quantumReaper.get(), Valoria.ID + ":star_divider"))
+            .build();
+
     }
 
     public static void register(){
@@ -64,6 +68,7 @@ public class SkinsRegistry{
         ItemSkinHandler.register(MIDNIGHT);
         ItemSkinHandler.register(MURAMASA);
         ItemSkinHandler.register(FISH);
+        ItemSkinHandler.register(STAR_DIVIDER);
         DistExecutor.unsafeCallWhenOn(Dist.CLIENT, () -> () -> {
             registerModels();
             return new Object();
@@ -80,6 +85,7 @@ public class SkinsRegistry{
         ItemSkinModels.addSkin(Valoria.ID + ":cyberpunk_quantum_reaper");
         ItemSkinModels.addSkin(Valoria.ID + ":midnight_quantum_reaper");
         ItemSkinModels.addSkin(Valoria.ID + ":swordfish");
+        ItemSkinModels.addSkin(Valoria.ID + ":star_divider");
         ItemSkinModels.addSkin(Valoria.ID + ":muramasa");
     }
 
