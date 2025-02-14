@@ -62,8 +62,13 @@
       "valoria:wicked_amethyst_ore",
       "valoria:dormant_crystals",
       "valoria:pyratite_ore",
+      "valoria:pyratite_blob",
       "valoria:blackstone",
       "valoria:deep_marble"
+    ],
+    [
+      "valoria:lake_lava_underground",
+      "valoria:lake_lava_surface"
     ],
     [
       "valoria:rare_shadewood_tree",
@@ -83,7 +88,10 @@
       "valoria:void_taint_lantern",
       "valoria:patch_voidvine",
       "valoria:tainted_roots"
+    ],
+    [
+      "valoria:spring_water",
+      "valoria:spring_lava"
     ]
-
   ]
 }

@@ -47,6 +47,7 @@ public class LevelGen{
     public static final RegistryObject<Feature<FleshConfiguration>> FLESH_FEATURE = FEATURES.register("flesh_corruption", () -> new FleshFeature(FleshConfiguration.CODEC));
     public static final RegistryObject<Feature<NoneFeatureConfiguration>> VALORIA_MONSTER_ROOM = FEATURES.register("valoria_monster_room", () -> new ValoriaMonsterRoomFeature(NoneFeatureConfiguration.CODEC));
     public static final RegistryObject<Feature<GradientOreConfiguration>> GRADIENT_ORE = FEATURES.register("gradient_ore", () -> new GradientOreFeature(GradientOreConfiguration.CODEC));
+    public static final RegistryObject<Feature<BlockStateConfiguration>> CRYSTAL_BLOB = FEATURES.register("crystal_blob", () -> new CrystalBlobFeature(BlockStateConfiguration.CODEC));
 
     public static ResourceKey<ConfiguredFeature<?, ?>> SHADEWOOD_TREE = registerKey(Registries.CONFIGURED_FEATURE, "shadewood_tree");
     public static ResourceKey<ConfiguredFeature<?, ?>> FANCY_SHADEWOOD_TREE = registerKey(Registries.CONFIGURED_FEATURE, "fancy_shadewood_tree");

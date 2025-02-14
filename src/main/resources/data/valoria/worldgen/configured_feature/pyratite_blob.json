@@ -1,0 +1,8 @@
+{
+  "type": "valoria:crystal_blob",
+  "config": {
+    "state": {
+      "Name": "valoria:pyratite_block"
+    }
+  }
+}

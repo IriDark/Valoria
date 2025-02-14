@@ -1,0 +1,74 @@
+{
+  "carvers": {
+    "air": [
+      "minecraft:cave",
+      "minecraft:cave_extra_underground",
+      "minecraft:canyon"
+    ]
+  },
+  "downfall": 0.3,
+  "effects": {
+    "sky_color": 1049101,
+    "fog_color": 16039423,
+    "water_color": 7422321,
+    "water_fog_color": 2561575,
+    "grass_color": 11301619,
+    "foliage_color": 11301619,
+    "mood_sound": {
+      "block_search_extent": 8,
+      "offset": 2.0,
+      "sound": "minecraft:ambient.cave",
+      "tick_delay": 6000
+    }
+  },
+  "features": [
+    [],
+    [
+      "valoria:lake_lava_underground",
+      "valoria:lake_lava_surface"
+    ],
+    [
+      "valoria:wicked_amethyst_ore",
+      "valoria:dormant_crystals",
+      "valoria:pyratite_ore",
+      "valoria:pyratite_blob",
+      "valoria:blackstone",
+      "valoria:deep_marble"
+    ],
+    [
+      "valoria:valoria_forest_rock"
+    ],
+    [
+      "valoria:void_roots",
+      "valoria:soulflower",
+      "valoria:falseflower",
+      "valoria:falseflower_small",
+      "valoria:void_serpents",
+      "valoria:void_taint",
+      "valoria:abyssal_glowfern",
+      "valoria:violet_sprout",
+      "valoria:glow_violet_sprout",
+      "valoria:void_taint_lantern",
+      "valoria:patch_voidvine",
+      "valoria:tainted_roots"
+    ],
+    [],
+    [
+      "valoria:spring_water",
+      "valoria:spring_lava"
+    ]
+  ],
+  "has_precipitation": true,
+  "spawn_costs": {},
+  "spawners": {
+    "ambient": [],
+    "axolotls": [],
+    "creature": [],
+    "misc": [],
+    "monster": [],
+    "underground_water_creature": [],
+    "water_ambient": [],
+    "water_creature": []
+  },
+  "temperature": 0.2
+}
