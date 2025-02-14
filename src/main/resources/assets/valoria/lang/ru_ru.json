@@ -419,6 +419,7 @@
   "enchantment.valoria.bleeding.desc": "Шанс наложить кровотечение на врага",
   "enchantment.valoria.explosive_flame": "Взрывное пламя",
   "enchantment.valoria.explosive_flame.desc": "Заряженные атаки пламекоса будут вызывать взрыв",
+  "entity.minecraft.villager.jeweler": "Jeweler",
   "entity.minecraft.villager.valoria.jeweler": "Ювелир",
   "entity.valoria.corrupted_troll": "Corrupted Troll",
   "entity.valoria.crystal": "Crystal",

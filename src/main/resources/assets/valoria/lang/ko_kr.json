@@ -419,6 +419,7 @@
   "enchantment.valoria.bleeding.desc": "Chance to set a bleeding effect on enemy after a hit",
   "enchantment.valoria.explosive_flame": "Explosive Flame",
   "enchantment.valoria.explosive_flame.desc": "Charged attack of blazereap will be quite explosive",
+  "entity.minecraft.villager.jeweler": "Jeweler",
   "entity.minecraft.villager.valoria.jeweler": "Jeweler",
   "entity.valoria.corrupted_troll": "Corrupted Troll",
   "entity.valoria.crystal": "Crystal",

@@ -419,6 +419,7 @@
   "enchantment.valoria.bleeding.desc": "Шанс накласти кровотечу на ціль",
   "enchantment.valoria.explosive_flame": "Вибухове полум'я",
   "enchantment.valoria.explosive_flame.desc": "Заряджені атаки Blazereap будуть залишати по-собі вибух",
+  "entity.minecraft.villager.jeweler": "Jeweler",
   "entity.minecraft.villager.valoria.jeweler": "Jeweler",
   "entity.valoria.corrupted_troll": "Corrupted Troll",
   "entity.valoria.crystal": "Crystal",
