@@ -1,6 +1,9 @@
 {
   "replace": false,
   "values": [
+    "valoria:shade_forest",
+    "valoria:shaded_ecotone",
+    "valoria:ecotone",
     "valoria:river",
     "valoria:void_shore",
     "valoria:void_peaks"
