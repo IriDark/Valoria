@@ -1,0 +1,8 @@
+{
+  "type": "valoria:root",
+  "config": {
+    "state": {
+      "Name": "valoria:eldritch_log"
+    }
+  }
+}
