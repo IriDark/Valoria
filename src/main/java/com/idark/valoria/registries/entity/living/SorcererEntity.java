@@ -10,6 +10,7 @@ import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
 import net.minecraft.util.*;
 import net.minecraft.world.*;
+import net.minecraft.world.damagesource.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.*;
@@ -18,6 +19,7 @@ import net.minecraft.world.entity.animal.*;
 import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.level.dimension.*;
 import net.minecraft.world.level.pathfinder.*;
 import org.joml.*;
@@ -55,6 +57,26 @@ public class SorcererEntity extends MultiAttackMob implements Enemy, RangedAttac
         }
 
         movement.setupMovement();
+    }
+
+    protected void playStepSound(BlockPos pPos, BlockState pBlock) {
+        this.playSound(this.getStepSound(), 0.15F, 1.0F);
+    }
+
+    protected SoundEvent getAmbientSound() {
+        return SoundEvents.SKELETON_AMBIENT;
+    }
+
+    protected SoundEvent getHurtSound(DamageSource pDamageSource) {
+        return SoundEvents.SKELETON_HURT;
+    }
+
+    protected SoundEvent getDeathSound() {
+        return SoundEvents.SKELETON_DEATH;
+    }
+
+    protected SoundEvent getStepSound() {
+        return SoundEvents.SKELETON_STEP;
     }
 
     public boolean isAlliedTo(Entity pEntity){
