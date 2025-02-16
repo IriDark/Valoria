@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "GRG",
+    "ROR",
+    "GRG"
+  ],
+  "key": {
+    "G": {
+      "item": "minecraft:gold_ingot"
+    },
+    "R": {
+      "item": "valoria:runic_dust"
+    },
+    "O": {
+      "item": "valoria:lesser_rune"
+    }
+  },
+  "result": {
+    "item": "valoria:lesser_rune_of_wealth",
+    "count": 1
+  }
+}

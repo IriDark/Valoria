@@ -1,0 +1,9 @@
+{
+  "type": "valoria:crusher",
+  "loot_table": "valoria:items/gem_crashing",
+  "ingredients": [
+    {
+      "item": "valoria:ruby_gem"
+    }
+  ]
+}

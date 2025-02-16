@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "GRG",
+    "ROR",
+    "GRG"
+  ],
+  "key": {
+    "G": {
+      "item": "valoria:ruby_gem"
+    },
+    "R": {
+      "item": "valoria:runic_dust"
+    },
+    "O": {
+      "item": "valoria:rune"
+    }
+  },
+  "result": {
+    "item": "valoria:rune_of_strength",
+    "count": 1
+  }
+}

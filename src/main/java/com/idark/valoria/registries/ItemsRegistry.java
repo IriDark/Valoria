@@ -72,7 +72,7 @@ public class ItemsRegistry{
     phantasmHelmet, phantasmChestplate, phantasmLeggings, phantasmBoots,
 
     // materials
-    rawCobalt, amberGem, amethystGem, rubyGem, sapphireGem, wickedAmethyst, soulShard, unchargedShard, spiderFang,
+    rawCobalt, runicDust, amberGem, amethystGem, rubyGem, sapphireGem, wickedAmethyst, soulShard, unchargedShard, spiderFang,
     natureGift, oceanicShell, infernalStone, boneFragment, painCrystal, nihilityShard, illusionStone, elementalCrystal,
     natureCore, aquariusCore, infernalCore, voidCore,
     blackGoldUpgrade, natureUpgrade, aquariusUpgrade, infernalUpgrade, voidUpgrade,
@@ -192,6 +192,7 @@ public class ItemsRegistry{
 
         //materials
         rawCobalt = registerItem("raw_cobalt");
+        runicDust = registerItem("runic_dust");
         amberGem = registerItem("amber_gem");
         amethystGem = registerItem("amethyst_gem");
         rubyGem = registerItem("ruby_gem");

@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " G ",
+    "ROR",
+    " G "
+  ],
+  "key": {
+    "G": {
+      "item": "valoria:wicked_amethyst"
+    },
+    "R": {
+      "item": "valoria:runic_dust"
+    },
+    "O": {
+      "item": "valoria:rune"
+    }
+  },
+  "result": {
+    "item": "valoria:rune_of_curses",
+    "count": 1
+  }
+}
