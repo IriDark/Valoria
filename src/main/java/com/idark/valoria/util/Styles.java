@@ -1,11 +1,10 @@
 package com.idark.valoria.util;
 
-import net.minecraft.network.chat.Style;
-import net.minecraft.network.chat.TextColor;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.chat.*;
+import net.minecraft.resources.*;
 
 import java.awt.*;
-import java.util.function.UnaryOperator;
+import java.util.function.*;
 
 public class Styles{
     public static UnaryOperator<Style> create(Color color){
@@ -19,6 +18,7 @@ public class Styles{
                 .withFont(new ResourceLocation("minecraft", "default"));
     }
 
+    public static UnaryOperator<Style> bloody = create(Pal.lightCarminePink);
     public static UnaryOperator<Style> infernal = create(Pal.infernal);
     public static UnaryOperator<Style> aquarius = create(Pal.oceanic);
     public static UnaryOperator<Style> nature = create(Pal.nature);

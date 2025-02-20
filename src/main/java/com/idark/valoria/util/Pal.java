@@ -45,6 +45,7 @@ public class Pal{
     vividGreen = Clr.valueOf("91eb19"),
     seaGreen = Clr.valueOf("308a3e"),
 
+    lightCarminePink = Clr.valueOf("e76161"),
     verySoftPink = Clr.valueOf("fd91c3"),
     moderatePink = Clr.valueOf("cd48a3"),
     vividPink = Clr.valueOf("e11455"),
