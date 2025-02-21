@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "valoria:kiln",
     "valoria:uncharged_shard_block",
     "valoria:soul_shard_block",
     "valoria:wicked_amethyst_block",

@@ -353,18 +353,18 @@ public class BlockRegistry{
         eldritchHangingSign = BLOCK.register("eldritch_hanging_sign", () -> new ModCeilingHangingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_MAGENTA).noOcclusion().noCollission(), ModWoodTypes.ELDRITCH));
         eldritchWallHangingSign = BLOCK.register("eldritch_wall_hanging_sign", () -> new ModWallHangingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_MAGENTA).noOcclusion().noCollission(), ModWoodTypes.ELDRITCH));
 
-        keg = registerBlock("keg", () -> new KegBlock(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS).requiresCorrectToolForDrops().strength(1f, 1f).noOcclusion()));
-        kiln = registerBlock("kiln", () -> new KilnBlock(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(1f, 1f).noOcclusion().lightLevel(Utils.Blocks.lightIfLit(13))));
-        jewelerTable = registerBlock("jeweler_table", () -> new JewelerBlock(BlockBehaviour.Properties.copy(Blocks.CRAFTING_TABLE).requiresCorrectToolForDrops().strength(1f, 1f)));
-        stoneCrusher = registerBlock("stone_crusher", () -> new CrusherBlock(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(1f, 2f)));
-        archaeologyTable = registerBlock("archaeology_table", () -> new ArchaeologyTableBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops().strength(3f).noOcclusion()));
-        elementalManipulator = registerBlock("elemental_manipulator", () -> new ManipulatorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).mapColor(MapColor.COLOR_GREEN).requiresCorrectToolForDrops().strength(3f, 1f).lightLevel(s -> 4).noOcclusion()));
+        keg = registerBlock("keg", () -> new KegBlock(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS).strength(1f, 1f).noOcclusion()));
+        kiln = registerBlock("kiln", () -> new KilnBlock(BlockBehaviour.Properties.copy(Blocks.STONE).strength(1f, 1f).noOcclusion().lightLevel(Utils.Blocks.lightIfLit(13))));
+        jewelerTable = registerBlock("jeweler_table", () -> new JewelerBlock(BlockBehaviour.Properties.copy(Blocks.CRAFTING_TABLE).strength(1f, 1f)));
+        stoneCrusher = registerBlock("stone_crusher", () -> new CrusherBlock(BlockBehaviour.Properties.copy(Blocks.STONE).strength(1f, 2f)));
+        archaeologyTable = registerBlock("archaeology_table", () -> new ArchaeologyTableBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(3f).noOcclusion()));
+        elementalManipulator = registerBlock("elemental_manipulator", () -> new ManipulatorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).mapColor(MapColor.COLOR_GREEN).strength(3f, 1f).lightLevel(s -> 4).noOcclusion()));
 
-        grave = registerBlock("grave", () -> new TombBlock(true, BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(1f, 1f).noOcclusion()));
-        tomb = registerBlock("tomb", () -> new TombBlock(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(1f, 1f).noOcclusion()));
-        mossyTomb = registerBlock("mossy_tomb", () -> new TombBlock(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(1f, 1f).noOcclusion()));
-        woodenTomb = registerBlock("wooden_tomb", () -> new TombBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).requiresCorrectToolForDrops().strength(1f, 1f).noOcclusion()));
-        mossyWoodenTomb = registerBlock("mossy_wooden_tomb", () -> new TombBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).requiresCorrectToolForDrops().strength(1f, 1f).noOcclusion()));
+        grave = registerBlock("grave", () -> new TombBlock(true, BlockBehaviour.Properties.copy(Blocks.STONE).strength(1f, 1f).noOcclusion()));
+        tomb = registerBlock("tomb", () -> new TombBlock(BlockBehaviour.Properties.copy(Blocks.STONE).strength(1f, 1f).noOcclusion()));
+        mossyTomb = registerBlock("mossy_tomb", () -> new TombBlock(BlockBehaviour.Properties.copy(Blocks.STONE).strength(1f, 1f).noOcclusion()));
+        woodenTomb = registerBlock("wooden_tomb", () -> new TombBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).strength(1f, 1f).noOcclusion()));
+        mossyWoodenTomb = registerBlock("mossy_wooden_tomb", () -> new TombBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).strength(1f, 1f).noOcclusion()));
         sarcophagus = registerBlock("sarcophagus", () -> new SarcophagusBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops().strength(3f).noOcclusion()));
         tile = registerBlock("quartz_blackstone_tile", () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops().strength(3f, 1f)));
         quicksand = registerBlock("quicksand", () -> new QuickSandBlock(BlockBehaviour.Properties.copy(Blocks.SAND).dynamicShape().requiresCorrectToolForDrops().strength(0.5f, 0.5f).sound(SoundType.SAND)));

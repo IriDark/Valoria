@@ -174,12 +174,11 @@ public class Ent extends MultiAttackMob implements Enemy{
                             return true;
                         }
                     }
-
                     this.path = this.mob.getNavigation().createPath(livingentity, 0);
                     if (this.path != null) {
                         return true;
                     } else {
-                        return super.canUse() && canAttack();
+                        return this.getAttackReachSqr(livingentity) >= this.mob.distanceToSqr(livingentity.getX(), livingentity.getY(), livingentity.getZ());
                     }
                 }
             }
@@ -187,15 +186,13 @@ public class Ent extends MultiAttackMob implements Enemy{
 
         public boolean canContinueToUse() {
             LivingEntity livingentity = this.mob.getTarget();
-            if(livingentity == null || !livingentity.isAlive()) return false;
-            if (this.mob.distanceToSqr(this.mob.getTarget()) > 6){
-                return true;
-            }
-
+            if (!super.canContinueToUse()) return false;
             if (!this.followingTargetEvenIfNotSeen) {
                 return !this.mob.getNavigation().isDone();
+            } else if (!this.mob.isWithinRestriction(livingentity.blockPosition())) {
+                return false;
             } else {
-                return super.canContinueToUse() && canAttack();
+                return !(livingentity instanceof Player) || !livingentity.isSpectator() && !((Player)livingentity).isCreative();
             }
         }
 
@@ -203,29 +200,23 @@ public class Ent extends MultiAttackMob implements Enemy{
         public void start(){
             super.start();
             this.mob.getNavigation().moveTo(this.path, this.speedModifier);
-            this.mob.setAggressive(true);
             this.ticksUntilNextPathRecalculation = 0;
         }
 
         public void stop() {
             super.stop();
+            this.mob.getNavigation().stop();
             LivingEntity livingentity = this.mob.getTarget();
             if (!EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingentity)) {
-                this.mob.setTarget((LivingEntity)null);
+                this.mob.setTarget(null);
             }
-
-            this.mob.setAggressive(false);
-            this.mob.getNavigation().stop();
-        }
-
-        public boolean requiresUpdateEveryTick() {
-            return true;
         }
 
         @Override
         public void tick(){
+            --this.attackWarmupDelay;
             LivingEntity livingentity = this.mob.getTarget();
-            if (livingentity != null) {
+            if (livingentity != null && this.attackWarmupDelay == 0) {
                 this.mob.getLookControl().setLookAt(livingentity, 30.0F, 30.0F);
                 double d0 = this.mob.getPerceivedTargetDistanceSquareForMeleeAttack(livingentity);
                 this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
@@ -257,9 +248,8 @@ public class Ent extends MultiAttackMob implements Enemy{
                     }
 
                     this.ticksUntilNextPathRecalculation = this.adjustedTickDelay(this.ticksUntilNextPathRecalculation);
+                    this.checkAndPerformAttack(livingentity, d0);
                 }
-
-                super.tick();
             }
         }
 
@@ -268,11 +258,17 @@ public class Ent extends MultiAttackMob implements Enemy{
             this.mob.level().broadcastEntityEvent(mob, (byte)4);
         }
 
+        protected void checkAndPerformAttack(LivingEntity pEnemy, double pDistToEnemySqr) {
+            double d0 = this.getAttackReachSqr(pEnemy);
+            if (pDistToEnemySqr <= d0) {
+                Ent.this.playSound(this.getAttackSound(), 1.0F, 1.0F);
+                this.mob.swing(InteractionHand.MAIN_HAND);
+                this.mob.doHurtTarget(pEnemy);
+            }
+        }
+
         @Override
         protected void performAttack(){
-            if(this.mob.getTarget() == null) return;
-            this.mob.swing(InteractionHand.MAIN_HAND);
-            this.mob.doHurtTarget(this.mob.getTarget());
         }
 
         @Override
@@ -288,17 +284,6 @@ public class Ent extends MultiAttackMob implements Enemy{
         @Override
         public @Nullable SoundEvent getPrepareSound(){
             return null;
-        }
-
-        public boolean canAttack() {
-            boolean intersects = this.mob.getBoundingBox().inflate(1.5f).intersects(this.mob.getTarget().getBoundingBox());
-            boolean isWithinRadius = this.getAttackReachSqr(this.mob.getTarget()) >= this.mob.distanceToSqr(this.mob.getTarget().getX(), this.mob.getTarget().getY(), this.mob.getTarget().getZ());
-            if (!this.mob.getSensing().hasLineOfSight(this.mob.getTarget())) {
-                this.mob.getNavigation().stop();
-                return false;
-            }
-
-            return intersects || isWithinRadius;
         }
 
         protected double getAttackReachSqr(LivingEntity pAttackTarget) {

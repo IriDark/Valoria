@@ -31,6 +31,10 @@ public class ModJeiPlugin implements IModPlugin{
     @Override
     public void registerRecipes(IRecipeRegistration registration){
         ModJeiRecipes modRecipes = new ModJeiRecipes();
+        registration.addIngredientInfo(ItemsRegistry.amberGem.get(), Component.translatable("jei.valoria.runic_dust"));
+        registration.addIngredientInfo(ItemsRegistry.amethystGem.get(), Component.translatable("jei.valoria.runic_dust"));
+        registration.addIngredientInfo(ItemsRegistry.sapphireGem.get(), Component.translatable("jei.valoria.runic_dust"));
+        registration.addIngredientInfo(ItemsRegistry.rubyGem.get(), Component.translatable("jei.valoria.runic_dust"));
         registration.addIngredientInfo(BlockRegistry.crystalStone.get(), Component.translatable("jei.valoria.crystal_stone"));
         registration.addRecipes(ModRecipeTypes.BREWERY, modRecipes.getBreweryRecipes());
         registration.addRecipes(ModRecipeTypes.JEWELRY, modRecipes.getJewelryRecipes());

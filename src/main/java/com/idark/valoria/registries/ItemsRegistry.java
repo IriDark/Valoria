@@ -516,7 +516,7 @@ public class ItemsRegistry{
         runeAccuracy = registerItem("rune_of_accuracy", () -> new RuneAccuracy(new Item.Properties().stacksTo(1).durability(32).rarity(Rarity.EPIC)));
         runeDeep = registerItem("rune_of_deep", () -> new RuneDeep(new Item.Properties().stacksTo(1).durability(32).rarity(Rarity.EPIC)));
         runePyro = registerItem("rune_of_pyro", () -> new CurioPyro(new Item.Properties().stacksTo(1).durability(32).rarity(Rarity.EPIC)));
-        runeCold = registerItem("rune_of_cold", () -> new RuneCold(new Item.Properties().stacksTo(1).durability(32).rarity(Rarity.EPIC)));
+        runeCold = registerItem("rune_of_cold", () -> new RuneCold(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC)));
 
         // medicine
         aloeBandage = registerItem("aloe_bandage", () -> new BandageItem(false, 1600, 0));

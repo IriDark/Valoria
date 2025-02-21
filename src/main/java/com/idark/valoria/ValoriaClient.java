@@ -72,7 +72,6 @@ public class ValoriaClient{
         SplashHandler.addSplash("Afraid of future");
         SplashHandler.addSplash("Valoria, animated by Kerdo!");
         SplashHandler.addSplash("Valoria music by DuUaader!");
-        SplashHandler.addSplash("Привіт, Україно!");
     }
 
     @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
