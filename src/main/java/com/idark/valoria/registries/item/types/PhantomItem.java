@@ -46,9 +46,6 @@ public class PhantomItem extends SwordItem implements RadiusItem{
         return 72000;
     }
 
-    /**
-     * Some sounds taken from the CalamityMod (Terraria) in a <a href="https://calamitymod.wiki.gg/wiki/Category:Sound_effects">Calamity Mod Wiki.gg</a>
-     */
     public void releaseUsing(ItemStack stack, Level level, LivingEntity entityLiving, int timeLeft){
         RandomSource rand = level.getRandom();
         Player player = (Player)entityLiving;

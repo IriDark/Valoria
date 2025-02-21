@@ -57,9 +57,6 @@ public class BlazeReapItem extends PickaxeItem implements Vanishable, OverlayRen
         return enchant.category == EnchantmentCategory.WEAPON || enchant.category == EnchantmentCategory.DIGGER || enchant.category == EnchantmentsRegistry.BLAZE;
     }
 
-    /**
-     * Some sounds taken from the CalamityMod (Terraria) in a <a href="https://calamitymod.wiki.gg/wiki/Category:Sound_effects">Calamity Mod Wiki.gg</a>
-     */
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand){
         ItemStack weapon = player.getItemInHand(hand);
         ItemStack ammo = ValoriaUtils.getProjectile(player, weapon);

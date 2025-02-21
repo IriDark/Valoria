@@ -36,9 +36,6 @@ public class HoundItem extends SwordItem{
         return InteractionResultHolder.pass(itemstack);
     }
 
-    /**
-     * Some sounds taken from the CalamityMod (Terraria) in a <a href="https://calamitymod.wiki.gg/wiki/Category:Sound_effects">Calamity Mod Wiki.gg</a>
-     */
     public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entityLiving){
         Player player = (Player)entityLiving;
         player.awardStat(Stats.ITEM_USED.get(this));

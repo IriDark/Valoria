@@ -556,28 +556,52 @@
       "valoria:water_ability"
     ]
   },
+  "item.phantasm_ability_legacy.use": {
+    "subtitle": "subtitles.valoria.ability.use",
+    "sounds": [
+      "valoria:abilities/phantom_totem_legacy"
+    ]
+  },
   "item.phantasm_ability.use": {
     "subtitle": "subtitles.valoria.ability.use",
     "sounds": [
-      "valoria:phantom_totem"
+      "valoria:abilities/phantom_totem"
+    ]
+  },
+  "item.bloodhound_ability_legacy.use": {
+    "subtitle": "subtitles.valoria.ability.use",
+    "sounds": [
+      "valoria:abilities/bloodhound_ability_legacy"
     ]
   },
   "item.bloodhound_ability.use": {
     "subtitle": "subtitles.valoria.ability.use",
     "sounds": [
-      "valoria:bloodhound_ability"
+      "valoria:abilities/bloodhound_ability"
+    ]
+  },
+  "item.swiftslice_legacy.use": {
+    "subtitle": "subtitles.valoria.ability.use",
+    "sounds": [
+      "valoria:katana/swiftslice_legacy"
     ]
   },
   "item.swiftslice.use": {
     "subtitle": "subtitles.valoria.ability.use",
     "sounds": [
-      "valoria:swiftslice"
+      "valoria:katana/swiftslice"
+    ]
+  },
+  "item.halloween_legacy_slice.use": {
+    "subtitle": "subtitles.valoria.ability.use",
+    "sounds": [
+      "valoria:katana/halloween_slice_legacy"
     ]
   },
   "item.halloween_slice.use": {
     "subtitle": "subtitles.valoria.ability.use",
     "sounds": [
-      "valoria:halloween_slice"
+      "valoria:katana/halloween_slice"
     ]
   },
   "item.recharge.use": {
@@ -586,10 +610,16 @@
       "valoria:recharge"
     ]
   },
+  "item.blazecharge_legacy.use": {
+    "subtitle": "subtitles.valoria.ability.use",
+    "sounds": [
+      "valoria:abilities/blazecharge_legacy"
+    ]
+  },
   "item.blazecharge.use": {
     "subtitle": "subtitles.valoria.ability.use",
     "sounds": [
-      "valoria:blazecharge"
+      "valoria:abilities/blazecharge"
     ]
   },
   "item.eruption.use": {

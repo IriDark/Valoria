@@ -18,9 +18,12 @@ public class SoundsRegistry{
     public static final RegistryObject<SoundEvent> ARRIVING = registerSound("music.valoria.arriving");
     public static final RegistryObject<SoundEvent> BLOOD_POLE = registerSound("music.valoria.blood_pole");
 
+    public static final RegistryObject<SoundEvent> HALLOWEEN_SLICE_LEGACY = registerSound("item.halloween_slice_legacy.use"); // calamity
     public static final RegistryObject<SoundEvent> HALLOWEEN_SLICE = registerSound("item.halloween_slice.use");
+    public static final RegistryObject<SoundEvent> SWIFTSLICE_LEGACY = registerSound("item.swiftslice_legacy.use"); // calamity
     public static final RegistryObject<SoundEvent> SWIFTSLICE = registerSound("item.swiftslice.use");
     public static final RegistryObject<SoundEvent> RECHARGE = registerSound("item.recharge.use");
+    public static final RegistryObject<SoundEvent> BLAZECHARGE_LEGACY = registerSound("item.blazecharge_legacy.use"); // calamity
     public static final RegistryObject<SoundEvent> BLAZECHARGE = registerSound("item.blazecharge.use");
     public static final RegistryObject<SoundEvent> ERUPTION = registerSound("item.eruption.use");
     public static final RegistryObject<SoundEvent> DISAPPEAR = registerSound("item.disappear.ambient");
@@ -31,8 +34,11 @@ public class SoundsRegistry{
     public static final RegistryObject<SoundEvent> POT_PLACE = registerSound("block.pot.place");
     public static final RegistryObject<SoundEvent> BAG_OPEN = registerSound("item.bag_open.use");
     public static final RegistryObject<SoundEvent> WATER_ABILITY = registerSound("item.water_ability.use");
+    public static final RegistryObject<SoundEvent> PHANTASM_ABILITY_LEGACY = registerSound("item.phantasm_ability_legacy.use"); // calamity
     public static final RegistryObject<SoundEvent> PHANTASM_ABILITY = registerSound("item.phantasm_ability.use");
+    public static final RegistryObject<SoundEvent> BLOODHOUND_ABILITY_LEGACY = registerSound("item.bloodhound_ability_legacy.use"); // calamity
     public static final RegistryObject<SoundEvent> BLOODHOUND_ABILITY = registerSound("item.bloodhound_ability.use");
+
     public static final RegistryObject<SoundEvent> SPEAR_GROUND_IMPACT = registerSound("item.spear.hit_ground");
     public static final RegistryObject<SoundEvent> SPEAR_RETURN = registerSound("item.spear.return");
     public static final RegistryObject<SoundEvent> SPEAR_THROW = registerSound("item.spear.throw");

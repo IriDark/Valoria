@@ -25,9 +25,6 @@ public class AquariusScytheItem extends ScytheItem{
         super(tier, attackDamageIn, attackSpeedIn, builderIn);
     }
 
-    /**
-     * Some sounds taken from the CalamityMod (Terraria) in a <a href="https://calamitymod.wiki.gg/wiki/Category:Sound_effects">Calamity Mod Wiki.gg</a>
-     */
     public boolean hurtEnemy(ItemStack pStack, LivingEntity pTarget, LivingEntity pAttacker){
         pStack.hurtAndBreak(1, pAttacker, (p_43296_) -> p_43296_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
         if(arcRandom.chance(0.15f)){
@@ -38,9 +35,6 @@ public class AquariusScytheItem extends ScytheItem{
         return true;
     }
 
-    /**
-     * Some sounds taken from the CalamityMod (Terraria) in a <a href="https://calamitymod.wiki.gg/wiki/Category:Sound_effects">Calamity Mod Wiki.gg</a>
-     */
     @Override
     public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entityLiving){
         Player player = (Player)entityLiving;
