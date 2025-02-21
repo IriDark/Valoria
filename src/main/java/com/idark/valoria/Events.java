@@ -69,7 +69,7 @@ public class Events{
     @SubscribeEvent
     public void onUseItem(LivingEntityUseItemEvent event){
         if(event.getEntity().hasEffect(EffectsRegistry.STUN.get())){
-            event.setCanceled(true);
+            event.getEntity().stopUsingItem();
         }
     }
 
