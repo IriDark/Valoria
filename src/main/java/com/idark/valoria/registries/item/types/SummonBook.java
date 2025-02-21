@@ -41,7 +41,7 @@ public class SummonBook extends Item{
      * @param count    Count of summoned mobs
      */
     public SummonBook(int lifetime, int count, Properties pProperties){
-        super(pProperties);
+        super(pProperties.stacksTo(1));
         this.hasLimitedLife = true;
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
         builder.put(AttributeReg.NECROMANCY_LIFETIME.get(), new AttributeModifier(BASE_NECROMANCY_LIFETIME_UUID, "Tool modifier", lifetime, AttributeModifier.Operation.ADDITION));
