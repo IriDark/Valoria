@@ -495,7 +495,7 @@ public class ItemsRegistry{
             }
         });
 
-        lesserRuneVision = registerItem("lesser_rune_of_vision", () -> new CurioVision(new Item.Properties().stacksTo(1).durability(6).rarity(Rarity.EPIC)));
+        lesserRuneVision = registerItem("lesser_rune_of_vision", () -> new CurioVision(new Item.Properties().stacksTo(1).durability(6).rarity(Rarity.EPIC),  1200));
         lesserRuneWealth = registerItem("lesser_rune_of_wealth", () -> new CurioWealth(new Item.Properties().stacksTo(1).durability(6).rarity(Rarity.EPIC)));
         lesserRuneCurses = registerItem("lesser_rune_of_curses", () -> new CurioCurses(new Item.Properties().stacksTo(1).durability(6).rarity(Rarity.EPIC)));
         lesserRuneStrength = registerItem("lesser_rune_of_strength", () -> new CurioStrength(new Item.Properties().stacksTo(1).durability(6).rarity(Rarity.EPIC)));
@@ -509,7 +509,7 @@ public class ItemsRegistry{
             }
         });
 
-        runeVision = registerItem("rune_of_vision", () -> new CurioVision(new Item.Properties().stacksTo(1).durability(32).rarity(Rarity.EPIC)));
+        runeVision = registerItem("rune_of_vision", () -> new CurioVision(new Item.Properties().stacksTo(1).durability(32).rarity(Rarity.EPIC), 3600));
         runeWealth = registerItem("rune_of_wealth", () -> new CurioWealth(new Item.Properties().stacksTo(1).durability(32).rarity(Rarity.EPIC)));
         runeCurses = registerItem("rune_of_curses", () -> new CurioCurses(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC)));
         runeStrength = registerItem("rune_of_strength", () -> new CurioStrength(new Item.Properties().stacksTo(1).durability(32).rarity(Rarity.EPIC)));

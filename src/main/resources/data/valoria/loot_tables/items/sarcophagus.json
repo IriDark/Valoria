@@ -99,16 +99,6 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:poisonous_potato",
-          "conditions": [
-            {
-              "condition": "minecraft:random_chance",
-              "chance": 0.2
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
           "name": "minecraft:potion",
           "functions": [
             {

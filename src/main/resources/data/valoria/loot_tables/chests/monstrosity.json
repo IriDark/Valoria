@@ -16,7 +16,7 @@
         {
           "type": "minecraft:item",
           "name": "valoria:miners_bag",
-          "weight": 12
+          "weight": 6
         },
         {
           "type": "minecraft:item",
@@ -80,8 +80,8 @@
         },
         {
           "type": "minecraft:item",
-          "name": "valoria:rune",
-          "weight": 8,
+          "name": "valoria:lesser_rune",
+          "weight": 4,
           "functions": [
             {
               "function": "minecraft:set_count",

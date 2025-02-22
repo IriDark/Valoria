@@ -80,8 +80,8 @@
         },
         {
           "type": "minecraft:item",
-          "name": "valoria:rune",
-          "weight": 5,
+          "name": "valoria:lesser_rune",
+          "weight": 2,
           "functions": [
             {
               "function": "minecraft:set_count",

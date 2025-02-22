@@ -114,8 +114,14 @@ public class Events{
 
     @SubscribeEvent
     public void critDamage(CriticalHitEvent event){
+        if(CuriosApi.getCuriosHelper().findEquippedCurio(ItemsRegistry.lesserRuneAccuracy.get(), event.getEntity()).isPresent()){
+            if(arcRandom.chance(0.25f)){
+                event.getTarget().hurt(event.getEntity().level().damageSources().playerAttack(event.getEntity()), (float)(event.getEntity().getAttributeValue(Attributes.ATTACK_DAMAGE) * 1.5f));
+            }
+        }
+
         if(CuriosApi.getCuriosHelper().findEquippedCurio(ItemsRegistry.runeAccuracy.get(), event.getEntity()).isPresent()){
-            if(arcRandom.chance(0.1f)){
+            if(arcRandom.chance(0.5f)){
                 event.getTarget().hurt(event.getEntity().level().damageSources().playerAttack(event.getEntity()), (float)(event.getEntity().getAttributeValue(Attributes.ATTACK_DAMAGE) * 1.5f));
             }
         }
@@ -124,7 +130,6 @@ public class Events{
     @SubscribeEvent
     public void onClone(PlayerEvent.Clone event){
         Capability<IUnlockable> PAGE = IUnlockable.INSTANCE;
-
         event.getOriginal().reviveCaps();
         event.getEntity().getCapability(PAGE).ifPresent((k) -> event.getOriginal().getCapability(PAGE).ifPresent((o) ->
                 ((INBTSerializable<CompoundTag>)k).deserializeNBT(((INBTSerializable<CompoundTag>)o).serializeNBT())));

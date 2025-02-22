@@ -257,8 +257,8 @@
         },
         {
           "type": "minecraft:item",
-          "name": "valoria:rune",
-          "weight": 4
+          "name": "valoria:lesser_rune",
+          "weight": 2
         },
         {
           "type": "minecraft:item",

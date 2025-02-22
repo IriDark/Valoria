@@ -1,13 +1,13 @@
 package com.idark.valoria.registries.item.types.curio.charm;
 
-import net.minecraft.ChatFormatting;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.Level;
-import net.minecraftforge.event.entity.player.CriticalHitEvent;
+import com.idark.valoria.registries.*;
+import net.minecraft.*;
+import net.minecraft.network.chat.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.*;
+import net.minecraftforge.event.entity.player.*;
 
-import java.util.List;
+import java.util.*;
 
 /**
  * The main functional done in a CriticalHitEvent
@@ -22,6 +22,6 @@ public class RuneAccuracy extends CurioRune{
     @Override
     public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags){
         super.appendHoverText(stack, world, tooltip, flags);
-        tooltip.add(Component.translatable("tooltip.valoria.crit").withStyle(ChatFormatting.GRAY));
+        tooltip.add(Component.translatable("tooltip.valoria.crit", stack.is(ItemsRegistry.runeAccuracy.get()) ? "50%" : "25%").withStyle(ChatFormatting.GRAY));
     }
 }
