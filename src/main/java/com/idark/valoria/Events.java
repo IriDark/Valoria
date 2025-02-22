@@ -23,6 +23,7 @@ import net.minecraftforge.event.*;
 import net.minecraftforge.event.entity.*;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.*;
+import net.minecraftforge.event.level.*;
 import net.minecraftforge.eventbus.api.*;
 import pro.komaru.tridot.core.math.*;
 import top.theillusivec4.curios.api.*;
@@ -67,13 +68,6 @@ public class Events{
     }
 
     @SubscribeEvent
-    public void onUseItem(LivingEntityUseItemEvent event){
-        if(event.getEntity().hasEffect(EffectsRegistry.STUN.get())){
-            event.getEntity().stopUsingItem();
-        }
-    }
-
-    @SubscribeEvent
     public void onAttack(AttackEntityEvent event){
         if(event.getEntity().hasEffect(EffectsRegistry.STUN.get())){
             event.setCanceled(true);
@@ -92,6 +86,106 @@ public class Events{
     public void onLivingAttack(LivingAttackEvent event){
         if(event.getSource().getEntity() instanceof LivingEntity e){
             if(e.hasEffect(EffectsRegistry.STUN.get())) event.setCanceled(true);
+        }
+    }
+
+    @SubscribeEvent
+    public void onPlayerAttack(AttackEntityEvent event){
+        if(event.isCancelable() && event.getEntity().hasEffect(EffectsRegistry.STUN.get())){
+            event.setCanceled(true);
+        }
+    }
+
+    @SubscribeEvent
+    public void onLivingJump(LivingEvent.LivingJumpEvent event) {
+        LivingEntity entity = event.getEntity();
+        if (entity.getEffect(EffectsRegistry.STUN.get()) != null){
+            entity.setDeltaMovement(entity.getDeltaMovement().x(), 0.0D, entity.getDeltaMovement().z());
+        }
+    }
+
+    @SubscribeEvent
+    public void onPlayerLeftClick(PlayerInteractEvent.LeftClickBlock event) {
+        Player player = event.getEntity();
+        if (event.isCancelable() && player.hasEffect(EffectsRegistry.STUN.get())) {
+            event.setCanceled(true);
+        }
+    }
+
+    @SubscribeEvent
+    public void onUseItem(LivingEntityUseItemEvent event) {
+        LivingEntity living = event.getEntity();
+        if (event.isCancelable() && living.hasEffect(EffectsRegistry.STUN.get())) {
+            event.setCanceled(true);
+        }
+    }
+
+    @SubscribeEvent
+    public void onPlaceBlock(BlockEvent.EntityPlaceEvent event) {
+        Entity entity = event.getEntity();
+        if (entity instanceof LivingEntity living) {
+            if (event.isCancelable() && living.hasEffect(EffectsRegistry.STUN.get())) {
+                event.setCanceled(true);
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public void onFillBucket(FillBucketEvent event) {
+        LivingEntity living = event.getEntity();
+        if (living != null) {
+            if (event.isCancelable() && living.hasEffect(EffectsRegistry.STUN.get())) {
+                event.setCanceled(true);
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public void onBreakBlock(BlockEvent.BreakEvent event) {
+        if (event.isCancelable() && event.getPlayer().hasEffect(EffectsRegistry.STUN.get())) {
+            event.setCanceled(true);
+        }
+    }
+
+    @SubscribeEvent
+    public void onPlayerInteract(PlayerInteractEvent.RightClickEmpty event) {
+        if (event.isCancelable() && event.getEntity().hasEffect(EffectsRegistry.STUN.get())) {
+            event.setCanceled(true);
+        }
+    }
+
+    @SubscribeEvent
+    public void onPlayerInteract(PlayerInteractEvent.LeftClickEmpty event){
+        if(event.isCancelable() && event.getEntity().hasEffect(EffectsRegistry.STUN.get())){
+            event.setCanceled(true);
+        }
+    }
+
+    @SubscribeEvent
+    public void onPlayerInteract(PlayerInteractEvent.EntityInteract event) {
+        if (event.isCancelable() && event.getEntity().hasEffect(EffectsRegistry.STUN.get())) {
+            event.setCanceled(true);
+        }
+    }
+
+    @SubscribeEvent
+    public void onPlayerInteract(PlayerInteractEvent.RightClickBlock event) {
+        if (event.isCancelable() && event.getEntity().hasEffect(EffectsRegistry.STUN.get())) {
+            event.setCanceled(true);
+        }
+    }
+
+    @SubscribeEvent
+    public void onPlayerInteract(PlayerInteractEvent.LeftClickBlock event) {
+        if (event.isCancelable() && event.getEntity().hasEffect(EffectsRegistry.STUN.get())) {
+            event.setCanceled(true);
+        }
+    }
+
+    @SubscribeEvent
+    public void onPlayerInteract(PlayerInteractEvent.RightClickItem event) {
+        if (event.isCancelable() && event.getEntity().hasEffect(EffectsRegistry.STUN.get())) {
+            event.setCanceled(true);
         }
     }
 
