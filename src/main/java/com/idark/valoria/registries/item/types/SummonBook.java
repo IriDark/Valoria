@@ -147,7 +147,7 @@ public class SummonBook extends Item{
     @SuppressWarnings("unchecked")
     public Component getHighlightTip(ItemStack stack, Component displayName){
         if(getDefaultType(stack).is(TagsRegistry.MINIONS)){
-            return displayName.copy().append(Component.literal(" [" + getDefaultType(stack).getDescription().getString() + "]").withStyle(new Styles().create(AbstractMinionEntity.getColor((EntityType<? extends AbstractMinionEntity>)getDefaultType(stack)).brighter().brighter())));
+            return displayName.copy().append(Component.literal(" [" + getDefaultType(stack).getDescription().getString() + "]").withStyle(Styles.create(AbstractMinionEntity.getColor((EntityType<? extends AbstractMinionEntity>)getDefaultType(stack)).brighter().brighter())));
         }
 
         return super.getHighlightTip(stack, displayName);
