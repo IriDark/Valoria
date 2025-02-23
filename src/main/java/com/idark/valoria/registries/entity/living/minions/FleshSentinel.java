@@ -3,6 +3,7 @@ package com.idark.valoria.registries.entity.living.minions;
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.particle.*;
 import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.entity.projectile.*;
 import net.minecraft.core.*;
 import net.minecraft.network.syncher.*;
 import net.minecraft.server.level.*;
@@ -56,6 +57,7 @@ public class FleshSentinel extends AbstractMinionEntity{
     protected void registerGoals(){
         super.registerGoals();
         this.targetSelector.addGoal(0, new NearestAttackableTargetGoal<>(this, Player.class, true));
+        this.goalSelector.addGoal(0, new FleshSentinel.FleshSentinelOrbitAndShootGoal( 8, 1));
         this.goalSelector.addGoal(0, new FleshSentinel.FleshSentinelRandomMoveGoal());
         this.goalSelector.addGoal(2, new LookAtPlayerGoal(this, Mob.class, 8.0F));
         this.targetSelector.addGoal(1, (new HurtByTargetGoal(this, Raider.class)).setAlertOthers());
@@ -161,6 +163,66 @@ public class FleshSentinel extends AbstractMinionEntity{
      */
     public double getMyRidingOffset(){
         return 0.4D;
+    }
+
+    class FleshSentinelOrbitAndShootGoal extends Goal {
+        private final double orbitRadius;
+        private final double speed;
+        private int attackCooldown;
+
+        public FleshSentinelOrbitAndShootGoal(double orbitRadius, double speed) {
+            this.orbitRadius = orbitRadius;
+            this.speed = speed;
+            this.attackCooldown = 0;
+            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
+        }
+
+        @Override
+        public boolean canUse() {
+            return FleshSentinel.this.getTarget() != null;
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return FleshSentinel.this.getTarget() != null && FleshSentinel.this.getTarget().isAlive();
+        }
+
+        @Override
+        public void tick() {
+            LivingEntity target = FleshSentinel.this.getTarget();
+            if (target == null) return;
+
+            double dx = target.getX() - FleshSentinel.this.getX();
+            double dz = target.getZ() - FleshSentinel.this.getZ();
+            double distance = Math.sqrt(dx * dx + dz * dz);
+            if (distance < orbitRadius * 0.8) {
+                FleshSentinel.this.getMoveControl().setWantedPosition(FleshSentinel.this.getX() - dx / distance * orbitRadius, FleshSentinel.this.getY(), FleshSentinel.this.getZ() - dz / distance * orbitRadius, speed);
+            } else if (distance > orbitRadius * 1.2) {
+                FleshSentinel.this.getMoveControl().setWantedPosition(target.getX(), target.getY(), target.getZ(), speed);
+            } else {
+                double angle = Math.toRadians((FleshSentinel.this.tickCount % 360) * 4);
+                double offsetX = Math.cos(angle) * orbitRadius;
+                double offsetZ = Math.sin(angle) * orbitRadius;
+                FleshSentinel.this.getMoveControl().setWantedPosition(target.getX() + offsetX, target.getY(), target.getZ() + offsetZ, speed);
+            }
+
+            FleshSentinel.this.getLookControl().setLookAt(target, 30.0F, 30.0F);
+            if (attackCooldown > 0) {
+                attackCooldown--;
+            } else {
+                shootAtTarget(target);
+                attackCooldown = 20;
+            }
+        }
+
+        private void shootAtTarget(LivingEntity target) {
+            Vec3 direction = new Vec3(target.getX() - FleshSentinel.this.getX(), target.getEyeY() - FleshSentinel.this.getEyeY(), target.getZ() - FleshSentinel.this.getZ()).normalize();
+            LaserEntity projectile = new LaserEntity(FleshSentinel.this.level(), FleshSentinel.this);
+            projectile.setPos(FleshSentinel.this.getX(), FleshSentinel.this.getEyeY(), FleshSentinel.this.getZ());
+            projectile.setDamage(4);
+            projectile.shoot(direction.x, direction.y, direction.z, 1.5F, 1.0F);
+            FleshSentinel.this.level().addFreshEntity(projectile);
+        }
     }
 
     class FleshSentinelRandomMoveGoal extends Goal{
