@@ -115,6 +115,7 @@ public class SoundsRegistry{
     public static final RegistryObject<SoundEvent> HAUNTED_MERCHANT_MELEE = registerSound("mob.haunted_merchant.melee_attack");
     public static final RegistryObject<SoundEvent> HAUNTED_MERCHANT_RANGE = registerSound("mob.haunted_merchant.range_attack");
 
+    public static final RegistryObject<SoundEvent> MUSIC_DISC_NECROMANCER = registerSound("boss.necromancer.music_disc");
     public static final RegistryObject<SoundEvent> MUSIC_NECROMANCER = registerSound("boss.necromancer.music");
     public static final RegistryObject<SoundEvent> MUSIC_NECROMANCER_DUNGEON = registerSound("dungeon.necromancer.music");
 
