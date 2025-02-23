@@ -27,9 +27,10 @@ public class EntityStatsRegistry{
     public static AttributeSupplier TROLL = register(30, 12).build();
     public static AttributeSupplier DRAUGR = register(30, 15).add(Attributes.ARMOR, 5).add(Attributes.ARMOR_TOUGHNESS, 2).add(Attributes.FOLLOW_RANGE, 20).build();
     public static AttributeSupplier SWAMP_WANDERER = register(35, 11).add(Attributes.KNOCKBACK_RESISTANCE, new Random().nextDouble() * 0.05F).add(Attributes.SPAWN_REINFORCEMENTS_CHANCE, new Random().nextDouble() * 0.25D + 0.5D).build();
-    public static AttributeSupplier SCOURGE = register(50, 5, 0.125).add(Attributes.KNOCKBACK_RESISTANCE, new Random().nextDouble() * 0.05F).add(Attributes.SPAWN_REINFORCEMENTS_CHANCE, new Random().nextDouble() * 0.25D + 0.5D).build();
+    public static AttributeSupplier SCOURGE = register(50, 5, 0.15).add(Attributes.KNOCKBACK_RESISTANCE, new Random().nextDouble() * 0.05F).add(Attributes.SPAWN_REINFORCEMENTS_CHANCE, new Random().nextDouble() * 0.25D + 0.5D).build();
     public static AttributeSupplier ENT = register(40, 12, 0.15).build();
     public static AttributeSupplier SORCERER = register(15, 2.5).build();
+    public static AttributeSupplier MAGGOT = register(8, 4.5).build();
 
     //minions - overworld
     public static AttributeSupplier UNDEAD = registerFlying(8, 1, 0.85).add(Attributes.FOLLOW_RANGE, 8).build();

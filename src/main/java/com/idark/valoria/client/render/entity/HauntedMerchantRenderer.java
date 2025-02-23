@@ -5,8 +5,10 @@ import com.idark.valoria.client.model.entity.*;
 import com.idark.valoria.registries.entity.living.*;
 import net.minecraft.client.renderer.entity.*;
 import net.minecraft.resources.*;
+import net.minecraftforge.api.distmarker.*;
 import pro.komaru.tridot.client.graphics.render.entity.*;
 
+@OnlyIn(Dist.CLIENT)
 public class HauntedMerchantRenderer extends MobRenderer<HauntedMerchant, HauntedMerchantModel<HauntedMerchant>>{
     protected static final ResourceLocation TEXTURE = new ResourceLocation(Valoria.ID, "textures/entity/haunted_merchant.png");
 

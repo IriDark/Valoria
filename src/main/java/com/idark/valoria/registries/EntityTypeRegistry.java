@@ -27,6 +27,7 @@ public class EntityTypeRegistry{
     public static final RegistryObject<EntityType<MannequinEntity>> MANNEQUIN = register("mannequin", EntityType.Builder.of(MannequinEntity::new, MobCategory.MISC).sized(0.6f, 1.95f).clientTrackingRange(4).updateInterval(4));
     public static final RegistryObject<EntityType<SorcererEntity>> SORCERER = register("sorcerer", EntityType.Builder.<SorcererEntity>of(SorcererEntity::new, MobCategory.MONSTER).sized(0.6f, 2.0f).clientTrackingRange(8));
     public static final RegistryObject<EntityType<Ent>> ENT = register("ent", EntityType.Builder.of(Ent::new, MobCategory.MONSTER).sized(0.8f, 2.0f).clientTrackingRange(8));
+    public static final RegistryObject<EntityType<MaggotEntity>> MAGGOT = register("maggot", EntityType.Builder.<MaggotEntity>of(MaggotEntity::new, MobCategory.MONSTER).sized(0.4F, 0.3F).clientTrackingRange(8));
 
     // Minions
     public static final RegistryObject<EntityType<UndeadEntity>> UNDEAD = register("undead", EntityType.Builder.of(UndeadEntity::new, MobCategory.MONSTER).sized(0.4f, 0.8f).clientTrackingRange(8));
@@ -35,17 +36,18 @@ public class EntityTypeRegistry{
     public static final RegistryObject<EntityType<CrystalEntity>> CRYSTAL = register("crystal", EntityType.Builder.of(CrystalEntity::new, MobCategory.MONSTER).sized(1f, 1f).clientTrackingRange(8));
 
     // Projectiles
-    public static final RegistryObject<EntityType<WickedArrow>> WICKED_ARROW = register("wicked_arrow", EntityType.Builder.<WickedArrow>of(WickedArrow::new, MobCategory.MISC).sized(0.35f, 0.35f).clientTrackingRange(4).updateInterval(20));
-    public static final RegistryObject<EntityType<SoulArrow>> SOUL_ARROW = register("soul_arrow", EntityType.Builder.<SoulArrow>of(SoulArrow::new, MobCategory.MISC).sized(0.35f, 0.35f).clientTrackingRange(4).updateInterval(20));
-    public static final RegistryObject<EntityType<PhantomArrow>> PHANTOM_ARROW = register("phantom_arrow", EntityType.Builder.<PhantomArrow>of(PhantomArrow::new, MobCategory.MISC).sized(0.35f, 0.35f).clientTrackingRange(4).updateInterval(20));
-    public static final RegistryObject<EntityType<InfernalArrow>> INFERNAL_ARROW = register("infernal_arrow", EntityType.Builder.of(InfernalArrow::new, MobCategory.MISC).sized(0.35f, 0.35f).clientTrackingRange(4).updateInterval(20));
-    public static final RegistryObject<EntityType<ThrowableBomb>> THROWABLE_BOMB = register("throwable_bomb", EntityType.Builder.<ThrowableBomb>of(ThrowableBomb::new, MobCategory.MISC).sized(0.45f, 0.45f).clientTrackingRange(4).updateInterval(20));
+    public static final RegistryObject<EntityType<WickedArrow>> WICKED_ARROW = register("wicked_arrow", EntityType.Builder.<WickedArrow>of(WickedArrow::new, MobCategory.MISC).sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20));
+    public static final RegistryObject<EntityType<SoulArrow>> SOUL_ARROW = register("soul_arrow", EntityType.Builder.<SoulArrow>of(SoulArrow::new, MobCategory.MISC).sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20));
+    public static final RegistryObject<EntityType<PhantomArrow>> PHANTOM_ARROW = register("phantom_arrow", EntityType.Builder.<PhantomArrow>of(PhantomArrow::new, MobCategory.MISC).sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20));
+    public static final RegistryObject<EntityType<InfernalArrow>> INFERNAL_ARROW = register("infernal_arrow", EntityType.Builder.of(InfernalArrow::new, MobCategory.MISC).sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20));
+    public static final RegistryObject<EntityType<ThrowableBomb>> THROWABLE_BOMB = register("throwable_bomb", EntityType.Builder.<ThrowableBomb>of(ThrowableBomb::new, MobCategory.MISC).sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20));
     public static final RegistryObject<EntityType<MeatBlockEntity>> MEAT = register("meat", EntityType.Builder.<MeatBlockEntity>of(MeatBlockEntity::new, MobCategory.MISC).sized(1, 1f).clientTrackingRange(4).updateInterval(20));
     public static final RegistryObject<EntityType<SpectralBladeEntity>> SPECTRAL_BLADE = register("spectral_blade", EntityType.Builder.<SpectralBladeEntity>of(SpectralBladeEntity::new, MobCategory.MISC).sized(0.35f, 0.35f).clientTrackingRange(4).updateInterval(20));
     public static final RegistryObject<EntityType<ThrownSpearEntity>> SPEAR = register("spear", EntityType.Builder.<ThrownSpearEntity>of(ThrownSpearEntity::new, MobCategory.MISC).sized(0.5f, 0.35f).clientTrackingRange(4).updateInterval(20));
     public static final RegistryObject<EntityType<KunaiEntity>> KUNAI = register("kunai", EntityType.Builder.<KunaiEntity>of(KunaiEntity::new, MobCategory.MISC).sized(0.35f, 0.35f).clientTrackingRange(4).updateInterval(20));
-    public static final RegistryObject<EntityType<SpellProjectile>> SPELL = register("spell", EntityType.Builder.<SpellProjectile>of(SpellProjectile::new, MobCategory.MISC).sized(0.4f, 0.4f).clientTrackingRange(4).updateInterval(20));
-    public static final RegistryObject<EntityType<CrystalShard>> CRYSTAL_SHARD = register("crystal_shard", EntityType.Builder.<CrystalShard>of(CrystalShard::new, MobCategory.MISC).sized(0.4f, 0.4f).clientTrackingRange(4).updateInterval(20));
+    public static final RegistryObject<EntityType<SpellProjectile>> SPELL = register("spell", EntityType.Builder.<SpellProjectile>of(SpellProjectile::new, MobCategory.MISC).sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20));
+    public static final RegistryObject<EntityType<CrystalShard>> CRYSTAL_SHARD = register("crystal_shard", EntityType.Builder.<CrystalShard>of(CrystalShard::new, MobCategory.MISC).sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20));
+    public static final RegistryObject<EntityType<LaserEntity>> LASER = register("laser", EntityType.Builder.<LaserEntity>of(LaserEntity::new, MobCategory.MISC).sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20));
 
     public static final RegistryObject<EntityType<Devourer>> DEVOURER = register("devourer", EntityType.Builder.<Devourer>of(Devourer::new, MobCategory.MISC).sized(1, 1f).clientTrackingRange(6).updateInterval(2));
     public static final RegistryObject<EntityType<CrystalSpikes>> CRYSTAL_SPIKES = register("crystal_spikes", EntityType.Builder.<CrystalSpikes>of(CrystalSpikes::new, MobCategory.MISC).sized(1, 1f).clientTrackingRange(6).updateInterval(2));

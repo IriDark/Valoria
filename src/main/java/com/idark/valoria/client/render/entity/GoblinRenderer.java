@@ -1,16 +1,17 @@
 package com.idark.valoria.client.render.entity;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.client.model.entity.GoblinModel;
-import com.idark.valoria.core.config.ClientConfig;
-import com.idark.valoria.registries.entity.living.Goblin;
-import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
-import net.minecraft.resources.ResourceLocation;
+import com.idark.valoria.*;
+import com.idark.valoria.client.model.entity.*;
+import com.idark.valoria.core.config.*;
+import com.idark.valoria.registries.entity.living.*;
+import com.mojang.blaze3d.vertex.*;
+import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.entity.*;
+import net.minecraft.client.renderer.entity.layers.*;
+import net.minecraft.resources.*;
+import net.minecraftforge.api.distmarker.*;
 
+@OnlyIn(Dist.CLIENT)
 public class GoblinRenderer extends MobRenderer<Goblin, GoblinModel<Goblin>>{
     protected static final ResourceLocation NEW = new ResourceLocation(Valoria.ID, "textures/entity/goblin.png");
     protected static final ResourceLocation OLD = new ResourceLocation(Valoria.ID, "textures/entity/goblin_old.png");

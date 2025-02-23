@@ -1,12 +1,14 @@
 package com.idark.valoria.client.render.entity;
 
-import com.idark.valoria.registries.entity.projectile.SpellProjectile;
-import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.entity.EntityRenderer;
-import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
-import net.minecraft.resources.ResourceLocation;
+import com.idark.valoria.registries.entity.projectile.*;
+import com.mojang.blaze3d.vertex.*;
+import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.entity.*;
+import net.minecraft.client.renderer.entity.EntityRendererProvider.*;
+import net.minecraft.resources.*;
+import net.minecraftforge.api.distmarker.*;
 
+@OnlyIn(Dist.CLIENT)
 public class SpellProjectileRenderer<T extends SpellProjectile> extends EntityRenderer<T>{
     public SpellProjectileRenderer(Context pContext){
         super(pContext);

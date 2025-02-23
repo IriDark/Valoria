@@ -1,14 +1,15 @@
 package com.idark.valoria.client.render.entity;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.client.model.entity.ScourgeModel;
-import com.idark.valoria.registries.entity.living.ScourgeEntity;
-import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.resources.ResourceLocation;
+import com.idark.valoria.*;
+import com.idark.valoria.client.model.entity.*;
+import com.idark.valoria.registries.entity.living.*;
+import com.mojang.blaze3d.vertex.*;
+import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.entity.*;
+import net.minecraft.resources.*;
+import net.minecraftforge.api.distmarker.*;
 
+@OnlyIn(Dist.CLIENT)
 public class ScourgeRenderer extends MobRenderer<ScourgeEntity, ScourgeModel<ScourgeEntity>>{
     protected static final ResourceLocation TEXTURE = new ResourceLocation(Valoria.ID, "textures/entity/scourge.png");
 

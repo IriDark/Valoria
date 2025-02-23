@@ -13,10 +13,12 @@ import net.minecraft.resources.*;
 import net.minecraft.server.level.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
+import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.Tags.*;
 import net.minecraftforge.common.capabilities.*;
 import net.minecraftforge.common.util.*;
 import net.minecraftforge.event.*;
@@ -31,6 +33,15 @@ import top.theillusivec4.curios.api.*;
 @SuppressWarnings("removal")
 public class Events{
     public ArcRandom arcRandom = new ArcRandom();
+
+    @SubscribeEvent
+    public void convertEvent(LivingConversionEvent.Pre ev){
+        if(ev.getEntity() instanceof Zombie zombie){
+            if(zombie.level().getBiome(zombie.blockPosition()).is(Biomes.IS_SWAMP)) {
+                zombie.convertTo(EntityTypeRegistry.SWAMP_WANDERER.get(), false);
+            }
+        }
+    }
 
     @SubscribeEvent
     public void attachEntityCaps(AttachCapabilitiesEvent<Entity> event){
@@ -158,6 +169,19 @@ public class Events{
     public void onPlayerInteract(PlayerInteractEvent.LeftClickEmpty event){
         if(event.isCancelable() && event.getEntity().hasEffect(EffectsRegistry.STUN.get())){
             event.setCanceled(true);
+        }
+    }
+
+    @SubscribeEvent
+    public void BlockHeal(LivingHealEvent event) {
+        if (event.getEntity().hasEffect(EffectsRegistry.EXHAUSTION.get())) {
+            event.setCanceled(true);
+        }
+
+        if (event.getEntity().hasEffect(EffectsRegistry.RENEWAL.get())) {
+            int amplifier = event.getEntity().getEffect(EffectsRegistry.RENEWAL.get()).getAmplifier();
+            float healMultiplier = 1.0f + 0.5f * (amplifier + 1);
+            event.setAmount(event.getAmount() * healMultiplier);
         }
     }
 

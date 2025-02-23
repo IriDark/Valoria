@@ -8,8 +8,10 @@ import com.mojang.math.*;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.entity.*;
 import net.minecraft.resources.*;
+import net.minecraftforge.api.distmarker.*;
 import pro.komaru.tridot.client.event.*;
 
+@OnlyIn(Dist.CLIENT)
 public class WickedCrystalRenderer extends MobRenderer<WickedCrystal, WickedCrystalModel<WickedCrystal>>{
     protected static final ResourceLocation TEXTURE = new ResourceLocation(Valoria.ID, "textures/entity/wicked_crystal_phase1.png");
     protected static final ResourceLocation TEXTURE_PHASE = new ResourceLocation(Valoria.ID, "textures/entity/wicked_crystal_phase2.png");

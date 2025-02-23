@@ -7,8 +7,10 @@ import com.mojang.blaze3d.vertex.*;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.entity.*;
 import net.minecraft.resources.*;
+import net.minecraftforge.api.distmarker.*;
 import pro.komaru.tridot.client.graphics.render.entity.*;
 
+@OnlyIn(Dist.CLIENT)
 public class EntRenderer extends MobRenderer<Ent, EntModel<Ent>>{
     protected static final ResourceLocation TEXTURE = new ResourceLocation(Valoria.ID, "textures/entity/ent.png");
 

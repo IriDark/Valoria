@@ -10,6 +10,7 @@ import net.minecraft.world.entity.projectile.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.alchemy.*;
 import net.minecraft.world.level.*;
+import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.network.*;
 import org.jetbrains.annotations.*;
 
@@ -88,6 +89,7 @@ public abstract class AbstractValoriaArrow extends AbstractArrow{
         }
     }
 
+    @OnlyIn(Dist.CLIENT)
     public void spawnParticlesTrail(){
     }
 
