@@ -21,6 +21,7 @@ public class Pal{
     infernal = Clr.valueOf("e45c41"),
     ecru = Clr.valueOf("c8b684"),
     arcaneGold = Clr.valueOf("d5a07a"),
+    marsh = Clr.valueOf("5d6039"),
 
     vividCyan = Clr.valueOf("1DEBB3"),
     cyan = Clr.valueOf("00DBEB"),

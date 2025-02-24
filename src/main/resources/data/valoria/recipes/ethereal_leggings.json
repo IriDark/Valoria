@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "///",
+    "/ /",
+    "/ /"
+  ],
+  "key": {
+    "/": {
+      "item": "valoria:ethereal_shard"
+    }
+  },
+  "result": {
+    "item": "valoria:ethereal_leggings",
+    "count": 1
+  }
+}

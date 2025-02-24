@@ -18,6 +18,7 @@ public class Styles{
                 .withFont(new ResourceLocation("minecraft", "default"));
     }
 
+    public static UnaryOperator<Style> marsh = create(Pal.marsh);
     public static UnaryOperator<Style> bloody = create(Pal.lightCarminePink);
     public static UnaryOperator<Style> infernal = create(Pal.infernal);
     public static UnaryOperator<Style> aquarius = create(Pal.oceanic);

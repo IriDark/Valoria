@@ -64,6 +64,8 @@ public class ItemsRegistry{
     blackGoldHelmet, blackGoldChestplate, blackGoldLeggings, blackGoldBoots,
     cobaltHelmet, cobaltChestplate, cobaltLeggings, cobaltBoots,
     samuraiKabuto, samuraiChestplate, samuraiLeggings, samuraiBoots,
+    marshHelmet, marshChestplate, marshLeggings, marshBoots,
+    etherealHelmet, etherealChestplate, etherealLeggings, etherealBoots,
     spiderHelmet, spiderChestplate, spiderLeggings, spiderBoots,
     natureHelmet, natureChestplate, natureLeggings, natureBoots,
     depthHelmet, depthChestplate, depthLeggings, depthBoots,
@@ -73,7 +75,7 @@ public class ItemsRegistry{
 
     // materials
     rawCobalt, runicDust, amberGem, amethystGem, rubyGem, sapphireGem, wickedAmethyst, soulShard, unchargedShard, spiderFang,
-    natureGift, oceanicShell, infernalStone, boneFragment, painCrystal, nihilityShard, illusionStone, elementalCrystal,
+    natureGift, oceanicShell, infernalStone, rottenBone, marshCloth, painCrystal, nihilityShard, illusionStone, elementalCrystal,
     natureCore, aquariusCore, infernalCore, voidCore,
     blackGoldUpgrade, natureUpgrade, aquariusUpgrade, infernalUpgrade, voidUpgrade,
     gaibRoot, karusakanRoot, shadeBlossomLeaf, aloePiece,
@@ -158,7 +160,15 @@ public class ItemsRegistry{
         samuraiKabuto = registerItem("samurai_kabuto", () -> new SamuraiArmorItem(ArmorRegistry.SAMURAI, ArmorItem.Type.HELMET, new Item.Properties()));
         samuraiChestplate = registerItem("samurai_chestplate", () -> new SamuraiArmorItem(ArmorRegistry.SAMURAI, ArmorItem.Type.CHESTPLATE, new Item.Properties()));
         samuraiLeggings = registerItem("samurai_leggings", () -> new SamuraiArmorItem(ArmorRegistry.SAMURAI, ArmorItem.Type.LEGGINGS, new Item.Properties()));
-        samuraiBoots = registerItem("samurai_boots", () -> new SamuraiArmorItem(ArmorRegistry.SAMURAI, ArmorItem.Type.BOOTS, new Item.Properties().rarity(RarityRegistry.SPIDER)));
+        samuraiBoots = registerItem("samurai_boots", () -> new SamuraiArmorItem(ArmorRegistry.SAMURAI, ArmorItem.Type.BOOTS, new Item.Properties()));
+        marshHelmet = registerItem("marsh_helmet", () -> new PercentageArmorItem(ArmorRegistry.MARSH, ArmorItem.Type.HELMET, new Item.Properties().rarity(RarityRegistry.MARSH)));
+        marshChestplate = registerItem("marsh_chestplate", () -> new PercentageArmorItem(ArmorRegistry.MARSH, ArmorItem.Type.CHESTPLATE, new Item.Properties().rarity(RarityRegistry.MARSH)));
+        marshLeggings = registerItem("marsh_leggings", () -> new PercentageArmorItem(ArmorRegistry.MARSH, ArmorItem.Type.LEGGINGS, new Item.Properties().rarity(RarityRegistry.MARSH)));
+        marshBoots = registerItem("marsh_boots", () -> new PercentageArmorItem(ArmorRegistry.MARSH, ArmorItem.Type.BOOTS, new Item.Properties().rarity(RarityRegistry.MARSH)));
+        etherealHelmet = registerEffectArmor("ethereal_helmet", ArmorItem.Type.HELMET, ArmorRegistry.ETHEREAL, new Item.Properties().rarity(RarityRegistry.ETHEREAL));
+        etherealChestplate = registerEffectArmor("ethereal_chestplate", ArmorItem.Type.CHESTPLATE, ArmorRegistry.ETHEREAL, new Item.Properties().rarity(RarityRegistry.ETHEREAL));
+        etherealLeggings = registerEffectArmor("ethereal_leggings", ArmorItem.Type.LEGGINGS, ArmorRegistry.ETHEREAL, new Item.Properties().rarity(RarityRegistry.ETHEREAL));
+        etherealBoots = registerEffectArmor("ethereal_boots", ArmorItem.Type.BOOTS, ArmorRegistry.ETHEREAL, new Item.Properties().rarity(RarityRegistry.ETHEREAL));
         spiderHelmet = registerItem("spider_helmet", () -> new HitEffectArmorItem(ArmorRegistry.SPIDER, ArmorItem.Type.HELMET, new Item.Properties().rarity(RarityRegistry.SPIDER), 0.2f, new MobEffectInstance(MobEffects.WEAKNESS, 20)));
         spiderChestplate = registerItem("spider_chestplate", () -> new HitEffectArmorItem(ArmorRegistry.SPIDER, ArmorItem.Type.CHESTPLATE, new Item.Properties().rarity(RarityRegistry.SPIDER), 0.1f, new MobEffectInstance(MobEffects.BLINDNESS, 40)));
         spiderLeggings = registerItem("spider_leggings", () -> new HitEffectArmorItem(ArmorRegistry.SPIDER, ArmorItem.Type.LEGGINGS, new Item.Properties().rarity(RarityRegistry.SPIDER), 0.3f, new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 35)));
@@ -225,7 +235,8 @@ public class ItemsRegistry{
         relicGold = registerItem("relic_gold", () -> new Item(new Item.Properties().rarity(Rarity.EPIC)));
         ancientShard = registerItem("ancient_shard", () -> new Item(new Item.Properties().rarity(Rarity.EPIC)));
         natureGift = registerItem("nature_gift", () -> new ParticleMaterialItem(new Item.Properties().rarity(RarityRegistry.NATURE), 0.35f, ColorParticleData.create(Pal.nature, Pal.vividCyan).build(), ParticleRegistry.SPHERE.get()));
-        boneFragment = registerItem("bone_fragment", () -> new ParticleMaterialItem(new Item.Properties().rarity(RarityRegistry.NATURE), 0.35f, ColorParticleData.create(Pal.vividGreen, Pal.cyan).build(), ParticleRegistry.SPHERE.get()));
+        rottenBone = registerItem("rotten_bone", () -> new ParticleMaterialItem(new Item.Properties().rarity(RarityRegistry.MARSH), 0.35f, ColorParticleData.create(Pal.vividGreen, Pal.cyan).build(), ParticleRegistry.SPHERE.get()));
+        marshCloth = registerItem("marsh_cloth", () -> new Item(new Item.Properties().rarity(RarityRegistry.MARSH)));
         oceanicShell = registerItem("oceanic_shell", () -> new ParticleMaterialItem(new Item.Properties().rarity(RarityRegistry.AQUARIUS), 0.35f, ColorParticleData.create(Pal.oceanic, Pal.magmatic).build(), ParticleRegistry.SPHERE.get()));
         infernalStone = registerItem("infernal_stone", () -> new ParticleMaterialItem(new Item.Properties().rarity(RarityRegistry.INFERNAL), 0.35f, ColorParticleData.create(Pal.infernalBright, Pal.magmatic).build(), ParticleRegistry.SPHERE.get()));
         painCrystal = registerItem("pain_crystal", () -> new ParticleMaterialItem(new Item.Properties().rarity(RarityRegistry.BLOODY), 0.35f, ColorParticleData.create(Pal.strongRed, Pal.moderateViolet).build(), ParticleRegistry.SPHERE.get()));

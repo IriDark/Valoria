@@ -1,6 +1,14 @@
 {
   "replace": false,
   "values": [
+    "valoria:ethereal_helmet",
+    "valoria:ethereal_chestplate",
+    "valoria:ethereal_leggings",
+    "valoria:ethereal_boots",
+    "valoria:marsh_helmet",
+    "valoria:marsh_chestplate",
+    "valoria:marsh_leggings",
+    "valoria:marsh_boots",
     "valoria:spider_helmet",
     "valoria:spider_chestplate",
     "valoria:spider_leggings",

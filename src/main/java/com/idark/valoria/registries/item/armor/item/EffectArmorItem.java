@@ -1,26 +1,17 @@
 package com.idark.valoria.registries.item.armor.item;
 
-import com.google.common.collect.ImmutableMap;
-import com.idark.valoria.registries.EffectsRegistry;
-import com.idark.valoria.registries.item.armor.ArmorRegistry;
-import net.minecraft.ChatFormatting;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.effect.MobEffect;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.ArmorMaterial;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.Level;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import com.google.common.collect.*;
+import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.item.armor.*;
+import net.minecraft.*;
+import net.minecraft.network.chat.*;
+import net.minecraft.world.effect.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.*;
+import net.minecraftforge.api.distmarker.*;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 @SuppressWarnings("removal")
 public class EffectArmorItem extends SuitArmorItem{
@@ -28,7 +19,8 @@ public class EffectArmorItem extends SuitArmorItem{
             .put(ArmorRegistry.DEPTH, MobEffects.WATER_BREATHING)
             .put(ArmorRegistry.NATURE, EffectsRegistry.ALOEREGEN.get())
             .put(ArmorRegistry.INFERNAL, MobEffects.DAMAGE_BOOST)
-            .build();
+            .put(ArmorRegistry.ETHEREAL, MobEffects.NIGHT_VISION)
+    .build();
 
     public EffectArmorItem(ArmorMaterial material, ArmorItem.Type type, Properties settings){
         super(material, type, settings);
@@ -52,8 +44,7 @@ public class EffectArmorItem extends SuitArmorItem{
             if(stack.getItem() instanceof ArmorItem armor){
                 if(mapArmorMaterial == armor.getMaterial()){
                     String effect = MATERIAL_TO_EFFECT_MAP.get(armor.getMaterial()).getDisplayName().getString();
-                    list.add(1, Component.translatable("tooltip.valoria.applies_fullkit").withStyle(ChatFormatting.GRAY)
-                            .append(Component.literal(effect).withStyle(stack.getRarity().getStyleModifier())));
+                    list.add(1, Component.translatable("tooltip.valoria.applies_fullkit").withStyle(ChatFormatting.GRAY).append(Component.literal(effect).withStyle(stack.getRarity().getStyleModifier())));
                 }
             }
         }

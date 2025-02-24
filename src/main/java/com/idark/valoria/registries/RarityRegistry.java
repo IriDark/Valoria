@@ -14,5 +14,6 @@ public class RarityRegistry{
     public static final Rarity VOID = Rarity.create("void", nihility);
     public static final Rarity PHANTASM = Rarity.create("phantasm", phantasm);
     public static final Rarity BLOODY = Rarity.create("bloody", bloody);
+    public static final Rarity MARSH = Rarity.create("marsh", marsh);
 
 }
