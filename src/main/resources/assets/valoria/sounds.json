@@ -28,6 +28,10 @@
       {
         "name": "valoria:music/arriving",
         "stream": true
+      },
+      {
+        "name": "valoria:music/explore",
+        "stream": true
       }
     ]
   },
@@ -44,6 +48,10 @@
       {
         "name": "valoria:music/blood_pole",
         "stream": true
+      },
+      {
+        "name": "valoria:music/explore",
+        "stream": true
       }
     ]
   },
@@ -55,6 +63,9 @@
       },
       {
         "name": "valoria:music/arriving",
+        "stream": true
+      },      {
+        "name": "valoria:music/explore",
         "stream": true
       }
     ]
@@ -72,6 +83,10 @@
        {
          "name": "valoria:music/arriving",
          "stream": true
+       },
+       {
+         "name": "valoria:music/explore",
+         "stream": true
        }
      ]
   },
@@ -87,6 +102,10 @@
       },
       {
         "name": "valoria:music/arriving",
+        "stream": true
+      },
+      {
+        "name": "valoria:music/explore",
         "stream": true
       }
     ]

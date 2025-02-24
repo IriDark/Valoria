@@ -29,6 +29,14 @@ jobs:
         run: |
           shouldPublish=$(grep '^shouldPublish=' gradle.properties | cut -d'=' -f2)
           echo "shouldPublish=${shouldPublish}" >> $GITHUB_ENV
+      - name: Set first release tag
+        run: |
+          current_version=$(grep '^version=' gradle.properties | cut -d'=' -f2)
+          echo "TAG_NAME=${current_version}" >> $GITHUB_ENV
+      - name: Build Mod
+        run: |
+          ./gradlew clean
+          ./gradlew build --stacktrace
       - name: Increment version
         if: ${{ env.shouldPublish == 'true' && github.repository == 'IriDark/Valoria' }}
         run: |
@@ -51,6 +59,8 @@ jobs:
           new_version="$base_version-$new_last_version"
           echo "New version: $new_version"
           
+          echo "TAG_NAME=${new_version}" >> $GITHUB_ENV
+          
           # Update the version line in gradle.properties
           sed -i "s/^version=.*/version=$new_version/" gradle.properties
           cat gradle.properties
@@ -62,10 +72,30 @@ jobs:
           git add gradle.properties
           git commit -m "Increment version to $new_version"
           git push
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Valoria
+          path: |
+            ./build/libs/*.jar
+            ./libs/*.jar
+
       - name: Publish Maven Version
         env:
           maventoken: ${{ secrets.MAVEN_PASSWORD }}
         if: ${{ env.shouldPublish == 'true' && github.repository == 'IriDark/Valoria' }}
-        run: |    
-          ./gradlew clean
+        run: |
           ./gradlew publish
+
+      - name: Create GitHub Release
+        if: ${{ env.shouldPublish == 'true' && github.repository == 'IriDark/Valoria' }}
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ env.TAG_NAME }}
+          name: "Auto Release ${{ env.TAG_NAME }}"
+          body: "Commit: ${{ env.COMMIT_MESSAGE }}"
+          files: ./build/libs/*.jar
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
