@@ -48,7 +48,10 @@
       "valoria:valoria_monster_room_deep"
     ],
     [
-      "valoria:valoria_forest_rock"
+      "valoria:rare_eldritch_tree",
+      "valoria:eldritch_fallen_tree",
+      "valoria:rare_shadewood_tree",
+      "valoria:shadewood_fallen_tree"
     ],
     [],
     [],

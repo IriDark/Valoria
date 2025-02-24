@@ -1,19 +1,16 @@
 package com.idark.valoria.registries.level.feature;
 
-import com.idark.valoria.core.interfaces.FleshSpreaderBehaviour;
-import com.idark.valoria.registries.BlockRegistry;
-import com.idark.valoria.registries.block.types.FleshSpreader;
-import com.idark.valoria.registries.level.configurations.FleshConfiguration;
-import com.mojang.serialization.Codec;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.WorldGenLevel;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
+import com.idark.valoria.core.interfaces.*;
+import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.block.types.*;
+import com.idark.valoria.registries.level.configurations.*;
+import com.mojang.serialization.*;
+import net.minecraft.core.*;
+import net.minecraft.util.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.*;
+import net.minecraft.world.level.levelgen.feature.*;
 
 public class FleshFeature extends Feature<FleshConfiguration>{
     public FleshFeature(Codec<FleshConfiguration> pCodec){
@@ -61,7 +58,7 @@ public class FleshFeature extends Feature<FleshConfiguration>{
             for(int j1 = 0; j1 < i1; ++j1){
                 BlockPos blockpos1 = blockpos.offset(randomsource.nextInt(5) - 2, 0, randomsource.nextInt(5) - 2);
                 if(worldgenlevel.getBlockState(blockpos1).isAir() && worldgenlevel.getBlockState(blockpos1.below()).isFaceSturdy(worldgenlevel, blockpos1.below(), Direction.UP)){
-                    worldgenlevel.setBlock(blockpos1, BlockRegistry.fleshCyst.get().defaultBlockState(), 3);
+                    worldgenlevel.setBlock(blockpos1, randomsource.nextBoolean() ? BlockRegistry.eyeFlesh.get().defaultBlockState() : BlockRegistry.eyeMeat.get().defaultBlockState(), 3);
                 }
             }
 

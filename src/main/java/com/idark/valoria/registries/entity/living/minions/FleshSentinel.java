@@ -57,7 +57,7 @@ public class FleshSentinel extends AbstractMinionEntity{
     protected void registerGoals(){
         super.registerGoals();
         this.targetSelector.addGoal(0, new NearestAttackableTargetGoal<>(this, Player.class, true));
-        this.goalSelector.addGoal(0, new FleshSentinel.FleshSentinelOrbitAndShootGoal( 8, 1));
+        this.goalSelector.addGoal(0, new FleshSentinel.FleshSentinelOrbitAndShootGoal( 8, 0.5f));
         this.goalSelector.addGoal(0, new FleshSentinel.FleshSentinelRandomMoveGoal());
         this.goalSelector.addGoal(2, new LookAtPlayerGoal(this, Mob.class, 8.0F));
         this.targetSelector.addGoal(1, (new HurtByTargetGoal(this, Raider.class)).setAlertOthers());
@@ -211,7 +211,7 @@ public class FleshSentinel extends AbstractMinionEntity{
                 attackCooldown--;
             } else {
                 shootAtTarget(target);
-                attackCooldown = 20;
+                attackCooldown = 40;
             }
         }
 
