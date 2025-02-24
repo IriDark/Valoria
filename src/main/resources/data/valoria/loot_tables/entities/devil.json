@@ -7,18 +7,21 @@
         {
           "type": "minecraft:item",
           "name": "valoria:infernal_stone",
-          "weight": 32,
+          "weight": 1,
           "functions": [
             {
               "function": "minecraft:set_count",
-              "count": 2,
-              "add": true,
-              "conditions": [
-                {
-                  "condition": "minecraft:random_chance",
-                  "chance": 0.25
-                }
-              ]
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1,
+                "max": 2
+              }
+            }
+          ],
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance",
+              "chance": 0.25
             }
           ]
         },
@@ -30,6 +33,12 @@
             {
               "function": "minecraft:set_count",
               "count": 1
+            }
+          ],
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance",
+              "chance": 0.05
             }
           ]
         }
