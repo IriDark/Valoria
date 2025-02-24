@@ -1,5 +1,8 @@
 package com.idark.valoria.registries.item.types;
 
+import com.idark.valoria.core.network.PacketHandler;
+import com.idark.valoria.core.network.packets.MusicToastPacket;
+import com.idark.valoria.core.network.packets.PageToastPacket;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.entity.projectile.*;
 import net.minecraft.server.level.*;
@@ -37,9 +40,10 @@ public class DebugItem extends Item{
     public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn){
         ItemStack itemstack = playerIn.getItemInHand(handIn);
         playerIn.startUsingItem(handIn);
-        if(worldIn instanceof ServerLevel level) {
-            spawn(level, playerIn);
+        if(!worldIn.isClientSide()) {
+            PacketHandler.sendTo(playerIn, new MusicToastPacket(playerIn, "Necromancer", "DuUaader"));
         }
+
         return InteractionResultHolder.consume(itemstack);
     }
 }
