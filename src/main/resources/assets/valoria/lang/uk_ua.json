@@ -961,6 +961,7 @@
   "tooltip.valoria.vision": "Надає нічне бачення на деякий час",
   "tooltip.valoria.wealth": "Надає додатковий рівень удачі",
   "tooltip.valoria.wet": "Неможливо використати поки гравець мокрий!.",
+  "tooltip.valoria.wip": "This is an WIP item that can be buggy or even don't work. Use at your own risk!",
   "tooltip.valoria.with_chance": "із шансом: %s",
   "trim_material.valoria.ancient": "Стародавній матеріал",
   "trim_material.valoria.aquarius": "Акваріусовий матеріал",
