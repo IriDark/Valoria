@@ -930,7 +930,7 @@
   "tooltip.valoria.infernal_sword": "Сильна зброя, має здатність до ~виверження~ (Потребує 2 заряди)",
   "tooltip.valoria.jewelry_bonus": "Використати бонуси [%s]",
   "tooltip.valoria.katana": "Швидка проте слабка зброя, має здатність до ривку",
-  "tooltip.valoria.katana_charge": "Час на зарядку %s у тіках",
+  "tooltip.valoria.katana_charge": "Час на зарядку %s тіків",
   "tooltip.valoria.kunai": "Не надто сильна зброя, проте можна метати у ворогів",
   "tooltip.valoria.lexicon": "Корисна книга, у цьому тяжкому світі...",
   "tooltip.valoria.magma_charge_empty": "Не заряджений",
