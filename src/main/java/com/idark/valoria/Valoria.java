@@ -88,6 +88,7 @@ public class Valoria{
         IEventBus forgeBus = MinecraftForge.EVENT_BUS;
         ModLoadingContext.get().registerConfig(Type.SERVER, ServerConfig.SPEC);
         ModLoadingContext.get().registerConfig(Type.CLIENT, ClientConfig.SPEC);
+        ModLoadingContext.get().registerConfig(Type.COMMON, CommonConfig.SPEC);
         DistExecutor.unsafeCallWhenOn(Dist.CLIENT, () -> () -> {
             forgeBus.addListener(KeyBindHandler::onInput);
             return new Object();

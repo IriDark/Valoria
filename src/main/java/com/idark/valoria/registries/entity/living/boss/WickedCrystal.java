@@ -1,5 +1,6 @@
 package com.idark.valoria.registries.entity.living.boss;
 
+import com.idark.valoria.core.config.*;
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.particle.*;
 import com.idark.valoria.registries.*;
@@ -208,12 +209,12 @@ public class WickedCrystal extends AbstractBoss{
 
         @Override
         public int getPreparingTime(){
-            return 20;
+            return CommonConfig.SUMMON_WICKED_CRYSTAL_CASTING_TIME.get();
         }
 
         @Override
         public int getAttackInterval(){
-            return 425;
+            return CommonConfig.SUMMON_WICKED_CRYSTAL_CASTING_INTERVAL.get();
         }
 
         @Override
@@ -307,7 +308,7 @@ public class WickedCrystal extends AbstractBoss{
             if(flag){
                 if(level instanceof ServerLevel server){
                     PacketHandler.sendToTracking(server, blockpos, new BeastAttackParticlePacket(pX, (double)blockpos.getY() + d0, pZ, Pal.verySoftPink));
-                    server.addFreshEntity(new CrystalSpikes(server, pX, (double)blockpos.getY() + d0, pZ, pYRot, pWarmupDelay, null));
+                    server.addFreshEntity(new CrystalSpikes(server, pX, (double)blockpos.getY() + d0, pZ, pYRot, pWarmupDelay, CommonConfig.RADIAL_WICKED_CRYSTAL_DAMAGE.get(),null));
                 }
             }
         }
@@ -319,12 +320,12 @@ public class WickedCrystal extends AbstractBoss{
 
         @Override
         public int getPreparingTime(){
-            return 20;
+            return CommonConfig.RADIAL_WICKED_CRYSTAL_CASTING_TIME.get();
         }
 
         @Override
         public int getAttackInterval(){
-            return 160;
+            return CommonConfig.RADIAL_WICKED_CRYSTAL_CASTING_INTERVAL.get();
         }
 
         @Override
@@ -405,12 +406,12 @@ public class WickedCrystal extends AbstractBoss{
 
         @Override
         public int getPreparingTime(){
-            return 25;
+            return CommonConfig.CRYSTAL_STORM_WICKED_CRYSTAL_CASTING_TIME.get();
         }
 
         @Override
         public int getAttackInterval(){
-            return 400;
+            return CommonConfig.CRYSTAL_STORM_WICKED_CRYSTAL_CASTING_INTERVAL.get();
         }
 
         @Override
@@ -425,7 +426,7 @@ public class WickedCrystal extends AbstractBoss{
     }
 
     public class SummonShieldsGoal extends AttackGoal {
-        private final TargetingConditions shieldCount = TargetingConditions.forNonCombat().range(8.0D).ignoreLineOfSight().ignoreInvisibilityTesting();
+        private final TargetingConditions shieldCount = TargetingConditions.forNonCombat().range(8).ignoreLineOfSight().ignoreInvisibilityTesting();
 
         /**
          * Returns whether execution should begin. You can also read and cache any state necessary for execution in this
@@ -433,7 +434,7 @@ public class WickedCrystal extends AbstractBoss{
          */
         public boolean canUse(){
             int i = WickedCrystal.this.level().getNearbyEntities(WickedShield.class, this.shieldCount, WickedCrystal.this, WickedCrystal.this.getBoundingBox().inflate(16.0D)).size();
-            return super.canUse() && i < 8;
+            return super.canUse() && i < CommonConfig.SHIELDS_WICKED_CRYSTAL_LIMIT.get();
         }
 
         private void summonShield(ServerLevel serverLevel, BlockPos blockpos, float angle){
@@ -463,8 +464,10 @@ public class WickedCrystal extends AbstractBoss{
             }
 
             if(entity.level() instanceof ServerLevel serv){
-                for (int i = 0; i < (WickedCrystal.this.phase == 1 ? 2 : 4); i++) {
-                    float initialAngle = (float)((2 * Math.PI / (WickedCrystal.this.phase == 1 ? 2 : 4)) * i);
+                int phase1 = CommonConfig.SHIELDS_WICKED_CRYSTAL_COUNT_PHASE1.get();
+                int phase2 = CommonConfig.SHIELDS_WICKED_CRYSTAL_COUNT_PHASE2.get();
+                for (int i = 0; i < (WickedCrystal.this.phase == 1 ? phase1 : phase2); i++) {
+                    float initialAngle = (float)((2 * Math.PI / (WickedCrystal.this.phase == 1 ? phase1 : phase2)) * i);
                     summonShield(serv, WickedCrystal.this.blockPosition().above(), initialAngle);
                 }
             }
@@ -476,12 +479,12 @@ public class WickedCrystal extends AbstractBoss{
 
         @Override
         public int getPreparingTime(){
-            return 25;
+            return CommonConfig.SHIELDS_WICKED_CRYSTAL_CASTING_TIME.get();
         }
 
         @Override
         public int getAttackInterval(){
-            return 1200;
+            return CommonConfig.SHIELDS_WICKED_CRYSTAL_CASTING_INTERVAL.get();
         }
 
         @Override

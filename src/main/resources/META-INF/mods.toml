@@ -12,7 +12,7 @@ logoFile="valoria_banner.png"
 credits = "Calamity Mod (sounds)"
 authors = "IriDark, Sunday, Kerdo, DuUaader"
 description = '''
-Valoria — A big RPG themed project that adds some mobs, blocks, weapons, and some bunch of content in "vanilla" texture style
+Valoria — A large RPG themed project that adds some mobs, blocks, weapons, and a lot of content in "vanilla" texture style
 '''
 [[dependencies.valoria]]
 modId = "forge"

@@ -1,6 +1,7 @@
 package com.idark.valoria.registries.entity.living.boss;
 
 import com.google.common.collect.*;
+import com.idark.valoria.core.config.*;
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.particle.*;
 import com.idark.valoria.registries.*;
@@ -249,11 +250,11 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
 
     class AttackSpellGoal extends AbstractNecromancer.SpellcasterUseSpellGoal{
         public int getCastingTime(){
-            return 40;
+            return CommonConfig.ATTACK_NECROMANCER_CASTING_TIME.get();
         }
 
         public int getCastingInterval(){
-            return 150;
+            return CommonConfig.ATTACK_NECROMANCER_CASTING_INTERVAL.get();
         }
 
         protected void performSpellCasting(){
@@ -304,7 +305,7 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
                 blockpos = blockpos.below();
             }while(blockpos.getY() >= Mth.floor(pMinY) - 1);
             if(flag){
-                NecromancerEntity.this.level().addFreshEntity(new Devourer(NecromancerEntity.this.level(), pX, (double)blockpos.getY() + d0, pZ, pYRot, pWarmupDelay, NecromancerEntity.this));
+                NecromancerEntity.this.level().addFreshEntity(new Devourer(NecromancerEntity.this.level(), pX, (double)blockpos.getY() + d0, pZ, pYRot, pWarmupDelay, CommonConfig.ATTACK_NECROMANCER_DAMAGE.get(), NecromancerEntity.this));
             }
         }
 
@@ -351,11 +352,11 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
         }
 
         public int getCastingTime(){
-            return 40;
+            return CommonConfig.SUMMON_NECROMANCER_CASTING_TIME.get();
         }
 
         public int getCastingInterval(){
-            return 200;
+            return CommonConfig.SUMMON_NECROMANCER_CASTING_INTERVAL.get();
         }
 
         @Override
@@ -480,7 +481,7 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
         }
 
         public KnockbackEntitiesGoal(boolean strong, MobEffectInstance... pEffect){
-            this.range = NecromancerEntity.this.getHealth() < 100 ? 6 : 3;
+            this.range = NecromancerEntity.this.getHealth() < 100 ? CommonConfig.KNOCKBACK_NECROMANCER_RADIUS_STRONG.get() : CommonConfig.KNOCKBACK_NECROMANCER_RADIUS.get();
             this.effects = ImmutableList.copyOf(pEffect);
             this.strong = strong;
         }
@@ -495,11 +496,11 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
         }
 
         public int getCastingTime(){
-            return 20;
+            return CommonConfig.KNOCKBACK_NECROMANCER_CASTING_TIME.get();
         }
 
         public int getCastingInterval(){
-            return 65;
+            return CommonConfig.KNOCKBACK_NECROMANCER_CASTING_INTERVAL.get();
         }
 
         protected void performSpellCasting(){
@@ -569,11 +570,11 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
         }
 
         public int getCastingTime(){
-            return 60;
+            return CommonConfig.TARGET_HEAL_NECROMANCER_CASTING_TIME.get();
         }
 
         public int getCastingInterval(){
-            return 200;
+            return CommonConfig.TARGET_HEAL_NECROMANCER_CASTING_INTERVAL.get();
         }
 
         protected void performSpellCasting(){
@@ -584,7 +585,7 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
                 if(!(target instanceof NecromancerEntity) && target.getHealth() < target.getMaxHealth()){
                     Vector3d pos = new Vector3d(NecromancerEntity.this.getX(), NecromancerEntity.this.getY(), NecromancerEntity.this.getZ());
                     Utils.Particles.inRadius(serverLevel, null, ParticleTypes.HAPPY_VILLAGER, pos, 0, NecromancerEntity.this.getRotationVector().y, 4);
-                    Utils.Hit.healNearbyMobs(MobCategory.MONSTER, 12.0F, serverLevel, NecromancerEntity.this, toHeal, pos, 0, NecromancerEntity.this.getRotationVector().y, 4);
+                    Utils.Hit.healNearbyMobs(MobCategory.MONSTER, CommonConfig.TARGET_HEAL_NECROMANCER_AMOUNT.get(), serverLevel, NecromancerEntity.this, toHeal, pos, 0, NecromancerEntity.this.getRotationVector().y, 4);
                     serverLevel.playSound(null, target.getX(), target.getY(), target.getZ(), SoundEvents.EVOKER_CAST_SPELL, target.getSoundSource(), 0.42F, 1.23F);
                     break;
                 }
@@ -609,11 +610,11 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
         }
 
         public int getCastingTime(){
-            return 20;
+            return CommonConfig.EFFECT_NECROMANCER_CASTING_TIME.get();
         }
 
         public int getCastingInterval(){
-            return 150;
+            return CommonConfig.EFFECT_NECROMANCER_CASTING_INTERVAL.get();
         }
 
         protected void performSpellCasting(){
@@ -647,11 +648,11 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
         }
 
         public int getCastingTime(){
-            return 60;
+            return CommonConfig.SELF_HEAL_NECROMANCER_CASTING_TIME.get();
         }
 
         public int getCastingInterval(){
-            return 300;
+            return CommonConfig.SELF_HEAL_NECROMANCER_CASTING_INTERVAL.get();
         }
 
         protected void performSpellCasting(){
@@ -659,7 +660,7 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
             if(NecromancerEntity.this.getHealth() < NecromancerEntity.this.getMaxHealth()){
                 Vector3d pos = new Vector3d(NecromancerEntity.this.getX(), NecromancerEntity.this.getY(), NecromancerEntity.this.getZ());
                 Utils.Particles.around(pos, 2, 1, serverLevel, ParticleTypes.HAPPY_VILLAGER);
-                NecromancerEntity.this.heal(25);
+                NecromancerEntity.this.heal(CommonConfig.SELF_HEAL_NECROMANCER_AMOUNT.get());
                 serverLevel.playSound(null, NecromancerEntity.this.getX(), NecromancerEntity.this.getY(), NecromancerEntity.this.getZ(), SoundEvents.EVOKER_CAST_SPELL, NecromancerEntity.this.getSoundSource(), 0.42F, 1.23F);
             }
         }
