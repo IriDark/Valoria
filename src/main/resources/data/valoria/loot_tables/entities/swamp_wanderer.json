@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "valoria:bone_fragment",
+          "name": "valoria:rotten_bone",
           "weight": 2,
           "functions": [
             {
