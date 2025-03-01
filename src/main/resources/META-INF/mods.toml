@@ -8,9 +8,9 @@ version = "${file.jarVersion}"
 displayName = "Valoria"
 updateJSONURL = "https://raw.githubusercontent.com/IriDark/Valoria/refs/heads/main/update.json"
 displayURL = "https://discord.gg/wWdXpwuPmK"
-logoFile = "Valoria_Logo.png"
+logoFile="valoria_banner.png"
 credits = "Calamity Mod (sounds)"
-authors = "IriDark, Sunday, Kerdo"
+authors = "IriDark, Sunday, Kerdo, DuUaader"
 description = '''
 Valoria — A big RPG themed project that adds some mobs, blocks, weapons, and some bunch of content in "vanilla" texture style
 '''
@@ -38,3 +38,7 @@ mandatory = true
 versionRange = "[1.20.1-0.1,)"
 ordering = "AFTER"
 side = "BOTH"
+[modproperties.valoria]
+    catalogueImageIcon="valoria_icon.png"
+    catalogueBackground="valoria_background.png"
+    configuredBackground="valoria:textures/block/cut_crystal_stone.png"
