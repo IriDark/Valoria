@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "valoria:amber_ore",
+    "valoria:sapphire_ore",
+    "valoria:ruby_ore",
+    "valoria:cobalt_ore"
+  ]
+}

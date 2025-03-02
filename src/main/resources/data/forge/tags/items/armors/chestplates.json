@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
+    "valoria:ethereal_chestplate",
+    "valoria:marsh_chestplate",
     "valoria:spider_chestplate",
     "valoria:cobalt_chestplate",
     "valoria:samurai_chestplate",

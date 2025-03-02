@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
+    "valoria:ethereal_helmet",
+    "valoria:marsh_helmet",
     "valoria:spider_helmet",
     "valoria:cobalt_helmet",
     "valoria:samurai_kabuto",

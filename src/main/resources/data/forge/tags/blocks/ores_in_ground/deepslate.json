@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "valoria:deepslate_amber_ore",
+    "valoria:deepslate_sapphire_ore",
+    "valoria:deepslate_ruby_ore",
+    "valoria:deepslate_cobalt_ore"
+  ]
+}

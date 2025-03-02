@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
+    "valoria:ethereal_boots",
+    "valoria:marsh_boots",
     "valoria:spider_boots",
     "valoria:cobalt_boots",
     "valoria:samurai_boots",

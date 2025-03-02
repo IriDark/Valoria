@@ -972,7 +972,7 @@
   "tooltip.valoria.usage_count": "The ability can be used %s times",
   "tooltip.valoria.required_amount": "Required amount:",
   "jei.valoria.archaeology_table": "Archaeology",
-  "tooltip.valoria.boss_summonable": "Used to summon Boss %s",
+  "tooltip.valoria.boss_summonable": "Used to summon Boss - %s",
   "tooltip.valoria.katana_charge": "Time to charge %s ticks",
   "jei.valoria.kiln": "Kiln"
 }
