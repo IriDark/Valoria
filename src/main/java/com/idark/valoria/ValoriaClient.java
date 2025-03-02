@@ -69,7 +69,6 @@ public class ValoriaClient{
         SplashHandler.addSplash("Also try Starbound!");
         SplashHandler.addSplash("Also try Mindustry!");
         SplashHandler.addSplash("Valoria was known as DarkRPG");
-        SplashHandler.addSplash("Afraid of future");
         SplashHandler.addSplash("Valoria, animated by Kerdo!");
         SplashHandler.addSplash("Valoria music by DuUaader!");
     }
