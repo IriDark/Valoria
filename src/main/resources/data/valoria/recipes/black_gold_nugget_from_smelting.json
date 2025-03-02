@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.1,
+  "ingredient": [
+    {
+      "item": "valoria:black_gold_helmet"
+    },
+    {
+      "item": "valoria:black_gold_chestplate"
+    },
+    {
+      "item": "valoria:black_gold_leggings"
+    },
+    {
+      "item": "valoria:black_gold_boots"
+    }
+  ],
+  "result": "valoria:black_gold_nugget"
+}

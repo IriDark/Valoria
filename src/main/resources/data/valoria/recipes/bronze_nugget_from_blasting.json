@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.1,
+  "ingredient": [
+    {
+      "item": "valoria:bronze_sword"
+    }
+  ],
+  "result": "valoria:black_gold_nugget"
+}

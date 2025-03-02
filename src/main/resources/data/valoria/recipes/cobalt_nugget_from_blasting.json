@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.1,
+  "ingredient": [
+    {
+      "item": "valoria:cobalt_pickaxe"
+    },
+    {
+      "item": "valoria:cobalt_shovel"
+    },
+    {
+      "item": "valoria:cobalt_axe"
+    },
+    {
+      "item": "valoria:cobalt_hoe"
+    },
+    {
+      "item": "valoria:cobalt_sword"
+    },
+    {
+      "item": "valoria:cobalt_helmet"
+    },
+    {
+      "item": "valoria:cobalt_chestplate"
+    },
+    {
+      "item": "valoria:cobalt_leggings"
+    },
+    {
+      "item": "valoria:cobalt_boots"
+    }
+  ],
+  "result": "valoria:cobalt_nugget"
+}

@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "valoria:bronze_ingot",
+          "name": "valoria:bronze_nugget",
           "weight": 6,
           "functions": [
             {
@@ -18,6 +18,11 @@
               }
             }
           ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "valoria:bronze_ingot",
+          "weight": 2
         },
         {
           "type": "minecraft:item",

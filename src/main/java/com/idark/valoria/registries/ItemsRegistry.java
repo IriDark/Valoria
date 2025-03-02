@@ -80,7 +80,7 @@ public class ItemsRegistry{
     blackGoldUpgrade, natureUpgrade, aquariusUpgrade, infernalUpgrade, voidUpgrade,
     gaibRoot, karusakanRoot, shadeBlossomLeaf, aloePiece,
     dunestoneBrick, tombstoneBrick, ambaneStoneBrick, limestoneBrick, crystalStoneBrick, voidStoneBrick,
-    bronzeIngot, pearliumIngot, cobaltIngot, etherealShard, blackGold, ancientIngot, natureIngot, aquariusIngot, infernalIngot, voidIngot, pyratite, relicGold, ancientShard,
+    bronzeIngot, bronzeNugget, pearliumIngot, cobaltIngot, cobaltNugget, etherealShard, blackGold, blackGoldNugget, ancientIngot, natureIngot, aquariusIngot, infernalIngot, voidIngot, pyratite, relicGold, ancientShard,
     emptyGazer, emptyWinglet, emptyTotem,
 
     //  skin
@@ -221,6 +221,9 @@ public class ItemsRegistry{
         limestoneBrick = registerItem("limestone_brick");
         crystalStoneBrick = registerItem("crystal_stone_brick");
         voidStoneBrick = registerItem("void_stone_brick");
+        bronzeNugget = registerItem("bronze_nugget");
+        cobaltNugget = registerItem("cobalt_nugget");
+        blackGoldNugget = registerItem("black_gold_nugget");
         bronzeIngot = registerItem("bronze_ingot");
         pearliumIngot = registerItem("pearlium_ingot");
         cobaltIngot = registerItem("cobalt_ingot");

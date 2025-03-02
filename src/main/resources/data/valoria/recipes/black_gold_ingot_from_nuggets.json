@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "///",
+    "///",
+    "///"
+  ],
+  "key": {
+    "/": {
+      "item": "valoria:black_gold_nugget"
+    }
+  },
+  "result": {
+    "item": "valoria:black_gold_ingot",
+    "count": 1
+  }
+}
