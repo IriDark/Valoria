@@ -7,14 +7,6 @@
       }
     ]
   },
-  "boss.necromancer.music_disc": {
-    "sounds": [
-      {
-        "name": "valoria:music/necromancer_mono",
-        "stream": true
-      }
-    ]
-  },
   "dungeon.necromancer.music": {
     "sounds": [
       {

@@ -563,7 +563,7 @@ public class ItemsRegistry{
         whiskeyBottle = registerItem("whiskey_bottle", () -> new PlaceableDrinkItem(BlockRegistry.whiskeyBottle.get(), 0, 1, 64, ItemsRegistry.bottle.get(), new MobEffectInstance(EffectsRegistry.TIPSY.get(), 450, 1), new MobEffectInstance(MobEffects.CONFUSION, 125)));
         cokeBottle = registerItem("coke_bottle", () -> new PlaceableDrinkItem(BlockRegistry.cokeBottle.get(), 0, 1, 64, ItemsRegistry.bottle.get(), new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 250)));
         toxinsBottle = registerItem("toxins_bottle", () -> new Item(new Item.Properties().rarity(Rarity.EPIC)));
-        necromancerMusicDisc = registerItem("music_disc_necromancer", () -> new RecordItem(15, SoundsRegistry.MUSIC_DISC_NECROMANCER.get(), (new Properties()).stacksTo(1).rarity(Rarity.RARE), 97));
+        necromancerMusicDisc = registerItem("music_disc_necromancer", () -> new RecordItem(15, SoundsRegistry.MUSIC_NECROMANCER.get(), (new Properties()).stacksTo(1).rarity(Rarity.RARE), 97));
 
         wickedShield = registerItem("wicked_shield", () -> new ShieldItem((new Properties()).stacksTo(1).rarity(Rarity.EPIC)));
 

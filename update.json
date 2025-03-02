@@ -1,8 +1,8 @@
 {
   "homepage": "https://github.com/IriDark/Valoria/",
   "promos": {
-    "1.20.1-latest": "1.20.1-0.6.4.35b",
-    "1.20.1-recommended": "1.20.1-0.6.4.35b"
+    "1.20.1-latest": "1.20.1-0.6.4.35",
+    "1.20.1-recommended": "1.20.1-0.6.4.35"
   },
   "1.20.1": {
     "1.20.1-0.6.35": "Lots of fixes, Lot of new Content, improvements",
