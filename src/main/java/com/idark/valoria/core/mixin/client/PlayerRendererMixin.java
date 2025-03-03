@@ -1,34 +1,25 @@
 package com.idark.valoria.core.mixin.client;
 
 
-import com.idark.valoria.ValoriaClient;
-import com.idark.valoria.client.model.curio.HandsModelSlim;
-import com.idark.valoria.registries.item.types.curio.DyeableGlovesItem;
-import com.idark.valoria.registries.item.types.curio.GlovesItem;
-import com.idark.valoria.registries.item.types.curio.ICurioTexture;
-import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.PlayerModel;
-import net.minecraft.client.model.geom.ModelPart;
-import net.minecraft.client.player.AbstractClientPlayer;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.LivingEntityRenderer;
-import net.minecraft.client.renderer.entity.player.PlayerRenderer;
-import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.world.item.DyeableLeatherItem;
-import net.minecraft.world.item.ItemStack;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import top.theillusivec4.curios.api.CuriosApi;
-import top.theillusivec4.curios.api.SlotResult;
+import com.idark.valoria.client.*;
+import com.idark.valoria.client.model.curio.*;
+import com.idark.valoria.registries.item.types.curio.*;
+import com.mojang.blaze3d.vertex.*;
+import net.minecraft.client.*;
+import net.minecraft.client.model.*;
+import net.minecraft.client.model.geom.*;
+import net.minecraft.client.player.*;
+import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.entity.*;
+import net.minecraft.client.renderer.entity.player.*;
+import net.minecraft.client.renderer.texture.*;
+import net.minecraft.world.item.*;
+import org.spongepowered.asm.mixin.*;
+import org.spongepowered.asm.mixin.injection.*;
+import org.spongepowered.asm.mixin.injection.callback.*;
+import top.theillusivec4.curios.api.*;
 
-import java.util.List;
+import java.util.*;
 
 @Mixin(PlayerRenderer.class)
 public abstract class PlayerRendererMixin extends LivingEntityRenderer<AbstractClientPlayer, PlayerModel<AbstractClientPlayer>>{
@@ -75,7 +66,7 @@ public abstract class PlayerRendererMixin extends LivingEntityRenderer<AbstractC
                         playerModel.setupAnim(pPlayer, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F);
                         pArm.xRot = 0.0F;
 
-                        var pRenderLayer = playerModel.slim ? ValoriaClient.HANDS_LAYER_SLIM : ValoriaClient.HANDS_LAYER;
+                        var pRenderLayer = playerModel.slim ? ValoriaLayers.HANDS_LAYER_SLIM : ValoriaLayers.HANDS_LAYER;
                         var pTexture = item.getTexture(slot.stack(), pPlayer);
                         if(pRenderLayer == null || pTexture == null) return;
 

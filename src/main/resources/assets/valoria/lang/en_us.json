@@ -34,6 +34,8 @@
   "attribute.valoria.excavation_speed": "Excavation Speed",
   "attribute.valoria.necromancy_count": "Mob Count",
   "attribute.valoria.necromancy_lifetime": "Mob Lifetime",
+  "valoria.boss.necromancer.music.name": "Necromancer",
+  "valoria.boss.necromancer.music.author": "DuUaader",
   "biome.valoria.ecotone": "Ecotone",
   "biome.valoria.river": "River",
   "biome.valoria.void_peaks": "Void Peaks",

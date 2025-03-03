@@ -1,21 +1,19 @@
 package com.idark.valoria.client.render.curio;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.ValoriaClient;
-import com.idark.valoria.client.model.curio.JewelryBagModel;
-import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.EntityModel;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.entity.RenderLayerParent;
-import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.DyeableLeatherItem;
-import net.minecraft.world.item.ItemStack;
-import top.theillusivec4.curios.api.SlotContext;
-import top.theillusivec4.curios.api.client.ICurioRenderer;
+import com.idark.valoria.*;
+import com.idark.valoria.client.*;
+import com.idark.valoria.client.model.curio.*;
+import com.mojang.blaze3d.vertex.*;
+import net.minecraft.client.*;
+import net.minecraft.client.model.*;
+import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.entity.*;
+import net.minecraft.client.renderer.texture.*;
+import net.minecraft.resources.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.item.*;
+import top.theillusivec4.curios.api.*;
+import top.theillusivec4.curios.api.client.*;
 
 public class JewelryBagRenderer implements ICurioRenderer{
     public static ResourceLocation TEXTURE = new ResourceLocation(Valoria.ID, "textures/entity/jewelry_bag.png");
@@ -25,7 +23,7 @@ public class JewelryBagRenderer implements ICurioRenderer{
     @Override
     public <T extends LivingEntity, M extends EntityModel<T>> void render(ItemStack stack, SlotContext slotContext, PoseStack matrixStack, RenderLayerParent<T, M> renderLayerParent, MultiBufferSource renderTypeBuffer, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch){
         if(model == null){
-            model = new JewelryBagModel(Minecraft.getInstance().getEntityModels().bakeLayer(ValoriaClient.BAG_LAYER));
+            model = new JewelryBagModel(Minecraft.getInstance().getEntityModels().bakeLayer(ValoriaLayers.BAG_LAYER));
         }
 
         LivingEntity entity = slotContext.entity();

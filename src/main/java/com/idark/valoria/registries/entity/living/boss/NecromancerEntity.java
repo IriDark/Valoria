@@ -3,6 +3,7 @@ package com.idark.valoria.registries.entity.living.boss;
 import com.google.common.collect.*;
 import com.idark.valoria.core.config.*;
 import com.idark.valoria.core.network.*;
+import com.idark.valoria.core.network.packets.*;
 import com.idark.valoria.core.network.packets.particle.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.entity.ai.movements.*;
@@ -95,6 +96,7 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
     public void startSeenByPlayer(ServerPlayer pPlayer){
         super.startSeenByPlayer(pPlayer);
         this.bossEvent.addPlayer(pPlayer);
+        PacketHandler.sendTo(pPlayer, new MusicToastPacket(pPlayer, SoundsRegistry.MUSIC_NECROMANCER.get()));
     }
 
     public void stopSeenByPlayer(ServerPlayer pPlayer){

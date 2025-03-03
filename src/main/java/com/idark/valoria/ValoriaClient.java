@@ -1,5 +1,6 @@
 package com.idark.valoria;
 
+import com.idark.valoria.client.*;
 import com.idark.valoria.client.color.*;
 import com.idark.valoria.client.model.*;
 import com.idark.valoria.client.model.armor.*;
@@ -19,10 +20,10 @@ import com.idark.valoria.util.*;
 import com.mojang.blaze3d.platform.*;
 import net.minecraft.client.*;
 import net.minecraft.client.model.geom.*;
+import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.blockentity.*;
 import net.minecraft.client.renderer.entity.*;
-import net.minecraft.client.resources.model.*;
 import net.minecraft.resources.*;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.player.*;
@@ -44,22 +45,11 @@ import pro.komaru.tridot.registry.entity.*;
 import java.io.*;
 
 import static com.idark.valoria.Valoria.*;
-import static pro.komaru.tridot.client.TridotModels.addLayer;
 
 public class ValoriaClient{
     private static final String CATEGORY_KEY = "key.category.valoria.general";
     public static final KeyMapping BAG_MENU_KEY = new KeyMapping("key.valoria.bag_menu", KeyConflictContext.IN_GAME, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, CATEGORY_KEY);
     public static final KeyMapping JEWELRY_BONUSES_KEY = new KeyMapping("key.valoria.jewelry", KeyConflictContext.IN_GAME, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, CATEGORY_KEY);
-    public static ModelLayerLocation NECKLACE_LAYER = new ModelLayerLocation(new ResourceLocation(Valoria.ID, "necklace"), "main");
-    public static ModelLayerLocation HANDS_LAYER = new ModelLayerLocation(new ResourceLocation(Valoria.ID, "hands"), "main");
-    public static ModelLayerLocation HANDS_LAYER_SLIM = new ModelLayerLocation(new ResourceLocation(Valoria.ID, "hands_slim"), "main");
-    public static ModelLayerLocation BELT_LAYER = new ModelLayerLocation(new ResourceLocation(Valoria.ID, "belt"), "main");
-    public static ModelLayerLocation BAG_LAYER = new ModelLayerLocation(new ResourceLocation(Valoria.ID, "jewelry_bag"), "main");
-    public static ModelResourceLocation KEG_MODEL = new ModelResourceLocation(Valoria.ID, "keg_barrel", "");
-    public static ModelResourceLocation SPHERE = new ModelResourceLocation(Valoria.ID, "elemental_sphere", "");
-    public static ModelResourceLocation CYST = new ModelResourceLocation(Valoria.ID, "cyst", "");
-    public static ModelLayerLocation THE_FALLEN_COLLECTOR_ARMOR_LAYER = addLayer(Valoria.ID, "the_fallen_collector_armor_layer");
-
     public static TheFallenCollectorArmorModel THE_FALLEN_COLLECTOR_ARMOR = null;
 
     public static LoopedSoundInstance BOSS_MUSIC;
@@ -202,24 +192,31 @@ public class ValoriaClient{
 
         @SubscribeEvent
         public static void onModelRegistryEvent(ModelEvent.RegisterAdditional event){
-            event.register(KEG_MODEL);
-            event.register(SPHERE);
-            event.register(CYST);
+            event.register(ValoriaLayers.KEG_MODEL);
+            event.register(ValoriaLayers.SPHERE);
+            event.register(ValoriaLayers.CYST);
         }
 
         @SubscribeEvent
         public static void onRegisterLayers(EntityRenderersEvent.RegisterLayerDefinitions event){
-            event.registerLayerDefinition(ValoriaClient.NECKLACE_LAYER, NecklaceModel::createBodyLayer);
-            event.registerLayerDefinition(ValoriaClient.BELT_LAYER, BeltModel::createBodyLayer);
-            event.registerLayerDefinition(ValoriaClient.BAG_LAYER, JewelryBagModel::createBodyLayer);
-            event.registerLayerDefinition(ValoriaClient.HANDS_LAYER, HandsModel::createBodyLayer);
-            event.registerLayerDefinition(ValoriaClient.HANDS_LAYER_SLIM, HandsModelSlim::createBodyLayer);
-            event.registerLayerDefinition(THE_FALLEN_COLLECTOR_ARMOR_LAYER, TheFallenCollectorArmorModel::createBodyLayer);
+            event.registerLayerDefinition(ValoriaLayers.NECKLACE_LAYER, NecklaceModel::createBodyLayer);
+            event.registerLayerDefinition(ValoriaLayers.BELT_LAYER, BeltModel::createBodyLayer);
+            event.registerLayerDefinition(ValoriaLayers.BAG_LAYER, JewelryBagModel::createBodyLayer);
+            event.registerLayerDefinition(ValoriaLayers.HANDS_LAYER, HandsModel::createBodyLayer);
+            event.registerLayerDefinition(ValoriaLayers.HANDS_LAYER_SLIM, HandsModelSlim::createBodyLayer);
+            event.registerLayerDefinition(ValoriaLayers.THE_FALLEN_COLLECTOR_ARMOR_LAYER, TheFallenCollectorArmorModel::createBodyLayer);
+
+            event.registerLayerDefinition(ValoriaLayers.INFERNAL_ARMOR_INNER, () -> LayerDefinition.create(InfernalArmorModel.addPieces(LayerDefinitions.INNER_ARMOR_DEFORMATION), 64, 32));
+            event.registerLayerDefinition(ValoriaLayers.INFERNAL_ARMOR_OUTER, () -> LayerDefinition.create(InfernalArmorModel.addPieces(LayerDefinitions.OUTER_ARMOR_DEFORMATION), 64, 32));
+            event.registerLayerDefinition(ValoriaLayers.VOID_ARMOR_INNER, () -> LayerDefinition.create(VoidArmorModel.addPieces(LayerDefinitions.INNER_ARMOR_DEFORMATION), 64, 32));
+            event.registerLayerDefinition(ValoriaLayers.VOID_ARMOR_OUTER, () -> LayerDefinition.create(VoidArmorModel.addPieces(LayerDefinitions.OUTER_ARMOR_DEFORMATION), 64, 32));
+            event.registerLayerDefinition(ValoriaLayers.PHANTASM_ARMOR_INNER, () -> LayerDefinition.create(PhantasmArmorModel.addPieces(LayerDefinitions.INNER_ARMOR_DEFORMATION), 64, 32));
+            event.registerLayerDefinition(ValoriaLayers.PHANTASM_ARMOR_OUTER, () -> LayerDefinition.create(PhantasmArmorModel.addPieces(LayerDefinitions.OUTER_ARMOR_DEFORMATION), 64, 32));
         }
 
         @SubscribeEvent
         public static void addLayers(EntityRenderersEvent.AddLayers event){
-            THE_FALLEN_COLLECTOR_ARMOR = new TheFallenCollectorArmorModel(event.getEntityModels().bakeLayer(THE_FALLEN_COLLECTOR_ARMOR_LAYER));
+            THE_FALLEN_COLLECTOR_ARMOR = new TheFallenCollectorArmorModel(event.getEntityModels().bakeLayer(ValoriaLayers.THE_FALLEN_COLLECTOR_ARMOR_LAYER));
         }
 
         @SubscribeEvent

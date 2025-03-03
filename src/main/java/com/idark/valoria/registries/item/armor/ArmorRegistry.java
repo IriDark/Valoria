@@ -7,6 +7,7 @@ import net.minecraft.world.item.ArmorItem.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.*;
 import org.jetbrains.annotations.*;
+import pro.komaru.tridot.registry.item.builders.*;
 
 public class ArmorRegistry implements ArmorMaterial{
     public Builder builder;
@@ -81,7 +82,7 @@ public class ArmorRegistry implements ArmorMaterial{
     public static final ArmorRegistry VOID = new ArmorRegistry.Builder("awakened_void").protection(45).mul(76).enchantValue(10).knockbackRes(0.15f).ingredient(() -> Ingredient.of(ItemsRegistry.voidIngot.get())).build();
     public static final ArmorRegistry PHANTASM = new ArmorRegistry.Builder("phantasm").protection(50).mul(82).enchantValue(12).knockbackRes(0.25f).ingredient(() -> Ingredient.of(ItemsRegistry.illusionStone.get())).build();
 
-    public static class Builder extends pro.komaru.tridot.registry.item.builders.AbstractArmorBuilder<ArmorRegistry>{
+    public static class Builder extends AbstractArmorBuilder<ArmorRegistry>{
         public Builder(String name){
             super(name);
         }

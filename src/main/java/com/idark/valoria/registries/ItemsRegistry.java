@@ -187,18 +187,18 @@ public class ItemsRegistry{
         depthChestplate = registerEffectArmor("depth_chestplate", Type.CHESTPLATE, ArmorRegistry.DEPTH, new Item.Properties().rarity(RarityRegistry.AQUARIUS));
         depthLeggings = registerEffectArmor("depth_leggings", Type.LEGGINGS, ArmorRegistry.DEPTH, new Item.Properties().rarity(RarityRegistry.AQUARIUS));
         depthBoots = registerEffectArmor("depth_boots", Type.BOOTS, ArmorRegistry.DEPTH, new Item.Properties().rarity(RarityRegistry.AQUARIUS));
-        infernalHelmet = registerEffectArmor("infernal_helmet", Type.HELMET, ArmorRegistry.INFERNAL, new Item.Properties().rarity(RarityRegistry.INFERNAL).fireResistant());
-        infernalChestplate = registerEffectArmor("infernal_chestplate", Type.CHESTPLATE, ArmorRegistry.INFERNAL, new Item.Properties().rarity(RarityRegistry.INFERNAL).fireResistant());
-        infernalLeggings = registerEffectArmor("infernal_leggings", Type.LEGGINGS, ArmorRegistry.INFERNAL, new Item.Properties().rarity(RarityRegistry.INFERNAL).fireResistant());
-        infernalBoots = registerEffectArmor("infernal_boots", Type.BOOTS, ArmorRegistry.INFERNAL, new Item.Properties().rarity(RarityRegistry.INFERNAL).fireResistant());
-        awakenedVoidHelmet = registerEffectArmor("awakened_void_helmet", Type.HELMET, ArmorRegistry.VOID, new Item.Properties().rarity(RarityRegistry.VOID).fireResistant());
-        awakenedVoidChestplate = registerEffectArmor("awakened_void_chestplate", Type.CHESTPLATE, ArmorRegistry.VOID, new Item.Properties().rarity(RarityRegistry.VOID).fireResistant());
-        awakenedVoidLeggings = registerEffectArmor("awakened_void_leggings", Type.LEGGINGS, ArmorRegistry.VOID, new Item.Properties().rarity(RarityRegistry.VOID).fireResistant());
-        awakenedVoidBoots = registerEffectArmor("awakened_void_boots", Type.BOOTS, ArmorRegistry.VOID, new Item.Properties().rarity(RarityRegistry.VOID).fireResistant());
-        phantasmHelmet = registerEffectArmor("phantasm_helmet", Type.HELMET, ArmorRegistry.PHANTASM, new Item.Properties().rarity(RarityRegistry.PHANTASM).fireResistant());
-        phantasmChestplate = registerEffectArmor("phantasm_chestplate", Type.CHESTPLATE, ArmorRegistry.PHANTASM, new Item.Properties().rarity(RarityRegistry.PHANTASM).fireResistant());
-        phantasmLeggings = registerEffectArmor("phantasm_leggings", Type.LEGGINGS, ArmorRegistry.PHANTASM, new Item.Properties().rarity(RarityRegistry.PHANTASM).fireResistant());
-        phantasmBoots = registerEffectArmor("phantasm_boots", Type.BOOTS, ArmorRegistry.PHANTASM, new Item.Properties().rarity(RarityRegistry.PHANTASM).fireResistant());
+        infernalHelmet = registerItem("infernal_helmet", () -> new InfernalArmorItem(Type.HELMET, ArmorRegistry.INFERNAL, new Item.Properties().rarity(RarityRegistry.INFERNAL).fireResistant()));
+        infernalChestplate = registerItem("infernal_chestplate", () -> new InfernalArmorItem(Type.CHESTPLATE, ArmorRegistry.INFERNAL, new Item.Properties().rarity(RarityRegistry.INFERNAL).fireResistant()));
+        infernalLeggings = registerItem("infernal_leggings", () -> new InfernalArmorItem(Type.LEGGINGS, ArmorRegistry.INFERNAL, new Item.Properties().rarity(RarityRegistry.INFERNAL).fireResistant()));
+        infernalBoots = registerItem("infernal_boots", () -> new InfernalArmorItem(Type.BOOTS, ArmorRegistry.INFERNAL, new Item.Properties().rarity(RarityRegistry.INFERNAL).fireResistant()));
+        awakenedVoidHelmet = registerItem("awakened_void_helmet", () -> new VoidArmorItem(Type.HELMET, ArmorRegistry.VOID, new Item.Properties().rarity(RarityRegistry.VOID).fireResistant()));
+        awakenedVoidChestplate = registerItem("awakened_void_chestplate", () -> new VoidArmorItem(Type.CHESTPLATE, ArmorRegistry.VOID, new Item.Properties().rarity(RarityRegistry.VOID).fireResistant()));
+        awakenedVoidLeggings = registerItem("awakened_void_leggings", () -> new VoidArmorItem(Type.LEGGINGS, ArmorRegistry.VOID, new Item.Properties().rarity(RarityRegistry.VOID).fireResistant()));
+        awakenedVoidBoots = registerItem("awakened_void_boots", () -> new VoidArmorItem(Type.BOOTS, ArmorRegistry.VOID, new Item.Properties().rarity(RarityRegistry.VOID).fireResistant()));
+        phantasmHelmet = registerItem("phantasm_helmet", () -> new PhantasmArmorItem(Type.HELMET, ArmorRegistry.PHANTASM, new Item.Properties().rarity(RarityRegistry.PHANTASM).fireResistant()));
+        phantasmChestplate = registerItem("phantasm_chestplate", () -> new PhantasmArmorItem(Type.CHESTPLATE, ArmorRegistry.PHANTASM, new Item.Properties().rarity(RarityRegistry.PHANTASM).fireResistant()));
+        phantasmLeggings = registerItem("phantasm_leggings", () -> new PhantasmArmorItem(Type.LEGGINGS, ArmorRegistry.PHANTASM, new Item.Properties().rarity(RarityRegistry.PHANTASM).fireResistant()));
+        phantasmBoots = registerItem("phantasm_boots", () -> new PhantasmArmorItem(Type.BOOTS, ArmorRegistry.PHANTASM, new Item.Properties().rarity(RarityRegistry.PHANTASM).fireResistant()));
 
         //materials
         rawCobalt = registerItem("raw_cobalt");
