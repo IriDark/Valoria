@@ -56,6 +56,8 @@ minecraft {
 
         client{
             args "--username", "IriDark_"
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
             property 'forge.enabledGameTestNamespaces', "valoria"
         }
 
@@ -91,6 +93,19 @@ repositories {
     maven { url "https://maven.theillusivec4.top/"}
     maven { url "https://cursemaven.com"}
     maven { url "https://maven.blamejared.com"}
+    maven {
+        url = "https://maven.architectury.dev"
+        content {
+            includeGroup "dev.architectury"
+        }
+    }
+
+    maven {
+        url = "https://maven.saps.dev/minecraft"
+        content {
+            includeGroup "dev.latvian.mods"
+        }
+    }
 }
 
 dependencies {
@@ -105,11 +120,15 @@ dependencies {
     implementation fg.deobf("curse.maven:just-enough-resources-jer-240630:5057220")
     runtimeOnly fg.deobf("pro.komaru:Tridot:${minecraft_version}-${tridot_version}")
     compileOnly fg.deobf("pro.komaru:Tridot:${minecraft_version}-${tridot_version}:api")
+    
+    implementation fg.deobf("dev.latvian.mods:kubejs-forge:${kubejs_version}")
+    implementation fg.deobf("dev.latvian.mods:rhino-forge:${rhino_version}")
+    implementation fg.deobf("dev.architectury:architectury-forge:${architectury_version}")
 
-    // RunTime
     runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}+${minecraft_version}")
 
+    // client sided
     runtimeOnly fg.deobf("maven.modrinth:journeymap:1.20.1-5.10.2-forge")
     runtimeOnly fg.deobf("maven.modrinth:legendary-tooltips:1.4.5") //breaks nbt, fix will be released later by Grend
     runtimeOnly fg.deobf("curse.maven:appleskin-248787:4770828")
