@@ -10,13 +10,10 @@ public class PhantasmArmorModel{
         MeshDefinition meshdefinition = HumanoidModel.createMesh(deformation, 0);
         PartDefinition partdefinition = meshdefinition.getRoot();
         PartDefinition head = partdefinition.addOrReplaceChild("head", CubeListBuilder.create()
-        .texOffs(0, 0).addBox(-4.0F, -12.0F, -1.0F, 2.0F, 4.0F, 2.0F, deformation)
-        .texOffs(0, 0).mirror().addBox(2.0F, -12.0F, -1.0F, 2.0F, 4.0F, 2.0F, deformation)
-        .texOffs(56, 0).addBox(-5.75F, -2.75F, -5.5F, 2.0F, 3.0F, 2.0F, new CubeDeformation(-0.05F))
-        .texOffs(56, 0).addBox(3.75F, -2.75F, -5.5F, 2.0F, 3.0F, 2.0F, new CubeDeformation(-0.05F))
+        .texOffs(53, 1).addBox(-5.75F, -2.75F, -5.5F, 2.0F, 3.0F, 2.0F, deformation.extend(-1.25F))
+        .texOffs(53, 1).addBox(3.75F, -2.5F, -5.5F, 2.0F, 3.0F, 2.0F, deformation.extend(-1.25F))
         .texOffs(24, 4).addBox(-3.0F, -1.75F, -5.0F, 6.0F, 2.0F, 2.0F, new CubeDeformation(-0.05F))
         .texOffs(0, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, deformation)
-        .texOffs(0, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 3F, 8.0F, deformation.extend(0.5f))
 
         .texOffs(32, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.25F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
