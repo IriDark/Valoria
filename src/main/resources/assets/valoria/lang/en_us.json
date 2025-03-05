@@ -974,6 +974,8 @@
   "upgrade.valoria.elemental_upgrade": "Elemental Upgrade",
   "valoria.jade.openable_with": "Openable with:",
   "valoria.jade.progress": "Progress:",
+  "tooltip.valoria.inflicts_fire": "Inflicts fire on hit",
+  "tooltip.valoria.immunity": "Grants wearer immunities to:",
   "tooltip.valoria.usage_count": "The ability can be used %s times",
   "tooltip.valoria.required_amount": "Required amount:",
   "jei.valoria.archaeology_table": "Archaeology",

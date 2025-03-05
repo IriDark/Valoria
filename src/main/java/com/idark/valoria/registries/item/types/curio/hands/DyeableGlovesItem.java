@@ -1,23 +1,18 @@
-package com.idark.valoria.registries.item.types.curio;
+package com.idark.valoria.registries.item.types.curio.hands;
 
-import com.google.common.collect.LinkedHashMultimap;
-import com.google.common.collect.Multimap;
-import com.idark.valoria.core.enums.AccessoryGem;
-import com.idark.valoria.core.enums.AccessoryMaterial;
-import net.minecraft.client.player.AbstractClientPlayer;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attribute;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.player.Player;
+import com.google.common.collect.*;
+import com.idark.valoria.core.enums.*;
+import com.idark.valoria.registries.item.types.curio.*;
+import net.minecraft.client.player.*;
+import net.minecraft.resources.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.*;
+import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
-import top.theillusivec4.curios.api.SlotContext;
-import top.theillusivec4.curios.api.type.capability.ICurioItem;
+import top.theillusivec4.curios.api.*;
+import top.theillusivec4.curios.api.type.capability.*;
 
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 
 public class DyeableGlovesItem extends GlovesItem implements ICurioItem, ICurioTexture, DyeableLeatherItem, Vanishable{
     private final float damage, armor;

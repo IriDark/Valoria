@@ -1,13 +1,14 @@
 package com.idark.valoria.registries.item.types.curio.charm;
 
 import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.item.types.curio.*;
 import net.minecraft.server.level.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.item.*;
 import top.theillusivec4.curios.api.*;
 
-public class ImmunityCharm extends AbstractCharm{
-    public ImmunityCharm(Properties pProperties){
+public class ImmunityItem extends AbstractCurioItem{
+    public ImmunityItem(Properties pProperties){
         super(pProperties);
     }
 

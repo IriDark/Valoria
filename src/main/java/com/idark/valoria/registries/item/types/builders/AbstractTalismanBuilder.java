@@ -1,13 +1,11 @@
 package com.idark.valoria.registries.item.types.builders;
 
-import com.google.common.collect.LinkedHashMultimap;
-import com.google.common.collect.Multimap;
-import com.idark.valoria.registries.item.types.curio.TalismanItem;
-import net.minecraft.world.entity.ai.attributes.Attribute;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import com.google.common.collect.*;
+import com.idark.valoria.registries.item.types.curio.hands.*;
+import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.item.Item.Properties;
 
-import java.util.UUID;
+import java.util.*;
 
 public abstract class AbstractTalismanBuilder<T extends TalismanItem>{
     public Properties properties;

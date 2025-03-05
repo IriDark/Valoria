@@ -1,18 +1,16 @@
-package com.idark.valoria.registries.item.types.curio;
+package com.idark.valoria.registries.item.types.curio.hands;
 
-import com.google.common.collect.Multimap;
-import com.idark.valoria.registries.item.types.builders.AbstractTalismanBuilder;
-import net.minecraft.ChatFormatting;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.ai.attributes.Attribute;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Tiers;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.Level;
+import com.google.common.collect.*;
+import com.idark.valoria.registries.item.types.builders.*;
+import com.idark.valoria.registries.item.types.curio.*;
+import net.minecraft.*;
+import net.minecraft.network.chat.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.*;
 
-import java.util.List;
+import java.util.*;
 
 public class TalismanItem extends AbstractTieredAccessory{
     public Builder builder;

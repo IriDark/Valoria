@@ -46,7 +46,8 @@ public class TagsRegistry{
     public static final TagKey<Block> MEAT = block(new ResourceLocation(Valoria.ID, "meat"));
     public static final TagKey<Block> UNPACK_LOOT = block(new ResourceLocation(Valoria.ID, "unpack_loot"));
     public static final TagKey<Block> KEY_BLOCKS = block(new ResourceLocation(Valoria.ID, "key_blocks"));
-    public static final TagKey<Item> INFLICTS_FIRE = item(new ResourceLocation(Valoria.ID, "accessories/inflicts_fire"));
+    public static final TagKey<Item> INFLICTS_FIRE = item(new ResourceLocation(Valoria.ID, "inflicts_fire"));
+    public static final TagKey<Item> GRANTS_IMMUNITIES = item(new ResourceLocation(Valoria.ID, "accessories/grants_immunities"));
     public static final TagKey<Item> BLEEDING_IMMUNE = item(new ResourceLocation(Valoria.ID, "accessories/bleeding_immune"));
     public static final TagKey<Item> POISON_IMMUNE = item(new ResourceLocation(Valoria.ID, "accessories/poison_immune"));
     public static final TagKey<Item> FIRE_IMMUNE = item(new ResourceLocation(Valoria.ID, "accessories/fire_immune"));

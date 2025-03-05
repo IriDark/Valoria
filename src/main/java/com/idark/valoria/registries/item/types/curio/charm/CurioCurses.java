@@ -2,6 +2,7 @@ package com.idark.valoria.registries.item.types.curio.charm;
 
 import com.google.common.collect.*;
 import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.item.types.curio.*;
 import net.minecraft.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.server.level.*;
@@ -18,7 +19,7 @@ import top.theillusivec4.curios.api.type.capability.*;
 import javax.annotation.*;
 import java.util.*;
 
-public class CurioCurses extends AbstractCharm{
+public class CurioCurses extends AbstractCurioItem{
     private static List<MobEffect> effects = new ArrayList<>();
 
     public CurioCurses(Properties properties){

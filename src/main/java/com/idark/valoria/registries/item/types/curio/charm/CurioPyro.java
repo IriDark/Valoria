@@ -1,5 +1,6 @@
 package com.idark.valoria.registries.item.types.curio.charm;
 
+import com.idark.valoria.registries.item.types.curio.*;
 import net.minecraft.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.world.effect.*;
@@ -12,7 +13,7 @@ import top.theillusivec4.curios.api.*;
 
 import java.util.*;
 
-public class CurioPyro extends AbstractCharm{
+public class CurioPyro extends AbstractCurioItem{
     public ArcRandom arcRandom = new ArcRandom();
 
     public CurioPyro(Properties properties){

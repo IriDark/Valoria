@@ -1,6 +1,7 @@
 package com.idark.valoria.registries.item.types.curio.charm;
 
 import com.google.common.collect.*;
+import com.idark.valoria.registries.item.types.curio.*;
 import net.minecraft.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.world.entity.ai.attributes.*;
@@ -10,7 +11,7 @@ import top.theillusivec4.curios.api.*;
 
 import java.util.*;
 
-public class CurioStrength extends AbstractCharm{
+public class CurioStrength extends AbstractCurioItem{
     public CurioStrength(Properties properties){
         super(properties);
     }

@@ -4,6 +4,7 @@ import com.google.common.collect.*;
 import com.idark.valoria.*;
 import com.idark.valoria.core.enums.*;
 import com.idark.valoria.registries.*;
+import com.idark.valoria.util.*;
 import net.minecraft.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.sounds.*;
@@ -13,6 +14,7 @@ import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.*;
 import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.*;
 import net.minecraftforge.api.distmarker.*;
 import pro.komaru.tridot.utilities.*;
 import top.theillusivec4.curios.api.*;
@@ -119,6 +121,29 @@ public abstract class AbstractTieredAccessory extends TieredItem implements ICur
 
         if(rmbEquip){
             tooltip.add(Component.translatable("tooltip.valoria.rmb_equip").withStyle(ChatFormatting.GREEN));
+        }
+
+        if(stack.is(TagsRegistry.GRANTS_IMMUNITIES)){
+            tooltip.add(Component.translatable("tooltip.valoria.immunity", MobEffects.POISON.getDisplayName()).withStyle(ChatFormatting.GRAY));
+            if(stack.is(TagsRegistry.POISON_IMMUNE)){
+                tooltip.add(Component.literal(" - ").withStyle(ChatFormatting.GRAY)
+                .append(Component.translatable("tooltip.tridot.value", MobEffects.POISON.getDisplayName()).withStyle(Styles.nature)));
+            }
+
+            if(stack.is(TagsRegistry.BLEEDING_IMMUNE)){
+                tooltip.add(Component.literal(" - ").withStyle(ChatFormatting.GRAY)
+                .append(Component.translatable("tooltip.tridot.value", EffectsRegistry.BLEEDING.get().getDisplayName()).withStyle(Styles.create(Pal.strongRed))));
+            }
+
+            if(stack.is(TagsRegistry.FIRE_IMMUNE)){
+                tooltip.add(Component.literal(" - ").withStyle(ChatFormatting.GRAY)
+                .append(Component.translatable("tooltip.tridot.value", Blocks.FIRE.getName()).withStyle(Styles.create(Pal.infernalBright))));
+            }
+        }
+
+        if(stack.is(TagsRegistry.INFLICTS_FIRE)){
+            tooltip.add(Component.empty());
+            tooltip.add(Component.translatable("tooltip.valoria.inflicts_fire").withStyle(ChatFormatting.GRAY));
         }
     }
 }

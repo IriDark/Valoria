@@ -2,6 +2,7 @@ package com.idark.valoria.registries.item.types.curio.charm;
 
 import com.google.common.collect.*;
 import com.idark.valoria.*;
+import com.idark.valoria.registries.item.types.curio.*;
 import net.minecraft.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.world.effect.*;
@@ -14,7 +15,7 @@ import top.theillusivec4.curios.api.*;
 
 import java.util.*;
 
-public class CurioVision extends AbstractCharm{
+public class CurioVision extends AbstractCurioItem{
     int duration;
     public CurioVision(Properties properties, int pDuration){
         super(properties);

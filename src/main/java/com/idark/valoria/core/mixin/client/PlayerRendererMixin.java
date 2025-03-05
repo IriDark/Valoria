@@ -4,6 +4,7 @@ package com.idark.valoria.core.mixin.client;
 import com.idark.valoria.client.*;
 import com.idark.valoria.client.model.curio.*;
 import com.idark.valoria.registries.item.types.curio.*;
+import com.idark.valoria.registries.item.types.curio.hands.*;
 import com.mojang.blaze3d.vertex.*;
 import net.minecraft.client.*;
 import net.minecraft.client.model.*;

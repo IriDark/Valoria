@@ -1,6 +1,7 @@
 package com.idark.valoria.registries.item.types.curio.charm;
 
 import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.item.types.curio.*;
 import net.minecraft.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.world.item.*;
@@ -14,7 +15,7 @@ import java.util.*;
  *
  * @see com.idark.valoria.Events#critDamage(CriticalHitEvent) here
  */
-public class RuneAccuracy extends AbstractCharm{
+public class RuneAccuracy extends AbstractCurioItem{
     public RuneAccuracy(Properties properties){
         super(properties);
     }

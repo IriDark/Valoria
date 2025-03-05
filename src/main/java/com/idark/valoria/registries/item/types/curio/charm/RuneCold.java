@@ -1,5 +1,6 @@
 package com.idark.valoria.registries.item.types.curio.charm;
 
+import com.idark.valoria.registries.item.types.curio.*;
 import net.minecraft.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.world.entity.*;
@@ -10,7 +11,7 @@ import top.theillusivec4.curios.api.*;
 
 import java.util.*;
 
-public class RuneCold extends AbstractCharm{
+public class RuneCold extends AbstractCurioItem{
     public RuneCold(Properties properties){
         super(properties);
     }
