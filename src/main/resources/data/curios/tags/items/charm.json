@@ -1,6 +1,12 @@
 {
   "replace": false,
   "values": [
+    "valoria:bandage",
+    "valoria:devil_heart",
+    "valoria:harmony_heart",
+    "valoria:medicated_devil_heart",
+    "valoria:medicated_harmony_heart",
+    "valoria:elemental_charm",
     "valoria:lesser_rune_of_vision",
     "valoria:lesser_rune_of_wealth",
     "valoria:lesser_rune_of_curses",

@@ -5,12 +5,15 @@ import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.*;
 import com.idark.valoria.core.network.packets.particle.*;
 import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.effect.*;
 import com.idark.valoria.registries.item.armor.item.*;
 import com.idark.valoria.registries.item.types.*;
 import net.minecraft.core.*;
 import net.minecraft.nbt.*;
 import net.minecraft.resources.*;
 import net.minecraft.server.level.*;
+import net.minecraft.tags.*;
+import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.monster.*;
@@ -26,6 +29,7 @@ import net.minecraftforge.event.entity.*;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.*;
 import net.minecraftforge.event.level.*;
+import net.minecraftforge.eventbus.api.Event.*;
 import net.minecraftforge.eventbus.api.*;
 import pro.komaru.tridot.core.math.*;
 import top.theillusivec4.curios.api.*;
@@ -80,7 +84,7 @@ public class Events{
 
     @SubscribeEvent
     public void onAttack(AttackEntityEvent event){
-        if(event.getEntity().hasEffect(EffectsRegistry.STUN.get())){
+        if(event.isCancelable() && event.getEntity().hasEffect(EffectsRegistry.STUN.get())){
             event.setCanceled(true);
         }
 
@@ -94,17 +98,35 @@ public class Events{
     }
 
     @SubscribeEvent
-    public void onLivingAttack(LivingAttackEvent event){
-        if(event.getSource().getEntity() instanceof LivingEntity e){
-            if(e.hasEffect(EffectsRegistry.STUN.get())) event.setCanceled(true);
+    public void onEffectApply(MobEffectEvent.Applicable event){
+        var entity = event.getEntity();
+        var effect = event.getEffectInstance();
+        if(effect.getEffect() instanceof AbstractImmunityEffect immunityEffect){
+            if(immunityEffect.effectRemoveReason(entity)){
+                event.setResult(Result.DENY);
+            }
+        }
+
+        if(effect.getEffect() == MobEffects.POISON){
+            if(CuriosApi.getCuriosHelper().findEquippedCurio((item) -> item.is(TagsRegistry.POISON_IMMUNE), entity).isPresent()){
+                event.setResult(Result.DENY);
+            }
         }
     }
 
     @SubscribeEvent
-    public void onPlayerAttack(AttackEntityEvent event){
-        if(event.isCancelable() && event.getEntity().hasEffect(EffectsRegistry.STUN.get())){
-            event.setCanceled(true);
+    public void onLivingAttack(LivingAttackEvent event){
+        if(event.getSource().getEntity() instanceof LivingEntity e){
+            if(e.hasEffect(EffectsRegistry.STUN.get())) event.setCanceled(true);
         }
+
+        if(event.getSource().getEntity() instanceof LivingEntity e){
+            if(getEquippedCurio(TagsRegistry.INFLICTS_FIRE, e)) event.getEntity().setSecondsOnFire(15);
+        }
+
+        var pSource = event.getSource();
+        var entity = event.getEntity();
+        if(pSource.is(DamageTypeTags.IS_FIRE) && getEquippedCurio(TagsRegistry.FIRE_IMMUNE, entity)) event.setCanceled(true);
     }
 
     @SubscribeEvent
@@ -230,15 +252,24 @@ public class Events{
         }
     }
 
+    public boolean getEquippedCurio(TagKey<Item> tag, LivingEntity entity) {
+        return CuriosApi.getCuriosHelper().findEquippedCurio((item) -> item.is(tag), entity).isPresent();
+    }
+
+
+    public boolean getEquippedCurio(Item item, LivingEntity entity) {
+        return CuriosApi.getCuriosHelper().findEquippedCurio(item, entity).isPresent();
+    }
+
     @SubscribeEvent
     public void critDamage(CriticalHitEvent event){
-        if(CuriosApi.getCuriosHelper().findEquippedCurio(ItemsRegistry.lesserRuneAccuracy.get(), event.getEntity()).isPresent()){
+        if(getEquippedCurio(ItemsRegistry.lesserRuneAccuracy.get(), event.getEntity())){
             if(arcRandom.chance(0.25f)){
                 event.getTarget().hurt(event.getEntity().level().damageSources().playerAttack(event.getEntity()), (float)(event.getEntity().getAttributeValue(Attributes.ATTACK_DAMAGE) * 1.5f));
             }
         }
 
-        if(CuriosApi.getCuriosHelper().findEquippedCurio(ItemsRegistry.runeAccuracy.get(), event.getEntity()).isPresent()){
+        if(getEquippedCurio(ItemsRegistry.runeAccuracy.get(), event.getEntity())){
             if(arcRandom.chance(0.5f)){
                 event.getTarget().hurt(event.getEntity().level().damageSources().playerAttack(event.getEntity()), (float)(event.getEntity().getAttributeValue(Attributes.ATTACK_DAMAGE) * 1.5f));
             }

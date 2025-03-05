@@ -6,6 +6,7 @@ import net.minecraft.world.damagesource.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
+import net.minecraft.world.item.*;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.*;
 import pro.komaru.tridot.client.*;
@@ -17,8 +18,9 @@ import pro.komaru.tridot.core.math.*;
 
 import java.awt.*;
 import java.util.*;
+import java.util.function.*;
 
-public class BleedingEffect extends MobEffect{
+public class BleedingEffect extends AbstractImmunityEffect{
 
     public BleedingEffect(){
         super(MobEffectCategory.HARMFUL, Clr.hexToDecimal("e02c2c"));
@@ -26,7 +28,13 @@ public class BleedingEffect extends MobEffect{
     }
 
     @Override
+    public Predicate<ItemStack> getImmunityItem(){
+        return (item) -> item.is(TagsRegistry.BLEEDING_IMMUNE);
+    }
+
+    @Override
     public void applyEffectTick(LivingEntity pEntity, int amplifier){
+        super.applyEffectTick(pEntity, amplifier);
         DamageSource dmg = DamageSourceRegistry.source(pEntity.level(), DamageSourceRegistry.BLEEDING);
         if(!pEntity.hasEffect(EffectsRegistry.ALOEREGEN.get()) && !pEntity.hasEffect(MobEffects.REGENERATION)){
             if(amplifier < 1){

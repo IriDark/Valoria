@@ -1,6 +1,9 @@
 {
   "replace": false,
   "values": [
+    "valoria:skeletal_vambrace",
+    "valoria:magmatic_gauntlet",
+    "valoria:magmatic_vambrace",
     "valoria:leather_gloves",
     "valoria:iron_gloves",
     "valoria:diamond_gloves",

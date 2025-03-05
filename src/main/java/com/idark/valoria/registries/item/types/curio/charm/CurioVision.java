@@ -14,7 +14,7 @@ import top.theillusivec4.curios.api.*;
 
 import java.util.*;
 
-public class CurioVision extends CurioRune{
+public class CurioVision extends AbstractCharm{
     int duration;
     public CurioVision(Properties properties, int pDuration){
         super(properties);

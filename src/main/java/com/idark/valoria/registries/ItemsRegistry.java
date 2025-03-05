@@ -129,6 +129,9 @@ public class ItemsRegistry{
     leatherGloves, ironGloves, goldenGloves, diamondGloves, netheriteGloves,
     amberTotem, amberWinglet, amberGazer, emeraldTotem, emeraldWinglet, emeraldGazer, amethystTotem, amethystWinglet, amethystGazer, rubyTotem, rubyWinglet, rubyGazer,
     brokenMonocle, monocle, jewelryBag, pickNecklace,
+    bandage, devilHeart, harmonyHeart, medicatedDevilHeart, medicatedHarmonyHeart, elementalCharm,
+    skeletalVambrace, magmaticVambrace, magmaticGauntlet,
+
 
     // runes
     lesserRune, lesserRuneVision, lesserRuneWealth, lesserRuneCurses, lesserRuneStrength, lesserRuneAccuracy, lesserRuneDeep,
@@ -501,6 +504,16 @@ public class ItemsRegistry{
         monocle = registerItem("bloodsight_monocle", () -> new BloodSight(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC).durability(300)));
         jewelryBag = registerItem("jewelry_bag", () -> new JewelryBagItem(new Item.Properties().stacksTo(1)));
         pickNecklace = registerItem("pick_necklace", () -> new PickNecklace(new Item.Properties().stacksTo(1).durability(320).rarity(Rarity.EPIC)));
+        bandage = registerItem("bandage", () -> new ImmunityCharm(new Item.Properties().stacksTo(1).durability(320).rarity(Rarity.EPIC)));
+        devilHeart = registerItem("devil_heart", () -> new ImmunityCharm(new Item.Properties().stacksTo(1).durability(320).rarity(Rarity.EPIC)));
+        harmonyHeart = registerItem("harmony_heart", () -> new ImmunityCharm(new Item.Properties().stacksTo(1).durability(320).rarity(Rarity.EPIC)));
+        medicatedDevilHeart = registerItem("medicated_devil_heart", () -> new ImmunityCharm(new Item.Properties().stacksTo(1).durability(320).rarity(Rarity.EPIC)));
+        medicatedHarmonyHeart = registerItem("medicated_harmony_heart", () -> new ImmunityCharm(new Item.Properties().stacksTo(1).durability(320).rarity(Rarity.EPIC)));
+        elementalCharm = registerItem("elemental_charm", () -> new ImmunityCharm(new Item.Properties().stacksTo(1).durability(320).rarity(Rarity.EPIC)));
+        skeletalVambrace = registerItem("skeletal_vambrace", () -> new VambraceItem("skeletal", Tiers.NETHERITE, new Item.Properties().stacksTo(1).durability(320).rarity(Rarity.EPIC)));
+        magmaticVambrace = registerItem("magmatic_vambrace", () -> new VambraceItem("magmatic", Tiers.NETHERITE, new Item.Properties().stacksTo(1).durability(320).rarity(Rarity.EPIC)));
+        magmaticGauntlet = registerItem("magmatic_gauntlet", () -> new MagmaticGauntletItem(Tiers.NETHERITE, new Item.Properties().stacksTo(1).durability(300).rarity(Rarity.EPIC)));
+
         lesserRune = registerItem("lesser_rune", () -> new Item(new Item.Properties().stacksTo(16).rarity(Rarity.UNCOMMON)){
             @Override
             public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags){

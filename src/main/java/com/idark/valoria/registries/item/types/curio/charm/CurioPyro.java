@@ -12,7 +12,7 @@ import top.theillusivec4.curios.api.*;
 
 import java.util.*;
 
-public class CurioPyro extends CurioRune{
+public class CurioPyro extends AbstractCharm{
     public ArcRandom arcRandom = new ArcRandom();
 
     public CurioPyro(Properties properties){

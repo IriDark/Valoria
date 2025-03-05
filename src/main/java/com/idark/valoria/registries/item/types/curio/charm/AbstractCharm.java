@@ -9,10 +9,10 @@ import top.theillusivec4.curios.api.type.capability.*;
 
 import javax.annotation.*;
 
-public class CurioRune extends Item implements ICurioItem{
+public abstract class AbstractCharm extends Item implements ICurioItem{
     public ArcRandom arcRandom = new ArcRandom();
 
-    public CurioRune(Properties properties){
+    public AbstractCharm(Properties properties){
         super(properties);
     }
 

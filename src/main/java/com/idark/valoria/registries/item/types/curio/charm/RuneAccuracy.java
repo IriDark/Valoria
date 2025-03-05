@@ -14,7 +14,7 @@ import java.util.*;
  *
  * @see com.idark.valoria.Events#critDamage(CriticalHitEvent) here
  */
-public class RuneAccuracy extends CurioRune{
+public class RuneAccuracy extends AbstractCharm{
     public RuneAccuracy(Properties properties){
         super(properties);
     }
