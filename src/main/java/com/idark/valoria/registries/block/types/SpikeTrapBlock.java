@@ -1,28 +1,23 @@
 package com.idark.valoria.registries.block.types;
 
-import com.idark.valoria.registries.BlockRegistry;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.Difficulty;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.DirectionalBlock;
-import net.minecraft.world.level.block.RedstoneTorchBlock;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
-import net.minecraft.world.level.gameevent.GameEvent;
+import com.idark.valoria.registries.*;
+import net.minecraft.core.*;
+import net.minecraft.core.particles.*;
+import net.minecraft.sounds.*;
+import net.minecraft.util.*;
+import net.minecraft.world.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.item.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.item.context.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.*;
+import net.minecraft.world.level.block.state.properties.*;
+import net.minecraft.world.level.gameevent.*;
+import net.minecraft.world.phys.shapes.*;
 
-import javax.annotation.Nullable;
+import javax.annotation.*;
 
 public class SpikeTrapBlock extends DirectionalBlock{
     public static final BooleanProperty LIT = RedstoneTorchBlock.LIT;
@@ -37,44 +32,40 @@ public class SpikeTrapBlock extends DirectionalBlock{
     }
 
     @Override
-    public void stepOn(Level level, BlockPos pos, BlockState state, Entity entityIn){
-        if(level.getDifficulty() != Difficulty.PEACEFUL){
-            RandomSource rand = level.getRandom();
-            Direction direction = state.getValue(DirectionalBlock.FACING);
-            BlockPos newPos = pos.offset(direction.getNormal());
-            BlockState spikeBlock = BlockRegistry.spikes.get().defaultBlockState().setValue(DirectionalBlock.FACING, direction);
-            if(!level.getBlockState(newPos).isSolid()){
-                level.setBlockAndUpdate(newPos, spikeBlock);
-                level.scheduleTick(newPos, BlockRegistry.spikes.get(), 1);
-                level.setBlockAndUpdate(pos, this.state);
-                level.playSound(null, pos, SoundEvents.PISTON_EXTEND, SoundSource.BLOCKS, 0.3F, level.random.nextFloat() * 0.25F + 0.6F);
-                if(level.isClientSide()){
-                    for(int i = 0; i < 10; i++){
-                        level.addParticle(ParticleTypes.POOF, pos.getX() + rand.nextDouble(), pos.getY() + 0.5D, pos.getZ() + rand.nextDouble(), 0d, 0.05d, 0d);
-                    }
+    public VoxelShape getCollisionShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext){
+        return Block.box(0, 0, 0, 16, 15, 16);
+    }
+
+    public void entityInside(BlockState pState, Level pLevel, BlockPos pPos, Entity pEntity) {
+        if (pLevel.getDifficulty() != Difficulty.PEACEFUL && pEntity instanceof Player || pEntity instanceof ItemEntity){
+            activateTrap(pLevel, pPos, pState);
+        }
+    }
+
+    private void activateTrap(Level level, BlockPos pos, BlockState state){
+        RandomSource rand = level.getRandom();
+        Direction direction = state.getValue(DirectionalBlock.FACING);
+        BlockPos newPos = pos.offset(direction.getNormal());
+        BlockState spikeBlock = BlockRegistry.spikes.get().defaultBlockState().setValue(DirectionalBlock.FACING, direction);
+        if(!level.getBlockState(newPos).isSolid()){
+            level.setBlockAndUpdate(newPos, spikeBlock);
+            level.scheduleTick(newPos, BlockRegistry.spikes.get(), 1);
+            level.setBlockAndUpdate(pos, this.state);
+            level.playSound(null, pos, SoundEvents.PISTON_EXTEND, SoundSource.BLOCKS, 0.3F, level.random.nextFloat() * 0.25F + 0.6F);
+            if(level.isClientSide()){
+                for(int i = 0; i < 10; i++){
+                    level.addParticle(ParticleTypes.POOF, pos.getX() + rand.nextDouble(), pos.getY() + 0.5D, pos.getZ() + rand.nextDouble(), 0d, 0.05d, 0d);
                 }
             }
         }
+
+        level.gameEvent(null, GameEvent.BLOCK_ACTIVATE, pos);
     }
 
     @Override
     public void neighborChanged(BlockState state, Level level, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving){
-        RandomSource rand = level.getRandom();
-        Direction direction = state.getValue(DirectionalBlock.FACING);
-        BlockPos newPos = pos.offset(direction.getNormal());
         if(level.hasNeighborSignal(pos)){
-            if(!level.getBlockState(newPos).isSolid()){
-                level.setBlockAndUpdate(newPos, this.spike);
-                level.scheduleTick(newPos, BlockRegistry.spikes.get(), 1);
-                level.playSound(null, pos, SoundEvents.PISTON_EXTEND, SoundSource.BLOCKS, 0.3F, level.random.nextFloat() * 0.25F + 0.6F);
-                if(level.isClientSide()){
-                    for(int i = 0; i < 10; i++){
-                        level.addParticle(ParticleTypes.POOF, pos.getX() + rand.nextDouble(), pos.getY() + 0.5D, pos.getZ() + rand.nextDouble(), 0d, 0.05d, 0d);
-                    }
-                }
-            }
-
-            level.gameEvent(null, GameEvent.BLOCK_ACTIVATE, pos);
+            activateTrap(level, pos, state);
         }
     }
 
