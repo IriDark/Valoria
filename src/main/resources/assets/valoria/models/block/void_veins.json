@@ -93,6 +93,16 @@
         16
       ],
       "faces": {
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#overlay",
+          "cullface": "down"
+        },
         "north": {
           "uv": [
             0,

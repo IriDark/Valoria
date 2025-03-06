@@ -37,7 +37,7 @@ public class BlockRegistry{
     natureBlock, aquariusBlock, infernalBlock, awakenedVoidBlock, unchargedShardBlock, soulShardBlock, wickedAmethystBlock,
     bronzeBlock, bronzeBlockStairs, bronzeBlockSlab, bronzeVent, cutBronze, cutBronzeStairs, cutBronzeSlab, bronzeGlass, bronzeGlassPane,
     eyeFlesh, eyeMeat, eyeStone, meatBlock, fleshBlock, fleshCyst, bloodVein,
-    cobbledShale, cobbledShaleStairs, cobbledShaleSlab, cobbledShaleWall, polishedCobbledShale, polishedCobbledShaleStairs, polishedCobbledShaleSlab, polishedCobbledShaleWall,
+    cobbledShale, cobbledShaleStairs, cobbledShaleSlab, cobbledShaleWall, cobbledShaleBricks, cobbledShaleBricksStairs, cobbledShaleBricksSlab, cobbledShaleBricksWall, crackedCobbledShaleBricks, crackedCobbledShaleBricksStairs, crackedCobbledShaleBricksSlab, crackedCobbledShaleBricksWall, polishedCobbledShale, polishedCobbledShaleStairs, polishedCobbledShaleSlab, polishedCobbledShaleWall,
     deepMarble, deepMarbleStairs, deepMarbleSlab, deepMarbleWall, polishedDeepMarble, polishedDeepMarbleStairs, polishedDeepMarbleSlab, polishedDeepMarbleWall,
     picrite, picriteStairs, picriteSlab, picriteWall, polishedPicrite, polishedPicriteStairs, polishedPicriteSlab, polishedPicriteWall, picriteBricks, picriteBricksStairs, picriteBricksSlab, picriteBricksWall,
     ephemariteLow, ephemariteLowStairs, ephemariteLowSlab, ephemariteLowWall, polishedEphemariteLow, polishedEphemariteLowStairs, polishedEphemariteLowSlab, polishedEphemariteLowWall,
@@ -140,6 +140,14 @@ public class BlockRegistry{
         cobbledShaleStairs = registerBlock("cobbled_shale_stairs", () -> new StairBlock(() -> BlockRegistry.cobbledShale.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.DEEPSLATE_BRICK_STAIRS).requiresCorrectToolForDrops()));
         cobbledShaleSlab = registerBlock("cobbled_shale_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE_BRICK_SLAB).requiresCorrectToolForDrops()));
         cobbledShaleWall = registerBlock("cobbled_shale_wall", () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE_BRICK_WALL).requiresCorrectToolForDrops()));
+        cobbledShaleBricks = registerBlock("cobbled_shale_bricks", () -> new Block(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE).requiresCorrectToolForDrops()));
+        cobbledShaleBricksStairs = registerBlock("cobbled_shale_bricks_stairs", () -> new StairBlock(() -> BlockRegistry.polishedPicrite.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.DEEPSLATE_BRICK_STAIRS).requiresCorrectToolForDrops()));
+        cobbledShaleBricksSlab = registerBlock("cobbled_shale_bricks_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE_BRICK_SLAB).requiresCorrectToolForDrops()));
+        cobbledShaleBricksWall = registerBlock("cobbled_shale_bricks_wall", () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE_BRICK_WALL).requiresCorrectToolForDrops()));
+        crackedCobbledShaleBricks = registerBlock("cracked_cobbled_shale_bricks", () -> new Block(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE).requiresCorrectToolForDrops()));
+        crackedCobbledShaleBricksStairs = registerBlock("cracked_cobbled_shale_bricks_stairs", () -> new StairBlock(() -> BlockRegistry.polishedPicrite.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.DEEPSLATE_BRICK_STAIRS).requiresCorrectToolForDrops()));
+        crackedCobbledShaleBricksSlab = registerBlock("cracked_cobbled_shale_bricks_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE_BRICK_SLAB).requiresCorrectToolForDrops()));
+        crackedCobbledShaleBricksWall = registerBlock("cracked_cobbled_shale_bricks_wall", () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE_BRICK_WALL).requiresCorrectToolForDrops()));
         polishedCobbledShale = registerBlock("polished_cobbled_shale", () -> new Block(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE).requiresCorrectToolForDrops()));
         polishedCobbledShaleStairs = registerBlock("polished_cobbled_shale_stairs", () -> new StairBlock(() -> BlockRegistry.polishedCobbledShale.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.DEEPSLATE_BRICK_STAIRS).requiresCorrectToolForDrops()));
         polishedCobbledShaleSlab = registerBlock("polished_cobbled_shale_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE_BRICK_SLAB).requiresCorrectToolForDrops()));

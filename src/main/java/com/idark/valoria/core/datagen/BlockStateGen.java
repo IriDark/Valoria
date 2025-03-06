@@ -23,6 +23,8 @@ public class BlockStateGen extends CoreStateGen{
         registerKit(BlockRegistry.deepMarble.get(), BlockRegistry.deepMarbleStairs.get(), BlockRegistry.deepMarbleSlab.get(), BlockRegistry.deepMarbleWall.get());
         registerKit(BlockRegistry.polishedDeepMarble.get(), BlockRegistry.polishedDeepMarbleStairs.get(), BlockRegistry.polishedDeepMarbleSlab.get(), BlockRegistry.polishedDeepMarbleWall.get());
         registerKit(BlockRegistry.cobbledShale.get(), BlockRegistry.cobbledShaleStairs.get(), BlockRegistry.cobbledShaleSlab.get(), BlockRegistry.cobbledShaleWall.get());
+        registerKit(BlockRegistry.cobbledShaleBricks.get(), BlockRegistry.cobbledShaleBricksStairs.get(), BlockRegistry.cobbledShaleBricksSlab.get(), BlockRegistry.cobbledShaleBricksWall.get());
+        registerKit(BlockRegistry.crackedCobbledShaleBricks.get(), BlockRegistry.crackedCobbledShaleBricksStairs.get(), BlockRegistry.crackedCobbledShaleBricksSlab.get(), BlockRegistry.crackedCobbledShaleBricksWall.get());
         registerKit(BlockRegistry.polishedCobbledShale.get(), BlockRegistry.polishedCobbledShaleStairs.get(), BlockRegistry.polishedCobbledShaleSlab.get(), BlockRegistry.polishedCobbledShaleWall.get());
         registerKit(BlockRegistry.ephemarite.get(), BlockRegistry.ephemariteStairs.get(), BlockRegistry.ephemariteSlab.get(), BlockRegistry.ephemariteWall.get());
         registerKit(BlockRegistry.ephemariteLow.get(), BlockRegistry.ephemariteLowStairs.get(), BlockRegistry.ephemariteLowSlab.get(), BlockRegistry.ephemariteLowWall.get());
