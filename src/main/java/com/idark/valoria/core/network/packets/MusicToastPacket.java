@@ -3,7 +3,6 @@ package com.idark.valoria.core.network.packets;
 import com.idark.valoria.*;
 import com.idark.valoria.client.ui.toast.*;
 import net.minecraft.client.*;
-import net.minecraft.client.resources.language.*;
 import net.minecraft.network.*;
 import net.minecraft.sounds.*;
 import net.minecraft.world.entity.player.*;
@@ -33,8 +32,8 @@ public class MusicToastPacket {
 
     public MusicToastPacket(Player entity, SoundEvent event){
         this.uuid = entity.getUUID();
-        this.author = I18n.get(event.getLocation().toLanguageKey() + ".author");
-        this.music = I18n.get(event.getLocation().toLanguageKey() + ".name");
+        this.author = event.getLocation().toLanguageKey() + ".author";
+        this.music = event.getLocation().toLanguageKey() + ".name";
     }
 
     public static void encode(MusicToastPacket object, FriendlyByteBuf buffer){

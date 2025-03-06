@@ -57,7 +57,7 @@ public class MusicToast implements Toast{
     @Override
     public Visibility render(GuiGraphics pGuiGraphics, ToastComponent pToastComponent, long pTimeSinceLastVisible){
         pGuiGraphics.blit(TEXTURE, 0, 0, 0, 0, this.width(), this.height(), 256, 32);
-        drawWrappingText(pGuiGraphics, music + " | " + author, 105, 12, 160, true);
+        drawWrappingText(pGuiGraphics, I18n.get(music) + " | " + I18n.get(author), 105, 12, 160, true);
         return (double)pTimeSinceLastVisible >= 5000.0D * pToastComponent.getNotificationDisplayTimeMultiplier() ? Visibility.HIDE : Visibility.SHOW;
     }
 
