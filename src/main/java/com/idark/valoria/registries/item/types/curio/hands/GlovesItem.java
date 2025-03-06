@@ -38,25 +38,25 @@ public class GlovesItem extends AbstractTieredAccessory implements ICurioTexture
         switch(gem){
             case NONE:
                 atts.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(uuid, "bonus", 0.5f, AttributeModifier.Operation.ADDITION));
-                atts.put(Attributes.ARMOR, new AttributeModifier(uuid, "bonus", 0.025, AttributeModifier.Operation.MULTIPLY_TOTAL));
+                atts.put(Attributes.ARMOR, new AttributeModifier(uuid, "bonus", 1, AttributeModifier.Operation.ADDITION));
                 break;
             case DIAMOND:
                 atts.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(uuid, "bonus", 2f, AttributeModifier.Operation.ADDITION));
-                atts.put(Attributes.ARMOR, new AttributeModifier(uuid, "bonus", 0.2, AttributeModifier.Operation.MULTIPLY_TOTAL));
+                atts.put(Attributes.ARMOR, new AttributeModifier(uuid, "bonus", 2, AttributeModifier.Operation.ADDITION));
                 atts.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(uuid, "bonus", 1, AttributeModifier.Operation.ADDITION));
                 break;
             case ARMOR:
                 atts.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(uuid, "bonus", 1.2f, Operation.ADDITION));
-                atts.put(Attributes.ARMOR, new AttributeModifier(uuid, "bonus", 0.1f, AttributeModifier.Operation.MULTIPLY_TOTAL));
+                atts.put(Attributes.ARMOR, new AttributeModifier(uuid, "bonus", 1.5f, AttributeModifier.Operation.ADDITION));
                 break;
             case TOUGH:
                 atts.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(uuid, "bonus", 1.7f, AttributeModifier.Operation.ADDITION));
-                atts.put(Attributes.ARMOR, new AttributeModifier(uuid, "bonus", 0.15, AttributeModifier.Operation.MULTIPLY_TOTAL));
+                atts.put(Attributes.ARMOR, new AttributeModifier(uuid, "bonus", 3.5f, AttributeModifier.Operation.ADDITION));
                 atts.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(uuid, "bonus", 0.5f, AttributeModifier.Operation.ADDITION));
                 break;
             case TANK:
                 atts.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(uuid, "bonus", 2.2f, AttributeModifier.Operation.ADDITION));
-                atts.put(Attributes.ARMOR, new AttributeModifier(uuid, "bonus", 0.2f, AttributeModifier.Operation.MULTIPLY_TOTAL));
+                atts.put(Attributes.ARMOR, new AttributeModifier(uuid, "bonus", 5f, AttributeModifier.Operation.ADDITION));
                 atts.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(uuid, "bonus", 1.2f, AttributeModifier.Operation.ADDITION));
                 break;
         }
