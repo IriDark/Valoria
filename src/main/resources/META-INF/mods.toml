@@ -1,4 +1,4 @@
-SmodLoader = "javafml"
+modLoader = "javafml"
 loaderVersion = "[36,)"
 license = "Code: Public Domain | Assets: Attribution-NonCommercial 4.0 International"
 issueTrackerURL = "https://github.com/IriDark/Valoria/issues"
