@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "valoria:fortress",
+      "weight": 15
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 829015412,
+    "spacing": 35,
+    "separation": 20
+  }
+}
