@@ -17,12 +17,14 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.*;
+import net.minecraft.world.level.block.state.BlockBehaviour.*;
 import net.minecraft.world.level.block.state.properties.*;
 import net.minecraft.world.level.material.*;
 import net.minecraft.world.phys.shapes.*;
 import net.minecraftforge.eventbus.api.*;
 import net.minecraftforge.registries.*;
 import pro.komaru.tridot.client.graphics.particle.data.*;
+import pro.komaru.tridot.registry.block.chest.*;
 import pro.komaru.tridot.utilities.*;
 
 import java.util.function.*;
@@ -32,6 +34,7 @@ import static com.idark.valoria.registries.ItemsRegistry.BLOCK_ITEMS;
 public class BlockRegistry{
     public static final DeferredRegister<Block> BLOCK = DeferredRegister.create(ForgeRegistries.BLOCKS, Valoria.ID);
     public static RegistryObject<Block>
+    eldritchChest, shadewoodChest, eldritchTrappedChest, shadewoodTrappedChest,
     eldritchDoor, eldritchTrapdoor, shadewoodDoor, shadewoodTrapdoor, bronzeDoor, bronzeTrapdoor, bronzeTrapdoorGlass,
     pyratiteBlock, pyratiteOre, pyratiteCrystal, amberBlock, amberOre, deepslateAmberOre, amberCrystal, sapphireBlock, sapphireOre, deepslateSapphireOre, sapphireCrystal, amethystBlock, amethystCrystal, rubyBlock, rubyOre, deepslateRubyOre, rubyCrystal, cobaltBlock, rawCobaltOreBlock, cobaltOre, deepslateCobaltOre, wickedAmethystOre, dormantCrystals, pearliumOre,
     natureBlock, aquariusBlock, infernalBlock, awakenedVoidBlock, unchargedShardBlock, soulShardBlock, wickedAmethystBlock,
@@ -74,6 +77,11 @@ public class BlockRegistry{
     taintedRoots, bloodVine, bloodVinePlant, violetSprout, violetSproutPlant, glowVioletSprout, glowVioletSproutPlant, abyssalGlowfern, abyssalGlowfernPlant, aloeSmall, aloe, pottedAloeSmall, driedPlant, pottedDriedPlant, driedRoots, pottedDriedRoots, cattail, soulroot, pottedSoulroot, soulFlower, pottedSoulFlower, crimsonSoulroot, doubleSoulroot, pottedCrimsonSoulroot, magmaroot, doubleMagmaroot, pottedMagmaroot, goldy, doubleGoldy, pottedGoldy, rajush, pottedRajush, bloodroot, pottedBloodroot, falseFlower, falseFlowerSmall, pottedFalseflower, pottedFalseflowerSmall, voidRoots, pottedVoidRoots, voidSerpents, pottedVoidSerpents, voidvine, pottedVoidvine, gaibRoots, karusakanRoots, shadeBlossom, suspiciousIce, suspiciousTombstone, spikes;
 
     public static void load(IEventBus eventBus){
+        shadewoodChest = registerBlock("shadewood_chest", () -> new TridotChestBlock(Properties.copy(Blocks.CHEST)));
+        eldritchChest = registerBlock("eldritch_chest", () -> new TridotChestBlock(Properties.copy(Blocks.CHEST)));
+        eldritchTrappedChest = registerBlock("trapped_eldritch_chest", () -> new TridotTrappedChestBlock(Properties.copy(Blocks.TRAPPED_CHEST)));
+        shadewoodTrappedChest = registerBlock("trapped_shadewood_chest", () -> new TridotTrappedChestBlock(Properties.copy(Blocks.TRAPPED_CHEST)));
+
         spikes = registerBlock("spikes", () -> new SpikeBlock(propsUnbreakable(Blocks.STONE, MapColor.COLOR_GRAY).noOcclusion().noLootTable()));
         eldritchDoor = registerBlock("eldritch_door", () -> new DoorBlock(propsDeco(Blocks.OAK_DOOR, MapColor.COLOR_MAGENTA), BlockSetType.OAK));
         eldritchTrapdoor = registerBlock("eldritch_trapdoor", () -> new TrapDoorBlock(propsDeco(Blocks.OAK_TRAPDOOR, MapColor.COLOR_MAGENTA), BlockSetType.OAK));

@@ -142,6 +142,7 @@ public class ValoriaClient{
                 BlockEntityRenderers.register(BlockEntitiesRegistry.SIGN_BLOCK_ENTITIES.get(), SignRenderer::new);
                 BlockEntityRenderers.register(BlockEntitiesRegistry.HANGING_SIGN_BLOCK_ENTITIES.get(), HangingSignRenderer::new);
                 BlockEntityRenderers.register(BlockEntitiesRegistry.VALORIA_PORTAL_BLOCK_ENTITY.get(), ValoriaPortalRenderer::new);
+
                 Sheets.addWoodType(ModWoodTypes.ELDRITCH);
                 Sheets.addWoodType(ModWoodTypes.SHADEWOOD);
             });
