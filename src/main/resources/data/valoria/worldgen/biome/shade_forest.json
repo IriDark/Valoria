@@ -46,7 +46,7 @@
     "misc": [],
     "monster": [
       {
-        "type": "valoria:troll",
+        "type": "valoria:corrupted_troll",
         "weight": 25,
         "minCount": 1,
         "maxCount": 2
