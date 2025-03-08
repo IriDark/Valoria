@@ -1,0 +1,23 @@
+{
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 20,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "valoria:fortress/tree_room_joint_cages",
+        "processors": "valoria:fortress"
+      }
+    },
+    {
+      "weight": 60,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "valoria:fortress/tree_room_joint_upstairs",
+        "processors": "valoria:fortress"
+      }
+    }
+  ]
+}

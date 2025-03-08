@@ -101,6 +101,7 @@
             16
           ],
           "texture": "#overlay",
+          "tintindex": 0,
           "cullface": "down"
         },
         "north": {

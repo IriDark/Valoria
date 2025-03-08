@@ -37,7 +37,7 @@ public class BlockRegistry{
     natureBlock, aquariusBlock, infernalBlock, awakenedVoidBlock, unchargedShardBlock, soulShardBlock, wickedAmethystBlock,
     bronzeBlock, bronzeBlockStairs, bronzeBlockSlab, bronzeVent, cutBronze, cutBronzeStairs, cutBronzeSlab, bronzeGlass, bronzeGlassPane,
     eyeFlesh, eyeMeat, eyeStone, meatBlock, fleshBlock, fleshCyst, bloodVein,
-    cobbledShale, cobbledShaleStairs, cobbledShaleSlab, cobbledShaleWall, cobbledShaleBricks, cobbledShaleBricksStairs, cobbledShaleBricksSlab, cobbledShaleBricksWall, crackedCobbledShaleBricks, crackedCobbledShaleBricksStairs, crackedCobbledShaleBricksSlab, crackedCobbledShaleBricksWall, polishedCobbledShale, polishedCobbledShaleStairs, polishedCobbledShaleSlab, polishedCobbledShaleWall,
+    cobbledShale, cobbledShaleStairs, cobbledShaleSlab, cobbledShaleWall, cobbledShaleBricks, cobbledShaleBricksStairs, cobbledShaleBricksSlab, cobbledShaleBricksWall, crackedCobbledShaleBricks, crackedCobbledShaleBricksStairs, crackedCobbledShaleBricksSlab, crackedCobbledShaleBricksWall, polishedCobbledShale, polishedCobbledShaleStairs, polishedCobbledShaleSlab, polishedCobbledShaleWall, cobbledShaleFirechargeTrap, cobbledShaleSpikesTrap,
     deepMarble, deepMarbleStairs, deepMarbleSlab, deepMarbleWall, polishedDeepMarble, polishedDeepMarbleStairs, polishedDeepMarbleSlab, polishedDeepMarbleWall,
     picrite, picriteStairs, picriteSlab, picriteWall, polishedPicrite, polishedPicriteStairs, polishedPicriteSlab, polishedPicriteWall, picriteBricks, picriteBricksStairs, picriteBricksSlab, picriteBricksWall,
     ephemariteLow, ephemariteLowStairs, ephemariteLowSlab, ephemariteLowWall, polishedEphemariteLow, polishedEphemariteLowStairs, polishedEphemariteLowSlab, polishedEphemariteLowWall,
@@ -152,6 +152,9 @@ public class BlockRegistry{
         polishedCobbledShaleStairs = registerBlock("polished_cobbled_shale_stairs", () -> new StairBlock(() -> BlockRegistry.polishedCobbledShale.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.DEEPSLATE_BRICK_STAIRS).requiresCorrectToolForDrops()));
         polishedCobbledShaleSlab = registerBlock("polished_cobbled_shale_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE_BRICK_SLAB).requiresCorrectToolForDrops()));
         polishedCobbledShaleWall = registerBlock("polished_cobbled_shale_wall", () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE_BRICK_WALL).requiresCorrectToolForDrops()));
+
+        cobbledShaleFirechargeTrap = registerBlock("cobbled_shale_firecharge_trap", () -> new FireTrapBlock(polishedCobbledShale.get().defaultBlockState(), 12.0F, 14, ColorParticleData.create(185, 65, 145, 45, 25, 5).build(), BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops(), new MobEffectInstance(MobEffects.WITHER, 160, 0, false, true)));
+        cobbledShaleSpikesTrap = registerBlock("cobbled_shale_spikes_trap", () -> new SpikeTrapBlock(polishedCobbledShale.get().defaultBlockState(), spikes.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(3f, 4f)));
 
         deepMarble = registerBlock("deep_marble", () -> new Block(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE).requiresCorrectToolForDrops()));
         deepMarbleStairs = registerBlock("deep_marble_stairs", () -> new StairBlock(() -> BlockRegistry.deepMarble.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.DEEPSLATE_BRICK_STAIRS).requiresCorrectToolForDrops()));

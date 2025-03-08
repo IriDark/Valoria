@@ -1,0 +1,32 @@
+{
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 20,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "valoria:fortress/tree_room_flesh",
+        "processors": "valoria:fortress"
+      }
+    },
+    {
+      "weight": 60,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "valoria:fortress/tree_room_upstairs",
+        "processors": "valoria:fortress"
+      }
+    },
+    {
+      "weight": 80,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "valoria:fortress/tree_room_storage",
+        "processors": "valoria:fortress"
+      }
+    }
+  ]
+}

@@ -1,0 +1,152 @@
+{
+  "processors": [
+    {
+      "processor_type": "minecraft:rule",
+      "rules": [
+        {
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "input_predicate": {
+            "predicate_type": "minecraft:random_block_match",
+            "block": "valoria:cobbled_shale",
+            "probability": 0.25
+          },
+          "output_state": {
+            "Name": "valoria:cobbled_shale_bricks"
+          }
+        },
+        {
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "input_predicate": {
+            "predicate_type": "minecraft:random_block_match",
+            "block": "valoria:cobbled_shale",
+            "probability": 0.1
+          },
+          "output_state": {
+            "Name": "valoria:cobbled_shale_bricks"
+          }
+        },
+        {
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "input_predicate": {
+            "predicate_type": "minecraft:random_block_match",
+            "block": "valoria:cobbled_shale_bricks",
+            "probability": 0.1
+          },
+          "output_state": {
+            "Name": "valoria:cracked_cobbled_shale_bricks"
+          }
+        },
+        {
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "input_predicate": {
+            "predicate_type": "minecraft:random_block_match",
+            "block": "valoria:void_brick",
+            "probability": 0.25
+          },
+          "output_state": {
+            "Name": "valoria:void_stone"
+          }
+        },
+        {
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "input_predicate": {
+            "predicate_type": "minecraft:random_block_match",
+            "block": "valoria:void_brick",
+            "probability": 0.25
+          },
+          "output_state": {
+            "Name": "valoria:void_cracked_brick"
+          }
+        },
+        {
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "input_predicate": {
+            "predicate_type": "minecraft:random_block_match",
+            "block": "valoria:void_pillar",
+            "probability": 0.15
+          },
+          "output_state": {
+            "Name": "valoria:void_pillar_amethyst"
+          }
+        },
+        {
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "input_predicate": {
+            "predicate_type": "minecraft:random_block_match",
+            "block": "valoria:void_pillar",
+            "probability": 0.15
+          },
+          "output_state": {
+            "Name": "valoria:charged_void_pillar"
+          }
+        },
+        {
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "input_predicate": {
+            "predicate_type": "minecraft:random_block_match",
+            "block": "valoria:void_pillar_amethyst",
+            "probability": 0.015
+          },
+          "output_state": {
+            "Name": "valoria:void_pillar"
+          }
+        },
+        {
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "input_predicate": {
+            "predicate_type": "minecraft:random_block_match",
+            "block": "valoria:charged_void_pillar",
+            "probability": 0.015
+          },
+          "output_state": {
+            "Name": "valoria:void_pillar"
+          }
+        },
+        {
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "input_predicate": {
+            "predicate_type": "minecraft:random_block_match",
+            "block": "valoria:cobbled_shale",
+            "probability": 0.0015
+          },
+          "output_state": {
+            "Name": "valoria:cobbled_shale_spikes_trap"
+          }
+        },
+        {
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "input_predicate": {
+            "predicate_type": "minecraft:random_block_match",
+            "block": "valoria:cobbled_shale",
+            "probability": 0.0015
+          },
+          "output_state": {
+            "Name": "valoria:cobbled_shale_firecharge_trap"
+          }
+        }
+      ]
+    }
+  ]
+}
