@@ -2,11 +2,20 @@
   "fallback": "minecraft:empty",
   "elements": [
     {
-      "weight": 20,
+      "weight": 25,
       "element": {
         "element_type": "minecraft:single_pool_element",
         "projection": "rigid",
-        "location": "valoria:fortress/tree_room_flesh",
+        "location": "valoria:fortress/tree_room_flesh1",
+        "processors": "valoria:fortress"
+      }
+    },
+    {
+      "weight": 15,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "valoria:fortress/tree_room_flesh2",
         "processors": "valoria:fortress"
       }
     },

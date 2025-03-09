@@ -113,8 +113,6 @@ public class Valoria{
         AbstractBossbar.bossbars.put("Necromancer", new BaseBar(new ResourceLocation(Valoria.ID, "textures/gui/bossbars/necromancer.png")));
         event.enqueueWork(() -> {
             LexiconChapters.init();
-//            BlockEntityRenderers.register(BlockEntitiesRegistry.CHEST_BLOCK_ENTITY.get(), ModChestRender::new);
-//            BlockEntityRenderers.register(BlockEntitiesRegistry.TRAPPED_CHEST_BLOCK_ENTITY.get(), ModTrappedChestRender::new);
             CuriosRendererRegistry.register(ItemsRegistry.ironNecklaceAmber.get(), NecklaceRenderer::new);
             CuriosRendererRegistry.register(ItemsRegistry.ironNecklaceDiamond.get(), NecklaceRenderer::new);
             CuriosRendererRegistry.register(ItemsRegistry.ironNecklaceEmerald.get(), NecklaceRenderer::new);

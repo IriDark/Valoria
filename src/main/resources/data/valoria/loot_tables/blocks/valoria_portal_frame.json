@@ -5,13 +5,6 @@
       "bonus_rolls": 0,
       "conditions": [
         {
-          "condition": "minecraft:block_state_property",
-          "block": "valoria:valoria_portal_frame",
-          "properties": {
-            "generated": "false"
-          }
-        },
-        {
           "condition": "minecraft:survives_explosion"
         }
       ],
