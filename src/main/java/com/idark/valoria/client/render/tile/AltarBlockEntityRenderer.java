@@ -7,7 +7,7 @@ import net.minecraft.client.*;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.blockentity.*;
 import net.minecraft.world.item.*;
-import pro.komaru.tridot.client.event.*;
+import pro.komaru.tridot.client.*;
 
 public class AltarBlockEntityRenderer implements BlockEntityRenderer<AbstractAltarBlockEntity>{
 
@@ -24,7 +24,7 @@ public class AltarBlockEntityRenderer implements BlockEntityRenderer<AbstractAlt
         double progress = 1.5f;
         progress /= (double)altar.progressMax / altar.progress;
 
-        double ticks = partialTicks + (ClientTickHandler.ticksInGame + progress);
+        double ticks = partialTicks + (ClientTick.ticksInGame + progress);
 
         ms.pushPose();
         ms.translate(0.5F, 1.75F + progress, 0.5F);

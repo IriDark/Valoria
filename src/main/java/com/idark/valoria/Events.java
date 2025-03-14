@@ -20,7 +20,7 @@ import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
-import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.*;
 import net.minecraftforge.common.Tags.*;
 import net.minecraftforge.common.capabilities.*;
 import net.minecraftforge.common.util.*;
@@ -31,12 +31,13 @@ import net.minecraftforge.event.entity.player.*;
 import net.minecraftforge.event.level.*;
 import net.minecraftforge.eventbus.api.Event.*;
 import net.minecraftforge.eventbus.api.*;
-import pro.komaru.tridot.core.math.*;
+import pro.komaru.tridot.util.*;
+import pro.komaru.tridot.util.math.*;
 import top.theillusivec4.curios.api.*;
 
 @SuppressWarnings("removal")
 public class Events{
-    public ArcRandom arcRandom = new ArcRandom();
+    public ArcRandom arcRandom = Tmp.rnd;
 
     @SubscribeEvent
     public void convertEvent(LivingConversionEvent.Pre ev){

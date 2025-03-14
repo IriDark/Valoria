@@ -10,7 +10,7 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.level.block.state.properties.*;
 import net.minecraft.world.phys.shapes.*;
-import pro.komaru.tridot.utilities.*;
+import pro.komaru.tridot.api.*;
 
 import java.util.concurrent.*;
 

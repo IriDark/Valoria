@@ -12,8 +12,8 @@ import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.phys.*;
 import org.joml.*;
-import pro.komaru.tridot.core.struct.func.*;
-import pro.komaru.tridot.utilities.*;
+import pro.komaru.tridot.api.*;
+import pro.komaru.tridot.util.struct.func.*;
 import top.theillusivec4.curios.api.*;
 
 import javax.annotation.*;

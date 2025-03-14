@@ -23,9 +23,9 @@ import net.minecraft.world.level.material.*;
 import net.minecraft.world.phys.shapes.*;
 import net.minecraftforge.eventbus.api.*;
 import net.minecraftforge.registries.*;
-import pro.komaru.tridot.client.graphics.particle.data.*;
-import pro.komaru.tridot.registry.block.chest.*;
-import pro.komaru.tridot.utilities.*;
+import pro.komaru.tridot.api.*;
+import pro.komaru.tridot.client.gfx.particle.data.*;
+import pro.komaru.tridot.common.registry.block.chest.*;
 
 import java.util.function.*;
 

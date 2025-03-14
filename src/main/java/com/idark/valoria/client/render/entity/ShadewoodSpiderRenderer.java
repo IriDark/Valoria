@@ -6,7 +6,7 @@ import com.idark.valoria.registries.entity.living.*;
 import net.minecraft.client.renderer.entity.*;
 import net.minecraft.resources.*;
 import net.minecraftforge.api.distmarker.*;
-import pro.komaru.tridot.client.graphics.render.entity.*;
+import pro.komaru.tridot.client.model.render.entity.*;
 
 @OnlyIn(Dist.CLIENT)
 public class ShadewoodSpiderRenderer<T extends ShadewoodSpider> extends MobRenderer<T, ShadewoodSpiderModel<T>>{

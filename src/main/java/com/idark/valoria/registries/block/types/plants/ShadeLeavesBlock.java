@@ -9,9 +9,8 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.phys.*;
 import net.minecraftforge.api.distmarker.*;
-import pro.komaru.tridot.client.graphics.particle.data.*;
-
-import java.awt.*;
+import pro.komaru.tridot.client.gfx.particle.data.*;
+import pro.komaru.tridot.util.*;
 
 public class ShadeLeavesBlock extends LeavesBlock{
 
@@ -29,7 +28,7 @@ public class ShadeLeavesBlock extends LeavesBlock{
                 double y = (double)pos.getY() - 0.05D;
                 double z = (double)pos.getZ() + random.nextDouble();
 
-                Color color = new Color((i >> 16 & 255) / 255.0F, (i >> 8 & 255) / 255.0F, (i & 255) / 255.0F);
+                Col color = new Col((i >> 16 & 255) / 255.0F, (i >> 8 & 255) / 255.0F, (i & 255) / 255.0F);
                 Vec3 position = new Vec3(x, y, z);
                 ParticleEffects.leafParticle(world, position, ColorParticleData.create(color.darker().darker(), color).build());
             }

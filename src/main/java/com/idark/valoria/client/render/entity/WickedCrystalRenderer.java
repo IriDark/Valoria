@@ -9,7 +9,7 @@ import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.entity.*;
 import net.minecraft.resources.*;
 import net.minecraftforge.api.distmarker.*;
-import pro.komaru.tridot.client.event.*;
+import pro.komaru.tridot.client.*;
 
 @OnlyIn(Dist.CLIENT)
 public class WickedCrystalRenderer extends MobRenderer<WickedCrystal, WickedCrystalModel<WickedCrystal>>{
@@ -22,8 +22,8 @@ public class WickedCrystalRenderer extends MobRenderer<WickedCrystal, WickedCrys
 
     @Override
     public void render(WickedCrystal pEntity, float pEntityYaw, float pPartialTicks, PoseStack pMatrixStack, MultiBufferSource pBuffer, int pPackedLight){
-        double ticks = (ClientTickHandler.ticksInGame + pPartialTicks);
-        double ticksUp = (ClientTickHandler.ticksInGame + pPartialTicks) * 4;
+        double ticks = (ClientTick.ticksInGame + pPartialTicks);
+        double ticksUp = (ClientTick.ticksInGame + pPartialTicks) * 4;
         ticksUp = (ticksUp) % 360;
 
         pMatrixStack.pushPose();

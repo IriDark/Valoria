@@ -16,8 +16,8 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.phys.*;
 import net.minecraftforge.api.distmarker.*;
-import pro.komaru.tridot.client.graphics.particle.data.*;
-import pro.komaru.tridot.core.interfaces.*;
+import pro.komaru.tridot.api.interfaces.*;
+import pro.komaru.tridot.client.gfx.particle.data.*;
 
 //TODO: probably rework (maybe?)
 public class TransformShardItem extends Item implements ParticleItemEntity{

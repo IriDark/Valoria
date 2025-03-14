@@ -26,10 +26,10 @@ import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.level.gameevent.*;
 import net.minecraft.world.phys.shapes.*;
 import org.jetbrains.annotations.*;
-import pro.komaru.tridot.client.graphics.gui.bossbars.*;
-import pro.komaru.tridot.core.math.*;
-import pro.komaru.tridot.registry.entity.*;
-import pro.komaru.tridot.registry.entity.ai.*;
+import pro.komaru.tridot.api.entity.*;
+import pro.komaru.tridot.api.render.bossbars.*;
+import pro.komaru.tridot.common.registry.entity.*;
+import pro.komaru.tridot.util.*;
 
 import java.util.*;
 
@@ -307,7 +307,7 @@ public class WickedCrystal extends AbstractBoss{
             }while(blockpos.getY() >= Mth.floor(pMinY) - 1);
             if(flag){
                 if(level instanceof ServerLevel server){
-                    PacketHandler.sendToTracking(server, blockpos, new BeastAttackParticlePacket(pX, (double)blockpos.getY() + d0, pZ, Pal.verySoftPink));
+                    PacketHandler.sendToTracking(server, blockpos, new BeastAttackParticlePacket(pX, (double)blockpos.getY() + d0, pZ, Pal.verySoftPink.toJava()));
                     server.addFreshEntity(new CrystalSpikes(server, pX, (double)blockpos.getY() + d0, pZ, pYRot, pWarmupDelay, CommonConfig.RADIAL_WICKED_CRYSTAL_DAMAGE.get(),null));
                 }
             }
@@ -384,7 +384,7 @@ public class WickedCrystal extends AbstractBoss{
                 summonStormCrystal(serv, center.above(2), angle, 0.25);
             }
 
-            if(new ArcRandom().fiftyFifty()){
+            if(Tmp.rnd.fiftyFifty()){
                 for (int i = 0; i < 6; i++) {
                     float angle = (float) ((2 * Math.PI / 6) * i);
                     summonStormCrystal(serv, center.above(4), angle, 0.35 + random.nextDouble() * 0.3);

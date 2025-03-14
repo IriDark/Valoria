@@ -6,17 +6,19 @@ import net.minecraft.sounds.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
-import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.*;
 import org.jetbrains.annotations.*;
-import pro.komaru.tridot.client.*;
-import pro.komaru.tridot.client.graphics.gui.screenshake.*;
-import pro.komaru.tridot.client.graphics.particle.*;
-import pro.komaru.tridot.client.graphics.particle.behavior.*;
-import pro.komaru.tridot.client.graphics.particle.data.*;
-import pro.komaru.tridot.core.math.*;
+import pro.komaru.tridot.client.gfx.*;
+import pro.komaru.tridot.client.gfx.particle.*;
+import pro.komaru.tridot.client.gfx.particle.behavior.*;
+import pro.komaru.tridot.client.gfx.particle.data.*;
+import pro.komaru.tridot.client.render.*;
+import pro.komaru.tridot.client.render.screenshake.*;
+import pro.komaru.tridot.util.math.*;
 
 import java.util.function.*;
+
+import static pro.komaru.tridot.util.phys.Vec3.from;
 
 public class ThrownSpearEntity extends AbstractSupplierProjectile{
     private float explosive_radius;
@@ -45,7 +47,7 @@ public class ThrownSpearEntity extends AbstractSupplierProjectile{
                 Vec3 vector = (arrowPos.subtract(cachePos[0]));
                 if(lenBetweenArrowAndParticle > 0){
                     cachePos[0] = cachePos[0].add(vector);
-                    p.setPosition(cachePos[0]);
+                    p.setPosition(from(cachePos[0]));
                 }
             };
 
@@ -88,7 +90,7 @@ public class ThrownSpearEntity extends AbstractSupplierProjectile{
         if(this.shouldExplode && !this.isExploded){
             if(!this.level().isClientSide){
                 this.level().explode(this, this.getX(), this.getY(), this.getZ(), explosive_radius, interaction);
-                ScreenshakeHandler.addScreenshake(new ScreenshakeInstance(3).setIntensity(0.75f));
+                ScreenshakeHandler.add(new ScreenshakeInstance(3).intensity(0.75f));
             }
 
             this.isExploded = true;

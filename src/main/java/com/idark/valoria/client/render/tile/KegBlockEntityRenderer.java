@@ -11,7 +11,7 @@ import net.minecraft.client.renderer.blockentity.*;
 import net.minecraft.client.resources.model.*;
 import net.minecraft.resources.*;
 import net.minecraft.world.item.*;
-import pro.komaru.tridot.client.event.*;
+import pro.komaru.tridot.client.*;
 
 public class KegBlockEntityRenderer implements BlockEntityRenderer<KegBlockEntity>{
 
@@ -29,7 +29,7 @@ public class KegBlockEntityRenderer implements BlockEntityRenderer<KegBlockEntit
     public void render(KegBlockEntity keg, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay){
         if(keg.startCraft && KegBlock.isBrewing(keg.getBlockState())){
             ms.pushPose();
-            double sinValue = Math.sin((ClientTickHandler.ticksInGame + Minecraft.getInstance().getPartialTick()) * 0.1);
+            double sinValue = Math.sin((ClientTick.ticksInGame + Minecraft.getInstance().getPartialTick()) * 0.1);
             float scale = 1.15f + (float)(sinValue / 32);
 
             ms.translate(0.5f, 0.5f, 0.5f);

@@ -6,9 +6,9 @@ import net.minecraft.network.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
 import net.minecraftforge.network.*;
-import pro.komaru.tridot.client.graphics.particle.data.*;
+import pro.komaru.tridot.client.gfx.particle.data.*;
+import pro.komaru.tridot.util.*;
 
-import java.awt.*;
 import java.util.function.*;
 
 public class CircleShapedParticlePacket{
@@ -37,14 +37,14 @@ public class CircleShapedParticlePacket{
                 Level level = Valoria.proxy.getLevel();
                 float pRadius = 1;
                 double pitch = ((90) * Math.PI) / 180;
-                Color color = new Color(msg.colorR, msg.colorG, msg.colorB);
+                Col color = new Col(msg.colorR, msg.colorG, msg.colorB);
                 for(int i = 0; i < 360; i += 10){
                     double yaw = ((msg.yawRaw + 90 + i) * Math.PI) / 180;
                     double X = Math.sin(pitch) * Math.cos(yaw) * pRadius * 0.75F;
                     double Y = Math.cos(pitch) * pRadius * 0.75F;
                     double Z = Math.sin(pitch) * Math.sin(yaw) * pRadius * 0.75F;
                     Vec3 pos = new Vec3(msg.posX + X, msg.posY + Y * 0.2F, msg.posZ + Z);
-                    ParticleEffects.particles(level, pos, ColorParticleData.create(color, Color.black).build());
+                    ParticleEffects.particles(level, pos, ColorParticleData.create(color, Col.black).build());
                 }
 
                 ctx.get().setPacketHandled(true);

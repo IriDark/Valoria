@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.entity.*;
 import net.minecraftforge.common.capabilities.*;
 import net.minecraftforge.items.*;
 import net.minecraftforge.items.wrapper.*;
-import pro.komaru.tridot.client.graphics.gui.screen.*;
+import pro.komaru.tridot.client.render.gui.screen.*;
 
 public class KegMenu extends ContainerMenuBase{
     public BlockEntity blockEntity;

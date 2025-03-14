@@ -23,7 +23,7 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.phys.*;
-import pro.komaru.tridot.registry.entity.*;
+import pro.komaru.tridot.common.registry.entity.*;
 
 import javax.annotation.*;
 import java.util.*;

@@ -10,8 +10,8 @@ import net.minecraft.sounds.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.Item.*;
-import pro.komaru.tridot.client.graphics.render.animation.*;
-import pro.komaru.tridot.core.math.*;
+import pro.komaru.tridot.api.render.animation.*;
+import pro.komaru.tridot.util.math.*;
 
 public abstract class AbstractScytheBuilder<T extends ScytheItem>{
     public Tier tier = ModItemTier.NONE;

@@ -19,8 +19,8 @@ import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.phys.shapes.*;
 import org.joml.*;
-import pro.komaru.tridot.client.graphics.*;
-import pro.komaru.tridot.utilities.*;
+import pro.komaru.tridot.api.*;
+import pro.komaru.tridot.util.*;
 
 import java.lang.Math;
 import java.util.*;
@@ -81,7 +81,7 @@ public class BeastScytheItem extends ScytheItem{
         }while(blockpos.getY() >= Mth.floor(pMinY) - 1);
         if(flag){
             if(level instanceof ServerLevel server){
-                PacketHandler.sendToTracking(server, blockpos, new BeastAttackParticlePacket(pX, (double)blockpos.getY() + d0, pZ, Clr.valueOf("66b4a3")));
+                PacketHandler.sendToTracking(server, blockpos, new BeastAttackParticlePacket(pX, (double)blockpos.getY() + d0, pZ, Col.fromHex("66b4a3").toJava()));
                 server.addFreshEntity(new Devourer(server, pX, (double)blockpos.getY() + d0, pZ, pYRot, pWarmupDelay, null));
             }
         }

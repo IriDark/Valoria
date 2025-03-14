@@ -8,14 +8,11 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
-import pro.komaru.tridot.core.math.*;
 import top.theillusivec4.curios.api.*;
 
 import java.util.*;
 
 public class CurioPyro extends AbstractCurioItem{
-    public ArcRandom arcRandom = new ArcRandom();
-
     public CurioPyro(Properties properties){
         super(properties);
     }

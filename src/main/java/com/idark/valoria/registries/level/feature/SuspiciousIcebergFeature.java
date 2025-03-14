@@ -9,7 +9,7 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.level.levelgen.feature.*;
 import net.minecraft.world.level.levelgen.feature.configurations.*;
-import pro.komaru.tridot.core.math.*;
+import pro.komaru.tridot.util.*;
 
 public class SuspiciousIcebergFeature extends Feature<NoneFeatureConfiguration>{
     public SuspiciousIcebergFeature(Codec<NoneFeatureConfiguration> pCodec){
@@ -157,7 +157,7 @@ public class SuspiciousIcebergFeature extends Feature<NoneFeatureConfiguration>{
             if(pPlaceSnow && !blockstate.is(Blocks.WATER) && (double)pHeightRemaining <= (double)pRandom.nextInt(Math.max(1, pHeight / i)) + (double)pHeight * 0.6D && flag){
                 this.setBlock(pLevel, pPos, Blocks.SNOW_BLOCK.defaultBlockState());
             }else{
-                if(new ArcRandom().chance(0.025f)){
+                if(Tmp.rnd.chance(0.025f)){
                     this.setBlock(pLevel, pPos, BlockRegistry.suspiciousIce.get().defaultBlockState());
                 }else{
                     this.setBlock(pLevel, pPos, pState);

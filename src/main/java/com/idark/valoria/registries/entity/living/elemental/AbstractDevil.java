@@ -13,7 +13,7 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.dimension.*;
 import net.minecraft.world.level.pathfinder.*;
-import pro.komaru.tridot.registry.entity.*;
+import pro.komaru.tridot.common.registry.entity.*;
 
 import java.util.function.*;
 

@@ -7,11 +7,10 @@ import net.minecraft.core.*;
 import net.minecraft.sounds.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.state.*;
-import pro.komaru.tridot.client.*;
-import pro.komaru.tridot.client.graphics.particle.*;
-import pro.komaru.tridot.client.graphics.particle.data.*;
-
-import java.awt.*;
+import pro.komaru.tridot.client.gfx.*;
+import pro.komaru.tridot.client.gfx.particle.*;
+import pro.komaru.tridot.client.gfx.particle.data.*;
+import pro.komaru.tridot.util.*;
 
 public class WickedAltarBlockEntity extends AbstractAltarBlockEntity{
     public WickedAltarBlockEntity(BlockPos pos, BlockState state){
@@ -28,7 +27,7 @@ public class WickedAltarBlockEntity extends AbstractAltarBlockEntity{
             double x = Math.cos(angle) * radius;
             double z = Math.sin(angle) * radius;
             ParticleBuilder.create(TridotParticles.SMOKE)
-            .setColorData(ColorParticleData.create(Pal.softMagenta, Color.magenta).build())
+            .setColorData(ColorParticleData.create(Pal.softMagenta, Col.magenta).build())
             .setTransparencyData(GenericParticleData.create(0.425f, 0f).build())
             .setScaleData(GenericParticleData.create((((float)a * 0.125f)), 0.1f, 0).build())
             .setLifetime(35)
@@ -36,7 +35,7 @@ public class WickedAltarBlockEntity extends AbstractAltarBlockEntity{
         }
 
         ParticleBuilder.create(TridotParticles.WISP)
-        .setColorData(ColorParticleData.create(Pal.softMagenta, Color.magenta).build())
+        .setColorData(ColorParticleData.create(Pal.softMagenta, Col.magenta).build())
         .setTransparencyData(GenericParticleData.create(0.125f, 0f).build())
         .setScaleData(GenericParticleData.create(((0.125f)), 0.1f, 0).build())
         .setLifetime(60)

@@ -3,7 +3,7 @@ package com.idark.valoria.registries;
 import com.idark.valoria.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
-import pro.komaru.tridot.registry.entity.ai.*;
+import pro.komaru.tridot.api.entity.*;
 
 import java.util.*;
 

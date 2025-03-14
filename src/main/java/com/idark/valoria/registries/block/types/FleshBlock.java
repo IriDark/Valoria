@@ -10,7 +10,7 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.level.block.state.properties.*;
 import net.minecraft.world.level.material.*;
-import pro.komaru.tridot.core.math.*;
+import pro.komaru.tridot.util.*;
 
 public class FleshBlock extends Block implements FleshSpreaderBehaviour{
     public FleshBlock(Properties pProperties){
@@ -50,7 +50,7 @@ public class FleshBlock extends Block implements FleshSpreaderBehaviour{
 
     private BlockState getRandomGrowthState(LevelAccessor pLevel, BlockPos pPos, RandomSource pRandom){
         BlockState blockstate;
-        if(new ArcRandom().chance(25)){
+        if(Tmp.rnd.chance(25)){
             blockstate = BlockRegistry.fleshCyst.get().defaultBlockState();
         }else{
             blockstate = BlockRegistry.bloodVein.get().defaultBlockState();

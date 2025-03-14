@@ -5,11 +5,11 @@ import net.minecraft.network.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
 import net.minecraftforge.network.*;
-import pro.komaru.tridot.client.*;
-import pro.komaru.tridot.client.graphics.particle.*;
-import pro.komaru.tridot.client.graphics.particle.data.*;
+import pro.komaru.tridot.client.gfx.*;
+import pro.komaru.tridot.client.gfx.particle.*;
+import pro.komaru.tridot.client.gfx.particle.data.*;
+import pro.komaru.tridot.util.*;
 
-import java.awt.*;
 import java.util.function.*;
 
 public class ManipulatorEmptyParticlePacket{
@@ -51,9 +51,9 @@ public class ManipulatorEmptyParticlePacket{
                     double yaw = ((i + 90) * Math.PI) / 180;
                     double X = Math.sin(pitch) * Math.cos(yaw) * pRadius * 0.75F, Y = Math.cos(pitch) * pRadius * 0.75F, Z = Math.sin(pitch) * Math.sin(yaw) * pRadius * 0.75F;
                     Vec3 particlePos = new Vec3(msg.posX + X, msg.posY + Y + ((Math.random() - 0.5D) * 0.2F), msg.posZ + Z);
-                    Color color = new Color(msg.colorR, msg.colorG, msg.colorB);
+                    Col color = new Col(msg.colorR, msg.colorG, msg.colorB);
                     ParticleBuilder.create(TridotParticles.WISP)
-                            .setColorData(ColorParticleData.create(color, Color.black).build())
+                            .setColorData(ColorParticleData.create(color, Col.black).build())
                             .setTransparencyData(GenericParticleData.create(1.25f, 0f).build())
                             .setScaleData(GenericParticleData.create(0.025f, 0).build())
                             .setLifetime(4)

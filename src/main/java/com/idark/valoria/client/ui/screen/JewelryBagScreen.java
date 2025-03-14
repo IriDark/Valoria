@@ -11,9 +11,8 @@ import net.minecraft.client.gui.screens.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
-import pro.komaru.tridot.client.*;
-import pro.komaru.tridot.client.graphics.render.*;
-import pro.komaru.tridot.utilities.*;
+import pro.komaru.tridot.api.*;
+import pro.komaru.tridot.client.render.*;
 import top.theillusivec4.curios.api.*;
 import top.theillusivec4.curios.api.type.capability.*;
 
@@ -156,7 +155,7 @@ public class JewelryBagScreen extends Screen{
         gui.pose().translate(x, y, 0);
         gui.pose().mulPose(Axis.ZP.rotationDegrees((float)Math.toDegrees(Math.atan2(mouseY - y, mouseX - x) - 360) + 20));
         RenderBuilder.create().setRenderType(TridotRenderTypes.ADDITIVE)
-                .setColorRaw(r, g, b).setAlpha(1f)
+                .setColor(r, g, b).setAlpha(1f)
                 .setSecondAlpha(0)
                 .renderRay(gui.pose(), 1f, (height / 2 * 0.7f * hoverAmount), 50f)
                 .endBatch();

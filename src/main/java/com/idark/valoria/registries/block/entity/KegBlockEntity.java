@@ -25,7 +25,7 @@ import net.minecraftforge.items.*;
 import net.minecraftforge.items.wrapper.*;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.*;
-import pro.komaru.tridot.core.math.*;
+import pro.komaru.tridot.util.*;
 
 import javax.annotation.*;
 import java.util.*;
@@ -132,7 +132,7 @@ public class KegBlockEntity extends BlockEntity implements MenuProvider, Tickabl
     public void playAmbientSound(){
         SoundEvent soundevent = this.getAmbientSound();
         if(soundevent != null){
-            this.level.playSound(null, this.getBlockPos(), getAmbientSound(), SoundSource.AMBIENT, 1, new ArcRandom().nextFloat(1));
+            this.level.playSound(null, this.getBlockPos(), getAmbientSound(), SoundSource.AMBIENT, 1, Tmp.rnd.nextFloat(1));
         }
     }
 

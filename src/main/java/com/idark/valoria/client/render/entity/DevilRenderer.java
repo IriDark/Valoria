@@ -9,7 +9,7 @@ import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.entity.*;
 import net.minecraft.client.renderer.entity.layers.*;
 import net.minecraft.resources.*;
-import pro.komaru.tridot.client.graphics.render.entity.*;
+import pro.komaru.tridot.client.model.render.entity.*;
 
 public class DevilRenderer extends MobRenderer<Devil, DevilModel<Devil>>{
     protected static final ResourceLocation TEXTURE = new ResourceLocation(Valoria.ID, "textures/entity/devil.png");
@@ -20,7 +20,7 @@ public class DevilRenderer extends MobRenderer<Devil, DevilModel<Devil>>{
         this.addLayer(new ItemInHandLayer<>(this, context.getItemInHandRenderer()));
         this.addLayer(new LuminescentLayer.Builder<>(this)
                 .setTexture(new ResourceLocation(Valoria.ID, "textures/entity/devil_eyes.png"))
-                .setColor(Pal.diamond)
+                .setColor(Pal.diamond.toJava())
                 .setAlpha(0.8f)
                 .build());
     }

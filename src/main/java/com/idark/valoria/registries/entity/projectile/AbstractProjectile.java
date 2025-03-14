@@ -15,11 +15,12 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
-import pro.komaru.tridot.registry.item.*;
+import pro.komaru.tridot.common.registry.entity.projectiles.*;
+import pro.komaru.tridot.common.registry.item.*;
 
 import java.util.*;
 
-public abstract class AbstractProjectile extends AbstractValoriaArrow{
+public abstract class AbstractProjectile extends AbstractTridotArrow{
     public boolean velocityBased;
     public boolean discardOnHit;
 

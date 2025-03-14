@@ -9,7 +9,8 @@ import net.minecraft.world.effect.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
-import pro.komaru.tridot.core.math.*;
+import pro.komaru.tridot.util.*;
+import pro.komaru.tridot.util.math.*;
 import top.theillusivec4.curios.api.*;
 import top.theillusivec4.curios.api.type.capability.*;
 
@@ -17,7 +18,7 @@ import javax.annotation.*;
 import java.util.*;
 
 public abstract class AbstractCurioItem extends Item implements ICurioItem{
-    public ArcRandom arcRandom = new ArcRandom();
+    public ArcRandom arcRandom = Tmp.rnd;
     public boolean rmbEquip;
 
     public AbstractCurioItem(Properties properties){

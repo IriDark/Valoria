@@ -1,32 +1,30 @@
 package com.idark.valoria.util;
 
 import net.minecraft.network.chat.*;
-import net.minecraft.resources.*;
+import pro.komaru.tridot.api.render.*;
+import pro.komaru.tridot.client.gfx.text.*;
+import pro.komaru.tridot.util.*;
 
-import java.awt.*;
 import java.util.function.*;
 
 public class Styles{
-    public static UnaryOperator<Style> create(Color color){
-        return style -> style
-                .withColor(TextColor.fromRgb(color.getRGB()))
-                .withBold(false)
-                .withItalic(false)
-                .withUnderlined(false)
-                .withStrikethrough(false)
-                .withObfuscated(false)
-                .withFont(new ResourceLocation("minecraft", "default"));
+    public static UnaryOperator<Style> apply(Style st){
+        return style -> st;
     }
 
-    public static UnaryOperator<Style> marsh = create(Pal.marsh);
-    public static UnaryOperator<Style> bloody = create(Pal.lightCarminePink);
-    public static UnaryOperator<Style> infernal = create(Pal.infernal);
-    public static UnaryOperator<Style> aquarius = create(Pal.oceanic);
-    public static UnaryOperator<Style> nature = create(Pal.nature);
-    public static UnaryOperator<Style> ethereal = create(Pal.ethereal);
-    public static UnaryOperator<Style> nihility = create(Pal.softMagenta);
-    public static UnaryOperator<Style> halloween = create(Pal.mandarin);
-    public static UnaryOperator<Style> phantasm = create(Pal.softBlue);
-    public static UnaryOperator<Style> arcaneGold = create(Pal.arcaneGold);
-    public static UnaryOperator<Style> spider = create(Pal.crystalBlue);
+    public static DotStyle create(Col color){
+        return DotStyle.of().color(color);
+    }
+
+    public static DotStyle marsh = create(Pal.marsh);
+    public static DotStyle bloody = create(Pal.lightCarminePink).effects(DotText.shake(0.245f));
+    public static DotStyle infernal = create(Pal.infernal);
+    public static DotStyle aquarius = create(Pal.oceanic);
+    public static DotStyle nature = create(Pal.nature);
+    public static DotStyle ethereal = create(Pal.ethereal);
+    public static DotStyle nihility = create(Pal.softMagenta).effects(DotText.wave(0.25f, 0.1f));
+    public static DotStyle halloween = create(Pal.mandarin).effects(DotText.wave(0.75f));
+    public static DotStyle phantasm = create(Pal.softBlue).effects(DotText.pulse(0.75f));
+    public static DotStyle arcaneGold = create(Pal.arcaneGold);
+    public static DotStyle spider = create(Pal.crystalBlue).effects(DotText.wave(0.25f, 0.1f), DotText.advance(0.15f));
 }

@@ -8,7 +8,7 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.event.entity.player.*;
-import pro.komaru.tridot.core.math.*;
+import pro.komaru.tridot.util.*;
 
 import java.util.*;
 
@@ -39,7 +39,7 @@ public class HitEffectArmorItem extends SuitArmorItem{
     }
 
     public void onAttack(AttackEntityEvent event){
-        if(new ArcRandom().chance(chance)){
+        if(Tmp.rnd.chance(chance)){
             for(MobEffectInstance effect : effects){
                 if(event.getTarget() instanceof LivingEntity target){
                     target.addEffect(effect);

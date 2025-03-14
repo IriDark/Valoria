@@ -1,12 +1,12 @@
 package com.idark.valoria.registries.effect;
 
 import net.minecraft.world.effect.*;
-import pro.komaru.tridot.client.graphics.*;
+import pro.komaru.tridot.util.*;
 
 public class RenewalEffect extends MobEffect{
 
     public RenewalEffect(){
-        super(MobEffectCategory.BENEFICIAL, Clr.hexToDecimal("c6223b"));
+        super(MobEffectCategory.BENEFICIAL, Col.hexToDecimal("c6223b"));
     }
 
     @Override

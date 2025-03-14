@@ -20,15 +20,15 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.state.*;
-import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.*;
 import net.minecraftforge.registries.*;
 import org.jetbrains.annotations.*;
 import org.joml.*;
-import pro.komaru.tridot.client.graphics.gui.*;
-import pro.komaru.tridot.core.interfaces.*;
-import pro.komaru.tridot.core.math.*;
-import pro.komaru.tridot.utilities.*;
+import pro.komaru.tridot.api.*;
+import pro.komaru.tridot.api.interfaces.*;
+import pro.komaru.tridot.client.render.gui.*;
+import pro.komaru.tridot.util.*;
+import pro.komaru.tridot.util.math.*;
 
 import java.lang.Math;
 import java.util.*;
@@ -38,7 +38,7 @@ import static com.idark.valoria.Valoria.BASE_DASH_DISTANCE_UUID;
 public class KatanaItem extends SwordItem implements CooldownNotifyItem, DashItem, CooldownReductionItem{
     public AbstractKatanaBuilder<? extends KatanaItem> builder;
     public Multimap<Attribute, AttributeModifier> defaultModifiers;
-    public ArcRandom arcRandom = new ArcRandom();
+    public ArcRandom arcRandom = Tmp.rnd;
 
     public KatanaItem(AbstractKatanaBuilder<? extends KatanaItem> builderIn){
         super(builderIn.tier, builderIn.attackDamageIn, builderIn.attackSpeedIn, builderIn.itemProperties);

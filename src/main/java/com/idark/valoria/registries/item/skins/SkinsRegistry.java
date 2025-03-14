@@ -3,7 +3,6 @@ package com.idark.valoria.registries.item.skins;
 import com.idark.valoria.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.item.armor.item.*;
-import com.idark.valoria.registries.item.skins.entries.ItemSupplierSkinEntry;
 import com.idark.valoria.registries.item.skins.entries.*;
 import com.idark.valoria.registries.item.types.*;
 import com.idark.valoria.registries.item.types.ranged.*;
@@ -18,13 +17,13 @@ import net.minecraftforge.eventbus.api.*;
 import net.minecraftforge.fml.*;
 import net.minecraftforge.fml.common.*;
 import net.minecraftforge.registries.*;
-import pro.komaru.tridot.client.*;
-import pro.komaru.tridot.client.graphics.render.item.*;
+import pro.komaru.tridot.client.model.*;
 import pro.komaru.tridot.client.model.item.*;
-import pro.komaru.tridot.registry.item.*;
-import pro.komaru.tridot.registry.item.builders.*;
-import pro.komaru.tridot.registry.item.skins.*;
-import pro.komaru.tridot.registry.item.types.*;
+import pro.komaru.tridot.client.model.render.item.*;
+import pro.komaru.tridot.common.registry.item.*;
+import pro.komaru.tridot.common.registry.item.builders.*;
+import pro.komaru.tridot.common.registry.item.skins.*;
+import pro.komaru.tridot.common.registry.item.types.*;
 
 import java.util.*;
 
@@ -32,30 +31,30 @@ public class SkinsRegistry{
     public static ItemSkin THE_FALLEN_COLLECTOR, ARCANE_GOLD, CYBERPUNK, MIDNIGHT, MURAMASA, FISH, STAR_DIVIDER;
 
     public static void init(){
-        THE_FALLEN_COLLECTOR = new SkinBuilder(Valoria.ID, "the_fallen_collector").setColor(Pal.seaGreen).setContributor("Kerdo").withStyle(Styles.nature)
-                .addEntry(new TheFallenCollectorSkinEntry(ArmorItem.class, Valoria.ID + ":textures/models/armor/skin/the_fallen_collector")
+        THE_FALLEN_COLLECTOR = new SkinBuilder(Valoria.ID, "the_fallen_collector").color(Pal.seaGreen).contributor("Kerdo").style(Styles.nature)
+                .add(new TheFallenCollectorSkinEntry(ArmorItem.class, Valoria.ID + ":textures/models/armor/skin/the_fallen_collector")
                         .addArmorSkin(EquipmentSlot.HEAD, Valoria.ID + ":the_fallen_collector_crown")
                         .addArmorSkin(EquipmentSlot.CHEST, Valoria.ID + ":the_fallen_collector_coat"))
-                .addEntry(new ItemClassSkinEntry(KatanaItem.class, Valoria.ID + ":brand"))
+                .add(new ItemExtendingSkinEntry(KatanaItem.class, Valoria.ID + ":brand"))
                 .build();
-        ARCANE_GOLD = new SkinBuilder(Valoria.ID, "arcane_gold").setColor(Pal.arcaneGold).setContributor("MaxBogomol").withStyle(Styles.arcaneGold)
-                .addEntry(new ItemClassSkinEntry(ConfigurableBowItem.class, Valoria.ID + ":arcane_wood_bow"))
-                .addEntry(new ItemClassSkinEntry(BlazeReapItem.class, Valoria.ID + ":arcane_gold_blaze_reap"))
+        ARCANE_GOLD = new SkinBuilder(Valoria.ID, "arcane_gold").color(Pal.arcaneGold).contributor("MaxBogomol").style(Styles.arcaneGold)
+                .add(new ItemExtendingSkinEntry(ConfigurableBowItem.class, Valoria.ID + ":arcane_wood_bow"))
+                .add(new ItemExtendingSkinEntry(BlazeReapItem.class, Valoria.ID + ":arcane_gold_blaze_reap"))
                 .build();
-        CYBERPUNK = new SkinBuilder(Valoria.ID, "cyberpunk").setColor(Pal.majestyPurple).setContributor("Auriny").withStyle(Styles.nihility)
-                .addEntry(new ItemSupplierSkinEntry(() -> ItemsRegistry.quantumReaper.get(), Valoria.ID + ":cyberpunk_quantum_reaper"))
+        CYBERPUNK = new SkinBuilder(Valoria.ID, "cyberpunk").color(Pal.majestyPurple).contributor("Auriny").style(Styles.nihility)
+                .add(new ItemSupplierSkinEntry(() -> ItemsRegistry.quantumReaper.get(), Valoria.ID + ":cyberpunk_quantum_reaper"))
                 .build();
-        MIDNIGHT = new SkinBuilder(Valoria.ID, "midnight").setColor(Pal.majestyPurple)
-                .addEntry(new ItemSupplierSkinEntry(() -> ItemsRegistry.quantumReaper.get(), Valoria.ID + ":midnight_quantum_reaper"))
+        MIDNIGHT = new SkinBuilder(Valoria.ID, "midnight").color(Pal.majestyPurple)
+                .add(new ItemSupplierSkinEntry(() -> ItemsRegistry.quantumReaper.get(), Valoria.ID + ":midnight_quantum_reaper"))
                 .build();
-        MURAMASA = new SkinBuilder(Valoria.ID, "muramasa").setColor(Pal.majestyPurple).setContributor("Auriny").withStyle(Styles.nihility)
-                .addEntry(new ItemSupplierSkinEntry(() -> ItemsRegistry.murasama.get(), Valoria.ID + ":muramasa"))
+        MURAMASA = new SkinBuilder(Valoria.ID, "muramasa").color(Pal.majestyPurple).contributor("Auriny").style(Styles.nihility)
+                .add(new ItemSupplierSkinEntry(() -> ItemsRegistry.murasama.get(), Valoria.ID + ":muramasa"))
                 .build();
-        FISH = new SkinBuilder(Valoria.ID, "swordfish").setColor(Pal.crystalBlue).setContributor("Skoow").withStyle(Styles.aquarius)
-                .addEntry(new ItemSupplierSkinEntry(() -> ItemsRegistry.murasama.get(), Valoria.ID + ":swordfish"))
+        FISH = new SkinBuilder(Valoria.ID, "swordfish").color(Pal.crystalBlue).contributor("Skoow").style(Styles.aquarius)
+                .add(new ItemSupplierSkinEntry(() -> ItemsRegistry.murasama.get(), Valoria.ID + ":swordfish"))
                 .build();
-        STAR_DIVIDER = new SkinBuilder(Valoria.ID, "star_divider").setColor(Pal.verySoftPink).setContributor("Rainach").withStyle(Styles.nihility)
-            .addEntry(new ItemSupplierSkinEntry(() -> ItemsRegistry.quantumReaper.get(), Valoria.ID + ":star_divider"))
+        STAR_DIVIDER = new SkinBuilder(Valoria.ID, "star_divider").color((Pal.verySoftPink)).contributor("Rainach").style(Styles.nihility)
+            .add(new ItemSupplierSkinEntry(() -> ItemsRegistry.quantumReaper.get(), Valoria.ID + ":star_divider"))
             .build();
 
     }

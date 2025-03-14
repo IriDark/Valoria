@@ -7,21 +7,22 @@ import net.minecraft.core.particles.*;
 import net.minecraft.util.*;
 import net.minecraft.world.entity.item.*;
 import net.minecraft.world.level.*;
-import net.minecraft.world.phys.Vec3;
-import pro.komaru.tridot.client.*;
-import pro.komaru.tridot.client.graphics.particle.*;
-import pro.komaru.tridot.client.graphics.particle.behavior.*;
-import pro.komaru.tridot.client.graphics.particle.data.*;
-import pro.komaru.tridot.core.math.*;
+import net.minecraft.world.phys.*;
+import pro.komaru.tridot.client.gfx.*;
+import pro.komaru.tridot.client.gfx.particle.*;
+import pro.komaru.tridot.client.gfx.particle.behavior.*;
+import pro.komaru.tridot.client.gfx.particle.data.*;
+import pro.komaru.tridot.client.render.*;
+import pro.komaru.tridot.util.*;
+import pro.komaru.tridot.util.math.*;
 
 import javax.annotation.*;
-import java.awt.*;
 import java.util.function.*;
 
 import static net.minecraft.util.Mth.randomBetween;
 
 public class ParticleEffects{
-    public static ArcRandom arcRandom = new ArcRandom();
+    public static ArcRandom arcRandom = Tmp.rnd;
 
     public static void particles(Level level, Vec3 pos, ColorParticleData data){
         if(level.isClientSide()){
@@ -167,8 +168,8 @@ public class ParticleEffects{
             Vec3 pos = new Vec3(entity.getX() + (rand.nextDouble() - 0.5f) / 6, entity.getY() + 0.4F, entity.getZ());
             if(color != null){
                 if(!entity.isInWater()){
-                    Color particleColor = new Color(color.r1, color.g1, color.b1);
-                    Color particleColorTo = new Color(color.r2, color.g2, color.b2);
+                    Col particleColor = new Col(color.r1, color.g1, color.b1);
+                    Col particleColorTo = new Col(color.r2, color.g2, color.b2);
                     if(level.isClientSide()){
                         RandomSource random = level.getRandom();
                         ParticleBuilder.create(particle != null ? particle : TridotParticles.TINY_WISP.get())
@@ -188,7 +189,7 @@ public class ParticleEffects{
                             .setScaleData(GenericParticleData.create(0.05f + arcRandom.randomValueUpTo(0.25f), arcRandom.randomValueUpTo(0.2f)).build())
                             .setLifetime(16)
                             .setRenderType(TridotRenderTypes.TRANSLUCENT_PARTICLE)
-                            .setColorData(ColorParticleData.create(Color.black, Pal.smoke).build())
+                            .setColorData(ColorParticleData.create(Col.black, Pal.smoke).build())
                             .setSpinData(SpinParticleData.create(0.5f * (float)((rand.nextDouble() - 0.5D) * 2), 0).build())
                             .setVelocity((rand.nextDouble() / 30), 0.05f, (rand.nextDouble() / 30))
                             .spawn(level, pos.x, pos.y, pos.z);

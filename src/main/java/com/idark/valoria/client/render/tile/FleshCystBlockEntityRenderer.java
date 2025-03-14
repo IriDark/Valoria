@@ -9,7 +9,7 @@ import net.minecraft.client.renderer.blockentity.*;
 import net.minecraft.client.resources.model.*;
 import net.minecraft.resources.*;
 import net.minecraft.world.item.*;
-import pro.komaru.tridot.client.event.*;
+import pro.komaru.tridot.client.*;
 
 public class FleshCystBlockEntityRenderer implements BlockEntityRenderer<FleshCystBlockEntity>{
     public static final ModelResourceLocation CYST = new ModelResourceLocation(new ResourceLocation(Valoria.ID, "cyst"), "");
@@ -27,7 +27,7 @@ public class FleshCystBlockEntityRenderer implements BlockEntityRenderer<FleshCy
         ms.pushPose();
         boolean flag = cyst.getSpawner().isNearPlayer(cyst.getLevel(), cyst.getBlockPos());
         float speed = flag ? 0.75f : 0.25f;
-        double sinValue = Math.sin((ClientTickHandler.ticksInGame + Minecraft.getInstance().getPartialTick()) * speed);
+        double sinValue = Math.sin((ClientTick.ticksInGame + Minecraft.getInstance().getPartialTick()) * speed);
         float scale = 2.15f + (float)(sinValue / 16);
 
         ms.translate(0.5f, 0.5f, 0.5f);

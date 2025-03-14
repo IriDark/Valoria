@@ -19,12 +19,13 @@ import net.minecraft.world.level.*;
 import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.registries.*;
 import org.joml.*;
-import pro.komaru.tridot.client.graphics.gui.screenshake.*;
-import pro.komaru.tridot.client.graphics.render.animation.*;
-import pro.komaru.tridot.core.interfaces.*;
-import pro.komaru.tridot.core.math.*;
-import pro.komaru.tridot.registry.EnchantmentsRegistry;
-import pro.komaru.tridot.utilities.*;
+import pro.komaru.tridot.api.*;
+import pro.komaru.tridot.api.interfaces.*;
+import pro.komaru.tridot.api.render.animation.*;
+import pro.komaru.tridot.client.render.screenshake.*;
+import pro.komaru.tridot.common.registry.EnchantmentsRegistry;
+import pro.komaru.tridot.util.*;
+import pro.komaru.tridot.util.math.*;
 
 import java.util.*;
 
@@ -33,7 +34,7 @@ import static com.idark.valoria.Valoria.BASE_ATTACK_RADIUS_UUID;
 public class ScytheItem extends SwordItem implements ICustomAnimationItem, CooldownNotifyItem, RadiusItem, SpinAttackItem, DashItem, CooldownReductionItem{
     public AbstractScytheBuilder<? extends ScytheItem> builder;
     public final Multimap<Attribute, AttributeModifier> defaultModifiers;
-    public final ArcRandom arcRandom = new ArcRandom();
+    public final ArcRandom arcRandom = Tmp.rnd;
     public int usageCount;
 
     public ScytheItem(AbstractScytheBuilder<? extends ScytheItem> builderIn){
@@ -129,7 +130,7 @@ public class ScytheItem extends SwordItem implements ICustomAnimationItem, Coold
             }
         }
 
-        ScreenshakeHandler.addScreenshake(new ScreenshakeInstance(builder.screenShakeDuration).setIntensity(builder.screenShakeIntensity).setEasing(builder.screenShakeEasing));
+        ScreenshakeHandler.add(new ScreenshakeInstance(builder.screenShakeDuration).intensity(builder.screenShakeIntensity).interp(builder.screenShakeEasing));
     }
 
     /**

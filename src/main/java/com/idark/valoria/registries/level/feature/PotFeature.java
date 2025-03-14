@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.level.levelgen.Heightmap.*;
 import net.minecraft.world.level.levelgen.feature.*;
 import net.minecraft.world.level.levelgen.feature.configurations.*;
-import pro.komaru.tridot.core.math.*;
+import pro.komaru.tridot.util.*;
 
 import java.util.stream.*;
 
@@ -35,7 +35,7 @@ public class PotFeature extends Feature<SimpleBlockConfiguration>{
                 if(worldgenlevel.isEmptyBlock(blockpos) || worldgenlevel.getBlockState(blockpos).getCollisionShape(worldgenlevel, blockpos).isEmpty()){
                     BlockState blockstate = simpleblockconfiguration.toPlace().getState(p_159477_.random(), blockpos);
                     if(blockstate.canSurvive(worldgenlevel, blockpos) && worldgenlevel.getBlockState(blockpos.below()).isSolid()){
-                        if(new ArcRandom().chance(ServerConfig.POT_SPAWN_CHANCE.get())) worldgenlevel.setBlock(blockpos, blockstate, 2);
+                        if(Tmp.rnd.chance(ServerConfig.POT_SPAWN_CHANCE.get())) worldgenlevel.setBlock(blockpos, blockstate, 2);
                     }
 
                     return true;

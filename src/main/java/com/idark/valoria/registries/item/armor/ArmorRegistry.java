@@ -7,7 +7,7 @@ import net.minecraft.world.item.ArmorItem.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.*;
 import org.jetbrains.annotations.*;
-import pro.komaru.tridot.registry.item.builders.*;
+import pro.komaru.tridot.common.registry.item.builders.*;
 
 public class ArmorRegistry implements ArmorMaterial{
     public Builder builder;

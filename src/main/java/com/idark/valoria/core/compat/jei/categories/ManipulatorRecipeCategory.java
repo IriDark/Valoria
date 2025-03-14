@@ -17,7 +17,7 @@ import net.minecraft.network.chat.*;
 import net.minecraft.resources.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.*;
-import pro.komaru.tridot.client.event.*;
+import pro.komaru.tridot.client.*;
 
 import java.util.*;
 
@@ -55,8 +55,8 @@ public class ManipulatorRecipeCategory extends AbstractRecipeCategory<Manipulato
         ResourceLocation cores = new ResourceLocation(Valoria.ID, "textures/gui/container/manipulator.png");
         ResourceLocation arrow = new ResourceLocation(Valoria.ID, "textures/gui/jei/progress_arrow.png");
         int width = 22;
-        if(ClientTickHandler.ticksInGame % recipe.getTime() > 0){
-            width /= ((double)recipe.getTime() / (double)(ClientTickHandler.ticksInGame % recipe.getTime()));
+        if(ClientTick.ticksInGame % recipe.getTime() > 0){
+            width /= ((double)recipe.getTime() / (double)(ClientTick.ticksInGame % recipe.getTime()));
             gui.blit(arrow, 90, 16, 0, 0, width, 16, 32, 32);
         }
 

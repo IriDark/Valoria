@@ -19,7 +19,7 @@ import net.minecraft.world.item.enchantment.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
 import org.jetbrains.annotations.*;
-import pro.komaru.tridot.registry.item.*;
+import pro.komaru.tridot.common.registry.item.*;
 
 import javax.annotation.Nullable;
 import java.util.*;
@@ -31,7 +31,6 @@ public abstract class AbstractSupplierProjectile extends AbstractProjectile impl
     public int returningTicks;
     public boolean returnToPlayer;
     public boolean wasInGround;
-    public boolean velocityBased;
 
     public AbstractSupplierProjectile(EntityType<? extends AbstractArrow> pEntityType, Level pLevel){
         super(pEntityType, pLevel);

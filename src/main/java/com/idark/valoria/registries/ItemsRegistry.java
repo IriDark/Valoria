@@ -17,7 +17,7 @@ import com.idark.valoria.registries.item.types.curio.necklace.*;
 import com.idark.valoria.registries.item.types.food.*;
 import com.idark.valoria.registries.item.types.ranged.*;
 import com.idark.valoria.registries.item.types.ranged.bows.*;
-import com.idark.valoria.util.Pal;
+import com.idark.valoria.util.*;
 import net.minecraft.*;
 import net.minecraft.core.particles.*;
 import net.minecraft.network.chat.Component;
@@ -42,11 +42,11 @@ import net.minecraftforge.eventbus.api.*;
 import net.minecraftforge.registries.*;
 import org.jetbrains.annotations.*;
 import org.joml.*;
-import pro.komaru.tridot.client.graphics.*;
-import pro.komaru.tridot.client.graphics.particle.data.*;
-import pro.komaru.tridot.registry.item.skins.*;
-import pro.komaru.tridot.registry.item.types.*;
-import pro.komaru.tridot.utilities.*;
+import pro.komaru.tridot.api.*;
+import pro.komaru.tridot.client.gfx.particle.data.*;
+import pro.komaru.tridot.common.registry.item.skins.*;
+import pro.komaru.tridot.common.registry.item.types.*;
+import pro.komaru.tridot.util.*;
 
 import java.awt.*;
 import java.lang.Math;
@@ -247,7 +247,7 @@ public class ItemsRegistry{
         infernalStone = registerItem("infernal_stone", () -> new ParticleMaterialItem(new Item.Properties().rarity(RarityRegistry.INFERNAL), 0.35f, ColorParticleData.create(Pal.infernalBright, Pal.magmatic).build(), ParticleRegistry.SPHERE.get()));
         painCrystal = registerItem("pain_crystal", () -> new ParticleMaterialItem(new Item.Properties().rarity(RarityRegistry.BLOODY), 0.35f, ColorParticleData.create(Pal.strongRed, Pal.moderateViolet).build(), ParticleRegistry.SPHERE.get()));
         nihilityShard = registerItem("nihility_shard", () -> new ParticleMaterialItem(new Item.Properties().rarity(RarityRegistry.VOID), 0.35f, ColorParticleData.create(Pal.softMagenta).build(), ParticleRegistry.SPHERE.get()));
-        illusionStone = registerItem("illusion_stone", () -> new ParticleMaterialItem(new Item.Properties().rarity(RarityRegistry.PHANTASM), 0.35f, ColorParticleData.create(Pal.softBlue, Color.white).build(), ParticleRegistry.SPHERE.get()));
+        illusionStone = registerItem("illusion_stone", () -> new ParticleMaterialItem(new Item.Properties().rarity(RarityRegistry.PHANTASM), 0.35f, ColorParticleData.create(Pal.softBlue, Col.white).build(), ParticleRegistry.SPHERE.get()));
         elementalCrystal = registerItem("elemental_crystal", () -> new ParticleMaterialItem(new Item.Properties().rarity(RarityRegistry.NATURE), 0.35f, ColorParticleData.create(Pal.nature, Pal.strongRed).build(), ParticleRegistry.SPHERE.get()));
         natureCore = registerItem("nature_core", () -> new CoreItem(ParticleRegistry.SPHERE.get(), new Item.Properties().fireResistant().rarity(RarityRegistry.NATURE), 1, Pal.nature, Pal.vividCyan, "nature_core"));
         aquariusCore = registerItem("aquarius_core", () -> new CoreItem(ParticleRegistry.SPHERE.get(), new Item.Properties().fireResistant().rarity(RarityRegistry.AQUARIUS), 1, Pal.oceanic, Pal.magmatic, "aquarius_core"));
@@ -333,7 +333,7 @@ public class ItemsRegistry{
         gunpowderCharge = registerItem("gunpowder_charge", () -> new GunpowderCharge(4f, 25f, new Item.Properties().stacksTo(1)));
         pyratiteCharge = registerItem("pyratite_charge", () -> new GunpowderCharge(6f, 40f, new Item.Properties().stacksTo(1)));
         spectralBlade = registerItem("spectral_blade", () -> new SpectralBladeItem(3, -2.3f, new Item.Properties().durability(852)));
-        corpseCleaver = registerItem("corpsecleaver", () -> new CorpseCleaverItem(ModItemTier.BLOOD, 2, -2.4F, new Item.Properties().durability(1151)));
+        corpseCleaver = registerItem("corpsecleaver", () -> new CorpseCleaverItem(ModItemTier.BLOOD, 2, -2.4F, new Item.Properties().durability(1151).rarity(RarityRegistry.BLOODY)));
         throwableBomb = registerItem("throwable_bomb", () -> new ThrowableBombItem(Level.ExplosionInteraction.NONE, 2.45f, 60, new Item.Properties().stacksTo(16)));
         dynamite = registerItem("dynamite", () -> new ThrowableBombItem(3f, 60, new Item.Properties().stacksTo(16)));
         crystalShard = registerItem("crystal_shard", () -> new CrystalShardItem(6d, new Item.Properties().stacksTo(16), new MobEffectInstance(MobEffects.WITHER, 120), new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60)));
@@ -347,7 +347,7 @@ public class ItemsRegistry{
         // halloween
         candyCorn = registerItem("candy_corn", () -> new Item(new Item.Properties().rarity(RarityRegistry.HALLOWEEN).stacksTo(64).food(new FoodProperties.Builder().nutrition(1).saturationMod(0.2f).build())));
         pumpkinBomb = registerItem("pumpkin_bomb", () -> new ThrowableBombItem(new Item.Properties().rarity(RarityRegistry.HALLOWEEN).stacksTo(16)));
-        wraithKatana = registerItem("wraith_katana", () -> new KatanaItem.Builder(3, -2.2f, new Item.Properties().rarity(RarityRegistry.HALLOWEEN)).setTier(ModItemTier.HALLOWEEN).setDashDistance(1.6f).setDashSound(SoundsRegistry.HALLOWEEN_SLICE.get()).removeLargeModelCheck().setOverlay(new ResourceLocation(Valoria.ID, "textures/gui/overlay/roots.png")).usePacket(Pal.mandarin).build());
+        wraithKatana = registerItem("wraith_katana", () -> new KatanaItem.Builder(3, -2.2f, new Item.Properties().rarity(RarityRegistry.HALLOWEEN)).setTier(ModItemTier.HALLOWEEN).setDashDistance(1.6f).setDashSound(SoundsRegistry.HALLOWEEN_SLICE.get()).removeLargeModelCheck().setOverlay(new ResourceLocation(Valoria.ID, "textures/gui/overlay/roots.png")).usePacket(Pal.mandarin.toJava()).build());
         reaperScythe = registerItem("reaper_scythe", () -> new ScytheItem.Builder(9, -3.0f, new Properties().fireResistant().rarity(RarityRegistry.HALLOWEEN)).setEffects(0.5f, new MobEffectInstance(MobEffects.DARKNESS, 90, 0)).setAttackSound(SoundsRegistry.HALLOWEEN_SLICE.get()).setTier(ModItemTier.HALLOWEEN).build());
         dreadAxe = registerItem("dread_axe", () -> new AxeItem(ModItemTier.HALLOWEEN, 6.5f, -2.8f, new Item.Properties().rarity(RarityRegistry.HALLOWEEN)));
         soulReaver = registerItem("soul_reaver", () -> new HitEffectItem(ModItemTier.HALLOWEEN, 4, -2.8f, new Item.Properties().rarity(RarityRegistry.HALLOWEEN), 0.25f, new MobEffectInstance(MobEffects.DARKNESS, 40, 0), new MobEffectInstance(MobEffects.WEAKNESS, 60, 1)));
@@ -586,22 +586,22 @@ public class ItemsRegistry{
         // spawn eggs
         pumpkinContract = registerItem("pumpkin_contract", () -> new TexturedSpawnEggItem(EntityTypeRegistry.HAUNTED_MERCHANT, new Item.Properties()));
         mannequin = registerItem("mannequin_spawn_egg", () -> new MannequinSpawnItem(new Item.Properties()));
-        entMob = registerItem("ent_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.ENT, Clr.hexToDecimal("52392e"), Clr.colorToDecimal(Pal.nature), new Item.Properties()));
-        goblin = registerItem("goblin_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.GOBLIN, Clr.hexToDecimal("185b36"), Clr.hexToDecimal("6BB447"), new Item.Properties()));
-        draugr = registerItem("draugr_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.DRAUGR, Clr.hexToDecimal("61523f"), Clr.hexToDecimal("beb4aa"), new Item.Properties()));
-        swampWanderer = registerItem("swamp_wanderer_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.SWAMP_WANDERER, Clr.hexToDecimal("4d5030"), Clr.hexToDecimal("b8b377"), new Item.Properties()));
-        scourge = registerItem("scourge_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.SCOURGE, Clr.hexToDecimal("5D5F36"), Clr.hexToDecimal("bdae86"), new Item.Properties()));
-        maggot = registerItem("maggot_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.MAGGOT, Clr.hexToDecimal("6F5B45"), Clr.hexToDecimal("e3d0cc"), new Item.Properties()));
-        wickedCrystal = registerItem("wicked_crystal_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.WICKED_CRYSTAL, Clr.hexToDecimal("562a8a"), Clr.hexToDecimal("ff62f8"), new Item.Properties()));
+        entMob = registerItem("ent_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.ENT, Col.hexToDecimal("52392e"), Col.colorToDecimal(Pal.nature.toJava()), new Item.Properties()));
+        goblin = registerItem("goblin_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.GOBLIN, Col.hexToDecimal("185b36"), Col.hexToDecimal("6BB447"), new Item.Properties()));
+        draugr = registerItem("draugr_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.DRAUGR, Col.hexToDecimal("61523f"), Col.hexToDecimal("beb4aa"), new Item.Properties()));
+        swampWanderer = registerItem("swamp_wanderer_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.SWAMP_WANDERER, Col.hexToDecimal("4d5030"), Col.hexToDecimal("b8b377"), new Item.Properties()));
+        scourge = registerItem("scourge_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.SCOURGE, Col.hexToDecimal("5D5F36"), Col.hexToDecimal("bdae86"), new Item.Properties()));
+        maggot = registerItem("maggot_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.MAGGOT, Col.hexToDecimal("6F5B45"), Col.hexToDecimal("e3d0cc"), new Item.Properties()));
+        wickedCrystal = registerItem("wicked_crystal_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.WICKED_CRYSTAL, Col.hexToDecimal("562a8a"), Col.hexToDecimal("ff62f8"), new Item.Properties()));
         crystal = registerItem("crystal_spawn_egg", () -> new TexturedSpawnEggItem(EntityTypeRegistry.CRYSTAL, new Item.Properties()));
-        sorcerer = registerItem("sorcerer_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.SORCERER, Clr.hexToDecimal("6e4e3f"), Clr.hexToDecimal("e09f59"), new Item.Properties()));
-        necromancer = registerItem("necromancer_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.NECROMANCER, Clr.hexToDecimal("4b4857"), Clr.hexToDecimal("958fb7"), new Item.Properties()));
-        undead = registerItem("undead_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.UNDEAD, Clr.hexToDecimal("7d7266"), Clr.hexToDecimal("d6d0c9"), new Item.Properties()));
-        shadewoodSpider = registerItem("shadewood_spider_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.SHADEWOOD_SPIDER, Clr.hexToDecimal("373C53"), Clr.hexToDecimal("6EABB7"), new Item.Properties()));
-        devil = registerItem("devil_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.DEVIL, Clr.hexToDecimal("b64841"), Clr.hexToDecimal("3a3b62"), new Item.Properties()));
-        troll = registerItem("troll_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.TROLL, Clr.hexToDecimal("232b3a"), Clr.hexToDecimal("43596a"), new Item.Properties()));
-        corruptedTroll = registerItem("corrupted_troll_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.CORRUPTED_TROLL, Clr.hexToDecimal("41273E"), Clr.hexToDecimal("884f72"), new Item.Properties()));
-        fleshSentinel = registerItem("flesh_sentinel_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.FLESH_SENTINEL, Clr.hexToDecimal("720706"), Clr.hexToDecimal("ffc650"), new Item.Properties()));
+        sorcerer = registerItem("sorcerer_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.SORCERER, Col.hexToDecimal("6e4e3f"), Col.hexToDecimal("e09f59"), new Item.Properties()));
+        necromancer = registerItem("necromancer_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.NECROMANCER, Col.hexToDecimal("4b4857"), Col.hexToDecimal("958fb7"), new Item.Properties()));
+        undead = registerItem("undead_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.UNDEAD, Col.hexToDecimal("7d7266"), Col.hexToDecimal("d6d0c9"), new Item.Properties()));
+        shadewoodSpider = registerItem("shadewood_spider_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.SHADEWOOD_SPIDER, Col.hexToDecimal("373C53"), Col.hexToDecimal("6EABB7"), new Item.Properties()));
+        devil = registerItem("devil_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.DEVIL, Col.hexToDecimal("b64841"), Col.hexToDecimal("3a3b62"), new Item.Properties()));
+        troll = registerItem("troll_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.TROLL, Col.hexToDecimal("232b3a"), Col.hexToDecimal("43596a"), new Item.Properties()));
+        corruptedTroll = registerItem("corrupted_troll_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.CORRUPTED_TROLL, Col.hexToDecimal("41273E"), Col.hexToDecimal("884f72"), new Item.Properties()));
+        fleshSentinel = registerItem("flesh_sentinel_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.FLESH_SENTINEL, Col.hexToDecimal("720706"), Col.hexToDecimal("ffc650"), new Item.Properties()));
 
         ITEMS.register(eventBus);
         BLOCK_ITEMS.register(eventBus);
@@ -635,8 +635,8 @@ public class ItemsRegistry{
             public void onUseTick(@NotNull Level worldIn, @NotNull LivingEntity livingEntityIn, @NotNull ItemStack stack, int count){
                 Player player = (Player)livingEntityIn;
                 if(worldIn instanceof ServerLevel srv){
-                    ItemSkin skin = ItemSkin.getSkinFromItem(stack);
-                    Color color = skin != null ? skin.getColor() : new Color(235, 0, 25);
+                    ItemSkin skin = ItemSkin.itemSkin(stack);
+                    Color color = skin != null ? skin.color.toJava() : new Color(235, 0, 25);
                     for(int ii = 0; ii < 1 + Mth.nextInt(RandomSource.create(), 0, 2); ii += 1){
                         PacketHandler.sendToTracking(srv, player.getOnPos(), new MurasamaParticlePacket(3F, player.getX(), (player.getY() + (player.getEyeHeight() / 2)), player.getZ(), color.getRed(), color.getGreen(), color.getBlue()));
                     }
@@ -661,9 +661,9 @@ public class ItemsRegistry{
                         double Y = Math.cos(pitch) * locDistance;
                         double Z = Math.sin(pitch) * Math.sin(yaw) * locDistance;
                         level.addParticle(ParticleTypes.WAX_OFF, pos.x + X + (rand.nextDouble() - 0.5D), pos.y + Y, pos.z + Z + (rand.nextDouble() - 0.5D), 0d, 0.05d, 0d);
-                        ItemSkin skin = ItemSkin.getSkinFromItem(stack);
+                        ItemSkin skin = ItemSkin.itemSkin(stack);
                         if(skin != null){
-                            spawnParticles(player, pos, srv, X, Y, Z, skin.getColor());
+                            spawnParticles(player, pos, srv, X, Y, Z, skin.color().toJava());
                         }else{
                             spawnParticles(player, pos, srv, X, Y, Z, Color.RED);
                         }

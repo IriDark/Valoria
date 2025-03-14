@@ -8,9 +8,9 @@ import net.minecraft.network.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
 import net.minecraftforge.network.*;
-import pro.komaru.tridot.client.graphics.particle.data.*;
+import pro.komaru.tridot.client.gfx.particle.data.*;
+import pro.komaru.tridot.util.*;
 
-import java.awt.*;
 import java.util.function.*;
 
 public class FireTrapParticlePacket{
@@ -42,11 +42,11 @@ public class FireTrapParticlePacket{
             ctx.get().enqueueWork(() -> {
                 Level level = Valoria.proxy.getLevel();
                 for(int i = 0; i < 20; i++){
-                    Color color = new Color(msg.colorR, msg.colorG, msg.colorB);
-                    Color colorTo = new Color(msg.colorToR, msg.colorToG, msg.colorToB);
+                    Col color = new Col(msg.colorR, msg.colorG, msg.colorB);
+                    Col colorTo = new Col(msg.colorToR, msg.colorToG, msg.colorToB);
                     Vec3 pos = new Vec3(msg.posX, msg.posY + 1.2f, msg.posZ);
                     ParticleEffects.fireParticles(level, pos, ColorParticleData.create(color, colorTo).build());
-                    ParticleEffects.smokeParticles(level, pos, ColorParticleData.create(Color.black, Pal.smoke).build());
+                    ParticleEffects.smokeParticles(level, pos, ColorParticleData.create(Col.black, Pal.smoke).build());
                     level.addParticle(ParticleTypes.LAVA, msg.posX + 0.5, msg.posY + 1.5, msg.posZ + 0.5, 0.0D, 0.0D, 0.0D);
                 }
 

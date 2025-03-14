@@ -19,10 +19,12 @@ import net.minecraft.world.level.material.*;
 import net.minecraft.world.phys.*;
 import net.minecraft.world.phys.shapes.*;
 import net.minecraftforge.api.distmarker.*;
-import pro.komaru.tridot.client.*;
-import pro.komaru.tridot.client.graphics.particle.*;
-import pro.komaru.tridot.client.graphics.particle.data.*;
-import pro.komaru.tridot.core.math.*;
+import pro.komaru.tridot.client.gfx.*;
+import pro.komaru.tridot.client.gfx.particle.*;
+import pro.komaru.tridot.client.gfx.particle.data.*;
+import pro.komaru.tridot.client.render.*;
+import pro.komaru.tridot.util.*;
+import pro.komaru.tridot.util.math.*;
 
 import javax.annotation.*;
 
@@ -112,7 +114,7 @@ public class FleshCystBlock extends BaseEntityBlock implements SimpleWaterlogged
                     .setScaleData(GenericParticleData.create(0.425f, 0.075f, 0).setEasing(Interp.bounceOut).build())
                     .setLifetime(65)
                     .setGravity(0.0125f)
-                    .flatRandomVelocity(0.025, new ArcRandom().randomValueUpTo(0.055), 0.025)
+                    .flatRandomVelocity(0.025, Tmp.rnd.randomValueUpTo(0.055), 0.025)
                     .spawn(pLevel, pPos.getCenter().x, pPos.getCenter().y + 0.2, pPos.getCenter().z);
         }
     }

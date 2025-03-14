@@ -6,9 +6,9 @@ import net.minecraft.network.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
 import net.minecraftforge.network.*;
-import pro.komaru.tridot.client.graphics.particle.data.*;
+import pro.komaru.tridot.client.gfx.particle.data.*;
+import pro.komaru.tridot.util.*;
 
-import java.awt.*;
 import java.util.function.*;
 
 public class ParticleLinePacket{
@@ -53,8 +53,8 @@ public class ParticleLinePacket{
                     float y = (float)(dY / distanceInBlocks);
                     float z = (float)(dZ / distanceInBlocks);
                     Vec3 particlePos = new Vec3(pTo.x + (x * i), pTo.y + 0.2f + (y * i), pTo.z + (z * i));
-                    Color color = new Color(msg.colorR, msg.colorG, msg.colorB);
-                    ParticleEffects.particles(pLevel, particlePos, ColorParticleData.create(color, Color.white).build());
+                    Col color = new Col(msg.colorR, msg.colorG, msg.colorB);
+                    ParticleEffects.particles(pLevel, particlePos, ColorParticleData.create(color, Col.white).build());
                 }
             });
         }

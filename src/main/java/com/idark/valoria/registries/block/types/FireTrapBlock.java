@@ -19,7 +19,7 @@ import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.level.gameevent.*;
 import net.minecraft.world.level.material.*;
 import net.minecraft.world.phys.shapes.*;
-import pro.komaru.tridot.client.graphics.particle.data.*;
+import pro.komaru.tridot.client.gfx.particle.data.*;
 
 public class FireTrapBlock extends Block{
     public float damage;

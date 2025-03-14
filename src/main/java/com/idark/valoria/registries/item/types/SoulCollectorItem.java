@@ -14,7 +14,7 @@ import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraftforge.api.distmarker.*;
-import pro.komaru.tridot.core.interfaces.*;
+import pro.komaru.tridot.api.interfaces.*;
 
 import java.util.*;
 
@@ -69,7 +69,7 @@ public class SoulCollectorItem extends Item implements OverlayRenderItem{
     }
 
     public int getBarColor(ItemStack pStack){
-        return Pal.oceanic.getRGB();
+        return Pal.oceanic.rgb();
     }
 
     @Override

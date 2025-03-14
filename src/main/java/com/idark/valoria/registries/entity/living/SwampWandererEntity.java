@@ -25,7 +25,7 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.level.pathfinder.*;
 import net.minecraft.world.phys.*;
-import pro.komaru.tridot.registry.entity.ai.goals.*;
+import pro.komaru.tridot.api.entity.ai.goals.*;
 
 import javax.annotation.*;
 import java.util.*;

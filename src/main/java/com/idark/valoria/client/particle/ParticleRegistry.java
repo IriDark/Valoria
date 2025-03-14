@@ -8,7 +8,7 @@ import net.minecraft.core.particles.*;
 import net.minecraftforge.client.event.*;
 import net.minecraftforge.eventbus.api.*;
 import net.minecraftforge.registries.*;
-import pro.komaru.tridot.client.graphics.particle.type.*;
+import pro.komaru.tridot.client.gfx.particle.type.*;
 
 public class ParticleRegistry{
 

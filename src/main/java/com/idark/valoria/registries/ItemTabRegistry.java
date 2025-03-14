@@ -14,9 +14,9 @@ import net.minecraftforge.event.*;
 import net.minecraftforge.eventbus.api.*;
 import net.minecraftforge.fml.common.*;
 import net.minecraftforge.registries.*;
-import pro.komaru.tridot.client.graphics.*;
-import pro.komaru.tridot.registry.entity.*;
-import pro.komaru.tridot.utilities.*;
+import pro.komaru.tridot.api.*;
+import pro.komaru.tridot.common.registry.entity.*;
+import pro.komaru.tridot.util.*;
 
 import java.util.*;
 import java.util.function.*;
@@ -85,7 +85,7 @@ public abstract class ItemTabRegistry{
                     ItemStack itemStack = new ItemStack(ItemsRegistry.summonBook.get());
                     CompoundTag tag = itemStack.getOrCreateTagElement("EntityTag");
                     SummonBook.storeVariant(tag, holder);
-                    SummonBook.setColor(itemStack, Clr.colorToDecimal(AbstractMinionEntity.getColor((EntityType<? extends AbstractMinionEntity>)holder.get())));
+                    SummonBook.setColor(itemStack, Col.colorToDecimal(AbstractMinionEntity.getColor((EntityType<? extends AbstractMinionEntity>)holder.get())));
                     output.accept(itemStack, visibility);
                 });
     }

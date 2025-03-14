@@ -10,7 +10,7 @@ import net.minecraft.client.renderer.blockentity.*;
 import net.minecraft.client.resources.model.*;
 import net.minecraft.resources.*;
 import net.minecraft.world.item.*;
-import pro.komaru.tridot.client.event.*;
+import pro.komaru.tridot.client.*;
 
 public class ManipulatorBlockEntityRenderer implements BlockEntityRenderer<ManipulatorBlockEntity>{
     public static final ModelResourceLocation SPHERE = new ModelResourceLocation(new ResourceLocation(Valoria.ID, "elemental_sphere"), "");
@@ -26,9 +26,9 @@ public class ManipulatorBlockEntityRenderer implements BlockEntityRenderer<Manip
     @Override
     public void render(ManipulatorBlockEntity manipulatorBlockEntity, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay){
         ms.pushPose();
-        double sinValue = Math.sin((ClientTickHandler.ticksInGame + Minecraft.getInstance().getPartialTick()) * 0.1);
+        double sinValue = Math.sin((ClientTick.ticksInGame + Minecraft.getInstance().getPartialTick()) * 0.1);
         float y = 0.6f + (float)(sinValue / 20);
-        float rot = ClientTickHandler.ticksInGame * 0.5f;
+        float rot = ClientTick.ticksInGame * 0.5f;
 
         ms.translate(0.5f, y, 0.5f);
         ms.scale(1.0f, 1.0f, 1.0f);

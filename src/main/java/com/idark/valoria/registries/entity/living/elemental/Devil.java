@@ -21,11 +21,10 @@ import net.minecraft.world.entity.projectile.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.state.*;
-import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.*;
-import pro.komaru.tridot.core.math.*;
-import pro.komaru.tridot.registry.entity.ai.*;
-import pro.komaru.tridot.utilities.*;
+import pro.komaru.tridot.api.*;
+import pro.komaru.tridot.api.entity.*;
+import pro.komaru.tridot.util.*;
 
 import javax.annotation.*;
 import java.util.*;
@@ -118,7 +117,7 @@ public class Devil extends AbstractDevil implements RangedAttackMob{
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag){
         RandomSource randomsource = pLevel.getRandom();
         this.populateDefaultEquipmentSlots(randomsource, pDifficulty);
-        this.ranged = new ArcRandom().chance(0.25f);
+        this.ranged = Tmp.rnd.chance(0.25f);
         return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
     }
 
@@ -328,7 +327,7 @@ public class Devil extends AbstractDevil implements RangedAttackMob{
             this.mob.getLookControl().setLookAt(this.target, 30.0F, 30.0F);
             if(!canUse()) return;
             if(cantReachTarget(target)){
-                this.mob.getMoveControl().strafe(-0.5F, new ArcRandom().nextBoolean() ? 0.5F : -0.5F);
+                this.mob.getMoveControl().strafe(-0.5F, Tmp.rnd.nextBoolean() ? 0.5F : -0.5F);
                 return;
             }
 

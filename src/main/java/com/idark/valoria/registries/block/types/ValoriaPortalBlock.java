@@ -19,13 +19,13 @@ import net.minecraft.world.level.block.state.pattern.*;
 import net.minecraft.world.phys.shapes.*;
 import net.minecraftforge.api.distmarker.*;
 import org.jetbrains.annotations.*;
-import pro.komaru.tridot.client.*;
-import pro.komaru.tridot.client.graphics.particle.*;
-import pro.komaru.tridot.client.graphics.particle.behavior.*;
-import pro.komaru.tridot.client.graphics.particle.data.*;
-import pro.komaru.tridot.core.math.*;
-
-import java.awt.*;
+import pro.komaru.tridot.client.gfx.*;
+import pro.komaru.tridot.client.gfx.particle.*;
+import pro.komaru.tridot.client.gfx.particle.behavior.*;
+import pro.komaru.tridot.client.gfx.particle.data.*;
+import pro.komaru.tridot.client.render.*;
+import pro.komaru.tridot.util.*;
+import pro.komaru.tridot.util.math.*;
 
 public class ValoriaPortalBlock extends Block implements EntityBlock{
     protected static final VoxelShape shape = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 12.0D, 16.0D);
@@ -59,7 +59,7 @@ public class ValoriaPortalBlock extends Block implements EntityBlock{
                 .setScaleData(GenericParticleData.create(0.01f, 0.06f, 0).setEasing(Interp.bounce).build())
                 .flatRandomOffset(0.25f, 0f, 0.25f)
                 .setLifetime(24)
-                .setColorData(ColorParticleData.create(Color.black).setEasing(Interp.bounce).build())
+                .setColorData(ColorParticleData.create(Col.black).setEasing(Interp.bounce).build())
                 .setVelocity(0, (random.nextDouble() + 0.2D) / 6, 0)
                 .spawn(pLevel, pPos.getX() + pRandom.nextDouble(), pPos.getY() + pRandom.nextDouble(), pPos.getZ() + pRandom.nextDouble());
 

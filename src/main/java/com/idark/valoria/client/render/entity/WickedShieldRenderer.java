@@ -8,7 +8,7 @@ import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.entity.*;
 import net.minecraft.resources.*;
 import net.minecraftforge.api.distmarker.*;
-import pro.komaru.tridot.client.event.*;
+import pro.komaru.tridot.client.*;
 
 @OnlyIn(Dist.CLIENT)
 public class WickedShieldRenderer extends MobRenderer<WickedShield, WickedShieldModel<WickedShield>>{
@@ -20,7 +20,7 @@ public class WickedShieldRenderer extends MobRenderer<WickedShield, WickedShield
 
     @Override
     public void render(WickedShield pEntity, float pEntityYaw, float pPartialTicks, PoseStack pMatrixStack, MultiBufferSource pBuffer, int pPackedLight){
-        double ticksUp = (ClientTickHandler.ticksInGame + pPartialTicks) * 8;
+        double ticksUp = (ClientTick.ticksInGame + pPartialTicks) * 8;
         ticksUp = (ticksUp) % 360;
 
         pMatrixStack.pushPose();

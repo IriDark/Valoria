@@ -14,7 +14,7 @@ import net.minecraft.world.entity.player.*;
 import net.minecraft.world.entity.projectile.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
-import pro.komaru.tridot.registry.item.*;
+import pro.komaru.tridot.common.registry.item.*;
 
 import java.util.*;
 

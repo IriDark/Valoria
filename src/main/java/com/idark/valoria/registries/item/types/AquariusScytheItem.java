@@ -13,13 +13,14 @@ import net.minecraft.world.item.enchantment.*;
 import net.minecraft.world.level.*;
 import net.minecraftforge.registries.*;
 import org.joml.*;
-import pro.komaru.tridot.core.math.*;
-import pro.komaru.tridot.utilities.*;
+import pro.komaru.tridot.api.*;
+import pro.komaru.tridot.util.*;
+import pro.komaru.tridot.util.math.*;
 
 import java.util.*;
 
 public class AquariusScytheItem extends ScytheItem{
-    public ArcRandom arcRandom = new ArcRandom();
+    public ArcRandom arcRandom = Tmp.rnd;
 
     public AquariusScytheItem(Tier tier, int attackDamageIn, float attackSpeedIn, Item.Properties builderIn){
         super(tier, attackDamageIn, attackSpeedIn, builderIn);

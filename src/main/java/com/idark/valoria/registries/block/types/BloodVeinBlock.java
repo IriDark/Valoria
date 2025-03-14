@@ -12,7 +12,7 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.level.block.state.properties.*;
 import net.minecraft.world.level.material.*;
-import pro.komaru.tridot.core.math.*;
+import pro.komaru.tridot.util.*;
 
 import java.util.*;
 
@@ -92,7 +92,7 @@ public class BloodVeinBlock extends MultifaceBlock implements FleshSpreaderBehav
                 BlockPos blockpos = pPos.relative(direction);
                 BlockState blockstate1 = pLevel.getBlockState(blockpos);
                 if(blockstate1.is(tagkey)){
-                    BlockState blockstate2 = new ArcRandom().fiftyFifty() ? BlockRegistry.fleshBlock.get().defaultBlockState() : BlockRegistry.meatBlock.get().defaultBlockState();
+                    BlockState blockstate2 = Tmp.rnd.fiftyFifty() ? BlockRegistry.fleshBlock.get().defaultBlockState() : BlockRegistry.meatBlock.get().defaultBlockState();
                     pLevel.setBlock(blockpos, blockstate2, 3);
                     Block.pushEntitiesUp(blockstate1, blockstate2, pLevel, blockpos);
                     pLevel.playSound(null, blockpos, SoundsRegistry.CYST_SPREAD.get(), SoundSource.BLOCKS, 1.0F, 1.0F);

@@ -7,20 +7,22 @@ import net.minecraft.sounds.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.projectile.*;
 import net.minecraft.world.level.*;
-import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.*;
-import pro.komaru.tridot.client.*;
-import pro.komaru.tridot.client.graphics.particle.*;
-import pro.komaru.tridot.client.graphics.particle.behavior.*;
-import pro.komaru.tridot.client.graphics.particle.data.*;
-import pro.komaru.tridot.core.math.*;
+import pro.komaru.tridot.client.gfx.*;
+import pro.komaru.tridot.client.gfx.particle.*;
+import pro.komaru.tridot.client.gfx.particle.behavior.*;
+import pro.komaru.tridot.client.gfx.particle.data.*;
+import pro.komaru.tridot.client.render.*;
+import pro.komaru.tridot.util.*;
+import pro.komaru.tridot.util.math.*;
+import pro.komaru.tridot.util.phys.Vec3;
 
 import java.awt.*;
 import java.util.function.*;
 
 public class SpellProjectile extends AbstractProjectile{
     private static final EntityDataAccessor<Integer> TYPE = SynchedEntityData.defineId(SpellProjectile.class, EntityDataSerializers.INT);
-    public Color color;
+    public Col color;
     private boolean ignite;
     private int fireSeconds;
     public SpellProjectile(EntityType<? extends AbstractArrow> pEntityType, Level pLevel){
@@ -28,13 +30,13 @@ public class SpellProjectile extends AbstractProjectile{
         discardOnHit = true;
     }
 
-    public void setColor(Color variant) {
+    public void setColor(Col variant) {
         this.color = variant;
-        this.entityData.set(TYPE, variant.getRGB());
+        this.entityData.set(TYPE, variant.rgb());
     }
 
-    public Color getColor() {
-        return new Color(this.entityData.get(TYPE));
+    public Col getColor() {
+        return new Col(this.entityData.get(TYPE));
     }
 
     @Override
@@ -56,13 +58,13 @@ public class SpellProjectile extends AbstractProjectile{
     @Override
     public void addAdditionalSaveData(CompoundTag pCompound){
         super.addAdditionalSaveData(pCompound);
-        pCompound.putInt("Color", color.getRGB());
+        pCompound.putInt("Color", color.rgb());
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag pCompound){
         super.readAdditionalSaveData(pCompound);
-        this.color = new Color(pCompound.getInt("Color"));
+        this.color = new Col(pCompound.getInt("Color"));
     }
 
     public SpellProjectile(Level pLevel, LivingEntity thrower, int damage){
@@ -88,13 +90,13 @@ public class SpellProjectile extends AbstractProjectile{
     @Override
     public void spawnParticlesTrail(){
         if(!this.inGround){
-            Vec3 delta = this.getDeltaMovement().normalize();
+            Vec3 delta = Vec3.from(this.getDeltaMovement().normalize());
             Vec3 pos = new Vec3(this.getX() + delta.x() * 0.00015, this.getY() + delta.y() * 0.00015, this.getZ() + delta.z() * 0.00015);
             final Vec3[] cachePos = {new Vec3(pos.x, pos.y, pos.z)};
             final Consumer<GenericParticle> target = p -> {
                 Vec3 arrowPos = new Vec3(getX(), getY(), getZ());
-                float lenBetweenArrowAndParticle = (float)(arrowPos.subtract(cachePos[0])).length();
-                Vec3 vector = (arrowPos.subtract(cachePos[0]));
+                float lenBetweenArrowAndParticle = (float)(arrowPos.sub(cachePos[0])).len();
+                Vec3 vector = (arrowPos.sub(cachePos[0]));
                 if(lenBetweenArrowAndParticle > 0){
                     cachePos[0] = cachePos[0].add(vector);
                     p.setPosition(cachePos[0]);

@@ -19,7 +19,8 @@ import net.minecraft.world.entity.npc.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
-import pro.komaru.tridot.core.math.*;
+import pro.komaru.tridot.util.*;
+import pro.komaru.tridot.util.math.*;
 
 import javax.annotation.*;
 
@@ -27,7 +28,7 @@ public class Goblin extends AbstractGoblin{
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState attackAnimationState = new AnimationState();
     private int idleAnimationTimeout = 0;
-    public ArcRandom arcRandom = new ArcRandom();
+    public ArcRandom arcRandom = Tmp.rnd;
 
     public Goblin(EntityType<? extends PathfinderMob> type, Level worldIn){
         super(type, worldIn);

@@ -6,10 +6,12 @@ import net.minecraft.core.*;
 import net.minecraft.network.*;
 import net.minecraft.world.level.*;
 import net.minecraftforge.network.*;
-import pro.komaru.tridot.client.*;
-import pro.komaru.tridot.client.graphics.particle.*;
-import pro.komaru.tridot.client.graphics.particle.data.*;
-import pro.komaru.tridot.core.math.*;
+import pro.komaru.tridot.client.gfx.*;
+import pro.komaru.tridot.client.gfx.particle.*;
+import pro.komaru.tridot.client.gfx.particle.data.*;
+import pro.komaru.tridot.client.render.*;
+import pro.komaru.tridot.util.*;
+import pro.komaru.tridot.util.math.*;
 
 import java.util.function.*;
 
@@ -37,7 +39,7 @@ public class CystSummonParticlePacket{
                             .setScaleData(GenericParticleData.create(0.045f, 0.075f, 0).setEasing(Interp.bounce).build())
                             .setLifetime(65)
                             .setGravity(0.0125f)
-                            .flatRandomVelocity(0.025, new ArcRandom().randomValueUpTo(0.055), 0.025)
+                            .flatRandomVelocity(0.025, Tmp.rnd.randomValueUpTo(0.055), 0.025)
                             .spawn(pLevel, msg.pos.getCenter().x, msg.pos.getCenter().y + 0.2, msg.pos.getCenter().z);
                 }
 

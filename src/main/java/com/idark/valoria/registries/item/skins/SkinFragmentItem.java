@@ -4,7 +4,7 @@ import com.idark.valoria.*;
 import net.minecraft.*;
 import net.minecraft.resources.*;
 import net.minecraft.world.item.*;
-import pro.komaru.tridot.registry.item.skins.*;
+import pro.komaru.tridot.common.registry.item.skins.*;
 
 import java.util.function.*;
 

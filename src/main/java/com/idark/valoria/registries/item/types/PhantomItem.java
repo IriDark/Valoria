@@ -17,7 +17,7 @@ import net.minecraft.world.item.enchantment.*;
 import net.minecraft.world.level.*;
 import net.minecraftforge.common.Tags.*;
 import org.joml.*;
-import pro.komaru.tridot.core.interfaces.*;
+import pro.komaru.tridot.api.interfaces.*;
 
 import java.util.*;
 

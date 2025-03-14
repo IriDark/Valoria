@@ -9,8 +9,9 @@ import net.minecraft.world.level.*;
 import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.registries.*;
 import org.jetbrains.annotations.*;
-import pro.komaru.tridot.client.graphics.particle.data.*;
-import pro.komaru.tridot.core.interfaces.*;
+import pro.komaru.tridot.api.interfaces.*;
+import pro.komaru.tridot.client.gfx.particle.data.*;
+import pro.komaru.tridot.util.*;
 
 import java.awt.*;
 import java.util.List;
@@ -24,7 +25,7 @@ public class CoreItem extends Item implements ParticleItemEntity{
     public ColorParticleData color;
     private final int givenCores;
 
-    public CoreItem(@NotNull ParticleType<?> pType, Properties pProperties, int pGivenCores, Color pColor, Color pColorTo, String pCoreID){
+    public CoreItem(@NotNull ParticleType<?> pType, Properties pProperties, int pGivenCores, Col pColor, Col pColorTo, String pCoreID){
         super(pProperties);
         particle = pType;
         givenCores = pGivenCores;
@@ -32,7 +33,7 @@ public class CoreItem extends Item implements ParticleItemEntity{
         coreName = pCoreID;
     }
 
-    public CoreItem(@NotNull ParticleType<?> pType, Properties pProperties, int pGivenCores, Color pColor, Color pColorTo, RegistryObject<Item> item){
+    public CoreItem(@NotNull ParticleType<?> pType, Properties pProperties, int pGivenCores, Col pColor, Col pColorTo, RegistryObject<Item> item){
         super(pProperties);
         particle = pType;
         givenCores = pGivenCores;

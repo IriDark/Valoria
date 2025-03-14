@@ -11,7 +11,7 @@ import net.minecraftforge.fml.event.lifecycle.*;
 
 import java.io.*;
 
-import static pro.komaru.tridot.client.TridotRenderTypes.*;
+import static pro.komaru.tridot.client.render.TridotRenderTypes.*;
 
 
 @OnlyIn(Dist.CLIENT)

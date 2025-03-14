@@ -15,9 +15,10 @@ import net.minecraft.world.entity.projectile.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import org.jetbrains.annotations.*;
-import pro.komaru.tridot.core.math.*;
-import pro.komaru.tridot.registry.item.*;
-import pro.komaru.tridot.utilities.*;
+import pro.komaru.tridot.api.*;
+import pro.komaru.tridot.common.registry.item.*;
+import pro.komaru.tridot.util.*;
+import pro.komaru.tridot.util.math.*;
 
 import java.util.*;
 
@@ -26,7 +27,7 @@ import static pro.komaru.tridot.TridotLib.BASE_PROJECTILE_DAMAGE_UUID;
 public class CrystalShardItem extends Item{
     private final Multimap<Attribute, AttributeModifier> tridentAttributes;
     public final ImmutableList<MobEffectInstance> effects;
-    public ArcRandom arc = new ArcRandom();
+    public ArcRandom arc = Tmp.rnd;
 
     public CrystalShardItem(double damage, Properties builderIn, MobEffectInstance... pEffects){
         super(builderIn);

@@ -9,9 +9,10 @@ import net.minecraft.world.entity.player.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
 import net.minecraftforge.network.*;
-import pro.komaru.tridot.client.*;
-import pro.komaru.tridot.client.graphics.particle.*;
-import pro.komaru.tridot.client.graphics.particle.data.*;
+import pro.komaru.tridot.client.gfx.particle.*;
+import pro.komaru.tridot.client.gfx.particle.data.*;
+import pro.komaru.tridot.client.render.*;
+import pro.komaru.tridot.util.*;
 
 import java.awt.*;
 import java.util.*;
@@ -66,9 +67,9 @@ public class DashParticlePacket{
                             double Y = Math.cos(pitch) * 2;
                             double Z = Math.sin(pitch) * Math.sin(yaw) * locDistance;
 
-                            Random random = new Random();
+                            var random = Tmp.rnd;
                             ParticleBuilder.create(ParticleRegistry.SPHERE)
-                                    .setColorData(ColorParticleData.create(color, Pal.darkestGray).build())
+                                    .setColorData(ColorParticleData.create(Col.fromColor(color), Pal.darkestGray).build())
                                     .setRenderType(TridotRenderTypes.ADDITIVE_PARTICLE)
                                     .setTransparencyData(GenericParticleData.create(random.nextFloat(0, 0.6f), 0f).build())
                                     .setScaleData(GenericParticleData.create(0.92f, 0f).build())

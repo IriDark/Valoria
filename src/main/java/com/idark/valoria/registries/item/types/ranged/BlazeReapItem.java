@@ -21,13 +21,12 @@ import net.minecraft.world.entity.projectile.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.*;
 import net.minecraft.world.level.*;
-import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.*;
 import net.minecraftforge.api.distmarker.*;
-import pro.komaru.tridot.client.graphics.gui.screenshake.*;
-import pro.komaru.tridot.core.interfaces.*;
-import pro.komaru.tridot.core.math.*;
-import pro.komaru.tridot.utilities.*;
+import pro.komaru.tridot.api.*;
+import pro.komaru.tridot.api.interfaces.*;
+import pro.komaru.tridot.client.render.screenshake.*;
+import pro.komaru.tridot.util.math.*;
 
 import java.util.*;
 
@@ -133,7 +132,7 @@ public class BlazeReapItem extends PickaxeItem implements Vanishable, OverlayRen
                     Utils.Hit.explosion(player, weapon, pos, new Vec3(X, Y, Z), radius, damage, knockback);
                 }
 
-                ScreenshakeHandler.addScreenshake(new ScreenshakeInstance(5).setIntensity(radius * 0.85f).setEasing(Interp.bounce));
+                ScreenshakeHandler.add(new ScreenshakeInstance(5).intensity(radius * 0.85f).interp(Interp.bounce));
             }
 
             for(int i = 0; i < 12; i++){

@@ -12,7 +12,7 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraftforge.items.wrapper.*;
 import org.jetbrains.annotations.*;
-import pro.komaru.tridot.client.graphics.gui.screen.*;
+import pro.komaru.tridot.client.render.gui.screen.*;
 
 import java.util.*;
 

@@ -26,9 +26,10 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraftforge.common.*;
 import org.jetbrains.annotations.*;
-import pro.komaru.tridot.core.math.*;
-import pro.komaru.tridot.registry.item.*;
-import pro.komaru.tridot.utilities.*;
+import pro.komaru.tridot.api.*;
+import pro.komaru.tridot.common.registry.item.*;
+import pro.komaru.tridot.util.*;
+import pro.komaru.tridot.util.math.*;
 
 import java.util.*;
 import java.util.function.Supplier;
@@ -45,7 +46,7 @@ public class SpearItem extends SwordItem implements Vanishable{
     public final boolean throwable;
     public float chance = 1;
     public final ImmutableList<MobEffectInstance> effects;
-    public ArcRandom arcRandom = new ArcRandom();
+    public ArcRandom arcRandom = Tmp.rnd;
 
     /**
      * @param pEffects Effects applied on attack

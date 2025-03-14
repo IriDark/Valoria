@@ -23,18 +23,18 @@ import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.level.block.state.properties.*;
-import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.*;
 import net.minecraft.world.phys.shapes.*;
-import pro.komaru.tridot.core.math.*;
-import pro.komaru.tridot.utilities.*;
+import pro.komaru.tridot.api.*;
+import pro.komaru.tridot.util.*;
+import pro.komaru.tridot.util.math.*;
 
 import javax.annotation.*;
 import java.time.*;
 import java.util.*;
 
 public class SarcophagusBlock extends HorizontalDirectionalBlock{
-    public ArcRandom arcRandom = new ArcRandom();
+    public ArcRandom arcRandom = Tmp.rnd;
     public static final EnumProperty<BedPart> PART = BlockStateProperties.BED_PART;
     private static final BooleanProperty OPEN = BooleanProperty.create("open");
     private static final BooleanProperty LOOTED = BooleanProperty.create("looted");

@@ -7,10 +7,9 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
 import net.minecraftforge.network.*;
-import pro.komaru.tridot.client.graphics.particle.data.*;
+import pro.komaru.tridot.client.gfx.particle.data.*;
+import pro.komaru.tridot.util.*;
 
-import java.awt.*;
-import java.util.List;
 import java.util.*;
 import java.util.function.*;
 
@@ -62,7 +61,7 @@ public class LineToNearbyMobsParticlePacket{
 
                         Vec3 pos = new Vec3(msg.posX, msg.posY, msg.posZ);
                         Vec3 pTo = new Vec3(livingEntity.getX(), livingEntity.getY(), livingEntity.getZ());
-                        Color color = new Color(msg.colorR, msg.colorG, msg.colorB);
+                        Col color = new Col(msg.colorR, msg.colorG, msg.colorB);
 
                         double distance = pos.distanceTo(pTo);
                         double distanceInBlocks = Math.floor(distance);
@@ -75,7 +74,7 @@ public class LineToNearbyMobsParticlePacket{
                             float z = (float)(dZ / distanceInBlocks);
 
                             Vec3 particlePos = new Vec3(pos.x - (x * i), pos.y + 0.2f - (y * i), pos.z - (z * i));
-                            ParticleEffects.particles(pLevel, particlePos, ColorParticleData.create(color, Color.white).build());
+                            ParticleEffects.particles(pLevel, particlePos, ColorParticleData.create(color, Col.white).build());
                         }
                     }
                 }

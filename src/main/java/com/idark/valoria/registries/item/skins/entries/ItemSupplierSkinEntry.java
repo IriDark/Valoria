@@ -2,7 +2,7 @@ package com.idark.valoria.registries.item.skins.entries;
 
 import net.minecraft.world.item.*;
 import net.minecraftforge.api.distmarker.*;
-import pro.komaru.tridot.registry.item.skins.*;
+import pro.komaru.tridot.common.registry.item.skins.*;
 
 import java.util.function.*;
 

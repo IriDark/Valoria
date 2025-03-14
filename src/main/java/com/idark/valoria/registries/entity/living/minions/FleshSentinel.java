@@ -20,7 +20,7 @@ import net.minecraft.world.entity.raid.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.phys.*;
-import pro.komaru.tridot.registry.entity.*;
+import pro.komaru.tridot.common.registry.entity.*;
 
 import java.util.*;
 

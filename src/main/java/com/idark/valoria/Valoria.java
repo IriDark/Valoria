@@ -47,8 +47,8 @@ import net.minecraftforge.fml.config.ModConfig.*;
 import net.minecraftforge.fml.event.lifecycle.*;
 import net.minecraftforge.fml.javafmlmod.*;
 import org.slf4j.*;
-import pro.komaru.tridot.client.graphics.gui.bossbars.*;
-import pro.komaru.tridot.registry.item.*;
+import pro.komaru.tridot.api.render.bossbars.*;
+import pro.komaru.tridot.common.registry.item.*;
 import top.theillusivec4.curios.api.client.*;
 
 import java.util.*;
@@ -108,9 +108,9 @@ public class Valoria{
      * @see ValoriaClient.RegistryEvents#onModelRegistryEvent(ModelEvent.RegisterAdditional)
      */
     private void clientSetup(final FMLClientSetupEvent event){
-        ValoriaClient.setupSplashes();
-        AbstractBossbar.bossbars.put("Wicked Crystal", new BaseBar(new ResourceLocation(Valoria.ID, "textures/gui/bossbars/wicked_crystal.png")));
-        AbstractBossbar.bossbars.put("Necromancer", new BaseBar(new ResourceLocation(Valoria.ID, "textures/gui/bossbars/necromancer.png")));
+        ValoriaClient.setupClient();
+        AbstractBossbar.bossbars.put("Wicked Crystal", new BasicBossbar(new ResourceLocation(Valoria.ID, "textures/gui/bossbars/wicked_crystal.png")));
+        AbstractBossbar.bossbars.put("Necromancer", new BasicBossbar(new ResourceLocation(Valoria.ID, "textures/gui/bossbars/necromancer.png")));
         event.enqueueWork(() -> {
             LexiconChapters.init();
             CuriosRendererRegistry.register(ItemsRegistry.ironNecklaceAmber.get(), NecklaceRenderer::new);

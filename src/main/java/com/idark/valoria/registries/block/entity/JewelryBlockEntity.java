@@ -22,7 +22,7 @@ import net.minecraftforge.common.util.*;
 import net.minecraftforge.items.*;
 import net.minecraftforge.items.wrapper.*;
 import org.jetbrains.annotations.Nullable;
-import pro.komaru.tridot.registry.item.skins.*;
+import pro.komaru.tridot.common.registry.item.skins.*;
 
 import javax.annotation.*;
 import java.util.*;
@@ -218,7 +218,7 @@ public class JewelryBlockEntity extends BlockEntity implements MenuProvider, Tic
         if(this.itemOutputHandler.getStackInSlot(0).isEmpty()){
             ItemSkin skin = getSkin();
             if(skin != null){
-                ItemStack skinResult = skin.applyOnItem(itemHandler.getStackInSlot(0).copy());
+                ItemStack skinResult = skin.apply(itemHandler.getStackInSlot(0).copy());
                 this.itemOutputHandler.setStackInSlot(0, skinResult);
             }else{
                 ItemStack result = recipe.get().getResultItem(RegistryAccess.EMPTY);
@@ -234,7 +234,7 @@ public class JewelryBlockEntity extends BlockEntity implements MenuProvider, Tic
         if(!itemHandler.getStackInSlot(0).isEmpty() && !itemHandler.getStackInSlot(1).isEmpty()){
             if(itemHandler.getStackInSlot(1).getItem() instanceof SkinTrimItem trim){
                 if(trim.canApply(itemHandler.getStackInSlot(0))){
-                    ItemSkin skin = ItemSkin.getSkinFromItem(itemHandler.getStackInSlot(0));
+                    ItemSkin skin = ItemSkin.itemSkin(itemHandler.getStackInSlot(0));
                     if(skin != null){
                         if(skin == trim.getSkin()) return null;
                     }

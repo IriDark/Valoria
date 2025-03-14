@@ -5,12 +5,12 @@ import com.idark.valoria.util.*;
 import net.minecraft.core.*;
 import net.minecraft.network.*;
 import net.minecraft.world.level.*;
-import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.*;
 import net.minecraftforge.network.*;
-import pro.komaru.tridot.client.*;
-import pro.komaru.tridot.client.graphics.particle.*;
-import pro.komaru.tridot.client.graphics.particle.data.*;
-import pro.komaru.tridot.core.math.*;
+import pro.komaru.tridot.client.gfx.*;
+import pro.komaru.tridot.client.gfx.particle.*;
+import pro.komaru.tridot.client.gfx.particle.data.*;
+import pro.komaru.tridot.util.math.*;
 
 import java.util.function.*;
 
@@ -34,7 +34,7 @@ public class MinionSummonParticlePacket{
                 final Consumer<GenericParticle> blockTarget = p -> {
                     Vec3 entityPos = pLevel.getEntity(msg.id).position();
                     if(entityPos == null) return;
-                    Vec3 pPos = p.getPosition();
+                    Vec3 pPos = p.getPosition().mcVec();
                     double dX = entityPos.x - pPos.x();
                     double dY = entityPos.y - pPos.y();
                     double dZ = entityPos.z - pPos.z();
@@ -42,11 +42,11 @@ public class MinionSummonParticlePacket{
                     double pitch = Math.atan2(Math.sqrt(dZ * dZ + dX * dX), dY) + Math.PI;
 
                     float speed = 0.01f;
-                    double x = Math.sin(pitch) * Math.cos(yaw) * speed;
-                    double y = Math.cos(pitch) * speed;
-                    double z = Math.sin(pitch) * Math.sin(yaw) * speed;
+                    float x = (float)(Math.sin(pitch) * Math.cos(yaw) * speed);
+                    float y = (float)(Math.cos(pitch) * speed);
+                    float z = (float)(Math.sin(pitch) * Math.sin(yaw) * speed);
 
-                    p.setSpeed(p.getSpeed().subtract(x, y, z));
+                    p.setSpeed(p.getSpeed().sub(x, y, z));
                 };
 
                 ParticleBuilder.create(TridotParticles.DOT)

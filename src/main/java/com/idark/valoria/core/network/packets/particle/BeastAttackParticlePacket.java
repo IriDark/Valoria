@@ -5,10 +5,11 @@ import com.idark.valoria.client.particle.*;
 import net.minecraft.network.*;
 import net.minecraft.world.level.*;
 import net.minecraftforge.network.NetworkEvent.*;
-import pro.komaru.tridot.client.*;
-import pro.komaru.tridot.client.graphics.particle.*;
-import pro.komaru.tridot.client.graphics.particle.data.*;
-import pro.komaru.tridot.core.math.*;
+import pro.komaru.tridot.client.gfx.particle.*;
+import pro.komaru.tridot.client.gfx.particle.data.*;
+import pro.komaru.tridot.client.render.*;
+import pro.komaru.tridot.util.*;
+import pro.komaru.tridot.util.math.*;
 
 import java.awt.*;
 import java.util.function.*;
@@ -35,7 +36,7 @@ public class BeastAttackParticlePacket{
         if(ctx.get().getDirection().getReceptionSide().isClient()){
             ctx.get().enqueueWork(() -> {
                 Level level = Valoria.proxy.getLevel();
-                Color color = new Color(msg.colorR, msg.colorG, msg.colorB);
+                Col color = new Col(msg.colorR, msg.colorG, msg.colorB);
                 ParticleBuilder.create(ParticleRegistry.SMOKE)
                         .setRenderType(TridotRenderTypes.TRANSLUCENT_PARTICLE)
                         .setColorData(ColorParticleData.create(color, color.darker()).setEasing(Interp.bounceIn).build())

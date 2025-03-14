@@ -1,29 +1,29 @@
 package com.idark.valoria.registries.effect;
 
 import com.idark.valoria.registries.*;
-import com.idark.valoria.util.Pal;
+import com.idark.valoria.util.*;
 import net.minecraft.world.damagesource.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.item.*;
-import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.*;
 import net.minecraftforge.api.distmarker.*;
-import pro.komaru.tridot.client.*;
-import pro.komaru.tridot.client.graphics.*;
-import pro.komaru.tridot.client.graphics.particle.*;
-import pro.komaru.tridot.client.graphics.particle.behavior.*;
-import pro.komaru.tridot.client.graphics.particle.data.*;
-import pro.komaru.tridot.core.math.*;
+import pro.komaru.tridot.client.gfx.*;
+import pro.komaru.tridot.client.gfx.particle.*;
+import pro.komaru.tridot.client.gfx.particle.behavior.*;
+import pro.komaru.tridot.client.gfx.particle.data.*;
+import pro.komaru.tridot.client.render.*;
+import pro.komaru.tridot.util.*;
+import pro.komaru.tridot.util.math.*;
 
-import java.awt.*;
 import java.util.*;
 import java.util.function.*;
 
 public class BleedingEffect extends AbstractImmunityEffect{
 
     public BleedingEffect(){
-        super(MobEffectCategory.HARMFUL, Clr.hexToDecimal("e02c2c"));
+        super(MobEffectCategory.HARMFUL, Col.hexToDecimal("e02c2c"));
         addAttributeModifier(Attributes.MOVEMENT_SPEED, "1107DE5E-7AE8-2030-840A-21B21F160890", -0.05F, AttributeModifier.Operation.MULTIPLY_TOTAL);
     }
 
@@ -65,7 +65,7 @@ public class BleedingEffect extends AbstractImmunityEffect{
                 .setFriction(1f)
                 .enablePhysics()
                 .setGravity(1f)
-                .setColorData(ColorParticleData.create(Color.red, Pal.darkRed).build())
+                .setColorData(ColorParticleData.create(Col.red, Pal.darkRed).build())
                 .setLifetime(22)
                 .repeat(pEntity.level(), pos.x, pos.y, pos.z, 6);
     }

@@ -5,11 +5,11 @@ import net.minecraft.network.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
 import net.minecraftforge.network.*;
-import pro.komaru.tridot.client.*;
-import pro.komaru.tridot.client.graphics.particle.*;
-import pro.komaru.tridot.client.graphics.particle.data.*;
+import pro.komaru.tridot.client.gfx.*;
+import pro.komaru.tridot.client.gfx.particle.*;
+import pro.komaru.tridot.client.gfx.particle.data.*;
+import pro.komaru.tridot.util.*;
 
-import java.awt.*;
 import java.util.function.*;
 
 public class CubeShapedParticlePacket{
@@ -39,7 +39,7 @@ public class CubeShapedParticlePacket{
         if(ctx.get().getDirection().getReceptionSide().isClient()){
             ctx.get().enqueueWork(() -> {
                 Level level = Valoria.proxy.getLevel();
-                Color color = new Color(msg.colorR, msg.colorG, msg.colorB);
+                Col color = new Col(msg.colorR, msg.colorG, msg.colorB);
                 float size = msg.size;
 
                 for(int i = 0; i < 25 * size; i++){
@@ -51,7 +51,7 @@ public class CubeShapedParticlePacket{
                     Vec3 pos3 = new Vec3(msg.posX - pOffset, msg.posY, msg.posZ + size);
 
                     ParticleBuilder.create(TridotParticles.WISP)
-                            .setColorData(ColorParticleData.create(color, Color.black).build())
+                            .setColorData(ColorParticleData.create(color, Col.black).build())
                             .setTransparencyData(GenericParticleData.create(1.25f, 0f).build())
                             .setScaleData(GenericParticleData.create(0.2f, 0.1f, 0).build())
                             .setLifetime(6)
@@ -59,7 +59,7 @@ public class CubeShapedParticlePacket{
                             .spawn(level, pos0.x, pos0.y, pos0.z);
 
                     ParticleBuilder.create(TridotParticles.WISP)
-                            .setColorData(ColorParticleData.create(color, Color.black).build())
+                            .setColorData(ColorParticleData.create(color, Col.black).build())
                             .setTransparencyData(GenericParticleData.create(1.25f, 0f).build())
                             .setScaleData(GenericParticleData.create(0.2f, 0.1f, 0).build())
                             .setLifetime(6)
@@ -67,7 +67,7 @@ public class CubeShapedParticlePacket{
                             .spawn(level, pos1.x, pos1.y, pos1.z);
 
                     ParticleBuilder.create(TridotParticles.WISP)
-                            .setColorData(ColorParticleData.create(color, Color.black).build())
+                            .setColorData(ColorParticleData.create(color, Col.black).build())
                             .setTransparencyData(GenericParticleData.create(1.25f, 0f).build())
                             .setScaleData(GenericParticleData.create(0.2f, 0.1f, 0).build())
                             .setLifetime(6)
@@ -75,7 +75,7 @@ public class CubeShapedParticlePacket{
                             .spawn(level, pos2.x, pos2.y, pos2.z);
 
                     ParticleBuilder.create(TridotParticles.WISP)
-                            .setColorData(ColorParticleData.create(color, Color.black).build())
+                            .setColorData(ColorParticleData.create(color, Col.black).build())
                             .setTransparencyData(GenericParticleData.create(1.25f, 0f).build())
                             .setScaleData(GenericParticleData.create(0.2f, 0.1f, 0).build())
                             .setLifetime(6)

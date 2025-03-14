@@ -10,10 +10,10 @@ import net.minecraft.world.level.*;
 import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.client.extensions.common.*;
 import net.minecraftforge.common.extensions.*;
+import pro.komaru.tridot.api.*;
 import pro.komaru.tridot.client.model.armor.*;
-import pro.komaru.tridot.registry.item.*;
-import pro.komaru.tridot.registry.item.skins.*;
-import pro.komaru.tridot.utilities.*;
+import pro.komaru.tridot.common.registry.item.*;
+import pro.komaru.tridot.common.registry.item.skins.*;
 
 import java.util.*;
 
@@ -25,7 +25,7 @@ public class SkinableArmorItem extends PercentageArmorItem implements IForgeItem
     @OnlyIn(Dist.CLIENT)
     @Override
     public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type){
-        ItemSkin skin = ItemSkin.getSkinFromItem(stack);
+        ItemSkin skin = ItemSkin.itemSkin(stack);
         if(skin == null) return super.getArmorTexture(stack, entity, slot, type);
         return skin.getArmorTexture(stack, entity, slot, type);
     }
@@ -50,7 +50,7 @@ public class SkinableArmorItem extends PercentageArmorItem implements IForgeItem
                 float netHeadPitch = Mth.lerp(partialTicks, entity.xRotO, entity.getXRot());
 
                 ArmorModel model;
-                ItemSkin skin = ItemSkin.getSkinFromItem(itemStack);
+                ItemSkin skin = ItemSkin.itemSkin(itemStack);
                 if(skin != null){
                     model = skin.getArmorModel(entity, itemStack, armorSlot, original);
                     model.slot = type.getSlot();

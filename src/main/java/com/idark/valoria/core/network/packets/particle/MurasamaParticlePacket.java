@@ -7,11 +7,11 @@ import net.minecraft.util.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
 import net.minecraftforge.network.*;
-import pro.komaru.tridot.client.*;
-import pro.komaru.tridot.client.graphics.particle.*;
-import pro.komaru.tridot.client.graphics.particle.data.*;
+import pro.komaru.tridot.client.gfx.*;
+import pro.komaru.tridot.client.gfx.particle.*;
+import pro.komaru.tridot.client.gfx.particle.data.*;
+import pro.komaru.tridot.util.*;
 
-import java.awt.*;
 import java.util.*;
 import java.util.function.*;
 
@@ -57,7 +57,7 @@ public class MurasamaParticlePacket{
                     double XX = Math.sin(pitch) * Math.cos(yaw) * (float)(rand.nextDouble() * 0.05F) / (ii + 1);
                     double YY = Math.sin(pitch) * Math.sin(yaw) * (float)(rand.nextDouble() * 0.05F) / (ii + 1);
                     double ZZ = Math.cos(pitch) * (float)(rand.nextDouble() * 0.05F) / (ii + 1);
-                    Color color = new Color(msg.colorR, msg.colorG, msg.colorB);
+                    Col color = new Col(msg.colorR, msg.colorG, msg.colorB);
                     Vec3 particlePos = new Vec3(msg.posX + X, msg.posY + Y, msg.posZ + Z);
                     ParticleBuilder.create(TridotParticles.WISP)
                             .setColorData(ColorParticleData.create(color, Pal.lightViolet).build())

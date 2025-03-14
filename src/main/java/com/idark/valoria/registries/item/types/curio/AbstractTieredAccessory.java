@@ -16,7 +16,7 @@ import net.minecraft.world.item.enchantment.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
 import net.minecraftforge.api.distmarker.*;
-import pro.komaru.tridot.utilities.*;
+import pro.komaru.tridot.api.*;
 import top.theillusivec4.curios.api.*;
 import top.theillusivec4.curios.api.type.capability.*;
 

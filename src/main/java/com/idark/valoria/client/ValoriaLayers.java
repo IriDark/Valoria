@@ -5,7 +5,7 @@ import net.minecraft.client.model.geom.*;
 import net.minecraft.client.resources.model.*;
 import net.minecraft.resources.*;
 
-import static pro.komaru.tridot.client.TridotModels.addLayer;
+import static pro.komaru.tridot.client.model.TridotModels.addLayer;
 
 public class ValoriaLayers{
     public static final ModelLayerLocation INFERNAL_ARMOR_INNER = new ModelLayerLocation(new ResourceLocation(Valoria.ID, "infernal_armor"), "inner");

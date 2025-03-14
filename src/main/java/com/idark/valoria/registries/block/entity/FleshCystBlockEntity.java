@@ -20,7 +20,7 @@ import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.level.gameevent.*;
 import net.minecraft.world.phys.*;
-import pro.komaru.tridot.registry.level.BaseSpawner;
+import pro.komaru.tridot.api.level.BaseSpawner;
 
 public class FleshCystBlockEntity extends BlockEntity implements TickableBlockEntity, GameEventListener.Holder<FleshCystBlockEntity.Listener>{
     private final FleshCystBlockEntity.Listener listener;

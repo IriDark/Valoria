@@ -5,8 +5,7 @@ import com.idark.valoria.*;
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.particle.*;
 import com.idark.valoria.registries.*;
-import com.idark.valoria.util.Pal;
-import com.idark.valoria.util.Styles;
+import com.idark.valoria.util.*;
 import net.minecraft.*;
 import net.minecraft.core.*;
 import net.minecraft.nbt.*;
@@ -23,8 +22,8 @@ import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
 import net.minecraftforge.registries.*;
 import org.jetbrains.annotations.*;
-import pro.komaru.tridot.client.graphics.*;
-import pro.komaru.tridot.registry.entity.*;
+import pro.komaru.tridot.common.registry.entity.*;
+import pro.komaru.tridot.util.*;
 
 import java.util.*;
 
@@ -69,7 +68,7 @@ public class SummonBook extends Item{
 
     public static int getColor(ItemStack pStack){
         CompoundTag compoundtag = pStack.getTagElement("DisplayColor");
-        return compoundtag != null && compoundtag.contains("color", 99) ? compoundtag.getInt("color") : Clr.colorToDecimal(Pal.lightViolet);
+        return compoundtag != null && compoundtag.contains("color", 99) ? compoundtag.getInt("color") : Col.toDecimal(Pal.lightViolet.toJava());
     }
 
     public int getLifetime(Player player){
@@ -147,7 +146,7 @@ public class SummonBook extends Item{
     @SuppressWarnings("unchecked")
     public Component getHighlightTip(ItemStack stack, Component displayName){
         if(getDefaultType(stack).is(TagsRegistry.MINIONS)){
-            return displayName.copy().append(Component.literal(" [" + getDefaultType(stack).getDescription().getString() + "]").withStyle(Styles.create(AbstractMinionEntity.getColor((EntityType<? extends AbstractMinionEntity>)getDefaultType(stack)).brighter().brighter())));
+            return displayName.copy().append(Component.literal(" [" + getDefaultType(stack).getDescription().getString() + "]").withStyle(Styles.create(Col.fromColor(AbstractMinionEntity.getColor((EntityType<? extends AbstractMinionEntity>)getDefaultType(stack)).brighter().brighter()))));
         }
 
         return super.getHighlightTip(stack, displayName);

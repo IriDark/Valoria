@@ -98,7 +98,7 @@ public class ArchaeologyScreen extends AbstractContainerScreen<ArchaeologyMenu>{
                     if(this.menu.getCurrentRecipe() != null && !this.menu.getCurrentRecipe().canCraft(this.menu.container)){
                         String component = I18n.get("tooltip.valoria.required_amount");
                         PoseStack ms = pGuiGraphics.pose();
-                        TooltipRenderUtil.renderTooltipBackground(pGuiGraphics, pX + 12, pY + 30, Minecraft.getInstance().font.width(component) + 20, 15, 300, Color.BLACK.getRGB(), Pal.darkerGray.getRGB(), Pal.darkishGray.getRGB(), Pal.lightishGray.darker().getRGB());
+                        TooltipRenderUtil.renderTooltipBackground(pGuiGraphics, pX + 12, pY + 30, Minecraft.getInstance().font.width(component) + 20, 15, 300, Color.BLACK.getRGB(), Pal.darkerGray.rgb(), Pal.darkishGray.rgb(), Pal.lightishGray.darker().rgb());
                         ms.translate(pX, pY, 300);
                         renderFloatingItem(pGuiGraphics, stack.copyWithCount(this.menu.getCurrentRecipe().getIngredientCount()), Minecraft.getInstance().font.width(component) + 12, 30);
                         pGuiGraphics.drawString(this.font, component, 14, 34, Color.WHITE.getRGB());

@@ -5,21 +5,22 @@ import com.idark.valoria.client.particle.*;
 import com.idark.valoria.registries.*;
 import net.minecraft.resources.*;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.projectile.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
-import pro.komaru.tridot.client.graphics.*;
-import pro.komaru.tridot.client.graphics.particle.*;
-import pro.komaru.tridot.client.graphics.particle.data.*;
-import pro.komaru.tridot.core.interfaces.*;
-import pro.komaru.tridot.utilities.*;
+import pro.komaru.tridot.api.*;
+import pro.komaru.tridot.api.interfaces.*;
+import pro.komaru.tridot.client.gfx.particle.*;
+import pro.komaru.tridot.client.gfx.particle.data.*;
+import pro.komaru.tridot.common.registry.entity.projectiles.*;
+import pro.komaru.tridot.util.*;
+import pro.komaru.tridot.util.phys.Vec3;
 
 import java.util.function.*;
 
-public class SoulArrow extends AbstractValoriaArrow implements TexturedArrow{
+public class SoulArrow extends AbstractTridotArrow implements TexturedArrow{
 
-    public SoulArrow(EntityType<? extends AbstractArrow> pEntityType, Level pLevel){
+    public SoulArrow(EntityType<? extends AbstractTridotArrow> pEntityType, Level pLevel){
         super(pEntityType, pLevel);
     }
 
@@ -36,13 +37,13 @@ public class SoulArrow extends AbstractValoriaArrow implements TexturedArrow{
     @Override
     public void spawnParticlesTrail(){
         if(!this.inGround){
-            Vec3 delta = this.getDeltaMovement().normalize();
+            Vec3 delta = Vec3.from(this.getDeltaMovement().normalize());
             Vec3 pos = new Vec3(this.getX() + delta.x() * 0.00015, this.getY() + delta.y() * 0.00015, this.getZ() + delta.z() * 0.00015);
             final Vec3[] cachePos = {new Vec3(pos.x, pos.y, pos.z)};
             final Consumer<GenericParticle> target = p -> {
                 Vec3 arrowPos = new Vec3(getX(), getY(), getZ());
-                float lenBetweenArrowAndParticle = (float)(arrowPos.subtract(cachePos[0])).length();
-                Vec3 vector = (arrowPos.subtract(cachePos[0]));
+                float lenBetweenArrowAndParticle = (float)(arrowPos.sub(cachePos[0])).len();
+                Vec3 vector = (arrowPos.sub(cachePos[0]));
                 if(lenBetweenArrowAndParticle > 0){
                     cachePos[0] = cachePos[0].add(vector);
                     p.setPosition(cachePos[0]);
@@ -50,8 +51,8 @@ public class SoulArrow extends AbstractValoriaArrow implements TexturedArrow{
             };
 
 
-            ParticleEffects.smoothTrail(this.level(), target, pos, ColorParticleData.create(Clr.valueOf("19419b"), Clr.valueOf("0000af")).build());
-            ParticleEffects.trailMotionSparks(this.level(), pos, ColorParticleData.create(Clr.valueOf("19419b"), Clr.valueOf("0000af")).build());
+            ParticleEffects.smoothTrail(this.level(), target, pos.mcVec(), ColorParticleData.create(Col.fromHex("19419b"), Col.fromHex("0000af")).build());
+            ParticleEffects.trailMotionSparks(this.level(), pos.mcVec(), ColorParticleData.create(Col.fromHex("19419b"), Col.fromHex("0000af")).build());
         }
     }
 

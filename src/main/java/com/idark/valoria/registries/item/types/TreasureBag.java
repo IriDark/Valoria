@@ -7,7 +7,7 @@ import net.minecraft.resources.*;
 import net.minecraft.sounds.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
-import pro.komaru.tridot.registry.item.types.*;
+import pro.komaru.tridot.common.registry.item.types.*;
 
 import java.util.*;
 

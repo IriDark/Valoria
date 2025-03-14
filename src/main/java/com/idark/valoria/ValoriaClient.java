@@ -25,8 +25,6 @@ import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.blockentity.*;
 import net.minecraft.client.renderer.entity.*;
 import net.minecraft.resources.*;
-import net.minecraft.world.entity.ai.attributes.*;
-import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.client.event.*;
@@ -35,12 +33,11 @@ import net.minecraftforge.eventbus.api.*;
 import net.minecraftforge.fml.common.*;
 import net.minecraftforge.fml.event.lifecycle.*;
 import org.lwjgl.glfw.*;
-import pro.komaru.tridot.client.graphics.gui.splash.*;
-import pro.komaru.tridot.client.graphics.render.entity.*;
-import pro.komaru.tridot.client.graphics.tooltip.*;
+import pro.komaru.tridot.client.model.render.entity.*;
+import pro.komaru.tridot.client.render.gui.*;
 import pro.komaru.tridot.client.sound.*;
-import pro.komaru.tridot.client.sound.MusicModifier.*;
-import pro.komaru.tridot.registry.entity.*;
+import pro.komaru.tridot.client.tooltip.*;
+import pro.komaru.tridot.common.registry.entity.*;
 
 import java.io.*;
 
@@ -55,58 +52,28 @@ public class ValoriaClient{
     public static LoopedSoundInstance BOSS_MUSIC;
     public static ElementalManipulatorSoundInstance MANIPULATOR_LOOP;
 
-    public static void setupSplashes(){
-        SplashHandler.addSplash("Also try Starbound!");
-        SplashHandler.addSplash("Also try Mindustry!");
-        SplashHandler.addSplash("Valoria was known as DarkRPG");
-        SplashHandler.addSplash("Valoria, animated by Kerdo!");
-        SplashHandler.addSplash("Valoria music by DuUaader!");
+    public static void setupClient(){
+        SplashHandler.add("Also try Starbound!");
+        SplashHandler.add("Also try Mindustry!");
+        SplashHandler.add("Valoria was known as DarkRPG");
+        SplashHandler.add("Valoria, animated by Kerdo!");
+        SplashHandler.add("Valoria music by DuUaader!");
+
+        TooltipModifierHandler.add(BASE_ENTITY_REACH_UUID);
+        TooltipModifierHandler.add(BASE_DASH_DISTANCE_UUID);
+        TooltipModifierHandler.add(BASE_ATTACK_RADIUS_UUID);
+        TooltipModifierHandler.add(BASE_NECROMANCY_COUNT_UUID);
+        TooltipModifierHandler.add(BASE_NECROMANCY_LIFETIME_UUID);
+
+        MusicHandler.register(new MusicModifier.DungeonMusic(SoundsRegistry.MUSIC_NECROMANCER_DUNGEON.get(), LevelGen.NECROMANCER_CRYPT));
     }
 
     @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     public static class RegistryEvents{
 
         @SubscribeEvent
-        public static void registerMusicModifiers(FMLClientSetupEvent event){
-            MusicHandler.register(new Dungeon(SoundsRegistry.MUSIC_NECROMANCER_DUNGEON.get(), LevelGen.NECROMANCER_CRYPT));
-        }
-
-        @SubscribeEvent
         public static void RegisterDimensionEffects(RegisterDimensionSpecialEffectsEvent e){
             e.register(new ResourceLocation(Valoria.ID, "valoria_sky"), new ValoriaEffects());
-        }
-
-        @SubscribeEvent
-        public static void registerAttributeModifiers(FMLClientSetupEvent event){
-            TooltipModifierHandler.register(new AttributeTooltipModifier(){
-                public boolean isToolBase(AttributeModifier modifier, Player player, TooltipFlag flag){
-                    return modifier.getId().equals(BASE_ENTITY_REACH_UUID);
-                }
-            });
-
-            TooltipModifierHandler.register(new AttributeTooltipModifier(){
-                public boolean isToolBase(AttributeModifier modifier, Player player, TooltipFlag flag){
-                    return modifier.getId().equals(BASE_DASH_DISTANCE_UUID);
-                }
-            });
-
-            TooltipModifierHandler.register(new AttributeTooltipModifier(){
-                public boolean isToolBase(AttributeModifier modifier, Player player, TooltipFlag flag){
-                    return modifier.getId().equals(BASE_ATTACK_RADIUS_UUID);
-                }
-            });
-
-            TooltipModifierHandler.register(new AttributeTooltipModifier(){
-                public boolean isToolBase(AttributeModifier modifier, Player player, TooltipFlag flag){
-                    return modifier.getId().equals(BASE_NECROMANCY_COUNT_UUID);
-                }
-            });
-
-            TooltipModifierHandler.register(new AttributeTooltipModifier(){
-                public boolean isToolBase(AttributeModifier modifier, Player player, TooltipFlag flag){
-                    return modifier.getId().equals(BASE_NECROMANCY_LIFETIME_UUID);
-                }
-            });
         }
 
         @SubscribeEvent
@@ -127,8 +94,8 @@ public class ValoriaClient{
 
         @SubscribeEvent
         public static void doClientStuff(FMLClientSetupEvent event){
-            AbstractMinionEntity.minionColors.put(EntityTypeRegistry.UNDEAD.get(), Pal.darkishGray);
-            AbstractMinionEntity.minionColors.put(EntityTypeRegistry.FLESH_SENTINEL.get(), Pal.flesh);
+            AbstractMinionEntity.minionColors.put(EntityTypeRegistry.UNDEAD.get(), Pal.darkishGray.toJava());
+            AbstractMinionEntity.minionColors.put(EntityTypeRegistry.FLESH_SENTINEL.get(), Pal.flesh.toJava());
             event.enqueueWork(() -> {
                 BlockEntityRenderers.register(BlockEntitiesRegistry.WICKED_ALTAR.get(), (trd) -> new AltarBlockEntityRenderer());
                 BlockEntityRenderers.register(BlockEntitiesRegistry.CRYPTIC_ALTAR.get(), (trd) -> new AltarBlockEntityRenderer());

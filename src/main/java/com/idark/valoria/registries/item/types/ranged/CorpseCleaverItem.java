@@ -14,8 +14,8 @@ import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
-import pro.komaru.tridot.client.graphics.gui.*;
-import pro.komaru.tridot.registry.item.*;
+import pro.komaru.tridot.client.render.gui.*;
+import pro.komaru.tridot.common.registry.item.*;
 
 import static pro.komaru.tridot.TridotLib.BASE_PROJECTILE_DAMAGE_UUID;
 

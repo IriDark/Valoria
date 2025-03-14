@@ -12,7 +12,7 @@ import net.minecraft.resources.*;
 import net.minecraftforge.api.distmarker.*;
 import org.joml.*;
 
-import static pro.komaru.tridot.client.TridotRenderTypes.getDelayedRender;
+import static pro.komaru.tridot.client.render.TridotRenderTypes.getDelayedRender;
 
 @OnlyIn(Dist.CLIENT)
 public class ValoriaPortalRenderer<T extends ValoriaPortalBlockEntity> implements BlockEntityRenderer<T>{

@@ -14,8 +14,8 @@ import net.minecraft.world.entity.player.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.pathfinder.*;
 import org.jetbrains.annotations.*;
-import pro.komaru.tridot.registry.entity.*;
-import pro.komaru.tridot.registry.entity.ai.goals.*;
+import pro.komaru.tridot.api.entity.ai.goals.*;
+import pro.komaru.tridot.common.registry.entity.*;
 
 public class Ent extends MultiAttackMob implements Enemy{
     public final AnimationState idleAnimationState = new AnimationState();

@@ -13,14 +13,15 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.*;
 import net.minecraft.world.level.*;
 import org.joml.*;
-import pro.komaru.tridot.client.graphics.gui.screenshake.*;
-import pro.komaru.tridot.core.math.*;
-import pro.komaru.tridot.utilities.*;
+import pro.komaru.tridot.api.*;
+import pro.komaru.tridot.client.render.screenshake.*;
+import pro.komaru.tridot.util.*;
+import pro.komaru.tridot.util.math.*;
 
 import java.util.*;
 
 public class InfernalScytheItem extends ScytheItem{
-    public ArcRandom arcRandom = new ArcRandom();
+    public ArcRandom arcRandom = Tmp.rnd;
 
     public InfernalScytheItem(Tier tier, int attackDamageIn, float attackSpeedIn, Item.Properties builderIn){
         super(tier, attackDamageIn, attackSpeedIn, builderIn);
@@ -55,7 +56,7 @@ public class InfernalScytheItem extends ScytheItem{
             }
         }
 
-        ScreenshakeHandler.addScreenshake(new ScreenshakeInstance(4).setIntensity(0.35f).setEasing(Interp.circleOut));
+        ScreenshakeHandler.add(new ScreenshakeInstance(4).intensity(0.35f).interp(Interp.circleOut));
     }
 
     public void performEffects(LivingEntity targets, Player player){

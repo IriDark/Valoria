@@ -19,9 +19,10 @@ import net.minecraft.world.item.enchantment.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.state.*;
 import org.jetbrains.annotations.*;
-import pro.komaru.tridot.core.math.*;
-import pro.komaru.tridot.registry.item.*;
-import pro.komaru.tridot.utilities.*;
+import pro.komaru.tridot.api.*;
+import pro.komaru.tridot.common.registry.item.*;
+import pro.komaru.tridot.util.*;
+import pro.komaru.tridot.util.math.*;
 
 import java.util.*;
 
@@ -31,7 +32,7 @@ public class KunaiItem extends SwordItem{
     private final Multimap<Attribute, AttributeModifier> tridentAttributes;
     public final ImmutableList<MobEffectInstance> effects;
     public float chance = 1;
-    public ArcRandom arc = new ArcRandom();
+    public ArcRandom arc = Tmp.rnd;
 
     public KunaiItem(int damage, float speed, Item.Properties builderIn, float chance, MobEffectInstance... pEffects){
         super(ModItemTier.NONE, damage, speed, builderIn);

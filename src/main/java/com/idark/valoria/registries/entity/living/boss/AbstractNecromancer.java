@@ -11,11 +11,11 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.level.*;
 import org.joml.*;
-import pro.komaru.tridot.client.graphics.particle.*;
-import pro.komaru.tridot.client.graphics.particle.data.*;
+import pro.komaru.tridot.client.gfx.particle.*;
+import pro.komaru.tridot.client.gfx.particle.data.*;
+import pro.komaru.tridot.util.*;
 
 import javax.annotation.*;
-import java.awt.*;
 import java.lang.Math;
 import java.util.Random;
 import java.util.*;
@@ -84,12 +84,12 @@ public abstract class AbstractNecromancer extends Monster{
             float f = this.yBodyRot * ((float)Math.PI / 180F) + Mth.cos(this.tickCount * 0.6662F) * 0.25F;
             float f1 = Mth.cos(f);
             float f2 = Mth.sin(f);
-            Color colorTo = new Color(r, g, b);
+            Col colorTo = new Col(r, g, b);
             for(int i = 0; i < 1f; i++){
                 ParticleBuilder.create(ParticleRegistry.SPHERE)
                         .setLifetime(8)
                         .setTransparencyData(GenericParticleData.create(0.65f, 0).build())
-                        .setColorData(ColorParticleData.create(colorTo, Color.white).build())
+                        .setColorData(ColorParticleData.create(colorTo, Col.white).build())
                         .addVelocity(((this.random.nextDouble() - 0.5D) / 6), ((this.random.nextDouble() - 1.25D) / 8), ((this.random.nextDouble() - 0.5D) / 6))
                         .setSpinData(SpinParticleData.create((0.5f * (float)((new Random().nextDouble() - 0.5D) * 2))).build())
                         .setScaleData(GenericParticleData.create(0.2f, 0).build())
@@ -112,7 +112,7 @@ public abstract class AbstractNecromancer extends Monster{
                             .setLifetime(8)
                             .addVelocity(motionX, motionY, motionZ)
                             .setTransparencyData(GenericParticleData.create(0.65f, 0).build())
-                            .setColorData(ColorParticleData.create(colorTo, Color.white).build())
+                            .setColorData(ColorParticleData.create(colorTo, Col.white).build())
                             .addVelocity(((this.random.nextDouble() - 0.5D) / 6), ((this.random.nextDouble() - 1.25D) / 8), ((this.random.nextDouble() - 0.5D) / 6))
                             .setSpinData(SpinParticleData.create((0.5f * (float)((new Random().nextDouble() - 0.5D) * 2))).build())
                             .setScaleData(GenericParticleData.create(0.2f, 0).build())

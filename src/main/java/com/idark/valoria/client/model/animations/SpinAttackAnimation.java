@@ -10,7 +10,7 @@ import net.minecraft.world.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.item.*;
 import net.minecraftforge.api.distmarker.*;
-import pro.komaru.tridot.client.graphics.render.animation.*;
+import pro.komaru.tridot.api.render.animation.*;
 
 public class SpinAttackAnimation extends ItemAnimation{
 

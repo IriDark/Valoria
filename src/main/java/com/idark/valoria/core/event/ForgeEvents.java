@@ -13,8 +13,8 @@ import net.minecraftforge.event.village.*;
 import net.minecraftforge.eventbus.api.*;
 import net.minecraftforge.fml.*;
 import net.minecraftforge.fml.common.*;
-import pro.komaru.tridot.core.entity.trades.*;
-import pro.komaru.tridot.core.entity.trades.Trade.*;
+import pro.komaru.tridot.api.entity.trades.*;
+import pro.komaru.tridot.api.entity.trades.Trade.*;
 
 @Mod.EventBusSubscriber(modid = Valoria.ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ForgeEvents{

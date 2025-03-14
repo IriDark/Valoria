@@ -9,7 +9,7 @@ import net.minecraft.util.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.level.levelgen.feature.*;
-import pro.komaru.tridot.core.math.*;
+import pro.komaru.tridot.util.*;
 
 public class TaintedRootsFeature extends Feature<TaintedRootsConfig>{
 
@@ -64,7 +64,7 @@ public class TaintedRootsFeature extends Feature<TaintedRootsConfig>{
                     for(int z = -i; z <= i; z += step){
                         blockpos$mutableblockpos.set(blockpos).move(Mth.nextInt(randomsource, -i, i), Mth.nextInt(randomsource, -j, j), Mth.nextInt(randomsource, -i, i));
                         if(findFirstAirBlockAboveGround(worldgenlevel, blockpos$mutableblockpos) && !isInvalidPlacementLocation(worldgenlevel, blockpos$mutableblockpos)){
-                            if(new ArcRandom().fiftyFifty()){
+                            if(Tmp.rnd.fiftyFifty()){
                                 placeRoot(worldgenlevel, randomsource, blockpos$mutableblockpos, 0, 2);
                             }
                         }

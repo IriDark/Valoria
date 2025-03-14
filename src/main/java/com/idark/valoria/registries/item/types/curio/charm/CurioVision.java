@@ -10,7 +10,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
-import pro.komaru.tridot.utilities.*;
+import pro.komaru.tridot.api.*;
 import top.theillusivec4.curios.api.*;
 
 import java.util.*;

@@ -8,7 +8,7 @@ import net.minecraft.client.gui.components.toasts.*;
 import net.minecraft.client.resources.language.*;
 import net.minecraft.resources.*;
 import net.minecraftforge.api.distmarker.*;
-import pro.komaru.tridot.client.graphics.*;
+import pro.komaru.tridot.util.*;
 
 import java.util.*;
 
@@ -26,9 +26,9 @@ public class PageToast implements Toast{
     public static void drawText(GuiGraphics gui, String text, int x, int y, boolean Centered){
         Font font = Minecraft.getInstance().font;
         if(!Centered){
-            gui.drawString(font, I18n.get(text), x, y, Clr.packColor(255, 220, 200, 180), true);
+            gui.drawString(font, I18n.get(text), x, y, Col.packColor(255, 220, 200, 180), true);
         }else{
-            gui.drawCenteredString(font, I18n.get(text), x, y, Clr.packColor(255, 220, 200, 180));
+            gui.drawCenteredString(font, I18n.get(text), x, y, Col.packColor(255, 220, 200, 180));
         }
     }
 

@@ -6,11 +6,11 @@ import net.minecraft.network.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
 import net.minecraftforge.network.*;
-import pro.komaru.tridot.client.*;
-import pro.komaru.tridot.client.graphics.particle.*;
-import pro.komaru.tridot.client.graphics.particle.data.*;
+import pro.komaru.tridot.client.gfx.*;
+import pro.komaru.tridot.client.gfx.particle.*;
+import pro.komaru.tridot.client.gfx.particle.data.*;
+import pro.komaru.tridot.util.*;
 
-import java.awt.*;
 import java.util.function.*;
 
 public class ManipulatorCraftParticlePacket{
@@ -48,7 +48,7 @@ public class ManipulatorCraftParticlePacket{
                 Level pLevel = Valoria.proxy.getLevel();
                 Vec3 particlePos = new Vec3(msg.posX + 0.85f, msg.posY + 1.10f, msg.posZ + 0.85f);
                 ParticleBuilder.create(TridotParticles.WISP)
-                        .setColorData(ColorParticleData.create(Pal.infernalBright, Color.black).build())
+                        .setColorData(ColorParticleData.create(Pal.infernalBright, Col.black).build())
                         .setTransparencyData(GenericParticleData.create(1.25f, 0f).build())
                         .setScaleData(GenericParticleData.create(0.025f, 0.1f).build())
                         .setLifetime(8)
@@ -57,7 +57,7 @@ public class ManipulatorCraftParticlePacket{
 
                 Vec3 particlePos1 = new Vec3(msg.posX + 0.15f, msg.posY + 1.10f, msg.posZ + 0.15f);
                 ParticleBuilder.create(TridotParticles.WISP)
-                        .setColorData(ColorParticleData.create(Pal.nature, Color.black).build())
+                        .setColorData(ColorParticleData.create(Pal.nature, Col.black).build())
                         .setTransparencyData(GenericParticleData.create(1.25f, 0f).build())
                         .setScaleData(GenericParticleData.create(0.025f, 0.1f).build())
                         .setLifetime(8)
@@ -66,7 +66,7 @@ public class ManipulatorCraftParticlePacket{
 
                 Vec3 particlePos2 = new Vec3(msg.posX + 0.85f, msg.posY + 1.10f, msg.posZ + 0.15f);
                 ParticleBuilder.create(TridotParticles.WISP)
-                        .setColorData(ColorParticleData.create(Pal.oceanic, Color.black).build())
+                        .setColorData(ColorParticleData.create(Pal.oceanic, Col.black).build())
                         .setTransparencyData(GenericParticleData.create(1.25f, 0f).build())
                         .setScaleData(GenericParticleData.create(0.025f, 0.1f).build())
                         .setLifetime(8)
@@ -75,7 +75,7 @@ public class ManipulatorCraftParticlePacket{
 
                 Vec3 particlePos3 = new Vec3(msg.posX + 0.15f, msg.posY + 1.10f, msg.posZ + 0.85f);
                 ParticleBuilder.create(TridotParticles.WISP)
-                        .setColorData(ColorParticleData.create(Pal.vividCyan, Color.black).build())
+                        .setColorData(ColorParticleData.create(Pal.vividCyan, Col.black).build())
                         .setTransparencyData(GenericParticleData.create(1.25f, 0f).build())
                         .setScaleData(GenericParticleData.create(0.025f, 0.1f).build())
                         .setLifetime(8)
@@ -84,7 +84,7 @@ public class ManipulatorCraftParticlePacket{
 
                 Vec3 particlePos4 = new Vec3(msg.posX + 0.5f, msg.posY + 1, msg.posZ + 0.5f);
                 ParticleBuilder.create(TridotParticles.WISP)
-                        .setColorData(ColorParticleData.create(Color.white, Color.black).build())
+                        .setColorData(ColorParticleData.create(Col.white, Col.black).build())
                         .setTransparencyData(GenericParticleData.create(1.25f, 0f).build())
                         .setScaleData(GenericParticleData.create(0.025f, 0.1f).build())
                         .setLifetime(12)

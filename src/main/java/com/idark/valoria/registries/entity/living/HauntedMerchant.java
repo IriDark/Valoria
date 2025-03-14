@@ -9,7 +9,7 @@ import net.minecraft.world.entity.ai.navigation.*;
 import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.pathfinder.*;
-import pro.komaru.tridot.registry.entity.ai.goals.*;
+import pro.komaru.tridot.api.entity.ai.goals.*;
 
 public class HauntedMerchant extends AbstractHauntedMerchant{
     public final AnimationState idleAnimationState = new AnimationState();

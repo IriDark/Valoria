@@ -22,7 +22,7 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.level.gameevent.*;
 import net.minecraft.world.phys.*;
-import pro.komaru.tridot.registry.entity.ai.goals.*;
+import pro.komaru.tridot.api.entity.ai.goals.*;
 
 public class ScourgeEntity extends SwampWandererEntity{
     public final AnimationState idleAnimationState = new AnimationState();

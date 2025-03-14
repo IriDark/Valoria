@@ -7,9 +7,9 @@ import net.minecraft.network.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
 import net.minecraftforge.network.*;
-import pro.komaru.tridot.client.graphics.particle.data.*;
+import pro.komaru.tridot.client.gfx.particle.data.*;
+import pro.komaru.tridot.util.*;
 
-import java.util.*;
 import java.util.function.*;
 
 public class KeypadParticlePacket{
@@ -38,7 +38,7 @@ public class KeypadParticlePacket{
         if(ctx.get().getDirection().getReceptionSide().isClient()){
             ctx.get().enqueueWork(() -> {
                 Level pLevel = Valoria.proxy.getLevel();
-                Random rand = new Random();
+                var rand = Tmp.rnd;
                 for(int a = 0; a < 3; a++){
                     Vec3 position = new Vec3(msg.posX + (rand.nextDouble() * 1.25), msg.posY + 0.5F + ((rand.nextDouble() - 0.5D) * 1.25), msg.posZ + 0.5F + ((rand.nextDouble() - 0.5D) * 1.25));
                     Vec3 targetPosition = new Vec3(msg.targetPosX + (rand.nextDouble() * 1.25), msg.targetPosY + 0.5F + ((rand.nextDouble() - 0.5D) * 1.25), msg.targetPosZ + 0.5F + ((rand.nextDouble() - 0.5D) * 1.25));

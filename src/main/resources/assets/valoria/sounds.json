@@ -22,6 +22,10 @@
         "stream": true
       },
       {
+        "name": "valoria:music/singing_skies",
+        "stream": true
+      },
+      {
         "name": "valoria:music/explore",
         "stream": true
       }
@@ -59,6 +63,10 @@
       },      {
         "name": "valoria:music/explore",
         "stream": true
+      },
+      {
+        "name": "valoria:music/singing_skies",
+        "stream": true
       }
     ]
   },
@@ -79,11 +87,18 @@
        {
          "name": "valoria:music/explore",
          "stream": true
-       }
-     ]
+       },
+       {
+         "name": "valoria:music/singing_skies",
+         "stream": true
+       }]
   },
   "music.valoria.shaded_lands": {
     "sounds": [
+      {
+        "name": "valoria:music/singing_skies",
+        "stream": true
+      },
       {
         "name": "valoria:music/shaded_lands",
         "stream": true

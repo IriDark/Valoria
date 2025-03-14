@@ -9,7 +9,7 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.level.levelgen.feature.*;
 import net.minecraft.world.level.levelgen.feature.configurations.*;
-import pro.komaru.tridot.core.math.*;
+import pro.komaru.tridot.util.*;
 
 public class GlowVioletSproutFeature extends Feature<TwistingVinesConfig>{
     public GlowVioletSproutFeature(Codec<TwistingVinesConfig> pCodec){
@@ -80,7 +80,7 @@ public class GlowVioletSproutFeature extends Feature<TwistingVinesConfig>{
                                 i1 = 1;
                             }
 
-                            if(new ArcRandom().fiftyFifty()){
+                            if(Tmp.rnd.fiftyFifty()){
                                 placeSproutColumn(worldgenlevel, randomsource, blockpos$mutableblockpos, i1, 17, 25);
                             }
                         }

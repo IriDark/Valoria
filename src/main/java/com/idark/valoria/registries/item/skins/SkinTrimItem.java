@@ -7,7 +7,7 @@ import net.minecraft.resources.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraftforge.api.distmarker.*;
-import pro.komaru.tridot.registry.item.skins.*;
+import pro.komaru.tridot.common.registry.item.skins.*;
 
 import java.util.*;
 
@@ -33,7 +33,7 @@ public class SkinTrimItem extends Item{
     }
 
     public boolean canApply(ItemStack stack){
-        return skin.canApplyOnItem(stack);
+        return skin.appliesOn(stack);
     }
 
     public ItemSkin getSkin(){
@@ -44,7 +44,7 @@ public class SkinTrimItem extends Item{
     @Override
     public void appendHoverText(ItemStack stack, Level level, List<Component> tooltip, TooltipFlag flags){
         super.appendHoverText(stack, level, tooltip, flags);
-        tooltip.add(getSkin().getSkinComponent());
+        tooltip.add(getSkin().skinComponent());
     }
 
     public String getDescriptionId(){

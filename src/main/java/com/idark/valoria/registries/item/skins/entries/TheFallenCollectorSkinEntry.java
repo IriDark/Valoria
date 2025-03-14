@@ -7,11 +7,13 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.item.*;
 import net.minecraftforge.api.distmarker.*;
 import pro.komaru.tridot.client.model.armor.*;
-import pro.komaru.tridot.registry.item.skins.*;
+import pro.komaru.tridot.common.registry.item.skins.*;
 
-public class TheFallenCollectorSkinEntry extends ArmorClassSkinEntry{
-    public TheFallenCollectorSkinEntry(Class item, String skin){
+public class TheFallenCollectorSkinEntry extends ArmorExtendingSkinEntry{
+    String skin;
+    public TheFallenCollectorSkinEntry(Class<? extends Item> item, String skin){
         super(item, skin);
+        this.skin=skin;
     }
 
     public TheFallenCollectorSkinEntry addArmorSkin(EquipmentSlot armorSlot, String skin){
@@ -20,9 +22,9 @@ public class TheFallenCollectorSkinEntry extends ArmorClassSkinEntry{
     }
 
     @Override
-    public boolean canApplyOnItem(ItemStack itemStack){
-        if(item.isInstance(itemStack.getItem())){
-            if(itemStack.getItem() instanceof SkinableArmorItem armor){
+    public boolean appliesOn(ItemStack stack){
+        if(item.isInstance(stack.getItem())){
+            if(stack.getItem() instanceof SkinableArmorItem armor){
                 return skins.containsKey(armor.getEquipmentSlot());
             }
         }
@@ -30,8 +32,9 @@ public class TheFallenCollectorSkinEntry extends ArmorClassSkinEntry{
         return false;
     }
 
+
     @OnlyIn(Dist.CLIENT)
-    public String getItemModelName(ItemStack stack){
+    public String itemModel(ItemStack stack){
         if(stack.getItem() instanceof SkinableArmorItem armor){
             return skins.get(armor.getEquipmentSlot());
         }
@@ -41,13 +44,12 @@ public class TheFallenCollectorSkinEntry extends ArmorClassSkinEntry{
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public ArmorModel getArmorModel(LivingEntity entity, ItemStack itemStack, EquipmentSlot armorSlot, HumanoidModel _default){
+    public ArmorModel armorModel(LivingEntity entity, ItemStack itemStack, EquipmentSlot armorSlot, HumanoidModel _default){
         return ValoriaClient.THE_FALLEN_COLLECTOR_ARMOR;
     }
 
     @Override
-    @OnlyIn(Dist.CLIENT)
-    public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type){
+    public String armorTexture(Entity entity, ItemStack stack, EquipmentSlot slot, String type){
         return skin + ".png";
     }
 }

@@ -6,12 +6,11 @@ import com.idark.valoria.util.*;
 import net.minecraft.network.*;
 import net.minecraft.world.level.*;
 import net.minecraftforge.network.*;
-import pro.komaru.tridot.client.*;
-import pro.komaru.tridot.client.graphics.particle.*;
-import pro.komaru.tridot.client.graphics.particle.data.*;
+import pro.komaru.tridot.client.gfx.particle.*;
+import pro.komaru.tridot.client.gfx.particle.data.*;
+import pro.komaru.tridot.client.render.*;
+import pro.komaru.tridot.util.*;
 
-import java.awt.*;
-import java.util.*;
 import java.util.function.*;
 
 public class SmokeParticlePacket{
@@ -35,7 +34,7 @@ public class SmokeParticlePacket{
     }
 
     public static void packetSmokeParticles(SmokeParticlePacket msg, Level level, ColorParticleData color){
-        Random random = new Random();
+        var random = Tmp.rnd;
         ParticleBuilder.create(ParticleRegistry.SMOKE)
                 .setRenderType(TridotRenderTypes.TRANSLUCENT_PARTICLE)
                 .setColorData(color)
@@ -56,7 +55,7 @@ public class SmokeParticlePacket{
         if(ctx.get().getDirection().getReceptionSide().isClient()){
             ctx.get().enqueueWork(() -> {
                 Level level = Valoria.proxy.getLevel();
-                Color color = new Color(msg.colorR, msg.colorG, msg.colorB);
+                Col color = new Col(msg.colorR, msg.colorG, msg.colorB);
                 for(int i = 0; i < msg.count; i++){
                     packetSmokeParticles(msg, level, ColorParticleData.create(color, Pal.darkestGray).build());
                 }

@@ -13,9 +13,10 @@ import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
-import pro.komaru.tridot.core.interfaces.*;
-import pro.komaru.tridot.core.math.*;
-import pro.komaru.tridot.utilities.*;
+import pro.komaru.tridot.api.*;
+import pro.komaru.tridot.api.interfaces.*;
+import pro.komaru.tridot.util.*;
+import pro.komaru.tridot.util.math.*;
 import top.theillusivec4.curios.api.*;
 import top.theillusivec4.curios.api.type.capability.*;
 
@@ -24,7 +25,7 @@ import java.util.*;
 
 public class BloodSight extends Item implements ICurioItem, Vanishable, ParticleItemEntity{
     private int hits = 0;
-    public ArcRandom arcRandom = new ArcRandom();
+    public ArcRandom arcRandom = Tmp.rnd;
 
     public BloodSight(Properties properties){
         super(properties);

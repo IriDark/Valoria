@@ -10,12 +10,10 @@ import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.entity.*;
 import net.minecraft.resources.*;
 import net.minecraftforge.api.distmarker.*;
+import pro.komaru.tridot.api.*;
 import pro.komaru.tridot.client.*;
-import pro.komaru.tridot.client.event.*;
-import pro.komaru.tridot.client.graphics.render.*;
-import pro.komaru.tridot.utilities.*;
-
-import java.awt.*;
+import pro.komaru.tridot.client.render.*;
+import pro.komaru.tridot.util.*;
 
 @OnlyIn(Dist.CLIENT)
 public class NecromancerRenderer extends HumanoidMobRenderer<NecromancerEntity, NecromancerModel<NecromancerEntity>>{
@@ -44,15 +42,15 @@ public class NecromancerRenderer extends HumanoidMobRenderer<NecromancerEntity, 
             ms.pushPose();
 
             ms.translate(0, 0.01f, 0);
-            ms.mulPose(Axis.YP.rotationDegrees(-ClientTickHandler.ticksInGame * 0.3f));
+            ms.mulPose(Axis.YP.rotationDegrees(-ClientTick.ticksInGame * 0.3f));
             NecromancerSpells spell = entityIn.getCurrentSpell();
             int r = spell.spellColor[0];
             int g = spell.spellColor[1];
             int b = spell.spellColor[2];
-            Color color = new Color(r, g, b);
-            Utils.Render.renderAura(RenderBuilder.create().setRenderType(TridotRenderTypes.ADDITIVE).enableSided().setFirstColor(color).setSecondColor(Color.WHITE).setFirstAlpha(0.15f * alpha).setSecondAlpha(0), ms, 1, 0.75f, 6, true);
-            Utils.Render.renderAura(RenderBuilder.create().setRenderType(TridotRenderTypes.ADDITIVE).enableSided().setFirstColor(color).setSecondColor(Color.WHITE).setFirstAlpha(0.25f * alpha).setSecondAlpha(0), ms, 2.5f, 1.25f, 6, true);
-            Utils.Render.renderAura(RenderBuilder.create().setRenderType(TridotRenderTypes.ADDITIVE).enableSided().setFirstColor(color).setSecondColor(Color.WHITE).setFirstAlpha(alpha).setSecondAlpha(0), ms, 0.8f, 0f, 6, false);
+            Col color = new Col(r, g, b);
+            Utils.Render.renderAura(RenderBuilder.create().setRenderType(TridotRenderTypes.ADDITIVE).enableSided().setFirstColor(color).setSecondColor(Col.white).setFirstAlpha(0.15f * alpha).setSecondAlpha(0), ms, 1, 0.75f, 6, true);
+            Utils.Render.renderAura(RenderBuilder.create().setRenderType(TridotRenderTypes.ADDITIVE).enableSided().setFirstColor(color).setSecondColor(Col.white).setFirstAlpha(0.25f * alpha).setSecondAlpha(0), ms, 2.5f, 1.25f, 6, true);
+            Utils.Render.renderAura(RenderBuilder.create().setRenderType(TridotRenderTypes.ADDITIVE).enableSided().setFirstColor(color).setSecondColor(Col.white).setFirstAlpha(alpha).setSecondAlpha(0), ms, 0.8f, 0f, 6, false);
             ms.popPose();
         }
 

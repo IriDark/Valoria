@@ -7,7 +7,7 @@ import com.mojang.blaze3d.vertex.*;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.entity.*;
 import net.minecraft.resources.*;
-import pro.komaru.tridot.client.event.*;
+import pro.komaru.tridot.client.*;
 
 public class CrystalRenderer extends MobRenderer<CrystalEntity, CrystalModel<CrystalEntity>>{
     protected static final ResourceLocation TEXTURE_ICE = new ResourceLocation(Valoria.ID, "textures/entity/crystal_ice.png");
@@ -20,7 +20,7 @@ public class CrystalRenderer extends MobRenderer<CrystalEntity, CrystalModel<Cry
 
     @Override
     public void render(CrystalEntity pEntity, float pEntityYaw, float pPartialTicks, PoseStack pMatrixStack, MultiBufferSource pBuffer, int pPackedLight){
-        double ticksUp = (ClientTickHandler.ticksInGame + pPartialTicks) * 8;
+        double ticksUp = (ClientTick.ticksInGame + pPartialTicks) * 8;
         ticksUp = (ticksUp) % 360;
 
         pMatrixStack.pushPose();

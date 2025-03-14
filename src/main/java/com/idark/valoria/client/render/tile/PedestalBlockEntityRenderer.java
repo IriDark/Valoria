@@ -7,7 +7,7 @@ import net.minecraft.client.*;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.blockentity.*;
 import net.minecraft.world.item.*;
-import pro.komaru.tridot.client.event.*;
+import pro.komaru.tridot.client.*;
 
 public class PedestalBlockEntityRenderer implements BlockEntityRenderer<PedestalBlockEntity>{
 
@@ -16,8 +16,8 @@ public class PedestalBlockEntityRenderer implements BlockEntityRenderer<Pedestal
 
     @Override
     public void render(PedestalBlockEntity pedestal, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay){
-        double ticks = (ClientTickHandler.ticksInGame + partialTicks) * 2;
-        double ticksUp = (ClientTickHandler.ticksInGame + partialTicks) * 4;
+        double ticks = (ClientTick.ticksInGame + partialTicks) * 2;
+        double ticksUp = (ClientTick.ticksInGame + partialTicks) * 4;
         ticksUp = (ticksUp) % 360;
 
         ms.pushPose();

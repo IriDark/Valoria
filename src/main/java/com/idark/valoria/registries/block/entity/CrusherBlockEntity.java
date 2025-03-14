@@ -14,7 +14,7 @@ import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.phys.*;
 import org.jetbrains.annotations.*;
-import pro.komaru.tridot.utilities.*;
+import pro.komaru.tridot.api.*;
 
 import java.util.*;
 

@@ -24,8 +24,8 @@ import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.phys.*;
 import net.minecraftforge.api.distmarker.*;
-import pro.komaru.tridot.client.graphics.render.animation.*;
-import pro.komaru.tridot.core.interfaces.*;
+import pro.komaru.tridot.api.interfaces.*;
+import pro.komaru.tridot.api.render.animation.*;
 import top.theillusivec4.curios.api.*;
 
 import java.util.*;

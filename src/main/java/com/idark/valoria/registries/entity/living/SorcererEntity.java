@@ -23,9 +23,9 @@ import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.level.dimension.*;
 import net.minecraft.world.level.pathfinder.*;
 import org.joml.*;
-import pro.komaru.tridot.registry.entity.*;
-import pro.komaru.tridot.registry.entity.ai.*;
-import pro.komaru.tridot.utilities.*;
+import pro.komaru.tridot.api.*;
+import pro.komaru.tridot.api.entity.*;
+import pro.komaru.tridot.common.registry.entity.*;
 
 import java.lang.Math;
 import java.util.Random;

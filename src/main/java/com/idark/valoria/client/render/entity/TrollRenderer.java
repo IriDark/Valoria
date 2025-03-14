@@ -10,7 +10,7 @@ import net.minecraft.resources.*;
 import net.minecraft.util.*;
 import net.minecraft.world.phys.*;
 import net.minecraftforge.api.distmarker.*;
-import pro.komaru.tridot.client.graphics.render.entity.*;
+import pro.komaru.tridot.client.model.render.entity.*;
 
 @OnlyIn(Dist.CLIENT)
 public class TrollRenderer extends MobRenderer<Troll, TrollModel<Troll>>{
