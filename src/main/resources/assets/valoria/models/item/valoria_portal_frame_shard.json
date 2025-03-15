@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "valoria:item/valoria_portal_frame_shard"
+  }
+}

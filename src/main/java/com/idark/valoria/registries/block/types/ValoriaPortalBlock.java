@@ -3,7 +3,6 @@ package com.idark.valoria.registries.block.types;
 import com.idark.valoria.registries.block.entity.*;
 import com.idark.valoria.registries.level.*;
 import com.idark.valoria.registries.level.portal.*;
-import com.idark.valoria.util.*;
 import net.minecraft.core.*;
 import net.minecraft.resources.*;
 import net.minecraft.server.*;
@@ -28,7 +27,7 @@ import pro.komaru.tridot.util.*;
 import pro.komaru.tridot.util.math.*;
 
 public class ValoriaPortalBlock extends Block implements EntityBlock{
-    protected static final VoxelShape shape = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 12.0D, 16.0D);
+    protected static final VoxelShape shape = Block.box(0.0D, 6.0D, 0.0D, 16.0D, 8.5D, 16.0D);
 
     public ValoriaPortalBlock(Properties pProperties){
         super(pProperties);
@@ -51,7 +50,7 @@ public class ValoriaPortalBlock extends Block implements EntityBlock{
             pLevel.playLocalSound((double)pPos.getX() + 0.5D, (double)pPos.getY() + 0.5D, (double)pPos.getZ() + 0.5D, SoundEvents.PORTAL_AMBIENT, SoundSource.BLOCKS, 0.5F, pRandom.nextFloat() * 0.4F - 3F, false);
         }
 
-        RandomSource random = pLevel.getRandom();
+        var random = Tmp.rnd;
         ParticleBuilder.create(TridotParticles.SQUARE)
                 .setBehavior(SparkParticleBehavior.create().build())
                 .setRenderType(TridotRenderTypes.TRANSLUCENT_PARTICLE)
@@ -66,10 +65,10 @@ public class ValoriaPortalBlock extends Block implements EntityBlock{
         ParticleBuilder.create(TridotParticles.SQUARE)
                 .setBehavior(SparkParticleBehavior.create().build())
                 .setTransparencyData(GenericParticleData.create(0.25f, 0f).build())
-                .setScaleData(GenericParticleData.create(0.01f, 0.03f, 0).setEasing(Interp.bounce).build())
+                .setScaleData(GenericParticleData.create(0.01f, 0.06f, 0).setEasing(Interp.bounce).build())
                 .flatRandomOffset(0.45f, 0f, 0.45f)
                 .setLifetime(24)
-                .setColorData(ColorParticleData.create(Pal.moderatePink).setEasing(Interp.bounce).build())
+                .setColorData(ColorParticleData.create(random.fiftyFifty() ? Col.fromHex("1a101f") : Col.fromHex("451f3f")).setEasing(Interp.bounce).build())
                 .setVelocity(0, (random.nextDouble() + 0.2D) / 6, 0)
                 .spawn(pLevel, pPos.getX() + pRandom.nextDouble(), pPos.getY() + pRandom.nextDouble(), pPos.getZ() + pRandom.nextDouble());
     }

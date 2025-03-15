@@ -77,7 +77,7 @@ public class ItemsRegistry{
     rawCobalt, runicDust, amberGem, amethystGem, rubyGem, sapphireGem, wickedAmethyst, soulShard, unchargedShard, spiderFang,
     natureGift, oceanicShell, infernalStone, rottenBone, marshCloth, painCrystal, nihilityShard, illusionStone, elementalCrystal,
     natureCore, aquariusCore, infernalCore, voidCore,
-    blackGoldUpgrade, natureUpgrade, aquariusUpgrade, infernalUpgrade, voidUpgrade,
+    valoriaPortalFrameShard, blackGoldUpgrade, natureUpgrade, aquariusUpgrade, infernalUpgrade, voidUpgrade,
     gaibRoot, karusakanRoot, shadeBlossomLeaf, aloePiece,
     dunestoneBrick, tombstoneBrick, ambaneStoneBrick, limestoneBrick, crystalStoneBrick, voidStoneBrick,
     bronzeIngot, bronzeNugget, pearliumIngot, cobaltIngot, cobaltNugget, etherealShard, blackGold, blackGoldNugget, ancientIngot, natureIngot, aquariusIngot, infernalIngot, voidIngot, pyratite, relicGold, ancientShard,
@@ -254,6 +254,7 @@ public class ItemsRegistry{
         infernalCore = registerItem("infernal_core", () -> new CoreItem(ParticleRegistry.SPHERE.get(), new Item.Properties().fireResistant().rarity(RarityRegistry.INFERNAL), 1, Pal.infernalBright, Pal.magmatic, "infernal_core"));
         voidCore = registerItem("void_core", () -> new CoreItem(ParticleRegistry.SPHERE.get(), new Item.Properties().fireResistant().rarity(RarityRegistry.VOID), 1, Pal.softMagenta, Pal.softMagenta, "void_core"));
 
+        valoriaPortalFrameShard = registerItem("valoria_portal_frame_shard");
         blackGoldUpgrade = registerItem("black_gold_upgrade_smithing_template", () -> new ElementalSmithingTemplateItem(new Item.Properties()));
         natureUpgrade = registerItem("nature_upgrade_smithing_template", () -> new ElementalSmithingTemplateItem(new Item.Properties()));
         aquariusUpgrade = registerItem("aquarius_upgrade_smithing_template", () -> new ElementalSmithingTemplateItem(new Item.Properties()));
