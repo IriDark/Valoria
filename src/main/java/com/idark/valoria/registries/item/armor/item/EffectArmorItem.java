@@ -10,6 +10,7 @@ import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraftforge.api.distmarker.*;
+import pro.komaru.tridot.util.*;
 
 import java.util.*;
 
@@ -69,7 +70,7 @@ public class EffectArmorItem extends SuitArmorItem{
     private void addStatusEffectForMaterial(Player player, ArmorMaterial mapArmorMaterial, MobEffect mapStatusEffect){
         if(hasCorrectArmorOn(mapArmorMaterial, player) && !player.hasEffect(mapStatusEffect)){
             player.addEffect(new MobEffectInstance(mapStatusEffect, 400));
-            if(new Random().nextFloat() > 0.4f){
+            if(Tmp.rnd.nextFloat() > 0.4f){
                 player.getInventory().hurtArmor(player.damageSources().magic(), 2f, Inventory.ALL_ARMOR_SLOTS);
             }
         }

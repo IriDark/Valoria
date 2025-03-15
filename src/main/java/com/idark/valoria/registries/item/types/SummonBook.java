@@ -68,7 +68,7 @@ public class SummonBook extends Item{
 
     public static int getColor(ItemStack pStack){
         CompoundTag compoundtag = pStack.getTagElement("DisplayColor");
-        return compoundtag != null && compoundtag.contains("color", 99) ? compoundtag.getInt("color") : Col.toDecimal(Pal.lightViolet.toJava());
+        return compoundtag != null && compoundtag.contains("color", 99) ? compoundtag.getInt("color") : Col.toDecimal(Pal.lightViolet);
     }
 
     public int getLifetime(Player player){

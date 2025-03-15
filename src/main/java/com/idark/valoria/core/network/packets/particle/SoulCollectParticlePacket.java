@@ -38,7 +38,7 @@ public class SoulCollectParticlePacket{
                 Vec3 pos = new Vec3(msg.posX, msg.posY, msg.posZ);
                 final Consumer<GenericParticle> blockTarget = p -> {
                     Player player = level.getPlayerByUUID(msg.uuid);
-                    Vec3 pPos = p.getPosition().mcVec();
+                    Vec3 pPos = p.getPosition();
                     if(player != null){
                         double dX = player.getX() - pPos.x();
                         double dY = player.getY() - pPos.y();
@@ -50,7 +50,7 @@ public class SoulCollectParticlePacket{
                         float x = (float)(Math.sin(pitch) * Math.cos(yaw) * speed);
                         float y = (float)(Math.cos(pitch) * speed);
                         float z = (float)(Math.sin(pitch) * Math.sin(yaw) * speed);
-                        p.setSpeed(p.getSpeed().sub(x, y, z));
+                        p.setSpeed(p.getSpeed().subtract(x, y, z));
                     }
                 };
 

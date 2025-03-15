@@ -66,7 +66,7 @@ public class SpectralBladeEntity extends AbstractTridotArrow{
     public void spawnParticleTrail(Level level, Projectile projectile, Vec3 spawnPos){
         if(level.isClientSide()){
             final Consumer<GenericParticle> blockTarget = p -> {
-                Vec3 pPos = p.getPosition().mcVec();
+                Vec3 pPos = p.getPosition();
                 double dX = projectile.getX() - pPos.x();
                 double dY = projectile.getY() - pPos.y();
                 double dZ = projectile.getZ() - pPos.z();
@@ -78,7 +78,7 @@ public class SpectralBladeEntity extends AbstractTridotArrow{
                 float y = (float)(Math.cos(pitch) * speed);
                 float z = (float)(Math.sin(pitch) * Math.sin(yaw) * speed);
 
-                p.setSpeed(p.getSpeed().sub(x, y, z));
+                p.setSpeed(p.getSpeed().subtract(x, y, z));
             };
 
             ParticleBuilder.create(TridotParticles.SPARKLE)

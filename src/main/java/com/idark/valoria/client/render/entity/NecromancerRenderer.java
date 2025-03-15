@@ -13,7 +13,8 @@ import net.minecraftforge.api.distmarker.*;
 import pro.komaru.tridot.api.*;
 import pro.komaru.tridot.client.*;
 import pro.komaru.tridot.client.render.*;
-import pro.komaru.tridot.util.*;
+
+import java.awt.*;
 
 @OnlyIn(Dist.CLIENT)
 public class NecromancerRenderer extends HumanoidMobRenderer<NecromancerEntity, NecromancerModel<NecromancerEntity>>{
@@ -47,10 +48,10 @@ public class NecromancerRenderer extends HumanoidMobRenderer<NecromancerEntity, 
             int r = spell.spellColor[0];
             int g = spell.spellColor[1];
             int b = spell.spellColor[2];
-            Col color = new Col(r, g, b);
-            Utils.Render.renderAura(RenderBuilder.create().setRenderType(TridotRenderTypes.ADDITIVE).enableSided().setFirstColor(color).setSecondColor(Col.white).setFirstAlpha(0.15f * alpha).setSecondAlpha(0), ms, 1, 0.75f, 6, true);
-            Utils.Render.renderAura(RenderBuilder.create().setRenderType(TridotRenderTypes.ADDITIVE).enableSided().setFirstColor(color).setSecondColor(Col.white).setFirstAlpha(0.25f * alpha).setSecondAlpha(0), ms, 2.5f, 1.25f, 6, true);
-            Utils.Render.renderAura(RenderBuilder.create().setRenderType(TridotRenderTypes.ADDITIVE).enableSided().setFirstColor(color).setSecondColor(Col.white).setFirstAlpha(alpha).setSecondAlpha(0), ms, 0.8f, 0f, 6, false);
+            Color color = new Color(r, g, b);
+            Utils.Render.renderAura(RenderBuilder.create().setRenderType(TridotRenderTypes.ADDITIVE).enableSided().setFirstColor(color).setSecondColor(Color.white).setFirstAlpha(0.15f * alpha).setSecondAlpha(0), ms, 1, 0.75f, 6, true);
+            Utils.Render.renderAura(RenderBuilder.create().setRenderType(TridotRenderTypes.ADDITIVE).enableSided().setFirstColor(color).setSecondColor(Color.white).setFirstAlpha(0.25f * alpha).setSecondAlpha(0), ms, 2.5f, 1.25f, 6, true);
+            Utils.Render.renderAura(RenderBuilder.create().setRenderType(TridotRenderTypes.ADDITIVE).enableSided().setFirstColor(color).setSecondColor(Color.white).setFirstAlpha(alpha).setSecondAlpha(0), ms, 0.8f, 0f, 6, false);
             ms.popPose();
         }
 

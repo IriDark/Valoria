@@ -15,7 +15,6 @@ import pro.komaru.tridot.client.gfx.particle.data.*;
 import pro.komaru.tridot.client.render.*;
 import pro.komaru.tridot.util.*;
 import pro.komaru.tridot.util.math.*;
-import pro.komaru.tridot.util.phys.Vec3;
 
 import java.util.function.*;
 
@@ -37,13 +36,13 @@ public class LaserEntity extends Projectile{
     }
 
     public void spawnParticlesTrail(){
-        Vec3 delta = Vec3.from(this.getDeltaMovement().normalize());
+        Vec3 delta = this.getDeltaMovement().normalize();
         Vec3 pos = new Vec3(this.getX() + delta.x() * 0.00015, this.getY() + delta.y() * 0.00015, this.getZ() + delta.z() * 0.00015);
         final Vec3[] cachePos = {new Vec3(pos.x, pos.y  + 0.5f, pos.z)};
         final Consumer<GenericParticle> target = p -> {
             Vec3 arrowPos = new Vec3(getX(), getY(), getZ());
-            float lenBetweenArrowAndParticle = (float)(arrowPos.sub(cachePos[0])).len();
-            Vec3 vector = (arrowPos.sub(cachePos[0]));
+            float lenBetweenArrowAndParticle = (float)(arrowPos.subtract(cachePos[0])).length();
+            Vec3 vector = (arrowPos.subtract(cachePos[0]));
             if(lenBetweenArrowAndParticle > 0){
                 cachePos[0] = cachePos[0].add(vector);
                 p.setPosition(cachePos[0]);
@@ -99,9 +98,9 @@ public class LaserEntity extends Projectile{
             }
 
             this.checkInsideBlocks();
-            Vec3 vec3 = Vec3.from(this.getDeltaMovement());
+            Vec3 vec3 = this.getDeltaMovement();
             if (this.xRotO == 0.0F && this.yRotO == 0.0F) {
-                double d0 = vec3.mcVec().horizontalDistance();
+                double d0 = vec3.horizontalDistance();
                 this.setYRot((float) (Mth.atan2(vec3.x, vec3.z) * (double) (180F / (float) Math.PI)));
                 this.setXRot((float) (Mth.atan2(vec3.y, d0) * (double) (180F / (float) Math.PI)));
                 this.yRotO = this.getYRot();
@@ -114,7 +113,7 @@ public class LaserEntity extends Projectile{
             double d7 = this.getX() + d5;
             double d2 = this.getY() + d6;
             double d3 = this.getZ() + d1;
-            double d4 = vec3.mcVec().horizontalDistance();
+            double d4 = vec3.horizontalDistance();
 
             this.setYRot((float) (Mth.atan2(d5, d1) * (double) (180F / (float) Math.PI)));
             this.setXRot((float) (Mth.atan2(d6, d4) * (double) (180F / (float) Math.PI)));
@@ -125,7 +124,7 @@ public class LaserEntity extends Projectile{
             if (sqrt < 0.1F) {
                 this.discard();
             }
-            this.setDeltaMovement(vec3.scale(f).mcVec());
+            this.setDeltaMovement(vec3.scale(f));
 
             this.setPos(d7, d2, d3);
         } else {

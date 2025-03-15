@@ -26,9 +26,9 @@ import org.joml.*;
 import pro.komaru.tridot.api.*;
 import pro.komaru.tridot.api.entity.*;
 import pro.komaru.tridot.common.registry.entity.*;
+import pro.komaru.tridot.util.*;
 
 import java.lang.Math;
-import java.util.Random;
 import java.util.*;
 
 public class SorcererEntity extends MultiAttackMob implements Enemy, RangedAttackMob{
@@ -117,7 +117,7 @@ public class SorcererEntity extends MultiAttackMob implements Enemy, RangedAttac
     @Override
     public void handleEntityEvent(byte pId){
         if(pId == 62){
-            if(new Random().nextBoolean()){
+            if(Tmp.rnd.fiftyFifty()){
                 this.attackAnimationState.start(this.tickCount);
             }else{
                 this.attackHatAnimationState.start(this.tickCount);

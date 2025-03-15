@@ -113,8 +113,8 @@ public abstract class AbstractNecromancer extends Monster{
                             .addVelocity(motionX, motionY, motionZ)
                             .setTransparencyData(GenericParticleData.create(0.65f, 0).build())
                             .setColorData(ColorParticleData.create(colorTo, Col.white).build())
-                            .addVelocity(((this.random.nextDouble() - 0.5D) / 6), ((this.random.nextDouble() - 1.25D) / 8), ((this.random.nextDouble() - 0.5D) / 6))
-                            .setSpinData(SpinParticleData.create((0.5f * (float)((new Random().nextDouble() - 0.5D) * 2))).build())
+                            .addVelocity(((Tmp.rnd.nextDouble() - 0.5D) / 6), ((Tmp.rnd.nextFloat() - 1.25D) / 8), ((Tmp.rnd.nextDouble() - 0.5D) / 6))
+                            .setSpinData(SpinParticleData.create((0.5f * (float)((Tmp.rnd.nextFloat() - 0.5D) * 2))).build())
                             .setScaleData(GenericParticleData.create(0.2f, 0).build())
                             .spawn(this.level(), startX, startY, startZ);
                 }

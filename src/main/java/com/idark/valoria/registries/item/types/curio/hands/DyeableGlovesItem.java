@@ -9,6 +9,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
+import pro.komaru.tridot.util.*;
 import top.theillusivec4.curios.api.*;
 import top.theillusivec4.curios.api.type.capability.*;
 
@@ -40,7 +41,7 @@ public class DyeableGlovesItem extends GlovesItem implements ICurioItem, ICurioT
     @Override
     public void curioTick(SlotContext slotContext, ItemStack stack){
         Player player = (Player)slotContext.entity();
-        int pDefaultDamage = new Random().nextInt(0, 2);
+        int pDefaultDamage = Tmp.rnd.nextInt(0, 2);
         if(player.hurtMarked){
             stack.hurtAndBreak(pDefaultDamage, player, (p_220045_0_) -> p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
         }

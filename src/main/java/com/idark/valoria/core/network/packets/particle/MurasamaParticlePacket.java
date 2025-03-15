@@ -12,7 +12,6 @@ import pro.komaru.tridot.client.gfx.particle.*;
 import pro.komaru.tridot.client.gfx.particle.data.*;
 import pro.komaru.tridot.util.*;
 
-import java.util.*;
 import java.util.function.*;
 
 public class MurasamaParticlePacket{
@@ -40,12 +39,11 @@ public class MurasamaParticlePacket{
         if(ctx.get().getDirection().getReceptionSide().isClient()){
             ctx.get().enqueueWork(() -> {
                 Level pLevel = Valoria.proxy.getLevel();
-                Random rand = new Random();
                 RandomSource source = RandomSource.create();
                 double
-                        X = ((rand.nextDouble() - 0.5D) * msg.distance),
-                        Y = ((rand.nextDouble() - 0.5D) * msg.distance),
-                        Z = ((rand.nextDouble() - 0.5D) * msg.distance),
+                        X = ((Tmp.rnd.nextDouble() - 0.5D) * msg.distance),
+                        Y = ((Tmp.rnd.nextDouble() - 0.5D) * msg.distance),
+                        Z = ((Tmp.rnd.nextDouble() - 0.5D) * msg.distance),
                         dX = -X,
                         dY = -Y,
                         dZ = -Z;
@@ -54,9 +52,9 @@ public class MurasamaParticlePacket{
                 for(int ii = 0; ii < count; ii += 1){
                     double yaw = Math.atan2(dZ, dX);
                     double pitch = Math.atan2(Math.sqrt(dZ * dZ + dX * dX), dY) + Math.PI;
-                    double XX = Math.sin(pitch) * Math.cos(yaw) * (float)(rand.nextDouble() * 0.05F) / (ii + 1);
-                    double YY = Math.sin(pitch) * Math.sin(yaw) * (float)(rand.nextDouble() * 0.05F) / (ii + 1);
-                    double ZZ = Math.cos(pitch) * (float)(rand.nextDouble() * 0.05F) / (ii + 1);
+                    double XX = Math.sin(pitch) * Math.cos(yaw) * (float)(Tmp.rnd.nextDouble() * 0.05F) / (ii + 1);
+                    double YY = Math.sin(pitch) * Math.sin(yaw) * (float)(Tmp.rnd.nextDouble() * 0.05F) / (ii + 1);
+                    double ZZ = Math.cos(pitch) * (float)(Tmp.rnd.nextDouble() * 0.05F) / (ii + 1);
                     Col color = new Col(msg.colorR, msg.colorG, msg.colorB);
                     Vec3 particlePos = new Vec3(msg.posX + X, msg.posY + Y, msg.posZ + Z);
                     ParticleBuilder.create(TridotParticles.WISP)

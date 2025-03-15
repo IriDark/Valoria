@@ -52,7 +52,7 @@ public class BloodSight extends Item implements ICurioItem, Vanishable, Particle
         LivingEntity lastHurtMob = player.getLastAttacker();
         boolean flag = stack.getItem() == ItemsRegistry.monocle.get();
         int duration = flag ? 12 : 6;
-        int damageAmount = flag ? new Random().nextInt(2, 6) : new Random().nextInt(2, 8);
+        int damageAmount = flag ? Tmp.rnd.nextInt(2, 6) : Tmp.rnd.nextInt(2, 8);
         if(!pLevel.isClientSide() && pLevel instanceof ServerLevel serverLevel){
             if(lastHurtMob != null && !player.getCooldowns().isOnCooldown(stack.getItem())){
                 Utils.Hit.hitLast(serverLevel, player, this.getDamage(0, RandomSource.create()));
@@ -111,7 +111,7 @@ public class BloodSight extends Item implements ICurioItem, Vanishable, Particle
 //            .setScale(0.1f, 0)
 //            .setColor(0.366f, 0.643f, 0.315f, 0.915f, 0.225f, 0.915f)
 //            .setLifetime(6)
-//            .spawn(level, entity.getX() + (new Random().nextDouble() - 0.5f) / 2, entity.getY() + (new Random().nextDouble() + 0.1f) / 2, entity.getZ());
+//            .spawn(level, entity.getX() + (Tmp.rnd,nextDouble() - 0.5f) / 2, entity.getY() + (new Random().nextDouble() + 0.1f) / 2, entity.getZ());
 //        }else{
 //            Particles.create(ParticleRegistry.GLITTER)
 //            .addVelocity(0f, 0.04f, 0f)
@@ -119,7 +119,7 @@ public class BloodSight extends Item implements ICurioItem, Vanishable, Particle
 //            .setScale(0.1f, 0)
 //            .setColor(0f, 0f, 0f, 0f, 0f, 0.915f)
 //            .setLifetime(6)
-//            .spawn(level, entity.getX() + (new Random().nextDouble() - 0.5f) / 2, entity.getY() + (new Random().nextDouble() + 0.1f) / 2, entity.getZ());
+//            .spawn(level, entity.getX() + (Tmp.rnd,nextDouble() - 0.5f) / 2, entity.getY() + (new Random().nextDouble() + 0.1f) / 2, entity.getZ());
 //        }
     }
 }

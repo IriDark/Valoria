@@ -17,6 +17,7 @@ import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
 import net.minecraftforge.api.distmarker.*;
 import pro.komaru.tridot.api.*;
+import pro.komaru.tridot.util.*;
 import top.theillusivec4.curios.api.*;
 import top.theillusivec4.curios.api.type.capability.*;
 
@@ -85,8 +86,8 @@ public abstract class AbstractTieredAccessory extends TieredItem implements ICur
     }
 
     public static void accessoryHurt(Player player, ItemStack stack, AccessoryMaterial material){
-        int pGoldDamage = new Random().nextInt(0, 8);
-        int pDefaultDamage = new Random().nextInt(0, 2);
+        int pGoldDamage = Tmp.rnd.nextInt(0, 8);
+        int pDefaultDamage = Tmp.rnd.nextInt(0, 2);
         stack.hurtAndBreak(material == AccessoryMaterial.GOLD ? pGoldDamage : pDefaultDamage, player, (p_220045_0_) -> p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
     }
 

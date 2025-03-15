@@ -34,7 +34,7 @@ public class MinionSummonParticlePacket{
                 final Consumer<GenericParticle> blockTarget = p -> {
                     Vec3 entityPos = pLevel.getEntity(msg.id).position();
                     if(entityPos == null) return;
-                    Vec3 pPos = p.getPosition().mcVec();
+                    Vec3 pPos = p.getPosition();
                     double dX = entityPos.x - pPos.x();
                     double dY = entityPos.y - pPos.y();
                     double dZ = entityPos.z - pPos.z();
@@ -46,7 +46,7 @@ public class MinionSummonParticlePacket{
                     float y = (float)(Math.cos(pitch) * speed);
                     float z = (float)(Math.sin(pitch) * Math.sin(yaw) * speed);
 
-                    p.setSpeed(p.getSpeed().sub(x, y, z));
+                    p.setSpeed(p.getSpeed().subtract(x, y, z));
                 };
 
                 ParticleBuilder.create(TridotParticles.DOT)

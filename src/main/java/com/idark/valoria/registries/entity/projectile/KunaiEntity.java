@@ -17,7 +17,6 @@ import pro.komaru.tridot.client.gfx.particle.behavior.*;
 import pro.komaru.tridot.client.gfx.particle.data.*;
 import pro.komaru.tridot.client.render.*;
 import pro.komaru.tridot.util.math.*;
-import pro.komaru.tridot.util.phys.Vec3;
 
 import javax.annotation.Nullable;
 import java.util.function.*;
@@ -41,7 +40,7 @@ public class KunaiEntity extends AbstractSupplierProjectile{
 
     @Nullable
     public EntityHitResult findHitEntity(@NotNull Vec3 startVec, @NotNull Vec3 endVec){
-        return this.returnToPlayer ? null : super.findHitEntity(startVec.mcVec(), endVec.mcVec());
+        return this.returnToPlayer ? null : super.findHitEntity(startVec, endVec);
     }
 
     public @NotNull SoundEvent getDefaultHitGroundSoundEvent(){
@@ -60,13 +59,13 @@ public class KunaiEntity extends AbstractSupplierProjectile{
 
     public void spawnParticlesTrail(){
         if(this.shouldRender(this.getX(), this.getY(), this.getZ()) && !this.inGround){
-            Vec3 delta = Vec3.from(this.getDeltaMovement().normalize());
+            Vec3 delta = this.getDeltaMovement().normalize();
             Vec3 pos = new Vec3(this.getX() + delta.x() * 0.00015, this.getY() + delta.y() * 0.00015, this.getZ() + delta.z() * 0.00015);
             final Vec3[] cachePos = {new Vec3(pos.x, pos.y, pos.z)};
             final Consumer<GenericParticle> target = p -> {
                 Vec3 arrowPos = new Vec3(getX(), getY(), getZ());
-                float lenBetweenArrowAndParticle = (float)(arrowPos.sub(cachePos[0])).len();
-                Vec3 vector = (arrowPos.sub(cachePos[0]));
+                float lenBetweenArrowAndParticle = (float)(arrowPos.subtract(cachePos[0])).length();
+                Vec3 vector = (arrowPos.subtract(cachePos[0]));
                 if(lenBetweenArrowAndParticle > 0){
                     cachePos[0] = cachePos[0].add(vector);
                     p.setPosition(cachePos[0]);

@@ -1,38 +1,33 @@
 package com.idark.valoria.registries.block.entity;
 
-import com.idark.valoria.registries.BlockEntitiesRegistry;
-import com.idark.valoria.registries.block.types.CrushableBlock;
-import com.mojang.logging.LogUtils;
-import it.unimi.dsi.fastutil.objects.ObjectArrayList;
-import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.storage.loot.LootParams;
-import net.minecraft.world.level.storage.loot.LootTable;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
-import net.minecraft.world.phys.Vec3;
-import org.slf4j.Logger;
+import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.block.types.*;
+import com.mojang.logging.*;
+import it.unimi.dsi.fastutil.objects.*;
+import net.minecraft.advancements.*;
+import net.minecraft.core.*;
+import net.minecraft.nbt.*;
+import net.minecraft.network.protocol.game.*;
+import net.minecraft.resources.*;
+import net.minecraft.server.level.*;
+import net.minecraft.util.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.item.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.*;
+import net.minecraft.world.level.block.state.*;
+import net.minecraft.world.level.block.state.properties.*;
+import net.minecraft.world.level.storage.loot.*;
+import net.minecraft.world.level.storage.loot.parameters.*;
+import net.minecraft.world.phys.*;
+import org.slf4j.*;
+import pro.komaru.tridot.util.*;
 
-import javax.annotation.Nullable;
-import java.util.Objects;
-import java.util.Random;
+import javax.annotation.*;
+import java.util.*;
 
 public class CrushableBlockEntity extends BlockEntity{
     private static final Logger LOGGER = LogUtils.getLogger();
@@ -242,7 +237,7 @@ public class CrushableBlockEntity extends BlockEntity{
     public static void unpackAndSetItem(ServerLevel pLevel, BlockEntity blockentity, LootTable loottable){
         if(blockentity instanceof CrushableBlockEntity entity){
             LootParams lootparams = (new LootParams.Builder(pLevel).withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(entity.worldPosition)).withLuck(0).create(LootContextParamSets.CHEST));
-            ObjectArrayList<ItemStack> objectarraylist = loottable.getRandomItems(lootparams, new Random().nextLong());
+            ObjectArrayList<ItemStack> objectarraylist = loottable.getRandomItems(lootparams, Tmp.rnd.nextLong());
             entity.setItem(objectarraylist.get(0));
             entity.setChanged();
         }

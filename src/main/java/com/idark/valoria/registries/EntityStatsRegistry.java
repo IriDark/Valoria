@@ -4,6 +4,7 @@ import com.idark.valoria.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
 import pro.komaru.tridot.api.entity.*;
+import pro.komaru.tridot.util.*;
 
 import java.util.*;
 
@@ -26,8 +27,8 @@ public class EntityStatsRegistry{
     public static AttributeSupplier GOBLIN = register(25, 5, 0.17).build();
     public static AttributeSupplier TROLL = register(30, 8).build();
     public static AttributeSupplier DRAUGR = register(30, 5).add(Attributes.ARMOR, 5).add(Attributes.ARMOR_TOUGHNESS, 2).add(Attributes.FOLLOW_RANGE, 20).build();
-    public static AttributeSupplier SWAMP_WANDERER = register(35, 8).add(Attributes.KNOCKBACK_RESISTANCE, new Random().nextDouble() * 0.05F).add(Attributes.SPAWN_REINFORCEMENTS_CHANCE, new Random().nextDouble() * 0.25D + 0.5D).build();
-    public static AttributeSupplier SCOURGE = register(50, 10, 0.15).add(Attributes.KNOCKBACK_RESISTANCE, new Random().nextDouble() * 0.05F).add(Attributes.SPAWN_REINFORCEMENTS_CHANCE, new Random().nextDouble() * 0.25D + 0.5D).build();
+    public static AttributeSupplier SWAMP_WANDERER = register(35, 8).add(Attributes.KNOCKBACK_RESISTANCE, Tmp.rnd.nextDouble() * 0.05F).add(Attributes.SPAWN_REINFORCEMENTS_CHANCE, Tmp.rnd.nextDouble() * 0.25D + 0.5D).build();
+    public static AttributeSupplier SCOURGE = register(50, 10, 0.15).add(Attributes.KNOCKBACK_RESISTANCE, new Random().nextDouble() * 0.05F).add(Attributes.SPAWN_REINFORCEMENTS_CHANCE, Tmp.rnd.nextDouble() * 0.25D + 0.5D).build();
     public static AttributeSupplier ENT = register(40, 12, 0.15).add(Attributes.ARMOR, 5).add(Attributes.ARMOR_TOUGHNESS, 2).build();
     public static AttributeSupplier SORCERER = register(15, 2.5).build();
     public static AttributeSupplier MAGGOT = register(8, 3.5).build();

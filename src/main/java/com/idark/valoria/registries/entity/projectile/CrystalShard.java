@@ -44,7 +44,7 @@ public class CrystalShard extends AbstractProjectile{
                 Vec3 vector = (arrowPos.sub(cachePos[0]));
                 if(lenBetweenArrowAndParticle > 0){
                     cachePos[0] = cachePos[0].add(vector);
-                    p.setPosition(cachePos[0]);
+                    p.setPosition(cachePos[0].mcVec());
                 }
             };
 

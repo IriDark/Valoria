@@ -18,8 +18,6 @@ import pro.komaru.tridot.util.math.*;
 
 import java.util.function.*;
 
-import static pro.komaru.tridot.util.phys.Vec3.from;
-
 public class ThrownSpearEntity extends AbstractSupplierProjectile{
     private float explosive_radius;
     private boolean shouldExplode;
@@ -47,7 +45,7 @@ public class ThrownSpearEntity extends AbstractSupplierProjectile{
                 Vec3 vector = (arrowPos.subtract(cachePos[0]));
                 if(lenBetweenArrowAndParticle > 0){
                     cachePos[0] = cachePos[0].add(vector);
-                    p.setPosition(from(cachePos[0]));
+                    p.setPosition(cachePos[0]);
                 }
             };
 
