@@ -133,7 +133,6 @@ public class ItemsRegistry{
     bandage, devilHeart, harmonyHeart, medicatedDevilHeart, medicatedHarmonyHeart, elementalCharm,
     skeletalVambrace, magmaticVambrace, magmaticGauntlet,
 
-
     // runes
     lesserRune, lesserRuneVision, lesserRuneWealth, lesserRuneCurses, lesserRuneStrength, lesserRuneAccuracy, lesserRuneDeep,
     rune, runeVision, runeWealth, runeCurses, runeStrength, runeAccuracy, runeDeep, runePyro, runeCold,
