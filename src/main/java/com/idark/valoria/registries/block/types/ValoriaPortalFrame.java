@@ -5,20 +5,14 @@ import com.idark.valoria.registries.*;
 import net.minecraft.core.*;
 import net.minecraft.network.protocol.game.*;
 import net.minecraft.sounds.*;
-import net.minecraft.stats.*;
-import net.minecraft.world.entity.player.*;
-import net.minecraft.world.item.*;
 import net.minecraft.world.item.context.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.level.block.state.pattern.*;
 import net.minecraft.world.level.block.state.predicate.*;
 import net.minecraft.world.level.block.state.properties.*;
 import net.minecraft.world.level.pathfinder.*;
-
-import javax.annotation.*;
 
 public class ValoriaPortalFrame extends Block{
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
@@ -41,14 +35,6 @@ public class ValoriaPortalFrame extends Block{
         }
 
         return portalShape;
-    }
-
-    public void playerDestroy(Level pLevel, Player pPlayer, BlockPos pPos, BlockState pState, @Nullable BlockEntity pBlockEntity, ItemStack pTool){
-        pPlayer.awardStat(Stats.BLOCK_MINED.get(this));
-        pPlayer.causeFoodExhaustion(0.005F);
-        if(!pState.getValue(GENERATED)){
-            dropResources(pState, pLevel, pPos, pBlockEntity, pPlayer, pTool, false);
-        }
     }
 
     public BlockState getStateForPlacement(BlockPlaceContext p_196258_1_){
