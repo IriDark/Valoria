@@ -3,6 +3,7 @@ package com.idark.valoria.registries;
 import com.idark.valoria.*;
 import com.idark.valoria.registries.entity.living.*;
 import com.idark.valoria.registries.entity.living.boss.*;
+import com.idark.valoria.registries.entity.living.boss.dryador.*;
 import com.idark.valoria.registries.entity.living.decoration.*;
 import com.idark.valoria.registries.entity.living.elemental.*;
 import com.idark.valoria.registries.entity.living.minions.*;
@@ -55,6 +56,7 @@ public class EntityTypeRegistry{
     // Boss
     public static final RegistryObject<EntityType<NecromancerEntity>> NECROMANCER = register("necromancer", EntityType.Builder.of(NecromancerEntity::new, MobCategory.MONSTER).sized(0.6f, 2.0f).clientTrackingRange(8));
     public static final RegistryObject<EntityType<WickedCrystal>> WICKED_CRYSTAL = register("wicked_crystal", EntityType.Builder.of(WickedCrystal::new, MobCategory.MONSTER).sized(1.4f, 5.0f).clientTrackingRange(8));
+    public static final RegistryObject<EntityType<DryadorEntity>> DRYADOR = register("dryador", EntityType.Builder.of(DryadorEntity::new, MobCategory.MONSTER).sized(1.2f, 3.5f).clientTrackingRange(8));
 
     public static final RegistryObject<EntityType<CustomBoatEntity>> SHADEWOOD_BOAT = register("shadewood_boat", EntityType.Builder.<CustomBoatEntity>of((t, l) -> (new CustomBoatEntity(t, l, ItemsRegistry.shadewoodBoat, false)), MobCategory.MISC).sized(1.375f, 0.5625f));
     public static final RegistryObject<EntityType<CustomChestBoatEntity>> SHADEWOOD_CHEST_BOAT = register("shadewood_chest_boat", EntityType.Builder.<CustomChestBoatEntity>of((t, l) -> (new CustomChestBoatEntity(t, l, ItemsRegistry.shadewoodChestBoat, false)), MobCategory.MISC).sized(1.375f, 0.5625f));

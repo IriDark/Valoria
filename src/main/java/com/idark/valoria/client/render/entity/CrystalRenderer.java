@@ -15,7 +15,7 @@ public class CrystalRenderer extends MobRenderer<CrystalEntity, CrystalModel<Cry
     protected static final ResourceLocation TEXTURE_POISON = new ResourceLocation(Valoria.ID, "textures/entity/crystal_poison.png");
 
     public CrystalRenderer(EntityRendererProvider.Context context){
-        super(context, new CrystalModel<>(CrystalModel.createBodyLayer().bakeRoot()), 0.5F);
+        super(context, new CrystalModel<>(CrystalModel.createBodyLayer().bakeRoot()), 0);
     }
 
     @Override

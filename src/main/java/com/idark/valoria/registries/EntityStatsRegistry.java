@@ -20,8 +20,9 @@ public class EntityStatsRegistry{
     public static AttributeSupplier MANNEQUIN = register().add(Attributes.MAX_HEALTH, 1).add(Attributes.KNOCKBACK_RESISTANCE, 1).build();
 
     //bosses
-    public static AttributeSupplier NECROMANCER = register(250, 5).build();
-    public static AttributeSupplier WICKED_CRYSTAL = register(1000, 0).build();
+    public static AttributeSupplier NECROMANCER = register(500, 5).build();
+    public static AttributeSupplier WICKED_CRYSTAL = register(2000, 0).build();
+    public static AttributeSupplier DRYADOR = register(750, 0, 0.10).add(Attributes.ARMOR, 5).add(Attributes.ARMOR_TOUGHNESS, 2).build();
 
     //monsters - overworld
     public static AttributeSupplier GOBLIN = register(25, 5, 0.17).build();

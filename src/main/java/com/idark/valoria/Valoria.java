@@ -111,6 +111,7 @@ public class Valoria{
         ValoriaClient.setupClient();
         AbstractBossbar.bossbars.put("Wicked Crystal", new BasicBossbar(new ResourceLocation(Valoria.ID, "textures/gui/bossbars/wicked_crystal.png")));
         AbstractBossbar.bossbars.put("Necromancer", new BasicBossbar(new ResourceLocation(Valoria.ID, "textures/gui/bossbars/necromancer.png")));
+        AbstractBossbar.bossbars.put("Dryador", new BasicBossbar(new ResourceLocation(Valoria.ID, "textures/gui/bossbars/dryador.png")));
         event.enqueueWork(() -> {
             LexiconChapters.init();
             CuriosRendererRegistry.register(ItemsRegistry.ironNecklaceAmber.get(), NecklaceRenderer::new);
@@ -278,6 +279,7 @@ public class Valoria{
             event.put(EntityTypeRegistry.CRYSTAL.get(), CRYSTAL);
             event.put(EntityTypeRegistry.ENT.get(), ENT);
             event.put(EntityTypeRegistry.MAGGOT.get(), MAGGOT);
+            event.put(EntityTypeRegistry.DRYADOR.get(), DRYADOR);
 
             event.put(EntityTypeRegistry.HAUNTED_MERCHANT.get(), HAUNTED_MERCHANT);
             event.put(EntityTypeRegistry.FLESH_SENTINEL.get(), FLESH_SENTINEL);

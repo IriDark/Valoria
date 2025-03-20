@@ -32,8 +32,10 @@ public class MinionSummonParticlePacket{
             ctx.get().enqueueWork(() -> {
                 Level pLevel = Valoria.proxy.getLevel();
                 final Consumer<GenericParticle> blockTarget = p -> {
-                    Vec3 entityPos = pLevel.getEntity(msg.id).position();
-                    if(entityPos == null) return;
+                    var entity = pLevel.getEntity(msg.id);
+                    if(entity == null) return;
+
+                    Vec3 entityPos = entity.position();
                     Vec3 pPos = p.getPosition();
                     double dX = entityPos.x - pPos.x();
                     double dY = entityPos.y - pPos.y();

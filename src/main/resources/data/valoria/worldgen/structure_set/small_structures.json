@@ -2,21 +2,21 @@
   "structures": [
     {
       "structure": "valoria:tower",
-      "weight": 1
+      "weight": 65
     },
     {
       "structure": "valoria:crystallized_deep_ruins",
-      "weight": 2
+      "weight": 45
     },
     {
       "structure": "valoria:small_ruin",
-      "weight": 3
+      "weight": 85
     }
   ],
   "placement": {
     "type": "minecraft:random_spread",
-    "salt": 829015412,
-    "spacing": 35,
-    "separation": 20
+    "salt": 20083232,
+    "separation": 8,
+    "spacing": 24
   }
 }

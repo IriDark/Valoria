@@ -39,6 +39,7 @@ public class WickedCrystal extends AbstractBoss{
     public AnimationState spawnAnimationState = new AnimationState();
     public AnimationState deathAnimationState = new AnimationState();
     public int deathTime = 0;
+    public int phase = 1;
 
     public WickedCrystal(EntityType<? extends PathfinderMob> pEntityType, Level pLevel){
         super(pEntityType, pLevel);
@@ -47,6 +48,7 @@ public class WickedCrystal extends AbstractBoss{
     @Override
     public void tick(){
         super.tick();
+        checkPhaseTransition();
         if (this.deathTime > 0) {
             if (this.level() instanceof ServerLevel serverLevel) {
                 for (int i = 0; i < 2; i++) {

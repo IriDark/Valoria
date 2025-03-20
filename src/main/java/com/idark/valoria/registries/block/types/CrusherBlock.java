@@ -62,41 +62,33 @@ public class CrusherBlock extends Block implements EntityBlock{
     public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit){
         CrusherBlockEntity tile = (CrusherBlockEntity)world.getBlockEntity(pos);
         ItemStack stack = player.getItemInHand(handIn).copy();
-        if(tile.getItemHandler().getItem(0).isEmpty()){
-            if(stack.getCount() > 1){
-                stack.setCount(player.getItemInHand(handIn).getCount());
-                if(!player.isCreative()){
-                    player.getItemInHand(handIn).copyAndClear();
-                }
-
-                tile.getItemHandler().setItem(0, stack);
-            }else{
-                tile.getItemHandler().setItem(0, stack);
-                if(!player.isCreative()){
-                    player.getInventory().removeItem(player.getItemInHand(handIn));
-                }
-
-                ValoriaUtils.SUpdateTileEntityPacket(tile);
+        var handler = tile.getItemHandler();
+        if(handler.getItem(0).isEmpty()){
+            handler.setItem(0, stack);
+            if(!player.isCreative()){
+                player.getInventory().removeItem(player.getItemInHand(handIn));
             }
 
+            ValoriaUtils.SUpdateTileEntityPacket(tile);
             return InteractionResult.SUCCESS;
         }
 
-        if((isValid(tile.getItemHandler().getItem(0), tile) && stack.getItem() instanceof PickaxeItem) && (!tile.getItemHandler().getItem(0).isEmpty())){
+        if(handler.getItem(0).isEmpty()) return InteractionResult.PASS;
+        if(stack.getItem() instanceof PickaxeItem && isValid(handler.getItem(0), tile)){
             if(player instanceof ServerPlayer serverPlayer){
                 tile.craftItem(serverPlayer);
                 player.getItemInHand(handIn).hurtAndBreak(world.getRandom().nextInt(0, 2), player, (p_220045_0_) -> p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
             }
-        }else if(!(stack.getItem() instanceof PickaxeItem) && !tile.getItemHandler().getItem(0).isEmpty()){
+        }else{
             if(!player.isCreative()){
-                world.addFreshEntity(new ItemEntity(world, player.getX() + 0.5F, player.getY() + 0.5F, player.getZ() + 0.5F, tile.getItemHandler().getItem(0).copy()));
+                world.addFreshEntity(new ItemEntity(world, player.getX() + 0.5F, player.getY() + 0.5F, player.getZ() + 0.5F, handler.getItem(0).copy()));
             }
 
-            tile.getItemHandler().removeItemNoUpdate(0);
+            handler.removeItemNoUpdate(0);
             return InteractionResult.SUCCESS;
         }
 
-        return InteractionResult.SUCCESS;
+        return InteractionResult.PASS;
     }
 
     @Override
