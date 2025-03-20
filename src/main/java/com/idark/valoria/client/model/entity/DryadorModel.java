@@ -58,7 +58,7 @@ public class DryadorModel<T extends DryadorEntity> extends HierarchicalModel<T>{
         this.root().getAllParts().forEach(ModelPart::resetPose);
         this.animateHeadLookTarget(pNetHeadYaw, pHeadPitch);
         animateIdlePose(pAgeInTicks);
-        this.animateWalk(DryadorAnimations.WALK, pLimbSwing, pLimbSwingAmount, 15, 6);
+        this.animateWalk(DryadorAnimations.WALK, pLimbSwing, pLimbSwingAmount, 16, 5);
         this.animate(pEntity.idleAnimationState, DryadorAnimations.IDLE, pAgeInTicks);
     }
 

@@ -1,17 +1,13 @@
 package com.idark.valoria.client.model.entity;
 
-import com.idark.valoria.client.model.animations.GoblinAnimations;
-import com.idark.valoria.registries.entity.living.Goblin;
-import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.model.AnimationUtils;
-import net.minecraft.client.model.ArmedModel;
-import net.minecraft.client.model.HeadedModel;
-import net.minecraft.client.model.HierarchicalModel;
-import net.minecraft.client.model.geom.ModelPart;
-import net.minecraft.client.model.geom.PartPose;
+import com.idark.valoria.client.model.animations.*;
+import com.idark.valoria.registries.entity.living.*;
+import com.mojang.blaze3d.vertex.*;
+import net.minecraft.client.model.*;
+import net.minecraft.client.model.geom.*;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.util.Mth;
-import net.minecraft.world.entity.HumanoidArm;
+import net.minecraft.util.*;
+import net.minecraft.world.entity.*;
 
 public class GoblinModel<T extends Goblin> extends HierarchicalModel<T> implements ArmedModel, HeadedModel{
     private final ModelPart root;
@@ -107,9 +103,9 @@ public class GoblinModel<T extends Goblin> extends HierarchicalModel<T> implemen
 
 
         if(entity.isLowHP() || entity.isSprinting()){
-            this.animateWalk(GoblinAnimations.RUN, limbSwing, limbSwingAmount, 4f, ageInTicks);
+            this.animateWalk(GoblinAnimations.RUN, limbSwing, limbSwingAmount, 4f, 2);
         }else{
-            this.animateWalk(GoblinAnimations.WALK, limbSwing, limbSwingAmount, 2f, ageInTicks);
+            this.animateWalk(GoblinAnimations.WALK, limbSwing, limbSwingAmount, 2f, 2);
         }
 
         this.animate(entity.idleAnimationState, GoblinAnimations.IDLE, ageInTicks, 0.5f);

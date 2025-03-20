@@ -72,7 +72,7 @@ public class CommonConfig{
 
             RADIAL_WICKED_CRYSTAL_CASTING_TIME = builder.comment("Casting time").define("radialCrystalsCastingTime", 20);
             RADIAL_WICKED_CRYSTAL_CASTING_INTERVAL = builder.comment("Casting interval").define("radialCrystalsCastingInterval", 160);
-            RADIAL_WICKED_CRYSTAL_DAMAGE = builder.comment("Damage of crystals").define("radialCrystalsDamage", 10);
+            RADIAL_WICKED_CRYSTAL_DAMAGE = builder.comment("Damage of crystals").define("radialCrystalsDamage", 4);
 
             CRYSTAL_STORM_WICKED_CRYSTAL_CASTING_TIME = builder.comment("Casting time").define("crystalStormCastingTime", 25);
             CRYSTAL_STORM_WICKED_CRYSTAL_CASTING_INTERVAL = builder.comment("Casting interval").define("crystalStormCastingInterval", 400);

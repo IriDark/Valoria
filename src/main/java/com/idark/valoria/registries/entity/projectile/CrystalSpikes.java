@@ -8,6 +8,7 @@ import net.minecraft.network.protocol.game.*;
 import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.player.*;
 import net.minecraft.world.level.*;
 import net.minecraftforge.network.*;
 import org.jetbrains.annotations.*;
@@ -72,12 +73,6 @@ public class CrystalSpikes extends Entity implements TraceableEntity{
                 }
             }
         }else if(--this.warmupDelayTicks < 0){
-            if(this.warmupDelayTicks == -8){
-                for(LivingEntity livingentity : this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(0.2D, 0.0D, 0.2D))){
-                    this.dealDamageTo(livingentity);
-                }
-            }
-
             if(!this.sentSpikeEvent){
                 this.level().broadcastEntityEvent(this, (byte)4);
                 this.sentSpikeEvent = true;
@@ -131,20 +126,14 @@ public class CrystalSpikes extends Entity implements TraceableEntity{
     protected void defineSynchedData(){
     }
 
-    private void dealDamageTo(LivingEntity pTarget){
-        LivingEntity livingentity = this.getOwner();
-        if(pTarget.isAlive() && !pTarget.isInvulnerable() && pTarget != livingentity){
-            if(livingentity == null){
-                pTarget.hurt(this.damageSources().magic(), damage);
-            }else{
-                if(pTarget.getTeam() != null ? livingentity.isAlliedTo(pTarget) : pTarget.getType().getCategory().equals(MobCategory.MONSTER)){
-                    return;
-                }
-
-                pTarget.hurt(this.damageSources().indirectMagic(this, livingentity), damage);
-            }
-
+    @Override
+    public void playerTouch(Player pPlayer){
+        super.playerTouch(pPlayer);
+        if(pPlayer.getTeam() != null ? this.isAlliedTo(pPlayer) : pPlayer.getType().getCategory().equals(MobCategory.MONSTER)){
+            return;
         }
+
+        pPlayer.hurt(this.damageSources().indirectMagic(this, this), damage);
     }
 
     @Override
