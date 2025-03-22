@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "/N/",
+    "NON",
+    "/N/"
+  ],
+  "key": {
+    "O": {
+      "item": "valoria:black_gold_upgrade_smithing_template"
+    },
+    "N": {
+      "item": "minecraft:gold_ingot"
+    },
+    "/": {
+      "item": "valoria:cobalt_ingot"
+    }
+  },
+  "result": {
+    "item": "valoria:black_gold_upgrade_smithing_template",
+    "count": 2
+  }
+}

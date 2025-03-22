@@ -133,7 +133,7 @@ public class CrystalSpikes extends Entity implements TraceableEntity{
             return;
         }
 
-        pPlayer.hurt(this.damageSources().indirectMagic(this, this), damage);
+        pPlayer.hurt(this.damageSources().mobProjectile(this, owner), damage);
     }
 
     @Override

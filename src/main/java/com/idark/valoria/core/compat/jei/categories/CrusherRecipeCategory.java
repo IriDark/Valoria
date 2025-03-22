@@ -1,27 +1,19 @@
 package com.idark.valoria.core.compat.jei.categories;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.core.compat.jei.ModRecipeTypes;
-import com.idark.valoria.registries.BlockRegistry;
-import com.idark.valoria.registries.item.recipe.CrusherRecipe;
-import mezz.jei.api.constants.VanillaTypes;
-import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
-import mezz.jei.api.gui.drawable.IDrawable;
-import mezz.jei.api.helpers.IGuiHelper;
-import mezz.jei.api.recipe.IFocusGroup;
-import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.RecipeType;
-import mezz.jei.api.recipe.category.IRecipeCategory;
-import net.minecraft.core.NonNullList;
-import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.Ingredient;
+import com.idark.valoria.*;
+import com.idark.valoria.core.compat.jei.*;
+import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.item.recipe.*;
+import mezz.jei.api.constants.*;
+import mezz.jei.api.gui.builder.*;
+import mezz.jei.api.gui.drawable.*;
+import mezz.jei.api.helpers.*;
+import mezz.jei.api.recipe.*;
+import mezz.jei.api.recipe.category.*;
+import net.minecraft.network.chat.*;
+import net.minecraft.resources.*;
+import net.minecraft.world.item.*;
 
-import java.util.Arrays;
-
-@Deprecated
 @SuppressWarnings("removal")
 public class CrusherRecipeCategory implements IRecipeCategory<CrusherRecipe>{
     private final Component title;
@@ -57,11 +49,15 @@ public class CrusherRecipeCategory implements IRecipeCategory<CrusherRecipe>{
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, CrusherRecipe recipe, IFocusGroup focusGroup){
-        NonNullList<Ingredient> recipeIngredients = recipe.getIngredients();
         ResourceLocation loot = recipe.getOutput();
-
-        builder.addSlot(RecipeIngredientRole.INPUT, 63, 16).addItemStacks(Arrays.asList(recipeIngredients.get(0).getItems()));
-        builder.addSlot(RecipeIngredientRole.INPUT, 63, 16).addItemStack(new ItemStack(Items.IRON_PICKAXE));
-        //builder.addSlot(RecipeIngredientRole.OUTPUT, 125, 16).addItemStacks(LootUtil.createWeightedLoot(loot, LootUtil.getGiftParameters2(null, 100), 100));
+//        var serv = Valoria.proxy.getLevel().getServer();
+//        if (serv == null) return;
+//
+//        var loottable = serv.getLootData().getLootTable(loot);
+//        LootParams.Builder params = new LootParams.Builder(serv.overworld()).withParameter(LootContextParams.ORIGIN, new Vec3(0, 0, 0));
+//        List<ItemStack> possibleDrops = loottable.getRandomItems(params.create(LootContextParamSets.ALL_PARAMS));
+//        Valoria.LOGGER.info("Loot Table: {}", loot);
+//        Valoria.LOGGER.info("Generated Drops: {}", possibleDrops);
+//        builder.addSlot(RecipeIngredientRole.OUTPUT, 125, 16).addItemStacks(possibleDrops);
     }
 }

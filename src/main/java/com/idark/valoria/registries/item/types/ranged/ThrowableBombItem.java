@@ -16,7 +16,7 @@ public class ThrowableBombItem extends Item{
 
     public ThrowableBombItem(Item.Properties pProperties){
         super(pProperties);
-        this.radius = 1000.25f;
+        this.radius = 2;
         this.lifetime = 80;
         this.bombInteraction = ExplosionInteraction.TNT;
     }
