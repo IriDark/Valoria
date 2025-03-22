@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "/#"
+  ],
+  "key": {
+    "#": {
+      "item": "valoria:magmatic_vambrace"
+    },
+    "/": {
+      "item": "valoria:netherite_gloves"
+    }
+  },
+  "result": {
+    "item": "valoria:magmatic_gauntlet",
+    "count": 1
+  }
+}

@@ -205,10 +205,10 @@ public class ItemsRegistry{
         //materials
         rawCobalt = registerItem("raw_cobalt");
         runicDust = registerItem("runic_dust");
-        amberGem = registerItem("amber_gem");
-        amethystGem = registerItem("amethyst_gem");
-        rubyGem = registerItem("ruby_gem");
-        sapphireGem = registerItem("sapphire_gem");
+        amberGem = registerItem("amber_gem", () -> new CrushableItem(new Item.Properties()));
+        amethystGem = registerItem("amethyst_gem", () -> new CrushableItem(new Item.Properties()));
+        rubyGem = registerItem("ruby_gem", () -> new CrushableItem(new Item.Properties()));
+        sapphireGem = registerItem("sapphire_gem", () -> new CrushableItem(new Item.Properties()));
         wickedAmethyst = registerItem("wicked_amethyst", () -> new TransformShardItem(new Item.Properties().rarity(RarityRegistry.VOID)));
         soulShard = registerItem("soul_shard", () -> new TransformShardItem(new Item.Properties().rarity(RarityRegistry.AQUARIUS)));
         unchargedShard = registerItem("uncharged_shard");
@@ -269,22 +269,8 @@ public class ItemsRegistry{
         arcaneTrim = registerItem("arcane_trim", () -> new SkinTrimItem(SkinsRegistry.ARCANE_GOLD, new Item.Properties()));
 
         // loot bags
-        dirtGeode = registerItem("dirt_geode", () -> new Item(new Item.Properties().rarity(Rarity.RARE)){
-            @Override
-            public void appendHoverText(@NotNull ItemStack stack, Level world, @NotNull List<Component> tooltip, @NotNull TooltipFlag flags){
-                super.appendHoverText(stack, world, tooltip, flags);
-                tooltip.add(Component.translatable("tooltip.valoria.geode").withStyle(ChatFormatting.GRAY));
-            }
-        });
-
-        stoneGeode = registerItem("stone_geode", () -> new Item(new Item.Properties().rarity(Rarity.RARE)){
-            @Override
-            public void appendHoverText(@NotNull ItemStack stack, Level world, @NotNull List<Component> tooltip, @NotNull TooltipFlag flags){
-                super.appendHoverText(stack, world, tooltip, flags);
-                tooltip.add(Component.translatable("tooltip.valoria.geode").withStyle(ChatFormatting.GRAY));
-            }
-        });
-
+        dirtGeode = registerItem("dirt_geode", () -> new CrushableItem(new Item.Properties().rarity(Rarity.RARE)));
+        stoneGeode = registerItem("stone_geode", () -> new CrushableItem(new Item.Properties().rarity(Rarity.RARE)));
         minersBag = registerItem("miners_bag", () -> new TreasureBag(new ResourceLocation(Valoria.ID, "items/miners_bag"), new Item.Properties().rarity(Rarity.EPIC)));
         gemBag = registerItem("gem_bag", () -> new TreasureBag(new ResourceLocation(Valoria.ID, "items/gem_bag"), new Item.Properties().rarity(Rarity.EPIC)));
         necromancerTreasureBag = registerItem("necromancer_treasure_bag", () -> new TreasureBag(new ResourceLocation(Valoria.ID, "items/necromancer_treasure_bag"), new Item.Properties().rarity(Rarity.EPIC)));
@@ -353,13 +339,13 @@ public class ItemsRegistry{
         soulReaver = registerItem("soul_reaver", () -> new HitEffectItem(ModItemTier.HALLOWEEN, 4, -2.8f, new Item.Properties().rarity(RarityRegistry.HALLOWEEN), 0.25f, new MobEffectInstance(MobEffects.DARKNESS, 40, 0), new MobEffectInstance(MobEffects.WEAKNESS, 60, 1)));
         spectralBladeThrown = registerItem("spectral_blade_thrown"); // for rendering
         woodenSpear = registerItem("wooden_spear", () -> new SpearItem(Tiers.WOOD, 3, -3f, 1.4f, new Item.Properties()));
-        stoneSpear = registerItem("stone_spear", () -> new SpearItem(Tiers.STONE, 4, -3f, 2, new Item.Properties()));
-        ironSpear = registerItem("iron_spear", () -> new SpearItem(Tiers.IRON, 5, -3f, 3.2f, new Item.Properties()));
+        stoneSpear = registerItem("stone_spear", () -> new SpearItem(Tiers.STONE, 3, -3f, 2, new Item.Properties()));
+        ironSpear = registerItem("iron_spear", () -> new SpearItem(Tiers.IRON, 4, -3f, 3.2f, new Item.Properties()));
         goldenSpear = registerItem("golden_spear", () -> new SpearItem(Tiers.GOLD, 5, -2.9f, 3.5f, new Item.Properties()));
-        diamondSpear = registerItem("diamond_spear", () -> new SpearItem(Tiers.DIAMOND, 3, -2.9f, 4, new Item.Properties()));
-        netheriteSpear = registerItem("netherite_spear", () -> new SpearItem(Tiers.NETHERITE, 3, -2.9f, 6, new Item.Properties()));
+        diamondSpear = registerItem("diamond_spear", () -> new SpearItem(Tiers.DIAMOND, 5, -2.9f, 4, new Item.Properties()));
+        netheriteSpear = registerItem("netherite_spear", () -> new SpearItem(Tiers.NETHERITE, 5, -2.9f, 6, new Item.Properties()));
         pyratiteSpear = registerItem("pyratite_spear", () -> new ExplosiveSpearItem(ModItemTier.PYRATITE, 5, -2.9f, 7.5f, 0.75f, Level.ExplosionInteraction.NONE, new Item.Properties().rarity(RarityRegistry.INFERNAL)));
-        glaive = registerItem("glaive", () -> new SpearItem(Tiers.IRON, 8, -3.2f, false, new Item.Properties()));
+        glaive = registerItem("glaive", () -> new SpearItem(Tiers.IRON, 10, -3.2f, false, new Item.Properties()));
         woodenRapier = registerItem("wooden_rapier", () -> new SwordItem(Tiers.WOOD, 0, -1.8f, new Item.Properties()));
         stoneRapier = registerItem("stone_rapier", () -> new SwordItem(Tiers.STONE, 0, -1.8f, new Item.Properties()));
         ironRapier = registerItem("iron_rapier", () -> new SwordItem(Tiers.IRON, 1, -1.7f, new Item.Properties()));
@@ -393,7 +379,7 @@ public class ItemsRegistry{
         cobaltShovel = registerItem("cobalt_shovel", () -> new ShovelItem(ModItemTier.COBALT, 5.25f, -3f, new Item.Properties()));
         cobaltHoe = registerItem("cobalt_hoe", () -> new HoeItem(ModItemTier.COBALT, 0, 0f, new Item.Properties()));
         etherealSword = registerItem("ethereal_sword", () -> new SwordItem(ModItemTier.ETHEREAL, 11, -2.4f, new Item.Properties().rarity(RarityRegistry.ETHEREAL)));
-        etherealSpear = registerItem("ethereal_spear", () -> new SpearItem(ModItemTier.ETHEREAL, 7, -3.0f, 6, new Item.Properties().rarity(RarityRegistry.ETHEREAL)));
+        etherealSpear = registerItem("ethereal_spear", () -> new SpearItem(ModItemTier.ETHEREAL, 9, -3.0f, 6, new Item.Properties().rarity(RarityRegistry.ETHEREAL)));
         etherealPickaxe = registerItem("ethereal_pickaxe", () -> new PickaxeItem(ModItemTier.ETHEREAL, 5, -3f, new Item.Properties().rarity(RarityRegistry.ETHEREAL)));
         etherealAxe = registerItem("ethereal_axe", () -> new AxeItem(ModItemTier.ETHEREAL, 13f, -2.8f, new Item.Properties().rarity(RarityRegistry.ETHEREAL)));
         ent = registerItem("ent", () -> new SwordItem(ModItemTier.NATURE, 14, -2.4f, new Item.Properties().rarity(RarityRegistry.NATURE)));
@@ -412,7 +398,7 @@ public class ItemsRegistry{
         aquariusBow = registerItem("aquarius_bow", () -> new ConfigurableBowItem(3, new Item.Properties().stacksTo(1).durability(1324).fireResistant().rarity(RarityRegistry.AQUARIUS)));
         infernalSword = registerItem("infernal_sword", () -> new MagmaSwordItem(ModItemTier.INFERNAL, 18, -2.6f, new Item.Properties().fireResistant().rarity(RarityRegistry.INFERNAL)));
         infernalScythe = registerItem("infernal_scythe", () -> new InfernalScytheItem(ModItemTier.INFERNAL, 16, -3.0f, new Item.Properties().fireResistant().rarity(RarityRegistry.INFERNAL)));
-        infernalSpear = registerItem("infernal_spear", () -> new SpearItem(ModItemTier.INFERNAL, 16, -3f, 12f, new Item.Properties().fireResistant().stacksTo(1).durability(1684).rarity(RarityRegistry.INFERNAL)));
+        infernalSpear = registerItem("infernal_spear", () -> new SpearItem(ModItemTier.INFERNAL, 18, -3f, 12f, new Item.Properties().fireResistant().stacksTo(1).durability(1684).rarity(RarityRegistry.INFERNAL)));
         infernalPickaxe = registerItem("infernal_pickaxe", () -> new PickaxeItem(ModItemTier.INFERNAL, 7, -2.8f, new Item.Properties().fireResistant().rarity(RarityRegistry.INFERNAL)));
         infernalAxe = registerItem("infernal_axe", () -> new AxeItem(ModItemTier.INFERNAL, 19.25f, -2.8f, new Item.Properties().fireResistant().rarity(RarityRegistry.INFERNAL)));
         infernalShovel = registerItem("infernal_shovel", () -> new ShovelItem(ModItemTier.INFERNAL, 7.5f, -2.9f, new Item.Properties().fireResistant().rarity(RarityRegistry.INFERNAL)));

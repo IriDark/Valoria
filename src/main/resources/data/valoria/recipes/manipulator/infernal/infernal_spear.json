@@ -3,17 +3,17 @@
   "category": "equipment",
   "output": {
     "count": 1,
-    "item": "valoria:depth_leggings"
+    "item": "valoria:infernal_spear"
   },
-  "core": "aquarius_core",
+  "core": "infernal_core",
   "cores": 1,
   "time": 800,
   "ingredients": [
     {
-      "item": "valoria:nature_leggings"
+      "item": "valoria:diamond_spear"
     },
     {
-      "item": "valoria:aquarius_upgrade_smithing_template"
+      "item": "valoria:infernal_upgrade_smithing_template"
     }
   ]
 }

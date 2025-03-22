@@ -79,12 +79,15 @@ public class CrusherBlock extends Block implements EntityBlock{
                 tile.craftItem(serverPlayer);
                 player.getItemInHand(handIn).hurtAndBreak(world.getRandom().nextInt(0, 2), player, (p_220045_0_) -> p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
             }
+
+            ValoriaUtils.SUpdateTileEntityPacket(tile);
         }else{
             if(!player.isCreative()){
                 world.addFreshEntity(new ItemEntity(world, player.getX() + 0.5F, player.getY() + 0.5F, player.getZ() + 0.5F, handler.getItem(0).copy()));
             }
 
             handler.removeItemNoUpdate(0);
+            ValoriaUtils.SUpdateTileEntityPacket(tile);
             return InteractionResult.SUCCESS;
         }
 

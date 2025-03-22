@@ -22,6 +22,18 @@
         },
         {
           "type": "minecraft:item",
+          "name": "valoria:skeletal_vambrace",
+          "weight": 15,
+          "functions": [],
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance",
+              "chance": 0.25
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
           "name": "valoria:cobalt_nugget",
           "weight": 4,
           "functions": [

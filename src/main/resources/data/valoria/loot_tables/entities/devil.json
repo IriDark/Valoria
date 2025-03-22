@@ -27,14 +27,21 @@
         },
         {
           "type": "minecraft:item",
+          "name": "valoria:devil_heart",
+          "weight": 1,
+          "functions": [],
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance",
+              "chance": 0.05
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
           "name": "valoria:elemental_crystal",
           "weight": 1,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": 1
-            }
-          ],
+          "functions": [],
           "conditions": [
             {
               "condition": "minecraft:random_chance",

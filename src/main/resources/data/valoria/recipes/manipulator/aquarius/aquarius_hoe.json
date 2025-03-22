@@ -7,7 +7,7 @@
   },
   "core": "aquarius_core",
   "cores": 1,
-  "time": 1600,
+  "time": 600,
   "ingredients": [
     {
       "item": "minecraft:diamond_hoe"

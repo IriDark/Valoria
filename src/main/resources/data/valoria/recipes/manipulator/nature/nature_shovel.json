@@ -7,7 +7,7 @@
   },
   "core": "nature_core",
   "cores": 1,
-  "time": 500,
+  "time": 400,
   "ingredients": [
     {
       "item": "minecraft:diamond_shovel"

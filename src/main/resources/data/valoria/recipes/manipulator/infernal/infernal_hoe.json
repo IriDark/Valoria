@@ -7,7 +7,7 @@
   },
   "core": "infernal_core",
   "cores": 1,
-  "time": 2500,
+  "time": 800,
   "ingredients": [
     {
       "item": "minecraft:diamond_hoe"

@@ -7,7 +7,7 @@
   },
   "core": "void_core",
   "cores": 1,
-  "time": 3600,
+  "time": 1800,
   "ingredients": [
     {
       "item": "valoria:infernal_leggings"

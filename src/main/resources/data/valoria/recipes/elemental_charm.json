@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "/#"
+  ],
+  "key": {
+    "#": {
+      "item": "valoria:medicated_devil_heart"
+    },
+    "/": {
+      "item": "valoria:medicated_harmony_heart"
+    }
+  },
+  "result": {
+    "item": "valoria:elemental_charm",
+    "count": 1
+  }
+}

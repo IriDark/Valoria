@@ -1,0 +1,15 @@
+{
+  "type": "tridot:add_item",
+  "chance": 0.05,
+  "conditions": [
+    {
+      "condition": "minecraft:killed_by_player"
+    },
+    {
+      "condition": "tridot:mob_category",
+      "mob_category": "monster",
+      "target": "direct_killer"
+    }
+  ],
+  "item": "valoria:bandage"
+}

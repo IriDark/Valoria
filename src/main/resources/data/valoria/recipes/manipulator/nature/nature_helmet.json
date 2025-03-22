@@ -7,7 +7,7 @@
   },
   "core": "nature_core",
   "cores": 1,
-  "time": 1200,
+  "time": 650,
   "ingredients": [
     {
       "item": "valoria:black_gold_helmet"

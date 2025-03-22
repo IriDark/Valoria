@@ -7,7 +7,7 @@
   },
   "core": "void_core",
   "cores": 1,
-  "time": 3700,
+  "time": 1800,
   "ingredients": [
     {
       "item": "valoria:infernal_boots"

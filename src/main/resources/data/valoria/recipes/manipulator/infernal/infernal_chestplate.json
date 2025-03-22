@@ -6,7 +6,7 @@
   },
   "core": "infernal_core",
   "cores": 1,
-  "time": 2700,
+  "time": 1500,
   "ingredients": [
     {
       "item": "valoria:depth_chestplate"
