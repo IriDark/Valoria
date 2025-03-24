@@ -58,35 +58,26 @@ public class PedestalBlock extends Block implements EntityBlock, SimpleWaterlogg
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit){
+    public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit){
         PedestalBlockEntity tile = (PedestalBlockEntity)world.getBlockEntity(pos);
-        ItemStack stack = player.getItemInHand(hand).copy();
-        if((!stack.isEmpty()) && (tile.getItemHandler().getItem(0).isEmpty())){
-            if(stack.getCount() > 1){
-                if(!player.isCreative()){
-                    player.getItemInHand(hand).shrink(1);
-                }
-
-                stack.setCount(1);
-                tile.getItemHandler().setItem(0, stack);
-            }else{
-                tile.getItemHandler().setItem(0, stack);
-                if(!player.isCreative()){
-                    player.getInventory().removeItem(player.getItemInHand(hand));
-                }
-
+        ItemStack stack = player.getItemInHand(handIn).copy();
+        ItemStack tileStack = tile.getItemHandler().getItem(0);
+        if(tileStack.isEmpty()){
+            tile.getItemHandler().setItem(0, stack);
+            if(!player.isCreative()){
+                player.getInventory().removeItem(player.getItemInHand(handIn));
             }
 
             ValoriaUtils.SUpdateTileEntityPacket(tile);
             return InteractionResult.SUCCESS;
         }
 
-        if(!tile.getItemHandler().getItem(0).isEmpty()){
+        if(!tileStack.isEmpty()){
             if(!player.isCreative()){
-                world.addFreshEntity(new ItemEntity(world, player.getX() + 0.5F, player.getY() + 0.5F, player.getZ() + 0.5F, tile.getItemHandler().getItem(0).copy()));
+                world.addFreshEntity(new ItemEntity(world, player.getX() + 0.5F, player.getY() + 0.5F, player.getZ() + 0.5F, tileStack.copy()));
             }
 
-            tile.getItemHandler().removeItemNoUpdate(0);
+            tile.getItemHandler().removeItem(0, tileStack.getCount());
             ValoriaUtils.SUpdateTileEntityPacket(tile);
             return InteractionResult.SUCCESS;
         }

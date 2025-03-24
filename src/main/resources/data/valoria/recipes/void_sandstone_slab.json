@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "#": [
+      {
+        "item": "valoria:void_sandstone"
+      },
+      {
+        "item": "valoria:void_chiseled_sandstone"
+      }
+    ]
+  },
+  "pattern": [
+    "###"
+  ],
+  "result": {
+    "count": 6,
+    "item": "valoria:void_sandstone_slab"
+  },
+  "show_notification": true
+}

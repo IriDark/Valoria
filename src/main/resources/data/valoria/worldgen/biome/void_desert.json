@@ -1,0 +1,67 @@
+{
+  "carvers": {
+    "air": [
+      "minecraft:cave",
+      "minecraft:cave_extra_underground",
+      "minecraft:canyon"
+    ]
+  },
+  "downfall": 0.3,
+  "effects": {
+    "sky_color": 2890534,
+    "fog_color": 3615542,
+    "water_color": 2498595,
+    "water_fog_color": 2561575,
+    "grass_color": 11301619,
+    "foliage_color": 11301619,
+    "mood_sound": {
+      "block_search_extent": 8,
+      "offset": 2.0,
+      "sound": "minecraft:ambient.cave",
+      "tick_delay": 6000
+    }
+  },
+  "features": [
+    [
+      "valoria:wicked_amethyst_ore",
+      "valoria:dormant_crystals",
+      "valoria:pyratite_ore",
+      "valoria:pyratite_blob",
+      "valoria:blackstone",
+      "valoria:deep_marble",
+      "valoria:disk_void_sand"
+    ],
+    [
+      "valoria:lake_lava_underground",
+      "valoria:lake_lava_surface"
+    ],
+    [],
+    [
+      "valoria:valoria_monster_room",
+      "valoria:valoria_monster_room_deep",
+      "valoria:shadewood_tree_root"
+    ],
+    [
+      "valoria:patch_voidthorn",
+      "valoria:patch_blighted_grass_2",
+      "valoria:patch_blighted_grass"
+    ],
+    [
+      "valoria:spring_water",
+      "valoria:spring_lava"
+    ]
+  ],
+  "has_precipitation": false,
+  "spawn_costs": {},
+  "spawners": {
+    "ambient": [],
+    "axolotls": [],
+    "creature": [],
+    "misc": [],
+    "monster": [],
+    "underground_water_creature": [],
+    "water_ambient": [],
+    "water_creature": []
+  },
+  "temperature": 1.0
+}

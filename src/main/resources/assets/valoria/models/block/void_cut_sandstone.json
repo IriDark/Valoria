@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "valoria:block/void_sandstone_top",
+    "side": "valoria:block/void_cut_sandstone"
+  }
+}

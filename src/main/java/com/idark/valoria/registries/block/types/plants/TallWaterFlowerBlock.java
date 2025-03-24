@@ -49,7 +49,7 @@ public class TallWaterFlowerBlock extends DoublePlantBlock implements SimpleWate
 
     protected boolean mayPlaceOn(BlockState state, BlockGetter worldIn, BlockPos pos){
         Block block = state.getBlock();
-        return block == BlockRegistry.voidTaint.get() || block == BlockRegistry.voidGrass.get() || block == Blocks.GRASS_BLOCK || block == Blocks.DIRT || block == Blocks.SAND || block == Blocks.GRAVEL || block == Blocks.PODZOL;
+        return block == Blocks.GRASS_BLOCK || block == Blocks.DIRT || block == Blocks.SAND || block == Blocks.GRAVEL || block == Blocks.PODZOL;
     }
 
     @Override

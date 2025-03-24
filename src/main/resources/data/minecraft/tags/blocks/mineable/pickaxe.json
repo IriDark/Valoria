@@ -1,6 +1,15 @@
 {
   "replace": false,
   "values": [
+    "valoria:void_sandstone",
+    "valoria:void_sandstone_stairs",
+    "valoria:void_sandstone_slab",
+    "valoria:void_sandstone_wall",
+    "valoria:void_smooth_sandstone",
+    "valoria:void_smooth_sandstone_stairs",
+    "valoria:void_smooth_sandstone_slab",
+    "valoria:void_chiseled_sandstone",
+    "valoria:void_cut_sandstone",
     "valoria:cobbled_shale",
     "valoria:cobbled_shale_stairs",
     "valoria:cobbled_shale_slab",

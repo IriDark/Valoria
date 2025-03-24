@@ -96,7 +96,7 @@ public class MeatBlockEntity extends AbstractArrow{
                 totalDamage += EnchantmentHelper.getDamageBonus(this.thrownStack, livingentity.getMobType());
             }
 
-            DamageSource damagesource = new DamageSource(DamageSourceRegistry.source(level(), DamageSourceRegistry.BLEEDING).typeHolder(), this, shooter);
+            DamageSource damagesource = new DamageSource(DamageSourceRegistry.bleeding(this.level()).typeHolder(), this, shooter);
             player.heal(totalDamage * 0.75f);
             this.dealtDamage = true;
             if(entity.hurt(damagesource, totalDamage)){

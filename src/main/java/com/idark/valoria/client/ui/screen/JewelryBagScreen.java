@@ -4,6 +4,7 @@ import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.item.types.curio.*;
+import com.idark.valoria.util.*;
 import com.mojang.math.*;
 import net.minecraft.client.*;
 import net.minecraft.client.gui.*;
@@ -146,20 +147,28 @@ public class JewelryBagScreen extends Screen{
             gui.renderTooltip(Minecraft.getInstance().font, selectedItem, mouseX, mouseY);
         }
 
-        int k = ((DyeableLeatherItem)getOpenedBag().getItem()).getColor(getOpenedBag());
-        float r = (float)(k >> 16 & 255) / 255.0F;
-        float g = (float)(k >> 8 & 255) / 255.0F;
-        float b = (float)(k & 255) / 255.0F;
+        float r;
+        float g;
+        float b;
+        if(getOpenedBag().getItem() instanceof DyeableLeatherItem dyeableLeatherItem){
+            int k = dyeableLeatherItem.getColor(getOpenedBag());
+            r = (float)(k >> 16 & 255) / 255.0F;
+            g = (float)(k >> 8 & 255) / 255.0F;
+            b = (float)(k & 255) / 255.0F;
+        } else {
+            r = Pal.amber.r;
+            g = Pal.amber.g;
+            b = Pal.amber.b;
+        }
 
         gui.pose().pushPose();
         gui.pose().translate(x, y, 0);
         gui.pose().mulPose(Axis.ZP.rotationDegrees((float)Math.toDegrees(Math.atan2(mouseY - y, mouseX - x) - 360) + 20));
         RenderBuilder.create().setRenderType(TridotRenderTypes.ADDITIVE)
-                .setColor(r, g, b).setAlpha(1f)
-                .setSecondAlpha(0)
-                .renderRay(gui.pose(), 1f, (height / 2 * 0.7f * hoverAmount), 50f)
-                .endBatch();
-
+        .setColor(r, g, b).setAlpha(1f)
+        .setSecondAlpha(0)
+        .renderRay(gui.pose(), 1f, (height / 2 * 0.7f * hoverAmount), 50f)
+        .endBatch();
         gui.pose().popPose();
     }
 

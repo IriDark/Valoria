@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 2,
+  "ingredient": {
+    "item": "valoria:void_cut_sandstone"
+  },
+  "result": "valoria:void_cut_sandstone_slab"
+}

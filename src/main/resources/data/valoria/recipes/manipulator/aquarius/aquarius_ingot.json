@@ -9,10 +9,10 @@
   "time": 350,
   "ingredients": [
     {
-      "item": "valoria:oceanic_shell"
+      "item": "valoria:black_gold_ingot"
     },
     {
-      "item": "valoria:black_gold_ingot"
+      "item": "valoria:oceanic_shell"
     }
   ]
 }

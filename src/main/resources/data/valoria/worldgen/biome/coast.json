@@ -57,7 +57,9 @@
       "valoria:pyratite_ore",
       "valoria:pyratite_blob",
       "valoria:blackstone",
-      "valoria:deep_marble"
+      "valoria:deep_marble",
+      "valoria:disk_void_sand",
+      "minecraft:underwater_magma"
     ],
     [
       "valoria:lake_lava_underground",
@@ -76,7 +78,10 @@
       "valoria:glow_violet_sprout",
       "valoria:void_taint_lantern",
       "valoria:patch_voidvine",
-      "valoria:tainted_roots"
+      "valoria:tainted_roots",
+      "valoria:patch_voidthorn",
+      "valoria:patch_blighted_grass",
+      "valoria:patch_blighted_grass_2"
     ],
     [
       "valoria:spring_water",

@@ -9,10 +9,10 @@
   "time": 325,
   "ingredients": [
     {
-      "item": "valoria:nature_gift"
+      "item": "valoria:black_gold_ingot"
     },
     {
-      "item": "valoria:black_gold_ingot"
+      "item": "valoria:nature_gift"
     }
   ]
 }

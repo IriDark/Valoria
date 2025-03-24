@@ -1,6 +1,6 @@
 {
   "temperature": 0.5,
-  "downfall": 0.0,
+  "downfall": 0.5,
   "has_precipitation": true,
   "effects": {
     "sky_color": 131330,
@@ -57,7 +57,9 @@
       "valoria:pyratite_ore",
       "valoria:pyratite_blob",
       "valoria:blackstone",
-      "valoria:deep_marble"
+      "valoria:deep_marble",
+      "valoria:disk_void_sand",
+      "minecraft:underwater_magma"
     ],
     [],
     [

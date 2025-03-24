@@ -109,7 +109,6 @@ public class Devil extends AbstractDevil implements RangedAttackMob{
     }
 
     protected void populateDefaultEquipmentSlots(RandomSource pRandom, DifficultyInstance pDifficulty){
-        super.populateDefaultEquipmentSlots(pRandom, pDifficulty);
         this.setItemSlot(EquipmentSlot.MAINHAND, ItemsRegistry.infernalSpear.get().getDefaultInstance());
     }
 

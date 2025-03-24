@@ -1,31 +1,18 @@
 package com.idark.valoria.registries.block.types;
 
-import com.idark.valoria.registries.BlockRegistry;
-import com.idark.valoria.registries.DamageSourceRegistry;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.core.particles.BlockParticleOption;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.util.Mth;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.GameRules;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.pathfinder.PathComputationType;
-import net.minecraft.world.phys.Vec3;
-import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.EntityCollisionContext;
-import net.minecraft.world.phys.shapes.Shapes;
-import net.minecraft.world.phys.shapes.VoxelShape;
+import com.idark.valoria.registries.*;
+import net.minecraft.core.*;
+import net.minecraft.core.particles.*;
+import net.minecraft.sounds.*;
+import net.minecraft.util.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.*;
+import net.minecraft.world.level.pathfinder.*;
+import net.minecraft.world.phys.*;
+import net.minecraft.world.phys.shapes.*;
 
 public class QuickSandBlock extends Block{
     private static final VoxelShape FALLING_COLLISION_SHAPE = Shapes.box(0.0D, 0.0D, 0.0D, 1.0D, (double)0.9F, 1.0D);
@@ -66,7 +53,7 @@ public class QuickSandBlock extends Block{
         }
 
         if(randomsource.nextFloat() < 0.06f){
-            pEntity.hurt(new DamageSource(DamageSourceRegistry.source(pEntity.level(), DamageSourceRegistry.QUICKSAND_SUFFOCATING).typeHolder()), 1.0F);
+            pEntity.hurt(DamageSourceRegistry.quicksand(pLevel), 1.0F);
         }
     }
 

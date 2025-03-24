@@ -8,7 +8,6 @@ import net.minecraft.resources.*;
 import net.minecraft.sounds.*;
 import net.minecraft.stats.*;
 import net.minecraft.world.*;
-import net.minecraft.world.damagesource.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.player.*;
@@ -51,7 +50,7 @@ public class CorpseCleaverItem extends SwordItem{
                     level.playSound(playerEntity, meat, SoundEvents.LLAMA_SWAG, SoundSource.PLAYERS, 1.0F, 1.0F);
                     if(!playerEntity.getAbilities().instabuild){
                         stack.hurtAndBreak(1, playerEntity, (player) -> player.broadcastBreakEvent(entityLiving.getUsedItemHand()));
-                        playerEntity.hurt(new DamageSource(DamageSourceRegistry.source(level, DamageSourceRegistry.BLEEDING).typeHolder()), 2.0F);
+                        playerEntity.hurt(DamageSourceRegistry.bleeding(level), 2.0F);
                         playerEntity.getCooldowns().addCooldown(this, 40);
                     }
                 }else{

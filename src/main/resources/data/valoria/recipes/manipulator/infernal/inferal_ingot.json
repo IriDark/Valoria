@@ -9,10 +9,10 @@
   "time": 400,
   "ingredients": [
     {
-      "item": "valoria:infernal_stone"
+      "item": "valoria:black_gold_ingot"
     },
     {
-      "item": "valoria:black_gold_ingot"
+      "item": "valoria:infernal_stone"
     }
   ]
 }
