@@ -419,6 +419,8 @@
   "config.jade.plugin_valoria.manipulator": "Manipulator",
   "death.attack.bleeding": "%1$s stracił całą krew",
   "death.attack.quicksand_suffocating": "%1$s zatonął jak zamek z piasku, dusząc się",
+  "death.attack.voidthorn": "%1$s was poked to death by a voidthorn bush",
+  "death.attack.voidthorn.player": "%1$s was poked to death by a voidthorn bush whilst trying to escape %2$s",
   "effect.valoria.aloeregen": "Regeneracja Aloesu",
   "effect.valoria.aloeregen.description": "Powoli regeneruje HP",
   "effect.valoria.bleeding": "Krwawienie",
