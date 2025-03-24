@@ -1,6 +1,5 @@
 package com.idark.valoria.client.ui.menus;
 
-import com.idark.valoria.client.ui.menus.slots.*;
 import com.idark.valoria.registries.*;
 import net.minecraft.core.*;
 import net.minecraft.world.entity.player.*;
@@ -24,7 +23,7 @@ public class JewelryMenu extends ContainerMenuBase{
         if(blockEntity != null){
             blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(h -> {
                 this.addSlot(new SlotItemHandler(h, 0, 27, 47));
-                this.addSlot(new GemSlot(h, 1, 76, 47));
+                this.addSlot(new SlotItemHandler(h, 1, 76, 47));
 
                 this.addSlot(new ResultSlot(h, 2, 134, 47));
             });

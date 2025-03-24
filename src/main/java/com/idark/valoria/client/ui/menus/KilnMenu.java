@@ -14,5 +14,4 @@ public class KilnMenu extends AbstractFurnaceMenu{
     public KilnMenu(int pContainerId, Inventory pPlayerInventory, Container pFurnaceContainer, ContainerData pFurnaceData) {
         super(MenuRegistry.KILN_MENU.get(), Type.INSTANCE, RecipeBookType.FURNACE, pContainerId, pPlayerInventory, pFurnaceContainer, pFurnaceData);
     }
-
 }

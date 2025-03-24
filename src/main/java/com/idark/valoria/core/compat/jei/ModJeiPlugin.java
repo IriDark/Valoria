@@ -1,9 +1,12 @@
 package com.idark.valoria.core.compat.jei;
 
 import com.idark.valoria.*;
+import com.idark.valoria.client.ui.menus.*;
+import com.idark.valoria.client.ui.screen.*;
 import com.idark.valoria.core.compat.jei.categories.*;
 import com.idark.valoria.registries.*;
 import mezz.jei.api.*;
+import mezz.jei.api.constants.*;
 import mezz.jei.api.registration.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.resources.*;
@@ -16,6 +19,19 @@ public class ModJeiPlugin implements IModPlugin{
     @Override
     public ResourceLocation getPluginUid(){
         return JEI;
+    }
+
+    @Override
+    public void registerGuiHandlers(IGuiHandlerRegistration registration) {
+        registration.addRecipeClickArea(JewelryScreen.class, 102, 48, 22, 15, ModRecipeTypes.JEWELRY);
+        registration.addRecipeClickArea(ManipulatorScreen.class, 102, 48, 22, 15, ModRecipeTypes.MANIPULATOR);
+        registration.addRecipeClickArea(KilnScreen.class, 78, 32, 28, 23, ModRecipeTypes.KILN, RecipeTypes.FUELING);
+        registration.addRecipeClickArea(KegScreen.class, 78, 32, 22, 22, ModRecipeTypes.BREWERY);
+    }
+
+    @Override
+    public void registerRecipeTransferHandlers(IRecipeTransferRegistration registration) {
+        registration.addRecipeTransferHandler(KilnMenu.class, MenuRegistry.KILN_MENU.get(), RecipeTypes.FUELING, 1, 1, 3, 36);
     }
 
     @Override
