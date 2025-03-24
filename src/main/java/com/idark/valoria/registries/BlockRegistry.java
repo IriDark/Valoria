@@ -59,7 +59,7 @@ public class BlockRegistry{
     crypticAltar, wickedAltar,
 
     pearlium,
-    voidStone, voidStoneStairs, voidStoneSlab, voidStoneWall, voidPillar, voidPillarAmethyst, chargedVoidPillar, voidBrick, voidBrickStairs, voidBrickSlab, voidBrickWall, voidCrackedBrick, voidCrackedBrickStairs, voidCrackedBrickSlab, voidCrackedBrickWall, polishedVoidStone, voidFirechargeTrap, voidSpikesTrap, voidChiseledBrick, voidChiseledBricks, voidChiseledBricksStairs, voidChiseledBricksSlab, voidSand, voidSandstone, voidSandstoneStairs, voidSandstoneSlab, voidSandstoneWall, smoothVoidSandstone, smoothVoidSandstoneStairs, smoothVoidSandstoneSlab, voidChiseledSandstone, voidCutSandstone, voidGrass, voidTaint, voidTaintLantern, abyssalLantern,
+    voidStone, voidStoneStairs, voidStoneSlab, voidStoneWall, voidPillar, voidPillarAmethyst, chargedVoidPillar, voidBrick, voidBrickStairs, voidBrickSlab, voidBrickWall, voidCrackedBrick, voidCrackedBrickStairs, voidCrackedBrickSlab, voidCrackedBrickWall, polishedVoidStone, voidFirechargeTrap, voidSpikesTrap, voidChiseledBrick, voidChiseledBricks, voidChiseledBricksStairs, voidChiseledBricksSlab, voidSand, voidSandstone, voidSandstoneStairs, voidSandstoneSlab, voidSandstoneWall, smoothVoidSandstone, smoothVoidSandstoneStairs, smoothVoidSandstoneSlab, voidChiseledSandstone, voidCutSandstone, voidCutSandstoneSlab, voidGrass, voidTaint, voidTaintLantern, abyssalLantern,
     tombstone, tombstoneStairs, tombstoneSlab, tombstoneWall, tombstoneBricks, tombstoneBricksStairs, tombstoneBricksSlab, tombstoneBricksWall, crackedTombstoneBricks, crackedTombstoneBricksWall, //other varities?
     cutTombstone, polishedTombstone, tombstoneFirechargeTrap, tombstoneSpikesTrap, tombstonePillar, cutTombstonePillar, wickedTombstonePillar, cryptLantern,
 
@@ -304,6 +304,8 @@ public class BlockRegistry{
         smoothVoidSandstoneSlab = registerBlock("void_smooth_sandstone_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(BlockRegistry.smoothVoidSandstone.get()).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(2.0F, 6f)));
         voidChiseledSandstone = registerBlock("void_chiseled_sandstone", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(1.2F)));
         voidCutSandstone = registerBlock("void_cut_sandstone", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(1.2F)));
+        voidCutSandstoneSlab = registerBlock("void_cut_sandstone_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(BlockRegistry.voidCutSandstone.get()).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(1.2F, 6f)));
+
         voidGrass = registerBlock("void_grass", () -> new VoidGrassBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(2f, 4f).sound(SoundsRegistry.VOID_GRASS)));
         voidTaint = registerBlock("void_taint", () -> new VoidTaintBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(2f, 4f).sound(SoundsRegistry.VOID_GRASS)));
         voidTaintLantern = registerBlock("void_taint_lantern", () -> new Block(BlockBehaviour.Properties.copy(Blocks.SEA_LANTERN).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(2f, 4f).sound(SoundType.FROGLIGHT).lightLevel((p_152688_) -> 9)));

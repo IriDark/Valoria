@@ -50,15 +50,15 @@ public class ThrownSpearEntity extends AbstractSupplierProjectile{
             };
 
             ParticleBuilder.create(TridotParticles.TRAIL)
-                    .setRenderType(TridotRenderTypes.ADDITIVE_PARTICLE_TEXTURE)
-                    .setBehavior(TrailParticleBehavior.create().build())
-                    .setColorData(ColorParticleData.create(Pal.darkerGray.brighter()).build())
-                    .setTransparencyData(GenericParticleData.create(0.65f, 0).setEasing(Interp.elasticOut).build())
-                    .setScaleData(GenericParticleData.create(0.5f).setEasing(Interp.exp5In).build())
-                    .addTickActor(target)
-                    .setGravity(0)
-                    .setLifetime(20)
-                    .repeat(this.level(), pos.x, pos.y, pos.z, 5);
+            .setRenderType(TridotRenderTypes.ADDITIVE_PARTICLE_TEXTURE)
+            .setBehavior(TrailParticleBehavior.create().build())
+            .setColorData(ColorParticleData.create(Pal.darkerGray.brighter()).build())
+            .setTransparencyData(GenericParticleData.create(0.5f, 0).setEasing(Interp.sineOut).build())
+            .setScaleData(GenericParticleData.create(0.5f).setEasing(Interp.sineIn).build())
+            .addTickActor(target)
+            .setGravity(0)
+            .setLifetime(10)
+            .repeat(this.level(), pos.x, pos.y, pos.z, 1);
         }
     }
 

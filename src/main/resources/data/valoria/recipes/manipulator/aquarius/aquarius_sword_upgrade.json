@@ -1,0 +1,19 @@
+{
+  "type": "valoria:manipulator",
+  "category": "equipment",
+  "output": {
+    "count": 1,
+    "item": "valoria:coral_reef"
+  },
+  "core": "aquarius_core",
+  "cores": 1,
+  "time": 300,
+  "ingredients": [
+    {
+      "item": "valoria:ent"
+    },
+    {
+      "item": "valoria:aquarius_upgrade_smithing_template"
+    }
+  ]
+}

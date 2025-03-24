@@ -1,23 +1,19 @@
 package com.idark.valoria.client.ui.screen;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.client.ui.menus.ManipulatorMenu;
-import com.idark.valoria.registries.block.entity.ManipulatorBlockEntity;
-import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.SmithingTemplateItem;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import com.idark.valoria.*;
+import com.idark.valoria.client.ui.menus.*;
+import com.idark.valoria.registries.block.entity.*;
+import com.mojang.blaze3d.systems.*;
+import net.minecraft.client.*;
+import net.minecraft.client.gui.*;
+import net.minecraft.client.gui.screens.inventory.*;
+import net.minecraft.network.chat.*;
+import net.minecraft.resources.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.item.*;
+import net.minecraftforge.api.distmarker.*;
 
-import java.util.Optional;
+import java.util.*;
 
 @OnlyIn(Dist.CLIENT)
 public class ManipulatorScreen extends AbstractContainerScreen<ManipulatorMenu>{
@@ -26,8 +22,7 @@ public class ManipulatorScreen extends AbstractContainerScreen<ManipulatorMenu>{
 
     public ManipulatorScreen(ManipulatorMenu screenContainer, Inventory inv, Component titleIn){
         super(screenContainer, inv, titleIn);
-        this.imageHeight = 165;
-        this.inventoryLabelY = this.inventoryLabelY + 46;
+        this.imageHeight = 166;
     }
 
     @Override
@@ -48,21 +43,21 @@ public class ManipulatorScreen extends AbstractContainerScreen<ManipulatorMenu>{
         if(this.menu.blockEntity instanceof ManipulatorBlockEntity tile){
             int i = this.leftPos;
             int j = this.topPos;
-            if(pX >= i + 16 && pX < i + 16 + 8 && pY >= j + 25 && pY < j + 25 + 8){
+            if(pX >= i + 48 && pX < i + 48 + 8 && pY >= j + 31 && pY < j + 31 + 8){
                 renderTooltip(pGuiGraphics, Component.translatable("tooltip.valoria.core_charges")
-                        .append(": " + tile.infernal_core + "/8"), i - 28, j + 22);
+                .append(": " + tile.nature_core + "/8"), i + 8, j + 22);
             }
-            if(pX >= i + 49 && pX < i + 49 + 8 && pY >= j + 25 && pY < j + 25 + 8){
+            if(pX >= i + 62 && pX < i + 62 + 8 && pY >= j + 31 && pY < j + 31 + 8){
                 renderTooltip(pGuiGraphics, Component.translatable("tooltip.valoria.core_charges")
-                        .append(": " + tile.nature_core + "/8"), i + 6, j + 22);
+                .append(": " + tile.aquarius_core + "/8"), i + 18, j + 22);
             }
-            if(pX >= i + 33 && pX < i + 33 + 8 && pY >= j + 8 && pY < j + 8 + 8){
+            if(pX >= i + 101 && pX < i + 101 + 8 && pY >= j + 31 && pY < j + 31 + 8){
                 renderTooltip(pGuiGraphics, Component.translatable("tooltip.valoria.core_charges")
-                        .append(": " + tile.aquarius_core + "/8"), i - 11, j + 5);
+                .append(": " + tile.infernal_core + "/8"), i + 58, j + 22);
             }
-            if(pX >= i + 33 && pX < i + 33 + 8 && pY >= j + 42 && pY < j + 42 + 8){
+            if(pX >= i + 115 && pX < i + 115 + 8 && pY >= j + 31 && pY < j + 31 + 22){
                 renderTooltip(pGuiGraphics, Component.translatable("tooltip.valoria.core_charges")
-                        .append(": " + tile.void_core + "/8"), i - 11, j + 39);
+                .append(": " + tile.void_core + "/8"), i + 72, j + 22);
             }
         }
     }
@@ -73,8 +68,8 @@ public class ManipulatorScreen extends AbstractContainerScreen<ManipulatorMenu>{
 
     @Override
     protected void renderLabels(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY){
-        pGuiGraphics.drawString(this.font, this.title, this.titleLabelX + 42, this.titleLabelY, 4210752, false);
-        pGuiGraphics.drawString(this.font, this.playerInventoryTitle, this.inventoryLabelX, this.inventoryLabelY - 46, 4210752, false);
+        pGuiGraphics.drawString(this.font, this.title, this.titleLabelX, this.titleLabelY, 4210752, false);
+        pGuiGraphics.drawString(this.font, this.playerInventoryTitle, this.inventoryLabelX, this.inventoryLabelY, 4210752, false);
     }
 
     private void renderOnboardingTooltips(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY){
@@ -119,20 +114,20 @@ public class ManipulatorScreen extends AbstractContainerScreen<ManipulatorMenu>{
                 gui.blit(GUI, i + 76, j + 53, 208, 0, 16, 16);
             }
 
-            if(elemental.infernal_core != 0){
-                gui.blit(GUI, i + 16, j + 25, 181, 27, 5, 5);
-            }
-
             if(elemental.nature_core != 0){
-                gui.blit(GUI, i + 49, j + 25, 186, 27, 5, 5);
+                gui.blit(GUI, i + 48, j + 31, 186, 27, 5, 5);
             }
 
             if(elemental.aquarius_core != 0){
-                gui.blit(GUI, i + 33, j + 8, 176, 27, 5, 5);
+                gui.blit(GUI, i + 62, j + 31, 176, 27, 5, 5);
+            }
+
+            if(elemental.infernal_core != 0){
+                gui.blit(GUI, i + 101, j + 31, 181, 27, 5, 5);
             }
 
             if(elemental.void_core != 0){
-                gui.blit(GUI, i + 33, j + 42, 191, 27, 5, 5);
+                gui.blit(GUI, i + 115, j + 31, 191, 27, 5, 5);
             }
         }
     }

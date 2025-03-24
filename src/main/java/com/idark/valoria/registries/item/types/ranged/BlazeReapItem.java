@@ -3,6 +3,7 @@ package com.idark.valoria.registries.item.types.ranged;
 import com.idark.valoria.*;
 import com.idark.valoria.core.config.*;
 import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.item.types.*;
 import com.idark.valoria.util.*;
 import net.minecraft.*;
 import net.minecraft.client.*;
@@ -30,7 +31,7 @@ import pro.komaru.tridot.util.math.*;
 
 import java.util.*;
 
-public class BlazeReapItem extends PickaxeItem implements Vanishable, OverlayRenderItem{
+public class BlazeReapItem extends ValoriaPickaxe implements Vanishable, OverlayRenderItem{
     private static final ResourceLocation BAR = new ResourceLocation(Valoria.ID, "textures/gui/overlay/blazecharge_bar.png");
 
     public BlazeReapItem(Tier tier, int attackDamageIn, float attackSpeedIn, Properties builder){
@@ -192,6 +193,7 @@ public class BlazeReapItem extends PickaxeItem implements Vanishable, OverlayRen
     @Override
     public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags){
         super.appendHoverText(stack, world, tooltip, flags);
+        tooltip.add(Component.empty());
         Utils.Items.addContributorTooltip(stack, tooltip);
         tooltip.add(Component.translatable("tooltip.valoria.familiar").withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
         tooltip.add(Component.translatable("tooltip.valoria.blazereap").withStyle(ChatFormatting.GRAY));

@@ -932,6 +932,9 @@
   "subtitles.valoria.spear.return": "Spear returns",
   "subtitles.valoria.spear.throw": "Spear clangs",
   "subtitles.valoria.spectral_blade.disappear": "Spectral Blade Disappeared",
+  "tooltip.valoria.efficiency": "Efficiency: %s",
+  "tooltip.valoria.harvest": "Harvest Level: %s",
+
   "tooltip.valoria.amber": "Grants a haste effect",
   "tooltip.valoria.applies_fullkit": "Applies on full Armor set: ",
   "tooltip.valoria.belt": "Grants some additional space for your charms!",

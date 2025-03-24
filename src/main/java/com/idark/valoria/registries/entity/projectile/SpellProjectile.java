@@ -16,7 +16,6 @@ import pro.komaru.tridot.client.render.*;
 import pro.komaru.tridot.util.*;
 import pro.komaru.tridot.util.math.*;
 
-import java.awt.*;
 import java.util.function.*;
 
 public class SpellProjectile extends AbstractProjectile{
@@ -31,7 +30,7 @@ public class SpellProjectile extends AbstractProjectile{
 
     public void setColor(Col variant) {
         this.color = variant;
-        this.entityData.set(TYPE, variant.rgb());
+        this.entityData.set(TYPE, variant.rgba8888());
     }
 
     public Col getColor() {
@@ -51,13 +50,13 @@ public class SpellProjectile extends AbstractProjectile{
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(TYPE, Color.WHITE.getRGB());
+        this.entityData.define(TYPE, Col.white.rgba8888());
     }
 
     @Override
     public void addAdditionalSaveData(CompoundTag pCompound){
         super.addAdditionalSaveData(pCompound);
-        pCompound.putInt("Color", color.rgb());
+        pCompound.putInt("Color", color.rgba8888());
     }
 
     @Override

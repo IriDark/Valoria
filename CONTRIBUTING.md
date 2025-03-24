@@ -1,5 +1,4 @@
 ## Contributors
-MaxBogomol `| Code |`
 AstemirDev `| Code |`
 Ruthenium `| Russian Translate |`
 Auriny `| Code | Testing |`

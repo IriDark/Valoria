@@ -1,9 +1,8 @@
 package com.idark.valoria.registries.item.types;
 
-import com.idark.valoria.core.network.*;
-import com.idark.valoria.core.network.packets.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.entity.projectile.*;
+import com.idark.valoria.util.*;
 import net.minecraft.server.level.*;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.player.*;
@@ -40,7 +39,11 @@ public class DebugItem extends Item{
         ItemStack itemstack = playerIn.getItemInHand(handIn);
         playerIn.startUsingItem(handIn);
         if(!worldIn.isClientSide()) {
-            PacketHandler.sendTo(playerIn, new MusicToastPacket(playerIn, SoundsRegistry.MUSIC_NECROMANCER_DUNGEON.get()));
+            SpellProjectile spell = new SpellProjectile(worldIn, playerIn, 6);
+            Vec3 vector3d = playerIn.getViewVector(1.0F);
+            spell.setColor(Pal.nature);
+            spell.shoot(vector3d.x(), vector3d.y(), vector3d.z(), 1F, 3);
+            worldIn.addFreshEntity(spell);
         }
 
         return InteractionResultHolder.consume(itemstack);

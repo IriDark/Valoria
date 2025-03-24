@@ -3,7 +3,6 @@ package com.idark.valoria.registries.entity.living;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.entity.ai.movements.*;
 import com.idark.valoria.registries.entity.projectile.*;
-import com.idark.valoria.util.*;
 import net.minecraft.core.*;
 import net.minecraft.core.particles.*;
 import net.minecraft.server.level.*;
@@ -117,12 +116,12 @@ public class SorcererEntity extends MultiAttackMob implements Enemy, RangedAttac
     @Override
     public void handleEntityEvent(byte pId){
         if(pId == 62){
-            if(Tmp.rnd.fiftyFifty()){
+            if(Tmp.rnd.chance(0.75f)){
                 this.attackAnimationState.start(this.tickCount);
             }else{
                 this.attackHatAnimationState.start(this.tickCount);
             }
-        }else if(pId == 63){
+        }else if(pId == 64){
             this.healAnimationState.start(this.tickCount);
         }else{
             super.handleEntityEvent(pId);
@@ -136,7 +135,7 @@ public class SorcererEntity extends MultiAttackMob implements Enemy, RangedAttac
         double d1 = pTarget.getY(0.3333333333333333D) - spell.getY();
         double d2 = pTarget.getZ() - this.getZ();
         double d3 = Math.sqrt(d0 * d0 + d2 * d2);
-        spell.setColor(Pal.nature);
+        spell.setColor(Col.fromHex("ffab51"));
         spell.shoot(d0, d1 + d3 * (double)0.2F, d2, 1.6F, (float)(14 - this.level().getDifficulty().getId() * 4));
         this.level().addFreshEntity(spell);
     }
@@ -187,7 +186,7 @@ public class SorcererEntity extends MultiAttackMob implements Enemy, RangedAttac
 
         @Override
         public void onPrepare(){
-            SorcererEntity.this.level().broadcastEntityEvent(SorcererEntity.this, (byte)63);
+            SorcererEntity.this.level().broadcastEntityEvent(SorcererEntity.this, (byte)64);
         }
 
         @Override

@@ -37,7 +37,7 @@ public class SkinsRegistry{
                         .addArmorSkin(EquipmentSlot.CHEST, Valoria.ID + ":the_fallen_collector_coat"))
                 .add(new ItemExtendingSkinEntry(KatanaItem.class, Valoria.ID + ":brand"))
                 .build();
-        ARCANE_GOLD = new SkinBuilder(Valoria.ID, "arcane_gold").color(Pal.arcaneGold).contributor("MaxBogomol").style(Styles.arcaneGold)
+        ARCANE_GOLD = new SkinBuilder(Valoria.ID, "arcane_gold").color(Pal.arcaneGold)
                 .add(new ItemExtendingSkinEntry(ConfigurableBowItem.class, Valoria.ID + ":arcane_wood_bow"))
                 .add(new ItemExtendingSkinEntry(BlazeReapItem.class, Valoria.ID + ":arcane_gold_blaze_reap"))
                 .build();

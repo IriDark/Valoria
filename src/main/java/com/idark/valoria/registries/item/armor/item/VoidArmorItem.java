@@ -9,6 +9,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.item.*;
 import net.minecraftforge.client.extensions.common.*;
 import org.jetbrains.annotations.*;
+import pro.komaru.tridot.common.registry.item.skins.*;
 
 import java.util.function.*;
 
@@ -28,6 +29,11 @@ public class VoidArmorItem extends EffectArmorItem{
         @Override
         public @NotNull HumanoidModel<?> getHumanoidArmorModel(LivingEntity living, ItemStack stack, EquipmentSlot slot, HumanoidModel<?> model) {
             EntityModelSet models = Minecraft.getInstance().getEntityModels();
+            if(stack.getItem() instanceof SkinableArmorItem skinableArmorItem){
+                ItemSkin skin = ItemSkin.itemSkin(stack);
+                if(skin != null) return skinableArmorItem.getArmorModel(living, stack, slot, model);
+            }
+
             ModelPart root = models.bakeLayer(slot == EquipmentSlot.LEGS ? ValoriaLayers.VOID_ARMOR_INNER : ValoriaLayers.VOID_ARMOR_OUTER);
             return new BaseArmorModel(root);
         }

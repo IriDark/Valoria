@@ -3,7 +3,7 @@
   "category": "building",
   "key": {
     "#": {
-      "item": "minecraft:void_sand"
+      "item": "valoria:void_sand"
     }
   },
   "pattern": [
@@ -11,7 +11,7 @@
     "##"
   ],
   "result": {
-    "item": "minecraft:void_sandstone"
+    "item": "valoria:void_sandstone"
   },
   "show_notification": true
 }

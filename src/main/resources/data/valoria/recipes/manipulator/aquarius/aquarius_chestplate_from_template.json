@@ -1,0 +1,19 @@
+{
+  "type": "valoria:manipulator",
+  "category": "equipment",
+  "output": {
+    "count": 1,
+    "item": "valoria:depth_chestplate"
+  },
+  "core": "aquarius_core",
+  "cores": 1,
+  "time": 1500,
+  "ingredients": [
+    {
+      "item": "valoria:black_gold_chestplate"
+    },
+    {
+      "item": "valoria:aquarius_upgrade_smithing_template"
+    }
+  ]
+}

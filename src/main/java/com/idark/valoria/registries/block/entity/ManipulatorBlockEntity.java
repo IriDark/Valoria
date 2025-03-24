@@ -181,14 +181,14 @@ public class ManipulatorBlockEntity extends BlockEntity implements MenuProvider,
     private void craftItem(){
         PacketHandler.sendToTracking(this.level, this.getBlockPos(), new CubeShapedParticlePacket((float)this.getBlockPos().getCenter().x, (float)this.getBlockPos().getCenter().y - 0.25f, (float)this.getBlockPos().getCenter().z, 0.62f, 0.15f, 255, 255, 255));
         Optional<ManipulatorRecipe> recipe = getCurrentRecipe();
-        ItemStack result = recipe.get().getResultItem(RegistryAccess.EMPTY);
+        ItemStack result = recipe.get().assemble(itemHandler);
         if(!recipe.get().getCore().equals("empty")){
             decreaseCharge(recipe.get().getCore(), recipe.get().getCoresNeeded());
         }
 
         itemHandler.extractItem(0, 1, false);
         itemHandler.extractItem(1, 1, false);
-        itemOutputHandler.insertItem(0, new ItemStack(result.getItem(), result.getCount()), false);
+        itemOutputHandler.insertItem(0, result, false);
     }
 
     private boolean hasProgressFinished(){

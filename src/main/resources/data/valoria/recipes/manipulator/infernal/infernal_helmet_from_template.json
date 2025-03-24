@@ -1,0 +1,18 @@
+{
+  "type": "valoria:manipulator",
+  "output": {
+    "count": 1,
+    "item": "valoria:infernal_helmet"
+  },
+  "core": "infernal_core",
+  "cores": 1,
+  "time": 2500,
+  "ingredients": [
+    {
+      "item": "valoria:black_gold_helmet"
+    },
+    {
+      "item": "valoria:infernal_upgrade_smithing_template"
+    }
+  ]
+}

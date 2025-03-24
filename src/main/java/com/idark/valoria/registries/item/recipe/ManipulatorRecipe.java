@@ -1,24 +1,22 @@
 package com.idark.valoria.registries.item.recipe;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.idark.valoria.Valoria;
-import net.minecraft.core.NonNullList;
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
-import net.minecraft.world.Container;
-import net.minecraft.world.item.ItemStack;
+import com.google.gson.*;
+import com.idark.valoria.*;
+import net.minecraft.core.*;
+import net.minecraft.nbt.*;
+import net.minecraft.network.*;
+import net.minecraft.resources.*;
+import net.minecraft.util.*;
+import net.minecraft.world.*;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.*;
-import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.NotNull;
+import net.minecraft.world.level.*;
+import net.minecraftforge.items.*;
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.*;
 
-import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.List;
+import javax.annotation.*;
+import java.util.*;
 
 public class ManipulatorRecipe implements Recipe<Container>{
     private final NonNullList<Ingredient> inputs;
@@ -61,9 +59,25 @@ public class ManipulatorRecipe implements Recipe<Container>{
         return cores;
     }
 
+    public ItemStack assemble(IItemHandler itemHandler){
+        ItemStack itemstack = this.output.copy();
+        CompoundTag compoundtag = itemHandler.getStackInSlot(0).getTag();
+        if (compoundtag != null) {
+            itemstack.setTag(compoundtag.copy());
+        }
+
+        return itemstack;
+    }
+
     @Override
     public ItemStack assemble(Container pContainer, RegistryAccess pRegistryAccess){
-        return output;
+        ItemStack itemstack = this.output.copy();
+        CompoundTag compoundtag = pContainer.getItem(1).getTag();
+        if (compoundtag != null) {
+            itemstack.setTag(compoundtag.copy());
+        }
+
+        return itemstack;
     }
 
     @Override
@@ -73,7 +87,7 @@ public class ManipulatorRecipe implements Recipe<Container>{
 
     @Override
     public ItemStack getResultItem(RegistryAccess pRegistryAccess){
-        return output.copy();
+        return output;
     }
 
     public String getCore(){
@@ -146,7 +160,7 @@ public class ManipulatorRecipe implements Recipe<Container>{
                 input.toNetwork(pBuffer);
             }
 
-            pBuffer.writeItemStack(pRecipe.getResultItem(RegistryAccess.EMPTY), false);
+            pBuffer.writeItem(pRecipe.output);
             pBuffer.writeUtf(pRecipe.getCore());
             pBuffer.writeInt(pRecipe.getCoresNeeded());
             pBuffer.writeInt(pRecipe.getTime());

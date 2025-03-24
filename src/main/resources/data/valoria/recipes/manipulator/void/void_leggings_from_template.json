@@ -1,0 +1,19 @@
+{
+  "type": "valoria:manipulator",
+  "category": "equipment",
+  "output": {
+    "count": 1,
+    "item": "valoria:awakened_void_leggings"
+  },
+  "core": "void_core",
+  "cores": 1,
+  "time": 2800,
+  "ingredients": [
+    {
+      "item": "valoria:black_gold_leggings"
+    },
+    {
+      "item": "valoria:void_upgrade_smithing_template"
+    }
+  ]
+}
