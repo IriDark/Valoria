@@ -13,7 +13,7 @@
           "type": "minecraft:item",
           "conditions": [
             {
-              "block": "minecraft:archaeology_table",
+              "block": "valoria:archaeology_table",
               "condition": "minecraft:block_state_property",
               "properties": {
                 "part": "head"

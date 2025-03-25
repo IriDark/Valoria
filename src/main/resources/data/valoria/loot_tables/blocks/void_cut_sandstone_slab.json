@@ -11,7 +11,7 @@
               "add": false,
               "conditions": [
                 {
-                  "block": "valoria:cut_sandstone_slab",
+                  "block": "valoria:void_cut_sandstone_slab",
                   "condition": "minecraft:block_state_property",
                   "properties": {
                     "type": "double"

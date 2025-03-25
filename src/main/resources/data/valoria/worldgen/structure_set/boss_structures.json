@@ -3,6 +3,10 @@
     {
       "structure": "valoria:fortress",
       "weight": 5
+    },
+    {
+      "structure": "valoria:necromancer_crypt",
+      "weight": 5
     }
   ],
   "placement": {

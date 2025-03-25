@@ -13,10 +13,6 @@
     {
       "structure": "valoria:medium_crypt",
       "weight": 15
-    },
-    {
-      "structure": "valoria:necromancer_crypt",
-      "weight": 5
     }
   ]
 }

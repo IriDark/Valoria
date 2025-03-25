@@ -32,13 +32,13 @@ public class EntityStatsRegistry{
     public static AttributeSupplier SCOURGE = register(45, 6, 0.15).add(Attributes.KNOCKBACK_RESISTANCE, new Random().nextDouble() * 0.05F).add(Attributes.SPAWN_REINFORCEMENTS_CHANCE, Tmp.rnd.nextDouble() * 0.25D + 0.5D).build();
     public static AttributeSupplier ENT = register(40, 12, 0.15).add(Attributes.ARMOR, 5).add(Attributes.ARMOR_TOUGHNESS, 2).build();
     public static AttributeSupplier SORCERER = register(25, 1.5).build();
-    public static AttributeSupplier MAGGOT = register(8, 3.5).build();
+    public static AttributeSupplier MAGGOT = register(6, 3.5).build();
 
     //minions - overworld
     public static AttributeSupplier UNDEAD = registerFlying(8, 1, 0.85).add(Attributes.FOLLOW_RANGE, 8).build();
 
     //monsters - nether
-    public static AttributeSupplier DEVIL = register(30, 1).add(Attributes.FOLLOW_RANGE, 12).build();
+    public static AttributeSupplier DEVIL = register(35, 1).add(Attributes.FOLLOW_RANGE, 12).build();
 
     //monsters - valoria
     public static AttributeSupplier SHADEWOOD_SPIDER = register(40, 15, 0.35).add(Attributes.FOLLOW_RANGE, 20).build();

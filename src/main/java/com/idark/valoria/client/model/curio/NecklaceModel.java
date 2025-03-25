@@ -1,20 +1,14 @@
 package com.idark.valoria.client.model.curio;
 
-import com.google.common.collect.ImmutableList;
-import com.idark.valoria.Valoria;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.model.HumanoidModel;
-import net.minecraft.client.model.geom.ModelLayerLocation;
-import net.minecraft.client.model.geom.ModelPart;
-import net.minecraft.client.model.geom.PartPose;
+import com.google.common.collect.*;
+import com.idark.valoria.*;
+import net.minecraft.client.model.*;
+import net.minecraft.client.model.geom.*;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Mth;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.resources.*;
+import net.minecraft.util.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.item.*;
 
 public class NecklaceModel extends HumanoidModel<LivingEntity>{
     public ModelPart root, model;
@@ -68,10 +62,5 @@ public class NecklaceModel extends HumanoidModel<LivingEntity>{
     @Override
     protected Iterable<ModelPart> bodyParts(){
         return ImmutableList.of(root.getChild("body"));
-    }
-
-    @Override
-    public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha){
-        super.renderToBuffer(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
     }
 }

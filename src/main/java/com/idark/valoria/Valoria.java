@@ -151,6 +151,9 @@ public class Valoria{
             CuriosRendererRegistry.register(ItemsRegistry.skeletalVambrace.get(), HandsRenderer::new);
             CuriosRendererRegistry.register(ItemsRegistry.magmaticVambrace.get(), HandsRenderer::new);
 
+            CuriosRendererRegistry.register(ItemsRegistry.monocle.get(), MonocleRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.brokenMonocle.get(), MonocleRenderer::new);
+
             CuriosRendererRegistry.register(ItemsRegistry.samuraiBelt.get(), BeltRenderer::new);
             CuriosRendererRegistry.register(ItemsRegistry.leatherBelt.get(), BeltRenderer::new);
             CuriosRendererRegistry.register(ItemsRegistry.jewelryBag.get(), JewelryBagRenderer::new);

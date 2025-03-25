@@ -1,4 +1,4 @@
-package com.idark.valoria.registries.item.types.curio.charm;
+package com.idark.valoria.registries.item.types.curio;
 
 import com.idark.valoria.registries.*;
 import net.minecraft.*;
@@ -41,9 +41,21 @@ public class BloodSight extends Item implements ICurioItem, Vanishable, Particle
         return false;
     }
 
-    public int getDamage(int pLevel, RandomSource pRandom){
-        return pLevel > 10 ? pLevel - 10 : 1 + pRandom.nextInt(1);
+    public int getDamage(RandomSource pRandom){
+        return 1 + pRandom.nextInt(3);
     }
+
+    public void hitLast(Level pLevel, Player pPlayer, float pAmount) {
+        LivingEntity lastHurtMob = pPlayer.getLastAttacker();
+        if (!pLevel.isClientSide() && pLevel instanceof ServerLevel pServer) {
+            if (lastHurtMob == null) {
+                return;
+            }
+
+            lastHurtMob.hurt(pServer.damageSources().magic(), pAmount);
+        }
+    }
+
 
     @Override
     public void curioTick(SlotContext slotContext, ItemStack stack){
@@ -55,8 +67,8 @@ public class BloodSight extends Item implements ICurioItem, Vanishable, Particle
         int damageAmount = flag ? Tmp.rnd.nextInt(2, 6) : Tmp.rnd.nextInt(2, 8);
         if(!pLevel.isClientSide() && pLevel instanceof ServerLevel serverLevel){
             if(lastHurtMob != null && !player.getCooldowns().isOnCooldown(stack.getItem())){
-                Utils.Hit.hitLast(serverLevel, player, this.getDamage(0, RandomSource.create()));
-                if(flag){
+                hitLast(serverLevel, player, this.getDamage(RandomSource.create()));
+                if(!flag){
                     if(arcRandom.chance(0.25f)){
                         player.hurt(pLevel.damageSources().magic(), 0.5f);
                     }
