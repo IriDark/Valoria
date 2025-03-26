@@ -73,6 +73,7 @@ public class ArmorRegistry implements ArmorMaterial{
     // Netherite - 16%
     public static final ArmorRegistry MARSH = new ArmorRegistry.Builder("marsh").protection(20).mul(58).enchantValue(12).ingredient(() -> Ingredient.of(ItemsRegistry.marshCloth.get())).build();
     public static final ArmorRegistry SAMURAI = new ArmorRegistry.Builder("samurai").protection(22).mul(55).enchantValue(16).knockbackRes(0.15f).ingredient(() -> Ingredient.of(ItemsRegistry.ancientIngot.get())).build();
+    public static final ArmorRegistry BLACK_GOLD = new ArmorRegistry.Builder("black_gold").protection(20).mul(55).enchantValue(20).ingredient(() -> Ingredient.of(ItemsRegistry.blackGold.get())).build();
     public static final ArmorRegistry COBALT = new ArmorRegistry.Builder("cobalt").protection(25).mul(46).enchantValue(18).knockbackRes(0.05f).ingredient(() -> Ingredient.of(ItemsRegistry.cobaltIngot.get())).build();
     public static final ArmorRegistry ETHEREAL = new ArmorRegistry.Builder("ethereal").protection(28).mul(60).enchantValue(18).knockbackRes(0.1f).ingredient(() -> Ingredient.of(ItemsRegistry.etherealShard.get())).build();
     public static final ArmorRegistry NATURE = new ArmorRegistry.Builder("nature").protection(30).mul(66).enchantValue(16).knockbackRes(0.10f).ingredient(() -> Ingredient.of(ItemsRegistry.natureIngot.get())).build();

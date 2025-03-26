@@ -17,6 +17,7 @@ import net.minecraftforge.registries.*;
 import pro.komaru.tridot.api.*;
 import pro.komaru.tridot.common.registry.entity.*;
 import pro.komaru.tridot.util.*;
+import top.theillusivec4.curios.api.type.capability.*;
 
 import java.util.*;
 import java.util.function.*;
@@ -26,26 +27,43 @@ public abstract class ItemTabRegistry{
     private static final Comparator<Holder<PaintingVariant>> PAINTING_COMPARATOR = Comparator.comparing(Holder::value, Comparator.<PaintingVariant>comparingInt((p_270004_) -> p_270004_.getHeight() * p_270004_.getWidth()).thenComparing(PaintingVariant::getWidth));
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, Valoria.ID);
 
-    public static final RegistryObject<CreativeModeTab> VALORIA_BLOCKS_TAB = CREATIVE_MODE_TABS.register("valoriablocksmodtab",
-            () -> CreativeModeTab.builder().icon(() -> new ItemStack(BlockRegistry.jewelerTable.get()))
-                    .hideTitle()
-                    .title(Component.translatable("itemGroup.valoriaBlocksModTab"))
-                    .withTabsImage(getTabsImage())
-                    .backgroundSuffix("valoria_item.png").withBackgroundLocation(getBackgroundImage()).build());
-    public static final RegistryObject<CreativeModeTab> VALORIA_TAB = CREATIVE_MODE_TABS.register("valoriamodtab",
-            () -> CreativeModeTab.builder().icon(() -> new ItemStack(ItemsRegistry.eyeChunk.get()))
-                    .hideTitle()
-                    .title(Component.translatable("itemGroup.valoriaModTab"))
-                    .withTabsImage(getTabsImage())
-                    .withTabsAfter(ItemTabRegistry.VALORIA_BLOCKS_TAB.getKey())
-                    .backgroundSuffix("valoria_item.png").withBackgroundLocation(getBackgroundImage()).build());
+    public static final RegistryObject<CreativeModeTab> VALORIA_BLOCKS_TAB = CREATIVE_MODE_TABS.register("valoria_blocks",
+    () -> CreativeModeTab.builder().icon(() -> new ItemStack(BlockRegistry.jewelerTable.get()))
+    .hideTitle()
+    .title(Component.translatable("itemGroup.valoriaBlocksModTab"))
+    .withTabsImage(getTabsImage())
+    .backgroundSuffix("valoria_item.png").withBackgroundLocation(getBackgroundImage()).build());
+
+    public static final RegistryObject<CreativeModeTab> VALORIA_TAB = CREATIVE_MODE_TABS.register("valoria_misc",
+    () -> CreativeModeTab.builder().icon(() -> new ItemStack(ItemsRegistry.suspciousGem.get()))
+    .hideTitle()
+    .title(Component.translatable("itemGroup.valoriaMiscModTab"))
+    .withTabsImage(getTabsImage())
+    .withTabsAfter(ItemTabRegistry.VALORIA_ARMOR_TAB.getKey())
+    .backgroundSuffix("valoria_item.png").withBackgroundLocation(getBackgroundImage()).build());
+
+    public static final RegistryObject<CreativeModeTab> VALORIA_ARMOR_TAB = CREATIVE_MODE_TABS.register("valoria_armor",
+    () -> CreativeModeTab.builder().icon(() -> new ItemStack(ItemsRegistry.etherealHelmet.get()))
+    .hideTitle()
+    .title(Component.translatable("itemGroup.valoriaArmorModTab"))
+    .withTabsImage(getTabsImage())
+    .withTabsAfter(ItemTabRegistry.VALORIA_ACCESSORIES_TAB.getKey())
+    .backgroundSuffix("valoria_item.png").withBackgroundLocation(getBackgroundImage()).build());
+
+    public static final RegistryObject<CreativeModeTab> VALORIA_ACCESSORIES_TAB = CREATIVE_MODE_TABS.register("valoria_accessories",
+    () -> CreativeModeTab.builder().icon(() -> new ItemStack(ItemsRegistry.goldenRingRuby.get()))
+    .hideTitle()
+    .title(Component.translatable("itemGroup.valoriaAccessoriesModTab"))
+    .withTabsImage(getTabsImage())
+    .withTabsAfter(ItemTabRegistry.VALORIA_BLOCKS_TAB.getKey())
+    .backgroundSuffix("valoria_item.png").withBackgroundLocation(getBackgroundImage()).build());
 
     public static ResourceLocation getBackgroundImage(){
-        return new ResourceLocation(Valoria.ID, "textures/gui/container/tab_valoria_item.png");
+        return new ResourceLocation(Valoria.ID, "textures/gui/container/tab_valoria_item_legacy.png");
     }
 
     public static ResourceLocation getTabsImage(){
-        return new ResourceLocation(Valoria.ID, "textures/gui/container/tabs_valoria.png");
+        return new ResourceLocation(Valoria.ID, "textures/gui/container/tabs_valoria_legacy.png");
     }
 
     public static void register(IEventBus eventBus){
@@ -65,15 +83,36 @@ public abstract class ItemTabRegistry{
             if(Utils.isDevelopment) event.accept(ItemsRegistry.debugItem);
             for(RegistryObject<Item> item : ItemsRegistry.ITEMS.getEntries()){
                 if(!new ItemStack(item.get()).is(TagsRegistry.EXCLUDED_FROM_TAB)){
-                    if(item.get() instanceof SummonBook){
-                        event.accept(item.get().getDefaultInstance());
-                        event.getParameters().holders().lookup(ForgeRegistries.ENTITY_TYPES.getRegistryKey()).ifPresent(entityLookup -> generateMinionItems(event, entityLookup, (holder) -> holder.is(TagsRegistry.MINIONS), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
-                    }else{
+                    if(!(item.get() instanceof ICurioItem || item.get() instanceof ArmorItem)){
+                        if(item.get() instanceof SummonBook){
+                            event.accept(item.get().getDefaultInstance());
+                            event.getParameters().holders().lookup(ForgeRegistries.ENTITY_TYPES.getRegistryKey()).ifPresent(entityLookup -> generateMinionItems(event, entityLookup, (holder) -> holder.is(TagsRegistry.MINIONS), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
+                        }else{
+                            event.accept(item.get().getDefaultInstance());
+                        }
+                    }
+                }
+            }
+        }
+
+        if(event.getTabKey() == ItemTabRegistry.VALORIA_ARMOR_TAB.getKey()){
+            for(RegistryObject<Item> item : ItemsRegistry.ITEMS.getEntries()){
+                if(!new ItemStack(item.get()).is(TagsRegistry.EXCLUDED_FROM_TAB)){
+                    if(item.get() instanceof ArmorItem){
                         event.accept(item.get().getDefaultInstance());
                     }
                 }
             }
+        }
 
+        if(event.getTabKey() == ItemTabRegistry.VALORIA_ACCESSORIES_TAB.getKey()){
+            for(RegistryObject<Item> item : ItemsRegistry.ITEMS.getEntries()){
+                if(!new ItemStack(item.get()).is(TagsRegistry.EXCLUDED_FROM_TAB)){
+                    if(item.get() instanceof ICurioItem){
+                        event.accept(item.get().getDefaultInstance());
+                    }
+                }
+            }
         }
     }
 

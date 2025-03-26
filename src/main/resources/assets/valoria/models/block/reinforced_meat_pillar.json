@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "valoria:block/reinforced_meat_pillar_end",
+    "side": "valoria:block/reinforced_meat_pillar"
+  }
+}

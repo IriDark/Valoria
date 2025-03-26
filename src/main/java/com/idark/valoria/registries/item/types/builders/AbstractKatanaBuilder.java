@@ -1,18 +1,16 @@
 package com.idark.valoria.registries.item.types.builders;
 
-import com.google.common.collect.ImmutableList;
-import com.idark.valoria.Valoria;
-import com.idark.valoria.core.enums.ModItemTier;
-import com.idark.valoria.registries.SoundsRegistry;
-import com.idark.valoria.registries.item.types.KatanaItem;
-import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Item.Properties;
-import net.minecraft.world.item.Tier;
+import com.google.common.collect.*;
+import com.idark.valoria.*;
+import com.idark.valoria.core.enums.*;
+import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.item.types.*;
+import net.minecraft.core.particles.*;
+import net.minecraft.resources.*;
+import net.minecraft.sounds.*;
+import net.minecraft.world.effect.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.item.Item.*;
 
 import java.awt.*;
 
@@ -20,7 +18,6 @@ public abstract class AbstractKatanaBuilder<T extends KatanaItem>{
     public Tier tier = ModItemTier.NONE;
     public Item.Properties itemProperties;
     public ResourceLocation texture = new ResourceLocation(Valoria.ID, "textures/gui/overlay/speedlines.png");
-    ;
     public SoundEvent dashSound = SoundsRegistry.SWIFTSLICE.get();
     public SoundEvent cooldownSound = SoundsRegistry.RECHARGE.get();
     public SoundEvent chargedSound;

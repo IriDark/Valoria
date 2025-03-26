@@ -10,6 +10,7 @@ import com.idark.valoria.registries.item.armor.*;
 import com.idark.valoria.registries.item.armor.item.*;
 import com.idark.valoria.registries.item.skins.*;
 import com.idark.valoria.registries.item.types.*;
+import com.idark.valoria.registries.item.types.KatanaItem.*;
 import com.idark.valoria.registries.item.types.curio.*;
 import com.idark.valoria.registries.item.types.curio.charm.*;
 import com.idark.valoria.registries.item.types.curio.hands.*;
@@ -44,6 +45,7 @@ import org.jetbrains.annotations.*;
 import org.joml.*;
 import pro.komaru.tridot.api.*;
 import pro.komaru.tridot.client.gfx.particle.data.*;
+import pro.komaru.tridot.common.registry.item.*;
 import pro.komaru.tridot.common.registry.item.skins.*;
 import pro.komaru.tridot.common.registry.item.types.*;
 import pro.komaru.tridot.util.*;
@@ -74,7 +76,7 @@ public class ItemsRegistry{
     phantasmHelmet, phantasmChestplate, phantasmLeggings, phantasmBoots,
 
     // materials
-    rawCobalt, runicDust, amberGem, amethystGem, rubyGem, sapphireGem, wickedAmethyst, soulShard, unchargedShard, spiderFang,
+    rawCobalt, runicDust, amberGem, amethystGem, rubyGem, sapphireGem, wickedAmethyst, soulShard, unchargedShard, spiderFang, remains,
     natureGift, oceanicShell, infernalStone, rottenBone, marshCloth, painCrystal, nihilityShard, illusionStone, elementalCrystal,
     natureCore, aquariusCore, infernalCore, voidCore,
     valoriaPortalFrameShard, blackGoldUpgrade, natureUpgrade, aquariusUpgrade, infernalUpgrade, voidUpgrade,
@@ -87,7 +89,7 @@ public class ItemsRegistry{
     arcaneTrim, muramasaFragment, fishFragment, cyberpunkQunatumFragment, midnightQunatumFragment, theFallenTrim, starDivider,
 
     // loot bags
-    minersBag, gemBag, necromancerTreasureBag, dirtGeode, stoneGeode,
+    minersBag, gemBag, necromancerTreasureBag, crystalTreasureBag, dirtGeode, stoneGeode,
 
     // boss summonables
     necromancerGrimoire, suspciousGem,
@@ -98,7 +100,7 @@ public class ItemsRegistry{
     // weapons
     club, bronzeSword, spectralBlade, corpseCleaver,
     samuraiKunai, samuraiPoisonedKunai, samuraiKatana, samuraiLongBow,
-    silkenBlade, silkenKunai, silkenWakizashi, quantumReaper, bloodHound,
+    silkenBlade, silkenKunai, silkenWakizashi, meatCutter, quantumReaper, bloodHound,
     blazeReap, gunpowderCharge, pyratiteCharge,
     ironKatana, goldenKatana, diamondKatana, netheriteKatana, murasama,
     ironScythe, goldenScythe, diamondScythe, netheriteScythe, beast,
@@ -155,6 +157,10 @@ public class ItemsRegistry{
         eldritchSign = BLOCK_ITEMS.register("eldritch_sign", () -> new SignItem(new Item.Properties().stacksTo(16), BlockRegistry.eldritchSign.get(), BlockRegistry.eldritchWallSign.get()));
         eldritchHangingSign = BLOCK_ITEMS.register("eldritch_hanging_sign", () -> new HangingSignItem(BlockRegistry.eldritchHangingSign.get(), BlockRegistry.eldritchWallHangingSign.get(), new Item.Properties().stacksTo(16)));
 
+        blackGoldHelmet = registerItem("black_gold_helmet", () -> new PercentageArmorItem(ArmorRegistry.BLACK_GOLD, Type.HELMET, new Properties()));
+        blackGoldChestplate = registerItem("black_gold_chestplate", () -> new PercentageArmorItem(ArmorRegistry.BLACK_GOLD, Type.CHESTPLATE, new Properties()));
+        blackGoldLeggings = registerItem("black_gold_leggings", () -> new PercentageArmorItem(ArmorRegistry.BLACK_GOLD, Type.LEGGINGS, new Properties()));
+        blackGoldBoots = registerItem("black_gold_boots", () -> new PercentageArmorItem(ArmorRegistry.BLACK_GOLD, Type.BOOTS, new Properties()));
         cobaltHelmet = registerItem("cobalt_helmet", () -> new SkinableArmorItem(ArmorRegistry.COBALT, ArmorItem.Type.HELMET, new Item.Properties()));
         cobaltChestplate = registerItem("cobalt_chestplate", () -> new SkinableArmorItem(ArmorRegistry.COBALT, ArmorItem.Type.CHESTPLATE, new Item.Properties()));
         cobaltLeggings = registerItem("cobalt_leggings", () -> new SkinableArmorItem(ArmorRegistry.COBALT, ArmorItem.Type.LEGGINGS, new Item.Properties()));
@@ -177,10 +183,6 @@ public class ItemsRegistry{
         spiderBoots = registerItem("spider_boots", () -> new HitEffectArmorItem(ArmorRegistry.SPIDER, ArmorItem.Type.BOOTS, new Item.Properties().rarity(RarityRegistry.SPIDER), 0.2f, new MobEffectInstance(MobEffects.CONFUSION, 30)));
 
         // elemental
-        blackGoldHelmet = registerItem("black_gold_helmet", () -> new ArmorTemplateItem(new Properties()));
-        blackGoldChestplate = registerItem("black_gold_chestplate", () -> new ArmorTemplateItem(new Properties()));
-        blackGoldLeggings = registerItem("black_gold_leggings", () -> new ArmorTemplateItem(new Properties()));
-        blackGoldBoots = registerItem("black_gold_boots", () -> new ArmorTemplateItem(new Properties()));
         natureHelmet = registerEffectArmor("nature_helmet", Type.HELMET, ArmorRegistry.NATURE, new Item.Properties().rarity(RarityRegistry.NATURE));
         natureChestplate = registerEffectArmor("nature_chestplate", Type.CHESTPLATE, ArmorRegistry.NATURE, new Item.Properties().rarity(RarityRegistry.NATURE));
         natureLeggings = registerEffectArmor("nature_leggings", Type.LEGGINGS, ArmorRegistry.NATURE, new Item.Properties().rarity(RarityRegistry.NATURE));
@@ -213,6 +215,7 @@ public class ItemsRegistry{
         soulShard = registerItem("soul_shard", () -> new TransformShardItem(new Item.Properties().rarity(RarityRegistry.AQUARIUS)));
         unchargedShard = registerItem("uncharged_shard");
         spiderFang = registerItem("spider_fang");
+        remains = registerItem("remains");
         gaibRoot = registerItem("gaib_root", () -> new Item(new Item.Properties().stacksTo(16)));
         karusakanRoot = registerItem("karusakan_root", () -> new Item(new Item.Properties().stacksTo(16)));
         aloePiece = registerItem("aloe_piece");
@@ -247,7 +250,7 @@ public class ItemsRegistry{
         painCrystal = registerItem("pain_crystal", () -> new ParticleMaterialItem(new Item.Properties().rarity(RarityRegistry.BLOODY), 0.35f, ColorParticleData.create(Pal.strongRed, Pal.moderateViolet).build(), ParticleRegistry.SPHERE.get()));
         nihilityShard = registerItem("nihility_shard", () -> new ParticleMaterialItem(new Item.Properties().rarity(RarityRegistry.VOID), 0.35f, ColorParticleData.create(Pal.softMagenta).build(), ParticleRegistry.SPHERE.get()));
         illusionStone = registerItem("illusion_stone", () -> new ParticleMaterialItem(new Item.Properties().rarity(RarityRegistry.PHANTASM), 0.35f, ColorParticleData.create(Pal.softBlue, Col.white).build(), ParticleRegistry.SPHERE.get()));
-        elementalCrystal = registerItem("elemental_crystal", () -> new ParticleMaterialItem(new Item.Properties().rarity(RarityRegistry.NATURE), 0.35f, ColorParticleData.create(Pal.nature, Pal.strongRed).build(), ParticleRegistry.SPHERE.get()));
+        elementalCrystal = registerItem("elemental_crystal", () -> new ParticleMaterialItem(new Item.Properties().rarity(RarityRegistry.ELEMENTAL), 0.35f, ColorParticleData.create(Pal.nature, Pal.strongRed).build(), ParticleRegistry.SPHERE.get()));
         natureCore = registerItem("nature_core", () -> new CoreItem(ParticleRegistry.SPHERE.get(), new Item.Properties().fireResistant().rarity(RarityRegistry.NATURE), 1, Pal.nature, Pal.vividCyan, "nature_core"));
         aquariusCore = registerItem("aquarius_core", () -> new CoreItem(ParticleRegistry.SPHERE.get(), new Item.Properties().fireResistant().rarity(RarityRegistry.AQUARIUS), 1, Pal.oceanic, Pal.magmatic, "aquarius_core"));
         infernalCore = registerItem("infernal_core", () -> new CoreItem(ParticleRegistry.SPHERE.get(), new Item.Properties().fireResistant().rarity(RarityRegistry.INFERNAL), 1, Pal.infernalBright, Pal.magmatic, "infernal_core"));
@@ -274,6 +277,7 @@ public class ItemsRegistry{
         minersBag = registerItem("miners_bag", () -> new TreasureBag(new ResourceLocation(Valoria.ID, "items/miners_bag"), new Item.Properties().rarity(Rarity.EPIC)));
         gemBag = registerItem("gem_bag", () -> new TreasureBag(new ResourceLocation(Valoria.ID, "items/gem_bag"), new Item.Properties().rarity(Rarity.EPIC)));
         necromancerTreasureBag = registerItem("necromancer_treasure_bag", () -> new TreasureBag(new ResourceLocation(Valoria.ID, "items/necromancer_treasure_bag"), new Item.Properties().rarity(Rarity.EPIC)));
+        crystalTreasureBag = registerItem("wicked_crystal_treasure_bag", () -> new TreasureBag(new ResourceLocation(Valoria.ID, "items/wicked_crystal_treasure_bag"), new Item.Properties().rarity(Rarity.EPIC)));
 
         // boss summonables
         necromancerGrimoire = registerItem("necromancer_grimoire", () -> new Item(new Item.Properties()){
@@ -357,10 +361,10 @@ public class ItemsRegistry{
         diamondScythe = registerItem("diamond_scythe", () -> new ScytheItem(Tiers.DIAMOND, 8, -3.0f, new Item.Properties()));
         netheriteScythe = registerItem("netherite_scythe", () -> new ScytheItem(Tiers.NETHERITE, 10, -3.0f, new Item.Properties().fireResistant()));
         beast = registerItem("beast", () -> new BeastScytheItem.Builder(13, -3.2f, new Item.Properties()).setTier(ModItemTier.NONE).setCooldownTime(40, 150).build());
-        ironKatana = registerItem("iron_katana", () -> new KatanaItem(Tiers.IRON, 3, -2.2f, 1f, new Item.Properties()));
-        goldenKatana = registerItem("golden_katana", () -> new KatanaItem(Tiers.GOLD, 2, -1.8f, 1.2f, new Item.Properties()));
-        diamondKatana = registerItem("diamond_katana", () -> new KatanaItem(Tiers.DIAMOND, 4, -2f, 1.3f, new Item.Properties()));
-        netheriteKatana = registerItem("netherite_katana", () -> new KatanaItem(Tiers.NETHERITE, 5, -1.8f, 1.5f, new Item.Properties().fireResistant()));
+        ironKatana = registerItem("iron_katana", () -> new KatanaItem(Tiers.IRON, 3, -2.2f, new Item.Properties()));
+        goldenKatana = registerItem("golden_katana", () -> new KatanaItem(Tiers.GOLD, 2, -1.8f, new Item.Properties()));
+        diamondKatana = registerItem("diamond_katana", () -> new KatanaItem(Tiers.DIAMOND, 4, -2f, 1f, new Item.Properties()));
+        netheriteKatana = registerItem("netherite_katana", () -> new KatanaItem(Tiers.NETHERITE, 5, -1.8f, 1f, new Item.Properties().fireResistant()));
         murasama = registerItem("murasama", ItemsRegistry::murasamaProps);
         samuraiKunai = registerItem("samurai_kunai", () -> new KunaiItem(3, -1.9F, new Item.Properties().durability(360)));
         samuraiPoisonedKunai = registerItem("samurai_poisoned_kunai", () -> new KunaiItem(3, -1.9F, new Item.Properties().durability(360), new MobEffectInstance(MobEffects.POISON, 170, 0)));
@@ -369,6 +373,7 @@ public class ItemsRegistry{
         silkenBlade = registerItem("silken_blade", () -> new HitEffectItem(ModItemTier.NONE, 5, -3.2f, new Item.Properties().rarity(RarityRegistry.SPIDER), 0.25f, new MobEffectInstance(MobEffects.DARKNESS, 120, 0), new MobEffectInstance(MobEffects.POISON, 45, 0)));
         silkenWakizashi = registerItem("silken_wakizashi", () -> new KatanaItem.Builder(11, -2.2f, new Item.Properties().rarity(RarityRegistry.SPIDER)).setDashDistance(1.5f).setEffects(0.25f, new MobEffectInstance(MobEffects.DARKNESS, 120, 0), new MobEffectInstance(MobEffects.POISON, 45, 0)).removeLargeModelCheck().build());
         silkenKunai = registerItem("silken_kunai", () -> new KunaiItem(0, -2.2f, new Item.Properties().rarity(RarityRegistry.SPIDER), 0.25f, new MobEffectInstance(MobEffects.DARKNESS, 120, 0), new MobEffectInstance(MobEffects.POISON, 60, 1)));
+        meatCutter = registerItem("meatcutter", () -> new Builder(16, -2.2f, new Properties().rarity(RarityRegistry.BLOODY)).setDashDistance(1f).setEffects(0.25f, new MobEffectInstance(EffectsRegistry.BLEEDING.get(), 120, 0)).build());
 
         pearliumSword = registerItem("pearlium_sword", () -> new SwordItem(ModItemTier.PEARLIUM, 5, -2.6f, new Item.Properties()));
         pearliumPickaxe = registerItem("pearlium_pickaxe", () -> new ValoriaPickaxe(ModItemTier.PEARLIUM, -1, -3f, new Item.Properties()));

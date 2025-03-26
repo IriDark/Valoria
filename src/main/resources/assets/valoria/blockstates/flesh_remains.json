@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "valoria:block/flesh_remains"
+      },
+      {
+        "model": "valoria:block/flesh_remains_mirror",
+        "y": 180
+      }
+    ]
+  }
+}

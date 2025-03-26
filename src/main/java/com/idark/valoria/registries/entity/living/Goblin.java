@@ -32,7 +32,7 @@ public class Goblin extends AbstractGoblin{
 
     public Goblin(EntityType<? extends PathfinderMob> type, Level worldIn){
         super(type, worldIn);
-        this.xpReward = 3;
+        this.xpReward = 2;
     }
 
     public boolean doHurtTarget(Entity pEntity){

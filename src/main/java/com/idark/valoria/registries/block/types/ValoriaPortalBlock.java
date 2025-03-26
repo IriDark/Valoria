@@ -47,7 +47,7 @@ public class ValoriaPortalBlock extends Block implements EntityBlock{
     @OnlyIn(Dist.CLIENT)
     public void animateTick(BlockState pState, Level pLevel, BlockPos pPos, RandomSource pRandom){
         if(pRandom.nextInt(100) == 0){
-            pLevel.playLocalSound((double)pPos.getX() + 0.5D, (double)pPos.getY() + 0.5D, (double)pPos.getZ() + 0.5D, SoundEvents.PORTAL_AMBIENT, SoundSource.BLOCKS, 0.5F, pRandom.nextFloat() * 0.4F - 3F, false);
+            pLevel.playLocalSound((double)pPos.getX() + 0.5D, (double)pPos.getY() + 0.5D, (double)pPos.getZ() + 0.5D, SoundEvents.PORTAL_AMBIENT, SoundSource.BLOCKS, 0.5F, -pRandom.nextFloat() * 0.5F, false);
         }
 
         var random = Tmp.rnd;
@@ -93,27 +93,13 @@ public class ValoriaPortalBlock extends Block implements EntityBlock{
     }
 
     public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pFacingPos){
-        BlockPattern.BlockPatternMatch frame = ValoriaPortalFrame.getOrCreatePortalShape().find(pLevel, pCurrentPos);
-        if(frame != null){
-            for(int i = 0; i < 3; ++i){
-                for(int j = 0; j < 3; ++j){
-                    BlockPos blockpos1 = frame.getFrontTopLeft().offset(-3, 0, -3);
-                    if(pLevel.isEmptyBlock(blockpos1.offset(i, 0, j))){
-                        return Blocks.AIR.defaultBlockState();
-                    }
-                }
-            }
-        }
-
         return super.updateShape(pState, pFacing, pFacingState, pLevel, pCurrentPos, pFacingPos);
     }
 
     @Override
     public void neighborChanged(BlockState state, Level world, BlockPos pos, Block block, BlockPos pos2, boolean unknown){
         BlockPattern.BlockPatternMatch frame = ValoriaPortalFrame.getOrCreatePortalShape().find(world, pos);
-        if(frame == null){
-            world.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
-        }
+        if(frame == null && world.dimension() != LevelGen.VALORIA_KEY) world.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
     }
 
     public @Nullable BlockEntity newBlockEntity(BlockPos pPos, BlockState pState){

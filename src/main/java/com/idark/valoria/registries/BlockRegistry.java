@@ -40,7 +40,7 @@ public class BlockRegistry{
     pyratiteBlock, pyratiteOre, pyratiteCrystal, amberBlock, amberOre, deepslateAmberOre, amberCrystal, sapphireBlock, sapphireOre, deepslateSapphireOre, sapphireCrystal, amethystBlock, amethystCrystal, rubyBlock, rubyOre, deepslateRubyOre, rubyCrystal, cobaltBlock, rawCobaltOreBlock, cobaltOre, deepslateCobaltOre, wickedAmethystOre, dormantCrystals, pearliumOre,
     natureBlock, aquariusBlock, infernalBlock, awakenedVoidBlock, unchargedShardBlock, soulShardBlock, wickedAmethystBlock,
     bronzeBlock, bronzeBlockStairs, bronzeBlockSlab, bronzeVent, cutBronze, cutBronzeStairs, cutBronzeSlab, bronzeGlass, bronzeGlassPane,
-    eyeFlesh, eyeMeat, eyeStone, meatBlock, fleshBlock, fleshCyst, bloodVein,
+    eyeFlesh, eyeMeat, eyeStone, meatBlock, fleshRemains, meatPillar, fleshBlock, fleshCyst, bloodVein,
     cobbledShale, cobbledShaleStairs, cobbledShaleSlab, cobbledShaleWall, cobbledShaleBricks, cobbledShaleBricksStairs, cobbledShaleBricksSlab, cobbledShaleBricksWall, crackedCobbledShaleBricks, crackedCobbledShaleBricksStairs, crackedCobbledShaleBricksSlab, crackedCobbledShaleBricksWall, polishedCobbledShale, polishedCobbledShaleStairs, polishedCobbledShaleSlab, polishedCobbledShaleWall, cobbledShaleFirechargeTrap, cobbledShaleSpikesTrap,
     deepMarble, deepMarbleStairs, deepMarbleSlab, deepMarbleWall, polishedDeepMarble, polishedDeepMarbleStairs, polishedDeepMarbleSlab, polishedDeepMarbleWall,
     picrite, picriteStairs, picriteSlab, picriteWall, polishedPicrite, polishedPicriteStairs, polishedPicriteSlab, polishedPicriteWall, picriteBricks, picriteBricksStairs, picriteBricksSlab, picriteBricksWall,
@@ -206,9 +206,11 @@ public class BlockRegistry{
         polishedEphemariteWall = registerBlock("polished_ephemarite_wall", () -> new WallBlock(props(Blocks.STONE_BRICK_WALL, MapColor.TERRACOTTA_BROWN).requiresCorrectToolForDrops()));
 
         meatBlock = registerBlock("meat_block", () -> new FleshBlock(props(Blocks.STONE, MapColor.COLOR_RED).sound(SoundsRegistry.FLESH).requiresCorrectToolForDrops()));
+        meatPillar = registerBlock("reinforced_meat_pillar", () -> new RotatedPillarBlock(props(Blocks.STONE, MapColor.COLOR_RED).sound(SoundsRegistry.FLESH).strength(1.5f).requiresCorrectToolForDrops()));
         fleshBlock = registerBlock("flesh_block", () -> new FleshBlock(props(Blocks.STONE, MapColor.COLOR_RED).sound(SoundsRegistry.FLESH).requiresCorrectToolForDrops()));
+        fleshRemains = registerBlock("flesh_remains", () -> new FleshBlock(props(Blocks.STONE, MapColor.COLOR_RED).sound(SoundsRegistry.FLESH).strength(1.2f).requiresCorrectToolForDrops()));
         fleshCyst = registerBlock("flesh_cyst", () -> new FleshCystBlock(props(Blocks.STONE, MapColor.COLOR_RED).sound(SoundsRegistry.CYST).requiresCorrectToolForDrops()));
-        bloodVein = registerBlock("blood_vein", () -> new BloodVeinBlock(props(Blocks.STONE, MapColor.COLOR_RED).sound(SoundsRegistry.FLESH).requiresCorrectToolForDrops().noOcclusion()));
+        bloodVein = registerBlock("blood_vein", () -> new BloodVeinBlock(props(Blocks.SCULK_VEIN, MapColor.COLOR_RED).sound(SoundsRegistry.FLESH).requiresCorrectToolForDrops().noOcclusion()));
 
         ambaneStone = registerBlock("ambane_stone", () -> new Block(props(Blocks.STONE, MapColor.WARPED_WART_BLOCK).requiresCorrectToolForDrops()));
         ambaneStoneStairs = registerBlock("ambane_stone_stairs", () -> new StairBlock(() -> BlockRegistry.ambaneStone.get().defaultBlockState(), props(Blocks.STONE_STAIRS, MapColor.WARPED_WART_BLOCK).requiresCorrectToolForDrops()));

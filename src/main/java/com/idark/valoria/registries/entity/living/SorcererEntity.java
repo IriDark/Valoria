@@ -40,6 +40,7 @@ public class SorcererEntity extends MultiAttackMob implements Enemy, RangedAttac
 
     public SorcererEntity(EntityType<? extends PathfinderMob> pEntityType, Level pLevel){
         super(pEntityType, pLevel);
+        this.xpReward = 5;
         this.setPathfindingMalus(BlockPathTypes.POWDER_SNOW, -1.0F);
         this.setPathfindingMalus(BlockPathTypes.DANGER_POWDER_SNOW, -1.0F);
     }

@@ -14,13 +14,12 @@ public class ItemSupplierSkinEntry extends ItemSkinEntry{
         this.item = item;
         this.skin = skin;
     }
-
-    public boolean canApplyOnItem(ItemStack itemStack){
+    public boolean appliesOn(ItemStack itemStack){
         return itemStack.is(item.get());
     }
 
     @OnlyIn(Dist.CLIENT)
-    public String getItemModelName(ItemStack stack){
+    public String itemModel(ItemStack stack){
         return this.skin;
     }
 }

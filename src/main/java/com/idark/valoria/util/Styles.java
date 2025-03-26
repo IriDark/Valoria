@@ -27,4 +27,5 @@ public class Styles{
     public static DotStyle phantasm = create(Pal.softBlue).effects(DotText.pulse(0.75f));
     public static DotStyle arcaneGold = create(Pal.arcaneGold);
     public static DotStyle spider = create(Pal.crystalBlue).effects(DotText.wave(0.25f, 0.1f), DotText.advance(0.15f));
+    public static DotStyle elemental = DotStyle.of().effects(DotText.rainbow(0.5f));
 }
