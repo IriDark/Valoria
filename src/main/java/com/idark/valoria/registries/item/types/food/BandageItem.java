@@ -1,25 +1,20 @@
 package com.idark.valoria.registries.item.types.food;
 
-import com.google.common.collect.ImmutableList;
-import com.idark.valoria.client.particle.ParticleRegistry;
-import com.idark.valoria.registries.EffectsRegistry;
-import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.stats.Stats;
-import net.minecraft.world.effect.MobEffectCategory;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.UseAnim;
-import net.minecraft.world.level.Level;
+import com.google.common.collect.*;
+import com.idark.valoria.client.particle.*;
+import com.idark.valoria.registries.*;
+import net.minecraft.advancements.*;
+import net.minecraft.server.level.*;
+import net.minecraft.sounds.*;
+import net.minecraft.stats.*;
+import net.minecraft.world.effect.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.food.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.*;
 
-import java.util.List;
+import java.util.*;
 
 public class BandageItem extends Item{
     public boolean removeAllEffects;
@@ -101,6 +96,6 @@ public class BandageItem extends Item{
 
     @Override
     public UseAnim getUseAnimation(ItemStack stack){
-        return UseAnim.BLOCK;
+        return UseAnim.CROSSBOW;
     }
 }

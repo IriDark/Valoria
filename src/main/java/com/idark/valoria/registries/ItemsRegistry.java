@@ -86,7 +86,7 @@ public class ItemsRegistry{
     emptyGazer, emptyWinglet, emptyTotem,
 
     // skin
-    arcaneTrim, muramasaFragment, fishFragment, cyberpunkQunatumFragment, midnightQunatumFragment, theFallenTrim, starDivider,
+    arcaneTrim, muramasaFragment, murasameFragment, fishFragment, cyberpunkQunatumFragment, midnightQunatumFragment, theFallenTrim, starDivider,
 
     // loot bags
     minersBag, gemBag, necromancerTreasureBag, crystalTreasureBag, dirtGeode, stoneGeode,
@@ -266,6 +266,7 @@ public class ItemsRegistry{
         midnightQunatumFragment = registerItem("midnight_quantum_reaper_fragment", () -> new SkinFragmentItem(SkinsRegistry.MIDNIGHT, new Item.Properties(), () -> quantumReaper.get()));
         starDivider = registerItem("star_divider_fragment", () -> new SkinFragmentItem(SkinsRegistry.STAR_DIVIDER, new Item.Properties(), () -> quantumReaper.get()));
         muramasaFragment = registerItem("muramasa_fragment", () -> new SkinFragmentItem(SkinsRegistry.MURAMASA, new Item.Properties(), () -> murasama.get()));
+        murasameFragment = registerItem("murasame_fragment", () -> new SkinFragmentItem(SkinsRegistry.MURASAME, new Item.Properties(), () -> murasama.get()));
         fishFragment = registerItem("fish_fragment", () -> new SkinFragmentItem(SkinsRegistry.FISH, new Item.Properties(), KatanaItem.class));
 
         theFallenTrim = registerItem("the_fallen_trim", () -> new SkinTrimItem(SkinsRegistry.THE_FALLEN_COLLECTOR, new Item.Properties()));

@@ -68,16 +68,16 @@ public class FleshSentinel extends AbstractMinionEntity{
         this.entityData.define(DATA_FLAGS_ID, (byte)0);
     }
 
-    protected SoundEvent getAmbientSound(){
-        return SoundEvents.SKELETON_AMBIENT;
+    protected SoundEvent getAmbientSound() {
+        return SoundEvents.TROPICAL_FISH_AMBIENT;
     }
 
-    protected SoundEvent getDeathSound(){
-        return SoundEvents.SKELETON_DEATH;
+    protected SoundEvent getDeathSound() {
+        return SoundEvents.TROPICAL_FISH_DEATH;
     }
 
-    protected SoundEvent getHurtSound(DamageSource pDamageSource){
-        return SoundEvents.SKELETON_HURT;
+    protected SoundEvent getHurtSound(DamageSource pDamageSource) {
+        return SoundEvents.TROPICAL_FISH_HURT;
     }
 
     public float getLightLevelDependentMagicValue(){
