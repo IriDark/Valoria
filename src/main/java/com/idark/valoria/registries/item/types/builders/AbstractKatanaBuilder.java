@@ -30,7 +30,7 @@ public abstract class AbstractKatanaBuilder<T extends KatanaItem>{
     public int overlayTime = 35;
     public int cooldownTime = 75;
     public int chargeTime = 0;
-    public float dashDist = 0.8f;
+    public float dashDist = 0.5f;
     public ImmutableList<MobEffectInstance> effects = ImmutableList.of();
     public ParticleOptions particleOptions = ParticleTypes.POOF;
 

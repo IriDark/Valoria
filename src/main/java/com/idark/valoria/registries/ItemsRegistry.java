@@ -364,8 +364,8 @@ public class ItemsRegistry{
         beast = registerItem("beast", () -> new BeastScytheItem.Builder(13, -3.2f, new Item.Properties()).setTier(ModItemTier.NONE).setCooldownTime(40, 150).build());
         ironKatana = registerItem("iron_katana", () -> new KatanaItem(Tiers.IRON, 3, -2.2f, new Item.Properties()));
         goldenKatana = registerItem("golden_katana", () -> new KatanaItem(Tiers.GOLD, 2, -1.8f, new Item.Properties()));
-        diamondKatana = registerItem("diamond_katana", () -> new KatanaItem(Tiers.DIAMOND, 4, -2f, 1f, new Item.Properties()));
-        netheriteKatana = registerItem("netherite_katana", () -> new KatanaItem(Tiers.NETHERITE, 5, -1.8f, 1f, new Item.Properties().fireResistant()));
+        diamondKatana = registerItem("diamond_katana", () -> new KatanaItem(Tiers.DIAMOND, 4, -2f, 0.8f, new Item.Properties()));
+        netheriteKatana = registerItem("netherite_katana", () -> new KatanaItem(Tiers.NETHERITE, 5, -1.8f, 0.8f, new Item.Properties().fireResistant()));
         murasama = registerItem("murasama", ItemsRegistry::murasamaProps);
         samuraiKunai = registerItem("samurai_kunai", () -> new KunaiItem(3, -1.9F, new Item.Properties().durability(360)));
         samuraiPoisonedKunai = registerItem("samurai_poisoned_kunai", () -> new KunaiItem(3, -1.9F, new Item.Properties().durability(360), new MobEffectInstance(MobEffects.POISON, 170, 0)));
