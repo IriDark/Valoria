@@ -177,10 +177,10 @@ public class ItemsRegistry{
         etherealChestplate = registerEffectArmor("ethereal_chestplate", ArmorItem.Type.CHESTPLATE, ArmorRegistry.ETHEREAL, new Item.Properties().rarity(RarityRegistry.ETHEREAL));
         etherealLeggings = registerEffectArmor("ethereal_leggings", ArmorItem.Type.LEGGINGS, ArmorRegistry.ETHEREAL, new Item.Properties().rarity(RarityRegistry.ETHEREAL));
         etherealBoots = registerEffectArmor("ethereal_boots", ArmorItem.Type.BOOTS, ArmorRegistry.ETHEREAL, new Item.Properties().rarity(RarityRegistry.ETHEREAL));
-        spiderHelmet = registerItem("spider_helmet", () -> new HitEffectArmorItem(ArmorRegistry.SPIDER, ArmorItem.Type.HELMET, new Item.Properties().rarity(RarityRegistry.SPIDER), 0.2f, new MobEffectInstance(MobEffects.WEAKNESS, 20)));
-        spiderChestplate = registerItem("spider_chestplate", () -> new HitEffectArmorItem(ArmorRegistry.SPIDER, ArmorItem.Type.CHESTPLATE, new Item.Properties().rarity(RarityRegistry.SPIDER), 0.1f, new MobEffectInstance(MobEffects.BLINDNESS, 40)));
-        spiderLeggings = registerItem("spider_leggings", () -> new HitEffectArmorItem(ArmorRegistry.SPIDER, ArmorItem.Type.LEGGINGS, new Item.Properties().rarity(RarityRegistry.SPIDER), 0.3f, new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 35)));
-        spiderBoots = registerItem("spider_boots", () -> new HitEffectArmorItem(ArmorRegistry.SPIDER, ArmorItem.Type.BOOTS, new Item.Properties().rarity(RarityRegistry.SPIDER), 0.2f, new MobEffectInstance(MobEffects.CONFUSION, 30)));
+        spiderHelmet = registerItem("spider_helmet", () -> new HitEffectArmorItem(ArmorRegistry.SPIDER, ArmorItem.Type.HELMET, new Item.Properties().rarity(RarityRegistry.SPIDER), 0.5f, new MobEffectInstance(MobEffects.WEAKNESS, 60)));
+        spiderChestplate = registerItem("spider_chestplate", () -> new HitEffectArmorItem(ArmorRegistry.SPIDER, ArmorItem.Type.CHESTPLATE, new Item.Properties().rarity(RarityRegistry.SPIDER), 0.5f, new MobEffectInstance(MobEffects.BLINDNESS, 60)));
+        spiderLeggings = registerItem("spider_leggings", () -> new HitEffectArmorItem(ArmorRegistry.SPIDER, ArmorItem.Type.LEGGINGS, new Item.Properties().rarity(RarityRegistry.SPIDER), 0.5f, new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60)));
+        spiderBoots = registerItem("spider_boots", () -> new HitEffectArmorItem(ArmorRegistry.SPIDER, ArmorItem.Type.BOOTS, new Item.Properties().rarity(RarityRegistry.SPIDER), 0.5f, new MobEffectInstance(MobEffects.CONFUSION, 60)));
 
         // elemental
         natureHelmet = registerEffectArmor("nature_helmet", Type.HELMET, ArmorRegistry.NATURE, new Item.Properties().rarity(RarityRegistry.NATURE));
