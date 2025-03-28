@@ -6,7 +6,7 @@ import net.minecraft.client.model.*;
 import net.minecraft.client.model.geom.*;
 import net.minecraft.client.model.geom.builders.*;
 
-public class CrystalShardModel<T extends CrystalShard> extends EntityModel<T>{
+public class CrystalShardModel<T extends AbstractProjectile> extends EntityModel<T>{
 	private final ModelPart bb_main;
 
 	public CrystalShardModel(ModelPart root) {

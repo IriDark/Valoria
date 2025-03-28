@@ -20,6 +20,8 @@ public class Pal{
     ecru = Col.fromHex("c8b684"),
     arcaneGold = Col.fromHex("d5a07a"),
     marsh = Col.fromHex("5d6039"),
+    pyratiteBright = Col.fromHex("fee47f"),
+    pyratite = Col.fromHex("bf7b2d"),
 
     vividCyan = Col.fromHex("1DEBB3"),
     cyan = Col.fromHex("00DBEB"),

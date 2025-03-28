@@ -149,6 +149,7 @@ public class ValoriaClient{
             EntityRenderers.register(EntityTypeRegistry.CRYSTAL.get(), CrystalRenderer::new);
             EntityRenderers.register(EntityTypeRegistry.CRYSTAL_SPIKES.get(), CrystalSpikesRenderer::new);
             EntityRenderers.register(EntityTypeRegistry.CRYSTAL_SHARD.get(), CrystalShardRenderer::new);
+            EntityRenderers.register(EntityTypeRegistry.PYRATITE_SHARD.get(), PyratiteShardRenderer::new);
             EntityRenderers.register(EntityTypeRegistry.ENT.get(), EntRenderer::new);
             EntityRenderers.register(EntityTypeRegistry.LASER.get(), LaserRenderer::new);
             EntityRenderers.register(EntityTypeRegistry.MAGGOT.get(), MaggotRenderer::new);

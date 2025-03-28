@@ -2,6 +2,8 @@ package com.idark.valoria.registries.entity.projectile;
 
 import com.idark.valoria.registries.*;
 import com.idark.valoria.util.*;
+import net.minecraft.core.*;
+import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.item.*;
@@ -22,6 +24,7 @@ public class ThrownSpearEntity extends AbstractSupplierProjectile{
     private float explosive_radius;
     private boolean shouldExplode;
     private boolean isExploded;
+    private boolean isPyratiteHit;
     private Level.ExplosionInteraction interaction;
 
     public ThrownSpearEntity(Level worldIn, LivingEntity thrower, ItemStack thrownStackIn){
@@ -62,7 +65,6 @@ public class ThrownSpearEntity extends AbstractSupplierProjectile{
         }
     }
 
-
     public @NotNull SoundEvent getDefaultHitGroundSoundEvent(){
         return SoundsRegistry.SPEAR_GROUND_IMPACT.get();
     }
@@ -83,8 +85,32 @@ public class ThrownSpearEntity extends AbstractSupplierProjectile{
         explosive_radius = radius;
     }
 
+    private void summonStormCrystal(ServerLevel serverLevel, BlockPos spawnPos, float angle, double speed) {
+        PyratiteShard shard = EntityTypeRegistry.PYRATITE_SHARD.get().create(this.level());
+        if (shard != null) {
+            shard.moveTo(spawnPos.getX(), spawnPos.getY() + 2, spawnPos.getZ(), 0.0F, 0.0F);
+            shard.setOwner(this.getOwner());
+            double vx = Math.cos(angle) * speed;
+            double vz = Math.sin(angle) * speed;
+            shard.setDeltaMovement(vx, 0.4, vz);
+            serverLevel.addFreshEntity(shard);
+        }
+    }
+
     protected void onHit(HitResult pResult){
         super.onHit(pResult);
+        if(!isPyratiteHit){
+            if(this.getItem().is(ItemsRegistry.pyratiteSpear.get()) && level() instanceof ServerLevel serv){
+                BlockPos center = BlockPos.containing(pResult.getLocation());
+                for(int i = 0; i < 4; i++){
+                    float angle = (float)((2 * Math.PI / 4) * i);
+                    summonStormCrystal(serv, center, angle, 0.05);
+                }
+
+                this.isPyratiteHit = true;
+            }
+        }
+
         if(this.shouldExplode && !this.isExploded){
             if(!this.level().isClientSide){
                 this.level().explode(this, this.getX(), this.getY(), this.getZ(), explosive_radius, interaction);

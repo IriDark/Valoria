@@ -96,6 +96,6 @@ public class BandageItem extends Item{
 
     @Override
     public UseAnim getUseAnimation(ItemStack stack){
-        return UseAnim.CROSSBOW;
+        return UseAnim.BOW;
     }
 }

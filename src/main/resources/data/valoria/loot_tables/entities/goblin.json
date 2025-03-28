@@ -7,7 +7,7 @@
         {
           "type": "minecraft:item",
           "name": "valoria:bronze_nugget",
-          "weight": 6,
+          "weight": 15,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -22,12 +22,12 @@
         {
           "type": "minecraft:item",
           "name": "valoria:bronze_ingot",
-          "weight": 2
+          "weight": 1
         },
         {
           "type": "minecraft:item",
           "name": "valoria:goblin_meat",
-          "weight": 12,
+          "weight": 35,
           "functions": [
             {
               "function": "minecraft:set_count",

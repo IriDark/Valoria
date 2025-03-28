@@ -425,12 +425,12 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:leather_boots",
-          "weight": 7
+          "weight": 8
         },
         {
           "type": "minecraft:item",
           "name": "minecraft:diamond_leggings",
-          "weight": 2
+          "weight": 1
         },
         {
           "type": "minecraft:item",

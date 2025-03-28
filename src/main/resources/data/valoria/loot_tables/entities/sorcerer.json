@@ -7,7 +7,7 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:bone",
-          "weight": 35,
+          "weight": 40,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -23,7 +23,7 @@
           "conditions": [
             {
               "condition": "minecraft:random_chance",
-              "chance": 0.15
+              "chance": 0.015
             }
           ]
         },
