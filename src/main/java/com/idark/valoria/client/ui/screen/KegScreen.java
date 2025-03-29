@@ -1,14 +1,14 @@
 package com.idark.valoria.client.ui.screen;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.client.ui.menus.KegMenu;
-import com.idark.valoria.registries.block.entity.KegBlockEntity;
-import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.player.Inventory;
+import com.idark.valoria.*;
+import com.idark.valoria.client.ui.menus.*;
+import com.idark.valoria.registries.block.entity.*;
+import com.mojang.blaze3d.systems.*;
+import net.minecraft.client.gui.*;
+import net.minecraft.client.gui.screens.inventory.*;
+import net.minecraft.network.chat.*;
+import net.minecraft.resources.*;
+import net.minecraft.world.entity.player.*;
 
 public class KegScreen extends AbstractContainerScreen<KegMenu>{
     private final ResourceLocation GUI = new ResourceLocation(Valoria.ID, "textures/gui/container/keg_brewery.png");
@@ -42,7 +42,7 @@ public class KegScreen extends AbstractContainerScreen<KegMenu>{
             if(keg.progress > 0 && !keg.itemHandler.getStackInSlot(0).isEmpty()){
                 int height = 21;
                 height /= ((double)keg.progressMax / (double)keg.progress);
-                gui.blit(GUI, i + 76, j + 52 - height, 176, 21 - height, 22, height, 256, 256);
+                gui.blit(GUI, i + 77, j + 52 - height, 176, 21 - height, 22, height, 256, 256);
             }
         }
     }

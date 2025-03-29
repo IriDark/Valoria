@@ -154,12 +154,6 @@ public class KegBlockEntity extends BlockEntity implements MenuProvider, Tickabl
                 CombinedInvWrapper item = new CombinedInvWrapper(itemHandler, itemOutputHandler);
                 return LazyOptional.of(() -> item).cast();
             }
-
-            if(side == Direction.DOWN){
-                return outputHandler.cast();
-            }else{
-                return handler.cast();
-            }
         }
 
         return super.getCapability(cap, side);
@@ -169,7 +163,8 @@ public class KegBlockEntity extends BlockEntity implements MenuProvider, Tickabl
     public void tick(){
         if(!level.isClientSide){
             Optional<KegRecipe> recipe = getCurrentRecipe();
-            if(recipe.isPresent() && this.itemOutputHandler.getStackInSlot(0).isEmpty()){
+            ItemStack output = this.itemOutputHandler.getStackInSlot(0);
+            if(recipe.isPresent() && output.isStackable() && output.getCount() < output.getMaxStackSize() && this.itemOutputHandler.isItemValid(0, output)){
                 increaseCraftingProgress();
                 startCraft = true;
                 setMaxProgress();
@@ -195,11 +190,8 @@ public class KegBlockEntity extends BlockEntity implements MenuProvider, Tickabl
     private void craftItem(){
         Optional<KegRecipe> recipe = getCurrentRecipe();
         ItemStack result = recipe.get().getResultItem(RegistryAccess.EMPTY);
-        if(this.itemOutputHandler.getStackInSlot(0).isEmpty()){
-            this.itemHandler.extractItem(0, 1, false);
-            this.itemOutputHandler.setStackInSlot(0, result);
-        }
-
+        this.itemHandler.extractItem(0, 1, false);
+        this.itemOutputHandler.insertItem(0, result, false);
         this.playBrewSound();
     }
 

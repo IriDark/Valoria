@@ -18,11 +18,6 @@ public class SkinFragmentItem extends SkinTrimItem{
         this.item = item;
     }
 
-    public SkinFragmentItem(ItemSkin skin, Properties properties, Class<?> item){
-        super(skin, properties);
-        this.itemClass = item;
-    }
-
     public boolean canApply(ItemStack stack){
         return itemClass != null ? this.itemClass.isInstance(stack.getItem()) : stack.is(item.get());
     }

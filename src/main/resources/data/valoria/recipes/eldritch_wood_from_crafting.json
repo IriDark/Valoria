@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "GG",
+    "GG"
+  ],
+  "key": {
+    "G": {
+      "item": "valoria:eldritch_log"
+    }
+  },
+  "result": {
+    "item": "valoria:eldritch_wood",
+    "count": 3
+  }
+}

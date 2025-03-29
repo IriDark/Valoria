@@ -335,11 +335,11 @@ public class BlockRegistry{
         wickedAltar = registerBlock("wicked_altar", () -> new WickedAltar(BlockBehaviour.Properties.copy(BlockRegistry.picrite.get()).noOcclusion().strength(-1f, 3600000.0F).lightLevel(Utils.Blocks.light(10))));
 
         ancientStone = registerBlock("ancient_stone", () -> new Block(props(Blocks.STONE, MapColor.TERRACOTTA_BROWN).requiresCorrectToolForDrops()));
-        ancientStoneSlab = registerBlock("ancient_stone_slab", () -> new SlabBlock(props(Blocks.STONE_SLAB, MapColor.TERRACOTTA_BROWN).requiresCorrectToolForDrops().sound(SoundType.NETHER_BRICKS)));
+        ancientStoneSlab = registerBlock("ancient_stone_slab", () -> new SlabBlock(props(Blocks.STONE_SLAB, MapColor.TERRACOTTA_BROWN).requiresCorrectToolForDrops()));
         ancientStoneStairs = registerBlock("ancient_stone_stairs", () -> new StairBlock(() -> BlockRegistry.crystalStone.get().defaultBlockState(), props(Blocks.STONE_STAIRS, MapColor.TERRACOTTA_BROWN).requiresCorrectToolForDrops()));
         ancientStoneWall = registerBlock("ancient_stone_wall", () -> new WallBlock(props(Blocks.STONE_BRICK_WALL, MapColor.TERRACOTTA_BROWN).requiresCorrectToolForDrops()));
         polishedAncientStone = registerBlock("polished_ancient_stone", () -> new Block(props(Blocks.STONE, MapColor.TERRACOTTA_BROWN).requiresCorrectToolForDrops()));
-        polishedAncientStoneSlab = registerBlock("polished_ancient_stone_slab", () -> new SlabBlock(props(Blocks.STONE_SLAB, MapColor.TERRACOTTA_BROWN).requiresCorrectToolForDrops().sound(SoundType.NETHER_BRICKS)));
+        polishedAncientStoneSlab = registerBlock("polished_ancient_stone_slab", () -> new SlabBlock(props(Blocks.STONE_SLAB, MapColor.TERRACOTTA_BROWN).requiresCorrectToolForDrops()));
         polishedAncientStoneStairs = registerBlock("polished_ancient_stone_stairs", () -> new StairBlock(() -> BlockRegistry.crystalStone.get().defaultBlockState(), props(Blocks.STONE_STAIRS, MapColor.TERRACOTTA_BLUE).requiresCorrectToolForDrops()));
         polishedAncientStoneWall = registerBlock("polished_ancient_stone_wall", () -> new WallBlock(props(Blocks.STONE_BRICK_WALL, MapColor.TERRACOTTA_BROWN).requiresCorrectToolForDrops()));
         cutAncientStone = registerBlock("cut_ancient_stone", () -> new Block(props(Blocks.STONE, MapColor.TERRACOTTA_BROWN).requiresCorrectToolForDrops()));

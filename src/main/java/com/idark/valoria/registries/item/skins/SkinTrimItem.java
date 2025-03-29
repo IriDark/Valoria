@@ -2,11 +2,14 @@ package com.idark.valoria.registries.item.skins;
 
 import com.idark.valoria.*;
 import net.minecraft.*;
+import net.minecraft.client.*;
+import net.minecraft.client.gui.screens.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.resources.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraftforge.api.distmarker.*;
+import net.minecraftforge.registries.*;
 import pro.komaru.tridot.common.registry.item.skins.*;
 
 import java.util.*;
@@ -45,6 +48,22 @@ public class SkinTrimItem extends Item{
     public void appendHoverText(ItemStack stack, Level level, List<Component> tooltip, TooltipFlag flags){
         super.appendHoverText(stack, level, tooltip, flags);
         tooltip.add(getSkin().skinComponent());
+        var player = Minecraft.getInstance().player;
+        if(player != null){
+            if(Screen.hasShiftDown()){
+                tooltip.add(Component.translatable("item.minecraft.smithing_template.applies_to").withStyle(ChatFormatting.GRAY));
+                for(var reg : ForgeRegistries.ITEMS.getEntries()) {
+                    for(ItemSkinEntry skinEntry : skin.skinEntries()) {
+                        ItemStack item = reg.getValue().getDefaultInstance();
+                        if(skinEntry.appliesOn(item)){
+                            tooltip.add(Component.literal("  • ").append(item.getHoverName()).withStyle(item.getRarity().getStyleModifier()));
+                        }
+                    }
+                }
+            } else {
+                tooltip.add(Component.translatable("tooltip.valoria.shift_for_details", Component.translatable("key.keyboard.left.shift").getString()).withStyle(ChatFormatting.GRAY));
+            }
+        }
     }
 
     public String getDescriptionId(){

@@ -5,7 +5,6 @@ import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.item.armor.item.*;
 import com.idark.valoria.registries.item.skins.entries.*;
 import com.idark.valoria.registries.item.types.*;
-import com.idark.valoria.registries.item.types.ranged.*;
 import com.idark.valoria.util.*;
 import net.minecraft.client.resources.model.*;
 import net.minecraft.resources.*;
@@ -24,22 +23,23 @@ import pro.komaru.tridot.common.registry.item.*;
 import pro.komaru.tridot.common.registry.item.builders.*;
 import pro.komaru.tridot.common.registry.item.skins.*;
 import pro.komaru.tridot.common.registry.item.types.*;
+import pro.komaru.tridot.util.*;
 
 import java.util.*;
 
 public class SkinsRegistry{
-    public static ItemSkin THE_FALLEN_COLLECTOR, ARCANE_GOLD, CYBERPUNK, MIDNIGHT, MURAMASA, MURASAME, FISH, STAR_DIVIDER;
+    public static ItemSkin THE_FALLEN_COLLECTOR, ARCANE_GOLD, CYBERPUNK, MIDNIGHT, MURAMASA, MURASAME, FISH, NERO, STAR_DIVIDER;
 
     public static void init(){
         THE_FALLEN_COLLECTOR = new SkinBuilder(Valoria.ID, "the_fallen_collector").color(Pal.seaGreen).contributor("Kerdo").style(Styles.nature)
                 .add(new TheFallenCollectorSkinEntry(ArmorItem.class, Valoria.ID + ":textures/models/armor/skin/the_fallen_collector")
                         .addArmorSkin(EquipmentSlot.HEAD, Valoria.ID + ":the_fallen_collector_crown")
                         .addArmorSkin(EquipmentSlot.CHEST, Valoria.ID + ":the_fallen_collector_coat"))
-                .add(new ItemExtendingSkinEntry(KatanaItem.class, Valoria.ID + ":brand"))
+                .add(new ItemSupplierSkinEntry(() -> ItemsRegistry.murasama.get(), Valoria.ID + ":brand"))
                 .build();
         ARCANE_GOLD = new SkinBuilder(Valoria.ID, "arcane_gold").color(Pal.arcaneGold)
                 .add(new ItemExtendingSkinEntry(ConfigurableBowItem.class, Valoria.ID + ":arcane_wood_bow"))
-                .add(new ItemExtendingSkinEntry(BlazeReapItem.class, Valoria.ID + ":arcane_gold_blaze_reap"))
+                .add(new ItemSupplierSkinEntry(() -> ItemsRegistry.blazeReap.get(), Valoria.ID + ":arcane_gold_blaze_reap"))
                 .build();
         CYBERPUNK = new SkinBuilder(Valoria.ID, "cyberpunk").color(Pal.majestyPurple).contributor("Auriny").style(Styles.nihility)
                 .add(new ItemSupplierSkinEntry(() -> ItemsRegistry.quantumReaper.get(), Valoria.ID + ":cyberpunk_quantum_reaper"))
@@ -59,7 +59,9 @@ public class SkinsRegistry{
         STAR_DIVIDER = new SkinBuilder(Valoria.ID, "star_divider").color((Pal.verySoftPink)).contributor("Rainach").style(Styles.nihility)
                 .add(new ItemSupplierSkinEntry(() -> ItemsRegistry.quantumReaper.get(), Valoria.ID + ":star_divider"))
                 .build();
-
+        NERO = new SkinBuilder(Valoria.ID, "nero").color(Col.fromHex("471025"))
+                .add(new ItemSupplierSkinEntry(() -> ItemsRegistry.phantom.get(), Valoria.ID + ":nero"))
+                .build();
     }
 
     public static void register(){
@@ -71,6 +73,7 @@ public class SkinsRegistry{
         ItemSkinHandler.register(MURASAME);
         ItemSkinHandler.register(MURAMASA);
         ItemSkinHandler.register(FISH);
+        ItemSkinHandler.register(NERO);
         ItemSkinHandler.register(STAR_DIVIDER);
         DistExecutor.unsafeCallWhenOn(Dist.CLIENT, () -> () -> {
             registerModels();
@@ -91,6 +94,7 @@ public class SkinsRegistry{
         ItemSkinModels.addSkin(Valoria.ID + ":star_divider");
         ItemSkinModels.addSkin(Valoria.ID + ":muramasa");
         ItemSkinModels.addSkin(Valoria.ID + ":murasame");
+        ItemSkinModels.addSkin(Valoria.ID + ":nero");
     }
 
     @Mod.EventBusSubscriber(modid = Valoria.ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
@@ -104,11 +108,13 @@ public class SkinsRegistry{
                 }
             }
 
+            event.register(LargeItemRenderer.getModelResourceLocation(Valoria.ID, "phantom"));
             event.register(LargeItemRenderer.getModelResourceLocation(Valoria.ID, "blaze_reap"));
             event.register(LargeItemRenderer.getModelResourceLocation(Valoria.ID, "skin/arcane_gold_blaze_reap"));
             event.register(LargeItemRenderer.getModelResourceLocation(Valoria.ID, "skin/muramasa"));
             event.register(LargeItemRenderer.getModelResourceLocation(Valoria.ID, "skin/murasame"));
             event.register(LargeItemRenderer.getModelResourceLocation(Valoria.ID, "skin/brand"));
+            event.register(LargeItemRenderer.getModelResourceLocation(Valoria.ID, "skin/nero"));
             event.register(LargeItemRenderer.getModelResourceLocation(Valoria.ID, "skin/swordfish"));
         }
 
@@ -128,7 +134,9 @@ public class SkinsRegistry{
             TridotItemSkins.addLargeModel(map, Valoria.ID, "murasame");
             TridotItemSkins.addLargeModel(map, Valoria.ID, "brand");
             TridotItemSkins.addLargeModel(map, Valoria.ID, "arcane_gold_blaze_reap");
+            TridotItemSkins.addLargeModel(map, Valoria.ID, "nero");
             TridotItemSkins.addLargeModel(map, Valoria.ID, "swordfish");
+            LargeItemRenderer.bakeModel(map, Valoria.ID, "phantom", new ItemSkinItemOverrides());
             LargeItemRenderer.bakeModel(map, Valoria.ID, "blaze_reap", new ItemSkinItemOverrides());
         }
     }

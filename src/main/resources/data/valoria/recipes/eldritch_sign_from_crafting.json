@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "GGG",
+    "GGG",
+    " O "
+  ],
+  "key": {
+    "G": {
+      "item": "valoria:eldritch_planks"
+    },
+    "O": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "valoria:eldritch_sign",
+    "count": 3
+  }
+}
