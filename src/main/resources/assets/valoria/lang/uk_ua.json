@@ -998,6 +998,7 @@
   "tooltip.valoria.sarcophagus": "Обережніше! Цей саркофаг був пасткою. Захисти себе та будь насторожі!",
   "tooltip.valoria.scythe": "Повільна зброя, яка атакує круговим ударом",
   "tooltip.valoria.shift_for_details": "> [%s] - щоб отримати детальнішу інформацію <",
+  "tooltip.valoria.soul_collector": "Collects souls upon killing while held in the off-hand",
   "tooltip.valoria.souls": "Кількість душ: %s",
   "tooltip.valoria.spear": "Спис який можна кинути у свого ворога",
   "tooltip.valoria.spear_pillars": "Може прибирати уламки із зряджених колон",
