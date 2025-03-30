@@ -2,7 +2,7 @@ package com.idark.valoria.registries.item.types;
 
 import net.minecraft.*;
 import net.minecraft.core.particles.*;
-import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.*;
 import net.minecraft.world.entity.item.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
@@ -13,8 +13,7 @@ import pro.komaru.tridot.api.interfaces.*;
 import pro.komaru.tridot.client.gfx.particle.data.*;
 import pro.komaru.tridot.util.*;
 
-import java.awt.*;
-import java.util.List;
+import java.util.*;
 
 import static com.idark.valoria.client.particle.ParticleEffects.spawnItemParticles;
 
@@ -45,8 +44,8 @@ public class CoreItem extends Item implements ParticleItemEntity{
         return coreName;
     }
 
-    public Color getCoreColor(){
-        return new Color(color.r1, color.g1, color.b1).darker();
+    public Col getCoreColor(){
+        return new Col(color.r1, color.g1, color.b1).darker();
     }
 
     public int getGivenCores(){
@@ -65,10 +64,4 @@ public class CoreItem extends Item implements ParticleItemEntity{
     public void spawnParticles(Level level, ItemEntity entity){
         spawnItemParticles(level, entity, particle, color);
     }
-
-//    @OnlyIn(Dist.CLIENT)
-//    @Override
-//    public void spawnLateParticles(ScreenParticleHolder target, Level level, float partialTick, ItemStack stack, float x, float y) {
-//        ScreenParticleRegistry.spawnCoreParticles(target, color);
-//    }
 }

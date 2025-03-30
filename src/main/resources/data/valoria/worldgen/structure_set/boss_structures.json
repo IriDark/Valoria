@@ -2,7 +2,7 @@
   "structures": [
     {
       "structure": "valoria:fortress",
-      "weight": 5
+      "weight": 1
     },
     {
       "structure": "valoria:necromancer_crypt",
@@ -11,8 +11,8 @@
   ],
   "placement": {
     "type": "minecraft:random_spread",
-    "salt": 10387312,
-    "separation": 32,
-    "spacing": 34
+    "salt": 34222645,
+    "separation": 15,
+    "spacing": 40
   }
 }

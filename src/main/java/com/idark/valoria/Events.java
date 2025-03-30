@@ -6,6 +6,7 @@ import com.idark.valoria.core.network.packets.*;
 import com.idark.valoria.core.network.packets.particle.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.effect.*;
+import com.idark.valoria.registries.item.armor.*;
 import com.idark.valoria.registries.item.armor.item.*;
 import com.idark.valoria.registries.item.types.*;
 import net.minecraft.core.*;
@@ -13,6 +14,7 @@ import net.minecraft.nbt.*;
 import net.minecraft.resources.*;
 import net.minecraft.server.level.*;
 import net.minecraft.tags.*;
+import net.minecraft.world.damagesource.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
@@ -117,16 +119,22 @@ public class Events{
 
     @SubscribeEvent
     public void onLivingAttack(LivingAttackEvent event){
-        if(event.getSource().getEntity() instanceof LivingEntity e){
+        var pSource = event.getSource();
+        var entity = event.getEntity();
+        if(pSource.getEntity() instanceof LivingEntity e){
             if(e.hasEffect(EffectsRegistry.STUN.get())) event.setCanceled(true);
         }
 
-        if(event.getSource().getEntity() instanceof LivingEntity e){
-            if(getEquippedCurio(TagsRegistry.INFLICTS_FIRE, e)) event.getEntity().setSecondsOnFire(15);
+        if(entity instanceof Player plr){
+            if(pSource.is(DamageTypes.EXPLOSION) || pSource.is(DamageTypes.PLAYER_EXPLOSION)){
+                if(SuitArmorItem.hasCorrectArmorOn(ArmorRegistry.PYRATITE, plr)) event.setCanceled(true);
+            }
         }
 
-        var pSource = event.getSource();
-        var entity = event.getEntity();
+        if(pSource.getEntity() instanceof LivingEntity e){
+            if(getEquippedCurio(TagsRegistry.INFLICTS_FIRE, e)) entity.setSecondsOnFire(15);
+        }
+
         if(pSource.is(DamageTypeTags.IS_FIRE) && getEquippedCurio(TagsRegistry.FIRE_IMMUNE, entity)) event.setCanceled(true);
     }
 

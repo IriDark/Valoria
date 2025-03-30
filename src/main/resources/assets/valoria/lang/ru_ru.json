@@ -1011,6 +1011,7 @@
   "tooltip.valoria.wealth": "Даёт дополнительный уровень удачи",
   "tooltip.valoria.wet": "Невозможно использовать способность, когда игрок мокрый!.",
   "tooltip.valoria.wip": "Этот предмет находится на стадии разработки, он может быть сломан или вызывать ошибки!",
+  "tooltip.valoria.soul_collector": "Собирает души при убийстве, находясь во второстепенной руке",
   "tooltip.valoria.with_chance": "с шансом: %s",
   "trim_material.valoria.ancient": "Древняя",
   "trim_material.valoria.aquarius": "Аквариусовая",

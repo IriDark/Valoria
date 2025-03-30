@@ -1,18 +1,14 @@
 package com.idark.valoria.registries.level.feature;
 
-import com.idark.valoria.registries.BlockRegistry;
-import com.mojang.serialization.Codec;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.util.Mth;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.WorldGenLevel;
-import net.minecraft.world.level.block.GrowingPlantHeadBlock;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
-import net.minecraft.world.level.levelgen.feature.configurations.TwistingVinesConfig;
+import com.idark.valoria.registries.*;
+import com.mojang.serialization.*;
+import net.minecraft.core.*;
+import net.minecraft.util.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.*;
+import net.minecraft.world.level.levelgen.feature.*;
+import net.minecraft.world.level.levelgen.feature.configurations.*;
 
 public class AbyssalGlowfernFeature extends Feature<TwistingVinesConfig>{
     public AbyssalGlowfernFeature(Codec<TwistingVinesConfig> pCodec){
@@ -80,8 +76,6 @@ public class AbyssalGlowfernFeature extends Feature<TwistingVinesConfig>{
                         i1 = 1;
                     }
 
-                    int j1 = 17;
-                    int k1 = 25;
                     placeAbyssalFernColumn(worldgenlevel, randomsource, blockpos$mutableblockpos, i1, 17, 25);
                 }
             }

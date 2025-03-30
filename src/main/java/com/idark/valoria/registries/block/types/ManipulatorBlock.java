@@ -9,6 +9,7 @@ import net.minecraft.core.*;
 import net.minecraft.core.particles.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.server.level.*;
+import net.minecraft.sounds.*;
 import net.minecraft.util.*;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.player.*;
@@ -23,6 +24,9 @@ import net.minecraft.world.phys.shapes.*;
 import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.network.*;
 import org.jetbrains.annotations.*;
+import pro.komaru.tridot.client.gfx.*;
+import pro.komaru.tridot.client.gfx.particle.*;
+import pro.komaru.tridot.client.gfx.particle.data.*;
 
 import javax.annotation.Nullable;
 import javax.annotation.*;
@@ -91,10 +95,6 @@ public class ManipulatorBlock extends Block implements EntityBlock{
 
     @Override
     public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit){
-        if(world.isClientSide){
-            return InteractionResult.SUCCESS;
-        }
-
         BlockEntity tileEntity = world.getBlockEntity(pos);
         if(!(tileEntity instanceof ManipulatorBlockEntity coreBlock)){
             return InteractionResult.FAIL;
@@ -108,14 +108,33 @@ public class ManipulatorBlock extends Block implements EntityBlock{
             }
 
             coreBlock.addCharge(builder.getCoreName(), builder.getGivenCores());
+            if(world.isClientSide()){
+                for(int a = 0; a < coreBlock.getCoreNBT(builder.getCoreName()); a++){
+                    double angle = (a / (double)8) * (2 * Math.PI);
+                    double x = Math.cos(angle) * 1;
+                    double z = Math.sin(angle) * 1;
+
+                    ParticleBuilder.create(TridotParticles.WISP)
+                    .setColorData(builder.color)
+                    .setTransparencyData(GenericParticleData.create(0.5f, 0f).build())
+                    .setScaleData(GenericParticleData.create(0.35f, 0.1f, 0).build())
+                    .setLifetime(35)
+                    .spawn(world, pos.getX() + 0.5f + x, pos.getY() + 1, pos.getZ() + 0.5f + z);
+                }
+            }
+
+            world.playSound(player, player.blockPosition(), SoundEvents.RESPAWN_ANCHOR_CHARGE, SoundSource.BLOCKS, 1, 1);
             coreUpdated = true;
         }
 
-        if(coreUpdated){
-            ValoriaUtils.SUpdateTileEntityPacket(coreBlock);
-        }else{
-            MenuProvider containerProvider = createContainerProvider(world, pos);
-            NetworkHooks.openScreen(((ServerPlayer)player), containerProvider, tileEntity.getBlockPos());
+        if(!world.isClientSide()){
+            if(coreUpdated){
+                ValoriaUtils.SUpdateTileEntityPacket(coreBlock);
+                return InteractionResult.SUCCESS;
+            }else{
+                MenuProvider containerProvider = createContainerProvider(world, pos);
+                NetworkHooks.openScreen(((ServerPlayer)player), containerProvider, tileEntity.getBlockPos());
+            }
         }
 
         return InteractionResult.CONSUME;

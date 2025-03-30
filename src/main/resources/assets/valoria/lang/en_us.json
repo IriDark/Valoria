@@ -1010,6 +1010,7 @@
   "tooltip.valoria.wet": "You can't use the ability when you're wet!.",
   "tooltip.valoria.wip": "This is an WIP item that can be buggy or even don't work. Use at your own risk!",
   "tooltip.valoria.with_chance": "with chance: %s",
+  "tooltip.valoria.soul_collector": "Collects souls upon killing while held in the off-hand",
   "trim_material.valoria.ancient": "Ancient Material",
   "trim_material.valoria.aquarius": "Aquarius Material",
   "trim_material.valoria.bronze": "Bronze Material",

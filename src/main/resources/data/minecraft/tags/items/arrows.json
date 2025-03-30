@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "valoria:pyratite_arrow",
     "valoria:wicked_arrow",
     "valoria:soul_arrow"
   ]

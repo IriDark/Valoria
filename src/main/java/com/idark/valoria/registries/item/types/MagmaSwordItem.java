@@ -82,7 +82,10 @@ public class MagmaSwordItem extends SwordItem implements RadiusItem, OverlayRend
 
     public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn){
         ItemStack itemstack = playerIn.getItemInHand(handIn);
-        if(!playerIn.isShiftKeyDown()){
+        ItemStack offhandStack = playerIn.getItemInHand(InteractionHand.OFF_HAND);
+        CompoundTag nbt = itemstack.getOrCreateTag();
+        boolean flag = offhandStack.getItem() instanceof ShieldItem && nbt.getInt("charge") < 2;
+        if(!playerIn.isShiftKeyDown() && !flag){
             playerIn.startUsingItem(handIn);
             return InteractionResultHolder.consume(itemstack);
         }

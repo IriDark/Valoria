@@ -1,28 +1,14 @@
 package com.idark.valoria.registries.block.types;
 
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.minecraft.world.level.material.FluidState;
-import net.minecraft.world.level.material.Fluids;
-import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.Shapes;
-import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraft.core.*;
+import net.minecraft.world.item.context.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.*;
+import net.minecraft.world.level.block.state.properties.*;
+import net.minecraft.world.level.material.*;
+import net.minecraft.world.phys.*;
+import net.minecraft.world.phys.shapes.*;
 
 public class BottleBlock extends Block{
     public static final IntegerProperty BOTTLES = IntegerProperty.create("bottles", 1, 4);
@@ -35,14 +21,6 @@ public class BottleBlock extends Block{
     public BottleBlock(BlockBehaviour.Properties pProperties){
         super(pProperties);
         this.registerDefaultState(this.stateDefinition.any().setValue(BOTTLES, 1).setValue(WATERLOGGED, false));
-    }
-
-    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit){
-        if(pPlayer.getAbilities().mayBuild && pPlayer.getItemInHand(pHand).isEmpty()){
-            return InteractionResult.sidedSuccess(pLevel.isClientSide);
-        }else{
-            return InteractionResult.PASS;
-        }
     }
 
     public boolean canBeReplaced(BlockState pState, BlockPlaceContext pUseContext){
@@ -73,11 +51,12 @@ public class BottleBlock extends Block{
     }
 
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext){
+        Vec3 vec3 = pState.getOffset(pLevel, pPos);
         return switch(pState.getValue(BOTTLES)){
-            default -> ONE_AABB;
-            case 2 -> TWO_AABB;
-            case 3 -> THREE_AABB;
-            case 4 -> FOUR_AABB;
+            case 2 -> TWO_AABB.move(vec3.x, vec3.y, vec3.z);
+            case 3 -> THREE_AABB.move(vec3.x, vec3.y, vec3.z);
+            case 4 -> FOUR_AABB.move(vec3.x, vec3.y, vec3.z);
+            default -> ONE_AABB.move(vec3.x, vec3.y, vec3.z);
         };
     }
 

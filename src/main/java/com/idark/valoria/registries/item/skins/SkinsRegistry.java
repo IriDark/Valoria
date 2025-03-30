@@ -59,7 +59,7 @@ public class SkinsRegistry{
         STAR_DIVIDER = new SkinBuilder(Valoria.ID, "star_divider").color((Pal.verySoftPink)).contributor("Rainach").style(Styles.nihility)
                 .add(new ItemSupplierSkinEntry(() -> ItemsRegistry.quantumReaper.get(), Valoria.ID + ":star_divider"))
                 .build();
-        NERO = new SkinBuilder(Valoria.ID, "nero").color(Col.fromHex("471025"))
+        NERO = new SkinBuilder(Valoria.ID, "nero").contributor("NeroWalton").style(Styles.phantasm).color(Col.fromHex("7A1C3F"))
                 .add(new ItemSupplierSkinEntry(() -> ItemsRegistry.phantom.get(), Valoria.ID + ":nero"))
                 .build();
     }

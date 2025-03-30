@@ -26,8 +26,9 @@ public enum ModItemTier implements Tier{
     NATURE(5, 2651, 20f, 0f, 17, () -> Ingredient.of(ItemsRegistry.natureIngot.get())),
     AQUARIUS(5, 3256, 25f, 0f, 18, () -> Ingredient.of(ItemsRegistry.aquariusIngot.get())),
     INFERNAL(5, 4256, 28f, 0f, 19, () -> Ingredient.of(ItemsRegistry.infernalIngot.get())),
-    NIHILITY(5, -1, 30F, 0F, 20, () -> Ingredient.of(ItemsRegistry.nihilityShard.get())),
-    BLOOD(5, 2431, 20.0F, 4.0F, 15, () -> Ingredient.of(ItemsRegistry.painCrystal.get()));
+    NIHILITY(5, 5248, 30F, 0F, 20, () -> Ingredient.of(ItemsRegistry.nihilityShard.get())),
+    BLOOD(5, 2431, 20.0F, 4.0F, 15, () -> Ingredient.of(ItemsRegistry.painCrystal.get())),
+    PHANTOM(5, 6428, 35F, 0F, 20, () -> Ingredient.of(ItemsRegistry.illusionStone.get()));
 
     private final int harvestLevel;
     private final int maxUses;

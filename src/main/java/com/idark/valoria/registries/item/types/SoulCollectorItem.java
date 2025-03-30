@@ -53,6 +53,7 @@ public class SoulCollectorItem extends Item implements OverlayRenderItem{
     @Override
     public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags){
         super.appendHoverText(stack, world, tooltip, flags);
+        tooltip.add(Component.translatable("tooltip.valoria.soul_collector").withStyle(ChatFormatting.GRAY));
         tooltip.add(Component.translatable("tooltip.valoria.souls", getCurrentSouls(stack))
                 .append(" / ")
                 .append(String.valueOf(getMaxSouls()))
@@ -116,7 +117,7 @@ public class SoulCollectorItem extends Item implements OverlayRenderItem{
         int yCord = ClientConfig.MISC_UI_Y.get() + offsetY;
         int progress = 22;
         progress /= (double)getMaxSouls() / (double)tag.getInt("Souls");
-        gui.blit(BAR, xCord, yCord, 0, 0, 16, 32, 32, 32);
-        gui.blit(BAR, xCord + 4, yCord + 26 - progress, 24, 22 - progress, 8, progress, 32, 32);
+        gui.blit(BAR, xCord, yCord, 0, 0, 24, 48, 48, 48);
+        gui.blit(BAR, xCord + 6, yCord + 39 - (int) (progress * 1.5), 36, 33 - (int) (progress * 1.5), 12, (int) (progress * 1.5), 48, 48);
     }
 }

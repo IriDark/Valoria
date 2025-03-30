@@ -133,6 +133,7 @@ public class ValoriaClient{
             EntityRenderers.register(EntityTypeRegistry.MEAT.get(), MeatBlockRenderer::new);
             EntityRenderers.register(EntityTypeRegistry.DEVOURER.get(), DevourerRenderer::new);
             EntityRenderers.register(EntityTypeRegistry.UNDEAD.get(), UndeadRenderer::new);
+            EntityRenderers.register(EntityTypeRegistry.PYRATITE_ARROW.get(), AbstractValoriaArrowRenderer::new);
             EntityRenderers.register(EntityTypeRegistry.PHANTOM_ARROW.get(), AbstractValoriaArrowRenderer::new);
             EntityRenderers.register(EntityTypeRegistry.WICKED_ARROW.get(), AbstractValoriaArrowRenderer::new);
             EntityRenderers.register(EntityTypeRegistry.SOUL_ARROW.get(), AbstractValoriaArrowRenderer::new);

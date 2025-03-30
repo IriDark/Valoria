@@ -69,6 +69,7 @@ public class ItemsRegistry{
     marshHelmet, marshChestplate, marshLeggings, marshBoots,
     etherealHelmet, etherealChestplate, etherealLeggings, etherealBoots,
     spiderHelmet, spiderChestplate, spiderLeggings, spiderBoots,
+    pyratiteHelmet, pyratiteChestplate, pyratiteLeggings, pyratiteBoots,
     natureHelmet, natureChestplate, natureLeggings, natureBoots,
     depthHelmet, depthChestplate, depthLeggings, depthBoots,
     infernalHelmet, infernalChestplate, infernalLeggings, infernalBoots,
@@ -116,7 +117,7 @@ public class ItemsRegistry{
     coralReef, aquariusScythe, aquariusPickaxe, aquariusAxe, aquariusShovel, aquariusHoe, aquariusBow,
     infernalSword, infernalScythe, infernalPickaxe, infernalAxe, infernalShovel, infernalHoe, infernalBow, infernalSpear,
     voidEdge, voidScythe, voidPickaxe, voidAxe, voidShovel, voidHoe, voidBow,
-    phantom, phantasmBow, eternity, wickedArrow, soulArrow,
+    phantom, phantasmBow, eternity, wickedArrow, pyratiteArrow, soulArrow,
 
     // event
     holidayCandy, holidayKatana, holidayPickaxe, holidayAxe, candyCorn, pumpkinBomb, wraithKatana, reaperScythe, dreadAxe, soulReaver,
@@ -181,6 +182,10 @@ public class ItemsRegistry{
         spiderChestplate = registerItem("spider_chestplate", () -> new HitEffectArmorItem(ArmorRegistry.SPIDER, ArmorItem.Type.CHESTPLATE, new Item.Properties().rarity(RarityRegistry.SPIDER), 0.5f, new MobEffectInstance(MobEffects.BLINDNESS, 60)));
         spiderLeggings = registerItem("spider_leggings", () -> new HitEffectArmorItem(ArmorRegistry.SPIDER, ArmorItem.Type.LEGGINGS, new Item.Properties().rarity(RarityRegistry.SPIDER), 0.5f, new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60)));
         spiderBoots = registerItem("spider_boots", () -> new HitEffectArmorItem(ArmorRegistry.SPIDER, ArmorItem.Type.BOOTS, new Item.Properties().rarity(RarityRegistry.SPIDER), 0.5f, new MobEffectInstance(MobEffects.CONFUSION, 60)));
+        pyratiteHelmet = registerItem("pyratite_helmet",  () -> new InfernalArmorItem(Type.HELMET, ArmorRegistry.PYRATITE, new Item.Properties().rarity(RarityRegistry.PYRATITE)));
+        pyratiteChestplate = registerItem("pyratite_chestplate",  () -> new InfernalArmorItem(Type.CHESTPLATE, ArmorRegistry.PYRATITE, new Item.Properties().rarity(RarityRegistry.PYRATITE)));
+        pyratiteLeggings = registerItem("pyratite_leggings",  () -> new InfernalArmorItem(Type.LEGGINGS, ArmorRegistry.PYRATITE, new Item.Properties().rarity(RarityRegistry.PYRATITE)));
+        pyratiteBoots = registerItem("pyratite_boots",  () -> new InfernalArmorItem(Type.BOOTS, ArmorRegistry.PYRATITE, new Item.Properties().rarity(RarityRegistry.PYRATITE)));
 
         // elemental
         natureHelmet = registerEffectArmor("nature_helmet", Type.HELMET, ArmorRegistry.NATURE, new Item.Properties().rarity(RarityRegistry.NATURE));
@@ -420,9 +425,10 @@ public class ItemsRegistry{
         voidShovel = registerItem("void_shovel", () -> new ShovelItem(ModItemTier.NIHILITY, 8.5f, -2.9f, new Item.Properties().fireResistant().rarity(RarityRegistry.VOID)));
         voidHoe = registerItem("void_hoe", () -> new HoeItem(ModItemTier.NIHILITY, 0, 0f, new Item.Properties().fireResistant().rarity(RarityRegistry.VOID)));
         voidBow = registerItem("bow_of_darkness", () -> new ConfigurableBowItem(4.25f, new Item.Properties().stacksTo(1).durability(2048).fireResistant().rarity(RarityRegistry.VOID)));
-        phantom = registerItem("phantom", () -> new PhantomItem(ModItemTier.NONE, 6, -2.4f, new Item.Properties().rarity(RarityRegistry.PHANTASM)));
+        phantom = registerItem("phantom", () -> new PhantomItem(ModItemTier.PHANTOM, 19, -2.4f, new Item.Properties().rarity(RarityRegistry.PHANTASM)));
         phantasmBow = registerItem("phantasm_bow", () -> new ConfigurableBowItem(EntityTypeRegistry.PHANTOM_ARROW, 6, 4, new Item.Properties().fireResistant().stacksTo(1).durability(4028).rarity(RarityRegistry.PHANTASM)));
         wickedArrow = registerItem("wicked_arrow", () -> new WickedArrowItem(new Item.Properties().rarity(RarityRegistry.VOID)));
+        pyratiteArrow = registerItem("pyratite_arrow", () -> new PyratiteArrowItem(new Item.Properties().rarity(RarityRegistry.PYRATITE)));
         soulArrow = registerItem("soul_arrow", () -> new SoulArrowItem(new Item.Properties().rarity(RarityRegistry.AQUARIUS)));
         eternity = registerItem("eternity");
 

@@ -20,6 +20,7 @@ import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.level.block.state.BlockBehaviour.*;
 import net.minecraft.world.level.block.state.properties.*;
 import net.minecraft.world.level.material.*;
+import net.minecraft.world.phys.*;
 import net.minecraft.world.phys.shapes.*;
 import net.minecraftforge.eventbus.api.*;
 import net.minecraftforge.registries.*;
@@ -437,12 +438,12 @@ public class BlockRegistry{
         cognacBottle = BLOCK.register("cognac_bottle", () -> cognacBottle(MapColor.COLOR_RED));
 
         // Pots
-        potSmall = registerBlock("pot_small", () -> new PotBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).instabreak().noOcclusion().sound(SoundsRegistry.POT)));
-        potSmallHandles = registerBlock("pot_small_handles", () -> new PotBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).lootFrom(potSmall).instabreak().noOcclusion().sound(SoundsRegistry.POT)));
-        potLong = registerBlock("pot_long", () -> new PotBlock(true, BlockBehaviour.Properties.copy(Blocks.GLASS).instabreak().noOcclusion().sound(SoundsRegistry.POT)));
-        potLongHandles = registerBlock("pot_long_handles", () -> new PotBlock(true, BlockBehaviour.Properties.copy(Blocks.GLASS).lootFrom(potLong).instabreak().noOcclusion().sound(SoundsRegistry.POT)));
-        potLongMossy = registerBlock("pot_long_mossy", () -> new PotBlock(true, BlockBehaviour.Properties.copy(Blocks.GLASS).lootFrom(potLong).instabreak().noOcclusion().sound(SoundsRegistry.POT)));
-        potLongMossyHandles = registerBlock("pot_long_mossy_handles", () -> new PotBlock(true, BlockBehaviour.Properties.copy(Blocks.GLASS).lootFrom(potLong).instabreak().noOcclusion().sound(SoundsRegistry.POT)));
+        potSmall = registerBlock("pot_small", () -> new PotBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).dynamicShape().offsetType(BlockBehaviour.OffsetType.XZ).instabreak().noOcclusion().sound(SoundsRegistry.POT)));
+        potSmallHandles = registerBlock("pot_small_handles", () -> new PotBlock(BlockBehaviour.Properties.copy(Blocks.GLASS).lootFrom(potSmall).dynamicShape().offsetType(BlockBehaviour.OffsetType.XZ).instabreak().noOcclusion().sound(SoundsRegistry.POT)));
+        potLong = registerBlock("pot_long", () -> new PotBlock(true, BlockBehaviour.Properties.copy(Blocks.GLASS).dynamicShape().offsetType(BlockBehaviour.OffsetType.XZ).instabreak().noOcclusion().sound(SoundsRegistry.POT)));
+        potLongHandles = registerBlock("pot_long_handles", () -> new PotBlock(true, BlockBehaviour.Properties.copy(Blocks.GLASS).lootFrom(potLong).dynamicShape().offsetType(BlockBehaviour.OffsetType.XZ).instabreak().noOcclusion().sound(SoundsRegistry.POT)));
+        potLongMossy = registerBlock("pot_long_mossy", () -> new PotBlock(true, BlockBehaviour.Properties.copy(Blocks.GLASS).lootFrom(potLong).dynamicShape().offsetType(BlockBehaviour.OffsetType.XZ).instabreak().noOcclusion().sound(SoundsRegistry.POT)));
+        potLongMossyHandles = registerBlock("pot_long_mossy_handles", () -> new PotBlock(true, BlockBehaviour.Properties.copy(Blocks.GLASS).lootFrom(potLong).dynamicShape().offsetType(BlockBehaviour.OffsetType.XZ).instabreak().noOcclusion().sound(SoundsRegistry.POT)));
         cryptPot = registerBlock("crypt_pot", BlockRegistry::cryptPot);
         decoratedCryptPot = registerBlock("decorated_crypt_pot", BlockRegistry::cryptPot);
 
@@ -527,19 +528,19 @@ public class BlockRegistry{
     }
 
     private static BottleBlock bottle(MapColor pMapColor){
-        return new BottleBlock(BlockBehaviour.Properties.of().mapColor(pMapColor).noOcclusion().strength(0.1F).sound(SoundType.GLASS).pushReaction(PushReaction.DESTROY));
+        return new BottleBlock(BlockBehaviour.Properties.of().mapColor(pMapColor).noOcclusion().strength(0.1F).dynamicShape().offsetType(BlockBehaviour.OffsetType.XZ).sound(SoundType.GLASS).pushReaction(PushReaction.DESTROY));
     }
 
     private static CupBlock cup(){
-        return new CupBlock(BlockBehaviour.Properties.of().noOcclusion().strength(0.1F).sound(SoundType.GLASS).pushReaction(PushReaction.DESTROY));
+        return new CupBlock(BlockBehaviour.Properties.of().noOcclusion().strength(0.1F).dynamicShape().offsetType(BlockBehaviour.OffsetType.XZ).sound(SoundType.GLASS).pushReaction(PushReaction.DESTROY));
     }
 
     private static CupBlock woodenCup(){
-        return new CupBlock(BlockBehaviour.Properties.of().noOcclusion().strength(0.1F).sound(SoundType.WOOD).pushReaction(PushReaction.DESTROY));
+        return new CupBlock(BlockBehaviour.Properties.of().noOcclusion().strength(0.1F).dynamicShape().offsetType(BlockBehaviour.OffsetType.XZ).sound(SoundType.WOOD).pushReaction(PushReaction.DESTROY));
     }
 
     private static PotBlock cryptPot(){
-        return new PotBlock(true, BlockBehaviour.Properties.copy(Blocks.GLASS).instabreak().noOcclusion().sound(SoundsRegistry.POT)){
+        return new PotBlock(true, BlockBehaviour.Properties.copy(Blocks.GLASS).dynamicShape().offsetType(BlockBehaviour.OffsetType.XZ).instabreak().noOcclusion().sound(SoundsRegistry.POT)){
             public VoxelShape makeShape(){
                 VoxelShape shape = Shapes.empty();
                 shape = Shapes.join(shape, Shapes.box(0.25, 0, 0.25, 0.75, 0.625, 0.75), BooleanOp.OR);
@@ -553,38 +554,41 @@ public class BlockRegistry{
 
             @Override
             public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context){
-                return makeShape();
+                Vec3 vec3 = state.getOffset(worldIn, pos);
+                return makeShape().move(vec3.x, vec3.y, vec3.z);
             }
         };
     }
 
     private static BottleBlock largeBottle(MapColor pMapColor){
-        return new BottleBlock(BlockBehaviour.Properties.of().mapColor(pMapColor).noOcclusion().strength(0.1F).sound(SoundType.GLASS).pushReaction(PushReaction.DESTROY)){
+        return new BottleBlock(BlockBehaviour.Properties.of().mapColor(pMapColor).noOcclusion().strength(0.1F).dynamicShape().offsetType(BlockBehaviour.OffsetType.XZ).sound(SoundType.GLASS).pushReaction(PushReaction.DESTROY)){
             private static final VoxelShape FIRST_AABB = Shapes.box(0.40625, 0, 0.375, 0.78125, 0.6875, 0.75);
             private static final VoxelShape SECOND_AABB = Shapes.box(0.09375, 0, 0.125, 0.96875, 0.6875, 0.9375);
             private static final VoxelShape THIRD_ABB = Shapes.box(0, 0, 0, 1, 0.6875, 1);
 
             public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext){
+                Vec3 vec3 = pState.getOffset(pLevel, pPos);
                 return switch(pState.getValue(BOTTLES)){
-                    case 2 -> SECOND_AABB;
-                    case 3, 4 -> THIRD_ABB;
-                    default -> FIRST_AABB;
+                    case 2 -> SECOND_AABB.move(vec3.x, vec3.y, vec3.z);
+                    case 3, 4 -> THIRD_ABB.move(vec3.x, vec3.y, vec3.z);
+                    default -> FIRST_AABB.move(vec3.x, vec3.y, vec3.z);
                 };
             }
         };
     }
 
     private static BottleBlock cognacBottle(MapColor pMapColor){
-        return new BottleBlock(BlockBehaviour.Properties.of().mapColor(pMapColor).noOcclusion().strength(0.1F).sound(SoundType.GLASS).pushReaction(PushReaction.DESTROY)){
+        return new BottleBlock(BlockBehaviour.Properties.of().mapColor(pMapColor).noOcclusion().strength(0.1F).dynamicShape().offsetType(BlockBehaviour.OffsetType.XZ).sound(SoundType.GLASS).pushReaction(PushReaction.DESTROY)){
             private static final VoxelShape FIRST_AABB = Shapes.box(0.34375, 0, 0.3125, 0.71875, 0.625, 0.6875);
             private static final VoxelShape SECOND_AABB = Shapes.box(0.09375, 0, 0.0625, 0.90625, 0.625, 0.875);
             private static final VoxelShape THIRD_ABB = Shapes.box(-0.02101600917974844, 0, 0.014467690303026637, 0.9946089908202516, 0.625, 1.0144676903030265);
 
             public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext){
+                Vec3 vec3 = pState.getOffset(pLevel, pPos);
                 return switch(pState.getValue(BOTTLES)){
-                    case 2 -> SECOND_AABB;
-                    case 3, 4 -> THIRD_ABB;
-                    default -> FIRST_AABB;
+                    case 2 -> SECOND_AABB.move(vec3.x, vec3.y, vec3.z);
+                    case 3, 4 -> THIRD_ABB.move(vec3.x, vec3.y, vec3.z);
+                    default -> FIRST_AABB.move(vec3.x, vec3.y, vec3.z);
                 };
             }
         };

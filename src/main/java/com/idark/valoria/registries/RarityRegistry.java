@@ -10,6 +10,7 @@ public class RarityRegistry{
     BLOODY = Rarity.create("bloody", apply(bloody)),
     MARSH = Rarity.create("marsh", apply(marsh)),
     SPIDER = Rarity.create("spider", apply(spider)),
+    PYRATITE = Rarity.create("pyratite", apply(arcaneGold)),
     INFERNAL = Rarity.create("infernal", apply(infernal)),
     AQUARIUS = Rarity.create("aquarius", apply(aquarius)),
     ETHEREAL = Rarity.create("ethereal", apply(ethereal)),

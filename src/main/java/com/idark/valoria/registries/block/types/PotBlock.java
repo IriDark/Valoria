@@ -1,23 +1,16 @@
 package com.idark.valoria.registries.block.types;
 
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.HorizontalDirectionalBlock;
-import net.minecraft.world.level.block.SimpleWaterloggedBlock;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.material.FluidState;
-import net.minecraft.world.level.material.Fluids;
-import net.minecraft.world.phys.shapes.BooleanOp;
-import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.Shapes;
-import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraft.core.*;
+import net.minecraft.world.item.context.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.*;
+import net.minecraft.world.level.block.state.properties.*;
+import net.minecraft.world.level.material.*;
+import net.minecraft.world.phys.*;
+import net.minecraft.world.phys.shapes.*;
 
-import javax.annotation.Nullable;
+import javax.annotation.*;
 
 public class PotBlock extends HorizontalDirectionalBlock implements SimpleWaterloggedBlock{
     private final boolean potLong;
@@ -58,7 +51,8 @@ public class PotBlock extends HorizontalDirectionalBlock implements SimpleWaterl
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context){
-        return potLong ? getPotLong() : getPotSmall();
+        Vec3 vec3 = state.getOffset(worldIn, pos);
+        return potLong ? getPotLong().move(vec3.x, vec3.y, vec3.z) : getPotSmall().move(vec3.x, vec3.y, vec3.z);
     }
 
     @Override

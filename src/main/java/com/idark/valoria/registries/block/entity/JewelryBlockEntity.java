@@ -152,9 +152,9 @@ public class JewelryBlockEntity extends BlockEntity implements MenuProvider, Tic
                 processCrafting();
             }else if(skin != null && !itemHandler.getStackInSlot(0).isEmpty() && !itemHandler.getStackInSlot(1).isEmpty()){
                 if(itemHandler.getStackInSlot(1).getItem() instanceof SkinTrimItem){
-                    increaseCraftingProgress(200);
+                    increaseCraftingProgress(60);
                     setChanged(level, getBlockPos(), getBlockState());
-                    if(progress >= 200){
+                    if(progress >= 60){
                         craftItem();
                         resetProgress();
                     }

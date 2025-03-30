@@ -1,25 +1,17 @@
 package com.idark.valoria.registries.item.armor.item;
 
-import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.Style;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.ArmorMaterial;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.Level;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraft.*;
+import net.minecraft.client.*;
+import net.minecraft.client.gui.screens.*;
+import net.minecraft.network.chat.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.*;
+import net.minecraftforge.api.distmarker.*;
+import net.minecraftforge.registries.*;
 
-import java.util.EnumMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class SuitArmorItem extends SkinableArmorItem{
 
@@ -63,6 +55,27 @@ public class SuitArmorItem extends SkinableArmorItem{
         armorSet.putIfAbsent(EquipmentSlot.LEGS, ItemStack.EMPTY);
         armorSet.putIfAbsent(EquipmentSlot.FEET, ItemStack.EMPTY);
         return armorSet;
+    }
+
+    public boolean hasFullSuitOfArmorOn(Player player){
+        ItemStack boots = player.getInventory().getArmor(0);
+        ItemStack leggings = player.getInventory().getArmor(1);
+        ItemStack chestplate = player.getInventory().getArmor(2);
+        ItemStack helmet = player.getInventory().getArmor(3);
+
+        return !helmet.isEmpty() && !chestplate.isEmpty() && !leggings.isEmpty() && !boots.isEmpty();
+    }
+
+    public static boolean hasCorrectArmorOn(ArmorMaterial material, Player player){
+        ItemStack bootsStack = player.getInventory().getArmor(0);
+        ItemStack leggingsStack = player.getInventory().getArmor(1);
+        ItemStack chestplateStack = player.getInventory().getArmor(2);
+        ItemStack helmetStack = player.getInventory().getArmor(3);
+        if(bootsStack.getItem() instanceof ArmorItem boots && leggingsStack.getItem() instanceof ArmorItem leggings && chestplateStack.getItem() instanceof ArmorItem chestplate && helmetStack.getItem() instanceof ArmorItem helmet){
+            return helmet.getMaterial() == material && chestplate.getMaterial() == material && leggings.getMaterial() == material && boots.getMaterial() == material;
+        }
+
+        return false;
     }
 
     public static ItemStack getArmorSetItem(ItemStack stack, EquipmentSlot slot){
