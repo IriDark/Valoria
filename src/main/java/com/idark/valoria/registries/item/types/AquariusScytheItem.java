@@ -22,7 +22,7 @@ import java.util.*;
 public class AquariusScytheItem extends ScytheItem{
     public ArcRandom arcRandom = Tmp.rnd;
 
-    public AquariusScytheItem(Tier tier, int attackDamageIn, float attackSpeedIn, Item.Properties builderIn){
+    public AquariusScytheItem(Tier tier, float attackDamageIn, float attackSpeedIn, Item.Properties builderIn){
         super(tier, attackDamageIn, attackSpeedIn, builderIn);
     }
 

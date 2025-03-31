@@ -116,7 +116,7 @@ public class BeastScytheItem extends ScytheItem{
     }
 
     public static class Builder extends AbstractScytheBuilder<BeastScytheItem>{
-        public Builder(int attackDamageIn, float attackSpeedIn, Properties itemProperties){
+        public Builder(float attackDamageIn, float attackSpeedIn, Properties itemProperties){
             super(attackDamageIn, attackSpeedIn, itemProperties);
         }
 

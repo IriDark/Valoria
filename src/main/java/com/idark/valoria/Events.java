@@ -204,9 +204,11 @@ public class Events{
     }
 
     @SubscribeEvent
-    public void BlockHeal(LivingHealEvent event) {
+    public void onHeal(LivingHealEvent event) {
         if (event.getEntity().hasEffect(EffectsRegistry.EXHAUSTION.get())) {
-            event.setCanceled(true);
+            int amplifier = event.getEntity().getEffect(EffectsRegistry.EXHAUSTION.get()).getAmplifier();
+            float healMultiplier = 1.0f / (1.0f + 0.5f * (amplifier + 1));
+            event.setAmount(event.getAmount() * healMultiplier);
         }
 
         if (event.getEntity().hasEffect(EffectsRegistry.RENEWAL.get())) {

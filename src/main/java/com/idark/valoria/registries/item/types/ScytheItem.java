@@ -38,16 +38,16 @@ public class ScytheItem extends SwordItem implements ICustomAnimationItem, Coold
     public int usageCount;
 
     public ScytheItem(AbstractScytheBuilder<? extends ScytheItem> builderIn){
-        super(builderIn.tier, builderIn.attackDamageIn, builderIn.attackSpeedIn, builderIn.itemProperties);
+        super(builderIn.tier, (int)builderIn.attackDamageIn, builderIn.attackSpeedIn, builderIn.itemProperties);
         this.builder = builderIn;
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
-        builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", builderIn.attackDamageIn, AttributeModifier.Operation.ADDITION));
+        builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", builderIn.attackDamageIn + builderIn.tier.getAttackDamageBonus(), AttributeModifier.Operation.ADDITION));
         builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Tool modifier", builderIn.attackSpeedIn, AttributeModifier.Operation.ADDITION));
         builder.put(AttributeReg.ATTACK_RADIUS.get(), new AttributeModifier(BASE_ATTACK_RADIUS_UUID, "Tool modifier", builderIn.attackRadius, AttributeModifier.Operation.ADDITION));
         this.defaultModifiers = builder.build();
     }
 
-    public ScytheItem(Tier tier, int attackDamageIn, float attackSpeedIn, Properties builderIn){
+    public ScytheItem(Tier tier, float attackDamageIn, float attackSpeedIn, Properties builderIn){
         this(new Builder(attackDamageIn, attackSpeedIn, builderIn).setTier(tier));
     }
 
@@ -159,7 +159,7 @@ public class ScytheItem extends SwordItem implements ICustomAnimationItem, Coold
     }
 
     public static class Builder extends AbstractScytheBuilder<ScytheItem>{
-        public Builder(int attackDamageIn, float attackSpeedIn, Properties itemProperties){
+        public Builder(float attackDamageIn, float attackSpeedIn, Properties itemProperties){
             super(attackDamageIn, attackSpeedIn, itemProperties);
         }
 

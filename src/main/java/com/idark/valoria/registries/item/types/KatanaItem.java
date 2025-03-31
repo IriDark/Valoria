@@ -41,20 +41,20 @@ public class KatanaItem extends SwordItem implements CooldownNotifyItem, DashIte
     public ArcRandom arcRandom = Tmp.rnd;
 
     public KatanaItem(AbstractKatanaBuilder<? extends KatanaItem> builderIn){
-        super(builderIn.tier, builderIn.attackDamageIn, builderIn.attackSpeedIn, builderIn.itemProperties);
+        super(builderIn.tier, (int)builderIn.attackDamageIn, builderIn.attackSpeedIn, builderIn.itemProperties);
         this.builder = builderIn;
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
-        builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", builderIn.attackDamageIn, AttributeModifier.Operation.ADDITION));
+        builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", builderIn.attackDamageIn + builderIn.tier.getAttackDamageBonus(), AttributeModifier.Operation.ADDITION));
         builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Tool modifier", builderIn.attackSpeedIn, AttributeModifier.Operation.ADDITION));
         builder.put(AttributeReg.DASH_DISTANCE.get(), new AttributeModifier(BASE_DASH_DISTANCE_UUID, "Tool modifier", builderIn.dashDist, AttributeModifier.Operation.ADDITION));
         this.defaultModifiers = builder.build();
     }
 
-    public KatanaItem(Tier tier, int attackDamageIn, float attackSpeedIn, Item.Properties builderIn){
+    public KatanaItem(Tier tier, float attackDamageIn, float attackSpeedIn, Item.Properties builderIn){
         this(new Builder(attackDamageIn, attackSpeedIn, builderIn).setTier(tier));
     }
 
-    public KatanaItem(Tier tier, int attackDamageIn, float attackSpeedIn, float dashDistance, Item.Properties builderIn){
+    public KatanaItem(Tier tier, float attackDamageIn, float attackSpeedIn, float dashDistance, Item.Properties builderIn){
         this(new Builder(attackDamageIn, attackSpeedIn, builderIn).setTier(tier).setDashDistance(dashDistance));
     }
 
@@ -228,7 +228,7 @@ public class KatanaItem extends SwordItem implements CooldownNotifyItem, DashIte
     }
 
     public static class Builder extends AbstractKatanaBuilder<KatanaItem>{
-        public Builder(int attackDamageIn, float attackSpeedIn, Properties itemProperties){
+        public Builder(float attackDamageIn, float attackSpeedIn, Properties itemProperties){
             super(attackDamageIn, attackSpeedIn, itemProperties);
         }
 

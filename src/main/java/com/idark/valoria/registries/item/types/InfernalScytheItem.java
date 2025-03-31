@@ -23,7 +23,7 @@ import java.util.*;
 public class InfernalScytheItem extends ScytheItem{
     public ArcRandom arcRandom = Tmp.rnd;
 
-    public InfernalScytheItem(Tier tier, int attackDamageIn, float attackSpeedIn, Item.Properties builderIn){
+    public InfernalScytheItem(Tier tier, float attackDamageIn, float attackSpeedIn, Item.Properties builderIn){
         super(tier, attackDamageIn, attackSpeedIn, builderIn);
     }
 

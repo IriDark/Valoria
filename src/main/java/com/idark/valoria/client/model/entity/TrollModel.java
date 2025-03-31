@@ -1,15 +1,12 @@
 package com.idark.valoria.client.model.entity;
 
-import com.idark.valoria.client.model.animations.GoblinAnimations;
-import com.idark.valoria.client.model.animations.TrollAnimations;
-import com.idark.valoria.registries.entity.living.Troll;
-import net.minecraft.client.model.HierarchicalModel;
-import net.minecraft.client.model.geom.ModelPart;
-import net.minecraft.client.model.geom.PartPose;
+import com.idark.valoria.client.model.animations.*;
+import com.idark.valoria.registries.entity.living.*;
+import net.minecraft.client.model.geom.*;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.util.Mth;
+import net.minecraft.util.*;
 
-public class TrollModel<T extends Troll> extends HierarchicalModel<T>{
+public class TrollModel<T extends Troll> extends AbstractHierarchicalModel<T>{
     private final ModelPart root;
     private final ModelPart head;
     private final ModelPart leftEar;
@@ -67,31 +64,20 @@ public class TrollModel<T extends Troll> extends HierarchicalModel<T>{
     }
 
     @Override
+    public ModelPart getHead(){
+        return head;
+    }
+
+    @Override
     public void setupAnim(T pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch){
-        this.root().getAllParts().forEach(ModelPart::resetPose);
+        super.setupAnim(pEntity, pLimbSwing, pLimbSwingAmount, pAgeInTicks, pNetHeadYaw, pHeadPitch);
         this.head.getChild("right_ear").yRot = Mth.sin(pAgeInTicks * 0.25F) * 0.06F;
         this.head.getChild("left_ear").yRot = Mth.sin(pAgeInTicks * -0.25F) * 0.06F;
         this.head.getChild("right_ear").xRot = Mth.sin(pAgeInTicks * 0.15F) * 0.01F;
         this.head.getChild("left_ear").xRot = Mth.sin(pAgeInTicks * -0.15F) * 0.01F;
-        this.animateHeadLookTarget(pNetHeadYaw, pHeadPitch);
+
         this.animateWalk(GoblinAnimations.WALK, pLimbSwing, pLimbSwingAmount, 2, 6);
-        this.animateIdlePose(pAgeInTicks);
         this.animate(pEntity.idleAnimationState, TrollAnimations.IDLE, pAgeInTicks, 0.5f);
-    }
-
-    private void animateHeadLookTarget(float pYaw, float pPitch){
-        this.head.xRot = pPitch * ((float)Math.PI / 180F);
-        this.head.yRot = pYaw * ((float)Math.PI / 180F);
-    }
-
-    private void animateIdlePose(float pAgeInTicks){
-        float f = pAgeInTicks * 0.1F;
-        float f1 = Mth.cos(f);
-        float f2 = Mth.sin(f);
-        this.head.zRot += 0.03F * f1;
-        this.head.xRot += 0.03F * f2;
-        this.body.zRot += 0.0025F * f2;
-        this.body.xRot += 0.0025F * f1;
     }
 
     @Override

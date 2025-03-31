@@ -18,14 +18,14 @@ public class HitEffectItem extends SwordItem{
     public final ImmutableList<MobEffectInstance> effects;
     public ArcRandom arcRandom = Tmp.rnd;
 
-    public HitEffectItem(Tier tier, int attackDamageIn, float attackSpeedIn, Item.Properties builderIn, float pChance, MobEffectInstance... pEffects){
-        super(tier, attackDamageIn, attackSpeedIn, builderIn);
+    public HitEffectItem(Tier tier, float attackDamageIn, float attackSpeedIn, Item.Properties builderIn, float pChance, MobEffectInstance... pEffects){
+        super(tier, (int)attackDamageIn, attackSpeedIn, builderIn);
         this.chance = pChance;
         this.effects = ImmutableList.copyOf(pEffects);
     }
 
-    public HitEffectItem(Tier tier, int attackDamageIn, float attackSpeedIn, Item.Properties builderIn, MobEffectInstance... pEffects){
-        super(tier, attackDamageIn, attackSpeedIn, builderIn);
+    public HitEffectItem(Tier tier, float attackDamageIn, float attackSpeedIn, Item.Properties builderIn, MobEffectInstance... pEffects){
+        super(tier, (int)attackDamageIn, attackSpeedIn, builderIn);
         this.effects = ImmutableList.copyOf(pEffects);
     }
 

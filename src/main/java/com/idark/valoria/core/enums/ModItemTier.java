@@ -15,20 +15,21 @@ public enum ModItemTier implements Tier{
     //GOLD(0, 32, 12.0F, 0.0F, 22, () -> Ingredient.of(Items.GOLD_INGOT)),
     //NETHERITE(4, 2031, 9.0F, 4.0F, 15, () -> Ingredient.of(Items.NETHERITE_INGOT));
     NONE(4, 1561, 10f, 4.0F, 15, Ingredient::of),
-    BRONZE(2, 1048, 4f, 0f, 8, () -> Ingredient.of(ItemsRegistry.cobaltIngot.get())),
+    BRONZE(2, 1048, 4f, 0.0F, 8, () -> Ingredient.of(ItemsRegistry.cobaltIngot.get())),
     PEARLIUM(3, 425, 5f, 2.0F, 6, () -> Ingredient.of(ItemsRegistry.pearliumIngot.get())),
     HOLIDAY(2, 740, 5f, 2.0F, 8, () -> Ingredient.of(ItemsRegistry.holidayCandy.get())),
     HALLOWEEN(3, 1150, 6f, 3.0F, 8, () -> Ingredient.of(ItemsRegistry.candyCorn.get())),
-    SAMURAI(3, 1250, 10f, 3.0F, 7, () -> Ingredient.of(ItemsRegistry.ancientIngot.get())),
-    COBALT(4, 1750, 12f, 0f, 12, () -> Ingredient.of(ItemsRegistry.cobaltIngot.get())),
-    ETHEREAL(4, 2025, 15f, 0f, 15, () -> Ingredient.of(ItemsRegistry.etherealShard.get())),
-    PYRATITE(6, 3112, 25f, 4.0F, 15, () -> Ingredient.of(ItemsRegistry.pyratite.get())),
-    NATURE(5, 2651, 20f, 0f, 17, () -> Ingredient.of(ItemsRegistry.natureIngot.get())),
-    AQUARIUS(5, 3256, 25f, 0f, 18, () -> Ingredient.of(ItemsRegistry.aquariusIngot.get())),
-    INFERNAL(5, 4256, 28f, 0f, 19, () -> Ingredient.of(ItemsRegistry.infernalIngot.get())),
-    NIHILITY(5, 5248, 30F, 0F, 20, () -> Ingredient.of(ItemsRegistry.nihilityShard.get())),
-    BLOOD(5, 2431, 20.0F, 4.0F, 15, () -> Ingredient.of(ItemsRegistry.painCrystal.get())),
-    PHANTOM(5, 6428, 35F, 0F, 20, () -> Ingredient.of(ItemsRegistry.illusionStone.get()));
+    SAMURAI(3, 1250, 10f, 6.0F, 7, () -> Ingredient.of(ItemsRegistry.ancientIngot.get())),
+    COBALT(4, 1750, 12f, 3.5f, 12, () -> Ingredient.of(ItemsRegistry.cobaltIngot.get())),
+    ETHEREAL(4, 2025, 15f, 4f, 15, () -> Ingredient.of(ItemsRegistry.etherealShard.get())),
+    PYRATITE(6, 3112, 25f, 5.5F, 15, () -> Ingredient.of(ItemsRegistry.pyratite.get())),
+    NATURE(5, 2651, 20f, 6.0F, 17, () -> Ingredient.of(ItemsRegistry.natureIngot.get())),
+    AQUARIUS(5, 3256, 25f, 6.5f, 18, () -> Ingredient.of(ItemsRegistry.aquariusIngot.get())),
+    INFERNAL(5, 4256, 28f, 7.0F, 19, () -> Ingredient.of(ItemsRegistry.infernalIngot.get())),
+    BLOOD(5, 2431, 20.0F, 7.0F, 15, () -> Ingredient.of(ItemsRegistry.painCrystal.get())),
+    SPIDER(5, 2831, 22.0F, 7.5F, 15, () -> Ingredient.of(ItemsRegistry.spiderFang.get())),
+    NIHILITY(5, 5248, 30F, 8.0F, 20, () -> Ingredient.of(ItemsRegistry.nihilityShard.get())),
+    PHANTOM(5, 6428, 35F, 10F, 20, () -> Ingredient.of(ItemsRegistry.illusionStone.get()));
 
     private final int harvestLevel;
     private final int maxUses;

@@ -2,19 +2,37 @@
   "type": "minecraft:entity",
   "pools": [
     {
-      "rolls": 1,
+      "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:bone",
-          "weight": 40,
           "functions": [
             {
-              "function": "minecraft:set_count",
-              "count": 3
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 2.0,
+                "min": 0.0
+              },
+              "function": "minecraft:set_count"
+            },
+            {
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 1.0,
+                "min": 0.0
+              },
+              "function": "minecraft:looting_enchant"
             }
-          ]
-        },
+          ],
+          "name": "minecraft:bone"
+        }
+      ],
+      "rolls": 1.0
+    },
+    {
+      "rolls": 1,
+      "entries": [
         {
           "type": "minecraft:item",
           "name": "valoria:skeletal_vambrace",
@@ -30,7 +48,13 @@
         {
           "type": "minecraft:item",
           "name": "valoria:necromancer_grimoire",
-          "weight": 2
+          "weight": 1,
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance",
+              "chance": 0.0015
+            }
+          ]
         }
       ]
     }

@@ -2,12 +2,11 @@ package com.idark.valoria.client.model.entity;
 
 import com.idark.valoria.client.model.animations.*;
 import com.idark.valoria.registries.entity.living.*;
-import net.minecraft.client.model.*;
 import net.minecraft.client.model.geom.*;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.world.entity.*;
 
-public class SorcererModel<T extends SorcererEntity> extends HierarchicalModel<T>{
+public class SorcererModel<T extends SorcererEntity> extends AbstractHierarchicalModel<T>{
     private final ModelPart root;
     private final ModelPart head;
     private final ModelPart body;
@@ -69,15 +68,14 @@ public class SorcererModel<T extends SorcererEntity> extends HierarchicalModel<T
         return root;
     }
 
-    private void animateHeadLookTarget(float pYaw, float pPitch){
-        this.head.xRot = pPitch * ((float)Math.PI / 180F);
-        this.head.yRot = pYaw * ((float)Math.PI / 180F);
+    @Override
+    public ModelPart getHead(){
+        return head;
     }
 
     @Override
     public void setupAnim(T pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch){
-        this.root().getAllParts().forEach(ModelPart::resetPose);
-        this.animateHeadLookTarget(pNetHeadYaw, pHeadPitch);
+        super.setupAnim(pEntity, pLimbSwing, pLimbSwingAmount, pAgeInTicks, pNetHeadYaw, pHeadPitch);
         this.animateWalk(GoblinAnimations.WALK, pLimbSwing, pLimbSwingAmount, 3, 6);
         this.animate(pEntity.idleAnimationState, SorcererAnimations.IDLE, pAgeInTicks, 1f);
         this.animate(pEntity.healAnimationState, SorcererAnimations.HEAL, pAgeInTicks, 1f);

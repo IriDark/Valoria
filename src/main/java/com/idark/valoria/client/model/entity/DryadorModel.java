@@ -2,12 +2,10 @@ package com.idark.valoria.client.model.entity;
 
 import com.idark.valoria.client.model.animations.*;
 import com.idark.valoria.registries.entity.living.boss.dryador.*;
-import net.minecraft.client.model.*;
 import net.minecraft.client.model.geom.*;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.util.*;
 
-public class DryadorModel<T extends DryadorEntity> extends HierarchicalModel<T>{
+public class DryadorModel<T extends DryadorEntity> extends AbstractHierarchicalModel<T>{
     private final ModelPart root;
     protected final ModelPart body;
     protected final ModelPart rightArm;
@@ -54,28 +52,15 @@ public class DryadorModel<T extends DryadorEntity> extends HierarchicalModel<T>{
     }
 
     @Override
-    public void setupAnim(DryadorEntity pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch){
-        this.root().getAllParts().forEach(ModelPart::resetPose);
-        this.animateHeadLookTarget(pNetHeadYaw, pHeadPitch);
-        animateIdlePose(pAgeInTicks);
+    public void setupAnim(T pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch){
+        super.setupAnim(pEntity, pLimbSwing, pLimbSwingAmount, pAgeInTicks, pNetHeadYaw, pHeadPitch);
         this.animateWalk(DryadorAnimations.WALK, pLimbSwing, pLimbSwingAmount, 6, 8);
         this.animate(pEntity.idleAnimationState, DryadorAnimations.IDLE, pAgeInTicks);
         this.animate(pEntity.phaseTransitionAnimationState, DryadorAnimations.PHASE_TRANSITION, pAgeInTicks);
     }
 
-    private void animateHeadLookTarget(float pYaw, float pPitch) {
-        this.head.xRot = pPitch * ((float)Math.PI / 180F);
-        this.head.yRot = pYaw * ((float)Math.PI / 180F);
+    @Override
+    public ModelPart getHead(){
+        return head;
     }
-
-    private void animateIdlePose(float pAgeInTicks) {
-        float f = pAgeInTicks * 0.1F;
-        float f1 = Mth.cos(f);
-        float f2 = Mth.sin(f);
-        this.head.zRot += 0.06F * f1;
-        this.head.xRot += 0.06F * f2;
-        this.body.zRot += 0.025F * f2;
-        this.body.xRot += 0.025F * f1;
-    }
-
 }

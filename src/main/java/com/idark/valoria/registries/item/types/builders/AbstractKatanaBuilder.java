@@ -24,7 +24,7 @@ public abstract class AbstractKatanaBuilder<T extends KatanaItem>{
     public Color dashColor;
     public boolean usePacket = false;
     public boolean hasLargeModel = true;
-    public int attackDamageIn;
+    public float attackDamageIn;
     public float attackSpeedIn;
     public float chance = 1;
     public int overlayTime = 35;
@@ -34,7 +34,7 @@ public abstract class AbstractKatanaBuilder<T extends KatanaItem>{
     public ImmutableList<MobEffectInstance> effects = ImmutableList.of();
     public ParticleOptions particleOptions = ParticleTypes.POOF;
 
-    public AbstractKatanaBuilder(int attackDamageIn, float attackSpeedIn, Properties itemProperties){
+    public AbstractKatanaBuilder(float attackDamageIn, float attackSpeedIn, Properties itemProperties){
         this.attackDamageIn = attackDamageIn;
         this.attackSpeedIn = attackSpeedIn;
         this.itemProperties = itemProperties;

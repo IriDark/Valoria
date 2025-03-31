@@ -6,11 +6,10 @@ import com.mojang.blaze3d.vertex.*;
 import net.minecraft.client.model.*;
 import net.minecraft.client.model.geom.*;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.client.renderer.*;
 import net.minecraft.util.*;
 import net.minecraft.world.entity.*;
 
-public class DevilModel<T extends Devil> extends HierarchicalModel<T> implements ArmedModel, HeadedModel{
+public class DevilModel<T extends Devil> extends AbstractHierarchicalModel<T> implements ArmedModel, HeadedModel{
     private final ModelPart root;
     private final ModelPart head;
     private final ModelPart body;
@@ -22,7 +21,6 @@ public class DevilModel<T extends Devil> extends HierarchicalModel<T> implements
     private final ModelPart rightWing;
 
     public DevilModel(ModelPart root){
-        super(RenderType::entityCutoutNoCull);
         this.root = root;
         this.head = root.getChild("head");
         this.body = root.getChild("body");
@@ -69,10 +67,9 @@ public class DevilModel<T extends Devil> extends HierarchicalModel<T> implements
     }
 
     public void setupAnim(T pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch){
-        this.root().getAllParts().forEach(ModelPart::resetPose);
+        super.setupAnim(pEntity, pLimbSwing, pLimbSwingAmount, pAgeInTicks, pNetHeadYaw, pHeadPitch);
         this.animateWalk(pLimbSwing, pLimbSwingAmount);
         this.animateWalk(DevilAnimation.WALK, pLimbSwing, pLimbSwingAmount, pEntity.getSpeed(), pAgeInTicks);
-        this.animateIdlePose(pAgeInTicks);
         this.animate(pEntity.idleAnimationState, DevilAnimation.IDLE, pAgeInTicks);
         this.animate(pEntity.throwAnimationState, DevilAnimation.ATTACK_RANGE, pAgeInTicks);
         this.animate(pEntity.magicAnimationState, DevilAnimation.ATTACK_MAGIC, pAgeInTicks);
@@ -101,16 +98,6 @@ public class DevilModel<T extends Devil> extends HierarchicalModel<T> implements
         this.rightArm.z = 0;
         this.rightArm.x = -4;
         this.rightArm.y = 0;
-    }
-
-    private void animateIdlePose(float pAgeInTicks){
-        float f = pAgeInTicks * 0.1F;
-        float f1 = Mth.cos(f);
-        float f2 = Mth.sin(f);
-        this.head.zRot += 0.03F * f1;
-        this.head.xRot += 0.03F * f2;
-        this.body.zRot += 0.0025F * f2;
-        this.body.xRot += 0.0025F * f1;
     }
 
     @Override

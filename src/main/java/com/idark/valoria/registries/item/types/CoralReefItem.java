@@ -20,10 +20,10 @@ import pro.komaru.tridot.util.math.*;
 import java.util.*;
 
 //TODO: Rework the ability
-public class CoralReefItem extends SwordItem{
+public class CoralReefItem extends ValoriaSword{
     public ArcRandom arcRandom = Tmp.rnd;
 
-    public CoralReefItem(Tier tier, int attackDamageIn, float attackSpeedIn, Properties builderIn){
+    public CoralReefItem(Tier tier, float attackDamageIn, float attackSpeedIn, Properties builderIn){
         super(tier, attackDamageIn, attackSpeedIn, builderIn);
     }
 

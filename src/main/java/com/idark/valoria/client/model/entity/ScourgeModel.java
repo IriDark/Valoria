@@ -2,12 +2,11 @@ package com.idark.valoria.client.model.entity;
 
 import com.idark.valoria.client.model.animations.*;
 import com.idark.valoria.registries.entity.living.*;
-import net.minecraft.client.model.*;
 import net.minecraft.client.model.geom.*;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.*;
 
-public class ScourgeModel<T extends ScourgeEntity> extends HierarchicalModel<T>{
+public class ScourgeModel<T extends ScourgeEntity> extends AbstractHierarchicalModel<T>{
     private final ModelPart root;
     private final ModelPart head;
     private final ModelPart body;
@@ -67,9 +66,8 @@ public class ScourgeModel<T extends ScourgeEntity> extends HierarchicalModel<T>{
 
     @Override
     public void setupAnim(T pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch){
-        this.root().getAllParts().forEach(ModelPart::resetPose);
+        super.setupAnim(pEntity, pLimbSwing, pLimbSwingAmount, pAgeInTicks, pNetHeadYaw, pHeadPitch);
         this.animateWalk(ScourgeAnimations.WALK, pLimbSwing, pLimbSwingAmount, pEntity.getSpeed(), pAgeInTicks);
-        this.animateIdlePose(pAgeInTicks);
         this.animate(pEntity.idleAnimationState, ScourgeAnimations.IDLE, pAgeInTicks);
         this.animate(pEntity.attackAnimationState, ScourgeAnimations.ATTACK_MELEE, pAgeInTicks);
         this.animate(pEntity.diggingAnimationState, ScourgeAnimations.SPAWN, pAgeInTicks);
@@ -93,15 +91,5 @@ public class ScourgeModel<T extends ScourgeEntity> extends HierarchicalModel<T>{
         this.leftLeg.yRot = -0.00015F;
         this.rightLeg.zRot = 0.00015F;
         this.leftLeg.zRot = -0.00015F;
-    }
-
-    private void animateIdlePose(float pAgeInTicks){
-        float f = pAgeInTicks * 0.1F;
-        float f1 = Mth.cos(f);
-        float f2 = Mth.sin(f);
-        this.head.zRot += 0.03F * f1;
-        this.head.xRot += 0.03F * f2;
-        this.body.zRot += 0.0025F * f2;
-        this.body.xRot += 0.0025F * f1;
     }
 }

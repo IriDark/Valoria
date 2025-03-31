@@ -84,11 +84,6 @@ public class DryadorEntity extends AbstractBoss{
         if(phaseTransitionAnimationState.isStarted()) animationTicks--;
     }
 
-    @Override
-    public void animateHurt(float pYaw){
-        super.animateHurt(pYaw);
-    }
-
     public boolean isInvulnerableTo(DamageSource pSource) {
         return animationTicks > 0 && !pSource.is(DamageTypeTags.BYPASSES_INVULNERABILITY) || super.isInvulnerableTo(pSource);
     }

@@ -11,7 +11,7 @@ public class BleedingEnchantment extends Enchantment{
     public ArcRandom arcRandom = Tmp.rnd;
 
     public BleedingEnchantment(){
-        super(Rarity.RARE, EnchantmentCategory.WEAPON, new EquipmentSlot[]{EquipmentSlot.MAINHAND});
+        super(Rarity.VERY_RARE, EnchantmentCategory.WEAPON, new EquipmentSlot[]{EquipmentSlot.MAINHAND});
     }
 
     @Override
@@ -31,14 +31,10 @@ public class BleedingEnchantment extends Enchantment{
         if(arcRandom.chance(0.05f * pLevel) || pUser.getUseItem().getEnchantmentLevel(Enchantments.PIERCING) > 0){
             if(pTarget instanceof LivingEntity livingentity){
                 if(pLevel > 0){
-                    int i = 40 + pUser.getRandom().nextInt(85 * pLevel);
+                    int i = 25 + pUser.getRandom().nextInt(45 * pLevel);
                     livingentity.addEffect(new MobEffectInstance(EffectsRegistry.BLEEDING.get(), i, pLevel - 1, false, false));
                 }
             }
         }
-    }
-
-    public boolean checkCompatibility(Enchantment pEnchantment){
-        return super.checkCompatibility(pEnchantment) && pEnchantment != Enchantments.SHARPNESS;
     }
 }

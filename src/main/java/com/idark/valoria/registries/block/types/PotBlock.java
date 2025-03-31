@@ -1,6 +1,9 @@
 package com.idark.valoria.registries.block.types;
 
 import net.minecraft.core.*;
+import net.minecraft.server.level.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.projectile.*;
 import net.minecraft.world.item.context.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
@@ -9,6 +12,7 @@ import net.minecraft.world.level.block.state.properties.*;
 import net.minecraft.world.level.material.*;
 import net.minecraft.world.phys.*;
 import net.minecraft.world.phys.shapes.*;
+import pro.komaru.tridot.util.*;
 
 import javax.annotation.*;
 
@@ -25,6 +29,28 @@ public class PotBlock extends HorizontalDirectionalBlock implements SimpleWaterl
         super(properties);
         potLong = false;
         registerDefaultState(defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, false));
+    }
+
+    @Override
+    public void onProjectileHit(Level pLevel, BlockState pState, BlockHitResult pHit, Projectile pProjectile){
+        BlockPos blockpos = pHit.getBlockPos();
+        if (!pLevel.isClientSide && pProjectile.mayInteract(pLevel, blockpos) && pProjectile.getDeltaMovement().length() > 0.6D) {
+            pLevel.destroyBlock(blockpos, true);
+        }
+    }
+
+    @Override
+    public void destroy(LevelAccessor pLevel, BlockPos pPos, BlockState pState){
+        super.destroy(pLevel, pPos, pState);
+        if(pLevel instanceof ServerLevel serverLevel){
+            if(Tmp.rnd.chance(0.125)){
+                var mob = EntityType.SILVERFISH.create(serverLevel);
+                if(mob != null){
+                    mob.moveTo((double)pPos.getX() + 0.5D, pPos.getY(), (double)pPos.getZ() + 0.5D, 0.0F, 0.0F);
+                    serverLevel.addFreshEntity(mob);
+                }
+            }
+        }
     }
 
     public VoxelShape getPotLong(){

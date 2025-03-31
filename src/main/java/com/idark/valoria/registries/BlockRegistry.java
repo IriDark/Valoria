@@ -69,7 +69,7 @@ public class BlockRegistry{
     eldritchPressurePlate, eldritchButton, eldritchLog, strippedEldritchLog, eldritchWood, strippedEldritchWood, eldritchPlanks, eldritchPlanksStairs, eldritchPlanksSlab, eldritchLeaves, eldritchSapling, pottedEldritchSapling, eldritchFence, eldritchFenceGate, eldritchSign, eldritchWallSign, eldritchHangingSign, eldritchWallHangingSign,
 
     //loot blocks
-    potSmall, potSmallHandles, potLong, potLongHandles, potLongMossy, potLongMossyHandles, cryptPot, decoratedCryptPot, spiderEgg,
+    potSmall, potSmallHandles, potLong, potLongHandles, potLongMossy, potLongMossyHandles, cryptPot, decoratedCryptPot,
 
     //other
     valoriaPortal, valoriaPortalFrame, grave, tomb, mossyTomb, woodenTomb, mossyWoodenTomb, sarcophagus, umbralKeypad, umbralActivator, umbralBlock, cutUmbralBlock, umbralBricks, tile, quicksand, bronzeLamp, decoratedBronzeLamp, bronzeLampBlock,
@@ -407,7 +407,6 @@ public class BlockRegistry{
         bronzeLamp = registerBlock("bronze_lamp", () -> new RedstoneLampBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).mapColor(MapColor.COLOR_BROWN).strength(3f, 4f).noOcclusion().sound(SoundType.GLASS).lightLevel(Utils.Blocks.lightIfLit())));
         decoratedBronzeLamp = registerBlock("decorated_bronze_lamp", () -> new RedstoneLampBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).mapColor(MapColor.COLOR_BROWN).strength(3f, 4f).noOcclusion().sound(SoundType.GLASS).lightLevel(Utils.Blocks.lightIfLit())));
         bronzeLampBlock = registerBlock("bronze_lamp_block", () -> new RedstoneLampBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).mapColor(MapColor.COLOR_BROWN).strength(3f, 4f).noOcclusion().sound(SoundType.GLASS).lightLevel(Utils.Blocks.lightIfLit())));
-        spiderEgg = registerBlock("spider_egg", () -> new SpiderBlock(BlockBehaviour.Properties.copy(Blocks.STONE).instabreak().noOcclusion().sound(SoundType.FROGSPAWN)));
 
         // Cups
         woodenCup = BLOCK.register("wooden_cup", BlockRegistry::woodenCup);

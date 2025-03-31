@@ -32,10 +32,10 @@ import java.util.*;
 // Fix the ability (Works weird on server)
 // Work on GFX side of the ability
 // Something like on-screen particles would be cool
-public class PhantomItem extends SwordItem implements RadiusItem, CooldownReductionItem{
+public class PhantomItem extends ValoriaSword implements RadiusItem, CooldownReductionItem{
     public float pRadius = 3;
 
-    public PhantomItem(Tier tier, int attackDamageIn, float attackSpeedIn, Properties builderIn){
+    public PhantomItem(Tier tier, float attackDamageIn, float attackSpeedIn, Properties builderIn){
         super(tier, attackDamageIn, attackSpeedIn, builderIn);
     }
 

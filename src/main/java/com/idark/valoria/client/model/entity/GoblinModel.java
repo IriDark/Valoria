@@ -9,7 +9,7 @@ import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.*;
 import net.minecraft.world.entity.*;
 
-public class GoblinModel<T extends Goblin> extends HierarchicalModel<T> implements ArmedModel, HeadedModel{
+public class GoblinModel<T extends Goblin> extends AbstractHierarchicalModel<T> implements ArmedModel, HeadedModel{
     private final ModelPart root;
     private final ModelPart head;
     private final ModelPart body;
@@ -86,7 +86,7 @@ public class GoblinModel<T extends Goblin> extends HierarchicalModel<T> implemen
 
     @Override
     public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch){
-        this.root().getAllParts().forEach(ModelPart::resetPose);
+        super.setupAnim(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
         this.head.getChild("right_ear").yRot = Mth.sin(ageInTicks * 0.06F) * 0.06F;
         this.head.getChild("left_ear").yRot = Mth.sin(ageInTicks * -0.06F) * 0.06F;
         this.head.getChild("right_ear").xRot = Mth.sin(ageInTicks * 0.01F) * 0.01F;

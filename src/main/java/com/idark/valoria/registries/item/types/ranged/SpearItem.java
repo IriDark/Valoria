@@ -51,11 +51,11 @@ public class SpearItem extends SwordItem implements Vanishable{
     /**
      * @param pEffects Effects applied on attack
      */
-    public SpearItem(Tier tier, int attackDamageIn, float attackSpeedIn, float projectileDamageIn, Item.Properties builderIn, MobEffectInstance... pEffects){
-        super(tier, attackDamageIn, attackSpeedIn, builderIn);
-        this.attackDamage = (float)attackDamageIn + tier.getAttackDamageBonus();
+    public SpearItem(Tier tier, float attackDamageIn, float attackSpeedIn, Item.Properties builderIn, MobEffectInstance... pEffects){
+        super(tier, (int)attackDamageIn, attackSpeedIn, builderIn);
+        this.attackDamage = attackDamageIn + tier.getAttackDamageBonus();
         this.attackSpeed = attackSpeedIn;
-        this.projectileDamage = projectileDamageIn;
+        this.projectileDamage = attackDamageIn + tier.getAttackDamageBonus() + 2;
         this.effects = ImmutableList.copyOf(pEffects);
         throwable = true;
     }
@@ -64,19 +64,19 @@ public class SpearItem extends SwordItem implements Vanishable{
      * @param pChance  Chance to apply effects
      * @param pEffects Effects applied on attack
      */
-    public SpearItem(Tier tier, int attackDamageIn, float attackSpeedIn, float projectileDamageIn, float pChance, Item.Properties builderIn, MobEffectInstance... pEffects){
-        super(tier, attackDamageIn, attackSpeedIn, builderIn);
-        this.attackDamage = (float)attackDamageIn + tier.getAttackDamageBonus();
+    public SpearItem(Tier tier, float attackDamageIn, float attackSpeedIn, float pChance, Item.Properties builderIn, MobEffectInstance... pEffects){
+        super(tier, (int)attackDamageIn, attackSpeedIn, builderIn);
+        this.attackDamage = attackDamageIn + tier.getAttackDamageBonus();
         this.attackSpeed = attackSpeedIn;
-        this.projectileDamage = projectileDamageIn;
+        this.projectileDamage = attackDamageIn + tier.getAttackDamageBonus() + 2;
         this.effects = ImmutableList.copyOf(pEffects);
         this.chance = pChance;
         throwable = true;
     }
 
-    public SpearItem(Tier tier, int attackDamageIn, float attackSpeedIn, boolean pThrowable, Item.Properties builderIn){
-        super(tier, attackDamageIn, attackSpeedIn, builderIn);
-        this.attackDamage = (float)attackDamageIn + tier.getAttackDamageBonus();
+    public SpearItem(Tier tier, float attackDamageIn, float attackSpeedIn, boolean pThrowable, Item.Properties builderIn){
+        super(tier, (int)attackDamageIn, attackSpeedIn, builderIn);
+        this.attackDamage = attackDamageIn + tier.getAttackDamageBonus();
         this.attackSpeed = attackSpeedIn;
         this.throwable = pThrowable;
         this.projectileDamage = 0f;

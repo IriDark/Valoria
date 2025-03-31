@@ -18,7 +18,7 @@ public abstract class AbstractScytheBuilder<T extends ScytheItem>{
     public Item.Properties itemProperties;
     public SoundEvent attackSound = SoundsRegistry.SWIFTSLICE.get();
     public SoundEvent cooldownSound = SoundsRegistry.RECHARGE.get();
-    public int attackDamageIn;
+    public float attackDamageIn;
     public float attackSpeedIn;
     public float chance = 1;
     public int useTime = 7;
@@ -34,7 +34,7 @@ public abstract class AbstractScytheBuilder<T extends ScytheItem>{
     public ImmutableList<MobEffectInstance> effects = ImmutableList.of();
     public ParticleOptions particleOptions = ParticleTypes.POOF;
 
-    public AbstractScytheBuilder(int attackDamageIn, float attackSpeedIn, Properties itemProperties){
+    public AbstractScytheBuilder(float attackDamageIn, float attackSpeedIn, Properties itemProperties){
         this.attackDamageIn = attackDamageIn;
         this.attackSpeedIn = attackSpeedIn;
         this.itemProperties = itemProperties;

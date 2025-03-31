@@ -30,11 +30,11 @@ import pro.komaru.tridot.util.math.*;
 
 import java.util.*;
 
-public class MagmaSwordItem extends SwordItem implements RadiusItem, OverlayRenderItem{
+public class MagmaSwordItem extends ValoriaSword implements RadiusItem, OverlayRenderItem{
     private static final ResourceLocation BAR = new ResourceLocation(Valoria.ID, "textures/gui/overlay/magma_charge.png");
     public ArcRandom arcRandom = Tmp.rnd;
 
-    public MagmaSwordItem(Tier tier, int attackDamageIn, float attackSpeedIn, Properties builderIn){
+    public MagmaSwordItem(Tier tier, float attackDamageIn, float attackSpeedIn, Properties builderIn){
         super(tier, attackDamageIn, attackSpeedIn, builderIn);
     }
 

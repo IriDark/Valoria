@@ -73,7 +73,7 @@ public class BleedingEffect extends AbstractImmunityEffect{
     @Override
     public boolean isDurationEffectTick(int duration, int amplifier){
         int i;
-        i = 50 >> amplifier;
+        i = 65 >> amplifier;
         if(i > 0){
             return duration % i == 0;
         }else{

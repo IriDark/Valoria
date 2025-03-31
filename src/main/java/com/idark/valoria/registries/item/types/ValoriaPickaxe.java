@@ -9,8 +9,8 @@ import net.minecraftforge.api.distmarker.*;
 import java.util.*;
 
 public class ValoriaPickaxe extends PickaxeItem{
-    public ValoriaPickaxe(Tier pTier, int pAttackDamageModifier, float pAttackSpeedModifier, Properties pProperties){
-        super(pTier, pAttackDamageModifier, pAttackSpeedModifier, pProperties);
+    public ValoriaPickaxe(Tier pTier, float pAttackDamageModifier, float pAttackSpeedModifier, Properties pProperties){
+        super(pTier, (int)pAttackDamageModifier, pAttackSpeedModifier, pProperties);
     }
 
     @OnlyIn(Dist.CLIENT)
