@@ -59,10 +59,6 @@ public class ScourgeEntity extends SwampWandererEntity{
         return false;
     }
 
-    public boolean doHurtTarget(Entity pEntity) {
-        return super.doHurtTarget(pEntity);
-    }
-
     private void setupAnimationStates(){
         if(this.idleAnimationTimeout <= 0){
             this.idleAnimationTimeout = 60;

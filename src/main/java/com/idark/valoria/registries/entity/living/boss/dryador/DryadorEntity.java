@@ -3,19 +3,17 @@ package com.idark.valoria.registries.entity.living.boss.dryador;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.entity.living.boss.*;
 import com.idark.valoria.registries.entity.living.boss.dryador.phases.*;
-import com.mojang.logging.*;
-import net.minecraft.core.particles.*;
 import net.minecraft.nbt.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
+import net.minecraft.tags.*;
 import net.minecraft.world.damagesource.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.level.*;
-import net.minecraft.world.level.gameevent.*;
 import org.jetbrains.annotations.*;
 import pro.komaru.tridot.api.render.bossbars.*;
 import pro.komaru.tridot.common.registry.entity.*;
@@ -28,9 +26,26 @@ public class DryadorEntity extends AbstractBoss{
     public final AnimationState idleAnimationState = new AnimationState();
     public int idleAnimationTimeout = 0;
     public AnimationState spawnAnimationState = new AnimationState();
-    public AnimationState deathAnimationState = new AnimationState();
-    public int deathTime = 0;
-    private IBossPhase currentPhase = new FirstPhase(this, this.getHealth() < 500);
+    public AnimationState phaseTransitionAnimationState = new AnimationState();
+    public IBossPhase currentPhase = new BossPhase(this, "1") {{
+        event = SoundEvents.ANVIL_PLACE;
+    }
+
+        @Override
+        public boolean shouldTransition(){
+            return DryadorEntity.this.getHealth() <= 500;
+        }
+    };
+
+    public IBossPhase secondPhase = new BossPhase(this, "2") {{
+        event = SoundEvents.ANVIL_PLACE;
+    }
+
+        @Override
+        public boolean shouldTransition(){
+            return DryadorEntity.this.getHealth() <= 250;
+        }
+    };
 
     public DryadorEntity(EntityType<? extends PathfinderMob> pEntityType, Level pLevel){
         super(pEntityType, pLevel);
@@ -49,71 +64,33 @@ public class DryadorEntity extends AbstractBoss{
     public void tick(){
         super.tick();
         setupAnimationStates();
-        if (this.deathTime > 0) {
-            if (this.level() instanceof ServerLevel serverLevel) {
-                for (int i = 0; i < 2; i++) {
-                    double offsetX = (random.nextDouble() - 0.5) * 0.6;
-                    double offsetY = random.nextDouble() * 0.4;
-                    double offsetZ = (random.nextDouble() - 0.5) * 0.6;
-
-                    serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, BlockRegistry.wickedAmethystBlock.get().defaultBlockState()), this.getX() + offsetX, this.getY() + 0.5 + offsetY, this.getZ() + offsetZ,
-                    1, 0, 0.5, 0, 0.05);
-                }
-            }
-        }
-
+        checkPhaseTransition();
         if(this.spawnTime < 10){
             this.spawnTime++;
             this.spawnAnimationState.start(tickCount);
         }
     }
 
-    @Override
-    protected void tickDeath(){
-        ++this.deathTime;
-        if (this.deathTime >= 60 && !this.level().isClientSide() && !this.isRemoved()) {
-            this.remove(RemovalReason.KILLED);
-        }
-    }
-
-    @Override
-    public void die(DamageSource pDamageSource){
-        if(net.minecraftforge.common.ForgeHooks.onLivingDeath(this, pDamageSource)) return;
-        if(!this.isRemoved() && !this.dead){
-            Entity entity = pDamageSource.getEntity();
-            LivingEntity livingentity = this.getKillCredit();
-            if(this.deathScore >= 0 && livingentity != null){
-                livingentity.awardKillScore(this, this.deathScore, pDamageSource);
-            }
-
-            if(this.isSleeping()){
-                this.stopSleeping();
-            }
-
-            if(!this.level().isClientSide && this.hasCustomName()){
-                LogUtils.getLogger().info("Named entity {} died: {}", this, this.getCombatTracker().getDeathMessage().getString());
-            }
-
-            this.dead = true;
-            this.getCombatTracker().recheckStatus();
-            Level level = this.level();
-            if(level instanceof ServerLevel serverlevel){
-                if(entity == null || entity.killedEntity(serverlevel, this)){
-                    this.gameEvent(GameEvent.ENTITY_DIE);
-                    this.dropAllDeathLoot(pDamageSource);
-                }
-
-                this.level().broadcastEntityEvent(this, (byte)3);
-            }
-        }
-
-        this.deathAnimationState.start(tickCount);
-    }
-
+    public int animationTicks = 0;
     public void checkPhaseTransition() {
-        if (currentPhase != null && currentPhase.shouldTransition()) {
+        if (currentPhase.shouldTransition() && !currentPhase.playedSound()) {
+            animationTicks = 90;
+            this.navigation.stop();
+            phaseTransitionAnimationState.start(tickCount);
             currentPhase.onEnter();
+            currentPhase = secondPhase;
         }
+
+        if(phaseTransitionAnimationState.isStarted()) animationTicks--;
+    }
+
+    @Override
+    public void animateHurt(float pYaw){
+        super.animateHurt(pYaw);
+    }
+
+    public boolean isInvulnerableTo(DamageSource pSource) {
+        return animationTicks > 0 && !pSource.is(DamageTypeTags.BYPASSES_INVULNERABILITY) || super.isInvulnerableTo(pSource);
     }
 
     @Override

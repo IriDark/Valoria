@@ -1,6 +1,6 @@
 {
   "type": "tridot:add_item",
-  "chance": 0.015,
+  "chance": 0.0015,
   "conditions": [
     {
       "condition": "tridot:local_date",

@@ -5,18 +5,27 @@ import net.minecraft.sounds.*;
 import net.minecraft.world.entity.*;
 import org.jetbrains.annotations.*;
 
-public class FirstPhase implements IBossPhase{
-    public boolean shouldTransition;
+public class BossPhase implements IBossPhase{
     public SoundEvent event;
     public LivingEntity entity;
-    public FirstPhase(LivingEntity entity, boolean reason) {
+    public String name;
+    public boolean playedSound = false;
+    public BossPhase(LivingEntity entity, String name){
         this.entity = entity;
-        this.shouldTransition = reason;
+        this.name = name;
     }
 
-    public FirstPhase setSound(SoundEvent e) {
+    public BossPhase setSound(SoundEvent e){
         this.event = e;
         return this;
+    }
+
+    @Override
+    public String toString(){
+        return "BossPhase{" +
+        ", event=" + event.getLocation().getPath() +
+        ", name='" + name + '\'' +
+        '}';
     }
 
     @Override
@@ -24,11 +33,18 @@ public class FirstPhase implements IBossPhase{
         if(event != null) {
             entity.playSound(event);
         }
+
+        playedSound = true;
     }
 
     @Override
     public boolean shouldTransition(){
-        return shouldTransition;
+        return false;
+    }
+
+    @Override
+    public boolean playedSound(){
+        return playedSound;
     }
 
     @Override

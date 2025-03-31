@@ -38,7 +38,7 @@ public class EntityStatsRegistry{
     public static AttributeSupplier UNDEAD = registerFlying(8, 1, 0.85).add(Attributes.FOLLOW_RANGE, 8).build();
 
     //monsters - nether
-    public static AttributeSupplier DEVIL = register(35, 1).add(Attributes.FOLLOW_RANGE, 12).build();
+    public static AttributeSupplier DEVIL = register(50, 1).add(Attributes.FOLLOW_RANGE, 12).build();
 
     //monsters - valoria
     public static AttributeSupplier SHADEWOOD_SPIDER = register(40, 15, 0.35).add(Attributes.FOLLOW_RANGE, 20).build();

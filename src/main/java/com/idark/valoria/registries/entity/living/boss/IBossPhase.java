@@ -8,5 +8,6 @@ public interface IBossPhase {
     void onEnter();
     default void update() {}
     boolean shouldTransition();
+    boolean playedSound();
     @Nullable SoundEvent getTransitionSound();
 }
