@@ -1,10 +1,12 @@
 package com.idark.valoria.util;
 
+import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.item.types.ranged.*;
 import net.minecraft.core.*;
 import net.minecraft.core.particles.*;
 import net.minecraft.network.protocol.*;
 import net.minecraft.server.level.*;
+import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
@@ -96,6 +98,24 @@ public class ValoriaUtils{
             Z = Math.sin(pitch) * Math.sin(yaw + i) * radius * 0.75F;
             if(type != null && !level.isClientSide() && level instanceof ServerLevel pServer){
                 pServer.sendParticles(type, pos.x + X, pos.y + Y + ((Math.random() - 0.5D) * 0.2F), pos.z + Z, 1, 0, 0, 0, 0);
+            }
+        }
+    }
+
+    public static void stunNearby(Level level, LivingEntity caster, Vector3d pos, float pitchRaw, float yawRaw, float radius){
+        for(int i = 0; i < 360; i += 10){
+            double pitch = ((pitchRaw + 90) * Math.PI) / 180;
+            double yaw = ((yawRaw + 90) * Math.PI) / 180;
+            double X = Math.sin(pitch) * Math.cos(yaw + i) * radius;
+            double Y = Math.cos(pitch) * radius;
+            double Z = Math.sin(pitch) * Math.sin(yaw + i) * radius;
+
+            AABB boundingBox = new AABB(pos.x, pos.y - 1 + ((Math.random() - 0.5D) * 0.2F), pos.z, pos.x + X, pos.y + Y + ((Math.random() - 0.5D) * 0.2F), pos.z + Z);
+            List<Entity> entities = level.getEntitiesOfClass(Entity.class, boundingBox);
+            for(Entity entity : entities){
+                if(entity instanceof LivingEntity livingEntity && !livingEntity.equals(caster)){
+                    livingEntity.addEffect(new MobEffectInstance(EffectsRegistry.STUN.get(), 30, 0));
+                }
             }
         }
     }

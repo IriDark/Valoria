@@ -88,7 +88,7 @@ public class UmbralBlock extends Block{
         }
 
         if(pState.getValue(ACTIVE) && pState.getValue(RETURN)){
-            Utils.Schedule.scheduleAsyncTask(() -> deactivateDoor(pLevel, pPos), 30, TimeUnit.SECONDS);
+            Utils.Schedule.asyncTask(() -> deactivateDoor(pLevel, pPos), 30, TimeUnit.SECONDS);
         }
     }
 }
