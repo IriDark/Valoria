@@ -14,7 +14,10 @@ import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
 import net.minecraft.tags.*;
 import net.minecraft.world.damagesource.*;
+import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.*;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier.*;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.*;
 import net.minecraft.world.entity.item.*;
@@ -28,6 +31,7 @@ import pro.komaru.tridot.api.entity.*;
 import pro.komaru.tridot.api.render.bossbars.*;
 import pro.komaru.tridot.client.render.screenshake.*;
 import pro.komaru.tridot.common.registry.entity.*;
+import pro.komaru.tridot.util.*;
 import pro.komaru.tridot.util.math.*;
 
 import java.lang.Math;
@@ -44,6 +48,7 @@ public class DryadorEntity extends AbstractBoss{
 
     public IBossPhase currentPhase = new BossPhase(this, () -> DryadorEntity.this.getHealth() <= 500).setSound(SoundEvents.ANVIL_PLACE);
     public static final AttackRegistry DRYADOR_RADIAL = new AttackRegistry(Valoria.ID, "dryador_radial");
+    public boolean flag = !(phaseTransitionAnimationState.isStarted() || rangedAttackAnimationState.isStarted());
 
     public DryadorEntity(EntityType<? extends PathfinderMob> pEntityType, Level pLevel){
         super(pEntityType, pLevel);
@@ -64,12 +69,18 @@ public class DryadorEntity extends AbstractBoss{
     }
 
     private void setupAnimationStates(){
-        if(this.idleAnimationTimeout <= 0){
+        if(this.idleAnimationTimeout <= 0 && flag){
             this.idleAnimationTimeout = 80;
             this.idleAnimationState.start(this.tickCount);
         }else{
             --this.idleAnimationTimeout;
         }
+    }
+
+    private void amplifyStats(){
+        this.getAttribute(Attributes.ARMOR).addTransientModifier(new AttributeModifier("modifier", this.level().getDifficulty().getId() * 0.5f, Operation.MULTIPLY_TOTAL));
+        this.getAttribute(Attributes.ATTACK_DAMAGE).addTransientModifier(new AttributeModifier("modifier", this.level().getDifficulty().getId() * 0.5f, Operation.ADDITION));
+        this.getAttribute(Attributes.MOVEMENT_SPEED).addTransientModifier(new AttributeModifier("modifier", 0.025f, Operation.MULTIPLY_TOTAL));
     }
 
     public int animationTicks = 0;
@@ -79,6 +90,7 @@ public class DryadorEntity extends AbstractBoss{
             this.navigation.stop();
             phaseTransitionAnimationState.start(tickCount);
             currentPhase.onEnter();
+            amplifyStats();
         }
 
         if(phaseTransitionAnimationState.isStarted()) animationTicks--;
@@ -149,7 +161,7 @@ public class DryadorEntity extends AbstractBoss{
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(3, new RandomStrollGoal(this, 1.2));
         this.goalSelector.addGoal(0, new StompAttack());
-        this.goalSelector.addGoal(0, new AcornAttack());
+        this.goalSelector.addGoal(0, new RadialAcornAttack());
 
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true));
@@ -178,7 +190,7 @@ public class DryadorEntity extends AbstractBoss{
         }
     }
 
-    public class AcornAttack extends AttackGoal {
+    public class RadialAcornAttack extends AttackGoal {
 
         @Override
         public void onPrepare(){
@@ -186,11 +198,20 @@ public class DryadorEntity extends AbstractBoss{
             DryadorEntity.this.level().broadcastEntityEvent(DryadorEntity.this, (byte)61);
         }
 
-        private void summonAcorns(ServerLevel serverLevel, BlockPos spawnPos, float angle, double speed) {
+        @Override
+        public boolean canUse(){
+            return super.canUse() && flag;
+        }
+
+        private void summonAcorns(ServerLevel serverLevel, BlockPos spawnPos, float angle, double speed){
             AcornProjectile acorn = EntityTypeRegistry.ACORN.get().create(DryadorEntity.this.level());
-            if (acorn != null) {
+            if(acorn != null){
                 acorn.moveTo(spawnPos.getX() + 0.5, spawnPos.getY() + 2, spawnPos.getZ() + 0.5, 0.0F, 0.0F);
                 acorn.setOwner(DryadorEntity.this);
+                if(currentPhase.shouldTransition() || Tmp.rnd.chance(0.15)){
+                    acorn.addEffect(new MobEffectInstance(MobEffects.POISON, 80, currentPhase.shouldTransition() ? 2 : 0));
+                }
+
                 double vx = Math.cos(angle) * speed;
                 double vz = Math.sin(angle) * speed;
                 acorn.setDeltaMovement(vx, 0.4, vz);
@@ -207,6 +228,14 @@ public class DryadorEntity extends AbstractBoss{
                 float angle = (float)((2 * Math.PI / 12) * i);
                 summonAcorns(serv, center, angle, 0.25);
             }
+
+            if(Tmp.rnd.chance(0.25)){
+                for(int i = 0; i < 6; i++){
+                    float angle = (float)((2 * Math.PI / 6) * i);
+                    summonAcorns(serv, center.above(1), angle, 0.35 + random.nextDouble() * 0.3);
+                }
+            }
+
         }
 
         @Override
@@ -241,6 +270,11 @@ public class DryadorEntity extends AbstractBoss{
     }
 
     public class StompAttack extends AttackGoal{
+
+        @Override
+        public boolean canUse(){
+            return super.canUse() && DryadorEntity.this.distanceToSqr(DryadorEntity.this.getTarget()) < 8.0D && flag;
+        }
 
         @Override
         public void onPrepare(){
