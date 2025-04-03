@@ -83,6 +83,8 @@ public class SoundsRegistry{
     public static final RegistryObject<SoundEvent> GOBLIN_HURT = registerSound("mob.goblin.hurt");
     public static final RegistryObject<SoundEvent> GOBLIN_DEATH = registerSound("mob.goblin.death");
 
+    public static final RegistryObject<SoundEvent> STOMP = registerSound("mob.dryador.stomp");
+
     public static final RegistryObject<SoundEvent> TROLL_DISAPPEAR = registerSound("mob.troll.disappear");
     public static final RegistryObject<SoundEvent> TROLL_HURT = registerSound("mob.troll.hurt");
 

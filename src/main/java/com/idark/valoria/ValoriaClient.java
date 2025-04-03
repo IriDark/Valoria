@@ -155,6 +155,7 @@ public class ValoriaClient{
             EntityRenderers.register(EntityTypeRegistry.LASER.get(), LaserRenderer::new);
             EntityRenderers.register(EntityTypeRegistry.MAGGOT.get(), MaggotRenderer::new);
             EntityRenderers.register(EntityTypeRegistry.DRYADOR.get(), DryadorRenderer::new);
+            EntityRenderers.register(EntityTypeRegistry.ACORN.get(), AcornRenderer::new);
 
             ModItemModelProperties.makeShield(ItemsRegistry.wickedShield.get());
             ModItemModelProperties.makeSize(ItemsRegistry.soulCollector.get());

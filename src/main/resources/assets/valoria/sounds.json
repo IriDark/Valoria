@@ -352,6 +352,11 @@
       "valoria:magic_projectile/hit2"
     ]
   },
+  "mob.dryador.stomp": {
+    "sounds": [
+      "valoria:dryador/stomp"
+    ]
+  },
   "mob.wicked_crystal.altar": {
     "sounds": [
       "valoria:wicked_crystal/wicked_crystal_altar"

@@ -1,30 +1,18 @@
 package com.idark.valoria.registries.entity.projectile;
 
-import com.idark.valoria.registries.EntityTypeRegistry;
-import com.idark.valoria.registries.ItemsRegistry;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MoverType;
-import net.minecraft.world.entity.projectile.ProjectileUtil;
-import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.Level.ExplosionInteraction;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.TheEndGatewayBlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.HitResult;
-import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
+import com.idark.valoria.registries.*;
+import net.minecraft.core.*;
+import net.minecraft.core.particles.*;
+import net.minecraft.nbt.*;
+import net.minecraft.network.syncher.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.projectile.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.Level.*;
+import net.minecraft.world.level.block.state.*;
+import net.minecraft.world.phys.*;
+import org.jetbrains.annotations.*;
 
 public class ThrowableBomb extends ThrowableItemProjectile{
     private static final EntityDataAccessor<Integer> DATA_FUSE_ID = SynchedEntityData.defineId(ThrowableBomb.class, EntityDataSerializers.INT);
@@ -65,86 +53,7 @@ public class ThrowableBomb extends ThrowableItemProjectile{
     @Override
     public void tick(){
         this.checkInsideBlocks();
-        Vec3 vec3 = this.getDeltaMovement();
-        if(!this.isNoGravity()){
-            Vec3 vec31 = this.getDeltaMovement();
-            this.setDeltaMovement(vec31.x, vec31.y - (double)this.getGravity(), vec31.z);
-        }
-
-        HitResult hitresult = ProjectileUtil.getHitResultOnMoveVector(this, this::canHitEntity);
-        boolean flag = false;
-        if(hitresult.getType() == HitResult.Type.BLOCK){
-            BlockPos blockpos = ((BlockHitResult)hitresult).getBlockPos();
-            BlockState blockstate = this.level().getBlockState(blockpos);
-            if(blockstate.is(Blocks.NETHER_PORTAL)){
-                this.handleInsidePortal(blockpos);
-                flag = true;
-            }else if(blockstate.is(Blocks.END_GATEWAY)){
-                BlockEntity blockentity = this.level().getBlockEntity(blockpos);
-                if(blockentity instanceof TheEndGatewayBlockEntity && TheEndGatewayBlockEntity.canEntityTeleport(this)){
-                    TheEndGatewayBlockEntity.teleportEntity(this.level(), blockpos, blockstate, this, (TheEndGatewayBlockEntity)blockentity);
-                }
-
-                flag = true;
-            }
-        }
-
-        if(hitresult.getType() != HitResult.Type.MISS && !flag && !net.minecraftforge.event.ForgeEventFactory.onProjectileImpact(this, hitresult)){
-            this.onHit(hitresult);
-        }
-
-        this.wasInPowderSnow = this.isInPowderSnow;
-        this.isInPowderSnow = false;
-        this.updateInWaterStateAndDoFluidPushing();
-        this.updateSwimming();
-        if(this.level().isClientSide){
-            this.clearFire();
-        }else if(this.getRemainingFireTicks() > 0){
-            if(this.fireImmune()){
-                this.setRemainingFireTicks(this.getRemainingFireTicks() - 4);
-                if(this.getRemainingFireTicks() < 0){
-                    this.clearFire();
-                }
-            }else{
-                if(this.getRemainingFireTicks() % 20 == 0 && !this.isInLava()){
-                    this.hurt(this.damageSources().onFire(), 1.0F);
-                }
-
-                this.setRemainingFireTicks(this.getRemainingFireTicks() - 1);
-            }
-
-            if(this.getTicksFrozen() > 0){
-                this.setTicksFrozen(0);
-                this.level().levelEvent(null, 1009, this.blockPosition(), 1);
-            }
-        }
-
-        if(this.isInWater()){
-            for(int i = 0; i < 4; ++i){
-                this.level().addParticle(ParticleTypes.BUBBLE, this.getX() - vec3.x * 0.25D, this.getY() - vec3.y * 0.25D, this.getZ() - vec3.z * 0.25D, vec3.x, vec3.y, vec3.z);
-            }
-
-            this.setDeltaMovement(vec3.scale(0.8f));
-        }
-
-        if(this.isInLava()){
-            this.lavaHurt();
-            this.fallDistance *= this.getFluidFallDistanceModifier(net.minecraftforge.common.ForgeMod.LAVA_TYPE.get());
-        }
-
-        if(this.verticalCollision){
-            Vec3 normal = vec3.normalize();
-            vec3 = vec3.subtract(normal.scale(2 * vec3.dot(normal)));
-            vec3 = new Vec3(vec3.x, vec3.y * 0.5, vec3.z);
-        }
-
-        if(this.onGround()) this.setDeltaMovement(vec3.scale(0.5D));
-        this.checkBelowWorld();
-        if(!this.level().isClientSide){
-            this.setSharedFlagOnFire(this.getRemainingFireTicks() > 0);
-        }
-
-        this.move(MoverType.SELF, vec3.scale(1.5f));
+        super.tick();
         int fuse = this.getFuse() - 1;
         this.setFuse(fuse);
         if(fuse <= 0){
@@ -163,6 +72,34 @@ public class ThrowableBomb extends ThrowableItemProjectile{
                 this.level().addParticle(ParticleTypes.SMOKE, this.getX() + offsetX, this.getY() + 0.3D + offsetY, this.getZ() + offsetZ, 0.0D, 0.0D, 0.0D);
             }
         }
+    }
+
+    @Override
+    protected void onHitBlock(BlockHitResult pResult){
+        Level level = level();
+        BlockPos pos = pResult.getBlockPos();
+        BlockState blockState = level.getBlockState(pos);
+        if(blockState.isSolid()){
+            Direction d = pResult.getDirection();
+            Vec3 mot = getDeltaMovement();
+            double x = mot.x();
+            double y = mot.y();
+            double z = mot.z();
+
+            if(d.getStepX() != 0){
+                x *= -1D;
+            }else if(d.getStepY() != 0){
+                y *= -1D;
+            }else if(d.getStepZ() != 0){
+                z *= -1D;
+            }
+
+            Vec3 newMot = new Vec3(x, y, z).scale(0.325f);
+            setPos(pResult.getLocation());
+            setDeltaMovement(newMot);
+        }
+
+        super.onHitBlock(pResult);
     }
 
     public void setItem(ItemStack pStack){

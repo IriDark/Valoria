@@ -50,6 +50,7 @@ public class EntityTypeRegistry{
     public static final RegistryObject<EntityType<SpellProjectile>> SPELL = register("spell", EntityType.Builder.<SpellProjectile>of(SpellProjectile::new, MobCategory.MISC).sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20));
     public static final RegistryObject<EntityType<CrystalShard>> CRYSTAL_SHARD = register("crystal_shard", EntityType.Builder.<CrystalShard>of(CrystalShard::new, MobCategory.MISC).sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20));
     public static final RegistryObject<EntityType<PyratiteShard>> PYRATITE_SHARD = register("pyratitel_shard", EntityType.Builder.<PyratiteShard>of(PyratiteShard::new, MobCategory.MISC).sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20));
+    public static final RegistryObject<EntityType<AcornProjectile>> ACORN = register("acorn", EntityType.Builder.<AcornProjectile>of(AcornProjectile::new, MobCategory.MISC).sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20));
 
     public static final RegistryObject<EntityType<LaserEntity>> LASER = register("laser", EntityType.Builder.<LaserEntity>of(LaserEntity::new, MobCategory.MISC).sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20));
 

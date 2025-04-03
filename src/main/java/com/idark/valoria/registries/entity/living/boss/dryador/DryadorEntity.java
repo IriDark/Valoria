@@ -4,6 +4,7 @@ import com.idark.valoria.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.entity.living.boss.*;
 import com.idark.valoria.registries.entity.living.boss.dryador.phases.*;
+import com.idark.valoria.registries.entity.projectile.*;
 import com.idark.valoria.util.*;
 import net.minecraft.core.*;
 import net.minecraft.core.particles.*;
@@ -52,6 +53,11 @@ public class DryadorEntity extends AbstractBoss{
         if(pId == 62){
             this.idleAnimationState.stop();
             this.rangedAttackAnimationState.start(this.tickCount);
+        }
+
+        if(pId == 61){
+            this.idleAnimationState.stop();
+            this.phaseTransitionAnimationState.start(this.tickCount);
         }
 
         super.handleEntityEvent(pId);
@@ -143,6 +149,7 @@ public class DryadorEntity extends AbstractBoss{
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(3, new RandomStrollGoal(this, 1.2));
         this.goalSelector.addGoal(0, new StompAttack());
+        this.goalSelector.addGoal(0, new AcornAttack());
 
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true));
@@ -171,6 +178,58 @@ public class DryadorEntity extends AbstractBoss{
         }
     }
 
+    public class AcornAttack extends AttackGoal {
+
+        @Override
+        public void onPrepare(){
+            DryadorEntity.this.getNavigation().stop();
+            DryadorEntity.this.level().broadcastEntityEvent(DryadorEntity.this, (byte)61);
+        }
+
+        private void summonAcorns(ServerLevel serverLevel, BlockPos spawnPos, float angle, double speed) {
+            AcornProjectile acorn = EntityTypeRegistry.ACORN.get().create(DryadorEntity.this.level());
+            if (acorn != null) {
+                acorn.moveTo(spawnPos.getX() + 0.5, spawnPos.getY() + 2, spawnPos.getZ() + 0.5, 0.0F, 0.0F);
+                acorn.setOwner(DryadorEntity.this);
+                double vx = Math.cos(angle) * speed;
+                double vz = Math.sin(angle) * speed;
+                acorn.setDeltaMovement(vx, 0.4, vz);
+                serverLevel.addFreshEntity(acorn);
+            }
+        }
+
+        @Override
+        protected void performAttack(){
+            if (level().isClientSide()) return;
+            ServerLevel serv = (ServerLevel) level();
+            BlockPos center = DryadorEntity.this.blockPosition();
+            for(int i = 0; i < 12; i++){
+                float angle = (float)((2 * Math.PI / 12) * i);
+                summonAcorns(serv, center, angle, 0.25);
+            }
+        }
+
+        @Override
+        public int getPreparingTime(){
+            return 60;
+        }
+
+        @Override
+        public int getAttackInterval(){
+            return 350;
+        }
+
+        @Override
+        public @Nullable SoundEvent getPrepareSound(){
+            return null;
+        }
+
+        @Override
+        public AttackRegistry getAttack(){
+            return EntityStatsRegistry.RADIAL;
+        }
+    }
+
     private void liftBlock(Level level, BlockPos pos) {
         BlockState state = level.getBlockState(pos);
         FallingBlockEntity fallingBlock = FallingBlockEntity.fall(level, pos, state);
@@ -187,6 +246,7 @@ public class DryadorEntity extends AbstractBoss{
         public void onPrepare(){
             DryadorEntity.this.getNavigation().stop();
             DryadorEntity.this.level().broadcastEntityEvent(DryadorEntity.this, (byte)62);
+            DryadorEntity.this.playSound(SoundsRegistry.STOMP.get());
         }
 
         public void liftBlocksAround(Level level, BlockPos center, int radius){

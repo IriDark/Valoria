@@ -39,13 +39,24 @@ public class DebugItem extends Item{
         ItemStack itemstack = playerIn.getItemInHand(handIn);
         playerIn.startUsingItem(handIn);
         if(!worldIn.isClientSide()) {
-            SpellProjectile spell = new SpellProjectile(worldIn, playerIn, 6);
-            Vec3 vector3d = playerIn.getViewVector(1.0F);
-            spell.setColor(Pal.nature);
-            spell.shoot(vector3d.x(), vector3d.y(), vector3d.z(), 1F, 3);
-            worldIn.addFreshEntity(spell);
+            acorn(worldIn, playerIn);
         }
 
         return InteractionResultHolder.consume(itemstack);
+    }
+
+    private static void acorn(Level worldIn, Player playerIn){
+        AcornProjectile spell = new AcornProjectile(playerIn, worldIn);
+        Vec3 vector3d = playerIn.getViewVector(1.0F);
+        spell.shoot(vector3d.x(), vector3d.y(), vector3d.z(), 1F, 3);
+        worldIn.addFreshEntity(spell);
+    }
+
+    private static void spell(Level worldIn, Player playerIn){
+        SpellProjectile spell = new SpellProjectile(worldIn, playerIn, 6);
+        Vec3 vector3d = playerIn.getViewVector(1.0F);
+        spell.setColor(Pal.nature);
+        spell.shoot(vector3d.x(), vector3d.y(), vector3d.z(), 1F, 3);
+        worldIn.addFreshEntity(spell);
     }
 }
