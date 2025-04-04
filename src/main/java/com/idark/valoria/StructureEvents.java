@@ -1,46 +1,57 @@
 package com.idark.valoria;
 
+import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.level.*;
 import net.minecraft.core.*;
 import net.minecraft.server.level.*;
+import net.minecraftforge.event.entity.*;
 import net.minecraftforge.event.level.*;
 import net.minecraftforge.eventbus.api.*;
 
 public class StructureEvents{
 
     @SubscribeEvent
+    public void onTeleportTry(EntityTeleportEvent.EnderPearl e){
+        BlockPos pos = BlockPos.containing(e.getTarget());
+        if (e.getEntity().level() instanceof ServerLevel level && level.dimension() == LevelGen.VALORIA_KEY && level.getGameRules().getBoolean(Valoria.DISABLE_BLOCK_BREAKING)) {
+            if(!level.getBlockState(pos).is(TagsRegistry.ALLOWED_TO_BREAK) && isInStructure(pos, level)) e.setCanceled(true);
+        }
+    }
+
+    @SubscribeEvent
     public void onDestroyTry(BlockEvent.BreakEvent e){
         BlockPos pos = e.getPos();
         if (e.getLevel() instanceof ServerLevel level && level.dimension() == LevelGen.VALORIA_KEY && level.getGameRules().getBoolean(Valoria.DISABLE_BLOCK_BREAKING)) {
-            if(isInStructure(pos, level)) e.setCanceled(true);
+            if(!level.getBlockState(pos).is(TagsRegistry.ALLOWED_TO_BREAK) && isInStructure(pos, level)) e.setCanceled(true);
         }
     }
 
     @SubscribeEvent
     public void onExplosionStart(ExplosionEvent.Start e) {
+        BlockPos pos = BlockPos.containing(e.getExplosion().getPosition());
         if (e.getLevel() instanceof ServerLevel level && level.dimension() == LevelGen.VALORIA_KEY && level.getGameRules().getBoolean(Valoria.DISABLE_BLOCK_BREAKING)) {
-            if(isInStructure(BlockPos.containing(e.getExplosion().getPosition()), level)) e.setCanceled(true);
+            if(!level.getBlockState(pos).is(TagsRegistry.ALLOWED_TO_BREAK) && isInStructure(pos, level)) e.setCanceled(true);
         }
     }
 
     @SubscribeEvent
     public void onPistonMove(PistonEvent e) {
         if (e.getLevel() instanceof ServerLevel level && level.dimension() == LevelGen.VALORIA_KEY && level.getGameRules().getBoolean(Valoria.DISABLE_BLOCK_BREAKING)) {
-            if(isInStructure(e.getPos(), level)) e.setCanceled(true);
+            if(!level.getBlockState(e.getPos()).is(TagsRegistry.ALLOWED_TO_BREAK) && isInStructure(e.getPos(), level)) e.setCanceled(true);
         }
     }
 
     @SubscribeEvent
     public void onFluidPlace(BlockEvent.FluidPlaceBlockEvent e) {
         if (e.getLevel() instanceof ServerLevel level && level.dimension() == LevelGen.VALORIA_KEY && level.getGameRules().getBoolean(Valoria.DISABLE_BLOCK_BREAKING)) {
-            if(isInStructure(e.getPos(), level)) e.setCanceled(true);
+            if(!level.getBlockState(e.getPos()).is(TagsRegistry.ALLOWED_TO_BREAK) && isInStructure(e.getPos(), level)) e.setCanceled(true);
         }
     }
 
     @SubscribeEvent
     public void onEntityChangeBlock(BlockEvent.EntityPlaceEvent e) {
         if (e.getLevel() instanceof ServerLevel level && level.dimension() == LevelGen.VALORIA_KEY && level.getGameRules().getBoolean(Valoria.DISABLE_BLOCK_BREAKING)) {
-            if(isInStructure(e.getPos(), level)) e.setCanceled(true);
+            if(!level.getBlockState(e.getPos()).is(TagsRegistry.ALLOWED_TO_BREAK) && isInStructure(e.getPos(), level)) e.setCanceled(true);
         }
     }
 

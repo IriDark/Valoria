@@ -45,6 +45,7 @@ public class TagsRegistry{
     public static final TagKey<Structure> ON_CRYPT_EXPLORER_MAPS = dungeon(new ResourceLocation(Valoria.ID, "on_crypt_explorer_maps"));
     public static final TagKey<Block> MEAT = block(new ResourceLocation(Valoria.ID, "meat"));
     public static final TagKey<Block> UNPACK_LOOT = block(new ResourceLocation(Valoria.ID, "unpack_loot"));
+    public static final TagKey<Block> ALLOWED_TO_BREAK = block(new ResourceLocation(Valoria.ID, "allowed_to_break"));
     public static final TagKey<Block> KEY_BLOCKS = block(new ResourceLocation(Valoria.ID, "key_blocks"));
     public static final TagKey<Item> INFLICTS_FIRE = item(new ResourceLocation(Valoria.ID, "inflicts_fire"));
     public static final TagKey<Item> GRANTS_IMMUNITIES = item(new ResourceLocation(Valoria.ID, "accessories/grants_immunities"));
