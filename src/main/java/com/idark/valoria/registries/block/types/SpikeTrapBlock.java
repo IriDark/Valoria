@@ -1,8 +1,10 @@
 package com.idark.valoria.registries.block.types;
 
+import com.idark.valoria.*;
 import com.idark.valoria.registries.*;
 import net.minecraft.core.*;
 import net.minecraft.core.particles.*;
+import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
 import net.minecraft.util.*;
 import net.minecraft.world.*;
@@ -36,30 +38,30 @@ public class SpikeTrapBlock extends DirectionalBlock{
         return Block.box(0, 0, 0, 16, 15, 16);
     }
 
-    public void entityInside(BlockState pState, Level pLevel, BlockPos pPos, Entity pEntity) {
-        if (pLevel.getDifficulty() != Difficulty.PEACEFUL && pEntity instanceof Player || pEntity instanceof ItemEntity){
+    public void entityInside(BlockState pState, Level pLevel, BlockPos pPos, Entity pEntity){
+        if(pLevel.getDifficulty() != Difficulty.PEACEFUL && pEntity instanceof Player || pEntity instanceof ItemEntity){
             activateTrap(pLevel, pPos, pState);
         }
     }
 
     private void activateTrap(Level level, BlockPos pos, BlockState state){
-        RandomSource rand = level.getRandom();
-        Direction direction = state.getValue(DirectionalBlock.FACING);
-        BlockPos newPos = pos.offset(direction.getNormal());
-        BlockState spikeBlock = BlockRegistry.spikes.get().defaultBlockState().setValue(DirectionalBlock.FACING, direction);
-        if(!level.getBlockState(newPos).isSolid()){
-            level.setBlockAndUpdate(newPos, spikeBlock);
-            level.scheduleTick(newPos, BlockRegistry.spikes.get(), 1);
-            level.setBlockAndUpdate(pos, this.state);
-            level.playSound(null, pos, SoundEvents.PISTON_EXTEND, SoundSource.BLOCKS, 0.3F, level.random.nextFloat() * 0.25F + 0.6F);
-            if(level.isClientSide()){
+        if(level instanceof ServerLevel server && server.getGameRules().getBoolean(Valoria.TRAP_ACTIVATING)){
+            RandomSource rand = level.getRandom();
+            Direction direction = state.getValue(DirectionalBlock.FACING);
+            BlockPos newPos = pos.offset(direction.getNormal());
+            BlockState spikeBlock = BlockRegistry.spikes.get().defaultBlockState().setValue(DirectionalBlock.FACING, direction);
+            if(!level.getBlockState(newPos).isSolid()){
+                level.setBlockAndUpdate(newPos, spikeBlock);
+                level.scheduleTick(newPos, BlockRegistry.spikes.get(), 1);
+                level.setBlockAndUpdate(pos, this.state);
+                level.playSound(null, pos, SoundEvents.PISTON_EXTEND, SoundSource.BLOCKS, 0.3F, level.random.nextFloat() * 0.25F + 0.6F);
                 for(int i = 0; i < 10; i++){
-                    level.addParticle(ParticleTypes.POOF, pos.getX() + rand.nextDouble(), pos.getY() + 0.5D, pos.getZ() + rand.nextDouble(), 0d, 0.05d, 0d);
+                    ((ServerLevel)level).sendParticles(ParticleTypes.POOF, pos.getX() + rand.nextDouble(), pos.getY() + 0.5D, pos.getZ() + rand.nextDouble(), 4, 0f, 0d, 0.05d, 0d);
                 }
             }
-        }
 
-        level.gameEvent(null, GameEvent.BLOCK_ACTIVATE, pos);
+            level.gameEvent(null, GameEvent.BLOCK_ACTIVATE, pos);
+        }
     }
 
     @Override

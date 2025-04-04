@@ -1,6 +1,7 @@
 package com.idark.valoria.registries.block.types;
 
 import com.google.common.collect.*;
+import com.idark.valoria.*;
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.particle.*;
 import net.minecraft.core.*;
@@ -69,9 +70,11 @@ public class FireTrapBlock extends Block{
         return Block.box(0, 0, 0, 16, 15, 16);
     }
 
-    public void entityInside(BlockState pState, Level pLevel, BlockPos pPos, Entity pEntity) {
-        if (pLevel.getDifficulty() != Difficulty.PEACEFUL && pEntity instanceof Player || pEntity instanceof ItemEntity){
-            activateTrap(pLevel, pPos, pEntity);
+    public void entityInside(BlockState pState, Level pLevel, BlockPos pPos, Entity pEntity){
+        if(pLevel.getGameRules().getBoolean(Valoria.TRAP_ACTIVATING)){
+            if(pLevel.getDifficulty() != Difficulty.PEACEFUL && pEntity instanceof Player || pEntity instanceof ItemEntity){
+                activateTrap(pLevel, pPos, pEntity);
+            }
         }
     }
 
