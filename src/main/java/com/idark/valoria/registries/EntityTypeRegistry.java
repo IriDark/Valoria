@@ -35,6 +35,7 @@ public class EntityTypeRegistry{
     public static final RegistryObject<EntityType<FleshSentinel>> FLESH_SENTINEL = register("flesh_sentinel", EntityType.Builder.of(FleshSentinel::new, MobCategory.MONSTER).sized(0.6f, 0.6f).clientTrackingRange(8));
     public static final RegistryObject<EntityType<WickedShield>> WICKED_SHIELD = register("wicked_shield", EntityType.Builder.<WickedShield>of(WickedShield::new, MobCategory.MISC).sized(1f, 1.75f).clientTrackingRange(8));
     public static final RegistryObject<EntityType<CrystalEntity>> CRYSTAL = register("crystal", EntityType.Builder.of(CrystalEntity::new, MobCategory.MONSTER).sized(1f, 1f).clientTrackingRange(8));
+    public static final RegistryObject<EntityType<PixieEntity>> PIXIE = register("pixie", EntityType.Builder.of(PixieEntity::new, MobCategory.MISC).sized(1f, 1f).clientTrackingRange(8));
 
     // Projectiles
     public static final RegistryObject<EntityType<PyratiteArrow>> PYRATITE_ARROW = register("pyratite_arrow", EntityType.Builder.<PyratiteArrow>of(PyratiteArrow::new, MobCategory.MISC).sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20));

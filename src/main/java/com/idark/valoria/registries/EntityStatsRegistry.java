@@ -36,6 +36,7 @@ public class EntityStatsRegistry{
 
     //minions - overworld
     public static AttributeSupplier UNDEAD = registerFlying(8, 1, 0.85).add(Attributes.FOLLOW_RANGE, 8).build();
+    public static AttributeSupplier PIXIE = registerFlying(15, 1, 0.85).add(Attributes.FOLLOW_RANGE, 8).build();
 
     //monsters - nether
     public static AttributeSupplier DEVIL = register(50, 1).add(Attributes.FOLLOW_RANGE, 12).build();
