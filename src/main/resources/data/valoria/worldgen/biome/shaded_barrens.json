@@ -47,15 +47,9 @@
     "monster": [
       {
         "type": "valoria:corrupted_troll",
-        "weight": 15,
+        "weight": 5,
         "minCount": 1,
         "maxCount": 2
-      },
-      {
-        "type": "valoria:shadewood_spider",
-        "weight": 5,
-        "minCount": 2,
-        "maxCount": 4
       }
     ],
     "underground_water_creature": [],

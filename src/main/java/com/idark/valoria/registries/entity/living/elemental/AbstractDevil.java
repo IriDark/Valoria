@@ -11,6 +11,7 @@ import net.minecraft.world.entity.ai.util.*;
 import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.dimension.*;
 import net.minecraft.world.level.pathfinder.*;
 import pro.komaru.tridot.common.registry.entity.*;
@@ -52,7 +53,7 @@ public class AbstractDevil extends MultiAttackMob implements Enemy{
      * the current light level at the location.
      */
     public static boolean checkMonsterSpawnRules(EntityType<? extends Devil> pType, ServerLevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, RandomSource pRandom){
-        return pLevel.getDifficulty() != Difficulty.PEACEFUL && isDarkEnoughToSpawn(pLevel, pPos, pRandom) && checkMobSpawnRules(pType, pLevel, pSpawnType, pPos, pRandom);
+        return pLevel.getDifficulty() != Difficulty.PEACEFUL && isDarkEnoughToSpawn(pLevel, pPos, pRandom) && checkMobSpawnRules(pType, pLevel, pSpawnType, pPos, pRandom) && !pLevel.getBlockState(pPos.below()).is(Blocks.NETHER_WART_BLOCK);
     }
 
     public SoundSource getSoundSource(){

@@ -75,6 +75,25 @@ public class TrollModel<T extends Troll> extends AbstractHierarchicalModel<T>{
         this.head.getChild("left_ear").yRot = Mth.sin(pAgeInTicks * -0.25F) * 0.06F;
         this.head.getChild("right_ear").xRot = Mth.sin(pAgeInTicks * 0.15F) * 0.01F;
         this.head.getChild("left_ear").xRot = Mth.sin(pAgeInTicks * -0.15F) * 0.01F;
+        if (this.riding) {
+            this.head.z = 2F;
+            this.head.y = -3F;
+            this.body.z = 4F;
+            this.body.y = 10F;
+            this.leftArm.y = 8F;
+            this.rightArm.y = 8F;
+            this.leftArm.z = 1F;
+            this.rightArm.z = 1F;
+
+            this.rightArm.xRot += (-(float)Math.PI / 5F);
+            this.leftArm.xRot += (-(float)Math.PI / 5F);
+            this.rightLeg.xRot = -1.4137167F;
+            this.rightLeg.yRot = ((float)Math.PI / 12F);
+            this.rightLeg.zRot = 0.07853982F;
+            this.leftLeg.xRot = -1.4137167F;
+            this.leftLeg.yRot = (-(float)Math.PI / 12F);
+            this.leftLeg.zRot = -0.07853982F;
+        }
 
         this.animateWalk(GoblinAnimations.WALK, pLimbSwing, pLimbSwingAmount, 2, 6);
         this.animate(pEntity.idleAnimationState, TrollAnimations.IDLE, pAgeInTicks, 0.5f);

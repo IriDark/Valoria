@@ -9,7 +9,7 @@ import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.*;
 import net.minecraft.world.entity.*;
 
-public class DevilModel<T extends Devil> extends AbstractHierarchicalModel<T> implements ArmedModel, HeadedModel{
+public class DevilModel<T extends Devil> extends AbstractHierarchicalModel<T> implements ArmedModel{
     private final ModelPart root;
     private final ModelPart head;
     private final ModelPart body;
