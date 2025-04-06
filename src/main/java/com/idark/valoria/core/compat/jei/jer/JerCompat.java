@@ -29,6 +29,10 @@ public class JerCompat{
         IJERAPI jerApi = JERAPI.getInstance();
         IDungeonRegistry dungeonRegistry = jerApi.getDungeonRegistry();
         if(dungeonRegistry != null){
+            dungeonRegistry.registerChest("Fortress", new ResourceLocation(Valoria.ID, "chests/fortress"));
+            dungeonRegistry.registerChest("Fortress Good", new ResourceLocation(Valoria.ID, "chests/fortress_good"));
+            dungeonRegistry.registerChest("Fortress Normal", new ResourceLocation(Valoria.ID, "chests/fortress_normal"));
+
             dungeonRegistry.registerChest("Crypt", new ResourceLocation(Valoria.ID, "chests/crypt"));
             dungeonRegistry.registerChest("Necromancer Crypt", new ResourceLocation(Valoria.ID, "chests/necromancer_crypt"));
             dungeonRegistry.registerChest("Crystallized Deep Ruins", new ResourceLocation(Valoria.ID, "chests/crystallized_deep_ruins"));

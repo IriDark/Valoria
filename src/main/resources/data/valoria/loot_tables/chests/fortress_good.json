@@ -1,0 +1,169 @@
+{
+  "pools": [
+    {
+      "rolls": 6,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "valoria:pyratite",
+          "weight": 6,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 2,
+                "max": 6
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "valoria:soul_collector_empty",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "valoria:suspicious_gem",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "valoria:throwable_bomb",
+          "weight": 6,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1,
+                "max": 3
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "valoria:soul_arrow",
+          "weight": 4,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1,
+                "max": 5
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "valoria:wicked_arrow",
+          "weight": 4,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1,
+                "max": 5
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "valoria:void_core",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "valoria:broken_bloodsight_monocle",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "valoria:void_key",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "valoria:shade_blossom_bandage",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1,
+                "max": 4
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "valoria:liquor_bottle",
+          "weight": 4,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1,
+                "max": 3
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "valoria:sake_bottle",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1,
+                "max": 3
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "valoria:cognac_bottle",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1,
+                "max": 3
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "valoria:iron_necklace_health",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "valoria:golden_necklace_health",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "valoria:netherite_necklace_health",
+          "weight": 1
+        }
+      ]
+    }
+  ]
+}

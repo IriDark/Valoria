@@ -47,7 +47,7 @@ public class LevelGen{
     public static final RegistryObject<Feature<FleshConfiguration>> FLESH_FEATURE = FEATURES.register("flesh_corruption", () -> new FleshFeature(FleshConfiguration.CODEC));
     public static final RegistryObject<Feature<NoneFeatureConfiguration>> VALORIA_MONSTER_ROOM = FEATURES.register("valoria_monster_room", () -> new ValoriaMonsterRoomFeature(NoneFeatureConfiguration.CODEC));
     public static final RegistryObject<Feature<GradientOreConfiguration>> GRADIENT_ORE = FEATURES.register("gradient_ore", () -> new GradientOreFeature(GradientOreConfiguration.CODEC));
-    public static final RegistryObject<Feature<BlockStateConfiguration>> CRYSTAL_BLOB = FEATURES.register("crystal_blob", () -> new CrystalBlobFeature(BlockStateConfiguration.CODEC));
+    public static final RegistryObject<Feature<CrystalBlobConfiguration>> CRYSTAL_BLOB = FEATURES.register("crystal_blob", () -> new CrystalBlobFeature(CrystalBlobConfiguration.CODEC));
     public static final RegistryObject<Feature<BlockStateConfiguration>> ROOT = FEATURES.register("root", () -> new RootFeature(BlockStateConfiguration.CODEC));
     public static final RegistryObject<Feature<NoneFeatureConfiguration>> BLOOD_VINES = FEATURES.register("blood_vines", () -> new BloodVinesFeature(NoneFeatureConfiguration.CODEC));
 

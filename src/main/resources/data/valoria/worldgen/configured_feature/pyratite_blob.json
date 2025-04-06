@@ -3,6 +3,16 @@
   "config": {
     "state": {
       "Name": "valoria:pyratite_block"
-    }
+    },
+    "decoration_chance": 0.25,
+    "outer_decoration": [
+      {
+        "Name": "valoria:pyratite_crystal",
+        "Properties": {
+          "facing": "up",
+          "waterlogged": "false"
+        }
+      }
+    ]
   }
 }

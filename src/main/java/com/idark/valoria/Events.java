@@ -9,6 +9,7 @@ import com.idark.valoria.registries.effect.*;
 import com.idark.valoria.registries.item.armor.*;
 import com.idark.valoria.registries.item.armor.item.*;
 import com.idark.valoria.registries.item.types.*;
+import com.idark.valoria.registries.level.*;
 import net.minecraft.core.*;
 import net.minecraft.nbt.*;
 import net.minecraft.resources.*;
@@ -17,7 +18,6 @@ import net.minecraft.tags.*;
 import net.minecraft.world.damagesource.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
@@ -40,6 +40,15 @@ import top.theillusivec4.curios.api.*;
 @SuppressWarnings("removal")
 public class Events{
     public ArcRandom arcRandom = Tmp.rnd;
+
+    @SubscribeEvent
+    public void onFluid(BlockEvent.FluidPlaceBlockEvent e) {
+        if(e.getNewState().is(Blocks.STONE) || e.getNewState().is(Blocks.COBBLESTONE)){
+            if(e.getLevel() instanceof ServerLevel level && level.dimension() == LevelGen.VALORIA_KEY){
+                e.setNewState(BlockRegistry.picrite.get().defaultBlockState());
+            }
+        }
+    }
 
     @SubscribeEvent
     public void convertEvent(LivingConversionEvent.Pre ev){
@@ -274,15 +283,22 @@ public class Events{
 
     @SubscribeEvent
     public void critDamage(CriticalHitEvent event){
-        if(getEquippedCurio(ItemsRegistry.lesserRuneAccuracy.get(), event.getEntity())){
-            if(arcRandom.chance(0.25f)){
-                event.getTarget().hurt(event.getEntity().level().damageSources().playerAttack(event.getEntity()), (float)(event.getEntity().getAttributeValue(Attributes.ATTACK_DAMAGE) * 1.5f));
+        Player plr = event.getEntity();
+        float f2 = plr.getAttackStrengthScale(0.5F);
+        boolean flag = f2 > 0.9F;
+        if(flag && plr.onGround()){
+            if(getEquippedCurio(ItemsRegistry.lesserRuneAccuracy.get(), event.getEntity())){
+                if(arcRandom.chance(0.25f)){
+                    event.setResult(Result.ALLOW);
+                    event.setDamageModifier(1.25f);
+                }
             }
-        }
 
-        if(getEquippedCurio(ItemsRegistry.runeAccuracy.get(), event.getEntity())){
-            if(arcRandom.chance(0.5f)){
-                event.getTarget().hurt(event.getEntity().level().damageSources().playerAttack(event.getEntity()), (float)(event.getEntity().getAttributeValue(Attributes.ATTACK_DAMAGE) * 1.5f));
+            if(getEquippedCurio(ItemsRegistry.runeAccuracy.get(), event.getEntity())){
+                if(arcRandom.chance(0.5f)){
+                    event.setResult(Result.ALLOW);
+                    event.setDamageModifier(1.25f);
+                }
             }
         }
     }
