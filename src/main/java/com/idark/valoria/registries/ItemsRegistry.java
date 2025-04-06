@@ -91,7 +91,7 @@ public class ItemsRegistry{
     arcaneTrim, muramasaFragment, murasameFragment, fishFragment, neroFragment, cyberpunkQunatumFragment, midnightQunatumFragment, theFallenTrim, starDivider,
 
     // loot bags
-    minersBag, gemBag, necromancerTreasureBag, crystalTreasureBag, dirtGeode, stoneGeode,
+    minersBag, gemBag, necromancerTreasureBag, crystalTreasureBag, dryadorTreasureBag, dirtGeode, stoneGeode,
 
     // boss summonables
     necromancerGrimoire, suspciousGem,
@@ -147,7 +147,7 @@ public class ItemsRegistry{
     wickedShield,
 
     // spawn eggs
-    pumpkinContract, goblin, dryador, entMob, draugr, swampWanderer, scourge, maggot, wickedCrystal, crystal, sorcerer, necromancer, undead, shadewoodSpider, devil, troll, corruptedTroll, fleshSentinel, mannequin;
+    pumpkinContract, goblin, dryador, pixie, entMob, draugr, swampWanderer, scourge, maggot, wickedCrystal, crystal, sorcerer, necromancer, undead, shadewoodSpider, devil, troll, corruptedTroll, fleshSentinel, mannequin;
 
     public static void load(IEventBus eventBus){
         shadewoodBoat = BLOCK_ITEMS.register("shadewood_boat", () -> new CustomBoatItem(new Item.Properties().stacksTo(1), EntityTypeRegistry.SHADEWOOD_BOAT));
@@ -286,6 +286,7 @@ public class ItemsRegistry{
         gemBag = registerItem("gem_bag", () -> new TreasureBag(new ResourceLocation(Valoria.ID, "items/gem_bag"), new Item.Properties().rarity(Rarity.EPIC)));
         necromancerTreasureBag = registerItem("necromancer_treasure_bag", () -> new TreasureBag(new ResourceLocation(Valoria.ID, "items/necromancer_treasure_bag"), new Item.Properties().rarity(Rarity.EPIC)));
         crystalTreasureBag = registerItem("wicked_crystal_treasure_bag", () -> new TreasureBag(new ResourceLocation(Valoria.ID, "items/wicked_crystal_treasure_bag"), new Item.Properties().rarity(Rarity.EPIC)));
+        dryadorTreasureBag = registerItem("dryador_treasure_bag", () -> new TreasureBag(new ResourceLocation(Valoria.ID, "items/dryador_treasure_bag"), new Item.Properties().rarity(Rarity.EPIC)));
 
         // boss summonables
         necromancerGrimoire = registerItem("necromancer_grimoire", () -> new Item(new Item.Properties()){
@@ -590,8 +591,9 @@ public class ItemsRegistry{
         // spawn eggs
         pumpkinContract = registerItem("pumpkin_contract", () -> new TexturedSpawnEggItem(EntityTypeRegistry.HAUNTED_MERCHANT, new Item.Properties()));
         mannequin = registerItem("mannequin_spawn_egg", () -> new MannequinSpawnItem(new Item.Properties()));
-        dryador = registerItem("dryador_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.DRYADOR, Col.hexToDecimal("3f3226"), Col.colorToDecimal(Pal.nature.toJava()), new Item.Properties()));
-        entMob = registerItem("ent_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.ENT, Col.hexToDecimal("52392e"), Col.colorToDecimal(Pal.nature.toJava()), new Item.Properties()));
+        dryador = registerItem("dryador_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.DRYADOR, Col.hexToDecimal("5f4a2b"), Col.hexToDecimal("7ede3d"), new Item.Properties()));
+        pixie = registerItem("pixie_spawn_egg", () -> new TexturedSpawnEggItem(EntityTypeRegistry.PIXIE, new Item.Properties()));
+        entMob = registerItem("ent_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.ENT, Col.hexToDecimal("aef287"), Col.colorToDecimal(Color.white), new Item.Properties()));
         goblin = registerItem("goblin_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.GOBLIN, Col.hexToDecimal("185b36"), Col.hexToDecimal("6BB447"), new Item.Properties()));
         draugr = registerItem("draugr_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.DRAUGR, Col.hexToDecimal("61523f"), Col.hexToDecimal("beb4aa"), new Item.Properties()));
         swampWanderer = registerItem("swamp_wanderer_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.SWAMP_WANDERER, Col.hexToDecimal("4d5030"), Col.hexToDecimal("b8b377"), new Item.Properties()));

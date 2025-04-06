@@ -75,6 +75,12 @@ public class ThrowableBomb extends ThrowableItemProjectile{
     }
 
     @Override
+    protected void onHitEntity(EntityHitResult pResult){
+        super.onHitEntity(pResult);
+        this.explode();
+    }
+
+    @Override
     protected void onHitBlock(BlockHitResult pResult){
         Level level = level();
         BlockPos pos = pResult.getBlockPos();
@@ -133,7 +139,7 @@ public class ThrowableBomb extends ThrowableItemProjectile{
     }
 
     protected void explode(){
-        this.level().explode(this, this.getX(), this.getY(0.0625D), this.getZ(), getRadius(), bombInteraction);
+        this.level().explode(this.getOwner(), this.getX(), this.getY(0.0625D), this.getZ(), getRadius(), bombInteraction);
     }
 
     public void setInteraction(Level.ExplosionInteraction intr){

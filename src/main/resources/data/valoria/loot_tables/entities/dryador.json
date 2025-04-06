@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:entity",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "valoria:dryador_treasure_bag",
+          "weight": 100
+        }
+      ]
+    }
+  ]
+}

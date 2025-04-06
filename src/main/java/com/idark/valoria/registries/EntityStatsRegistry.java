@@ -21,7 +21,7 @@ public class EntityStatsRegistry{
 
     //bosses
     public static AttributeSupplier NECROMANCER = register(500, 5).build();
-    public static AttributeSupplier DRYADOR = register(1000, 0, 0.10).add(Attributes.ARMOR, 5).add(Attributes.ARMOR_TOUGHNESS, 2).build();
+    public static AttributeSupplier DRYADOR = register(1000, 4, 0.10).add(Attributes.FOLLOW_RANGE, 18).add(Attributes.ARMOR, 5).add(Attributes.ARMOR_TOUGHNESS, 2).build();
     public static AttributeSupplier WICKED_CRYSTAL = register(2000, 0).build();
 
     //monsters - overworld

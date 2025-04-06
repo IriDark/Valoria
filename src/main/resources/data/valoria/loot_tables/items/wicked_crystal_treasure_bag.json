@@ -24,6 +24,12 @@
         },
         {
           "type": "minecraft:item",
+          "name": "valoria:wicked_shield",
+          "weight": 1,
+          "functions": []
+        },
+        {
+          "type": "minecraft:item",
           "name": "valoria:the_fallen_trim",
           "weight": 1,
           "functions": []
@@ -44,44 +50,6 @@
           "name": "valoria:void_edge",
           "weight": 10,
           "functions": []
-        },
-        {
-          "type": "minecraft:item",
-          "name": "valoria:ethereal_spear",
-          "weight": 10,
-          "functions": []
-        },
-        {
-          "type": "minecraft:item",
-          "name": "valoria:ethereal_pickaxe",
-          "weight": 15,
-          "functions": []
-        },
-        {
-          "type": "minecraft:item",
-          "name": "valoria:ethereal_axe",
-          "weight": 10,
-          "functions": []
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "valoria:ethereal_shard",
-          "weight": 100,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 2,
-                "max": 5
-              }
-            }
-          ],
-          "conditions": []
         }
       ]
     }

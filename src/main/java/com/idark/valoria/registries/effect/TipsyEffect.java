@@ -16,9 +16,9 @@ public class TipsyEffect extends MobEffect{
 
     public TipsyEffect(){
         super(MobEffectCategory.NEUTRAL, Col.hexToDecimal("ecc597"));
-        addPercent(AttributeRegistry.PERCENT_ARMOR.get(), "3db84224-bf20-4333-b842-24bf20433360", -15F, Operation.ADDITION);
+        addPercent(AttributeRegistry.PERCENT_ARMOR.get(), "3db84224-bf20-4333-b842-24bf20433360", -10F, Operation.ADDITION);
         addPercent(Attributes.ATTACK_DAMAGE, "22653B89-116E-49DC-9B6B-9971489B5BE5", 0.2F, AttributeModifier.Operation.MULTIPLY_TOTAL);
-        addAttributeModifier(Attributes.ARMOR, "74841448-7BD1-4C3F-924D-EED3F7A6E439", -0.15F, AttributeModifier.Operation.MULTIPLY_TOTAL);
+        addAttributeModifier(Attributes.ARMOR, "74841448-7BD1-4C3F-924D-EED3F7A6E439", -0.10F, AttributeModifier.Operation.MULTIPLY_TOTAL);
         addAttributeModifier(Attributes.ATTACK_DAMAGE, "22653B89-116E-49DC-9B6B-9971489B5BE5", 0.2F, AttributeModifier.Operation.MULTIPLY_TOTAL);
     }
 
