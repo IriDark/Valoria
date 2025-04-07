@@ -20,6 +20,8 @@ public class JerCompat{
         if (clientLevel != null) {
             IMobRegistry mobRegistry = JERAPI.getInstance().getMobRegistry();
             if (mobRegistry != null) {
+                mobRegistry.register(EntityTypeRegistry.WICKED_CRYSTAL.get().create(clientLevel), new ResourceLocation(Valoria.ID, "items/wicked_crystal_treasure_bag"));
+                mobRegistry.register(EntityTypeRegistry.DRYADOR.get().create(clientLevel), new ResourceLocation(Valoria.ID, "items/dryador_treasure_bag"));
                 mobRegistry.register(EntityTypeRegistry.NECROMANCER.get().create(clientLevel), new ResourceLocation(Valoria.ID, "items/necromancer_treasure_bag"));
             }
         }
