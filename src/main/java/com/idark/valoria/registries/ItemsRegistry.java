@@ -84,7 +84,7 @@ public class ItemsRegistry{
     valoriaPortalFrameShard, blackGoldUpgrade, natureUpgrade, aquariusUpgrade, infernalUpgrade, voidUpgrade,
     gaibRoot, karusakanRoot, shadeBlossomLeaf, aloePiece,
     dunestoneBrick, tombstoneBrick, ambaneStoneBrick, limestoneBrick, crystalStoneBrick, voidStoneBrick,
-    bronzeIngot, bronzeNugget, pearliumIngot, cobaltIngot, cobaltNugget, etherealShard, blackGold, blackGoldNugget, ancientIngot, natureIngot, aquariusIngot, infernalIngot, voidIngot, pyratite, relicGold, ancientShard,
+    bronzeIngot, bronzeNugget, pearliumIngot, cobaltIngot, cobaltNugget, etherealShard, blackGold, blackGoldNugget, ancientIngot, natureIngot, aquariusIngot, infernalIngot, voidIngot, jade, pyratite, relicGold, ancientShard,
     emptyGazer, emptyWinglet, emptyTotem,
 
     // skin
@@ -111,6 +111,7 @@ public class ItemsRegistry{
     throwableBomb, dynamite, crystalShard,
 
     // tools
+    jadeSword, jadeKatana, jadeScythe, jadeSpear, jadePickaxe, jadeAxe, jadeShovel,
     pearliumSword, pearliumPickaxe, pearliumAxe,
     cobaltSword, cobaltPickaxe, cobaltAxe, cobaltShovel, cobaltHoe,
     etherealSword, etherealSpear, etherealPickaxe, etherealAxe,
@@ -245,9 +246,10 @@ public class ItemsRegistry{
         aquariusIngot = registerItem("aquarius_ingot", () -> new Item(new Item.Properties().rarity(RarityRegistry.AQUARIUS)));
         infernalIngot = registerItem("infernal_ingot", () -> new Item(new Item.Properties().fireResistant().rarity(RarityRegistry.INFERNAL)));
         voidIngot = registerItem("void_ingot", () -> new Item(new Item.Properties().fireResistant().rarity(RarityRegistry.VOID)));
-        pyratite = registerItem("pyratite", () -> new Item(new Item.Properties().rarity(RarityRegistry.INFERNAL)));
         relicGold = registerItem("relic_gold", () -> new Item(new Item.Properties().rarity(Rarity.EPIC)));
         ancientShard = registerItem("ancient_shard", () -> new Item(new Item.Properties().rarity(Rarity.EPIC)));
+        pyratite = registerItem("pyratite", () -> new Item(new Item.Properties().rarity(RarityRegistry.INFERNAL)));
+        jade = registerItem("jade", () -> new Item(new Item.Properties()));
         natureGift = registerItem("nature_gift", () -> new ParticleMaterialItem(new Item.Properties().rarity(RarityRegistry.NATURE), 0.35f, ColorParticleData.create(Pal.nature, Pal.vividCyan).build(), ParticleRegistry.SPHERE.get()));
         rottenBone = registerItem("rotten_bone", () -> new ParticleMaterialItem(new Item.Properties().rarity(RarityRegistry.MARSH), 0.35f, ColorParticleData.create(Pal.vividGreen, Pal.cyan).build(), ParticleRegistry.SPHERE.get()));
         marshCloth = registerItem("marsh_cloth", () -> new Item(new Item.Properties().rarity(RarityRegistry.MARSH)));
@@ -398,6 +400,14 @@ public class ItemsRegistry{
         etherealSpear = registerItem("ethereal_spear", () -> new SpearItem(ModItemTier.ETHEREAL, ToolStats.spear.damage, ToolStats.spear.speed, new Item.Properties().rarity(RarityRegistry.ETHEREAL)));
         etherealPickaxe = registerItem("ethereal_pickaxe", () -> new ValoriaPickaxe(ModItemTier.ETHEREAL, ToolStats.pickaxe.damage, ToolStats.pickaxe.speed, new Item.Properties().rarity(RarityRegistry.ETHEREAL)));
         etherealAxe = registerItem("ethereal_axe", () -> new AxeItem(ModItemTier.ETHEREAL, ToolStats.axe.damage, ToolStats.axe.speed, new Item.Properties().rarity(RarityRegistry.ETHEREAL)));
+
+        jadeSword = registerItem("jade_sword", () -> new ValoriaSword(ModItemTier.JADE, ToolStats.large_sword.damage, ToolStats.large_sword.speed, new Item.Properties()));
+        jadeKatana = registerItem("jade_katana", () -> new KatanaItem.Builder(ToolStats.katana.damage, ToolStats.katana.speed, new Item.Properties()).setDashDistance(1.25f).build());
+        jadeScythe = registerItem("jade_scythe", () -> new ScytheItem(ModItemTier.JADE, ToolStats.scythe.damage, ToolStats.scythe.speed, new Item.Properties()));
+        jadeSpear = registerItem("jade_spear", () -> new SpearItem(ModItemTier.JADE, ToolStats.spear.damage, ToolStats.spear.speed, new Item.Properties()));
+        jadePickaxe = registerItem("jade_pickaxe", () -> new ValoriaPickaxe(ModItemTier.JADE, ToolStats.pickaxe.damage, ToolStats.pickaxe.speed, new Item.Properties()));
+        jadeAxe = registerItem("jade_axe", () -> new AxeItem(ModItemTier.JADE, ToolStats.axe.damage, ToolStats.axe.speed, new Item.Properties()));
+        jadeShovel = registerItem("jade_shovel", () -> new ShovelItem(ModItemTier.JADE, ToolStats.shovel.damage, ToolStats.shovel.speed, new Item.Properties()));
 
         ent = registerItem("ent", () -> new ValoriaSword(ModItemTier.NATURE, ToolStats.large_sword.damage, ToolStats.large_sword.speed, new Item.Properties().rarity(RarityRegistry.NATURE)));
         naturePickaxe = registerItem("nature_pickaxe", () -> new ValoriaPickaxe(ModItemTier.NATURE, ToolStats.pickaxe.damage, ToolStats.pickaxe.speed, new Item.Properties().rarity(RarityRegistry.NATURE)));
