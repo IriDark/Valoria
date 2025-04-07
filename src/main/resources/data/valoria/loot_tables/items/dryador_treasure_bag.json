@@ -6,13 +6,13 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "valoria:star_divider_fragment",
+          "name": "valoria:arcane_trim",
           "weight": 1,
           "functions": []
         },
         {
           "type": "minecraft:item",
-          "name": "valoria:nero_fragment",
+          "name": "valoria:fish_fragment",
           "weight": 1,
           "functions": []
         },
@@ -25,12 +25,6 @@
         {
           "type": "minecraft:item",
           "name": "valoria:cyberpunk_quantum_reaper_fragment",
-          "weight": 1,
-          "functions": []
-        },
-        {
-          "type": "minecraft:item",
-          "name": "valoria:wicked_shield",
           "weight": 1,
           "functions": []
         },
@@ -56,7 +50,21 @@
         },
         {
           "type": "minecraft:item",
-          "name": "valoria:crystal_shard",
+          "name": "valoria:poisoned_acorn",
+          "weight": 15,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "min": 1,
+                "max": 3
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "valoria:acorn",
           "weight": 25,
           "functions": [
             {
@@ -70,12 +78,17 @@
         },
         {
           "type": "minecraft:item",
-          "name": "valoria:crystal_summon_book",
-          "weight": 10
+          "name": "valoria:nature_upgrade_smithing_template",
+          "weight": 1
         },
         {
           "type": "minecraft:item",
-          "name": "valoria:void_edge",
+          "name": "valoria:nature_core",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "valoria:ent",
           "weight": 1,
           "functions": []
         }
@@ -86,14 +99,14 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "valoria:nihility_shard",
+          "name": "valoria:nature_gift",
           "weight": 100,
           "functions": [
             {
               "function": "minecraft:set_count",
               "count": {
-                "min": 2,
-                "max": 5
+                "min": 1,
+                "max": 4
               }
             }
           ]

@@ -108,7 +108,7 @@ public class ItemsRegistry{
     ironScythe, goldenScythe, diamondScythe, netheriteScythe, beast,
     woodenSpear, stoneSpear, ironSpear, goldenSpear, diamondSpear, netheriteSpear, pyratiteSpear, glaive,
     woodenRapier, stoneRapier, ironRapier, goldenRapier, diamondRapier, netheriteRapier,
-    throwableBomb, dynamite, crystalShard,
+    throwableBomb, dynamite, acorn, poisonedAcorn, crystalShard,
 
     // tools
     jadeSword, jadeKatana, jadeScythe, jadeSpear, jadePickaxe, jadeAxe, jadeShovel,
@@ -337,6 +337,8 @@ public class ItemsRegistry{
         corpseCleaver = registerItem("corpsecleaver", () -> new CorpseCleaverItem(ModItemTier.BLOOD, 2, -2.4F, new Item.Properties().durability(1151).rarity(RarityRegistry.BLOODY)));
         throwableBomb = registerItem("throwable_bomb", () -> new ThrowableBombItem(Level.ExplosionInteraction.NONE, 2.45f, 60, new Item.Properties().stacksTo(16)));
         dynamite = registerItem("dynamite", () -> new ThrowableBombItem(3f, 60, new Item.Properties().stacksTo(16)));
+        acorn = registerItem("acorn", () -> new AcornItem(new Item.Properties().stacksTo(16), false));
+        poisonedAcorn = registerItem("poisoned_acorn", () -> new AcornItem(new Item.Properties().stacksTo(16), true));
         crystalShard = registerItem("crystal_shard", () -> new CrystalShardItem(6d, new Item.Properties().stacksTo(16), new MobEffectInstance(MobEffects.WITHER, 120), new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60)));
 
         // winter
