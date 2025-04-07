@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "   ",
+    "/ /",
+    "/ /"
+  ],
+  "key": {
+    "/": {
+      "item": "valoria:pyratite"
+    }
+  },
+  "result": {
+    "item": "valoria:pyratite_boots",
+    "count": 1
+  }
+}

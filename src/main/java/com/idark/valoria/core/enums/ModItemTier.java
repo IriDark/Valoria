@@ -20,17 +20,18 @@ public enum ModItemTier implements Tier{
     HOLIDAY(2, 740, 5f, 2.0F, 8, () -> Ingredient.of(ItemsRegistry.holidayCandy.get())),
     HALLOWEEN(3, 1150, 6f, 3.0F, 8, () -> Ingredient.of(ItemsRegistry.candyCorn.get())),
     SAMURAI(3, 1250, 10f, 6.0F, 7, () -> Ingredient.of(ItemsRegistry.ancientIngot.get())),
+
     COBALT(4, 1750, 12f, 3.5f, 12, () -> Ingredient.of(ItemsRegistry.cobaltIngot.get())),
     ETHEREAL(4, 2025, 15f, 5f, 15, () -> Ingredient.of(ItemsRegistry.etherealShard.get())),
-    JADE(5, 4112, 20f, 7F, 20, () -> Ingredient.of(ItemsRegistry.jade.get())),
-    PYRATITE(6, 3112, 25f, 8.5F, 15, () -> Ingredient.of(ItemsRegistry.pyratite.get())),
-    NATURE(5, 2651, 20f, 7.0F, 17, () -> Ingredient.of(ItemsRegistry.natureIngot.get())),
-    AQUARIUS(5, 3256, 25f, 8.5f, 18, () -> Ingredient.of(ItemsRegistry.aquariusIngot.get())),
-    INFERNAL(5, 4256, 28f, 9.0F, 19, () -> Ingredient.of(ItemsRegistry.infernalIngot.get())),
-    BLOOD(5, 2431, 20.0F, 11.0F, 15, () -> Ingredient.of(ItemsRegistry.painCrystal.get())),
-    SPIDER(5, 2831, 22.0F, 8.5F, 15, () -> Ingredient.of(ItemsRegistry.spiderFang.get())),
-    NIHILITY(5, 5248, 30F, 10.0F, 20, () -> Ingredient.of(ItemsRegistry.nihilityShard.get())),
-    PHANTOM(5, 6428, 35F, 12F, 20, () -> Ingredient.of(ItemsRegistry.illusionStone.get()));
+    NATURE(5, 2651, 17f, 8.0F, 17, () -> Ingredient.of(ItemsRegistry.natureIngot.get())),
+    AQUARIUS(5, 3256, 18f, 9f, 18, () -> Ingredient.of(ItemsRegistry.aquariusIngot.get())),
+    INFERNAL(5, 4256, 20f, 10.0F, 19, () -> Ingredient.of(ItemsRegistry.infernalIngot.get())),
+    JADE(5, 4112, 22f, 11F, 20, () -> Ingredient.of(ItemsRegistry.jade.get())),
+    SPIDER(5, 2831, 22f, 11F, 15, () -> Ingredient.of(ItemsRegistry.spiderFang.get())),
+    PYRATITE(6, 3112, 24f, 13F, 15, () -> Ingredient.of(ItemsRegistry.pyratite.get())),
+    BLOOD(5, 2431, 24.0F, 15.0F, 15, () -> Ingredient.of(ItemsRegistry.painCrystal.get())),
+    NIHILITY(5, 5248, 30F, 17.0F, 20, () -> Ingredient.of(ItemsRegistry.nihilityShard.get())),
+    PHANTOM(5, 6428, 35F, 20F, 20, () -> Ingredient.of(ItemsRegistry.illusionStone.get()));
 
     private final int harvestLevel;
     private final int maxUses;

@@ -4,7 +4,7 @@
     "state": {
       "Name": "valoria:pyratite_block"
     },
-    "decoration_chance": 0.25,
+    "decoration_chance": 0.10,
     "outer_decoration": [
       {
         "Name": "valoria:pyratite_crystal",
