@@ -60,6 +60,15 @@ public class Devil extends AbstractDevil implements RangedAttackMob{
         super.handleEntityEvent(pId);
     }
 
+    @Nullable
+    public SoundEvent getAmbientSound(){
+        return hasTarget() ? SoundsRegistry.DEVIL_IDLE.get() : SoundEvents.EMPTY;
+    }
+
+    public SoundEvent getHurtSound(DamageSource pDamageSource){
+        return SoundsRegistry.DEVIL_HURT.get();
+    }
+
     public void tick(){
         super.tick();
         if(ranged) movement.setupMovement();

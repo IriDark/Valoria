@@ -947,6 +947,8 @@
   "painting.valoria.winter.title": "Winter",
   "panorama.valoria.ecotone": "Ecotone",
   "subtitles.valoria.ability.use": "Ability used ★",
+  "subtitles.valoria.devil.hurt": "Devil hurt",
+  "subtitles.valoria.devil.idle": "Devil Roars",
   "subtitles.valoria.boss.death": "Boss died ★",
   "subtitles.valoria.boss.hurt": "Boss Hurts",
   "subtitles.valoria.boss.summon": "Boss summoned ★",
@@ -1044,5 +1046,6 @@
   "valoria.boss.necromancer.music.author": "DuUaader",
   "valoria.boss.necromancer.music.name": "Necromancer",
   "valoria.jade.openable_with": "Openable with:",
-  "valoria.jade.progress": "Progress:"
+  "valoria.jade.progress": "Progress:",
+  "tooltip.valoria.boss_summon_fail": "Not enough space, needed area %s"
 }

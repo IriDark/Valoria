@@ -94,7 +94,7 @@ public class ItemsRegistry{
     minersBag, gemBag, necromancerTreasureBag, crystalTreasureBag, dryadorTreasureBag, dirtGeode, stoneGeode,
 
     // boss summonables
-    necromancerGrimoire, suspciousGem,
+    necromancerGrimoire, suspciousGem, harmonyCrown,
 
     // misc
     debugItem, summonBook, crystalSummonBook, soulCollectorEmpty, soulCollector, lexicon, cryptPage, voidKey, spectralBladeThrown, pick,
@@ -306,6 +306,8 @@ public class ItemsRegistry{
                 tooltip.add(Component.translatable("tooltip.valoria.boss_summonable", EntityTypeRegistry.WICKED_CRYSTAL.get().getDescription()).withStyle(ChatFormatting.GRAY));
             }
         });
+
+        harmonyCrown = registerItem("harmony_crown", () -> new BossSummonableItem(6, () -> EntityTypeRegistry.DRYADOR.get(), new Item.Properties()));
 
         // misc
         debugItem = registerItem("debug_item", () -> new DebugItem(new Item.Properties()));

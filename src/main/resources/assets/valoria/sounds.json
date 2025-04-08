@@ -464,6 +464,24 @@
       "valoria:necromancer_summon_ground"
     ]
   },
+  "mob.devil.idle": {
+    "subtitle": "subtitles.valoria.devil.idle",
+    "sounds": [
+      "valoria:devil/idle1",
+      "valoria:devil/idle2",
+      "valoria:devil/idle3",
+      "valoria:devil/idle4"
+    ]
+  },
+  "mob.devil.hurt": {
+    "subtitle": "subtitles.valoria.devil.hurt",
+    "sounds": [
+      "valoria:devil/hurt1",
+      "valoria:devil/hurt2",
+      "valoria:devil/hurt3",
+      "valoria:devil/hurt4"
+    ]
+  },
   "mob.haunted_merchant.death": {
     "subtitle": "subtitles.valoria.haunted_merchant.death",
     "sounds": [

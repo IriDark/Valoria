@@ -109,6 +109,9 @@ public class SoundsRegistry{
     public static final RegistryObject<SoundEvent> MAGIC_HIT = registerSound("mob.magic.hit");
     public static final RegistryObject<SoundEvent> MAGIC_SHOOT = registerSound("mob.magic.shoot");
 
+    public static final RegistryObject<SoundEvent> DEVIL_HURT = registerSound("mob.devil.hurt");
+    public static final RegistryObject<SoundEvent> DEVIL_IDLE = registerSound("mob.devil.idle");
+
     public static final RegistryObject<SoundEvent> HAUNTED_MERCHANT_DEATH = registerSound("mob.haunted_merchant.death");
     public static final RegistryObject<SoundEvent> HAUNTED_MERCHANT_HURT = registerSound("mob.haunted_merchant.hurt");
     public static final RegistryObject<SoundEvent> HAUNTED_MERCHANT_IDLE = registerSound("mob.haunted_merchant.idle");
