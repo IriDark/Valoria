@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "G/G",
+    "/O/",
+    "G/G"
+  ],
+  "key": {
+    "O": {
+      "item": "valoria:harmony_heart"
+    },
+    "G": {
+      "item": "valoria:gaib_root"
+    },
+    "/": {
+      "item": "valoria:nature_gift"
+    }
+  },
+  "result": {
+    "item": "valoria:harmony_crown",
+    "count": 1
+  }
+}

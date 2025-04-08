@@ -23,6 +23,7 @@ import com.idark.valoria.util.*;
 import net.minecraft.*;
 import net.minecraft.core.particles.*;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.*;
 import net.minecraft.resources.*;
 import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
@@ -296,6 +297,8 @@ public class ItemsRegistry{
             public void appendHoverText(@NotNull ItemStack stack, Level world, @NotNull List<Component> tooltip, @NotNull TooltipFlag flags){
                 super.appendHoverText(stack, world, tooltip, flags);
                 tooltip.add(Component.translatable("tooltip.valoria.boss_summonable", EntityTypeRegistry.NECROMANCER.get().getDescription()).withStyle(ChatFormatting.GRAY));
+                tooltip.add(Component.empty());
+                tooltip.add(Component.translatable("tooltip.valoria.used_on", ComponentUtils.wrapInSquareBrackets(BlockRegistry.crypticAltar.get().getName())).withStyle(ChatFormatting.GREEN));
             }
         });
 
@@ -304,6 +307,8 @@ public class ItemsRegistry{
             public void appendHoverText(@NotNull ItemStack stack, Level world, @NotNull List<Component> tooltip, @NotNull TooltipFlag flags){
                 super.appendHoverText(stack, world, tooltip, flags);
                 tooltip.add(Component.translatable("tooltip.valoria.boss_summonable", EntityTypeRegistry.WICKED_CRYSTAL.get().getDescription()).withStyle(ChatFormatting.GRAY));
+                tooltip.add(Component.empty());
+                tooltip.add(Component.translatable("tooltip.valoria.used_on", ComponentUtils.wrapInSquareBrackets(BlockRegistry.wickedAltar.get().getName())).withStyle(ChatFormatting.GREEN));
             }
         });
 
