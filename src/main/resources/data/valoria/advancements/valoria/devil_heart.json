@@ -1,28 +1,28 @@
 {
   "display": {
     "icon": {
-      "item": "valoria:green_tea_cup"
+      "item": "valoria:devil_heart"
     },
     "title": {
-      "translate": "advancement.valoria:aloe_tea"
+      "translate": "advancement.valoria:devil_heart"
     },
     "description": {
-      "translate": "advancement.valoria:aloe_tea.desc"
+      "translate": "advancement.valoria:devil_heart.desc"
     },
-    "frame": "goal",
+    "frame": "task",
     "show_toast": true,
     "announce_to_chat": true,
     "hidden": false
   },
-  "parent": "valoria:valoria/first_help",
+  "parent": "valoria:valoria/harmony_heart",
   "criteria": {
-    "tea": {
+    "requirement": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
-              "valoria:green_tea_cup"
+              "valoria:devil_heart"
             ]
           }
         ]

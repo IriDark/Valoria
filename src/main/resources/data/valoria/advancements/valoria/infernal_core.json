@@ -1,20 +1,18 @@
 {
   "display": {
     "icon": {
-      "item": "valoria:infernal_scythe"
+      "item": "valoria:infernal_core"
     },
     "title": {
-      "translate": "advancement.valoria:infernal_scythe"
+      "translate": "advancement.valoria:infernal_core"
     },
-    "description": {
-      "translate": "advancement.valoria:infernal_scythe.desc"
-    },
+    "description": "",
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": true,
     "hidden": false
   },
-  "parent": "valoria:valoria/valoria",
+  "parent": "valoria:valoria/elemental_manipulator",
   "criteria": {
     "requirement": {
       "trigger": "minecraft:inventory_changed",
@@ -22,14 +20,11 @@
         "items": [
           {
             "items": [
-              "valoria:infernal_scythe"
+              "valoria:infernal_core"
             ]
           }
         ]
       }
     }
-  },
-  "rewards": {
-    "experience": 80
   }
 }

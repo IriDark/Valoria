@@ -1,0 +1,37 @@
+{
+  "display": {
+    "icon": {
+      "item": "valoria:suspicious_gem"
+    },
+    "title": {
+      "translate": "advancement.valoria:wicked_crystal"
+    },
+    "description": {
+      "translate": "advancement.valoria:wicked_crystal.desc"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "valoria:valoria/dryador",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "valoria:wicked_crystal"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "experience": 200
+  }
+}

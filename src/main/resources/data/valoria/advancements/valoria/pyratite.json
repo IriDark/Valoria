@@ -1,40 +1,32 @@
 {
   "display": {
     "icon": {
-      "item": "valoria:aloe_bandage_upgraded"
+      "item": "valoria:pyratite"
     },
     "title": {
-      "translate": "advancement.valoria:basic_medicine"
+      "translate": "advancement.valoria:pyratite"
     },
     "description": {
-      "translate": "advancement.valoria:basic_medicine.desc"
+      "translate": "advancement.valoria:pyratite.desc"
     },
     "frame": "goal",
     "show_toast": true,
     "announce_to_chat": true,
     "hidden": false
   },
-  "parent": "valoria:valoria/first_help",
+  "parent": "valoria:valoria/visit_the_valoria",
   "criteria": {
-    "bandage": {
+    "requirement": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
-              "valoria:aloe_bandage_upgraded"
+              "valoria:pyratite"
             ]
           }
         ]
       }
     }
-  },
-  "requirements": [
-    [
-      "bandage"
-    ]
-  ],
-  "rewards": {
-    "experience": 80
   }
 }

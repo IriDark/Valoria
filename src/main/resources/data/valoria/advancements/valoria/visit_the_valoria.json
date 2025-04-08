@@ -1,0 +1,27 @@
+{
+  "display": {
+    "icon": {
+      "item": "valoria:valoria_portal_frame_shard"
+    },
+    "title": {
+      "translate": "advancement.valoria:visit_the_valoria"
+    },
+    "description": "",
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "valoria:valoria/dryador",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:changed_dimension",
+      "conditions": {
+        "to": "valoria:the_valoria"
+      }
+    }
+  },
+  "rewards": {
+    "experience": 50
+  }
+}

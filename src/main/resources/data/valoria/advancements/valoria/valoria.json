@@ -9,7 +9,7 @@
     "description": {
       "translate": "advancement.valoria:valoria.desc"
     },
-    "background": "valoria:textures/block/limestone.png",
+    "background": "valoria:textures/block/deep_marble.png",
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": true,
