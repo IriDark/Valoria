@@ -111,6 +111,8 @@ public class SoundsRegistry{
 
     public static final RegistryObject<SoundEvent> DEVIL_HURT = registerSound("mob.devil.hurt");
     public static final RegistryObject<SoundEvent> DEVIL_IDLE = registerSound("mob.devil.idle");
+    public static final RegistryObject<SoundEvent> DEVIL_DEATH = registerSound("mob.devil.death");
+    public static final RegistryObject<SoundEvent> DEVIL_ATTACK= registerSound("mob.devil.attack");
 
     public static final RegistryObject<SoundEvent> HAUNTED_MERCHANT_DEATH = registerSound("mob.haunted_merchant.death");
     public static final RegistryObject<SoundEvent> HAUNTED_MERCHANT_HURT = registerSound("mob.haunted_merchant.hurt");

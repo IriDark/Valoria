@@ -482,6 +482,24 @@
       "valoria:devil/hurt4"
     ]
   },
+  "mob.devil.death": {
+    "subtitle": "subtitles.valoria.devil.death",
+    "sounds": [
+      "valoria:devil/death1",
+      "valoria:devil/death2",
+      "valoria:devil/death3",
+      "valoria:devil/death4"
+    ]
+  },
+  "mob.devil.attack": {
+    "subtitle": "subtitles.valoria.devil.attack",
+    "sounds": [
+      "valoria:devil/attack1",
+      "valoria:devil/attack2",
+      "valoria:devil/attack3",
+      "valoria:devil/attack4"
+    ]
+  },
   "mob.haunted_merchant.death": {
     "subtitle": "subtitles.valoria.haunted_merchant.death",
     "sounds": [
