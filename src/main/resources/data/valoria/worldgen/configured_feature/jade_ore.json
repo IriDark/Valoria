@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:ore",
+  "config": {
+    "discard_chance_on_air_exposure": 0.0,
+    "size": 3,
+    "targets": [
+      {
+        "state": {
+          "Name": "valoria:jade_ore"
+        },
+        "target": {
+          "predicate_type": "minecraft:tag_match",
+          "tag": "valoria:void_stone_ore_replaceables"
+        }
+      },
+      {
+        "state": {
+          "Name": "valoria:picrite_jade_ore"
+        },
+        "target": {
+          "predicate_type": "minecraft:tag_match",
+          "tag": "valoria:picritee_ore_replaceables"
+        }
+      }
+    ]
+  }
+}

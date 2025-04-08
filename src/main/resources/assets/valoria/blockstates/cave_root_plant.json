@@ -1,0 +1,9 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "valoria:block/cave_root_plant"
+      }
+    ]
+  }
+}

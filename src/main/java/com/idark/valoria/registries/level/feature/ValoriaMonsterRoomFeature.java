@@ -1,32 +1,28 @@
 package com.idark.valoria.registries.level.feature;
 
-import com.idark.valoria.registries.BlockRegistry;
-import com.idark.valoria.registries.EntityTypeRegistry;
-import com.mojang.logging.LogUtils;
-import com.mojang.serialization.Codec;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.level.WorldGenLevel;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
-import net.minecraft.world.level.block.entity.SpawnerBlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
-import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
-import net.minecraft.world.level.levelgen.structure.StructurePiece;
-import net.minecraft.world.level.storage.loot.BuiltInLootTables;
-import org.slf4j.Logger;
+import com.idark.valoria.*;
+import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.level.*;
+import com.mojang.logging.*;
+import com.mojang.serialization.*;
+import net.minecraft.core.*;
+import net.minecraft.resources.*;
+import net.minecraft.tags.*;
+import net.minecraft.util.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.*;
+import net.minecraft.world.level.block.state.*;
+import net.minecraft.world.level.levelgen.feature.*;
+import net.minecraft.world.level.levelgen.feature.configurations.*;
+import net.minecraft.world.level.levelgen.structure.*;
+import org.slf4j.*;
 
-import java.util.function.Predicate;
+import java.util.function.*;
 
 public class ValoriaMonsterRoomFeature extends Feature<NoneFeatureConfiguration>{
     private static final Logger LOGGER = LogUtils.getLogger();
-    private static final EntityType<?>[] MOBS = new EntityType[]{EntityType.SKELETON, EntityTypeRegistry.SHADEWOOD_SPIDER.get(), EntityTypeRegistry.FLESH_SENTINEL.get()};
     private static final BlockState AIR = Blocks.CAVE_AIR.defaultBlockState();
 
     public ValoriaMonsterRoomFeature(Codec<NoneFeatureConfiguration> pCodec){
@@ -45,12 +41,9 @@ public class ValoriaMonsterRoomFeature extends Feature<NoneFeatureConfiguration>
         BlockPos blockpos = pContext.origin();
         RandomSource randomsource = pContext.random();
         WorldGenLevel worldgenlevel = pContext.level();
-        int i = 3;
         int j = randomsource.nextInt(2) + 2;
         int k = -j - 1;
         int l = j + 1;
-        int i1 = -1;
-        int j1 = 4;
         int k1 = randomsource.nextInt(2) + 2;
         int l1 = -k1 - 1;
         int i2 = k1 + 1;
@@ -116,7 +109,7 @@ public class ValoriaMonsterRoomFeature extends Feature<NoneFeatureConfiguration>
 
                         if(j3 == 1){
                             this.safeSetBlock(worldgenlevel, blockpos2, StructurePiece.reorient(worldgenlevel, blockpos2, Blocks.CHEST.defaultBlockState()), predicate);
-                            RandomizableContainerBlockEntity.setLootTable(worldgenlevel, randomsource, blockpos2, BuiltInLootTables.SIMPLE_DUNGEON);
+                            RandomizableContainerBlockEntity.setLootTable(worldgenlevel, randomsource, blockpos2, new ResourceLocation(Valoria.ID, "chests/dungeon"));
                             break;
                         }
                     }
@@ -125,8 +118,7 @@ public class ValoriaMonsterRoomFeature extends Feature<NoneFeatureConfiguration>
 
             this.safeSetBlock(worldgenlevel, blockpos, Blocks.SPAWNER.defaultBlockState(), predicate);
             BlockEntity blockentity = worldgenlevel.getBlockEntity(blockpos);
-            if(blockentity instanceof SpawnerBlockEntity){
-                SpawnerBlockEntity spawnerblockentity = (SpawnerBlockEntity)blockentity;
+            if(blockentity instanceof SpawnerBlockEntity spawnerblockentity){
                 spawnerblockentity.setEntityId(this.randomEntityId(randomsource), randomsource);
             }else{
                 LOGGER.error("Failed to fetch mob spawner entity at ({}, {}, {})", blockpos.getX(), blockpos.getY(), blockpos.getZ());
@@ -139,6 +131,6 @@ public class ValoriaMonsterRoomFeature extends Feature<NoneFeatureConfiguration>
     }
 
     private EntityType<?> randomEntityId(RandomSource pRandom){
-        return net.minecraftforge.common.DungeonHooks.getRandomDungeonMob(pRandom);
+        return DungeonMobs.getRandomDungeonMob(pRandom);
     }
 }

@@ -50,6 +50,7 @@ public class LevelGen{
     public static final RegistryObject<Feature<CrystalBlobConfiguration>> CRYSTAL_BLOB = FEATURES.register("crystal_blob", () -> new CrystalBlobFeature(CrystalBlobConfiguration.CODEC));
     public static final RegistryObject<Feature<BlockStateConfiguration>> ROOT = FEATURES.register("root", () -> new RootFeature(BlockStateConfiguration.CODEC));
     public static final RegistryObject<Feature<NoneFeatureConfiguration>> BLOOD_VINES = FEATURES.register("blood_vines", () -> new BloodVinesFeature(NoneFeatureConfiguration.CODEC));
+    public static final RegistryObject<Feature<NoneFeatureConfiguration>> CAVE_ROOT = FEATURES.register("cave_root", () -> new CaveRootFeature(NoneFeatureConfiguration.CODEC));
 
     public static ResourceKey<ConfiguredFeature<?, ?>> SHADEWOOD_TREE = registerKey(Registries.CONFIGURED_FEATURE, "shadewood_tree");
     public static ResourceKey<ConfiguredFeature<?, ?>> FANCY_SHADEWOOD_TREE = registerKey(Registries.CONFIGURED_FEATURE, "fancy_shadewood_tree");

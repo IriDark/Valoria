@@ -38,7 +38,7 @@ public class BlockRegistry{
     public static RegistryObject<Block>
     eldritchChest, shadewoodChest, eldritchTrappedChest, shadewoodTrappedChest,
     eldritchDoor, eldritchTrapdoor, shadewoodDoor, shadewoodTrapdoor, bronzeDoor, bronzeTrapdoor, bronzeTrapdoorGlass,
-    pyratiteBlock, pyratiteOre, pyratiteCrystal, amberBlock, amberOre, deepslateAmberOre, amberCrystal, sapphireBlock, sapphireOre, deepslateSapphireOre, sapphireCrystal, amethystBlock, amethystCrystal, rubyBlock, rubyOre, deepslateRubyOre, rubyCrystal, cobaltBlock, rawCobaltOreBlock, cobaltOre, deepslateCobaltOre, wickedAmethystOre, dormantCrystals, pearliumOre,
+    pyratiteBlock, pyratiteOre, pyratiteCrystal, amberBlock, amberOre, deepslateAmberOre, amberCrystal, sapphireBlock, sapphireOre, deepslateSapphireOre, sapphireCrystal, amethystBlock, amethystCrystal, rubyBlock, rubyOre, deepslateRubyOre, rubyCrystal, cobaltBlock, rawCobaltOreBlock, cobaltOre, deepslateCobaltOre, jadeOre, picriteJadeOre, wickedAmethystOre, dormantCrystals, pearliumOre,
     natureBlock, aquariusBlock, infernalBlock, awakenedVoidBlock, unchargedShardBlock, soulShardBlock, wickedAmethystBlock,
     bronzeBlock, bronzeBlockStairs, bronzeBlockSlab, bronzeVent, cutBronze, cutBronzeStairs, cutBronzeSlab, bronzeGlass, bronzeGlassPane,
     eyeFlesh, eyeMeat, eyeStone, meatBlock, fleshRemains, meatPillar, fleshBlock, fleshCyst, bloodVein,
@@ -76,7 +76,7 @@ public class BlockRegistry{
 
     // decorative
     elegantPedestal, woodenCup, beerCup, rumCup, cup, teaCup, greenTeaCup, coffeeCup, cacaoCup, glassBottle, rumBottle, cokeBottle, akvavitBottle, liquorBottle, wineBottle, meadBottle, sakeBottle, kvassBottle, whiskeyBottle, cognacBottle,
-    taintedRoots, bloodVine, bloodVinePlant, violetSprout, violetSproutPlant, glowVioletSprout, glowVioletSproutPlant, abyssalGlowfern, abyssalGlowfernPlant, aloeSmall, aloe, pottedAloeSmall, driedPlant, pottedDriedPlant, driedRoots, pottedDriedRoots, cattail, soulroot, pottedSoulroot, soulFlower, pottedSoulFlower, crimsonSoulroot, doubleSoulroot, pottedCrimsonSoulroot, magmaroot, doubleMagmaroot, pottedMagmaroot, goldy, doubleGoldy, pottedGoldy, rajush, pottedRajush, bloodroot, pottedBloodroot, falseFlower, falseFlowerSmall, pottedFalseflower, pottedFalseflowerSmall, voidRoots, pottedVoidRoots, voidSerpents, pottedVoidSerpents, voidvine, voidthorn, blightedGrass, pottedBlightedGrass, pottedVoidvine, gaibRoots, karusakanRoots, shadeBlossom, suspiciousIce, suspiciousTombstone, spikes;
+    taintedRoots, bloodVine, bloodVinePlant, caveRootPlant, caveRoot, violetSprout, violetSproutPlant, glowVioletSprout, glowVioletSproutPlant, abyssalGlowfern, abyssalGlowfernPlant, aloeSmall, aloe, pottedAloeSmall, driedPlant, pottedDriedPlant, driedRoots, pottedDriedRoots, cattail, soulroot, pottedSoulroot, soulFlower, pottedSoulFlower, crimsonSoulroot, doubleSoulroot, pottedCrimsonSoulroot, magmaroot, doubleMagmaroot, pottedMagmaroot, goldy, doubleGoldy, pottedGoldy, rajush, pottedRajush, bloodroot, pottedBloodroot, falseFlower, falseFlowerSmall, pottedFalseflower, pottedFalseflowerSmall, voidRoots, pottedVoidRoots, voidSerpents, pottedVoidSerpents, voidvine, voidthorn, blightedGrass, pottedBlightedGrass, pottedVoidvine, gaibRoots, karusakanRoots, shadeBlossom, suspiciousIce, suspiciousTombstone, spikes;
 
     public static void load(IEventBus eventBus){
         shadewoodChest = registerBlock("shadewood_chest", () -> new TridotChestBlock(Properties.copy(Blocks.CHEST)));
@@ -119,9 +119,11 @@ public class BlockRegistry{
         deepslateRubyOre = registerBlock("deepslate_ruby_ore", () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE).requiresCorrectToolForDrops(), UniformInt.of(0, 2)));
         rubyCrystal = registerBlock("ruby_crystal", () -> new AmethystClusterBlock(7, 3, BlockBehaviour.Properties.copy(Blocks.LARGE_AMETHYST_BUD).strength(1f, 0f).sound(SoundType.GLASS).noOcclusion()));
         cobaltBlock = registerBlock("cobalt_block", () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).mapColor(MapColor.COLOR_BLUE).requiresCorrectToolForDrops().strength(3f, 4f).sound(SoundType.NETHERITE_BLOCK)));
-        cobaltOre = registerBlock("cobalt_ore", () -> new Block(BlockBehaviour.Properties.copy(Blocks.COAL_ORE).requiresCorrectToolForDrops()));
-        rawCobaltOreBlock = registerBlock("raw_cobalt_ore", () -> new Block(props(Blocks.RAW_COPPER_BLOCK, MapColor.COLOR_BLUE).requiresCorrectToolForDrops().strength(3f, 4f)));
-        deepslateCobaltOre = registerBlock("deepslate_cobalt_ore", () -> new Block(BlockBehaviour.Properties.copy(Blocks.COAL_ORE).requiresCorrectToolForDrops()));
+        cobaltOre = registerBlock("cobalt_ore", () -> new Block(BlockBehaviour.Properties.copy(Blocks.DIAMOND_ORE).requiresCorrectToolForDrops()));
+        rawCobaltOreBlock = registerBlock("raw_cobalt_ore", () -> new Block(props(Blocks.RAW_GOLD_BLOCK, MapColor.COLOR_BLUE).requiresCorrectToolForDrops().strength(3f, 4f)));
+        deepslateCobaltOre = registerBlock("deepslate_cobalt_ore", () -> new Block(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE_DIAMOND_ORE).requiresCorrectToolForDrops()));
+        jadeOre = registerBlock("jade_ore", () -> new WickedOreBlock(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(8f, 12f).sound(SoundType.NETHER_BRICKS), UniformInt.of(0, 1)));
+        picriteJadeOre = registerBlock("picrite_jade_ore", () -> new WickedOreBlock(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(8f, 12f).sound(SoundType.NETHER_BRICKS), UniformInt.of(0, 1)));
         wickedAmethystOre = registerBlock("wicked_amethyst_ore", () -> new WickedOreBlock(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(8f, 12f).sound(SoundType.NETHER_BRICKS), UniformInt.of(0, 1)));
         dormantCrystals = registerBlock("dormant_crystals", () -> new WickedOreBlock(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(8f, 12f).sound(SoundType.NETHER_BRICKS), UniformInt.of(0, 3)));
         pearliumOre = registerBlock("pearlium_ore", () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops()));
@@ -452,6 +454,9 @@ public class BlockRegistry{
 
         violetSproutPlant = BLOCK.register("violet_sprout_plant", () -> new VioletSproutPlantBlock(BlockBehaviour.Properties.copy(Blocks.KELP_PLANT).mapColor(MapColor.COLOR_MAGENTA), false));
         violetSprout = registerBlock("violet_sprout", () -> new VioletSproutBlock(BlockBehaviour.Properties.copy(Blocks.KELP).mapColor(MapColor.COLOR_MAGENTA), false), () -> new TaintTransformBlockItem(BlockRegistry.violetSproutPlant.get(), new Item.Properties()));
+
+        caveRootPlant = BLOCK.register("cave_root_plant", () -> new CaveRootPlantBlock(BlockBehaviour.Properties.copy(Blocks.KELP_PLANT).mapColor(MapColor.COLOR_MAGENTA)));
+        caveRoot = registerBlock("cave_root", () -> new CaveRootBlock(BlockBehaviour.Properties.copy(Blocks.KELP).mapColor(MapColor.COLOR_MAGENTA)), () -> new TaintTransformBlockItem(BlockRegistry.caveRoot.get(), new Item.Properties()));
 
         glowVioletSproutPlant = BLOCK.register("glow_violet_sprout_plant", () -> new VioletSproutPlantBlock(BlockBehaviour.Properties.copy(Blocks.KELP_PLANT).mapColor(MapColor.COLOR_MAGENTA).lightLevel(Utils.Blocks.plantLight()), true));
         glowVioletSprout = registerBlock("glow_violet_sprout", () -> new VioletSproutBlock(BlockBehaviour.Properties.copy(Blocks.KELP).lightLevel(Utils.Blocks.plantLight()), true), () -> new TaintTransformBlockItem(BlockRegistry.glowVioletSprout.get(), new Item.Properties()));
