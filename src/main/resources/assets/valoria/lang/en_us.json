@@ -1,5 +1,5 @@
 {
-  "advancement.valoria:aloe": "One Aloe per Day and a Doctor Away",
+  "advancement.valoria:aloe": "Herbal Healing",
   "advancement.valoria:aloe.desc": "Obtain an Aloe Piece",
   "advancement.valoria:basic_medicine": "Basic Medicine!",
   "advancement.valoria:basic_medicine.desc": "Obtain upgraded aloe bandage",
@@ -28,6 +28,8 @@
   "advancement.valoria:visit_the_valoria": "The Forgotten Lands",
   "advancement.valoria:pyratite": "Explosive One",
   "advancement.valoria:pyratite.desc": "Obtain Pyratite",
+  "advancement.valoria:jade": "Shiny!",
+  "advancement.valoria:jade.desc": "Obtain Jade",
   "advancement.valoria:valoria": "Valoria",
   "advancement.valoria:valoria.desc": "The start of our adventure!",
   "gamerule.valoria:disableBossDungeonGriefing": "Disable Boss Dungeon Griefing",

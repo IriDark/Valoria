@@ -1,13 +1,13 @@
 {
   "display": {
     "icon": {
-      "item": "valoria:pyratite"
+      "item": "valoria:jade"
     },
     "title": {
-      "translate": "advancement.valoria:pyratite"
+      "translate": "advancement.valoria:jade"
     },
     "description": {
-      "translate": "advancement.valoria:pyratite.desc"
+      "translate": "advancement.valoria:jade.desc"
     },
     "frame": "task",
     "show_toast": true,
@@ -22,7 +22,7 @@
         "items": [
           {
             "items": [
-              "valoria:pyratite"
+              "valoria:jade"
             ]
           }
         ]
