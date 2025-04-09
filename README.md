@@ -13,10 +13,12 @@
 [![CurioApi](https://img.shields.io/badge/%20-CURIOS%20API-000000?style=for-the-badge&color=349a46&logo=modrinth&logoColor=000000&labelColor=FFFFFF)](https://modrinth.com/mod/curios)
 
 # About
-**Valoria — A big RPG themed project that adds some new mobs, blocks, weapons, and tons of new content in "vanilla" texture style**
+**Valoria — A large RPG themed project that adds some new mobs, blocks, weapons, and tons of new content in "vanilla" texture style**
 
-# Features
-- New mobs 
+![Bosses](https://raw.githubusercontent.com/IriDark/Valoria-Wiki/refs/heads/master/static/img/assets/bosses.png)
+
+### Features
+- New mobs
 - Dimension
 - Huge weaponry! with a special abilities!
 - Dungeons
@@ -26,4 +28,6 @@
 ![Accessories](https://raw.githubusercontent.com/IriDark/Valoria-Wiki/refs/heads/master/static/img/assets/accessories.png)
 ![Scavenge](https://raw.githubusercontent.com/IriDark/Valoria-Wiki/refs/heads/master/static/img/assets/scavenge.png)
 ![Valoria](https://raw.githubusercontent.com/IriDark/Valoria-Wiki/refs/heads/master/static/img/assets/valoria.png)
-![Necromancer](https://raw.githubusercontent.com/IriDark/Valoria-Wiki/refs/heads/master/static/img/assets/necromancer.png)
+![Lands](https://raw.githubusercontent.com/IriDark/Valoria-Wiki/refs/heads/master/static/img/assets/lands.png)
+
+
