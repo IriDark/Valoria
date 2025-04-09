@@ -2,8 +2,10 @@ package com.idark.valoria.registries.item.types;
 
 import net.minecraft.*;
 import net.minecraft.core.*;
+import net.minecraft.core.particles.*;
 import net.minecraft.nbt.*;
 import net.minecraft.network.chat.*;
+import net.minecraft.server.level.*;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.*;
@@ -54,9 +56,28 @@ public class BossSummonableItem extends TexturedSpawnEggItem{
         if(canSpawnHere(pContext.getLevel(), getDefaultType(), pContext.getPlayer())){
             return super.useOn(pContext);
         } else {
-            var size = Math.floor(getAABB(pContext.getPlayer(), getDefaultType().create(pContext.getLevel())).getSize()) + 1;
+            var size = Math.floor(getAABB(pContext.getPlayer(), getDefaultType().create(pContext.getLevel())).getSize()) + 3;
             pContext.getPlayer().displayClientMessage(Component.translatable("tooltip.valoria.boss_summon_fail", size + "x" + size).withStyle(ChatFormatting.GRAY), true);
+            showParticleBox(pContext.getLevel(), getAABB(pContext.getPlayer(), getDefaultType().create(pContext.getLevel())));
             return InteractionResult.FAIL;
+        }
+    }
+
+    public void showParticleBox(Level level, AABB box) {
+        if (!(level instanceof ServerLevel server)) return;
+        double step = 0.5;
+        for (double x = box.minX; x <= box.maxX; x += step) {
+            for (double y = box.minY; y <= box.maxY; y += step) {
+                for (double z = box.minZ; z <= box.maxZ; z += step) {
+                    boolean onEdge =
+                    x == box.minX || x + step > box.maxX ||
+                    y == box.minY || y + step > box.maxY ||
+                    z == box.minZ || z + step > box.maxZ;
+                    if (onEdge) {
+                        server.sendParticles(ParticleTypes.SMOKE, x, y, z, 1, 0, 0, 0, 0);
+                    }
+                }
+            }
         }
     }
 
