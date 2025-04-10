@@ -57,7 +57,7 @@ public class CrystalShard extends AbstractProjectile{
             .addTickActor(target)
             .setGravity(0)
             .setLifetime(12)
-            .repeat(this.level(), pos.x, pos.y, pos.z, 1);
+            .spawn(this.level(), pos.x, pos.y, pos.z);
         }
     }
 }

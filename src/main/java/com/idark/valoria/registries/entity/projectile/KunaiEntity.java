@@ -81,7 +81,7 @@ public class KunaiEntity extends AbstractSupplierProjectile{
                     .addTickActor(target)
                     .setGravity(0)
                     .setLifetime(10)
-                    .repeat(this.level(), pos.x, pos.y, pos.z, 1);
+                    .spawn(this.level(), pos.x, pos.y, pos.z);
         }
     }
 
