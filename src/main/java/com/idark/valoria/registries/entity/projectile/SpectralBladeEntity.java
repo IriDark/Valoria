@@ -95,9 +95,7 @@ public class SpectralBladeEntity extends AbstractTridotArrow{
 
     public void onHit(HitResult pResult){
         super.onHit(pResult);
-        if(!this.level().isClientSide){
-            this.discard();
-        }
+        this.discard();
     }
 
     public ItemStack getPickupItem(){

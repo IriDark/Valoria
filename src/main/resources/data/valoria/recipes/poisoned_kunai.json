@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "/#"
+  ],
+  "key": {
+    "#": {
+      "item": "valoria:samurai_kunai"
+    },
+    "/": {
+      "item": "valoria:toxins_bottle"
+    }
+  },
+  "result": {
+    "item": "valoria:samurai_poisoned_kunai",
+    "count": 1
+  }
+}

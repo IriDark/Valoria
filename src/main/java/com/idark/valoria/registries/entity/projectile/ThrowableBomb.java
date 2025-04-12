@@ -13,6 +13,7 @@ import net.minecraft.world.level.Level.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.phys.*;
 import org.jetbrains.annotations.*;
+import pro.komaru.tridot.client.render.screenshake.*;
 
 public class ThrowableBomb extends ThrowableItemProjectile{
     private static final EntityDataAccessor<Integer> DATA_FUSE_ID = SynchedEntityData.defineId(ThrowableBomb.class, EntityDataSerializers.INT);
@@ -78,6 +79,7 @@ public class ThrowableBomb extends ThrowableItemProjectile{
     protected void onHitEntity(EntityHitResult pResult){
         super.onHitEntity(pResult);
         this.explode();
+        this.discard();
     }
 
     @Override
@@ -140,6 +142,7 @@ public class ThrowableBomb extends ThrowableItemProjectile{
 
     protected void explode(){
         this.level().explode(this.getOwner(), this.getX(), this.getY(0.0625D), this.getZ(), getRadius(), bombInteraction);
+        ScreenshakeHandler.add(new PositionedScreenshakeInstance(3, pro.komaru.tridot.util.phys.Vec3.from(position()), 0, 30).intensity(0.5f));
     }
 
     public void setInteraction(Level.ExplosionInteraction intr){

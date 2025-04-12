@@ -81,8 +81,9 @@ public class ArmorRegistry implements ArmorMaterial{
     public static final ArmorRegistry INFERNAL = new ArmorRegistry.Builder("infernal").protection(35).mul(76).enchantValue(14).knockbackRes(0.12f).ingredient(() -> Ingredient.of(ItemsRegistry.infernalIngot.get())).build();
     public static final ArmorRegistry SPIDER = new ArmorRegistry.Builder("spider").protection(40).mul(68).enchantValue(14).knockbackRes(0.10f).ingredient(() -> Ingredient.of(ItemsRegistry.spiderFang.get())).build();
     public static final ArmorRegistry PYRATITE = new ArmorRegistry.Builder("pyratite").protection(42).mul(72).enchantValue(12).ingredient(() -> Ingredient.of(ItemsRegistry.pyratite.get())).build();
-    public static final ArmorRegistry VOID = new ArmorRegistry.Builder("awakened_void").protection(45).mul(76).enchantValue(10).knockbackRes(0.15f).ingredient(() -> Ingredient.of(ItemsRegistry.voidIngot.get())).build();
-    public static final ArmorRegistry PHANTASM = new ArmorRegistry.Builder("phantasm").protection(50).mul(82).enchantValue(12).knockbackRes(0.25f).ingredient(() -> Ingredient.of(ItemsRegistry.illusionStone.get())).build();
+    public static final ArmorRegistry CRIMTANE = new ArmorRegistry.Builder("crimtane").protection(45).mul(72).enchantValue(12).ingredient(() -> Ingredient.of(ItemsRegistry.painCrystal.get())).build();
+    public static final ArmorRegistry VOID = new ArmorRegistry.Builder("awakened_void").protection(50).mul(80).enchantValue(10).knockbackRes(0.15f).ingredient(() -> Ingredient.of(ItemsRegistry.voidIngot.get())).build();
+    public static final ArmorRegistry PHANTASM = new ArmorRegistry.Builder("phantasm").protection(60).mul(85).enchantValue(12).knockbackRes(0.25f).ingredient(() -> Ingredient.of(ItemsRegistry.illusionStone.get())).build();
 
     public static class Builder extends AbstractArmorBuilder<ArmorRegistry>{
         public Builder(String name){

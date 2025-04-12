@@ -2,7 +2,7 @@ package com.idark.valoria.registries.entity.projectile;
 
 import com.idark.valoria.registries.*;
 import com.idark.valoria.util.*;
-import net.minecraft.core.*;
+import net.minecraft.network.chat.*;
 import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
 import net.minecraft.world.entity.*;
@@ -16,6 +16,7 @@ import pro.komaru.tridot.client.gfx.particle.behavior.*;
 import pro.komaru.tridot.client.gfx.particle.data.*;
 import pro.komaru.tridot.client.render.*;
 import pro.komaru.tridot.client.render.screenshake.*;
+import pro.komaru.tridot.util.*;
 import pro.komaru.tridot.util.math.*;
 
 import java.util.function.*;
@@ -52,10 +53,19 @@ public class ThrownSpearEntity extends AbstractSupplierProjectile{
                 }
             };
 
+            Col color;
+            Style base = Style.EMPTY;
+            Style styled = this.getItem().getRarity().getStyleModifier().apply(base);
+            if(styled.getColor() != null) {
+                color = Col.fromARGB(styled.getColor().getValue());
+            } else {
+                color = Pal.darkerGray.brighter();
+            }
+
             ParticleBuilder.create(TridotParticles.TRAIL)
             .setRenderType(TridotRenderTypes.ADDITIVE_PARTICLE_TEXTURE)
             .setBehavior(TrailParticleBehavior.create().build())
-            .setColorData(ColorParticleData.create(Pal.darkerGray.brighter()).build())
+            .setColorData(ColorParticleData.create(color).build())
             .setTransparencyData(GenericParticleData.create(0.5f, 0).setEasing(Interp.sineOut).build())
             .setScaleData(GenericParticleData.create(0.5f).setEasing(Interp.sineIn).build())
             .addTickActor(target)
@@ -85,10 +95,10 @@ public class ThrownSpearEntity extends AbstractSupplierProjectile{
         explosive_radius = radius;
     }
 
-    private void summonStormCrystal(ServerLevel serverLevel, BlockPos spawnPos, float angle, double speed) {
+    private void summonStormCrystal(ServerLevel serverLevel, Vec3 spawnPos, float angle, double speed) {
         PyratiteShard shard = EntityTypeRegistry.PYRATITE_SHARD.get().create(this.level());
         if (shard != null) {
-            shard.moveTo(spawnPos.getX(), spawnPos.getY() + 2, spawnPos.getZ(), 0.0F, 0.0F);
+            shard.moveTo(spawnPos.x(), spawnPos.y() + 2, spawnPos.z(), 0.0F, 0.0F);
             shard.setOwner(this.getOwner());
             double vx = Math.cos(angle) * speed;
             double vz = Math.sin(angle) * speed;
@@ -101,10 +111,9 @@ public class ThrownSpearEntity extends AbstractSupplierProjectile{
         super.onHit(pResult);
         if(!isPyratiteHit){
             if(this.getItem().is(ItemsRegistry.pyratiteSpear.get()) && level() instanceof ServerLevel serv){
-                BlockPos center = BlockPos.containing(pResult.getLocation());
                 for(int i = 0; i < 4; i++){
                     float angle = (float)((2 * Math.PI / 4) * i);
-                    summonStormCrystal(serv, center, angle, 0.05);
+                    summonStormCrystal(serv, pResult.getLocation(), angle, 0.05);
                 }
 
                 this.isPyratiteHit = true;

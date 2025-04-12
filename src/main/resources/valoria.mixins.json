@@ -7,11 +7,9 @@
   "mixins": [
     "AttributeMixin",
     "HalfTransparentBlockMixin",
-    "LivingEntityMixin",
     "RangedAttributeMixin"
   ],
   "client": [
-    "client.AbstractClientPlayerMixin",
     "client.ClientLevelMixin",
     "client.PlayerRendererMixin"
   ],

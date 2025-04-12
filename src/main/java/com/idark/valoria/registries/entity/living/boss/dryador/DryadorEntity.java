@@ -505,7 +505,7 @@ public class DryadorEntity extends AbstractBoss implements RangedAttackMob{
         @Override
         protected void performAttack(){
             liftBlocksAround(DryadorEntity.this.level(), DryadorEntity.this.getOnPos(), 8);
-            ScreenshakeHandler.add(new ScreenshakeInstance(60).interp(Interp.bounce).intensity(0.8f));
+            ScreenshakeHandler.add(new PositionedScreenshakeInstance(60, pro.komaru.tridot.util.phys.Vec3.from(position()), 0, 30).interp(Interp.bounce).intensity(0.8f));
 
             Vector3d pos = new Vector3d(DryadorEntity.this.getX(), DryadorEntity.this.getY(), DryadorEntity.this.getZ());
             ValoriaUtils.stunNearby(DryadorEntity.this.level(), DryadorEntity.this, pos,0, DryadorEntity.this.getRotationVector().y, 3);

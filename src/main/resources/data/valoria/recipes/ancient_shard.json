@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "valoria:ancient_ingot"
+    }
+  ],
+  "result": {
+    "count": 4,
+    "item": "valoria:ancient_shard"
+  }
+}

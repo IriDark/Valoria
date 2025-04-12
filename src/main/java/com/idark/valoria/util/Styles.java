@@ -21,7 +21,7 @@ public class Styles{
     public static DotStyle infernal = create(Pal.infernal);
     public static DotStyle aquarius = create(Pal.oceanic);
     public static DotStyle nature = create(Pal.nature);
-    public static DotStyle ethereal = create(Pal.ethereal);
+    public static DotStyle ethereal = create(Pal.ethereal).effects(DotText.glint(1f, 0.5f, Pal.ethereal.brighter()));
     public static DotStyle nihility = create(Pal.softMagenta).effects(DotText.wave(0.25f, 0.1f));
     public static DotStyle halloween = create(Pal.mandarin).effects(DotText.wave(0.5f));
     public static DotStyle phantasm = create(Pal.softBlue).effects(DotText.pulse(0.75f));

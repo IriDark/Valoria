@@ -110,7 +110,7 @@ public class SpellProjectile extends AbstractProjectile{
             .addTickActor(target)
             .setGravity(0)
             .setLifetime(20)
-            .repeat(this.level(), pos.x, pos.y, pos.z, 1);
+            .spawn(this.level(), pos.x, pos.y, pos.z);
         }
     }
 }

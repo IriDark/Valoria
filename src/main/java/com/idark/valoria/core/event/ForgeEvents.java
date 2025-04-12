@@ -53,6 +53,27 @@ public class ForgeEvents{
             trade.tier(TradeTier.JOURNEYMAN).trades(4).xp(12).createOffer(16, ItemsRegistry.goldenChain.get(), ItemsRegistry.goldenNecklaceWealth.get());
         }
 
+        if(event.getType() == VillagerProfession.FARMER){
+            trade.trades(64).createOffer(1, ItemsRegistry.woodenCup.get());
+            trade.trades(64).createOffer(1, ItemsRegistry.cup.get());
+            trade.trades(16).createOffer(2, ItemsRegistry.greenTeaCup.get());
+            trade.trades(16).createOffer(2, ItemsRegistry.coffeeCup.get());
+            trade.trades(16).createOffer(2, ItemsRegistry.cacaoCup.get());
+            trade.trades(16).createOffer(2, ItemsRegistry.teaCup.get());
+            trade.trades(4).createOffer(2, ItemsRegistry.beerCup.get());
+            trade.trades(4).createOffer(2, ItemsRegistry.rumCup.get());
+
+            trade.trades(8).tier(TradeTier.APPRENTICE).createOffer(6, ItemsRegistry.kvassBottle.get());
+            trade.trades(8).tier(TradeTier.APPRENTICE).createOffer(6, ItemsRegistry.wineBottle.get());
+            trade.trades(8).tier(TradeTier.APPRENTICE).createOffer(6, ItemsRegistry.akvavitBottle.get());
+            trade.trades(8).tier(TradeTier.APPRENTICE).createOffer(6, ItemsRegistry.sakeBottle.get());
+            trade.trades(8).tier(TradeTier.APPRENTICE).createOffer(6, ItemsRegistry.liquorBottle.get());
+            trade.trades(8).tier(TradeTier.APPRENTICE).createOffer(6, ItemsRegistry.meadBottle.get());
+            trade.trades(8).tier(TradeTier.APPRENTICE).createOffer(6, ItemsRegistry.cognacBottle.get());
+            trade.trades(8).tier(TradeTier.APPRENTICE).createOffer(6, ItemsRegistry.whiskeyBottle.get());
+            trade.trades(8).tier(TradeTier.APPRENTICE).createOffer(6, ItemsRegistry.rumBottle.get());
+        }
+
         if(event.getType() == VillagerProfession.TOOLSMITH){
             trade.trades(1).createOffer(6, ItemsRegistry.ironRing.get());
             trade.trades(1).xp(2).createOffer(12, ItemsRegistry.ironGloves.get());

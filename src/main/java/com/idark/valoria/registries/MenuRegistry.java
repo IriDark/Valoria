@@ -19,7 +19,7 @@ public class MenuRegistry{
     );
 
     public static final RegistryObject<MenuType<KilnMenu>> KILN_MENU = MENUS.register("kiln_menu", () -> IForgeMenuType.create((windowId, inv, data) -> new KilnMenu(windowId, inv)));
-    public static final RegistryObject<MenuType<ArchaeologyMenu>> ARCHAEOLOGY_MENU = MENUS.register("archaeology_menu", () -> IForgeMenuType.create((windowId, inv, data) -> new ArchaeologyMenu(windowId, inv)));
+    public static final RegistryObject<MenuType<TinkererMenu>> TINKERING_MENU = MENUS.register("tinkering_menu", () -> IForgeMenuType.create((windowId, inv, data) -> new TinkererMenu(windowId, inv)));
     public static final RegistryObject<MenuType<ManipulatorMenu>> MANIPULATOR_MENU = MENUS.register("manipulator_menu", () -> IForgeMenuType.create((windowId, inv, data) -> {
                 BlockPos pos = data.readBlockPos();
                 Level world = inv.player.getCommandSenderWorld();

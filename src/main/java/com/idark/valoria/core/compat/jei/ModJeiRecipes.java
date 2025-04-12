@@ -33,8 +33,8 @@ public class ModJeiRecipes{
         return recipeManager.getAllRecipesFor(JewelryRecipe.Type.INSTANCE).stream().sorted(Comparator.comparing(JewelryRecipe::getTime)).toList();
     }
 
-    public List<ArchaeologyRecipe> getArchaeologyRecipes(){
-        return recipeManager.getAllRecipesFor(ArchaeologyRecipe.Type.INSTANCE).stream().sorted(Comparator.comparing(ArchaeologyRecipe::getIngredientCount)).toList();
+    public List<TinkeringRecipe> getTinkeringRecipes(){
+        return recipeManager.getAllRecipesFor(TinkeringRecipe.Type.INSTANCE).stream().sorted(Comparator.comparing(TinkeringRecipe::getIngredientCount)).toList();
     }
 
     public List<CrusherRecipe> getCrusherRecipes(){

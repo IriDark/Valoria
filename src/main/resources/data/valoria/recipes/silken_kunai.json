@@ -1,23 +1,10 @@
 {
-  "result": {
-    "item": "valoria:silken_kunai"
+  "type": "valoria:tinkering",
+  "ingredient": {
+    "item": "valoria:spider_fang"
   },
-  "pattern": [
-    "  ",
-    " F",
-    "#T"
-  ],
-  "type": "minecraft:crafting_shaped",
-  "category": "equipment",
-  "key": {
-    "#": {
-      "item": "minecraft:stick"
-    },
-    "T": {
-      "item": "valoria:shade_blossom_leaf"
-    },
-    "F": {
-      "item": "valoria:spider_fang"
-    }
-  }
+
+  "ingredient_count": 6,
+  "result": "valoria:silken_kunai",
+  "count": 4
 }

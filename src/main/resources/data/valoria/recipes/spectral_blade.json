@@ -1,0 +1,10 @@
+{
+  "type": "valoria:tinkering",
+  "ingredient": {
+    "item": "valoria:illusion_stone"
+  },
+
+  "ingredient_count": 2,
+  "result": "valoria:spectral_blade",
+  "count": 1
+}

@@ -1,0 +1,10 @@
+{
+  "type": "valoria:tinkering",
+  "ingredient": {
+    "item": "valoria:ancient_shard"
+  },
+
+  "ingredient_count": 4,
+  "result": "valoria:glaive",
+  "count": 1
+}

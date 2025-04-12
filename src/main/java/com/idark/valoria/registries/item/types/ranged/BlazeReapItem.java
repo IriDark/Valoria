@@ -133,7 +133,7 @@ public class BlazeReapItem extends ValoriaPickaxe implements Vanishable, Overlay
                     Utils.Hit.explosion(player, weapon, pos, new Vec3(X, Y, Z), radius, damage, knockback);
                 }
 
-                ScreenshakeHandler.add(new ScreenshakeInstance(5).intensity(radius * 0.85f).interp(Interp.bounce));
+                ScreenshakeHandler.add(new PositionedScreenshakeInstance(5, pro.komaru.tridot.util.phys.Vec3.from(player.getEyePosition()), 15, 30).intensity(radius * 0.85f).interp(Interp.bounce));
             }
 
             for(int i = 0; i < 12; i++){

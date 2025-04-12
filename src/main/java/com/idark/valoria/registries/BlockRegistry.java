@@ -54,7 +54,7 @@ public class BlockRegistry{
     ancientStone, ancientStoneSlab, ancientStoneStairs, ancientStoneWall, polishedAncientStone, polishedAncientStoneSlab, polishedAncientStoneStairs, polishedAncientStoneWall, cutAncientStone,
 
     // crafting stations
-    stoneCrusher, jewelerTable, keg, archaeologyTable, elementalManipulator, kiln,
+    stoneCrusher, jewelerTable, keg, tinkererWorkbench, elementalManipulator, kiln,
 
     // boss summon altars
     crypticAltar, wickedAltar,
@@ -394,7 +394,7 @@ public class BlockRegistry{
         kiln = registerBlock("kiln", () -> new KilnBlock(BlockBehaviour.Properties.copy(Blocks.STONE).strength(1f, 1f).noOcclusion().lightLevel(Utils.Blocks.lightIfLit(13))));
         jewelerTable = registerBlock("jeweler_table", () -> new JewelerBlock(BlockBehaviour.Properties.copy(Blocks.CRAFTING_TABLE).strength(1f, 1f)));
         stoneCrusher = registerBlock("stone_crusher", () -> new CrusherBlock(BlockBehaviour.Properties.copy(Blocks.STONE).strength(1f, 2f)));
-        archaeologyTable = registerBlock("archaeology_table", () -> new ArchaeologyTableBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(3f).noOcclusion()));
+        tinkererWorkbench = registerBlock("tinkerer_workbench", () -> new TinkererWorkbenchBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(3f).noOcclusion()));
         elementalManipulator = registerBlock("elemental_manipulator", () -> new ManipulatorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).mapColor(MapColor.COLOR_GREEN).strength(3f, 1f).lightLevel(s -> 4).noOcclusion()));
 
         grave = registerBlock("grave", () -> new TombBlock(true, BlockBehaviour.Properties.copy(Blocks.STONE).strength(1f, 1f).noOcclusion()));

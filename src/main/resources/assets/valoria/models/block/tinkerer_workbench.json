@@ -1,0 +1,144 @@
+{
+  "textures": {
+    "1": "valoria:block/tinkerer_workbench",
+    "particle": "valoria:block/tinkerer_workbench"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        12,
+        0
+      ],
+      "to": [
+        16,
+        16,
+        16
+      ],
+      "rotation": {
+        "angle": 0,
+        "axis": "y",
+        "origin": [
+          13,
+          14,
+          13
+        ]
+      },
+      "faces": {
+        "north": {
+          "uv": [
+            12,
+            0,
+            16,
+            1
+          ],
+          "texture": "#1"
+        },
+        "south": {
+          "uv": [
+            8,
+            0,
+            12,
+            1
+          ],
+          "texture": "#1"
+        },
+        "west": {
+          "uv": [
+            8,
+            0,
+            16,
+            1
+          ],
+          "texture": "#1"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            4,
+            4
+          ],
+          "texture": "#1"
+        },
+        "down": {
+          "uv": [
+            0,
+            7,
+            8,
+            11
+          ],
+          "texture": "#1"
+        }
+      }
+    },
+    {
+      "from": [
+        1,
+        0,
+        1
+      ],
+      "to": [
+        16,
+        12,
+        15
+      ],
+      "rotation": {
+        "angle": 0,
+        "axis": "y",
+        "origin": [
+          26,
+          10,
+          13
+        ]
+      },
+      "faces": {
+        "north": {
+          "uv": [
+            9.5,
+            4,
+            5,
+            7
+          ],
+          "texture": "#1"
+        },
+        "east": {
+          "uv": [
+            0.25,
+            4,
+            4.5,
+            7
+          ],
+          "texture": "#1"
+        },
+        "south": {
+          "uv": [
+            5,
+            4,
+            9.5,
+            7
+          ],
+          "texture": "#1"
+        },
+        "west": {
+          "uv": [
+            0,
+            4,
+            4.5,
+            7
+          ],
+          "texture": "#1"
+        },
+        "down": {
+          "uv": [
+            9.5,
+            4,
+            14,
+            7
+          ],
+          "texture": "#1"
+        }
+      }
+    }
+  ]
+}

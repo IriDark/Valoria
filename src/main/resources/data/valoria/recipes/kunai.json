@@ -1,0 +1,10 @@
+{
+  "type": "valoria:tinkering",
+  "ingredient": {
+    "item": "valoria:black_gold_ingot"
+  },
+
+  "ingredient_count": 4,
+  "result": "valoria:samurai_kunai",
+  "count": 8
+}

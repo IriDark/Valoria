@@ -39,8 +39,8 @@ public class PyratiteShard extends AbstractProjectile{
         super.onHit(pResult);
         if(!this.isExploded){
             if(!this.level().isClientSide){
-                this.level().explode(this, this.getX(), this.getY(), this.getZ(), 0.15f, ExplosionInteraction.NONE);
-                ScreenshakeHandler.add(new ScreenshakeInstance(3).intensity(0.5f));
+                this.level().explode(this, this.getX(), this.getY(), this.getZ(), 1.75f, ExplosionInteraction.NONE);
+                ScreenshakeHandler.add(new PositionedScreenshakeInstance(3, pro.komaru.tridot.util.phys.Vec3.from(position()), 0, 30).intensity(1f));
             }
 
             this.isExploded = true;
@@ -72,7 +72,7 @@ public class PyratiteShard extends AbstractProjectile{
             .addTickActor(target)
             .setGravity(0)
             .setLifetime(12)
-            .repeat(this.level(), pos.x, pos.y, pos.z, 1);
+            .spawn(this.level(), pos.x, pos.y, pos.z);
         }
     }
 }

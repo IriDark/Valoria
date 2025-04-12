@@ -32,7 +32,7 @@ public class PyratiteArrow extends AbstractTridotArrow implements TexturedArrow{
         super.onHit(pResult);
         if(!this.level().isClientSide){
             this.level().explode(this.getOwner(), this.getX(), this.getY(), this.getZ(), 2, ExplosionInteraction.MOB);
-            ScreenshakeHandler.add(new ScreenshakeInstance(3).intensity(0.45f));
+            ScreenshakeHandler.add(new PositionedScreenshakeInstance(3, pro.komaru.tridot.util.phys.Vec3.from(position()), 0, 30).intensity(1f));
         }
 
         this.discard();

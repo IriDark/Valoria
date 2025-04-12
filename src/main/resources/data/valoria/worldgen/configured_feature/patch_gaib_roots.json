@@ -1,6 +1,9 @@
 {
   "type": "minecraft:random_patch",
   "config": {
+    "tries": 4,
+    "xz_spread": 7,
+    "y_spread": 3,
     "feature": {
       "feature": {
         "type": "minecraft:simple_block",
@@ -8,7 +11,10 @@
           "to_place": {
             "type": "minecraft:simple_state_provider",
             "state": {
-              "Name": "valoria:gaib_roots"
+              "Name": "valoria:aloe",
+              "Properties": {
+                "half": "lower"
+              }
             }
           }
         }
@@ -22,9 +28,6 @@
           }
         }
       ]
-    },
-    "tries": 4,
-    "xz_spread": 7,
-    "y_spread": 3
+    }
   }
 }
