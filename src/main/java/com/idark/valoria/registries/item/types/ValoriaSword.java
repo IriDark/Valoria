@@ -11,7 +11,7 @@ public class ValoriaSword extends SwordItem{
 
     public ValoriaSword(Tier pTier, float pAttackDamageModifier, float pAttackSpeedModifier, Properties pProperties){
         super(pTier, (int)pAttackDamageModifier, pAttackSpeedModifier, pProperties);
-        this.attackDamage = (float)pAttackDamageModifier + pTier.getAttackDamageBonus();
+        this.attackDamage = pAttackDamageModifier + pTier.getAttackDamageBonus();
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
         builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Weapon modifier", this.attackDamage, AttributeModifier.Operation.ADDITION));
         builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Weapon modifier", pAttackSpeedModifier, AttributeModifier.Operation.ADDITION));

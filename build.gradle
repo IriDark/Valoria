@@ -127,6 +127,7 @@ dependencies {
 
     runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}+${minecraft_version}")
+    runtimeOnly fg.deobf("curse.maven:just-enough-repair-materials-1241244:6415175")
 
     // client sided
     runtimeOnly fg.deobf("maven.modrinth:journeymap:1.20.1-5.10.2-forge")

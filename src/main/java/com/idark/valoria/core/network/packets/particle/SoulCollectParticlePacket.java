@@ -1,13 +1,13 @@
 package com.idark.valoria.core.network.packets.particle;
 
 import com.idark.valoria.*;
-import com.idark.valoria.client.particle.*;
 import com.idark.valoria.util.*;
 import net.minecraft.network.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
 import net.minecraftforge.network.NetworkEvent.*;
+import pro.komaru.tridot.client.gfx.*;
 import pro.komaru.tridot.client.gfx.particle.*;
 import pro.komaru.tridot.client.gfx.particle.data.*;
 import pro.komaru.tridot.util.*;
@@ -54,7 +54,7 @@ public class SoulCollectParticlePacket{
                     }
                 };
 
-                ParticleBuilder.create(ParticleRegistry.SKULL)
+                ParticleBuilder.create(TridotParticles.SKULL)
                         .setColorData(ColorParticleData.create(Pal.cyan, Col.white).build())
                         .setTransparencyData(GenericParticleData.create(0.3f).setEasing(Interp.circle).build())
                         .setScaleData(GenericParticleData.create(0.06f, 0.15f, 0).setEasing(Interp.circle).build())

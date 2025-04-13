@@ -15,7 +15,7 @@ public enum ModItemTier implements Tier{
     //GOLD(0, 32, 12.0F, 0.0F, 22, () -> Ingredient.of(Items.GOLD_INGOT)),
     //NETHERITE(4, 2031, 9.0F, 4.0F, 15, () -> Ingredient.of(Items.NETHERITE_INGOT));
     NONE(4, 1561, 10f, 4.0F, 15, Ingredient::of),
-    BRONZE(2, 1048, 4f, 0.0F, 8, () -> Ingredient.of(ItemsRegistry.cobaltIngot.get())),
+    BRONZE(2, 1048, 4f, 0.0F, 8, () -> Ingredient.of(ItemsRegistry.bronzeIngot.get())),
     PEARLIUM(3, 425, 5f, 2.0F, 6, () -> Ingredient.of(ItemsRegistry.pearliumIngot.get())),
     HOLIDAY(2, 740, 5f, 2.0F, 8, () -> Ingredient.of(ItemsRegistry.holidayCandy.get())),
     HALLOWEEN(3, 1150, 6f, 3.0F, 8, () -> Ingredient.of(ItemsRegistry.candyCorn.get())),

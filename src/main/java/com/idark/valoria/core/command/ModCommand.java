@@ -1,29 +1,26 @@
 package com.idark.valoria.core.command;
 
-import com.idark.valoria.api.unlockable.Unlockable;
-import com.idark.valoria.core.capability.IUnlockable;
-import com.idark.valoria.core.command.parts.CommandArgument;
-import com.idark.valoria.core.command.parts.CommandBuilder;
-import com.idark.valoria.core.command.parts.CommandPart;
-import com.idark.valoria.core.command.parts.CommandVariant;
-import com.idark.valoria.core.network.PacketHandler;
-import com.idark.valoria.core.network.packets.PageToastPacket;
-import com.idark.valoria.core.network.packets.UnlockableUpdatePacket;
-import com.mojang.brigadier.CommandDispatcher;
-import com.mojang.brigadier.context.CommandContext;
-import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import net.minecraft.commands.CommandSourceStack;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.item.ItemStack;
+import com.idark.valoria.api.unlockable.*;
+import com.idark.valoria.core.capability.*;
+import com.idark.valoria.core.command.parts.*;
+import com.idark.valoria.core.network.*;
+import com.idark.valoria.core.network.packets.*;
+import com.mojang.brigadier.*;
+import com.mojang.brigadier.context.*;
+import com.mojang.brigadier.exceptions.*;
+import net.minecraft.commands.*;
+import net.minecraft.nbt.*;
+import net.minecraft.network.chat.*;
+import net.minecraft.server.level.*;
+import net.minecraft.world.item.*;
+import pro.komaru.tridot.api.command.*;
 
-import java.util.Collection;
+import java.util.*;
 
 public class ModCommand{
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher){
         CommandArgument targets = CommandArgument.entities("targets");
-        CommandArgument pages = CommandArgument.pages("pages");
+        CommandArguments pages = CommandArguments.pages("pages");
         CommandArgument charges = CommandArgument.integer("charges", 0, 2);
         CommandBuilder lexicon = new CommandBuilder("lexicon");
         CommandBuilder builder = new CommandBuilder("valoria").variants(

@@ -90,7 +90,7 @@ public class BlazeReapItem extends ValoriaPickaxe implements Vanishable, Overlay
             return InteractionResultHolder.pass(weapon);
         }else if(nbt.getInt("charge") == 1){
             nbt.putInt("charge", 0);
-            player.getCooldowns().addCooldown(this, 50);
+            player.getCooldowns().addCooldown(this, 40);
             player.awardStat(Stats.ITEM_USED.get(this));
             Vec3 pos = new Vec3(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());
 
@@ -122,7 +122,6 @@ public class BlazeReapItem extends ValoriaPickaxe implements Vanishable, Overlay
                 }
             }
 
-            // I hate you mojang, where the fucking explosion damage configuration... why it's hardcoded... just WHY
             float radius = flag ? ((GunpowderCharge)ammo.getItem()).getRadius() : 3f;
             float damage = flag ? ((GunpowderCharge)ammo.getItem()).getDamage() : 25f;
             float knockback = flag ? ((GunpowderCharge)ammo.getItem()).getKnockback() : 0.5f;
