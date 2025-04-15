@@ -18,8 +18,8 @@ public class CodexEntry{
     public final Chapter chapter;
     public final MutableComponent translate;
     public Unlockable unlockable;
-    public final int x;
-    public final int y;
+    public int x;
+    public int y;
     public ChapterNode node;
 
     public CodexEntry(int x, int y, Item item, @Nullable MutableComponent title, Chapter chapter, ChapterNode node, Unlockable pUnlockablePage) {
@@ -29,16 +29,14 @@ public class CodexEntry{
         this.translate = title;
         this.chapter = chapter;
         this.node = node;
+        this.node.entry = this;
         this.unlockable = pUnlockablePage;
+
+        this.y += Codex.getInstance().insideHeight/2 - 66;
     }
 
     public CodexEntry(int x, int y, Item item, @Nullable MutableComponent title, Chapter chapter, ChapterNode node) {
-        this.x = x;
-        this.y = y;
-        this.item = item;
-        this.translate = title;
-        this.chapter = chapter;
-        this.node = node;
+        this(x,y,item,title,chapter,node,null);
     }
 
     public void render(Codex codex, GuiGraphics gui, float uOffset, float vOffset, int guiLeft, int guiTop, float mouseX, float mouseY){
@@ -49,7 +47,6 @@ public class CodexEntry{
         if (isUnlocked()) {
             if(isHover(mouseX, mouseY, x, y) && codex.isOnScreen(mouseX, mouseY)) {
                 gui.blit(loc("textures/gui/book/entry.png"), x, y, 22, 0, entryWidth, entryHeight, 64, 32);
-                gui.renderItem(item.getDefaultInstance(), x + 3, y + 3);
 
                 int textWidth = Minecraft.getInstance().font.width(translate);
                 int tooltipX = x + entryWidth - (textWidth / 2) - 22;
@@ -57,8 +54,12 @@ public class CodexEntry{
                 renderTooltip(gui, translate, tooltipX, tooltipY);
             } else {
                 gui.blit(loc("textures/gui/book/entry.png"), x, y, 0, 0, entryWidth, entryHeight, 64, 32);
-                gui.renderItem(item.getDefaultInstance(), x + 3, y + 3);
             }
+
+            gui.pose().pushPose();
+            gui.pose().translate(0,0,codex.entries - 254);
+            gui.renderItem(item.getDefaultInstance(), x + 3, y + 3);
+            gui.pose().popPose();
         }
     }
 

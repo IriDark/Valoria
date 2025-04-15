@@ -2,7 +2,6 @@ package com.idark.valoria.client.ui.screen.book.lexicon;
 
 import com.idark.valoria.client.ui.screen.book.*;
 import com.idark.valoria.client.ui.screen.book.pages.*;
-import com.idark.valoria.client.ui.screen.book.unlockable.*;
 import com.idark.valoria.registries.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.util.*;
@@ -41,19 +40,14 @@ public class CodexEntries{
     public static void init(){
         CodexEntries.entries.clear();
         ChapterNode root = new ChapterNode(MAIN_CHAPTER, ItemsRegistry.lexicon.get())
-            .addChild(new ChapterNode(TREASURES_CHAPTER, ItemsRegistry.amethystGem.get()))
-            .addChild(new ChapterNode(MEDICINE_CHAPTER, ItemsRegistry.aloeBandage.get()))
-            .addChild(new ChapterNode(CRYPT_CHAPTER, ItemsRegistry.cryptPage.get(), RegisterUnlockables.CRYPT)
-                .addChild(new ChapterNode(MEDICINE_CHAPTER, ItemsRegistry.aloeBandage.get()))
-                .addChild(new ChapterNode(MEDICINE_CHAPTER, ItemsRegistry.aloeBandage.get())
-                    .addChild(new ChapterNode(MEDICINE_CHAPTER, ItemsRegistry.aloeBandage.get()))
-                )
-            );
+            .addChild(TREASURES_CHAPTER, ItemsRegistry.amethystGem)
+            .addChild(MEDICINE_CHAPTER, ItemsRegistry.aloeBandage)
+            .addChild(CRYPT_CHAPTER, ItemsRegistry.cryptPage)
 
-        layoutTree(root, 0, -measureWidth(root) / 2);
+        ;
+        int offset = 0;
+        layoutTree(root, 0, -measureWidth(root)/4 + 27 + ((root.children.size % 2 == 1) ? -6 : 0) + offset);
     }
-
-    // pivo
 
     static int spacingX = 35;
     static int spacingY = 35;
@@ -62,6 +56,7 @@ public class CodexEntries{
         if(node.children.isEmpty()) return spacingX;
 
         int width = 0;
+
         for(ChapterNode child : node.children){
             width += measureWidth(child);
         }
@@ -78,21 +73,37 @@ public class CodexEntries{
         }
 
         int totalWidth = 0;
+        int totalWidth2 = 0;
         List<Integer> childCenters = new ArrayList<>();
+        List<Integer> childCenters2 = new ArrayList<>();
 
+        int depthChange = 1;
         for(ChapterNode child : node.children){
-            int childWidth = measureWidth(child);
-            int childX = x + totalWidth;
+            int newDepth = depth == 0 ? depth + depthChange : depth + (depth < 0 ? -1 : 1);
+            int totWidth = newDepth < 0 ? totalWidth2 : totalWidth;
 
-            layoutTree(child, depth + 1, childX);
-            childCenters.add(childX);
-            totalWidth += childWidth;
+            int childWidth = measureWidth(child);
+            int childX = x + totWidth;
+
+            layoutTree(child, newDepth, childX);
+            if(newDepth < 0) childCenters2.add(childX);
+            else childCenters.add(childX);
+            if(newDepth < 0) totalWidth2 += childWidth;
+            else totalWidth += childWidth;
+
+            depthChange *= -1;
         }
 
-        int centerX = (Collections.min(childCenters) + Collections.max(childCenters)) / 2;
+
+        int centerX = childCenters.isEmpty() ? 0 : (Collections.min(childCenters) + Collections.max(childCenters)) / 2;
+        int centerX2 = childCenters2.isEmpty() ? 0 :(Collections.min(childCenters2) + Collections.max(childCenters2)) / 2;
+
+        centerX = Math.max(centerX,centerX2);
+
         centerX = Mth.clamp(centerX, -512, 512);
 
+        int we = depth < 0 ? totalWidth2 : totalWidth;
         entries.add(new CodexEntry(centerX, y, node.item, Component.translatable(node.chapter.titleKey), node.chapter, node, node.unlockable));
-        return totalWidth;
+        return we;
     }
 }

@@ -26,6 +26,6 @@ public class LexiconItem extends Item{
 
     @OnlyIn(Dist.CLIENT)
     public void openGui(){
-        Codex.open();
+        Codex.getInstance().open();
     }
 }

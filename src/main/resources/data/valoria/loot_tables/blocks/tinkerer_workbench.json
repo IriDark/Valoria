@@ -13,7 +13,7 @@
           "type": "minecraft:item",
           "conditions": [
             {
-              "block": "valoria:archaeology_table",
+              "block": "valoria:tinkerer_workbench",
               "condition": "minecraft:block_state_property",
               "properties": {
                 "part": "head"

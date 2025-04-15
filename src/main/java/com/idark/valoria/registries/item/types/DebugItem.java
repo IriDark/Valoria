@@ -4,6 +4,7 @@ import com.idark.valoria.client.ui.screen.book.lexicon.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.entity.projectile.*;
 import com.idark.valoria.util.*;
+import net.minecraft.client.*;
 import net.minecraft.server.level.*;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.player.*;
@@ -52,7 +53,7 @@ public class DebugItem extends Item{
 
     @OnlyIn(Dist.CLIENT)
     public void openGui(){
-        Codex.open();
+        Minecraft.getInstance().setScreen(new Codex());
     }
 
     private static void acorn(Level worldIn, Player playerIn){

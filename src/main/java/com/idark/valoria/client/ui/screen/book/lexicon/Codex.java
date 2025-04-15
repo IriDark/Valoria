@@ -11,6 +11,8 @@ import net.minecraft.util.*;
 import net.minecraftforge.api.distmarker.*;
 import org.lwjgl.glfw.*;
 import pro.komaru.tridot.api.render.*;
+import pro.komaru.tridot.util.*;
+import pro.komaru.tridot.util.math.*;
 
 import java.util.function.*;
 
@@ -25,10 +27,11 @@ public class Codex extends DotScreen{
     public int frameWidth = 276;
     public int frameHeight = 180;
     public int insideWidth = 262;
-    public int insideHeight = 165;
+    public int insideHeight = 164;
     public float xModifier = 0.75f, yModifier = 0.75f;
     public float xOffset;
     public float yOffset;
+    public int entries = 104, shadow = 300;
 
     public ResourceLocation FRAME = loc("textures/gui/book/frame.png");
     public Codex(){
@@ -36,13 +39,13 @@ public class Codex extends DotScreen{
         assetsId = Valoria.ID;
     }
 
-    public void sound(Supplier<SoundEvent> soundEvent, float volume, float pitch) {
-        Minecraft.getInstance().player.playNotifySound(soundEvent.get(), SoundSource.PLAYERS, volume, pitch);
-    }
-
     public static Codex getInstance() {
         if (screen == null) screen = new Codex();
         return screen;
+    }
+
+    public void sound(Supplier<SoundEvent> soundEvent, float volume, float pitch) {
+        Minecraft.getInstance().player.playNotifySound(soundEvent.get(), SoundSource.PLAYERS, volume, pitch);
     }
 
     public static void open() {
@@ -52,24 +55,47 @@ public class Codex extends DotScreen{
         codex.sound(() -> SoundEvents.BOOK_PAGE_TURN, 1.0f, 1.0f);
     }
 
+    float animTime = 10;
     @Override
     public void render(GuiGraphics gui, int mouseX, int mouseY, float partialTicks){
         super.render(gui, mouseX, mouseY, partialTicks);
+        float t = time();
+        Interp interp = Interp.fade;
+        float progress = interp.apply(Mathf.clamp(t/animTime));
+
+        color(Mathf.clamp(progress/0.9f));
         renderBackground(gui);
+        color(progress);
+
+        float yOffset;
+        yOffset = 0;
+
+        push();
+        move(0,yOffset);
+        scale(0.9f+progress*0.1f,0.9f+progress*0.1f,cx(),cy());
+        render(gui, mouseX, mouseY);
+        //drawDebug(mouseX, mouseY);
+
+        pop();
+    }
+
+    public void render(GuiGraphics gui, int mouseX, int mouseY){
+        push();
+        layer(300 * 2);
         gui.blit(FRAME, guiLeft(), guiTop(), 0, 0, frameWidth, frameHeight, 512, 512);
+        layer(0);
+        pop();
+
+        push();
         renderBackground(gui, "textures/gui/book/background.png", mouseX, mouseY);
-        if(isHover(mouseX, mouseY, (int)(this.cx()), guiTop() + this.frameHeight - 8, 10, 10)) {
-            push();
-            scale(1.5f, 1.5f, cx(), cy());
-            layer(700);
-            move((int)(this.cx() - 2), guiTop() + frameHeight - 6 - 32);
-            gui.blit(FRAME, 0, 0, 10, 191, 12, 12, 512, 512);
-            pop();
+        layer(601);
+        if(isHover(mouseX, mouseY, (int)(this.cx()-6), guiTop() + this.frameHeight - 8, 10, 10)) {
+            gui.blit(FRAME, (int)(cx()-6-1), guiTop() + frameHeight - 8 -1, 10, 191, 12, 12, 512, 512);
         } else {
-            gui.blit(FRAME, (int)(cx()), guiTop() + frameHeight - 8, 0, 192, 10, 10, 512, 512);
+            gui.blit(FRAME, (int)(cx()-6), guiTop() + frameHeight - 8, 0, 192, 10, 10, 512, 512);
         }
 
-        //drawDebug(mouseX, mouseY);
+        pop();
     }
 
     public void drawDebug(double mouseX, double mouseY) {
@@ -102,7 +128,7 @@ public class Codex extends DotScreen{
                     }
                 }
 
-                if(isHover(mouseX, mouseY, (int)(this.cx()), guiTop() + this.frameHeight - 8, 10, 10)) {
+                if(isHover(mouseX, mouseY, (int)(this.cx()) - 8, guiTop() + this.frameHeight - 8, 10, 10)) {
                     xOffset = 0;
                     yOffset = 0;
                     sound(() -> SoundEvents.LEVER_CLICK, 1, 1);
@@ -138,23 +164,54 @@ public class Codex extends DotScreen{
         float uOffset = Mth.clamp((backgroundWidth / 2f - insideWidth) + xOffset * xModifier, 0, backgroundWidth);
         float vOffset = Mth.clamp((backgroundHeight / 2f - insideHeight ) + yOffset * yModifier, 0, backgroundHeight);
         gui.blit(loc(texture), insideLeft(), insideTop(), (int)uOffset, (int)vOffset, insideWidth, insideHeight, backgroundWidth, backgroundHeight);
+
+        push();
+        layer(entries);
         renderEntries(gui, uOffset, vOffset, mouseX, mouseY);
+        pop();
+
         renderCorners(gui, insideLeft(), insideTop());
     }
 
     public void renderCorners(GuiGraphics gui, int insideLeft, int insideTop){
+        push();
         RenderSystem.enableBlend();
-        gui.pose().pushPose();
-        gui.pose().translate(0, 0, 600);
+        layer(shadow);
         gui.blit(loc("textures/gui/book/frame_blur.png"), insideLeft, insideTop, 0, 0, insideWidth, insideHeight, insideWidth, insideHeight);
-        gui.pose().popPose();
         RenderSystem.disableBlend();
+        pop();
     }
 
     public void renderEntries(GuiGraphics gui, float uOffset, float vOffset, float mouseX, float mouseY) {
         scissorsOn(insideLeft(), insideTop(), insideWidth, insideHeight);
         for (CodexEntry entry : CodexEntries.entries) {
             if (entry.isUnlocked()) {
+                entry.node.children.each(c -> {
+                    float chx = c.entry.x;
+                    float chy = c.entry.y;
+
+                    float x = entry.x;
+                    float y = entry.y;
+
+                    float deltaY = chy-y;
+
+                    float y2 = y+deltaY*0.5f;
+                    var color = Col.intArgb(Col.fromHex("7A5577"));
+
+                    push();
+                    move((backgroundWidth-insideWidth)/2f,(backgroundHeight-insideHeight)/2f);
+                    move(guiLeft(),guiTop());
+                    move(-uOffset,-vOffset);
+                    move(22-4f,22-4f);
+
+                    layer(entries - 105);
+                    gui.fill((int)(-x-1),(int)-y-1 + 11,(int)-x+2,(int)-y+2 + 11,color);
+                    gui.vLine((int)-x,(int)-y,(int)-y2,color);
+                    gui.hLine((int)-x,(int)-chx,(int)-y2,color);
+                    gui.vLine((int)-chx,(int)-y2,(int)-chy,color);
+                    pop();
+                });
+
                 entry.render(this, gui, uOffset, vOffset, insideLeft(), insideTop(), mouseX, mouseY);
             }
         }

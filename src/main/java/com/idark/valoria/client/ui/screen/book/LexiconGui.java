@@ -24,6 +24,7 @@ public class LexiconGui extends Screen{
     public LexiconGui(Chapter chapter){
         super(Component.translatable("lexicon.valoria.main"));
         currentChapter = chapter;
+        currentPage = 0;
     }
 
     @Override
@@ -43,7 +44,7 @@ public class LexiconGui extends Screen{
 
     @Override
     public void onClose(){
-        Codex.open();
+        Minecraft.getInstance().setScreen(Codex.getInstance());
     }
 
     @OnlyIn(Dist.CLIENT)
