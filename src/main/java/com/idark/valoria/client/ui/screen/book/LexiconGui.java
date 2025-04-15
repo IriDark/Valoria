@@ -1,20 +1,18 @@
 package com.idark.valoria.client.ui.screen.book;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.client.ui.screen.book.pages.TextPage;
-import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import org.lwjgl.glfw.GLFW;
+import com.idark.valoria.*;
+import com.idark.valoria.client.ui.screen.book.lexicon.*;
+import com.idark.valoria.client.ui.screen.book.pages.*;
+import com.mojang.blaze3d.systems.*;
+import net.minecraft.client.*;
+import net.minecraft.client.gui.*;
+import net.minecraft.client.gui.screens.*;
+import net.minecraft.network.chat.*;
+import net.minecraft.resources.*;
+import net.minecraft.sounds.*;
+import net.minecraft.world.item.*;
+import net.minecraftforge.api.distmarker.*;
+import org.lwjgl.glfw.*;
 
 @OnlyIn(Dist.CLIENT)
 public class LexiconGui extends Screen{
@@ -23,11 +21,29 @@ public class LexiconGui extends Screen{
     public static Chapter currentChapter;
     public static int currentPage = 0;
 
-    public LexiconGui(){
+    public LexiconGui(Chapter chapter){
         super(Component.translatable("lexicon.valoria.main"));
-        if(currentChapter == null){
-            currentChapter = LexiconChapters.MAIN_CHAPTER;
+        currentChapter = chapter;
+    }
+
+    @Override
+    public boolean mouseScrolled(double mouseX, double mouseY, double scroll) {
+        if(scroll > 0 && currentChapter.size() >= currentPage + 3){
+            currentPage += 2;
+            Minecraft.getInstance().player.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundSource.NEUTRAL, 1.0f, 1.0f);
+        }else if(currentPage <= 0){
+            onClose();
+        }else if (scroll < 0){
+            currentPage -= 2;
+            Minecraft.getInstance().player.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundSource.NEUTRAL, 1.0f, 1.0f);
         }
+
+        return super.mouseScrolled(mouseX, mouseY, scroll);
+    }
+
+    @Override
+    public void onClose(){
+        Codex.open();
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -57,11 +73,6 @@ public class LexiconGui extends Screen{
         this.height = mc.getWindow().getGuiScaledHeight();
         int guiLeft = (width - 272) / 2, guiTop = (height - 180) / 2;
         gui.blit(BACKGROUND, guiLeft, guiTop, 0, 0, 272, 180, 512, 512);
-        for(Bookmark bookmark : LexiconChapters.categories){
-            if(bookmark.isUnlocked()){
-                bookmark.render(gui, guiLeft, guiTop, mouseX, mouseY);
-            }
-        }
 
         Page left = currentChapter.getPage(currentPage), right = currentChapter.getPage(currentPage + 1);
         if(left != null) left.fullRender(gui, guiLeft + 10, guiTop + 8, mouseX, mouseY);
@@ -77,13 +88,11 @@ public class LexiconGui extends Screen{
             }
         }
 
-        if(currentPage > 0){
-            if(mouseX >= guiLeft + 13 && mouseX < guiLeft + 13 + 9 && mouseY >= guiTop + 150 && mouseY < guiTop + 150 + 8){
-                gui.blit(BACKGROUND, guiLeft + 13, guiTop + 150, 272, 96, 9, 8, 512, 512);
-                renderTooltip(gui, Component.translatable("lexicon.valoria.back"), guiLeft + 13, guiTop + 150);
-            }else{
-                gui.blit(BACKGROUND, guiLeft + 13, guiTop + 150, 272, 80, 9, 8, 512, 512);
-            }
+        if(mouseX >= guiLeft + 13 && mouseX < guiLeft + 13 + 9 && mouseY >= guiTop + 150 && mouseY < guiTop + 150 + 8){
+            gui.blit(BACKGROUND, guiLeft + 13, guiTop + 150, 272, 96, 9, 8, 512, 512);
+            renderTooltip(gui, Component.translatable("lexicon.valoria.back"), guiLeft + 13, guiTop + 150);
+        }else{
+            gui.blit(BACKGROUND, guiLeft + 13, guiTop + 150, 272, 80, 9, 8, 512, 512);
         }
     }
 
@@ -92,9 +101,39 @@ public class LexiconGui extends Screen{
     }
 
     @Override
+    public boolean keyPressed(int pKeyCode, int pScanCode, int pModifiers){
+        Minecraft mc = Minecraft.getInstance();
+        boolean flag = currentChapter.size() >= currentPage + 3;
+        if(pKeyCode == GLFW.GLFW_KEY_PAGE_UP || pKeyCode == GLFW.GLFW_KEY_RIGHT){
+            if(flag){
+                mc.player.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundSource.NEUTRAL, 1.0f, 1.0f);
+                currentPage += 2;
+            }
+        }
+
+        if(pKeyCode == GLFW.GLFW_KEY_PAGE_DOWN || pKeyCode == GLFW.GLFW_KEY_LEFT){
+            if(!flag){
+                mc.player.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundSource.NEUTRAL, 1.0f, 1.0f);
+                currentPage -= 2;
+            }else if(currentPage <= 0){
+                onClose();
+            }
+        }
+
+        return super.keyPressed(pKeyCode, pScanCode, pModifiers);
+    }
+
+    @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button){
+        Minecraft mc = Minecraft.getInstance();
+        if(button == GLFW.GLFW_KEY_PAGE_UP){
+            if(currentChapter.size() >= currentPage + 3){
+                mc.player.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundSource.NEUTRAL, 1.0f, 1.0f);
+                currentPage += 2;
+            }
+        }
+
         if(button == GLFW.GLFW_MOUSE_BUTTON_LEFT){
-            Minecraft mc = Minecraft.getInstance();
             this.width = mc.getWindow().getGuiScaledWidth();
             this.height = mc.getWindow().getGuiScaledHeight();
             int guiLeft = (width - 272) / 2, guiTop = (height - 180) / 2;
@@ -105,27 +144,21 @@ public class LexiconGui extends Screen{
                 }
             }
 
+            boolean isHovered = mouseX >= guiLeft + 13 && mouseX < guiLeft + 13 + 9 && mouseY >= guiTop + 150 && mouseY < guiTop + 150 + 8;
             if(currentPage > 0){
-                if(mouseX >= guiLeft + 13 && mouseX < guiLeft + 13 + 9 && mouseY >= guiTop + 150 && mouseY < guiTop + 150 + 8){
+                if(isHovered){
                     mc.player.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundSource.NEUTRAL, 1.0f, 1.0f);
                     currentPage -= 2;
                 }
-            }
-
-            for(Bookmark bookmark : LexiconChapters.categories){
-                if(bookmark.isUnlocked() && bookmark.onClick(mouseX, mouseY, guiLeft, guiTop)){
+            } else {
+                if(isHovered){
                     mc.player.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundSource.NEUTRAL, 1.0f, 1.0f);
-                    changeChapter(bookmark.getChapter());
+                    Codex.open();
                 }
             }
         }
 
         return false;
-    }
-
-    public void changeChapter(Chapter next){
-        currentChapter = next;
-        currentPage = 0;
     }
 
     @Override

@@ -121,7 +121,7 @@ public class GoblinModel<T extends Goblin> extends HierarchicalModel<T> implemen
 
         float handOffset = pSide == HumanoidArm.RIGHT ? 1.0F : -1.0F;
         pPoseStack.translate(handOffset / 16.0F, 0.0F, 0.0F);
-        pPoseStack.translate(-0.1F, -0.32F, 0.065F);
+        pPoseStack.translate(0.015F, -0.32F, 0.065F);
     }
 
     public ModelPart getHead(){

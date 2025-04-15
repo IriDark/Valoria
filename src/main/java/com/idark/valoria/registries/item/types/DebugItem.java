@@ -1,5 +1,6 @@
 package com.idark.valoria.registries.item.types;
 
+import com.idark.valoria.client.ui.screen.book.lexicon.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.entity.projectile.*;
 import com.idark.valoria.util.*;
@@ -10,6 +11,7 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.gameevent.*;
 import net.minecraft.world.phys.*;
+import net.minecraftforge.api.distmarker.*;
 import org.jetbrains.annotations.*;
 
 /**
@@ -38,11 +40,19 @@ public class DebugItem extends Item{
     public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn){
         ItemStack itemstack = playerIn.getItemInHand(handIn);
         playerIn.startUsingItem(handIn);
+        if(worldIn.isClientSide()) {
+            openGui();
+        }
+
         if(!worldIn.isClientSide()) {
-            acorn(worldIn, playerIn);
         }
 
         return InteractionResultHolder.consume(itemstack);
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public void openGui(){
+        Codex.open();
     }
 
     private static void acorn(Level worldIn, Player playerIn){

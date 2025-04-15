@@ -35,7 +35,7 @@ side = "BOTH"
 [[dependencies.valoria]]
 modId = "tridot"
 mandatory = true
-versionRange = "[1.20.1-1.0.28,)"
+versionRange = "[1.20.1-1.0.29,)"
 ordering = "AFTER"
 side = "BOTH"
 [modproperties.valoria]

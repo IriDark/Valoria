@@ -70,7 +70,7 @@ public class Goblin extends AbstractGoblin{
 
     private void setupAnimationStates(){
         if(this.idleAnimationTimeout <= 0){
-            this.idleAnimationTimeout = 80;
+            this.idleAnimationTimeout = 160;
             this.idleAnimationState.start(this.tickCount);
         }else{
             --this.idleAnimationTimeout;

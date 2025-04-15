@@ -5,7 +5,7 @@ import com.idark.valoria.client.event.*;
 import com.idark.valoria.client.particle.*;
 import com.idark.valoria.client.render.curio.*;
 import com.idark.valoria.client.ui.screen.*;
-import com.idark.valoria.client.ui.screen.book.*;
+import com.idark.valoria.client.ui.screen.book.lexicon.*;
 import com.idark.valoria.client.ui.screen.book.unlockable.*;
 import com.idark.valoria.core.capability.*;
 import com.idark.valoria.core.command.arguments.*;
@@ -108,6 +108,10 @@ public class Valoria{
         MinecraftForge.EVENT_BUS.register(new StructureEvents());
     }
 
+    public static ResourceLocation loc(String path) {
+        return new ResourceLocation(ID, path);
+    }
+
     /**
      * To add your items here you'll need to add it in FMLClientSetupEvent event like this one but in your mod class and add an event to client side
      * @see ValoriaClient.RegistryEvents#onModelRegistryEvent(ModelEvent.RegisterAdditional)
@@ -118,7 +122,7 @@ public class Valoria{
         AbstractBossbar.bossbars.put("Necromancer", new BasicBossbar(new ResourceLocation(Valoria.ID, "textures/gui/bossbars/necromancer.png")));
         AbstractBossbar.bossbars.put("Dryador", new BasicBossbar(new ResourceLocation(Valoria.ID, "textures/gui/bossbars/dryador.png")));
         event.enqueueWork(() -> {
-            LexiconChapters.init();
+            CodexEntries.initChapters();
             CuriosRendererRegistry.register(ItemsRegistry.ironNecklaceAmber.get(), NecklaceRenderer::new);
             CuriosRendererRegistry.register(ItemsRegistry.ironNecklaceDiamond.get(), NecklaceRenderer::new);
             CuriosRendererRegistry.register(ItemsRegistry.ironNecklaceEmerald.get(), NecklaceRenderer::new);
