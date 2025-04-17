@@ -1,7 +1,6 @@
 package com.idark.valoria.core.command;
 
 import com.idark.valoria.api.unlockable.*;
-import com.idark.valoria.core.capability.*;
 import com.idark.valoria.core.command.parts.*;
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.*;
@@ -22,7 +21,7 @@ public class ModCommand{
         CommandArgument targets = CommandArgument.entities("targets");
         CommandArguments pages = CommandArguments.pages("pages");
         CommandArgument charges = CommandArgument.integer("charges", 0, 2);
-        CommandBuilder lexicon = new CommandBuilder("lexicon");
+        CommandBuilder lexicon = new CommandBuilder("lexicon").permission((p) -> p.hasPermission(2));
         CommandBuilder builder = new CommandBuilder("valoria").variants(
                 lexicon.variants(
                         new CommandVariant(CommandPart.create("addAll"), targets).execute((p) -> {
@@ -52,7 +51,6 @@ public class ModCommand{
                 })
         );
 
-        dispatcher.register(lexicon.permission((p) -> p.hasPermission(2)).build());
         dispatcher.register(builder.permission((p) -> p.hasPermission(2)).build());
     }
 
@@ -64,8 +62,7 @@ public class ModCommand{
                 command.sendSuccess(() -> Component.translatable("commands.valoria.page.give.multiple", targetPlayers.size()), true);
             }
 
-            player.getCapability(IUnlockable.INSTANCE, null).ifPresent(IUnlockable::addAllUnlockable);
-            PacketHandler.sendTo(player, new UnlockableUpdatePacket(player));
+            UnlockUtils.addAll(player);
             PacketHandler.sendTo(player, new PageToastPacket(player, true));
         }
     }
@@ -78,8 +75,7 @@ public class ModCommand{
                 command.sendSuccess(() -> Component.translatable("commands.valoria.page.remove.multiple", targetPlayers.size()), true);
             }
 
-            player.getCapability(IUnlockable.INSTANCE, null).ifPresent(IUnlockable::removeAllUnlockable);
-            PacketHandler.sendTo(player, new UnlockableUpdatePacket(player));
+            UnlockUtils.removeAll(player);
             PacketHandler.sendTo(player, new PageToastPacket(player, false));
         }
     }
@@ -92,7 +88,7 @@ public class ModCommand{
                 command.sendSuccess(() -> Component.translatable("commands.valoria.page.give.multiple", targetPlayers.size()), true);
             }
 
-            player.getCapability(IUnlockable.INSTANCE, null).ifPresent((k) -> k.addUnlockable(pages));
+            UnlockUtils.add(player, pages);
             PacketHandler.sendTo(player, new UnlockableUpdatePacket(player));
             PacketHandler.sendTo(player, new PageToastPacket(player, true));
         }
@@ -106,7 +102,7 @@ public class ModCommand{
                 command.sendSuccess(() -> Component.translatable("commands.valoria.page.remove.multiple", targetPlayers.size()), true);
             }
 
-            player.getCapability(IUnlockable.INSTANCE, null).ifPresent((k) -> k.removeUnlockable(pages));
+            UnlockUtils.remove(player, pages);
             PacketHandler.sendTo(player, new UnlockableUpdatePacket(player));
             PacketHandler.sendTo(player, new PageToastPacket(player, false));
         }

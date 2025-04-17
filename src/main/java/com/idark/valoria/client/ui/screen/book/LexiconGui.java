@@ -154,7 +154,7 @@ public class LexiconGui extends Screen{
             } else {
                 if(isHovered){
                     mc.player.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundSource.NEUTRAL, 1.0f, 1.0f);
-                    Codex.open();
+                    onClose();
                 }
             }
         }

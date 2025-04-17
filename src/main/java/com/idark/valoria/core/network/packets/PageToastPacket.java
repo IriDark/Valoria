@@ -1,18 +1,17 @@
 package com.idark.valoria.core.network.packets;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.client.ui.toast.PageToast;
-import net.minecraft.client.Minecraft;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.network.NetworkDirection;
-import net.minecraftforge.network.NetworkEvent;
+import com.idark.valoria.*;
+import com.idark.valoria.client.ui.toast.*;
+import net.minecraft.client.*;
+import net.minecraft.network.*;
+import net.minecraft.sounds.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.level.*;
+import net.minecraftforge.api.distmarker.*;
+import net.minecraftforge.network.*;
 
-import java.util.UUID;
-import java.util.function.Supplier;
+import java.util.*;
+import java.util.function.*;
 
 public class PageToastPacket{
     private final UUID uuid;
@@ -44,6 +43,11 @@ public class PageToastPacket{
             Level world = Valoria.proxy.getLevel();
             Player player = world.getPlayerByUUID(packet.uuid);
             if(player != null){
+                if(packet.unlock){
+                    player.playSound(SoundEvents.ENCHANTMENT_TABLE_USE, 0.5f, 1);
+                    player.playSound(SoundEvents.BOOK_PAGE_TURN, 1f, 1);
+                }
+
                 toast(packet);
             }
         });

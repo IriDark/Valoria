@@ -1022,7 +1022,7 @@
   "tooltip.valoria.magma_charge_full": "Fully charged",
   "tooltip.valoria.magma_charge_half": "Half charged",
   "tooltip.valoria.necromancy": "Used to summon minions with a limited lifetime, specified in seconds",
-  "tooltip.valoria.page": "Unlock-able Page: ",
+  "tooltip.valoria.page": "Unlocked Page: ",
   "tooltip.valoria.pick_necklace": "Speeds up the excavation process slightly",
   "tooltip.valoria.pyro": "Grants fire immunity for a while",
   "tooltip.valoria.recharge": "Not enough resources to recharge.",
@@ -1064,5 +1064,8 @@
   "valoria.jade.openable_with": "Openable with:",
   "valoria.jade.progress": "Progress:",
   "tooltip.valoria.used_on": "Used on - %s",
-  "tooltip.valoria.boss_summon_fail": "Not enough space, needed area %s"
+  "tooltip.valoria.boss_summon_fail": "Not enough space, needed area %s",
+  "lexicon.valoria.crypt.hint": "Can be found in Crypts",
+  "tooltip.valoria.random_page": "Random Page",
+  "codex.valoria.rewards": "Rewards"
 }

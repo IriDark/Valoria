@@ -18,14 +18,14 @@ public class LexiconItem extends Item{
         ItemStack stack = player.getItemInHand(hand);
         player.awardStat(Stats.ITEM_USED.get(this));
         if(world.isClientSide){
-            openGui();
+            openGui(player);
         }
 
         return new InteractionResultHolder<>(InteractionResult.SUCCESS, stack);
     }
 
     @OnlyIn(Dist.CLIENT)
-    public void openGui(){
-        Codex.getInstance().open();
+    public void openGui(Player player){
+        Codex.getInstance().open(player);
     }
 }

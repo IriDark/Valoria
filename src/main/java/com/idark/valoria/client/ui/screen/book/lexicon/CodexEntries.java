@@ -1,11 +1,18 @@
 package com.idark.valoria.client.ui.screen.book.lexicon;
 
+import com.idark.valoria.api.events.*;
+import com.idark.valoria.api.events.CodexEvent.*;
 import com.idark.valoria.client.ui.screen.book.*;
 import com.idark.valoria.client.ui.screen.book.pages.*;
+import com.idark.valoria.client.ui.screen.book.unlockable.*;
 import com.idark.valoria.registries.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.util.*;
 import net.minecraft.world.item.*;
+import net.minecraftforge.common.*;
+import pro.komaru.tridot.api.render.text.*;
+import pro.komaru.tridot.client.gfx.text.*;
+import pro.komaru.tridot.util.*;
 import pro.komaru.tridot.util.struct.data.*;
 
 import java.util.*;
@@ -39,14 +46,21 @@ public class CodexEntries{
 
     public static void init(){
         CodexEntries.entries.clear();
-        ChapterNode root = new ChapterNode(MAIN_CHAPTER, ItemsRegistry.lexicon.get())
+        ChapterNode root = new ChapterNode(MAIN_CHAPTER, ItemsRegistry.lexicon.get(), Style.GOLD)
             .addChild(TREASURES_CHAPTER, ItemsRegistry.amethystGem)
             .addChild(MEDICINE_CHAPTER, ItemsRegistry.aloeBandage)
-            .addChild(CRYPT_CHAPTER, ItemsRegistry.cryptPage)
+            .addChild(new ChapterNode(CRYPT_CHAPTER, ItemsRegistry.cryptPage.get(), Style.CRYPT, RegisterUnlockables.CRYPT)
+            .addHintsDescription(
+                Component.translatable("lexicon.valoria.crypt.hint").withStyle(DotStyle.of().color(Col.gray).effect(DotText.pulse(1f)))
+            ))
 
+            .addChild(new ChapterNode(CRYPT_CHAPTER, Items.BUNDLE, Style.DIAMOND, RegisterUnlockables.TEST))
         ;
+
         int offset = 0;
-        layoutTree(root, 0, -measureWidth(root)/4 + 27 + ((root.children.size % 2 == 1) ? -6 : 0) + offset);
+        if(!onInit(root)){
+            layoutTree(root, 0, -measureWidth(root) / 4 + 27 + ((root.children.size % 2 == 1) ? -6 : 0) + offset);
+        }
     }
 
     static int spacingX = 35;
@@ -54,9 +68,7 @@ public class CodexEntries{
 
     private static int measureWidth(ChapterNode node){
         if(node.children.isEmpty()) return spacingX;
-
         int width = 0;
-
         for(ChapterNode child : node.children){
             width += measureWidth(child);
         }
@@ -68,7 +80,13 @@ public class CodexEntries{
         int y = depth * -spacingY;
 
         if(node.children.isEmpty()){
-            entries.add(new CodexEntry(x, y, node.item, Component.translatable(node.chapter.titleKey), node.chapter, node, node.unlockable));
+            CodexEntry entry = addEntry(node, x, y);
+            if(!onEntryAdded(entry)){
+                entries.add(entry);
+            } else {
+                entry.hide();
+            }
+
             return spacingX;
         }
 
@@ -103,7 +121,26 @@ public class CodexEntries{
         centerX = Mth.clamp(centerX, -512, 512);
 
         int we = depth < 0 ? totalWidth2 : totalWidth;
-        entries.add(new CodexEntry(centerX, y, node.item, Component.translatable(node.chapter.titleKey), node.chapter, node, node.unlockable));
+
+        CodexEntry entry = addEntry(node, centerX, y);
+        if(!onEntryAdded(entry)){
+            entries.add(entry);
+        } else {
+            entry.hide();
+        }
+
         return we;
+    }
+
+    private static boolean onInit(ChapterNode root) {
+        return MinecraftForge.EVENT_BUS.post(new CodexEvent.OnInit(root));
+    }
+
+    private static boolean onEntryAdded(CodexEntry entry) {
+        return MinecraftForge.EVENT_BUS.post(new EntryAdded(entry));
+    }
+
+    private static CodexEntry addEntry(ChapterNode node, int x, int y) {
+        return new CodexEntry(node, x, y);
     }
 }

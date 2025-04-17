@@ -1,17 +1,16 @@
 package com.idark.valoria.core.network.packets;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.core.capability.IUnlockable;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
-import net.minecraftforge.common.util.INBTSerializable;
-import net.minecraftforge.network.NetworkDirection;
-import net.minecraftforge.network.NetworkEvent;
+import com.idark.valoria.*;
+import com.idark.valoria.core.capability.*;
+import net.minecraft.nbt.*;
+import net.minecraft.network.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.level.*;
+import net.minecraftforge.common.util.*;
+import net.minecraftforge.network.*;
 
-import java.util.UUID;
-import java.util.function.Supplier;
+import java.util.*;
+import java.util.function.*;
 
 public class UnlockableUpdatePacket{
     UUID uuid;
@@ -44,6 +43,7 @@ public class UnlockableUpdatePacket{
         ctx.get().enqueueWork(() -> {
             assert ctx.get().getDirection() == NetworkDirection.PLAY_TO_CLIENT;
 
+            Valoria.LOGGER.info("AAA");
             Level world = Valoria.proxy.getLevel();
             Player player = world.getPlayerByUUID(packet.uuid);
             if(player != null){
