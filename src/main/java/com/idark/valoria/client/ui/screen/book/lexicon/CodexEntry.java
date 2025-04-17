@@ -136,7 +136,7 @@ public class CodexEntry{
             if(loot || items){
                 pose.pushPose();
                 pose.translate(0, 0, 300);
-                int itemX = x + 16;
+                int itemX = x + 18;
                 int itemY = y + (lines.size() * 10) - 10;
                 if(loot){
                     gui.renderItem(new ItemStack(Items.BUNDLE), itemX, itemY);
@@ -144,11 +144,13 @@ public class CodexEntry{
                 }
 
                 if(items){
+                    lines.add(Component.empty());
+                    lines.add(Component.empty());
                     for(ItemStack stack : node.unlockable.getItems()){
                         gui.renderItem(stack, itemX, itemY);
                         gui.renderItemDecorations(Minecraft.getInstance().font, stack, itemX, itemY);
-                        lines.add(Component.empty());
                         itemX += 18;
+
                     }
                 }
 

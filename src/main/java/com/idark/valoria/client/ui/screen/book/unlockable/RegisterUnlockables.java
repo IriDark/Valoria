@@ -8,11 +8,18 @@ import static com.idark.valoria.Valoria.loc;
 
 public class RegisterUnlockables{
 
-    public static Unlockable CRYPT = new Unlockable(Valoria.ID + ":crypt");
-    public static Unlockable TEST = new Unlockable(Valoria.ID + ":reward_test").addAward(new ItemStack(Items.DIAMOND, 10), new ItemStack(Items.NETHERITE_INGOT, 2)).addAward(loc("loot_tables/items/crusher"));
+    public static Unlockable
+    crypt, test;
 
-    public static void init(){
-        Unlockables.register(CRYPT);
-        Unlockables.register(TEST);
+    public static void init() {
+        crypt = register(new Unlockable(Valoria.ID + ":crypt"));
+        test = register(new Unlockable(Valoria.ID + ":reward_test")
+                .addAward(new ItemStack(Items.DIAMOND, 10), new ItemStack(Items.NETHERITE_INGOT, 2))
+                .addAward(loc("loot_tables/items/crusher")));
+    }
+
+    public static Unlockable register(Unlockable unlockable){
+        Unlockables.register(unlockable);
+        return unlockable;
     }
 }

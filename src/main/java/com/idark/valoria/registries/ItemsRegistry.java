@@ -329,7 +329,7 @@ public class ItemsRegistry{
         soulCollector = registerItem("soul_collector", () -> new SoulCollectorItem(50, 50, new Item.Properties().rarity(RarityRegistry.PHANTASM)));
         lexicon = registerItem("lexicon", () -> new LexiconItem(new Item.Properties().stacksTo(1)));
         page = registerItem("page", () -> new LexiconPageItem(new Item.Properties().stacksTo(1)));
-        cryptPage = registerItem("crypt_page", () -> new LexiconPageItem(new Item.Properties().stacksTo(1), RegisterUnlockables.CRYPT, "lexicon.valoria.crypt.name"));
+        cryptPage = registerItem("crypt_page", () -> new LexiconPageItem(new Item.Properties().stacksTo(1), RegisterUnlockables.crypt, "lexicon.valoria.crypt.name"));
         voidKey = registerItem("void_key", () -> new Item(new Item.Properties().stacksTo(16).rarity(RarityRegistry.VOID)));
         pick = registerItem("prospectors_pick", () -> new PickItem(new Item.Properties().fireResistant().stacksTo(1).durability(64), 1, -2.8f, 5));
 

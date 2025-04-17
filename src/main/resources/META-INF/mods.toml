@@ -1,6 +1,6 @@
 modLoader = "javafml"
 loaderVersion = "[36,)"
-license = "Code: Public Domain | Assets: Attribution-NonCommercial 4.0 International"
+license = "Code: GPL-3.0 License | Assets: Attribution-NonCommercial 4.0 International"
 issueTrackerURL = "https://github.com/IriDark/Valoria/issues"
 [[mods]]
 modId = "valoria"

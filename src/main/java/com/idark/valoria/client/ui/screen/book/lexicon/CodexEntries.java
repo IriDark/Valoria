@@ -49,12 +49,12 @@ public class CodexEntries{
         ChapterNode root = new ChapterNode(MAIN_CHAPTER, ItemsRegistry.lexicon.get(), Style.GOLD)
             .addChild(TREASURES_CHAPTER, ItemsRegistry.amethystGem)
             .addChild(MEDICINE_CHAPTER, ItemsRegistry.aloeBandage)
-            .addChild(new ChapterNode(CRYPT_CHAPTER, ItemsRegistry.cryptPage.get(), Style.CRYPT, RegisterUnlockables.CRYPT)
+            .addChild(new ChapterNode(CRYPT_CHAPTER, ItemsRegistry.cryptPage.get(), Style.CRYPT, RegisterUnlockables.crypt)
             .addHintsDescription(
                 Component.translatable("lexicon.valoria.crypt.hint").withStyle(DotStyle.of().color(Col.gray).effect(DotText.pulse(1f)))
             ))
 
-            .addChild(new ChapterNode(CRYPT_CHAPTER, Items.BUNDLE, Style.DIAMOND, RegisterUnlockables.TEST))
+            .addChild(new ChapterNode(CRYPT_CHAPTER, Items.BUNDLE, Style.DIAMOND, RegisterUnlockables.test))
         ;
 
         int offset = 0;
