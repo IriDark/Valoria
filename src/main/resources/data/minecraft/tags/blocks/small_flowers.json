@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "valoria:blighted_grass",
     "valoria:aloe_small",
     "valoria:dried_plant",
     "valoria:dried_roots",

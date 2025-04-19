@@ -11,12 +11,12 @@ import net.minecraft.resources.*;
 import net.minecraft.util.*;
 import net.minecraft.world.item.*;
 
-public class KunaiRenderer<T extends KunaiProjectile> extends EntityRenderer<T>{
-    public KunaiRenderer(EntityRendererProvider.Context context){
+public class ShurikenRenderer<T extends ShurikenProjectile> extends EntityRenderer<T>{
+    public ShurikenRenderer(EntityRendererProvider.Context context){
         super(context);
     }
 
-    public void render(KunaiProjectile entityIn, float entityYaw, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light){
+    public void render(ShurikenProjectile entityIn, float entityYaw, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light){
         if(!Minecraft.getInstance().isPaused() && !(entityIn.inGround || entityIn.onGround())){
             entityIn.rotationVelocity = Mth.lerp(partialTicks, entityIn.rotationVelocity, entityIn.rotationVelocity + 10);
         }
@@ -29,7 +29,7 @@ public class KunaiRenderer<T extends KunaiProjectile> extends EntityRenderer<T>{
         ms.popPose();
     }
 
-    public ResourceLocation getTextureLocation(KunaiProjectile entity){
+    public ResourceLocation getTextureLocation(ShurikenProjectile entity){
         return null;
     }
 }

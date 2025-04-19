@@ -47,11 +47,12 @@ public class EntityTypeRegistry{
     public static final RegistryObject<EntityType<MeatBlockEntity>> MEAT = register("meat", EntityType.Builder.<MeatBlockEntity>of(MeatBlockEntity::new, MobCategory.MISC).sized(1, 1f).clientTrackingRange(4).updateInterval(20));
     public static final RegistryObject<EntityType<SpectralBladeEntity>> SPECTRAL_BLADE = register("spectral_blade", EntityType.Builder.<SpectralBladeEntity>of(SpectralBladeEntity::new, MobCategory.MISC).sized(0.35f, 0.35f).clientTrackingRange(4).updateInterval(20));
     public static final RegistryObject<EntityType<ThrownSpearEntity>> SPEAR = register("spear", EntityType.Builder.<ThrownSpearEntity>of(ThrownSpearEntity::new, MobCategory.MISC).sized(0.5f, 0.35f).clientTrackingRange(4).updateInterval(20));
-    public static final RegistryObject<EntityType<KunaiEntity>> KUNAI = register("kunai", EntityType.Builder.<KunaiEntity>of(KunaiEntity::new, MobCategory.MISC).sized(0.35f, 0.35f).clientTrackingRange(4).updateInterval(20));
+    public static final RegistryObject<EntityType<KunaiProjectile>> KUNAI = register("kunai", EntityType.Builder.<KunaiProjectile>of(KunaiProjectile::new, MobCategory.MISC).sized(0.35f, 0.35f).clientTrackingRange(4).updateInterval(20));
     public static final RegistryObject<EntityType<SpellProjectile>> SPELL = register("spell", EntityType.Builder.<SpellProjectile>of(SpellProjectile::new, MobCategory.MISC).sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20));
     public static final RegistryObject<EntityType<CrystalShard>> CRYSTAL_SHARD = register("crystal_shard", EntityType.Builder.<CrystalShard>of(CrystalShard::new, MobCategory.MISC).sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20));
     public static final RegistryObject<EntityType<PyratiteShard>> PYRATITE_SHARD = register("pyratitel_shard", EntityType.Builder.<PyratiteShard>of(PyratiteShard::new, MobCategory.MISC).sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20));
     public static final RegistryObject<EntityType<AcornProjectile>> ACORN = register("acorn", EntityType.Builder.<AcornProjectile>of(AcornProjectile::new, MobCategory.MISC).sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20));
+    public static final RegistryObject<EntityType<ShurikenProjectile>> SHURIKEN = register("shuriken", EntityType.Builder.<ShurikenProjectile>of(ShurikenProjectile::new, MobCategory.MISC).sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20));
 
     public static final RegistryObject<EntityType<LaserEntity>> LASER = register("laser", EntityType.Builder.<LaserEntity>of(LaserEntity::new, MobCategory.MISC).sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20));
 

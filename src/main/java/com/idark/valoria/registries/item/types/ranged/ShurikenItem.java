@@ -25,13 +25,13 @@ import java.util.*;
 
 import static pro.komaru.tridot.TridotLib.BASE_PROJECTILE_DAMAGE_UUID;
 
-public class KunaiItem extends Item{
+public class ShurikenItem extends Item{
     private final Multimap<Attribute, AttributeModifier> tridentAttributes;
     public final ImmutableList<MobEffectInstance> effects;
     public float chance = 1;
     public ArcRandom arc = Tmp.rnd;
 
-    public KunaiItem(int damage, Item.Properties builderIn, float chance, MobEffectInstance... pEffects){
+    public ShurikenItem(int damage, Properties builderIn, float chance, MobEffectInstance... pEffects){
         super(builderIn);
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
         builder.put(AttributeRegistry.PROJECTILE_DAMAGE.get(), new AttributeModifier(BASE_PROJECTILE_DAMAGE_UUID, "Tool modifier", damage, AttributeModifier.Operation.ADDITION));
@@ -40,7 +40,7 @@ public class KunaiItem extends Item{
         this.effects = ImmutableList.copyOf(pEffects);
     }
 
-    public KunaiItem(int damage, Item.Properties builderIn, MobEffectInstance... pEffects){
+    public ShurikenItem(int damage, Properties builderIn, MobEffectInstance... pEffects){
         super(builderIn);
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
         builder.put(AttributeRegistry.PROJECTILE_DAMAGE.get(), new AttributeModifier(BASE_PROJECTILE_DAMAGE_UUID, "Tool modifier", damage, AttributeModifier.Operation.ADDITION));
@@ -63,11 +63,11 @@ public class KunaiItem extends Item{
     public void releaseUsing(ItemStack stack, Level worldIn, LivingEntity entityLiving, int timeLeft){
         if(entityLiving instanceof Player playerEntity){
             int i = this.getUseDuration(stack) - timeLeft;
-            if(i >= 6){
+            if(i >= 4){
                 if(!worldIn.isClientSide){
-                    KunaiProjectile kunaiProjectile = shootProjectile(stack, worldIn, playerEntity);
-                    worldIn.addFreshEntity(kunaiProjectile);
-                    worldIn.playSound(playerEntity, kunaiProjectile, SoundEvents.TRIDENT_THROW, SoundSource.PLAYERS, 1.0F, 1.0F);
+                    ShurikenProjectile shuriken = shootProjectile(stack, worldIn, playerEntity);
+                    worldIn.addFreshEntity(shuriken);
+                    worldIn.playSound(playerEntity, shuriken, SoundEvents.TRIDENT_THROW, SoundSource.PLAYERS, 1.0F, 1.0F);
                     if(!playerEntity.getAbilities().instabuild){
                         stack.shrink(1);
                     }
@@ -78,16 +78,16 @@ public class KunaiItem extends Item{
         }
     }
 
-    private @NotNull KunaiProjectile shootProjectile(ItemStack stack, Level worldIn, Player playerEntity){
-        KunaiProjectile kunaiProjectile = new KunaiProjectile(playerEntity, worldIn, stack);
-        kunaiProjectile.setItem(stack);
-        kunaiProjectile.setEffectsFromList(effects);
-        kunaiProjectile.shootFromRotation(playerEntity, playerEntity.getXRot(), playerEntity.getYRot(), 0.0F, 2.5F + (float)0 * 0.5F, 1.0F);
+    private @NotNull ShurikenProjectile shootProjectile(ItemStack stack, Level worldIn, Player playerEntity){
+        ShurikenProjectile shuriken = new ShurikenProjectile(playerEntity, worldIn, stack);
+        shuriken.setItem(stack);
+        shuriken.setEffectsFromList(effects);
+        shuriken.shootFromRotation(playerEntity, playerEntity.getXRot(), playerEntity.getYRot(), 0.0F, 2.5F + (float)0 * 0.5F, 3.0F);
         if(playerEntity.getAbilities().instabuild){
-            kunaiProjectile.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
+            shuriken.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
         }
 
-        return kunaiProjectile;
+        return shuriken;
     }
 
     public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn){

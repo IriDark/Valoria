@@ -299,7 +299,7 @@ public class BlockRegistry{
         voidChiseledBricksStairs = registerBlock("void_chiseled_bricks_stairs", () -> new StairBlock(() -> BlockRegistry.voidChiseledBricks.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).strength(3f, 6f).requiresCorrectToolForDrops()));
         voidChiseledBricksSlab = registerBlock("void_chiseled_bricks_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(3f, 6f).sound(SoundType.NETHER_BRICKS)));
 
-        voidSand = registerBlock("void_sand", () -> new SandBlock(Col.hexToDecimal("3d313b"), BlockBehaviour.Properties.of().mapColor(MapColor.SAND).instrument(NoteBlockInstrument.SNARE).strength(1).sound(SoundType.SAND)));
+        voidSand = registerBlock("void_sand", () -> new VoidSandBlock(Col.hexToDecimal("3d313b"), BlockBehaviour.Properties.copy(Blocks.SAND).mapColor(MapColor.SAND).strength(1.25f).sound(SoundType.SAND)));
         voidSandstone = registerBlock("void_sandstone", () -> new Block(BlockBehaviour.Properties.of().instrument(NoteBlockInstrument.BASEDRUM).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(2.0F)));
         voidSandstoneStairs = registerBlock("void_sandstone_stairs", () -> new StairBlock(() -> BlockRegistry.voidSandstone.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).strength(2.0F, 6f).requiresCorrectToolForDrops()));
         voidSandstoneSlab = registerBlock("void_sandstone_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(BlockRegistry.voidSandstone.get()).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(2.0F, 6f)));

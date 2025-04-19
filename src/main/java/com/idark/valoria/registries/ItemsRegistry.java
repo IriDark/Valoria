@@ -102,7 +102,7 @@ public class ItemsRegistry{
     debugItem, summonBook, crystalSummonBook, soulCollectorEmpty, soulCollector, lexicon, page, cryptPage, voidKey, spectralBladeThrown, pick,
 
     // weapons
-    club, bronzeSword, spectralBlade, corpseCleaver,
+    club, bronzeSword, spectralBlade, corpseCleaver, boneShuriken,
     samuraiKunai, samuraiPoisonedKunai, samuraiKatana, samuraiLongBow,
     silkenBlade, silkenKunai, silkenWakizashi, meatCutter, quantumReaper, bloodHound,
     blazeReap, gunpowderCharge, pyratiteCharge,
@@ -424,9 +424,10 @@ public class ItemsRegistry{
         crimtaneHoe = registerItem("crimtane_hoe", () -> new HoeItem(ModItemTier.BLOOD, (int)(ToolStats.hoe.damage), ToolStats.hoe.speed, new Item.Properties().rarity(RarityRegistry.BLOODY)));
         meatCutter = registerItem("meatcutter", () -> new Builder(ToolStats.katana.damage, ToolStats.katana.speed, new Properties().rarity(RarityRegistry.BLOODY)).setDashDistance(1f).setEffects(0.25f, new MobEffectInstance(EffectsRegistry.BLEEDING.get(), 120, 0)).build());
         corpseCleaver = registerItem("corpsecleaver", () -> new CorpseCleaverItem(ModItemTier.BLOOD, 2, -2.4F, new Item.Properties().durability(1151).rarity(RarityRegistry.BLOODY)));
+        boneShuriken = registerItem("bone_shuriken", () -> new ShurikenItem(8, new Item.Properties().rarity(RarityRegistry.BLOODY)));
 
         jadeSword = registerItem("jade_sword", () -> new ValoriaSword(ModItemTier.JADE, ToolStats.large_sword.damage, ToolStats.large_sword.speed, new Item.Properties()));
-        jadeKatana = registerItem("jade_katana", () -> new KatanaItem.Builder(ToolStats.katana.damage, ToolStats.katana.speed, new Item.Properties()).setDashDistance(1.25f).build());
+        jadeKatana = registerItem("jade_katana", () -> new KatanaItem.Builder(ToolStats.katana.damage, ToolStats.katana.speed, new Item.Properties()).setTier(ModItemTier.JADE).setDashDistance(1.25f).build());
         jadeScythe = registerItem("jade_scythe", () -> new ScytheItem(ModItemTier.JADE, ToolStats.scythe.damage, ToolStats.scythe.speed, new Item.Properties()));
         jadeSpear = registerItem("jade_spear", () -> new SpearItem(ModItemTier.JADE, ToolStats.spear.damage, ToolStats.spear.speed, new Item.Properties()));
         jadePickaxe = registerItem("jade_pickaxe", () -> new ValoriaPickaxe(ModItemTier.JADE, ToolStats.pickaxe.damage, ToolStats.pickaxe.speed, new Item.Properties()));

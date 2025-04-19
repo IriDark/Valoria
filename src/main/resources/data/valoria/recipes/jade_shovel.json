@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " X ",
+    " / ",
+    " / "
+  ],
+  "key": {
+    "X": {
+      "item": "valoria:jade"
+    },
+    "/": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "valoria:jade_shovel",
+    "count": 1
+  }
+}

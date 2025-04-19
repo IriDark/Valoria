@@ -119,6 +119,7 @@ public class ValoriaClient{
             EntityRenderers.register(EntityTypeRegistry.ELDRITCH_BOAT.get(), m -> new CustomBoatRenderer(m, Valoria.ID, "eldritch", false, false));
             EntityRenderers.register(EntityTypeRegistry.ELDRITCH_CHEST_BOAT.get(), m -> new CustomBoatRenderer(m, Valoria.ID, "eldritch", true, false));
 
+            EntityRenderers.register(EntityTypeRegistry.SHURIKEN.get(), ShurikenRenderer::new);
             EntityRenderers.register(EntityTypeRegistry.HAUNTED_MERCHANT.get(), HauntedMerchantRenderer::new);
             EntityRenderers.register(EntityTypeRegistry.NECROMANCER.get(), NecromancerRenderer::new);
             EntityRenderers.register(EntityTypeRegistry.DRAUGR.get(), DraugrRenderer::new);
