@@ -72,19 +72,20 @@ public class Codex extends DotScreen{
     public void render(GuiGraphics gui, int mouseX, int mouseY, float partialTicks){
         super.render(gui, mouseX, mouseY, partialTicks);
         float t = time();
-        Interp interp = Interp.fade;
+        Interp interp = Interp.pow2Out;
         float progress = interp.apply(Mathf.clamp(t/animTime));
 
         color(Mathf.clamp(progress/0.9f));
         renderBackground(gui);
         color(progress);
 
-        float yOffset;
-        yOffset = 0;
-
         push();
-        move(0,yOffset);
-        scale(0.9f+progress*0.1f,0.9f+progress*0.1f,cx(),cy());
+
+        float y = Mth.lerp(progress, height, 0);
+        move(0, y);
+        float scaleProgress = Mth.clamp(progress, 0, 1);
+        float s = Mth.lerp(scaleProgress, 0, 1.0f);
+        scale(s, s, cx(), cy());
         render(gui, mouseX, mouseY);
 
         //drawDebug(mouseX, mouseY);
@@ -190,7 +191,7 @@ public class Codex extends DotScreen{
     }
 
     public void renderEntries(GuiGraphics gui, float uOffset, float vOffset, float mouseX, float mouseY) {
-        scissorsOn(insideLeft(), insideTop(), insideWidth, insideHeight);
+        scissorsOn((int)cx(), (int)cy(), insideWidth, insideHeight);
         for (CodexEntry entry : CodexEntries.entries){
             if(entry.isHidden()) return;
             entry.node.children.each(c -> {
