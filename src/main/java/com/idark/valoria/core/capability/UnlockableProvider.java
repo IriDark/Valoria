@@ -1,6 +1,7 @@
 package com.idark.valoria.core.capability;
 
 import com.idark.valoria.api.unlockable.*;
+import com.idark.valoria.api.unlockable.types.*;
 import net.minecraft.nbt.*;
 import net.minecraftforge.common.util.*;
 
@@ -43,7 +44,7 @@ public class UnlockableProvider implements IUnlockable, INBTSerializable<Compoun
     @Override
     public void addAllUnlockable(){
         unlockables.clear();
-        unlockables.addAll(Unlockables.getUnlockables());
+        unlockables.addAll(Unlockables.get());
     }
 
     @Override

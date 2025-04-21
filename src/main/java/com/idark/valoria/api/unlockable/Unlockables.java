@@ -1,8 +1,8 @@
 package com.idark.valoria.api.unlockable;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import com.idark.valoria.api.unlockable.types.*;
+
+import java.util.*;
 
 public class Unlockables{
     public static Map<String, Unlockable> unlockableMap = new HashMap<String, Unlockable>();
@@ -30,7 +30,7 @@ public class Unlockables{
         return unlockableMap.size();
     }
 
-    public static ArrayList<Unlockable> getUnlockables(){
+    public static ArrayList<Unlockable> get(){
         return unlockable;
     }
 }

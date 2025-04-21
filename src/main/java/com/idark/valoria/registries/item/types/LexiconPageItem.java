@@ -2,6 +2,7 @@ package com.idark.valoria.registries.item.types;
 
 import com.idark.valoria.api.events.CodexEvent.*;
 import com.idark.valoria.api.unlockable.*;
+import com.idark.valoria.api.unlockable.types.*;
 import net.minecraft.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.server.level.*;

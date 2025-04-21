@@ -3,8 +3,6 @@ package com.idark.valoria.registries.item.types.ranged;
 import com.google.common.collect.*;
 import com.idark.valoria.core.enums.*;
 import com.idark.valoria.registries.entity.projectile.*;
-import net.minecraft.*;
-import net.minecraft.network.chat.*;
 import net.minecraft.sounds.*;
 import net.minecraft.stats.*;
 import net.minecraft.world.*;
@@ -15,8 +13,6 @@ import net.minecraft.world.entity.projectile.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import pro.komaru.tridot.common.registry.item.*;
-
-import java.util.*;
 
 import static pro.komaru.tridot.TridotLib.BASE_PROJECTILE_DAMAGE_UUID;
 
@@ -79,11 +75,5 @@ public class SpectralBladeItem extends SwordItem{
 
     public int getEnchantmentValue(){
         return 1;
-    }
-
-    @Override
-    public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags){
-        super.appendHoverText(stack, world, tooltip, flags);
-        tooltip.add(Component.translatable("tooltip.valoria.kunai").withStyle(ChatFormatting.GRAY));
     }
 }

@@ -1,9 +1,11 @@
-package com.idark.valoria.api.unlockable;
+package com.idark.valoria.api.unlockable.types;
 
+import com.idark.valoria.api.unlockable.*;
 import net.minecraft.resources.*;
 import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
 import net.minecraft.world.entity.item.*;
+import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.storage.loot.*;
 import net.minecraft.world.level.storage.loot.parameters.*;
@@ -18,8 +20,21 @@ public class Unlockable{
         this.id = id;
     }
 
+    public boolean canObtain(Player player) {
+        return false;
+    }
+
     public boolean hasAwards() {
         return items != null || loot != null || experience > 0;
+    }
+
+    public boolean tick(ServerPlayer player) {
+        if (canObtain(player)) {
+            UnlockUtils.add(player, this);
+            return true;
+        }
+
+        return false;
     }
 
     public Unlockable addAward(ItemStack... items) {

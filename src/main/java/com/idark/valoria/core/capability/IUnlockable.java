@@ -1,6 +1,6 @@
 package com.idark.valoria.core.capability;
 
-import com.idark.valoria.api.unlockable.*;
+import com.idark.valoria.api.unlockable.types.*;
 import net.minecraftforge.common.capabilities.*;
 
 import java.util.*;

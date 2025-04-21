@@ -80,7 +80,7 @@ public class CodexEntry{
         int y = (codex.backgroundHeight - codex.insideHeight) / 2 - (this.y - codex.guiTop()) - vOffset;
         if(codex.isOnScreen(mouseX, mouseY)){
             if(isHover(mouseX, mouseY, x - 6, y)){
-                if(isUnlocked()){
+                if(isUnlocked() && !this.getChapter().pages.isEmpty()){
                     var unlockable = node.unlockable;
                     if(unlockable != null && unlockable.hasAwards() && !UnlockUtils.isClaimed(codex.player, unlockable) && !Codex.onClaim(this, unlockable)){
                         PacketHandler.sendToServer(new UnlockCodexPacket(unlockable.getId()));

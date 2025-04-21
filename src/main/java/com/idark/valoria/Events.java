@@ -1,5 +1,8 @@
 package com.idark.valoria;
 
+import com.idark.valoria.api.unlockable.*;
+import com.idark.valoria.api.unlockable.types.*;
+import com.idark.valoria.client.ui.screen.book.lexicon.*;
 import com.idark.valoria.core.capability.*;
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.*;
@@ -37,9 +40,32 @@ import pro.komaru.tridot.util.*;
 import pro.komaru.tridot.util.math.*;
 import top.theillusivec4.curios.api.*;
 
+import java.util.*;
+
 @SuppressWarnings("removal")
 public class Events{
     public ArcRandom arcRandom = Tmp.rnd;
+
+    @SubscribeEvent
+    public void playerTick(AddReloadListenerEvent event) {
+        Valoria.LOGGER.info("Reloading Codex Chapters...");
+        CodexEntries.initChapters();
+    }
+
+    @SubscribeEvent
+    public void playerTick(TickEvent.PlayerTickEvent event) {
+        Player player = event.player;
+        if (!player.level().isClientSide() && player instanceof ServerPlayer serverPlayer) {
+            if (player.tickCount % 60 == 0) {
+                ArrayList<Unlockable> all = new ArrayList<>(Unlockables.get());
+                Set<Unlockable> unlocked = UnlockUtils.getUnlocked(serverPlayer);
+                if (unlocked != null) all.removeAll(unlocked);
+                for (Unlockable unknown : all) {
+                    unknown.tick(serverPlayer);
+                }
+            }
+        }
+    }
 
     @SubscribeEvent
     public void onFluid(BlockEvent.FluidPlaceBlockEvent e) {

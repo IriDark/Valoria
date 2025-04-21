@@ -17,7 +17,7 @@ public class Styles{
     }
 
     public static DotStyle marsh = create(Pal.marsh);
-    public static DotStyle bloody = create(Pal.lightCarminePink).effects(DotText.shake(0.245f));
+    public static DotStyle bloody = create(Pal.lightCarminePink).effects(DotText.shake(0.1f));
     public static DotStyle infernal = create(Pal.infernal);
     public static DotStyle aquarius = create(Pal.oceanic);
     public static DotStyle nature = create(Pal.nature);

@@ -1,6 +1,7 @@
 package com.idark.valoria.core.command;
 
 import com.idark.valoria.api.unlockable.*;
+import com.idark.valoria.api.unlockable.types.*;
 import com.idark.valoria.core.command.parts.*;
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.*;

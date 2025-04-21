@@ -1,6 +1,7 @@
 package com.idark.valoria.core.network.packets;
 
 import com.idark.valoria.api.unlockable.*;
+import com.idark.valoria.api.unlockable.types.*;
 import com.idark.valoria.core.network.*;
 import net.minecraft.network.*;
 import net.minecraft.server.level.*;

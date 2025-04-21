@@ -2,7 +2,7 @@ package com.idark.valoria.client.ui.screen.book.lexicon;
 
 import com.idark.valoria.*;
 import com.idark.valoria.api.events.CodexEvent.*;
-import com.idark.valoria.api.unlockable.*;
+import com.idark.valoria.api.unlockable.types.*;
 import com.idark.valoria.client.ui.screen.book.*;
 import com.mojang.blaze3d.systems.*;
 import net.minecraft.client.*;

@@ -1,6 +1,6 @@
 package com.idark.valoria.api.events;
 
-import com.idark.valoria.api.unlockable.*;
+import com.idark.valoria.api.unlockable.types.*;
 import com.idark.valoria.client.ui.screen.book.lexicon.*;
 import net.minecraftforge.eventbus.api.*;
 

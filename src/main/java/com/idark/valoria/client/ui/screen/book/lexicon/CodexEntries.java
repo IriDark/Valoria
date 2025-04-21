@@ -19,7 +19,7 @@ import java.util.*;
 
 public class CodexEntries{
     public static Seq<CodexEntry> entries = new Seq<>();
-    public static Chapter MAIN_CHAPTER, TREASURES_CHAPTER, MEDICINE_CHAPTER, CRYPT_CHAPTER;
+    public static Chapter MAIN_CHAPTER, TREASURES_CHAPTER, MEDICINE_CHAPTER, CRYPT_CHAPTER, TEST_CHAPTER;
 
     public static void initChapters(){
         MAIN_CHAPTER = new Chapter(
@@ -39,6 +39,8 @@ public class CodexEntries{
         "lexicon.valoria.medicine.name",
         new TextPage("lexicon.valoria.medicine"));
 
+        TEST_CHAPTER = new Chapter("lexicon.valoria.crypt.name");
+
         CRYPT_CHAPTER = new Chapter(
         "lexicon.valoria.crypt.name",
         new TextPage("lexicon.valoria.crypt"));
@@ -54,7 +56,7 @@ public class CodexEntries{
                 Component.translatable("lexicon.valoria.crypt.hint").withStyle(DotStyle.of().color(Col.gray).effect(DotText.pulse(1f)))
             ))
 
-            .addChild(new ChapterNode(CRYPT_CHAPTER, Items.BUNDLE, Style.DIAMOND, RegisterUnlockables.test))
+            .addChild(new ChapterNode(TEST_CHAPTER, Items.BUNDLE, Style.DIAMOND, RegisterUnlockables.test))
         ;
 
         int offset = 0;

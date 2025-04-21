@@ -1,7 +1,7 @@
 package com.idark.valoria.client.ui.screen.book.lexicon;
 
 import com.google.common.collect.*;
-import com.idark.valoria.api.unlockable.*;
+import com.idark.valoria.api.unlockable.types.*;
 import com.idark.valoria.client.ui.screen.book.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.world.item.*;
@@ -56,15 +56,19 @@ public class ChapterNode {
         children.add(node);
         return this;
     }
+
     public ChapterNode addChild(Chapter chapter, Item item) {
         return addChild(new ChapterNode(chapter,item));
     }
+
     public ChapterNode addChild(Chapter chapter, Item item, Unlockable unlockable) {
         return addChild(new ChapterNode(chapter,item,unlockable));
     }
+
     public ChapterNode addChild(Chapter chapter, RegistryObject<Item> item) {
         return addChild(new ChapterNode(chapter,item.get()));
     }
+
     public ChapterNode addChild(Chapter chapter, RegistryObject<Item> item, Unlockable unlockable) {
         return addChild(new ChapterNode(chapter,item.get(),unlockable));
     }

@@ -1,6 +1,6 @@
 package com.idark.valoria.core.command.parts;
 
-import com.idark.valoria.api.unlockable.*;
+import com.idark.valoria.api.unlockable.types.*;
 import com.idark.valoria.core.command.arguments.*;
 import com.mojang.brigadier.arguments.*;
 import com.mojang.brigadier.context.*;
