@@ -1,17 +1,14 @@
 package com.idark.valoria.client.ui.screen.book.pages;
 
-import com.idark.valoria.Valoria;
-import com.idark.valoria.client.ui.screen.book.LexiconGui;
-import com.idark.valoria.client.ui.screen.book.Page;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.resources.language.I18n;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import com.idark.valoria.*;
+import com.idark.valoria.client.ui.screen.book.*;
+import net.minecraft.client.*;
+import net.minecraft.client.gui.*;
+import net.minecraft.client.resources.language.*;
+import net.minecraft.resources.*;
+import net.minecraft.world.item.*;
+import net.minecraftforge.api.distmarker.*;
 
-@OnlyIn(Dist.CLIENT)
 public class TextPage extends Page{
     public String text, title;
     private boolean hasTitle = true;

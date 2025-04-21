@@ -175,6 +175,10 @@ public class Valoria{
     }
 
     private void setup(final FMLCommonSetupEvent event){
+        Valoria.LOGGER.info("Item count: {}", ItemsRegistry.ITEMS.getEntries().size());
+        Valoria.LOGGER.info("Block count: {}", BlockRegistry.BLOCK.getEntries().size());
+        Valoria.LOGGER.info("Entity count: {}", EntityTypeRegistry.ENTITY_TYPES.getEntries().size());
+
         PacketHandler.init();
         PotionBrewery.bootStrap();
         RegisterUnlockables.init();

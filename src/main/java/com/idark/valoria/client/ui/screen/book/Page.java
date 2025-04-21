@@ -8,11 +8,7 @@ import pro.komaru.tridot.util.*;
 
 import java.util.*;
 
-@OnlyIn(Dist.CLIENT)
 public abstract class Page{
-
-    public Page(){
-    }
 
     @OnlyIn(Dist.CLIENT)
     public static void drawText(GuiGraphics gui, String text, int x, int y, boolean Centered){

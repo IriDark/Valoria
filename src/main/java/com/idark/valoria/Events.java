@@ -47,7 +47,7 @@ public class Events{
     public ArcRandom arcRandom = Tmp.rnd;
 
     @SubscribeEvent
-    public void playerTick(AddReloadListenerEvent event) {
+    public void onReload(AddReloadListenerEvent event) {
         Valoria.LOGGER.info("Reloading Codex Chapters...");
         CodexEntries.initChapters();
     }
