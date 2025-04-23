@@ -11,8 +11,8 @@ import net.minecraftforge.api.distmarker.*;
 
 public class TextPage extends Page{
     public String text, title;
-    private boolean hasTitle = true;
-    public static final ResourceLocation BACKGROUND = new ResourceLocation(Valoria.ID, "textures/gui/book/lexicon.png");
+    public boolean hasTitle = true;
+    public static final ResourceLocation BACKGROUND = new ResourceLocation(Valoria.ID, "textures/gui/book/codex.png");
     public ItemStack result;
     public ItemStack[] inputs;
     private boolean hasRecipe = false;
@@ -42,17 +42,19 @@ public class TextPage extends Page{
     @Override
     @OnlyIn(Dist.CLIENT)
     public void render(GuiGraphics gui, int x, int y, int mouseX, int mouseY){
+        int yOffset = 13;
         if(hasTitle){
-            drawText(gui, I18n.get(this.title), x + (120 - Minecraft.getInstance().font.width(I18n.get(this.title))) / 2, y + 22 - Minecraft.getInstance().font.lineHeight, false);
+            drawText(gui, this.title, x + (120 - Minecraft.getInstance().font.width(I18n.get(this.title))) / 2, y + 22 - Minecraft.getInstance().font.lineHeight, false);
+            yOffset += 16;
         }
 
-        drawWrappingText(gui, I18n.get(text), x + 4, y + 35, 120, false);
+        drawWrappingText(gui, I18n.get(text), x + 3, y + yOffset, 120, false);
         if(hasRecipe){
             for(int i = 0; i < 3; i++){
                 for(int j = 0; j < 3; j++){
                     int index = i * 3 + j;
                     if(index < inputs.length && !inputs[index].isEmpty()){
-                        LexiconGui.drawItemWithTooltip(inputs[index], x + 22 + j * 18, y + 30 + i * 18 + 50, gui, mouseX, mouseY, true);
+                        BookGui.drawItemWithTooltip(inputs[index], x + 22 + j * 18, y + 30 + i * 18 + 50, gui, mouseX, mouseY, true);
                     }
 
                     gui.blit(BACKGROUND, x + 21 + j * 18, y + 29 + i * 18 + 50, 287, 15, 18, 18, 512, 512);
@@ -60,7 +62,7 @@ public class TextPage extends Page{
             }
 
             gui.blit(BACKGROUND, x + 88, y + 56 + 50, 287, 15, 18, 18, 512, 512);
-            LexiconGui.drawItemWithTooltip(result, x + 89, y + 57 + 50, gui, mouseX, mouseY, true);
+            BookGui.drawItemWithTooltip(result, x + 89, y + 57 + 50, gui, mouseX, mouseY, true);
             resultArrow(gui, x, y);
         }
     }

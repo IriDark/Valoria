@@ -1,7 +1,6 @@
 package com.idark.valoria.registries.block.entity;
 
 import com.google.common.annotations.*;
-import com.idark.valoria.client.render.tile.*;
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.particle.*;
 import com.idark.valoria.registries.*;
@@ -21,6 +20,7 @@ import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.level.gameevent.*;
 import net.minecraft.world.phys.*;
 import pro.komaru.tridot.api.level.BaseSpawner;
+import pro.komaru.tridot.common.registry.block.entity.*;
 
 public class FleshCystBlockEntity extends BlockEntity implements TickableBlockEntity, GameEventListener.Holder<FleshCystBlockEntity.Listener>{
     private final FleshCystBlockEntity.Listener listener;

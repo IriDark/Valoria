@@ -10,14 +10,48 @@ import net.minecraft.world.*;
 import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.*;
 import org.jetbrains.annotations.*;
+import pro.komaru.tridot.common.registry.block.entity.*;
+import pro.komaru.tridot.common.registry.book.*;
 
-public class PedestalBlockEntity extends BlockSimpleInventory{
+public class PedestalBlockEntity extends BlockSimpleInventory implements TickableBlockEntity{
+    public BookComponent bookComponent = null;
     public PedestalBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state){
         super(type, pos, state);
     }
 
     public PedestalBlockEntity(BlockPos pos, BlockState state){
         this(BlockEntitiesRegistry.PEDESTAL_BLOCK_ENTITY.get(), pos, state);
+    }
+
+    @Override
+    public void tick(){
+        if (getLevel().isClientSide()) {
+            Book book = getBook();
+            if (book != null) {
+                if (bookComponent == null) bookComponent = book.getComponent();
+                bookTick(book);
+            } else {
+                bookComponent = null;
+            }
+        }
+    }
+
+    public void bookTick(Book book) {
+        Container container = getItemHandler();
+        book.tick(getLevel(), getBlockPos().getCenter(), container.getItem(0), bookComponent, 3);
+    }
+
+    public Book getBook() {
+        Container container = getItemHandler();
+        if (!container.isEmpty()) {
+            for (Book book : BookHandler.getBooks()) {
+                if (book.hasBook(container.getItem(0))) {
+                    return book;
+                }
+            }
+        }
+
+        return null;
     }
 
     @Override

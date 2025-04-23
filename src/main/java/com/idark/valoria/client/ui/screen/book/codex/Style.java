@@ -1,4 +1,4 @@
-package com.idark.valoria.client.ui.screen.book.lexicon;
+package com.idark.valoria.client.ui.screen.book.codex;
 
 public enum Style{
     STANDARD(0, 208, 22),

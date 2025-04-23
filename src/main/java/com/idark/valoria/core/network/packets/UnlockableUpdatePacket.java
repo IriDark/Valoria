@@ -42,8 +42,6 @@ public class UnlockableUpdatePacket{
     public static void handle(UnlockableUpdatePacket packet, Supplier<NetworkEvent.Context> ctx){
         ctx.get().enqueueWork(() -> {
             assert ctx.get().getDirection() == NetworkDirection.PLAY_TO_CLIENT;
-
-            Valoria.LOGGER.info("AAA");
             Level world = Valoria.proxy.getLevel();
             Player player = world.getPlayerByUUID(packet.uuid);
             if(player != null){

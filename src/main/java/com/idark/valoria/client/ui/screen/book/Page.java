@@ -3,7 +3,9 @@ package com.idark.valoria.client.ui.screen.book;
 import net.minecraft.client.*;
 import net.minecraft.client.gui.*;
 import net.minecraft.client.resources.language.*;
+import net.minecraft.network.chat.*;
 import net.minecraftforge.api.distmarker.*;
+import pro.komaru.tridot.client.gfx.text.*;
 import pro.komaru.tridot.util.*;
 
 import java.util.*;
@@ -21,23 +23,13 @@ public abstract class Page{
     }
 
     @OnlyIn(Dist.CLIENT)
-    public static void drawWrappingText(GuiGraphics gui, String text, int x, int y, int wrap, boolean Centered){
+    public static void drawWrappingText(GuiGraphics gui, String string, int x, int y, int wrap, boolean centered) {
         Font font = Minecraft.getInstance().font;
-        List<String> lines = new ArrayList<>();
-        String[] words = I18n.get(text).split(" ");
-        String line = "";
-        for(String s : words){
-            if(s.equals("\n")){
-                lines.add(line);
-                line = "";
-            }else if(font.width(line) + font.width(s) > wrap){
-                lines.add(line);
-                line = s + " ";
-            }else line += s + " ";
-        }
-        if(!line.isEmpty()) lines.add(line);
-        for(int i = 0; i < lines.size(); i++){
-            drawText(gui, lines.get(i), x, y + i * (font.lineHeight + 1), Centered);
+        List<Component> lines = DotTextParser.parse(string, wrap, font);
+        for (int i = 0; i < lines.size(); i++) {
+            Component lineText = lines.get(i);
+            int drawX = centered ? x + (wrap - font.width(lineText)) / 2 : x;
+            gui.drawString(font, lineText, drawX, y + i * (font.lineHeight + 1), Col.packColor(255, 220, 200, 180), true);
         }
     }
 

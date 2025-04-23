@@ -1,6 +1,5 @@
 package com.idark.valoria.registries.block.entity;
 
-import com.idark.valoria.client.render.tile.*;
 import com.idark.valoria.util.*;
 import net.minecraft.core.*;
 import net.minecraft.core.particles.*;
@@ -13,6 +12,7 @@ import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.*;
 import org.jetbrains.annotations.*;
+import pro.komaru.tridot.common.registry.block.entity.*;
 
 public abstract class AbstractAltarBlockEntity extends BlockSimpleInventory implements TickableBlockEntity{
     public int progress = 0;

@@ -22,9 +22,9 @@ public class ModCommand{
         CommandArgument targets = CommandArgument.entities("targets");
         CommandArguments pages = CommandArguments.pages("pages");
         CommandArgument charges = CommandArgument.integer("charges", 0, 2);
-        CommandBuilder lexicon = new CommandBuilder("lexicon").permission((p) -> p.hasPermission(2));
+        CommandBuilder codex = new CommandBuilder("codex").permission((p) -> p.hasPermission(2));
         CommandBuilder builder = new CommandBuilder("valoria").variants(
-                lexicon.variants(
+        codex.variants(
                         new CommandVariant(CommandPart.create("addAll"), targets).execute((p) -> {
                             giveAllPages(p.getSource(), targets.getPlayers(p));
                             return 1;

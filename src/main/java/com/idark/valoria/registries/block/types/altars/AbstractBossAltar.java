@@ -1,6 +1,5 @@
 package com.idark.valoria.registries.block.types.altars;
 
-import com.idark.valoria.client.render.tile.*;
 import com.idark.valoria.registries.block.entity.*;
 import com.idark.valoria.util.*;
 import net.minecraft.core.*;
@@ -16,6 +15,7 @@ import net.minecraft.world.level.block.state.properties.*;
 import net.minecraft.world.level.material.*;
 import net.minecraft.world.phys.*;
 import org.jetbrains.annotations.*;
+import pro.komaru.tridot.common.registry.block.entity.*;
 
 public abstract class AbstractBossAltar extends Block implements EntityBlock, SimpleWaterloggedBlock{
 

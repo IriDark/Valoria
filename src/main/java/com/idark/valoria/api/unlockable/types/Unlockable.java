@@ -1,5 +1,6 @@
 package com.idark.valoria.api.unlockable.types;
 
+import com.idark.valoria.*;
 import com.idark.valoria.api.unlockable.*;
 import net.minecraft.resources.*;
 import net.minecraft.server.level.*;
@@ -15,13 +16,24 @@ public class Unlockable{
     private ItemStack[] items;
     private int experience;
     public String id;
+    private final boolean randomObtainable;
 
     public Unlockable(String id){
         this.id = id;
+        this.randomObtainable = true;
+    }
+
+    public Unlockable(String id, boolean rndObtain){
+        this.id = id;
+        this.randomObtainable = rndObtain;
     }
 
     public boolean canObtain(Player player) {
         return false;
+    }
+
+    public boolean canObtainByRandom() {
+        return randomObtainable;
     }
 
     public boolean hasAwards() {
@@ -77,7 +89,9 @@ public class Unlockable{
         if(loot != null){
             for(ResourceLocation resourcelocation : this.loot){
                 for(ItemStack itemstack : pPlayer.server.getLootData().getLootTable(resourcelocation).getRandomItems(lootparams)){
-                    flag = addReward(pPlayer, itemstack, flag);
+                    Valoria.LOGGER.info(itemstack.toString());
+                    addReward(pPlayer, itemstack, flag);
+                    flag = true;
                 }
             }
         }

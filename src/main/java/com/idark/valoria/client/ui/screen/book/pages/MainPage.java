@@ -1,8 +1,7 @@
 package com.idark.valoria.client.ui.screen.book.pages;
 
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraft.client.gui.*;
+import net.minecraftforge.api.distmarker.*;
 
 // TODO
 public class MainPage extends TextPage{

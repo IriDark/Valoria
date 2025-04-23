@@ -55,7 +55,7 @@ public class CrystalShardItem extends Item{
                     worldIn.addFreshEntity(shard);
                     worldIn.playSound(playerEntity, shard, SoundsRegistry.CRYSTAL_FROST_PREPARE.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
                     if(!playerEntity.getAbilities().instabuild){
-                        playerEntity.getInventory().removeItem(stack);
+                        stack.shrink(1);
                     }
                 }
 

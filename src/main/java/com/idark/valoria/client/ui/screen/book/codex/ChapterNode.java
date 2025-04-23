@@ -1,4 +1,4 @@
-package com.idark.valoria.client.ui.screen.book.lexicon;
+package com.idark.valoria.client.ui.screen.book.codex;
 
 import com.google.common.collect.*;
 import com.idark.valoria.api.unlockable.types.*;

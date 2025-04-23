@@ -1,8 +1,8 @@
 package com.idark.valoria.registries.block.types;
 
-import com.idark.valoria.client.render.tile.*;
 import com.idark.valoria.client.ui.menus.*;
 import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.block.entity.BlockSimpleInventory;
 import com.idark.valoria.registries.block.entity.*;
 import com.idark.valoria.util.*;
 import net.minecraft.core.*;
@@ -24,6 +24,7 @@ import net.minecraft.world.phys.*;
 import net.minecraft.world.phys.shapes.*;
 import net.minecraftforge.network.*;
 import org.jetbrains.annotations.*;
+import pro.komaru.tridot.common.registry.block.entity.*;
 
 import javax.annotation.Nullable;
 import javax.annotation.*;

@@ -40,6 +40,6 @@ public class WickedCrystalRenderer extends MobRenderer<WickedCrystal, WickedCrys
 
     @Override
     public ResourceLocation getTextureLocation(WickedCrystal pEntity){
-        return pEntity.getHealth() < 1000 ? TEXTURE_PHASE : TEXTURE;
+        return pEntity.phase == 1 ? TEXTURE_PHASE : TEXTURE;
     }
 }

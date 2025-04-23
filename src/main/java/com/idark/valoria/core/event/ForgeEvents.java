@@ -94,7 +94,7 @@ public class ForgeEvents{
         }
 
         if(event.getType() == VillagerProfession.LIBRARIAN){
-            trade.trades(1).createOffer(1, ItemsRegistry.lexicon.get());
+            trade.trades(1).createOffer(1, ItemsRegistry.codex.get());
         }
     }
 

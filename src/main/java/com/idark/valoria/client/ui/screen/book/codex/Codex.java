@@ -1,4 +1,4 @@
-package com.idark.valoria.client.ui.screen.book.lexicon;
+package com.idark.valoria.client.ui.screen.book.codex;
 
 import com.idark.valoria.*;
 import com.idark.valoria.api.events.CodexEvent.*;
@@ -22,7 +22,6 @@ import java.util.function.*;
 
 import static com.idark.valoria.Valoria.loc;
 
-// most likely will be renamed to something else?
 @OnlyIn(Dist.CLIENT)
 public class Codex extends DotScreen{
     public static Codex screen;
@@ -153,7 +152,7 @@ public class Codex extends DotScreen{
     }
 
     public void changeChapter(Chapter chapter) {
-        Minecraft.getInstance().setScreen(new LexiconGui(chapter));
+        Minecraft.getInstance().setScreen(new BookGui(chapter));
     }
 
     @Override

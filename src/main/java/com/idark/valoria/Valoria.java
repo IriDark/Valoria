@@ -5,7 +5,7 @@ import com.idark.valoria.client.event.*;
 import com.idark.valoria.client.particle.*;
 import com.idark.valoria.client.render.curio.*;
 import com.idark.valoria.client.ui.screen.*;
-import com.idark.valoria.client.ui.screen.book.lexicon.*;
+import com.idark.valoria.client.ui.screen.book.codex.*;
 import com.idark.valoria.client.ui.screen.book.unlockable.*;
 import com.idark.valoria.core.capability.*;
 import com.idark.valoria.core.command.arguments.*;
@@ -178,7 +178,7 @@ public class Valoria{
         Valoria.LOGGER.info("Item count: {}", ItemsRegistry.ITEMS.getEntries().size());
         Valoria.LOGGER.info("Block count: {}", BlockRegistry.BLOCK.getEntries().size());
         Valoria.LOGGER.info("Entity count: {}", EntityTypeRegistry.ENTITY_TYPES.getEntries().size());
-
+        ItemsRegistry.setupBook();
         PacketHandler.init();
         PotionBrewery.bootStrap();
         RegisterUnlockables.init();

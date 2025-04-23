@@ -58,12 +58,12 @@ public class PageToast implements Toast{
         pGuiGraphics.blit(TEXTURE, 0, 0, 0, 0, this.width(), this.height(), 256, 32);
 
         pGuiGraphics.renderItem(ItemsRegistry.cryptPage.get().getDefaultInstance(), 8, 8);
-        pGuiGraphics.renderItem(ItemsRegistry.lexicon.get().getDefaultInstance(), 155, 8);
+        pGuiGraphics.renderItem(ItemsRegistry.codex.get().getDefaultInstance(), 155, 8);
 
         if(pUnlock){
-            drawWrappingText(pGuiGraphics, "lexicon.valoria.new_page", 90, 8, 120, true);
+            drawWrappingText(pGuiGraphics, "codex.valoria.new_page", 90, 8, 120, true);
         }else{
-            drawWrappingText(pGuiGraphics, "lexicon.valoria.delete_page", 92, 12, 120, true);
+            drawWrappingText(pGuiGraphics, "codex.valoria.delete_page", 92, 12, 120, true);
         }
 
         return (double)pTimeSinceLastVisible >= 5000.0D * pToastComponent.getNotificationDisplayTimeMultiplier() ? Visibility.HIDE : Visibility.SHOW;

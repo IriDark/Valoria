@@ -19,23 +19,23 @@ import java.util.*;
 
 import static com.idark.valoria.Valoria.loc;
 
-public class LexiconPageItem extends Item{
+public class CodexPageItem extends Item{
     public Unlockable unlockable;
     public String lang;
     public boolean rand;
 
-    public LexiconPageItem(Properties props, @NotNull Unlockable pUnlockable, String pPageName){
+    public CodexPageItem(Properties props, @NotNull Unlockable pUnlockable, String pPageName){
         super(props);
         this.unlockable = pUnlockable;
         this.lang = pPageName;
     }
 
-    public LexiconPageItem(Properties props){
+    public CodexPageItem(Properties props){
         super(props);
         rand = true;
     }
 
-    public LexiconPageItem(Properties props, @NotNull Unlockable pUnlockable){
+    public CodexPageItem(Properties props, @NotNull Unlockable pUnlockable){
         super(props);
         this.unlockable = pUnlockable;
     }
@@ -51,14 +51,12 @@ public class LexiconPageItem extends Item{
         player.awardStat(Stats.ITEM_USED.get(this));
         if(!world.isClientSide && player instanceof ServerPlayer serverPlayer){
             if(rand) {
-                Unlockable rU = UnlockUtils.getRandom();
+                Unlockable rU = UnlockUtils.getRandom(player);
                 if(rU != null && !UnlockUtils.isUnlocked(player, rU) && !onUnlock(rU)) {
                     player.getInventory().removeItem(stack);
                     UnlockUtils.add(serverPlayer, rU);
                 }else{
-                    world.playSound(null, player.getOnPos(), SoundEvents.PLAYER_BURP, SoundSource.AMBIENT, 0.7f, 0.2f);
-                    player.displayClientMessage(Component.translatable("lexicon.valoria.obtained").withStyle(ChatFormatting.GRAY), true);
-                    return new InteractionResultHolder<>(InteractionResult.FAIL, stack);
+                    return interactionFail(world, player, stack);
                 }
             } else {
                 if(!UnlockUtils.isUnlocked(player, unlockable) && !onUnlock(unlockable)){
@@ -66,14 +64,18 @@ public class LexiconPageItem extends Item{
                     UnlockUtils.add(serverPlayer, unlockable);
                     return new InteractionResultHolder<>(InteractionResult.SUCCESS, stack);
                 }else{
-                    world.playSound(null, player.getOnPos(), SoundEvents.PLAYER_BURP, SoundSource.AMBIENT, 0.7f, 0.2f);
-                    player.displayClientMessage(Component.translatable("lexicon.valoria.obtained").withStyle(ChatFormatting.GRAY), true);
-                    return new InteractionResultHolder<>(InteractionResult.FAIL, stack);
+                    return interactionFail(world, player, stack);
                 }
             }
         }
 
         return new InteractionResultHolder<>(InteractionResult.SUCCESS, stack);
+    }
+
+    private static @NotNull InteractionResultHolder<ItemStack> interactionFail(Level world, Player player, ItemStack stack){
+        world.playSound(null, player.getOnPos(), SoundEvents.PLAYER_BURP, SoundSource.AMBIENT, 0.7f, 0.2f);
+        player.displayClientMessage(Component.translatable("codex.valoria.obtained").withStyle(ChatFormatting.GRAY), true);
+        return new InteractionResultHolder<>(InteractionResult.FAIL, stack);
     }
 
     private static boolean onUnlock(Unlockable unlockable) {

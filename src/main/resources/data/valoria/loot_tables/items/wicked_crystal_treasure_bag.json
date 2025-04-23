@@ -31,7 +31,7 @@
         {
           "type": "minecraft:item",
           "name": "valoria:wicked_shield",
-          "weight": 1,
+          "weight": 5,
           "functions": []
         },
         {
@@ -43,7 +43,7 @@
         {
           "type": "minecraft:item",
           "name": "valoria:black_gold_ingot",
-          "weight": 5,
+          "weight": 30,
           "functions": [
             {
               "function": "minecraft:set_count",

@@ -2,7 +2,7 @@ package com.idark.valoria;
 
 import com.idark.valoria.api.unlockable.*;
 import com.idark.valoria.api.unlockable.types.*;
-import com.idark.valoria.client.ui.screen.book.lexicon.*;
+import com.idark.valoria.client.ui.screen.book.codex.*;
 import com.idark.valoria.core.capability.*;
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.*;

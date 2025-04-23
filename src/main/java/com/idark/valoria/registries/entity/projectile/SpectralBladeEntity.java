@@ -1,6 +1,5 @@
 package com.idark.valoria.registries.entity.projectile;
 
-import com.idark.valoria.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.util.*;
 import net.minecraft.core.particles.*;
@@ -93,12 +92,6 @@ public class SpectralBladeEntity extends AbstractSupplierProjectile{
 
     public void onHit(HitResult pResult){
         super.onHit(pResult);
-        if(pResult instanceof EntityHitResult res) {
-            if(res.getEntity() == getOwner()) {
-                Valoria.LOGGER.info("bruh");
-
-            }
-        }
         this.discard();
     }
 

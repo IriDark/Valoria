@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
+    "valoria:jade_ore",
+    "valoria:picrite_jade_ore",
     "valoria:void_sandstone",
     "valoria:void_sandstone_stairs",
     "valoria:void_sandstone_slab",

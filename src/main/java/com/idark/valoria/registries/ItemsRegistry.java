@@ -40,6 +40,7 @@ import net.minecraft.world.item.Item.Properties;
 import net.minecraft.world.item.enchantment.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
+import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.common.*;
 import net.minecraftforge.eventbus.api.*;
 import net.minecraftforge.registries.*;
@@ -47,6 +48,7 @@ import org.jetbrains.annotations.*;
 import org.joml.*;
 import pro.komaru.tridot.api.*;
 import pro.komaru.tridot.client.gfx.particle.data.*;
+import pro.komaru.tridot.common.registry.book.*;
 import pro.komaru.tridot.common.registry.item.*;
 import pro.komaru.tridot.common.registry.item.skins.*;
 import pro.komaru.tridot.common.registry.item.types.*;
@@ -99,7 +101,7 @@ public class ItemsRegistry{
     necromancerGrimoire, suspciousGem, harmonyCrown,
 
     // misc
-    debugItem, summonBook, crystalSummonBook, soulCollectorEmpty, soulCollector, lexicon, page, cryptPage, voidKey, spectralBladeThrown, pick,
+    debugItem, summonBook, crystalSummonBook, soulCollectorEmpty, soulCollector, codex, page, cryptPage, voidKey, spectralBladeThrown, pick,
 
     // weapons
     club, bronzeSword, spectralBlade, corpseCleaver, boneShuriken,
@@ -327,9 +329,9 @@ public class ItemsRegistry{
         crystalSummonBook = registerItem("crystal_summon_book", () -> new CrystalSummonBook(30, 3, new Item.Properties().rarity(Rarity.EPIC)));
         soulCollectorEmpty = registerItem("soul_collector_empty", () -> new SoulCollectorItem(new Item.Properties().stacksTo(1).rarity(RarityRegistry.PHANTASM)));
         soulCollector = registerItem("soul_collector", () -> new SoulCollectorItem(50, 50, new Item.Properties().rarity(RarityRegistry.PHANTASM)));
-        lexicon = registerItem("lexicon", () -> new LexiconItem(new Item.Properties().stacksTo(1)));
-        page = registerItem("page", () -> new LexiconPageItem(new Item.Properties().stacksTo(1)));
-        cryptPage = registerItem("crypt_page", () -> new LexiconPageItem(new Item.Properties().stacksTo(1), RegisterUnlockables.crypt, "lexicon.valoria.crypt.name"));
+        codex = registerItem("codex", () -> new CodexItem(new Item.Properties().stacksTo(1)));
+        page = registerItem("page", () -> new CodexPageItem(new Item.Properties()));
+        cryptPage = registerItem("crypt_page", () -> new CodexPageItem(new Item.Properties().stacksTo(1), RegisterUnlockables.crypt, "codex.valoria.crypt.name"));
         voidKey = registerItem("void_key", () -> new Item(new Item.Properties().stacksTo(16).rarity(RarityRegistry.VOID)));
         pick = registerItem("prospectors_pick", () -> new PickItem(new Item.Properties().fireResistant().stacksTo(1).durability(64), 1, -2.8f, 5));
 
@@ -662,6 +664,29 @@ public class ItemsRegistry{
 
     private static RegistryObject<Item> registerItem(String name, Supplier<Item> item){
         return ITEMS.register(name, item);
+    }
+
+    public static void setupBook() {
+        ResourceLocation texture = new ResourceLocation(Valoria.ID, "textures/models/book/codex.png");
+        BookHandler.register(new Book(ItemsRegistry.codex.get().getDefaultInstance()) {
+            public ResourceLocation getTexture(Level level, Vec3 pos, ItemStack itemStack, BookComponent component) {
+                return texture;
+            }
+
+            @Override
+            public void openGui(Level level, ItemStack stack){
+                if (stack.getItem() instanceof CodexItem item) {
+                    item.openGui(level, stack);
+                }
+            }
+
+            @OnlyIn(Dist.CLIENT)
+            public void openGui(Level level, Vec3 pos, ItemStack stack) {
+                if (stack.getItem() instanceof CodexItem item) {
+                    item.openGui(level, pos, stack);
+                }
+            }
+        });
     }
 
     private static KatanaItem murasamaProps(){

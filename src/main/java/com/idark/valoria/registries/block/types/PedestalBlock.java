@@ -1,5 +1,6 @@
 package com.idark.valoria.registries.block.types;
 
+import com.idark.valoria.registries.block.entity.BlockSimpleInventory;
 import com.idark.valoria.registries.block.entity.*;
 import com.idark.valoria.util.*;
 import net.minecraft.core.*;
@@ -16,13 +17,16 @@ import net.minecraft.world.level.block.state.properties.*;
 import net.minecraft.world.level.material.*;
 import net.minecraft.world.phys.*;
 import net.minecraft.world.phys.shapes.*;
+import org.jetbrains.annotations.*;
+import pro.komaru.tridot.common.networking.packets.*;
+import pro.komaru.tridot.common.registry.block.entity.*;
+import pro.komaru.tridot.common.registry.book.*;
 
+import javax.annotation.Nullable;
 import javax.annotation.*;
 
 public class PedestalBlock extends Block implements EntityBlock, SimpleWaterloggedBlock{
-
     private static final VoxelShape SHAPE = Block.box(0, 0, 0, 16, 14, 16);
-
     public PedestalBlock(BlockBehaviour.Properties properties){
         super(properties);
         registerDefaultState(defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, false));
@@ -62,6 +66,23 @@ public class PedestalBlock extends Block implements EntityBlock, SimpleWaterlogg
         PedestalBlockEntity tile = (PedestalBlockEntity)world.getBlockEntity(pos);
         ItemStack stack = player.getItemInHand(handIn).copy();
         ItemStack tileStack = tile.getItemHandler().getItem(0);
+        Book book = tile.getBook();
+        if (book != null) {
+            if (player.isShiftKeyDown() && !tile.getItemHandler().getItem(0).isEmpty()) {
+                BlockSimpleInventory.addHandPlayerItem(world, player, handIn, stack, tile.getItemHandler().getItem(0));
+                tile.getItemHandler().removeItem(0, 1);
+                world.updateNeighbourForOutputSignal(pos, this);
+                BlockEntityUpdate.packet(tile);
+                return InteractionResult.SUCCESS;
+            }
+
+            if (world.isClientSide()) {
+                book.openGui(world, pos.getCenter(), tile.getItemHandler().getItem(0));
+            }
+
+            return InteractionResult.SUCCESS;
+        }
+
         if(tileStack.isEmpty()){
             tile.getItemHandler().setItem(0, stack);
             if(!player.isCreative()){
@@ -83,6 +104,12 @@ public class PedestalBlock extends Block implements EntityBlock, SimpleWaterlogg
         }
 
         return InteractionResult.PASS;
+    }
+
+    @Nullable
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level level, @NotNull BlockState state, @NotNull BlockEntityType<T> type) {
+        return TickableBlockEntity.getTickerHelper();
     }
 
     @Override

@@ -6,6 +6,7 @@ import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.*;
 import net.minecraft.server.level.*;
 import net.minecraft.world.entity.player.*;
+import pro.komaru.tridot.util.*;
 
 import javax.annotation.*;
 import java.util.*;
@@ -39,9 +40,20 @@ public class UnlockUtils{
     }
 
     @Nullable
+    public static Unlockable getRandom(Player player){
+        ArrayList<Unlockable> all = new ArrayList<>(Unlockables.get());
+        Set<Unlockable> unlocked = UnlockUtils.getUnlocked(player);
+        if (unlocked != null) all.removeAll(unlocked);
+        all.removeIf(unlockable -> !unlockable.canObtainByRandom());
+        if (all.isEmpty()) return null;
+
+        return all.get(Tmp.rnd.random(all.size() - 1));
+    }
+
+    @Nullable
     public static Unlockable getRandom(){
-        var map = Unlockables.get().stream().findAny();
-        return map.orElse(null);
+        var list = Unlockables.get();
+        return list.isEmpty() ? null : list.get(Tmp.rnd.random(list.size() - 1));
     }
 
     public static void addRandom(ServerPlayer entity){

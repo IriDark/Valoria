@@ -1,7 +1,6 @@
 package com.idark.valoria.registries.block.entity;
 
 import com.google.common.collect.*;
-import com.idark.valoria.client.render.tile.*;
 import com.idark.valoria.client.ui.menus.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.item.recipe.*;
@@ -24,6 +23,7 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.phys.*;
+import pro.komaru.tridot.common.registry.block.entity.*;
 
 import javax.annotation.*;
 import java.util.*;

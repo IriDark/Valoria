@@ -12,11 +12,16 @@ public class ItemUnlockable extends Unlockable{
         this.item = item;
     }
 
+    public ItemUnlockable(String id, boolean rndObtain, Item item){
+        super(id, rndObtain);
+        this.item = item;
+    }
+
     @Override
     public boolean canObtain(Player player){
         List<ItemStack> items = player.getInventory().items;
         for (ItemStack stack : items) {
-            return stack.is(item);
+            if(stack.is(item)) return true;
         }
 
         return false;

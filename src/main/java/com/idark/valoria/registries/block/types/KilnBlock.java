@@ -1,6 +1,5 @@
 package com.idark.valoria.registries.block.types;
 
-import com.idark.valoria.client.render.tile.*;
 import com.idark.valoria.registries.block.entity.*;
 import net.minecraft.core.*;
 import net.minecraft.core.particles.*;
@@ -22,6 +21,7 @@ import net.minecraft.world.level.block.state.properties.*;
 import net.minecraft.world.level.material.*;
 import net.minecraft.world.phys.*;
 import net.minecraft.world.phys.shapes.*;
+import pro.komaru.tridot.common.registry.block.entity.*;
 
 import javax.annotation.*;
 

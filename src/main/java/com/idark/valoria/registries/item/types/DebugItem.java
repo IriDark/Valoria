@@ -1,6 +1,6 @@
 package com.idark.valoria.registries.item.types;
 
-import com.idark.valoria.client.ui.screen.book.lexicon.*;
+import com.idark.valoria.client.ui.screen.book.codex.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.entity.projectile.*;
 import com.idark.valoria.util.*;

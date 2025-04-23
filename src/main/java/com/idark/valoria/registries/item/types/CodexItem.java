@@ -1,15 +1,17 @@
 package com.idark.valoria.registries.item.types;
 
-import com.idark.valoria.client.ui.screen.book.lexicon.*;
+import com.idark.valoria.client.ui.screen.book.codex.*;
+import net.minecraft.client.*;
 import net.minecraft.stats.*;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
+import net.minecraft.world.phys.*;
 import net.minecraftforge.api.distmarker.*;
 
-public class LexiconItem extends Item{
-    public LexiconItem(Properties props){
+public class CodexItem extends Item{
+    public CodexItem(Properties props){
         super(props);
     }
 
@@ -22,6 +24,16 @@ public class LexiconItem extends Item{
         }
 
         return new InteractionResultHolder<>(InteractionResult.SUCCESS, stack);
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public void openGui(Level level, ItemStack stack) {
+        openGui(Minecraft.getInstance().player);
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public void openGui(Level level, Vec3 pos, ItemStack stack) {
+        openGui(Minecraft.getInstance().player);
     }
 
     @OnlyIn(Dist.CLIENT)

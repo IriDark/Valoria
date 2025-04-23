@@ -1,6 +1,5 @@
 package com.idark.valoria.registries.block.types;
 
-import com.idark.valoria.client.render.tile.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.block.entity.*;
 import com.idark.valoria.registries.entity.living.minions.*;
@@ -23,6 +22,7 @@ import pro.komaru.tridot.client.gfx.*;
 import pro.komaru.tridot.client.gfx.particle.*;
 import pro.komaru.tridot.client.gfx.particle.data.*;
 import pro.komaru.tridot.client.render.*;
+import pro.komaru.tridot.common.registry.block.entity.*;
 import pro.komaru.tridot.util.*;
 import pro.komaru.tridot.util.math.*;
 

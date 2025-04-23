@@ -1,7 +1,6 @@
 package com.idark.valoria.registries.block.entity;
 
 import com.idark.valoria.*;
-import com.idark.valoria.client.render.tile.*;
 import com.idark.valoria.client.sounds.*;
 import com.idark.valoria.client.ui.menus.*;
 import com.idark.valoria.core.network.*;
@@ -29,6 +28,7 @@ import net.minecraftforge.items.*;
 import net.minecraftforge.items.wrapper.*;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.*;
+import pro.komaru.tridot.common.registry.block.entity.*;
 
 import javax.annotation.*;
 import java.util.*;

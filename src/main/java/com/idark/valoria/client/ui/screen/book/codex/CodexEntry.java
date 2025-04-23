@@ -1,4 +1,4 @@
-package com.idark.valoria.client.ui.screen.book.lexicon;
+package com.idark.valoria.client.ui.screen.book.codex;
 
 import com.idark.valoria.api.unlockable.*;
 import com.idark.valoria.client.ui.screen.book.*;
@@ -24,6 +24,7 @@ public class CodexEntry{
     public int y;
     public ChapterNode node;
     public boolean isHidden;
+    public boolean isRendered;
     public MutableComponent translate;
 
     public CodexEntry(ChapterNode node, int x, int y) {
@@ -45,6 +46,7 @@ public class CodexEntry{
     }
 
     public void render(Codex codex, GuiGraphics gui, float uOffset, float vOffset, int guiLeft, int guiTop, float mouseX, float mouseY){
+        this.isRendered = true;
         int x = (codex.backgroundWidth - codex.insideWidth) / 2 - (this.x - guiLeft) - (int)uOffset;
         int y = (codex.backgroundHeight - codex.insideHeight) / 2 - (this.y - guiTop) - (int)vOffset;
         int entryWidth = 22;
@@ -69,8 +71,8 @@ public class CodexEntry{
 
         if(isUnlocked()){
             gui.pose().pushPose();
-            gui.pose().translate(0, 0, codex.entries - 250);
-            gui.renderItem(node.item.getDefaultInstance(), x + 3, y + 3);
+            gui.pose().translate(0, 0, codex.entries - 100);
+            gui.renderFakeItem(node.item.getDefaultInstance(), x + 3, y + 3);
             gui.pose().popPose();
         }
     }
@@ -78,7 +80,7 @@ public class CodexEntry{
     public void onClick(Codex codex, double mouseX, double mouseY, int uOffset, int vOffset){
         int x = (codex.backgroundWidth - codex.insideWidth) / 2 - (this.x - codex.guiLeft()) - uOffset;
         int y = (codex.backgroundHeight - codex.insideHeight) / 2 - (this.y - codex.guiTop()) - vOffset;
-        if(codex.isOnScreen(mouseX, mouseY)){
+        if(codex.isOnScreen(mouseX, mouseY) && !isHidden && isRendered){
             if(isHover(mouseX, mouseY, x - 6, y)){
                 if(isUnlocked() && !this.getChapter().pages.isEmpty()){
                     var unlockable = node.unlockable;
