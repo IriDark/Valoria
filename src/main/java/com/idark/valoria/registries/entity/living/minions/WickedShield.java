@@ -5,6 +5,7 @@ import com.idark.valoria.core.network.packets.particle.*;
 import com.idark.valoria.registries.entity.ai.movements.*;
 import net.minecraft.nbt.*;
 import net.minecraft.server.level.*;
+import net.minecraft.sounds.*;
 import net.minecraft.world.damagesource.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.*;
@@ -22,12 +23,21 @@ public class WickedShield extends FlyingMob implements TraceableEntity, Allied{
     public WickedShield(EntityType<? extends FlyingMob> pEntityType, Level pLevel){
         super(pEntityType, pLevel);
     }
-    //todo sounds
 
     @Override
     public boolean hurt(DamageSource pSource, float pAmount){
         if(pSource.getEntity() instanceof Allied && !(this.owner instanceof Player)) return false;
         return super.hurt(pSource, pAmount);
+    }
+
+    @Override
+    protected SoundEvent getHurtSound(DamageSource pDamageSource){
+        return SoundEvents.SHIELD_BLOCK;
+    }
+
+    @Override
+    protected SoundEvent getDeathSound(){
+        return SoundEvents.SHIELD_BREAK;
     }
 
     @Override

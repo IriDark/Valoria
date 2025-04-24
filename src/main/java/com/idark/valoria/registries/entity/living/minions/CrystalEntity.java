@@ -13,6 +13,7 @@ import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
 import net.minecraft.util.*;
 import net.minecraft.util.ByIdMap.*;
+import net.minecraft.world.damagesource.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.*;
@@ -42,6 +43,16 @@ public class CrystalEntity extends AbstractMultiAttackMinion implements RangedAt
             this.setType(Variant.byId(this.random.nextInt(Variant.values().length)));
             this.setNoGravity(true);
         }
+    }
+
+    @Override
+    public float getVoicePitch(){
+        return (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.5F;
+    }
+
+    @Override
+    protected @Nullable SoundEvent getHurtSound(DamageSource pDamageSource){
+        return SoundsRegistry.WICKED_CRYSTAL_HURT.get();
     }
 
     @Override
