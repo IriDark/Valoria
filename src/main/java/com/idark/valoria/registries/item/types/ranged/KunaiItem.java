@@ -23,7 +23,7 @@ import pro.komaru.tridot.util.math.*;
 
 import java.util.*;
 
-import static pro.komaru.tridot.TridotLib.BASE_PROJECTILE_DAMAGE_UUID;
+import static pro.komaru.tridot.Tridot.BASE_PROJECTILE_DAMAGE_UUID;
 
 public class KunaiItem extends Item{
     private final Multimap<Attribute, AttributeModifier> tridentAttributes;

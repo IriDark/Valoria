@@ -16,7 +16,7 @@ import net.minecraft.world.level.*;
 import pro.komaru.tridot.client.render.gui.*;
 import pro.komaru.tridot.common.registry.item.*;
 
-import static pro.komaru.tridot.TridotLib.BASE_PROJECTILE_DAMAGE_UUID;
+import static pro.komaru.tridot.Tridot.BASE_PROJECTILE_DAMAGE_UUID;
 
 public class CorpseCleaverItem extends SwordItem{
     private final Multimap<Attribute, AttributeModifier> pAttributes;

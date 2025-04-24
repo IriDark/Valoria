@@ -14,7 +14,7 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import pro.komaru.tridot.common.registry.item.*;
 
-import static pro.komaru.tridot.TridotLib.BASE_PROJECTILE_DAMAGE_UUID;
+import static pro.komaru.tridot.Tridot.BASE_PROJECTILE_DAMAGE_UUID;
 
 public class SpectralBladeItem extends SwordItem{
     private final Multimap<Attribute, AttributeModifier> atr;

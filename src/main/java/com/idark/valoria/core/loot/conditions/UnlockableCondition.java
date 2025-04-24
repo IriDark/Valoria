@@ -1,7 +1,6 @@
 package com.idark.valoria.core.loot.conditions;
 
 import com.google.gson.*;
-import com.idark.valoria.*;
 import com.idark.valoria.api.unlockable.*;
 import com.idark.valoria.api.unlockable.types.*;
 import net.minecraft.util.*;
@@ -26,7 +25,6 @@ public class UnlockableCondition implements LootItemCondition{
         var entity = lootContext.getParam(LootContextParams.THIS_ENTITY);
         if(entity instanceof Player plr){
             Unlockable unlockable = Unlockables.getUnlockable(id);
-            Valoria.LOGGER.info(String.valueOf(!UnlockUtils.isUnlocked(plr, unlockable)));
             return !UnlockUtils.isUnlocked(plr, unlockable);
         }
 

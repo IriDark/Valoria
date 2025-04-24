@@ -10,7 +10,7 @@ import net.minecraft.network.chat.*;
 import net.minecraft.util.*;
 import net.minecraft.world.item.*;
 import net.minecraftforge.common.*;
-import pro.komaru.tridot.api.render.text.*;
+import pro.komaru.tridot.api.render.text.DotStyleEffects.*;
 import pro.komaru.tridot.client.gfx.text.*;
 import pro.komaru.tridot.util.*;
 import pro.komaru.tridot.util.struct.data.*;
@@ -142,7 +142,7 @@ public class CodexEntries{
 
             .addChild(new ChapterNode(CRYPT, ItemsRegistry.cryptPage.get(), Style.CRYPT, RegisterUnlockables.crypt)
                 .addHintsDescription(
-                    Component.translatable("codex.valoria.crypt.hint").withStyle(DotStyle.of().color(Col.gray).effect(DotText.pulse(1f)))
+                    Component.translatable("codex.valoria.crypt.hint").withStyle(DotStyle.of().color(Col.gray).effect(PulseAlphaFX.of(1f)))
                 )
             )
 
@@ -151,7 +151,7 @@ public class CodexEntries{
         .addChild(new ChapterNode(BOSSES, Items.SKELETON_SKULL, Style.CRYPT)
             .addChild(new ChapterNode(NECROMANCER_GRIMOIRE, ItemsRegistry.necromancerGrimoire.get(), Style.IRON, RegisterUnlockables.necromancerGrimoire)
                 .addHintsDescription(
-                    Component.translatable("codex.valoria.necromancer_grimoire.hint").withStyle(DotStyle.of().color(Col.gray).effect(DotText.pulse(1f)))
+                    Component.translatable("codex.valoria.necromancer_grimoire.hint").withStyle(DotStyle.of().color(Col.gray).effect(PulseAlphaFX.of(1f)))
                 )
 
                 .addChild(new ChapterNode(UNDEAD, Items.SKELETON_SKULL, Style.STANDARD, RegisterUnlockables.undead))

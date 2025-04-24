@@ -36,7 +36,7 @@ import java.util.function.Supplier;
 import java.util.stream.*;
 
 import static com.idark.valoria.Valoria.BASE_ENTITY_REACH_UUID;
-import static pro.komaru.tridot.TridotLib.BASE_PROJECTILE_DAMAGE_UUID;
+import static pro.komaru.tridot.Tridot.BASE_PROJECTILE_DAMAGE_UUID;
 
 public class SpearItem extends SwordItem implements Vanishable{
     private final Supplier<Multimap<Attribute, AttributeModifier>> attributeModifiers = Suppliers.memoize(this::createAttributes);

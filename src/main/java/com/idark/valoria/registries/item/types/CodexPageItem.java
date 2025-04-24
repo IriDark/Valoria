@@ -50,7 +50,6 @@ public class CodexPageItem extends Item{
     public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand){
         ItemStack stack = player.getItemInHand(hand);
         player.awardStat(Stats.ITEM_USED.get(this));
-        Unlockable unlockable = this.unlockable.get();
         if(!world.isClientSide && player instanceof ServerPlayer serverPlayer){
             if(rand) {
                 Unlockable rU = UnlockUtils.getRandom(player);
@@ -61,6 +60,7 @@ public class CodexPageItem extends Item{
                     return interactionFail(world, player, stack);
                 }
             } else {
+                Unlockable unlockable = this.unlockable.get();
                 if(!UnlockUtils.isUnlocked(player, unlockable) && !onUnlock(unlockable)){
                     stack.shrink(1);
                     UnlockUtils.add(serverPlayer, unlockable);
