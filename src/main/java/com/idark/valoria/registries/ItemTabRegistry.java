@@ -85,7 +85,6 @@ public abstract class ItemTabRegistry{
                 if(!new ItemStack(item.get()).is(TagsRegistry.EXCLUDED_FROM_TAB)){
                     if(!(item.get() instanceof ICurioItem || item.get() instanceof ArmorItem)){
                         if(item.get() instanceof SummonBook){
-                            event.accept(item.get().getDefaultInstance());
                             event.getParameters().holders().lookup(ForgeRegistries.ENTITY_TYPES.getRegistryKey()).ifPresent(entityLookup -> generateMinionItems(event, entityLookup, (holder) -> holder.is(TagsRegistry.MINIONS), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
                         }else{
                             event.accept(item.get().getDefaultInstance());
@@ -118,6 +117,7 @@ public abstract class ItemTabRegistry{
 
     @SuppressWarnings("unchecked")
     private static void generateMinionItems(CreativeModeTab.Output output, HolderLookup.RegistryLookup<EntityType<?>> entityLookup, Predicate<Holder<EntityType<?>>> predicate, CreativeModeTab.TabVisibility visibility){
+        output.accept(new ItemStack(ItemsRegistry.summonBook.get()));
         entityLookup.listElements()
                 .filter(predicate)
                 .forEach(holder -> {
@@ -128,7 +128,6 @@ public abstract class ItemTabRegistry{
                     output.accept(itemStack, visibility);
                 });
     }
-
 
     private static void generatePresetPaintings(CreativeModeTab.Output pOutput, HolderLookup.RegistryLookup<PaintingVariant> pPaintingVariants, Predicate<Holder<PaintingVariant>> pPredicate, CreativeModeTab.TabVisibility pTabVisibility){
         pPaintingVariants.listElements().filter(pPredicate).sorted(PAINTING_COMPARATOR).forEach((p_269979_) -> {

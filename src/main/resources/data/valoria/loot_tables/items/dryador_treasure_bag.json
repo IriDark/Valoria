@@ -6,6 +6,17 @@
       "entries": [
         {
           "type": "minecraft:item",
+          "name": "valoria:dryador_page",
+          "weight": 50,
+          "conditions": [
+            {
+              "condition": "valoria:unlockable",
+              "id": "valoria:dryador"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
           "name": "valoria:arcane_trim",
           "weight": 1,
           "functions": []

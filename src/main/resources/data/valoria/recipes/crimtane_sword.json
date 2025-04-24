@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "X",
+    "X",
+    "/"
+  ],
+  "key": {
+    "X": {
+      "item": "valoria:crimtane_ingot"
+    },
+    "/": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "valoria:crimtane_sword",
+    "count": 1
+  }
+}

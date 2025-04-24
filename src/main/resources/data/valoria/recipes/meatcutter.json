@@ -1,0 +1,10 @@
+{
+  "type": "valoria:tinkering",
+  "ingredient": {
+    "item": "valoria:crimtane_ingot"
+  },
+
+  "ingredient_count": 6,
+  "result": "valoria:meatcutter",
+  "count": 1
+}

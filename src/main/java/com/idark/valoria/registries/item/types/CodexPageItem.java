@@ -1,5 +1,6 @@
 package com.idark.valoria.registries.item.types;
 
+import com.idark.valoria.*;
 import com.idark.valoria.api.events.CodexEvent.*;
 import com.idark.valoria.api.unlockable.*;
 import com.idark.valoria.api.unlockable.types.*;
@@ -16,15 +17,16 @@ import net.minecraftforge.common.*;
 import org.jetbrains.annotations.*;
 
 import java.util.*;
+import java.util.function.*;
 
 import static com.idark.valoria.Valoria.loc;
 
 public class CodexPageItem extends Item{
-    public Unlockable unlockable;
+    public Supplier<Unlockable> unlockable;
     public String lang;
     public boolean rand;
 
-    public CodexPageItem(Properties props, @NotNull Unlockable pUnlockable, String pPageName){
+    public CodexPageItem(Properties props, Supplier<Unlockable> pUnlockable, String pPageName){
         super(props);
         this.unlockable = pUnlockable;
         this.lang = pPageName;
@@ -35,7 +37,7 @@ public class CodexPageItem extends Item{
         rand = true;
     }
 
-    public CodexPageItem(Properties props, @NotNull Unlockable pUnlockable){
+    public CodexPageItem(Properties props, Supplier<Unlockable> pUnlockable){
         super(props);
         this.unlockable = pUnlockable;
     }
@@ -49,18 +51,20 @@ public class CodexPageItem extends Item{
     public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand){
         ItemStack stack = player.getItemInHand(hand);
         player.awardStat(Stats.ITEM_USED.get(this));
+        Unlockable unlockable = this.unlockable.get();
+        Valoria.LOGGER.info(unlockable.id);
         if(!world.isClientSide && player instanceof ServerPlayer serverPlayer){
             if(rand) {
                 Unlockable rU = UnlockUtils.getRandom(player);
                 if(rU != null && !UnlockUtils.isUnlocked(player, rU) && !onUnlock(rU)) {
-                    player.getInventory().removeItem(stack);
+                    stack.shrink(1);
                     UnlockUtils.add(serverPlayer, rU);
                 }else{
                     return interactionFail(world, player, stack);
                 }
             } else {
                 if(!UnlockUtils.isUnlocked(player, unlockable) && !onUnlock(unlockable)){
-                    player.getInventory().removeItem(stack);
+                    stack.shrink(1);
                     UnlockUtils.add(serverPlayer, unlockable);
                     return new InteractionResultHolder<>(InteractionResult.SUCCESS, stack);
                 }else{

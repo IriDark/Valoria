@@ -12,6 +12,7 @@ import com.idark.valoria.core.command.arguments.*;
 import com.idark.valoria.core.compat.*;
 import com.idark.valoria.core.config.*;
 import com.idark.valoria.core.datagen.*;
+import com.idark.valoria.core.loot.conditions.*;
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.proxy.*;
 import com.idark.valoria.registries.*;
@@ -178,10 +179,11 @@ public class Valoria{
         Valoria.LOGGER.info("Item count: {}", ItemsRegistry.ITEMS.getEntries().size());
         Valoria.LOGGER.info("Block count: {}", BlockRegistry.BLOCK.getEntries().size());
         Valoria.LOGGER.info("Entity count: {}", EntityTypeRegistry.ENTITY_TYPES.getEntries().size());
+        RegisterUnlockables.init();
+        LootConditionsRegistry.register();
         ItemsRegistry.setupBook();
         PacketHandler.init();
         PotionBrewery.bootStrap();
-        RegisterUnlockables.init();
         event.enqueueWork(() -> {
             ModCompats.init();
             FireBlock fireblock = (FireBlock)Blocks.FIRE;

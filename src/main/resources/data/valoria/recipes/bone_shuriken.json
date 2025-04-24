@@ -1,0 +1,10 @@
+{
+  "type": "valoria:tinkering",
+  "ingredient": {
+    "item": "valoria:remains"
+  },
+
+  "ingredient_count": 4,
+  "result": "valoria:bone_shuriken",
+  "count": 16
+}

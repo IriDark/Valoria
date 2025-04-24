@@ -101,8 +101,8 @@ public class ItemsRegistry{
     necromancerGrimoire, suspciousGem, harmonyCrown,
 
     // misc
-    debugItem, summonBook, crystalSummonBook, soulCollectorEmpty, soulCollector, codex, page, cryptPage, voidKey, spectralBladeThrown, pick,
-
+    debugItem, summonBook, crystalSummonBook, soulCollectorEmpty, soulCollector, voidKey, spectralBladeThrown, pick,
+    codex, page, cryptPage, fortressPage, necromancerPage, dryadorPage, wickedCrystalPage,
     // weapons
     club, bronzeSword, spectralBlade, corpseCleaver, boneShuriken,
     samuraiKunai, samuraiPoisonedKunai, samuraiKatana, samuraiLongBow,
@@ -331,7 +331,12 @@ public class ItemsRegistry{
         soulCollector = registerItem("soul_collector", () -> new SoulCollectorItem(50, 50, new Item.Properties().rarity(RarityRegistry.PHANTASM)));
         codex = registerItem("codex", () -> new CodexItem(new Item.Properties().stacksTo(1)));
         page = registerItem("page", () -> new CodexPageItem(new Item.Properties()));
-        cryptPage = registerItem("crypt_page", () -> new CodexPageItem(new Item.Properties().stacksTo(1), RegisterUnlockables.crypt, "codex.valoria.crypt.name"));
+        cryptPage = registerItem("crypt_page", () -> new CodexPageItem(new Item.Properties().stacksTo(1), () -> RegisterUnlockables.crypt, "codex.valoria.crypt.name"));
+        fortressPage = registerItem("fortress_page", () -> new CodexPageItem(new Item.Properties().stacksTo(1), () -> RegisterUnlockables.fortress, "codex.valoria.fortress.name"));
+        necromancerPage = registerItem("necromancer_page", () -> new CodexPageItem(new Item.Properties().stacksTo(1), () -> RegisterUnlockables.necromancer, "codex.valoria.necromancer.name"));
+        dryadorPage = registerItem("dryador_page", () -> new CodexPageItem(new Item.Properties().stacksTo(1), () -> RegisterUnlockables.dryador, "codex.valoria.dryador.name"));
+        wickedCrystalPage = registerItem("wicked_crystal_page", () -> new CodexPageItem(new Item.Properties().stacksTo(1), () -> RegisterUnlockables.wickedCrystal, "codex.valoria.wicked_crystal.name"));
+
         voidKey = registerItem("void_key", () -> new Item(new Item.Properties().stacksTo(16).rarity(RarityRegistry.VOID)));
         pick = registerItem("prospectors_pick", () -> new PickItem(new Item.Properties().fireResistant().stacksTo(1).durability(64), 1, -2.8f, 5));
 

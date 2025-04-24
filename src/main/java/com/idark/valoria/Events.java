@@ -3,6 +3,7 @@ package com.idark.valoria;
 import com.idark.valoria.api.unlockable.*;
 import com.idark.valoria.api.unlockable.types.*;
 import com.idark.valoria.client.ui.screen.book.codex.*;
+import com.idark.valoria.client.ui.screen.book.unlockable.*;
 import com.idark.valoria.core.capability.*;
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.*;
@@ -50,6 +51,7 @@ public class Events{
     public void onReload(AddReloadListenerEvent event) {
         Valoria.LOGGER.info("Reloading Codex Chapters...");
         CodexEntries.initChapters();
+        RegisterUnlockables.init();
     }
 
     @SubscribeEvent

@@ -1,22 +1,24 @@
 package com.idark.valoria.api.unlockable.types;
 
+import com.google.gson.*;
 import com.idark.valoria.*;
 import com.idark.valoria.api.unlockable.*;
 import net.minecraft.resources.*;
 import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
+import net.minecraft.util.*;
 import net.minecraft.world.entity.item.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.storage.loot.*;
 import net.minecraft.world.level.storage.loot.parameters.*;
 
-public class Unlockable{
+public class Unlockable {
     private ResourceLocation[] loot;
     private ItemStack[] items;
     private int experience;
     public String id;
-    private final boolean randomObtainable;
+    public final boolean randomObtainable;
 
     public Unlockable(String id){
         this.id = id;
@@ -114,5 +116,20 @@ public class Unlockable{
         }
 
         return flag;
+    }
+
+    public static class Serializer {
+        public Serializer() {
+        }
+
+        public Unlockable deserialize(JsonObject object, JsonDeserializationContext pContext){
+            String id = GsonHelper.getAsObject(object, "unlockable", pContext, String.class);
+            return Unlockables.getUnlockable(id);
+        }
+
+        public JsonObject serialize(JsonObject json, Unlockable unlock, JsonSerializationContext pContext) {
+            json.add("unlockable", pContext.serialize(unlock.id));
+            return json;
+        }
     }
 }
