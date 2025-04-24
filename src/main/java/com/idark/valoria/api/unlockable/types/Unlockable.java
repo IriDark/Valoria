@@ -1,12 +1,9 @@
 package com.idark.valoria.api.unlockable.types;
 
-import com.google.gson.*;
-import com.idark.valoria.*;
 import com.idark.valoria.api.unlockable.*;
 import net.minecraft.resources.*;
 import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
-import net.minecraft.util.*;
 import net.minecraft.world.entity.item.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
@@ -91,7 +88,6 @@ public class Unlockable {
         if(loot != null){
             for(ResourceLocation resourcelocation : this.loot){
                 for(ItemStack itemstack : pPlayer.server.getLootData().getLootTable(resourcelocation).getRandomItems(lootparams)){
-                    Valoria.LOGGER.info(itemstack.toString());
                     addReward(pPlayer, itemstack, flag);
                     flag = true;
                 }
@@ -118,18 +114,18 @@ public class Unlockable {
         return flag;
     }
 
-    public static class Serializer {
-        public Serializer() {
-        }
-
-        public Unlockable deserialize(JsonObject object, JsonDeserializationContext pContext){
-            String id = GsonHelper.getAsObject(object, "unlockable", pContext, String.class);
-            return Unlockables.getUnlockable(id);
-        }
-
-        public JsonObject serialize(JsonObject json, Unlockable unlock, JsonSerializationContext pContext) {
-            json.add("unlockable", pContext.serialize(unlock.id));
-            return json;
-        }
-    }
+//    public static class Serializer {
+//        public Serializer() {
+//        }
+//
+//        public Unlockable deserialize(JsonObject object, JsonDeserializationContext pContext){
+//            String id = GsonHelper.getAsObject(object, "unlockable", pContext, String.class);
+//            return Unlockables.getUnlockable(id);
+//        }
+//
+//        public JsonObject serialize(JsonObject json, Unlockable unlock, JsonSerializationContext pContext) {
+//            json.add("unlockable", pContext.serialize(unlock.id));
+//            return json;
+//        }
+//    }
 }

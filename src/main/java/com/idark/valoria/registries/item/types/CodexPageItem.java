@@ -1,6 +1,5 @@
 package com.idark.valoria.registries.item.types;
 
-import com.idark.valoria.*;
 import com.idark.valoria.api.events.CodexEvent.*;
 import com.idark.valoria.api.unlockable.*;
 import com.idark.valoria.api.unlockable.types.*;
@@ -52,7 +51,6 @@ public class CodexPageItem extends Item{
         ItemStack stack = player.getItemInHand(hand);
         player.awardStat(Stats.ITEM_USED.get(this));
         Unlockable unlockable = this.unlockable.get();
-        Valoria.LOGGER.info(unlockable.id);
         if(!world.isClientSide && player instanceof ServerPlayer serverPlayer){
             if(rand) {
                 Unlockable rU = UnlockUtils.getRandom(player);
