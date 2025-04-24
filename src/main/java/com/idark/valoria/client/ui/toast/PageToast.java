@@ -57,9 +57,8 @@ public class PageToast implements Toast{
     public Visibility render(GuiGraphics pGuiGraphics, ToastComponent pToastComponent, long pTimeSinceLastVisible){
         pGuiGraphics.blit(TEXTURE, 0, 0, 0, 0, this.width(), this.height(), 256, 32);
 
-        pGuiGraphics.renderItem(ItemsRegistry.cryptPage.get().getDefaultInstance(), 8, 8);
-        pGuiGraphics.renderItem(ItemsRegistry.codex.get().getDefaultInstance(), 155, 8);
-
+        pGuiGraphics.renderFakeItem(ItemsRegistry.cryptPage.get().getDefaultInstance(), 8, 8);
+        pGuiGraphics.renderFakeItem(ItemsRegistry.codex.get().getDefaultInstance(), 155, 8);
         if(pUnlock){
             drawWrappingText(pGuiGraphics, "codex.valoria.new_page", 90, 8, 120, true);
         }else{
@@ -67,6 +66,13 @@ public class PageToast implements Toast{
         }
 
         return (double)pTimeSinceLastVisible >= 5000.0D * pToastComponent.getNotificationDisplayTimeMultiplier() ? Visibility.HIDE : Visibility.SHOW;
+    }
+
+    public static void addOrUpdate(ToastComponent pToastGui, boolean pUnlock) {
+        PageToast toast = pToastGui.getToast(PageToast.class, NO_TOKEN);
+        if (toast == null) {
+            pToastGui.addToast(new PageToast(pUnlock));
+        }
     }
 
     @Override

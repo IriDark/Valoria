@@ -2,6 +2,7 @@ package com.idark.valoria.core.network.packets;
 
 import com.idark.valoria.*;
 import com.idark.valoria.client.ui.toast.*;
+import com.idark.valoria.core.config.*;
 import net.minecraft.client.*;
 import net.minecraft.network.*;
 import net.minecraft.sounds.*;
@@ -57,6 +58,8 @@ public class PageToastPacket{
 
     @OnlyIn(Dist.CLIENT)
     public static void toast(PageToastPacket packet){
-        Minecraft.getInstance().getToasts().addToast(new PageToast(packet.unlock));
+        if (ClientConfig.SHOW_TOASTS.get()) {
+            PageToast.addOrUpdate(Minecraft.getInstance().getToasts(), packet.unlock);
+        }
     }
 }

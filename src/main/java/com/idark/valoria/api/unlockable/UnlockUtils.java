@@ -1,5 +1,6 @@
 package com.idark.valoria.api.unlockable;
 
+import com.idark.valoria.*;
 import com.idark.valoria.api.unlockable.types.*;
 import com.idark.valoria.core.capability.*;
 import com.idark.valoria.core.network.*;
@@ -76,6 +77,8 @@ public class UnlockUtils{
             PacketHandler.sendTo((Player)entity, new UnlockableUpdatePacket(entity));
             PacketHandler.sendTo((Player)entity, new PageToastPacket(entity, true));
         });
+
+        Valoria.LOGGER.debug("{} unlocked page {}", entity.getDisplayName().getString(), unlockable.id);
     }
 
     public static void remove(ServerPlayer entity, Unlockable unlockable){

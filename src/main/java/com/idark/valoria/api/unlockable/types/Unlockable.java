@@ -27,6 +27,11 @@ public class Unlockable {
         this.randomObtainable = rndObtain;
     }
 
+    @Override
+    public String toString(){
+        return getClass().getSimpleName() + "{ id='" + id + '\'' + '}';
+    }
+
     public boolean canObtain(Player player) {
         return false;
     }
