@@ -17,6 +17,7 @@ public class SoundsRegistry{
     public static final RegistryObject<SoundEvent> RISING = registerSound("music.valoria.rising");
     public static final RegistryObject<SoundEvent> ARRIVING = registerSound("music.valoria.arriving");
     public static final RegistryObject<SoundEvent> BLOOD_POLE = registerSound("music.valoria.blood_pole");
+    public static final RegistryObject<SoundEvent> CARRION = registerSound("music.valoria.carrion");
 
     public static final RegistryObject<SoundEvent> HALLOWEEN_SLICE_LEGACY = registerSound("item.halloween_slice_legacy.use"); // calamity
     public static final RegistryObject<SoundEvent> HALLOWEEN_SLICE = registerSound("item.halloween_slice.use");

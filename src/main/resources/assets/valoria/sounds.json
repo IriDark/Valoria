@@ -15,6 +15,26 @@
       }
     ]
   },
+  "music.valoria.carrion": {
+    "sounds": [
+      {
+        "name": "valoria:music/carrion",
+        "stream": true
+      },
+      {
+        "name": "valoria:music/arriving",
+        "stream": true
+      },
+      {
+        "name": "valoria:music/blood_pole",
+        "stream": true
+      },
+      {
+        "name": "valoria:music/explore",
+        "stream": true
+      }
+    ]
+  },
   "music.valoria.arriving": {
     "sounds": [
       {
@@ -33,6 +53,10 @@
   },
   "music.valoria.blood_pole": {
     "sounds": [
+      {
+        "name": "valoria:music/carrion",
+        "stream": true
+      },
       {
         "name": "valoria:music/rising",
         "stream": true

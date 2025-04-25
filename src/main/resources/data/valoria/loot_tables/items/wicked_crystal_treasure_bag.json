@@ -23,6 +23,12 @@
         },
         {
           "type": "minecraft:item",
+          "name": "valoria:murasame_fragment",
+          "weight": 1,
+          "functions": []
+        },
+        {
+          "type": "minecraft:item",
           "name": "valoria:nero_fragment",
           "weight": 1,
           "functions": []

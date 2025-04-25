@@ -699,7 +699,7 @@ public class ItemsRegistry{
     }
 
     private static KatanaItem murasamaProps(){
-        return new KatanaItem(ModItemTier.SAMURAI, ToolStats.katana.damage, ToolStats.katana.speed, new Item.Properties()){
+        return new KatanaItem(ModItemTier.SAMURAI, 12, ToolStats.katana.speed, new Item.Properties()){
             {
                 builder.chargeTime = 20;
                 builder.chargedSound = SoundsRegistry.RECHARGE.get();

@@ -95,7 +95,7 @@ public class FleshCystBlock extends BaseEntityBlock implements SimpleWaterlogged
 
     public void onDestroy(Level pLevel, BlockPos pPos){
         if(!pLevel.isClientSide()){
-            for(int i = 0; i < 4; i++){
+            for(int i = 0; i < 3; i++){
                 this.spawnSentinels((ServerLevel)pLevel, pPos);
             }
         }
@@ -107,16 +107,15 @@ public class FleshCystBlock extends BaseEntityBlock implements SimpleWaterlogged
 
     @OnlyIn(Dist.CLIENT)
     public void spawnDestroyParticles(Level pLevel, BlockPos pPos){
-        for(int i = 0; i < 25; i++){
-            ParticleBuilder.create(TridotParticles.WISP)
-                    .setRenderType(TridotRenderTypes.TRANSLUCENT_PARTICLE)
-                    .setColorData(ColorParticleData.create(Pal.kiwi.darker(), Pal.mindaro).build())
-                    .setScaleData(GenericParticleData.create(0.425f, 0.075f, 0).setEasing(Interp.bounceOut).build())
-                    .setLifetime(65)
-                    .setGravity(0.0125f)
-                    .flatRandomVelocity(0.025, Tmp.rnd.randomValueUpTo(0.055), 0.025)
-                    .spawn(pLevel, pPos.getCenter().x, pPos.getCenter().y + 0.2, pPos.getCenter().z);
-        }
+        ParticleBuilder.create(TridotParticles.WISP)
+        .setRenderType(TridotRenderTypes.TRANSLUCENT_PARTICLE)
+        .setColorData(ColorParticleData.create(Pal.kiwi, Pal.mindaro).build())
+        .setScaleData(GenericParticleData.create(0.425f, 0.075f, 0).setEasing(Interp.bounceOut).build())
+        .setLifetime(35)
+        .randomOffset(0.5f)
+        .setGravity(0.0125f)
+        .flatRandomVelocity(0.025, Tmp.rnd.randomValueUpTo(0.055), 0.025)
+        .repeat(pLevel, pPos.getCenter().x, pPos.getCenter().y + 0.2, pPos.getCenter().z, 15);
     }
 
     @Override

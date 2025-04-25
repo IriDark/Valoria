@@ -2,25 +2,25 @@
   "structures": [
     {
       "structure": "valoria:monstrosity_spine",
-      "weight": 65
+      "weight": 100
     },
     {
       "structure": "valoria:fractured_skull",
-      "weight": 45
+      "weight": 75
     },
     {
       "structure": "valoria:giant_ribs",
-      "weight": 45
+      "weight": 75
     },
     {
       "structure": "valoria:monstrosity_skull",
-      "weight": 45
+      "weight": 75
     }
   ],
   "placement": {
     "type": "minecraft:random_spread",
     "salt": 34222645,
-    "separation": 8,
-    "spacing": 24
+    "separation": 3,
+    "spacing": 16
   }
 }

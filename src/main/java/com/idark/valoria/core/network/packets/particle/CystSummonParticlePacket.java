@@ -32,16 +32,14 @@ public class CystSummonParticlePacket{
         if(ctx.get().getDirection().getReceptionSide().isClient()){
             ctx.get().enqueueWork(() -> {
                 Level pLevel = Valoria.proxy.getLevel();
-                for(int i = 0; i < 8; i++){
-                    ParticleBuilder.create(TridotParticles.WISP)
-                            .setRenderType(TridotRenderTypes.TRANSLUCENT_PARTICLE)
-                            .setColorData(ColorParticleData.create(Pal.kiwi.darker(), Pal.mindaro).build())
-                            .setScaleData(GenericParticleData.create(0.045f, 0.075f, 0).setEasing(Interp.bounce).build())
-                            .setLifetime(65)
-                            .setGravity(0.0125f)
-                            .flatRandomVelocity(0.025, Tmp.rnd.randomValueUpTo(0.055), 0.025)
-                            .spawn(pLevel, msg.pos.getCenter().x, msg.pos.getCenter().y + 0.2, msg.pos.getCenter().z);
-                }
+                ParticleBuilder.create(TridotParticles.WISP)
+                .setRenderType(TridotRenderTypes.TRANSLUCENT_PARTICLE)
+                .setColorData(ColorParticleData.create(Pal.kiwi.darker(), Pal.mindaro).build())
+                .setScaleData(GenericParticleData.create(0.045f, 0.075f, 0).setEasing(Interp.bounce).build())
+                .setLifetime(35)
+                .setGravity(0.0125f)
+                .flatRandomVelocity(0.025, Tmp.rnd.randomValueUpTo(0.055), 0.025)
+                .repeat(pLevel, msg.pos.getCenter().x, msg.pos.getCenter().y + 0.2, msg.pos.getCenter().z, 8);
 
                 ctx.get().setPacketHandled(true);
             });

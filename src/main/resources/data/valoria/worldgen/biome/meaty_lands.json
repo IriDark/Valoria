@@ -16,7 +16,7 @@
       "offset": 2
     },
     "music": {
-      "sound": "valoria:music.valoria.blood_pole",
+      "sound": "valoria:music.valoria.carrion",
       "min_delay": 12000,
       "max_delay": 24000,
       "replace_current_music": false
