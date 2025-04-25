@@ -149,6 +149,38 @@ public class ParticleEffects{
         }
     }
 
+    public static void swirlTrail(Level level, Vec3 pos, ColorParticleData data) {
+        Vec3 vec3 = Vec3.ZERO;
+        final Consumer<GenericParticle> fancyTarget = p -> {
+            Vec3 particlePos = p.getPos();
+            Vec3 toCenter = vec3.subtract(particlePos).normalize();
+
+            double angle = (p.getAge() + p.hashCode() % 20) * 0.15;
+            double radius = 0.05;
+
+            double swirlX = Math.cos(angle) * radius;
+            double swirlZ = Math.sin(angle) * radius;
+
+            Vec3 swirlVec = new Vec3(swirlX, 0, swirlZ);
+            Vec3 attraction = toCenter.scale(0.02);
+            Vec3 finalMotion = swirlVec.add(attraction);
+
+            p.setSpeed(p.getSpeed().add(finalMotion));
+        };
+
+        ParticleBuilder.create(TridotParticles.TRAIL)
+        .setRenderType(TridotRenderTypes.ADDITIVE_PARTICLE_TEXTURE)
+        .setBehavior(TrailParticleBehavior.create().build())
+        .setColorData(data)
+        .setTransparencyData(GenericParticleData.create(1f, 0).setEasing(Interp.sineOut).build())
+        .setScaleData(GenericParticleData.create(0.5f).setEasing(Interp.sineIn).build())
+        .addTickActor(fancyTarget)
+        .setLifetime(15)
+        .randomVelocity(0.25f, 0.25f, 0.25f)
+        .setVelocity(vec3.x, 0, vec3.z)
+        .repeat(level, pos.x, pos.y, pos.z, 5);
+    }
+
     public static void smoothTrail(Level level, Consumer<GenericParticle> target, Vec3 pos, ColorParticleData data){
         ParticleBuilder.create(TridotParticles.TRAIL)
                 .setRenderType(TridotRenderTypes.ADDITIVE_PARTICLE_TEXTURE)

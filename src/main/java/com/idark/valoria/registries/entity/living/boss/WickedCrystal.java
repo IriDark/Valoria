@@ -166,7 +166,7 @@ public class WickedCrystal extends AbstractBoss{
 
     @Override
     public boolean hurt(DamageSource source, float amount){
-        if(source.getDirectEntity() != null && source.getDirectEntity().getY() > this.getY() + 6) return false;
+        if(source.getEntity() != null && source.getEntity().getY() > this.getY() + 6) return false;
 
         TargetingConditions shields = TargetingConditions.forNonCombat().range(8.0D).ignoreLineOfSight().ignoreInvisibilityTesting();
         int shieldCount = WickedCrystal.this.level().getNearbyEntities(WickedShield.class, shields, WickedCrystal.this, WickedCrystal.this.getBoundingBox().inflate(16.0D)).size();

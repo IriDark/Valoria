@@ -134,11 +134,13 @@ public class ValoriaClient{
             EntityRenderers.register(EntityTypeRegistry.MEAT.get(), MeatBlockRenderer::new);
             EntityRenderers.register(EntityTypeRegistry.DEVOURER.get(), DevourerRenderer::new);
             EntityRenderers.register(EntityTypeRegistry.UNDEAD.get(), UndeadRenderer::new);
+            EntityRenderers.register(EntityTypeRegistry.NATURE_ARROW.get(), AbstractValoriaArrowRenderer::new);
+            EntityRenderers.register(EntityTypeRegistry.AQUARIUS_ARROW.get(), AbstractValoriaArrowRenderer::new);
+            EntityRenderers.register(EntityTypeRegistry.INFERNAL_ARROW.get(), AbstractValoriaArrowRenderer::new);
+            EntityRenderers.register(EntityTypeRegistry.WICKED_ARROW.get(), AbstractValoriaArrowRenderer::new);
             EntityRenderers.register(EntityTypeRegistry.PYRATITE_ARROW.get(), AbstractValoriaArrowRenderer::new);
             EntityRenderers.register(EntityTypeRegistry.PHANTOM_ARROW.get(), AbstractValoriaArrowRenderer::new);
-            EntityRenderers.register(EntityTypeRegistry.WICKED_ARROW.get(), AbstractValoriaArrowRenderer::new);
             EntityRenderers.register(EntityTypeRegistry.SOUL_ARROW.get(), AbstractValoriaArrowRenderer::new);
-            EntityRenderers.register(EntityTypeRegistry.INFERNAL_ARROW.get(), AbstractValoriaArrowRenderer::new);
             EntityRenderers.register(EntityTypeRegistry.SPEAR.get(), ThrownSpearRenderer::new);
             EntityRenderers.register(EntityTypeRegistry.SHADEWOOD_SPIDER.get(), ShadewoodSpiderRenderer::new);
             EntityRenderers.register(EntityTypeRegistry.DEVIL.get(), DevilRenderer::new);

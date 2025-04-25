@@ -2,10 +2,12 @@ package com.idark.valoria.registries.entity.projectile;
 
 import com.idark.valoria.*;
 import com.idark.valoria.client.particle.*;
+import com.idark.valoria.registries.*;
 import com.idark.valoria.util.*;
 import net.minecraft.resources.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.projectile.*;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
 import pro.komaru.tridot.api.interfaces.*;
@@ -16,6 +18,10 @@ import pro.komaru.tridot.common.registry.entity.projectiles.*;
 import java.util.function.*;
 
 public class InfernalArrow extends AbstractTridotArrow implements TexturedArrow{
+
+    public InfernalArrow(Level pLevel, LivingEntity pShooter, ItemStack thrown){
+        super(EntityTypeRegistry.INFERNAL_ARROW.get(), pLevel, pShooter, thrown, 5);
+    }
 
     public InfernalArrow(EntityType<? extends AbstractArrow> pEntityType, Level pLevel){
         super(pEntityType, pLevel);

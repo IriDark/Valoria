@@ -39,7 +39,7 @@ public class BlockRegistry{
     eldritchChest, shadewoodChest, eldritchTrappedChest, shadewoodTrappedChest,
     eldritchDoor, eldritchTrapdoor, shadewoodDoor, shadewoodTrapdoor, bronzeDoor, bronzeTrapdoor, bronzeTrapdoorGlass,
     pyratiteBlock, pyratiteOre, pyratiteCrystal, amberBlock, amberOre, deepslateAmberOre, amberCrystal, sapphireBlock, sapphireOre, deepslateSapphireOre, sapphireCrystal, amethystBlock, amethystCrystal, rubyBlock, rubyOre, deepslateRubyOre, rubyCrystal, cobaltBlock, rawCobaltOreBlock, cobaltOre, deepslateCobaltOre, jadeOre, picriteJadeOre, wickedAmethystOre, dormantCrystals, pearliumOre,
-    natureBlock, aquariusBlock, infernalBlock, awakenedVoidBlock, unchargedShardBlock, soulShardBlock, wickedAmethystBlock,
+    natureBlock, aquariusBlock, infernalBlock, awakenedVoidBlock, crimtaneBlock, unchargedShardBlock, soulShardBlock, wickedAmethystBlock,
     bronzeBlock, bronzeBlockStairs, bronzeBlockSlab, bronzeVent, cutBronze, cutBronzeStairs, cutBronzeSlab, bronzeGlass, bronzeGlassPane,
     eyeFlesh, eyeMeat, eyeStone, meatBlock, fleshRemains, meatPillar, fleshBlock, fleshCyst, bloodVein,
     cobbledShale, cobbledShaleStairs, cobbledShaleSlab, cobbledShaleWall, cobbledShaleBricks, cobbledShaleBricksStairs, cobbledShaleBricksSlab, cobbledShaleBricksWall, crackedCobbledShaleBricks, crackedCobbledShaleBricksStairs, crackedCobbledShaleBricksSlab, crackedCobbledShaleBricksWall, polishedCobbledShale, polishedCobbledShaleStairs, polishedCobbledShaleSlab, polishedCobbledShaleWall, cobbledShaleFirechargeTrap, cobbledShaleSpikesTrap,
@@ -131,6 +131,8 @@ public class BlockRegistry{
         aquariusBlock = registerBlock("aquarius_block", () -> new Block(props(Blocks.IRON_BLOCK, MapColor.COLOR_BLUE).requiresCorrectToolForDrops().strength(3f, 4f).sound(SoundType.NETHERITE_BLOCK)));
         infernalBlock = registerBlock("infernal_block", () -> new InfernalBlock(props(Blocks.IRON_BLOCK, MapColor.COLOR_RED).requiresCorrectToolForDrops().strength(3f, 4f).sound(SoundType.NETHERITE_BLOCK)));
         awakenedVoidBlock = registerBlock("awakened_void_block", () -> new Block(props(Blocks.IRON_BLOCK, MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(3f, 4f).sound(SoundType.NETHERITE_BLOCK)));
+        crimtaneBlock = registerBlock("crimtane_block", () -> new Block(props(Blocks.IRON_BLOCK, MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(3f, 4f).sound(SoundType.NETHERITE_BLOCK)));
+
         unchargedShardBlock = registerBlock("uncharged_shard_block", () -> new Block(props(Blocks.IRON_BLOCK, MapColor.COLOR_GRAY).requiresCorrectToolForDrops().strength(3f, 4f).sound(SoundType.AMETHYST)));
         soulShardBlock = registerBlock("soul_shard_block", () -> new Block(props(Blocks.IRON_BLOCK, MapColor.COLOR_BLUE).requiresCorrectToolForDrops().strength(3f, 4f).sound(SoundType.AMETHYST)));
         wickedAmethystBlock = registerBlock("wicked_amethyst_block", () -> new Block(props(Blocks.IRON_BLOCK, MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(3f, 4f).sound(SoundType.AMETHYST)));

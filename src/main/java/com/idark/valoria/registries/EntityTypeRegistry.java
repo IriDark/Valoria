@@ -39,10 +39,13 @@ public class EntityTypeRegistry{
 
     // Projectiles
     public static final RegistryObject<EntityType<PyratiteArrow>> PYRATITE_ARROW = register("pyratite_arrow", EntityType.Builder.<PyratiteArrow>of(PyratiteArrow::new, MobCategory.MISC).sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20));
+    public static final RegistryObject<EntityType<NatureArrow>> NATURE_ARROW = register("nature_arrow", EntityType.Builder.<NatureArrow>of(NatureArrow::new, MobCategory.MISC).sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20));
+    public static final RegistryObject<EntityType<AquariusArrow>> AQUARIUS_ARROW = register("aquarius_arrow", EntityType.Builder.<AquariusArrow>of(AquariusArrow::new, MobCategory.MISC).sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20));
+    public static final RegistryObject<EntityType<InfernalArrow>> INFERNAL_ARROW = register("infernal_arrow", EntityType.Builder.<InfernalArrow>of(InfernalArrow::new, MobCategory.MISC).sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20));
     public static final RegistryObject<EntityType<WickedArrow>> WICKED_ARROW = register("wicked_arrow", EntityType.Builder.<WickedArrow>of(WickedArrow::new, MobCategory.MISC).sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20));
+
     public static final RegistryObject<EntityType<SoulArrow>> SOUL_ARROW = register("soul_arrow", EntityType.Builder.<SoulArrow>of(SoulArrow::new, MobCategory.MISC).sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20));
     public static final RegistryObject<EntityType<PhantomArrow>> PHANTOM_ARROW = register("phantom_arrow", EntityType.Builder.<PhantomArrow>of(PhantomArrow::new, MobCategory.MISC).sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20));
-    public static final RegistryObject<EntityType<InfernalArrow>> INFERNAL_ARROW = register("infernal_arrow", EntityType.Builder.of(InfernalArrow::new, MobCategory.MISC).sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20));
     public static final RegistryObject<EntityType<ThrowableBomb>> THROWABLE_BOMB = register("throwable_bomb", EntityType.Builder.<ThrowableBomb>of(ThrowableBomb::new, MobCategory.MISC).sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20));
     public static final RegistryObject<EntityType<MeatBlockEntity>> MEAT = register("meat", EntityType.Builder.<MeatBlockEntity>of(MeatBlockEntity::new, MobCategory.MISC).sized(1, 1f).clientTrackingRange(4).updateInterval(20));
     public static final RegistryObject<EntityType<SpectralBladeEntity>> SPECTRAL_BLADE = register("spectral_blade", EntityType.Builder.<SpectralBladeEntity>of(SpectralBladeEntity::new, MobCategory.MISC).sized(0.35f, 0.35f).clientTrackingRange(4).updateInterval(20));

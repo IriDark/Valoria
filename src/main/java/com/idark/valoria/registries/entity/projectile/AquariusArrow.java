@@ -16,14 +16,14 @@ import pro.komaru.tridot.common.registry.entity.projectiles.*;
 
 import java.util.function.*;
 
-public class WickedArrow extends AbstractTridotArrow implements TexturedArrow{
+public class AquariusArrow extends AbstractTridotArrow implements TexturedArrow{
 
-    public WickedArrow(EntityType<? extends AbstractTridotArrow> pEntityType, Level pLevel){
+    public AquariusArrow(EntityType<? extends AbstractTridotArrow> pEntityType, Level pLevel){
         super(pEntityType, pLevel);
     }
 
-    public WickedArrow(Level pLevel, LivingEntity pShooter, ItemStack thrown){
-        super(EntityTypeRegistry.WICKED_ARROW.get(), pLevel, pShooter, thrown, 4);
+    public AquariusArrow(Level pLevel, LivingEntity pShooter, ItemStack thrown){
+        super(EntityTypeRegistry.AQUARIUS_ARROW.get(), pLevel, pShooter, thrown, 4);
     }
 
     @Override
@@ -42,13 +42,13 @@ public class WickedArrow extends AbstractTridotArrow implements TexturedArrow{
                 }
             };
 
-            ParticleEffects.swirlTrail(this.level(), pos, ColorParticleData.create(Pal.vividPink, Pal.darkViolet).build());
-            ParticleEffects.smoothTrail(this.level(), target, pos, ColorParticleData.create(Pal.vividPink, Pal.darkViolet).build());
+            ParticleEffects.swirlTrail(this.level(), pos, ColorParticleData.create(Pal.oceanic, Pal.darkViolet).build());
+            ParticleEffects.smoothTrail(this.level(), target, pos, ColorParticleData.create(Pal.oceanic, Pal.darkViolet).build());
         }
     }
 
     @Override
     public ResourceLocation getTexture(){
-        return new ResourceLocation(Valoria.ID, "textures/entity/projectile/arrow/wicked_arrow.png");
+        return new ResourceLocation(Valoria.ID, "textures/entity/projectile/arrow/aquarius_arrow.png");
     }
 }

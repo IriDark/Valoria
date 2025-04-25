@@ -6,6 +6,17 @@
       "entries": [
         {
           "type": "minecraft:item",
+          "name": "valoria:wicked_crystal_page",
+          "weight": 50,
+          "conditions": [
+            {
+              "condition": "valoria:unlockable",
+              "id": "valoria:wicked_crystal"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
           "name": "valoria:star_divider_fragment",
           "weight": 1,
           "functions": []
@@ -43,20 +54,6 @@
         {
           "type": "minecraft:item",
           "name": "valoria:black_gold_ingot",
-          "weight": 30,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1,
-                "max": 6
-              }
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "valoria:crystal_shard",
           "weight": 25,
           "functions": [
             {
@@ -71,13 +68,63 @@
         {
           "type": "minecraft:item",
           "name": "valoria:crystal_summon_book",
-          "weight": 10
+          "weight": 5
         },
         {
           "type": "minecraft:item",
           "name": "valoria:void_edge",
-          "weight": 1,
+          "weight": 5,
           "functions": []
+        },
+        {
+          "type": "minecraft:item",
+          "name": "valoria:void_scythe",
+          "weight": 5,
+          "functions": []
+        },
+        {
+          "type": "minecraft:item",
+          "name": "valoria:bow_of_darkness",
+          "weight": 5,
+          "functions": []
+        },
+        {
+          "type": "minecraft:item",
+          "name": "valoria:wicked_arrow",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "min": 1,
+                "max": 6
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "valoria:void_upgrade_smithing_template",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "valoria:crystal_shard",
+          "weight": 100,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "min": 1,
+                "max": 6
+              }
+            }
+          ]
         }
       ]
     },

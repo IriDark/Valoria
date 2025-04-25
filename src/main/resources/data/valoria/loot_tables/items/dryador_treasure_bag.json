@@ -89,6 +89,38 @@
         },
         {
           "type": "minecraft:item",
+          "name": "valoria:ent",
+          "weight": 5,
+          "functions": []
+        },
+        {
+          "type": "minecraft:item",
+          "name": "valoria:nature_scythe",
+          "weight": 5,
+          "functions": []
+        },
+        {
+          "type": "minecraft:item",
+          "name": "valoria:nature_bow",
+          "weight": 5,
+          "functions": []
+        },
+        {
+          "type": "minecraft:item",
+          "name": "valoria:nature_arrow",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "min": 1,
+                "max": 6
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
           "name": "valoria:nature_upgrade_smithing_template",
           "weight": 1
         },
@@ -96,12 +128,6 @@
           "type": "minecraft:item",
           "name": "valoria:nature_core",
           "weight": 1
-        },
-        {
-          "type": "minecraft:item",
-          "name": "valoria:ent",
-          "weight": 1,
-          "functions": []
         }
       ]
     },
