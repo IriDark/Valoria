@@ -9,6 +9,7 @@ import net.minecraft.world.entity.projectile.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
+import net.minecraftforge.api.distmarker.*;
 import pro.komaru.tridot.client.gfx.*;
 import pro.komaru.tridot.client.gfx.particle.*;
 import pro.komaru.tridot.client.gfx.particle.data.*;
@@ -53,6 +54,7 @@ public class SpectralBladeEntity extends AbstractSupplierProjectile{
         super.tick();
     }
 
+    @OnlyIn(Dist.CLIENT)
     public void spawnParticleTrail(Level level, Projectile projectile, Vec3 spawnPos){
         if(level.isClientSide()){
             final Consumer<GenericParticle> blockTarget = p -> {

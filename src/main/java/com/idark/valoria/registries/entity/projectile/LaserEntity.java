@@ -8,6 +8,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.projectile.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
+import net.minecraftforge.api.distmarker.*;
 import pro.komaru.tridot.client.gfx.*;
 import pro.komaru.tridot.client.gfx.particle.*;
 import pro.komaru.tridot.client.gfx.particle.behavior.*;
@@ -35,6 +36,7 @@ public class LaserEntity extends Projectile{
         this.setOwner(shooter);
     }
 
+    @OnlyIn(Dist.CLIENT)
     public void spawnParticlesTrail(){
         Vec3 delta = this.getDeltaMovement().normalize();
         Vec3 pos = new Vec3(this.getX() + delta.x() * 0.00015, this.getY() + delta.y() * 0.00015, this.getZ() + delta.z() * 0.00015);

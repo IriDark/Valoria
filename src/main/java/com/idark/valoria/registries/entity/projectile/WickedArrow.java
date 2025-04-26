@@ -9,6 +9,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
+import net.minecraftforge.api.distmarker.*;
 import pro.komaru.tridot.api.interfaces.*;
 import pro.komaru.tridot.client.gfx.particle.*;
 import pro.komaru.tridot.client.gfx.particle.data.*;
@@ -27,6 +28,7 @@ public class WickedArrow extends AbstractTridotArrow implements TexturedArrow{
     }
 
     @Override
+    @OnlyIn(Dist.CLIENT)
     public void spawnParticlesTrail(){
         if(!this.inGround){
             Vec3 delta = this.getDeltaMovement().normalize();

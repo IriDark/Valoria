@@ -8,6 +8,7 @@ import net.minecraft.world.entity.projectile.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.Level.*;
 import net.minecraft.world.phys.*;
+import net.minecraftforge.api.distmarker.*;
 import pro.komaru.tridot.client.gfx.*;
 import pro.komaru.tridot.client.gfx.particle.*;
 import pro.komaru.tridot.client.gfx.particle.behavior.*;
@@ -48,6 +49,7 @@ public class PyratiteShard extends AbstractProjectile{
     }
 
     @Override
+    @OnlyIn(Dist.CLIENT)
     public void spawnParticlesTrail(){
         if(!this.inGround){
             Vec3 delta = this.getDeltaMovement().normalize();

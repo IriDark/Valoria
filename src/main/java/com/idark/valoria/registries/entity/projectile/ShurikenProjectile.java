@@ -58,6 +58,7 @@ public class ShurikenProjectile extends AbstractSupplierProjectile{
         return SoundEvents.TRIDENT_RETURN;
     }
 
+    @OnlyIn(Dist.CLIENT)
     public void spawnParticlesTrail(){
         if(this.shouldRender(this.getX(), this.getY(), this.getZ()) && !this.inGround){
             Vec3 delta = this.getDeltaMovement().normalize();
