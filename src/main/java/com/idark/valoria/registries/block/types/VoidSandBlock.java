@@ -14,6 +14,13 @@ public class VoidSandBlock extends FallingBlock{
         this.dustColor = pDustColor;
     }
 
+    @Deprecated
+    public void neighborChanged(BlockState pState, Level pLevel, BlockPos pPos, Block pNeighborBlock, BlockPos pNeighborPos, boolean pMovedByPiston) {
+        if(!pNeighborBlock.defaultBlockState().is(TagsRegistry.VOID_BLOCKS)){
+            super.neighborChanged(pState, pLevel, pPos, pNeighborBlock, pNeighborPos, pMovedByPiston);
+        }
+    }
+
     public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pFacingPos) {
         if(!pFacingState.is(TagsRegistry.VOID_BLOCKS)){
             pLevel.scheduleTick(pCurrentPos, this, this.getDelayAfterPlace());
