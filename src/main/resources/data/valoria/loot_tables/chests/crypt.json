@@ -16,6 +16,11 @@
         },
         {
           "type": "minecraft:item",
+          "name": "valoria:crypt_page",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
           "name": "valoria:bronze_nugget",
           "weight": 6,
           "functions": [

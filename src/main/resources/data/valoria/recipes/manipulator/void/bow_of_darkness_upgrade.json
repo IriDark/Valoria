@@ -1,0 +1,19 @@
+{
+  "type": "valoria:manipulator",
+  "category": "equipment",
+  "output": {
+    "count": 1,
+    "item": "valoria:bow_of_darkness"
+  },
+  "core": "void_core",
+  "cores": 1,
+  "time": 600,
+  "ingredients": [
+    {
+      "item": "valoria:infernal_bow"
+    },
+    {
+      "item": "valoria:void_upgrade_smithing_template"
+    }
+  ]
+}

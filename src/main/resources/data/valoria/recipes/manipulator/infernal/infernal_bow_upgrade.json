@@ -1,0 +1,19 @@
+{
+  "type": "valoria:manipulator",
+  "category": "equipment",
+  "output": {
+    "count": 1,
+    "item": "valoria:infernal_bow"
+  },
+  "core": "infernal_core",
+  "cores": 1,
+  "time": 400,
+  "ingredients": [
+    {
+      "item": "valoria:aquarius_bow"
+    },
+    {
+      "item": "valoria:infernal_upgrade_smithing_template"
+    }
+  ]
+}

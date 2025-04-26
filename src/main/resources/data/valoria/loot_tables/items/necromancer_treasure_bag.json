@@ -6,6 +6,17 @@
       "entries": [
         {
           "type": "minecraft:item",
+          "name": "valoria:necromancer_page",
+          "weight": 50,
+          "conditions": [
+            {
+              "condition": "valoria:unlockable",
+              "id": "valoria:necromancer"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
           "name": "valoria:the_fallen_trim",
           "weight": 1,
           "functions": []
