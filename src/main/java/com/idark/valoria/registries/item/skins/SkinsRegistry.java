@@ -28,7 +28,7 @@ import pro.komaru.tridot.util.*;
 import java.util.*;
 
 public class SkinsRegistry{
-    public static ItemSkin THE_FALLEN_COLLECTOR, ARCANE_GOLD, CYBERPUNK, MIDNIGHT, MURAMASA, MURASAME, FISH, NERO, STAR_DIVIDER;
+    public static ItemSkin THE_FALLEN_COLLECTOR, ARCANE_GOLD, CYBERPUNK, MIDNIGHT, MURAMASA, MURASAME, FISH, NERO, STAR_DIVIDER, DEATH_OF_CRABS;
 
     public static void init(){
         THE_FALLEN_COLLECTOR = new SkinBuilder(Valoria.ID, "the_fallen_collector").color(Pal.seaGreen).contributor("Kerdo").style(Styles.nature)
@@ -59,9 +59,13 @@ public class SkinsRegistry{
         STAR_DIVIDER = new SkinBuilder(Valoria.ID, "star_divider").color((Pal.verySoftPink)).contributor("Rainach").style(Styles.nihility)
                 .add(new ItemSupplierSkinEntry(() -> ItemsRegistry.quantumReaper.get(), Valoria.ID + ":star_divider"))
                 .build();
-        NERO = new SkinBuilder(Valoria.ID, "nero").contributor("NeroWalton").style(Styles.phantasm).color(Col.fromHex("7A1C3F"))
+        NERO = new SkinBuilder(Valoria.ID, "nero").contributor("NeroWalton").style(Styles.phantasm).color(Col.fromHex("9A2350"))
                 .add(new ItemSupplierSkinEntry(() -> ItemsRegistry.phantom.get(), Valoria.ID + ":nero"))
                 .build();
+        DEATH_OF_CRABS = new SkinBuilder(Valoria.ID, "death_of_crabs").contributor("TerraPrime").style(Styles.aquarius).color(Col.fromHex("76bdd1"))
+                .add(new ItemSupplierSkinEntry(() -> ItemsRegistry.cobaltSword.get(), Valoria.ID + ":death_of_crabs"))
+                .build();
+
     }
 
     public static void register(){
@@ -75,6 +79,7 @@ public class SkinsRegistry{
         ItemSkinHandler.register(FISH);
         ItemSkinHandler.register(NERO);
         ItemSkinHandler.register(STAR_DIVIDER);
+        ItemSkinHandler.register(DEATH_OF_CRABS);
         DistExecutor.unsafeCallWhenOn(Dist.CLIENT, () -> () -> {
             registerModels();
             return new Object();
@@ -94,6 +99,7 @@ public class SkinsRegistry{
         ItemSkinModels.addSkin(Valoria.ID + ":star_divider");
         ItemSkinModels.addSkin(Valoria.ID + ":muramasa");
         ItemSkinModels.addSkin(Valoria.ID + ":murasame");
+        ItemSkinModels.addSkin(Valoria.ID + ":death_of_crabs");
         ItemSkinModels.addSkin(Valoria.ID + ":nero");
     }
 
@@ -108,8 +114,10 @@ public class SkinsRegistry{
                 }
             }
 
+            event.register(LargeItemRenderer.getModelResourceLocation(Valoria.ID, "cobalt_sword"));
             event.register(LargeItemRenderer.getModelResourceLocation(Valoria.ID, "phantom"));
             event.register(LargeItemRenderer.getModelResourceLocation(Valoria.ID, "blaze_reap"));
+            event.register(LargeItemRenderer.getModelResourceLocation(Valoria.ID, "skin/death_of_crabs"));
             event.register(LargeItemRenderer.getModelResourceLocation(Valoria.ID, "skin/arcane_gold_blaze_reap"));
             event.register(LargeItemRenderer.getModelResourceLocation(Valoria.ID, "skin/muramasa"));
             event.register(LargeItemRenderer.getModelResourceLocation(Valoria.ID, "skin/murasame"));
@@ -132,10 +140,12 @@ public class SkinsRegistry{
             TridotItemSkins.addSkinModel(map, ItemsRegistry.quantumReaper.getId());
             TridotItemSkins.addLargeModel(map, Valoria.ID, "muramasa");
             TridotItemSkins.addLargeModel(map, Valoria.ID, "murasame");
+            TridotItemSkins.addLargeModel(map, Valoria.ID, "death_of_crabs");
             TridotItemSkins.addLargeModel(map, Valoria.ID, "brand");
             TridotItemSkins.addLargeModel(map, Valoria.ID, "arcane_gold_blaze_reap");
             TridotItemSkins.addLargeModel(map, Valoria.ID, "nero");
             TridotItemSkins.addLargeModel(map, Valoria.ID, "swordfish");
+            LargeItemRenderer.bakeModel(map, Valoria.ID, "cobalt_sword", new ItemSkinItemOverrides());
             LargeItemRenderer.bakeModel(map, Valoria.ID, "phantom", new ItemSkinItemOverrides());
             LargeItemRenderer.bakeModel(map, Valoria.ID, "blaze_reap", new ItemSkinItemOverrides());
         }

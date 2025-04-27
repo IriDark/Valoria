@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "X/X",
+    "/O/",
+    "X/X"
+  ],
+  "key": {
+    "O": {
+      "tag": "minecraft:fishes"
+    },
+    "/": {
+      "item": "minecraft:deepslate"
+    },
+    "X": {
+      "item": "minecraft:gold_ingot"
+    }
+
+  },
+  "result": {
+    "item": "valoria:death_of_crabs_fragment",
+    "count": 1
+  }
+}

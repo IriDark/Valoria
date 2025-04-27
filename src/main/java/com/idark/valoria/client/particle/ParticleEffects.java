@@ -84,7 +84,7 @@ public class ParticleEffects{
             ParticleBuilder.create(ParticleRegistry.SHADEWOOD_LEAF_PARTICLE)
                     .setParticleRenderType(ParticleRenderType.PARTICLE_SHEET_OPAQUE)
                     .setLightData(LightParticleData.DEFAULT)
-                    .flatRandomOffset(0.75, 0, 0.75)
+                    .flatRandomOffset(1, 0, 1)
                     .setColorData(data)
                     .spawn(level, pos.x, pos.y, pos.z);
         }
