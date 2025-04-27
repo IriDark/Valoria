@@ -1,0 +1,19 @@
+{
+  "type": "valoria:manipulator",
+  "category": "equipment",
+  "output": {
+    "count": 1,
+    "item": "valoria:nature_spear"
+  },
+  "core": "nature_core",
+  "cores": 1,
+  "time": 400,
+  "ingredients": [
+    {
+      "item": "valoria:diamond_spear"
+    },
+    {
+      "item": "valoria:nature_upgrade_smithing_template"
+    }
+  ]
+}

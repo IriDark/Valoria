@@ -1,0 +1,25 @@
+{
+  "parent": "valoria:item/spear",
+  "textures": {
+    "layer0": "valoria:item/aquarius_spear"
+  },
+  "display": {
+    "gui": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    }
+  }
+}
