@@ -20,7 +20,6 @@ import pro.komaru.tridot.client.model.*;
 import pro.komaru.tridot.client.model.item.*;
 import pro.komaru.tridot.client.model.render.item.*;
 import pro.komaru.tridot.common.registry.item.*;
-import pro.komaru.tridot.common.registry.item.builders.*;
 import pro.komaru.tridot.common.registry.item.skins.*;
 import pro.komaru.tridot.common.registry.item.types.*;
 import pro.komaru.tridot.util.*;
@@ -31,7 +30,7 @@ public class SkinsRegistry{
     public static ItemSkin THE_FALLEN_COLLECTOR, ARCANE_GOLD, CYBERPUNK, MIDNIGHT, MURAMASA, MURASAME, FISH, NERO, STAR_DIVIDER, DEATH_OF_CRABS;
 
     public static void init(){
-        THE_FALLEN_COLLECTOR = new SkinBuilder(Valoria.ID, "the_fallen_collector").color(Pal.seaGreen).contributor("Kerdo").style(Styles.nature)
+        THE_FALLEN_COLLECTOR = new SkinBuilder(Valoria.ID, "the_fallen_collector").color(Pal.seaGreen).contributor("Kerdo", Styles.nature)
                 .add(new TheFallenCollectorSkinEntry(ArmorItem.class, Valoria.ID + ":textures/models/armor/skin/the_fallen_collector")
                         .addArmorSkin(EquipmentSlot.HEAD, Valoria.ID + ":the_fallen_collector_crown")
                         .addArmorSkin(EquipmentSlot.CHEST, Valoria.ID + ":the_fallen_collector_coat"))
@@ -41,28 +40,28 @@ public class SkinsRegistry{
                 .add(new ItemExtendingSkinEntry(ConfigurableBowItem.class, Valoria.ID + ":arcane_wood_bow"))
                 .add(new ItemSupplierSkinEntry(() -> ItemsRegistry.blazeReap.get(), Valoria.ID + ":arcane_gold_blaze_reap"))
                 .build();
-        CYBERPUNK = new SkinBuilder(Valoria.ID, "cyberpunk").color(Pal.majestyPurple).contributor("Auriny").style(Styles.nihility)
+        CYBERPUNK = new SkinBuilder(Valoria.ID, "cyberpunk").color(Pal.majestyPurple).contributor("Auriny", Styles.nihility)
                 .add(new ItemSupplierSkinEntry(() -> ItemsRegistry.quantumReaper.get(), Valoria.ID + ":cyberpunk_quantum_reaper"))
                 .build();
         MIDNIGHT = new SkinBuilder(Valoria.ID, "midnight").color(Pal.majestyPurple)
                 .add(new ItemSupplierSkinEntry(() -> ItemsRegistry.quantumReaper.get(), Valoria.ID + ":midnight_quantum_reaper"))
                 .build();
-        MURAMASA = new SkinBuilder(Valoria.ID, "muramasa").color(Pal.majestyPurple).contributor("Auriny").style(Styles.nihility)
+        MURAMASA = new SkinBuilder(Valoria.ID, "muramasa").color(Pal.majestyPurple).contributor("Auriny", Styles.nihility)
                 .add(new ItemSupplierSkinEntry(() -> ItemsRegistry.murasama.get(), Valoria.ID + ":muramasa"))
                 .build();
         MURASAME = new SkinBuilder(Valoria.ID, "muramase").color(Pal.flesh)
                 .add(new ItemSupplierSkinEntry(() -> ItemsRegistry.murasama.get(), Valoria.ID + ":murasame"))
                 .build();
-        FISH = new SkinBuilder(Valoria.ID, "swordfish").color(Pal.crystalBlue).contributor("Skoow").style(Styles.aquarius)
+        FISH = new SkinBuilder(Valoria.ID, "swordfish").color(Pal.crystalBlue).contributor("Skoow", Styles.aquarius)
                 .add(new ItemSupplierSkinEntry(() -> ItemsRegistry.murasama.get(), Valoria.ID + ":swordfish"))
                 .build();
-        STAR_DIVIDER = new SkinBuilder(Valoria.ID, "star_divider").color((Pal.verySoftPink)).contributor("Rainach").style(Styles.nihility)
+        STAR_DIVIDER = new SkinBuilder(Valoria.ID, "star_divider").color((Pal.verySoftPink)).contributor("Rainach", Styles.nihility)
                 .add(new ItemSupplierSkinEntry(() -> ItemsRegistry.quantumReaper.get(), Valoria.ID + ":star_divider"))
                 .build();
-        NERO = new SkinBuilder(Valoria.ID, "nero").contributor("NeroWalton").style(Styles.phantasm).color(Col.fromHex("9A2350"))
+        NERO = new SkinBuilder(Valoria.ID, "nero").contributor("NeroWalton", Styles.phantasm).color(Col.fromHex("9A2350"))
                 .add(new ItemSupplierSkinEntry(() -> ItemsRegistry.phantom.get(), Valoria.ID + ":nero"))
                 .build();
-        DEATH_OF_CRABS = new SkinBuilder(Valoria.ID, "death_of_crabs").contributor("TerraPrime").style(Styles.aquarius).color(Col.fromHex("76bdd1"))
+        DEATH_OF_CRABS = new SkinBuilder(Valoria.ID, "death_of_crabs").contributor("TerraPrime", Styles.aquarius).color(Col.fromHex("76bdd1"))
                 .add(new ItemSupplierSkinEntry(() -> ItemsRegistry.cobaltSword.get(), Valoria.ID + ":death_of_crabs"))
                 .build();
 
