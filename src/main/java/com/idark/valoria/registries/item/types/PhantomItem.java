@@ -87,19 +87,19 @@ public class PhantomItem extends ValoriaSword implements RadiusItem, CooldownRed
                 .randomVelocity(0.015f)
                 .spawn(level, player.getX() + x, player.getY() + 1 + y, player.getZ() + z);
             }
+
+            if(ClientConfig.RENDER_PHANTOM_ACTIVATION.get()){
+                Minecraft.getInstance().gameRenderer.displayItemActivation(ItemsRegistry.eternity.get().getDefaultInstance());
+            }
         }
 
         level.playSound(null, player.blockPosition(), SoundsRegistry.PHANTASM_ABILITY.get(), SoundSource.AMBIENT, 1.0F, 1.0F);
-        if(ClientConfig.RENDER_PHANTOM_ACTIVATION.get()){
-            Minecraft.getInstance().gameRenderer.displayItemActivation(ItemsRegistry.eternity.get().getDefaultInstance());
-        }
-
         if(!player.isCreative()){
             stack.hurtAndBreak(35, player, (p_220045_0_) -> p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
         }
 
         for(LivingEntity entityInRadius : hitEntities){
-            if(entityInRadius instanceof Player && ((Player)entityInRadius).isCreative() || entityInRadius instanceof BossEntity || entityInRadius.getType().is(EntityTypes.BOSSES)){
+            if((entityInRadius instanceof Player && ((Player)entityInRadius).isCreative()) || (entityInRadius instanceof BossEntity || entityInRadius.getType().is(EntityTypes.BOSSES))){
                 continue;
             }
 

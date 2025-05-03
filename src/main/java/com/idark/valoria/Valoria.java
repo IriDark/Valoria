@@ -82,6 +82,7 @@ public class Valoria{
         ItemsRegistry.load(eventBus);
         BlockRegistry.load(eventBus);
         LevelGen.init(eventBus);
+        LootConditionsRegistry.init(eventBus);
 
         BlockEntitiesRegistry.register(eventBus);
         RecipesRegistry.register(eventBus);
@@ -176,11 +177,10 @@ public class Valoria{
     }
 
     private void setup(final FMLCommonSetupEvent event){
-        Valoria.LOGGER.info("Item count: {}", ItemsRegistry.ITEMS.getEntries().size());
-        Valoria.LOGGER.info("Block count: {}", BlockRegistry.BLOCK.getEntries().size());
-        Valoria.LOGGER.info("Entity count: {}", EntityTypeRegistry.ENTITY_TYPES.getEntries().size());
+        Valoria.LOGGER.debug("Item count: {}", ItemsRegistry.ITEMS.getEntries().size());
+        Valoria.LOGGER.debug("Block count: {}", BlockRegistry.BLOCK.getEntries().size());
+        Valoria.LOGGER.debug("Entity count: {}", EntityTypeRegistry.ENTITY_TYPES.getEntries().size());
         RegisterUnlockables.init();
-        LootConditionsRegistry.register();
         ItemsRegistry.setupBook();
         PacketHandler.init();
         PotionBrewery.bootStrap();

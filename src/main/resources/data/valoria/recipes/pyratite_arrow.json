@@ -6,15 +6,15 @@
     " X "
   ],
   "key": {
-    "O": {
+    "X": {
       "item": "minecraft:arrow"
     },
-    "X": {
+    "O": {
       "item": "valoria:pyratite"
     }
   },
   "result": {
     "item": "valoria:pyratite_arrow",
-    "count": 1
+    "count": 4
   }
 }

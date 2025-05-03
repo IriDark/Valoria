@@ -18,7 +18,7 @@ public class UnlockableCondition implements LootItemCondition{
 
     @NotNull
     public LootItemConditionType getType(){
-        return LootConditionsRegistry.UNLOCKABLE_CONDITION;
+        return LootConditionsRegistry.UNLOCKABLE_CONDITION.get();
     }
 
     public boolean test(LootContext lootContext){

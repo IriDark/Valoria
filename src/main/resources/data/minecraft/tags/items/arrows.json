@@ -1,8 +1,11 @@
 {
   "replace": false,
   "values": [
-    "valoria:pyratite_arrow",
+    "valoria:nature_arrow",
+    "valoria:aquarius_arrow",
+    "valoria:infernal_arrow",
     "valoria:wicked_arrow",
+    "valoria:pyratite_arrow",
     "valoria:soul_arrow"
   ]
 }

@@ -6,15 +6,15 @@
     " X "
   ],
   "key": {
-    "O": {
+    "X": {
       "item": "minecraft:arrow"
     },
-    "X": {
+    "O": {
       "item": "valoria:soul_shard"
     }
   },
   "result": {
     "item": "valoria:soul_arrow",
-    "count": 1
+    "count": 4
   }
 }

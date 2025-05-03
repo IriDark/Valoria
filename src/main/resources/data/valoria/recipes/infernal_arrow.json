@@ -7,14 +7,14 @@
   ],
   "key": {
     "O": {
-      "item": "minecraft:arrow"
+      "item": "valoria:infernal_stone"
     },
     "X": {
-      "item": "valoria:infernal_stone"
+      "item": "minecraft:arrow"
     }
   },
   "result": {
     "item": "valoria:infernal_arrow",
-    "count": 1
+    "count": 4
   }
 }
