@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "valoria:dormant_crystals"
+  },
+  "experience": 1.0,
+  "cookingtime": 200,
+  "result": "valoria:uncharged_shard"
+}

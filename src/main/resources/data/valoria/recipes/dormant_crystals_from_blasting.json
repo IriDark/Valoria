@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "valoria:dormant_crystals"
+  },
+  "experience": 1.0,
+  "cookingtime": 100,
+  "result": "valoria:uncharged_shard"
+}

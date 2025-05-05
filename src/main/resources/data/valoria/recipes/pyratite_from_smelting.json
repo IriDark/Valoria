@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "valoria:pyratite_ore"
+  },
+  "experience": 1.0,
+  "cookingtime": 200,
+  "result": "valoria:pyratite"
+}

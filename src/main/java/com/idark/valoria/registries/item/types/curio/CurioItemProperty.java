@@ -15,7 +15,7 @@ import top.theillusivec4.curios.api.*;
 
 import java.util.*;
 
-public class    CurioItemProperty extends AbstractTieredAccessory implements ICurioTexture{
+public class CurioItemProperty extends AbstractTieredAccessory implements ICurioTexture{
     public CurioItemProperty(Tier tier, AccessoryType type, AccessoryGem gem, AccessoryMaterial material, Properties pProperties, MobEffectInstance... pEffects){
         super(tier, type, gem, material, pProperties, pEffects);
     }
@@ -76,8 +76,8 @@ public class    CurioItemProperty extends AbstractTieredAccessory implements ICu
 
             case BELT -> {
                 if(stack.is(ItemsRegistry.samuraiBelt.get())){
-                    attribute.put(Attributes.MOVEMENT_SPEED, new AttributeModifier(uuid, "bonus", 0.15 + (bonus * 0.05), Operation.MULTIPLY_TOTAL));
-                    attribute.put(Attributes.ATTACK_SPEED, new AttributeModifier(uuid, "bonus", 0.05 + (bonus * 0.05), Operation.MULTIPLY_TOTAL));
+                    attribute.put(Attributes.MOVEMENT_SPEED, new AttributeModifier(uuid, "bonus", 0.15, Operation.MULTIPLY_TOTAL));
+                    attribute.put(Attributes.ATTACK_SPEED, new AttributeModifier(uuid, "bonus", 0.05, Operation.MULTIPLY_TOTAL));
                 }else{
                     attribute.put(Attributes.ARMOR, new AttributeModifier(uuid, "bonus", 0.2 + (bonus * 0.05), AttributeModifier.Operation.ADDITION));
                     CuriosApi.addSlotModifier(attribute, "charm", uuid, 2.0, AttributeModifier.Operation.ADDITION);

@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "valoria:picrite_jade_ore"
+  },
+  "experience": 1.0,
+  "cookingtime": 100,
+  "result": "valoria:jade"
+}

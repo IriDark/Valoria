@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "valoria:pyratite_ore"
+  },
+  "experience": 1.0,
+  "cookingtime": 100,
+  "result": "valoria:pyratite"
+}
