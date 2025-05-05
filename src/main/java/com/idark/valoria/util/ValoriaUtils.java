@@ -128,7 +128,17 @@ public class ValoriaUtils{
         return Utils.Items.getProjectile(player, pShootable, predicate);
     }
 
-    @SuppressWarnings("removal")
+    /**
+     * Determines whether the given effect can be cured using curative items.
+     * <p>
+     * Returns true if the effect is negative and non-instantaneous (is harmful but wider).
+     */
+    public static boolean isCurable(MobEffectInstance e) {
+        var effect = e.getEffect();
+        return !effect.isBeneficial() && !effect.isInstantenous();
+    }
+
+    @SuppressWarnings({"removal", "UnstableApiUsage", "deprecation"})
     public static boolean onePerTypeEquip(SlotContext slotContext, ItemStack stack){
         List<ItemStack> items = new ArrayList<>();
         List<SlotResult> curioSlots = CuriosApi.getCuriosHelper().findCurios(slotContext.getWearer(), stack.getItem());

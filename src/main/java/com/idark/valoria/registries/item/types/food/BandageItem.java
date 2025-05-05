@@ -1,20 +1,23 @@
 package com.idark.valoria.registries.item.types.food;
 
-import com.google.common.collect.*;
-import com.idark.valoria.client.particle.*;
-import com.idark.valoria.registries.*;
-import net.minecraft.advancements.*;
-import net.minecraft.server.level.*;
-import net.minecraft.sounds.*;
-import net.minecraft.stats.*;
-import net.minecraft.world.effect.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.player.*;
-import net.minecraft.world.food.*;
-import net.minecraft.world.item.*;
-import net.minecraft.world.level.*;
-
-import java.util.*;
+import com.google.common.collect.ImmutableList;
+import com.idark.valoria.client.particle.ParticleRegistry;
+import com.idark.valoria.registries.EffectsRegistry;
+import com.idark.valoria.util.ValoriaUtils;
+import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.stats.Stats;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.UseAnim;
+import net.minecraft.world.level.Level;
 
 public class BandageItem extends Item{
     public boolean removeAllEffects;
@@ -76,17 +79,17 @@ public class BandageItem extends Item{
         return stack;
     }
 
-    private void cureEffects(ItemStack stack, LivingEntity entity){
-        if(removeAllEffects){
-            List<MobEffectInstance> harmfulEffects = entity.getActiveEffects().stream().filter(effect -> effect.getEffect().getCategory() == MobEffectCategory.HARMFUL).toList();
-            for(MobEffectInstance effect : harmfulEffects){
-                effect.getCurativeItems().add(stack);
-            }
+    private void cureEffects(ItemStack stack, LivingEntity entity) {
+        if (removeAllEffects) {
+            entity.getActiveEffects().stream()
+                    .filter(ValoriaUtils::isCurable)
+                    .forEach(e -> e.getCurativeItems().add(stack));
 
             entity.curePotionEffects(stack);
-        }else{
-            if(entity.hasEffect(EffectsRegistry.BLEEDING.get())) entity.removeEffect(EffectsRegistry.BLEEDING.get());
+            return;
         }
+
+        entity.removeEffect(EffectsRegistry.BLEEDING.get());
     }
 
     @Override
