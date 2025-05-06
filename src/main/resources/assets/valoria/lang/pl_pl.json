@@ -1070,7 +1070,7 @@
   "tooltip.valoria.cold": "Chroni noszącego przed zamarznięciem",
   "tooltip.valoria.core": "Używany do ładowania Manipulatora mocą żywiołów",
   "tooltip.valoria.core_charges": "Ładunki",
-  "tooltip.valoria.crit": "10% szansy na trafienie celu krytycznymi obrażeniami",
+  "tooltip.valoria.crit": "%s szansy na trafienie celu krytycznymi obrażeniami",
   "tooltip.valoria.curses": "Nadaje losowe efekty.",
   "tooltip.valoria.deep": "Zapewnia chwilowe oddychanie pod wodą",
   "tooltip.valoria.efficiency": "Efficiency: %s",

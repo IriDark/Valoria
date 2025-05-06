@@ -1,8 +1,7 @@
-package com.idark.valoria.registries.item.types.curio.charm;
+package com.idark.valoria.registries.item.types.curio.charm.rune;
 
 import com.google.common.collect.*;
 import com.idark.valoria.registries.*;
-import com.idark.valoria.registries.item.types.curio.*;
 import net.minecraft.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.server.level.*;
@@ -14,12 +13,10 @@ import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import top.theillusivec4.curios.api.*;
-import top.theillusivec4.curios.api.type.capability.*;
 
-import javax.annotation.*;
 import java.util.*;
 
-public class CurioCurses extends AbstractCurioItem{
+public class CurioCurses extends AbstractRuneItem{
     private static List<MobEffect> effects = new ArrayList<>();
 
     public CurioCurses(Properties properties){
@@ -32,12 +29,6 @@ public class CurioCurses extends AbstractCurioItem{
 
     public static void setEffects(List<MobEffect> effects){
         CurioCurses.effects = effects;
-    }
-
-    @Nonnull
-    @Override
-    public ICurio.SoundInfo getEquipSound(SlotContext slotContext, ItemStack stack){
-        return new ICurio.SoundInfo(SoundEvents.CALCITE_PLACE, 1.0f, 1.0f);
     }
 
     // Calamity sounds used
@@ -65,5 +56,10 @@ public class CurioCurses extends AbstractCurioItem{
     public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags){
         super.appendHoverText(stack, world, tooltip, flags);
         tooltip.add(Component.translatable("tooltip.valoria.curses").withStyle(ChatFormatting.GRAY));
+    }
+
+    @Override
+    public RuneType runeType(){
+        return RuneType.CURSES;
     }
 }

@@ -138,7 +138,10 @@ public class CodexEntries{
             .addChild(MEDICINE_CHAPTER, ItemsRegistry.aloeBandage)
             .addChild(new ChapterNode(PICK, ItemsRegistry.pick.get(), Style.STANDARD, RegisterUnlockables.pick))
                 .addChild(new ChapterNode(TINKERER_WORKBENCH, BlockRegistry.tinkererWorkbench.get().asItem(), Style.STANDARD, RegisterUnlockables.tinkererWorkbench)
-            )
+                    .addHintsDescription(
+                        Component.translatable("codex.valoria.tinkerer_workbench.hint").withStyle(DotStyle.of().color(Col.gray).effect(PulseAlphaFX.of(1f)))
+                    )
+                )
 
             .addChild(new ChapterNode(CRYPT, ItemsRegistry.cryptPage.get(), Style.CRYPT, RegisterUnlockables.crypt)
                 .addHintsDescription(
@@ -146,7 +149,11 @@ public class CodexEntries{
                 )
             )
 
-            .addChild(new ChapterNode(FORTRESS, ItemsRegistry.wickedAmethyst.get(), Style.CRYPT, RegisterUnlockables.fortress))
+            .addChild(new ChapterNode(FORTRESS, ItemsRegistry.wickedAmethyst.get(), Style.CRYPT, RegisterUnlockables.fortress)
+                .addHintsDescription(
+                    Component.translatable("codex.valoria.fortress.hint").withStyle(DotStyle.of().color(Col.gray).effect(PulseAlphaFX.of(1f)))
+                )
+            )
 
         .addChild(new ChapterNode(BOSSES, Items.SKELETON_SKULL, Style.CRYPT)
             .addChild(new ChapterNode(NECROMANCER_GRIMOIRE, ItemsRegistry.necromancerGrimoire.get(), Style.IRON, RegisterUnlockables.necromancerGrimoire)
@@ -168,6 +175,10 @@ public class CodexEntries{
         )
 
         .addChild(new ChapterNode(BLACK_GOLD, ItemsRegistry.blackGold.get(), Style.IRON, RegisterUnlockables.natureCore)
+            .addHintsDescription(
+                Component.translatable("codex.valoria.black_gold.hint").withStyle(DotStyle.of().color(Col.gray).effect(PulseAlphaFX.of(1f)))
+            )
+
             .addChild(new ChapterNode(NATURE_CORE, ItemsRegistry.natureCore.get(), Style.GOLD, RegisterUnlockables.natureCore))
             .addChild(new ChapterNode(AQUARIUS_CORE, ItemsRegistry.aquariusCore.get(), Style.GOLD, RegisterUnlockables.aquariusCore))
             .addChild(new ChapterNode(INFERNAL_CORE, ItemsRegistry.infernalCore.get(), Style.GOLD, RegisterUnlockables.infernalCore))

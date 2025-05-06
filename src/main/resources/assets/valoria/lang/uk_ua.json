@@ -1069,7 +1069,7 @@
   "tooltip.valoria.cold": "Захищає носія від холоду",
   "tooltip.valoria.core": "Використовується для зарядки Елементального маніпулятора силою стихій",
   "tooltip.valoria.core_charges": "Зарядів",
-  "tooltip.valoria.crit": "Шанс 10% атакувати ворога критичним ударом",
+  "tooltip.valoria.crit": "Шанс %s атакувати ворога критичним ударом",
   "tooltip.valoria.curses": "Наділяє гравця різноманітними ефектами.",
   "tooltip.valoria.deep": "Надає підводне дихання на деякий час",
   "tooltip.valoria.efficiency": "Efficiency: %s",

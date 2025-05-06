@@ -14,6 +14,7 @@ import com.idark.valoria.registries.item.types.*;
 import com.idark.valoria.registries.item.types.KatanaItem.*;
 import com.idark.valoria.registries.item.types.curio.*;
 import com.idark.valoria.registries.item.types.curio.charm.*;
+import com.idark.valoria.registries.item.types.curio.charm.rune.*;
 import com.idark.valoria.registries.item.types.curio.hands.*;
 import com.idark.valoria.registries.item.types.curio.necklace.*;
 import com.idark.valoria.registries.item.types.food.*;
@@ -103,6 +104,7 @@ public class ItemsRegistry{
     // misc
     debugItem, summonBook, crystalSummonBook, soulCollectorEmpty, soulCollector, voidKey, spectralBladeThrown, pick,
     codex, page, cryptPage, fortressPage, necromancerPage, dryadorPage, wickedCrystalPage,
+
     // weapons
     club, bronzeSword, spectralBlade, corpseCleaver, boneShuriken,
     samuraiKunai, samuraiPoisonedKunai, samuraiKatana, samuraiLongBow,
@@ -578,12 +580,12 @@ public class ItemsRegistry{
             }
         });
 
-        lesserRuneVision = registerItem("lesser_rune_of_vision", () -> new CurioVision(new Item.Properties().stacksTo(1).durability(6).rarity(Rarity.COMMON),  1200));
-        lesserRuneWealth = registerItem("lesser_rune_of_wealth", () -> new CurioWealth(new Item.Properties().stacksTo(1).durability(6).rarity(Rarity.COMMON)));
-        lesserRuneCurses = registerItem("lesser_rune_of_curses", () -> new CurioCurses(new Item.Properties().stacksTo(1).durability(6).rarity(Rarity.COMMON)));
-        lesserRuneStrength = registerItem("lesser_rune_of_strength", () -> new CurioStrength(new Item.Properties().stacksTo(1).durability(6).rarity(Rarity.COMMON)));
-        lesserRuneAccuracy = registerItem("lesser_rune_of_accuracy", () -> new RuneAccuracy(new Item.Properties().stacksTo(1).durability(6).rarity(Rarity.COMMON)));
-        lesserRuneDeep = registerItem("lesser_rune_of_deep", () -> new RuneDeep(new Item.Properties().stacksTo(1).durability(6).rarity(Rarity.COMMON)));
+        lesserRuneVision = registerItem("lesser_rune_of_vision", () -> new CurioVision(new Item.Properties().stacksTo(1).rarity(Rarity.COMMON),  1200));
+        lesserRuneWealth = registerItem("lesser_rune_of_wealth", () -> new CurioWealth(0.5f, new Item.Properties().stacksTo(1).rarity(Rarity.COMMON)));
+        lesserRuneCurses = registerItem("lesser_rune_of_curses", () -> new CurioCurses(new Item.Properties().stacksTo(1).rarity(Rarity.COMMON)));
+        lesserRuneStrength = registerItem("lesser_rune_of_strength", () -> new CurioStrength(0.025f, new Item.Properties().stacksTo(1).rarity(Rarity.COMMON)));
+        lesserRuneAccuracy = registerItem("lesser_rune_of_accuracy", () -> new RuneAccuracy(new Item.Properties().stacksTo(1).rarity(Rarity.COMMON)));
+        lesserRuneDeep = registerItem("lesser_rune_of_deep", () -> new RuneDeep(new Item.Properties().stacksTo(1).rarity(Rarity.COMMON)));
         rune = registerItem("rune", () -> new Item(new Item.Properties().stacksTo(16).rarity(Rarity.UNCOMMON)){
             @Override
             public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags){
@@ -592,13 +594,13 @@ public class ItemsRegistry{
             }
         });
 
-        runeVision = registerItem("rune_of_vision", () -> new CurioVision(new Item.Properties().stacksTo(1).durability(32).rarity(Rarity.UNCOMMON), 3600));
-        runeWealth = registerItem("rune_of_wealth", () -> new CurioWealth(new Item.Properties().stacksTo(1).durability(32).rarity(Rarity.UNCOMMON)));
+        runeVision = registerItem("rune_of_vision", () -> new CurioVision(new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON), 3600));
+        runeWealth = registerItem("rune_of_wealth", () -> new CurioWealth(1.5f, new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON)));
         runeCurses = registerItem("rune_of_curses", () -> new CurioCurses(new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON)));
-        runeStrength = registerItem("rune_of_strength", () -> new CurioStrength(new Item.Properties().stacksTo(1).durability(32).rarity(Rarity.UNCOMMON)));
-        runeAccuracy = registerItem("rune_of_accuracy", () -> new RuneAccuracy(new Item.Properties().stacksTo(1).durability(32).rarity(Rarity.UNCOMMON)));
-        runeDeep = registerItem("rune_of_deep", () -> new RuneDeep(new Item.Properties().stacksTo(1).durability(32).rarity(Rarity.UNCOMMON)));
-        runePyro = registerItem("rune_of_pyro", () -> new CurioPyro(new Item.Properties().stacksTo(1).durability(32).rarity(Rarity.UNCOMMON)));
+        runeStrength = registerItem("rune_of_strength", () -> new CurioStrength(0.05f, new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON)));
+        runeAccuracy = registerItem("rune_of_accuracy", () -> new RuneAccuracy(new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON)));
+        runeDeep = registerItem("rune_of_deep", () -> new RuneDeep(new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON)));
+        runePyro = registerItem("rune_of_pyro", () -> new CurioPyro(new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON)));
         runeCold = registerItem("rune_of_cold", () -> new RuneCold(new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON)));
 
         // medicine

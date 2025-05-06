@@ -130,6 +130,11 @@ public class CodexEntry{
             if(flag){
                 lines.add(Component.translatable("codex.valoria.rewards").withStyle(ChatFormatting.GOLD));
             }
+
+            if(node.unlockable != null && node.unlockable.randomObtainable) {
+                lines.add(Component.empty());
+                lines.add(Component.translatable("codex.valoria.random_obtainable").withStyle(ChatFormatting.DARK_GRAY));
+            }
         }
 
         if(flag) {

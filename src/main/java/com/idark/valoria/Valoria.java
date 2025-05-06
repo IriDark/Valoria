@@ -21,7 +21,7 @@ import com.idark.valoria.registries.entity.living.*;
 import com.idark.valoria.registries.entity.living.elemental.*;
 import com.idark.valoria.registries.item.recipe.*;
 import com.idark.valoria.registries.item.skins.*;
-import com.idark.valoria.registries.item.types.curio.charm.*;
+import com.idark.valoria.registries.item.types.curio.charm.rune.*;
 import com.idark.valoria.registries.level.*;
 import com.idark.valoria.util.*;
 import com.mojang.logging.*;

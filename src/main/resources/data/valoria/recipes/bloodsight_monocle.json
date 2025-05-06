@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "/#/",
+    "#M#",
+    "/#/"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:ender_eye"
+    },
+    "M": {
+      "item": "valoria:broken_bloodsight_monocle"
+    },
+    "/": {
+      "item": "valoria:pain_crystal"
+    }
+  },
+  "result": {
+    "item": "valoria:bloodsight_monoclt",
+    "count": 1
+  }
+}

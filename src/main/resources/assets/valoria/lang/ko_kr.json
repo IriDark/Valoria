@@ -1070,7 +1070,7 @@
   "tooltip.valoria.cold": "Protects wearer from freezing",
   "tooltip.valoria.core": "Used to charge Manipulator with Elemental Power",
   "tooltip.valoria.core_charges": "Charges",
-  "tooltip.valoria.crit": "10% Chance to hit the target with critical damage",
+  "tooltip.valoria.crit": "%s Chance to hit the target with critical damage",
   "tooltip.valoria.curses": "Grants random effects.",
   "tooltip.valoria.deep": "Grants water breathing for a while",
   "tooltip.valoria.efficiency": "Efficiency: %s",
