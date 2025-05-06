@@ -546,18 +546,23 @@ public class ItemsRegistry{
         emptyGazer = registerItem("empty_gazer", () -> new Item(new Item.Properties().rarity(Rarity.RARE)));
         emptyTotem = registerItem("empty_totem", () -> new Item(new Item.Properties().rarity(Rarity.RARE)));
         emptyWinglet = registerItem("empty_winglet", () -> new Item(new Item.Properties().rarity(Rarity.RARE)));
-        amberTotem = registerItem("amber_golden_totem", () -> new TalismanItem.Builder(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)).put(Attributes.MAX_HEALTH, 5).put(Attributes.ATTACK_DAMAGE, 1).put(Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_TOTAL, -0.15).build());
-        amberWinglet = registerItem("amber_golden_winglet", () -> new TalismanItem.Builder(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)).put(Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_TOTAL, 0.15).build());
-        amberGazer = registerItem("amber_golden_gazer", () -> new TalismanItem.Builder(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)).put(Attributes.ARMOR, Operation.MULTIPLY_TOTAL, 0.5).put(Attributes.ATTACK_SPEED, -0.25).build());
-        emeraldTotem = registerItem("emerald_golden_totem", () -> new TalismanItem.Builder(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)).put(Attributes.MAX_HEALTH, 5).put(Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_TOTAL, -0.15).put(Attributes.ATTACK_DAMAGE, 1).build());
-        emeraldWinglet = registerItem("emerald_golden_winglet", () -> new TalismanItem.Builder(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)).put(Attributes.LUCK, 0.25).put(Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_TOTAL, 0.15).build());
-        emeraldGazer = registerItem("emerald_golden_gazer", () -> new TalismanItem.Builder(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)).put(Attributes.LUCK, 2).put(Attributes.ATTACK_SPEED, -0.25).build());
-        amethystTotem = registerItem("amethyst_golden_totem", () -> new TalismanItem.Builder(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)).put(Attributes.MAX_HEALTH, 4).put(Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_TOTAL, -0.15).build());
-        amethystWinglet = registerItem("amethyst_golden_winglet", () -> new TalismanItem.Builder(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)).put(Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_TOTAL, 0.15).put(Attributes.ATTACK_DAMAGE, 0.05).build());
-        amethystGazer = registerItem("amethyst_golden_gazer", () -> new TalismanItem.Builder(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)).put(Attributes.ATTACK_DAMAGE, 2).put(Attributes.ATTACK_SPEED, -0.25).build());
+
+        amberTotem = registerItem("amber_golden_totem", () -> new TalismanItem.Builder(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)).put(Attributes.MAX_HEALTH, 6).put(Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_TOTAL, -0.20).build());
+        amberWinglet = registerItem("amber_golden_winglet", () -> new TalismanItem.Builder(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)).put(Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_TOTAL, 0.10).put(Attributes.KNOCKBACK_RESISTANCE, Operation.ADDITION, 0.25).build());
+        amberGazer = registerItem("amber_golden_gazer", () -> new TalismanItem.Builder(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)).put(Attributes.ARMOR, Operation.MULTIPLY_TOTAL, 0.10).put(Attributes.ATTACK_SPEED, Operation.MULTIPLY_TOTAL, -0.05).build());
+
+        emeraldTotem = registerItem("emerald_golden_totem", () -> new TalismanItem.Builder(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)).put(Attributes.MAX_HEALTH, 3).put(Attributes.LUCK, 3).put(Attributes.ATTACK_DAMAGE, -1).build());
+        emeraldWinglet = registerItem("emerald_golden_winglet", () -> new TalismanItem.Builder(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)).put(Attributes.LUCK, 1).put(Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_TOTAL, 0.15).build());
+        emeraldGazer = registerItem("emerald_golden_gazer", () -> new TalismanItem.Builder(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)).put(Attributes.LUCK, 2).put(Attributes.ATTACK_SPEED, Operation.MULTIPLY_TOTAL, -0.05).build());
+
+        amethystTotem = registerItem("amethyst_golden_totem", () -> new TalismanItem.Builder(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)).put(Attributes.MAX_HEALTH, 3).put(Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_TOTAL, -0.10).build());
+        amethystWinglet = registerItem("amethyst_golden_winglet", () -> new TalismanItem.Builder(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)).put(Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_TOTAL, 0.2).put(Attributes.ATTACK_DAMAGE, 0.5).build());
+        amethystGazer = registerItem("amethyst_golden_gazer", () -> new TalismanItem.Builder(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)).put(Attributes.ATTACK_DAMAGE, 2.5).put(Attributes.ATTACK_SPEED, Operation.MULTIPLY_TOTAL, -0.10).build());
+
         rubyTotem = registerItem("ruby_golden_totem", () -> new TalismanItem.Builder(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)).put(Attributes.MAX_HEALTH, 3).build());
         rubyWinglet = registerItem("ruby_golden_winglet", () -> new TalismanItem.Builder(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)).put(Attributes.ATTACK_SPEED, 0.35).put(Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_TOTAL, 0.15).build());
-        rubyGazer = registerItem("ruby_golden_gazer", () -> new TalismanItem.Builder(new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.RARE)).put(Attributes.MAX_HEALTH, 2).put(Attributes.ATTACK_SPEED, -0.25).build());
+        rubyGazer = registerItem("ruby_golden_gazer", () -> new TalismanItem.Builder(new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.RARE)).put(Attributes.MAX_HEALTH, 3).put(Attributes.ATTACK_SPEED, Operation.MULTIPLY_TOTAL, -0.15).build());
+
         brokenMonocle = registerItem("broken_bloodsight_monocle", () -> new BloodSight(new Item.Properties().stacksTo(1).rarity(Rarity.RARE).durability(300)));
         monocle = registerItem("bloodsight_monocle", () -> new BloodSight(new Item.Properties().stacksTo(1).rarity(Rarity.RARE).durability(300)));
         jewelryBag = registerItem("jewelry_bag", () -> new JewelryBagItem(new Item.Properties().stacksTo(1)));

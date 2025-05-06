@@ -58,7 +58,5 @@ public class PickNecklace extends Item implements ICurioItem, ICurioTexture{
     public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags){
         super.appendHoverText(stack, world, tooltip, flags);
         tooltip.add(Component.translatable("tooltip.valoria.pick_necklace").withStyle(ChatFormatting.GRAY));
-        tooltip.add(Component.empty());
-        tooltip.add(Component.translatable("tooltip.valoria.rmb_equip").withStyle(ChatFormatting.GREEN));
-    }
+        }
 }

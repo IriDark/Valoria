@@ -5,7 +5,6 @@ import com.idark.valoria.registries.block.entity.*;
 import com.idark.valoria.util.*;
 import net.minecraft.core.*;
 import net.minecraft.world.*;
-import net.minecraft.world.entity.item.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.context.*;
@@ -86,7 +85,7 @@ public class PedestalBlock extends Block implements EntityBlock, SimpleWaterlogg
         if(tileStack.isEmpty()){
             tile.getItemHandler().setItem(0, stack);
             if(!player.isCreative()){
-                player.getInventory().removeItem(player.getItemInHand(handIn));
+                player.getItemInHand(handIn).shrink(1);
             }
 
             ValoriaUtils.SUpdateTileEntityPacket(tile);
@@ -94,11 +93,8 @@ public class PedestalBlock extends Block implements EntityBlock, SimpleWaterlogg
         }
 
         if(!tileStack.isEmpty()){
-            if(!player.isCreative()){
-                world.addFreshEntity(new ItemEntity(world, player.getX() + 0.5F, player.getY() + 0.5F, player.getZ() + 0.5F, tileStack.copy()));
-            }
-
-            tile.getItemHandler().removeItem(0, tileStack.getCount());
+            BlockSimpleInventory.addHandPlayerItem(world, player, handIn, stack, tile.getItemHandler().getItem(0));
+            tile.getItemHandler().removeItem(0, 1);
             ValoriaUtils.SUpdateTileEntityPacket(tile);
             return InteractionResult.SUCCESS;
         }

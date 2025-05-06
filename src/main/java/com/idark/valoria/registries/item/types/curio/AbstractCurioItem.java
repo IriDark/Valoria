@@ -29,7 +29,6 @@ public abstract class AbstractCurioItem extends Item implements ICurioItem{
     @Override
     public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags){
         super.appendHoverText(stack, world, tooltip, flags);
-        if(rmbEquip)tooltip.add(Component.translatable("tooltip.valoria.rmb_equip").withStyle(ChatFormatting.GREEN));
         if(stack.is(TagsRegistry.GRANTS_IMMUNITIES)){
             tooltip.add(Component.translatable("tooltip.valoria.immunity", MobEffects.POISON.getDisplayName()).withStyle(ChatFormatting.GRAY));
             if(stack.is(TagsRegistry.POISON_IMMUNE)){

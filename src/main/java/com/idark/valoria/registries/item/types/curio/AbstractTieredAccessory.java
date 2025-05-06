@@ -120,10 +120,6 @@ public abstract class AbstractTieredAccessory extends TieredItem implements ICur
             tooltip.add(Component.translatable("tooltip.valoria.jewelry_bonus", ValoriaClient.JEWELRY_BONUSES_KEY.getKey().getDisplayName()).withStyle(ChatFormatting.GREEN));
         }
 
-        if(rmbEquip){
-            tooltip.add(Component.translatable("tooltip.valoria.rmb_equip").withStyle(ChatFormatting.GREEN));
-        }
-
         if(stack.is(TagsRegistry.GRANTS_IMMUNITIES)){
             tooltip.add(Component.translatable("tooltip.valoria.immunity", MobEffects.POISON.getDisplayName()).withStyle(ChatFormatting.GRAY));
             if(stack.is(TagsRegistry.POISON_IMMUNE)){
