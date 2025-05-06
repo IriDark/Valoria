@@ -1,7 +1,9 @@
 package com.idark.valoria.registries.item.types.curio.charm.rune;
 
+import com.idark.valoria.util.*;
 import net.minecraft.*;
 import net.minecraft.network.chat.*;
+import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
@@ -30,7 +32,10 @@ public class RuneCold extends AbstractRuneItem{
     @Override
     public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags){
         super.appendHoverText(stack, world, tooltip, flags);
-        tooltip.add(Component.translatable("tooltip.valoria.cold").withStyle(ChatFormatting.GRAY));
+        tooltip.add(Component.translatable("tooltip.valoria.immunity", MobEffects.POISON.getDisplayName()).withStyle(ChatFormatting.GRAY));
+        tooltip.add(Component.literal(" - ").withStyle(ChatFormatting.GRAY)
+        .append(Component.translatable("tooltip.tridot.value", Component.translatable("tooltip.valoria.freezing")).withStyle(Styles.create(Pal.crystalBlue))));
+        tooltip.add(Component.empty());
     }
 
     @Override

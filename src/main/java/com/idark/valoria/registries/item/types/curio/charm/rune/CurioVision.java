@@ -33,7 +33,6 @@ public class CurioVision extends AbstractRuneItem{
     @Override
     public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags){
         super.appendHoverText(stack, world, tooltip, flags);
-        tooltip.add(Component.translatable("tooltip.valoria.vision").withStyle(ChatFormatting.GRAY));
         Utils.Items.effectTooltip(ImmutableList.of(new MobEffectInstance(MobEffects.NIGHT_VISION, duration)), tooltip, 1, 1);
 
         tooltip.add(Component.translatable("tooltip.valoria.jewelry_bonus", ValoriaClient.JEWELRY_BONUSES_KEY.getKey().getDisplayName()).withStyle(ChatFormatting.GREEN));
