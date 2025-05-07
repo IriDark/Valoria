@@ -23,6 +23,12 @@ public class AquariusArrow extends AbstractTridotArrow implements TexturedArrow{
         super(pEntityType, pLevel);
     }
 
+    public AquariusArrow(Level pLevel, ItemStack thrown){
+        super(EntityTypeRegistry.AQUARIUS_ARROW.get(), pLevel);
+        this.arrowItem = new ItemStack(thrown.getItem());
+        this.baseDamage = 4;
+    }
+
     public AquariusArrow(Level pLevel, LivingEntity pShooter, ItemStack thrown){
         super(EntityTypeRegistry.AQUARIUS_ARROW.get(), pLevel, pShooter, thrown, 4);
     }

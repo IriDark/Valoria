@@ -24,6 +24,12 @@ public class InfernalArrow extends AbstractTridotArrow implements TexturedArrow{
         super(EntityTypeRegistry.INFERNAL_ARROW.get(), pLevel, pShooter, thrown, 5);
     }
 
+    public InfernalArrow(Level pLevel, ItemStack thrown){
+        super(EntityTypeRegistry.INFERNAL_ARROW.get(), pLevel);
+        this.arrowItem = new ItemStack(thrown.getItem());
+        this.baseDamage = 5;
+    }
+
     public InfernalArrow(EntityType<? extends AbstractArrow> pEntityType, Level pLevel){
         super(pEntityType, pLevel);
     }

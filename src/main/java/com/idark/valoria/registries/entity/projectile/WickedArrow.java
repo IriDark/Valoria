@@ -23,6 +23,12 @@ public class WickedArrow extends AbstractTridotArrow implements TexturedArrow{
         super(pEntityType, pLevel);
     }
 
+    public WickedArrow(Level pLevel, ItemStack thrown){
+        super(EntityTypeRegistry.WICKED_ARROW.get(), pLevel);
+        this.arrowItem = new ItemStack(thrown.getItem());
+        this.baseDamage = 4;
+    }
+
     public WickedArrow(Level pLevel, LivingEntity pShooter, ItemStack thrown){
         super(EntityTypeRegistry.WICKED_ARROW.get(), pLevel, pShooter, thrown, 4);
     }

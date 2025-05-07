@@ -28,6 +28,13 @@ public class SoulArrow extends AbstractTridotArrow implements TexturedArrow{
         super(pEntityType, pLevel);
     }
 
+    public SoulArrow(Level pLevel, ItemStack thrown){
+        super(EntityTypeRegistry.SOUL_ARROW.get(), pLevel);
+        this.arrowItem = ItemStack.EMPTY;
+        this.arrowItem = new ItemStack(thrown.getItem());
+        this.baseDamage = 1;
+    }
+
     public SoulArrow(Level pLevel, LivingEntity pShooter, ItemStack thrown){
         super(EntityTypeRegistry.SOUL_ARROW.get(), pLevel, pShooter, thrown, 1);
     }

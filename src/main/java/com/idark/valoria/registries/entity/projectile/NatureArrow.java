@@ -23,6 +23,13 @@ public class NatureArrow extends AbstractTridotArrow implements TexturedArrow{
         super(pEntityType, pLevel);
     }
 
+    public NatureArrow(Level pLevel, ItemStack thrown){
+        super(EntityTypeRegistry.NATURE_ARROW.get(), pLevel);
+        this.arrowItem = ItemStack.EMPTY;
+        this.arrowItem = new ItemStack(thrown.getItem());
+        this.baseDamage = 3;
+    }
+
     public NatureArrow(Level pLevel, LivingEntity pShooter, ItemStack thrown){
         super(EntityTypeRegistry.NATURE_ARROW.get(), pLevel, pShooter, thrown, 3);
     }

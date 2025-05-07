@@ -6,12 +6,17 @@ import net.minecraft.world.entity.projectile.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 
-public class AquariusArrowItem extends ArrowItem{
+public class AquariusArrowItem extends ArrowItem implements DispensedArrow{
     public AquariusArrowItem(Properties pProperties){
         super(pProperties);
     }
 
     public AbstractArrow createArrow(Level pLevel, ItemStack pStack, LivingEntity pShooter){
-        return new NatureArrow(pLevel, pShooter, pStack);
+        return new AquariusArrow(pLevel, pShooter, pStack);
+    }
+
+    @Override
+    public AbstractArrow createArrow(Level pLevel, ItemStack pStack){
+        return new AquariusArrow(pLevel, pStack);
     }
 }

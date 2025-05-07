@@ -25,6 +25,13 @@ public class PyratiteArrow extends AbstractTridotArrow implements TexturedArrow{
         super(pEntityType, pLevel);
     }
 
+    public PyratiteArrow(Level pLevel, ItemStack thrown){
+        super(EntityTypeRegistry.PYRATITE_ARROW.get(), pLevel);
+        this.arrowItem = ItemStack.EMPTY;
+        this.arrowItem = new ItemStack(thrown.getItem());
+        this.baseDamage = 4;
+    }
+
     public PyratiteArrow(Level pLevel, LivingEntity pShooter, ItemStack thrown){
         super(EntityTypeRegistry.PYRATITE_ARROW.get(), pLevel, pShooter, thrown, 4);
     }

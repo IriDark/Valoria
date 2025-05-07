@@ -19,6 +19,7 @@ import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.block.types.*;
 import com.idark.valoria.registries.entity.living.*;
 import com.idark.valoria.registries.entity.living.elemental.*;
+import com.idark.valoria.registries.item.*;
 import com.idark.valoria.registries.item.recipe.*;
 import com.idark.valoria.registries.item.skins.*;
 import com.idark.valoria.registries.item.types.curio.charm.rune.*;
@@ -184,6 +185,7 @@ public class Valoria{
         ItemsRegistry.setupBook();
         PacketHandler.init();
         PotionBrewery.bootStrap();
+        DispenserBehaviours.bootStrap();
         event.enqueueWork(() -> {
             ModCompats.init();
             FireBlock fireblock = (FireBlock)Blocks.FIRE;

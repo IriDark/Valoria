@@ -561,7 +561,7 @@ public class ItemsRegistry{
 
         rubyTotem = registerItem("ruby_golden_totem", () -> new TalismanItem.Builder(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)).put(Attributes.MAX_HEALTH, 3).build());
         rubyWinglet = registerItem("ruby_golden_winglet", () -> new TalismanItem.Builder(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)).put(Attributes.ATTACK_SPEED, 0.35).put(Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_TOTAL, 0.15).build());
-        rubyGazer = registerItem("ruby_golden_gazer", () -> new TalismanItem.Builder(new Item.Properties().stacksTo(1).durability(140).rarity(Rarity.RARE)).put(Attributes.MAX_HEALTH, 3).put(Attributes.ATTACK_SPEED, Operation.MULTIPLY_TOTAL, -0.15).build());
+        rubyGazer = registerItem("ruby_golden_gazer", () -> new TalismanItem.Builder(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)).put(Attributes.MAX_HEALTH, 3).put(Attributes.ATTACK_SPEED, Operation.MULTIPLY_TOTAL, -0.15).build());
 
         brokenMonocle = registerItem("broken_bloodsight_monocle", () -> new BloodSight(new Item.Properties().stacksTo(1).rarity(Rarity.RARE).durability(300)));
         monocle = registerItem("bloodsight_monocle", () -> new BloodSight(new Item.Properties().stacksTo(1).rarity(Rarity.RARE).durability(300)));
