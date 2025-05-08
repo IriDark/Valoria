@@ -56,6 +56,9 @@ public class CodexPageItem extends Item{
                 if(rU != null && !UnlockUtils.isUnlocked(player, rU) && !onUnlock(rU)) {
                     stack.shrink(1);
                     UnlockUtils.add(serverPlayer, rU);
+
+                    String path = rU.getId().replace(":", ".");
+                    serverPlayer.displayClientMessage(Component.translatable("codex." + path + ".name").withStyle(ChatFormatting.GRAY), true);
                 }else{
                     return interactionFail(world, player, stack);
                 }

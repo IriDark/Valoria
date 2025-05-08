@@ -2,10 +2,12 @@
   "type": "minecraft:entity",
   "pools": [
     {
-      "bonus_rolls": 0.0,
+      "rolls": 1,
       "entries": [
         {
           "type": "minecraft:item",
+          "name": "valoria:pain_crystal",
+          "weight": 1,
           "functions": [
             {
               "add": false,
@@ -25,55 +27,46 @@
               "function": "minecraft:looting_enchant"
             }
           ],
-          "name": "minecraft:rotten_flesh"
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance",
+              "chance": 0.5
+            }
+          ]
         }
-      ],
-      "rolls": 1.0
+      ]
     },
-
     {
       "rolls": 1,
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "valoria:rotten_bone",
-          "weight": 2,
+          "name": "valoria:remains",
+          "weight": 1,
           "functions": [
             {
-              "function": "minecraft:set_count",
+              "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "min": 1,
-                "max": 4
-              }
-            }
-          ],
-          "conditions": [
+                "max": 2.0,
+                "min": 0.0
+              },
+              "function": "minecraft:set_count"
+            },
             {
-              "condition": "minecraft:random_chance",
-              "chance": 0.25
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "valoria:oceanic_shell",
-          "weight": 2,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
-                "min": 1,
-                "max": 2
-              }
+                "max": 1.0,
+                "min": 0.0
+              },
+              "function": "minecraft:looting_enchant"
             }
           ],
           "conditions": [
             {
               "condition": "minecraft:random_chance_with_looting",
-              "chance": 0.025,
-              "looting_multiplier": 0.015
+              "chance": 0.25,
+              "looting_multiplier": 0.1
             }
           ]
         }

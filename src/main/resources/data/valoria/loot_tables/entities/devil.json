@@ -33,7 +33,12 @@
               "chance": 0.5
             }
           ]
-        },
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
         {
           "type": "minecraft:item",
           "name": "valoria:devil_heart",
@@ -41,11 +46,17 @@
           "functions": [],
           "conditions": [
             {
-              "condition": "minecraft:random_chance",
-              "chance": 0.005
+              "condition": "minecraft:random_chance_with_looting",
+              "chance": 0.05,
+              "looting_multiplier": 0.015
             }
           ]
-        },
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
         {
           "type": "minecraft:item",
           "name": "valoria:elemental_crystal",
@@ -53,8 +64,9 @@
           "functions": [],
           "conditions": [
             {
-              "condition": "minecraft:random_chance",
-              "chance": 0.005
+              "condition": "minecraft:random_chance_with_looting",
+              "chance": 0.05,
+              "looting_multiplier": 0.025
             }
           ]
         }

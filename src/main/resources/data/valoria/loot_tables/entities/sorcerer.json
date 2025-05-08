@@ -2,7 +2,7 @@
   "type": "minecraft:entity",
   "pools": [
     {
-      "bonus_rolls": 0.0,
+      "bonus_rolls": 0,
       "entries": [
         {
           "type": "minecraft:item",
@@ -11,16 +11,16 @@
               "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "max": 2.0,
-                "min": 0.0
+                "max": 2,
+                "min": 0
               },
               "function": "minecraft:set_count"
             },
             {
               "count": {
                 "type": "minecraft:uniform",
-                "max": 1.0,
-                "min": 0.0
+                "max": 1,
+                "min": 0
               },
               "function": "minecraft:looting_enchant"
             }
@@ -28,11 +28,46 @@
           "name": "minecraft:bone"
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     },
     {
       "rolls": 1,
       "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:map",
+          "weight": 1,
+          "conditions": [
+            {
+              "condition": "minecraft:time_check",
+              "value": {
+                "min": 13000,
+                "max": 23000
+              }
+            },
+            {
+              "condition": "minecraft:random_chance_with_looting",
+              "chance": 0.05,
+              "looting_multiplier": 0.015
+            }
+          ],
+          "functions": [
+            {
+              "function": "minecraft:exploration_map",
+              "destination": "valoria:on_crypt_explorer_maps",
+              "decoration": "red_x",
+              "zoom": 1,
+              "search_radius": 150,
+              "skip_existing_chunks": false
+            },
+            {
+              "function": "minecraft:set_name",
+              "name": {
+                "translate": "filled_map.valoria.crypt"
+              }
+            }
+          ]
+        },
         {
           "type": "minecraft:item",
           "name": "valoria:skeletal_vambrace",
@@ -40,8 +75,9 @@
           "functions": [],
           "conditions": [
             {
-              "condition": "minecraft:random_chance",
-              "chance": 0.015
+              "condition": "minecraft:random_chance_with_looting",
+              "chance": 0.05,
+              "looting_multiplier": 0.025
             }
           ]
         },
@@ -51,8 +87,9 @@
           "weight": 1,
           "conditions": [
             {
-              "condition": "minecraft:random_chance",
-              "chance": 0.025
+              "condition": "minecraft:random_chance_with_looting",
+              "chance": 0.025,
+              "looting_multiplier": 0.015
             }
           ]
         }

@@ -58,6 +58,7 @@ public class DryadorEntity extends AbstractBoss implements RangedAttackMob{
 
     public DryadorEntity(EntityType<? extends PathfinderMob> pEntityType, Level pLevel){
         super(pEntityType, pLevel);
+        this.xpReward = 100;
     }
 
     public void handleEntityEvent(byte pId){

@@ -605,7 +605,24 @@
     "subtitle": "subtitles.valoria.troll.hurt",
     "sounds": [
       "valoria:troll/hurt0",
-      "valoria:troll/hurt1"
+      "valoria:troll/hurt1",
+      "valoria:troll/hurt2"
+    ]
+  },
+  "mob.troll.idle": {
+    "subtitle": "subtitles.valoria.troll.idle",
+    "sounds": [
+      "valoria:troll/idle0",
+      "valoria:troll/idle1",
+      "valoria:troll/idle2"
+    ]
+  },
+  "mob.troll.death": {
+    "subtitle": "subtitles.valoria.troll.death",
+    "sounds": [
+      "valoria:troll/death0",
+      "valoria:troll/death1",
+      "valoria:troll/death2"
     ]
   },
   "item.spear.hit_ground": {

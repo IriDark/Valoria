@@ -7,44 +7,74 @@
         {
           "type": "minecraft:item",
           "name": "valoria:dryador_page",
-          "weight": 50,
+          "weight": 1,
           "conditions": [
             {
               "condition": "valoria:unlockable",
               "id": "valoria:dryador"
             }
           ]
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "valoria:nature_upgrade_smithing_template",
+          "weight": 1
         },
         {
           "type": "minecraft:item",
-          "name": "valoria:arcane_trim",
-          "weight": 1,
-          "functions": []
+          "name": "valoria:nature_core",
+          "weight": 1
         },
         {
           "type": "minecraft:item",
-          "name": "valoria:fish_fragment",
-          "weight": 1,
-          "functions": []
+          "name": "valoria:poisoned_acorn",
+          "weight": 15,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "min": 1,
+                "max": 3
+              }
+            }
+          ],
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance",
+              "chance": 0.15
+            }
+          ]
         },
         {
           "type": "minecraft:item",
-          "name": "valoria:midnight_quantum_reaper_fragment",
-          "weight": 1,
-          "functions": []
-        },
-        {
-          "type": "minecraft:item",
-          "name": "valoria:cyberpunk_quantum_reaper_fragment",
-          "weight": 1,
-          "functions": []
-        },
-        {
-          "type": "minecraft:item",
-          "name": "valoria:the_fallen_trim",
-          "weight": 1,
-          "functions": []
-        },
+          "name": "valoria:acorn",
+          "weight": 25,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "min": 1,
+                "max": 6
+              }
+            }
+          ],
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance",
+              "chance": 0.25
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
         {
           "type": "minecraft:item",
           "name": "valoria:black_gold_ingot",
@@ -61,49 +91,39 @@
         },
         {
           "type": "minecraft:item",
-          "name": "valoria:poisoned_acorn",
-          "weight": 15,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1,
-                "max": 3
-              }
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "valoria:acorn",
-          "weight": 25,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1,
-                "max": 6
-              }
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
           "name": "valoria:ent",
           "weight": 5,
-          "functions": []
+          "functions": [],
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance",
+              "chance": 0.10
+            }
+          ]
         },
         {
           "type": "minecraft:item",
           "name": "valoria:nature_scythe",
           "weight": 5,
-          "functions": []
+          "functions": [],
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance",
+              "chance": 0.10
+            }
+          ]
         },
         {
           "type": "minecraft:item",
           "name": "valoria:nature_bow",
           "weight": 5,
-          "functions": []
+          "functions": [],
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance",
+              "chance": 0.15
+            }
+          ]
         },
         {
           "type": "minecraft:item",
@@ -117,17 +137,13 @@
                 "max": 6
               }
             }
+          ],
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance",
+              "chance": 0.25
+            }
           ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "valoria:nature_upgrade_smithing_template",
-          "weight": 1
-        },
-        {
-          "type": "minecraft:item",
-          "name": "valoria:nature_core",
-          "weight": 1
         }
       ]
     },
@@ -164,6 +180,59 @@
                 "min": 1,
                 "max": 4
               }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "valoria:the_fallen_trim",
+          "weight": 1,
+          "functions": [],
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance",
+              "chance": 0.25
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "valoria:arcane_trim",
+          "weight": 1,
+          "functions": [],
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance",
+              "chance": 0.25
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "valoria:muramasa_fragment",
+          "weight": 1,
+          "functions": [],
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance",
+              "chance": 0.15
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "valoria:fish_fragment",
+          "weight": 1,
+          "functions": [],
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance",
+              "chance": 0.15
             }
           ]
         }

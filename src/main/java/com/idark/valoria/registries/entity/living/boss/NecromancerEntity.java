@@ -72,7 +72,7 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
 
     public NecromancerEntity(EntityType<? extends NecromancerEntity> pEntityType, Level pLevel){
         super(pEntityType, pLevel);
-        this.xpReward = 8;
+        this.xpReward = 100;
     }
 
     public void readAdditionalSaveData(CompoundTag pCompound){

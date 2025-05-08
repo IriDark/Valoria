@@ -40,8 +40,9 @@
           "functions": [],
           "conditions": [
             {
-              "condition": "minecraft:random_chance",
-              "chance": 0.0005
+              "condition": "minecraft:random_chance_with_looting",
+              "chance": 0.0005,
+              "looting_multiplier": 0.0005
             }
           ]
         },
@@ -51,8 +52,9 @@
           "weight": 1,
           "conditions": [
             {
-              "condition": "minecraft:random_chance",
-              "chance": 0.0015
+              "condition": "minecraft:random_chance_with_looting",
+              "chance": 0.0015,
+              "looting_multiplier": 0.0015
             }
           ]
         }

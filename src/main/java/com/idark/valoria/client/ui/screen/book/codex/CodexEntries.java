@@ -247,9 +247,7 @@ public class CodexEntries{
         int centerX2 = childCenters2.isEmpty() ? 0 :(Collections.min(childCenters2) + Collections.max(childCenters2)) / 2;
 
         centerX = Math.max(centerX,centerX2);
-
         centerX = Mth.clamp(centerX, -512, 512);
-
         int we = depth < 0 ? totalWidth2 : totalWidth;
 
         CodexEntry entry = addEntry(node, centerX, y);

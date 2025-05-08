@@ -67,17 +67,17 @@ public class Troll extends Monster{
         return this.isBaby() ? (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.5F : (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.25F;
     }
 
-//    protected SoundEvent getAmbientSound(){
-//        return SoundsRegistry.TROLL_IDLE.get();
-//    }
+    protected SoundEvent getAmbientSound(){
+        return SoundsRegistry.TROLL_IDLE.get();
+    }
 
     protected SoundEvent getHurtSound(DamageSource pDamageSource){
         return SoundsRegistry.TROLL_HURT.get();
     }
 
-//    protected SoundEvent getDeathSound(){
-//        return SoundsRegistry.TROLL_DEATH.get();
-//    }
+    protected SoundEvent getDeathSound(){
+        return SoundsRegistry.TROLL_DEATH.get();
+    }
 
     @Override
     protected void registerGoals(){

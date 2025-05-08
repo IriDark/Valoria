@@ -17,7 +17,7 @@ public class WickedCrystalRenderer extends MobRenderer<WickedCrystal, WickedCrys
     protected static final ResourceLocation TEXTURE_PHASE = new ResourceLocation(Valoria.ID, "textures/entity/wicked_crystal_phase2.png");
 
     public WickedCrystalRenderer(EntityRendererProvider.Context context){
-        super(context, new WickedCrystalModel<>(WickedCrystalModel.createBodyLayer().bakeRoot()), 0.5F);
+        super(context, new WickedCrystalModel<>(WickedCrystalModel.createBodyLayer().bakeRoot()), 0.0F);
     }
 
     @Override

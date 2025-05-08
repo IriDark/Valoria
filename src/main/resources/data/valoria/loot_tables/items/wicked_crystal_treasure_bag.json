@@ -2,12 +2,29 @@
   "type": "minecraft:entity",
   "pools": [
     {
-      "rolls": 2,
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "valoria:wicked_shield",
+          "weight": 1,
+          "functions": [],
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance",
+              "chance": 0.10
+            }
+          ]
+        }
+        ]
+    },
+    {
+      "rolls": 1,
       "entries": [
         {
           "type": "minecraft:item",
           "name": "valoria:wicked_crystal_page",
-          "weight": 50,
+          "weight": 1,
           "conditions": [
             {
               "condition": "valoria:unlockable",
@@ -17,46 +34,20 @@
         },
         {
           "type": "minecraft:item",
-          "name": "valoria:star_divider_fragment",
+          "name": "valoria:void_upgrade_smithing_template",
           "weight": 1,
-          "functions": []
-        },
-        {
-          "type": "minecraft:item",
-          "name": "valoria:murasame_fragment",
-          "weight": 1,
-          "functions": []
-        },
-        {
-          "type": "minecraft:item",
-          "name": "valoria:nero_fragment",
-          "weight": 1,
-          "functions": []
-        },
-        {
-          "type": "minecraft:item",
-          "name": "valoria:midnight_quantum_reaper_fragment",
-          "weight": 1,
-          "functions": []
-        },
-        {
-          "type": "minecraft:item",
-          "name": "valoria:cyberpunk_quantum_reaper_fragment",
-          "weight": 1,
-          "functions": []
-        },
-        {
-          "type": "minecraft:item",
-          "name": "valoria:wicked_shield",
-          "weight": 5,
-          "functions": []
-        },
-        {
-          "type": "minecraft:item",
-          "name": "valoria:the_fallen_trim",
-          "weight": 1,
-          "functions": []
-        },
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance",
+              "chance": 0.5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rolls": 2,
+      "entries": [
         {
           "type": "minecraft:item",
           "name": "valoria:black_gold_ingot",
@@ -69,30 +60,60 @@
                 "max": 6
               }
             }
+          ],
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance",
+              "chance": 0.5
+            }
           ]
         },
         {
           "type": "minecraft:item",
           "name": "valoria:crystal_summon_book",
-          "weight": 5
+          "weight": 5,
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance",
+              "chance": 0.35
+            }
+          ]
         },
         {
           "type": "minecraft:item",
           "name": "valoria:void_edge",
           "weight": 5,
-          "functions": []
+          "functions": [],
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance",
+              "chance": 0.10
+            }
+          ]
         },
         {
           "type": "minecraft:item",
           "name": "valoria:void_scythe",
           "weight": 5,
-          "functions": []
+          "functions": [],
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance",
+              "chance": 0.10
+            }
+          ]
         },
         {
           "type": "minecraft:item",
           "name": "valoria:bow_of_darkness",
           "weight": 5,
-          "functions": []
+          "functions": [],
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance",
+              "chance": 0.15
+            }
+          ]
         },
         {
           "type": "minecraft:item",
@@ -106,12 +127,13 @@
                 "max": 6
               }
             }
+          ],
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance",
+              "chance": 0.25
+            }
           ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "valoria:void_upgrade_smithing_template",
-          "weight": 1
         }
       ]
     },
@@ -148,6 +170,83 @@
                 "min": 2,
                 "max": 5
               }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "valoria:the_fallen_trim",
+          "weight": 1,
+          "functions": [],
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance",
+              "chance": 0.25
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "valoria:star_divider_fragment",
+          "weight": 1,
+          "functions": [],
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance",
+              "chance": 0.25
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "valoria:murasame_fragment",
+          "weight": 1,
+          "functions": [],
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance",
+              "chance": 0.15
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "valoria:nero_fragment",
+          "weight": 1,
+          "functions": [],
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance",
+              "chance": 0.15
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "valoria:midnight_quantum_reaper_fragment",
+          "weight": 1,
+          "functions": [],
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance",
+              "chance": 0.25
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "valoria:cyberpunk_quantum_reaper_fragment",
+          "weight": 1,
+          "functions": [],
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance",
+              "chance": 0.25
             }
           ]
         }

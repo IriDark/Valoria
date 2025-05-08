@@ -28,12 +28,12 @@ public class BookGui extends Screen{
 
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double scroll) {
-        if(scroll > 0 && currentChapter.size() >= currentPage + 3){
+        if(scroll < 0 && currentChapter.size() >= currentPage + 3){
             currentPage += 2;
             Minecraft.getInstance().player.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundSource.NEUTRAL, 1.0f, 1.0f);
         }else if(currentPage <= 0){
             onClose();
-        }else if (scroll < 0){
+        }else if (scroll > 0){
             currentPage -= 2;
             Minecraft.getInstance().player.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundSource.NEUTRAL, 1.0f, 1.0f);
         }

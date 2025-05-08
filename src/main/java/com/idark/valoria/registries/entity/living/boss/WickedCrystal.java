@@ -43,6 +43,7 @@ public class WickedCrystal extends AbstractBoss{
 
     public WickedCrystal(EntityType<? extends PathfinderMob> pEntityType, Level pLevel){
         super(pEntityType, pLevel);
+        this.xpReward = 200;
     }
 
     @Override

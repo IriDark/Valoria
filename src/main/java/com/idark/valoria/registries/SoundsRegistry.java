@@ -88,6 +88,8 @@ public class SoundsRegistry{
 
     public static final RegistryObject<SoundEvent> TROLL_DISAPPEAR = registerSound("mob.troll.disappear");
     public static final RegistryObject<SoundEvent> TROLL_HURT = registerSound("mob.troll.hurt");
+    public static final RegistryObject<SoundEvent> TROLL_IDLE = registerSound("mob.troll.idle");
+    public static final RegistryObject<SoundEvent> TROLL_DEATH = registerSound("mob.troll.death");
 
     public static final RegistryObject<SoundEvent> NECROMANCER_SUMMON = registerSound("mob.necromancer_summon");
     public static final RegistryObject<SoundEvent> NECROMANCER_SUMMON_GROUND = registerSound("mob.necromancer_summon.ground");
