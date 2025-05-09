@@ -1,0 +1,9 @@
+{
+  "asset_name": "crimtane",
+  "description": {
+    "color": "#ec693b",
+    "translate": "trim_material.valoria.crimtane"
+  },
+  "ingredient": "valoria:crimtane_ingot",
+  "item_model_index": 0.4
+}

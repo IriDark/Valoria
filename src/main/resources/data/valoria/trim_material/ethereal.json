@@ -1,0 +1,9 @@
+{
+  "asset_name": "ethereal",
+  "description": {
+    "color": "#95d2c5",
+    "translate": "trim_material.valoria.ethereal"
+  },
+  "ingredient": "valoria:ethereal_shard",
+  "item_model_index": 0.8
+}

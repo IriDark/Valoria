@@ -1,6 +1,10 @@
 {
   "replace": false,
   "values": [
+    "valoria:black_gold_helmet",
+    "valoria:black_gold_chestplate",
+    "valoria:black_gold_leggings",
+    "valoria:black_gold_boots",
     "valoria:ethereal_helmet",
     "valoria:ethereal_chestplate",
     "valoria:ethereal_leggings",

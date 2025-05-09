@@ -53,7 +53,7 @@ public class AbstractDevil extends MultiAttackMob implements Enemy{
      * the current light level at the location.
      */
     public static boolean checkMonsterSpawnRules(EntityType<? extends Devil> pType, ServerLevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, RandomSource pRandom){
-        return pLevel.getDifficulty() != Difficulty.PEACEFUL && isDarkEnoughToSpawn(pLevel, pPos, pRandom) && checkMobSpawnRules(pType, pLevel, pSpawnType, pPos, pRandom) && !pLevel.getBlockState(pPos.below()).is(Blocks.NETHER_WART_BLOCK);
+        return pLevel.getDifficulty() != Difficulty.PEACEFUL && isDarkEnoughToSpawn(pLevel, pPos, pRandom) && checkMobSpawnRules(pType, pLevel, pSpawnType, pPos, pRandom) && (!pLevel.getBlockState(pPos.below()).is(Blocks.NETHER_WART_BLOCK) || !pLevel.getBlockState(pPos.below()).is(Blocks.WARPED_WART_BLOCK));
     }
 
     public SoundSource getSoundSource(){

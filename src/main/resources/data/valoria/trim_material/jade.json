@@ -1,0 +1,9 @@
+{
+  "asset_name": "jade",
+  "description": {
+    "color": "#6be3d6",
+    "translate": "trim_material.valoria.jade"
+  },
+  "ingredient": "valoria:jade",
+  "item_model_index": 0.7
+}

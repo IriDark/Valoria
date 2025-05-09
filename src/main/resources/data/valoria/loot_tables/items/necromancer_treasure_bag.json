@@ -114,6 +114,18 @@
               "chance": 0.15
             }
           ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "valoria:beast",
+          "weight": 1,
+          "functions": [],
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance",
+              "chance": 0.05
+            }
+          ]
         }
       ]
     },

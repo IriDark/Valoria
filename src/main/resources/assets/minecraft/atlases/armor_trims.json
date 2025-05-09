@@ -46,7 +46,11 @@
         "nature": "valoria:trims/color_palettes/nature",
         "infernal": "valoria:trims/color_palettes/infernal",
         "aquarius": "valoria:trims/color_palettes/aquarius",
-        "phantasm": "valoria:trims/color_palettes/phantasm"
+        "phantasm": "valoria:trims/color_palettes/phantasm",
+        "jade": "valoria:trims/color_palettes/jade",
+        "crimtane": "valoria:trims/color_palettes/crimtane",
+        "pyratite": "valoria:trims/color_palettes/pyratite",
+        "ethereal": "valoria:trims/color_palettes/ethereal"
       }
     }
   ]

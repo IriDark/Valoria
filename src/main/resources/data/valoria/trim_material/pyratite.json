@@ -1,0 +1,9 @@
+{
+  "asset_name": "pyratite",
+  "description": {
+    "color": "#e0a758",
+    "translate": "trim_material.valoria.pyratite"
+  },
+  "ingredient": "valoria:pyratite",
+  "item_model_index": 0.5
+}

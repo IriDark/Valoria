@@ -271,7 +271,7 @@ public class Valoria{
                 SpawnPlacements.register(EntityTypeRegistry.SWAMP_WANDERER.get(), SpawnPlacements.Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, SwampWandererEntity::checkMonsterSpawnRules);
                 SpawnPlacements.register(EntityTypeRegistry.SCOURGE.get(), SpawnPlacements.Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, ScourgeEntity::checkMonsterSpawnRules);
                 SpawnPlacements.register(EntityTypeRegistry.SHADEWOOD_SPIDER.get(), SpawnPlacements.Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, ShadewoodSpider::checkMonsterSpawnRules);
-                SpawnPlacements.register(EntityTypeRegistry.DEVIL.get(), SpawnPlacements.Type.ON_GROUND, Types.WORLD_SURFACE_WG, Devil::checkMonsterSpawnRules);
+                SpawnPlacements.register(EntityTypeRegistry.DEVIL.get(), SpawnPlacements.Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, Devil::checkMonsterSpawnRules);
                 SpawnPlacements.register(EntityTypeRegistry.HAUNTED_MERCHANT.get(), SpawnPlacements.Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, HauntedMerchant::checkMonsterSpawnRules);
                 SpawnPlacements.register(EntityTypeRegistry.TROLL.get(), SpawnPlacements.Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, Troll::checkMonsterSpawnRules);
                 SpawnPlacements.register(EntityTypeRegistry.CORRUPTED_TROLL.get(), SpawnPlacements.Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, Troll::checkMonsterSpawnRules);
