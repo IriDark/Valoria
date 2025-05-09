@@ -9,7 +9,6 @@ import net.minecraft.core.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.server.level.*;
 import net.minecraft.world.*;
-import net.minecraft.world.entity.item.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.*;
@@ -69,17 +68,13 @@ public class KegBlock extends HorizontalDirectionalBlock implements EntityBlock,
     public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit){
         KegBlockEntity tile = (KegBlockEntity)world.getBlockEntity(pos);
         ItemStack stack = player.getItemInHand(hand).copy();
-        ItemStack playerHeldItem = player.getItemInHand(hand).copy();
-        boolean isHoldingCup = playerHeldItem.getItem() == ItemsRegistry.woodenCup.get();
-        boolean isHoldingBottle = playerHeldItem.getItem() == ItemsRegistry.bottle.get();
+        boolean isHoldingCup = stack.getItem() == ItemsRegistry.woodenCup.get();
+        boolean isHoldingBottle = stack.getItem() == ItemsRegistry.bottle.get();
+
         if(isHoldingCup || isHoldingBottle){
             if(!tile.itemOutputHandler.getStackInSlot(0).isEmpty() && isCupOrBottle(tile, player, hand)){
-                if(!player.isCreative() && !tile.itemOutputHandler.getStackInSlot(0).is(Items.HONEY_BOTTLE)){
-                    world.addFreshEntity(new ItemEntity(world, player.getX() + 0.5F, player.getY() + 0.5F, player.getZ() + 0.5F, tile.itemOutputHandler.getStackInSlot(0).copy()));
-                }else if(!player.isCreative() && tile.itemOutputHandler.getStackInSlot(0).is(Items.HONEY_BOTTLE) && stack.is(Items.GLASS_BOTTLE)){
-                    player.getItemInHand(hand).setCount(stack.getCount() - 1);
-                    world.addFreshEntity(new ItemEntity(world, player.getX() + 0.5F, player.getY() + 0.5F, player.getZ() + 0.5F, tile.itemOutputHandler.getStackInSlot(0).copy()));
-                }
+                BlockSimpleInventory.addHandPlayerItem(world, player, hand, stack, tile.itemOutputHandler.getStackInSlot(0).getItem().getDefaultInstance());
+                if(!player.isCreative()) player.getItemInHand(hand).shrink(1);
 
                 tile.itemOutputHandler.extractItem(0, 1, false);
                 ValoriaUtils.SUpdateTileEntityPacket(tile);
