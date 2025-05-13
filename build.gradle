@@ -129,6 +129,8 @@ dependencies {
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}+${minecraft_version}")
     runtimeOnly fg.deobf("curse.maven:just-enough-repair-materials-1241244:6415175")
 
+    runtimeOnly fg.deobf("curse.maven:cyanide-541676:5778405")
+
     // client sided
     runtimeOnly fg.deobf("maven.modrinth:journeymap:1.20.1-5.10.2-forge")
     runtimeOnly fg.deobf("maven.modrinth:legendary-tooltips:1.4.5") //breaks nbt, fix will be released later by Grend
@@ -138,8 +140,9 @@ dependencies {
     runtimeOnly fg.deobf("curse.maven:advanced-xray-256256:4840340")
     runtimeOnly fg.deobf("curse.maven:model-gap-fix-676136:4607206")
     runtimeOnly fg.deobf("curse.maven:just-enough-effect-descriptions-jeed-532286:4978810")
-    //runtimeOnly fg.deobf("maven.modrinth:embeddium:0.3.31+mc1.20.1")
-    //runtimeOnly fg.deobf("maven.modrinth:embeddiumplus:1.20.1-v1.2.13")
+
+    runtimeOnly fg.deobf("maven.modrinth:embeddium:0.3.31+mc1.20.1")
+    runtimeOnly fg.deobf("maven.modrinth:embeddiumplus:1.20.1-v1.2.13")
     runtimeOnly fg.deobf("maven.modrinth:oculus:1.20.1-1.7.0")
 }
 
