@@ -99,7 +99,7 @@ public class ItemsRegistry{
     minersBag, gemBag, necromancerTreasureBag, crystalTreasureBag, dryadorTreasureBag, dirtGeode, stoneGeode,
 
     // boss summonables
-    necromancerGrimoire, suspciousGem, harmonyCrown,
+    necromancerGrimoire, suspiciousGem, harmonyCrown,
 
     // misc
     debugItem, summonBook, crystalSummonBook, soulCollectorEmpty, soulCollector, voidKey, spectralBladeThrown, pick,
@@ -314,7 +314,7 @@ public class ItemsRegistry{
             }
         });
 
-        suspciousGem = registerItem("suspicious_gem", () -> new Item(new Item.Properties()){
+        suspiciousGem = registerItem("suspicious_gem", () -> new Item(new Item.Properties()){
             @Override
             public void appendHoverText(@NotNull ItemStack stack, Level world, @NotNull List<Component> tooltip, @NotNull TooltipFlag flags){
                 super.appendHoverText(stack, world, tooltip, flags);

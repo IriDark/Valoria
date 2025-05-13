@@ -35,7 +35,7 @@ public abstract class ItemTabRegistry{
     .backgroundSuffix("valoria_item.png").withBackgroundLocation(getBackgroundImage()).build());
 
     public static final RegistryObject<CreativeModeTab> VALORIA_TAB = CREATIVE_MODE_TABS.register("valoria_misc",
-    () -> CreativeModeTab.builder().icon(() -> new ItemStack(ItemsRegistry.suspciousGem.get()))
+    () -> CreativeModeTab.builder().icon(() -> new ItemStack(ItemsRegistry.suspiciousGem.get()))
     .hideTitle()
     .title(Component.translatable("itemGroup.valoriaMiscModTab"))
     .withTabsImage(getTabsImage())

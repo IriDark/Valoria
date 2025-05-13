@@ -1,12 +1,14 @@
 package com.idark.valoria.client.ui.toast;
 
+import com.google.common.collect.*;
 import com.idark.valoria.*;
 import com.idark.valoria.registries.*;
-import net.minecraft.client.*;
 import net.minecraft.client.gui.*;
 import net.minecraft.client.gui.components.toasts.*;
-import net.minecraft.client.resources.language.*;
+import net.minecraft.network.chat.*;
 import net.minecraft.resources.*;
+import net.minecraft.util.*;
+import net.minecraft.world.item.*;
 import net.minecraftforge.api.distmarker.*;
 import pro.komaru.tridot.util.*;
 
@@ -17,61 +19,55 @@ public class PageToast implements Toast{
     public static PageToast instance;
     public ResourceLocation TEXTURE = new ResourceLocation(Valoria.ID, "textures/gui/toast.png");
     public boolean pUnlock;
+    private long lastChanged;
+    private boolean changed;
+    private final List<Item> items = Lists.newArrayList();
 
-    public PageToast(boolean pUnlock){
+    public PageToast(Item icon, boolean pUnlock){
+        this.items.add(icon);
         this.pUnlock = pUnlock;
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    public static void drawText(GuiGraphics gui, String text, int x, int y, boolean Centered){
-        Font font = Minecraft.getInstance().font;
-        if(!Centered){
-            gui.drawString(font, I18n.get(text), x, y, Col.packColor(255, 220, 200, 180), true);
-        }else{
-            gui.drawCenteredString(font, I18n.get(text), x, y, Col.packColor(255, 220, 200, 180));
-        }
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    public static void drawWrappingText(GuiGraphics gui, String text, int x, int y, int wrap, boolean Centered){
-        Font font = Minecraft.getInstance().font;
-        List<String> lines = new ArrayList<>();
-        String[] words = I18n.get(text).split(" ");
-        String line = "";
-        for(String s : words){
-            if(s.equals("\n")){
-                lines.add(line);
-                line = "";
-            }else if(font.width(line) + font.width(s) > wrap){
-                lines.add(line);
-                line = s + " ";
-            }else line += s + " ";
-        }
-        if(!line.isEmpty()) lines.add(line);
-        for(int i = 0; i < lines.size(); i++){
-            drawText(gui, lines.get(i), x, y + i * (font.lineHeight + 1), Centered);
-        }
     }
 
     @Override
     public Visibility render(GuiGraphics pGuiGraphics, ToastComponent pToastComponent, long pTimeSinceLastVisible){
-        pGuiGraphics.blit(TEXTURE, 0, 0, 0, 0, this.width(), this.height(), 256, 32);
-
-        pGuiGraphics.renderFakeItem(ItemsRegistry.cryptPage.get().getDefaultInstance(), 8, 8);
-        pGuiGraphics.renderFakeItem(ItemsRegistry.codex.get().getDefaultInstance(), 155, 8);
-        if(pUnlock){
-            drawWrappingText(pGuiGraphics, "codex.valoria.new_page", 90, 8, 120, true);
-        }else{
-            drawWrappingText(pGuiGraphics, "codex.valoria.delete_page", 92, 12, 120, true);
+        if (this.changed) {
+            this.lastChanged = pTimeSinceLastVisible;
+            this.changed = false;
         }
 
-        return (double)pTimeSinceLastVisible >= 5000.0D * pToastComponent.getNotificationDisplayTimeMultiplier() ? Visibility.HIDE : Visibility.SHOW;
+        pGuiGraphics.blit(TEXTURE, 0, 0, 0, 0, this.width(), this.height(), 256, 32);
+        Item itemstack = this.items.get((int)((double)pTimeSinceLastVisible / Math.max(1.0D, 5000.0D * pToastComponent.getNotificationDisplayTimeMultiplier() / (double)this.items.size()) % (double)this.items.size()));
+
+        pGuiGraphics.renderFakeItem(itemstack.getDefaultInstance(), 8, 8);
+        pGuiGraphics.renderFakeItem(ItemsRegistry.codex.get().getDefaultInstance(), 156, 8);
+
+        var component = pUnlock ? Component.translatable("codex.valoria.new_page") : Component.translatable("codex.valoria.delete_page");
+        List<FormattedCharSequence> list = pToastComponent.getMinecraft().font.split(component, 125);
+        int l = this.height() / 2 - list.size() * 9 / 2;
+        if (list.size() == 1) {
+            pGuiGraphics.drawString(pToastComponent.getMinecraft().font, list.get(0), 30, l, Col.packColor(255, 220, 200, 180), false);
+        }else{
+            for(FormattedCharSequence formattedcharsequence : list){
+                pGuiGraphics.drawString(pToastComponent.getMinecraft().font, formattedcharsequence, 30, l, Col.packColor(255, 220, 200, 180), false);
+                l += 9;
+            }
+        }
+
+        return (double)(pTimeSinceLastVisible - this.lastChanged) < 5000L * pToastComponent.getNotificationDisplayTimeMultiplier() ? Toast.Visibility.SHOW : Toast.Visibility.HIDE;
     }
 
-    public static void addOrUpdate(ToastComponent pToastGui, boolean pUnlock) {
+    public void reset(Item icon, boolean pUnlock) {
+        this.items.add(icon);
+        this.pUnlock = pUnlock;
+        this.changed = true;
+    }
+
+    public static void addOrUpdate(ToastComponent pToastGui, Item icon, boolean pUnlock) {
         PageToast toast = pToastGui.getToast(PageToast.class, NO_TOKEN);
         if (toast == null) {
-            pToastGui.addToast(new PageToast(pUnlock));
+            pToastGui.addToast(new PageToast(icon, pUnlock));
+        } else {
+            toast.reset(icon, pUnlock);
         }
     }
 

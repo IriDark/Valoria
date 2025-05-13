@@ -5,6 +5,7 @@ import com.idark.valoria.api.unlockable.types.*;
 import com.idark.valoria.core.command.parts.*;
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.*;
+import com.idark.valoria.registries.*;
 import com.mojang.brigadier.*;
 import com.mojang.brigadier.context.*;
 import com.mojang.brigadier.exceptions.*;
@@ -64,7 +65,7 @@ public class ModCommand{
             }
 
             UnlockUtils.addAll(player);
-            PacketHandler.sendTo(player, new PageToastPacket(player, true));
+            PacketHandler.sendTo(player, new PageToastPacket(player, ItemsRegistry.page.get(), true));
         }
     }
 
@@ -77,7 +78,7 @@ public class ModCommand{
             }
 
             UnlockUtils.removeAll(player);
-            PacketHandler.sendTo(player, new PageToastPacket(player, false));
+            PacketHandler.sendTo(player, new PageToastPacket(player, ItemsRegistry.page.get(), false));
         }
     }
 
@@ -91,7 +92,7 @@ public class ModCommand{
 
             UnlockUtils.add(player, pages);
             PacketHandler.sendTo(player, new UnlockableUpdatePacket(player));
-            PacketHandler.sendTo(player, new PageToastPacket(player, true));
+            PacketHandler.sendTo(player, new PageToastPacket(player, ItemsRegistry.page.get(), true));
         }
     }
 
@@ -105,7 +106,7 @@ public class ModCommand{
 
             UnlockUtils.remove(player, pages);
             PacketHandler.sendTo(player, new UnlockableUpdatePacket(player));
-            PacketHandler.sendTo(player, new PageToastPacket(player, false));
+            PacketHandler.sendTo(player, new PageToastPacket(player, ItemsRegistry.page.get(), false));
         }
     }
 

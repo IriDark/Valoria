@@ -6,13 +6,16 @@ import net.minecraft.core.*;
 import net.minecraft.core.particles.*;
 import net.minecraft.network.protocol.*;
 import net.minecraft.server.level.*;
+import net.minecraft.world.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.item.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.phys.*;
+import net.minecraftforge.items.*;
 import org.joml.*;
 import pro.komaru.tridot.api.*;
 import pro.komaru.tridot.util.struct.func.*;
@@ -23,6 +26,28 @@ import java.lang.Math;
 import java.util.*;
 
 public class ValoriaUtils{
+
+    public static void addHandPlayerItem(Level level, Player player, InteractionHand hand, ItemStack stack, ItemStack addStack) {
+        if (player.getInventory().getSlotWithRemainingSpace(addStack) >= 0) {
+            addPlayerItem(level, player, addStack);
+        } else if (stack.isEmpty()) {
+            player.setItemInHand(hand, addStack.copy());
+        } else if (ItemHandlerHelper.canItemStacksStack(stack, addStack) && (stack.getCount() + addStack.getCount() <= addStack.getMaxStackSize())) {
+            stack.setCount(stack.getCount() + addStack.getCount());
+            player.setItemInHand(hand, stack);
+        } else {
+            addPlayerItem(level, player, addStack);
+        }
+    }
+
+    public static void addPlayerItem(Level level, Player player, ItemStack addStack) {
+        if (player.getInventory().getSlotWithRemainingSpace(addStack) != -1 || player.getInventory().getFreeSlot() > -1) {
+            player.getInventory().add(addStack.copy());
+        } else {
+            level.addFreshEntity(new ItemEntity(level, player.getX(), player.getY(), player.getZ(), addStack.copy()));
+        }
+    }
+
     public static void SUpdateTileEntityPacket(BlockEntity tile){
         if(tile.getLevel() instanceof ServerLevel){
             Packet<?> packet = tile.getUpdatePacket();

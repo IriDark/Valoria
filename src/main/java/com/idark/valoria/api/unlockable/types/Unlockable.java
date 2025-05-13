@@ -1,6 +1,7 @@
 package com.idark.valoria.api.unlockable.types;
 
 import com.idark.valoria.api.unlockable.*;
+import com.idark.valoria.registries.*;
 import net.minecraft.resources.*;
 import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
@@ -15,14 +16,23 @@ public class Unlockable {
     private ItemStack[] items;
     private int experience;
     public String id;
+    public Item icon;
     public final boolean randomObtainable;
 
     public Unlockable(String id){
-        this.id = id;
-        this.randomObtainable = true;
+        this(ItemsRegistry.page.get(), id, true);
+    }
+
+    public Unlockable(Item icon, String id){
+        this(icon, id, true);
     }
 
     public Unlockable(String id, boolean rndObtain){
+        this(ItemsRegistry.page.get(), id, rndObtain);
+    }
+
+    public Unlockable(Item icon, String id, boolean rndObtain){
+        this.icon = icon;
         this.id = id;
         this.randomObtainable = rndObtain;
     }

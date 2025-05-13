@@ -28,6 +28,6 @@ public class WickedAltar extends AbstractBossAltar{
 
     @Override
     public Item getSummonItem(){
-        return ItemsRegistry.suspciousGem.get();
+        return ItemsRegistry.suspiciousGem.get();
     }
 }

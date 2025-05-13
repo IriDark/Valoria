@@ -65,7 +65,7 @@ public class UnlockUtils{
                 if(k.isUnlocked(unlockable)) return;
                 k.addUnlockable(unlockable);
                 PacketHandler.sendTo((Player)entity, new UnlockableUpdatePacket(entity));
-                PacketHandler.sendTo((Player)entity, new PageToastPacket(entity, true));
+                PacketHandler.sendTo((Player)entity, new PageToastPacket(entity, unlockable.icon, true));
             });
         }
     }
@@ -75,7 +75,7 @@ public class UnlockUtils{
             if(k.isUnlocked(unlockable)) return;
             k.addUnlockable(unlockable);
             PacketHandler.sendTo((Player)entity, new UnlockableUpdatePacket(entity));
-            PacketHandler.sendTo((Player)entity, new PageToastPacket(entity, true));
+            PacketHandler.sendTo((Player)entity, new PageToastPacket(entity, unlockable.icon, true));
         });
 
         Valoria.LOGGER.debug("{} unlocked page {}", entity.getDisplayName().getString(), unlockable.id);
@@ -86,7 +86,7 @@ public class UnlockUtils{
             if(!k.isUnlocked(unlockable)) return;
             k.removeUnlockable(unlockable);
             PacketHandler.sendTo((Player)entity, new UnlockableUpdatePacket(entity));
-            PacketHandler.sendTo((Player)entity, new PageToastPacket(entity, false));
+            PacketHandler.sendTo((Player)entity, new PageToastPacket(entity, unlockable.icon, false));
         });
     }
 

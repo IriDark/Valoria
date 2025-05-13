@@ -8,12 +8,12 @@ import java.util.*;
 public class ItemUnlockable extends Unlockable{
     public final Item item;
     public ItemUnlockable(String id, Item item){
-        super(id);
+        super(item, id);
         this.item = item;
     }
 
     public ItemUnlockable(String id, boolean rndObtain, Item item){
-        super(id, rndObtain);
+        super(item, id, rndObtain);
         this.item = item;
     }
 
