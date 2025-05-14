@@ -19,7 +19,7 @@ import java.util.*;
 
 public class CodexEntries{
     public static Seq<CodexEntry> entries = new Seq<>();
-    public static Chapter MAIN_CHAPTER, TREASURES_CHAPTER, MEDICINE_CHAPTER,
+    public static Chapter MAIN_CHAPTER, PAGES_CHAPTER, TREASURES_CHAPTER, MEDICINE_CHAPTER,
 
     PICK, TINKERER_WORKBENCH,
 
@@ -42,6 +42,10 @@ public class CodexEntries{
         new MainPage("codex.valoria.main"),
         new TextPage("codex.valoria.knowledge")
         .withCraftEntry(ItemsRegistry.codex.get().getDefaultInstance(), Items.PAPER.getDefaultInstance(), Items.BOOK.getDefaultInstance()));
+
+        PAGES_CHAPTER = new Chapter(
+        "codex.valoria.pages.name",
+        new TextPage("codex.valoria.pages"));
 
         TREASURES_CHAPTER = new Chapter(
         "codex.valoria.jewelry",
@@ -134,6 +138,7 @@ public class CodexEntries{
     public static void init(){
         CodexEntries.entries.clear();
         ChapterNode root = new ChapterNode(MAIN_CHAPTER, ItemsRegistry.codex.get(), Style.GOLD)
+            .addChild(new ChapterNode(PAGES_CHAPTER, ItemsRegistry.page.get(), Style.GOLD))
             .addChild(TREASURES_CHAPTER, ItemsRegistry.amethystGem)
             .addChild(MEDICINE_CHAPTER, ItemsRegistry.aloeBandage)
             .addChild(new ChapterNode(PICK, ItemsRegistry.pick.get(), Style.STANDARD, RegisterUnlockables.pick))

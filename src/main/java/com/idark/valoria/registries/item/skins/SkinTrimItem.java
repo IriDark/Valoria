@@ -51,7 +51,7 @@ public class SkinTrimItem extends Item{
         var player = Minecraft.getInstance().player;
         if(player != null){
             if(Screen.hasShiftDown()){
-                tooltip.add(Component.translatable("item.minecraft.smithing_template.applies_to").withStyle(ChatFormatting.GRAY));
+                tooltip.add(Component.translatable("tooltip.valoria.skin").withStyle(ChatFormatting.GRAY));
                 for(var reg : ForgeRegistries.ITEMS.getEntries()) {
                     for(ItemSkinEntry skinEntry : skin.skinEntries()) {
                         ItemStack item = reg.getValue().getDefaultInstance();

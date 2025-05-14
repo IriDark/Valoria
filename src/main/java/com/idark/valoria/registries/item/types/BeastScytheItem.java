@@ -6,7 +6,9 @@ import com.idark.valoria.core.network.packets.particle.*;
 import com.idark.valoria.registries.entity.projectile.*;
 import com.idark.valoria.registries.item.types.builders.*;
 import com.idark.valoria.util.*;
+import net.minecraft.*;
 import net.minecraft.core.*;
+import net.minecraft.network.chat.*;
 import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
 import net.minecraft.util.*;
@@ -113,6 +115,12 @@ public class BeastScytheItem extends ScytheItem{
         }
 
         level.playSound(null, player.blockPosition(), SoundEvents.EVOKER_FANGS_ATTACK, SoundSource.AMBIENT, 1f, 1f);
+    }
+
+    @Override
+    public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags){
+        super.appendHoverText(stack, world, tooltip, flags);
+        tooltip.add(Component.translatable("tooltip.valoria.beast").withStyle(ChatFormatting.GRAY));
     }
 
     public static class Builder extends AbstractScytheBuilder<BeastScytheItem>{

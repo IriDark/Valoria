@@ -4,6 +4,8 @@ import com.google.common.collect.*;
 import com.idark.valoria.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.entity.projectile.*;
+import net.minecraft.*;
+import net.minecraft.network.chat.*;
 import net.minecraft.resources.*;
 import net.minecraft.sounds.*;
 import net.minecraft.stats.*;
@@ -13,8 +15,11 @@ import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
+import org.jetbrains.annotations.*;
 import pro.komaru.tridot.client.render.gui.*;
 import pro.komaru.tridot.common.registry.item.*;
+
+import java.util.*;
 
 import static pro.komaru.tridot.Tridot.BASE_PROJECTILE_DAMAGE_UUID;
 
@@ -71,6 +76,12 @@ public class CorpseCleaverItem extends SwordItem{
         }
 
         return InteractionResultHolder.pass(itemstack);
+    }
+
+    @Override
+    public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced){
+        super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
+        pTooltipComponents.add(Component.translatable("tooltip.valoria.corpsecleaver").withStyle(ChatFormatting.GRAY));
     }
 
     public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot equipmentSlot){

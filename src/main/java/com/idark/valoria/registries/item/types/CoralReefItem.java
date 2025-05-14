@@ -2,7 +2,9 @@ package com.idark.valoria.registries.item.types;
 
 import com.idark.valoria.registries.*;
 import com.idark.valoria.util.*;
+import net.minecraft.*;
 import net.minecraft.core.particles.*;
+import net.minecraft.network.chat.*;
 import net.minecraft.sounds.*;
 import net.minecraft.stats.*;
 import net.minecraft.world.*;
@@ -70,9 +72,9 @@ public class CoralReefItem extends ValoriaSword{
         Utils.Particles.inRadius(worldIn, stack, ParticleTypes.UNDERWATER, pos, 0, player.getRotationVector().y, 3);
         for(LivingEntity damagedEntity : hitEntities){
             damagedEntity.hurt(worldIn.damageSources().playerAttack(player), (damage + EnchantmentHelper.getDamageBonus(stack, damagedEntity.getMobType())) * 1.35f);
-            damagedEntity.knockback(0.4F, player.getX() - entityLiving.getX(), player.getZ() - entityLiving.getZ());
+            damagedEntity.knockback(1F, player.getX() - entityLiving.getX(), player.getZ() - entityLiving.getZ());
             if(arcRandom.chance(0.25f)){
-                damagedEntity.knockback(0.6F, player.getX() - damagedEntity.getX(), player.getZ() - damagedEntity.getZ());
+                damagedEntity.knockback(1.5F, player.getX() - damagedEntity.getX(), player.getZ() - damagedEntity.getZ());
                 worldIn.playSound(null, damagedEntity.getOnPos(), SoundsRegistry.WATER_ABILITY.get(), SoundSource.AMBIENT, 0.2f, 1.2f);
             }
         }
@@ -82,5 +84,13 @@ public class CoralReefItem extends ValoriaSword{
         }
 
         worldIn.playSound(null, player.blockPosition(), SoundsRegistry.WATER_ABILITY.get(), SoundSource.AMBIENT, 0.8f, 1f);
+    }
+
+    @Override
+    public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags){
+        super.appendHoverText(stack, world, tooltip, flags);
+        tooltip.add(Component.translatable("tooltip.valoria.coral_reef").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.GRAY));
+
+        tooltip.add(Component.translatable("tooltip.valoria.rmb").withStyle(ChatFormatting.GREEN));
     }
 }

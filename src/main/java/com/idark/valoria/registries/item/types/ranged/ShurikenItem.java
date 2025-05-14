@@ -2,6 +2,7 @@ package com.idark.valoria.registries.item.types.ranged;
 
 import com.google.common.collect.*;
 import com.idark.valoria.registries.entity.projectile.*;
+import net.minecraft.*;
 import net.minecraft.core.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.sounds.*;
@@ -112,6 +113,7 @@ public class ShurikenItem extends Item{
     @Override
     public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags){
         super.appendHoverText(stack, world, tooltip, flags);
+        tooltip.add(Component.translatable("tooltip.valoria.shuriken").withStyle(ChatFormatting.GRAY));
         Utils.Items.effectTooltip(effects, tooltip, 1, chance);
     }
 }

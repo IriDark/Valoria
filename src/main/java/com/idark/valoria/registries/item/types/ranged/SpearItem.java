@@ -203,6 +203,11 @@ public class SpearItem extends SwordItem implements Vanishable{
     public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags){
         super.appendHoverText(stack, world, tooltip, flags);
         if(throwable){
+            if(stack.is(ItemsRegistry.pyratiteSpear.get())){
+                tooltip.add(Component.translatable("tooltip.valoria.pyratite_spear").withStyle(ChatFormatting.GRAY));
+                tooltip.add(Component.empty());
+            }
+
             tooltip.add(Component.translatable("tooltip.valoria.spear").withStyle(ChatFormatting.GRAY));
         }
 
