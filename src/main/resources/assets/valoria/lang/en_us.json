@@ -1062,6 +1062,7 @@
   "tooltip.valoria.corpsecleaver": "Throws a meat chunk at enemies using your health. Heals on hit. Has a cooldown",
   "tooltip.valoria.coral_reef": "Throws your enemy away from you on use",
   "tooltip.valoria.pyratite_spear": "Creates explosive shards on hit",
+  "tooltip.valoria.pyratite_armor": "Grants explosion immunity on full set",
   "tooltip.valoria.beast": "Summons Devourers in a circle around you",
   "tooltip.valoria.skin": "Applies on Jeweler table to:",
   "tooltip.talisman": "Talisman",

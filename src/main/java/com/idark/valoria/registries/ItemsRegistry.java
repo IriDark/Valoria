@@ -191,10 +191,10 @@ public class ItemsRegistry{
         spiderChestplate = registerItem("spider_chestplate", () -> new HitEffectArmorItem(ArmorRegistry.SPIDER, ArmorItem.Type.CHESTPLATE, new Item.Properties().rarity(RarityRegistry.SPIDER), 0.5f, new MobEffectInstance(MobEffects.BLINDNESS, 60)));
         spiderLeggings = registerItem("spider_leggings", () -> new HitEffectArmorItem(ArmorRegistry.SPIDER, ArmorItem.Type.LEGGINGS, new Item.Properties().rarity(RarityRegistry.SPIDER), 0.5f, new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60)));
         spiderBoots = registerItem("spider_boots", () -> new HitEffectArmorItem(ArmorRegistry.SPIDER, ArmorItem.Type.BOOTS, new Item.Properties().rarity(RarityRegistry.SPIDER), 0.5f, new MobEffectInstance(MobEffects.CONFUSION, 60)));
-        pyratiteHelmet = registerItem("pyratite_helmet",  () -> new InfernalArmorItem(Type.HELMET, ArmorRegistry.PYRATITE, new Item.Properties().rarity(RarityRegistry.PYRATITE)));
-        pyratiteChestplate = registerItem("pyratite_chestplate",  () -> new InfernalArmorItem(Type.CHESTPLATE, ArmorRegistry.PYRATITE, new Item.Properties().rarity(RarityRegistry.PYRATITE)));
-        pyratiteLeggings = registerItem("pyratite_leggings",  () -> new InfernalArmorItem(Type.LEGGINGS, ArmorRegistry.PYRATITE, new Item.Properties().rarity(RarityRegistry.PYRATITE)));
-        pyratiteBoots = registerItem("pyratite_boots",  () -> new InfernalArmorItem(Type.BOOTS, ArmorRegistry.PYRATITE, new Item.Properties().rarity(RarityRegistry.PYRATITE)));
+        pyratiteHelmet = registerItem("pyratite_helmet",  () -> new PyratiteArmorItem(Type.HELMET, ArmorRegistry.PYRATITE, new Item.Properties().rarity(RarityRegistry.PYRATITE)));
+        pyratiteChestplate = registerItem("pyratite_chestplate",  () -> new PyratiteArmorItem(Type.CHESTPLATE, ArmorRegistry.PYRATITE, new Item.Properties().rarity(RarityRegistry.PYRATITE)));
+        pyratiteLeggings = registerItem("pyratite_leggings",  () -> new PyratiteArmorItem(Type.LEGGINGS, ArmorRegistry.PYRATITE, new Item.Properties().rarity(RarityRegistry.PYRATITE)));
+        pyratiteBoots = registerItem("pyratite_boots",  () -> new PyratiteArmorItem(Type.BOOTS, ArmorRegistry.PYRATITE, new Item.Properties().rarity(RarityRegistry.PYRATITE)));
         crimtaneHelmet = registerItem("crimtane_helmet",  () -> new InfernalArmorItem(Type.HELMET, ArmorRegistry.CRIMTANE, new Item.Properties().rarity(RarityRegistry.BLOODY)));
         crimtaneChestplate = registerItem("crimtane_chestplate",  () -> new InfernalArmorItem(Type.CHESTPLATE, ArmorRegistry.CRIMTANE, new Item.Properties().rarity(RarityRegistry.BLOODY)));
         crimtaneLeggings = registerItem("crimtane_leggings",  () -> new InfernalArmorItem(Type.LEGGINGS, ArmorRegistry.CRIMTANE, new Item.Properties().rarity(RarityRegistry.BLOODY)));

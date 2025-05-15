@@ -1,29 +1,23 @@
 package com.idark.valoria.registries.level.portal;
 
-import com.idark.valoria.registries.BlockRegistry;
-import com.idark.valoria.registries.MiscRegistry;
-import com.idark.valoria.registries.block.types.ValoriaPortalFrame;
-import net.minecraft.BlockUtil;
-import net.minecraft.BlockUtil.FoundRectangle;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.TicketType;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.ai.village.poi.PoiManager;
-import net.minecraft.world.entity.ai.village.poi.PoiRecord;
-import net.minecraft.world.level.ChunkPos;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.HorizontalDirectionalBlock;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Fluids;
-import net.minecraft.world.level.portal.PortalInfo;
-import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.util.ITeleporter;
+import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.block.types.*;
+import com.idark.valoria.registries.level.*;
+import net.minecraft.*;
+import net.minecraft.BlockUtil.*;
+import net.minecraft.core.*;
+import net.minecraft.server.level.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.village.poi.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.*;
+import net.minecraft.world.level.portal.*;
+import net.minecraft.world.phys.*;
+import net.minecraftforge.common.util.*;
 
-import java.util.Comparator;
-import java.util.Optional;
-import java.util.function.Function;
+import java.util.*;
+import java.util.function.*;
 
 public class ValoriaTeleporter extends BaseTeleporter implements ITeleporter{
     protected final ServerLevel level;
@@ -47,16 +41,22 @@ public class ValoriaTeleporter extends BaseTeleporter implements ITeleporter{
                 poiType.is(poi), pos, 256, PoiManager.Occupancy.ANY).sorted(Comparator.<PoiRecord>comparingDouble((poi) ->
                 poi.getPos().distSqr(pos)).thenComparingInt((poi) ->
                 poi.getPos().getY())).findFirst();
+
         BlockPos blockpos;
         if(optional.isEmpty()){
             FoundRectangle rectangle = createPortal(level, entity);
             blockpos = rectangle.minCorner;
             level.getChunkSource().addRegionTicket(TicketType.PORTAL, new ChunkPos(blockpos), 3, blockpos);
-            return new PortalInfo(new Vec3(rectangle.minCorner.getX(), rectangle.minCorner.getY(), rectangle.minCorner.getZ()), Vec3.ZERO, entity.getXRot(), entity.getYRot());
+            return new PortalInfo(new Vec3(rectangle.minCorner.getX() + 2, rectangle.minCorner.getY(), rectangle.minCorner.getZ() + 2), Vec3.ZERO, entity.getXRot(), entity.getYRot());
         }
 
+        // cringe
         blockpos = optional.get().getPos();
-        return new PortalInfo(new Vec3(blockpos.getX(), blockpos.getY() - 1, blockpos.getZ()), Vec3.ZERO, entity.getXRot(), entity.getYRot());
+        if(level.dimension() == LevelGen.VALORIA_KEY){
+            return new PortalInfo(new Vec3(blockpos.getX() + 1.5f, blockpos.getY(), blockpos.getZ() + 1.5f), Vec3.ZERO, entity.getXRot(), entity.getYRot());
+        } else {
+            return new PortalInfo(new Vec3(blockpos.getX() - 0.5f, blockpos.getY(), blockpos.getZ() - 0.5f), Vec3.ZERO, entity.getXRot(), entity.getYRot());
+        }
     }
 
     private FoundRectangle createPortal(ServerLevel level, Entity entity){
@@ -64,27 +64,13 @@ public class ValoriaTeleporter extends BaseTeleporter implements ITeleporter{
         poimanager.ensureLoadedAndValid(level, entity.blockPosition(), 256);
         BlockUtil.FoundRectangle rectangle = createPortal(level, entity.blockPosition(), BlockRegistry.valoriaPortal.get().defaultBlockState(), BlockRegistry.valoriaPortalFrame.get().defaultBlockState().setValue(ValoriaPortalFrame.GENERATED, true)).get();
         BlockPos blockpos = rectangle.minCorner.offset(0, 0, 0);
-        ;
         level.getChunkSource().addRegionTicket(TicketType.PORTAL, new ChunkPos(blockpos), 3, blockpos);
         return new BlockUtil.FoundRectangle(blockpos, 3, 3);
     }
 
     @Override
     public Entity placeEntity(Entity entity, ServerLevel currentWorld, ServerLevel destinationWorld, float yaw, Function<Boolean, Entity> repositionEntity){
-        entity = repositionEntity.apply(false);
-        int y = 64;
-        if(!insideDimension){
-            y = thisPos.getY();
-        }
-
-        BlockPos destinationPos = new BlockPos(thisPos.getX(), y, thisPos.getZ());
-        int tries = 0;
-        while((destinationWorld.getBlockState(destinationPos).getBlock() != Blocks.AIR) && !destinationWorld.getBlockState(destinationPos).canBeReplaced(Fluids.WATER) && (destinationWorld.getBlockState(destinationPos.above()).getBlock() != Blocks.AIR) && !destinationWorld.getBlockState(destinationPos.above()).canBeReplaced(Fluids.WATER) && (tries < 25)){
-            destinationPos = destinationPos.above(4);
-            tries++;
-        }
-
-        entity.setPos(destinationPos.getX() - 2, destinationPos.getY(), destinationPos.getZ());
+        entity = repositionEntity.apply(true);
         return entity;
     }
 
