@@ -1100,6 +1100,7 @@
   "tooltip.valoria.necromancy": "Используется что бы призвать существ с ограниченным временем жизни. Количество жизни указывается в секундах",
   "tooltip.valoria.page": "Открывает: ",
   "tooltip.valoria.pick_necklace": "Ускоряет процесс раскопки",
+  "tooltip.valoria.pyratite_armor": "Grants explosion immunity on full set",
   "tooltip.valoria.pyratite_spear": "Creates explosive shards on hit",
   "tooltip.valoria.random_page": "Случайная Страница",
   "tooltip.valoria.recharge": "Недостаточно ресурсов для зарядки",

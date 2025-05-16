@@ -1100,6 +1100,7 @@
   "tooltip.valoria.necromancy": "Used to summon minions with a limited lifetime, specified in seconds",
   "tooltip.valoria.page": "Unlock-able Page: ",
   "tooltip.valoria.pick_necklace": "Speeds up the excavation process slightly",
+  "tooltip.valoria.pyratite_armor": "Grants explosion immunity on full set",
   "tooltip.valoria.pyratite_spear": "Creates explosive shards on hit",
   "tooltip.valoria.random_page": "Random Page",
   "tooltip.valoria.recharge": "Not enough resources to recharge.",
