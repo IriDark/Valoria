@@ -37,7 +37,9 @@
       "valoria:deep_marble"
     ],
     [
-      "valoria:valoria_forest_rock"
+      "valoria:valoria_forest_rock",
+      "valoria:frequent_dreadwood_tree",
+      "valoria:frequent_fancy_dreadwood_tree"
     ],
     [
       "valoria:cave_root",

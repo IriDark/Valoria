@@ -72,6 +72,8 @@ public class EntityTypeRegistry{
     public static final RegistryObject<EntityType<CustomChestBoatEntity>> SHADEWOOD_CHEST_BOAT = register("shadewood_chest_boat", EntityType.Builder.<CustomChestBoatEntity>of((t, l) -> (new CustomChestBoatEntity(t, l, ItemsRegistry.shadewoodChestBoat, false)), MobCategory.MISC).sized(1.375f, 0.5625f));
     public static final RegistryObject<EntityType<CustomBoatEntity>> ELDRITCH_BOAT = register("eldritch_boat", EntityType.Builder.<CustomBoatEntity>of((t, l) -> (new CustomBoatEntity(t, l, ItemsRegistry.eldritchBoat, false)), MobCategory.MISC).sized(1.375f, 0.5625f));
     public static final RegistryObject<EntityType<CustomChestBoatEntity>> ELDRITCH_CHEST_BOAT = register("eldritch_chest_boat", EntityType.Builder.<CustomChestBoatEntity>of((t, l) -> (new CustomChestBoatEntity(t, l, ItemsRegistry.eldritchChestBoat, false)), MobCategory.MISC).sized(1.375f, 0.5625f));
+    public static final RegistryObject<EntityType<CustomBoatEntity>> DREADWOOD_BOAT = register("dreadwood_boat", EntityType.Builder.<CustomBoatEntity>of((t, l) -> (new CustomBoatEntity(t, l, ItemsRegistry.dreadwoodBoat, false)), MobCategory.MISC).sized(1.375f, 0.5625f));
+    public static final RegistryObject<EntityType<CustomChestBoatEntity>> DREADWOOD_CHEST_BOAT = register("dreadwood_chest_boat", EntityType.Builder.<CustomChestBoatEntity>of((t, l) -> (new CustomChestBoatEntity(t, l, ItemsRegistry.dreadwoodChestBoat, false)), MobCategory.MISC).sized(1.375f, 0.5625f));
 
     public static <T extends Entity> RegistryObject<EntityType<T>> register(String name, EntityType.Builder<T> builder){
         return ENTITY_TYPES.register(name, () -> builder.build(new ResourceLocation(Valoria.ID, name).toString()));

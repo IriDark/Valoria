@@ -6,13 +6,13 @@
     },
     {
       "structure": "valoria:necromancer_crypt",
-      "weight": 5
+      "weight": 10
     }
   ],
   "placement": {
     "type": "minecraft:random_spread",
     "salt": 34222645,
-    "separation": 15,
-    "spacing": 40
+    "separation": 35,
+    "spacing": 60
   }
 }

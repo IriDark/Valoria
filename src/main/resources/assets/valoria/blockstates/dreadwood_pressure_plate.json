@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "valoria:block/dreadwood_pressure_plate"
+    },
+    "powered=true": {
+      "model": "valoria:block/dreadwood_pressure_plate_down"
+    }
+  }
+}

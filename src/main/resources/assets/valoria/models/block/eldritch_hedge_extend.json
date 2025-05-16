@@ -1,7 +1,0 @@
-{
-  "render_type": "minecraft:cutout",
-  "parent": "quark:block/hedge_extend",
-  "textures": {
-    "leaf": "valoria:block/eldritch_leaves"
-  }
-}

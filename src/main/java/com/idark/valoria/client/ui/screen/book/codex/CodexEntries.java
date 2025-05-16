@@ -137,8 +137,7 @@ public class CodexEntries{
 
     public static void init(){
         CodexEntries.entries.clear();
-        ChapterNode root = new ChapterNode(MAIN_CHAPTER, ItemsRegistry.codex.get(), Style.GOLD)
-            .addChild(new ChapterNode(PAGES_CHAPTER, ItemsRegistry.page.get(), Style.GOLD))
+        ChapterNode root = new ChapterNode(PAGES_CHAPTER, ItemsRegistry.page.get(), Style.GOLD).addChild(new ChapterNode(MAIN_CHAPTER, ItemsRegistry.codex.get(), Style.GOLD)
             .addChild(TREASURES_CHAPTER, ItemsRegistry.amethystGem)
             .addChild(MEDICINE_CHAPTER, ItemsRegistry.aloeBandage)
             .addChild(new ChapterNode(PICK, ItemsRegistry.pick.get(), Style.STANDARD, RegisterUnlockables.pick))
@@ -188,13 +187,13 @@ public class CodexEntries{
             .addChild(new ChapterNode(AQUARIUS_CORE, ItemsRegistry.aquariusCore.get(), Style.GOLD, RegisterUnlockables.aquariusCore))
             .addChild(new ChapterNode(INFERNAL_CORE, ItemsRegistry.infernalCore.get(), Style.GOLD, RegisterUnlockables.infernalCore))
             .addChild(new ChapterNode(VOID_CORE, ItemsRegistry.voidCore.get(), Style.GOLD, RegisterUnlockables.voidCore))
-        )
+        ))
 
         ;
 
         int offset = 0;
         if(!onInit(root)){
-            layoutTree(root, 0, -measureWidth(root) / 5 + 20 + ((root.children.size % 2 == 1) ? -6 : 0) + offset);
+            layoutTree(root, 0, -measureWidth(root) / 5 - 140 + ((root.children.size % 2 == 1) ? -6 : 0) + offset);
         }
     }
 

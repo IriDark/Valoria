@@ -65,7 +65,9 @@ public class ItemsRegistry{
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Valoria.ID);
     public static RegistryObject<Item>
     // Block items
-    shadewoodBoat, shadewoodChestBoat, shadewoodSign, shadewoodHangingSign, eldritchBoat, eldritchChestBoat, eldritchSign, eldritchHangingSign,
+    shadewoodBoat, shadewoodChestBoat, shadewoodSign, shadewoodHangingSign,
+    eldritchBoat, eldritchChestBoat, eldritchSign, eldritchHangingSign,
+    dreadwoodBoat, dreadwoodChestBoat, dreadwoodSign, dreadwoodHangingSign,
 
     // armor
     blackGoldHelmet, blackGoldChestplate, blackGoldLeggings, blackGoldBoots,
@@ -166,6 +168,10 @@ public class ItemsRegistry{
         eldritchChestBoat = BLOCK_ITEMS.register("eldritch_chest_boat", () -> new CustomChestBoatItem(new Item.Properties().stacksTo(1), EntityTypeRegistry.ELDRITCH_CHEST_BOAT));
         eldritchSign = BLOCK_ITEMS.register("eldritch_sign", () -> new SignItem(new Item.Properties().stacksTo(16), BlockRegistry.eldritchSign.get(), BlockRegistry.eldritchWallSign.get()));
         eldritchHangingSign = BLOCK_ITEMS.register("eldritch_hanging_sign", () -> new HangingSignItem(BlockRegistry.eldritchHangingSign.get(), BlockRegistry.eldritchWallHangingSign.get(), new Item.Properties().stacksTo(16)));
+        dreadwoodBoat = BLOCK_ITEMS.register("dreadwood_boat", () -> new CustomBoatItem(new Properties().stacksTo(1), EntityTypeRegistry.DREADWOOD_BOAT));
+        dreadwoodChestBoat = BLOCK_ITEMS.register("dreadwood_chest_boat", () -> new CustomChestBoatItem(new Item.Properties().stacksTo(1), EntityTypeRegistry.DREADWOOD_CHEST_BOAT));
+        dreadwoodSign = BLOCK_ITEMS.register("dreadwood_sign", () -> new SignItem(new Item.Properties().stacksTo(16), BlockRegistry.dreadwoodSign.get(), BlockRegistry.dreadwoodWallSign.get()));
+        dreadwoodHangingSign = BLOCK_ITEMS.register("dreadwood_hanging_sign", () -> new HangingSignItem(BlockRegistry.eldritchHangingSign.get(), BlockRegistry.dreadwoodWallHangingSign.get(), new Item.Properties().stacksTo(16)));
 
         blackGoldHelmet = registerItem("black_gold_helmet", () -> new PercentageArmorItem(ArmorRegistry.BLACK_GOLD, Type.HELMET, new Properties()));
         blackGoldChestplate = registerItem("black_gold_chestplate", () -> new PercentageArmorItem(ArmorRegistry.BLACK_GOLD, Type.CHESTPLATE, new Properties()));

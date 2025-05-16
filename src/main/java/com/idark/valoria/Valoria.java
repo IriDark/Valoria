@@ -205,6 +205,13 @@ public class Valoria{
             fireblock.setFlammable(BlockRegistry.eldritchPlanks.get(), 5, 25);
             fireblock.setFlammable(BlockRegistry.strippedEldritchLog.get(), 5, 30);
             fireblock.setFlammable(BlockRegistry.strippedEldritchWood.get(), 5, 30);
+            fireblock.setFlammable(BlockRegistry.dreadwoodLog.get(), 5, 20);
+            fireblock.setFlammable(BlockRegistry.dreadWood.get(), 5, 20);
+            fireblock.setFlammable(BlockRegistry.dreadwoodPlanksSlab.get(), 5, 40);
+            fireblock.setFlammable(BlockRegistry.dreadwoodPlanksStairs.get(), 5, 40);
+            fireblock.setFlammable(BlockRegistry.dreadwoodPlanks.get(), 5, 25);
+            fireblock.setFlammable(BlockRegistry.strippedDreadwoodLog.get(), 5, 30);
+            fireblock.setFlammable(BlockRegistry.strippedDreadWood.get(), 5, 30);
             DraugrEntity.spawnable(
             Items.BOW,
             Items.WOODEN_AXE,

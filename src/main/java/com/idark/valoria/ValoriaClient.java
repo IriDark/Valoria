@@ -112,12 +112,15 @@ public class ValoriaClient{
 
                 Sheets.addWoodType(ModWoodTypes.ELDRITCH);
                 Sheets.addWoodType(ModWoodTypes.SHADEWOOD);
+                Sheets.addWoodType(ModWoodTypes.DREADWOOD);
             });
 
             EntityRenderers.register(EntityTypeRegistry.SHADEWOOD_BOAT.get(), m -> new CustomBoatRenderer(m, Valoria.ID, "shadewood", false, false));
             EntityRenderers.register(EntityTypeRegistry.SHADEWOOD_CHEST_BOAT.get(), m -> new CustomBoatRenderer(m, Valoria.ID, "shadewood", true, false));
             EntityRenderers.register(EntityTypeRegistry.ELDRITCH_BOAT.get(), m -> new CustomBoatRenderer(m, Valoria.ID, "eldritch", false, false));
             EntityRenderers.register(EntityTypeRegistry.ELDRITCH_CHEST_BOAT.get(), m -> new CustomBoatRenderer(m, Valoria.ID, "eldritch", true, false));
+            EntityRenderers.register(EntityTypeRegistry.DREADWOOD_BOAT.get(), m -> new CustomBoatRenderer(m, Valoria.ID, "dreadwood", false, false));
+            EntityRenderers.register(EntityTypeRegistry.DREADWOOD_CHEST_BOAT.get(), m -> new CustomBoatRenderer(m, Valoria.ID, "dreadwood", true, false));
 
             EntityRenderers.register(EntityTypeRegistry.CORRUPTED.get(), CorruptedRenderer::new);
             EntityRenderers.register(EntityTypeRegistry.SHURIKEN.get(), ShurikenRenderer::new);

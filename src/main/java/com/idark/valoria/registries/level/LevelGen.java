@@ -56,6 +56,8 @@ public class LevelGen{
     public static ResourceKey<ConfiguredFeature<?, ?>> FANCY_SHADEWOOD_TREE = registerKey(Registries.CONFIGURED_FEATURE, "fancy_shadewood_tree");
     public static ResourceKey<ConfiguredFeature<?, ?>> ELDRITCH_TREE = registerKey(Registries.CONFIGURED_FEATURE, "eldritch_tree");
     public static ResourceKey<ConfiguredFeature<?, ?>> FANCY_ELDRITCH_TREE = registerKey(Registries.CONFIGURED_FEATURE, "fancy_eldritch_tree");
+    public static ResourceKey<ConfiguredFeature<?, ?>> DREADWOOD_TREE = registerKey(Registries.CONFIGURED_FEATURE, "dreadwood_tree");
+    public static ResourceKey<ConfiguredFeature<?, ?>> FANCY_DREADWOOD_TREE = registerKey(Registries.CONFIGURED_FEATURE, "fancy_dreadwood_tree");
 
     public static final ResourceKey<LevelStem> VALORIA = registerKey(Registries.LEVEL_STEM, "the_valoria");
     public static final ResourceKey<Level> VALORIA_KEY = registerKey(Registries.DIMENSION, "the_valoria");

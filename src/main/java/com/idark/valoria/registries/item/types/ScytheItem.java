@@ -138,7 +138,7 @@ public class ScytheItem extends SwordItem implements ICustomAnimationItem, Coold
      */
     public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entityLiving){
         Player player = (Player)entityLiving;
-        if(stack.getEnchantmentLevel(EnchantmentsRegistry.DASH.get()) > 0) performDash(player, stack);
+        if(!player.isFallFlying() && stack.getEnchantmentLevel(EnchantmentsRegistry.DASH.get()) > 0) performDash(player, stack);
         performAttack(level, stack, player);
         player.awardStat(Stats.ITEM_USED.get(this));
         level.playSound(null, player.getOnPos(), builder.attackSound, SoundSource.PLAYERS, 1.0F, 1F);

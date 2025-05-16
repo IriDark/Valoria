@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "MM"
+  ],
+  "key": {
+    "M": {
+      "item": "valoria:dreadwood_planks"
+    }
+  },
+  "result": {
+    "item": "valoria:dreadwood_pressure_plate",
+    "count": 1
+  }
+}

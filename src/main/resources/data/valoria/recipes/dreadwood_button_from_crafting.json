@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "valoria:dreadwood_planks"
+    }
+  ],
+  "result": {
+    "item": "valoria:dreadwood_button",
+    "count": 1
+  }
+}

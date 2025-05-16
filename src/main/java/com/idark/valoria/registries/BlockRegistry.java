@@ -36,8 +36,8 @@ import static com.idark.valoria.registries.ItemsRegistry.BLOCK_ITEMS;
 public class BlockRegistry{
     public static final DeferredRegister<Block> BLOCK = DeferredRegister.create(ForgeRegistries.BLOCKS, Valoria.ID);
     public static RegistryObject<Block>
-    eldritchChest, shadewoodChest, eldritchTrappedChest, shadewoodTrappedChest,
-    eldritchDoor, eldritchTrapdoor, shadewoodDoor, shadewoodTrapdoor, bronzeDoor, bronzeTrapdoor, bronzeTrapdoorGlass,
+    shadewoodChest, shadewoodTrappedChest, eldritchChest, eldritchTrappedChest,
+    eldritchDoor, eldritchTrapdoor, shadewoodDoor, shadewoodTrapdoor, dreadwoodDoor, dreadwoodTrapdoor, bronzeDoor, bronzeTrapdoor, bronzeTrapdoorGlass,
     pyratiteBlock, pyratiteOre, pyratiteCrystal, amberBlock, amberOre, deepslateAmberOre, amberCrystal, sapphireBlock, sapphireOre, deepslateSapphireOre, sapphireCrystal, amethystBlock, amethystCrystal, rubyBlock, rubyOre, deepslateRubyOre, rubyCrystal, cobaltBlock, rawCobaltOreBlock, cobaltOre, deepslateCobaltOre, jadeOre, picriteJadeOre, wickedAmethystOre, dormantCrystals, pearliumOre,
     natureBlock, aquariusBlock, infernalBlock, awakenedVoidBlock, crimtaneBlock, unchargedShardBlock, soulShardBlock, wickedAmethystBlock,
     bronzeBlock, bronzeBlockStairs, bronzeBlockSlab, bronzeVent, cutBronze, cutBronzeStairs, cutBronzeSlab, bronzeGlass, bronzeGlassPane,
@@ -67,6 +67,7 @@ public class BlockRegistry{
     //wood
     shadewoodPressurePlate, shadewoodButton, shadelog, strippedShadelog, shadewood, strippedShadewood, shadewoodPlanks, shadewoodPlanksStairs, shadewoodPlanksSlab, shadewoodLeaves, shadewoodBranch, shadewoodSapling, pottedShadewoodSapling, shadewoodFence, shadewoodFenceGate, shadewoodSign, shadewoodWallSign, shadewoodHangingSign, shadewoodWallHangingSign,
     eldritchPressurePlate, eldritchButton, eldritchLog, strippedEldritchLog, eldritchWood, strippedEldritchWood, eldritchPlanks, eldritchPlanksStairs, eldritchPlanksSlab, eldritchLeaves, eldritchSapling, pottedEldritchSapling, eldritchFence, eldritchFenceGate, eldritchSign, eldritchWallSign, eldritchHangingSign, eldritchWallHangingSign,
+    dreadwoodPressurePlate, dreadwoodButton, dreadwoodLog, strippedDreadwoodLog, dreadWood, strippedDreadWood, dreadwoodPlanks, dreadwoodPlanksStairs, dreadwoodPlanksSlab, dreadwoodSapling, pottedDreadwoodSapling, dreadwoodFence, dreadwoodFenceGate, dreadwoodSign, dreadwoodWallSign, dreadwoodHangingSign, dreadwoodWallHangingSign,
 
     //loot blocks
     potSmall, potSmallHandles, potLong, potLongHandles, potLongMossy, potLongMossyHandles, cryptPot, decoratedCryptPot,
@@ -80,15 +81,17 @@ public class BlockRegistry{
 
     public static void load(IEventBus eventBus){
         shadewoodChest = registerBlock("shadewood_chest", () -> new TridotChestBlock(Properties.copy(Blocks.CHEST)));
+        shadewoodTrappedChest = registerBlock("trapped_shadewood_chest", () -> new TridotTrappedChestBlock(Properties.copy(Blocks.TRAPPED_CHEST)));
         eldritchChest = registerBlock("eldritch_chest", () -> new TridotChestBlock(Properties.copy(Blocks.CHEST)));
         eldritchTrappedChest = registerBlock("trapped_eldritch_chest", () -> new TridotTrappedChestBlock(Properties.copy(Blocks.TRAPPED_CHEST)));
-        shadewoodTrappedChest = registerBlock("trapped_shadewood_chest", () -> new TridotTrappedChestBlock(Properties.copy(Blocks.TRAPPED_CHEST)));
 
         spikes = registerBlock("spikes", () -> new SpikeBlock(propsUnbreakable(Blocks.STONE, MapColor.COLOR_GRAY).noOcclusion().noLootTable()));
         eldritchDoor = registerBlock("eldritch_door", () -> new DoorBlock(propsDeco(Blocks.OAK_DOOR, MapColor.COLOR_MAGENTA), BlockSetType.OAK));
         eldritchTrapdoor = registerBlock("eldritch_trapdoor", () -> new TrapDoorBlock(propsDeco(Blocks.OAK_TRAPDOOR, MapColor.COLOR_MAGENTA), BlockSetType.OAK));
         shadewoodDoor = registerBlock("shadewood_door", () -> new DoorBlock(propsDeco(Blocks.OAK_DOOR, MapColor.COLOR_PURPLE), BlockSetType.OAK));
         shadewoodTrapdoor = registerBlock("shadewood_trapdoor", () -> new TrapDoorBlock(propsDeco(Blocks.OAK_TRAPDOOR, MapColor.COLOR_PURPLE), BlockSetType.OAK));
+        dreadwoodDoor = registerBlock("dreadwood_door", () -> new DoorBlock(propsDeco(Blocks.OAK_DOOR, MapColor.COLOR_PURPLE), BlockSetType.OAK));
+        dreadwoodTrapdoor = registerBlock("dreadwood_trapdoor", () -> new TrapDoorBlock(propsDeco(Blocks.OAK_TRAPDOOR, MapColor.COLOR_PURPLE), BlockSetType.OAK));
         bronzeDoor = registerBlock("bronze_door", () -> new DoorBlock(propsDeco(Blocks.IRON_DOOR, MapColor.COLOR_BROWN), BlockSetType.IRON));
         bronzeTrapdoor = registerBlock("bronze_trapdoor", () -> new TrapDoorBlock(propsDeco(Blocks.IRON_TRAPDOOR, MapColor.COLOR_BROWN), BlockSetType.IRON));
         bronzeTrapdoorGlass = registerBlock("bronze_trapdoor_glass", () -> new TrapDoorBlock(propsDeco(Blocks.IRON_TRAPDOOR, MapColor.COLOR_BROWN), BlockSetType.IRON));
@@ -381,6 +384,20 @@ public class BlockRegistry{
         eldritchFence = registerBlock("eldritch_fence", () -> new FenceBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE).mapColor(MapColor.COLOR_MAGENTA)));
         eldritchFenceGate = registerBlock("eldritch_fence_gate", () -> new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE_GATE).mapColor(MapColor.COLOR_MAGENTA), ModWoodTypes.ELDRITCH));
 
+        dreadwoodPressurePlate = registerBlock("dreadwood_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_MAGENTA).noOcclusion().noCollission(), BlockSetType.OAK));
+        dreadwoodButton = registerBlock("dreadwood_button", () -> new ButtonBlock(BlockBehaviour.Properties.copy(Blocks.OAK_BUTTON).mapColor(MapColor.COLOR_MAGENTA).sound(SoundType.WOOD).noCollission(), BlockSetType.OAK, 30, true));
+        dreadwoodLog = registerBlock("dreadwood_log", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).mapColor(MapColor.COLOR_MAGENTA)));
+        strippedDreadwoodLog = registerBlock("stripped_dreadwood_log", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.STRIPPED_OAK_LOG).mapColor(MapColor.COLOR_MAGENTA)));
+        dreadWood = registerBlock("dreadwood", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).mapColor(MapColor.COLOR_MAGENTA)));
+        strippedDreadWood = registerBlock("stripped_dreadwood", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).mapColor(MapColor.COLOR_MAGENTA)));
+        dreadwoodPlanks = registerBlock("dreadwood_planks", () -> new Block(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_MAGENTA)));
+        dreadwoodPlanksSlab = registerBlock("dreadwood_planks_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.OAK_SLAB).mapColor(MapColor.COLOR_MAGENTA)));
+        dreadwoodPlanksStairs = registerBlock("dreadwood_planks_stairs", () -> new StairBlock(() -> BlockRegistry.eldritchPlanks.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.OAK_STAIRS).mapColor(MapColor.COLOR_PURPLE)));
+        dreadwoodSapling = registerBlock("dreadwood_sapling", () -> new ValoriaSaplingBlock(new DreadwoodTree(), BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING).mapColor(MapColor.COLOR_MAGENTA)));
+        pottedDreadwoodSapling = BLOCK.register("potted_dreadwood_sapling", () -> new FlowerPotBlock(dreadwoodSapling.get(), BlockBehaviour.Properties.copy(Blocks.POTTED_POPPY).mapColor(MapColor.COLOR_MAGENTA).instabreak().noOcclusion()));
+        dreadwoodFence = registerBlock("dreadwood_fence", () -> new FenceBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE).mapColor(MapColor.COLOR_MAGENTA)));
+        dreadwoodFenceGate = registerBlock("dreadwood_fence_gate", () -> new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE_GATE).mapColor(MapColor.COLOR_MAGENTA), ModWoodTypes.ELDRITCH));
+
         // Signs
         shadewoodSign = BLOCK.register("shadewood_sign", () -> new ModStandingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_PURPLE).noOcclusion().noCollission(), ModWoodTypes.SHADEWOOD));
         shadewoodWallSign = BLOCK.register("shadewood_wall_sign", () -> new ModWallSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_PURPLE).noOcclusion().noCollission(), ModWoodTypes.SHADEWOOD));
@@ -391,6 +408,11 @@ public class BlockRegistry{
         eldritchWallSign = BLOCK.register("eldritch_wall_sign", () -> new ModWallSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_MAGENTA).noOcclusion().noCollission(), ModWoodTypes.ELDRITCH));
         eldritchHangingSign = BLOCK.register("eldritch_hanging_sign", () -> new ModCeilingHangingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_MAGENTA).noOcclusion().noCollission(), ModWoodTypes.ELDRITCH));
         eldritchWallHangingSign = BLOCK.register("eldritch_wall_hanging_sign", () -> new ModWallHangingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_MAGENTA).noOcclusion().noCollission(), ModWoodTypes.ELDRITCH));
+
+        dreadwoodSign = BLOCK.register("dreadwood_sign", () -> new ModStandingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_MAGENTA).noOcclusion().noCollission(), ModWoodTypes.DREADWOOD));
+        dreadwoodWallSign = BLOCK.register("dreadwood_wall_sign", () -> new ModWallSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_MAGENTA).noOcclusion().noCollission(), ModWoodTypes.DREADWOOD));
+        dreadwoodHangingSign = BLOCK.register("dreadwood_hanging_sign", () -> new ModCeilingHangingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_MAGENTA).noOcclusion().noCollission(), ModWoodTypes.DREADWOOD));
+        dreadwoodWallHangingSign = BLOCK.register("dreadwood_wall_hanging_sign", () -> new ModWallHangingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_MAGENTA).noOcclusion().noCollission(), ModWoodTypes.DREADWOOD));
 
         keg = registerBlock("keg", () -> new KegBlock(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS).strength(1f, 1f).noOcclusion()));
         kiln = registerBlock("kiln", () -> new KilnBlock(BlockBehaviour.Properties.copy(Blocks.STONE).strength(1f, 1f).noOcclusion().lightLevel(Utils.Blocks.lightIfLit(13))));

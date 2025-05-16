@@ -1,8 +1,0 @@
-{
-  "parent": "quark:block/hollow_log_horizontal",
-  "textures": {
-    "end": "valoria:block/eldritch_log_top",
-    "side": "valoria:block/eldritch_log",
-    "inside": "valoria:block/stripped_eldritch_log"
-  }
-}

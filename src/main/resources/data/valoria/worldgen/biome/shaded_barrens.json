@@ -83,7 +83,9 @@
       "valoria:shadewood_tree_root",
       "valoria:rare_shadewood_tree",
       "valoria:shadewood_fallen_tree",
-      "valoria:valoria_forest_rock"
+      "valoria:valoria_forest_rock",
+      "valoria:rare_dreadwood_tree",
+      "valoria:rare_fancy_dreadwood_tree"
     ],
     [
       "valoria:cave_root",
