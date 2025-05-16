@@ -29,6 +29,7 @@ public class EntityTypeRegistry{
     public static final RegistryObject<EntityType<SorcererEntity>> SORCERER = register("sorcerer", EntityType.Builder.<SorcererEntity>of(SorcererEntity::new, MobCategory.MONSTER).sized(0.6f, 2.0f).clientTrackingRange(8));
     public static final RegistryObject<EntityType<Ent>> ENT = register("ent", EntityType.Builder.of(Ent::new, MobCategory.MONSTER).sized(0.8f, 2.0f).clientTrackingRange(8));
     public static final RegistryObject<EntityType<MaggotEntity>> MAGGOT = register("maggot", EntityType.Builder.<MaggotEntity>of(MaggotEntity::new, MobCategory.MONSTER).sized(0.4F, 0.3F).clientTrackingRange(8));
+    public static final RegistryObject<EntityType<Corrupted>> CORRUPTED = register("corrupted", EntityType.Builder.of(Corrupted::new, MobCategory.MONSTER).sized(0.6f, 1.95f).clientTrackingRange(8));
 
     // Minions
     public static final RegistryObject<EntityType<UndeadEntity>> UNDEAD = register("undead", EntityType.Builder.of(UndeadEntity::new, MobCategory.MONSTER).sized(0.4f, 0.8f).clientTrackingRange(8));

@@ -17,6 +17,8 @@ public class ParticleRegistry{
     public static RegistryObject<GenericParticleType> SMOKE = PARTICLES.register("smoke", GenericParticleType::new);
     public static RegistryObject<GenericParticleType> SPHERE = PARTICLES.register("sphere", GenericParticleType::new);
     public static RegistryObject<GenericParticleType> GLITTER = PARTICLES.register("glitter", GenericParticleType::new);
+    public static RegistryObject<GenericParticleType> FLESH = PARTICLES.register("flesh", GenericParticleType::new);
+
     public static RegistryObject<GenericParticleType> TRANSFORM_PARTICLE = PARTICLES.register("transform", GenericParticleType::new);
     public static RegistryObject<LeavesParticleType> SHADEWOOD_LEAF_PARTICLE = PARTICLES.register("shadewood_leaf", LeavesParticleType::new);
 
@@ -34,6 +36,7 @@ public class ParticleRegistry{
         Minecraft.getInstance().particleEngine.register(ParticleRegistry.FIREFLY.get(), FireflyParticle.Factory::new);
         Minecraft.getInstance().particleEngine.register(ParticleRegistry.HEAL.get(), EndRodParticle.Provider::new);
         Minecraft.getInstance().particleEngine.register(ParticleRegistry.VOID_GLITTER.get(), EndRodParticle.Provider::new);
+        Minecraft.getInstance().particleEngine.register(ParticleRegistry.FLESH.get(), GenericParticleType.Factory::new);
         Minecraft.getInstance().particleEngine.register(ParticleRegistry.GLITTER.get(), GenericParticleType.Factory::new);
     }
 

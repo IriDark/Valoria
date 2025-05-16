@@ -278,6 +278,7 @@ public class Valoria{
                 SpawnPlacements.register(EntityTypeRegistry.SORCERER.get(), SpawnPlacements.Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, SorcererEntity::checkMonsterSpawnRules);
                 SpawnPlacements.register(EntityTypeRegistry.ENT.get(), SpawnPlacements.Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, Ent::checkEntSpawnRules);
                 SpawnPlacements.register(EntityTypeRegistry.MAGGOT.get(), SpawnPlacements.Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, MaggotEntity::checkMonsterSpawnRules);
+                SpawnPlacements.register(EntityTypeRegistry.CORRUPTED.get(), SpawnPlacements.Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, Corrupted::checkMonsterSpawnRules);
             });
         }
 
@@ -302,6 +303,7 @@ public class Valoria{
             event.put(EntityTypeRegistry.MAGGOT.get(), MAGGOT);
             event.put(EntityTypeRegistry.DRYADOR.get(), DRYADOR);
             event.put(EntityTypeRegistry.PIXIE.get(), PIXIE);
+            event.put(EntityTypeRegistry.CORRUPTED.get(), CORRUPTED);
 
             event.put(EntityTypeRegistry.HAUNTED_MERCHANT.get(), HAUNTED_MERCHANT);
             event.put(EntityTypeRegistry.FLESH_SENTINEL.get(), FLESH_SENTINEL);

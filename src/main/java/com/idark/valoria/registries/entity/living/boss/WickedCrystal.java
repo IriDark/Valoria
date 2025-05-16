@@ -112,7 +112,7 @@ public class WickedCrystal extends AbstractBoss{
     }
 
     public void checkPhaseTransition() {
-        if(this.getHealth() <= 1000 && phase == 1){
+        if(this.getHealth() <= (this.getMaxHealth() / 2) && phase == 1){
             if(!level().isClientSide()){
                 this.phase = 2;
                 ((ServerLevel)this.level()).sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, BlockRegistry.wickedAmethystBlock.get().defaultBlockState()), this.getX(), this.getY() + 5d, this.getZ(), 25, 0, 0, 0, 0);
