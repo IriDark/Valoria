@@ -1,6 +1,5 @@
 package com.idark.valoria.registries.item.armor.item;
 
-import com.google.common.collect.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.item.armor.*;
 import net.minecraft.*;
@@ -16,12 +15,14 @@ import java.util.*;
 
 @SuppressWarnings("removal")
 public class EffectArmorItem extends SuitArmorItem{
-    public static final Map<ArmorMaterial, MobEffect> MATERIAL_TO_EFFECT_MAP = new ImmutableMap.Builder<ArmorMaterial, MobEffect>()
-            .put(ArmorRegistry.DEPTH, MobEffects.WATER_BREATHING)
-            .put(ArmorRegistry.NATURE, EffectsRegistry.ALOEREGEN.get())
-            .put(ArmorRegistry.INFERNAL, MobEffects.DAMAGE_BOOST)
-            .put(ArmorRegistry.ETHEREAL, MobEffects.NIGHT_VISION)
-    .build();
+    public static final Map<ArmorMaterial, MobEffect> MATERIAL_TO_EFFECT_MAP = new HashMap<>();
+
+    static{
+        MATERIAL_TO_EFFECT_MAP.put(ArmorRegistry.DEPTH, MobEffects.WATER_BREATHING);
+        MATERIAL_TO_EFFECT_MAP.put(ArmorRegistry.NATURE, EffectsRegistry.ALOEREGEN.get());
+        MATERIAL_TO_EFFECT_MAP.put(ArmorRegistry.INFERNAL, MobEffects.DAMAGE_BOOST);
+        MATERIAL_TO_EFFECT_MAP.put(ArmorRegistry.ETHEREAL, MobEffects.NIGHT_VISION);
+    }
 
     public EffectArmorItem(ArmorMaterial material, ArmorItem.Type type, Properties settings){
         super(material, type, settings);
