@@ -24,8 +24,10 @@ import net.minecraft.world.entity.player.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.level.gameevent.*;
+import net.minecraft.world.phys.*;
 import net.minecraft.world.phys.shapes.*;
 import org.jetbrains.annotations.*;
+import pro.komaru.tridot.api.*;
 import pro.komaru.tridot.api.entity.*;
 import pro.komaru.tridot.api.render.bossbars.*;
 import pro.komaru.tridot.common.registry.entity.*;
@@ -195,10 +197,74 @@ public class WickedCrystal extends AbstractBoss{
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true));
 
+        this.goalSelector.addGoal(1, new PullTowardsGoal());
         this.goalSelector.addGoal(1, new SummonShieldsGoal());
         this.goalSelector.addGoal(1, new SummonSpellGoal());
         this.goalSelector.addGoal(1, new RadialAttack());
         this.goalSelector.addGoal(1, new CrystalStorm());
+    }
+
+    public class PullTowardsGoal extends AttackGoal{
+        Vec3 lastPos;
+        int idleTicks = 0;
+
+        @Override
+        public void onPrepare(){
+            if(WickedCrystal.this.getTarget() instanceof Player player){
+                lastPos = player.position();
+            }
+        }
+
+        @Override
+        public void tick(){
+            super.tick();
+            if(WickedCrystal.this.getTarget() instanceof Player player){
+                Vec3 currentPos = player.position();
+                if (currentPos.distanceToSqr(lastPos) < 0.01) {
+                    idleTicks++;
+                } else {
+                    idleTicks = 0;
+                    lastPos = currentPos;
+                }
+
+                if (idleTicks > 40) {
+                    pullTowardsBoss(player);
+                }
+            }
+        }
+
+        public void pullTowardsBoss(Player player) {
+            Vec3 dir = WickedCrystal.this.position().subtract(player.position()).normalize().scale(2);
+            player.setDeltaMovement(dir);
+            player.jumpFromGround();
+            player.hurtMarked = true;
+            Utils.Particles.line(WickedCrystal.this.level(), WickedCrystal.this.position(), player.position(), ParticleTypes.ANGRY_VILLAGER);
+        }
+
+        @Override
+        protected void performAttack(){
+
+        }
+
+        @Override
+        public int getPreparingTime(){
+            return 40;
+        }
+
+        @Override
+        public int getAttackInterval(){
+            return 125;
+        }
+
+        @Override
+        public @Nullable SoundEvent getPrepareSound(){
+            return SoundEvents.EVOKER_PREPARE_ATTACK;
+        }
+
+        @Override
+        public AttackRegistry getAttack(){
+            return EntityStatsRegistry.MAGIC;
+        }
     }
 
     public class SummonSpellGoal extends AttackGoal{

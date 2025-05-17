@@ -3,6 +3,7 @@ package com.idark.valoria.registries.entity.living;
 import com.idark.valoria.client.particle.*;
 import com.idark.valoria.registries.*;
 import net.minecraft.nbt.*;
+import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
 import net.minecraft.util.*;
 import net.minecraft.world.*;
@@ -18,6 +19,7 @@ import pro.komaru.tridot.client.gfx.particle.*;
 import pro.komaru.tridot.client.gfx.particle.data.*;
 import pro.komaru.tridot.client.render.*;
 import pro.komaru.tridot.util.*;
+import pro.komaru.tridot.util.math.*;
 
 import javax.annotation.*;
 
@@ -38,7 +40,7 @@ public class Corrupted extends Monster{
         super.tick();
         if(this.level().isClientSide()){
             setupAnimationStates();
-            if(this.walkAnimation.isMoving() && Tmp.rnd.chance(0.65)) {
+            if(this.walkAnimation.isMoving() && this.hurtMarked && Tmp.rnd.chance(0.65)) {
                 ParticleBuilder.create(ParticleRegistry.FLESH)
                 .randomOffset(0.5f)
                 .setGravity(1)
@@ -61,6 +63,21 @@ public class Corrupted extends Monster{
     public boolean doHurtTarget(Entity pEntity){
         this.level().broadcastEntityEvent(this, (byte)4);
         return super.doHurtTarget(pEntity);
+    }
+
+    @Override
+    public boolean hurt(DamageSource pSource, float pAmount){
+        var rand = Tmp.rnd;
+        if(this.level() instanceof ServerLevel serverLevel){
+            serverLevel.sendParticles(
+            ParticleBuilder.create(ParticleRegistry.FLESH)
+            .setGravity(1)
+            .setRenderType(TridotRenderTypes.TRANSLUCENT_PARTICLE)
+            .setScaleData(GenericParticleData.create(0.15f).build())
+            .getParticleOptions(), this.getX(), this.getY(), this.getZ(), (int)Mathf.clamp(pAmount, 3, 15), rand.nextFloat(0.15f), rand.nextFloat(0.15f), rand.nextFloat(0.15f), rand.nextFloat(0.25f));
+        }
+
+        return super.hurt(pSource, pAmount);
     }
 
     public float getVoicePitch(){
