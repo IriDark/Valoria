@@ -16,7 +16,7 @@ import java.util.*;
 
 @SuppressWarnings("removal")
 public class EffectArmorItem extends SuitArmorItem{
-    private static final Map<ArmorMaterial, MobEffect> MATERIAL_TO_EFFECT_MAP = new ImmutableMap.Builder<ArmorMaterial, MobEffect>()
+    public static final Map<ArmorMaterial, MobEffect> MATERIAL_TO_EFFECT_MAP = new ImmutableMap.Builder<ArmorMaterial, MobEffect>()
             .put(ArmorRegistry.DEPTH, MobEffects.WATER_BREATHING)
             .put(ArmorRegistry.NATURE, EffectsRegistry.ALOEREGEN.get())
             .put(ArmorRegistry.INFERNAL, MobEffects.DAMAGE_BOOST)
