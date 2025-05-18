@@ -2,7 +2,6 @@ package com.idark.valoria.registries.item.skins;
 
 import com.idark.valoria.*;
 import com.idark.valoria.registries.*;
-import com.idark.valoria.registries.item.armor.item.*;
 import com.idark.valoria.registries.item.skins.entries.*;
 import com.idark.valoria.registries.item.types.*;
 import com.idark.valoria.util.*;
@@ -20,6 +19,7 @@ import pro.komaru.tridot.client.model.*;
 import pro.komaru.tridot.client.model.item.*;
 import pro.komaru.tridot.client.model.render.item.*;
 import pro.komaru.tridot.common.registry.item.*;
+import pro.komaru.tridot.common.registry.item.armor.*;
 import pro.komaru.tridot.common.registry.item.skins.*;
 import pro.komaru.tridot.common.registry.item.types.*;
 import pro.komaru.tridot.util.*;

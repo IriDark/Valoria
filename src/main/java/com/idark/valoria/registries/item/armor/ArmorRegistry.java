@@ -2,66 +2,28 @@ package com.idark.valoria.registries.item.armor;
 
 import com.idark.valoria.*;
 import com.idark.valoria.registries.*;
-import net.minecraft.sounds.*;
-import net.minecraft.world.item.ArmorItem.*;
-import net.minecraft.world.item.*;
+import net.minecraft.world.effect.*;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.item.crafting.*;
 import org.jetbrains.annotations.*;
+import pro.komaru.tridot.common.registry.item.armor.*;
 import pro.komaru.tridot.common.registry.item.builders.*;
+import pro.komaru.tridot.common.registry.item.builders.AbstractArmorBuilder.*;
 
-public class ArmorRegistry implements ArmorMaterial{
+import java.util.*;
+
+public class ArmorRegistry extends AbstractArmorRegistry{
     public Builder builder;
 
-    public ArmorRegistry(Builder builder){
+    public ArmorRegistry(Builder builder, List<ArmorEffectData> data){
+        super(builder, data);
         this.builder = builder;
-    }
-
-    @Override
-    public int getDurabilityForType(Type pType){
-        return builder.durability[pType.ordinal()] * builder.durabilityMultiplier;
-    }
-
-    @Override
-    public int getDefenseForType(Type pType){
-        return switch(pType){
-            case HELMET -> builder.headProtectionAmount;
-            case CHESTPLATE -> builder.chestplateProtectionAmount;
-            case LEGGINGS -> builder.leggingsProtectionAmount;
-            case BOOTS -> builder.bootsProtectionAmount;
-        };
-    }
-
-    @Override
-    public int getEnchantmentValue(){
-        return builder.enchantmentValue;
-    }
-
-    @Override
-    @NotNull
-    public SoundEvent getEquipSound(){
-        return builder.equipSound;
-    }
-
-    @Override
-    @NotNull
-    public Ingredient getRepairIngredient(){
-        return builder.repairIngredient.get();
     }
 
     @Override
     @NotNull
     public String getName(){
         return Valoria.ID + ":" + builder.name;
-    }
-
-    @Override
-    public float getToughness(){
-        return builder.toughness;
-    }
-
-    @Override
-    public float getKnockbackResistance(){
-        return builder.knockbackResistance;
     }
 
     // every level of Protection (added up across all pieces) reduces damage by 4%
@@ -71,14 +33,20 @@ public class ArmorRegistry implements ArmorMaterial{
     // Iron - 12%
     // Diamond - 16%
     // Netherite - 16%
+
+    public static List<ArmorEffectData> natureData = List.of(new ArmorEffectData(EffectsRegistry.ALOEREGEN, (player) -> true));
+    public static List<ArmorEffectData> depthData = List.of(new ArmorEffectData(() -> MobEffects.WATER_BREATHING, Entity::isInWater));
+    public static List<ArmorEffectData> infernalData = List.of(new ArmorEffectData(() -> MobEffects.DAMAGE_BOOST, (player) -> true), new ArmorEffectData(() -> MobEffects.FIRE_RESISTANCE, Entity::isOnFire));
+    public static List<ArmorEffectData> etherealData = List.of(new ArmorEffectData(() -> MobEffects.NIGHT_VISION, (player) -> true));
+
     public static final ArmorRegistry MARSH = new ArmorRegistry.Builder("marsh").protection(20).mul(58).enchantValue(12).ingredient(() -> Ingredient.of(ItemsRegistry.marshCloth.get())).build();
     public static final ArmorRegistry SAMURAI = new ArmorRegistry.Builder("samurai").protection(22).mul(55).enchantValue(16).knockbackRes(0.15f).ingredient(() -> Ingredient.of(ItemsRegistry.ancientIngot.get())).build();
     public static final ArmorRegistry BLACK_GOLD = new ArmorRegistry.Builder("black_gold").protection(20).mul(55).enchantValue(20).ingredient(() -> Ingredient.of(ItemsRegistry.blackGold.get())).build();
     public static final ArmorRegistry COBALT = new ArmorRegistry.Builder("cobalt").protection(25).mul(46).enchantValue(18).knockbackRes(0.05f).ingredient(() -> Ingredient.of(ItemsRegistry.cobaltIngot.get())).build();
-    public static final ArmorRegistry ETHEREAL = new ArmorRegistry.Builder("ethereal").protection(28).mul(60).enchantValue(18).knockbackRes(0.1f).ingredient(() -> Ingredient.of(ItemsRegistry.etherealShard.get())).build();
-    public static final ArmorRegistry NATURE = new ArmorRegistry.Builder("nature").protection(30).mul(66).enchantValue(16).knockbackRes(0.10f).ingredient(() -> Ingredient.of(ItemsRegistry.natureIngot.get())).build();
-    public static final ArmorRegistry DEPTH = new ArmorRegistry.Builder("depth").protection(32).mul(72).enchantValue(16).knockbackRes(0.10f).ingredient(() -> Ingredient.of(ItemsRegistry.aquariusIngot.get())).build();
-    public static final ArmorRegistry INFERNAL = new ArmorRegistry.Builder("infernal").protection(35).mul(76).enchantValue(14).knockbackRes(0.12f).ingredient(() -> Ingredient.of(ItemsRegistry.infernalIngot.get())).build();
+    public static final ArmorRegistry ETHEREAL = new ArmorRegistry.Builder("ethereal").effects(etherealData).protection(28).mul(60).enchantValue(18).knockbackRes(0.1f).ingredient(() -> Ingredient.of(ItemsRegistry.etherealShard.get())).build();
+    public static final ArmorRegistry NATURE = new ArmorRegistry.Builder("nature").effects(natureData).protection(30).mul(66).enchantValue(16).knockbackRes(0.10f).ingredient(() -> Ingredient.of(ItemsRegistry.natureIngot.get())).build();
+    public static final ArmorRegistry DEPTH = new ArmorRegistry.Builder("depth").effects(depthData).protection(32).mul(72).enchantValue(16).knockbackRes(0.10f).ingredient(() -> Ingredient.of(ItemsRegistry.aquariusIngot.get())).build();
+    public static final ArmorRegistry INFERNAL = new ArmorRegistry.Builder("infernal").effects(infernalData).protection(35).mul(76).enchantValue(14).knockbackRes(0.12f).ingredient(() -> Ingredient.of(ItemsRegistry.infernalIngot.get())).build();
     public static final ArmorRegistry SPIDER = new ArmorRegistry.Builder("spider").protection(40).mul(68).enchantValue(14).knockbackRes(0.10f).ingredient(() -> Ingredient.of(ItemsRegistry.spiderFang.get())).build();
     public static final ArmorRegistry PYRATITE = new ArmorRegistry.Builder("pyratite").protection(42).mul(72).enchantValue(12).ingredient(() -> Ingredient.of(ItemsRegistry.pyratite.get())).build();
     public static final ArmorRegistry CRIMTANE = new ArmorRegistry.Builder("crimtane").protection(45).mul(72).enchantValue(12).ingredient(() -> Ingredient.of(ItemsRegistry.painCrystal.get())).build();
@@ -92,7 +60,7 @@ public class ArmorRegistry implements ArmorMaterial{
 
         @Override
         public ArmorRegistry build(){
-            return new ArmorRegistry(this);
+            return new ArmorRegistry(this, data);
         }
     }
 }

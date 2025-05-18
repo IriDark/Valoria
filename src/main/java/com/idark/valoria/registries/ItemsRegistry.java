@@ -50,7 +50,7 @@ import org.joml.*;
 import pro.komaru.tridot.api.*;
 import pro.komaru.tridot.client.gfx.particle.data.*;
 import pro.komaru.tridot.common.registry.book.*;
-import pro.komaru.tridot.common.registry.item.*;
+import pro.komaru.tridot.common.registry.item.armor.*;
 import pro.komaru.tridot.common.registry.item.skins.*;
 import pro.komaru.tridot.common.registry.item.types.*;
 import pro.komaru.tridot.util.*;

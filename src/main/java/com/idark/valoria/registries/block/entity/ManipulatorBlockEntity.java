@@ -112,7 +112,7 @@ public class ManipulatorBlockEntity extends BlockEntity implements MenuProvider,
         Optional<ManipulatorRecipe> recipe = getCurrentRecipe();
         if(!level.isClientSide){
             if(recipe.isPresent()){
-                if(getCharge(recipe.get().getCore()) > 0 && itemOutputHandler.getStackInSlot(0).getCount() < itemOutputHandler.getStackInSlot(0).getMaxStackSize()){
+                if(getCharge(recipe.get().getCore()) >= recipe.get().getCoresNeeded() && itemOutputHandler.getStackInSlot(0).getCount() < itemOutputHandler.getStackInSlot(0).getMaxStackSize()){
                     increaseCraftingProgress();
                     setMaxProgress();
                     setChanged(level, getBlockPos(), getBlockState());

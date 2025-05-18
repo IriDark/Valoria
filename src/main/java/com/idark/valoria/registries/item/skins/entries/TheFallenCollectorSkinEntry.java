@@ -1,12 +1,12 @@
 package com.idark.valoria.registries.item.skins.entries;
 
 import com.idark.valoria.*;
-import com.idark.valoria.registries.item.armor.item.*;
 import net.minecraft.client.model.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.item.*;
 import net.minecraftforge.api.distmarker.*;
 import pro.komaru.tridot.client.model.armor.*;
+import pro.komaru.tridot.common.registry.item.armor.*;
 import pro.komaru.tridot.common.registry.item.skins.*;
 
 public class TheFallenCollectorSkinEntry extends ArmorExtendingSkinEntry{

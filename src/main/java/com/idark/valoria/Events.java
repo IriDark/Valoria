@@ -36,6 +36,7 @@ import net.minecraftforge.event.entity.player.*;
 import net.minecraftforge.event.level.*;
 import net.minecraftforge.eventbus.api.Event.*;
 import net.minecraftforge.eventbus.api.*;
+import pro.komaru.tridot.common.registry.item.armor.*;
 import pro.komaru.tridot.util.*;
 import pro.komaru.tridot.util.math.*;
 import top.theillusivec4.curios.api.*;

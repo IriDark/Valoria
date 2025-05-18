@@ -9,6 +9,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.item.*;
 import net.minecraftforge.client.extensions.common.*;
 import org.jetbrains.annotations.*;
+import pro.komaru.tridot.common.registry.item.armor.*;
 import pro.komaru.tridot.common.registry.item.skins.*;
 
 import java.util.function.*;

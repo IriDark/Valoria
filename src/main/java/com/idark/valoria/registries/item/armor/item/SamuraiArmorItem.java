@@ -5,6 +5,7 @@ import com.idark.valoria.registries.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.item.*;
+import pro.komaru.tridot.common.registry.item.armor.*;
 
 import java.util.*;
 

@@ -8,6 +8,7 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.event.entity.player.*;
+import pro.komaru.tridot.common.registry.item.armor.*;
 import pro.komaru.tridot.util.*;
 
 import java.util.*;

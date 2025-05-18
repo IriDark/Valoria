@@ -61,7 +61,7 @@ public class SkinTrimItem extends Item{
                     }
                 }
             } else {
-                tooltip.add(Component.translatable("tooltip.valoria.shift_for_details", Component.translatable("key.keyboard.left.shift").getString()).withStyle(ChatFormatting.GRAY));
+                tooltip.add(Component.translatable("tooltip.tridot.shift_for_details", Component.translatable("key.keyboard.left.shift").getString()).withStyle(ChatFormatting.GRAY));
             }
         }
     }
