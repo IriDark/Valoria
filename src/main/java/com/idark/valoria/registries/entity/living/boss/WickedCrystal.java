@@ -243,7 +243,7 @@ public class WickedCrystal extends AbstractBoss{
 
         @Override
         protected void performAttack(){
-
+            WickedCrystal.this.playSound(SoundEvents.EVOKER_PREPARE_ATTACK);
         }
 
         @Override
@@ -258,7 +258,7 @@ public class WickedCrystal extends AbstractBoss{
 
         @Override
         public @Nullable SoundEvent getPrepareSound(){
-            return SoundEvents.EVOKER_PREPARE_ATTACK;
+            return SoundEvents.EMPTY;
         }
 
         @Override
@@ -308,7 +308,7 @@ public class WickedCrystal extends AbstractBoss{
                 crystal.movement.setRadius(4f);
                 crystal.movement.setAngle(angle);
                 crystal.setBoundOrigin(blockpos);
-                crystal.setLimitedLife(325);
+                crystal.setLimitedLife(375);
                 serverLevel.addFreshEntityWithPassengers(crystal);
             }
         }
@@ -330,7 +330,7 @@ public class WickedCrystal extends AbstractBoss{
 
         @Override
         public boolean canUse(){
-            return super.canUse() && WickedCrystal.this.distanceToSqr(WickedCrystal.this.getTarget()) < 9.0D;
+            return super.canUse() && WickedCrystal.this.distanceToSqr(WickedCrystal.this.getTarget()) < 6.0D;
         }
 
         protected void performSpellCasting(Level level, WickedCrystal crystal){
@@ -345,7 +345,7 @@ public class WickedCrystal extends AbstractBoss{
                 this.createSpellEntity(level, crystal.getX() + Math.cos(angle) * 1.5D, crystal.getZ() + Math.sin(angle) * 1.5D, d0, d1, yaw, 0);
             }
 
-            for(int k = 0; k < 10; ++k){
+            for(int k = 0; k < 12; ++k){
                 float angle = playerYaw + (k * (float)Math.PI / 4) + 1.2566371F;
                 double spellX = crystal.getX() + Math.cos(angle) * 3D;
                 double spellZ = crystal.getZ() + Math.sin(angle) * 3D;
@@ -423,7 +423,7 @@ public class WickedCrystal extends AbstractBoss{
         private void summonRainCrystal(ServerLevel serverLevel, BlockPos center) {
             CrystalShard crystalShard = EntityTypeRegistry.CRYSTAL_SHARD.get().create(WickedCrystal.this.level());
             if (crystalShard != null) {
-                double spread = 4.0;
+                double spread = 6.0;
                 double offsetX = (random.nextDouble() * spread * 2) - spread;
                 double offsetZ = (random.nextDouble() * spread * 2) - spread;
                 crystalShard.moveTo(center.getX() + 0.5 + offsetX, center.getY() + 1, center.getZ() + 0.5 + offsetZ, 0.0F, 0.0F);
@@ -440,7 +440,7 @@ public class WickedCrystal extends AbstractBoss{
                 crystalShard.setOwner(WickedCrystal.this);
                 double vx = Math.cos(angle) * speed;
                 double vz = Math.sin(angle) * speed;
-                crystalShard.setDeltaMovement(vx, 0.4, vz);
+                crystalShard.setDeltaMovement(vx, 0.3, vz);
                 serverLevel.addFreshEntity(crystalShard);
             }
         }
@@ -452,16 +452,16 @@ public class WickedCrystal extends AbstractBoss{
             BlockPos center = WickedCrystal.this.blockPosition();
             for(int i = 0; i < 12; i++){
                 float angle = (float)((2 * Math.PI / 12) * i);
-                summonStormCrystal(serv, center.above(2), angle, 0.25);
+                summonStormCrystal(serv, center, angle, 0.25);
             }
 
             if(Tmp.rnd.fiftyFifty()){
                 for (int i = 0; i < 6; i++) {
                     float angle = (float) ((2 * Math.PI / 6) * i);
-                    summonStormCrystal(serv, center.above(4), angle, 0.35 + random.nextDouble() * 0.3);
+                    summonStormCrystal(serv, center.above(2), angle, 0.35 + random.nextDouble() * 0.3);
                 }
             } else{
-                for(int i = 0; i < 32; i++){
+                for(int i = 0; i < 45; i++){
                     summonRainCrystal(serv, center);
                 }
             }
