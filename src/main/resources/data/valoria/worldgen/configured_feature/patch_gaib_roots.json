@@ -11,7 +11,7 @@
           "to_place": {
             "type": "minecraft:simple_state_provider",
             "state": {
-              "Name": "valoria:aloe",
+              "Name": "valoria:gaib_roots",
               "Properties": {
                 "half": "lower"
               }

@@ -2,6 +2,7 @@ package com.idark.valoria.registries.entity.living.boss.dryador;
 
 import com.idark.valoria.*;
 import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.entity.*;
 import com.idark.valoria.registries.entity.living.boss.*;
 import com.idark.valoria.registries.entity.living.boss.dryador.phases.*;
 import com.idark.valoria.registries.entity.living.minions.*;
@@ -46,11 +47,11 @@ public class DryadorEntity extends AbstractBoss implements RangedAttackMob{
     public final AnimationState idleAnimationState = new AnimationState();
     public int idleAnimationTimeout = 0;
     public AnimationState spawnAnimationState = new AnimationState();
-    public AnimationState phaseTransitionAnimationState = new AnimationState();
-    public AnimationState rangedAttackAnimationState = new AnimationState();
-    public AnimationState meleeAttackAnimationState = new AnimationState();
-    public AnimationState summonAnimationState = new AnimationState();
-    public AnimationState stompAnimationState = new AnimationState();
+    public StaticAnimationState phaseTransitionAnimationState = new StaticAnimationState();
+    public StaticAnimationState rangedAttackAnimationState = new StaticAnimationState();
+    public StaticAnimationState meleeAttackAnimationState = new StaticAnimationState();
+    public StaticAnimationState summonAnimationState = new StaticAnimationState();
+    public StaticAnimationState stompAnimationState = new StaticAnimationState();
 
     public IBossPhase currentPhase = new BossPhase(this, () -> DryadorEntity.this.getHealth() <= 500).setSound(SoundEvents.ANVIL_PLACE);
     public static final AttackRegistry DRYADOR_RADIAL = new AttackRegistry(Valoria.ID, "dryador_radial");
@@ -61,35 +62,43 @@ public class DryadorEntity extends AbstractBoss implements RangedAttackMob{
         this.xpReward = 100;
     }
 
+    public boolean isBusy(){
+        return phaseTransitionAnimationState.isPlaying
+        || summonAnimationState.isPlaying
+        || rangedAttackAnimationState.isPlaying
+        || stompAnimationState.isPlaying
+        || meleeAttackAnimationState.isPlaying;
+    }
+
     public void handleEntityEvent(byte pId){
         if(pId == 62){
             this.idleAnimationState.stop();
-            this.rangedAttackAnimationState.start(this.tickCount);
+            this.rangedAttackAnimationState.start(this.tickCount, 60);
         }
 
         if(pId == 61){
             this.idleAnimationState.stop();
-            this.phaseTransitionAnimationState.start(this.tickCount);
+            this.phaseTransitionAnimationState.start(this.tickCount, 60);
         }
 
         if(pId == 60) {
             this.idleAnimationState.stop();
-            this.summonAnimationState.start(this.tickCount);
+            this.summonAnimationState.start(this.tickCount, 60);
         }
 
         if(pId == 59) {
             this.idleAnimationState.stop();
-            this.meleeAttackAnimationState.start(this.tickCount);
+            this.meleeAttackAnimationState.start(this.tickCount, 30);
         }
 
         if(pId == 58) {
             this.idleAnimationState.stop();
-            this.stompAnimationState.start(this.tickCount);
+            this.stompAnimationState.start(this.tickCount, 60);
         }
 
         if (pId == 4){
             this.idleAnimationState.stop();
-            this.meleeAttackAnimationState.start(this.tickCount);
+            this.meleeAttackAnimationState.start(this.tickCount, 30);
             this.playSound(SoundEvents.IRON_GOLEM_ATTACK, 1.0F, 1.0F);
         }
 

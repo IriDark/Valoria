@@ -1,6 +1,6 @@
 {
   "type": "forge:add_features",
-  "biomes": "#forge:is_desert",
+  "biomes": "#minecraft:is_overworld",
   "features": "valoria:aloe",
   "step": "vegetal_decoration"
 }

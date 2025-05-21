@@ -157,7 +157,7 @@ public class ItemsRegistry{
     wickedShield,
 
     // spawn eggs
-    pumpkinContract, goblin, dryador, pixie, entMob, draugr, swampWanderer, scourge, maggot, wickedCrystal, crystal, sorcerer, necromancer, undead, shadewoodSpider, devil, troll, corruptedTroll, fleshSentinel, mannequin;
+    pumpkinContract, goblin, dryador, pixie, entMob, draugr, swampWanderer, scourge, maggot, wickedCrystal, crystal, sorcerer, necromancer, undead, shadewoodSpider, devil, troll, corruptedTroll, corrupted, fleshSentinel, mannequin;
 
     public static void load(IEventBus eventBus){
         shadewoodBoat = BLOCK_ITEMS.register("shadewood_boat", () -> new CustomBoatItem(new Item.Properties().stacksTo(1), EntityTypeRegistry.SHADEWOOD_BOAT));
@@ -670,6 +670,7 @@ public class ItemsRegistry{
         devil = registerItem("devil_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.DEVIL, Col.hexToDecimal("b64841"), Col.hexToDecimal("3a3b62"), new Item.Properties()));
         troll = registerItem("troll_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.TROLL, Col.hexToDecimal("232b3a"), Col.hexToDecimal("43596a"), new Item.Properties()));
         corruptedTroll = registerItem("corrupted_troll_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.CORRUPTED_TROLL, Col.hexToDecimal("41273E"), Col.hexToDecimal("884f72"), new Item.Properties()));
+        corrupted = registerItem("corrupted_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.CORRUPTED, Col.hexToDecimal("b32b17"), Col.hexToDecimal("560000"), new Item.Properties()));
         fleshSentinel = registerItem("flesh_sentinel_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.FLESH_SENTINEL, Col.hexToDecimal("720706"), Col.hexToDecimal("ffc650"), new Item.Properties()));
 
         ITEMS.register(eventBus);

@@ -2,6 +2,7 @@ package com.idark.valoria.registries.entity.living;
 
 import com.idark.valoria.client.particle.*;
 import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.entity.*;
 import net.minecraft.nbt.*;
 import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
@@ -24,15 +25,34 @@ import pro.komaru.tridot.util.math.*;
 import javax.annotation.*;
 
 public class Corrupted extends Monster{
+    public final StaticAnimationState attackAnimationState = new StaticAnimationState();
     public final AnimationState idleAnimationState = new AnimationState();
     private int idleAnimationTimeout = 0;
+    public boolean isRunning;
 
     public Corrupted(EntityType<? extends Monster> pEntityType, Level pLevel){
         super(pEntityType, pLevel);
-        this.xpReward = 3;
+        this.xpReward = 6;
         this.setPathfindingMalus(BlockPathTypes.LAVA, 2.0F);
         this.setPathfindingMalus(BlockPathTypes.DAMAGE_OTHER, 4.0F);
         this.setPathfindingMalus(BlockPathTypes.DAMAGE_CAUTIOUS, 4.0F);
+    }
+
+    public void handleEntityEvent(byte pId) {
+        if (pId == 4) {
+            this.idleAnimationState.stop();
+            this.attackAnimationState.start(this.tickCount, 40);
+        } else {
+            super.handleEntityEvent(pId);
+        }
+    }
+
+    @Override
+    protected void updateWalkAnimation(float pPartialTick){
+        super.updateWalkAnimation(pPartialTick);
+        if(this.level().isClientSide){
+            this.isRunning = this.getDeltaMovement().horizontalDistanceSqr() >= 0.01;
+        }
     }
 
     @Override
@@ -81,7 +101,7 @@ public class Corrupted extends Monster{
     }
 
     public float getVoicePitch(){
-        return this.isBaby() ? (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.5F : (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.25F;
+        return this.isBaby() ? (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1F : (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 0.85F;
     }
 
     protected SoundEvent getAmbientSound(){
@@ -100,7 +120,7 @@ public class Corrupted extends Monster{
     protected void registerGoals(){
         super.registerGoals();
         // attack
-        this.targetSelector.addGoal(0, new MeleeAttackGoal(this, 2, false));
+        this.targetSelector.addGoal(0, new MeleeAttackGoal(this, 1.25f, false));
         this.targetSelector.addGoal(0, new NearestAttackableTargetGoal<>(this, Player.class, true));
 
         // ai

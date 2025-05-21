@@ -1,29 +1,27 @@
-package com.idark.valoria.client.model.entity;// Made with Blockbench 4.12.4
-// Exported for Minecraft version 1.17 or later with Mojang mappings
-// Paste this class into your mod and generate all required imports
+package com.idark.valoria.client.model.entity;
 
-
+import com.idark.valoria.client.model.animations.*;
 import com.idark.valoria.registries.entity.living.*;
 import net.minecraft.client.model.geom.*;
 import net.minecraft.client.model.geom.builders.*;
 
 public class CorruptedModel<T extends Corrupted> extends AbstractHierarchicalModel<T> {
     private final ModelPart root;
-    private final ModelPart right_leg;
-	private final ModelPart left_leg;
+    private final ModelPart rightLeg;
+	private final ModelPart leftLeg;
 	private final ModelPart body;
 	private final ModelPart head;
-	private final ModelPart left_arm;
-	private final ModelPart right_arm;
+	private final ModelPart leftArm;
+	private final ModelPart rightArm;
 
 	public CorruptedModel(ModelPart root) {
         this.root = root;
-		this.right_leg = root.getChild("right_leg");
-		this.left_leg = root.getChild("left_leg");
+		this.rightLeg = root.getChild("right_leg");
+		this.leftLeg = root.getChild("left_leg");
 		this.body = root.getChild("body");
 		this.head = root.getChild("head");
-		this.left_arm = root.getChild("left_arm");
-		this.right_arm = root.getChild("right_arm");
+		this.leftArm = root.getChild("left_arm");
+		this.rightArm = root.getChild("right_arm");
 	}
 
 	public static LayerDefinition createBodyLayer() {
@@ -59,15 +57,24 @@ public class CorruptedModel<T extends Corrupted> extends AbstractHierarchicalMod
     @Override
     public void setupAnim(T pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch){
         super.setupAnim(pEntity, pLimbSwing, pLimbSwingAmount, pAgeInTicks, pNetHeadYaw, pHeadPitch);
-    }
+        this.animate(pEntity.attackAnimationState, CorruptedAnimation.ATTACK_MELEE, pAgeInTicks);
+        if(!pEntity.attackAnimationState.isPlaying){
+            if(pEntity.isRunning){
+                this.animateWalk(CorruptedAnimation.RUN, pLimbSwing, pLimbSwingAmount, 2, pAgeInTicks);
+            }else{
+                this.animateWalk(CorruptedAnimation.WALK, pLimbSwing, pLimbSwingAmount, 4, pAgeInTicks);
+            }
+        }
 
-    @Override
-    public ModelPart getHead(){
-        return this.head;
+        this.animate(pEntity.idleAnimationState, CorruptedAnimation.IDLE, pAgeInTicks);
     }
 
     @Override
     public ModelPart root(){
         return this.root;
+    }
+
+    public ModelPart getHead(){
+        return this.head;
     }
 }

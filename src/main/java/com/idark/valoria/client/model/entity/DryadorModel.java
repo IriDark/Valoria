@@ -51,17 +51,22 @@ public class DryadorModel<T extends DryadorEntity> extends AbstractHierarchicalM
         return LayerDefinition.create(meshdefinition, 128, 128);
     }
 
+
     @Override
     public void setupAnim(T pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch){
         super.setupAnim(pEntity, pLimbSwing, pLimbSwingAmount, pAgeInTicks, pNetHeadYaw, pHeadPitch);
-        this.animateWalk(DryadorAnimations.WALK, pLimbSwing, pLimbSwingAmount, 6, 8);
-        this.animate(pEntity.idleAnimationState, DryadorAnimations.IDLE, pAgeInTicks);
-        this.animate(pEntity.phaseTransitionAnimationState, DryadorAnimations.PHASE_TRANSITION, pAgeInTicks);
-        this.animate(pEntity.summonAnimationState, DryadorAnimations.SUMMON, pAgeInTicks);
-        this.animate(pEntity.rangedAttackAnimationState, DryadorAnimations.ATTACK_RANGED, pAgeInTicks);
-        this.animate(pEntity.meleeAttackAnimationState, DryadorAnimations.ATTACK_MELEE, pAgeInTicks);
-        this.animate(pEntity.stompAnimationState, DryadorAnimations.STOMP, pAgeInTicks);
+        if(!pEntity.isBusy()){
+            this.animateWalk(DryadorAnimations.WALK, pLimbSwing, pLimbSwingAmount, 6, 8);
+            this.animate(pEntity.idleAnimationState, DryadorAnimations.IDLE, pAgeInTicks);
+        }
 
+        this.animate(pEntity.phaseTransitionAnimationState, DryadorAnimations.PHASE_TRANSITION, pAgeInTicks);
+        if(!pEntity.phaseTransitionAnimationState.isPlaying){
+            this.animate(pEntity.summonAnimationState, DryadorAnimations.SUMMON, pAgeInTicks);
+            this.animate(pEntity.rangedAttackAnimationState, DryadorAnimations.ATTACK_RANGED, pAgeInTicks);
+            this.animate(pEntity.stompAnimationState, DryadorAnimations.STOMP, pAgeInTicks);
+            this.animate(pEntity.meleeAttackAnimationState, DryadorAnimations.ATTACK_MELEE, pAgeInTicks);
+        }
     }
 
     @Override
