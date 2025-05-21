@@ -4,7 +4,6 @@ import com.idark.valoria.client.particle.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.entity.*;
 import net.minecraft.nbt.*;
-import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
 import net.minecraft.util.*;
 import net.minecraft.world.*;
@@ -20,7 +19,6 @@ import pro.komaru.tridot.client.gfx.particle.*;
 import pro.komaru.tridot.client.gfx.particle.data.*;
 import pro.komaru.tridot.client.render.*;
 import pro.komaru.tridot.util.*;
-import pro.komaru.tridot.util.math.*;
 
 import javax.annotation.*;
 
@@ -87,14 +85,14 @@ public class Corrupted extends Monster{
 
     @Override
     public boolean hurt(DamageSource pSource, float pAmount){
-        var rand = Tmp.rnd;
-        if(this.level() instanceof ServerLevel serverLevel){
-            serverLevel.sendParticles(
+        if(this.level().isClientSide){
             ParticleBuilder.create(ParticleRegistry.FLESH)
             .setGravity(1)
             .setRenderType(TridotRenderTypes.TRANSLUCENT_PARTICLE)
             .setScaleData(GenericParticleData.create(0.15f).build())
-            .getParticleOptions(), this.getX(), this.getY(), this.getZ(), (int)Mathf.clamp(pAmount, 3, 15), rand.nextFloat(0.15f), rand.nextFloat(0.15f), rand.nextFloat(0.15f), rand.nextFloat(0.25f));
+            .randomOffset(0.15f)
+            .randomVelocity(0.15f)
+            .repeat(this.level(), this.position(), 15);
         }
 
         return super.hurt(pSource, pAmount);
