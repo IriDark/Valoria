@@ -2,7 +2,6 @@ package com.idark.valoria.registries.item.types.builders;
 
 import com.google.common.collect.*;
 import com.idark.valoria.client.model.animations.*;
-import com.idark.valoria.core.enums.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.item.types.*;
 import net.minecraft.core.particles.*;
@@ -14,7 +13,7 @@ import pro.komaru.tridot.api.render.animation.*;
 import pro.komaru.tridot.util.math.*;
 
 public abstract class AbstractScytheBuilder<T extends ScytheItem>{
-    public Tier tier = ModItemTier.NONE;
+    public Tier tier = ItemTierRegistry.NONE;
     public Item.Properties itemProperties;
     public SoundEvent attackSound = SoundsRegistry.SWIFTSLICE.get();
     public SoundEvent cooldownSound = SoundsRegistry.RECHARGE.get();

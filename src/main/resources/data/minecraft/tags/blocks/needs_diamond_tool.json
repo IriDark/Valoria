@@ -1,8 +1,8 @@
 {
   "replace": false,
   "values": [
+    "valoria:dormant_crystals",
     "valoria:cobalt_ore",
-    "valoria:deepslate_cobalt_ore",
-    "valoria:pyratite_ore"
+    "valoria:deepslate_cobalt_ore"
   ]
 }

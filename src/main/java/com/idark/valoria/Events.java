@@ -1,5 +1,6 @@
 package com.idark.valoria;
 
+import com.idark.valoria.api.events.*;
 import com.idark.valoria.api.unlockable.*;
 import com.idark.valoria.api.unlockable.types.*;
 import com.idark.valoria.client.ui.screen.book.codex.*;
@@ -13,8 +14,10 @@ import com.idark.valoria.registries.item.armor.*;
 import com.idark.valoria.registries.item.armor.item.*;
 import com.idark.valoria.registries.item.types.*;
 import com.idark.valoria.registries.level.*;
+import net.minecraft.*;
 import net.minecraft.core.*;
 import net.minecraft.nbt.*;
+import net.minecraft.network.chat.*;
 import net.minecraft.resources.*;
 import net.minecraft.server.level.*;
 import net.minecraft.tags.*;
@@ -26,6 +29,7 @@ import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
+import net.minecraftforge.common.*;
 import net.minecraftforge.common.Tags.*;
 import net.minecraftforge.common.capabilities.*;
 import net.minecraftforge.common.util.*;
@@ -292,9 +296,32 @@ public class Events{
                     if(itemStack.is(ItemsRegistry.soulCollectorEmpty.get()) && itemStack.getItem() instanceof SoulCollectorItem soul){
                         Vec3 pos = deathEvent.getEntity().position().add(0, deathEvent.getEntity().getBbHeight() / 2f, 0);
                         PacketHandler.sendToTracking(serverLevel, BlockPos.containing(pos), new SoulCollectParticlePacket(plr.getUUID(), pos.x(), pos.y(), pos.z()));
-                        soul.addCount(1, itemStack, plr);
+
+                        var event = new SoulEvent.Added(plr.getMainHandItem(), 1);
+                        if(!MinecraftForge.EVENT_BUS.post(event)){
+                            soul.addCount(event.count, itemStack, plr);
+                        }
                     }
                 }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public void onSoulCollect(SoulEvent.Added event) {
+        if(event.stack.getItem() instanceof TieredItem tiered) {
+            if(tiered.getTier() == ItemTierRegistry.HALLOWEEN) {
+                event.addCount(2);
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public void onTooltipEvent(ItemTooltipEvent event) {
+        if(event.getItemStack().getItem() instanceof TieredItem tiered){
+            if(tiered.getTier() == ItemTierRegistry.HALLOWEEN){
+                var list = event.getToolTip();
+                list.add(1, Component.translatable("tooltip.valoria.soul_on_kill", 2).withStyle(ChatFormatting.AQUA));
             }
         }
     }

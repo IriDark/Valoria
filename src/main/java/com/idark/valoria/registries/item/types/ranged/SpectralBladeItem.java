@@ -1,7 +1,7 @@
 package com.idark.valoria.registries.item.types.ranged;
 
 import com.google.common.collect.*;
-import com.idark.valoria.core.enums.*;
+import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.entity.projectile.*;
 import net.minecraft.*;
 import net.minecraft.network.chat.*;
@@ -25,7 +25,7 @@ public class SpectralBladeItem extends SwordItem{
     private final Multimap<Attribute, AttributeModifier> atr;
 
     public SpectralBladeItem(int damage, float speed, Item.Properties builderIn){
-        super(ModItemTier.NONE, damage, speed, builderIn);
+        super(ItemTierRegistry.NONE, damage, speed, builderIn);
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
         builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Tool modifier", damage, AttributeModifier.Operation.ADDITION));
         builder.put(AttributeRegistry.PROJECTILE_DAMAGE.get(), new AttributeModifier(BASE_PROJECTILE_DAMAGE_UUID, "Tool modifier", damage * 1.8, AttributeModifier.Operation.ADDITION));
