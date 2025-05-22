@@ -17,6 +17,7 @@ import net.minecraft.world.entity.ai.navigation.*;
 import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.state.*;
+import net.minecraft.world.level.pathfinder.*;
 import net.minecraft.world.phys.*;
 import pro.komaru.tridot.client.gfx.*;
 import pro.komaru.tridot.client.gfx.particle.*;
@@ -187,6 +188,7 @@ public class PixieEntity extends AbstractMinionEntity{
         super.registerGoals();
         this.goalSelector.addGoal(0, new HealOwnerGoal());
         this.goalSelector.addGoal(0, new RandomMoveGoal());
+        this.goalSelector.addGoal(0, new FollowOwnerGoal(1, 12, 2));
     }
 
     protected SoundEvent getAmbientSound(){
@@ -248,7 +250,7 @@ public class PixieEntity extends AbstractMinionEntity{
          * Returns whether an in-progress EntityAIBase should continue executing
          */
         public boolean canContinueToUse() {
-            return super.canContinueToUse() && (owner != null && PixieEntity.this.distanceToSqr(owner) > 9.0D);
+            return super.canContinueToUse() && (owner != null && PixieEntity.this.distanceToSqr(owner) > 9.0D) && owner.getHealth() < owner.getMaxHealth();
         }
 
         public void start() {
@@ -336,6 +338,90 @@ public class PixieEntity extends AbstractMinionEntity{
                     PixieEntity.this.moveControl.setWantedPosition((double)blockpos1.getX() + 0.5D, (double)blockpos1.getY() + 0.5D, (double)blockpos1.getZ() + 0.5D, 0.25D);
                     break;
                 }
+            }
+        }
+    }
+
+    class FollowOwnerGoal extends Goal {
+        private LivingEntity owner;
+        private final double speedModifier;
+        private final PathNavigation navigation;
+        private int timeToRecalcPath;
+        private final float stopDistance;
+        private final float startDistance;
+        private float oldWaterCost;
+
+        public FollowOwnerGoal(double pSpeedModifier, float pStartDistance, float pStopDistance) {
+            this.speedModifier = pSpeedModifier;
+            this.navigation = PixieEntity.this.getNavigation();
+            this.startDistance = pStartDistance;
+            this.stopDistance = pStopDistance;
+            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
+        }
+
+        /**
+         * Returns whether execution should begin. You can also read and cache any state necessary for execution in this
+         * method as well.
+         */
+        public boolean canUse() {
+            LivingEntity livingentity = PixieEntity.this.getOwner();
+            if (livingentity == null) {
+                return false;
+            } else if (livingentity.isSpectator()) {
+                return false;
+            } else if (this.unableToMove()) {
+                return false;
+            } else if (PixieEntity.this.distanceToSqr(livingentity) < (double)(this.startDistance * this.startDistance)) {
+                return false;
+            } else {
+                this.owner = livingentity;
+                return true;
+            }
+        }
+
+        /**
+         * Returns whether an in-progress EntityAIBase should continue executing
+         */
+        public boolean canContinueToUse() {
+            if (this.navigation.isDone()) {
+                return false;
+            } else if (this.unableToMove()) {
+                return false;
+            } else {
+                return !(PixieEntity.this.distanceToSqr(this.owner) <= (double)(this.stopDistance * this.stopDistance));
+            }
+        }
+
+        private boolean unableToMove() {
+            return PixieEntity.this.isPassenger() || PixieEntity.this.isLeashed();
+        }
+
+        /**
+         * Execute a one shot task or start executing a continuous task
+         */
+        public void start() {
+            this.timeToRecalcPath = 0;
+            this.oldWaterCost = PixieEntity.this.getPathfindingMalus(BlockPathTypes.WATER);
+            PixieEntity.this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
+        }
+
+        /**
+         * Reset the task's internal state. Called when this task is interrupted by another one
+         */
+        public void stop() {
+            this.owner = null;
+            this.navigation.stop();
+            PixieEntity.this.setPathfindingMalus(BlockPathTypes.WATER, this.oldWaterCost);
+        }
+
+        /**
+         * Keep ticking a continuous task that has already been started
+         */
+        public void tick() {
+            PixieEntity.this.getLookControl().setLookAt(this.owner, 10.0F, (float)PixieEntity.this.getMaxHeadXRot());
+            if (--this.timeToRecalcPath <= 0) {
+                this.timeToRecalcPath = this.adjustedTickDelay(10);
+                this.navigation.moveTo(this.owner, this.speedModifier);
             }
         }
     }

@@ -42,9 +42,9 @@ public class EntityStatsRegistry{
     public static AttributeSupplier DEVIL = register(50, 1).add(Attributes.FOLLOW_RANGE, 12).build();
 
     //monsters - valoria
-    public static AttributeSupplier SHADEWOOD_SPIDER = register(30, 5, 0.35).add(Attributes.FOLLOW_RANGE, 18).build();
-    public static AttributeSupplier CORRUPTED_TROLL = register(65, 16).build();
-    public static AttributeSupplier CORRUPTED = register(40, 2.5).add(Attributes.FOLLOW_RANGE, 18).build();
+    public static AttributeSupplier SHADEWOOD_SPIDER = register(40, 4, 0.35).add(Attributes.FOLLOW_RANGE, 18).build();
+    public static AttributeSupplier CORRUPTED_TROLL = register(45, 12).build();
+    public static AttributeSupplier CORRUPTED = register(60, 6.5).add(Attributes.FOLLOW_RANGE, 18).build();
 
     //minions - valoria
     public static AttributeSupplier FLESH_SENTINEL = registerFlying(20, 12.5, 0.85).add(Attributes.FOLLOW_RANGE, 8).build();

@@ -91,7 +91,7 @@ public class Corrupted extends Monster{
             .setRenderType(TridotRenderTypes.TRANSLUCENT_PARTICLE)
             .setScaleData(GenericParticleData.create(0.15f).build())
             .randomOffset(0.15f)
-            .randomVelocity(0.15f)
+            .randomVelocity(0.45f)
             .repeat(this.level(), this.position(), 15);
         }
 
