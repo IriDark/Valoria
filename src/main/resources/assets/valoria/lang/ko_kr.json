@@ -1116,6 +1116,7 @@
   "tooltip.valoria.shuriken": "Can be thrown at your enemy",
   "tooltip.valoria.skin": "Applies on Jeweler table to:",
   "tooltip.valoria.soul_collector": "Collects souls upon killing while held in the off-hand",
+  "tooltip.valoria.soul_on_kill": "Extra +%s souls on kill",
   "tooltip.valoria.souls": "Current souls: %s",
   "tooltip.valoria.spear": "A spear that can be thrown at your enemy",
   "tooltip.valoria.spear_pillars": "Can remove shards from charged Void Pillars",

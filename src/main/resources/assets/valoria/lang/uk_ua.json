@@ -1116,6 +1116,7 @@
   "tooltip.valoria.shuriken": "Can be thrown at your enemy",
   "tooltip.valoria.skin": "Applies on Jeweler table to:",
   "tooltip.valoria.soul_collector": "Збирає душі вбиваючи, знаходячись у іншій руці",
+  "tooltip.valoria.soul_on_kill": "Extra +%s souls on kill",
   "tooltip.valoria.souls": "Кількість душ: %s",
   "tooltip.valoria.spear": "Спис який можна кинути у свого ворога",
   "tooltip.valoria.spear_pillars": "Може прибирати уламки із зряджених колон",
