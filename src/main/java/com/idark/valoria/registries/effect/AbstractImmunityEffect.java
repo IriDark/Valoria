@@ -4,7 +4,6 @@ import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.item.*;
 import top.theillusivec4.curios.api.*;
-import top.theillusivec4.curios.api.type.capability.*;
 
 import java.util.function.*;
 
@@ -16,11 +15,7 @@ public abstract class AbstractImmunityEffect extends MobEffect{
     public abstract Predicate<ItemStack> getImmunityItem();
 
     public boolean effectRemoveReason(LivingEntity pEntity) {
-        if(getImmunityItem() instanceof ICurioItem){
-            return CuriosApi.getCuriosHelper().findEquippedCurio(getImmunityItem(), pEntity).isPresent();
-        }
-
-        return false;
+        return CuriosApi.getCuriosHelper().findEquippedCurio(getImmunityItem(), pEntity).isPresent();
     }
 
     @Override

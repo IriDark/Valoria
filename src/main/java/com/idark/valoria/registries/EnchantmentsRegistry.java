@@ -3,6 +3,7 @@ package com.idark.valoria.registries;
 import com.idark.valoria.*;
 import com.idark.valoria.registries.item.enchantments.*;
 import com.idark.valoria.registries.item.types.ranged.*;
+import com.idark.valoria.registries.item.types.ranged.bows.*;
 import net.minecraft.world.item.enchantment.*;
 import net.minecraftforge.eventbus.api.*;
 import net.minecraftforge.registries.*;
@@ -12,9 +13,11 @@ import java.util.function.*;
 public class EnchantmentsRegistry{
     public static final DeferredRegister<Enchantment> ENCHANTMENTS = DeferredRegister.create(ForgeRegistries.ENCHANTMENTS, Valoria.ID);
     public static final EnchantmentCategory BLAZE = EnchantmentCategory.create("blaze", item -> item instanceof BlazeReapItem);
+    public static final EnchantmentCategory ACCURACY_CATEGORY = EnchantmentCategory.create("accuracy_category", item -> item instanceof PhantasmBow);
 
     public static final RegistryObject<Enchantment> EXPLOSIVE_FLAME = registerEnchantment("explosive_flame", ExplosiveFlameEnchantment::new);
     public static final RegistryObject<Enchantment> BLEEDING = registerEnchantment("bleeding", BleedingEnchantment::new);
+    public static final RegistryObject<Enchantment> ACCURACY = registerEnchantment("accuracy", AccuracyEnchantment::new);
 
     private static RegistryObject<Enchantment> registerEnchantment(String id, Supplier<Enchantment> enchantment){
         return ENCHANTMENTS.register(id, enchantment);

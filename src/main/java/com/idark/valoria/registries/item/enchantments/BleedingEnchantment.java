@@ -32,7 +32,7 @@ public class BleedingEnchantment extends Enchantment{
             if(pTarget instanceof LivingEntity livingentity){
                 if(pLevel > 0){
                     int i = 25 + pUser.getRandom().nextInt(45 * pLevel);
-                    livingentity.addEffect(new MobEffectInstance(EffectsRegistry.BLEEDING.get(), i, pLevel - 1, false, false));
+                    livingentity.addEffect(new MobEffectInstance(EffectsRegistry.BLEEDING.get(), i, pLevel - 1, false, false), pTarget);
                 }
             }
         }

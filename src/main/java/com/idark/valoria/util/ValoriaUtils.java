@@ -1,9 +1,12 @@
 package com.idark.valoria.util;
 
+import com.google.common.collect.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.item.types.ranged.*;
+import net.minecraft.*;
 import net.minecraft.core.*;
 import net.minecraft.core.particles.*;
+import net.minecraft.network.chat.*;
 import net.minecraft.network.protocol.*;
 import net.minecraft.server.level.*;
 import net.minecraft.world.*;
@@ -40,6 +43,39 @@ public class ValoriaUtils{
         }
     }
 
+    /**
+     * Adds effect tooltips to list
+     * @param effects Effect list
+     * @param tooltipList Tooltip list
+     * @param duration Duration of effects
+     * @param chance Chance of effects
+     */
+    public static void effectTooltip(ImmutableList<MobEffectInstance> effects, List<Component> tooltipList, float duration, float chance) {
+        if (!effects.isEmpty()) {
+            if (chance > 0 && chance < 1) {
+                tooltipList.add(Component.translatable("tooltip.tridot.applies_with_chance_target", String.format("%.1f%%", chance * 100)).withStyle(ChatFormatting.GRAY));
+            } else {
+                tooltipList.add(Component.translatable("tooltip.tridot.applies_to_target").withStyle(ChatFormatting.GRAY));
+            }
+
+            for (MobEffectInstance mobeffectinstance : effects) {
+                MutableComponent mutablecomponent = Component.translatable(mobeffectinstance.getDescriptionId());
+                MobEffect mobeffect = mobeffectinstance.getEffect();
+                if (mobeffectinstance.getAmplifier() > 0) {
+                    mutablecomponent = Component.literal("").append(Component.translatable("potion.withAmplifier", mutablecomponent, Component.translatable("potion.potency." + mobeffectinstance.getAmplifier())));
+                }
+
+                if (!mobeffectinstance.endsWithin(20)) {
+                    mutablecomponent = Component.literal(" ").append(Component.translatable("potion.withDuration", mutablecomponent, MobEffectUtil.formatDuration(mobeffectinstance, duration)));
+                }
+
+                tooltipList.add(mutablecomponent.withStyle(mobeffect.getCategory().getTooltipFormatting()));
+            }
+
+            tooltipList.add(CommonComponents.EMPTY);
+        }
+    }
+
     public static void addPlayerItem(Level level, Player player, ItemStack addStack) {
         if (player.getInventory().getSlotWithRemainingSpace(addStack) != -1 || player.getInventory().getFreeSlot() > -1) {
             player.getInventory().add(addStack.copy());
@@ -58,6 +94,11 @@ public class ValoriaUtils{
                 .forEach(e -> e.connection.send(packet));
             }
         }
+    }
+
+    public static float enchantmentAccuracy(ItemStack stack) {
+        int i = stack.getEnchantmentLevel(EnchantmentsRegistry.ACCURACY.get());
+        return i > 0 ? i + 0.5f : 0.0F;
     }
 
     /**

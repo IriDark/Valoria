@@ -35,6 +35,7 @@ public class BleedingEffect extends AbstractImmunityEffect{
     @Override
     public void applyEffectTick(LivingEntity pEntity, int amplifier){
         super.applyEffectTick(pEntity, amplifier);
+        if(effectRemoveReason(pEntity)) return;
         DamageSource dmg = DamageSourceRegistry.source(pEntity.level(), DamageSourceRegistry.BLEEDING);
         if(!pEntity.hasEffect(EffectsRegistry.ALOEREGEN.get()) && !pEntity.hasEffect(MobEffects.REGENERATION)){
             if(amplifier < 1){

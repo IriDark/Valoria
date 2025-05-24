@@ -494,6 +494,8 @@
   "effect.valoria.tipsy.description": "You're drunk? Ye you're drunk, jokes aside slow down's entity but increases entity armor and damage",
   "enchantment.valoria.bleeding": "Bleeding",
   "enchantment.valoria.bleeding.desc": "Chance to set a bleeding effect on enemy after a hit",
+  "enchantment.valoria.accuracy": "Accuracy",
+  "enchantment.valoria.accuracy.desc": "Decreases spread of Phantasm bow ability",
   "enchantment.valoria.explosive_flame": "Explosive Flame",
   "enchantment.valoria.explosive_flame.desc": "Charged attack of blazereap will be quite explosive",
   "entity.minecraft.villager.jeweler": "Jeweler",
@@ -1169,5 +1171,8 @@
   "tooltip.valoria.boss_summon_fail": "Not enough space, needed area %s",
   "codex.valoria.crypt.hint": "Can be found in Crypts",
   "tooltip.valoria.random_page": "Random Page",
-  "codex.valoria.rewards": "Rewards"
+  "codex.valoria.rewards": "Rewards",
+  "tooltip.valoria.effect_cure": "Cures negative effects",
+  "tooltip.valoria.bleeding_cure": "Cures bleeding",
+  "tooltip.valoria.phantasm_bow": "After a full draw, keep holding to overcharge. Upon release, call down a storm of phantom arrows."
 }

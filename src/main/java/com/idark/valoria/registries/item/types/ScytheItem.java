@@ -154,8 +154,9 @@ public class ScytheItem extends SwordItem implements ICustomAnimationItem, Coold
             tooltip.add(Component.translatable("tooltip.valoria.usage_count", builder.attackUsages).withStyle(ChatFormatting.GRAY));
         }
 
+        ValoriaUtils.effectTooltip(builder.effects, tooltip, 1, builder.chance);
+
         tooltip.add(Component.translatable("tooltip.valoria.rmb").withStyle(ChatFormatting.GREEN));
-        Utils.Items.effectTooltip(builder.effects, tooltip, 1, builder.chance);
     }
 
     public static class Builder extends AbstractScytheBuilder<ScytheItem>{

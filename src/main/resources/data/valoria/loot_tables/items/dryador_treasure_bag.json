@@ -144,6 +144,23 @@
               "chance": 0.25
             }
           ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "valoria:summon_book",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_nbt",
+              "tag": "{DisplayColor:{color:9562905},EntityTag:{id:\"valoria:pixie\"}}"
+            }
+          ],
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance",
+              "chance": 0.05
+            }
+          ]
         }
       ]
     },

@@ -42,7 +42,9 @@ public class SoulArrow extends AbstractTridotArrow implements TexturedArrow{
     @Override
     public void tick(){
         super.tick();
-        Utils.Physics.homingTo(0.05f, this, this.level(), this.getOwner(), new AABB(this.getX() - 4.5f, this.getY() - 4.5f, this.getZ() - 4.5f, this.getX() + 4.5f, this.getY() + 4.5f, this.getZ() + 4.5f));
+        if(this.inGround) return;
+        AABB box = this.getBoundingBox().inflate(8);
+        Utils.Physics.homingTo(1, this, this.level(), this.getOwner(), box);
     }
 
     @Override
