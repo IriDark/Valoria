@@ -171,7 +171,7 @@ public class ItemsRegistry{
         dreadwoodBoat = BLOCK_ITEMS.register("dreadwood_boat", () -> new CustomBoatItem(new Properties().stacksTo(1), EntityTypeRegistry.DREADWOOD_BOAT));
         dreadwoodChestBoat = BLOCK_ITEMS.register("dreadwood_chest_boat", () -> new CustomChestBoatItem(new Item.Properties().stacksTo(1), EntityTypeRegistry.DREADWOOD_CHEST_BOAT));
         dreadwoodSign = BLOCK_ITEMS.register("dreadwood_sign", () -> new SignItem(new Item.Properties().stacksTo(16), BlockRegistry.dreadwoodSign.get(), BlockRegistry.dreadwoodWallSign.get()));
-        dreadwoodHangingSign = BLOCK_ITEMS.register("dreadwood_hanging_sign", () -> new HangingSignItem(BlockRegistry.eldritchHangingSign.get(), BlockRegistry.dreadwoodWallHangingSign.get(), new Item.Properties().stacksTo(16)));
+        dreadwoodHangingSign = BLOCK_ITEMS.register("dreadwood_hanging_sign", () -> new HangingSignItem(BlockRegistry.dreadwoodHangingSign.get(), BlockRegistry.dreadwoodWallHangingSign.get(), new Item.Properties().stacksTo(16)));
 
         blackGoldHelmet = registerItem("black_gold_helmet", () -> new PercentageArmorItem(ArmorRegistry.BLACK_GOLD, Type.HELMET, new Properties()));
         blackGoldChestplate = registerItem("black_gold_chestplate", () -> new PercentageArmorItem(ArmorRegistry.BLACK_GOLD, Type.CHESTPLATE, new Properties()));
@@ -201,10 +201,10 @@ public class ItemsRegistry{
         pyratiteChestplate = registerItem("pyratite_chestplate",  () -> new PyratiteArmorItem(Type.CHESTPLATE, ArmorRegistry.PYRATITE, new Item.Properties().rarity(RarityRegistry.PYRATITE)));
         pyratiteLeggings = registerItem("pyratite_leggings",  () -> new PyratiteArmorItem(Type.LEGGINGS, ArmorRegistry.PYRATITE, new Item.Properties().rarity(RarityRegistry.PYRATITE)));
         pyratiteBoots = registerItem("pyratite_boots",  () -> new PyratiteArmorItem(Type.BOOTS, ArmorRegistry.PYRATITE, new Item.Properties().rarity(RarityRegistry.PYRATITE)));
-        crimtaneHelmet = registerItem("crimtane_helmet",  () -> new InfernalArmorItem(Type.HELMET, ArmorRegistry.CRIMTANE, new Item.Properties().rarity(RarityRegistry.BLOODY)));
-        crimtaneChestplate = registerItem("crimtane_chestplate",  () -> new InfernalArmorItem(Type.CHESTPLATE, ArmorRegistry.CRIMTANE, new Item.Properties().rarity(RarityRegistry.BLOODY)));
-        crimtaneLeggings = registerItem("crimtane_leggings",  () -> new InfernalArmorItem(Type.LEGGINGS, ArmorRegistry.CRIMTANE, new Item.Properties().rarity(RarityRegistry.BLOODY)));
-        crimtaneBoots = registerItem("crimtane_boots",  () -> new InfernalArmorItem(Type.BOOTS, ArmorRegistry.CRIMTANE, new Item.Properties().rarity(RarityRegistry.BLOODY)));
+        crimtaneHelmet = registerItem("crimtane_helmet",  () -> new CrimtaneArmor(Type.HELMET, ArmorRegistry.CRIMTANE, new Item.Properties().rarity(RarityRegistry.BLOODY)));
+        crimtaneChestplate = registerItem("crimtane_chestplate",  () -> new CrimtaneArmor(Type.CHESTPLATE, ArmorRegistry.CRIMTANE, new Item.Properties().rarity(RarityRegistry.BLOODY)));
+        crimtaneLeggings = registerItem("crimtane_leggings",  () -> new CrimtaneArmor(Type.LEGGINGS, ArmorRegistry.CRIMTANE, new Item.Properties().rarity(RarityRegistry.BLOODY)));
+        crimtaneBoots = registerItem("crimtane_boots",  () -> new CrimtaneArmor(Type.BOOTS, ArmorRegistry.CRIMTANE, new Item.Properties().rarity(RarityRegistry.BLOODY)));
 
         // elemental
         natureHelmet = registerEffectArmor("nature_helmet", Type.HELMET, ArmorRegistry.NATURE, new Item.Properties().rarity(RarityRegistry.NATURE));

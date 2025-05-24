@@ -127,14 +127,36 @@ public class Events{
 
     @SubscribeEvent
     public void onAttack(AttackEntityEvent event){
-        if(event.isCancelable() && event.getEntity().hasEffect(EffectsRegistry.STUN.get())){
+        var attacker = event.getEntity();
+        var target = event.getTarget();
+        if(event.isCancelable() && attacker.hasEffect(EffectsRegistry.STUN.get())){
             event.setCanceled(true);
         }
 
-        for(ItemStack armorPiece : event.getEntity().getArmorSlots()){
+        for(ItemStack armorPiece : attacker.getArmorSlots()){
             if(armorPiece.getItem() instanceof HitEffectArmorItem hitEffect){
-                if(!event.getEntity().level().isClientSide){
+                if(!attacker.level().isClientSide){
                     hitEffect.onAttack(event);
+                }
+            }
+        }
+
+        if(target instanceof LivingEntity living){
+            if(!SuitArmorItem.hasCorrectArmorOn(ArmorRegistry.CRIMTANE, attacker)) return;
+            for(var entry : AbstractArmorRegistry.EFFECTS.entrySet()){
+                for(var effectData : entry.getValue()){
+                    if(entry.getKey() != ArmorRegistry.CRIMTANE) continue;
+                    if(Tmp.rnd.chance(0.25f)) return;
+
+                    if(effectData.condition().test(attacker)){
+                        MobEffect effect = effectData.effect().get();
+                        if(living.hasEffect(effect)) return;
+
+                        living.addEffect(new MobEffectInstance(effect, 400));
+                        if(Tmp.rnd.nextFloat() > 0.4f){
+                            attacker.getInventory().hurtArmor(attacker.damageSources().magic(), 2f, Inventory.ALL_ARMOR_SLOTS);
+                        }
+                    }
                 }
             }
         }

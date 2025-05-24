@@ -38,6 +38,7 @@ public class ArmorRegistry extends AbstractArmorRegistry{
     public static List<ArmorEffectData> depthData = List.of(new ArmorEffectData(() -> MobEffects.WATER_BREATHING, Entity::isInWater));
     public static List<ArmorEffectData> infernalData = List.of(new ArmorEffectData(() -> MobEffects.DAMAGE_BOOST, (player) -> true), new ArmorEffectData(() -> MobEffects.FIRE_RESISTANCE, Entity::isOnFire));
     public static List<ArmorEffectData> etherealData = List.of(new ArmorEffectData(() -> MobEffects.NIGHT_VISION, (player) -> true));
+    public static List<ArmorEffectData> crimtaneData = List.of(new ArmorEffectData(EffectsRegistry.EXHAUSTION, (player) -> true));
 
     public static final ArmorRegistry MARSH = new ArmorRegistry.Builder("marsh").protection(20).mul(58).enchantValue(12).ingredient(() -> Ingredient.of(ItemsRegistry.marshCloth.get())).build();
     public static final ArmorRegistry SAMURAI = new ArmorRegistry.Builder("samurai").protection(22).mul(55).enchantValue(16).knockbackRes(0.15f).ingredient(() -> Ingredient.of(ItemsRegistry.ancientIngot.get())).build();
@@ -49,7 +50,7 @@ public class ArmorRegistry extends AbstractArmorRegistry{
     public static final ArmorRegistry INFERNAL = new ArmorRegistry.Builder("infernal").effects(infernalData).protection(35).mul(76).enchantValue(14).knockbackRes(0.12f).ingredient(() -> Ingredient.of(ItemsRegistry.infernalIngot.get())).build();
     public static final ArmorRegistry SPIDER = new ArmorRegistry.Builder("spider").protection(40).mul(68).enchantValue(14).knockbackRes(0.10f).ingredient(() -> Ingredient.of(ItemsRegistry.spiderFang.get())).build();
     public static final ArmorRegistry PYRATITE = new ArmorRegistry.Builder("pyratite").protection(42).mul(72).enchantValue(12).ingredient(() -> Ingredient.of(ItemsRegistry.pyratite.get())).build();
-    public static final ArmorRegistry CRIMTANE = new ArmorRegistry.Builder("crimtane").protection(45).mul(72).enchantValue(12).ingredient(() -> Ingredient.of(ItemsRegistry.painCrystal.get())).build();
+    public static final ArmorRegistry CRIMTANE = new ArmorRegistry.Builder("crimtane").effects(crimtaneData).protection(45).mul(72).enchantValue(12).ingredient(() -> Ingredient.of(ItemsRegistry.painCrystal.get())).build();
     public static final ArmorRegistry VOID = new ArmorRegistry.Builder("awakened_void").protection(50).mul(80).enchantValue(10).knockbackRes(0.15f).ingredient(() -> Ingredient.of(ItemsRegistry.voidIngot.get())).build();
     public static final ArmorRegistry PHANTASM = new ArmorRegistry.Builder("phantasm").protection(60).mul(85).enchantValue(12).knockbackRes(0.25f).ingredient(() -> Ingredient.of(ItemsRegistry.illusionStone.get())).build();
 
