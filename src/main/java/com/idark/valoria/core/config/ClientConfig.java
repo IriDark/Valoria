@@ -8,7 +8,7 @@ public class ClientConfig{
     MAGMA_CHARGE_BAR_Y, MAGMA_CHARGE_BAR_X, MAGMA_CHARGE_BAR_TYPE,
     MISC_UI_X, MISC_UI_Y;
     public static ForgeConfigSpec.ConfigValue<Boolean>
-    RENDER_PHANTOM_ACTIVATION, OLD_GOBLIN_MODEL, SHOW_TOASTS;
+    RENDER_PHANTOM_ACTIVATION, OLD_GOBLIN_MODEL, SHOW_TOASTS, SHOW_UPDATES;
 
     static{
         final Pair<ClientConfig, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(ClientConfig::new);
@@ -20,8 +20,13 @@ public class ClientConfig{
     public static final ForgeConfigSpec SPEC;
 
     public ClientConfig(ForgeConfigSpec.Builder builder){
-        builder.comment("Graphics").push("graphics");
+        builder.comment("Misc").push("misc");
             SHOW_TOASTS = builder.define("showToasts", true);
+            SHOW_UPDATES = builder.define("showUpdates", true);
+
+        builder.pop();
+
+        builder.comment("Graphics").push("graphics");
             MISC_UI_Y = builder.comment("(Y) Coordinate for Misc UI").define("miscY", 5);
             MISC_UI_X = builder.comment("(X) Coordinate for Misc UI").define("miscX", 4);
             MAGMA_CHARGE_BAR_Y = builder.comment("(Y) Coordinate for Magma Bar").define("magmaBarY", 5);

@@ -1174,5 +1174,8 @@
   "codex.valoria.rewards": "Rewards",
   "tooltip.valoria.effect_cure": "Cures negative effects",
   "tooltip.valoria.bleeding_cure": "Cures bleeding",
-  "tooltip.valoria.phantasm_bow": "After a full draw, keep holding to overcharge. Upon release, call down a storm of phantom arrows."
+  "tooltip.valoria.phantasm_bow": "After a full draw, keep holding to overcharge. Upon release, call down a storm of phantom arrows.",
+  "tooltip.valoria.update_available": "A new version - %s, is available to download",
+  "tooltip.valoria.hide": "Don't show me again"
+
 }

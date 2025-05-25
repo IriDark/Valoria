@@ -1174,5 +1174,8 @@
   "valoria.boss.necromancer.music.author": "DuUaader",
   "valoria.boss.necromancer.music.name": "Некромант",
   "valoria.jade.openable_with": "Открывается с помощью:",
-  "valoria.jade.progress": "Прогресс:"
+  "valoria.jade.progress": "Прогресс:",
+  "tooltip.valoria.update_available": "Новая версия - %s, доступна для скачивания",
+  "tooltip.valoria.hide": "Больше не показывать"
+
 }

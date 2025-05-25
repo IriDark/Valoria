@@ -49,6 +49,7 @@ import net.minecraftforge.fml.common.*;
 import net.minecraftforge.fml.config.ModConfig.*;
 import net.minecraftforge.fml.event.lifecycle.*;
 import net.minecraftforge.fml.javafmlmod.*;
+import net.minecraftforge.fml.loading.*;
 import org.slf4j.*;
 import pro.komaru.tridot.api.render.bossbars.*;
 import pro.komaru.tridot.common.registry.item.*;
@@ -106,9 +107,13 @@ public class Valoria{
         SoundsRegistry.register(eventBus);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
-        MinecraftForge.EVENT_BUS.register(this);
-        MinecraftForge.EVENT_BUS.register(new Events());
-        MinecraftForge.EVENT_BUS.register(new StructureEvents());
+
+        forgeBus.register(this);
+        forgeBus.register(new Events());
+        forgeBus.register(new StructureEvents());
+        if (FMLEnvironment.dist.isClient()) {
+            forgeBus.register(ClientEvents.class);
+        }
     }
 
     public static ResourceLocation loc(String path) {
