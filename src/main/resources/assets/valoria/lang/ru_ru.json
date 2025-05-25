@@ -1116,6 +1116,7 @@
   "tooltip.valoria.freezing": "Freezing",
   "tooltip.valoria.geode": "Можно разбить киркой на камнеломе",
   "tooltip.valoria.harvest": "Уровень добычи: %s",
+  "tooltip.valoria.hide": "Больше не показывать",
   "tooltip.valoria.homing": "Обладает самонаводкой, но меньшим уроном",
   "tooltip.valoria.immunity": "Даёт носителю иммунитет к:",
   "tooltip.valoria.infernal_scythe": "Шанс %s поджечь цель при атаке",
@@ -1153,6 +1154,7 @@
   "tooltip.valoria.toxins": "Хороший способ умереть!",
   "tooltip.valoria.treasure": "Что же здесь может хранится?...",
   "tooltip.valoria.trinkets_bag": "Мешочек со всякой всячиной. Используется что бы быстро менять аксессуары на клавишу [%s]",
+  "tooltip.valoria.update_available": "Новая версия - %s, доступна для скачивания",
   "tooltip.valoria.usage_count": "Способность можно использовать %s раз",
   "tooltip.valoria.used_on": "Используеться на - %s",
   "tooltip.valoria.wet": "Невозможно использовать способность, когда игрок мокрый!.",
@@ -1174,8 +1176,5 @@
   "valoria.boss.necromancer.music.author": "DuUaader",
   "valoria.boss.necromancer.music.name": "Некромант",
   "valoria.jade.openable_with": "Открывается с помощью:",
-  "valoria.jade.progress": "Прогресс:",
-  "tooltip.valoria.update_available": "Новая версия - %s, доступна для скачивания",
-  "tooltip.valoria.hide": "Больше не показывать"
-
+  "valoria.jade.progress": "Прогресс:"
 }
