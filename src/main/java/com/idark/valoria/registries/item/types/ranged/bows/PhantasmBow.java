@@ -61,6 +61,13 @@ public class PhantasmBow extends ConfigurableBowItem {
     }
 
     @Override
+    public void onStopUsing(ItemStack stack, LivingEntity entity, int count){
+        super.onStopUsing(stack, entity, count);
+        setPlayed(stack, false);
+        setVisible(stack, false);
+    }
+
+    @Override
     public int getBarWidth(ItemStack stack) {
         if(isVisible(stack)){
             Player plr = Minecraft.getInstance().player;
@@ -119,8 +126,6 @@ public class PhantasmBow extends ConfigurableBowItem {
 
     @Override
     public void releaseUsing(ItemStack pStack, Level pLevel, LivingEntity pEntityLiving, int pTimeLeft){
-        setPlayed(pStack, false);
-        setVisible(pStack, false);
         if(pEntityLiving instanceof Player player){
             boolean flag = player.getAbilities().instabuild || EnchantmentHelper.getTagEnchantmentLevel(Enchantments.INFINITY_ARROWS, pStack) > 0;
             ItemStack itemstack = player.getProjectile(pStack);
