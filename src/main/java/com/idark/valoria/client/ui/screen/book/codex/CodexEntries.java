@@ -2,6 +2,7 @@ package com.idark.valoria.client.ui.screen.book.codex;
 
 import com.idark.valoria.api.events.*;
 import com.idark.valoria.api.events.CodexEvent.*;
+import com.idark.valoria.api.unlockable.types.*;
 import com.idark.valoria.client.ui.screen.book.*;
 import com.idark.valoria.client.ui.screen.book.pages.*;
 import com.idark.valoria.client.ui.screen.book.unlockable.*;
@@ -15,6 +16,7 @@ import pro.komaru.tridot.client.gfx.text.*;
 import pro.komaru.tridot.util.*;
 import pro.komaru.tridot.util.struct.data.*;
 
+import javax.annotation.*;
 import java.util.*;
 
 public class CodexEntries{
@@ -68,7 +70,8 @@ public class CodexEntries{
 
         BOSSES = new Chapter(
         "codex.valoria.bosses.name",
-        new TextPage("codex.valoria.bosses"));
+        new TextPage("codex.valoria.bosses"),
+        new TextPage("codex.valoria.bosses_continuation").hideTitle());
 
         NECROMANCER_GRIMOIRE = new Chapter(
         "codex.valoria.necromancer_grimoire.name",
@@ -133,6 +136,18 @@ public class CodexEntries{
         "codex.valoria.fortress.name",
         new TextPage("codex.valoria.fortress"),
         new TextPage("codex.valoria.fortress_continuation").hideTitle());
+    }
+
+    @Nullable
+    public static ChapterNode getNode(Unlockable unlockable) {
+        init();
+        for(CodexEntry entry : entries) {
+            if(entry.node.unlockable == unlockable) {
+                return entry.node;
+            }
+        }
+
+        return null;
     }
 
     public static void init(){

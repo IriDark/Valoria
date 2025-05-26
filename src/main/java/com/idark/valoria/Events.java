@@ -3,6 +3,7 @@ package com.idark.valoria;
 import com.idark.valoria.api.events.*;
 import com.idark.valoria.api.unlockable.*;
 import com.idark.valoria.api.unlockable.types.*;
+import com.idark.valoria.client.ui.screen.book.*;
 import com.idark.valoria.client.ui.screen.book.codex.*;
 import com.idark.valoria.core.capability.*;
 import com.idark.valoria.core.network.*;
@@ -14,21 +15,30 @@ import com.idark.valoria.registries.item.armor.*;
 import com.idark.valoria.registries.item.armor.item.*;
 import com.idark.valoria.registries.item.types.*;
 import com.idark.valoria.registries.level.*;
+import com.mojang.blaze3d.platform.*;
+import com.mojang.blaze3d.vertex.*;
 import net.minecraft.*;
+import net.minecraft.client.*;
+import net.minecraft.client.gui.*;
+import net.minecraft.client.gui.screens.*;
+import net.minecraft.client.gui.screens.inventory.*;
 import net.minecraft.core.*;
 import net.minecraft.nbt.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.resources.*;
 import net.minecraft.server.level.*;
+import net.minecraft.sounds.*;
 import net.minecraft.tags.*;
 import net.minecraft.world.damagesource.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.player.*;
+import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
+import net.minecraftforge.client.event.*;
 import net.minecraftforge.common.*;
 import net.minecraftforge.common.Tags.*;
 import net.minecraftforge.common.capabilities.*;
@@ -40,6 +50,7 @@ import net.minecraftforge.event.entity.player.*;
 import net.minecraftforge.event.level.*;
 import net.minecraftforge.eventbus.api.Event.*;
 import net.minecraftforge.eventbus.api.*;
+import org.lwjgl.glfw.*;
 import pro.komaru.tridot.common.registry.item.armor.*;
 import pro.komaru.tridot.util.*;
 import pro.komaru.tridot.util.math.*;
@@ -55,6 +66,57 @@ public class Events{
     public void onReload(AddReloadListenerEvent event) {
         Valoria.LOGGER.info("Reloading Codex Chapters...");
         CodexEntries.initChapters();
+    }
+
+    @SubscribeEvent
+    public static void onMouseClick(ScreenEvent.MouseButtonPressed event) {
+        Minecraft mc = Minecraft.getInstance();
+        if(event.getScreen() instanceof EffectRenderingInventoryScreen<?> inventoryScreen){
+            if(event.getButton() == GLFW.GLFW_MOUSE_BUTTON_RIGHT){
+                if(!InputConstants.isKeyDown(Minecraft.getInstance().getWindow().getWindow(), GLFW.GLFW_KEY_LEFT_CONTROL)) return;
+
+                Slot hovered = inventoryScreen.getSlotUnderMouse();
+                if(hovered == null) return;
+                var unlockable = Unlockables.getUnlockableByItem(hovered.getItem().getItem());
+                if(unlockable.isPresent()){
+                    var node = CodexEntries.getNode(unlockable.get());
+
+                    mc.player.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundSource.NEUTRAL, 1.0f, 1.0f);
+                    mc.setScreen(new BookGui(node.chapter, true));
+                    event.setCanceled(true);
+                }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onTooltip(ItemTooltipEvent event) {
+        ItemStack stack = event.getItemStack();
+        if (Unlockables.getUnlockableByItem(stack.getItem()).isPresent()) {
+            if (Screen.hasControlDown()) {
+                event.getToolTip().add(Component.translatable("tooltip.valoria.open", Component.translatable("key.keyboard.left.control"), Component.translatable("key.mouse.right")).withStyle(ChatFormatting.GRAY));
+            } else {
+                event.getToolTip().add(Component.translatable("tooltip.valoria.info", Component.translatable("key.keyboard.left.control")).withStyle(ChatFormatting.DARK_GRAY));
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onTooltipRender(RenderTooltipEvent.Pre event){
+        ItemStack stack = event.getItemStack();
+        if(Unlockables.getUnlockableByItem(stack.getItem()).isPresent()){
+            GuiGraphics gfx = event.getGraphics();
+            PoseStack pose = gfx.pose();
+
+            pose.pushPose();
+            pose.translate(0, 0, 500);
+
+            int tooltipHeight = event.getComponents().size() * event.getFont().lineHeight;
+            int iconX = event.getX();
+            int iconY = event.getY() + tooltipHeight - 18;
+            gfx.renderItem(ItemsRegistry.codex.get().getDefaultInstance(), iconX, iconY);
+            pose.popPose();
+        }
     }
 
     @SubscribeEvent

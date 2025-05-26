@@ -1,6 +1,7 @@
 package com.idark.valoria.api.unlockable;
 
 import com.idark.valoria.api.unlockable.types.*;
+import net.minecraft.world.item.*;
 
 import java.util.*;
 
@@ -11,6 +12,14 @@ public class Unlockables{
     public static void addUnlockable(String id, Unlockable unlockable){
         unlockableMap.put(id, unlockable);
         Unlockables.unlockable.add(unlockable);
+    }
+
+    public static Optional<ItemUnlockable> getUnlockableByItem(Item item) {
+        return Unlockables.get().stream()
+        .filter(u -> u instanceof ItemUnlockable)
+        .map(u -> (ItemUnlockable) u)
+        .filter(u -> u.item == item)
+        .findFirst();
     }
 
     public static Unlockable getUnlockable(int id){

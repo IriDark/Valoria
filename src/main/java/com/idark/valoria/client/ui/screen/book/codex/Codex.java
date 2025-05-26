@@ -152,7 +152,7 @@ public class Codex extends DotScreen{
     }
 
     public void changeChapter(Chapter chapter) {
-        Minecraft.getInstance().setScreen(new BookGui(chapter));
+        Minecraft.getInstance().setScreen(new BookGui(chapter, false));
     }
 
     @Override

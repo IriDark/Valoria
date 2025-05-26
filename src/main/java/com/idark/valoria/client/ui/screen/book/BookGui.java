@@ -19,11 +19,13 @@ public class BookGui extends Screen{
     public ItemStack item;
     public static Chapter currentChapter;
     public static int currentPage = 0;
+    public boolean openedFromInv;
 
-    public BookGui(Chapter chapter){
+    public BookGui(Chapter chapter, boolean openedFromInv){
         super(Component.translatable("codex.valoria.main"));
         currentChapter = chapter;
         currentPage = 0;
+        this.openedFromInv = openedFromInv;
     }
 
     @Override
@@ -43,7 +45,11 @@ public class BookGui extends Screen{
 
     @Override
     public void onClose(){
-        Minecraft.getInstance().setScreen(Codex.getInstance());
+        if(openedFromInv) {
+            super.onClose();
+        } else {
+            Minecraft.getInstance().setScreen(Codex.getInstance());
+        }
     }
 
     @OnlyIn(Dist.CLIENT)

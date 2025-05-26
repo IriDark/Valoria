@@ -952,13 +952,14 @@
   "codex.valoria.pages.name": "Pages",
   "codex.valoria.bosses": "This modification introduces a variety of unique bosses into the world. Follow this branch to learn more about each one — their lore and the ways to summon them.",
   "codex.valoria.bosses.name": "Bosses",
+  "codex.valoria.bosses_continuation": "To kill the Necromancer firstly obtain a Necromancer Grimoire from killing Draugrs or Sorcerers.",
   "codex.valoria.pick": "Prospectors Pickaxe allows you to excavate ancient artifacts from suspicious-looking stones. \n Special accessories can accelerate the excavation process.",
   "codex.valoria.pick.name": "Prospectors Pick",
   "codex.valoria.tinkerer_workbench": "A workshop for invention. Using blueprints, artifacts, fragments, or rare materials, one can craft powerful items — stronger than most, but far harder to obtain.",
   "codex.valoria.tinkerer_workbench.name": "Tinkerer Workbench",
   "codex.valoria.tinkerer_workbench.hint": "A table used by Tinkerers",
   "codex.valoria.harmony_crown": "Winding roots, woven into a crown, radiate ancient power — as if the Mother Nature itself had poured a fragment of its will into them. Once, this crown adorned the brow of the last king of the Ents, who ruled the forests of Arethea.",
-  "codex.valoria.harmony_crown.continuation": "Legends say that wearing it in places where the world still remembers its primal power may awaken the ancient guardian of the forest — Dryador himself, a spirit once bound between roots and time",
+  "codex.valoria.harmony_crown.continuation": "May awaken the ancient guardian of the forest — #5bb467 Dryador, /& a spirit once bound between roots and time",
   "codex.valoria.harmony_crown.name": "Crown of Harmony",
   "codex.valoria.dryador": "The Fallen King of the Ents was once the majestic ruler of the living forests of Arethea, and later, the shadowed groves of Valoria. Under his watch, the trees spoke and nature itself seemed alive.",
   "codex.valoria.dryador.continuation": " only echoes remain: withered roots, silent glades, and forests swallowed by darkness. The king himself has fallen, yet his spirit knows no rest — ancient sorrow and an unfulfilled oath bind his soul.",
@@ -967,7 +968,7 @@
   "codex.valoria.necromancer_continuation": "calling the dead from beneath the earth and granting them life in return for eternal servitude",
   "codex.valoria.necromancer.name": "The Necromancer",
   "codex.valoria.necromancer_grimoire": "Not every book is meant to be read. \n This ash-covered, bloodstained tome is more than an artifact — it’s a vessel for the will of one who once ruled over death itself.",
-  "codex.valoria.necromancer_grimoire_continuation": "To awaken the Necromancer, one must find his buried crypt and place the grimoire upon the ancient altar Only then will the secrets of forbidden magic rise… along with its master",
+  "codex.valoria.necromancer_grimoire_continuation": "#ccc087 To awaken the Necromancer, find buried crypt and place the grimoire upon the ancient altar /& then secrets of forbidden magic rise… along with its master",
   "codex.valoria.necromancer_grimoire.name": "Necromancer Grimoire",
   "codex.valoria.necromancer_grimoire.hint": "Used by Sorcerers...",
   "codex.valoria.suspicious_gem": "A mysterious shard glowing with an alien light. \n Said to be a fragment of an entity whose name has been erased. \n Used in an ancient awakening ritual deep within the fortress.",
@@ -1176,6 +1177,7 @@
   "tooltip.valoria.bleeding_cure": "Cures bleeding",
   "tooltip.valoria.phantasm_bow": "After a full draw, keep holding to overcharge. Upon release, call down a storm of phantom arrows.",
   "tooltip.valoria.update_available": "A new version - %s, is available to download",
-  "tooltip.valoria.hide": "Don't show me again"
-
+  "tooltip.valoria.hide": "Don't show me again",
+  "tooltip.valoria.info": "Press %s, for info",
+  "tooltip.valoria.open": "To open press %s + %s"
 }
