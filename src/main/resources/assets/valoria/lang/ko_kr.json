@@ -1105,6 +1105,7 @@
   "tooltip.valoria.bow_damage": "Damage on full tension %s+, with a Default Arrow used",
   "tooltip.valoria.charges": "Not enough charges to use.",
   "tooltip.valoria.codex": "A useful guide book, in this hard world...",
+  "tooltip.valoria.collected": "Can be collected with %s",
   "tooltip.valoria.coral_reef": "Throws your enemy away from you on use",
   "tooltip.valoria.core": "Used to charge Manipulator with Elemental Power",
   "tooltip.valoria.core_charges": "Charges",

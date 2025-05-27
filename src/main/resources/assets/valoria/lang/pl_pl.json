@@ -1105,6 +1105,7 @@
   "tooltip.valoria.bow_damage": "Obrażenia przy pełnym naciągu %s+, przy użyciu domyślnej strzały",
   "tooltip.valoria.charges": "Za mało ładunków, aby użyć.",
   "tooltip.valoria.codex": "Przydatna książka przewodnik, w tym trudnym świecie...",
+  "tooltip.valoria.collected": "Can be collected with %s",
   "tooltip.valoria.coral_reef": "Throws your enemy away from you on use",
   "tooltip.valoria.core": "Używany do ładowania Manipulatora mocą żywiołów",
   "tooltip.valoria.core_charges": "Ładunki",

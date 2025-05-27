@@ -1105,6 +1105,7 @@
   "tooltip.valoria.bow_damage": "Урон при полном заряде %s+, используя Обычную стрелу",
   "tooltip.valoria.charges": "Недостаточно зарядов.",
   "tooltip.valoria.codex": "Полезная книга в этом тяжелом мире...",
+  "tooltip.valoria.collected": "Can be collected with %s",
   "tooltip.valoria.coral_reef": "Throws your enemy away from you on use",
   "tooltip.valoria.core": "Используется для подзарядки Манипулятора Стихий",
   "tooltip.valoria.core_charges": "Зарядов",
