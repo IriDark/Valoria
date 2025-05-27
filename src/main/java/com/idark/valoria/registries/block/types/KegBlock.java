@@ -89,7 +89,7 @@ public class KegBlock extends HorizontalDirectionalBlock implements EntityBlock,
             }
         }
 
-        return InteractionResult.PASS;
+        return InteractionResult.SUCCESS;
     }
 
     private MenuProvider createContainerProvider(Level worldIn, BlockPos pos){

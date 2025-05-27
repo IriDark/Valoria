@@ -1181,5 +1181,7 @@
   "tooltip.valoria.update_available": "A new version - %s, is available to download",
   "tooltip.valoria.hide": "Don't show me again",
   "tooltip.valoria.info": "Press %s, for info",
-  "tooltip.valoria.open": "To open press %s + %s"
+  "tooltip.valoria.open": "To open press %s + %s",
+  "tooltip.valoria.collected": "Can be collected with %s"
+
 }
