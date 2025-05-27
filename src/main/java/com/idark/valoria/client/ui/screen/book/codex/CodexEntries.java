@@ -76,7 +76,7 @@ public class CodexEntries{
         NECROMANCER_GRIMOIRE = new Chapter(
         "codex.valoria.necromancer_grimoire.name",
         new TextPage("codex.valoria.necromancer_grimoire"),
-        new TextPage("codex.valoria.necromancer_grimoire_continuation").hideTitle());
+        new TextPage("codex.valoria.necromancer_grimoire_continuation").hideTitle()).setUnknownKey("codex.valoria.necromancer.name");
 
         NECROMANCER = new Chapter(
         "codex.valoria.necromancer.name",
@@ -86,7 +86,7 @@ public class CodexEntries{
         HARMONY_CROWN = new Chapter(
         "codex.valoria.harmony_crown.name",
         new TextPage("codex.valoria.harmony_crown"),
-        new TextPage("codex.valoria.harmony_crown.continuation").hideTitle());
+        new TextPage("codex.valoria.harmony_crown.continuation").hideTitle()).setUnknownKey("codex.valoria.dryador.name");
 
         DRYADOR = new Chapter(
         "codex.valoria.dryador.name",
@@ -96,7 +96,7 @@ public class CodexEntries{
         SUSPICIOUS_GEM = new Chapter(
         "codex.valoria.suspicious_gem.name",
         new TextPage("codex.valoria.suspicious_gem"),
-        new TextPage("codex.valoria.suspicious_gem_continuation").hideTitle());
+        new TextPage("codex.valoria.suspicious_gem_continuation").hideTitle()).setUnknownKey("codex.valoria.wicked_crystal.name");
 
         WICKED_CRYSTAL = new Chapter(
         "codex.valoria.wicked_crystal.name",
@@ -185,12 +185,14 @@ public class CodexEntries{
             )
 
             .addChild(new ChapterNode(HARMONY_CROWN, ItemsRegistry.harmonyCrown.get(), Style.IRON, RegisterUnlockables.harmonyCrown)
-                .addChild(new ChapterNode(DRYADOR, Items.SKELETON_SKULL, Style.GOLD, RegisterUnlockables.dryador))
+            .addHintsDescription(Component.translatable("codex.valoria.harmony_crown.hint").withStyle(DotStyle.of().color(Col.gray).effect(PulseAlphaFX.of(1f))))
+            .addChild(new ChapterNode(DRYADOR, Items.SKELETON_SKULL, Style.GOLD, RegisterUnlockables.dryador))
             )
 
-            .addChild(new ChapterNode(SUSPICIOUS_GEM, ItemsRegistry.suspiciousGem.get(), Style.IRON, RegisterUnlockables.suspiciousGem)
-                .addChild(new ChapterNode(WICKED_CRYSTAL, Items.SKELETON_SKULL, Style.DIAMOND, RegisterUnlockables.wickedCrystal))
-            )
+
+        .addChild(new ChapterNode(SUSPICIOUS_GEM, ItemsRegistry.suspiciousGem.get(), Style.IRON, RegisterUnlockables.suspiciousGem)
+        .addHintsDescription(Component.translatable("codex.valoria.suspicious_gem.hint").withStyle(DotStyle.of().color(Col.gray).effect(PulseAlphaFX.of(1f))))
+        .addChild(new ChapterNode(WICKED_CRYSTAL, Items.SKELETON_SKULL, Style.DIAMOND, RegisterUnlockables.wickedCrystal)))
         )
 
         .addChild(new ChapterNode(BLACK_GOLD, ItemsRegistry.blackGold.get(), Style.IRON, RegisterUnlockables.blackGold)

@@ -7,6 +7,7 @@ import java.util.*;
 
 public class Chapter{
     public String titleKey;
+    public String unknownKey = "commands.valoria.page.unknown";
     public List<Page> pages;
 
     public Chapter(String titleKey, Page... pages){
@@ -17,6 +18,11 @@ public class Chapter{
     public Page getPage(int i){
         if(i >= size()) return null;
         return pages.get(i);
+    }
+
+    public Chapter setUnknownKey(String key) {
+        this.unknownKey = key;
+        return this;
     }
 
     public int size(){

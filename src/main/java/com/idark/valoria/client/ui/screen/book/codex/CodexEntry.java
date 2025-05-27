@@ -26,11 +26,13 @@ public class CodexEntry{
     public boolean isHidden;
     public boolean isRendered;
     public MutableComponent translate;
+    public MutableComponent unknownTranslate;
 
-    public CodexEntry(ChapterNode node, int x, int y) {
+    public CodexEntry(ChapterNode node, int x, int y){
         this.node = node;
         this.node.entry = this;
         this.translate = Component.translatable(node.chapter.titleKey);
+        this.unknownTranslate = Component.translatable(node.chapter.unknownKey);
         this.x = x;
         this.y = y;
 
@@ -59,8 +61,8 @@ public class CodexEntry{
         int sthy = isUnlocked() ? node.style.hoverY : Style.CLOSED.hoverY;
         if(isHover(mouseX, mouseY, x - 12, y - 8) && codex.isOnScreen(mouseX, mouseY)){
             gui.blit(loc, x, y, sthx, sthy, entryWidth, entryHeight, 512, 512);
+            MutableComponent transl = isUnlocked() ? translate : unknownTranslate;
 
-            var transl = isUnlocked() ? translate : Component.translatable("commands.valoria.page.unknown");
             int textWidth = Minecraft.getInstance().font.width(transl);
             int tooltipX = x + entryWidth - (textWidth / 2) - 22;
             int tooltipY = y + entryHeight + 18;
@@ -157,7 +159,6 @@ public class CodexEntry{
                         gui.renderItem(stack, itemX, itemY);
                         gui.renderItemDecorations(Minecraft.getInstance().font, stack, itemX, itemY);
                         itemX += 18;
-
                     }
                 }
 

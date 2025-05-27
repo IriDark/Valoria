@@ -42,6 +42,11 @@ public class ChapterNode {
         this.style = Style.STANDARD;
     }
 
+    public ChapterNode setUnknownName(String key) {
+        chapter.setUnknownKey(key);
+        return this;
+    }
+
     public ChapterNode addHintsDescription(MutableComponent... components) {
         Collections.addAll(this.hints, components);
         return this;
