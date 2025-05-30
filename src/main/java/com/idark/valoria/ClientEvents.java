@@ -44,6 +44,8 @@ public class ClientEvents{
                     var node = CodexEntries.getNode(unlockable.get());
 
                     mc.player.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundSource.NEUTRAL, 1.0f, 1.0f);
+                    if(node == null) return;
+
                     mc.setScreen(new BookGui(node.chapter, true));
                     event.setCanceled(true);
                 }

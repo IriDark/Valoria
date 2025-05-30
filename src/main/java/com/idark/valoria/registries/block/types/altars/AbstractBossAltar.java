@@ -65,6 +65,7 @@ public abstract class AbstractBossAltar extends Block implements EntityBlock, Si
     public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit){
         AbstractAltarBlockEntity tile = (AbstractAltarBlockEntity) world.getBlockEntity(pos);
         ItemStack stack = player.getItemInHand(hand).copy();
+        if(!tile.canSummon(world)) return InteractionResult.PASS;
         if(!stack.isEmpty() && tile.getItemHandler().getItem(0).isEmpty() && stack.is(this.getSummonItem())){
             tile.getItemHandler().setItem(0, stack);
             tile.startSummoning();

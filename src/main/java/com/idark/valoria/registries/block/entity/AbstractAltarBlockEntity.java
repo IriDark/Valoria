@@ -8,9 +8,11 @@ import net.minecraft.network.*;
 import net.minecraft.network.protocol.game.*;
 import net.minecraft.sounds.*;
 import net.minecraft.world.*;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.*;
+import net.minecraft.world.phys.*;
 import org.jetbrains.annotations.*;
 import pro.komaru.tridot.common.registry.block.entity.*;
 
@@ -27,6 +29,17 @@ public abstract class AbstractAltarBlockEntity extends BlockSimpleInventory impl
         this.isSummoning = true;
         this.progress = 0;
     }
+
+    public boolean canSummon(Level level) {
+        var boss = this.getBoss(level);
+        if(boss == null) return false;
+
+        BlockPos pos = this.getBlockPos();
+        AABB region = new AABB(pos.getX() - 15, pos.getY() - 15, pos.getZ() - 15, pos.getX() + 15, pos.getY() + 15, pos.getZ() + 15);
+        return level.getEntitiesOfClass(boss.getClass(), region).isEmpty();
+    }
+
+    public abstract LivingEntity getBoss(Level level);
 
     public abstract void summonBoss(Level level);
 

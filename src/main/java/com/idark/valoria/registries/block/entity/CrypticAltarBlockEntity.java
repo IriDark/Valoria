@@ -43,8 +43,13 @@ public class CrypticAltarBlockEntity extends AbstractAltarBlockEntity{
     }
 
     @Override
+    public NecromancerEntity getBoss(Level level){
+        return new NecromancerEntity(EntityTypeRegistry.NECROMANCER.get(), level);
+    }
+
+    @Override
     public void summonBoss(Level level){
-        NecromancerEntity boss = new NecromancerEntity(EntityTypeRegistry.NECROMANCER.get(), level);
+        NecromancerEntity boss = getBoss(level);
         boss.moveTo(this.worldPosition.getX() + 0.5, this.worldPosition.getY() + 1.85f, this.worldPosition.getZ() + 0.5, 0.0F, 0.0F);
         level.addFreshEntity(boss);
     }

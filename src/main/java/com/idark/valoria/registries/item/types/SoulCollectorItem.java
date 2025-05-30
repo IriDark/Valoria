@@ -91,6 +91,10 @@ public class SoulCollectorItem extends Item implements OverlayRenderItem{
         pStack.getOrCreateTag().putInt("Souls", count);
     }
 
+    public void removeCount(int count, ItemStack pStack){
+        pStack.getOrCreateTag().putInt("Souls", this.getCurrentSouls(pStack) - count);
+    }
+
     public void addCount(int count, ItemStack pStack, Player player){
         if(pStack.getOrCreateTag().getInt("Souls") >= getMaxSouls() - 1){
             player.getInventory().removeItem(pStack);
