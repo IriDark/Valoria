@@ -99,8 +99,8 @@ public class Valoria{
         ModLoadingContext.get().registerConfig(Type.COMMON, CommonConfig.SPEC);
         DistExecutor.unsafeCallWhenOn(Dist.CLIENT, () -> () -> {
             forgeBus.addListener(KeyBindHandler::onInput);
-            forgeBus.addListener(Events::onMouseClick);
-            forgeBus.addListener(Events::onTooltipRender);
+            forgeBus.addListener(ClientEvents::onMouseClick);
+            forgeBus.addListener(ClientEvents::onTooltipRender);
             forgeBus.addListener(Events::onTooltip);
             return new Object();
         });

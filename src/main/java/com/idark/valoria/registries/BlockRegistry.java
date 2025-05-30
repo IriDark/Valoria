@@ -73,7 +73,7 @@ public class BlockRegistry{
     potSmall, potSmallHandles, potLong, potLongHandles, potLongMossy, potLongMossyHandles, cryptPot, decoratedCryptPot,
 
     //other
-    valoriaPortal, valoriaPortalFrame, grave, tomb, mossyTomb, woodenTomb, mossyWoodenTomb, sarcophagus, umbralKeypad, umbralActivator, umbralBlock, cutUmbralBlock, umbralBricks, tile, quicksand, bronzeLamp, decoratedBronzeLamp, bronzeLampBlock,
+    valoriaPortal, valoriaPortalFrame, grave, tomb, mossyTomb, woodenTomb, mossyWoodenTomb, sarcophagus, umbralKeypad, umbralActivator, umbralBlock, cutUmbralBlock, umbralBricks, quicksand, bronzeLamp, decoratedBronzeLamp, bronzeLampBlock,
 
     // decorative
     elegantPedestal, woodenCup, beerCup, rumCup, cup, teaCup, greenTeaCup, coffeeCup, cacaoCup, glassBottle, rumBottle, cokeBottle, akvavitBottle, liquorBottle, wineBottle, meadBottle, sakeBottle, kvassBottle, whiskeyBottle, cognacBottle,
@@ -427,7 +427,6 @@ public class BlockRegistry{
         woodenTomb = registerBlock("wooden_tomb", () -> new TombBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).strength(1f, 1f).noOcclusion()));
         mossyWoodenTomb = registerBlock("mossy_wooden_tomb", () -> new TombBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).strength(1f, 1f).noOcclusion()));
         sarcophagus = registerBlock("sarcophagus", () -> new SarcophagusBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops().strength(3f).noOcclusion()));
-        tile = registerBlock("quartz_blackstone_tile", () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops().strength(3f, 1f)));
         quicksand = registerBlock("quicksand", () -> new QuickSandBlock(BlockBehaviour.Properties.copy(Blocks.SAND).dynamicShape().requiresCorrectToolForDrops().strength(0.5f, 0.5f).sound(SoundType.SAND)));
         elegantPedestal = registerBlock("elegant_pedestal", () -> new PedestalBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_RED).requiresCorrectToolForDrops().strength(3f, 1f).noOcclusion()));
         bronzeLamp = registerBlock("bronze_lamp", () -> new RedstoneLampBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).mapColor(MapColor.COLOR_BROWN).strength(3f, 4f).noOcclusion().sound(SoundType.GLASS).lightLevel(Utils.Blocks.lightIfLit())));
