@@ -162,7 +162,7 @@ public class Events{
                     if(Tmp.rnd.chance(0.25f)) return;
 
                     if(effectData.condition().test(attacker)){
-                        MobEffect effect = effectData.effect().get();
+                        MobEffect effect = effectData.instance().get().getEffect();
                         if(living.hasEffect(effect)) return;
 
                         living.addEffect(new MobEffectInstance(effect, 400));

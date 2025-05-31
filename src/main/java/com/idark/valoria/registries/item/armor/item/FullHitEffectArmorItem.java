@@ -2,6 +2,7 @@ package com.idark.valoria.registries.item.armor.item;
 
 import net.minecraft.*;
 import net.minecraft.network.chat.*;
+import net.minecraft.world.effect.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraftforge.api.distmarker.*;
@@ -26,7 +27,8 @@ public class FullHitEffectArmorItem extends SuitArmorItem{
             if (effects != null) {
                 var component = Component.translatable("tooltip.tridot.applies_to_target").withStyle(ChatFormatting.GRAY);
                 for (int i = 0; i < effects.size(); i++) {
-                    var effectName = effects.get(i).effect().get().getDisplayName().getString();
+                    MobEffect effect = effects.get(i).instance().get().getEffect();
+                    var effectName = effect.getDisplayName().getString();
                     component.append(Component.literal(effectName).withStyle(stack.getRarity().getStyleModifier()));
                     if (i < effects.size() - 1) {
                         component.append(Component.literal(", ").withStyle(ChatFormatting.GRAY));
