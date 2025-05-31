@@ -1,6 +1,7 @@
 name: Publish Maven Version
 
-on: [push, workflow_dispatch]
+on:
+  workflow_dispatch:
 
 permissions: {}
 jobs:
@@ -24,11 +25,6 @@ jobs:
         uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5 # v3.1.0
       - name: Change wrapper permissions
         run: chmod +x ./gradlew
-      - name: Read shouldPublish property
-        id: read_properties
-        run: |
-          shouldPublish=$(grep '^shouldPublish=' gradle.properties | cut -d'=' -f2)
-          echo "shouldPublish=${shouldPublish}" >> $GITHUB_ENV
       - name: Set first release tag
         run: |
           current_version=$(grep '^version=' gradle.properties | cut -d'=' -f2)
@@ -38,7 +34,7 @@ jobs:
           ./gradlew clean
           ./gradlew build --stacktrace
       - name: Increment version
-        if: ${{ env.shouldPublish == 'true' && github.repository == 'IriDark/Valoria' }}
+        if: ${{ github.repository == 'IriDark/Valoria' }}
         run: |
           # Read the current version
           current_version=$(grep '^version=' gradle.properties | cut -d'=' -f2)
@@ -65,7 +61,7 @@ jobs:
           sed -i "s/^version=.*/version=$new_version/" gradle.properties
           cat gradle.properties
       - name: Commit and Push Version Change
-        if: ${{ env.shouldPublish == 'true' && github.repository == 'IriDark/Valoria' }}
+        if: ${{ github.repository == 'IriDark/Valoria' }}
         run: |
           git pull
           git config --global user.email "actions@github.com"
@@ -85,12 +81,12 @@ jobs:
       - name: Publish Maven Version
         env:
           maventoken: ${{ secrets.MAVEN_PASSWORD }}
-        if: ${{ env.shouldPublish == 'true' && github.repository == 'IriDark/Valoria' }}
+        if: ${{ github.repository == 'IriDark/Valoria' }}
         run: |
           ./gradlew publish
 
       - name: Create GitHub Release
-        if: ${{ env.shouldPublish == 'true' && github.repository == 'IriDark/Valoria' }}
+        if: ${{ egithub.repository == 'IriDark/Valoria' }}
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ env.TAG_NAME }}

@@ -53,6 +53,15 @@ public class TagsRegistry{
     public static final TagKey<Block> KEY_BLOCKS = block(new ResourceLocation(Valoria.ID, "key_blocks"));
     public static final TagKey<Block> ALLOWED_TO_BREAK = block(new ResourceLocation(Valoria.ID, "allowed_to_break"));
 
+    public static final TagKey<Block> NEEDS_HALLOWEEN_TOOL = block(new ResourceLocation(Valoria.ID, "needs_halloween_tool"));
+    public static final TagKey<Block> NEEDS_HOLIDAY_TOOL = block(new ResourceLocation(Valoria.ID, "needs_holiday_tool"));
+    public static final TagKey<Block> NEEDS_NONE_TOOL = block(new ResourceLocation(Valoria.ID, "needs_none_tool"));
+
+    public static final TagKey<Block> NEEDS_PHANTOM_TOOL = block(new ResourceLocation(Valoria.ID, "needs_phantom_tool"));
+    public static final TagKey<Block> NEEDS_MEAT_TOOL = block(new ResourceLocation(Valoria.ID, "needs_meat_tool"));
+    public static final TagKey<Block> NEEDS_PYRATITE_TOOL = block(new ResourceLocation(Valoria.ID, "needs_pyratite_tool"));
+    public static final TagKey<Block> NEEDS_SPIDER_TOOL = block(new ResourceLocation(Valoria.ID, "needs_spider_tool"));
+    public static final TagKey<Block> NEEDS_SAMURAI_TOOL = block(new ResourceLocation(Valoria.ID, "needs_samurai_tool"));
     public static final TagKey<Block> NEEDS_BRONZE_TOOL = block(new ResourceLocation(Valoria.ID, "needs_bronze_tool"));
     public static final TagKey<Block> NEEDS_PEARLIUM_TOOL = block(new ResourceLocation(Valoria.ID, "needs_pearlium_tool"));
     public static final TagKey<Block> NEEDS_COBALT_TOOL = block(new ResourceLocation(Valoria.ID, "needs_cobalt_tool"));
