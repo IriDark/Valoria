@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "nature_ingot",
+  "ingredients": [
+    {
+      "item": "valoria:wicked_amethyst_block"
+    }
+  ],
+  "result": {
+    "item": "valoria:wicked_amethyst",
+    "count": 9
+  }
+}

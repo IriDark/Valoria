@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "nature_ingot",
+  "ingredients": [
+    {
+      "item": "valoria:uncharged_shard_block"
+    }
+  ],
+  "result": {
+    "item": "valoria:uncharged_shard",
+    "count": 9
+  }
+}
