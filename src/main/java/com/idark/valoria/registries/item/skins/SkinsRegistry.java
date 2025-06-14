@@ -68,7 +68,6 @@ public class SkinsRegistry{
             .add(new ItemSupplierSkinEntry(() -> ItemsRegistry.voidScythe.get(), Valoria.ID + ":warden_scythe"))
             .build();
 
-
     }
 
     public static void register(){
