@@ -240,7 +240,13 @@ public class ItemsRegistry{
         unchargedShard = registerItem("uncharged_shard");
         spiderFang = registerItem("spider_fang");
         remains = registerItem("remains", RarityRegistry.BLOODY);
-        gaibRoot = registerItem("gaib_root", () -> new Item(new Item.Properties().stacksTo(16)));
+        gaibRoot = registerItem("gaib_root", () -> new Item(new Item.Properties().stacksTo(16)) {
+            public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced){
+                super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
+                pTooltipComponents.add(Component.translatable("tooltip.valoria.gaib_roots").withStyle(ChatFormatting.GRAY));
+            }
+        });
+
         karusakanRoot = registerItem("karusakan_root", () -> new Item(new Item.Properties().stacksTo(16)));
         aloePiece = registerItem("aloe_piece");
         shadeBlossomLeaf = registerItem("shade_blossom_leaf");

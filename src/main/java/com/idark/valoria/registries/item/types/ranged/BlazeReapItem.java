@@ -12,6 +12,7 @@ import net.minecraft.core.particles.*;
 import net.minecraft.nbt.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.resources.*;
+import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
 import net.minecraft.stats.*;
 import net.minecraft.util.*;
@@ -64,68 +65,47 @@ public class BlazeReapItem extends ValoriaPickaxe implements Vanishable, Overlay
         CompoundTag nbt = weapon.getOrCreateTag();
         boolean hasAmmo = !ammo.isEmpty();
         boolean flag = ammo.getItem() instanceof GunpowderCharge;
-        if(player.isShiftKeyDown()){
-            if(nbt.getInt("charge") == 0){
-                if(hasAmmo){
-                    if(!player.isCreative()){
-                        ammo.shrink(1);
-                    }
+        if(level instanceof ServerLevel serverLevel){
+            if(player.isShiftKeyDown()){
+                recharge(player, serverLevel, nbt, hasAmmo, ammo, rand);
+                return InteractionResultHolder.pass(weapon);
+            }else if(nbt.getInt("charge") == 1){
+                nbt.putInt("charge", 0);
+                player.getCooldowns().addCooldown(this, 40);
+                player.awardStat(Stats.ITEM_USED.get(this));
+                Vec3 pos = new Vec3(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());
 
-                    nbt.putInt("charge", 1);
-                    player.getCooldowns().addCooldown(this, 20);
-                    level.playSound(null, player.blockPosition(), SoundsRegistry.BLAZECHARGE.get(), SoundSource.AMBIENT, 1f, 1f);
-                    player.awardStat(Stats.ITEM_USED.get(this));
-                }else{
-                    player.displayClientMessage(Component.translatable("tooltip.valoria.recharge").withStyle(ChatFormatting.GRAY), true);
-                }
-
-                for(int i = 0; i < 6; ++i){
-                    double d0 = rand.nextGaussian() * 0.02D;
-                    double d1 = rand.nextGaussian() * 0.02D;
-                    double d2 = rand.nextGaussian() * 0.02D;
-                    level.addParticle(ParticleTypes.FLAME, player.getRandomX(1.0D), player.getRandomY() - 0.5D, player.getRandomZ(1.0D), d0, d1, d2);
-                }
-            }
-
-            return InteractionResultHolder.pass(weapon);
-        }else if(nbt.getInt("charge") == 1){
-            nbt.putInt("charge", 0);
-            player.getCooldowns().addCooldown(this, 40);
-            player.awardStat(Stats.ITEM_USED.get(this));
-            Vec3 pos = new Vec3(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());
-
-            double pitch = ((player.getRotationVector().x + 90) * Math.PI) / 180;
-            double yaw = ((player.getRotationVector().y + 90) * Math.PI) / 180;
-            double X = Math.sin(pitch) * Math.cos(yaw) * 15;
-            double Y = Math.cos(pitch) * 15;
-            double Z = Math.sin(pitch) * Math.sin(yaw) * 15;
-            Vec3 playerPos = player.getEyePosition();
-            Vec3 EndPos = (player.getViewVector(0.0f).scale(20.0d));
-            if(ProjectileUtil.getEntityHitResult(player, playerPos, EndPos, new AABB(pos.x + X - 3D, pos.y + Y - 3D, pos.z + Z - 3D, pos.x + X + 3D, pos.y + Y + 3D, pos.z + Z + 3D), (e) -> true, 15) == null){
-                HitResult hitresult = Utils.Hit.hitResult(playerPos, player, (e) -> true, EndPos, level);
-                if(hitresult != null){
-                    switch(hitresult.getType()){
-                        case BLOCK:
-                            X = hitresult.getLocation().x() - pos.x;
-                            Y = hitresult.getLocation().y() - pos.y;
-                            Z = hitresult.getLocation().z() - pos.z;
-                            break;
-                        case ENTITY:
-                            Entity entity = ((EntityHitResult)hitresult).getEntity();
-                            X = entity.getX() - pos.x;
-                            Y = entity.getY() - pos.y;
-                            Z = entity.getZ() - pos.z;
-                            break;
-                        case MISS:
-                            break;
+                double pitch = ((player.getRotationVector().x + 90) * Math.PI) / 180;
+                double yaw = ((player.getRotationVector().y + 90) * Math.PI) / 180;
+                double X = Math.sin(pitch) * Math.cos(yaw) * 15;
+                double Y = Math.cos(pitch) * 15;
+                double Z = Math.sin(pitch) * Math.sin(yaw) * 15;
+                Vec3 playerPos = player.getEyePosition();
+                Vec3 EndPos = (player.getViewVector(0.0f).scale(20.0d));
+                if(ProjectileUtil.getEntityHitResult(player, playerPos, EndPos, new AABB(pos.x + X - 3D, pos.y + Y - 3D, pos.z + Z - 3D, pos.x + X + 3D, pos.y + Y + 3D, pos.z + Z + 3D), (e) -> true, 15) == null){
+                    HitResult hitresult = Utils.Hit.hitResult(playerPos, player, (e) -> true, EndPos, level);
+                    if(hitresult != null){
+                        switch(hitresult.getType()){
+                            case BLOCK:
+                                X = hitresult.getLocation().x() - pos.x;
+                                Y = hitresult.getLocation().y() - pos.y;
+                                Z = hitresult.getLocation().z() - pos.z;
+                                break;
+                            case ENTITY:
+                                Entity entity = ((EntityHitResult)hitresult).getEntity();
+                                X = entity.getX() - pos.x;
+                                Y = entity.getY() - pos.y;
+                                Z = entity.getZ() - pos.z;
+                                break;
+                            case MISS:
+                                break;
+                        }
                     }
                 }
-            }
 
-            float radius = flag ? ((GunpowderCharge)ammo.getItem()).getRadius() : 3f;
-            float damage = flag ? ((GunpowderCharge)ammo.getItem()).getDamage() : 25f;
-            float knockback = flag ? ((GunpowderCharge)ammo.getItem()).getKnockback() : 0.5f;
-            if(!level.isClientSide){
+                float radius = flag ? ((GunpowderCharge)ammo.getItem()).getRadius() : 3f;
+                float damage = flag ? ((GunpowderCharge)ammo.getItem()).getDamage() : 25f;
+                float knockback = flag ? ((GunpowderCharge)ammo.getItem()).getKnockback() : 0.5f;
                 if(EnchantmentHelper.getTagEnchantmentLevel(EnchantmentsRegistry.EXPLOSIVE_FLAME.get(), weapon) > 0){
                     level.explode(player, pos.x + X, pos.y + Y, pos.z + Z, radius, Level.ExplosionInteraction.TNT);
                 }else{
@@ -133,17 +113,36 @@ public class BlazeReapItem extends ValoriaPickaxe implements Vanishable, Overlay
                 }
 
                 ScreenshakeHandler.add(new PositionedScreenshakeInstance(5, pro.komaru.tridot.util.phys.Vec3.from(player.getEyePosition()), 15, 30).intensity(radius * 0.85f).interp(Interp.bounce));
+                double offset = ((rand.nextDouble() - 0.5D) * radius);
+                double speed = 0.05d * offset;
+                serverLevel.sendParticles(ParticleTypes.LARGE_SMOKE, pos.x + X, pos.y + Y, pos.z + Z, 12, offset, offset,offset, speed);
+                serverLevel.sendParticles(ParticleTypes.FLAME, pos.x + X, pos.y + Y, pos.z + Z, 12, offset, offset,offset, speed);
+                return InteractionResultHolder.success(weapon);
             }
-
-            for(int i = 0; i < 12; i++){
-                level.addParticle(ParticleTypes.LARGE_SMOKE, pos.x + X + ((rand.nextDouble() - 0.5D) * radius), pos.y + Y + ((rand.nextDouble() - 0.5D) * radius), pos.z + Z + ((rand.nextDouble() - 0.5D) * radius), 0.05d * ((rand.nextDouble() - 0.5D) * radius), 0.05d * ((rand.nextDouble() - 0.5D) * radius), 0.05d * ((rand.nextDouble() - 0.5D) * radius));
-                level.addParticle(ParticleTypes.FLAME, pos.x + X + ((rand.nextDouble() - 0.5D) * radius), pos.y + Y + ((rand.nextDouble() - 0.5D) * radius), pos.z + Z + ((rand.nextDouble() - 0.5D) * radius), 0.05d * ((rand.nextDouble() - 0.5D) * radius), 0.05d * ((rand.nextDouble() - 0.5D) * radius), 0.05d * ((rand.nextDouble() - 0.5D) * radius));
-            }
-
-            return InteractionResultHolder.success(weapon);
         }
 
         return InteractionResultHolder.pass(weapon);
+    }
+
+    private void recharge(Player player, ServerLevel serverLevel, CompoundTag nbt, boolean hasAmmo, ItemStack ammo, RandomSource rand){
+        if(nbt.getInt("charge") == 0){
+            if(hasAmmo){
+                if(!player.isCreative()){
+                    ammo.shrink(1);
+                }
+
+                nbt.putInt("charge", 1);
+                player.getCooldowns().addCooldown(this, 20);
+                serverLevel.playSound(null, player.blockPosition(), SoundsRegistry.BLAZECHARGE.get(), SoundSource.AMBIENT, 1f, 1f);
+                player.awardStat(Stats.ITEM_USED.get(this));
+            }else{
+                player.displayClientMessage(Component.translatable("tooltip.valoria.recharge").withStyle(ChatFormatting.GRAY), true);
+            }
+
+            double d0 = rand.nextGaussian() * 0.02D;
+            double d2 = rand.nextGaussian() * 0.02D;
+            serverLevel.sendParticles(ParticleTypes.FLAME, player.getRandomX(1.0D), player.getRandomY() - 0.5D, player.getRandomZ(1.0D), 6, d0, 0, d2, 0.025);
+        }
     }
 
     @OnlyIn(Dist.CLIENT)
