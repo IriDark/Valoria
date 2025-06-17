@@ -86,7 +86,7 @@ jobs:
           ./gradlew publish
 
       - name: Create GitHub Release
-        if: ${{ egithub.repository == 'IriDark/Valoria' }}
+        if: ${{ github.repository == 'IriDark/Valoria' }}
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ env.TAG_NAME }}
