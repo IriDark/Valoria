@@ -99,6 +99,7 @@ public class PhantomItem extends ValoriaSword implements RadiusItem, CooldownRed
         }
 
         for(LivingEntity entityInRadius : hitEntities){
+            if(!player.canAttack(entityInRadius)) continue;
             if((entityInRadius instanceof Player && ((Player)entityInRadius).isCreative()) || (entityInRadius instanceof BossEntity || entityInRadius.getType().is(EntityTypes.BOSSES))){
                 continue;
             }

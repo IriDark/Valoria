@@ -52,6 +52,8 @@ public class AquariusScytheItem extends ScytheItem{
         ValoriaUtils.radiusHit(level, stack, player, ParticleTypes.BUBBLE_POP, hitEntities, pos, 0, player.getRotationVector().y, 3);
         Utils.Particles.inRadius(level, stack, ParticleTypes.UNDERWATER, pos, 0, player.getRotationVector().y, 3);
         for(LivingEntity entity : hitEntities){
+            if(!player.canAttack(entity)) continue;
+
             entity.hurt(level.damageSources().playerAttack(player), (damage + EnchantmentHelper.getDamageBonus(stack, entity.getMobType())) * 1.35f);
             entity.knockback(0.4F, player.getX() - entity.getX(), player.getZ() - entity.getZ());
             if(arcRandom.chance(0.25f)){

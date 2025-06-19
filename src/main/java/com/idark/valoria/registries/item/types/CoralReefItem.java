@@ -71,6 +71,8 @@ public class CoralReefItem extends ValoriaSword{
         ValoriaUtils.radiusHit(worldIn, stack, player, ParticleTypes.BUBBLE_POP, hitEntities, pos, 0, player.getRotationVector().y, 3);
         Utils.Particles.inRadius(worldIn, stack, ParticleTypes.UNDERWATER, pos, 0, player.getRotationVector().y, 3);
         for(LivingEntity damagedEntity : hitEntities){
+            if(!player.canAttack(damagedEntity)) continue;
+
             damagedEntity.hurt(worldIn.damageSources().playerAttack(player), (damage + EnchantmentHelper.getDamageBonus(stack, damagedEntity.getMobType())) * 1.35f);
             damagedEntity.knockback(1F, player.getX() - entityLiving.getX(), player.getZ() - entityLiving.getZ());
             if(arcRandom.chance(0.25f)){

@@ -99,6 +99,8 @@ public class BeastScytheItem extends ScytheItem{
         applyCooldown(player, hitEntities.isEmpty() ? builder.minCooldownTime : builder.cooldownTime);
         performSpellCasting(level, player);
         for(LivingEntity entity : hitEntities){
+            if(!player.canAttack(entity)) continue;
+
             entity.hurt(level.damageSources().playerAttack(player), (damage + EnchantmentHelper.getDamageBonus(stack, entity.getMobType())) * 1.35f);
             performEffects(entity, player);
             Utils.Entities.applyWithChance(entity, builder.effects, builder.chance, arcRandom);

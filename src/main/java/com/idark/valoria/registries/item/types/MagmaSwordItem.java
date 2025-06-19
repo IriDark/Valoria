@@ -135,6 +135,8 @@ public class MagmaSwordItem extends ValoriaSword implements RadiusItem, OverlayR
                 Utils.Particles.inRadius(worldIn, stack, ParticleTypes.LARGE_SMOKE, pos, 0, player.getRotationVector().y, 4);
                 ValoriaUtils.radiusHit(worldIn, stack, player, ParticleTypes.FLAME, hitEntities, pos, 0, player.getRotationVector().y, 4);
                 for(LivingEntity damagedEntity : hitEntities){
+                    if(!player.canAttack(damagedEntity)) continue;
+
                     damagedEntity.hurt(worldIn.damageSources().playerAttack(player), (damage + EnchantmentHelper.getDamageBonus(stack, damagedEntity.getMobType())) * 1.35f);
                     damagedEntity.knockback(0.4F, player.getX() - entityLiving.getX(), player.getZ() - entityLiving.getZ());
                     damagedEntity.setSecondsOnFire(12);

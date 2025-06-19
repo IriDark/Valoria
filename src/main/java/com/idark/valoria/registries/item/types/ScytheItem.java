@@ -122,6 +122,8 @@ public class ScytheItem extends SwordItem implements ICustomAnimationItem, Coold
         }
 
         for(LivingEntity entity : hitEntities){
+            if(!player.canAttack(entity)) continue;
+
             entity.hurt(level.damageSources().playerAttack(player), (damage + EnchantmentHelper.getDamageBonus(stack, entity.getMobType())) * 1.35f);
             performEffects(entity, player);
             Utils.Entities.applyWithChance(entity, builder.effects, builder.chance, arcRandom);
