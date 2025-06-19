@@ -113,7 +113,11 @@ public class MagmaSwordItem extends ValoriaSword implements RadiusItem, OverlayR
         Vector3d pos = new Vector3d(player.getX(), player.getY() + 0.3f, player.getZ());
         if(nbt.contains("charge") && nbt.getInt("charge") == 2){
             if(player.isInWaterOrRain()){
-                addCharge(stack, 1);
+                float f2 = player.getAttackStrengthScale(0.5F);
+                if(f2 > 0.9F){
+                    addCharge(stack, 1);
+                }
+
                 player.getCooldowns().addCooldown(this, 150);
                 player.displayClientMessage(Component.translatable("tooltip.valoria.wet").withStyle(ChatFormatting.GRAY), true);
                 worldIn.playSound(player, player.blockPosition(), SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 1f, 1f);
