@@ -280,17 +280,24 @@ public class Events{
 
     @SubscribeEvent
     public void onHeal(LivingHealEvent event) {
+        float amount = event.getAmount();
         if (event.getEntity().hasEffect(EffectsRegistry.EXHAUSTION.get())) {
             int amplifier = event.getEntity().getEffect(EffectsRegistry.EXHAUSTION.get()).getAmplifier();
-            float healMultiplier = 1.0f / (1.0f + 0.5f * (amplifier + 1));
-            event.setAmount(event.getAmount() * healMultiplier);
+            float healMultiplier = 1.0f - 0.1f * (amplifier + 1);
+
+            healMultiplier = Math.max(0.5f, healMultiplier);
+            amount = amount * healMultiplier;
         }
 
         if (event.getEntity().hasEffect(EffectsRegistry.RENEWAL.get())) {
             int amplifier = event.getEntity().getEffect(EffectsRegistry.RENEWAL.get()).getAmplifier();
-            float healMultiplier = 1.0f + 0.5f * (amplifier + 1);
-            event.setAmount(event.getAmount() * healMultiplier);
+            float healMultiplier = 1.0f + 0.1f * (amplifier + 1);
+
+            healMultiplier = Math.min(1.5f, healMultiplier);
+            amount = amount * healMultiplier;
         }
+
+        event.setAmount(amount);
     }
 
     @SubscribeEvent
