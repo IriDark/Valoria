@@ -6,6 +6,7 @@ import com.idark.valoria.client.ui.menus.*;
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.particle.*;
 import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.block.types.*;
 import com.idark.valoria.registries.item.recipe.*;
 import com.idark.valoria.util.*;
 import net.minecraft.client.*;
@@ -233,7 +234,9 @@ public class ManipulatorBlockEntity extends BlockEntity implements MenuProvider,
             this.deserializeNBT(nbt);
         }
 
-        nbt.putInt(name, nbt.getInt(name) + charge);
+        int current = nbt.getInt(name);
+        int added = Math.min(charge, ManipulatorBlock.maxCores - current);
+        nbt.putInt(name, current + added);
         this.deserializeNBT(nbt);
     }
 

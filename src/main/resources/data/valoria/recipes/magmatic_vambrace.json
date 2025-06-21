@@ -1,16 +1,13 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "/#"
-  ],
-  "key": {
-    "#": {
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
       "item": "valoria:skeletal_vambrace"
     },
-    "/": {
+    {
       "item": "valoria:devil_heart"
     }
-  },
+  ],
   "result": {
     "item": "valoria:magmatic_vambrace",
     "count": 1

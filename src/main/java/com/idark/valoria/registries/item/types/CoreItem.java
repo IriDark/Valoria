@@ -24,12 +24,19 @@ import java.util.*;
 
 import static com.idark.valoria.client.particle.ParticleEffects.spawnItemParticles;
 
-//todo
 public class CoreItem extends Item implements ParticleItemEntity, IGuiRenderItem{
     private final String coreName;
     public ParticleType<?> particle;
-    public ColorParticleData color;
+    private final ColorParticleData color;
     private final int givenCores;
+
+    public CoreItem(@NotNull ParticleType<?> pType, Properties pProperties, String pCoreID){
+        super(pProperties);
+        particle = pType;
+        coreName = pCoreID;
+        color = null;
+        givenCores = 0;
+    }
 
     public CoreItem(@NotNull ParticleType<?> pType, Properties pProperties, int pGivenCores, Col pColor, Col pColorTo, String pCoreID){
         super(pProperties);
@@ -51,8 +58,12 @@ public class CoreItem extends Item implements ParticleItemEntity, IGuiRenderItem
         return coreName;
     }
 
+    public ColorParticleData getColor(){
+        return color;
+    }
+
     public Col getCoreColor(){
-        return new Col(color.r1, color.g1, color.b1).darker();
+        return new Col(getColor().r1, getColor().g1, getColor().b1).darker();
     }
 
     public int getGivenCores(){
@@ -69,7 +80,7 @@ public class CoreItem extends Item implements ParticleItemEntity, IGuiRenderItem
     @OnlyIn(Dist.CLIENT)
     @Override
     public void spawnParticles(Level level, ItemEntity entity){
-        spawnItemParticles(level, entity, particle, color);
+        spawnItemParticles(level, entity, particle, getColor());
     }
 
     @Override
@@ -89,7 +100,7 @@ public class CoreItem extends Item implements ParticleItemEntity, IGuiRenderItem
             poseStack.translate(x + 8, y + 9, 100);
             RenderBuilder.create().setRenderType(TridotRenderTypes.ADDITIVE_TEXTURE)
             .setUV(Utils.Render.getSprite(Valoria.ID, "particle/smoke"))
-            .setColor(color.r1, color.g1, color.b1).setAlpha(1f)
+            .setColor(getColor().r1, getColor().g1, getColor().b1).setAlpha(1f)
             .renderCenteredQuad(poseStack, 14f)
             .endBatch();
             poseStack.popPose();

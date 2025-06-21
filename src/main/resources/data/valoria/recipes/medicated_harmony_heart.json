@@ -1,16 +1,13 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "/#"
-  ],
-  "key": {
-    "#": {
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
       "item": "valoria:bandage"
     },
-    "/": {
+    {
       "item": "valoria:harmony_heart"
     }
-  },
+  ],
   "result": {
     "item": "valoria:medicated_harmony_heart",
     "count": 1

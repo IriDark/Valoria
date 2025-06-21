@@ -1,16 +1,13 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "/#"
-  ],
-  "key": {
-    "#": {
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
       "item": "valoria:magmatic_vambrace"
     },
-    "/": {
+    {
       "item": "valoria:netherite_gloves"
     }
-  },
+  ],
   "result": {
     "item": "valoria:magmatic_gauntlet",
     "count": 1

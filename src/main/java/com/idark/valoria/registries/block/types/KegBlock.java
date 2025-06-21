@@ -112,12 +112,6 @@ public class KegBlock extends HorizontalDirectionalBlock implements EntityBlock,
         ItemStack playerHeldItem = player.getItemInHand(hand).copy();
         boolean isHoldingCup = playerHeldItem.getItem() == ItemsRegistry.woodenCup.get();
         boolean isHoldingBottle = playerHeldItem.getItem() == ItemsRegistry.bottle.get();
-        if(!player.isCreative()){
-            if(isHoldingCup && itemStack.is(TagsRegistry.CUP_DRINKS) || isHoldingBottle && itemStack.is(TagsRegistry.BOTTLE_DRINKS)){
-                player.getItemInHand(hand).shrink(1);
-            }
-        }
-
         return (isHoldingCup && itemStack.is(TagsRegistry.CUP_DRINKS)) || (isHoldingBottle && itemStack.is(TagsRegistry.BOTTLE_DRINKS));
     }
 

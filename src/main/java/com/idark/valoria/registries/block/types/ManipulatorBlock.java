@@ -1,6 +1,9 @@
 package com.idark.valoria.registries.block.types;
 
 import com.idark.valoria.client.ui.menus.*;
+import com.idark.valoria.core.network.*;
+import com.idark.valoria.core.network.packets.particle.*;
+import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.block.entity.*;
 import com.idark.valoria.registries.item.types.*;
 import com.idark.valoria.util.*;
@@ -22,16 +25,18 @@ import net.minecraft.world.phys.*;
 import net.minecraft.world.phys.shapes.*;
 import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.network.*;
+import net.minecraftforge.registries.*;
 import org.jetbrains.annotations.*;
-import pro.komaru.tridot.client.gfx.*;
-import pro.komaru.tridot.client.gfx.particle.*;
 import pro.komaru.tridot.client.gfx.particle.data.*;
 import pro.komaru.tridot.common.registry.block.entity.*;
 
 import javax.annotation.Nullable;
 import javax.annotation.*;
+import java.util.*;
 
 public class ManipulatorBlock extends Block implements EntityBlock{
+    public static int maxCores = 8;
+    private boolean coreUpdated;
 
     public ManipulatorBlock(BlockBehaviour.Properties properties){
         super(properties);
@@ -96,48 +101,60 @@ public class ManipulatorBlock extends Block implements EntityBlock{
     @Override
     public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit){
         BlockEntity tileEntity = world.getBlockEntity(pos);
-        if(!(tileEntity instanceof ManipulatorBlockEntity coreBlock)){
-            return InteractionResult.FAIL;
-        }
+        ItemStack stack = player.getItemInHand(hand);
+        if(world instanceof ServerLevel serverLevel){
+            if(tileEntity instanceof ManipulatorBlockEntity coreBlock){
+                if(stack.getItem() instanceof CoreItem builder){
+                    String coreName = builder.getCoreName();
+                    ColorParticleData data = builder.getColor();
+                    if(builder instanceof UnstableCore unstableCore){
+                        List<CoreItem> cores = ItemsRegistry.ITEMS.getEntries().stream()
+                        .map(RegistryObject::get)
+                        .filter(CoreItem.class::isInstance)
+                        .map(CoreItem.class::cast)
+                        .filter(it -> it != unstableCore)
+                        .filter(core -> coreBlock.getCoreNBT(core.getCoreName()) < maxCores)
+                        .toList();
 
-        ItemStack core = player.getItemInHand(hand);
-        boolean coreUpdated = false;
-        if(core.getItem() instanceof CoreItem builder && coreBlock.getCoreNBT(builder.getCoreName()) != 8){
-            if(!player.getAbilities().instabuild){
-                core.shrink(1);
-            }
+                        if(cores.isEmpty()) return InteractionResult.FAIL;
 
-            coreBlock.addCharge(builder.getCoreName(), builder.getGivenCores());
-            if(world.isClientSide()){
-                for(int a = 0; a < coreBlock.getCoreNBT(builder.getCoreName()); a++){
-                    double angle = (a / (double)8) * (2 * Math.PI);
-                    double x = Math.cos(angle) * 1;
-                    double z = Math.sin(angle) * 1;
+                        var random = serverLevel.random.nextInt(cores.size());
+                        CoreItem coreItem = cores.get(random);
+                        coreName = coreItem.getCoreName();
+                        data = coreItem.getColor();
+                        this.coreUpdated = true;
+                    }
 
-                    ParticleBuilder.create(TridotParticles.WISP)
-                    .setColorData(builder.color)
-                    .setTransparencyData(GenericParticleData.create(0.5f, 0f).build())
-                    .setScaleData(GenericParticleData.create(0.35f, 0.1f, 0).build())
-                    .setLifetime(35)
-                    .spawn(world, pos.getX() + 0.5f + x, pos.getY() + 1, pos.getZ() + 0.5f + z);
+                    int current = coreBlock.getCoreNBT(coreName);
+                    int given = builder.getGivenCores();
+                    if(current + given < maxCores + 1){
+                        int actualGiven = Math.min(given, maxCores - current);
+                        if(!player.getAbilities().instabuild) stack.shrink(1);
+
+                        coreBlock.addCharge(coreName, actualGiven);
+                        PacketHandler.sendToTracking(serverLevel, pos, new ManipulatorParticlePacket(pos, actualGiven, data));
+
+                        world.playSound(player, player.blockPosition(), SoundEvents.RESPAWN_ANCHOR_CHARGE, SoundSource.BLOCKS, 1, 1);
+                        this.coreUpdated = true;
+                    }
                 }
-            }
 
-            world.playSound(player, player.blockPosition(), SoundEvents.RESPAWN_ANCHOR_CHARGE, SoundSource.BLOCKS, 1, 1);
-            coreUpdated = true;
-        }
-
-        if(!world.isClientSide()){
-            if(coreUpdated){
-                ValoriaUtils.SUpdateTileEntityPacket(coreBlock);
-                return InteractionResult.SUCCESS;
-            }else{
-                MenuProvider containerProvider = createContainerProvider(world, pos);
-                NetworkHooks.openScreen(((ServerPlayer)player), containerProvider, tileEntity.getBlockPos());
+                openScreenOrUpdate(world, pos, (ServerPlayer)player, coreBlock, this.coreUpdated, tileEntity);
             }
         }
 
-        return InteractionResult.CONSUME;
+        return InteractionResult.SUCCESS;
+    }
+
+    private void openScreenOrUpdate(Level world, BlockPos pos, ServerPlayer player, ManipulatorBlockEntity coreBlock, boolean coreUpdated, BlockEntity tileEntity){
+        if(coreUpdated){
+            ValoriaUtils.SUpdateTileEntityPacket(coreBlock);
+        }else{
+            MenuProvider containerProvider = createContainerProvider(world, pos);
+            NetworkHooks.openScreen(player, containerProvider, tileEntity.getBlockPos());
+        }
+
+        this.coreUpdated = false;
     }
 
     private MenuProvider createContainerProvider(Level worldIn, BlockPos pos){

@@ -16,6 +16,7 @@ public class Styles{
         return DotStyle.of().color(color);
     }
 
+    public static DotStyle white = create(Col.white);
     public static DotStyle marsh = create(Pal.marsh);
     public static DotStyle bloody = create(Pal.lightCarminePink).effects(ShakeFX.of((0.1f)));
     public static DotStyle infernal = create(Pal.infernal);
