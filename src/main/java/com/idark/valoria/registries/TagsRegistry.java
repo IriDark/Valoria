@@ -72,6 +72,7 @@ public class TagsRegistry{
     public static final TagKey<Block> NEEDS_JADE_TOOL = block(new ResourceLocation(Valoria.ID, "needs_jade_tool"));
     public static final TagKey<Block> NEEDS_VOID_TOOL = block(new ResourceLocation(Valoria.ID, "needs_void_tool"));
 
+    public static final TagKey<Item> PAGES = item(new ResourceLocation(Valoria.ID, "pages"));
     public static final TagKey<Item> INFLICTS_FIRE = item(new ResourceLocation(Valoria.ID, "inflicts_fire"));
     public static final TagKey<Item> GRANTS_IMMUNITIES = item(new ResourceLocation(Valoria.ID, "accessories/grants_immunities"));
     public static final TagKey<Item> BLEEDING_IMMUNE = item(new ResourceLocation(Valoria.ID, "accessories/bleeding_immune"));

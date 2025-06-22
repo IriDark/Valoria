@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "valoria:page",
+    "valoria:crypt_page",
+    "valoria:fortress_page",
+    "valoria:necromancer_page",
+    "valoria:dryador_page",
+    "valoria:wicked_crystal_page"
+  ]
+}

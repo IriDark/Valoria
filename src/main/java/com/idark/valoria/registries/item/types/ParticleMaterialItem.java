@@ -24,7 +24,6 @@ import pro.komaru.tridot.util.math.*;
 
 import static com.idark.valoria.client.particle.ParticleEffects.spawnItemParticles;
 
-//todo
 public class ParticleMaterialItem extends Item implements ParticleItemEntity, IGuiRenderItem, IGUIParticleItem{
     public ParticleType<?> particle;
     public ColorParticleData color;
