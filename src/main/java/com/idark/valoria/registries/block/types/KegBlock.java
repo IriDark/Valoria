@@ -10,7 +10,6 @@ import net.minecraft.network.chat.*;
 import net.minecraft.server.level.*;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.player.*;
-import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.context.*;
 import net.minecraft.world.level.*;
@@ -64,6 +63,10 @@ public class KegBlock extends HorizontalDirectionalBlock implements EntityBlock,
         }
     }
 
+    public MenuProvider getMenuProvider(Level pLevel, BlockPos pPos){
+        return new SimpleMenuProvider((p_57074_, p_57075_, p_57076_) -> new KegMenu(p_57074_, pLevel, pPos, p_57076_, p_57075_), Component.translatable("menu.valoria.keg"));
+    }
+
     @Override
     public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit){
         KegBlockEntity tile = (KegBlockEntity)world.getBlockEntity(pos);
@@ -83,28 +86,10 @@ public class KegBlock extends HorizontalDirectionalBlock implements EntityBlock,
 
             return InteractionResult.FAIL;
         }else{
-            MenuProvider containerProvider = createContainerProvider(world, pos);
-            if(player instanceof ServerPlayer serverPlayer){
-                NetworkHooks.openScreen(serverPlayer, containerProvider, tile.getBlockPos());
-            }
+            if(player instanceof ServerPlayer serv) NetworkHooks.openScreen(serv, getMenuProvider(world, pos), buf -> buf.writeBlockPos(pos));
         }
 
         return InteractionResult.SUCCESS;
-    }
-
-    private MenuProvider createContainerProvider(Level worldIn, BlockPos pos){
-        return new MenuProvider(){
-
-            @Override
-            public Component getDisplayName(){
-                return Component.translatable("menu.valoria.keg");
-            }
-
-            @Override
-            public AbstractContainerMenu createMenu(int i, Inventory playerInventory, Player playerEntity){
-                return new KegMenu(i, worldIn, pos, playerEntity, playerInventory);
-            }
-        };
     }
 
     public boolean isCupOrBottle(KegBlockEntity tile, Player player, InteractionHand hand){

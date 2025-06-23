@@ -15,7 +15,6 @@ import net.minecraft.sounds.*;
 import net.minecraft.util.*;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.player.*;
-import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
@@ -146,30 +145,18 @@ public class ManipulatorBlock extends Block implements EntityBlock{
         return InteractionResult.SUCCESS;
     }
 
+    public MenuProvider getMenuProvider(Level pLevel, BlockPos pPos){
+        return new SimpleMenuProvider((p_57074_, p_57075_, p_57076_) -> new ManipulatorMenu(p_57074_, pLevel, pPos, p_57075_, p_57076_), Component.translatable("menu.valoria.manipulator"));
+    }
+
     private void openScreenOrUpdate(Level world, BlockPos pos, ServerPlayer player, ManipulatorBlockEntity coreBlock, boolean coreUpdated, BlockEntity tileEntity){
         if(coreUpdated){
             ValoriaUtils.SUpdateTileEntityPacket(coreBlock);
         }else{
-            MenuProvider containerProvider = createContainerProvider(world, pos);
-            NetworkHooks.openScreen(player, containerProvider, tileEntity.getBlockPos());
+            NetworkHooks.openScreen(player, getMenuProvider(world, pos), buf -> buf.writeBlockPos(pos));
         }
 
         this.coreUpdated = false;
-    }
-
-    private MenuProvider createContainerProvider(Level worldIn, BlockPos pos){
-        return new MenuProvider(){
-
-            @Override
-            public Component getDisplayName(){
-                return Component.translatable("menu.valoria.manipulator");
-            }
-
-            @Override
-            public AbstractContainerMenu createMenu(int i, Inventory playerInventory, Player playerEntity){
-                return new ManipulatorMenu(i, worldIn, pos, playerInventory, playerEntity);
-            }
-        };
     }
 
     @Nullable

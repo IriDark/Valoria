@@ -7,7 +7,6 @@ import net.minecraft.network.chat.*;
 import net.minecraft.server.level.*;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.player.*;
-import net.minecraft.world.inventory.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.*;
@@ -57,32 +56,20 @@ public class JewelerBlock extends Block implements EntityBlock{
         return new JewelryBlockEntity(pPos, pState);
     }
 
-    @Override
-    public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit){
-        if(world.isClientSide){
+    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit){
+        if(pLevel.isClientSide){
             return InteractionResult.SUCCESS;
         }else{
-            BlockEntity tileEntity = world.getBlockEntity(pos);
+            if (pPlayer instanceof ServerPlayer serverPlayer) {
+                NetworkHooks.openScreen(serverPlayer, getMenuProvider(pLevel, pPos), buf -> buf.writeBlockPos(pPos));
+            }
 
-            MenuProvider containerProvider = createContainerProvider(world, pos);
-            NetworkHooks.openScreen(((ServerPlayer)player), containerProvider, tileEntity.getBlockPos());
             return InteractionResult.CONSUME;
         }
     }
 
-    private MenuProvider createContainerProvider(Level worldIn, BlockPos pos){
-        return new MenuProvider(){
-
-            @Override
-            public Component getDisplayName(){
-                return Component.translatable("menu.valoria.jewelry");
-            }
-
-            @Override
-            public AbstractContainerMenu createMenu(int i, Inventory playerInventory, Player playerEntity){
-                return new JewelryMenu(i, worldIn, pos, playerInventory, playerEntity);
-            }
-        };
+    public MenuProvider getMenuProvider(Level pLevel, BlockPos pPos){
+        return new SimpleMenuProvider((p_57074_, p_57075_, p_57076_) -> new JewelryMenu(p_57074_, pLevel, pPos, p_57075_, p_57076_), Component.translatable("menu.valoria.jewelry"));
     }
 
     @Override
