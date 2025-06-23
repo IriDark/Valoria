@@ -96,7 +96,7 @@ public class SoulCollectorItem extends Item implements OverlayRenderItem{
     }
 
     public void addCount(int count, ItemStack pStack, Player player){
-        if(pStack.getOrCreateTag().getInt("Souls") >= getMaxSouls() - 1){
+        if(pStack.getOrCreateTag().getInt("Souls") + count >= getMaxSouls() - 1){
             player.getInventory().removeItem(pStack);
             ValoriaUtils.addPlayerItem(player.level(), player, ItemsRegistry.soulCollector.get().getDefaultInstance());
             player.level().playSound(null, player.getOnPos(), getTransformSound(), SoundSource.PLAYERS, 1, player.level().random.nextFloat());

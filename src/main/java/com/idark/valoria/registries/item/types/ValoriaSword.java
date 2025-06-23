@@ -8,6 +8,7 @@ import net.minecraft.network.chat.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
+import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import pro.komaru.tridot.api.*;
@@ -34,9 +35,13 @@ public class ValoriaSword extends SwordItem{
      * the damage on the stack.
      */
     public boolean hurtEnemy(ItemStack pStack, LivingEntity pTarget, LivingEntity pAttacker) {
-        if(Tmp.rnd.chance(0.25f)){
-            if(pStack.is(ItemsRegistry.crimtaneSword.get())){
-                pAttacker.addEffect(new MobEffectInstance(EffectsRegistry.RENEWAL.get(), 120));
+        if(!(pAttacker instanceof Player player)) return true;
+        pStack.hurtAndBreak(2, pAttacker, (entity) -> entity.broadcastBreakEvent(EquipmentSlot.MAINHAND));
+        if(Utils.Items.getAttackStrengthScale(player, 0.9f)){
+            if(Tmp.rnd.chance(0.25f)){
+                if(pStack.is(ItemsRegistry.crimtaneSword.get())){
+                    pAttacker.addEffect(new MobEffectInstance(EffectsRegistry.RENEWAL.get(), 120));
+                }
             }
         }
 

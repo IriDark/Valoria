@@ -4,6 +4,7 @@ import com.google.common.collect.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import org.jetbrains.annotations.*;
@@ -30,8 +31,12 @@ public class HitEffectItem extends SwordItem{
     }
 
     public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker){
+        if(!(attacker instanceof Player player)) return true;
         stack.hurtAndBreak(2, attacker, (entity) -> entity.broadcastBreakEvent(EquipmentSlot.MAINHAND));
-        Utils.Entities.applyWithChance(target, effects, chance, arcRandom);
+        if(Utils.Items.getAttackStrengthScale(player, 0.9f)){
+            Utils.Entities.applyWithChance(target, effects, chance, arcRandom);
+        }
+
         return true;
     }
 
