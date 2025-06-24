@@ -1,17 +1,14 @@
 package com.idark.valoria.client.color;
 
-import com.idark.valoria.registries.BlockRegistry;
-import net.minecraft.client.color.block.BlockColor;
-import net.minecraft.client.renderer.BiomeColors;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.BlockAndTintGetter;
-import net.minecraft.world.level.FoliageColor;
-import net.minecraft.world.level.GrassColor;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import org.jetbrains.annotations.Nullable;
+import com.idark.valoria.registries.*;
+import net.minecraft.client.color.block.*;
+import net.minecraft.client.renderer.*;
+import net.minecraft.core.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.*;
+import net.minecraftforge.api.distmarker.*;
+import org.jetbrains.annotations.*;
 
 @OnlyIn(Dist.CLIENT)
 public class ModBlockColors implements BlockColor{
@@ -39,8 +36,19 @@ public class ModBlockColors implements BlockColor{
             BlockRegistry.pottedShadewoodSapling.get()
     };
 
+    public static int brightenColor(int color, float factor) {
+        int r = Math.min(255, (int)(((color >> 16) & 0xFF) * factor));
+        int g = Math.min(255, (int)(((color >> 8) & 0xFF) * factor));
+        int b = Math.min(255, (int)((color & 0xFF) * factor));
+        return (r << 16) | (g << 8) | b;
+    }
+
     public static ModBlockColors getInstance(){
         return INSTANCE;
+    }
+
+    public int getAloeColor(BlockState pState, @Nullable BlockAndTintGetter pLevel, @Nullable BlockPos pPos, int pTintIndex){
+        return brightenColor(getGrassColor(pState, pLevel, pPos, pTintIndex), 1.125f);
     }
 
     public int getGrassColor(BlockState pState, @Nullable BlockAndTintGetter pLevel, @Nullable BlockPos pPos, int pTintIndex){

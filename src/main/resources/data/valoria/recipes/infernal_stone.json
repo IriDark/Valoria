@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "valoria:devil_heart"
+    }
+  ],
+  "result": {
+    "item": "valoria:infernal_stone",
+    "count": 8
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "valoria:harmony_heart"
+    }
+  ],
+  "result": {
+    "item": "valoria:nature_gift",
+    "count": 8
+  }
+}

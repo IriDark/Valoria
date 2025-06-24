@@ -80,6 +80,7 @@ public class ValoriaClient{
         public static void ColorMappingBlocks(RegisterColorHandlersEvent.Block event){
             event.register((state, world, pos, tintIndex) -> ModBlockColors.getInstance().getGrassColor(state, world, pos, tintIndex), ModBlockColors.MODDED_GRASS);
             event.register((state, world, pos, tintIndex) -> ModBlockColors.getInstance().getFoliageColor(state, world, pos, tintIndex), ModBlockColors.MODDED_FOLIAGE);
+            event.register((state, world, pos, tintIndex) -> ModBlockColors.getInstance().getAloeColor(state, world, pos, tintIndex), BlockRegistry.aloe.get(), BlockRegistry.aloeSmall.get());
         }
 
         @SubscribeEvent
