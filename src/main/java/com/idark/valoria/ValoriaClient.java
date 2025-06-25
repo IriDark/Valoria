@@ -38,6 +38,7 @@ import pro.komaru.tridot.client.render.gui.*;
 import pro.komaru.tridot.client.sound.*;
 import pro.komaru.tridot.client.tooltip.*;
 import pro.komaru.tridot.common.registry.entity.*;
+import pro.komaru.tridot.util.*;
 
 import java.io.*;
 
@@ -91,6 +92,7 @@ public class ValoriaClient{
             event.register((stack, tintIndex) -> 11301619, BlockRegistry.voidGrass.get(), BlockRegistry.voidTaint.get(), BlockRegistry.voidRoots.get());
             event.register((p_92708_, p_92709_) -> p_92709_ > 0 ? -1 : ((DyeableLeatherItem)p_92708_.getItem()).getColor(p_92708_), ItemsRegistry.leatherGloves.get());
             event.register((p_92708_, p_92709_) -> p_92709_ > 0 ? -1 : ((DyeableLeatherItem)p_92708_.getItem()).getColor(p_92708_), ItemsRegistry.jewelryBag.get());
+            event.register((p_92708_, p_92709_) -> p_92709_ > 0 ? -1 : Col.fromHex("dfff30").pack(), BlockRegistry.aloe.get(), BlockRegistry.aloeSmall.get());
         }
 
         @SubscribeEvent

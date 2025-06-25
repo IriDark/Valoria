@@ -489,7 +489,7 @@ public class BlockRegistry{
 
         aloeSmall = registerBlock("aloe_small", () -> new DeadBushBlock(BlockBehaviour.Properties.copy(Blocks.SUNFLOWER)));
         pottedAloeSmall = BLOCK.register("potted_aloe_small", () -> new FlowerPotBlock(BlockRegistry.aloeSmall.get(), BlockBehaviour.Properties.copy(Blocks.POTTED_POPPY).instabreak().noOcclusion()));
-        aloe = registerBlock("aloe", () -> new TallSandFlowerBlock(BlockBehaviour.Properties.copy(Blocks.SUNFLOWER)));
+        aloe = registerBlock("aloe", () -> new TallAloeBlock(BlockBehaviour.Properties.copy(Blocks.SUNFLOWER)));
         driedPlant = registerBlock("dried_plant", () -> new DriedBlock(BlockBehaviour.Properties.copy(Blocks.SUNFLOWER)));
         pottedDriedPlant = BLOCK.register("potted_dried_plant", () -> new FlowerPotBlock(BlockRegistry.driedPlant.get(), BlockBehaviour.Properties.copy(Blocks.POTTED_POPPY).instabreak().noOcclusion()));
         driedRoots = registerBlock("dried_roots", () -> new DriedBlock(BlockBehaviour.Properties.copy(Blocks.SUNFLOWER)));
