@@ -64,6 +64,8 @@ public class PhantomArrow extends AbstractTridotArrow implements TexturedArrow{
                 this.removeAfterChangingDimensions();
             }
         }
+
+        burst = false;
     }
 
     @Override
