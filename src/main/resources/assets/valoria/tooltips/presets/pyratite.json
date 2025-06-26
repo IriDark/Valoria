@@ -1,0 +1,8 @@
+{
+  "priority": 1000,
+  "panel": "valoria:pyratite",
+  "icon": "obscure_tooltips:common",
+  "filter": {
+    "rarity": "pyratite"
+  }
+}

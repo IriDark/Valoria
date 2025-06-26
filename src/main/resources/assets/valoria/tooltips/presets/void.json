@@ -1,0 +1,12 @@
+{
+  "priority": 1000,
+  "panel": "valoria:void",
+  "frame": "valoria:void",
+  "icon": "obscure_tooltips:common",
+  "effects": [
+    "valoria:void"
+  ],
+  "filter": {
+    "rarity": "void"
+  }
+}

@@ -1,40 +1,32 @@
 package com.idark.valoria.registries.item.types.food;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
-import com.mojang.datafixers.util.Pair;
-import net.minecraft.ChatFormatting;
-import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.network.chat.CommonComponents;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.stats.Stats;
-import net.minecraft.world.effect.MobEffect;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffectUtil;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attribute;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.food.FoodProperties;
+import com.google.common.collect.*;
+import com.mojang.datafixers.util.*;
+import net.minecraft.*;
+import net.minecraft.advancements.*;
+import net.minecraft.network.chat.*;
+import net.minecraft.server.level.*;
+import net.minecraft.sounds.*;
+import net.minecraft.stats.*;
+import net.minecraft.world.effect.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.food.*;
 import net.minecraft.world.item.*;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.gameevent.*;
 
-import javax.annotation.Nullable;
-import java.util.List;
-import java.util.Map;
+import javax.annotation.*;
+import java.util.*;
 
 public class PlaceableDrinkItem extends BlockItem{
     private final ItemStack item;
     private final ImmutableList<MobEffectInstance> effects;
     private static final Component NO_EFFECT = Component.translatable("effect.none").withStyle(ChatFormatting.GRAY);
 
-    public PlaceableDrinkItem(Block block, int nutrition, int saturation, int stackSize, Item pItem, MobEffectInstance... pEffects){
+    public PlaceableDrinkItem(Block block, int nutrition, float saturation, int stackSize, Item pItem, MobEffectInstance... pEffects){
         super(block, new Properties()
                 .food(new FoodProperties.Builder()
                         .alwaysEat().nutrition(nutrition)

@@ -1,0 +1,12 @@
+{
+  "priority": 1000,
+  "panel": "valoria:ethereal",
+  "frame": "valoria:ethereal",
+  "icon": "obscure_tooltips:rare",
+  "effects": [
+    "valoria:ethereal"
+  ],
+  "filter": {
+    "rarity": "ethereal"
+  }
+}

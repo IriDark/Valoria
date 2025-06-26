@@ -1,0 +1,12 @@
+{
+  "priority": 1000,
+  "panel": "valoria:infernal",
+  "frame": "valoria:infernal",
+  "icon": "obscure_tooltips:common",
+  "effects": [
+    "valoria:infernal"
+  ],
+  "filter": {
+    "rarity": "infernal"
+  }
+}

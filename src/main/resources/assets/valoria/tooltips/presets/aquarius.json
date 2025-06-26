@@ -1,0 +1,9 @@
+{
+  "priority": 1000,
+  "panel": "valoria:aquarius",
+  "frame": "valoria:aquarius",
+  "icon": "obscure_tooltips:common",
+  "filter": {
+    "rarity": "aquarius"
+  }
+}

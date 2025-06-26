@@ -1,0 +1,8 @@
+{
+  "priority": 1000,
+  "panel": "valoria:bloody",
+  "icon": "obscure_tooltips:common",
+  "filter": {
+    "rarity": "bloody"
+  }
+}

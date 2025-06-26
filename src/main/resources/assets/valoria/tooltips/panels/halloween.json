@@ -1,0 +1,8 @@
+{
+  "factory": "obscure_tooltips:color_rect",
+  "back_top_color": "f0270f05",
+  "back_bottom_color": "f0000000",
+  "border_top_color": "60f8b451",
+  "border_bottom_color": "30f8b451",
+  "slot_color": "20ffffff"
+}

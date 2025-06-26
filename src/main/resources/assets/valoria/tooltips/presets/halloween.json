@@ -1,0 +1,8 @@
+{
+  "priority": 1000,
+  "panel": "valoria:halloween",
+  "icon": "obscure_tooltips:common",
+  "filter": {
+    "rarity": "halloween"
+  }
+}

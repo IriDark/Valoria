@@ -1,0 +1,9 @@
+{
+  "priority": 1000,
+  "panel": "valoria:phantasm",
+  "frame": "valoria:phantasm",
+  "icon": "obscure_tooltips:common",
+  "filter": {
+    "rarity": "phantasm"
+  }
+}
