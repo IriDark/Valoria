@@ -71,8 +71,6 @@ public class ValoriaUtils{
 
                 tooltipList.add(mutablecomponent.withStyle(mobeffect.getCategory().getTooltipFormatting()));
             }
-
-            tooltipList.add(CommonComponents.EMPTY);
         }
     }
 

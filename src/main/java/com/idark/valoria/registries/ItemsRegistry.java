@@ -85,7 +85,7 @@ public class ItemsRegistry{
     phantasmHelmet, phantasmChestplate, phantasmLeggings, phantasmBoots,
 
     // materials
-    rawCobalt, runicDust, amberGem, amethystGem, rubyGem, sapphireGem, wickedAmethyst, soulShard, unchargedShard, spiderFang, remains, crimtaneIngot,
+    rawCobalt, runicDust, amberGem, amethystGem, rubyGem, sapphireGem, wickedAmethyst, soulShard, unchargedShard, spiderFang, spiderChitin, remains, crimtaneIngot,
     natureGift, oceanicShell, infernalStone, rottenBone, marshCloth, painCrystal, nihilityShard, illusionStone, elementalCrystal,
     natureCore, aquariusCore, infernalCore, voidCore, unstableCore,
     valoriaPortalFrameShard, blackGoldUpgrade, natureUpgrade, aquariusUpgrade, infernalUpgrade, voidUpgrade,
@@ -238,7 +238,8 @@ public class ItemsRegistry{
         wickedAmethyst = registerItem("wicked_amethyst", () -> new TransformShardItem(new Item.Properties().rarity(RarityRegistry.VOID)));
         soulShard = registerItem("soul_shard", () -> new TransformShardItem(new Item.Properties().rarity(RarityRegistry.AQUARIUS)));
         unchargedShard = registerItem("uncharged_shard");
-        spiderFang = registerItem("spider_fang");
+        spiderFang = registerItem("spider_fang", RarityRegistry.SPIDER);
+        spiderChitin = registerItem("spider_chitin", RarityRegistry.SPIDER);
         remains = registerItem("remains", RarityRegistry.BLOODY);
         gaibRoot = registerItem("gaib_root", () -> new Item(new Item.Properties().stacksTo(16)) {
             public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced){
