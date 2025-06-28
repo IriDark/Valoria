@@ -1,0 +1,9 @@
+{
+  "priority": 1000,
+  "panel": "valoria:default",
+  "frame": "valoria:elemental",
+  "icon": "obscure_tooltips:common",
+  "filter": {
+    "rarity": "elemental"
+  }
+}

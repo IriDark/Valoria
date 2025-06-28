@@ -1,0 +1,14 @@
+{
+  "priority": 1000,
+  "panel": "valoria:default",
+  "filter": {
+    "mods": [
+      "valoria"
+    ],
+    "rarities": [
+      "common",
+      "rare",
+      "epic"
+      ]
+  }
+}

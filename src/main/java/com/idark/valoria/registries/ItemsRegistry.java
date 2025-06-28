@@ -273,7 +273,7 @@ public class ItemsRegistry{
         voidIngot = registerItem("void_ingot", RarityRegistry.VOID);
         relicGold = registerItem("relic_gold", Rarity.EPIC);
         ancientShard = registerItem("ancient_shard",Rarity.EPIC);
-        pyratite = registerItem("pyratite", () -> new Item(new Item.Properties().fireResistant().rarity(RarityRegistry.INFERNAL)));
+        pyratite = registerItem("pyratite", () -> new Item(new Item.Properties().fireResistant().rarity(RarityRegistry.PYRATITE)));
         jade = registerItem("jade");
         natureGift = registerItem("nature_gift", () -> new ParticleMaterialItem(new Item.Properties().rarity(RarityRegistry.NATURE), 0.35f, ColorParticleData.create(Pal.nature, Pal.vividCyan).build(), ParticleRegistry.SPHERE.get()));
         rottenBone = registerItem("rotten_bone", () -> new ParticleMaterialItem(new Item.Properties().rarity(RarityRegistry.MARSH), 0.35f, ColorParticleData.create(Pal.vividGreen, Pal.cyan).build(), ParticleRegistry.SPHERE.get()));
@@ -328,7 +328,7 @@ public class ItemsRegistry{
             }
         });
 
-        suspiciousGem = registerItem("suspicious_gem", () -> new Item(new Item.Properties()){
+        suspiciousGem = registerItem("suspicious_gem", () -> new Item(new Item.Properties().rarity(RarityRegistry.VOID)){
             @Override
             public void appendHoverText(@NotNull ItemStack stack, Level world, @NotNull List<Component> tooltip, @NotNull TooltipFlag flags){
                 super.appendHoverText(stack, world, tooltip, flags);
@@ -338,7 +338,7 @@ public class ItemsRegistry{
             }
         });
 
-        harmonyCrown = registerItem("harmony_crown", () -> new BossSummonableItem(6, EntityTypeRegistry.DRYADOR::get, new Item.Properties()));
+        harmonyCrown = registerItem("harmony_crown", () -> new BossSummonableItem(6, EntityTypeRegistry.DRYADOR, new Item.Properties().rarity(RarityRegistry.NATURE)));
 
         // misc
         debugItem = registerItem("debug_item", () -> new DebugItem(new Item.Properties()));
