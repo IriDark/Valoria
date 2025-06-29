@@ -11,6 +11,18 @@
       "entries": [
         {
           "type": "minecraft:item",
+          "name": "valoria:lotus_fragment",
+          "weight": 1,
+          "functions": [],
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance",
+              "chance": 0.35
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
           "name": "valoria:page",
           "weight": 5
         },

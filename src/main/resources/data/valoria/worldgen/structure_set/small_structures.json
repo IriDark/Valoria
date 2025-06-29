@@ -2,11 +2,15 @@
   "structures": [
     {
       "structure": "valoria:tower",
-      "weight": 65
+      "weight": 45
     },
     {
       "structure": "valoria:crystallized_deep_ruins",
-      "weight": 45
+      "weight": 65
+    },
+    {
+      "structure": "valoria:sand_ruin",
+      "weight": 65
     },
     {
       "structure": "valoria:small_ruin",

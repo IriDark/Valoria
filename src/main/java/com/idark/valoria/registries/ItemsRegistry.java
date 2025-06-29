@@ -95,7 +95,7 @@ public class ItemsRegistry{
     emptyGazer, emptyWinglet, emptyTotem,
 
     // skin
-    arcaneTrim, deathOfCrabsFragment, muramasaFragment, murasameFragment, fishFragment, neroFragment, cyberpunkQunatumFragment, midnightQunatumFragment, theFallenTrim, starDivider,
+    arcaneTrim, icyScytheFragment, lotusFragment, deathOfCrabsFragment, muramasaFragment, murasameFragment, fishFragment, neroFragment, cyberpunkQunatumFragment, midnightQunatumFragment, theFallenTrim, starDivider,
 
     // loot bags
     minersBag, gemBag, necromancerTreasureBag, crystalTreasureBag, dryadorTreasureBag, dirtGeode, stoneGeode,
@@ -297,6 +297,8 @@ public class ItemsRegistry{
         infernalUpgrade = registerItem("infernal_upgrade_smithing_template", () -> new ElementalSmithingTemplateItem(new Item.Properties()));
         voidUpgrade = registerItem("void_upgrade_smithing_template", () -> new ElementalSmithingTemplateItem(new Item.Properties()));
         deathOfCrabsFragment = registerItem("death_of_crabs_fragment", () -> new SkinFragmentItem(SkinsRegistry.DEATH_OF_CRABS, new Item.Properties(), () -> cobaltSword.get()));
+        icyScytheFragment = registerItem("icy_scythe_fragment", () -> new SkinFragmentItem(SkinsRegistry.ICY, new Item.Properties(), () -> voidScythe.get()));
+        lotusFragment = registerItem("lotus_fragment", () -> new SkinFragmentItem(SkinsRegistry.LOTUS, new Item.Properties(), () -> voidScythe.get()));
         cyberpunkQunatumFragment = registerItem("cyberpunk_quantum_reaper_fragment", () -> new SkinFragmentItem(SkinsRegistry.CYBERPUNK, new Item.Properties(), () -> quantumReaper.get()));
         midnightQunatumFragment = registerItem("midnight_quantum_reaper_fragment", () -> new SkinFragmentItem(SkinsRegistry.MIDNIGHT, new Item.Properties(), () -> quantumReaper.get()));
         starDivider = registerItem("star_divider_fragment", () -> new SkinFragmentItem(SkinsRegistry.STAR_DIVIDER, new Item.Properties(), () -> quantumReaper.get()));

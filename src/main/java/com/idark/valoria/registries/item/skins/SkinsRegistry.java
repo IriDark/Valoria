@@ -27,7 +27,7 @@ import pro.komaru.tridot.util.*;
 import java.util.*;
 
 public class SkinsRegistry{
-    public static ItemSkin THE_FALLEN_COLLECTOR, ARCANE_GOLD, CYBERPUNK, MIDNIGHT, MURAMASA, MURASAME, FISH, NERO, STAR_DIVIDER, DEATH_OF_CRABS, WARDEN;
+    public static ItemSkin THE_FALLEN_COLLECTOR, ARCANE_GOLD, CYBERPUNK, MIDNIGHT, MURAMASA, MURASAME, FISH, NERO, STAR_DIVIDER, DEATH_OF_CRABS, ICY, LOTUS;
 
     public static void init(){
         THE_FALLEN_COLLECTOR = new SkinBuilder(Valoria.ID, "the_fallen_collector").color(Pal.seaGreen).contributor("Kerdo", Styles.nature)
@@ -64,10 +64,12 @@ public class SkinsRegistry{
         DEATH_OF_CRABS = new SkinBuilder(Valoria.ID, "death_of_crabs").contributor("TerraPrime", Styles.aquarius).color(Col.fromHex("76bdd1"))
                 .add(new ItemSupplierSkinEntry(() -> ItemsRegistry.cobaltSword.get(), Valoria.ID + ":death_of_crabs"))
                 .build();
-        WARDEN = new SkinBuilder(Valoria.ID, "warden").contributor("KaJiNt", Styles.aquarius).color(Col.fromHex("29dfeb"))
-            .add(new ItemSupplierSkinEntry(() -> ItemsRegistry.voidScythe.get(), Valoria.ID + ":warden_scythe"))
+        ICY = new SkinBuilder(Valoria.ID, "icy").color(Col.fromHex("29dfeb"))
+            .add(new ItemSupplierSkinEntry(() -> ItemsRegistry.voidScythe.get(), Valoria.ID + ":icy_scythe"))
             .build();
-
+        LOTUS = new SkinBuilder(Valoria.ID, "lotus").contributor("KaJiNt", Styles.aquarius).color(Col.fromHex("29dfeb"))
+            .add(new ItemSupplierSkinEntry(() -> ItemsRegistry.voidScythe.get(), Valoria.ID + ":lotus_scythe"))
+            .build();
     }
 
     public static void register(){
@@ -82,7 +84,8 @@ public class SkinsRegistry{
         ItemSkinHandler.register(NERO);
         ItemSkinHandler.register(STAR_DIVIDER);
         ItemSkinHandler.register(DEATH_OF_CRABS);
-        ItemSkinHandler.register(WARDEN);
+        ItemSkinHandler.register(ICY);
+        ItemSkinHandler.register(LOTUS);
         DistExecutor.unsafeCallWhenOn(Dist.CLIENT, () -> () -> {
             registerModels();
             return new Object();
@@ -103,7 +106,8 @@ public class SkinsRegistry{
         ItemSkinModels.addSkin(Valoria.ID + ":muramasa");
         ItemSkinModels.addSkin(Valoria.ID + ":murasame");
         ItemSkinModels.addSkin(Valoria.ID + ":death_of_crabs");
-        ItemSkinModels.addSkin(Valoria.ID + ":warden_scythe");
+        ItemSkinModels.addSkin(Valoria.ID + ":icy_scythe");
+        ItemSkinModels.addSkin(Valoria.ID + ":lotus_scythe");
         ItemSkinModels.addSkin(Valoria.ID + ":nero");
     }
 
@@ -122,7 +126,8 @@ public class SkinsRegistry{
             event.register(LargeItemRenderer.getModelResourceLocation(Valoria.ID, "cobalt_sword"));
             event.register(LargeItemRenderer.getModelResourceLocation(Valoria.ID, "phantom"));
             event.register(LargeItemRenderer.getModelResourceLocation(Valoria.ID, "blaze_reap"));
-            event.register(LargeItemRenderer.getModelResourceLocation(Valoria.ID, "skin/warden_scythe"));
+            event.register(LargeItemRenderer.getModelResourceLocation(Valoria.ID, "skin/lotus_scythe"));
+            event.register(LargeItemRenderer.getModelResourceLocation(Valoria.ID, "skin/icy_scythe"));
             event.register(LargeItemRenderer.getModelResourceLocation(Valoria.ID, "skin/death_of_crabs"));
             event.register(LargeItemRenderer.getModelResourceLocation(Valoria.ID, "skin/arcane_gold_blaze_reap"));
             event.register(LargeItemRenderer.getModelResourceLocation(Valoria.ID, "skin/muramasa"));
@@ -146,7 +151,8 @@ public class SkinsRegistry{
             TridotItemSkins.addSkinModel(map, ItemsRegistry.quantumReaper.getId());
             TridotItemSkins.addLargeModel(map, Valoria.ID, "muramasa");
             TridotItemSkins.addLargeModel(map, Valoria.ID, "murasame");
-            TridotItemSkins.addLargeModel(map, Valoria.ID, "warden_scythe");
+            TridotItemSkins.addLargeModel(map, Valoria.ID, "icy_scythe");
+            TridotItemSkins.addLargeModel(map, Valoria.ID, "lotus_scythe");
             TridotItemSkins.addLargeModel(map, Valoria.ID, "death_of_crabs");
             TridotItemSkins.addLargeModel(map, Valoria.ID, "brand");
             TridotItemSkins.addLargeModel(map, Valoria.ID, "arcane_gold_blaze_reap");

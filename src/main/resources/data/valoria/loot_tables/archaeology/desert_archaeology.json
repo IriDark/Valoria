@@ -11,18 +11,6 @@
         },
         {
           "type": "minecraft:item",
-          "name": "valoria:lotus_fragment",
-          "weight": 1,
-          "functions": [],
-          "conditions": [
-            {
-              "condition": "minecraft:random_chance",
-              "chance": 0.35
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
           "name": "valoria:relic_gold",
           "weight": 5,
           "functions": [
@@ -51,27 +39,38 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:raw_copper",
-          "weight": 5
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:raw_gold",
-          "weight": 3
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:raw_iron",
-          "weight": 6
-        },
-        {
-          "type": "minecraft:item",
           "name": "minecraft:copper_ingot",
           "weight": 5
         },
         {
           "type": "minecraft:item",
           "name": "minecraft:gold_ingot",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:music_disc_relic",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "valoria:empty_gazer",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "valoria:empty_winglet",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "valoria:empty_totem",
+          "weight": 5
+        },
+
+        {
+          "type": "minecraft:item",
+          "name": "valoria:golden_spear",
           "weight": 5
         },
         {

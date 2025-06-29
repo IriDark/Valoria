@@ -938,7 +938,8 @@
   "itemGroup.valoriaMiscModTab": "Valoria - Misc",
   "itemGroup.valoriaAccessoriesModTab": "Valoria - Accessories",
   "itemGroup.valoriaArmorModTab": "Valoria - Armor",
-  "item_skin.valoria.wardeb": "Warden",
+  "item_skin.valoria.icy": "Icy",
+  "item_skin.valoria.lotus": "Lotus",
   "item_skin.valoria.arcane_gold": "Arcane Gold",
   "item_skin.valoria.nero": "Nero",
   "item_skin.valoria.cyberpunk": "Cyberpunk",
@@ -1198,5 +1199,6 @@
   "tooltip.valoria.open": "To open press %s + %s",
   "tooltip.valoria.collected": "Can be collected with %s",
   "tooltip.valoria.gaib_roots": "Can be found in forests",
-  "tooltip.valoria.unstable_core": "Inserts a random elemental core with variable quantity"
+  "tooltip.valoria.unstable_core": "Inserts a random elemental core with variable quantity",
+  "tooltip.valoria.phantom": "Has a launch ability with a stunning enemies in air"
 }

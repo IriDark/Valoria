@@ -3,6 +3,7 @@ package com.idark.valoria.registries.item.types;
 import com.idark.valoria.core.config.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.util.*;
+import net.minecraft.*;
 import net.minecraft.client.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.sounds.*;
@@ -18,7 +19,6 @@ import net.minecraft.world.level.*;
 import net.minecraftforge.common.Tags.*;
 import org.jetbrains.annotations.*;
 import org.joml.*;
-import pro.komaru.tridot.api.*;
 import pro.komaru.tridot.api.interfaces.*;
 import pro.komaru.tridot.client.gfx.*;
 import pro.komaru.tridot.client.gfx.particle.*;
@@ -56,7 +56,9 @@ public class PhantomItem extends ValoriaSword implements RadiusItem, CooldownRed
     @Override
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced){
         super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
-        Utils.Items.addContributorTooltip(pStack, pTooltipComponents);
+        pTooltipComponents.add(Component.translatable("tooltip.valoria.phantom").withStyle(ChatFormatting.GRAY));
+        pTooltipComponents.add(Component.empty());
+        pTooltipComponents.add(Component.translatable("tooltip.valoria.rmb").withStyle(ChatFormatting.GREEN));
     }
 
     public void releaseUsing(ItemStack stack, Level level, LivingEntity entityLiving, int timeLeft){

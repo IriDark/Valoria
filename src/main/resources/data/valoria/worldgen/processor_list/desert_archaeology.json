@@ -1,0 +1,129 @@
+{
+  "processors": [
+    {
+      "processor_type": "minecraft:rule",
+      "rules": [
+        {
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "input_predicate": {
+            "predicate_type": "minecraft:random_block_match",
+            "block": "minecraft:sand",
+            "probability": 0.2
+          },
+          "output_state": {
+            "Name": "valoria:dunestone"
+          }
+        },
+        {
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "input_predicate": {
+            "predicate_type": "minecraft:random_block_match",
+            "block": "valoria:dunestone",
+            "probability": 0.2
+          },
+          "output_state": {
+            "Name": "minecraft:sand"
+          }
+        },
+        {
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "input_predicate": {
+            "predicate_type": "minecraft:random_block_match",
+            "block": "valoria:dunestone",
+            "probability": 0.1
+          },
+          "output_state": {
+            "Name": "valoria:dunestone_bricks"
+          }
+        },
+        {
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "input_predicate": {
+            "predicate_type": "minecraft:random_block_match",
+            "block": "valoria:dunestone_bricks",
+            "probability": 0.15
+          },
+          "output_state": {
+            "Name": "valoria:cut_dunestone"
+          }
+        },
+        {
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "input_predicate": {
+            "predicate_type": "minecraft:random_block_match",
+            "block": "valoria:cut_dunestone",
+            "probability": 0.25
+          },
+          "output_state": {
+            "Name": "valoria:dunestone"
+          }
+        },
+        {
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "input_predicate": {
+            "predicate_type": "minecraft:random_block_match",
+            "block": "valoria:cut_dunestone",
+            "probability": 0.45
+          },
+          "output_state": {
+            "Name": "valoria:polished_dunestone"
+          }
+        },
+        {
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "input_predicate": {
+            "predicate_type": "minecraft:random_block_match",
+            "block": "minecraft:suspicious_sand",
+            "probability": 0.15
+          },
+          "output_state": {
+            "Name": "minecraft:sand"
+          }
+        }
+      ]
+    },
+    {
+      "processor_type": "minecraft:capped",
+      "limit": 6,
+      "delegate": {
+        "processor_type": "minecraft:rule",
+        "rules": [
+          {
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "input_predicate": {
+              "predicate_type": "minecraft:random_block_match",
+              "block": "minecraft:suspicious_sand",
+              "probability": 1
+            },
+            "output_state": {
+              "Name": "minecraft:suspicious_sand",
+              "Properties": {
+                "dusted": "0"
+              }
+            },
+            "block_entity_modifier": {
+              "type": "minecraft:append_loot",
+              "loot_table": "valoria:archaeology/desert_archaeology"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

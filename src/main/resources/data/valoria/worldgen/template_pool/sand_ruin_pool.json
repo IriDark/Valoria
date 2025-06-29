@@ -6,7 +6,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "projection": "rigid",
-        "location": "valoria:crystallized_deep_ruins",
+        "location": "valoria:sand_ruin",
         "processors": "valoria:desert_archaeology"
       }
     }

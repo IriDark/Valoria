@@ -1,6 +1,6 @@
 {
   "parent": "item/handheld",
   "textures": {
-    "layer0": "valoria:item/warden_scythe"
+    "layer0": "valoria:item/icy_scythe"
   }
 }

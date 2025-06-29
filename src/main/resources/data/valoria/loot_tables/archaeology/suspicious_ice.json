@@ -33,6 +33,18 @@
         },
         {
           "type": "minecraft:item",
+          "name": "valoria:icy_scythe_fragment",
+          "weight": 1,
+          "functions": [],
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance",
+              "chance": 0.15
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
           "name": "minecraft:raw_copper",
           "weight": 5
         },
