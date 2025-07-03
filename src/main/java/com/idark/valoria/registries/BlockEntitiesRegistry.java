@@ -22,6 +22,7 @@ public class BlockEntitiesRegistry{
     public static final RegistryObject<BlockEntityType<ValoriaPortalBlockEntity>> VALORIA_PORTAL_BLOCK_ENTITY = BLOCK_ENTITIES.register("valoria_portal", () -> Builder.of(ValoriaPortalBlockEntity::new, BlockRegistry.valoriaPortal.get()).build(null));
     public static final RegistryObject<BlockEntityType<FleshCystBlockEntity>> FLESH_CYST = BLOCK_ENTITIES.register("flesh_cyst", () -> Builder.of(FleshCystBlockEntity::new, BlockRegistry.fleshCyst.get()).build(null));
     public static final RegistryObject<BlockEntityType<KilnBlockEntity>> KILN = BLOCK_ENTITIES.register("kiln", () -> Builder.of(KilnBlockEntity::new, BlockRegistry.kiln.get()).build(null));
+    public static final RegistryObject<BlockEntityType<BossTrophyBlockEntity>> BOSS_TROPHY_ENTITIES = BLOCK_ENTITIES.register("boss_trophy", () -> Builder.of(BossTrophyBlockEntity::new, BlockRegistry.bossTrophy.get(), BlockRegistry.necromancerTrophy.get(), BlockRegistry.dryadorTrophy.get(), BlockRegistry.wickedCrystalTrophy.get()).build(null));
 
     public static void register(IEventBus eventBus){
         BLOCK_ENTITIES.register(eventBus);

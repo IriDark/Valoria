@@ -77,7 +77,12 @@ public class BlockRegistry{
 
     // decorative
     elegantPedestal, woodenCup, beerCup, rumCup, cup, teaCup, greenTeaCup, coffeeCup, cacaoCup, glassBottle, rumBottle, cokeBottle, akvavitBottle, liquorBottle, wineBottle, meadBottle, sakeBottle, kvassBottle, whiskeyBottle, cognacBottle,
-    taintedRoots, bloodVine, bloodVinePlant, caveRootPlant, caveRoot, violetSprout, violetSproutPlant, glowVioletSprout, glowVioletSproutPlant, abyssalGlowfern, abyssalGlowfernPlant, aloeSmall, aloe, pottedAloeSmall, driedPlant, pottedDriedPlant, driedRoots, pottedDriedRoots, cattail, soulroot, pottedSoulroot, soulFlower, pottedSoulFlower, crimsonSoulroot, doubleSoulroot, pottedCrimsonSoulroot, magmaroot, doubleMagmaroot, pottedMagmaroot, goldy, doubleGoldy, pottedGoldy, rajush, pottedRajush, bloodroot, pottedBloodroot, falseFlower, falseFlowerSmall, pottedFalseflower, pottedFalseflowerSmall, voidRoots, pottedVoidRoots, voidSerpents, pottedVoidSerpents, voidvine, voidthorn, blightedGrass, pottedBlightedGrass, pottedVoidvine, gaibRoots, karusakanRoots, shadeBlossom, suspiciousIce, suspiciousTombstone, spikes;
+    taintedRoots, bloodVine, bloodVinePlant, caveRootPlant, caveRoot, violetSprout, violetSproutPlant, glowVioletSprout, glowVioletSproutPlant, abyssalGlowfern, abyssalGlowfernPlant, aloeSmall, aloe, pottedAloeSmall, driedPlant, pottedDriedPlant, driedRoots, pottedDriedRoots, cattail, soulroot, pottedSoulroot, soulFlower, pottedSoulFlower, crimsonSoulroot, doubleSoulroot, pottedCrimsonSoulroot, magmaroot, doubleMagmaroot, pottedMagmaroot, goldy, doubleGoldy, pottedGoldy, rajush, pottedRajush, bloodroot, pottedBloodroot, falseFlower, falseFlowerSmall, pottedFalseflower, pottedFalseflowerSmall, voidRoots, pottedVoidRoots, voidSerpents, pottedVoidSerpents, voidvine, voidthorn, blightedGrass, pottedBlightedGrass, pottedVoidvine, gaibRoots, karusakanRoots, shadeBlossom, suspiciousIce, suspiciousTombstone, spikes,
+
+    // boss trophies
+    bossTrophy, necromancerTrophy, dryadorTrophy, wickedCrystalTrophy
+    ;
+
 
     public static void load(IEventBus eventBus){
         shadewoodChest = registerBlock("shadewood_chest", () -> new TridotChestBlock(Properties.copy(Blocks.CHEST)));
@@ -538,6 +543,12 @@ public class BlockRegistry{
         // Sus
         suspiciousIce = registerBlock("suspicious_ice", () -> new CrushableBlock(true, Blocks.ICE, BlockBehaviour.Properties.copy(Blocks.ICE).friction(0.98F).noOcclusion().strength(0.5F).mapColor(MapColor.ICE).instrument(NoteBlockInstrument.SNARE).sound(SoundsRegistry.SUSPICIOUS_TOMBSTONE).pushReaction(PushReaction.DESTROY), SoundEvents.BRUSH_GRAVEL));
         suspiciousTombstone = registerBlock("suspicious_tombstone", () -> new CrushableBlock(false, BlockRegistry.tombstone.get(), BlockBehaviour.Properties.of().mapColor(MapColor.STONE).mapColor(MapColor.COLOR_BLACK).instrument(NoteBlockInstrument.SNARE).strength(0.85F).sound(SoundsRegistry.SUSPICIOUS_TOMBSTONE).pushReaction(PushReaction.DESTROY), SoundEvents.BRUSH_GRAVEL));
+
+        // Trophy
+        bossTrophy = registerBlock("boss_trophy", () -> new BossTrophyBlock(Properties.copy(Blocks.IRON_BLOCK)));
+        necromancerTrophy = registerBlock("necromancer_boss_trophy", () -> new BossTrophyBlock(EntityTypeRegistry.NECROMANCER::get, Properties.copy(Blocks.IRON_BLOCK)), () -> new BossTrophyBlockItem(BlockRegistry.necromancerTrophy.get(), new Item.Properties()));
+        dryadorTrophy = registerBlock("dryador_boss_trophy", () -> new BossTrophyBlock(EntityTypeRegistry.DRYADOR::get, Properties.copy(Blocks.IRON_BLOCK)), () -> new BossTrophyBlockItem(BlockRegistry.dryadorTrophy.get(), new Item.Properties()));
+        wickedCrystalTrophy = registerBlock("wicked_crystal_boss_trophy", () -> new BossTrophyBlock(EntityTypeRegistry.WICKED_CRYSTAL::get, Properties.copy(Blocks.IRON_BLOCK)), () -> new BossTrophyBlockItem(BlockRegistry.wickedCrystalTrophy.get(), new Item.Properties()));
 
         BLOCK.register(eventBus);
     }

@@ -9,6 +9,7 @@ import com.mojang.math.*;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.entity.*;
 import net.minecraft.resources.*;
+import net.minecraft.world.entity.*;
 import net.minecraftforge.api.distmarker.*;
 import pro.komaru.tridot.api.*;
 import pro.komaru.tridot.client.*;
@@ -54,10 +55,13 @@ public class NecromancerRenderer extends HumanoidMobRenderer<NecromancerEntity, 
             ms.popPose();
         }
 
-        float spawnProgress = entityIn.getSpawnProgress(partialTicks);
-        float scale = 0.5f + 0.5f * spawnProgress;
-        ms.translate(0, 0.01f, 0);
-        ms.scale(scale, scale, scale);
+        if (entityIn.getSpawnType() == MobSpawnType.SPAWN_EGG){
+            float spawnProgress = entityIn.getSpawnProgress(partialTicks);
+            float scale = 0.5f + 0.5f * spawnProgress;
+            ms.translate(0, 0.01f, 0);
+            ms.scale(scale, scale, scale);
+        }
+
         super.render(entityIn, entityYaw, partialTicks, ms, buffers, light);
     }
 }
