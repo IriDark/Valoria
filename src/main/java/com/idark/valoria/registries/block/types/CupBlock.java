@@ -12,7 +12,7 @@ import net.minecraft.world.level.material.*;
 import net.minecraft.world.phys.*;
 import net.minecraft.world.phys.shapes.*;
 
-public class CupBlock extends Block{
+public class CupBlock extends Block implements SimpleWaterloggedBlock{
     public static final IntegerProperty CUPS = IntegerProperty.create("cups", 1, 2);
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     private static final VoxelShape TWO_AABB = Shapes.box(0.0625, 0, 0.0625, 0.875, 0.3125, 0.875);

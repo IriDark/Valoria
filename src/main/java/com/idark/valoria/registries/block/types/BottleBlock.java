@@ -10,7 +10,7 @@ import net.minecraft.world.level.material.*;
 import net.minecraft.world.phys.*;
 import net.minecraft.world.phys.shapes.*;
 
-public class BottleBlock extends Block{
+public class BottleBlock extends Block implements SimpleWaterloggedBlock{
     public static final IntegerProperty BOTTLES = IntegerProperty.create("bottles", 1, 4);
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     private static final VoxelShape ONE_AABB = Shapes.box(0.40625, 0, 0.375, 0.65625, 0.625, 0.625);
