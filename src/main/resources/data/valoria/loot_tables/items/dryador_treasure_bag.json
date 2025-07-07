@@ -207,6 +207,17 @@
       "entries": [
         {
           "type": "minecraft:item",
+          "name": "valoria:dryador_boss_trophy",
+          "weight": 1,
+          "functions": []
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
           "name": "valoria:the_fallen_trim",
           "weight": 1,
           "functions": [],

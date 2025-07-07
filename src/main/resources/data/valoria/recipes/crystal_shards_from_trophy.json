@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "valoria:wicked_crystal_boss_trophy"
+    }
+  ],
+  "result": {
+    "item": "valoria:crystal_shard",
+    "count": 4
+  }
+}

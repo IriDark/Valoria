@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "valoria:necromancer_boss_trophy"
+    }
+  ],
+  "result": {
+    "item": "valoria:ethereal_shard",
+    "count": 2
+  }
+}

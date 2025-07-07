@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "valoria:dryador_boss_trophy"
+    }
+  ],
+  "result": {
+    "item": "valoria:nature_gift",
+    "count": 2
+  }
+}
