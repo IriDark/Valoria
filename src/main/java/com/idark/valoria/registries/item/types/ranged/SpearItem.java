@@ -87,7 +87,7 @@ public class SpearItem extends SwordItem implements Vanishable{
         return Stream.of(actions).collect(Collectors.toCollection(Sets::newIdentityHashSet));
     }
 
-    private Multimap<Attribute, AttributeModifier> createAttributes(){
+    public Multimap<Attribute, AttributeModifier> createAttributes(){
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
         builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Weapon modifier", this.attackDamage, AttributeModifier.Operation.ADDITION));
         if(projectileDamage > 0) builder.put(AttributeRegistry.PROJECTILE_DAMAGE.get(), new AttributeModifier(BASE_PROJECTILE_DAMAGE_UUID, "Tool modifier", projectileDamage, AttributeModifier.Operation.ADDITION));

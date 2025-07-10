@@ -9,7 +9,9 @@ import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.*;
 import com.idark.valoria.core.network.packets.particle.*;
 import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.AttributeReg.*;
 import com.idark.valoria.registries.effect.*;
+import com.idark.valoria.registries.entity.*;
 import com.idark.valoria.registries.item.armor.*;
 import com.idark.valoria.registries.item.armor.item.*;
 import com.idark.valoria.registries.item.types.*;
@@ -25,6 +27,7 @@ import net.minecraft.tags.*;
 import net.minecraft.world.damagesource.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
@@ -193,6 +196,39 @@ public class Events{
     }
 
     @SubscribeEvent
+    public void onLivingHurt(LivingHurtEvent event){
+        if(event.getSource().is(DamageTypeTags.BYPASSES_ARMOR)) return;
+
+        Entity attackerEntity = event.getSource().getEntity();
+        if (!(attackerEntity instanceof LivingEntity attacker)) return;
+
+        LivingEntity target = event.getEntity();
+        float totalBonus = 0f;
+
+        attacker.sendSystemMessage(Component.literal("MobType: " + event.getEntity().getName().getString()));
+        for (ElementalType type : ElementalTypes.ELEMENTALS){
+            AttributeInstance attackAttr = attacker.getAttribute(type.damageAttr().get());
+            AttributeInstance resistAttr = target.getAttribute(type.resistAttr().get());
+            if(attackAttr != null){
+                float damage = (float)attackAttr.getValue();
+                float resistance = (float)(resistAttr != null ? resistAttr.getValue() : 0);
+
+                boolean flag = attackAttr.getAttribute() != AttributeReg.VOID_DAMAGE.get() && target.getAttribute(AttributeReg.ELEMENTAL_RESISTANCE.get()) != null;
+                resistance += (float)(flag ? target.getAttributeValue(AttributeReg.ELEMENTAL_RESISTANCE.get()) : 0);
+
+                float multiplier = 1f - (resistance / 100f);
+                multiplier = Math.max(multiplier, 0f);
+
+                totalBonus += damage * multiplier;
+                attacker.sendSystemMessage(Component.literal("Dealt extra " + Component.translatable(type.damageAttr().get().getDescriptionId()).getString() + ": " + damage * multiplier));
+            }
+        }
+
+        event.setAmount(event.getAmount() + totalBonus);
+        attacker.sendSystemMessage(Component.literal("Total Damage: " + event.getAmount()));
+    }
+
+    @SubscribeEvent
     public void onLivingAttack(LivingAttackEvent event){
         var pSource = event.getSource();
         var entity = event.getEntity();
@@ -279,7 +315,7 @@ public class Events{
     }
 
     @SubscribeEvent
-    public void onHeal(LivingHealEvent event) {
+    public void onLivingHeal(LivingHealEvent event) {
         float amount = event.getAmount();
         if (event.getEntity().hasEffect(EffectsRegistry.EXHAUSTION.get())) {
             int amplifier = event.getEntity().getEffect(EffectsRegistry.EXHAUSTION.get()).getAmplifier();

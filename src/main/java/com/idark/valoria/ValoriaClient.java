@@ -65,6 +65,15 @@ public class ValoriaClient{
         TooltipModifierHandler.add(BASE_ATTACK_RADIUS_UUID);
         TooltipModifierHandler.add(BASE_NECROMANCY_COUNT_UUID);
         TooltipModifierHandler.add(BASE_NECROMANCY_LIFETIME_UUID);
+        TooltipModifierHandler.add(BASE_NATURE_DAMAGE_UUID);
+        TooltipModifierHandler.add(BASE_NATURE_RESISTANCE_UUID);
+        TooltipModifierHandler.add(BASE_DEPTH_DAMAGE_UUID);
+        TooltipModifierHandler.add(BASE_DEPTH_RESISTANCE_UUID);
+        TooltipModifierHandler.add(BASE_INFERNAL_DAMAGE_UUID);
+        TooltipModifierHandler.add(BASE_INFERNAL_RESISTANCE_UUID);
+        TooltipModifierHandler.add(BASE_VOID_DAMAGE_UUID);
+        TooltipModifierHandler.add(BASE_VOID_RESISTANCE_UUID);
+        TooltipModifierHandler.add(BASE_ELEMENTAL_RESISTANCE_UUID);
 
         MusicHandler.register(new MusicModifier.DungeonMusic(SoundsRegistry.MUSIC_NECROMANCER_DUNGEON.get(), LevelGen.NECROMANCER_CRYPT));
     }

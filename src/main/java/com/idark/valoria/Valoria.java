@@ -70,6 +70,16 @@ public class Valoria{
     public static UUID BASE_NECROMANCY_LIFETIME_UUID = UUID.fromString("09a12525-61a5-4d57-a125-2561a56d578e");
     public static UUID BASE_NECROMANCY_COUNT_UUID = UUID.fromString("ed80691e-f153-4b5e-8069-1ef153bb5eed");
 
+    public static UUID BASE_NATURE_DAMAGE_UUID = UUID.fromString("15171755-91d0-466e-9717-5591d0b66eba");
+    public static UUID BASE_DEPTH_DAMAGE_UUID = UUID.fromString("ff1ed1ea-4a25-462e-9ed1-ea4a25862ef9");
+    public static UUID BASE_INFERNAL_DAMAGE_UUID = UUID.fromString("780fa02c-8040-44c7-8fa0-2c804004c776");
+    public static UUID BASE_VOID_DAMAGE_UUID = UUID.fromString("8a7e1c44-e461-4692-be1c-44e4618692f6");
+    public static UUID BASE_NATURE_RESISTANCE_UUID = UUID.fromString("38289748-ba5b-4ee1-a897-48ba5b3ee15a");
+    public static UUID BASE_DEPTH_RESISTANCE_UUID = UUID.fromString("59a7d286-60fc-4a18-a7d2-8660fc9a1803");
+    public static UUID BASE_INFERNAL_RESISTANCE_UUID = UUID.fromString("b3198f26-6e76-497b-998f-266e76097b48");
+    public static UUID BASE_VOID_RESISTANCE_UUID = UUID.fromString("d54e60fa-ef27-4181-8e60-faef2771814e");
+    public static UUID BASE_ELEMENTAL_RESISTANCE_UUID = UUID.fromString("14e99f51-ad2a-4996-a99f-51ad2a0996a0");
+
     public static final GameRules.Key<GameRules.BooleanValue> DISABLE_BLOCK_BREAKING = GameRules.register("valoria:disableBossDungeonGriefing", GameRules.Category.PLAYER, GameRules.BooleanValue.create(true));
     public static final GameRules.Key<GameRules.BooleanValue> TRAP_ACTIVATING = GameRules.register("valoria:trapActivating", GameRules.Category.MISC, GameRules.BooleanValue.create(true));
 
@@ -331,6 +341,90 @@ public class Valoria{
             event.add(EntityType.PLAYER, AttributeRegistry.PROJECTILE_DAMAGE.get());
             event.add(EntityType.PLAYER, AttributeReg.NECROMANCY_LIFETIME.get());
             event.add(EntityType.PLAYER, AttributeReg.NECROMANCY_COUNT.get());
+
+            event.add(EntityType.PLAYER, AttributeReg.INFERNAL_DAMAGE.get());
+            event.add(EntityType.PLAYER, AttributeReg.DEPTH_DAMAGE.get());
+            event.add(EntityType.PLAYER, AttributeReg.NATURE_DAMAGE.get());
+            event.add(EntityType.PLAYER, AttributeReg.VOID_DAMAGE.get());
+            event.add(EntityType.PLAYER, AttributeReg.INFERNAL_RESISTANCE.get());
+            event.add(EntityType.PLAYER, AttributeReg.DEPTH_RESISTANCE.get());
+            event.add(EntityType.PLAYER, AttributeReg.NATURE_RESISTANCE.get());
+            event.add(EntityType.PLAYER, AttributeReg.VOID_RESISTANCE.get());
+            event.add(EntityType.PLAYER, AttributeReg.ELEMENTAL_RESISTANCE.get());
+
+            event.add(EntityTypeRegistry.WICKED_CRYSTAL.get(), AttributeReg.VOID_RESISTANCE.get(), 45);
+            event.add(EntityTypeRegistry.WICKED_CRYSTAL.get(), AttributeReg.ELEMENTAL_RESISTANCE.get(), 15);
+            event.add(EntityTypeRegistry.DRYADOR.get(), AttributeReg.INFERNAL_RESISTANCE.get(), -25);
+            event.add(EntityTypeRegistry.DRYADOR.get(), AttributeReg.NATURE_RESISTANCE.get(), 50);
+            event.add(EntityTypeRegistry.NECROMANCER.get(), AttributeReg.INFERNAL_RESISTANCE.get(), -25);
+            event.add(EntityTypeRegistry.NECROMANCER.get(), AttributeReg.VOID_RESISTANCE.get(), 15);
+            event.add(EntityTypeRegistry.DEVIL.get(), AttributeReg.DEPTH_RESISTANCE.get(), -15);
+            event.add(EntityTypeRegistry.DEVIL.get(), AttributeReg.INFERNAL_RESISTANCE.get(), 25);
+            event.add(EntityTypeRegistry.SHADEWOOD_SPIDER.get(), AttributeReg.NATURE_RESISTANCE.get(), 15);
+            event.add(EntityTypeRegistry.PIXIE.get(), AttributeReg.NATURE_RESISTANCE.get(), 15);
+            event.add(EntityTypeRegistry.PIXIE.get(), AttributeReg.VOID_RESISTANCE.get(), -25);
+            event.add(EntityTypeRegistry.TROLL.get(), AttributeReg.NATURE_RESISTANCE.get(), 15);
+            event.add(EntityTypeRegistry.TROLL.get(), AttributeReg.INFERNAL_RESISTANCE.get(), -15);
+            event.add(EntityTypeRegistry.CORRUPTED_TROLL.get(), AttributeReg.NATURE_RESISTANCE.get(), -25);
+            event.add(EntityTypeRegistry.CORRUPTED_TROLL.get(), AttributeReg.VOID_RESISTANCE.get(), 35);
+            event.add(EntityTypeRegistry.ENT.get(), AttributeReg.NATURE_RESISTANCE.get(), 35);
+            event.add(EntityTypeRegistry.ENT.get(), AttributeReg.INFERNAL_RESISTANCE.get(), -25);
+            event.add(EntityTypeRegistry.SORCERER.get(), AttributeReg.ELEMENTAL_RESISTANCE.get(), 25);
+            event.add(EntityTypeRegistry.CORRUPTED.get(), AttributeReg.INFERNAL_RESISTANCE.get(), -45);
+            event.add(EntityTypeRegistry.CORRUPTED.get(), AttributeReg.VOID_RESISTANCE.get(), 35);
+            event.add(EntityTypeRegistry.FLESH_SENTINEL.get(), AttributeReg.INFERNAL_RESISTANCE.get(), -45);
+            event.add(EntityTypeRegistry.FLESH_SENTINEL.get(), AttributeReg.VOID_RESISTANCE.get(), 35);
+            event.add(EntityTypeRegistry.UNDEAD.get(), AttributeReg.INFERNAL_RESISTANCE.get(), -25);
+            event.add(EntityTypeRegistry.UNDEAD.get(), AttributeReg.VOID_RESISTANCE.get(), -25);
+            event.add(EntityTypeRegistry.SCOURGE.get(), AttributeReg.VOID_RESISTANCE.get(), -25);
+            event.add(EntityTypeRegistry.SCOURGE.get(), AttributeReg.DEPTH_RESISTANCE.get(), 25);
+            event.add(EntityTypeRegistry.SWAMP_WANDERER.get(), AttributeReg.VOID_RESISTANCE.get(), -25);
+            event.add(EntityTypeRegistry.SWAMP_WANDERER.get(), AttributeReg.DEPTH_RESISTANCE.get(), 25);
+            event.add(EntityTypeRegistry.DRAUGR.get(), AttributeReg.INFERNAL_RESISTANCE.get(), -15);
+
+            event.add(EntityType.HUSK, AttributeReg.INFERNAL_RESISTANCE.get(), -15);
+            event.add(EntityType.ZOMBIE, AttributeReg.INFERNAL_RESISTANCE.get(), -15);
+            event.add(EntityType.ZOMBIE_HORSE, AttributeReg.INFERNAL_RESISTANCE.get(), -15);
+            event.add(EntityType.ZOMBIE_VILLAGER, AttributeReg.INFERNAL_RESISTANCE.get(), -15);
+            event.add(EntityType.ZOMBIFIED_PIGLIN, AttributeReg.INFERNAL_RESISTANCE.get(), 35);
+            event.add(EntityType.SKELETON, AttributeReg.INFERNAL_RESISTANCE.get(), -15);
+            event.add(EntityType.SKELETON_HORSE, AttributeReg.INFERNAL_RESISTANCE.get(), -15);
+            event.add(EntityType.CREEPER, AttributeReg.NATURE_RESISTANCE.get(), 35); // plant theory
+            event.add(EntityType.SPIDER, AttributeReg.NATURE_RESISTANCE.get(), 15);
+            event.add(EntityType.CAVE_SPIDER, AttributeReg.NATURE_RESISTANCE.get(), 15);
+            event.add(EntityType.SLIME, AttributeReg.DEPTH_RESISTANCE.get(), 35);
+            event.add(EntityType.MAGMA_CUBE, AttributeReg.DEPTH_RESISTANCE.get(), -50);
+            event.add(EntityType.MAGMA_CUBE, AttributeReg.INFERNAL_RESISTANCE.get(), 25);
+            event.add(EntityType.MAGMA_CUBE, AttributeReg.VOID_RESISTANCE.get(), -25);
+            event.add(EntityType.WITHER, AttributeReg.INFERNAL_RESISTANCE.get(), 100);
+            event.add(EntityType.WITHER_SKELETON, AttributeReg.INFERNAL_RESISTANCE.get(), 50);
+            event.add(EntityType.WITHER_SKELETON, AttributeReg.NATURE_RESISTANCE.get(), -15);
+            event.add(EntityType.SNOW_GOLEM, AttributeReg.INFERNAL_RESISTANCE.get(), -35);
+            event.add(EntityType.SNOW_GOLEM, AttributeReg.VOID_RESISTANCE.get(), -25);
+            event.add(EntityType.IRON_GOLEM, AttributeReg.VOID_RESISTANCE.get(), -25);
+            event.add(EntityType.STRIDER, AttributeReg.INFERNAL_RESISTANCE.get(), 50);
+            event.add(EntityType.GUARDIAN, AttributeReg.INFERNAL_RESISTANCE.get(), -25);
+            event.add(EntityType.ELDER_GUARDIAN, AttributeReg.INFERNAL_RESISTANCE.get(), -50);
+            event.add(EntityType.GUARDIAN, AttributeReg.DEPTH_RESISTANCE.get(), 25);
+            event.add(EntityType.ELDER_GUARDIAN, AttributeReg.DEPTH_RESISTANCE.get(), 50);
+            event.add(EntityType.STRAY, AttributeReg.ELEMENTAL_RESISTANCE.get(), -15);
+            event.add(EntityType.STRAY, AttributeReg.INFERNAL_RESISTANCE.get(), -15);
+            event.add(EntityType.PHANTOM, AttributeReg.VOID_RESISTANCE.get(), -35);
+            event.add(EntityType.PHANTOM, AttributeReg.INFERNAL_RESISTANCE.get(), -15);
+            event.add(EntityType.GHAST, AttributeReg.INFERNAL_RESISTANCE.get(), 25);
+            event.add(EntityType.GHAST, AttributeReg.DEPTH_RESISTANCE.get(), 25);
+            event.add(EntityType.GHAST, AttributeReg.VOID_RESISTANCE.get(), -25);
+            event.add(EntityType.BLAZE, AttributeReg.INFERNAL_RESISTANCE.get(), 45);
+            event.add(EntityType.BLAZE, AttributeReg.DEPTH_RESISTANCE.get(), -25);
+            event.add(EntityType.VEX, AttributeReg.ELEMENTAL_RESISTANCE.get(), -25);
+            event.add(EntityType.WARDEN, AttributeReg.ELEMENTAL_RESISTANCE.get(), 45);
+            event.add(EntityType.WITCH, AttributeReg.ELEMENTAL_RESISTANCE.get(), 25);
+            event.add(EntityType.WITCH, AttributeReg.VOID_RESISTANCE.get(), -35);
+            event.add(EntityType.ENDERMAN, AttributeReg.ELEMENTAL_RESISTANCE.get(), 15);
+            event.add(EntityType.ENDERMAN, AttributeReg.VOID_RESISTANCE.get(), -15);
+            event.add(EntityType.SHULKER, AttributeReg.ELEMENTAL_RESISTANCE.get(), 15);
+            event.add(EntityType.SHULKER, AttributeReg.VOID_RESISTANCE.get(), -35);
+            event.add(EntityType.ALLAY, AttributeReg.ELEMENTAL_RESISTANCE.get(), 15);
         }
 
         @SubscribeEvent
