@@ -52,7 +52,6 @@ import net.minecraftforge.fml.javafmlmod.*;
 import net.minecraftforge.fml.loading.*;
 import org.slf4j.*;
 import pro.komaru.tridot.api.render.bossbars.*;
-import pro.komaru.tridot.common.registry.item.*;
 import top.theillusivec4.curios.api.client.*;
 
 import java.util.*;
@@ -338,7 +337,6 @@ public class Valoria{
         public static void attachAttribute(EntityAttributeModificationEvent event){
             event.add(EntityType.PLAYER, AttributeReg.DASH_DISTANCE.get());
             event.add(EntityType.PLAYER, AttributeReg.ATTACK_RADIUS.get());
-            event.add(EntityType.PLAYER, AttributeRegistry.PROJECTILE_DAMAGE.get());
             event.add(EntityType.PLAYER, AttributeReg.NECROMANCY_LIFETIME.get());
             event.add(EntityType.PLAYER, AttributeReg.NECROMANCY_COUNT.get());
 
@@ -382,6 +380,8 @@ public class Valoria{
             event.add(EntityTypeRegistry.SWAMP_WANDERER.get(), AttributeReg.DEPTH_RESISTANCE.get(), 25);
             event.add(EntityTypeRegistry.DRAUGR.get(), AttributeReg.INFERNAL_RESISTANCE.get(), -15);
 
+            event.add(EntityType.DROWNED, AttributeReg.DEPTH_RESISTANCE.get(), 25);
+            event.add(EntityType.DROWNED, AttributeReg.INFERNAL_RESISTANCE.get(), -25);
             event.add(EntityType.HUSK, AttributeReg.INFERNAL_RESISTANCE.get(), -15);
             event.add(EntityType.ZOMBIE, AttributeReg.INFERNAL_RESISTANCE.get(), -15);
             event.add(EntityType.ZOMBIE_HORSE, AttributeReg.INFERNAL_RESISTANCE.get(), -15);

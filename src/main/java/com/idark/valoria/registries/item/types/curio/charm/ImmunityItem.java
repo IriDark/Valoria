@@ -12,6 +12,7 @@ public class ImmunityItem extends AbstractCurioItem{
         super(pProperties);
     }
 
+    // would be good to move it into events?
     @Override
     public void curioTick(SlotContext slotContext, ItemStack stack){
         super.curioTick(slotContext, stack);

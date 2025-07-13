@@ -204,8 +204,6 @@ public class Events{
 
         LivingEntity target = event.getEntity();
         float totalBonus = 0f;
-
-        attacker.sendSystemMessage(Component.literal("MobType: " + event.getEntity().getName().getString()));
         for (ElementalType type : ElementalTypes.ELEMENTALS){
             AttributeInstance attackAttr = attacker.getAttribute(type.damageAttr().get());
             AttributeInstance resistAttr = target.getAttribute(type.resistAttr().get());
@@ -216,16 +214,12 @@ public class Events{
                 boolean flag = attackAttr.getAttribute() != AttributeReg.VOID_DAMAGE.get() && target.getAttribute(AttributeReg.ELEMENTAL_RESISTANCE.get()) != null;
                 resistance += (float)(flag ? target.getAttributeValue(AttributeReg.ELEMENTAL_RESISTANCE.get()) : 0);
 
-                float multiplier = 1f - (resistance / 100f);
-                multiplier = Math.max(multiplier, 0f);
-
+                float multiplier = Math.max(1f - (resistance / 100f), 0f);
                 totalBonus += damage * multiplier;
-                attacker.sendSystemMessage(Component.literal("Dealt extra " + Component.translatable(type.damageAttr().get().getDescriptionId()).getString() + ": " + damage * multiplier));
             }
         }
 
         event.setAmount(event.getAmount() + totalBonus);
-        attacker.sendSystemMessage(Component.literal("Total Damage: " + event.getAmount()));
     }
 
     @SubscribeEvent

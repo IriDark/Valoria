@@ -34,11 +34,11 @@ public class ArmorRegistry extends AbstractArmorRegistry{
     // Diamond - 16%
     // Netherite - 16%
 
-    public static List<ArmorEffectData> natureData = List.of(ArmorEffectData.createData(() -> new MobEffectInstance(EffectsRegistry.ALOEREGEN.get(), 400)));
-    public static List<ArmorEffectData> depthData = List.of(ArmorEffectData.createData(() -> new MobEffectInstance(MobEffects.WATER_BREATHING, 400), Entity::isInWater));
-    public static List<ArmorEffectData> infernalData = List.of(ArmorEffectData.createData(() -> new MobEffectInstance(MobEffects.DAMAGE_BOOST, 400)), ArmorEffectData.createData(() -> new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 400), Entity::isOnFire));
-    public static List<ArmorEffectData> etherealData = List.of(ArmorEffectData.createData(() -> new MobEffectInstance(MobEffects.NIGHT_VISION, 400)));
-    public static List<ArmorEffectData> crimtaneData = List.of(ArmorEffectData.createData(() -> new MobEffectInstance(EffectsRegistry.EXHAUSTION.get(), 400)));
+    public static List<ArmorEffectData> natureData = List.of(ArmorEffectData.createData(() -> new MobEffectInstance(EffectsRegistry.ALOEREGEN.get(), 1200)));
+    public static List<ArmorEffectData> depthData = List.of(ArmorEffectData.createData(() -> new MobEffectInstance(MobEffects.WATER_BREATHING, 1200), Entity::isInWater));
+    public static List<ArmorEffectData> infernalData = List.of(ArmorEffectData.createData(() -> new MobEffectInstance(MobEffects.DAMAGE_BOOST, 1200)), ArmorEffectData.createData(() -> new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 400), Entity::isOnFire));
+    public static List<ArmorEffectData> etherealData = List.of(ArmorEffectData.createData(() -> new MobEffectInstance(MobEffects.NIGHT_VISION, 1200)));
+    public static List<ArmorEffectData> crimtaneData = List.of(ArmorEffectData.createData(() -> new MobEffectInstance(EffectsRegistry.EXHAUSTION.get(), 1200)));
 
     public static final ArmorRegistry MARSH = new ArmorRegistry.Builder("marsh").protection(20).mul(58).enchantValue(12).ingredient(() -> Ingredient.of(ItemsRegistry.marshCloth.get())).build();
     public static final ArmorRegistry SAMURAI = new ArmorRegistry.Builder("samurai").protection(22).mul(55).enchantValue(16).knockbackRes(0.15f).ingredient(() -> Ingredient.of(ItemsRegistry.ancientIngot.get())).build();

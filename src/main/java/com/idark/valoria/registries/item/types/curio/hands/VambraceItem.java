@@ -2,6 +2,7 @@ package com.idark.valoria.registries.item.types.curio.hands;
 
 import com.google.common.collect.*;
 import com.idark.valoria.*;
+import com.idark.valoria.registries.*;
 import net.minecraft.client.player.*;
 import net.minecraft.resources.*;
 import net.minecraft.world.entity.*;
@@ -37,6 +38,10 @@ public class VambraceItem extends GlovesItem{
         Multimap<Attribute, AttributeModifier> atts = LinkedHashMultimap.create();
         atts.put(Attributes.ATTACK_SPEED, new AttributeModifier(uuid, "bonus", 0.1f, AttributeModifier.Operation.MULTIPLY_TOTAL));
         atts.put(Attributes.ARMOR, new AttributeModifier(uuid, "bonus", 5f, Operation.ADDITION));
+        if(stack.is(ItemsRegistry.magmaticVambrace.get())){
+            atts.put(AttributeReg.INFERNAL_RESISTANCE.get(), new AttributeModifier(uuid, "bonus", 2.5f, AttributeModifier.Operation.ADDITION));
+        }
+
         return atts;
     }
 }

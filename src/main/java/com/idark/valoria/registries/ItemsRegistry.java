@@ -589,7 +589,7 @@ public class ItemsRegistry{
         harmonyHeart = registerItem("harmony_heart", () -> new ImmunityItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
         medicatedDevilHeart = registerItem("medicated_devil_heart", () -> new ImmunityItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
         medicatedHarmonyHeart = registerItem("medicated_harmony_heart", () -> new ImmunityItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
-        elementalCharm = registerItem("elemental_charm", () -> new ElementalCharmItem(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC)));
+        elementalCharm = registerItem("elemental_charm", () -> new ElementalCharmItem(new Item.Properties().stacksTo(1).rarity(RarityRegistry.ELEMENTAL)));
         skeletalVambrace = registerItem("skeletal_vambrace", () -> new VambraceItem("skeletal", ItemTierRegistry.NONE, new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
         magmaticVambrace = registerItem("magmatic_vambrace", () -> new VambraceItem("magmatic", Tiers.NETHERITE, new Item.Properties().stacksTo(1).rarity(Rarity.EPIC)));
         magmaticGauntlet = registerItem("magmatic_gauntlet", () -> new MagmaticGauntletItem(Tiers.NETHERITE, new Item.Properties().stacksTo(1).rarity(Rarity.EPIC)));
