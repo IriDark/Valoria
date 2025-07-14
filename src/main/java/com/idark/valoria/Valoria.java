@@ -26,6 +26,7 @@ import com.idark.valoria.registries.item.types.curio.charm.rune.*;
 import com.idark.valoria.registries.level.*;
 import com.idark.valoria.util.*;
 import com.mojang.logging.*;
+import net.mehvahdjukaar.dummmmmmy.*;
 import net.minecraft.client.gui.screens.*;
 import net.minecraft.data.*;
 import net.minecraft.resources.*;
@@ -349,6 +350,14 @@ public class Valoria{
             event.add(EntityType.PLAYER, AttributeReg.NATURE_RESISTANCE.get());
             event.add(EntityType.PLAYER, AttributeReg.VOID_RESISTANCE.get());
             event.add(EntityType.PLAYER, AttributeReg.ELEMENTAL_RESISTANCE.get());
+            if(ModList.get().isLoaded("dummmmmmy")) {
+                event.add(Dummmmmmy.TARGET_DUMMY.get(), AttributeReg.INFERNAL_RESISTANCE.get());
+                event.add(Dummmmmmy.TARGET_DUMMY.get(), AttributeReg.DEPTH_RESISTANCE.get());
+                event.add(Dummmmmmy.TARGET_DUMMY.get(), AttributeReg.NATURE_RESISTANCE.get());
+                event.add(Dummmmmmy.TARGET_DUMMY.get(), AttributeReg.VOID_RESISTANCE.get());
+                event.add(Dummmmmmy.TARGET_DUMMY.get(), AttributeReg.ELEMENTAL_RESISTANCE.get());
+
+            }
 
             event.add(EntityTypeRegistry.WICKED_CRYSTAL.get(), AttributeReg.VOID_RESISTANCE.get(), 45);
             event.add(EntityTypeRegistry.WICKED_CRYSTAL.get(), AttributeReg.ELEMENTAL_RESISTANCE.get(), 15);

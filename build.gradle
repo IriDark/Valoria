@@ -145,6 +145,11 @@ dependencies {
     runtimeOnly fg.deobf("maven.modrinth:embeddium:0.3.31+mc1.20.1")
     runtimeOnly fg.deobf("maven.modrinth:embeddiumplus:1.20.1-v1.2.13")
     runtimeOnly fg.deobf("maven.modrinth:oculus:1.20.1-1.7.0")
+
+    // ---
+    implementation fg.deobf("curse.maven:mmmmmmmmmmmm-225738:6608233")
+    implementation fg.deobf("curse.maven:selene-499980:6740431")
+    // ---
 }
 
 jar {
