@@ -16,10 +16,13 @@ import net.minecraft.util.*;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.context.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.*;
+import net.minecraft.world.level.block.state.properties.*;
+import net.minecraft.world.level.material.*;
 import net.minecraft.world.phys.*;
 import net.minecraft.world.phys.shapes.*;
 import net.minecraftforge.api.distmarker.*;
@@ -33,12 +36,47 @@ import javax.annotation.Nullable;
 import javax.annotation.*;
 import java.util.*;
 
-public class ManipulatorBlock extends Block implements EntityBlock{
+public class ManipulatorBlock extends Block implements SimpleWaterloggedBlock, EntityBlock{
+    public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public static int maxCores = 8;
     private boolean coreUpdated;
 
     public ManipulatorBlock(BlockBehaviour.Properties properties){
         super(properties);
+        this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, false));
+    }
+
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder){
+        pBuilder.add(WATERLOGGED);
+    }
+
+    public BlockState getStateForPlacement(BlockPlaceContext pContext){
+        FluidState fluidstate = pContext.getLevel().getFluidState(pContext.getClickedPos());
+        boolean flag = fluidstate.getType() == Fluids.WATER;
+        return super.getStateForPlacement(pContext).setValue(WATERLOGGED, flag);
+    }
+
+    public BlockState updateShape(BlockState pState, Direction pDirection, BlockState pNeighborState, LevelAccessor pLevel, BlockPos pPos, BlockPos pNeighborPos){
+        if(pState.getValue(WATERLOGGED)){
+            pLevel.scheduleTick(pPos, Fluids.WATER, Fluids.WATER.getTickDelay(pLevel));
+        }
+
+        return super.updateShape(pState, pDirection, pNeighborState, pLevel, pPos, pNeighborPos);
+    }
+
+    public FluidState getFluidState(BlockState pState){
+        return pState.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(pState);
+    }
+
+    public boolean placeLiquid(LevelAccessor pLevel, BlockPos pPos, BlockState pState, FluidState pFluidState){
+        if(!pState.getValue(WATERLOGGED) && pFluidState.getType() == Fluids.WATER){
+            BlockState blockstate = pState.setValue(WATERLOGGED, true);
+            pLevel.setBlock(pPos, blockstate, 3);
+            pLevel.scheduleTick(pPos, pFluidState.getType(), pFluidState.getType().getTickDelay(pLevel));
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public VoxelShape makeShape(){

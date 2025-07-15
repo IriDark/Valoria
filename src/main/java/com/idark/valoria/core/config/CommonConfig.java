@@ -31,6 +31,9 @@ public class CommonConfig{
     public static final ForgeConfigSpec SPEC;
 
     public CommonConfig(ForgeConfigSpec.Builder builder){
+        builder.comment("Elemental Resistances").push("elemental_resistances");
+        builder.pop();
+
         builder.comment("Bosses").push("bosses");
             builder.comment("Necromancer").push("necromancer");
             ATTACK_NECROMANCER_CASTING_TIME = builder.comment("Casting time").define("devourerCastingTime", 40);

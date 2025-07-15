@@ -23,6 +23,7 @@ import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.level.block.state.properties.*;
+import net.minecraft.world.level.material.*;
 import net.minecraft.world.phys.*;
 import net.minecraft.world.phys.shapes.*;
 import pro.komaru.tridot.api.*;
@@ -33,8 +34,9 @@ import javax.annotation.*;
 import java.time.*;
 import java.util.*;
 
-public class SarcophagusBlock extends HorizontalDirectionalBlock{
+public class SarcophagusBlock extends HorizontalDirectionalBlock implements SimpleWaterloggedBlock{
     public ArcRandom arcRandom = Tmp.rnd;
+    public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public static final EnumProperty<BedPart> PART = BlockStateProperties.BED_PART;
     private static final BooleanProperty OPEN = BooleanProperty.create("open");
     private static final BooleanProperty LOOTED = BooleanProperty.create("looted");
@@ -58,7 +60,7 @@ public class SarcophagusBlock extends HorizontalDirectionalBlock{
 
     public SarcophagusBlock(BlockBehaviour.Properties pProperties){
         super(pProperties);
-        this.registerDefaultState(this.stateDefinition.any().setValue(PART, BedPart.FOOT).setValue(OPEN, false).setValue(LOOTED, false));
+        this.registerDefaultState(this.stateDefinition.any().setValue(PART, BedPart.FOOT).setValue(OPEN, false).setValue(LOOTED, false).setValue(WATERLOGGED, false));
     }
 
     private static boolean isHalloween(){
@@ -192,7 +194,26 @@ public class SarcophagusBlock extends HorizontalDirectionalBlock{
         return InteractionResult.SUCCESS;
     }
 
+    public FluidState getFluidState(BlockState pState){
+        return pState.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(pState);
+    }
+
+    public boolean placeLiquid(LevelAccessor pLevel, BlockPos pPos, BlockState pState, FluidState pFluidState){
+        if(!pState.getValue(WATERLOGGED) && pFluidState.getType() == Fluids.WATER){
+            BlockState blockstate = pState.setValue(WATERLOGGED, true);
+            pLevel.setBlock(pPos, blockstate, 3);
+            pLevel.scheduleTick(pPos, pFluidState.getType(), pFluidState.getType().getTickDelay(pLevel));
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pFacingPos){
+        if(pState.getValue(WATERLOGGED)){
+            pLevel.scheduleTick(pCurrentPos, Fluids.WATER, Fluids.WATER.getTickDelay(pLevel));
+        }
+
         if(pFacing == getNeighbourDirection(pState.getValue(PART), pState.getValue(FACING))){
             return pFacingState.is(this) && pFacingState.getValue(PART) != pState.getValue(PART) ? pState : Blocks.AIR.defaultBlockState();
         }else{
@@ -223,7 +244,9 @@ public class SarcophagusBlock extends HorizontalDirectionalBlock{
         BlockPos $$2 = pContext.getClickedPos();
         BlockPos $$3 = $$2.relative($$1);
         Level $$4 = pContext.getLevel();
-        return $$4.getBlockState($$3).canBeReplaced(pContext) && $$4.getWorldBorder().isWithinBounds($$3) ? this.defaultBlockState().setValue(FACING, $$1) : null;
+        FluidState fluidstate = pContext.getLevel().getFluidState(pContext.getClickedPos());
+        boolean flag = fluidstate.getType() == Fluids.WATER;
+        return $$4.getBlockState($$3).canBeReplaced(pContext) && $$4.getWorldBorder().isWithinBounds($$3) ? this.defaultBlockState().setValue(FACING, $$1).setValue(WATERLOGGED, flag) : null;
     }
 
     public void setPlacedBy(Level pLevel, BlockPos pPos, BlockState pState, @Nullable LivingEntity pPlacer, ItemStack pStack){
@@ -242,6 +265,7 @@ public class SarcophagusBlock extends HorizontalDirectionalBlock{
         builder.add(PART);
         builder.add(OPEN);
         builder.add(LOOTED);
+        builder.add(WATERLOGGED);
         super.createBlockStateDefinition(builder);
     }
 

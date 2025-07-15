@@ -283,6 +283,7 @@ public class Valoria{
 
     @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
     public static class RegistryEvents{
+
         @SubscribeEvent
         public static void registerCaps(RegisterCapabilitiesEvent event){
             event.register(IUnlockable.class);
@@ -356,7 +357,6 @@ public class Valoria{
                 event.add(Dummmmmmy.TARGET_DUMMY.get(), AttributeReg.NATURE_RESISTANCE.get());
                 event.add(Dummmmmmy.TARGET_DUMMY.get(), AttributeReg.VOID_RESISTANCE.get());
                 event.add(Dummmmmmy.TARGET_DUMMY.get(), AttributeReg.ELEMENTAL_RESISTANCE.get());
-
             }
 
             event.add(EntityTypeRegistry.WICKED_CRYSTAL.get(), AttributeReg.VOID_RESISTANCE.get(), 45);
