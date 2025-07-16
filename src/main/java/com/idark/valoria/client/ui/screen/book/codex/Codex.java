@@ -45,7 +45,11 @@ public class Codex extends DotScreen{
     }
 
     public static Codex getInstance() {
-        if (screen == null) screen = new Codex();
+        if (screen == null) {
+            CodexEntries.initChapters(); // init so recipes can render
+            screen = new Codex();
+        }
+
         return screen;
     }
 
@@ -160,8 +164,8 @@ public class Codex extends DotScreen{
         if(button == GLFW.GLFW_MOUSE_BUTTON_LEFT){
             float maxXOffset = (backgroundWidth) / (2f * xModifier);
             float maxYOffset = (backgroundHeight) / (2f * yModifier);
-            xOffset = Mth.clamp(xOffset + (float)dragX, -maxXOffset, maxXOffset);
-            yOffset = Mth.clamp(yOffset + (float)dragY, -maxYOffset, maxYOffset);
+            xOffset = Mth.clamp(xOffset + (float)-dragX, -maxXOffset, maxXOffset);
+            yOffset = Mth.clamp(yOffset + (float)-dragY, -maxYOffset, maxYOffset);
         }
 
         return super.mouseDragged(mouseX, mouseY, button, dragX, dragY);

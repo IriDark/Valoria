@@ -23,7 +23,7 @@ public class CodexEntries{
     public static Seq<CodexEntry> entries = new Seq<>();
     public static Chapter MAIN_CHAPTER, PAGES_CHAPTER, TREASURES_CHAPTER, MEDICINE_CHAPTER,
 
-    PICK, TINKERER_WORKBENCH,
+    PICK, TINKERER_WORKBENCH, STONE_CRUSHER,
 
     BOSSES,
     UNDEAD,
@@ -43,7 +43,7 @@ public class CodexEntries{
         "codex.valoria.main.name",
         new MainPage("codex.valoria.main"),
         new TextPage("codex.valoria.knowledge")
-        .withCraftEntry(ItemsRegistry.codex.get().getDefaultInstance(), Items.PAPER.getDefaultInstance(), Items.BOOK.getDefaultInstance()));
+        .withCraftEntry(ItemsRegistry.codex.get().getDefaultInstance()));
 
         PAGES_CHAPTER = new Chapter(
         "codex.valoria.pages.name",
@@ -63,6 +63,10 @@ public class CodexEntries{
         PICK = new Chapter(
         "codex.valoria.pick.name",
         new TextPage("codex.valoria.pick"));
+
+        STONE_CRUSHER = new Chapter(
+        "codex.valoria.stone_crusher",
+        new TextPage("codex.valoria.stone_crusher.description").withCustomTitle("codex.valoria.stone_crusher").withCraftEntry(BlockRegistry.stoneCrusher.get().asItem().getDefaultInstance()));
 
         TINKERER_WORKBENCH = new Chapter(
         "codex.valoria.tinkerer_workbench.name",
@@ -155,6 +159,7 @@ public class CodexEntries{
         ChapterNode root = new ChapterNode(PAGES_CHAPTER, ItemsRegistry.page.get(), Style.GOLD).addChild(new ChapterNode(MAIN_CHAPTER, ItemsRegistry.codex.get(), Style.GOLD)
             .addChild(TREASURES_CHAPTER, ItemsRegistry.amethystGem)
             .addChild(MEDICINE_CHAPTER, ItemsRegistry.aloeBandage)
+            .addChild(STONE_CRUSHER, BlockRegistry.stoneCrusher.get().asItem())
             .addChild(new ChapterNode(PICK, ItemsRegistry.pick.get(), Style.STANDARD, RegisterUnlockables.pick))
                 .addChild(new ChapterNode(TINKERER_WORKBENCH, BlockRegistry.tinkererWorkbench.get().asItem(), Style.STANDARD, RegisterUnlockables.tinkererWorkbench)
                     .addHintsDescription(
