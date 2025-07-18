@@ -13,15 +13,21 @@ import net.minecraft.world.level.block.state.pattern.*;
 import net.minecraft.world.level.block.state.predicate.*;
 import net.minecraft.world.level.block.state.properties.*;
 import net.minecraft.world.level.pathfinder.*;
+import net.minecraft.world.phys.shapes.*;
 
 public class ValoriaPortalFrame extends Block{
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
     public static BlockPattern portalShape;
     public static final BooleanProperty GENERATED = BooleanProperty.create("generated");
+    protected static final VoxelShape BASE_SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 13.0D, 16.0D);
 
     public ValoriaPortalFrame(Properties pProperties){
         super(pProperties);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(GENERATED, false));
+    }
+
+    public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
+        return BASE_SHAPE;
     }
 
     public static BlockPattern getOrCreatePortalShape(){

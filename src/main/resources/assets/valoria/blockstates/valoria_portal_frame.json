@@ -4,27 +4,11 @@
       {
         "model": "valoria:block/valoria_portal_frame",
         "y": 90
-      },
-      {
-        "model": "valoria:block/valoria_cracked_portal_frame",
-        "y": 90
-      },
-      {
-        "model": "valoria:block/valoria_broken_portal_frame",
-        "y": 90
       }
     ],
     "facing=north": [
       {
         "model": "valoria:block/valoria_portal_frame",
-        "y": 0
-      },
-      {
-        "model": "valoria:block/valoria_cracked_portal_frame",
-        "y": 0
-      },
-      {
-        "model": "valoria:block/valoria_broken_portal_frame",
         "y": 0
       }
     ],
@@ -32,27 +16,11 @@
       {
         "model": "valoria:block/valoria_portal_frame",
         "y": 180
-      },
-      {
-        "model": "valoria:block/valoria_cracked_portal_frame",
-        "y": 180
-      },
-      {
-        "model": "valoria:block/valoria_broken_portal_frame",
-        "y": 180
       }
     ],
     "facing=west": [
       {
         "model": "valoria:block/valoria_portal_frame",
-        "y": -90
-      },
-      {
-        "model": "valoria:block/valoria_cracked_portal_frame",
-        "y": -90
-      },
-      {
-        "model": "valoria:block/valoria_broken_portal_frame",
         "y": -90
       }
     ]
