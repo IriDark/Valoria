@@ -120,6 +120,7 @@ public class SoulCollectorItem extends Item implements OverlayRenderItem{
         int xCord = ClientConfig.MISC_UI_X.get() + offsetX;
         int yCord = ClientConfig.MISC_UI_Y.get() + offsetY;
         int progress = 22;
+
         progress /= (double)getMaxSouls() / (double)tag.getInt("Souls");
         gui.blit(BAR, xCord, yCord, 0, 0, 24, 48, 48, 48);
         gui.blit(BAR, xCord + 6, yCord + 39 - (int) (progress * 1.5), 36, 33 - (int) (progress * 1.5), 12, (int) (progress * 1.5), 48, 48);

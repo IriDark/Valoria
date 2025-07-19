@@ -23,7 +23,7 @@ public class CodexEntries{
     public static Seq<CodexEntry> entries = new Seq<>();
     public static Chapter MAIN_CHAPTER, PAGES_CHAPTER, TREASURES_CHAPTER, MEDICINE_CHAPTER,
 
-    PICK, TINKERER_WORKBENCH, STONE_CRUSHER,
+    PICK, TINKERER_WORKBENCH, STONE_CRUSHER, VALORIA_PORTAL,
 
     BOSSES,
     UNDEAD,
@@ -59,6 +59,10 @@ public class CodexEntries{
         MEDICINE_CHAPTER = new Chapter(
         "codex.valoria.medicine.name",
         new TextPage("codex.valoria.medicine"));
+
+        VALORIA_PORTAL = new Chapter(
+        "codex.valoria.valoria_portal.name",
+        new ValoriaPortalPage("codex.valoria.valoria_portal"));
 
         PICK = new Chapter(
         "codex.valoria.pick.name",
@@ -167,6 +171,7 @@ public class CodexEntries{
                     )
                 )
 
+            .addChild(new ChapterNode(VALORIA_PORTAL, BlockRegistry.valoriaPortalFrame.get().asItem(), Style.GOLD))
             .addChild(new ChapterNode(CRYPT, ItemsRegistry.cryptPage.get(), Style.CRYPT, RegisterUnlockables.crypt)
                 .addHintsDescription(
                     Component.translatable("codex.valoria.crypt.hint").withStyle(DotStyle.of().color(Col.gray).effect(PulseAlphaFX.of(1f)))

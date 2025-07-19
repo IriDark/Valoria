@@ -15,6 +15,7 @@ import com.idark.valoria.registries.entity.*;
 import com.idark.valoria.registries.item.armor.*;
 import com.idark.valoria.registries.item.armor.item.*;
 import com.idark.valoria.registries.item.types.*;
+import com.idark.valoria.registries.item.types.elemental.*;
 import com.idark.valoria.registries.level.*;
 import net.minecraft.*;
 import net.minecraft.client.gui.screens.*;
@@ -366,6 +367,16 @@ public class Events{
             if(attacker instanceof Player plr){
                 for(ItemStack itemStack : plr.getHandSlots()){
                     if(itemStack.is(ItemsRegistry.soulCollectorEmpty.get()) && itemStack.getItem() instanceof SoulCollectorItem soul){
+                        Vec3 pos = deathEvent.getEntity().position().add(0, deathEvent.getEntity().getBbHeight() / 2f, 0);
+                        PacketHandler.sendToTracking(serverLevel, BlockPos.containing(pos), new SoulCollectParticlePacket(plr.getUUID(), pos.x(), pos.y(), pos.z()));
+
+                        var event = new SoulEvent.Added(plr.getMainHandItem(), 1);
+                        if(!MinecraftForge.EVENT_BUS.post(event)){
+                            soul.addCount(event.count, itemStack, plr);
+                        }
+                    }
+
+                    if(itemStack.getItem() instanceof EtherealSwordItem soul){
                         Vec3 pos = deathEvent.getEntity().position().add(0, deathEvent.getEntity().getBbHeight() / 2f, 0);
                         PacketHandler.sendToTracking(serverLevel, BlockPos.containing(pos), new SoulCollectParticlePacket(plr.getUUID(), pos.x(), pos.y(), pos.z()));
 

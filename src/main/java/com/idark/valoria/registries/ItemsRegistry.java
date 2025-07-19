@@ -439,7 +439,7 @@ public class ItemsRegistry{
         cobaltShovel = registerItem("cobalt_shovel", () -> new ShovelItem(ItemTierRegistry.COBALT, ToolStats.shovel.damage, ToolStats.shovel.speed, new Item.Properties()));
         cobaltHoe = registerItem("cobalt_hoe", () -> new HoeItem(ItemTierRegistry.COBALT, (int)(ToolStats.hoe.damage), ToolStats.hoe.speed, new Item.Properties()));
 
-        etherealSword = registerItem("ethereal_sword", () -> new ValoriaSword(ItemTierRegistry.ETHEREAL, ToolStats.sword.damage, ToolStats.sword.speed, new Item.Properties().rarity(RarityRegistry.ETHEREAL)));
+        etherealSword = registerItem("ethereal_sword", () -> new EtherealSwordItem(ItemTierRegistry.ETHEREAL, ToolStats.sword.damage, ToolStats.sword.speed, new Item.Properties().rarity(RarityRegistry.ETHEREAL)));
         etherealSpear = registerItem("ethereal_spear", () -> new SpearItem(ItemTierRegistry.ETHEREAL, ToolStats.spear.damage, ToolStats.spear.speed, new Item.Properties().rarity(RarityRegistry.ETHEREAL)));
         etherealPickaxe = registerItem("ethereal_pickaxe", () -> new ValoriaPickaxe(ItemTierRegistry.ETHEREAL, ToolStats.pickaxe.damage, ToolStats.pickaxe.speed, new Item.Properties().rarity(RarityRegistry.ETHEREAL)));
         etherealAxe = registerItem("ethereal_axe", () -> new AxeItem(ItemTierRegistry.ETHEREAL, ToolStats.axe.damage, ToolStats.axe.speed, new Item.Properties().rarity(RarityRegistry.ETHEREAL)));
