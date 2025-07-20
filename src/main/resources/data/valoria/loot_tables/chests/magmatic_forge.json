@@ -5,11 +5,6 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "valoria:fortress_page",
-          "weight": 4
-        },
-        {
-          "type": "minecraft:item",
           "name": "valoria:pyratite",
           "weight": 6,
           "functions": [
@@ -18,10 +13,60 @@
               "count": {
                 "type": "minecraft:uniform",
                 "min": 2,
-                "max": 6
+                "max": 8
               }
             }
           ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "valoria:uncharged_shard",
+          "weight": 6,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 2,
+                "max": 4
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "valoria:soul_shard",
+          "weight": 4,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 2,
+                "max": 4
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "valoria:wicked_amethyst",
+          "weight": 4,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 2,
+                "max": 8
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "valoria:rune_of_pyro",
+          "weight": 1
         },
         {
           "type": "minecraft:item",
@@ -30,55 +75,35 @@
         },
         {
           "type": "minecraft:item",
-          "name": "valoria:murasama",
-          "weight": 1
-        },
-        {
-          "type": "minecraft:item",
-          "name": "valoria:suspicious_gem",
+          "name": "valoria:pyratite_helmet",
           "weight": 2
         },
         {
           "type": "minecraft:item",
-          "name": "valoria:throwable_bomb",
-          "weight": 6,
+          "name": "valoria:pyratite_chestplate",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "valoria:pyratite_leggings",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "valoria:pyratite_boots",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "valoria:pyratite_arrow",
+          "weight": 4,
           "functions": [
             {
               "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
                 "min": 1,
-                "max": 3
-              }
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "valoria:soul_arrow",
-          "weight": 4,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "type": "minecraft:uniform",
-                "min": 3,
-                "max": 12
-              }
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "valoria:wicked_arrow",
-          "weight": 4,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "type": "minecraft:uniform",
-                "min": 2,
-                "max": 15
+                "max": 5
               }
             }
           ]
@@ -96,37 +121,7 @@
         {
           "type": "minecraft:item",
           "name": "valoria:void_key",
-          "weight": 2
-        },
-        {
-          "type": "minecraft:item",
-          "name": "valoria:shade_blossom_bandage",
-          "weight": 2,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "type": "minecraft:uniform",
-                "min": 1,
-                "max": 4
-              }
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "valoria:liquor_bottle",
-          "weight": 4,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "type": "minecraft:uniform",
-                "min": 1,
-                "max": 3
-              }
-            }
-          ]
+          "weight": 1
         },
         {
           "type": "minecraft:item",
@@ -142,26 +137,6 @@
               }
             }
           ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "valoria:cognac_bottle",
-          "weight": 3,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "type": "minecraft:uniform",
-                "min": 1,
-                "max": 3
-              }
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "valoria:iron_necklace_health",
-          "weight": 6
         },
         {
           "type": "minecraft:item",

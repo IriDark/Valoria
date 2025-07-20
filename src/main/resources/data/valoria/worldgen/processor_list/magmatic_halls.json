@@ -1,0 +1,142 @@
+{
+  "processors": [
+    {
+      "processor_type": "minecraft:rule",
+      "rules": [
+        {
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "input_predicate": {
+            "predicate_type": "minecraft:random_block_match",
+            "block": "valoria:picrite",
+            "probability": 0.1
+          },
+          "output_state": {
+            "Name": "valoria:deep_marble"
+          }
+        },
+        {
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "input_predicate": {
+            "predicate_type": "minecraft:random_block_match",
+            "block": "valoria:picrite",
+            "probability": 0.05
+          },
+          "output_state": {
+            "Name": "valoria:picrite_slab",
+            "Properties": {
+              "type": "bottom"
+            }
+          }
+        },
+        {
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "input_predicate": {
+            "predicate_type": "minecraft:random_block_match",
+            "block": "valoria:picrite",
+            "probability": 0.2
+          },
+          "output_state": {
+            "Name": "valoria:polished_picrite"
+          }
+        },
+        {
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "input_predicate": {
+            "predicate_type": "minecraft:random_block_match",
+            "block": "valoria:cobbled_shale_bricks",
+            "probability": 0.025
+          },
+          "output_state": {
+            "Name": "valoria:cobbled_shale"
+          }
+        },
+        {
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "input_predicate": {
+            "predicate_type": "minecraft:random_block_match",
+            "block": "valoria:cobbled_shale_bricks",
+            "probability": 0.2
+          },
+          "output_state": {
+            "Name": "valoria:cracked_cobbled_shale_bricks"
+          }
+        },
+        {
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "input_predicate": {
+            "predicate_type": "minecraft:random_block_match",
+            "block": "valoria:cobbled_shale_bricks",
+            "probability": 0.1
+          },
+          "output_state": {
+            "Name": "valoria:picrite_bricks"
+          }
+        },
+        {
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "input_predicate": {
+            "predicate_type": "minecraft:random_block_match",
+            "block": "valoria:uncharged_shard_block",
+            "probability": 0.25
+          },
+          "output_state": {
+            "Name": "valoria:soul_shard_block"
+          }
+        },
+        {
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "input_predicate": {
+            "predicate_type": "minecraft:random_block_match",
+            "block": "valoria:uncharged_shard_block",
+            "probability": 0.25
+          },
+          "output_state": {
+            "Name": "valoria:wicked_amethyst_block"
+          }
+        },
+        {
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "input_predicate": {
+            "predicate_type": "minecraft:random_block_match",
+            "block": "valoria:void_stone",
+            "probability": 0.05
+          },
+          "output_state": {
+            "Name": "valoria:wicked_amethyst_ore"
+          }
+        },
+        {
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "input_predicate": {
+            "predicate_type": "minecraft:random_block_match",
+            "block": "valoria:void_stone",
+            "probability": 0.15
+          },
+          "output_state": {
+            "Name": "valoria:dormant_crystals"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 20,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "valoria:magmatic_halls/armoury_forge",
+        "processors": "valoria:magmatic_halls"
+      }
+    },
+    {
+      "weight": 40,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "valoria:magmatic_halls/forge",
+        "processors": "valoria:magmatic_halls"
+      }
+    },
+    {
+      "weight": 60,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "valoria:magmatic_halls/parkour",
+        "processors": "valoria:magmatic_halls"
+      }
+    },
+    {
+      "weight": 40,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "valoria:magmatic_halls/pyratite_pools",
+        "processors": "valoria:magmatic_halls"
+      }
+    },
+    {
+      "weight": 60,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "valoria:magmatic_halls/lower_entrance",
+        "processors": "valoria:magmatic_halls"
+      }
+    }
+  ]
+}

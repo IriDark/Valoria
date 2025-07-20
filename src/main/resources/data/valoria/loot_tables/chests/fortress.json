@@ -15,23 +15,8 @@
         },
         {
           "type": "minecraft:item",
-          "name": "valoria:nihility_shard",
-          "weight": 4,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "type": "minecraft:uniform",
-                "min": 1,
-                "max": 3
-              }
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
           "name": "valoria:pyratite",
-          "weight": 5,
+          "weight": 4,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -46,7 +31,7 @@
         {
           "type": "minecraft:item",
           "name": "valoria:soul_shard",
-          "weight": 4,
+          "weight": 2,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -61,7 +46,7 @@
         {
           "type": "minecraft:item",
           "name": "valoria:uncharged_shard",
-          "weight": 4,
+          "weight": 3,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -76,7 +61,7 @@
         {
           "type": "minecraft:item",
           "name": "valoria:wicked_amethyst",
-          "weight": 4,
+          "weight": 3,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -97,8 +82,8 @@
               "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
-                "min": 1,
-                "max": 3
+                "min": 2,
+                "max": 6
               }
             }
           ]
@@ -106,14 +91,14 @@
         {
           "type": "minecraft:item",
           "name": "valoria:soul_arrow",
-          "weight": 2,
+          "weight": 4,
           "functions": [
             {
               "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
-                "min": 1,
-                "max": 3
+                "min": 3,
+                "max": 12
               }
             }
           ]
@@ -121,14 +106,14 @@
         {
           "type": "minecraft:item",
           "name": "valoria:wicked_arrow",
-          "weight": 2,
+          "weight": 4,
           "functions": [
             {
               "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
-                "min": 1,
-                "max": 3
+                "min": 4,
+                "max": 16
               }
             }
           ]
@@ -141,14 +126,14 @@
         {
           "type": "minecraft:item",
           "name": "valoria:eye_chunk",
-          "weight": 4,
+          "weight": 6,
           "functions": [
             {
               "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
                 "min": 1,
-                "max": 3
+                "max": 4
               }
             }
           ]
@@ -156,7 +141,7 @@
         {
           "type": "minecraft:item",
           "name": "valoria:tainted_berries",
-          "weight": 6,
+          "weight": 8,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -171,7 +156,7 @@
         {
           "type": "minecraft:item",
           "name": "valoria:cooked_abyssal_glowfern",
-          "weight": 2,
+          "weight": 4,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -186,7 +171,7 @@
         {
           "type": "minecraft:item",
           "name": "valoria:cooked_glow_violet_sprout",
-          "weight": 2,
+          "weight": 4,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -201,7 +186,7 @@
         {
           "type": "minecraft:item",
           "name": "valoria:shade_blossom_bandage",
-          "weight": 2,
+          "weight": 6,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -221,7 +206,7 @@
         {
           "type": "minecraft:item",
           "name": "valoria:liquor_bottle",
-          "weight": 3,
+          "weight": 4,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -236,7 +221,7 @@
         {
           "type": "minecraft:item",
           "name": "valoria:sake_bottle",
-          "weight": 3,
+          "weight": 4,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -251,7 +236,7 @@
         {
           "type": "minecraft:item",
           "name": "valoria:cognac_bottle",
-          "weight": 3,
+          "weight": 4,
           "functions": [
             {
               "function": "minecraft:set_count",
