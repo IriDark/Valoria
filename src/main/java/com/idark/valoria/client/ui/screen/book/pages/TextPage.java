@@ -10,6 +10,7 @@ import net.minecraft.resources.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.*;
 import net.minecraftforge.api.distmarker.*;
+import net.minecraftforge.fml.loading.*;
 import pro.komaru.tridot.client.*;
 
 import java.util.*;
@@ -39,21 +40,23 @@ public class TextPage extends Page{
 
     public TextPage withCraftEntry(ItemStack result){
         this.result = result;
-        Minecraft mc = Minecraft.getInstance();
+        if(FMLEnvironment.dist.isClient()){
+            Minecraft mc = Minecraft.getInstance();
 
-        // null on resource load, initialized on first open
-        if (mc.level != null) {
-            RecipeManager manager = mc.level.getRecipeManager();
-            Optional<? extends Recipe<?>> optional = manager.getRecipes().stream()
-            .filter(r -> ItemStack.isSameItemSameTags(r.getResultItem(mc.level.registryAccess()), result))
-            .findFirst();
+            // null on resource load, initialized on first open
+            if(mc.level != null){
+                RecipeManager manager = mc.level.getRecipeManager();
+                Optional<? extends Recipe<?>> optional = manager.getRecipes().stream()
+                .filter(r -> ItemStack.isSameItemSameTags(r.getResultItem(mc.level.registryAccess()), result))
+                .findFirst();
 
-            if (optional.isPresent()) {
-                Recipe<?> recipe = optional.get();
-                NonNullList<Ingredient> ingredients = recipe.getIngredients();
+                if(optional.isPresent()){
+                    Recipe<?> recipe = optional.get();
+                    NonNullList<Ingredient> ingredients = recipe.getIngredients();
 
-                this.inputs = ingredients.toArray(Ingredient[]::new);
-                this.hasRecipe = true;
+                    this.inputs = ingredients.toArray(Ingredient[]::new);
+                    this.hasRecipe = true;
+                }
             }
         }
 
