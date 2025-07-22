@@ -114,7 +114,7 @@ public class ScytheItem extends SwordItem implements ICustomAnimationItem, Coold
         ValoriaUtils.radiusHit(level, stack, player, builder.particleOptions, hitEntities, pos, 0, player.getRotationVector().y, radius);
         if(usageCount > builder.attackUsages - 1){
             int cooldown = hitEntities.isEmpty() ? builder.minCooldownTime : builder.cooldownTime;
-            applyCooldown(player, cooldown - getCooldownReduction(stack));
+            applyCooldown(player, getCooldownReduction(cooldown, stack));
             tag.putInt("usageCount", 0);
             stack.setTag(tag);
         }else{

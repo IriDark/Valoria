@@ -125,7 +125,7 @@ public class KatanaItem extends SwordItem implements CooldownNotifyItem, DashIte
     public void applyCooldown(Player playerIn){
         for(Item item : ForgeRegistries.ITEMS){
             if(item instanceof KatanaItem){
-                playerIn.getCooldowns().addCooldown(item, builder.cooldownTime - getCooldownReduction(playerIn.getUseItem()));
+                playerIn.getCooldowns().addCooldown(item, getCooldownReduction(builder.cooldownTime, playerIn.getUseItem()));
             }
         }
     }

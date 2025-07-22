@@ -64,7 +64,7 @@ public class PhantomItem extends ValoriaSword implements RadiusItem, CooldownRed
     public void releaseUsing(ItemStack stack, Level level, LivingEntity entityLiving, int timeLeft){
         Player player = (Player)entityLiving;
         player.awardStat(Stats.ITEM_USED.get(this));
-        player.getCooldowns().addCooldown(this, 650 - getCooldownReduction(stack));
+        player.getCooldowns().addCooldown(this,  getCooldownReduction(650, stack));
         float damage = (float)(player.getAttributeValue(Attributes.ATTACK_DAMAGE)) + EnchantmentHelper.getSweepingDamageRatio(player);
 
         Vector3d pos = new Vector3d(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());
