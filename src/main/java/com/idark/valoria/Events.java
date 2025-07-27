@@ -5,6 +5,7 @@ import com.idark.valoria.api.unlockable.*;
 import com.idark.valoria.api.unlockable.types.*;
 import com.idark.valoria.client.ui.screen.book.codex.*;
 import com.idark.valoria.core.capability.*;
+import com.idark.valoria.core.interfaces.*;
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.*;
 import com.idark.valoria.core.network.packets.particle.*;
@@ -48,9 +49,10 @@ import net.minecraftforge.eventbus.api.*;
 import pro.komaru.tridot.common.registry.item.armor.*;
 import pro.komaru.tridot.util.*;
 import pro.komaru.tridot.util.math.*;
-import top.theillusivec4.curios.api.*;
 
 import java.util.*;
+
+import static com.idark.valoria.util.ValoriaUtils.*;
 
 @SuppressWarnings("removal")
 public class Events{
@@ -190,7 +192,7 @@ public class Events{
         }
 
         if(effect.getEffect() == MobEffects.POISON){
-            if(CuriosApi.getCuriosHelper().findEquippedCurio((item) -> item.is(TagsRegistry.POISON_IMMUNE), entity).isPresent()){
+            if(isEquippedCurio(TagsRegistry.POISON_IMMUNE, entity)){
                 event.setResult(Result.DENY);
             }
         }
@@ -238,10 +240,10 @@ public class Events{
         }
 
         if(pSource.getEntity() instanceof LivingEntity e){
-            if(getEquippedCurio(TagsRegistry.INFLICTS_FIRE, e)) entity.setSecondsOnFire(15);
+            if(isEquippedCurio(TagsRegistry.INFLICTS_FIRE, e)) entity.setSecondsOnFire(15);
         }
 
-        if(pSource.is(DamageTypeTags.IS_FIRE) && getEquippedCurio(TagsRegistry.FIRE_IMMUNE, entity)) event.setCanceled(true);
+        if(pSource.is(DamageTypeTags.IS_FIRE) && isEquippedCurio(TagsRegistry.FIRE_IMMUNE, entity)) event.setCanceled(true);
     }
 
     @SubscribeEvent
@@ -409,33 +411,15 @@ public class Events{
         }
     }
 
-    public boolean getEquippedCurio(TagKey<Item> tag, LivingEntity entity) {
-        return CuriosApi.getCuriosHelper().findEquippedCurio((item) -> item.is(tag), entity).isPresent();
-    }
-
-
-    public boolean getEquippedCurio(Item item, LivingEntity entity) {
-        return CuriosApi.getCuriosHelper().findEquippedCurio(item, entity).isPresent();
-    }
-
     @SubscribeEvent
     public void critDamage(CriticalHitEvent event){
         Player plr = event.getEntity();
         float f2 = plr.getAttackStrengthScale(0.5F);
         boolean flag = f2 > 0.9F;
         if(flag && plr.onGround()){
-            if(getEquippedCurio(ItemsRegistry.lesserRuneAccuracy.get(), event.getEntity())){
-                if(arcRandom.chance(0.25f)){
-                    event.setResult(Result.ALLOW);
-                    event.setDamageModifier(1.25f);
-                }
-            }
-
-            if(getEquippedCurio(ItemsRegistry.runeAccuracy.get(), event.getEntity())){
-                if(arcRandom.chance(0.5f)){
-                    event.setResult(Result.ALLOW);
-                    event.setDamageModifier(1.25f);
-                }
+            var curioStack = getEquippedCurio((item) -> item.getItem() instanceof CritDamageItem, event.getEntity());
+            if(curioStack != null){
+                ((CritDamageItem)curioStack.getItem()).critDamage(event);
             }
         }
     }

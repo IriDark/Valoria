@@ -9,6 +9,7 @@ import net.minecraft.core.particles.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.network.protocol.*;
 import net.minecraft.server.level.*;
+import net.minecraft.tags.*;
 import net.minecraft.world.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
@@ -27,8 +28,30 @@ import top.theillusivec4.curios.api.*;
 import javax.annotation.*;
 import java.lang.Math;
 import java.util.*;
+import java.util.function.*;
 
 public class ValoriaUtils{
+
+    @Nullable
+    public static ItemStack getEquippedCurio(Predicate<ItemStack> filter, LivingEntity entity) {
+        var curio = CuriosApi.getCuriosHelper().findEquippedCurio(filter, entity);
+        return curio.map(stringIntegerItemStackImmutableTriple -> stringIntegerItemStackImmutableTriple.right).orElse(null);
+    }
+
+    public static boolean isEquippedCurio(Predicate<ItemStack> filter, LivingEntity entity) {
+        var curio = CuriosApi.getCuriosHelper().findEquippedCurio(filter, entity);
+        return curio.isPresent();
+    }
+
+    public static boolean isEquippedCurio(TagKey<Item> tag, LivingEntity entity) {
+        var curio = CuriosApi.getCuriosHelper().findEquippedCurio((item) -> item.is(tag), entity);
+        return curio.isPresent();
+    }
+
+    public static boolean isEquippedCurio(Item pItem, LivingEntity entity) {
+        var curio = CuriosApi.getCuriosHelper().findEquippedCurio((item) -> item.is(pItem), entity);
+        return curio.isPresent();
+    }
 
     public static void addHandPlayerItem(Level level, Player player, InteractionHand hand, ItemStack stack, ItemStack addStack) {
         if (player.getInventory().getSlotWithRemainingSpace(addStack) >= 0) {

@@ -29,6 +29,7 @@ import net.minecraft.world.entity.player.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.*;
+import net.minecraft.world.phys.*;
 import org.jetbrains.annotations.*;
 import org.joml.*;
 import pro.komaru.tridot.api.entity.*;
@@ -230,15 +231,15 @@ public class DryadorEntity extends AbstractBoss implements RangedAttackMob{
         this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
 
         this.goalSelector.addGoal(0, new MeleeAttackGoal(this, 1, false));
+        this.goalSelector.addGoal(0, new ThrowAcornsGoal());
         this.goalSelector.addGoal(1, new StompAttack());
-        this.goalSelector.addGoal(1, new RadialAcornAttack());
+        this.goalSelector.addGoal(2, new RadialAcornAttack());
         this.goalSelector.addGoal(1, new PixieSummonGoal());
-        this.goalSelector.addGoal(1, new ThrowAcornsGoal());
+        this.goalSelector.addGoal(5, new JumpToTargetGoal());
 
         this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true));
     }
-
 
     @Override
     public void performRangedAttack(LivingEntity pTarget, float pVelocity){
@@ -249,8 +250,11 @@ public class DryadorEntity extends AbstractBoss implements RangedAttackMob{
             double d1 = pTarget.getY(0.3333333333333333D) - this.getY();
             double d2 = pTarget.getZ() - this.getZ();
             double d3 = Math.sqrt(d0 * d0 + d2 * d2);
-            acorn.shoot(d0, d1 + d3 * (double)0.2F, d2, pVelocity, (float)(25 - this.level().getDifficulty().getId() * 4));
+            if(Tmp.rnd.chance(0.25f)) {
+                acorn.addEffect(new MobEffectInstance(EffectsRegistry.STUN.get(), 60, 0));
+            }
 
+            acorn.shoot(d0, d1 + d3 * (double)0.2F, d2, pVelocity, (float)(25 - this.level().getDifficulty().getId() * 4));
             this.level().addFreshEntity(acorn);
         }
     }
@@ -340,10 +344,6 @@ public class DryadorEntity extends AbstractBoss implements RangedAttackMob{
     }
 
     public class ThrowAcornsGoal extends AttackGoal {
-        public ThrowAcornsGoal(){
-            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
-        }
-
         public boolean isInterruptable(){
             return false;
         }
@@ -358,7 +358,12 @@ public class DryadorEntity extends AbstractBoss implements RangedAttackMob{
          */
         public boolean canUse(){
             LivingEntity livingentity = DryadorEntity.this.getTarget();
-            return super.canUse() && livingentity != null;
+            if(livingentity == null) return false;
+            if(livingentity.isAlive() && super.canUse()){
+                return cantReachTarget(livingentity) || DryadorEntity.this.distanceTo(livingentity) > 15;
+            }
+
+            return false;
         }
 
         @Override
@@ -368,7 +373,6 @@ public class DryadorEntity extends AbstractBoss implements RangedAttackMob{
 
         @Override
         public void onPrepare(){
-            DryadorEntity.this.navigation.stop();
             DryadorEntity.this.level().broadcastEntityEvent(DryadorEntity.this, (byte)58);
         }
 
@@ -393,8 +397,72 @@ public class DryadorEntity extends AbstractBoss implements RangedAttackMob{
         }
     }
 
+    public class JumpToTargetGoal extends AttackGoal {
+        @Override
+        public void onPrepare(){
+            DryadorEntity.this.getNavigation().stop();
+            DryadorEntity.this.level().broadcastEntityEvent(DryadorEntity.this, (byte)61);
+        }
+
+        @Override
+        public boolean canUse(){
+            LivingEntity livingentity = DryadorEntity.this.getTarget();
+            if(livingentity == null) return false;
+            if(livingentity.isAlive() && super.canUse()){
+                return cantReachTarget(livingentity) || DryadorEntity.this.distanceTo(livingentity) > 25;
+            }
+
+            return false;
+        }
+
+        public void jumpToward(LivingEntity target) {
+            Vec3 mobPos = DryadorEntity.this.position();
+            Vec3 targetPos = target.position();
+
+            double dx = targetPos.x - mobPos.x;
+            double dz = targetPos.z - mobPos.z;
+            double distance = Math.sqrt(dx * dx + dz * dz);
+            if (distance < 0.001) return;
+
+            double strength = 2;
+            double upward = 0.6;
+
+            double normX = dx / distance;
+            double normZ = dz / distance;
+            Vec3 motion = new Vec3(normX * strength, upward, normZ * strength);
+            DryadorEntity.this.setDeltaMovement(motion);
+            DryadorEntity.this.hasImpulse = true;
+            DryadorEntity.this.setJumping(true);
+        }
+        @Override
+        protected void performAttack(){
+            if (level().isClientSide()) return;
+            jumpToward(DryadorEntity.this.getTarget());
+        }
+
+        @Override
+        public int getPreparingTime(){
+            return 60;
+        }
+
+        @Override
+        public int getAttackInterval(){
+            return 350;
+        }
+
+        @Override
+        public @Nullable SoundEvent getPrepareSound(){
+            return null;
+        }
+
+        @Override
+        public AttackRegistry getAttack(){
+            return EntityStatsRegistry.JUMP;
+        }
+    }
+
     public class RadialAcornAttack extends AttackGoal {
-        private final TargetingConditions targeting = TargetingConditions.forCombat().range(12).ignoreLineOfSight().ignoreInvisibilityTesting();
+        private final TargetingConditions targeting = TargetingConditions.forCombat().range(6).ignoreLineOfSight().ignoreInvisibilityTesting();
 
         @Override
         public void onPrepare(){
@@ -404,7 +472,7 @@ public class DryadorEntity extends AbstractBoss implements RangedAttackMob{
 
         @Override
         public boolean canUse(){
-            List<LivingEntity> entities = DryadorEntity.this.level().getNearbyEntities(LivingEntity.class, this.targeting, DryadorEntity.this, DryadorEntity.this.getBoundingBox().inflate(12));
+            List<LivingEntity> entities = DryadorEntity.this.level().getNearbyEntities(LivingEntity.class, this.targeting, DryadorEntity.this, DryadorEntity.this.getBoundingBox().inflate(6));
             return super.canUse() && DryadorEntity.this.getTarget() != null && !entities.isEmpty() && flag;
         }
 

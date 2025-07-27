@@ -128,6 +128,11 @@ public class Devil extends AbstractDevil implements RangedAttackMob{
         this.getAttribute(Attributes.MOVEMENT_SPEED).addTransientModifier(new AttributeModifier("modifier", 0.025f, Operation.MULTIPLY_TOTAL));
     }
 
+    @Override
+    public boolean isLeftHanded() {
+        return false;
+    }
+
     protected void populateDefaultEquipmentSlots(RandomSource pRandom, DifficultyInstance pDifficulty){
         this.setItemSlot(EquipmentSlot.MAINHAND, ItemsRegistry.infernalSpear.get().getDefaultInstance());
     }

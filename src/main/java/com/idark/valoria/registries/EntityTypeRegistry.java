@@ -19,7 +19,7 @@ public class EntityTypeRegistry{
     public static final RegistryObject<EntityType<ScourgeEntity>> SCOURGE = register("scourge", EntityType.Builder.of(ScourgeEntity::new, MobCategory.MONSTER).sized(0.6f, 1.95f).clientTrackingRange(8));
     public static final RegistryObject<EntityType<SwampWandererEntity>> SWAMP_WANDERER = register("swamp_wanderer", EntityType.Builder.of(SwampWandererEntity::new, MobCategory.MONSTER).sized(0.6f, 1.95f).clientTrackingRange(8));
     public static final RegistryObject<EntityType<Goblin>> GOBLIN = register("goblin", EntityType.Builder.of(Goblin::new, MobCategory.CREATURE).sized(0.6f, 1.25f).clientTrackingRange(8));
-    public static final RegistryObject<EntityType<Devil>> DEVIL = register("devil", EntityType.Builder.of(Devil::new, MobCategory.MONSTER).sized(0.6f, 2.0f).clientTrackingRange(8));
+    public static final RegistryObject<EntityType<Devil>> DEVIL = register("devil", EntityType.Builder.of(Devil::new, MobCategory.MONSTER).fireImmune().sized(0.6f, 2.0f).clientTrackingRange(8));
     public static final RegistryObject<EntityType<Troll>> TROLL = register("troll", EntityType.Builder.of(Troll::new, MobCategory.MONSTER).sized(0.6f, 2.0f).clientTrackingRange(8));
     public static final RegistryObject<EntityType<Troll>> CORRUPTED_TROLL = register("corrupted_troll", EntityType.Builder.of(Troll::new, MobCategory.MONSTER).sized(0.6f, 2.0f).clientTrackingRange(8));
     public static final RegistryObject<EntityType<HauntedMerchant>> HAUNTED_MERCHANT = register("haunted_merchant", EntityType.Builder.of(HauntedMerchant::new, MobCategory.MISC).sized(0.75f, 2.35f).clientTrackingRange(8));
