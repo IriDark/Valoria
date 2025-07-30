@@ -14,6 +14,7 @@ public class RarityRegistry{
     PYRATITE = Rarity.create("pyratite", apply(arcaneGold)),
     INFERNAL = Rarity.create("infernal", apply(infernal)),
     AQUARIUS = Rarity.create("aquarius", apply(aquarius)),
+    SOUL = Rarity.create("soul", apply(soul)),
     ETHEREAL = Rarity.create("ethereal", apply(ethereal)),
     NATURE = Rarity.create("nature", apply(nature)),
     VOID = Rarity.create("void", apply(nihility)),

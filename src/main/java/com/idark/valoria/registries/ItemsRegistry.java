@@ -238,7 +238,7 @@ public class ItemsRegistry{
         rubyGem = registerItem("ruby_gem", () -> new CrushableItem(new Item.Properties()));
         sapphireGem = registerItem("sapphire_gem", () -> new CrushableItem(new Item.Properties()));
         wickedAmethyst = registerItem("wicked_amethyst", () -> new TransformShardItem(new Item.Properties().rarity(RarityRegistry.VOID)));
-        soulShard = registerItem("soul_shard", () -> new TransformShardItem(new Item.Properties().rarity(RarityRegistry.AQUARIUS)));
+        soulShard = registerItem("soul_shard", () -> new TransformShardItem(new Item.Properties().rarity(RarityRegistry.SOUL)));
         unchargedShard = registerItem("uncharged_shard");
         spiderFang = registerItem("spider_fang", RarityRegistry.SPIDER);
         spiderChitin = registerItem("spider_chitin", RarityRegistry.SPIDER);

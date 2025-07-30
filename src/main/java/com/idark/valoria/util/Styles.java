@@ -21,6 +21,7 @@ public class Styles{
     public static DotStyle bloody = create(Pal.lightCarminePink).effects(ShakeFX.of((0.1f)));
     public static DotStyle infernal = create(Pal.infernal);
     public static DotStyle aquarius = create(Pal.oceanic);
+    public static DotStyle soul = create(Pal.softBlue);
     public static DotStyle nature = create(Pal.nature);
     public static DotStyle ethereal = create(Pal.ethereal).effects(GlintFX.of(1f));
     public static DotStyle nihility = create(Pal.softMagenta).effects(WaveFX.of(0.25f, 0.1f));

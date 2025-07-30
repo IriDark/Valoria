@@ -76,22 +76,46 @@
         {
           "type": "minecraft:item",
           "name": "valoria:pyratite_helmet",
-          "weight": 2
+          "weight": 2,
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance",
+              "chance": 0.05
+            }
+          ]
         },
         {
           "type": "minecraft:item",
           "name": "valoria:pyratite_chestplate",
-          "weight": 2
+          "weight": 2,
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance",
+              "chance": 0.05
+            }
+          ]
         },
         {
           "type": "minecraft:item",
           "name": "valoria:pyratite_leggings",
-          "weight": 2
+          "weight": 2,
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance",
+              "chance": 0.05
+            }
+          ]
         },
         {
           "type": "minecraft:item",
           "name": "valoria:pyratite_boots",
-          "weight": 2
+          "weight": 2,
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance",
+              "chance": 0.05
+            }
+          ]
         },
         {
           "type": "minecraft:item",
