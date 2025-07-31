@@ -181,7 +181,7 @@ public class CrystalEntity extends AbstractMultiAttackMinion implements RangedAt
 
     @Override
     public void performRangedAttack(LivingEntity pTarget, float pVelocity){
-        SpellProjectile spell = new SpellProjectile(this.level(), this, 8);
+        SpellProjectile spell = new SpellProjectile(this.level(), this, 6);
         double d0 = pTarget.getX() - this.getX();
         double d1 = pTarget.getY(0.3333333333333333D) - spell.getY();
         double d2 = pTarget.getZ() - this.getZ();
@@ -193,7 +193,7 @@ public class CrystalEntity extends AbstractMultiAttackMinion implements RangedAt
         };
 
         spell.setColor(this.getVariant().getColor());
-        spell.shoot(d0, d1 + d3 * (double)0.2F, d2, 1.6F, (float)(14 - this.level().getDifficulty().getId() * 4));
+        spell.shoot(d0, d1 + d3 * (double)0.2F, d2, 1.25F, (float)(14 - this.level().getDifficulty().getId() * 4));
         this.level().addFreshEntity(spell);
     }
 

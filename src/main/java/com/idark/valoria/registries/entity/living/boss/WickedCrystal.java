@@ -544,10 +544,6 @@ public class WickedCrystal extends AbstractBoss{
             }
         }
 
-        public boolean requiresUpdateEveryTick(){
-            return true;
-        }
-
         @Override
         public int getPreparingTime(){
             return CommonConfig.SHIELDS_WICKED_CRYSTAL_CASTING_TIME.get();

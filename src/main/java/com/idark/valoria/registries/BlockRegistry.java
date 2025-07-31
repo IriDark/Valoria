@@ -65,7 +65,7 @@ public class BlockRegistry{
     cutTombstone, polishedTombstone, tombstoneFirechargeTrap, tombstoneSpikesTrap, tombstonePillar, cutTombstonePillar, wickedTombstonePillar, cryptLantern,
 
     //wood
-    shadewoodPressurePlate, shadewoodButton, shadelog, strippedShadelog, shadewood, strippedShadewood, shadewoodPlanks, shadewoodPlanksStairs, shadewoodPlanksSlab, shadewoodLeaves, shadewoodBranch, shadewoodSapling, pottedShadewoodSapling, shadewoodFence, shadewoodFenceGate, shadewoodSign, shadewoodWallSign, shadewoodHangingSign, shadewoodWallHangingSign,
+    shadewoodPressurePlate, shadewoodButton, shadelog, strippedShadelog, shadewood, strippedShadewood, shadewoodPlanks, shadewoodPlanksStairs, shadewoodPlanksSlab, shadewoodLeaves, shadewoodBranch, shadewoodBranchVine, shadewoodSapling, pottedShadewoodSapling, shadewoodFence, shadewoodFenceGate, shadewoodSign, shadewoodWallSign, shadewoodHangingSign, shadewoodWallHangingSign,
     eldritchPressurePlate, eldritchButton, eldritchLog, strippedEldritchLog, eldritchWood, strippedEldritchWood, eldritchPlanks, eldritchPlanksStairs, eldritchPlanksSlab, eldritchLeaves, eldritchSapling, pottedEldritchSapling, eldritchFence, eldritchFenceGate, eldritchSign, eldritchWallSign, eldritchHangingSign, eldritchWallHangingSign,
     dreadwoodPressurePlate, dreadwoodButton, dreadwoodLog, strippedDreadwoodLog, dreadWood, strippedDreadWood, dreadwoodPlanks, dreadwoodPlanksStairs, dreadwoodPlanksSlab, dreadwoodSapling, pottedDreadwoodSapling, dreadwoodFence, dreadwoodFenceGate, dreadwoodSign, dreadwoodWallSign, dreadwoodHangingSign, dreadwoodWallHangingSign,
 
@@ -373,7 +373,9 @@ public class BlockRegistry{
         shadewoodPlanksSlab = registerBlock("shadewood_planks_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.OAK_SLAB).mapColor(MapColor.COLOR_PURPLE)));
         shadewoodPlanksStairs = registerBlock("shadewood_planks_stairs", () -> new StairBlock(() -> BlockRegistry.shadewoodPlanks.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.OAK_STAIRS).mapColor(MapColor.COLOR_PURPLE)));
         shadewoodLeaves = registerBlock("shadewood_leaves", () -> new ShadeLeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES).mapColor(MapColor.COLOR_CYAN)));
-        shadewoodBranch = registerBlock("shadewood_branch", () -> new ShadeBranchBlock(BlockBehaviour.Properties.copy(Blocks.GRASS).mapColor(MapColor.COLOR_CYAN).instabreak().noOcclusion()));
+        shadewoodBranchVine = BLOCK.register("shadewood_branch_vine", () -> new ShadeBranchVineBlock(BlockBehaviour.Properties.copy(Blocks.GRASS).offsetType(BlockBehaviour.OffsetType.XZ).mapColor(MapColor.COLOR_CYAN)));
+        shadewoodBranch = registerBlock("shadewood_branch", () -> new ShadeBranchBlock(BlockBehaviour.Properties.copy(Blocks.GRASS).offsetType(BlockBehaviour.OffsetType.XZ).mapColor(MapColor.COLOR_CYAN)), () -> new BlockItem(BlockRegistry.shadewoodBranch.get(), new Item.Properties()));
+
         shadewoodSapling = registerBlock("shadewood_sapling", () -> new ValoriaSaplingBlock(new ShadeWoodTree(), BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING).mapColor(MapColor.COLOR_CYAN)));
         pottedShadewoodSapling = BLOCK.register("potted_shadewood_sapling", () -> new FlowerPotBlock(BlockRegistry.shadewoodSapling.get(), BlockBehaviour.Properties.copy(Blocks.POTTED_POPPY).mapColor(MapColor.COLOR_CYAN).instabreak().noOcclusion()));
         shadewoodFence = registerBlock("shadewood_fence", () -> new FenceBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE).mapColor(MapColor.COLOR_PURPLE)));
