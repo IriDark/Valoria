@@ -239,7 +239,7 @@ public class Events{
             }
         }
 
-        if(pSource.getEntity() instanceof LivingEntity e){
+        if(pSource.getDirectEntity() instanceof LivingEntity e){
             if(isEquippedCurio(TagsRegistry.INFLICTS_FIRE, e)) entity.setSecondsOnFire(15);
         }
 
