@@ -1,0 +1,6 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "valoria:block/black_gold_block"
+  }
+}
