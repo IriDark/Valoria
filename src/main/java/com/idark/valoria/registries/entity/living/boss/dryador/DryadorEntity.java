@@ -230,7 +230,7 @@ public class DryadorEntity extends AbstractBoss implements RangedAttackMob{
         this.goalSelector.addGoal(2, new WaterAvoidingRandomStrollGoal(this, 1.2));
         this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
 
-        this.goalSelector.addGoal(0, new MeleeAttackGoal(this, 1, false));
+        this.goalSelector.addGoal(0, new net.minecraft.world.entity.ai.goal.MeleeAttackGoal(this, 1, false));
         this.goalSelector.addGoal(0, new ThrowAcornsGoal());
         this.goalSelector.addGoal(1, new StompAttack());
         this.goalSelector.addGoal(2, new RadialAcornAttack());

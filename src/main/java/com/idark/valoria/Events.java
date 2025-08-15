@@ -17,6 +17,7 @@ import com.idark.valoria.registries.item.armor.*;
 import com.idark.valoria.registries.item.armor.item.*;
 import com.idark.valoria.registries.item.types.*;
 import com.idark.valoria.registries.item.types.elemental.*;
+import com.idark.valoria.registries.item.types.shield.*;
 import com.idark.valoria.registries.level.*;
 import net.minecraft.*;
 import net.minecraft.client.gui.screens.*;
@@ -73,6 +74,19 @@ public class Events{
             } else {
                 event.getToolTip().add(Component.translatable("tooltip.valoria.info", Component.translatable("key.keyboard.left.control")).withStyle(ChatFormatting.DARK_GRAY));
             }
+        }
+    }
+
+    @SubscribeEvent
+    public void onShieldBlock(ShieldBlockEvent ev) {
+        LivingEntity entity = ev.getEntity();
+        ItemStack stack = entity.getUseItem();
+        if(stack.getItem() instanceof ValoriaShieldItem shieldItem) {
+            float armor = shieldItem.blockedPercent / 100.0F;
+            float totalMultiplier = Math.max(Math.min(1 - (armor), 1), 0);
+            float reducedDamage = ev.getOriginalBlockedDamage() * totalMultiplier;
+            shieldItem.onShieldBlock(ev.getDamageSource(), ev.getOriginalBlockedDamage(), stack, entity);
+            ev.setBlockedDamage(reducedDamage);
         }
     }
 

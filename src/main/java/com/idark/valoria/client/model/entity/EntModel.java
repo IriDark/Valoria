@@ -2,12 +2,11 @@ package com.idark.valoria.client.model.entity;
 
 import com.idark.valoria.client.model.animations.*;
 import com.idark.valoria.registries.entity.living.elemental.*;
-import net.minecraft.client.model.*;
 import net.minecraft.client.model.geom.*;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.*;
 
-public class EntModel<T extends Ent> extends HierarchicalModel<T>{
+public class EntModel<T extends Ent> extends AbstractHierarchicalModel<T>{
     public ModelPart root;
     private final ModelPart rightLeg;
     private final ModelPart leftLeg;
@@ -46,7 +45,7 @@ public class EntModel<T extends Ent> extends HierarchicalModel<T>{
     public void setupAnim(Ent pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks, float netHeadYaw, float headPitch) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
         this.animateWalk(EntAnimation.WALK, pLimbSwing, pLimbSwingAmount, pEntity.getSpeed(), pAgeInTicks);
-        this.animate(pEntity.idleAnimationState, EntAnimation.IDLE, pAgeInTicks);
+        this.animateIdle(pEntity.idleAnimationState, EntAnimation.IDLE, pLimbSwingAmount, pAgeInTicks, 1);
         this.animate(pEntity.attackAnimationState, EntAnimation.ATTACK, pAgeInTicks);
 
         boolean flag = pEntity.getFallFlyingTicks() > 4;

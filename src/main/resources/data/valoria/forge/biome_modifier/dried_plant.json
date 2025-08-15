@@ -1,6 +1,0 @@
-{
-  "type": "forge:add_features",
-  "biomes": "#forge:is_desert",
-  "features": "valoria:dried_plant",
-  "step": "vegetal_decoration"
-}

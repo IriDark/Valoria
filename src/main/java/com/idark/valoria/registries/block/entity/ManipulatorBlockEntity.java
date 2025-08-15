@@ -236,8 +236,10 @@ public class ManipulatorBlockEntity extends BlockEntity implements MenuProvider,
 
         int current = nbt.getInt(name);
         int added = Math.min(charge, ManipulatorBlock.maxCores - current);
+
         nbt.putInt(name, current + added);
         this.deserializeNBT(nbt);
+        this.setChanged();
     }
 
     public void setCharge(String name, int charge){
@@ -249,6 +251,7 @@ public class ManipulatorBlockEntity extends BlockEntity implements MenuProvider,
 
         nbt.putInt(name, charge);
         this.deserializeNBT(nbt);
+        this.setChanged();
     }
 
     public void decreaseCharge(String name, int charge){
@@ -260,6 +263,7 @@ public class ManipulatorBlockEntity extends BlockEntity implements MenuProvider,
 
         nbt.putInt(name, nbt.getInt(name) - charge);
         this.deserializeNBT(nbt);
+        this.setChanged();
     }
 
     public int getCoreNBT(String name){

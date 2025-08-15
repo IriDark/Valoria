@@ -70,7 +70,7 @@ public class DevilModel<T extends Devil> extends AbstractHierarchicalModel<T> im
         super.setupAnim(pEntity, pLimbSwing, pLimbSwingAmount, pAgeInTicks, pNetHeadYaw, pHeadPitch);
         this.animateWalk(pLimbSwing, pLimbSwingAmount);
         this.animateWalk(DevilAnimation.WALK, pLimbSwing, pLimbSwingAmount, pEntity.getSpeed(), pAgeInTicks);
-        this.animate(pEntity.idleAnimationState, DevilAnimation.IDLE, pAgeInTicks);
+        this.animateIdle(pEntity.idleAnimationState, DevilAnimation.IDLE, pLimbSwingAmount, pAgeInTicks, 1);
         this.animate(pEntity.throwAnimationState, DevilAnimation.ATTACK_RANGE, pAgeInTicks);
         this.animate(pEntity.magicAnimationState, DevilAnimation.ATTACK_MAGIC, pAgeInTicks);
         if(this.attackTime > 0){
@@ -83,8 +83,8 @@ public class DevilModel<T extends Devil> extends AbstractHierarchicalModel<T> im
         float f1 = pLimbSwing * 0.8662F;
         this.leftWing.yRot = -0.45f;
         this.rightWing.yRot = 0.45f;
-        this.leftWing.yRot -= (0.65F * Mth.cos(f1 + (float)Math.PI) * f);
-        this.rightWing.yRot += (0.65F * Mth.cos(f1 + (float)Math.PI) * f);
+        this.leftWing.yRot -= (0.35F * Mth.cos(f1 + (float)Math.PI) * f);
+        this.rightWing.yRot += (0.35F * Mth.cos(f1 + (float)Math.PI) * f);
         this.resetArmPoses();
     }
 

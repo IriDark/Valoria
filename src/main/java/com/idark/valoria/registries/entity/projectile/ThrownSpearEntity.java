@@ -39,6 +39,16 @@ public class ThrownSpearEntity extends AbstractSupplierProjectile{
     }
 
     @Override
+    protected float getWaterInertia(){
+        if(getItem().is(ItemsRegistry.aquariusSpear.get())) return 0.99f; // hardcoded cause of sync issues
+        return super.getWaterInertia();
+    }
+
+    public boolean shouldRender(double pX, double pY, double pZ) {
+        return true;
+    }
+
+    @Override
     @OnlyIn(Dist.CLIENT)
     public void spawnParticlesTrail(){
         if(!this.inGround){

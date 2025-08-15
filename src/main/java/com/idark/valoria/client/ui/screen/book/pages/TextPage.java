@@ -4,15 +4,20 @@ import com.idark.valoria.*;
 import com.idark.valoria.client.ui.screen.book.*;
 import net.minecraft.client.*;
 import net.minecraft.client.gui.*;
+import net.minecraft.client.gui.screens.inventory.*;
 import net.minecraft.client.resources.language.*;
 import net.minecraft.core.*;
 import net.minecraft.resources.*;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.*;
 import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.fml.loading.*;
+import org.joml.*;
 import pro.komaru.tridot.client.*;
 
+import javax.annotation.*;
+import java.lang.Math;
 import java.util.*;
 
 public class TextPage extends Page{
@@ -23,9 +28,39 @@ public class TextPage extends Page{
     public Ingredient[] inputs;
     private boolean hasRecipe = false;
 
+    @Nullable public LivingEntity entity;
+    @Nullable public EntityType<? extends LivingEntity> type;
+
+    public int entityX, entityY = 0;
+    public int entityScale = 25;
+    public static final Quaternionf ENTITY_ANGLE = (new Quaternionf()).rotationXYZ(0.43633232F, 0.0F, (float)Math.PI);
+
     public TextPage(String textKey){
         this.text = textKey;
         this.title = textKey + ".name";
+    }
+
+    public TextPage withEntity(EntityType<? extends LivingEntity> type) {
+        this.type = type;
+        return this;
+    }
+
+    @Override
+    public void init(){
+        super.init();
+        if(FMLEnvironment.dist.isClient()){
+            Minecraft mc = Minecraft.getInstance();
+            if(type != null) {
+                this.entity = type.create(mc.level);
+            }
+        }
+    }
+
+    public TextPage setEntityData(int x, int y, int scale) {
+        this.entityX = x;
+        this.entityY = y;
+        this.entityScale = scale;
+        return this;
     }
 
     public TextPage hideTitle(){
@@ -95,6 +130,12 @@ public class TextPage extends Page{
             gui.blit(BACKGROUND, x + 88, y + 56 + 46, 287, 15, 18, 18, 512, 512);
             BookGui.drawItemWithTooltip(result, x + 89, y + 57 + 46, gui, mouseX, mouseY, true);
             resultArrow(gui, x, y);
+        }
+
+        if(entity != null) {
+            this.entity.setYBodyRot(210.0F);
+            this.entity.setYHeadRot(210.0F);
+            InventoryScreen.renderEntityInInventory(gui, x + entityX, y + entityY + yOffset, entityScale, ENTITY_ANGLE, null, this.entity);
         }
     }
 

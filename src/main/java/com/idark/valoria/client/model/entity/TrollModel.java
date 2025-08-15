@@ -96,7 +96,7 @@ public class TrollModel<T extends Troll> extends AbstractHierarchicalModel<T>{
         }
 
         this.animateWalk(GoblinAnimations.WALK, pLimbSwing, pLimbSwingAmount, 2, 6);
-        this.animate(pEntity.idleAnimationState, TrollAnimations.IDLE, pAgeInTicks, 0.5f);
+        this.animateIdle(pEntity.idleAnimationState, TrollAnimations.IDLE, pLimbSwingAmount, pAgeInTicks, 0.5f);
     }
 
     @Override

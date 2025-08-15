@@ -1,7 +1,7 @@
 package com.idark.valoria.registries.entity.living.elemental;
 
+import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.entity.ai.goals.*;
-import com.idark.valoria.registries.entity.living.*;
 import net.minecraft.core.*;
 import net.minecraft.nbt.*;
 import net.minecraft.network.syncher.*;
@@ -12,13 +12,14 @@ import net.minecraft.util.*;
 import net.minecraft.util.valueproviders.*;
 import net.minecraft.world.damagesource.*;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.*;
 import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.pathfinder.*;
 import org.jetbrains.annotations.*;
-import pro.komaru.tridot.api.entity.ai.goals.*;
+import pro.komaru.tridot.api.entity.*;
 import pro.komaru.tridot.common.registry.entity.*;
 
 import javax.annotation.Nullable;
@@ -31,12 +32,12 @@ public class Ent extends MultiAttackMob implements NeutralMob, Enemy{
 
     @Nullable
     public UUID persistentAngerTarget;
-    public static final EntityDataAccessor<Integer> DATA_REMAINING_ANGER_TIME = SynchedEntityData.defineId(AbstractGoblin.class, EntityDataSerializers.INT);
-    public static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
+    public static final EntityDataAccessor<Integer> DATA_REMAINING_ANGER_TIME = SynchedEntityData.defineId(Ent.class, EntityDataSerializers.INT);
+    public static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(80, 250);
 
     public Ent(EntityType<? extends PathfinderMob> pEntityType, Level pLevel){
         super(pEntityType, pLevel);
-        this.xpReward = 5;
+        this.xpReward = 15;
         this.getNavigation().setCanFloat(true);
         this.setPathfindingMalus(BlockPathTypes.UNPASSABLE_RAIL, 0.0F);
         this.setPathfindingMalus(BlockPathTypes.DAMAGE_OTHER, 8.0F);
@@ -53,17 +54,23 @@ public class Ent extends MultiAttackMob implements NeutralMob, Enemy{
         }
     }
 
+    @Override
+    public void performMeleeAttack(){
+        this.navigation.stop();
+        super.performMeleeAttack();
+    }
+
     public void aiStep(){
         this.updateSwingTime();
-        if(this.attackAnimationTick > 0){
-            --this.attackAnimationTick;
-        }
-
         if(!this.level().isClientSide && level() instanceof ServerLevel serverLevel){
             this.updatePersistentAnger(serverLevel, true);
         }
 
         super.aiStep();
+    }
+
+    public boolean canSpawnSprintParticle() {
+        return this.getDeltaMovement().horizontalDistanceSqr() > (double)2.5000003E-7F && this.random.nextInt(5) == 0;
     }
 
     public int getRemainingPersistentAngerTime(){
@@ -118,6 +125,37 @@ public class Ent extends MultiAttackMob implements NeutralMob, Enemy{
         }
     }
 
+    private float getAttackDamage() {
+        return (float)this.getAttributeValue(Attributes.ATTACK_DAMAGE);
+    }
+
+    @Override
+    public boolean doHurtTarget(Entity pEntity){
+        float f = this.getAttackDamage();
+        float f1 = (int)f > 0 ? f / 2.0F + (float)this.random.nextInt((int)f) : f;
+
+        boolean flag = pEntity.hurt(this.damageSources().mobAttack(this), f1);
+        if (flag) {
+            double d2;
+            if (pEntity instanceof LivingEntity livingentity) {
+                d2 = livingentity.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE);
+            } else {
+                d2 = 0.0D;
+            }
+
+            double d0 = d2;
+            double d1 = Math.max(0.0D, 1.0D - d0);
+            pEntity.setDeltaMovement(pEntity.getDeltaMovement().add(0.0D, (double)0.2F * d1, 0.0D));
+            this.doEnchantDamageEffects(this, pEntity);
+        }
+
+        return flag;
+    }
+
+    public boolean canDisableShield() {
+        return true;
+    }
+
     private void setupAnimationStates(){
         if(this.idleAnimationTimeout <= 0){
             this.idleAnimationTimeout = 60;
@@ -131,10 +169,6 @@ public class Ent extends MultiAttackMob implements NeutralMob, Enemy{
         return false;
     }
 
-    public boolean canDisableShield() {
-        return true;
-    }
-
     public SoundSource getSoundSource(){
         return SoundSource.HOSTILE;
     }
@@ -144,18 +178,6 @@ public class Ent extends MultiAttackMob implements NeutralMob, Enemy{
 
     @Override
     public void knockback(double strength, double x, double z){
-    }
-
-    public boolean okTarget(@javax.annotation.Nullable LivingEntity p_32396_){
-        if(p_32396_ != null){
-            return p_32396_.isAlive();
-        }else{
-            return false;
-        }
-    }
-
-    protected boolean shouldDespawnInPeaceful(){
-        return true;
     }
 
     protected SoundEvent getSwimSound(){
@@ -182,7 +204,7 @@ public class Ent extends MultiAttackMob implements NeutralMob, Enemy{
     protected void registerGoals(){
         super.registerGoals();
         this.goalSelector.addGoal(1, new DashAttackGoal(this, 0.65f));
-        this.goalSelector.addGoal(1, new EntAttackGoal(this, 1, false));
+        this.goalSelector.addGoal(1, new EntAttackGoal(this, 1));
 
 
         this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 1.0D));
@@ -191,62 +213,45 @@ public class Ent extends MultiAttackMob implements NeutralMob, Enemy{
         this.targetSelector.addGoal(2, new ResetUniversalAngerTargetGoal<>(this, true));
     }
 
-    private int attackAnimationTick;
-    static class EntAttackGoal extends DelayedMeleeAttackGoal{
-        private final Ent ent;
-
-        public EntAttackGoal(Ent ent, double pSpeedModifier, boolean pFollowingTargetEvenIfNotSeen){
-            super(ent, pSpeedModifier, 80, pFollowingTargetEvenIfNotSeen);
-            this.ent = ent;
+    public class EntAttackGoal extends TridotMeleeAttackGoal{
+        public EntAttackGoal(MultiAttackMob mob, double speedModifier) {
+            super(mob, speedModifier);
         }
 
         @Override
-        public void start(){
-            this.ent.level().broadcastEntityEvent(ent, (byte)4);
-            this.ent.attackAnimationTick = 25;
-            super.start();
+        public int attackAnimationTick(){
+            return 40;
         }
 
-        public void tick() {
-            LivingEntity livingentity = this.mob.getTarget();
-            if (livingentity != null) {
-                this.mob.getLookControl().setLookAt(livingentity, 30.0F, 30.0F);
-                double d0 = this.mob.getPerceivedTargetDistanceSquareForMeleeAttack(livingentity);
-                this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
-                if ((this.followingTargetEvenIfNotSeen || this.mob.getSensing().hasLineOfSight(livingentity)) && this.ticksUntilNextPathRecalculation <= 0 && (this.pathedTargetX == 0.0 && this.pathedTargetY == 0.0 && this.pathedTargetZ == 0.0 || livingentity.distanceToSqr(this.pathedTargetX, this.pathedTargetY, this.pathedTargetZ) >= 1.0 || this.mob.getRandom().nextFloat() < 0.05F)) {
-                    this.pathedTargetX = livingentity.getX();
-                    this.pathedTargetY = livingentity.getY();
-                    this.pathedTargetZ = livingentity.getZ();
-                    this.ticksUntilNextPathRecalculation = 4 + this.mob.getRandom().nextInt(7);
-                    if (d0 > 1024.0) {
-                        this.ticksUntilNextPathRecalculation += 10;
-                    } else if (d0 > 256.0) {
-                        this.ticksUntilNextPathRecalculation += 5;
-                    }
-
-                    if (!this.mob.getNavigation().moveTo(livingentity, this.speedModifier)) {
-                        this.ticksUntilNextPathRecalculation += 15;
-                    }
-
-                    this.ticksUntilNextPathRecalculation = this.adjustedTickDelay(this.ticksUntilNextPathRecalculation);
-                }
-
-                if(this.ent.attackAnimationTick < 3){
-                    this.ticksUntilNextAttack = Math.max(this.getTicksUntilNextAttack() - 1, 0);
-                    this.checkAndPerformAttack(livingentity, d0);
-                }
-            }
+        @Override
+        public void onPrepare() {
+            super.onPrepare();
+            Ent.this.level().broadcastEntityEvent(Ent.this, (byte)4);
         }
 
-        public boolean canUse(){
-            return super.canUse() && this.ent.okTarget(this.ent.getTarget());
+        @Override
+        public int getPreparingTime() {
+            return 40;
         }
 
-        /**
-         * Returns whether an in-progress EntityAIBase should continue executing
-         */
-        public boolean canContinueToUse(){
-            return super.canContinueToUse() && this.ent.okTarget(this.ent.getTarget());
+        @Override
+        public int getAttackInterval() {
+            return 40;
+        }
+
+        @Override
+        public SoundEvent getPrepareSound() {
+            return SoundEvents.IRON_GOLEM_ATTACK;
+        }
+
+        @Override
+        public SoundEvent getAttackSound() {
+            return SoundEvents.PLAYER_ATTACK_STRONG;
+        }
+
+        @Override
+        public AttackRegistry getAttack() {
+            return EntityStatsRegistry.MELEE;
         }
     }
 }

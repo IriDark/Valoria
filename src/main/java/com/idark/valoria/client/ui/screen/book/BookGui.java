@@ -20,12 +20,19 @@ public class BookGui extends Screen{
     public static Chapter currentChapter;
     public static int currentPage = 0;
     public boolean openedFromInv;
+    public boolean initializedPages = false;
 
     public BookGui(Chapter chapter, boolean openedFromInv){
         super(Component.translatable("codex.valoria.main"));
         currentChapter = chapter;
         currentPage = 0;
         this.openedFromInv = openedFromInv;
+    }
+
+    protected void initPages(){
+        Page left = currentChapter.getPage(currentPage), right = currentChapter.getPage(currentPage + 1);
+        left.init();
+        right.init();
     }
 
     @Override
@@ -76,6 +83,13 @@ public class BookGui extends Screen{
         Page left = currentChapter.getPage(currentPage), right = currentChapter.getPage(currentPage + 1);
         if(left != null) left.tick();
         if(right != null) right.tick();
+
+        if(!initializedPages) {
+            if(left != null) left.init();
+            if(right != null) right.init();
+
+            initializedPages = right != null || left != null;
+        }
     }
 
     @Override

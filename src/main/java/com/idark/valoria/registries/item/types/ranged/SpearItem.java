@@ -4,6 +4,7 @@ import com.google.common.base.*;
 import com.google.common.collect.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.entity.projectile.*;
+import com.idark.valoria.registries.item.types.builders.*;
 import net.minecraft.*;
 import net.minecraft.core.*;
 import net.minecraft.core.particles.*;
@@ -48,9 +49,20 @@ public class SpearItem extends SwordItem implements Vanishable{
     public final ImmutableList<MobEffectInstance> effects;
     public ArcRandom arcRandom = Tmp.rnd;
 
+    public SpearItem(Builder builder){
+        super(builder.tier, (int)builder.attackDamageIn, builder.attackSpeedIn, builder.itemProperties);
+        this.attackDamage = builder.attackDamageIn;
+        this.attackSpeed = builder.attackSpeedIn;
+        this.projectileDamage = builder.projectileDamageIn;
+        this.effects = builder.effects;
+        this.throwable = builder.throwable;
+        this.chance = builder.chance;
+    }
+
     /**
      * @param pEffects Effects applied on attack
      */
+    @Deprecated
     public SpearItem(Tier tier, float attackDamageIn, float attackSpeedIn, Item.Properties builderIn, MobEffectInstance... pEffects){
         super(tier, (int)attackDamageIn, attackSpeedIn, builderIn);
         this.attackDamage = attackDamageIn + tier.getAttackDamageBonus();
@@ -64,6 +76,7 @@ public class SpearItem extends SwordItem implements Vanishable{
      * @param pChance  Chance to apply effects
      * @param pEffects Effects applied on attack
      */
+    @Deprecated
     public SpearItem(Tier tier, float attackDamageIn, float attackSpeedIn, float pChance, Item.Properties builderIn, MobEffectInstance... pEffects){
         super(tier, (int)attackDamageIn, attackSpeedIn, builderIn);
         this.attackDamage = attackDamageIn + tier.getAttackDamageBonus();
@@ -74,6 +87,7 @@ public class SpearItem extends SwordItem implements Vanishable{
         throwable = true;
     }
 
+    @Deprecated
     public SpearItem(Tier tier, float attackDamageIn, float attackSpeedIn, boolean pThrowable, Item.Properties builderIn){
         super(tier, (int)attackDamageIn, attackSpeedIn, builderIn);
         this.attackDamage = attackDamageIn + tier.getAttackDamageBonus();
@@ -103,10 +117,8 @@ public class SpearItem extends SwordItem implements Vanishable{
     public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn){
         ItemStack itemstack = playerIn.getItemInHand(handIn);
         if(throwable && !playerIn.isShiftKeyDown()){
-            if(!playerIn.isShiftKeyDown()){
-                playerIn.startUsingItem(handIn);
-                return InteractionResultHolder.consume(itemstack);
-            }
+            playerIn.startUsingItem(handIn);
+            return InteractionResultHolder.consume(itemstack);
         }
 
         return InteractionResultHolder.pass(itemstack);
@@ -218,5 +230,16 @@ public class SpearItem extends SwordItem implements Vanishable{
     @Override
     public boolean canPerformAction(ItemStack stack, net.minecraftforge.common.ToolAction toolAction){
         return SPEAR.contains(toolAction);
+    }
+
+    public static class Builder extends AbstractSpearBuilder<SpearItem>{
+        public Builder(float attackDamageIn, float attackSpeedIn, Properties itemProperties){
+            super(attackDamageIn, attackSpeedIn, itemProperties);
+        }
+
+        @Override
+        public SpearItem build(){
+            return new SpearItem(this);
+        }
     }
 }

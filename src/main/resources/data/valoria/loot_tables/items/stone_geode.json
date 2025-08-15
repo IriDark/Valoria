@@ -22,7 +22,7 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:raw_iron",
-          "weight": 20,
+          "weight": 40,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -33,7 +33,7 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:raw_copper",
-          "weight": 60,
+          "weight": 50,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -44,7 +44,7 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:raw_gold",
-          "weight": 45,
+          "weight": 50,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -99,7 +99,7 @@
         {
           "type": "minecraft:item",
           "name": "valoria:sapphire_gem",
-          "weight": 15,
+          "weight": 10,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -116,7 +116,7 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:diamond",
-          "weight": 6,
+          "weight": 5,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -143,7 +143,7 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:iron_ingot",
-          "weight": 9,
+          "weight": 15,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -169,19 +169,8 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:iron_nugget",
-          "weight": 25,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": 6
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
           "name": "minecraft:gunpowder",
-          "weight": 32,
+          "weight": 35,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -225,7 +214,7 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:emerald",
-          "weight": 12,
+          "weight": 5,
           "functions": [
             {
               "function": "minecraft:set_count",

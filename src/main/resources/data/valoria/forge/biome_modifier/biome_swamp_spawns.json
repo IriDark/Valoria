@@ -1,0 +1,18 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "#forge:is_swamp",
+  "spawners": [
+    {
+      "type": "valoria:scourge",
+      "weight": 60,
+      "minCount": 1,
+      "maxCount": 2
+    },
+    {
+      "type": "valoria:swamp_wanderer",
+      "weight": 35,
+      "minCount": 1,
+      "maxCount": 3
+    }
+  ]
+}

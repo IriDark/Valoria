@@ -21,6 +21,7 @@ import com.idark.valoria.registries.item.types.elemental.*;
 import com.idark.valoria.registries.item.types.food.*;
 import com.idark.valoria.registries.item.types.ranged.*;
 import com.idark.valoria.registries.item.types.ranged.bows.*;
+import com.idark.valoria.registries.item.types.shield.*;
 import com.idark.valoria.util.*;
 import net.minecraft.*;
 import net.minecraft.core.particles.*;
@@ -90,7 +91,7 @@ public class ItemsRegistry{
     natureGift, oceanicShell, infernalStone, rottenBone, marshCloth, painCrystal, nihilityShard, illusionStone, elementalCrystal,
     natureCore, aquariusCore, infernalCore, voidCore, unstableCore,
     valoriaPortalFrameShard, blackGoldUpgrade, natureUpgrade, aquariusUpgrade, infernalUpgrade, voidUpgrade,
-    gaibRoot, karusakanRoot, shadeBlossomLeaf, aloePiece,
+    gaibRoot, karusakanRoot, shadeBlossomLeaf, aloePiece, crabClaw, crabShell,
     dunestoneBrick, tombstoneBrick, ambaneStoneBrick, limestoneBrick, crystalStoneBrick, voidStoneBrick,
     bronzeIngot, bronzeNugget, pearliumIngot, cobaltIngot, cobaltNugget, etherealShard, blackGold, blackGoldNugget, ancientIngot, natureIngot, aquariusIngot, infernalIngot, voidIngot, jade, pyratite, relicGold, ancientShard,
     emptyGazer, emptyWinglet, emptyTotem,
@@ -109,7 +110,7 @@ public class ItemsRegistry{
     codex, page, cryptPage, fortressPage, necromancerPage, dryadorPage, wickedCrystalPage,
 
     // weapons
-    club, bronzeSword, spectralBlade, corpseCleaver, boneShuriken,
+    club, clawhook, bronzeSword, spectralBlade, corpseCleaver, boneShuriken,
     samuraiKunai, samuraiPoisonedKunai, samuraiKatana, samuraiLongBow,
     silkenBlade, silkenKunai, silkenWakizashi, meatCutter, quantumReaper, bloodHound,
     blazeReap, gunpowderCharge, pyratiteCharge,
@@ -153,13 +154,13 @@ public class ItemsRegistry{
     rune, runeVision, runeWealth, runeCurses, runeStrength, runeAccuracy, runeDeep, runePyro, runeCold,
     aloeBandage, aloeBandageUpgraded, shadeBlossomBandage, // food
 
-    applePie, eyeChunk, taintedBerries, cookedGlowVioletSprout, cookedAbyssalGlowfern, goblinMeat, cookedGoblinMeat, devilMeat, cookedDevilMeat, cup, cacaoCup, coffeeCup, teaCup, greenTeaCup, woodenCup, beerCup, rumCup, bottle, kvassBottle, wineBottle, akvavitBottle, sakeBottle, liquorBottle, rumBottle, meadBottle, cognacBottle, whiskeyBottle, cokeBottle, toxinsBottle,
+    applePie, eyeChunk, taintedBerries, cookedGlowVioletSprout, cookedAbyssalGlowfern, goblinMeat, cookedGoblinMeat, crabLeg, cookedCrablLeg, devilMeat, cookedDevilMeat, cup, cacaoCup, coffeeCup, teaCup, greenTeaCup, woodenCup, beerCup, rumCup, bottle, kvassBottle, wineBottle, akvavitBottle, sakeBottle, liquorBottle, rumBottle, meadBottle, cognacBottle, whiskeyBottle, cokeBottle, toxinsBottle,
 
     necromancerMusicDisc,
-    wickedShield,
+    draugrShield, crabBuckler, wickedShield,
 
     // spawn eggs
-    pumpkinContract, goblin, dryador, pixie, entMob, draugr, swampWanderer, scourge, maggot, wickedCrystal, crystal, sorcerer, necromancer, undead, shadewoodSpider, devil, troll, corruptedTroll, corrupted, fleshSentinel, mannequin;
+    pumpkinContract, goblin, kingCrab, dryador, pixie, entMob, draugr, swampWanderer, scourge, maggot, wickedCrystal, crystal, sorcerer, necromancer, undead, shadewoodSpider, devil, troll, corruptedTroll, corrupted, fleshSentinel, mannequin;
 
     public static void load(IEventBus eventBus){
         shadewoodBoat = BLOCK_ITEMS.register("shadewood_boat", () -> new CustomBoatItem(new Item.Properties().stacksTo(1), EntityTypeRegistry.SHADEWOOD_BOAT));
@@ -252,6 +253,8 @@ public class ItemsRegistry{
 
         karusakanRoot = registerItem("karusakan_root", () -> new Item(new Item.Properties().stacksTo(16)));
         aloePiece = registerItem("aloe_piece");
+        crabClaw = registerItem("crab_claw");
+        crabShell = registerItem("crab_shell");
         shadeBlossomLeaf = registerItem("shade_blossom_leaf");
         dunestoneBrick = registerItem("dunestone_brick");
         tombstoneBrick = registerItem("tombstone_brick");
@@ -363,6 +366,7 @@ public class ItemsRegistry{
 
         // weapons
         club = registerItem("club", () -> new HitEffectItem(Tiers.WOOD, 5, -3.2f, new Item.Properties(), 0.1f, new MobEffectInstance(EffectsRegistry.STUN.get(), 60, 0)));
+        clawhook = registerItem("clawhook", () -> new ClawhookItem(new Item.Properties().durability(125)));
         bronzeSword = registerItem("bronze_sword", () -> new SwordItem(ItemTierRegistry.BRONZE, 6, -2.4f, new Item.Properties()));
         quantumReaper = registerItem("quantum_reaper", () -> new SwordItem(ItemTierRegistry.NONE, 8, -3f, new Item.Properties().rarity(RarityRegistry.VOID)){
             @Override
@@ -473,7 +477,7 @@ public class ItemsRegistry{
 
         coralReef = registerItem("coral_reef", () -> new CoralReefItem(ItemTierRegistry.AQUARIUS, ToolStats.large_sword.damage, ToolStats.large_sword.speed, new Item.Properties().rarity(RarityRegistry.AQUARIUS)));
         aquariusScythe = registerItem("aquarius_scythe", () -> new AquariusScytheItem(ItemTierRegistry.AQUARIUS, ToolStats.scythe.damage, ToolStats.scythe.speed, new Item.Properties().rarity(RarityRegistry.AQUARIUS)));
-        aquariusSpear = registerItem("aquarius_spear", () -> new DepthSpearItem(ItemTierRegistry.AQUARIUS, ToolStats.spear.damage, ToolStats.spear.speed, new Item.Properties().stacksTo(1).durability(1684).rarity(RarityRegistry.AQUARIUS)));
+        aquariusSpear = registerItem("aquarius_spear", () -> new DepthSpearItem.Builder(ToolStats.spear.damage, ToolStats.spear.speed, new Item.Properties().stacksTo(1).durability(1684).rarity(RarityRegistry.AQUARIUS)).setTier(ItemTierRegistry.AQUARIUS).build());
         aquariusPickaxe = registerItem("aquarius_pickaxe", () -> new ValoriaPickaxe(ItemTierRegistry.AQUARIUS, ToolStats.pickaxe.damage, ToolStats.pickaxe.speed, new Item.Properties().rarity(RarityRegistry.AQUARIUS)));
         aquariusAxe = registerItem("aquarius_axe", () -> new AxeItem(ItemTierRegistry.AQUARIUS, ToolStats.axe.damage, ToolStats.axe.speed, new Item.Properties().rarity(RarityRegistry.AQUARIUS)));
         aquariusShovel = registerItem("aquarius_shovel", () -> new ShovelItem(ItemTierRegistry.AQUARIUS, ToolStats.shovel.damage, ToolStats.shovel.speed, new Item.Properties().rarity(RarityRegistry.AQUARIUS)));
@@ -639,6 +643,8 @@ public class ItemsRegistry{
         cookedAbyssalGlowfern = registerItem("cooked_abyssal_glowfern", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(4).saturationMod(0.3f).effect(new MobEffectInstance(MobEffects.NIGHT_VISION, 500), 1f).build())));
         goblinMeat = registerItem("goblin_meat", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().meat().nutrition(3).saturationMod(0.2f).effect(new MobEffectInstance(MobEffects.HUNGER, 60), 0.25f).build())));
         cookedGoblinMeat = registerItem("cooked_goblin_meat", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().meat().nutrition(6).saturationMod(0.4f).build())));
+        crabLeg = registerItem("crab_leg", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().meat().nutrition(4).saturationMod(0.2f).effect(new MobEffectInstance(MobEffects.HUNGER, 60), 0.25f).build())));
+        cookedCrablLeg = registerItem("cooked_crab_leg", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().meat().nutrition(8).saturationMod(0.4f).build())));
         devilMeat = registerItem("devil_meat", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().meat().nutrition(6).saturationMod(0.3f).effect(new MobEffectInstance(MobEffects.HUNGER, 40), 0.35f).build())));
         cookedDevilMeat = registerItem("cooked_devil_meat", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().meat().nutrition(8).saturationMod(0.6f).build())));
         cup = registerItem("cup", () -> new BlockItem(BlockRegistry.cup.get(), new Item.Properties().stacksTo(64)));
@@ -663,12 +669,15 @@ public class ItemsRegistry{
         toxinsBottle = registerItem("toxins_bottle", () -> new Item(new Item.Properties().rarity(Rarity.EPIC)));
         necromancerMusicDisc = registerItem("music_disc_necromancer", () -> new RecordItem(15, SoundsRegistry.MUSIC_NECROMANCER.get(), (new Properties()).stacksTo(1).rarity(Rarity.RARE), 97));
 
-        wickedShield = registerItem("wicked_shield", () -> new ShieldItem((new Properties()).stacksTo(1).rarity(Rarity.EPIC)));
+        draugrShield = registerItem("draugr_shield", () -> new DraugrShieldItem(25, new Properties().stacksTo(1).durability(800).rarity(Rarity.UNCOMMON)));
+        crabBuckler = registerItem("crab_buckler", () -> new CrabBucklerItem(45, new Properties().stacksTo(1).durability(1200).rarity(Rarity.RARE)));
+        wickedShield = registerItem("wicked_shield", () -> new ValoriaShieldItem(new Properties().stacksTo(1).rarity(Rarity.EPIC)));
 
         // spawn eggs
         pumpkinContract = registerItem("pumpkin_contract", () -> new TexturedSpawnEggItem(EntityTypeRegistry.HAUNTED_MERCHANT, new Item.Properties()));
         mannequin = registerItem("mannequin_spawn_egg", () -> new MannequinSpawnItem(new Item.Properties()));
         goblin = registerItem("goblin_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.GOBLIN, Col.hexToDecimal("185b36"), Col.hexToDecimal("6BB447"), new Item.Properties()));
+        kingCrab = registerItem("king_crab_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.KING_CRAB, Col.hexToDecimal("c82613"), Col.hexToDecimal("7a464b"), new Item.Properties()));
         dryador = registerItem("dryador_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.DRYADOR, Col.hexToDecimal("5f4a2b"), Col.hexToDecimal("7ede3d"), new Item.Properties()));
         pixie = registerItem("pixie_spawn_egg", () -> new TexturedSpawnEggItem(EntityTypeRegistry.PIXIE, new Item.Properties()));
         entMob = registerItem("ent_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.ENT, Col.hexToDecimal("52392e"), Col.colorToDecimal(Pal.nature.toJava()), new Item.Properties()));        draugr = registerItem("draugr_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.DRAUGR, Col.hexToDecimal("61523f"), Col.hexToDecimal("beb4aa"), new Item.Properties()));

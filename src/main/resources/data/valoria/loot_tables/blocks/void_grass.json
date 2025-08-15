@@ -33,7 +33,7 @@
                   "condition": "minecraft:survives_explosion"
                 }
               ],
-              "name": "valoria:void_stone"
+              "name": "valoria:void_grass"
             }
           ]
         }

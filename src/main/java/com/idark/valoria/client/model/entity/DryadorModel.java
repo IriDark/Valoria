@@ -57,7 +57,7 @@ public class DryadorModel<T extends DryadorEntity> extends AbstractHierarchicalM
         super.setupAnim(pEntity, pLimbSwing, pLimbSwingAmount, pAgeInTicks, pNetHeadYaw, pHeadPitch);
         if(!pEntity.isBusy()){
             this.animateWalk(DryadorAnimations.WALK, pLimbSwing, pLimbSwingAmount, 6, 8);
-            this.animate(pEntity.idleAnimationState, DryadorAnimations.IDLE, pAgeInTicks);
+            this.animateIdle(pEntity.idleAnimationState, DryadorAnimations.IDLE, pLimbSwingAmount, pAgeInTicks, 1);
         }
 
         this.animate(pEntity.phaseTransitionAnimationState, DryadorAnimations.PHASE_TRANSITION, pAgeInTicks);

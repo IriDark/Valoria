@@ -77,7 +77,7 @@ public class SorcererModel<T extends SorcererEntity> extends AbstractHierarchica
     public void setupAnim(T pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch){
         super.setupAnim(pEntity, pLimbSwing, pLimbSwingAmount, pAgeInTicks, pNetHeadYaw, pHeadPitch);
         this.animateWalk(GoblinAnimations.WALK, pLimbSwing, pLimbSwingAmount, 3, 6);
-        this.animate(pEntity.idleAnimationState, SorcererAnimations.IDLE, pAgeInTicks, 1f);
+        this.animateIdle(pEntity.idleAnimationState, SorcererAnimations.IDLE, pLimbSwingAmount, pAgeInTicks, 1);
         this.animate(pEntity.healAnimationState, SorcererAnimations.HEAL, pAgeInTicks, 1f);
         this.animate(pEntity.attackHatAnimationState, SorcererAnimations.ATTACK_MAGIC_HAT, pAgeInTicks, 1f);
         this.animate(pEntity.attackAnimationState, SorcererAnimations.ATTACK_MAGIC, pAgeInTicks, 1f);

@@ -3,90 +3,78 @@
   "pools": [
     {
       "rolls": {
-        "min": 0,
-        "max": 2
+        "min": 1,
+        "max": 3
       },
       "bonus_rolls": {
         "min": 0,
-        "max": 1
+        "max": 2
       },
       "entries": [
         {
           "type": "minecraft:item",
           "name": "valoria:throwable_bomb",
-          "weight": 3,
-          "conditions": [
-            {
-              "condition": "minecraft:random_chance",
-              "chance": 0.1
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 2,
-          "name": "minecraft:gold_ingot",
-          "conditions": [
-            {
-              "condition": "minecraft:random_chance",
-              "chance": 0.1
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 2,
-          "name": "minecraft:iron_ingot",
-          "conditions": [
-            {
-              "condition": "minecraft:random_chance",
-              "chance": 0.2
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
           "weight": 5,
-          "name": "minecraft:flint",
           "conditions": [
             {
               "condition": "minecraft:random_chance",
-              "chance": 0.5
+              "chance": 0.25
             }
           ]
         },
         {
           "type": "minecraft:item",
+          "name": "minecraft:gold_ingot",
           "weight": 3,
-          "name": "minecraft:bone",
           "functions": [
             {
               "function": "minecraft:set_count",
-              "count": 3
+              "count": {
+                "min": 1,
+                "max": 3
+              }
             }
           ],
           "conditions": [
             {
               "condition": "minecraft:random_chance",
-              "chance": 0.5
+              "chance": 0.25
             }
           ]
         },
         {
           "type": "minecraft:item",
-          "weight": 3,
-          "name": "minecraft:gold_nugget",
+          "name": "minecraft:iron_ingot",
+          "weight": 4,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "min": 1,
+                "max": 3
+              }
+            }
+          ],
           "conditions": [
             {
               "condition": "minecraft:random_chance",
-              "chance": 0.4
+              "chance": 0.3
             }
           ]
         },
         {
           "type": "minecraft:item",
-          "weight": 7,
-          "name": "minecraft:gunpowder",
+          "name": "minecraft:flint",
+          "weight": 6,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "min": 2,
+                "max": 4
+              }
+            }
+          ],
           "conditions": [
             {
               "condition": "minecraft:random_chance",
@@ -96,18 +84,81 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 1,
-          "name": "minecraft:emerald",
+          "name": "minecraft:bone",
+          "weight": 5,
           "functions": [
             {
               "function": "minecraft:set_count",
-              "count": 3
+              "count": {
+                "min": 2,
+                "max": 6
+              }
             }
           ],
           "conditions": [
             {
               "condition": "minecraft:random_chance",
-              "chance": 0.1
+              "chance": 0.6
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:gold_nugget",
+          "weight": 4,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "min": 4,
+                "max": 10
+              }
+            }
+          ],
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance",
+              "chance": 0.5
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:gunpowder",
+          "weight": 8,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "min": 2,
+                "max": 5
+              }
+            }
+          ],
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance",
+              "chance": 0.75
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:emerald",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "min": 1,
+                "max": 3
+              }
+            }
+          ],
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance",
+              "chance": 0.2
             }
           ]
         }

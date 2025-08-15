@@ -39,6 +39,7 @@ public class Devil extends AbstractDevil implements RangedAttackMob{
     public int hits = 0;
     public boolean ranged;
     public SkeletonMovement movement = new SkeletonMovement(this, 64);
+    private int attackAnimationTick;
 
     public Devil(EntityType<? extends Devil> pEntityType, Level pLevel){
         super(pEntityType, pLevel);
@@ -83,6 +84,16 @@ public class Devil extends AbstractDevil implements RangedAttackMob{
     public void tick(){
         super.tick();
         if(ranged) movement.setupMovement();
+        if (this.attackAnimationTick > 0) {
+            --this.attackAnimationTick;
+            if (this.attackAnimationTick == this.attackDelay() && this.getTarget() != null && this.getTarget().isAlive()) {
+                double d0 = this.distanceToSqr(this.getTarget().getX(), this.getTarget().getY(), this.getTarget().getZ());
+                float f = (float)Math.sqrt(d0) / 16;
+                float f1 = Mth.clamp(f, 0.1F, 1.0F);
+                this.performRangedAttack(this.getTarget(), f1);
+            }
+        }
+
         if(this.level().isClientSide()){
             setupAnimationStates();
         }
@@ -151,7 +162,7 @@ public class Devil extends AbstractDevil implements RangedAttackMob{
     @Override
     protected void registerGoals(){
         super.registerGoals();
-        this.goalSelector.addGoal(0, new MeleeAttackGoal(this, 1, false));
+        this.goalSelector.addGoal(0, new net.minecraft.world.entity.ai.goal.MeleeAttackGoal(this, 1, false));
 //        this.goalSelector.addGoal(0, new MagicAttackGoal(this, 1.0D));
         this.goalSelector.addGoal(0, new ThrowSpearGoal(this, 1.0D, 12.0F));
         this.goalSelector.addGoal(0, new ReasonableAvoidEntityGoal<>(this, Player.class, 16, 1.25, 2, isLowHP()));
@@ -178,114 +189,17 @@ public class Devil extends AbstractDevil implements RangedAttackMob{
         this.level().addFreshEntity(spear);
     }
 
-//    public class MagicAttackGoal extends AttackGoal{
-//        private final Devil mob;
-//        private LivingEntity target;
-//        private final double speedModifier;
-//        private int seeTime;
-//
-//        public MagicAttackGoal(Devil mob, double pSpeedModifier){
-//            this.mob = mob;
-//            this.speedModifier = pSpeedModifier;
-//            this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
-//        }
-//
-//        /**
-//         * Returns whether execution should begin. You can also read and cache any state necessary for execution in this
-//         * method as well.
-//         */
-//        public boolean canUse() {
-//            LivingEntity livingentity = this.mob.getTarget();
-//            if (livingentity == null) return false;
-//            if (livingentity.isAlive()) {
-//                this.target = livingentity;
-//                return this.mob.distanceToSqr(this.target.getX(), this.target.getY(), this.target.getZ()) > 5;
-//            }
-//
-//            return false;
-//        }
-//
-//        @Override
-//        public void onPrepare(){
-//            mob.level().broadcastEntityEvent(Devil.this, (byte) 61);
-//        }
-//
-//        @Override
-//        protected void performAttack(){
-//            boolean flag = this.mob.getSensing().hasLineOfSight(this.target);
-//            if(flag){
-//                ++this.seeTime;
-//            }else{
-//                this.seeTime = 0;
-//            }
-//
-//            Level level = mob.level();
-//            for(BlockPos pos : BlockPos.randomInCube(mob.random, 16, target.getOnPos().above(), 8)) {
-//                Block block = level.getBlockState(pos.below()).getBlock();
-//                if(block != Blocks.AIR){
-//                    if(level instanceof ServerLevel server){
-//                        PacketHandler.sendToTracking(server, pos, new BeastAttackParticlePacket(pos.getX(), pos.getY(), pos.getZ(), Pal.infernal));
-//                        level.setBlock(pos, Blocks.FIRE.defaultBlockState(), 2);
-//                    }
-//                }
-//            }
-//
-//            this.mob.getLookControl().setLookAt(this.target, 30.0F, 30.0F);
-//        }
-//
-//        @Override
-//        public void tick(){
-//            double d0 = this.mob.distanceToSqr(this.target.getX(), this.target.getY(), this.target.getZ());
-//            if (d0 > 7.5f && this.seeTime >= 5) {
-//                this.mob.getNavigation().stop();
-//            } else {
-//                this.mob.getNavigation().moveTo(this.target, this.speedModifier);
-//            }
-//
-//            super.tick();
-//            this.mob.getLookControl().setLookAt(this.target.position());
-//        }
-//
-//        @Override
-//        public int getPreparingTime(){
-//            return 60;
-//        }
-//
-//        @Override
-//        public int getAttackInterval(){
-//            return 500;
-//        }
-//
-//        @Override
-//        public SoundEvent getPrepareSound(){
-//            return SoundsRegistry.BLAZECHARGE.get();
-//        }
-//
-//        @Override
-//        public AttackRegistry getAttack(){
-//            return MAGIC;
-//        }
-//    }
-
     public class ThrowSpearGoal extends AttackGoal{
         private final Mob mob;
-        private final RangedAttackMob rangedAttackMob;
         private LivingEntity target;
         private final double speedModifier;
-        private final float attackRadius;
         private final float attackRadiusSqr;
 
         public ThrowSpearGoal(RangedAttackMob pRangedAttackMob, double pSpeedModifier, float pAttackRadius){
-            this.rangedAttackMob = pRangedAttackMob;
             this.mob = (Mob)pRangedAttackMob;
             this.speedModifier = pSpeedModifier;
-            this.attackRadius = pAttackRadius;
             this.attackRadiusSqr = pAttackRadius * pAttackRadius;
             this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
-        }
-
-        public boolean requiresUpdateEveryTick(){
-            return true;
         }
 
         /**
@@ -305,10 +219,6 @@ public class Devil extends AbstractDevil implements RangedAttackMob{
 
         @Override
         protected void performAttack(){
-            double d0 = this.mob.distanceToSqr(this.target.getX(), this.target.getY(), this.target.getZ());
-            float f = (float)Math.sqrt(d0) / this.attackRadius;
-            float f1 = Mth.clamp(f, 0.1F, 1.0F);
-            this.rangedAttackMob.performRangedAttack(this.target, f1);
         }
 
         public boolean raytrace(Mob mob, Vec3 EndPos){
@@ -375,6 +285,7 @@ public class Devil extends AbstractDevil implements RangedAttackMob{
 
         @Override
         public void onPrepare(){
+            Devil.this.attackAnimationTick = 25;
             Devil.this.level().broadcastEntityEvent(Devil.this, (byte)62);
         }
 
@@ -385,7 +296,7 @@ public class Devil extends AbstractDevil implements RangedAttackMob{
 
         @Override
         public int getAttackInterval(){
-            return 85;
+            return 50;
         }
 
         @Override

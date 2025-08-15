@@ -125,7 +125,6 @@ public class SwampWandererEntity extends Zombie{
         }
     }
 
-
     @Override
     public boolean doHurtTarget(Entity entityIn){
         if(!super.doHurtTarget(entityIn)){

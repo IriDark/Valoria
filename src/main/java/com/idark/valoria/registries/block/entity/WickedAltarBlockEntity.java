@@ -57,5 +57,6 @@ public class WickedAltarBlockEntity extends AbstractAltarBlockEntity{
         WickedCrystal boss = getBoss(level);
         boss.moveTo(this.worldPosition.getX() + 0.5, this.worldPosition.getY() + 2.75f, this.worldPosition.getZ() + 0.5, 0.0F, 0.0F);
         level.addFreshEntity(boss);
+        boss.spawnAnim();
     }
 }

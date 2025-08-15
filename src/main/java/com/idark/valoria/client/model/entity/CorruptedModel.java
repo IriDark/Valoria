@@ -66,7 +66,7 @@ public class CorruptedModel<T extends Corrupted> extends AbstractHierarchicalMod
             }
         }
 
-        this.animate(pEntity.idleAnimationState, CorruptedAnimation.IDLE, pAgeInTicks);
+        this.animateIdle(pEntity.idleAnimationState, CorruptedAnimation.IDLE, pLimbSwingAmount, pAgeInTicks, 1);
     }
 
     @Override

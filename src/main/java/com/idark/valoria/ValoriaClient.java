@@ -178,8 +178,12 @@ public class ValoriaClient{
             EntityRenderers.register(EntityTypeRegistry.DRYADOR.get(), DryadorRenderer::new);
             EntityRenderers.register(EntityTypeRegistry.ACORN.get(), AcornRenderer::new);
             EntityRenderers.register(EntityTypeRegistry.PIXIE.get(), PixieRenderer::new);
+            EntityRenderers.register(EntityTypeRegistry.KING_CRAB.get(), KingCrabRenderer::new);
+            EntityRenderers.register(EntityTypeRegistry.WATER_BUBBLE.get(), WaterBubbleRenderer::new);
 
+            ModItemModelProperties.makeShield(ItemsRegistry.crabBuckler.get());
             ModItemModelProperties.makeShield(ItemsRegistry.wickedShield.get());
+            ModItemModelProperties.makeShield(ItemsRegistry.draugrShield.get());
             ModItemModelProperties.makeSize(ItemsRegistry.soulCollector.get());
             ModItemModelProperties.makeCooldown(ItemsRegistry.spectralBlade.get());
         }

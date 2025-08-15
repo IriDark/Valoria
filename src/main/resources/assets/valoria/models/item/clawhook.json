@@ -1,0 +1,18 @@
+{
+  "parent": "minecraft:item/handheld",
+  "loader": "forge:separate_transforms",
+  "base": {
+    "parent": "valoria:item/clawhook_in_hand"
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "valoria:item/clawhook_icon"
+    },
+    "ground": {
+      "parent": "valoria:item/clawhook_icon"
+    },
+    "fixed": {
+      "parent": "valoria:item/clawhook_icon"
+    }
+  }
+}

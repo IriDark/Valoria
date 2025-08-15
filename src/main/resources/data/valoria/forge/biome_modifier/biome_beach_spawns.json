@@ -1,0 +1,12 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "minecraft:beach",
+  "spawners": [
+    {
+      "type": "valoria:king_crab",
+      "weight": 40,
+      "minCount": 1,
+      "maxCount": 4
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "type": "valoria:kiln",
+  "ingredient": {
+    "item": "valoria:rune"
+  },
+  "experience": 0.5,
+  "cookingtime": 80,
+  "result": "minecraft:brick"
+}

@@ -305,6 +305,7 @@ public class Valoria{
                 SpawnPlacements.register(EntityTypeRegistry.ENT.get(), SpawnPlacements.Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, Ent::checkEntSpawnRules);
                 SpawnPlacements.register(EntityTypeRegistry.MAGGOT.get(), SpawnPlacements.Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, MaggotEntity::checkMonsterSpawnRules);
                 SpawnPlacements.register(EntityTypeRegistry.CORRUPTED.get(), SpawnPlacements.Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, Corrupted::checkMonsterSpawnRules);
+                SpawnPlacements.register(EntityTypeRegistry.KING_CRAB.get(), SpawnPlacements.Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, KingCrabEntity::checkMonsterSpawnRules);
             });
         }
 
@@ -330,6 +331,7 @@ public class Valoria{
             event.put(EntityTypeRegistry.DRYADOR.get(), DRYADOR);
             event.put(EntityTypeRegistry.PIXIE.get(), PIXIE);
             event.put(EntityTypeRegistry.CORRUPTED.get(), CORRUPTED);
+            event.put(EntityTypeRegistry.KING_CRAB.get(), KING_CRAB);
 
             event.put(EntityTypeRegistry.HAUNTED_MERCHANT.get(), HAUNTED_MERCHANT);
             event.put(EntityTypeRegistry.FLESH_SENTINEL.get(), FLESH_SENTINEL);
@@ -388,6 +390,8 @@ public class Valoria{
             event.add(EntityTypeRegistry.SWAMP_WANDERER.get(), AttributeReg.VOID_RESISTANCE.get(), -25);
             event.add(EntityTypeRegistry.SWAMP_WANDERER.get(), AttributeReg.DEPTH_RESISTANCE.get(), 25);
             event.add(EntityTypeRegistry.DRAUGR.get(), AttributeReg.INFERNAL_RESISTANCE.get(), -15);
+            event.add(EntityTypeRegistry.KING_CRAB.get(), AttributeReg.INFERNAL_RESISTANCE.get(), -25);
+            event.add(EntityTypeRegistry.KING_CRAB.get(), AttributeReg.DEPTH_RESISTANCE.get(), 50);
 
             event.add(EntityType.DROWNED, AttributeReg.DEPTH_RESISTANCE.get(), 25);
             event.add(EntityType.DROWNED, AttributeReg.INFERNAL_RESISTANCE.get(), -25);

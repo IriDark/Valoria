@@ -1,0 +1,9 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#minecraft:is_ocean",
+  "features": [
+    "valoria:crystal_disk",
+    "valoria:pearlium_ore"
+  ],
+  "step": "underground_ores"
+}

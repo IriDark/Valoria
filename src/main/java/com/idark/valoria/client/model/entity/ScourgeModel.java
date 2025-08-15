@@ -68,7 +68,7 @@ public class ScourgeModel<T extends ScourgeEntity> extends AbstractHierarchicalM
     public void setupAnim(T pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch){
         super.setupAnim(pEntity, pLimbSwing, pLimbSwingAmount, pAgeInTicks, pNetHeadYaw, pHeadPitch);
         this.animateWalk(ScourgeAnimations.WALK, pLimbSwing, pLimbSwingAmount, pEntity.getSpeed(), pAgeInTicks);
-        this.animate(pEntity.idleAnimationState, ScourgeAnimations.IDLE, pAgeInTicks);
+        this.animateIdle(pEntity.idleAnimationState, ScourgeAnimations.IDLE, pLimbSwingAmount, pAgeInTicks, 1);
         this.animate(pEntity.attackAnimationState, ScourgeAnimations.ATTACK_MELEE, pAgeInTicks);
         this.animate(pEntity.diggingAnimationState, ScourgeAnimations.SPAWN, pAgeInTicks);
         this.animate(pEntity.deathAnimationState, ScourgeAnimations.DEATH, pAgeInTicks);

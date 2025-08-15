@@ -15,16 +15,6 @@
         },
         {
           "type": "minecraft:item",
-          "name": "valoria:rune",
-          "conditions": [
-            {
-              "condition": "minecraft:random_chance",
-              "chance": 0.3
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
           "name": "minecraft:gunpowder",
           "functions": [
             {

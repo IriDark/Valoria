@@ -12,6 +12,9 @@ import java.util.*;
 
 public abstract class Page{
 
+    public void init() {
+    }
+
     @OnlyIn(Dist.CLIENT)
     public static void drawText(GuiGraphics gui, String text, int x, int y, boolean Centered){
         Font font = Minecraft.getInstance().font;

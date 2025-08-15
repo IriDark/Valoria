@@ -42,7 +42,7 @@ public class CurioCurses extends AbstractRuneItem{
             if(Tmp.rnd.chance(chance) && !pServer.getCooldowns().isOnCooldown(this)){
                 MobEffect[] effectsArray = effects.toArray(new MobEffect[0]);
                 pServer.addEffect(new MobEffectInstance(effectsArray[Mth.nextInt(RandomSource.create(), 0, effects.size() - 1)], 60, 0, false, true));
-                pServer.getCooldowns().addCooldown(this, 300);
+                pServer.getCooldowns().addCooldown(this, 500);
                 pServer.level().playSound(null, pServer.getOnPos(), SoundsRegistry.EQUIP_CURSE.get(), SoundSource.AMBIENT, 0.5f, 1f);
             }
         }
@@ -64,7 +64,7 @@ public class CurioCurses extends AbstractRuneItem{
         }
 
         tooltip.add(Component.translatable("tooltip.valoria.curses").withStyle(ChatFormatting.GRAY));
-        Utils.Items.effectTooltip(effectBuilder.build(), tooltip, 60, chance);
+        Utils.Items.effectTooltip(effectBuilder.build(), tooltip, 1, chance);
     }
 
     @Override

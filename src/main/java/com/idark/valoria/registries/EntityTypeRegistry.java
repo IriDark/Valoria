@@ -30,6 +30,7 @@ public class EntityTypeRegistry{
     public static final RegistryObject<EntityType<Ent>> ENT = register("ent", EntityType.Builder.of(Ent::new, MobCategory.MONSTER).sized(0.8f, 2.0f).clientTrackingRange(8));
     public static final RegistryObject<EntityType<MaggotEntity>> MAGGOT = register("maggot", EntityType.Builder.<MaggotEntity>of(MaggotEntity::new, MobCategory.MONSTER).sized(0.4F, 0.3F).clientTrackingRange(8));
     public static final RegistryObject<EntityType<Corrupted>> CORRUPTED = register("corrupted", EntityType.Builder.of(Corrupted::new, MobCategory.MONSTER).sized(0.6f, 1.95f).clientTrackingRange(8));
+    public static final RegistryObject<EntityType<KingCrabEntity>> KING_CRAB = register("king_crab", EntityType.Builder.of(KingCrabEntity::new, MobCategory.MONSTER).sized(2, 1.5f).clientTrackingRange(8));
 
     // Minions
     public static final RegistryObject<EntityType<UndeadEntity>> UNDEAD = register("undead", EntityType.Builder.of(UndeadEntity::new, MobCategory.MONSTER).sized(0.4f, 0.8f).clientTrackingRange(8));
@@ -62,6 +63,7 @@ public class EntityTypeRegistry{
 
     public static final RegistryObject<EntityType<Devourer>> DEVOURER = register("devourer", EntityType.Builder.<Devourer>of(Devourer::new, MobCategory.MISC).sized(1, 1f).clientTrackingRange(6).updateInterval(2));
     public static final RegistryObject<EntityType<CrystalSpikes>> CRYSTAL_SPIKES = register("crystal_spikes", EntityType.Builder.<CrystalSpikes>of(CrystalSpikes::new, MobCategory.MISC).sized(1, 1f).clientTrackingRange(6).updateInterval(2));
+    public static final RegistryObject<EntityType<WaterBubble>> WATER_BUBBLE = register("water_bubble", EntityType.Builder.<WaterBubble>of(WaterBubble::new, MobCategory.MISC).sized(1, 1f).clientTrackingRange(6).updateInterval(2));
 
     // Boss
     public static final RegistryObject<EntityType<NecromancerEntity>> NECROMANCER = register("necromancer", EntityType.Builder.of(NecromancerEntity::new, MobCategory.MONSTER).sized(0.6f, 2.0f).clientTrackingRange(8));

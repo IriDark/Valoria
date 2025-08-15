@@ -1,6 +1,5 @@
 package com.idark.valoria.client.ui.screen.book.codex;
 
-import com.idark.valoria.api.events.*;
 import com.idark.valoria.api.events.CodexEvent.*;
 import com.idark.valoria.api.unlockable.types.*;
 import com.idark.valoria.client.ui.screen.book.*;
@@ -27,6 +26,7 @@ public class CodexEntries{
 
     BOSSES,
     UNDEAD,
+    KING_CRAB,
     NECROMANCER_GRIMOIRE, NECROMANCER,
     HARMONY_CROWN, DRYADOR,
     SUSPICIOUS_GEM, WICKED_CRYSTAL,
@@ -75,6 +75,10 @@ public class CodexEntries{
         TINKERER_WORKBENCH = new Chapter(
         "codex.valoria.tinkerer_workbench.name",
         new TextPage("codex.valoria.tinkerer_workbench"));
+
+        KING_CRAB = new Chapter(
+        "codex.valoria.king_crab.name",
+        new TextPage("codex.valoria.king_crab").withEntity(EntityTypeRegistry.KING_CRAB.get()).setEntityData(191, 60, 32));
 
         BOSSES = new Chapter(
         "codex.valoria.bosses.name",
@@ -160,67 +164,71 @@ public class CodexEntries{
 
     public static void init(){
         CodexEntries.entries.clear();
-        ChapterNode root = new ChapterNode(PAGES_CHAPTER, ItemsRegistry.page.get(), Style.GOLD).addChild(new ChapterNode(MAIN_CHAPTER, ItemsRegistry.codex.get(), Style.GOLD)
-            .addChild(TREASURES_CHAPTER, ItemsRegistry.amethystGem)
-            .addChild(MEDICINE_CHAPTER, ItemsRegistry.aloeBandage)
-            .addChild(STONE_CRUSHER, BlockRegistry.stoneCrusher.get().asItem())
-            .addChild(new ChapterNode(PICK, ItemsRegistry.pick.get(), Style.STANDARD, RegisterUnlockables.pick))
+        ChapterNode root = new ChapterNode(PAGES_CHAPTER, ItemsRegistry.page.get(), Style.GOLD)
+        .addChild(TREASURES_CHAPTER, ItemsRegistry.amethystGem)
+        .addChild(MEDICINE_CHAPTER, ItemsRegistry.aloeBandage)
+
+        .addChild(new ChapterNode(MAIN_CHAPTER, ItemsRegistry.codex.get(), Style.GOLD)
+            .addChild(new ChapterNode(STONE_CRUSHER, BlockRegistry.stoneCrusher.get().asItem())
                 .addChild(new ChapterNode(TINKERER_WORKBENCH, BlockRegistry.tinkererWorkbench.get().asItem(), Style.STANDARD, RegisterUnlockables.tinkererWorkbench)
-                    .addHintsDescription(
-                        Component.translatable("codex.valoria.tinkerer_workbench.hint").withStyle(DotStyle.of().color(Col.gray).effect(PulseAlphaFX.of(1f)))
+                .addHintsDescription(Component.translatable("codex.valoria.tinkerer_workbench.hint").withStyle(DotStyle.of().color(Col.gray).effect(PulseAlphaFX.of(1f))))
+                    .addChild(new ChapterNode(PICK, ItemsRegistry.pick.get(), Style.STANDARD, RegisterUnlockables.pick))
+                )
+            )
+
+            .addChild(new ChapterNode(BLACK_GOLD, ItemsRegistry.blackGold.get(), Style.IRON, RegisterUnlockables.blackGold)
+                .addHintsDescription(
+                    Component.translatable("codex.valoria.black_gold.hint").withStyle(DotStyle.of().color(Col.gray).effect(PulseAlphaFX.of(1f)))
+                )
+
+                .addChild(new ChapterNode(NATURE_CORE, ItemsRegistry.natureCore.get(), Style.GOLD, RegisterUnlockables.natureCore))
+                .addChild(new ChapterNode(AQUARIUS_CORE, ItemsRegistry.aquariusCore.get(), Style.GOLD, RegisterUnlockables.aquariusCore))
+                .addChild(new ChapterNode(INFERNAL_CORE, ItemsRegistry.infernalCore.get(), Style.GOLD, RegisterUnlockables.infernalCore))
+                .addChild(new ChapterNode(VOID_CORE, ItemsRegistry.voidCore.get(), Style.GOLD, RegisterUnlockables.voidCore))
+            )
+        );
+
+
+        ChapterNode bossesRoot = new ChapterNode(BOSSES, Items.SKELETON_SKULL, Style.CRYPT)
+            .addChild(KING_CRAB, ItemsRegistry.crabClaw)
+                .addChild(new ChapterNode(CRYPT, ItemsRegistry.cryptPage.get(), Style.CRYPT, RegisterUnlockables.crypt)
+                    .addHintsDescription(Component.translatable("codex.valoria.crypt.hint").withStyle(DotStyle.of().color(Col.gray).effect(PulseAlphaFX.of(1f))))
+                    .addChild(new ChapterNode(NECROMANCER_GRIMOIRE, ItemsRegistry.necromancerGrimoire.get(), Style.IRON, RegisterUnlockables.necromancerGrimoire)
+                        .addHintsDescription(Component.translatable("codex.valoria.necromancer_grimoire.hint").withStyle(DotStyle.of().color(Col.gray).effect(PulseAlphaFX.of(1f))
                     )
                 )
 
-            .addChild(new ChapterNode(VALORIA_PORTAL, BlockRegistry.valoriaPortalFrame.get().asItem(), Style.GOLD))
-            .addChild(new ChapterNode(CRYPT, ItemsRegistry.cryptPage.get(), Style.CRYPT, RegisterUnlockables.crypt)
-                .addHintsDescription(
-                    Component.translatable("codex.valoria.crypt.hint").withStyle(DotStyle.of().color(Col.gray).effect(PulseAlphaFX.of(1f)))
-                )
-            )
-
-            .addChild(new ChapterNode(FORTRESS, ItemsRegistry.wickedAmethyst.get(), Style.CRYPT, RegisterUnlockables.fortress)
-                .addHintsDescription(
-                    Component.translatable("codex.valoria.fortress.hint").withStyle(DotStyle.of().color(Col.gray).effect(PulseAlphaFX.of(1f)))
-                )
-            )
-
-        .addChild(new ChapterNode(BOSSES, Items.SKELETON_SKULL, Style.CRYPT)
-            .addChild(new ChapterNode(NECROMANCER_GRIMOIRE, ItemsRegistry.necromancerGrimoire.get(), Style.IRON, RegisterUnlockables.necromancerGrimoire)
-                .addHintsDescription(
-                    Component.translatable("codex.valoria.necromancer_grimoire.hint").withStyle(DotStyle.of().color(Col.gray).effect(PulseAlphaFX.of(1f)))
+                .addChild(new ChapterNode(UNDEAD, Items.BONE, Style.STANDARD, RegisterUnlockables.undead))
+                    .addChild(new ChapterNode(NECROMANCER, Items.SKELETON_SKULL, Style.GOLD, RegisterUnlockables.necromancer))
+                    )
                 )
 
-                .addChild(new ChapterNode(UNDEAD, Items.SKELETON_SKULL, Style.STANDARD, RegisterUnlockables.undead))
-                .addChild(new ChapterNode(NECROMANCER, Items.SKELETON_SKULL, Style.GOLD, RegisterUnlockables.necromancer))
-            )
-
-            .addChild(new ChapterNode(HARMONY_CROWN, ItemsRegistry.harmonyCrown.get(), Style.IRON, RegisterUnlockables.harmonyCrown)
-            .addHintsDescription(Component.translatable("codex.valoria.harmony_crown.hint").withStyle(DotStyle.of().color(Col.gray).effect(PulseAlphaFX.of(1f))))
-            .addChild(new ChapterNode(DRYADOR, Items.SKELETON_SKULL, Style.GOLD, RegisterUnlockables.dryador))
-            )
+                .addChild(new ChapterNode(HARMONY_CROWN, ItemsRegistry.harmonyCrown.get(), Style.IRON, RegisterUnlockables.harmonyCrown)
+                    .addHintsDescription(Component.translatable("codex.valoria.harmony_crown.hint").withStyle(DotStyle.of().color(Col.gray).effect(PulseAlphaFX.of(1f))))
+                    .addChild(new ChapterNode(DRYADOR, Items.SKELETON_SKULL, Style.GOLD, RegisterUnlockables.dryador))
+                )
 
 
-        .addChild(new ChapterNode(SUSPICIOUS_GEM, ItemsRegistry.suspiciousGem.get(), Style.IRON, RegisterUnlockables.suspiciousGem)
-        .addHintsDescription(Component.translatable("codex.valoria.suspicious_gem.hint").withStyle(DotStyle.of().color(Col.gray).effect(PulseAlphaFX.of(1f))))
-        .addChild(new ChapterNode(WICKED_CRYSTAL, Items.SKELETON_SKULL, Style.DIAMOND, RegisterUnlockables.wickedCrystal)))
-        )
+                .addChild(new ChapterNode(VALORIA_PORTAL, BlockRegistry.valoriaPortalFrame.get().asItem(), Style.GOLD)
+                    .addChild(new ChapterNode(FORTRESS, ItemsRegistry.wickedAmethyst.get(), Style.CRYPT, RegisterUnlockables.fortress)
+                        .addHintsDescription(Component.translatable("codex.valoria.fortress.hint").withStyle(DotStyle.of().color(Col.gray).effect(PulseAlphaFX.of(1f)))
+                        )
+                    )
 
-        .addChild(new ChapterNode(BLACK_GOLD, ItemsRegistry.blackGold.get(), Style.IRON, RegisterUnlockables.blackGold)
-            .addHintsDescription(
-                Component.translatable("codex.valoria.black_gold.hint").withStyle(DotStyle.of().color(Col.gray).effect(PulseAlphaFX.of(1f)))
-            )
-
-            .addChild(new ChapterNode(NATURE_CORE, ItemsRegistry.natureCore.get(), Style.GOLD, RegisterUnlockables.natureCore))
-            .addChild(new ChapterNode(AQUARIUS_CORE, ItemsRegistry.aquariusCore.get(), Style.GOLD, RegisterUnlockables.aquariusCore))
-            .addChild(new ChapterNode(INFERNAL_CORE, ItemsRegistry.infernalCore.get(), Style.GOLD, RegisterUnlockables.infernalCore))
-            .addChild(new ChapterNode(VOID_CORE, ItemsRegistry.voidCore.get(), Style.GOLD, RegisterUnlockables.voidCore))
-        ))
-
-        ;
+                    .addChild(new ChapterNode(SUSPICIOUS_GEM, ItemsRegistry.suspiciousGem.get(), Style.IRON, RegisterUnlockables.suspiciousGem)
+                        .addHintsDescription(Component.translatable("codex.valoria.suspicious_gem.hint").withStyle(DotStyle.of().color(Col.gray).effect(PulseAlphaFX.of(1f))))
+                        .addChild(new ChapterNode(WICKED_CRYSTAL, Items.SKELETON_SKULL, Style.DIAMOND, RegisterUnlockables.wickedCrystal)
+                        )
+                    )
+                );
 
         int offset = 0;
-        if(!onInit(root)){
-            layoutTree(root, 0, -measureWidth(root) / 5 - 140 + ((root.children.size % 2 == 1) ? -6 : 0) + offset);
+        if(onInit(root)){
+            layoutTree(root, 0, -measureWidth(root) / 12 + ((root.children.size % 2 == 1) ? -16 : 0) + offset);
+        }
+
+        if(onInit(bossesRoot)){
+            layoutTree(bossesRoot, 0, 24 + measureWidth(bossesRoot) + ((bossesRoot.children.size % 2 == 1) ? -16 : 0) + offset);
         }
     }
 
@@ -241,13 +249,7 @@ public class CodexEntries{
         int y = depth * -spacingY;
 
         if(node.children.isEmpty()){
-            CodexEntry entry = addEntry(node, x, y);
-            if(!onEntryAdded(entry)){
-                entries.add(entry);
-            } else {
-                entry.hide();
-            }
-
+            placeEntry(node, x, y);
             return spacingX;
         }
 
@@ -279,20 +281,21 @@ public class CodexEntries{
 
         centerX = Math.max(centerX,centerX2);
         centerX = Mth.clamp(centerX, -512, 512);
-        int we = depth < 0 ? totalWidth2 : totalWidth;
+        placeEntry(node, centerX, y);
+        return depth < 0 ? totalWidth2 : totalWidth;
+    }
 
-        CodexEntry entry = addEntry(node, centerX, y);
+    private static void placeEntry(ChapterNode node, int x, int y){
+        CodexEntry entry = addEntry(node, x, y);
         if(!onEntryAdded(entry)){
             entries.add(entry);
         } else {
             entry.hide();
         }
-
-        return we;
     }
 
     private static boolean onInit(ChapterNode root) {
-        return MinecraftForge.EVENT_BUS.post(new CodexEvent.OnInit(root));
+        return !MinecraftForge.EVENT_BUS.post(new OnInit(root));
     }
 
     private static boolean onEntryAdded(CodexEntry entry) {

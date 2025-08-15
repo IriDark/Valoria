@@ -1,17 +1,33 @@
 package com.idark.valoria.client.model.entity;
 
+import net.minecraft.client.animation.*;
 import net.minecraft.client.model.*;
 import net.minecraft.client.model.geom.*;
 import net.minecraft.util.*;
 import net.minecraft.world.entity.*;
 
-public abstract class AbstractHierarchicalModel<E extends Entity> extends HierarchicalModel<E>{
+public abstract class AbstractHierarchicalModel<T extends Entity> extends HierarchicalModel<T>{
 
-    public abstract ModelPart getHead();
+    public boolean applyHeadRotations() {
+        return true;
+    }
 
-    public void setupAnim(E pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch){
+    public ModelPart getHead() {
+        return null;
+    };
+
+    protected void animateIdle(AnimationState pAnimationState, AnimationDefinition pAnimationDefinition, float pLimbSwingAmount, float pAgeInTicks, float pAnimationSpeed) {
+        if(pLimbSwingAmount < 0.001) {
+            this.animate(pAnimationState, pAnimationDefinition, pAgeInTicks, pAnimationSpeed);
+        }
+    }
+
+    public void setupAnim(T pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch){
         this.root().getAllParts().forEach(ModelPart::resetPose);
-        this.applyHeadRotation(pNetHeadYaw, pHeadPitch);
+        if(applyHeadRotations() && this.getHead() != null){
+            this.applyHeadRotation(pNetHeadYaw, pHeadPitch);
+        }
+
         animateIdlePose(pAgeInTicks);
     }
 

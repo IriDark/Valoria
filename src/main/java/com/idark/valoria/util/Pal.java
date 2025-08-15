@@ -4,7 +4,7 @@ import pro.komaru.tridot.util.*;
 
 // Mindustry code enjoyer :>
 public class Pal{
-    public static Col
+    public static final Col
 
     //special
     diamond = Col.fromHex("33ebcb"),

@@ -1,0 +1,9 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#forge:is_desert",
+  "features": [
+    "valoria:dunestone",
+    "valoria:quicksand_disk"
+  ],
+  "step": "underground_ores"
+}

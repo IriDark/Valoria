@@ -8,7 +8,6 @@ import com.idark.valoria.registries.entity.ai.movements.*;
 import com.idark.valoria.registries.entity.living.minions.*;
 import com.idark.valoria.registries.entity.projectile.*;
 import com.idark.valoria.util.*;
-import com.mojang.logging.*;
 import net.minecraft.core.*;
 import net.minecraft.core.particles.*;
 import net.minecraft.nbt.*;
@@ -23,7 +22,6 @@ import net.minecraft.world.entity.ai.targeting.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.state.*;
-import net.minecraft.world.level.gameevent.*;
 import net.minecraft.world.phys.*;
 import net.minecraft.world.phys.shapes.*;
 import org.jetbrains.annotations.*;
@@ -37,10 +35,9 @@ import java.util.*;
 
 public class WickedCrystal extends AbstractBoss{
     public final ServerBossBarEvent bossEvent = (ServerBossBarEvent)(new ServerBossBarEvent(this.getName(), "Wicked Crystal")).setDarkenScreen(true);
-    private int spawnTime = 0;
     public AnimationState spawnAnimationState = new AnimationState();
     public AnimationState deathAnimationState = new AnimationState();
-    public int deathTime = 0;
+    public int animatedDeathTime = 0;
     public int phase = 1;
 
     public WickedCrystal(EntityType<? extends PathfinderMob> pEntityType, Level pLevel){
@@ -49,10 +46,21 @@ public class WickedCrystal extends AbstractBoss{
     }
 
     @Override
+    public void handleEntityEvent(byte pId){
+        if(pId == 3){
+            this.deathAnimationState.start(this.tickCount);
+        } else if (pId == 20) {
+            this.spawnAnimationState.start(this.tickCount);
+        } else {
+            super.handleEntityEvent(pId);
+        }
+    }
+
+    @Override
     public void tick(){
         super.tick();
         checkPhaseTransition();
-        if (this.deathTime > 0) {
+        if (this.animatedDeathTime > 0) {
             if (this.level() instanceof ServerLevel serverLevel) {
                 for (int i = 0; i < 2; i++) {
                     double offsetX = (random.nextDouble() - 0.5) * 0.6;
@@ -65,52 +73,18 @@ public class WickedCrystal extends AbstractBoss{
             }
         }
 
-        if(this.spawnTime < 10){
-            this.spawnTime++;
-            this.spawnAnimationState.start(tickCount);
-        }
+//        if(this.spawnTime < 10){
+//            this.spawnTime++;
+//            this.spawnAnimationState.start(tickCount);
+//        }
     }
 
     @Override
     protected void tickDeath(){
-        ++this.deathTime;
-        if (this.deathTime >= 60 && !this.level().isClientSide() && !this.isRemoved()) {
+        ++this.animatedDeathTime;
+        if (this.animatedDeathTime >= 60 && !this.level().isClientSide() && !this.isRemoved()) {
             this.remove(Entity.RemovalReason.KILLED);
         }
-    }
-
-    @Override
-    public void die(DamageSource pDamageSource){
-        if(net.minecraftforge.common.ForgeHooks.onLivingDeath(this, pDamageSource)) return;
-        if(!this.isRemoved() && !this.dead){
-            Entity entity = pDamageSource.getEntity();
-            LivingEntity livingentity = this.getKillCredit();
-            if(this.deathScore >= 0 && livingentity != null){
-                livingentity.awardKillScore(this, this.deathScore, pDamageSource);
-            }
-
-            if(this.isSleeping()){
-                this.stopSleeping();
-            }
-
-            if(!this.level().isClientSide && this.hasCustomName()){
-                LogUtils.getLogger().info("Named entity {} died: {}", this, this.getCombatTracker().getDeathMessage().getString());
-            }
-
-            this.dead = true;
-            this.getCombatTracker().recheckStatus();
-            Level level = this.level();
-            if(level instanceof ServerLevel serverlevel){
-                if(entity == null || entity.killedEntity(serverlevel, this)){
-                    this.gameEvent(GameEvent.ENTITY_DIE);
-                    this.dropAllDeathLoot(pDamageSource);
-                }
-
-                this.level().broadcastEntityEvent(this, (byte)3);
-            }
-        }
-
-        this.deathAnimationState.start(tickCount);
     }
 
     public void checkPhaseTransition() {

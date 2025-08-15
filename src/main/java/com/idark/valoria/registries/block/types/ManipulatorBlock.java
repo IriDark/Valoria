@@ -102,9 +102,7 @@ public class ManipulatorBlock extends Block implements SimpleWaterloggedBlock, E
     public void animateTick(BlockState stateIn, Level pLevel, BlockPos pos, RandomSource rand){
         float chance = 0.35f;
         if(chance < rand.nextFloat()){
-            pLevel.addParticle(ParticleTypes.PORTAL, pos.getX() + rand.nextDouble(),
-                    pos.getY() + 0.5D, pos.getZ() + rand.nextDouble(),
-                    0d, 0.05d, 0d);
+            pLevel.addParticle(ParticleTypes.PORTAL, pos.getX() + rand.nextDouble(), pos.getY() + 0.5D, pos.getZ() + rand.nextDouble(), 0d, 0.05d, 0d);
         }
 
         super.animateTick(stateIn, pLevel, pos, rand);
