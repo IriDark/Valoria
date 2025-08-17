@@ -86,11 +86,8 @@ public class SoulInfuserBlockEntity extends BlockEntity implements MenuProvider,
                 return LazyOptional.of(() -> item).cast();
             }
 
-            if(side == Direction.DOWN){
-                return outputHandler.cast();
-            }else{
-                return handler.cast();
-            }
+            if (side == Direction.DOWN) return outputHandler.cast();
+            else return handler.cast();
         }
 
         return super.getCapability(cap, side);
@@ -102,36 +99,43 @@ public class SoulInfuserBlockEntity extends BlockEntity implements MenuProvider,
     }
 
     @Override
-    public void tick(){
-        Optional<SoulInfuserRecipe> recipe = getCurrentRecipe();
-        if(!level.isClientSide){
-            if(recipe.isPresent()){
-                ItemStack input = itemHandler.getStackInSlot(0);
-                ItemStack soulCollector = itemHandler.getStackInSlot(1);
-                if(input.getItem() instanceof ISoulItem soulItem){
-                    if(getSouls(input) < soulItem.getMaxSouls() && getSouls(soulCollector) >= recipe.get().getSouls(input)){
-                        increaseCraftingProgress();
-                        setMaxProgress();
-                        setChanged(level, getBlockPos(), getBlockState());
-                        PacketHandler.sendToTracking(level, this.getBlockPos(), new ManipulatorCraftParticlePacket(this.getBlockPos().getX(), this.getBlockPos().getY(), this.getBlockPos().getZ(), -0.2f, 0.2f, -0.2f, 255, 255, 255));
-                        if(hasProgressFinished()){
-                            craftItem();
-                            resetProgress();
-                        }
+    public void tick() {
+        if (this.level == null || this.level.isClientSide) return;
 
-                        ValoriaUtils.SUpdateTileEntityPacket(this);
-                    }
+        Optional<SoulInfuserRecipe> recipeOpt = getCurrentRecipe();
+        if (recipeOpt.isEmpty()) {
+            this.resetProgress();
+            return;
+        }
+
+        SoulInfuserRecipe recipe = recipeOpt.get();
+        if (this.canCraft(recipe)) {
+            ItemStack input = this.itemHandler.getStackInSlot(0);
+            ItemStack soulCollector = this.itemHandler.getStackInSlot(1);
+
+            if (this.getSouls(soulCollector) >= recipe.getSouls(input)) {
+                this.increaseCraftingProgress();
+                this.setMaxProgress();
+                this.setChanged();
+
+                if (this.hasProgressFinished()) {
+                    this.craftItem(recipe);
+                    this.resetProgress();
                 }
             }
-        }
 
-        if(recipe.isEmpty()){
-            resetProgress();
-        }
+        } else resetProgress();
+    }
 
-        if(level.isClientSide){
-            playSound();
-        }
+    private boolean canCraft(SoulInfuserRecipe recipe) {
+        ItemStack recipeOutput = recipe.getResultItem(this.level.registryAccess());
+        ItemStack outputSlot = this.itemOutputHandler.getStackInSlot(0);
+
+        if (outputSlot.isEmpty()) return true;
+        if (!ItemStack.isSameItem(outputSlot, recipeOutput)) return false;
+        if (!ItemStack.isSameItemSameTags(outputSlot, recipeOutput)) return false;
+
+        return outputSlot.getCount() + recipeOutput.getCount() <= outputSlot.getMaxStackSize();
     }
 
     //todo
@@ -166,34 +170,34 @@ public class SoulInfuserBlockEntity extends BlockEntity implements MenuProvider,
         return this.level.getRecipeManager().getRecipeFor(SoulInfuserRecipe.Type.INSTANCE, inventory, level);
     }
 
-    private void craftItem(){
+    private void craftItem(SoulInfuserRecipe recipe) {
         PacketHandler.sendToTracking(this.level, this.getBlockPos(), new CubeShapedParticlePacket((float)this.getBlockPos().getCenter().x, (float)this.getBlockPos().getCenter().y - 0.25f, (float)this.getBlockPos().getCenter().z, 0.62f, 0.15f, 255, 255, 255));
-        Optional<SoulInfuserRecipe> recipe = getCurrentRecipe();
-        ItemStack result = recipe.get().assemble(itemHandler);
-        ItemStack input = itemHandler.getStackInSlot(1);
 
-        consumeSouls(input, recipe.get().getSouls(itemHandler.getStackInSlot(0)));
-        if(getSouls(input) == 0){
-            CompoundTag compoundtag = input.getTag();
-            itemHandler.extractItem(1, 1, false);
-            itemHandler.insertItem(1, ItemsRegistry.soulCollectorEmpty.get().getDefaultInstance(), false);
-            input.setTag(compoundtag.copy());
-        }
+        ItemStack infusableItem = this.itemHandler.getStackInSlot(0);
+        ItemStack soulCollector = this.itemHandler.getStackInSlot(1);
 
-        if(input.getDamageValue() <= 1) {
-            itemHandler.extractItem(1, 1, false);
+        int soulsToConsume = recipe.getSouls(infusableItem);
+
+        this.consumeSouls(soulCollector, soulsToConsume);
+        soulCollector.hurt(1, this.level.random, null);
+
+        if (soulCollector.getDamageValue() >= soulCollector.getMaxDamage()) {
+            this.itemHandler.setStackInSlot(1, ItemStack.EMPTY);
             this.level.playSound(null, this.getBlockPos(), SoundEvents.ITEM_BREAK, SoundSource.BLOCKS, 1, 1);
-        }
+        } else this.itemHandler.setStackInSlot(1, soulCollector);
+
+        ItemStack recipeResult = recipe.assemble(this.itemHandler, this.level.registryAccess());
+        ItemStack outputSlot = this.itemOutputHandler.getStackInSlot(0);
+
+        if (outputSlot.isEmpty()) this.itemOutputHandler.setStackInSlot(0, recipeResult);
+        else outputSlot.grow(recipeResult.getCount());
 
 
-        itemHandler.extractItem(0, 1, false);
-        input.hurt(1, level.random, null);
-        itemOutputHandler.insertItem(0, result, false);
+        this.itemHandler.extractItem(0, 1, false);
     }
 
-    private boolean hasProgressFinished(){
-        Optional<SoulInfuserRecipe> recipe = getCurrentRecipe();
-        return progress >= recipe.get().getTime();
+    private boolean hasProgressFinished() {
+        return this.progress >= this.progressMax;
     }
 
     private void increaseCraftingProgress(){
@@ -211,9 +215,13 @@ public class SoulInfuserBlockEntity extends BlockEntity implements MenuProvider,
         }
     }
 
-    private void resetProgress(){
-        progress = 0;
-        startCraft = false;
+    private void resetProgress() {
+        if (this.progress != 0 || this.startCraft) {
+            this.progress = 0;
+            this.progressMax = 0;
+            this.startCraft = false;
+            this.setChanged();
+        }
     }
 
     public int getSouls(ItemStack stack){

@@ -47,33 +47,45 @@ public class SoulInfuserRecipe implements Recipe<Container>{
         return time;
     }
 
-    public int getSouls(ItemStack itemstack){
+    public int getSouls(ItemStack itemstack) {
         return itemstack.getItem() instanceof ISoulItem soulItem ? soulItem.getMaxSouls() - soulItem.getCurrentSouls(itemstack) : souls;
     }
 
-    public ItemStack assemble(IItemHandler itemHandler){
-        ItemStack itemstack = this.output.copy();
-        CompoundTag compoundtag = itemHandler.getStackInSlot(0).getTag();
+    public ItemStack assemble(IItemHandler itemHandler, RegistryAccess registryAccess) {
+        ItemStack outputStack = this.output.copy();
+        ItemStack inputStack = itemHandler.getStackInSlot(0);
+        Item inputItem = inputStack.getItem();
+
+        CompoundTag compoundtag = inputStack.getTag();
         if (compoundtag != null) {
-            compoundtag.remove("Souls");
-            compoundtag.putInt("Souls", getSouls(itemHandler.getStackInSlot(0)));
-            itemstack.setTag(compoundtag.copy());
+            outputStack.setTag(compoundtag.copy());
         }
 
-        return itemstack;
+        if (inputItem instanceof ISoulItem soulItem) {
+            CompoundTag outputTag = outputStack.getOrCreateTag();
+            outputTag.putInt("Souls", soulItem.getMaxSouls());
+        }
+
+        return outputStack;
+    }
+
+    //реализация прошлого ассембла. хз, может надо, я оставлю на всякий
+    @Deprecated
+    public ItemStack assemble(IItemHandler itemHandler){
+        return assemble(itemHandler, RegistryAccess.EMPTY);
     }
 
     @Override
-    public ItemStack assemble(Container pContainer, RegistryAccess pRegistryAccess){
-        ItemStack itemstack = this.output.copy();
-        CompoundTag compoundtag = pContainer.getItem(1).getTag();
-        if (compoundtag != null) {
-            compoundtag.remove("Souls");
-            compoundtag.putInt("Souls", getSouls(pContainer.getItem(1)));
-            itemstack.setTag(compoundtag.copy());
-        }
-
-        return itemstack;
+    public @NotNull ItemStack assemble(@NotNull Container pContainer, @NotNull RegistryAccess pRegistryAccess) {
+        IItemHandler handler = new IItemHandler() {
+            @Override public int getSlots() { return pContainer.getContainerSize(); }
+            @Nonnull @Override public ItemStack getStackInSlot(int slot) { return pContainer.getItem(slot); }
+            @Nonnull @Override public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) { return stack; }
+            @Nonnull @Override public ItemStack extractItem(int slot, int amount, boolean simulate) { return ItemStack.EMPTY; }
+            @Override public int getSlotLimit(int slot) { return 64; }
+            @Override public boolean isItemValid(int slot, @Nonnull ItemStack stack) { return true; }
+        };
+        return assemble(handler, pRegistryAccess);
     }
 
     @Override
@@ -82,7 +94,7 @@ public class SoulInfuserRecipe implements Recipe<Container>{
     }
 
     @Override
-    public ItemStack getResultItem(RegistryAccess pRegistryAccess){
+    public @NotNull ItemStack getResultItem(@NotNull RegistryAccess pRegistryAccess){
         return output;
     }
 
@@ -93,17 +105,17 @@ public class SoulInfuserRecipe implements Recipe<Container>{
     }
 
     @Override
-    public ResourceLocation getId(){
+    public @NotNull ResourceLocation getId(){
         return id;
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer(){
+    public @NotNull RecipeSerializer<?> getSerializer(){
         return SoulInfuserRecipe.Serializer.INSTANCE;
     }
 
     @Override
-    public RecipeType<?> getType(){
+    public @NotNull RecipeType<?> getType(){
         return SoulInfuserRecipe.Type.INSTANCE;
     }
 
@@ -131,7 +143,7 @@ public class SoulInfuserRecipe implements Recipe<Container>{
         }
 
         @Override
-        public @Nullable SoulInfuserRecipe fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer){
+        public @Nullable SoulInfuserRecipe fromNetwork(@NotNull ResourceLocation pRecipeId, @NotNull FriendlyByteBuf pBuffer){
             Ingredient input = Ingredient.fromNetwork(pBuffer);
 
             ItemStack output = pBuffer.readItem();
@@ -141,7 +153,7 @@ public class SoulInfuserRecipe implements Recipe<Container>{
         }
 
         @Override
-        public void toNetwork(FriendlyByteBuf pBuffer, SoulInfuserRecipe pRecipe){
+        public void toNetwork(@NotNull FriendlyByteBuf pBuffer, SoulInfuserRecipe pRecipe){
             for(Ingredient input : pRecipe.getIngredients()){
                 input.toNetwork(pBuffer);
             }
