@@ -2,6 +2,7 @@
   "replace": false,
   "values": [
     "valoria:bleeding",
-    "valoria:quicksand_suffocating"
+    "valoria:quicksand_suffocating",
+    "valoria:void"
   ]
 }

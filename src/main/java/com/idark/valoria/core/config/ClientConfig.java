@@ -7,9 +7,10 @@ public class ClientConfig{
     public static ForgeConfigSpec.ConfigValue<Integer>
     MAGMA_CHARGE_BAR_Y, MAGMA_CHARGE_BAR_X, MAGMA_CHARGE_BAR_TYPE,
     SOUL_BAR_Y, SOUL_BAR_X,
+    NIHILITY_METER_X, NIHILITY_METER_Y,
     MISC_UI_X, MISC_UI_Y;
     public static ForgeConfigSpec.ConfigValue<Boolean>
-    RENDER_PHANTOM_ACTIVATION, OLD_GOBLIN_MODEL, SHOW_TOASTS, SHOW_UPDATES;
+    RENDER_PHANTOM_ACTIVATION, OLD_GOBLIN_MODEL, SHOW_TOASTS, SHOW_UPDATES, NIHILITY_METER_ALWAYS_VISIBLE, NIHILITY_METER_ANIMATE;
 
     static{
         final Pair<ClientConfig, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(ClientConfig::new);
@@ -32,6 +33,10 @@ public class ClientConfig{
             MISC_UI_X = builder.comment("(X) Coordinate for Misc UI").define("miscX", 4);
             SOUL_BAR_Y = builder.comment("(Y) Coordinate for Soul Bar").define("soulBarY", 5);
             SOUL_BAR_X = builder.comment("(X) Coordinate for Soul Bar").define("soulBarX", 4);
+            NIHILITY_METER_X = builder.comment("(X) Coordinate for Nihility Meter").define("nihilityMeterX", 35);
+            NIHILITY_METER_Y = builder.comment("(Y) Coordinate for Nihility Meter").define("nihilityMeterY", 35);
+            NIHILITY_METER_ALWAYS_VISIBLE = builder.comment("Bar will be always visible, (Default: False, seen only on updating)").define("nihilityMeterAlwaysVisible", false);
+            NIHILITY_METER_ANIMATE = builder.comment("Squish animation for Nihiity Meter").define("nihilityMeterAnimate", true);
             MAGMA_CHARGE_BAR_Y = builder.comment("(Y) Coordinate for Magma Bar").define("magmaBarY", 5);
             MAGMA_CHARGE_BAR_X = builder.comment("(X) Coordinate for Magma Bar").define("magmaBarX", 4);
             MAGMA_CHARGE_BAR_TYPE = builder.comment("Type of Magma Bar").defineInRange("magmaBarType", 1, 1, 3);

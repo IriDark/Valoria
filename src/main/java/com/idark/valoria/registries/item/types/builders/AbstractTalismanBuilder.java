@@ -1,13 +1,13 @@
 package com.idark.valoria.registries.item.types.builders;
 
 import com.google.common.collect.*;
-import com.idark.valoria.registries.item.types.curio.hands.*;
 import net.minecraft.world.entity.ai.attributes.*;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.Item.Properties;
 
 import java.util.*;
 
-public abstract class AbstractTalismanBuilder<T extends TalismanItem>{
+public abstract class AbstractTalismanBuilder<T extends Item>{
     public Properties properties;
     public Multimap<Attribute, AttributeModifier> attributes = LinkedHashMultimap.create();
 

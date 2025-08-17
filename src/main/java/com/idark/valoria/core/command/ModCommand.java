@@ -2,6 +2,7 @@ package com.idark.valoria.core.command;
 
 import com.idark.valoria.api.unlockable.*;
 import com.idark.valoria.api.unlockable.types.*;
+import com.idark.valoria.core.capability.*;
 import com.idark.valoria.core.command.parts.*;
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.*;
@@ -22,6 +23,7 @@ public class ModCommand{
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher){
         CommandArgument targets = CommandArgument.entities("targets");
         CommandArguments pages = CommandArguments.pages("pages");
+        CommandArgument nihility = CommandArgument.integer("nihility");
         CommandArgument charges = CommandArgument.integer("charges", 0, 2);
         CommandBuilder codex = new CommandBuilder("codex").permission((p) -> p.hasPermission(2));
         CommandBuilder builder = new CommandBuilder("valoria").variants(
@@ -49,6 +51,11 @@ public class ModCommand{
 
                 new CommandVariant(CommandPart.create("setCharge"), targets, charges).execute((p) -> {
                     setCharge(p.getSource(), targets.getPlayers(p), charges.getInt(p), p);
+                    return 1;
+                }),
+
+                new CommandVariant(CommandPart.create("setNihility"), targets, nihility).execute((p) -> {
+                    setNihilityLevel(p.getSource(), targets.getPlayers(p), nihility.getInt(p));
                     return 1;
                 })
         );
@@ -107,6 +114,18 @@ public class ModCommand{
             UnlockUtils.remove(player, pages);
             PacketHandler.sendTo(player, new UnlockableUpdatePacket(player));
             PacketHandler.sendTo(player, new PageToastPacket(player, ItemsRegistry.page.get(), false));
+        }
+    }
+
+    public static void setNihilityLevel(CommandSourceStack command, Collection<? extends ServerPlayer> targetPlayers, int amount){
+        for(ServerPlayer player : targetPlayers){
+            if(targetPlayers.size() == 1){
+                command.sendSuccess(() -> Component.translatable("commands.valoria.nihility.set.single", amount, targetPlayers.iterator().next().getDisplayName()), true);
+            }else{
+                command.sendSuccess(() -> Component.translatable("commands.valoria.nihility.set.multiple", amount, targetPlayers.size()), true);
+            }
+
+            player.getCapability(INihilityLevel.INSTANCE).ifPresent(nihilityLevel -> nihilityLevel.setAmount(player, amount));
         }
     }
 

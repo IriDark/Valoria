@@ -84,7 +84,8 @@
       {
         "name": "valoria:music/arriving",
         "stream": true
-      },      {
+      },
+      {
         "name": "valoria:music/explore",
         "stream": true
       },
@@ -95,27 +96,28 @@
     ]
   },
   "music.valoria.enduring": {
-     "sounds": [
-       {
-         "name": "valoria:music/enduring",
-         "stream": true
-       },
-       {
-         "name": "valoria:music/rising",
-         "stream": true
-       },
-       {
-         "name": "valoria:music/arriving",
-         "stream": true
-       },
-       {
-         "name": "valoria:music/explore",
-         "stream": true
-       },
-       {
-         "name": "valoria:music/singing_skies",
-         "stream": true
-       }]
+    "sounds": [
+      {
+        "name": "valoria:music/enduring",
+        "stream": true
+      },
+      {
+        "name": "valoria:music/rising",
+        "stream": true
+      },
+      {
+        "name": "valoria:music/arriving",
+        "stream": true
+      },
+      {
+        "name": "valoria:music/explore",
+        "stream": true
+      },
+      {
+        "name": "valoria:music/singing_skies",
+        "stream": true
+      }
+    ]
   },
   "music.valoria.shaded_lands": {
     "sounds": [
@@ -342,7 +344,6 @@
       "valoria:keg_brewery/ambient_1",
       "valoria:keg_brewery/ambient_2",
       "valoria:keg_brewery/ambient_3"
-
     ]
   },
   "block.keg.brew": {
@@ -404,7 +405,6 @@
       "valoria:wicked_crystal/fire_crystal_prepare"
     ]
   },
-
   "mob.crystal_frost.attack": {
     "subtitle": "subtitles.valoria.minion.attack",
     "sounds": [

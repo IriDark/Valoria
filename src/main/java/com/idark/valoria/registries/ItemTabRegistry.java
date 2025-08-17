@@ -2,6 +2,7 @@ package com.idark.valoria.registries;
 
 import com.idark.valoria.*;
 import com.idark.valoria.registries.item.types.*;
+import com.idark.valoria.registries.item.types.curio.*;
 import net.minecraft.core.*;
 import net.minecraft.core.registries.*;
 import net.minecraft.nbt.*;
@@ -83,7 +84,7 @@ public abstract class ItemTabRegistry{
             if(Utils.isDevelopment) event.accept(ItemsRegistry.debugItem);
             for(RegistryObject<Item> item : ItemsRegistry.ITEMS.getEntries()){
                 if(!new ItemStack(item.get()).is(TagsRegistry.EXCLUDED_FROM_TAB)){
-                    if(!(item.get() instanceof ICurioItem || item.get() instanceof ArmorItem)){
+                    if(!(item.get() instanceof ICurioItem || item.get() instanceof ArmorItem || item.get() instanceof AbstractTalismanItem)){
                         if(item.get() instanceof SummonBook){
                             event.getParameters().holders().lookup(ForgeRegistries.ENTITY_TYPES.getRegistryKey()).ifPresent(entityLookup -> generateMinionItems(event, entityLookup, (holder) -> holder.is(TagsRegistry.MINIONS), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
                         }else{
@@ -107,7 +108,7 @@ public abstract class ItemTabRegistry{
         if(event.getTabKey() == ItemTabRegistry.VALORIA_ACCESSORIES_TAB.getKey()){
             for(RegistryObject<Item> item : ItemsRegistry.ITEMS.getEntries()){
                 if(!new ItemStack(item.get()).is(TagsRegistry.EXCLUDED_FROM_TAB)){
-                    if(item.get() instanceof ICurioItem){
+                    if(item.get() instanceof ICurioItem || item.get() instanceof AbstractTalismanItem){
                         event.accept(item.get().getDefaultInstance());
                     }
                 }

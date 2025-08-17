@@ -11,6 +11,11 @@ public class DamageSourceRegistry{
     public static final ResourceKey<DamageType> BLEEDING = register("bleeding");
     public static final ResourceKey<DamageType> QUICKSAND_SUFFOCATING = register("quicksand_suffocating");
     public static final ResourceKey<DamageType> VOIDTHORN = register("voidthorn");
+    public static final ResourceKey<DamageType> VOID = register("void");
+
+    public static DamageSource voidHarm(Level level) {
+        return new DamageSource(source(level, DamageSourceRegistry.VOID).typeHolder());
+    }
 
     public static DamageSource bleeding(Level level) {
         return new DamageSource(source(level, DamageSourceRegistry.BLEEDING).typeHolder());

@@ -12,6 +12,7 @@ import com.idark.valoria.client.render.tile.*;
 import com.idark.valoria.client.shaders.*;
 import com.idark.valoria.client.sounds.LoopedSoundInstance;
 import com.idark.valoria.client.sounds.*;
+import com.idark.valoria.client.ui.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.block.types.*;
 import com.idark.valoria.registries.item.types.*;
@@ -29,6 +30,7 @@ import net.minecraft.world.item.*;
 import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.client.event.*;
 import net.minecraftforge.client.settings.*;
+import net.minecraftforge.common.*;
 import net.minecraftforge.eventbus.api.*;
 import net.minecraftforge.fml.common.*;
 import net.minecraftforge.fml.event.lifecycle.*;
@@ -106,6 +108,7 @@ public class ValoriaClient{
 
         @SubscribeEvent
         public static void doClientStuff(FMLClientSetupEvent event){
+            MinecraftForge.EVENT_BUS.register(new NihilityMeterRender());
             AbstractMinionEntity.minionColors.put(EntityTypeRegistry.UNDEAD.get(), Pal.darkishGray.toJava());
             AbstractMinionEntity.minionColors.put(EntityTypeRegistry.FLESH_SENTINEL.get(), Pal.flesh.toJava());
             AbstractMinionEntity.minionColors.put(EntityTypeRegistry.PIXIE.get(), Pal.vividGreen.toJava());
@@ -184,7 +187,6 @@ public class ValoriaClient{
             ModItemModelProperties.makeShield(ItemsRegistry.crabBuckler.get());
             ModItemModelProperties.makeShield(ItemsRegistry.wickedShield.get());
             ModItemModelProperties.makeShield(ItemsRegistry.draugrShield.get());
-            ModItemModelProperties.makeSize(ItemsRegistry.soulCollector.get());
             ModItemModelProperties.makeCooldown(ItemsRegistry.spectralBlade.get());
         }
 

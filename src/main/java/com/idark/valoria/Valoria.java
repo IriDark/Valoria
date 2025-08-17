@@ -63,6 +63,7 @@ import static com.idark.valoria.registries.EntityStatsRegistry.*;
 public class Valoria{
     public static final String ID = "valoria";
     public static final Logger LOGGER = LogUtils.getLogger();
+    public static final ResourceLocation FONT = loc("icons");
     public static final ISidedProxy proxy = DistExecutor.unsafeRunForDist(() -> ClientProxy::new, () -> ServerProxy::new);
     public static UUID BASE_ENTITY_REACH_UUID = UUID.fromString("c2e6b27c-fff1-4296-a6b2-7cfff13296cf");
     public static UUID BASE_DASH_DISTANCE_UUID = UUID.fromString("b0e5853a-d071-40db-a585-3ad07100db82");
@@ -192,6 +193,7 @@ public class Valoria{
             MenuScreens.register(MenuRegistry.JEWELRY_MENU.get(), JewelryScreen::new);
             MenuScreens.register(MenuRegistry.MANIPULATOR_MENU.get(), ManipulatorScreen::new);
             MenuScreens.register(MenuRegistry.KILN_MENU.get(), KilnScreen::new);
+            MenuScreens.register(MenuRegistry.SOUL_INFUSER_MENU.get(), SoulInfuserScreen::new);
         });
     }
 
@@ -287,6 +289,7 @@ public class Valoria{
         @SubscribeEvent
         public static void registerCaps(RegisterCapabilitiesEvent event){
             event.register(IUnlockable.class);
+            event.register(INihilityLevel.class);
         }
 
         @SubscribeEvent
@@ -343,6 +346,7 @@ public class Valoria{
             event.add(EntityType.PLAYER, AttributeReg.ATTACK_RADIUS.get());
             event.add(EntityType.PLAYER, AttributeReg.NECROMANCY_LIFETIME.get());
             event.add(EntityType.PLAYER, AttributeReg.NECROMANCY_COUNT.get());
+            event.add(EntityType.PLAYER, AttributeReg.MAX_NIHILITY_LEVEL.get());
 
             event.add(EntityType.PLAYER, AttributeReg.INFERNAL_DAMAGE.get());
             event.add(EntityType.PLAYER, AttributeReg.DEPTH_DAMAGE.get());
@@ -370,17 +374,21 @@ public class Valoria{
             event.add(EntityTypeRegistry.DEVIL.get(), AttributeReg.DEPTH_RESISTANCE.get(), -15);
             event.add(EntityTypeRegistry.DEVIL.get(), AttributeReg.INFERNAL_RESISTANCE.get(), 25);
             event.add(EntityTypeRegistry.SHADEWOOD_SPIDER.get(), AttributeReg.NATURE_RESISTANCE.get(), 15);
+            event.add(EntityTypeRegistry.SHADEWOOD_SPIDER.get(), AttributeReg.VOID_RESISTANCE.get(), 25);
+            event.add(EntityTypeRegistry.SHADEWOOD_SPIDER.get(), AttributeReg.VOID_DAMAGE.get(), 1);
             event.add(EntityTypeRegistry.PIXIE.get(), AttributeReg.NATURE_RESISTANCE.get(), 15);
             event.add(EntityTypeRegistry.PIXIE.get(), AttributeReg.VOID_RESISTANCE.get(), -25);
             event.add(EntityTypeRegistry.TROLL.get(), AttributeReg.NATURE_RESISTANCE.get(), 15);
             event.add(EntityTypeRegistry.TROLL.get(), AttributeReg.INFERNAL_RESISTANCE.get(), -15);
             event.add(EntityTypeRegistry.CORRUPTED_TROLL.get(), AttributeReg.NATURE_RESISTANCE.get(), -25);
             event.add(EntityTypeRegistry.CORRUPTED_TROLL.get(), AttributeReg.VOID_RESISTANCE.get(), 35);
+            event.add(EntityTypeRegistry.CORRUPTED_TROLL.get(), AttributeReg.VOID_DAMAGE.get(), 3);
             event.add(EntityTypeRegistry.ENT.get(), AttributeReg.NATURE_RESISTANCE.get(), 35);
             event.add(EntityTypeRegistry.ENT.get(), AttributeReg.INFERNAL_RESISTANCE.get(), -25);
             event.add(EntityTypeRegistry.SORCERER.get(), AttributeReg.ELEMENTAL_RESISTANCE.get(), 25);
             event.add(EntityTypeRegistry.CORRUPTED.get(), AttributeReg.INFERNAL_RESISTANCE.get(), -45);
             event.add(EntityTypeRegistry.CORRUPTED.get(), AttributeReg.VOID_RESISTANCE.get(), 35);
+            event.add(EntityTypeRegistry.CORRUPTED.get(), AttributeReg.VOID_DAMAGE.get(), 2);
             event.add(EntityTypeRegistry.FLESH_SENTINEL.get(), AttributeReg.INFERNAL_RESISTANCE.get(), -45);
             event.add(EntityTypeRegistry.FLESH_SENTINEL.get(), AttributeReg.VOID_RESISTANCE.get(), 35);
             event.add(EntityTypeRegistry.UNDEAD.get(), AttributeReg.INFERNAL_RESISTANCE.get(), -25);

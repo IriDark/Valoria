@@ -14,6 +14,7 @@ public class RecipesRegistry{
     public static final RegistryObject<RecipeSerializer<ManipulatorRecipe>> MANIPULATOR_SERIALIZER = SERIALIZERS.register("manipulator", () -> ManipulatorRecipe.Serializer.INSTANCE);
     public static final RegistryObject<RecipeSerializer<TinkeringRecipe>> TINKERING_SERIALIZER = SERIALIZERS.register("tinkering", () -> TinkeringRecipe.Serializer.INSTANCE);
     public static final RegistryObject<RecipeSerializer<KilnRecipe>> KILN_SERIALIZER = SERIALIZERS.register("kiln", () -> KilnRecipe.Serializer.INSTANCE);
+    public static final RegistryObject<RecipeSerializer<SoulInfuserRecipe>> SOUL_INFUSER_SERIALIZER = SERIALIZERS.register("soul_infuser", () -> SoulInfuserRecipe.Serializer.INSTANCE);
 
     public static void register(IEventBus eventBus){
         SERIALIZERS.register(eventBus);

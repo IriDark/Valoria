@@ -27,6 +27,13 @@ public class MenuRegistry{
             })
     );
 
+    public static final RegistryObject<MenuType<SoulInfuserMenu>> SOUL_INFUSER_MENU = MENUS.register("soul_infuser_menu", () -> IForgeMenuType.create((windowId, inv, data) -> {
+        BlockPos pos = data.readBlockPos();
+        Level world = inv.player.getCommandSenderWorld();
+        return new SoulInfuserMenu(windowId, world, pos, inv, inv.player);
+    })
+    );
+
     public static final RegistryObject<MenuType<KegMenu>> KEG_MENU = MENUS.register("keg_menu", () -> IForgeMenuType.create((windowId, inv, data) -> {
                 BlockPos pos = data.readBlockPos();
                 Level world = inv.player.getCommandSenderWorld();

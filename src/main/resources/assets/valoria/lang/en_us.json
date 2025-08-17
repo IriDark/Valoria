@@ -488,6 +488,8 @@
   "block.valoria.wooden_cup": "Wooden Cup",
   "block.valoria.wooden_tomb": "Wooden Tomb",
   "commands.valoria.charges.set.add": "Set charges %s",
+  "commands.valoria.nihility.set.multiple": "Set nihility level %s to %s players",
+  "commands.valoria.nihility.set.single": "Set nihility level %s to player %s",
   "commands.valoria.page.give.multiple": "Gave page to %s players",
   "commands.valoria.page.give.single": "Gave page to player %s",
   "commands.valoria.page.remove.multiple": "Removed page from %s players",
@@ -499,6 +501,7 @@
   "config.jade.plugin_valoria.key": "Key",
   "config.jade.plugin_valoria.manipulator": "Manipulator",
   "death.attack.bleeding": "%1$s lost all his blood",
+  "death.attack.void": "%1$s was eaten by the void",
   "death.attack.quicksand_suffocating": "%1$s sank like a sandcastle, breathless",
   "death.attack.voidthorn": "%1$s was poked to death by a voidthorn bush",
   "death.attack.voidthorn.player": "%1$s was poked to death by a voidthorn bush whilst trying to escape %2$s",
@@ -1223,7 +1226,7 @@
   "tooltip.valoria.bleeding_cure": "Cures bleeding",
   "tooltip.valoria.phantasm_bow": "After a full draw, keep holding to overcharge. Upon release, call down a storm of phantom arrows.",
   "tooltip.valoria.update_available": "A new version - %s, is available to download",
-  "tooltip.valoria.hide": "Don't show me again",
+  "tooltip.valoria.hide": "\uE252 Don't show me again",
   "tooltip.valoria.info": "Press %s, for info",
   "tooltip.valoria.open": "To open press %s + %s",
   "tooltip.valoria.collected": "Can be collected with %s",
@@ -1233,5 +1236,8 @@
   "tooltip.valoria.shield.time": "Can be used for %s",
   "tooltip.valoria.shield.block": "Blocks %s of incoming damage",
   "tooltip.valoria.shield.thorns": "Inflicts %s of incoming damage to attacker",
-  "tooltip.valoria.shield.speed": "Gain Speed after blocking an attack"
+  "tooltip.valoria.shield.speed": "Gain Speed after blocking an attack",
+  "tooltip.valoria.raw_food": "Eating will add %s\uE250 to your nihility meter",
+  "tooltip.valoria.download": "\uE251 Download latest",
+  "menu.valoria.soul_infuser": "Soul Infuser"
 }

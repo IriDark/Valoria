@@ -144,7 +144,7 @@ public class ItemsRegistry{
     goldenRing, goldenRingAmber, goldenRingDiamond, goldenRingRuby, goldenRingEmerald, goldenRingSapphire,
     netheriteRing, netheriteRingAmber, netheriteRingDiamond, netheriteRingRuby, netheriteRingEmerald, netheriteRingSapphire,
     leatherGloves, ironGloves, goldenGloves, diamondGloves, netheriteGloves,
-    amberTotem, amberWinglet, amberGazer, emeraldTotem, emeraldWinglet, emeraldGazer, amethystTotem, amethystWinglet, amethystGazer, rubyTotem, rubyWinglet, rubyGazer,
+    voidCrystal, amberTotem, amberWinglet, amberGazer, emeraldTotem, emeraldWinglet, emeraldGazer, amethystTotem, amethystWinglet, amethystGazer, rubyTotem, rubyWinglet, rubyGazer,
     brokenMonocle, monocle, jewelryBag, pickNecklace,
     bandage, devilHeart, harmonyHeart, medicatedDevilHeart, medicatedHarmonyHeart, elementalCharm,
     skeletalVambrace, magmaticVambrace, magmaticGauntlet,
@@ -152,8 +152,9 @@ public class ItemsRegistry{
     // runes
     lesserRune, lesserRuneVision, lesserRuneWealth, lesserRuneCurses, lesserRuneStrength, lesserRuneAccuracy, lesserRuneDeep,
     rune, runeVision, runeWealth, runeCurses, runeStrength, runeAccuracy, runeDeep, runePyro, runeCold,
-    aloeBandage, aloeBandageUpgraded, shadeBlossomBandage, // food
+    aloeBandage, aloeBandageUpgraded, shadeBlossomBandage,
 
+    // food
     applePie, eyeChunk, taintedBerries, cookedGlowVioletSprout, cookedAbyssalGlowfern, goblinMeat, cookedGoblinMeat, crabLeg, cookedCrablLeg, devilMeat, cookedDevilMeat, cup, cacaoCup, coffeeCup, teaCup, greenTeaCup, woodenCup, beerCup, rumCup, bottle, kvassBottle, wineBottle, akvavitBottle, sakeBottle, liquorBottle, rumBottle, meadBottle, cognacBottle, whiskeyBottle, cokeBottle, toxinsBottle,
 
     necromancerMusicDisc,
@@ -569,6 +570,7 @@ public class ItemsRegistry{
         emptyTotem = registerItem("empty_totem", () -> new Item(new Item.Properties().rarity(Rarity.RARE)));
         emptyWinglet = registerItem("empty_winglet", () -> new Item(new Item.Properties().rarity(Rarity.RARE)));
 
+        voidCrystal = registerItem("void_crystal", () -> new VoidCrystalItem.Builder(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)).put(Attributes.MAX_HEALTH, -4).put(AttributeReg.VOID_RESISTANCE.get(), 25).build());
         amberTotem = registerItem("amber_golden_totem", () -> new TalismanItem.Builder(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)).put(Attributes.MAX_HEALTH, 6).put(Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_TOTAL, -0.20).build());
         amberWinglet = registerItem("amber_golden_winglet", () -> new TalismanItem.Builder(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)).put(Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_TOTAL, 0.10).put(Attributes.KNOCKBACK_RESISTANCE, Operation.ADDITION, 0.25).build());
         amberGazer = registerItem("amber_golden_gazer", () -> new TalismanItem.Builder(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)).put(Attributes.ARMOR, Operation.MULTIPLY_TOTAL, 0.10).put(Attributes.ATTACK_SPEED, Operation.MULTIPLY_TOTAL, -0.05).build());
@@ -637,8 +639,8 @@ public class ItemsRegistry{
 
         //food
         applePie = registerItem("apple_pie", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(12).saturationMod(0.75f).build())));
-        eyeChunk = registerItem("eye_chunk", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().meat().effect(new MobEffectInstance(MobEffects.POISON, 100), 0.4f).effect(new MobEffectInstance(MobEffects.NIGHT_VISION, 300), 1f).nutrition(1).saturationMod(0.1f).fast().build())));
-        taintedBerries = registerItem("tainted_berries", () -> new ItemNameBlockItem(BlockRegistry.taintedRoots.get(), new Item.Properties().food(new FoodProperties.Builder().nutrition(2).saturationMod(0.1f).fast().build())));
+        eyeChunk = registerItem("eye_chunk", () -> new RawValoriaFood(3, new Item.Properties().food(new FoodProperties.Builder().meat().effect(new MobEffectInstance(MobEffects.POISON, 100), 0.4f).effect(new MobEffectInstance(MobEffects.NIGHT_VISION, 300), 1f).nutrition(1).saturationMod(0.1f).fast().build())));
+        taintedBerries = registerItem("tainted_berries", () -> new RawValoriaFood(1, new Item.Properties().food(new FoodProperties.Builder().nutrition(2).saturationMod(0.1f).fast().build())));
         cookedGlowVioletSprout = registerItem("cooked_glow_violet_sprout", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(4).saturationMod(0.3f).effect(new MobEffectInstance(MobEffects.NIGHT_VISION, 500), 1f).build())));
         cookedAbyssalGlowfern = registerItem("cooked_abyssal_glowfern", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(4).saturationMod(0.3f).effect(new MobEffectInstance(MobEffects.NIGHT_VISION, 500), 1f).build())));
         goblinMeat = registerItem("goblin_meat", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().meat().nutrition(3).saturationMod(0.2f).effect(new MobEffectInstance(MobEffects.HUNGER, 60), 0.25f).build())));

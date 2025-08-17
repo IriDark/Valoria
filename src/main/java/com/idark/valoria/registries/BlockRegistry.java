@@ -54,7 +54,7 @@ public class BlockRegistry{
     dunestone, dunestoneStairs, dunestoneSlab, dunestoneWall, dunestoneBricks, dunestoneBricksStairs, dunestoneBricksSlab, dunestoneBricksWall, cutDunestone, polishedDunestone, //other varities?
 
     // crafting stations
-    stoneCrusher, jewelerTable, keg, tinkererWorkbench, elementalManipulator, kiln,
+    stoneCrusher, jewelerTable, keg, tinkererWorkbench, soulInfuser, elementalManipulator, kiln,
 
     // boss summon altars
     crypticAltar, wickedAltar,
@@ -444,6 +444,7 @@ public class BlockRegistry{
         jewelerTable = registerBlock("jeweler_table", () -> new JewelerBlock(BlockBehaviour.Properties.copy(Blocks.CRAFTING_TABLE).strength(1f, 1f)));
         stoneCrusher = registerBlock("stone_crusher", () -> new CrusherBlock(BlockBehaviour.Properties.copy(Blocks.STONE).strength(1f, 2f)));
         tinkererWorkbench = registerBlock("tinkerer_workbench", () -> new TinkererWorkbenchBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(3f).noOcclusion()));
+        soulInfuser = registerBlock("soul_infuser", () -> new SoulInfuserBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).mapColor(MapColor.COLOR_GREEN).strength(3f, 1f).lightLevel(s -> 4).noOcclusion()));
         elementalManipulator = registerBlock("elemental_manipulator", () -> new ManipulatorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).mapColor(MapColor.COLOR_GREEN).strength(3f, 1f).lightLevel(s -> 4).noOcclusion()));
 
         grave = registerBlock("grave", () -> new TombBlock(true, BlockBehaviour.Properties.copy(Blocks.STONE).strength(1f, 1f).noOcclusion()));

@@ -38,12 +38,12 @@ import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
 import net.minecraftforge.common.*;
 import net.minecraftforge.common.Tags.*;
-import net.minecraftforge.common.capabilities.*;
 import net.minecraftforge.common.util.*;
 import net.minecraftforge.event.*;
 import net.minecraftforge.event.entity.*;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.*;
+import net.minecraftforge.event.entity.player.PlayerEvent.*;
 import net.minecraftforge.event.level.*;
 import net.minecraftforge.eventbus.api.Event.*;
 import net.minecraftforge.eventbus.api.*;
@@ -91,9 +91,23 @@ public class Events{
     }
 
     @SubscribeEvent
+    public void onRespawn(PlayerRespawnEvent ev) {
+        Player player = ev.getEntity();
+        player.getCapability(INihilityLevel.INSTANCE).ifPresent(nihilityLevel -> {
+            nihilityLevel.setAmount(player, 0);
+        });
+    }
+
+    @SubscribeEvent
     public void playerTick(TickEvent.PlayerTickEvent event) {
         Player player = event.player;
         if (!player.level().isClientSide() && player instanceof ServerPlayer serverPlayer) {
+            player.getCapability(INihilityLevel.INSTANCE).ifPresent(nihilityLevel -> {
+                if(!player.getAbilities().instabuild){
+                    NihilityMeter.tick(event, nihilityLevel, player);
+                }
+            });
+
             if (player.tickCount % 60 == 0) {
                 ArrayList<Unlockable> all = new ArrayList<>(Unlockables.get());
                 Set<Unlockable> unlocked = UnlockUtils.getUnlocked(serverPlayer);
@@ -127,6 +141,7 @@ public class Events{
     public void attachEntityCaps(AttachCapabilitiesEvent<Entity> event){
         if(event.getObject() instanceof Player){
             event.addCapability(new ResourceLocation(Valoria.ID, "pages"), new UnloackbleCap());
+            event.addCapability(new ResourceLocation(Valoria.ID, "nihilityLevel"), new NihilityLevelCap());
         }
     }
 
@@ -230,6 +245,11 @@ public class Events{
 
                 boolean flag = attackAttr.getAttribute() != AttributeReg.VOID_DAMAGE.get() && target.getAttribute(AttributeReg.ELEMENTAL_RESISTANCE.get()) != null;
                 resistance += (float)(flag ? target.getAttributeValue(AttributeReg.ELEMENTAL_RESISTANCE.get()) : 0);
+                if(attackAttr.getAttribute() == AttributeReg.VOID_DAMAGE.get()) {
+                    target.getCapability(INihilityLevel.INSTANCE).ifPresent(nihility -> {
+                        nihility.modifyAmount(target, damage);
+                    });
+                }
 
                 float multiplier = Math.max(1f - (resistance / 100f), 0f);
                 totalBonus += damage * multiplier;
@@ -382,7 +402,7 @@ public class Events{
             Entity attacker = deathEvent.getSource().getEntity();
             if(attacker instanceof Player plr){
                 for(ItemStack itemStack : plr.getHandSlots()){
-                    if(itemStack.is(ItemsRegistry.soulCollectorEmpty.get()) && itemStack.getItem() instanceof SoulCollectorItem soul){
+                    if(itemStack.getItem() instanceof SoulCollectorItem soul){
                         Vec3 pos = deathEvent.getEntity().position().add(0, deathEvent.getEntity().getBbHeight() / 2f, 0);
                         PacketHandler.sendToTracking(serverLevel, BlockPos.containing(pos), new SoulCollectParticlePacket(plr.getUUID(), pos.x(), pos.y(), pos.z()));
 
@@ -440,20 +460,33 @@ public class Events{
 
     @SubscribeEvent
     public void onClone(PlayerEvent.Clone event){
-        Capability<IUnlockable> PAGE = IUnlockable.INSTANCE;
         event.getOriginal().reviveCaps();
-        event.getEntity().getCapability(PAGE).ifPresent((k) -> event.getOriginal().getCapability(PAGE).ifPresent((o) ->
+        event.getEntity().getCapability(IUnlockable.INSTANCE).ifPresent((k) -> event.getOriginal().getCapability(IUnlockable.INSTANCE).ifPresent((o) ->
                 ((INBTSerializable<CompoundTag>)k).deserializeNBT(((INBTSerializable<CompoundTag>)o).serializeNBT())));
         if(!event.getEntity().level().isClientSide){
             PacketHandler.sendTo((ServerPlayer)event.getEntity(), new UnlockableUpdatePacket(event.getEntity()));
+        }
+
+        event.getOriginal().reviveCaps();
+        event.getEntity().getCapability(INihilityLevel.INSTANCE).ifPresent((k) -> event.getOriginal().getCapability(INihilityLevel.INSTANCE).ifPresent((o) ->
+        ((INBTSerializable<CompoundTag>)k).deserializeNBT(((INBTSerializable<CompoundTag>)o).serializeNBT())));
+        if(!event.getEntity().level().isClientSide){
+            PacketHandler.sendTo((ServerPlayer)event.getEntity(), new NihilityPacket(new NihilityLevelProvider(), event.getEntity()));
         }
     }
 
     @SubscribeEvent
     public void registerCustomAI(EntityJoinLevelEvent event){
         if(event.getEntity() instanceof LivingEntity && !event.getLevel().isClientSide){
-            if(event.getEntity() instanceof Player){
-                PacketHandler.sendTo((ServerPlayer)event.getEntity(), new UnlockableUpdatePacket((Player)event.getEntity()));
+            if(event.getEntity() instanceof Player player){
+                PacketHandler.sendTo((ServerPlayer)event.getEntity(), new UnlockableUpdatePacket(player));
+                player.getCapability(INihilityLevel.INSTANCE).ifPresent(nihility -> {
+                    nihility.modifyAmount(player, 1);
+                    nihility.decrease(player, 1);
+                });
+
+                PacketHandler.sendTo((ServerPlayer)event.getEntity(), new NihilityPacket(new NihilityLevelProvider(), player));
+
             }
         }
     }

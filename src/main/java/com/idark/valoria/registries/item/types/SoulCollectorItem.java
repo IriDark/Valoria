@@ -3,6 +3,7 @@ package com.idark.valoria.registries.item.types;
 import com.idark.valoria.*;
 import com.idark.valoria.core.config.*;
 import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.item.*;
 import com.idark.valoria.util.*;
 import net.minecraft.*;
 import net.minecraft.client.gui.*;
@@ -18,59 +19,50 @@ import pro.komaru.tridot.api.interfaces.*;
 
 import java.util.*;
 
-public class SoulCollectorItem extends Item implements OverlayRenderItem{
+public class SoulCollectorItem extends Item implements OverlayRenderItem, ISoulItem{
     public int max;
-    public int current;
+    public int base;
     public static final ResourceLocation BAR = new ResourceLocation(Valoria.ID, "textures/gui/overlay/soul_collector.png");
 
     public SoulCollectorItem(Properties pProperties){
-        super(pProperties);
+        super(pProperties.durability(5));
         this.max = 50;
-        this.current = 0;
+        this.base = 0;
     }
 
     public SoulCollectorItem(int max, Properties pProperties){
-        super(pProperties);
+        super(pProperties.durability(5));
         this.max = max;
-        this.current = 0;
+        this.base = 0;
     }
 
-    public SoulCollectorItem(int max, int current, Properties pProperties){
-        super(pProperties);
+    public SoulCollectorItem(int max, int base, Properties pProperties){
+        super(pProperties.durability(5));
         this.max = max;
-        this.current = current;
+        this.base = base;
     }
 
     public ItemStack getDefaultInstance(){
-        return setCollector(super.getDefaultInstance());
-    }
-
-    public ItemStack setCollector(ItemStack pStack){
-        pStack.getOrCreateTag().putInt("Souls", this.current);
-        return pStack;
+        return setSoulItem(super.getDefaultInstance());
     }
 
     @Override
     public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags){
         super.appendHoverText(stack, world, tooltip, flags);
         tooltip.add(Component.translatable("tooltip.valoria.soul_collector").withStyle(ChatFormatting.GRAY));
-        tooltip.add(Component.translatable("tooltip.valoria.souls", getCurrentSouls(stack))
-                .append(" / ")
-                .append(String.valueOf(getMaxSouls()))
-                .withStyle(ChatFormatting.GRAY)
-        );
+        tooltip.add(Component.translatable("tooltip.valoria.souls", getBaseSouls(stack)).append(" / ").append(String.valueOf(getMaxSouls())).withStyle(ChatFormatting.GRAY).append("\uE253").withStyle(style -> style.withFont(Valoria.FONT)));
     }
 
     public boolean isBarVisible(ItemStack pStack){
-        return getCurrentSouls(pStack) > 0 && getCurrentSouls(pStack) < getMaxSouls();
+        return barVisible(pStack);
     }
 
     public int getBarWidth(ItemStack pStack){
-        return Math.round((float)getCurrentSouls(pStack) * 13.0F / (float)getMaxSouls());
+        return barWidth(pStack);
     }
 
     public int getBarColor(ItemStack pStack){
-        return Pal.oceanic.rgb();
+        return barColor();
     }
 
     @Override
@@ -78,21 +70,26 @@ public class SoulCollectorItem extends Item implements OverlayRenderItem{
         return BAR;
     }
 
+    public int getBaseSouls(){
+        return base;
+    }
+
     public int getMaxSouls(){
         return max;
     }
 
-    public int getCurrentSouls(ItemStack pStack){
-        return pStack.getOrCreateTag().getInt("Souls");
-    }
-
-    public void setCount(int count, ItemStack pStack){
-        pStack.removeTagKey("Souls");
-        pStack.getOrCreateTag().putInt("Souls", count);
-    }
-
-    public void removeCount(int count, ItemStack pStack){
-        pStack.getOrCreateTag().putInt("Souls", this.getCurrentSouls(pStack) - count);
+    public void consumeSouls(int count, ItemStack pStack){
+        int souls = Math.max(this.getBaseSouls(pStack) - count, 0);
+        pStack.getOrCreateTag().putInt("Souls", souls);
+        if(souls == 0) {
+            ItemStack itemstack = pStack.copy();
+            CompoundTag compoundtag = pStack.getTag();
+            if (compoundtag != null) {
+                compoundtag.remove("Souls");
+                compoundtag.putInt("Souls", souls);
+                itemstack.setTag(compoundtag.copy());
+            }
+        }
     }
 
     public void addCount(int count, ItemStack pStack, Player player){
@@ -101,17 +98,13 @@ public class SoulCollectorItem extends Item implements OverlayRenderItem{
             ValoriaUtils.addPlayerItem(player.level(), player, ItemsRegistry.soulCollector.get().getDefaultInstance());
             player.level().playSound(null, player.getOnPos(), getTransformSound(), SoundSource.PLAYERS, 1, player.level().random.nextFloat());
         }else{
-            pStack.getOrCreateTag().putInt("Souls", getCurrentSouls(pStack) + count);
+            pStack.getOrCreateTag().putInt("Souls", getBaseSouls(pStack) + count);
             player.level().playSound(null, player.getOnPos(), getCollectSound(), SoundSource.PLAYERS, 1, player.level().random.nextFloat());
         }
     }
 
     public SoundEvent getTransformSound(){
         return SoundsRegistry.SOUL_COLLECT_FULL.get();
-    }
-
-    public SoundEvent getCollectSound(){
-        return SoundsRegistry.SOUL_COLLECT.get();
     }
 
     @OnlyIn(Dist.CLIENT)

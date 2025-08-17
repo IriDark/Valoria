@@ -13,19 +13,5 @@
     }
   },
   "loader": "forge:item_layers",
-  "render_types": {},
-  "overrides": [
-    {
-      "predicate": {
-        "size": 16
-      },
-      "model": "valoria:item/soul_collector_16x"
-    },
-    {
-      "predicate": {
-        "size": 32
-      },
-      "model": "valoria:item/soul_collector_32x"
-    }
-  ]
+  "render_types": {}
 }

@@ -15,6 +15,10 @@ public class ModItemModelProperties{
         ItemProperties.register(item, new ResourceLocation("size"), (sizedStack, clientWorld, livingEntity, player) -> sizedStack.getCount());
     }
 
+    public static void makeSouls(Item item){
+        ItemProperties.register(item, new ResourceLocation("souls"), (stack, clientWorld, livingEntity, player) -> stack.getOrCreateTag().getInt("Souls"));
+    }
+
     public static void makeCooldown(Item item){
         ItemProperties.register(item, new ResourceLocation("itemcooldown"), (stack, clientWorld, livingEntity, player) -> {
             if(livingEntity instanceof Player p){

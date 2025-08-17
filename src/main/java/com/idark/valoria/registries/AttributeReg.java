@@ -23,6 +23,8 @@ public class AttributeReg{
     public static final RegistryObject<Attribute> VOID_DAMAGE = ATTRIBUTES.register("void_damage", () -> new RangedAttribute("attribute.valoria.void_damage", 0.0D, 0.0D, 1024.0D).setSyncable(true));
     public static final RegistryObject<Attribute> VOID_RESISTANCE = ATTRIBUTES.register("void_resistance", () -> new RangedAttribute("attribute.valoria.void_resistance", 0.0D, -100.0D, 100.0D).setSyncable(true));
 
+    public static final RegistryObject<Attribute> MAX_NIHILITY_LEVEL = ATTRIBUTES.register("max_nihility", () -> new RangedAttribute("attribute.valoria.generic.max_nihility", 100.0D, 0.0D, 10000.0D).setSyncable(true));
+
     public record ElementalType(RegistryObject<Attribute> damageAttr, RegistryObject<Attribute> resistAttr) {}
 
     public static void register(IEventBus eventBus){
