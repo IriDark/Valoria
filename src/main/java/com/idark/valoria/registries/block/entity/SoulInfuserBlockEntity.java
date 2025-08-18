@@ -172,15 +172,12 @@ public class SoulInfuserBlockEntity extends BlockEntity implements MenuProvider,
 
     private void craftItem(SoulInfuserRecipe recipe) {
         PacketHandler.sendToTracking(this.level, this.getBlockPos(), new CubeShapedParticlePacket((float)this.getBlockPos().getCenter().x, (float)this.getBlockPos().getCenter().y - 0.25f, (float)this.getBlockPos().getCenter().z, 0.62f, 0.15f, 255, 255, 255));
-
         ItemStack infusableItem = this.itemHandler.getStackInSlot(0);
         ItemStack soulCollector = this.itemHandler.getStackInSlot(1);
 
         int soulsToConsume = recipe.getSouls(infusableItem);
-
         this.consumeSouls(soulCollector, soulsToConsume);
         soulCollector.hurt(1, this.level.random, null);
-
         if (soulCollector.getDamageValue() >= soulCollector.getMaxDamage()) {
             this.itemHandler.setStackInSlot(1, ItemStack.EMPTY);
             this.level.playSound(null, this.getBlockPos(), SoundEvents.ITEM_BREAK, SoundSource.BLOCKS, 1, 1);
@@ -191,7 +188,10 @@ public class SoulInfuserBlockEntity extends BlockEntity implements MenuProvider,
 
         if (outputSlot.isEmpty()) this.itemOutputHandler.setStackInSlot(0, recipeResult);
         else outputSlot.grow(recipeResult.getCount());
-
+        if(getSouls(soulCollector) == 0)  {
+            this.itemHandler.setStackInSlot(1, ItemsRegistry.soulCollectorEmpty.get().getDefaultInstance());
+            this.itemHandler.getStackInSlot(1).setDamageValue(soulCollector.getDamageValue());
+        }
 
         this.itemHandler.extractItem(0, 1, false);
     }

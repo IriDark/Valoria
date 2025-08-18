@@ -5,6 +5,7 @@ import com.idark.valoria.api.unlockable.*;
 import com.idark.valoria.api.unlockable.types.*;
 import com.idark.valoria.client.ui.screen.book.codex.*;
 import com.idark.valoria.core.capability.*;
+import com.idark.valoria.core.config.*;
 import com.idark.valoria.core.interfaces.*;
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.*;
@@ -33,6 +34,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.player.*;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
@@ -83,6 +85,12 @@ public class Events{
         ItemStack stack = entity.getUseItem();
         if(stack.getItem() instanceof ValoriaShieldItem shieldItem) {
             float armor = shieldItem.blockedPercent / 100.0F;
+            if(stack.is(Items.SHIELD)){
+                if(!CommonConfig.VANILLA_SHIELD_MODIFY.get()) {
+                    armor = 1;
+                }
+            }
+
             float totalMultiplier = Math.max(Math.min(1 - (armor), 1), 0);
             float reducedDamage = ev.getOriginalBlockedDamage() * totalMultiplier;
             shieldItem.onShieldBlock(ev.getDamageSource(), ev.getOriginalBlockedDamage(), stack, entity);
@@ -103,7 +111,7 @@ public class Events{
         Player player = event.player;
         if (!player.level().isClientSide() && player instanceof ServerPlayer serverPlayer) {
             player.getCapability(INihilityLevel.INSTANCE).ifPresent(nihilityLevel -> {
-                if(!player.getAbilities().instabuild){
+                if(!player.getAbilities().instabuild && !player.isSpectator()){
                     NihilityMeter.tick(event, nihilityLevel, player);
                 }
             });

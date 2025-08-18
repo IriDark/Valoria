@@ -52,7 +52,7 @@ public class VoidCrystalItem extends AbstractTalismanItem implements ISoulItem{
 
     @Override
     public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags){
-        tooltip.add(Component.translatable("tooltip.valoria.souls", getBaseSouls(stack)).append(" / ").append(String.valueOf(getMaxSouls())).withStyle(ChatFormatting.GRAY).append("\uE253").withStyle(style -> style.withFont(Valoria.FONT)));
+        tooltip.add(Component.translatable("tooltip.valoria.souls", getCurrentSouls(stack)).append(" / ").append(String.valueOf(getMaxSouls())).withStyle(ChatFormatting.GRAY).append("\uE253").withStyle(style -> style.withFont(Valoria.FONT)));
         super.appendHoverText(stack, world, tooltip, flags);
     }
 

@@ -8,7 +8,7 @@ import net.minecraft.world.item.*;
 
 public interface ISoulItem{
     default boolean barVisible(ItemStack pStack){
-        return getBaseSouls(pStack) > 0 && getBaseSouls(pStack) < getMaxSouls();
+        return getCurrentSouls(pStack) > 0 && getCurrentSouls(pStack) < getMaxSouls();
     }
 
     default ItemStack setSoulItem(ItemStack pStack){
@@ -17,7 +17,7 @@ public interface ISoulItem{
     }
 
     default int barWidth(ItemStack pStack){
-        return Math.round((float)getBaseSouls(pStack) * 13.0F / (float)getMaxSouls());
+        return Math.round((float)getCurrentSouls(pStack) * 13.0F / (float)getMaxSouls());
     }
 
     default int barColor(){
@@ -32,10 +32,6 @@ public interface ISoulItem{
         return pStack.getOrCreateTag().getInt("Souls");
     }
 
-    default int getBaseSouls(ItemStack pStack){
-        return pStack.getOrCreateTag().getInt("Souls");
-    }
-
     default void setSouls(int count, ItemStack pStack){
         pStack.removeTagKey("Souls");
         pStack.getOrCreateTag().putInt("Souls", count);
@@ -46,12 +42,12 @@ public interface ISoulItem{
     }
 
     default void consumeSouls(int count, ItemStack pStack){
-        pStack.getOrCreateTag().putInt("Souls", Math.max(this.getBaseSouls(pStack) - count, 0));
+        pStack.getOrCreateTag().putInt("Souls", Math.max(this.getCurrentSouls(pStack) - count, 0));
     }
 
     default void addCount(int count, ItemStack pStack, Player player){
         if(getCurrentSouls(pStack) < getMaxSouls()){
-            pStack.getOrCreateTag().putInt("Souls", getBaseSouls(pStack) + count);
+            pStack.getOrCreateTag().putInt("Souls", getCurrentSouls(pStack) + count);
             player.level().playSound(null, player.getOnPos(), getCollectSound(), SoundSource.PLAYERS, 1, player.level().random.nextFloat());
         }
     }

@@ -184,6 +184,12 @@ public class ValoriaClient{
             EntityRenderers.register(EntityTypeRegistry.KING_CRAB.get(), KingCrabRenderer::new);
             EntityRenderers.register(EntityTypeRegistry.WATER_BUBBLE.get(), WaterBubbleRenderer::new);
 
+            ModItemModelProperties.makeCrossbow(ItemsRegistry.natureCrossbow.get());
+            ModItemModelProperties.makeCrossbow(ItemsRegistry.aquariusCrossbow.get());
+            ModItemModelProperties.makeCrossbow(ItemsRegistry.infernalCrossbow.get());
+            ModItemModelProperties.makeCrossbow(ItemsRegistry.voidCrossbow.get());
+            ModItemModelProperties.makeCrossbow(ItemsRegistry.phantasmCrossbow.get());
+
             ModItemModelProperties.makeShield(ItemsRegistry.crabBuckler.get());
             ModItemModelProperties.makeShield(ItemsRegistry.wickedShield.get());
             ModItemModelProperties.makeShield(ItemsRegistry.draugrShield.get());

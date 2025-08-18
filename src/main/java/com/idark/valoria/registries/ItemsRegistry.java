@@ -126,11 +126,11 @@ public class ItemsRegistry{
     cobaltSword, cobaltPickaxe, cobaltAxe, cobaltShovel, cobaltHoe,
     etherealSword, etherealSpear, etherealPickaxe, etherealAxe,
     crimtaneSword, crimtaneScythe, crimtanePickaxe, crimtaneAxe, crimtaneShovel, crimtaneHoe,
-    ent, natureScythe, naturePickaxe, natureAxe, natureShovel, natureHoe, natureBow, natureSpear, natureArrow,
-    coralReef, aquariusScythe, aquariusPickaxe, aquariusAxe, aquariusShovel, aquariusHoe, aquariusBow, aquariusSpear, aquariusArrow,
-    infernalSword, infernalScythe, infernalPickaxe, infernalAxe, infernalShovel, infernalHoe, infernalBow, infernalSpear, infernalArrow,
-    voidEdge, voidScythe, voidPickaxe, voidAxe, voidShovel, voidHoe, voidBow, voidSpear, wickedArrow,
-    phantom, phantasmBow, eternity, pyratiteArrow, soulArrow,
+    ent, natureScythe, naturePickaxe, natureAxe, natureShovel, natureHoe, natureBow, natureCrossbow, natureSpear, natureArrow,
+    coralReef, aquariusScythe, aquariusPickaxe, aquariusAxe, aquariusShovel, aquariusHoe, aquariusBow, aquariusCrossbow, aquariusSpear, aquariusArrow,
+    infernalSword, infernalScythe, infernalPickaxe, infernalAxe, infernalShovel, infernalHoe, infernalBow, infernalCrossbow, infernalSpear, infernalArrow,
+    voidEdge, voidScythe, voidPickaxe, voidAxe, voidShovel, voidHoe, voidBow, voidCrossbow, voidSpear, wickedArrow,
+    phantom, phantasmBow, phantasmCrossbow, eternity, pyratiteArrow, soulArrow,
 
     // event
     holidayCandy, holidayKatana, holidayPickaxe, holidayAxe, candyCorn, pumpkinBomb, wraithKatana, reaperScythe, dreadAxe, soulReaver,
@@ -475,6 +475,7 @@ public class ItemsRegistry{
         natureShovel = registerItem("nature_shovel", () -> new ShovelItem(ItemTierRegistry.NATURE, ToolStats.shovel.damage, ToolStats.shovel.speed, new Item.Properties().rarity(RarityRegistry.NATURE)));
         natureHoe = registerItem("nature_hoe", () -> new HoeItem(ItemTierRegistry.NATURE, (int)(ToolStats.hoe.damage), ToolStats.hoe.speed, new Item.Properties().rarity(RarityRegistry.NATURE)));
         natureBow = registerItem("nature_bow", () -> new ConfigurableBowItem(EntityTypeRegistry.NATURE_ARROW, 2, 1, new Item.Properties().stacksTo(1).durability(1024).rarity(RarityRegistry.NATURE)));
+        natureCrossbow = registerItem("nature_crossbow", () -> new ConfigurableCrossbow(EntityTypeRegistry.NATURE_ARROW, 2, 1, new Item.Properties().stacksTo(1).durability(1224).rarity(RarityRegistry.NATURE)));
 
         coralReef = registerItem("coral_reef", () -> new CoralReefItem(ItemTierRegistry.AQUARIUS, ToolStats.large_sword.damage, ToolStats.large_sword.speed, new Item.Properties().rarity(RarityRegistry.AQUARIUS)));
         aquariusScythe = registerItem("aquarius_scythe", () -> new AquariusScytheItem(ItemTierRegistry.AQUARIUS, ToolStats.scythe.damage, ToolStats.scythe.speed, new Item.Properties().rarity(RarityRegistry.AQUARIUS)));
@@ -484,6 +485,7 @@ public class ItemsRegistry{
         aquariusShovel = registerItem("aquarius_shovel", () -> new ShovelItem(ItemTierRegistry.AQUARIUS, ToolStats.shovel.damage, ToolStats.shovel.speed, new Item.Properties().rarity(RarityRegistry.AQUARIUS)));
         aquariusHoe = registerItem("aquarius_hoe", () -> new HoeItem(ItemTierRegistry.AQUARIUS, (int)(ToolStats.hoe.damage), ToolStats.hoe.speed, new Item.Properties().rarity(RarityRegistry.AQUARIUS)));
         aquariusBow = registerItem("aquarius_bow", () -> new ConfigurableBowItem(EntityTypeRegistry.AQUARIUS_ARROW, 3, 2, new Item.Properties().stacksTo(1).durability(1324).fireResistant().rarity(RarityRegistry.AQUARIUS)));
+        aquariusCrossbow = registerItem("aquarius_crossbow", () -> new ConfigurableCrossbow(EntityTypeRegistry.AQUARIUS_ARROW, 4, 3, new Item.Properties().fireResistant().stacksTo(1).durability(1462).rarity(RarityRegistry.AQUARIUS)));
 
         infernalSword = registerItem("infernal_sword", () -> new MagmaSwordItem(ItemTierRegistry.INFERNAL, ToolStats.large_sword.damage, ToolStats.large_sword.speed, new Item.Properties().fireResistant().rarity(RarityRegistry.INFERNAL)));
         infernalScythe = registerItem("infernal_scythe", () -> new InfernalScytheItem(ItemTierRegistry.INFERNAL, ToolStats.scythe.damage, ToolStats.scythe.speed, new Item.Properties().fireResistant().rarity(RarityRegistry.INFERNAL)));
@@ -493,6 +495,7 @@ public class ItemsRegistry{
         infernalShovel = registerItem("infernal_shovel", () -> new ShovelItem(ItemTierRegistry.INFERNAL, ToolStats.shovel.damage, ToolStats.shovel.speed, new Item.Properties().fireResistant().rarity(RarityRegistry.INFERNAL)));
         infernalHoe = registerItem("infernal_hoe", () -> new HoeItem(ItemTierRegistry.INFERNAL, (int)(ToolStats.hoe.damage), ToolStats.hoe.speed, new Item.Properties().fireResistant().rarity(RarityRegistry.INFERNAL)));
         infernalBow = registerItem("infernal_bow", () -> new ConfigurableBowItem(EntityTypeRegistry.INFERNAL_ARROW, 4, 3, new Item.Properties().fireResistant().stacksTo(1).durability(1684).rarity(RarityRegistry.INFERNAL)));
+        infernalCrossbow = registerItem("infernal_crossbow", () -> new ConfigurableCrossbow(EntityTypeRegistry.INFERNAL_ARROW, 4, 3, new Item.Properties().fireResistant().stacksTo(1).durability(1824).rarity(RarityRegistry.INFERNAL)));
 
         voidEdge = registerItem("void_edge", () -> new VoidSwordItem(ItemTierRegistry.NIHILITY, ToolStats.large_sword.damage, ToolStats.large_sword.speed, new Item.Properties().rarity(RarityRegistry.VOID)));
         voidScythe = registerItem("void_scythe", () -> new VoidScytheItem.Builder(ToolStats.scythe.damage, ToolStats.scythe.speed, new Item.Properties().fireResistant().rarity(RarityRegistry.VOID)).setTier(ItemTierRegistry.NIHILITY).setEffects(0.5f, new MobEffectInstance(MobEffects.DARKNESS, 180, 0), new MobEffectInstance(MobEffects.WEAKNESS, 60, 0)).build());
@@ -502,8 +505,10 @@ public class ItemsRegistry{
         voidShovel = registerItem("void_shovel", () -> new ShovelItem(ItemTierRegistry.NIHILITY, ToolStats.shovel.damage, ToolStats.shovel.speed, new Item.Properties().fireResistant().rarity(RarityRegistry.VOID)));
         voidHoe = registerItem("void_hoe", () -> new HoeItem(ItemTierRegistry.NIHILITY, (int)(ToolStats.hoe.damage), ToolStats.hoe.speed, new Item.Properties().fireResistant().rarity(RarityRegistry.VOID)));
         voidBow = registerItem("bow_of_darkness", () -> new ConfigurableBowItem(EntityTypeRegistry.WICKED_ARROW,4.25f, 4, new Item.Properties().stacksTo(1).durability(2048).fireResistant().rarity(RarityRegistry.VOID)));
+        voidCrossbow = registerItem("void_crossbow", () -> new ConfigurableCrossbow(EntityTypeRegistry.WICKED_ARROW, 4.25f, 4, new Item.Properties().fireResistant().stacksTo(1).durability(2124).rarity(RarityRegistry.VOID)));
         phantom = registerItem("phantom", () -> new PhantomItem(ItemTierRegistry.PHANTOM, ToolStats.large_sword.damage, ToolStats.large_sword.speed, new Item.Properties().rarity(RarityRegistry.PHANTASM)));
         phantasmBow = registerItem("phantasm_bow", () -> new PhantasmBow(6, 4, new Item.Properties().fireResistant().stacksTo(1).durability(4028).rarity(RarityRegistry.PHANTASM)));
+        phantasmCrossbow = registerItem("phantasm_crossbow", () -> new ConfigurableCrossbow(EntityTypeRegistry.PHANTOM_ARROW, 6, 4, new Item.Properties().fireResistant().stacksTo(1).durability(4124).rarity(RarityRegistry.PHANTASM)));
 
         natureArrow = registerItem("nature_arrow", () -> new NatureArrowItem(new Item.Properties().rarity(RarityRegistry.NATURE)));
         aquariusArrow = registerItem("aquarius_arrow", () -> new AquariusArrowItem(new Item.Properties().rarity(RarityRegistry.AQUARIUS)));

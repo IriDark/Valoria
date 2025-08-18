@@ -69,12 +69,6 @@ public class SoulInfuserRecipe implements Recipe<Container>{
         return outputStack;
     }
 
-    //реализация прошлого ассембла. хз, может надо, я оставлю на всякий
-    @Deprecated
-    public ItemStack assemble(IItemHandler itemHandler){
-        return assemble(itemHandler, RegistryAccess.EMPTY);
-    }
-
     @Override
     public @NotNull ItemStack assemble(@NotNull Container pContainer, @NotNull RegistryAccess pRegistryAccess) {
         IItemHandler handler = new IItemHandler() {

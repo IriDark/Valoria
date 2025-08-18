@@ -1,0 +1,6 @@
+{
+    "parent": "valoria:item/void_crossbow",
+    "textures": {
+        "layer0": "valoria:item/void_crossbow_arrow"
+    }
+}

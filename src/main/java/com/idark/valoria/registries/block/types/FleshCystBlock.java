@@ -115,7 +115,7 @@ public class FleshCystBlock extends BaseEntityBlock implements SimpleWaterlogged
         .randomOffset(0.5f)
         .setGravity(0.0125f)
         .flatRandomVelocity(0.025, Tmp.rnd.randomValueUpTo(0.055), 0.025)
-        .repeat(pLevel, pPos.getCenter().x, pPos.getCenter().y + 0.2, pPos.getCenter().z, 15);
+        .repeat(pLevel, pPos.getCenter().x, pPos.getCenter().y + 0.2, pPos.getCenter().z, 5);
     }
 
     @Override

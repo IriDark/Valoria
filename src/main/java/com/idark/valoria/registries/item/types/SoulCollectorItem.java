@@ -50,7 +50,7 @@ public class SoulCollectorItem extends Item implements OverlayRenderItem, ISoulI
     public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags){
         super.appendHoverText(stack, world, tooltip, flags);
         tooltip.add(Component.translatable("tooltip.valoria.soul_collector").withStyle(ChatFormatting.GRAY));
-        tooltip.add(Component.translatable("tooltip.valoria.souls", getBaseSouls(stack)).append(" / ").append(String.valueOf(getMaxSouls())).withStyle(ChatFormatting.GRAY).append("\uE253").withStyle(style -> style.withFont(Valoria.FONT)));
+        tooltip.add(Component.translatable("tooltip.valoria.souls", getCurrentSouls(stack)).append(" / ").append(String.valueOf(getMaxSouls())).withStyle(ChatFormatting.GRAY).append("\uE253").withStyle(style -> style.withFont(Valoria.FONT)));
     }
 
     public boolean isBarVisible(ItemStack pStack){
@@ -79,7 +79,7 @@ public class SoulCollectorItem extends Item implements OverlayRenderItem, ISoulI
     }
 
     public void consumeSouls(int count, ItemStack pStack){
-        int souls = Math.max(this.getBaseSouls(pStack) - count, 0);
+        int souls = Math.max(this.getCurrentSouls(pStack) - count, 0);
         pStack.getOrCreateTag().putInt("Souls", souls);
         if(souls == 0) {
             ItemStack itemstack = pStack.copy();
@@ -98,7 +98,7 @@ public class SoulCollectorItem extends Item implements OverlayRenderItem, ISoulI
             ValoriaUtils.addPlayerItem(player.level(), player, ItemsRegistry.soulCollector.get().getDefaultInstance());
             player.level().playSound(null, player.getOnPos(), getTransformSound(), SoundSource.PLAYERS, 1, player.level().random.nextFloat());
         }else{
-            pStack.getOrCreateTag().putInt("Souls", getBaseSouls(pStack) + count);
+            pStack.getOrCreateTag().putInt("Souls", getCurrentSouls(pStack) + count);
             player.level().playSound(null, player.getOnPos(), getCollectSound(), SoundSource.PLAYERS, 1, player.level().random.nextFloat());
         }
     }

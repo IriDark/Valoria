@@ -2,6 +2,10 @@
   "structures": [
     {
       "structure": "valoria:tower",
+      "weight": 75
+    },
+    {
+      "structure": "valoria:corrupted_well",
       "weight": 45
     },
     {
@@ -20,7 +24,7 @@
   "placement": {
     "type": "minecraft:random_spread",
     "salt": 20083232,
-    "separation": 8,
-    "spacing": 24
+    "separation": 6,
+    "spacing": 18
   }
 }

@@ -6,6 +6,7 @@
   "refmap": "valoria.refmap.json",
   "mixins": [
     "AttributeMixin",
+    "CrossbowMixin",
     "HalfTransparentBlockMixin",
     "MobAmbientSoundInvoker",
     "RangedAttributeMixin"

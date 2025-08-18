@@ -57,6 +57,12 @@ public class InfernalArrow extends AbstractTridotArrow implements TexturedArrow{
     }
 
     @Override
+    protected void onHitEntity(EntityHitResult pResult){
+        super.onHitEntity(pResult);
+        pResult.getEntity().setSecondsOnFire(10);
+    }
+
+    @Override
     public ResourceLocation getTexture(){
         return new ResourceLocation(Valoria.ID, "textures/entity/projectile/arrow/infernal_arrow.png");
     }

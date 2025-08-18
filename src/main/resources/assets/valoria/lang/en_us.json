@@ -1239,5 +1239,6 @@
   "tooltip.valoria.shield.speed": "Gain Speed after blocking an attack",
   "tooltip.valoria.raw_food": "Eating will add %s\uE250 to your nihility meter",
   "tooltip.valoria.download": "\uE251 Download latest",
-  "menu.valoria.soul_infuser": "Soul Infuser"
+  "menu.valoria.soul_infuser": "Soul Infuser",
+  "tooltip.valoria.crossbow.speed": "Charging time: %s"
 }

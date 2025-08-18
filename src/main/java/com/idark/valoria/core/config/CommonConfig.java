@@ -21,6 +21,9 @@ public class CommonConfig{
     public static ForgeConfigSpec.ConfigValue<Float>
     TARGET_HEAL_NECROMANCER_AMOUNT, SELF_HEAL_NECROMANCER_AMOUNT;
 
+    public static ForgeConfigSpec.ConfigValue<Boolean>
+    VANILLA_SHIELD_MODIFY;
+
     static{
         final Pair<CommonConfig, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(CommonConfig::new);
         SPEC = specPair.getRight();
@@ -31,6 +34,9 @@ public class CommonConfig{
     public static final ForgeConfigSpec SPEC;
 
     public CommonConfig(ForgeConfigSpec.Builder builder){
+        builder.comment("Vanilla changes").push("vanilla_changes");
+            VANILLA_SHIELD_MODIFY = builder.comment("Modified Vanilla Shield (Uses Valoria properties, Default: true)").define("modifiedVanillaShield", true);
+        builder.pop();
         builder.comment("Bosses").push("bosses");
             builder.comment("Necromancer").push("necromancer");
             ATTACK_NECROMANCER_CASTING_TIME = builder.comment("Casting time").define("devourerCastingTime", 40);

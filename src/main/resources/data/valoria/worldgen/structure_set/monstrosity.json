@@ -15,6 +15,10 @@
     {
       "structure": "valoria:monstrosity_skull",
       "weight": 75
+    },
+    {
+      "structure": "valoria:flesh_altar",
+      "weight": 45
     }
   ],
   "placement": {

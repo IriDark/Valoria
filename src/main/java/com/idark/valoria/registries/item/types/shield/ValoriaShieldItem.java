@@ -1,5 +1,6 @@
 package com.idark.valoria.registries.item.types.shield;
 
+import com.idark.valoria.core.config.*;
 import net.minecraft.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.sounds.*;
@@ -47,6 +48,12 @@ public class ValoriaShieldItem extends ShieldItem{
     @Override
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltip, TooltipFlag pFlag){
         super.appendHoverText(pStack, pLevel, pTooltip, pFlag);
+        if(pStack.is(Items.SHIELD)){
+            if(!CommonConfig.VANILLA_SHIELD_MODIFY.get()) {
+                return;
+            }
+        }
+
         pTooltip.add(Component.translatable("tooltip.valoria.shield.block", String.format("%.1f%%", this.blockedPercent)).withStyle(ChatFormatting.GRAY));
         pTooltip.add(Component.translatable("tooltip.valoria.shield.time", formatDuration(this.useDuration)).withStyle(ChatFormatting.GRAY));
         if(!pStack.getItem().canBeDepleted()){

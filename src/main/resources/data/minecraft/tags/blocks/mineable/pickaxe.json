@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
+    "valoria:pearlium_block",
+    "valoria:reinforced_meat_pillar",
     "valoria:jade_ore",
     "valoria:picrite_jade_ore",
     "valoria:void_sandstone",

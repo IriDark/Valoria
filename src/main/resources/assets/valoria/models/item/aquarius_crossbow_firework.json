@@ -1,0 +1,6 @@
+{
+    "parent": "valoria:item/aquarius_crossbow",
+    "textures": {
+        "layer0": "valoria:item/aquarius_crossbow_firework"
+    }
+}
