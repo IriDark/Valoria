@@ -1161,6 +1161,7 @@
   "tooltip.valoria.core_charges": "Зарядів",
   "tooltip.valoria.corpsecleaver": "Throws a meat chunk at enemies using your health. Heals on hit. Has a cooldown",
   "tooltip.valoria.crit": "Шанс %s атакувати ворога критичним ударом",
+  "tooltip.valoria.crossbow.speed": "Charging time: %s",
   "tooltip.valoria.curses": "Наділяє гравця різноманітними ефектами.",
   "tooltip.valoria.deep": "Надає підводне дихання на деякий час",
   "tooltip.valoria.download": " Download latest",

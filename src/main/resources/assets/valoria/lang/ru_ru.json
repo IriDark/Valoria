@@ -1161,6 +1161,7 @@
   "tooltip.valoria.core_charges": "Зарядов",
   "tooltip.valoria.corpsecleaver": "Бросает кусок плоти во врагов, расходуя ваше здоровье. Исцеляет при попадании.",
   "tooltip.valoria.crit": "Шанс %s атаковать противника критическим ударом",
+  "tooltip.valoria.crossbow.speed": "Charging time: %s",
   "tooltip.valoria.curses": "Накладывает случайные эффекты.",
   "tooltip.valoria.deep": "Даёт подводное дыхание на некоторое время",
   "tooltip.valoria.download": " Download latest",
