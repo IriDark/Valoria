@@ -550,19 +550,29 @@
                             "add_surface_depth": false,
                             "offset": 0,
                             "secondary_depth_range": 0,
-                            "surface_type": "ceiling"
+                            "surface_type": "floor"
+                          },
+                          "then_run": {
+                            "type": "minecraft:block",
+                            "result_state": {
+                              "Name": "valoria:void_sand"
+                            }
+                          }
+                        },
+                        {
+                          "type": "minecraft:condition",
+                          "if_true": {
+                            "type": "minecraft:stone_depth",
+                            "add_surface_depth": true,
+                            "offset": 0,
+                            "secondary_depth_range": 6,
+                            "surface_type": "floor"
                           },
                           "then_run": {
                             "type": "minecraft:block",
                             "result_state": {
                               "Name": "valoria:void_sandstone"
                             }
-                          }
-                        },
-                        {
-                          "type": "minecraft:block",
-                          "result_state": {
-                            "Name": "valoria:void_sand"
                           }
                         }
                       ]
@@ -586,19 +596,29 @@
                             "add_surface_depth": false,
                             "offset": 0,
                             "secondary_depth_range": 0,
-                            "surface_type": "ceiling"
+                            "surface_type": "floor"
+                          },
+                          "then_run": {
+                            "type": "minecraft:block",
+                            "result_state": {
+                              "Name": "valoria:void_sand"
+                            }
+                          }
+                        },
+                        {
+                          "type": "minecraft:condition",
+                          "if_true": {
+                            "type": "minecraft:stone_depth",
+                            "add_surface_depth": true,
+                            "offset": 0,
+                            "secondary_depth_range": 30,
+                            "surface_type": "floor"
                           },
                           "then_run": {
                             "type": "minecraft:block",
                             "result_state": {
                               "Name": "valoria:void_sandstone"
                             }
-                          }
-                        },
-                        {
-                          "type": "minecraft:block",
-                          "result_state": {
-                            "Name": "valoria:void_sand"
                           }
                         }
                       ]

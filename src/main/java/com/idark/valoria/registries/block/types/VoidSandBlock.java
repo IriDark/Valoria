@@ -1,36 +1,31 @@
 package com.idark.valoria.registries.block.types;
 
-import com.idark.valoria.registries.*;
 import net.minecraft.core.*;
-import net.minecraft.world.level.*;
+import net.minecraft.server.level.*;
+import net.minecraft.tags.*;
+import net.minecraft.util.*;
+import net.minecraft.world.entity.item.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.*;
 
-public class VoidSandBlock extends FallingBlock{
-    private final int dustColor;
-
-    public VoidSandBlock(int pDustColor, BlockBehaviour.Properties pProperties){
-        super(pProperties);
-        this.dustColor = pDustColor;
+public class VoidSandBlock extends SandBlock{
+    public VoidSandBlock(int pDustColor, Properties pProperties){
+        super(pDustColor, pProperties);
     }
 
-    @Deprecated
-    public void neighborChanged(BlockState pState, Level pLevel, BlockPos pPos, Block pNeighborBlock, BlockPos pNeighborPos, boolean pMovedByPiston) {
-        if(!pNeighborBlock.defaultBlockState().is(TagsRegistry.VOID_BLOCKS)){
-            super.neighborChanged(pState, pLevel, pPos, pNeighborBlock, pNeighborPos, pMovedByPiston);
+    public void tick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
+        if (isFree(pLevel.getBlockState(pPos.below())) && pPos.getY() >= pLevel.getMinBuildHeight()) {
+            FallingBlockEntity fallingblockentity = FallingBlockEntity.fall(pLevel, pPos, pState);
+            this.falling(fallingblockentity);
         }
     }
 
-    public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pFacingPos) {
-        if(!pFacingState.is(TagsRegistry.VOID_BLOCKS)){
-            pLevel.scheduleTick(pCurrentPos, this, this.getDelayAfterPlace());
-            return super.updateShape(pState, pFacing, pFacingState, pLevel, pCurrentPos, pFacingPos);
-        }
-
-        return pState;
+    public static boolean isFree(BlockState pState) {
+        return pState.isAir() || pState.is(BlockTags.FIRE) || pState.canBeReplaced();
     }
 
-    public int getDustColor(BlockState pState, BlockGetter pReader, BlockPos pPos){
-        return this.dustColor;
+    @Override
+    protected int getDelayAfterPlace(){
+        return 60;
     }
 }
