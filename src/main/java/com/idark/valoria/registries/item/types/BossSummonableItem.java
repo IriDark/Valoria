@@ -6,6 +6,7 @@ import net.minecraft.core.particles.*;
 import net.minecraft.nbt.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.server.level.*;
+import net.minecraft.util.*;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.*;
@@ -15,17 +16,22 @@ import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.phys.*;
 import org.jetbrains.annotations.*;
+import pro.komaru.tridot.client.gfx.*;
+import pro.komaru.tridot.client.gfx.particle.*;
+import pro.komaru.tridot.client.gfx.particle.data.*;
+import pro.komaru.tridot.util.*;
 
 import java.util.*;
 import java.util.function.*;
 
 public class BossSummonableItem extends TexturedSpawnEggItem{
     private final Supplier<? extends EntityType<? extends Mob>> typeSupplier;
-    float expandValue;
+    private final float expandValue;
 
     public BossSummonableItem(Supplier<? extends EntityType<? extends Mob>> type, Properties pProperties){
         super(type, pProperties);
         this.typeSupplier = type;
+        this.expandValue = 0;
     }
 
     public BossSummonableItem(float expandValue, Supplier<? extends EntityType<? extends Mob>> type, Properties pProperties){
@@ -53,73 +59,109 @@ public class BossSummonableItem extends TexturedSpawnEggItem{
 
     @Override
     public InteractionResult useOn(UseOnContext pContext){
-        if(canSpawnHere(pContext.getLevel(), getDefaultType(), pContext.getPlayer())){
+        Level level = pContext.getLevel();
+        Player player = pContext.getPlayer();
+        AABB spawnAABB = getAABB(player, getDefaultType().create(level));
+        SpawnResult result = canSpawnHere(level, spawnAABB);
+        if(result.success()){
             return super.useOn(pContext);
-        } else {
-            var size = Math.floor(getAABB(pContext.getPlayer(), getDefaultType().create(pContext.getLevel())).getSize()) + 3;
-            pContext.getPlayer().displayClientMessage(Component.translatable("tooltip.valoria.boss_summon_fail", size + "x" + size).withStyle(ChatFormatting.GRAY), true);
-            showParticleBox(pContext.getLevel(), getAABB(pContext.getPlayer(), getDefaultType().create(pContext.getLevel())));
-            return InteractionResult.FAIL;
+        }else{
+            var size = Math.floor(spawnAABB.getSize()) + 3;
+            player.displayClientMessage(Component.translatable("tooltip.valoria.boss_summon_fail", size + "x" + size).withStyle(ChatFormatting.GRAY), true);
+            showParticleBox(level, spawnAABB);
+            for(BlockPos pos : result.preventingBlocks)
+                if(level.isClientSide())
+                    showBlockingParticles(level, pos);
         }
+
+        return InteractionResult.FAIL;
     }
 
-    public void showParticleBox(Level level, AABB box) {
-        if (!(level instanceof ServerLevel server)) return;
+    public void showParticleBox(Level level, AABB box){
+        if(!(level instanceof ServerLevel server)) return;
         double step = 0.5;
-        for (double x = box.minX; x <= box.maxX; x += step) {
-            for (double y = box.minY; y <= box.maxY; y += step) {
-                for (double z = box.minZ; z <= box.maxZ; z += step) {
+        for(double x = box.minX; x <= box.maxX; x += step){
+            for(double y = box.minY; y <= box.maxY; y += step){
+                for(double z = box.minZ; z <= box.maxZ; z += step){
                     boolean onEdge =
-                    x == box.minX || x + step > box.maxX ||
-                    y == box.minY || y + step > box.maxY ||
-                    z == box.minZ || z + step > box.maxZ;
-                    if (onEdge) {
-                        server.sendParticles(ParticleTypes.SMOKE, x, y, z, 1, 0, 0, 0, 0);
+                    Mth.equal(x, box.minX) || x + step > box.maxX ||
+                    Mth.equal(y, box.minY) || y + step > box.maxY ||
+                    Mth.equal(z, box.minZ) || z + step > box.maxZ;
+                    if(onEdge){
+                        server.sendParticles(ParticleTypes.MYCELIUM, x, y, z, 1, 0, 0, 0, 0);
                     }
                 }
             }
         }
     }
 
+    public void showBlockingParticles(Level level, BlockPos pos){
+        ParticleBuilder.create(TridotParticles.SQUARE)
+        .setScaleData(GenericParticleData.create(0.05f).build())
+        .setColorData(ColorParticleData.create(Col.red).build())
+        .setGravity(0).setLifetime(60).setHasPhysics(false).spawnVoxelShape(level, new Vec3(pos.getX(), pos.getY(), pos.getZ()), level.getBlockState(pos).getShape(level, pos), 15).getParticleOptions();
+    }
+
     @NotNull
     public AABB getAABB(Player player, Entity mob){
-        AABB boundingBox = mob.getBoundingBox().expandTowards(expandValue, 0, expandValue);
-        double height = 0.1;
+        AABB mobBoundingBox = mob.getBoundingBox();
         Vec3 origin = player.getEyePosition();
         Vec3 direction = player.getForward();
-        BlockHitResult hit = player.level().clip(new ClipContext(origin, origin.add(direction.scale(5)),
+        BlockHitResult hitResult = player.level().clip(new ClipContext(origin, origin.add(direction.scale(5)),
         ClipContext.Block.OUTLINE, ClipContext.Fluid.ANY, player));
-        BlockPos spawnPos = new BlockPos(hit.getBlockPos().getX(), hit.getBlockPos().getY() + 1, hit.getBlockPos().getZ());
-        double minX = spawnPos.getX() + boundingBox.minX;
-        double minY = spawnPos.getY();
-        double minZ = spawnPos.getZ() + boundingBox.minZ;
-        double maxX = spawnPos.getX() + boundingBox.maxX;
-        double maxY = spawnPos.getY() + boundingBox.maxY - height;
-        double maxZ = spawnPos.getZ() + boundingBox.maxZ;
+        BlockPos centerPos = hitResult.getBlockPos().above();
+
+        double width = mobBoundingBox.getXsize() + this.expandValue;
+        double height = mobBoundingBox.getYsize();
+        double depth = mobBoundingBox.getZsize() + this.expandValue;
+
+        double minX = centerPos.getX() - width / 2.0;
+        double minY = centerPos.getY();
+        double minZ = centerPos.getZ() - depth / 2.0;
+        double maxX = centerPos.getX() + width / 2.0;
+        double maxY = centerPos.getY() + height;
+        double maxZ = centerPos.getZ() + depth / 2.0;
+
         return new AABB(minX, minY, minZ, maxX, maxY, maxZ);
     }
 
-    public boolean canSpawnHere(Level world, EntityType<?> entityType, Player player){
-        Entity mob = entityType.create(world);
-        if(mob == null) return false;
+    public SpawnResult canSpawnHere(Level world, AABB blockAABB){
+        BlockPos min = new BlockPos((int)Math.floor(blockAABB.minX), (int)Math.floor(blockAABB.minY), (int)Math.floor(blockAABB.minZ));
+        BlockPos max = new BlockPos((int)Math.floor(blockAABB.maxX), (int)Math.floor(blockAABB.maxY), (int)Math.floor(blockAABB.maxZ));
 
-        AABB blockAABB = getAABB(player, mob);
-        BlockPos min = new BlockPos((int) blockAABB.minX, (int) blockAABB.minY, (int) blockAABB.minZ);
-        BlockPos max = new BlockPos((int) blockAABB.maxX, (int) blockAABB.maxY, (int) blockAABB.maxZ);
+        List<BlockPos> preventingBlocks = new ArrayList<>();
         int baseY = min.getY();
-        for (int x = min.getX(); x <= max.getX(); x++) {
-            for (int z = min.getZ(); z <= max.getZ(); z++) {
+        for(int x = min.getX(); x <= max.getX(); x++){
+            for(int z = min.getZ(); z <= max.getZ(); z++){
                 BlockPos groundPos = new BlockPos(x, baseY - 1, z);
-                BlockState ground = world.getBlockState(groundPos);
-                if (ground.isAir() || !ground.isSolid()) return false;
-                for (int y = baseY; y <= max.getY(); y++) {
-                    BlockPos checkPos = new BlockPos(x, y, z);
-                    BlockState state = world.getBlockState(checkPos);
-                    if (!state.getCollisionShape(world, checkPos).isEmpty()) return false;
+                BlockState groundState = world.getBlockState(groundPos);
+                if(groundState.isAir() || !groundState.isSolid() || world.getFluidState(groundPos).isSource()){
+                    preventingBlocks.add(groundPos);
                 }
             }
         }
 
-        return true;
+        for(int x = min.getX(); x <= max.getX(); x++){
+            for(int y = baseY; y <= max.getY(); y++){
+                for(int z = min.getZ(); z <= max.getZ(); z++){
+                    BlockPos checkPos = new BlockPos(x, y, z);
+                    BlockState state = world.getBlockState(checkPos);
+                    if(!state.getCollisionShape(world, checkPos).isEmpty() || world.getFluidState(checkPos).isSource()){
+                        if(!state.canBeReplaced() && state.getDestroySpeed(world, checkPos) >= 0){
+                            preventingBlocks.add(checkPos);
+                        }
+                    }
+                }
+            }
+        }
+
+        return SpawnResult.checkResult(preventingBlocks);
+    }
+
+    private record SpawnResult(boolean success, List<BlockPos> preventingBlocks){
+
+        public static SpawnResult checkResult(List<BlockPos> preventingBlocks){
+            return new SpawnResult(preventingBlocks.isEmpty(), preventingBlocks);
+        }
     }
 }
