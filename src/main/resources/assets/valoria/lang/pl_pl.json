@@ -1161,6 +1161,7 @@
   "tooltip.valoria.core_charges": "Ładunki",
   "tooltip.valoria.corpsecleaver": "Throws a meat chunk at enemies using your health. Heals on hit. Has a cooldown",
   "tooltip.valoria.crit": "%s szansy na trafienie celu krytycznymi obrażeniami",
+  "tooltip.valoria.crossbow.speed": "Charging time: %s",
   "tooltip.valoria.curses": "Nadaje losowe efekty.",
   "tooltip.valoria.deep": "Zapewnia chwilowe oddychanie pod wodą",
   "tooltip.valoria.download": " Download latest",
