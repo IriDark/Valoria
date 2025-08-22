@@ -10,6 +10,6 @@ public class ElementalTypes {
         new ElementalType(AttributeReg.INFERNAL_DAMAGE, AttributeReg.INFERNAL_RESISTANCE),
         new ElementalType(AttributeReg.DEPTH_DAMAGE, AttributeReg.DEPTH_RESISTANCE),
         new ElementalType(AttributeReg.NATURE_DAMAGE, AttributeReg.NATURE_RESISTANCE),
-        new ElementalType(AttributeReg.VOID_DAMAGE, AttributeReg.VOID_RESISTANCE)
+        new ElementalType(AttributeReg.NIHILITY_DAMAGE, AttributeReg.NIHILITY_RESISTANCE)
     );
 }

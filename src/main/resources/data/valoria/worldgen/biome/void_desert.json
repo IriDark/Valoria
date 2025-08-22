@@ -60,6 +60,12 @@
     "misc": [],
     "monster": [
       {
+        "type": "valoria:wicked_scorpion",
+        "weight": 50,
+        "minCount": 2,
+        "maxCount": 4
+      },
+      {
         "type": "valoria:corrupted_troll",
         "weight": 1,
         "minCount": 1,

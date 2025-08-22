@@ -147,7 +147,7 @@ public class ItemsRegistry{
     voidCrystal, amberTotem, amberWinglet, amberGazer, emeraldTotem, emeraldWinglet, emeraldGazer, amethystTotem, amethystWinglet, amethystGazer, rubyTotem, rubyWinglet, rubyGazer,
     brokenMonocle, monocle, jewelryBag, pickNecklace,
     bandage, devilHeart, harmonyHeart, medicatedDevilHeart, medicatedHarmonyHeart, elementalCharm,
-    skeletalVambrace, magmaticVambrace, magmaticGauntlet,
+    skeletalVambrace, magmaticVambrace, magmaticGauntlet, respirator, gasMask,
 
     // runes
     lesserRune, lesserRuneVision, lesserRuneWealth, lesserRuneCurses, lesserRuneStrength, lesserRuneAccuracy, lesserRuneDeep,
@@ -155,13 +155,13 @@ public class ItemsRegistry{
     aloeBandage, aloeBandageUpgraded, shadeBlossomBandage,
 
     // food
-    applePie, eyeChunk, taintedBerries, cookedGlowVioletSprout, cookedAbyssalGlowfern, goblinMeat, cookedGoblinMeat, crabLeg, cookedCrablLeg, devilMeat, cookedDevilMeat, cup, cacaoCup, coffeeCup, teaCup, greenTeaCup, woodenCup, beerCup, rumCup, bottle, kvassBottle, wineBottle, akvavitBottle, sakeBottle, liquorBottle, rumBottle, meadBottle, cognacBottle, whiskeyBottle, cokeBottle, toxinsBottle,
+    applePie, eyeChunk, taintedBerries, scavengerMeat, scavengerCookedMeat, cookedGlowVioletSprout, cookedAbyssalGlowfern, goblinMeat, cookedGoblinMeat, crabLeg, cookedCrablLeg, devilMeat, cookedDevilMeat, cup, cacaoCup, coffeeCup, teaCup, greenTeaCup, woodenCup, beerCup, rumCup, bottle, kvassBottle, wineBottle, akvavitBottle, sakeBottle, liquorBottle, rumBottle, meadBottle, cognacBottle, whiskeyBottle, cokeBottle, toxinsBottle,
 
     necromancerMusicDisc,
     draugrShield, crabBuckler, wickedShield,
 
     // spawn eggs
-    pumpkinContract, goblin, kingCrab, dryador, pixie, entMob, draugr, swampWanderer, scourge, maggot, wickedCrystal, crystal, sorcerer, necromancer, undead, shadewoodSpider, devil, troll, corruptedTroll, corrupted, fleshSentinel, mannequin;
+    pumpkinContract, goblin, kingCrab, dryador, pixie, entMob, draugr, swampWanderer, scourge, maggot, sorcerer, necromancer, undead, devil, troll, shadewoodSpider, scavenger, scorpion, corruptedTroll, corrupted, fleshSentinel, wickedCrystal, crystal, mannequin;
 
     public static void load(IEventBus eventBus){
         shadewoodBoat = BLOCK_ITEMS.register("shadewood_boat", () -> new CustomBoatItem(new Item.Properties().stacksTo(1), EntityTypeRegistry.SHADEWOOD_BOAT));
@@ -369,13 +369,7 @@ public class ItemsRegistry{
         club = registerItem("club", () -> new HitEffectItem(Tiers.WOOD, 5, -3.2f, new Item.Properties(), 0.1f, new MobEffectInstance(EffectsRegistry.STUN.get(), 60, 0)));
         clawhook = registerItem("clawhook", () -> new ClawhookItem(new Item.Properties().durability(125)));
         bronzeSword = registerItem("bronze_sword", () -> new SwordItem(ItemTierRegistry.BRONZE, 6, -2.4f, new Item.Properties()));
-        quantumReaper = registerItem("quantum_reaper", () -> new SwordItem(ItemTierRegistry.NONE, 8, -3f, new Item.Properties().rarity(RarityRegistry.VOID)){
-            @Override
-            public void appendHoverText(@NotNull ItemStack stack, Level world, @NotNull List<Component> tooltip, @NotNull TooltipFlag flags){
-                super.appendHoverText(stack, world, tooltip, flags);
-                Utils.Items.addContributorTooltip(stack, tooltip);
-            }
-        });
+        quantumReaper = registerItem("quantum_reaper", () -> new SwordItem(ItemTierRegistry.NONE, 8, -3f, new Item.Properties().rarity(RarityRegistry.VOID)));
 
         bloodHound = registerItem("bloodhound", () -> new HoundItem(ItemTierRegistry.BLOOD, 6, -2.2f, new Item.Properties()));
         blazeReap = registerItem("blaze_reap", () -> new BlazeReapItem(ItemTierRegistry.NONE, 3, -3.4f, new Item.Properties()));
@@ -575,7 +569,7 @@ public class ItemsRegistry{
         emptyTotem = registerItem("empty_totem", () -> new Item(new Item.Properties().rarity(Rarity.RARE)));
         emptyWinglet = registerItem("empty_winglet", () -> new Item(new Item.Properties().rarity(Rarity.RARE)));
 
-        voidCrystal = registerItem("void_crystal", () -> new VoidCrystalItem.Builder(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)).put(Attributes.MAX_HEALTH, -4).put(AttributeReg.VOID_RESISTANCE.get(), 25).build());
+        voidCrystal = registerItem("void_crystal", () -> new VoidCrystalItem.Builder(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)).put(Attributes.MAX_HEALTH, -4).put(AttributeReg.NIHILITY_RESISTANCE.get(), 25).build());
         amberTotem = registerItem("amber_golden_totem", () -> new TalismanItem.Builder(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)).put(Attributes.MAX_HEALTH, 6).put(Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_TOTAL, -0.20).build());
         amberWinglet = registerItem("amber_golden_winglet", () -> new TalismanItem.Builder(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)).put(Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_TOTAL, 0.10).put(Attributes.KNOCKBACK_RESISTANCE, Operation.ADDITION, 0.25).build());
         amberGazer = registerItem("amber_golden_gazer", () -> new TalismanItem.Builder(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)).put(Attributes.ARMOR, Operation.MULTIPLY_TOTAL, 0.10).put(Attributes.ATTACK_SPEED, Operation.MULTIPLY_TOTAL, -0.05).build());
@@ -605,6 +599,8 @@ public class ItemsRegistry{
         skeletalVambrace = registerItem("skeletal_vambrace", () -> new VambraceItem("skeletal", ItemTierRegistry.NONE, new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
         magmaticVambrace = registerItem("magmatic_vambrace", () -> new VambraceItem("magmatic", Tiers.NETHERITE, new Item.Properties().stacksTo(1).rarity(Rarity.EPIC)));
         magmaticGauntlet = registerItem("magmatic_gauntlet", () -> new MagmaticGauntletItem(Tiers.NETHERITE, new Item.Properties().stacksTo(1).rarity(Rarity.EPIC)));
+        respirator = registerItem("respirator", () -> new RespiratorItem(new Item.Properties().stacksTo(1).durability(300).rarity(RarityRegistry.VOID)));
+        gasMask = registerItem("gas_mask", () -> new GasMaskItem(new Item.Properties().stacksTo(1).durability(1200).rarity(RarityRegistry.VOID)));
 
         lesserRune = registerItem("lesser_rune", () -> new Item(new Item.Properties().stacksTo(16).rarity(Rarity.COMMON)){
             @Override
@@ -644,16 +640,18 @@ public class ItemsRegistry{
 
         //food
         applePie = registerItem("apple_pie", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(12).saturationMod(0.75f).build())));
-        eyeChunk = registerItem("eye_chunk", () -> new RawValoriaFood(3, new Item.Properties().food(new FoodProperties.Builder().meat().effect(new MobEffectInstance(MobEffects.POISON, 100), 0.4f).effect(new MobEffectInstance(MobEffects.NIGHT_VISION, 300), 1f).nutrition(1).saturationMod(0.1f).fast().build())));
-        taintedBerries = registerItem("tainted_berries", () -> new RawValoriaFood(1, new Item.Properties().food(new FoodProperties.Builder().nutrition(2).saturationMod(0.1f).fast().build())));
-        cookedGlowVioletSprout = registerItem("cooked_glow_violet_sprout", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(4).saturationMod(0.3f).effect(new MobEffectInstance(MobEffects.NIGHT_VISION, 500), 1f).build())));
-        cookedAbyssalGlowfern = registerItem("cooked_abyssal_glowfern", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(4).saturationMod(0.3f).effect(new MobEffectInstance(MobEffects.NIGHT_VISION, 500), 1f).build())));
         goblinMeat = registerItem("goblin_meat", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().meat().nutrition(3).saturationMod(0.2f).effect(new MobEffectInstance(MobEffects.HUNGER, 60), 0.25f).build())));
         cookedGoblinMeat = registerItem("cooked_goblin_meat", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().meat().nutrition(6).saturationMod(0.4f).build())));
         crabLeg = registerItem("crab_leg", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().meat().nutrition(4).saturationMod(0.2f).effect(new MobEffectInstance(MobEffects.HUNGER, 60), 0.25f).build())));
         cookedCrablLeg = registerItem("cooked_crab_leg", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().meat().nutrition(8).saturationMod(0.4f).build())));
         devilMeat = registerItem("devil_meat", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().meat().nutrition(6).saturationMod(0.3f).effect(new MobEffectInstance(MobEffects.HUNGER, 40), 0.35f).build())));
         cookedDevilMeat = registerItem("cooked_devil_meat", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().meat().nutrition(8).saturationMod(0.6f).build())));
+        eyeChunk = registerItem("eye_chunk", () -> new RawValoriaFood(3, new Item.Properties().food(new FoodProperties.Builder().meat().effect(new MobEffectInstance(MobEffects.POISON, 100), 0.4f).effect(new MobEffectInstance(MobEffects.NIGHT_VISION, 300), 1f).nutrition(1).saturationMod(0.1f).fast().build())));
+        taintedBerries = registerItem("tainted_berries", () -> new RawValoriaFood(1, new Item.Properties().food(new FoodProperties.Builder().nutrition(2).saturationMod(0.1f).fast().build())));
+        scavengerMeat = registerItem("scavenger_meat", () -> new RawValoriaFood(3, new Item.Properties().food(new FoodProperties.Builder().nutrition(6).saturationMod(0.3f).fast().build())));
+        scavengerCookedMeat = registerItem("cooked_scavenger_meat", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(12).saturationMod(0.6f).fast().build())));
+        cookedGlowVioletSprout = registerItem("cooked_glow_violet_sprout", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(4).saturationMod(0.3f).effect(new MobEffectInstance(MobEffects.NIGHT_VISION, 500), 1f).build())));
+        cookedAbyssalGlowfern = registerItem("cooked_abyssal_glowfern", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(4).saturationMod(0.3f).effect(new MobEffectInstance(MobEffects.NIGHT_VISION, 500), 1f).build())));
         cup = registerItem("cup", () -> new BlockItem(BlockRegistry.cup.get(), new Item.Properties().stacksTo(64)));
         cacaoCup = registerItem("cacao_cup", () -> new PlaceableDrinkItem(BlockRegistry.cacaoCup.get(), 0, 0, 64, ItemsRegistry.cup.get(), new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 250)));
         coffeeCup = registerItem("coffee_cup", () -> new PlaceableDrinkItem(BlockRegistry.coffeeCup.get(), 0, 0, 64, ItemsRegistry.cup.get(), new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 250)));
@@ -673,7 +671,7 @@ public class ItemsRegistry{
         cognacBottle = registerItem("cognac_bottle", () -> new PlaceableDrinkItem(BlockRegistry.cognacBottle.get(), 0, 0, 64, ItemsRegistry.bottle.get(), new MobEffectInstance(EffectsRegistry.TIPSY.get(), 800, 2), new MobEffectInstance(MobEffects.CONFUSION, 175)));
         whiskeyBottle = registerItem("whiskey_bottle", () -> new PlaceableDrinkItem(BlockRegistry.whiskeyBottle.get(), 0, 0, 64, ItemsRegistry.bottle.get(), new MobEffectInstance(EffectsRegistry.TIPSY.get(), 450, 1), new MobEffectInstance(MobEffects.CONFUSION, 125)));
         cokeBottle = registerItem("coke_bottle", () -> new PlaceableDrinkItem(BlockRegistry.cokeBottle.get(), 0, 0, 64, ItemsRegistry.bottle.get(), new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 250)));
-        toxinsBottle = registerItem("toxins_bottle", () -> new Item(new Item.Properties().rarity(Rarity.EPIC)));
+        toxinsBottle = registerItem("toxins_bottle", () -> new PoisonItem(new Item.Properties().rarity(Rarity.RARE)));
         necromancerMusicDisc = registerItem("music_disc_necromancer", () -> new RecordItem(15, SoundsRegistry.MUSIC_NECROMANCER.get(), (new Properties()).stacksTo(1).rarity(Rarity.RARE), 97));
 
         draugrShield = registerItem("draugr_shield", () -> new DraugrShieldItem(25, new Properties().stacksTo(1).durability(800).rarity(Rarity.UNCOMMON)));
@@ -697,6 +695,9 @@ public class ItemsRegistry{
         necromancer = registerItem("necromancer_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.NECROMANCER, Col.hexToDecimal("4b4857"), Col.hexToDecimal("958fb7"), new Item.Properties()));
         undead = registerItem("undead_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.UNDEAD, Col.hexToDecimal("7d7266"), Col.hexToDecimal("d6d0c9"), new Item.Properties()));
         shadewoodSpider = registerItem("shadewood_spider_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.SHADEWOOD_SPIDER, Col.hexToDecimal("373C53"), Col.hexToDecimal("6EABB7"), new Item.Properties()));
+        scavenger = registerItem("scavenger_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.SCAVENGER, Col.hexToDecimal("88896d"), Col.hexToDecimal("74608f"), new Item.Properties()));
+        scorpion = registerItem("wicked_scorpion_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.WICKED_SCORPION, Col.hexToDecimal("29282b"), Col.hexToDecimal("74608f"), new Item.Properties()));
+
         devil = registerItem("devil_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.DEVIL, Col.hexToDecimal("b64841"), Col.hexToDecimal("3a3b62"), new Item.Properties()));
         troll = registerItem("troll_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.TROLL, Col.hexToDecimal("232b3a"), Col.hexToDecimal("43596a"), new Item.Properties()));
         corruptedTroll = registerItem("corrupted_troll_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.CORRUPTED_TROLL, Col.hexToDecimal("41273E"), Col.hexToDecimal("884f72"), new Item.Properties()));
@@ -763,7 +764,7 @@ public class ItemsRegistry{
                 Player player = (Player)livingEntityIn;
                 if(worldIn instanceof ServerLevel srv){
                     ItemSkin skin = ItemSkin.itemSkin(stack);
-                    Color color = skin != null ? skin.color.toJava() : new Color(235, 0, 25);
+                    Color color = skin != null ? skin.color().toJava() : new Color(235, 0, 25);
                     for(int ii = 0; ii < 1 + Mth.nextInt(RandomSource.create(), 0, 2); ii += 1){
                         PacketHandler.sendToTracking(srv, player.getOnPos(), new MurasamaParticlePacket(3F, player.getX(), (player.getY() + (player.getEyeHeight() / 2)), player.getZ(), color.getRed(), color.getGreen(), color.getBlue()));
                     }

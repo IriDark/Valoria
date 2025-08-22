@@ -19,6 +19,7 @@ public class ParticleRegistry{
     public static RegistryObject<GenericParticleType> GLITTER = PARTICLES.register("glitter", GenericParticleType::new);
     public static RegistryObject<GenericParticleType> FLESH = PARTICLES.register("flesh", GenericParticleType::new);
     public static RegistryObject<GenericParticleType> VALORIA_FOG = PARTICLES.register("valoria_fog", GenericParticleType::new);
+    public static RegistryObject<GenericParticleType> ACID_SPIT = PARTICLES.register("acid_spit", GenericParticleType::new);
 
     public static RegistryObject<GenericParticleType> TRANSFORM_PARTICLE = PARTICLES.register("transform", GenericParticleType::new);
     public static RegistryObject<LeavesParticleType> SHADEWOOD_LEAF_PARTICLE = PARTICLES.register("shadewood_leaf", LeavesParticleType::new);
@@ -40,6 +41,7 @@ public class ParticleRegistry{
         Minecraft.getInstance().particleEngine.register(ParticleRegistry.FLESH.get(), GenericParticleType.Factory::new);
         Minecraft.getInstance().particleEngine.register(ParticleRegistry.GLITTER.get(), GenericParticleType.Factory::new);
         Minecraft.getInstance().particleEngine.register(ParticleRegistry.VALORIA_FOG.get(), GenericParticleType.Factory::new);
+        Minecraft.getInstance().particleEngine.register(ParticleRegistry.ACID_SPIT.get(), GenericParticleType.Factory::new);
     }
 
     public static void register(IEventBus eventBus){

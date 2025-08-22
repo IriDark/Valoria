@@ -175,7 +175,6 @@ public class MagmaSwordItem extends ValoriaSword implements RadiusItem, OverlayR
     @Override
     public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags){
         super.appendHoverText(stack, world, tooltip, flags);
-        Utils.Items.addContributorTooltip(stack, tooltip);
         tooltip.add(Component.translatable("tooltip.valoria.infernal_sword").withStyle(ChatFormatting.GRAY));
         tooltip.add(Component.translatable(getModeString(stack)).withStyle(ChatFormatting.YELLOW));
         tooltip.add(Component.empty());

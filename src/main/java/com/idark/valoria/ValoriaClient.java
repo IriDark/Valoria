@@ -73,8 +73,8 @@ public class ValoriaClient{
         TooltipModifierHandler.add(BASE_DEPTH_RESISTANCE_UUID);
         TooltipModifierHandler.add(BASE_INFERNAL_DAMAGE_UUID);
         TooltipModifierHandler.add(BASE_INFERNAL_RESISTANCE_UUID);
-        TooltipModifierHandler.add(BASE_VOID_DAMAGE_UUID);
-        TooltipModifierHandler.add(BASE_VOID_RESISTANCE_UUID);
+        TooltipModifierHandler.add(BASE_NIHILITY_DAMAGE_UUID);
+        TooltipModifierHandler.add(BASE_NIHILITY_RESISTANCE_UUID);
         TooltipModifierHandler.add(BASE_ELEMENTAL_RESISTANCE_UUID);
 
         MusicHandler.register(new MusicModifier.DungeonMusic(SoundsRegistry.MUSIC_NECROMANCER_DUNGEON.get(), LevelGen.NECROMANCER_CRYPT));
@@ -126,6 +126,7 @@ public class ValoriaClient{
                 BlockEntityRenderers.register(BlockEntitiesRegistry.HANGING_SIGN_BLOCK_ENTITIES.get(), HangingSignRenderer::new);
                 BlockEntityRenderers.register(BlockEntitiesRegistry.VALORIA_PORTAL_BLOCK_ENTITY.get(), ValoriaPortalRenderer::new);
                 BlockEntityRenderers.register(BlockEntitiesRegistry.BOSS_TROPHY_ENTITIES.get(), BossTrophyBlockEntityRenderer::new);
+                BlockEntityRenderers.register(BlockEntitiesRegistry.SOUL_INFUSER_BLOCK_ENTITY.get(), (trd) -> new SoulInfuserBlockEntityRenderer());
 
                 Sheets.addWoodType(ModWoodTypes.ELDRITCH);
                 Sheets.addWoodType(ModWoodTypes.SHADEWOOD);
@@ -139,6 +140,9 @@ public class ValoriaClient{
             EntityRenderers.register(EntityTypeRegistry.DREADWOOD_BOAT.get(), m -> new CustomBoatRenderer(m, Valoria.ID, "dreadwood", false, false));
             EntityRenderers.register(EntityTypeRegistry.DREADWOOD_CHEST_BOAT.get(), m -> new CustomBoatRenderer(m, Valoria.ID, "dreadwood", true, false));
 
+            EntityRenderers.register(EntityTypeRegistry.SCAVENGER.get(), ScavengerRenderer::new);
+            EntityRenderers.register(EntityTypeRegistry.WICKED_SCORPION.get(), WickedScorpionRenderer::new);
+            EntityRenderers.register(EntityTypeRegistry.ACID_SPIT.get(), AcidSpitRenderer::new);
             EntityRenderers.register(EntityTypeRegistry.CORRUPTED.get(), CorruptedRenderer::new);
             EntityRenderers.register(EntityTypeRegistry.SHURIKEN.get(), ShurikenRenderer::new);
             EntityRenderers.register(EntityTypeRegistry.HAUNTED_MERCHANT.get(), HauntedMerchantRenderer::new);
@@ -184,12 +188,6 @@ public class ValoriaClient{
             EntityRenderers.register(EntityTypeRegistry.KING_CRAB.get(), KingCrabRenderer::new);
             EntityRenderers.register(EntityTypeRegistry.WATER_BUBBLE.get(), WaterBubbleRenderer::new);
 
-            ModItemModelProperties.makeCrossbow(ItemsRegistry.natureCrossbow.get());
-            ModItemModelProperties.makeCrossbow(ItemsRegistry.aquariusCrossbow.get());
-            ModItemModelProperties.makeCrossbow(ItemsRegistry.infernalCrossbow.get());
-            ModItemModelProperties.makeCrossbow(ItemsRegistry.voidCrossbow.get());
-            ModItemModelProperties.makeCrossbow(ItemsRegistry.phantasmCrossbow.get());
-
             ModItemModelProperties.makeShield(ItemsRegistry.crabBuckler.get());
             ModItemModelProperties.makeShield(ItemsRegistry.wickedShield.get());
             ModItemModelProperties.makeShield(ItemsRegistry.draugrShield.get());
@@ -212,7 +210,9 @@ public class ValoriaClient{
             event.registerLayerDefinition(ValoriaLayers.HANDS_LAYER_SLIM, HandsModelSlim::createBodyLayer);
             event.registerLayerDefinition(ValoriaLayers.THE_FALLEN_COLLECTOR_ARMOR_LAYER, TheFallenCollectorArmorModel::createBodyLayer);
             event.registerLayerDefinition(ValoriaLayers.MONOCLE_LAYER, MonocleModel::createBodyLayer);
+            event.registerLayerDefinition(ValoriaLayers.RESPIRATOR_LAYER, RespiratorModel::createBodyLayer);
 
+            event.registerLayerDefinition(ValoriaLayers.GAS_MASK_LAYER, GasMaskModel::createBodyLayer);
             event.registerLayerDefinition(ValoriaLayers.INFERNAL_ARMOR_INNER, () -> LayerDefinition.create(InfernalArmorModel.addPieces(LayerDefinitions.INNER_ARMOR_DEFORMATION), 64, 32));
             event.registerLayerDefinition(ValoriaLayers.INFERNAL_ARMOR_OUTER, () -> LayerDefinition.create(InfernalArmorModel.addPieces(LayerDefinitions.OUTER_ARMOR_DEFORMATION), 64, 32));
             event.registerLayerDefinition(ValoriaLayers.VOID_ARMOR_INNER, () -> LayerDefinition.create(VoidArmorModel.addPieces(LayerDefinitions.INNER_ARMOR_DEFORMATION), 64, 32));

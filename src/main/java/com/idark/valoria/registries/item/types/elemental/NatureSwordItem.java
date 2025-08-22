@@ -3,14 +3,9 @@ package com.idark.valoria.registries.item.types.elemental;
 import com.google.common.collect.*;
 import com.idark.valoria.*;
 import com.idark.valoria.registries.*;
-import net.minecraft.network.chat.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.item.*;
-import net.minecraft.world.level.*;
-import pro.komaru.tridot.api.*;
-
-import java.util.*;
 
 public class NatureSwordItem extends SwordItem{
     private final float attackDamage;
@@ -33,12 +28,6 @@ public class NatureSwordItem extends SwordItem{
     public boolean hurtEnemy(ItemStack pStack, LivingEntity pTarget, LivingEntity pAttacker) {
         pStack.hurtAndBreak(2, pAttacker, (entity) -> entity.broadcastBreakEvent(EquipmentSlot.MAINHAND));
         return super.hurtEnemy(pStack, pTarget, pAttacker);
-    }
-
-    @Override
-    public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags){
-        super.appendHoverText(stack, world, tooltip, flags);
-        Utils.Items.addContributorTooltip(stack, tooltip);
     }
 
     /**

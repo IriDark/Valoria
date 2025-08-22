@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "valoria:block/cut_tombstone",
+    "top": "valoria:block/cut_tombstone",
+    "side": "valoria:block/cut_tombstone"
+  }
+}

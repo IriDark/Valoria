@@ -53,7 +53,7 @@ public class SkinTrimItem extends Item{
             if(Screen.hasShiftDown()){
                 tooltip.add(Component.translatable("tooltip.valoria.skin").withStyle(ChatFormatting.GRAY));
                 for(var reg : ForgeRegistries.ITEMS.getEntries()) {
-                    for(ItemSkinEntry skinEntry : skin.skinEntries()) {
+                    for(SkinEntry skinEntry : skin.skinEntries()) {
                         ItemStack item = reg.getValue().getDefaultInstance();
                         if(skinEntry.appliesOn(item)){
                             tooltip.add(Component.literal("  • ").append(item.getHoverName()).withStyle(item.getRarity().getStyleModifier()));

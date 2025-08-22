@@ -42,8 +42,8 @@ public class NihilityLevelProvider implements INihilityLevel, INBTSerializable<C
 
     public float getMaxAmount(@Nullable LivingEntity entity, boolean clientSide) {
         if (clientSide) return clientMax;
-        if (entity != null && entity.getAttribute(AttributeReg.MAX_NIHILITY_LEVEL.get()) != null) {
-            return (float) entity.getAttributeValue(AttributeReg.MAX_NIHILITY_LEVEL.get());
+        if (entity != null && entity.getAttribute(AttributeReg.MAX_NIHILITY.get()) != null) {
+            return (float) entity.getAttributeValue(AttributeReg.MAX_NIHILITY.get());
         }
 
         return 100f;
@@ -58,12 +58,12 @@ public class NihilityLevelProvider implements INihilityLevel, INBTSerializable<C
     @Override
     public CompoundTag serializeNBT(){
         CompoundTag wrapper = new CompoundTag();
-        wrapper.putFloat("nihilityLevel", this.nihilityAmount);
+        wrapper.putFloat("nihility_level", this.nihilityAmount);
         return wrapper;
     }
 
     @Override
     public void deserializeNBT(CompoundTag nbt){
-        this.nihilityAmount = nbt.getFloat("nihilityLevel");
+        this.nihilityAmount = nbt.getFloat("nihility_level");
     }
 }

@@ -43,8 +43,8 @@ public class PedestalBlockEntityRenderer implements BlockEntityRenderer<Pedestal
                 ms.popPose();
             }
         }else{
-            double ticks = (ClientTick.ticksInGame + partialTicks) * 2;
-            double ticksUp = (ClientTick.ticksInGame + partialTicks) * 4;
+            float ticks = (ClientTick.ticksInGame + partialTicks) * 2;
+            float ticksUp = (ClientTick.ticksInGame + partialTicks) * 4;
             ticksUp = (ticksUp) % 360;
 
             ms.pushPose();

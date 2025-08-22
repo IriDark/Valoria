@@ -1,11 +1,11 @@
 package com.idark.valoria;
 
+import com.google.common.collect.*;
 import com.idark.valoria.api.events.*;
 import com.idark.valoria.api.unlockable.*;
 import com.idark.valoria.api.unlockable.types.*;
 import com.idark.valoria.client.ui.screen.book.codex.*;
 import com.idark.valoria.core.capability.*;
-import com.idark.valoria.core.config.*;
 import com.idark.valoria.core.interfaces.*;
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.*;
@@ -18,7 +18,6 @@ import com.idark.valoria.registries.item.armor.*;
 import com.idark.valoria.registries.item.armor.item.*;
 import com.idark.valoria.registries.item.types.*;
 import com.idark.valoria.registries.item.types.elemental.*;
-import com.idark.valoria.registries.item.types.shield.*;
 import com.idark.valoria.registries.level.*;
 import net.minecraft.*;
 import net.minecraft.client.gui.screens.*;
@@ -34,7 +33,6 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.player.*;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
@@ -49,6 +47,7 @@ import net.minecraftforge.event.entity.player.PlayerEvent.*;
 import net.minecraftforge.event.level.*;
 import net.minecraftforge.eventbus.api.Event.*;
 import net.minecraftforge.eventbus.api.*;
+import pro.komaru.tridot.api.*;
 import pro.komaru.tridot.common.registry.item.armor.*;
 import pro.komaru.tridot.util.*;
 import pro.komaru.tridot.util.math.*;
@@ -70,6 +69,13 @@ public class Events{
     @SubscribeEvent
     public static void onTooltip(ItemTooltipEvent event) {
         ItemStack stack = event.getItemStack();
+        if (stack.hasTag() && stack.getTag().contains("poison_hits")) {
+            int hits = stack.getTag().getInt("poison_hits");
+            ImmutableList<MobEffectInstance> list = ImmutableList.of(new MobEffectInstance(MobEffects.POISON, 120, 0));
+            event.getToolTip().add(Component.translatable("tooltip.valoria.poisoned", hits).withStyle(ChatFormatting.GRAY));
+            Utils.Items.effectTooltip(list, event.getToolTip(), 1, 1);
+        }
+
         if (Unlockables.getUnlockableByItem(stack.getItem()).isPresent()) {
             if (Screen.hasControlDown()) {
                 event.getToolTip().add(Component.translatable("tooltip.valoria.open", Component.translatable("key.keyboard.left.control"), Component.translatable("key.mouse.right")).withStyle(ChatFormatting.GRAY));
@@ -80,21 +86,18 @@ public class Events{
     }
 
     @SubscribeEvent
-    public void onShieldBlock(ShieldBlockEvent ev) {
-        LivingEntity entity = ev.getEntity();
-        ItemStack stack = entity.getUseItem();
-        if(stack.getItem() instanceof ValoriaShieldItem shieldItem) {
-            float armor = shieldItem.blockedPercent / 100.0F;
-            if(stack.is(Items.SHIELD)){
-                if(!CommonConfig.VANILLA_SHIELD_MODIFY.get()) {
-                    armor = 1;
+    public void onAttackEntity(AttackEntityEvent event) {
+        Player player = event.getEntity();
+        ItemStack stack = player.getMainHandItem();
+        if (stack.hasTag() && stack.getTag().contains("poison_hits")) {
+            int hits = stack.getTag().getInt("poison_hits");
+            if (hits > 0 && event.getTarget() instanceof LivingEntity target) {
+                target.addEffect(new MobEffectInstance(MobEffects.POISON, 60, 0));
+                stack.getTag().putInt("poison_hits", hits - 1);
+                if(hits - 1 == 0) {
+                    stack.getTag().remove("poison_hits");
                 }
             }
-
-            float totalMultiplier = Math.max(Math.min(1 - (armor), 1), 0);
-            float reducedDamage = ev.getOriginalBlockedDamage() * totalMultiplier;
-            shieldItem.onShieldBlock(ev.getDamageSource(), ev.getOriginalBlockedDamage(), stack, entity);
-            ev.setBlockedDamage(reducedDamage);
         }
     }
 
@@ -149,7 +152,7 @@ public class Events{
     public void attachEntityCaps(AttachCapabilitiesEvent<Entity> event){
         if(event.getObject() instanceof Player){
             event.addCapability(new ResourceLocation(Valoria.ID, "pages"), new UnloackbleCap());
-            event.addCapability(new ResourceLocation(Valoria.ID, "nihilityLevel"), new NihilityLevelCap());
+            event.addCapability(new ResourceLocation(Valoria.ID, "nihility_level"), new NihilityLevelCap());
         }
     }
 
@@ -251,9 +254,9 @@ public class Events{
                 float damage = (float)attackAttr.getValue();
                 float resistance = (float)(resistAttr != null ? resistAttr.getValue() : 0);
 
-                boolean flag = attackAttr.getAttribute() != AttributeReg.VOID_DAMAGE.get() && target.getAttribute(AttributeReg.ELEMENTAL_RESISTANCE.get()) != null;
+                boolean flag = attackAttr.getAttribute() != AttributeReg.NIHILITY_DAMAGE.get() && target.getAttribute(AttributeReg.ELEMENTAL_RESISTANCE.get()) != null;
                 resistance += (float)(flag ? target.getAttributeValue(AttributeReg.ELEMENTAL_RESISTANCE.get()) : 0);
-                if(attackAttr.getAttribute() == AttributeReg.VOID_DAMAGE.get()) {
+                if(attackAttr.getAttribute() == AttributeReg.NIHILITY_DAMAGE.get()) {
                     target.getCapability(INihilityLevel.INSTANCE).ifPresent(nihility -> {
                         nihility.modifyAmount(target, damage);
                     });

@@ -224,7 +224,6 @@ public class KatanaItem extends SwordItem implements CooldownNotifyItem, DashIte
         }
 
         tooltip.add(Component.translatable("tooltip.valoria.rmb").withStyle(ChatFormatting.GREEN));
-        Utils.Items.addContributorTooltip(stack, tooltip);
     }
 
     public static class Builder extends AbstractKatanaBuilder<KatanaItem>{

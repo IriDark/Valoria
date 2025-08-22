@@ -42,11 +42,24 @@
       }
     ],
     "axolotls": [],
-    "creature": [],
+    "creature": [
+      {
+        "type": "valoria:scavenger",
+        "weight": 10,
+        "minCount": 1,
+        "maxCount": 3
+      }
+    ],
     "misc": [],
     "monster": [
       {
         "type": "valoria:corrupted_troll",
+        "weight": 25,
+        "minCount": 1,
+        "maxCount": 2
+      },
+      {
+        "type": "valoria:wicked_scorpion",
         "weight": 5,
         "minCount": 1,
         "maxCount": 2

@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:campfire_cooking",
+  "category": "food",
+  "cookingtime": 600,
+  "experience": 0.35,
+  "ingredient": {
+    "item": "valoria:scavenger_meat"
+  },
+  "result": "valoria:cooked_scavenger_meat"
+}

@@ -1,26 +1,15 @@
 package com.idark.valoria.registries.item.types.shield;
 
 import com.idark.valoria.core.config.*;
-import net.minecraft.*;
 import net.minecraft.network.chat.*;
-import net.minecraft.sounds.*;
-import net.minecraft.util.*;
-import net.minecraft.world.damagesource.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
-import net.minecraftforge.registries.*;
 import org.jetbrains.annotations.*;
+import pro.komaru.tridot.common.registry.item.types.*;
 
 import java.util.*;
 
-public class ValoriaShieldItem extends ShieldItem{
-    public boolean infiniteUse = true;
-    public float blockedPercent = 100;
-    public int useDuration;
-    public int cooldownTicks = 135;
-
+public class ValoriaShieldItem extends ConfiguredShield{
     public ValoriaShieldItem(Properties pProperties){
         super(pProperties);
     }
@@ -47,56 +36,23 @@ public class ValoriaShieldItem extends ShieldItem{
 
     @Override
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltip, TooltipFlag pFlag){
-        super.appendHoverText(pStack, pLevel, pTooltip, pFlag);
         if(pStack.is(Items.SHIELD)){
             if(!CommonConfig.VANILLA_SHIELD_MODIFY.get()) {
                 return;
             }
         }
 
-        pTooltip.add(Component.translatable("tooltip.valoria.shield.block", String.format("%.1f%%", this.blockedPercent)).withStyle(ChatFormatting.GRAY));
-        pTooltip.add(Component.translatable("tooltip.valoria.shield.time", formatDuration(this.useDuration)).withStyle(ChatFormatting.GRAY));
-        if(!pStack.getItem().canBeDepleted()){
-            pTooltip.add(Component.empty());
-            pTooltip.add(Component.translatable("item.unbreakable").withStyle(ChatFormatting.BLUE));
-        }
-    }   
-
-    public Component formatDuration(int useDuration) {
-        if (this.infiniteUse) {
-            return Component.translatable("effect.duration.infinite");
-        } else {
-            int i = Mth.floor((float)useDuration);
-            return Component.literal(StringUtil.formatTickDuration(i));
-        }
+        super.appendHoverText(pStack, pLevel, pTooltip, pFlag);
     }
 
     @Override
-    public int getUseDuration(ItemStack pStack){
-        return infiniteUse ? 72000 : useDuration;
-    }
-
-    public void onShieldDisable(ItemStack itemStack,Level level, Player player) {
-    }
-
-    public void onShieldBlock(DamageSource source, float pAmount, ItemStack itemStack, LivingEntity entity){
-    }
-
-    @Override
-    @NotNull
-    public ItemStack finishUsingItem(ItemStack itemStack, Level level, LivingEntity entity) {
-        if (entity instanceof Player player && !infiniteUse) {
-            player.level().playSound(null, player.blockPosition(), SoundEvents.SHIELD_BREAK, SoundSource.PLAYERS);
-            itemStack.hurtAndBreak((int) (itemStack.getMaxDamage()*0.075f), player, (p1) -> p1.broadcastBreakEvent(player.getUsedItemHand()));
-            for (Item item : ForgeRegistries.ITEMS) {
-                if(item instanceof ValoriaShieldItem) {
-                    player.getCooldowns().addCooldown(item, cooldownTicks);
-                    onShieldDisable(itemStack, level, player);
-                    player.disableShield(false);
-                }
+    public float onPostBlock(ItemStack stack, float armor){
+        if(stack.is(Items.SHIELD)){
+            if(!CommonConfig.VANILLA_SHIELD_MODIFY.get()){
+                armor = 1;
             }
         }
 
-        return super.finishUsingItem(itemStack, level, entity);
+        return super.onPostBlock(stack, armor);
     }
 }

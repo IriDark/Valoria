@@ -158,7 +158,7 @@ public class BossSummonableItem extends TexturedSpawnEggItem{
         return SpawnResult.checkResult(preventingBlocks);
     }
 
-    private record SpawnResult(boolean success, List<BlockPos> preventingBlocks){
+    public record SpawnResult(boolean success, List<BlockPos> preventingBlocks){
 
         public static SpawnResult checkResult(List<BlockPos> preventingBlocks){
             return new SpawnResult(preventingBlocks.isEmpty(), preventingBlocks);

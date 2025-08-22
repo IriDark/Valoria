@@ -192,7 +192,6 @@ public class BlazeReapItem extends ValoriaPickaxe implements Vanishable, Overlay
     public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags){
         super.appendHoverText(stack, world, tooltip, flags);
         tooltip.add(Component.empty());
-        Utils.Items.addContributorTooltip(stack, tooltip);
         tooltip.add(Component.translatable("tooltip.valoria.familiar").withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
         tooltip.add(Component.translatable("tooltip.valoria.blazereap").withStyle(ChatFormatting.GRAY));
         tooltip.add(Component.translatable(getModeString(stack)).withStyle(ChatFormatting.GREEN));

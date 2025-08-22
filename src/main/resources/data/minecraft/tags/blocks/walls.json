@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "valoria:cut_tombstone_wall",
     "valoria:void_sandstone_wall",
     "valoria:cobbled_shale_wall",
     "valoria:cracked_cobbled_shale_bricks_wall",

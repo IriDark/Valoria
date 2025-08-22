@@ -15,6 +15,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.*;
 import net.minecraft.world.entity.animal.*;
+import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.state.*;
@@ -27,7 +28,7 @@ import pro.komaru.tridot.util.*;
 
 import java.util.*;
 
-public class KingCrabEntity extends MultiAttackMob{
+public class KingCrabEntity extends MultiAttackMob implements Enemy{
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState attackAnimationState = new AnimationState();
     public final AnimationState splashAttackAnimationState = new AnimationState();
@@ -243,10 +244,6 @@ public class KingCrabEntity extends MultiAttackMob{
     }
 
     public boolean isPushedByFluid() {
-        return false;
-    }
-
-    public boolean canBeLeashed(Player pPlayer) {
         return false;
     }
 

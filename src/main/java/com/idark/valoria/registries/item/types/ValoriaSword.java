@@ -51,7 +51,6 @@ public class ValoriaSword extends SwordItem{
     @Override
     public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags){
         super.appendHoverText(stack, world, tooltip, flags);
-        Utils.Items.addContributorTooltip(stack, tooltip);
         ItemSkin skin = ItemSkin.itemSkin(stack);
         if(skin != null && skin == SkinsRegistry.DEATH_OF_CRABS){
             tooltip.add(Component.translatable("item_skin.valoria.death_of_crabs.desc").withStyle(ChatFormatting.GRAY));

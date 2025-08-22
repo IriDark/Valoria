@@ -3,10 +3,8 @@ package com.idark.valoria.registries.block.types;
 import com.idark.valoria.client.ui.menus.*;
 import com.idark.valoria.registries.block.entity.*;
 import net.minecraft.core.*;
-import net.minecraft.core.particles.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.server.level.*;
-import net.minecraft.util.*;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.context.*;
@@ -18,7 +16,6 @@ import net.minecraft.world.level.block.state.properties.*;
 import net.minecraft.world.level.material.*;
 import net.minecraft.world.phys.*;
 import net.minecraft.world.phys.shapes.*;
-import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.network.*;
 import org.jetbrains.annotations.*;
 import pro.komaru.tridot.common.registry.block.entity.*;
@@ -69,17 +66,6 @@ public class SoulInfuserBlock extends Block implements SimpleWaterloggedBlock, E
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context){
         return makeShape();
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    @Override
-    public void animateTick(BlockState stateIn, Level pLevel, BlockPos pos, RandomSource rand){
-        float chance = 0.35f;
-        if(chance < rand.nextFloat()){
-            pLevel.addParticle(ParticleTypes.PORTAL, pos.getX() + rand.nextDouble(), pos.getY() + 0.5D, pos.getZ() + rand.nextDouble(), 0d, 0.05d, 0d);
-        }
-
-        super.animateTick(stateIn, pLevel, pos, rand);
     }
 
     @Override

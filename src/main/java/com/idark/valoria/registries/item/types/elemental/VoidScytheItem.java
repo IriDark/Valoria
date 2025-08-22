@@ -14,7 +14,7 @@ public class VoidScytheItem extends ScytheItem{
         super(scytheBuilder);
         this.attackDamage = scytheBuilder.attackDamageIn + scytheBuilder.tier.getAttackDamageBonus();
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
-        builder.put(AttributeReg.VOID_DAMAGE.get(), new AttributeModifier(Valoria.BASE_VOID_DAMAGE_UUID, "Weapon modifier", 2, AttributeModifier.Operation.ADDITION));
+        builder.put(AttributeReg.NIHILITY_DAMAGE.get(), new AttributeModifier(Valoria.BASE_NIHILITY_DAMAGE_UUID, "Weapon modifier", 2, AttributeModifier.Operation.ADDITION));
         builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Weapon modifier", this.attackDamage - 2, AttributeModifier.Operation.ADDITION));
         builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Weapon modifier", scytheBuilder.attackSpeedIn, AttributeModifier.Operation.ADDITION));
         this.defaultModifiers = builder.build();

@@ -6,7 +6,9 @@ import com.idark.valoria.registries.entity.projectile.*;
 import com.idark.valoria.util.*;
 import net.minecraft.client.*;
 import net.minecraft.server.level.*;
+import net.minecraft.sounds.*;
 import net.minecraft.world.*;
+import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
@@ -41,11 +43,15 @@ public class DebugItem extends Item{
     public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn){
         ItemStack itemstack = playerIn.getItemInHand(handIn);
         playerIn.startUsingItem(handIn);
-        if(worldIn.isClientSide()) {
-            openGui();
-        }
 
         if(!worldIn.isClientSide()) {
+            AcidSpit spit = new AcidSpit(playerIn, worldIn);
+            spit.setVelocityBasedDamage(6);
+            spit.addEffect(new MobEffectInstance(MobEffects.POISON, 50, 0));
+            Vec3 vector3d = playerIn.getViewVector(1.0F);
+            spit.shoot(vector3d.x(), vector3d.y(), vector3d.z(), 3, 1);
+            playerIn.playSound(SoundEvents.LLAMA_SPIT);
+            worldIn.addFreshEntity(spit);
         }
 
         return InteractionResultHolder.consume(itemstack);

@@ -31,6 +31,8 @@ public class EntityTypeRegistry{
     public static final RegistryObject<EntityType<MaggotEntity>> MAGGOT = register("maggot", EntityType.Builder.<MaggotEntity>of(MaggotEntity::new, MobCategory.MONSTER).sized(0.4F, 0.3F).clientTrackingRange(8));
     public static final RegistryObject<EntityType<Corrupted>> CORRUPTED = register("corrupted", EntityType.Builder.of(Corrupted::new, MobCategory.MONSTER).sized(0.6f, 1.95f).clientTrackingRange(8));
     public static final RegistryObject<EntityType<KingCrabEntity>> KING_CRAB = register("king_crab", EntityType.Builder.of(KingCrabEntity::new, MobCategory.MONSTER).sized(2, 1.5f).clientTrackingRange(8));
+    public static final RegistryObject<EntityType<WickedScorpion>> WICKED_SCORPION = register("wicked_scorpion", EntityType.Builder.of(WickedScorpion::new, MobCategory.MONSTER).sized(1.5f, 0.8f).clientTrackingRange(8));
+    public static final RegistryObject<EntityType<Scavenger>> SCAVENGER = register("scavenger", EntityType.Builder.of(Scavenger::new, MobCategory.CREATURE).sized(1.5f, 2f).clientTrackingRange(8));
 
     // Minions
     public static final RegistryObject<EntityType<UndeadEntity>> UNDEAD = register("undead", EntityType.Builder.of(UndeadEntity::new, MobCategory.MONSTER).sized(0.4f, 0.8f).clientTrackingRange(8));
@@ -58,6 +60,7 @@ public class EntityTypeRegistry{
     public static final RegistryObject<EntityType<PyratiteShard>> PYRATITE_SHARD = register("pyratitel_shard", EntityType.Builder.<PyratiteShard>of(PyratiteShard::new, MobCategory.MISC).sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20));
     public static final RegistryObject<EntityType<AcornProjectile>> ACORN = register("acorn", EntityType.Builder.<AcornProjectile>of(AcornProjectile::new, MobCategory.MISC).sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20));
     public static final RegistryObject<EntityType<ShurikenProjectile>> SHURIKEN = register("shuriken", EntityType.Builder.<ShurikenProjectile>of(ShurikenProjectile::new, MobCategory.MISC).sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20));
+    public static final RegistryObject<EntityType<AcidSpit>> ACID_SPIT = register("acid_spit", EntityType.Builder.<AcidSpit>of(AcidSpit::new, MobCategory.MISC).sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20));
 
     public static final RegistryObject<EntityType<LaserEntity>> LASER = register("laser", EntityType.Builder.<LaserEntity>of(LaserEntity::new, MobCategory.MISC).sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20));
 

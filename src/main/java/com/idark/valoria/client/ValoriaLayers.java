@@ -14,7 +14,9 @@ public class ValoriaLayers{
     public static final ModelLayerLocation VOID_ARMOR_OUTER = new ModelLayerLocation(new ResourceLocation(Valoria.ID, "void_armor"), "outer");
     public static final ModelLayerLocation PHANTASM_ARMOR_INNER = new ModelLayerLocation(new ResourceLocation(Valoria.ID, "phantasm_armor"), "inner");
     public static final ModelLayerLocation PHANTASM_ARMOR_OUTER = new ModelLayerLocation(new ResourceLocation(Valoria.ID, "phantasm_armor"), "outer");
+    public static final ModelLayerLocation GAS_MASK_LAYER = new ModelLayerLocation(new ResourceLocation(Valoria.ID, "gas_mask"), "inner");
 
+    public static ModelLayerLocation RESPIRATOR_LAYER = new ModelLayerLocation(new ResourceLocation(Valoria.ID, "respirator"), "main");
     public static ModelLayerLocation MONOCLE_LAYER = new ModelLayerLocation(new ResourceLocation(Valoria.ID, "monocle"), "main");
     public static ModelLayerLocation NECKLACE_LAYER = new ModelLayerLocation(new ResourceLocation(Valoria.ID, "necklace"), "main");
     public static ModelLayerLocation HANDS_LAYER = new ModelLayerLocation(new ResourceLocation(Valoria.ID, "hands"), "main");

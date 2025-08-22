@@ -44,12 +44,12 @@ public class BossTrophyBlockEntityRenderer implements BlockEntityRenderer<BossTr
     public void renderDisplayedEntity(BossTrophyBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffers, Entity entity, int lightAbove){
         ms.pushPose();
         ms.translate(0.5, 1.0, 0.5);
-        double ticks = (ClientTick.ticksInGame + partialTicks) * 0.5f;
-        double ticksUp = (ClientTick.ticksInGame + partialTicks) * 4;
+        float ticks = (ClientTick.ticksInGame + partialTicks) * 0.5f;
+        float ticksUp = (ClientTick.ticksInGame + partialTicks) * 4;
         ticksUp = (ticksUp) % 360;
 
         ms.translate(0F, (float)(Math.sin(Math.toRadians(ticksUp)) * 0.03125F), 0F);
-        ms.mulPose(Axis.YP.rotationDegrees((float)ticks));
+        ms.mulPose(Axis.YP.rotationDegrees(ticks));
 
         float scale = 0.75F;
         float maxScale = Math.max(entity.getBbWidth(), be.instance.getBbHeight());

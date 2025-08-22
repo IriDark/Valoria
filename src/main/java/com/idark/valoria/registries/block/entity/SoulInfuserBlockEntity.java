@@ -1,13 +1,12 @@
 package com.idark.valoria.registries.block.entity;
 
 import com.idark.valoria.client.ui.menus.*;
-import com.idark.valoria.core.network.*;
-import com.idark.valoria.core.network.packets.particle.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.item.*;
 import com.idark.valoria.registries.item.recipe.*;
 import com.idark.valoria.util.*;
 import net.minecraft.core.*;
+import net.minecraft.core.particles.*;
 import net.minecraft.nbt.*;
 import net.minecraft.network.*;
 import net.minecraft.network.chat.*;
@@ -26,6 +25,10 @@ import net.minecraftforge.items.*;
 import net.minecraftforge.items.wrapper.*;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.*;
+import pro.komaru.tridot.client.*;
+import pro.komaru.tridot.client.gfx.*;
+import pro.komaru.tridot.client.gfx.particle.*;
+import pro.komaru.tridot.client.gfx.particle.data.*;
 import pro.komaru.tridot.common.registry.block.entity.*;
 
 import javax.annotation.*;
@@ -100,8 +103,7 @@ public class SoulInfuserBlockEntity extends BlockEntity implements MenuProvider,
 
     @Override
     public void tick() {
-        if (this.level == null || this.level.isClientSide) return;
-
+        if (this.level == null) return;
         Optional<SoulInfuserRecipe> recipeOpt = getCurrentRecipe();
         if (recipeOpt.isEmpty()) {
             this.resetProgress();
@@ -109,21 +111,55 @@ public class SoulInfuserBlockEntity extends BlockEntity implements MenuProvider,
         }
 
         SoulInfuserRecipe recipe = recipeOpt.get();
-        if (this.canCraft(recipe)) {
+        if (this.canCraft(recipe)){
+            if(level.isClientSide){
+                double targetX = 0.5;
+                double targetY = 1.75;
+                double targetZ = 0.5;
+                double angle = (ClientTick.partialTicks + progress * Math.PI) * 0.4925;
+                double y = angle * 0.00125;
+                for(int a = 0; a < 3; a++){
+                    double radius = 1 * (1 - ((double)progress / progressMax)) * (1 - ((double)a * 2.5f));
+                    double x = Math.cos(angle) * radius;
+                    double z = Math.sin(angle) * radius;
+
+                    double dx = targetX - x;
+                    double dy = targetY - y;
+                    double dz = targetZ - z;
+
+                    double speed = 0.05;
+                    double motionX = dx * speed;
+                    double motionY = dy * speed;
+                    double motionZ = dz * speed;
+
+                    ParticleBuilder.create(TridotParticles.WISP)
+                    .setColorData(ColorParticleData.create(Pal.crystalBlue, Pal.softBlue).build())
+                    .setTransparencyData(GenericParticleData.create(0, 0.21f, 0f).build())
+                    .setScaleData(GenericParticleData.create(((float)a * 0.125f), 0.1f, 0).build())
+                    .setLifetime(25)
+                    .setVelocity(motionX, motionY, motionZ)
+                    .spawn(this.level, (this.worldPosition.getX() + targetX) + x, (this.worldPosition.getY() + y), (this.worldPosition.getZ() + targetZ) + z);
+                }
+
+                ParticleBuilder.create(TridotParticles.WISP)
+                .setColorData(ColorParticleData.create(Pal.crystalBlue, Pal.softBlue).build())
+                .setTransparencyData(GenericParticleData.create(0, 0.15f, 0f).build())
+                .setScaleData(GenericParticleData.create(1, 0.1f, 0).build())
+                .setLifetime(10)
+                .spawn(this.level, (this.worldPosition.getX() + targetX), (this.worldPosition.getY() + targetY), (this.worldPosition.getZ() + targetZ));
+            }
+
             ItemStack input = this.itemHandler.getStackInSlot(0);
             ItemStack soulCollector = this.itemHandler.getStackInSlot(1);
-
-            if (this.getSouls(soulCollector) >= recipe.getSouls(input)) {
+            if(this.getSouls(soulCollector) >= recipe.getSouls(input) && this.getSouls(input) < this.getMaxSouls(input)){
                 this.increaseCraftingProgress();
                 this.setMaxProgress();
                 this.setChanged();
-
-                if (this.hasProgressFinished()) {
+                if(this.hasProgressFinished()){
                     this.craftItem(recipe);
                     this.resetProgress();
                 }
             }
-
         } else resetProgress();
     }
 
@@ -134,7 +170,6 @@ public class SoulInfuserBlockEntity extends BlockEntity implements MenuProvider,
         if (outputSlot.isEmpty()) return true;
         if (!ItemStack.isSameItem(outputSlot, recipeOutput)) return false;
         if (!ItemStack.isSameItemSameTags(outputSlot, recipeOutput)) return false;
-
         return outputSlot.getCount() + recipeOutput.getCount() <= outputSlot.getMaxStackSize();
     }
 
@@ -171,7 +206,12 @@ public class SoulInfuserBlockEntity extends BlockEntity implements MenuProvider,
     }
 
     private void craftItem(SoulInfuserRecipe recipe) {
-        PacketHandler.sendToTracking(this.level, this.getBlockPos(), new CubeShapedParticlePacket((float)this.getBlockPos().getCenter().x, (float)this.getBlockPos().getCenter().y - 0.25f, (float)this.getBlockPos().getCenter().z, 0.62f, 0.15f, 255, 255, 255));
+        if(level.isClientSide()){
+            for(int i = 0; i < 8; i++){
+                level.addParticle(ParticleTypes.POOF, this.worldPosition.getX() + 0.5, this.worldPosition.getY() + 1.55, this.worldPosition.getZ() + 0.5, (Math.random() - 0.5) * 0.1, Math.random() * 0.1, (Math.random() - 0.5) * 0.1);
+            }
+        }
+
         ItemStack infusableItem = this.itemHandler.getStackInSlot(0);
         ItemStack soulCollector = this.itemHandler.getStackInSlot(1);
 
@@ -222,6 +262,14 @@ public class SoulInfuserBlockEntity extends BlockEntity implements MenuProvider,
             this.startCraft = false;
             this.setChanged();
         }
+    }
+
+    public int getMaxSouls(ItemStack stack){
+        if(stack.getItem() instanceof ISoulItem soulItem){
+            return soulItem.getMaxSouls();
+        }
+
+        return 0;
     }
 
     public int getSouls(ItemStack stack){

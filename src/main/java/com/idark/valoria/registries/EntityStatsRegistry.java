@@ -48,6 +48,10 @@ public class EntityStatsRegistry{
     public static AttributeSupplier SHADEWOOD_SPIDER = register(40, 4, 0.35).add(Attributes.FOLLOW_RANGE, 18).build();
     public static AttributeSupplier CORRUPTED_TROLL = register(45, 12).build();
     public static AttributeSupplier CORRUPTED = register(60, 6.5).add(Attributes.FOLLOW_RANGE, 18).build();
+    public static AttributeSupplier WICKED_SCORPION = register(125, 6).add(Attributes.FOLLOW_RANGE, 25).build();
+
+    //animals - valoria
+    public static AttributeSupplier SCAVENGER = register(65, 10).add(Attributes.FOLLOW_RANGE, 15).build();
 
     //minions - valoria
     public static AttributeSupplier FLESH_SENTINEL = registerFlying(20, 12.5, 0.85).add(Attributes.FOLLOW_RANGE, 8).build();

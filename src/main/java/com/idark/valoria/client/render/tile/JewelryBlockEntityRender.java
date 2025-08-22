@@ -1,14 +1,12 @@
 package com.idark.valoria.client.render.tile;
 
-import com.idark.valoria.registries.block.entity.JewelryBlockEntity;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Axis;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.LevelRenderer;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
-import net.minecraft.world.item.ItemDisplayContext;
-import net.minecraft.world.item.ItemStack;
+import com.idark.valoria.registries.block.entity.*;
+import com.mojang.blaze3d.vertex.*;
+import com.mojang.math.*;
+import net.minecraft.client.*;
+import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.blockentity.*;
+import net.minecraft.world.item.*;
 
 public class JewelryBlockEntityRender implements BlockEntityRenderer<JewelryBlockEntity>{
 
@@ -18,8 +16,8 @@ public class JewelryBlockEntityRender implements BlockEntityRenderer<JewelryBloc
     @Override
     public void render(JewelryBlockEntity pBlockEntity, float pPartialTick, PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight, int pPackedOverlay){
         int lightAbove = LevelRenderer.getLightColor(pBlockEntity.getLevel(), pBlockEntity.getBlockPos().above());
-        final double spacing = .189;
-        final double offset = .31;
+        final float spacing = .189f;
+        final float offset = .31f;
 
         for(int i = 0; i < 2; i++){
             ItemStack item = pBlockEntity.itemHandler.getStackInSlot(i);
