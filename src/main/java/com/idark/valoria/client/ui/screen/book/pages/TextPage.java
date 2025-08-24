@@ -45,17 +45,6 @@ public class TextPage extends Page{
         return this;
     }
 
-    @Override
-    public void init(){
-        super.init();
-        if(FMLEnvironment.dist.isClient()){
-            Minecraft mc = Minecraft.getInstance();
-            if(type != null) {
-                this.entity = type.create(mc.level);
-            }
-        }
-    }
-
     public TextPage setEntityData(int x, int y, int scale) {
         this.entityX = x;
         this.entityY = y;
@@ -130,6 +119,11 @@ public class TextPage extends Page{
             gui.blit(BACKGROUND, x + 88, y + 56 + 46, 287, 15, 18, 18, 512, 512);
             BookGui.drawItemWithTooltip(result, x + 89, y + 57 + 46, gui, mouseX, mouseY, true);
             resultArrow(gui, x, y);
+        }
+
+        Minecraft mc = Minecraft.getInstance();
+        if(type != null) {
+            this.entity = type.create(mc.level);
         }
 
         if(entity != null) {
