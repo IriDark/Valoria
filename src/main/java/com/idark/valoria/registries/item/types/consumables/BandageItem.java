@@ -1,4 +1,4 @@
-package com.idark.valoria.registries.item.types.food;
+package com.idark.valoria.registries.item.types.consumables;
 
 import com.google.common.collect.*;
 import com.idark.valoria.client.particle.*;

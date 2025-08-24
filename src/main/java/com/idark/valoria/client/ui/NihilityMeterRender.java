@@ -33,28 +33,31 @@ public class NihilityMeterRender extends Gui{
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
     public void renderGameOverlayEvent(RenderGuiEvent.Post event){
+        if(minecraft.level == null) return;
         GuiGraphics gui = event.getGuiGraphics();
-        if(ClientConfig.NIHILITY_METER_ALWAYS_VISIBLE.get()){
-            counter = ClientTick.ticksInGame;
+        boolean alwaysShown = ClientConfig.NIHILITY_METER_ALWAYS_VISIBLE.get() || NihilityLevelProvider.clientAmount > 0;
+        if(alwaysShown){
             actualPreviousAmount = previousAmount;
             previousAmount = NihilityLevelProvider.clientAmount;
-        }
-
-        if(NihilityLevelProvider.clientAmount != previousAmount){
-            actualPreviousAmount = previousAmount;
-            previousAmount = NihilityLevelProvider.clientAmount;
-            if(minecraft.level != null && ClientTick.ticksInGame > counter + DISPLAY_DURATION){
-                counter = ClientTick.ticksInGame;
-                isHiding = false;
-            }
-        }else if(minecraft.level != null && ClientTick.ticksInGame > counter + DISPLAY_DURATION && !isHiding){
             counter = ClientTick.ticksInGame;
             isHiding = true;
         }
 
-        if(minecraft.level != null){
-            render(gui);
+        if(!alwaysShown){
+            if(NihilityLevelProvider.clientAmount != previousAmount){
+                actualPreviousAmount = previousAmount;
+                previousAmount = NihilityLevelProvider.clientAmount;
+                if(ClientTick.ticksInGame > counter + DISPLAY_DURATION){
+                    counter = ClientTick.ticksInGame;
+                    isHiding = false;
+                }
+            }else if(ClientTick.ticksInGame > counter + DISPLAY_DURATION && !isHiding){
+                counter = ClientTick.ticksInGame;
+                isHiding = true;
+            }
         }
+
+        render(gui);
     }
 
     private void render(GuiGraphics gui){

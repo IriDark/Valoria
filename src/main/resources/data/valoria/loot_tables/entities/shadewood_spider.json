@@ -39,6 +39,11 @@
           "type": "minecraft:item",
           "name": "valoria:spider_fang",
           "weight": 10,
+          "conditions": [
+            {
+              "condition": "minecraft:killed_by_player"
+            }
+          ],
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -54,6 +59,11 @@
           "type": "minecraft:item",
           "name": "valoria:spider_chitin",
           "weight": 1,
+          "conditions": [
+            {
+              "condition": "minecraft:killed_by_player"
+            }
+          ],
           "functions": [
             {
               "function": "minecraft:set_count",

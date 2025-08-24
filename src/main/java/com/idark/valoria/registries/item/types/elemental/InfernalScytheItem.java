@@ -3,6 +3,7 @@ package com.idark.valoria.registries.item.types.elemental;
 import com.google.common.collect.*;
 import com.idark.valoria.*;
 import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.item.component.*;
 import com.idark.valoria.registries.item.types.*;
 import com.idark.valoria.util.*;
 import net.minecraft.*;
@@ -12,6 +13,7 @@ import net.minecraft.sounds.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.player.*;
+import net.minecraft.world.inventory.tooltip.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.*;
 import net.minecraft.world.level.*;
@@ -20,6 +22,7 @@ import pro.komaru.tridot.api.*;
 import pro.komaru.tridot.client.render.screenshake.*;
 import pro.komaru.tridot.util.*;
 import pro.komaru.tridot.util.math.*;
+import pro.komaru.tridot.util.struct.data.*;
 
 import java.util.*;
 
@@ -88,6 +91,23 @@ public class InfernalScytheItem extends ScytheItem{
         }else if(arcRandom.chance(0.07f)){
             targets.setSecondsOnFire(4);
             targets.level().playSound(null, targets.getOnPos(), SoundEvents.FIRECHARGE_USE, SoundSource.AMBIENT, 1, 1);
+        }
+    }
+
+    public Seq<TooltipComponent> getTooltips(ItemStack pStack){
+        if(builder.attackUsages > 1){
+            return Seq.with(
+            new AbilitiesComponent(),
+            new AbilityComponent(Component.translatable("tooltip.valoria.scythe").withStyle(ChatFormatting.GRAY), Valoria.loc("textures/gui/tooltips/infernal_strike.png")),
+            new ClientTextComponent(Component.translatable("tooltip.valoria.usage_count", builder.attackUsages).withStyle(ChatFormatting.GRAY)),
+            new ClientTextComponent(Component.translatable("tooltip.valoria.rmb").withStyle(style -> style.withFont(Valoria.FONT)))
+            );
+        } else {
+            return Seq.with(
+            new AbilitiesComponent(),
+            new AbilityComponent(Component.translatable("tooltip.valoria.scythe").withStyle(ChatFormatting.GRAY), Valoria.loc("textures/gui/tooltips/infernal_strike.png")),
+            new ClientTextComponent(Component.translatable("tooltip.valoria.rmb").withStyle(style -> style.withFont(Valoria.FONT)))
+            );
         }
     }
 

@@ -17,6 +17,7 @@ import com.idark.valoria.registries.entity.*;
 import com.idark.valoria.registries.item.armor.*;
 import com.idark.valoria.registries.item.armor.item.*;
 import com.idark.valoria.registries.item.types.*;
+import com.idark.valoria.registries.item.types.consumables.*;
 import com.idark.valoria.registries.item.types.elemental.*;
 import com.idark.valoria.registries.level.*;
 import net.minecraft.*;
@@ -47,6 +48,7 @@ import net.minecraftforge.event.entity.player.PlayerEvent.*;
 import net.minecraftforge.event.level.*;
 import net.minecraftforge.eventbus.api.Event.*;
 import net.minecraftforge.eventbus.api.*;
+import net.minecraftforge.registries.*;
 import pro.komaru.tridot.api.*;
 import pro.komaru.tridot.common.registry.item.armor.*;
 import pro.komaru.tridot.util.*;
@@ -83,6 +85,13 @@ public class Events{
                 event.getToolTip().add(Component.translatable("tooltip.valoria.info", Component.translatable("key.keyboard.left.control")).withStyle(ChatFormatting.DARK_GRAY));
             }
         }
+
+        if(event.getItemStack().getItem() instanceof TieredItem tiered){
+            if(tiered.getTier() == ItemTierRegistry.HALLOWEEN){
+                var list = event.getToolTip();
+                list.add(1, Component.translatable("tooltip.valoria.soul_on_kill", 2).withStyle(ChatFormatting.AQUA).withStyle(style -> style.withFont(Valoria.FONT)));
+            }
+        }
     }
 
     @SubscribeEvent
@@ -107,6 +116,24 @@ public class Events{
         player.getCapability(INihilityLevel.INSTANCE).ifPresent(nihilityLevel -> {
             nihilityLevel.setAmount(player, 0);
         });
+    }
+
+    @SubscribeEvent
+    public void onDimensionChange(PlayerEvent.PlayerChangedDimensionEvent event) {
+        Player player = event.getEntity();
+        for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
+            ItemStack stack = player.getInventory().getItem(i);
+            if (stack.isEdible() && !(stack.getItem() instanceof ValoriaFood)) {
+                ItemStack rot = new ItemStack(ItemsRegistry.rot.get());
+                CompoundTag tag = rot.getOrCreateTag();
+                rot.setTag(tag.copy());
+                tag.putString("OriginalItem", ForgeRegistries.ITEMS.getKey(stack.getItem()).toString());
+
+                rot.setTag(tag);
+                rot.setCount(stack.getCount());
+                player.getInventory().setItem(i, rot);
+            }
+        }
     }
 
     @SubscribeEvent
@@ -442,16 +469,6 @@ public class Events{
         if(event.stack.getItem() instanceof TieredItem tiered) {
             if(tiered.getTier() == ItemTierRegistry.HALLOWEEN) {
                 event.addCount(2);
-            }
-        }
-    }
-
-    @SubscribeEvent
-    public void onTooltipEvent(ItemTooltipEvent event) {
-        if(event.getItemStack().getItem() instanceof TieredItem tiered){
-            if(tiered.getTier() == ItemTierRegistry.HALLOWEEN){
-                var list = event.getToolTip();
-                list.add(1, Component.translatable("tooltip.valoria.soul_on_kill", 2).withStyle(ChatFormatting.AQUA));
             }
         }
     }

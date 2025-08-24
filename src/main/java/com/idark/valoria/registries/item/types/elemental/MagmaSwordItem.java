@@ -3,7 +3,9 @@ package com.idark.valoria.registries.item.types.elemental;
 import com.google.common.collect.*;
 import com.idark.valoria.*;
 import com.idark.valoria.core.config.*;
+import com.idark.valoria.core.interfaces.*;
 import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.item.component.*;
 import com.idark.valoria.registries.item.types.*;
 import com.idark.valoria.util.*;
 import net.minecraft.*;
@@ -20,6 +22,7 @@ import net.minecraft.world.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.player.*;
+import net.minecraft.world.inventory.tooltip.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.*;
 import net.minecraft.world.level.*;
@@ -29,10 +32,11 @@ import pro.komaru.tridot.api.*;
 import pro.komaru.tridot.api.interfaces.*;
 import pro.komaru.tridot.util.*;
 import pro.komaru.tridot.util.math.*;
+import pro.komaru.tridot.util.struct.data.*;
 
 import java.util.*;
 
-public class MagmaSwordItem extends ValoriaSword implements RadiusItem, OverlayRenderItem{
+public class MagmaSwordItem extends ValoriaSword implements RadiusItem, OverlayRenderItem, TooltipComponentItem{
     private static final ResourceLocation BAR = new ResourceLocation(Valoria.ID, "textures/gui/overlay/magma_charge.png");
     public ArcRandom arcRandom = Tmp.rnd;
     private final float attackDamage;
@@ -53,19 +57,6 @@ public class MagmaSwordItem extends ValoriaSword implements RadiusItem, OverlayR
      */
     public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot pEquipmentSlot) {
         return pEquipmentSlot == EquipmentSlot.MAINHAND ? this.defaultModifiers : super.getDefaultAttributeModifiers(pEquipmentSlot);
-    }
-
-    public static String getModeString(ItemStack stack){
-        CompoundTag nbt = stack.getOrCreateTag();
-        if(nbt.contains("charge")){
-            if(nbt.getInt("charge") == 2){
-                return "tooltip.valoria.magma_charge_full";
-            }else if(nbt.getInt("charge") == 1){
-                return "tooltip.valoria.magma_charge_half";
-            }
-        }
-
-        return "tooltip.valoria.magma_charge_empty";
     }
 
     public static void addCharge(ItemStack stack, int charge){
@@ -172,13 +163,13 @@ public class MagmaSwordItem extends ValoriaSword implements RadiusItem, OverlayR
         }
     }
 
-    @Override
-    public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags){
-        super.appendHoverText(stack, world, tooltip, flags);
-        tooltip.add(Component.translatable("tooltip.valoria.infernal_sword").withStyle(ChatFormatting.GRAY));
-        tooltip.add(Component.translatable(getModeString(stack)).withStyle(ChatFormatting.YELLOW));
-        tooltip.add(Component.empty());
-        tooltip.add(Component.translatable("tooltip.valoria.rmb").withStyle(ChatFormatting.GREEN));
+    public Seq<TooltipComponent> getTooltips(ItemStack pStack) {
+        return Seq.with(
+        new AbilitiesComponent(),
+        new AbilityComponent(Component.translatable("tooltip.valoria.infernal_sword").withStyle(ChatFormatting.GRAY), Valoria.loc("textures/gui/tooltips/infernal_strike.png")),
+        new ClientTextComponent(Component.translatable("tooltip.valoria.magma_charges", pStack.getOrCreateTag().getInt("charge") + "/2").withStyle(ChatFormatting.YELLOW).withStyle(style -> style.withFont(Valoria.FONT))),
+        new ClientTextComponent(Component.translatable("tooltip.valoria.rmb").withStyle(style -> style.withFont(Valoria.FONT)))
+        );
     }
 
     @Override

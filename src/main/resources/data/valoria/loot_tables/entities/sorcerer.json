@@ -39,6 +39,9 @@
           "weight": 1,
           "conditions": [
             {
+              "condition": "minecraft:killed_by_player"
+            },
+            {
               "condition": "minecraft:time_check",
               "value": {
                 "min": 13000,
@@ -75,6 +78,9 @@
           "functions": [],
           "conditions": [
             {
+              "condition": "minecraft:killed_by_player"
+            },
+            {
               "condition": "minecraft:random_chance_with_looting",
               "chance": 0.05,
               "looting_multiplier": 0.025
@@ -86,6 +92,9 @@
           "name": "valoria:necromancer_grimoire",
           "weight": 1,
           "conditions": [
+            {
+              "condition": "minecraft:killed_by_player"
+            },
             {
               "condition": "minecraft:random_chance_with_looting",
               "chance": 0.025,

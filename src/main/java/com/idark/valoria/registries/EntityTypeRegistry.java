@@ -61,6 +61,7 @@ public class EntityTypeRegistry{
     public static final RegistryObject<EntityType<AcornProjectile>> ACORN = register("acorn", EntityType.Builder.<AcornProjectile>of(AcornProjectile::new, MobCategory.MISC).sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20));
     public static final RegistryObject<EntityType<ShurikenProjectile>> SHURIKEN = register("shuriken", EntityType.Builder.<ShurikenProjectile>of(ShurikenProjectile::new, MobCategory.MISC).sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20));
     public static final RegistryObject<EntityType<AcidSpit>> ACID_SPIT = register("acid_spit", EntityType.Builder.<AcidSpit>of(AcidSpit::new, MobCategory.MISC).sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20));
+    public static final RegistryObject<EntityType<ClawEntity>> CLAW = register("claw", EntityType.Builder.<ClawEntity>of(ClawEntity::new, MobCategory.MISC).sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20));
 
     public static final RegistryObject<EntityType<LaserEntity>> LASER = register("laser", EntityType.Builder.<LaserEntity>of(LaserEntity::new, MobCategory.MISC).sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20));
 

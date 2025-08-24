@@ -1,7 +1,10 @@
 package com.idark.valoria.registries.item.types;
 
 import com.google.common.collect.*;
+import com.idark.valoria.*;
+import com.idark.valoria.core.interfaces.*;
 import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.item.component.*;
 import com.idark.valoria.registries.item.types.builders.*;
 import com.idark.valoria.util.*;
 import net.minecraft.*;
@@ -13,6 +16,7 @@ import net.minecraft.world.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.player.*;
+import net.minecraft.world.inventory.tooltip.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.*;
 import net.minecraft.world.level.*;
@@ -26,12 +30,13 @@ import pro.komaru.tridot.client.render.screenshake.*;
 import pro.komaru.tridot.common.registry.EnchantmentsRegistry;
 import pro.komaru.tridot.util.*;
 import pro.komaru.tridot.util.math.*;
+import pro.komaru.tridot.util.struct.data.*;
 
 import java.util.*;
 
 import static com.idark.valoria.Valoria.BASE_ATTACK_RADIUS_UUID;
 
-public class ScytheItem extends SwordItem implements ICustomAnimationItem, CooldownNotifyItem, RadiusItem, SpinAttackItem, DashItem, CooldownReductionItem{
+public class ScytheItem extends SwordItem implements ICustomAnimationItem, CooldownNotifyItem, RadiusItem, SpinAttackItem, DashItem, CooldownReductionItem, TooltipComponentItem{
     public AbstractScytheBuilder<? extends ScytheItem> builder;
     public final Multimap<Attribute, AttributeModifier> defaultModifiers;
     public final ArcRandom arcRandom = Tmp.rnd;
@@ -147,17 +152,27 @@ public class ScytheItem extends SwordItem implements ICustomAnimationItem, Coold
         return stack;
     }
 
+    public Seq<TooltipComponent> getTooltips(ItemStack pStack){
+        if(builder.attackUsages > 1){
+            return Seq.with(
+            new AbilitiesComponent(),
+            new AbilityComponent(Component.translatable("tooltip.valoria.scythe").withStyle(ChatFormatting.GRAY), Valoria.loc("textures/gui/tooltips/circular_strike.png")),
+            new ClientTextComponent(Component.translatable("tooltip.valoria.usage_count", builder.attackUsages).withStyle(ChatFormatting.GRAY)),
+            new ClientTextComponent(Component.translatable("tooltip.valoria.rmb").withStyle(style -> style.withFont(Valoria.FONT)))
+            );
+        } else {
+            return Seq.with(
+            new AbilitiesComponent(),
+            new AbilityComponent(Component.translatable("tooltip.valoria.scythe").withStyle(ChatFormatting.GRAY), Valoria.loc("textures/gui/tooltips/circular_strike.png")),
+            new ClientTextComponent(Component.translatable("tooltip.valoria.rmb").withStyle(style -> style.withFont(Valoria.FONT)))
+            );
+        }
+    }
+
     @Override
     public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags){
         super.appendHoverText(stack, world, tooltip, flags);
-        tooltip.add(Component.translatable("tooltip.valoria.scythe").withStyle(ChatFormatting.GRAY));
-        if(builder.attackUsages > 1){
-            tooltip.add(Component.translatable("tooltip.valoria.usage_count", builder.attackUsages).withStyle(ChatFormatting.GRAY));
-        }
-
         ValoriaUtils.effectTooltip(builder.effects, tooltip, 1, builder.chance);
-
-        tooltip.add(Component.translatable("tooltip.valoria.rmb").withStyle(ChatFormatting.GREEN));
     }
 
     public static class Builder extends AbstractScytheBuilder<ScytheItem>{

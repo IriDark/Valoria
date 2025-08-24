@@ -15,6 +15,7 @@ import com.idark.valoria.client.sounds.*;
 import com.idark.valoria.client.ui.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.block.types.*;
+import com.idark.valoria.registries.item.component.*;
 import com.idark.valoria.registries.item.types.*;
 import com.idark.valoria.registries.level.*;
 import com.idark.valoria.util.*;
@@ -84,6 +85,13 @@ public class ValoriaClient{
     public static class RegistryEvents{
 
         @SubscribeEvent
+        public static void registerComponents(RegisterClientTooltipComponentFactoriesEvent e) {
+            e.register(AbilitiesComponent.class, c -> AbilitiesSeparatorClientComponent.create());
+            e.register(AbilityComponent.class, c -> AbilityClientComponent.create(c.component(), c.icon()));
+            e.register(ClientTextComponent.class, c -> ClientTextClientComponent.create(c.component()));
+        }
+
+        @SubscribeEvent
         public static void RegisterDimensionEffects(RegisterDimensionSpecialEffectsEvent e){
             e.register(new ResourceLocation(Valoria.ID, "valoria_sky"), new ValoriaEffects());
         }
@@ -140,6 +148,7 @@ public class ValoriaClient{
             EntityRenderers.register(EntityTypeRegistry.DREADWOOD_BOAT.get(), m -> new CustomBoatRenderer(m, Valoria.ID, "dreadwood", false, false));
             EntityRenderers.register(EntityTypeRegistry.DREADWOOD_CHEST_BOAT.get(), m -> new CustomBoatRenderer(m, Valoria.ID, "dreadwood", true, false));
 
+            EntityRenderers.register(EntityTypeRegistry.CLAW.get(), ClawRenderer::new);
             EntityRenderers.register(EntityTypeRegistry.SCAVENGER.get(), ScavengerRenderer::new);
             EntityRenderers.register(EntityTypeRegistry.WICKED_SCORPION.get(), WickedScorpionRenderer::new);
             EntityRenderers.register(EntityTypeRegistry.ACID_SPIT.get(), AcidSpitRenderer::new);

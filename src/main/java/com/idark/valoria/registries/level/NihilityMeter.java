@@ -6,7 +6,6 @@ import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraftforge.event.TickEvent.*;
 import pro.komaru.tridot.util.*;
-import pro.komaru.tridot.util.math.*;
 
 
 public class NihilityMeter{
@@ -22,6 +21,19 @@ public class NihilityMeter{
             if(player.tickCount % 120 == 0 && amount > 0){
                 nihilityLevel.decrease(event.player, Tmp.rnd.nextInt(1, 5));
             }
+
+            if(player.tickCount % (amount < max * criticalLevel ? 40 : 20) == 0){
+                float ratio = amount / max;
+                if(ratio > damagingLevel){
+                    int segments = (int)((ratio - damagingLevel) / 0.1f);
+                    float damage = 1 + segments * 2;
+                    player.hurt(DamageSourceRegistry.voidHarm(player.level()), damage);
+                }
+
+                if(amount > max * criticalLevel && !player.hasEffect(MobEffects.BLINDNESS)){
+                    player.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 120, 0));
+                }
+            }
         }
     }
 
@@ -30,16 +42,6 @@ public class NihilityMeter{
             double resistance = player.getAttributeValue(AttributeReg.NIHILITY_RESILIENCE.get());
             double factor = Math.max(0.05, 1.0 - (resistance * 0.05));
             nihilityLevel.modifyAmount(player, (int)Math.ceil(Tmp.rnd.nextInt(1, 5) * factor));
-        }
-
-        if(player.tickCount % 40 == 0){
-            if(amount > max * damagingLevel){
-                player.hurt(DamageSourceRegistry.voidHarm(player.level()), Mathf.clamp(amount * 0.125f, 1, 15));
-            }
-
-            if(amount > max * criticalLevel && !player.hasEffect(MobEffects.BLINDNESS)){
-                player.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 120, 0));
-            }
         }
     }
 }

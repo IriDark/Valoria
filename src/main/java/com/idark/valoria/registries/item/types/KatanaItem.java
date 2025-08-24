@@ -1,9 +1,12 @@
 package com.idark.valoria.registries.item.types;
 
 import com.google.common.collect.*;
+import com.idark.valoria.*;
+import com.idark.valoria.core.interfaces.*;
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.particle.*;
 import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.item.component.*;
 import com.idark.valoria.registries.item.types.builders.*;
 import net.minecraft.*;
 import net.minecraft.core.*;
@@ -16,6 +19,7 @@ import net.minecraft.world.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.player.*;
+import net.minecraft.world.inventory.tooltip.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.*;
 import net.minecraft.world.level.*;
@@ -29,13 +33,14 @@ import pro.komaru.tridot.api.interfaces.*;
 import pro.komaru.tridot.client.render.gui.*;
 import pro.komaru.tridot.util.*;
 import pro.komaru.tridot.util.math.*;
+import pro.komaru.tridot.util.struct.data.*;
 
 import java.lang.Math;
 import java.util.*;
 
 import static com.idark.valoria.Valoria.BASE_DASH_DISTANCE_UUID;
 
-public class KatanaItem extends SwordItem implements CooldownNotifyItem, DashItem, CooldownReductionItem{
+public class KatanaItem extends SwordItem implements CooldownNotifyItem, DashItem, CooldownReductionItem, TooltipComponentItem{
     public AbstractKatanaBuilder<? extends KatanaItem> builder;
     public Multimap<Attribute, AttributeModifier> defaultModifiers;
     public ArcRandom arcRandom = Tmp.rnd;
@@ -215,15 +220,20 @@ public class KatanaItem extends SwordItem implements CooldownNotifyItem, DashIte
         }
     }
 
+    public Seq<TooltipComponent> getTooltips(ItemStack pStack) {
+        return Seq.with(
+        new AbilitiesComponent(),
+        new AbilityComponent(Component.translatable("tooltip.valoria.katana").withStyle(ChatFormatting.GRAY), Valoria.loc("textures/gui/tooltips/dash.png")),
+        new ClientTextComponent(Component.translatable("tooltip.valoria.rmb").withStyle(style -> style.withFont(Valoria.FONT)))
+        );
+    }
+
     @Override
     public void appendHoverText(@NotNull ItemStack stack, Level world, @NotNull List<Component> tooltip, @NotNull TooltipFlag flags){
         super.appendHoverText(stack, world, tooltip, flags);
-        tooltip.add(Component.translatable("tooltip.valoria.katana").withStyle(ChatFormatting.GRAY));
         if(builder.chargeTime > 0 && flags.isAdvanced()){
             tooltip.add(Component.translatable("tooltip.valoria.katana_charge", builder.chargeTime).withStyle(ChatFormatting.GRAY));
         }
-
-        tooltip.add(Component.translatable("tooltip.valoria.rmb").withStyle(ChatFormatting.GREEN));
     }
 
     public static class Builder extends AbstractKatanaBuilder<KatanaItem>{

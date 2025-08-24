@@ -1,4 +1,4 @@
-package com.idark.valoria.registries.item.types.food;
+package com.idark.valoria.registries.item.types.consumables;
 
 import com.idark.valoria.*;
 import com.idark.valoria.core.capability.*;
@@ -11,9 +11,9 @@ import org.jetbrains.annotations.*;
 
 import java.util.*;
 
-public class RawValoriaFood extends Item{
+public class ValoriaFood extends Item{
     float voidHarm;
-    public RawValoriaFood(float voidHarm, Properties pProperties){
+    public ValoriaFood(float voidHarm, Properties pProperties){
         super(pProperties);
         this.voidHarm = voidHarm;
     }

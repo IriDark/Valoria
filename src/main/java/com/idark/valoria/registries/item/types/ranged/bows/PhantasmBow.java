@@ -1,7 +1,10 @@
 package com.idark.valoria.registries.item.types.ranged.bows;
 
+import com.idark.valoria.*;
+import com.idark.valoria.core.interfaces.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.entity.projectile.*;
+import com.idark.valoria.registries.item.component.*;
 import com.idark.valoria.util.*;
 import net.minecraft.*;
 import net.minecraft.client.*;
@@ -12,16 +15,15 @@ import net.minecraft.util.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.entity.projectile.*;
+import net.minecraft.world.inventory.tooltip.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.*;
 import net.minecraft.world.level.*;
 import net.minecraftforge.event.*;
-import org.jetbrains.annotations.*;
 import pro.komaru.tridot.common.registry.item.types.*;
+import pro.komaru.tridot.util.struct.data.*;
 
-import java.util.*;
-
-public class PhantasmBow extends ConfigurableBowItem {
+public class PhantasmBow extends ConfigurableBowItem implements TooltipComponentItem{
     public int abilityUseDuration = 10;
     public PhantasmBow(double pBaseDamage, int pArrowBaseDamage, Properties pProperties){
         super(EntityTypeRegistry.PHANTOM_ARROW, pBaseDamage, pArrowBaseDamage, pProperties);
@@ -117,11 +119,11 @@ public class PhantasmBow extends ConfigurableBowItem {
         return false;
     }
 
-    @Override
-    public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced){
-        super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
-        pTooltipComponents.add(Component.empty());
-        pTooltipComponents.add(Component.translatable("tooltip.valoria.phantasm_bow").withStyle(ChatFormatting.GRAY));
+    public Seq<TooltipComponent> getTooltips(ItemStack pStack) {
+        return Seq.with(
+        new AbilitiesComponent(),
+        new AbilityComponent(Component.translatable("tooltip.valoria.phantasm_bow").withStyle(ChatFormatting.GRAY), Valoria.loc("textures/gui/tooltips/phantom_rain.png"))
+        );
     }
 
     @Override

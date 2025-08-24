@@ -2,7 +2,9 @@ package com.idark.valoria.registries.item.types.ranged;
 
 import com.idark.valoria.*;
 import com.idark.valoria.core.config.*;
+import com.idark.valoria.core.interfaces.*;
 import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.item.component.*;
 import com.idark.valoria.registries.item.types.*;
 import com.idark.valoria.util.*;
 import net.minecraft.*;
@@ -20,6 +22,7 @@ import net.minecraft.world.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.entity.projectile.*;
+import net.minecraft.world.inventory.tooltip.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.*;
 import net.minecraft.world.level.*;
@@ -29,10 +32,11 @@ import pro.komaru.tridot.api.*;
 import pro.komaru.tridot.api.interfaces.*;
 import pro.komaru.tridot.client.render.screenshake.*;
 import pro.komaru.tridot.util.math.*;
+import pro.komaru.tridot.util.struct.data.*;
 
 import java.util.*;
 
-public class BlazeReapItem extends ValoriaPickaxe implements Vanishable, OverlayRenderItem{
+public class BlazeReapItem extends ValoriaPickaxe implements Vanishable, OverlayRenderItem, TooltipComponentItem{
     private static final ResourceLocation BAR = new ResourceLocation(Valoria.ID, "textures/gui/overlay/blazecharge_bar.png");
 
     public BlazeReapItem(Tier tier, int attackDamageIn, float attackSpeedIn, Properties builder){
@@ -82,7 +86,7 @@ public class BlazeReapItem extends ValoriaPickaxe implements Vanishable, Overlay
                 double Z = Math.sin(pitch) * Math.sin(yaw) * 15;
                 Vec3 playerPos = player.getEyePosition();
                 Vec3 EndPos = (player.getViewVector(0.0f).scale(20.0d));
-                if(ProjectileUtil.getEntityHitResult(player, playerPos, EndPos, new AABB(pos.x + X - 3D, pos.y + Y - 3D, pos.z + Z - 3D, pos.x + X + 3D, pos.y + Y + 3D, pos.z + Z + 3D), (e) -> true, 15) == null){
+                if(ProjectileUtil.getEntityHitResult(player, playerPos, EndPos, new AABB(pos.x + X - 3D, pos.y + Y - 3D, pos.z + Z - 3D, pos.x + X + 3D, pos.y + Y + 3D, pos.z + Z + 3D), (e) -> true, 20) == null){
                     HitResult hitresult = Utils.Hit.hitResult(playerPos, player, (e) -> true, EndPos, level);
                     if(hitresult != null){
                         switch(hitresult.getType()){
@@ -187,13 +191,19 @@ public class BlazeReapItem extends ValoriaPickaxe implements Vanishable, Overlay
         gui.pose().popPose();
     }
 
+    public Seq<TooltipComponent> getTooltips(ItemStack pStack) {
+        return Seq.with(
+        new AbilitiesComponent(),
+        new AbilityComponent(Component.translatable("tooltip.valoria.blazereap").withStyle(ChatFormatting.GRAY), Valoria.loc("textures/gui/tooltips/boom.png")),
+        new ClientTextComponent(Component.translatable(getModeString(pStack)).withStyle(ChatFormatting.GREEN))
+        );
+    }
+
     @OnlyIn(Dist.CLIENT)
     @Override
     public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags){
         super.appendHoverText(stack, world, tooltip, flags);
         tooltip.add(Component.empty());
         tooltip.add(Component.translatable("tooltip.valoria.familiar").withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
-        tooltip.add(Component.translatable("tooltip.valoria.blazereap").withStyle(ChatFormatting.GRAY));
-        tooltip.add(Component.translatable(getModeString(stack)).withStyle(ChatFormatting.GREEN));
     }
 }

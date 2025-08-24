@@ -5,18 +5,23 @@ import com.idark.valoria.api.unlockable.*;
 import com.idark.valoria.client.ui.screen.book.*;
 import com.idark.valoria.client.ui.screen.book.codex.*;
 import com.idark.valoria.core.config.*;
+import com.idark.valoria.core.interfaces.*;
 import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.item.component.*;
 import com.idark.valoria.util.*;
 import com.mojang.blaze3d.platform.*;
 import com.mojang.blaze3d.vertex.*;
+import com.mojang.datafixers.util.*;
 import net.minecraft.*;
 import net.minecraft.client.*;
 import net.minecraft.client.gui.*;
+import net.minecraft.client.gui.screens.*;
 import net.minecraft.client.gui.screens.inventory.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.network.chat.ClickEvent.*;
 import net.minecraft.sounds.*;
 import net.minecraft.world.inventory.*;
+import net.minecraft.world.inventory.tooltip.*;
 import net.minecraft.world.item.*;
 import net.minecraftforge.client.event.*;
 import net.minecraftforge.eventbus.api.*;
@@ -25,10 +30,35 @@ import net.minecraftforge.fml.config.*;
 import net.minecraftforge.fml.config.ModConfig.*;
 import org.lwjgl.glfw.*;
 import pro.komaru.tridot.client.gfx.text.*;
+import pro.komaru.tridot.util.struct.data.*;
 
 import java.io.*;
+import java.util.*;
 
 public class ClientEvents{
+
+    @SubscribeEvent
+    public static void onTooltipGatherComponents(RenderTooltipEvent.GatherComponents event) {
+        List<Either<FormattedText, TooltipComponent>> elements = event.getTooltipElements();
+        if (event.getItemStack().getItem() instanceof TooltipComponentItem componentItem) {
+            Seq<TooltipComponent> components = componentItem.getTooltips(event.getItemStack());
+            int insertIndex = 1;
+            int componentsCount = 0;
+            for (TooltipComponent component : components){
+                if(component instanceof AbilityComponent) componentsCount++;
+            }
+
+            if (componentsCount > 2 && !Screen.hasShiftDown()) {
+                elements.add(insertIndex, Either.right(new ClientTextComponent(Component.translatable("tooltip.tridot.shift_for_details", Component.translatable("key.keyboard.left.shift").getString()))));
+                return;
+            }
+
+            for (TooltipComponent component : components) {
+                elements.add(insertIndex, Either.right(component));
+                insertIndex++;
+            }
+        }
+    }
 
     @SubscribeEvent
     public static void onMouseClick(ScreenEvent.MouseButtonPressed event) {

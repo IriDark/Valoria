@@ -8,7 +8,8 @@
   "has_skylight": true,
   "has_ceiling": false,
   "coordinate_scale": 1,
-  "ambient_light": 0.2,
+  "ambient_light": 0,
+  "fixed_time": 22000,
   "logical_height": 384,
   "effects": "valoria:valoria_sky",
   "infiniburn": "#minecraft:infiniburn_overworld",
@@ -18,7 +19,7 @@
     "type": "minecraft:uniform",
     "value": {
       "min_inclusive": 0,
-      "max_inclusive": 7
+      "max_inclusive": 6
     }
   },
   "monster_spawn_block_light_limit": 0

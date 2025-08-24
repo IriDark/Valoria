@@ -12,13 +12,13 @@ import com.idark.valoria.registries.item.armor.item.*;
 import com.idark.valoria.registries.item.skins.*;
 import com.idark.valoria.registries.item.types.*;
 import com.idark.valoria.registries.item.types.KatanaItem.*;
+import com.idark.valoria.registries.item.types.consumables.*;
 import com.idark.valoria.registries.item.types.curio.*;
 import com.idark.valoria.registries.item.types.curio.charm.*;
 import com.idark.valoria.registries.item.types.curio.charm.rune.*;
 import com.idark.valoria.registries.item.types.curio.hands.*;
 import com.idark.valoria.registries.item.types.curio.necklace.*;
 import com.idark.valoria.registries.item.types.elemental.*;
-import com.idark.valoria.registries.item.types.food.*;
 import com.idark.valoria.registries.item.types.ranged.*;
 import com.idark.valoria.registries.item.types.ranged.bows.*;
 import com.idark.valoria.registries.item.types.shield.*;
@@ -107,7 +107,7 @@ public class ItemsRegistry{
 
     // misc
     debugItem, summonBook, crystalSummonBook, soulCollectorEmpty, soulCollector, voidKey, spectralBladeThrown, pick,
-    codex, page, cryptPage, fortressPage, necromancerPage, dryadorPage, wickedCrystalPage,
+    codex, page, cryptPage, fortressPage, necromancerPage, dryadorPage, wickedCrystalPage, rot,
 
     // weapons
     club, clawhook, bronzeSword, spectralBlade, corpseCleaver, boneShuriken,
@@ -154,7 +154,8 @@ public class ItemsRegistry{
     rune, runeVision, runeWealth, runeCurses, runeStrength, runeAccuracy, runeDeep, runePyro, runeCold,
     aloeBandage, aloeBandageUpgraded, shadeBlossomBandage,
 
-    // food
+    // consumables
+    healingVial, healingFlask, healingElixir, cleansingVial, cleansingFlask, cleansingElixir,
     applePie, eyeChunk, taintedBerries, scavengerMeat, scavengerCookedMeat, cookedGlowVioletSprout, cookedAbyssalGlowfern, goblinMeat, cookedGoblinMeat, crabLeg, cookedCrablLeg, devilMeat, cookedDevilMeat, cup, cacaoCup, coffeeCup, teaCup, greenTeaCup, woodenCup, beerCup, rumCup, bottle, kvassBottle, wineBottle, akvavitBottle, sakeBottle, liquorBottle, rumBottle, meadBottle, cognacBottle, whiskeyBottle, cokeBottle, toxinsBottle,
 
     necromancerMusicDisc,
@@ -361,6 +362,7 @@ public class ItemsRegistry{
         necromancerPage = registerItem("necromancer_page", () -> new CodexPageItem(new Item.Properties().stacksTo(1), () -> RegisterUnlockables.necromancer, "codex.valoria.necromancer.name"));
         dryadorPage = registerItem("dryador_page", () -> new CodexPageItem(new Item.Properties().stacksTo(1), () -> RegisterUnlockables.dryador, "codex.valoria.dryador.name"));
         wickedCrystalPage = registerItem("wicked_crystal_page", () -> new CodexPageItem(new Item.Properties().stacksTo(1), () -> RegisterUnlockables.wickedCrystal, "codex.valoria.wicked_crystal.name"));
+        rot = registerItem("rot", () -> new RotItem(new Item.Properties()));
 
         voidKey = registerItem("void_key", () -> new Item(new Item.Properties().stacksTo(16).rarity(RarityRegistry.VOID)));
         pick = registerItem("prospectors_pick", () -> new PickItem(new Item.Properties().fireResistant().stacksTo(1).durability(64), 1, -2.8f, 5));
@@ -638,7 +640,14 @@ public class ItemsRegistry{
         aloeBandageUpgraded = registerItem("aloe_bandage_upgraded", () -> new BandageItem(false, 1000, 1));
         shadeBlossomBandage = registerItem("shade_blossom_bandage", () -> new BandageItem(true, 1800, 1)); //todo custom effect
 
-        //food
+        //consumables
+        healingVial = registerItem("healing_vial", () -> new HealingConsumableItem(10, 5, new Item.Properties()));
+        healingFlask = registerItem("healing_flask", () -> new HealingConsumableItem(15, 10, new Item.Properties()));
+        healingElixir = registerItem("healing_elixir", () -> new HealingConsumableItem(35, 15, new Item.Properties()));
+        cleansingVial = registerItem("cleansing_vial", () -> new CleansingConsumableItem(20, new MobEffectInstance(MobEffects.WEAKNESS, 320, 0), new Item.Properties()));
+        cleansingFlask = registerItem("cleansing_flask", () -> new CleansingConsumableItem(80, 35, 35, new MobEffectInstance(MobEffects.WEAKNESS, 320, 1), new Item.Properties()));
+        cleansingElixir = registerItem("cleansing_elixir", () -> new CleansingConsumableItem(120, 35, 60, new MobEffectInstance(MobEffects.WEAKNESS, 320, 2), new Item.Properties()));
+
         applePie = registerItem("apple_pie", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(12).saturationMod(0.75f).build())));
         goblinMeat = registerItem("goblin_meat", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().meat().nutrition(3).saturationMod(0.2f).effect(new MobEffectInstance(MobEffects.HUNGER, 60), 0.25f).build())));
         cookedGoblinMeat = registerItem("cooked_goblin_meat", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().meat().nutrition(6).saturationMod(0.4f).build())));
@@ -646,12 +655,12 @@ public class ItemsRegistry{
         cookedCrablLeg = registerItem("cooked_crab_leg", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().meat().nutrition(8).saturationMod(0.4f).build())));
         devilMeat = registerItem("devil_meat", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().meat().nutrition(6).saturationMod(0.3f).effect(new MobEffectInstance(MobEffects.HUNGER, 40), 0.35f).build())));
         cookedDevilMeat = registerItem("cooked_devil_meat", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().meat().nutrition(8).saturationMod(0.6f).build())));
-        eyeChunk = registerItem("eye_chunk", () -> new RawValoriaFood(3, new Item.Properties().food(new FoodProperties.Builder().meat().effect(new MobEffectInstance(MobEffects.POISON, 100), 0.4f).effect(new MobEffectInstance(MobEffects.NIGHT_VISION, 300), 1f).nutrition(1).saturationMod(0.1f).fast().build())));
-        taintedBerries = registerItem("tainted_berries", () -> new RawValoriaFood(1, new Item.Properties().food(new FoodProperties.Builder().nutrition(2).saturationMod(0.1f).fast().build())));
-        scavengerMeat = registerItem("scavenger_meat", () -> new RawValoriaFood(3, new Item.Properties().food(new FoodProperties.Builder().nutrition(6).saturationMod(0.3f).fast().build())));
-        scavengerCookedMeat = registerItem("cooked_scavenger_meat", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(12).saturationMod(0.6f).fast().build())));
-        cookedGlowVioletSprout = registerItem("cooked_glow_violet_sprout", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(4).saturationMod(0.3f).effect(new MobEffectInstance(MobEffects.NIGHT_VISION, 500), 1f).build())));
-        cookedAbyssalGlowfern = registerItem("cooked_abyssal_glowfern", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(4).saturationMod(0.3f).effect(new MobEffectInstance(MobEffects.NIGHT_VISION, 500), 1f).build())));
+        eyeChunk = registerItem("eye_chunk", () -> new ValoriaFood(3, new Item.Properties().food(new FoodProperties.Builder().meat().effect(new MobEffectInstance(MobEffects.POISON, 100), 0.4f).effect(new MobEffectInstance(MobEffects.NIGHT_VISION, 300), 1f).nutrition(1).saturationMod(0.1f).fast().build())));
+        taintedBerries = registerItem("tainted_berries", () -> new ValoriaFood(1, new Item.Properties().food(new FoodProperties.Builder().nutrition(2).saturationMod(0.1f).fast().build())));
+        scavengerMeat = registerItem("scavenger_meat", () -> new ValoriaFood(3, new Item.Properties().food(new FoodProperties.Builder().nutrition(6).saturationMod(0.3f).fast().build())));
+        scavengerCookedMeat = registerItem("cooked_scavenger_meat", () -> new ValoriaFood(3, new Item.Properties().food(new FoodProperties.Builder().nutrition(12).saturationMod(0.6f).fast().build())));
+        cookedGlowVioletSprout = registerItem("cooked_glow_violet_sprout", () -> new ValoriaFood(3, new Item.Properties().food(new FoodProperties.Builder().nutrition(4).saturationMod(0.3f).effect(new MobEffectInstance(MobEffects.NIGHT_VISION, 500), 1f).build())));
+        cookedAbyssalGlowfern = registerItem("cooked_abyssal_glowfern", () -> new ValoriaFood(3, new Item.Properties().food(new FoodProperties.Builder().nutrition(4).saturationMod(0.3f).effect(new MobEffectInstance(MobEffects.NIGHT_VISION, 500), 1f).build())));
         cup = registerItem("cup", () -> new BlockItem(BlockRegistry.cup.get(), new Item.Properties().stacksTo(64)));
         cacaoCup = registerItem("cacao_cup", () -> new PlaceableDrinkItem(BlockRegistry.cacaoCup.get(), 0, 0, 64, ItemsRegistry.cup.get(), new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 250)));
         coffeeCup = registerItem("coffee_cup", () -> new PlaceableDrinkItem(BlockRegistry.coffeeCup.get(), 0, 0, 64, ItemsRegistry.cup.get(), new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 250)));
