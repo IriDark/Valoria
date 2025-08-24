@@ -5,46 +5,41 @@
       "rolls": 1,
       "entries": [
         {
-          "rolls": 1,
-          "entries": [
-            {
-              "type": "minecraft:item",
-              "name": "valoria:nihility_shard",
-              "weight": 1,
-              "functions": [
-                {
-                  "add": false,
-                  "count": {
-                    "type": "minecraft:uniform",
-                    "max": 4.0,
-                    "min": 1.0
-                  },
-                  "function": "minecraft:set_count"
-                }
-              ],
-              "conditions": [
-                {
-                  "condition": "minecraft:random_chance",
-                  "chance": 0.35
-                }
-              ]
-            }
-          ]
-        },
-        {
           "type": "minecraft:item",
-          "name": "valoria:void_key",
+          "name": "valoria:nihility_shard",
           "weight": 1,
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 4.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
           "conditions": [
             {
-              "condition": "minecraft:killed_by_player"
-            },
-            {
-              "condition": "minecraft:random_chance_with_looting",
-              "chance": 0.05,
-              "looting_multiplier": 0.025
+              "condition": "minecraft:random_chance",
+              "chance": 0.35
             }
           ]
+        }
+      ]
+    },
+    {
+      "type": "minecraft:item",
+      "name": "valoria:void_key",
+      "weight": 1,
+      "conditions": [
+        {
+          "condition": "minecraft:killed_by_player"
+        },
+        {
+          "condition": "minecraft:random_chance_with_looting",
+          "chance": 0.05,
+          "looting_multiplier": 0.025
         }
       ]
     }

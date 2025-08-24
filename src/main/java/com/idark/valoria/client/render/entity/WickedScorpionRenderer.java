@@ -3,7 +3,6 @@ package com.idark.valoria.client.render.entity;
 import com.idark.valoria.*;
 import com.idark.valoria.client.model.entity.*;
 import com.idark.valoria.registries.entity.living.elemental.*;
-import com.idark.valoria.util.*;
 import com.mojang.blaze3d.vertex.*;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.entity.*;
@@ -17,8 +16,6 @@ public class WickedScorpionRenderer extends MobRenderer<WickedScorpion, WickedSc
         super(context, new WickedScorpionModel<>(WickedScorpionModel.createBodyLayer().bakeRoot()), 0.4F);
         this.addLayer(new LuminescentLayer.Builder<>(this)
                 .setTexture(new ResourceLocation(Valoria.ID, "textures/entity/wicked_scorpion_eyes.png"))
-                .setColor(Pal.majestyPurple.toJava())
-                .setAlpha(0.8f)
                 .build());
     }
 

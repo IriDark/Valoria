@@ -144,9 +144,9 @@ dependencies {
     runtimeOnly fg.deobf("curse.maven:obscure-tooltips-715660:4686579")
     runtimeOnly fg.deobf("curse.maven:obscure-api-638417:4616364")
 
-    runtimeOnly fg.deobf("maven.modrinth:embeddium:0.3.31+mc1.20.1")
+    //runtimeOnly fg.deobf("maven.modrinth:embeddium:0.3.31+mc1.20.1")
     //runtimeOnly fg.deobf("maven.modrinth:embeddiumplus:1.20.1-v1.2.13")
-    runtimeOnly fg.deobf("maven.modrinth:oculus:1.20.1-1.7.0")
+    //runtimeOnly fg.deobf("maven.modrinth:oculus:1.20.1-1.7.0")
 }
 
 jar {

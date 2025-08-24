@@ -9,6 +9,7 @@ import com.idark.valoria.core.network.packets.particle.*;
 import com.idark.valoria.registries.item.*;
 import com.idark.valoria.registries.item.armor.*;
 import com.idark.valoria.registries.item.armor.item.*;
+import com.idark.valoria.registries.item.component.*;
 import com.idark.valoria.registries.item.skins.*;
 import com.idark.valoria.registries.item.types.*;
 import com.idark.valoria.registries.item.types.KatanaItem.*;
@@ -37,6 +38,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier.*;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.food.*;
+import net.minecraft.world.inventory.tooltip.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.ArmorItem.*;
 import net.minecraft.world.item.Item.Properties;
@@ -56,6 +58,7 @@ import pro.komaru.tridot.common.registry.item.armor.*;
 import pro.komaru.tridot.common.registry.item.skins.*;
 import pro.komaru.tridot.common.registry.item.types.*;
 import pro.komaru.tridot.util.*;
+import pro.komaru.tridot.util.struct.data.*;
 
 import java.awt.*;
 import java.lang.Math;
@@ -782,6 +785,14 @@ public class ItemsRegistry{
                 if(player.getTicksUsingItem() == 20){
                     player.playNotifySound(SoundsRegistry.RECHARGE.get(), SoundSource.PLAYERS, 0.6f, 1);
                 }
+            }
+
+            public Seq<TooltipComponent> getTooltips(ItemStack pStack) {
+                return Seq.with(
+                new AbilitiesComponent(),
+                new AbilityComponent(Component.translatable("tooltip.valoria.katana").withStyle(ChatFormatting.GRAY), Valoria.loc("textures/gui/tooltips/murasama_dash.png")),
+                new ClientTextComponent(Component.translatable("tooltip.valoria.hold_rmb").withStyle(style -> style.withFont(Valoria.FONT)))
+                );
             }
 
             public void performDash(@NotNull ItemStack stack, @NotNull Level level, @NotNull Player player, Vector3d pos, RandomSource rand){

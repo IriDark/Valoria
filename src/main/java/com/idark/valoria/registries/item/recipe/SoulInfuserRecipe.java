@@ -139,7 +139,6 @@ public class SoulInfuserRecipe implements Recipe<Container>{
         @Override
         public @Nullable SoulInfuserRecipe fromNetwork(@NotNull ResourceLocation pRecipeId, @NotNull FriendlyByteBuf pBuffer){
             Ingredient input = Ingredient.fromNetwork(pBuffer);
-
             ItemStack output = pBuffer.readItem();
             int souls = pBuffer.readInt();
             int time = pBuffer.readInt();
@@ -148,10 +147,7 @@ public class SoulInfuserRecipe implements Recipe<Container>{
 
         @Override
         public void toNetwork(@NotNull FriendlyByteBuf pBuffer, SoulInfuserRecipe pRecipe){
-            for(Ingredient input : pRecipe.getIngredients()){
-                input.toNetwork(pBuffer);
-            }
-
+            pRecipe.input.toNetwork(pBuffer);
             pBuffer.writeItem(pRecipe.output);
             pBuffer.writeInt(pRecipe.souls);
             pBuffer.writeInt(pRecipe.getTime());

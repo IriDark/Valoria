@@ -1199,6 +1199,7 @@
   "tooltip.valoria.recharge": "Not enough resources to recharge.",
   "tooltip.valoria.required_amount": "Required amount:",
   "tooltip.valoria.rmb": "Press \uE254 to use",
+  "tooltip.valoria.hold_rmb": "Hold \uE254 to use",
   "tooltip.valoria.rmb_shift": "[RMB + SHIFT] - to charge",
   "tooltip.valoria.rune": "An empty rune, you can apply any positive effect to it",
   "tooltip.valoria.sarcophagus": "Beware! This sarcophagus was a trap. Defend yourself and remember to open it again!",
@@ -1263,5 +1264,6 @@
   "tooltip.valoria.poisoned": "This weapon will poison your enemies next %s hits",
   "tooltip.valoria.healing_consumable": "Restores %s❤ health",
   "tooltip.valoria.original_food": "Seems your food is rotten, was %s, parhaps you can recover it somehow?",
-  "tooltip.valoria.abilities": "Abilities"
+  "tooltip.valoria.abilities": "Abilities",
+  "tooltip.valoria.claw_hook": "Launches a crab claw, hooks enemy to you on succesfull hit"
 }

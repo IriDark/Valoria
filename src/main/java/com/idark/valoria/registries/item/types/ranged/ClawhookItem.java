@@ -1,17 +1,24 @@
 package com.idark.valoria.registries.item.types.ranged;
 
+import com.idark.valoria.*;
+import com.idark.valoria.core.interfaces.*;
 import com.idark.valoria.registries.entity.projectile.*;
+import com.idark.valoria.registries.item.component.*;
+import net.minecraft.*;
+import net.minecraft.network.chat.*;
 import net.minecraft.sounds.*;
 import net.minecraft.stats.*;
 import net.minecraft.util.*;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.*;
+import net.minecraft.world.inventory.tooltip.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import org.jetbrains.annotations.*;
+import pro.komaru.tridot.util.struct.data.*;
 
-public class ClawhookItem extends Item{
+public class ClawhookItem extends Item implements TooltipComponentItem{
     public ClawhookItem(Properties pProperties){
         super(pProperties);
     }
@@ -36,8 +43,15 @@ public class ClawhookItem extends Item{
 
     private @NotNull ClawEntity shootProjectile(Level worldIn, Player playerEntity){
         ClawEntity claw = new ClawEntity(playerEntity, worldIn);
-        claw.shootFromRotation(playerEntity, playerEntity.getXRot(), playerEntity.getYRot(), 0.0F, 2.5F + (float)0 * 0.5F, 1.0F);
+        claw.shootFromRotation(playerEntity, playerEntity.getXRot(), playerEntity.getYRot(), 0.0F, 1.5F + (float)0 * 0.5F, 1.0F);
         return claw;
+    }
+
+    public Seq<TooltipComponent> getTooltips(ItemStack pStack) {
+        return Seq.with(
+        new AbilitiesComponent(),
+        new AbilityComponent(Component.translatable("tooltip.valoria.claw_hook").withStyle(ChatFormatting.GRAY), Valoria.loc("textures/item/crab_claw.png"))
+        );
     }
 
     @Override
