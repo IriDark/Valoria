@@ -121,17 +121,19 @@ public class Events{
     @SubscribeEvent
     public void onDimensionChange(PlayerEvent.PlayerChangedDimensionEvent event) {
         Player player = event.getEntity();
-        for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
-            ItemStack stack = player.getInventory().getItem(i);
-            if (stack.isEdible() && !(stack.getItem() instanceof ValoriaFood)) {
-                ItemStack rot = new ItemStack(ItemsRegistry.rot.get());
-                CompoundTag tag = rot.getOrCreateTag();
-                rot.setTag(tag.copy());
-                tag.putString("OriginalItem", ForgeRegistries.ITEMS.getKey(stack.getItem()).toString());
+        if(event.getTo() == LevelGen.VALORIA_KEY){
+            for(int i = 0; i < player.getInventory().getContainerSize(); i++){
+                ItemStack stack = player.getInventory().getItem(i);
+                if(stack.isEdible() && stack.getUseAnimation() == UseAnim.EAT && !(stack.getItem() instanceof ValoriaFood)){
+                    ItemStack rot = new ItemStack(ItemsRegistry.rot.get());
+                    CompoundTag tag = rot.getOrCreateTag();
+                    rot.setTag(tag.copy());
+                    tag.putString("OriginalItem", ForgeRegistries.ITEMS.getKey(stack.getItem()).toString());
 
-                rot.setTag(tag);
-                rot.setCount(stack.getCount());
-                player.getInventory().setItem(i, rot);
+                    rot.setTag(tag);
+                    rot.setCount(stack.getCount());
+                    player.getInventory().setItem(i, rot);
+                }
             }
         }
     }
@@ -223,26 +225,6 @@ public class Events{
             if(armorPiece.getItem() instanceof HitEffectArmorItem hitEffect){
                 if(!attacker.level().isClientSide){
                     hitEffect.onAttack(event);
-                }
-            }
-        }
-
-        if(target instanceof LivingEntity living){
-            if(!SuitArmorItem.hasCorrectArmorOn(ArmorRegistry.CRIMTANE, attacker)) return;
-            for(var entry : AbstractArmorRegistry.EFFECTS.entrySet()){
-                for(var effectData : entry.getValue()){
-                    if(entry.getKey() != ArmorRegistry.CRIMTANE) continue;
-                    if(Tmp.rnd.chance(0.25f)) return;
-
-                    if(effectData.condition().test(attacker)){
-                        MobEffect effect = effectData.instance().get().getEffect();
-                        if(living.hasEffect(effect)) return;
-
-                        living.addEffect(new MobEffectInstance(effect, 400));
-                        if(Tmp.rnd.nextFloat() > 0.4f){
-                            attacker.getInventory().hurtArmor(attacker.damageSources().magic(), 2f, Inventory.ALL_ARMOR_SLOTS);
-                        }
-                    }
                 }
             }
         }

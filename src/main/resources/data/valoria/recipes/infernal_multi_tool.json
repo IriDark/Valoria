@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "valoria:infernal_pickaxe"
+    },
+    {
+      "item": "valoria:infernal_axe"
+    },
+    {
+      "item": "valoria:infernal_shovel"
+    },
+    {
+      "item": "valoria:infernal_hoe"
+    }
+  ],
+  "result": {
+    "item": "valoria:infernal_multi_tool",
+    "count": 1
+  }
+}

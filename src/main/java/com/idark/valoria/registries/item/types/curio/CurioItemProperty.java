@@ -79,8 +79,7 @@ public class CurioItemProperty extends AbstractTieredAccessory implements ICurio
                     attribute.put(Attributes.MOVEMENT_SPEED, new AttributeModifier(uuid, "bonus", 0.15, Operation.MULTIPLY_TOTAL));
                     attribute.put(Attributes.ATTACK_SPEED, new AttributeModifier(uuid, "bonus", 0.05, Operation.MULTIPLY_TOTAL));
                 }else{
-                    attribute.put(Attributes.ARMOR, new AttributeModifier(uuid, "bonus", 0.2 + (bonus * 0.05), AttributeModifier.Operation.ADDITION));
-                    CuriosApi.addSlotModifier(attribute, "charm", uuid, 2.0, AttributeModifier.Operation.ADDITION);
+                    CuriosApi.addSlotModifier(attribute, "charm", uuid, 1.0, AttributeModifier.Operation.ADDITION);
                 }
             }
         }

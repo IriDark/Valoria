@@ -120,11 +120,6 @@
         },
         {
           "type": "minecraft:item",
-          "name": "valoria:void_key",
-          "weight": 1
-        },
-        {
-          "type": "minecraft:item",
           "name": "valoria:eye_chunk",
           "weight": 6,
           "functions": [

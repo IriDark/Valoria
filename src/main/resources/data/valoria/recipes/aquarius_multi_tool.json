@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "valoria:aquarius_pickaxe"
+    },
+    {
+      "item": "valoria:aquarius_axe"
+    },
+    {
+      "item": "valoria:aquarius_shovel"
+    },
+    {
+      "item": "valoria:aquarius_hoe"
+    }
+  ],
+  "result": {
+    "item": "valoria:aquarius_multi_tool",
+    "count": 1
+  }
+}

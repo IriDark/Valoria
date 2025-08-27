@@ -18,15 +18,15 @@ import java.util.*;
 
 @OnlyIn(Dist.CLIENT)
 public class AbilityClientComponent implements ClientTooltipComponent{
-    private final ResourceLocation bg = Valoria.loc("textures/gui/tooltips/background.png");
-    private final ResourceLocation icon;
-    private final int maxChars = 200;
-    private final int iconSize = 18;
-    private final int iconMargin = 14;
+    public final ResourceLocation bg = Valoria.loc("textures/gui/tooltips/background.png");
+    public final ResourceLocation icon;
+    public final int maxChars = 200;
+    public final int iconSize = 18;
+    public final int iconMargin = 14;
 
-    private final List<FormattedCharSequence> lines;
-    private final int paddingTop;
-    private AbilityClientComponent(MutableComponent text, ResourceLocation icon, int paddingTop) {
+    public final List<FormattedCharSequence> lines;
+    public final int paddingTop;
+    public AbilityClientComponent(MutableComponent text, ResourceLocation icon, int paddingTop) {
         this.lines = Language.getInstance().getVisualOrder(Minecraft.getInstance().font.getSplitter().splitLines(text, maxChars, text.getStyle()));
         this.paddingTop = paddingTop;
         this.icon = icon;

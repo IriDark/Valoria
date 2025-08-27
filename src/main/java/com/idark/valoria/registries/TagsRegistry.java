@@ -44,6 +44,7 @@ public class TagsRegistry{
     public static final TagKey<Structure> ON_NECROMANCER_CRYPT_EXPLORER_MAPS = dungeon(new ResourceLocation(Valoria.ID, "on_necromancer_crypt_explorer_maps"));
     public static final TagKey<Structure> ON_CRYPT_EXPLORER_MAPS = dungeon(new ResourceLocation(Valoria.ID, "on_crypt_explorer_maps"));
 
+    public static final TagKey<Block> MINEABLE_WITH_MULTITOOL = block(new ResourceLocation(Valoria.ID, "mineable/multitool"));
     public static final TagKey<Block> MEAT = block(new ResourceLocation(Valoria.ID, "meat"));
     public static final TagKey<Block> VOID_STONE_ORE_REPLACEABLES = block(new ResourceLocation(Valoria.ID, "void_stone_ore_replaceables"));
     public static final TagKey<Block> PICRITE_ORE_REPLACEABLES = block(new ResourceLocation(Valoria.ID, "picrite_ore_replaceables"));

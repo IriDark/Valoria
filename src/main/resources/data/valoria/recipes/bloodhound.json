@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "X/X",
+    "/O/",
+    "X/X"
+  ],
+  "key": {
+    "X": {
+      "item": "valoria:black_gold_ingot"
+    },
+    "O": {
+      "item": "valoria:cobalt_sword"
+    },
+    "/": {
+      "item": "valoria:pain_crystal"
+    }
+  },
+  "result": {
+    "item": "valoria:bloodhound",
+    "count": 1
+  }
+}

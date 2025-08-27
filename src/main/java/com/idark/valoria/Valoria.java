@@ -20,6 +20,7 @@ import com.idark.valoria.registries.block.types.*;
 import com.idark.valoria.registries.entity.living.*;
 import com.idark.valoria.registries.entity.living.elemental.*;
 import com.idark.valoria.registries.item.*;
+import com.idark.valoria.registries.item.armor.*;
 import com.idark.valoria.registries.item.recipe.*;
 import com.idark.valoria.registries.item.skins.*;
 import com.idark.valoria.registries.item.types.curio.charm.rune.*;
@@ -147,6 +148,7 @@ public class Valoria{
         AbstractBossbar.bossbars.put("Wicked Crystal", new BasicBossbar(new ResourceLocation(Valoria.ID, "textures/gui/bossbars/wicked_crystal.png")));
         AbstractBossbar.bossbars.put("Necromancer", new BasicBossbar(new ResourceLocation(Valoria.ID, "textures/gui/bossbars/necromancer.png")));
         AbstractBossbar.bossbars.put("Dryador", new BasicBossbar(new ResourceLocation(Valoria.ID, "textures/gui/bossbars/dryador.png")));
+        ArmorSetup.clientSetup();
         event.enqueueWork(() -> {
             CodexEntries.initChapters();
             CuriosRendererRegistry.register(ItemsRegistry.ironNecklaceAmber.get(), NecklaceRenderer::new);
@@ -212,6 +214,7 @@ public class Valoria{
         PacketHandler.init();
         PotionBrewery.bootStrap();
         DispenserBehaviours.bootStrap();
+        ArmorSetup.setup();
         event.enqueueWork(() -> {
             ModCompats.init();
             FireBlock fireblock = (FireBlock)Blocks.FIRE;

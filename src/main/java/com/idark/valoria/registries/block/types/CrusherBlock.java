@@ -1,5 +1,6 @@
 package com.idark.valoria.registries.block.types;
 
+import com.idark.valoria.core.interfaces.*;
 import com.idark.valoria.registries.block.entity.*;
 import com.idark.valoria.registries.item.recipe.*;
 import com.idark.valoria.util.*;
@@ -74,7 +75,7 @@ public class CrusherBlock extends Block implements EntityBlock{
         }
 
         if(tileStack.isEmpty()) return InteractionResult.PASS;
-        if(stack.getItem() instanceof PickaxeItem && isValid(tileStack, tile)){
+        if((stack.getItem() instanceof PickaxeItem || stack.getItem() instanceof StoneCrushable) && isValid(tileStack, tile)){
             if(player instanceof ServerPlayer serverPlayer){
                 tile.craftItem(serverPlayer);
                 player.getItemInHand(handIn).hurtAndBreak(world.getRandom().nextInt(0, 2), player, (p_220045_0_) -> p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));

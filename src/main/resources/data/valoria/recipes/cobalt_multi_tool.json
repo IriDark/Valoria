@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "valoria:cobalt_pickaxe"
+    },
+    {
+      "item": "valoria:cobalt_axe"
+    },
+    {
+      "item": "valoria:cobalt_shovel"
+    },
+    {
+      "item": "valoria:cobalt_hoe"
+    }
+  ],
+  "result": {
+    "item": "valoria:cobalt_multi_tool",
+    "count": 1
+  }
+}

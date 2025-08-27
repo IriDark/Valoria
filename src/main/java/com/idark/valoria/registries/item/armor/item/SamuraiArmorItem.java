@@ -4,14 +4,18 @@ import com.google.common.collect.*;
 import com.idark.valoria.registries.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
+import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
+import net.minecraft.world.level.*;
 import pro.komaru.tridot.common.registry.item.armor.*;
 
 import java.util.*;
 
 public class SamuraiArmorItem extends SuitArmorItem{
+    public ArmorDispatcher dispatcher;
     public SamuraiArmorItem(ArmorMaterial material, Type type, Properties properties){
         super(material, type, properties);
+        this.dispatcher = new ArmorDispatcher();
     }
 
     public float getBonusValue(EquipmentSlot slot){
@@ -21,6 +25,14 @@ public class SamuraiArmorItem extends SuitArmorItem{
             case LEGS -> 0.1f;
             default -> 0;
         };
+    }
+
+    @Override
+    public void onArmorTick(ItemStack stack, Level level, Player player){
+        super.onArmorTick(stack, level, player);
+        if (!level.isClientSide) {
+            dispatcher.idle(player, stack);
+        }
     }
 
     @Override

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "valoria:nature_pickaxe"
+    },
+    {
+      "item": "valoria:nature_axe"
+    },
+    {
+      "item": "valoria:nature_shovel"
+    },
+    {
+      "item": "valoria:nature_hoe"
+    }
+  ],
+  "result": {
+    "item": "valoria:nature_multi_tool",
+    "count": 1
+  }
+}

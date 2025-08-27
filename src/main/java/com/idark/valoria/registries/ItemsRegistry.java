@@ -124,15 +124,15 @@ public class ItemsRegistry{
     throwableBomb, dynamite, acorn, poisonedAcorn, crystalShard,
 
     // tools
-    jadeSword, jadeKatana, jadeScythe, jadeSpear, jadePickaxe, jadeAxe, jadeShovel,
+    jadeSword, jadeKatana, jadeScythe, jadeSpear, jadePickaxe, jadeAxe, jadeShovel, jadeHoe, jadeMultiTool,
     pearliumSword, pearliumPickaxe, pearliumAxe,
-    cobaltSword, cobaltPickaxe, cobaltAxe, cobaltShovel, cobaltHoe,
-    etherealSword, etherealSpear, etherealPickaxe, etherealAxe,
-    crimtaneSword, crimtaneScythe, crimtanePickaxe, crimtaneAxe, crimtaneShovel, crimtaneHoe,
-    ent, natureScythe, naturePickaxe, natureAxe, natureShovel, natureHoe, natureBow, natureCrossbow, natureSpear, natureArrow,
-    coralReef, aquariusScythe, aquariusPickaxe, aquariusAxe, aquariusShovel, aquariusHoe, aquariusBow, aquariusCrossbow, aquariusSpear, aquariusArrow,
-    infernalSword, infernalScythe, infernalPickaxe, infernalAxe, infernalShovel, infernalHoe, infernalBow, infernalCrossbow, infernalSpear, infernalArrow,
-    voidEdge, voidScythe, voidPickaxe, voidAxe, voidShovel, voidHoe, voidBow, voidCrossbow, voidSpear, wickedArrow,
+    cobaltSword, cobaltPickaxe, cobaltAxe, cobaltShovel, cobaltHoe, cobaltMultiTool,
+    etherealSword, etherealSpear, etherealPickaxe, etherealAxe, etherealMultiTool,
+    crimtaneSword, crimtaneScythe, crimtanePickaxe, crimtaneAxe, crimtaneShovel, crimtaneHoe, crimtaneMultiTool,
+    ent, natureScythe, naturePickaxe, natureAxe, natureShovel, natureHoe, natureMultiTool, natureBow, natureCrossbow, natureSpear, natureArrow,
+    coralReef, aquariusScythe, aquariusPickaxe, aquariusAxe, aquariusShovel, aquariusHoe, aquariusMultiTool, aquariusBow, aquariusCrossbow, aquariusSpear, aquariusArrow,
+    infernalSword, infernalScythe, infernalPickaxe, infernalAxe, infernalShovel, infernalHoe, infernalMultiTool, infernalBow, infernalCrossbow, infernalSpear, infernalArrow,
+    voidEdge, voidScythe, voidPickaxe, voidAxe, voidShovel, voidHoe, voidMultiTool, voidBow, voidCrossbow, voidSpear, wickedArrow,
     phantom, phantasmBow, phantasmCrossbow, eternity, pyratiteArrow, soulArrow,
 
     // event
@@ -158,7 +158,7 @@ public class ItemsRegistry{
     aloeBandage, aloeBandageUpgraded, shadeBlossomBandage,
 
     // consumables
-    healingVial, healingFlask, healingElixir, cleansingVial, cleansingFlask, cleansingElixir,
+    healingVial, healingFlask, healingElixir, cleansingVial, cleansingFlask, cleansingElixir, clarityVial,
     applePie, eyeChunk, taintedBerries, scavengerMeat, scavengerCookedMeat, cookedGlowVioletSprout, cookedAbyssalGlowfern, goblinMeat, cookedGoblinMeat, crabLeg, cookedCrablLeg, devilMeat, cookedDevilMeat, cup, cacaoCup, coffeeCup, teaCup, greenTeaCup, woodenCup, beerCup, rumCup, bottle, kvassBottle, wineBottle, akvavitBottle, sakeBottle, liquorBottle, rumBottle, meadBottle, cognacBottle, whiskeyBottle, cokeBottle, toxinsBottle,
 
     necromancerMusicDisc,
@@ -231,10 +231,10 @@ public class ItemsRegistry{
         awakenedVoidChestplate = registerItem("awakened_void_chestplate", () -> new VoidArmorItem(Type.CHESTPLATE, ArmorRegistry.VOID, new Item.Properties().rarity(RarityRegistry.VOID).fireResistant()));
         awakenedVoidLeggings = registerItem("awakened_void_leggings", () -> new VoidArmorItem(Type.LEGGINGS, ArmorRegistry.VOID, new Item.Properties().rarity(RarityRegistry.VOID).fireResistant()));
         awakenedVoidBoots = registerItem("awakened_void_boots", () -> new VoidArmorItem(Type.BOOTS, ArmorRegistry.VOID, new Item.Properties().rarity(RarityRegistry.VOID).fireResistant()));
-        phantasmHelmet = registerItem("phantasm_helmet", () -> new PhantasmArmorItem(Type.HELMET, ArmorRegistry.PHANTASM, new Item.Properties().rarity(RarityRegistry.PHANTASM).fireResistant()));
-        phantasmChestplate = registerItem("phantasm_chestplate", () -> new PhantasmArmorItem(Type.CHESTPLATE, ArmorRegistry.PHANTASM, new Item.Properties().rarity(RarityRegistry.PHANTASM).fireResistant()));
-        phantasmLeggings = registerItem("phantasm_leggings", () -> new PhantasmArmorItem(Type.LEGGINGS, ArmorRegistry.PHANTASM, new Item.Properties().rarity(RarityRegistry.PHANTASM).fireResistant()));
-        phantasmBoots = registerItem("phantasm_boots", () -> new PhantasmArmorItem(Type.BOOTS, ArmorRegistry.PHANTASM, new Item.Properties().rarity(RarityRegistry.PHANTASM).fireResistant()));
+        phantasmHelmet = registerItem("phantasm_helmet", () -> new EffectArmorItem(ArmorRegistry.PHANTASM, Type.HELMET, new Item.Properties().rarity(RarityRegistry.PHANTASM).fireResistant()));
+        phantasmChestplate = registerItem("phantasm_chestplate", () -> new EffectArmorItem(ArmorRegistry.PHANTASM, Type.CHESTPLATE, new Item.Properties().rarity(RarityRegistry.PHANTASM).fireResistant()));
+        phantasmLeggings = registerItem("phantasm_leggings", () -> new EffectArmorItem(ArmorRegistry.PHANTASM, Type.LEGGINGS, new Item.Properties().rarity(RarityRegistry.PHANTASM).fireResistant()));
+        phantasmBoots = registerItem("phantasm_boots", () -> new EffectArmorItem(ArmorRegistry.PHANTASM, Type.BOOTS, new Item.Properties().rarity(RarityRegistry.PHANTASM).fireResistant()));
 
         //materials
         rawCobalt = registerItem("raw_cobalt");
@@ -376,7 +376,7 @@ public class ItemsRegistry{
         bronzeSword = registerItem("bronze_sword", () -> new SwordItem(ItemTierRegistry.BRONZE, 6, -2.4f, new Item.Properties()));
         quantumReaper = registerItem("quantum_reaper", () -> new SwordItem(ItemTierRegistry.NONE, 8, -3f, new Item.Properties().rarity(RarityRegistry.VOID)));
 
-        bloodHound = registerItem("bloodhound", () -> new HoundItem(ItemTierRegistry.BLOOD, 6, -2.2f, new Item.Properties()));
+        bloodHound = registerItem("bloodhound", () -> new HoundItem(ItemTierRegistry.BLOOD, 2, -2.2f, new Item.Properties()));
         blazeReap = registerItem("blaze_reap", () -> new BlazeReapItem(ItemTierRegistry.NONE, 3, -3.4f, new Item.Properties()));
         gunpowderCharge = registerItem("gunpowder_charge", () -> new GunpowderCharge(4f, 25f, new Item.Properties().stacksTo(1)));
         pyratiteCharge = registerItem("pyratite_charge", () -> new GunpowderCharge(6f, 40f, new Item.Properties().stacksTo(1)));
@@ -442,11 +442,13 @@ public class ItemsRegistry{
         cobaltAxe = registerItem("cobalt_axe", () -> new AxeItem(ItemTierRegistry.COBALT, ToolStats.axe.damage, ToolStats.axe.speed, new Item.Properties()));
         cobaltShovel = registerItem("cobalt_shovel", () -> new ShovelItem(ItemTierRegistry.COBALT, ToolStats.shovel.damage, ToolStats.shovel.speed, new Item.Properties()));
         cobaltHoe = registerItem("cobalt_hoe", () -> new HoeItem(ItemTierRegistry.COBALT, (int)(ToolStats.hoe.damage), ToolStats.hoe.speed, new Item.Properties()));
+        cobaltMultiTool = registerItem("cobalt_multi_tool", () -> new ValoriaMultiTool(ItemTierRegistry.COBALT, ToolStats.multiTool.damage, ToolStats.multiTool.speed, new Item.Properties()));
 
         etherealSword = registerItem("ethereal_sword", () -> new EtherealSwordItem(ItemTierRegistry.ETHEREAL, ToolStats.sword.damage, ToolStats.sword.speed, new Item.Properties().rarity(RarityRegistry.ETHEREAL)));
         etherealSpear = registerItem("ethereal_spear", () -> new SpearItem(ItemTierRegistry.ETHEREAL, ToolStats.spear.damage, ToolStats.spear.speed, new Item.Properties().rarity(RarityRegistry.ETHEREAL)));
         etherealPickaxe = registerItem("ethereal_pickaxe", () -> new ValoriaPickaxe(ItemTierRegistry.ETHEREAL, ToolStats.pickaxe.damage, ToolStats.pickaxe.speed, new Item.Properties().rarity(RarityRegistry.ETHEREAL)));
         etherealAxe = registerItem("ethereal_axe", () -> new AxeItem(ItemTierRegistry.ETHEREAL, ToolStats.axe.damage, ToolStats.axe.speed, new Item.Properties().rarity(RarityRegistry.ETHEREAL)));
+        etherealMultiTool = registerItem("ethereal_multi_tool", () -> new ValoriaMultiTool(ItemTierRegistry.COBALT, ToolStats.multiTool.damage, ToolStats.multiTool.speed, new Item.Properties().rarity(RarityRegistry.ETHEREAL)));
 
         crimtaneSword = registerItem("crimtane_sword", () -> new ValoriaSword(ItemTierRegistry.BLOOD, ToolStats.sword.damage, ToolStats.sword.speed, new Item.Properties().rarity(RarityRegistry.BLOODY)));
         crimtaneScythe = registerItem("crimtane_scythe", () -> new ScytheItem(ItemTierRegistry.BLOOD, ToolStats.scythe.damage, ToolStats.scythe.speed, new Item.Properties().rarity(RarityRegistry.BLOODY)));
@@ -454,6 +456,7 @@ public class ItemsRegistry{
         crimtaneAxe = registerItem("crimtane_axe", () -> new AxeItem(ItemTierRegistry.BLOOD, ToolStats.axe.damage, ToolStats.axe.speed, new Item.Properties().rarity(RarityRegistry.BLOODY)));
         crimtaneShovel = registerItem("crimtane_shovel", () -> new ShovelItem(ItemTierRegistry.BLOOD, ToolStats.shovel.damage, ToolStats.shovel.speed, new Item.Properties().rarity(RarityRegistry.BLOODY)));
         crimtaneHoe = registerItem("crimtane_hoe", () -> new HoeItem(ItemTierRegistry.BLOOD, (int)(ToolStats.hoe.damage), ToolStats.hoe.speed, new Item.Properties().rarity(RarityRegistry.BLOODY)));
+        crimtaneMultiTool = registerItem("crimtane_multi_tool", () -> new ValoriaMultiTool(ItemTierRegistry.BLOOD, ToolStats.multiTool.damage, ToolStats.multiTool.speed, new Item.Properties().rarity(RarityRegistry.BLOODY)));
         meatCutter = registerItem("meatcutter", () -> new Builder(ToolStats.katana.damage, ToolStats.katana.speed, new Properties().rarity(RarityRegistry.BLOODY)).setDashDistance(1f).setEffects(0.25f, new MobEffectInstance(EffectsRegistry.BLEEDING.get(), 120, 0)).build());
         corpseCleaver = registerItem("corpsecleaver", () -> new CorpseCleaverItem(ItemTierRegistry.BLOOD, 2, -2.4F, new Item.Properties().durability(1151).rarity(RarityRegistry.BLOODY)));
         boneShuriken = registerItem("bone_shuriken", () -> new ShurikenItem(8, new Item.Properties().rarity(RarityRegistry.BLOODY)));
@@ -465,6 +468,8 @@ public class ItemsRegistry{
         jadePickaxe = registerItem("jade_pickaxe", () -> new ValoriaPickaxe(ItemTierRegistry.JADE, ToolStats.pickaxe.damage, ToolStats.pickaxe.speed, new Item.Properties()));
         jadeAxe = registerItem("jade_axe", () -> new AxeItem(ItemTierRegistry.JADE, ToolStats.axe.damage, ToolStats.axe.speed, new Item.Properties()));
         jadeShovel = registerItem("jade_shovel", () -> new ShovelItem(ItemTierRegistry.JADE, ToolStats.shovel.damage, ToolStats.shovel.speed, new Item.Properties()));
+        jadeHoe = registerItem("jade_hoe", () -> new HoeItem(ItemTierRegistry.JADE, (int)(ToolStats.hoe.damage), ToolStats.hoe.speed, new Item.Properties()));
+        jadeMultiTool = registerItem("jade_multi_tool", () -> new ValoriaMultiTool(ItemTierRegistry.JADE, ToolStats.multiTool.damage, ToolStats.multiTool.speed, new Item.Properties()));
 
         ent = registerItem("ent", () -> new NatureSwordItem(ItemTierRegistry.NATURE, ToolStats.large_sword.damage, ToolStats.large_sword.speed, new Item.Properties().rarity(RarityRegistry.NATURE)));
         natureScythe = registerItem("nature_scythe", () -> new NatureScytheItem(ItemTierRegistry.NATURE, ToolStats.scythe.damage, ToolStats.scythe.speed, new Item.Properties().rarity(RarityRegistry.NATURE)));
@@ -473,6 +478,7 @@ public class ItemsRegistry{
         natureAxe = registerItem("nature_axe", () -> new AxeItem(ItemTierRegistry.NATURE, ToolStats.axe.damage, ToolStats.axe.speed, new Item.Properties().rarity(RarityRegistry.NATURE)));
         natureShovel = registerItem("nature_shovel", () -> new ShovelItem(ItemTierRegistry.NATURE, ToolStats.shovel.damage, ToolStats.shovel.speed, new Item.Properties().rarity(RarityRegistry.NATURE)));
         natureHoe = registerItem("nature_hoe", () -> new HoeItem(ItemTierRegistry.NATURE, (int)(ToolStats.hoe.damage), ToolStats.hoe.speed, new Item.Properties().rarity(RarityRegistry.NATURE)));
+        natureMultiTool = registerItem("nature_multi_tool", () -> new ValoriaMultiTool(ItemTierRegistry.NATURE, ToolStats.multiTool.damage, ToolStats.multiTool.speed, new Item.Properties().rarity(RarityRegistry.NATURE)));
         natureBow = registerItem("nature_bow", () -> new ConfigurableBowItem(EntityTypeRegistry.NATURE_ARROW, 2, 1, new Item.Properties().stacksTo(1).durability(1024).rarity(RarityRegistry.NATURE)));
         natureCrossbow = registerItem("nature_crossbow", () -> new ConfigurableCrossbow(EntityTypeRegistry.NATURE_ARROW, 2, 1, new Item.Properties().stacksTo(1).durability(1224).rarity(RarityRegistry.NATURE)));
 
@@ -483,6 +489,7 @@ public class ItemsRegistry{
         aquariusAxe = registerItem("aquarius_axe", () -> new AxeItem(ItemTierRegistry.AQUARIUS, ToolStats.axe.damage, ToolStats.axe.speed, new Item.Properties().rarity(RarityRegistry.AQUARIUS)));
         aquariusShovel = registerItem("aquarius_shovel", () -> new ShovelItem(ItemTierRegistry.AQUARIUS, ToolStats.shovel.damage, ToolStats.shovel.speed, new Item.Properties().rarity(RarityRegistry.AQUARIUS)));
         aquariusHoe = registerItem("aquarius_hoe", () -> new HoeItem(ItemTierRegistry.AQUARIUS, (int)(ToolStats.hoe.damage), ToolStats.hoe.speed, new Item.Properties().rarity(RarityRegistry.AQUARIUS)));
+        aquariusMultiTool = registerItem("aquarius_multi_tool", () -> new ValoriaMultiTool(ItemTierRegistry.AQUARIUS, ToolStats.multiTool.damage, ToolStats.multiTool.speed, new Item.Properties().rarity(RarityRegistry.AQUARIUS)));
         aquariusBow = registerItem("aquarius_bow", () -> new ConfigurableBowItem(EntityTypeRegistry.AQUARIUS_ARROW, 3, 2, new Item.Properties().stacksTo(1).durability(1324).fireResistant().rarity(RarityRegistry.AQUARIUS)));
         aquariusCrossbow = registerItem("aquarius_crossbow", () -> new ConfigurableCrossbow(EntityTypeRegistry.AQUARIUS_ARROW, 4, 3, new Item.Properties().fireResistant().stacksTo(1).durability(1462).rarity(RarityRegistry.AQUARIUS)));
 
@@ -493,6 +500,7 @@ public class ItemsRegistry{
         infernalAxe = registerItem("infernal_axe", () -> new AxeItem(ItemTierRegistry.INFERNAL, ToolStats.axe.damage, ToolStats.axe.speed, new Item.Properties().fireResistant().rarity(RarityRegistry.INFERNAL)));
         infernalShovel = registerItem("infernal_shovel", () -> new ShovelItem(ItemTierRegistry.INFERNAL, ToolStats.shovel.damage, ToolStats.shovel.speed, new Item.Properties().fireResistant().rarity(RarityRegistry.INFERNAL)));
         infernalHoe = registerItem("infernal_hoe", () -> new HoeItem(ItemTierRegistry.INFERNAL, (int)(ToolStats.hoe.damage), ToolStats.hoe.speed, new Item.Properties().fireResistant().rarity(RarityRegistry.INFERNAL)));
+        infernalMultiTool = registerItem("infernal_multi_tool", () -> new ValoriaMultiTool(ItemTierRegistry.INFERNAL, ToolStats.multiTool.damage, ToolStats.multiTool.speed, new Item.Properties().rarity(RarityRegistry.INFERNAL)));
         infernalBow = registerItem("infernal_bow", () -> new ConfigurableBowItem(EntityTypeRegistry.INFERNAL_ARROW, 4, 3, new Item.Properties().fireResistant().stacksTo(1).durability(1684).rarity(RarityRegistry.INFERNAL)));
         infernalCrossbow = registerItem("infernal_crossbow", () -> new ConfigurableCrossbow(EntityTypeRegistry.INFERNAL_ARROW, 4, 3, new Item.Properties().fireResistant().stacksTo(1).durability(1824).rarity(RarityRegistry.INFERNAL)));
 
@@ -503,8 +511,10 @@ public class ItemsRegistry{
         voidAxe = registerItem("void_axe", () -> new AxeItem(ItemTierRegistry.NIHILITY, ToolStats.axe.damage, ToolStats.axe.speed, new Item.Properties().fireResistant().rarity(RarityRegistry.VOID)));
         voidShovel = registerItem("void_shovel", () -> new ShovelItem(ItemTierRegistry.NIHILITY, ToolStats.shovel.damage, ToolStats.shovel.speed, new Item.Properties().fireResistant().rarity(RarityRegistry.VOID)));
         voidHoe = registerItem("void_hoe", () -> new HoeItem(ItemTierRegistry.NIHILITY, (int)(ToolStats.hoe.damage), ToolStats.hoe.speed, new Item.Properties().fireResistant().rarity(RarityRegistry.VOID)));
+        voidMultiTool = registerItem("void_multi_tool", () -> new ValoriaMultiTool(ItemTierRegistry.NIHILITY, ToolStats.multiTool.damage, ToolStats.multiTool.speed, new Item.Properties().rarity(RarityRegistry.VOID)));
         voidBow = registerItem("bow_of_darkness", () -> new ConfigurableBowItem(EntityTypeRegistry.WICKED_ARROW,4.25f, 4, new Item.Properties().stacksTo(1).durability(2048).fireResistant().rarity(RarityRegistry.VOID)));
         voidCrossbow = registerItem("void_crossbow", () -> new ConfigurableCrossbow(EntityTypeRegistry.WICKED_ARROW, 4.25f, 4, new Item.Properties().fireResistant().stacksTo(1).durability(2124).rarity(RarityRegistry.VOID)));
+
         phantom = registerItem("phantom", () -> new PhantomItem(ItemTierRegistry.PHANTOM, ToolStats.large_sword.damage, ToolStats.large_sword.speed, new Item.Properties().rarity(RarityRegistry.PHANTASM)));
         phantasmBow = registerItem("phantasm_bow", () -> new PhantasmBow(6, 4, new Item.Properties().fireResistant().stacksTo(1).durability(4028).rarity(RarityRegistry.PHANTASM)));
         phantasmCrossbow = registerItem("phantasm_crossbow", () -> new ConfigurableCrossbow(EntityTypeRegistry.PHANTOM_ARROW, 6, 4, new Item.Properties().fireResistant().stacksTo(1).durability(4124).rarity(RarityRegistry.PHANTASM)));
@@ -619,7 +629,7 @@ public class ItemsRegistry{
         lesserRuneWealth = registerItem("lesser_rune_of_wealth", () -> new CurioWealth(0.5f, new Item.Properties().stacksTo(1).rarity(Rarity.COMMON)));
         lesserRuneCurses = registerItem("lesser_rune_of_curses", () -> new CurioCurses(0.5f, new Item.Properties().stacksTo(1).rarity(Rarity.COMMON)));
         lesserRuneStrength = registerItem("lesser_rune_of_strength", () -> new CurioStrength(0.025f, new Item.Properties().stacksTo(1).rarity(Rarity.COMMON)));
-        lesserRuneAccuracy = registerItem("lesser_rune_of_accuracy", () -> new RuneAccuracy(0.10f, 1.25f, new Item.Properties().stacksTo(1).rarity(Rarity.COMMON)));
+        lesserRuneAccuracy = registerItem("lesser_rune_of_accuracy", () -> new RuneAccuracy(0.05f, 1.15f, new Item.Properties().stacksTo(1).rarity(Rarity.COMMON)));
         lesserRuneDeep = registerItem("lesser_rune_of_deep", () -> new RuneDeep(new Item.Properties().stacksTo(1).rarity(Rarity.COMMON)));
         rune = registerItem("rune", () -> new Item(new Item.Properties().stacksTo(16).rarity(Rarity.UNCOMMON)){
             @Override
@@ -633,7 +643,7 @@ public class ItemsRegistry{
         runeWealth = registerItem("rune_of_wealth", () -> new CurioWealth(1.5f, new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON)));
         runeCurses = registerItem("rune_of_curses", () -> new CurioCurses(0.25f, new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON)));
         runeStrength = registerItem("rune_of_strength", () -> new CurioStrength(0.05f, new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON)));
-        runeAccuracy = registerItem("rune_of_accuracy", () -> new RuneAccuracy(0.5f, 1.25f, new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON)));
+        runeAccuracy = registerItem("rune_of_accuracy", () -> new RuneAccuracy(0.15f, 1.15f, new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON)));
         runeDeep = registerItem("rune_of_deep", () -> new RuneDeep(new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON)));
         runePyro = registerItem("rune_of_pyro", () -> new CurioPyro(new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON)));
         runeCold = registerItem("rune_of_cold", () -> new RuneCold(new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON)));
@@ -650,6 +660,7 @@ public class ItemsRegistry{
         cleansingVial = registerItem("cleansing_vial", () -> new CleansingConsumableItem(20, new MobEffectInstance(MobEffects.WEAKNESS, 320, 0), new Item.Properties()));
         cleansingFlask = registerItem("cleansing_flask", () -> new CleansingConsumableItem(80, 35, 35, new MobEffectInstance(MobEffects.WEAKNESS, 320, 1), new Item.Properties()));
         cleansingElixir = registerItem("cleansing_elixir", () -> new CleansingConsumableItem(120, 35, 60, new MobEffectInstance(MobEffects.WEAKNESS, 320, 2), new Item.Properties()));
+        clarityVial = registerItem("clarity_vial", () -> new CleansingConsumableItem(5, new MobEffectInstance(MobEffects.WEAKNESS, 60, 0), new Item.Properties()));
 
         applePie = registerItem("apple_pie", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(12).saturationMod(0.75f).build())));
         goblinMeat = registerItem("goblin_meat", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().meat().nutrition(3).saturationMod(0.2f).effect(new MobEffectInstance(MobEffects.HUNGER, 60), 0.25f).build())));
@@ -665,26 +676,26 @@ public class ItemsRegistry{
         cookedGlowVioletSprout = registerItem("cooked_glow_violet_sprout", () -> new ValoriaFood(3, new Item.Properties().food(new FoodProperties.Builder().nutrition(4).saturationMod(0.3f).effect(new MobEffectInstance(MobEffects.NIGHT_VISION, 500), 1f).build())));
         cookedAbyssalGlowfern = registerItem("cooked_abyssal_glowfern", () -> new ValoriaFood(3, new Item.Properties().food(new FoodProperties.Builder().nutrition(4).saturationMod(0.3f).effect(new MobEffectInstance(MobEffects.NIGHT_VISION, 500), 1f).build())));
         cup = registerItem("cup", () -> new BlockItem(BlockRegistry.cup.get(), new Item.Properties().stacksTo(64)));
-        cacaoCup = registerItem("cacao_cup", () -> new PlaceableDrinkItem(BlockRegistry.cacaoCup.get(), 0, 0, 64, ItemsRegistry.cup.get(), new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 250)));
-        coffeeCup = registerItem("coffee_cup", () -> new PlaceableDrinkItem(BlockRegistry.coffeeCup.get(), 0, 0, 64, ItemsRegistry.cup.get(), new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 250)));
-        teaCup = registerItem("tea_cup", () -> new PlaceableDrinkItem(BlockRegistry.teaCup.get(), 0, 0, 16, ItemsRegistry.cup.get(), new MobEffectInstance(MobEffects.DIG_SPEED, 100)));
-        greenTeaCup = registerItem("green_tea_cup", () -> new PlaceableDrinkItem(BlockRegistry.greenTeaCup.get(), 0, 0, 64, ItemsRegistry.cup.get(), new MobEffectInstance(EffectsRegistry.ALOEREGEN.get(), 1800)));
+        cacaoCup = registerItem("cacao_cup", () -> new PlaceableDrinkItem(BlockRegistry.cacaoCup.get(),  64, ItemsRegistry.cup.get(), new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 250)));
+        coffeeCup = registerItem("coffee_cup", () -> new PlaceableDrinkItem(BlockRegistry.coffeeCup.get(), 64, ItemsRegistry.cup.get(), new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 250)));
+        teaCup = registerItem("tea_cup", () -> new PlaceableDrinkItem(BlockRegistry.teaCup.get(),  16, ItemsRegistry.cup.get(), new MobEffectInstance(MobEffects.DIG_SPEED, 100)));
+        greenTeaCup = registerItem("green_tea_cup", () -> new PlaceableDrinkItem(BlockRegistry.greenTeaCup.get(),  64, ItemsRegistry.cup.get(), new MobEffectInstance(EffectsRegistry.ALOEREGEN.get(), 1800)));
         woodenCup = registerItem("wooden_cup", () -> new BlockItem(BlockRegistry.woodenCup.get(), new Item.Properties()));
-        beerCup = registerItem("beer_cup", () -> new PlaceableDrinkItem(BlockRegistry.beerCup.get(), 0, 0, 64, ItemsRegistry.woodenCup.get(), new MobEffectInstance(EffectsRegistry.TIPSY.get(), 400, 0)));
-        rumCup = registerItem("rum_cup", () -> new PlaceableDrinkItem(BlockRegistry.rumCup.get(), 0, 0, 64, ItemsRegistry.woodenCup.get(), new MobEffectInstance(EffectsRegistry.TIPSY.get(), 400, 0), new MobEffectInstance(MobEffects.CONFUSION, 120, 0)));
+        beerCup = registerItem("beer_cup", () -> new PlaceableDrinkItem(BlockRegistry.beerCup.get(),  64, ItemsRegistry.woodenCup.get(), new MobEffectInstance(EffectsRegistry.TIPSY.get(), 400, 0)));
+        rumCup = registerItem("rum_cup", () -> new PlaceableDrinkItem(BlockRegistry.rumCup.get(),  64, ItemsRegistry.woodenCup.get(), new MobEffectInstance(EffectsRegistry.TIPSY.get(), 400, 0), new MobEffectInstance(MobEffects.CONFUSION, 120, 0)));
         bottle = registerItem("bottle", () -> new BlockItem(BlockRegistry.glassBottle.get(), new Item.Properties().stacksTo(64)));
-        kvassBottle = registerItem("kvass_bottle", () -> new PlaceableDrinkItem(BlockRegistry.kvassBottle.get(), 0, 0, 64, ItemsRegistry.bottle.get(), new MobEffectInstance(EffectsRegistry.ALOEREGEN.get(), 200)));
-        wineBottle = registerItem("wine_bottle", () -> new PlaceableDrinkItem(BlockRegistry.wineBottle.get(), 0, 0, 64, ItemsRegistry.bottle.get(), new MobEffectInstance(EffectsRegistry.TIPSY.get(), 450, 1), new MobEffectInstance(MobEffects.CONFUSION, 125)));
-        akvavitBottle = registerItem("akvavit_bottle", () -> new PlaceableDrinkItem(BlockRegistry.akvavitBottle.get(), 0, 0, 64, ItemsRegistry.bottle.get(), new MobEffectInstance(EffectsRegistry.TIPSY.get(), 500, 1), new MobEffectInstance(MobEffects.CONFUSION, 125)));
-        sakeBottle = registerItem("sake_bottle", () -> new PlaceableDrinkItem(BlockRegistry.sakeBottle.get(), 0, 0, 64, ItemsRegistry.bottle.get(), new MobEffectInstance(EffectsRegistry.TIPSY.get(), 700, 1), new MobEffectInstance(MobEffects.CONFUSION, 175)));
-        liquorBottle = registerItem("liquor_bottle", () -> new PlaceableDrinkItem(BlockRegistry.liquorBottle.get(), 0, 0, 64, ItemsRegistry.bottle.get(), new MobEffectInstance(EffectsRegistry.TIPSY.get(), 350, 1), new MobEffectInstance(MobEffects.CONFUSION, 60)));
-        rumBottle = registerItem("rum_bottle", () -> new PlaceableDrinkItem(BlockRegistry.rumBottle.get(), 0, 0, 64, ItemsRegistry.bottle.get(), new MobEffectInstance(EffectsRegistry.TIPSY.get(), 650, 1), new MobEffectInstance(MobEffects.CONFUSION, 100)));
-        meadBottle = registerItem("mead_bottle", () -> new PlaceableDrinkItem(BlockRegistry.meadBottle.get(), 0, 0, 64, ItemsRegistry.bottle.get(), new MobEffectInstance(EffectsRegistry.TIPSY.get(), 700, 0), new MobEffectInstance(MobEffects.CONFUSION, 100)));
-        cognacBottle = registerItem("cognac_bottle", () -> new PlaceableDrinkItem(BlockRegistry.cognacBottle.get(), 0, 0, 64, ItemsRegistry.bottle.get(), new MobEffectInstance(EffectsRegistry.TIPSY.get(), 800, 2), new MobEffectInstance(MobEffects.CONFUSION, 175)));
-        whiskeyBottle = registerItem("whiskey_bottle", () -> new PlaceableDrinkItem(BlockRegistry.whiskeyBottle.get(), 0, 0, 64, ItemsRegistry.bottle.get(), new MobEffectInstance(EffectsRegistry.TIPSY.get(), 450, 1), new MobEffectInstance(MobEffects.CONFUSION, 125)));
-        cokeBottle = registerItem("coke_bottle", () -> new PlaceableDrinkItem(BlockRegistry.cokeBottle.get(), 0, 0, 64, ItemsRegistry.bottle.get(), new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 250)));
+        kvassBottle = registerItem("kvass_bottle", () -> new PlaceableDrinkItem(BlockRegistry.kvassBottle.get(), 64, ItemsRegistry.bottle.get(), new MobEffectInstance(EffectsRegistry.ALOEREGEN.get(), 200)));
+        wineBottle = registerItem("wine_bottle", () -> new PlaceableDrinkItem(BlockRegistry.wineBottle.get(), 64, ItemsRegistry.bottle.get(), new MobEffectInstance(EffectsRegistry.TIPSY.get(), 450, 1), new MobEffectInstance(MobEffects.CONFUSION, 125)));
+        akvavitBottle = registerItem("akvavit_bottle", () -> new PlaceableDrinkItem(BlockRegistry.akvavitBottle.get(), 64, ItemsRegistry.bottle.get(), new MobEffectInstance(EffectsRegistry.TIPSY.get(), 500, 1), new MobEffectInstance(MobEffects.CONFUSION, 125)));
+        sakeBottle = registerItem("sake_bottle", () -> new PlaceableDrinkItem(BlockRegistry.sakeBottle.get(), 64, ItemsRegistry.bottle.get(), new MobEffectInstance(EffectsRegistry.TIPSY.get(), 700, 1), new MobEffectInstance(MobEffects.CONFUSION, 175)));
+        liquorBottle = registerItem("liquor_bottle", () -> new PlaceableDrinkItem(BlockRegistry.liquorBottle.get(),  64, ItemsRegistry.bottle.get(), new MobEffectInstance(EffectsRegistry.TIPSY.get(), 350, 1), new MobEffectInstance(MobEffects.CONFUSION, 60)));
+        rumBottle = registerItem("rum_bottle", () -> new PlaceableDrinkItem(BlockRegistry.rumBottle.get(),  64, ItemsRegistry.bottle.get(), new MobEffectInstance(EffectsRegistry.TIPSY.get(), 650, 1), new MobEffectInstance(MobEffects.CONFUSION, 100)));
+        meadBottle = registerItem("mead_bottle", () -> new PlaceableDrinkItem(BlockRegistry.meadBottle.get(),  64, ItemsRegistry.bottle.get(), new MobEffectInstance(EffectsRegistry.TIPSY.get(), 700, 0), new MobEffectInstance(MobEffects.CONFUSION, 100)));
+        cognacBottle = registerItem("cognac_bottle", () -> new PlaceableDrinkItem(BlockRegistry.cognacBottle.get(), 64, ItemsRegistry.bottle.get(), new MobEffectInstance(EffectsRegistry.TIPSY.get(), 800, 2), new MobEffectInstance(MobEffects.CONFUSION, 175)));
+        whiskeyBottle = registerItem("whiskey_bottle", () -> new PlaceableDrinkItem(BlockRegistry.whiskeyBottle.get(),  64, ItemsRegistry.bottle.get(), new MobEffectInstance(EffectsRegistry.TIPSY.get(), 450, 1), new MobEffectInstance(MobEffects.CONFUSION, 125)));
+        cokeBottle = registerItem("coke_bottle", () -> new PlaceableDrinkItem(BlockRegistry.cokeBottle.get(),  64, ItemsRegistry.bottle.get(), new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 250)));
         toxinsBottle = registerItem("toxins_bottle", () -> new PoisonItem(new Item.Properties().rarity(Rarity.RARE)));
-        necromancerMusicDisc = registerItem("music_disc_necromancer", () -> new RecordItem(15, SoundsRegistry.MUSIC_NECROMANCER.get(), (new Properties()).stacksTo(1).rarity(Rarity.RARE), 97));
+        necromancerMusicDisc = registerItem("music_disc_necromancer", () -> new RecordItem(15, SoundsRegistry.MUSIC_NECROMANCER::get, (new Properties()).stacksTo(1).rarity(Rarity.RARE), 97));
 
         draugrShield = registerItem("draugr_shield", () -> new DraugrShieldItem(25, new Properties().stacksTo(1).durability(800).rarity(Rarity.UNCOMMON)));
         crabBuckler = registerItem("crab_buckler", () -> new CrabBucklerItem(45, new Properties().stacksTo(1).durability(1200).rarity(Rarity.RARE)));

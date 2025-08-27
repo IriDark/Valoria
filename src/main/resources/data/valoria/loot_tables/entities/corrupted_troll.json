@@ -25,21 +25,21 @@
               "chance": 0.35
             }
           ]
-        }
-      ]
-    },
-    {
-      "type": "minecraft:item",
-      "name": "valoria:void_key",
-      "weight": 1,
-      "conditions": [
-        {
-          "condition": "minecraft:killed_by_player"
         },
         {
-          "condition": "minecraft:random_chance_with_looting",
-          "chance": 0.05,
-          "looting_multiplier": 0.025
+          "type": "minecraft:item",
+          "name": "valoria:void_key",
+          "weight": 1,
+          "conditions": [
+            {
+              "condition": "minecraft:killed_by_player"
+            },
+            {
+              "condition": "minecraft:random_chance_with_looting",
+              "chance": 0.05,
+              "looting_multiplier": 0.025
+            }
+          ]
         }
       ]
     }

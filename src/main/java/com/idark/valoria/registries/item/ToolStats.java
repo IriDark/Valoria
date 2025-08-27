@@ -10,7 +10,8 @@ public class ToolStats{
     pickaxe = new ToolStats(-1, -2.8F),
     axe = new ToolStats(4, -3.0F),
     shovel = new ToolStats(1, -3.0F),
-    hoe = new ToolStats(-4, 0.0F);
+    hoe = new ToolStats(-4, 0.0F),
+    multiTool = new ToolStats(3, -3.5F);
 
     public float damage;
     public float speed;

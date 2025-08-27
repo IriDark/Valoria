@@ -5,16 +5,6 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "valoria:page",
-          "weight": 5
-        },
-        {
-          "type": "minecraft:item",
-          "name": "valoria:fortress_page",
-          "weight": 5
-        },
-        {
-          "type": "minecraft:item",
           "name": "valoria:nihility_shard",
           "weight": 2,
           "functions": [
@@ -46,11 +36,6 @@
         {
           "type": "minecraft:item",
           "name": "valoria:soul_collector_empty",
-          "weight": 1
-        },
-        {
-          "type": "minecraft:item",
-          "name": "valoria:suspicious_gem",
           "weight": 1
         },
         {
@@ -267,6 +252,42 @@
           "type": "minecraft:item",
           "name": "valoria:sake_bottle",
           "weight": 3,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1,
+                "max": 3
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "valoria:respirator",
+          "weight": 1,
+          "functions": []
+        },
+        {
+          "type": "minecraft:item",
+          "name": "valoria:cleansing_vial",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1,
+                "max": 3
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "valoria:cleansing_flask",
+          "weight": 1,
           "functions": [
             {
               "function": "minecraft:set_count",

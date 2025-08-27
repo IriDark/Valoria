@@ -2,7 +2,9 @@ package com.idark.valoria.registries.item.types.elemental;
 
 import com.google.common.collect.*;
 import com.idark.valoria.*;
+import com.idark.valoria.core.interfaces.*;
 import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.item.component.*;
 import com.idark.valoria.registries.item.types.*;
 import com.idark.valoria.util.*;
 import net.minecraft.*;
@@ -14,6 +16,7 @@ import net.minecraft.world.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.player.*;
+import net.minecraft.world.inventory.tooltip.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.*;
 import net.minecraft.world.level.*;
@@ -21,11 +24,11 @@ import org.joml.*;
 import pro.komaru.tridot.api.*;
 import pro.komaru.tridot.util.*;
 import pro.komaru.tridot.util.math.*;
+import pro.komaru.tridot.util.struct.data.*;
 
 import java.util.*;
 
-//TODO: Rework the ability
-public class CoralReefItem extends ValoriaSword{
+public class CoralReefItem extends ValoriaSword implements TooltipComponentItem{
     public ArcRandom arcRandom = Tmp.rnd;
     private final float attackDamage;
     private final Multimap<Attribute, AttributeModifier> defaultModifiers;
@@ -82,24 +85,21 @@ public class CoralReefItem extends ValoriaSword{
      */
     public void releaseUsing(ItemStack stack, Level worldIn, LivingEntity entityLiving, int timeLeft){
         Player player = (Player)entityLiving;
-        player.getCooldowns().addCooldown(this, 300);
+        player.getCooldowns().addCooldown(this, 250);
         player.awardStat(Stats.ITEM_USED.get(this));
 
         float damage = (float)(player.getAttributeValue(Attributes.ATTACK_DAMAGE)) + EnchantmentHelper.getSweepingDamageRatio(player);
         Vector3d pos = new Vector3d(player.getX(), player.getY() + player.getEyeHeight(), player.getZ());
         List<LivingEntity> hitEntities = new ArrayList<>();
 
-        ValoriaUtils.radiusHit(worldIn, stack, player, ParticleTypes.BUBBLE_POP, hitEntities, pos, 0, player.getRotationVector().y, 3);
-        Utils.Particles.inRadius(worldIn, stack, ParticleTypes.UNDERWATER, pos, 0, player.getRotationVector().y, 3);
+        ValoriaUtils.radiusHit(worldIn, stack, player, ParticleTypes.BUBBLE_POP, hitEntities, pos, 0, player.getRotationVector().y, 4);
+        Utils.Particles.inRadius(worldIn, stack, ParticleTypes.FALLING_WATER, pos, 0, player.getRotationVector().y, 4);
         for(LivingEntity damagedEntity : hitEntities){
             if(!player.canAttack(damagedEntity)) continue;
-
             damagedEntity.hurt(worldIn.damageSources().playerAttack(player), (damage + EnchantmentHelper.getDamageBonus(stack, damagedEntity.getMobType())) * 1.35f);
-            damagedEntity.knockback(1F, player.getX() - entityLiving.getX(), player.getZ() - entityLiving.getZ());
-            if(arcRandom.chance(0.25f)){
-                damagedEntity.knockback(1.5F, player.getX() - damagedEntity.getX(), player.getZ() - damagedEntity.getZ());
-                worldIn.playSound(null, damagedEntity.getOnPos(), SoundsRegistry.WATER_ABILITY.get(), SoundSource.AMBIENT, 0.2f, 1.2f);
-            }
+            damagedEntity.hurtMarked = true;
+            damagedEntity.knockback(2.5F, player.getX() - damagedEntity.getX(), player.getZ() - damagedEntity.getZ());
+            worldIn.playSound(null, damagedEntity.getOnPos(), SoundsRegistry.WATER_ABILITY.get(), SoundSource.AMBIENT, 0.2f, 1.2f);
         }
 
         if(!player.isCreative()){
@@ -109,11 +109,11 @@ public class CoralReefItem extends ValoriaSword{
         worldIn.playSound(null, player.blockPosition(), SoundsRegistry.WATER_ABILITY.get(), SoundSource.AMBIENT, 0.8f, 1f);
     }
 
-    @Override
-    public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags){
-        super.appendHoverText(stack, world, tooltip, flags);
-        tooltip.add(Component.translatable("tooltip.valoria.coral_reef").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.GRAY));
-
-        tooltip.add(Component.translatable("tooltip.valoria.rmb").withStyle(ChatFormatting.GREEN));
+    public Seq<TooltipComponent> getTooltips(ItemStack pStack){
+        return Seq.with(
+        new AbilitiesComponent(),
+        new AbilityComponent(Component.translatable("tooltip.valoria.coral_reef").withStyle(ChatFormatting.GRAY), Valoria.loc("textures/gui/tooltips/tidal_push.png")),
+        new ClientTextComponent(Component.translatable("tooltip.valoria.rmb").withStyle(style -> style.withFont(Valoria.FONT)))
+        );
     }
 }

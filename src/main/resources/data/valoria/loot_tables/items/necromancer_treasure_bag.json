@@ -45,6 +45,18 @@
         },
         {
           "type": "minecraft:item",
+          "name": "valoria:ethereal_multi_tool",
+          "weight": 5,
+          "functions": [],
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance",
+              "chance": 0.05
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
           "name": "valoria:rune_of_curses",
           "weight": 3,
           "functions": [],

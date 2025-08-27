@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "valoria:crimtane_pickaxe"
+    },
+    {
+      "item": "valoria:crimtane_axe"
+    },
+    {
+      "item": "valoria:crimtane_shovel"
+    },
+    {
+      "item": "valoria:crimtane_hoe"
+    }
+  ],
+  "result": {
+    "item": "valoria:crimtane_multi_tool",
+    "count": 1
+  }
+}

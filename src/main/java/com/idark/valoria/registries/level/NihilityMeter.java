@@ -21,18 +21,18 @@ public class NihilityMeter{
             if(player.tickCount % 120 == 0 && amount > 0){
                 nihilityLevel.decrease(event.player, Tmp.rnd.nextInt(1, 5));
             }
+        }
 
-            if(player.tickCount % (amount < max * criticalLevel ? 40 : 20) == 0){
-                float ratio = amount / max;
-                if(ratio > damagingLevel){
-                    int segments = (int)((ratio - damagingLevel) / 0.1f);
-                    float damage = 1 + segments * 2;
-                    player.hurt(DamageSourceRegistry.voidHarm(player.level()), damage);
-                }
+        if(player.tickCount % (amount < max * criticalLevel ? 40 : 20) == 0){
+            float ratio = amount / max;
+            if(ratio >= damagingLevel){
+                int segments = (int)((ratio - damagingLevel) / 0.1f);
+                float damage = 1 + segments * 2;
+                player.hurt(DamageSourceRegistry.voidHarm(player.level()), damage);
+            }
 
-                if(amount > max * criticalLevel && !player.hasEffect(MobEffects.BLINDNESS)){
-                    player.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 120, 0));
-                }
+            if(amount > max * criticalLevel && !player.hasEffect(MobEffects.BLINDNESS)){
+                player.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 120, 0));
             }
         }
     }

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "valoria:jade_pickaxe"
+    },
+    {
+      "item": "valoria:jade_axe"
+    },
+    {
+      "item": "valoria:jade_shovel"
+    },
+    {
+      "item": "valoria:jade_hoe"
+    }
+  ],
+  "result": {
+    "item": "valoria:jade_multi_tool",
+    "count": 1
+  }
+}

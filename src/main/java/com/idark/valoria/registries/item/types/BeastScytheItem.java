@@ -1,9 +1,11 @@
 package com.idark.valoria.registries.item.types;
 
+import com.idark.valoria.*;
 import com.idark.valoria.client.particle.*;
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.particle.*;
 import com.idark.valoria.registries.entity.projectile.*;
+import com.idark.valoria.registries.item.component.*;
 import com.idark.valoria.registries.item.types.builders.*;
 import com.idark.valoria.util.*;
 import net.minecraft.*;
@@ -15,6 +17,7 @@ import net.minecraft.util.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.player.*;
+import net.minecraft.world.inventory.tooltip.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.*;
 import net.minecraft.world.level.*;
@@ -23,6 +26,7 @@ import net.minecraft.world.phys.shapes.*;
 import org.joml.*;
 import pro.komaru.tridot.api.*;
 import pro.komaru.tridot.util.*;
+import pro.komaru.tridot.util.struct.data.*;
 
 import java.lang.Math;
 import java.util.*;
@@ -119,10 +123,12 @@ public class BeastScytheItem extends ScytheItem{
         level.playSound(null, player.blockPosition(), SoundEvents.EVOKER_FANGS_ATTACK, SoundSource.AMBIENT, 1f, 1f);
     }
 
-    @Override
-    public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags){
-        super.appendHoverText(stack, world, tooltip, flags);
-        tooltip.add(Component.translatable("tooltip.valoria.beast").withStyle(ChatFormatting.GRAY));
+    public Seq<TooltipComponent> getTooltips(ItemStack pStack){
+        return Seq.with(
+        new AbilitiesComponent(),
+        new AbilityComponent(Component.translatable("tooltip.valoria.beast").withStyle(ChatFormatting.GRAY), Valoria.loc("textures/gui/tooltips/devourer.png")),
+        new ClientTextComponent(Component.translatable("tooltip.valoria.rmb").withStyle(style -> style.withFont(Valoria.FONT)))
+        );
     }
 
     public static class Builder extends AbstractScytheBuilder<BeastScytheItem>{

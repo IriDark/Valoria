@@ -143,7 +143,9 @@ public class ValoriaUtils{
             List<Entity> entities = level.getEntitiesOfClass(Entity.class, boundingBox);
             for(Entity entity : entities){
                 if(entity instanceof LivingEntity livingEntity && !hitEntities.contains(livingEntity) && !livingEntity.equals(player)){
-                    hitEntities.add(livingEntity);
+                    if(Utils.Entities.canHitTarget(player, livingEntity)){
+                        hitEntities.add(livingEntity);
+                    }
                 }
             }
 
@@ -176,7 +178,9 @@ public class ValoriaUtils{
             List<Entity> entities = level.getEntitiesOfClass(Entity.class, boundingBox);
             for(Entity entity : entities){
                 if(entity instanceof LivingEntity livingEntity && !hitEntities.contains(livingEntity) && !livingEntity.equals(player)){
-                    hitEntities.add(livingEntity);
+                    if(Utils.Entities.canHitTarget(player, livingEntity)){
+                        hitEntities.add(livingEntity);
+                    }
                 }
             }
 
@@ -201,7 +205,9 @@ public class ValoriaUtils{
             List<Entity> entities = level.getEntitiesOfClass(Entity.class, boundingBox);
             for(Entity entity : entities){
                 if(entity instanceof LivingEntity livingEntity && !livingEntity.equals(caster)){
-                    livingEntity.addEffect(new MobEffectInstance(EffectsRegistry.STUN.get(), 30, 0));
+                    if(Utils.Entities.canHitTarget(caster, livingEntity)){
+                        livingEntity.addEffect(new MobEffectInstance(EffectsRegistry.STUN.get(), 30, 0));
+                    }
                 }
             }
         }

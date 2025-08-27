@@ -11,6 +11,7 @@ import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
 import net.minecraftforge.api.distmarker.*;
 import org.jetbrains.annotations.*;
+import pro.komaru.tridot.api.*;
 import pro.komaru.tridot.client.gfx.*;
 import pro.komaru.tridot.client.gfx.particle.*;
 import pro.komaru.tridot.client.gfx.particle.data.*;
@@ -48,8 +49,8 @@ public class ClawEntity extends AbstractProjectile{
         super.onHitEntity(result);
         Entity entity = result.getEntity();
         Entity owner = this.getOwner();
-        if(owner instanceof LivingEntity pLivingEntity){
-            if(entity instanceof LivingEntity target && pLivingEntity.canAttack(target)){
+        if(owner instanceof LivingEntity pLivingEntity && entity instanceof LivingEntity target){
+            if(Utils.Entities.canHitTarget(target, pLivingEntity)){
                 if(entity instanceof Mob mob && mob.getNavigation() instanceof FlyingPathNavigation) return;
                 if(entity instanceof EnderDragon || entity instanceof AbstractBoss) return;
                 Vec3 direction = pLivingEntity.position().subtract(entity.position()).normalize();

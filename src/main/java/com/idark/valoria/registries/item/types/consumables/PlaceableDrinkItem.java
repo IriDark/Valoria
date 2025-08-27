@@ -6,13 +6,12 @@ import net.minecraft.*;
 import net.minecraft.advancements.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.server.level.*;
-import net.minecraft.sounds.*;
 import net.minecraft.stats.*;
+import net.minecraft.world.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.player.*;
-import net.minecraft.world.food.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
@@ -26,25 +25,14 @@ public class PlaceableDrinkItem extends BlockItem{
     private final ImmutableList<MobEffectInstance> effects;
     private static final Component NO_EFFECT = Component.translatable("effect.none").withStyle(ChatFormatting.GRAY);
 
-    public PlaceableDrinkItem(Block block, int nutrition, float saturation, int stackSize, Item pItem, MobEffectInstance... pEffects){
-        super(block, new Properties()
-                .food(new FoodProperties.Builder()
-                        .alwaysEat().nutrition(nutrition)
-                        .saturationMod(saturation)
-                        .build())
-                .stacksTo(stackSize)
-        );
-
+    public PlaceableDrinkItem(Block block, int stackSize, Item pItem, MobEffectInstance... pEffects){
+        super(block, new Properties().stacksTo(stackSize));
         this.item = pItem.getDefaultInstance();
         this.effects = ImmutableList.copyOf(pEffects);
     }
 
-    public SoundEvent getDrinkingSound(){
-        return SoundEvents.GENERIC_DRINK;
-    }
-
-    public SoundEvent getEatingSound(){
-        return SoundEvents.GENERIC_DRINK;
+    public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pHand) {
+        return ItemUtils.startUsingInstantly(pLevel, pPlayer, pHand);
     }
 
     @Override

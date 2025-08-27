@@ -1,7 +1,10 @@
 package com.idark.valoria.registries.item.types;
 
+import com.idark.valoria.*;
 import com.idark.valoria.core.config.*;
+import com.idark.valoria.core.interfaces.*;
 import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.item.component.*;
 import com.idark.valoria.util.*;
 import net.minecraft.*;
 import net.minecraft.client.*;
@@ -13,17 +16,18 @@ import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.player.*;
+import net.minecraft.world.inventory.tooltip.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.*;
 import net.minecraft.world.level.*;
 import net.minecraftforge.common.Tags.*;
-import org.jetbrains.annotations.*;
 import org.joml.*;
 import pro.komaru.tridot.api.interfaces.*;
 import pro.komaru.tridot.client.gfx.*;
 import pro.komaru.tridot.client.gfx.particle.*;
 import pro.komaru.tridot.client.gfx.particle.data.*;
 import pro.komaru.tridot.util.*;
+import pro.komaru.tridot.util.struct.data.*;
 
 import java.lang.Math;
 import java.util.*;
@@ -32,7 +36,7 @@ import java.util.*;
 // Fix the ability (Works weird on server)
 // Work on GFX side of the ability
 // Something like on-screen particles would be cool
-public class PhantomItem extends ValoriaSword implements RadiusItem, CooldownReductionItem{
+public class PhantomItem extends ValoriaSword implements RadiusItem, CooldownReductionItem, TooltipComponentItem{
     public float pRadius = 3;
 
     public PhantomItem(Tier tier, float attackDamageIn, float attackSpeedIn, Properties builderIn){
@@ -53,12 +57,12 @@ public class PhantomItem extends ValoriaSword implements RadiusItem, CooldownRed
         return 72000;
     }
 
-    @Override
-    public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced){
-        super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
-        pTooltipComponents.add(Component.translatable("tooltip.valoria.phantom").withStyle(ChatFormatting.GRAY));
-        pTooltipComponents.add(Component.empty());
-        pTooltipComponents.add(Component.translatable("tooltip.valoria.rmb").withStyle(ChatFormatting.GREEN));
+    public Seq<TooltipComponent> getTooltips(ItemStack pStack){
+        return Seq.with(
+        new AbilitiesComponent(),
+        new AbilityComponent(Component.translatable("tooltip.valoria.phantom").withStyle(ChatFormatting.GRAY), Valoria.loc("textures/gui/tooltips/phantom.png")),
+        new ClientTextComponent(Component.translatable("tooltip.valoria.rmb").withStyle(style -> style.withFont(Valoria.FONT)))
+        );
     }
 
     public void releaseUsing(ItemStack stack, Level level, LivingEntity entityLiving, int timeLeft){
