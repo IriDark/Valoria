@@ -1,7 +1,7 @@
 {
   "textures": {
     "1": "valoria:block/tinkerer_workbench",
-    "particle": "valoria:block/tinkerer_workbench"
+    "particle": "minecraft:block/spruce_planks"
   },
   "elements": [
     {

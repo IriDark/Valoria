@@ -1,6 +1,7 @@
 package com.idark.valoria.registries.item.types;
 
 import com.google.common.collect.*;
+import com.idark.valoria.*;
 import com.idark.valoria.core.interfaces.*;
 import com.idark.valoria.registries.*;
 import com.mojang.datafixers.util.*;
@@ -20,6 +21,7 @@ import net.minecraft.world.level.gameevent.*;
 import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.common.*;
 import org.jetbrains.annotations.*;
+import pro.komaru.tridot.client.gfx.text.*;
 
 import javax.annotation.Nullable;
 import java.util.*;
@@ -38,8 +40,8 @@ public class ValoriaMultiTool extends DiggerItem implements StoneCrushable{
 
     @OnlyIn(Dist.CLIENT)
     public void appendHoverText(ItemStack stack, Level level, List<Component> tooltip, TooltipFlag flagIn) {
-        tooltip.add(Component.translatable("tooltip.valoria.efficiency", speed).withStyle(ChatFormatting.GRAY));
-        tooltip.add(Component.translatable("tooltip.valoria.harvest", getTier().getLevel()).withStyle(ChatFormatting.GRAY));
+        tooltip.add(Component.translatable("tooltip.valoria.efficiency", speed).withStyle(ChatFormatting.GRAY).withStyle(DotStyle.of().font(Valoria.FONT)));
+        tooltip.add(Component.translatable("tooltip.valoria.harvest", getTier().getLevel()).withStyle(ChatFormatting.GRAY).withStyle(DotStyle.of().font(Valoria.FONT)));
     }
 
     public boolean isCorrectTags(BlockState state) {

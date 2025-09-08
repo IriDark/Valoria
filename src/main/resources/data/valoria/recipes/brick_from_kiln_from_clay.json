@@ -1,0 +1,9 @@
+{
+  "type": "valoria:kiln",
+  "ingredient": {
+    "item": "minecraft:clay"
+  },
+  "experience": 0.5,
+  "cookingtime": 100,
+  "result": "minecraft:brick"
+}

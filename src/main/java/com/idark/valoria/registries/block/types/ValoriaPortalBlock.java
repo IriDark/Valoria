@@ -27,8 +27,7 @@ import pro.komaru.tridot.util.*;
 import pro.komaru.tridot.util.math.*;
 
 public class ValoriaPortalBlock extends Block implements EntityBlock{
-    protected static final VoxelShape shape = Block.box(0.0D, 6.0D, 0.0D, 16.0D, 8.5D, 16.0D);
-
+    private static final VoxelShape shape = Block.box(0.0D, 6.0D, 0.0D, 16.0D, 8.5D, 16.0D);
     public ValoriaPortalBlock(Properties pProperties){
         super(pProperties);
     }

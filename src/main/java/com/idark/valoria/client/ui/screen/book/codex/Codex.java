@@ -7,10 +7,12 @@ import com.idark.valoria.client.ui.screen.book.*;
 import com.mojang.blaze3d.systems.*;
 import net.minecraft.client.*;
 import net.minecraft.client.gui.*;
+import net.minecraft.network.chat.*;
 import net.minecraft.resources.*;
 import net.minecraft.sounds.*;
 import net.minecraft.util.*;
 import net.minecraft.world.entity.player.*;
+import net.minecraft.world.item.*;
 import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.common.*;
 import org.lwjgl.glfw.*;
@@ -95,6 +97,8 @@ public class Codex extends DotScreen{
         pop();
     }
 
+    private float hoverProgress = 0.0F;
+    private long lastTime = 0;
     public void render(GuiGraphics gui, int mouseX, int mouseY){
         push();
         layer(300 * 2);
@@ -105,13 +109,37 @@ public class Codex extends DotScreen{
         push();
         renderBackground(gui, "textures/gui/book/background.png", mouseX, mouseY);
         layer(601);
-        if(isHover(mouseX, mouseY, (int)(this.cx()-10), guiTop() + this.frameHeight - 15, 20, 20)) {
-            gui.blit(FRAME, (int)(cx()-4-1), guiTop() + frameHeight - 8 -1, 10, 191, 12, 12, 512, 512);
-        } else {
-            gui.blit(FRAME, (int)(cx()-4), guiTop() + frameHeight - 8, 0, 192, 10, 10, 512, 512);
+        if(isHover(mouseX, mouseY, (int)(this.cx() - 10), guiTop() + this.frameHeight - 15, 20, 20)){
+            gui.blit(FRAME, (int)(cx() - 5 - 1), guiTop() + frameHeight - 10 - 1, 10, 191, 12, 12, 512, 512);
+        }else{
+            gui.blit(FRAME, (int)(cx() - 5), guiTop() + frameHeight - 10, 0, 192, 10, 10, 512, 512);
         }
 
         pop();
+
+        push();
+        renderBossChecklist(gui, mouseX, mouseY);
+        pop();
+    }
+
+    public void renderBossChecklist(GuiGraphics gui, int mouseX, int mouseY){
+        long currentTime = System.currentTimeMillis();
+        float deltaTime = (currentTime - lastTime) / 100.0F;
+        lastTime = currentTime;
+
+        boolean isHovered = isHover(mouseX, mouseY, guiLeft() - 25, guiTop() + 20, 35, 39);
+        float targetProgress = isHovered ? 1.0F : 0.0F;
+        hoverProgress = Mth.lerp(0.5F * deltaTime, hoverProgress, targetProgress);
+        float x = Mth.lerp(hoverProgress, 0, -20f);
+
+        layer(100);
+        move(x, 0, 0);
+        gui.blit(FRAME, guiLeft() - 10, guiTop() + 20, 288, 0, 35, 39, 512, 512);
+        gui.renderFakeItem(Items.KNOWLEDGE_BOOK.getDefaultInstance(), guiLeft() + 2, guiTop() + 30);
+        if(isHovered){
+            layer(100);
+            gui.renderTooltip(Minecraft.getInstance().font, Component.translatable("tooltip.valoria.boss_checklist"), mouseX, mouseY - 15);
+        }
     }
 
     public void drawDebug(double mouseX, double mouseY) {
@@ -137,6 +165,12 @@ public class Codex extends DotScreen{
         if(button == GLFW.GLFW_MOUSE_BUTTON_LEFT){
             for(CodexEntry entry : CodexEntries.entries){
                 entry.onClick(this, mouseX, mouseY, (int)uOffset, (int)vOffset);
+            }
+
+            if(isHover(mouseX, mouseY, guiLeft() - 25, guiTop() + 20, 35, 39)) {
+                hoverProgress = 0;
+                lastTime = 0;
+                this.changeChapter(CodexEntries.BOSS_CHECKLIST);
             }
         }
 

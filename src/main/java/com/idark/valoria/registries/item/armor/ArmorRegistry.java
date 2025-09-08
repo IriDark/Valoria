@@ -5,6 +5,7 @@ import com.idark.valoria.registries.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier.*;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.*;
 import org.jetbrains.annotations.*;
 import pro.komaru.tridot.common.registry.item.armor.*;
@@ -41,6 +42,7 @@ public class ArmorRegistry extends AbstractArmorRegistry{
     public static List<ArmorEffectData> etherealData = List.of(ArmorEffectData.createData(() -> MobEffects.NIGHT_VISION));
     public static List<HitEffectData> crimtaneData = List.of(HitEffectData.createData(EffectsRegistry.EXHAUSTION));
 
+    public static final ArmorRegistry FALLEN_COLLECTOR = new ArmorRegistry.Builder("fallen_collector").addAttr(AttributeReg.NECROMANCY_LIFETIME, new AttributeData(15, Operation.ADDITION)).addAttr(AttributeReg.NECROMANCY_COUNT, new AttributeData(3, Operation.ADDITION)).protection(25).mul(45).enchantValue(20).ingredient(() -> Ingredient.of(Items.LEATHER)).build();
     public static final ArmorRegistry MARSH = new ArmorRegistry.Builder("marsh").protection(20).mul(58).enchantValue(12).ingredient(() -> Ingredient.of(ItemsRegistry.marshCloth.get())).build();
     public static final ArmorRegistry BLACK_GOLD = new ArmorRegistry.Builder("black_gold").protection(20).mul(55).enchantValue(20).ingredient(() -> Ingredient.of(ItemsRegistry.blackGold.get())).build();
     public static final ArmorRegistry COBALT = new ArmorRegistry.Builder("cobalt").protection(25).mul(46).enchantValue(18).knockbackRes(0.05f).ingredient(() -> Ingredient.of(ItemsRegistry.cobaltIngot.get())).build();

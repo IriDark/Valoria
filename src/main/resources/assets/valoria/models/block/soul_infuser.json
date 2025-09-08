@@ -2,8 +2,9 @@
 	"format_version": "1.9.0",
 	"texture_size": [64, 64],
 	"textures": {
-		"2": "valoria:block/soul_infuser"
-	},
+		"2": "valoria:block/soul_infuser",
+      "particle": "valoria:block/tombstone"
+    },
 	"elements": [
 		{
 			"from": [4, 3, 4],

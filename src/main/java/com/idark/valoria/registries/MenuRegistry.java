@@ -18,6 +18,7 @@ public class MenuRegistry{
             })
     );
 
+    public static final RegistryObject<MenuType<HeavyWorkbenchMenu>> HEAVY_WORKBENCH = MENUS.register("heavy_workbench", () -> IForgeMenuType.create(HeavyWorkbenchMenu::new));
     public static final RegistryObject<MenuType<KilnMenu>> KILN_MENU = MENUS.register("kiln_menu", () -> IForgeMenuType.create((windowId, inv, data) -> new KilnMenu(windowId, inv)));
     public static final RegistryObject<MenuType<TinkererMenu>> TINKERING_MENU = MENUS.register("tinkering_menu", () -> IForgeMenuType.create((windowId, inv, data) -> new TinkererMenu(windowId, inv)));
     public static final RegistryObject<MenuType<ManipulatorMenu>> MANIPULATOR_MENU = MENUS.register("manipulator_menu", () -> IForgeMenuType.create((windowId, inv, data) -> {

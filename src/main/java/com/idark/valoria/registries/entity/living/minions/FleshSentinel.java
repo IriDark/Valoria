@@ -21,6 +21,8 @@ import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.phys.*;
 import pro.komaru.tridot.common.registry.entity.*;
+import pro.komaru.tridot.common.registry.entity.goal.FollowOwnerGoal;
+import pro.komaru.tridot.common.registry.entity.goal.*;
 
 import java.util.*;
 
@@ -56,6 +58,8 @@ public class FleshSentinel extends AbstractMinionEntity{
 
     protected void registerGoals(){
         super.registerGoals();
+        this.targetSelector.addGoal(0, new FollowOwnerGoal(this, 1, 24, 8, true));
+        this.targetSelector.addGoal(0, new CopyOwnerTargetGoal(this));
         this.targetSelector.addGoal(0, new NearestAttackableTargetGoal<>(this, Player.class, true));
         this.goalSelector.addGoal(0, new FleshSentinel.FleshSentinelOrbitAndShootGoal( 8, 0.5f));
         this.goalSelector.addGoal(0, new FleshSentinel.FleshSentinelRandomMoveGoal());

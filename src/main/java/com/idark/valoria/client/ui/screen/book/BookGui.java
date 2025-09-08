@@ -2,6 +2,7 @@ package com.idark.valoria.client.ui.screen.book;
 
 import com.idark.valoria.*;
 import com.idark.valoria.client.ui.screen.book.codex.*;
+import com.idark.valoria.client.ui.screen.book.codex.checklist.*;
 import com.mojang.blaze3d.systems.*;
 import net.minecraft.client.*;
 import net.minecraft.client.gui.*;
@@ -29,34 +30,52 @@ public class BookGui extends Screen{
         this.openedFromInv = openedFromInv;
     }
 
-    protected void initPages(){
+    @Override
+    public boolean mouseReleased(double pMouseX, double pMouseY, int pButton){
         Page left = currentChapter.getPage(currentPage), right = currentChapter.getPage(currentPage + 1);
-        left.init();
-        right.init();
+        if(left != null) left.mouseReleased(pMouseX, pMouseY, pButton);
+        if(right != null) right.mouseReleased(pMouseX, pMouseY, pButton);
+
+        return super.mouseReleased(pMouseX, pMouseY, pButton);
     }
 
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double scroll) {
         // scroll next
-        if(scroll > 0){
-            if(currentChapter.size() >= currentPage + 3){
-                currentPage += 2;
-                Minecraft.getInstance().player.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundSource.NEUTRAL, 1.0f, 1.0f);
+        Page left = currentChapter.getPage(currentPage), right = currentChapter.getPage(currentPage + 1);
+        if(left != null) left.mouseScrolled(mouseX, mouseY, scroll);
+        if(right != null) right.mouseScrolled(mouseX, mouseY, scroll);
+        if(currentChapter != CodexEntries.BOSS_CHECKLIST){
+            if(scroll > 0){
+                if(currentChapter.size() >= currentPage + 3){
+                    currentPage += 2;
+                    Minecraft.getInstance().player.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundSource.NEUTRAL, 1.0f, 1.0f);
+                }
             }
-        }
 
-        // scroll back
-        if (scroll < 0){
-            if(currentPage <= 0){
-                this.onClose();
-                return true; // prevent crash
-            } else {
-                currentPage -= 2;
-                Minecraft.getInstance().player.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundSource.NEUTRAL, 1.0f, 1.0f);
+            // scroll back
+            if(scroll < 0){
+                if(shouldOpenChecklist()) return super.mouseScrolled(mouseX, mouseY, scroll);
+                if(currentPage <= 0){
+                    this.onClose();
+                    return true; // prevent crash
+                }else{
+                    currentPage -= 2;
+                    Minecraft.getInstance().player.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundSource.NEUTRAL, 1.0f, 1.0f);
+                }
             }
         }
 
         return super.mouseScrolled(mouseX, mouseY, scroll);
+    }
+
+    private boolean shouldOpenChecklist(){
+        if(currentChapter.getPage(currentPage) instanceof BossPage){
+            changeChapter(CodexEntries.BOSS_CHECKLIST); // opens back checklist, QOL
+            return true;
+        }
+
+        return false;
     }
 
     @Override
@@ -132,16 +151,13 @@ public class BookGui extends Screen{
         Minecraft mc = Minecraft.getInstance();
         boolean flag = currentChapter.size() >= currentPage + 3;
         if(pKeyCode == GLFW.GLFW_KEY_PAGE_UP || pKeyCode == GLFW.GLFW_KEY_RIGHT){
-            if(flag){
-                mc.player.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundSource.NEUTRAL, 1.0f, 1.0f);
-                currentPage += 2;
-            }
+            nextPage(flag, mc);
         }
 
         if(pKeyCode == GLFW.GLFW_KEY_PAGE_DOWN || pKeyCode == GLFW.GLFW_KEY_LEFT){
+            if(shouldOpenChecklist()) return super.keyPressed(pKeyCode, pScanCode, pModifiers);
             if(!flag){
-                mc.player.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundSource.NEUTRAL, 1.0f, 1.0f);
-                currentPage -= 2;
+                backPage(mc);
             }else if(currentPage <= 0){
                 onClose();
             }
@@ -153,11 +169,11 @@ public class BookGui extends Screen{
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button){
         Minecraft mc = Minecraft.getInstance();
+        Page left = currentChapter.getPage(currentPage), right = currentChapter.getPage(currentPage + 1);
+        if(left != null) left.mouseClicked(mouseX, mouseY, button);
+        if(right != null) right.mouseClicked(mouseX, mouseY, button);
         if(button == GLFW.GLFW_KEY_PAGE_UP){
-            if(currentChapter.size() >= currentPage + 3){
-                mc.player.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundSource.NEUTRAL, 1.0f, 1.0f);
-                currentPage += 2;
-            }
+            nextPage(currentChapter.size() >= currentPage + 3, mc);
         }
 
         if(button == GLFW.GLFW_MOUSE_BUTTON_LEFT){
@@ -165,20 +181,15 @@ public class BookGui extends Screen{
             this.height = mc.getWindow().getGuiScaledHeight();
             int guiLeft = (width - 272) / 2, guiTop = (height - 180) / 2;
             if(currentChapter.size() >= currentPage + 3){
-                if(mouseX >= guiLeft + 250 && mouseX < guiLeft + 250 + 9 && mouseY >= guiTop + 150 && mouseY < guiTop + 150 + 8){
-                    mc.player.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundSource.NEUTRAL, 1.0f, 1.0f);
-                    currentPage += 2;
-                }
+                nextPage(mouseX >= guiLeft + 250 && mouseX < guiLeft + 250 + 9 && mouseY >= guiTop + 150 && mouseY < guiTop + 150 + 8, mc);
             }
 
             boolean isHovered = mouseX >= guiLeft + 13 && mouseX < guiLeft + 13 + 9 && mouseY >= guiTop + 150 && mouseY < guiTop + 150 + 8;
-            if(currentPage > 0){
-                if(isHovered){
-                    mc.player.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundSource.NEUTRAL, 1.0f, 1.0f);
-                    currentPage -= 2;
-                }
-            } else {
-                if(isHovered){
+            if(isHovered){
+                if(shouldOpenChecklist()) return false;
+                if(currentPage > 0){
+                    backPage(mc);
+                }else{
                     mc.player.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundSource.NEUTRAL, 1.0f, 1.0f);
                     onClose();
                 }
@@ -186,6 +197,23 @@ public class BookGui extends Screen{
         }
 
         return false;
+    }
+
+    public void changeChapter(Chapter chapter) {
+        currentChapter = chapter;
+        currentPage = 0;
+    }
+
+    public void nextPage(boolean currentChapter, Minecraft mc){
+        if(currentChapter){
+            mc.player.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundSource.NEUTRAL, 1.0f, 1.0f);
+            currentPage += 2;
+        }
+    }
+
+    public void backPage(Minecraft mc){
+        mc.player.playNotifySound(SoundEvents.BOOK_PAGE_TURN, SoundSource.NEUTRAL, 1.0f, 1.0f);
+        currentPage -= 2;
     }
 
     @Override

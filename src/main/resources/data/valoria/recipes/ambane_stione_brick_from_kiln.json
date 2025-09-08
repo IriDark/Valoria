@@ -1,0 +1,9 @@
+{
+  "type": "valoria:kiln",
+  "ingredient": {
+    "item": "valoria:ambane_stone"
+  },
+  "experience": 0.5,
+  "cookingtime": 100,
+  "result": "valoria:ambane_stone_brick"
+}

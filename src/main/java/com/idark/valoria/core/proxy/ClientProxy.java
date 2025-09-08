@@ -31,7 +31,7 @@ public class ClientProxy implements ISidedProxy{
             return;
         }
 
-        ValoriaClient.BOSS_MUSIC = new LoopedSoundInstance(event, Minecraft.getInstance().player);
+        ValoriaClient.BOSS_MUSIC = new LoopedSoundInstance(event, SoundSource.MUSIC, Minecraft.getInstance().player);
         soundManager.play(ValoriaClient.BOSS_MUSIC);
         if(!soundManager.isActive(ValoriaClient.BOSS_MUSIC)){
             ValoriaClient.BOSS_MUSIC = null;

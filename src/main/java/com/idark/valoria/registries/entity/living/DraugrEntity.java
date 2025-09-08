@@ -77,7 +77,7 @@ public class DraugrEntity extends Monster implements RangedAttackMob{
     protected void populateDefaultEquipmentSlots(RandomSource pRandom, DifficultyInstance pDifficulty){
         super.populateDefaultEquipmentSlots(pRandom, pDifficulty);
         this.setItemSlot(EquipmentSlot.MAINHAND, draugrCanSpawnWith.get(pRandom.nextInt(0, draugrCanSpawnWith.size())).getDefaultInstance());
-        if(Tmp.rnd.chance(0.15f)) {
+        if(Tmp.rnd.chance(0.15f)){
             this.setItemSlot(EquipmentSlot.OFFHAND, ItemsRegistry.draugrShield.get().getDefaultInstance());
         }
     }
@@ -121,7 +121,6 @@ public class DraugrEntity extends Monster implements RangedAttackMob{
                 this.goalSelector.addGoal(4, this.meleeGoal);
             }
         }
-
     }
 
     public void performRangedAttack(LivingEntity pTarget, float pDistanceFactor){

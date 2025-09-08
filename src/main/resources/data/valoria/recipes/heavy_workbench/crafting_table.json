@@ -1,0 +1,12 @@
+{
+  "type": "valoria:heavy_workbench",
+  "ingredients": [
+    { "item": { "item": "minecraft:iron_ingot" }, "count": 6 },
+    { "item": { "item": "minecraft:gold_ingot" }, "count": 6 },
+    { "item": { "item": "minecraft:redstone" }, "count": 2 }
+  ],
+  "result": {
+    "item": "minecraft:crafting_table",
+    "count": 1
+  }
+}

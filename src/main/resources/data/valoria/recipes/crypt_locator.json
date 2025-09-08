@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "/#/",
+    "#S#",
+    "/#/"
+  ],
+  "key": {
+    "/": {
+      "item": "minecraft:gold_ingot"
+    },
+    "#": {
+      "item": "minecraft:ender_pearl"
+    },
+    "S": {
+      "item": "minecraft:skeleton_skull"
+    }
+  },
+  "result": {
+    "item": "valoria:crypt_locator",
+    "count": 2
+  }
+}

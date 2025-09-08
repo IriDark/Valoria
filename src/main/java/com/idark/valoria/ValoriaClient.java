@@ -51,7 +51,6 @@ public class ValoriaClient{
     private static final String CATEGORY_KEY = "key.category.valoria.general";
     public static final KeyMapping BAG_MENU_KEY = new KeyMapping("key.valoria.bag_menu", KeyConflictContext.IN_GAME, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, CATEGORY_KEY);
     public static final KeyMapping JEWELRY_BONUSES_KEY = new KeyMapping("key.valoria.jewelry", KeyConflictContext.IN_GAME, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, CATEGORY_KEY);
-    public static TheFallenCollectorArmorModel THE_FALLEN_COLLECTOR_ARMOR = null;
 
     public static LoopedSoundInstance BOSS_MUSIC;
     public static ElementalManipulatorSoundInstance MANIPULATOR_LOOP;
@@ -89,6 +88,7 @@ public class ValoriaClient{
             e.register(AbilitiesComponent.class, c -> AbilitiesSeparatorClientComponent.create());
             e.register(AbilityComponent.class, c -> AbilityClientComponent.create(c.component(), c.icon()));
             e.register(ClientTextComponent.class, c -> ClientTextClientComponent.create(c.component()));
+            e.register(ClientMaterialListClientComponent.class, c -> MaterialListClientComponent.create(c.list()));
         }
 
         @SubscribeEvent
@@ -148,6 +148,7 @@ public class ValoriaClient{
             EntityRenderers.register(EntityTypeRegistry.DREADWOOD_BOAT.get(), m -> new CustomBoatRenderer(m, Valoria.ID, "dreadwood", false, false));
             EntityRenderers.register(EntityTypeRegistry.DREADWOOD_CHEST_BOAT.get(), m -> new CustomBoatRenderer(m, Valoria.ID, "dreadwood", true, false));
 
+            EntityRenderers.register(EntityTypeRegistry.LOCATOR.get(), ThrownItemRenderer::new);
             EntityRenderers.register(EntityTypeRegistry.CLAW.get(), ClawRenderer::new);
             EntityRenderers.register(EntityTypeRegistry.SCAVENGER.get(), ScavengerRenderer::new);
             EntityRenderers.register(EntityTypeRegistry.WICKED_SCORPION.get(), WickedScorpionRenderer::new);
@@ -217,22 +218,15 @@ public class ValoriaClient{
             event.registerLayerDefinition(ValoriaLayers.BAG_LAYER, JewelryBagModel::createBodyLayer);
             event.registerLayerDefinition(ValoriaLayers.HANDS_LAYER, HandsModel::createBodyLayer);
             event.registerLayerDefinition(ValoriaLayers.HANDS_LAYER_SLIM, HandsModelSlim::createBodyLayer);
-            event.registerLayerDefinition(ValoriaLayers.THE_FALLEN_COLLECTOR_ARMOR_LAYER, TheFallenCollectorArmorModel::createBodyLayer);
             event.registerLayerDefinition(ValoriaLayers.MONOCLE_LAYER, MonocleModel::createBodyLayer);
             event.registerLayerDefinition(ValoriaLayers.RESPIRATOR_LAYER, RespiratorModel::createBodyLayer);
-
+            event.registerLayerDefinition(ValoriaLayers.CROWN_LAYER, CrownModel::createBodyLayer);
             event.registerLayerDefinition(ValoriaLayers.GAS_MASK_LAYER, GasMaskModel::createBodyLayer);
+
             event.registerLayerDefinition(ValoriaLayers.INFERNAL_ARMOR_INNER, () -> LayerDefinition.create(InfernalArmorModel.addPieces(LayerDefinitions.INNER_ARMOR_DEFORMATION), 64, 32));
             event.registerLayerDefinition(ValoriaLayers.INFERNAL_ARMOR_OUTER, () -> LayerDefinition.create(InfernalArmorModel.addPieces(LayerDefinitions.OUTER_ARMOR_DEFORMATION), 64, 32));
             event.registerLayerDefinition(ValoriaLayers.VOID_ARMOR_INNER, () -> LayerDefinition.create(VoidArmorModel.addPieces(LayerDefinitions.INNER_ARMOR_DEFORMATION), 64, 32));
             event.registerLayerDefinition(ValoriaLayers.VOID_ARMOR_OUTER, () -> LayerDefinition.create(VoidArmorModel.addPieces(LayerDefinitions.OUTER_ARMOR_DEFORMATION), 64, 32));
-            event.registerLayerDefinition(ValoriaLayers.PHANTASM_ARMOR_INNER, () -> LayerDefinition.create(PhantasmArmorModel.addPieces(LayerDefinitions.INNER_ARMOR_DEFORMATION), 64, 32));
-            event.registerLayerDefinition(ValoriaLayers.PHANTASM_ARMOR_OUTER, () -> LayerDefinition.create(PhantasmArmorModel.addPieces(LayerDefinitions.OUTER_ARMOR_DEFORMATION), 64, 32));
-        }
-
-        @SubscribeEvent
-        public static void addLayers(EntityRenderersEvent.AddLayers event){
-            THE_FALLEN_COLLECTOR_ARMOR = new TheFallenCollectorArmorModel(event.getEntityModels().bakeLayer(ValoriaLayers.THE_FALLEN_COLLECTOR_ARMOR_LAYER));
         }
 
         @SubscribeEvent

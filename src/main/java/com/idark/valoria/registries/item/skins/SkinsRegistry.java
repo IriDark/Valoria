@@ -2,12 +2,10 @@ package com.idark.valoria.registries.item.skins;
 
 import com.idark.valoria.*;
 import com.idark.valoria.registries.*;
-import com.idark.valoria.registries.item.skins.entries.*;
 import com.idark.valoria.registries.item.types.*;
 import com.idark.valoria.util.*;
 import net.minecraft.client.resources.model.*;
 import net.minecraft.resources.*;
-import net.minecraft.world.entity.*;
 import net.minecraft.world.item.*;
 import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.client.event.*;
@@ -32,9 +30,6 @@ public class SkinsRegistry implements ISkinProvider{
     public static ItemSkin THE_FALLEN_COLLECTOR, ARCANE_GOLD, CYBERPUNK, MIDNIGHT, MURAMASA, MURASAME, FISH, NERO, STAR_DIVIDER, DEATH_OF_CRABS, ICY, LOTUS;
     public void initializeSkins(){
         THE_FALLEN_COLLECTOR = new SkinBuilder(Valoria.ID, "the_fallen_collector").color(Pal.seaGreen).contributor("Kerdo", Styles.nature)
-                .add(new TheFallenCollectorSkinEntry(ArmorItem.class, Valoria.loc("textures/models/armor/skin/the_fallen_collector"))
-                        .addArmorSkin(EquipmentSlot.HEAD, Valoria.loc("the_fallen_collector_crown"))
-                        .addArmorSkin(EquipmentSlot.CHEST, Valoria.loc("the_fallen_collector_coat")))
                 .add(new ItemSupplierSkinEntry(() -> ItemsRegistry.murasama.get(), Valoria.loc("brand")))
                 .build();
         ARCANE_GOLD = new SkinBuilder(Valoria.ID, "arcane_gold").color(Pal.arcaneGold)

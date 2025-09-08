@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "XGX",
+    "IOI",
+    "XIX"
+  ],
+  "key": {
+    "I": {
+      "item": "valoria:black_gold_ingot"
+    },
+    "O": {
+      "item": "valoria:nihility_shard"
+    },
+    "G": {
+      "item": "minecraft:gold_ingot"
+    },
+    "X": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "result": {
+    "item": "valoria:nihility_monitor",
+    "count": 1
+  }
+}

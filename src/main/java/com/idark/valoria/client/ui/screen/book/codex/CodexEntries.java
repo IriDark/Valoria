@@ -3,6 +3,7 @@ package com.idark.valoria.client.ui.screen.book.codex;
 import com.idark.valoria.api.events.CodexEvent.*;
 import com.idark.valoria.api.unlockable.types.*;
 import com.idark.valoria.client.ui.screen.book.*;
+import com.idark.valoria.client.ui.screen.book.codex.checklist.*;
 import com.idark.valoria.client.ui.screen.book.pages.*;
 import com.idark.valoria.client.ui.screen.book.unlockable.*;
 import com.idark.valoria.registries.*;
@@ -20,7 +21,8 @@ import java.util.*;
 
 public class CodexEntries{
     public static Seq<CodexEntry> entries = new Seq<>();
-    public static Chapter MAIN_CHAPTER, PAGES_CHAPTER, TREASURES_CHAPTER, MEDICINE_CHAPTER,
+    public static Seq<BossEntry> bossEntries = new Seq<>();
+    public static Chapter MAIN_CHAPTER, PAGES_CHAPTER, TREASURES_CHAPTER, MEDICINE_CHAPTER, BOSS_CHECKLIST,
 
     PICK, TINKERER_WORKBENCH, STONE_CRUSHER, VALORIA_PORTAL,
 
@@ -44,6 +46,8 @@ public class CodexEntries{
         new MainPage("codex.valoria.main"),
         new TextPage("codex.valoria.knowledge")
         .withCraftEntry(ItemsRegistry.codex.get().getDefaultInstance()));
+
+        BOSS_CHECKLIST = new Chapter("codex.valoria.bosses.name", new BossMainPage("codex.valoria.bosses.name", bossEntries));
 
         PAGES_CHAPTER = new Chapter(
         "codex.valoria.pages.name",

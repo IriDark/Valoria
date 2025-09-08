@@ -27,6 +27,7 @@ public class TinkeringRecipe implements Recipe<Container>{
         this.result = pResult;
     }
 
+
     public RecipeType<?> getType(){
         return TinkeringRecipe.Type.INSTANCE;
     }

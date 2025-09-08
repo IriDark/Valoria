@@ -37,6 +37,7 @@ public class NihilityLevelProvider implements INihilityLevel, INBTSerializable<C
 
     @Override
     public float getAmount(boolean clientSide) {
+        if(clientSide) return clientAmount;
         return this.nihilityAmount;
     }
 

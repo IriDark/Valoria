@@ -70,11 +70,12 @@ public class ItemsRegistry{
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Valoria.ID);
     public static RegistryObject<Item>
     // Block items
-    shadewoodBoat, shadewoodChestBoat, shadewoodSign, shadewoodHangingSign,
-    eldritchBoat, eldritchChestBoat, eldritchSign, eldritchHangingSign,
-    dreadwoodBoat, dreadwoodChestBoat, dreadwoodSign, dreadwoodHangingSign,
+    shadewoodBoat, shadewoodChestBoat,
+    eldritchBoat, eldritchChestBoat,
+    dreadwoodBoat, dreadwoodChestBoat,
 
     // armor
+    fallenCollectorHood, fallenCollectorCoat, fallenCollectorLeggings, fallenCollectorBoots,
     blackGoldHelmet, blackGoldChestplate, blackGoldLeggings, blackGoldBoots,
     cobaltHelmet, cobaltChestplate, cobaltLeggings, cobaltBoots,
     samuraiKabuto, samuraiChestplate, samuraiLeggings, samuraiBoots,
@@ -105,6 +106,9 @@ public class ItemsRegistry{
     // loot bags
     minersBag, gemBag, necromancerTreasureBag, crystalTreasureBag, dryadorTreasureBag, dirtGeode, stoneGeode,
 
+    // locators
+    cryptLocator,
+
     // boss summonables
     necromancerGrimoire, suspiciousGem, harmonyCrown,
 
@@ -113,6 +117,7 @@ public class ItemsRegistry{
     codex, page, cryptPage, fortressPage, necromancerPage, dryadorPage, wickedCrystalPage, rot,
 
     // weapons
+    flameSword,
     club, clawhook, bronzeSword, spectralBlade, corpseCleaver, boneShuriken,
     samuraiKunai, samuraiPoisonedKunai, samuraiKatana, samuraiLongBow,
     silkenBlade, silkenKunai, silkenWakizashi, meatCutter, quantumReaper, bloodHound,
@@ -148,9 +153,11 @@ public class ItemsRegistry{
     netheriteRing, netheriteRingAmber, netheriteRingDiamond, netheriteRingRuby, netheriteRingEmerald, netheriteRingSapphire,
     leatherGloves, ironGloves, goldenGloves, diamondGloves, netheriteGloves,
     voidCrystal, amberTotem, amberWinglet, amberGazer, emeraldTotem, emeraldWinglet, emeraldGazer, amethystTotem, amethystWinglet, amethystGazer, rubyTotem, rubyWinglet, rubyGazer,
-    brokenMonocle, monocle, jewelryBag, pickNecklace,
+    theFallenCollectorCrown, brokenMonocle, monocle, jewelryBag, pickNecklace,
     bandage, devilHeart, harmonyHeart, medicatedDevilHeart, medicatedHarmonyHeart, elementalCharm,
-    skeletalVambrace, magmaticVambrace, magmaticGauntlet, respirator, gasMask,
+    skeletalVambrace, magmaticVambrace, magmaticGauntlet,
+
+    nihilityMonitor, respirator, gasMask,
 
     // runes
     lesserRune, lesserRuneVision, lesserRuneWealth, lesserRuneCurses, lesserRuneStrength, lesserRuneAccuracy, lesserRuneDeep,
@@ -168,23 +175,14 @@ public class ItemsRegistry{
     pumpkinContract, goblin, kingCrab, dryador, pixie, entMob, draugr, swampWanderer, scourge, maggot, sorcerer, necromancer, undead, devil, troll, shadewoodSpider, scavenger, scorpion, corruptedTroll, corrupted, fleshSentinel, wickedCrystal, crystal, mannequin;
 
     public static void load(IEventBus eventBus){
-        shadewoodBoat = BLOCK_ITEMS.register("shadewood_boat", () -> new CustomBoatItem(new Item.Properties().stacksTo(1), EntityTypeRegistry.SHADEWOOD_BOAT));
-        shadewoodChestBoat = BLOCK_ITEMS.register("shadewood_chest_boat", () -> new CustomChestBoatItem(new Item.Properties().stacksTo(1), EntityTypeRegistry.SHADEWOOD_CHEST_BOAT));
-        shadewoodSign = BLOCK_ITEMS.register("shadewood_sign", () -> new SignItem(new Item.Properties().stacksTo(16), BlockRegistry.shadewoodSign.get(), BlockRegistry.shadewoodWallSign.get()));
-        shadewoodHangingSign = BLOCK_ITEMS.register("shadewood_hanging_sign", () -> new HangingSignItem(BlockRegistry.shadewoodHangingSign.get(), BlockRegistry.shadewoodWallHangingSign.get(), new Item.Properties().stacksTo(16)));
-        eldritchBoat = BLOCK_ITEMS.register("eldritch_boat", () -> new CustomBoatItem(new Properties().stacksTo(1), EntityTypeRegistry.ELDRITCH_BOAT));
-        eldritchChestBoat = BLOCK_ITEMS.register("eldritch_chest_boat", () -> new CustomChestBoatItem(new Item.Properties().stacksTo(1), EntityTypeRegistry.ELDRITCH_CHEST_BOAT));
-        eldritchSign = BLOCK_ITEMS.register("eldritch_sign", () -> new SignItem(new Item.Properties().stacksTo(16), BlockRegistry.eldritchSign.get(), BlockRegistry.eldritchWallSign.get()));
-        eldritchHangingSign = BLOCK_ITEMS.register("eldritch_hanging_sign", () -> new HangingSignItem(BlockRegistry.eldritchHangingSign.get(), BlockRegistry.eldritchWallHangingSign.get(), new Item.Properties().stacksTo(16)));
-        dreadwoodBoat = BLOCK_ITEMS.register("dreadwood_boat", () -> new CustomBoatItem(new Properties().stacksTo(1), EntityTypeRegistry.DREADWOOD_BOAT));
-        dreadwoodChestBoat = BLOCK_ITEMS.register("dreadwood_chest_boat", () -> new CustomChestBoatItem(new Item.Properties().stacksTo(1), EntityTypeRegistry.DREADWOOD_CHEST_BOAT));
-        dreadwoodSign = BLOCK_ITEMS.register("dreadwood_sign", () -> new SignItem(new Item.Properties().stacksTo(16), BlockRegistry.dreadwoodSign.get(), BlockRegistry.dreadwoodWallSign.get()));
-        dreadwoodHangingSign = BLOCK_ITEMS.register("dreadwood_hanging_sign", () -> new HangingSignItem(BlockRegistry.dreadwoodHangingSign.get(), BlockRegistry.dreadwoodWallHangingSign.get(), new Item.Properties().stacksTo(16)));
-
         blackGoldHelmet = registerItem("black_gold_helmet", () -> new PercentageArmorItem(ArmorRegistry.BLACK_GOLD, Type.HELMET, new Properties()));
         blackGoldChestplate = registerItem("black_gold_chestplate", () -> new PercentageArmorItem(ArmorRegistry.BLACK_GOLD, Type.CHESTPLATE, new Properties()));
         blackGoldLeggings = registerItem("black_gold_leggings", () -> new PercentageArmorItem(ArmorRegistry.BLACK_GOLD, Type.LEGGINGS, new Properties()));
         blackGoldBoots = registerItem("black_gold_boots", () -> new PercentageArmorItem(ArmorRegistry.BLACK_GOLD, Type.BOOTS, new Properties()));
+        fallenCollectorHood = registerItem("the_fallen_collector_hood", () -> new FallenCollectorArmorItem(ArmorRegistry.FALLEN_COLLECTOR, Type.HELMET, new Properties()));
+        fallenCollectorCoat = registerItem("the_fallen_collector_coat", () -> new FallenCollectorArmorItem(ArmorRegistry.FALLEN_COLLECTOR, Type.CHESTPLATE, new Properties()));
+        fallenCollectorLeggings = registerItem("the_fallen_collector_leggings", () -> new FallenCollectorArmorItem(ArmorRegistry.FALLEN_COLLECTOR, Type.LEGGINGS, new Properties()));
+        fallenCollectorBoots = registerItem("the_fallen_collector_boots", () -> new FallenCollectorArmorItem(ArmorRegistry.FALLEN_COLLECTOR, Type.BOOTS, new Properties()));
         cobaltHelmet = registerItem("cobalt_helmet", () -> new SkinableArmorItem(ArmorRegistry.COBALT, ArmorItem.Type.HELMET, new Item.Properties()));
         cobaltChestplate = registerItem("cobalt_chestplate", () -> new SkinableArmorItem(ArmorRegistry.COBALT, ArmorItem.Type.CHESTPLATE, new Item.Properties()));
         cobaltLeggings = registerItem("cobalt_leggings", () -> new SkinableArmorItem(ArmorRegistry.COBALT, ArmorItem.Type.LEGGINGS, new Item.Properties()));
@@ -201,10 +199,10 @@ public class ItemsRegistry{
         etherealChestplate = registerEffectArmor("ethereal_chestplate", ArmorItem.Type.CHESTPLATE, ArmorRegistry.ETHEREAL, new Item.Properties().rarity(RarityRegistry.ETHEREAL));
         etherealLeggings = registerEffectArmor("ethereal_leggings", ArmorItem.Type.LEGGINGS, ArmorRegistry.ETHEREAL, new Item.Properties().rarity(RarityRegistry.ETHEREAL));
         etherealBoots = registerEffectArmor("ethereal_boots", ArmorItem.Type.BOOTS, ArmorRegistry.ETHEREAL, new Item.Properties().rarity(RarityRegistry.ETHEREAL));
-        spiderHelmet = registerItem("spider_helmet", () -> new HitEffectArmorItem(ArmorRegistry.SPIDER, ArmorItem.Type.HELMET, new Item.Properties().rarity(RarityRegistry.SPIDER), 0.5f, new MobEffectInstance(MobEffects.WEAKNESS, 60)));
-        spiderChestplate = registerItem("spider_chestplate", () -> new HitEffectArmorItem(ArmorRegistry.SPIDER, ArmorItem.Type.CHESTPLATE, new Item.Properties().rarity(RarityRegistry.SPIDER), 0.5f, new MobEffectInstance(MobEffects.BLINDNESS, 60)));
-        spiderLeggings = registerItem("spider_leggings", () -> new HitEffectArmorItem(ArmorRegistry.SPIDER, ArmorItem.Type.LEGGINGS, new Item.Properties().rarity(RarityRegistry.SPIDER), 0.5f, new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60)));
-        spiderBoots = registerItem("spider_boots", () -> new HitEffectArmorItem(ArmorRegistry.SPIDER, ArmorItem.Type.BOOTS, new Item.Properties().rarity(RarityRegistry.SPIDER), 0.5f, new MobEffectInstance(MobEffects.CONFUSION, 60)));
+        spiderHelmet = registerItem("spider_helmet", () -> new SpiderArmor(ArmorRegistry.SPIDER, ArmorItem.Type.HELMET, new Item.Properties().rarity(RarityRegistry.SPIDER), 0.5f, new MobEffectInstance(MobEffects.WEAKNESS, 60)));
+        spiderChestplate = registerItem("spider_chestplate", () -> new SpiderArmor(ArmorRegistry.SPIDER, ArmorItem.Type.CHESTPLATE, new Item.Properties().rarity(RarityRegistry.SPIDER), 0.5f, new MobEffectInstance(MobEffects.BLINDNESS, 60)));
+        spiderLeggings = registerItem("spider_leggings", () -> new SpiderArmor(ArmorRegistry.SPIDER, ArmorItem.Type.LEGGINGS, new Item.Properties().rarity(RarityRegistry.SPIDER), 0.5f, new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60)));
+        spiderBoots = registerItem("spider_boots", () -> new SpiderArmor(ArmorRegistry.SPIDER, ArmorItem.Type.BOOTS, new Item.Properties().rarity(RarityRegistry.SPIDER), 0.5f, new MobEffectInstance(MobEffects.CONFUSION, 60)));
         pyratiteHelmet = registerItem("pyratite_helmet",  () -> new PyratiteArmorItem(Type.HELMET, ArmorRegistry.PYRATITE, new Item.Properties().rarity(RarityRegistry.PYRATITE)));
         pyratiteChestplate = registerItem("pyratite_chestplate",  () -> new PyratiteArmorItem(Type.CHESTPLATE, ArmorRegistry.PYRATITE, new Item.Properties().rarity(RarityRegistry.PYRATITE)));
         pyratiteLeggings = registerItem("pyratite_leggings",  () -> new PyratiteArmorItem(Type.LEGGINGS, ArmorRegistry.PYRATITE, new Item.Properties().rarity(RarityRegistry.PYRATITE)));
@@ -231,10 +229,10 @@ public class ItemsRegistry{
         awakenedVoidChestplate = registerItem("awakened_void_chestplate", () -> new VoidArmorItem(Type.CHESTPLATE, ArmorRegistry.VOID, new Item.Properties().rarity(RarityRegistry.VOID).fireResistant()));
         awakenedVoidLeggings = registerItem("awakened_void_leggings", () -> new VoidArmorItem(Type.LEGGINGS, ArmorRegistry.VOID, new Item.Properties().rarity(RarityRegistry.VOID).fireResistant()));
         awakenedVoidBoots = registerItem("awakened_void_boots", () -> new VoidArmorItem(Type.BOOTS, ArmorRegistry.VOID, new Item.Properties().rarity(RarityRegistry.VOID).fireResistant()));
-        phantasmHelmet = registerItem("phantasm_helmet", () -> new EffectArmorItem(ArmorRegistry.PHANTASM, Type.HELMET, new Item.Properties().rarity(RarityRegistry.PHANTASM).fireResistant()));
-        phantasmChestplate = registerItem("phantasm_chestplate", () -> new EffectArmorItem(ArmorRegistry.PHANTASM, Type.CHESTPLATE, new Item.Properties().rarity(RarityRegistry.PHANTASM).fireResistant()));
-        phantasmLeggings = registerItem("phantasm_leggings", () -> new EffectArmorItem(ArmorRegistry.PHANTASM, Type.LEGGINGS, new Item.Properties().rarity(RarityRegistry.PHANTASM).fireResistant()));
-        phantasmBoots = registerItem("phantasm_boots", () -> new EffectArmorItem(ArmorRegistry.PHANTASM, Type.BOOTS, new Item.Properties().rarity(RarityRegistry.PHANTASM).fireResistant()));
+        phantasmHelmet = registerItem("phantasm_helmet", () -> new PhantasmArmor(ArmorRegistry.PHANTASM, Type.HELMET, new Item.Properties().rarity(RarityRegistry.PHANTASM).fireResistant()));
+        phantasmChestplate = registerItem("phantasm_chestplate", () -> new PhantasmArmor(ArmorRegistry.PHANTASM, Type.CHESTPLATE, new Item.Properties().rarity(RarityRegistry.PHANTASM).fireResistant()));
+        phantasmLeggings = registerItem("phantasm_leggings", () -> new PhantasmArmor(ArmorRegistry.PHANTASM, Type.LEGGINGS, new Item.Properties().rarity(RarityRegistry.PHANTASM).fireResistant()));
+        phantasmBoots = registerItem("phantasm_boots", () -> new PhantasmArmor(ArmorRegistry.PHANTASM, Type.BOOTS, new Item.Properties().rarity(RarityRegistry.PHANTASM).fireResistant()));
 
         //materials
         rawCobalt = registerItem("raw_cobalt");
@@ -329,6 +327,9 @@ public class ItemsRegistry{
         crystalTreasureBag = registerItem("wicked_crystal_treasure_bag", () -> new TreasureBag(new ResourceLocation(Valoria.ID, "items/wicked_crystal_treasure_bag"), new Item.Properties().rarity(Rarity.EPIC)));
         dryadorTreasureBag = registerItem("dryador_treasure_bag", () -> new TreasureBag(new ResourceLocation(Valoria.ID, "items/dryador_treasure_bag"), new Item.Properties().rarity(Rarity.EPIC)));
 
+        // locators
+        cryptLocator = registerItem("crypt_locator", () -> new StructureLocatorItem(Pal.seaGreen, TagsRegistry.NECROMANCER_CRYPT_LOCATOR, new Item.Properties()));
+
         // boss summonables
         necromancerGrimoire = registerItem("necromancer_grimoire", () -> new Item(new Item.Properties()){
             @Override
@@ -371,6 +372,7 @@ public class ItemsRegistry{
         pick = registerItem("prospectors_pick", () -> new PickItem(new Item.Properties().fireResistant().stacksTo(1).durability(64), 1, -2.8f, 5));
 
         // weapons
+        flameSword = registerItem("flame_sword", () -> new FlameSwordItem(Tiers.NETHERITE, 5, 2, new Properties()));
         club = registerItem("club", () -> new HitEffectItem(Tiers.WOOD, 5, -3.2f, new Item.Properties(), 0.1f, new MobEffectInstance(EffectsRegistry.STUN.get(), 60, 0)));
         clawhook = registerItem("clawhook", () -> new ClawhookItem(new Item.Properties().durability(125)));
         bronzeSword = registerItem("bronze_sword", () -> new SwordItem(ItemTierRegistry.BRONZE, 6, -2.4f, new Item.Properties()));
@@ -601,6 +603,7 @@ public class ItemsRegistry{
         rubyWinglet = registerItem("ruby_golden_winglet", () -> new TalismanItem.Builder(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)).put(Attributes.ATTACK_SPEED, 0.35).put(Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_TOTAL, 0.15).build());
         rubyGazer = registerItem("ruby_golden_gazer", () -> new TalismanItem.Builder(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)).put(Attributes.MAX_HEALTH, 3).put(Attributes.ATTACK_SPEED, Operation.MULTIPLY_TOTAL, -0.15).build());
 
+        theFallenCollectorCrown = registerItem("the_fallen_collector_crown", () -> new CrownItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
         brokenMonocle = registerItem("broken_bloodsight_monocle", () -> new BloodSight(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
         monocle = registerItem("bloodsight_monocle", () -> new BloodSight(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
         jewelryBag = registerItem("jewelry_bag", () -> new JewelryBagItem(new Item.Properties().stacksTo(1)));
@@ -614,6 +617,8 @@ public class ItemsRegistry{
         skeletalVambrace = registerItem("skeletal_vambrace", () -> new VambraceItem("skeletal", ItemTierRegistry.NONE, new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
         magmaticVambrace = registerItem("magmatic_vambrace", () -> new VambraceItem("magmatic", Tiers.NETHERITE, new Item.Properties().stacksTo(1).rarity(Rarity.EPIC)));
         magmaticGauntlet = registerItem("magmatic_gauntlet", () -> new MagmaticGauntletItem(Tiers.NETHERITE, new Item.Properties().stacksTo(1).rarity(Rarity.EPIC)));
+
+        nihilityMonitor = registerItem("nihility_monitor", () -> new NihilityMonitorItem(new Item.Properties().stacksTo(1).rarity(RarityRegistry.VOID)));
         respirator = registerItem("respirator", () -> new RespiratorItem(new Item.Properties().stacksTo(1).durability(300).rarity(RarityRegistry.VOID)));
         gasMask = registerItem("gas_mask", () -> new GasMaskItem(new Item.Properties().stacksTo(1).durability(1200).rarity(RarityRegistry.VOID)));
 

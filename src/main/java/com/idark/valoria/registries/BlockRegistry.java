@@ -27,6 +27,7 @@ import net.minecraftforge.registries.*;
 import pro.komaru.tridot.api.*;
 import pro.komaru.tridot.client.gfx.particle.data.*;
 import pro.komaru.tridot.common.registry.block.chest.*;
+import pro.komaru.tridot.common.registry.item.types.*;
 import pro.komaru.tridot.util.*;
 
 import java.util.function.*;
@@ -54,7 +55,7 @@ public class BlockRegistry{
     dunestone, dunestoneStairs, dunestoneSlab, dunestoneWall, dunestoneBricks, dunestoneBricksStairs, dunestoneBricksSlab, dunestoneBricksWall, cutDunestone, polishedDunestone, //other varities?
 
     // crafting stations
-    stoneCrusher, jewelerTable, keg, tinkererWorkbench, soulInfuser, elementalManipulator, kiln,
+    heavyWorkbench, stoneCrusher, jewelerTable, keg, tinkererWorkbench, soulInfuser, elementalManipulator, kiln,
 
     // boss summon altars
     crypticAltar, wickedAltar,
@@ -85,21 +86,15 @@ public class BlockRegistry{
 
 
     public static void load(IEventBus eventBus){
-        suspiciousIce = registerBlock("suspicious_ice", () -> new CrushableBlock(true, Blocks.ICE, BlockBehaviour.Properties.copy(Blocks.ICE).friction(0.98F).noOcclusion().strength(0.5F).mapColor(MapColor.ICE).instrument(NoteBlockInstrument.SNARE).sound(SoundsRegistry.SUSPICIOUS_TOMBSTONE).pushReaction(PushReaction.DESTROY), SoundEvents.BRUSH_GRAVEL));
+        heavyWorkbench = registerBlock("heavy_workbench", () -> new HeavyWorkbenchBlock(props(Blocks.IRON_BLOCK, MapColor.COLOR_BLACK).noOcclusion()));
         spikes = registerBlock("spikes", () -> new SpikeBlock(propsUnbreakable(Blocks.STONE, MapColor.COLOR_GRAY).noOcclusion().noLootTable()));
-
-        valoriaPortalFrame = registerBlock("valoria_portal_frame", () -> new ValoriaPortalFrame(props(Blocks.IRON_BLOCK, MapColor.COLOR_PURPLE).strength(42f, 3600000.8F).sound(SoundType.DEEPSLATE_TILES)));
-        valoriaPortal = BLOCK.register("valoria_portal", () -> new ValoriaPortalBlock(BlockBehaviour.Properties.copy(Blocks.NETHER_PORTAL).mapColor(MapColor.COLOR_PURPLE)));
-
         umbralKeypad = registerBlock("umbral_keypad", () -> new UmbralKeyPadBlock(propsUnbreakable(Blocks.IRON_BLOCK, MapColor.COLOR_PURPLE).sound(SoundType.NETHER_BRICKS).noLootTable()));
         umbralActivator = registerBlock("umbral_activator", () -> new UmbralActivatorBlock(propsUnbreakable(Blocks.IRON_BLOCK, MapColor.COLOR_PURPLE).sound(SoundType.NETHER_BRICKS).noLootTable()));
         cutUmbralBlock = registerBlock("cut_umbral_block", () -> new Block(propsUnbreakable(Blocks.IRON_BLOCK, MapColor.COLOR_PURPLE).sound(SoundType.NETHER_BRICKS).noLootTable()));
         umbralBlock = registerBlock("umbral_block", () -> new UmbralBlock(propsUnbreakable(Blocks.IRON_BLOCK, MapColor.COLOR_PURPLE).sound(SoundType.NETHER_BRICKS).noLootTable()));
         umbralBricks = registerBlock("umbral_bricks", () -> new UmbralBlock(propsUnbreakable(Blocks.IRON_BLOCK, MapColor.COLOR_PURPLE).sound(SoundType.NETHER_BRICKS).noLootTable()));
-
-        pyratiteBlock = registerBlock("pyratite_block", () -> new Block(props(Blocks.AMETHYST_BLOCK, MapColor.COLOR_ORANGE).requiresCorrectToolForDrops().lightLevel(Utils.Blocks.light(9))));
-        pyratiteOre = registerBlock("pyratite_ore", () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE).requiresCorrectToolForDrops().strength(10f, 12f), UniformInt.of(2, 4)));
-        pyratiteCrystal = registerBlock("pyratite_crystal", () -> new AmethystClusterBlock(7, 3, BlockBehaviour.Properties.copy(Blocks.LARGE_AMETHYST_BUD).strength(1f, 0f).sound(SoundType.GLASS).noOcclusion()));
+        valoriaPortalFrame = registerBlock("valoria_portal_frame", () -> new ValoriaPortalFrame(props(Blocks.IRON_BLOCK, MapColor.COLOR_PURPLE).strength(42f, 3600000.8F).sound(SoundType.DEEPSLATE_TILES)));
+        valoriaPortal = BLOCK.register("valoria_portal", () -> new ValoriaPortalBlock(BlockBehaviour.Properties.copy(Blocks.NETHER_PORTAL).mapColor(MapColor.COLOR_PURPLE)));
 
         amberBlock = registerBlock("amber_block", () -> new Block(props(Blocks.IRON_BLOCK, MapColor.COLOR_ORANGE).requiresCorrectToolForDrops().strength(3f, 4f).sound(SoundType.AMETHYST)));
         amberOre = registerBlock("amber_ore", () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops(), UniformInt.of(0, 2)));
@@ -132,9 +127,11 @@ public class BlockRegistry{
 
         unchargedShardBlock = registerBlock("uncharged_shard_block", () -> new Block(props(Blocks.IRON_BLOCK, MapColor.COLOR_GRAY).requiresCorrectToolForDrops().strength(3f, 4f).sound(SoundType.AMETHYST)));
         dormantCrystals = registerBlock("dormant_crystals", () -> new WickedOreBlock(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(8f, 12f).sound(SoundType.NETHER_BRICKS), UniformInt.of(0, 3)));
+        pyratiteBlock = registerBlock("pyratite_block", () -> new Block(props(Blocks.AMETHYST_BLOCK, MapColor.COLOR_ORANGE).requiresCorrectToolForDrops().lightLevel(Utils.Blocks.light(9))));
+        pyratiteOre = registerBlock("pyratite_ore", () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE).requiresCorrectToolForDrops().strength(10f, 12f), UniformInt.of(2, 4)));
+        pyratiteCrystal = registerBlock("pyratite_crystal", () -> new AmethystClusterBlock(7, 3, BlockBehaviour.Properties.copy(Blocks.LARGE_AMETHYST_BUD).strength(1f, 0f).sound(SoundType.GLASS).noOcclusion()));
 
         soulShardBlock = registerBlock("soul_shard_block", () -> new Block(props(Blocks.IRON_BLOCK, MapColor.COLOR_BLUE).requiresCorrectToolForDrops().strength(3f, 4f).sound(SoundType.AMETHYST)));
-
         wickedAmethystBlock = registerBlock("wicked_amethyst_block", () -> new Block(props(Blocks.IRON_BLOCK, MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(3f, 4f).sound(SoundType.AMETHYST)));
         wickedAmethystOre = registerBlock("wicked_amethyst_ore", () -> new WickedOreBlock(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(8f, 12f).sound(SoundType.NETHER_BRICKS), UniformInt.of(0, 1)));
 
@@ -145,21 +142,25 @@ public class BlockRegistry{
         awakenedVoidBlock = registerBlock("awakened_void_block", () -> new Block(props(Blocks.IRON_BLOCK, MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(3f, 4f).sound(SoundType.NETHERITE_BLOCK)));
         crimtaneBlock = registerBlock("crimtane_block", () -> new Block(props(Blocks.IRON_BLOCK, MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(3f, 4f).sound(SoundType.NETHERITE_BLOCK)));
 
-        bronzeGlass = registerBlock("bronze_glass", () -> new GlassBlock(props(Blocks.GLASS, MapColor.COLOR_BROWN).requiresCorrectToolForDrops().strength(1f, 4f).noOcclusion().sound(SoundType.GLASS)));
-        bronzeGlassPane = registerBlock("bronze_glass_pane", () -> new IronBarsBlock(props(Blocks.GLASS_PANE, MapColor.COLOR_BROWN).requiresCorrectToolForDrops().strength(1f, 4f).noOcclusion().sound(SoundType.GLASS)));
-        bronzeBlock = registerBlock("bronze_block", () -> new Block(props(Blocks.IRON_BLOCK, MapColor.COLOR_BROWN).requiresCorrectToolForDrops().strength(3f, 4f).sound(SoundType.NETHERITE_BLOCK)));
-        bronzeBlockStairs = registerBlock("bronze_block_stairs", () -> new StairBlock(() -> BlockRegistry.bronzeBlock.get().defaultBlockState(), props(Blocks.IRON_BLOCK, MapColor.COLOR_BROWN).strength(2f, 4f).requiresCorrectToolForDrops().sound(SoundType.NETHERITE_BLOCK)));
-        bronzeBlockSlab = registerBlock("bronze_block_slab", () -> new SlabBlock(props(Blocks.IRON_BLOCK, MapColor.COLOR_BROWN).requiresCorrectToolForDrops().sound(SoundType.NETHERITE_BLOCK).strength(6f, 4f)));
-        cutBronze = registerBlock("cut_bronze", () -> new Block(props(Blocks.IRON_BLOCK, MapColor.COLOR_BROWN).requiresCorrectToolForDrops().strength(3f, 4f).sound(SoundType.NETHERITE_BLOCK)));
-        cutBronzeStairs = registerBlock("cut_bronze_stairs", () -> new StairBlock(() -> BlockRegistry.cutBronze.get().defaultBlockState(), props(Blocks.IRON_BLOCK, MapColor.COLOR_BROWN).strength(2f, 4f).requiresCorrectToolForDrops().sound(SoundType.NETHERITE_BLOCK)));
-        cutBronzeSlab = registerBlock("cut_bronze_slab", () -> new SlabBlock(props(Blocks.IRON_BLOCK, MapColor.COLOR_BROWN).requiresCorrectToolForDrops().sound(SoundType.NETHERITE_BLOCK).strength(6f, 4f)));
-        bronzeVent = registerBlock("bronze_vent", () -> new Block(props(Blocks.IRON_BLOCK, MapColor.COLOR_BROWN).requiresCorrectToolForDrops().strength(3f, 4f).sound(SoundType.NETHERITE_BLOCK)));
-        bronzeLamp = registerBlock("bronze_lamp", () -> new RedstoneLampBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).mapColor(MapColor.COLOR_BROWN).strength(3f, 4f).noOcclusion().sound(SoundType.GLASS).lightLevel(Utils.Blocks.lightIfLit())));
-        decoratedBronzeLamp = registerBlock("decorated_bronze_lamp", () -> new RedstoneLampBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).mapColor(MapColor.COLOR_BROWN).strength(3f, 4f).noOcclusion().sound(SoundType.GLASS).lightLevel(Utils.Blocks.lightIfLit())));
-        bronzeLampBlock = registerBlock("bronze_lamp_block", () -> new RedstoneLampBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).mapColor(MapColor.COLOR_BROWN).strength(3f, 4f).noOcclusion().sound(SoundType.GLASS).lightLevel(Utils.Blocks.lightIfLit())));
-        bronzeDoor = registerBlock("bronze_door", () -> new DoorBlock(propsDeco(Blocks.IRON_DOOR, MapColor.COLOR_BROWN), BlockSetType.IRON));
-        bronzeTrapdoor = registerBlock("bronze_trapdoor", () -> new TrapDoorBlock(propsDeco(Blocks.IRON_TRAPDOOR, MapColor.COLOR_BROWN), BlockSetType.IRON));
-        bronzeTrapdoorGlass = registerBlock("bronze_trapdoor_glass", () -> new TrapDoorBlock(propsDeco(Blocks.IRON_TRAPDOOR, MapColor.COLOR_BROWN), BlockSetType.IRON));
+        keg = registerBlock("keg", () -> new KegBlock(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS).strength(1f, 1f).noOcclusion()));
+        kiln = registerBlock("kiln", () -> new KilnBlock(BlockBehaviour.Properties.copy(Blocks.STONE).strength(1f, 1f).noOcclusion().lightLevel(Utils.Blocks.lightIfLit(13))));
+        jewelerTable = registerBlock("jeweler_table", () -> new JewelerBlock(BlockBehaviour.Properties.copy(Blocks.CRAFTING_TABLE).strength(1f, 1f)));
+        stoneCrusher = registerBlock("stone_crusher", () -> new CrusherBlock(BlockBehaviour.Properties.copy(Blocks.STONE).strength(1f, 2f)));
+        tinkererWorkbench = registerBlock("tinkerer_workbench", () -> new TinkererWorkbenchBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(3f).noOcclusion()));
+        soulInfuser = registerBlock("soul_infuser", () -> new SoulInfuserBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).mapColor(MapColor.COLOR_GREEN).strength(3f, 1f).lightLevel(s -> 4).noOcclusion()));
+        elementalManipulator = registerBlock("elemental_manipulator", () -> new ManipulatorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).mapColor(MapColor.COLOR_GREEN).strength(3f, 1f).lightLevel(s -> 4).noOcclusion()));
+
+        quicksand = registerBlock("quicksand", () -> new QuickSandBlock(BlockBehaviour.Properties.copy(Blocks.SAND).dynamicShape().requiresCorrectToolForDrops().strength(0.5f, 0.5f).sound(SoundType.SAND)));
+        dunestone = registerBlock("dunestone", () -> new Block(props(Blocks.STONE, MapColor.SAND).requiresCorrectToolForDrops()));
+        dunestoneStairs = registerBlock("dunestone_stairs", () -> new StairBlock(() -> BlockRegistry.dunestone.get().defaultBlockState(), props(Blocks.STONE_STAIRS, MapColor.SAND).requiresCorrectToolForDrops()));
+        dunestoneSlab = registerBlock("dunestone_slab", () -> new SlabBlock(props(Blocks.STONE_SLAB, MapColor.SAND).requiresCorrectToolForDrops()));
+        dunestoneWall = registerBlock("dunestone_wall", () -> new WallBlock(props(Blocks.STONE_BRICK_WALL, MapColor.SAND).requiresCorrectToolForDrops()));
+        dunestoneBricks = registerBlock("dunestone_bricks", () -> new Block(props(Blocks.STONE_BRICKS, MapColor.SAND).requiresCorrectToolForDrops()));
+        dunestoneBricksStairs = registerBlock("dunestone_bricks_stairs", () -> new StairBlock(() -> BlockRegistry.dunestoneBricks.get().defaultBlockState(), props(Blocks.STONE_BRICK_STAIRS, MapColor.SAND).requiresCorrectToolForDrops()));
+        dunestoneBricksSlab = registerBlock("dunestone_bricks_slab", () -> new SlabBlock(props(Blocks.STONE_BRICK_SLAB, MapColor.SAND).requiresCorrectToolForDrops()));
+        dunestoneBricksWall = registerBlock("dunestone_bricks_wall", () -> new WallBlock(props(Blocks.STONE_BRICK_WALL, MapColor.SAND).requiresCorrectToolForDrops()));
+        cutDunestone = registerBlock("cut_dunestone", () -> new Block(props(Blocks.STONE_BRICKS, MapColor.SAND).requiresCorrectToolForDrops()));
+        polishedDunestone = registerBlock("polished_dunestone", () -> new Block(props(Blocks.STONE_BRICKS, MapColor.SAND).requiresCorrectToolForDrops()));
 
         ephemariteLow = registerBlock("ephemarite_low", () -> new DescriptionBlock(Component.translatable("tooltip.valoria.geode").withStyle(ChatFormatting.GRAY), props(Blocks.STONE, MapColor.TERRACOTTA_BROWN).requiresCorrectToolForDrops()));
         ephemariteLowStairs = registerBlock("ephemarite_low_stairs", () -> new StairBlock(() -> BlockRegistry.ephemariteLow.get().defaultBlockState(), props(Blocks.STONE_STAIRS, MapColor.TERRACOTTA_BROWN).requiresCorrectToolForDrops()));
@@ -179,31 +180,15 @@ public class BlockRegistry{
         polishedEphemariteSlab = registerBlock("polished_ephemarite_slab", () -> new SlabBlock(props(Blocks.STONE_SLAB, MapColor.TERRACOTTA_BROWN).requiresCorrectToolForDrops().sound(SoundType.STONE)));
         polishedEphemariteWall = registerBlock("polished_ephemarite_wall", () -> new WallBlock(props(Blocks.STONE_BRICK_WALL, MapColor.TERRACOTTA_BROWN).requiresCorrectToolForDrops()));
 
-        ambaneStone = registerBlock("ambane_stone", () -> new Block(props(Blocks.STONE, MapColor.WARPED_WART_BLOCK).requiresCorrectToolForDrops()));
-        ambaneStoneStairs = registerBlock("ambane_stone_stairs", () -> new StairBlock(() -> BlockRegistry.ambaneStone.get().defaultBlockState(), props(Blocks.STONE_STAIRS, MapColor.WARPED_WART_BLOCK).requiresCorrectToolForDrops()));
-        ambaneStoneSlab = registerBlock("ambane_stone_slab", () -> new SlabBlock(props(Blocks.STONE_SLAB, MapColor.WARPED_WART_BLOCK).requiresCorrectToolForDrops()));
-        ambaneStoneWall = registerBlock("ambane_stone_wall", () -> new WallBlock(props(Blocks.STONE_BRICK_WALL, MapColor.WARPED_WART_BLOCK).requiresCorrectToolForDrops()));
-        ambaneStoneBricks = registerBlock("ambane_stone_bricks", () -> new Block(props(Blocks.STONE_BRICKS, MapColor.WARPED_WART_BLOCK).requiresCorrectToolForDrops()));
-        ambaneStoneBricksStairs = registerBlock("ambane_stone_bricks_stairs", () -> new StairBlock(() -> BlockRegistry.ambaneStoneBricks.get().defaultBlockState(), props(Blocks.STONE_BRICK_STAIRS, MapColor.WARPED_WART_BLOCK).requiresCorrectToolForDrops()));
-        ambaneStoneBricksSlab = registerBlock("ambane_stone_bricks_slab", () -> new SlabBlock(props(Blocks.STONE_BRICK_SLAB, MapColor.WARPED_WART_BLOCK).requiresCorrectToolForDrops()));
-        ambaneStoneBricksWall = registerBlock("ambane_stone_bricks_wall", () -> new WallBlock(props(Blocks.STONE_BRICK_WALL, MapColor.WARPED_WART_BLOCK).requiresCorrectToolForDrops()));
-        polishedAmbaneStone = registerBlock("polished_ambane_stone", () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.WARPED_WART_BLOCK).requiresCorrectToolForDrops()));
-        polishedAmbaneStoneStairs = registerBlock("polished_ambane_stone_stairs", () -> new StairBlock(() -> BlockRegistry.polishedAmbaneStone.get().defaultBlockState(), props(Blocks.STONE_BRICK_STAIRS, MapColor.WARPED_WART_BLOCK).requiresCorrectToolForDrops()));
-        polishedAmbaneStoneSlab = registerBlock("polished_ambane_stone_slab", () -> new SlabBlock(props(Blocks.STONE_BRICK_SLAB, MapColor.WARPED_WART_BLOCK).requiresCorrectToolForDrops()));
-        cutAmbaneStone = registerBlock("cut_ambane_stone", () -> new Block(props(Blocks.STONE_BRICKS, MapColor.WARPED_WART_BLOCK).requiresCorrectToolForDrops()));
-        chiseledAmbaneStoneBricks = registerBlock("chiseled_ambane_stone_bricks", () -> new Block(props(Blocks.STONE_BRICKS, MapColor.WARPED_WART_BLOCK).requiresCorrectToolForDrops()));
-
-        quicksand = registerBlock("quicksand", () -> new QuickSandBlock(BlockBehaviour.Properties.copy(Blocks.SAND).dynamicShape().requiresCorrectToolForDrops().strength(0.5f, 0.5f).sound(SoundType.SAND)));
-        dunestone = registerBlock("dunestone", () -> new Block(props(Blocks.STONE, MapColor.SAND).requiresCorrectToolForDrops()));
-        dunestoneStairs = registerBlock("dunestone_stairs", () -> new StairBlock(() -> BlockRegistry.dunestone.get().defaultBlockState(), props(Blocks.STONE_STAIRS, MapColor.SAND).requiresCorrectToolForDrops()));
-        dunestoneSlab = registerBlock("dunestone_slab", () -> new SlabBlock(props(Blocks.STONE_SLAB, MapColor.SAND).requiresCorrectToolForDrops()));
-        dunestoneWall = registerBlock("dunestone_wall", () -> new WallBlock(props(Blocks.STONE_BRICK_WALL, MapColor.SAND).requiresCorrectToolForDrops()));
-        dunestoneBricks = registerBlock("dunestone_bricks", () -> new Block(props(Blocks.STONE_BRICKS, MapColor.SAND).requiresCorrectToolForDrops()));
-        dunestoneBricksStairs = registerBlock("dunestone_bricks_stairs", () -> new StairBlock(() -> BlockRegistry.dunestoneBricks.get().defaultBlockState(), props(Blocks.STONE_BRICK_STAIRS, MapColor.SAND).requiresCorrectToolForDrops()));
-        dunestoneBricksSlab = registerBlock("dunestone_bricks_slab", () -> new SlabBlock(props(Blocks.STONE_BRICK_SLAB, MapColor.SAND).requiresCorrectToolForDrops()));
-        dunestoneBricksWall = registerBlock("dunestone_bricks_wall", () -> new WallBlock(props(Blocks.STONE_BRICK_WALL, MapColor.SAND).requiresCorrectToolForDrops()));
-        cutDunestone = registerBlock("cut_dunestone", () -> new Block(props(Blocks.STONE_BRICKS, MapColor.SAND).requiresCorrectToolForDrops()));
-        polishedDunestone = registerBlock("polished_dunestone", () -> new Block(props(Blocks.STONE_BRICKS, MapColor.SAND).requiresCorrectToolForDrops()));
+        ancientStone = registerBlock("ancient_stone", () -> new Block(props(Blocks.STONE, MapColor.TERRACOTTA_BROWN).requiresCorrectToolForDrops()));
+        ancientStoneSlab = registerBlock("ancient_stone_slab", () -> new SlabBlock(props(Blocks.STONE_SLAB, MapColor.TERRACOTTA_BROWN).requiresCorrectToolForDrops()));
+        ancientStoneStairs = registerBlock("ancient_stone_stairs", () -> new StairBlock(() -> BlockRegistry.crystalStone.get().defaultBlockState(), props(Blocks.STONE_STAIRS, MapColor.TERRACOTTA_BROWN).requiresCorrectToolForDrops()));
+        ancientStoneWall = registerBlock("ancient_stone_wall", () -> new WallBlock(props(Blocks.STONE_BRICK_WALL, MapColor.TERRACOTTA_BROWN).requiresCorrectToolForDrops()));
+        polishedAncientStone = registerBlock("polished_ancient_stone", () -> new Block(props(Blocks.STONE, MapColor.TERRACOTTA_BROWN).requiresCorrectToolForDrops()));
+        polishedAncientStoneSlab = registerBlock("polished_ancient_stone_slab", () -> new SlabBlock(props(Blocks.STONE_SLAB, MapColor.TERRACOTTA_BROWN).requiresCorrectToolForDrops()));
+        polishedAncientStoneStairs = registerBlock("polished_ancient_stone_stairs", () -> new StairBlock(() -> BlockRegistry.crystalStone.get().defaultBlockState(), props(Blocks.STONE_STAIRS, MapColor.TERRACOTTA_BLUE).requiresCorrectToolForDrops()));
+        polishedAncientStoneWall = registerBlock("polished_ancient_stone_wall", () -> new WallBlock(props(Blocks.STONE_BRICK_WALL, MapColor.TERRACOTTA_BROWN).requiresCorrectToolForDrops()));
+        cutAncientStone = registerBlock("cut_ancient_stone", () -> new Block(props(Blocks.STONE, MapColor.TERRACOTTA_BROWN).requiresCorrectToolForDrops()));
 
         limestone = registerBlock("limestone", () -> new Block(props(Blocks.STONE, MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops()));
         limestoneStairs = registerBlock("limestone_stairs", () -> new StairBlock(() -> BlockRegistry.limestone.get().defaultBlockState(), props(Blocks.STONE_STAIRS, MapColor.TERRACOTTA_WHITE).requiresCorrectToolForDrops()));
@@ -261,15 +246,19 @@ public class BlockRegistry{
         cryptLantern = registerBlock("crypt_lantern", () -> new CryptLantern(BlockBehaviour.Properties.copy(Blocks.LANTERN).lightLevel(Utils.Blocks.light(10))));
         crypticAltar = registerBlock("cryptic_altar", () -> new CrypticAltar(BlockBehaviour.Properties.copy(BlockRegistry.tombstone.get()).noOcclusion().strength(-1f, 3600000.0F).lightLevel(Utils.Blocks.light(10))));
 
-        ancientStone = registerBlock("ancient_stone", () -> new Block(props(Blocks.STONE, MapColor.TERRACOTTA_BROWN).requiresCorrectToolForDrops()));
-        ancientStoneSlab = registerBlock("ancient_stone_slab", () -> new SlabBlock(props(Blocks.STONE_SLAB, MapColor.TERRACOTTA_BROWN).requiresCorrectToolForDrops()));
-        ancientStoneStairs = registerBlock("ancient_stone_stairs", () -> new StairBlock(() -> BlockRegistry.crystalStone.get().defaultBlockState(), props(Blocks.STONE_STAIRS, MapColor.TERRACOTTA_BROWN).requiresCorrectToolForDrops()));
-        ancientStoneWall = registerBlock("ancient_stone_wall", () -> new WallBlock(props(Blocks.STONE_BRICK_WALL, MapColor.TERRACOTTA_BROWN).requiresCorrectToolForDrops()));
-        polishedAncientStone = registerBlock("polished_ancient_stone", () -> new Block(props(Blocks.STONE, MapColor.TERRACOTTA_BROWN).requiresCorrectToolForDrops()));
-        polishedAncientStoneSlab = registerBlock("polished_ancient_stone_slab", () -> new SlabBlock(props(Blocks.STONE_SLAB, MapColor.TERRACOTTA_BROWN).requiresCorrectToolForDrops()));
-        polishedAncientStoneStairs = registerBlock("polished_ancient_stone_stairs", () -> new StairBlock(() -> BlockRegistry.crystalStone.get().defaultBlockState(), props(Blocks.STONE_STAIRS, MapColor.TERRACOTTA_BLUE).requiresCorrectToolForDrops()));
-        polishedAncientStoneWall = registerBlock("polished_ancient_stone_wall", () -> new WallBlock(props(Blocks.STONE_BRICK_WALL, MapColor.TERRACOTTA_BROWN).requiresCorrectToolForDrops()));
-        cutAncientStone = registerBlock("cut_ancient_stone", () -> new Block(props(Blocks.STONE, MapColor.TERRACOTTA_BROWN).requiresCorrectToolForDrops()));
+        ambaneStone = registerBlock("ambane_stone", () -> new Block(props(Blocks.STONE, MapColor.WARPED_WART_BLOCK).requiresCorrectToolForDrops()));
+        ambaneStoneStairs = registerBlock("ambane_stone_stairs", () -> new StairBlock(() -> BlockRegistry.ambaneStone.get().defaultBlockState(), props(Blocks.STONE_STAIRS, MapColor.WARPED_WART_BLOCK).requiresCorrectToolForDrops()));
+        ambaneStoneSlab = registerBlock("ambane_stone_slab", () -> new SlabBlock(props(Blocks.STONE_SLAB, MapColor.WARPED_WART_BLOCK).requiresCorrectToolForDrops()));
+        ambaneStoneWall = registerBlock("ambane_stone_wall", () -> new WallBlock(props(Blocks.STONE_BRICK_WALL, MapColor.WARPED_WART_BLOCK).requiresCorrectToolForDrops()));
+        ambaneStoneBricks = registerBlock("ambane_stone_bricks", () -> new Block(props(Blocks.STONE_BRICKS, MapColor.WARPED_WART_BLOCK).requiresCorrectToolForDrops()));
+        ambaneStoneBricksStairs = registerBlock("ambane_stone_bricks_stairs", () -> new StairBlock(() -> BlockRegistry.ambaneStoneBricks.get().defaultBlockState(), props(Blocks.STONE_BRICK_STAIRS, MapColor.WARPED_WART_BLOCK).requiresCorrectToolForDrops()));
+        ambaneStoneBricksSlab = registerBlock("ambane_stone_bricks_slab", () -> new SlabBlock(props(Blocks.STONE_BRICK_SLAB, MapColor.WARPED_WART_BLOCK).requiresCorrectToolForDrops()));
+        ambaneStoneBricksWall = registerBlock("ambane_stone_bricks_wall", () -> new WallBlock(props(Blocks.STONE_BRICK_WALL, MapColor.WARPED_WART_BLOCK).requiresCorrectToolForDrops()));
+        polishedAmbaneStone = registerBlock("polished_ambane_stone", () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.WARPED_WART_BLOCK).requiresCorrectToolForDrops()));
+        polishedAmbaneStoneStairs = registerBlock("polished_ambane_stone_stairs", () -> new StairBlock(() -> BlockRegistry.polishedAmbaneStone.get().defaultBlockState(), props(Blocks.STONE_BRICK_STAIRS, MapColor.WARPED_WART_BLOCK).requiresCorrectToolForDrops()));
+        polishedAmbaneStoneSlab = registerBlock("polished_ambane_stone_slab", () -> new SlabBlock(props(Blocks.STONE_BRICK_SLAB, MapColor.WARPED_WART_BLOCK).requiresCorrectToolForDrops()));
+        cutAmbaneStone = registerBlock("cut_ambane_stone", () -> new Block(props(Blocks.STONE_BRICKS, MapColor.WARPED_WART_BLOCK).requiresCorrectToolForDrops()));
+        chiseledAmbaneStoneBricks = registerBlock("chiseled_ambane_stone_bricks", () -> new Block(props(Blocks.STONE_BRICKS, MapColor.WARPED_WART_BLOCK).requiresCorrectToolForDrops()));
 
         eyeStone = registerBlock("eye_stone", () -> new Block(props(Blocks.DEEPSLATE, MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(6f, 6f)));
         voidStone = registerBlock("void_stone", () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(3f, 6f).sound(SoundsRegistry.VOID_STONE)));
@@ -314,17 +303,6 @@ public class BlockRegistry{
         voidTaintLantern = registerBlock("void_taint_lantern", () -> new Block(BlockBehaviour.Properties.copy(Blocks.SEA_LANTERN).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(2f, 4f).sound(SoundType.FROGLIGHT).lightLevel((p_152688_) -> 9)));
         abyssalLantern = registerBlock("abyssal_lantern", () -> new Block(BlockBehaviour.Properties.copy(Blocks.SEA_LANTERN).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(2f, 4f).sound(SoundType.FROGLIGHT).lightLevel((p_152688_) -> 15)));
 
-        eyeMeat = registerBlock("eye_meat", () -> new Block(props(Blocks.STONE, MapColor.COLOR_RED).sound(SoundsRegistry.FLESH).requiresCorrectToolForDrops().strength(3f, 4f)));
-        meatBlock = registerBlock("meat_block", () -> new FleshBlock(props(Blocks.STONE, MapColor.COLOR_RED).sound(SoundsRegistry.FLESH).requiresCorrectToolForDrops()));
-        meatPillar = registerBlock("reinforced_meat_pillar", () -> new RotatedPillarBlock(props(Blocks.STONE, MapColor.COLOR_RED).sound(SoundType.BONE_BLOCK).strength(1.5f).requiresCorrectToolForDrops()));
-        eyeFlesh = registerBlock("eye_flesh", () -> new Block(props(Blocks.STONE, MapColor.COLOR_RED).sound(SoundsRegistry.FLESH).requiresCorrectToolForDrops().strength(3f, 4f)));
-        fleshBlock = registerBlock("flesh_block", () -> new FleshBlock(props(Blocks.STONE, MapColor.COLOR_RED).sound(SoundsRegistry.FLESH).requiresCorrectToolForDrops()));
-        fleshRemains = registerBlock("flesh_remains", () -> new FleshBlock(props(Blocks.STONE, MapColor.COLOR_RED).sound(SoundsRegistry.FLESH).strength(1.2f).requiresCorrectToolForDrops()));
-        fleshCyst = registerBlock("flesh_cyst", () -> new FleshCystBlock(props(Blocks.STONE, MapColor.COLOR_RED).sound(SoundsRegistry.CYST).requiresCorrectToolForDrops()));
-        bloodVein = registerBlock("blood_vein", () -> new BloodVeinBlock(props(Blocks.SCULK_VEIN, MapColor.COLOR_RED).sound(SoundsRegistry.FLESH).requiresCorrectToolForDrops().noOcclusion()));
-        bloodVinePlant = BLOCK.register("blood_vine_plant", () -> new BloodVinePlantBlock(BlockBehaviour.Properties.copy(Blocks.KELP_PLANT).mapColor(MapColor.COLOR_RED)));
-        bloodVine = registerBlock("blood_vine", () -> new BloodVineBlock(BlockBehaviour.Properties.copy(Blocks.KELP).mapColor(MapColor.COLOR_RED)), () -> new BlockItem(BlockRegistry.bloodVine.get(), new Item.Properties()));
-
         cobbledShale = registerBlock("cobbled_shale", () -> new Block(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE).requiresCorrectToolForDrops()));
         cobbledShaleStairs = registerBlock("cobbled_shale_stairs", () -> new StairBlock(() -> BlockRegistry.cobbledShale.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.DEEPSLATE_BRICK_STAIRS).requiresCorrectToolForDrops()));
         cobbledShaleSlab = registerBlock("cobbled_shale_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE_BRICK_SLAB).requiresCorrectToolForDrops()));
@@ -368,6 +346,17 @@ public class BlockRegistry{
         picriteBricksSlab = registerBlock("picrite_bricks_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE_BRICK_SLAB).requiresCorrectToolForDrops()));
         picriteBricksWall = registerBlock("picrite_bricks_wall", () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE_BRICK_WALL).requiresCorrectToolForDrops()));
 
+        eyeMeat = registerBlock("eye_meat", () -> new Block(props(Blocks.STONE, MapColor.COLOR_RED).sound(SoundsRegistry.FLESH).requiresCorrectToolForDrops().strength(3f, 4f)));
+        meatBlock = registerBlock("meat_block", () -> new FleshBlock(props(Blocks.STONE, MapColor.COLOR_RED).sound(SoundsRegistry.FLESH).requiresCorrectToolForDrops()));
+        meatPillar = registerBlock("reinforced_meat_pillar", () -> new RotatedPillarBlock(props(Blocks.STONE, MapColor.COLOR_RED).sound(SoundType.BONE_BLOCK).strength(1.5f).requiresCorrectToolForDrops()));
+        eyeFlesh = registerBlock("eye_flesh", () -> new Block(props(Blocks.STONE, MapColor.COLOR_RED).sound(SoundsRegistry.FLESH).requiresCorrectToolForDrops().strength(3f, 4f)));
+        fleshBlock = registerBlock("flesh_block", () -> new FleshBlock(props(Blocks.STONE, MapColor.COLOR_RED).sound(SoundsRegistry.FLESH).requiresCorrectToolForDrops()));
+        fleshRemains = registerBlock("flesh_remains", () -> new FleshBlock(props(Blocks.STONE, MapColor.COLOR_RED).sound(SoundsRegistry.FLESH).strength(1.2f).requiresCorrectToolForDrops()));
+        fleshCyst = registerBlock("flesh_cyst", () -> new FleshCystBlock(props(Blocks.STONE, MapColor.COLOR_RED).sound(SoundsRegistry.CYST).requiresCorrectToolForDrops()));
+        bloodVein = registerBlock("blood_vein", () -> new BloodVeinBlock(props(Blocks.SCULK_VEIN, MapColor.COLOR_RED).sound(SoundsRegistry.FLESH).requiresCorrectToolForDrops().noOcclusion()));
+        bloodVinePlant = BLOCK.register("blood_vine_plant", () -> new BloodVinePlantBlock(BlockBehaviour.Properties.copy(Blocks.KELP_PLANT).mapColor(MapColor.COLOR_RED)));
+        bloodVine = registerBlock("blood_vine", () -> new BloodVineBlock(BlockBehaviour.Properties.copy(Blocks.KELP).mapColor(MapColor.COLOR_RED)), () -> new BlockItem(BlockRegistry.bloodVine.get(), new Item.Properties()));
+
         //wood
         shadelog = registerBlock("shadelog", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).mapColor(MapColor.COLOR_PURPLE)));
         strippedShadelog = registerBlock("stripped_shadelog", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.STRIPPED_OAK_LOG).mapColor(MapColor.COLOR_PURPLE)));
@@ -390,6 +379,18 @@ public class BlockRegistry{
         shadewoodTrappedChest = registerBlock("trapped_shadewood_chest", () -> new TridotTrappedChestBlock(Properties.copy(Blocks.TRAPPED_CHEST)));
         shadewoodPressurePlate = registerBlock("shadewood_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_PURPLE).noOcclusion().noCollission(), BlockSetType.OAK));
         shadewoodButton = registerBlock("shadewood_button", () -> new ButtonBlock(BlockBehaviour.Properties.copy(Blocks.OAK_BUTTON).mapColor(MapColor.COLOR_PURPLE).sound(SoundType.WOOD).noCollission(), BlockSetType.OAK, 30, true));
+        shadewoodSign = registerBlock("shadewood_sign",
+            () -> new ModStandingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_PURPLE).noOcclusion().noCollission(), ModWoodTypes.SHADEWOOD),
+            () -> new SignItem(new Item.Properties().stacksTo(16), BlockRegistry.shadewoodSign.get(), BlockRegistry.shadewoodWallSign.get()));
+
+        shadewoodWallSign = BLOCK.register("shadewood_wall_sign", () -> new ModWallSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_PURPLE).noOcclusion().noCollission(), ModWoodTypes.SHADEWOOD));
+        shadewoodHangingSign = registerBlock("shadewood_hanging_sign",
+            () -> new ModCeilingHangingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_PURPLE).noOcclusion().noCollission(), ModWoodTypes.SHADEWOOD),
+            () -> new HangingSignItem(BlockRegistry.shadewoodHangingSign.get(), BlockRegistry.shadewoodWallHangingSign.get(), new Item.Properties().stacksTo(16)));
+
+        shadewoodWallHangingSign = BLOCK.register("shadewood_wall_hanging_sign", () -> new ModWallHangingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_PURPLE).noOcclusion().noCollission(), ModWoodTypes.SHADEWOOD));
+        ItemsRegistry.shadewoodBoat = BLOCK_ITEMS.register("shadewood_boat", () -> new CustomBoatItem(new Item.Properties().stacksTo(1), EntityTypeRegistry.SHADEWOOD_BOAT));
+        ItemsRegistry.shadewoodChestBoat = BLOCK_ITEMS.register("shadewood_chest_boat", () -> new CustomChestBoatItem(new Item.Properties().stacksTo(1), EntityTypeRegistry.SHADEWOOD_CHEST_BOAT));
 
         eldritchLog = registerBlock("eldritch_log", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).mapColor(MapColor.COLOR_MAGENTA)));
         strippedEldritchLog = registerBlock("stripped_eldritch_log", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.STRIPPED_OAK_LOG).mapColor(MapColor.COLOR_MAGENTA)));
@@ -409,6 +410,18 @@ public class BlockRegistry{
         eldritchTrappedChest = registerBlock("trapped_eldritch_chest", () -> new TridotTrappedChestBlock(Properties.copy(Blocks.TRAPPED_CHEST)));
         eldritchPressurePlate = registerBlock("eldritch_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_MAGENTA).noOcclusion().noCollission(), BlockSetType.OAK));
         eldritchButton = registerBlock("eldritch_button", () -> new ButtonBlock(BlockBehaviour.Properties.copy(Blocks.OAK_BUTTON).mapColor(MapColor.COLOR_MAGENTA).sound(SoundType.WOOD).noCollission(), BlockSetType.OAK, 30, true));
+        eldritchSign = registerBlock("eldritch_sign",
+            () -> new ModStandingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_MAGENTA).noOcclusion().noCollission(), ModWoodTypes.ELDRITCH),
+            () -> new SignItem(new Item.Properties().stacksTo(16), BlockRegistry.eldritchSign.get(), BlockRegistry.eldritchWallSign.get()));
+
+        eldritchWallSign = BLOCK.register("eldritch_wall_sign", () -> new ModWallSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_MAGENTA).noOcclusion().noCollission(), ModWoodTypes.ELDRITCH));
+        eldritchHangingSign = registerBlock("eldritch_hanging_sign",
+            () -> new ModCeilingHangingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_MAGENTA).noOcclusion().noCollission(), ModWoodTypes.ELDRITCH),
+            () -> new HangingSignItem(BlockRegistry.eldritchHangingSign.get(), BlockRegistry.eldritchWallHangingSign.get(), new Item.Properties().stacksTo(16)));
+
+        eldritchWallHangingSign = BLOCK.register("eldritch_wall_hanging_sign", () -> new ModWallHangingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_MAGENTA).noOcclusion().noCollission(), ModWoodTypes.ELDRITCH));
+        ItemsRegistry.eldritchBoat = BLOCK_ITEMS.register("eldritch_boat", () -> new CustomBoatItem(new Item.Properties().stacksTo(1), EntityTypeRegistry.ELDRITCH_BOAT));
+        ItemsRegistry.eldritchChestBoat = BLOCK_ITEMS.register("eldritch_chest_boat", () -> new CustomChestBoatItem(new Item.Properties().stacksTo(1), EntityTypeRegistry.ELDRITCH_CHEST_BOAT));
 
         dreadwoodLog = registerBlock("dreadwood_log", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).mapColor(MapColor.COLOR_MAGENTA)));
         strippedDreadwoodLog = registerBlock("stripped_dreadwood_log", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.STRIPPED_OAK_LOG).mapColor(MapColor.COLOR_MAGENTA)));
@@ -425,30 +438,35 @@ public class BlockRegistry{
         dreadwoodTrapdoor = registerBlock("dreadwood_trapdoor", () -> new TrapDoorBlock(propsDeco(Blocks.OAK_TRAPDOOR, MapColor.COLOR_PURPLE), BlockSetType.OAK));
         dreadwoodPressurePlate = registerBlock("dreadwood_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_MAGENTA).noOcclusion().noCollission(), BlockSetType.OAK));
         dreadwoodButton = registerBlock("dreadwood_button", () -> new ButtonBlock(BlockBehaviour.Properties.copy(Blocks.OAK_BUTTON).mapColor(MapColor.COLOR_MAGENTA).sound(SoundType.WOOD).noCollission(), BlockSetType.OAK, 30, true));
+        dreadwoodSign = registerBlock("dreadwood_sign",
+            () -> new ModStandingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_MAGENTA).noOcclusion().noCollission(), ModWoodTypes.DREADWOOD),
+            () -> new SignItem(new Item.Properties().stacksTo(16), BlockRegistry.dreadwoodSign.get(), BlockRegistry.dreadwoodWallSign.get()));
 
-        // Signs
-        shadewoodSign = BLOCK.register("shadewood_sign", () -> new ModStandingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_PURPLE).noOcclusion().noCollission(), ModWoodTypes.SHADEWOOD));
-        shadewoodWallSign = BLOCK.register("shadewood_wall_sign", () -> new ModWallSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_PURPLE).noOcclusion().noCollission(), ModWoodTypes.SHADEWOOD));
-        shadewoodHangingSign = BLOCK.register("shadewood_hanging_sign", () -> new ModCeilingHangingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_PURPLE).noOcclusion().noCollission(), ModWoodTypes.SHADEWOOD));
-        shadewoodWallHangingSign = BLOCK.register("shadewood_wall_hanging_sign", () -> new ModWallHangingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_PURPLE).noOcclusion().noCollission(), ModWoodTypes.SHADEWOOD));
-
-        eldritchSign = BLOCK.register("eldritch_sign", () -> new ModStandingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_MAGENTA).noOcclusion().noCollission(), ModWoodTypes.ELDRITCH));
-        eldritchWallSign = BLOCK.register("eldritch_wall_sign", () -> new ModWallSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_MAGENTA).noOcclusion().noCollission(), ModWoodTypes.ELDRITCH));
-        eldritchHangingSign = BLOCK.register("eldritch_hanging_sign", () -> new ModCeilingHangingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_MAGENTA).noOcclusion().noCollission(), ModWoodTypes.ELDRITCH));
-        eldritchWallHangingSign = BLOCK.register("eldritch_wall_hanging_sign", () -> new ModWallHangingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_MAGENTA).noOcclusion().noCollission(), ModWoodTypes.ELDRITCH));
-
-        dreadwoodSign = BLOCK.register("dreadwood_sign", () -> new ModStandingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_MAGENTA).noOcclusion().noCollission(), ModWoodTypes.DREADWOOD));
         dreadwoodWallSign = BLOCK.register("dreadwood_wall_sign", () -> new ModWallSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_MAGENTA).noOcclusion().noCollission(), ModWoodTypes.DREADWOOD));
-        dreadwoodHangingSign = BLOCK.register("dreadwood_hanging_sign", () -> new ModCeilingHangingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_MAGENTA).noOcclusion().noCollission(), ModWoodTypes.DREADWOOD));
-        dreadwoodWallHangingSign = BLOCK.register("dreadwood_wall_hanging_sign", () -> new ModWallHangingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_MAGENTA).noOcclusion().noCollission(), ModWoodTypes.DREADWOOD));
+        dreadwoodHangingSign = registerBlock("dreadwood_hanging_sign",
+            () -> new ModCeilingHangingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_MAGENTA).noOcclusion().noCollission(), ModWoodTypes.DREADWOOD),
+            () -> new HangingSignItem(BlockRegistry.dreadwoodHangingSign.get(), BlockRegistry.dreadwoodWallHangingSign.get(), new Item.Properties().stacksTo(16)));
 
-        keg = registerBlock("keg", () -> new KegBlock(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS).strength(1f, 1f).noOcclusion()));
-        kiln = registerBlock("kiln", () -> new KilnBlock(BlockBehaviour.Properties.copy(Blocks.STONE).strength(1f, 1f).noOcclusion().lightLevel(Utils.Blocks.lightIfLit(13))));
-        jewelerTable = registerBlock("jeweler_table", () -> new JewelerBlock(BlockBehaviour.Properties.copy(Blocks.CRAFTING_TABLE).strength(1f, 1f)));
-        stoneCrusher = registerBlock("stone_crusher", () -> new CrusherBlock(BlockBehaviour.Properties.copy(Blocks.STONE).strength(1f, 2f)));
-        tinkererWorkbench = registerBlock("tinkerer_workbench", () -> new TinkererWorkbenchBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(3f).noOcclusion()));
-        soulInfuser = registerBlock("soul_infuser", () -> new SoulInfuserBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).mapColor(MapColor.COLOR_GREEN).strength(3f, 1f).lightLevel(s -> 4).noOcclusion()));
-        elementalManipulator = registerBlock("elemental_manipulator", () -> new ManipulatorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).mapColor(MapColor.COLOR_GREEN).strength(3f, 1f).lightLevel(s -> 4).noOcclusion()));
+        dreadwoodWallHangingSign = BLOCK.register("dreadwood_wall_hanging_sign", () -> new ModWallHangingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_MAGENTA).noOcclusion().noCollission(), ModWoodTypes.DREADWOOD));
+        ItemsRegistry.dreadwoodBoat = BLOCK_ITEMS.register("dreadwood_boat", () -> new CustomBoatItem(new Item.Properties().stacksTo(1), EntityTypeRegistry.DREADWOOD_BOAT));
+        ItemsRegistry.dreadwoodChestBoat = BLOCK_ITEMS.register("dreadwood_chest_boat", () -> new CustomChestBoatItem(new Item.Properties().stacksTo(1), EntityTypeRegistry.DREADWOOD_CHEST_BOAT));
+
+        // Bronze
+        bronzeBlock = registerBlock("bronze_block", () -> new Block(props(Blocks.IRON_BLOCK, MapColor.COLOR_BROWN).requiresCorrectToolForDrops().strength(3f, 4f).sound(SoundType.NETHERITE_BLOCK)));
+        bronzeBlockStairs = registerBlock("bronze_block_stairs", () -> new StairBlock(() -> BlockRegistry.bronzeBlock.get().defaultBlockState(), props(Blocks.IRON_BLOCK, MapColor.COLOR_BROWN).strength(2f, 4f).requiresCorrectToolForDrops().sound(SoundType.NETHERITE_BLOCK)));
+        bronzeBlockSlab = registerBlock("bronze_block_slab", () -> new SlabBlock(props(Blocks.IRON_BLOCK, MapColor.COLOR_BROWN).requiresCorrectToolForDrops().sound(SoundType.NETHERITE_BLOCK).strength(6f, 4f)));
+        cutBronze = registerBlock("cut_bronze", () -> new Block(props(Blocks.IRON_BLOCK, MapColor.COLOR_BROWN).requiresCorrectToolForDrops().strength(3f, 4f).sound(SoundType.NETHERITE_BLOCK)));
+        cutBronzeStairs = registerBlock("cut_bronze_stairs", () -> new StairBlock(() -> BlockRegistry.cutBronze.get().defaultBlockState(), props(Blocks.IRON_BLOCK, MapColor.COLOR_BROWN).strength(2f, 4f).requiresCorrectToolForDrops().sound(SoundType.NETHERITE_BLOCK)));
+        cutBronzeSlab = registerBlock("cut_bronze_slab", () -> new SlabBlock(props(Blocks.IRON_BLOCK, MapColor.COLOR_BROWN).requiresCorrectToolForDrops().sound(SoundType.NETHERITE_BLOCK).strength(6f, 4f)));
+        bronzeVent = registerBlock("bronze_vent", () -> new Block(props(Blocks.IRON_BLOCK, MapColor.COLOR_BROWN).requiresCorrectToolForDrops().strength(3f, 4f).sound(SoundType.NETHERITE_BLOCK)));
+        bronzeLamp = registerBlock("bronze_lamp", () -> new RedstoneLampBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).mapColor(MapColor.COLOR_BROWN).strength(3f, 4f).noOcclusion().sound(SoundType.GLASS).lightLevel(Utils.Blocks.lightIfLit())));
+        decoratedBronzeLamp = registerBlock("decorated_bronze_lamp", () -> new RedstoneLampBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).mapColor(MapColor.COLOR_BROWN).strength(3f, 4f).noOcclusion().sound(SoundType.GLASS).lightLevel(Utils.Blocks.lightIfLit())));
+        bronzeLampBlock = registerBlock("bronze_lamp_block", () -> new RedstoneLampBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).mapColor(MapColor.COLOR_BROWN).strength(3f, 4f).noOcclusion().sound(SoundType.GLASS).lightLevel(Utils.Blocks.lightIfLit())));
+        bronzeGlass = registerBlock("bronze_glass", () -> new GlassBlock(props(Blocks.GLASS, MapColor.COLOR_BROWN).requiresCorrectToolForDrops().strength(1f, 4f).noOcclusion().sound(SoundType.GLASS)));
+        bronzeGlassPane = registerBlock("bronze_glass_pane", () -> new IronBarsBlock(props(Blocks.GLASS_PANE, MapColor.COLOR_BROWN).requiresCorrectToolForDrops().strength(1f, 4f).noOcclusion().sound(SoundType.GLASS)));
+        bronzeDoor = registerBlock("bronze_door", () -> new DoorBlock(propsDeco(Blocks.IRON_DOOR, MapColor.COLOR_BROWN), BlockSetType.IRON));
+        bronzeTrapdoor = registerBlock("bronze_trapdoor", () -> new TrapDoorBlock(propsDeco(Blocks.IRON_TRAPDOOR, MapColor.COLOR_BROWN), BlockSetType.IRON));
+        bronzeTrapdoorGlass = registerBlock("bronze_trapdoor_glass", () -> new TrapDoorBlock(propsDeco(Blocks.IRON_TRAPDOOR, MapColor.COLOR_BROWN), BlockSetType.IRON));
 
         grave = registerBlock("grave", () -> new TombBlock(true, BlockBehaviour.Properties.copy(Blocks.STONE).strength(1f, 1f).noOcclusion()));
         tomb = registerBlock("tomb", () -> new TombBlock(BlockBehaviour.Properties.copy(Blocks.STONE).strength(1f, 1f).noOcclusion()));
@@ -456,7 +474,6 @@ public class BlockRegistry{
         woodenTomb = registerBlock("wooden_tomb", () -> new TombBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).strength(1f, 1f).noOcclusion()));
         mossyWoodenTomb = registerBlock("mossy_wooden_tomb", () -> new TombBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).strength(1f, 1f).noOcclusion()));
         sarcophagus = registerBlock("sarcophagus", () -> new SarcophagusBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops().strength(3f).noOcclusion()));
-        elegantPedestal = registerBlock("elegant_pedestal", () -> new PedestalBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_RED).requiresCorrectToolForDrops().strength(3f, 1f).noOcclusion()));
 
         // Cups
         woodenCup = BLOCK.register("wooden_cup", BlockRegistry::woodenCup);
@@ -496,8 +513,9 @@ public class BlockRegistry{
         cryptPot = registerBlock("crypt_pot", BlockRegistry::cryptPot);
         decoratedCryptPot = registerBlock("decorated_crypt_pot", BlockRegistry::cryptPot);
 
-        taintedRoots = BLOCK.register("tainted_roots", () -> new TaintedRootsBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).mapColor(MapColor.COLOR_MAGENTA).randomTicks().noCollission().instabreak().sound(SoundType.CAVE_VINES).pushReaction(PushReaction.DESTROY)));
+        suspiciousIce = registerBlock("suspicious_ice", () -> new CrushableBlock(true, Blocks.ICE, BlockBehaviour.Properties.copy(Blocks.ICE).friction(0.98F).noOcclusion().strength(0.5F).mapColor(MapColor.ICE).instrument(NoteBlockInstrument.SNARE).sound(SoundsRegistry.SUSPICIOUS_TOMBSTONE).pushReaction(PushReaction.DESTROY), SoundEvents.BRUSH_GRAVEL));
 
+        taintedRoots = BLOCK.register("tainted_roots", () -> new TaintedRootsBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).mapColor(MapColor.COLOR_MAGENTA).randomTicks().noCollission().instabreak().sound(SoundType.CAVE_VINES).pushReaction(PushReaction.DESTROY)));
         violetSproutPlant = BLOCK.register("violet_sprout_plant", () -> new VioletSproutPlantBlock(BlockBehaviour.Properties.copy(Blocks.KELP_PLANT).mapColor(MapColor.COLOR_MAGENTA), false));
         violetSprout = registerBlock("violet_sprout", () -> new VioletSproutBlock(BlockBehaviour.Properties.copy(Blocks.KELP).mapColor(MapColor.COLOR_MAGENTA), false), () -> new TaintTransformBlockItem(BlockRegistry.violetSproutPlant.get(), new Item.Properties()));
 
@@ -510,9 +528,9 @@ public class BlockRegistry{
         abyssalGlowfernPlant = BLOCK.register("abyssal_glowfern_plant", () -> new AbyssalGlowFernPlantBlock(BlockBehaviour.Properties.copy(Blocks.KELP_PLANT).mapColor(MapColor.COLOR_MAGENTA)));
         abyssalGlowfern = registerBlock("abyssal_glowfern", () -> new AbyssalGlowFernBlock(BlockBehaviour.Properties.copy(Blocks.KELP).mapColor(MapColor.COLOR_MAGENTA).lightLevel(Utils.Blocks.plantLight())), () -> new TaintTransformBlockItem(BlockRegistry.abyssalGlowfern.get(), new Item.Properties()));
 
+        aloe = registerBlock("aloe", () -> new TallAloeBlock(BlockBehaviour.Properties.copy(Blocks.SUNFLOWER)));
         aloeSmall = registerBlock("aloe_small", () -> new DeadBushBlock(BlockBehaviour.Properties.copy(Blocks.SUNFLOWER)));
         pottedAloeSmall = BLOCK.register("potted_aloe_small", () -> new FlowerPotBlock(BlockRegistry.aloeSmall.get(), BlockBehaviour.Properties.copy(Blocks.POTTED_POPPY).instabreak().noOcclusion()));
-        aloe = registerBlock("aloe", () -> new TallAloeBlock(BlockBehaviour.Properties.copy(Blocks.SUNFLOWER)));
         driedPlant = registerBlock("dried_plant", () -> new DriedBlock(BlockBehaviour.Properties.copy(Blocks.SUNFLOWER)));
         pottedDriedPlant = BLOCK.register("potted_dried_plant", () -> new FlowerPotBlock(BlockRegistry.driedPlant.get(), BlockBehaviour.Properties.copy(Blocks.POTTED_POPPY).instabreak().noOcclusion()));
         driedRoots = registerBlock("dried_roots", () -> new DriedBlock(BlockBehaviour.Properties.copy(Blocks.SUNFLOWER)));
@@ -558,7 +576,8 @@ public class BlockRegistry{
         karusakanRoots = registerBlock("karusakan_roots", () -> new TallRootsBlock(BlockBehaviour.Properties.copy(Blocks.CRIMSON_ROOTS).mapColor(MapColor.COLOR_BROWN)));
         shadeBlossom = registerBlock("shade_blossom", () -> new ShadeBlossomBlock(BlockBehaviour.Properties.copy(Blocks.SPORE_BLOSSOM).mapColor(MapColor.COLOR_LIGHT_BLUE)));
 
-        // Trophy
+        // Pedestals
+        elegantPedestal = registerBlock("elegant_pedestal", () -> new PedestalBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_RED).requiresCorrectToolForDrops().strength(3f, 1f).noOcclusion()));
         bossTrophy = registerBlock("boss_trophy", () -> new BossTrophyBlock(Properties.copy(Blocks.IRON_BLOCK)));
         necromancerTrophy = registerBlock("necromancer_boss_trophy", () -> new BossTrophyBlock(EntityTypeRegistry.NECROMANCER::get, Properties.copy(Blocks.IRON_BLOCK)), () -> new BossTrophyBlockItem(BlockRegistry.necromancerTrophy.get(), new Item.Properties()));
         dryadorTrophy = registerBlock("dryador_boss_trophy", () -> new BossTrophyBlock(EntityTypeRegistry.DRYADOR::get, Properties.copy(Blocks.IRON_BLOCK)), () -> new BossTrophyBlockItem(BlockRegistry.dryadorTrophy.get(), new Item.Properties()));
@@ -646,7 +665,7 @@ public class BlockRegistry{
         };
     }
 
-    private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block, Supplier<? extends BlockItem> item){
+    private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block, Supplier<? extends Item> item){
         RegistryObject<T> toReturn = BLOCK.register(name, block);
         BLOCK_ITEMS.register(name, item);
         return toReturn;

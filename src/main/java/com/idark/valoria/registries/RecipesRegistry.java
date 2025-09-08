@@ -17,6 +17,7 @@ public class RecipesRegistry{
     public static final RegistryObject<RecipeSerializer<SoulInfuserRecipe>> SOUL_INFUSER_SERIALIZER = SERIALIZERS.register("soul_infuser", () -> SoulInfuserRecipe.Serializer.INSTANCE);
     public static final RegistryObject<RecipeSerializer<PoisonWeaponRecipe>> POISON_RECIPE = SERIALIZERS.register("weapon_poisoning",  () -> new SimpleCraftingRecipeSerializer<>(PoisonWeaponRecipe::new));
     public static final RegistryObject<RecipeSerializer<PurifyingFoodRecipe>> PURIFY_RECIPE = SERIALIZERS.register("purifying_food",  () -> new SimpleCraftingRecipeSerializer<>(PurifyingFoodRecipe::new));
+    public static final RegistryObject<RecipeSerializer<WorkbenchRecipe>> HEAVY_WORKBENCH = SERIALIZERS.register("heavy_workbench", () -> WorkbenchRecipe.Serializer.INSTANCE);
 
     public static void register(IEventBus eventBus){
         SERIALIZERS.register(eventBus);

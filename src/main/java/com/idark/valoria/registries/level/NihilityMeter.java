@@ -1,10 +1,12 @@
 package com.idark.valoria.registries.level;
 
+import com.idark.valoria.*;
 import com.idark.valoria.core.capability.*;
 import com.idark.valoria.registries.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraftforge.event.TickEvent.*;
+import pro.komaru.tridot.client.render.gui.*;
 import pro.komaru.tridot.util.*;
 
 
@@ -23,9 +25,10 @@ public class NihilityMeter{
             }
         }
 
-        if(player.tickCount % (amount < max * criticalLevel ? 40 : 20) == 0){
+        if(isDamagingLevel(player, amount, max)){
             float ratio = amount / max;
-            if(ratio >= damagingLevel){
+            boolean flag = ratio >= damagingLevel;
+            if(flag){
                 int segments = (int)((ratio - damagingLevel) / 0.1f);
                 float damage = 1 + segments * 2;
                 player.hurt(DamageSourceRegistry.voidHarm(player.level()), damage);
@@ -35,6 +38,25 @@ public class NihilityMeter{
                 player.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 120, 0));
             }
         }
+    }
+
+    public static void clientTick(INihilityLevel nihilityLevel, Player player) {
+        float maxClient = nihilityLevel.getMaxAmount(player, true);
+        float amountClient = nihilityLevel.getAmount(true);
+        if(isDamagingLevel(player, amountClient, maxClient)){
+            float ratio = amountClient / maxClient;
+            boolean flag = ratio >= damagingLevel;
+            if(flag){
+                OverlayInstance instance = new OverlayInstance();
+                instance.setTexture(Valoria.loc("textures/gui/overlay/corruption.png"));
+                instance.setShowTime(20);
+                OverlayHandler.addInstance(instance);
+            }
+        }
+    }
+
+    private static boolean isDamagingLevel(Player player, float amountClient, float maxClient){
+        return player.tickCount % (amountClient < maxClient * criticalLevel ? 40 : 20) == 0;
     }
 
     private static void valoriaTick(INihilityLevel nihilityLevel, Player player, float amount, float max){

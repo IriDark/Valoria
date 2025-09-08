@@ -23,6 +23,42 @@
         },
         {
           "type": "minecraft:item",
+          "name": "valoria:crypt_locator",
+          "weight": 5,
+          "functions": []
+        },
+        {
+          "type": "minecraft:item",
+          "name": "valoria:the_fallen_collector_crown",
+          "weight": 1,
+          "functions": []
+        },
+        {
+          "type": "minecraft:item",
+          "name": "valoria:the_fallen_collector_hood",
+          "weight": 5,
+          "functions": []
+        },
+        {
+          "type": "minecraft:item",
+          "name": "valoria:the_fallen_collector_coat",
+          "weight": 5,
+          "functions": []
+        },
+        {
+          "type": "minecraft:item",
+          "name": "valoria:the_fallen_collector_leggings",
+          "weight": 5,
+          "functions": []
+        },
+        {
+          "type": "minecraft:item",
+          "name": "valoria:the_fallen_collector_boots",
+          "weight": 5,
+          "functions": []
+        },
+        {
+          "type": "minecraft:item",
           "name": "valoria:page",
           "weight": 5
         },

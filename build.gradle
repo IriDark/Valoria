@@ -24,7 +24,7 @@ plugins {
     id 'maven-publish'
     id 'net.minecraftforge.gradle' version '[6.0,6.2)'
     id "com.modrinth.minotaur" version "2.+"
-    id 'org.spongepowered.mixin' version '[0.7,0.8)'
+    id 'org.spongepowered.mixin' version '0.7.+'
     id 'org.parchmentmc.librarian.forgegradle' version '1.+'
 }
 
@@ -86,8 +86,12 @@ repositories {
     mavenLocal()
     mavenCentral()
     maven {
-        name = "AzureDoom Mods"
-        url = "https://maven.azuredoom.com/mods"
+        name = 'GeckoLib'
+        url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
+        content {
+            includeGroupByRegex("software\\.bernie.*")
+            includeGroup("com.eliotlash.mclib")
+        }
     }
 
     maven {
@@ -125,7 +129,8 @@ dependencies {
     implementation fg.deobf("curse.maven:just-enough-resources-jer-240630:5057220")
     runtimeOnly fg.deobf("pro.komaru:Tridot:${minecraft_version}-${tridot_version}")
     compileOnly fg.deobf("pro.komaru:Tridot:${minecraft_version}-${tridot_version}:api")
-    implementation fg.deobf("mod.azure.azurelib:azurelib-neo-${minecraft_version}:${azurelib_version}")
+    implementation fg.deobf("software.bernie.geckolib:geckolib-forge-${minecraft_version}:${geckolib_version}")
+    implementation("com.eliotlash.mclib:mclib:20")
 
     implementation fg.deobf("dev.latvian.mods:kubejs-forge:${kubejs_version}")
     implementation fg.deobf("dev.latvian.mods:rhino-forge:${rhino_version}")
@@ -144,8 +149,7 @@ dependencies {
     runtimeOnly fg.deobf("curse.maven:appleskin-248787:4770828")
     runtimeOnly fg.deobf("curse.maven:prism-lib-638111:4650325")
     runtimeOnly fg.deobf("maven.modrinth:iceberg:1.1.16")
-    runtimeOnly fg.deobf("curse.maven:advanced-xray-256256:4840340")
-    runtimeOnly fg.deobf("curse.maven:model-gap-fix-676136:4607206")
+    //runtimeOnly fg.deobf("curse.maven:advanced-xray-256256:4840340")
     runtimeOnly fg.deobf("curse.maven:just-enough-effect-descriptions-jeed-532286:4978810")
     runtimeOnly fg.deobf("curse.maven:obscure-tooltips-715660:4686579")
     runtimeOnly fg.deobf("curse.maven:obscure-api-638417:4616364")

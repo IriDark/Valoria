@@ -76,7 +76,7 @@ public class FleshCystBlock extends BaseEntityBlock implements SimpleWaterlogged
         }
     }
 
-    public VoxelShape makeShape(){
+    private static VoxelShape makeShape(){
         VoxelShape shape = Shapes.empty();
         shape = Shapes.join(shape, Shapes.box(0, 0, 0, 1, 0.125, 1), BooleanOp.OR);
         shape = Shapes.join(shape, Shapes.box(0.125625, 0.125625, 0.125625, 0.874375, 0.561875, 0.874375), BooleanOp.OR);

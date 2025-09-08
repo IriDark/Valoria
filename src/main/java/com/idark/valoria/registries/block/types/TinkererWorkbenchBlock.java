@@ -42,7 +42,6 @@ public class TinkererWorkbenchBlock extends HorizontalDirectionalBlock implement
         Level level = pContext.getLevel();
         boolean flag = fluidstate.getType() == Fluids.WATER;
         return level.getBlockState(relativePos).canBeReplaced(pContext) && level.getWorldBorder().isWithinBounds(relativePos) ? this.defaultBlockState().setValue(FACING, direction).setValue(WATERLOGGED, flag) : null;
-
     }
 
     public BlockState updateShape(BlockState pState, Direction pDirection, BlockState pNeighborState, LevelAccessor pLevel, BlockPos pPos, BlockPos pNeighborPos){
@@ -71,7 +70,6 @@ public class TinkererWorkbenchBlock extends HorizontalDirectionalBlock implement
     }
 
     public VoxelShape makeShape(BlockState state){
-        //I hate voxel shapes, the worst thing ive seen...
         Direction direction = (state.getValue(FACING));
         VoxelShape shape = Shapes.empty();
         if(state.getValue(PART) == BedPart.FOOT){
@@ -170,12 +168,12 @@ public class TinkererWorkbenchBlock extends HorizontalDirectionalBlock implement
     public void playerWillDestroy(Level pLevel, BlockPos pPos, BlockState pState, Player pPlayer){
         if(!pLevel.isClientSide && pPlayer.isCreative()){
             BedPart part = pState.getValue(PART);
+            BlockPos pNeighborPos = pPos.relative(getNeighbourDirection(part, pState.getValue(FACING)));
+            BlockState pNeighborState = pLevel.getBlockState(pNeighborPos);
             if(part == BedPart.FOOT){
-                BlockPos relativePos = pPos.relative(getNeighbourDirection(part, pState.getValue(FACING)));
-                BlockState state = pLevel.getBlockState(relativePos);
-                if(state.is(this) && state.getValue(PART) == BedPart.HEAD){
-                    pLevel.setBlock(relativePos, Blocks.AIR.defaultBlockState(), 35);
-                    pLevel.levelEvent(pPlayer, 2001, relativePos, Block.getId(state));
+                if(!pNeighborState.is(this) || pNeighborState.getValue(PART) != pState.getValue(PART)){
+                    pLevel.levelEvent(null, 2001, pNeighborPos, Block.getId(pNeighborState));
+                    pLevel.setBlock(pNeighborPos, Blocks.AIR.defaultBlockState(), 35);
                 }
             }
         }

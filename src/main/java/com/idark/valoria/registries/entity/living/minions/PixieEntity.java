@@ -14,7 +14,6 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.control.*;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.navigation.*;
-import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.level.pathfinder.*;
@@ -30,7 +29,7 @@ import java.util.*;
 
 public class PixieEntity extends AbstractMinionEntity{
     public static final int TICKS_PER_FLAP = Mth.ceil(3.9269907F);
-    private static final EntityDataAccessor<Integer> DATA_ID_ATTACK_TARGET = SynchedEntityData.defineId(Guardian.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> DATA_ID_ATTACK_TARGET = SynchedEntityData.defineId(PixieEntity.class, EntityDataSerializers.INT);
     private LivingEntity clientSideCachedAttackTarget;
     private int clientSideHealTime;
 
@@ -188,7 +187,7 @@ public class PixieEntity extends AbstractMinionEntity{
         super.registerGoals();
         this.goalSelector.addGoal(0, new HealOwnerGoal());
         this.goalSelector.addGoal(0, new RandomMoveGoal());
-        this.goalSelector.addGoal(0, new FollowOwnerGoal(1, 12, 2));
+        this.goalSelector.addGoal(0, new FollowOwnerGoal(1, 16, 6));
     }
 
     protected SoundEvent getAmbientSound(){
@@ -243,20 +242,20 @@ public class PixieEntity extends AbstractMinionEntity{
 
         @Override
         public boolean canUse(){
-            return owner != null && owner.isAlive();
+            return getOwner() != null && getOwner().isAlive();
         }
 
         /**
          * Returns whether an in-progress EntityAIBase should continue executing
          */
         public boolean canContinueToUse() {
-            return super.canContinueToUse() && (owner != null && PixieEntity.this.distanceToSqr(owner) > 9.0D) && owner.getHealth() < owner.getMaxHealth();
+            return super.canContinueToUse() && (getOwner() != null && PixieEntity.this.distanceToSqr(getOwner()) > 9.0D) && getOwner().getHealth() < getOwner().getMaxHealth();
         }
 
         public void start() {
             this.healTime = -10;
             PixieEntity.this.getNavigation().stop();
-            LivingEntity livingentity = owner;
+            LivingEntity livingentity = getOwner();
             if (livingentity != null) {
                 PixieEntity.this.getLookControl().setLookAt(livingentity, 90.0F, 90.0F);
             }
@@ -279,7 +278,7 @@ public class PixieEntity extends AbstractMinionEntity{
          * Keep ticking a continuous task that has already been started
          */
         public void tick() {
-            LivingEntity livingentity = owner;
+            LivingEntity livingentity = getOwner();
             if (livingentity != null) {
                 PixieEntity.this.getNavigation().stop();
                 PixieEntity.this.getLookControl().setLookAt(livingentity, 90.0F, 90.0F);

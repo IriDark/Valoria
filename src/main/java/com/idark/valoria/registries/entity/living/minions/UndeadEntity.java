@@ -24,6 +24,8 @@ import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.phys.*;
 import pro.komaru.tridot.common.registry.entity.*;
+import pro.komaru.tridot.common.registry.entity.goal.FollowOwnerGoal;
+import pro.komaru.tridot.common.registry.entity.goal.*;
 
 import javax.annotation.*;
 import java.util.*;
@@ -68,6 +70,7 @@ public class UndeadEntity extends AbstractMinionEntity{
 
     protected void registerGoals(){
         super.registerGoals();
+        this.targetSelector.addGoal(0, new FollowOwnerGoal(this, 1, 24, 8, true));
         this.targetSelector.addGoal(0, new CopyOwnerTargetGoal(this));
         this.targetSelector.addGoal(0, new NearestAttackableTargetGoal<>(this, Player.class, true));
         this.goalSelector.addGoal(0, new UndeadEntityRandomMoveGoal());
@@ -84,6 +87,11 @@ public class UndeadEntity extends AbstractMinionEntity{
     private boolean getUndeadFlag(int pMask){
         int i = this.entityData.get(DATA_FLAGS_ID);
         return (i & pMask) != 0;
+    }
+
+    @Override
+    public boolean isAttackable(){
+        return false;
     }
 
     private void setUndeadFlag(int pMask, boolean pValue){

@@ -1,30 +1,18 @@
 package com.idark.valoria.registries.block.types;
 
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.HorizontalDirectionalBlock;
-import net.minecraft.world.level.block.SimpleWaterloggedBlock;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.material.FluidState;
-import net.minecraft.world.level.material.Fluids;
-import net.minecraft.world.phys.shapes.BooleanOp;
-import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.Shapes;
-import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraft.core.*;
+import net.minecraft.world.item.context.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.*;
+import net.minecraft.world.level.block.state.properties.*;
+import net.minecraft.world.level.material.*;
+import net.minecraft.world.phys.shapes.*;
 
-import javax.annotation.Nullable;
+import javax.annotation.*;
 
 public class TombBlock extends HorizontalDirectionalBlock implements SimpleWaterloggedBlock{
     private final boolean isGrave;
-
     public TombBlock(BlockBehaviour.Properties properties){
         super(properties);
         this.isGrave = false;
@@ -37,7 +25,7 @@ public class TombBlock extends HorizontalDirectionalBlock implements SimpleWater
         registerDefaultState(defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, false));
     }
 
-    public VoxelShape makeGraveShape(BlockState state){
+    private static VoxelShape makeGraveShape(BlockState state){
         VoxelShape shape = Shapes.empty();
         Direction direction = state.getValue(BlockStateProperties.HORIZONTAL_FACING);
         switch(direction){
@@ -57,7 +45,7 @@ public class TombBlock extends HorizontalDirectionalBlock implements SimpleWater
         return shape;
     }
 
-    public VoxelShape makeTombShape(BlockState state){
+    private static VoxelShape makeTombShape(BlockState state){
         VoxelShape shape = Shapes.empty();
         Direction direction = state.getValue(BlockStateProperties.HORIZONTAL_FACING);
         shape = Shapes.join(shape, Shapes.box(0.375, 0.1875, 0.375, 0.625, 0.5, 0.625), BooleanOp.OR);

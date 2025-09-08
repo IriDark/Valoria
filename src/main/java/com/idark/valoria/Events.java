@@ -5,6 +5,7 @@ import com.idark.valoria.api.events.*;
 import com.idark.valoria.api.unlockable.*;
 import com.idark.valoria.api.unlockable.types.*;
 import com.idark.valoria.client.ui.screen.book.codex.*;
+import com.idark.valoria.client.ui.screen.book.codex.checklist.*;
 import com.idark.valoria.core.capability.*;
 import com.idark.valoria.core.interfaces.*;
 import com.idark.valoria.core.network.*;
@@ -66,6 +67,7 @@ public class Events{
     public void onReload(AddReloadListenerEvent event) {
         Valoria.LOGGER.info("Reloading Codex Chapters...");
         CodexEntries.initChapters();
+        event.addListener(BossEntryLoader.INSTANCE);
     }
 
     @SubscribeEvent
@@ -139,23 +141,29 @@ public class Events{
     }
 
     @SubscribeEvent
-    public void playerTick(TickEvent.PlayerTickEvent event) {
+    public void playerTick(TickEvent.PlayerTickEvent event){
         Player player = event.player;
-        if (!player.level().isClientSide() && player instanceof ServerPlayer serverPlayer) {
+        if(!player.level().isClientSide() && player instanceof ServerPlayer serverPlayer){
             player.getCapability(INihilityLevel.INSTANCE).ifPresent(nihilityLevel -> {
                 if(!player.getAbilities().instabuild && !player.isSpectator()){
                     NihilityMeter.tick(event, nihilityLevel, player);
                 }
             });
 
-            if (player.tickCount % 60 == 0) {
+            if(player.tickCount % 60 == 0){
                 ArrayList<Unlockable> all = new ArrayList<>(Unlockables.get());
                 Set<Unlockable> unlocked = UnlockUtils.getUnlocked(serverPlayer);
-                if (unlocked != null) all.removeAll(unlocked);
-                for (Unlockable unknown : all) {
+                if(unlocked != null) all.removeAll(unlocked);
+                for(Unlockable unknown : all){
                     unknown.tick(serverPlayer);
                 }
             }
+        }
+
+        if(player.level().isClientSide()){
+            player.getCapability(INihilityLevel.INSTANCE).ifPresent(nihilityLevel -> {
+                NihilityMeter.clientTick(nihilityLevel, player);
+            });
         }
     }
 

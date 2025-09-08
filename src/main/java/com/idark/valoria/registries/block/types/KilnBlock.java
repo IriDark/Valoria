@@ -202,10 +202,13 @@ public class KilnBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
 
     @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext){
+        return createShape();
+    }
+
+    private static VoxelShape createShape(){
         VoxelShape shape = Shapes.empty();
         shape = Shapes.join(shape, Shapes.box(0, 0, 0, 1, 0.625, 1), BooleanOp.OR);
         shape = Shapes.join(shape, Shapes.box(0.1875, 0.625, 0.1875, 0.8125, 0.8125, 0.8125), BooleanOp.OR);
-
         return shape;
     }
 }

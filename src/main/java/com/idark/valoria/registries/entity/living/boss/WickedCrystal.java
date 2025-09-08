@@ -80,6 +80,22 @@ public class WickedCrystal extends AbstractBoss{
     }
 
     @Override
+    public void die(DamageSource pDamageSource){
+        TargetingConditions targetingConditions = TargetingConditions.forNonCombat().range(32.0D).ignoreLineOfSight().ignoreInvisibilityTesting();
+        var shieldsInArea = WickedCrystal.this.level().getNearbyEntities(WickedShield.class, targetingConditions, WickedCrystal.this, WickedCrystal.this.getBoundingBox().inflate(16.0D));
+        for(Entity entity : shieldsInArea) {
+            entity.discard();
+        }
+
+        var crystalsInArea = WickedCrystal.this.level().getNearbyEntities(CrystalEntity.class, targetingConditions, WickedCrystal.this, WickedCrystal.this.getBoundingBox().inflate(16.0D));
+        for(Entity entity : crystalsInArea) {
+            entity.discard();
+        }
+
+        super.die(pDamageSource);
+    }
+
+    @Override
     protected void tickDeath(){
         ++this.animatedDeathTime;
         if (this.animatedDeathTime >= 60 && !this.level().isClientSide() && !this.isRemoved()) {

@@ -78,7 +78,7 @@ public class SummonBook extends Item{
     public void applyCooldown(Player playerIn){
         for(Item item : ForgeRegistries.ITEMS){
             if(item instanceof SummonBook){
-                playerIn.getCooldowns().addCooldown(item, 175);
+                playerIn.getCooldowns().addCooldown(item, 175 + getLifetime(playerIn));
             }
         }
     }

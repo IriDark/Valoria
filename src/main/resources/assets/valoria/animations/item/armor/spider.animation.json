@@ -1,0 +1,120 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"misc.idle": {
+			"loop": true,
+			"animation_length": 3,
+			"bones": {
+				"bone": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"1.0": {
+							"vector": [0, 10, 0],
+							"easing": "easeInQuart"
+						},
+						"1.75": {
+							"vector": [2.34186, 27.303, 0.4716],
+							"easing": "easeOutQuart"
+						},
+						"2.9583": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"bone2": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"1.0": {
+							"vector": [0, 7.5, 0],
+							"easing": "easeInQuart"
+						},
+						"1.75": {
+							"vector": [-0.32652, 2.4786, -7.50706],
+							"easing": "easeInQuart"
+						},
+						"2.9583": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"bone3": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"1.0": {
+							"vector": [0, 0, 12.5],
+							"easing": "easeOutQuart"
+						},
+						"1.75": {
+							"vector": [0, 0, 25],
+							"easing": "easeOutQuart"
+						},
+						"2.9583": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"bone4": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"1.0": {
+							"vector": [0, -7.5, 0],
+							"easing": "easeInQuart"
+						},
+						"1.75": {
+							"vector": [0.32652, -2.4786, 7.50706],
+							"easing": "easeInQuart"
+						},
+						"2.9583": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"bone5": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"1.0": {
+							"vector": [0, -10, 0],
+							"easing": "easeInQuart"
+						},
+						"1.75": {
+							"vector": [-2.34186, -27.303, -0.4716],
+							"easing": "easeOutQuart"
+						},
+						"2.9583": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"bone6": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"1.0": {
+							"vector": [0, 0, -12.5],
+							"easing": "easeOutQuart"
+						},
+						"1.75": {
+							"vector": [0, 0, -25],
+							"easing": "easeOutQuart"
+						},
+						"2.9583": {
+							"vector": [0, 0, 0]
+						}
+					}
+				}
+			}
+		}
+	},
+	"geckolib_format_version": 2
+}

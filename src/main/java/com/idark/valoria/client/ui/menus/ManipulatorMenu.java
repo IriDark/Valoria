@@ -19,6 +19,8 @@ public class ManipulatorMenu extends ContainerMenuBase{
         super(MenuRegistry.MANIPULATOR_MENU.get(), windowId);
         this.blockEntity = world.getBlockEntity(pos);
         this.playerEntity = player;
+        this.playerInventory = new InvWrapper(playerInventory);
+        this.layoutPlayerInventorySlots(8, 84);
         if(blockEntity != null){
             blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(h -> {
                 this.addSlot(new SlotItemHandler(h, 0, 27, 53));
@@ -28,8 +30,6 @@ public class ManipulatorMenu extends ContainerMenuBase{
             });
         }
 
-        this.playerInventory = new InvWrapper(playerInventory);
-        this.layoutPlayerInventorySlots(8, 84);
     }
 
     @Override

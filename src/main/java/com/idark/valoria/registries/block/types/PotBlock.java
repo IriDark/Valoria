@@ -53,7 +53,7 @@ public class PotBlock extends HorizontalDirectionalBlock implements SimpleWaterl
         }
     }
 
-    public VoxelShape getPotLong(){
+    private static VoxelShape getPotLong(){
         VoxelShape shape = Shapes.empty();
         shape = Shapes.join(shape, Shapes.box(0.5, 0.25, 0.75, 0.5, 0.625, 0.9375), BooleanOp.OR);
         shape = Shapes.join(shape, Shapes.box(0.375, 0.75, 0.375, 0.625, 0.875, 0.625), BooleanOp.OR);
@@ -64,7 +64,7 @@ public class PotBlock extends HorizontalDirectionalBlock implements SimpleWaterl
         return shape;
     }
 
-    public VoxelShape getPotSmall(){
+    private static VoxelShape getPotSmall(){
         VoxelShape shape = Shapes.empty();
         shape = Shapes.join(shape, Shapes.box(0.375, 0.5, 0.375, 0.625, 0.625, 0.625), BooleanOp.OR);
         shape = Shapes.join(shape, Shapes.box(0.3125, 0.59375, 0.3125, 0.6875, 0.71875, 0.6875), BooleanOp.OR);

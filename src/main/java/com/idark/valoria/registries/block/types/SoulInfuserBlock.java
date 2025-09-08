@@ -113,7 +113,7 @@ public class SoulInfuserBlock extends Block implements SimpleWaterloggedBlock, E
         NetworkHooks.openScreen(player, getMenuProvider(world, pos), buf -> buf.writeBlockPos(pos));
     }
 
-    public VoxelShape makeShape(){
+    private static VoxelShape makeShape(){
         VoxelShape shape = Shapes.empty();
         shape = Shapes.join(shape, Shapes.box(0.3125, 0, 0, 0.6875, 0.1875, 0.0625), BooleanOp.OR);
         shape = Shapes.join(shape, Shapes.box(0.3125, 0, 0.9375, 0.6875, 0.1875, 1), BooleanOp.OR);

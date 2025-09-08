@@ -36,6 +36,17 @@ public abstract class Page{
         }
     }
 
+    public boolean mouseReleased(double mouseX, double mouseY, int button){
+        return false;
+    }
+
+    public void mouseScrolled(double mouseX, double mouseY, double delta){
+    }
+
+    public boolean mouseClicked(double mouseX, double mouseY, int button){
+        return true;
+    }
+
     @OnlyIn(Dist.CLIENT)
     public void tick(){
     }

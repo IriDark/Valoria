@@ -1,0 +1,9 @@
+{
+  "type": "valoria:kiln",
+  "ingredient": {
+    "tag": "forge:stained_glass"
+  },
+  "experience": 0.5,
+  "cookingtime": 200,
+  "result": "minecraft:glass"
+}

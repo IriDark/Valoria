@@ -1,0 +1,11 @@
+{
+  "type": "valoria:heavy_workbench",
+  "ingredients": [
+    { "item": { "item": "minecraft:iron_ingot" }, "count": 4 },
+    { "item": { "item": "minecraft:redstone" }, "count": 2 }
+  ],
+  "result": {
+    "item": "minecraft:anvil",
+    "count": 1
+  }
+}

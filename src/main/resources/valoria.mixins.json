@@ -11,6 +11,7 @@
     "RangedAttributeMixin"
   ],
   "client": [
+    "client.AbstractClientPlayerMixin",
     "client.ClientLevelMixin",
     "client.PlayerRendererMixin"
   ],

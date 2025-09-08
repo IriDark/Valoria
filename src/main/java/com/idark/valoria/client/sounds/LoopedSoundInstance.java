@@ -9,8 +9,8 @@ import net.minecraftforge.api.distmarker.*;
 public class LoopedSoundInstance extends AbstractTickableSoundInstance{
     public final LocalPlayer player;
 
-    public LoopedSoundInstance(SoundEvent sound, LocalPlayer pPlayer){
-        super(sound, SoundSource.MUSIC, SoundInstance.createUnseededRandom());
+    public LoopedSoundInstance(SoundEvent sound, SoundSource soundSource, LocalPlayer pPlayer){
+        super(sound, soundSource, SoundInstance.createUnseededRandom());
         this.player = pPlayer;
         this.looping = true;
         this.delay = 0;

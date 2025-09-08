@@ -1,0 +1,9 @@
+{
+  "type": "valoria:kiln",
+  "ingredient": {
+    "item": "valoria:void_stone"
+  },
+  "experience": 0.5,
+  "cookingtime": 100,
+  "result": "valoria:void_stone_brick"
+}

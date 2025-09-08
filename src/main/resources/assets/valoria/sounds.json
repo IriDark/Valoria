@@ -143,6 +143,11 @@
       }
     ]
   },
+  "item.nihility_alert.active": {
+    "sounds": [
+      "valoria:alert"
+    ]
+  },
   "block.flesh.break": {
     "subtitle": "subtitles.block.generic.break",
     "sounds": [

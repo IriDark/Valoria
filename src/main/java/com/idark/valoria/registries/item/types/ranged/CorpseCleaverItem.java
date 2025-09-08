@@ -6,7 +6,6 @@ import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.entity.projectile.*;
 import net.minecraft.*;
 import net.minecraft.network.chat.*;
-import net.minecraft.resources.*;
 import net.minecraft.sounds.*;
 import net.minecraft.stats.*;
 import net.minecraft.world.*;
@@ -59,8 +58,11 @@ public class CorpseCleaverItem extends SwordItem{
                         playerEntity.getCooldowns().addCooldown(this, 40);
                     }
                 }else{
-                    OverlayRender.setOverlayTexture(new ResourceLocation(Valoria.ID, "textures/gui/overlay/blood.png"));
-                    OverlayRender.showOverlay(30);
+                    OverlayInstance instance = new OverlayInstance();
+                    instance.setTexture(Valoria.loc("textures/gui/overlay/blood.png"));
+                    instance.setShowTime(30);
+
+                    OverlayHandler.addInstance(instance);
                 }
 
                 playerEntity.awardStat(Stats.ITEM_USED.get(this));

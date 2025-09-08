@@ -28,6 +28,8 @@ import pro.komaru.tridot.client.gfx.*;
 import pro.komaru.tridot.client.gfx.particle.*;
 import pro.komaru.tridot.client.gfx.particle.data.*;
 import pro.komaru.tridot.common.registry.entity.*;
+import pro.komaru.tridot.common.registry.entity.goal.FollowOwnerGoal;
+import pro.komaru.tridot.common.registry.entity.goal.*;
 import pro.komaru.tridot.util.*;
 
 import java.util.*;
@@ -128,6 +130,7 @@ public class CrystalEntity extends AbstractMultiAttackMinion implements RangedAt
 
     protected void registerGoals(){
         super.registerGoals();
+        this.targetSelector.addGoal(0, new FollowOwnerGoal(this, 1, 12, 4, true));
         this.targetSelector.addGoal(0, new CopyOwnerTargetGoal(this));
         this.targetSelector.addGoal(0, new NearestAttackableTargetGoal<>(this, Player.class, true));
         this.goalSelector.addGoal(1, new LookAtPlayerGoal(this, Mob.class, 12.0F));

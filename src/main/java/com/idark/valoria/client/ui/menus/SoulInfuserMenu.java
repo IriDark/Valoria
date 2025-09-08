@@ -20,6 +20,8 @@ public class SoulInfuserMenu extends ContainerMenuBase{
         super(MenuRegistry.SOUL_INFUSER_MENU.get(), windowId);
         this.blockEntity = world.getBlockEntity(pos);
         this.playerEntity = player;
+        this.playerInventory = new InvWrapper(playerInventory);
+        this.layoutPlayerInventorySlots(8, 84);
         if(blockEntity != null){
             blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(h -> {
                 this.addSlot(new SlotItemHandler(h, 0, 27, 27));
@@ -28,9 +30,6 @@ public class SoulInfuserMenu extends ContainerMenuBase{
                 this.addSlot(new ResultSlot(h, 2, 134, 27));
             });
         }
-
-        this.playerInventory = new InvWrapper(playerInventory);
-        this.layoutPlayerInventorySlots(8, 84);
     }
 
     @Override

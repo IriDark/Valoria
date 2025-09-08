@@ -32,7 +32,9 @@ public class TextPage extends Page{
     @Nullable public EntityType<? extends LivingEntity> type;
 
     public int entityX, entityY = 0;
+    public int recipeX = 21, recipeY = 34;
     public int entityScale = 25;
+    public boolean isDark = false;
     public static final Quaternionf ENTITY_ANGLE = (new Quaternionf()).rotationXYZ(0.43633232F, 0.0F, (float)Math.PI);
 
     public TextPage(String textKey){
@@ -42,6 +44,20 @@ public class TextPage extends Page{
 
     public TextPage withEntity(EntityType<? extends LivingEntity> type) {
         this.type = type;
+        return this;
+    }
+
+    public TextPage setCraftData(int x, int y) {
+        this.recipeX = x;
+        this.recipeY = y;
+        return this;
+    }
+
+    public TextPage setEntityData(int x, int y, int scale, boolean dark) {
+        this.entityX = x;
+        this.entityY = y;
+        this.entityScale = scale;
+        this.isDark = dark;
         return this;
     }
 
@@ -62,28 +78,31 @@ public class TextPage extends Page{
         return this;
     }
 
-    public TextPage withCraftEntry(ItemStack result){
-        this.result = result;
+    @Override
+    public void init(){
+        super.init();
         if(FMLEnvironment.dist.isClient()){
-            Minecraft mc = Minecraft.getInstance();
+            if(result != null && result.getItem() != Items.AIR){
+                Minecraft mc = Minecraft.getInstance();
+                if(mc.level != null){
+                    RecipeManager manager = mc.level.getRecipeManager();
+                    Optional<? extends Recipe<?>> optional = manager.getRecipes().stream()
+                    .filter(r -> ItemStack.isSameItem(r.getResultItem(mc.level.registryAccess()), result))
+                    .findFirst();
+                    if(optional.isPresent()){
+                        Recipe<?> recipe = optional.get();
+                        NonNullList<Ingredient> ingredients = recipe.getIngredients();
 
-            // null on resource load, initialized on first open
-            if(mc.level != null){
-                RecipeManager manager = mc.level.getRecipeManager();
-                Optional<? extends Recipe<?>> optional = manager.getRecipes().stream()
-                .filter(r -> ItemStack.isSameItemSameTags(r.getResultItem(mc.level.registryAccess()), result))
-                .findFirst();
-
-                if(optional.isPresent()){
-                    Recipe<?> recipe = optional.get();
-                    NonNullList<Ingredient> ingredients = recipe.getIngredients();
-
-                    this.inputs = ingredients.toArray(Ingredient[]::new);
-                    this.hasRecipe = true;
+                        this.inputs = ingredients.toArray(Ingredient[]::new);
+                        this.hasRecipe = true;
+                    }
                 }
             }
         }
+    }
 
+    public TextPage withCraftEntry(ItemStack result){
+        this.result = result;
         return this;
     }
 
@@ -112,7 +131,7 @@ public class TextPage extends Page{
                         }
                     }
 
-                    gui.blit(BACKGROUND, x + 21 + j * 18, y + 34 + i * 18 + 50, 287, 15, 18, 18, 512, 512);
+                    gui.blit(BACKGROUND, x + recipeX + j * 18, y + recipeY + i * 18 + 50, 287, 15, 18, 18, 512, 512);
                 }
             }
 
@@ -122,14 +141,22 @@ public class TextPage extends Page{
         }
 
         Minecraft mc = Minecraft.getInstance();
-        if(type != null) {
-            this.entity = type.create(mc.level);
-        }
+        if(type != null) renderEntity(isDark, gui, type, x, y, entityScale, mc, yOffset);
+    }
 
+    @OnlyIn(Dist.CLIENT)
+    public void renderEntity(boolean isDark, GuiGraphics gui, EntityType<? extends LivingEntity> type, int x, int y, int scale, Minecraft mc, int yOffset){
+        this.entity = type.create(mc.level);
         if(entity != null) {
             this.entity.setYBodyRot(210.0F);
             this.entity.setYHeadRot(210.0F);
-            InventoryScreen.renderEntityInInventory(gui, x + entityX, y + entityY + yOffset, entityScale, ENTITY_ANGLE, null, this.entity);
+            if(isDark){
+                gui.setColor(0, 0, 0, 1);
+                InventoryScreen.renderEntityInInventory(gui, x + entityX, y + entityY + yOffset, scale, ENTITY_ANGLE, null, this.entity);
+                gui.setColor(1, 1, 1, 1);
+            } else {
+                InventoryScreen.renderEntityInInventory(gui, x + entityX, y + entityY + yOffset, scale, ENTITY_ANGLE, null, this.entity);
+            }
         }
     }
 

@@ -150,7 +150,7 @@ public class SarcophagusBlock extends HorizontalDirectionalBlock implements Simp
                 double posY = (pPos.above().getCenter().y + oppositePos.above().getCenter().y) / 2.0;
                 double posZ = (pPos.getCenter().z + oppositePos.getCenter().z) / 2.0;
 
-                PacketHandler.sendToTracking(serv, pPos, new SmokeParticlePacket(60, posX, posY - 0.5f, posZ, 0.125f, 0, 0.125f, 255, 255, 255));
+                PacketHandler.sendToTracking(serv, pPos, new SmokeParticlePacket(120, posX, posY - 0.135f, posZ, 0.125f, 0, 0.125f, 255, 255, 255));
             }
 
             for(int i = 0; i < 10; i++){
@@ -209,30 +209,27 @@ public class SarcophagusBlock extends HorizontalDirectionalBlock implements Simp
         }
     }
 
-    public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pFacingPos){
-        if(pState.getValue(WATERLOGGED)){
-            pLevel.scheduleTick(pCurrentPos, Fluids.WATER, Fluids.WATER.getTickDelay(pLevel));
+    public BlockState updateShape(BlockState pState, Direction pDirection, BlockState pNeighborState, LevelAccessor pLevel, BlockPos pPos, BlockPos pNeighborPos){
+        if(pDirection == getNeighbourDirection(pState.getValue(PART), pState.getValue(FACING))){
+            return pNeighborState.is(this) && pNeighborState.getValue(PART) != pState.getValue(PART) ? pState : Blocks.AIR.defaultBlockState();
+        } else if(pState.getValue(WATERLOGGED)){
+            pLevel.scheduleTick(pPos, Fluids.WATER, Fluids.WATER.getTickDelay(pLevel));
         }
 
-        if(pFacing == getNeighbourDirection(pState.getValue(PART), pState.getValue(FACING))){
-            return pFacingState.is(this) && pFacingState.getValue(PART) != pState.getValue(PART) ? pState : Blocks.AIR.defaultBlockState();
-        }else{
-            return super.updateShape(pState, pFacing, pFacingState, pLevel, pCurrentPos, pFacingPos);
-        }
+        return super.updateShape(pState, pDirection, pNeighborState, pLevel, pPos, pNeighborPos);
     }
 
     public void playerWillDestroy(Level pLevel, BlockPos pPos, BlockState pState, Player pPlayer){
         if(!pLevel.isClientSide && pPlayer.isCreative()){
-            BedPart $$4 = pState.getValue(PART);
-            if($$4 == BedPart.FOOT){
-                BlockPos $$5 = pPos.relative(getNeighbourDirection($$4, pState.getValue(FACING)));
-                BlockState $$6 = pLevel.getBlockState($$5);
-                if($$6.is(this) && $$6.getValue(PART) == BedPart.HEAD){
-                    pLevel.setBlock($$5, Blocks.AIR.defaultBlockState(), 35);
-                    pLevel.levelEvent(pPlayer, 2001, $$5, Block.getId($$6));
+            BedPart part = pState.getValue(PART);
+            BlockPos pNeighborPos = pPos.relative(getNeighbourDirection(part, pState.getValue(FACING)));
+            BlockState pNeighborState = pLevel.getBlockState(pNeighborPos);
+            if(part == BedPart.FOOT){
+                if(!pNeighborState.is(this) || pNeighborState.getValue(PART) != pState.getValue(PART)){
+                    pLevel.levelEvent(null, 2001, pNeighborPos, Block.getId(pNeighborState));
+                    pLevel.setBlock(pNeighborPos, Blocks.AIR.defaultBlockState(), 35);
                 }
             }
-
         }
 
         super.playerWillDestroy(pLevel, pPos, pState, pPlayer);

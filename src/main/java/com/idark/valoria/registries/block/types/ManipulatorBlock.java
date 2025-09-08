@@ -79,8 +79,7 @@ public class ManipulatorBlock extends Block implements SimpleWaterloggedBlock, E
         }
     }
 
-    public VoxelShape makeShape(){
-        // Voxel shapes sucks
+    private static VoxelShape makeShape(){
         VoxelShape shape = Shapes.empty();
         shape = Shapes.join(shape, Shapes.box(0.0625, 0, 0.0625, 0.9375, 0.1875, 0.9375), BooleanOp.OR);
         shape = Shapes.join(shape, Shapes.box(0.25, 0.1875, 0.25, 0.75, 0.3125, 0.75), BooleanOp.OR);
