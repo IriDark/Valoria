@@ -156,9 +156,9 @@ public class BookGui extends Screen{
 
         if(pKeyCode == GLFW.GLFW_KEY_PAGE_DOWN || pKeyCode == GLFW.GLFW_KEY_LEFT){
             if(shouldOpenChecklist()) return super.keyPressed(pKeyCode, pScanCode, pModifiers);
-            if(!flag){
+            if(currentPage > 0){
                 backPage(mc);
-            }else if(currentPage <= 0){
+            }else{
                 onClose();
             }
         }

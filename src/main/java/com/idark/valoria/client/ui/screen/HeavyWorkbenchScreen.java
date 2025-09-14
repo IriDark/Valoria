@@ -38,6 +38,7 @@ public class HeavyWorkbenchScreen extends AbstractContainerScreen<HeavyWorkbench
     private final int blueprintAreaTop = 6;
     private final int blueprintAreaWidth = 44;
     private final int blueprintAreaHeight = 29;
+    private final int scrollbarHeight = 84;
 
     private float scrollDistance = 0.0F;
     private final int visible = 3;
@@ -132,7 +133,6 @@ public class HeavyWorkbenchScreen extends AbstractContainerScreen<HeavyWorkbench
         int scrollbarLeft = left + 163;
         gui.blit(TEXTURE, left, top, 0, 0, this.imageWidth, this.imageHeight);
 
-        int scrollbarHeight = 84;
         gui.blit(TEXTURE, scrollbarLeft, scrollbarTop, 176, 0, 7, scrollbarHeight);
         int maxScroll = this.getMaxScroll();
         float scrollPercentage = maxScroll > 0 ? this.scrollDistance / maxScroll : 0.0F;

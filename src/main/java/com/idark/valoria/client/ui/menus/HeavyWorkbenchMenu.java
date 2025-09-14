@@ -95,7 +95,6 @@ public class HeavyWorkbenchMenu extends ContainerMenuBase{
 
     /**
      * Consumes the required materials from the player's inventory.
-     * This should ONLY be called on the server.
      */
     private void consumeMaterials(WorkbenchRecipe recipe) {
         Inventory inv = this.player.getInventory();
@@ -114,7 +113,7 @@ public class HeavyWorkbenchMenu extends ContainerMenuBase{
         }
     }
 
-    public boolean tryCraftRecipe(ServerPlayer player, ResourceLocation recipeId) {
+    public void tryCraftRecipe(ServerPlayer player, ResourceLocation recipeId) {
         Optional<WorkbenchRecipe> recipeHolder = level.getRecipeManager().byKey(recipeId)
         .filter(r -> r instanceof WorkbenchRecipe)
         .map(r -> (WorkbenchRecipe) r);
@@ -126,9 +125,7 @@ public class HeavyWorkbenchMenu extends ContainerMenuBase{
                 ItemStack result = recipe.getResultItem(RegistryAccess.EMPTY).copy();
                 player.getInventory().placeItemBackInInventory(result);
                 this.broadcastChanges();
-                return true;
             }
         }
-        return false;
     }
 }
