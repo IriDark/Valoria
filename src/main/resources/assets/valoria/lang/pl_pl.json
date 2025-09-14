@@ -1285,6 +1285,8 @@
   "tooltip.valoria.spectral_blade": "Can be thrown at your enemy, recharges after some period of time",
   "tooltip.valoria.summons": "Przywołuje jednostkę: [%s]",
   "tooltip.valoria.toggle": "● State: %s",
+  "tooltip.valoria.toggle.off": "Off",
+  "tooltip.valoria.toggle.on": "On",
   "tooltip.valoria.toxins": "Świetny sposób na śmierć!",
   "tooltip.valoria.treasure": "Co tu w ogóle może być przechowywane?...",
   "tooltip.valoria.trinkets_bag": "Torba na drobiazgi, używana do szybkiego wyposażania akcesoriów za pomocą skrótu klawiszowego [%s]",

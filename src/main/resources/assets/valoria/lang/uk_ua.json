@@ -1285,6 +1285,8 @@
   "tooltip.valoria.spectral_blade": "Can be thrown at your enemy, recharges after some period of time",
   "tooltip.valoria.summons": "Призиває: [%s]",
   "tooltip.valoria.toggle": "● State: %s",
+  "tooltip.valoria.toggle.off": "Off",
+  "tooltip.valoria.toggle.on": "On",
   "tooltip.valoria.toxins": "Хороший спосіб померти!",
   "tooltip.valoria.treasure": "Що ж тут може бути?...",
   "tooltip.valoria.trinkets_bag": "Сумочка яка використовується, щоб надягати ваші акссесуари завдяки гарячій клавіші [%s]",
