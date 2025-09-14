@@ -31,9 +31,13 @@ public class NihilityMonitorItem extends AbstractCurioItem implements TooltipCom
     public Seq<TooltipComponent> getTooltips(ItemStack pStack) {
         return Seq.with(
         new AbilityComponent(Component.translatable("tooltip.valoria.nihility_monitor").withStyle(ChatFormatting.GRAY), Valoria.loc("textures/gui/tooltips/sound.png")),
-        new ClientTextComponent(Component.translatable("tooltip.valoria.toggle", getState(pStack)).withStyle(getState(pStack) ? ChatFormatting.GREEN : ChatFormatting.RED)),
+        new ClientTextComponent(Component.translatable("tooltip.valoria.toggle", getToggleComponent(pStack)).withStyle(getState(pStack) ? ChatFormatting.GREEN : ChatFormatting.RED)),
         new ClientTextComponent(Component.translatable("tooltip.valoria.rmb").withStyle(DotStyle.of().font(Valoria.FONT)))
         );
+    }
+
+    public Component getToggleComponent(ItemStack pStack) {
+        return Component.translatable("tooltip.valoria.toggle." + (getState(pStack) ? "on" : "off"));
     }
 
     public boolean getState(ItemStack pStack){

@@ -38,7 +38,7 @@ import static com.idark.valoria.Valoria.BASE_ATTACK_RADIUS_UUID;
 
 public class ScytheItem extends SwordItem implements ICustomAnimationItem, CooldownNotifyItem, RadiusItem, SpinAttackItem, DashItem, CooldownReductionItem, TooltipComponentItem{
     public AbstractScytheBuilder<? extends ScytheItem> builder;
-    public final Multimap<Attribute, AttributeModifier> defaultModifiers;
+    public Multimap<Attribute, AttributeModifier> defaultModifiers;
     public final ArcRandom arcRandom = Tmp.rnd;
     public int usageCount;
 

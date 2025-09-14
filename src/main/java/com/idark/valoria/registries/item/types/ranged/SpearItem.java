@@ -111,7 +111,7 @@ public class SpearItem extends SwordItem implements Vanishable{
     }
 
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchant){
-        return enchant.category.canEnchant(stack.getItem()) || enchant == Enchantments.PIERCING || enchant == Enchantments.LOYALTY;
+        return enchant.category.canEnchant(stack.getItem()) || throwable && (enchant == Enchantments.PIERCING || enchant == Enchantments.LOYALTY);
     }
 
     public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn){

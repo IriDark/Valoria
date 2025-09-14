@@ -410,7 +410,7 @@ public class ItemsRegistry{
         diamondSpear = registerItem("diamond_spear", () -> new SpearItem(Tiers.DIAMOND, 5, -2.9f, new Item.Properties()));
         netheriteSpear = registerItem("netherite_spear", () -> new SpearItem(Tiers.NETHERITE, 5, -2.9f, new Item.Properties()));
         pyratiteSpear = registerItem("pyratite_spear", () -> new SpearItem(ItemTierRegistry.PYRATITE, 5, -2.9f, new Item.Properties().rarity(RarityRegistry.INFERNAL)));
-        glaive = registerItem("glaive", () -> new SpearItem(Tiers.IRON, 10, -3.2f, false, new Item.Properties()));
+        glaive = registerItem("glaive", () -> new GlaiveItem.Builder(10, -3.2f, new Item.Properties()).setCooldownTime(5, 50).setAttackRadius(2).build());
         woodenRapier = registerItem("wooden_rapier", () -> new SwordItem(Tiers.WOOD, 0, -1.8f, new Item.Properties()));
         stoneRapier = registerItem("stone_rapier", () -> new SwordItem(Tiers.STONE, 0, -1.8f, new Item.Properties()));
         ironRapier = registerItem("iron_rapier", () -> new SwordItem(Tiers.IRON, 1, -1.7f, new Item.Properties()));

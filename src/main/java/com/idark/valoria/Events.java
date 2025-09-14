@@ -100,6 +100,10 @@ public class Events{
     public void onAttackEntity(AttackEntityEvent event) {
         Player player = event.getEntity();
         ItemStack stack = player.getMainHandItem();
+        if(event.isCancelable() && player.hasEffect(EffectsRegistry.STUN.get())){
+            event.setCanceled(true);
+        }
+
         if (stack.hasTag() && stack.getTag().contains("poison_hits")) {
             int hits = stack.getTag().getInt("poison_hits");
             if (hits > 0 && event.getTarget() instanceof LivingEntity target) {
@@ -107,6 +111,14 @@ public class Events{
                 stack.getTag().putInt("poison_hits", hits - 1);
                 if(hits - 1 == 0) {
                     stack.getTag().remove("poison_hits");
+                }
+            }
+        }
+
+        for(ItemStack armorPiece : player.getArmorSlots()){
+            if(armorPiece.getItem() instanceof HitEffectArmorItem hitEffect){
+                if(!player.level().isClientSide){
+                    hitEffect.onAttack(event);
                 }
             }
         }
@@ -222,23 +234,6 @@ public class Events{
     }
 
     @SubscribeEvent
-    public void onAttack(AttackEntityEvent event){
-        var attacker = event.getEntity();
-        var target = event.getTarget();
-        if(event.isCancelable() && attacker.hasEffect(EffectsRegistry.STUN.get())){
-            event.setCanceled(true);
-        }
-
-        for(ItemStack armorPiece : attacker.getArmorSlots()){
-            if(armorPiece.getItem() instanceof HitEffectArmorItem hitEffect){
-                if(!attacker.level().isClientSide){
-                    hitEffect.onAttack(event);
-                }
-            }
-        }
-    }
-
-    @SubscribeEvent
     public void onEffectApply(MobEffectEvent.Applicable event){
         var entity = event.getEntity();
         var effect = event.getEffectInstance();
@@ -291,21 +286,24 @@ public class Events{
     public void onLivingAttack(LivingAttackEvent event){
         var pSource = event.getSource();
         var entity = event.getEntity();
-        if(pSource.getEntity() instanceof LivingEntity e){
-            if(e.hasEffect(EffectsRegistry.STUN.get())) event.setCanceled(true);
-        }
-
         if(entity instanceof Player plr){
             if(pSource.is(DamageTypes.EXPLOSION) || pSource.is(DamageTypes.PLAYER_EXPLOSION)){
                 if(SuitArmorItem.hasCorrectArmorOn(ArmorRegistry.PYRATITE, plr)) event.setCanceled(true);
             }
         }
 
-        if(pSource.getDirectEntity() instanceof LivingEntity e){
-            if(isEquippedCurio(TagsRegistry.INFLICTS_FIRE, e)) entity.setSecondsOnFire(15);
+        if(pSource.is(DamageTypeTags.IS_FIRE) && isEquippedCurio(TagsRegistry.FIRE_IMMUNE, entity)) event.setCanceled(true);
+        if(pSource.getEntity() instanceof LivingEntity e){
+            if(e.hasEffect(EffectsRegistry.STUN.get())) event.setCanceled(true);
         }
 
-        if(pSource.is(DamageTypeTags.IS_FIRE) && isEquippedCurio(TagsRegistry.FIRE_IMMUNE, entity)) event.setCanceled(true);
+        if(pSource.getEntity() instanceof Player player){
+            float f2 = player.getAttackStrengthScale(0.5F);
+            boolean flag = f2 > 0.9F;
+            if(isEquippedCurio(TagsRegistry.INFLICTS_FIRE, player) && flag) {
+                entity.setSecondsOnFire(15);
+            }
+        }
     }
 
     @SubscribeEvent

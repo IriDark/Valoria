@@ -1213,7 +1213,7 @@
   "tooltip.valoria.immunity": "Grants wearer immunities to:",
   "tooltip.valoria.infernal_scythe": "Has a chanсe %s to set on fire your enemy",
   "tooltip.valoria.infernal_sword": "Eruption ability, perform an infernal circular strike inflicting fire on every target around you",
-  "tooltip.valoria.inflicts_fire": "Inflicts fire on hit",
+  "tooltip.valoria.inflicts_fire": "\uD83D\uDD25 Inflicts fire on hit",
   "tooltip.valoria.jewelry_bonus": "Apply bonuses [%s]",
   "tooltip.valoria.nihility_monitor": "Notifies of high nihility levels. Frequent alerts if danger threshold is reached",
   "tooltip.valoria.katana": "Quick dash piercing enemies",
@@ -1226,6 +1226,8 @@
   "tooltip.valoria.recharge": "Not enough resources to recharge.",
   "tooltip.valoria.required_amount": "Required amount:",
   "tooltip.valoria.toggle": "● State: %s",
+  "tooltip.valoria.toggle.on": "On",
+  "tooltip.valoria.toggle.off": "Off",
   "tooltip.valoria.rmb": "Press \uE254 to use",
   "tooltip.valoria.hold_rmb": "Hold \uE254 to use",
   "tooltip.valoria.rmb_shift": "[RMB + SHIFT] - to charge",
@@ -1298,5 +1300,5 @@
   "tooltip.valoria.fallen_collector_crown": "Provides extra bonuses if Fallen Collector suit is equipped",
   "tooltip.valoria.boss_checklist": "Boss Checklist",
   "menu.valoria.heavy_workbench": "Heavy Workbench",
-  "tooltip.valoria.materials_needed": "Materials needed:"
+  "tooltip.valoria.materials_needed": "Materials needed for craft:"
 }
