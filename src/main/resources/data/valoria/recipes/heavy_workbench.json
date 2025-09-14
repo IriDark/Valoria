@@ -2,10 +2,13 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "PPP",
-    "XXX",
+    "PPB",
     "XXX"
   ],
   "key": {
+    "B": {
+      "item": "minecraft:paper"
+    },
     "P": {
       "item": "minecraft:iron_ingot"
     },
@@ -14,7 +17,7 @@
     }
   },
   "result": {
-    "item": "valoria:tinkerer_workbench",
+    "item": "valoria:heavy_workbench",
     "count": 1
   }
 }

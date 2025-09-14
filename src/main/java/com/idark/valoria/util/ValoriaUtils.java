@@ -1,12 +1,10 @@
 package com.idark.valoria.util;
 
-import com.google.common.collect.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.item.types.ranged.*;
-import net.minecraft.*;
+import net.minecraft.client.gui.*;
 import net.minecraft.core.*;
 import net.minecraft.core.particles.*;
-import net.minecraft.network.chat.*;
 import net.minecraft.network.protocol.*;
 import net.minecraft.server.level.*;
 import net.minecraft.tags.*;
@@ -22,6 +20,7 @@ import net.minecraft.world.phys.*;
 import net.minecraftforge.items.*;
 import org.joml.*;
 import pro.komaru.tridot.api.*;
+import pro.komaru.tridot.util.phys.*;
 import pro.komaru.tridot.util.struct.func.*;
 import top.theillusivec4.curios.api.*;
 
@@ -31,6 +30,12 @@ import java.util.*;
 import java.util.function.*;
 
 public class ValoriaUtils{
+
+    public static boolean isVisibleInScissor(GuiGraphics gui, int x, int y, int w, int h, int scissorX, int scissorY, int scissorW, int scissorH) {
+        AbsRect s = AbsRect.xywhDef((float)scissorX, (float)scissorY, (float)scissorW, (float)scissorH).pose(gui.pose());
+        AbsRect r = AbsRect.xywhDef((float)x, (float)y, (float)w, (float)h).pose(gui.pose());
+        return r.x < s.x2 && r.x2 > s.x && r.y < s.y2 && r.y2 > s.y;
+    }
 
     @Nullable
     public static ItemStack getEquippedCurio(Predicate<ItemStack> filter, LivingEntity entity) {
@@ -63,37 +68,6 @@ public class ValoriaUtils{
             player.setItemInHand(hand, stack);
         } else {
             addPlayerItem(level, player, addStack);
-        }
-    }
-
-    /**
-     * Adds effect tooltips to list
-     * @param effects Effect list
-     * @param tooltipList Tooltip list
-     * @param duration Duration of effects
-     * @param chance Chance of effects
-     */
-    public static void effectTooltip(ImmutableList<MobEffectInstance> effects, List<Component> tooltipList, float duration, float chance) {
-        if (!effects.isEmpty()) {
-            if (chance > 0 && chance < 1) {
-                tooltipList.add(Component.translatable("tooltip.tridot.applies_with_chance_target", String.format("%.1f%%", chance * 100)).withStyle(ChatFormatting.GRAY));
-            } else {
-                tooltipList.add(Component.translatable("tooltip.tridot.applies_to_target").withStyle(ChatFormatting.GRAY));
-            }
-
-            for (MobEffectInstance mobeffectinstance : effects) {
-                MutableComponent mutablecomponent = Component.translatable(mobeffectinstance.getDescriptionId());
-                MobEffect mobeffect = mobeffectinstance.getEffect();
-                if (mobeffectinstance.getAmplifier() > 0) {
-                    mutablecomponent = Component.literal("").append(Component.translatable("potion.withAmplifier", mutablecomponent, Component.translatable("potion.potency." + mobeffectinstance.getAmplifier())));
-                }
-
-                if (!mobeffectinstance.endsWithin(20)) {
-                    mutablecomponent = Component.literal(" ").append(Component.translatable("potion.withDuration", mutablecomponent, MobEffectUtil.formatDuration(mobeffectinstance, duration)));
-                }
-
-                tooltipList.add(mutablecomponent.withStyle(mobeffect.getCategory().getTooltipFormatting()));
-            }
         }
     }
 

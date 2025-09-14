@@ -121,7 +121,7 @@ public class PhantasmBow extends ConfigurableBowItem implements TooltipComponent
 
     public Seq<TooltipComponent> getTooltips(ItemStack pStack) {
         return Seq.with(
-        new AbilitiesComponent(),
+        new SeparatorComponent(Component.translatable("tooltip.valoria.abilities")),
         new AbilityComponent(Component.translatable("tooltip.valoria.phantasm_bow").withStyle(ChatFormatting.GRAY), Valoria.loc("textures/gui/tooltips/phantom_rain.png"))
         );
     }

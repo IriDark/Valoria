@@ -10,8 +10,8 @@ import com.idark.valoria.client.render.*;
 import com.idark.valoria.client.render.entity.*;
 import com.idark.valoria.client.render.tile.*;
 import com.idark.valoria.client.shaders.*;
-import com.idark.valoria.client.sounds.LoopedSoundInstance;
 import com.idark.valoria.client.sounds.*;
+import com.idark.valoria.client.sounds.LoopedSoundInstance;
 import com.idark.valoria.client.ui.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.block.types.*;
@@ -85,7 +85,8 @@ public class ValoriaClient{
 
         @SubscribeEvent
         public static void registerComponents(RegisterClientTooltipComponentFactoriesEvent e) {
-            e.register(AbilitiesComponent.class, c -> AbilitiesSeparatorClientComponent.create());
+            e.register(SeparatorComponent.class, c -> SeparatorClientComponent.create(c.component()));
+            e.register(LineSeparatorComponent.class, c -> LineSeparatorClientComponent.create());
             e.register(AbilityComponent.class, c -> AbilityClientComponent.create(c.component(), c.icon()));
             e.register(ClientTextComponent.class, c -> ClientTextClientComponent.create(c.component()));
             e.register(ClientMaterialListClientComponent.class, c -> MaterialListClientComponent.create(c.list()));

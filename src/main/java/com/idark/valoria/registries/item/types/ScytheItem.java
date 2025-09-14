@@ -155,14 +155,14 @@ public class ScytheItem extends SwordItem implements ICustomAnimationItem, Coold
     public Seq<TooltipComponent> getTooltips(ItemStack pStack){
         if(builder.attackUsages > 1){
             return Seq.with(
-            new AbilitiesComponent(),
+            new SeparatorComponent(Component.translatable("tooltip.valoria.abilities")),
             new AbilityComponent(Component.translatable("tooltip.valoria.scythe").withStyle(ChatFormatting.GRAY), Valoria.loc("textures/gui/tooltips/circular_strike.png")),
             new ClientTextComponent(Component.translatable("tooltip.valoria.usage_count", builder.attackUsages).withStyle(ChatFormatting.GRAY)),
             new ClientTextComponent(Component.translatable("tooltip.valoria.rmb").withStyle(style -> style.withFont(Valoria.FONT)))
             );
         } else {
             return Seq.with(
-            new AbilitiesComponent(),
+            new SeparatorComponent(Component.translatable("tooltip.valoria.abilities")),
             new AbilityComponent(Component.translatable("tooltip.valoria.scythe").withStyle(ChatFormatting.GRAY), Valoria.loc("textures/gui/tooltips/circular_strike.png")),
             new ClientTextComponent(Component.translatable("tooltip.valoria.rmb").withStyle(style -> style.withFont(Valoria.FONT)))
             );
@@ -172,7 +172,7 @@ public class ScytheItem extends SwordItem implements ICustomAnimationItem, Coold
     @Override
     public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags){
         super.appendHoverText(stack, world, tooltip, flags);
-        ValoriaUtils.effectTooltip(builder.effects, tooltip, 1, builder.chance);
+        Utils.Items.effectTargetTooltip(builder.effects, tooltip, 1, builder.chance);
     }
 
     public static class Builder extends AbstractScytheBuilder<ScytheItem>{

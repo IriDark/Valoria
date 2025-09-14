@@ -2,75 +2,95 @@ package com.idark.valoria.client.ui.screen;
 
 import com.idark.valoria.*;
 import com.idark.valoria.client.ui.menus.*;
+import com.idark.valoria.core.network.*;
+import com.idark.valoria.core.network.packets.*;
 import com.idark.valoria.registries.item.component.*;
 import com.idark.valoria.registries.item.recipe.*;
+import com.idark.valoria.util.*;
 import com.mojang.blaze3d.vertex.*;
+import net.minecraft.*;
 import net.minecraft.client.gui.*;
+import net.minecraft.client.gui.screens.*;
 import net.minecraft.client.gui.screens.inventory.*;
 import net.minecraft.core.*;
-import net.minecraft.network.chat.*;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.*;
 import net.minecraft.sounds.*;
 import net.minecraft.util.*;
 import net.minecraft.world.entity.player.*;
+import net.minecraft.world.inventory.*;
 import net.minecraft.world.inventory.tooltip.*;
 import net.minecraft.world.item.*;
 import pro.komaru.tridot.util.phys.*;
 import pro.komaru.tridot.util.struct.data.*;
 
+import java.awt.*;
 import java.util.*;
+import java.util.List;
 
 public class HeavyWorkbenchScreen extends AbstractContainerScreen<HeavyWorkbenchMenu> {
     private static final ResourceLocation TEXTURE = Valoria.loc("textures/gui/container/heavy_workbench.png");
     private final Seq<BlueprintData> renderedRecipes = Seq.with();
     private BlueprintData hoveredRecipe = null;
-
-    private float scrollOffset = 0;
     private long lastClickTime = 0;
 
-    private final int blueprintAreaLeft = 7;
-    private final int blueprintAreaTop = 8;
-    private final int blueprintAreaWidth = 74;
-    private final int blueprintAreaHeight = 31;
-    private final int visibleRows = 4;
-    private final int visibleCols = 2;
+    private final int blueprintAreaLeft = 10;
+    private final int blueprintAreaTop = 6;
+    private final int blueprintAreaWidth = 44;
+    private final int blueprintAreaHeight = 29;
 
-    private final int scrollbarHeight = 54;
+    private float scrollDistance = 0.0F;
+    private final int visible = 3;
+
     private final int recipeAreaWidth = 174;
-    private final int recipeAreaHeight = 60;
+    private final int recipeAreaHeight = 94;
+    private final int gridXOffset = 6;
+    private final int gridYOffset = 2;
+    private final int recipeRowHeight = this.blueprintAreaHeight + this.gridYOffset;
+
+    private final ContainerListener listener = new ContainerListener() {
+        public void slotChanged(AbstractContainerMenu menu, int index, ItemStack stack) {
+            updateCraftableRecipes();
+        }
+
+        public void dataChanged(AbstractContainerMenu menu, int index, int value) {
+        }
+    };
 
     public HeavyWorkbenchScreen(HeavyWorkbenchMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title);
-        this.imageHeight = 166;
+        this.imageHeight = 196;
         this.imageWidth = 176;
+        this.menu.addSlotListener(this.listener);
     }
 
     @Override
-    protected void init() {
-        super.init();
-        updateCraftableRecipes();
+    public void removed(){
+        super.removed();
+        this.menu.removeSlotListener(this.listener);
     }
 
-    private void updateCraftableRecipes() {
-        this.renderedRecipes.clear();
-        List<BlueprintData> nonCraftableRecipes = new ArrayList<>();
+    public void updateCraftableRecipes() {
+        Seq<BlueprintData> craftableRecipes = Seq.with();
+        Seq<BlueprintData> nonCraftableRecipes = Seq.with();
         for (var recipeHolder : this.menu.getAllRecipes()) {
             BlueprintData data = new BlueprintData(recipeHolder);
-            if (this.menu.canCraft(recipeHolder)) {
-                this.renderedRecipes.add(data); // craftables at top
+            if (this.menu.checkAndSetAvailability(recipeHolder)) {
+                craftableRecipes.add(data); // craftables at top
             } else {
                 nonCraftableRecipes.add(data);
             }
         }
 
-        this.renderedRecipes.addAll(nonCraftableRecipes);
+        craftableRecipes.sort(Comparator.comparing((b) -> b.recipe.getId()));
+        nonCraftableRecipes.sort(Comparator.comparing((b) -> b.recipe.getId()));
+        renderedRecipes.clear();
+        renderedRecipes.addAll(craftableRecipes).addAll(nonCraftableRecipes);
     }
 
     @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-        updateCraftableRecipes();
-        this.hoveredRecipe = getRecipeAt(mouseX, mouseY);
-
+        this.hoveredRecipe = getBlueprintAt(mouseX, mouseY);
         this.renderBackground(guiGraphics);
         super.render(guiGraphics, mouseX, mouseY, partialTick);
         this.renderTooltip(guiGraphics, mouseX, mouseY);
@@ -78,7 +98,7 @@ public class HeavyWorkbenchScreen extends AbstractContainerScreen<HeavyWorkbench
 
     @Override
     protected void renderLabels(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY){
-        pGuiGraphics.drawString(this.font, this.playerInventoryTitle, this.inventoryLabelX, this.inventoryLabelY, 4210752, false);
+        pGuiGraphics.drawString(this.font, this.playerInventoryTitle, this.inventoryLabelX, this.inventoryLabelY+30, 4210752, false);
     }
 
     @Override
@@ -88,11 +108,18 @@ public class HeavyWorkbenchScreen extends AbstractContainerScreen<HeavyWorkbench
             if(hoveredRecipe.isVisible()){
                 var recipe = hoveredRecipe.recipe;
                 List<Component> tooltip = new ArrayList<>();
-                tooltip.add(Component.translatable("tooltip.valoria.materials_needed", recipe.getResultItem(RegistryAccess.EMPTY).getHoverName()));
                 Optional<TooltipComponent> comp = Optional.empty();
 
+                ItemStack result = recipe.getResultItem(RegistryAccess.EMPTY);
+                tooltip.add(result.getHoverName().copy().withStyle(result.getDisplayName().getStyle()));
+                tooltip.add(Component.empty());
+                tooltip.add(Component.translatable("tooltip.tridot.shift_for_details", Component.translatable("key.keyboard.left.shift").getString()).withStyle(ChatFormatting.GRAY));
                 if(!recipe.getInputs().isEmpty()) comp = Optional.of(new ClientMaterialListClientComponent(recipe.getInputs()));
-                guiGraphics.renderTooltip(this.font, tooltip, comp, mouseX, mouseY);
+                if(!Screen.hasShiftDown()){
+                    guiGraphics.renderTooltip(this.font, tooltip, comp, mouseX, mouseY);
+                } else {
+                    guiGraphics.renderTooltip(this.font, result.getTooltipLines(null, TooltipFlag.NORMAL), Optional.empty(), result, mouseX, mouseY);
+                }
             }
         }
     }
@@ -104,91 +131,78 @@ public class HeavyWorkbenchScreen extends AbstractContainerScreen<HeavyWorkbench
         int scrollbarTop = top + 8;
         int scrollbarLeft = left + 163;
         gui.blit(TEXTURE, left, top, 0, 0, this.imageWidth, this.imageHeight);
+
+        int scrollbarHeight = 84;
         gui.blit(TEXTURE, scrollbarLeft, scrollbarTop, 176, 0, 7, scrollbarHeight);
+        int maxScroll = this.getMaxScroll();
+        float scrollPercentage = maxScroll > 0 ? this.scrollDistance / maxScroll : 0.0F;
+        int scrollbarThumbY = (int)(scrollPercentage * (scrollbarHeight - 10));
+        gui.blit(TEXTURE, scrollbarLeft, scrollbarTop + scrollbarThumbY, 183, 0, 7, 15);
 
-        int totalRows = (int) Math.ceil((double) this.renderedRecipes.size / visibleCols);
-        int maxScroll = Math.max(0, totalRows - visibleRows);
-        int handleY = (int) (this.scrollOffset * (scrollbarHeight - 10));
-        gui.blit(TEXTURE, scrollbarLeft, scrollbarTop + handleY, 183, 0, 7, 15);
-
-        int firstIndex = (int)(this.scrollOffset * maxScroll) * visibleCols;
-        int recipeAreaX = left + 88;
-        int recipeAreaY = top + 33;
-
-        scissorsOn(gui, gui.pose(), recipeAreaX, recipeAreaY, recipeAreaWidth, recipeAreaHeight);
-        renderGrid(gui, firstIndex, left, top - handleY);
+        int recipeAreaX = getRecipeAreaX(left);
+        int recipeAreaY = getRecipeAreaY(top);
+        scissorsOn(gui, gui.pose(), recipeAreaX, recipeAreaY+19, this.recipeAreaWidth, this.recipeAreaHeight);
+        renderGrid(gui, left, top);
         scissorsOff(gui);
-    }
 
-    private boolean isVisibleInScissor(GuiGraphics gui, int x, int y, int w, int h, int scissorX, int scissorY, int scissorW, int scissorH) {
-        AbsRect s = AbsRect.xywhDef((float)scissorX, (float)scissorY, (float)scissorW, (float)scissorH).pose(gui.pose());
-        AbsRect r = AbsRect.xywhDef((float)x, (float)y, (float)w, (float)h).pose(gui.pose());
-        return r.x < s.x2 && r.x2 > s.x && r.y < s.y2 && r.y2 > s.y;
+        gui.pose().pushPose();
+        gui.pose().translate(0, 0, 180);
+        if(scrollDistance > 0) gui.fillGradient(left + 3, top + 3, left + 173, top + 25, new Color(0, 0, 0, 0.45f).getRGB(), new Color(1, 0, 0, 0).getRGB());
+        if(scrollDistance < maxScroll) gui.fillGradient(left + 3, top + 80, left + 173, top + 98, new Color(1, 0, 0, 0).getRGB(), new Color(0, 0, 0, 0.45f).getRGB());
+        gui.pose().popPose();
     }
 
     public boolean isVisible(GuiGraphics gui, int x, int y) {
-        int left = this.getGuiLeft();
-        int top = this.getGuiTop();
-        int recipeAreaX = left + 88;
-        int recipeAreaY = top + 33;
-        return isVisibleInScissor(gui, x, y, blueprintAreaWidth, blueprintAreaHeight, recipeAreaX, recipeAreaY, recipeAreaWidth, recipeAreaHeight - 10);
+        return ValoriaUtils.isVisibleInScissor(gui, x, y, blueprintAreaWidth, blueprintAreaHeight, getRecipeAreaX(this.getGuiLeft()), getRecipeAreaY(this.getGuiTop()), recipeAreaWidth, recipeAreaHeight - 10);
     }
 
-    private void renderGrid(GuiGraphics gui, int firstIndex, int left, int top){
-        int gapX = 4;
-        int gapY = 2;
-        for(int row = 0; row < visibleRows; row++){
-            for(int col = 0; col < visibleCols; col++){
-                int recipeIndex = firstIndex + row * visibleCols + col;
-                if(recipeIndex < this.renderedRecipes.size){
-                    BlueprintData blueprintData = this.renderedRecipes.get(recipeIndex);
-                    WorkbenchRecipe recipe = blueprintData.recipe;
-                    int x = left + blueprintAreaLeft + col * (blueprintAreaWidth + gapX);
-                    int y = top + blueprintAreaTop + row * (blueprintAreaHeight + gapY);
-                    if(isVisible(gui, x, y)){
-                        blueprintData.setVisible(true);
-                        if(this.hoveredRecipe != null && recipe.equals(this.hoveredRecipe.recipe)){
-                            gui.blit(TEXTURE, x - 1, y - 1, 0,  197, blueprintAreaWidth + 2, blueprintAreaHeight + 2);
-                        }
+    private void renderGrid(GuiGraphics gui, int left, int top){
+        for(int i = 0; i < this.renderedRecipes.size; i++){
+            int row = i / this.visible;
+            int col = i % this.visible;
 
-                        gui.blit(TEXTURE, x, y, this.menu.canCraft(recipe) ? 0 : 74, 166, blueprintAreaWidth, blueprintAreaHeight);
-                        ItemStack result = recipe.getResultItem(RegistryAccess.EMPTY);
-                        gui.renderFakeItem(result, x + 29, y + 6);
-                    }else{
-                        blueprintData.setVisible(false);
-                    }
+            BlueprintData blueprintData = this.renderedRecipes.get(i);
+            WorkbenchRecipe recipe = blueprintData.recipe;
+            int x = left + this.blueprintAreaLeft + col * (this.blueprintAreaWidth + this.gridXOffset);
+            int y = top + this.blueprintAreaTop + row * this.recipeRowHeight - (int)this.scrollDistance;
+            if(isVisible(gui, x, y)){
+                blueprintData.setVisible(true);
+                if(this.hoveredRecipe != null && recipe.equals(this.hoveredRecipe.recipe)){
+                    gui.blit(TEXTURE, x - 1, y - 1, 0,  196 + this.blueprintAreaHeight, this.blueprintAreaWidth + 2, this.blueprintAreaHeight + 2);
                 }
+
+                gui.blit(TEXTURE, x, y, this.menu.checkAndSetAvailability(recipe) ? 0 : blueprintAreaWidth, 196, this.blueprintAreaWidth, this.blueprintAreaHeight);
+                ItemStack result = recipe.getResultItem(RegistryAccess.EMPTY);
+                gui.renderFakeItem(result, x + 14, y + 6);
+            } else {
+                blueprintData.setVisible(false);
             }
         }
     }
 
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double delta) {
-        int totalRows = (int) Math.ceil((double) this.renderedRecipes.size / visibleCols);
-        int maxScroll = Math.max(0, totalRows - 2);
-
+        int maxScroll = this.getMaxScroll();
         if (maxScroll > 0) {
-            float rowHeight = 33.0F;
-            float pixelsPerScroll = 33.0F;
-            float totalScrollablePixels = (totalRows - 2) * rowHeight;
-
-            float scrollDelta = (float) delta * pixelsPerScroll / totalScrollablePixels;
-
-            this.scrollOffset = Mth.clamp(this.scrollOffset - scrollDelta, 0.0F, 1.0F);
+            this.scrollDistance = Mth.clamp(this.scrollDistance - (float)delta * this.recipeRowHeight, 0.0F, maxScroll);
             return true;
         }
-
-        return false;
+        return super.mouseScrolled(mouseX, mouseY, delta);
     }
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
         if (button == 0) {
             if (System.currentTimeMillis() - this.lastClickTime < 450) {
-                var clickedRecipe = getRecipeAt((int) mouseX, (int) mouseY);
-                if (clickedRecipe != null && clickedRecipe.isVisible()) {
-                    minecraft.player.playSound(SoundEvents.BOOK_PAGE_TURN);
-                    // TODO: Implement packet to send crafting request to server
+                var clickedBlueprint = hoveredRecipe;
+                if (clickedBlueprint != null && clickedBlueprint.isVisible()) {
+                    if(this.menu.checkAndSetAvailability(clickedBlueprint.recipe)){
+                        minecraft.player.playSound(SoundEvents.UI_LOOM_SELECT_PATTERN);
+                        PacketHandler.sendToServer(new HeavyWorkbenchCraftPacket(clickedBlueprint.recipe));
+                    } else {
+                        minecraft.player.playSound(SoundEvents.UI_STONECUTTER_SELECT_RECIPE, 1, 3);
+                    }
+
                     return true;
                 }
             }
@@ -208,37 +222,44 @@ public class HeavyWorkbenchScreen extends AbstractContainerScreen<HeavyWorkbench
         gui.disableScissor();
     }
 
-    private BlueprintData getRecipeAt(double mouseX, double mouseY) {
-        int totalRows = (int) Math.ceil((double) this.renderedRecipes.size / visibleCols);
-        int maxScroll = Math.max(0, totalRows - visibleRows);
-        int firstIndex = (int)(this.scrollOffset * maxScroll) * visibleCols;
-
+    private BlueprintData getBlueprintAt(double mouseX, double mouseY) {
         int left = this.getGuiLeft();
         int top = this.getGuiTop();
-        int handleY = (int) (this.scrollOffset * (scrollbarHeight - 10));
-
         int mouseXRelative = (int) mouseX - left;
         int mouseYRelative = (int) mouseY - top;
 
-        int gapX = 4;
-        int gapY = 2;
+        int viewportX = this.blueprintAreaLeft;
+        int viewportY = this.blueprintAreaTop;
+        int viewportWidth = this.visible * (this.blueprintAreaWidth + this.gridXOffset);
+        if (mouseXRelative < viewportX || mouseXRelative >= viewportX + viewportWidth || mouseYRelative < viewportY || mouseYRelative >= viewportY + this.recipeAreaHeight) {
+            return null;
+        }
 
-        int cellWidth = blueprintAreaWidth;
-        int cellHeight = blueprintAreaHeight;
-        for (int row = 0; row < visibleRows; row++) {
-            for (int col = 0; col < visibleCols; col++) {
-                int xPos = blueprintAreaLeft + col * (cellWidth + gapX);
-                int yPos = blueprintAreaTop + row * (cellHeight + gapY) - handleY;
-                if (mouseXRelative >= xPos && mouseXRelative < xPos + cellWidth && mouseYRelative >= yPos && mouseYRelative < yPos + cellHeight) {
-                    int recipeIndex = firstIndex + row * visibleCols + col;
-                    if (recipeIndex < this.renderedRecipes.size) {
-                        return this.renderedRecipes.get(recipeIndex);
-                    }
-                }
+        for (int i = 0; i < this.renderedRecipes.size; i++) {
+            int row = i / this.visible;
+            int col = i % this.visible;
+
+            int itemX = this.blueprintAreaLeft + col * (this.blueprintAreaWidth + this.gridXOffset);
+            int itemY = this.blueprintAreaTop + row * this.recipeRowHeight - (int)this.scrollDistance;
+            if (mouseXRelative >= itemX && mouseXRelative < itemX + this.blueprintAreaWidth && mouseYRelative >= itemY && mouseYRelative < itemY + this.blueprintAreaHeight) {
+                return this.renderedRecipes.get(i);
             }
         }
 
         return null;
+    }
+
+    public int getMaxScroll() {
+        int totalContentHeight = (int) Math.ceil((double) this.renderedRecipes.size / this.visible) * this.recipeRowHeight;
+        return Math.max(0, totalContentHeight - this.recipeAreaHeight);
+    }
+
+    public int getRecipeAreaY(int top){
+        return top + 33;
+    }
+
+    public int getRecipeAreaX(int left){
+        return left + 88;
     }
 
     public static class BlueprintData {

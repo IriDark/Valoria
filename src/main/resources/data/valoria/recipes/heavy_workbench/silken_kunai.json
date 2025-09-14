@@ -1,0 +1,10 @@
+{
+  "type": "valoria:heavy_workbench",
+  "ingredients": [
+    { "ingredient": { "item": "valoria:spider_fang" }, "count": 6 }
+  ],
+  "result": {
+    "item": "valoria:silken_kunai",
+    "count": 4
+  }
+}

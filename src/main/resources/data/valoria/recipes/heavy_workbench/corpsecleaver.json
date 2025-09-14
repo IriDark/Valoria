@@ -1,0 +1,10 @@
+{
+  "type": "valoria:heavy_workbench",
+  "ingredients": [
+    { "ingredient": { "item": "valoria:crimtane_ingot" }, "count": 8 }
+  ],
+  "result": {
+    "item": "valoria:corpsecleaver",
+    "count": 1
+  }
+}

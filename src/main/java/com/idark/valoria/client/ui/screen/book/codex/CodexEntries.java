@@ -24,7 +24,7 @@ public class CodexEntries{
     public static Seq<BossEntry> bossEntries = new Seq<>();
     public static Chapter MAIN_CHAPTER, PAGES_CHAPTER, TREASURES_CHAPTER, MEDICINE_CHAPTER, BOSS_CHECKLIST,
 
-    PICK, TINKERER_WORKBENCH, STONE_CRUSHER, VALORIA_PORTAL,
+    PICK, HEAVY_WORKBENCH, STONE_CRUSHER, VALORIA_PORTAL,
 
     BOSSES,
     UNDEAD,
@@ -76,9 +76,9 @@ public class CodexEntries{
         "codex.valoria.stone_crusher",
         new TextPage("codex.valoria.stone_crusher.description").withCustomTitle("codex.valoria.stone_crusher").withCraftEntry(BlockRegistry.stoneCrusher.get().asItem().getDefaultInstance()));
 
-        TINKERER_WORKBENCH = new Chapter(
-        "codex.valoria.tinkerer_workbench.name",
-        new TextPage("codex.valoria.tinkerer_workbench"));
+        HEAVY_WORKBENCH = new Chapter(
+        "codex.valoria.heavy_workbench.name",
+        new TextPage("codex.valoria.heavy_workbench"));
 
         KING_CRAB = new Chapter(
         "codex.valoria.king_crab.name",
@@ -174,8 +174,8 @@ public class CodexEntries{
 
         .addChild(new ChapterNode(MAIN_CHAPTER, ItemsRegistry.codex.get(), Style.GOLD)
             .addChild(new ChapterNode(STONE_CRUSHER, BlockRegistry.stoneCrusher.get().asItem())
-                .addChild(new ChapterNode(TINKERER_WORKBENCH, BlockRegistry.tinkererWorkbench.get().asItem(), Style.STANDARD, RegisterUnlockables.tinkererWorkbench)
-                .addHintsDescription(Component.translatable("codex.valoria.tinkerer_workbench.hint").withStyle(DotStyle.of().color(Col.gray).effect(PulseAlphaFX.of(1f))))
+                .addChild(new ChapterNode(HEAVY_WORKBENCH, BlockRegistry.tinkererWorkbench.get().asItem(), Style.STANDARD, RegisterUnlockables.heavyWorkbench)
+                .addHintsDescription(Component.translatable("codex.valoria.heavy_workbench.hint").withStyle(DotStyle.of().color(Col.gray).effect(PulseAlphaFX.of(1f))))
                     .addChild(new ChapterNode(PICK, ItemsRegistry.pick.get(), Style.STANDARD, RegisterUnlockables.pick))
                 )
             )

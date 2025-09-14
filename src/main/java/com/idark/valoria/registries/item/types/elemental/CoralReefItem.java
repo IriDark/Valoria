@@ -111,7 +111,7 @@ public class CoralReefItem extends ValoriaSword implements TooltipComponentItem{
 
     public Seq<TooltipComponent> getTooltips(ItemStack pStack){
         return Seq.with(
-        new AbilitiesComponent(),
+        new SeparatorComponent(Component.translatable("tooltip.valoria.abilities")),
         new AbilityComponent(Component.translatable("tooltip.valoria.coral_reef").withStyle(ChatFormatting.GRAY), Valoria.loc("textures/gui/tooltips/tidal_push.png")),
         new ClientTextComponent(Component.translatable("tooltip.valoria.rmb").withStyle(style -> style.withFont(Valoria.FONT)))
         );

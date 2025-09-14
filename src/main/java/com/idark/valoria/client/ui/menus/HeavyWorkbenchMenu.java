@@ -37,13 +37,17 @@ public class HeavyWorkbenchMenu extends ContainerMenuBase{
         this.allRecipes = this.level.getRecipeManager().getAllRecipesFor(WorkbenchRecipe.Type.INSTANCE);
         for (int row = 0; row < 3; ++row) {
             for (int col = 0; col < 9; ++col) {
-                this.addSlot(new Slot(playerInventory, col + row * 9 + 9, 8 + col * 18, 84 + row * 18));
+                this.addSlot(new Slot(playerInventory, col + row * 9 + 9, 8 + col * 18, 114 + row * 18));
             }
         }
 
         for (int col = 0; col < 9; ++col) {
-            this.addSlot(new Slot(playerInventory, col, 8 + col * 18, 142));
+            this.addSlot(new Slot(playerInventory, col, 8 + col * 18, 172));
         }
+    }
+
+    public Player getPlayer(){
+        return player;
     }
 
     public List<WorkbenchRecipe> getAllRecipes() {
@@ -64,8 +68,9 @@ public class HeavyWorkbenchMenu extends ContainerMenuBase{
      * Checks if the player has the required ingredients for a given recipe.
      * This can be called on both client and server.
      */
-    public boolean canCraft(WorkbenchRecipe recipe) {
+    public boolean checkAndSetAvailability(WorkbenchRecipe recipe) {
         Inventory inv = this.player.getInventory();
+        boolean isEnough = true;
         for (var entry : recipe.getInputs()) {
             Ingredient ingredient = entry.getFirst();
             int requiredCount = entry.getSecond().count;
@@ -78,14 +83,16 @@ public class HeavyWorkbenchMenu extends ContainerMenuBase{
                 }
             }
 
+            entry.getSecond().setCurrent(currentCount);
             entry.getSecond().setEnough(currentCount >= requiredCount);
             if (!entry.getSecond().isEnough) {
-                return false;
+                isEnough = false;
             }
         }
 
-        return true;
+        return isEnough;
     }
+
     /**
      * Consumes the required materials from the player's inventory.
      * This should ONLY be called on the server.
@@ -114,7 +121,7 @@ public class HeavyWorkbenchMenu extends ContainerMenuBase{
 
         if (recipeHolder.isPresent()) {
             WorkbenchRecipe recipe = recipeHolder.get();
-            if (canCraft(recipe)) {
+            if (checkAndSetAvailability(recipe)) {
                 consumeMaterials(recipe);
                 ItemStack result = recipe.getResultItem(RegistryAccess.EMPTY).copy();
                 player.getInventory().placeItemBackInInventory(result);

@@ -67,6 +67,7 @@ public final class PacketHandler{
         HANDLER.registerMessage(id++, UnlockCodexPacket.class, UnlockCodexPacket::encode, UnlockCodexPacket::decode, UnlockCodexPacket::handle);
         HANDLER.registerMessage(id++, NihilityPacket.class, NihilityPacket::encode, NihilityPacket::decode, NihilityPacket::handle);
         HANDLER.registerMessage(id++, ManipulatorParticlePacket.class, ManipulatorParticlePacket::encode, ManipulatorParticlePacket::decode, ManipulatorParticlePacket::handle);
+        HANDLER.registerMessage(id++, HeavyWorkbenchCraftPacket.class, HeavyWorkbenchCraftPacket::encode, HeavyWorkbenchCraftPacket::decode, HeavyWorkbenchCraftPacket::handle);
     }
 
     public static void sendTo(ServerPlayer playerMP, Object toSend){

@@ -125,7 +125,7 @@ public class BeastScytheItem extends ScytheItem{
 
     public Seq<TooltipComponent> getTooltips(ItemStack pStack){
         return Seq.with(
-        new AbilitiesComponent(),
+        new SeparatorComponent(Component.translatable("tooltip.valoria.abilities")),
         new AbilityComponent(Component.translatable("tooltip.valoria.beast").withStyle(ChatFormatting.GRAY), Valoria.loc("textures/gui/tooltips/devourer.png")),
         new ClientTextComponent(Component.translatable("tooltip.valoria.rmb").withStyle(style -> style.withFont(Valoria.FONT)))
         );

@@ -1,0 +1,10 @@
+{
+  "type": "valoria:heavy_workbench",
+  "ingredients": [
+    { "ingredient": { "item": "valoria:remains" }, "count": 12 }
+  ],
+  "result": {
+    "item": "valoria:beast",
+    "count": 1
+  }
+}

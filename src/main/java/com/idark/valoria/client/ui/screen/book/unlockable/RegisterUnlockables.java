@@ -10,7 +10,7 @@ import static com.idark.valoria.Valoria.loc;
 public class RegisterUnlockables{
 
     public static Unlockable
-    pick, tinkererWorkbench,
+    pick, heavyWorkbench,
 
     undead,
     necromancerGrimoire, necromancer, harmonyCrown, dryador, suspiciousGem, wickedCrystal,
@@ -25,7 +25,7 @@ public class RegisterUnlockables{
         crypt = register(new Unlockable(Valoria.ID + ":crypt"));
         fortress = register(new Unlockable(ItemsRegistry.wickedAmethyst.get(), Valoria.ID + ":fortress", false));
         pick = register(new ItemUnlockable(Valoria.ID + ":pick", ItemsRegistry.pick.get()).addAward(loc("items/crusher")));
-        tinkererWorkbench = register(new ItemUnlockable(Valoria.ID + ":tinkerer_workbench", BlockRegistry.tinkererWorkbench.get().asItem()));
+        heavyWorkbench = register(new ItemUnlockable(Valoria.ID + ":heavy_workbench", BlockRegistry.heavyWorkbench.get().asItem()));
         undead = register(new Unlockable(Valoria.ID + ":undead"));
         necromancerGrimoire = register(new ItemUnlockable(Valoria.ID + ":necromancer_grimoire", false, ItemsRegistry.necromancerGrimoire.get()));
         necromancer = register(new Unlockable(Valoria.ID + ":necromancer", false));

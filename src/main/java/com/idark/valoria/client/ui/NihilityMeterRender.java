@@ -9,6 +9,7 @@ import net.minecraft.client.gui.*;
 import net.minecraft.client.renderer.*;
 import net.minecraft.resources.*;
 import net.minecraft.util.*;
+import net.minecraft.world.entity.player.*;
 import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.client.event.*;
 import net.minecraftforge.eventbus.api.*;
@@ -35,32 +36,37 @@ public class NihilityMeterRender extends Gui{
     public void renderGameOverlayEvent(RenderGuiEvent.Post event){
         if(minecraft.level == null) return;
         GuiGraphics gui = event.getGuiGraphics();
-        boolean alwaysShown = ClientConfig.NIHILITY_METER_ALWAYS_VISIBLE.get() || NihilityLevelProvider.clientAmount > 0;
-        if(alwaysShown){
-            actualPreviousAmount = previousAmount;
-            previousAmount = NihilityLevelProvider.clientAmount;
-            counter = ClientTick.ticksInGame;
-            isHiding = true;
-        }
-
-        if(!alwaysShown){
-            if(NihilityLevelProvider.clientAmount != previousAmount){
+        Player player = Minecraft.getInstance().player;
+        if(player == null) return;
+        Minecraft.getInstance().player.getCapability(INihilityLevel.INSTANCE).ifPresent((n) -> {
+            float clientAmount = n.getAmount(true);
+            boolean alwaysShown = ClientConfig.NIHILITY_METER_ALWAYS_VISIBLE.get() || clientAmount > 0;
+            if(alwaysShown){
                 actualPreviousAmount = previousAmount;
-                previousAmount = NihilityLevelProvider.clientAmount;
-                if(ClientTick.ticksInGame > counter + DISPLAY_DURATION){
-                    counter = ClientTick.ticksInGame;
-                    isHiding = false;
-                }
-            }else if(ClientTick.ticksInGame > counter + DISPLAY_DURATION && !isHiding){
+                previousAmount = clientAmount;
                 counter = ClientTick.ticksInGame;
                 isHiding = true;
             }
-        }
 
-        render(gui);
+            if(!alwaysShown){
+                if(clientAmount != previousAmount){
+                    actualPreviousAmount = previousAmount;
+                    previousAmount = clientAmount;
+                    if(ClientTick.ticksInGame > counter + DISPLAY_DURATION){
+                        counter = ClientTick.ticksInGame;
+                        isHiding = false;
+                    }
+                }else if(ClientTick.ticksInGame > counter + DISPLAY_DURATION && !isHiding){
+                    counter = ClientTick.ticksInGame;
+                    isHiding = true;
+                }
+            }
+
+            render(gui, n.getMaxAmount(player, true), clientAmount);
+        });
     }
 
-    private void render(GuiGraphics gui){
+    private void render(GuiGraphics gui, float maxProgress, float currentProgress){
         gui.pose().pushPose();
         gui.pose().translate(0, 0, 300);
         int windowHeight = minecraft.getWindow().getGuiScaledHeight();
@@ -70,9 +76,6 @@ public class NihilityMeterRender extends Gui{
 
         int fillHeight = 45;
         int yCord = windowHeight - yMargin - fillHeight;
-
-        float maxProgress = NihilityLevelProvider.clientMax;
-        float currentProgress = NihilityLevelProvider.clientAmount;
 
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();

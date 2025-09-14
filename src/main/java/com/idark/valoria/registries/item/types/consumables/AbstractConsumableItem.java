@@ -28,8 +28,7 @@ public abstract class AbstractConsumableItem extends Item{
 
     @Override
     public ItemStack finishUsingItem(ItemStack pStack, Level pLevel, LivingEntity pLivingEntity){
-        Player player = pLivingEntity instanceof Player ? (Player)pLivingEntity : null;
-        if (player != null){
+        if (pLivingEntity instanceof Player player){
             onConsume(pStack, pLevel, player);
             if(player instanceof ServerPlayer){
                 CriteriaTriggers.CONSUME_ITEM.trigger((ServerPlayer)player, pStack);

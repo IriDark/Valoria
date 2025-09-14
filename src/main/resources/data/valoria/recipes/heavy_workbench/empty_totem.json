@@ -1,0 +1,10 @@
+{
+  "type": "valoria:heavy_workbench",
+  "ingredients": [
+    { "ingredient": { "item": "valoria:relic_gold" }, "count": 8 }
+  ],
+  "result": {
+    "item": "valoria:empty_totem",
+    "count": 1
+  }
+}

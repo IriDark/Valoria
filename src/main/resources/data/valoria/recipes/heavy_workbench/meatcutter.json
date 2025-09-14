@@ -1,0 +1,10 @@
+{
+  "type": "valoria:heavy_workbench",
+  "ingredients": [
+    { "item": { "item": "valoria:crimtane_ingot" }, "count": 6
+  ],
+  "result": {
+    "item": "valoria:meatcutter",
+    "count": 1
+  }
+}

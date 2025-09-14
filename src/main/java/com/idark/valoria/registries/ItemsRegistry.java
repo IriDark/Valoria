@@ -26,8 +26,8 @@ import com.idark.valoria.registries.item.types.shield.*;
 import com.idark.valoria.util.*;
 import net.minecraft.*;
 import net.minecraft.core.particles.*;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.*;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.*;
 import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
@@ -662,9 +662,9 @@ public class ItemsRegistry{
         healingVial = registerItem("healing_vial", () -> new HealingConsumableItem(10, 5, new Item.Properties()));
         healingFlask = registerItem("healing_flask", () -> new HealingConsumableItem(15, 10, new Item.Properties()));
         healingElixir = registerItem("healing_elixir", () -> new HealingConsumableItem(35, 15, new Item.Properties()));
-        cleansingVial = registerItem("cleansing_vial", () -> new CleansingConsumableItem(20, new MobEffectInstance(MobEffects.WEAKNESS, 320, 0), new Item.Properties()));
-        cleansingFlask = registerItem("cleansing_flask", () -> new CleansingConsumableItem(80, 35, 35, new MobEffectInstance(MobEffects.WEAKNESS, 320, 1), new Item.Properties()));
-        cleansingElixir = registerItem("cleansing_elixir", () -> new CleansingConsumableItem(120, 35, 60, new MobEffectInstance(MobEffects.WEAKNESS, 320, 2), new Item.Properties()));
+        cleansingVial = registerItem("cleansing_vial", () -> new CleansingConsumableItem(20, new MobEffectInstance(MobEffects.WEAKNESS, 400, 0), new Item.Properties()));
+        cleansingFlask = registerItem("cleansing_flask", () -> new CleansingConsumableItem(80, 35, 35, new MobEffectInstance(MobEffects.WEAKNESS, 400, 1), new Item.Properties()));
+        cleansingElixir = registerItem("cleansing_elixir", () -> new CleansingConsumableItem(120, 35, 60, new MobEffectInstance(MobEffects.WEAKNESS, 400, 2), new Item.Properties()));
         clarityVial = registerItem("clarity_vial", () -> new CleansingConsumableItem(5, new MobEffectInstance(MobEffects.WEAKNESS, 60, 0), new Item.Properties()));
 
         applePie = registerItem("apple_pie", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(12).saturationMod(0.75f).build())));
@@ -805,7 +805,7 @@ public class ItemsRegistry{
 
             public Seq<TooltipComponent> getTooltips(ItemStack pStack) {
                 return Seq.with(
-                new AbilitiesComponent(),
+                new SeparatorComponent(Component.translatable("tooltip.valoria.abilities")),
                 new AbilityComponent(Component.translatable("tooltip.valoria.katana").withStyle(ChatFormatting.GRAY), Valoria.loc("textures/gui/tooltips/murasama_dash.png")),
                 new ClientTextComponent(Component.translatable("tooltip.valoria.hold_rmb").withStyle(style -> style.withFont(Valoria.FONT)))
                 );

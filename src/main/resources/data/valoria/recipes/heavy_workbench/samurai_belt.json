@@ -1,0 +1,10 @@
+{
+  "type": "valoria:heavy_workbench",
+  "ingredients": [
+    { "ingredient": { "item": "valoria:ancient_shard" }, "count": 6 }
+  ],
+  "result": {
+    "item": "valoria:samurai_belt",
+    "count": 1
+  }
+}

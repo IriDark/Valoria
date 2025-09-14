@@ -1,6 +1,7 @@
 package com.idark.valoria.registries.item.recipe;
 
 import com.google.gson.*;
+import com.idark.valoria.*;
 import com.mojang.datafixers.util.*;
 import net.minecraft.core.*;
 import net.minecraft.network.*;
@@ -105,15 +106,22 @@ public class WorkbenchRecipe implements Recipe<Container> {
 
     public static class RecipeData {
         public final int count;
+        public int current;
         public boolean isEnough;
-        public RecipeData(int count, boolean isEnough) {
+        public RecipeData(int count, int current, boolean isEnough) {
             this.count = count;
+            this.current = current;
             this.isEnough = isEnough;
         }
 
         public RecipeData(int count) {
             this.count = count;
+            this.current = 0;
             this.isEnough = false;
+        }
+
+        public void setCurrent(int value) {
+            current = value;
         }
 
         public void setEnough(boolean value) {
@@ -128,7 +136,7 @@ public class WorkbenchRecipe implements Recipe<Container> {
 
     public static class Serializer implements RecipeSerializer<WorkbenchRecipe> {
         public static final Serializer INSTANCE = new Serializer();
-        public static final ResourceLocation ID = new ResourceLocation("yourmodid", "heavy_workbench");
+        public static final ResourceLocation ID = new ResourceLocation(Valoria.ID, "heavy_workbench");
 
         @Override
         public WorkbenchRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
@@ -141,7 +149,7 @@ public class WorkbenchRecipe implements Recipe<Container> {
 
             for (JsonElement elem : ingredients) {
                 JsonObject obj = elem.getAsJsonObject();
-                Ingredient ing = Ingredient.fromJson(obj.get("item"));
+                Ingredient ing = Ingredient.fromJson(obj.get("ingredient"));
                 int count = GsonHelper.getAsInt(obj, "count", 1);
                 inputs.add(Pair.of(ing, new RecipeData(count)));
             }

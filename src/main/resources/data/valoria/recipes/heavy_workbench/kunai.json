@@ -1,0 +1,11 @@
+{
+  "type": "valoria:heavy_workbench",
+  "ingredients": [
+    { "ingredient": { "item": "valoria:black_gold_ingot" }, "count": 4 },
+    { "ingredient": { "item": "valoria:gold_ingot" }, "count": 2 }
+  ],
+  "result": {
+    "item": "valoria:samurai_kunai",
+    "count": 8
+  }
+}
