@@ -1,7 +1,12 @@
 {
   "variants": {
-    "": {
-      "model": "valoria:block/soulflower"
-    }
+    "": [
+      {
+        "model": "valoria:block/soulflower"
+      },
+      {
+        "model": "valoria:block/soulflower_1"
+      }
+    ]
   }
 }

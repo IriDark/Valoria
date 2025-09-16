@@ -462,6 +462,7 @@
   "block.valoria.boss_trophy": "Boss Trophy",
   "block.valoria.void_ore": "Void Ore",
   "block.valoria.crimtane_block": "Crimtane Block",
+  "block.valoria.double_voidvine": "Double Voidvine",
   "block.valoria.voidvine": "Voidvine",
   "block.valoria.void_pillar": "Void Pillar",
   "block.valoria.void_pillar_amethyst": "Amethyst Charged Void Pillar",
@@ -1202,7 +1203,7 @@
   "tooltip.valoria.core": "Used to charge Manipulator with Elemental Power",
   "tooltip.valoria.core_charges": "Charges",
   "tooltip.valoria.crit": "%s Chance to hit the target with critical damage",
-  "tooltip.valoria.curses": "Applies randomly one of these effects.",
+  "tooltip.valoria.curses": "Applies randomly one of these effects with chance %s",
   "tooltip.valoria.deep": "Grants water breathing for a while",
   "tooltip.valoria.efficiency": "\uE256 Efficiency: %s",
   "tooltip.valoria.equipped": "Equipped: ",
@@ -1239,7 +1240,7 @@
   "tooltip.valoria.spear": "A spear that can be thrown at your enemy",
   "tooltip.valoria.spear_pillars": "Can remove shards from charged Void Pillars",
   "tooltip.valoria.summons": "Summons entity: [%s]",
-  "tooltip.valoria.toxins": "Can be used to poison your weapon, you can use crafting menu or through clicking on another item in your inventory!",
+  "tooltip.valoria.toxins": "Can be used to poison your weapon, you can use crafting menu or through clicking on another item in your inventory",
   "tooltip.valoria.treasure": "What even could be stored here?...",
   "tooltip.valoria.trinkets_bag": "Trinkets bag, used to quickly equip your accessories with a keybind [%s]",
   "tooltip.valoria.usage_count": "Ability uses until cooldown: %s",
@@ -1300,5 +1301,6 @@
   "tooltip.valoria.fallen_collector_crown": "Provides extra bonuses if Fallen Collector suit is equipped",
   "tooltip.valoria.boss_checklist": "Boss Checklist",
   "menu.valoria.heavy_workbench": "Heavy Workbench",
-  "tooltip.valoria.materials_needed": "Materials needed for craft:"
+  "tooltip.valoria.materials_needed": "Materials needed for craft:",
+  "tooltip.valoria.patreon": "❤ Support us"
 }

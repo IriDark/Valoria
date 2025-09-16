@@ -89,6 +89,7 @@ public class ValoriaClient{
             e.register(LineSeparatorComponent.class, c -> LineSeparatorClientComponent.create());
             e.register(AbilityComponent.class, c -> AbilityClientComponent.create(c.component(), c.icon()));
             e.register(ClientTextComponent.class, c -> ClientTextClientComponent.create(c.component()));
+            e.register(ClientEffectsListClientComponent.class, c -> EffectListClientComponent.create(c.list(), c.component()));
             e.register(ClientMaterialListClientComponent.class, c -> MaterialListClientComponent.create(c.list()));
         }
 

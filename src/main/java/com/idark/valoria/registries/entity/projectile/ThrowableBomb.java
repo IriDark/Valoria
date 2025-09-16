@@ -1,5 +1,6 @@
 package com.idark.valoria.registries.entity.projectile;
 
+import com.idark.valoria.client.particle.*;
 import com.idark.valoria.registries.*;
 import net.minecraft.core.*;
 import net.minecraft.core.particles.*;
@@ -12,8 +13,14 @@ import net.minecraft.world.level.*;
 import net.minecraft.world.level.Level.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.phys.*;
+import net.minecraftforge.api.distmarker.*;
 import org.jetbrains.annotations.*;
+import pro.komaru.tridot.client.gfx.particle.*;
+import pro.komaru.tridot.client.gfx.particle.data.*;
 import pro.komaru.tridot.client.render.screenshake.*;
+import pro.komaru.tridot.util.*;
+
+import java.util.function.*;
 
 public class ThrowableBomb extends ThrowableItemProjectile{
     private static final EntityDataAccessor<Integer> DATA_FUSE_ID = SynchedEntityData.defineId(ThrowableBomb.class, EntityDataSerializers.INT);
@@ -51,10 +58,31 @@ public class ThrowableBomb extends ThrowableItemProjectile{
         return ItemsRegistry.throwableBomb.get();
     }
 
+    @OnlyIn(Dist.CLIENT)
+    public void spawnParticlesTrail(){
+        if(this.shouldRender(this.getX(), this.getY(), this.getZ())){
+            Vec3 delta = this.getDeltaMovement().normalize();
+            Vec3 pos = new Vec3(this.getX() + delta.x() * 0.00015, this.getY() + delta.y() * 0.00015, this.getZ() + delta.z() * 0.00015);
+            final Vec3[] cachePos = {new Vec3(pos.x, pos.y, pos.z)};
+            final Consumer<GenericParticle> target = p -> {
+                Vec3 arrowPos = new Vec3(getX(), getY(), getZ());
+                float lenBetweenArrowAndParticle = (float)(arrowPos.subtract(cachePos[0])).length();
+                Vec3 vector = (arrowPos.subtract(cachePos[0]));
+                if(lenBetweenArrowAndParticle > 0){
+                    cachePos[0] = cachePos[0].add(vector);
+                    p.setPosition(cachePos[0]);
+                }
+            };
+
+            ParticleEffects.smoothTrail(level(), target, pos, ColorParticleData.create(Col.white).build());
+        }
+    }
+
     @Override
     public void tick(){
         this.checkInsideBlocks();
         super.tick();
+        if(level().isClientSide() && !(this.isInWaterOrBubble() || this.isInWall())) spawnParticlesTrail();
         int fuse = this.getFuse() - 1;
         this.setFuse(fuse);
         if(fuse <= 0){

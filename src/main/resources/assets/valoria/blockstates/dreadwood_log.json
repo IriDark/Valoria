@@ -1,16 +1,40 @@
 {
   "variants": {
-    "axis=x": {
-      "model": "valoria:block/dreadwood_log",
-      "x": 90,
-      "y": 90
-    },
-    "axis=y": {
-      "model": "valoria:block/dreadwood_log"
-    },
-    "axis=z": {
-      "model": "valoria:block/dreadwood_log",
-      "x": 90
-    }
+    "axis=x": [
+      {
+        "model": "valoria:block/dreadwood_log",
+        "weight": 25,
+        "x": 90,
+        "y": 90
+      },
+      {
+        "model": "valoria:block/dreadwood_log_1",
+        "x": 90,
+        "y": 90,
+        "weight": 1
+      }
+    ],
+    "axis=y": [
+      {
+        "model": "valoria:block/dreadwood_log",
+        "weight": 25
+      },
+      {
+        "model": "valoria:block/dreadwood_log_1",
+        "weight": 1
+      }
+    ],
+    "axis=z": [
+      {
+        "model": "valoria:block/dreadwood_log",
+        "x": 90,
+        "weight": 25
+      },
+      {
+        "model": "valoria:block/dreadwood_log_1",
+        "x": 90,
+        "weight": 1
+      }
+    ]
   }
 }

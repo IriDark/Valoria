@@ -18,7 +18,7 @@ public class ValoriaKJSPlugin extends KubeJSPlugin{
         .register("crusher", CrusherRecipeSchema.SCHEMA)
         .register("jewelry", JewelryRecipeSchema.SCHEMA)
         .register("keg_brewery", KegRecipeSchema.SCHEMA)
-        .register("archaeology", ArchaeologyRecipeSchema.SCHEMA)
+        .register("heavy_workbench", HeavyWorkbenchRecipeSchema.SCHEMA)
         .register("manipulator", ManipulatorRecipeSchema.SCHEMA)
         ;
     }

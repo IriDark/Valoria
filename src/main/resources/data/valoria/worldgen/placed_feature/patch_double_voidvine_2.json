@@ -1,16 +1,16 @@
 {
-  "feature": "valoria:valoria_forest_rock",
+  "feature": "valoria:patch_double_voidvine",
   "placement": [
     {
-      "type": "minecraft:count",
-      "count": 8
+      "type": "minecraft:rarity_filter",
+      "chance": 5
     },
     {
       "type": "minecraft:in_square"
     },
     {
       "type": "minecraft:heightmap",
-      "heightmap": "OCEAN_FLOOR"
+      "heightmap": "MOTION_BLOCKING"
     },
     {
       "type": "minecraft:biome"

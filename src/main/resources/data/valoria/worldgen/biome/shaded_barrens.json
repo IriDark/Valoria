@@ -60,9 +60,9 @@
       },
       {
         "type": "valoria:wicked_scorpion",
-        "weight": 10,
+        "weight": 5,
         "minCount": 1,
-        "maxCount": 4
+        "maxCount": 2
       }
     ],
     "underground_water_creature": [],
@@ -86,7 +86,8 @@
       "valoria:pyratite_blob",
       "valoria:blackstone",
       "valoria:deep_marble",
-      "valoria:disk_void_sand"
+      "valoria:disk_void_sand",
+      "valoria:void_taint_disk"
     ],
     [
       "valoria:lake_lava_underground",
@@ -112,7 +113,6 @@
       "valoria:violet_sprout",
       "valoria:glow_violet_sprout",
       "valoria:void_taint_lantern",
-      "valoria:patch_voidvine",
       "valoria:tainted_roots"
     ],
     [

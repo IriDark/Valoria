@@ -1,16 +1,16 @@
 {
-  "feature": "valoria:valoria_forest_rock",
+  "feature": "valoria:patch_voidvine_small",
   "placement": [
     {
       "type": "minecraft:count",
-      "count": 8
+      "count": 4
     },
     {
       "type": "minecraft:in_square"
     },
     {
       "type": "minecraft:heightmap",
-      "heightmap": "OCEAN_FLOOR"
+      "heightmap": "WORLD_SURFACE_WG"
     },
     {
       "type": "minecraft:biome"

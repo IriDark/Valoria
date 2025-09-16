@@ -28,7 +28,6 @@ import pro.komaru.tridot.api.*;
 import pro.komaru.tridot.client.gfx.particle.data.*;
 import pro.komaru.tridot.common.registry.block.chest.*;
 import pro.komaru.tridot.common.registry.item.types.*;
-import pro.komaru.tridot.util.*;
 
 import java.util.function.*;
 
@@ -78,7 +77,7 @@ public class BlockRegistry{
 
     // decorative
     elegantPedestal, woodenCup, beerCup, rumCup, cup, teaCup, greenTeaCup, coffeeCup, cacaoCup, glassBottle, rumBottle, cokeBottle, akvavitBottle, liquorBottle, wineBottle, meadBottle, sakeBottle, kvassBottle, whiskeyBottle, cognacBottle,
-    taintedRoots, bloodVine, bloodVinePlant, caveRootPlant, caveRoot, violetSprout, violetSproutPlant, glowVioletSprout, glowVioletSproutPlant, abyssalGlowfern, abyssalGlowfernPlant, aloeSmall, aloe, pottedAloeSmall, driedPlant, pottedDriedPlant, driedRoots, pottedDriedRoots, cattail, soulroot, pottedSoulroot, soulFlower, pottedSoulFlower, crimsonSoulroot, doubleSoulroot, pottedCrimsonSoulroot, magmaroot, doubleMagmaroot, pottedMagmaroot, goldy, doubleGoldy, pottedGoldy, rajush, pottedRajush, bloodroot, pottedBloodroot, falseFlower, falseFlowerSmall, pottedFalseflower, pottedFalseflowerSmall, voidRoots, pottedVoidRoots, voidSerpents, pottedVoidSerpents, voidvine, voidthorn, blightedGrass, pottedBlightedGrass, pottedVoidvine, gaibRoots, karusakanRoots, shadeBlossom, suspiciousIce, suspiciousTombstone, spikes,
+    taintedRoots, bloodVine, bloodVinePlant, caveRootPlant, caveRoot, violetSprout, violetSproutPlant, glowVioletSprout, glowVioletSproutPlant, abyssalGlowfern, abyssalGlowfernPlant, aloeSmall, aloe, pottedAloeSmall, driedPlant, pottedDriedPlant, driedRoots, pottedDriedRoots, cattail, soulroot, pottedSoulroot, soulFlower, pottedSoulFlower, crimsonSoulroot, doubleSoulroot, pottedCrimsonSoulroot, magmaroot, doubleMagmaroot, pottedMagmaroot, goldy, doubleGoldy, pottedGoldy, rajush, pottedRajush, bloodroot, pottedBloodroot, falseFlower, falseFlowerSmall, pottedFalseflower, pottedFalseflowerSmall, voidRoots, pottedVoidRoots, voidSerpents, pottedVoidSerpents, voidvine, doubleVoidvine, voidthorn, blightedGrass, pottedBlightedGrass, pottedVoidvine, gaibRoots, karusakanRoots, shadeBlossom, suspiciousIce, suspiciousTombstone, spikes,
 
     // boss trophies
     bossTrophy, necromancerTrophy, dryadorTrophy, wickedCrystalTrophy
@@ -286,7 +285,7 @@ public class BlockRegistry{
         voidChiseledBricksStairs = registerBlock("void_chiseled_bricks_stairs", () -> new StairBlock(() -> BlockRegistry.voidChiseledBricks.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).strength(3f, 6f).requiresCorrectToolForDrops()));
         voidChiseledBricksSlab = registerBlock("void_chiseled_bricks_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(3f, 6f).sound(SoundType.NETHER_BRICKS)));
 
-        voidSand = registerBlock("void_sand", () -> new VoidSandBlock(Col.hexToDecimal("3d313b"), BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_PURPLE).instrument(NoteBlockInstrument.SNARE).strength(0.5F).sound(SoundType.SAND)));
+        voidSand = registerBlock("void_sand", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_PURPLE).instrument(NoteBlockInstrument.SNARE).strength(0.5F).sound(SoundType.SAND)));
         voidSandstone = registerBlock("void_sandstone", () -> new Block(BlockBehaviour.Properties.of().instrument(NoteBlockInstrument.BASEDRUM).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(2.0F)));
         voidSandstoneStairs = registerBlock("void_sandstone_stairs", () -> new StairBlock(() -> BlockRegistry.voidSandstone.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.COLOR_PURPLE).strength(2.0F, 6f).requiresCorrectToolForDrops()));
         voidSandstoneSlab = registerBlock("void_sandstone_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(BlockRegistry.voidSandstone.get()).mapColor(MapColor.COLOR_PURPLE).requiresCorrectToolForDrops().strength(2.0F, 6f)));
@@ -567,6 +566,7 @@ public class BlockRegistry{
         voidSerpents = registerBlock("void_serpents", () -> new VoidRootsBlock(BlockBehaviour.Properties.copy(Blocks.CRIMSON_ROOTS).mapColor(MapColor.COLOR_MAGENTA)));
         pottedVoidSerpents = BLOCK.register("potted_void_serpents", () -> new FlowerPotBlock(BlockRegistry.voidSerpents.get(), BlockBehaviour.Properties.copy(Blocks.POTTED_POPPY).instabreak().noOcclusion()));
         voidvine = registerBlock("voidvine", () -> new VoidvineBlock(BlockBehaviour.Properties.copy(Blocks.CRIMSON_ROOTS).mapColor(MapColor.COLOR_MAGENTA)), () -> new TaintTransformBlockItem(BlockRegistry.voidvine.get(), new Item.Properties()));
+        doubleVoidvine = registerBlock("double_voidvine", () -> new TallVoidvineBlock(BlockBehaviour.Properties.copy(Blocks.SUNFLOWER).mapColor(MapColor.COLOR_MAGENTA)), () -> new TaintTransformBlockItem(BlockRegistry.doubleVoidvine.get(), new Item.Properties()));
         voidthorn = registerBlock("voidthorn", () -> new VoidthornBlock(BlockBehaviour.Properties.copy(Blocks.SUNFLOWER)));
         blightedGrass = registerBlock("blighted_grass", () -> new VoidvineBlock(BlockBehaviour.Properties.copy(Blocks.SUNFLOWER)));
         pottedBlightedGrass = BLOCK.register("potted_blighted_grass", () -> new FlowerPotBlock(BlockRegistry.blightedGrass.get(), BlockBehaviour.Properties.copy(Blocks.POTTED_POPPY).instabreak().noOcclusion()));

@@ -1,7 +1,18 @@
 {
   "variants": {
-    "": {
-      "model": "valoria:block/void_grass"
-    }
+    "": [
+      {
+        "model": "valoria:block/void_grass",
+        "weight": 35
+      },
+      {
+        "model": "valoria:block/void_grass_1",
+        "weight": 1
+      },
+      {
+        "model": "valoria:block/void_grass_2",
+        "weight": 1
+      }
+    ]
   }
 }

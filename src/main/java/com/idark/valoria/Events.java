@@ -259,27 +259,32 @@ public class Events{
 
         LivingEntity target = event.getEntity();
         float totalBonus = 0f;
-        for (ElementalType type : ElementalTypes.ELEMENTALS){
-            AttributeInstance attackAttr = attacker.getAttribute(type.damageAttr().get());
-            AttributeInstance resistAttr = target.getAttribute(type.resistAttr().get());
-            if(attackAttr != null){
-                float damage = (float)attackAttr.getValue();
-                float resistance = (float)(resistAttr != null ? resistAttr.getValue() : 0);
-
-                boolean flag = attackAttr.getAttribute() != AttributeReg.NIHILITY_DAMAGE.get() && target.getAttribute(AttributeReg.ELEMENTAL_RESISTANCE.get()) != null;
-                resistance += (float)(flag ? target.getAttributeValue(AttributeReg.ELEMENTAL_RESISTANCE.get()) : 0);
-                if(attackAttr.getAttribute() == AttributeReg.NIHILITY_DAMAGE.get()) {
-                    target.getCapability(INihilityLevel.INSTANCE).ifPresent(nihility -> {
-                        nihility.modifyAmount(target, damage);
-                    });
+        if(!(attacker instanceof Player && target instanceof Player)){
+            for(ElementalType type : ElementalTypes.ELEMENTALS){
+                AttributeInstance attackAttr = attacker.getAttribute(type.damageAttr().get());
+                AttributeInstance resistAttr = target.getAttribute(type.resistAttr().get());
+                if(attackAttr != null){
+                    totalBonus = applyAttackBonus(attackAttr, resistAttr, target, totalBonus);
                 }
-
-                float multiplier = Math.max(1f - (resistance / 100f), 0f);
-                totalBonus += damage * multiplier;
             }
         }
 
         event.setAmount(event.getAmount() + totalBonus);
+    }
+
+    private static float applyAttackBonus(AttributeInstance attackAttr, AttributeInstance resistAttr, LivingEntity target, float totalBonus){
+        float damage = (float)attackAttr.getValue();
+        float resistance = (float)(resistAttr != null ? resistAttr.getValue() : 0);
+
+        boolean flag = attackAttr.getAttribute() != AttributeReg.NIHILITY_DAMAGE.get() && target.getAttribute(AttributeReg.ELEMENTAL_RESISTANCE.get()) != null;
+        resistance += (float)(flag ? target.getAttributeValue(AttributeReg.ELEMENTAL_RESISTANCE.get()) : 0);
+        if(attackAttr.getAttribute() == AttributeReg.NIHILITY_DAMAGE.get()){
+            target.getCapability(INihilityLevel.INSTANCE).ifPresent(nihility -> nihility.modifyAmount(target, damage));
+        }
+
+        float multiplier = Math.max(1f - (resistance / 100f), 0f);
+        totalBonus += damage * multiplier;
+        return totalBonus;
     }
 
     @SubscribeEvent
@@ -297,7 +302,7 @@ public class Events{
             if(e.hasEffect(EffectsRegistry.STUN.get())) event.setCanceled(true);
         }
 
-        if(pSource.getEntity() instanceof Player player){
+        if(pSource.getDirectEntity() instanceof Player player){
             float f2 = player.getAttackStrengthScale(0.5F);
             boolean flag = f2 > 0.9F;
             if(isEquippedCurio(TagsRegistry.INFLICTS_FIRE, player) && flag) {

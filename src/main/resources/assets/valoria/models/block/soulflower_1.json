@@ -1,0 +1,8 @@
+{
+  "parent": "valoria:block/tinted_glowing_plant",
+  "textures": {
+    "tinted": "valoria:block/soulflower_tint_1",
+    "glowing": "valoria:block/soulflower_layer_1",
+    "particle": "valoria:block/soulflower_1"
+  }
+}

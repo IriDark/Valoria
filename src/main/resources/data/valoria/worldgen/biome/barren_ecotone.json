@@ -86,7 +86,8 @@
       "valoria:pyratite_blob",
       "valoria:blackstone",
       "valoria:deep_marble",
-      "valoria:disk_void_sand"
+      "valoria:disk_void_sand",
+      "valoria:void_taint_disk"
     ],
     [
       "valoria:lake_lava_underground",
@@ -112,7 +113,10 @@
       "valoria:violet_sprout",
       "valoria:glow_violet_sprout",
       "valoria:void_taint_lantern",
+      "valoria:patch_double_voidvine_2",
+      "valoria:patch_double_voidvine",
       "valoria:patch_voidvine",
+      "valoria:patch_voidvine_small",
       "valoria:tainted_roots"
     ],
     [

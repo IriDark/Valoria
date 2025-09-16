@@ -1,7 +1,9 @@
 package com.idark.valoria.registries.item.types.curio.charm.rune;
 
 import com.google.common.collect.*;
+import com.idark.valoria.core.interfaces.*;
 import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.item.component.*;
 import net.minecraft.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.server.level.*;
@@ -10,15 +12,15 @@ import net.minecraft.util.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.player.*;
+import net.minecraft.world.inventory.tooltip.*;
 import net.minecraft.world.item.*;
-import net.minecraft.world.level.*;
-import pro.komaru.tridot.api.*;
 import pro.komaru.tridot.util.*;
+import pro.komaru.tridot.util.struct.data.*;
 import top.theillusivec4.curios.api.*;
 
 import java.util.*;
 
-public class CurioCurses extends AbstractRuneItem{
+public class CurioCurses extends AbstractRuneItem implements TooltipComponentItem{
     private static List<MobEffect> effects = new ArrayList<>();
     private final float chance;
     public CurioCurses(float chance, Properties properties){
@@ -41,7 +43,7 @@ public class CurioCurses extends AbstractRuneItem{
         if(!player.level().isClientSide() && player instanceof ServerPlayer pServer){
             if(Tmp.rnd.chance(chance) && !pServer.getCooldowns().isOnCooldown(this)){
                 MobEffect[] effectsArray = effects.toArray(new MobEffect[0]);
-                pServer.addEffect(new MobEffectInstance(effectsArray[Mth.nextInt(RandomSource.create(), 0, effects.size() - 1)], 60, 0, false, true));
+                pServer.addEffect(new MobEffectInstance(effectsArray[Mth.nextInt(RandomSource.create(), 0, effects.size() - 1)], 200, 0, false, true));
                 pServer.getCooldowns().addCooldown(this, 500);
                 pServer.level().playSound(null, pServer.getOnPos(), SoundsRegistry.EQUIP_CURSE.get(), SoundSource.AMBIENT, 0.5f, 1f);
             }
@@ -56,15 +58,13 @@ public class CurioCurses extends AbstractRuneItem{
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags){
-        super.appendHoverText(stack, world, tooltip, flags);
+    public Seq<TooltipComponent> getTooltips(ItemStack pStack){
         ImmutableList.Builder<MobEffectInstance> effectBuilder = ImmutableList.builder();
         for (MobEffect effect : effects) {
-            effectBuilder.add(new MobEffectInstance(effect, 60, 0, false, true));
+            effectBuilder.add(new MobEffectInstance(effect, 200, 0, false, true));
         }
 
-        tooltip.add(Component.translatable("tooltip.valoria.curses").withStyle(ChatFormatting.GRAY));
-        Utils.Items.effectTooltip(effectBuilder.build(), tooltip, 1, chance);
+        return Seq.with(new ClientEffectsListClientComponent(effectBuilder.build(), Component.translatable("tooltip.valoria.curses", String.format("%.1f%%", chance * 100)).withStyle(ChatFormatting.GRAY)));
     }
 
     @Override
