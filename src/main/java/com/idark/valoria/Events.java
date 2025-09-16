@@ -81,9 +81,9 @@ public class Events{
         }
 
         if (Unlockables.getUnlockableByItem(stack.getItem()).isPresent()) {
-            if (Screen.hasControlDown()) {
+            if(Screen.hasControlDown()){
                 event.getToolTip().add(Component.translatable("tooltip.valoria.open", Component.translatable("key.keyboard.left.control"), Component.translatable("key.mouse.right")).withStyle(ChatFormatting.GRAY));
-            } else {
+            }else{
                 event.getToolTip().add(Component.translatable("tooltip.valoria.info", Component.translatable("key.keyboard.left.control")).withStyle(ChatFormatting.DARK_GRAY));
             }
         }

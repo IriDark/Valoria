@@ -73,7 +73,7 @@ public class CrownItem extends NihilityItem{
         return ChatFormatting.GREEN;
     }
 
-    public MutableComponent getArmorSetItemComponent(LocalPlayer player, ItemStack stack, EquipmentSlot slot) {
+    public MutableComponent getArmorSetItemComponent(Player player, ItemStack stack, EquipmentSlot slot) {
         return Component.literal(" ").append(Component.translatable(getArmorSetItem(stack, slot).getDescriptionId()).withStyle(Style.EMPTY.withColor(hasArmorItem(player, stack, slot) ? this.getDisplayColor() : ChatFormatting.RED)));
     }
 

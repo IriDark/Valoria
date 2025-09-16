@@ -46,11 +46,13 @@ public class BossMainPage extends TextPage{
         this.entries = entrySeq;
     }
 
+    @OnlyIn(Dist.CLIENT)
     public void scissorsOn(GuiGraphics gui, PoseStack pose, int x, int y, int w, int h) {
         AbsRect r = AbsRect.xywhDef((float)x, (float)y, (float)w, (float)h).pose(pose);
         gui.enableScissor((int)r.x, (int)r.y, (int)r.x2, (int)r.y2);
     }
 
+    @OnlyIn(Dist.CLIENT)
     public void scissorsOff(GuiGraphics gui) {
         gui.disableScissor();
     }
@@ -73,6 +75,7 @@ public class BossMainPage extends TextPage{
         renderEntries(gui, x, y, mouseX, mouseY, yOffset, yMargin);
     }
 
+    @OnlyIn(Dist.CLIENT)
     public void renderScroll(GuiGraphics gui, int x, int y, int mouseY){
         int contentHeight = entries.size * yMargin;
         int maxOffset = Math.max(0, contentHeight - insideHeight);
@@ -99,6 +102,7 @@ public class BossMainPage extends TextPage{
         }
     }
 
+    @OnlyIn(Dist.CLIENT)
     public void renderEntries(GuiGraphics gui, int x, int y, int mouseX, int mouseY, int yOffset, int yMargin){
         checkboxX = x + 5;
         entries.sort(Comparator.comparing(BossEntry::getCategory).thenComparing(e -> e.name(e.type()).getString()));
@@ -177,6 +181,7 @@ public class BossMainPage extends TextPage{
         return super.mouseClicked(mouseX, mouseY, button);
     }
 
+    @OnlyIn(Dist.CLIENT)
     private static @NotNull EntityPos getEntityPos(BossEntry entry){
         float width = entry.type.getWidth();
         float height = entry.type.getHeight();
@@ -191,10 +196,12 @@ public class BossMainPage extends TextPage{
     private record EntityPos(float scale, int entityDrawX, int entityDrawY){
     }
 
+    @OnlyIn(Dist.CLIENT)
     public void changeChapter(Chapter chapter) {
         Minecraft.getInstance().setScreen(new BookGui(chapter, false));
     }
 
+    @OnlyIn(Dist.CLIENT)
     public boolean isHover(double mouseX, double mouseY, int x, int y, int width, int height) {
         return mouseX >= x && mouseX <= x + width && mouseY >= y && mouseY <= y + height;
     }
