@@ -24,7 +24,7 @@ public class AttributeReg{
     public static final RegistryObject<Attribute> NIHILITY_RESISTANCE = ATTRIBUTES.register("nihility_resistance", () -> new RangedAttribute("attribute.valoria.nihility_resistance", 0.0D, -100.0D, 100.0D).setSyncable(true));
 
     public static final RegistryObject<Attribute> MAX_NIHILITY = ATTRIBUTES.register("max_nihility", () -> new RangedAttribute("attribute.valoria.max_nihility", 100.0D, 0.0D, 10000.0D).setSyncable(true));
-    public static final RegistryObject<Attribute> NIHILITY_RESILIENCE = ATTRIBUTES.register("nihility_resilience", () -> new RangedAttribute("attribute.valoria.nihility_resilience", 100.0D, 0, 1000.0D).setSyncable(true));
+    public static final RegistryObject<Attribute> NIHILITY_RESILIENCE = ATTRIBUTES.register("nihility_resilience", () -> new RangedAttribute("attribute.valoria.nihility_resilience", 5.0D, 1, 100.0D).setSyncable(true));
 
     public record ElementalType(RegistryObject<Attribute> damageAttr, RegistryObject<Attribute> resistAttr) {}
 

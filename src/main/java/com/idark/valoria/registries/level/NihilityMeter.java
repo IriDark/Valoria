@@ -18,7 +18,7 @@ public class NihilityMeter{
         float max = nihilityLevel.getMaxAmount(player, false);
         float amount = nihilityLevel.getAmount(false);
         if(player.level().dimension() == LevelGen.VALORIA_KEY){
-            valoriaTick(nihilityLevel, player, amount, max);
+            valoriaTick(nihilityLevel, player);
         }else{
             if(player.tickCount % 120 == 0 && amount > 0){
                 nihilityLevel.decrease(event.player, Tmp.rnd.nextInt(1, 5));
@@ -59,9 +59,9 @@ public class NihilityMeter{
         return player.tickCount % (amountClient < maxClient * criticalLevel ? 40 : 20) == 0;
     }
 
-    private static void valoriaTick(INihilityLevel nihilityLevel, Player player, float amount, float max){
-        if(player.tickCount % player.getAttributeValue(AttributeReg.NIHILITY_RESILIENCE.get()) == 0){
-            double resistance = player.getAttributeValue(AttributeReg.NIHILITY_RESILIENCE.get());
+    private static void valoriaTick(INihilityLevel nihilityLevel, Player player){
+        if(player.tickCount % (int)(player.getAttributeValue(AttributeReg.NIHILITY_RESILIENCE.get()) * 20) == 0){
+            double resistance = player.getAttributeValue(AttributeReg.NIHILITY_RESISTANCE.get());
             double factor = Math.max(0.05, 1.0 - (resistance * 0.05));
             nihilityLevel.modifyAmount(player, (int)Math.ceil(Tmp.rnd.nextInt(1, 5) * factor));
         }

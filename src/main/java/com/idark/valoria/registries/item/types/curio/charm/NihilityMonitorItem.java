@@ -62,7 +62,7 @@ public class NihilityMonitorItem extends AbstractCurioItem implements TooltipCom
     @Override
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(SlotContext slotContext, UUID uuid, ItemStack stack){
         Multimap<Attribute, AttributeModifier> atts = LinkedHashMultimap.create();
-        atts.put(AttributeReg.NIHILITY_RESILIENCE.get(), new AttributeModifier(uuid, "bonus", 0.05, AttributeModifier.Operation.ADDITION));
+        atts.put(AttributeReg.NIHILITY_RESILIENCE.get(), new AttributeModifier(uuid, "bonus", 1, AttributeModifier.Operation.ADDITION));
         return atts;
     }
 
