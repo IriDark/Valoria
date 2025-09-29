@@ -18,10 +18,12 @@ import net.minecraft.world.level.block.state.pattern.*;
 import net.minecraft.world.phys.shapes.*;
 import net.minecraftforge.api.distmarker.*;
 import org.jetbrains.annotations.*;
+import org.joml.*;
 import pro.komaru.tridot.client.gfx.*;
 import pro.komaru.tridot.client.gfx.particle.*;
 import pro.komaru.tridot.client.gfx.particle.behavior.*;
 import pro.komaru.tridot.client.gfx.particle.data.*;
+import pro.komaru.tridot.client.gfx.postprocess.*;
 import pro.komaru.tridot.client.render.*;
 import pro.komaru.tridot.util.*;
 import pro.komaru.tridot.util.math.*;
@@ -92,6 +94,7 @@ public class ValoriaPortalBlock extends Block implements EntityBlock{
     }
 
     public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pFacingPos){
+        GlowPostProcess.INSTANCE.addInstance(new GlowPostProcessInstance(pCurrentPos.getCenter().toVector3f(), new Vector3f((float)70 / 255, (float)31 / 255, (float)139 / 255)).setIntensity(0.25f).setFadeTime(45).setRadius(4));
         return super.updateShape(pState, pFacing, pFacingState, pLevel, pCurrentPos, pFacingPos);
     }
 

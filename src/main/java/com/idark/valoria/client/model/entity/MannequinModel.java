@@ -1,14 +1,13 @@
 package com.idark.valoria.client.model.entity;
 
-import com.idark.valoria.registries.entity.living.decoration.MannequinEntity;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.model.EntityModel;
-import net.minecraft.client.model.geom.ModelPart;
-import net.minecraft.client.model.geom.PartPose;
+import com.idark.valoria.core.interfaces.*;
+import com.idark.valoria.registries.entity.living.decoration.*;
+import com.mojang.blaze3d.vertex.*;
+import net.minecraft.client.model.*;
+import net.minecraft.client.model.geom.*;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.util.Mth;
-import net.minecraft.world.entity.Entity;
+import net.minecraft.util.*;
+import net.minecraft.world.entity.*;
 
 public class MannequinModel<T extends Entity> extends EntityModel<T>{
     private final ModelPart Head;
@@ -53,7 +52,8 @@ public class MannequinModel<T extends Entity> extends EntityModel<T>{
     @Override
     public void setupAnim(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float HeadPitch){
         if(entityIn instanceof MannequinEntity entity){
-            float factor = (float)Math.sin(ageInTicks + entity.getLastDamage() * 0.5);
+            ILivingEntityData data = (ILivingEntityData)entity;
+            float factor = (float)Math.sin(ageInTicks + data.valoria$getLastDamage() * 0.5);
             float speed = 0.1f;
             this.Body.xRot = Mth.cos(limbSwing * 0.5662F * speed + (float)Math.PI) * 0.4F * factor * limbSwingAmount;
             this.Body.zRot = Mth.sin(limbSwing * 0.2262F * speed + (float)Math.PI) * 0.1F * factor * limbSwingAmount;

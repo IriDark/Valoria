@@ -19,7 +19,7 @@ public class SeparatorClientComponent implements ClientTooltipComponent{
 
     @Override
     public int getHeight() {
-        return 5;
+        return 14;
     }
 
     @Override

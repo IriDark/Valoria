@@ -1,6 +1,7 @@
 package com.idark.valoria.registries.entity.living.boss;
 
 import com.google.common.collect.*;
+import com.idark.valoria.*;
 import com.idark.valoria.core.config.*;
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.*;
@@ -51,7 +52,7 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
     public final Map<UUID, Float> damageMap = new HashMap<>();
     public ArcRandom arcRandom = Tmp.rnd;
     public SkeletonMovement movement = new SkeletonMovement(this);
-    public final ServerBossBarEvent bossEvent = (ServerBossBarEvent)(new ServerBossBarEvent(this.getDisplayName(), "Necromancer", SoundsRegistry.MUSIC_NECROMANCER.get())).setDarkenScreen(true);
+    public final ServerBossBar bossEvent = new ServerBossBar(this.getDisplayName(), Valoria.loc("basic")).setTexture(Valoria.loc("textures/gui/bossbars/necromancer.png")).setBossMusic(SoundsRegistry.MUSIC_NECROMANCER.get()).setDarkenScreen(true);
     private int spawnTime = 0;
 
     @Override
@@ -119,6 +120,11 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
         }
     }
 
+    protected void customServerAiStep(){
+        super.customServerAiStep();
+        this.bossEvent.setHealth(this.getHealth(), this.getMaxHealth());
+    }
+
     @Override
     public boolean hurt(DamageSource source, float amount){
         if(source.getDirectEntity() instanceof Player player){
@@ -175,11 +181,6 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
         }else{
             return false;
         }
-    }
-
-    protected void customServerAiStep(){
-        super.customServerAiStep();
-        this.bossEvent.setProgress(this.getHealth() / this.getMaxHealth());
     }
 
     public void rideTick(){

@@ -21,13 +21,16 @@ import com.idark.valoria.registries.item.types.*;
 import com.idark.valoria.registries.item.types.consumables.*;
 import com.idark.valoria.registries.item.types.elemental.*;
 import com.idark.valoria.registries.level.*;
+import com.idark.valoria.util.*;
 import net.minecraft.*;
 import net.minecraft.client.gui.screens.*;
 import net.minecraft.core.*;
+import net.minecraft.core.particles.*;
 import net.minecraft.nbt.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.resources.*;
 import net.minecraft.server.level.*;
+import net.minecraft.sounds.*;
 import net.minecraft.tags.*;
 import net.minecraft.world.damagesource.*;
 import net.minecraft.world.effect.*;
@@ -51,6 +54,8 @@ import net.minecraftforge.eventbus.api.Event.*;
 import net.minecraftforge.eventbus.api.*;
 import net.minecraftforge.registries.*;
 import pro.komaru.tridot.api.*;
+import pro.komaru.tridot.api.render.text.DotStyleEffects.*;
+import pro.komaru.tridot.client.gfx.text.*;
 import pro.komaru.tridot.common.registry.item.armor.*;
 import pro.komaru.tridot.util.*;
 import pro.komaru.tridot.util.math.*;
@@ -136,6 +141,7 @@ public class Events{
     public void onDimensionChange(PlayerEvent.PlayerChangedDimensionEvent event) {
         Player player = event.getEntity();
         if(event.getTo() == LevelGen.VALORIA_KEY){
+            player.displayClientMessage(Component.translatable("tooltip.valoria.nihility").withStyle(DotStyle.of().effects(WaveFX.of(0.25f, 0.1f), OutlineFX.of(Pal.amethyst, true))), true);
             for(int i = 0; i < player.getInventory().getContainerSize(); i++){
                 ItemStack stack = player.getInventory().getItem(i);
                 if(stack.isEdible() && stack.getUseAnimation() == UseAnim.EAT && !(stack.getItem() instanceof ValoriaFood)){
@@ -173,9 +179,7 @@ public class Events{
         }
 
         if(player.level().isClientSide()){
-            player.getCapability(INihilityLevel.INSTANCE).ifPresent(nihilityLevel -> {
-                NihilityMeter.clientTick(nihilityLevel, player);
-            });
+            player.getCapability(INihilityLevel.INSTANCE).ifPresent(nihilityLevel -> NihilityMeter.clientTick(nihilityLevel, player));
         }
     }
 
@@ -291,6 +295,31 @@ public class Events{
     public void onLivingAttack(LivingAttackEvent event){
         var pSource = event.getSource();
         var entity = event.getEntity();
+        var level = entity.level();
+        if(!(pSource.getEntity() instanceof LivingEntity attacker)) return;
+        ILivingEntityData data = (ILivingEntityData)entity;
+        if(level instanceof ServerLevel s){
+            var pushDirection = new Vec3(entity.getX() + attacker.getX(), 0.0D, entity.getZ() + attacker.getX()).normalize();
+            if(attacker.getAttribute(AttributeReg.MISS_CHANCE.get()) != null && Tmp.rnd.chance(attacker.getAttributeValue(AttributeReg.MISS_CHANCE.get()) / 100)){
+                level.playSound(null, attacker.blockPosition(), SoundsRegistry.MISS.get(), SoundSource.HOSTILE);
+                s.sendParticles(ParticleTypes.SMOKE, attacker.getX(), attacker.getY(), attacker.getZ(), 16, 1, 1, 1, 0.025f);
+
+                data.valoria$missTime(10);
+                if(attacker instanceof Player player) player.displayClientMessage(Component.literal("Miss"), true);
+                event.setCanceled(true);
+            }
+
+            if(entity.getAttribute(AttributeReg.DODGE_CHANCE.get()) != null && Tmp.rnd.chance(entity.getAttributeValue(AttributeReg.DODGE_CHANCE.get()) / 100)){
+                level.playSound(null, entity.blockPosition(), SoundsRegistry.DODGE.get(), SoundSource.HOSTILE);
+                knockbackEntity(entity, pushDirection.reverse());
+                s.sendParticles(ParticleTypes.ENCHANTED_HIT, entity.getX(), entity.getY(), entity.getZ(), 16, 1, 1, 1, 0.025f);
+
+                data.valoria$dodgeTime(10);
+                if(entity instanceof Player player) player.displayClientMessage(Component.literal("Dodge!"), true);
+                event.setCanceled(true);
+            }
+        }
+
         if(entity instanceof Player plr){
             if(pSource.is(DamageTypes.EXPLOSION) || pSource.is(DamageTypes.PLAYER_EXPLOSION)){
                 if(SuitArmorItem.hasCorrectArmorOn(ArmorRegistry.PYRATITE, plr)) event.setCanceled(true);
@@ -309,6 +338,11 @@ public class Events{
                 entity.setSecondsOnFire(15);
             }
         }
+    }
+
+    private static void knockbackEntity(LivingEntity entity, Vec3 pushDirection){
+        entity.hurtMarked = true;
+        entity.knockback(0.5f, pushDirection.x, pushDirection.z);
     }
 
     @SubscribeEvent

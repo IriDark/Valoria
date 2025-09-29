@@ -5,6 +5,7 @@
     "valoria:mossy_wooden_tomb",
     "valoria:keg",
     "valoria:jeweler_table",
+    "valoria:tinkerer_workbench",
     "valoria:shadewood_door",
     "valoria:shadewood_trapdoor",
     "valoria:shadewood_pressure_plate",
@@ -12,7 +13,6 @@
     "valoria:shadelog",
     "valoria:stripped_shadelog",
     "valoria:shadewood",
-    "valoria:tinkerer_workbench",
     "valoria:stripped_shadewood",
     "valoria:shadewood_planks",
     "valoria:shadewood_planks_slab",
@@ -31,6 +31,20 @@
     "valoria:eldritch_sign",
     "valoria:eldritch_wall_sign",
     "valoria:eldritch_fence",
-    "valoria:eldritch_fence_gate"
+    "valoria:eldritch_fence_gate",
+    "valoria:dreadwood_door",
+    "valoria:dreadwood_trapdoor",
+    "valoria:dreadwood_pressure_plate",
+    "valoria:dreadwood_button",
+    "valoria:dreadwood",
+    "valoria:stripped_dreadwood_log",
+    "valoria:stripped_dreadwood",
+    "valoria:dreadwood_planks",
+    "valoria:dreadwood_planks_slab",
+    "valoria:dreadwood_planks_stairs",
+    "valoria:dreadwood_sign",
+    "valoria:dreadwood_wall_sign",
+    "valoria:dreadwood_fence",
+    "valoria:dreadwood_fence_gate"
   ]
 }

@@ -10,7 +10,7 @@ public class ClientConfig{
     NIHILITY_METER_X, NIHILITY_METER_Y,
     MISC_UI_X, MISC_UI_Y;
     public static ForgeConfigSpec.ConfigValue<Boolean>
-    RENDER_PHANTOM_ACTIVATION, OLD_GOBLIN_MODEL, SHOW_TOASTS, SHOW_UPDATES, NIHILITY_METER_ALWAYS_VISIBLE, NIHILITY_METER_ANIMATE;
+    RENDER_PHANTOM_ACTIVATION, OLD_GOBLIN_MODEL, SHOW_TOASTS, SHOW_UPDATES, NIHILITY_METER_ALWAYS_VISIBLE, NIHILITY_METER_ANIMATE, DAMAGE_INDICATOR;
 
     static{
         final Pair<ClientConfig, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(ClientConfig::new);
@@ -25,7 +25,7 @@ public class ClientConfig{
         builder.comment("Misc").push("misc");
             SHOW_TOASTS = builder.define("showToasts", true);
             SHOW_UPDATES = builder.define("showUpdates", true);
-
+            DAMAGE_INDICATOR = builder.define("damageIndicator", true);
         builder.pop();
 
         builder.comment("Graphics").push("graphics");

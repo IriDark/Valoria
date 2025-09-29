@@ -4,9 +4,11 @@ package com.idark.valoria;
 import com.idark.valoria.api.unlockable.*;
 import com.idark.valoria.client.ui.screen.book.*;
 import com.idark.valoria.client.ui.screen.book.codex.*;
+import com.idark.valoria.core.*;
 import com.idark.valoria.core.config.*;
 import com.idark.valoria.core.interfaces.*;
 import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.entity.living.decoration.*;
 import com.idark.valoria.registries.item.component.*;
 import com.idark.valoria.util.*;
 import com.mojang.blaze3d.platform.*;
@@ -20,6 +22,7 @@ import net.minecraft.client.gui.screens.inventory.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.network.chat.ClickEvent.*;
 import net.minecraft.sounds.*;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.inventory.tooltip.*;
 import net.minecraft.world.item.*;
@@ -30,12 +33,44 @@ import net.minecraftforge.fml.config.*;
 import net.minecraftforge.fml.config.ModConfig.*;
 import org.lwjgl.glfw.*;
 import pro.komaru.tridot.client.gfx.text.*;
+import pro.komaru.tridot.util.*;
 import pro.komaru.tridot.util.struct.data.*;
 
 import java.io.*;
+import java.text.*;
 import java.util.*;
 
 public class ClientEvents{
+    public static final DecimalFormat FORMAT = new DecimalFormat("###.##", new DecimalFormatSymbols(Locale.ENGLISH));
+
+    @SubscribeEvent
+    public static void onEntityRender(RenderLivingEvent.Post<LivingEntity, ?> event) {
+        LivingEntity entity = event.getEntity();
+        ILivingEntityData data = (ILivingEntityData) entity;
+        float lastDamage = data.valoria$getLastDamage();
+        if(ClientConfig.DAMAGE_INDICATOR.get() || entity instanceof MannequinEntity){
+            if(lastDamage > 0 && entity.hurtTime > 0){
+                Component component = Component.literal(FORMAT.format(lastDamage));
+                Col textColor = Col.red;
+                for(DamageData damageData : DamageData.dataTypes){
+                    if(damageData.predicate().test(data.valoria$getLastDamageSource())){
+                        if(damageData.getText() != null) component = damageData.getText();
+                        textColor = damageData.getColor();
+                    }
+                }
+
+                ValoriaUtils.renderText(entity, textColor, component, event.getPoseStack(), event.getMultiBufferSource(), event.getPackedLight(), entity.hurtTime);
+            }
+        }
+
+        if(data.valoria$getMissTime() > 0) {
+            ValoriaUtils.renderText(entity, Col.lightGray, Component.literal("Miss..."), event.getPoseStack(), event.getMultiBufferSource(), event.getPackedLight(), data.valoria$getMissTime());
+        }
+
+        if(data.valoria$getDodgeTime() > 0) {
+            ValoriaUtils.renderText(entity, Col.lightGray, Component.literal("Dodge!"), event.getPoseStack(), event.getMultiBufferSource(), event.getPackedLight(), data.valoria$getDodgeTime());
+        }
+    }
 
     @SubscribeEvent
     public static void onTooltipGatherComponents(RenderTooltipEvent.GatherComponents event) {

@@ -1,5 +1,6 @@
 package com.idark.valoria.registries.entity.living.boss;
 
+import com.idark.valoria.*;
 import com.idark.valoria.core.config.*;
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.particle.*;
@@ -34,7 +35,7 @@ import pro.komaru.tridot.util.*;
 import java.util.*;
 
 public class WickedCrystal extends AbstractBoss{
-    public final ServerBossBarEvent bossEvent = (ServerBossBarEvent)(new ServerBossBarEvent(this.getName(), "Wicked Crystal")).setDarkenScreen(true);
+    public final ServerBossBar bossEvent = new ServerBossBar(this.getDisplayName(), Valoria.loc("basic")).setTexture(Valoria.loc("textures/gui/bossbars/wicked_crystal.png")).setDarkenScreen(true);
     public AnimationState spawnAnimationState = new AnimationState();
     public AnimationState deathAnimationState = new AnimationState();
     public int animatedDeathTime = 0;
@@ -72,11 +73,6 @@ public class WickedCrystal extends AbstractBoss{
                 }
             }
         }
-
-//        if(this.spawnTime < 10){
-//            this.spawnTime++;
-//            this.spawnAnimationState.start(tickCount);
-//        }
     }
 
     @Override
@@ -138,7 +134,7 @@ public class WickedCrystal extends AbstractBoss{
 
     protected void customServerAiStep(){
         super.customServerAiStep();
-        this.bossEvent.setProgress(this.getHealth() / this.getMaxHealth());
+        this.bossEvent.setHealth(this.getHealth(), this.getMaxHealth());
     }
 
     protected void doPush(@NotNull Entity pEntity){

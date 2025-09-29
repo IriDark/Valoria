@@ -4,6 +4,7 @@ import com.idark.valoria.*;
 import com.idark.valoria.client.ui.menus.*;
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.*;
+import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.item.component.*;
 import com.idark.valoria.registries.item.recipe.*;
 import com.idark.valoria.util.*;
@@ -15,7 +16,6 @@ import net.minecraft.client.gui.screens.inventory.*;
 import net.minecraft.core.*;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.*;
-import net.minecraft.sounds.*;
 import net.minecraft.util.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.inventory.*;
@@ -32,6 +32,7 @@ public class HeavyWorkbenchScreen extends AbstractContainerScreen<HeavyWorkbench
     private static final ResourceLocation TEXTURE = Valoria.loc("textures/gui/container/heavy_workbench.png");
     private final Seq<BlueprintData> renderedRecipes = Seq.with();
     private BlueprintData hoveredRecipe = null;
+    private BlueprintData clickedBlueprintO;
     private long lastClickTime = 0;
 
     private final int blueprintAreaLeft = 10;
@@ -192,22 +193,23 @@ public class HeavyWorkbenchScreen extends AbstractContainerScreen<HeavyWorkbench
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        BlueprintData clickedBlueprint = hoveredRecipe;
         if (button == 0) {
-            if (System.currentTimeMillis() - this.lastClickTime < 450) {
-                var clickedBlueprint = hoveredRecipe;
-                if (clickedBlueprint != null && clickedBlueprint.isVisible()) {
-                    if(this.menu.checkAndSetAvailability(clickedBlueprint.recipe)){
-                        minecraft.player.playSound(SoundEvents.UI_LOOM_SELECT_PATTERN);
-                        PacketHandler.sendToServer(new HeavyWorkbenchCraftPacket(clickedBlueprint.recipe));
-                    } else {
-                        minecraft.player.playSound(SoundEvents.UI_STONECUTTER_SELECT_RECIPE, 1, 3);
-                    }
+            if (clickedBlueprint != null && clickedBlueprint.isVisible()) {
+                if (clickedBlueprintO == clickedBlueprint && this.menu.checkAndSetAvailability(clickedBlueprint.recipe) && System.currentTimeMillis() - this.lastClickTime < 450) {
+                    minecraft.player.playSound(SoundsRegistry.CRYSTAL_ACID.get());
+                    PacketHandler.sendToServer(new HeavyWorkbenchCraftPacket(this.hoveredRecipe.recipe));
 
+                    this.lastClickTime = 0;
                     return true;
+                } else {
+                    clickedBlueprintO = hoveredRecipe;
+                    this.lastClickTime = System.currentTimeMillis();
+                    minecraft.player.playSound(SoundsRegistry.UI_CLICK.get());
                 }
             }
 
-            this.lastClickTime = System.currentTimeMillis();
+            return true;
         }
 
         return super.mouseClicked(mouseX, mouseY, button);

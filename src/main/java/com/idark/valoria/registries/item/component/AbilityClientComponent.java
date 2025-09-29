@@ -21,24 +21,25 @@ public class AbilityClientComponent implements ClientTooltipComponent{
     public final ResourceLocation bg = Valoria.loc("textures/gui/tooltips/background.png");
     public final ResourceLocation icon;
     public final int maxChars = 200;
-    public final int iconSize = 18;
-    public final int iconMargin = 14;
+    public final int iconMargin = 6;
+    public final int iconSize;
+    public final int paddingTop;
 
     public final List<FormattedCharSequence> lines;
-    public final int paddingTop;
-    public AbilityClientComponent(MutableComponent text, ResourceLocation icon, int paddingTop) {
+    public AbilityClientComponent(MutableComponent text, ResourceLocation icon, int iconSize, int paddingTop) {
         this.lines = Language.getInstance().getVisualOrder(Minecraft.getInstance().font.getSplitter().splitLines(text, maxChars, text.getStyle()));
+        this.iconSize = iconSize;
         this.paddingTop = paddingTop;
         this.icon = icon;
     }
 
-    public static ClientTooltipComponent create(MutableComponent text, ResourceLocation icon) {
-        return new AbilityClientComponent(text, icon, 12);
+    public static ClientTooltipComponent create(MutableComponent text, ResourceLocation icon, int paddingTop, int iconSize) {
+        return new AbilityClientComponent(text, icon, iconSize, paddingTop);
     }
 
     @Override
     public int getHeight() {
-        return Math.max(iconSize + iconMargin, (12 * lines.size()) + paddingTop);
+        return Math.max(iconSize + iconMargin, (10 * lines.size())) + paddingTop;
     }
 
     @Override

@@ -19,6 +19,8 @@ public class SoundsRegistry{
     public static final RegistryObject<SoundEvent> BLOOD_POLE = registerSound("music.valoria.blood_pole");
     public static final RegistryObject<SoundEvent> CARRION = registerSound("music.valoria.carrion");
 
+    public static final RegistryObject<SoundEvent> UI_CLICK = registerSound("ui.click"); // calamity
+
     public static final RegistryObject<SoundEvent> HALLOWEEN_SLICE_LEGACY = registerSound("item.halloween_slice_legacy.use"); // calamity
     public static final RegistryObject<SoundEvent> HALLOWEEN_SLICE = registerSound("item.halloween_slice.use");
     public static final RegistryObject<SoundEvent> SWIFTSLICE_LEGACY = registerSound("item.swiftslice_legacy.use"); // calamity
@@ -109,6 +111,10 @@ public class SoundsRegistry{
     public static final RegistryObject<SoundEvent> CRYSTAL_ACID_PREPARE = registerSound("mob.crystal_acid.prepare");
     public static final RegistryObject<SoundEvent> CRYSTAL_STORM = registerSound("mob.crystal.storm");
     public static final RegistryObject<SoundEvent> CRYSTAL_FALL = registerSound("mob.crystal.fall");
+
+    public static final RegistryObject<SoundEvent> MISS = registerSound("mob.attack.miss");
+    public static final RegistryObject<SoundEvent> DODGE = registerSound("mob.attack.dodge");
+    public static final RegistryObject<SoundEvent> BREATH = registerSound("mob.breath");
 
     public static final RegistryObject<SoundEvent> MAGIC_HIT = registerSound("mob.magic.hit");
     public static final RegistryObject<SoundEvent> MAGIC_SHOOT = registerSound("mob.magic.shoot");

@@ -54,7 +54,6 @@ import net.minecraftforge.fml.javafmlmod.*;
 import net.minecraftforge.fml.loading.*;
 import net.minecraftforge.registries.*;
 import org.slf4j.*;
-import pro.komaru.tridot.api.render.bossbars.*;
 import pro.komaru.tridot.common.registry.item.skins.*;
 import top.theillusivec4.curios.api.client.*;
 
@@ -144,10 +143,9 @@ public class Valoria{
      */
     private void clientSetup(final FMLClientSetupEvent event){
         ValoriaClient.setupClient();
-        AbstractBossbar.bossbars.put("Wicked Crystal", new BasicBossbar(new ResourceLocation(Valoria.ID, "textures/gui/bossbars/wicked_crystal.png")));
-        AbstractBossbar.bossbars.put("Necromancer", new BasicBossbar(new ResourceLocation(Valoria.ID, "textures/gui/bossbars/necromancer.png")));
-        AbstractBossbar.bossbars.put("Dryador", new BasicBossbar(new ResourceLocation(Valoria.ID, "textures/gui/bossbars/dryador.png")));
-//        ArmorSetup.clientSetup();
+//        AbstractBossbar.bossbars.put("Wicked Crystal", new BasicBossbar(new ResourceLocation(Valoria.ID, "textures/gui/bossbars/wicked_crystal.png")));
+//        AbstractBossbar.bossbars.put("Necromancer", new BasicBossbar(new ResourceLocation(Valoria.ID, "textures/gui/bossbars/necromancer.png")));
+//        AbstractBossbar.bossbars.put("Dryador", new BasicBossbar(new ResourceLocation(Valoria.ID, "textures/gui/bossbars/dryador.png")));
         event.enqueueWork(() -> {
             CodexEntries.initChapters();
             CuriosRendererRegistry.register(ItemsRegistry.theFallenCollectorCrown.get(), CrownRenderer::new);
@@ -370,6 +368,8 @@ public class Valoria{
             event.add(EntityType.PLAYER, AttributeReg.NECROMANCY_COUNT.get());
             event.add(EntityType.PLAYER, AttributeReg.MAX_NIHILITY.get());
             event.add(EntityType.PLAYER, AttributeReg.NIHILITY_RESILIENCE.get());
+            event.add(EntityType.PLAYER, AttributeReg.MISS_CHANCE.get());
+            event.add(EntityType.PLAYER, AttributeReg.DODGE_CHANCE.get());
 
             event.add(EntityType.PLAYER, AttributeReg.INFERNAL_DAMAGE.get());
             event.add(EntityType.PLAYER, AttributeReg.DEPTH_DAMAGE.get());

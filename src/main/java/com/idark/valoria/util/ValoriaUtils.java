@@ -1,13 +1,20 @@
 package com.idark.valoria.util;
 
+import com.idark.valoria.core.interfaces.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.item.types.ranged.*;
+import com.mojang.blaze3d.vertex.*;
+import net.minecraft.client.*;
 import net.minecraft.client.gui.*;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.renderer.*;
 import net.minecraft.core.*;
 import net.minecraft.core.particles.*;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.*;
 import net.minecraft.server.level.*;
 import net.minecraft.tags.*;
+import net.minecraft.util.*;
 import net.minecraft.world.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
@@ -17,19 +24,48 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.phys.*;
+import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.items.*;
 import org.joml.*;
 import pro.komaru.tridot.api.*;
+import pro.komaru.tridot.util.*;
 import pro.komaru.tridot.util.phys.*;
 import pro.komaru.tridot.util.struct.func.*;
 import top.theillusivec4.curios.api.*;
 
 import javax.annotation.*;
+import java.awt.*;
 import java.lang.Math;
 import java.util.*;
+import java.util.List;
 import java.util.function.*;
 
 public class ValoriaUtils{
+
+    @OnlyIn(Dist.CLIENT)
+    public static void renderText(LivingEntity entityIn, Col textColor, Component component, PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, int time){
+        ILivingEntityData data = (ILivingEntityData) entityIn;
+        float partialTicks = Minecraft.getInstance().getPartialTick();
+        data.valoria$setTextOffset(Mth.lerp(partialTicks, data.valoria$getTextOffset(), (float)Math.abs(Math.sin(((float)time) / 4f))));
+        data.valoria$setTextOffsetPrev(data.valoria$getTextOffset());
+        float alpha = data.valoria$getTextOffset();
+
+        matrixStackIn.pushPose();
+        matrixStackIn.translate(0, entityIn.getBbHeight() + 0.25f +  data.valoria$getTextOffset(), 0.0D);
+        matrixStackIn.mulPose(Minecraft.getInstance().getEntityRenderDispatcher().cameraOrientation());
+        matrixStackIn.scale(-data.valoria$getTextOffset() / 20f, -data.valoria$getTextOffset() / 20f, data.valoria$getTextOffset() / 20f);
+        Matrix4f matrix4f = matrixStackIn.last().pose();
+
+        Font font = Minecraft.getInstance().font;
+        Color color = new Color(textColor.r, textColor.g, textColor.b, alpha);
+        float f1 = Minecraft.getInstance().options.getBackgroundOpacity(0.25F);
+        int j = (int)(f1 * 255.0F) << 24;
+        float f2 =(float)(-font.width(component) / 2);
+
+        font.drawInBatch(component, f2 * data.valoria$getTextOffset(), (float)0, 553648127, false, matrix4f, bufferIn, Font.DisplayMode.NORMAL, j, packedLightIn);
+        font.drawInBatch(component, f2 * data.valoria$getTextOffset(), data.valoria$getTextOffset(), color.getRGB(), false, matrix4f, bufferIn, Font.DisplayMode.NORMAL, 0, packedLightIn);
+        matrixStackIn.popPose();
+    }
 
     public static boolean isVisibleInScissor(GuiGraphics gui, int x, int y, int w, int h, int scissorX, int scissorY, int scissorW, int scissorH) {
         AbsRect s = AbsRect.xywhDef((float)scissorX, (float)scissorY, (float)scissorW, (float)scissorH).pose(gui.pose());

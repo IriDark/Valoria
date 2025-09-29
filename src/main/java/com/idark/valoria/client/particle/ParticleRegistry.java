@@ -2,7 +2,6 @@ package com.idark.valoria.client.particle;
 
 import com.idark.valoria.*;
 import com.idark.valoria.client.particle.types.*;
-import net.minecraft.client.*;
 import net.minecraft.client.particle.*;
 import net.minecraft.core.particles.*;
 import net.minecraftforge.client.event.*;
@@ -11,7 +10,6 @@ import net.minecraftforge.registries.*;
 import pro.komaru.tridot.client.gfx.particle.type.*;
 
 public class ParticleRegistry{
-
     public static final DeferredRegister<ParticleType<?>> PARTICLES = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, Valoria.ID);
 
     public static RegistryObject<GenericParticleType> SMOKE = PARTICLES.register("smoke", GenericParticleType::new);
@@ -30,18 +28,18 @@ public class ParticleRegistry{
     public static final RegistryObject<SimpleParticleType> CHOMP = PARTICLES.register("chomp", () -> new SimpleParticleType(true));
 
     public static void registerParticleFactory(RegisterParticleProvidersEvent event){
-        Minecraft.getInstance().particleEngine.register(ParticleRegistry.SMOKE.get(), GenericParticleType.Factory::new);
-        Minecraft.getInstance().particleEngine.register(ParticleRegistry.SPHERE.get(), GenericParticleType.Factory::new);
-        Minecraft.getInstance().particleEngine.register(ParticleRegistry.TRANSFORM_PARTICLE.get(), GenericParticleType.Factory::new);
-        Minecraft.getInstance().particleEngine.register(ParticleRegistry.SHADEWOOD_LEAF_PARTICLE.get(), LeavesParticleType.Factory::new);
-        Minecraft.getInstance().particleEngine.register(ParticleRegistry.CHOMP.get(), ChompParticle.Factory::new);
-        Minecraft.getInstance().particleEngine.register(ParticleRegistry.FIREFLY.get(), FireflyParticle.Factory::new);
-        Minecraft.getInstance().particleEngine.register(ParticleRegistry.HEAL.get(), EndRodParticle.Provider::new);
-        Minecraft.getInstance().particleEngine.register(ParticleRegistry.VOID_GLITTER.get(), EndRodParticle.Provider::new);
-        Minecraft.getInstance().particleEngine.register(ParticleRegistry.FLESH.get(), GenericParticleType.Factory::new);
-        Minecraft.getInstance().particleEngine.register(ParticleRegistry.GLITTER.get(), GenericParticleType.Factory::new);
-        Minecraft.getInstance().particleEngine.register(ParticleRegistry.VALORIA_FOG.get(), GenericParticleType.Factory::new);
-        Minecraft.getInstance().particleEngine.register(ParticleRegistry.ACID_SPIT.get(), GenericParticleType.Factory::new);
+        event.registerSpriteSet(ParticleRegistry.SMOKE.get(), GenericParticleType.Factory::new);
+        event.registerSpriteSet(ParticleRegistry.SPHERE.get(), GenericParticleType.Factory::new);
+        event.registerSpriteSet(ParticleRegistry.TRANSFORM_PARTICLE.get(), GenericParticleType.Factory::new);
+        event.registerSpriteSet(ParticleRegistry.SHADEWOOD_LEAF_PARTICLE.get(), LeavesParticleType.Factory::new);
+        event.registerSpriteSet(ParticleRegistry.CHOMP.get(), ChompParticle.Factory::new);
+        event.registerSpriteSet(ParticleRegistry.FIREFLY.get(), FireflyParticle.Factory::new);
+        event.registerSpriteSet(ParticleRegistry.HEAL.get(), EndRodParticle.Provider::new);
+        event.registerSpriteSet(ParticleRegistry.VOID_GLITTER.get(), EndRodParticle.Provider::new);
+        event.registerSpriteSet(ParticleRegistry.FLESH.get(), GenericParticleType.Factory::new);
+        event.registerSpriteSet(ParticleRegistry.GLITTER.get(), GenericParticleType.Factory::new);
+        event.registerSpriteSet(ParticleRegistry.VALORIA_FOG.get(), GenericParticleType.Factory::new);
+        event.registerSpriteSet(ParticleRegistry.ACID_SPIT.get(), GenericParticleType.Factory::new);
     }
 
     public static void register(IEventBus eventBus){

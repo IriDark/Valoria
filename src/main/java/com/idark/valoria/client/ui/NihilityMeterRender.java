@@ -3,6 +3,8 @@ package com.idark.valoria.client.ui;
 import com.idark.valoria.*;
 import com.idark.valoria.core.capability.*;
 import com.idark.valoria.core.config.*;
+import com.idark.valoria.registries.*;
+import com.idark.valoria.util.*;
 import com.mojang.blaze3d.systems.*;
 import net.minecraft.client.*;
 import net.minecraft.client.gui.*;
@@ -37,7 +39,7 @@ public class NihilityMeterRender extends Gui{
         if(minecraft.level == null) return;
         GuiGraphics gui = event.getGuiGraphics();
         Player player = Minecraft.getInstance().player;
-        if(player == null) return;
+        if(player == null || !ValoriaUtils.isEquippedCurio(m -> m.is(ItemsRegistry.nihilityMonitor.get()), player)) return;
         Minecraft.getInstance().player.getCapability(INihilityLevel.INSTANCE).ifPresent((n) -> {
             float clientAmount = n.getAmount(true);
             boolean alwaysShown = ClientConfig.NIHILITY_METER_ALWAYS_VISIBLE.get() || clientAmount > 0;

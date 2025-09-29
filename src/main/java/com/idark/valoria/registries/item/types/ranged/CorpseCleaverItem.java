@@ -15,7 +15,7 @@ import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import org.jetbrains.annotations.*;
-import pro.komaru.tridot.client.render.gui.*;
+import pro.komaru.tridot.client.render.gui.overlay.*;
 import pro.komaru.tridot.common.registry.item.*;
 
 import java.util.*;
@@ -58,7 +58,7 @@ public class CorpseCleaverItem extends SwordItem{
                         playerEntity.getCooldowns().addCooldown(this, 40);
                     }
                 }else{
-                    OverlayInstance instance = new OverlayInstance();
+                    TimedOverlayInstance instance = new TimedOverlayInstance();
                     instance.setTexture(Valoria.loc("textures/gui/overlay/blood.png"));
                     instance.setShowTime(30);
 

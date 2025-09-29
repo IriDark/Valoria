@@ -15,11 +15,14 @@ import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.phys.*;
 import net.minecraftforge.api.distmarker.*;
 import org.jetbrains.annotations.*;
+import org.joml.*;
 import pro.komaru.tridot.client.gfx.particle.*;
 import pro.komaru.tridot.client.gfx.particle.data.*;
+import pro.komaru.tridot.client.gfx.postprocess.*;
 import pro.komaru.tridot.client.render.screenshake.*;
 import pro.komaru.tridot.util.*;
 
+import java.lang.Math;
 import java.util.function.*;
 
 public class ThrowableBomb extends ThrowableItemProjectile{
@@ -169,6 +172,7 @@ public class ThrowableBomb extends ThrowableItemProjectile{
     }
 
     protected void explode(){
+        GlowPostProcess.INSTANCE.addInstance(new GlowPostProcessInstance(position().toVector3f(), new Vector3f(1, 1, 1)).setIntensity(5).setRadius(getRadius()).setFadeTime(10));
         this.level().explode(this.getOwner(), this.getX(), this.getY(0.0625D), this.getZ(), getRadius(), bombInteraction);
         ScreenshakeHandler.add(new PositionedScreenshakeInstance(3, pro.komaru.tridot.util.phys.Vec3.from(position()), 0, 30).intensity(0.5f));
     }

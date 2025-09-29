@@ -138,19 +138,6 @@ public class WickedScorpion extends MultiAttackMob implements RangedAttackMob, E
         }
     }
 
-//todo
-
-//    /**
-//     * Handles entity death timer, experience orb, and particle creation.
-//     */
-//    protected void tickDeath() {
-//        ++this.animatedDeathTime;
-//        if (this.animatedDeathTime >= 40 && !this.level().isClientSide() && !this.isRemoved()) {
-//            this.level().broadcastEntityEvent(this, (byte)60);
-//            this.remove(RemovalReason.KILLED);
-//        }
-//    }
-
     protected void registerGoals(){
         this.goalSelector.addGoal(1, new LookAtPlayerGoal(this, Player.class, 10.0F));
         this.goalSelector.addGoal(0, new FloatGoal(this));
@@ -202,7 +189,7 @@ public class WickedScorpion extends MultiAttackMob implements RangedAttackMob, E
 
         @Override
         public boolean canUse(){
-            return super.canUse() && WickedScorpion.this.distanceToSqr(WickedScorpion.this.getTarget()) > 15.0D && isWithinAttackRange(WickedScorpion.this.getTarget(), 15);
+            return super.canUse() && WickedScorpion.this.distanceToSqr(WickedScorpion.this.getTarget()) > 12.0D && isWithinAttackRange(WickedScorpion.this.getTarget(), 12);
         }
 
         @Override

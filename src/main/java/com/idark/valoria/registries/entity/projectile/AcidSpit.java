@@ -14,10 +14,13 @@ import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
 import net.minecraftforge.api.distmarker.*;
 import org.jetbrains.annotations.*;
+import org.joml.*;
 import pro.komaru.tridot.client.gfx.particle.*;
 import pro.komaru.tridot.client.gfx.particle.data.*;
+import pro.komaru.tridot.client.gfx.postprocess.*;
 import pro.komaru.tridot.client.render.*;
 
+import java.lang.Math;
 import java.util.*;
 
 public class AcidSpit extends AbstractProjectile{
@@ -46,6 +49,7 @@ public class AcidSpit extends AbstractProjectile{
 
     private void summonStormCrystal(ServerLevel serverLevel, Vec3 spawnPos, float angle, double speed) {
         AcidSpit shard = EntityTypeRegistry.ACID_SPIT.get().create(this.level());
+        GlowPostProcess.INSTANCE.addInstance(new GlowPostProcessInstance(spawnPos.toVector3f(), new Vector3f((float)92 / 255, (float)219 / 255, (float)70 / 255)).setIntensity(0.325f).setFadeTime(45).setRadius(4));
         if (shard != null) {
             shard.moveTo(spawnPos.x(), spawnPos.y() + 2, spawnPos.z(), 0.0F, 0.0F);
             shard.setOwner(this.getOwner());

@@ -13,18 +13,18 @@
           "type": "minecraft:item",
           "conditions": [
             {
-              "block": "valoria:tinkerer_workbench",
+              "block": "valoria:heavy_workbench",
               "condition": "minecraft:block_state_property",
               "properties": {
                 "part": "head"
               }
             }
           ],
-          "name": "valoria:tinkerer_workbench"
+          "name": "valoria:heavy_workbench"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "valoria:blocks/tinkerer_workbench"
+  "random_sequence": "valoria:blocks/heavy_workbench"
 }

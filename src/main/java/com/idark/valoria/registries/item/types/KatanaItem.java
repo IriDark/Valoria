@@ -30,7 +30,7 @@ import org.jetbrains.annotations.*;
 import org.joml.*;
 import pro.komaru.tridot.api.*;
 import pro.komaru.tridot.api.interfaces.*;
-import pro.komaru.tridot.client.render.gui.*;
+import pro.komaru.tridot.client.render.gui.overlay.*;
 import pro.komaru.tridot.util.*;
 import pro.komaru.tridot.util.math.*;
 import pro.komaru.tridot.util.struct.data.*;
@@ -214,7 +214,7 @@ public class KatanaItem extends SwordItem implements CooldownNotifyItem, DashIte
             performDash(stack, level, player, pos, rand);
             level.playSound(null, player.getOnPos(), builder.dashSound, SoundSource.PLAYERS, 1F, 1F);
             if(level.isClientSide){
-                OverlayHandler.addInstance(new OverlayInstance(builder.texture, builder.overlayTime).setFadeIn(0));
+                OverlayHandler.addInstance(new TimedOverlayInstance(builder.texture, builder.overlayTime).setFadeIn(0));
             }
         }
     }

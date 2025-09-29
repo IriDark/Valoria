@@ -36,6 +36,7 @@ import net.minecraftforge.eventbus.api.*;
 import net.minecraftforge.fml.common.*;
 import net.minecraftforge.fml.event.lifecycle.*;
 import org.lwjgl.glfw.*;
+import pro.komaru.tridot.api.render.bossbars.*;
 import pro.komaru.tridot.client.model.render.entity.*;
 import pro.komaru.tridot.client.render.gui.*;
 import pro.komaru.tridot.client.sound.*;
@@ -87,7 +88,7 @@ public class ValoriaClient{
         public static void registerComponents(RegisterClientTooltipComponentFactoriesEvent e) {
             e.register(SeparatorComponent.class, c -> SeparatorClientComponent.create(c.component()));
             e.register(LineSeparatorComponent.class, c -> LineSeparatorClientComponent.create());
-            e.register(AbilityComponent.class, c -> AbilityClientComponent.create(c.component(), c.icon()));
+            e.register(AbilityComponent.class, c -> AbilityClientComponent.create(c.component(), c.icon(), c.paddingTop(), c.iconSize()));
             e.register(ClientTextComponent.class, c -> ClientTextClientComponent.create(c.component()));
             e.register(ClientEffectsListClientComponent.class, c -> EffectListClientComponent.create(c.list(), c.component()));
             e.register(ClientMaterialListClientComponent.class, c -> MaterialListClientComponent.create(c.list()));
@@ -118,6 +119,7 @@ public class ValoriaClient{
 
         @SubscribeEvent
         public static void doClientStuff(FMLClientSetupEvent event){
+            ClientBossbarRegistry.register(Valoria.loc("basic"), BasicBossbar.class);
             MinecraftForge.EVENT_BUS.register(new NihilityMeterRender());
             AbstractMinionEntity.minionColors.put(EntityTypeRegistry.UNDEAD.get(), Pal.darkishGray.toJava());
             AbstractMinionEntity.minionColors.put(EntityTypeRegistry.FLESH_SENTINEL.get(), Pal.flesh.toJava());

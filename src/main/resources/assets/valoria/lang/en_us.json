@@ -1302,5 +1302,7 @@
   "tooltip.valoria.boss_checklist": "Boss Checklist",
   "menu.valoria.heavy_workbench": "Heavy Workbench",
   "tooltip.valoria.materials_needed": "Materials needed for craft:",
-  "tooltip.valoria.patreon": "❤ Support us"
+  "tooltip.valoria.patreon": "❤ Support us",
+  "tooltip.valoria.nihility_monitor.level": "Displays your current nihility level",
+  "tooltip.valoria.nihility": "The air feels strangely heavy…"
 }

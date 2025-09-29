@@ -43,7 +43,7 @@ import java.lang.Math;
 import java.util.*;
 
 public class DryadorEntity extends AbstractBoss implements RangedAttackMob{
-    public final ServerBossBarEvent bossEvent = (ServerBossBarEvent)(new ServerBossBarEvent(this.getName(), "Dryador")).setDarkenScreen(true);
+    public final ServerBossBar bossEvent = new ServerBossBar(this.getDisplayName(), Valoria.loc("basic")).setTexture(Valoria.loc("textures/gui/bossbars/dryador.png")).setDarkenScreen(true);
     private int spawnTime = 0;
     public final AnimationState idleAnimationState = new AnimationState();
     public int idleAnimationTimeout = 0;
@@ -194,7 +194,7 @@ public class DryadorEntity extends AbstractBoss implements RangedAttackMob{
 
     protected void customServerAiStep(){
         super.customServerAiStep();
-        this.bossEvent.setProgress(this.getHealth() / this.getMaxHealth());
+        this.bossEvent.setHealth(this.getHealth(), this.getMaxHealth());
     }
 
     protected void doPush(@NotNull Entity pEntity){

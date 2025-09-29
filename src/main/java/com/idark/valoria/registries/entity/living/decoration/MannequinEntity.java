@@ -1,39 +1,24 @@
 package com.idark.valoria.registries.entity.living.decoration;
 
-import com.idark.valoria.registries.ItemsRegistry;
-import net.minecraft.core.particles.BlockParticleOption;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.tags.DamageTypeTags;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.extensions.IForgeEntity;
-import org.jetbrains.annotations.NotNull;
+import com.idark.valoria.core.interfaces.*;
+import com.idark.valoria.registries.*;
+import net.minecraft.core.particles.*;
+import net.minecraft.tags.*;
+import net.minecraft.world.*;
+import net.minecraft.world.damagesource.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.item.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.*;
+import net.minecraftforge.common.extensions.*;
+import org.jetbrains.annotations.*;
 
 public class MannequinEntity extends AbstractDecorationMob implements IForgeEntity{
-    private static final EntityDataAccessor<Float> LAST_DAMAGE = SynchedEntityData.defineId(MannequinEntity.class, EntityDataSerializers.FLOAT);
-    public float lastDamageOffset = 0;
-    public float lastDamageOffsetPrev = 0;
-
     public MannequinEntity(EntityType<? extends Mob> type, Level worldIn){
         super(type, worldIn);
         this.setMaxUpStep(0.0F);
-    }
-
-    @Override
-    protected void defineSynchedData(){
-        super.defineSynchedData();
-        entityData.define(LAST_DAMAGE, 0f);
     }
 
     public void tick(){
@@ -78,6 +63,7 @@ public class MannequinEntity extends AbstractDecorationMob implements IForgeEnti
      */
     @Override
     public boolean hurt(@NotNull DamageSource source, float amount){
+        ILivingEntityData data = (ILivingEntityData)this;
         if(source == this.damageSources().fellOutOfWorld()){
             this.remove(RemovalReason.KILLED);
             return false;
@@ -93,18 +79,14 @@ public class MannequinEntity extends AbstractDecorationMob implements IForgeEnti
             }
 
             // Reset of LAST_DAMAGE value to prevent visual bugs
-            entityData.set(LAST_DAMAGE, 0f);
+            data.valoria$setLastDamage(0);
             if(hurtTime == 0){
-                entityData.set(LAST_DAMAGE, amount);
+                data.valoria$setLastDamageWithSource(source, amount);
             }
 
             this.markHurt();
             this.level().broadcastDamageEvent(this, source);
             return true;
         }
-    }
-
-    public float getLastDamage(){
-        return entityData.get(LAST_DAMAGE);
     }
 }

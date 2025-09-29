@@ -25,6 +25,11 @@ public class KilnRecipe extends AbstractCookingRecipe{
         return Type.INSTANCE;
     }
 
+    @Override
+    public boolean isSpecial(){
+        return true;
+    }
+
     public static class Type implements RecipeType<KilnRecipe>{
         public static final Type INSTANCE = new Type();
         public static final String ID = "kiln";
