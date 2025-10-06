@@ -309,8 +309,8 @@ public class RecipeGen extends RecipeProvider implements IConditionBuilder{
         netheriteSmithing(pWriter, ItemsRegistry.goldenRingRuby.get(), RecipeCategory.MISC, ItemsRegistry.netheriteRingRuby.get());
         netheriteSmithing(pWriter, ItemsRegistry.goldenRingSapphire.get(), RecipeCategory.MISC, ItemsRegistry.netheriteRingSapphire.get());
 
-        fence(pWriter, BlockRegistry.shadewoodFence.get(), BlockRegistry.shadewoodPlanks.get());
-        fenceGate(pWriter, BlockRegistry.shadewoodFenceGate.get(), BlockRegistry.shadewoodPlanks.get());
+        fence(pWriter, BlockRegistry.shadeFence.get(), BlockRegistry.shadePlanks.get());
+        fenceGate(pWriter, BlockRegistry.shadeFenceGate.get(), BlockRegistry.shadePlanks.get());
 
         slab(pWriter, RecipeCategory.BUILDING_BLOCKS, BlockRegistry.ephemariteSlab.get(), BlockRegistry.ephemarite.get());
         stairs(pWriter, BlockRegistry.ephemariteStairs.get(), BlockRegistry.ephemarite.get());

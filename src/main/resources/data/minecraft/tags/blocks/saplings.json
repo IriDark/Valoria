@@ -1,8 +1,8 @@
 {
   "replace": false,
   "values": [
-    "valoria:shadewood_sapling",
+    "valoria:shade_sapling",
     "valoria:eldritch_sapling",
-    "valoria:dreadwood_sapling"
+    "valoria:dread_sapling"
   ]
 }

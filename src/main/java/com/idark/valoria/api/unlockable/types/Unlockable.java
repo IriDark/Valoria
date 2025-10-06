@@ -128,19 +128,4 @@ public class Unlockable {
 
         return flag;
     }
-
-//    public static class Serializer {
-//        public Serializer() {
-//        }
-//
-//        public Unlockable deserialize(JsonObject object, JsonDeserializationContext pContext){
-//            String id = GsonHelper.getAsObject(object, "unlockable", pContext, String.class);
-//            return Unlockables.getUnlockable(id);
-//        }
-//
-//        public JsonObject serialize(JsonObject json, Unlockable unlock, JsonSerializationContext pContext) {
-//            json.add("unlockable", pContext.serialize(unlock.id));
-//            return json;
-//        }
-//    }
 }

@@ -194,7 +194,7 @@ public class CodexEntries{
 
 
         ChapterNode bossesRoot = new ChapterNode(BOSSES, Items.SKELETON_SKULL, Style.CRYPT)
-            .addChild(KING_CRAB, ItemsRegistry.crabClaw)
+            .addChild(new ChapterNode(KING_CRAB, ItemsRegistry.crabClaw.get(), RegisterUnlockables.kingCrab))
                 .addChild(new ChapterNode(CRYPT, ItemsRegistry.cryptPage.get(), Style.CRYPT, RegisterUnlockables.crypt)
                     .addHintsDescription(Component.translatable("codex.valoria.crypt.hint").withStyle(DotStyle.of().color(Col.gray).effect(PulseAlphaFX.of(1f))))
                     .addChild(new ChapterNode(NECROMANCER_GRIMOIRE, ItemsRegistry.necromancerGrimoire.get(), Style.IRON, RegisterUnlockables.necromancerGrimoire)

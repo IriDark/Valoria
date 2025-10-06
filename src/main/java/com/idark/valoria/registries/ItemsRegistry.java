@@ -70,7 +70,7 @@ public class ItemsRegistry{
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Valoria.ID);
     public static RegistryObject<Item>
     // Block items
-    shadewoodBoat, shadewoodChestBoat,
+    shadeBoat, shadeChestBoat,
     eldritchBoat, eldritchChestBoat,
     dreadwoodBoat, dreadwoodChestBoat,
 
@@ -172,7 +172,7 @@ public class ItemsRegistry{
     draugrShield, crabBuckler, wickedShield,
 
     // spawn eggs
-    pumpkinContract, goblin, kingCrab, dryador, pixie, entMob, draugr, swampWanderer, scourge, maggot, sorcerer, necromancer, undead, devil, troll, shadewoodSpider, scavenger, scorpion, corruptedTroll, corrupted, fleshSentinel, wickedCrystal, crystal, mannequin;
+    pumpkinContract, goblin, kingCrab, dryador, pixie, entMob, draugr, swampWanderer, scourge, maggot, sorcerer, necromancer, undead, devil, troll, shadeSpider, scavenger, scorpion, corruptedTroll, corrupted, fleshSentinel, wickedCrystal, crystal, mannequin;
 
     public static void load(IEventBus eventBus){
         blackGoldHelmet = registerItem("black_gold_helmet", () -> new PercentageArmorItem(ArmorRegistry.BLACK_GOLD, Type.HELMET, new Properties()));
@@ -235,18 +235,6 @@ public class ItemsRegistry{
         phantasmBoots = registerItem("phantasm_boots", () -> new PhantasmArmor(ArmorRegistry.PHANTASM, Type.BOOTS, new Item.Properties().rarity(RarityRegistry.PHANTASM).fireResistant()));
 
         //materials
-        rawCobalt = registerItem("raw_cobalt");
-        runicDust = registerItem("runic_dust");
-        amberGem = registerItem("amber_gem", () -> new CrushableItem(new Item.Properties()));
-        amethystGem = registerItem("amethyst_gem", () -> new CrushableItem(new Item.Properties()));
-        rubyGem = registerItem("ruby_gem", () -> new CrushableItem(new Item.Properties()));
-        sapphireGem = registerItem("sapphire_gem", () -> new CrushableItem(new Item.Properties()));
-        wickedAmethyst = registerItem("wicked_amethyst", () -> new TransformShardItem(new Item.Properties().rarity(RarityRegistry.VOID)));
-        soulShard = registerItem("soul_shard", () -> new TransformShardItem(new Item.Properties().rarity(RarityRegistry.SOUL)));
-        unchargedShard = registerItem("uncharged_shard");
-        spiderFang = registerItem("spider_fang", RarityRegistry.SPIDER);
-        spiderChitin = registerItem("spider_chitin", RarityRegistry.SPIDER);
-        remains = registerItem("remains", RarityRegistry.BLOODY);
         gaibRoot = registerItem("gaib_root", () -> new Item(new Item.Properties().stacksTo(16)) {
             public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced){
                 super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
@@ -256,9 +244,24 @@ public class ItemsRegistry{
 
         karusakanRoot = registerItem("karusakan_root", () -> new Item(new Item.Properties().stacksTo(16)));
         aloePiece = registerItem("aloe_piece");
+        shadeBlossomLeaf = registerItem("shade_blossom_leaf");
         crabClaw = registerItem("crab_claw");
         crabShell = registerItem("crab_shell");
-        shadeBlossomLeaf = registerItem("shade_blossom_leaf");
+        runicDust = registerItem("runic_dust");
+        amberGem = registerItem("amber_gem", () -> new CrushableItem(new Item.Properties()));
+        amethystGem = registerItem("amethyst_gem", () -> new CrushableItem(new Item.Properties()));
+        rubyGem = registerItem("ruby_gem", () -> new CrushableItem(new Item.Properties()));
+        sapphireGem = registerItem("sapphire_gem", () -> new CrushableItem(new Item.Properties()));
+        wickedAmethyst = registerItem("wicked_amethyst", () -> new TransformShardItem(new Item.Properties().rarity(RarityRegistry.VOID)));
+        soulShard = registerItem("soul_shard", () -> new TransformShardItem(new Item.Properties().rarity(RarityRegistry.SOUL)));
+        unchargedShard = registerItem("uncharged_shard");
+        rawCobalt = registerItem("raw_cobalt");
+        relicGold = registerItem("relic_gold", Rarity.EPIC);
+        ancientShard = registerItem("ancient_shard", Rarity.EPIC);
+        etherealShard = registerItem("ethereal_shard", RarityRegistry.ETHEREAL);
+        spiderFang = registerItem("spider_fang", RarityRegistry.SPIDER);
+        spiderChitin = registerItem("spider_chitin", RarityRegistry.SPIDER);
+        remains = registerItem("remains", RarityRegistry.BLOODY);
         dunestoneBrick = registerItem("dunestone_brick");
         tombstoneBrick = registerItem("tombstone_brick");
         ambaneStoneBrick = registerItem("ambane_stone_brick");
@@ -271,7 +274,6 @@ public class ItemsRegistry{
         bronzeIngot = registerItem("bronze_ingot");
         pearliumIngot = registerItem("pearlium_ingot");
         cobaltIngot = registerItem("cobalt_ingot");
-        etherealShard = registerItem("ethereal_shard", RarityRegistry.ETHEREAL);
         blackGold = registerItem("black_gold_ingot");
         ancientIngot = registerItem("ancient_ingot");
         crimtaneIngot = registerItem("crimtane_ingot", RarityRegistry.BLOODY);
@@ -279,8 +281,6 @@ public class ItemsRegistry{
         aquariusIngot = registerItem("aquarius_ingot", RarityRegistry.AQUARIUS);
         infernalIngot = registerItem("infernal_ingot", () -> new Item(new Item.Properties().fireResistant().rarity(RarityRegistry.INFERNAL)));
         voidIngot = registerItem("void_ingot", RarityRegistry.VOID);
-        relicGold = registerItem("relic_gold", Rarity.EPIC);
-        ancientShard = registerItem("ancient_shard",Rarity.EPIC);
         pyratite = registerItem("pyratite", () -> new Item(new Item.Properties().fireResistant().rarity(RarityRegistry.PYRATITE)));
         jade = registerItem("jade");
         natureGift = registerItem("nature_gift", () -> new ParticleMaterialItem(new Item.Properties().rarity(RarityRegistry.NATURE), 0.35f, ColorParticleData.create(Pal.nature, Pal.vividCyan).build(), ParticleRegistry.SPHERE.get()));
@@ -606,6 +606,11 @@ public class ItemsRegistry{
         theFallenCollectorCrown = registerItem("the_fallen_collector_crown", () -> new CrownItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
         brokenMonocle = registerItem("broken_bloodsight_monocle", () -> new BloodSight(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
         monocle = registerItem("bloodsight_monocle", () -> new BloodSight(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
+
+        draugrShield = registerItem("draugr_shield", () -> new DraugrShieldItem(25, new Properties().stacksTo(1).durability(800).rarity(Rarity.UNCOMMON)));
+        crabBuckler = registerItem("crab_buckler", () -> new CrabBucklerItem(45, new Properties().stacksTo(1).durability(1200).rarity(Rarity.RARE)));
+        wickedShield = registerItem("wicked_shield", () -> new ValoriaShieldItem(new Properties().stacksTo(1).rarity(Rarity.EPIC)));
+
         jewelryBag = registerItem("jewelry_bag", () -> new JewelryBagItem(new Item.Properties().stacksTo(1)));
         pickNecklace = registerItem("pick_necklace", () -> new PickNecklace(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
         bandage = registerItem("bandage", () -> new ImmunityItem(new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON)));
@@ -702,10 +707,6 @@ public class ItemsRegistry{
         toxinsBottle = registerItem("toxins_bottle", () -> new PoisonItem(new Item.Properties().rarity(Rarity.RARE)));
         necromancerMusicDisc = registerItem("music_disc_necromancer", () -> new RecordItem(15, SoundsRegistry.MUSIC_NECROMANCER::get, (new Properties()).stacksTo(1).rarity(Rarity.RARE), 97));
 
-        draugrShield = registerItem("draugr_shield", () -> new DraugrShieldItem(25, new Properties().stacksTo(1).durability(800).rarity(Rarity.UNCOMMON)));
-        crabBuckler = registerItem("crab_buckler", () -> new CrabBucklerItem(45, new Properties().stacksTo(1).durability(1200).rarity(Rarity.RARE)));
-        wickedShield = registerItem("wicked_shield", () -> new ValoriaShieldItem(new Properties().stacksTo(1).rarity(Rarity.EPIC)));
-
         // spawn eggs
         pumpkinContract = registerItem("pumpkin_contract", () -> new TexturedSpawnEggItem(EntityTypeRegistry.HAUNTED_MERCHANT, new Item.Properties()));
         mannequin = registerItem("mannequin_spawn_egg", () -> new MannequinSpawnItem(new Item.Properties()));
@@ -722,7 +723,7 @@ public class ItemsRegistry{
         sorcerer = registerItem("sorcerer_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.SORCERER, Col.hexToDecimal("6e4e3f"), Col.hexToDecimal("e09f59"), new Item.Properties()));
         necromancer = registerItem("necromancer_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.NECROMANCER, Col.hexToDecimal("4b4857"), Col.hexToDecimal("958fb7"), new Item.Properties()));
         undead = registerItem("undead_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.UNDEAD, Col.hexToDecimal("7d7266"), Col.hexToDecimal("d6d0c9"), new Item.Properties()));
-        shadewoodSpider = registerItem("shadewood_spider_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.SHADEWOOD_SPIDER, Col.hexToDecimal("373C53"), Col.hexToDecimal("6EABB7"), new Item.Properties()));
+        shadeSpider = registerItem("shadewood_spider_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.SHADEWOOD_SPIDER, Col.hexToDecimal("373C53"), Col.hexToDecimal("6EABB7"), new Item.Properties()));
         scavenger = registerItem("scavenger_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.SCAVENGER, Col.hexToDecimal("88896d"), Col.hexToDecimal("74608f"), new Item.Properties()));
         scorpion = registerItem("wicked_scorpion_spawn_egg", () -> new ForgeSpawnEggItem(EntityTypeRegistry.WICKED_SCORPION, Col.hexToDecimal("29282b"), Col.hexToDecimal("74608f"), new Item.Properties()));
 

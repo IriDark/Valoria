@@ -1,7 +1,0 @@
-{
-  "render_type": "minecraft:cutout",
-  "parent": "minecraft:block/leaves",
-  "textures": {
-    "all": "valoria:block/shadewood_leaves"
-  }
-}

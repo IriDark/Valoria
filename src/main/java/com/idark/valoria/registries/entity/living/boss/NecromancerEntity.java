@@ -64,6 +64,12 @@ public class NecromancerEntity extends AbstractNecromancer implements BossEntity
         }
     }
 
+    @Override
+    public void die(DamageSource pDamageSource){
+        bossEvent.setAboutToDie(true);
+        super.die(pDamageSource);
+    }
+
     public float getSpawnProgress(float partialTicks){
         return Math.min(1.0f, (this.spawnTime + partialTicks) / 10f);
     }

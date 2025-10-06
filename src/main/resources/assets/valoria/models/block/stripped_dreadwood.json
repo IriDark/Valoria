@@ -1,7 +1,0 @@
-{
-  "parent": "block/cube_column",
-  "textures": {
-    "end": "valoria:block/stripped_dreadwood_log",
-    "side": "valoria:block/stripped_dreadwood_log"
-  }
-}

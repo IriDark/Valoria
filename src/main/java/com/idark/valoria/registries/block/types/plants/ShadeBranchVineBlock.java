@@ -14,6 +14,6 @@ public class ShadeBranchVineBlock extends GrowingPlantBodyBlock{
 
     @Override
     protected GrowingPlantHeadBlock getHeadBlock(){
-        return (GrowingPlantHeadBlock)BlockRegistry.shadewoodBranch.get();
+        return (GrowingPlantHeadBlock)BlockRegistry.shadeBranch.get();
     }
 }

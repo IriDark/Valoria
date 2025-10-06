@@ -1,8 +1,0 @@
-{
-  "render_type": "minecraft:cutout",
-  "parent": "valoria:block/layered_flower_pot_cross",
-  "textures": {
-    "plant": "valoria:block/dreadwood_sapling",
-    "layer": "valoria:block/dreadwood_sapling"
-  }
-}

@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_column",
+  "textures": {
+    "end": "valoria:block/dread_log",
+    "side": "valoria:block/dread_log"
+  }
+}

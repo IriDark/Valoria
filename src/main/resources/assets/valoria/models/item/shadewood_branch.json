@@ -1,7 +1,0 @@
-{
-  "parent": "item/generated",
-  "textures": {
-    "layer0": "valoria:block/shadewood_branch_tint",
-    "layer1": "valoria:block/shadewood_branch"
-  }
-}

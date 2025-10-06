@@ -1,8 +1,8 @@
 {
   "replace": false,
   "values": [
-    "valoria:shadewood_pressure_plate",
+    "valoria:shade_pressure_plate",
     "valoria:eldritch_pressure_plate",
-    "valoria:dreadwood_pressure_plate"
+    "valoria:dread_pressure_plate"
   ]
 }

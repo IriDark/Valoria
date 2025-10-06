@@ -11,4 +11,5 @@ public class ModRecipeTypes{
     public static final RecipeType<ManipulatorRecipe> MANIPULATOR = RecipeType.create(Valoria.ID, "manipulator", ManipulatorRecipe.class);
     public static final RecipeType<WorkbenchRecipe> WORKBENCH = RecipeType.create(Valoria.ID, "workbench", WorkbenchRecipe.class);
     public static final RecipeType<KilnRecipe> KILN = RecipeType.create(Valoria.ID, "kiln", KilnRecipe.class);
+    public static final RecipeType<SoulInfuserRecipe> SOUL_INFUSER = RecipeType.create(Valoria.ID, "soul_infuser", SoulInfuserRecipe.class);
 }

@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "/S/",
+    "#T#",
+    "TBT"
+  ],
+  "key": {
+    "S": {
+      "item": "valoria:soul_collector_empty"
+    },
+    "/": {
+      "item": "valoria:uncharged_shard"
+    },
+    "B": {
+      "item": "valoria:soul_shard_block"
+    },
+    "#": {
+      "item": "valoria:tombstone_brick"
+    },
+    "T": {
+      "item": "valoria:tombstone"
+    }
+  },
+  "result": {
+    "item": "valoria:soul_infuser",
+    "count": 1
+  }
+}

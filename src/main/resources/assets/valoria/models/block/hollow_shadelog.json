@@ -1,8 +1,0 @@
-{
-  "parent": "quark:block/hollow_log",
-  "textures": {
-    "end": "valoria:block/shadelog_top",
-    "side": "valoria:block/shadelog",
-    "inside": "valoria:block/stripped_shadelog"
-  }
-}

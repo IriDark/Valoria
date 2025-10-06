@@ -1,7 +1,0 @@
-{
-  "render_type": "minecraft:cutout",
-  "parent": "block/pressure_plate_up",
-  "textures": {
-    "texture": "valoria:block/shadewood_planks"
-  }
-}

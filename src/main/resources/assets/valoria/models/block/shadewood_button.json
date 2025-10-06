@@ -1,7 +1,0 @@
-{
-  "render_type": "minecraft:cutout",
-  "parent": "block/button",
-  "textures": {
-    "texture": "valoria:block/shadewood_planks"
-  }
-}

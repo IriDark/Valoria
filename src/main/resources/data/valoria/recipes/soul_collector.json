@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "/G/",
+    "U#U",
+    "/G/"
+  ],
+  "key": {
+    "/": {
+      "item": "valoria:tombstone_brick"
+    },
+    "G": {
+      "item": "valoria:black_gold_ingot"
+    },
+    "#": {
+      "item": "valoria:nihility_shard"
+    },
+    "U": {
+      "item": "valoria:uncharged_shard"
+    }
+  },
+  "result": {
+    "item": "valoria:soul_collector"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "valoria:logs/dread"
+    }
+  ],
+  "result": {
+    "item": "valoria:dread_planks",
+    "count": 4
+  }
+}

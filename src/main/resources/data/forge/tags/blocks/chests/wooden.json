@@ -2,11 +2,11 @@
   "replace": false,
   "values": [
     {
-      "id": "valoria:shadewood_chest",
+      "id": "valoria:shade_chest",
       "required": false
     },
     {
-      "id": "valoria:trapped_shadewood_chest",
+      "id": "valoria:trapped_shade_chest",
       "required": false
     },
     {

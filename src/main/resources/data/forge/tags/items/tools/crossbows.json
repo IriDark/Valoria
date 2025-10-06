@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "valoria:nature_crossbow",
+    "valoria:aquarius_crossbow",
+    "valoria:void_crossbow",
+    "valoria:phantasm_crossbow",
+    "valoria:infernal_crossbow"
+  ]
+}

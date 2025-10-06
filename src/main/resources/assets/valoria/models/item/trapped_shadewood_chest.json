@@ -1,7 +1,0 @@
-{
-  "parent": "valoria:item/mod_chest",
-  "textures": {
-    "1": "valoria:block/trapped_shadewood_chest",
-    "particle": "valoria:block/shadewood_planks"
-  }
-}

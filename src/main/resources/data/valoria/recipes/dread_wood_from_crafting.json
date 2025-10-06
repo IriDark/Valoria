@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "GG",
+    "GG"
+  ],
+  "key": {
+    "G": {
+      "item": "valoria:dread_log"
+    }
+  },
+  "result": {
+    "item": "valoria:dread_wood",
+    "count": 3
+  }
+}

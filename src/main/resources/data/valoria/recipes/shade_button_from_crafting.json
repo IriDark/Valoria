@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "valoria:shade_planks"
+    }
+  ],
+  "result": {
+    "item": "valoria:shade_button",
+    "count": 1
+  }
+}

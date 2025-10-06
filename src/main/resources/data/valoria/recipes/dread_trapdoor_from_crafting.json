@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "///",
+    "///"
+  ],
+  "key": {
+    "/": {
+      "item": "valoria:dread_planks"
+    }
+  },
+  "result": {
+    "item": "valoria:dread_trapdoor",
+    "count": 2
+  }
+}

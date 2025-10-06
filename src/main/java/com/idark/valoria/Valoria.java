@@ -35,6 +35,7 @@ import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
+import net.minecraft.world.level.GameRules.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.properties.*;
 import net.minecraft.world.level.levelgen.Heightmap.*;
@@ -48,7 +49,7 @@ import net.minecraftforge.event.entity.*;
 import net.minecraftforge.eventbus.api.*;
 import net.minecraftforge.fml.*;
 import net.minecraftforge.fml.common.*;
-import net.minecraftforge.fml.config.ModConfig.*;
+import net.minecraftforge.fml.config.ModConfig.Type;
 import net.minecraftforge.fml.event.lifecycle.*;
 import net.minecraftforge.fml.javafmlmod.*;
 import net.minecraftforge.fml.loading.*;
@@ -84,8 +85,9 @@ public class Valoria{
     public static UUID BASE_NIHILITY_RESISTANCE_UUID = UUID.fromString("d54e60fa-ef27-4181-8e60-faef2771814e");
     public static UUID BASE_ELEMENTAL_RESISTANCE_UUID = UUID.fromString("14e99f51-ad2a-4996-a99f-51ad2a0996a0");
 
-    public static final GameRules.Key<GameRules.BooleanValue> DISABLE_BLOCK_BREAKING = GameRules.register("valoria:disableBossDungeonGriefing", GameRules.Category.PLAYER, GameRules.BooleanValue.create(true));
-    public static final GameRules.Key<GameRules.BooleanValue> TRAP_ACTIVATING = GameRules.register("valoria:trapActivating", GameRules.Category.MISC, GameRules.BooleanValue.create(true));
+    public static final GameRules.Key<GameRules.BooleanValue> DISABLE_BLOCK_BREAKING = GameRules.register("valoria:disableBossDungeonGriefing", Category.PLAYER, GameRules.BooleanValue.create(true));
+    public static final GameRules.Key<GameRules.BooleanValue> TRAP_ACTIVATING = GameRules.register("valoria:trapActivating", Category.MISC, GameRules.BooleanValue.create(true));
+    public static final GameRules.Key<GameRules.BooleanValue> FOOD_ROT = GameRules.register("valoria:foodRot", Category.PLAYER, GameRules.BooleanValue.create(true));
 
     public Valoria(){
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -124,6 +126,7 @@ public class Valoria{
         SoundsRegistry.register(eventBus);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
+        forgeBus.addListener(Events::onMissingMappings);
 
         forgeBus.register(this);
         forgeBus.register(new Events());
@@ -143,9 +146,6 @@ public class Valoria{
      */
     private void clientSetup(final FMLClientSetupEvent event){
         ValoriaClient.setupClient();
-//        AbstractBossbar.bossbars.put("Wicked Crystal", new BasicBossbar(new ResourceLocation(Valoria.ID, "textures/gui/bossbars/wicked_crystal.png")));
-//        AbstractBossbar.bossbars.put("Necromancer", new BasicBossbar(new ResourceLocation(Valoria.ID, "textures/gui/bossbars/necromancer.png")));
-//        AbstractBossbar.bossbars.put("Dryador", new BasicBossbar(new ResourceLocation(Valoria.ID, "textures/gui/bossbars/dryador.png")));
         event.enqueueWork(() -> {
             CodexEntries.initChapters();
             CuriosRendererRegistry.register(ItemsRegistry.theFallenCollectorCrown.get(), CrownRenderer::new);
@@ -216,14 +216,14 @@ public class Valoria{
         event.enqueueWork(() -> {
             ModCompats.init();
             FireBlock fireblock = (FireBlock)Blocks.FIRE;
-            fireblock.setFlammable(BlockRegistry.shadelog.get(), 5, 20);
-            fireblock.setFlammable(BlockRegistry.shadewood.get(), 5, 20);
-            fireblock.setFlammable(BlockRegistry.shadewoodLeaves.get(), 30, 60);
-            fireblock.setFlammable(BlockRegistry.shadewoodPlanksSlab.get(), 5, 40);
-            fireblock.setFlammable(BlockRegistry.shadewoodPlanksStairs.get(), 5, 40);
-            fireblock.setFlammable(BlockRegistry.shadewoodPlanks.get(), 5, 25);
-            fireblock.setFlammable(BlockRegistry.strippedShadelog.get(), 5, 30);
-            fireblock.setFlammable(BlockRegistry.strippedShadewood.get(), 5, 30);
+            fireblock.setFlammable(BlockRegistry.shadeLog.get(), 5, 20);
+            fireblock.setFlammable(BlockRegistry.shadeWood.get(), 5, 20);
+            fireblock.setFlammable(BlockRegistry.shadeLeaves.get(), 30, 60);
+            fireblock.setFlammable(BlockRegistry.shadePlanksSlab.get(), 5, 40);
+            fireblock.setFlammable(BlockRegistry.shadePlanksStairs.get(), 5, 40);
+            fireblock.setFlammable(BlockRegistry.shadePlanks.get(), 5, 25);
+            fireblock.setFlammable(BlockRegistry.strippedShadeLog.get(), 5, 30);
+            fireblock.setFlammable(BlockRegistry.strippedShadeWood.get(), 5, 30);
             fireblock.setFlammable(BlockRegistry.eldritchLog.get(), 5, 20);
             fireblock.setFlammable(BlockRegistry.eldritchWood.get(), 5, 20);
             fireblock.setFlammable(BlockRegistry.eldritchLeaves.get(), 30, 60);
@@ -280,13 +280,16 @@ public class Valoria{
             );
 
             AxeItem.STRIPPABLES = new ImmutableMap.Builder<Block, Block>().putAll(AxeItem.STRIPPABLES)
-            .put(BlockRegistry.shadelog.get(), BlockRegistry.strippedShadelog.get())
-            .put(BlockRegistry.shadewood.get(), BlockRegistry.strippedShadewood.get())
+            .put(BlockRegistry.shadeLog.get(), BlockRegistry.strippedShadeLog.get())
+            .put(BlockRegistry.shadeWood.get(), BlockRegistry.strippedShadeWood.get())
+            .put(BlockRegistry.dreadwoodLog.get(), BlockRegistry.strippedDreadwoodLog.get())
+            .put(BlockRegistry.dreadWood.get(), BlockRegistry.strippedDreadWood.get())
             .put(BlockRegistry.eldritchLog.get(), BlockRegistry.strippedEldritchLog.get())
             .put(BlockRegistry.eldritchWood.get(), BlockRegistry.strippedEldritchWood.get()).build();
 
             WoodType.register(ModWoodTypes.ELDRITCH);
             WoodType.register(ModWoodTypes.SHADEWOOD);
+            WoodType.register(ModWoodTypes.DREADWOOD);
         });
     }
 

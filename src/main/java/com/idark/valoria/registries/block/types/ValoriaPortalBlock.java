@@ -94,7 +94,10 @@ public class ValoriaPortalBlock extends Block implements EntityBlock{
     }
 
     public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pFacingPos){
-        GlowPostProcess.INSTANCE.addInstance(new GlowPostProcessInstance(pCurrentPos.getCenter().toVector3f(), new Vector3f((float)70 / 255, (float)31 / 255, (float)139 / 255)).setIntensity(0.25f).setFadeTime(45).setRadius(4));
+        if(pLevel.isClientSide()) {
+            GlowPostProcess.INSTANCE.addInstance(new GlowPostProcessInstance(pCurrentPos.getCenter().toVector3f(), new Vector3f((float)70 / 255, (float)31 / 255, (float)139 / 255)).setIntensity(0.25f).setFadeTime(45).setRadius(4));
+        }
+
         return super.updateShape(pState, pFacing, pFacingState, pLevel, pCurrentPos, pFacingPos);
     }
 

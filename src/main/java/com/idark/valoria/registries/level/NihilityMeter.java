@@ -9,7 +9,6 @@ import net.minecraftforge.event.TickEvent.*;
 import pro.komaru.tridot.client.render.gui.overlay.*;
 import pro.komaru.tridot.util.*;
 
-
 public class NihilityMeter{
     public static float damagingLevel = 0.5f;
     public static float criticalLevel = 0.75f;

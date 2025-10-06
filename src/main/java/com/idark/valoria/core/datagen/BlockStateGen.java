@@ -57,8 +57,8 @@ public class BlockStateGen extends CoreStateGen{
         stairsBlock((StairBlock)BlockRegistry.eldritchPlanksStairs.get(), blockTexture(BlockRegistry.eldritchPlanks.get()));
         slabBlock((SlabBlock)BlockRegistry.eldritchPlanksSlab.get(), blockTexture(BlockRegistry.eldritchPlanks.get()), blockTexture(BlockRegistry.eldritchPlanks.get()));
 
-        fenceBlock((FenceBlock)BlockRegistry.shadewoodFence.get(), blockTexture(BlockRegistry.shadewoodPlanks.get()));
-        fenceGateBlock((FenceGateBlock)BlockRegistry.shadewoodFenceGate.get(), blockTexture(BlockRegistry.shadewoodPlanks.get()));
+        fenceBlock((FenceBlock)BlockRegistry.shadeFence.get(), blockTexture(BlockRegistry.shadePlanks.get()));
+        fenceGateBlock((FenceGateBlock)BlockRegistry.shadeFenceGate.get(), blockTexture(BlockRegistry.shadePlanks.get()));
         fenceBlock((FenceBlock)BlockRegistry.eldritchFence.get(), blockTexture(BlockRegistry.eldritchPlanks.get()));
         fenceGateBlock((FenceGateBlock)BlockRegistry.eldritchFenceGate.get(), blockTexture(BlockRegistry.eldritchPlanks.get()));
     }

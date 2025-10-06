@@ -10,8 +10,8 @@ import net.minecraft.world.level.block.entity.*;
 import net.minecraftforge.common.capabilities.*;
 import net.minecraftforge.items.*;
 import net.minecraftforge.items.wrapper.*;
-import pro.komaru.tridot.client.render.gui.screen.ResultSlot;
 import pro.komaru.tridot.client.render.gui.screen.*;
+import pro.komaru.tridot.client.render.gui.screen.ResultSlot;
 
 public class SoulInfuserMenu extends ContainerMenuBase{
     public BlockEntity blockEntity;
@@ -24,10 +24,10 @@ public class SoulInfuserMenu extends ContainerMenuBase{
         this.layoutPlayerInventorySlots(8, 84);
         if(blockEntity != null){
             blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(h -> {
-                this.addSlot(new SlotItemHandler(h, 0, 27, 27));
-                this.addSlot(new SoulCollectorSlot(h, 1, 76, 27));
+                this.addSlot(new SlotItemHandler(h, 0, 27, 26));
+                this.addSlot(new SoulCollectorSlot(h, 1, 76, 26));
 
-                this.addSlot(new ResultSlot(h, 2, 134, 27));
+                this.addSlot(new ResultSlot(h, 2, 134, 26));
             });
         }
     }

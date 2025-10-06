@@ -1,8 +1,8 @@
 {
   "replace": false,
   "values": [
-    "valoria:shadewood_wall_hanging_sign",
+    "valoria:shade_wall_hanging_sign",
     "valoria:eldritch_wall_hanging_sign",
-    "valoria:dreadwood_wall_hanging_sign"
+    "valoria:dread_wall_hanging_sign"
   ]
 }

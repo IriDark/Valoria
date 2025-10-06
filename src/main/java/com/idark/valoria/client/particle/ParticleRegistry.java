@@ -20,7 +20,7 @@ public class ParticleRegistry{
     public static RegistryObject<GenericParticleType> ACID_SPIT = PARTICLES.register("acid_spit", GenericParticleType::new);
 
     public static RegistryObject<GenericParticleType> TRANSFORM_PARTICLE = PARTICLES.register("transform", GenericParticleType::new);
-    public static RegistryObject<LeavesParticleType> SHADEWOOD_LEAF_PARTICLE = PARTICLES.register("shadewood_leaf", LeavesParticleType::new);
+    public static RegistryObject<LeavesParticleType> SHADEWOOD_LEAF_PARTICLE = PARTICLES.register("shade_leaf", LeavesParticleType::new);
 
     public static RegistryObject<SimpleParticleType> HEAL = PARTICLES.register("heal", () -> new SimpleParticleType(false));
     public static RegistryObject<SimpleParticleType> FIREFLY = PARTICLES.register("firefly", () -> new SimpleParticleType(false));

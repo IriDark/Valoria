@@ -1,5 +1,5 @@
 {
-  "key": "shadewood",
+  "key": "shade",
   "category": "wood",
   "primary": 3,
   "secondary": 1.5,
@@ -20,7 +20,7 @@
   ],
   "material": {
     "items": [
-      "valoria:shadewood_planks"
+      "valoria:shade_planks"
     ]
   },
   "requiredTools": {

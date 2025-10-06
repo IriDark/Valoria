@@ -63,6 +63,12 @@ public class DryadorEntity extends AbstractBoss implements RangedAttackMob{
         this.xpReward = 100;
     }
 
+    @Override
+    public void die(DamageSource pDamageSource){
+        bossEvent.setAboutToDie(true);
+        super.die(pDamageSource);
+    }
+
     public boolean isBusy(){
         return phaseTransitionAnimationState.isPlaying
         || summonAnimationState.isPlaying

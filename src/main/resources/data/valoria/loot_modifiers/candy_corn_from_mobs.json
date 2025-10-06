@@ -5,7 +5,7 @@
     {
       "condition": "tridot:local_date",
       "day_of_month": {
-        "min": 14,
+        "min": 1,
         "max": 31
       },
       "month": {
@@ -18,8 +18,7 @@
     },
     {
       "condition": "tridot:mob_category",
-      "mob_category": "monster",
-      "target": "direct_killer"
+      "mob_category": "monster"
     }
   ],
   "item": "valoria:candy_corn"

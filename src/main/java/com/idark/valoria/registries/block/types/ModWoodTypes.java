@@ -5,7 +5,7 @@ import net.minecraft.resources.*;
 import net.minecraft.world.level.block.state.properties.*;
 
 public class ModWoodTypes{
-    public static final WoodType SHADEWOOD = WoodType.register(new WoodType(new ResourceLocation(Valoria.ID, "shadewood").toString(), BlockSetType.OAK));
+    public static final WoodType SHADEWOOD = WoodType.register(new WoodType(new ResourceLocation(Valoria.ID, "shade").toString(), BlockSetType.OAK));
     public static final WoodType ELDRITCH = WoodType.register(new WoodType(new ResourceLocation(Valoria.ID, "eldritch").toString(), BlockSetType.OAK));
-    public static final WoodType DREADWOOD = WoodType.register(new WoodType(new ResourceLocation(Valoria.ID, "dreadwood").toString(), BlockSetType.OAK));
+    public static final WoodType DREADWOOD = WoodType.register(new WoodType(new ResourceLocation(Valoria.ID, "dread").toString(), BlockSetType.OAK));
 }

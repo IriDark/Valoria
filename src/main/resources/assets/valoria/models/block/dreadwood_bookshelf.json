@@ -1,7 +1,0 @@
-{
-  "parent": "block/cube_column",
-  "textures": {
-    "end": "valoria:block/dreadwood_planks",
-    "side": "valoria:block/dreadwood_bookshelf"
-  }
-}

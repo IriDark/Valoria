@@ -1,0 +1,7 @@
+{
+  "parent": "valoria:item/mod_chest",
+  "textures": {
+    "1": "valoria:block/trapped_shade_chest",
+    "particle": "valoria:block/shade_planks"
+  }
+}

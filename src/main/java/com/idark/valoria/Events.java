@@ -69,6 +69,109 @@ public class Events{
     public ArcRandom arcRandom = Tmp.rnd;
 
     @SubscribeEvent
+    public static void onMissingMappings(MissingMappingsEvent event) {
+        for (var mapping : event.getMappings(ForgeRegistries.Keys.BLOCKS, "valoria")) {
+            String oldId = mapping.getKey().getPath();
+            switch(oldId){
+                case "shadewood" -> {
+                    mapping.remap(BlockRegistry.shadeWood.get());
+                    continue;
+                }
+                case "stripped_shadewood" -> {
+                    mapping.remap(BlockRegistry.strippedShadeWood.get());
+                    continue;
+                }
+                case "stripped_shadelog" -> {
+                    mapping.remap(BlockRegistry.strippedShadeLog.get());
+                    continue;
+                }
+                case "shadelog" -> {
+                    mapping.remap(BlockRegistry.shadeLog.get());
+                    continue;
+                }
+                case "trapped_shadewood_chest" -> {
+                    mapping.remap(BlockRegistry.shadeTrappedChest.get());
+                    continue;
+                }
+                case "potted_shadewood_sappling" -> {
+                    mapping.remap(BlockRegistry.pottedShadewoodSapling.get());
+                    continue;
+                }
+            }
+
+            if (oldId.startsWith("dreadwood_")) {
+                String newId = oldId.replace("dreadwood_", "dread_");
+                var newItem = ForgeRegistries.BLOCKS.getValue(new ResourceLocation("valoria", newId));
+                if (newItem != null) {
+                    mapping.remap(newItem);
+                    Valoria.LOGGER.error("[REMAP] Remmaping: {} to {}", oldId, newId);
+                } else {
+                    mapping.ignore();
+                }
+            }
+
+            if (oldId.startsWith("shadewood_")) {
+                String newId = oldId.replace("shadewood_", "shade_");
+                var newBlock = ForgeRegistries.BLOCKS.getValue(new ResourceLocation("valoria", newId));
+                if (newBlock != null) {
+                    mapping.remap(newBlock);
+                    Valoria.LOGGER.error("[REMAP] Remmaping: {} to {}", oldId, newId);
+                } else {
+                    mapping.ignore();
+                }
+            }
+        }
+
+        for (var mapping : event.getMappings(ForgeRegistries.Keys.ITEMS, "valoria")) {
+            String oldId = mapping.getKey().getPath();
+            switch(oldId){
+                case "shadewood" -> {
+                    mapping.remap(BlockRegistry.shadeWood.get().asItem());
+                    continue;
+                }
+                case "stripped_shadewood" -> {
+                    mapping.remap(BlockRegistry.strippedShadeWood.get().asItem());
+                    continue;
+                }
+                case "stripped_shadelog" -> {
+                    mapping.remap(BlockRegistry.strippedShadeLog.get().asItem());
+                    continue;
+                }
+                case "shadelog" -> {
+                    mapping.remap(BlockRegistry.shadeLog.get().asItem());
+                    continue;
+                }
+                case "trapped_shadewood_chest" -> {
+                    mapping.remap(BlockRegistry.shadeTrappedChest.get().asItem());
+                    continue;
+                }
+            }
+
+            if (oldId.startsWith("dreadwood_")) {
+                String newId = oldId.replace("dreadwood_", "dread_");
+                var newItem = ForgeRegistries.ITEMS.getValue(new ResourceLocation("valoria", newId));
+                if (newItem != null) {
+                    mapping.remap(newItem);
+                    Valoria.LOGGER.error("[REMAP] Remmaping: {} to {}", oldId, newId);
+                } else {
+                    mapping.ignore();
+                }
+            }
+
+            if (oldId.startsWith("shadewood_")) {
+                String newId = oldId.replace("shadewood_", "shade_");
+                var newItem = ForgeRegistries.ITEMS.getValue(new ResourceLocation("valoria", newId));
+                if (newItem != null) {
+                    mapping.remap(newItem);
+                    Valoria.LOGGER.error("[REMAP] Remmaping: {} to {}", oldId, newId);
+                } else {
+                    mapping.ignore();
+                }
+            }
+        }
+    }
+
+    @SubscribeEvent
     public void onReload(AddReloadListenerEvent event) {
         Valoria.LOGGER.info("Reloading Codex Chapters...");
         CodexEntries.initChapters();
@@ -78,25 +181,25 @@ public class Events{
     @SubscribeEvent
     public static void onTooltip(ItemTooltipEvent event) {
         ItemStack stack = event.getItemStack();
+        List<Component> tooltip = event.getToolTip();
         if (stack.hasTag() && stack.getTag().contains("poison_hits")) {
             int hits = stack.getTag().getInt("poison_hits");
             ImmutableList<MobEffectInstance> list = ImmutableList.of(new MobEffectInstance(MobEffects.POISON, 120, 0));
-            event.getToolTip().add(Component.translatable("tooltip.valoria.poisoned", hits).withStyle(ChatFormatting.GRAY));
-            Utils.Items.effectTooltip(list, event.getToolTip(), 1, 1);
+            tooltip.add(Component.translatable("tooltip.valoria.poisoned", hits).withStyle(ChatFormatting.GRAY));
+            Utils.Items.effectTooltip(list, tooltip, 1, 1);
         }
 
         if (Unlockables.getUnlockableByItem(stack.getItem()).isPresent()) {
             if(Screen.hasControlDown()){
-                event.getToolTip().add(Component.translatable("tooltip.valoria.open", Component.translatable("key.keyboard.left.control"), Component.translatable("key.mouse.right")).withStyle(ChatFormatting.GRAY));
+                tooltip.add(Component.translatable("tooltip.valoria.open", Component.translatable("key.keyboard.left.control"), Component.translatable("key.mouse.right")).withStyle(ChatFormatting.GRAY));
             }else{
-                event.getToolTip().add(Component.translatable("tooltip.valoria.info", Component.translatable("key.keyboard.left.control")).withStyle(ChatFormatting.DARK_GRAY));
+                tooltip.add(Component.translatable("tooltip.valoria.info", Component.translatable("key.keyboard.left.control")).withStyle(ChatFormatting.DARK_GRAY));
             }
         }
 
-        if(event.getItemStack().getItem() instanceof TieredItem tiered){
+        if(stack.getItem() instanceof TieredItem tiered){
             if(tiered.getTier() == ItemTierRegistry.HALLOWEEN){
-                var list = event.getToolTip();
-                list.add(1, Component.translatable("tooltip.valoria.soul_on_kill", 2).withStyle(ChatFormatting.AQUA).withStyle(style -> style.withFont(Valoria.FONT)));
+                tooltip.add(1, Component.translatable("tooltip.valoria.soul_on_kill", 2).withStyle(ChatFormatting.AQUA).withStyle(style -> style.withFont(Valoria.FONT)));
             }
         }
     }
@@ -140,19 +243,21 @@ public class Events{
     @SubscribeEvent
     public void onDimensionChange(PlayerEvent.PlayerChangedDimensionEvent event) {
         Player player = event.getEntity();
-        if(event.getTo() == LevelGen.VALORIA_KEY){
-            player.displayClientMessage(Component.translatable("tooltip.valoria.nihility").withStyle(DotStyle.of().effects(WaveFX.of(0.25f, 0.1f), OutlineFX.of(Pal.amethyst, true))), true);
-            for(int i = 0; i < player.getInventory().getContainerSize(); i++){
-                ItemStack stack = player.getInventory().getItem(i);
-                if(stack.isEdible() && stack.getUseAnimation() == UseAnim.EAT && !(stack.getItem() instanceof ValoriaFood)){
-                    ItemStack rot = new ItemStack(ItemsRegistry.rot.get());
-                    CompoundTag tag = rot.getOrCreateTag();
-                    rot.setTag(tag.copy());
-                    tag.putString("OriginalItem", ForgeRegistries.ITEMS.getKey(stack.getItem()).toString());
+        if(player.level().getGameRules().getBoolean(Valoria.FOOD_ROT)){
+            if(event.getTo() == LevelGen.VALORIA_KEY){
+                player.displayClientMessage(Component.translatable("tooltip.valoria.nihility").withStyle(DotStyle.of().effects(WaveFX.of(0.25f, 0.1f), OutlineFX.of(Pal.amethyst, true))), true);
+                for(int i = 0; i < player.getInventory().getContainerSize(); i++){
+                    ItemStack stack = player.getInventory().getItem(i);
+                    if(stack.isEdible() && stack.getUseAnimation() == UseAnim.EAT && !(stack.getItem() instanceof ValoriaFood)){
+                        ItemStack rot = new ItemStack(ItemsRegistry.rot.get());
+                        CompoundTag tag = rot.getOrCreateTag();
+                        rot.setTag(tag.copy());
+                        tag.putString("OriginalItem", ForgeRegistries.ITEMS.getKey(stack.getItem()).toString());
 
-                    rot.setTag(tag);
-                    rot.setCount(stack.getCount());
-                    player.getInventory().setItem(i, rot);
+                        rot.setTag(tag);
+                        rot.setCount(stack.getCount());
+                        player.getInventory().setItem(i, rot);
+                    }
                 }
             }
         }
@@ -238,6 +343,20 @@ public class Events{
     }
 
     @SubscribeEvent
+    public void onMobKilled(LivingDeathEvent event) {
+        if (event.getSource().getEntity() instanceof ServerPlayer player) {
+            LivingEntity victim = event.getEntity();
+
+            ArrayList<Unlockable> all = new ArrayList<>(Unlockables.get());
+            Set<Unlockable> unlocked = UnlockUtils.getUnlocked(player);
+            if(unlocked != null) all.removeAll(unlocked);
+            for(Unlockable unknown : all){
+                if(unknown instanceof EntityUnlockable entityU) entityU.checkCondition(player, victim);
+            }
+        }
+    }
+
+    @SubscribeEvent
     public void onEffectApply(MobEffectEvent.Applicable event){
         var entity = event.getEntity();
         var effect = event.getEffectInstance();
@@ -296,27 +415,28 @@ public class Events{
         var pSource = event.getSource();
         var entity = event.getEntity();
         var level = entity.level();
-        if(!(pSource.getEntity() instanceof LivingEntity attacker)) return;
-        ILivingEntityData data = (ILivingEntityData)entity;
-        if(level instanceof ServerLevel s){
-            var pushDirection = new Vec3(entity.getX() + attacker.getX(), 0.0D, entity.getZ() + attacker.getX()).normalize();
-            if(attacker.getAttribute(AttributeReg.MISS_CHANCE.get()) != null && Tmp.rnd.chance(attacker.getAttributeValue(AttributeReg.MISS_CHANCE.get()) / 100)){
-                level.playSound(null, attacker.blockPosition(), SoundsRegistry.MISS.get(), SoundSource.HOSTILE);
-                s.sendParticles(ParticleTypes.SMOKE, attacker.getX(), attacker.getY(), attacker.getZ(), 16, 1, 1, 1, 0.025f);
+        if(pSource.getEntity() instanceof LivingEntity attacker){
+            ILivingEntityData data = (ILivingEntityData)entity;
+            if(level instanceof ServerLevel s){
+                var pushDirection = new Vec3(entity.getX() + attacker.getX(), 0.0D, entity.getZ() + attacker.getX()).normalize();
+                if(attacker.getAttribute(AttributeReg.MISS_CHANCE.get()) != null && Tmp.rnd.chance(attacker.getAttributeValue(AttributeReg.MISS_CHANCE.get()) / 100)){
+                    level.playSound(null, attacker.blockPosition(), SoundsRegistry.MISS.get(), SoundSource.HOSTILE);
+                    s.sendParticles(ParticleTypes.SMOKE, attacker.getX(), attacker.getY(), attacker.getZ(), 16, 1, 1, 1, 0.025f);
 
-                data.valoria$missTime(10);
-                if(attacker instanceof Player player) player.displayClientMessage(Component.literal("Miss"), true);
-                event.setCanceled(true);
-            }
+                    data.valoria$missTime(10);
+                    if(attacker instanceof Player player) player.displayClientMessage(Component.literal("Miss"), true);
+                    event.setCanceled(true);
+                }
 
-            if(entity.getAttribute(AttributeReg.DODGE_CHANCE.get()) != null && Tmp.rnd.chance(entity.getAttributeValue(AttributeReg.DODGE_CHANCE.get()) / 100)){
-                level.playSound(null, entity.blockPosition(), SoundsRegistry.DODGE.get(), SoundSource.HOSTILE);
-                knockbackEntity(entity, pushDirection.reverse());
-                s.sendParticles(ParticleTypes.ENCHANTED_HIT, entity.getX(), entity.getY(), entity.getZ(), 16, 1, 1, 1, 0.025f);
+                if(entity.getAttribute(AttributeReg.DODGE_CHANCE.get()) != null && Tmp.rnd.chance(entity.getAttributeValue(AttributeReg.DODGE_CHANCE.get()) / 100)){
+                    level.playSound(null, entity.blockPosition(), SoundsRegistry.DODGE.get(), SoundSource.HOSTILE);
+                    knockbackEntity(entity, pushDirection.reverse());
+                    s.sendParticles(ParticleTypes.ENCHANTED_HIT, entity.getX(), entity.getY(), entity.getZ(), 16, 1, 1, 1, 0.025f);
 
-                data.valoria$dodgeTime(10);
-                if(entity instanceof Player player) player.displayClientMessage(Component.literal("Dodge!"), true);
-                event.setCanceled(true);
+                    data.valoria$dodgeTime(10);
+                    if(entity instanceof Player player) player.displayClientMessage(Component.literal("Dodge!"), true);
+                    event.setCanceled(true);
+                }
             }
         }
 

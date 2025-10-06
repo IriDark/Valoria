@@ -1,8 +1,0 @@
-{
-  "type": "valoria:root",
-  "config": {
-    "state": {
-      "Name": "valoria:shadelog"
-    }
-  }
-}

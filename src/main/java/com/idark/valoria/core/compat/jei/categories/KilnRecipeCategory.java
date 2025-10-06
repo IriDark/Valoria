@@ -77,11 +77,6 @@ public class KilnRecipeCategory extends AbstractRecipeCategory<KilnRecipe>{
     }
 
     @Override
-    public boolean isHandled(KilnRecipe recipeHolder){
-        return !recipeHolder.isSpecial();
-    }
-
-    @Override
     public ResourceLocation getRegistryName(KilnRecipe recipe){
         return recipe.getId();
     }

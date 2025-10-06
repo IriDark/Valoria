@@ -52,8 +52,8 @@ public class LevelGen{
     public static final RegistryObject<Feature<NoneFeatureConfiguration>> BLOOD_VINES = FEATURES.register("blood_vines", () -> new BloodVinesFeature(NoneFeatureConfiguration.CODEC));
     public static final RegistryObject<Feature<NoneFeatureConfiguration>> CAVE_ROOT = FEATURES.register("cave_root", () -> new CaveRootFeature(NoneFeatureConfiguration.CODEC));
 
-    public static ResourceKey<ConfiguredFeature<?, ?>> SHADEWOOD_TREE = registerKey(Registries.CONFIGURED_FEATURE, "shadewood_tree");
-    public static ResourceKey<ConfiguredFeature<?, ?>> FANCY_SHADEWOOD_TREE = registerKey(Registries.CONFIGURED_FEATURE, "fancy_shadewood_tree");
+    public static ResourceKey<ConfiguredFeature<?, ?>> SHADEWOOD_TREE = registerKey(Registries.CONFIGURED_FEATURE, "shade_tree");
+    public static ResourceKey<ConfiguredFeature<?, ?>> FANCY_SHADEWOOD_TREE = registerKey(Registries.CONFIGURED_FEATURE, "fancy_shade_tree");
     public static ResourceKey<ConfiguredFeature<?, ?>> ELDRITCH_TREE = registerKey(Registries.CONFIGURED_FEATURE, "eldritch_tree");
     public static ResourceKey<ConfiguredFeature<?, ?>> FANCY_ELDRITCH_TREE = registerKey(Registries.CONFIGURED_FEATURE, "fancy_eldritch_tree");
     public static ResourceKey<ConfiguredFeature<?, ?>> DREADWOOD_TREE = registerKey(Registries.CONFIGURED_FEATURE, "dreadwood_tree");

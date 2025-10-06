@@ -2,15 +2,18 @@ package com.idark.valoria.registries;
 
 import com.idark.valoria.*;
 import com.idark.valoria.registries.item.types.*;
+import com.idark.valoria.registries.item.types.consumables.*;
 import com.idark.valoria.registries.item.types.curio.*;
 import net.minecraft.core.*;
 import net.minecraft.core.registries.*;
 import net.minecraft.nbt.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.resources.*;
+import net.minecraft.tags.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.decoration.*;
 import net.minecraft.world.item.*;
+import net.minecraftforge.common.*;
 import net.minecraftforge.event.*;
 import net.minecraftforge.eventbus.api.*;
 import net.minecraftforge.fml.common.*;
@@ -36,9 +39,25 @@ public abstract class ItemTabRegistry{
     .backgroundSuffix("valoria_item.png").withBackgroundLocation(getBackgroundImage()).build());
 
     public static final RegistryObject<CreativeModeTab> VALORIA_TAB = CREATIVE_MODE_TABS.register("valoria_misc",
-    () -> CreativeModeTab.builder().icon(() -> new ItemStack(ItemsRegistry.suspiciousGem.get()))
+    () -> CreativeModeTab.builder().icon(() -> new ItemStack(ItemsRegistry.pumpkinBomb.get()))
     .hideTitle()
     .title(Component.translatable("itemGroup.valoriaMiscModTab"))
+    .withTabsImage(getTabsImage())
+    .withTabsAfter(ItemTabRegistry.VALORIA_TOOLS.getKey())
+    .backgroundSuffix("valoria_item.png").withBackgroundLocation(getBackgroundImage()).build());
+
+    public static final RegistryObject<CreativeModeTab> VALORIA_TOOLS = CREATIVE_MODE_TABS.register("valoria_tools",
+    () -> CreativeModeTab.builder().icon(() -> new ItemStack(ItemsRegistry.dreadAxe.get()))
+    .hideTitle()
+    .title(Component.translatable("itemGroup.valoriaToolsModTab"))
+    .withTabsImage(getTabsImage())
+    .withTabsAfter(ItemTabRegistry.VALORIA_CONSUMABLES.getKey())
+    .backgroundSuffix("valoria_item.png").withBackgroundLocation(getBackgroundImage()).build());
+
+    public static final RegistryObject<CreativeModeTab> VALORIA_CONSUMABLES = CREATIVE_MODE_TABS.register("valoria_consumables",
+    () -> CreativeModeTab.builder().icon(() -> new ItemStack(ItemsRegistry.candyCorn.get()))
+    .hideTitle()
+    .title(Component.translatable("itemGroup.valoriaConsumablesModTab"))
     .withTabsImage(getTabsImage())
     .withTabsAfter(ItemTabRegistry.VALORIA_ARMOR_TAB.getKey())
     .backgroundSuffix("valoria_item.png").withBackgroundLocation(getBackgroundImage()).build());
@@ -72,48 +91,55 @@ public abstract class ItemTabRegistry{
     }
 
     public static void addCreative(BuildCreativeModeTabContentsEvent event){
-        if(event.getTabKey() == ItemTabRegistry.VALORIA_BLOCKS_TAB.getKey()){
-            for(RegistryObject<Item> item : ItemsRegistry.BLOCK_ITEMS.getEntries()){
-                if(!new ItemStack(item.get()).is(TagsRegistry.EXCLUDED_FROM_TAB)) event.accept(item.get());
-            }
-
-            event.getParameters().holders().lookup(MiscRegistry.PAINTING_TYPES.getRegistryKey()).ifPresent((p_270026_) -> generatePresetPaintings(event, p_270026_, (p_270037_) -> p_270037_.is(TagsRegistry.MODDED), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
-        }
-
-        if(event.getTabKey() == ItemTabRegistry.VALORIA_TAB.getKey()){
-            if(Utils.isDevelopment) event.accept(ItemsRegistry.debugItem);
-            for(RegistryObject<Item> item : ItemsRegistry.ITEMS.getEntries()){
-                if(!new ItemStack(item.get()).is(TagsRegistry.EXCLUDED_FROM_TAB)){
-                    if(!(item.get() instanceof ICurioItem || item.get() instanceof ArmorItem || item.get() instanceof AbstractTalismanItem)){
-                        if(item.get() instanceof SummonBook){
-                            event.getParameters().holders().lookup(ForgeRegistries.ENTITY_TYPES.getRegistryKey()).ifPresent(entityLookup -> generateMinionItems(event, entityLookup, (holder) -> holder.is(TagsRegistry.MINIONS), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
-                        }else{
-                            event.accept(item.get().getDefaultInstance());
-                        }
-                    }
+        var tabKey = event.getTabKey();
+        BiConsumer<Predicate<Item>, Boolean> addItems = (filter, fromBlocks) -> {
+            var entries = fromBlocks ? ItemsRegistry.BLOCK_ITEMS.getEntries() : ItemsRegistry.ITEMS.getEntries();
+            for (RegistryObject<Item> item : entries) {
+                Item i = item.get();
+                if (!new ItemStack(i).is(TagsRegistry.EXCLUDED_FROM_TAB) && filter.test(i)) {
+                    event.accept(i.getDefaultInstance());
                 }
             }
-        }
+        };
 
-        if(event.getTabKey() == ItemTabRegistry.VALORIA_ARMOR_TAB.getKey()){
-            for(RegistryObject<Item> item : ItemsRegistry.ITEMS.getEntries()){
-                if(!new ItemStack(item.get()).is(TagsRegistry.EXCLUDED_FROM_TAB)){
-                    if(item.get() instanceof ArmorItem){
-                        event.accept(item.get().getDefaultInstance());
-                    }
-                }
-            }
-        }
+        if (tabKey == ItemTabRegistry.VALORIA_BLOCKS_TAB.getKey()) {
+            addItems.accept(i -> true, true);
+            event.getParameters().holders().lookup(MiscRegistry.PAINTING_TYPES.getRegistryKey())
+            .ifPresent(paintings ->
+            generatePresetPaintings(event, paintings,
+            holder -> holder.is(TagsRegistry.MODDED),
+            CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS)
+            );
+        } else if (tabKey == ItemTabRegistry.VALORIA_TAB.getKey()) {
+            addItems.accept(i -> !isAccessory(i) && !isArmor(i) && !(i instanceof SummonBook) && !isTool(i) && !isConsumable(i), false);
+        } else if(tabKey == ItemTabRegistry.VALORIA_CONSUMABLES.getKey()){
+            addItems.accept(ItemTabRegistry::isConsumable, false);
+        } else if(tabKey == ItemTabRegistry.VALORIA_TOOLS.getKey()) {
+            if (Utils.isDevelopment) event.accept(ItemsRegistry.debugItem);
+            addItems.accept(ItemTabRegistry::isTool, false);
 
-        if(event.getTabKey() == ItemTabRegistry.VALORIA_ACCESSORIES_TAB.getKey()){
-            for(RegistryObject<Item> item : ItemsRegistry.ITEMS.getEntries()){
-                if(!new ItemStack(item.get()).is(TagsRegistry.EXCLUDED_FROM_TAB)){
-                    if(item.get() instanceof ICurioItem || item.get() instanceof AbstractTalismanItem){
-                        event.accept(item.get().getDefaultInstance());
-                    }
-                }
-            }
+            event.getParameters().holders().lookup(ForgeRegistries.ENTITY_TYPES.getRegistryKey()).ifPresent(entities -> generateMinionItems(event, entities, holder -> holder.is(TagsRegistry.MINIONS), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
+        } else if (tabKey == ItemTabRegistry.VALORIA_ARMOR_TAB.getKey()) {
+            addItems.accept(ItemTabRegistry::isArmor, false);
+        } else if (tabKey == ItemTabRegistry.VALORIA_ACCESSORIES_TAB.getKey()) {
+            addItems.accept(ItemTabRegistry::isAccessory, false);
         }
+    }
+
+    public static boolean isArmor(Item i) {
+        return i instanceof ArmorItem;
+    }
+
+    public static boolean isAccessory(Item i) {
+        return i instanceof ICurioItem || i instanceof AbstractTalismanItem || i.getDefaultInstance().is(Tags.Items.TOOLS_SHIELDS);
+    }
+
+    public static boolean isTool(Item i) {
+        return i.getDefaultInstance().is(ItemTags.TOOLS) || i.getDefaultInstance().is(Tags.Items.TOOLS) || i.getDefaultInstance().is(Tags.Items.TOOLS_CROSSBOWS) || i.getDefaultInstance().is(Tags.Items.TOOLS_BOWS);
+    }
+
+    public static boolean isConsumable(Item i) {
+        return i instanceof AbstractConsumableItem || i instanceof ValoriaFood || i instanceof PlaceableDrinkItem || i.isEdible();
     }
 
     @SuppressWarnings("unchecked")

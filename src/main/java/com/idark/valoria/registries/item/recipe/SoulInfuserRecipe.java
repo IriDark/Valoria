@@ -14,8 +14,8 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.*;
 import net.minecraftforge.items.*;
-import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.*;
+import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.*;
 
@@ -90,6 +90,10 @@ public class SoulInfuserRecipe implements Recipe<Container>{
     @Override
     public @NotNull ItemStack getResultItem(@NotNull RegistryAccess pRegistryAccess){
         return output;
+    }
+
+    public Ingredient getInput() {
+        return input;
     }
 
     @Nonnull

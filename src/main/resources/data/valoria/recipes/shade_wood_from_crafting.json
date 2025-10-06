@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "GG",
+    "GG"
+  ],
+  "key": {
+    "G": {
+      "item": "valoria:shade_log"
+    }
+  },
+  "result": {
+    "item": "valoria:shade_wood",
+    "count": 3
+  }
+}

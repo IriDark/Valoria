@@ -1,8 +1,8 @@
 {
   "replace": false,
   "values": [
-    "valoria:shadewood_sign",
+    "valoria:shade_sign",
     "valoria:eldritch_sign",
-    "valoria:dreadwood_sign"
+    "valoria:dread_sign"
   ]
 }

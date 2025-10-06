@@ -88,13 +88,14 @@ public class WickedCrystal extends AbstractBoss{
             entity.discard();
         }
 
+        bossEvent.setAboutToDie(true);
         super.die(pDamageSource);
     }
 
     @Override
     protected void tickDeath(){
         ++this.animatedDeathTime;
-        if (this.animatedDeathTime >= 60 && !this.level().isClientSide() && !this.isRemoved()) {
+        if (this.animatedDeathTime >= 30 && !this.level().isClientSide() && !this.isRemoved()) {
             this.remove(Entity.RemovalReason.KILLED);
         }
     }

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "MM"
+  ],
+  "key": {
+    "M": {
+      "item": "valoria:shade_planks"
+    }
+  },
+  "result": {
+    "item": "valoria:shade_pressure_plate",
+    "count": 1
+  }
+}

@@ -37,6 +37,10 @@ public class ModJeiRecipes{
         return recipeManager.getAllRecipesFor(WorkbenchRecipe.Type.INSTANCE);
     }
 
+    public List<SoulInfuserRecipe> getInfuserRecipes(){
+        return recipeManager.getAllRecipesFor(SoulInfuserRecipe.Type.INSTANCE);
+    }
+
     public List<CrusherRecipe> getCrusherRecipes(){
         return recipeManager.getAllRecipesFor(CrusherRecipe.Type.INSTANCE).stream().toList();
     }

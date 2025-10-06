@@ -1,17 +1,17 @@
 {
   "replace": false,
   "values": [
-    "valoria:shadelog",
-    "valoria:stripped_shadelog",
-    "valoria:shadewood",
-    "valoria:stripped_shadewood",
+    "valoria:shade_log",
+    "valoria:stripped_shade_log",
+    "valoria:shade_wood",
+    "valoria:stripped_shade_wood",
     "valoria:eldritch_log",
     "valoria:stripped_eldritch_log",
     "valoria:eldritch_wood",
     "valoria:stripped_eldritch_wood",
-    "valoria:dreadwood_log",
-    "valoria:stripped_dreadwood_log",
-    "valoria:dreadwood",
-    "valoria:stripped_dreadwood"
+    "valoria:dread_log",
+    "valoria:stripped_dread_log",
+    "valoria:dread_wood",
+    "valoria:stripped_dread_wood"
   ]
 }

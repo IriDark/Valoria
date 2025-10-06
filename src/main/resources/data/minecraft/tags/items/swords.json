@@ -1,6 +1,9 @@
 {
   "replace": false,
   "values": [
+    "valoria:quantum_reaper",
+    "valoria:club",
+    "valoria:flame_sword",
     "valoria:corpsecleaver",
     "valoria:bloodhound",
     "valoria:bronze_sword",
@@ -10,13 +13,12 @@
     "valoria:pearlium_sword",
     "valoria:cobalt_sword",
     "valoria:ent",
+    "valoria:jade_sword",
+    "valoria:crimtane_sword",
+    "valoria:soul_reaver",
     "valoria:coral_reef",
     "valoria:infernal_sword",
-    "valoria:iron_katana",
-    "valoria:golden_katana",
-    "valoria:diamond_katana",
-    "valoria:netherite_katana",
-    "valoria:samurai_katana",
-    "valoria:murasama"
+    "valoria:silken_blade",
+    "valoria:ethereal_sword"
   ]
 }

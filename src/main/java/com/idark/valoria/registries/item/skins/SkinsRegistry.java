@@ -71,8 +71,6 @@ public class SkinsRegistry implements ISkinProvider{
     public void registerModels(){
         ItemSkinModels.addBowSkin(Valoria.loc("arcane_wood_bow"));
         ItemSkinModels.add(Valoria.loc("arcane_gold_blaze_reap"));
-        ItemSkinModels.add(Valoria.loc("the_fallen_collector_crown"));
-        ItemSkinModels.add(Valoria.loc("the_fallen_collector_coat"));
         ItemSkinModels.add(Valoria.loc("brand"));
         ItemSkinModels.add(Valoria.loc("cyberpunk_quantum_reaper"));
         ItemSkinModels.add(Valoria.loc("midnight_quantum_reaper"));

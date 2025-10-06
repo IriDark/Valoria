@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "///"
+  ],
+  "key": {
+    "/": {
+      "item": "valoria:shade_planks"
+    }
+  },
+  "result": {
+    "item": "valoria:shade_planks_slab",
+    "count": 6
+  }
+}

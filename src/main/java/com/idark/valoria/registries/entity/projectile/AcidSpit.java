@@ -49,7 +49,6 @@ public class AcidSpit extends AbstractProjectile{
 
     private void summonStormCrystal(ServerLevel serverLevel, Vec3 spawnPos, float angle, double speed) {
         AcidSpit shard = EntityTypeRegistry.ACID_SPIT.get().create(this.level());
-        GlowPostProcess.INSTANCE.addInstance(new GlowPostProcessInstance(spawnPos.toVector3f(), new Vector3f((float)92 / 255, (float)219 / 255, (float)70 / 255)).setIntensity(0.325f).setFadeTime(45).setRadius(4));
         if (shard != null) {
             shard.moveTo(spawnPos.x(), spawnPos.y() + 2, spawnPos.z(), 0.0F, 0.0F);
             shard.setOwner(this.getOwner());
@@ -64,6 +63,7 @@ public class AcidSpit extends AbstractProjectile{
     protected void onHit(HitResult pResult){
         super.onHit(pResult);
         if(!child){
+            if(level().isClientSide()) GlowPostProcess.INSTANCE.addInstance(new GlowPostProcessInstance(pResult.getLocation().toVector3f(), new Vector3f((float)92 / 255, (float)219 / 255, (float)70 / 255)).setIntensity(0.325f).setFadeTime(45).setRadius(4));
             if(level() instanceof ServerLevel serv){
                 for(int i = 0; i < 6; i++){
                     float angle = (float)((2 * Math.PI / 6) * i);

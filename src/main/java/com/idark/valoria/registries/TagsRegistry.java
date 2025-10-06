@@ -74,6 +74,12 @@ public class TagsRegistry{
     public static final TagKey<Block> NEEDS_JADE_TOOL = block(new ResourceLocation(Valoria.ID, "needs_jade_tool"));
     public static final TagKey<Block> NEEDS_VOID_TOOL = block(new ResourceLocation(Valoria.ID, "needs_void_tool"));
 
+    public static final TagKey<Item> SPEARS = item(new ResourceLocation(Valoria.ID, "spears"));
+    public static final TagKey<Item> SCYTHES = item(new ResourceLocation(Valoria.ID, "scythes"));
+    public static final TagKey<Item> RAPIERS = item(new ResourceLocation(Valoria.ID, "rapiers"));
+    public static final TagKey<Item> KATANAS = item(new ResourceLocation(Valoria.ID, "katanas"));
+    public static final TagKey<Item> THROWABLES = item(new ResourceLocation(Valoria.ID, "throwables"));
+    public static final TagKey<Item> MULTI_TOOLS = item(new ResourceLocation(Valoria.ID, "multi_tools"));
     public static final TagKey<Item> PAGES = item(new ResourceLocation(Valoria.ID, "pages"));
     public static final TagKey<Item> INFLICTS_FIRE = item(new ResourceLocation(Valoria.ID, "inflicts_fire"));
     public static final TagKey<Item> GRANTS_IMMUNITIES = item(new ResourceLocation(Valoria.ID, "accessories/grants_immunities"));
@@ -81,7 +87,8 @@ public class TagsRegistry{
     public static final TagKey<Item> POISON_IMMUNE = item(new ResourceLocation(Valoria.ID, "accessories/poison_immune"));
     public static final TagKey<Item> FIRE_IMMUNE = item(new ResourceLocation(Valoria.ID, "accessories/fire_immune"));
     public static final TagKey<Item> ELDRITCH = item(new ResourceLocation(Valoria.ID, "logs/eldritch"));
-    public static final TagKey<Item> SHADEWOOD = item(new ResourceLocation(Valoria.ID, "logs/shadewood"));
+    public static final TagKey<Item> SHADEWOOD = item(new ResourceLocation(Valoria.ID, "logs/shade"));
+    public static final TagKey<Item> DREADWOOD = item(new ResourceLocation(Valoria.ID, "logs/dread"));
     public static final TagKey<Item> BOWS = item(new ResourceLocation(Valoria.ID, "bows"));
     public static final TagKey<Item> CUP_DRINKS = item(new ResourceLocation(Valoria.ID, "wooden_cup_drinks"));
     public static final TagKey<Item> BOTTLE_DRINKS = item(new ResourceLocation(Valoria.ID, "bottle_drinks"));

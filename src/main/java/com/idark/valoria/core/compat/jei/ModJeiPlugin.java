@@ -27,6 +27,7 @@ public class ModJeiPlugin implements IModPlugin{
         registration.addRecipeClickArea(ManipulatorScreen.class, 102, 48, 22, 15, ModRecipeTypes.MANIPULATOR);
         registration.addRecipeClickArea(KilnScreen.class, 78, 32, 28, 23, ModRecipeTypes.KILN, RecipeTypes.FUELING);
         registration.addRecipeClickArea(KegScreen.class, 78, 32, 22, 22, ModRecipeTypes.BREWERY);
+        registration.addRecipeClickArea(SoulInfuserScreen.class, 102, 28, 22, 22, ModRecipeTypes.SOUL_INFUSER);
     }
 
     @Override
@@ -42,6 +43,7 @@ public class ModJeiPlugin implements IModPlugin{
         registry.addRecipeCategories(new WorkbenchRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
         registry.addRecipeCategories(new ManipulatorRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
         //registry.addRecipeCategories(new CrusherRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
+        registry.addRecipeCategories(new InfuserRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
     }
 
     @Override
@@ -55,6 +57,7 @@ public class ModJeiPlugin implements IModPlugin{
         registration.addRecipes(ModRecipeTypes.KILN, modRecipes.getKilnRecipes());
         registration.addRecipes(ModRecipeTypes.WORKBENCH, modRecipes.getWorkbenchRecipes());
         registration.addRecipes(ModRecipeTypes.MANIPULATOR, modRecipes.getManipulatorRecipes());
+        registration.addRecipes(ModRecipeTypes.SOUL_INFUSER, modRecipes.getInfuserRecipes());
         //registration.addRecipes(ModRecipeTypes.CRUSHER, modRecipes.getCrusherRecipes());
     }
 
@@ -65,6 +68,7 @@ public class ModJeiPlugin implements IModPlugin{
         registration.addRecipeCatalyst(new ItemStack(BlockRegistry.kiln.get()), ModRecipeTypes.KILN);
         registration.addRecipeCatalyst(new ItemStack(BlockRegistry.jewelerTable.get()), ModRecipeTypes.JEWELRY);
         registration.addRecipeCatalyst(new ItemStack(BlockRegistry.elementalManipulator.get()), ModRecipeTypes.MANIPULATOR);
-        //registration.addRecipeCatalyst(new ItemStack(ModItems.STONE_CRUSHER.get()), ModRecipeTypes.CRUSHER);
+        registration.addRecipeCatalyst(new ItemStack(BlockRegistry.soulInfuser.get()), ModRecipeTypes.SOUL_INFUSER);
+        //registration.addRecipeCatalyst(new ItemStack(BlockRegistry.stoneCrusher.get()), ModRecipeTypes.CRUSHER);
     }
 }

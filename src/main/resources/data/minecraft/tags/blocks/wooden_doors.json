@@ -1,8 +1,8 @@
 {
   "replace": false,
   "values": [
-    "valoria:shadewood_door",
+    "valoria:shade_door",
     "valoria:eldritch_door",
-    "valoria:dreadwood_door"
+    "valoria:dread_door"
   ]
 }

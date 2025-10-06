@@ -96,8 +96,8 @@
     [
       "valoria:eldritch_tree_root",
       "valoria:rare_eldritch_tree",
-      "valoria:frequent_dreadwood_tree",
-      "valoria:frequent_fancy_dreadwood_tree",
+      "valoria:frequent_dread_tree",
+      "valoria:frequent_fancy_dread_tree",
       "valoria:eldritch_fallen_tree",
       "valoria:valoria_forest_rock"
     ],

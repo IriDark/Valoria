@@ -93,11 +93,11 @@
       "valoria:lake_lava_surface"
     ],
     [
-      "valoria:shadewood_tree",
-      "valoria:fancy_shadewood_tree",
+      "valoria:shade_tree",
+      "valoria:fancy_shade_tree",
       "valoria:shade_blossom",
-      "valoria:shadewood_tree_root",
-      "valoria:shadewood_fallen_tree",
+      "valoria:shade_tree_root",
+      "valoria:shade_fallen_tree",
       "valoria:valoria_forest_rock"
     ],
     [

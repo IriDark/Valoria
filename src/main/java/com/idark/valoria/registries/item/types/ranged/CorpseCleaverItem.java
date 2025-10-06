@@ -57,7 +57,7 @@ public class CorpseCleaverItem extends SwordItem{
                         playerEntity.hurt(DamageSourceRegistry.bleeding(level), 2.0F);
                         playerEntity.getCooldowns().addCooldown(this, 40);
                     }
-                }else{
+                } else {
                     TimedOverlayInstance instance = new TimedOverlayInstance();
                     instance.setTexture(Valoria.loc("textures/gui/overlay/blood.png"));
                     instance.setShowTime(30);

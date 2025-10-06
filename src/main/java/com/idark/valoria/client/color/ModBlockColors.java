@@ -30,10 +30,10 @@ public class ModBlockColors implements BlockColor{
             BlockRegistry.eldritchSapling.get(),
             BlockRegistry.pottedEldritchSapling.get(),
 
-            BlockRegistry.shadewoodLeaves.get(),
-            BlockRegistry.shadewoodBranchVine.get(),
-            BlockRegistry.shadewoodBranch.get(),
-            BlockRegistry.shadewoodSapling.get(),
+            BlockRegistry.shadeLeaves.get(),
+            BlockRegistry.shadeBranchVine.get(),
+            BlockRegistry.shadeBranch.get(),
+            BlockRegistry.shadeSapling.get(),
             BlockRegistry.pottedShadewoodSapling.get()
     };
 

@@ -11,7 +11,8 @@
     "valoria:candy_corn_from_mobs",
     "valoria:bandage_from_mobs",
     "valoria:pumpkin_contract_from_mobs",
-    "valoria:blaze_reap_from_ancient_city"
+    "valoria:blaze_reap_from_ancient_city",
+    "valoria:candy_corn_from_mobs_effect"
   ],
   "replace": false
 }

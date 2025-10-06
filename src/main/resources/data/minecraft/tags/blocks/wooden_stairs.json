@@ -1,8 +1,8 @@
 {
   "replace": false,
   "values": [
-    "valoria:shadewood_planks_stairs",
+    "valoria:shade_planks_stairs",
     "valoria:eldritch_planks_stairs",
-    "valoria:dreadwood_planks_stairs"
+    "valoria:dread_planks_stairs"
   ]
 }

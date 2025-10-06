@@ -27,6 +27,9 @@ import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.blockentity.*;
 import net.minecraft.client.renderer.entity.*;
 import net.minecraft.resources.*;
+import net.minecraft.world.entity.ai.attributes.*;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier.*;
+import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.client.event.*;
@@ -77,6 +80,15 @@ public class ValoriaClient{
         TooltipModifierHandler.add(BASE_NIHILITY_DAMAGE_UUID);
         TooltipModifierHandler.add(BASE_NIHILITY_RESISTANCE_UUID);
         TooltipModifierHandler.add(BASE_ELEMENTAL_RESISTANCE_UUID);
+        TooltipModifierHandler.register(new AttributeTooltipModifier() {
+            public boolean isModifiable(Attribute atr, AttributeModifier modifier, Player player, TooltipFlag flag) {
+                return atr == AttributeReg.MISS_CHANCE.get() || atr == AttributeReg.DODGE_CHANCE.get();
+            }
+
+            public ModifyResult modify(AttributeModifier modifier, double amount, AttributeModifier.Operation operation) {
+                return new ModifyResult(modifier, amount, Operation.MULTIPLY_BASE);
+            }
+        });
 
         MusicHandler.register(new MusicModifier.DungeonMusic(SoundsRegistry.MUSIC_NECROMANCER_DUNGEON.get(), LevelGen.NECROMANCER_CRYPT));
     }
@@ -110,7 +122,7 @@ public class ValoriaClient{
         public static void ColorMappingItems(RegisterColorHandlersEvent.Item event){
             event.register((stack, tintIndex) -> tintIndex > 0 ? -1 : SummonBook.getColor(stack), ItemsRegistry.summonBook.get());
             event.register((stack, tintIndex) -> tintIndex > 0 ? -1 : 12487423, BlockRegistry.eldritchSapling.get(), BlockRegistry.eldritchLeaves.get());
-            event.register((stack, tintIndex) -> tintIndex > 0 ? -1 : 6740479, BlockRegistry.shadewoodSapling.get(), BlockRegistry.shadewoodLeaves.get(), BlockRegistry.shadewoodBranchVine.get(), BlockRegistry.shadewoodBranch.get());
+            event.register((stack, tintIndex) -> tintIndex > 0 ? -1 : 6740479, BlockRegistry.shadeSapling.get(), BlockRegistry.shadeLeaves.get(), BlockRegistry.shadeBranchVine.get(), BlockRegistry.shadeBranch.get());
             event.register((stack, tintIndex) -> 11301619, BlockRegistry.voidGrass.get(), BlockRegistry.voidTaint.get(), BlockRegistry.voidRoots.get());
             event.register((p_92708_, p_92709_) -> p_92709_ > 0 ? -1 : ((DyeableLeatherItem)p_92708_.getItem()).getColor(p_92708_), ItemsRegistry.leatherGloves.get());
             event.register((p_92708_, p_92709_) -> p_92709_ > 0 ? -1 : ((DyeableLeatherItem)p_92708_.getItem()).getColor(p_92708_), ItemsRegistry.jewelryBag.get());
@@ -145,12 +157,12 @@ public class ValoriaClient{
                 Sheets.addWoodType(ModWoodTypes.DREADWOOD);
             });
 
-            EntityRenderers.register(EntityTypeRegistry.SHADEWOOD_BOAT.get(), m -> new CustomBoatRenderer(m, Valoria.ID, "shadewood", false, false));
-            EntityRenderers.register(EntityTypeRegistry.SHADEWOOD_CHEST_BOAT.get(), m -> new CustomBoatRenderer(m, Valoria.ID, "shadewood", true, false));
+            EntityRenderers.register(EntityTypeRegistry.SHADEWOOD_BOAT.get(), m -> new CustomBoatRenderer(m, Valoria.ID, "shade", false, false));
+            EntityRenderers.register(EntityTypeRegistry.SHADEWOOD_CHEST_BOAT.get(), m -> new CustomBoatRenderer(m, Valoria.ID, "shade", true, false));
             EntityRenderers.register(EntityTypeRegistry.ELDRITCH_BOAT.get(), m -> new CustomBoatRenderer(m, Valoria.ID, "eldritch", false, false));
             EntityRenderers.register(EntityTypeRegistry.ELDRITCH_CHEST_BOAT.get(), m -> new CustomBoatRenderer(m, Valoria.ID, "eldritch", true, false));
-            EntityRenderers.register(EntityTypeRegistry.DREADWOOD_BOAT.get(), m -> new CustomBoatRenderer(m, Valoria.ID, "dreadwood", false, false));
-            EntityRenderers.register(EntityTypeRegistry.DREADWOOD_CHEST_BOAT.get(), m -> new CustomBoatRenderer(m, Valoria.ID, "dreadwood", true, false));
+            EntityRenderers.register(EntityTypeRegistry.DREADWOOD_BOAT.get(), m -> new CustomBoatRenderer(m, Valoria.ID, "dread", false, false));
+            EntityRenderers.register(EntityTypeRegistry.DREADWOOD_CHEST_BOAT.get(), m -> new CustomBoatRenderer(m, Valoria.ID, "dread", true, false));
 
             EntityRenderers.register(EntityTypeRegistry.LOCATOR.get(), ThrownItemRenderer::new);
             EntityRenderers.register(EntityTypeRegistry.CLAW.get(), ClawRenderer::new);

@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "#valoria:spears",
+    "#valoria:katanas",
+    "#valoria:throwables",
+    "#valoria:scythes",
+    "#valoria:rapiers",
+    "#valoria:multi_tools"
+  ]
+}

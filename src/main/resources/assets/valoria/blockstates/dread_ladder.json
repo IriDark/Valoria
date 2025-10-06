@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "valoria:block/dread_ladder",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "valoria:block/dread_ladder"
+    },
+    "facing=south": {
+      "model": "valoria:block/dread_ladder",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "valoria:block/dread_ladder",
+      "y": 270
+    }
+  }
+}

@@ -36,8 +36,8 @@ import static com.idark.valoria.registries.ItemsRegistry.BLOCK_ITEMS;
 public class BlockRegistry{
     public static final DeferredRegister<Block> BLOCK = DeferredRegister.create(ForgeRegistries.BLOCKS, Valoria.ID);
     public static RegistryObject<Block>
-    shadewoodChest, shadewoodTrappedChest, eldritchChest, eldritchTrappedChest,
-    eldritchDoor, eldritchTrapdoor, shadewoodDoor, shadewoodTrapdoor, dreadwoodDoor, dreadwoodTrapdoor, bronzeDoor, bronzeTrapdoor, bronzeTrapdoorGlass,
+    shadeChest, shadeTrappedChest, eldritchChest, eldritchTrappedChest,
+    eldritchDoor, eldritchTrapdoor, shadeDoor, shadeTrapdoor, dreadwoodDoor, dreadwoodTrapdoor, bronzeDoor, bronzeTrapdoor, bronzeTrapdoorGlass,
     pyratiteBlock, pyratiteOre, pyratiteCrystal, amberBlock, amberOre, deepslateAmberOre, amberCrystal, sapphireBlock, sapphireOre, deepslateSapphireOre, sapphireCrystal, amethystBlock, amethystCrystal, rubyBlock, rubyOre, deepslateRubyOre, rubyCrystal, cobaltBlock, rawCobaltOreBlock, cobaltOre, deepslateCobaltOre, jadeOre, picriteJadeOre, wickedAmethystOre, dormantCrystals, pearliumOre,
     blackGoldBlock, natureBlock, aquariusBlock, infernalBlock, awakenedVoidBlock, crimtaneBlock, unchargedShardBlock, soulShardBlock, wickedAmethystBlock,
     bronzeBlock, bronzeBlockStairs, bronzeBlockSlab, bronzeVent, cutBronze, cutBronzeStairs, cutBronzeSlab, bronzeGlass, bronzeGlassPane,
@@ -65,7 +65,7 @@ public class BlockRegistry{
     cutTombstone, cutTombstoneStairs, cutTombstoneSlab, cutTombstoneWall, polishedTombstone, tombstoneFirechargeTrap, tombstoneSpikesTrap, tombstonePillar, cutTombstonePillar, wickedTombstonePillar, cryptLantern,
 
     //wood
-    shadewoodPressurePlate, shadewoodButton, shadelog, strippedShadelog, shadewood, strippedShadewood, shadewoodPlanks, shadewoodPlanksStairs, shadewoodPlanksSlab, shadewoodLeaves, shadewoodBranch, shadewoodBranchVine, shadewoodSapling, pottedShadewoodSapling, shadewoodFence, shadewoodFenceGate, shadewoodSign, shadewoodWallSign, shadewoodHangingSign, shadewoodWallHangingSign,
+    shadePressurePlate, shadeButton, shadeLog, strippedShadeLog, shadeWood, strippedShadeWood, shadePlanks, shadePlanksStairs, shadePlanksSlab, shadeLeaves, shadeBranch, shadeBranchVine, shadeSapling, pottedShadewoodSapling, shadeFence, shadeFenceGate, shadeSign, shadeWallSign, shadeHangingSign, shadeWallHangingSign,
     eldritchPressurePlate, eldritchButton, eldritchLog, strippedEldritchLog, eldritchWood, strippedEldritchWood, eldritchPlanks, eldritchPlanksStairs, eldritchPlanksSlab, eldritchLeaves, eldritchSapling, pottedEldritchSapling, eldritchFence, eldritchFenceGate, eldritchSign, eldritchWallSign, eldritchHangingSign, eldritchWallHangingSign,
     dreadwoodPressurePlate, dreadwoodButton, dreadwoodLog, strippedDreadwoodLog, dreadWood, strippedDreadWood, dreadwoodPlanks, dreadwoodPlanksStairs, dreadwoodPlanksSlab, dreadwoodSapling, pottedDreadwoodSapling, dreadwoodFence, dreadwoodFenceGate, dreadwoodSign, dreadwoodWallSign, dreadwoodHangingSign, dreadwoodWallHangingSign,
 
@@ -357,39 +357,39 @@ public class BlockRegistry{
         bloodVine = registerBlock("blood_vine", () -> new BloodVineBlock(BlockBehaviour.Properties.copy(Blocks.KELP).mapColor(MapColor.COLOR_RED)), () -> new BlockItem(BlockRegistry.bloodVine.get(), new Item.Properties()));
 
         //wood
-        shadelog = registerBlock("shadelog", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).mapColor(MapColor.COLOR_PURPLE)));
-        strippedShadelog = registerBlock("stripped_shadelog", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.STRIPPED_OAK_LOG).mapColor(MapColor.COLOR_PURPLE)));
-        shadewood = registerBlock("shadewood", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).mapColor(MapColor.COLOR_PURPLE)));
-        strippedShadewood = registerBlock("stripped_shadewood", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).mapColor(MapColor.COLOR_PURPLE)));
-        shadewoodPlanks = registerBlock("shadewood_planks", () -> new Block(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_PURPLE)));
-        shadewoodPlanksSlab = registerBlock("shadewood_planks_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.OAK_SLAB).mapColor(MapColor.COLOR_PURPLE)));
-        shadewoodPlanksStairs = registerBlock("shadewood_planks_stairs", () -> new StairBlock(() -> BlockRegistry.shadewoodPlanks.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.OAK_STAIRS).mapColor(MapColor.COLOR_PURPLE)));
-        shadewoodLeaves = registerBlock("shadewood_leaves", () -> new ShadeLeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES).mapColor(MapColor.COLOR_CYAN)));
-        shadewoodBranchVine = BLOCK.register("shadewood_branch_vine", () -> new ShadeBranchVineBlock(BlockBehaviour.Properties.copy(Blocks.GRASS).offsetType(BlockBehaviour.OffsetType.XZ).mapColor(MapColor.COLOR_CYAN)));
-        shadewoodBranch = registerBlock("shadewood_branch", () -> new ShadeBranchBlock(BlockBehaviour.Properties.copy(Blocks.GRASS).offsetType(BlockBehaviour.OffsetType.XZ).mapColor(MapColor.COLOR_CYAN)), () -> new BlockItem(BlockRegistry.shadewoodBranch.get(), new Item.Properties()));
+        shadeLog = registerBlock("shade_log", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).mapColor(MapColor.COLOR_PURPLE)));
+        strippedShadeLog = registerBlock("stripped_shade_log", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.STRIPPED_OAK_LOG).mapColor(MapColor.COLOR_PURPLE)));
+        shadeWood = registerBlock("shade_wood", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).mapColor(MapColor.COLOR_PURPLE)));
+        strippedShadeWood = registerBlock("stripped_shade_wood", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).mapColor(MapColor.COLOR_PURPLE)));
+        shadePlanks = registerBlock("shade_planks", () -> new Block(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_PURPLE)));
+        shadePlanksSlab = registerBlock("shade_planks_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.OAK_SLAB).mapColor(MapColor.COLOR_PURPLE)));
+        shadePlanksStairs = registerBlock("shade_planks_stairs", () -> new StairBlock(() -> BlockRegistry.shadePlanks.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.OAK_STAIRS).mapColor(MapColor.COLOR_PURPLE)));
+        shadeLeaves = registerBlock("shade_leaves", () -> new ShadeLeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES).mapColor(MapColor.COLOR_CYAN)));
+        shadeBranchVine = BLOCK.register("shade_branch_vine", () -> new ShadeBranchVineBlock(BlockBehaviour.Properties.copy(Blocks.GRASS).offsetType(BlockBehaviour.OffsetType.XZ).mapColor(MapColor.COLOR_CYAN)));
+        shadeBranch = registerBlock("shade_branch", () -> new ShadeBranchBlock(BlockBehaviour.Properties.copy(Blocks.GRASS).offsetType(BlockBehaviour.OffsetType.XZ).mapColor(MapColor.COLOR_CYAN)), () -> new BlockItem(BlockRegistry.shadeBranch.get(), new Item.Properties()));
 
-        shadewoodSapling = registerBlock("shadewood_sapling", () -> new ValoriaSaplingBlock(new ShadeWoodTree(), BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING).mapColor(MapColor.COLOR_CYAN)));
-        pottedShadewoodSapling = BLOCK.register("potted_shadewood_sapling", () -> new FlowerPotBlock(BlockRegistry.shadewoodSapling.get(), BlockBehaviour.Properties.copy(Blocks.POTTED_POPPY).mapColor(MapColor.COLOR_CYAN).instabreak().noOcclusion()));
-        shadewoodFence = registerBlock("shadewood_fence", () -> new FenceBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE).mapColor(MapColor.COLOR_PURPLE)));
-        shadewoodFenceGate = registerBlock("shadewood_fence_gate", () -> new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE_GATE).mapColor(MapColor.COLOR_PURPLE), ModWoodTypes.SHADEWOOD));
-        shadewoodDoor = registerBlock("shadewood_door", () -> new DoorBlock(propsDeco(Blocks.OAK_DOOR, MapColor.COLOR_PURPLE), BlockSetType.OAK));
-        shadewoodTrapdoor = registerBlock("shadewood_trapdoor", () -> new TrapDoorBlock(propsDeco(Blocks.OAK_TRAPDOOR, MapColor.COLOR_PURPLE), BlockSetType.OAK));
-        shadewoodChest = registerBlock("shadewood_chest", () -> new TridotChestBlock(Properties.copy(Blocks.CHEST)));
-        shadewoodTrappedChest = registerBlock("trapped_shadewood_chest", () -> new TridotTrappedChestBlock(Properties.copy(Blocks.TRAPPED_CHEST)));
-        shadewoodPressurePlate = registerBlock("shadewood_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_PURPLE).noOcclusion().noCollission(), BlockSetType.OAK));
-        shadewoodButton = registerBlock("shadewood_button", () -> new ButtonBlock(BlockBehaviour.Properties.copy(Blocks.OAK_BUTTON).mapColor(MapColor.COLOR_PURPLE).sound(SoundType.WOOD).noCollission(), BlockSetType.OAK, 30, true));
-        shadewoodSign = registerBlock("shadewood_sign",
+        shadeSapling = registerBlock("shade_sapling", () -> new ValoriaSaplingBlock(new ShadeWoodTree(), BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING).mapColor(MapColor.COLOR_CYAN)));
+        pottedShadewoodSapling = BLOCK.register("potted_shade_sapling", () -> new FlowerPotBlock(BlockRegistry.shadeSapling.get(), BlockBehaviour.Properties.copy(Blocks.POTTED_POPPY).mapColor(MapColor.COLOR_CYAN).instabreak().noOcclusion()));
+        shadeFence = registerBlock("shade_fence", () -> new FenceBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE).mapColor(MapColor.COLOR_PURPLE)));
+        shadeFenceGate = registerBlock("shade_fence_gate", () -> new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE_GATE).mapColor(MapColor.COLOR_PURPLE), ModWoodTypes.SHADEWOOD));
+        shadeDoor = registerBlock("shade_door", () -> new DoorBlock(propsDeco(Blocks.OAK_DOOR, MapColor.COLOR_PURPLE), BlockSetType.OAK));
+        shadeTrapdoor = registerBlock("shade_trapdoor", () -> new TrapDoorBlock(propsDeco(Blocks.OAK_TRAPDOOR, MapColor.COLOR_PURPLE), BlockSetType.OAK));
+        shadeChest = registerBlock("shade_chest", () -> new TridotChestBlock(Properties.copy(Blocks.CHEST)));
+        shadeTrappedChest = registerBlock("trapped_shade_chest", () -> new TridotTrappedChestBlock(Properties.copy(Blocks.TRAPPED_CHEST)));
+        shadePressurePlate = registerBlock("shade_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_PURPLE).noOcclusion().noCollission(), BlockSetType.OAK));
+        shadeButton = registerBlock("shade_button", () -> new ButtonBlock(BlockBehaviour.Properties.copy(Blocks.OAK_BUTTON).mapColor(MapColor.COLOR_PURPLE).sound(SoundType.WOOD).noCollission(), BlockSetType.OAK, 30, true));
+        shadeSign = registerBlock("shade_sign",
             () -> new ModStandingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_PURPLE).noOcclusion().noCollission(), ModWoodTypes.SHADEWOOD),
-            () -> new SignItem(new Item.Properties().stacksTo(16), BlockRegistry.shadewoodSign.get(), BlockRegistry.shadewoodWallSign.get()));
+            () -> new SignItem(new Item.Properties().stacksTo(16), BlockRegistry.shadeSign.get(), BlockRegistry.shadeWallSign.get()));
 
-        shadewoodWallSign = BLOCK.register("shadewood_wall_sign", () -> new ModWallSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_PURPLE).noOcclusion().noCollission(), ModWoodTypes.SHADEWOOD));
-        shadewoodHangingSign = registerBlock("shadewood_hanging_sign",
+        shadeWallSign = BLOCK.register("shade_wall_sign", () -> new ModWallSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_PURPLE).noOcclusion().noCollission(), ModWoodTypes.SHADEWOOD));
+        shadeHangingSign = registerBlock("shade_hanging_sign",
             () -> new ModCeilingHangingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_PURPLE).noOcclusion().noCollission(), ModWoodTypes.SHADEWOOD),
-            () -> new HangingSignItem(BlockRegistry.shadewoodHangingSign.get(), BlockRegistry.shadewoodWallHangingSign.get(), new Item.Properties().stacksTo(16)));
+            () -> new HangingSignItem(BlockRegistry.shadeHangingSign.get(), BlockRegistry.shadeWallHangingSign.get(), new Item.Properties().stacksTo(16)));
 
-        shadewoodWallHangingSign = BLOCK.register("shadewood_wall_hanging_sign", () -> new ModWallHangingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_PURPLE).noOcclusion().noCollission(), ModWoodTypes.SHADEWOOD));
-        ItemsRegistry.shadewoodBoat = BLOCK_ITEMS.register("shadewood_boat", () -> new CustomBoatItem(new Item.Properties().stacksTo(1), EntityTypeRegistry.SHADEWOOD_BOAT));
-        ItemsRegistry.shadewoodChestBoat = BLOCK_ITEMS.register("shadewood_chest_boat", () -> new CustomChestBoatItem(new Item.Properties().stacksTo(1), EntityTypeRegistry.SHADEWOOD_CHEST_BOAT));
+        shadeWallHangingSign = BLOCK.register("shade_wall_hanging_sign", () -> new ModWallHangingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_PURPLE).noOcclusion().noCollission(), ModWoodTypes.SHADEWOOD));
+        ItemsRegistry.shadeBoat = BLOCK_ITEMS.register("shade_boat", () -> new CustomBoatItem(new Item.Properties().stacksTo(1), EntityTypeRegistry.SHADEWOOD_BOAT));
+        ItemsRegistry.shadeChestBoat = BLOCK_ITEMS.register("shade_chest_boat", () -> new CustomChestBoatItem(new Item.Properties().stacksTo(1), EntityTypeRegistry.SHADEWOOD_CHEST_BOAT));
 
         eldritchLog = registerBlock("eldritch_log", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).mapColor(MapColor.COLOR_MAGENTA)));
         strippedEldritchLog = registerBlock("stripped_eldritch_log", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.STRIPPED_OAK_LOG).mapColor(MapColor.COLOR_MAGENTA)));
@@ -422,33 +422,33 @@ public class BlockRegistry{
         ItemsRegistry.eldritchBoat = BLOCK_ITEMS.register("eldritch_boat", () -> new CustomBoatItem(new Item.Properties().stacksTo(1), EntityTypeRegistry.ELDRITCH_BOAT));
         ItemsRegistry.eldritchChestBoat = BLOCK_ITEMS.register("eldritch_chest_boat", () -> new CustomChestBoatItem(new Item.Properties().stacksTo(1), EntityTypeRegistry.ELDRITCH_CHEST_BOAT));
 
-        dreadwoodLog = registerBlock("dreadwood_log", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).mapColor(MapColor.COLOR_MAGENTA)));
-        strippedDreadwoodLog = registerBlock("stripped_dreadwood_log", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.STRIPPED_OAK_LOG).mapColor(MapColor.COLOR_MAGENTA)));
-        dreadWood = registerBlock("dreadwood", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).mapColor(MapColor.COLOR_MAGENTA)));
-        strippedDreadWood = registerBlock("stripped_dreadwood", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).mapColor(MapColor.COLOR_MAGENTA)));
-        dreadwoodPlanks = registerBlock("dreadwood_planks", () -> new Block(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_MAGENTA)));
-        dreadwoodPlanksSlab = registerBlock("dreadwood_planks_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.OAK_SLAB).mapColor(MapColor.COLOR_MAGENTA)));
-        dreadwoodPlanksStairs = registerBlock("dreadwood_planks_stairs", () -> new StairBlock(() -> BlockRegistry.eldritchPlanks.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.OAK_STAIRS).mapColor(MapColor.COLOR_PURPLE)));
-        dreadwoodSapling = registerBlock("dreadwood_sapling", () -> new ValoriaSaplingBlock(new DreadwoodTree(), BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING).mapColor(MapColor.COLOR_MAGENTA)));
-        pottedDreadwoodSapling = BLOCK.register("potted_dreadwood_sapling", () -> new FlowerPotBlock(dreadwoodSapling.get(), BlockBehaviour.Properties.copy(Blocks.POTTED_POPPY).mapColor(MapColor.COLOR_MAGENTA).instabreak().noOcclusion()));
-        dreadwoodFence = registerBlock("dreadwood_fence", () -> new FenceBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE).mapColor(MapColor.COLOR_MAGENTA)));
-        dreadwoodFenceGate = registerBlock("dreadwood_fence_gate", () -> new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE_GATE).mapColor(MapColor.COLOR_MAGENTA), ModWoodTypes.ELDRITCH));
-        dreadwoodDoor = registerBlock("dreadwood_door", () -> new DoorBlock(propsDeco(Blocks.OAK_DOOR, MapColor.COLOR_PURPLE), BlockSetType.OAK));
-        dreadwoodTrapdoor = registerBlock("dreadwood_trapdoor", () -> new TrapDoorBlock(propsDeco(Blocks.OAK_TRAPDOOR, MapColor.COLOR_PURPLE), BlockSetType.OAK));
-        dreadwoodPressurePlate = registerBlock("dreadwood_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_MAGENTA).noOcclusion().noCollission(), BlockSetType.OAK));
-        dreadwoodButton = registerBlock("dreadwood_button", () -> new ButtonBlock(BlockBehaviour.Properties.copy(Blocks.OAK_BUTTON).mapColor(MapColor.COLOR_MAGENTA).sound(SoundType.WOOD).noCollission(), BlockSetType.OAK, 30, true));
-        dreadwoodSign = registerBlock("dreadwood_sign",
+        dreadwoodLog = registerBlock("dread_log", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).mapColor(MapColor.COLOR_MAGENTA)));
+        strippedDreadwoodLog = registerBlock("stripped_dread_log", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.STRIPPED_OAK_LOG).mapColor(MapColor.COLOR_MAGENTA)));
+        dreadWood = registerBlock("dread_wood", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).mapColor(MapColor.COLOR_MAGENTA)));
+        strippedDreadWood = registerBlock("stripped_dread_wood", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).mapColor(MapColor.COLOR_MAGENTA)));
+        dreadwoodPlanks = registerBlock("dread_planks", () -> new Block(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_MAGENTA)));
+        dreadwoodPlanksSlab = registerBlock("dread_planks_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.OAK_SLAB).mapColor(MapColor.COLOR_MAGENTA)));
+        dreadwoodPlanksStairs = registerBlock("dread_planks_stairs", () -> new StairBlock(() -> BlockRegistry.eldritchPlanks.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.OAK_STAIRS).mapColor(MapColor.COLOR_PURPLE)));
+        dreadwoodSapling = registerBlock("dread_sapling", () -> new ValoriaSaplingBlock(new DreadwoodTree(), BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING).mapColor(MapColor.COLOR_MAGENTA)));
+        pottedDreadwoodSapling = BLOCK.register("potted_dread_sapling", () -> new FlowerPotBlock(dreadwoodSapling.get(), BlockBehaviour.Properties.copy(Blocks.POTTED_POPPY).mapColor(MapColor.COLOR_MAGENTA).instabreak().noOcclusion()));
+        dreadwoodFence = registerBlock("dread_fence", () -> new FenceBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE).mapColor(MapColor.COLOR_MAGENTA)));
+        dreadwoodFenceGate = registerBlock("dread_fence_gate", () -> new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE_GATE).mapColor(MapColor.COLOR_MAGENTA), ModWoodTypes.ELDRITCH));
+        dreadwoodDoor = registerBlock("dread_door", () -> new DoorBlock(propsDeco(Blocks.OAK_DOOR, MapColor.COLOR_PURPLE), BlockSetType.OAK));
+        dreadwoodTrapdoor = registerBlock("dread_trapdoor", () -> new TrapDoorBlock(propsDeco(Blocks.OAK_TRAPDOOR, MapColor.COLOR_PURPLE), BlockSetType.OAK));
+        dreadwoodPressurePlate = registerBlock("dread_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_MAGENTA).noOcclusion().noCollission(), BlockSetType.OAK));
+        dreadwoodButton = registerBlock("dread_button", () -> new ButtonBlock(BlockBehaviour.Properties.copy(Blocks.OAK_BUTTON).mapColor(MapColor.COLOR_MAGENTA).sound(SoundType.WOOD).noCollission(), BlockSetType.OAK, 30, true));
+        dreadwoodSign = registerBlock("dread_sign",
             () -> new ModStandingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_MAGENTA).noOcclusion().noCollission(), ModWoodTypes.DREADWOOD),
             () -> new SignItem(new Item.Properties().stacksTo(16), BlockRegistry.dreadwoodSign.get(), BlockRegistry.dreadwoodWallSign.get()));
 
-        dreadwoodWallSign = BLOCK.register("dreadwood_wall_sign", () -> new ModWallSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_MAGENTA).noOcclusion().noCollission(), ModWoodTypes.DREADWOOD));
-        dreadwoodHangingSign = registerBlock("dreadwood_hanging_sign",
+        dreadwoodWallSign = BLOCK.register("dread_wall_sign", () -> new ModWallSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_MAGENTA).noOcclusion().noCollission(), ModWoodTypes.DREADWOOD));
+        dreadwoodHangingSign = registerBlock("dread_hanging_sign",
             () -> new ModCeilingHangingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_MAGENTA).noOcclusion().noCollission(), ModWoodTypes.DREADWOOD),
             () -> new HangingSignItem(BlockRegistry.dreadwoodHangingSign.get(), BlockRegistry.dreadwoodWallHangingSign.get(), new Item.Properties().stacksTo(16)));
 
-        dreadwoodWallHangingSign = BLOCK.register("dreadwood_wall_hanging_sign", () -> new ModWallHangingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_MAGENTA).noOcclusion().noCollission(), ModWoodTypes.DREADWOOD));
-        ItemsRegistry.dreadwoodBoat = BLOCK_ITEMS.register("dreadwood_boat", () -> new CustomBoatItem(new Item.Properties().stacksTo(1), EntityTypeRegistry.DREADWOOD_BOAT));
-        ItemsRegistry.dreadwoodChestBoat = BLOCK_ITEMS.register("dreadwood_chest_boat", () -> new CustomChestBoatItem(new Item.Properties().stacksTo(1), EntityTypeRegistry.DREADWOOD_CHEST_BOAT));
+        dreadwoodWallHangingSign = BLOCK.register("dread_wall_hanging_sign", () -> new ModWallHangingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_MAGENTA).noOcclusion().noCollission(), ModWoodTypes.DREADWOOD));
+        ItemsRegistry.dreadwoodBoat = BLOCK_ITEMS.register("dread_boat", () -> new CustomBoatItem(new Item.Properties().stacksTo(1), EntityTypeRegistry.DREADWOOD_BOAT));
+        ItemsRegistry.dreadwoodChestBoat = BLOCK_ITEMS.register("dread_chest_boat", () -> new CustomChestBoatItem(new Item.Properties().stacksTo(1), EntityTypeRegistry.DREADWOOD_CHEST_BOAT));
 
         // Bronze
         bronzeBlock = registerBlock("bronze_block", () -> new Block(props(Blocks.IRON_BLOCK, MapColor.COLOR_BROWN).requiresCorrectToolForDrops().strength(3f, 4f).sound(SoundType.NETHERITE_BLOCK)));

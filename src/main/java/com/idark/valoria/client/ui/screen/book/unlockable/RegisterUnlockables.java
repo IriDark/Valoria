@@ -12,7 +12,7 @@ public class RegisterUnlockables{
     public static Unlockable
     pick, heavyWorkbench,
 
-    undead,
+    undead, kingCrab,
     necromancerGrimoire, necromancer, harmonyCrown, dryador, suspiciousGem, wickedCrystal,
     crypt, fortress,
 
@@ -23,6 +23,7 @@ public class RegisterUnlockables{
 
     public static void init() {
         crypt = register(new Unlockable(Valoria.ID + ":crypt"));
+        kingCrab = register(new EntityUnlockable(Valoria.ID + ":king_crab", ItemsRegistry.crabClaw.get(), EntityTypeRegistry.KING_CRAB.get()));
         fortress = register(new Unlockable(ItemsRegistry.wickedAmethyst.get(), Valoria.ID + ":fortress", false));
         pick = register(new ItemUnlockable(Valoria.ID + ":pick", ItemsRegistry.pick.get()).addAward(loc("items/crusher")));
         heavyWorkbench = register(new ItemUnlockable(Valoria.ID + ":heavy_workbench", BlockRegistry.heavyWorkbench.get().asItem()));

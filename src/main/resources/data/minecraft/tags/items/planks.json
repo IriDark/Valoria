@@ -1,7 +1,8 @@
 {
   "replace": false,
   "values": [
-    "valoria:shadewood_planks",
-    "valoria:eldritch_planks"
+    "valoria:shade_planks",
+    "valoria:eldritch_planks",
+    "valoria:dread_planks"
   ]
 }
