@@ -2,9 +2,7 @@ package com.idark.valoria.registries.item.types.ranged;
 
 import com.idark.valoria.*;
 import com.idark.valoria.core.config.*;
-import com.idark.valoria.core.interfaces.*;
 import com.idark.valoria.registries.*;
-import com.idark.valoria.registries.item.component.*;
 import com.idark.valoria.registries.item.types.*;
 import com.idark.valoria.util.*;
 import net.minecraft.*;
@@ -31,6 +29,8 @@ import net.minecraftforge.api.distmarker.*;
 import pro.komaru.tridot.api.*;
 import pro.komaru.tridot.api.interfaces.*;
 import pro.komaru.tridot.client.render.screenshake.*;
+import pro.komaru.tridot.common.registry.item.*;
+import pro.komaru.tridot.common.registry.item.components.*;
 import pro.komaru.tridot.util.math.*;
 import pro.komaru.tridot.util.struct.data.*;
 
@@ -195,7 +195,7 @@ public class BlazeReapItem extends ValoriaPickaxe implements Vanishable, Overlay
         return Seq.with(
         new SeparatorComponent(Component.translatable("tooltip.valoria.abilities")),
         new AbilityComponent(Component.translatable("tooltip.valoria.blazereap").withStyle(ChatFormatting.GRAY), Valoria.loc("textures/gui/tooltips/boom.png")),
-        new ClientTextComponent(Component.translatable(getModeString(pStack)).withStyle(ChatFormatting.GREEN))
+        new TextComponent(Component.translatable(getModeString(pStack)).withStyle(ChatFormatting.GREEN))
         );
     }
 

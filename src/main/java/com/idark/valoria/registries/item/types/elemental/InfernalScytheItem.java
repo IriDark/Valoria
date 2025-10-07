@@ -3,7 +3,6 @@ package com.idark.valoria.registries.item.types.elemental;
 import com.google.common.collect.*;
 import com.idark.valoria.*;
 import com.idark.valoria.registries.*;
-import com.idark.valoria.registries.item.component.*;
 import com.idark.valoria.registries.item.types.*;
 import com.idark.valoria.util.*;
 import net.minecraft.*;
@@ -20,6 +19,7 @@ import net.minecraft.world.level.*;
 import org.joml.*;
 import pro.komaru.tridot.api.*;
 import pro.komaru.tridot.client.render.screenshake.*;
+import pro.komaru.tridot.common.registry.item.components.*;
 import pro.komaru.tridot.util.*;
 import pro.komaru.tridot.util.math.*;
 import pro.komaru.tridot.util.struct.data.*;
@@ -99,14 +99,14 @@ public class InfernalScytheItem extends ScytheItem{
             return Seq.with(
             new SeparatorComponent(Component.translatable("tooltip.valoria.abilities")),
             new AbilityComponent(Component.translatable("tooltip.valoria.scythe").withStyle(ChatFormatting.GRAY), Valoria.loc("textures/gui/tooltips/infernal_strike.png")),
-            new ClientTextComponent(Component.translatable("tooltip.valoria.usage_count", builder.attackUsages).withStyle(ChatFormatting.GRAY)),
-            new ClientTextComponent(Component.translatable("tooltip.valoria.rmb").withStyle(style -> style.withFont(Valoria.FONT)))
+            new TextComponent(Component.translatable("tooltip.valoria.usage_count", builder.attackUsages).withStyle(ChatFormatting.GRAY)),
+            new TextComponent(Component.translatable("tooltip.valoria.rmb").withStyle(style -> style.withFont(Valoria.FONT)))
             );
         } else {
             return Seq.with(
             new SeparatorComponent(Component.translatable("tooltip.valoria.abilities")),
             new AbilityComponent(Component.translatable("tooltip.valoria.scythe").withStyle(ChatFormatting.GRAY), Valoria.loc("textures/gui/tooltips/infernal_strike.png")),
-            new ClientTextComponent(Component.translatable("tooltip.valoria.rmb").withStyle(style -> style.withFont(Valoria.FONT)))
+            new TextComponent(Component.translatable("tooltip.valoria.rmb").withStyle(style -> style.withFont(Valoria.FONT)))
             );
         }
     }

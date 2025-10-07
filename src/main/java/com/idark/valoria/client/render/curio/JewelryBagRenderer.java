@@ -16,8 +16,8 @@ import top.theillusivec4.curios.api.*;
 import top.theillusivec4.curios.api.client.*;
 
 public class JewelryBagRenderer implements ICurioRenderer{
-    public static ResourceLocation TEXTURE = new ResourceLocation(Valoria.ID, "textures/entity/jewelry_bag.png");
-    public static ResourceLocation OVERLAY = new ResourceLocation(Valoria.ID, "textures/entity/jewelry_bag_overlay.png");
+    public static ResourceLocation TEXTURE = new ResourceLocation(Valoria.ID, "textures/curio/body/jewelry_bag.png");
+    public static ResourceLocation OVERLAY = new ResourceLocation(Valoria.ID, "textures/curio/body/jewelry_bag_overlay.png");
     JewelryBagModel model = null;
 
     @Override

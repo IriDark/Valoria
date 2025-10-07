@@ -2,9 +2,7 @@ package com.idark.valoria.registries.item.types.elemental;
 
 import com.google.common.collect.*;
 import com.idark.valoria.*;
-import com.idark.valoria.core.interfaces.*;
 import com.idark.valoria.registries.*;
-import com.idark.valoria.registries.item.component.*;
 import com.idark.valoria.registries.item.types.*;
 import com.idark.valoria.util.*;
 import net.minecraft.*;
@@ -22,6 +20,8 @@ import net.minecraft.world.item.enchantment.*;
 import net.minecraft.world.level.*;
 import org.joml.*;
 import pro.komaru.tridot.api.*;
+import pro.komaru.tridot.common.registry.item.*;
+import pro.komaru.tridot.common.registry.item.components.*;
 import pro.komaru.tridot.util.*;
 import pro.komaru.tridot.util.math.*;
 import pro.komaru.tridot.util.struct.data.*;
@@ -113,7 +113,7 @@ public class CoralReefItem extends ValoriaSword implements TooltipComponentItem{
         return Seq.with(
         new SeparatorComponent(Component.translatable("tooltip.valoria.abilities")),
         new AbilityComponent(Component.translatable("tooltip.valoria.coral_reef").withStyle(ChatFormatting.GRAY), Valoria.loc("textures/gui/tooltips/tidal_push.png")),
-        new ClientTextComponent(Component.translatable("tooltip.valoria.rmb").withStyle(style -> style.withFont(Valoria.FONT)))
+        new TextComponent(Component.translatable("tooltip.valoria.rmb").withStyle(style -> style.withFont(Valoria.FONT)))
         );
     }
 }

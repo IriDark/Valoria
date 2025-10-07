@@ -17,7 +17,7 @@ import top.theillusivec4.curios.api.client.*;
 
 
 public class RespiratorRenderer implements ICurioRenderer{
-    public static ResourceLocation TEXTURE = new ResourceLocation(Valoria.ID, "textures/entity/head/respirator.png");
+    public static ResourceLocation TEXTURE = new ResourceLocation(Valoria.ID, "textures/curio/head/respirator.png");
     RespiratorModel model = null;
 
     @Override

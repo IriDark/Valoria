@@ -1,10 +1,8 @@
 package com.idark.valoria.registries.item.types.ranged.bows;
 
 import com.idark.valoria.*;
-import com.idark.valoria.core.interfaces.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.entity.projectile.*;
-import com.idark.valoria.registries.item.component.*;
 import com.idark.valoria.util.*;
 import net.minecraft.*;
 import net.minecraft.client.*;
@@ -20,6 +18,8 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.*;
 import net.minecraft.world.level.*;
 import net.minecraftforge.event.*;
+import pro.komaru.tridot.common.registry.item.*;
+import pro.komaru.tridot.common.registry.item.components.*;
 import pro.komaru.tridot.common.registry.item.types.*;
 import pro.komaru.tridot.util.struct.data.*;
 

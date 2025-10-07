@@ -1,9 +1,7 @@
 package com.idark.valoria.registries.item.types.curio.charm.rune;
 
 import com.google.common.collect.*;
-import com.idark.valoria.core.interfaces.*;
 import com.idark.valoria.registries.*;
-import com.idark.valoria.registries.item.component.*;
 import net.minecraft.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.server.level.*;
@@ -14,6 +12,8 @@ import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.inventory.tooltip.*;
 import net.minecraft.world.item.*;
+import pro.komaru.tridot.common.registry.item.*;
+import pro.komaru.tridot.common.registry.item.components.*;
 import pro.komaru.tridot.util.*;
 import pro.komaru.tridot.util.struct.data.*;
 import top.theillusivec4.curios.api.*;
@@ -64,7 +64,7 @@ public class CurioCurses extends AbstractRuneItem implements TooltipComponentIte
             effectBuilder.add(new MobEffectInstance(effect, 200, 0, false, true));
         }
 
-        return Seq.with(new ClientEffectsListClientComponent(effectBuilder.build(), Component.translatable("tooltip.valoria.curses", String.format("%.1f%%", chance * 100)).withStyle(ChatFormatting.GRAY)));
+        return Seq.with(new EffectsListComponent(effectBuilder.build(), Component.translatable("tooltip.valoria.curses", String.format("%.1f%%", chance * 100)).withStyle(ChatFormatting.GRAY)));
     }
 
     @Override

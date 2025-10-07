@@ -1,9 +1,7 @@
 package com.idark.valoria.registries.item.types.ranged;
 
 import com.idark.valoria.*;
-import com.idark.valoria.core.interfaces.*;
 import com.idark.valoria.registries.entity.projectile.*;
-import com.idark.valoria.registries.item.component.*;
 import net.minecraft.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.sounds.*;
@@ -16,6 +14,8 @@ import net.minecraft.world.inventory.tooltip.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import org.jetbrains.annotations.*;
+import pro.komaru.tridot.common.registry.item.*;
+import pro.komaru.tridot.common.registry.item.components.*;
 import pro.komaru.tridot.util.struct.data.*;
 
 public class ClawhookItem extends Item implements TooltipComponentItem{

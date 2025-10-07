@@ -6,7 +6,6 @@ import com.idark.valoria.client.model.animations.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.block.entity.*;
 import com.idark.valoria.registries.block.types.*;
-import com.idark.valoria.registries.item.types.curio.necklace.*;
 import net.minecraft.core.*;
 import net.minecraft.core.particles.*;
 import net.minecraft.server.network.*;
@@ -26,9 +25,7 @@ import net.minecraft.world.phys.*;
 import net.minecraftforge.api.distmarker.*;
 import pro.komaru.tridot.api.interfaces.*;
 import pro.komaru.tridot.api.render.animation.*;
-import top.theillusivec4.curios.api.*;
 
-import java.util.*;
 import java.util.function.Supplier;
 
 @SuppressWarnings("removal")
@@ -46,18 +43,6 @@ public class PickItem extends Item implements ICustomAnimationItem, Vanishable{
         this.attackDamageIn = (float)attackDamageIn;
         this.attackSpeedIn = attackSpeedIn;
         this.excavationSpeed = (float)speed;
-    }
-
-    public static List<ItemStack> getExcavationAccessories(Player player){
-        List<ItemStack> items = new ArrayList<>();
-        List<SlotResult> curioSlots = CuriosApi.getCuriosHelper().findCurios(player, (i) -> true);
-        for(SlotResult slot : curioSlots){
-            if(slot.stack().getItem() instanceof PickNecklace){
-                items.add(slot.stack());
-            }
-        }
-
-        return items;
     }
 
     private Multimap<Attribute, AttributeModifier> createAttributes(){
@@ -101,7 +86,7 @@ public class PickItem extends Item implements ICustomAnimationItem, Vanishable{
             if(hitresult instanceof BlockHitResult blockhitresult){
                 if(hitresult.getType() == HitResult.Type.BLOCK){
                     int i = this.getUseDuration(pStack) - pRemainingUseDuration + 1;
-                    int speed = getExcavationAccessories(player).isEmpty() ? (int)excavationSpeed + 15 : (int)excavationSpeed + 10;
+                    double speed = player.getAttributeValue(AttributeReg.EXCAVATION_SPEED.get());
                     if(i % speed == 5){
                         BlockPos blockpos = blockhitresult.getBlockPos();
                         BlockState blockstate = pLevel.getBlockState(blockpos);

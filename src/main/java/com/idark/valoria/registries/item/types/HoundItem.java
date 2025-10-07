@@ -1,11 +1,9 @@
 package com.idark.valoria.registries.item.types;
 
 import com.idark.valoria.*;
-import com.idark.valoria.core.interfaces.*;
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.particle.*;
 import com.idark.valoria.registries.*;
-import com.idark.valoria.registries.item.component.*;
 import net.minecraft.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.server.level.*;
@@ -19,6 +17,8 @@ import net.minecraft.world.inventory.tooltip.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
+import pro.komaru.tridot.common.registry.item.*;
+import pro.komaru.tridot.common.registry.item.components.*;
 import pro.komaru.tridot.util.struct.data.*;
 
 import java.util.*;
@@ -47,7 +47,7 @@ public class HoundItem extends SwordItem implements TooltipComponentItem{
         return Seq.with(
         new SeparatorComponent(Component.translatable("tooltip.valoria.abilities")),
         new AbilityComponent(Component.translatable("tooltip.valoria.bloodhound").withStyle(ChatFormatting.GRAY), Valoria.loc("textures/gui/tooltips/blood_seeking.png")),
-        new ClientTextComponent(Component.translatable("tooltip.valoria.rmb").withStyle(style -> style.withFont(Valoria.FONT)))
+        new TextComponent(Component.translatable("tooltip.valoria.rmb").withStyle(style -> style.withFont(Valoria.FONT)))
         );
     }
 

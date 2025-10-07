@@ -10,6 +10,7 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraftforge.registries.*;
 import org.jetbrains.annotations.*;
+import pro.komaru.tridot.common.registry.item.types.*;
 
 import java.util.*;
 

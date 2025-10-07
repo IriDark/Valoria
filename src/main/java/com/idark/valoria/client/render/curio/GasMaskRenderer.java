@@ -17,7 +17,7 @@ import top.theillusivec4.curios.api.client.*;
 
 
 public class GasMaskRenderer implements ICurioRenderer{
-    public static ResourceLocation TEXTURE = new ResourceLocation(Valoria.ID, "textures/entity/head/gas_mask.png");
+    public static ResourceLocation TEXTURE = new ResourceLocation(Valoria.ID, "textures/curio/head/gas_mask.png");
     GasMaskModel model = null;
 
     @Override

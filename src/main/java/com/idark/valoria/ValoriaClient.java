@@ -16,6 +16,7 @@ import com.idark.valoria.client.ui.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.block.types.*;
 import com.idark.valoria.registries.item.component.*;
+import com.idark.valoria.registries.item.component.client.*;
 import com.idark.valoria.registries.item.types.*;
 import com.idark.valoria.registries.level.*;
 import com.idark.valoria.util.*;
@@ -27,9 +28,6 @@ import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.blockentity.*;
 import net.minecraft.client.renderer.entity.*;
 import net.minecraft.resources.*;
-import net.minecraft.world.entity.ai.attributes.*;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier.*;
-import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.client.event.*;
@@ -80,16 +78,6 @@ public class ValoriaClient{
         TooltipModifierHandler.add(BASE_NIHILITY_DAMAGE_UUID);
         TooltipModifierHandler.add(BASE_NIHILITY_RESISTANCE_UUID);
         TooltipModifierHandler.add(BASE_ELEMENTAL_RESISTANCE_UUID);
-        TooltipModifierHandler.register(new AttributeTooltipModifier() {
-            public boolean isModifiable(Attribute atr, AttributeModifier modifier, Player player, TooltipFlag flag) {
-                return atr == AttributeReg.MISS_CHANCE.get() || atr == AttributeReg.DODGE_CHANCE.get();
-            }
-
-            public ModifyResult modify(AttributeModifier modifier, double amount, AttributeModifier.Operation operation) {
-                return new ModifyResult(modifier, amount, Operation.MULTIPLY_BASE);
-            }
-        });
-
         MusicHandler.register(new MusicModifier.DungeonMusic(SoundsRegistry.MUSIC_NECROMANCER_DUNGEON.get(), LevelGen.NECROMANCER_CRYPT));
     }
 
@@ -98,12 +86,7 @@ public class ValoriaClient{
 
         @SubscribeEvent
         public static void registerComponents(RegisterClientTooltipComponentFactoriesEvent e) {
-            e.register(SeparatorComponent.class, c -> SeparatorClientComponent.create(c.component()));
-            e.register(LineSeparatorComponent.class, c -> LineSeparatorClientComponent.create());
-            e.register(AbilityComponent.class, c -> AbilityClientComponent.create(c.component(), c.icon(), c.paddingTop(), c.iconSize()));
-            e.register(ClientTextComponent.class, c -> ClientTextClientComponent.create(c.component()));
-            e.register(ClientEffectsListClientComponent.class, c -> EffectListClientComponent.create(c.list(), c.component()));
-            e.register(ClientMaterialListClientComponent.class, c -> MaterialListClientComponent.create(c.list()));
+            e.register(MaterialListComponent.class, c -> MaterialListClientComponent.create(c.list()));
         }
 
         @SubscribeEvent

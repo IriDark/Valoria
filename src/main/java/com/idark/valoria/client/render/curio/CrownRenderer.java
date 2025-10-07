@@ -17,7 +17,7 @@ import top.theillusivec4.curios.api.client.*;
 
 
 public class CrownRenderer implements ICurioRenderer{
-    public static ResourceLocation TEXTURE = new ResourceLocation(Valoria.ID, "textures/entity/head/crown.png");
+    public static ResourceLocation TEXTURE = new ResourceLocation(Valoria.ID, "textures/curio/head/crown.png");
     CrownModel model = null;
 
     @Override

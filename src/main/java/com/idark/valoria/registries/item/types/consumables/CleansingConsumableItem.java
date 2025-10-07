@@ -2,8 +2,6 @@ package com.idark.valoria.registries.item.types.consumables;
 
 import com.idark.valoria.*;
 import com.idark.valoria.core.capability.*;
-import com.idark.valoria.core.interfaces.*;
-import com.idark.valoria.registries.item.component.*;
 import net.minecraft.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.world.effect.*;
@@ -14,6 +12,9 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraftforge.registries.*;
 import org.jetbrains.annotations.*;
+import pro.komaru.tridot.common.registry.item.*;
+import pro.komaru.tridot.common.registry.item.components.*;
+import pro.komaru.tridot.common.registry.item.types.*;
 import pro.komaru.tridot.util.struct.data.*;
 
 import java.util.*;
@@ -56,7 +57,7 @@ public class CleansingConsumableItem extends AbstractConsumableItem implements T
 
     @Override
     public Seq<TooltipComponent> getTooltips(ItemStack pStack){
-        return Seq.with(new ClientEffectsListClientComponent(List.of(new MobEffectInstance(effect)), Component.translatable("tooltip.tridot.applies").withStyle(ChatFormatting.GRAY)));
+        return Seq.with(new EffectsListComponent(List.of(new MobEffectInstance(effect)), Component.translatable("tooltip.tridot.applies").withStyle(ChatFormatting.GRAY)));
     }
 
     @Override

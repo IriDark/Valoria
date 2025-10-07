@@ -178,6 +178,13 @@ public class Valoria{
             CuriosRendererRegistry.register(ItemsRegistry.netheriteNecklaceHealth.get(), NecklaceRenderer::new);
             CuriosRendererRegistry.register(ItemsRegistry.netheriteNecklaceWealth.get(), NecklaceRenderer::new);
             CuriosRendererRegistry.register(ItemsRegistry.pickNecklace.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.eyeNecklace.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.ironRogueNecklace.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.goldenRogueNecklace.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.netheriteRogueNecklace.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.ironChain.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.goldenChain.get(), NecklaceRenderer::new);
+            CuriosRendererRegistry.register(ItemsRegistry.netheriteChain.get(), NecklaceRenderer::new);
 
             CuriosRendererRegistry.register(ItemsRegistry.leatherGloves.get(), HandsRenderer::new);
             CuriosRendererRegistry.register(ItemsRegistry.ironGloves.get(), HandsRenderer::new);

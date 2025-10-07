@@ -36,7 +36,7 @@ public class WorkbenchRecipeCategory extends AbstractRecipeCategory<WorkbenchRec
         ItemStack result = recipe.getResultItem(RegistryAccess.EMPTY);
         if(!recipe.getInputs().isEmpty()){
             tooltip.add(result.getHoverName().copy().withStyle(result.getDisplayName().getStyle()));
-            tooltip.add(new ClientMaterialListClientComponent(recipe.getInputs()));
+            tooltip.add(new MaterialListComponent(recipe.getInputs()));
         }
     }
 

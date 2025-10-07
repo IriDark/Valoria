@@ -116,7 +116,7 @@ public class HeavyWorkbenchScreen extends AbstractContainerScreen<HeavyWorkbench
                 tooltip.add(result.getHoverName().copy().withStyle(result.getDisplayName().getStyle()));
                 tooltip.add(Component.empty());
                 tooltip.add(Component.translatable("tooltip.tridot.shift_for_details", Component.translatable("key.keyboard.left.shift").getString()).withStyle(ChatFormatting.GRAY));
-                if(!recipe.getInputs().isEmpty()) comp = Optional.of(new ClientMaterialListClientComponent(recipe.getInputs()));
+                if(!recipe.getInputs().isEmpty()) comp = Optional.of(new MaterialListComponent(recipe.getInputs()));
                 if(!Screen.hasShiftDown()){
                     guiGraphics.renderTooltip(this.font, tooltip, comp, mouseX, mouseY);
                 } else {

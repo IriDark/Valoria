@@ -1,41 +1,16 @@
 package com.idark.valoria.registries.item.types.curio.hands;
 
-import com.google.common.collect.*;
-import com.idark.valoria.core.enums.*;
 import com.idark.valoria.registries.item.types.curio.*;
-import net.minecraft.client.player.*;
-import net.minecraft.resources.*;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import pro.komaru.tridot.util.*;
 import top.theillusivec4.curios.api.*;
 import top.theillusivec4.curios.api.type.capability.*;
 
-import java.util.*;
-
 public class DyeableGlovesItem extends GlovesItem implements ICurioItem, ICurioTexture, DyeableLeatherItem, Vanishable{
-    private final float damage, armor;
-
-    public DyeableGlovesItem(Tier tier, Item.Properties properties, float damage, float armor){
-        super(tier, AccessoryGem.NONE, AccessoryMaterial.LEATHER, properties);
-        this.damage = damage;
-        this.armor = armor;
-    }
-
-    public DyeableGlovesItem(Tier tier, Item.Properties properties){
-        super(tier, AccessoryGem.NONE, AccessoryMaterial.LEATHER, properties);
-        this.damage = 0.5f;
-        this.armor = 0.2f;
-    }
-
-    @Override
-    public Multimap<Attribute, AttributeModifier> getAttributeModifiers(SlotContext slotContext, UUID uuid, ItemStack stack){
-        Multimap<Attribute, AttributeModifier> attribute = LinkedHashMultimap.create();
-        attribute.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(uuid, "bonus", this.damage, AttributeModifier.Operation.ADDITION));
-        attribute.put(Attributes.ARMOR, new AttributeModifier(uuid, "bonus", this.armor, AttributeModifier.Operation.ADDITION));
-        return attribute;
+    public DyeableGlovesItem(DyeableBuilder builder){
+        super(builder);
     }
 
     @Override
@@ -47,12 +22,15 @@ public class DyeableGlovesItem extends GlovesItem implements ICurioItem, ICurioT
         }
     }
 
-    @Override
-    public ResourceLocation getTexture(ItemStack stack, LivingEntity entity){
-        if(entity instanceof AbstractClientPlayer player){
-            return getGlovesTexture("leather", !player.getModelName().equals("default"));
+    public static class DyeableBuilder extends GlovesBuilder{
+
+        public DyeableBuilder(Tier tier, Properties properties){
+            super(tier, properties);
         }
 
-        return getGlovesTexture("leather", false);
+        @Override
+        public DyeableGlovesItem build(){
+            return new DyeableGlovesItem(this);
+        }
     }
 }

@@ -17,7 +17,7 @@ import top.theillusivec4.curios.api.client.*;
 
 
 public class MonocleRenderer implements ICurioRenderer{
-    public static ResourceLocation TEXTURE = new ResourceLocation(Valoria.ID, "textures/entity/monocle.png");
+    public static ResourceLocation TEXTURE = new ResourceLocation(Valoria.ID, "textures/curio/head/monocle.png");
     MonocleModel model = null;
 
     @Override

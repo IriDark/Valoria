@@ -15,6 +15,9 @@ import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
 import pro.komaru.tridot.api.*;
 import pro.komaru.tridot.api.interfaces.*;
+import pro.komaru.tridot.client.gfx.*;
+import pro.komaru.tridot.client.gfx.particle.*;
+import pro.komaru.tridot.client.gfx.particle.data.*;
 import pro.komaru.tridot.util.*;
 import pro.komaru.tridot.util.math.*;
 import top.theillusivec4.curios.api.*;
@@ -115,23 +118,22 @@ public class BloodSight extends Item implements ICurioItem, Vanishable, Particle
 
     @Override
     public void spawnParticles(Level level, ItemEntity entity){
-        //todo
-//        if(entity.getItem().is(ItemsRegistry.BROKEN_BLOODSIGHT_MONOCLE.get())){
-//            Particles.create(ParticleRegistry.SKULL)
-//            .addVelocity(0.05f, 0.04f, 0.05f)
-//            .setAlpha(0.25f, 0)
-//            .setScale(0.1f, 0)
-//            .setColor(0.366f, 0.643f, 0.315f, 0.915f, 0.225f, 0.915f)
-//            .setLifetime(6)
-//            .spawn(level, entity.getX() + (Tmp.rnd,nextDouble() - 0.5f) / 2, entity.getY() + (new Random().nextDouble() + 0.1f) / 2, entity.getZ());
-//        }else{
-//            Particles.create(ParticleRegistry.GLITTER)
-//            .addVelocity(0f, 0.04f, 0f)
-//            .setAlpha(0.95f, 0)
-//            .setScale(0.1f, 0)
-//            .setColor(0f, 0f, 0f, 0f, 0f, 0.915f)
-//            .setLifetime(6)
-//            .spawn(level, entity.getX() + (Tmp.rnd,nextDouble() - 0.5f) / 2, entity.getY() + (new Random().nextDouble() + 0.1f) / 2, entity.getZ());
-//        }
+        if(entity.getItem().is(ItemsRegistry.brokenMonocle.get())){
+            ParticleBuilder.create(TridotParticles.SKULL)
+            .randomVelocity(0.05f, 0.04f, 0.05f)
+            .setTransparencyData(GenericParticleData.create(0.1f, 0).build())
+            .setScaleData(GenericParticleData.create(0.1f, 0).build())
+            .setColorData(ColorParticleData.create(0.666f, 0.343f, 0.315f, 0.915f, 0.225f, 0.915f).build())
+            .setLifetime(15)
+            .spawn(level, entity.getX() + (Tmp.rnd.nextDouble() - 0.5f) / 2, entity.getY() + (new Random().nextDouble() + 0.1f) / 2, entity.getZ());
+        }else{
+            ParticleBuilder.create(TridotParticles.TINY_WISP)
+            .randomVelocity(0f, 0.04f, 0f)
+            .setTransparencyData(GenericParticleData.create(0.25f, 0).build())
+            .setScaleData(GenericParticleData.create(0.1f, 0).build())
+            .setColorData(ColorParticleData.create(0f, 0f, 0f, 0f, 0f, 0.915f).build())
+            .setLifetime(45)
+            .spawn(level, entity.getX() + (Tmp.rnd.nextDouble() - 0.5f) / 2, entity.getY() + (new Random().nextDouble() + 0.1f) / 2, entity.getZ());
+        }
     }
 }

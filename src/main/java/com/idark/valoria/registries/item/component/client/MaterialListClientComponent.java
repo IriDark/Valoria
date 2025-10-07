@@ -1,4 +1,4 @@
-package com.idark.valoria.registries.item.component;
+package com.idark.valoria.registries.item.component.client;
 
 import com.idark.valoria.registries.item.recipe.WorkbenchRecipe.*;
 import com.mojang.datafixers.util.*;

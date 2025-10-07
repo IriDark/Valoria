@@ -1,6 +1,9 @@
 {
   "replace": false,
   "values": [
+    "valoria:iron_chain",
+    "valoria:golden_chain",
+    "valoria:netherite_chain",
     "valoria:pick_necklace",
     "valoria:iron_necklace_amber",
     "valoria:iron_necklace_diamond",
@@ -10,6 +13,7 @@
     "valoria:iron_necklace_health",
     "valoria:iron_necklace_armor",
     "valoria:iron_necklace_wealth",
+    "valoria:iron_rogue_necklace",
     "valoria:golden_necklace_amber",
     "valoria:golden_necklace_diamond",
     "valoria:golden_necklace_emerald",
@@ -18,6 +22,7 @@
     "valoria:golden_necklace_health",
     "valoria:golden_necklace_armor",
     "valoria:golden_necklace_wealth",
+    "valoria:golden_rogue_necklace",
     "valoria:netherite_necklace_amber",
     "valoria:netherite_necklace_diamond",
     "valoria:netherite_necklace_emerald",
@@ -25,6 +30,8 @@
     "valoria:netherite_necklace_sapphire",
     "valoria:netherite_necklace_health",
     "valoria:netherite_necklace_armor",
-    "valoria:netherite_necklace_wealth"
+    "valoria:netherite_necklace_wealth",
+    "valoria:netherite_rogue_necklace",
+    "valoria:eye_necklace"
   ]
 }

@@ -20,6 +20,7 @@ import net.minecraftforge.fml.common.*;
 import net.minecraftforge.registries.*;
 import pro.komaru.tridot.api.*;
 import pro.komaru.tridot.common.registry.entity.*;
+import pro.komaru.tridot.common.registry.item.types.*;
 import pro.komaru.tridot.util.*;
 import top.theillusivec4.curios.api.type.capability.*;
 

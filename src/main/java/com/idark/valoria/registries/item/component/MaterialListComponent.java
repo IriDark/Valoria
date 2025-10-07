@@ -7,5 +7,5 @@ import net.minecraft.world.item.crafting.*;
 
 import java.util.*;
 
-public record ClientMaterialListClientComponent(List<Pair<Ingredient, RecipeData>> list) implements TooltipComponent{
+public record MaterialListComponent(List<Pair<Ingredient, RecipeData>> list) implements TooltipComponent{
 }
