@@ -26,7 +26,7 @@ import java.util.*;
 
 import static pro.komaru.tridot.common.registry.item.armor.SuitArmorItem.getArmorSetItem;
 
-public class CrownItem extends NihilityItem{
+public class CrownItem extends Item implements ICurioItem, Vanishable{
     public CrownItem(Properties properties){
         super(properties);
     }

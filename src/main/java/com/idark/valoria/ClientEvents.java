@@ -48,7 +48,7 @@ public class ClientEvents{
                 Component component = Component.literal(FORMAT.format(lastDamage));
                 Col textColor = Col.red;
                 for(DamageData damageData : DamageData.dataTypes){
-                    if(damageData.predicate().test(data.valoria$getLastDamageSource())){
+                    if(data.valoria$getLastDamageSource() != null && damageData.predicate().test(data.valoria$getLastDamageSource())){
                         if(damageData.getText() != null) component = damageData.getText();
                         textColor = damageData.getColor();
                     }

@@ -17,14 +17,23 @@ import pro.komaru.tridot.common.registry.item.*;
 import pro.komaru.tridot.common.registry.item.components.*;
 import pro.komaru.tridot.util.struct.data.*;
 import top.theillusivec4.curios.api.*;
+import top.theillusivec4.curios.api.type.capability.*;
 
+import javax.annotation.*;
 import java.util.*;
 
 public class CurioAccessoryItem extends AbstractTieredAccessory implements ICurioTexture, TooltipComponentItem{
-    public Builder builder;
-    public CurioAccessoryItem(Builder builder){
+    public Builder<? extends AbstractCurioBuilder<CurioAccessoryItem, ?>> builder;
+    public CurioAccessoryItem(Builder<? extends AbstractCurioBuilder<CurioAccessoryItem, ?>> builder){
         super(builder.tier, builder.itemProperties);
         this.builder = builder;
+    }
+
+    @Nonnull
+    @Override
+    public ICurio.SoundInfo getEquipSound(SlotContext slotContext, ItemStack stack){
+        if(builder.equipSound != null) return new ICurio.SoundInfo(builder.equipSound, builder.volume, builder.pitch);
+        return super.getEquipSound(slotContext, stack);
     }
 
     @Override
@@ -88,7 +97,7 @@ public class CurioAccessoryItem extends AbstractTieredAccessory implements ICuri
         return seq;
     }
 
-    public static class Builder extends AbstractCurioBuilder<CurioAccessoryItem, Builder>{
+    public static class Builder<B extends AbstractCurioBuilder<CurioAccessoryItem, B>> extends AbstractCurioBuilder<CurioAccessoryItem, B>{
         public ResourceLocation texPath;
         public boolean dependsOnStack = true;
 
@@ -96,14 +105,14 @@ public class CurioAccessoryItem extends AbstractTieredAccessory implements ICuri
             super(tier, properties);
         }
 
-        public Builder setTexPath(ResourceLocation texPath){
+        public B setTexPath(ResourceLocation texPath){
             this.texPath = texPath;
-            return this;
+            return self();
         }
 
-        public Builder setDependsOnStack(boolean dependsOnStack){
+        public B setDependsOnStack(boolean dependsOnStack){
             this.dependsOnStack = dependsOnStack;
-            return this;
+            return self();
         }
 
         @Override

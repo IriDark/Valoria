@@ -2,24 +2,17 @@ package com.idark.valoria.registries.item.types.curio;
 
 import com.idark.valoria.*;
 import com.idark.valoria.registries.item.types.curio.hands.*;
-import com.idark.valoria.util.*;
 import net.minecraft.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraftforge.api.distmarker.*;
-import top.theillusivec4.curios.api.*;
 
 import java.util.*;
 
 public class JewelryBagItem extends DyeableCurioItem{
     public JewelryBagItem(Properties pProperties){
         super(pProperties);
-    }
-
-    @Override
-    public boolean canEquip(SlotContext slotContext, ItemStack stack){
-        return ValoriaUtils.onePerTypeEquip(slotContext, stack);
     }
 
     @OnlyIn(Dist.CLIENT)

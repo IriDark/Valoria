@@ -583,7 +583,11 @@ public class ItemsRegistry{
         .addAttr(AttributeReg.MISS_CHANCE, new AttributeData(5f, Operation.ADDITION))
         .build());
 
-        eyeNecklace = registerItem("eye_necklace", () -> new CurioAccessoryItem.Builder(Tiers.IRON, new Properties().stacksTo(1).rarity(Rarity.RARE))
+        eyeNecklace = registerItem("eye_necklace", () -> new EyeNecklaceItem.NecklaceBuilder(Tiers.IRON, new Properties().stacksTo(1).rarity(Rarity.RARE))
+        .addNegativeAttr(() -> Attributes.MAX_HEALTH, new AttributeData(-0.025f, Operation.MULTIPLY_TOTAL))
+        .addNegativeAttr(() -> Attributes.ATTACK_DAMAGE, new  AttributeData(-0.005f, Operation.MULTIPLY_TOTAL))
+        .addAttr(() -> Attributes.MAX_HEALTH, new AttributeData(0.025f, Operation.MULTIPLY_TOTAL))
+        .addAttr(() -> Attributes.ATTACK_DAMAGE, new  AttributeData(0.005f, Operation.MULTIPLY_TOTAL))
         .setTexPath(new ResourceLocation(Valoria.ID, "textures/curio/necklace/"))
         .build());
 
@@ -924,7 +928,7 @@ public class ItemsRegistry{
         cleansingFlask = registerItem("cleansing_flask", () -> new CleansingConsumableItem(80, 35, 35, new MobEffectInstance(MobEffects.WEAKNESS, 400, 1), new Item.Properties()));
         cleansingElixir = registerItem("cleansing_elixir", () -> new CleansingConsumableItem(120, 35, 60, new MobEffectInstance(MobEffects.WEAKNESS, 400, 2), new Item.Properties()));
         clarityVial = registerItem("clarity_vial", () -> new CleansingConsumableItem(5, new MobEffectInstance(MobEffects.WEAKNESS, 60, 0), new Item.Properties()));
-        halloweenElixir = registerItem("halloween_elixir", () -> new EffectConsumableItem(new Item.Properties().rarity(RarityRegistry.HALLOWEEN), new MobEffectInstance(EffectsRegistry.SINISTER_PREDICTION.get(), 8200, 0)));
+        halloweenElixir = registerItem("halloween_elixir", () -> new EffectConsumableItem(new Item.Properties().rarity(RarityRegistry.HALLOWEEN), new MobEffectInstance(EffectsRegistry.SINISTER_PREDICTION.get(), 16500, 0)));
 
         applePie = registerItem("apple_pie", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(12).saturationMod(0.75f).build())));
         goblinMeat = registerItem("goblin_meat", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().meat().nutrition(3).saturationMod(0.2f).effect(new MobEffectInstance(MobEffects.HUNGER, 60), 0.25f).build())));

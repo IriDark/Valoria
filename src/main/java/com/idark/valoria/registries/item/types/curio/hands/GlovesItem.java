@@ -24,7 +24,7 @@ public class GlovesItem extends CurioAccessoryItem implements ICurioTexture{
         return new ResourceLocation(builder.texPath.getNamespace(), builder.texPath.getPath() +builder.texPath + (flag ? "slim" : "") + ".png");
     }
 
-    public static class GlovesBuilder extends Builder{
+    public static class GlovesBuilder extends Builder<GlovesBuilder>{
 
         public GlovesBuilder(Tier tier, Properties properties){
             super(tier, properties);

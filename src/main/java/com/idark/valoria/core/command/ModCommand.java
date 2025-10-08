@@ -54,6 +54,16 @@ public class ModCommand{
                     return 1;
                 }),
 
+                new CommandVariant(CommandPart.create("addNihility"), targets, nihility).execute((p) -> {
+                    addNihilityLevel(p.getSource(), targets.getPlayers(p), nihility.getInt(p));
+                    return 1;
+                }),
+        
+                new CommandVariant(CommandPart.create("decreaseNihility"), targets, nihility).execute((p) -> {
+                    decreaseNihilityLevel(p.getSource(), targets.getPlayers(p), nihility.getInt(p));
+                    return 1;
+                }),
+
                 new CommandVariant(CommandPart.create("setNihility"), targets, nihility).execute((p) -> {
                     setNihilityLevel(p.getSource(), targets.getPlayers(p), nihility.getInt(p));
                     return 1;
@@ -114,6 +124,30 @@ public class ModCommand{
             UnlockUtils.remove(player, pages);
             PacketHandler.sendTo(player, new UnlockableUpdatePacket(player));
             PacketHandler.sendTo(player, new PageToastPacket(player, ItemsRegistry.page.get(), false));
+        }
+    }
+
+    public static void decreaseNihilityLevel(CommandSourceStack command, Collection<? extends ServerPlayer> targetPlayers, int amount){
+        for(ServerPlayer player : targetPlayers){
+            if(targetPlayers.size() == 1){
+                command.sendSuccess(() -> Component.translatable("commands.valoria.nihility.decrease.single", amount, targetPlayers.iterator().next().getDisplayName()), true);
+            }else{
+                command.sendSuccess(() -> Component.translatable("commands.valoria.nihility.decrease.multiple", amount, targetPlayers.size()), true);
+            }
+
+            player.getCapability(INihilityLevel.INSTANCE).ifPresent(nihilityLevel -> nihilityLevel.decrease(player, amount));
+        }
+    }
+
+    public static void addNihilityLevel(CommandSourceStack command, Collection<? extends ServerPlayer> targetPlayers, int amount){
+        for(ServerPlayer player : targetPlayers){
+            if(targetPlayers.size() == 1){
+                command.sendSuccess(() -> Component.translatable("commands.valoria.nihility.add.single", amount, targetPlayers.iterator().next().getDisplayName()), true);
+            }else{
+                command.sendSuccess(() -> Component.translatable("commands.valoria.nihility.add.multiple", amount, targetPlayers.size()), true);
+            }
+
+            player.getCapability(INihilityLevel.INSTANCE).ifPresent(nihilityLevel -> nihilityLevel.modifyAmount(player, amount));
         }
     }
 

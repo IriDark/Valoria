@@ -2,6 +2,7 @@ package com.idark.valoria.registries.item.types.builders;
 
 import com.google.common.collect.*;
 import com.idark.valoria.registries.item.types.curio.*;
+import net.minecraft.sounds.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.item.Item.*;
@@ -17,6 +18,9 @@ public abstract class AbstractCurioBuilder<T extends CurioAccessoryItem, B exten
     public Multimap<Supplier<Attribute>, AttributeData> attributeMap = HashMultimap.create();
     public Multimap<String, AttributeData> slotModifiers = HashMultimap.create();
     public Seq<MobEffectInstance> effects = Seq.with();
+    public SoundEvent equipSound;
+    public float volume = 1.0f;
+    public float pitch = 1.0f;
 
     public AbstractCurioBuilder(Tier tier, Properties properties){
         this.tier = tier;
@@ -24,8 +28,20 @@ public abstract class AbstractCurioBuilder<T extends CurioAccessoryItem, B exten
     }
 
     @SuppressWarnings("unchecked")
-    protected B self() {
+    public B self() {
         return (B) this;
+    }
+
+    public B equipSound(SoundEvent soundEvent, float vol, float pitch) {
+        this.equipSound = soundEvent;
+        this.volume = vol;
+        this.pitch = pitch;
+        return self();
+    }
+
+    public B equipSound(SoundEvent soundEvent) {
+        this.equipSound = soundEvent;
+        return self();
     }
 
     public B addEffects(MobEffectInstance... effects){
