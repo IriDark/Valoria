@@ -1,5 +1,6 @@
 package com.idark.valoria.registries.item.types.curio.hands;
 
+import com.idark.valoria.registries.item.types.builders.*;
 import com.idark.valoria.registries.item.types.curio.*;
 import net.minecraft.client.player.*;
 import net.minecraft.resources.*;
@@ -24,7 +25,7 @@ public class GlovesItem extends CurioAccessoryItem implements ICurioTexture{
         return new ResourceLocation(builder.texPath.getNamespace(), builder.texPath.getPath() +builder.texPath + (flag ? "slim" : "") + ".png");
     }
 
-    public static class GlovesBuilder extends Builder<GlovesBuilder>{
+    public static class GlovesBuilder extends AbstractCurioBuilder<GlovesItem, GlovesBuilder>{
 
         public GlovesBuilder(Tier tier, Properties properties){
             super(tier, properties);

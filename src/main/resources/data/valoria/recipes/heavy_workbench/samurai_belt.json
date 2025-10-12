@@ -1,7 +1,9 @@
 {
   "type": "valoria:heavy_workbench",
   "ingredients": [
-    { "ingredient": { "item": "valoria:ancient_shard" }, "count": 6 }
+    { "ingredient": { "item": "valoria:ancient_shard" }, "count": 6 },
+    { "ingredient": { "item": "valoria:leather_belt" }, "count": 1 },
+    { "ingredient": { "item": "valoria:black_gold_ingot" }, "count": 2 }
   ],
   "result": {
     "item": "valoria:samurai_belt",

@@ -1,16 +1,14 @@
 package com.idark.valoria.core.trades;
 
-import com.google.common.collect.ImmutableMap;
-import com.idark.valoria.registries.ItemsRegistry;
-import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
-import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.npc.VillagerTrades.ItemListing;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.trading.MerchantOffer;
-import net.minecraft.world.level.block.Block;
+import com.google.common.collect.*;
+import com.idark.valoria.registries.*;
+import it.unimi.dsi.fastutil.ints.*;
+import net.minecraft.util.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.npc.VillagerTrades.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.item.trading.*;
+import net.minecraft.world.level.block.*;
 
 public class MerchantTrades{
     public static final Int2ObjectMap<ItemListing[]> HAUNTED_MERCHANT_TRADES = toIntMap(ImmutableMap.of(1, getHauntedTrader()));
@@ -25,7 +23,8 @@ public class MerchantTrades{
                 new ItemsForItem(ItemsRegistry.dreadAxe.get(), ItemsRegistry.candyCorn.get(), 26, 1, 2),
                 new ItemsForItem(ItemsRegistry.reaperScythe.get(), ItemsRegistry.candyCorn.get(), 52, 1, 6),
                 new ItemsForItem(ItemsRegistry.soulReaver.get(), ItemsRegistry.candyCorn.get(), 38, 1, 2),
-                new ItemsForItem(ItemsRegistry.pumpkinBomb.get(), ItemsRegistry.candyCorn.get(), 8, 16, 1)
+                new ItemsForItem(ItemsRegistry.pumpkinBomb.get(), ItemsRegistry.candyCorn.get(), 8, 16, 1),
+                new ItemsForItem(ItemsRegistry.halloweenElixir.get(), ItemsRegistry.candyCorn.get(), 64, 4, 10)
         };
     }
 

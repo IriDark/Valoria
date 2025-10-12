@@ -1,57 +1,37 @@
 package com.idark.valoria.registries.entity.living;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Sets;
-import com.idark.valoria.Valoria;
-import com.idark.valoria.core.interfaces.ReputationTypes;
-import com.idark.valoria.core.trades.MerchantTrades;
-import com.idark.valoria.registries.ItemsRegistry;
-import com.idark.valoria.registries.SoundsRegistry;
-import com.idark.valoria.registries.entity.ai.brains.HauntedMerchantAI;
-import com.mojang.serialization.Dynamic;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.NbtOps;
-import net.minecraft.network.protocol.game.DebugPackets;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.util.Mth;
-import net.minecraft.util.TimeUtil;
-import net.minecraft.util.valueproviders.UniformInt;
-import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.SimpleContainer;
-import net.minecraft.world.damagesource.DamageSource;
+import com.google.common.collect.*;
+import com.idark.valoria.*;
+import com.idark.valoria.core.interfaces.*;
+import com.idark.valoria.core.trades.*;
+import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.entity.ai.brains.*;
+import com.mojang.serialization.*;
+import net.minecraft.nbt.*;
+import net.minecraft.network.protocol.game.*;
+import net.minecraft.network.syncher.*;
+import net.minecraft.server.level.*;
+import net.minecraft.sounds.*;
+import net.minecraft.util.*;
+import net.minecraft.util.valueproviders.*;
+import net.minecraft.world.*;
+import net.minecraft.world.damagesource.*;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.Brain;
-import net.minecraft.world.entity.ai.gossip.GossipContainer;
-import net.minecraft.world.entity.ai.gossip.GossipType;
-import net.minecraft.world.entity.ai.memory.MemoryModuleType;
-import net.minecraft.world.entity.ai.memory.NearestVisibleLivingEntities;
-import net.minecraft.world.entity.ai.sensing.Sensor;
-import net.minecraft.world.entity.ai.sensing.SensorType;
-import net.minecraft.world.entity.ai.village.ReputationEventType;
-import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.npc.InventoryCarrier;
-import net.minecraft.world.entity.npc.VillagerTrades;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.schedule.Activity;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.trading.Merchant;
-import net.minecraft.world.item.trading.MerchantOffer;
-import net.minecraft.world.item.trading.MerchantOffers;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.ServerLevelAccessor;
-import org.jetbrains.annotations.Nullable;
+import net.minecraft.world.entity.ai.*;
+import net.minecraft.world.entity.ai.gossip.*;
+import net.minecraft.world.entity.ai.memory.*;
+import net.minecraft.world.entity.ai.sensing.*;
+import net.minecraft.world.entity.ai.village.*;
+import net.minecraft.world.entity.monster.*;
+import net.minecraft.world.entity.npc.*;
+import net.minecraft.world.entity.player.*;
+import net.minecraft.world.entity.schedule.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.item.trading.*;
+import net.minecraft.world.level.*;
+import org.jetbrains.annotations.*;
 
-import java.util.Optional;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 public abstract class AbstractHauntedMerchant extends Monster implements NeutralMob, InventoryCarrier, ReputationEventHandler, Merchant{
     @Nullable
@@ -337,7 +317,7 @@ public abstract class AbstractHauntedMerchant extends Monster implements Neutral
     }
 
     public void stopTrading(){
-        this.setTradingPlayer((Player)null);
+        this.setTradingPlayer(null);
         this.resetSpecialPrices();
     }
 

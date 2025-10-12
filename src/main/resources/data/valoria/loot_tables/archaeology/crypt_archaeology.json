@@ -32,6 +32,13 @@
         },
         {
           "type": "minecraft:item",
+          "name": "valoria:golden_necklace_armor",
+          "weight": 5,
+          "functions": []
+        },
+
+        {
+          "type": "minecraft:item",
           "name": "valoria:crypt_locator",
           "weight": 1,
           "functions": []

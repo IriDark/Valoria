@@ -23,8 +23,8 @@ import javax.annotation.*;
 import java.util.*;
 
 public class CurioAccessoryItem extends AbstractTieredAccessory implements ICurioTexture, TooltipComponentItem{
-    public Builder<? extends AbstractCurioBuilder<CurioAccessoryItem, ?>> builder;
-    public CurioAccessoryItem(Builder<? extends AbstractCurioBuilder<CurioAccessoryItem, ?>> builder){
+    public AbstractCurioBuilder<? extends CurioAccessoryItem, ?> builder;
+    public CurioAccessoryItem(AbstractCurioBuilder<? extends CurioAccessoryItem, ?> builder){
         super(builder.tier, builder.itemProperties);
         this.builder = builder;
     }
@@ -97,22 +97,9 @@ public class CurioAccessoryItem extends AbstractTieredAccessory implements ICuri
         return seq;
     }
 
-    public static class Builder<B extends AbstractCurioBuilder<CurioAccessoryItem, B>> extends AbstractCurioBuilder<CurioAccessoryItem, B>{
-        public ResourceLocation texPath;
-        public boolean dependsOnStack = true;
-
+    public static class Builder extends AbstractCurioBuilder<CurioAccessoryItem, Builder>{
         public Builder(Tier tier, Properties properties){
             super(tier, properties);
-        }
-
-        public B setTexPath(ResourceLocation texPath){
-            this.texPath = texPath;
-            return self();
-        }
-
-        public B setDependsOnStack(boolean dependsOnStack){
-            this.dependsOnStack = dependsOnStack;
-            return self();
         }
 
         @Override

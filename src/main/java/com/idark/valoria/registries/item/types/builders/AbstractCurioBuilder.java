@@ -2,6 +2,7 @@ package com.idark.valoria.registries.item.types.builders;
 
 import com.google.common.collect.*;
 import com.idark.valoria.registries.item.types.curio.*;
+import net.minecraft.resources.*;
 import net.minecraft.sounds.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.ai.attributes.*;
@@ -15,6 +16,9 @@ import java.util.function.*;
 public abstract class AbstractCurioBuilder<T extends CurioAccessoryItem, B extends AbstractCurioBuilder<T, B>> {
     public Tier tier;
     public Properties itemProperties;
+    public ResourceLocation texPath;
+    public boolean dependsOnStack = true;
+
     public Multimap<Supplier<Attribute>, AttributeData> attributeMap = HashMultimap.create();
     public Multimap<String, AttributeData> slotModifiers = HashMultimap.create();
     public Seq<MobEffectInstance> effects = Seq.with();
@@ -86,6 +90,17 @@ public abstract class AbstractCurioBuilder<T extends CurioAccessoryItem, B exten
 
     public B addAttr(Supplier<Attribute> attribute, AttributeData mod){
         attributeMap.put(attribute, mod);
+        return self();
+    }
+
+
+    public B setTexPath(ResourceLocation texPath){
+        this.texPath = texPath;
+        return self();
+    }
+
+    public B setDependsOnStack(boolean dependsOnStack){
+        this.dependsOnStack = dependsOnStack;
         return self();
     }
 

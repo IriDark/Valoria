@@ -446,7 +446,7 @@ public class Events{
             }
         }
 
-        if(pSource.is(DamageTypeTags.IS_FIRE) && isEquippedCurio(TagsRegistry.FIRE_IMMUNE, entity)) event.setCanceled(true);
+        if((pSource.is(DamageTypes.IN_FIRE) || pSource.is(DamageTypes.ON_FIRE) || pSource.is(DamageTypes.HOT_FLOOR) || pSource.is(DamageTypes.UNATTRIBUTED_FIREBALL) || pSource.is(DamageTypes.FIREBALL)) && isEquippedCurio(TagsRegistry.FIRE_IMMUNE, entity)) event.setCanceled(true);
         if(pSource.getEntity() instanceof LivingEntity e){
             if(e.hasEffect(EffectsRegistry.STUN.get())) event.setCanceled(true);
         }

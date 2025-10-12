@@ -19,5 +19,10 @@
     "valoria_enter_world": {
       "trigger": "minecraft:tick"
     }
+  },
+  "rewards": {
+    "loot": [
+      "valoria:advancements/starter_bundle"
+    ]
   }
 }

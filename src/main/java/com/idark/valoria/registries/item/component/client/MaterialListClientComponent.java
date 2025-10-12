@@ -46,7 +46,7 @@ public class MaterialListClientComponent implements ClientTooltipComponent{
             }
 
             if (currentWidth > maxWidth) {
-                maxWidth = currentWidth + 32;
+                maxWidth = currentWidth + 60;
             }
         }
 
@@ -65,7 +65,7 @@ public class MaterialListClientComponent implements ClientTooltipComponent{
             int nameY = textCurrentY + (iconSize - font.lineHeight) / 2;
 
             font.drawInBatch(itemName, nameX, nameY, -1, false, matrix, bufferSource, Font.DisplayMode.NORMAL, 0, 15728880);
-            if (entry.getSecond().count > 1) {
+            if (entry.getSecond().count > 0) {
                 Component quantityText = Component.literal(" " + entry.getSecond().current).withStyle(entry.getSecond().isEnough ? ChatFormatting.GRAY : ChatFormatting.DARK_RED).append(Component.literal(" / " + entry.getSecond().count).withStyle(ChatFormatting.GRAY));
                 font.drawInBatch(entry.getSecond().isEnough ? "✔" : "❌", x + 4, nameY, entry.getSecond().isEnough ? Color.GREEN.getRGB() : Color.RED.getRGB(), false, matrix, bufferSource, Font.DisplayMode.NORMAL, 0, 15728880);
                 font.drawInBatch(quantityText, nameX + font.width(itemName), nameY, -1, false, matrix, bufferSource, Font.DisplayMode.NORMAL, 0, 15728880);
