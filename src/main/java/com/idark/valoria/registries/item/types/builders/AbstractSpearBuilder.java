@@ -22,7 +22,7 @@ public abstract class AbstractSpearBuilder<T extends SpearItem>{
     public AbstractSpearBuilder(float attackDamageIn, float attackSpeedIn, Properties itemProperties){
         this.attackDamageIn = attackDamageIn + tier.getAttackDamageBonus();
         this.attackSpeedIn = attackSpeedIn;
-        this.projectileDamageIn = attackDamageIn + tier.getAttackDamageBonus() + 2;
+        this.projectileDamageIn = attackDamageIn + tier.getAttackDamageBonus() + 3;
         this.itemProperties = itemProperties;
     }
     public AbstractSpearBuilder<T> setThrowable(boolean throwable){

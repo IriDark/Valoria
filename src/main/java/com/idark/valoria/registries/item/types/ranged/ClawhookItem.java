@@ -1,6 +1,5 @@
 package com.idark.valoria.registries.item.types.ranged;
 
-import com.idark.valoria.*;
 import com.idark.valoria.registries.entity.projectile.*;
 import net.minecraft.*;
 import net.minecraft.network.chat.*;
@@ -10,15 +9,13 @@ import net.minecraft.util.*;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.*;
-import net.minecraft.world.inventory.tooltip.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import org.jetbrains.annotations.*;
-import pro.komaru.tridot.common.registry.item.*;
-import pro.komaru.tridot.common.registry.item.components.*;
-import pro.komaru.tridot.util.struct.data.*;
 
-public class ClawhookItem extends Item implements TooltipComponentItem{
+import java.util.*;
+
+public class ClawhookItem extends Item{
     public ClawhookItem(Properties pProperties){
         super(pProperties);
     }
@@ -47,11 +44,10 @@ public class ClawhookItem extends Item implements TooltipComponentItem{
         return claw;
     }
 
-    public Seq<TooltipComponent> getTooltips(ItemStack pStack) {
-        return Seq.with(
-        new SeparatorComponent(Component.translatable("tooltip.valoria.abilities")),
-        new AbilityComponent(Component.translatable("tooltip.valoria.claw_hook").withStyle(ChatFormatting.GRAY), Valoria.loc("textures/item/crab_claw.png"))
-        );
+    @Override
+    public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced){
+        super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
+        pTooltipComponents.add(Component.translatable("tooltip.valoria.claw_hook").withStyle(ChatFormatting.GRAY));
     }
 
     @Override

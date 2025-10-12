@@ -67,7 +67,7 @@ public class SpearItem extends SwordItem implements Vanishable{
         super(tier, (int)attackDamageIn, attackSpeedIn, builderIn);
         this.attackDamage = attackDamageIn + tier.getAttackDamageBonus();
         this.attackSpeed = attackSpeedIn;
-        this.projectileDamage = attackDamageIn + tier.getAttackDamageBonus() + 2;
+        this.projectileDamage = attackDamageIn + tier.getAttackDamageBonus() + 3;
         this.effects = ImmutableList.copyOf(pEffects);
         throwable = true;
     }
@@ -81,7 +81,7 @@ public class SpearItem extends SwordItem implements Vanishable{
         super(tier, (int)attackDamageIn, attackSpeedIn, builderIn);
         this.attackDamage = attackDamageIn + tier.getAttackDamageBonus();
         this.attackSpeed = attackSpeedIn;
-        this.projectileDamage = attackDamageIn + tier.getAttackDamageBonus() + 2;
+        this.projectileDamage = attackDamageIn + tier.getAttackDamageBonus() + 3;
         this.effects = ImmutableList.copyOf(pEffects);
         this.chance = pChance;
         throwable = true;

@@ -404,14 +404,14 @@ public class ItemsRegistry{
         dreadAxe = registerItem("dread_axe", () -> new AxeItem(ItemTierRegistry.HALLOWEEN, 6.5f, -2.8f, new Item.Properties().rarity(RarityRegistry.HALLOWEEN)));
         soulReaver = registerItem("soul_reaver", () -> new HitEffectItem(ItemTierRegistry.HALLOWEEN, 4, -2.8f, new Item.Properties().rarity(RarityRegistry.HALLOWEEN), 0.25f, new MobEffectInstance(MobEffects.DARKNESS, 40, 0), new MobEffectInstance(MobEffects.WEAKNESS, 60, 1)));
         spectralBladeThrown = registerItem("spectral_blade_thrown"); // for rendering
-        woodenSpear = registerItem("wooden_spear", () -> new SpearItem(Tiers.WOOD, 3, -3f, new Item.Properties()));
-        stoneSpear = registerItem("stone_spear", () -> new SpearItem(Tiers.STONE, 3, -3f, new Item.Properties()));
-        ironSpear = registerItem("iron_spear", () -> new SpearItem(Tiers.IRON, 4, -3f, new Item.Properties()));
-        goldenSpear = registerItem("golden_spear", () -> new SpearItem(Tiers.GOLD, 5, -2.9f, new Item.Properties()));
-        diamondSpear = registerItem("diamond_spear", () -> new SpearItem(Tiers.DIAMOND, 5, -2.9f, new Item.Properties()));
-        netheriteSpear = registerItem("netherite_spear", () -> new SpearItem(Tiers.NETHERITE, 5, -2.9f, new Item.Properties()));
-        pyratiteSpear = registerItem("pyratite_spear", () -> new SpearItem(ItemTierRegistry.PYRATITE, 5, -2.9f, new Item.Properties().rarity(RarityRegistry.INFERNAL)));
-        glaive = registerItem("glaive", () -> new GlaiveItem.Builder(10, -3.2f, new Item.Properties()).setCooldownTime(5, 50).setAttackRadius(2).build());
+        woodenSpear = registerItem("wooden_spear", () -> new SpearItem(Tiers.WOOD, ToolStats.spear.damage, ToolStats.spear.speed, new Item.Properties()));
+        stoneSpear = registerItem("stone_spear", () -> new SpearItem(Tiers.STONE, ToolStats.spear.damage, ToolStats.spear.speed, new Item.Properties()));
+        ironSpear = registerItem("iron_spear", () -> new SpearItem(Tiers.IRON, ToolStats.spear.damage, ToolStats.spear.speed, new Item.Properties()));
+        goldenSpear = registerItem("golden_spear", () -> new SpearItem(Tiers.GOLD, ToolStats.spear.damage, ToolStats.spear.speed, new Item.Properties()));
+        diamondSpear = registerItem("diamond_spear", () -> new SpearItem(Tiers.DIAMOND, ToolStats.spear.damage, ToolStats.spear.speed, new Item.Properties()));
+        netheriteSpear = registerItem("netherite_spear", () -> new SpearItem(Tiers.NETHERITE, ToolStats.spear.damage, ToolStats.spear.speed, new Item.Properties()));
+        pyratiteSpear = registerItem("pyratite_spear", () -> new SpearItem(ItemTierRegistry.PYRATITE, ToolStats.spear.damage, ToolStats.spear.speed, new Item.Properties().rarity(RarityRegistry.INFERNAL)));
+        glaive = registerItem("glaive", () -> new GlaiveItem.Builder(9, -3.2f, new Item.Properties()).setCooldownTime(5, 50).setAttackRadius(2).build());
         woodenRapier = registerItem("wooden_rapier", () -> new SwordItem(Tiers.WOOD, 0, -1.8f, new Item.Properties()));
         stoneRapier = registerItem("stone_rapier", () -> new SwordItem(Tiers.STONE, 0, -1.8f, new Item.Properties()));
         ironRapier = registerItem("iron_rapier", () -> new SwordItem(Tiers.IRON, 1, -1.7f, new Item.Properties()));
@@ -461,8 +461,8 @@ public class ItemsRegistry{
         crimtaneHoe = registerItem("crimtane_hoe", () -> new HoeItem(ItemTierRegistry.BLOOD, (int)(ToolStats.hoe.damage), ToolStats.hoe.speed, new Item.Properties().rarity(RarityRegistry.BLOODY)));
         crimtaneMultiTool = registerItem("crimtane_multi_tool", () -> new ValoriaMultiTool(ItemTierRegistry.BLOOD, ToolStats.multiTool.damage, ToolStats.multiTool.speed, new Item.Properties().rarity(RarityRegistry.BLOODY)));
         meatCutter = registerItem("meatcutter", () -> new Builder(ToolStats.katana.damage, ToolStats.katana.speed, new Properties().rarity(RarityRegistry.BLOODY)).setDashDistance(1f).setEffects(0.25f, new MobEffectInstance(EffectsRegistry.BLEEDING.get(), 120, 0)).build());
-        corpseCleaver = registerItem("corpsecleaver", () -> new CorpseCleaverItem(ItemTierRegistry.BLOOD, 2, -2.4F, new Item.Properties().durability(1151).rarity(RarityRegistry.BLOODY)));
-        boneShuriken = registerItem("bone_shuriken", () -> new ShurikenItem(8, new Item.Properties().rarity(RarityRegistry.BLOODY)));
+        corpseCleaver = registerItem("corpsecleaver", () -> new CorpseCleaverItem(ItemTierRegistry.BLOOD, 2, -2.4F, new Item.Properties().durability(1600).rarity(RarityRegistry.BLOODY)));
+        boneShuriken = registerItem("bone_shuriken", () -> new ShurikenItem(12, new Item.Properties().rarity(RarityRegistry.BLOODY), new MobEffectInstance(EffectsRegistry.BLEEDING.get(), 120, 2)));
 
         jadeSword = registerItem("jade_sword", () -> new ValoriaSword(ItemTierRegistry.JADE, ToolStats.large_sword.damage, ToolStats.large_sword.speed, new Item.Properties()));
         jadeKatana = registerItem("jade_katana", () -> new KatanaItem.Builder(ToolStats.katana.damage, ToolStats.katana.speed, new Item.Properties()).setTier(ItemTierRegistry.JADE).setDashDistance(1.25f).build());
@@ -1074,7 +1074,6 @@ public class ItemsRegistry{
                 double dashDistance = getDashDistance(player);
                 Vec3 dir = (player.getViewVector(0.0f).scale(dashDistance));
                 player.push(dir.x, dir.y * 0.25, dir.z);
-                double ii = 1D;
                 if(level instanceof ServerLevel srv){
                     for(int i = 0; i < 10; i += 1){
                         double locDistance = i * 0.5D;
@@ -1092,15 +1091,13 @@ public class ItemsRegistry{
                         List<LivingEntity> detectedEntities = level.getEntitiesOfClass(LivingEntity.class, new AABB(pos.x + X - 0.5D, pos.y + Y - 0.5D, pos.z + Z - 0.5D, pos.x + X + 0.5D, pos.y + Y + 0.5D, pos.z + Z + 0.5D));
                         for(LivingEntity entity : detectedEntities){
                             if(!entity.equals(player)){
-                                entity.hurt(level.damageSources().playerAttack(player), (float)((player.getAttributeValue(Attributes.ATTACK_DAMAGE) * ii) + EnchantmentHelper.getSweepingDamageRatio(player) + EnchantmentHelper.getDamageBonus(stack, entity.getMobType())) * 1.35f);
+                                entity.hurt(level.damageSources().playerAttack(player), (float)(((player.getAttributeValue(Attributes.ATTACK_DAMAGE) / 2) + getHurtAmount(detectedEntities)) + EnchantmentHelper.getSweepingDamageRatio(player) + EnchantmentHelper.getDamageBonus(stack, entity.getMobType())) * 1.35f);
                                 performEffects(entity, player);
                                 Utils.Entities.applyWithChance(entity, builder.effects, builder.chance, arcRandom);
                                 if(!player.isCreative()){
-                                    stack.hurtAndBreak(getHurtAmount(detectedEntities), player, (plr) -> plr.broadcastBreakEvent(EquipmentSlot.MAINHAND));
+                                    stack.hurtAndBreak(5 + getHurtAmount(detectedEntities), player, (plr) -> plr.broadcastBreakEvent(EquipmentSlot.MAINHAND));
                                 }
                             }
-
-                            ii = ii - (1F / (detectedEntities.size() * 2));
                         }
 
                         if(locDistance >= distance(dashDistance, level, player)){

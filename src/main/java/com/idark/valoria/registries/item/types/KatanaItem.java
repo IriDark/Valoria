@@ -154,7 +154,7 @@ public class KatanaItem extends SwordItem implements CooldownNotifyItem, DashIte
     }
 
     public int getHurtAmount(List<LivingEntity> detectedEntities){
-        return 5 + detectedEntities.size();
+        return detectedEntities.size();
     }
 
     public void performEffects(LivingEntity targets, Player player){
@@ -170,7 +170,6 @@ public class KatanaItem extends SwordItem implements CooldownNotifyItem, DashIte
         double yaw = ((player.getRotationVector().y + 90) * Math.PI) / 180;
         double dashDistance = getDashDistance(player);
         performDash(player, stack, dashDistance);
-        double ii = 1D;
         if(level instanceof ServerLevel srv){
             if(!builder.usePacket){
                 for(int i = 0; i < 10; i += 1){
@@ -183,15 +182,13 @@ public class KatanaItem extends SwordItem implements CooldownNotifyItem, DashIte
                     List<LivingEntity> detectedEntities = level.getEntitiesOfClass(LivingEntity.class, new AABB(pos.x + X - 0.5D, pos.y + Y - 0.5D, pos.z + Z - 0.5D, pos.x + X + 0.5D, pos.y + Y + 0.5D, pos.z + Z + 0.5D));
                     for(LivingEntity entity : detectedEntities){
                         if(!entity.equals(player)){
-                            entity.hurt(level.damageSources().playerAttack(player), (float)((player.getAttributeValue(Attributes.ATTACK_DAMAGE) * ii) + EnchantmentHelper.getSweepingDamageRatio(player) + EnchantmentHelper.getDamageBonus(stack, entity.getMobType())) * 1.35f);
+                            entity.hurt(level.damageSources().playerAttack(player), (float)(((player.getAttributeValue(Attributes.ATTACK_DAMAGE) / 2) + getHurtAmount(detectedEntities)) + EnchantmentHelper.getSweepingDamageRatio(player) + EnchantmentHelper.getDamageBonus(stack, entity.getMobType())) * 1.35f);
                             performEffects(entity, player);
                             Utils.Entities.applyWithChance(entity, builder.effects, builder.chance, arcRandom);
                             if(!player.isCreative()){
-                                stack.hurtAndBreak(getHurtAmount(detectedEntities), player, (plr) -> plr.broadcastBreakEvent(EquipmentSlot.MAINHAND));
+                                stack.hurtAndBreak(5 + getHurtAmount(detectedEntities), player, (plr) -> plr.broadcastBreakEvent(EquipmentSlot.MAINHAND));
                             }
                         }
-
-                        ii = ii - (1D / (detectedEntities.size() * 2));
                     }
 
                     if(locDistance >= distance(dashDistance, level, player)){

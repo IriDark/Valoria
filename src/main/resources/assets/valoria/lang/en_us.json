@@ -1194,7 +1194,7 @@
   "subtitles.valoria.spectral_blade.disappear": "Spectral Blade Disappeared",
   "tooltip.valoria.shuriken": "Can be thrown at your enemy",
   "tooltip.valoria.spectral_blade": "Can be thrown at your enemy, recharges after some period of time",
-  "tooltip.valoria.corpsecleaver": "Throws a meat chunk at enemies using your health. Heals on hit.",
+  "tooltip.valoria.corpsecleaver": "Consumes 2 ❤ to launch a Meat chunk, when successfully hit restores attacker health that equals 50% of dealt damage",
   "tooltip.valoria.coral_reef": "Throws your enemies away from you on use",
   "tooltip.valoria.pyratite_spear": "Creates explosive shards on hit",
   "tooltip.valoria.pyratite_armor": "Grants explosion immunity on full set",

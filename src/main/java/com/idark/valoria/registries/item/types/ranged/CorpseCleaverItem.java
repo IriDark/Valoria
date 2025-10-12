@@ -9,20 +9,25 @@ import net.minecraft.network.chat.*;
 import net.minecraft.sounds.*;
 import net.minecraft.stats.*;
 import net.minecraft.world.*;
+import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.player.*;
+import net.minecraft.world.inventory.tooltip.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import org.jetbrains.annotations.*;
+import pro.komaru.tridot.api.*;
 import pro.komaru.tridot.client.render.gui.overlay.*;
 import pro.komaru.tridot.common.registry.item.*;
+import pro.komaru.tridot.common.registry.item.components.*;
+import pro.komaru.tridot.util.struct.data.*;
 
 import java.util.*;
 
 import static pro.komaru.tridot.Tridot.BASE_PROJECTILE_DAMAGE_UUID;
 
-public class CorpseCleaverItem extends SwordItem{
+public class CorpseCleaverItem extends SwordItem implements TooltipComponentItem{
     private final Multimap<Attribute, AttributeModifier> pAttributes;
 
     public CorpseCleaverItem(Tier pTier, int pAttackDamageModifier, float pAttackSpeedModifier, Item.Properties pProperties){
@@ -30,7 +35,7 @@ public class CorpseCleaverItem extends SwordItem{
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
         float attackDamage = (float)pAttackDamageModifier + pTier.getAttackDamageBonus();
         builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Weapon modifier", attackDamage, AttributeModifier.Operation.ADDITION));
-        builder.put(AttributeRegistry.PROJECTILE_DAMAGE.get(), new AttributeModifier(BASE_PROJECTILE_DAMAGE_UUID, "Tool modifier", 5.0F, AttributeModifier.Operation.ADDITION));
+        builder.put(AttributeRegistry.PROJECTILE_DAMAGE.get(), new AttributeModifier(BASE_PROJECTILE_DAMAGE_UUID, "Tool modifier", attackDamage + 2, AttributeModifier.Operation.ADDITION));
         builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Weapon modifier", pAttackSpeedModifier, AttributeModifier.Operation.ADDITION));
         this.pAttributes = builder.build();
     }
@@ -80,13 +85,22 @@ public class CorpseCleaverItem extends SwordItem{
         return InteractionResultHolder.pass(itemstack);
     }
 
+    public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot equipmentSlot){
+        return equipmentSlot == EquipmentSlot.MAINHAND ? this.pAttributes : super.getDefaultAttributeModifiers(equipmentSlot);
+    }
+
     @Override
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced){
         super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
-        pTooltipComponents.add(Component.translatable("tooltip.valoria.corpsecleaver").withStyle(ChatFormatting.GRAY));
+        Utils.Items.effectTargetTooltip(ImmutableList.of(new MobEffectInstance(EffectsRegistry.BLEEDING.get(), 120, 1)), pTooltipComponents, 1, 1);
     }
 
-    public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot equipmentSlot){
-        return equipmentSlot == EquipmentSlot.MAINHAND ? this.pAttributes : super.getDefaultAttributeModifiers(equipmentSlot);
+    @Override
+    public Seq<TooltipComponent> getTooltips(ItemStack pStack){
+        return Seq.with(
+        new SeparatorComponent(Component.translatable("tooltip.valoria.abilities")),
+        new AbilityComponent(Component.translatable("tooltip.valoria.corpsecleaver").withStyle(ChatFormatting.GRAY), Valoria.loc("textures/gui/tooltips/corpsecleaver.png")),
+        new TextComponent(Component.translatable("tooltip.valoria.hold_rmb").withStyle(style -> style.withFont(Valoria.FONT)))
+        );
     }
 }

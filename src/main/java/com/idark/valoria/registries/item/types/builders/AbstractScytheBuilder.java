@@ -23,8 +23,8 @@ public abstract class AbstractScytheBuilder<T extends ScytheItem>{
     public int useTime = 7;
     public int attackUsages = 1;
     public int attackDelay = 5;
-    public int minCooldownTime = 15;
-    public int cooldownTime = 75;
+    public int minCooldownTime = 10;
+    public int cooldownTime = 60;
     public float attackRadius = 3;
     public float screenShakeIntensity = 0.35f;
     public int screenShakeDuration = 4;

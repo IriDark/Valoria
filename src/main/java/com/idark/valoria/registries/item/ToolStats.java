@@ -3,10 +3,11 @@ package com.idark.valoria.registries.item;
 public class ToolStats{
     public static ToolStats
     sword = new ToolStats(3, -2.4F),
+    throwable = new ToolStats(3, -2.4F),
     large_sword = new ToolStats(3, -2.8F),
-    scythe = new ToolStats(6, -3.5F),
-    spear = new ToolStats(4, -3.2F),
-    katana = new ToolStats(2, -2F),
+    scythe = new ToolStats(7, -3.25F),
+    spear = new ToolStats(2, -3.0F),
+    katana = new ToolStats(1, -2F),
     pickaxe = new ToolStats(-1, -2.8F),
     axe = new ToolStats(4, -3.0F),
     shovel = new ToolStats(1, -3.0F),

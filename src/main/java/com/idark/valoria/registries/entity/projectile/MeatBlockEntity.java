@@ -6,6 +6,7 @@ import net.minecraft.nbt.*;
 import net.minecraft.sounds.*;
 import net.minecraft.util.*;
 import net.minecraft.world.damagesource.*;
+import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.entity.projectile.*;
@@ -97,7 +98,7 @@ public class MeatBlockEntity extends AbstractArrow{
             }
 
             DamageSource damagesource = new DamageSource(DamageSourceRegistry.bleeding(this.level()).typeHolder(), this, shooter);
-            player.heal(totalDamage * 0.75f);
+            player.heal(totalDamage * 0.5f);
             this.dealtDamage = true;
             if(entity.hurt(damagesource, totalDamage)){
                 if(entity.getType() == EntityType.ENDERMAN){
@@ -107,6 +108,7 @@ public class MeatBlockEntity extends AbstractArrow{
                 if(entity instanceof LivingEntity living){
                     EnchantmentHelper.doPostHurtEffects(living, shooter);
                     EnchantmentHelper.doPostDamageEffects(player, living);
+                    living.addEffect(new MobEffectInstance(EffectsRegistry.BLEEDING.get(), 120, 1));
                     this.doPostHurtEffects(living);
                 }
             }
