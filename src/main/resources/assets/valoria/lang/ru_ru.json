@@ -1220,6 +1220,7 @@
   "tooltip.valoria.coral_reef": "Отталкивает врагов при использовании",
   "tooltip.valoria.core": "Используется для подзарядки Манипулятора Стихий",
   "tooltip.valoria.core_charges": "Зарядов",
+  "tooltip.valoria.corpsecleaver": "Consumes 2 ❤ to launch a Meat chunk, when successfully hit restores attacker health that equals 50% of dealt damage",
   "tooltip.valoria.crit": "Шанс %s атаковать противника критическим ударом",
   "tooltip.valoria.crossbow.speed": "Время зарядки: %s",
   "tooltip.valoria.curses": "Накладывает один случайный эффект.",

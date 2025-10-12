@@ -1234,6 +1234,7 @@
   "tooltip.valoria.coral_reef": "Throws your enemy away from you on use",
   "tooltip.valoria.core": "Używany do ładowania Manipulatora mocą żywiołów",
   "tooltip.valoria.core_charges": "Ładunki",
+  "tooltip.valoria.corpsecleaver": "Consumes 2 ❤ to launch a Meat chunk, when successfully hit restores attacker health that equals 50% of dealt damage",
   "tooltip.valoria.crit": "%s szansy na trafienie celu krytycznymi obrażeniami",
   "tooltip.valoria.crossbow.speed": "Charging time: %s",
   "tooltip.valoria.curses": "Nadaje losowe efekty.",
