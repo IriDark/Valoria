@@ -1,6 +1,7 @@
 package com.idark.valoria.core.config;
 
 import net.minecraftforge.common.*;
+import net.minecraftforge.common.ForgeConfigSpec.*;
 import org.apache.commons.lang3.tuple.*;
 
 public class CommonConfig{
@@ -22,7 +23,7 @@ public class CommonConfig{
     TARGET_HEAL_NECROMANCER_AMOUNT, SELF_HEAL_NECROMANCER_AMOUNT;
 
     public static ForgeConfigSpec.ConfigValue<Boolean>
-    VANILLA_SHIELD_MODIFY;
+    VANILLA_SHIELD_MODIFY, FOOD_ROT;
 
     static{
         final Pair<CommonConfig, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(CommonConfig::new);
@@ -34,9 +35,17 @@ public class CommonConfig{
     public static final ForgeConfigSpec SPEC;
 
     public CommonConfig(ForgeConfigSpec.Builder builder){
-        builder.comment("Vanilla changes").push("vanilla_changes");
-            VANILLA_SHIELD_MODIFY = builder.comment("Modified Vanilla Shield (Uses Valoria properties, Default: true)").define("modifiedVanillaShield", true);
+        builder.comment("Gameplay").push("vanilla_changes");
+            FOOD_ROT = builder.comment("Food spoiling on entering Valoria dimension, Default: true)").define("foodRot", true);
+            setupBosses(builder);
+            builder.comment("Vanilla changes").push("vanilla_changes");
+                VANILLA_SHIELD_MODIFY = builder.comment("Modified Vanilla Shield (Uses Valoria properties, Default: true)").define("modifiedVanillaShield", true);
+            builder.pop();
+
         builder.pop();
+    }
+
+    private void setupBosses(Builder builder){
         builder.comment("Bosses").push("bosses");
             builder.comment("Necromancer").push("necromancer");
             ATTACK_NECROMANCER_CASTING_TIME = builder.comment("Casting time").define("devourerCastingTime", 40);

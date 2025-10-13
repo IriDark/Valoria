@@ -87,7 +87,6 @@ public class Valoria{
 
     public static final GameRules.Key<GameRules.BooleanValue> DISABLE_BLOCK_BREAKING = GameRules.register("valoria:disableBossDungeonGriefing", Category.PLAYER, GameRules.BooleanValue.create(true));
     public static final GameRules.Key<GameRules.BooleanValue> TRAP_ACTIVATING = GameRules.register("valoria:trapActivating", Category.MISC, GameRules.BooleanValue.create(true));
-    public static final GameRules.Key<GameRules.BooleanValue> FOOD_ROT = GameRules.register("valoria:foodRot", Category.PLAYER, GameRules.BooleanValue.create(true));
 
     public Valoria(){
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();

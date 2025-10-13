@@ -7,6 +7,7 @@ import com.idark.valoria.api.unlockable.types.*;
 import com.idark.valoria.client.ui.screen.book.codex.*;
 import com.idark.valoria.client.ui.screen.book.codex.checklist.*;
 import com.idark.valoria.core.capability.*;
+import com.idark.valoria.core.config.*;
 import com.idark.valoria.core.interfaces.*;
 import com.idark.valoria.core.network.*;
 import com.idark.valoria.core.network.packets.*;
@@ -243,7 +244,7 @@ public class Events{
     @SubscribeEvent
     public void onDimensionChange(PlayerEvent.PlayerChangedDimensionEvent event) {
         Player player = event.getEntity();
-        if(player.level().getGameRules().getBoolean(Valoria.FOOD_ROT)){
+        if(CommonConfig.FOOD_ROT.get()){
             if(event.getTo() == LevelGen.VALORIA_KEY){
                 player.displayClientMessage(Component.translatable("tooltip.valoria.nihility").withStyle(DotStyle.of().effects(WaveFX.of(0.25f, 0.1f), OutlineFX.of(Pal.amethyst, true))), true);
                 for(int i = 0; i < player.getInventory().getContainerSize(); i++){
