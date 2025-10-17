@@ -23,7 +23,6 @@ import com.idark.valoria.registries.item.*;
 import com.idark.valoria.registries.item.recipe.*;
 import com.idark.valoria.registries.item.skins.*;
 import com.idark.valoria.registries.item.types.curio.charm.rune.*;
-import com.idark.valoria.registries.item.types.shield.*;
 import com.idark.valoria.registries.level.*;
 import com.idark.valoria.util.*;
 import com.mojang.logging.*;
@@ -53,13 +52,11 @@ import net.minecraftforge.fml.config.ModConfig.Type;
 import net.minecraftforge.fml.event.lifecycle.*;
 import net.minecraftforge.fml.javafmlmod.*;
 import net.minecraftforge.fml.loading.*;
-import net.minecraftforge.registries.*;
 import org.slf4j.*;
 import pro.komaru.tridot.common.registry.item.skins.*;
 import top.theillusivec4.curios.api.client.*;
 
 import java.util.*;
-import java.util.function.*;
 
 import static com.idark.valoria.registries.EntityStatsRegistry.*;
 
@@ -301,15 +298,6 @@ public class Valoria{
 
     @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
     public static class RegistryEvents{
-
-        @SubscribeEvent
-        public static void onRegister(RegisterEvent event) {
-            registerVanillaItem(event, "shield", () -> new ValoriaShieldItem(35f, new Item.Properties().durability(336)));
-        }
-
-        private static void registerVanillaItem(RegisterEvent event, String name, Supplier<Item> item) {
-            event.register(ForgeRegistries.ITEMS.getRegistryKey(), new ResourceLocation("minecraft", name), item);
-        }
 
         @SubscribeEvent
         public static void registerCaps(RegisterCapabilitiesEvent event){

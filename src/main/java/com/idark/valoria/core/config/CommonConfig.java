@@ -23,7 +23,7 @@ public class CommonConfig{
     TARGET_HEAL_NECROMANCER_AMOUNT, SELF_HEAL_NECROMANCER_AMOUNT;
 
     public static ForgeConfigSpec.ConfigValue<Boolean>
-    VANILLA_SHIELD_MODIFY, FOOD_ROT;
+    FOOD_ROT;
 
     static{
         final Pair<CommonConfig, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(CommonConfig::new);
@@ -38,10 +38,6 @@ public class CommonConfig{
         builder.comment("Gameplay").push("vanilla_changes");
             FOOD_ROT = builder.comment("Food spoiling on entering Valoria dimension, Default: true)").define("foodRot", true);
             setupBosses(builder);
-            builder.comment("Vanilla changes").push("vanilla_changes");
-                VANILLA_SHIELD_MODIFY = builder.comment("Modified Vanilla Shield (Uses Valoria properties, Default: true)").define("modifiedVanillaShield", true);
-            builder.pop();
-
         builder.pop();
     }
 
