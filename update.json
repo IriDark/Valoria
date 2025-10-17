@@ -1,10 +1,11 @@
 {
   "homepage": "https://github.com/IriDark/Valoria/",
   "promos": {
-    "1.20.1-latest": "1.20.1-1.0",
-    "1.20.1-recommended": "1.20.1-1.0"
+    "1.20.1-latest": "1.20.1-1.0.1",
+    "1.20.1-recommended": "1.20.1-1.0.1"
   },
   "1.20.1": {
+    "1.20.1-1.0.1": "Fixes, balance changes, new command, config changes",
     "1.20.1-1.0": "Playable Release",
     "1.20.1-0.9.9.1": "Hotfix",
     "1.20.1-0.9.9": "Various Qol changes",
