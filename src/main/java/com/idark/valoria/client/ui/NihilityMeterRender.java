@@ -40,8 +40,8 @@ public class NihilityMeterRender extends Gui{
         GuiGraphics gui = event.getGuiGraphics();
         Player player = Minecraft.getInstance().player;
         if(player == null || !ValoriaUtils.isEquippedCurio(m -> m.is(ItemsRegistry.nihilityMonitor.get()), player)) return;
-        Minecraft.getInstance().player.getCapability(INihilityLevel.INSTANCE).ifPresent((n) -> {
-            float clientAmount = n.getAmount(false);
+        player.getCapability(INihilityLevel.INSTANCE).ifPresent((n) -> {
+            float clientAmount = n.getAmount();
             boolean alwaysShown = ClientConfig.NIHILITY_METER_ALWAYS_VISIBLE.get() || clientAmount > 0;
             if(alwaysShown){
                 actualPreviousAmount = previousAmount;
@@ -64,7 +64,7 @@ public class NihilityMeterRender extends Gui{
                 }
             }
 
-            render(gui, n.getMaxAmount(player, false), clientAmount);
+            render(gui, n.getMaxAmount(player), clientAmount);
         });
     }
 

@@ -28,7 +28,7 @@ public class GasMaskItem extends Item implements ICurioItem, Vanishable{
         if(wearer instanceof Player player){
             if(player.isCreative()) return;
             player.getCapability(INihilityLevel.INSTANCE).ifPresent((nihilityLevel) -> {
-                if(nihilityLevel.getAmount(false) > 0) {
+                if(nihilityLevel.getAmount() > 0) {
                     if(slotContext.entity().tickCount % 160 == 0){
                         if(Tmp.rnd.chance(0.75f)) stack.hurtAndBreak(Tmp.rnd.nextInt(1, 4), slotContext.entity(), (plr) -> plr.broadcastBreakEvent(EquipmentSlot.HEAD));
                     }

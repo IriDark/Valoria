@@ -6,26 +6,29 @@ import com.idark.valoria.registries.*;
 import net.minecraft.nbt.*;
 import net.minecraft.server.level.*;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.player.*;
 import net.minecraftforge.common.util.*;
 
 import javax.annotation.*;
 
 public class NihilityLevelProvider implements INihilityLevel, INBTSerializable<CompoundTag>{
-    public static float clientMax, clientAmount;
     public float nihilityAmount = 0;
+    private float maxNihilityAmount = 100f;
 
     public void modifyAmount(@Nullable LivingEntity entity, float amount) {
-        setAmount(entity, this.nihilityAmount + amount);
+        setAmountFromServer(entity, this.nihilityAmount + amount);
     }
 
-    public void decrease(Player player, float amount) {
+    public void decrease(LivingEntity player, float amount) {
         modifyAmount(player, -amount);
     }
 
     @Override
-    public void setAmount(@Nullable LivingEntity entity, float amount) {
-        float max = getMaxAmount(entity, false);
+    public void setAmount(float amount) {
+        this.nihilityAmount = Math.max(Math.min(amount, this.maxNihilityAmount), 0F);
+    }
+
+    public void setAmountFromServer(@Nullable LivingEntity entity, float amount) {
+        float max = getMaxAmount(entity);
         if (amount > max) {
             this.nihilityAmount = max;
         } else {
@@ -36,18 +39,21 @@ public class NihilityLevelProvider implements INihilityLevel, INBTSerializable<C
     }
 
     @Override
-    public float getAmount(boolean clientSide) {
-        if(clientSide) return clientAmount;
+    public float getAmount() {
         return this.nihilityAmount;
     }
 
-    public float getMaxAmount(@Nullable LivingEntity entity, boolean clientSide) {
-        if (clientSide) return clientMax;
+    @Override
+    public void setMaxAmount(float max) {
+        this.maxNihilityAmount = max;
+    }
+
+    public float getMaxAmount(@Nullable LivingEntity entity) {
         if (entity != null && entity.getAttribute(AttributeReg.MAX_NIHILITY.get()) != null) {
             return (float) entity.getAttributeValue(AttributeReg.MAX_NIHILITY.get());
         }
 
-        return 100f;
+        return this.maxNihilityAmount;
     }
 
     private void sendDataToClient(@Nullable LivingEntity entity) {

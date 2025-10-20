@@ -74,8 +74,8 @@ public class NihilityMonitorItem extends AbstractCurioItem implements TooltipCom
         if(wearer instanceof Player player){
             if(!getState(stack)) return;
             player.getCapability(INihilityLevel.INSTANCE).ifPresent((nihilityLevel) -> {
-                float max = nihilityLevel.getMaxAmount(player, false);
-                float amount = nihilityLevel.getAmount(false);
+                float max = nihilityLevel.getMaxAmount(player);
+                float amount = nihilityLevel.getAmount();
                 float ratio = amount / max;
                 if(ratio >= NihilityMeter.damagingLevel) {
                     if(player.tickCount % (ratio >= NihilityMeter.criticalLevel ? 15 : 30) == 0){

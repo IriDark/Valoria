@@ -237,7 +237,7 @@ public class Events{
     public void onRespawn(PlayerRespawnEvent ev) {
         Player player = ev.getEntity();
         player.getCapability(INihilityLevel.INSTANCE).ifPresent(nihilityLevel -> {
-            nihilityLevel.setAmount(player, 0);
+            nihilityLevel.setAmountFromServer(player, 0);
         });
     }
 

@@ -13,13 +13,13 @@ public class NihilityMeter{
     public static float criticalLevel = 0.75f;
 
     public static void tick(PlayerTickEvent event, INihilityLevel nihilityLevel, Player player){
-        float max = nihilityLevel.getMaxAmount(player, false);
-        float amount = nihilityLevel.getAmount(false);
+        float max = nihilityLevel.getMaxAmount(player);
+        float amount = nihilityLevel.getAmount();
         if(player.level().dimension() == LevelGen.VALORIA_KEY){
             valoriaTick(nihilityLevel, player);
         }else{
             if(player.tickCount % 120 == 0 && amount > 0){
-                nihilityLevel.decrease(event.player, Tmp.rnd.nextInt(1, 5));
+                nihilityLevel.decrease(player, Tmp.rnd.nextInt(1, 5));
             }
         }
 

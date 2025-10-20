@@ -1,6 +1,8 @@
 package com.idark.valoria.core.network.packets;
 
 import com.idark.valoria.core.capability.*;
+import net.minecraft.client.*;
+import net.minecraft.client.player.*;
 import net.minecraft.network.*;
 import net.minecraft.world.entity.*;
 import net.minecraftforge.network.NetworkEvent.*;
@@ -17,8 +19,8 @@ public class NihilityPacket {
     }
 
     public NihilityPacket(INihilityLevel nihility, @Nullable LivingEntity entity) {
-        this.max = nihility.getMaxAmount(entity, false);
-        this.nihilityLevel = nihility.getAmount(false);
+        this.max = nihility.getMaxAmount(entity);
+        this.nihilityLevel = nihility.getAmount();
     }
 
     public static void encode(NihilityPacket object, FriendlyByteBuf buffer){
@@ -32,8 +34,12 @@ public class NihilityPacket {
 
     public void handle(Supplier<Context> ctx) {
         ctx.get().enqueueWork(() -> {
-            NihilityLevelProvider.clientMax = max;
-            NihilityLevelProvider.clientAmount = nihilityLevel;
+            LocalPlayer player = Minecraft.getInstance().player;
+            if(player == null) return;
+            player.getCapability(NihilityLevelProvider.INSTANCE).ifPresent(nihility -> {
+                nihility.setMaxAmount(this.max);
+                nihility.setAmount(this.nihilityLevel);
+            });
         });
 
         ctx.get().setPacketHandled(true);

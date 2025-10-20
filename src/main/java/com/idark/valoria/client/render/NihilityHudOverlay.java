@@ -43,8 +43,8 @@ public class NihilityHudOverlay implements IGuiOverlay{
         if (player == null) return;
         if (ClientConfig.ABILITY_OVERLAY.get()) {
             player.getCapability(NihilityLevelProvider.INSTANCE).ifPresent(nihility -> {
-                float max = nihility.getMaxAmount(player, true);
-                float amount = nihility.getAmount(true);
+                float max = nihility.getMaxAmount(player);
+                float amount = nihility.getAmount();
                 float alpha = getAlpha(amount, max);
                 renderOverlay(guiGraphics, alpha, screenWidth, screenHeight);
             });

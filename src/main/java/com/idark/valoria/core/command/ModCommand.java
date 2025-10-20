@@ -159,7 +159,7 @@ public class ModCommand{
                 command.sendSuccess(() -> Component.translatable("commands.valoria.nihility.set.multiple", amount, targetPlayers.size()), true);
             }
 
-            player.getCapability(INihilityLevel.INSTANCE).ifPresent(nihilityLevel -> nihilityLevel.setAmount(player, amount));
+            player.getCapability(INihilityLevel.INSTANCE).ifPresent(nihilityLevel -> nihilityLevel.setAmountFromServer(player, amount));
         }
     }
 
