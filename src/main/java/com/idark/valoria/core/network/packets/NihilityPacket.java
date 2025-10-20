@@ -1,7 +1,6 @@
 package com.idark.valoria.core.network.packets;
 
 import com.idark.valoria.core.capability.*;
-import com.idark.valoria.registries.level.*;
 import net.minecraft.network.*;
 import net.minecraft.world.entity.*;
 import net.minecraftforge.network.NetworkEvent.*;
@@ -33,7 +32,6 @@ public class NihilityPacket {
 
     public void handle(Supplier<Context> ctx) {
         ctx.get().enqueueWork(() -> {
-            NihilityMeter.instance.updateInstance(nihilityLevel, max);
             NihilityLevelProvider.clientMax = max;
             NihilityLevelProvider.clientAmount = nihilityLevel;
         });

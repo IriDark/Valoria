@@ -25,9 +25,9 @@ public class Styles{
     public static DotStyle nature = create(Pal.nature);
     public static DotStyle ethereal = create(Pal.ethereal).effects(GlintFX.of(1f));
     public static DotStyle nihility = create(Pal.softMagenta).effects(WaveFX.of(0.25f, 0.1f));
-    public static DotStyle halloween = create(Pal.mandarin).effects(WaveFX.of(0.5f));
+    public static DotStyle halloween = create(Pal.mandarin).effects(WaveFX.of(0.25f));
     public static DotStyle phantasm = create(Pal.softBlue).effects(PulseAlphaFX.of(0.75f));
     public static DotStyle arcaneGold = create(Pal.arcaneGold);
-    public static DotStyle spider = create(Pal.crystalBlue).effects(WaveFX.of(0.25f, 0.1f), AdvanceFX.of(0.15f));
+    public static DotStyle spider = create(Pal.crystalBlue).effects(WaveFX.of(0.15f, 0.1f), AdvanceFX.of(0.15f));
     public static DotStyle elemental = DotStyle.of().effects(RainbowFX.of(0.5f));
 }

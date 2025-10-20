@@ -85,6 +85,11 @@ public class ValoriaClient{
     public static class RegistryEvents{
 
         @SubscribeEvent
+        public static void registerGuiOverlays(RegisterGuiOverlaysEvent event) {
+            event.registerAboveAll("nihility", NihilityHudOverlay.instance);
+        }
+
+        @SubscribeEvent
         public static void registerComponents(RegisterClientTooltipComponentFactoriesEvent e) {
             e.register(MaterialListComponent.class, c -> MaterialListClientComponent.create(c.list()));
         }

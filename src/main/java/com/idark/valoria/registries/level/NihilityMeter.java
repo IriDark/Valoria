@@ -1,18 +1,16 @@
 package com.idark.valoria.registries.level;
 
-import com.idark.valoria.*;
 import com.idark.valoria.core.capability.*;
 import com.idark.valoria.registries.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraftforge.event.TickEvent.*;
-import pro.komaru.tridot.client.render.gui.overlay.*;
 import pro.komaru.tridot.util.*;
 
+//todo fix
 public class NihilityMeter{
     public static float damagingLevel = 0.5f;
     public static float criticalLevel = 0.75f;
-    public static final ClampedOverlayInstance instance = new ClampedOverlayInstance().setTexture(Valoria.loc("textures/gui/overlay/corruption.png"));
 
     public static void tick(PlayerTickEvent event, INihilityLevel nihilityLevel, Player player){
         float max = nihilityLevel.getMaxAmount(player, false);

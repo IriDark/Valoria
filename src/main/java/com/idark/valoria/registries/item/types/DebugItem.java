@@ -1,5 +1,6 @@
 package com.idark.valoria.registries.item.types;
 
+import com.idark.valoria.client.particle.*;
 import com.idark.valoria.client.ui.screen.book.codex.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.entity.projectile.*;
@@ -16,6 +17,7 @@ import net.minecraft.world.level.gameevent.*;
 import net.minecraft.world.phys.*;
 import net.minecraftforge.api.distmarker.*;
 import org.jetbrains.annotations.*;
+import pro.komaru.tridot.client.gfx.particle.*;
 
 /**
  * Used to debug some particle packets and other things
@@ -43,18 +45,26 @@ public class DebugItem extends Item{
     public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn){
         ItemStack itemstack = playerIn.getItemInHand(handIn);
         playerIn.startUsingItem(handIn);
+        Vec3 vector3d = playerIn.getViewVector(1.0F);
+        for (int i = 0; i < 12; i++) {
+            ParticleBuilder.create(ParticleRegistry.NIHILITY_FLAME.get()).repeat(worldIn, playerIn.blockPosition().getCenter().offsetRandom(worldIn.random, 4), 1);
+        }
 
         if(!worldIn.isClientSide()) {
-            AcidSpit spit = new AcidSpit(playerIn, worldIn);
-            spit.setVelocityBasedDamage(6);
-            spit.addEffect(new MobEffectInstance(MobEffects.POISON, 50, 0));
-            Vec3 vector3d = playerIn.getViewVector(1.0F);
-            spit.shoot(vector3d.x(), vector3d.y(), vector3d.z(), 3, 1);
-            playerIn.playSound(SoundEvents.LLAMA_SPIT);
-            worldIn.addFreshEntity(spit);
+
         }
 
         return InteractionResultHolder.consume(itemstack);
+    }
+
+    private static void scorpionSpit(Level worldIn, Player playerIn){
+        AcidSpit spit = new AcidSpit(playerIn, worldIn);
+        spit.setVelocityBasedDamage(6);
+        spit.addEffect(new MobEffectInstance(MobEffects.POISON, 50, 0));
+        Vec3 vector3d = playerIn.getViewVector(1.0F);
+        spit.shoot(vector3d.x(), vector3d.y(), vector3d.z(), 3, 1);
+        playerIn.playSound(SoundEvents.LLAMA_SPIT);
+        worldIn.addFreshEntity(spit);
     }
 
     @OnlyIn(Dist.CLIENT)
