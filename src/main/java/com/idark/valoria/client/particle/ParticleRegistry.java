@@ -18,6 +18,7 @@ public class ParticleRegistry{
     public static RegistryObject<GenericParticleType> FLESH = PARTICLES.register("flesh", GenericParticleType::new);
     public static RegistryObject<GenericParticleType> VALORIA_FOG = PARTICLES.register("valoria_fog", GenericParticleType::new);
     public static RegistryObject<GenericParticleType> ACID_SPIT = PARTICLES.register("acid_spit", GenericParticleType::new);
+    public static RegistryObject<GenericParticleType> NIHILITY_FLAME = PARTICLES.register("nihility_flame", GenericParticleType::new);
 
     public static RegistryObject<GenericParticleType> TRANSFORM_PARTICLE = PARTICLES.register("transform", GenericParticleType::new);
     public static RegistryObject<LeavesParticleType> SHADEWOOD_LEAF_PARTICLE = PARTICLES.register("shade_leaf", LeavesParticleType::new);
@@ -40,6 +41,7 @@ public class ParticleRegistry{
         event.registerSpriteSet(ParticleRegistry.GLITTER.get(), GenericParticleType.Factory::new);
         event.registerSpriteSet(ParticleRegistry.VALORIA_FOG.get(), GenericParticleType.Factory::new);
         event.registerSpriteSet(ParticleRegistry.ACID_SPIT.get(), GenericParticleType.Factory::new);
+        event.registerSpriteSet(ParticleRegistry.NIHILITY_FLAME.get(), GenericParticleType.Factory::new);
     }
 
     public static void register(IEventBus eventBus){
