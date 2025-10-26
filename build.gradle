@@ -54,11 +54,16 @@ minecraft {
             }
         }
 
-        client{
-            args "--username", "IriDark_"
+        client {
             property 'mixin.env.remapRefMap', 'true'
             property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
             property 'forge.enabledGameTestNamespaces', "valoria"
+        }
+
+        client1 {
+            parent runs.client
+
+            args "--username", "IriDark_"
         }
 
         server {

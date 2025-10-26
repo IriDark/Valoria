@@ -10,8 +10,7 @@ public class NihilityLevelCap implements ICapabilityProvider, INBTSerializable<C
 
     @Override
     public <T> LazyOptional<T> getCapability(Capability<T> cap, Direction side){
-        if(cap == INihilityLevel.INSTANCE) return (LazyOptional<T>)LazyOptional.of(() -> impl);
-        else return LazyOptional.empty();
+        return cap == INihilityLevel.INSTANCE ? (LazyOptional<T>) LazyOptional.of(() -> impl) : LazyOptional.empty();
     }
 
     @Override

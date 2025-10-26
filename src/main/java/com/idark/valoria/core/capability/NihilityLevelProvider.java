@@ -31,9 +31,7 @@ public class NihilityLevelProvider implements INihilityLevel, INBTSerializable<C
         float max = getMaxAmount(entity);
         if (amount > max) {
             this.nihilityAmount = max;
-        } else {
-            this.nihilityAmount = Math.max(amount, 0F);
-        }
+        } else this.nihilityAmount = Math.max(amount, 0F);
 
         sendDataToClient(entity);
     }
@@ -57,9 +55,8 @@ public class NihilityLevelProvider implements INihilityLevel, INBTSerializable<C
     }
 
     private void sendDataToClient(@Nullable LivingEntity entity) {
-        if (entity instanceof ServerPlayer player) {
-            PacketHandler.sendToTracking(player.level(), player.blockPosition(), new NihilityPacket(this, player));
-        }
+        if (entity == null || !(entity instanceof ServerPlayer player)) return;
+        PacketHandler.sendTo(player, new NihilityPacket(this, player));
     }
 
     @Override

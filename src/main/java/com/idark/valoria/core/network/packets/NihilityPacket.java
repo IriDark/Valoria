@@ -13,6 +13,7 @@ import java.util.function.*;
 public class NihilityPacket {
     private final float max;
     private final float nihilityLevel;
+
     public NihilityPacket(float max, float amount){
         this.max = max;
         this.nihilityLevel = amount;

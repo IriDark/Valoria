@@ -21,6 +21,7 @@ public final class PacketHandler{
             PROTOCOL::equals,
             PROTOCOL::equals
     );
+
     private static final PacketDistributor<Pair<Level, BlockPos>> TRACKING_CHUNK_AND_NEAR = new PacketDistributor<>(
             (_d, pairSupplier) -> {
                 var pair = pairSupplier.get();
