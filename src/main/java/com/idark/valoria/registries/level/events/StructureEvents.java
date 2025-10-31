@@ -1,5 +1,6 @@
-package com.idark.valoria;
+package com.idark.valoria.registries.level.events;
 
+import com.idark.valoria.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.level.*;
 import net.minecraft.core.*;

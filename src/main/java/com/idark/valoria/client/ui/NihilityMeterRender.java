@@ -42,15 +42,15 @@ public class NihilityMeterRender extends Gui{
         if(player == null || !ValoriaUtils.isEquippedCurio(m -> m.is(ItemsRegistry.nihilityMonitor.get()), player)) return;
         player.getCapability(INihilityLevel.INSTANCE).ifPresent((n) -> {
             float clientAmount = n.getAmount();
-            boolean alwaysShown = ClientConfig.NIHILITY_METER_ALWAYS_VISIBLE.get() || clientAmount > 0;
-            if(alwaysShown){
+            boolean isShown = ClientConfig.NIHILITY_METER_ALWAYS_VISIBLE.get() || clientAmount > 0;
+            if(isShown){
                 actualPreviousAmount = previousAmount;
                 previousAmount = clientAmount;
                 counter = ClientTick.ticksInGame;
                 isHiding = true;
             }
 
-            if(!alwaysShown){
+            if(!isShown){
                 if(clientAmount != previousAmount){
                     actualPreviousAmount = previousAmount;
                     previousAmount = clientAmount;

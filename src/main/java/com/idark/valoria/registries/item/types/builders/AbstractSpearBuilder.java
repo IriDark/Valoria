@@ -14,6 +14,7 @@ public abstract class AbstractSpearBuilder<T extends SpearItem>{
 
     public float attackDamageIn;
     public float projectileDamageIn;
+    public float entityReach = 1;
     public float attackSpeedIn;
     public float chance = 1;
 
@@ -32,6 +33,11 @@ public abstract class AbstractSpearBuilder<T extends SpearItem>{
 
     public AbstractSpearBuilder<T> setTier(Tier tier){
         this.tier = tier;
+        return this;
+    }
+
+    public AbstractSpearBuilder<T> setAttackDistance(float dist){
+        this.entityReach = dist;
         return this;
     }
 

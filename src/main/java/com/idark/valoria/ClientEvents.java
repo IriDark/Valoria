@@ -59,11 +59,11 @@ public class ClientEvents{
         }
 
         if(data.valoria$getMissTime() > 0) {
-            ValoriaUtils.renderText(entity, Col.lightGray, Component.literal("Miss..."), event.getPoseStack(), event.getMultiBufferSource(), event.getPackedLight(), data.valoria$getMissTime());
+            ValoriaUtils.renderText(entity, Col.lightGray, Component.translatable("popup.valoria.miss"), event.getPoseStack(), event.getMultiBufferSource(), event.getPackedLight(), data.valoria$getMissTime());
         }
 
         if(data.valoria$getDodgeTime() > 0) {
-            ValoriaUtils.renderText(entity, Col.lightGray, Component.literal("Dodge!"), event.getPoseStack(), event.getMultiBufferSource(), event.getPackedLight(), data.valoria$getDodgeTime());
+            ValoriaUtils.renderText(entity, Col.lightGray, Component.translatable("popup.valoria.dodge"), event.getPoseStack(), event.getMultiBufferSource(), event.getPackedLight(), data.valoria$getDodgeTime());
         }
     }
 
@@ -113,7 +113,7 @@ public class ClientEvents{
         var modInfo = ModList.get().getModFileById(Valoria.ID).getMods().get(0);
         var result = VersionChecker.getResult(modInfo);
         if(ClientConfig.SHOW_UPDATES.get()){
-            if(result.status().shouldDraw()){
+            if(!modInfo.getVersion().getQualifier().equals("0.0NONE") && result.status().shouldDraw()){
                 var newVersion = result.target().toString();
                 Component message = Component.literal("\uD83E\uDEB7 Valoria: ").withStyle(style -> DotStyle.of().color(Pal.verySoftPink)).append(Component.translatable("tooltip.valoria.update_available", newVersion).withStyle(ChatFormatting.WHITE));
                 var actions = Component.translatable("tooltip.valoria.download").withStyle(style -> style.withUnderlined(true).withFont(Valoria.FONT).withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://www.curseforge.com/minecraft/mc-mods/valoria")))

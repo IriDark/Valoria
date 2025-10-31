@@ -1312,5 +1312,8 @@
   "tooltip.valoria.materials_needed": "Materials needed for craft:",
   "tooltip.valoria.patreon": "❤ Support us",
   "tooltip.valoria.nihility_monitor.level": "Displays your current nihility level",
-  "tooltip.valoria.nihility": "The air feels strangely heavy…"
+  "tooltip.valoria.nihility": "The air feels strangely heavy…",
+  "popup.valoria.miss": "Miss…",
+  "popup.valoria.dodge": "Dodge!"
+
 }

@@ -41,60 +41,31 @@ import static pro.komaru.tridot.Tridot.BASE_PROJECTILE_DAMAGE_UUID;
 
 public class SpearItem extends SwordItem implements Vanishable{
     private final Supplier<Multimap<Attribute, AttributeModifier>> attributeModifiers = Suppliers.memoize(this::createAttributes);
-    public final float attackDamage;
-    public final float attackSpeed;
-    public final float projectileDamage;
-    public final boolean throwable;
-    public float chance = 1;
-    public final ImmutableList<MobEffectInstance> effects;
     public ArcRandom arcRandom = Tmp.rnd;
+    public AbstractSpearBuilder<? extends SpearItem> builder;
 
-    public SpearItem(Builder builder){
+    public SpearItem(AbstractSpearBuilder<? extends SpearItem> builder){
         super(builder.tier, (int)builder.attackDamageIn, builder.attackSpeedIn, builder.itemProperties);
-        this.attackDamage = builder.attackDamageIn;
-        this.attackSpeed = builder.attackSpeedIn;
-        this.projectileDamage = builder.projectileDamageIn;
-        this.effects = builder.effects;
-        this.throwable = builder.throwable;
-        this.chance = builder.chance;
+        this.builder = builder;
     }
 
     /**
      * @param pEffects Effects applied on attack
      */
-    @Deprecated
     public SpearItem(Tier tier, float attackDamageIn, float attackSpeedIn, Item.Properties builderIn, MobEffectInstance... pEffects){
-        super(tier, (int)attackDamageIn, attackSpeedIn, builderIn);
-        this.attackDamage = attackDamageIn + tier.getAttackDamageBonus();
-        this.attackSpeed = attackSpeedIn;
-        this.projectileDamage = attackDamageIn + tier.getAttackDamageBonus() + 3;
-        this.effects = ImmutableList.copyOf(pEffects);
-        throwable = true;
+        this(new SpearItem.Builder(attackDamageIn, attackSpeedIn, builderIn).setEffects(pEffects).setTier(tier));
     }
 
     /**
      * @param pChance  Chance to apply effects
      * @param pEffects Effects applied on attack
      */
-    @Deprecated
     public SpearItem(Tier tier, float attackDamageIn, float attackSpeedIn, float pChance, Item.Properties builderIn, MobEffectInstance... pEffects){
-        super(tier, (int)attackDamageIn, attackSpeedIn, builderIn);
-        this.attackDamage = attackDamageIn + tier.getAttackDamageBonus();
-        this.attackSpeed = attackSpeedIn;
-        this.projectileDamage = attackDamageIn + tier.getAttackDamageBonus() + 3;
-        this.effects = ImmutableList.copyOf(pEffects);
-        this.chance = pChance;
-        throwable = true;
+        this(new SpearItem.Builder(attackDamageIn, attackSpeedIn, builderIn).setEffects(pChance, pEffects).setTier(tier));
     }
 
-    @Deprecated
     public SpearItem(Tier tier, float attackDamageIn, float attackSpeedIn, boolean pThrowable, Item.Properties builderIn){
-        super(tier, (int)attackDamageIn, attackSpeedIn, builderIn);
-        this.attackDamage = attackDamageIn + tier.getAttackDamageBonus();
-        this.attackSpeed = attackSpeedIn;
-        this.throwable = pThrowable;
-        this.projectileDamage = 0f;
-        this.effects = ImmutableList.of();
+        this(new SpearItem.Builder(attackDamageIn, attackSpeedIn, builderIn).setThrowable(pThrowable).setTier(tier));
     }
 
     private static Set<ToolAction> of(ToolAction... actions){
@@ -103,20 +74,20 @@ public class SpearItem extends SwordItem implements Vanishable{
 
     public Multimap<Attribute, AttributeModifier> createAttributes(){
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
-        builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Weapon modifier", this.attackDamage, AttributeModifier.Operation.ADDITION));
-        if(projectileDamage > 0) builder.put(AttributeRegistry.PROJECTILE_DAMAGE.get(), new AttributeModifier(BASE_PROJECTILE_DAMAGE_UUID, "Tool modifier", projectileDamage, AttributeModifier.Operation.ADDITION));
-        builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Weapon modifier", attackSpeed, AttributeModifier.Operation.ADDITION));
-        builder.put(ForgeMod.ENTITY_REACH.get(), new AttributeModifier(BASE_ENTITY_REACH_UUID, "Spear modifier", 1, AttributeModifier.Operation.ADDITION));
+        builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Weapon modifier", this.builder.attackDamageIn, AttributeModifier.Operation.ADDITION));
+        if(this.builder.projectileDamageIn > 0) builder.put(AttributeRegistry.PROJECTILE_DAMAGE.get(), new AttributeModifier(BASE_PROJECTILE_DAMAGE_UUID, "Tool modifier", this.builder.projectileDamageIn, AttributeModifier.Operation.ADDITION));
+        builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Weapon modifier", this.builder.attackSpeedIn, AttributeModifier.Operation.ADDITION));
+        builder.put(ForgeMod.ENTITY_REACH.get(), new AttributeModifier(BASE_ENTITY_REACH_UUID, "Spear modifier", this.builder.entityReach, AttributeModifier.Operation.ADDITION));
         return builder.build();
     }
 
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchant){
-        return enchant.category.canEnchant(stack.getItem()) || throwable && (enchant == Enchantments.PIERCING || enchant == Enchantments.LOYALTY);
+        return enchant.category.canEnchant(stack.getItem()) || this.builder.throwable && (enchant == Enchantments.PIERCING || enchant == Enchantments.LOYALTY);
     }
 
     public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn){
         ItemStack itemstack = playerIn.getItemInHand(handIn);
-        if(throwable && !playerIn.isShiftKeyDown()){
+        if(this.builder.throwable && !playerIn.isShiftKeyDown()){
             playerIn.startUsingItem(handIn);
             return InteractionResultHolder.consume(itemstack);
         }
@@ -133,7 +104,7 @@ public class SpearItem extends SwordItem implements Vanishable{
     }
 
     public boolean hurtEnemy(ItemStack pStack, LivingEntity pTarget, LivingEntity pAttacker){
-        Utils.Entities.applyWithChance(pTarget, effects, chance, arcRandom);
+        Utils.Entities.applyWithChance(pTarget, this.builder.effects, this.builder.chance, arcRandom);
         return super.hurtEnemy(pStack, pTarget, pAttacker);
     }
 
@@ -142,7 +113,6 @@ public class SpearItem extends SwordItem implements Vanishable{
             int i = this.getUseDuration(stack) - timeLeft;
             if(i >= 6){
                 if(!worldIn.isClientSide){
-                    stack.hurtAndBreak(1, playerEntity, (player) -> player.broadcastBreakEvent(entityLiving.getUsedItemHand()));
                     ThrownSpearEntity spear = shootProjectile(stack, worldIn, playerEntity);
                     worldIn.addFreshEntity(spear);
                     worldIn.playSound(null, spear, SoundsRegistry.SPEAR_THROW.get(), SoundSource.PLAYERS, 1.0F, 0.9F);
@@ -167,7 +137,7 @@ public class SpearItem extends SwordItem implements Vanishable{
             spear.setSecondsOnFire(100);
         }
 
-        spear.setEffectsFromList(effects);
+        spear.setEffectsFromList(this.builder.effects);
         spear.shootFromRotation(playerEntity, playerEntity.getXRot(), playerEntity.getYRot(), 0.0F, 3F, 1.0F);
         if(playerEntity.getAbilities().instabuild){
             spear.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
@@ -214,7 +184,7 @@ public class SpearItem extends SwordItem implements Vanishable{
     @Override
     public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags){
         super.appendHoverText(stack, world, tooltip, flags);
-        if(throwable){
+        if(this.builder.throwable){
             if(stack.is(ItemsRegistry.pyratiteSpear.get())){
                 tooltip.add(Component.translatable("tooltip.valoria.pyratite_spear").withStyle(ChatFormatting.GRAY));
                 tooltip.add(Component.empty());
@@ -224,7 +194,7 @@ public class SpearItem extends SwordItem implements Vanishable{
         }
 
         tooltip.add(Component.translatable("tooltip.valoria.spear_pillars").withStyle(ChatFormatting.GRAY));
-        Utils.Items.effectTooltip(effects, tooltip, 1, chance);
+        Utils.Items.effectTooltip(this.builder.effects, tooltip, 1, this.builder.chance);
     }
 
     @Override

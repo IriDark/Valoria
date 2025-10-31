@@ -1,14 +1,15 @@
-package com.idark.valoria.registries.level;
+package com.idark.valoria.registries.level.events;
 
 import com.idark.valoria.core.capability.*;
 import com.idark.valoria.registries.*;
+import com.idark.valoria.registries.level.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraftforge.event.TickEvent.*;
 import pro.komaru.tridot.util.*;
 
 //todo fix
-public class NihilityMeter{
+public class NihilityEvent{
     public static float damagingLevel = 0.5f;
     public static float criticalLevel = 0.75f;
 
@@ -50,7 +51,7 @@ public class NihilityMeter{
         if(player.tickCount % (int)(player.getAttributeValue(AttributeReg.NIHILITY_RESILIENCE.get()) * 20) == 0){
             double resistance = player.getAttributeValue(AttributeReg.NIHILITY_RESISTANCE.get());
             double factor = Math.max(0.05, 1.0 - (resistance * 0.05));
-            nihilityLevel.modifyAmount(player, (int)Math.ceil(Tmp.rnd.nextInt(1, 5) * factor));
+            nihilityLevel.modifyAmount(player, (int)factor);
         }
     }
 }

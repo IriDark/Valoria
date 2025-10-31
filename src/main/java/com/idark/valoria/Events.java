@@ -22,8 +22,10 @@ import com.idark.valoria.registries.item.types.*;
 import com.idark.valoria.registries.item.types.consumables.*;
 import com.idark.valoria.registries.item.types.elemental.*;
 import com.idark.valoria.registries.level.*;
+import com.idark.valoria.registries.level.events.*;
 import com.idark.valoria.util.*;
 import net.minecraft.*;
+import net.minecraft.advancements.*;
 import net.minecraft.client.gui.screens.*;
 import net.minecraft.core.*;
 import net.minecraft.core.particles.*;
@@ -70,8 +72,8 @@ public class Events{
     public ArcRandom arcRandom = Tmp.rnd;
 
     @SubscribeEvent
-    public static void onMissingMappings(MissingMappingsEvent event) {
-        for (var mapping : event.getMappings(ForgeRegistries.Keys.BLOCKS, "valoria")) {
+    public static void onMissingMappings(MissingMappingsEvent event){
+        for(var mapping : event.getMappings(ForgeRegistries.Keys.BLOCKS, "valoria")){
             String oldId = mapping.getKey().getPath();
             switch(oldId){
                 case "shadewood" -> {
@@ -100,30 +102,30 @@ public class Events{
                 }
             }
 
-            if (oldId.startsWith("dreadwood_")) {
+            if(oldId.startsWith("dreadwood_")){
                 String newId = oldId.replace("dreadwood_", "dread_");
                 var newItem = ForgeRegistries.BLOCKS.getValue(new ResourceLocation("valoria", newId));
-                if (newItem != null) {
+                if(newItem != null){
                     mapping.remap(newItem);
                     Valoria.LOGGER.error("[REMAP] Remmaping: {} to {}", oldId, newId);
-                } else {
+                }else{
                     mapping.ignore();
                 }
             }
 
-            if (oldId.startsWith("shadewood_")) {
+            if(oldId.startsWith("shadewood_")){
                 String newId = oldId.replace("shadewood_", "shade_");
                 var newBlock = ForgeRegistries.BLOCKS.getValue(new ResourceLocation("valoria", newId));
-                if (newBlock != null) {
+                if(newBlock != null){
                     mapping.remap(newBlock);
                     Valoria.LOGGER.error("[REMAP] Remmaping: {} to {}", oldId, newId);
-                } else {
+                }else{
                     mapping.ignore();
                 }
             }
         }
 
-        for (var mapping : event.getMappings(ForgeRegistries.Keys.ITEMS, "valoria")) {
+        for(var mapping : event.getMappings(ForgeRegistries.Keys.ITEMS, "valoria")){
             String oldId = mapping.getKey().getPath();
             switch(oldId){
                 case "shadewood" -> {
@@ -148,24 +150,24 @@ public class Events{
                 }
             }
 
-            if (oldId.startsWith("dreadwood_")) {
+            if(oldId.startsWith("dreadwood_")){
                 String newId = oldId.replace("dreadwood_", "dread_");
                 var newItem = ForgeRegistries.ITEMS.getValue(new ResourceLocation("valoria", newId));
-                if (newItem != null) {
+                if(newItem != null){
                     mapping.remap(newItem);
                     Valoria.LOGGER.error("[REMAP] Remmaping: {} to {}", oldId, newId);
-                } else {
+                }else{
                     mapping.ignore();
                 }
             }
 
-            if (oldId.startsWith("shadewood_")) {
+            if(oldId.startsWith("shadewood_")){
                 String newId = oldId.replace("shadewood_", "shade_");
                 var newItem = ForgeRegistries.ITEMS.getValue(new ResourceLocation("valoria", newId));
-                if (newItem != null) {
+                if(newItem != null){
                     mapping.remap(newItem);
                     Valoria.LOGGER.error("[REMAP] Remmaping: {} to {}", oldId, newId);
-                } else {
+                }else{
                     mapping.ignore();
                 }
             }
@@ -173,24 +175,24 @@ public class Events{
     }
 
     @SubscribeEvent
-    public void onReload(AddReloadListenerEvent event) {
+    public void onReload(AddReloadListenerEvent event){
         Valoria.LOGGER.info("Reloading Codex Chapters...");
         CodexEntries.initChapters();
         event.addListener(BossEntryLoader.INSTANCE);
     }
 
     @SubscribeEvent
-    public static void onTooltip(ItemTooltipEvent event) {
+    public static void onTooltip(ItemTooltipEvent event){
         ItemStack stack = event.getItemStack();
         List<Component> tooltip = event.getToolTip();
-        if (stack.hasTag() && stack.getTag().contains("poison_hits")) {
+        if(stack.hasTag() && stack.getTag().contains("poison_hits")){
             int hits = stack.getTag().getInt("poison_hits");
             ImmutableList<MobEffectInstance> list = ImmutableList.of(new MobEffectInstance(MobEffects.POISON, 120, 0));
             tooltip.add(Component.translatable("tooltip.valoria.poisoned", hits).withStyle(ChatFormatting.GRAY));
             Utils.Items.effectTooltip(list, tooltip, 1, 1);
         }
 
-        if (Unlockables.getUnlockableByItem(stack.getItem()).isPresent()) {
+        if(Unlockables.getUnlockableByItem(stack.getItem()).isPresent()){
             if(Screen.hasControlDown()){
                 tooltip.add(Component.translatable("tooltip.valoria.open", Component.translatable("key.keyboard.left.control"), Component.translatable("key.mouse.right")).withStyle(ChatFormatting.GRAY));
             }else{
@@ -206,19 +208,19 @@ public class Events{
     }
 
     @SubscribeEvent
-    public void onAttackEntity(AttackEntityEvent event) {
+    public void onAttackEntity(AttackEntityEvent event){
         Player player = event.getEntity();
         ItemStack stack = player.getMainHandItem();
         if(event.isCancelable() && player.hasEffect(EffectsRegistry.STUN.get())){
             event.setCanceled(true);
         }
 
-        if (stack.hasTag() && stack.getTag().contains("poison_hits")) {
+        if(stack.hasTag() && stack.getTag().contains("poison_hits")){
             int hits = stack.getTag().getInt("poison_hits");
-            if (hits > 0 && event.getTarget() instanceof LivingEntity target) {
+            if(hits > 0 && event.getTarget() instanceof LivingEntity target){
                 target.addEffect(new MobEffectInstance(MobEffects.POISON, 60, 0));
                 stack.getTag().putInt("poison_hits", hits - 1);
-                if(hits - 1 == 0) {
+                if(hits - 1 == 0){
                     stack.getTag().remove("poison_hits");
                 }
             }
@@ -234,7 +236,7 @@ public class Events{
     }
 
     @SubscribeEvent
-    public void onRespawn(PlayerRespawnEvent ev) {
+    public void onRespawn(PlayerRespawnEvent ev){
         Player player = ev.getEntity();
         player.getCapability(INihilityLevel.INSTANCE).ifPresent(nihilityLevel -> {
             nihilityLevel.setAmountFromServer(player, 0);
@@ -242,23 +244,39 @@ public class Events{
     }
 
     @SubscribeEvent
-    public void onDimensionChange(PlayerEvent.PlayerChangedDimensionEvent event) {
+    public void onDimensionChange(PlayerEvent.PlayerChangedDimensionEvent event){
         Player player = event.getEntity();
-        if(CommonConfig.FOOD_ROT.get()){
-            if(event.getTo() == LevelGen.VALORIA_KEY){
-                player.displayClientMessage(Component.translatable("tooltip.valoria.nihility").withStyle(DotStyle.of().effects(WaveFX.of(0.25f, 0.1f), OutlineFX.of(Pal.amethyst, true))), true);
-                for(int i = 0; i < player.getInventory().getContainerSize(); i++){
-                    ItemStack stack = player.getInventory().getItem(i);
-                    if(stack.isEdible() && stack.getUseAnimation() == UseAnim.EAT && !(stack.getItem() instanceof ValoriaFood)){
-                        ItemStack rot = new ItemStack(ItemsRegistry.rot.get());
-                        CompoundTag tag = rot.getOrCreateTag();
-                        rot.setTag(tag.copy());
-                        tag.putString("OriginalItem", ForgeRegistries.ITEMS.getKey(stack.getItem()).toString());
+        if(event.getTo() == LevelGen.VALORIA_KEY){
+            onValoriaEnter(player);
+        }
+    }
 
-                        rot.setTag(tag);
-                        rot.setCount(stack.getCount());
-                        player.getInventory().setItem(i, rot);
-                    }
+    public void onValoriaEnter(Player player){
+        Level level = player.level();
+        if(level instanceof ServerLevel s && player instanceof ServerPlayer sp){
+            ResourceLocation loc = Valoria.loc("advancements/valoria/visit_the_valoria.json");
+            Advancement adv = s.getServer().getAdvancements().getAdvancement(loc);
+            if(adv == null) return;
+
+            if(!sp.getAdvancements().getOrStartProgress(adv).isDone()) {
+                player.displayClientMessage(Component.translatable("tooltip.valoria.nihility").withStyle(DotStyle.of().effects(WaveFX.of(0.25f, 0.1f), OutlineFX.of(Pal.amethyst, true))), true);
+            }
+        }
+
+        if(CommonConfig.FOOD_ROT.get()){
+            for(int i = 0; i < player.getInventory().getContainerSize(); i++){
+                ItemStack stack = player.getInventory().getItem(i);
+                if(stack.isEdible() && stack.getUseAnimation() == UseAnim.EAT && !(stack.getItem() instanceof ValoriaFood)){
+                    ItemStack rot = new ItemStack(ItemsRegistry.rot.get());
+                    CompoundTag tag = rot.getOrCreateTag();
+                    rot.setTag(tag.copy());
+                    var key = ForgeRegistries.ITEMS.getKey(stack.getItem());
+                    if(key == null) return;
+
+                    tag.putString("OriginalItem", key.toString());
+                    rot.setTag(tag);
+                    rot.setCount(stack.getCount());
+                    player.getInventory().setItem(i, rot);
                 }
             }
         }
@@ -270,7 +288,7 @@ public class Events{
         if(!player.level().isClientSide() && player instanceof ServerPlayer serverPlayer){
             player.getCapability(INihilityLevel.INSTANCE).ifPresent(nihilityLevel -> {
                 if(!player.getAbilities().instabuild && !player.isSpectator()){
-                    NihilityMeter.tick(event, nihilityLevel, player);
+                    NihilityEvent.tick(event, nihilityLevel, player);
                 }
             });
 
@@ -285,7 +303,7 @@ public class Events{
         }
 
         if(player.level().isClientSide()){
-            player.getCapability(INihilityLevel.INSTANCE).ifPresent(nihilityLevel -> NihilityMeter.clientTick(nihilityLevel, player));
+            player.getCapability(INihilityLevel.INSTANCE).ifPresent(nihilityLevel -> NihilityEvent.clientTick(nihilityLevel, player));
         }
     }
 
@@ -425,7 +443,7 @@ public class Events{
                     s.sendParticles(ParticleTypes.SMOKE, attacker.getX(), attacker.getY(), attacker.getZ(), 16, 1, 1, 1, 0.025f);
 
                     data.valoria$missTime(10);
-                    if(attacker instanceof Player player) player.displayClientMessage(Component.literal("Miss"), true);
+                    if(attacker instanceof Player player) player.displayClientMessage(Component.translatable("popup.valoria.miss"), true);
                     event.setCanceled(true);
                 }
 
@@ -435,7 +453,7 @@ public class Events{
                     s.sendParticles(ParticleTypes.ENCHANTED_HIT, entity.getX(), entity.getY(), entity.getZ(), 16, 1, 1, 1, 0.025f);
 
                     data.valoria$dodgeTime(10);
-                    if(entity instanceof Player player) player.displayClientMessage(Component.literal("Dodge!"), true);
+                    if(entity instanceof Player player) player.displayClientMessage(Component.translatable("popup.valoria.dodge"), true);
                     event.setCanceled(true);
                 }
             }

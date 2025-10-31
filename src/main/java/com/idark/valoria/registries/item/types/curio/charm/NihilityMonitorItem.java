@@ -5,7 +5,7 @@ import com.idark.valoria.*;
 import com.idark.valoria.core.capability.*;
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.item.types.curio.*;
-import com.idark.valoria.registries.level.*;
+import com.idark.valoria.registries.level.events.*;
 import net.minecraft.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.sounds.*;
@@ -77,8 +77,8 @@ public class NihilityMonitorItem extends AbstractCurioItem implements TooltipCom
                 float max = nihilityLevel.getMaxAmount(player);
                 float amount = nihilityLevel.getAmount();
                 float ratio = amount / max;
-                if(ratio >= NihilityMeter.damagingLevel) {
-                    if(player.tickCount % (ratio >= NihilityMeter.criticalLevel ? 15 : 30) == 0){
+                if(ratio >= NihilityEvent.damagingLevel) {
+                    if(player.tickCount % (ratio >= NihilityEvent.criticalLevel ? 15 : 30) == 0){
                         player.level().playSound(null, player.blockPosition(), SoundsRegistry.NIHILITY_ALERT.get(), SoundSource.PLAYERS, 0.5f, 1);
                     }
                 }

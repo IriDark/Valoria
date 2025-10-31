@@ -56,7 +56,7 @@ public class ExplosiveSpearItem extends SpearItem implements Vanishable{
                         spear.setSecondsOnFire(100);
                     }
 
-                    spear.setEffectsFromList(effects);
+                    spear.setEffectsFromList(this.builder.effects);
                     worldIn.addFreshEntity(spear);
                     worldIn.playSound(null, spear, SoundsRegistry.SPEAR_THROW.get(), SoundSource.PLAYERS, 1.0F, 0.9F);
                     if(!playerEntity.getAbilities().instabuild){

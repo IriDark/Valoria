@@ -1,4 +1,4 @@
-package com.idark.valoria.registries.item;
+package com.idark.valoria.registries.level.events;
 
 import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.item.types.ranged.bows.*;
