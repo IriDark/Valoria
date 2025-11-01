@@ -16,8 +16,10 @@ import pro.komaru.tridot.api.*;
 import java.util.*;
 
 public class PoisonItem extends Item{
-    public PoisonItem(Properties pProperties){
+    private final int toxinHits;
+    public PoisonItem(int hits, Properties pProperties){
         super(pProperties);
+        this.toxinHits = hits;
     }
 
     public boolean overrideStackedOnOther(ItemStack pStack, Slot pSlot, ClickAction pAction, Player pPlayer) {
@@ -27,7 +29,7 @@ public class PoisonItem extends Item{
             ItemStack stack = pSlot.getItem();
             if (stack.is(ItemTags.SWORDS) && (stack.getTag() != null && !stack.getTag().contains("poison_hits"))) {
                 this.playSound(pPlayer);
-                stack.getOrCreateTag().putInt("poison_hits", 10);
+                stack.getOrCreateTag().putInt("poison_hits", toxinHits);
                 pStack.shrink(1);
             }
 

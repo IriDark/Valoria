@@ -1,7 +1,5 @@
 package com.idark.valoria.registries.entity.living.elemental;
 
-import com.idark.valoria.registries.*;
-import com.idark.valoria.registries.entity.ai.goals.*;
 import net.minecraft.core.*;
 import net.minecraft.nbt.*;
 import net.minecraft.network.syncher.*;
@@ -19,16 +17,19 @@ import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.pathfinder.*;
 import org.jetbrains.annotations.*;
-import pro.komaru.tridot.api.entity.*;
-import pro.komaru.tridot.common.registry.entity.*;
+import pro.komaru.tridot.common.registry.entity.system.*;
+import pro.komaru.tridot.common.registry.entity.system.generic.*;
 
 import javax.annotation.Nullable;
 import java.util.*;
 
-public class Ent extends MultiAttackMob implements NeutralMob, Enemy{
+public class Ent extends PathfinderMob implements NeutralMob, Enemy, AttackSystemMob{
+    private final AttackSelector selector = new AttackSelector();
+    private AttackInstance currentAttack;
+
     public final AnimationState idleAnimationState = new AnimationState();
-    public int idleAnimationTimeout = 0;
     public final AnimationState attackAnimationState = new AnimationState();
+    public int idleAnimationTimeout = 0;
 
     @Nullable
     public UUID persistentAngerTarget;
@@ -45,6 +46,8 @@ public class Ent extends MultiAttackMob implements NeutralMob, Enemy{
         this.setPathfindingMalus(BlockPathTypes.LAVA, 8.0F);
         this.setPathfindingMalus(BlockPathTypes.DAMAGE_FIRE, 0.0F);
         this.setPathfindingMalus(BlockPathTypes.DANGER_FIRE, 0.0F);
+
+        this.selector.addAttack(new TridotMeleeAttack(this, 1, 4, 35, 20, 60));
     }
 
     public void tick(){
@@ -54,13 +57,8 @@ public class Ent extends MultiAttackMob implements NeutralMob, Enemy{
         }
     }
 
-    @Override
-    public void performMeleeAttack(){
-        this.navigation.stop();
-        super.performMeleeAttack();
-    }
-
     public void aiStep(){
+        this.tickCooldowns();
         this.updateSwingTime();
         if(!this.level().isClientSide && level() instanceof ServerLevel serverLevel){
             this.updatePersistentAnger(serverLevel, true);
@@ -102,11 +100,13 @@ public class Ent extends MultiAttackMob implements NeutralMob, Enemy{
     public void addAdditionalSaveData(CompoundTag pCompound){
         super.addAdditionalSaveData(pCompound);
         this.addPersistentAngerSaveData(pCompound);
+        this.writeAttackInfo(pCompound);
     }
 
     public void readAdditionalSaveData(CompoundTag pCompound){
         super.readAdditionalSaveData(pCompound);
         this.readPersistentAngerSaveData(this.level(), pCompound);
+        this.readAttackInfo(pCompound);
     }
 
     public static boolean checkEntSpawnRules(EntityType<Ent> Ent, LevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, RandomSource pRandom){
@@ -203,55 +203,25 @@ public class Ent extends MultiAttackMob implements NeutralMob, Enemy{
     @Override
     protected void registerGoals(){
         super.registerGoals();
-        this.goalSelector.addGoal(1, new DashAttackGoal(this, 0.65f));
-        this.goalSelector.addGoal(1, new EntAttackGoal(this, 1));
-
-
-        this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 1.0D));
+        this.goalSelector.addGoal(1, new ExecuteAttackGoal(this));
+        this.goalSelector.addGoal(0, new WaterAvoidingRandomStrollGoal(this, 1.0D));
 
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this).setAlertOthers());
-        this.targetSelector.addGoal(2, new ResetUniversalAngerTargetGoal<>(this, true));
+        this.targetSelector.addGoal(4, new ResetUniversalAngerTargetGoal<>(this, true));
     }
 
-    public class EntAttackGoal extends TridotMeleeAttackGoal{
-        public EntAttackGoal(MultiAttackMob mob, double speedModifier) {
-            super(mob, speedModifier);
-        }
+    @Override
+    public AttackSelector getAttackSelector(){
+        return selector;
+    }
 
-        @Override
-        public int attackAnimationTick(){
-            return 40;
-        }
+    @Override
+    public AttackInstance getActiveAttack(){
+        return currentAttack;
+    }
 
-        @Override
-        public void onPrepare() {
-            super.onPrepare();
-            Ent.this.level().broadcastEntityEvent(Ent.this, (byte)4);
-        }
-
-        @Override
-        public int getPreparingTime() {
-            return 40;
-        }
-
-        @Override
-        public int getAttackInterval() {
-            return 40;
-        }
-
-        @Override
-        public SoundEvent getPrepareSound() {
-            return SoundEvents.IRON_GOLEM_ATTACK;
-        }
-
-        @Override
-        public SoundEvent getAttackSound() {
-            return SoundEvents.PLAYER_ATTACK_STRONG;
-        }
-
-        @Override
-        public AttackRegistry getAttack() {
-            return EntityStatsRegistry.MELEE;
-        }
+    @Override
+    public void setActiveAttack(AttackInstance attackInstance){
+        currentAttack = attackInstance;
     }
 }

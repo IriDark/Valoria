@@ -43,10 +43,12 @@ public class ClientEvents{
         LivingEntity entity = event.getEntity();
         ILivingEntityData data = (ILivingEntityData) entity;
         float lastDamage = data.valoria$getLastDamage();
-        if(ClientConfig.DAMAGE_INDICATOR.get() || entity instanceof MannequinEntity){
-            if(lastDamage > 0 && entity.hurtTime > 0){
-                Component component = Component.literal(FORMAT.format(lastDamage));
+        if(!entity.getType().is(TagsRegistry.DAMAGE_INDICATOR_IGNORED)){
+            if(ClientConfig.DAMAGE_INDICATOR.get() || entity instanceof MannequinEntity){
+                if(!(lastDamage > 0 && entity.hurtTime > 0)) return;
+
                 Col textColor = Col.red;
+                Component component = Component.literal(FORMAT.format(lastDamage));
                 for(DamageData damageData : DamageData.dataTypes){
                     if(data.valoria$getLastDamageSource() != null && damageData.predicate().test(data.valoria$getLastDamageSource())){
                         if(damageData.getText() != null) component = damageData.getText();

@@ -381,8 +381,8 @@ public class ItemsRegistry{
 
         bloodHound = registerItem("bloodhound", () -> new HoundItem(ItemTierRegistry.BLOOD, 2, -2.2f, new Item.Properties()));
         blazeReap = registerItem("blaze_reap", () -> new BlazeReapItem(ItemTierRegistry.NONE, 3, -3.4f, new Item.Properties()));
-        gunpowderCharge = registerItem("gunpowder_charge", () -> new GunpowderCharge(4f, 25f, new Item.Properties().stacksTo(1)));
-        pyratiteCharge = registerItem("pyratite_charge", () -> new GunpowderCharge(6f, 40f, new Item.Properties().stacksTo(1)));
+        gunpowderCharge = registerItem("gunpowder_charge", () -> new GunpowderCharge(4f, 25f, new Item.Properties()));
+        pyratiteCharge = registerItem("pyratite_charge", () -> new GunpowderCharge(6f, 40f, new Item.Properties()));
         spectralBlade = registerItem("spectral_blade", () -> new SpectralBladeItem(16, -2.3f, new Item.Properties().durability(2500).rarity(RarityRegistry.PHANTASM)));
         throwableBomb = registerItem("throwable_bomb", () -> new ThrowableBombItem(Level.ExplosionInteraction.NONE, 2.45f, 60, new Item.Properties().stacksTo(16)));
         dynamite = registerItem("dynamite", () -> new ThrowableBombItem(3f, 60, new Item.Properties().stacksTo(16)));
@@ -960,7 +960,7 @@ public class ItemsRegistry{
         cognacBottle = registerItem("cognac_bottle", () -> new PlaceableDrinkItem(BlockRegistry.cognacBottle.get(), 64, ItemsRegistry.bottle.get(), new MobEffectInstance(EffectsRegistry.TIPSY.get(), 800, 2), new MobEffectInstance(MobEffects.CONFUSION, 175)));
         whiskeyBottle = registerItem("whiskey_bottle", () -> new PlaceableDrinkItem(BlockRegistry.whiskeyBottle.get(),  64, ItemsRegistry.bottle.get(), new MobEffectInstance(EffectsRegistry.TIPSY.get(), 450, 1), new MobEffectInstance(MobEffects.CONFUSION, 125)));
         cokeBottle = registerItem("coke_bottle", () -> new PlaceableDrinkItem(BlockRegistry.cokeBottle.get(),  64, ItemsRegistry.bottle.get(), new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 250)));
-        toxinsBottle = registerItem("toxins_bottle", () -> new PoisonItem(new Item.Properties().rarity(Rarity.RARE)));
+        toxinsBottle = registerItem("toxins_bottle", () -> new PoisonItem(10, new Item.Properties().rarity(Rarity.RARE)));
         necromancerMusicDisc = registerItem("music_disc_necromancer", () -> new RecordItem(15, SoundsRegistry.MUSIC_NECROMANCER::get, (new Properties()).stacksTo(1).rarity(Rarity.RARE), 97));
 
         // spawn eggs

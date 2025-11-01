@@ -4,7 +4,6 @@ import com.idark.valoria.client.model.animations.*;
 import com.idark.valoria.registries.entity.living.elemental.*;
 import net.minecraft.client.model.geom.*;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.util.*;
 
 public class EntModel<T extends Ent> extends AbstractHierarchicalModel<T>{
     public ModelPart root;
@@ -44,28 +43,9 @@ public class EntModel<T extends Ent> extends AbstractHierarchicalModel<T>{
     @Override
     public void setupAnim(Ent pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks, float netHeadYaw, float headPitch) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
-        this.animateWalk(EntAnimation.WALK, pLimbSwing, pLimbSwingAmount, pEntity.getSpeed(), pAgeInTicks);
+        this.animateWalk(EntAnimation.WALK, pLimbSwing, pLimbSwingAmount, 3, 1);
         this.animateIdle(pEntity.idleAnimationState, EntAnimation.IDLE, pLimbSwingAmount, pAgeInTicks, 1);
         this.animate(pEntity.attackAnimationState, EntAnimation.ATTACK, pAgeInTicks);
-
-        boolean flag = pEntity.getFallFlyingTicks() > 4;
-        float f = 1.0F;
-        if (flag) {
-            f = (float)pEntity.getDeltaMovement().lengthSqr();
-            f /= 0.2F;
-            f *= f * f;
-        }
-
-        if (f < 1.0F) {
-            f = 1.0F;
-        }
-
-        this.rightLeg.xRot = Mth.cos(pLimbSwing * 0.3262F) * 1F * pLimbSwingAmount / f;
-        this.leftLeg.xRot = Mth.cos(pLimbSwing * 0.3262F + (float)Math.PI) * 1F * pLimbSwingAmount / f;
-        this.rightLeg.yRot = 0.00015F;
-        this.leftLeg.yRot = -0.00015F;
-        this.rightLeg.zRot = 0.00015F;
-        this.leftLeg.zRot = -0.00015F;
     }
 
     @Override

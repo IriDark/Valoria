@@ -40,6 +40,7 @@ public class TagsRegistry{
     public static final TagKey<Item> EXCLUDED_FROM_TAB = item(new ResourceLocation(Valoria.ID, "excluded"));
 
     public static final TagKey<EntityType<?>> MINIONS = entity(new ResourceLocation(Valoria.ID, "minions"));
+    public static final TagKey<EntityType<?>> DAMAGE_INDICATOR_IGNORED = entity(new ResourceLocation(Valoria.ID, "damage_indicator_ignored"));
 
     public static final TagKey<Structure> NECROMANCER_CRYPT_LOCATOR = dungeon(new ResourceLocation(Valoria.ID, "necromancer_crypt_locator"));
     public static final TagKey<Structure> ON_NECROMANCER_CRYPT_EXPLORER_MAPS = dungeon(new ResourceLocation(Valoria.ID, "on_necromancer_crypt_explorer_maps"));
