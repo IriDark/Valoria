@@ -5,6 +5,7 @@ import com.idark.valoria.registries.block.entity.*;
 import net.minecraft.core.*;
 import net.minecraft.nbt.*;
 import net.minecraft.sounds.*;
+import net.minecraft.util.*;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.*;
@@ -18,8 +19,12 @@ import net.minecraft.world.level.block.state.properties.*;
 import net.minecraft.world.level.material.*;
 import net.minecraft.world.phys.*;
 import net.minecraft.world.phys.shapes.*;
+import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.registries.*;
 import org.jetbrains.annotations.*;
+import pro.komaru.tridot.client.gfx.*;
+import pro.komaru.tridot.client.gfx.particle.*;
+import pro.komaru.tridot.client.gfx.particle.data.*;
 
 import java.util.function.*;
 
@@ -77,6 +82,23 @@ public class BossTrophyBlock extends Block implements EntityBlock, SimpleWaterlo
         shape = Shapes.join(shape, Shapes.box(0.375, 0.1875, 0.0625, 0.625, 0.25, 0.9375), BooleanOp.OR);
         shape = Shapes.join(shape, Shapes.box(0.0625, 0.1875, 0.375, 0.9375, 0.25, 0.625), BooleanOp.OR);
         return shape;
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public void animateTick(BlockState p_222503_, Level p_222504_, BlockPos p_222505_, RandomSource p_222506_){
+        int i = p_222505_.getX();
+        int j = p_222505_.getY();
+        int k = p_222505_.getZ();
+        double d0 = (double)i + p_222506_.nextDouble();
+        double d1 = (double)j + 0.7D;
+        double d2 = (double)k + p_222506_.nextDouble();
+        ParticleBuilder.create(TridotParticles.SPARKLE)
+        .setVelocity(0.025, 0.05, 0.025)
+        .disablePhysics()
+        .setGravity(0)
+        .randomOffset(0.5f)
+        .setScaleData(GenericParticleData.create(0.05f, 0.02f, 0).build())
+        .repeat(p_222504_, d0, d1, d2, 2);
     }
 
     @Override
