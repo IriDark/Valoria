@@ -7,7 +7,7 @@
   },
   "core": "aquarius_core",
   "cores": 1,
-  "time": 800,
+  "time": 400,
   "ingredients": [
     {
       "item": "valoria:nature_boots"

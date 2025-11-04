@@ -7,7 +7,7 @@
   },
   "core": "void_core",
   "cores": 1,
-  "time": 1800,
+  "time": 800,
   "ingredients": [
     {
       "item": "valoria:infernal_chestplate"
