@@ -29,31 +29,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "valoria:the_fallen_collector_crown",
-          "weight": 1,
-          "functions": []
-        },
-        {
-          "type": "minecraft:item",
-          "name": "valoria:the_fallen_collector_hood",
-          "weight": 5,
-          "functions": []
-        },
-        {
-          "type": "minecraft:item",
-          "name": "valoria:the_fallen_collector_coat",
-          "weight": 5,
-          "functions": []
-        },
-        {
-          "type": "minecraft:item",
-          "name": "valoria:the_fallen_collector_leggings",
-          "weight": 5,
-          "functions": []
-        },
-        {
-          "type": "minecraft:item",
-          "name": "valoria:the_fallen_collector_boots",
+          "name": "valoria:worn_fabric",
           "weight": 5,
           "functions": []
         },
@@ -65,12 +41,18 @@
         {
           "type": "minecraft:item",
           "name": "valoria:crypt_page",
-          "weight": 5
+          "weight": 5,
+          "conditions": [
+            {
+              "condition": "valoria:unlockable",
+              "id": "valoria:crypt"
+            }
+          ]
         },
         {
           "type": "minecraft:item",
           "name": "valoria:bronze_nugget",
-          "weight": 6,
+          "weight": 20,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -97,7 +79,7 @@
         {
           "type": "minecraft:item",
           "name": "valoria:skeletal_vambrace",
-          "weight": 15,
+          "weight": 1,
           "functions": [],
           "conditions": [
             {
@@ -109,7 +91,7 @@
         {
           "type": "minecraft:item",
           "name": "valoria:cobalt_nugget",
-          "weight": 4,
+          "weight": 3,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -139,22 +121,22 @@
         {
           "type": "minecraft:item",
           "name": "valoria:leather_belt",
-          "weight": 3
+          "weight": 10
         },
         {
           "type": "minecraft:item",
           "name": "valoria:ancient_shard",
-          "weight": 6
+          "weight": 5
         },
         {
           "type": "minecraft:item",
           "name": "valoria:relic_gold",
-          "weight": 4
+          "weight": 5
         },
         {
           "type": "minecraft:item",
           "name": "valoria:rune_of_curses",
-          "weight": 2
+          "weight": 1
         },
         {
           "type": "minecraft:item",
@@ -174,22 +156,22 @@
         {
           "type": "minecraft:item",
           "name": "valoria:aloe_bandage",
-          "weight": 5
+          "weight": 20
         },
         {
           "type": "minecraft:item",
           "name": "valoria:miners_bag",
-          "weight": 2
+          "weight": 3
         },
         {
           "type": "minecraft:item",
           "name": "valoria:gem_bag",
-          "weight": 4
+          "weight": 3
         },
         {
           "type": "minecraft:item",
           "name": "valoria:prospectors_pick",
-          "weight": 3
+          "weight": 5
         },
         {
           "type": "minecraft:item",
@@ -199,22 +181,12 @@
         {
           "type": "minecraft:item",
           "name": "valoria:leather_gloves",
-          "conditions": [
-            {
-              "condition": "minecraft:random_chance",
-              "chance": 0.23
-            }
-          ]
+          "weight": 10
         },
         {
           "type": "minecraft:item",
           "name": "valoria:iron_gloves",
-          "conditions": [
-            {
-              "condition": "minecraft:random_chance",
-              "chance": 0.12
-            }
-          ]
+          "weight": 5
         },
         {
           "type": "minecraft:item",
@@ -227,29 +199,29 @@
           "conditions": [
             {
               "condition": "minecraft:random_chance",
-              "chance": 0.06
+              "chance": 0.05
             }
           ]
         },
         {
           "type": "minecraft:item",
           "name": "valoria:iron_chain",
-          "weight": 3
+          "weight": 15
         },
         {
           "type": "minecraft:item",
           "name": "minecraft:golden_apple",
-          "weight": 2
+          "weight": 1
         },
         {
           "type": "minecraft:item",
           "name": "minecraft:bone",
-          "weight": 12
+          "weight": 40
         },
         {
           "type": "minecraft:item",
           "name": "minecraft:diamond",
-          "weight": 2,
+          "weight": 1,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -286,12 +258,12 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:iron_helmet",
-          "weight": 3
+          "weight": 5
         },
         {
           "type": "minecraft:item",
           "name": "minecraft:gold_nugget",
-          "weight": 2,
+          "weight": 10,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -328,7 +300,7 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:iron_sword",
-          "quality": 1,
+          "weight": 10,
           "functions": [
             {
               "function": "minecraft:set_damage",
@@ -385,12 +357,12 @@
         {
           "type": "minecraft:item",
           "name": "valoria:lesser_rune",
-          "weight": 2
+          "weight": 10
         },
         {
           "type": "minecraft:item",
           "name": "valoria:iron_spear",
-          "weight": 3,
+          "weight": 5,
           "functions": [
             {
               "function": "minecraft:set_damage",
@@ -427,12 +399,7 @@
         {
           "type": "minecraft:item",
           "name": "valoria:bronze_ingot",
-          "weight": 3
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:danger_pottery_sherd",
-          "weight": 4
+          "weight": 5
         },
         {
           "type": "minecraft:item",
@@ -477,13 +444,13 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:iron_chestplate",
-          "weight": 4,
+          "weight": 5,
           "quality": 1
         },
         {
           "type": "minecraft:item",
           "name": "minecraft:leather_boots",
-          "weight": 8
+          "weight": 15
         },
         {
           "type": "minecraft:item",
@@ -493,7 +460,7 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:golden_carrot",
-          "weight": 2,
+          "weight": 1,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -522,14 +489,14 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:golden_chestplate",
-          "weight": 2
+          "weight": 5
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:golden_axe"
+          "name": "minecraft:golden_axe",
+          "weight": 5
         }
       ]
     }
-  ],
-  "random_sequence": "minecraft:chests/igloo_chest"
+  ]
 }

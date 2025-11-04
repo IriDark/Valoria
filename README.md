@@ -43,40 +43,69 @@ Journey through desolate landscapes haunted by monstrous creatures. Piece togeth
 Valoria's landscape is scattered with unique, hand-crafted structures waiting to be discovered.
 From the ruins to a large Structures to contain a specific entity, but beware of traps and guardians of those structures
 
-![structure .png](src/main/resources/assets/valoria/banners/structure.png)
-![fortress_angle.png](src/main/resources/assets/valoria/banners/fortress_angle.png)
-![forge.png](src/main/resources/assets/valoria/banners/forge.png)
+![structure .png](src/main/resources/assets/valoria/textures/banners/structure.png)
+![fortress_angle.png](src/main/resources/assets/valoria/textures/banners/fortress_angle.png)
+![forge.png](src/main/resources/assets/valoria/textures/banners/forge.png)
 
 **Explore the flora**
 ---
 The Elemental Collapse did not destroy the world but twisted it. Journey through vibrant, alien biomes where nature is struggling to reclaim the ruins. You will find that life has adapted in strange and unnatural ways.
 world that has adapted to darkness. The old flora has given way to strange new life forms that produce their own light. Explore bizarre biomes where luminescent flora is your only light of hope
 
-![shadeforest.png](src/main/resources/assets/valoria/banners/shadeforest.png)
-![river.png](src/main/resources/assets/valoria/banners/river.png)
-![lush.png](src/main/resources/assets/valoria/banners/lush.png)
-![ecotone.png](src/main/resources/assets/valoria/banners/ecotone.png)
+![shadeforest.png](src/main/resources/assets/valoria/textures/banners/shadeforest.png)
+![river.png](src/main/resources/assets/valoria/textures/banners/river.png)
+![lush.png](src/main/resources/assets/valoria/textures/banners/lush.png)
+![ecotone.png](src/main/resources/assets/valoria/textures/banners/ecotone.png)
 
 **Scavenge across barrens**
 ---
 
 These Barrens are the open graves of entire ecosystems, haunted by skeletal forests and choked with dust. Here, the ground itself has been eroded by a relentless, sorrowful wind, leaving a scarred and barren landscape
 
-![dread_wood.png](src/main/resources/assets/valoria/banners/dread_wood.png)
+![dread_wood.png](src/main/resources/assets/valoria/textures/banners/dread_wood.png)
 
 **Beware of different creatures**
 ---
 
 The fauna of the old world was not spared by the Collapse. Corruption forced the world's fauna to adapt or perish, and the survivors are fiercely territorial hunters. They stalk the eternal twilight and you are prey 
 
-![scorpion.png](src/main/resources/assets/valoria/banners/scorpion.png)
-![corrupted.png](src/main/resources/assets/valoria/banners/corrupted.png)
+![scorpion.png](src/main/resources/assets/valoria/textures/banners/scorpion.png)
+![corrupted.png](src/main/resources/assets/valoria/textures/banners/corrupted.png)
 
 **Investigate the World**
 ---
 
 The sky itself is broken. A malevolent red planet now hangs in the eternal night, and its gaze is a poison upon the land. This celestial body fuels a creeping "bloodborne corruption," a plague that not only killed the old fauna but keeps growing upon the world. You will discover colossal remains called 'Monstrosities' these are the victims of a bloodborne corruption.
 
-![monstrosity.png](src/main/resources/assets/valoria/banners/monstrosity.png)
-![remains.png](src/main/resources/assets/valoria/banners/remains.png)
-![skull.png](src/main/resources/assets/valoria/banners/skull.png)
+![monstrosity.png](src/main/resources/assets/valoria/textures/banners/monstrosity.png)
+![remains.png](src/main/resources/assets/valoria/textures/banners/remains.png)
+![skull.png](src/main/resources/assets/valoria/textures/banners/skull.png)
+
+**Compatibilities**  
+---
+* JADE: built-in  
+* JER: built-in  
+* JEI: built-in  
+* KubeJS: built-in  
+* JEED: built-in  
+* Enchantment Descriptions: built-in  
+* Better Combat: built-in  
+* JERM: Automatically generated  
+* Tetra: built-in  
+* Detailed Enchantments: built-in
+* Catalogue: built-in
+* Every Compat: Since 1.0r
+* Epic Fight: [Download - CurseForge](https://www.curseforge.com/minecraft/data-packs/valoria-ef-compat)
+
+Feel free to suggest mod compats - [GitHub](https://github.com/IriDark/Valoria-Suggestions)
+
+**Languages supported**
+---
+* ![flag_en_us.png](src/main/resources/assets/valoria/textures/banners/flag_en_us.png) English  
+* ![flag_ua.png](src/main/resources/assets/valoria/textures/banners/flag_ua.png) Ukrainian (not 100% accurate, may contain mistakes | not fully translated)   - by IriDark, Foxplane
+* ![flag_pl.png](src/main/resources/assets/valoria/textures/banners/flag_pl.png) Polski  (not fully translated)   - by  𝙆𝘼𝙈𝙀𝙃𝙇𝙇𝙄𝙉𝙆  
+* ![flag_ru.png](src/main/resources/assets/valoria/textures/banners/flag_ru.png) Russian (not 100% accurate, may contain mistakes)  - by Ruthenium, TerraPrime   
+
+Not found your language or want to maintain translations? Feel free to translate and PR - [GitHub](https://github.com/IriDark/Valoria/blob/main/CONTRIBUTING.md)
+
+

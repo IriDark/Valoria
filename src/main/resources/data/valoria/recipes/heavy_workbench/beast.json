@@ -1,4 +1,5 @@
 {
+  "group": "tools",
   "type": "valoria:heavy_workbench",
   "ingredients": [
     { "ingredient": { "item": "valoria:remains" }, "count": 12 }

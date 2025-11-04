@@ -91,7 +91,7 @@ public class ItemsRegistry{
     phantasmHelmet, phantasmChestplate, phantasmLeggings, phantasmBoots,
 
     // materials
-    rawCobalt, runicDust, amberGem, amethystGem, rubyGem, sapphireGem, wickedAmethyst, soulShard, unchargedShard, spiderFang, spiderChitin, remains, crimtaneIngot,
+    wornFabric, rawCobalt, runicDust, amberGem, amethystGem, rubyGem, sapphireGem, wickedAmethyst, soulShard, unchargedShard, spiderFang, spiderChitin, remains, crimtaneIngot,
     natureGift, oceanicShell, infernalStone, rottenBone, marshCloth, painCrystal, nihilityShard, illusionStone, elementalCrystal,
     natureCore, aquariusCore, infernalCore, voidCore, unstableCore,
     valoriaPortalFrameShard, blackGoldUpgrade, natureUpgrade, aquariusUpgrade, infernalUpgrade, voidUpgrade,
@@ -255,6 +255,7 @@ public class ItemsRegistry{
         wickedAmethyst = registerItem("wicked_amethyst", () -> new TransformShardItem(new Item.Properties().rarity(RarityRegistry.VOID)));
         soulShard = registerItem("soul_shard", () -> new TransformShardItem(new Item.Properties().rarity(RarityRegistry.SOUL)));
         unchargedShard = registerItem("uncharged_shard");
+        wornFabric = registerItem("worn_fabric", Rarity.UNCOMMON);
         rawCobalt = registerItem("raw_cobalt");
         relicGold = registerItem("relic_gold", Rarity.EPIC);
         ancientShard = registerItem("ancient_shard", Rarity.EPIC);

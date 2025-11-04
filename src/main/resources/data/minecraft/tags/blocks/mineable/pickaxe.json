@@ -1,6 +1,10 @@
 {
   "replace": false,
   "values": [
+    "valoria:boss_trophy",
+    "valoria:necromancer_boss_trophy",
+    "valoria:dryador_boss_trophy",
+    "valoria:wicked_crystal_boss_trophy",
     "valoria:soul_infuser",
     "valoria:eye_stone",
     "valoria:eye_meat",
