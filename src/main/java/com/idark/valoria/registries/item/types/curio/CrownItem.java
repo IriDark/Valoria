@@ -32,6 +32,11 @@ public class CrownItem extends Item implements ICurioItem, Vanishable{
     }
 
     @Override
+    public boolean canEquipFromUse(SlotContext slot, ItemStack stack){
+        return true;
+    }
+
+    @Override
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(SlotContext slotContext, UUID uuid, ItemStack stack){
         Multimap<Attribute, AttributeModifier> atts = LinkedHashMultimap.create();
         atts.put(Attributes.LUCK, new AttributeModifier(uuid, "bonus", 0.10, Operation.MULTIPLY_TOTAL));

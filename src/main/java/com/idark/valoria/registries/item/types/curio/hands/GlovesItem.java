@@ -19,10 +19,10 @@ public class GlovesItem extends CurioAccessoryItem implements ICurioTexture{
 
         boolean flag = entity instanceof AbstractClientPlayer player && !player.getModelName().equals("default");
         if(builder.dependsOnStack){
-            return new ResourceLocation(builder.texPath.getNamespace(), builder.texPath.getPath() + ForgeRegistries.ITEMS.getKey(stack.getItem()).getPath() + (flag ? "slim" : "") + ".png");
+            return new ResourceLocation(builder.texPath.getNamespace(), builder.texPath.getPath() + ForgeRegistries.ITEMS.getKey(stack.getItem()).getPath() + (flag ? "_slim" : "") + ".png");
         }
 
-        return new ResourceLocation(builder.texPath.getNamespace(), builder.texPath.getPath() +builder.texPath + (flag ? "slim" : "") + ".png");
+        return new ResourceLocation(builder.texPath.getNamespace(), builder.texPath.getPath() +builder.texPath + (flag ? "_slim" : "") + ".png");
     }
 
     public static class GlovesBuilder extends AbstractCurioBuilder<GlovesItem, GlovesBuilder>{
