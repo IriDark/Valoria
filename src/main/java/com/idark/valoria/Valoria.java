@@ -111,8 +111,6 @@ public class Valoria{
         ModLoadingContext.get().registerConfig(Type.COMMON, CommonConfig.SPEC);
         DistExecutor.unsafeCallWhenOn(Dist.CLIENT, () -> () -> {
             forgeBus.addListener(KeyBindHandler::onInput);
-            forgeBus.addListener(ClientEvents::onMouseClick);
-            forgeBus.addListener(ClientEvents::onTooltipRender);
             forgeBus.addListener(Events::onTooltip);
             return new Object();
         });
@@ -367,6 +365,7 @@ public class Valoria{
             event.add(EntityType.PLAYER, AttributeReg.NIHILITY_RESILIENCE.get());
             event.add(EntityType.PLAYER, AttributeReg.MISS_CHANCE.get());
             event.add(EntityType.PLAYER, AttributeReg.DODGE_CHANCE.get());
+            event.add(EntityType.PLAYER, AttributeReg.EXCAVATION_SPEED.get());
 
             event.add(EntityType.PLAYER, AttributeReg.INFERNAL_DAMAGE.get());
             event.add(EntityType.PLAYER, AttributeReg.DEPTH_DAMAGE.get());
