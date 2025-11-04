@@ -94,6 +94,7 @@ The sky itself is broken. A malevolent red planet now hangs in the eternal night
 * Tetra: built-in  
 * Detailed Enchantments: built-in
 * Catalogue: built-in
+* Obscure Tooltips: built-in
 * Every Compat: Since 1.0r
 * Epic Fight: [Download - CurseForge](https://www.curseforge.com/minecraft/data-packs/valoria-ef-compat)
 

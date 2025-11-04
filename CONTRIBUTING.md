@@ -3,7 +3,7 @@ AstemirDev `| Code |`
 Auriny `| Code | Testing |`
 Skoow `| Code |`
 Sunday `| Models |`
-Kerdo `| Ideas | Contributions |`
+Kerdo `| Animations | SFX | Ideas | Contributions |`
 Rofoo
 KoteykaTheCat
 GraFik
