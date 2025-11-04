@@ -59,6 +59,7 @@ public class TagsRegistry{
     public static final TagKey<Block> NEEDS_HALLOWEEN_TOOL = block(new ResourceLocation(Valoria.ID, "needs_halloween_tool"));
     public static final TagKey<Block> NEEDS_HOLIDAY_TOOL = block(new ResourceLocation(Valoria.ID, "needs_holiday_tool"));
     public static final TagKey<Block> NEEDS_NONE_TOOL = block(new ResourceLocation(Valoria.ID, "needs_none_tool"));
+    public static final TagKey<Block> NEEDS_BLAZEREAP_TOOL = block(new ResourceLocation(Valoria.ID, "needs_blazereap_tool"));
 
     public static final TagKey<Block> NEEDS_PHANTOM_TOOL = block(new ResourceLocation(Valoria.ID, "needs_phantom_tool"));
     public static final TagKey<Block> NEEDS_MEAT_TOOL = block(new ResourceLocation(Valoria.ID, "needs_meat_tool"));
@@ -99,6 +100,7 @@ public class TagsRegistry{
     public static final TagKey<Item> ALCOHOL = item(new ResourceLocation(Valoria.ID, "alcohol"));
     public static final TagKey<Item> RUM = item(new ResourceLocation(Valoria.ID, "rum"));
     public static final TagKey<Item> GEODES = item(new ResourceLocation(Valoria.ID, "geodes"));
+    public static final TagKey<Item> STONE_CRUSHER_TOOL = item(new ResourceLocation(Valoria.ID, "stone_crusher_tool"));
     public static final TagKey<Item> SMOKE_PARTICLE = item(new ResourceLocation(Valoria.ID, "smoke_particle"));
     public static final TagKey<PaintingVariant> MODDED = painting(new ResourceLocation(Valoria.ID, "painting"));
 }

@@ -17,6 +17,7 @@ public class ItemTierRegistry{
     //GOLD(0, 32, 12.0F, 0.0F, 22, () -> Ingredient.of(Items.GOLD_INGOT)),
     //NETHERITE(4, 2031, 9.0F, 4.0F, 15, () -> Ingredient.of(Items.NETHERITE_INGOT));
 
+    public static Tier BLAZE_REAP = registerTier(new ForgeTier(6, 1561, 10f, 4.0F, 15, TagsRegistry.NEEDS_BLAZEREAP_TOOL, Ingredient::of), Valoria.loc("blazereap"));
     public static Tier NONE = registerTier(new ForgeTier(4, 1561, 10f, 4.0F, 15, TagsRegistry.NEEDS_NONE_TOOL, Ingredient::of), Valoria.loc("none"));
     public static Tier BRONZE = TierSortingRegistry.registerTier(new ForgeTier(2, 1048, 4f, 0.0F, 8, TagsRegistry.NEEDS_BRONZE_TOOL, () -> Ingredient.of(ItemsRegistry.bronzeIngot.get())), Valoria.loc("bronze"), List.of(Tiers.STONE), List.of(Tiers.IRON));
     public static Tier PEARLIUM = registerTier(new ForgeTier(3, 425, 5f, 2.0F, 6, TagsRegistry.NEEDS_PEARLIUM_TOOL, () -> Ingredient.of(ItemsRegistry.pearliumIngot.get())), Valoria.loc("pearlium"));

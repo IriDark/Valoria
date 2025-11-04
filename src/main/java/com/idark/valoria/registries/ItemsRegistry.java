@@ -380,7 +380,7 @@ public class ItemsRegistry{
         quantumReaper = registerItem("quantum_reaper", () -> new SwordItem(ItemTierRegistry.NONE, 8, -3f, new Item.Properties().rarity(RarityRegistry.VOID)));
 
         bloodHound = registerItem("bloodhound", () -> new HoundItem(ItemTierRegistry.BLOOD, 2, -2.2f, new Item.Properties()));
-        blazeReap = registerItem("blaze_reap", () -> new BlazeReapItem(ItemTierRegistry.NONE, 3, -3.4f, new Item.Properties()));
+        blazeReap = registerItem("blaze_reap", () -> new BlazeReapItem(ItemTierRegistry.BLAZE_REAP, 3, -3.4f, new Item.Properties()));
         gunpowderCharge = registerItem("gunpowder_charge", () -> new GunpowderCharge(4f, 25f, new Item.Properties()));
         pyratiteCharge = registerItem("pyratite_charge", () -> new GunpowderCharge(6f, 40f, new Item.Properties()));
         spectralBlade = registerItem("spectral_blade", () -> new SpectralBladeItem(16, -2.3f, new Item.Properties().durability(2500).rarity(RarityRegistry.PHANTASM)));
@@ -531,7 +531,7 @@ public class ItemsRegistry{
         eternity = registerItem("eternity");
 
         // accessories
-        ironChain = registerItem("iron_chain", () -> new CurioAccessoryItem.Builder(Tiers.GOLD, new Properties().stacksTo(1).rarity(Rarity.COMMON))
+        ironChain = registerItem("iron_chain", () -> new CurioAccessoryItem.Builder(Tiers.IRON, new Properties().stacksTo(1).rarity(Rarity.COMMON))
         .setTexPath(new ResourceLocation(Valoria.ID, "textures/curio/necklace/"))
         .addAttr(() -> Attributes.ARMOR, new AttributeData(0.05f, Operation.ADDITION))
         .build());
