@@ -8,6 +8,7 @@ import net.minecraft.core.*;
 import net.minecraft.server.level.*;
 import net.minecraft.util.*;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.targeting.*;
 import net.minecraft.world.entity.projectile.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
@@ -62,16 +63,21 @@ public class FleshCystBlock extends BaseEntityBlock implements SimpleWaterlogged
     }
 
     private void spawnSentinels(ServerLevel world, BlockPos pos){
-        FleshSentinel sentinel = EntityTypeRegistry.FLESH_SENTINEL.get().create(world);
-        if(sentinel != null){
-            RandomSource randomsource = world.getRandom();
-            double d0 = (double)pos.getX() + (randomsource.nextDouble() - randomsource.nextDouble()) * 6 + 0.5D;
-            double d1 = pos.getY() + randomsource.nextInt(3) - 1;
-            double d2 = (double)pos.getZ() + (randomsource.nextDouble() - randomsource.nextDouble()) * 6 + 0.5D;
-            if(world.noCollision(sentinel.getType().getAABB(d0, d1, d2))){
-                sentinel.moveTo(d0, d1, d2, 0.0F, 0.0F);
-                sentinel.setBoundOrigin(pos);
-                world.addFreshEntity(sentinel);
+        TargetingConditions targetingConditions = TargetingConditions.forNonCombat().range(16.0D).ignoreLineOfSight().ignoreInvisibilityTesting();
+        AABB aabb = new AABB(pos.getX() - 10, pos.getY() - 10, pos.getZ() - 10,  pos.getX() + 10, pos.getY() + 10, pos.getZ() + 10);
+        var sentinels = world.getNearbyEntities(FleshSentinel.class, targetingConditions, null, aabb);
+        if(sentinels.size() <= 8){
+            FleshSentinel sentinel = EntityTypeRegistry.FLESH_SENTINEL.get().create(world);
+            if(sentinel != null){
+                RandomSource randomsource = world.getRandom();
+                double d0 = (double)pos.getX() + (randomsource.nextDouble() - randomsource.nextDouble()) * 6 + 0.5D;
+                double d1 = pos.getY() + randomsource.nextInt(3) - 1;
+                double d2 = (double)pos.getZ() + (randomsource.nextDouble() - randomsource.nextDouble()) * 6 + 0.5D;
+                if(world.noCollision(sentinel.getType().getAABB(d0, d1, d2))){
+                    sentinel.moveTo(d0, d1, d2, 0.0F, 0.0F);
+                    sentinel.setBoundOrigin(pos);
+                    world.addFreshEntity(sentinel);
+                }
             }
         }
     }
