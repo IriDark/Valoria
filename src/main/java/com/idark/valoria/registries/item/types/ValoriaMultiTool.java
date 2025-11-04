@@ -2,7 +2,6 @@ package com.idark.valoria.registries.item.types;
 
 import com.google.common.collect.*;
 import com.idark.valoria.*;
-import com.idark.valoria.core.interfaces.*;
 import com.idark.valoria.registries.*;
 import com.mojang.datafixers.util.*;
 import net.minecraft.*;
@@ -31,8 +30,8 @@ import java.util.stream.*;
 import static net.minecraft.world.item.HoeItem.changeIntoState;
 import static net.minecraftforge.common.ToolActions.*;
 
-public class ValoriaMultiTool extends DiggerItem implements StoneCrushable{
-    Tier tier;
+public class ValoriaMultiTool extends DiggerItem {
+    private final Tier tier;
     public ValoriaMultiTool(Tier pTier, float pAttackDamageModifier, float pAttackSpeedModifier, Properties pProperties){
         super(pAttackDamageModifier, pAttackSpeedModifier, pTier, TagsRegistry.MINEABLE_WITH_MULTITOOL, pProperties);
         this.tier = pTier;

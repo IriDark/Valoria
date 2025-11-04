@@ -1,6 +1,8 @@
 package com.idark.valoria.registries.block.types;
 
-import com.idark.valoria.core.interfaces.*;
+import com.idark.valoria.core.network.*;
+import com.idark.valoria.core.network.packets.particle.*;
+import com.idark.valoria.registries.*;
 import com.idark.valoria.registries.block.entity.*;
 import com.idark.valoria.registries.item.recipe.*;
 import com.idark.valoria.util.*;
@@ -65,34 +67,45 @@ public class CrusherBlock extends Block implements EntityBlock{
         ItemStack stack = player.getItemInHand(handIn).copy();
         ItemStack tileStack = tile.getItemHandler().getItem(0);
         if(tileStack.isEmpty()){
-            tile.getItemHandler().setItem(0, stack);
-            if(!player.isCreative()){
-                player.getInventory().removeItem(player.getItemInHand(handIn));
-            }
-
-            ValoriaUtils.SUpdateTileEntityPacket(tile);
+            placeItem(player, handIn, tile, stack);
             return InteractionResult.SUCCESS;
         }
 
-        if(tileStack.isEmpty()) return InteractionResult.PASS;
-        if((stack.getItem() instanceof PickaxeItem || stack.getItem() instanceof StoneCrushable) && isValid(tileStack, tile)){
-            if(player instanceof ServerPlayer serverPlayer){
-                tile.craftItem(serverPlayer);
-                player.getItemInHand(handIn).hurtAndBreak(world.getRandom().nextInt(0, 2), player, (p_220045_0_) -> p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
+        if(world instanceof ServerLevel server){
+            if(stack.is(TagsRegistry.STONE_CRUSHER_TOOL) && isValid(tileStack, tile)){
+                crushItem(world, player, handIn, tile);
+                PacketHandler.sendToTracking(server, pos, new CrusherParticlePacket(pos.getX() + 0.5f, pos.getY() + 1, pos.getZ() + 0.5f, tileStack));
+            }else{
+                extractItem(world, player, tileStack, tile);
             }
-
-            ValoriaUtils.SUpdateTileEntityPacket(tile);
-        }else{
-            if(!player.isCreative()){
-                world.addFreshEntity(new ItemEntity(world, player.getX() + 0.5F, player.getY() + 0.5F, player.getZ() + 0.5F, tileStack.copy()));
-            }
-
-            tile.getItemHandler().removeItem(0, tileStack.getCount());
-            ValoriaUtils.SUpdateTileEntityPacket(tile);
-            return InteractionResult.SUCCESS;
         }
 
-        return InteractionResult.PASS;
+        ValoriaUtils.SUpdateTileEntityPacket(tile);
+        return InteractionResult.SUCCESS;
+    }
+
+    private void crushItem(Level world, Player player, InteractionHand handIn, CrusherBlockEntity tile){
+        if(player instanceof ServerPlayer serverPlayer){
+            tile.craftItem(serverPlayer);
+            player.getItemInHand(handIn).hurtAndBreak(world.getRandom().nextInt(0, 2), player, (p_220045_0_) -> p_220045_0_.broadcastBreakEvent(EquipmentSlot.MAINHAND));
+        }
+    }
+
+    private void extractItem(Level world, Player player, ItemStack tileStack, CrusherBlockEntity tile){
+        if(!player.isCreative()){
+            world.addFreshEntity(new ItemEntity(world, player.getX() + 0.5F, player.getY() + 0.5F, player.getZ() + 0.5F, tileStack.copy()));
+        }
+
+        tile.getItemHandler().removeItem(0, tileStack.getCount());
+    }
+
+    private void placeItem(Player player, InteractionHand handIn, CrusherBlockEntity tile, ItemStack stack){
+        tile.getItemHandler().setItem(0, stack);
+        if(!player.isCreative()){
+            player.getInventory().removeItem(player.getItemInHand(handIn));
+        }
+
+        ValoriaUtils.SUpdateTileEntityPacket(tile);
     }
 
     @Override
