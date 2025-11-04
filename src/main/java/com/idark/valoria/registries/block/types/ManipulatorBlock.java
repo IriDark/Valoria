@@ -8,7 +8,6 @@ import com.idark.valoria.registries.block.entity.*;
 import com.idark.valoria.registries.item.types.*;
 import com.idark.valoria.util.*;
 import net.minecraft.core.*;
-import net.minecraft.core.particles.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
@@ -29,11 +28,13 @@ import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.network.*;
 import net.minecraftforge.registries.*;
 import org.jetbrains.annotations.*;
+import pro.komaru.tridot.client.gfx.*;
+import pro.komaru.tridot.client.gfx.particle.*;
 import pro.komaru.tridot.client.gfx.particle.data.*;
 import pro.komaru.tridot.common.registry.block.entity.*;
 
-import javax.annotation.Nullable;
 import javax.annotation.*;
+import javax.annotation.Nullable;
 import java.util.*;
 
 public class ManipulatorBlock extends Block implements SimpleWaterloggedBlock, EntityBlock{
@@ -99,10 +100,13 @@ public class ManipulatorBlock extends Block implements SimpleWaterloggedBlock, E
     @OnlyIn(Dist.CLIENT)
     @Override
     public void animateTick(BlockState stateIn, Level pLevel, BlockPos pos, RandomSource rand){
-        float chance = 0.35f;
-        if(chance < rand.nextFloat()){
-            pLevel.addParticle(ParticleTypes.PORTAL, pos.getX() + rand.nextDouble(), pos.getY() + 0.5D, pos.getZ() + rand.nextDouble(), 0d, 0.05d, 0d);
-        }
+        ParticleBuilder.create(TridotParticles.WISP)
+        .randomVelocity(0.035)
+        .setHasPhysics(false)
+        .setColorData(ColorParticleData.create().setRandomColor().build())
+        .randomOffset(0.25f)
+        .setScaleData(GenericParticleData.create(0.05f, 0.02f, 0).build())
+        .repeat(pLevel, pos.getX() + 0.5f, pos.getY() + 0.7f, pos.getZ() + 0.5f, 6);
 
         super.animateTick(stateIn, pLevel, pos, rand);
     }
@@ -161,12 +165,12 @@ public class ManipulatorBlock extends Block implements SimpleWaterloggedBlock, E
 
                     int current = coreBlock.getCoreNBT(coreName);
                     int given = builder.getGivenCores();
-                    if(current + given < maxCores + 1){
+                    if(current + given <= maxCores){
                         int actualGiven = Math.min(given, maxCores - current);
                         if(!player.getAbilities().instabuild) stack.shrink(1);
 
                         coreBlock.addCharge(coreName, actualGiven);
-                        PacketHandler.sendToTracking(serverLevel, pos, new ManipulatorParticlePacket(pos, actualGiven, data));
+                        PacketHandler.sendToTracking(serverLevel, pos, new ManipulatorParticlePacket(pos, current, data));
 
                         world.playSound(player, player.blockPosition(), SoundEvents.RESPAWN_ANCHOR_CHARGE, SoundSource.BLOCKS, 1, 1);
                         this.coreUpdated = true;

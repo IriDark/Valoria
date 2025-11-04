@@ -27,8 +27,8 @@ import net.minecraftforge.common.capabilities.*;
 import net.minecraftforge.common.util.*;
 import net.minecraftforge.items.*;
 import net.minecraftforge.items.wrapper.*;
-import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.*;
+import org.jetbrains.annotations.Nullable;
 import pro.komaru.tridot.common.registry.block.entity.*;
 
 import javax.annotation.*;
@@ -214,6 +214,7 @@ public class ManipulatorBlockEntity extends BlockEntity implements MenuProvider,
 
     private void resetProgress(){
         progress = 0;
+        progressMax = 0;
         startCraft = false;
     }
 

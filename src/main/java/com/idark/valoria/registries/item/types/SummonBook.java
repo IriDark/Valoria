@@ -159,5 +159,8 @@ public class SummonBook extends Item{
         if(getDefaultType(stack).is(TagsRegistry.MINIONS)){
             tooltip.add(Component.translatable("tooltip.valoria.summons", getDefaultType(stack).getDescription()).withStyle(ChatFormatting.GRAY));
         }
+
+        tooltip.add(Component.empty());
+        tooltip.add(Component.translatable("tooltip.valoria.hold_rmb").withStyle(style -> style.withFont(Valoria.FONT)));
     }
 }
